@@ -1,21 +1,22 @@
 Return-Path: <ke.yu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A4AD34C80097
-	for <poky@yoctoproject.org>; Sun, 15 May 2011 20:10:25 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 15 May 2011 18:10:25 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 96F174C808DE
+	for <poky@yoctoproject.org>; Sun, 15 May 2011 20:10:27 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 15 May 2011 18:10:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.64,371,1301900400"; 
-   d="scan'208";a="2053142"
+X-IronPort-AV: E=Sophos;i="4.64,371,1301900400"; d="scan'208";a="436553864"
 Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
-	by fmsmga002.fm.intel.com with ESMTP; 15 May 2011 18:10:24 -0700
-Message-Id: <cover.1305508488.git.ke.yu@intel.com>
-Old-Date: Mon, 16 May 2011 09:14:48 +0800
-Date: Mon, 16 May 2011  9:16:08 +0800
+	by azsmga001.ch.intel.com with ESMTP; 15 May 2011 18:10:26 -0700
+Message-Id: <95d6b08eb7982baacb334d6d774a204670b1ca1c.1305508488.git.ke.yu@intel.com>
+In-Reply-To: <cover.1305508488.git.ke.yu@intel.com>
+References: <cover.1305508488.git.ke.yu@intel.com>
+Old-Date: Sun, 15 May 2011 22:33:30 +0800
+Date: Mon, 16 May 2011  9:16:09 +0800
 To: poky@yoctoproject.org
 CC: 
 From: Yu Ke <ke.yu@intel.com>
-Subject: [PATCH 0/1] [RFC]git fetch support for rebaseable repo (a.k.a crazy git fetcher)
+Subject: [PATCH 1/1] git fetcher: add support for rebaseable git repo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,24 +28,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 01:10:26 -0000
+X-List-Received-Date: Mon, 16 May 2011 01:10:27 -0000
 
 From: Yu Ke <ke.yu@intel.com>
 
+Some upstream git repo may rebase in the future, which means current
+revision may disappear from the upstream repo after the rebase.
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: kyu3/crazygit
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/crazygit
+current git fetcher can not handle this case, because the git mirror
+tar ball is per repo, and may also change in the rebase and lost the
+current revision info.
 
-Thanks,
-    Yu Ke <ke.yu@intel.com>
+To fix this issue, this patch
+- add rebaseable tag in the SRC_URI
+- for rebaseable repo, make git mirror tar ball per revision, in this
+  case, even upstream rebase, the git mirror still has the current
+  revision info.
+- for rebaseable repo, generate mirror tar ball by default, since the
+  repo may change in the future.
+
+Signed-off-by: Yu Ke <ke.yu@intel.com>
 ---
-
-
-Yu Ke (1):
-  git fetcher: add support for rebaseable git repo
-
  bitbake/lib/bb/fetch2/git.py |   28 ++++++++++++++++++++--------
  1 files changed, 20 insertions(+), 8 deletions(-)
+
+diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+index 811acbf..82721c6 100644
+--- a/bitbake/lib/bb/fetch2/git.py
++++ b/bitbake/lib/bb/fetch2/git.py
+@@ -57,6 +57,11 @@ class Git(FetchMethod):
+         if 'nocheckout' in ud.parm:
+             ud.nocheckout = True
+ 
++        # rebaseable means the upstream git repo may rebase in the future,
++        # and current revision may disappear from upstream repo
++        # rebaseable is false by default. set rebaseable=1 in SRC_URI if rebaseable.
++        ud.rebaseable = ud.parm.get("rebaseable","0") == "1"
++
+         branches = ud.parm.get("branch", "master").split(',')
+         if len(branches) != len(ud.names):
+             raise bb.fetch2.ParameterError("The number of name and branch parameters is not balanced", ud.url)
+@@ -65,16 +70,9 @@ class Git(FetchMethod):
+             branch = branches[ud.names.index(name)]
+             ud.branches[name] = branch
+ 
+-        gitsrcname = '%s%s' % (ud.host, ud.path.replace('/', '.'))
+-        ud.mirrortarball = 'git2_%s.tar.gz' % (gitsrcname)
+-        ud.fullmirror = os.path.join(data.getVar("DL_DIR", d, True), ud.mirrortarball)
+-        ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
+-
+         ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
+ 
+-        ud.write_tarballs = (data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True) or "0") != "0"
+-
+-        ud.localfile = ud.clonedir
++        ud.write_tarballs = ((data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True) or "0") != "0") or ud.rebaseable
+ 
+         ud.setup_revisons(d)
+ 
+@@ -84,6 +82,20 @@ class Git(FetchMethod):
+                 ud.branches[name] = ud.revisions[name]
+                 ud.revisions[name] = self.latest_revision(ud.url, ud, d, name)
+ 
++        gitsrcname = '%s%s' % (ud.host, ud.path.replace('/', '.'))
++        # for rebaseable git repo, it is necessary to keep mirror tar ball
++        # per revision, so that even the revision disappears from the
++        # upstream repo in the future, the mirror will remain intact and still
++        # contains the revision
++        if ud.rebaseable:
++            for name in ud.names:
++                gitsrcname = gitsrcname + '_' + ud.revisions[name]
++        ud.mirrortarball = 'git2_%s.tar.gz' % (gitsrcname)
++        ud.fullmirror = os.path.join(data.getVar("DL_DIR", d, True), ud.mirrortarball)
++        ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
++
++        ud.localfile = ud.clonedir
++
+     def localpath(self, url, ud, d):
+         return ud.clonedir
+ 
+-- 
+1.7.0.4
 
 
