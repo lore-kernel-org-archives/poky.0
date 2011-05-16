@@ -1,33 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F5734C80A5B
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 03:37:32 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4G8bUEU017590;
-	Mon, 16 May 2011 09:37:30 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 17267-07; Mon, 16 May 2011 09:37:26 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4G8bPOU017584
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Mon, 16 May 2011 09:37:25 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Tom Zanussi <tom.zanussi@intel.com>
-In-Reply-To: <1305436392.21191.135.camel@elmorro>
-References: <cover.1305415455.git.tom.zanussi@intel.com>
-	<92477bdb3d1f4a10cb30a261753cf959b52aab8a.1305415455.git.tom.zanussi@intel.com>
-	<4DCF53FC.9060109@intel.com>  <1305436392.21191.135.camel@elmorro>
-Date: Mon, 16 May 2011 09:37:08 +0100
-Message-ID: <1305535028.3424.14.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>, "Wold,
-	Saul" <saul.wold@intel.com>
-Subject: Re: [PATCH 1/4] crownbay: remove custom BASE_PACKAGE_ARCH and	PACKAGE_EXTRA_ARCHS
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 763944C80A53
+	for <poky@yoctoproject.org>; Mon, 16 May 2011 06:32:40 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id EF096166019A; Mon, 16 May 2011 05:32:39 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 9FC22166015B;
+	Mon, 16 May 2011 05:32:38 -0600 (MDT)
+Message-ID: <4DD10B56.1060700@mlbassoc.com>
+Date: Mon, 16 May 2011 05:32:38 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: [PATCH resend] Kernel command line options for runqemu
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,32 +32,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 08:37:32 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 16 May 2011 11:32:41 -0000
+X-Groupsio-MsgNum: 6180
+Content-Type: multipart/mixed; boundary="------------050209080702070108080300"
+
+--------------050209080702070108080300
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2011-05-15 at 00:13 -0500, Tom Zanussi wrote:
-> On Sat, 2011-05-14 at 21:18 -0700, Wold, Saul wrote:
-> > On 05/14/2011 08:36 PM, Tom Zanussi wrote:
-> > > From: Tom Zanussi<tom.zanussi@intel.com>
-> > >
-> > > PACKAGE_EXTRA_ARCHS in the conf file gets overwritten by the tune-atom
-> > > include following it, preventing the atom BASE_PACKAGE_ARCH from being
-> > > included in the final PACKAGE_ARCHS and causing do_rootfs to fail.
-> > > Remove the atom BASE_PACKAGE_ARCH and PACKAGE_EXTRA_ARCHS in the conf
-> > > file and allow the values in tune-atom to be used as intended.
-> > >
-> > I think we may still want to change the tune-atom PACKAGE_EXTRA_ARCHS to ?=.
-> > 
-> 
-> Yeah, I'll change that along with a couple other changes to that file,
-> such as switching -march=core2 to -march=atom, soon...
+This patch lets the user add options to the kernel command line when
+started via runqemu.  Very useful for things like 'psplash=false'
 
-Does that actually make any difference to gcc? It never used to but I'm
-wondering if anything has changed?
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
-Cheers,
+--------------050209080702070108080300
+Content-Type: text/x-patch;
+ name="0001-runqemu-allow-kernel-command-line-options-to-be-spec.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-runqemu-allow-kernel-command-line-options-to-be-spec.pa";
+ filename*1="tch"
 
-Richard
+From eaeb894f1bd4b769ec05c28cca4e31f334339261 Mon Sep 17 00:00:00 2001
+From: Gary Thomas <gary@mlbassoc.com>
+Date: Mon, 16 May 2011 05:29:24 -0600
+Subject: [PATCH] runqemu: allow kernel command line options to be specified by user
+
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+---
+ scripts/runqemu |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/scripts/runqemu b/scripts/runqemu
+index a09362c..2c3f6f4 100755
+--- a/scripts/runqemu
++++ b/scripts/runqemu
+@@ -51,7 +51,7 @@ ROOTFS=""
+ LAZY_ROOTFS=""
+ SCRIPT_QEMU_OPT=""
+ SCRIPT_QEMU_EXTRA_OPT=""
+-SCRIPT_KERNEL_OPT=""
++SCRIPT_KERNEL_OPT=${SCRIPT_KERNEL_OPT:-""}
+ 
+ TMPDIR=""
+ 
+-- 
+1.7.3.4
 
 
+--------------050209080702070108080300--
