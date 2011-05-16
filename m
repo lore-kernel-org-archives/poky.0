@@ -1,40 +1,21 @@
-Return-Path: <leon.woestenberg@gmail.com>
-Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
-	[74.125.83.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 92F634C8043A
-	for <poky@yoctoproject.org>; Sun, 15 May 2011 10:03:27 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pve37 with SMTP id 37so2605222pve.35
-	for <poky@yoctoproject.org>; Sun, 15 May 2011 08:03:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=dkLcyLHTP7GgwJgXOhUsEZNjqohZMfka3Yetf35jKTA=;
-	b=vprpcq6ddCRK4/lgfNLciIBVtS/oGSjUPaMZqxk7SWCHwmwnoqRbwb4kw72C5LBy2K
-	F8Eqzf8Rd0kscR+sctlUmMpO8C3pbs2nFSIguOp0krdG80CWQHgEq/ZeCp4XpvJKFVbi
-	Me8h2VBXXbckkIk/FhL7CG1eeAz5GyrC0OR7g=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	b=lr/KX/vmnADhsa1x31IBvr7vTkDS+5ImSkp+9suOjeBUM064u2CFbLLNdajkBvNwT0
-	et0cRW7ZE4x5oQqUDIve+jMgignIG8tflR7+dprBqqeb5K5oDMC/WutSKwp1OCEfgAcZ
-	T48TlwDh+tBS9GH2qdhJMr4j0pZUe7wWH9kaA=
-MIME-Version: 1.0
-Received: by 10.68.57.42 with SMTP id f10mr5517507pbq.2.1305471806805; Sun, 15
-	May 2011 08:03:26 -0700 (PDT)
-Received: by 10.68.52.232 with HTTP; Sun, 15 May 2011 08:03:26 -0700 (PDT)
-In-Reply-To: <4DCC3BA6.3010406@windriver.com>
-References: <4DCC3BA6.3010406@windriver.com>
-Date: Sun, 15 May 2011 17:03:26 +0200
-Message-ID: <BANLkTikB0P15uj-PveHCPJD-wjyn1gHqFw@mail.gmail.com>
-From: Leon Woestenberg <leon.woestenberg@gmail.com>
-To: Mark Hatle <mark.hatle@windriver.com>
-Cc: poky <poky@yoctoproject.org>, openembedded-devel@lists.openembedded.org,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: Commit and Patch message guidelines - fifth draft
+Return-Path: <ke.yu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A4AD34C80097
+	for <poky@yoctoproject.org>; Sun, 15 May 2011 20:10:25 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 15 May 2011 18:10:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,371,1301900400"; 
+   d="scan'208";a="2053142"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
+	by fmsmga002.fm.intel.com with ESMTP; 15 May 2011 18:10:24 -0700
+Message-Id: <cover.1305508488.git.ke.yu@intel.com>
+Old-Date: Mon, 16 May 2011 09:14:48 +0800
+Date: Mon, 16 May 2011  9:16:08 +0800
+To: poky@yoctoproject.org
+CC: 
+From: Yu Ke <ke.yu@intel.com>
+Subject: [PATCH 0/1] [RFC]git fetch support for rebaseable repo (a.k.a crazy git fetcher)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,24 +27,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 15 May 2011 15:03:28 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 16 May 2011 01:10:26 -0000
 
-Hello Mark,
+From: Yu Ke <ke.yu@intel.com>
 
-On Thu, May 12, 2011 at 9:57 PM, Mark Hatle <mark.hatle@windriver.com> wrote:
-> <...> Let the code
-> tell the story of the mechanics of the change (as much as possible), and let
-> your comment tell the other details -- i.e. what the problem was, how it
-> manifested itself (symptoms), and if necessary, the justification for why the
-> fix was done in manner that it was.
->
-In other words, the long commit message must describe *why* the change
-was needed (instead of what has changed).
 
-I find this item the most lacking in current OpenEmbedded/Poky related commits.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/crazygit
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/crazygit
 
-Thanks for working on this,
--- 
-Leon
+Thanks,
+    Yu Ke <ke.yu@intel.com>
+---
+
+
+Yu Ke (1):
+  git fetcher: add support for rebaseable git repo
+
+ bitbake/lib/bb/fetch2/git.py |   28 ++++++++++++++++++++--------
+ 1 files changed, 20 insertions(+), 8 deletions(-)
+
 
