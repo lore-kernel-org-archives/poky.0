@@ -1,29 +1,20 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CBAA14C80263
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 00:25:50 -0500 (CDT)
-Received: from localhost (c-76-105-143-140.hsd1.or.comcast.net
-	[76.105.143.140])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id B48152FE9B
-	for <poky@yoctoproject.org>; Mon, 16 May 2011 01:25:39 -0400 (EDT)
-Message-Id: <c9d659434d84b5b0c3d7c72236fddb5f3da6ecaf.1305523345.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1305523345.git.scott.a.garman@intel.com>
-References: <cover.1305523345.git.scott.a.garman@intel.com>
-Old-Date: Sun, 15 May 2011 20:04:27 -0700
-Date: Sun, 15 May 2011 22:25:36 -0700
+Return-Path: <ke.yu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AB0FF4C8043A
+	for <poky@yoctoproject.org>; Mon, 16 May 2011 01:40:25 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 15 May 2011 23:40:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.64,373,1301900400"; d="scan'208";a="747721325"
+Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
+	by orsmga001.jf.intel.com with ESMTP; 15 May 2011 23:40:17 -0700
+Message-Id: <cover.1305528202.git.ke.yu@intel.com>
+Old-Date: Mon, 16 May 2011 14:43:22 +0800
+Date: Mon, 16 May 2011 14:45:59 +0800
 To: poky@yoctoproject.org
 CC: 
-From: Scott Garman <scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: B48152FE9B.EFF74
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 1/1] recipes: Add Upstream-Status to various recipe patches
+From: Yu Ke <ke.yu@intel.com>
+Subject: [PATCH 0/2] patch upstream status update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,307 +26,125 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 May 2011 05:25:51 -0000
+X-List-Received-Date: Mon, 16 May 2011 06:40:26 -0000
 
-From: Scott Garman <scott.a.garman@intel.com>
+From: Yu Ke <ke.yu@intel.com>
 
-Add Upstream-Status tag to patches for the following recipes:
+update the patch upstream status for
 
-openssh
-dbus-glib
-expat
-opensp
-sgml-common
-at
-cpio (GPLv3 version)
-libpam
-icu
+ - modutils
+ - module-init-tools
+ - libacpi
+ - keymaps
+ - initscripts
+ - console-tools
+ - mesa-demos
+ - xserver-xf86-lite
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+meahwhile, upgrade the xserver-kdrive and remove its obsolate patches
+
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: kyu3/patch-update-05-16
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/patch-update-05-16
+
+Thanks,
+    Yu Ke <ke.yu@intel.com>
 ---
- .../openssh/openssh-5.6p1/nostrip.patch            |    9 ++++++---
- .../dbus/dbus-glib-0.92/no-examples.patch          |    9 ++++++---
- .../recipes-core/expat/expat-2.0.1/autotools.patch |   10 +++++++---
- .../opensp/opensp/attributevalue.patch             |    3 +++
- .../opensp/opensp/fix-docdir.patch                 |    3 +++
- meta/recipes-devtools/opensp/opensp/m4.patch       |    3 +++
- .../opensp/opensp/rangmap-fix.patch                |    3 +++
- .../sgml-common/sgml-common-0.6.3/autohell.patch   |    3 +++
- .../sgml-common/sgml-common-0.6.3/license.patch    |    3 +++
- meta/recipes-extended/at/at-3.1.12/configure.patch |    8 ++++++--
- .../at/at-3.1.12/fix_parallel_build_error.patch    |    4 ++++
- meta/recipes-extended/cpio/cpio-2.11/statdef.patch |    8 ++++++--
- .../pam/libpam/pam-no-innetgr.patch                |    5 +++++
- meta/recipes-extended/sudo/files/libtool.patch     |   10 +++++++---
- meta/recipes-support/icu/files/gccfix.patch        |    6 ++++++
- meta/recipes-support/icu/files/noldlibpath.patch   |    5 +++++
- .../icu/files/use-g++-for-linking.patch            |    7 +++++++
- 17 files changed, 83 insertions(+), 16 deletions(-)
 
-diff --git a/meta/recipes-connectivity/openssh/openssh-5.6p1/nostrip.patch b/meta/recipes-connectivity/openssh/openssh-5.6p1/nostrip.patch
-index a88e18e..7970b6d 100644
---- a/meta/recipes-connectivity/openssh/openssh-5.6p1/nostrip.patch
-+++ b/meta/recipes-connectivity/openssh/openssh-5.6p1/nostrip.patch
-@@ -1,6 +1,9 @@
--# Disable stripping binaries during make install.
--#
--# Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+Disable stripping binaries during make install.
-+
-+Upstream-Status: Inappropriate [Other]
-+Build system specific.
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
- 
- diff -ur openssh-5.6p1.orig/Makefile.in openssh-5.6p1/Makefile.in
- --- openssh-5.6p1.orig/Makefile.in	2010-05-11 23:51:39.000000000 -0700
-diff --git a/meta/recipes-core/dbus/dbus-glib-0.92/no-examples.patch b/meta/recipes-core/dbus/dbus-glib-0.92/no-examples.patch
-index 32609b9..fbb4967 100644
---- a/meta/recipes-core/dbus/dbus-glib-0.92/no-examples.patch
-+++ b/meta/recipes-core/dbus/dbus-glib-0.92/no-examples.patch
-@@ -1,6 +1,9 @@
--# disable compiling examples
--#
--# comment added by Kevin Tian <kevin.tian@intel.com>, 2010-07-10
-+Disable compiling examples
-+
-+Upstream-Status: Inappropriate [disable feature]
-+
-+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
- 
- --- dbus-glib-0.70/dbus/Makefile.am.orig	2006-07-23 16:04:43.000000000 +0200
- +++ dbus-glib-0.70/dbus/Makefile.am	2006-07-23 16:04:52.000000000 +0200
-diff --git a/meta/recipes-core/expat/expat-2.0.1/autotools.patch b/meta/recipes-core/expat/expat-2.0.1/autotools.patch
-index ff1578f..c0ac10b 100644
---- a/meta/recipes-core/expat/expat-2.0.1/autotools.patch
-+++ b/meta/recipes-core/expat/expat-2.0.1/autotools.patch
-@@ -1,6 +1,10 @@
--# avoid to use expat's own *.m4
--#
--# comment added by Kevin Tian <kevin.tian@intel.com>, 2010-07-07
-+Avoid using expat's m4 files
-+
-+Upstream-Status: Inappropriate [Other]
-+Workaround specific to our build system.
-+
-+Signed-off-by: Kevin Tian <kevin.tian@intel.com>
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
- 
- diff -bur expat-2.0.0~orig/configure.in expat-2.0.0/configure.in
- --- expat-2.0.0~orig/configure.in	2006-01-10 19:10:46.000000000 -0600
-diff --git a/meta/recipes-devtools/opensp/opensp/attributevalue.patch b/meta/recipes-devtools/opensp/opensp/attributevalue.patch
-index 4f3507e..92f5898 100644
---- a/meta/recipes-devtools/opensp/opensp/attributevalue.patch
-+++ b/meta/recipes-devtools/opensp/opensp/attributevalue.patch
-@@ -1,6 +1,9 @@
- Patch obtained from OpenEmbedded.
- 
-+Upstream-Status: Pending
-+
- Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- --- OpenSP-1.5/include/Attribute.h~attributevalue	2000-03-09 13:30:56.000000000 -0500
- +++ OpenSP-1.5/include/Attribute.h	2004-01-20 14:11:36.000000000 -0500
- @@ -31,6 +31,28 @@
-diff --git a/meta/recipes-devtools/opensp/opensp/fix-docdir.patch b/meta/recipes-devtools/opensp/opensp/fix-docdir.patch
-index 5e2fc8b..c78b9ad 100644
---- a/meta/recipes-devtools/opensp/opensp/fix-docdir.patch
-+++ b/meta/recipes-devtools/opensp/opensp/fix-docdir.patch
-@@ -1,6 +1,9 @@
- Patch obtained from OpenEmbedded.
- 
-+Upstream-Status: Pending
-+
- Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- Index: OpenSP-1.5/doc/Makefile.am
- ===================================================================
- --- OpenSP-1.5.orig/doc/Makefile.am	2000-05-06 09:10:32.000000000 +1000
-diff --git a/meta/recipes-devtools/opensp/opensp/m4.patch b/meta/recipes-devtools/opensp/opensp/m4.patch
-index a8504c5..96a782c 100644
---- a/meta/recipes-devtools/opensp/opensp/m4.patch
-+++ b/meta/recipes-devtools/opensp/opensp/m4.patch
-@@ -1,6 +1,9 @@
- Patch obtained from OpenEmbedded.
- 
-+Upstream-Status: Pending
-+
- Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- --- /dev/null	2003-09-23 18:19:32.000000000 -0400
- +++ OpenSP-1.5/m4/codeset.m4	2004-01-20 03:01:28.000000000 -0500
- @@ -0,0 +1,23 @@
-diff --git a/meta/recipes-devtools/opensp/opensp/rangmap-fix.patch b/meta/recipes-devtools/opensp/opensp/rangmap-fix.patch
-index cc849ca..da31411 100644
---- a/meta/recipes-devtools/opensp/opensp/rangmap-fix.patch
-+++ b/meta/recipes-devtools/opensp/opensp/rangmap-fix.patch
-@@ -1,6 +1,9 @@
- Patch obtained from OpenEmbedded.
- 
-+Upstream-Status: Pending
-+
- Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- Index: OpenSP-1.5/include/RangeMap.cxx
- ===================================================================
- --- OpenSP-1.5.orig/include/RangeMap.cxx	2000-02-26 03:55:21.000000000 +1100
-diff --git a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
-index 1366ada..1f39b03 100644
---- a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
-+++ b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/autohell.patch
-@@ -1,6 +1,9 @@
- Patch obtained from OpenEmbedded.
- 
-+Upstream-Status: Pending
-+
- Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- --- sgml-common-0.6.3/bin/Makefile.am~autohell.patch	2001-01-30 15:42:21.000000000 +0100
- +++ sgml-common-0.6.3/bin/Makefile.am	2004-06-17 11:51:11.000000000 +0200
- @@ -1,6 +1,5 @@
-diff --git a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/license.patch b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/license.patch
-index ec66aae..54b3f54 100644
---- a/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/license.patch
-+++ b/meta/recipes-devtools/sgml-common/sgml-common-0.6.3/license.patch
-@@ -7,7 +7,10 @@ Upstream was notified about this on 2011-01-24. When upgrading
- this recipe, this should be fixed and you should remove this
- patch.
- 
-+Upstream-Status: Pending
-+
- Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- diff -urN sgml-common-0.6.3.orig/LICENSE-GPLv2 sgml-common-0.6.3/LICENSE-GPLv2
- --- sgml-common-0.6.3.orig/LICENSE-GPLv2	1969-12-31 16:00:00.000000000 -0800
- +++ sgml-common-0.6.3/LICENSE-GPLv2	2011-01-28 17:05:17.299528001 -0800
-diff --git a/meta/recipes-extended/at/at-3.1.12/configure.patch b/meta/recipes-extended/at/at-3.1.12/configure.patch
-index 2458ef3..079a6b4 100644
---- a/meta/recipes-extended/at/at-3.1.12/configure.patch
-+++ b/meta/recipes-extended/at/at-3.1.12/configure.patch
-@@ -1,5 +1,9 @@
--# Fix cross-compilation issues in configure.ac
--# Derived from an OE patch for at-3.1.8
-+Fix cross-compilation issues in configure.ac
-+Derived from an OE patch for at-3.1.8
-+
-+Upstream-Status: Pending
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
- 
- Index: at-3.1.12/configure.ac
- ===================================================================
-diff --git a/meta/recipes-extended/at/at-3.1.12/fix_parallel_build_error.patch b/meta/recipes-extended/at/at-3.1.12/fix_parallel_build_error.patch
-index 6383660..877be35 100644
---- a/meta/recipes-extended/at/at-3.1.12/fix_parallel_build_error.patch
-+++ b/meta/recipes-extended/at/at-3.1.12/fix_parallel_build_error.patch
-@@ -9,6 +9,10 @@ Fixed the issue by adding a dependancy in the makefile.
- Nitin <nitin.a.kamble@intel.com>
- 2010/09/02
- 
-+Upstream-Status: Pending
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- Index: at-3.1.12/Makefile.in
- ===================================================================
- --- at-3.1.12.orig/Makefile.in
-diff --git a/meta/recipes-extended/cpio/cpio-2.11/statdef.patch b/meta/recipes-extended/cpio/cpio-2.11/statdef.patch
-index dfa0d91..a6b8e82 100644
---- a/meta/recipes-extended/cpio/cpio-2.11/statdef.patch
-+++ b/meta/recipes-extended/cpio/cpio-2.11/statdef.patch
-@@ -1,5 +1,9 @@
--# Avoid multiple stat definitions
--# Patch taken from cpio mailing list posting 2010-03-19
-+Avoid multiple stat definitions
-+Patch taken from cpio mailing list posting 2010-03-19
-+
-+Upstream-Status: Pending
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
- 
- diff -urN cpio-2.11.orig/src/filetypes.h cpio-2.11/src/filetypes.h
- --- cpio-2.11.orig/src/filetypes.h	2010-02-12 02:19:23.000000000 -0800
-diff --git a/meta/recipes-extended/pam/libpam/pam-no-innetgr.patch b/meta/recipes-extended/pam/libpam/pam-no-innetgr.patch
-index e622a0d..5e551ac 100644
---- a/meta/recipes-extended/pam/libpam/pam-no-innetgr.patch
-+++ b/meta/recipes-extended/pam/libpam/pam-no-innetgr.patch
-@@ -2,6 +2,11 @@ innetgr may not be there so make sure that when innetgr is not present
- then we inform about it and not use it.
- 
- -Khem
-+
-+Upstream-Status: Pending
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- Index: Linux-PAM-1.1.3/modules/pam_group/pam_group.c
- ===================================================================
- --- Linux-PAM-1.1.3.orig/modules/pam_group/pam_group.c
-diff --git a/meta/recipes-extended/sudo/files/libtool.patch b/meta/recipes-extended/sudo/files/libtool.patch
-index 2375fc6..22fda53 100644
---- a/meta/recipes-extended/sudo/files/libtool.patch
-+++ b/meta/recipes-extended/sudo/files/libtool.patch
-@@ -1,6 +1,10 @@
--# Fix path to libtool scripts so autoreconf can succeed.
--#
--# Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+Fix path to libtool scripts so autoreconf can succeed.
-+
-+Upstream-Status: Inappropriate [Other]
-+Workaround specific to our build system.
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- diff -urN sudo-1.7.4p4.orig//aclocal.m4 sudo-1.7.4p4//aclocal.m4
- --- sudo-1.7.4p4.orig//aclocal.m4	2010-08-06 07:17:36.000000000 -0700
- +++ sudo-1.7.4p4//aclocal.m4	2010-11-22 14:38:20.360957038 -0800
-diff --git a/meta/recipes-support/icu/files/gccfix.patch b/meta/recipes-support/icu/files/gccfix.patch
-index 9291e92..755341f 100644
---- a/meta/recipes-support/icu/files/gccfix.patch
-+++ b/meta/recipes-support/icu/files/gccfix.patch
-@@ -1,3 +1,9 @@
-+Fixes an error which prevents compilation
-+
-+Upstream-Status: Pending
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- Index: source/layoutex/ParagraphLayout.cpp
- ===================================================================
- --- source.orig/layoutex/ParagraphLayout.cpp	2009-06-30 11:48:47.000000000 +0100
-diff --git a/meta/recipes-support/icu/files/noldlibpath.patch b/meta/recipes-support/icu/files/noldlibpath.patch
-index eba3d80..8543044 100644
---- a/meta/recipes-support/icu/files/noldlibpath.patch
-+++ b/meta/recipes-support/icu/files/noldlibpath.patch
-@@ -4,6 +4,11 @@ harmless. This is a hack.
- 
- RP 10/6/2010
- 
-+Upstream-Status: Inappropriate [Other]
-+Hacky workaround not likely to be accepted upstream.
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- Index: source/config/Makefile.inc.in
- ===================================================================
- --- source.orig/config/Makefile.inc.in	2010-06-10 21:49:19.000000000 +0100
-diff --git a/meta/recipes-support/icu/files/use-g++-for-linking.patch b/meta/recipes-support/icu/files/use-g++-for-linking.patch
-index 4702abc..f477dad 100644
---- a/meta/recipes-support/icu/files/use-g++-for-linking.patch
-+++ b/meta/recipes-support/icu/files/use-g++-for-linking.patch
-@@ -1,3 +1,10 @@
-+Use g++ for linking.
-+
-+Upstream-Status: Inappropriate [Other]
-+Build system specific
-+
-+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-+
- ---
-  tools/genccode/Makefile.in |    2 +-
-  tools/gencmn/Makefile.in   |    2 +-
--- 
-1.7.1
+
+Yu Ke (2):
+  xserver-kdrive: upgrade from 1.7.99.2 to 1.10.1
+  Upstream-Status update for several recipes
+
+ meta/recipes-bsp/keymaps/files/GPLv2.patch         |    2 +
+ meta/recipes-bsp/libacpi/files/makefile-fix.patch  |    2 +
+ .../console-tools-0.3.2/codepage.patch             |    1 +
+ .../console-tools-0.3.2/compile.patch              |    2 +
+ .../console-tools-0.3.2/configure.patch            |    1 +
+ .../console-tools-0.3.2/kbdrate.patch              |    2 +
+ .../console-tools-0.3.2/uclibc-fileno.patch        |    2 +
+ .../initscripts/initscripts-1.0/GPLv2.patch        |    2 +
+ .../mesa-demos/dso_linking_change_build_fix.patch  |    1 +
+ .../enable-builtin-fonts.patch                     |   12 -
+ .../xserver-kdrive-1.3.0.0/enable-epson.patch      |   11 -
+ .../xserver-kdrive-1.3.0.0/enable-tslib.patch      |   12 -
+ .../xserver-kdrive-1.3.0.0/enable-xcalibrate.patch |  110 -----
+ .../xserver-kdrive-1.3.0.0/fbdev_use_current.patch |   41 --
+ .../hide-cursor-and-ppm-root.patch                 |  307 ------------
+ .../xserver-kdrive-1.3.0.0/kdrive-evdev.patch      |  515 --------------------
+ .../xserver-kdrive-1.3.0.0/kdrive-use-evdev.patch  |   54 --
+ .../xserver-kdrive-1.3.0.0/optional-xkb.patch      |   58 ---
+ .../report-correct-randr12.patch                   |   29 --
+ .../xserver-kdrive-1.3.0.0/scheduler.patch         |  151 ------
+ .../xserver-kdrive-1.3.0.0/xcalibrate_coords.patch |  122 -----
+ .../xserver-kdrive-1.7.99.2/crosscompile.patch     |   19 -
+ .../xserver-kdrive-1.7.99.2/disable-apm.patch      |   20 -
+ .../enable-builtin-fonts.patch                     |   12 -
+ .../enable-xcalibrate.patch                        |  148 ------
+ .../xserver-kdrive-1.7.99.2/extra-kmodes.patch     |   83 ----
+ .../fbdev_xrandr_ioctl.patch                       |   61 ---
+ .../fix-newer-xorg-headers.patch                   |   18 -
+ .../xserver-kdrive-1.7.99.2/kdrive-evdev.patch     |  515 --------------------
+ .../xserver-kdrive-1.7.99.2/kdrive-use-evdev.patch |   54 --
+ .../no-serial-probing.patch                        |   13 -
+ .../xserver-kdrive-1.7.99.2/nodolt.patch           |   12 -
+ .../xserver-kdrive-1.7.99.2/optional-xkb.patch     |   58 ---
+ .../xorg-xserver/xserver-kdrive.inc                |    2 +-
+ .../xorg-xserver/xserver-kdrive/crosscompile.patch |   22 +
+ .../xorg-xserver/xserver-kdrive/disable-apm.patch  |   20 +-
+ .../xserver-kdrive/disable-xf86-dga-xorgcfg.patch  |   39 --
+ .../xorg-xserver/xserver-kdrive/extra-kmodes.patch |   33 +-
+ .../xserver-kdrive/fbdev_xrandr_ioctl.patch        |   25 +-
+ .../fix-newer-xorg-headers.patch                   |    0
+ .../hide-cursor-and-ppm-root.patch                 |   68 ++--
+ .../keyboard-resume-workaround.patch               |    0
+ .../xorg-xserver/xserver-kdrive_1.10.1.bb          |   22 +
+ .../xorg-xserver/xserver-kdrive_1.7.99.2.bb        |   29 --
+ .../fix_open_max_preprocessor_error.patch          |    2 +
+ .../module-init-tools/files/disable_man.patch      |    2 +
+ .../files/grab_module_memset.patch                 |    2 +
+ .../files/ignore_arch_directory.patch              |    2 +
+ .../files/modutils_extension.patch                 |    3 +
+ .../files/no-static-binaries.patch                 |    2 +
+ meta/recipes-kernel/modutils/files/PD.patch        |    2 +
+ meta/recipes-kernel/modutils/files/armeb.patch     |    2 +
+ meta/recipes-kernel/modutils/files/configure.patch |    1 +
+ meta/recipes-kernel/modutils/files/gcc4.patch      |    2 +
+ meta/recipes-kernel/modutils/files/lex.l.diff      |    2 +
+ .../modutils/files/modutils-notest.patch           |    2 +
+ .../modutils/files/program_prefix.patch            |    2 +
+ .../modutils/modutils-cross/module.h.diff          |    2 +
+ 58 files changed, 160 insertions(+), 2578 deletions(-)
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/enable-builtin-fonts.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/enable-epson.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/enable-tslib.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/enable-xcalibrate.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/fbdev_use_current.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/hide-cursor-and-ppm-root.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/kdrive-evdev.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/kdrive-use-evdev.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/optional-xkb.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/report-correct-randr12.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/scheduler.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.3.0.0/xcalibrate_coords.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/crosscompile.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/disable-apm.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/enable-builtin-fonts.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/enable-xcalibrate.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/extra-kmodes.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/fbdev_xrandr_ioctl.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/fix-newer-xorg-headers.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/kdrive-evdev.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/kdrive-use-evdev.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/no-serial-probing.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/nodolt.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive-1.7.99.2/optional-xkb.patch
+ create mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive/crosscompile.patch
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive/disable-xf86-dga-xorgcfg.patch
+ rename meta/recipes-graphics/xorg-xserver/{xserver-kdrive-1.3.0.0 => xserver-kdrive}/fix-newer-xorg-headers.patch (100%)
+ rename meta/recipes-graphics/xorg-xserver/{xserver-kdrive-1.7.99.2 => xserver-kdrive}/hide-cursor-and-ppm-root.patch (79%)
+ rename meta/recipes-graphics/xorg-xserver/{xserver-kdrive-1.7.99.2 => xserver-kdrive}/keyboard-resume-workaround.patch (100%)
+ create mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive_1.10.1.bb
+ delete mode 100644 meta/recipes-graphics/xorg-xserver/xserver-kdrive_1.7.99.2.bb
 
 
