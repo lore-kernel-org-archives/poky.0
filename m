@@ -1,23 +1,24 @@
 Return-Path: <Liezhi.Yang@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 062014C80AB8
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 01:17:34 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id F18FB4C80AC9
+	for <poky@yoctoproject.org>; Tue, 17 May 2011 01:17:38 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4H6HYHm023001
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4H6Hcfi023015
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 16 May 2011 23:17:34 -0700 (PDT)
+	Mon, 16 May 2011 23:17:38 -0700 (PDT)
 Received: from usp-ub10.corp.ad.wrs.com (128.224.163.66) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.1.255.0; Mon, 16 May 2011 23:17:33 -0700
+	14.1.255.0; Mon, 16 May 2011 23:17:37 -0700
 From: Robert Yang <liezhi.yang@windriver.com>
-To: <dvhart@linux.intel.com>, <sgw@linux.intel.com>, <dvhart@linux.intel.com>, 
-	<sgw@linux.intel.com>
-Date: Tue, 17 May 2011 14:17:54 +0800
-Message-ID: <cover.1305612543.git.liezhi.yang@windriver.com>
+To: <dvhart@linux.intel.com>, <sgw@linux.intel.com>
+Date: Tue, 17 May 2011 14:17:58 +0800
+Message-ID: <1d361d31f7afc7821c83a359029f689dcd41e768.1305612543.git.liezhi.yang@windriver.com>
 X-Mailer: git-send-email 1.7.1
+In-Reply-To: <cover.1305612543.git.liezhi.yang@windriver.com>
+References: <cover.1305612543.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: V4 [PATCH 0/4] Add meta-skeleton and a skeleton for init scripts
+Subject: V4 [PATCH 1/4] Add the layer meta-skeleton
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,41 +30,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2011 06:17:35 -0000
+X-List-Received-Date: Tue, 17 May 2011 06:17:39 -0000
 Content-Type: text/plain
 
-Changes of V4:
-* Fix the indent in ${sysconfdir}/init.d/functions
-* Fix the coding style in skeleton_test.c
+Add the layer meta-skeleton, it will be used to place the various
+canonical examples.
 
-Thanks for Darren's detailed review, and he is happy now.
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: robert/init_scripts
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/init_scripts
-
-Thanks,
-    Robert Yang <liezhi.yang@windriver.com>
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
 ---
-
-
-Robert Yang (4):
-  Add the layer meta-skeleton
-  Cleanup the whitespace in functions
-  Add pidofproc to ${sysconfdir}/init.d/functions
-  Add a skeleton for init scripts
-
- meta-skeleton/conf/layer.conf                      |   10 +
- .../recipes-skeleton/service/service/COPYRIGHT     |   15 ++
- .../recipes-skeleton/service/service/skeleton      |  193 ++++++++++++++++++++
- .../service/service/skeleton_test.c                |   12 ++
- .../recipes-skeleton/service/service_0.1.bb        |   32 ++++
- .../initscripts/initscripts-1.0/functions          |   39 ++++-
- 6 files changed, 296 insertions(+), 5 deletions(-)
+ meta-skeleton/conf/layer.conf |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
  create mode 100644 meta-skeleton/conf/layer.conf
- create mode 100644 meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
- create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton
- create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton_test.c
- create mode 100644 meta-skeleton/recipes-skeleton/service/service_0.1.bb
+
+diff --git a/meta-skeleton/conf/layer.conf b/meta-skeleton/conf/layer.conf
+new file mode 100644
+index 0000000..edb31dd
+--- /dev/null
++++ b/meta-skeleton/conf/layer.conf
+@@ -0,0 +1,10 @@
++# We have a conf and classes directory, add to BBPATH
++BBPATH := "${BBPATH}:${LAYERDIR}"
++
++# We have a packages directory, add to BBFILES
++BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb"
++
++BBFILE_COLLECTIONS += "skeleton"
++BBFILE_PATTERN_skeleton := "^${LAYERDIR}/"
++BBFILE_PRIORITY_skeleton = "1"
++
+-- 
+1.7.1
 
 
