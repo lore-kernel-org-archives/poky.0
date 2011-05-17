@@ -1,30 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 322564C80AC9
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 05:57:09 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HAv27i013746;
-	Tue, 17 May 2011 11:57:02 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 13370-01; Tue, 17 May 2011 11:56:58 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HAur13013726
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 17 May 2011 11:56:54 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4DCA9922.5000209@mlbassoc.com>
-References: <4DCA9922.5000209@mlbassoc.com>
-Date: Tue, 17 May 2011 11:56:50 +0100
-Message-ID: <1305629810.3424.224.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: SSTATE MIRRORS only partly working?
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 58D9F4C804C2
+	for <poky@yoctoproject.org>; Tue, 17 May 2011 08:53:54 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 17 May 2011 06:53:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,225,1304319600"; 
+   d="scan'208";a="2780461"
+Received: from unknown (HELO [10.255.12.172]) ([10.255.12.172])
+	by fmsmga002.fm.intel.com with ESMTP; 17 May 2011 06:53:53 -0700
+Message-ID: <4DD27E04.9060402@linux.intel.com>
+Date: Tue, 17 May 2011 06:54:12 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Robert Yang <liezhi.yang@windriver.com>
+References: <cover.1305612543.git.liezhi.yang@windriver.com>
+In-Reply-To: <cover.1305612543.git.liezhi.yang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: V4 [PATCH 0/4] Add meta-skeleton and a skeleton for init scripts
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,49 +31,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2011 10:57:09 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 17 May 2011 13:53:54 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-05-11 at 08:11 -0600, Gary Thomas wrote:
-> Trying my SSTATE_MIRROR test with a recent Poky tree, I find
-> that for the most part, it doesn't work as expected (at least
-> not as I expect).
+
+
+On 05/16/2011 11:17 PM, Robert Yang wrote:
+> Changes of V4:
+> * Fix the indent in ${sysconfdir}/init.d/functions
+> * Fix the coding style in skeleton_test.c
 > 
-> Here's my test setup:
->    * Create a complete build
->      % . /local/poky/oe-init-build-env /local/build_orig
->      % bitbake SOME-RECIPE
->    * Use that build for the SSTATE_MIRROR
->      % . /local/poky/oe-init-build-env /local/build_test
->      -- edit conf/local.conf to have these lines:
->          SSTATE_MIRRORS ?= "\
->          file://.* file:///local/build_orig/sstate-cache/"
->      % bitbake SOME-RECIPE
+> Thanks for Darren's detailed review, and he is happy now.
+
+Indeed,
+
+Acked-by: Darren Hart <dvhart@linux.intel.com>
+
+For the entire series.
+
 > 
-> What I find is that this second build is rebuilding a lot of
-> things, most strikingly the -native packages.  Looking into
-> it, I see that the original build creates
->    sstate-pseudo-native-i686-linux-1.0-r0-i686-2-999fef0f7f260a6672c3678a831fa36f_populate-sysroot.tgz
-> but when the test build runs, it's looking for
->    sstate-pseudo-native-i686-linux-1.0-r0-i686-2-feb469d055bfc4f32074e7e9499eaf22_populate-sysroot.tgz
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: robert/init_scripts
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/init_scripts
 > 
-> Odd, but it's not always different, for example
->    sstate-perl-native-i686-linux-5.12.3-r2-i686-2-75d16ce5b7c945262d819c24f59d1c9f_populate-sysroot.tgz
-> is the same in both builds and is thus shared.
+> Thanks,
+>     Robert Yang <liezhi.yang@windriver.com>
+> ---
 > 
-> Note that nothing else has changed, other than the process above.
-> The COREBASE tree is identical/untouched.
 > 
-> Am I missing something here?
+> Robert Yang (4):
+>   Add the layer meta-skeleton
+>   Cleanup the whitespace in functions
+>   Add pidofproc to ${sysconfdir}/init.d/functions
+>   Add a skeleton for init scripts
+> 
+>  meta-skeleton/conf/layer.conf                      |   10 +
+>  .../recipes-skeleton/service/service/COPYRIGHT     |   15 ++
+>  .../recipes-skeleton/service/service/skeleton      |  193 ++++++++++++++++++++
+>  .../service/service/skeleton_test.c                |   12 ++
+>  .../recipes-skeleton/service/service_0.1.bb        |   32 ++++
+>  .../initscripts/initscripts-1.0/functions          |   39 ++++-
+>  6 files changed, 296 insertions(+), 5 deletions(-)
+>  create mode 100644 meta-skeleton/conf/layer.conf
+>  create mode 100644 meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
+>  create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton
+>  create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton_test.c
+>  create mode 100644 meta-skeleton/recipes-skeleton/service/service_0.1.bb
+> 
 
-Did you try comparing the siginfo/sigdata files using bitbake-diffsigs?
-
-That should give some clues about what changed.
-
-Cheers,
-
-Richard
-
-
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
