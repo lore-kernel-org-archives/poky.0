@@ -1,25 +1,30 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 58D9F4C804C2
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 08:53:54 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 17 May 2011 06:53:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,225,1304319600"; 
-   d="scan'208";a="2780461"
-Received: from unknown (HELO [10.255.12.172]) ([10.255.12.172])
-	by fmsmga002.fm.intel.com with ESMTP; 17 May 2011 06:53:53 -0700
-Message-ID: <4DD27E04.9060402@linux.intel.com>
-Date: Tue, 17 May 2011 06:54:12 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Robert Yang <liezhi.yang@windriver.com>
-References: <cover.1305612543.git.liezhi.yang@windriver.com>
-In-Reply-To: <cover.1305612543.git.liezhi.yang@windriver.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 85A904C80335
+	for <poky@yoctoproject.org>; Tue, 17 May 2011 09:20:10 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HEK7i8017321;
+	Tue, 17 May 2011 15:20:07 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 17082-05; Tue, 17 May 2011 15:20:03 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HEK0D5017301
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 17 May 2011 15:20:00 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Yu Ke <ke.yu@intel.com>
+In-Reply-To: <cover.1305508488.git.ke.yu@intel.com>
+References: <cover.1305508488.git.ke.yu@intel.com>
+Date: Tue, 17 May 2011 15:20:00 +0100
+Message-ID: <1305642000.3424.243.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: V4 [PATCH 0/4] Add meta-skeleton and a skeleton for init scripts
+Subject: Re: [PATCH 0/1] [RFC]git fetch support for rebaseable repo (a.k.a crazy git fetcher)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,57 +36,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2011 13:53:54 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 17 May 2011 14:20:11 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-
-
-On 05/16/2011 11:17 PM, Robert Yang wrote:
-> Changes of V4:
-> * Fix the indent in ${sysconfdir}/init.d/functions
-> * Fix the coding style in skeleton_test.c
+On Mon, 2011-05-16 at 09:16 +0800, Yu Ke wrote:
+> From: Yu Ke <ke.yu@intel.com>
 > 
-> Thanks for Darren's detailed review, and he is happy now.
-
-Indeed,
-
-Acked-by: Darren Hart <dvhart@linux.intel.com>
-
-For the entire series.
-
 > 
 > Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: robert/init_scripts
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/init_scripts
+>   Branch: kyu3/crazygit
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kyu3/crazygit
 > 
 > Thanks,
->     Robert Yang <liezhi.yang@windriver.com>
+>     Yu Ke <ke.yu@intel.com>
 > ---
 > 
 > 
-> Robert Yang (4):
->   Add the layer meta-skeleton
->   Cleanup the whitespace in functions
->   Add pidofproc to ${sysconfdir}/init.d/functions
->   Add a skeleton for init scripts
-> 
->  meta-skeleton/conf/layer.conf                      |   10 +
->  .../recipes-skeleton/service/service/COPYRIGHT     |   15 ++
->  .../recipes-skeleton/service/service/skeleton      |  193 ++++++++++++++++++++
->  .../service/service/skeleton_test.c                |   12 ++
->  .../recipes-skeleton/service/service_0.1.bb        |   32 ++++
->  .../initscripts/initscripts-1.0/functions          |   39 ++++-
->  6 files changed, 296 insertions(+), 5 deletions(-)
->  create mode 100644 meta-skeleton/conf/layer.conf
->  create mode 100644 meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
->  create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton
->  create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton_test.c
->  create mode 100644 meta-skeleton/recipes-skeleton/service/service_0.1.bb
-> 
+> Yu Ke (1):
+>   git fetcher: add support for rebaseable git repo
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Merged to bitbake upstream and master, thanks.
+
+Richard
+
 
