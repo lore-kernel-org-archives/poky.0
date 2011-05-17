@@ -1,24 +1,30 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 16C984C804C2
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 05:37:29 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4HAbS4V012728
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 03:37:28 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 17 May 2011 03:37:28 -0700
-Message-ID: <c210f2c9d10d813d1981883c509ba1e27da85ddc.1305628206.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1305628206.git.xiaofeng.yan@windriver.com>
-References: <cover.1305628206.git.xiaofeng.yan@windriver.com>
-Old-Date: Tue, 17 May 2011 18:20:17 +0800
-Date: Tue, 17 May 2011 18:36:21 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] README: Update README of meta-qt3
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 322564C80AC9
+	for <poky@yoctoproject.org>; Tue, 17 May 2011 05:57:09 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HAv27i013746;
+	Tue, 17 May 2011 11:57:02 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 13370-01; Tue, 17 May 2011 11:56:58 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HAur13013726
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 17 May 2011 11:56:54 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4DCA9922.5000209@mlbassoc.com>
+References: <4DCA9922.5000209@mlbassoc.com>
+Date: Tue, 17 May 2011 11:56:50 +0100
+Message-ID: <1305629810.3424.224.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: SSTATE MIRRORS only partly working?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,68 +36,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2011 10:37:29 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 17 May 2011 10:57:09 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+On Wed, 2011-05-11 at 08:11 -0600, Gary Thomas wrote:
+> Trying my SSTATE_MIRROR test with a recent Poky tree, I find
+> that for the most part, it doesn't work as expected (at least
+> not as I expect).
+> 
+> Here's my test setup:
+>    * Create a complete build
+>      % . /local/poky/oe-init-build-env /local/build_orig
+>      % bitbake SOME-RECIPE
+>    * Use that build for the SSTATE_MIRROR
+>      % . /local/poky/oe-init-build-env /local/build_test
+>      -- edit conf/local.conf to have these lines:
+>          SSTATE_MIRRORS ?= "\
+>          file://.* file:///local/build_orig/sstate-cache/"
+>      % bitbake SOME-RECIPE
+> 
+> What I find is that this second build is rebuilding a lot of
+> things, most strikingly the -native packages.  Looking into
+> it, I see that the original build creates
+>    sstate-pseudo-native-i686-linux-1.0-r0-i686-2-999fef0f7f260a6672c3678a831fa36f_populate-sysroot.tgz
+> but when the test build runs, it's looking for
+>    sstate-pseudo-native-i686-linux-1.0-r0-i686-2-feb469d055bfc4f32074e7e9499eaf22_populate-sysroot.tgz
+> 
+> Odd, but it's not always different, for example
+>    sstate-perl-native-i686-linux-5.12.3-r2-i686-2-75d16ce5b7c945262d819c24f59d1c9f_populate-sysroot.tgz
+> is the same in both builds and is thus shared.
+> 
+> Note that nothing else has changed, other than the process above.
+> The COREBASE tree is identical/untouched.
+> 
+> Am I missing something here?
 
-The README is about the following two respects:
-1 How to build a lsb-image including qt3 library
-2 How to Add qt3 library for user to their custom image
+Did you try comparing the siginfo/sigdata files using bitbake-diffsigs?
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- README |   39 ++++++++++++++++++++++++++++++++++-----
- 1 files changed, 34 insertions(+), 5 deletions(-)
+That should give some clues about what changed.
 
-diff --git a/README b/README
-index 9be700e..b74bee2 100644
---- a/README
-+++ b/README
-@@ -1,8 +1,37 @@
-+meta-qt3
-+========
- 
--README for meta-qt3
-+This layer provides Qt 3.x libraries. Its intended use is for passing LSB tests
-+as Qt3 is a requirement for LSB; however the libraries may also be used for any
-+other purpose requiring Qt3.
- 
--To use this branch, add the path to this directory to your
--conf/bblayers.conf file.
-+--------------------------------
-+Build an LSB image including Qt3
-+--------------------------------
- 
--You may also have to set DISTRO = "poky-lsb" in your conf/local.conf
--file.
-+You can build an LSB image including Qt3 using the following steps:
-+
-+1. Add meta-qt3 path to COREBASE/build/conf/bblayers.conf file
-+
-+2. Set DISTRO = "poky-lsb" in COREBASE/build/conf/local.conf file
-+
-+3. Build lsb-image including qt3
-+   $ bitbake core-image-lsb-qt3
-+
-+Note: "core-image-lsb-qt3" is the image prepared to meet the demands of LSB.
-+
-+--------------------------------
-+Include Qt3 in your custom image
-+--------------------------------
-+
-+If you only want to add Qt3 to your custom image, then you should perform
-+the following steps:
-+
-+1. Add meta-qt3 path to COREBASE/build/conf/bblayers.conf file
-+
-+2. Add task-core-qt3 file to your custom image.
-+   For example, if core-image-custom.bb is your building image file,
-+   then you should add task-core-qt3 to IMAGE_INSTALL in core-image-custom.bb
-+
-+3. Build your custom image in build directory
-+   $ bitbake core-image-custom
--- 
-1.7.0.4
+Cheers,
+
+Richard
+
 
 
