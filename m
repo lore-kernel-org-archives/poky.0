@@ -1,20 +1,29 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 23E0B4C80FD4
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 17:29:57 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 17 May 2011 15:29:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,227,1304319600"; 
-   d="scan'208";a="3617287"
-Received: from nbuild2.sc.intel.com (HELO localhost) ([172.25.110.37])
-	by fmsmga001.fm.intel.com with ESMTP; 17 May 2011 15:29:52 -0700
-Message-Id: <cover.1305671306.git.nitin.a.kamble@intel.com>
-Old-Date: Tue, 17 May 2011 15:28:26 -0700
-Date: Tue, 17 May 2011 15:29:52 -0700
-To: poky@yoctoproject.org
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
-Subject: [PATCH 0/1] patch upstream status and cleaning
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 724154C800BB
+	for <poky@yoctoproject.org>; Tue, 17 May 2011 17:52:13 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id D8C2A1660334; Tue, 17 May 2011 16:52:12 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 138A51660163;
+	Tue, 17 May 2011 16:52:12 -0600 (MDT)
+Message-ID: <4DD2FC1C.9040409@mlbassoc.com>
+Date: Tue, 17 May 2011 16:52:12 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4DCA9922.5000209@mlbassoc.com> <1305629810.3424.224.camel@rex>
+In-Reply-To: <1305629810.3424.224.camel@rex>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: SSTATE MIRRORS only partly working?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,130 +35,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2011 22:29:57 -0000
+X-List-Received-Date: Tue, 17 May 2011 22:52:13 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On 05/17/2011 04:56 AM, Richard Purdie wrote:
+> On Wed, 2011-05-11 at 08:11 -0600, Gary Thomas wrote:
+>> Trying my SSTATE_MIRROR test with a recent Poky tree, I find
+>> that for the most part, it doesn't work as expected (at least
+>> not as I expect).
+>>
+>> Here's my test setup:
+>>     * Create a complete build
+>>       % . /local/poky/oe-init-build-env /local/build_orig
+>>       % bitbake SOME-RECIPE
+>>     * Use that build for the SSTATE_MIRROR
+>>       % . /local/poky/oe-init-build-env /local/build_test
+>>       -- edit conf/local.conf to have these lines:
+>>           SSTATE_MIRRORS ?= "\
+>>           file://.* file:///local/build_orig/sstate-cache/"
+>>       % bitbake SOME-RECIPE
+>>
+>> What I find is that this second build is rebuilding a lot of
+>> things, most strikingly the -native packages.  Looking into
+>> it, I see that the original build creates
+>>     sstate-pseudo-native-i686-linux-1.0-r0-i686-2-999fef0f7f260a6672c3678a831fa36f_populate-sysroot.tgz
+>> but when the test build runs, it's looking for
+>>     sstate-pseudo-native-i686-linux-1.0-r0-i686-2-feb469d055bfc4f32074e7e9499eaf22_populate-sysroot.tgz
+>>
+>> Odd, but it's not always different, for example
+>>     sstate-perl-native-i686-linux-5.12.3-r2-i686-2-75d16ce5b7c945262d819c24f59d1c9f_populate-sysroot.tgz
+>> is the same in both builds and is thus shared.
+>>
+>> Note that nothing else has changed, other than the process above.
+>> The COREBASE tree is identical/untouched.
+>>
+>> Am I missing something here?
+>
+> Did you try comparing the siginfo/sigdata files using bitbake-diffsigs?
+>
+> That should give some clues about what changed.
 
-This commit removes unused patches
-and updates the patch-upstream status of these recipes
+Odd - I just tried this again after merging up to 31a763d7bd97f57586c6bb9ec223bfa7e333d21c
+I can't make it happen again - SSTATE_MIRROR is working as I expect.  Sadly, I don't have
+the trees from the previous attempt around any more to diagnose.
 
-eglibc, glibc, gcc, libtool, m4, python
+My previous merge of f285547a3820f394f7dd9dd974f876353d4ddc6c is when this happened.
 
-
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: nitin/misc
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
-
-Thanks,
-    Nitin A Kamble <nitin.a.kamble@intel.com>
----
-
-
-Nitin A Kamble (1):
-  gcc: remove unused patches and move patches in proper dir
-
- .../eglibc/eglibc-2.12/IO-acquire-lock-fix.patch   |    2 +
- .../eglibc/eglibc-2.12/armv4t-interworking.patch   |   78 -----
- .../eglibc-svn-arm-lowlevellock-include-tls.patch  |    2 +
- .../eglibc/eglibc-2.12/fix-for-make-3.82.diff      |    2 +
- .../eglibc/eglibc-2.12/ld-search-order.patch       |    2 +
- .../eglibc/eglibc-2.12/mips-rld-map-check.patch    |    2 +
- .../eglibc-2.12/shorten-build-commands.patch       |    2 +
- .../eglibc/eglibc-2.13/armv4t-interworking.patch   |   82 ------
- .../eglibc/eglibc-2.13/ld-search-order.patch       |    2 +
- .../eglibc/eglibc-2.13/mips-rld-map-check.patch    |    2 +
- .../eglibc-2.13/shorten-build-commands.patch       |    2 +
- .../eglibc/ldconfig-native-2.12.1/32and64bit.patch |    8 +
- .../endian-ness_handling.patch                     |    5 +-
- .../eglibc/ldconfig-native-2.12.1/flag_fix.patch   |    2 +
- .../eglibc/ldconfig-native-2.12.1/ldconfig.patch   |    4 +
- .../ldconfig_aux-cache_path_fix.patch              |    2 +
- .../glibc/glibc-2.10.1/arm-check-pf.patch          |   16 -
- .../arm-lowlevellock-include-tls.patch             |   14 -
- .../glibc-2.9-enable-binutils-2.2.patch            |    2 +
- .../glibc/glibc-2.10.1/glibc-check_pf.patch        |    2 +
- .../glibc/glibc-2.10.1/local-args6.diff            |   14 -
- .../files/canadian-build-modules-configure.patch   |   22 --
- .../gcc/files/gcc-4.3.3-fix-EXTRA_BUILD.patch      |   12 -
- .../gcc/files/gcc-4.3.x-fix-EXTRA_BUILD.patch      |   13 -
- .../gcc/files/gcc-posix-open-fix.patch             |   11 -
- .../gcc/files/gcc4-mtune-compat.patch              |   14 -
- .../gcc/files/gfortran-4.3.x.patch                 |   40 ---
- .../gcc/files/pr22133-mingw-path-fixup.patch       |   29 --
- .../gcc/files/pr33281-mingw-host-fragment.patch    |   38 ---
- ...35916-mingw-__USE_MINGW_ACCESS-everywhere.patch |   13 -
- .../fedora/gcc43-c++-builtin-redecl.patch          |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-cpp-pragma.patch    |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-i386-libgomp.patch  |    1 +
- .../gcc-4.5.1/fedora/gcc43-ia64-libunwind.patch    |    1 +
- .../fedora/gcc43-java-debug-iface-type.patch       |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-java-nomulti.patch  |    1 +
- .../gcc-4.5.1/fedora/gcc43-libgomp-speedup.patch   |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-ppc32-retaddr.patch |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-pr27898.patch       |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-pr32139.patch       |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-pr33763.patch       |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-rh251682.patch      |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-rh330771.patch      |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc43-rh341221.patch      |    1 +
- .../gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch |    1 +
- meta/recipes-devtools/gcc/gcc-csl-arm/15342.patch  |   22 --
- .../gcc/gcc-csl-arm/arm-nolibfloat.patch           |    1 +
- .../gcc/gcc-csl-arm/arm-softfloat.patch            |    1 +
- .../gcc/gcc-csl-arm/cache-amnesia.patch            |   13 -
- .../gcc/gcc-csl-arm/fortran-static-linking.patch   |   48 ---
- .../gcc/gcc-csl-arm/gcc-3.4.0-arm-lib1asm.patch    |   24 --
- .../gcc/gcc-csl-arm/gcc-3.4.4-eabi-bigendian.patch |    1 +
- .../gcc/gcc-csl-arm/gcc-3.4.4-makefile-fix.patch   |    1 +
- .../gcc/gcc-csl-arm/gcc-configure-no-fortran.patch |    1 +
- .../gcc/gcc-csl-arm/gcc-new-makeinfo.patch         |    1 +
- .../gcc/gcc-csl-arm/gcc34-arm-tune.patch           |    9 -
- .../gcc/gcc-csl-arm/gcc41-configure.in.patch       |    2 +
- .../gcc/gcc-csl-arm/gcc_optab_arm.patch            |    2 +
- .../gcc/{files => gcc-csl-arm}/gfortran.patch      |    2 +
- .../gcc/gcc-csl-arm/no-libfloat.patch              |   11 -
- .../gcc/gcc-csl-arm/pic-without-sl.patch           |  303 --------------------
- .../recipes-devtools/gcc/gcc-csl-arm/pr34130.patch |   16 -
- .../gcc/gcc-csl-arm/zecke-no-host-includes.patch   |    2 +
- .../gcc/gcc-csl-arm/zecke-xgcc-cpp.patch           |    1 +
- .../libtool/libtool/fix-final-rpath.patch          |    2 +-
- .../libtool/libtool/prefix-manpage-fix.patch       |    2 +-
- meta/recipes-devtools/libtool/libtool/prefix.patch |    2 +-
- meta/recipes-devtools/m4/m4/ac_config_links.patch  |    2 +
- .../m4/m4/fix_for_circular_dependency.patch        |    2 +
- meta/recipes-devtools/m4/m4/make.patch             |    1 +
- .../python-native/04-default-is-optimized.patch    |    2 +
- .../10-distutils-fix-swig-parameter.patch          |    2 +
- .../11-distutils-never-modify-shebang-line.patch   |    2 +
- ...2-distutils-prefix-is-inside-staging-area.patch |    2 +
- .../python/python-native/debug.patch               |    2 +
- .../python/python-native/nohostlibs.patch          |    2 +
- 76 files changed, 92 insertions(+), 846 deletions(-)
- delete mode 100644 meta/recipes-core/eglibc/eglibc-2.12/armv4t-interworking.patch
- delete mode 100644 meta/recipes-core/eglibc/eglibc-2.13/armv4t-interworking.patch
- delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/arm-check-pf.patch
- delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/arm-lowlevellock-include-tls.patch
- delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/local-args6.diff
- delete mode 100644 meta/recipes-devtools/gcc/files/canadian-build-modules-configure.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/gcc-4.3.3-fix-EXTRA_BUILD.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/gcc-4.3.x-fix-EXTRA_BUILD.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/gcc-posix-open-fix.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/gcc4-mtune-compat.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/gfortran-4.3.x.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/pr22133-mingw-path-fixup.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/pr33281-mingw-host-fragment.patch
- delete mode 100644 meta/recipes-devtools/gcc/files/pr35916-mingw-__USE_MINGW_ACCESS-everywhere.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/15342.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/cache-amnesia.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/fortran-static-linking.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/gcc-3.4.0-arm-lib1asm.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/gcc34-arm-tune.patch
- rename meta/recipes-devtools/gcc/{files => gcc-csl-arm}/gfortran.patch (98%)
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/no-libfloat.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/pic-without-sl.patch
- delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/pr34130.patch
+I don't see anything obvious that changed between these two revisions that
+might affect this, but I'm happy it seems to be working again.  If it breaks
+again, I'll know what to look at.
 
 -- 
-1.7.3.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
