@@ -1,30 +1,46 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id CD2C44C801BF
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 11:18:13 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HGIB36018357;
-	Tue, 17 May 2011 17:18:11 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18079-06; Tue, 17 May 2011 17:18:07 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4HGI5YA018351
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 17 May 2011 17:18:05 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Dongxiao Xu <dongxiao.xu@intel.com>
-In-Reply-To: <cover.1305622072.git.dongxiao.xu@intel.com>
-References: <cover.1305622072.git.dongxiao.xu@intel.com>
-Date: Tue, 17 May 2011 17:18:04 +0100
-Message-ID: <1305649084.3424.256.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/8][PULL] Upstream Status Update
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 49C664C803D6
+	for <poky@yoctoproject.org>; Tue, 17 May 2011 12:05:33 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 May 2011 09:56:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,226,1304319600"; 
+   d="scan'208";a="2861280"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
+	by fmsmga002.fm.intel.com with ESMTP; 17 May 2011 09:56:55 -0700
+Received: from orsmsx606.amr.corp.intel.com (10.22.226.128) by
+	orsmsx602.amr.corp.intel.com (10.22.226.211) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Tue, 17 May 2011 09:56:55 -0700
+Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
+	orsmsx606.amr.corp.intel.com ([10.22.226.128]) with mapi;
+	Tue, 17 May 2011 09:56:54 -0700
+From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 17 May 2011 09:56:53 -0700
+Thread-Topic: [poky] GCC 4.6.0 on ARM?
+Thread-Index: AcwUGx/+0YIwjbB8RSCltYo8Se7MfwAl3RUg
+Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94D8AB690D@orsmsx504.amr.corp.intel.com>
+References: <4DB99F31.4000308@mlbassoc.com>
+	<BANLkTikaf3MHYrnbvHDno3dSv_LhsLyFVg@mail.gmail.com>
+	<BANLkTi=G-4UfXNdnJSy7qF3gb0-xLr6+4Q@mail.gmail.com>
+	<4DBEAA2C.1020601@mlbassoc.com>
+	<9DA5872FEF993D41B7173F58FCF6BE94D88F0101@orsmsx504.amr.corp.intel.com>
+	<4DCA6C60.6050203@mlbassoc.com>
+	<9DA5872FEF993D41B7173F58FCF6BE94D88F0328@orsmsx504.amr.corp.intel.com>
+	<4DCAADC0.9030106@mlbassoc.com>
+	<9DA5872FEF993D41B7173F58FCF6BE94D8A2E4FE@orsmsx504.amr.corp.intel.com>
+	<4DD1A942.7060400@mlbassoc.com>
+In-Reply-To: <4DD1A942.7060400@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: Poky Project <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: GCC 4.6.0 on ARM?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,39 +52,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 May 2011 16:18:14 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 17 May 2011 17:05:33 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2011-05-17 at 16:48 +0800, Dongxiao Xu wrote:
-> From: Dongxiao Xu <dongxiao.xu@intel.com>
-> 
-> Hi Saul,
-> 
-> Here are some upstream status update for poky patches,
-> please help to review and pull.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: dxu4/upgrade
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/upgrade
-> 
-> Thanks,
->     Dongxiao Xu <dongxiao.xu@intel.com>
-> ---
-> 
-> 
-> Dongxiao Xu (8):
->   gypsy: Add upstream status information for gypsy's patch
->   alsa-utils: fix upstream status typo
->   pulseaudio: add upstream status for pulseaudio-0.9.15's patches
->   hostap: add upstream status for hostap's patch
->   glibc: add upstream status for glibc's patch
->   glib-2.0: add upstream status for glib-2.0's patch
->   mtd-utils: add upstream status for mtd-utils patches
->   add upstream status for opkg's patches
+> -----Original Message-----
+> From: Gary Thomas [mailto:gary@mlbassoc.com]
+> Sent: Monday, May 16, 2011 3:46 PM
+> To: Kamble, Nitin A
+> Cc: Khem Raj; Poky Project; Patches and discussions about the oe-core
+> layer
+> Subject: Re: [poky] GCC 4.6.0 on ARM?
+>=20
+> On 05/16/2011 03:26 PM, Kamble, Nitin A wrote:
+> > Gary,
+> >   I tried with qemuarm machine in the yocto tree. And I find the usb
+> devices are working when compiled with gcc 4.6.0
+>=20
+> Can you try it on the beagleboard?
+>=20
+> Also, it's not that the USB device isn't found, rather no devices
+> connected to
+> the USB bus are discovered.
+>=20
 
-Merged to master as a squashed series, thanks.
+Gary,
+  I don't have a beagle board to try out. If you can put some debug printks=
+ in the code to figure out what is happening in there. And for qemuarm mach=
+ine the mouse(touchpad) and keyboards are working.
 
-Richard
+Thanks,
+Nitin
 
 
