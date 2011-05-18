@@ -1,25 +1,32 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9207F4C800FB
-	for <poky@yoctoproject.org>; Tue, 17 May 2011 20:55:33 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 17 May 2011 18:55:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,228,1304319600"; d="scan'208";a="437959451"
-Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
-	([10.238.154.142])
-	by azsmga001.ch.intel.com with ESMTP; 17 May 2011 18:55:29 -0700
-Message-ID: <4DD3270F.3030006@intel.com>
-Date: Wed, 18 May 2011 09:55:27 +0800
-From: Yu Ke <ke.yu@intel.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews01.kpnxchange.com (cpsmtpb-ews01.kpnxchange.com
+	[213.75.39.4])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 319C04C80578
+	for <poky@yoctoproject.org>; Wed, 18 May 2011 04:32:41 -0500 (CDT)
+Received: from cpbrm-ews32.kpnxchange.com ([10.94.84.163]) by
+	cpsmtpb-ews01.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Wed, 18 May 2011 11:32:41 +0200
+Received: from CPSMTPM-cmt107.kpnxchange.com ([195.121.3.23]) by
+	cpbrm-ews32.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Wed, 18 May 2011 11:32:41 +0200
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-cmt107.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Wed, 18 May 2011 11:32:40 +0200
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
+	for poky@yoctoproject.org; Wed, 18 May 2011 11:32:39 +0200
+Message-ID: <4DD39237.7040304@de-haardt.com>
+Date: Wed, 18 May 2011 11:32:39 +0200
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
-References: <cover.1305528202.git.ke.yu@intel.com> <4DD2FFC6.9080500@intel.com>
-In-Reply-To: <4DD2FFC6.9080500@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] patch upstream status update
+To: poky <poky@yoctoproject.org>
+X-OriginalArrivalTime: 18 May 2011 09:32:40.0989 (UTC)
+	FILETIME=[888B54D0:01CC153E]
+X-RcptDomain: yoctoproject.org
+Subject: Disable screen standby
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,23 +38,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2011 01:55:33 -0000
+X-List-Received-Date: Wed, 18 May 2011 09:32:42 -0000
+Content-Type: multipart/alternative;
+	boundary="------------060904030408020700050707"
+
+--------------060904030408020700050707
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-on 2011-5-18 7:07, Saul Wold wrote:
->> Yu Ke (2):
->> xserver-kdrive: upgrade from 1.7.99.2 to 1.10.1
->
-> Ke,
->
-> This patch was not taken per Richard's email about checking the Touch
-> Screen Calibration.
+Hello,
 
-That is fine. I will rewrite the calibration patch base on the latest 
-xserver per the discussion, and resend this upgrade patches after it is 
-done. This may need some time though.
+My display is always going black after ~10 minutes, I assume this is 
+standby.
+In which recipe can I disable this or change the timeout?
 
-Regards
-Ke
+Regards,
+Gerard
 
+--------------060904030408020700050707
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body bgcolor="#ffffff" text="#000000">
+    <small>Hello,<br>
+      <br>
+      My display is always going black after ~10 minutes, I assume this
+      is standby.<br>
+      In which recipe can I disable this or change the timeout?<br>
+      <br>
+      Regards,<br>
+      Gerard</small>
+  </body>
+</html>
+
+--------------060904030408020700050707--
