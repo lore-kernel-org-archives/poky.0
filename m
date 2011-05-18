@@ -1,26 +1,25 @@
-Return-Path: <saul.wold@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D03344C8090C
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 11:40:18 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id E98B34C80FE8
+	for <poky@yoctoproject.org>; Wed, 18 May 2011 11:42:46 -0500 (CDT)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 18 May 2011 09:40:18 -0700
+	by fmsmga101.fm.intel.com with ESMTP; 18 May 2011 09:42:41 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.65,231,1304319600"; 
-   d="scan'208";a="4074939"
+   d="scan'208";a="4076152"
 Received: from unknown (HELO [10.255.12.160]) ([10.255.12.160])
-	by fmsmga001.fm.intel.com with ESMTP; 18 May 2011 09:40:18 -0700
-Message-ID: <4DD3F671.1050703@intel.com>
-Date: Wed, 18 May 2011 09:40:17 -0700
-From: Saul Wold <saul.wold@intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 18 May 2011 09:42:41 -0700
+Message-ID: <4DD3F701.3000601@linux.intel.com>
+Date: Wed, 18 May 2011 09:42:41 -0700
+From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1305717523.git.xiaofeng.yan@windriver.com>
-	<fadb1ec52c31b89379fca3880e7f00fad0222565.1305717523.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <fadb1ec52c31b89379fca3880e7f00fad0222565.1305717523.git.xiaofeng.yan@windriver.com>
+To: Nitin A Kamble <nitin.a.kamble@intel.com>
+References: <cover.1305671306.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1305671306.git.nitin.a.kamble@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] lsbsetup: Rename this file and add a link for	lsb test
+Subject: Re: [PATCH 0/1] patch upstream status and cleaning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,94 +31,135 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2011 16:40:19 -0000
+X-List-Received-Date: Wed, 18 May 2011 16:42:47 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/18/2011 04:23 AM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+On 05/17/2011 03:29 PM, Nitin A Kamble wrote:
+> From: Nitin A Kamble<nitin.a.kamble@intel.com>
 >
-In the future, please include the [YOCTO #bugid] in the commit messages 
-itself.  It should go here after the Subject line before the body of the 
-commit message.
-
-[YOCTO #1079]
-
-> Rename this file version from 0.9 to 1.0.
-> Link time environment for Hong Kong time for lsb test.
+> This commit removes unused patches
+> and updates the patch-upstream status of these recipes
 >
-
-> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+> eglibc, glibc, gcc, libtool, m4, python
+>
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: nitin/misc
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>
+> Thanks,
+>      Nitin A Kamble<nitin.a.kamble@intel.com>
 > ---
->   meta/recipes-extended/lsb/lsbsetup_0.9.bb |   25 -------------------------
->   meta/recipes-extended/lsb/lsbsetup_1.0.bb |   27 +++++++++++++++++++++++++++
->   2 files changed, 27 insertions(+), 25 deletions(-)
->   delete mode 100644 meta/recipes-extended/lsb/lsbsetup_0.9.bb
->   create mode 100644 meta/recipes-extended/lsb/lsbsetup_1.0.bb
 >
-> diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-> deleted file mode 100644
-> index f3651e2..0000000
-> --- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-> +++ /dev/null
-> @@ -1,25 +0,0 @@
-> -DESCRIPTION = "auto-setup environment for lsb test"
-> -SECTION = "console/utils"
-> -PRIORITY = "required"
-> -LICENSE = "GPLv2"
-> -PR = "r3"
-> -
-> -LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
-> -
-> -SRC_URI = "file://LSB_Setup.sh"
-> -
-> -S=${WORKDIR}
-> -
-> -do_install() {
-> -        # Only install file if it has a contents
-> -        install -d ${D}/usr/bin
-> -        install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
-> -        install -d  ${D}/usr/lib/lsb
-> -        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
-> -        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
-> -        ln -sf ${sbindir}/sendmail ${D}/${libdir}/sendmail
-> -}
-> -
-> -FILES_${PN} += "${libdir}/lsb \
-> -               ${libdir}/* \
-> -               "
-> diff --git a/meta/recipes-extended/lsb/lsbsetup_1.0.bb b/meta/recipes-extended/lsb/lsbsetup_1.0.bb
-> new file mode 100644
-> index 0000000..247f9bc
-> --- /dev/null
-> +++ b/meta/recipes-extended/lsb/lsbsetup_1.0.bb
-> @@ -0,0 +1,27 @@
-> +DESCRIPTION = "auto-setup environment for lsb test"
-> +SECTION = "console/utils"
-> +PRIORITY = "required"
-> +LICENSE = "GPLv2"
-> +PR = "r3"
-> +
-> +LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
-> +
-> +SRC_URI = "file://LSB_Setup.sh"
-> +
-> +S=${WORKDIR}
-> +
-> +do_install() {
-> +    # Only install file if it has a contents
-> +    install -d ${D}/usr/bin
-> +    install -d ${D}/${sysconfdir}
-> +    install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
-> +    install -d  ${D}/usr/lib/lsb
-> +    ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
-> +    ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
-> +    ln -sf ${sbindir}/sendmail ${D}/${libdir}/sendmail
-> +    ln -sf ${datadir}/zoneinfo/Asia/Hong_Kong ${D}${sysconfdir}/localtime
-> +}
-> +
-> +FILES_${PN} += "${libdir}/lsb \
-> +               ${libdir}/* \
-> +               "
+>
+> Nitin A Kamble (1):
+>    gcc: remove unused patches and move patches in proper dir
+>
+>   .../eglibc/eglibc-2.12/IO-acquire-lock-fix.patch   |    2 +
+>   .../eglibc/eglibc-2.12/armv4t-interworking.patch   |   78 -----
+>   .../eglibc-svn-arm-lowlevellock-include-tls.patch  |    2 +
+>   .../eglibc/eglibc-2.12/fix-for-make-3.82.diff      |    2 +
+>   .../eglibc/eglibc-2.12/ld-search-order.patch       |    2 +
+>   .../eglibc/eglibc-2.12/mips-rld-map-check.patch    |    2 +
+>   .../eglibc-2.12/shorten-build-commands.patch       |    2 +
+>   .../eglibc/eglibc-2.13/armv4t-interworking.patch   |   82 ------
+>   .../eglibc/eglibc-2.13/ld-search-order.patch       |    2 +
+>   .../eglibc/eglibc-2.13/mips-rld-map-check.patch    |    2 +
+>   .../eglibc-2.13/shorten-build-commands.patch       |    2 +
+>   .../eglibc/ldconfig-native-2.12.1/32and64bit.patch |    8 +
+>   .../endian-ness_handling.patch                     |    5 +-
+>   .../eglibc/ldconfig-native-2.12.1/flag_fix.patch   |    2 +
+>   .../eglibc/ldconfig-native-2.12.1/ldconfig.patch   |    4 +
+>   .../ldconfig_aux-cache_path_fix.patch              |    2 +
+>   .../glibc/glibc-2.10.1/arm-check-pf.patch          |   16 -
+>   .../arm-lowlevellock-include-tls.patch             |   14 -
+>   .../glibc-2.9-enable-binutils-2.2.patch            |    2 +
+>   .../glibc/glibc-2.10.1/glibc-check_pf.patch        |    2 +
+>   .../glibc/glibc-2.10.1/local-args6.diff            |   14 -
+>   .../files/canadian-build-modules-configure.patch   |   22 --
+>   .../gcc/files/gcc-4.3.3-fix-EXTRA_BUILD.patch      |   12 -
+>   .../gcc/files/gcc-4.3.x-fix-EXTRA_BUILD.patch      |   13 -
+>   .../gcc/files/gcc-posix-open-fix.patch             |   11 -
+>   .../gcc/files/gcc4-mtune-compat.patch              |   14 -
+>   .../gcc/files/gfortran-4.3.x.patch                 |   40 ---
+>   .../gcc/files/pr22133-mingw-path-fixup.patch       |   29 --
+>   .../gcc/files/pr33281-mingw-host-fragment.patch    |   38 ---
+>   ...35916-mingw-__USE_MINGW_ACCESS-everywhere.patch |   13 -
+>   .../fedora/gcc43-c++-builtin-redecl.patch          |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-cpp-pragma.patch    |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-i386-libgomp.patch  |    1 +
+>   .../gcc-4.5.1/fedora/gcc43-ia64-libunwind.patch    |    1 +
+>   .../fedora/gcc43-java-debug-iface-type.patch       |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-java-nomulti.patch  |    1 +
+>   .../gcc-4.5.1/fedora/gcc43-libgomp-speedup.patch   |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-ppc32-retaddr.patch |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-pr27898.patch       |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-pr32139.patch       |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-pr33763.patch       |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-rh251682.patch      |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-rh330771.patch      |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc43-rh341221.patch      |    1 +
+>   .../gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch |    1 +
+>   meta/recipes-devtools/gcc/gcc-csl-arm/15342.patch  |   22 --
+>   .../gcc/gcc-csl-arm/arm-nolibfloat.patch           |    1 +
+>   .../gcc/gcc-csl-arm/arm-softfloat.patch            |    1 +
+>   .../gcc/gcc-csl-arm/cache-amnesia.patch            |   13 -
+>   .../gcc/gcc-csl-arm/fortran-static-linking.patch   |   48 ---
+>   .../gcc/gcc-csl-arm/gcc-3.4.0-arm-lib1asm.patch    |   24 --
+>   .../gcc/gcc-csl-arm/gcc-3.4.4-eabi-bigendian.patch |    1 +
+>   .../gcc/gcc-csl-arm/gcc-3.4.4-makefile-fix.patch   |    1 +
+>   .../gcc/gcc-csl-arm/gcc-configure-no-fortran.patch |    1 +
+>   .../gcc/gcc-csl-arm/gcc-new-makeinfo.patch         |    1 +
+>   .../gcc/gcc-csl-arm/gcc34-arm-tune.patch           |    9 -
+>   .../gcc/gcc-csl-arm/gcc41-configure.in.patch       |    2 +
+>   .../gcc/gcc-csl-arm/gcc_optab_arm.patch            |    2 +
+>   .../gcc/{files =>  gcc-csl-arm}/gfortran.patch      |    2 +
+>   .../gcc/gcc-csl-arm/no-libfloat.patch              |   11 -
+>   .../gcc/gcc-csl-arm/pic-without-sl.patch           |  303 --------------------
+>   .../recipes-devtools/gcc/gcc-csl-arm/pr34130.patch |   16 -
+>   .../gcc/gcc-csl-arm/zecke-no-host-includes.patch   |    2 +
+>   .../gcc/gcc-csl-arm/zecke-xgcc-cpp.patch           |    1 +
+>   .../libtool/libtool/fix-final-rpath.patch          |    2 +-
+>   .../libtool/libtool/prefix-manpage-fix.patch       |    2 +-
+>   meta/recipes-devtools/libtool/libtool/prefix.patch |    2 +-
+>   meta/recipes-devtools/m4/m4/ac_config_links.patch  |    2 +
+>   .../m4/m4/fix_for_circular_dependency.patch        |    2 +
+>   meta/recipes-devtools/m4/m4/make.patch             |    1 +
+>   .../python-native/04-default-is-optimized.patch    |    2 +
+>   .../10-distutils-fix-swig-parameter.patch          |    2 +
+>   .../11-distutils-never-modify-shebang-line.patch   |    2 +
+>   ...2-distutils-prefix-is-inside-staging-area.patch |    2 +
+>   .../python/python-native/debug.patch               |    2 +
+>   .../python/python-native/nohostlibs.patch          |    2 +
+>   76 files changed, 92 insertions(+), 846 deletions(-)
+>   delete mode 100644 meta/recipes-core/eglibc/eglibc-2.12/armv4t-interworking.patch
+>   delete mode 100644 meta/recipes-core/eglibc/eglibc-2.13/armv4t-interworking.patch
+>   delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/arm-check-pf.patch
+>   delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/arm-lowlevellock-include-tls.patch
+>   delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/local-args6.diff
+>   delete mode 100644 meta/recipes-devtools/gcc/files/canadian-build-modules-configure.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/gcc-4.3.3-fix-EXTRA_BUILD.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/gcc-4.3.x-fix-EXTRA_BUILD.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/gcc-posix-open-fix.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/gcc4-mtune-compat.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/gfortran-4.3.x.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/pr22133-mingw-path-fixup.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/pr33281-mingw-host-fragment.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/files/pr35916-mingw-__USE_MINGW_ACCESS-everywhere.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/15342.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/cache-amnesia.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/fortran-static-linking.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/gcc-3.4.0-arm-lib1asm.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/gcc34-arm-tune.patch
+>   rename meta/recipes-devtools/gcc/{files =>  gcc-csl-arm}/gfortran.patch (98%)
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/no-libfloat.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/pic-without-sl.patch
+>   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/pr34130.patch
+>
+Merged into oe-core and poky
+
+Thanks
+	Sau!
 
 
