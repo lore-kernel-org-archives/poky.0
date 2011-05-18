@@ -1,32 +1,30 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews01.kpnxchange.com (cpsmtpb-ews01.kpnxchange.com
-	[213.75.39.4])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 319C04C80578
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 04:32:41 -0500 (CDT)
-Received: from cpbrm-ews32.kpnxchange.com ([10.94.84.163]) by
-	cpsmtpb-ews01.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Wed, 18 May 2011 11:32:41 +0200
-Received: from CPSMTPM-cmt107.kpnxchange.com ([195.121.3.23]) by
-	cpbrm-ews32.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Wed, 18 May 2011 11:32:41 +0200
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-cmt107.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Wed, 18 May 2011 11:32:40 +0200
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
-	for poky@yoctoproject.org; Wed, 18 May 2011 11:32:39 +0200
-Message-ID: <4DD39237.7040304@de-haardt.com>
-Date: Wed, 18 May 2011 11:32:39 +0200
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: poky <poky@yoctoproject.org>
-X-OriginalArrivalTime: 18 May 2011 09:32:40.0989 (UTC)
-	FILETIME=[888B54D0:01CC153E]
-X-RcptDomain: yoctoproject.org
-Subject: Disable screen standby
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 09D354C800C0
+	for <poky@yoctoproject.org>; Wed, 18 May 2011 05:17:00 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4IADoIm026756;
+	Wed, 18 May 2011 11:13:50 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 26619-03; Wed, 18 May 2011 11:13:46 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4IADixV026750
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 18 May 2011 11:13:45 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gerard van den Bosch <gerard@de-haardt.com>
+In-Reply-To: <4DD39237.7040304@de-haardt.com>
+References: <4DD39237.7040304@de-haardt.com>
+Date: Wed, 18 May 2011 11:13:41 +0100
+Message-ID: <1305713621.3424.309.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: Disable screen standby
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,43 +36,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2011 09:32:42 -0000
-Content-Type: multipart/alternative;
-	boundary="------------060904030408020700050707"
-
---------------060904030408020700050707
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 18 May 2011 10:17:01 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hello,
+On Wed, 2011-05-18 at 11:32 +0200, Gerard van den Bosch wrote:
+> My display is always going black after ~10 minutes, I assume this is
+> standby.
+> In which recipe can I disable this or change the timeout?
 
-My display is always going black after ~10 minutes, I assume this is 
-standby.
-In which recipe can I disable this or change the timeout?
+Its the kernel terminal/console screen blanking which does this. A quick
+google found:
 
-Regards,
-Gerard
+http://www.cyberciti.biz/tips/linux-disable-screen-blanking-screen-going-blank.html
 
---------------060904030408020700050707
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+which shows how to disable it on the device. I think you might have to
+patch the kernel to disable it by default. There may be an option in the
+kernel config, I'm not sure.
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
+Hopefully this at least gives you information on where to start looking.
+If you do figure it out please report back so others can benefit! :)
 
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-  </head>
-  <body bgcolor="#ffffff" text="#000000">
-    <small>Hello,<br>
-      <br>
-      My display is always going black after ~10 minutes, I assume this
-      is standby.<br>
-      In which recipe can I disable this or change the timeout?<br>
-      <br>
-      Regards,<br>
-      Gerard</small>
-  </body>
-</html>
+Cheers,
 
---------------060904030408020700050707--
+Richard
+
+
+
+
+
