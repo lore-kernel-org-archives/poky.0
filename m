@@ -1,25 +1,36 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E98B34C80FE8
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 11:42:46 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 18 May 2011 09:42:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,231,1304319600"; 
-   d="scan'208";a="4076152"
-Received: from unknown (HELO [10.255.12.160]) ([10.255.12.160])
-	by fmsmga001.fm.intel.com with ESMTP; 18 May 2011 09:42:41 -0700
-Message-ID: <4DD3F701.3000601@linux.intel.com>
-Date: Wed, 18 May 2011 09:42:41 -0700
-From: Saul Wold <sgw@linux.intel.com>
+Return-Path: <timcussins@eml.cc>
+Received: from out5.smtp.messagingengine.com (out5.smtp.messagingengine.com
+	[66.111.4.29])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3E2D94C80FBE
+	for <poky@pokylinux.org>; Wed, 18 May 2011 12:47:52 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@messagingengine.com;
+	x-dkim-adsp=temperror (insecure policy)
+Received: from compute1.internal (compute1.nyi.mail.srv.osa [10.202.2.41])
+	by gateway1.messagingengine.com (Postfix) with ESMTP id E4B1720A8F;
+	Wed, 18 May 2011 13:47:51 -0400 (EDT)
+Received: from frontend1.messagingengine.com ([10.202.2.160])
+	by compute1.internal (MEProxy); Wed, 18 May 2011 13:47:51 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=messagingengine.com;
+	h=message-id:date:from:mime-version:to:cc:subject:references:in-reply-to:content-type:content-transfer-encoding;
+	s=smtpout; bh=Nw613hOZMT89XbaTg/xeoZ6qxak=;
+	b=AoYHV83Aak1IJ4k89E3GagFNowTc7a2B6ZNmyGBUKpLzaRbp7VRx0Et4Bpm+6x2stNPwGk5XLwnhJLVecPcVLbwj2oefdIq6o7yBS6zHYONznw9KNOUDZ4e6qD/ZTDgRn/0bLMk8dX4RmUMR85BHgWULP2nlkATwY6RXYOMVbBM=
+X-Sasl-enc: 4P0swhXeakJOOAPyBZHbxy1pEYJk4ggTm3CXmMAnlhYg 1305740871
+Received: from [10.2.11.18] (mail.linn.co.uk [195.59.102.251])
+	by mail.messagingengine.com (Postfix) with ESMTPSA id 62969400341;
+	Wed, 18 May 2011 13:47:51 -0400 (EDT)
+Message-ID: <4DD40649.3070906@eml.cc>
+Date: Wed, 18 May 2011 18:47:53 +0100
+From: Tim Cussins <timcussins@eml.cc>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Nitin A Kamble <nitin.a.kamble@intel.com>
-References: <cover.1305671306.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1305671306.git.nitin.a.kamble@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] patch upstream status and cleaning
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+References: <4DD3EC1E.7090603@eml.cc>
+	<BANLkTintAKomO8L+tJvSO7MBB7zYAWSG+w@mail.gmail.com>
+In-Reply-To: <BANLkTintAKomO8L+tJvSO7MBB7zYAWSG+w@mail.gmail.com>
+Cc: poky@pokylinux.org
+Subject: Re: Problems creating a new BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,135 +42,182 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2011 16:42:47 -0000
+X-List-Received-Date: Wed, 18 May 2011 17:47:52 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/17/2011 03:29 PM, Nitin A Kamble wrote:
-> From: Nitin A Kamble<nitin.a.kamble@intel.com>
+On 18/05/11 17:20, Bruce Ashfield wrote:
+> On Wed, May 18, 2011 at 11:56 AM, Tim Cussins<timcussins@eml.cc>  wrote:
+>> Hi all,
+>>
+>> I've been having trouble getting my own kernel built and it's time to go to
+>> the list :)
+>>
+>> The problem: As part of my bsp I want a kernel that's based on the yocto
+>> tree, but is built for my machine. Mu current setup fails to build it :(
 >
-> This commit removes unused patches
-> and updates the patch-upstream status of these recipes
+> We can definitely get you up and running.
 >
-> eglibc, glibc, gcc, libtool, m4, python
+>>
+>> (1) I've been following the steps outlined here:
+>>
+>>   http://www.yoctoproject.org/docs/bsp-guide/bsp-guide.html
+>>
+>> (2) I'm tracking the bernard branch of poky.
+>>
+>> (3) My new meta directory (meta-tephra) is inside the top-level of my poky
+>> checkout. Here's what's in there (find):
+>>
+>> ./recipes-kernel
+>> ./recipes-kernel/linux
+>> ./recipes-kernel/linux/linux-yocto-stable_git.bbappend
+>> ./recipes-kernel/linux/linux-yocto-stable
+>> ./recipes-kernel/linux/linux-yocto-stable/defconfig
+>> ./conf
+>> ./conf/machine
+>> ./conf/machine/tephra.conf
+>> ./conf/layer.conf
+>> ./images
+>> ./images/poky-image-tephra-sdk.bb
+>>
+>> (4) Contents of tephra.conf
+>>
+>> TARGET_ARCH = "arm"
+>> MACHINE_FEATURES = "kernel26"
+>> IMAGE_FSTYPES ?= "tar.bz2 ext3"
+>> ROOT_FLASH_SIZE = "280"
+>> IMAGE_ROOTFS_SIZE_ext2 ?= "280000"
+>> IMAGE_ROOTFS_SIZE_ext3 ?= "280000"
+>> # Don't include kernels in standard images
+>> RDEPENDS_kernel-base = ""
+>> PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto-stable"
+>> #PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
+>> EXTRA_IMAGEDEPENDS += ""
+>> MACHINE_ESSENTIAL_EXTRA_RDEPENDS = ""
+>> require conf/machine/include/tune-arm1136jf-s.inc
+>> KERNEL_IMAGETYPE = "uImage"
+>> SERIAL_CONSOLE = "115200 ttyS0"
+>>
+>> (5) Contents of linux-yocto-stable_git.bbappend
+>>
+>> FILESEXTRAPATHS := "${THISDIR}/${PN}"
+>> COMPATIBLE_MACHINE_tephra = "tephra"
+>> KMACHINE_tephra = "arm_versatile_926ejs"
+>> SRC_URI += "file://defconfig"
 >
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: nitin/misc
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
->
-> Thanks,
->      Nitin A Kamble<nitin.a.kamble@intel.com>
-> ---
->
->
-> Nitin A Kamble (1):
->    gcc: remove unused patches and move patches in proper dir
->
->   .../eglibc/eglibc-2.12/IO-acquire-lock-fix.patch   |    2 +
->   .../eglibc/eglibc-2.12/armv4t-interworking.patch   |   78 -----
->   .../eglibc-svn-arm-lowlevellock-include-tls.patch  |    2 +
->   .../eglibc/eglibc-2.12/fix-for-make-3.82.diff      |    2 +
->   .../eglibc/eglibc-2.12/ld-search-order.patch       |    2 +
->   .../eglibc/eglibc-2.12/mips-rld-map-check.patch    |    2 +
->   .../eglibc-2.12/shorten-build-commands.patch       |    2 +
->   .../eglibc/eglibc-2.13/armv4t-interworking.patch   |   82 ------
->   .../eglibc/eglibc-2.13/ld-search-order.patch       |    2 +
->   .../eglibc/eglibc-2.13/mips-rld-map-check.patch    |    2 +
->   .../eglibc-2.13/shorten-build-commands.patch       |    2 +
->   .../eglibc/ldconfig-native-2.12.1/32and64bit.patch |    8 +
->   .../endian-ness_handling.patch                     |    5 +-
->   .../eglibc/ldconfig-native-2.12.1/flag_fix.patch   |    2 +
->   .../eglibc/ldconfig-native-2.12.1/ldconfig.patch   |    4 +
->   .../ldconfig_aux-cache_path_fix.patch              |    2 +
->   .../glibc/glibc-2.10.1/arm-check-pf.patch          |   16 -
->   .../arm-lowlevellock-include-tls.patch             |   14 -
->   .../glibc-2.9-enable-binutils-2.2.patch            |    2 +
->   .../glibc/glibc-2.10.1/glibc-check_pf.patch        |    2 +
->   .../glibc/glibc-2.10.1/local-args6.diff            |   14 -
->   .../files/canadian-build-modules-configure.patch   |   22 --
->   .../gcc/files/gcc-4.3.3-fix-EXTRA_BUILD.patch      |   12 -
->   .../gcc/files/gcc-4.3.x-fix-EXTRA_BUILD.patch      |   13 -
->   .../gcc/files/gcc-posix-open-fix.patch             |   11 -
->   .../gcc/files/gcc4-mtune-compat.patch              |   14 -
->   .../gcc/files/gfortran-4.3.x.patch                 |   40 ---
->   .../gcc/files/pr22133-mingw-path-fixup.patch       |   29 --
->   .../gcc/files/pr33281-mingw-host-fragment.patch    |   38 ---
->   ...35916-mingw-__USE_MINGW_ACCESS-everywhere.patch |   13 -
->   .../fedora/gcc43-c++-builtin-redecl.patch          |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-cpp-pragma.patch    |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-i386-libgomp.patch  |    1 +
->   .../gcc-4.5.1/fedora/gcc43-ia64-libunwind.patch    |    1 +
->   .../fedora/gcc43-java-debug-iface-type.patch       |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-java-nomulti.patch  |    1 +
->   .../gcc-4.5.1/fedora/gcc43-libgomp-speedup.patch   |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-ppc32-retaddr.patch |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-pr27898.patch       |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-pr32139.patch       |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-pr33763.patch       |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-rh251682.patch      |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-rh330771.patch      |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc43-rh341221.patch      |    1 +
->   .../gcc/gcc-4.5.1/fedora/gcc45-no-add-needed.patch |    1 +
->   meta/recipes-devtools/gcc/gcc-csl-arm/15342.patch  |   22 --
->   .../gcc/gcc-csl-arm/arm-nolibfloat.patch           |    1 +
->   .../gcc/gcc-csl-arm/arm-softfloat.patch            |    1 +
->   .../gcc/gcc-csl-arm/cache-amnesia.patch            |   13 -
->   .../gcc/gcc-csl-arm/fortran-static-linking.patch   |   48 ---
->   .../gcc/gcc-csl-arm/gcc-3.4.0-arm-lib1asm.patch    |   24 --
->   .../gcc/gcc-csl-arm/gcc-3.4.4-eabi-bigendian.patch |    1 +
->   .../gcc/gcc-csl-arm/gcc-3.4.4-makefile-fix.patch   |    1 +
->   .../gcc/gcc-csl-arm/gcc-configure-no-fortran.patch |    1 +
->   .../gcc/gcc-csl-arm/gcc-new-makeinfo.patch         |    1 +
->   .../gcc/gcc-csl-arm/gcc34-arm-tune.patch           |    9 -
->   .../gcc/gcc-csl-arm/gcc41-configure.in.patch       |    2 +
->   .../gcc/gcc-csl-arm/gcc_optab_arm.patch            |    2 +
->   .../gcc/{files =>  gcc-csl-arm}/gfortran.patch      |    2 +
->   .../gcc/gcc-csl-arm/no-libfloat.patch              |   11 -
->   .../gcc/gcc-csl-arm/pic-without-sl.patch           |  303 --------------------
->   .../recipes-devtools/gcc/gcc-csl-arm/pr34130.patch |   16 -
->   .../gcc/gcc-csl-arm/zecke-no-host-includes.patch   |    2 +
->   .../gcc/gcc-csl-arm/zecke-xgcc-cpp.patch           |    1 +
->   .../libtool/libtool/fix-final-rpath.patch          |    2 +-
->   .../libtool/libtool/prefix-manpage-fix.patch       |    2 +-
->   meta/recipes-devtools/libtool/libtool/prefix.patch |    2 +-
->   meta/recipes-devtools/m4/m4/ac_config_links.patch  |    2 +
->   .../m4/m4/fix_for_circular_dependency.patch        |    2 +
->   meta/recipes-devtools/m4/m4/make.patch             |    1 +
->   .../python-native/04-default-is-optimized.patch    |    2 +
->   .../10-distutils-fix-swig-parameter.patch          |    2 +
->   .../11-distutils-never-modify-shebang-line.patch   |    2 +
->   ...2-distutils-prefix-is-inside-staging-area.patch |    2 +
->   .../python/python-native/debug.patch               |    2 +
->   .../python/python-native/nohostlibs.patch          |    2 +
->   76 files changed, 92 insertions(+), 846 deletions(-)
->   delete mode 100644 meta/recipes-core/eglibc/eglibc-2.12/armv4t-interworking.patch
->   delete mode 100644 meta/recipes-core/eglibc/eglibc-2.13/armv4t-interworking.patch
->   delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/arm-check-pf.patch
->   delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/arm-lowlevellock-include-tls.patch
->   delete mode 100644 meta/recipes-core/glibc/glibc-2.10.1/local-args6.diff
->   delete mode 100644 meta/recipes-devtools/gcc/files/canadian-build-modules-configure.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/gcc-4.3.3-fix-EXTRA_BUILD.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/gcc-4.3.x-fix-EXTRA_BUILD.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/gcc-posix-open-fix.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/gcc4-mtune-compat.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/gfortran-4.3.x.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/pr22133-mingw-path-fixup.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/pr33281-mingw-host-fragment.patch
->   delete mode 100644 meta/recipes-devtools/gcc/files/pr35916-mingw-__USE_MINGW_ACCESS-everywhere.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/15342.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/cache-amnesia.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/fortran-static-linking.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/gcc-3.4.0-arm-lib1asm.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/gcc34-arm-tune.patch
->   rename meta/recipes-devtools/gcc/{files =>  gcc-csl-arm}/gfortran.patch (98%)
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/no-libfloat.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/pic-without-sl.patch
->   delete mode 100644 meta/recipes-devtools/gcc/gcc-csl-arm/pr34130.patch
->
-Merged into oe-core and poky
+> the recipe names will change slightly in the near future, the
+> linux-yocto_git is also "stable", so if you want something
+> newer than 2.6.34, you can use that as well.
 
-Thanks
-	Sau!
+noted. i actually started with 2.6.37 until the wheels fell off :)
+
+>>
+>> (6) Contents of defconfig
+>>
+>> Same as mx3_defconfig (for freescale iMX 3)
+>>
+>> (6b) for completeness here's layer.conf
+>>
+>> # We have a conf directory, add to BBPATH
+>> BBPATH := "${BBPATH}:${LAYERDIR}"
+>>
+>> # We have a recipes directory containing .bb and .bbappend files, add to
+>> BBFILES
+>> BBFILES := "${BBFILES} \
+>>             ${LAYERDIR}/recipes*/*/*.bb \
+>>             ${LAYERDIR}/recipes*/*/*.bbappend \
+>>             ${LAYERDIR}/images/*.bb"
+>>
+>> BBFILE_COLLECTIONS += "tephra"
+>> BBFILE_PATTERN_tephra := "^${LAYERDIR}/"
+>> BBFILE_PRIORITY_tephra = "5"
+>>
+>> (7) Minor confusion - When I invoke
+>>
+>>   bitbake virtual/kernel -DDDD -v
+>>
+>> The process warns during the start of kernel_do_compile() (from
+>> kernel.bbclass) that
+>>
+>>   "Warning: make dep is unnecessary now."
+>>
+>> It's trying to build deps - fair enough, as the value of
+>> KERNEL_MAJOR_VERSION is 'None' because that information is taken from the
+>> kernel build output:
+>>
+>>   oe_runmake include/linux/version.h CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+>>
+>> but this won't generate
+>>
+>>   include/generated/utsrelease.h
+>>
+>> which is where the kernel version now lives. Changing the line to generate
+>> this target ensures that utsrelease.h is built, but KERNEL_MAJOR_VERSION is
+>> still 'None'.
+>>
+>> I'm pretty confused by this and need help :)
+>
+> I'm not sure about this one at the moment, I've never had this happen,
+> or spent much time poking around in that particular code.
+>
+>>
+>> (8) Major problem - The copying of my defconfig into .config causes the
+>> kernel build to terminate with:
+>>
+>>   linux is not clean, please run 'make mrproper'
+>
+> I can help with this one. There was a change to the defconfig
+> processing late in the 1.0 cycle that missed being tested
+> against defconfig kernel builds against yocto (since the default
+> boards don't do this). It copies the defconfig into the source
+> directory, which isn't what we want since the src/build is split.
+>
+> I put a fix into master for this, and it should have also been
+> in bernard, but obviously, I'll need to check this.
+>
+> The fix you can manually do is by applying this chunk to
+> kernel-yocto.bbclass
+>
+> +# overrides the base kernel_do_configure, since we don't want all the
+> +# defconfig processing in there
+> +kernel_do_configure() {
+> +        yes '' | oe_runmake oldconfig
+> +}
+> +
+> +
+>
+> And then you'll be good to go.
+
+great - that's making progress now. fyi the kernel build itself is 
+breaking now, but i reckon i can deal to that :)
+
+Thanks heaps!
+T
+
+> Bruce
+>
+>
+>>
+>> Commenting out the defconfig reference in my bbappend:
+>>
+>>   #SRC_URI += "file://defconfig"
+>>
+>> allows the kernel build to complete, but obviously not with the
+>> configuration I was after :(
+>>
+>> Any insight into what I'm doing wrong (either philosophically or
+>> technically) would be awesome.
+>>
+>> Thanks in advance,
+>>
+>> Tim
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>
+>
+>
 
 
