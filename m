@@ -1,32 +1,39 @@
-Return-Path: <timcussins@eml.cc>
-Received: from out5.smtp.messagingengine.com (out5.smtp.messagingengine.com
-	[66.111.4.29])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 37CD04C800FB
-	for <poky@pokylinux.org>; Wed, 18 May 2011 10:56:13 -0500 (CDT)
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-gx0-f171.google.com (mail-gx0-f171.google.com
+	[209.85.161.171])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DDE994C804C5
+	for <poky@pokylinux.org>; Wed, 18 May 2011 11:20:35 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@messagingengine.com;
-	x-dkim-adsp=temperror (insecure policy)
-Received: from compute3.internal (compute3.nyi.mail.srv.osa [10.202.2.43])
-	by gateway1.messagingengine.com (Postfix) with ESMTP id EB41120670
-	for <poky@pokylinux.org>; Wed, 18 May 2011 11:56:12 -0400 (EDT)
-Received: from frontend1.messagingengine.com ([10.202.2.160])
-	by compute3.internal (MEProxy); Wed, 18 May 2011 11:56:12 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=messagingengine.com;
-	h=message-id:date:from:mime-version:to:subject:content-type:content-transfer-encoding;
-	s=smtpout; bh=W1KGoD/KK0MSUa+hjA3idNJiZNg=;
-	b=pkM5ODprJTVo9IOlYaAavKlufK22rqQW940GajTpj1nMwrpUd4jGrxwBhNOOTl+4kuG7V+v33E3ujxfKiKj2U9alKjs8vGrnIe7xIyOdgiF/78qBPbrcJtkcR85E0SMIrusS21WxAvuoO2r2sDU3wNfrkBSCnPXz58hN+5aJLKM=
-X-Sasl-enc: qLWNFTHP1YFRfPXmsQurTng3O8UFsOhUpAJ0POZsyBOS 1305734172
-Received: from [10.2.11.18] (mail.linn.co.uk [195.59.102.251])
-	by mail.messagingengine.com (Postfix) with ESMTPSA id 96CB74016A8
-	for <poky@pokylinux.org>; Wed, 18 May 2011 11:56:12 -0400 (EDT)
-Message-ID: <4DD3EC1E.7090603@eml.cc>
-Date: Wed, 18 May 2011 16:56:14 +0100
-From: Tim Cussins <timcussins@eml.cc>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by gxk22 with SMTP id 22so775264gxk.2
+	for <poky@pokylinux.org>; Wed, 18 May 2011 09:20:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type
+	:content-transfer-encoding;
+	bh=32ZXOZ1z9/aFwIBMV3TwiuBtYeO+cVEsSO1iAUL1hkY=;
+	b=tITqAoQlpo3dm7Lhv6wK/EXVDlaZwc+ljLmQMIPL9qYviGJdeyRThaiIf2BcqN7ROt
+	AzdSMoNyFiuyJT+4CmdEU2kJAOKiHJiKVA5/PkpFTMGKiwYhgx8rINX/i7ptf1z6hzM9
+	CAjRTKinJixXGQVX7lXUsCtbGbkk0MSU/e0lM=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	b=W2raLvRUE4WMJRwgUYa3Rm+ycZ9XT53M0rJp+YyGmdqBxH5gtf/eUNc1hJXCIlXan7
+	+7jEgnCopJYh3kcHtCkIENSYf2Dxt1sbPItF40kPzYljur/UA5I1HhJlROUIQjqN9hgr
+	/NUgOlfgbiAb2guQyp9/oJJYv2di7Baq8cZmQ=
 MIME-Version: 1.0
-To: poky@pokylinux.org
-Subject: Problems creating a new BSP
+Received: by 10.91.43.1 with SMTP id v1mr1640285agj.130.1305735635170; Wed, 18
+	May 2011 09:20:35 -0700 (PDT)
+Received: by 10.90.7.20 with HTTP; Wed, 18 May 2011 09:20:35 -0700 (PDT)
+In-Reply-To: <4DD3EC1E.7090603@eml.cc>
+References: <4DD3EC1E.7090603@eml.cc>
+Date: Wed, 18 May 2011 12:20:35 -0400
+Message-ID: <BANLkTintAKomO8L+tJvSO7MBB7zYAWSG+w@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Tim Cussins <timcussins@eml.cc>
+Cc: poky@pokylinux.org
+Subject: Re: Problems creating a new BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,125 +45,180 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 May 2011 15:56:14 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 18 May 2011 16:20:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Wed, May 18, 2011 at 11:56 AM, Tim Cussins <timcussins@eml.cc> wrote:
+> Hi all,
+>
+> I've been having trouble getting my own kernel built and it's time to go =
+to
+> the list :)
+>
+> The problem: As part of my bsp I want a kernel that's based on the yocto
+> tree, but is built for my machine. Mu current setup fails to build it :(
 
-I've been having trouble getting my own kernel built and it's time to go 
-to the list :)
+We can definitely get you up and running.
 
-The problem: As part of my bsp I want a kernel that's based on the yocto 
-tree, but is built for my machine. Mu current setup fails to build it :(
+>
+> (1) I've been following the steps outlined here:
+>
+> =A0http://www.yoctoproject.org/docs/bsp-guide/bsp-guide.html
+>
+> (2) I'm tracking the bernard branch of poky.
+>
+> (3) My new meta directory (meta-tephra) is inside the top-level of my pok=
+y
+> checkout. Here's what's in there (find):
+>
+> ./recipes-kernel
+> ./recipes-kernel/linux
+> ./recipes-kernel/linux/linux-yocto-stable_git.bbappend
+> ./recipes-kernel/linux/linux-yocto-stable
+> ./recipes-kernel/linux/linux-yocto-stable/defconfig
+> ./conf
+> ./conf/machine
+> ./conf/machine/tephra.conf
+> ./conf/layer.conf
+> ./images
+> ./images/poky-image-tephra-sdk.bb
+>
+> (4) Contents of tephra.conf
+>
+> TARGET_ARCH =3D "arm"
+> MACHINE_FEATURES =3D "kernel26"
+> IMAGE_FSTYPES ?=3D "tar.bz2 ext3"
+> ROOT_FLASH_SIZE =3D "280"
+> IMAGE_ROOTFS_SIZE_ext2 ?=3D "280000"
+> IMAGE_ROOTFS_SIZE_ext3 ?=3D "280000"
+> # Don't include kernels in standard images
+> RDEPENDS_kernel-base =3D ""
+> PREFERRED_PROVIDER_virtual/kernel ?=3D "linux-yocto-stable"
+> #PREFERRED_PROVIDER_linux-libc-headers ?=3D "linux-libc-headers-yocto"
+> EXTRA_IMAGEDEPENDS +=3D ""
+> MACHINE_ESSENTIAL_EXTRA_RDEPENDS =3D ""
+> require conf/machine/include/tune-arm1136jf-s.inc
+> KERNEL_IMAGETYPE =3D "uImage"
+> SERIAL_CONSOLE =3D "115200 ttyS0"
+>
+> (5) Contents of linux-yocto-stable_git.bbappend
+>
+> FILESEXTRAPATHS :=3D "${THISDIR}/${PN}"
+> COMPATIBLE_MACHINE_tephra =3D "tephra"
+> KMACHINE_tephra =3D "arm_versatile_926ejs"
+> SRC_URI +=3D "file://defconfig"
 
-(1) I've been following the steps outlined here:
+the recipe names will change slightly in the near future, the
+linux-yocto_git is also "stable", so if you want something
+newer than 2.6.34, you can use that as well.
 
-   http://www.yoctoproject.org/docs/bsp-guide/bsp-guide.html
+>
+> (6) Contents of defconfig
+>
+> Same as mx3_defconfig (for freescale iMX 3)
+>
+> (6b) for completeness here's layer.conf
+>
+> # We have a conf directory, add to BBPATH
+> BBPATH :=3D "${BBPATH}:${LAYERDIR}"
+>
+> # We have a recipes directory containing .bb and .bbappend files, add to
+> BBFILES
+> BBFILES :=3D "${BBFILES} \
+> =A0 =A0 =A0 =A0 =A0 =A0${LAYERDIR}/recipes*/*/*.bb \
+> =A0 =A0 =A0 =A0 =A0 =A0${LAYERDIR}/recipes*/*/*.bbappend \
+> =A0 =A0 =A0 =A0 =A0 =A0${LAYERDIR}/images/*.bb"
+>
+> BBFILE_COLLECTIONS +=3D "tephra"
+> BBFILE_PATTERN_tephra :=3D "^${LAYERDIR}/"
+> BBFILE_PRIORITY_tephra =3D "5"
+>
+> (7) Minor confusion - When I invoke
+>
+> =A0bitbake virtual/kernel -DDDD -v
+>
+> The process warns during the start of kernel_do_compile() (from
+> kernel.bbclass) that
+>
+> =A0"Warning: make dep is unnecessary now."
+>
+> It's trying to build deps - fair enough, as the value of
+> KERNEL_MAJOR_VERSION is 'None' because that information is taken from the
+> kernel build output:
+>
+> =A0oe_runmake include/linux/version.h CC=3D"${KERNEL_CC}" LD=3D"${KERNEL_=
+LD}"
+>
+> but this won't generate
+>
+> =A0include/generated/utsrelease.h
+>
+> which is where the kernel version now lives. Changing the line to generat=
+e
+> this target ensures that utsrelease.h is built, but KERNEL_MAJOR_VERSION =
+is
+> still 'None'.
+>
+> I'm pretty confused by this and need help :)
 
-(2) I'm tracking the bernard branch of poky.
+I'm not sure about this one at the moment, I've never had this happen,
+or spent much time poking around in that particular code.
 
-(3) My new meta directory (meta-tephra) is inside the top-level of my 
-poky checkout. Here's what's in there (find):
+>
+> (8) Major problem - The copying of my defconfig into .config causes the
+> kernel build to terminate with:
+>
+> =A0linux is not clean, please run 'make mrproper'
 
-./recipes-kernel
-./recipes-kernel/linux
-./recipes-kernel/linux/linux-yocto-stable_git.bbappend
-./recipes-kernel/linux/linux-yocto-stable
-./recipes-kernel/linux/linux-yocto-stable/defconfig
-./conf
-./conf/machine
-./conf/machine/tephra.conf
-./conf/layer.conf
-./images
-./images/poky-image-tephra-sdk.bb
+I can help with this one. There was a change to the defconfig
+processing late in the 1.0 cycle that missed being tested
+against defconfig kernel builds against yocto (since the default
+boards don't do this). It copies the defconfig into the source
+directory, which isn't what we want since the src/build is split.
 
-(4) Contents of tephra.conf
+I put a fix into master for this, and it should have also been
+in bernard, but obviously, I'll need to check this.
 
-TARGET_ARCH = "arm"
-MACHINE_FEATURES = "kernel26"
-IMAGE_FSTYPES ?= "tar.bz2 ext3"
-ROOT_FLASH_SIZE = "280"
-IMAGE_ROOTFS_SIZE_ext2 ?= "280000"
-IMAGE_ROOTFS_SIZE_ext3 ?= "280000"
-# Don't include kernels in standard images
-RDEPENDS_kernel-base = ""
-PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto-stable"
-#PREFERRED_PROVIDER_linux-libc-headers ?= "linux-libc-headers-yocto"
-EXTRA_IMAGEDEPENDS += ""
-MACHINE_ESSENTIAL_EXTRA_RDEPENDS = ""
-require conf/machine/include/tune-arm1136jf-s.inc
-KERNEL_IMAGETYPE = "uImage"
-SERIAL_CONSOLE = "115200 ttyS0"
+The fix you can manually do is by applying this chunk to
+kernel-yocto.bbclass
 
-(5) Contents of linux-yocto-stable_git.bbappend
++# overrides the base kernel_do_configure, since we don't want all the
++# defconfig processing in there
++kernel_do_configure() {
++        yes '' | oe_runmake oldconfig
++}
++
++
 
-FILESEXTRAPATHS := "${THISDIR}/${PN}"
-COMPATIBLE_MACHINE_tephra = "tephra"
-KMACHINE_tephra = "arm_versatile_926ejs"
-SRC_URI += "file://defconfig"
+And then you'll be good to go.
 
-(6) Contents of defconfig
+Bruce
 
-Same as mx3_defconfig (for freescale iMX 3)
 
-(6b) for completeness here's layer.conf
+>
+> Commenting out the defconfig reference in my bbappend:
+>
+> =A0#SRC_URI +=3D "file://defconfig"
+>
+> allows the kernel build to complete, but obviously not with the
+> configuration I was after :(
+>
+> Any insight into what I'm doing wrong (either philosophically or
+> technically) would be awesome.
+>
+> Thanks in advance,
+>
+> Tim
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
-# We have a conf directory, add to BBPATH
-BBPATH := "${BBPATH}:${LAYERDIR}"
 
-# We have a recipes directory containing .bb and .bbappend files, add to 
-BBFILES
-BBFILES := "${BBFILES} \
-             ${LAYERDIR}/recipes*/*/*.bb \
-             ${LAYERDIR}/recipes*/*/*.bbappend \
-             ${LAYERDIR}/images/*.bb"
 
-BBFILE_COLLECTIONS += "tephra"
-BBFILE_PATTERN_tephra := "^${LAYERDIR}/"
-BBFILE_PRIORITY_tephra = "5"
-
-(7) Minor confusion - When I invoke
-
-   bitbake virtual/kernel -DDDD -v
-
-The process warns during the start of kernel_do_compile() (from 
-kernel.bbclass) that
-
-   "Warning: make dep is unnecessary now."
-
-It's trying to build deps - fair enough, as the value of 
-KERNEL_MAJOR_VERSION is 'None' because that information is taken from 
-the kernel build output:
-
-   oe_runmake include/linux/version.h CC="${KERNEL_CC}" LD="${KERNEL_LD}"
-
-but this won't generate
-
-   include/generated/utsrelease.h
-
-which is where the kernel version now lives. Changing the line to 
-generate this target ensures that utsrelease.h is built, but 
-KERNEL_MAJOR_VERSION is still 'None'.
-
-I'm pretty confused by this and need help :)
-
-(8) Major problem - The copying of my defconfig into .config causes the 
-kernel build to terminate with:
-
-   linux is not clean, please run 'make mrproper'
-
-Commenting out the defconfig reference in my bbappend:
-
-   #SRC_URI += "file://defconfig"
-
-allows the kernel build to complete, but obviously not with the 
-configuration I was after :(
-
-Any insight into what I'm doing wrong (either philosophically or 
-technically) would be awesome.
-
-Thanks in advance,
-
-Tim
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
