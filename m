@@ -1,22 +1,24 @@
 Return-Path: <Xiaofeng.Yan@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3A6BE4C80FBE
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 21:54:49 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2FC554C81002
+	for <poky@yoctoproject.org>; Wed, 18 May 2011 21:54:53 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4J2sms0008514
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4J2sqL7008519
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 19:54:48 -0700 (PDT)
+	for <poky@yoctoproject.org>; Wed, 18 May 2011 19:54:52 -0700 (PDT)
 Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 18 May 2011 19:54:48 -0700
-Message-ID: <cover.1305773471.git.xiaofeng.yan@windriver.com>
-Old-Date: Thu, 19 May 2011 10:51:11 +0800
-Date: Thu, 19 May 2011 10:53:32 +0800
+	Wed, 18 May 2011 19:54:52 -0700
+Message-ID: <31007bc3b2ecca816a0401a9c6fecd5c5a8d06ac.1305773471.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <cover.1305773471.git.xiaofeng.yan@windriver.com>
+References: <cover.1305773471.git.xiaofeng.yan@windriver.com>
+Old-Date: Thu, 19 May 2011 10:46:01 +0800
+Date: Thu, 19 May 2011 10:53:36 +0800
 To: <poky@yoctoproject.org>
 From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 0/1] [YOCTO #1079]Rename lsbsetup_0.9 file and add a link for lsb test
+Subject: [PATCH 1/1] [YOCTO #1079]:Rename this file and add a link for lsb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,30 +30,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2011 02:54:49 -0000
+X-List-Received-Date: Thu, 19 May 2011 02:54:53 -0000
 Content-Type: text/plain
 
 From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 
-Rename this file version from 0.9 to 1.0.
-Link time environment for Hong Kong time for solving [YOCTO #1079].
+Rename this file version from 0.9 to 1.0. Link time environment for Hong Kong time for solving [YOCTO #1079].
 
-Pull URL: git://git.pokylinux.org/poky-contrib.git
-  Branch: xiaofeng/lsb
-  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/lsb
-
-Thanks,
-    Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 ---
-
-
-Xiaofeng Yan (1):
-  [YOCTO #1079]:Rename this file and add a link for lsb
-
  meta/recipes-extended/lsb/lsbsetup_0.9.bb |   25 -------------------------
  meta/recipes-extended/lsb/lsbsetup_1.0.bb |   27 +++++++++++++++++++++++++++
  2 files changed, 27 insertions(+), 25 deletions(-)
  delete mode 100644 meta/recipes-extended/lsb/lsbsetup_0.9.bb
  create mode 100644 meta/recipes-extended/lsb/lsbsetup_1.0.bb
+
+diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
+deleted file mode 100644
+index f3651e2..0000000
+--- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
++++ /dev/null
+@@ -1,25 +0,0 @@
+-DESCRIPTION = "auto-setup environment for lsb test"
+-SECTION = "console/utils"
+-PRIORITY = "required"
+-LICENSE = "GPLv2"
+-PR = "r3"
+-
+-LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
+-
+-SRC_URI = "file://LSB_Setup.sh"
+-
+-S=${WORKDIR}
+-
+-do_install() {
+-        # Only install file if it has a contents
+-        install -d ${D}/usr/bin
+-        install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
+-        install -d  ${D}/usr/lib/lsb
+-        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
+-        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
+-        ln -sf ${sbindir}/sendmail ${D}/${libdir}/sendmail
+-}
+-
+-FILES_${PN} += "${libdir}/lsb \
+-               ${libdir}/* \
+-               "
+diff --git a/meta/recipes-extended/lsb/lsbsetup_1.0.bb b/meta/recipes-extended/lsb/lsbsetup_1.0.bb
+new file mode 100644
+index 0000000..bc6a724
+--- /dev/null
++++ b/meta/recipes-extended/lsb/lsbsetup_1.0.bb
+@@ -0,0 +1,27 @@
++DESCRIPTION = "auto-setup environment for lsb test"
++SECTION = "console/utils"
++PRIORITY = "required"
++LICENSE = "GPLv2"
++PR = "r0"
++
++LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
++
++SRC_URI = "file://LSB_Setup.sh"
++
++S=${WORKDIR}
++
++do_install() {
++    # Only install file if it has a contents
++    install -d ${D}/usr/bin
++    install -d ${D}/${sysconfdir}
++    install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
++    install -d  ${D}/usr/lib/lsb
++    ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
++    ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
++    ln -sf ${sbindir}/sendmail ${D}/${libdir}/sendmail
++    ln -sf ${datadir}/zoneinfo/Asia/Hong_Kong ${D}${sysconfdir}/localtime
++}
++
++FILES_${PN} += "${libdir}/lsb \
++               ${libdir}/* \
++               "
+-- 
+1.7.0.4
 
 
