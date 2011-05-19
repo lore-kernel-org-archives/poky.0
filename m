@@ -1,24 +1,32 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2FC554C81002
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 21:54:53 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4J2sqL7008519
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 18 May 2011 19:54:52 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 18 May 2011 19:54:52 -0700
-Message-ID: <31007bc3b2ecca816a0401a9c6fecd5c5a8d06ac.1305773471.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1305773471.git.xiaofeng.yan@windriver.com>
-References: <cover.1305773471.git.xiaofeng.yan@windriver.com>
-Old-Date: Thu, 19 May 2011 10:46:01 +0800
-Date: Thu, 19 May 2011 10:53:36 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <timcussins@eml.cc>
+Received: from out3.smtp.messagingengine.com (out3.smtp.messagingengine.com
+	[66.111.4.27])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A0BD04C80097
+	for <poky@pokylinux.org>; Thu, 19 May 2011 07:23:17 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@messagingengine.com;
+	x-dkim-adsp=temperror (insecure policy)
+Received: from compute5.internal (compute5.nyi.mail.srv.osa [10.202.2.45])
+	by gateway1.messagingengine.com (Postfix) with ESMTP id 388C820A87
+	for <poky@pokylinux.org>; Thu, 19 May 2011 08:23:17 -0400 (EDT)
+Received: from frontend1.messagingengine.com ([10.202.2.160])
+	by compute5.internal (MEProxy); Thu, 19 May 2011 08:23:17 -0400
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=messagingengine.com;
+	h=message-id:date:from:mime-version:to:subject:content-type:content-transfer-encoding;
+	s=smtpout; bh=92kWW27J6l880k4BobzL8AftQUQ=;
+	b=eYoaTiiMIc8s+4K3pB+IAFhd6UVI8P49XeSpTKyO/hdVuDTPgRBgdBfZGlLNmtcJ20ekP10IZ8p+5K1Xgt+OHl0fzWxKVHyjX+V6e7tfz1YaCc2a32oeeMLuXAVMRfYQ3G/aUNe1gTcmbf2EZfVna7BBe90C/oj9vkGbYsT1W+E=
+X-Sasl-enc: iEsCintWPxvcn7YxS/C24P9rA76bcH7Odh2yNWmSKOxk 1305807796
+Received: from [10.2.11.18] (mail.linn.co.uk [195.59.102.251])
+	by mail.messagingengine.com (Postfix) with ESMTPSA id DE1F84066BC
+	for <poky@pokylinux.org>; Thu, 19 May 2011 08:23:16 -0400 (EDT)
+Message-ID: <4DD50BB5.5070303@eml.cc>
+Date: Thu, 19 May 2011 13:23:17 +0100
+From: Tim Cussins <timcussins@eml.cc>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] [YOCTO #1079]:Rename this file and add a link for lsb
+To: poky@pokylinux.org
+Subject: strangeness: udhcpc runs when 'ip=dhcp' is in kernel cmdline
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,86 +38,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2011 02:54:53 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 19 May 2011 12:23:18 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Hi all,
 
-Rename this file version from 0.9 to 1.0. Link time environment for Hong Kong time for solving [YOCTO #1079].
+i've built my own kernel and image for our development system, and i've 
+been mounting the rootfs image over NFS.
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta/recipes-extended/lsb/lsbsetup_0.9.bb |   25 -------------------------
- meta/recipes-extended/lsb/lsbsetup_1.0.bb |   27 +++++++++++++++++++++++++++
- 2 files changed, 27 insertions(+), 25 deletions(-)
- delete mode 100644 meta/recipes-extended/lsb/lsbsetup_0.9.bb
- create mode 100644 meta/recipes-extended/lsb/lsbsetup_1.0.bb
+the kernel successfully does dhcp before mounting the NFS share - then 
+udhcpc kicks in because the busybox-udhcp script looks for 'ip=dhcp' in 
+the kernel command line (/proc/cmdline), launching udhcpc if it's 
+present. does this seem odd to anyone?
 
-diff --git a/meta/recipes-extended/lsb/lsbsetup_0.9.bb b/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-deleted file mode 100644
-index f3651e2..0000000
---- a/meta/recipes-extended/lsb/lsbsetup_0.9.bb
-+++ /dev/null
-@@ -1,25 +0,0 @@
--DESCRIPTION = "auto-setup environment for lsb test"
--SECTION = "console/utils"
--PRIORITY = "required"
--LICENSE = "GPLv2"
--PR = "r3"
--
--LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
--
--SRC_URI = "file://LSB_Setup.sh"
--
--S=${WORKDIR}
--
--do_install() {
--        # Only install file if it has a contents
--        install -d ${D}/usr/bin
--        install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
--        install -d  ${D}/usr/lib/lsb
--        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
--        ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
--        ln -sf ${sbindir}/sendmail ${D}/${libdir}/sendmail
--}
--
--FILES_${PN} += "${libdir}/lsb \
--               ${libdir}/* \
--               "
-diff --git a/meta/recipes-extended/lsb/lsbsetup_1.0.bb b/meta/recipes-extended/lsb/lsbsetup_1.0.bb
-new file mode 100644
-index 0000000..bc6a724
---- /dev/null
-+++ b/meta/recipes-extended/lsb/lsbsetup_1.0.bb
-@@ -0,0 +1,27 @@
-+DESCRIPTION = "auto-setup environment for lsb test"
-+SECTION = "console/utils"
-+PRIORITY = "required"
-+LICENSE = "GPLv2"
-+PR = "r0"
-+
-+LIC_FILES_CHKSUM = "file://LSB_Setup.sh;beginline=3;endline=16;md5=97451c7c0786ce5bbe9ac58042945583"
-+
-+SRC_URI = "file://LSB_Setup.sh"
-+
-+S=${WORKDIR}
-+
-+do_install() {
-+    # Only install file if it has a contents
-+    install -d ${D}/usr/bin
-+    install -d ${D}/${sysconfdir}
-+    install -m 0755 ${S}/LSB_Setup.sh ${D}/usr/bin
-+    install -d  ${D}/usr/lib/lsb
-+    ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/install_initd
-+    ln -sf ${base_sbindir}/chkconfig ${D}/${libdir}/lsb/remove_initd
-+    ln -sf ${sbindir}/sendmail ${D}/${libdir}/sendmail
-+    ln -sf ${datadir}/zoneinfo/Asia/Hong_Kong ${D}${sysconfdir}/localtime
-+}
-+
-+FILES_${PN} += "${libdir}/lsb \
-+               ${libdir}/* \
-+               "
--- 
-1.7.0.4
+AFAIK ip=dhcp is only really used for NFS root mounts, and i guess i 
+assumed that the kernel would also be responsible for maintaining the 
+DHCP lease. I might be wrong there.
 
+http://www.mjmwired.net/kernel/Documentation/filesystems/nfs/nfsroot.txt#81
+
+If anyone can shed some light on this, that'd be cool.
+
+Cheers,
+Tim
 
