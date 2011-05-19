@@ -1,32 +1,26 @@
-Return-Path: <timcussins@eml.cc>
-Received: from out3.smtp.messagingengine.com (out3.smtp.messagingengine.com
-	[66.111.4.27])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A0BD04C80097
-	for <poky@pokylinux.org>; Thu, 19 May 2011 07:23:17 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@messagingengine.com;
-	x-dkim-adsp=temperror (insecure policy)
-Received: from compute5.internal (compute5.nyi.mail.srv.osa [10.202.2.45])
-	by gateway1.messagingengine.com (Postfix) with ESMTP id 388C820A87
-	for <poky@pokylinux.org>; Thu, 19 May 2011 08:23:17 -0400 (EDT)
-Received: from frontend1.messagingengine.com ([10.202.2.160])
-	by compute5.internal (MEProxy); Thu, 19 May 2011 08:23:17 -0400
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=messagingengine.com;
-	h=message-id:date:from:mime-version:to:subject:content-type:content-transfer-encoding;
-	s=smtpout; bh=92kWW27J6l880k4BobzL8AftQUQ=;
-	b=eYoaTiiMIc8s+4K3pB+IAFhd6UVI8P49XeSpTKyO/hdVuDTPgRBgdBfZGlLNmtcJ20ekP10IZ8p+5K1Xgt+OHl0fzWxKVHyjX+V6e7tfz1YaCc2a32oeeMLuXAVMRfYQ3G/aUNe1gTcmbf2EZfVna7BBe90C/oj9vkGbYsT1W+E=
-X-Sasl-enc: iEsCintWPxvcn7YxS/C24P9rA76bcH7Odh2yNWmSKOxk 1305807796
-Received: from [10.2.11.18] (mail.linn.co.uk [195.59.102.251])
-	by mail.messagingengine.com (Postfix) with ESMTPSA id DE1F84066BC
-	for <poky@pokylinux.org>; Thu, 19 May 2011 08:23:16 -0400 (EDT)
-Message-ID: <4DD50BB5.5070303@eml.cc>
-Date: Thu, 19 May 2011 13:23:17 +0100
-From: Tim Cussins <timcussins@eml.cc>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C5DB54C800AC
+	for <poky@yoctoproject.org>; Thu, 19 May 2011 09:05:17 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 1C62F16603C3; Thu, 19 May 2011 08:05:15 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 5C4E716603BF;
+	Thu, 19 May 2011 08:05:14 -0600 (MDT)
+Message-ID: <4DD5239A.30404@mlbassoc.com>
+Date: Thu, 19 May 2011 08:05:14 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
+	Thunderbird/3.1.7
 MIME-Version: 1.0
-To: poky@pokylinux.org
-Subject: strangeness: udhcpc runs when 'ip=dhcp' is in kernel cmdline
+To: Poky Project <poky@yoctoproject.org>
+Subject: RPM vs IPK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,28 +32,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2011 12:23:18 -0000
+X-List-Received-Date: Thu, 19 May 2011 14:05:19 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi all,
+Building Poky for various targets, I see some striking differences
+based on the packaging.  I'm building for the beagleboard (RPM)
+and my own OMAP/3530 (IPK), so everything is the same for these
+packages (same compiler, architecture, etc), only the package
+method differs.  This was built on an otherwise idle box
+4-way (Intel(R) Core(TM)2 Quad CPU    Q6600  @ 2.40GHz), with
+   BB_NUMBER_THREADS ?= "4"
+   PARALLEL_MAKE ?= "-j 4"
 
-i've built my own kernel and image for our development system, and i've 
-been mounting the rootfs image over NFS.
+Each of these tests are a complete build of the package, with
+all dependencies already built.  For example, I use this sequence:
+   % bitbake perl
+   % bitbake perl -c clean
+   % rm sstate-cache/sstate-perl-arm*
+   % time bitbake perl
 
-the kernel successfully does dhcp before mounting the NFS share - then 
-udhcpc kicks in because the busybox-udhcp script looks for 'ip=dhcp' in 
-the kernel command line (/proc/cmdline), launching udhcpc if it's 
-present. does this seem odd to anyone?
+perl -      RPM                         IPK
+        real    12m15.520s          real    9m43.228s
+        user    5m42.988s           user    4m40.692s
+        sys     3m56.636s           sys     2m19.860s
 
-AFAIK ip=dhcp is only really used for NFS root mounts, and i guess i 
-assumed that the kernel would also be responsible for maintaining the 
-DHCP lease. I might be wrong there.
+eglibc     RPM                          IPK
+        real    32m19.984s          real    23m52.124s
+        user    15m32.732s          user    20m48.214s
+        sys     17m28.087s          sys     9m3.936s
 
-http://www.mjmwired.net/kernel/Documentation/filesystems/nfs/nfsroot.txt#81
+Bottom line - it seems to take 20-30% longer to package via RPM.
 
-If anyone can shed some light on this, that'd be cool.
+I know there are reasons and tradeoffs for different packaging
+methods, but 30% extra?
 
-Cheers,
-Tim
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
