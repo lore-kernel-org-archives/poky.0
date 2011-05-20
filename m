@@ -1,27 +1,23 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7235A4C8026D
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 15:49:55 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4KKnscT005151
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 20 May 2011 13:49:54 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Fri, 20 May 2011 13:49:54 -0700
-Message-ID: <4DD6D3F1.5010607@windriver.com>
-Date: Fri, 20 May 2011 15:49:53 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <cover.1305894267.git.xiaofeng.yan@windriver.com>	<8aae00c1c51aface54052fbcf71ececd2c47c63a.1305894267.git.xiaofeng.yan@windriver.com>
-	<4DD65FF6.6020101@windriver.com> <4DD6C42F.8090300@linux.intel.com>
-In-Reply-To: <4DD6C42F.8090300@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: OpenGL Machine config -- was Re: [PATCH 1/1] task-core-lsb: Add library libQtOpenGL* to n450, sugarbay and jasperforest
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 212204C802F2
+	for <poky@yoctoproject.org>; Fri, 20 May 2011 18:06:15 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 20 May 2011 16:06:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,244,1304319600"; 
+   d="scan'208";a="4758204"
+Received: from unknown (HELO localhost) ([10.255.12.76])
+	by fmsmga002.fm.intel.com with ESMTP; 20 May 2011 16:06:14 -0700
+Message-Id: <a7b1f9d56b42890f49f020db58c07cc5d955e456.1305932581.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1305932581.git.dvhart@linux.intel.com>
+References: <cover.1305932581.git.dvhart@linux.intel.com>
+Old-Date: Fri, 20 May 2011 14:13:36 -0700
+Date: Fri, 20 May 2011 16:06:12 -0700
+To: poky@yoctoproject.org
+From: Darren Hart <dvhart@linux.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH 1/3] fetch2/git: ensure network check log matches actual command
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,86 +29,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 May 2011 20:49:55 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 20 May 2011 23:06:15 -0000
 
-On 5/20/11 2:42 PM, Saul Wold wrote:
-> On 05/20/2011 05:35 AM, Mark Hatle wrote:
->> Looking at this, it seems unreasonable, overtime, to specify every machine that
->> has OpenGL support.  Would it make sense to look at making some type of machine
->> or distro flag that indicates we have OpenGL support.. Then QT [and presumably
->> others] can use that flag to determine the proper value?
->>
-> For both this patch and the previous RDEPENDS fix, can we not use 
-> TARGET_ARCH value for the flag.
-> 
-> So QT_GLFLAGS_powerpc = "-opengl", or is that going to be too general?
-> 
-> Or QT_GLFLAGS_i586 = "-opengl"?  I notice crownbay is missing below also 
-> is that because it won't support opengl?
-> 
+From: Darren Hart <dvhart@linux.intel.com>
 
-I have a feeling the ARCH value is too generic, but I don't know that for sure.
+The git command string logged via check_network_access() does not match
+the actual command executed in a few places. Ensure that it does.
 
-If I understand what this is for, it really depends on the machine configuration
-and if it has hardware opengl acceleration or not.  So some SOCs will have it
-and some won't.
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+Cc: Yu Ke <ke.yu@intel.com>
+---
+ bitbake/lib/bb/fetch2/git.py |   16 ++++++++++------
+ 1 files changed, 10 insertions(+), 6 deletions(-)
 
---Mark
-
-> 
->> --Mark
->>
->> On 5/20/11 7:27 AM, Xiaofeng Yan wrote:
->>> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
->>>
->>> For passing hardware test for LSB, I add libQtOpenGL* to three platforms above.
->>>
->>> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
->>> ---
->>>   .../recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend     |    3 +++
->>>   meta/recipes-extended/tasks/task-core-lsb.bb       |   10 ++++++++++
->>>   2 files changed, 13 insertions(+), 0 deletions(-)
->>>
->>> diff --git a/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
->>> index e5911e3..172f090 100644
->>> --- a/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
->>> +++ b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
->>> @@ -1,3 +1,6 @@
->>>   QT_GLFLAGS_atom-pc = "-opengl"
->>>   QT_GLFLAGS_mpc8315e-rdb = "-opengl"
->>>   QT_GLFLAGS_emenlow = "-opengl"
->>> +QT_GLFLAGS_jasperforest = "-opengl"
->>> +QT_GLFLAGS_n450 = "-opengl"
->>> +QT_GLFLAGS_sugarbay  = "-opengl"
->>> diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
->>> index b6c5ae5..63ea7dd 100644
->>> --- a/meta/recipes-extended/tasks/task-core-lsb.bb
->>> +++ b/meta/recipes-extended/tasks/task-core-lsb.bb
->>> @@ -187,6 +187,16 @@ RDEPENDS_task-core-lsb-graphic-add_mpc8315e-rdb = "\
->>>       libqtopengl4 \
->>>   "
->>>
->>> +RDEPENDS_task-core-lsb-graphic-add_append_n450 = "\
->>> +    libqtopengl4 \
->>> +"
->>> +RDEPENDS_task-core-lsb-graphic-add_append_sugarbay = "\
->>> +    libqtopengl4 \
->>> +"
->>> +RDEPENDS_task-core-lsb-graphic-add_append_jasperforest = "\
->>> +    libqtopengl4 \
->>> +"
->>> +
->>>   #    mesa-dri
->>>
->>>   RDEPENDS_task-core-lsb-runtime-add = "\
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
-> 
+diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+index 82721c6..c6c4cc9 100644
+--- a/bitbake/lib/bb/fetch2/git.py
++++ b/bitbake/lib/bb/fetch2/git.py
+@@ -137,8 +137,10 @@ class Git(FetchMethod):
+ 
+         # If the repo still doesn't exist, fallback to cloning it
+         if not os.path.exists(ud.clonedir):
+-            bb.fetch2.check_network_access(d, "git clone --bare %s%s" % (ud.host, ud.path))
+-            runfetchcmd("%s clone --bare %s://%s%s%s %s" % (ud.basecmd, ud.proto, username, ud.host, ud.path, ud.clonedir), d)
++            clone_cmd = "%s clone --bare %s://%s%s%s %s" % \
++                  (ud.basecmd, ud.proto, username, ud.host, ud.path, ud.clonedir)
++            bb.fetch2.check_network_access(d, clone_cmd)
++            runfetchcmd(clone_cmd, d)
+ 
+         os.chdir(ud.clonedir)
+         # Update the checkout if needed
+@@ -147,7 +149,6 @@ class Git(FetchMethod):
+             if not self._contains_ref(ud.revisions[name], d):
+                 needupdate = True
+         if needupdate:
+-            bb.fetch2.check_network_access(d, "git fetch %s%s" % (ud.host, ud.path), ud.url)
+             try: 
+                 runfetchcmd("%s remote prune origin" % ud.basecmd, d) 
+                 runfetchcmd("%s remote rm origin" % ud.basecmd, d) 
+@@ -155,7 +156,9 @@ class Git(FetchMethod):
+                 logger.debug(1, "No Origin")
+             
+             runfetchcmd("%s remote add origin %s://%s%s%s" % (ud.basecmd, ud.proto, username, ud.host, ud.path), d)
+-            runfetchcmd("%s fetch --all -t" % ud.basecmd, d)
++            fetch_cmd = "%s fetch --all -t" % ud.basecmd
++            bb.fetch2.check_network_access(d, fetch_cmd, ud.url)
++            runfetchcmd(fetch_cmd, d)
+             runfetchcmd("%s prune-packed" % ud.basecmd, d)
+             runfetchcmd("%s pack-redundant --all | xargs -r rm" % ud.basecmd, d)
+             ud.repochanged = True
+@@ -216,9 +219,10 @@ class Git(FetchMethod):
+         else:
+             username = ""
+ 
+-        bb.fetch2.check_network_access(d, "git ls-remote %s%s %s" % (ud.host, ud.path, ud.branches[name]))
+         basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
+-        cmd = "%s ls-remote %s://%s%s%s %s" % (basecmd, ud.proto, username, ud.host, ud.path, ud.branches[name])
++        cmd = "%s ls-remote %s://%s%s%s %s" % \
++              (basecmd, ud.proto, username, ud.host, ud.path, ud.branches[name])
++        bb.fetch2.check_network_access(d, cmd)
+         output = runfetchcmd(cmd, d, True)
+         if not output:
+             raise bb.fetch2.FetchError("The command %s gave empty output unexpectedly" % cmd, url)
+-- 
+1.7.1
 
 
