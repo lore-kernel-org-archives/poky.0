@@ -1,44 +1,24 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
-	[209.85.210.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 141CF4C80052
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 11:30:49 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pzk10 with SMTP id 10so2547740pzk.35
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 09:30:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
-	:subject:references:in-reply-to:content-type
-	:content-transfer-encoding;
-	bh=Z8Jl3873w/mDlWkO9LgC8Zekn94XkKvNI/JhOdPLCas=;
-	b=Wt8WnGy+oj7BPhINhnoz/7NzmYp4yK69/bOk3p7OhDUG5PUjGs/+LDFM4fjFDYCauD
-	KLfNAcwQRtQ+tg/PoZxx+23K0GPcW9qK/KROSHbId5nJdZguWajMu1Vly2Gqh6PekwGu
-	T+n8+6no5u71KTGKWkBudBMFM5yPf3wtxnVI0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding;
-	b=fRUV/RtpdxnqJpx/qEB5S7eWdn3TxTIMOS7xiNrjjB83MtAh7+HnUX2SmYggNi/QYM
-	ensfscDp/XaMWmi36o/6dM6vPBTHnMavzezM2PazvWhXtEBeQqDwLLW6pWhv/tQfxNM+
-	edsoDt8VPHx7ROeBO1dryaPC9C/+oP6wFBdqA=
-Received: by 10.142.126.18 with SMTP id y18mr2737347wfc.361.1305909048544;
-	Fri, 20 May 2011 09:30:48 -0700 (PDT)
-Received: from [192.168.1.82] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
-	[99.57.141.118])
-	by mx.google.com with ESMTPS id k7sm3367156wfa.14.2011.05.20.09.30.45
-	(version=SSLv3 cipher=OTHER); Fri, 20 May 2011 09:30:47 -0700 (PDT)
-Message-ID: <4DD6973B.4020708@gmail.com>
-Date: Fri, 20 May 2011 09:30:51 -0700
-From: Khem Raj <raj.khem@gmail.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+Return-Path: <sgw@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EA0564C80052
+	for <poky@yoctoproject.org>; Fri, 20 May 2011 14:37:40 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 20 May 2011 12:37:40 -0700
+X-ExtLoop1: 1
+Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
+	by orsmga002.jf.intel.com with ESMTP; 20 May 2011 12:37:40 -0700
+Message-ID: <4DD6C303.103@linux.intel.com>
+Date: Fri, 20 May 2011 12:37:39 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1305508488.git.ke.yu@intel.com>
-	<95d6b08eb7982baacb334d6d774a204670b1ca1c.1305508488.git.ke.yu@intel.com>
-In-Reply-To: <95d6b08eb7982baacb334d6d774a204670b1ca1c.1305508488.git.ke.yu@intel.com>
-Subject: Re: [PATCH 1/1] git fetcher: add support for rebaseable git repo
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1305884138.git.xiaofeng.yan@windriver.com>
+	<7bb24bd1f62621d86f131f0babf0117d6dcd49d4.1305884138.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <7bb24bd1f62621d86f131f0babf0117d6dcd49d4.1305884138.git.xiaofeng.yan@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] [YOCTO #1090]: Fix bugs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,91 +30,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 May 2011 16:30:49 -0000
+X-List-Received-Date: Fri, 20 May 2011 19:37:41 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/15/2011 6:16 PM, Yu Ke wrote:
-> From: Yu Ke<ke.yu@intel.com>
+On 05/20/2011 02:39 AM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
 >
-> Some upstream git repo may rebase in the future, which means current
-> revision may disappear from the upstream repo after the rebase.
->
-> current git fetcher can not handle this case, because the git mirror
-> tar ball is per repo, and may also change in the rebase and lost the
-> current revision info.
->
-> To fix this issue, this patch
-> - add rebaseable tag in the SRC_URI
-> - for rebaseable repo, make git mirror tar ball per revision, in this
->    case, even upstream rebase, the git mirror still has the current
->    revision info.
-> - for rebaseable repo, generate mirror tar ball by default, since the
->    repo may change in the future.
+The subject of this patch is not in the correct format.
 
-Do we have the options to SRC_URI documented somewhere ?
-if yes then this should be added there too.
+It should be <filename>: short description
 
+task-core-lsb: changed RDEPENDS to use _append_<machinename>
+
+And then in the commit message you need to mention the bugid:
+
+[YOCTO #1090]
+
+Please resend this, also see my comments with Mark's in the other OpenGL 
+email.
+
+Sau!
+
+> Modify task-core-lsb.bb to solve the problem graphic library can't be installed into lsb image
 >
-> Signed-off-by: Yu Ke<ke.yu@intel.com>
+> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
 > ---
->   bitbake/lib/bb/fetch2/git.py |   28 ++++++++++++++++++++--------
->   1 files changed, 20 insertions(+), 8 deletions(-)
+>   meta/recipes-extended/tasks/task-core-lsb.bb |   10 +++++-----
+>   1 files changed, 5 insertions(+), 5 deletions(-)
 >
-> diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
-> index 811acbf..82721c6 100644
-> --- a/bitbake/lib/bb/fetch2/git.py
-> +++ b/bitbake/lib/bb/fetch2/git.py
-> @@ -57,6 +57,11 @@ class Git(FetchMethod):
->           if 'nocheckout' in ud.parm:
->               ud.nocheckout = True
+> diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
+> index b6c5ae5..59ba051 100644
+> --- a/meta/recipes-extended/tasks/task-core-lsb.bb
+> +++ b/meta/recipes-extended/tasks/task-core-lsb.bb
+> @@ -170,20 +170,20 @@ RDEPENDS_task-core-lsb-graphic-add = "\
+>       liberation-fonts \
+>   "
 >
-> +        # rebaseable means the upstream git repo may rebase in the future,
-> +        # and current revision may disappear from upstream repo
-> +        # rebaseable is false by default. set rebaseable=1 in SRC_URI if rebaseable.
-> +        ud.rebaseable = ud.parm.get("rebaseable","0") == "1"
-> +
->           branches = ud.parm.get("branch", "master").split(',')
->           if len(branches) != len(ud.names):
->               raise bb.fetch2.ParameterError("The number of name and branch parameters is not balanced", ud.url)
-> @@ -65,16 +70,9 @@ class Git(FetchMethod):
->               branch = branches[ud.names.index(name)]
->               ud.branches[name] = branch
+> -RDEPENDS_task-core-lsb-graphic-add_qemux86 = "\
+> +RDEPENDS_task-core-lsb-graphic-add_append_qemux86 = "\
+>       libqtopengl4 \
+>   "
+> -RDEPENDS_task-core-lsb-graphic-add_atom-pc = "\
+> +RDEPENDS_task-core-lsb-graphic-add_append_atom-pc = "\
+>       libqtopengl4 \
+>   "
+> -RDEPENDS_task-core-lsb-graphic-add_qemuppc = "\
+> +RDEPENDS_task-core-lsb-graphic-add_append_qemuppc = "\
+>       libqtopengl4 \
+>   "
+> -RDEPENDS_task-core-lsb-graphic-add_emenlow = "\
+> +RDEPENDS_task-core-lsb-graphic-add_append_emenlow = "\
+>       libqtopengl4 \
+>   "
 >
-> -        gitsrcname = '%s%s' % (ud.host, ud.path.replace('/', '.'))
-> -        ud.mirrortarball = 'git2_%s.tar.gz' % (gitsrcname)
-> -        ud.fullmirror = os.path.join(data.getVar("DL_DIR", d, True), ud.mirrortarball)
-> -        ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
-> -
->           ud.basecmd = data.getVar("FETCHCMD_git", d, True) or "git"
->
-> -        ud.write_tarballs = (data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True) or "0") != "0"
-> -
-> -        ud.localfile = ud.clonedir
-> +        ud.write_tarballs = ((data.getVar("BB_GENERATE_MIRROR_TARBALLS", d, True) or "0") != "0") or ud.rebaseable
->
->           ud.setup_revisons(d)
->
-> @@ -84,6 +82,20 @@ class Git(FetchMethod):
->                   ud.branches[name] = ud.revisions[name]
->                   ud.revisions[name] = self.latest_revision(ud.url, ud, d, name)
->
-> +        gitsrcname = '%s%s' % (ud.host, ud.path.replace('/', '.'))
-> +        # for rebaseable git repo, it is necessary to keep mirror tar ball
-> +        # per revision, so that even the revision disappears from the
-> +        # upstream repo in the future, the mirror will remain intact and still
-> +        # contains the revision
-> +        if ud.rebaseable:
-> +            for name in ud.names:
-> +                gitsrcname = gitsrcname + '_' + ud.revisions[name]
-> +        ud.mirrortarball = 'git2_%s.tar.gz' % (gitsrcname)
-> +        ud.fullmirror = os.path.join(data.getVar("DL_DIR", d, True), ud.mirrortarball)
-> +        ud.clonedir = os.path.join(data.expand('${GITDIR}', d), gitsrcname)
-> +
-> +        ud.localfile = ud.clonedir
-> +
->       def localpath(self, url, ud, d):
->           return ud.clonedir
+> -RDEPENDS_task-core-lsb-graphic-add_mpc8315e-rdb = "\
+> +RDEPENDS_task-core-lsb-graphic-add_append_mpc8315e-rdb = "\
+>       libqtopengl4 \
+>   "
 >
 
 
