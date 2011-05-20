@@ -1,25 +1,31 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id DFB5C4C80052
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 10:06:58 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 20 May 2011 08:06:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,242,1304319600"; d="scan'208";a="439801772"
-Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
-	by azsmga001.ch.intel.com with ESMTP; 20 May 2011 08:06:49 -0700
-Message-ID: <4DD68388.7090309@intel.com>
-Date: Fri, 20 May 2011 08:06:48 -0700
-From: Saul Wold <saul.wold@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-References: <cover.1305655392.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1305655392.git.nitin.a.kamble@intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B7FE14C80052
+	for <poky@yoctoproject.org>; Fri, 20 May 2011 11:19:00 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4KGIsjK027019;
+	Fri, 20 May 2011 17:18:54 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 26853-03; Fri, 20 May 2011 17:18:50 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4KGIkEN027013
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 20 May 2011 17:18:46 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Kang Kai <kai.kang@windriver.com>
+In-Reply-To: <2a1f54c36d74702b453845dcba5564ac6d357aa7.1305891945.git.kai.kang@windriver.com>
+References: <cover.1305891945.git.kai.kang@windriver.com>
+	<2a1f54c36d74702b453845dcba5564ac6d357aa7.1305891945.git.kai.kang@windriver.com>
+Date: Fri, 20 May 2011 17:18:41 +0100
+Message-ID: <1305908321.3424.658.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 0/1] switch to gcc 4.6.0 for x86 x86-64 & arm
+Subject: Re: [PATCH 1/1] ghostscript: fix run failure on mpc8315e
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,40 +37,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 May 2011 15:06:59 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 20 May 2011 16:19:01 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 05/17/2011 11:07 AM, Nitin A Kamble wrote:
-> From: Nitin A Kamble<nitin.a.kamble@intel.com>
->
-> gcc 4.6.0 is good enough to switch for x86, x86-64&  arm now.
->
-> I could build core-sdk images and run them through the qemu machines
-> when compiled with gcc 4.6.0.
->
-> mips&  ppc are still not ready, mainly the kernel compilation issues
-> with gcc 4.6.0. These kernel issues are being worked on by Bruce.
->
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: nitin/misc
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
->
-> Thanks,
->      Nitin A Kamble<nitin.a.kamble@intel.com>
-> ---
->
->
-> Nitin A Kamble (1):
->    tcmode-default: switch to gcc 4.6.0 for x86, x86-64&  arm
->
->   meta/conf/distro/include/tcmode-default.inc |    8 ++++++--
->   1 files changed, 6 insertions(+), 2 deletions(-)
->
+Hi,
 
-Merged into oe-core and poky
+On Fri, 2011-05-20 at 20:19 +0800, Kang Kai wrote:
+> From: Kang Kai <kai.kang@windriver.com>
+> 
+> When run gs on mpc8315, it fails with:
+> GPL Ghostscript 9.02: ./psi/interp.c(291): Fatal error -20 in gs_interp_init!
+> It is caused by cross compile.
+> 
+> Accoding to the ghostscript document on:
+> http://pages.cs.wisc.edu/~ghost/doc/cvs/Make.htm#Cross-compiling
+> it needs some manual work, so import patches from WindRiver Linux.
+> 
+> Signed-off-by: Kang Kai <kai.kang@windriver.com>
 
-Thanks
-	Sau!
+There is a way to do this more neatly within OE. You can create a
+directory structure of:
+
+recipes-extended/ghostscriptghostscript-9.02/powerpc/objarch.h
+recipes-extended/ghostscriptghostscript-9.02/powerpc/soobjarch.h
+recipes-extended/ghostscriptghostscript-9.02/i586/objarch.h
+recipes-extended/ghostscriptghostscript-9.02/i586/soobjarch.h
+recipes-extended/ghostscriptghostscript-9.02/mips/objarch.h
+recipes-extended/ghostscriptghostscript-9.02/mips/soobjarch.h
+recipes-extended/ghostscriptghostscript-9.02/x86_64/objarch.h
+recipes-extended/ghostscriptghostscript-9.02/x86_64/soobjarch.h
+recipes-extended/ghostscriptghostscript-9.02/arm/objarch.h
+recipes-extended/ghostscriptghostscript-9.02/arm/soobjarch.h
+
+Then just add file://objarch.h and file://soobjarch.h to SRC_URI and a
+
+do_configure_prepend () {
+     cp ${WORKDIR}/objarch.h ${S}/obj/arch.h
+     cp ${WORKDIR}/soobjarch.h ${S}/soobj/arch.h
+}
+
+and the rest will happen automatically (you'll still need the lib.mak
+bit of the patch applied unconditionally).
+
+Cheers,
+
+Richard
 
 
