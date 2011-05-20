@@ -1,21 +1,24 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 582654C800A6
-	for <poky@yoctoproject.org>; Thu, 19 May 2011 17:46:39 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 19 May 2011 15:46:38 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 16CBE4C800B0
+	for <poky@yoctoproject.org>; Thu, 19 May 2011 19:45:52 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 19 May 2011 17:45:52 -0700
 X-ExtLoop1: 1
-Received: from vorpal.jf.intel.com (HELO [10.7.199.57]) ([10.7.199.57])
-	by orsmga002.jf.intel.com with ESMTP; 19 May 2011 15:46:38 -0700
-From: Joshua Lock <josh@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 19 May 2011 15:50:14 -0700
-In-Reply-To: <4DCC0662.6060404@mlbassoc.com>
-References: <4DCC0662.6060404@mlbassoc.com>
-X-Mailer: Evolution 3.0.1 (3.0.1-1.fc15) 
-Message-ID: <1305845414.9983.17.camel@vorpal.jf.intel.com>
-Mime-Version: 1.0
-Subject: Re: QEMU networking
+X-IronPort-AV: E=Sophos;i="4.65,239,1304319600"; d="scan'208";a="439425822"
+Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
+	by azsmga001.ch.intel.com with ESMTP; 19 May 2011 17:45:51 -0700
+Message-ID: <4DD5B9BF.8000201@linux.intel.com>
+Date: Thu, 19 May 2011 17:45:51 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Robert Yang <liezhi.yang@windriver.com>
+References: <cover.1305612543.git.liezhi.yang@windriver.com>
+In-Reply-To: <cover.1305612543.git.liezhi.yang@windriver.com>
+Cc: dvhart@linux.intel.com, poky@yoctoproject.org
+Subject: Re: V4 [PATCH 0/4] Add meta-skeleton and a skeleton for init scripts
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,55 +30,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2011 22:46:39 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 20 May 2011 00:45:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-05-12 at 10:10 -0600, Gary Thomas wrote:
-> I'm having a devil of a time getting networking to work when
-> I run qemu (a Poky derived image, of course!)  I'm running this
-> on a box which itself is NAT'd to the real internet, like this:
-> 
->     +-------------+        +------------------+
->     |   QEMUarm   |<------>|   My_Desktop     |<----> Internet
->     | 192.168.7.2 |        |   192.168.7.1    |
->     +-------------+        |   192.168.1.125  |
->                            +------------------+
-> 
-> Firstly, something is messing with the routing tables over time
-> and I can't get past the first hop.  If I reconfigure the network
-> on the QEMU system like this:
->    # ifconfig eth0 down
->    # ifconfig eth0 up
->    # route add default gw 192.168.7.1
-> I can then access past "My_Desktop", e.g.
->    # ping 192.168.1.101
->       -or-
->    # ping 74.125.225.19    (www.google.com)
-> This works fine and the routing table (route.good) is correct.
-> 
-> A little while later (minutes), the routing changes and now I can't
-> get past 'My_Desktop' (i.e. I can ping 192.168.1.125, but not 192.168.1.101)
-> The routing table has changed (route.bad)
-> 
-> What causes this?  I don't have avahi running anywhere and I've explicitly
-> disabled that daemon on the QEMU system.
-> 
-> Finally, there seems to be no name resolution - /etc/resolv.conf comes
-> up as:
->    nameserver 127.0.0.1
-> If I want to resolve any real names, I have to update it manually.
-> 
-> Note: I'm running core-image-sato with web-webkit added using zypper.
+On 05/16/2011 11:17 PM, Robert Yang wrote:
+> Changes of V4:
+> * Fix the indent in ${sysconfdir}/init.d/functions
+> * Fix the coding style in skeleton_test.c
+>
+> Thanks for Darren's detailed review, and he is happy now.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: robert/init_scripts
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/init_scripts
+>
+> Thanks,
+>      Robert Yang<liezhi.yang@windriver.com>
+> ---
+>
+>
+> Robert Yang (4):
+>    Add the layer meta-skeleton
+>    Cleanup the whitespace in functions
+>    Add pidofproc to ${sysconfdir}/init.d/functions
+>    Add a skeleton for init scripts
+>
+>   meta-skeleton/conf/layer.conf                      |   10 +
+>   .../recipes-skeleton/service/service/COPYRIGHT     |   15 ++
+>   .../recipes-skeleton/service/service/skeleton      |  193 ++++++++++++++++++++
+>   .../service/service/skeleton_test.c                |   12 ++
+>   .../recipes-skeleton/service/service_0.1.bb        |   32 ++++
+>   .../initscripts/initscripts-1.0/functions          |   39 ++++-
+>   6 files changed, 296 insertions(+), 5 deletions(-)
+>   create mode 100644 meta-skeleton/conf/layer.conf
+>   create mode 100644 meta-skeleton/recipes-skeleton/service/service/COPYRIGHT
+>   create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton
+>   create mode 100644 meta-skeleton/recipes-skeleton/service/service/skeleton_test.c
+>   create mode 100644 meta-skeleton/recipes-skeleton/service/service_0.1.bb
+>
 
-I suspect ConnMan may have something to do with it. Though that's only a
-suspicion based on some past experience.
+Merged into oe-core and master
 
-Cheers,
-Joshua
--- 
-Joshua Lock
-        Yocto Project Build Monkey
-        Intel Open Source Technology Centre
+Thanks for your work on this effort.
 
+Sau!
 
