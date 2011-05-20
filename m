@@ -1,26 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 58A1C4C800A6
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 07:35:04 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4KCZ3MW004926
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 05:35:03 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Fri, 20 May 2011 05:35:03 -0700
-Message-ID: <4DD65FF6.6020101@windriver.com>
-Date: Fri, 20 May 2011 07:35:02 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+Return-Path: <saul.wold@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DFB5C4C80052
+	for <poky@yoctoproject.org>; Fri, 20 May 2011 10:06:58 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 20 May 2011 08:06:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,242,1304319600"; d="scan'208";a="439801772"
+Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
+	by azsmga001.ch.intel.com with ESMTP; 20 May 2011 08:06:49 -0700
+Message-ID: <4DD68388.7090309@intel.com>
+Date: Fri, 20 May 2011 08:06:48 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <cover.1305894267.git.xiaofeng.yan@windriver.com>
-	<8aae00c1c51aface54052fbcf71ececd2c47c63a.1305894267.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <8aae00c1c51aface54052fbcf71ececd2c47c63a.1305894267.git.xiaofeng.yan@windriver.com>
-Subject: OpenGL Machine config -- was Re: [PATCH 1/1] task-core-lsb: Add library libQtOpenGL* to n450, sugarbay and jasperforest
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+References: <cover.1305655392.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1305655392.git.nitin.a.kamble@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [OE-core] [PATCH 0/1] switch to gcc 4.6.0 for x86 x86-64 & arm
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,59 +31,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 May 2011 12:35:04 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Fri, 20 May 2011 15:06:59 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Looking at this, it seems unreasonable, overtime, to specify every machine that
-has OpenGL support.  Would it make sense to look at making some type of machine
-or distro flag that indicates we have OpenGL support.. Then QT [and presumably
-others] can use that flag to determine the proper value?
-
---Mark
-
-On 5/20/11 7:27 AM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-> 
-> For passing hardware test for LSB, I add libQtOpenGL* to three platforms above.
-> 
-> Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+On 05/17/2011 11:07 AM, Nitin A Kamble wrote:
+> From: Nitin A Kamble<nitin.a.kamble@intel.com>
+>
+> gcc 4.6.0 is good enough to switch for x86, x86-64&  arm now.
+>
+> I could build core-sdk images and run them through the qemu machines
+> when compiled with gcc 4.6.0.
+>
+> mips&  ppc are still not ready, mainly the kernel compilation issues
+> with gcc 4.6.0. These kernel issues are being worked on by Bruce.
+>
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: nitin/misc
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>
+> Thanks,
+>      Nitin A Kamble<nitin.a.kamble@intel.com>
 > ---
->  .../recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend     |    3 +++
->  meta/recipes-extended/tasks/task-core-lsb.bb       |   10 ++++++++++
->  2 files changed, 13 insertions(+), 0 deletions(-)
-> 
-> diff --git a/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
-> index e5911e3..172f090 100644
-> --- a/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
-> +++ b/meta-yocto/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
-> @@ -1,3 +1,6 @@
->  QT_GLFLAGS_atom-pc = "-opengl"
->  QT_GLFLAGS_mpc8315e-rdb = "-opengl"
->  QT_GLFLAGS_emenlow = "-opengl"
-> +QT_GLFLAGS_jasperforest = "-opengl"
-> +QT_GLFLAGS_n450 = "-opengl"
-> +QT_GLFLAGS_sugarbay  = "-opengl"
-> diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
-> index b6c5ae5..63ea7dd 100644
-> --- a/meta/recipes-extended/tasks/task-core-lsb.bb
-> +++ b/meta/recipes-extended/tasks/task-core-lsb.bb
-> @@ -187,6 +187,16 @@ RDEPENDS_task-core-lsb-graphic-add_mpc8315e-rdb = "\
->      libqtopengl4 \
->  "
->  
-> +RDEPENDS_task-core-lsb-graphic-add_append_n450 = "\
-> +    libqtopengl4 \
-> +"
-> +RDEPENDS_task-core-lsb-graphic-add_append_sugarbay = "\
-> +    libqtopengl4 \
-> +"
-> +RDEPENDS_task-core-lsb-graphic-add_append_jasperforest = "\
-> +    libqtopengl4 \
-> +"
-> +
->  #    mesa-dri 
->  
->  RDEPENDS_task-core-lsb-runtime-add = "\
+>
+>
+> Nitin A Kamble (1):
+>    tcmode-default: switch to gcc 4.6.0 for x86, x86-64&  arm
+>
+>   meta/conf/distro/include/tcmode-default.inc |    8 ++++++--
+>   1 files changed, 6 insertions(+), 2 deletions(-)
+>
+
+Merged into oe-core and poky
+
+Thanks
+	Sau!
 
 
