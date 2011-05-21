@@ -1,25 +1,30 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B6214C804B8
-	for <poky@yoctoproject.org>; Sat, 21 May 2011 03:24:30 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4L8Nunx025757
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sat, 21 May 2011 01:23:56 -0700 (PDT)
-Received: from localhost (128.224.162.196) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Sat, 21 May 2011 01:23:55 -0700
-Message-ID: <5c21a550fcbe3ca4272f59d6c3b8df1f681ae34d.1305963432.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1305963432.git.kai.kang@windriver.com>
-References: <cover.1305963432.git.kai.kang@windriver.com>
-Old-Date: Fri, 20 May 2011 17:26:36 +0800
-Date: Sat, 21 May 2011 16:24:41 +0800
-To: <richard.purdie@linuxfoundation.org>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.196]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 1/1] ghostscript: fix run failure on mpc8315e
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 441A54C8026D
+	for <poky@yoctoproject.org>; Sat, 21 May 2011 03:49:24 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4L8nMQ1003037;
+	Sat, 21 May 2011 09:49:22 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02732-01; Sat, 21 May 2011 09:49:18 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4L8nCAV003021
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sat, 21 May 2011 09:49:13 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <4DD6FBE2.4080403@linux.intel.com>
+References: <4DD6FBE2.4080403@linux.intel.com>
+Date: Sat, 21 May 2011 09:49:04 +0100
+Message-ID: <1305967744.3424.723.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: fetch2/git: questions on read-tree and checkout-index
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,597 +36,91 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 May 2011 08:24:30 -0000
-Content-Type: text/plain
+X-List-Received-Date: Sat, 21 May 2011 08:49:24 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Kang Kai <kai.kang@windriver.com>
+On Fri, 2011-05-20 at 16:40 -0700, Darren Hart wrote:
+> As I ran into http://bugzilla.yoctoproject.org/show_bug.cgi?id=1089 today
+> working with Saul to validate bug 1029, I spent some time reading through the
+> fetch2/git source and the commit history. I had a couple questions regarding the
+> rationale for the use of "read-tree" and "checkout-index" in the unpack routine:
+> 
+> runfetchcmd("git clone -s -n %s %s" % (ud.clonedir, destdir), d)
+> if not ud.nocheckout:
+>     os.chdir(destdir)
+>     runfetchcmd("%s read-tree %s%s" % (ud.basecmd, ud.revisions[ud.names[0]], readpathspec), d)
+>     runfetchcmd("%s checkout-index -q -f -a" % ud.basecmd, d)
+> 
+> As I understand it this would be equivalent to checking out HEAD and then
+> overwriting everything in the tree with the contents of the repository at
+> ud.revisions[ud.names[0]]. This results in all the modifications listed with git
+> status but doesn't add any of the changes back to the index, so the log still
+> appears to be at HEAD (with a lot of local changes). This seems unnecessary for
+> the majority of use cases. The one where it seems potentially useful would be
+> the subdir case. Is that the only motivator for using this method?
 
-When run gs on mpc8315, it fails with:
-GPL Ghostscript 9.02: ./psi/interp.c(291): Fatal error -20 in gs_interp_init!
-It is caused by cross compile.
+You're asking why this is as it is an the best answer I can give you is
+history. We now use fetch2 and there were some changes in concept there
+and the overall changes were discussed on the mailing list in detail
+before they were implemented.
 
-Accoding to the ghostscript document on:
-http://pages.cs.wisc.edu/~ghost/doc/cvs/Make.htm#Cross-compiling
-it needs some manual work, so import patches from WindRiver Linux.
+One key change was that we switched to preserving the SCM metadata with
+the checked out source code when we used to throw it away. This allowed
+several optimisations in the way we mirror data and "unpack" code.
 
-Update to using oe way to add arch.h, thanks to Richard.
+If you imagine the .git directory isn't there at all and we were just
+generating tarballs of checked out data, the fetcher code code starts to
+make a lot more sense. The code needed to check out a specific revision,
+it didn't matter what state the index/tree were in with reference to
+branches and so forth. The fragment listed above does exactly that.
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/ghostscript/arm/objarch.h    |   40 +++++++++++++++++++
- meta/recipes-extended/ghostscript/arm/soobjarch.h  |   40 +++++++++++++++++++
- .../ghostscript/ghostscript-9.02-genarch.patch     |   27 +++++++++++++
- .../ghostscript/ghostscript_9.02.bb                |   22 +++++++++-
- meta/recipes-extended/ghostscript/i586/objarch.h   |   41 ++++++++++++++++++++
- meta/recipes-extended/ghostscript/i586/soobjarch.h |   41 ++++++++++++++++++++
- meta/recipes-extended/ghostscript/mips/objarch.h   |   40 +++++++++++++++++++
- meta/recipes-extended/ghostscript/mips/soobjarch.h |   40 +++++++++++++++++++
- .../recipes-extended/ghostscript/powerpc/objarch.h |   40 +++++++++++++++++++
- .../ghostscript/powerpc/soobjarch.h                |   40 +++++++++++++++++++
- meta/recipes-extended/ghostscript/x86_64/objarch.h |   40 +++++++++++++++++++
- .../ghostscript/x86_64/soobjarch.h                 |   40 +++++++++++++++++++
- 12 files changed, 448 insertions(+), 3 deletions(-)
- create mode 100644 meta/recipes-extended/ghostscript/arm/objarch.h
- create mode 100644 meta/recipes-extended/ghostscript/arm/soobjarch.h
- create mode 100644 meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-genarch.patch
- create mode 100644 meta/recipes-extended/ghostscript/i586/objarch.h
- create mode 100644 meta/recipes-extended/ghostscript/i586/soobjarch.h
- create mode 100644 meta/recipes-extended/ghostscript/mips/objarch.h
- create mode 100644 meta/recipes-extended/ghostscript/mips/soobjarch.h
- create mode 100644 meta/recipes-extended/ghostscript/powerpc/objarch.h
- create mode 100644 meta/recipes-extended/ghostscript/powerpc/soobjarch.h
- create mode 100644 meta/recipes-extended/ghostscript/x86_64/objarch.h
- create mode 100644 meta/recipes-extended/ghostscript/x86_64/soobjarch.h
+History wise, that fetcher has also been around since git was very new.
+Back then many modern git commands didn't even exist so it does things
+that now are considered more "internal" use of git.
 
-diff --git a/meta/recipes-extended/ghostscript/arm/objarch.h b/meta/recipes-extended/ghostscript/arm/objarch.h
-new file mode 100644
-index 0000000..e8772cd
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/arm/objarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 0
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/arm/soobjarch.h b/meta/recipes-extended/ghostscript/arm/soobjarch.h
-new file mode 100644
-index 0000000..e8772cd
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/arm/soobjarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 0
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-genarch.patch b/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-genarch.patch
-new file mode 100644
-index 0000000..149f9fc
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-genarch.patch
-@@ -0,0 +1,27 @@
-+Import patch from windriver linux for cross compilation, and split patches
-+into oe way under different directories such as i586, powerpc etc according 
-+to Richard's opinion.
-+
-+Upstream-status: Pending
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+
-+# Author: Chi Xu <chi.xu@windriver.com>
-+# Date: Feb 26 2010
-+# Summary: Generate arch.h for ppc32
-+#
-+
-+diff -Nru ghostscript-8.64.orig/base/lib.mak ghostscript-8.64/base/lib.mak
-+--- ghostscript-8.64.orig/base/lib.mak	2010-02-10 10:30:02.000000000 +0800
-++++ ghostscript-8.64/base/lib.mak	2010-02-10 10:56:21.000000000 +0800
-+@@ -50,8 +50,8 @@
-+ stdpre_h=$(GLSRC)stdpre.h $(stdpn_h)
-+ stdint__h=$(GLSRC)stdint_.h $(std_h)
-+
-+-$(GLGEN)arch.h : $(GENARCH_XE)
-+-	$(EXP)$(GENARCH_XE) $(GLGEN)arch.h
-++##$(GLGEN)arch.h : $(GENARCH_XE)
-++##	$(EXP)$(GENARCH_XE) $(GLGEN)arch.h
-+
-+ # Platform interfaces
-+
-diff --git a/meta/recipes-extended/ghostscript/ghostscript_9.02.bb b/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-index dcdedad..e3d32dd 100644
---- a/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-+++ b/meta/recipes-extended/ghostscript/ghostscript_9.02.bb
-@@ -15,22 +15,32 @@ SECTION = "console/utils"
- LICENSE = "GPLv3"
- LIC_FILES_CHKSUM = "file://LICENSE;md5=d151214b3131251dfc9d858593acbd24"
- 
--PR = "r0"
-+PR = "r1"
- 
--DEPENDS = "tiff ${PN}-native"
-+DEPENDS = "${PN}-native tiff jpeg fontconfig cups"
- DEPENDS_virtclass-native = ""
- 
- SRC_URI = "http://downloads.ghostscript.com/public/ghostscript-${PV}.tar.bz2 \
-            file://ghostscript-9.02-prevent_recompiling.patch \
-+           file://ghostscript-9.02-genarch.patch \
-+           file://objarch.h \
-+           file://soobjarch.h \
-            "
- 
- SRC_URI[md5sum] = "f67151444bd56a7904579fc75a083dd6"
- SRC_URI[sha256sum] = "03ea2cad13a36f8f9160912012b79619a826e7148fada6d3531feb25409ee05a"
- 
--EXTRA_OECONF = "--with-system-libtiff --without-jbig2dec --without-jasper --x-includes=${STAGING_DIR_HOST}/usr/include/X11 --x-libraries=${STAGING_DIR_HOST}/usr/lib"
-+EXTRA_OECONF = "--without-x --with-system-libtiff --without-jbig2dec --without-jasper --with-fontpath=${datadir}/fonts"
- 
- inherit autotools
- 
-+do_configure_prepend () {
-+     mkdir -p obj
-+     mkdir -p soobj
-+     cp ${WORKDIR}/objarch.h obj/arch.h
-+     cp ${WORKDIR}/soobjarch.h soobj/arch.h
-+}
-+
- do_configure () {
-     oe_runconf
- 
-@@ -42,6 +52,12 @@ do_configure () {
-     done
- }
- 
-+do_install_append () {
-+    mkdir -p ${D}${datadir}/ghostscript/${PV}/
-+    cp -r Resource ${D}${datadir}/ghostscript/${PV}/
-+    cp -r iccprofiles ${D}${datadir}/ghostscript/${PV}/
-+}
-+
- python do_patch_virtclass-native () {
-     pass
- }
-diff --git a/meta/recipes-extended/ghostscript/i586/objarch.h b/meta/recipes-extended/ghostscript/i586/objarch.h
-new file mode 100644
-index 0000000..5817b7a
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/i586/objarch.h
-@@ -0,0 +1,41 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 4
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 0
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-+
-diff --git a/meta/recipes-extended/ghostscript/i586/soobjarch.h b/meta/recipes-extended/ghostscript/i586/soobjarch.h
-new file mode 100644
-index 0000000..5817b7a
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/i586/soobjarch.h
-@@ -0,0 +1,41 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 4
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 0
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-+
-diff --git a/meta/recipes-extended/ghostscript/mips/objarch.h b/meta/recipes-extended/ghostscript/mips/objarch.h
-new file mode 100644
-index 0000000..359097f
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/mips/objarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 1
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/mips/soobjarch.h b/meta/recipes-extended/ghostscript/mips/soobjarch.h
-new file mode 100644
-index 0000000..359097f
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/mips/soobjarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 1
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/powerpc/objarch.h b/meta/recipes-extended/ghostscript/powerpc/objarch.h
-new file mode 100644
-index 0000000..359097f
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/powerpc/objarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 1
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/powerpc/soobjarch.h b/meta/recipes-extended/ghostscript/powerpc/soobjarch.h
-new file mode 100644
-index 0000000..359097f
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/powerpc/soobjarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 4
-+#define ARCH_ALIGN_PTR_MOD 4
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 2
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 4
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 1
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/x86_64/objarch.h b/meta/recipes-extended/ghostscript/x86_64/objarch.h
-new file mode 100644
-index 0000000..a05de29
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/x86_64/objarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 8
-+#define ARCH_ALIGN_PTR_MOD 8
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 3
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 8
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 0
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
-diff --git a/meta/recipes-extended/ghostscript/x86_64/soobjarch.h b/meta/recipes-extended/ghostscript/x86_64/soobjarch.h
-new file mode 100644
-index 0000000..a05de29
---- /dev/null
-+++ b/meta/recipes-extended/ghostscript/x86_64/soobjarch.h
-@@ -0,0 +1,40 @@
-+/* Parameters derived from machine and compiler architecture. */
-+/* This file is generated mechanically by genarch.c. */
-+
-+	 /* ---------------- Scalar alignments ---------------- */
-+
-+#define ARCH_ALIGN_SHORT_MOD 2
-+#define ARCH_ALIGN_INT_MOD 4
-+#define ARCH_ALIGN_LONG_MOD 8
-+#define ARCH_ALIGN_PTR_MOD 8
-+#define ARCH_ALIGN_FLOAT_MOD 4
-+#define ARCH_ALIGN_DOUBLE_MOD 8
-+
-+	 /* ---------------- Scalar sizes ---------------- */
-+
-+#define ARCH_LOG2_SIZEOF_CHAR 0
-+#define ARCH_LOG2_SIZEOF_SHORT 1
-+#define ARCH_LOG2_SIZEOF_INT 2
-+#define ARCH_LOG2_SIZEOF_LONG 3
-+#define ARCH_LOG2_SIZEOF_LONG_LONG 3
-+#define ARCH_SIZEOF_GX_COLOR_INDEX 8
-+#define ARCH_SIZEOF_PTR 8
-+#define ARCH_SIZEOF_FLOAT 4
-+#define ARCH_SIZEOF_DOUBLE 8
-+#define ARCH_FLOAT_MANTISSA_BITS 24
-+#define ARCH_DOUBLE_MANTISSA_BITS 53
-+
-+	 /* ---------------- Unsigned max values ---------------- */
-+
-+#define ARCH_MAX_UCHAR ((unsigned char)0xff + (unsigned char)0)
-+#define ARCH_MAX_USHORT ((unsigned short)0xffff + (unsigned short)0)
-+#define ARCH_MAX_UINT ((unsigned int)~0 + (unsigned int)0)
-+#define ARCH_MAX_ULONG ((unsigned long)~0L + (unsigned long)0)
-+
-+	 /* ---------------- Miscellaneous ---------------- */
-+
-+#define ARCH_IS_BIG_ENDIAN 0
-+#define ARCH_PTRS_ARE_SIGNED 0
-+#define ARCH_FLOATS_ARE_IEEE 1
-+#define ARCH_ARITH_RSHIFT 2
-+#define ARCH_DIV_NEG_POS_TRUNCATES 1
--- 
-1.7.5.1.300.gc565c
+> If so, what is the motivation for checkout out of a subdir - as opposed to just
+> changing the recipe to build within that subdir?
+
+Some projects are huge with subprojects within projects as a hangover
+from svn source control for example (matchbox, clutter, bsd spring to
+mind with that structure). I can see a use case for it, particularly
+with the way the fetcher used to work as mentioned above.
+
+How do we marry this up against our desire to keep the SCM metadata
+around now? Good question...
+
+> Unless I'm missing a use-case (quite likely as there are next to no comments
+> articulating the rationale and approach taken)
+
+There are several design discussions on the mailing list for fetch2
+itself. We've concentrated on the overall architecture rather than the
+individual specific fetchers as I think they flow from the former and
+one needed to be got right before the other.
+
+I don't think there is detailed comments about the specific commands
+themselves although hopefully above you can see how we've arrived here.
+
+>  I think it would make more sense
+> to just checkout the required hash into a detached head for the build and update
+> any recipes that make use of the subdir option to build within than subdir.
+
+We need to be very careful about changing/breaking API but I agree the
+benefits we once had with subdir have become more minimal now we use the
+git metadata rather than the taring and untaring archives of source code
+for the unpack stage.
+
+> Alternatively, doing a checkout for the non subdir case would make most of the
+> recipes get this behavior while allowing the subdir users to remain untouched.
+
+I'd like to see your proposed checkout commands. We do need to be 100%
+sure that the given checkout matches 100% with the revision the system
+is trying to obtain which I believe is why the code has been left the
+way it has for so long.
+
+Cheers,
+
+Richard
+
 
 
