@@ -1,26 +1,27 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5A7114C80228
-	for <poky@yoctoproject.org>; Fri, 20 May 2011 19:08:00 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 20 May 2011 17:07:59 -0700
+Return-Path: <saul.wold@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CE1714C80228
+	for <poky@yoctoproject.org>; Fri, 20 May 2011 19:11:08 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 20 May 2011 17:11:08 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.65,244,1304319600"; 
-   d="scan'208";a="5515561"
-Received: from unknown (HELO [10.255.12.76]) ([10.255.12.76])
-	by fmsmga001.fm.intel.com with ESMTP; 20 May 2011 17:07:59 -0700
-Message-ID: <4DD7025D.10609@linux.intel.com>
-Date: Fri, 20 May 2011 17:07:57 -0700
-From: Darren Hart <dvhart@linux.intel.com>
+   d="scan'208";a="1809924"
+Received: from unknown (HELO [10.255.12.39]) ([10.255.12.39])
+	by orsmga001.jf.intel.com with ESMTP; 20 May 2011 17:10:51 -0700
+Message-ID: <4DD7030B.909@intel.com>
+Date: Fri, 20 May 2011 17:10:51 -0700
+From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
-References: <cover.1305508488.git.ke.yu@intel.com>	<95d6b08eb7982baacb334d6d774a204670b1ca1c.1305508488.git.ke.yu@intel.com>
-	<4DD6973B.4020708@gmail.com>
-In-Reply-To: <4DD6973B.4020708@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] git fetcher: add support for rebaseable git repo
+To: Darren Hart <dvhart@linux.intel.com>
+References: <cover.1305655392.git.nitin.a.kamble@intel.com>
+	<4DD6FEC2.9030503@linux.intel.com>
+In-Reply-To: <4DD6FEC2.9030503@linux.intel.com>
+Cc: poky@yoctoproject.org, Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 0/1] switch to gcc 4.6.0 for x86 x86-64 & arm
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,40 +33,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 21 May 2011 00:08:00 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sat, 21 May 2011 00:11:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 05/20/2011 09:30 AM, Khem Raj wrote:
-> On 5/15/2011 6:16 PM, Yu Ke wrote:
->> From: Yu Ke<ke.yu@intel.com>
+On 05/20/2011 04:52 PM, Darren Hart wrote:
+>
+>
+> On 05/17/2011 11:07 AM, Nitin A Kamble wrote:
+>> From: Nitin A Kamble<nitin.a.kamble@intel.com>
 >>
->> Some upstream git repo may rebase in the future, which means current
->> revision may disappear from the upstream repo after the rebase.
+>> gcc 4.6.0 is good enough to switch for x86, x86-64&  arm now.
 >>
->> current git fetcher can not handle this case, because the git mirror
->> tar ball is per repo, and may also change in the rebase and lost the
->> current revision info.
+>> I could build core-sdk images and run them through the qemu machines
+>> when compiled with gcc 4.6.0.
+>
+> Has all of meta-intel been built using 4.6.0? If not, that would be a
+> good test-case for the x86* architectures. Perhaps we could get a manual
+> scheduler up on the autobuilder for that to make it easy to kick off?
+>
+> What do you think Beth?
+>
+Maybe after M1 RC1 gets built
+
+Sau!
+
 >>
->> To fix this issue, this patch
->> - add rebaseable tag in the SRC_URI
->> - for rebaseable repo, make git mirror tar ball per revision, in this
->>    case, even upstream rebase, the git mirror still has the current
->>    revision info.
->> - for rebaseable repo, generate mirror tar ball by default, since the
->>    repo may change in the future.
-> 
-> Do we have the options to SRC_URI documented somewhere ?
-> if yes then this should be added there too.
+>> mips&  ppc are still not ready, mainly the kernel compilation issues
+>> with gcc 4.6.0. These kernel issues are being worked on by Bruce.
+>>
+>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>>    Branch: nitin/misc
+>>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>>
+>> Thanks,
+>>      Nitin A Kamble<nitin.a.kamble@intel.com>
+>> ---
+>>
+>>
+>> Nitin A Kamble (1):
+>>    tcmode-default: switch to gcc 4.6.0 for x86, x86-64&  arm
+>>
+>>   meta/conf/distro/include/tcmode-default.inc |    8 ++++++--
+>>   1 files changed, 6 insertions(+), 2 deletions(-)
+>>
+>
 
-I was looking and didn't find them. At the very least these should be
-documented in the fetch2/git.py file for reference when
-reviewing/maintaining the source.
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
