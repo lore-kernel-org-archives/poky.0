@@ -1,25 +1,26 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E3FF84C80A78
-	for <poky@yoctoproject.org>; Sun, 22 May 2011 12:11:29 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 22 May 2011 10:11:29 -0700
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id DE2344C80228
+	for <poky@yoctoproject.org>; Sun, 22 May 2011 16:54:30 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 22 May 2011 14:54:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,252,1304319600"; 
-   d="scan'208";a="5520688"
-Received: from nbuild2.sc.intel.com ([172.25.110.37])
-	by fmsmga002.fm.intel.com with ESMTP; 22 May 2011 10:11:29 -0700
-From: nitin.a.kamble@intel.com
-To: openembedded-core@lists.openembedded.org,
-	poky@yoctoproject.org
-Date: Sun, 22 May 2011 10:11:05 -0700
-Message-Id: <1045dacfe5b75bbb2f91e77afdf7ee016986a955.1306080531.git.nitin.a.kamble@intel.com>
-X-Mailer: git-send-email 1.7.3.5
-In-Reply-To: <301e248311c215357e51464fb0b7e1155311fc7a.1306080531.git.nitin.a.kamble@intel.com>
-References: <301e248311c215357e51464fb0b7e1155311fc7a.1306080531.git.nitin.a.kamble@intel.com>
-In-Reply-To: <cover.1306080531.git.nitin.a.kamble@intel.com>
-References: <cover.1306080531.git.nitin.a.kamble@intel.com>
-Subject: [PATCH 3/3] gplv2 recipes update upstream status of patches
+X-IronPort-AV: E=Sophos;i="4.65,253,1304319600"; 
+   d="scan'208";a="2700011"
+Received: from unknown (HELO [10.255.12.133]) ([10.255.12.133])
+	by orsmga001.jf.intel.com with ESMTP; 22 May 2011 14:54:29 -0700
+Message-ID: <4DD98615.8080507@intel.com>
+Date: Sun, 22 May 2011 14:54:29 -0700
+From: Saul Wold <saul.wold@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1305972143.git.xiaofeng.yan@windriver.com>	<d448b57c57fec346230d40fadc08625bd8c83224.1305972143.git.xiaofeng.yan@windriver.com>	<20110521184855.1248D1499BF2@gemini.denx.de>
+	<4DD87348.2070700@windriver.com>
+In-Reply-To: <4DD87348.2070700@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] sudo: Modify ownership for directory	"/var/lib"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,86 +32,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 22 May 2011 17:11:30 -0000
+X-List-Received-Date: Sun, 22 May 2011 21:54:31 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On 05/21/2011 07:22 PM, Xiaofeng Yan wrote:
+> On 2011年05月22日 02:48, Wolfgang Denk wrote:
+>> Dear Xiaofeng Yan,
+>>
+>> In message<d448b57c57fec346230d40fadc08625bd8c83224.1305972143.git.xiaofeng.yan@windriver.com>  you wrote:
+>>> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>>>
+>>> [YOCTO #1092]
+>>> Solve access permission for directory "/var/lib".
+>>> Makefile from package sudo change the ownership incorrectly.
+>>>
 
-grep-2.5.1a: update upstream status of patches
-tar-1.17: update upstream-status of patches
-at-3.1.12: update upstream-status for patches
-cpio-2.8: update upstream-status for patches
+Xiaofeng,
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- meta/recipes-extended/at/at-3.1.12/configure.patch |    2 ++
- .../cpio/cpio-2.8/m4extensions.patch               |    2 ++
- meta/recipes-extended/cpio/cpio-2.8/statdef.patch  |    2 ++
- .../grep/grep-2.5.1a/uclibc-fix.patch              |    2 ++
- .../recipes-extended/tar/tar-1.17/gcc43build.patch |    2 ++
- .../tar/tar-1.17/m4extensions.patch                |    2 ++
- 6 files changed, 12 insertions(+), 0 deletions(-)
+I would suggest you take a look at what nfs-utils is doing at rootfs 
+build time.  That might be the package that's causing problems.
 
-diff --git a/meta/recipes-extended/at/at-3.1.12/configure.patch b/meta/recipes-extended/at/at-3.1.12/configure.patch
-index 079a6b4..99b4077 100644
---- a/meta/recipes-extended/at/at-3.1.12/configure.patch
-+++ b/meta/recipes-extended/at/at-3.1.12/configure.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- Fix cross-compilation issues in configure.ac
- Derived from an OE patch for at-3.1.8
- 
-diff --git a/meta/recipes-extended/cpio/cpio-2.8/m4extensions.patch b/meta/recipes-extended/cpio/cpio-2.8/m4extensions.patch
-index 648c725..e16585d 100644
---- a/meta/recipes-extended/cpio/cpio-2.8/m4extensions.patch
-+++ b/meta/recipes-extended/cpio/cpio-2.8/m4extensions.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- # Define AC_USE_SYSTEM_EXTENSIONS only if it was previously undefined.
- # This is needed to configure correctly with newer versions of autoconf.
- 
-diff --git a/meta/recipes-extended/cpio/cpio-2.8/statdef.patch b/meta/recipes-extended/cpio/cpio-2.8/statdef.patch
-index dfa0d91..a00799f 100644
---- a/meta/recipes-extended/cpio/cpio-2.8/statdef.patch
-+++ b/meta/recipes-extended/cpio/cpio-2.8/statdef.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- # Avoid multiple stat definitions
- # Patch taken from cpio mailing list posting 2010-03-19
- 
-diff --git a/meta/recipes-extended/grep/grep-2.5.1a/uclibc-fix.patch b/meta/recipes-extended/grep/grep-2.5.1a/uclibc-fix.patch
-index 8fc7c48..de054fc 100644
---- a/meta/recipes-extended/grep/grep-2.5.1a/uclibc-fix.patch
-+++ b/meta/recipes-extended/grep/grep-2.5.1a/uclibc-fix.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- # Fix to use mempcpy instead of __mempcpy. This is needed for uclibc which
- # doesn't define __mempcpy, only mempcpy. Since both uclibc and glibc have
- # mempcpy, we'll just use that instead.
-diff --git a/meta/recipes-extended/tar/tar-1.17/gcc43build.patch b/meta/recipes-extended/tar/tar-1.17/gcc43build.patch
-index cc5f0e1..f8059a0 100644
---- a/meta/recipes-extended/tar/tar-1.17/gcc43build.patch
-+++ b/meta/recipes-extended/tar/tar-1.17/gcc43build.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- # Fix errors when built with gcc 4.3
- # Patch taken from Debian bug #452096
- 
-diff --git a/meta/recipes-extended/tar/tar-1.17/m4extensions.patch b/meta/recipes-extended/tar/tar-1.17/m4extensions.patch
-index 11b981a..30534c2 100644
---- a/meta/recipes-extended/tar/tar-1.17/m4extensions.patch
-+++ b/meta/recipes-extended/tar/tar-1.17/m4extensions.patch
-@@ -1,3 +1,5 @@
-+Upstream-Status: Inappropriate [licensing]
-+
- # Define AC_USE_SYSTEM_EXTENSIONS only if it was previously undefined.
- # This is needed to configure correctly with newer versions of autoconf.
- 
--- 
-1.7.3.4
+Sau!
+
+
+>>> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>>> ---
+>>>   meta/recipes-extended/sudo/sudo.inc |    1 +
+>>>   1 files changed, 1 insertions(+), 0 deletions(-)
+>>>
+>>> diff --git a/meta/recipes-extended/sudo/sudo.inc b/meta/recipes-extended/sudo/sudo.inc
+>>> index 6a04a9c..5ea089c 100644
+>>> --- a/meta/recipes-extended/sudo/sudo.inc
+>>> +++ b/meta/recipes-extended/sudo/sudo.inc
+>>> @@ -30,4 +30,5 @@ pkg_postinst_${PN} () {
+>>>
+>>>   	chmod 4111 /usr/bin/sudo
+>>>   	chmod 0440 /etc/sudoers
+>>> +	chmod 0755 /var/lib
+>> Sorry, but this commit message is misleading.  You don't change the
+>> ownership here, but the file permissions.
+>>
+> Hi Wolfgang Denk,
+> Thanks for your reply. I am make lsb test to pass LSB certification. LSB
+> Test suite check /vat/lib, but failed with the following information.
+> /tset/LSB.fhs/var/lib/lib-tc 1 	failed 	
+>
+>
+>         Message from the test:
+>
+> Reference 5.8-1(A)
+> The /var/lib directory exists and is searchable
+> Unexpected output written to stdout, as shown below:
+> stdout:lsb_test_dir: expected be able to search directory /var/lib, got an error
+> stdout:ls: cannot open directory /var/lib: Permission denied
+>
+>
+>
+> emenlow$ls /var/lib -l
+> drwx------ 10 root root 4096 May 20 19:21 lib
+>
+> For general machine, the ownership of this directory is as follow:
+> ubuntu$ls /var/lib -l
+> drwxr-xr-x 67 root root 4096 2010-12-15 23:30 lib
+>
+> In fact, many packages make a operation to directory "/var/lib". I find
+> the Makefile from package "sudo" change the ownership. Please review the
+> following patch.
+>
+> --- Makefile.orj 2011-05-21 16:32:35.392833427 +0800
+> +++ Makefile 2011-05-21 16:36:47.979380106 +0800
+> @@ -482,7 +482,7 @@
+> $(DESTDIR)$(visudodir) $(DESTDIR)$(noexecdir) \
+> $(DESTDIR)$(sudoersdir) $(DESTDIR)$(docdir) \
+> $(DESTDIR)$(mandirsu) $(DESTDIR)$(mandirform)
+> - $(SHELL) $(srcdir)/mkinstalldirs -m 0700 $(DESTDIR)$(timedir)
+> + $(SHELL) $(srcdir)/mkinstalldirs -m 0755 $(DESTDIR)$(timedir)
+>
+> install-binaries: install-dirs $(PROGS)
+> $(INSTALL) -b~ -O $(install_uid) -G $(install_gid) -M 04111 sudo
+> $(DESTDIR)$(sudodir)/sudo
+>
+> So "0700" make this directory without access permission. Perhaps it
+> could not be right method, I think you have a better method to solve
+> this problem. If you have, Please share with me.
+> Thanks for your suggestion again.
+>
+> Thanks
+> Yan
+>> Best regards,
+>>
+>> Wolfgang Denk
+>>
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
