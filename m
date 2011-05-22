@@ -1,35 +1,20 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1E54B4C80228
-	for <poky@yoctoproject.org>; Sun, 22 May 2011 10:49:25 -0500 (CDT)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id A443F1C1D9FE;
-	Sun, 22 May 2011 17:49:24 +0200 (CEST)
-X-Auth-Info: FP39aXnClJdaeCKaauhw4ELCfB56jk8Ua4CgO8P8OOY=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 197CF1C0004D;
-	Sun, 22 May 2011 17:49:24 +0200 (CEST)
-Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id EABEC320D041;
-	Sun, 22 May 2011 17:49:23 +0200 (CEST)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id BE3A0EA6690;
-	Sun, 22 May 2011 17:49:23 +0200 (CEST)
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-From: Wolfgang Denk <wd@denx.de>
-MIME-Version: 1.0
-In-reply-to: <4DD87348.2070700@windriver.com>
-References: <cover.1305972143.git.xiaofeng.yan@windriver.com>
-	<d448b57c57fec346230d40fadc08625bd8c83224.1305972143.git.xiaofeng.yan@windriver.com>
-	<20110521184855.1248D1499BF2@gemini.denx.de>
-	<4DD87348.2070700@windriver.com>
-Comments: In-reply-to Xiaofeng Yan <xiaofeng.yan@windriver.com>
-	message dated "Sun, 22 May 2011 10:22:00 +0800."
-Date: Sun, 22 May 2011 17:49:23 +0200
-Message-Id: <20110522154923.BE3A0EA6690@gemini.denx.de>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] sudo: Modify ownership for directory "/var/lib"
+Return-Path: <nitin.a.kamble@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 00E384C800A4
+	for <poky@yoctoproject.org>; Sun, 22 May 2011 12:11:05 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 22 May 2011 10:11:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,252,1304319600"; d="scan'208";a="440891695"
+Received: from nbuild2.sc.intel.com ([172.25.110.37])
+	by azsmga001.ch.intel.com with ESMTP; 22 May 2011 10:11:05 -0700
+From: nitin.a.kamble@intel.com
+To: openembedded-core@lists.openembedded.org,
+	poky@yoctoproject.org
+Date: Sun, 22 May 2011 10:10:48 -0700
+Message-Id: <cover.1306080531.git.nitin.a.kamble@intel.com>
+X-Mailer: git-send-email 1.7.3.5
+Subject: [PATCH 0/3] switch to newer eglibc & gcc versions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,40 +26,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 22 May 2011 15:49:27 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Sun, 22 May 2011 17:11:06 -0000
 
-Dear Xiaofeng Yan,
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-In message <4DD87348.2070700@windriver.com> you wrote:
->
-> Thanks for your reply. I am make lsb test to pass LSB certification. LSB 
-> Test suite check /vat/lib, but failed with the following information.
 
-I understand what you are doing.
+Switch to eglibc 2.13 from 2.12
+Switch to gcc 4.6.0 from 4.5.1 for mips & powerpc
 
-> So "0700" make this directory without access permission. Perhaps it 
-> could not be right method, I think you have a better method to solve 
-> this problem. If you have, Please share with me.
+Tested meta-toolchain, core-image-lsb-sdk & core-image-sato-sdk images with 
+these commits. And didn't notice any breakage. sdk compiler is working inside
+the images. and basic programs are working well inside the images.
 
-I'm not even trying to comment if your fix is a correct one or not.
+Also update patch status for some gplv2 recipes
 
-The description of the patch (Modify ownership) does not match with
-code (where you do not modify the _ownership_, but the _permissions_).
+The following changes since commit fc55b224caa3eeac4abda099ec9ed505db59fb28:
 
-From the subject I would expect to see a "chown" command, but instead
-I see a "chmod".
+  base.bbclass: use oe.data for OE_IMPORTS (2011-05-20 17:34:23 +0100)
 
-That's all I wanted to point out.
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib.git nitin/misc
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
 
-Best regards,
+Nitin A Kamble (3):
+  tcmode-default: switch to eglibc 2.13 from 2.12
+  tcmode-default: switch to gcc 4.6.0 for ppc & mips also
+  gplv2 recipes update upstream status of patches
 
-Wolfgang Denk
+ meta/conf/distro/include/tcmode-default.inc        |    6 +-----
+ meta/recipes-extended/at/at-3.1.12/configure.patch |    2 ++
+ .../cpio/cpio-2.8/m4extensions.patch               |    2 ++
+ meta/recipes-extended/cpio/cpio-2.8/statdef.patch  |    2 ++
+ .../grep/grep-2.5.1a/uclibc-fix.patch              |    2 ++
+ .../recipes-extended/tar/tar-1.17/gcc43build.patch |    2 ++
+ .../tar/tar-1.17/m4extensions.patch                |    2 ++
+ 7 files changed, 13 insertions(+), 5 deletions(-)
 
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-panic: kernel trap (ignored)
+1.7.3.4
+
 
