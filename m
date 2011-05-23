@@ -1,26 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 03F764C8057C
-	for <poky@pokylinux.org>; Mon, 23 May 2011 11:23:49 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4NGNlcu025315
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@pokylinux.org>; Mon, 23 May 2011 09:23:49 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Mon, 23 May 2011 09:23:47 -0700
-Message-ID: <4DDA8A12.1090506@windriver.com>
-Date: Mon, 23 May 2011 11:23:46 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4EA9E4C80485
+	for <poky@yoctoproject.org>; Mon, 23 May 2011 14:01:50 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 23 May 2011 12:01:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,257,1304319600"; 
+   d="scan'208";a="6306600"
+Received: from unknown (HELO [10.255.12.133]) ([10.255.12.133])
+	by fmsmga002.fm.intel.com with ESMTP; 23 May 2011 12:01:49 -0700
+Message-ID: <4DDAAF1C.3010005@linux.intel.com>
+Date: Mon, 23 May 2011 12:01:48 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Kang Kai <Kai.Kang@windriver.com>
-References: <4DDA3D8A.1000300@windriver.com>
-In-Reply-To: <4DDA3D8A.1000300@windriver.com>
-Cc: poky@pokylinux.org
-Subject: Re: Do LSB test unreported issues need fix?
+To: nitin.a.kamble@intel.com
+References: <cover.1306080531.git.nitin.a.kamble@intel.com>
+In-Reply-To: <cover.1306080531.git.nitin.a.kamble@intel.com>
+Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
+Subject: Re: [PATCH 0/3] switch to newer eglibc & gcc versions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,37 +31,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 May 2011 16:23:50 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Mon, 23 May 2011 19:01:50 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/23/11 5:57 AM, Kang Kai wrote:
-> Hi Mark,
-> 
-> I meet one test item of LSB core test,
-> 
-> /tset/LSB.fhs/var/lib-hwclock/lib-hwclock-tc 1    unreported
-> 
-> the result is unreported.
-> 
-> We were told that unreported issues don't need to be fixed. Would you 
-> give us some confirmation?
-> 
-> And this issue will test /var/lib/hwclock/adjtime whether exists,  if 
-> this issue needs to be fixed could I add it manually just as in 
-> attachment patch.
+On 05/22/2011 10:10 AM, nitin.a.kamble@intel.com wrote:
+> From: Nitin A Kamble<nitin.a.kamble@intel.com>
+>
+>
+> Switch to eglibc 2.13 from 2.12
+> Switch to gcc 4.6.0 from 4.5.1 for mips&  powerpc
+>
+> Tested meta-toolchain, core-image-lsb-sdk&  core-image-sato-sdk images with
+> these commits. And didn't notice any breakage. sdk compiler is working inside
+> the images. and basic programs are working well inside the images.
+>
+> Also update patch status for some gplv2 recipes
+>
+> The following changes since commit fc55b224caa3eeac4abda099ec9ed505db59fb28:
+>
+>    base.bbclass: use oe.data for OE_IMPORTS (2011-05-20 17:34:23 +0100)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib.git nitin/misc
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=nitin/misc
+>
+> Nitin A Kamble (3):
+>    tcmode-default: switch to eglibc 2.13 from 2.12
+>    tcmode-default: switch to gcc 4.6.0 for ppc&  mips also
+>    gplv2 recipes update upstream status of patches
+>
+>   meta/conf/distro/include/tcmode-default.inc        |    6 +-----
+>   meta/recipes-extended/at/at-3.1.12/configure.patch |    2 ++
+>   .../cpio/cpio-2.8/m4extensions.patch               |    2 ++
+>   meta/recipes-extended/cpio/cpio-2.8/statdef.patch  |    2 ++
+>   .../grep/grep-2.5.1a/uclibc-fix.patch              |    2 ++
+>   .../recipes-extended/tar/tar-1.17/gcc43build.patch |    2 ++
+>   .../tar/tar-1.17/m4extensions.patch                |    2 ++
+>   7 files changed, 13 insertions(+), 5 deletions(-)
+>
+Merged into oe-core and poky master.
 
-This would be a good one to specifically "note".  And given time, investigate.
-However, I would say it does not need to be fixed unless someone comes back and
-says "no I think this is a bug".
+Thanks
+	Sau!
 
-(In this particular case, if the hwclock doesn't exist on a machine -- or it has
-no time adjustment set, I don't believe it's actually required...  but it's good
-to know about.)
-
---Mark
-
-> Regards,
-> Kai
+BTW, in the future please send directly to oe-core, no need to cross post.
 
 
