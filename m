@@ -1,24 +1,33 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 286B84C80A85
-	for <poky@yoctoproject.org>; Mon, 23 May 2011 07:06:27 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4NC6Q7C006592
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Mon, 23 May 2011 05:06:26 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Mon, 23 May 2011 05:06:26 -0700
-Message-ID: <5b44a2f76573339d9b0bb15aade11d5c8b151464.1306151997.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1306151997.git.xiaofeng.yan@windriver.com>
-References: <cover.1306151997.git.xiaofeng.yan@windriver.com>
-Old-Date: Mon, 23 May 2011 16:50:22 +0800
-Date: Mon, 23 May 2011 20:04:49 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <akshat.embedded@gmail.com>
+Received: from mail-qy0-f176.google.com (mail-qy0-f176.google.com
+	[209.85.216.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 318DC4C800A4
+	for <poky@yoctoproject.org>; Mon, 23 May 2011 07:15:32 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by qyk30 with SMTP id 30so4011693qyk.14
+	for <poky@yoctoproject.org>; Mon, 23 May 2011 05:15:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=9DAuBvfIce24l1kvQ74Vg6YGv6MqmM2VVEvJA8c+gFo=;
+	b=at334TBM+731XyZb4WAa8k8uxbaOJM6/LVIgbOaL45HB5gAh5WW0ea3EVRhb/nitOj
+	0d3hU03p0/wEW9eHSRCBBoYE3mivsQZpPAdUJrjpJGeEFkMuzO2uKSOixzC+FXpaqc8E
+	46nvXUcpXt5IAtQ2HmKKjUF9VVyCMt/OK0V3E=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=kO0Rwxn+FbXFSajqUt4Of96PRfzVRk9t3FelCMQeihoG8kKhuuR4baA+rxcGYrSSLy
+	vuZxkAn30MuEbCf5gW6sANaDxPPpBRflg9bZiXNcIoONAoFdI/umiEIv/UYv1Xc+OnEu
+	jyCu01W/bChiU/PalkQcax3PgLgN2ss5OY+vI=
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] poky-lsb: Add libQtOpenGL* to lsb image for all platform
+Received: by 10.229.13.152 with SMTP id c24mr1666006qca.87.1306152931528; Mon,
+	23 May 2011 05:15:31 -0700 (PDT)
+Received: by 10.229.78.198 with HTTP; Mon, 23 May 2011 05:15:31 -0700 (PDT)
+Date: Mon, 23 May 2011 17:45:31 +0530
+Message-ID: <BANLkTik3e_YZfJrwb7xkM264HhCbbHg5cg@mail.gmail.com>
+From: Akshat Saha <akshat.embedded@gmail.com>
+To: poky@yoctoproject.org
+Subject: How to Enable OMAP3 SGX MODULES on BEAGLEBOARD
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,72 +39,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 May 2011 12:06:27 -0000
-Content-Type: text/plain
+X-List-Received-Date: Mon, 23 May 2011 12:15:33 -0000
+Content-Type: multipart/alternative; boundary=0015175748e8818ed904a3f06d5c
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+--0015175748e8818ed904a3f06d5c
+Content-Type: text/plain; charset=ISO-8859-1
 
-[YOCTO #1020]
-For a lsb image prepared to meet lsb requirement, library "libQtOpenGL" must be included in it \
-regardless of whether target platform provide graphic hardware or not?
-In poky, meta-xlib is default configuration for libx11.
-So qt4opengl can be supported when "meta-xlib" or "meta-dri" is enabled.
-Adding libQtOpenGL to all target platform is only suitable in lsb image.
-For other image, it depends on whether target platform has graphic function or not.
+Hi,
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta-yocto/conf/distro/poky-lsb.conf         |    2 +-
- meta/recipes-extended/tasks/task-core-lsb.bb |   18 +-----------------
- 2 files changed, 2 insertions(+), 18 deletions(-)
+Can anyone guide me, how to enable powervr drivers on beagleboard.
 
-diff --git a/meta-yocto/conf/distro/poky-lsb.conf b/meta-yocto/conf/distro/poky-lsb.conf
-index eb1cf82..29f526d 100644
---- a/meta-yocto/conf/distro/poky-lsb.conf
-+++ b/meta-yocto/conf/distro/poky-lsb.conf
-@@ -6,4 +6,4 @@ DISTROOVERRIDES = "poky:linuxstdbase"
- DISTRO_FEATURES += "pam largefile"
- PREFERRED_PROVIDER_virtual/libx11 = "libx11"
- 
--
-+QT_GLFLAGS = "-opengl"
-diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
-index b6c5ae5..a0a359e 100644
---- a/meta/recipes-extended/tasks/task-core-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-core-lsb.bb
-@@ -151,6 +151,7 @@ RDEPENDS_task-core-lsb-python-add = "\
- RDEPENDS_task-core-lsb-graphic-add = "\
-     libqtcore4 \
-     libqtgui4 \
-+    libqtopengl4 \
-     libqtsql4 \
-     libqtsvg4 \
-     libqtxml4 \
-@@ -170,23 +171,6 @@ RDEPENDS_task-core-lsb-graphic-add = "\
-     liberation-fonts \
- "
- 
--RDEPENDS_task-core-lsb-graphic-add_qemux86 = "\
--    libqtopengl4 \
--"
--RDEPENDS_task-core-lsb-graphic-add_atom-pc = "\
--    libqtopengl4 \
--"
--RDEPENDS_task-core-lsb-graphic-add_qemuppc = "\
--    libqtopengl4 \
--"
--RDEPENDS_task-core-lsb-graphic-add_emenlow = "\
--    libqtopengl4 \
--"
--
--RDEPENDS_task-core-lsb-graphic-add_mpc8315e-rdb = "\
--    libqtopengl4 \
--"
--
- #    mesa-dri 
- 
- RDEPENDS_task-core-lsb-runtime-add = "\
+Thanks in Advance.
+
 -- 
-1.7.0.4
+Akshat
 
+--0015175748e8818ed904a3f06d5c
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
+Hi,<div><br></div><div>Can anyone guide me, how to enable powervr drivers o=
+n beagleboard.=A0</div><div><br></div><div>Thanks in Advance.=A0<br clear=
+=3D"all"><br>-- <br><div><span style=3D"color:rgb(51, 51, 51);font-family:g=
+eorgia, serif">Akshat=A0</span></div>
+<div><br></div><br>
+</div>
+
+--0015175748e8818ed904a3f06d5c--
