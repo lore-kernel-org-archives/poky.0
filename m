@@ -1,25 +1,26 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 758054C804B8
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 02:22:18 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4O7MHYU020247
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 00:22:17 -0700 (PDT)
-Received: from localhost (128.224.162.193) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 24 May 2011 00:22:17 -0700
-Message-ID: <bc64b2950c365d2a9c1f96a0b7ff768029f5d08a.1306220168.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1306220168.git.jingdong.lu@windriver.com>
-References: <cover.1306220168.git.jingdong.lu@windriver.com>
-Old-Date: Tue, 24 May 2011 13:57:57 +0800
-Date: Tue, 24 May 2011 15:21:37 +0800
-To: <poky@yoctoproject.org>
-CC: 
-From: Jingdong Lu <jingdong.lu@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.193]
-Subject: [PATCH 1/1] libx11: fix libX11 keysyms to pass xts5 of lsb
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2FB7F4C804B8
+	for <poky@yoctoproject.org>; Tue, 24 May 2011 02:43:08 -0500 (CDT)
+Received: by wwk4 with SMTP id 4so2295653wwk.5
+	for <poky@yoctoproject.org>; Tue, 24 May 2011 00:43:08 -0700 (PDT)
+Received: by 10.227.37.7 with SMTP id v7mr3219354wbd.41.1306222986720;
+	Tue, 24 May 2011 00:43:06 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id ed10sm4583122wbb.15.2011.05.24.00.43.04
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Tue, 24 May 2011 00:43:05 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1084)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
+Date: Tue, 24 May 2011 09:43:03 +0200
+Message-Id: <80400B78-E961-4061-A19A-2E99CB6889C6@dominion.thruhere.net>
+References: <cover.1306220205.git.ke.yu@intel.com>
+	<e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
+To: Yu Ke <ke.yu@intel.com>
+X-Mailer: Apple Mail (2.1084)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] fetcher2/git: add document for git fetcher supported options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,138 +32,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2011 07:22:18 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 24 May 2011 07:43:09 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-From: Jingdong Lu <jingdong.lu@windriver.com>
 
-Fixes bug: [YOCTO #1095]
-Because of cross-compiling libx11 keysyms will cause Xts5 test of LSB fail.
-libx11 use a tool named "makekey" which compiled as a native tool to generate
-ks_tables.h. Because the size of "unsigned long" is different between 32-bit
-and 64-bit, we should judge whether our target is 32-bit or 64-bit and tell
-"makekey".
-I add a patch to "makekeys_crosscompile.patch" to "src/utils/makekeys.c" in
-order to deal with the different targets. If our target is 32-bit, we force
-the variable its type is "unsigned long" to "uint32_t". So we can generate a
-correct keysyms.
+Op 24 mei 2011, om 08:58 heeft Yu Ke het volgende geschreven:
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
----
- .../libx11-1.3.4/makekeys_crosscompile.patch       |   35 ++++++++++++++++++++
- .../recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb |    5 ++-
- meta/recipes-graphics/xorg-lib/libx11.inc          |    8 ++++-
- meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb     |    5 ++-
- 4 files changed, 48 insertions(+), 5 deletions(-)
- create mode 100644 meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch
+> CC: Khem Raj <raj.khem@gmail.com>
+> CC: Darren Hart <dvhart@linux.intel.com>
+> 
+> Signed-off-by: Yu Ke <ke.yu@intel.com>
+> ---
+> bitbake/lib/bb/fetch2/git.py |   37 ++++++++++++++++++++++++++++++++++---
+> 1 files changed, 34 insertions(+), 3 deletions(-)
+> protocol
+> +   The method to use to access the repository. Common options are "git",
+> +   "http", "file" and "rsync". The default is "rsync"
 
-diff --git a/meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch b/meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch
-new file mode 100644
-index 0000000..3070607
---- /dev/null
-+++ b/meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch
-@@ -0,0 +1,35 @@
-+--- libX11-1.3.4.orig/src/util/makekeys.c	2010-01-15 09:11:36.000000000 +0800
-++++ libX11-1.3.4/src/util/makekeys.c	2011-05-24 13:36:48.574775145 +0800
-+@@ -33,6 +33,7 @@
-+ #include <X11/keysymdef.h>
-+ #include <stdio.h>
-+ #include <stdlib.h>
-++#include <stdint.h>
-+ 
-+ typedef unsigned long Signature;
-+ 
-+@@ -124,7 +125,12 @@
-+ 	    name = info[i].name;
-+ 	    sig = 0;
-+ 	    while ((c = *name++))
-++#ifdef USE32
-++		sig = (uint32_t)(sig << 1) + c;
-++#else
-+ 		sig = (sig << 1) + c;
-++#endif
-++		
-+ 	    first = j = sig % z;
-+ 	    for (k = 0; tab[j]; k++) {
-+ 		j += first + 1;
-+@@ -163,7 +169,11 @@
-+ 	name = info[i].name;
-+ 	sig = 0;
-+ 	while ((c = *name++))
-++#ifdef USE32
-++	    sig = (uint32_t)(sig << 1) + c;
-++#else
-+ 	    sig = (sig << 1) + c;
-++#endif
-+ 	first = j = sig % z;
-+ 	while (offsets[j]) {
-+ 	    j += first + 1;
-diff --git a/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb b/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb
-index b013498..1469bc1 100644
---- a/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb
-+++ b/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb
-@@ -5,12 +5,13 @@ DESCRIPTION += " Support for XCB, and XCMS is disabled in this version."
- LICENSE = "MIT & MIT-style & BSD"
- LIC_FILES_CHKSUM = "file://COPYING;md5=bf75bfe4d05068311b5e6862d4b5f2c5"
- 
--PR = "r0"
-+PR = "r1"
- 
- DEPENDS += "libxcb xproto xextproto xtrans libxau kbproto inputproto xf86bigfontproto xproto-native"
- 
- SRC_URI += "file://../libx11-${PV}/x11_disable_makekeys.patch \
-             file://../libx11-${PV}/include_fix.patch \
--            file://../libx11-${PV}/nodolt.patch"
-+            file://../libx11-${PV}/nodolt.patch \
-+            file://../libx11-${PV}/makekeys_crosscompile.patch"
- 
- EXTRA_OECONF += "--disable-xcms --with-xcb"
-diff --git a/meta/recipes-graphics/xorg-lib/libx11.inc b/meta/recipes-graphics/xorg-lib/libx11.inc
-index 030b0db..c156ce6 100644
---- a/meta/recipes-graphics/xorg-lib/libx11.inc
-+++ b/meta/recipes-graphics/xorg-lib/libx11.inc
-@@ -6,6 +6,8 @@ basic functions of the window system."
- 
- require xorg-lib-common.inc
- 
-+inherit siteinfo
-+
- PROVIDES = "virtual/libx11"
- 
- XORG_PN = "libX11"
-@@ -22,7 +24,11 @@ do_compile() {
- 	touch makekeys-makekeys.o
- 	(
- 		unset CC LD CXX CCLD CFLAGS CPPFLAGS LDFLAGS CXXFLAGS
--		${BUILD_CC} ${BUILD_CFLAGS} -I${STAGING_INCDIR_NATIVE} makekeys.c -o makekeys
-+		if [ "${SITEINFO_BITS}" == "64" ]; then
-+                        ${BUILD_CC} ${BUILD_CFLAGS} -I${STAGING_INCDIR_NATIVE} makekeys.c -o makekeys
-+                else
-+                        ${BUILD_CC} ${BUILD_CFLAGS} -I${STAGING_INCDIR_NATIVE} -DUSE32 makekeys.c -o makekeys
-+                fi
- 	)
- 	if [ "$?" != "0" ]; then
- 		exit 1
-diff --git a/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb b/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb
-index 08ba07b..3e046a1 100644
---- a/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb
-+++ b/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb
-@@ -5,11 +5,12 @@ LICENSE = "MIT & MIT-style & BSD"
- LIC_FILES_CHKSUM = "file://COPYING;md5=bf75bfe4d05068311b5e6862d4b5f2c5"
- 
- PE = "1"
--PR = "r0"
-+PR = "r1"
- 
- SRC_URI += "file://x11_disable_makekeys.patch \
-             file://nodolt.patch \
--            file://include_fix.patch"
-+            file://include_fix.patch \
-+	    file://makekeys_crosscompile.patch"
- 
- SRC_URI[md5sum] = "f65c9c7ecbfb64c19dbd7927160d63fd"
- SRC_URI[sha256sum] = "88d7238ce5f7cd123450567de7a3b56a43556e4ccc45df38b8324147c889a844"
--- 
-1.7.0.4
+In this day and age shouldn't we change the default to 'git'?
 
+regards,
+
+Koen
 
