@@ -1,25 +1,26 @@
-Return-Path: <Jingdong.Lu@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5B0504C80485
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 06:14:11 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4OBEARG029430
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 04:14:10 -0700 (PDT)
-Received: from localhost (128.224.162.193) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 24 May 2011 04:14:10 -0700
-Message-ID: <c6dde065b9fafabeda6904c23118a11e99d23e08.1306235471.git.jingdong.lu@windriver.com>
-In-Reply-To: <cover.1306235471.git.jingdong.lu@windriver.com>
-References: <cover.1306235471.git.jingdong.lu@windriver.com>
-Old-Date: Tue, 24 May 2011 13:57:57 +0800
-Date: Tue, 24 May 2011 19:13:29 +0800
-To: <poky@yoctoproject.org>
-CC: 
-From: Jingdong Lu <jingdong.lu@windriver.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 13F524C800AF
+	for <poky@yoctoproject.org>; Tue, 24 May 2011 09:38:31 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 24 May 2011 07:38:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,261,1304319600"; 
+   d="scan'208";a="7810492"
+Received: from unknown (HELO [10.255.12.131]) ([10.255.12.131])
+	by fmsmga001.fm.intel.com with ESMTP; 24 May 2011 07:37:18 -0700
+Message-ID: <4DDBC29D.1070407@linux.intel.com>
+Date: Tue, 24 May 2011 07:37:17 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.193]
-Subject: [PATCH 1/1] libx11: fix libX11 keysyms to pass xts5 of lsb
+To: Yu Ke <ke.yu@intel.com>
+References: <cover.1305508488.git.ke.yu@intel.com>	<95d6b08eb7982baacb334d6d774a204670b1ca1c.1305508488.git.ke.yu@intel.com>	<4DD6973B.4020708@gmail.com>
+	<4DD7025D.10609@linux.intel.com> <4DDB4741.9000002@intel.com>
+In-Reply-To: <4DDB4741.9000002@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] git fetcher: add support for rebaseable git repo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,140 +32,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2011 11:14:11 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 24 May 2011 14:38:32 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-From: Jingdong Lu <jingdong.lu@windriver.com>
 
-Fixes bug: [YOCTO #1095]
-Because of cross-compiling libx11 keysyms will cause Xts5 test of LSB fail.
-libx11 use a tool named "makekey" which compiled as a native tool to generate
-ks_tables.h. Because the size of "unsigned long" is different between 32-bit
-and 64-bit, we should judge whether our target is 32-bit or 64-bit and tell
-"makekey".
-I add a patch to "makekeys_crosscompile.patch" to "src/utils/makekeys.c" in
-order to deal with the different targets. If our target is 32-bit, we force
-the variable its type is "unsigned long" to "uint32_t". So we can generate a
-correct keysyms.
 
-Signed-off-by: Jingdong Lu <jingdong.lu@windriver.com>
----
- .../libx11-1.3.4/makekeys_crosscompile.patch       |   37 ++++++++++++++++++++
- .../recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb |    5 ++-
- meta/recipes-graphics/xorg-lib/libx11.inc          |    8 ++++-
- meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb     |    5 ++-
- 4 files changed, 50 insertions(+), 5 deletions(-)
- create mode 100644 meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch
+On 05/23/2011 10:50 PM, Yu Ke wrote:
+> on 2011-5-21 8:07, Darren Hart wrote:
+>>
+>>
+>> On 05/20/2011 09:30 AM, Khem Raj wrote:
+>>> On 5/15/2011 6:16 PM, Yu Ke wrote:
+>>>> From: Yu Ke<ke.yu@intel.com>
+>>>>
+>>>> Some upstream git repo may rebase in the future, which means current
+>>>> revision may disappear from the upstream repo after the rebase.
+>>>>
+>>>> current git fetcher can not handle this case, because the git mirror
+>>>> tar ball is per repo, and may also change in the rebase and lost the
+>>>> current revision info.
+>>>>
+>>>> To fix this issue, this patch
+>>>> - add rebaseable tag in the SRC_URI
+>>>> - for rebaseable repo, make git mirror tar ball per revision, in this
+>>>>     case, even upstream rebase, the git mirror still has the current
+>>>>     revision info.
+>>>> - for rebaseable repo, generate mirror tar ball by default, since the
+>>>>     repo may change in the future.
+>>>
+>>> Do we have the options to SRC_URI documented somewhere ?
+>>> if yes then this should be added there too.
+>>
+>> I was looking and didn't find them. At the very least these should be
+>> documented in the fetch2/git.py file for reference when
+>> reviewing/maintaining the source.
+>>
+> 
+> This is good reminder, Thanks.
+> 
+> There are several places that hold this info:
+> 
+> - bitbake manual: http://bitbake.berlios.de/manual/ch03s07.html
+> - openembedded manual: 
+> http://docs.openembedded.org/usermanual/usermanual.html#id572539
+> - poky reference manual: 
+> http://www.yoctoproject.org/docs/poky-ref-manual/poky-ref-manual.html#ref-bitbake-fetchers
+> 
+> It looks the most appropriate place would be bitbake manual, which is 
+> also refereed by poky reference manual. So does anyone know how can I 
+> update this mannual?
 
-diff --git a/meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch b/meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch
-new file mode 100644
-index 0000000..88d66bf
---- /dev/null
-+++ b/meta/recipes-graphics/xorg-lib/libx11-1.3.4/makekeys_crosscompile.patch
-@@ -0,0 +1,37 @@
-+--- libX11-1.3.4.orig/src/util/makekeys.c	2010-01-15 09:11:36.000000000 +0800
-++++ libX11-1.3.4/src/util/makekeys.c	2011-05-24 19:04:25.454774908 +0800
-+@@ -33,6 +33,7 @@
-+ #include <X11/keysymdef.h>
-+ #include <stdio.h>
-+ #include <stdlib.h>
-++#include <stdint.h>
-+ 
-+ typedef unsigned long Signature;
-+ 
-+@@ -124,7 +125,12 @@
-+ 	    name = info[i].name;
-+ 	    sig = 0;
-+ 	    while ((c = *name++))
-+-		sig = (sig << 1) + c;
-++#ifdef USE32
-++		sig = (uint32_t)(sig << 1) + c;
-++#else
-++		sig = (uint64_t)(sig << 1) + c;
-++#endif
-++		
-+ 	    first = j = sig % z;
-+ 	    for (k = 0; tab[j]; k++) {
-+ 		j += first + 1;
-+@@ -163,7 +169,11 @@
-+ 	name = info[i].name;
-+ 	sig = 0;
-+ 	while ((c = *name++))
-+-	    sig = (sig << 1) + c;
-++#ifdef USE32
-++	    sig = (uint32_t)(sig << 1) + c;
-++#else
-++	    sig = (uint64_t)(sig << 1) + c;
-++#endif
-+ 	first = j = sig % z;
-+ 	while (offsets[j]) {
-+ 	    j += first + 1;
-diff --git a/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb b/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb
-index b013498..1469bc1 100644
---- a/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb
-+++ b/meta/recipes-graphics/xorg-lib/libx11-trim_1.3.4.bb
-@@ -5,12 +5,13 @@ DESCRIPTION += " Support for XCB, and XCMS is disabled in this version."
- LICENSE = "MIT & MIT-style & BSD"
- LIC_FILES_CHKSUM = "file://COPYING;md5=bf75bfe4d05068311b5e6862d4b5f2c5"
- 
--PR = "r0"
-+PR = "r1"
- 
- DEPENDS += "libxcb xproto xextproto xtrans libxau kbproto inputproto xf86bigfontproto xproto-native"
- 
- SRC_URI += "file://../libx11-${PV}/x11_disable_makekeys.patch \
-             file://../libx11-${PV}/include_fix.patch \
--            file://../libx11-${PV}/nodolt.patch"
-+            file://../libx11-${PV}/nodolt.patch \
-+            file://../libx11-${PV}/makekeys_crosscompile.patch"
- 
- EXTRA_OECONF += "--disable-xcms --with-xcb"
-diff --git a/meta/recipes-graphics/xorg-lib/libx11.inc b/meta/recipes-graphics/xorg-lib/libx11.inc
-index 030b0db..c156ce6 100644
---- a/meta/recipes-graphics/xorg-lib/libx11.inc
-+++ b/meta/recipes-graphics/xorg-lib/libx11.inc
-@@ -6,6 +6,8 @@ basic functions of the window system."
- 
- require xorg-lib-common.inc
- 
-+inherit siteinfo
-+
- PROVIDES = "virtual/libx11"
- 
- XORG_PN = "libX11"
-@@ -22,7 +24,11 @@ do_compile() {
- 	touch makekeys-makekeys.o
- 	(
- 		unset CC LD CXX CCLD CFLAGS CPPFLAGS LDFLAGS CXXFLAGS
--		${BUILD_CC} ${BUILD_CFLAGS} -I${STAGING_INCDIR_NATIVE} makekeys.c -o makekeys
-+		if [ "${SITEINFO_BITS}" == "64" ]; then
-+                        ${BUILD_CC} ${BUILD_CFLAGS} -I${STAGING_INCDIR_NATIVE} makekeys.c -o makekeys
-+                else
-+                        ${BUILD_CC} ${BUILD_CFLAGS} -I${STAGING_INCDIR_NATIVE} -DUSE32 makekeys.c -o makekeys
-+                fi
- 	)
- 	if [ "$?" != "0" ]; then
- 		exit 1
-diff --git a/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb b/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb
-index 08ba07b..3e046a1 100644
---- a/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb
-+++ b/meta/recipes-graphics/xorg-lib/libx11_1.3.4.bb
-@@ -5,11 +5,12 @@ LICENSE = "MIT & MIT-style & BSD"
- LIC_FILES_CHKSUM = "file://COPYING;md5=bf75bfe4d05068311b5e6862d4b5f2c5"
- 
- PE = "1"
--PR = "r0"
-+PR = "r1"
- 
- SRC_URI += "file://x11_disable_makekeys.patch \
-             file://nodolt.patch \
--            file://include_fix.patch"
-+            file://include_fix.patch \
-+	    file://makekeys_crosscompile.patch"
- 
- SRC_URI[md5sum] = "f65c9c7ecbfb64c19dbd7927160d63fd"
- SRC_URI[sha256sum] = "88d7238ce5f7cd123450567de7a3b56a43556e4ccc45df38b8324147c889a844"
+I've provided a couple minor fixes to the manual. I just edited:
+
+poky.git/bitbake/doc/manual/usermanual.xml
+
+And sent the patch to the poky list. It might be preferable to develop
+against the actual bitbake repository, but nobody has complained yet :-)
+
+> 
+> Also, it sounds good idea to add the SRC_URI options doc in the source, 
+> I will cook a patch to add this info.
+
+Great! Thanks Ke,
+
+> 
+> Regards
+> Ke
+
 -- 
-1.7.0.4
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
