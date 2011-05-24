@@ -1,26 +1,47 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A38394C803BA
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 11:13:04 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id E00331660395; Tue, 24 May 2011 10:13:03 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7F34516601B1;
-	Tue, 24 May 2011 10:13:03 -0600 (MDT)
-Message-ID: <4DDBD90F.9080706@mlbassoc.com>
-Date: Tue, 24 May 2011 10:13:03 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pw0-f48.google.com (mail-pw0-f48.google.com
+	[209.85.160.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 366024C800E5
+	for <poky@yoctoproject.org>; Tue, 24 May 2011 12:18:21 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pwi16 with SMTP id 16so4454628pwi.35
+	for <poky@yoctoproject.org>; Tue, 24 May 2011 10:18:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:date:from:to:cc:subject:message-id
+	:mail-followup-to:references:mime-version:content-type
+	:content-disposition:in-reply-to:user-agent;
+	bh=KAPEuIPAmH1GCbAep/XqdwXGFcRqWuEP1Ho3EujTu5c=;
+	b=eWUWHbKnA9eucUN7Ux0r+ZAA8htwUZj8drX+jAk+emm9+CHDOKovkVt9WGAIud3C28
+	xTf9Y4Aju8XYC+OapboigBAl2WfiW47YLl7MN0+pvjTZ55VjUW2P3wSmbXXXPs7fj47+
+	Bo/0cRnT1hd753KfWQmgtRP0lDBrgq6OFTF44=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=date:from:to:cc:subject:message-id:mail-followup-to:references
+	:mime-version:content-type:content-disposition:in-reply-to
+	:user-agent;
+	b=E0jgHVJrzDW9C9qHjuctoIz9NlFDMAUqvRbQzEdKEP3zML82FCjXRPL/WsfzbOOGLa
+	AGuZidpngACDDpXEElMx5JifIlvr6jswykXZfElNIXwdpWB0IBAPjf6Ej4nEgCFCFEbB
+	KFvYplTjonoT2Uc2yZAibcPLFMny3CX55hbFY=
+Received: by 10.68.20.71 with SMTP id l7mr2883991pbe.293.1306257500697;
+	Tue, 24 May 2011 10:18:20 -0700 (PDT)
+Received: from sakrah.homelinux.org
+	(99-57-141-118.lightspeed.sntcca.sbcglobal.net [99.57.141.118])
+	by mx.google.com with ESMTPS id b4sm5110291pbo.80.2011.05.24.10.18.18
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Tue, 24 May 2011 10:18:19 -0700 (PDT)
+Date: Tue, 24 May 2011 10:17:02 -0700
+From: Khem Raj <raj.khem@gmail.com>
+To: Yu Ke <ke.yu@intel.com>
+Message-ID: <20110524171702.GB18086@sakrah.homelinux.org>
+Mail-Followup-To: Yu Ke <ke.yu@intel.com>, poky@yoctoproject.org
+References: <cover.1306220205.git.ke.yu@intel.com>
+	<e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Over-exuberant error printing?
+In-Reply-To: <e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] fetcher2/git: add document for git fetcher supported options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,27 +53,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2011 16:13:05 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 24 May 2011 17:18:21 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Building from today's master (3504c3a9b1af5a3405e0a03a5ade50b82535b6dd)
-if I get an error, I get two lines printed for each real line, e.g.
-| ERROR: The stack trace of python calls that resulted in this exception/failure was:
-| ERROR: The stack trace of python calls that resulted in this exception/failure was:
-| ERROR:   File "sstate_task_postfunc", line 10, in <module>
-| ERROR:   File "sstate_task_postfunc", line 10, in <module>
-| ERROR:
-| ERROR:
-| ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
-| ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
-etc.
+On (24/05/11 14:58), Yu Ke wrote:
+> CC: Khem Raj <raj.khem@gmail.com>
+> CC: Darren Hart <dvhart@linux.intel.com>
+> 
+> Signed-off-by: Yu Ke <ke.yu@intel.com>
+> ---
+>  bitbake/lib/bb/fetch2/git.py |   37 ++++++++++++++++++++++++++++++++++---
+>  1 files changed, 34 insertions(+), 3 deletions(-)
+> 
+> diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
+> index 82721c6..b07298d 100644
+> --- a/bitbake/lib/bb/fetch2/git.py
+> +++ b/bitbake/lib/bb/fetch2/git.py
+> @@ -3,6 +3,40 @@
+>  """
+>  BitBake 'Fetch' git implementation
+>  
+> +git fetcher support the SRC_URI with format of:
+> +SRC_URI = "git://some.host/somepath;OptionA=xxx;OptionB=xxx;..."
+> +
+> +Supported SRC_URI options are:
+> +
+> +- branch
+> +   The git branch to retrieve from. The default is "master"
+> +
+> +   this option also support multiple branches fetching, branches
+> +   are seperated by comma. in multiple branches case, the name option
+> +   must have the same number of names to match the branches, which is
+> +   used to specify the SRC_REV for the branch
+> +   e.g:
+> +   SRC_URI="git://some.host/somepath;branch=branchX,branchY;name=nameX,nameY"
+> +   SRCREV_nameX = "xxxxxxxxxxxxxxxxxxxx"
+> +   SRCREV_nameY = "YYYYYYYYYYYYYYYYYYYY"
+> +
+> +- tag
+> +    The git tag to retrieve. The default is "master"
+> +
+> +- protocol
+> +   The method to use to access the repository. Common options are "git",
+> +   "http", "file" and "rsync". The default is "rsync"
+> +
+> +- rebaseable
+> +   rebaseable indicates that the upstream git repo may rebase in the future,
+> +   and current revision may disappear from upstream repo. This option will
+> +   reminder fetcher to preserve local cache carefully for future use.
+> +   The default value is "0", set rebaseable=1 for rebaseable git repo
 
-This is new behavior - any ideas?
+for consistency why not make rebaseable=true/false as well ?
+
+> +
+> +- nocheckout
+> +   Don't checkout source code when unpacking. set this option for the recipe
+> +   who has its own routine to checkout code. The default is false
+                                                                ^^^^
+may be it should be in '' or quotes
+
+
+
+> +
+>  """
+>  
+>  #Copyright (C) 2005 Richard Purdie
+> @@ -57,9 +91,6 @@ class Git(FetchMethod):
+>          if 'nocheckout' in ud.parm:
+>              ud.nocheckout = True
+>  
+> -        # rebaseable means the upstream git repo may rebase in the future,
+> -        # and current revision may disappear from upstream repo
+> -        # rebaseable is false by default. set rebaseable=1 in SRC_URI if rebaseable.
+>          ud.rebaseable = ud.parm.get("rebaseable","0") == "1"
+>  
+>          branches = ud.parm.get("branch", "master").split(',')
+> -- 
+> 1.7.0.4
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+-Khem
 
