@@ -1,24 +1,25 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2FB7F4C804B8
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 02:43:08 -0500 (CDT)
-Received: by wwk4 with SMTP id 4so2295653wwk.5
-	for <poky@yoctoproject.org>; Tue, 24 May 2011 00:43:08 -0700 (PDT)
-Received: by 10.227.37.7 with SMTP id v7mr3219354wbd.41.1306222986720;
-	Tue, 24 May 2011 00:43:06 -0700 (PDT)
-Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id ed10sm4583122wbb.15.2011.05.24.00.43.04
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 24 May 2011 00:43:05 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
-Date: Tue, 24 May 2011 09:43:03 +0200
-Message-Id: <80400B78-E961-4061-A19A-2E99CB6889C6@dominion.thruhere.net>
-References: <cover.1306220205.git.ke.yu@intel.com>
-	<e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
-To: Yu Ke <ke.yu@intel.com>
-X-Mailer: Apple Mail (2.1084)
+Return-Path: <ke.yu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 65A4B4C80579
+	for <poky@yoctoproject.org>; Tue, 24 May 2011 02:55:16 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 24 May 2011 00:55:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,260,1304319600"; 
+   d="scan'208";a="7673674"
+Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
+	([10.238.154.142])
+	by fmsmga001.fm.intel.com with ESMTP; 24 May 2011 00:54:15 -0700
+Message-ID: <4DDB6426.8020602@intel.com>
+Date: Tue, 24 May 2011 15:54:14 +0800
+From: Yu Ke <ke.yu@intel.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
+	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Koen Kooi <koen@dominion.thruhere.net>
+References: <cover.1306220205.git.ke.yu@intel.com>	<e2bf7f2c627346574195eba57b665f4de4757c8a.1306220205.git.ke.yu@intel.com>
+	<80400B78-E961-4061-A19A-2E99CB6889C6@dominion.thruhere.net>
+In-Reply-To: <80400B78-E961-4061-A19A-2E99CB6889C6@dominion.thruhere.net>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 1/1] fetcher2/git: add document for git fetcher supported options
 X-BeenThere: poky@yoctoproject.org
@@ -32,27 +33,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 May 2011 07:43:09 -0000
-Content-Type: text/plain; charset=us-ascii
+X-List-Received-Date: Tue, 24 May 2011 07:55:16 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+on 2011-5-24 15:43, Koen Kooi wrote:
+> In this day and age shouldn't we change the default to 'git'?
 
-Op 24 mei 2011, om 08:58 heeft Yu Ke het volgende geschreven:
+Yup, it make sense. let me work out another patch to change the default 
+protocol to git.
 
-> CC: Khem Raj <raj.khem@gmail.com>
-> CC: Darren Hart <dvhart@linux.intel.com>
-> 
-> Signed-off-by: Yu Ke <ke.yu@intel.com>
-> ---
-> bitbake/lib/bb/fetch2/git.py |   37 ++++++++++++++++++++++++++++++++++---
-> 1 files changed, 34 insertions(+), 3 deletions(-)
-> protocol
-> +   The method to use to access the repository. Common options are "git",
-> +   "http", "file" and "rsync". The default is "rsync"
-
-In this day and age shouldn't we change the default to 'git'?
-
-regards,
-
-Koen
+Regards
+Ke
 
