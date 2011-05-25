@@ -1,24 +1,25 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9CE6E4C8043A
-	for <poky@yoctoproject.org>; Wed, 25 May 2011 12:34:01 -0500 (CDT)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 592044C80335
+	for <poky@yoctoproject.org>; Wed, 25 May 2011 12:59:58 -0500 (CDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 25 May 2011 10:34:01 -0700
+	by fmsmga102.fm.intel.com with ESMTP; 25 May 2011 10:59:58 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.65,268,1304319600"; 
-   d="scan'208";a="7492487"
-Received: from unknown (HELO localhost) ([10.255.12.181])
-	by fmsmga002.fm.intel.com with ESMTP; 25 May 2011 10:34:00 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 25 May 2011 10:33:55 -0700
-Message-Id: <1a47266fdcdf11866c97b19e3c3983fd1eb3a724.1306344536.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.1
-In-Reply-To: <cover.1306344536.git.dvhart@linux.intel.com>
-References: <cover.1306344536.git.dvhart@linux.intel.com>
-Cc: Darren Hart <dvhart@linux.intel.com>,
-	Jeff Osier-mixon <jeffrey.osier-mixon@intel.com>
-Subject: [PATCH 1/1] README.hardware: update installation instructions for beagleboard
+   d="scan'208";a="7507619"
+Received: from unknown (HELO [10.255.12.133]) ([10.255.12.133])
+	by fmsmga002.fm.intel.com with ESMTP; 25 May 2011 10:59:57 -0700
+Message-ID: <4DDD439D.50109@linux.intel.com>
+Date: Wed, 25 May 2011 10:59:57 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1305963432.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1305963432.git.kai.kang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1]ghostscript: add patches to make it run cross compile platform V2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,78 +31,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 May 2011 17:34:01 -0000
+X-List-Received-Date: Wed, 25 May 2011 17:59:58 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-o Add C4 specific instructions
-o Replace poky with core
-o Correct a kernel version typo
+On 05/21/2011 01:24 AM, Kang Kai wrote:
+> From: Kang Kai<kai.kang@windriver.com>
+>
+> Hi Richard,
+>
+> I update the patches with your opinion, thanks!
+>
+> When test lsb on ppc find that gs can't run. The root cause is gs determines some target configuration
+> on build system. According to the document of ghostscript,
+> http://pages.cs.wisc.edu/~ghost/doc/cvs/Make.htm#Cross-compiling
+> when cross compile ghostscript need some manual work.
+> So import patches from WindRiver Linux to make sure ghostscript can be cross compiled, and spit the patches
+> into arch/[so]obj.h source files.
+>
+> The following changes since commit 7706d5d844db2725f4118207d90e302679eacdfe:
+>
+>    linux-yocto/meta-yocto: fix gcc 4.6.0 compilation failures (2011-05-19 17:33:50 -0700)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib.git kangkai/distro
+>    http://git.pokylinux.org/cgit.cgi//log/?h=kangkai/distro
+>
+> Kang Kai (1):
+>    ghostscript: fix run failure on mpc8315e
+>
+>   meta/recipes-extended/ghostscript/arm/objarch.h    |   40 +++++++++++++++++++
+>   meta/recipes-extended/ghostscript/arm/soobjarch.h  |   40 +++++++++++++++++++
+>   .../ghostscript/ghostscript-9.02-genarch.patch     |   27 +++++++++++++
+>   .../ghostscript/ghostscript_9.02.bb                |   22 +++++++++-
+>   meta/recipes-extended/ghostscript/i586/objarch.h   |   41 ++++++++++++++++++++
+>   meta/recipes-extended/ghostscript/i586/soobjarch.h |   41 ++++++++++++++++++++
+>   meta/recipes-extended/ghostscript/mips/objarch.h   |   40 +++++++++++++++++++
+>   meta/recipes-extended/ghostscript/mips/soobjarch.h |   40 +++++++++++++++++++
+>   .../recipes-extended/ghostscript/powerpc/objarch.h |   40 +++++++++++++++++++
+>   .../ghostscript/powerpc/soobjarch.h                |   40 +++++++++++++++++++
+>   meta/recipes-extended/ghostscript/x86_64/objarch.h |   40 +++++++++++++++++++
+>   .../ghostscript/x86_64/soobjarch.h                 |   40 +++++++++++++++++++
+>   12 files changed, 448 insertions(+), 3 deletions(-)
+>   create mode 100644 meta/recipes-extended/ghostscript/arm/objarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/arm/soobjarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/ghostscript/ghostscript-9.02-genarch.patch
+>   create mode 100644 meta/recipes-extended/ghostscript/i586/objarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/i586/soobjarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/mips/objarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/mips/soobjarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/powerpc/objarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/powerpc/soobjarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/x86_64/objarch.h
+>   create mode 100644 meta/recipes-extended/ghostscript/x86_64/soobjarch.h
+>
+Merged into oe-core and poky
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-Cc: Zhao Yi <yi.zhao@windriver.com>
-Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
-Cc: Jeff Osier-mixon <jeffrey.osier-mixon@intel.com>
----
- README.hardware |   24 ++++++++++++++----------
- 1 files changed, 14 insertions(+), 10 deletions(-)
+Thanks
 
-diff --git a/README.hardware b/README.hardware
-index b2ce146..7d2607c 100644
---- a/README.hardware
-+++ b/README.hardware
-@@ -149,15 +149,19 @@ The Beagleboard is an ARM Cortex-A8 development board with USB, DVI-D, S-Video,
- faster CPU, more RAM, an ethernet port, more USB ports, microSD, and removes
- the NAND flash. The beagleboard MACHINE is tested on the following platforms:
- 
--  o Beagleboard xM
-+  o Beagleboard C4
-+  o Beagleboard xM Rev A
- 
--TODO: need someone with a Beagleboard C4 to verify these instructions.
-+The Beagleboard C4 has NAND, while the xM does not. For the sake of simplicity,
-+these instructions assume you have erased the NAND on the C4 so its boot
-+behavior matches that of the xM. To do this, issue the following commands from
-+the u-boot prompt:
- 
--Due to the lack of NAND on the xM, the install and boot process varies a bit
--between boards.  The C4 can run the x-loader and u-boot binaries from NAND or
--the SD, while the xM can only run them from the SD. The following instructions
--apply to both the C4 and the xM, but the C4 can skip step 2 (as noted below),
--and may require modification of the NAND environment.
-+    # nand unlock
-+    # nand erase
-+
-+To further tailor these instructions for your board, please refer to the
-+documentation at http://www.beagleboard.org.
- 
-   1. Partition and format an SD card:
-      # fdisk -lu /dev/mmcblk0
-@@ -185,7 +189,7 @@ and may require modification of the NAND environment.
-      # cp u-boot-beagleboard.bin /media/boot/u-boot.bin
- 
-   3. Install the root filesystem
--     # tar x -C /media/root -f poky-image-$IMAGE_TYPE-beagleboard.tar.bz2
-+     # tar x -C /media/root -f core-image-$IMAGE_TYPE-beagleboard.tar.bz2
-      # tar x -C /media/root -f modules-$KERNEL_VERSION-beagleboard.tgz
- 
-   4. Install the kernel uImage
-@@ -205,14 +209,14 @@ and may require modification of the NAND environment.
-      boot
-      EOF
-      ) > serial-boot.cmd
--     # mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Poky Minimal" -d ./serial-boot.cmd ./boot.scr
-+     # mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "Core Minimal" -d ./serial-boot.cmd ./boot.scr
-      # cp boot.scr /media/boot
- 
-    6. Unmount the SD partitions and boot the Beagleboard
- 
- Note: As of the 2.6.37 linux-yocto kernel recipe, the Beagleboard uses the
-       OMAP_SERIAL device (ttyO2). If you are using an older kernel, such as the
--      2.6.35 linux-yocto-stable, be sure replace ttyO2 with ttyS2 above. You
-+      2.6.34 linux-yocto-stable, be sure to replace ttyO2 with ttyS2 above. You
-       should also override the machine SERIAL_CONSOLE in your local.conf in
-       order to setup the getty on the serial line:
- 
--- 
-1.7.1
+Sau!
 
 
