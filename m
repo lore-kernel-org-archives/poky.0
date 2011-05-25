@@ -1,23 +1,25 @@
 Return-Path: <saul.wold@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 03DA54C80A5B
-	for <poky@yoctoproject.org>; Wed, 25 May 2011 18:25:34 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 May 2011 16:25:34 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 22DDE4C800B6
+	for <poky@yoctoproject.org>; Wed, 25 May 2011 18:32:23 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 25 May 2011 16:32:22 -0700
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,270,1304319600"; 
+   d="scan'208";a="4935582"
 Received: from unknown (HELO [10.255.12.133]) ([10.255.12.133])
-	by orsmga002.jf.intel.com with ESMTP; 25 May 2011 16:25:34 -0700
-Message-ID: <4DDD8FED.8040703@intel.com>
-Date: Wed, 25 May 2011 16:25:33 -0700
+	by orsmga001.jf.intel.com with ESMTP; 25 May 2011 16:32:22 -0700
+Message-ID: <4DDD9185.3040400@intel.com>
+Date: Wed, 25 May 2011 16:32:21 -0700
 From: Saul Wold <saul.wold@intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1306359969.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1306359969.git.dvhart@linux.intel.com>
-Cc: poky@yoctoproject.org, Jeff Osier-mixon <jeffrey.osier-mixon@intel.com>
-Subject: Re: [PATCH V2 0/1] README.hardware: update installation	instructions for beagleboard
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1306297759.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <cover.1306297759.git.xiaofeng.yan@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] libQtopenGL: Add this library to lsb image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,37 +31,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 May 2011 23:25:35 -0000
+X-List-Received-Date: Wed, 25 May 2011 23:32:23 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/25/2011 02:49 PM, Darren Hart wrote:
-> Thanks to Bruce for testing, Koen for noting changes in the uboot commands.
-> Jefro, please review and provide an Ack or suggestions for change.
+On 05/25/2011 12:03 AM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
 >
-> The following changes since commit 1607d7b6809eb3f0aa8d09713a4e467a1f4585a2:
+> Hi Saul,
+> [YOCTO #1020]
+> We make lsb test on the following platform with default "mesa-xlib" so far.
+> emenlow, mpc8315e, qemux86,qemux86-64,jasperforest
+> Perhaps some of them could have graphic hardware but lsb image  can pass test by default "mesa-xlib" except mpc8315e because of its limited memory
+> we don't make lsb test on lsb image with "mesa-dri".
+> I submit two patches to fix bug [#YOCTO 1020]
 >
->    IMAGE_ROOTFS_SIZE: Cleanup machine conf files (2011-05-25 14:07:37 -0700)
+Did you test this with mips or arm builds?
+
+Sau!
+
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>    Branch: xiaofeng/opengl
+>    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/opengl
 >
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib dvhart/docs
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/docs
+> Thanks,
+>      Xiaofeng Yan<xiaofeng.yan@windriver.com>
+> ---
 >
-> Darren Hart (1):
->    README.hardware: update installation instructions for beagleboard
 >
->   README.hardware |   44 ++++++++++++++++++++++++++++----------------
->   1 files changed, 28 insertions(+), 16 deletions(-)
+> Xiaofeng Yan (2):
+>    poky-lsb: Compile library libQtOpenGL* for building a lsb image
+>    task-core-lsb: Install libQtOpenGL* to lsb image
+>
+>   meta-yocto/conf/distro/poky-lsb.conf         |    2 +-
+>   meta/recipes-extended/tasks/task-core-lsb.bb |   18 +-----------------
+>   2 files changed, 2 insertions(+), 18 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 >
-Merged into master and cherry-picked to bernard.
-
-Thanks for sticking with that one!
-
-Sau!
 
 
