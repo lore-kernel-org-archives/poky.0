@@ -1,36 +1,25 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews09.kpnxchange.com (cpsmtpb-ews09.kpnxchange.com
-	[213.75.39.14])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0BBFB4C8016A
-	for <poky@yoctoproject.org>; Thu, 26 May 2011 09:13:39 -0500 (CDT)
-Received: from cpbrm-ews12.kpnxchange.com ([10.94.84.143]) by
-	cpsmtpb-ews09.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 26 May 2011 16:13:39 +0200
-Received: from CPSMTPM-cmt107.kpnxchange.com ([195.121.3.23]) by
-	cpbrm-ews12.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 26 May 2011 16:13:39 +0200
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-cmt107.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Thu, 26 May 2011 16:13:38 +0200
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
-	Thu, 26 May 2011 16:13:37 +0200
-Message-ID: <4DDE6015.7010408@de-haardt.com>
-Date: Thu, 26 May 2011 16:13:41 +0200
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 73B454C804F7
+	for <poky@yoctoproject.org>; Thu, 26 May 2011 16:57:40 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 26 May 2011 14:57:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,276,1304319600"; 
+   d="scan'208";a="5562816"
+Received: from doubt.jf.intel.com (HELO [10.24.80.114]) ([10.24.80.114])
+	by orsmga001.jf.intel.com with ESMTP; 26 May 2011 14:57:39 -0700
+Message-ID: <4DDECCE7.4010501@linux.intel.com>
+Date: Thu, 26 May 2011 14:57:59 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4DDE01BB.3000109@de-haardt.com> <1306402981.27470.97.camel@rex>	
-	<4DDE37EE.101@de-haardt.com> <1306418056.27470.181.camel@rex>
-In-Reply-To: <1306418056.27470.181.camel@rex>
-X-OriginalArrivalTime: 26 May 2011 14:13:38.0548 (UTC)
-	FILETIME=[1BBCB340:01CC1BAF]
-X-RcptDomain: yoctoproject.org
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: wrong rpm name qt package
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4DDBD90F.9080706@mlbassoc.com>
+In-Reply-To: <4DDBD90F.9080706@mlbassoc.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Over-exuberant error printing?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,67 +31,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 14:13:40 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Thu, 26 May 2011 21:57:40 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 05/26/2011 03:54 PM, Richard Purdie wrote:
-> On Thu, 2011-05-26 at 13:22 +0200, Gerard van den Bosch wrote:
->> On 05/26/2011 11:43 AM, Richard Purdie wrote:
->>> On Thu, 2011-05-26 at 09:31 +0200, Gerard van den Bosch wrote:
->>>> I have developed a shared library using Qt, it compiles without any
->>>> problems but it goes wrong with rpm packaging.
->>>> When it packages it should create a rpm package with the name
->>>> "libxmlpcpqt" but it creates a package with "libxmlpcpqt1".
->>>> My question is where does the '1' come from?
->>>>
->>>> The install part from the recipe is as follows:
->>>> do_install() {
->>>>        install -d ${D}${libdir}
->>>>        install -m 0755 ${S}/${PN}.so ${D}${libdir}
->>>> }
->>>>
->>>> In
->>>> the /tmp/work/armv7a-poky-linux-gnueabi/libxmlpcpqt-0.1-r1/image/usr/lib the libxmlpcpqt.so file correctly exists.
->>> This happens as debian style package naming is enabled (debian.bbclass
->>> is inherited).
->>>
->>> Cheers,
->>>
->>> Richard
->>>
->> I tried removing debian from the INHERITS+= variable in the poky.conf
->> but then it printed it couldn't find the function that is inside
->> debian.bbclass and didn't create the package.
->> Modifying debian.bbclass would be too drastic so I work around it like
->> this:
->> Added PACKAGES+= ${PN}1 to my recipe
->> Modified the IMAGE_INSTALL+= variable from libxmlpcpqt to libxmlpcpqt1
->> This resulted in a working solution.
-> This is a bug and you should never need to do this. IMAGE_INSTALL should
-> be getting remapped to the new names. The code that is meant to do that
-> is at the top of image.bbclass:
->
->      # If we don't do this we try and run the mapping hooks while parsing which is slow
->      # bitbake should really provide something to let us know this...
->      if bb.data.getVar('BB_WORKERCONTEXT', d, True) is not None:
->          runtime_mapping_rename("PACKAGE_INSTALL", d)
->          runtime_mapping_rename("PACKAGE_INSTALL_ATTEMPTONLY", d)
->
-> Can you check that the code is being called? I suspect something to do
-> with the BB_WORKERCONTEXT variable has been broken. We should be doing
-> this in a better way anyhow...
->
-> Cheers,
->
-> Richard
->
-Ok, I am still using the Laverne release so maybe that's the problem, I will try to compile it on a system where I have the Bernard release tonight to ensure that the bug isn't fixed already.
-If the problem still occurs there, I will check the suggested.
-I will send an update as soon as possible.
-
-Regards,
-Gerard
 
 
+On 05/24/2011 09:13 AM, Gary Thomas wrote:
+> Building from today's master (3504c3a9b1af5a3405e0a03a5ade50b82535b6dd)
+> if I get an error, I get two lines printed for each real line, e.g.
+> | ERROR: The stack trace of python calls that resulted in this exception/failure was:
+> | ERROR: The stack trace of python calls that resulted in this exception/failure was:
+> | ERROR:   File "sstate_task_postfunc", line 10, in <module>
+> | ERROR:   File "sstate_task_postfunc", line 10, in <module>
+> | ERROR:
+> | ERROR:
+> | ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
+> | ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
+> etc.
+> 
+> This is new behavior - any ideas?
+> 
+
+I've been seeing this as well and hadn't dug in to sort it out yet. You
+said it is new behavior, have you bisected to determine when it occured?
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
