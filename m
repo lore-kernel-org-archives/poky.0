@@ -1,36 +1,24 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 04E564C80334
-	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:12:13 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 25 May 2011 20:12:13 -0700
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 792E04C803BA;
+	Wed, 25 May 2011 22:40:42 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 25 May 2011 20:40:42 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.65,270,1304319600"; 
-   d="scan'208";a="1937451"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by azsmga001.ch.intel.com with ESMTP; 25 May 2011 20:12:12 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 26 May 2011 11:11:50 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Thu, 26 May 2011 11:11:49 +0800
-From: "Ke, Liping" <liping.ke@intel.com>
-To: "Ke, Liping" <liping.ke@intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Thu, 26 May 2011 11:11:47 +0800
-Thread-Topic: [poky] [PATCH 0/4][Image Creator]Add mulitple extra cache
-	fields	request support
-Thread-Index: AcwbUcXnUoxGY/PaQemhrI9cN2l67gAAC/3Q
-Message-ID: <789F9655DD1B8F43B48D77C5D30659734C7234C5@shsmsx501.ccr.corp.intel.com>
-References: <cover.1306376361.git.liping.ke@intel.com>
-In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+   d="scan'208";a="5055611"
+Received: from unknown (HELO [10.255.12.84]) ([10.255.12.84])
+	by orsmga001.jf.intel.com with ESMTP; 25 May 2011 20:40:41 -0700
+Message-ID: <4DDDCBB8.6090902@intel.com>
+Date: Wed, 25 May 2011 20:40:40 -0700
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/4][Image Creator]Add mulitple extra cache fields	request support
+To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	yocto-announce@yoctoproject.org
+Subject: [Announcement] Bernard 5.0.1 Release
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,60 +30,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 03:12:14 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 26 May 2011 03:40:42 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi, All
+We are pleased to announce the first bug-fix release of Poky Bernard,
+5.0.1. Release notes are available at:
+http://www.yoctoproject.org/download/yocto/yocto-project-1.0.1-release-notes-poky-5.0.1
 
-I have test the memory usage with htop. It will show that when loading cach=
-e,
-Bitbake will use 1.3~1.4%. There's no change compared with namedutple.
-So I guess it should not impact memeory usage very much.
+Details
+=======
+Download: http://autobuilder.yoctoproject.org/downloads/poky/poky-bernard-5.0.1.tar.bz2
+Mirror Download: http://mirrors.kernel.org/yocto/poky/poky-bernard-5.0.1.tar.bz2
+Release Notes: http://www.yoctoproject.org/download/yocto/yocto-project-1.0.1-release-notes-poky-5.0.1
+Git URL: git://git.yoctoproject.org/poky.git
+Git Branch: bernard
+Git Tag: bernard-5.0.1
+Git Tag GPG Key: http://pgp.mit.edu:11371/pks/lookup?op=get&search=0xDACE10B1542E22BE
 
-And the cahce file (core/base) part increased < 200k.=20
+Features and Updates
+====================
 
-So this change should not impact performance greatly ( class vs namedtuple)
+BitBake Updates
+---------------
+      - Improved usability of Shared State
 
-Thanks & Regards,
-criping
+Package Updates
+---------------
+      - Updates and patches to security
+      - Builds supported for Fedora 14
+      - Builds supported for Ubuntu 11.04
+      - Fixed wrong or updated SRC_URI
+      - Corrected bad MD5SUM
 
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org
-> [mailto:poky-bounces@yoctoproject.org] On Behalf Of Ke Liping
-> Sent: Thursday, May 26, 2011 10:54 AM
-> To: poky@yoctoproject.org
-> Subject: [poky] [PATCH 0/4][Image Creator]Add mulitple extra cache fields
-> request support
->=20
-> From: Liping Ke <liping.ke@intel.com>
->=20
-> The series of patch are for mplementing multiple extra cache fields
-> request support.If user needs to request extra cache fields besides
-> CoreRecipeInfo fields, just add a new XXXRecipeInfo class definition
-> as Image Creator UI Hob Does.
-> For implementing this new feature, we refactory current cache code,
-> remove namedtuple and define corresponding class for dynamical cache
-> fields support per different cache usage request.
->=20
-> Liping Ke (4):
->   Refactory Current Cache implementation
->   Introduce extra cache class for image creator
->   Introduce new param caches_array into Cache impl.
->   Implement multiple extra cache fields request support
->=20
->  bitbake/lib/bb/cache.py       |  532
-> ++++++++++++++++++++++-------------------
->  bitbake/lib/bb/cache_extra.py |   54 ++++
->  bitbake/lib/bb/cooker.py      |   70 ++++--
->  bitbake/lib/bb/shell.py       |    2 +-
->  bitbake/lib/bb/ui/hob.py      |    2 +
->  5 files changed, 396 insertions(+), 264 deletions(-)
->  create mode 100644 bitbake/lib/bb/cache_extra.py
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Documentation
+-------------
+      - Updates to the Poky Reference Manual
+      - Updates to the Application Development Toolkit (ADT) Manual
+      - Updates to the Kernel Architecture and Use Manual
+      - Updates to the Yocto Project Quick Start
+      - Machine-specific sysroot to allow customizations to be isolated to a machine
+
+Known Issues
+============
+
+The Yocto project uses the bugzilla at http://bugzilla.yoctoproject.org to handle bug tracking. You should always
+consult that source first when experiencing any issue with a Yocto Project release.
+
+      - Bug 414 - [PPC] kernel panic when booting poky-image-sdk-qemuppc through UNFS. The issues are intermittent and do
+not show up for many people.
+      - Bug 970 - yocto 1.0 sato-sdk 336 errors from zypper verify.
+      - Bug 1029 - The Beagleboard can not boot up with 20110506 build. This bug has been partially fixed - the
+instructions for the BeagleBoard have been updated, please see README.hardware for details.
+      - Drivers - qemu GL passthrough can have issues if a closed source nvidia driver is used on the host system. Some
+S3 suspend state issues exist with Intel BSPs, which are documented in bugzilla.
+      - Docs - The Release documents included in the Yocto Project tarball might differ from the same documents accessed
+from the Yocto Project website. Differences exist due to freeze dates prior to the release date. For the most up-to-date
+Yocto Project documentation, always refer to the Yocto Project website at http://www.yoctoproject.org.
+
+
+Thanks to everyone who helped with reporting and fixing bugs!
+
+------------------
+Elizabeth Flanagan
+Yocto Project
+Release Engineer
+
 
