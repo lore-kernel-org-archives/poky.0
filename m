@@ -1,22 +1,22 @@
 Return-Path: <liping.ke@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0FFAD4C80A9C
-	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:05:22 -0500 (CDT)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1852B4C80A86
+	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:05:29 -0500 (CDT)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 May 2011 20:05:21 -0700
+	by orsmga102.jf.intel.com with ESMTP; 25 May 2011 20:05:28 -0700
 X-ExtLoop1: 1
 Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by orsmga002.jf.intel.com with ESMTP; 25 May 2011 20:05:21 -0700
+	by orsmga002.jf.intel.com with ESMTP; 25 May 2011 20:05:28 -0700
 From: Ke Liping <liping.ke@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 26 May 2011 10:53:39 +0800
-Message-Id: <361beccbf4d530a2721e4a2c72b37ee3b1295076.1306376361.git.liping.ke@intel.com>
+Date: Thu, 26 May 2011 10:53:42 +0800
+Message-Id: <12cb614fff9e3380a85ffcab100f39112a13f6b4.1306376361.git.liping.ke@intel.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
 References: <cover.1306376361.git.liping.ke@intel.com>
 In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
 References: <cover.1306376361.git.liping.ke@intel.com>
-Subject: [PATCH 1/4][Image Creator]Refactory Current Cache implementation
+Subject: [PATCH 4/4][Image Creator]Implement multiple extra cache fields request support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,438 +28,373 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 03:05:22 -0000
+X-List-Received-Date: Thu, 26 May 2011 03:05:29 -0000
 
 From: Liping Ke <liping.ke@intel.com>
 
-This patch is for refactorying current cache implementation, the
-main reason is for introducing extra cache fields requests for
-image creator as well as other users. The refactory parts include:
-Move cache data retrieve methods out of Cache Data Fields
-Definition. Since this retrieve methods will be shared for
-both CoreRecipeInfo as well as the new introduced extra RecipeInfo
-in the following patches.
+This patch is to support extra cache. If user needs to request
+extra cache fields besides CoreRecipeInfo fields, just add a new
+XXXRecipeInfo class definition as Hob Does.
+Currently supported Extra RecipeInfo name is an array. We can
+support multiple extra cache fields at the same time besides
+CoreRecipeInfo which is needed by all clients.
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- bitbake/lib/bb/cache.py |  358 ++++++++++++++++++++++-------------------------
- 1 files changed, 165 insertions(+), 193 deletions(-)
+ bitbake/lib/bb/cache.py  |  175 +++++++++++++++++++++++++++++++---------------
+ bitbake/lib/bb/cooker.py |   16 ++--
+ 2 files changed, 126 insertions(+), 65 deletions(-)
 
 diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
-index d083c51..09691d9 100644
+index 0620621..271ebd7 100644
 --- a/bitbake/lib/bb/cache.py
 +++ b/bitbake/lib/bb/cache.py
-@@ -30,7 +30,7 @@
- 
- import os
- import logging
--from collections import defaultdict, namedtuple
-+from collections import defaultdict
- import bb.data
- import bb.utils
- 
-@@ -45,46 +45,11 @@ except ImportError:
+@@ -45,6 +45,8 @@ except ImportError:
  
  __cache_version__ = "138"
  
--recipe_fields = (
--    'pn',
--    'pv',
--    'pr',
--    'pe',
--    'defaultpref',
--    'depends',
--    'provides',
--    'task_deps',
--    'stamp',
--    'stamp_extrainfo',
--    'broken',
--    'not_world',
--    'skipped',
--    'timestamp',
--    'packages',
--    'packages_dynamic',
--    'rdepends',
--    'rdepends_pkg',
--    'rprovides',
--    'rprovides_pkg',
--    'rrecommends',
--    'rrecommends_pkg',
--    'nocache',
--    'variants',
--    'file_depends',
--    'tasks',
--    'basetaskhashes',
--    'hashfilename',
--    'inherits',
--    'summary',
--    'license',
--    'section',
--    'fakerootenv',
--    'fakerootdirs'
--)
--
--
--class RecipeInfo(namedtuple('RecipeInfo', recipe_fields)):
--    __slots__ = ()
-+
-+# RecipeInfoCommon defines common data retrieving methods
-+# from meta data for caches. CoreRecipeInfo as well as other
-+# Extra RecipeInfo needs to inherit this class
-+class RecipeInfoCommon(object):
++def getCacheFile(path, filename):
++    return os.path.join(path, filename)
  
-     @classmethod
-     def listvar(cls, var, metadata):
-@@ -117,69 +82,162 @@ class RecipeInfo(namedtuple('RecipeInfo', recipe_fields)):
-     def getvar(cls, var, metadata):
-         return metadata.getVar(var, True) or ''
+ # RecipeInfoCommon defines common data retrieving methods
+ # from meta data for caches. CoreRecipeInfo as well as other
+@@ -86,12 +88,9 @@ class RecipeInfoCommon(object):
+ class CoreRecipeInfo(RecipeInfoCommon):
+     __slots__ = ()
  
--    @classmethod
--    def make_optional(cls, default=None, **kwargs):
--        """Construct the namedtuple from the specified keyword arguments,
--        with every value considered optional, using the default value if
--        it was not specified."""
--        for field in cls._fields:
--            kwargs[field] = kwargs.get(field, default)
--        return cls(**kwargs)
-+
-+class CoreRecipeInfo(RecipeInfoCommon):
-+    __slots__ = ()
-+
-+    def __init__(self, filename, metadata):
-+        self.name = "base"
-+        # please override this member with the correct data cache file
-+        # such as (bb_cache.dat, bb_extracache_hob.dat) 
-+        self.cachefile = "bb_cache.dat"        
-+
-+        self.file_depends = metadata.getVar('__depends', False)
-+        self.timestamp = bb.parse.cached_mtime(filename)
-+        self.variants = self.listvar('__VARIANTS', metadata) + ['']
-+        self.nocache = self.getvar('__BB_DONT_CACHE', metadata)
-+
-+        if self.getvar('__SKIPPED', metadata):
-+            self.skipped = True
-+            return
-+
-+        self.tasks = metadata.getVar('__BBTASKS', False)
-+
-+        self.pn = self.getvar('PN', metadata)
-+        self.packages = self.listvar('PACKAGES', metadata)
-+        if not self.pn in self.packages:
-+            self.packages.append(self.pn)
-+
-+        self.basetaskhashes = self.taskvar('BB_BASEHASH', self.tasks, metadata)
-+        self.hashfilename = self.getvar('BB_HASHFILENAME', metadata)
-+
-+        self.file_depends = metadata.getVar('__depends', False)
-+        self.task_deps = metadata.getVar('_task_deps', False) or {'tasks': [], 'parents': {}}
-+
-+        self.skipped = False
-+        self.pe = self.getvar('PE', metadata)
-+        self.pv = self.getvar('PV', metadata)
-+        self.pr = self.getvar('PR', metadata)
-+        self.defaultpref = self.intvar('DEFAULT_PREFERENCE', metadata)
-+        self.broken = self.getvar('BROKEN', metadata)
-+        self.not_world = self.getvar('EXCLUDE_FROM_WORLD', metadata)
-+        self.stamp = self.getvar('STAMP', metadata)
-+        self.stamp_extrainfo = self.flaglist('stamp-extra-info', self.tasks, metadata)
-+        self.packages_dynamic = self.listvar('PACKAGES_DYNAMIC', metadata)
-+        self.depends          = self.depvar('DEPENDS', metadata)
-+        self.provides         = self.depvar('PROVIDES', metadata)
-+        self.rdepends         = self.depvar('RDEPENDS', metadata)
-+        self.rprovides        = self.depvar('RPROVIDES', metadata)
-+        self.rrecommends      = self.depvar('RRECOMMENDS', metadata)
-+        self.rprovides_pkg    = self.pkgvar('RPROVIDES', self.packages, metadata)
-+        self.rdepends_pkg     = self.pkgvar('RDEPENDS', self.packages, metadata)
-+        self.rrecommends_pkg  = self.pkgvar('RRECOMMENDS', self.packages, metadata)
-+        self.inherits         = self.getvar('__inherit_cache', metadata)
-+        self.summary          = self.getvar('SUMMARY', metadata)
-+        self.license          = self.getvar('LICENSE', metadata)
-+        self.section          = self.getvar('SECTION', metadata)
-+        self.fakerootenv      = self.getvar('FAKEROOTENV', metadata)
-+        self.fakerootdirs     = self.getvar('FAKEROOTDIRS', metadata)
+-    def __init__(self, filename, metadata):
+-        self.name = "base"
+-        # please override this member with the correct data cache file
+-        # such as (bb_cache.dat, bb_extracache_hob.dat) 
+-        self.cachefile = "bb_cache.dat"        
++    cachefile = "bb_cache.dat"   
  
-     @classmethod
--    def from_metadata(cls, filename, metadata):
--        if cls.getvar('__SKIPPED', metadata):
--            return cls.make_optional(skipped=True,
--                                     file_depends=metadata.getVar('__depends', False),
--                                     timestamp=bb.parse.cached_mtime(filename),
--                                     variants=cls.listvar('__VARIANTS', metadata) + [''])
--
--        tasks = metadata.getVar('__BBTASKS', False)
--
--        pn = cls.getvar('PN', metadata)
--        packages = cls.listvar('PACKAGES', metadata)
--        if not pn in packages:
--            packages.append(pn)
--
--        return RecipeInfo(
--            tasks            = tasks,
--            basetaskhashes   = cls.taskvar('BB_BASEHASH', tasks, metadata),
--            hashfilename     = cls.getvar('BB_HASHFILENAME', metadata),
--
--            file_depends     = metadata.getVar('__depends', False),
--            task_deps        = metadata.getVar('_task_deps', False) or
--                               {'tasks': [], 'parents': {}},
--            variants         = cls.listvar('__VARIANTS', metadata) + [''],
--
--            skipped          = False,
--            timestamp        = bb.parse.cached_mtime(filename),
--            packages         = cls.listvar('PACKAGES', metadata),
--            pn               = pn,
--            pe               = cls.getvar('PE', metadata),
--            pv               = cls.getvar('PV', metadata),
--            pr               = cls.getvar('PR', metadata),
--            nocache          = cls.getvar('__BB_DONT_CACHE', metadata),
--            defaultpref      = cls.intvar('DEFAULT_PREFERENCE', metadata),
--            broken           = cls.getvar('BROKEN', metadata),
--            not_world        = cls.getvar('EXCLUDE_FROM_WORLD', metadata),
--            stamp            = cls.getvar('STAMP', metadata),
--            stamp_extrainfo  = cls.flaglist('stamp-extra-info', tasks, metadata),
--            packages_dynamic = cls.listvar('PACKAGES_DYNAMIC', metadata),
--            depends          = cls.depvar('DEPENDS', metadata),
--            provides         = cls.depvar('PROVIDES', metadata),
--            rdepends         = cls.depvar('RDEPENDS', metadata),
--            rprovides        = cls.depvar('RPROVIDES', metadata),
--            rrecommends      = cls.depvar('RRECOMMENDS', metadata),
--            rprovides_pkg    = cls.pkgvar('RPROVIDES', packages, metadata),
--            rdepends_pkg     = cls.pkgvar('RDEPENDS', packages, metadata),
--            rrecommends_pkg  = cls.pkgvar('RRECOMMENDS', packages, metadata),
--            inherits         = cls.getvar('__inherit_cache', metadata),
--            summary          = cls.getvar('SUMMARY', metadata),
--            license          = cls.getvar('LICENSE', metadata),
--            section          = cls.getvar('SECTION', metadata),
--            fakerootenv      = cls.getvar('FAKEROOTENV', metadata),
--            fakerootdirs     = cls.getvar('FAKEROOTDIRS', metadata),
--        )
-+    def init_cacheData(cls, cachedata):
-+        # CacheData in Core RecipeInfo Class
-+        cachedata.task_deps = {}
-+        cachedata.pkg_fn = {}
-+        cachedata.pkg_pn = defaultdict(list)
-+        cachedata.pkg_pepvpr = {}
-+        cachedata.pkg_dp = {}
-+
-+        cachedata.stamp = {}
-+        cachedata.stamp_extrainfo = {}
-+        cachedata.fn_provides = {}
-+        cachedata.pn_provides = defaultdict(list)
-+        cachedata.all_depends = []
-+
-+        cachedata.deps = defaultdict(list)
-+        cachedata.packages = defaultdict(list)
-+        cachedata.providers = defaultdict(list)
-+        cachedata.rproviders = defaultdict(list)
-+        cachedata.packages_dynamic = defaultdict(list)
-+
-+        cachedata.rundeps = defaultdict(lambda: defaultdict(list))
-+        cachedata.runrecs = defaultdict(lambda: defaultdict(list))
-+        cachedata.possible_world = []
-+        cachedata.universe_target = []
-+        cachedata.hashfn = {}
-+
-+        cachedata.basetaskhash = {}
-+        cachedata.inherits = {}
-+        cachedata.summary = {}
-+        cachedata.license = {}
-+        cachedata.section = {}
-+        cachedata.fakerootenv = {}
-+        cachedata.fakerootdirs = {}
-+
-+    def add_cacheData(self, cachedata, fn):
-+        cachedata.task_deps[fn] = self.task_deps
-+        cachedata.pkg_fn[fn] = self.pn
-+        cachedata.pkg_pn[self].append(fn)
-+        cachedata.pkg_pepvpr[fn] = (self.pe, self.pv, self.pr)
-+        cachedata.pkg_dp[fn] = self.defaultpref
-+        cachedata.stamp[fn] = self.stamp
-+        cachedata.stamp_extrainfo[fn] = self.stamp_extrainfo
-+
-+        provides = [self.pn]
-+        for provide in self.provides:
-+            if provide not in provides:
-+                provides.append(provide)
-+        cachedata.fn_provides[fn] = provides
-+
-+        for provide in provides:
-+            cachedata.providers[provide].append(fn)
-+            if provide not in cachedata.pn_provides[self.pn]:
-+                cachedata.pn_provides[self.pn].append(provide)
-+
-+        for dep in self.depends:
-+            if dep not in cachedata.deps[fn]:
-+                cachedata.deps[fn].append(dep)
-+            if dep not in cachedata.all_depends:
-+                cachedata.all_depends.append(dep)
-+
-+        rprovides = self.rprovides
-+        for package in self.packages:
-+            cachedata.packages[package].append(fn)
-+            rprovides += self.rprovides_pkg[package]
-+
-+        for rprovide in rprovides:
-+            cachedata.rproviders[rprovide].append(fn)
-+
-+        for package in self.packages_dynamic:
-+            cachedata.packages_dynamic[package].append(fn)
-+
-+        # Build hash of runtime depends and rececommends
-+        for package in self.packages + [self.pn]:
-+            cachedata.rundeps[fn][package] = list(self.rdepends) + self.rdepends_pkg[package]
-+            cachedata.runrecs[fn][package] = list(self.rrecommends) + self.rrecommends_pkg[package]
-+
-+        # Collect files we may need for possible world-dep
-+        # calculations
-+        if not self.broken and not self.not_world:
-+            cachedata.possible_world.append(fn)
-+
-+        # create a collection of all targets for sanity checking
-+        # tasks, such as upstream versions, license, and tools for
-+        # task and image creation.
-+        cachedata.universe_target.append(self.pn)
-+
-+        cachedata.hashfn[fn] = self.hashfilename
-+        for task, taskhash in self.basetaskhashes.iteritems():
-+            identifier = '%s.%s' % (fn, task)
-+            cachedata.basetaskhash[identifier] = taskhash
-+
-+        cachedata.inherits[fn] = self.inherits
-+        cachedata.summary[fn] = self.summary
-+        cachedata.license[fn] = self.license
-+        cachedata.section[fn] = self.section
-+        cachedata.fakerootenv[fn] = self.fakerootenv
-+        cachedata.fakerootdirs[fn] = self.fakerootdirs
-+
++    def __init__(self, filename, metadata):      
+         self.file_depends = metadata.getVar('__depends', False)
+         self.timestamp = bb.parse.cached_mtime(filename)
+         self.variants = self.listvar('__VARIANTS', metadata) + ['']
+@@ -265,7 +264,7 @@ class Cache(object):
+             return
  
+         self.has_cache = True
+-        self.cachefile = os.path.join(self.cachedir, "bb_cache.dat")
++        self.cachefile = getCacheFile(self.cachedir, "bb_cache.dat")
  
- class Cache(object):
-@@ -314,7 +372,7 @@ class Cache(object):
+         logger.debug(1, "Using cache in '%s'", self.cachedir)
+         bb.utils.mkdirhier(self.cachedir)
+@@ -279,12 +278,21 @@ class Cache(object):
+         old_mtimes.append(newest_mtime)
+         newest_mtime = max(old_mtimes)
+ 
+-        if bb.parse.cached_mtime_noerror(self.cachefile) >= newest_mtime:
++        bNeedUpdate = True
++        if self.caches_array:
++            for cache_class in self.caches_array:
++                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                    cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
++                    bNeedUpdate = bNeedUpdate and (bb.parse.cached_mtime_noerror(cachefile) >= newest_mtime)
++                    cache_class.init_cacheData(self)
++        if bNeedUpdate:
+             self.load_cachefile()
+         elif os.path.isfile(self.cachefile):
+             logger.info("Out of date cache found, rebuilding...")
+ 
+     def load_cachefile(self):
++        # Firstly, using core cache file information for
++        # valid checking
+         with open(self.cachefile, "rb") as cachefile:
+             pickled = pickle.Unpickler(cachefile)
+             try:
+@@ -301,31 +309,52 @@ class Cache(object):
+                 logger.info('Bitbake version mismatch, rebuilding...')
+                 return
+ 
+-            cachesize = os.fstat(cachefile.fileno()).st_size
+-            bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
+ 
+-            previous_percent = 0
+-            while cachefile:
+-                try:
+-                    key = pickled.load()
+-                    value = pickled.load()
+-                except Exception:
+-                    break
++        cachesize = 0
++        previous_progress = 0
++        previous_percent = 0
+ 
+-                self.depends_cache[key] = value
+-
+-                # only fire events on even percentage boundaries
+-                current_progress = cachefile.tell()
+-                current_percent = 100 * current_progress / cachesize
+-                if current_percent > previous_percent:
+-                    previous_percent = current_percent
+-                    bb.event.fire(bb.event.CacheLoadProgress(current_progress),
+-                                  self.data)
+-
+-            bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
+-                                                      len(self.depends_cache)),
+-                          self.data)
++        # Calculate the correct cachesize of all those cache files
++        for cache_class in self.caches_array:
++            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
++                with open(cachefile, "rb") as cachefile:
++                    cachesize += os.fstat(cachefile.fileno()).st_size
+ 
++        bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
++        
++        for cache_class in self.caches_array:
++            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
++                with open(cachefile, "rb") as cachefile:
++                    pickled = pickle.Unpickler(cachefile)                    
++                    while cachefile:
++                        try:
++                            key = pickled.load()
++                            value = pickled.load()
++                        except Exception:
++                            break
++                        if self.depends_cache.has_key(key):
++                            self.depends_cache[key].append(value)
++                        else:
++                            self.depends_cache[key] = [value]
++                        # only fire events on even percentage boundaries
++                        current_progress = cachefile.tell() + previous_progress
++                        current_percent = 100 * current_progress / cachesize
++                        if current_percent > previous_percent:
++                            previous_percent = current_percent
++                            bb.event.fire(bb.event.CacheLoadProgress(current_progress),
++                                          self.data)
++
++                    previous_progress += current_progress
++
++        # Note: depends cache number is corresponding to the parsing file numbers.
++        # The same file has several caches, still regarded as one item in the cache
++        bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
++                                                  len(self.depends_cache)),
++                      self.data)
++
++    
+     @staticmethod
+     def virtualfn2realfn(virtualfn):
+         """
+@@ -376,8 +405,14 @@ class Cache(object):
              depends |= (data.getVar("__depends", False) or set())
              if depends and not variant:
                  data.setVar("__depends", depends)
--            info = RecipeInfo.from_metadata(filename, data)
-+            info = CoreRecipeInfo(filename, data)
-             infos.append((virtualfn, info))
+-            info = CoreRecipeInfo(filename, data)
+-            infos.append((virtualfn, info))
++
++            info_array = []
++            for cache_class in caches_array:
++                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                    info = cache_class(filename, data)
++                    info_array.append(info)
++            infos.append((virtualfn, info_array))
++
          return infos
  
-@@ -500,7 +558,7 @@ class Cache(object):
+     def load(self, filename, appends, configdata):
+@@ -391,8 +426,9 @@ class Cache(object):
+         cached = self.cacheValid(filename)
+         if cached:
+             infos = []
+-            info = self.depends_cache[filename]
+-            for variant in info.variants:
++            # info_array item is a list of [CoreRecipeInfo, XXXRecipeInfo]
++            info_array = self.depends_cache[filename]
++            for variant in info_array[0].variants:
+                 virtualfn = self.realfn2virtual(filename, variant)
+                 infos.append((virtualfn, self.depends_cache[virtualfn]))
+         else:
+@@ -408,12 +444,12 @@ class Cache(object):
+         skipped, virtuals = 0, 0
+ 
+         cached, infos = self.load(fn, appends, cfgData)
+-        for virtualfn, info in infos:
+-            if info.skipped:
++        for virtualfn, info_array in infos:
++            if info_array[0].skipped:
+                 logger.debug(1, "Skipping %s", virtualfn)
+                 skipped += 1
+             else:
+-                self.add_info(virtualfn, info, cacheData, not cached)
++                self.add_info(virtualfn, info_array, cacheData, not cached)
+                 virtuals += 1
+ 
+         return cached, skipped, virtuals
+@@ -457,15 +493,15 @@ class Cache(object):
+             self.remove(fn)
+             return False
+ 
+-        info = self.depends_cache[fn]
++        info_array = self.depends_cache[fn]
+         # Check the file's timestamp
+-        if mtime != info.timestamp:
++        if mtime != info_array[0].timestamp:
+             logger.debug(2, "Cache: %s changed", fn)
+             self.remove(fn)
+             return False
+ 
+         # Check dependencies are still valid
+-        depends = info.file_depends
++        depends = info_array[0].file_depends
+         if depends:
+             for f, old_mtime in depends:
+                 fmtime = bb.parse.cached_mtime_noerror(f)
+@@ -483,7 +519,7 @@ class Cache(object):
+                     return False
+ 
+         invalid = False
+-        for cls in info.variants:
++        for cls in info_array[0].variants:
+             virtualfn = self.realfn2virtual(fn, cls)
+             self.clean.add(virtualfn)
+             if virtualfn not in self.depends_cache:
+@@ -530,13 +566,30 @@ class Cache(object):
+             logger.debug(2, "Cache is clean, not saving.")
+             return
+ 
+-        with open(self.cachefile, "wb") as cachefile:
+-            pickler = pickle.Pickler(cachefile, pickle.HIGHEST_PROTOCOL)
+-            pickler.dump(__cache_version__)
+-            pickler.dump(bb.__version__)
+-            for key, value in self.depends_cache.iteritems():
+-                pickler.dump(key)
+-                pickler.dump(value)
++        file_dict = {}
++        pickler_dict = {}
++        for cache_class in self.caches_array:
++            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                cache_class_name = cache_class.__name__
++                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
++                file_dict[cache_class_name] = open(cachefile, "wb")
++                pickler_dict[cache_class_name] =  pickle.Pickler(file_dict[cache_class_name], pickle.HIGHEST_PROTOCOL)
++                   
++        pickler_dict['CoreRecipeInfo'].dump(__cache_version__)
++        pickler_dict['CoreRecipeInfo'].dump(bb.__version__)
++
++        try:
++            for key, info_array in self.depends_cache.iteritems():
++                for info in info_array:
++                    if isinstance(info, RecipeInfoCommon):
++                        cache_class_name = info.__class__.__name__
++                        pickler_dict[cache_class_name].dump(key)
++                        pickler_dict[cache_class_name].dump(info)
++        finally:
++            for cache_class in self.caches_array:
++                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                    cache_class_name = cache_class.__name__
++                    file_dict[cache_class_name].close()
+ 
+         del self.depends_cache
+ 
+@@ -544,17 +597,17 @@ class Cache(object):
+     def mtime(cachefile):
+         return bb.parse.cached_mtime_noerror(cachefile)
+ 
+-    def add_info(self, filename, info, cacheData, parsed=None):
+-        if not info.skipped:
+-            cacheData.add_from_recipeinfo(filename, info)
++    def add_info(self, filename, info_array, cacheData, parsed=None):
++        if isinstance(info_array[0], CoreRecipeInfo) and (not info_array[0].skipped):
++            cacheData.add_from_recipeinfo(filename, info_array)
+ 
+         if not self.has_cache:
+             return
+ 
+-        if (info.skipped or 'SRCREVINACTION' not in info.pv) and not info.nocache:
++        if (info_array[0].skipped or 'SRCREVINACTION' not in info_array[0].pv) and not info_array[0].nocache:
+             if parsed:
+                 self.cacheclean = False
+-            self.depends_cache[filename] = info
++            self.depends_cache[filename] = info_array
+ 
+     def add(self, file_name, data, cacheData, parsed=None):
+         """
+@@ -562,8 +615,12 @@ class Cache(object):
          """
  
          realfn = self.virtualfn2realfn(file_name)[0]
--        info = RecipeInfo.from_metadata(realfn, data)
-+        info = CoreRecipeInfo(realfn, data)
-         self.add_info(file_name, info, cacheData, parsed)
+-        info = CoreRecipeInfo(realfn, data)
+-        self.add_info(file_name, info, cacheData, parsed)
++
++        info_array = []
++        for cache_class in self.caches_array:
++            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                info_array.append(cache_class(realfn, data))
++        self.add_info(file_name, info_array, cacheData, parsed)
  
      @staticmethod
-@@ -566,38 +624,11 @@ class CacheData(object):
-     """
+     def load_bbfile(bbfile, appends, config):
+@@ -629,7 +686,10 @@ class CacheData(object):
  
-     def __init__(self):
-+        CoreRecipeInfo.init_cacheData(self)        
+     def __init__(self, caches_array):
+         self.caches_array = caches_array
+-        CoreRecipeInfo.init_cacheData(self)
++        for cache_class in self.caches_array:
++            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
++                cache_class.init_cacheData(self)        
++
          # Direct cache variables
--        self.providers = defaultdict(list)
--        self.rproviders = defaultdict(list)
--        self.packages = defaultdict(list)
--        self.packages_dynamic = defaultdict(list)
--        self.possible_world = []
--        self.universe_target = []
--        self.pkg_pn = defaultdict(list)
--        self.pkg_fn = {}
--        self.pkg_pepvpr = {}
--        self.pkg_dp = {}
--        self.pn_provides = defaultdict(list)
--        self.fn_provides = {}
--        self.all_depends = []
--        self.deps = defaultdict(list)
--        self.rundeps = defaultdict(lambda: defaultdict(list))
--        self.runrecs = defaultdict(lambda: defaultdict(list))
          self.task_queues = {}
--        self.task_deps = {}
--        self.stamp = {}
--        self.stamp_extrainfo = {}
          self.preferred = {}
-         self.tasks = {}
--        self.basetaskhash = {}
--        self.hashfn = {}
--        self.inherits = {}
--        self.summary = {}
--        self.license = {}
--        self.section = {}
--        self.fakerootenv = {}
--        self.fakerootdirs = {}
--
-         # Indirect Cache variables (set elsewhere)
-         self.ignored_dependencies = []
-         self.world_target = set()
-@@ -605,65 +636,6 @@ class CacheData(object):
+@@ -640,7 +700,8 @@ class CacheData(object):
+         self.bbfile_priority = {}
          self.bbfile_config_priorities = []
  
-     def add_from_recipeinfo(self, fn, info):
--        self.task_deps[fn] = info.task_deps
--        self.pkg_fn[fn] = info.pn
--        self.pkg_pn[info.pn].append(fn)
--        self.pkg_pepvpr[fn] = (info.pe, info.pv, info.pr)
--        self.pkg_dp[fn] = info.defaultpref
--        self.stamp[fn] = info.stamp
--        self.stamp_extrainfo[fn] = info.stamp_extrainfo
--
--        provides = [info.pn]
--        for provide in info.provides:
--            if provide not in provides:
--                provides.append(provide)
--        self.fn_provides[fn] = provides
--
--        for provide in provides:
--            self.providers[provide].append(fn)
--            if provide not in self.pn_provides[info.pn]:
--                self.pn_provides[info.pn].append(provide)
--
--        for dep in info.depends:
--            if dep not in self.deps[fn]:
--                self.deps[fn].append(dep)
--            if dep not in self.all_depends:
--                self.all_depends.append(dep)
--
--        rprovides = info.rprovides
--        for package in info.packages:
--            self.packages[package].append(fn)
--            rprovides += info.rprovides_pkg[package]
-+        info.add_cacheData(self, fn)
+-    def add_from_recipeinfo(self, fn, info):
+-        info.add_cacheData(self, fn)
++    def add_from_recipeinfo(self, fn, info_array):
++        for info in info_array:
++            info.add_cacheData(self, fn)
  
--        for rprovide in rprovides:
--            self.rproviders[rprovide].append(fn)
--
--        for package in info.packages_dynamic:
--            self.packages_dynamic[package].append(fn)
--
--        # Build hash of runtime depends and rececommends
--        for package in info.packages + [info.pn]:
--            self.rundeps[fn][package] = list(info.rdepends) + info.rdepends_pkg[package]
--            self.runrecs[fn][package] = list(info.rrecommends) + info.rrecommends_pkg[package]
--
--        # Collect files we may need for possible world-dep
--        # calculations
--        if not info.broken and not info.not_world:
--            self.possible_world.append(fn)
--
--        # create a collection of all targets for sanity checking
--        # tasks, such as upstream versions, license, and tools for
--        # task and image creation.
--        self.universe_target.append(info.pn)
--
--        self.hashfn[fn] = info.hashfilename
--        for task, taskhash in info.basetaskhashes.iteritems():
--            identifier = '%s.%s' % (fn, task)
--            self.basetaskhash[identifier] = taskhash
--
--        self.inherits[fn] = info.inherits
--        self.summary[fn] = info.summary
--        self.license[fn] = info.license
--        self.section[fn] = info.section
--        self.fakerootenv[fn] = info.fakerootenv
--        self.fakerootdirs[fn] = info.fakerootdirs
-+        
+         
+diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
+index 0dc895a..b76a4d2 100644
+--- a/bitbake/lib/bb/cooker.py
++++ b/bitbake/lib/bb/cooker.py
+@@ -758,13 +758,13 @@ class BBCooker:
+ 
+         fn = bb.cache.Cache.realfn2virtual(buildfile, cls)
+         try:
+-            maininfo = infos[fn]
++            info_array = infos[fn]
+         except KeyError:
+             bb.fatal("%s does not exist" % fn)
+-        self.status.add_from_recipeinfo(fn, maininfo)
++        self.status.add_from_recipeinfo(fn, info_array)
+ 
+         # Tweak some variables
+-        item = maininfo.pn
++        item = info_array[0].pn
+         self.status.ignored_dependencies = set()
+         self.status.bbfile_priority[fn] = 1
+ 
+@@ -1207,10 +1207,10 @@ class CookerParser(object):
+         else:
+             self.cached += 1
+ 
+-        for virtualfn, info in result:
+-            if info.skipped:
++        for virtualfn, info_array in result:
++            if info_array[0].skipped:
+                 self.skipped += 1
+-            self.bb_cache.add_info(virtualfn, info, self.cooker.status,
++            self.bb_cache.add_info(virtualfn, info_array, self.cooker.status,
+                                         parsed=parsed)
+         return True
+ 
+@@ -1218,5 +1218,5 @@ class CookerParser(object):
+         infos = self.bb_cache.parse(filename,
+                                     self.cooker.get_file_appends(filename),
+                                     self.cfgdata, self.cooker.caches_array)
+-        for vfn, info in infos:
+-            self.cooker.status.add_from_recipeinfo(vfn, info)
++        for vfn, info_array in infos:
++            self.cooker.status.add_from_recipeinfo(vfn, info_array)
 -- 
 1.7.0.4
 
