@@ -1,22 +1,24 @@
 Return-Path: <liping.ke@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1852B4C80A86
-	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:05:29 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 25 May 2011 20:05:28 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 162E54C80A9C
+	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:05:30 -0500 (CDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 25 May 2011 20:05:29 -0700
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,270,1304319600"; 
+   d="scan'208";a="8975589"
 Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by orsmga002.jf.intel.com with ESMTP; 25 May 2011 20:05:28 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 25 May 2011 20:05:23 -0700
 From: Ke Liping <liping.ke@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 26 May 2011 10:53:42 +0800
-Message-Id: <12cb614fff9e3380a85ffcab100f39112a13f6b4.1306376361.git.liping.ke@intel.com>
+Date: Thu, 26 May 2011 10:53:40 +0800
+Message-Id: <8cff99d9e674e653e502b246735b14462108e37d.1306376361.git.liping.ke@intel.com>
 X-Mailer: git-send-email 1.7.0.4
 In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
 References: <cover.1306376361.git.liping.ke@intel.com>
 In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
 References: <cover.1306376361.git.liping.ke@intel.com>
-Subject: [PATCH 4/4][Image Creator]Implement multiple extra cache fields request support
+Subject: [PATCH 2/4][Image Creator]Introduce extra cache class for image creator
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,373 +30,85 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 03:05:29 -0000
+X-List-Received-Date: Thu, 26 May 2011 03:05:30 -0000
 
 From: Liping Ke <liping.ke@intel.com>
 
-This patch is to support extra cache. If user needs to request
-extra cache fields besides CoreRecipeInfo fields, just add a new
-XXXRecipeInfo class definition as Hob Does.
-Currently supported Extra RecipeInfo name is an array. We can
-support multiple extra cache fields at the same time besides
-CoreRecipeInfo which is needed by all clients.
+Extra RecipeInfo will be all defined in this file. Currently,
+Only Hob (Image Creator) Requests some extra fields. So
+HobRecipeInfo is defined. It's named HobRecipeInfo because it
+is introduced by 'hob'. Users could also introduce other
+RecipeInfo or simply use those already defined RecipeInfo.
+In the following patch, this newly defined new extra RecipeInfo
+will be dynamically loaded and used for loading/saving the extra
+cache fields.
 
 Signed-off-by: Liping Ke <liping.ke@intel.com>
 ---
- bitbake/lib/bb/cache.py  |  175 +++++++++++++++++++++++++++++++---------------
- bitbake/lib/bb/cooker.py |   16 ++--
- 2 files changed, 126 insertions(+), 65 deletions(-)
+ bitbake/lib/bb/cache_extra.py |   54 +++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 54 insertions(+), 0 deletions(-)
+ create mode 100644 bitbake/lib/bb/cache_extra.py
 
-diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
-index 0620621..271ebd7 100644
---- a/bitbake/lib/bb/cache.py
-+++ b/bitbake/lib/bb/cache.py
-@@ -45,6 +45,8 @@ except ImportError:
- 
- __cache_version__ = "138"
- 
-+def getCacheFile(path, filename):
-+    return os.path.join(path, filename)
- 
- # RecipeInfoCommon defines common data retrieving methods
- # from meta data for caches. CoreRecipeInfo as well as other
-@@ -86,12 +88,9 @@ class RecipeInfoCommon(object):
- class CoreRecipeInfo(RecipeInfoCommon):
-     __slots__ = ()
- 
--    def __init__(self, filename, metadata):
--        self.name = "base"
--        # please override this member with the correct data cache file
--        # such as (bb_cache.dat, bb_extracache_hob.dat) 
--        self.cachefile = "bb_cache.dat"        
-+    cachefile = "bb_cache.dat"   
- 
-+    def __init__(self, filename, metadata):      
-         self.file_depends = metadata.getVar('__depends', False)
-         self.timestamp = bb.parse.cached_mtime(filename)
-         self.variants = self.listvar('__VARIANTS', metadata) + ['']
-@@ -265,7 +264,7 @@ class Cache(object):
-             return
- 
-         self.has_cache = True
--        self.cachefile = os.path.join(self.cachedir, "bb_cache.dat")
-+        self.cachefile = getCacheFile(self.cachedir, "bb_cache.dat")
- 
-         logger.debug(1, "Using cache in '%s'", self.cachedir)
-         bb.utils.mkdirhier(self.cachedir)
-@@ -279,12 +278,21 @@ class Cache(object):
-         old_mtimes.append(newest_mtime)
-         newest_mtime = max(old_mtimes)
- 
--        if bb.parse.cached_mtime_noerror(self.cachefile) >= newest_mtime:
-+        bNeedUpdate = True
-+        if self.caches_array:
-+            for cache_class in self.caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                    bNeedUpdate = bNeedUpdate and (bb.parse.cached_mtime_noerror(cachefile) >= newest_mtime)
-+                    cache_class.init_cacheData(self)
-+        if bNeedUpdate:
-             self.load_cachefile()
-         elif os.path.isfile(self.cachefile):
-             logger.info("Out of date cache found, rebuilding...")
- 
-     def load_cachefile(self):
-+        # Firstly, using core cache file information for
-+        # valid checking
-         with open(self.cachefile, "rb") as cachefile:
-             pickled = pickle.Unpickler(cachefile)
-             try:
-@@ -301,31 +309,52 @@ class Cache(object):
-                 logger.info('Bitbake version mismatch, rebuilding...')
-                 return
- 
--            cachesize = os.fstat(cachefile.fileno()).st_size
--            bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
- 
--            previous_percent = 0
--            while cachefile:
--                try:
--                    key = pickled.load()
--                    value = pickled.load()
--                except Exception:
--                    break
-+        cachesize = 0
-+        previous_progress = 0
-+        previous_percent = 0
- 
--                self.depends_cache[key] = value
--
--                # only fire events on even percentage boundaries
--                current_progress = cachefile.tell()
--                current_percent = 100 * current_progress / cachesize
--                if current_percent > previous_percent:
--                    previous_percent = current_percent
--                    bb.event.fire(bb.event.CacheLoadProgress(current_progress),
--                                  self.data)
--
--            bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
--                                                      len(self.depends_cache)),
--                          self.data)
-+        # Calculate the correct cachesize of all those cache files
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                with open(cachefile, "rb") as cachefile:
-+                    cachesize += os.fstat(cachefile.fileno()).st_size
- 
-+        bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
-+        
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                with open(cachefile, "rb") as cachefile:
-+                    pickled = pickle.Unpickler(cachefile)                    
-+                    while cachefile:
-+                        try:
-+                            key = pickled.load()
-+                            value = pickled.load()
-+                        except Exception:
-+                            break
-+                        if self.depends_cache.has_key(key):
-+                            self.depends_cache[key].append(value)
-+                        else:
-+                            self.depends_cache[key] = [value]
-+                        # only fire events on even percentage boundaries
-+                        current_progress = cachefile.tell() + previous_progress
-+                        current_percent = 100 * current_progress / cachesize
-+                        if current_percent > previous_percent:
-+                            previous_percent = current_percent
-+                            bb.event.fire(bb.event.CacheLoadProgress(current_progress),
-+                                          self.data)
+diff --git a/bitbake/lib/bb/cache_extra.py b/bitbake/lib/bb/cache_extra.py
+new file mode 100644
+index 0000000..6a402d5
+--- /dev/null
++++ b/bitbake/lib/bb/cache_extra.py
+@@ -0,0 +1,54 @@
++# ex:ts=4:sw=4:sts=4:et
++# -*- tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
++#
++# Extra RecipeInfo will be all defined in this file. Currently,
++# Only Hob (Image Creator) Requests some extra fields. So
++# HobRecipeInfo is defined. It's named HobRecipeInfo because it
++# is introduced by 'hob'. Users could also introduce other
++# RecipeInfo or simply use those already defined RecipeInfo.
++# In the following patch, this newly defined new extra RecipeInfo
++# will be dynamically loaded and used for loading/saving the extra
++# cache fields  
 +
-+                    previous_progress += current_progress
++# Copyright (C) 2011        Liping Ke
 +
-+        # Note: depends cache number is corresponding to the parsing file numbers.
-+        # The same file has several caches, still regarded as one item in the cache
-+        bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
-+                                                  len(self.depends_cache)),
-+                      self.data)
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License version 2 as
++# published by the Free Software Foundation.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License along
++# with this program; if not, write to the Free Software Foundation, Inc.,
++# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 +
-+    
-     @staticmethod
-     def virtualfn2realfn(virtualfn):
-         """
-@@ -376,8 +405,14 @@ class Cache(object):
-             depends |= (data.getVar("__depends", False) or set())
-             if depends and not variant:
-                 data.setVar("__depends", depends)
--            info = CoreRecipeInfo(filename, data)
--            infos.append((virtualfn, info))
++from bb.cache import RecipeInfoCommon
 +
-+            info_array = []
-+            for cache_class in caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    info = cache_class(filename, data)
-+                    info_array.append(info)
-+            infos.append((virtualfn, info_array))
++class HobRecipeInfo(RecipeInfoCommon):
++    __slots__ = ()
 +
-         return infos
- 
-     def load(self, filename, appends, configdata):
-@@ -391,8 +426,9 @@ class Cache(object):
-         cached = self.cacheValid(filename)
-         if cached:
-             infos = []
--            info = self.depends_cache[filename]
--            for variant in info.variants:
-+            # info_array item is a list of [CoreRecipeInfo, XXXRecipeInfo]
-+            info_array = self.depends_cache[filename]
-+            for variant in info_array[0].variants:
-                 virtualfn = self.realfn2virtual(filename, variant)
-                 infos.append((virtualfn, self.depends_cache[virtualfn]))
-         else:
-@@ -408,12 +444,12 @@ class Cache(object):
-         skipped, virtuals = 0, 0
- 
-         cached, infos = self.load(fn, appends, cfgData)
--        for virtualfn, info in infos:
--            if info.skipped:
-+        for virtualfn, info_array in infos:
-+            if info_array[0].skipped:
-                 logger.debug(1, "Skipping %s", virtualfn)
-                 skipped += 1
-             else:
--                self.add_info(virtualfn, info, cacheData, not cached)
-+                self.add_info(virtualfn, info_array, cacheData, not cached)
-                 virtuals += 1
- 
-         return cached, skipped, virtuals
-@@ -457,15 +493,15 @@ class Cache(object):
-             self.remove(fn)
-             return False
- 
--        info = self.depends_cache[fn]
-+        info_array = self.depends_cache[fn]
-         # Check the file's timestamp
--        if mtime != info.timestamp:
-+        if mtime != info_array[0].timestamp:
-             logger.debug(2, "Cache: %s changed", fn)
-             self.remove(fn)
-             return False
- 
-         # Check dependencies are still valid
--        depends = info.file_depends
-+        depends = info_array[0].file_depends
-         if depends:
-             for f, old_mtime in depends:
-                 fmtime = bb.parse.cached_mtime_noerror(f)
-@@ -483,7 +519,7 @@ class Cache(object):
-                     return False
- 
-         invalid = False
--        for cls in info.variants:
-+        for cls in info_array[0].variants:
-             virtualfn = self.realfn2virtual(fn, cls)
-             self.clean.add(virtualfn)
-             if virtualfn not in self.depends_cache:
-@@ -530,13 +566,30 @@ class Cache(object):
-             logger.debug(2, "Cache is clean, not saving.")
-             return
- 
--        with open(self.cachefile, "wb") as cachefile:
--            pickler = pickle.Pickler(cachefile, pickle.HIGHEST_PROTOCOL)
--            pickler.dump(__cache_version__)
--            pickler.dump(bb.__version__)
--            for key, value in self.depends_cache.iteritems():
--                pickler.dump(key)
--                pickler.dump(value)
-+        file_dict = {}
-+        pickler_dict = {}
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cache_class_name = cache_class.__name__
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                file_dict[cache_class_name] = open(cachefile, "wb")
-+                pickler_dict[cache_class_name] =  pickle.Pickler(file_dict[cache_class_name], pickle.HIGHEST_PROTOCOL)
-+                   
-+        pickler_dict['CoreRecipeInfo'].dump(__cache_version__)
-+        pickler_dict['CoreRecipeInfo'].dump(bb.__version__)
++    classname = "HobRecipeInfo"
++    # please override this member with the correct data cache file
++    # such as (bb_cache.dat, bb_extracache_hob.dat) 
++    cachefile = "bb_extracache_" + classname +".dat"        
 +
-+        try:
-+            for key, info_array in self.depends_cache.iteritems():
-+                for info in info_array:
-+                    if isinstance(info, RecipeInfoCommon):
-+                        cache_class_name = info.__class__.__name__
-+                        pickler_dict[cache_class_name].dump(key)
-+                        pickler_dict[cache_class_name].dump(info)
-+        finally:
-+            for cache_class in self.caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    cache_class_name = cache_class.__name__
-+                    file_dict[cache_class_name].close()
- 
-         del self.depends_cache
- 
-@@ -544,17 +597,17 @@ class Cache(object):
-     def mtime(cachefile):
-         return bb.parse.cached_mtime_noerror(cachefile)
- 
--    def add_info(self, filename, info, cacheData, parsed=None):
--        if not info.skipped:
--            cacheData.add_from_recipeinfo(filename, info)
-+    def add_info(self, filename, info_array, cacheData, parsed=None):
-+        if isinstance(info_array[0], CoreRecipeInfo) and (not info_array[0].skipped):
-+            cacheData.add_from_recipeinfo(filename, info_array)
- 
-         if not self.has_cache:
-             return
- 
--        if (info.skipped or 'SRCREVINACTION' not in info.pv) and not info.nocache:
-+        if (info_array[0].skipped or 'SRCREVINACTION' not in info_array[0].pv) and not info_array[0].nocache:
-             if parsed:
-                 self.cacheclean = False
--            self.depends_cache[filename] = info
-+            self.depends_cache[filename] = info_array
- 
-     def add(self, file_name, data, cacheData, parsed=None):
-         """
-@@ -562,8 +615,12 @@ class Cache(object):
-         """
- 
-         realfn = self.virtualfn2realfn(file_name)[0]
--        info = CoreRecipeInfo(realfn, data)
--        self.add_info(file_name, info, cacheData, parsed)
++    def __init__(self, filename, metadata):
 +
-+        info_array = []
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                info_array.append(cache_class(realfn, data))
-+        self.add_info(file_name, info_array, cacheData, parsed)
- 
-     @staticmethod
-     def load_bbfile(bbfile, appends, config):
-@@ -629,7 +686,10 @@ class CacheData(object):
- 
-     def __init__(self, caches_array):
-         self.caches_array = caches_array
--        CoreRecipeInfo.init_cacheData(self)
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cache_class.init_cacheData(self)        
++        self.summary = self.getvar('SUMMARY', metadata)
++        self.license = self.getvar('LICENSE', metadata)
++        self.section = self.getvar('SECTION', metadata)
 +
-         # Direct cache variables
-         self.task_queues = {}
-         self.preferred = {}
-@@ -640,7 +700,8 @@ class CacheData(object):
-         self.bbfile_priority = {}
-         self.bbfile_config_priorities = []
- 
--    def add_from_recipeinfo(self, fn, info):
--        info.add_cacheData(self, fn)
-+    def add_from_recipeinfo(self, fn, info_array):
-+        for info in info_array:
-+            info.add_cacheData(self, fn)
- 
-         
-diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-index 0dc895a..b76a4d2 100644
---- a/bitbake/lib/bb/cooker.py
-+++ b/bitbake/lib/bb/cooker.py
-@@ -758,13 +758,13 @@ class BBCooker:
- 
-         fn = bb.cache.Cache.realfn2virtual(buildfile, cls)
-         try:
--            maininfo = infos[fn]
-+            info_array = infos[fn]
-         except KeyError:
-             bb.fatal("%s does not exist" % fn)
--        self.status.add_from_recipeinfo(fn, maininfo)
-+        self.status.add_from_recipeinfo(fn, info_array)
- 
-         # Tweak some variables
--        item = maininfo.pn
-+        item = info_array[0].pn
-         self.status.ignored_dependencies = set()
-         self.status.bbfile_priority[fn] = 1
- 
-@@ -1207,10 +1207,10 @@ class CookerParser(object):
-         else:
-             self.cached += 1
- 
--        for virtualfn, info in result:
--            if info.skipped:
-+        for virtualfn, info_array in result:
-+            if info_array[0].skipped:
-                 self.skipped += 1
--            self.bb_cache.add_info(virtualfn, info, self.cooker.status,
-+            self.bb_cache.add_info(virtualfn, info_array, self.cooker.status,
-                                         parsed=parsed)
-         return True
- 
-@@ -1218,5 +1218,5 @@ class CookerParser(object):
-         infos = self.bb_cache.parse(filename,
-                                     self.cooker.get_file_appends(filename),
-                                     self.cfgdata, self.cooker.caches_array)
--        for vfn, info in infos:
--            self.cooker.status.add_from_recipeinfo(vfn, info)
-+        for vfn, info_array in infos:
-+            self.cooker.status.add_from_recipeinfo(vfn, info_array)
++    @classmethod
++    def init_cacheData(cls, cachedata):
++        # CacheData in Hob RecipeInfo Class
++        cachedata.summary = {}
++        cachedata.license = {}
++        cachedata.section = {}
++
++    def add_cacheData(self, cachedata, fn):
++        cachedata.summary[fn] = self.summary
++        cachedata.license[fn] = self.license
++        cachedata.section[fn] = self.section
 -- 
 1.7.0.4
 
