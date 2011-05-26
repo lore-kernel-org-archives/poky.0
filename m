@@ -1,35 +1,34 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
-	[213.75.39.8])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5C1CF4C80228
-	for <poky@yoctoproject.org>; Thu, 26 May 2011 06:22:23 -0500 (CDT)
-Received: from cpbrm-ews24.kpnxchange.com ([10.94.84.155]) by
-	cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 26 May 2011 13:22:22 +0200
-Received: from CPSMTPM-CMT106.kpnxchange.com ([195.121.3.22]) by
-	cpbrm-ews24.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 26 May 2011 13:22:22 +0200
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT106.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Thu, 26 May 2011 13:22:22 +0200
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
-	Thu, 26 May 2011 13:22:19 +0200
-Message-ID: <4DDE37EE.101@de-haardt.com>
-Date: Thu, 26 May 2011 13:22:22 +0200
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+Return-Path: <lianhao.lu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 786734C8016A
+	for <poky@yoctoproject.org>; Thu, 26 May 2011 07:14:43 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 26 May 2011 05:14:41 -0700
+X-ExtLoop1: 1
+Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
+	by orsmga002.jf.intel.com with ESMTP; 26 May 2011 05:14:41 -0700
+Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
+	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Thu, 26 May 2011 20:14:38 +0800
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Thu, 26 May 2011 20:14:38 +0800
+Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Thu, 26 May 2011 20:14:37 +0800
+From: "Lu, Lianhao" <lianhao.lu@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Thu, 26 May 2011 20:14:35 +0800
+Thread-Topic: Exception in sstate_cleanall() results in the failure of task
+	do_clean 
+Thread-Index: AcwbnnppVuzCZLM0Qs6MbSXhqrKsvw==
+Message-ID: <C10D3FB0CD45994C8A51FEC1227CE22F232DBFB0FF@shsmsx502.ccr.corp.intel.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4DDE01BB.3000109@de-haardt.com> <1306402981.27470.97.camel@rex>
-In-Reply-To: <1306402981.27470.97.camel@rex>
-X-OriginalArrivalTime: 26 May 2011 11:22:22.0259 (UTC)
-	FILETIME=[2E977030:01CC1B97]
-X-RcptDomain: yoctoproject.org
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: wrong rpm name qt package
+Subject: Exception in sstate_cleanall() results in the failure of task do_clean
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,41 +40,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 11:22:23 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 26 May 2011 12:14:44 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 05/26/2011 11:43 AM, Richard Purdie wrote:
-> On Thu, 2011-05-26 at 09:31 +0200, Gerard van den Bosch wrote:
->> I have developed a shared library using Qt, it compiles without any
->> problems but it goes wrong with rpm packaging.
->> When it packages it should create a rpm package with the name
->> "libxmlpcpqt" but it creates a package with "libxmlpcpqt1".
->> My question is where does the '1' come from?
->>
->> The install part from the recipe is as follows:
->> do_install() {
->>       install -d ${D}${libdir}
->>       install -m 0755 ${S}/${PN}.so ${D}${libdir}
->> }
->>
->> In
->> the /tmp/work/armv7a-poky-linux-gnueabi/libxmlpcpqt-0.1-r1/image/usr/lib the libxmlpcpqt.so file correctly exists.
-> This happens as debian style package naming is enabled (debian.bbclass
-> is inherited).
->
-> Cheers,
->
-> Richard
->
-I tried removing debian from the INHERITS+= variable in the poky.conf but then it printed it couldn't find the function that is inside debian.bbclass and didn't create the package.
-Modifying debian.bbclass would be too drastic so I work around it like this:
-Added PACKAGES+= ${PN}1 to my recipe
-Modified the IMAGE_INSTALL+= variable from libxmlpcpqt to libxmlpcpqt1
-This resulted in a working solution.
+Hi guys,
 
-Regards,
-Gerard
+I recently ran into a do_clean failure using the following scenario:
 
+1. set PACKAGE_CLASSES to 'package_ipk' in local.conf
+2. bitbake foo
+3. set PACKAGE_CLASSES to 'package_rpm' in local.conf
+4. bitbake foo -c clean
 
+The do_clean in step 4 failed without printing any useful information. I du=
+g into a little bit, and found the failure was caused by an exception in th=
+e function sstate_cleanall() :
+
+  for manifest in (os.listdir(manifest_dir)):
+        if fnmatch.fnmatch(manifest, manifest_pattern):
+             name =3D manifest.replace(manifest_pattern[:-1], "")
+             namemap =3D d.getVar('SSTATETASKNAMES', True).split()
+             tasks =3D d.getVar('SSTATETASKS', True).split()
+             taskname =3D tasks[namemap.index(name)]
+             shared_state =3D sstate_state_fromvars(d, taskname[3:])
+             sstate_clean(shared_state, d)
+
+This code snippet tries to find the matching manifest files in minfest dir,=
+ then trying to get the task specific shared_state corresponding to the mat=
+ching manifest file. The problem is when finding the shared_state for manif=
+est file of deploy_ipk(generated because of step 1), the python code "namem=
+ap.index(name)" would throw out an exception because the SSTATETASKNAMES do=
+esn't have that value(because of step 3). This would result the failure.
+
+I'm just wondering is it intentional? Or should it just skip the non-exists=
+ deploy_ipk task and continue to clean by other manifest files?
+
+Best Regards,
+-Lianhao
 
