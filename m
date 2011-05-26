@@ -1,24 +1,27 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4E44A4C80A9C
-	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:05:30 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 25 May 2011 20:05:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,270,1304319600"; 
-   d="scan'208";a="8975614"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by fmsmga001.fm.intel.com with ESMTP; 25 May 2011 20:05:25 -0700
-From: Ke Liping <liping.ke@intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 26 May 2011 10:53:41 +0800
-Message-Id: <d43679c93e42683ef1e3d636fe9bacc7304d415e.1306376361.git.liping.ke@intel.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
-References: <cover.1306376361.git.liping.ke@intel.com>
-In-Reply-To: <cover.1306376361.git.liping.ke@intel.com>
-References: <cover.1306376361.git.liping.ke@intel.com>
-Subject: [PATCH 3/4][Image Creator]Introduce new param caches_array into Cache impl.
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 489694C80A92
+	for <poky@yoctoproject.org>; Wed, 25 May 2011 22:06:22 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4Q36KWI019617
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 25 May 2011 20:06:21 -0700 (PDT)
+Received: from [128.224.162.178] (128.224.162.178) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Wed, 25 May 2011 20:06:20 -0700
+Message-ID: <4DDDC343.7070008@windriver.com>
+Date: Thu, 26 May 2011 11:04:35 +0800
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Saul Wold <saul.wold@intel.com>
+References: <cover.1306297759.git.xiaofeng.yan@windriver.com>
+	<4DDD9185.3040400@intel.com>
+In-Reply-To: <4DDD9185.3040400@intel.com>
+X-Originating-IP: [128.224.162.178]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] libQtopenGL: Add this library to lsb image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,206 +33,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 03:05:30 -0000
+X-List-Received-Date: Thu, 26 May 2011 03:06:22 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Liping Ke <liping.ke@intel.com>
+On 2011年05月26日 07:32, Saul Wold wrote:
+> On 05/25/2011 12:03 AM, Xiaofeng Yan wrote:
+>> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>>
+>> Hi Saul,
+>> [YOCTO #1020]
+>> We make lsb test on the following platform with default "mesa-xlib" 
+>> so far.
+>> emenlow, mpc8315e, qemux86,qemux86-64,jasperforest
+>> Perhaps some of them could have graphic hardware but lsb image can 
+>> pass test by default "mesa-xlib" except mpc8315e because of its 
+>> limited memory
+>> we don't make lsb test on lsb image with "mesa-dri".
+>> I submit two patches to fix bug [#YOCTO 1020]
+>>
+> Did you test this with mips or arm builds?
+>
+> Sau!
+>
+Hi Saul,
 
-When using hob ui interface, we need extra cache fields.
-We will save ui required extra cache fields into a separate
-cache file. This patch introduce this caches_array parameter.
-It will be used in the extra cache implementation (following patch).
-Caches_array at least contains CoreRecipeInfo. If users need extra
-cache fields support, such as 'hob', caches_array will contain
-more relevant elements such as HobRecipeInfo.
+At the present time LSB Test Suite don't support arm and mips platform. 
+It support amd64, i386,i486,ia64,ppc23 ppc64,s390,s390x,x86-64 now. So I 
+didn't build lsb image for arm and mips ago. If you want to get an lsb 
+image for arm and mips, I can try to build them but can't test them 
+without LSB Test Suite.
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
----
- bitbake/lib/bb/cache.py  |   15 ++++++++----
- bitbake/lib/bb/cooker.py |   54 +++++++++++++++++++++++++++++++++++++++------
- bitbake/lib/bb/shell.py  |    2 +-
- bitbake/lib/bb/ui/hob.py |    2 +
- 4 files changed, 59 insertions(+), 14 deletions(-)
-
-diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
-index 09691d9..0620621 100644
---- a/bitbake/lib/bb/cache.py
-+++ b/bitbake/lib/bb/cache.py
-@@ -245,7 +245,11 @@ class Cache(object):
-     BitBake Cache implementation
-     """
- 
--    def __init__(self, data):
-+    def __init__(self, data, caches_array):
-+        # Pass caches_array information into Cache Constructor
-+        # It will be used in later for deciding whether we 
-+        # need extra cache file dump/load support 
-+        self.caches_array = caches_array
-         self.cachedir = bb.data.getVar("CACHE", data, True)
-         self.clean = set()
-         self.checked = set()
-@@ -360,7 +364,7 @@ class Cache(object):
-         return bb_data[virtual]
- 
-     @classmethod
--    def parse(cls, filename, appends, configdata):
-+    def parse(cls, filename, appends, configdata, caches_array):
-         """Parse the specified filename, returning the recipe information"""
-         infos = []
-         datastores = cls.load_bbfile(filename, appends, configdata)
-@@ -393,7 +397,7 @@ class Cache(object):
-                 infos.append((virtualfn, self.depends_cache[virtualfn]))
-         else:
-             logger.debug(1, "Parsing %s", filename)
--            return self.parse(filename, appends, configdata)
-+            return self.parse(filename, appends, configdata, self.caches_array)
- 
-         return cached, infos
- 
-@@ -623,8 +627,9 @@ class CacheData(object):
-     The data structures we compile from the cached data
-     """
- 
--    def __init__(self):
--        CoreRecipeInfo.init_cacheData(self)        
-+    def __init__(self, caches_array):
-+        self.caches_array = caches_array
-+        CoreRecipeInfo.init_cacheData(self)
-         # Direct cache variables
-         self.task_queues = {}
-         self.preferred = {}
-diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-index a1cd4d7..0dc895a 100644
---- a/bitbake/lib/bb/cooker.py
-+++ b/bitbake/lib/bb/cooker.py
-@@ -72,6 +72,43 @@ class BBCooker:
- 
-         self.configuration = configuration
- 
-+        self.caches_array = []
-+        # Currently, only Image Creator hob ui needs extra cache.
-+        # So, we save Extra Cache class name and container file
-+        # information into a extraCaches field in hob UI.  
-+        # In future, having a registration mechanism for extra cache
-+        # fields in cache_extra is a better solution. Also, we may
-+        # need to consider adding a user-hidden parameter 'CacheRequest'
-+        # for bitbake command line. It will be filled by those sub
-+        # command who need to have extra cache support.
-+        caches_name_array = ['bb.cache:CoreRecipeInfo']
-+        if configuration.ui:
-+            try:
-+                module = __import__('bb.ui', fromlist=[configuration.ui])
-+                name_array = (getattr(module, configuration.ui)).extraCaches
-+                for recipeInfoName in name_array:
-+                    caches_name_array.append(recipeInfoName)
-+            except ImportError, exc:
-+                # bb.ui.XXX is not defined and imported. It's an error!
-+                logger.critical("Unable to import '%s' interface from bb.ui: %s" % (configuration.ui, exc))
-+                sys.exit("FATAL: Failed to import '%s' interface." % configuration.ui)
-+            except AttributeError:
-+                # This is not an error. If the field is not defined in the ui,
-+                # this interface might need no extra cache fields, so
-+                # just skip this error!
-+                logger.info("UI '%s' does not require extra cache!" % (configuration.ui))
-+
-+        # At least CoreRecipeInfo will be loaded, so caches_array will never be empty!
-+        # This is the entry point, no further check needed!
-+        for var in caches_name_array:
-+            try:
-+                module_name, cache_name = var.split(':')
-+                module = __import__(module_name, fromlist=(cache_name,))
-+                self.caches_array.append(getattr(module, cache_name)) 
-+            except ImportError, exc:
-+                logger.critical("Unable to import extra RecipeInfo '%s' from bb.extra_cache: %s" % (cache_name, exc))
-+                sys.exit("FATAL: Failed to import extra cache class '%s'." % cache_name)
-+
-         self.configuration.data = bb.data.init()
- 
-         if not server:
-@@ -713,9 +750,10 @@ class BBCooker:
- 
-         self.buildSetVars()
- 
--        self.status = bb.cache.CacheData()
-+        self.status = bb.cache.CacheData(self.caches_array)
-         infos = bb.cache.Cache.parse(fn, self.get_file_appends(fn), \
--                                     self.configuration.data)
-+                                     self.configuration.data,
-+                                     self.caches_array)
-         infos = dict(infos)
- 
-         fn = bb.cache.Cache.realfn2virtual(buildfile, cls)
-@@ -859,7 +897,7 @@ class BBCooker:
-                 else:
-                     collectlog.info("You have disabled Psyco. This decreases performance.")
- 
--            self.status = bb.cache.CacheData()
-+            self.status = bb.cache.CacheData(self.caches_array)
- 
-             ignore = bb.data.getVar("ASSUME_PROVIDED", self.configuration.data, 1) or ""
-             self.status.ignored_dependencies = set(ignore.split())
-@@ -1066,9 +1104,9 @@ class ParsingFailure(Exception):
-         self.args = (realexception, recipe)
- 
- def parse_file(task):
--    filename, appends = task
-+    filename, appends, caches_array = task
-     try:
--        return True, bb.cache.Cache.parse(filename, appends, parse_file.cfg)
-+        return True, bb.cache.Cache.parse(filename, appends, parse_file.cfg, caches_array)
-     except Exception, exc:
-         exc.recipe = filename
-         raise exc
-@@ -1098,13 +1136,13 @@ class CookerParser(object):
-         self.num_processes = int(self.cfgdata.getVar("BB_NUMBER_PARSE_THREADS", True) or
-                                  multiprocessing.cpu_count())
- 
--        self.bb_cache = bb.cache.Cache(self.cfgdata)
-+        self.bb_cache = bb.cache.Cache(self.cfgdata, cooker.caches_array)
-         self.fromcache = []
-         self.willparse = []
-         for filename in self.filelist:
-             appends = self.cooker.get_file_appends(filename)
-             if not self.bb_cache.cacheValid(filename):
--                self.willparse.append((filename, appends))
-+                self.willparse.append((filename, appends, cooker.caches_array))
-             else:
-                 self.fromcache.append((filename, appends))
-         self.toparse = self.total - len(self.fromcache)
-@@ -1179,6 +1217,6 @@ class CookerParser(object):
-     def reparse(self, filename):
-         infos = self.bb_cache.parse(filename,
-                                     self.cooker.get_file_appends(filename),
--                                    self.cfgdata)
-+                                    self.cfgdata, self.cooker.caches_array)
-         for vfn, info in infos:
-             self.cooker.status.add_from_recipeinfo(vfn, info)
-diff --git a/bitbake/lib/bb/shell.py b/bitbake/lib/bb/shell.py
-index 3319e2d..1dd8d54 100644
---- a/bitbake/lib/bb/shell.py
-+++ b/bitbake/lib/bb/shell.py
-@@ -407,7 +407,7 @@ SRC_URI = ""
- 
-     def parse( self, params ):
-         """(Re-)parse .bb files and calculate the dependency graph"""
--        cooker.status = cache.CacheData()
-+        cooker.status = cache.CacheData(cooker.caches_array)
-         ignore = data.getVar("ASSUME_PROVIDED", cooker.configuration.data, 1) or ""
-         cooker.status.ignored_dependencies = set( ignore.split() )
-         cooker.handleCollections( data.getVar("BBFILE_COLLECTIONS", cooker.configuration.data, 1) )
-diff --git a/bitbake/lib/bb/ui/hob.py b/bitbake/lib/bb/ui/hob.py
-index 0f8fe8c..ab6022b 100644
---- a/bitbake/lib/bb/ui/hob.py
-+++ b/bitbake/lib/bb/ui/hob.py
-@@ -28,6 +28,8 @@ import xmlrpclib
- import logging
- import Queue
- 
-+extraCaches = ['bb.cache_extra:HobRecipeInfo']
-+
- class MainWindow (gtk.Window):
-             
-     def __init__(self, taskmodel, handler, curr_mach=None, curr_distro=None):
--- 
-1.7.0.4
+Thanks
+Yan
+>> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>> Branch: xiaofeng/opengl
+>> Browse: 
+>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/opengl
+>>
+>> Thanks,
+>> Xiaofeng Yan<xiaofeng.yan@windriver.com>
+>> ---
+>>
+>>
+>> Xiaofeng Yan (2):
+>> poky-lsb: Compile library libQtOpenGL* for building a lsb image
+>> task-core-lsb: Install libQtOpenGL* to lsb image
+>>
+>> meta-yocto/conf/distro/poky-lsb.conf | 2 +-
+>> meta/recipes-extended/tasks/task-core-lsb.bb | 18 +-----------------
+>> 2 files changed, 2 insertions(+), 18 deletions(-)
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>
+>
 
 
