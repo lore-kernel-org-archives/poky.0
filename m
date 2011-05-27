@@ -1,25 +1,23 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 008524C80A72
-	for <poky@yoctoproject.org>; Fri, 27 May 2011 03:49:44 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 27 May 2011 01:49:44 -0700
+Return-Path: <qing.he@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A9A0E4C800AF
+	for <poky@yoctoproject.org>; Fri, 27 May 2011 04:11:09 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 27 May 2011 02:11:08 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.65,279,1304319600"; 
-   d="scan'208";a="8537552"
-Received: from kyu3-dev32.bj.intel.com (HELO localhost) ([10.238.153.187])
-	by fmsmga002.fm.intel.com with ESMTP; 27 May 2011 01:49:25 -0700
-From: Yu Ke <ke.yu@intel.com>
-To: poky@yoctoproject.org,
-	richard.purdie@linuxfoundation.org
-Date: Fri, 27 May 2011 16:53:40 +0800
-Message-Id: <3e361d4b80a23d5077d89108b2bb8d0bb45dea4b.1306486223.git.ke.yu@intel.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <af8447e3f2efe132282f460f8563ad4f045b2336.1306486223.git.ke.yu@intel.com>
-References: <af8447e3f2efe132282f460f8563ad4f045b2336.1306486223.git.ke.yu@intel.com>
-In-Reply-To: <cover.1306486223.git.ke.yu@intel.com>
-References: <cover.1306486223.git.ke.yu@intel.com>
-Subject: [PATCH 3/4] fetcher2/git: add document for git fetcher supported options
+   d="scan'208";a="2821623"
+Received: from qhe2-db.sh.intel.com ([10.239.13.48])
+	by azsmga001.ch.intel.com with ESMTP; 27 May 2011 02:11:08 -0700
+Received: from qhe2 by qhe2-db.sh.intel.com with local (Exim 4.71)
+	(envelope-from <qing.he@intel.com>)
+	id 1QPswR-0007hO-Sa; Fri, 27 May 2011 17:02:47 +0800
+From: Qing He <qing.he@intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 27 May 2011 17:02:37 +0800
+Message-Id: <cover.1306486855.git.qing.he@intel.com>
+X-Mailer: git-send-email 1.7.0
+Subject: [PATCH 0/1] Fix rpm rootfs generation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,73 +29,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2011 08:49:45 -0000
+X-List-Received-Date: Fri, 27 May 2011 09:11:09 -0000
 
-CC: Khem Raj <raj.khem@gmail.com>
-CC: Darren Hart <dvhart@linux.intel.com>
+rpm-native is fixed by the patch.
 
-Signed-off-by: Yu Ke <ke.yu@intel.com>
----
- bitbake/lib/bb/fetch2/git.py |   38 +++++++++++++++++++++++++++++++++++---
- 1 files changed, 35 insertions(+), 3 deletions(-)
+The following changes since commit 9bccbc5fbc71b331911b558a2ba15e0a6d0046b4:
+  Nitin A Kamble (1):
+        tcmode-default: workaround for gcc 4.6.0 failure on beagleboard
 
-diff --git a/bitbake/lib/bb/fetch2/git.py b/bitbake/lib/bb/fetch2/git.py
-index a05402a..3b8965e 100644
---- a/bitbake/lib/bb/fetch2/git.py
-+++ b/bitbake/lib/bb/fetch2/git.py
-@@ -3,6 +3,41 @@
- """
- BitBake 'Fetch' git implementation
- 
-+git fetcher support the SRC_URI with format of:
-+SRC_URI = "git://some.host/somepath;OptionA=xxx;OptionB=xxx;..."
-+
-+Supported SRC_URI options are:
-+
-+- branch
-+   The git branch to retrieve from. The default is "master"
-+
-+   this option also support multiple branches fetching, branches
-+   are seperated by comma. in multiple branches case, the name option
-+   must have the same number of names to match the branches, which is
-+   used to specify the SRC_REV for the branch
-+   e.g:
-+   SRC_URI="git://some.host/somepath;branch=branchX,branchY;name=nameX,nameY"
-+   SRCREV_nameX = "xxxxxxxxxxxxxxxxxxxx"
-+   SRCREV_nameY = "YYYYYYYYYYYYYYYYYYYY"
-+
-+- tag
-+    The git tag to retrieve. The default is "master"
-+
-+- protocol
-+   The method to use to access the repository. Common options are "git",
-+   "http", "file" and "rsync". The default is "git"
-+
-+- rebaseable
-+   rebaseable indicates that the upstream git repo may rebase in the future,
-+   and current revision may disappear from upstream repo. This option will
-+   reminder fetcher to preserve local cache carefully for future use.
-+   The default value is "0", set rebaseable=1 for rebaseable git repo
-+
-+- nocheckout
-+   Don't checkout source code when unpacking. set this option for the recipe
-+   who has its own routine to checkout code.
-+   The default is "0", set nocheckout=1 if needed.
-+
- """
- 
- #Copyright (C) 2005 Richard Purdie
-@@ -55,9 +90,6 @@ class Git(FetchMethod):
- 
-         ud.nocheckout = ud.parm.get("nocheckout","0") == "1"
- 
--        # rebaseable means the upstream git repo may rebase in the future,
--        # and current revision may disappear from upstream repo
--        # rebaseable is false by default. set rebaseable=1 in SRC_URI if rebaseable.
-         ud.rebaseable = ud.parm.get("rebaseable","0") == "1"
- 
-         branches = ud.parm.get("branch", "master").split(',')
--- 
-1.7.0.4
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib qhe/fix
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=qhe/fix
+
+Qing He (1):
+  rpm: fix fprint pointer issue
+
+ .../rpm/rpm/fprint-pointer-fix.patch               |   35 ++++++++++++++++++++
+ meta/recipes-devtools/rpm/rpm_5.4.0.bb             |    3 +-
+ 2 files changed, 37 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-devtools/rpm/rpm/fprint-pointer-fix.patch
 
 
