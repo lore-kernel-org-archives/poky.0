@@ -1,31 +1,31 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9084F4C800AF
-	for <poky@yoctoproject.org>; Fri, 27 May 2011 07:18:20 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id DB3D64C800AF
+	for <poky@yoctoproject.org>; Fri, 27 May 2011 07:22:21 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RCIHQA002047;
-	Fri, 27 May 2011 13:18:17 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RCMHdA002091;
+	Fri, 27 May 2011 13:22:17 +0100
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 01934-03; Fri, 27 May 2011 13:18:13 +0100 (BST)
+	id 02040-02; Fri, 27 May 2011 13:22:13 +0100 (BST)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RCIBlN002041
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RCM97J002085
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 27 May 2011 13:18:11 +0100
+	Fri, 27 May 2011 13:22:10 +0100
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Qing He <qing.he@intel.com>
-In-Reply-To: <c2ef9acdefb7f8a7ac7ddfc2bf3a0d613e24851d.1306486855.git.qing.he@intel.com>
-References: <cover.1306486855.git.qing.he@intel.com>
-	<c2ef9acdefb7f8a7ac7ddfc2bf3a0d613e24851d.1306486855.git.qing.he@intel.com>
-Date: Fri, 27 May 2011 13:18:05 +0100
-Message-ID: <1306498685.27470.262.camel@rex>
+To: Yu Ke <ke.yu@intel.com>
+In-Reply-To: <7782fb15d65bb7156da2f776c98832368f2d7c38.1306483559.git.ke.yu@intel.com>
+References: <cover.1306483559.git.ke.yu@intel.com>
+	<7782fb15d65bb7156da2f776c98832368f2d7c38.1306483559.git.ke.yu@intel.com>
+Date: Fri, 27 May 2011 13:22:04 +0100
+Message-ID: <1306498924.27470.265.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.2 
 X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] rpm: fix fprint pointer issue
+Subject: Re: [PATCH 1/1] xorg.conf: update keyboard config with evdev
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,22 +37,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2011 12:18:21 -0000
+X-List-Received-Date: Fri, 27 May 2011 12:22:23 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-05-27 at 17:03 +0800, Qing He wrote:
-> [YOCTO #1030]
+On Fri, 2011-05-27 at 16:14 +0800, Yu Ke wrote:
+> with xserver 1.10, the evdev driver is used by default, so update the
+> keyboard config entry in xorg.conf accordingly.
 > 
-> Signed-off-by: Qing He <qing.he@intel.com>
+> Fix [YOCTO #1108]
+> 
+> Signed-off-by: Yu Ke <ke.yu@intel.com>
 > ---
->  .../rpm/rpm/fprint-pointer-fix.patch               |   35 ++++++++++++++++++++
->  meta/recipes-devtools/rpm/rpm_5.4.0.bb             |    3 +-
->  2 files changed, 37 insertions(+), 1 deletions(-)
->  create mode 100644 meta/recipes-devtools/rpm/rpm/fprint-pointer-fix.patch
-> 
+>  .../xserver-xf86-config/qemux86-64/xorg.conf       |    5 +++--
+>  .../xserver-xf86-config/qemux86/xorg.conf          |    5 +++--
+>  .../xorg-xserver/xserver-xf86-config_0.1.bb        |    2 +-
+>  3 files changed, 7 insertions(+), 5 deletions(-)
 
-Applied to master, thanks.
+Merged to master, thanks.
 
 Richard
 
