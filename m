@@ -1,29 +1,36 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 49B4E4C804F7
-	for <poky@yoctoproject.org>; Thu, 26 May 2011 17:05:25 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id BD8D116602FE; Thu, 26 May 2011 16:05:24 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 4CED51660133;
-	Thu, 26 May 2011 16:05:13 -0600 (MDT)
-Message-ID: <4DDECE99.70109@mlbassoc.com>
-Date: Thu, 26 May 2011 16:05:13 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews10.kpnxchange.com (cpsmtpb-ews10.kpnxchange.com
+	[213.75.39.15])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2908C4C803D6
+	for <poky@yoctoproject.org>; Fri, 27 May 2011 01:10:12 -0500 (CDT)
+Received: from cpbrm-ews22.kpnxchange.com ([10.94.84.153]) by
+	cpsmtpb-ews10.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Fri, 27 May 2011 08:10:12 +0200
+Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
+	cpbrm-ews22.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Fri, 27 May 2011 08:10:11 +0200
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT108.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Fri, 27 May 2011 08:10:11 +0200
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits));
+	Fri, 27 May 2011 08:10:08 +0200
+Message-ID: <4DDF404D.2010504@de-haardt.com>
+Date: Fri, 27 May 2011 08:10:21 +0200
+From: Gerard van den Bosch <gerard@de-haardt.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.13) Gecko/20101209 Fedora/3.1.7-0.35.b3pre.fc13
-	Thunderbird/3.1.7
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4DDBD90F.9080706@mlbassoc.com> <4DDECCE7.4010501@linux.intel.com>
-In-Reply-To: <4DDECCE7.4010501@linux.intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Over-exuberant error printing?
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4DDE01BB.3000109@de-haardt.com> <1306402981.27470.97.camel@rex>	
+	<4DDE37EE.101@de-haardt.com> <1306418056.27470.181.camel@rex>
+In-Reply-To: <1306418056.27470.181.camel@rex>
+X-OriginalArrivalTime: 27 May 2011 06:10:11.0419 (UTC)
+	FILETIME=[BC8DD2B0:01CC1C34]
+X-RcptDomain: yoctoproject.org
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: wrong rpm name qt package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,39 +42,213 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 May 2011 22:05:26 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 27 May 2011 06:10:13 -0000
+Content-Type: multipart/alternative;
+	boundary="------------070701010307090205000209"
+
+--------------070701010307090205000209
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/26/2011 03:57 PM, Darren Hart wrote:
+On 05/26/2011 03:54 PM, Richard Purdie wrote:
+> On Thu, 2011-05-26 at 13:22 +0200, Gerard van den Bosch wrote:
+>> On 05/26/2011 11:43 AM, Richard Purdie wrote:
+>>> On Thu, 2011-05-26 at 09:31 +0200, Gerard van den Bosch wrote:
+>>>> I have developed a shared library using Qt, it compiles without any
+>>>> problems but it goes wrong with rpm packaging.
+>>>> When it packages it should create a rpm package with the name
+>>>> "libxmlpcpqt" but it creates a package with "libxmlpcpqt1".
+>>>> My question is where does the '1' come from?
+>>>>
+>>>> The install part from the recipe is as follows:
+>>>> do_install() {
+>>>>        install -d ${D}${libdir}
+>>>>        install -m 0755 ${S}/${PN}.so ${D}${libdir}
+>>>> }
+>>>>
+>>>> In
+>>>> the /tmp/work/armv7a-poky-linux-gnueabi/libxmlpcpqt-0.1-r1/image/usr/lib the libxmlpcpqt.so file correctly exists.
+>>> This happens as debian style package naming is enabled (debian.bbclass
+>>> is inherited).
+>>>
+>>> Cheers,
+>>>
+>>> Richard
+>>>
+>> I tried removing debian from the INHERITS+= variable in the poky.conf
+>> but then it printed it couldn't find the function that is inside
+>> debian.bbclass and didn't create the package.
+>> Modifying debian.bbclass would be too drastic so I work around it like
+>> this:
+>> Added PACKAGES+= ${PN}1 to my recipe
+>> Modified the IMAGE_INSTALL+= variable from libxmlpcpqt to libxmlpcpqt1
+>> This resulted in a working solution.
+> This is a bug and you should never need to do this. IMAGE_INSTALL should
+> be getting remapped to the new names. The code that is meant to do that
+> is at the top of image.bbclass:
 >
+>      # If we don't do this we try and run the mapping hooks while parsing which is slow
+>      # bitbake should really provide something to let us know this...
+>      if bb.data.getVar('BB_WORKERCONTEXT', d, True) is not None:
+>          runtime_mapping_rename("PACKAGE_INSTALL", d)
+>          runtime_mapping_rename("PACKAGE_INSTALL_ATTEMPTONLY", d)
 >
-> On 05/24/2011 09:13 AM, Gary Thomas wrote:
->> Building from today's master (3504c3a9b1af5a3405e0a03a5ade50b82535b6dd)
->> if I get an error, I get two lines printed for each real line, e.g.
->> | ERROR: The stack trace of python calls that resulted in this exception/failure was:
->> | ERROR: The stack trace of python calls that resulted in this exception/failure was:
->> | ERROR:   File "sstate_task_postfunc", line 10, in<module>
->> | ERROR:   File "sstate_task_postfunc", line 10, in<module>
->> | ERROR:
->> | ERROR:
->> | ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
->> | ERROR:   File "sstate_task_postfunc", line 4, in sstate_task_postfunc
->> etc.
->>
->> This is new behavior - any ideas?
->>
+> Can you check that the code is being called? I suspect something to do
+> with the BB_WORKERCONTEXT variable has been broken. We should be doing
+> this in a better way anyhow...
 >
-> I've been seeing this as well and hadn't dug in to sort it out yet. You
-> said it is new behavior, have you bisected to determine when it occured?
+> Cheers,
 >
+> Richard
+>
+Ok, I have tried the following with the Bernard release:
 
-Not yet - I was mostly hoping that someone else had seen such behaviour
-(as you obviously have) and verified that I'm not the only one :-)
+print "hello"
+print bb.data.getVar('BB_WORKERCONTEXT', d, True)
+if bb.data.getVar('BB_WORKERCONTEXT', d, True) is not None:
+	print "hello2"
+	runtime_mapping_rename("PACKAGE_INSTALL", d)
+	runtime_mapping_rename("PACKAGE_INSTALL_ATTEMPTONLY", d)
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+The "hello" gets printed, and the variable outputs "None", the "hello2" doesn't get printed because the variable is None.
 
+In the laverne release I use here it checks on something else namely:
+if bb.data.getVar('__RUNQUEUE_DO_NOT_USE_EXTERNALLY', d, True) is not None:
+I can't add print commands there because it gives ident errors, found that has something todo with spaces but couldn't get it working.
+
+I tried searching some further, I see in this commit that the if is added, that is in the laverne release:
+http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/meta/classes/image.bbclass?id=4e0ee648b4c18b770aba11921370258f3e2aaeef
+
+Then a few commits later it is changed to the BB_WORKERCONTEXT:
+http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/meta/classes/image.bbclass?id=e427f251a457f3015c4b1cdf1648c53a9acc646d
+
+Thus I tried to figure out what sets the BB_WORKERCONTEXT, I found it in two files in bitbake namely cooker.py and runqueue.py.
+Eventually it leads to the loading of the configuration file and something set BB_WORKERCONTEXT then but I couldn't figure out what sets the variable.
+
+I looked up the commits where it is added to bitbake:
+http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/bitbake/lib/bb/runqueue.py?id=1f3e313fd5cc5ae8ea838bf8fcdedace3cb72584  <http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/bitbake/lib/bb/runqueue.py?id=1f3e313fd5cc5ae8ea838bf8fcdedace3cb72584>
+http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/bitbake/lib/bb/cooker.py?id=ca09a6f08cc29f79f9742058d737deaef9d6d5ef  <http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/bitbake/lib/bb/cooker.py?id=ca09a6f08cc29f79f9742058d737deaef9d6d5ef>
+
+But I couldn't figure out what the changes did and I did not come further than this.
+If I need to try something else out, let me know.
+
+Regards,
+Gerard
+
+
+
+--------------070701010307090205000209
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#ffffff" text="#000000">
+    On 05/26/2011 03:54 PM, Richard Purdie wrote:
+    <blockquote cite="mid:1306418056.27470.181.camel@rex" type="cite">
+      <pre wrap="">On Thu, 2011-05-26 at 13:22 +0200, Gerard van den Bosch wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">On 05/26/2011 11:43 AM, Richard Purdie wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">On Thu, 2011-05-26 at 09:31 +0200, Gerard van den Bosch wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="">I have developed a shared library using Qt, it compiles without any
+problems but it goes wrong with rpm packaging.
+When it packages it should create a rpm package with the name
+"libxmlpcpqt" but it creates a package with "libxmlpcpqt1".
+My question is where does the '1' come from?
+
+The install part from the recipe is as follows:
+do_install() {
+      install -d ${D}${libdir}
+      install -m 0755 ${S}/${PN}.so ${D}${libdir}
+}
+
+In
+the /tmp/work/armv7a-poky-linux-gnueabi/libxmlpcpqt-0.1-r1/image/usr/lib the libxmlpcpqt.so file correctly exists.
+</pre>
+          </blockquote>
+          <pre wrap="">This happens as debian style package naming is enabled (debian.bbclass
+is inherited).
+
+Cheers,
+
+Richard
+
+</pre>
+        </blockquote>
+        <pre wrap="">I tried removing debian from the INHERITS+= variable in the poky.conf
+but then it printed it couldn't find the function that is inside
+debian.bbclass and didn't create the package.
+Modifying debian.bbclass would be too drastic so I work around it like
+this:
+Added PACKAGES+= ${PN}1 to my recipe
+Modified the IMAGE_INSTALL+= variable from libxmlpcpqt to libxmlpcpqt1
+This resulted in a working solution.
+</pre>
+      </blockquote>
+      <pre wrap="">
+This is a bug and you should never need to do this. IMAGE_INSTALL should
+be getting remapped to the new names. The code that is meant to do that
+is at the top of image.bbclass:
+
+    # If we don't do this we try and run the mapping hooks while parsing which is slow
+    # bitbake should really provide something to let us know this...
+    if bb.data.getVar('BB_WORKERCONTEXT', d, True) is not None:
+        runtime_mapping_rename("PACKAGE_INSTALL", d)
+        runtime_mapping_rename("PACKAGE_INSTALL_ATTEMPTONLY", d)
+
+Can you check that the code is being called? I suspect something to do
+with the BB_WORKERCONTEXT variable has been broken. We should be doing
+this in a better way anyhow...
+
+Cheers,
+
+Richard
+
+</pre>
+    </blockquote>
+    <pre>Ok, I have tried the following with the Bernard release:
+
+print "hello"
+print bb.data.getVar('BB_WORKERCONTEXT', d, True)
+if bb.data.getVar('BB_WORKERCONTEXT', d, True) is not None:
+	print "hello2" 
+	runtime_mapping_rename("PACKAGE_INSTALL", d)
+	runtime_mapping_rename("PACKAGE_INSTALL_ATTEMPTONLY", d)</pre>
+    <pre>The "hello" gets printed, and the variable outputs "None", the "hello2" doesn't get printed because the variable is None.
+
+In the laverne release I use here it checks on something else namely:
+if bb.data.getVar('__RUNQUEUE_DO_NOT_USE_EXTERNALLY', d, True) is not None:
+I can't add print commands there because it gives ident errors, found that has something todo with spaces but couldn't get it working.
+
+I tried searching some further, I see in this commit that the if is added, that is in the laverne release:
+<a class="moz-txt-link-freetext" href="http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/meta/classes/image.bbclass?id=4e0ee648b4c18b770aba11921370258f3e2aaeef">http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/meta/classes/image.bbclass?id=4e0ee648b4c18b770aba11921370258f3e2aaeef</a>
+
+Then a few commits later it is changed to the BB_WORKERCONTEXT:
+<a class="moz-txt-link-freetext" href="http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/meta/classes/image.bbclass?id=e427f251a457f3015c4b1cdf1648c53a9acc646d">http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/meta/classes/image.bbclass?id=e427f251a457f3015c4b1cdf1648c53a9acc646d</a>
+
+Thus I tried to figure out what sets the BB_WORKERCONTEXT, I found it in two files in bitbake namely cooker.py and runqueue.py.
+Eventually it leads to the loading of the configuration file and something set BB_WORKERCONTEXT then but I couldn't figure out what sets the variable.
+
+I looked up the commits where it is added to bitbake:
+<a href="http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/bitbake/lib/bb/runqueue.py?id=1f3e313fd5cc5ae8ea838bf8fcdedace3cb72584" target="_blank">http://git.pokylinux.org/cgit/<wbr>cgit.cgi/poky/commit/bitbake/<wbr>lib/bb/runqueue.py?id=<wbr>1f3e313fd5cc5ae8ea838bf8fcdeda<wbr>ce3cb72584</a>
+<a href="http://git.pokylinux.org/cgit/cgit.cgi/poky/commit/bitbake/lib/bb/cooker.py?id=ca09a6f08cc29f79f9742058d737deaef9d6d5ef" target="_blank">http://git.pokylinux.org/cgit/<wbr>cgit.cgi/poky/commit/bitbake/<wbr>lib/bb/cooker.py?id=<wbr>ca09a6f08cc29f79f9742058d737de<wbr>aef9d6d5ef</a>
+
+But I couldn't figure out what the changes did and I did not come further than this.
+If I need to try something else out, let me know.
+
+Regards,
+Gerard
+
+</pre>
+  </body>
+</html>
+
+--------------070701010307090205000209--
