@@ -1,42 +1,36 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-vx0-f171.google.com (mail-vx0-f171.google.com
-	[209.85.220.171])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C06724C800C1
-	for <poky@pokylinux.org>; Fri, 27 May 2011 15:23:23 -0500 (CDT)
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-ww0-f51.google.com (mail-ww0-f51.google.com [74.125.82.51])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6424B4C800AB
+	for <poky@pokylinux.org>; Fri, 27 May 2011 15:36:43 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by vxc40 with SMTP id 40so2214436vxc.2
-	for <poky@pokylinux.org>; Fri, 27 May 2011 13:23:23 -0700 (PDT)
+Received: by wwf26 with SMTP id 26so2071522wwf.8
+	for <poky@pokylinux.org>; Fri, 27 May 2011 13:36:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type;
-	bh=77+/WHvX1w8Pv3+cIWxJGx/SMknjEF44K4qIx5L2FpI=;
-	b=obm6dVMr6089dXYnsQoJR13Jcin5i6PWjHddtBcrth8Sti2YIv7aXGDXhScw1owoY4
-	0yfDJgxWXw4SmrKd1gneJlv7EORC8VM6kejjkLhnucm3ftBIVTU/tJlSk174SuAJ8Csf
-	5DBYKzlL5F65G1di/FbELT9M7OeSr+O7LlCfo=
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:content-transfer-encoding;
+	bh=Z/3dKdHt9DgIftOYps7HewGPTJSSBR1YNfpU0fE22i0=;
+	b=RIrV607qXGni5R8vFbJhewfuMw1xWyKpmFSemoxe3y6mpGph42lj9yUhoQTTTnNwTM
+	H3XEPrJAjmuzrEuPnwHR1yR17gRC8SNMZu/TKeB0KnU1GQOZH+DPiXgCsKClptQ+6/nl
+	meYis935pkYv/kua4SNRx3Z9gFKg4srJvG7MY=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type;
-	b=fdLLz7T1JHT9NqUUpRnHiwfEc9RcEUPZNqjf1tH5DmeP5buRsuAORbSJ+9dzMXDXbb
-	v8Zr7fg5fZl3KiCu+14H1D/laoao+Zis2rDy8ogaARtvkyN6WbXjAxEjZ+LIU1NcLx10
-	j+tiqEUgQwp8qUzY2LJJsdsu+r1g8PaRIqy0A=
-Received: by 10.52.183.164 with SMTP id en4mr3677503vdc.108.1306527803074;
-	Fri, 27 May 2011 13:23:23 -0700 (PDT)
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	b=E/LnsdjqwmPVEkfuHgRYiTPVSJFNGTghq+wvCrSZQ4G6QVcydSBj6s8UbE94vI4G71
+	EVbEa4S7G0vAK9/xQfFzjy0nFUaNVpgUzk1OYVbv0ubt0V/cVIxekhdQXrXj8UTtLWP8
+	SalfOjfW3FNek6JeJuVeZRy6K+CVOW9XP/X5o=
+Received: by 10.216.235.234 with SMTP id u84mr114211weq.51.1306528602147; Fri,
+	27 May 2011 13:36:42 -0700 (PDT)
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.52.109.202 with HTTP; Fri, 27 May 2011 13:23:03 -0700 (PDT)
-In-Reply-To: <4DE0074A.8050404@linux.intel.com>
+Received: by 10.216.60.145 with HTTP; Fri, 27 May 2011 13:36:12 -0700 (PDT)
+In-Reply-To: <loom.20110527T192603-897@post.gmane.org>
 References: <loom.20110527T192603-897@post.gmane.org>
-	<4DE0002B.2000206@linux.intel.com>
-	<BANLkTi=rJ049XGM5DQGjKtf7QKEAjh0Nqw@mail.gmail.com>
-	<4DE0074A.8050404@linux.intel.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Fri, 27 May 2011 13:23:03 -0700
-X-Google-Sender-Auth: 93efz0EQoI_H6tpVJzUwhbC7VL8
-Message-ID: <BANLkTik6fMvdJ_E4OVt8K9JFq3DsWiFeYA@mail.gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Cc: Holger Freyther <holger@freyther.de>, poky@pokylinux.org
+From: Khem Raj <raj.khem@gmail.com>
+Date: Fri, 27 May 2011 13:36:12 -0700
+Message-ID: <BANLkTikm+c37nZfr6R-uq7qa4sObUbd8dg@mail.gmail.com>
+To: Holger Freyther <holger@freyther.de>
+Cc: poky@pokylinux.org
 Subject: Re: Impressions of using Poky to create a BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -49,24 +43,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2011 20:23:24 -0000
+X-List-Received-Date: Fri, 27 May 2011 20:36:43 -0000
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 27, 2011 at 1:19 PM, Darren Hart <dvhart@linux.intel.com> wrote:
->> This is backwards. The url scheme determines the fetcher to use, the
->> protocol= determines the method that fetcher uses to obtain the
->> sources. Holger had it correct. git:// to associate with the git
->> fetcher, protocol= to ensure it uses ssh.
+On Fri, May 27, 2011 at 10:42 AM, Holger Freyther <holger@freyther.de> wrot=
+e:
 >
-> Doh, thanks for correcting. That explains some things for me. I had
-> thought a real git url was appropriate here, good to know!
+> Machine Extra Depends:
+> =C2=A0 =C2=A0 - I was using the core-minimal-image but wanted to have som=
+e of my
+> =C2=A0 =C2=A0 =C2=A0 kernel modules installed. After finding the name tha=
+t task-core-boot
+> =C2=A0 =C2=A0 =C2=A0 is using I tried to do bitbake -cclean task-core-boo=
+t; bitbake the-image
+> =C2=A0 =C2=A0 =C2=A0 but this didn't end up with a task-core-boot to carr=
+y my depends.
+> =C2=A0 =C2=A0 =C2=A0 I had to resort to using bitbake -b task-core-boot.b=
+b to build =C2=A0it, I am not
+> =C2=A0 =C2=A0 =C2=A0 sure why it failed when running from within the norm=
+al bitbake. IIRC it
+> =C2=A0 =C2=A0 =C2=A0 continued to be like this even after I removed tmp/c=
+ache.
+>
 
-It's not the first time I've heard it the other way around. Could be
-the other way is more intuitive, don't really know.
--- 
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+generally -ccleanall helped me in such cases.
 
