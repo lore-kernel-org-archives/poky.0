@@ -1,30 +1,30 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id ABA9D4C80A5B
-	for <poky@yoctoproject.org>; Fri, 27 May 2011 12:12:59 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 529F54C800C1
+	for <poky@yoctoproject.org>; Fri, 27 May 2011 12:19:08 -0500 (CDT)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RHCqik004481;
-	Fri, 27 May 2011 18:12:52 +0100
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RHJ30S004558;
+	Fri, 27 May 2011 18:19:03 +0100
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 04207-06; Fri, 27 May 2011 18:12:44 +0100 (BST)
+	id 04207-08; Fri, 27 May 2011 18:18:59 +0100 (BST)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RHCe86004470
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p4RHIvhx004552
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 27 May 2011 18:12:41 +0100
+	Fri, 27 May 2011 18:18:57 +0100
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Yu Ke <ke.yu@intel.com>
-In-Reply-To: <cover.1306486223.git.ke.yu@intel.com>
-References: <cover.1306486223.git.ke.yu@intel.com>
-Date: Fri, 27 May 2011 18:12:35 +0100
-Message-ID: <1306516355.27470.290.camel@rex>
+To: Darren Hart <dvhart@linux.intel.com>
+In-Reply-To: <cover.1305932581.git.dvhart@linux.intel.com>
+References: <cover.1305932581.git.dvhart@linux.intel.com>
+Date: Fri, 27 May 2011 18:18:51 +0100
+Message-ID: <1306516731.27470.294.camel@rex>
 Mime-Version: 1.0
 X-Mailer: Evolution 2.32.2 
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Darren Hart <dvhart@linux.intel.com>, poky@yoctoproject.org
-Subject: Re: [PATCH 0/4] fetcher2 git cleanup
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/3] fetch2/git: debug updates and minor cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,38 +36,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2011 17:13:00 -0000
+X-List-Received-Date: Fri, 27 May 2011 17:19:08 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-05-27 at 16:53 +0800, Yu Ke wrote:
-> This patch series is some clean up of the git fetcher according to the comment
-> from mailing list.
+On Fri, 2011-05-20 at 16:06 -0700, Darren Hart wrote:
+> From: Darren Hart <dvhart@linux.intel.com>
 > 
-> The following changes since commit 9bccbc5fbc71b331911b558a2ba15e0a6d0046b4:
->   Nitin A Kamble (1):
->         tcmode-default: workaround for gcc 4.6.0 failure on beagleboard
+> Yu Ke,
 > 
-> are available in the git repository at:
+> Please consider the following patches against the fetch2/git fetcher. The one
+> point I would appreciate your review of is in 2/3. Is there a concern that
+> the urldata has not been initialized at the point where I made the change?
 > 
->   git://git.pokylinux.org/poky-contrib kyu3/git-cleanup
->   http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=kyu3/git-cleanup
+> Pull URL: git://git.pokylinux.org/poky-contrib.git
+>   Branch: dvhart/git2
+>   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/git2
 > 
-> Yu Ke (4):
->   fetche2 git: change default protocol from rsync to git
->   fetcher2 git: unify the nocheckout option format
->   fetcher2/git: add document for git fetcher supported options
->   fetch2 git: enhance the unpack by using "git checkout"
+> Thanks,
+>     Darren Hart <dvhart@linux.intel.com>
+> ---
 > 
->  bitbake/lib/bb/fetch2/git.py |   51 ++++++++++++++++++++++++++++++++++-------
->  1 files changed, 42 insertions(+), 9 deletions(-)
+> 
+> Darren Hart (3):
+>   fetch2/git: ensure network check log matches actual command
+>   fetch2/git: use logging.debug() and clarify messages
 
-Merged to bitbake upstream. In future could you keep the commit message
-summary prefixes consistent please :)
+I merged these into bitbake master, thanks.
+
+  fetch2/git: use urldata basecmd when available
+
+This one we a had a good reason for, at least a long time ago. It needs
+some further checking into the callers (and better documentation if it
+is deliberate). The fetcher world has changed a lot since those times...
+
+I'm therefore holding off on it for now.
 
 Cheers,
 
 Richard
-
 
 
