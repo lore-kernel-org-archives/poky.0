@@ -1,30 +1,36 @@
-Return-Path: <ke.yu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1280A4C80334
-	for <poky@yoctoproject.org>; Fri, 27 May 2011 20:40:47 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 27 May 2011 18:40:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,284,1304319600"; 
-   d="scan'208";a="3216745"
-Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
-	([10.238.154.142])
-	by azsmga001.ch.intel.com with ESMTP; 27 May 2011 18:40:46 -0700
-Message-ID: <4DE0529D.3010504@intel.com>
-Date: Sat, 28 May 2011 09:40:45 +0800
-From: Yu Ke <ke.yu@intel.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
-References: <cover.1306486223.git.ke.yu@intel.com>
-	<BANLkTinAp6G=xhwmvfagDv2QdhzCo04Akw@mail.gmail.com>
-In-Reply-To: <BANLkTinAp6G=xhwmvfagDv2QdhzCo04Akw@mail.gmail.com>
-Cc: Richard Purdie <richard.purdie@intel.com>, poky@yoctoproject.org
-Subject: Re: [PATCH 0/4] fetcher2 git cleanup
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id ABCB14C800AF
+	for <poky@pokylinux.org>; Sat, 28 May 2011 13:35:23 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QQOM6-00023i-58
+	for poky@pokylinux.org; Sat, 28 May 2011 20:35:22 +0200
+Received: from 79.167.216.169 ([79.167.216.169])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sat, 28 May 2011 20:35:22 +0200
+Received: from gmane by 79.167.216.169 with local (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sat, 28 May 2011 20:35:22 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Sat, 28 May 2011 21:35:06 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <irrf8q$pfa$1@dough.gmane.org>
+References: <loom.20110527T192603-897@post.gmane.org>
+	<4DE0002B.2000206@linux.intel.com>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: 79.167.216.169
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+In-Reply-To: <4DE0002B.2000206@linux.intel.com>
+Subject: Re: Impressions of using Poky to create a BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -33,37 +39,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 28 May 2011 01:40:48 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Sat, 28 May 2011 18:35:25 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-on 2011-5-28 1:12, Khem Raj wrote:
-> On Fri, May 27, 2011 at 1:53 AM, Yu Ke<ke.yu@intel.com>  wrote:
->> This patch series is some clean up of the git fetcher according to the comment
->> from mailing list.
->>
->> The following changes since commit 9bccbc5fbc71b331911b558a2ba15e0a6d0046b4:
->>   Nitin A Kamble (1):
->>         tcmode-default: workaround for gcc 4.6.0 failure on beagleboard
->>
->> are available in the git repository at:
->>
->>   git://git.pokylinux.org/poky-contrib kyu3/git-cleanup
->>   http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=kyu3/git-cleanup
->>
->> Yu Ke (4):
->>   fetche2 git: change default protocol from rsync to git
->>   fetcher2 git: unify the nocheckout option format
->
-> above patch has typo in commit message nocheckou is missing 't'
->
->>   fetcher2/git: add document for git fetcher supported options
->
-> while the contents are ok there are grammatical corrections needed in the above
+Hi,
 
-It is good reminder. Thank Khem and Richard. I will take care of it next 
-time.
+On 05/27/2011 10:48 PM, Darren Hart wrote:
+>>
+>> Adding a kernel:
+>>      - So by default the linuxdummy is used, but I wanted to build my kernel,
+>>        I started off by copying the yocto kernel recipes. This creates a very funny
+>>        bug. My kernel didn't have the meta branch, the task to test the branches
+>>        executes git log for the branch and this is failing.
+>>        The symptoms are not obvious at all. An empty log file is left behind.
+> 
+> 
+> This is probably best dealt with a kernel recipe writing manual. We have
+> a few things like this forming, but nothing tangible yet.
+> 
+> 
 
-Regards
-Ke
+I'm currently building a manufacturer supplied 3rd party kernel and
+u-boot outside of yocto/poky to avoid all this trouble.
+
+It's the classic case of a non mainline 3rd party kernel + patch + config
+
+If it's easy enough to create a BSP this would be my preferred solution
+and it would probably also be a good use case for such a manual.
+
+If you have some documentation (even preliminary) I'm willing to work
+with the people involved to come up with something more substantial. (me
+being the one testing how well the instructions work for my 3rd party
+kernel)
+
+The goal would be to end up with something not much more difficult than
+building the stuff outside of yocto/poky;)
+
+Regards,
+
+Robert
+
+..."Experience is that marvelous thing that enables you recognize a
+mistake when you make it again." - F. P. Jones
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
+
 
