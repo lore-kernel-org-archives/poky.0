@@ -1,37 +1,27 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ww0-f51.google.com (mail-ww0-f51.google.com [74.125.82.51])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6424B4C800AB
-	for <poky@pokylinux.org>; Fri, 27 May 2011 15:36:43 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wwf26 with SMTP id 26so2071522wwf.8
-	for <poky@pokylinux.org>; Fri, 27 May 2011 13:36:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=Z/3dKdHt9DgIftOYps7HewGPTJSSBR1YNfpU0fE22i0=;
-	b=RIrV607qXGni5R8vFbJhewfuMw1xWyKpmFSemoxe3y6mpGph42lj9yUhoQTTTnNwTM
-	H3XEPrJAjmuzrEuPnwHR1yR17gRC8SNMZu/TKeB0KnU1GQOZH+DPiXgCsKClptQ+6/nl
-	meYis935pkYv/kua4SNRx3Z9gFKg4srJvG7MY=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=E/LnsdjqwmPVEkfuHgRYiTPVSJFNGTghq+wvCrSZQ4G6QVcydSBj6s8UbE94vI4G71
-	EVbEa4S7G0vAK9/xQfFzjy0nFUaNVpgUzk1OYVbv0ubt0V/cVIxekhdQXrXj8UTtLWP8
-	SalfOjfW3FNek6JeJuVeZRy6K+CVOW9XP/X5o=
-Received: by 10.216.235.234 with SMTP id u84mr114211weq.51.1306528602147; Fri,
-	27 May 2011 13:36:42 -0700 (PDT)
+Return-Path: <ke.yu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1280A4C80334
+	for <poky@yoctoproject.org>; Fri, 27 May 2011 20:40:47 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 27 May 2011 18:40:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,284,1304319600"; 
+   d="scan'208";a="3216745"
+Received: from kyu3-desk.ccr.corp.intel.com (HELO [10.238.154.142])
+	([10.238.154.142])
+	by azsmga001.ch.intel.com with ESMTP; 27 May 2011 18:40:46 -0700
+Message-ID: <4DE0529D.3010504@intel.com>
+Date: Sat, 28 May 2011 09:40:45 +0800
+From: Yu Ke <ke.yu@intel.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
+	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
 MIME-Version: 1.0
-Received: by 10.216.60.145 with HTTP; Fri, 27 May 2011 13:36:12 -0700 (PDT)
-In-Reply-To: <loom.20110527T192603-897@post.gmane.org>
-References: <loom.20110527T192603-897@post.gmane.org>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 27 May 2011 13:36:12 -0700
-Message-ID: <BANLkTikm+c37nZfr6R-uq7qa4sObUbd8dg@mail.gmail.com>
-To: Holger Freyther <holger@freyther.de>
-Cc: poky@pokylinux.org
-Subject: Re: Impressions of using Poky to create a BSP
+To: Khem Raj <raj.khem@gmail.com>
+References: <cover.1306486223.git.ke.yu@intel.com>
+	<BANLkTinAp6G=xhwmvfagDv2QdhzCo04Akw@mail.gmail.com>
+In-Reply-To: <BANLkTinAp6G=xhwmvfagDv2QdhzCo04Akw@mail.gmail.com>
+Cc: Richard Purdie <richard.purdie@intel.com>, poky@yoctoproject.org
+Subject: Re: [PATCH 0/4] fetcher2 git cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,29 +33,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2011 20:36:43 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sat, 28 May 2011 01:40:48 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 27, 2011 at 10:42 AM, Holger Freyther <holger@freyther.de> wrot=
-e:
+on 2011-5-28 1:12, Khem Raj wrote:
+> On Fri, May 27, 2011 at 1:53 AM, Yu Ke<ke.yu@intel.com>  wrote:
+>> This patch series is some clean up of the git fetcher according to the comment
+>> from mailing list.
+>>
+>> The following changes since commit 9bccbc5fbc71b331911b558a2ba15e0a6d0046b4:
+>>   Nitin A Kamble (1):
+>>         tcmode-default: workaround for gcc 4.6.0 failure on beagleboard
+>>
+>> are available in the git repository at:
+>>
+>>   git://git.pokylinux.org/poky-contrib kyu3/git-cleanup
+>>   http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/log/?h=kyu3/git-cleanup
+>>
+>> Yu Ke (4):
+>>   fetche2 git: change default protocol from rsync to git
+>>   fetcher2 git: unify the nocheckout option format
 >
-> Machine Extra Depends:
-> =C2=A0 =C2=A0 - I was using the core-minimal-image but wanted to have som=
-e of my
-> =C2=A0 =C2=A0 =C2=A0 kernel modules installed. After finding the name tha=
-t task-core-boot
-> =C2=A0 =C2=A0 =C2=A0 is using I tried to do bitbake -cclean task-core-boo=
-t; bitbake the-image
-> =C2=A0 =C2=A0 =C2=A0 but this didn't end up with a task-core-boot to carr=
-y my depends.
-> =C2=A0 =C2=A0 =C2=A0 I had to resort to using bitbake -b task-core-boot.b=
-b to build =C2=A0it, I am not
-> =C2=A0 =C2=A0 =C2=A0 sure why it failed when running from within the norm=
-al bitbake. IIRC it
-> =C2=A0 =C2=A0 =C2=A0 continued to be like this even after I removed tmp/c=
-ache.
+> above patch has typo in commit message nocheckou is missing 't'
 >
+>>   fetcher2/git: add document for git fetcher supported options
+>
+> while the contents are ok there are grammatical corrections needed in the above
 
-generally -ccleanall helped me in such cases.
+It is good reminder. Thank Khem and Richard. I will take care of it next 
+time.
+
+Regards
+Ke
 
