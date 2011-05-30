@@ -1,25 +1,22 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 68B094C80263
-	for <poky@yoctoproject.org>; Mon, 30 May 2011 01:32:28 -0500 (CDT)
-Received: by wwd20 with SMTP id 20so3399035wwd.11
-	for <poky@yoctoproject.org>; Sun, 29 May 2011 23:32:27 -0700 (PDT)
-Received: by 10.216.152.193 with SMTP id d43mr4412874wek.53.1306737147034;
-	Sun, 29 May 2011 23:32:27 -0700 (PDT)
-Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id c51sm2277272wek.23.2011.05.29.23.32.25
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sun, 29 May 2011 23:32:26 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <4DDAEBA4.5090601@linux.intel.com>
-Date: Mon, 30 May 2011 08:32:28 +0200
-Message-Id: <22F82A9E-907B-47F6-8F82-9A27721782A0@dominion.thruhere.net>
-References: <BANLkTik3e_YZfJrwb7xkM264HhCbbHg5cg@mail.gmail.com>
-	<4DDAEBA4.5090601@linux.intel.com>
-To: "poky@yoctoproject.org Project" <poky@yoctoproject.org>
-X-Mailer: Apple Mail (2.1084)
-Subject: Re: How to Enable OMAP3 SGX MODULES on BEAGLEBOARD
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 337654C80861
+	for <poky@yoctoproject.org>; Mon, 30 May 2011 03:38:05 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4U8c52Q009770
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Mon, 30 May 2011 01:38:05 -0700 (PDT)
+Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Mon, 30 May 2011 01:38:05 -0700
+Message-ID: <cover.1306726421.git.xiaofeng.yan@windriver.com>
+Old-Date: Mon, 30 May 2011 11:33:41 +0800
+Date: Mon, 30 May 2011 16:35:54 +0800
+To: <poky@yoctoproject.org>
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+MIME-Version: 1.0
+X-Originating-IP: [128.224.162.28]
+Subject: [PATCH 0/1]sudo.inc:Add directory "/var/lib" to sudo.inc in the stage of do_install_prepend
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,24 +28,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 30 May 2011 06:32:29 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 30 May 2011 08:38:06 -0000
+Content-Type: text/plain
+
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+
+Hi Saul & Richard
+I have added some comment in the recipe about why this is necessary as
+someone could easily look at it and decide it wasn't needed according to Richard's requirement.
+
+Pervious email content:
+
+I submit this patch to fix [YOCTO #1092].
+LSB Test Suite check access permission of directory "/var/lib". The current access permission is "0700".
+This is because:
+
+$(SHELL) $(srcdir)/mkinstalldirs -m 0700 $(DESTDIR)$(timedir) 
+
+and the timedir=/var/lib/sudo
+
+but if /var/lib doesn't exist, the mkinstalldirs would create it and set the
+mode to 0700 recursively, so all of the /var, /var/lib and /var/lib/sudo would
+be set to 0700, but what sudo needs is only set /var/lib/sudo to 0700.
+
+So LSB Test Suite recognizes it as a bug. Other images including sudo could have no this problem because after installing sudo package other package operate on directory "/var/lib" but for lsb image sudo package is the last package which operate on directory "/var/lib" 
 
 
-Op 24 mei 2011, om 01:20 heeft Darren Hart het volgende geschreven:
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: xiaofeng/sudo
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/sudo
 
-> 
-> 
-> On 05/23/2011 05:15 AM, Akshat Saha wrote:
->> Hi,
->> 
->> Can anyone guide me, how to enable powervr drivers on beagleboard. 
-> 
-> I am currently working on a Beagleboard refresh for the oe-core and
-> meta-yocto layers. I'm starting with u-boot, then the kernel, and will
-> see what follows from there. Until that is complete, the best bet for
-> full Beagleboard support is the angstrom layer.
+Thanks,
+    Xiaofeng Yan <xiaofeng.yan@windriver.com>
+---
 
-You mean the meta-texasinstruments layer, right?
+
+Xiaofeng Yan (1):
+  sudo.inc: Add do_install_prepend () to sudo.inc
+
+ meta/recipes-extended/sudo/sudo.inc |   11 +++++++++++
+ 1 files changed, 11 insertions(+), 0 deletions(-)
+
 
