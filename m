@@ -1,26 +1,26 @@
 Return-Path: <mark.hatle@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 775CD4C800C0
-	for <poky@yoctoproject.org>; Tue, 31 May 2011 14:09:09 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 993434C800D7
+	for <poky@yoctoproject.org>; Tue, 31 May 2011 14:09:52 -0500 (CDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4VJ98A4028556
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4VJ9qRV028607
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 31 May 2011 12:09:09 -0700 (PDT)
+	for <poky@yoctoproject.org>; Tue, 31 May 2011 12:09:52 -0700 (PDT)
 Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Tue, 31 May 2011 12:09:08 -0700
-Message-ID: <4DE53CD3.3090708@windriver.com>
-Date: Tue, 31 May 2011 14:09:07 -0500
+	Tue, 31 May 2011 12:09:51 -0700
+Message-ID: <4DE53CFF.4080403@windriver.com>
+Date: Tue, 31 May 2011 14:09:51 -0500
 From: Mark Hatle <mark.hatle@windriver.com>
 Organization: Wind River Systems
 User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
 	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
 MIME-Version: 1.0
 To: <poky@yoctoproject.org>
-References: <cover.1306865217.git.scott.a.garman@intel.com>
-	<ea3163ab446883b772207bf0600f0198a3041a7a.1306865217.git.scott.a.garman@intel.com>
-In-Reply-To: <ea3163ab446883b772207bf0600f0198a3041a7a.1306865217.git.scott.a.garman@intel.com>
-Subject: Re: [PATCH 5/7] useradd-example: example recipe for using inherit useradd
+References: <cover.1306865217.git.scott.a.garman@intel.com>	<79A1BC44-8268-4177-BBC5-4A5B08BDC8B7@dominion.thruhere.net>
+	<4DE53C21.7020000@linux.intel.com>
+In-Reply-To: <4DE53C21.7020000@linux.intel.com>
+Subject: Re: [PATCH 0/7] User/group creation at preinstall
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,145 +32,107 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 May 2011 19:09:09 -0000
+X-List-Received-Date: Tue, 31 May 2011 19:09:52 -0000
 Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 
-A few suggestions below to expand the example a bit.
+Other then the suggested changes to the example commit.  This looks good to me.
 
-On 5/31/11 1:13 PM, Scott Garman wrote:
-> An example recipe for demonstrating/documenting how user and
-> group manipulation is done with 'inherit useradd'
+But I agree, it needs to go over oe-core for inclusion.
+
+--Mark
+
+On 5/31/11 2:06 PM, Saul Wold wrote:
+> On 05/31/2011 11:45 AM, Koen Kooi wrote:
+>> Shouldn't patches like this be sent to the oe-core list? It wouldn't have saved me from the selinux bug in shadow, though :)
+>>
+> Scott,
 > 
-> Signed-off-by: Scott Garman <scott.a.garman@intel.com>
-> ---
->  .../recipes-skeleton/useradd/useradd-example.bb    |   59 ++++++++++++++++++++
->  1 files changed, 59 insertions(+), 0 deletions(-)
->  create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
->  create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file1
->  create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file2
->  create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file3
->  create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file4
+> I would agree with Koen, this is a oe-core change, not a Poky only 
+> change, please resend this request to the oe-core list.
 > 
-> diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example.bb b/meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
-> new file mode 100644
-> index 0000000..1e6ae87
-> --- /dev/null
-> +++ b/meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
-> @@ -0,0 +1,59 @@
-> +SUMMARY = "Example recipe for using inherit useradd"
-> +DESCRIPTION = "This recipe serves as an example for using features from useradd.bbclass"
-> +SECTION = "examples"
-> +PR = "r0"
-> +LICENSE = "MIT"
-> +LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-> +                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-> +
-> +SRC_URI = "file://file1 \
-> +           file://file2 \
-> +           file://file3 \
-> +           file://file4"
-> +
-> +S = "${WORKDIR}"
-> +
-
-Move the package's up here to be clearer what we're doing:
-
-PACKAGES =+ "${PN}-user3"
-
-> +inherit useradd
-> +
-> +# Specify which package(s) should include the user/group code.
-> +# Make sure that any packages which install files owned by custom
-> +# users/groups are included here. The code which adds users and
-> +# groups is idempotent.
-> +USERADD_PACKAGES = "useradd-example"
-
-List two packages above:
-
-USERADD_PACKAGES = "useradd-example ${PN}-user3"
-
-> +
-> +# You *must* set USERADD_PARAM and/or GROUPADD_PARAM when
-> +# you inherit useradd.
-> +
-> +# USERADD_PARAM specifies command line options to pass to the
-> +# useradd command. Multiple users can be created by separating
-> +# the commands with a semicolon. Here we'll create two users,
-> +# user1 and user3:
-> +USERADD_PARAM_useradd-example = "-u 1200 -d /home/user1 -r -s /bin/bash user1; -u 1201 -d /home/user3 -r -s /bin/bash user3"
-
-Break the above apart into:
-
-USERADD_PARAM_useradd-example = "-u 1200 -d /home/user1 -r -s /bin/bash user1;
--u 1201 -d /home/user2 -r -s /bin/bash user2"
-
-USERADD_PARAM_${PN}-user3 = "-u 1202 -d /home/user3 -r -s /bin/bash user3"
-
-> +
-> +# GROUPADD_PARAM works the same way, which you set to the options
-> +# you'd normally pass to the groupadd command. This will create
-> +# groups group1, group2, and group3:
-> +GROUPADD_PARAM_useradd-example = "-g 880 group1; -g 890 group2; -g 900 group3"
-
-GROUPADD_PARAM_useradd-example = "-g 880 group1; -g 890 group2"
-
-GROUPADD_PARAM_${PN}-user3 = "-g 900 group3"
-
-> +
-> +do_install () {
-> +	install -d -m 755 ${D}/usr/share/user1
-> +	install -d -m 755 ${D}/usr/share/user3
-> +	install -p -m 644 file1 ${D}/usr/share/user1/
-> +	install -p -m 644 file2 ${D}/usr/share/user1/
-> +	install -p -m 644 file3 ${D}/usr/share/user3/
-> +	install -p -m 644 file4 ${D}/usr/share/user3/
-> +
-> +	# The new users and groups are created before the do_install
-> +	# step, so you are now free to make use of them:
-
-To match the above split:
-
-> +	chown -R user1 ${D}/usr/share/user1
-> +	chown -R user3 ${D}/usr/share/user3
-> +	chgrp group1 ${D}/usr/share/user1/file1
-> +	chgrp group3 ${D}/usr/share/user1/file2
-> +	chgrp group1 ${D}/usr/share/user3/file3
-> +	chgrp group3 ${D}/usr/share/user3/file4
-
-	chown -R user1 ${D}/usr/share/user1
-	chown -R user3 ${D}/usr/share/user3
-	chgrp group1 ${D}/usr/share/user1/file1
-	chgrp group2 ${D}/usr/share/user1/file2
-	chgrp group3 ${D}/usr/share/user3/file3
-	chgrp group3 ${D}/usr/share/user3/file4
-
-Since the user1 added groups 1 and 2..  while user3 only has group 3....
-
-> +}
-> +
-> +PACKAGES =+ "${PN}-user3"
-
-Moved the above line, so remove it here.
-
-> +
-> +FILES_${PN} = "/usr/share/user1/*"
-> +FILES_${PN}-user3 = "/usr/share/user3/*"
-
-This should now produce two split packages.  Each having different users and
-groups being added.
-
-> diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file1 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file1
-> new file mode 100644
-> index 0000000..e69de29
-> diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file2 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file2
-> new file mode 100644
-> index 0000000..e69de29
-> diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file3 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file3
-> new file mode 100644
-> index 0000000..e69de29
-> diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file4 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file4
-> new file mode 100644
-> index 0000000..e69de29
+> Thanks
+> 	Sau!
+> 
+> 
+>> Op 31 mei 2011, om 20:13 heeft Scott Garman het volgende geschreven:
+>>
+>>> Hi Saul,
+>>>
+>>> This pull request includes everything needed to add the ability to
+>>> create custom users and groups in our images/packages and the
+>>> corresponding ability to set custom ownership permissions.
+>>>
+>>> There is a useradd-example.bb file in meta-skeleton which provides
+>>> a heavily-commented example recipe to demonstrate how this feature
+>>> can be used.
+>>>
+>>> I'd like to request that Mark Hatle and Richard do a code review of
+>>> this and offer their Acked-by: support if they are happy with things.
+>>>
+>>> Once this gets into master, I'm happy to write up a short section for
+>>> the Poky Reference Manual to document it in a more visible way.
+>>>
+>>> Scott
+>>>
+>>> The following changes since commit 1169f1b066d0028bd2ef7915440450bd42ef165e:
+>>>
+>>>   license.bbclass: Sane Parsing of licenses (2011-05-27 23:36:24 +0100)
+>>>
+>>> are available in the git repository at:
+>>>   git://git.pokylinux.org/poky-contrib sgarman/user-group-creation
+>>>   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/user-group-creation
+>>>
+>>> Scott Garman (7):
+>>>   shadow: recipe and patch cleanup
+>>>   shadow: add a -native recipe with customized utilities
+>>>   base-passwd: add -cross recipe with default login.defs
+>>>   useradd.bbclass: new class for managing user/group permissions
+>>>   useradd-example: example recipe for using inherit useradd
+>>>   bitbake.conf: set PSEUDO_PASSWD within FAKEROOTENV
+>>>   package_rpm.bbclass: make RPM use on-disk permissions
+>>>
+>>> .../recipes-skeleton/useradd/useradd-example.bb    |   59 +
+>>> meta/classes/package_rpm.bbclass                   |    2 +
+>>> meta/classes/useradd.bbclass                       |  136 ++
+>>> meta/conf/bitbake.conf                             |    2 +-
+>>> .../base-passwd/base-passwd-3.5.22/login.defs      |  386 ++++++
+>>> .../base-passwd/base-passwd-cross_3.5.22.bb        |   53 +
+>>> .../shadow/files/add_root_cmd_options.patch        | 1293 ++++++++++++++++++++
+>>> .../files/shadow-4.1.3-dots-in-usernames.patch     |    4 +
+>>> .../shadow-4.1.4.2-env-reset-keep-locale.patch     |    4 +
+>>> .../files/shadow-4.1.4.2-groupmod-pam-check.patch  |    4 +
+>>> .../files/shadow-4.1.4.2-su_no_sanitize_env.patch  |    4 +
+>>> .../shadow/files/shadow.automake-1.11.patch        |    4 +
+>>> .../shadow/shadow-native_4.1.4.3.bb                |   66 +
+>>> meta/recipes-extended/shadow/shadow.inc            |  121 --
+>>> meta/recipes-extended/shadow/shadow_4.1.4.3.bb     |  141 ++-
+>>> 15 files changed, 2148 insertions(+), 131 deletions(-)
+>>> create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
+>>> create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file1
+>>> create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file2
+>>> create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file3
+>>> create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file4
+>>> create mode 100644 meta/classes/useradd.bbclass
+>>> create mode 100644 meta/recipes-core/base-passwd/base-passwd-3.5.22/login.defs
+>>> create mode 100644 meta/recipes-core/base-passwd/base-passwd-cross_3.5.22.bb
+>>> create mode 100644 meta/recipes-extended/shadow/files/add_root_cmd_options.patch
+>>> create mode 100644 meta/recipes-extended/shadow/shadow-native_4.1.4.3.bb
+>>> delete mode 100644 meta/recipes-extended/shadow/shadow.inc
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
