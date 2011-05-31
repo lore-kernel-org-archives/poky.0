@@ -1,24 +1,36 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9F9604C800C1
-	for <poky@yoctoproject.org>; Tue, 31 May 2011 02:17:08 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p4V7H7UF024931
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 31 May 2011 00:17:07 -0700 (PDT)
-Received: from localhost (128.224.162.198) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 31 May 2011 00:17:07 -0700
-Message-ID: <a8fa77774f70651ba6ef9a40c6ab2d833d937fcc.1306811461.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1306811461.git.kai.kang@windriver.com>
-References: <cover.1306811461.git.kai.kang@windriver.com>
-Old-Date: Tue, 31 May 2011 10:27:50 +0800
-Date: Tue, 31 May 2011 15:17:01 +0800
-To: <saul.wold@intel.com>, <poky@yoctoproject.org>
-From: Kang Kai <kai.kang@windriver.com>
+Return-Path: <liping.ke@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7489C4C80334
+	for <poky@yoctoproject.org>; Tue, 31 May 2011 03:11:24 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 31 May 2011 01:11:23 -0700
+X-ExtLoop1: 1
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga002.jf.intel.com with ESMTP; 31 May 2011 01:11:22 -0700
+Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Tue, 31 May 2011 16:11:12 +0800
+Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
+	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
+	Tue, 31 May 2011 16:11:11 +0800
+From: "Ke, Liping" <liping.ke@intel.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Tue, 31 May 2011 16:11:10 +0800
+Thread-Topic: [poky] [PATCH 3/4][Image Creator]Introduce new param
+	caches_array into Cache impl.
+Thread-Index: Acwbj4O4QGEh165xR8OrKC/GQoHJpAD2pSdQ
+Message-ID: <789F9655DD1B8F43B48D77C5D30659734C782F62@shsmsx501.ccr.corp.intel.com>
+References: <cover.1306376361.git.liping.ke@intel.com>
+	<d43679c93e42683ef1e3d636fe9bacc7304d415e.1306376361.git.liping.ke@intel.com>
+	<1306405634.27470.111.camel@rex>
+In-Reply-To: <1306405634.27470.111.camel@rex>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: zh-CN, en-US
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.198]
-Subject: [PATCH 1/1] task-core-lsb: add cups and ghostscript into image
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 3/4][Image Creator]Introduce new param caches_array into Cache impl.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,35 +42,79 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 May 2011 07:17:08 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 31 May 2011 08:11:25 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-From: Kang Kai <kai.kang@windriver.com>
-
-[Yocto 1030]
-Because it is fixed by Qing He, then add cups and ghostscipt into image
-
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/recipes-extended/tasks/task-core-lsb.bb |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
-
-diff --git a/meta/recipes-extended/tasks/task-core-lsb.bb b/meta/recipes-extended/tasks/task-core-lsb.bb
-index b6c5ae5..9fbacf9 100644
---- a/meta/recipes-extended/tasks/task-core-lsb.bb
-+++ b/meta/recipes-extended/tasks/task-core-lsb.bb
-@@ -133,8 +133,9 @@ RDEPENDS_task-core-lsb-command-add = "\
-     chkconfig \
-     xdg-utils \
-     foomatic-filters \
-+    cups \
-+    ghostscript \
- "
--#    cups
- 
- RDEPENDS_task-core-lsb-perl-add = "\
-     perl-modules \
--- 
-1.7.5.1.300.gc565c
-
+SGksIFJpY2hhcmQNCg0KVGhhbmtzIGZvciB0aGUgY29tbWVudCEgSSB3aWxsIHJlc2VuZCB0aGUg
+cGF0Y2guIFNvcnJ5IGZvciB0aGUgZGVsYXkuDQpBbmQgYWxzbywgZm9yIGhvdyB0byBwYXNzIGV4
+dHJhX2NhY2hlIHBhcmFtZXRlcnMsIHllcywgY3VycmVudCBpbXBsDQppcyBub3QgcGVyZmVjdC4g
+SSBhZGQgeW91ciBjb21tZW50IGludG8gVE9ETyBjb21tZW50IGFib3ZlIHRoZQ0KY29ycmVzcG9u
+ZGluZyBjb2RlIHBhcnQuDQoNClRoYW5rcyYgUmVnYXJkcywNCmNyaXBpbmcNCg0KPiAtLS0tLU9y
+aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSaWNoYXJkIFB1cmRpZSBbbWFpbHRvOnJpY2hh
+cmQucHVyZGllQGxpbnV4Zm91bmRhdGlvbi5vcmddDQo+IFNlbnQ6IFRodXJzZGF5LCBNYXkgMjYs
+IDIwMTEgNjoyNyBQTQ0KPiBUbzogS2UsIExpcGluZw0KPiBDYzogcG9reUB5b2N0b3Byb2plY3Qu
+b3JnDQo+IFN1YmplY3Q6IFJlOiBbcG9reV0gW1BBVENIIDMvNF1bSW1hZ2UgQ3JlYXRvcl1JbnRy
+b2R1Y2UgbmV3IHBhcmFtDQo+IGNhY2hlc19hcnJheSBpbnRvIENhY2hlIGltcGwuDQo+IA0KPiBI
+aSBMaXBpbmcsDQo+IA0KPiBUaGlzIGxvb2tzIGdvb2QsIGp1c3QgYSBjb3VwbGUgbW9yZSBtaW5v
+ciB0d2Vha3M6DQo+IA0KPiBPbiBUaHUsIDIwMTEtMDUtMjYgYXQgMTA6NTMgKzA4MDAsIEtlIExp
+cGluZyB3cm90ZToNCj4gPiBkaWZmIC0tZ2l0IGEvYml0YmFrZS9saWIvYmIvY29va2VyLnB5IGIv
+Yml0YmFrZS9saWIvYmIvY29va2VyLnB5DQo+ID4gaW5kZXggYTFjZDRkNy4uMGRjODk1YSAxMDA2
+NDQNCj4gPiAtLS0gYS9iaXRiYWtlL2xpYi9iYi9jb29rZXIucHkNCj4gPiArKysgYi9iaXRiYWtl
+L2xpYi9iYi9jb29rZXIucHkNCj4gPiBAQCAtNzIsNiArNzIsNDMgQEAgY2xhc3MgQkJDb29rZXI6
+DQo+ID4NCj4gPiAgICAgICAgICBzZWxmLmNvbmZpZ3VyYXRpb24gPSBjb25maWd1cmF0aW9uDQo+
+ID4NCj4gPiArICAgICAgICBzZWxmLmNhY2hlc19hcnJheSA9IFtdDQo+ID4gKyAgICAgICAgIyBD
+dXJyZW50bHksIG9ubHkgSW1hZ2UgQ3JlYXRvciBob2IgdWkgbmVlZHMgZXh0cmEgY2FjaGUuDQo+
+ID4gKyAgICAgICAgIyBTbywgd2Ugc2F2ZSBFeHRyYSBDYWNoZSBjbGFzcyBuYW1lIGFuZCBjb250
+YWluZXIgZmlsZQ0KPiA+ICsgICAgICAgICMgaW5mb3JtYXRpb24gaW50byBhIGV4dHJhQ2FjaGVz
+IGZpZWxkIGluIGhvYiBVSS4NCj4gPiArICAgICAgICAjIEluIGZ1dHVyZSwgaGF2aW5nIGEgcmVn
+aXN0cmF0aW9uIG1lY2hhbmlzbSBmb3IgZXh0cmEgY2FjaGUNCj4gPiArICAgICAgICAjIGZpZWxk
+cyBpbiBjYWNoZV9leHRyYSBpcyBhIGJldHRlciBzb2x1dGlvbi4gQWxzbywgd2UgbWF5DQo+ID4g
+KyAgICAgICAgIyBuZWVkIHRvIGNvbnNpZGVyIGFkZGluZyBhIHVzZXItaGlkZGVuIHBhcmFtZXRl
+cg0KPiAnQ2FjaGVSZXF1ZXN0Jw0KPiA+ICsgICAgICAgICMgZm9yIGJpdGJha2UgY29tbWFuZCBs
+aW5lLiBJdCB3aWxsIGJlIGZpbGxlZCBieSB0aG9zZSBzdWINCj4gPiArICAgICAgICAjIGNvbW1h
+bmQgd2hvIG5lZWQgdG8gaGF2ZSBleHRyYSBjYWNoZSBzdXBwb3J0Lg0KPiA+ICsgICAgICAgIGNh
+Y2hlc19uYW1lX2FycmF5ID0gWydiYi5jYWNoZTpDb3JlUmVjaXBlSW5mbyddDQo+ID4gKyAgICAg
+ICAgaWYgY29uZmlndXJhdGlvbi51aToNCj4gPiArICAgICAgICAgICAgdHJ5Og0KPiA+ICsgICAg
+ICAgICAgICAgICAgbW9kdWxlID0gX19pbXBvcnRfXygnYmIudWknLCBmcm9tbGlzdD1bY29uZmln
+dXJhdGlvbi51aV0pDQo+ID4gKyAgICAgICAgICAgICAgICBuYW1lX2FycmF5ID0gKGdldGF0dHIo
+bW9kdWxlLA0KPiBjb25maWd1cmF0aW9uLnVpKSkuZXh0cmFDYWNoZXMNCj4gPiArICAgICAgICAg
+ICAgICAgIGZvciByZWNpcGVJbmZvTmFtZSBpbiBuYW1lX2FycmF5Og0KPiA+ICsgICAgICAgICAg
+ICAgICAgICAgIGNhY2hlc19uYW1lX2FycmF5LmFwcGVuZChyZWNpcGVJbmZvTmFtZSkNCj4gPiAr
+ICAgICAgICAgICAgZXhjZXB0IEltcG9ydEVycm9yLCBleGM6DQo+ID4gKyAgICAgICAgICAgICAg
+ICAjIGJiLnVpLlhYWCBpcyBub3QgZGVmaW5lZCBhbmQgaW1wb3J0ZWQuIEl0J3MgYW4gZXJyb3Ih
+DQo+ID4gKyAgICAgICAgICAgICAgICBsb2dnZXIuY3JpdGljYWwoIlVuYWJsZSB0byBpbXBvcnQg
+JyVzJyBpbnRlcmZhY2UgZnJvbQ0KPiBiYi51aTogJXMiICUgKGNvbmZpZ3VyYXRpb24udWksIGV4
+YykpDQo+ID4gKyAgICAgICAgICAgICAgICBzeXMuZXhpdCgiRkFUQUw6IEZhaWxlZCB0byBpbXBv
+cnQgJyVzJyBpbnRlcmZhY2UuIiAlDQo+IGNvbmZpZ3VyYXRpb24udWkpDQo+ID4gKyAgICAgICAg
+ICAgIGV4Y2VwdCBBdHRyaWJ1dGVFcnJvcjoNCj4gPiArICAgICAgICAgICAgICAgICMgVGhpcyBp
+cyBub3QgYW4gZXJyb3IuIElmIHRoZSBmaWVsZCBpcyBub3QgZGVmaW5lZCBpbiB0aGUgdWksDQo+
+ID4gKyAgICAgICAgICAgICAgICAjIHRoaXMgaW50ZXJmYWNlIG1pZ2h0IG5lZWQgbm8gZXh0cmEg
+Y2FjaGUgZmllbGRzLCBzbw0KPiA+ICsgICAgICAgICAgICAgICAgIyBqdXN0IHNraXAgdGhpcyBl
+cnJvciENCj4gPiArICAgICAgICAgICAgICAgIGxvZ2dlci5pbmZvKCJVSSAnJXMnIGRvZXMgbm90
+IHJlcXVpcmUgZXh0cmEgY2FjaGUhIiAlDQo+IChjb25maWd1cmF0aW9uLnVpKSkNCj4gDQo+IFRo
+aXMgc2hvdWxkIGJlIGxvZ2dlci5kZWJ1ZyBhcyB3ZSBkb24ndCBuZWVkIHRvIHNob3cgdGhpcyB0
+byB0aGUgdXNlciBpbg0KPiBnZW5lcmFsLg0KPiANCj4gV2hpbHN0IHRoaXMgY29kZSBibG9jayBp
+cyBiZXR0ZXIgdGhhbiB3aGF0IHdlIGhhZCBwcmV2aW91c2x5LCBJIHRoaW5rDQo+IGJpbi9iaXRi
+YWtlIHNob3VsZCBwYXNzIHNvbWUga2luZCBvZiBpbmZvcm1hdGlvbiBpbnRvIGNvb2tlciBhYm91
+dCB0aGUNCj4gcmVxdWlyZWQgY2FjaGVzIHJhdGhlciB0aGFuIGNvb2tlciBwb2tpbmcgYXJvdW5k
+IHRoZSB1aSB2YXJpYWJsZXMuIFdlDQo+IGNhbiBsZWF2ZSB0aGF0IGFzIGlzIGZvciBub3cgYnV0
+IGl0cyBhIGNsZWFudXAgd2Ugc2hvdWxkIHJlYWxseSBkbyB3aGVuDQo+IHdlIGdldCB0aW1lLiBU
+aGVyZSBhcmUgdmFyaW91cyBVSSBzdGFydHVwIGlzc3VlcyB3ZSBzaG91bGQgcHJvYmFibHkNCj4g
+YWRkcmVzcyBhdCB0aGUgc2FtZSB0aW1lLg0KPiANCj4gPiArICAgICAgICAjIEF0IGxlYXN0IENv
+cmVSZWNpcGVJbmZvIHdpbGwgYmUgbG9hZGVkLCBzbyBjYWNoZXNfYXJyYXkgd2lsbA0KPiBuZXZl
+ciBiZSBlbXB0eSENCj4gPiArICAgICAgICAjIFRoaXMgaXMgdGhlIGVudHJ5IHBvaW50LCBubyBm
+dXJ0aGVyIGNoZWNrIG5lZWRlZCENCj4gPiArICAgICAgICBmb3IgdmFyIGluIGNhY2hlc19uYW1l
+X2FycmF5Og0KPiA+ICsgICAgICAgICAgICB0cnk6DQo+ID4gKyAgICAgICAgICAgICAgICBtb2R1
+bGVfbmFtZSwgY2FjaGVfbmFtZSA9IHZhci5zcGxpdCgnOicpDQo+ID4gKyAgICAgICAgICAgICAg
+ICBtb2R1bGUgPSBfX2ltcG9ydF9fKG1vZHVsZV9uYW1lLA0KPiBmcm9tbGlzdD0oY2FjaGVfbmFt
+ZSwpKQ0KPiA+ICsgICAgICAgICAgICAgICAgc2VsZi5jYWNoZXNfYXJyYXkuYXBwZW5kKGdldGF0
+dHIobW9kdWxlLA0KPiBjYWNoZV9uYW1lKSkNCj4gPiArICAgICAgICAgICAgZXhjZXB0IEltcG9y
+dEVycm9yLCBleGM6DQo+ID4gKyAgICAgICAgICAgICAgICBsb2dnZXIuY3JpdGljYWwoIlVuYWJs
+ZSB0byBpbXBvcnQgZXh0cmEgUmVjaXBlSW5mbyAnJXMnDQo+IGZyb20gYmIuZXh0cmFfY2FjaGU6
+ICVzIiAlIChjYWNoZV9uYW1lLCBleGMpKQ0KPiANCj4gV2Ugc2hvdWxkIHVzZSBtb2R1bGVfbmFt
+ZSBpbnN0ZWFkIG9mIGJiLmV4dHJhX2NhY2hlIGhlcmUgOikNCj4gDQo+IEknbSByZWFsbHkgaGFw
+cHkgd2l0aCB0aGVzZSBjaGFuZ2VzIGluIGdlbmVyYWwgdGhvdWdoLCBsb29rcyBnb29kIQ0KPiAN
+Cj4gQ2hlZXJzLA0KPiANCj4gUmljaGFyZA0KPiANCj4gDQoNCg==
 
