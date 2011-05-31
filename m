@@ -1,23 +1,33 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 028874C804EF
-	for <poky@yoctoproject.org>; Tue, 31 May 2011 03:28:01 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 31 May 2011 01:28:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,296,1304319600"; d="scan'208";a="11211010"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by fmsmga001.fm.intel.com with ESMTP; 31 May 2011 01:28:00 -0700
-From: Ke Liping <liping.ke@intel.com>
+Return-Path: <cahoshing@gmail.com>
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 219074C800A5
+	for <poky@yoctoproject.org>; Tue, 31 May 2011 08:59:23 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iym1 with SMTP id 1so6021232iym.35
+	for <poky@yoctoproject.org>; Tue, 31 May 2011 06:59:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=YULqLumX2YzkhqdSpS/VmZjIWpdwOHpGUNRLAg7buuM=;
+	b=BDSXgWDRKkXa7FDa+f9t93MqjPZ5YDiEz9yDqx945WTPPTpI+4LIxaEHAiq0gm+iaZ
+	dGX3XHFZPtK5+DZMqA0qWkKKJbikiEf1yta2xBiyKUhEIkhaVTuHgwBvfCqi74ze1Gpg
+	4JF5IXm/bkQNA5VzijTEug+e1U+DTTy2KEvM0=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=B170mtBncwXbSt8aZ7Ap9LjI65LVhvynholBX+exOdQykQN0h350AmpCHKpi5LSCv8
+	MjdtOP9k+R6llNt7/Pc5UX4YNL0NKgtMLu3kGKNnpnqR07IFzioEdUtwHC/70sNGuOgm
+	LLrZIskTD1sHAdRPpTdIWAOBpmIg+zp7t8pDU=
+MIME-Version: 1.0
+Received: by 10.231.8.197 with SMTP id i5mr6512333ibi.152.1306850362234; Tue,
+	31 May 2011 06:59:22 -0700 (PDT)
+Received: by 10.231.182.15 with HTTP; Tue, 31 May 2011 06:59:22 -0700 (PDT)
+Date: Tue, 31 May 2011 19:29:22 +0530
+Message-ID: <BANLkTimsZuqZKWtuKzBLnskzAv1unWKdNg@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
 To: poky@yoctoproject.org
-Date: Tue, 31 May 2011 16:16:00 +0800
-Message-Id: <138f3dd3132b02e9f8f96a1e5d9c7c258349f74e.1306829495.git.liping.ke@intel.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1306829495.git.liping.ke@intel.com>
-References: <cover.1306829495.git.liping.ke@intel.com>
-In-Reply-To: <cover.1306829495.git.liping.ke@intel.com>
-References: <cover.1306829495.git.liping.ke@intel.com>
-Subject: [PATCH 4/4][Image Creator]Implement multiple extra cache fields request support
+Subject: Error in pulling dbus for beagleboard poky build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,374 +39,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 May 2011 08:28:02 -0000
+X-List-Received-Date: Tue, 31 May 2011 13:59:23 -0000
+Content-Type: multipart/alternative; boundary=00151773ea689d974a04a492cfc3
 
-From: Liping Ke <liping.ke@intel.com>
+--00151773ea689d974a04a492cfc3
+Content-Type: text/plain; charset=ISO-8859-1
 
-This patch is to support extra cache. If user needs to request
-extra cache fields besides CoreRecipeInfo fields, just add a new
-XXXRecipeInfo class definition as Hob Does.
-Currently supported Extra RecipeInfo name is an array. We can
-support multiple extra cache fields at the same time besides
-CoreRecipeInfo which is needed by all clients.
+Hi,
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
----
- bitbake/lib/bb/cache.py  |  175 +++++++++++++++++++++++++++++++---------------
- bitbake/lib/bb/cooker.py |   16 ++--
- 2 files changed, 126 insertions(+), 65 deletions(-)
+ I am building poky for beagleboard on ubuntu 10.10 64 bit host.I have
+included dbus and dbus-glib in the recipes but when it starts building the
+rootfs
+ it gives the error as follows:-
 
-diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
-index 0620621..271ebd7 100644
---- a/bitbake/lib/bb/cache.py
-+++ b/bitbake/lib/bb/cache.py
-@@ -45,6 +45,8 @@ except ImportError:
- 
- __cache_version__ = "138"
- 
-+def getCacheFile(path, filename):
-+    return os.path.join(path, filename)
- 
- # RecipeInfoCommon defines common data retrieving methods
- # from meta data for caches. CoreRecipeInfo as well as other
-@@ -86,12 +88,9 @@ class RecipeInfoCommon(object):
- class CoreRecipeInfo(RecipeInfoCommon):
-     __slots__ = ()
- 
--    def __init__(self, filename, metadata):
--        self.name = "base"
--        # please override this member with the correct data cache file
--        # such as (bb_cache.dat, bb_extracache_hob.dat) 
--        self.cachefile = "bb_cache.dat"        
-+    cachefile = "bb_cache.dat"   
- 
-+    def __init__(self, filename, metadata):      
-         self.file_depends = metadata.getVar('__depends', False)
-         self.timestamp = bb.parse.cached_mtime(filename)
-         self.variants = self.listvar('__VARIANTS', metadata) + ['']
-@@ -265,7 +264,7 @@ class Cache(object):
-             return
- 
-         self.has_cache = True
--        self.cachefile = os.path.join(self.cachedir, "bb_cache.dat")
-+        self.cachefile = getCacheFile(self.cachedir, "bb_cache.dat")
- 
-         logger.debug(1, "Using cache in '%s'", self.cachedir)
-         bb.utils.mkdirhier(self.cachedir)
-@@ -279,12 +278,21 @@ class Cache(object):
-         old_mtimes.append(newest_mtime)
-         newest_mtime = max(old_mtimes)
- 
--        if bb.parse.cached_mtime_noerror(self.cachefile) >= newest_mtime:
-+        bNeedUpdate = True
-+        if self.caches_array:
-+            for cache_class in self.caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                    bNeedUpdate = bNeedUpdate and (bb.parse.cached_mtime_noerror(cachefile) >= newest_mtime)
-+                    cache_class.init_cacheData(self)
-+        if bNeedUpdate:
-             self.load_cachefile()
-         elif os.path.isfile(self.cachefile):
-             logger.info("Out of date cache found, rebuilding...")
- 
-     def load_cachefile(self):
-+        # Firstly, using core cache file information for
-+        # valid checking
-         with open(self.cachefile, "rb") as cachefile:
-             pickled = pickle.Unpickler(cachefile)
-             try:
-@@ -301,31 +309,52 @@ class Cache(object):
-                 logger.info('Bitbake version mismatch, rebuilding...')
-                 return
- 
--            cachesize = os.fstat(cachefile.fileno()).st_size
--            bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
- 
--            previous_percent = 0
--            while cachefile:
--                try:
--                    key = pickled.load()
--                    value = pickled.load()
--                except Exception:
--                    break
-+        cachesize = 0
-+        previous_progress = 0
-+        previous_percent = 0
- 
--                self.depends_cache[key] = value
--
--                # only fire events on even percentage boundaries
--                current_progress = cachefile.tell()
--                current_percent = 100 * current_progress / cachesize
--                if current_percent > previous_percent:
--                    previous_percent = current_percent
--                    bb.event.fire(bb.event.CacheLoadProgress(current_progress),
--                                  self.data)
--
--            bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
--                                                      len(self.depends_cache)),
--                          self.data)
-+        # Calculate the correct cachesize of all those cache files
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                with open(cachefile, "rb") as cachefile:
-+                    cachesize += os.fstat(cachefile.fileno()).st_size
- 
-+        bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
-+        
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                with open(cachefile, "rb") as cachefile:
-+                    pickled = pickle.Unpickler(cachefile)                    
-+                    while cachefile:
-+                        try:
-+                            key = pickled.load()
-+                            value = pickled.load()
-+                        except Exception:
-+                            break
-+                        if self.depends_cache.has_key(key):
-+                            self.depends_cache[key].append(value)
-+                        else:
-+                            self.depends_cache[key] = [value]
-+                        # only fire events on even percentage boundaries
-+                        current_progress = cachefile.tell() + previous_progress
-+                        current_percent = 100 * current_progress / cachesize
-+                        if current_percent > previous_percent:
-+                            previous_percent = current_percent
-+                            bb.event.fire(bb.event.CacheLoadProgress(current_progress),
-+                                          self.data)
-+
-+                    previous_progress += current_progress
-+
-+        # Note: depends cache number is corresponding to the parsing file numbers.
-+        # The same file has several caches, still regarded as one item in the cache
-+        bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
-+                                                  len(self.depends_cache)),
-+                      self.data)
-+
-+    
-     @staticmethod
-     def virtualfn2realfn(virtualfn):
-         """
-@@ -376,8 +405,14 @@ class Cache(object):
-             depends |= (data.getVar("__depends", False) or set())
-             if depends and not variant:
-                 data.setVar("__depends", depends)
--            info = CoreRecipeInfo(filename, data)
--            infos.append((virtualfn, info))
-+
-+            info_array = []
-+            for cache_class in caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    info = cache_class(filename, data)
-+                    info_array.append(info)
-+            infos.append((virtualfn, info_array))
-+
-         return infos
- 
-     def load(self, filename, appends, configdata):
-@@ -391,8 +426,9 @@ class Cache(object):
-         cached = self.cacheValid(filename)
-         if cached:
-             infos = []
--            info = self.depends_cache[filename]
--            for variant in info.variants:
-+            # info_array item is a list of [CoreRecipeInfo, XXXRecipeInfo]
-+            info_array = self.depends_cache[filename]
-+            for variant in info_array[0].variants:
-                 virtualfn = self.realfn2virtual(filename, variant)
-                 infos.append((virtualfn, self.depends_cache[virtualfn]))
-         else:
-@@ -408,12 +444,12 @@ class Cache(object):
-         skipped, virtuals = 0, 0
- 
-         cached, infos = self.load(fn, appends, cfgData)
--        for virtualfn, info in infos:
--            if info.skipped:
-+        for virtualfn, info_array in infos:
-+            if info_array[0].skipped:
-                 logger.debug(1, "Skipping %s", virtualfn)
-                 skipped += 1
-             else:
--                self.add_info(virtualfn, info, cacheData, not cached)
-+                self.add_info(virtualfn, info_array, cacheData, not cached)
-                 virtuals += 1
- 
-         return cached, skipped, virtuals
-@@ -457,15 +493,15 @@ class Cache(object):
-             self.remove(fn)
-             return False
- 
--        info = self.depends_cache[fn]
-+        info_array = self.depends_cache[fn]
-         # Check the file's timestamp
--        if mtime != info.timestamp:
-+        if mtime != info_array[0].timestamp:
-             logger.debug(2, "Cache: %s changed", fn)
-             self.remove(fn)
-             return False
- 
-         # Check dependencies are still valid
--        depends = info.file_depends
-+        depends = info_array[0].file_depends
-         if depends:
-             for f, old_mtime in depends:
-                 fmtime = bb.parse.cached_mtime_noerror(f)
-@@ -483,7 +519,7 @@ class Cache(object):
-                     return False
- 
-         invalid = False
--        for cls in info.variants:
-+        for cls in info_array[0].variants:
-             virtualfn = self.realfn2virtual(fn, cls)
-             self.clean.add(virtualfn)
-             if virtualfn not in self.depends_cache:
-@@ -530,13 +566,30 @@ class Cache(object):
-             logger.debug(2, "Cache is clean, not saving.")
-             return
- 
--        with open(self.cachefile, "wb") as cachefile:
--            pickler = pickle.Pickler(cachefile, pickle.HIGHEST_PROTOCOL)
--            pickler.dump(__cache_version__)
--            pickler.dump(bb.__version__)
--            for key, value in self.depends_cache.iteritems():
--                pickler.dump(key)
--                pickler.dump(value)
-+        file_dict = {}
-+        pickler_dict = {}
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cache_class_name = cache_class.__name__
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                file_dict[cache_class_name] = open(cachefile, "wb")
-+                pickler_dict[cache_class_name] =  pickle.Pickler(file_dict[cache_class_name], pickle.HIGHEST_PROTOCOL)
-+                   
-+        pickler_dict['CoreRecipeInfo'].dump(__cache_version__)
-+        pickler_dict['CoreRecipeInfo'].dump(bb.__version__)
-+
-+        try:
-+            for key, info_array in self.depends_cache.iteritems():
-+                for info in info_array:
-+                    if isinstance(info, RecipeInfoCommon):
-+                        cache_class_name = info.__class__.__name__
-+                        pickler_dict[cache_class_name].dump(key)
-+                        pickler_dict[cache_class_name].dump(info)
-+        finally:
-+            for cache_class in self.caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    cache_class_name = cache_class.__name__
-+                    file_dict[cache_class_name].close()
- 
-         del self.depends_cache
- 
-@@ -544,17 +597,17 @@ class Cache(object):
-     def mtime(cachefile):
-         return bb.parse.cached_mtime_noerror(cachefile)
- 
--    def add_info(self, filename, info, cacheData, parsed=None):
--        if not info.skipped:
--            cacheData.add_from_recipeinfo(filename, info)
-+    def add_info(self, filename, info_array, cacheData, parsed=None):
-+        if isinstance(info_array[0], CoreRecipeInfo) and (not info_array[0].skipped):
-+            cacheData.add_from_recipeinfo(filename, info_array)
- 
-         if not self.has_cache:
-             return
- 
--        if (info.skipped or 'SRCREVINACTION' not in info.pv) and not info.nocache:
-+        if (info_array[0].skipped or 'SRCREVINACTION' not in info_array[0].pv) and not info_array[0].nocache:
-             if parsed:
-                 self.cacheclean = False
--            self.depends_cache[filename] = info
-+            self.depends_cache[filename] = info_array
- 
-     def add(self, file_name, data, cacheData, parsed=None):
-         """
-@@ -562,8 +615,12 @@ class Cache(object):
-         """
- 
-         realfn = self.virtualfn2realfn(file_name)[0]
--        info = CoreRecipeInfo(realfn, data)
--        self.add_info(file_name, info, cacheData, parsed)
-+
-+        info_array = []
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                info_array.append(cache_class(realfn, data))
-+        self.add_info(file_name, info_array, cacheData, parsed)
- 
-     @staticmethod
-     def load_bbfile(bbfile, appends, config):
-@@ -629,7 +686,10 @@ class CacheData(object):
- 
-     def __init__(self, caches_array):
-         self.caches_array = caches_array
--        CoreRecipeInfo.init_cacheData(self)
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cache_class.init_cacheData(self)        
-+
-         # Direct cache variables
-         self.task_queues = {}
-         self.preferred = {}
-@@ -640,7 +700,8 @@ class CacheData(object):
-         self.bbfile_priority = {}
-         self.bbfile_config_priorities = []
- 
--    def add_from_recipeinfo(self, fn, info):
--        info.add_cacheData(self, fn)
-+    def add_from_recipeinfo(self, fn, info_array):
-+        for info in info_array:
-+            info.add_cacheData(self, fn)
- 
-         
-diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-index c4e60d4..9e0648b 100644
---- a/bitbake/lib/bb/cooker.py
-+++ b/bitbake/lib/bb/cooker.py
-@@ -772,13 +772,13 @@ class BBCooker:
- 
-         fn = bb.cache.Cache.realfn2virtual(fn, cls)
-         try:
--            maininfo = infos[fn]
-+            info_array = infos[fn]
-         except KeyError:
-             bb.fatal("%s does not exist" % fn)
--        self.status.add_from_recipeinfo(fn, maininfo)
-+        self.status.add_from_recipeinfo(fn, info_array)
- 
-         # Tweak some variables
--        item = maininfo.pn
-+        item = info_array[0].pn
-         self.status.ignored_dependencies = set()
-         self.status.bbfile_priority[fn] = 1
- 
-@@ -1227,10 +1227,10 @@ class CookerParser(object):
-         else:
-             self.cached += 1
- 
--        for virtualfn, info in result:
--            if info.skipped:
-+        for virtualfn, info_array in result:
-+            if info_array[0].skipped:
-                 self.skipped += 1
--            self.bb_cache.add_info(virtualfn, info, self.cooker.status,
-+            self.bb_cache.add_info(virtualfn, info_array, self.cooker.status,
-                                         parsed=parsed)
-         return True
- 
-@@ -1238,5 +1238,5 @@ class CookerParser(object):
-         infos = self.bb_cache.parse(filename,
-                                     self.cooker.get_file_appends(filename),
-                                     self.cfgdata, self.cooker.caches_array)
--        for vfn, info in infos:
--            self.cooker.status.add_from_recipeinfo(vfn, info)
-+        for vfn, info_array in infos:
-+            self.cooker.status.add_from_recipeinfo(vfn, info_array)
--- 
-1.7.0.4
+ Unknown package 'dbus'.
+ Unknown package 'dbus-glib'.
+:
+:
+:
+Collected errors:
+|  * opkg_install_cmd: Cannot install package dbus.
+|  * opkg_install_cmd: Cannot install package dbus-glib.
+| ERROR: Function 'do_rootfs' failed (see
+/home/poky/build/tmp/work/beagleboard-poky-linux-gnueabi/poky-image-minimal-1.0-r0/temp/log.do_rootfs.25765
+for further information)
+NOTE: package poky-image-minimal-1.0-r0: task do_rootfs: Failed
+ERROR: Task 9 (/home/poky/meta/recipes-core/images/poky-image-minimal.bb,
+do_rootfs) failed with exit code '1'
+
+Can anyone help me to find the solution !!!!!!
 
 
+
+Chinmaya
+
+--00151773ea689d974a04a492cfc3
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>=A0I am building poky for beagleboa=
+rd on ubuntu 10.10 64 bit host.I have included dbus and dbus-glib in the re=
+cipes but when it starts building the rootfs=A0<div>=A0it gives the error a=
+s follows:-</div>
+</div><div><br></div><div><div>=A0Unknown package &#39;dbus&#39;.</div><div=
+>=A0Unknown package &#39;dbus-glib&#39;.<br>:</div></div><div>:</div><div>:=
+</div><div><div>Collected errors:</div><div>| =A0* opkg_install_cmd: Cannot=
+ install package dbus.</div>
+<div>| =A0* opkg_install_cmd: Cannot install package dbus-glib.</div><div>|=
+ ERROR: Function &#39;do_rootfs&#39; failed (see /home/poky/build/tmp/work/=
+beagleboard-poky-linux-gnueabi/poky-image-minimal-1.0-r0/temp/log.do_rootfs=
+.25765 for further information)</div>
+<div>NOTE: package poky-image-minimal-1.0-r0: task do_rootfs: Failed</div><=
+div>ERROR: Task 9 (/home/poky/meta/recipes-core/images/<a href=3D"http://po=
+ky-image-minimal.bb">poky-image-minimal.bb</a>, do_rootfs) failed with exit=
+ code &#39;1&#39;</div>
+</div><div><br></div><div>Can anyone help me to find the solution !!!!!!</d=
+iv><div><br></div><div><br></div><div><br></div><div>Chinmaya</div></div>
+
+--00151773ea689d974a04a492cfc3--
