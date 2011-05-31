@@ -1,17 +1,17 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E3E1B4C806F9
-	for <poky@yoctoproject.org>; Tue, 31 May 2011 13:14:19 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 13E314C80AA5
+	for <poky@yoctoproject.org>; Tue, 31 May 2011 13:14:20 -0500 (CDT)
 Received: from localhost.localdomain (c-76-105-143-140.hsd1.or.comcast.net
 	[76.105.143.140])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id D67B32FEF6;
-	Tue, 31 May 2011 14:14:14 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id A329F2FEF8;
+	Tue, 31 May 2011 14:14:15 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 31 May 2011 11:13:55 -0700
-Message-Id: <ea3163ab446883b772207bf0600f0198a3041a7a.1306865217.git.scott.a.garman@intel.com>
+Date: Tue, 31 May 2011 11:13:56 -0700
+Message-Id: <ad59ecd71b895f86d72cbd4140c018c44ef3ff0f.1306865217.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.1
 In-Reply-To: <cover.1306865217.git.scott.a.garman@intel.com>
 References: <cover.1306865217.git.scott.a.garman@intel.com>
@@ -19,12 +19,12 @@ In-Reply-To: <cover.1306865217.git.scott.a.garman@intel.com>
 References: <cover.1306865217.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: D67B32FEF6.9F41E
+X-MailScanner-ID: A329F2FEF8.BFD32
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 5/7] useradd-example: example recipe for using inherit useradd
+Subject: [PATCH 6/7] bitbake.conf: set PSEUDO_PASSWD within FAKEROOTENV
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,96 +38,28 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Tue, 31 May 2011 18:14:20 -0000
 
-An example recipe for demonstrating/documenting how user and
-group manipulation is done with 'inherit useradd'
+PSEUDO_PASSWD needs to point to the directory where passwd and group
+files are kept. This will allow pseudo to use those users and groups
+to change file ownership.
 
 Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- .../recipes-skeleton/useradd/useradd-example.bb    |   59 ++++++++++++++++++++
- 1 files changed, 59 insertions(+), 0 deletions(-)
- create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
- create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file1
- create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file2
- create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file3
- create mode 100644 meta-skeleton/recipes-skeleton/useradd/useradd-example/file4
+ meta/conf/bitbake.conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example.bb b/meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
-new file mode 100644
-index 0000000..1e6ae87
---- /dev/null
-+++ b/meta-skeleton/recipes-skeleton/useradd/useradd-example.bb
-@@ -0,0 +1,59 @@
-+SUMMARY = "Example recipe for using inherit useradd"
-+DESCRIPTION = "This recipe serves as an example for using features from useradd.bbclass"
-+SECTION = "examples"
-+PR = "r0"
-+LICENSE = "MIT"
-+LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+
-+SRC_URI = "file://file1 \
-+           file://file2 \
-+           file://file3 \
-+           file://file4"
-+
-+S = "${WORKDIR}"
-+
-+inherit useradd
-+
-+# Specify which package(s) should include the user/group code.
-+# Make sure that any packages which install files owned by custom
-+# users/groups are included here. The code which adds users and
-+# groups is idempotent.
-+USERADD_PACKAGES = "useradd-example"
-+
-+# You *must* set USERADD_PARAM and/or GROUPADD_PARAM when
-+# you inherit useradd.
-+
-+# USERADD_PARAM specifies command line options to pass to the
-+# useradd command. Multiple users can be created by separating
-+# the commands with a semicolon. Here we'll create two users,
-+# user1 and user3:
-+USERADD_PARAM_useradd-example = "-u 1200 -d /home/user1 -r -s /bin/bash user1; -u 1201 -d /home/user3 -r -s /bin/bash user3"
-+
-+# GROUPADD_PARAM works the same way, which you set to the options
-+# you'd normally pass to the groupadd command. This will create
-+# groups group1, group2, and group3:
-+GROUPADD_PARAM_useradd-example = "-g 880 group1; -g 890 group2; -g 900 group3"
-+
-+do_install () {
-+	install -d -m 755 ${D}/usr/share/user1
-+	install -d -m 755 ${D}/usr/share/user3
-+	install -p -m 644 file1 ${D}/usr/share/user1/
-+	install -p -m 644 file2 ${D}/usr/share/user1/
-+	install -p -m 644 file3 ${D}/usr/share/user3/
-+	install -p -m 644 file4 ${D}/usr/share/user3/
-+
-+	# The new users and groups are created before the do_install
-+	# step, so you are now free to make use of them:
-+	chown -R user1 ${D}/usr/share/user1
-+	chown -R user3 ${D}/usr/share/user3
-+	chgrp group1 ${D}/usr/share/user1/file1
-+	chgrp group3 ${D}/usr/share/user1/file2
-+	chgrp group1 ${D}/usr/share/user3/file3
-+	chgrp group3 ${D}/usr/share/user3/file4
-+}
-+
-+PACKAGES =+ "${PN}-user3"
-+
-+FILES_${PN} = "/usr/share/user1/*"
-+FILES_${PN}-user3 = "/usr/share/user3/*"
-diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file1 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file1
-new file mode 100644
-index 0000000..e69de29
-diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file2 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file2
-new file mode 100644
-index 0000000..e69de29
-diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file3 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file3
-new file mode 100644
-index 0000000..e69de29
-diff --git a/meta-skeleton/recipes-skeleton/useradd/useradd-example/file4 b/meta-skeleton/recipes-skeleton/useradd/useradd-example/file4
-new file mode 100644
-index 0000000..e69de29
+diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
+index d307385..6f16a65 100644
+--- a/meta/conf/bitbake.conf
++++ b/meta/conf/bitbake.conf
+@@ -535,7 +535,7 @@ SRC_URI = "file://${FILE}"
+ 
+ # Use pseudo as the fakeroot implementation
+ PSEUDO_LOCALSTATEDIR ?= "${WORKDIR}/pseudo/"
+-FAKEROOTENV = "PSEUDO_PREFIX=${STAGING_DIR_NATIVE}${prefix_native} PSEUDO_LOCALSTATEDIR=${PSEUDO_LOCALSTATEDIR} PSEUDO_NOSYMLINKEXP=1 PSEUDO_DISABLED=0"
++FAKEROOTENV = "PSEUDO_PREFIX=${STAGING_DIR_NATIVE}${prefix_native} PSEUDO_LOCALSTATEDIR=${PSEUDO_LOCALSTATEDIR} PSEUDO_PASSWD=${STAGING_DIR_TARGET}/etc PSEUDO_NOSYMLINKEXP=1 PSEUDO_DISABLED=0"
+ FAKEROOTDIRS = "${PSEUDO_LOCALSTATEDIR}"
+ PREFERRED_PROVIDER_virtual/fakeroot-native ?= "pseudo-native"
+ 
 -- 
 1.7.1
 
