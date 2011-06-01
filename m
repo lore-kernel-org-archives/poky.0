@@ -1,24 +1,20 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 16B0D4C80191
-	for <poky@yoctoproject.org>; Wed,  1 Jun 2011 05:07:11 -0500 (CDT)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 543A54C804C2
+	for <poky@yoctoproject.org>; Wed,  1 Jun 2011 11:38:41 -0500 (CDT)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 01 Jun 2011 03:07:10 -0700
+	by azsmga102.ch.intel.com with ESMTP; 01 Jun 2011 09:38:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,302,1304319600"; 
-   d="scan'208";a="5111524"
-Received: from unknown (HELO helios.localnet) ([10.255.13.133])
-	by azsmga001.ch.intel.com with ESMTP; 01 Jun 2011 03:07:09 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.65,304,1304319600"; 
+   d="scan'208";a="5320229"
+Received: from unknown (HELO swold-MOBL.bigsur.com) ([10.255.13.41])
+	by azsmga001.ch.intel.com with ESMTP; 01 Jun 2011 09:38:40 -0700
+From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 1 Jun 2011 11:07:08 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic-pae; KDE/4.6.2; i686; ; )
-References: <cover.1306863360.git.paul.eggleton@linux.intel.com>
-	<6d9835a7055fdffc3adc0dd8c98899750fcc272e.1306863360.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <6d9835a7055fdffc3adc0dd8c98899750fcc272e.1306863360.git.paul.eggleton@linux.intel.com>
-MIME-Version: 1.0
-Message-Id: <201106011107.09005.paul.eggleton@linux.intel.com>
-Subject: Re: [PATCH 1/1] bitbake: use layer priority when applying bbappends
+Date: Wed,  1 Jun 2011 09:38:37 -0700
+Message-Id: <cover.1306946141.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.3.4
+Subject: [PATCH 0/1] Check for non-gplv3 build before including qemu-config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,24 +26,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Jun 2011 10:07:11 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 01 Jun 2011 16:38:41 -0000
 
-On Tuesday 31 May 2011 18:36:55 Paul Eggleton wrote:
-> -            self.status.bbfile_priority[p] = calc_bbfile_priority(p)
-> +            self.status.bbfile_priority[p] = calc_bbfile_priority(p,
-> matched)
+This patch will check INCOMPATIBLE_LICENSE for GPLv3 before including
+qemu-config to the DISTRO_EXTRA_RDEPENDS list.
 
-Oops, this should be self.calc_bbfile_priority. Have updated contrib branch & 
-sent updated patch to bitbake-devel.
+Sau!
 
-Cheers,
-Paul
+The following changes since commit 802080eb6dd4c872ef16797f06d1aee43624a64c:
+
+  allarch.bbclass: A "all" TARGET_ARCH is dangerous as an OVERRIDE (2011-06-01 14:13:23 +0100)
+
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib sgw/patch
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/patch
+
+Saul Wold (1):
+  poky.conf: Make qemu-config optional for non-GPLv3
+
+ meta-yocto/conf/distro/poky.conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 -- 
+1.7.3.4
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
