@@ -1,24 +1,30 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 9E7DE4C804C2
-	for <poky@yoctoproject.org>; Wed,  1 Jun 2011 11:38:41 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 01 Jun 2011 09:38:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,304,1304319600"; 
-   d="scan'208";a="5320231"
-Received: from unknown (HELO swold-MOBL.bigsur.com) ([10.255.13.41])
-	by azsmga001.ch.intel.com with ESMTP; 01 Jun 2011 09:38:40 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Wed,  1 Jun 2011 09:38:38 -0700
-Message-Id: <9f6dd78de07c0e4dca9ce22aa6b3e7ec422b4344.1306946141.git.sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.3.4
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A034C4C800A1
+	for <poky@yoctoproject.org>; Wed,  1 Jun 2011 11:49:00 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p51GmxfF012363;
+	Wed, 1 Jun 2011 17:48:59 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 10378-03; Wed,  1 Jun 2011 17:48:51 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p51Gmmr8012337
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 1 Jun 2011 17:48:48 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <sgw@linux.intel.com>
 In-Reply-To: <cover.1306946141.git.sgw@linux.intel.com>
 References: <cover.1306946141.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1306946141.git.sgw@linux.intel.com>
-References: <cover.1306946141.git.sgw@linux.intel.com>
-Subject: [PATCH 1/1] poky.conf: Make qemu-config optional for non-GPLv3
+Date: Wed, 01 Jun 2011 17:48:28 +0100
+Message-ID: <1306946908.27470.438.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Check for non-gplv3 build before including qemu-config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,29 +36,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Jun 2011 16:38:41 -0000
+X-List-Received-Date: Wed, 01 Jun 2011 16:49:01 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-[YOCTO #1033]
+On Wed, 2011-06-01 at 09:38 -0700, Saul Wold wrote:
+> This patch will check INCOMPATIBLE_LICENSE for GPLv3 before including
+> qemu-config to the DISTRO_EXTRA_RDEPENDS list.
+> 
+> Sau!
+> 
+> The following changes since commit 802080eb6dd4c872ef16797f06d1aee43624a64c:
+> 
+>   allarch.bbclass: A "all" TARGET_ARCH is dangerous as an OVERRIDE (2011-06-01 14:13:23 +0100)
+> 
+> are available in the git repository at:
+>   git://git.yoctoproject.org/poky-contrib sgw/patch
+>   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/patch
+> 
+> Saul Wold (1):
+>   poky.conf: Make qemu-config optional for non-GPLv3
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- meta-yocto/conf/distro/poky.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Merged to master, thanks.
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 2a5ffb6..6724229 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -18,7 +18,7 @@ EXTRAOPKGCONFIG = "poky-feed-config-opkg"
- DISTRO_EXTRA_RDEPENDS += "task-core-boot"
- DISTRO_EXTRA_RRECOMMENDS += "kernel-module-af-packet"
- 
--POKYQEMUDEPS = "qemu-config"
-+POKYQEMUDEPS = "${@base_contains("INCOMPATIBLE_LICENSE", "GPLv3", "", "qemu-config",d)}"
- DISTRO_EXTRA_RDEPENDS_append_qemuarm = " ${POKYQEMUDEPS}"
- DISTRO_EXTRA_RDEPENDS_append_qemumips = " ${POKYQEMUDEPS}"
- DISTRO_EXTRA_RDEPENDS_append_qemuppc = " ${POKYQEMUDEPS}"
--- 
-1.7.3.4
+Richard
 
 
