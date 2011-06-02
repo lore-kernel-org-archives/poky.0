@@ -1,28 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id B0D7B4C8055B
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 10:10:16 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 4B8801660298; Thu,  2 Jun 2011 09:10:16 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 05F49166019C;
-	Thu,  2 Jun 2011 09:10:15 -0600 (MDT)
-Message-ID: <4DE7A7D6.8070300@mlbassoc.com>
-Date: Thu, 02 Jun 2011 09:10:14 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Mark Hatle <mark.hatle@windriver.com>
-References: <4DE7A327.4070303@mlbassoc.com> <4DE7A6A1.3020209@windriver.com>
-In-Reply-To: <4DE7A6A1.3020209@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: More upgrade woes
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 073C54C800B0
+	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 12:22:15 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p52HMDVF019744;
+	Thu, 2 Jun 2011 18:22:13 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 17392-10; Thu,  2 Jun 2011 18:22:09 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p52HM367019732
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 2 Jun 2011 18:22:05 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4DE79F0A.5080104@mlbassoc.com>
+References: <4DE79F0A.5080104@mlbassoc.com>
+Date: Thu, 02 Jun 2011 18:21:43 +0100
+Message-ID: <1307035303.27470.584.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Problem with gettext-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,48 +36,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Jun 2011 15:10:16 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 02 Jun 2011 17:22:16 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 06/02/2011 09:05 AM, Mark Hatle wrote:
-> On 6/2/11 9:50 AM, Gary Thomas wrote:
->> Next problem :-(  Building on Fedora 13, with today's master
->>     commit 484c4e73245c93a08413cd204513bf5c5698b994
->>     Author: Saul Wold<sgw@linux.intel.com>
->>     Date:   Tue May 31 22:42:49 2011 -0700
->>
->>       clutter-1.6: Add patch to update gettext macro version
->
-> That should not have anything to o with the error below.. Hmm..
->
->> I now get this error:
->> | NOTE: Unpacking /home/local/p60_bug/downloads/rpm-5.4.0-0.20101229.src.rpm to /home/local/p60_bug/tmp/work/i686-linux/rpm-native-5.4.0-r16/
->> | /usr/bin/unlzma: (stdin): File format not recognized
->> | cpio: premature end of archive
->> | ERROR: Function 'Unpack failure for URL: 'http://www.rpm5.org/files/rpm/rpm-5.4/rpm-5.4.0-0.20101229.src.rpm;extract=rpm-5.4.0.tar.gz'. Unpack command
->> PATH="/home/local/p60_bug/tmp/sysroots/i686-linux/usr/bin/i686-linux:/home/local/p60_bug/tmp/sysroots/i686-linux/usr/bin:/home/local/p60_bug/tmp/sysroots/i686-linux/usr/sbin:/home/local/p60_bug/tmp/sysroots/i686-linux/usr/bin:/home/local/p60_bug/tmp/sysroots/i686-linux/sbin:/home/local/p60_bug/tmp/sysroots/i686-linux//bin:/home/local/poky-amltd/scripts:/home/local/poky-amltd/bitbake/bin/:/opt/amltd/bin:/usr/java/jdk1.6.0_10/bin:/home/gthomas/Android/android-sdk-linux_x86-1.1_r1/tools:/home/gthomas/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/local/poky-amltd/scripts"
->> rpm2cpio.sh /home/local/p60_bug/downloads/rpm-5.4.0-0.20101229.src.rpm | cpio -i rpm-5.4.0.tar.gz failed with return value 1' failed
->> | ERROR: Function 'Unpack failure for URL: 'http://www.rpm5.org/files/rpm/rpm-5.4/rpm-5.4.0-0.20101229.src.rpm;extract=rpm-5.4.0.tar.gz'. Unpack command
->> PATH="/home/local/p60_bug/tmp/sysroots/i686-linux/usr/bin/i686-linux:/home/local/p60_bug/tmp/sysroots/i686-linux/usr/bin:/home/local/p60_bug/tmp/sysroots/i686-linux/usr/sbin:/home/local/p60_bug/tmp/sysroots/i686-linux/usr/bin:/home/local/p60_bug/tmp/sysroots/i686-linux/sbin:/home/local/p60_bug/tmp/sysroots/i686-linux//bin:/home/local/poky-amltd/scripts:/home/local/poky-amltd/bitbake/bin/:/opt/amltd/bin:/usr/java/jdk1.6.0_10/bin:/home/gthomas/Android/android-sdk-linux_x86-1.1_r1/tools:/home/gthomas/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/local/poky-amltd/scripts"
->> rpm2cpio.sh /home/local/p60_bug/downloads/rpm-5.4.0-0.20101229.src.rpm | cpio -i rpm-5.4.0.tar.gz failed with return value 1' failed
->> NOTE: package rpm-native-5.4.0-r16: task do_unpack: Failed
->> ERROR: Task 184 (virtual:native:/home/local/poky-amltd/meta/recipes-devtools/rpm/rpm_5.4.0.bb, do_unpack) failed with exit code '1'
->>
->
-> It looks like the download was incomplete.  I would have expected the md5sum to
-> fail though...
+On Thu, 2011-06-02 at 08:32 -0600, Gary Thomas wrote:
+> I had a working build based on
+>    commit 52295fa3deef3b0374b99829626d524cefae6001
+>    Author: Richard Purdie <richard.purdie@linuxfoundation.org>
+>    Date:   Wed May 18 00:03:02 2011 +0100
+> 
+>      Improve handling of 'all' architecture recipes and their interaction with sstate
+> 
+> Today, I updated to
+>    commit 484c4e73245c93a08413cd204513bf5c5698b994
+>    Author: Saul Wold <sgw@linux.intel.com>
+>    Date:   Tue May 31 22:42:49 2011 -0700
+> 
+>      clutter-1.6: Add patch to update gettext macro version
+> 
+> Now, it tries to build gettext-native and fails with the log at
+>    http://www.mlbassoc.com/poky/gettext-native-log.do_compile
+> I don't see what's happening here.  If I try an identical
+> build (same local.conf, etc) in a new tree, it succeeds.
+> 
+> I notice that my old build has git-native built and installed (which based
+> on the log is being used?), but the build from scratch does not.
+> 
+> Any ideas?
 
-I have the file cached locally since 2010-12-29
+It looks like gettext now has a dependency on git being present. We need
+to add git-native to its DEPENDS, crazy as that may be :/
 
-Even weirder is that if I try another identical build, it runs.
-Something strange going on here :-(
+For a while I thought cvs was required too but it turns out its not,
+thankfully.
 
-I'll keep trying to understand it.
+I'm testing a patch which I'll push shortly.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Cheers,
+
+Richard
+
+
+
+
 
