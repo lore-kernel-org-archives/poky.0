@@ -1,25 +1,26 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 43E974C80191
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 04:42:09 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p529g8O7010217
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 2 Jun 2011 02:42:08 -0700 (PDT)
-Received: from localhost (128.224.162.198) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 2 Jun 2011 02:42:07 -0700
-Message-ID: <a86954e6f4c2458f46e3b5fab2db163369033caf.1307005797.git.kai.kang@windriver.com>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C85B64C800E5
+	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 05:03:18 -0500 (CDT)
+Received: by wyb40 with SMTP id 40so827074wyb.35
+	for <poky@yoctoproject.org>; Thu, 02 Jun 2011 03:03:17 -0700 (PDT)
+Received: by 10.227.72.10 with SMTP id k10mr530743wbj.97.1307008997281;
+	Thu, 02 Jun 2011 03:03:17 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id e1sm279820wbh.39.2011.06.02.03.03.15
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 02 Jun 2011 03:03:16 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1084)
+From: Koen Kooi <koen@dominion.thruhere.net>
 In-Reply-To: <cover.1307005797.git.kai.kang@windriver.com>
+Date: Thu, 2 Jun 2011 12:03:14 +0200
+Message-Id: <21A700FA-B993-49EA-AA0A-F8204AC24EEB@dominion.thruhere.net>
 References: <cover.1307005797.git.kai.kang@windriver.com>
-Old-Date: Thu, 21 Apr 2011 15:23:27 +0800
-Date: Thu, 2 Jun 2011 17:41:56 +0800
-To: <mark.hatle@windriver.com>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.198]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 1/1] eglibc: migrate configurability from oe
+To: Kang Kai <kai.kang@windriver.com>
+X-Mailer: Apple Mail (2.1084)
+Cc: "poky@yoctoproject.org Project" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/1] eglibc: enable eglibc configurability
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,192 +32,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Jun 2011 09:42:09 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 02 Jun 2011 10:03:19 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-From: Kang Kai <kai.kang@windriver.com>
+Shouldn't this be sent to the oe-core list instead?
 
-Migrate configurability from oe, try to shrink minimal image size
+Op 2 jun 2011, om 11:41 heeft Kang Kai het volgende geschreven:
 
-The switch is in local.conf.sample, uncomment the line
-DISTRO_FEATURES_EGLIBC = ""
-and write what options you want to enable.
-
-If want to disable locale-code charsets or locales, you have to uncomment
-PACKAGE_NO_GCONV = 1
-Because without this, it fails on package_do_split_gconvs in libc-package.bbclass
-
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta-yocto/conf/local.conf.sample                  |   17 ++++++
- .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 +++++++
- meta/recipes-core/eglibc/eglibc-options.inc        |   55 ++++++++++++++++++++
- meta/recipes-core/eglibc/eglibc.inc                |    6 ++
- meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
- 5 files changed, 101 insertions(+), 1 deletions(-)
- create mode 100644 meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
- create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
-
-diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
-index 359e510..310e51e 100644
---- a/meta-yocto/conf/local.conf.sample
-+++ b/meta-yocto/conf/local.conf.sample
-@@ -87,6 +87,23 @@ PACKAGE_CLASSES ?= "package_rpm package_ipk"
- # NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
- USER_CLASSES ?= "image-mklibs image-prelink"
- 
-+# eglibc configurability is used to reduce minimal images's size.
-+# PACKAGE_NO_GCONV should be set to 1, or locale-code posix-clang-wchar
-+# charsets locales need to be include in DISTRO_FEATURES_EGLIBC, please check
-+# package_do_split_gconvs in libc-package.bbclass for detail
-+#PACKAGE_NO_GCONV = 1
-+
-+# if you want to enable any option listed below, please uncomment next line and copy it here
-+#DISTRO_FEATURES_EGLIBC = ""
-+
-+DISTRO_FEATURES_EGLIBC ??= "ipv6 backtrace big-macros bsd cxx-tests catgets charsets \
-+                          crypt crypt-ufc db-aliases envz fcvt fmtmsg fstab ftraverse \
-+                          getlogin idn inet inet-anl libm libm-big locales locale-code \
-+                          memusage nis nsswitch rcmd rtld-debug spawn streams sunrpc utmp \
-+                          utmpx wordexp posix-clang-wchar posix-regexp posix-regexp-glibc \
-+						  posix-wchar-io "
-+
-+
- # POKYMODE controls the characteristics of the generated packages/images by
- # telling poky which type of toolchain to use.
- #
-diff --git a/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
-new file mode 100644
-index 0000000..dffc648
---- /dev/null
-+++ b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
-@@ -0,0 +1,20 @@
-+When disable OPTION_EGLIBC_RTLD_DEBUG, compilation fails.
-+Created on Jun 1, 2011 by Kang Kai <kai.kang@windriver.com>
-+
-+Upstream-Status: Submitted
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+Index: libc/elf/dl-lookup.c
-+===================================================================
-+--- libc/elf/dl-lookup.c	(revision 13356)
-++++ libc/elf/dl-lookup.c	(working copy)
-+@@ -423,7 +423,9 @@
-+ 		     hash table.  */
-+ 		  if (__builtin_expect (tab->size, 0))
-+ 		    {
-++              #if __OPTION_EGLIBC_RTLD_DEBUG
-+ 		      assert (GLRO(dl_debug_mask) & DL_DEBUG_PRELINK);
-++              #endif
-+ 		      __rtld_lock_unlock_recursive (tab->lock);
-+ 		      goto success;
-+ 		    }
-diff --git a/meta/recipes-core/eglibc/eglibc-options.inc b/meta/recipes-core/eglibc/eglibc-options.inc
-new file mode 100644
-index 0000000..7cd0287
---- /dev/null
-+++ b/meta/recipes-core/eglibc/eglibc-options.inc
-@@ -0,0 +1,55 @@
-+def eglibc_cfg(feature, features, tokens, cnf):
-+	if type(tokens) == type(""):
-+		tokens = [tokens]
-+	if type(features) == type([]) and feature in features:
-+		cnf.extend([token + ' = y' for token in tokens])
-+	else:
-+		for token in tokens:
-+			cnf.extend([token + ' = n'])
-+			if token == 'OPTION_EGLIBC_NSSWITCH':
-+				cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_CONFIG = ${S}/nss/nsswitch.conf"])
-+				cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS = ${S}/nss/fixed-nsswitch.functions"])
-+
-+# Map distro features to eglibc options settings
-+def features_to_eglibc_settings(d):
-+        cnf = ([])
-+        distro_features = (bb.data.getVar('DISTRO_FEATURES_EGLIBC', d, True) or '').split()
-+        eglibc_cfg('ipv6',      distro_features, 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
-+        eglibc_cfg('backtrace',      distro_features, 'OPTION_EGLIBC_BACKTRACE', cnf)
-+        eglibc_cfg('big-macros',      distro_features, 'OPTION_EGLIBC_BIG_MACROS', cnf)
-+        eglibc_cfg('bsd',      distro_features, 'OPTION_EGLIBC_BSD', cnf)
-+        eglibc_cfg('cxx-tests',      distro_features, 'OPTION_EGLIBC_CXX_TESTS', cnf)
-+        eglibc_cfg('catgets',      distro_features, 'OPTION_EGLIBC_CATGETS', cnf)
-+        eglibc_cfg('charsets',      distro_features, 'OPTION_EGLIBC_CHARSETS', cnf)
-+        eglibc_cfg('crypt',      distro_features, 'OPTION_EGLIBC_CRYPT', cnf)
-+        eglibc_cfg('crypt-ufc',      distro_features, 'OPTION_EGLIBC_CRYPT_UFC', cnf)
-+        eglibc_cfg('db-aliases',      distro_features, 'OPTION_EGLIBC_DB_ALIASES', cnf)
-+        eglibc_cfg('envz',      distro_features, 'OPTION_EGLIBC_ENVZ', cnf)
-+        eglibc_cfg('fcvt',      distro_features, 'OPTION_EGLIBC_FCVT', cnf)
-+        eglibc_cfg('fmtmsg',      distro_features, 'OPTION_EGLIBC_FMTMSG', cnf)
-+        eglibc_cfg('fstab',      distro_features, 'OPTION_EGLIBC_FSTAB', cnf)
-+        eglibc_cfg('ftraverse',      distro_features, 'OPTION_EGLIBC_FTRAVERSE', cnf)
-+        eglibc_cfg('getlogin',      distro_features, 'OPTION_EGLIBC_GETLOGIN', cnf)
-+        eglibc_cfg('idn',      distro_features, 'OPTION_EGLIBC_IDN', cnf)
-+        eglibc_cfg('inet',      distro_features, 'OPTION_EGLIBC_INET', cnf)
-+        eglibc_cfg('inet-anl',      distro_features, 'OPTION_EGLIBC_INET_ANL', cnf)
-+        eglibc_cfg('libm',      distro_features, 'OPTION_EGLIBC_LIBM', cnf)
-+        eglibc_cfg('libm-big',      distro_features, 'OPTION_EGLIBC_LIBM_BIG', cnf)
-+        eglibc_cfg('locales',      distro_features, 'OPTION_EGLIBC_LOCALES', cnf)
-+        eglibc_cfg('locale-code',      distro_features, 'OPTION_EGLIBC_LOCALE_CODE', cnf)
-+        eglibc_cfg('memusage',      distro_features, 'OPTION_EGLIBC_MEMUSAGE', cnf)
-+        eglibc_cfg('nis',      distro_features, 'OPTION_EGLIBC_NIS', cnf)
-+        eglibc_cfg('nsswitch',      distro_features, 'OPTION_EGLIBC_NSSWITCH', cnf)
-+        eglibc_cfg('rcmd',      distro_features, 'OPTION_EGLIBC_RCMD', cnf)
-+        eglibc_cfg('rtld-debug',      distro_features, 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
-+        eglibc_cfg('spawn',      distro_features, 'OPTION_EGLIBC_SPAWN', cnf)
-+        eglibc_cfg('streams',      distro_features, 'OPTION_EGLIBC_STREAMS', cnf)
-+        eglibc_cfg('sunrpc',      distro_features, 'OPTION_EGLIBC_SUNRPC', cnf)
-+        eglibc_cfg('utmp',      distro_features, 'OPTION_EGLIBC_UTMP', cnf)
-+        eglibc_cfg('utmpx',      distro_features, 'OPTION_EGLIBC_UTMPX', cnf)
-+        eglibc_cfg('wordexp',      distro_features, 'OPTION_EGLIBC_WORDEXP', cnf)
-+        eglibc_cfg('posix-clang-wchar',      distro_features, 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
-+        eglibc_cfg('posix-regexp',      distro_features, 'OPTION_POSIX_REGEXP', cnf)
-+        eglibc_cfg('posix-regexp-glibc',      distro_features, 'OPTION_POSIX_REGEXP_GLIBC', cnf)
-+        eglibc_cfg('posix-wchar-io',      distro_features, 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
-+        return "\n".join(cnf)
-diff --git a/meta/recipes-core/eglibc/eglibc.inc b/meta/recipes-core/eglibc/eglibc.inc
-index 46ffa82..616f1af 100644
---- a/meta/recipes-core/eglibc/eglibc.inc
-+++ b/meta/recipes-core/eglibc/eglibc.inc
-@@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
- PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
- PROVIDES += "virtual/libintl virtual/libiconv"
- inherit autotools
-+require eglibc-options.inc
- 
- LEAD_SONAME = "libc.so"
- 
-@@ -43,3 +44,8 @@ EXTRA_OEMAKE += ${EGLIBCPARALLELISM}
- PARALLEL_MAKE = ""
- 
- PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss glibc-thread-db glibc-pcprofile"
-+
-+OE_FEATURES = "${@features_to_eglibc_settings(d)}"
-+do_configure_prepend() {
-+	echo '${OE_FEATURES}' > ${B}/option-groups.config
-+}
-diff --git a/meta/recipes-core/eglibc/eglibc_2.13.bb b/meta/recipes-core/eglibc/eglibc_2.13.bb
-index 398da69..894eb88 100644
---- a/meta/recipes-core/eglibc/eglibc_2.13.bb
-+++ b/meta/recipes-core/eglibc/eglibc_2.13.bb
-@@ -4,7 +4,7 @@ SRCREV = "13356"
- 
- DEPENDS += "gperf-native"
- FILESPATHPKG =. "eglibc-svn:"
--PR = "r0"
-+PR = "r1"
- PR_append = "+svnr${SRCPV}"
- 
- EGLIBC_BRANCH="eglibc-2_13"
-@@ -16,7 +16,9 @@ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
-            file://stack-protector-test.patch \
-            file://etc/ld.so.conf \
-            file://generate-supported.mk \
-+           file://eglibc-2.13-fix-macro-RTLD_DEBUG.patch \
- 	   "
-+
- LIC_FILES_CHKSUM = "file://LICENSES;md5=98a1128c4b58120182cbea3b1752d8b9 \
-       file://COPYING;md5=393a5ca445f6965873eca0259a17f833 \
-       file://posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
--- 
-1.7.5.1.300.gc565c
+> From: Kang Kai <kai.kang@windriver.com>
+>=20
+> Sorry, forget the maillist.
+>=20
+> Migrate configurability from oe, try to shrink minimal image size
+>=20
+> The switch is in local.conf.sample, uncomment the line
+> DISTRO_FEATURES_EGLIBC =3D ""
+> and write what options you want to enable.
+>=20
+> If want to disable locale-code charsets or locales, you have to =
+uncomment
+> PACKAGE_NO_GCONV =3D 1
+> Because without this, it fails on package_do_split_gconvs in =
+libc-package.bbclass
+>=20
+> The following changes since commit =
+fabfd7ec97af3ae2eef39b94d52b49ad565aed90:
+>=20
+>  task-core-lsb: add cups and ghostscript into image (2011-06-02 =
+15:51:23 +0800)
+>=20
+> are available in the git repository at:
+>  git://git.pokylinux.org/poky-contrib.git kangkai/distro
+>  http://git.pokylinux.org/cgit.cgi//log/?h=3Dkangkai/distro
+>=20
+> Kang Kai (1):
+>  eglibc: migrate configurability from oe
+>=20
+> meta-yocto/conf/local.conf.sample                  |   17 ++++++
+> .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 +++++++
+> meta/recipes-core/eglibc/eglibc-options.inc        |   55 =
+++++++++++++++++++++
+> meta/recipes-core/eglibc/eglibc.inc                |    6 ++
+> meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
+> 5 files changed, 101 insertions(+), 1 deletions(-)
+> create mode 100644 =
+meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patc=
+h
+> create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
+>=20
+> --=20
+> 1.7.5.1.300.gc565c
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
