@@ -1,44 +1,25 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-vx0-f176.google.com (mail-vx0-f176.google.com
-	[209.85.220.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 769FC4C800A1
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 09:32:21 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by vxa37 with SMTP id 37so1087996vxa.35
-	for <poky@yoctoproject.org>; Thu, 02 Jun 2011 07:32:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
-	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=y9huyomQaNY/JSYec1JsV49aTwmB4VUlKv0IvRkoZNA=;
-	b=GbG/qtgikmKm6tIRz0ZXbH6qCG2HdVojZ2zgvIW/GGONs7qMkWhV8JKzF68VYMaWZ0
-	bH1aywWYceU1YUAL1NIg/UiUL9neMr/ALIYnSHH6qIVjTLJs5xaTHjRnzblJB/Y3h48s
-	vj8ECb11yVDyv1eZkEHJns/veTCL4CHmY8hNk=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	b=KQQgrIRcJOTi9BCTFXfXF1Y/r8QZ2r4WEsGN15rMU4x+lfLJZJZ1hdqVigsPHlKRnv
-	w7+czndAYonPVePcHxl60Sk9fjLYdzM69ULjvouQ76Pe8lyOYouXgQb1p2b40yMXUr27
-	aUzW4Z7bahjZZMqBsPX0k+hmPp8lkSzR8MmWg=
-Received: by 10.52.73.67 with SMTP id j3mr1038076vdv.75.1307025141031; Thu, 02
-	Jun 2011 07:32:21 -0700 (PDT)
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D46D34C800A1
+	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 09:32:43 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 4707516602D9; Thu,  2 Jun 2011 08:32:43 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 2247916601E1;
+	Thu,  2 Jun 2011 08:32:42 -0600 (MDT)
+Message-ID: <4DE79F0A.5080104@mlbassoc.com>
+Date: Thu, 02 Jun 2011 08:32:42 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.52.101.134 with HTTP; Thu, 2 Jun 2011 07:32:01 -0700 (PDT)
-In-Reply-To: <4DE79CB7.8070300@mlbassoc.com>
-References: <4DE79508.7010305@mlbassoc.com>
-	<BANLkTikZXYszA=Z_amB+-m-TV+Bru4my0A@mail.gmail.com>
-	<4DE79CB7.8070300@mlbassoc.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Thu, 2 Jun 2011 07:32:01 -0700
-X-Google-Sender-Auth: sMxynaicRaMdU33OwrLFWqEyPKo
-Message-ID: <BANLkTinLRTXi_5vawQLjUYzuO_z=iSWAJg@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Duplicated error messages
+To: Poky Project <poky@yoctoproject.org>
+Subject: Problem with gettext-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,38 +31,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Jun 2011 14:32:21 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 02 Jun 2011 14:32:44 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 2, 2011 at 7:22 AM, Gary Thomas <gary@mlbassoc.com> wrote:
->> This is my fault -- at least, the continuing on is. As a part of
->> working on improving the exception handling in bitbake, the behavior
->> of exceptions in event handlers was changed. =C2=A0We should likely chan=
-ge
->> it back for the SystemExit case, or add a more explicit method for
->> event handlers to communicate with bitbake proper. Sorry about that.
->
-> Thanks. =C2=A0Even if this is not the desired behaviour (bitbake used to =
-just
-> quit
-> at the start when this happened), it is pointing out two other problems;
-> the duplicated error messages (I'd look for why this happens, but I reall=
-y
-> wouldn't know where to start) and the less than helpful Python traceback.
+I had a working build based on
+   commit 52295fa3deef3b0374b99829626d524cefae6001
+   Author: Richard Purdie <richard.purdie@linuxfoundation.org>
+   Date:   Wed May 18 00:03:02 2011 +0100
 
-Indeed, regardless those should go on the ever growing list of ugly
-error message issues :) I suspect at least some of the error
-duplications which have been reported are caused by the fact that
-python tasks both emit their messages directly to the user (not the
-case for shell tasks, obviously), and to their log file, and the log
-file is then shown to the user on failure. For the python case, either
-the task shouldn't be able to output directly to the user, or we
-shouldn't show their log on failure, I suspect.
---=20
-Christopher Larson
-clarson at kergoth dot com
-Founder - BitBake, OpenEmbedded, OpenZaurus
-Maintainer - Tslib
-Senior Software Engineer, Mentor Graphics
+     Improve handling of 'all' architecture recipes and their interaction with sstate
+
+Today, I updated to
+   commit 484c4e73245c93a08413cd204513bf5c5698b994
+   Author: Saul Wold <sgw@linux.intel.com>
+   Date:   Tue May 31 22:42:49 2011 -0700
+
+     clutter-1.6: Add patch to update gettext macro version
+
+Now, it tries to build gettext-native and fails with the log at
+   http://www.mlbassoc.com/poky/gettext-native-log.do_compile
+I don't see what's happening here.  If I try an identical
+build (same local.conf, etc) in a new tree, it succeeds.
+
+I notice that my old build has git-native built and installed (which based
+on the log is being used?), but the build from scratch does not.
+
+Any ideas?
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
