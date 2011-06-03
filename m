@@ -1,29 +1,25 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 839E24C804E4
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 20:23:48 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p531NhKT009802
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 2 Jun 2011 18:23:43 -0700 (PDT)
-Received: from [128.224.162.198] (128.224.162.198) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Thu, 2 Jun 2011 18:23:43 -0700
-Message-ID: <4DE83793.9030100@windriver.com>
-Date: Fri, 3 Jun 2011 09:23:31 +0800
-From: Kang Kai <Kai.Kang@windriver.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EE6194C80485
+	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 00:24:08 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 02 Jun 2011 22:24:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,313,1304319600"; 
+   d="scan'208";a="6376562"
+Received: from unknown (HELO [10.255.13.71]) ([10.255.13.71])
+	by azsmga001.ch.intel.com with ESMTP; 02 Jun 2011 22:24:07 -0700
+Message-ID: <4DE86FF7.30009@linux.intel.com>
+Date: Thu, 02 Jun 2011 22:24:07 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <cover.1307005797.git.kai.kang@windriver.com>
-	<a86954e6f4c2458f46e3b5fab2db163369033caf.1307005797.git.kai.kang@windriver.com>
-	<4DE83575.4010306@linux.intel.com>
-In-Reply-To: <4DE83575.4010306@linux.intel.com>
-X-Originating-IP: [128.224.162.198]
-Cc: poky@yoctoproject.org, 'Patches and discussions about the oe-core layer'
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 1/1] eglibc: migrate configurability from oe
+To: Joshua Lock <josh@linux.intel.com>
+References: <1306973125.2240.18.camel@scimitar>
+In-Reply-To: <1306973125.2240.18.camel@scimitar>
+Cc: poky <poky@yoctoproject.org>, bitbake-devel@lists.openembedded.org
+Subject: Re: [RFC] BitBake GUI work, the state of things
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,279 +31,162 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Jun 2011 01:23:48 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Fri, 03 Jun 2011 05:24:09 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-Hi Saul & Koen,
 
-> On 06/02/2011 02:41 AM, Kang Kai wrote:
->> From: Kang Kai<kai.kang@windriver.com>
->>
->> Migrate configurability from oe, try to shrink minimal image size
->>
->> The switch is in local.conf.sample, uncomment the line
->> DISTRO_FEATURES_EGLIBC = ""
->> and write what options you want to enable.
->>
->> If want to disable locale-code charsets or locales, you have to 
->> uncomment
->> PACKAGE_NO_GCONV = 1
->> Because without this, it fails on package_do_split_gconvs in 
->> libc-package.bbclass
->>
-> This should really be posted on the 
-> openembedded-core@lists.openembedded.org alias so that all can see it.
->
-I'll send it to oe-core right now.
-Thanks.
 
-Regards,
-Kai
->> Signed-off-by: Kang Kai<kai.kang@windriver.com>
->> ---
->>   meta-yocto/conf/local.conf.sample                  |   17 ++++++
->>   .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 +++++++
->>   meta/recipes-core/eglibc/eglibc-options.inc        |   55 
->> ++++++++++++++++++++
->>   meta/recipes-core/eglibc/eglibc.inc                |    6 ++
->>   meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
->>   5 files changed, 101 insertions(+), 1 deletions(-)
->>   create mode 100644 
->> meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
->>   create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
->>
->> diff --git a/meta-yocto/conf/local.conf.sample 
->> b/meta-yocto/conf/local.conf.sample
->> index 359e510..310e51e 100644
->> --- a/meta-yocto/conf/local.conf.sample
->> +++ b/meta-yocto/conf/local.conf.sample
->> @@ -87,6 +87,23 @@ PACKAGE_CLASSES ?= "package_rpm package_ipk"
->>   # NOTE: if listing mklibs&  prelink both, then make sure mklibs is 
->> before prelink
->>   USER_CLASSES ?= "image-mklibs image-prelink"
->>
->> +# eglibc configurability is used to reduce minimal images's size.
->> +# PACKAGE_NO_GCONV should be set to 1, or locale-code posix-clang-wchar
->> +# charsets locales need to be include in DISTRO_FEATURES_EGLIBC, 
->> please check
->> +# package_do_split_gconvs in libc-package.bbclass for detail
->> +#PACKAGE_NO_GCONV = 1
->> +
->> +# if you want to enable any option listed below, please uncomment 
->> next line and copy it here
->> +#DISTRO_FEATURES_EGLIBC = ""
->> +
->> +DISTRO_FEATURES_EGLIBC ??= "ipv6 backtrace big-macros bsd cxx-tests 
->> catgets charsets \
->> +                          crypt crypt-ufc db-aliases envz fcvt 
->> fmtmsg fstab ftraverse \
->> +                          getlogin idn inet inet-anl libm libm-big 
->> locales locale-code \
->> +                          memusage nis nsswitch rcmd rtld-debug 
->> spawn streams sunrpc utmp \
->> +                          utmpx wordexp posix-clang-wchar 
->> posix-regexp posix-regexp-glibc \
->> +                          posix-wchar-io "
->> +
->> +
-> I have some concern with this change being in sample, are these 
-> features enabled by default, is that the intention?
->
-> If someone already has a local.conf then this will not be used, I 
-> think that the initial soft assignment (??=) needs to be someplace 
-> else, like in eglibc.inc maybe
->
-> Sau!
->
->>   # POKYMODE controls the characteristics of the generated 
->> packages/images by
->>   # telling poky which type of toolchain to use.
->>   #
->> diff --git 
->> a/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch 
->> b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch 
->>
->> new file mode 100644
->> index 0000000..dffc648
->> --- /dev/null
->> +++ 
->> b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
->> @@ -0,0 +1,20 @@
->> +When disable OPTION_EGLIBC_RTLD_DEBUG, compilation fails.
->> +Created on Jun 1, 2011 by Kang Kai<kai.kang@windriver.com>
->> +
->> +Upstream-Status: Submitted
->> +
->> +Signed-off-by: Kang Kai<kai.kang@windriver.com>
->> +Index: libc/elf/dl-lookup.c
->> +===================================================================
->> +--- libc/elf/dl-lookup.c    (revision 13356)
->> ++++ libc/elf/dl-lookup.c    (working copy)
->> +@@ -423,7 +423,9 @@
->> +              hash table.  */
->> +           if (__builtin_expect (tab->size, 0))
->> +             {
->> ++              #if __OPTION_EGLIBC_RTLD_DEBUG
->> +               assert (GLRO(dl_debug_mask)&  DL_DEBUG_PRELINK);
->> ++              #endif
->> +               __rtld_lock_unlock_recursive (tab->lock);
->> +               goto success;
->> +             }
->> diff --git a/meta/recipes-core/eglibc/eglibc-options.inc 
->> b/meta/recipes-core/eglibc/eglibc-options.inc
->> new file mode 100644
->> index 0000000..7cd0287
->> --- /dev/null
->> +++ b/meta/recipes-core/eglibc/eglibc-options.inc
->> @@ -0,0 +1,55 @@
->> +def eglibc_cfg(feature, features, tokens, cnf):
->> +    if type(tokens) == type(""):
->> +        tokens = [tokens]
->> +    if type(features) == type([]) and feature in features:
->> +        cnf.extend([token + ' = y' for token in tokens])
->> +    else:
->> +        for token in tokens:
->> +            cnf.extend([token + ' = n'])
->> +            if token == 'OPTION_EGLIBC_NSSWITCH':
->> +                cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_CONFIG = 
->> ${S}/nss/nsswitch.conf"])
->> +                cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS 
->> = ${S}/nss/fixed-nsswitch.functions"])
->> +
->> +# Map distro features to eglibc options settings
->> +def features_to_eglibc_settings(d):
->> +        cnf = ([])
->> +        distro_features = (bb.data.getVar('DISTRO_FEATURES_EGLIBC', 
->> d, True) or '').split()
->> +        eglibc_cfg('ipv6',      distro_features, 
->> 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
->> +        eglibc_cfg('backtrace',      distro_features, 
->> 'OPTION_EGLIBC_BACKTRACE', cnf)
->> +        eglibc_cfg('big-macros',      distro_features, 
->> 'OPTION_EGLIBC_BIG_MACROS', cnf)
->> +        eglibc_cfg('bsd',      distro_features, 'OPTION_EGLIBC_BSD', 
->> cnf)
->> +        eglibc_cfg('cxx-tests',      distro_features, 
->> 'OPTION_EGLIBC_CXX_TESTS', cnf)
->> +        eglibc_cfg('catgets',      distro_features, 
->> 'OPTION_EGLIBC_CATGETS', cnf)
->> +        eglibc_cfg('charsets',      distro_features, 
->> 'OPTION_EGLIBC_CHARSETS', cnf)
->> +        eglibc_cfg('crypt',      distro_features, 
->> 'OPTION_EGLIBC_CRYPT', cnf)
->> +        eglibc_cfg('crypt-ufc',      distro_features, 
->> 'OPTION_EGLIBC_CRYPT_UFC', cnf)
->> +        eglibc_cfg('db-aliases',      distro_features, 
->> 'OPTION_EGLIBC_DB_ALIASES', cnf)
->> +        eglibc_cfg('envz',      distro_features, 
->> 'OPTION_EGLIBC_ENVZ', cnf)
->> +        eglibc_cfg('fcvt',      distro_features, 
->> 'OPTION_EGLIBC_FCVT', cnf)
->> +        eglibc_cfg('fmtmsg',      distro_features, 
->> 'OPTION_EGLIBC_FMTMSG', cnf)
->> +        eglibc_cfg('fstab',      distro_features, 
->> 'OPTION_EGLIBC_FSTAB', cnf)
->> +        eglibc_cfg('ftraverse',      distro_features, 
->> 'OPTION_EGLIBC_FTRAVERSE', cnf)
->> +        eglibc_cfg('getlogin',      distro_features, 
->> 'OPTION_EGLIBC_GETLOGIN', cnf)
->> +        eglibc_cfg('idn',      distro_features, 'OPTION_EGLIBC_IDN', 
->> cnf)
->> +        eglibc_cfg('inet',      distro_features, 
->> 'OPTION_EGLIBC_INET', cnf)
->> +        eglibc_cfg('inet-anl',      distro_features, 
->> 'OPTION_EGLIBC_INET_ANL', cnf)
->> +        eglibc_cfg('libm',      distro_features, 
->> 'OPTION_EGLIBC_LIBM', cnf)
->> +        eglibc_cfg('libm-big',      distro_features, 
->> 'OPTION_EGLIBC_LIBM_BIG', cnf)
->> +        eglibc_cfg('locales',      distro_features, 
->> 'OPTION_EGLIBC_LOCALES', cnf)
->> +        eglibc_cfg('locale-code',      distro_features, 
->> 'OPTION_EGLIBC_LOCALE_CODE', cnf)
->> +        eglibc_cfg('memusage',      distro_features, 
->> 'OPTION_EGLIBC_MEMUSAGE', cnf)
->> +        eglibc_cfg('nis',      distro_features, 'OPTION_EGLIBC_NIS', 
->> cnf)
->> +        eglibc_cfg('nsswitch',      distro_features, 
->> 'OPTION_EGLIBC_NSSWITCH', cnf)
->> +        eglibc_cfg('rcmd',      distro_features, 
->> 'OPTION_EGLIBC_RCMD', cnf)
->> +        eglibc_cfg('rtld-debug',      distro_features, 
->> 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
->> +        eglibc_cfg('spawn',      distro_features, 
->> 'OPTION_EGLIBC_SPAWN', cnf)
->> +        eglibc_cfg('streams',      distro_features, 
->> 'OPTION_EGLIBC_STREAMS', cnf)
->> +        eglibc_cfg('sunrpc',      distro_features, 
->> 'OPTION_EGLIBC_SUNRPC', cnf)
->> +        eglibc_cfg('utmp',      distro_features, 
->> 'OPTION_EGLIBC_UTMP', cnf)
->> +        eglibc_cfg('utmpx',      distro_features, 
->> 'OPTION_EGLIBC_UTMPX', cnf)
->> +        eglibc_cfg('wordexp',      distro_features, 
->> 'OPTION_EGLIBC_WORDEXP', cnf)
->> +        eglibc_cfg('posix-clang-wchar',      distro_features, 
->> 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
->> +        eglibc_cfg('posix-regexp',      distro_features, 
->> 'OPTION_POSIX_REGEXP', cnf)
->> +        eglibc_cfg('posix-regexp-glibc',      distro_features, 
->> 'OPTION_POSIX_REGEXP_GLIBC', cnf)
->> +        eglibc_cfg('posix-wchar-io',      distro_features, 
->> 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
->> +        return "\n".join(cnf)
->> diff --git a/meta/recipes-core/eglibc/eglibc.inc 
->> b/meta/recipes-core/eglibc/eglibc.inc
->> index 46ffa82..616f1af 100644
->> --- a/meta/recipes-core/eglibc/eglibc.inc
->> +++ b/meta/recipes-core/eglibc/eglibc.inc
->> @@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate 
->> linux-libc-headers"
->>   PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
->>   PROVIDES += "virtual/libintl virtual/libiconv"
->>   inherit autotools
->> +require eglibc-options.inc
->>
->>   LEAD_SONAME = "libc.so"
->>
->> @@ -43,3 +44,8 @@ EXTRA_OEMAKE += ${EGLIBCPARALLELISM}
->>   PARALLEL_MAKE = ""
->>
->>   PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils 
->> glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss 
->> glibc-thread-db glibc-pcprofile"
->> +
->> +OE_FEATURES = "${@features_to_eglibc_settings(d)}"
->> +do_configure_prepend() {
->> +    echo '${OE_FEATURES}'>  ${B}/option-groups.config
->> +}
->> diff --git a/meta/recipes-core/eglibc/eglibc_2.13.bb 
->> b/meta/recipes-core/eglibc/eglibc_2.13.bb
->> index 398da69..894eb88 100644
->> --- a/meta/recipes-core/eglibc/eglibc_2.13.bb
->> +++ b/meta/recipes-core/eglibc/eglibc_2.13.bb
->> @@ -4,7 +4,7 @@ SRCREV = "13356"
->>
->>   DEPENDS += "gperf-native"
->>   FILESPATHPKG =. "eglibc-svn:"
->> -PR = "r0"
->> +PR = "r1"
->>   PR_append = "+svnr${SRCPV}"
->>
->>   EGLIBC_BRANCH="eglibc-2_13"
->> @@ -16,7 +16,9 @@ SRC_URI = 
->> "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
->>              file://stack-protector-test.patch \
->>              file://etc/ld.so.conf \
->>              file://generate-supported.mk \
->> +           file://eglibc-2.13-fix-macro-RTLD_DEBUG.patch \
->>          "
->> +
->>   LIC_FILES_CHKSUM = 
->> "file://LICENSES;md5=98a1128c4b58120182cbea3b1752d8b9 \
->>         file://COPYING;md5=393a5ca445f6965873eca0259a17f833 \
->>         
->> file://posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
+On 06/01/2011 05:05 PM, Joshua Lock wrote:
+> Hi all,
+> 
+> I've been plugging away at a GUI to pilot BitBake with and think that
+> now would be a reasonable time to solicit some feedback on the 'design'.
+> 
+> (There's a copy of this emails contents with inline screenshots at:
+> https://wiki.yoctoproject.org/wiki/BitBake/GUI/CurrentState)
+> 
+> The purpose of the tool is to allow the user to create and build a
+> custom image as well as enabling parameters of the build to be
+> configured.
+> 
+> Here's a screenshot:
+> 
+> https://wiki.yoctoproject.org/wiki/File:Screenshot-yHob-240511.png
 
+
+Does it harvest all known machines from the configured layers? Assuming
+so, but thought I'd check as it hadn't come up in our previous discussions.
+
+
+> 
+> I've tried to apply the principle of least surprise and tried to make
+> the app fit in on a Gnome desktop by following their HIG. One possibly
+> unexpected outcome of this is that you modify Preferences which equate
+> to values in local.conf
+
+
+It seems to me this might be less surprising if the tools was presented
+as an image "configurator" as opposed to an image builder. I'm not
+arguing for a name change here, but something to consider about how the
+tool is perceived. The assisted configuration is where this tool is the
+most valuable in my opinion, the building part is mostly just eye candy.
+
+
+> 
+> https://wiki.yoctoproject.org/wiki/File:Screenshot-Preferences.png
+
+
+Is "Exclude GPLv3 packages" the only license related option of significance?
+
+
+> 
+> There are several issues with the GUI as is that I will be working on
+> next, as well as some extra features that I am intending to implement in
+> the coming weeks.
+> 
+> Issues:
+> * I wanted to allow users to store recipes for their newly created
+> images on disk and buildFile didn't seem to work as expected (only
+> building the rootfs of the image and complaining when packages where
+> missing, rather than building all dependencies then the rootfs) so I
+> hacked a temporary alternative entry point to the program
+> bitbake-commander (I know we have a program using this name already,
+> which is fine because I don't want this entry point to last).
+> 
+> I want to remove this entry point but first need to figure out a way to
+> be able to modify layers and re-parse with the new layers' contents.
+> Hacking in this entry point enabled me to remain focused on the actual
+> GUI whilst I worked out interaction models.
+> 
+> This entry points shows a "workspace selector" dialog (like Eclipse's)
+> and once the user selects/creates a workspace layer it is added to the
+> bblayers.conf file and BitBake is then started.
+> 
+> https://wiki.yoctoproject.org/wiki/File:Hob-workspace-selector.png
+> 
+
+
+In my workflow, the build area is also a key part of my "workspace". I
+keep one for each permutation of
+(bernard|master)*(n450|beagleboard|qemux86|...). I find I run into fewer
+issues this way. I share downloads and may eventually share sstate as I
+learn how to work with it and not just periodically delete it ;-)
+
+The point being that if the concept of "Workspace" also included the
+build directory, then the changes to local.conf and bblayers.conf
+wouldn't be any surprise to the user at all. Having a configurable build
+directory is pretty important for performance reasons as well where you
+may have a RAID0 array for your build partition and don't want to use
+./build.
+
+It's certainly usable as is, but it could reach a broader audience if
+the concept of workspace were to include the build dir.
+
+
+> * In a similar vein I implemented a layer editor which helps the user
+> set up bblayers.conf, however the layer parsing and setting of BBPATH,
+> etc is done really early in the cooker initialisation. I need to work
+> out a clean way to allow modifying the bblayers.conf and having those
+> changes reflected in the UI without having to restart the GUI (i.e:
+> triggering a re-parse of the metadata).
+> 
+> https://wiki.yoctoproject.org/wiki/File:Screenshot-Layers.png
+> 
+
+
+I really like this bit. It just occurred to me though that it would be
+nice to be able to adjust the priority of these layers, and then resort
+the rows accordingly. Unfortunatley, that really involves changing the
+layer config file, which should probably be off limits to this tool for
+layers it isn't creating... maybe... hrm. Something to consider anyway.
+
+
+> * I was hoping I'd just be able to create files and use the buildFile
+> command to build the image rather than having the workspace layer but as
+> mentioned above calling the buildFile command didn't seem to handle
+> building the images contents, instead the build would just go straight
+> to rootfs generation and bail with missing packages.
+> Furthermore I think using buildTargets is the right solution so that the
+> user can build a cross toolchain and rootfs from the same GUI.
+> 
+> I'm aware that the coding style is all over, I had started out carryin
+> on with the gtk+ coding style of the other files in lib/bb/ui/crumbs but
+> I think I will end up switching the coding style of everything in
+> lib/bb/ui to be consistent with the rest of BitBake.
+> 
+> Feedback, particularly on the areas above marked as issues, is extremely
+> welcome.
+> 
+> I'm trying to keep an up-to-date To Do list at:
+> https://wiki.yoctoproject.org/wiki/BitBake/GUI/PostOneOh
+> 
+> I've also started to track possible future GUI work:
+> https://wiki.yoctoproject.org/wiki/BitBake/GUI/Future
+> 
+> The current state of the code is in my josh/hob branch on poky-contrib:
+> http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=josh/hob
+> (
+> Being more explicit the patch with HACK HACK HACK as the subject is one
+> I'm not at all happy with and the patch with WIP WIP WIP as the subject
+> is one which certainly needs more work.)
+> 
+> There's even a Yocto bugzilla component for the 'image creator':
+> http://bugzilla.yoctoproject.org/buglist.cgi?product=Build%
+> 20System&component=image%20creator&resolution=---
+> 
+> The GUI is probably not yet useful enough for day-to-day use, there's a
+> particularly irritating bug I've introduced whereby clicking to remove
+> something form the images contents removes *everything* - this is high
+> on my list of things to work on.
+> 
+> Regards,
+> Joshua
+
+Really coming along and looking great.
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
