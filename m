@@ -1,43 +1,25 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
-	[209.85.210.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 75E554C800A1
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 19:54:32 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pzk10 with SMTP id 10so921867pzk.35
-	for <poky@yoctoproject.org>; Thu, 02 Jun 2011 17:54:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:from:organization:to:subject:date:user-agent
-	:references:in-reply-to:mime-version:content-type
-	:content-transfer-encoding:message-id;
-	bh=PSvwHGZ+RWj4ezVDX9O6KhszTzFkh7v4fACsMKVAOLQ=;
-	b=bctSna1wB8FO2apDU8zwrKsxLW52b/fyE9VHgdzC9utQdpsrdwWvcplNVga3HR4bfA
-	0D10+TqGtsZsXfC9M7yi86wKlJF4EwgT48WtVTRMpFKEemhaEdJkQiXjNIKjJBnklMRz
-	H1Oe+va8q7d/89wJKXU/RZbrXax60n9Zuld20=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=from:organization:to:subject:date:user-agent:references:in-reply-to
-	:mime-version:content-type:content-transfer-encoding:message-id;
-	b=CBDqGYN1j0V7TeNtT7MdqmUdVCfEwQKfLCfYOnJwPXKnceQAE4F/aDKppe04IRZg8h
-	hYsnDhL+T2QD+KAn1IZm7lKnvhuqSYcagLHwz4XyYLstbxhbh1j6fbb8/bw+J8pAO50A
-	eZc/iBw31LkuhgRDV+kLgxtHkCCJ008seDSNc=
-Received: by 10.68.30.137 with SMTP id s9mr539322pbh.146.1307062471664;
-	Thu, 02 Jun 2011 17:54:31 -0700 (PDT)
-Received: from perseus.localnet (99-57-141-118.lightspeed.sntcca.sbcglobal.net
-	[99.57.141.118])
-	by mx.google.com with ESMTPS id y2sm978384pbg.88.2011.06.02.17.54.29
-	(version=SSLv3 cipher=OTHER); Thu, 02 Jun 2011 17:54:30 -0700 (PDT)
-From: Khem Raj <raj.khem@gmail.com>
-Organization: Sakrah Inc.
-To: poky@yoctoproject.org
-Date: Thu, 2 Jun 2011 17:54:28 -0700
-User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic; KDE/4.6.3; i686; ; )
-References: <4DE79F0A.5080104@mlbassoc.com> <1307035303.27470.584.camel@rex>
-In-Reply-To: <1307035303.27470.584.camel@rex>
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 690B04C804C2
+	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 20:14:29 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 02 Jun 2011 18:14:28 -0700
+X-ExtLoop1: 1
+Received: from swold-mobl.jf.intel.com (HELO [10.24.4.14]) ([10.24.4.14])
+	by orsmga002.jf.intel.com with ESMTP; 02 Jun 2011 18:14:28 -0700
+Message-ID: <4DE83575.4010306@linux.intel.com>
+Date: Thu, 02 Jun 2011 18:14:29 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-Message-Id: <201106021754.28254.raj.khem@gmail.com>
-Subject: Re: Problem with gettext-native
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1307005797.git.kai.kang@windriver.com>
+	<a86954e6f4c2458f46e3b5fab2db163369033caf.1307005797.git.kai.kang@windriver.com>
+In-Reply-To: <a86954e6f4c2458f46e3b5fab2db163369033caf.1307005797.git.kai.kang@windriver.com>
+Cc: poky@yoctoproject.org, 'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [PATCH 1/1] eglibc: migrate configurability from oe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,85 +31,203 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Jun 2011 00:54:32 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Fri, 03 Jun 2011 01:14:29 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thursday, June 02, 2011 10:21:43 AM Richard Purdie 
-wrote:
-> On Thu, 2011-06-02 at 08:32 -0600, Gary Thomas wrote:
-> > I had a working build based on
-> > 
-> >    commit 52295fa3deef3b0374b99829626d524cefae6001
-> >    Author: Richard Purdie 
-<richard.purdie@linuxfoundation.org>
-> >    Date:   Wed May 18 00:03:02 2011 +0100
-> >    
-> >      Improve handling of 'all' architecture recipes 
-and their interaction
-> >      with sstate
-> > 
-> > Today, I updated to
-> > 
-> >    commit 484c4e73245c93a08413cd204513bf5c5698b994
-> >    Author: Saul Wold <sgw@linux.intel.com>
-> >    Date:   Tue May 31 22:42:49 2011 -0700
-> >    
-> >      clutter-1.6: Add patch to update gettext macro 
-version
-> > 
-> > Now, it tries to build gettext-native and fails 
-with the log at
-> > 
-> >    http://www.mlbassoc.com/poky/gettext-native-
-log.do_compile
-> > 
-> > I don't see what's happening here.  If I try an 
-identical
-> > build (same local.conf, etc) in a new tree, it 
-succeeds.
-> > 
-> > I notice that my old build has git-native built and 
-installed (which
-> > based on the log is being used?), but the build 
-from scratch does not.
-> > 
-> > Any ideas?
-> 
-> It looks like gettext now has a dependency on git 
-being present. We need
-> to add git-native to its DEPENDS, crazy as that may 
-be :/
-> 
+On 06/02/2011 02:41 AM, Kang Kai wrote:
+> From: Kang Kai<kai.kang@windriver.com>
+>
+> Migrate configurability from oe, try to shrink minimal image size
+>
+> The switch is in local.conf.sample, uncomment the line
+> DISTRO_FEATURES_EGLIBC = ""
+> and write what options you want to enable.
+>
+> If want to disable locale-code charsets or locales, you have to uncomment
+> PACKAGE_NO_GCONV = 1
+> Because without this, it fails on package_do_split_gconvs in libc-package.bbclass
+>
+This should really be posted on the 
+openembedded-core@lists.openembedded.org alias so that all can see it.
 
-yes gettext tries to support older versions of itself.
-if we use autopoint then git is used since it generates
-smaller archives but its not must just use --without-
-git configure option. We can disable it and install the 
-infra archive directly.
+> Signed-off-by: Kang Kai<kai.kang@windriver.com>
+> ---
+>   meta-yocto/conf/local.conf.sample                  |   17 ++++++
+>   .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 +++++++
+>   meta/recipes-core/eglibc/eglibc-options.inc        |   55 ++++++++++++++++++++
+>   meta/recipes-core/eglibc/eglibc.inc                |    6 ++
+>   meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
+>   5 files changed, 101 insertions(+), 1 deletions(-)
+>   create mode 100644 meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
+>   create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
+>
+> diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
+> index 359e510..310e51e 100644
+> --- a/meta-yocto/conf/local.conf.sample
+> +++ b/meta-yocto/conf/local.conf.sample
+> @@ -87,6 +87,23 @@ PACKAGE_CLASSES ?= "package_rpm package_ipk"
+>   # NOTE: if listing mklibs&  prelink both, then make sure mklibs is before prelink
+>   USER_CLASSES ?= "image-mklibs image-prelink"
+>
+> +# eglibc configurability is used to reduce minimal images's size.
+> +# PACKAGE_NO_GCONV should be set to 1, or locale-code posix-clang-wchar
+> +# charsets locales need to be include in DISTRO_FEATURES_EGLIBC, please check
+> +# package_do_split_gconvs in libc-package.bbclass for detail
+> +#PACKAGE_NO_GCONV = 1
+> +
+> +# if you want to enable any option listed below, please uncomment next line and copy it here
+> +#DISTRO_FEATURES_EGLIBC = ""
+> +
+> +DISTRO_FEATURES_EGLIBC ??= "ipv6 backtrace big-macros bsd cxx-tests catgets charsets \
+> +                          crypt crypt-ufc db-aliases envz fcvt fmtmsg fstab ftraverse \
+> +                          getlogin idn inet inet-anl libm libm-big locales locale-code \
+> +                          memusage nis nsswitch rcmd rtld-debug spawn streams sunrpc utmp \
+> +                          utmpx wordexp posix-clang-wchar posix-regexp posix-regexp-glibc \
+> +						  posix-wchar-io "
+> +
+> +
+I have some concern with this change being in sample, are these features 
+enabled by default, is that the intention?
 
-That said since we might be anyway building git-native 
-for other purposes enabling it may not be that bad of
-an option either.
+If someone already has a local.conf then this will not be used, I think 
+that the initial soft assignment (??=) needs to be someplace else, like 
+in eglibc.inc maybe
 
-> For a while I thought cvs was required too but it 
-turns out its not,
-> thankfully.
+Sau!
 
-cvs is dropped started 0.18.1
-> 
-> I'm testing a patch which I'll push shortly.
-> 
-> Cheers,
-> 
-> Richard
-> 
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>   # POKYMODE controls the characteristics of the generated packages/images by
+>   # telling poky which type of toolchain to use.
+>   #
+> diff --git a/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
+> new file mode 100644
+> index 0000000..dffc648
+> --- /dev/null
+> +++ b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
+> @@ -0,0 +1,20 @@
+> +When disable OPTION_EGLIBC_RTLD_DEBUG, compilation fails.
+> +Created on Jun 1, 2011 by Kang Kai<kai.kang@windriver.com>
+> +
+> +Upstream-Status: Submitted
+> +
+> +Signed-off-by: Kang Kai<kai.kang@windriver.com>
+> +Index: libc/elf/dl-lookup.c
+> +===================================================================
+> +--- libc/elf/dl-lookup.c	(revision 13356)
+> ++++ libc/elf/dl-lookup.c	(working copy)
+> +@@ -423,7 +423,9 @@
+> + 		     hash table.  */
+> + 		  if (__builtin_expect (tab->size, 0))
+> + 		    {
+> ++              #if __OPTION_EGLIBC_RTLD_DEBUG
+> + 		      assert (GLRO(dl_debug_mask)&  DL_DEBUG_PRELINK);
+> ++              #endif
+> + 		      __rtld_lock_unlock_recursive (tab->lock);
+> + 		      goto success;
+> + 		    }
+> diff --git a/meta/recipes-core/eglibc/eglibc-options.inc b/meta/recipes-core/eglibc/eglibc-options.inc
+> new file mode 100644
+> index 0000000..7cd0287
+> --- /dev/null
+> +++ b/meta/recipes-core/eglibc/eglibc-options.inc
+> @@ -0,0 +1,55 @@
+> +def eglibc_cfg(feature, features, tokens, cnf):
+> +	if type(tokens) == type(""):
+> +		tokens = [tokens]
+> +	if type(features) == type([]) and feature in features:
+> +		cnf.extend([token + ' = y' for token in tokens])
+> +	else:
+> +		for token in tokens:
+> +			cnf.extend([token + ' = n'])
+> +			if token == 'OPTION_EGLIBC_NSSWITCH':
+> +				cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_CONFIG = ${S}/nss/nsswitch.conf"])
+> +				cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS = ${S}/nss/fixed-nsswitch.functions"])
+> +
+> +# Map distro features to eglibc options settings
+> +def features_to_eglibc_settings(d):
+> +        cnf = ([])
+> +        distro_features = (bb.data.getVar('DISTRO_FEATURES_EGLIBC', d, True) or '').split()
+> +        eglibc_cfg('ipv6',      distro_features, 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
+> +        eglibc_cfg('backtrace',      distro_features, 'OPTION_EGLIBC_BACKTRACE', cnf)
+> +        eglibc_cfg('big-macros',      distro_features, 'OPTION_EGLIBC_BIG_MACROS', cnf)
+> +        eglibc_cfg('bsd',      distro_features, 'OPTION_EGLIBC_BSD', cnf)
+> +        eglibc_cfg('cxx-tests',      distro_features, 'OPTION_EGLIBC_CXX_TESTS', cnf)
+> +        eglibc_cfg('catgets',      distro_features, 'OPTION_EGLIBC_CATGETS', cnf)
+> +        eglibc_cfg('charsets',      distro_features, 'OPTION_EGLIBC_CHARSETS', cnf)
+> +        eglibc_cfg('crypt',      distro_features, 'OPTION_EGLIBC_CRYPT', cnf)
+> +        eglibc_cfg('crypt-ufc',      distro_features, 'OPTION_EGLIBC_CRYPT_UFC', cnf)
+> +        eglibc_cfg('db-aliases',      distro_features, 'OPTION_EGLIBC_DB_ALIASES', cnf)
+> +        eglibc_cfg('envz',      distro_features, 'OPTION_EGLIBC_ENVZ', cnf)
+> +        eglibc_cfg('fcvt',      distro_features, 'OPTION_EGLIBC_FCVT', cnf)
+> +        eglibc_cfg('fmtmsg',      distro_features, 'OPTION_EGLIBC_FMTMSG', cnf)
+> +        eglibc_cfg('fstab',      distro_features, 'OPTION_EGLIBC_FSTAB', cnf)
+> +        eglibc_cfg('ftraverse',      distro_features, 'OPTION_EGLIBC_FTRAVERSE', cnf)
+> +        eglibc_cfg('getlogin',      distro_features, 'OPTION_EGLIBC_GETLOGIN', cnf)
+> +        eglibc_cfg('idn',      distro_features, 'OPTION_EGLIBC_IDN', cnf)
+> +        eglibc_cfg('inet',      distro_features, 'OPTION_EGLIBC_INET', cnf)
+> +        eglibc_cfg('inet-anl',      distro_features, 'OPTION_EGLIBC_INET_ANL', cnf)
+> +        eglibc_cfg('libm',      distro_features, 'OPTION_EGLIBC_LIBM', cnf)
+> +        eglibc_cfg('libm-big',      distro_features, 'OPTION_EGLIBC_LIBM_BIG', cnf)
+> +        eglibc_cfg('locales',      distro_features, 'OPTION_EGLIBC_LOCALES', cnf)
+> +        eglibc_cfg('locale-code',      distro_features, 'OPTION_EGLIBC_LOCALE_CODE', cnf)
+> +        eglibc_cfg('memusage',      distro_features, 'OPTION_EGLIBC_MEMUSAGE', cnf)
+> +        eglibc_cfg('nis',      distro_features, 'OPTION_EGLIBC_NIS', cnf)
+> +        eglibc_cfg('nsswitch',      distro_features, 'OPTION_EGLIBC_NSSWITCH', cnf)
+> +        eglibc_cfg('rcmd',      distro_features, 'OPTION_EGLIBC_RCMD', cnf)
+> +        eglibc_cfg('rtld-debug',      distro_features, 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
+> +        eglibc_cfg('spawn',      distro_features, 'OPTION_EGLIBC_SPAWN', cnf)
+> +        eglibc_cfg('streams',      distro_features, 'OPTION_EGLIBC_STREAMS', cnf)
+> +        eglibc_cfg('sunrpc',      distro_features, 'OPTION_EGLIBC_SUNRPC', cnf)
+> +        eglibc_cfg('utmp',      distro_features, 'OPTION_EGLIBC_UTMP', cnf)
+> +        eglibc_cfg('utmpx',      distro_features, 'OPTION_EGLIBC_UTMPX', cnf)
+> +        eglibc_cfg('wordexp',      distro_features, 'OPTION_EGLIBC_WORDEXP', cnf)
+> +        eglibc_cfg('posix-clang-wchar',      distro_features, 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
+> +        eglibc_cfg('posix-regexp',      distro_features, 'OPTION_POSIX_REGEXP', cnf)
+> +        eglibc_cfg('posix-regexp-glibc',      distro_features, 'OPTION_POSIX_REGEXP_GLIBC', cnf)
+> +        eglibc_cfg('posix-wchar-io',      distro_features, 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
+> +        return "\n".join(cnf)
+> diff --git a/meta/recipes-core/eglibc/eglibc.inc b/meta/recipes-core/eglibc/eglibc.inc
+> index 46ffa82..616f1af 100644
+> --- a/meta/recipes-core/eglibc/eglibc.inc
+> +++ b/meta/recipes-core/eglibc/eglibc.inc
+> @@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
+>   PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
+>   PROVIDES += "virtual/libintl virtual/libiconv"
+>   inherit autotools
+> +require eglibc-options.inc
+>
+>   LEAD_SONAME = "libc.so"
+>
+> @@ -43,3 +44,8 @@ EXTRA_OEMAKE += ${EGLIBCPARALLELISM}
+>   PARALLEL_MAKE = ""
+>
+>   PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss glibc-thread-db glibc-pcprofile"
+> +
+> +OE_FEATURES = "${@features_to_eglibc_settings(d)}"
+> +do_configure_prepend() {
+> +	echo '${OE_FEATURES}'>  ${B}/option-groups.config
+> +}
+> diff --git a/meta/recipes-core/eglibc/eglibc_2.13.bb b/meta/recipes-core/eglibc/eglibc_2.13.bb
+> index 398da69..894eb88 100644
+> --- a/meta/recipes-core/eglibc/eglibc_2.13.bb
+> +++ b/meta/recipes-core/eglibc/eglibc_2.13.bb
+> @@ -4,7 +4,7 @@ SRCREV = "13356"
+>
+>   DEPENDS += "gperf-native"
+>   FILESPATHPKG =. "eglibc-svn:"
+> -PR = "r0"
+> +PR = "r1"
+>   PR_append = "+svnr${SRCPV}"
+>
+>   EGLIBC_BRANCH="eglibc-2_13"
+> @@ -16,7 +16,9 @@ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
+>              file://stack-protector-test.patch \
+>              file://etc/ld.so.conf \
+>              file://generate-supported.mk \
+> +           file://eglibc-2.13-fix-macro-RTLD_DEBUG.patch \
+>   	   "
+> +
+>   LIC_FILES_CHKSUM = "file://LICENSES;md5=98a1128c4b58120182cbea3b1752d8b9 \
+>         file://COPYING;md5=393a5ca445f6965873eca0259a17f833 \
+>         file://posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
 
