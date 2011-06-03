@@ -1,34 +1,18 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F17C24C800A6
-	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 04:53:20 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p539r91x003376;
-	Fri, 3 Jun 2011 10:53:09 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 02786-09; Fri,  3 Jun 2011 10:53:05 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p539r157003370
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 3 Jun 2011 10:53:01 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Kang Kai <Kai.Kang@windriver.com>
-In-Reply-To: <4DE8A163.6040009@windriver.com>
-References: <cover.1307083232.git.kai.kang@windriver.com>
-	<adfc33032da197d9e5438a42e2b5df4681cdbb35.1307083232.git.kai.kang@windriver.com>
-	<1307089346.27470.624.camel@rex>  <4DE8A163.6040009@windriver.com>
-Date: Fri, 03 Jun 2011 10:52:39 +0100
-Message-ID: <1307094759.5715.4.camel@rex>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Kang@smtp1.linux-foundation.org, poky@yoctoproject.org,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [PATCH 1/1] eglibc: migrate configurability from oe
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 73F2A4C803D6
+	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 11:23:19 -0500 (CDT)
+Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p53GMjSQ018121;
+	Fri, 3 Jun 2011 09:22:45 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Fri,  3 Jun 2011 12:21:41 -0400
+Message-Id: <cover.1307117927.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: dvhart@linux.intel.com, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/1] linux-yocto/meta-yocto: update SRCREVs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,40 +24,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Jun 2011 09:53:21 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 03 Jun 2011 16:23:19 -0000
 
-On Fri, 2011-06-03 at 16:54 +0800, Kang Kai wrote:
-> Hi Richard,
-> 
-> Thanks for your comments. And I have one question:
-> 
-> > On Fri, 2011-06-03 at 14:47 +0800, Kang Kai wrote:
-> >> From: Kang Kai<kai.kang@windriver.com>
-> >>
-> >> Migrate configurability from oe, try to shrink minimal image size
-> >>
-> >> The switch is in local.conf.sample, uncomment the line
-> >> DISTRO_FEATURES_EGLIBC = ""
-> >> and write what options you want to enable.
-> >>
-> >> If want to disable locale-code charsets or locales, you have to uncomment
-> >> PACKAGE_NO_GCONV = 1
-> >> Because without this, it fails on package_do_split_gconvs in libc-package.bbclass
-> > I have some comments:
-> >
-> > a) I think these should become flags in DISTRO_FEATURES with an
-> > "eglibc-" prefix so something like "spawn" would become "eglibc-spawn"
-> Do you mean every option in DISTRO_FEATURES_EGLIBC should be a single 
-> flag in DISTRO_FEATURES?
+Richard/Saul,
 
-No, you'd still have all the options you currently have but instead of
-being called X they would be eglibc-X.
+Here's the meta-yocto part of the recent kernel updates.
 
-Cheers,
+This is a consolidated pull request for the past weeks
+changes to Linux yocto. There are a few tweaks to BSP
+configs, a new BSP branch (fishriver) and more alignment 
+with the feature mix the 1.0 (2.6.34) kernel tree (linux-omap
+as a base merge).
 
-Richard
+I've built and booted this on all the appropriate 
+qemu targets, and built for the beagleboard, intel boards,
+etc.
 
+I'll be away from a computer screen from now until
+for all day Saturday, so if this waits to merge, it
+is fine by me.
+
+The following changes since commit b8fc7bf2a884f722ac15d781d5f8f844544f39d1:
+  Bruce Ashfield (1):
+        linux-yocto: update target/meta SRCREVs
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
+
+Bruce Ashfield (1):
+  linux-yocto/meta-yocto: update target/meta SRCREVs
+
+ .../recipes-kernel/linux/linux-yocto_git.bbappend  |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
 
