@@ -1,22 +1,28 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5BE1E4C804E4
-	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 11:23:22 -0500 (CDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p53GMjSR018121;
-	Fri, 3 Jun 2011 09:22:47 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Fri,  3 Jun 2011 12:21:42 -0400
-Message-Id: <f6eb98f84fbeeb60fd4eb4594734d0598b262856.1307117927.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1307117927.git.bruce.ashfield@windriver.com>
-References: <cover.1307117927.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1307117927.git.bruce.ashfield@windriver.com>
-References: <cover.1307117927.git.bruce.ashfield@windriver.com>
-Cc: dvhart@linux.intel.com, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto/meta-yocto: update target/meta SRCREVs
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 12EA64C800A6
+	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 11:25:58 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 47E0316601F1; Fri,  3 Jun 2011 10:25:58 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id EF4E316601D9;
+	Fri,  3 Jun 2011 10:25:35 -0600 (MDT)
+Message-ID: <4DE90AFF.5090801@mlbassoc.com>
+Date: Fri, 03 Jun 2011 10:25:35 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4DE79F0A.5080104@mlbassoc.com> <1307035303.27470.584.camel@rex>
+In-Reply-To: <1307035303.27470.584.camel@rex>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Problem with gettext-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,46 +34,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Jun 2011 16:23:22 -0000
+X-List-Received-Date: Fri, 03 Jun 2011 16:25:59 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fixes bug [YOCTO #802]
+On 06/02/2011 11:21 AM, Richard Purdie wrote:
+> On Thu, 2011-06-02 at 08:32 -0600, Gary Thomas wrote:
+>> I had a working build based on
+>>     commit 52295fa3deef3b0374b99829626d524cefae6001
+>>     Author: Richard Purdie<richard.purdie@linuxfoundation.org>
+>>     Date:   Wed May 18 00:03:02 2011 +0100
+>>
+>>       Improve handling of 'all' architecture recipes and their interaction with sstate
+>>
+>> Today, I updated to
+>>     commit 484c4e73245c93a08413cd204513bf5c5698b994
+>>     Author: Saul Wold<sgw@linux.intel.com>
+>>     Date:   Tue May 31 22:42:49 2011 -0700
+>>
+>>       clutter-1.6: Add patch to update gettext macro version
+>>
+>> Now, it tries to build gettext-native and fails with the log at
+>>     http://www.mlbassoc.com/poky/gettext-native-log.do_compile
+>> I don't see what's happening here.  If I try an identical
+>> build (same local.conf, etc) in a new tree, it succeeds.
+>>
+>> I notice that my old build has git-native built and installed (which based
+>> on the log is being used?), but the build from scratch does not.
+>>
+>> Any ideas?
+>
+> It looks like gettext now has a dependency on git being present. We need
+> to add git-native to its DEPENDS, crazy as that may be :/
+>
+> For a while I thought cvs was required too but it turns out its not,
+> thankfully.
+>
+> I'm testing a patch which I'll push shortly.
 
-This SRCREV update picks up the following changes from the
-2.6.37 kernel tree:
+Sadly, this still fails for me, but only when I'm using SSTATE_MIRRORS
+from a build of a few days ago.  If I don't use the SSTATE_MIRRORS, it
+builds fine.
 
- - fishriver: creates and uses a dedicated BSP branch
- - fishriver: usbnet fixes
- - linux-omap: merge to match the 2.6.34 upstream merge content
- - beagleboard: adds VFAT config
- - fsl-mpc8315rdb: enables the eprom
+Once I get into this state, I can't even clean my way out of this :-(
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_git.bbappend  |   10 +++++-----
- 1 files changed, 5 insertions(+), 5 deletions(-)
+   $ bitbake gettext-native -c clean
+   Pseudo is not present but is required, building this first before the main build
+   NOTE: Out of date cache found, rebuilding...
+   Parsing recipes: 100% |##################################################################################| Time: 00:00:21
+   Parsing of 994 .bb files complete (0 cached, 994 parsed). 1227 targets, 37 skipped, 0 masked, 0 errors.
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_git.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_git.bbappend
-index e053fe9..1c047dc 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_git.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_git.bbappend
-@@ -3,11 +3,11 @@ KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
- KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
- KMACHINE_beagleboard = "yocto/standard/beagleboard"
- 
--SRCREV_machine_emenlow = "5d0d346c0e4b2d837cd98dccbf043f1988e2058a"
--SRCREV_machine_atom-pc = "79d6188d99bdf63da9a0ba27c010792266e337f9"
--SRCREV_machine_routerstationpro = "d6aadb767fdcbb9886c430e90b92f49cd3a9ddcc"
--SRCREV_machine_mpc8315e-rdb = "e5c67f6a64b8b7393ca3a9c80b3ac197be0a8d5f"
--SRCREV_machine_beagleboard = "e53debfc6896bb89174ebb74154ed9b3bc72b59c"
-+SRCREV_machine_emenlow = "eb2a1892c00af7fab33468a517746a8aad77524f"
-+SRCREV_machine_atom-pc = "002bf30a72fa11c77094b25bead5297f842263d8"
-+SRCREV_machine_routerstationpro = "a210863ce9f16d371ed955d54af97cc41c87bb0e"
-+SRCREV_machine_mpc8315e-rdb = "9985e4c7445696dfd5384553b972d191bf672c76"
-+SRCREV_machine_beagleboard = "30d267e93a2671718ceeccf3e4ecbae2536902e0"
- 
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
+   OE Build Configuration:
+   BB_VERSION        = "1.11.0"
+   METADATA_BRANCH   = "my_master"
+   METADATA_REVISION = "6b5d323b6c8960a0999dbafa0422fe127fd0fa97"
+   TARGET_ARCH       = "arm"
+   TARGET_OS         = "linux-gnueabi"
+   MACHINE           = "cobra3530p60"
+   DISTRO            = "amltd"
+   DISTRO_VERSION    = "1.00+snapshot-20110603"
+   TARGET_FPU        = "soft"
+
+   NOTE: Resolving any missing task queue dependencies
+   NOTE: Preparing runqueue
+   NOTE: Executing SetScene Tasks
+   NOTE: Executing RunQueue Tasks
+   NOTE: Running task 121 of 133 (ID: 62, virtual:native:/home/local/poky-amltd/meta/recipes-core/gettext/gettext_0.18.1.1.bb, do_compile)
+   NOTE: package gettext-native-0.18.1.1-r0: task do_compile: Started
+   ERROR: 'virtual:native:/home/local/poky-amltd/meta/recipes-core/gettext/gettext_0.18.1.1.bb' failed
+   ERROR: Logfile of failure stored in: /home/local/p60_build2/tmp/work/i686-linux/gettext-native-0.18.1.1-r0/temp/log.do_compile.20106
+
+Why is it running the do_compile step, when I explicitly asked for do_clean?
+
+Looking closer, it seems that the git-native I built yesterday (which is what I was using for SSTATE_MIRRORS)
+doesn't work correctly.  One built today, on the exact same host (no changes), etc, does.  Very strange.
+
+Here's yesterday's build:
+   $ ls -l /local/p60_test_orig/sstate-cache/sstate-git-native*
+   -rw-rw-r-- 1 gthomas gthomas    7470 Jun  2 03:37 /local/p60_test_orig/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-4a5372ef2d6e43d9bb5a98258b332ab9_populate-lic.tgz
+   -rw-rw-r-- 1 gthomas gthomas    6921 Jun  2 03:37 
+/local/p60_test_orig/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-4a5372ef2d6e43d9bb5a98258b332ab9_populate-lic.tgz.siginfo
+   -rw-rw-r-- 1 gthomas gthomas 4483022 Jun  2 03:25 
+/local/p60_test_orig/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-da709c00f8a7f7abbc7c8fff28802d70_populate-sysroot.tgz
+   -rw-rw-r-- 1 gthomas gthomas   12279 Jun  2 03:25 
+/local/p60_test_orig/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-da709c00f8a7f7abbc7c8fff28802d70_populate-sysroot.tgz.siginfo
+   $ /local/p60_test_orig/tmp/sysroots/i686-linux/usr/bin/git repack
+   git: 'repack' is not a git command. See 'git --help'.
+
+Here's today's:
+   $ ls -l /local/p60_build/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-*
+   -rw-rw-r-- 1 gthomas gthomas    7472 Jun  3 05:11 /local/p60_build/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-4a5372ef2d6e43d9bb5a98258b332ab9_populate-lic.tgz
+   -rw-rw-r-- 1 gthomas gthomas    6921 Jun  3 05:11 
+/local/p60_build/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-4a5372ef2d6e43d9bb5a98258b332ab9_populate-lic.tgz.siginfo
+   -rw-rw-r-- 1 gthomas gthomas 4482605 Jun  3 04:37 /local/p60_build/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-da709c00f8a7f7abbc7c8fff28802d70_populate-sysroot.tgz
+   -rw-rw-r-- 1 gthomas gthomas   12279 Jun  3 04:37 
+/local/p60_build/sstate-cache/sstate-git-native-i686-linux-1.7.5.1-r0-i686-2-da709c00f8a7f7abbc7c8fff28802d70_populate-sysroot.tgz.siginfo
+   $ /local/p60_build/tmp/sysroots/i686-linux/usr/bin/git repack
+   fatal: Not a git repository (or any parent up to mount parent )
+   Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+
+How can this be?  Doesn't the sstate signature imply they should be identical?
+
+Note: I'll keep these trees around in case there's something else you'd like to see.
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
