@@ -1,42 +1,34 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-bw0-f48.google.com (mail-bw0-f48.google.com
-	[209.85.214.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 1B9084C80485
-	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 04:34:44 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by bwz8 with SMTP id 8so2838443bwz.35
-	for <poky@yoctoproject.org>; Fri, 03 Jun 2011 02:34:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:date:from:to:cc:subject:message-id:references
-	:mime-version:content-type:content-disposition:in-reply-to
-	:user-agent; bh=638exx5Fc+fe40IitvuBL9JmNXPMFDl/dnoyESv46Ug=;
-	b=Vk8k5GU+8YVP7riiZ9ya1fZq0y20/doBxCsKCja9dMuy8APXbLvKq7PjL2AkXi3qq7
-	SSV8Oi3ul/+0dTSY275lD5DbraU3reVoj4CV7fCUBUngXSWhbYTBYunShPssGmDZv5I9
-	J+Hk0aE9VZU3MIraUPKUsNWoSSQVob3Q4vms0=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	b=kZdrMhS4lDdrNdRfLz/IvHJevaS4XuaJrOCtGgNlJQzGXLv33xlTJc4VtL0XItMz/6
-	4EmlsA3TcynjpRs3foqhs174A3nVevszwa+kbBXpSZADR4cIVM7ACzhDEaIvNOdcVe/m
-	GKANBL1ia76QHLsGxcDMBSLTjkoPyFn0cL+Mo=
-Received: by 10.204.133.27 with SMTP id d27mr1743836bkt.69.1307093683349;
-	Fri, 03 Jun 2011 02:34:43 -0700 (PDT)
-Received: from localhost ([94.230.152.115])
-	by mx.google.com with ESMTPS id x6sm1124200bkv.12.2011.06.03.02.34.41
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Fri, 03 Jun 2011 02:34:42 -0700 (PDT)
-Date: Fri, 3 Jun 2011 11:34:40 +0200
-From: Martin Jansa <martin.jansa@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F17C24C800A6
+	for <poky@yoctoproject.org>; Fri,  3 Jun 2011 04:53:20 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p539r91x003376;
+	Fri, 3 Jun 2011 10:53:09 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02786-09; Fri,  3 Jun 2011 10:53:05 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p539r157003370
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 3 Jun 2011 10:53:01 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <20110603093440.GL3281@jama.jama.net>
-References: <4DE8A68E.9010205@windriver.com>
-MIME-Version: 1.0
-In-Reply-To: <4DE8A68E.9010205@windriver.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: build gnutls failed on mpc8315
+In-Reply-To: <4DE8A163.6040009@windriver.com>
+References: <cover.1307083232.git.kai.kang@windriver.com>
+	<adfc33032da197d9e5438a42e2b5df4681cdbb35.1307083232.git.kai.kang@windriver.com>
+	<1307089346.27470.624.camel@rex>  <4DE8A163.6040009@windriver.com>
+Date: Fri, 03 Jun 2011 10:52:39 +0100
+Message-ID: <1307094759.5715.4.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Kang@smtp1.linux-foundation.org, poky@yoctoproject.org,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 1/1] eglibc: migrate configurability from oe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,50 +40,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Jun 2011 09:34:45 -0000
-X-Groupsio-MsgNum: 6492
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="tfmLD+Hxjexp/STe"
-Content-Disposition: inline
+X-List-Received-Date: Fri, 03 Jun 2011 09:53:21 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---tfmLD+Hxjexp/STe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 2011-06-03 at 16:54 +0800, Kang Kai wrote:
+> Hi Richard,
+> 
+> Thanks for your comments. And I have one question:
+> 
+> > On Fri, 2011-06-03 at 14:47 +0800, Kang Kai wrote:
+> >> From: Kang Kai<kai.kang@windriver.com>
+> >>
+> >> Migrate configurability from oe, try to shrink minimal image size
+> >>
+> >> The switch is in local.conf.sample, uncomment the line
+> >> DISTRO_FEATURES_EGLIBC = ""
+> >> and write what options you want to enable.
+> >>
+> >> If want to disable locale-code charsets or locales, you have to uncomment
+> >> PACKAGE_NO_GCONV = 1
+> >> Because without this, it fails on package_do_split_gconvs in libc-package.bbclass
+> > I have some comments:
+> >
+> > a) I think these should become flags in DISTRO_FEATURES with an
+> > "eglibc-" prefix so something like "spawn" would become "eglibc-spawn"
+> Do you mean every option in DISTRO_FEATURES_EGLIBC should be a single 
+> flag in DISTRO_FEATURES?
 
-On Fri, Jun 03, 2011 at 05:17:02PM +0800, Kang Kai wrote:
-> Hi All,
->=20
-> My local repository is 484c4e73245c93a08413cd204513bf5c5698b994, and set=
-=20
-> MACHINE ?=3D "mpc8315e-rdb".
->=20
-> When build gnutls, it fails. But when I build it for arm, it succeeds.
-> Do anyone meets that before, thanks!
+No, you'd still have all the options you currently have but instead of
+being called X they would be eglibc-X.
 
-Yes on arm:
-http://lists.linuxtogo.org/pipermail/openembedded-core/2011-June/003591.html
+Cheers,
 
-patch was merged, but without PR bump so please try to -c clean it
-before rebuilding to run configure again.
+Richard
 
-another gnutls patch with changed PR was sent to list yesterday so
-manual clean won't be needed after it.
 
-Regards,
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
-
---tfmLD+Hxjexp/STe
-Content-Type: application/pgp-signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.17 (GNU/Linux)
-
-iEYEARECAAYFAk3oqrAACgkQN1Ujt2V2gByINwCeO928FuBVIdbODrdKas0Q1nmC
-te4AoLJpJWPCeyswH7Tt59E6669p9Y1C
-=2QIe
------END PGP SIGNATURE-----
-
---tfmLD+Hxjexp/STe--
