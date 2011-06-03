@@ -1,24 +1,29 @@
-Return-Path: <liping.ke@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C00664C8055B
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 20:19:14 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 02 Jun 2011 18:19:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,312,1304319600"; d="scan'208";a="11177247"
-Received: from lke-nhm.sh.intel.com (HELO localhost) ([10.239.36.48])
-	by fmsmga002.fm.intel.com with ESMTP; 02 Jun 2011 18:19:13 -0700
-From: Ke Liping <liping.ke@intel.com>
-To: poky@yoctoproject.org,
-	bitbake-devel@lists.openembedded.org
-Date: Fri,  3 Jun 2011 09:06:04 +0800
-Message-Id: <98c7028eaf685418080016b7f37b817e5f7561ce.1307062861.git.liping.ke@intel.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1307062861.git.liping.ke@intel.com>
-References: <cover.1307062861.git.liping.ke@intel.com>
-In-Reply-To: <cover.1307062861.git.liping.ke@intel.com>
-References: <cover.1307062861.git.liping.ke@intel.com>
-Subject: [PATCH 4/4][Image Creator]Implement multiple extra cache fields request support
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 839E24C804E4
+	for <poky@yoctoproject.org>; Thu,  2 Jun 2011 20:23:48 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p531NhKT009802
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 2 Jun 2011 18:23:43 -0700 (PDT)
+Received: from [128.224.162.198] (128.224.162.198) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Thu, 2 Jun 2011 18:23:43 -0700
+Message-ID: <4DE83793.9030100@windriver.com>
+Date: Fri, 3 Jun 2011 09:23:31 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
+MIME-Version: 1.0
+To: Saul Wold <sgw@linux.intel.com>
+References: <cover.1307005797.git.kai.kang@windriver.com>
+	<a86954e6f4c2458f46e3b5fab2db163369033caf.1307005797.git.kai.kang@windriver.com>
+	<4DE83575.4010306@linux.intel.com>
+In-Reply-To: <4DE83575.4010306@linux.intel.com>
+X-Originating-IP: [128.224.162.198]
+Cc: poky@yoctoproject.org, 'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [PATCH 1/1] eglibc: migrate configurability from oe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,377 +35,279 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Jun 2011 01:19:15 -0000
+X-List-Received-Date: Fri, 03 Jun 2011 01:23:48 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Liping Ke <liping.ke@intel.com>
+Hi Saul & Koen,
 
-This patch is to support extra cache. If user needs to request
-extra cache fields besides CoreRecipeInfo fields, just add a new
-XXXRecipeInfo class definition as Hob Does.
-Currently supported Extra RecipeInfo name is an array. We can
-support multiple extra cache fields at the same time besides
-CoreRecipeInfo which is needed by all clients.
+> On 06/02/2011 02:41 AM, Kang Kai wrote:
+>> From: Kang Kai<kai.kang@windriver.com>
+>>
+>> Migrate configurability from oe, try to shrink minimal image size
+>>
+>> The switch is in local.conf.sample, uncomment the line
+>> DISTRO_FEATURES_EGLIBC = ""
+>> and write what options you want to enable.
+>>
+>> If want to disable locale-code charsets or locales, you have to 
+>> uncomment
+>> PACKAGE_NO_GCONV = 1
+>> Because without this, it fails on package_do_split_gconvs in 
+>> libc-package.bbclass
+>>
+> This should really be posted on the 
+> openembedded-core@lists.openembedded.org alias so that all can see it.
+>
+I'll send it to oe-core right now.
+Thanks.
 
-Signed-off-by: Liping Ke <liping.ke@intel.com>
----
- bitbake/lib/bb/cache.py  |  177 +++++++++++++++++++++++++++++++---------------
- bitbake/lib/bb/cooker.py |   16 ++--
- 2 files changed, 127 insertions(+), 66 deletions(-)
-
-diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
-index 0620621..5b8e3ee 100644
---- a/bitbake/lib/bb/cache.py
-+++ b/bitbake/lib/bb/cache.py
-@@ -43,8 +43,10 @@ except ImportError:
-     logger.info("Importing cPickle failed. "
-                 "Falling back to a very slow implementation.")
- 
--__cache_version__ = "138"
-+__cache_version__ = "139"
- 
-+def getCacheFile(path, filename):
-+    return os.path.join(path, filename)
- 
- # RecipeInfoCommon defines common data retrieving methods
- # from meta data for caches. CoreRecipeInfo as well as other
-@@ -86,12 +88,9 @@ class RecipeInfoCommon(object):
- class CoreRecipeInfo(RecipeInfoCommon):
-     __slots__ = ()
- 
--    def __init__(self, filename, metadata):
--        self.name = "base"
--        # please override this member with the correct data cache file
--        # such as (bb_cache.dat, bb_extracache_hob.dat) 
--        self.cachefile = "bb_cache.dat"        
-+    cachefile = "bb_cache.dat"   
- 
-+    def __init__(self, filename, metadata):      
-         self.file_depends = metadata.getVar('__depends', False)
-         self.timestamp = bb.parse.cached_mtime(filename)
-         self.variants = self.listvar('__VARIANTS', metadata) + ['']
-@@ -265,7 +264,7 @@ class Cache(object):
-             return
- 
-         self.has_cache = True
--        self.cachefile = os.path.join(self.cachedir, "bb_cache.dat")
-+        self.cachefile = getCacheFile(self.cachedir, "bb_cache.dat")
- 
-         logger.debug(1, "Using cache in '%s'", self.cachedir)
-         bb.utils.mkdirhier(self.cachedir)
-@@ -279,12 +278,21 @@ class Cache(object):
-         old_mtimes.append(newest_mtime)
-         newest_mtime = max(old_mtimes)
- 
--        if bb.parse.cached_mtime_noerror(self.cachefile) >= newest_mtime:
-+        bNeedUpdate = True
-+        if self.caches_array:
-+            for cache_class in self.caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                    bNeedUpdate = bNeedUpdate and (bb.parse.cached_mtime_noerror(cachefile) >= newest_mtime)
-+                    cache_class.init_cacheData(self)
-+        if bNeedUpdate:
-             self.load_cachefile()
-         elif os.path.isfile(self.cachefile):
-             logger.info("Out of date cache found, rebuilding...")
- 
-     def load_cachefile(self):
-+        # Firstly, using core cache file information for
-+        # valid checking
-         with open(self.cachefile, "rb") as cachefile:
-             pickled = pickle.Unpickler(cachefile)
-             try:
-@@ -301,31 +309,52 @@ class Cache(object):
-                 logger.info('Bitbake version mismatch, rebuilding...')
-                 return
- 
--            cachesize = os.fstat(cachefile.fileno()).st_size
--            bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
- 
--            previous_percent = 0
--            while cachefile:
--                try:
--                    key = pickled.load()
--                    value = pickled.load()
--                except Exception:
--                    break
-+        cachesize = 0
-+        previous_progress = 0
-+        previous_percent = 0
- 
--                self.depends_cache[key] = value
--
--                # only fire events on even percentage boundaries
--                current_progress = cachefile.tell()
--                current_percent = 100 * current_progress / cachesize
--                if current_percent > previous_percent:
--                    previous_percent = current_percent
--                    bb.event.fire(bb.event.CacheLoadProgress(current_progress),
--                                  self.data)
--
--            bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
--                                                      len(self.depends_cache)),
--                          self.data)
-+        # Calculate the correct cachesize of all those cache files
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                with open(cachefile, "rb") as cachefile:
-+                    cachesize += os.fstat(cachefile.fileno()).st_size
- 
-+        bb.event.fire(bb.event.CacheLoadStarted(cachesize), self.data)
-+        
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                with open(cachefile, "rb") as cachefile:
-+                    pickled = pickle.Unpickler(cachefile)                    
-+                    while cachefile:
-+                        try:
-+                            key = pickled.load()
-+                            value = pickled.load()
-+                        except Exception:
-+                            break
-+                        if self.depends_cache.has_key(key):
-+                            self.depends_cache[key].append(value)
-+                        else:
-+                            self.depends_cache[key] = [value]
-+                        # only fire events on even percentage boundaries
-+                        current_progress = cachefile.tell() + previous_progress
-+                        current_percent = 100 * current_progress / cachesize
-+                        if current_percent > previous_percent:
-+                            previous_percent = current_percent
-+                            bb.event.fire(bb.event.CacheLoadProgress(current_progress),
-+                                          self.data)
-+
-+                    previous_progress += current_progress
-+
-+        # Note: depends cache number is corresponding to the parsing file numbers.
-+        # The same file has several caches, still regarded as one item in the cache
-+        bb.event.fire(bb.event.CacheLoadCompleted(cachesize,
-+                                                  len(self.depends_cache)),
-+                      self.data)
-+
-+    
-     @staticmethod
-     def virtualfn2realfn(virtualfn):
-         """
-@@ -376,8 +405,14 @@ class Cache(object):
-             depends |= (data.getVar("__depends", False) or set())
-             if depends and not variant:
-                 data.setVar("__depends", depends)
--            info = CoreRecipeInfo(filename, data)
--            infos.append((virtualfn, info))
-+
-+            info_array = []
-+            for cache_class in caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    info = cache_class(filename, data)
-+                    info_array.append(info)
-+            infos.append((virtualfn, info_array))
-+
-         return infos
- 
-     def load(self, filename, appends, configdata):
-@@ -391,8 +426,9 @@ class Cache(object):
-         cached = self.cacheValid(filename)
-         if cached:
-             infos = []
--            info = self.depends_cache[filename]
--            for variant in info.variants:
-+            # info_array item is a list of [CoreRecipeInfo, XXXRecipeInfo]
-+            info_array = self.depends_cache[filename]
-+            for variant in info_array[0].variants:
-                 virtualfn = self.realfn2virtual(filename, variant)
-                 infos.append((virtualfn, self.depends_cache[virtualfn]))
-         else:
-@@ -408,12 +444,12 @@ class Cache(object):
-         skipped, virtuals = 0, 0
- 
-         cached, infos = self.load(fn, appends, cfgData)
--        for virtualfn, info in infos:
--            if info.skipped:
-+        for virtualfn, info_array in infos:
-+            if info_array[0].skipped:
-                 logger.debug(1, "Skipping %s", virtualfn)
-                 skipped += 1
-             else:
--                self.add_info(virtualfn, info, cacheData, not cached)
-+                self.add_info(virtualfn, info_array, cacheData, not cached)
-                 virtuals += 1
- 
-         return cached, skipped, virtuals
-@@ -457,15 +493,15 @@ class Cache(object):
-             self.remove(fn)
-             return False
- 
--        info = self.depends_cache[fn]
-+        info_array = self.depends_cache[fn]
-         # Check the file's timestamp
--        if mtime != info.timestamp:
-+        if mtime != info_array[0].timestamp:
-             logger.debug(2, "Cache: %s changed", fn)
-             self.remove(fn)
-             return False
- 
-         # Check dependencies are still valid
--        depends = info.file_depends
-+        depends = info_array[0].file_depends
-         if depends:
-             for f, old_mtime in depends:
-                 fmtime = bb.parse.cached_mtime_noerror(f)
-@@ -483,7 +519,7 @@ class Cache(object):
-                     return False
- 
-         invalid = False
--        for cls in info.variants:
-+        for cls in info_array[0].variants:
-             virtualfn = self.realfn2virtual(fn, cls)
-             self.clean.add(virtualfn)
-             if virtualfn not in self.depends_cache:
-@@ -530,13 +566,30 @@ class Cache(object):
-             logger.debug(2, "Cache is clean, not saving.")
-             return
- 
--        with open(self.cachefile, "wb") as cachefile:
--            pickler = pickle.Pickler(cachefile, pickle.HIGHEST_PROTOCOL)
--            pickler.dump(__cache_version__)
--            pickler.dump(bb.__version__)
--            for key, value in self.depends_cache.iteritems():
--                pickler.dump(key)
--                pickler.dump(value)
-+        file_dict = {}
-+        pickler_dict = {}
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cache_class_name = cache_class.__name__
-+                cachefile = getCacheFile(self.cachedir, cache_class.cachefile)
-+                file_dict[cache_class_name] = open(cachefile, "wb")
-+                pickler_dict[cache_class_name] =  pickle.Pickler(file_dict[cache_class_name], pickle.HIGHEST_PROTOCOL)
-+                   
-+        pickler_dict['CoreRecipeInfo'].dump(__cache_version__)
-+        pickler_dict['CoreRecipeInfo'].dump(bb.__version__)
-+
-+        try:
-+            for key, info_array in self.depends_cache.iteritems():
-+                for info in info_array:
-+                    if isinstance(info, RecipeInfoCommon):
-+                        cache_class_name = info.__class__.__name__
-+                        pickler_dict[cache_class_name].dump(key)
-+                        pickler_dict[cache_class_name].dump(info)
-+        finally:
-+            for cache_class in self.caches_array:
-+                if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                    cache_class_name = cache_class.__name__
-+                    file_dict[cache_class_name].close()
- 
-         del self.depends_cache
- 
-@@ -544,17 +597,17 @@ class Cache(object):
-     def mtime(cachefile):
-         return bb.parse.cached_mtime_noerror(cachefile)
- 
--    def add_info(self, filename, info, cacheData, parsed=None):
--        if not info.skipped:
--            cacheData.add_from_recipeinfo(filename, info)
-+    def add_info(self, filename, info_array, cacheData, parsed=None):
-+        if isinstance(info_array[0], CoreRecipeInfo) and (not info_array[0].skipped):
-+            cacheData.add_from_recipeinfo(filename, info_array)
- 
-         if not self.has_cache:
-             return
- 
--        if (info.skipped or 'SRCREVINACTION' not in info.pv) and not info.nocache:
-+        if (info_array[0].skipped or 'SRCREVINACTION' not in info_array[0].pv) and not info_array[0].nocache:
-             if parsed:
-                 self.cacheclean = False
--            self.depends_cache[filename] = info
-+            self.depends_cache[filename] = info_array
- 
-     def add(self, file_name, data, cacheData, parsed=None):
-         """
-@@ -562,8 +615,12 @@ class Cache(object):
-         """
- 
-         realfn = self.virtualfn2realfn(file_name)[0]
--        info = CoreRecipeInfo(realfn, data)
--        self.add_info(file_name, info, cacheData, parsed)
-+
-+        info_array = []
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                info_array.append(cache_class(realfn, data))
-+        self.add_info(file_name, info_array, cacheData, parsed)
- 
-     @staticmethod
-     def load_bbfile(bbfile, appends, config):
-@@ -629,7 +686,10 @@ class CacheData(object):
- 
-     def __init__(self, caches_array):
-         self.caches_array = caches_array
--        CoreRecipeInfo.init_cacheData(self)
-+        for cache_class in self.caches_array:
-+            if type(cache_class) is type and issubclass(cache_class, RecipeInfoCommon):
-+                cache_class.init_cacheData(self)        
-+
-         # Direct cache variables
-         self.task_queues = {}
-         self.preferred = {}
-@@ -640,7 +700,8 @@ class CacheData(object):
-         self.bbfile_priority = {}
-         self.bbfile_config_priorities = []
- 
--    def add_from_recipeinfo(self, fn, info):
--        info.add_cacheData(self, fn)
-+    def add_from_recipeinfo(self, fn, info_array):
-+        for info in info_array:
-+            info.add_cacheData(self, fn)
- 
-         
-diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-index 89da7e9..8379d0c 100644
---- a/bitbake/lib/bb/cooker.py
-+++ b/bitbake/lib/bb/cooker.py
-@@ -773,13 +773,13 @@ class BBCooker:
- 
-         fn = bb.cache.Cache.realfn2virtual(fn, cls)
-         try:
--            maininfo = infos[fn]
-+            info_array = infos[fn]
-         except KeyError:
-             bb.fatal("%s does not exist" % fn)
--        self.status.add_from_recipeinfo(fn, maininfo)
-+        self.status.add_from_recipeinfo(fn, info_array)
- 
-         # Tweak some variables
--        item = maininfo.pn
-+        item = info_array[0].pn
-         self.status.ignored_dependencies = set()
-         self.status.bbfile_priority[fn] = 1
- 
-@@ -1231,10 +1231,10 @@ class CookerParser(object):
-         else:
-             self.cached += 1
- 
--        for virtualfn, info in result:
--            if info.skipped:
-+        for virtualfn, info_array in result:
-+            if info_array[0].skipped:
-                 self.skipped += 1
--            self.bb_cache.add_info(virtualfn, info, self.cooker.status,
-+            self.bb_cache.add_info(virtualfn, info_array, self.cooker.status,
-                                         parsed=parsed)
-         return True
- 
-@@ -1242,5 +1242,5 @@ class CookerParser(object):
-         infos = self.bb_cache.parse(filename,
-                                     self.cooker.get_file_appends(filename),
-                                     self.cfgdata, self.cooker.caches_array)
--        for vfn, info in infos:
--            self.cooker.status.add_from_recipeinfo(vfn, info)
-+        for vfn, info_array in infos:
-+            self.cooker.status.add_from_recipeinfo(vfn, info_array)
--- 
-1.7.0.4
+Regards,
+Kai
+>> Signed-off-by: Kang Kai<kai.kang@windriver.com>
+>> ---
+>>   meta-yocto/conf/local.conf.sample                  |   17 ++++++
+>>   .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 +++++++
+>>   meta/recipes-core/eglibc/eglibc-options.inc        |   55 
+>> ++++++++++++++++++++
+>>   meta/recipes-core/eglibc/eglibc.inc                |    6 ++
+>>   meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
+>>   5 files changed, 101 insertions(+), 1 deletions(-)
+>>   create mode 100644 
+>> meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
+>>   create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
+>>
+>> diff --git a/meta-yocto/conf/local.conf.sample 
+>> b/meta-yocto/conf/local.conf.sample
+>> index 359e510..310e51e 100644
+>> --- a/meta-yocto/conf/local.conf.sample
+>> +++ b/meta-yocto/conf/local.conf.sample
+>> @@ -87,6 +87,23 @@ PACKAGE_CLASSES ?= "package_rpm package_ipk"
+>>   # NOTE: if listing mklibs&  prelink both, then make sure mklibs is 
+>> before prelink
+>>   USER_CLASSES ?= "image-mklibs image-prelink"
+>>
+>> +# eglibc configurability is used to reduce minimal images's size.
+>> +# PACKAGE_NO_GCONV should be set to 1, or locale-code posix-clang-wchar
+>> +# charsets locales need to be include in DISTRO_FEATURES_EGLIBC, 
+>> please check
+>> +# package_do_split_gconvs in libc-package.bbclass for detail
+>> +#PACKAGE_NO_GCONV = 1
+>> +
+>> +# if you want to enable any option listed below, please uncomment 
+>> next line and copy it here
+>> +#DISTRO_FEATURES_EGLIBC = ""
+>> +
+>> +DISTRO_FEATURES_EGLIBC ??= "ipv6 backtrace big-macros bsd cxx-tests 
+>> catgets charsets \
+>> +                          crypt crypt-ufc db-aliases envz fcvt 
+>> fmtmsg fstab ftraverse \
+>> +                          getlogin idn inet inet-anl libm libm-big 
+>> locales locale-code \
+>> +                          memusage nis nsswitch rcmd rtld-debug 
+>> spawn streams sunrpc utmp \
+>> +                          utmpx wordexp posix-clang-wchar 
+>> posix-regexp posix-regexp-glibc \
+>> +                          posix-wchar-io "
+>> +
+>> +
+> I have some concern with this change being in sample, are these 
+> features enabled by default, is that the intention?
+>
+> If someone already has a local.conf then this will not be used, I 
+> think that the initial soft assignment (??=) needs to be someplace 
+> else, like in eglibc.inc maybe
+>
+> Sau!
+>
+>>   # POKYMODE controls the characteristics of the generated 
+>> packages/images by
+>>   # telling poky which type of toolchain to use.
+>>   #
+>> diff --git 
+>> a/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch 
+>> b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch 
+>>
+>> new file mode 100644
+>> index 0000000..dffc648
+>> --- /dev/null
+>> +++ 
+>> b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
+>> @@ -0,0 +1,20 @@
+>> +When disable OPTION_EGLIBC_RTLD_DEBUG, compilation fails.
+>> +Created on Jun 1, 2011 by Kang Kai<kai.kang@windriver.com>
+>> +
+>> +Upstream-Status: Submitted
+>> +
+>> +Signed-off-by: Kang Kai<kai.kang@windriver.com>
+>> +Index: libc/elf/dl-lookup.c
+>> +===================================================================
+>> +--- libc/elf/dl-lookup.c    (revision 13356)
+>> ++++ libc/elf/dl-lookup.c    (working copy)
+>> +@@ -423,7 +423,9 @@
+>> +              hash table.  */
+>> +           if (__builtin_expect (tab->size, 0))
+>> +             {
+>> ++              #if __OPTION_EGLIBC_RTLD_DEBUG
+>> +               assert (GLRO(dl_debug_mask)&  DL_DEBUG_PRELINK);
+>> ++              #endif
+>> +               __rtld_lock_unlock_recursive (tab->lock);
+>> +               goto success;
+>> +             }
+>> diff --git a/meta/recipes-core/eglibc/eglibc-options.inc 
+>> b/meta/recipes-core/eglibc/eglibc-options.inc
+>> new file mode 100644
+>> index 0000000..7cd0287
+>> --- /dev/null
+>> +++ b/meta/recipes-core/eglibc/eglibc-options.inc
+>> @@ -0,0 +1,55 @@
+>> +def eglibc_cfg(feature, features, tokens, cnf):
+>> +    if type(tokens) == type(""):
+>> +        tokens = [tokens]
+>> +    if type(features) == type([]) and feature in features:
+>> +        cnf.extend([token + ' = y' for token in tokens])
+>> +    else:
+>> +        for token in tokens:
+>> +            cnf.extend([token + ' = n'])
+>> +            if token == 'OPTION_EGLIBC_NSSWITCH':
+>> +                cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_CONFIG = 
+>> ${S}/nss/nsswitch.conf"])
+>> +                cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS 
+>> = ${S}/nss/fixed-nsswitch.functions"])
+>> +
+>> +# Map distro features to eglibc options settings
+>> +def features_to_eglibc_settings(d):
+>> +        cnf = ([])
+>> +        distro_features = (bb.data.getVar('DISTRO_FEATURES_EGLIBC', 
+>> d, True) or '').split()
+>> +        eglibc_cfg('ipv6',      distro_features, 
+>> 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
+>> +        eglibc_cfg('backtrace',      distro_features, 
+>> 'OPTION_EGLIBC_BACKTRACE', cnf)
+>> +        eglibc_cfg('big-macros',      distro_features, 
+>> 'OPTION_EGLIBC_BIG_MACROS', cnf)
+>> +        eglibc_cfg('bsd',      distro_features, 'OPTION_EGLIBC_BSD', 
+>> cnf)
+>> +        eglibc_cfg('cxx-tests',      distro_features, 
+>> 'OPTION_EGLIBC_CXX_TESTS', cnf)
+>> +        eglibc_cfg('catgets',      distro_features, 
+>> 'OPTION_EGLIBC_CATGETS', cnf)
+>> +        eglibc_cfg('charsets',      distro_features, 
+>> 'OPTION_EGLIBC_CHARSETS', cnf)
+>> +        eglibc_cfg('crypt',      distro_features, 
+>> 'OPTION_EGLIBC_CRYPT', cnf)
+>> +        eglibc_cfg('crypt-ufc',      distro_features, 
+>> 'OPTION_EGLIBC_CRYPT_UFC', cnf)
+>> +        eglibc_cfg('db-aliases',      distro_features, 
+>> 'OPTION_EGLIBC_DB_ALIASES', cnf)
+>> +        eglibc_cfg('envz',      distro_features, 
+>> 'OPTION_EGLIBC_ENVZ', cnf)
+>> +        eglibc_cfg('fcvt',      distro_features, 
+>> 'OPTION_EGLIBC_FCVT', cnf)
+>> +        eglibc_cfg('fmtmsg',      distro_features, 
+>> 'OPTION_EGLIBC_FMTMSG', cnf)
+>> +        eglibc_cfg('fstab',      distro_features, 
+>> 'OPTION_EGLIBC_FSTAB', cnf)
+>> +        eglibc_cfg('ftraverse',      distro_features, 
+>> 'OPTION_EGLIBC_FTRAVERSE', cnf)
+>> +        eglibc_cfg('getlogin',      distro_features, 
+>> 'OPTION_EGLIBC_GETLOGIN', cnf)
+>> +        eglibc_cfg('idn',      distro_features, 'OPTION_EGLIBC_IDN', 
+>> cnf)
+>> +        eglibc_cfg('inet',      distro_features, 
+>> 'OPTION_EGLIBC_INET', cnf)
+>> +        eglibc_cfg('inet-anl',      distro_features, 
+>> 'OPTION_EGLIBC_INET_ANL', cnf)
+>> +        eglibc_cfg('libm',      distro_features, 
+>> 'OPTION_EGLIBC_LIBM', cnf)
+>> +        eglibc_cfg('libm-big',      distro_features, 
+>> 'OPTION_EGLIBC_LIBM_BIG', cnf)
+>> +        eglibc_cfg('locales',      distro_features, 
+>> 'OPTION_EGLIBC_LOCALES', cnf)
+>> +        eglibc_cfg('locale-code',      distro_features, 
+>> 'OPTION_EGLIBC_LOCALE_CODE', cnf)
+>> +        eglibc_cfg('memusage',      distro_features, 
+>> 'OPTION_EGLIBC_MEMUSAGE', cnf)
+>> +        eglibc_cfg('nis',      distro_features, 'OPTION_EGLIBC_NIS', 
+>> cnf)
+>> +        eglibc_cfg('nsswitch',      distro_features, 
+>> 'OPTION_EGLIBC_NSSWITCH', cnf)
+>> +        eglibc_cfg('rcmd',      distro_features, 
+>> 'OPTION_EGLIBC_RCMD', cnf)
+>> +        eglibc_cfg('rtld-debug',      distro_features, 
+>> 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
+>> +        eglibc_cfg('spawn',      distro_features, 
+>> 'OPTION_EGLIBC_SPAWN', cnf)
+>> +        eglibc_cfg('streams',      distro_features, 
+>> 'OPTION_EGLIBC_STREAMS', cnf)
+>> +        eglibc_cfg('sunrpc',      distro_features, 
+>> 'OPTION_EGLIBC_SUNRPC', cnf)
+>> +        eglibc_cfg('utmp',      distro_features, 
+>> 'OPTION_EGLIBC_UTMP', cnf)
+>> +        eglibc_cfg('utmpx',      distro_features, 
+>> 'OPTION_EGLIBC_UTMPX', cnf)
+>> +        eglibc_cfg('wordexp',      distro_features, 
+>> 'OPTION_EGLIBC_WORDEXP', cnf)
+>> +        eglibc_cfg('posix-clang-wchar',      distro_features, 
+>> 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
+>> +        eglibc_cfg('posix-regexp',      distro_features, 
+>> 'OPTION_POSIX_REGEXP', cnf)
+>> +        eglibc_cfg('posix-regexp-glibc',      distro_features, 
+>> 'OPTION_POSIX_REGEXP_GLIBC', cnf)
+>> +        eglibc_cfg('posix-wchar-io',      distro_features, 
+>> 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
+>> +        return "\n".join(cnf)
+>> diff --git a/meta/recipes-core/eglibc/eglibc.inc 
+>> b/meta/recipes-core/eglibc/eglibc.inc
+>> index 46ffa82..616f1af 100644
+>> --- a/meta/recipes-core/eglibc/eglibc.inc
+>> +++ b/meta/recipes-core/eglibc/eglibc.inc
+>> @@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate 
+>> linux-libc-headers"
+>>   PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
+>>   PROVIDES += "virtual/libintl virtual/libiconv"
+>>   inherit autotools
+>> +require eglibc-options.inc
+>>
+>>   LEAD_SONAME = "libc.so"
+>>
+>> @@ -43,3 +44,8 @@ EXTRA_OEMAKE += ${EGLIBCPARALLELISM}
+>>   PARALLEL_MAKE = ""
+>>
+>>   PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils 
+>> glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss 
+>> glibc-thread-db glibc-pcprofile"
+>> +
+>> +OE_FEATURES = "${@features_to_eglibc_settings(d)}"
+>> +do_configure_prepend() {
+>> +    echo '${OE_FEATURES}'>  ${B}/option-groups.config
+>> +}
+>> diff --git a/meta/recipes-core/eglibc/eglibc_2.13.bb 
+>> b/meta/recipes-core/eglibc/eglibc_2.13.bb
+>> index 398da69..894eb88 100644
+>> --- a/meta/recipes-core/eglibc/eglibc_2.13.bb
+>> +++ b/meta/recipes-core/eglibc/eglibc_2.13.bb
+>> @@ -4,7 +4,7 @@ SRCREV = "13356"
+>>
+>>   DEPENDS += "gperf-native"
+>>   FILESPATHPKG =. "eglibc-svn:"
+>> -PR = "r0"
+>> +PR = "r1"
+>>   PR_append = "+svnr${SRCPV}"
+>>
+>>   EGLIBC_BRANCH="eglibc-2_13"
+>> @@ -16,7 +16,9 @@ SRC_URI = 
+>> "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
+>>              file://stack-protector-test.patch \
+>>              file://etc/ld.so.conf \
+>>              file://generate-supported.mk \
+>> +           file://eglibc-2.13-fix-macro-RTLD_DEBUG.patch \
+>>          "
+>> +
+>>   LIC_FILES_CHKSUM = 
+>> "file://LICENSES;md5=98a1128c4b58120182cbea3b1752d8b9 \
+>>         file://COPYING;md5=393a5ca445f6965873eca0259a17f833 \
+>>         
+>> file://posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
 
 
