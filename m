@@ -1,28 +1,42 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A211C4C801BF
-	for <poky@yoctoproject.org>; Mon,  6 Jun 2011 10:53:06 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 4D4D316601F0; Mon,  6 Jun 2011 09:53:06 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 974CE16601A6;
-	Mon,  6 Jun 2011 09:53:05 -0600 (MDT)
-Message-ID: <4DECF7E1.3020509@mlbassoc.com>
-Date: Mon, 06 Jun 2011 09:53:05 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
+Return-Path: <kergoth@gmail.com>
+Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
+	[209.85.212.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CE38B4C8005F
+	for <poky@yoctoproject.org>; Mon,  6 Jun 2011 11:06:55 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by vws7 with SMTP id 7so4829417vws.35
+	for <poky@yoctoproject.org>; Mon, 06 Jun 2011 09:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	bh=WOQAhlKfGJRrlDtDDFpO6sNeTzaFIaz9IuL3a4qu/QA=;
+	b=xxROKx0wXZym4AQpS23M6+U8Pn0IPvv0cayTHtYaWWtA7hFoncqLVPyuO7+Jl0kT6T
+	V63WEEK2AouxkUacONX5L6K4XRPDipqmMSKAeh+z9UasdFLN216KErXMERh6v6AEQ2CZ
+	x+3O9bVDud9EvzzXLAkCvkG42L9QQI+Mc9djA=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type
+	:content-transfer-encoding;
+	b=YtleesQodOaeSKmG0Kduj5JiWqt9bnivSsGaK5navxyMGaGA0UQpXR/gLXY+RYXeMK
+	CJpS7FIAIRhQS3Dr+LWVj1Fz4ak3ofeMxywr53tByljqVd0Op65d+jejC+FTxcFNIdn4
+	okBq/RMf0/1zAA7kICoWaOW6j5osvG8xX2ABg=
+Received: by 10.52.106.166 with SMTP id gv6mr3573248vdb.275.1307376415092;
+	Mon, 06 Jun 2011 09:06:55 -0700 (PDT)
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <4DECE9B8.9020107@mlbassoc.com> <4DECF124.3040004@linux.intel.com>
-In-Reply-To: <4DECF124.3040004@linux.intel.com>
+Sender: kergoth@gmail.com
+Received: by 10.52.101.134 with HTTP; Mon, 6 Jun 2011 09:06:35 -0700 (PDT)
+In-Reply-To: <4DE922E7.9020008@mlbassoc.com>
+References: <4DE922E7.9020008@mlbassoc.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Mon, 6 Jun 2011 09:06:35 -0700
+X-Google-Sender-Auth: b9tamBT6FYp9lkQU__kqVxERB3E
+Message-ID: <BANLkTi=MpQUF-cCY8oyH9yu_jCzhiSa_dw@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
 Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: opkg problem
+Subject: Re: Some native packages reference build tree
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,38 +48,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jun 2011 15:53:07 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 06 Jun 2011 16:06:56 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 06/06/2011 09:24 AM, Saul Wold wrote:
-> On 06/06/2011 07:52 AM, Gary Thomas wrote:
->> Something has changed recently in my images:
->> # opkg update
->> Collected errors:
->> * opkg_conf_load: Could not create lock file /var/lib/opkg/lock: No such
->> file or directory.
->> Actually, it seems that the whole of /var/lib/opkg (databases, etc) have
->> gone missing. Shouldn't this get populated as the rootfs image is created?
->>
->> In any case, any ideas where /var/lib/opkg might have vanished to?
->>
-> Gary,
+On Fri, Jun 3, 2011 at 11:07 AM, Gary Thomas <gary@mlbassoc.com> wrote:
+> Maybe I'm confused, but it would seem to me that the contents of
+> SSTATE (cache, etc) should be usable even if the tmp working
+> directory that was used to create it no longer exists. =C2=A0At least
+> my thinking is that I could build the SSTATE cache files and pass
+> them to my customers, along with the basic Poky tree, in a bundle
+> which they could then use to speed up Poky builds.
 >
-> Depending on what image you are building, you may need to add "package-managment" into your IMAGE_FEATURES list. This is due the to the change from Phil B.
-> (87780fc09b066525e47d0f50ee5497db54d304cd).
+> This doesn't seem to work, at least for git-native (one of the
+> problems I've been tracing for a couple of days). =C2=A0Here's how
+> I found this problem.
+>
 
-Yes, it does fix my problem.  I think that change is a bit incomplete
-though, as it has deleted the databases used by opkg, but opkg still
-remains.  One gets the same error as above when just booting in this case.
-It would seem to me that if package-management is turned off (and hence
-the databases removed), then the tool(s) should be removed as well.
-
-Thanks
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+It's not uncommon to have this sort of relocation issue. I know we had
+to fix quite a few of them for our use of packaged-staging. Generally
+you have to tackle them individually, at least for the cases where the
+automatic sed bits don't cover it.
+--=20
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
