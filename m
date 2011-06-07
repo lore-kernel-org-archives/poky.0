@@ -1,20 +1,21 @@
 Return-Path: <lianhao.lu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2A7954C800B3
-	for <poky@yoctoproject.org>; Tue,  7 Jun 2011 02:05:17 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 07 Jun 2011 00:05:16 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B4DC54C80191
+	for <poky@yoctoproject.org>; Tue,  7 Jun 2011 02:05:21 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 07 Jun 2011 00:05:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,331,1304319600"; 
-   d="scan'208";a="8300206"
+X-IronPort-AV: E=Sophos;i="4.65,331,1304319600"; d="scan'208";a="10429886"
 Received: from llu-piketon.sh.intel.com (HELO localhost) ([10.239.36.87])
-	by azsmga001.ch.intel.com with ESMTP; 07 Jun 2011 00:05:15 -0700
+	by orsmga001.jf.intel.com with ESMTP; 07 Jun 2011 00:05:20 -0700
 From: Lianhao Lu <lianhao.lu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue,  7 Jun 2011 15:12:27 +0800
-Message-Id: <cover.1307430283.git.lianhao.lu@intel.com>
+Date: Tue,  7 Jun 2011 15:12:43 +0800
+Message-Id: <fb45c999724a0d9f022ea95a79f7f3aebd5d0ab6.1307430287.git.lianhao.lu@intel.com>
 X-Mailer: git-send-email 1.7.0.4
-Subject: [Image_Creator_Patch 0/1] Not display false error msg
+In-Reply-To: <cover.1307430283.git.lianhao.lu@intel.com>
+References: <cover.1307430283.git.lianhao.lu@intel.com>
+Subject: [Image_Creator_Patch 1/1] bitbake/hob: Not display false error msg at hob exit.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,27 +27,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jun 2011 07:05:17 -0000
+X-List-Received-Date: Tue, 07 Jun 2011 07:05:21 -0000
 
-This patch prevents displaying the false error msg "Nothing to do.  Use 'bitbake world' to build everything, or run 'bitbake --help' for usage information." when hob ui exits.
+Not display the false error msg "Nothing to do ..." when hob ui exits by
+adding a flag of bb.ui.allowNoneAction.
 
-NOTE: This patch should be applied to the branch of "poky-contrib/josh/hob". 
-
-The following changes since commit 8f7947c089c86deee84f284b352dbdac4bfd6bf2:
-  Joshua Lock (1):
-        bitbake/hob: show the busy cursor when performing lengthy operations
-
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib llu/hob_errmsg
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/hob_errmsg
-
-Lianhao Lu (1):
-  bitbake/hob: Not display false error msg at hob exit.
-
+Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
+---
  bitbake/lib/bb/cooker.py      |    4 +++-
  bitbake/lib/bb/ui/__init__.py |    2 ++
  bitbake/lib/bb/ui/hob.py      |    3 +++
  3 files changed, 8 insertions(+), 1 deletions(-)
+
+diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
+index ac2faa2..584a86d 100644
+--- a/bitbake/lib/bb/cooker.py
++++ b/bitbake/lib/bb/cooker.py
+@@ -35,6 +35,7 @@ from cStringIO import StringIO
+ from contextlib import closing
+ import bb
+ from bb import utils, data, parse, event, cache, providers, taskdata, command, runqueue
++import bb.ui
+ 
+ logger      = logging.getLogger("BitBake")
+ collectlog  = logging.getLogger("BitBake.Collection")
+@@ -153,7 +154,8 @@ class BBCooker:
+                 self.commandlineAction = ["buildTargets", self.configuration.pkgs_to_build, self.configuration.cmd]
+             else:
+                 self.commandlineAction = None
+-                buildlog.error("Nothing to do.  Use 'bitbake world' to build everything, or run 'bitbake --help' for usage information.")
++                if not bb.ui.allowNoneAction:
++                    buildlog.error("Nothing to do.  Use 'bitbake world' to build everything, or run 'bitbake --help' for usage information.")
+ 
+     def runCommands(self, server, data, abort):
+         """
+diff --git a/bitbake/lib/bb/ui/__init__.py b/bitbake/lib/bb/ui/__init__.py
+index a4805ed..518abfc 100644
+--- a/bitbake/lib/bb/ui/__init__.py
++++ b/bitbake/lib/bb/ui/__init__.py
+@@ -15,3 +15,5 @@
+ # You should have received a copy of the GNU General Public License along
+ # with this program; if not, write to the Free Software Foundation, Inc.,
+ # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++
++allowNoneAction = False
+\ No newline at end of file
+diff --git a/bitbake/lib/bb/ui/hob.py b/bitbake/lib/bb/ui/hob.py
+index bef3ba2..391bf52 100644
+--- a/bitbake/lib/bb/ui/hob.py
++++ b/bitbake/lib/bb/ui/hob.py
+@@ -31,6 +31,9 @@ from bb.ui.crumbs.hig import CrumbsDialog
+ import xmlrpclib
+ import logging
+ import Queue
++import bb.ui
++
++bb.ui.allowNoneAction = True
+ 
+ class MainWindow (gtk.Window):
+             
+-- 
+1.7.0.4
 
 
