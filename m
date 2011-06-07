@@ -1,40 +1,41 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 019C34C80479
-	for <poky@yoctoproject.org>; Tue,  7 Jun 2011 07:59:02 -0500 (CDT)
+Return-Path: <kergoth@gmail.com>
+Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
+	[209.85.212.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5094D4C804D9
+	for <poky@yoctoproject.org>; Tue,  7 Jun 2011 08:38:20 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by yib12 with SMTP id 12so2714605yib.35
-	for <poky@yoctoproject.org>; Tue, 07 Jun 2011 05:58:57 -0700 (PDT)
+Received: by vws7 with SMTP id 7so6000029vws.35
+	for <poky@yoctoproject.org>; Tue, 07 Jun 2011 06:38:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type
-	:content-transfer-encoding;
-	bh=kT3LRf2ex/pixfEY/NTOWAMGE81ZLb9LcM0sL72q+44=;
-	b=mZMy57EiHSm1jvXTItQjPCjkW127hY7L3nFSSLekcZbgCoYhf5iZiQGbih5uZ7bnwI
-	HYRSt0Er3OoV078K295lh4I7jubsipcL2aGwi9raAjcpaocki3aDDevebSUHNY0o+W8A
-	Wo9iNnLMykJ9wAT+McTDzkcalGhD8tH7fhBsM=
+	h=domainkey-signature:mime-version:sender:in-reply-to:references:from
+	:date:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	bh=tWpgj6wVkGTX7F4aIDT1lILFsX3mSIMN3fQlv2Lm1y8=;
+	b=vbdFzQ5gtEbcrqZDroNG3ziocv2YNfp0+3qq5GdpngYhe/BM/8G/ET+03Dfn3bYXcO
+	e0gBFmBEBgogIf6wSj49ZKyx/xS5/EKQ74+fIjjjlJOfEVqkhsYDfzceNwtxxfMXyb5Q
+	5ZP/6tX5xij0CcFfM1aZENPYckF2FZtYcQOtk=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	b=UYR+WT5v3PEj4ej5irwGxvgmUhvPb1BLgidi8JxzsjLJ7gVjM8LPO+l+0atQBlRhXA
-	vYy9NNCfRIcLKteqd8Ur3QLfbsnXAHyYY08d08ViTT55WvkfT03L3ff//McD3wo4EMUi
-	ZeXe8GQ+5eZiQKMW356a1TNKCHnSNknndfCoA=
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	b=aeqW6F1ARgxWqNbTS8DsIQgAqvZzyexGraiSYyTCTQIGZRWxT0oUNJzwVMfD75skzH
+	AfBZwBUoEsjdGuP2AmId2Nj9CmIGDSKiREME/EQxBwzbweZerUoFv8C2z3U2JrVkveHt
+	pnhJpvIAAyIIbuMysFnvvrth7pJ5UlHJbzz18=
+Received: by 10.52.97.132 with SMTP id ea4mr751680vdb.115.1307453899050; Tue,
+	07 Jun 2011 06:38:19 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.91.65.11 with SMTP id s11mr5469734agk.159.1307451537404; Tue,
-	07 Jun 2011 05:58:57 -0700 (PDT)
-Received: by 10.90.96.1 with HTTP; Tue, 7 Jun 2011 05:58:57 -0700 (PDT)
-In-Reply-To: <9e80fcf7db2a25b1caa913c61764a9f36c1abcaf.1307436402.git.dongxiao.xu@intel.com>
-References: <cover.1307436402.git.dongxiao.xu@intel.com>
-	<9e80fcf7db2a25b1caa913c61764a9f36c1abcaf.1307436402.git.dongxiao.xu@intel.com>
-Date: Tue, 7 Jun 2011 08:58:57 -0400
-Message-ID: <BANLkTikQH8oxMmMWzrrBjPd_PN_200PUsQ@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: y@pokylinux.org
+Sender: kergoth@gmail.com
+Received: by 10.52.101.134 with HTTP; Tue, 7 Jun 2011 06:37:59 -0700 (PDT)
+In-Reply-To: <fb45c999724a0d9f022ea95a79f7f3aebd5d0ab6.1307430287.git.lianhao.lu@intel.com>
+References: <cover.1307430283.git.lianhao.lu@intel.com>
+	<fb45c999724a0d9f022ea95a79f7f3aebd5d0ab6.1307430287.git.lianhao.lu@intel.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Tue, 7 Jun 2011 06:37:59 -0700
+X-Google-Sender-Auth: 79yzPkbN4N45xTjG8Ij8ms9d-j4
+Message-ID: <BANLkTikB2m5z648AtQ5WKi=ix-f7NZBD9A@mail.gmail.com>
+To: Lianhao Lu <lianhao.lu@intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/5] kernel.bbclass: Auto load cdc-acm and cdc-wdm
+Subject: Re: [Image_Creator_Patch 1/1] bitbake/hob: Not display false error msg at hob exit.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,62 +47,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jun 2011 12:59:03 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 07 Jun 2011 13:38:20 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, Jun 7, 2011 at 4:52 AM,  <y@pokylinux.org> wrote:
-> From: Dongxiao Xu <dongxiao.xu@intel.com>
+On Tue, Jun 7, 2011 at 12:12 AM, Lianhao Lu <lianhao.lu@intel.com> wrote:
+> Not display the false error msg "Nothing to do ..." when hob ui exits by
+> adding a flag of bb.ui.allowNoneAction.
 >
-> Automatically load cdc-acm.ko and cdc-wdm.ko to support 3G module.
->
-> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
-> ---
-> =A0meta/classes/kernel.bbclass | =A0 =A02 ++
-> =A01 files changed, 2 insertions(+), 0 deletions(-)
->
-> diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-> index 1bb69f5..1b50b38 100644
-> --- a/meta/classes/kernel.bbclass
-> +++ b/meta/classes/kernel.bbclass
-> @@ -264,6 +264,8 @@ module_autoload_rfcomm =3D "rfcomm"
-> =A0module_autoload_sa1100-rtc =3D "sa1100-rtc"
-> =A0# sa1100-rtc was renamed in 2.6.23 onwards
-> =A0module_autoload_rtc-sa1100 =3D "rtc-sa1100"
-> +module_autoload_cdc-acm =3D "cdc-acm"
-> +module_autoload_cdc-wdm =3D "cdc-wdm"
+> Signed-off-by: Lianhao Lu <lianhao.lu@intel.com>
 
-Hi Dongxiao,
-
-This patch should go to oe-core, since we are talking about
-meta/classes/kernel.bbclass.
-
-But seeing this looks like it doesn't belong in kernel.bbclass at all (neit=
-her
-do the existing autoloads), but would be better defined in either a BSP or
-distro layer.
-
-But maybe I'm missing something, and I'll be enlightened shortly :)
-
-Cheers,
-
-Bruce
-
->
-> =A0# alias defaults (alphabetically sorted)
-> =A0module_conf_af_packet =3D "alias net-pf-17 af_packet"
-> --
-> 1.7.1
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+Maybe we should move the handling of this message into the UIs, rather
+than it being in the cooker, either as additional logic (I do think we
+need to find a better way of handling the command line action) or as
+an event, then it would be up to the UI if it should display such a
+message.
+-- 
+Christopher Larson
+clarson at kergoth dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Maintainer - Tslib
+Senior Software Engineer, Mentor Graphics
 
