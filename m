@@ -1,25 +1,28 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7633D4C80188
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 05:49:42 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p58Anfp9003131
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 8 Jun 2011 03:49:41 -0700 (PDT)
-Received: from localhost (128.224.162.154) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 8 Jun 2011 03:49:41 -0700
-Message-ID: <3753d5b6e3a1c6cec6bdb75b90c73f96058b292c.1307529994.git.kai.kang@windriver.com>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 45F204C80120
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 06:21:59 -0500 (CDT)
+Received: by wyb40 with SMTP id 40so384962wyb.35
+	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 04:21:58 -0700 (PDT)
+Received: by 10.227.205.19 with SMTP id fo19mr2107063wbb.58.1307532117932;
+	Wed, 08 Jun 2011 04:21:57 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id fm14sm335064wbb.7.2011.06.08.04.21.56
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 08 Jun 2011 04:21:57 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1084)
+From: Koen Kooi <koen@dominion.thruhere.net>
 In-Reply-To: <cover.1307529994.git.kai.kang@windriver.com>
+Date: Wed, 8 Jun 2011 13:21:55 +0200
+Message-Id: <068A0948-F699-4B80-906A-2FD4C665DC29@dominion.thruhere.net>
 References: <cover.1307529994.git.kai.kang@windriver.com>
-Old-Date: Wed, 8 Jun 2011 17:56:09 +0800
-Date: Wed, 8 Jun 2011 18:49:41 +0800
-To: <sgw@linux.intel.com>
-From: Kang Kai <kai.kang@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.154]
-Cc: poky@yoctoproject.org
-Subject: [PATCH 2/2] libxml-simple-perl: update EXTRA_PERLFLAGS
+To: Kang Kai <kai.kang@windriver.com>
+X-Mailer: Apple Mail (2.1084)
+Cc: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>,
+	"poky@yoctoproject.org Project" <poky@yoctoproject.org>
+Subject: Re: [PATCH 0/2] ghostscript & libxml-simple-perl: fix compile failures
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,43 +34,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2011 10:49:42 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 08 Jun 2011 11:21:59 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-From: Kang Kai <kai.kang@windriver.com>
+Sounding like a broken record here, but these kind of patches need to =
+get sent to the oe-core list, not the poky list.
 
-[Yocto 1132]
+Op 8 jun 2011, om 12:49 heeft Kang Kai het volgende geschreven:
 
-libxml-simple-perl should not refer to native perl libs modules, update
-EXTRA_PERLFLAGS to fix the failure.
-
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- .../perl/libxml-simple-perl_2.18.bb                |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb b/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb
-index ca57776..75a018a 100644
---- a/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb
-+++ b/meta/recipes-devtools/perl/libxml-simple-perl_2.18.bb
-@@ -2,7 +2,7 @@ SECTION = "libs"
- LICENSE = "Artistic"
- LIC_FILES_CHKSUM = "file://README;beginline=70;md5=94aa5d46682b411a53a5494cfb22640e"
- DEPENDS += "libxml-parser-perl"
--PR = "r1"
-+PR = "r2"
- 
- SRC_URI = "http://www.cpan.org/modules/by-module/XML/XML-Simple-${PV}.tar.gz"
- 
-@@ -11,6 +11,6 @@ SRC_URI[sha256sum] = "a54967c188cda3e20f496c83be4de3f1740eeaa83c0380712ecd969ad8
- 
- S = "${WORKDIR}/XML-Simple-${PV}"
- 
--EXTRA_PERLFLAGS = "-I ${STAGING_LIBDIR_NATIVE}/perl/${@get_perl_version(d)}"
-+EXTRA_PERLFLAGS = "-I ${STAGING_LIBDIR}/perl/${@get_perl_version(d)}"
- 
- inherit cpan
--- 
-1.7.5.1.300.gc565c
+> From: Kang Kai <kai.kang@windriver.com>
+>=20
+> Hi Saul,
+>=20
+> These 2 patches are fix for ghostscript and libxml-simple-perl.
+> Update SRC_URI for ghostscript to avoid native package affected by =
+build os.
+> Fix libxml-simple-perl [Yocto 1132].
+>=20
+> Regards,
+>=20
+> The following changes since commit =
+7f34cd1eb2a459709006ae985a14decd4d2152e6:
+>=20
+>  tzcode: Update to 2011g (2011-06-06 15:58:42 +0100)
+>=20
+> are available in the git repository at:
+>  git://git.pokylinux.org/poky-contrib.git kangkai/bugfix
+>  http://git.pokylinux.org/cgit.cgi//log/?h=3Dkangkai/bugfix
+>=20
+> Kang Kai (2):
+>  ghostscript: update SRC_URI
+>  libxml-simple-perl: update EXTRA_PERLFLAGS
+>=20
+> .../perl/libxml-simple-perl_2.18.bb                |    4 ++--
+> .../ghostscript/ghostscript_9.02.bb                |    7 +++++--
+> 2 files changed, 7 insertions(+), 4 deletions(-)
+>=20
+> --=20
+> 1.7.5.1.300.gc565c
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
