@@ -1,24 +1,24 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7187D4C80334
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 09:19:10 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 08 Jun 2011 07:19:10 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BB6B44C800FB
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 11:46:42 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Jun 2011 09:46:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,339,1304319600"; d="scan'208";a="10709221"
+X-IronPort-AV: E=Sophos;i="4.65,339,1304319600"; d="scan'208";a="13585454"
 Received: from unknown (HELO [10.255.13.55]) ([10.255.13.55])
-	by orsmga002.jf.intel.com with ESMTP; 08 Jun 2011 07:19:09 -0700
-Message-ID: <4DEF84DD.1050301@linux.intel.com>
-Date: Wed, 08 Jun 2011 07:19:09 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 08 Jun 2011 09:46:41 -0700
+Message-ID: <4DEFA771.3060203@linux.intel.com>
+Date: Wed, 08 Jun 2011 09:46:41 -0700
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1307533714.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1307533714.git.xiaofeng.yan@windriver.com>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <cover.1307377052.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1307377052.git.bruce.ashfield@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] meta-qt3 : Add a patch to pass the compiling of	qt3
+Subject: Re: [PATCH 0/1] linux-yocto/meta-yocto: make e1000e structure common [commit: bec3f1e8c]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,45 +30,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2011 14:19:10 -0000
+X-List-Received-Date: Wed, 08 Jun 2011 16:46:42 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/08/2011 04:57 AM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+On 06/06/2011 09:19 AM, Bruce Ashfield wrote:
+> Richard/Saul,
 >
-> Failed to compile qt3 because of the updated of library libstdc++ and compilation tool.
-> The error information from compiling qt3 is that "error: 'ptrdiff_t' does not name a type".
-> So I add head file "cstddef" which defines this data type to "qvaluelist.h" from qt3.
+> This is the meta-yocto equivalent updates to the oe-core
+> change for the same fix. If you know of a better way than
+> getting all these pull requests twice .. let me know.
 >
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->    Branch: xiaofeng/meta-qt3
->    Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/meta-qt3
+> cc: Tom Zanussi<tom.zanussi@intel.com>
 >
-Please rebase this patch to be against the meta-qt3 repo, not the poky 
-repo, which you currently used.
-
-Patches against meta-qt3 should be against the layer repo.
-
-Thanks
-	Sau!
-
-> Thanks,
->      Xiaofeng Yan<xiaofeng.yan@windriver.com>
-> ---
+> The following changes since commit bc69b356b4476d8eb2bbc169498b6b86423251e3:
+>    Bruce Ashfield (1):
+>          linux-yocto: make e1000e structure common [commit: bec3f1e8c]
 >
+> are available in the git repository at:
 >
-> Xiaofeng Yan (1):
->    Qt3: Add head file "cstddef" to Qt3
+>    git://git.pokylinux.org/poky-contrib zedd/e1000-yocto
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/e1000-yocto
 >
->   recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch |   18 ++++++++++++++++++
->   recipes-qt3/qt3/qt-x11-free_3.3.7.bb          |    3 ++-
->   2 files changed, 20 insertions(+), 1 deletions(-)
->   create mode 100644 recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
+> Bruce Ashfield (1):
+>    linux-yocto/meta-yocto: make e1000e structure common [commit:
+>      bec3f1e8c]
+>
+>   .../recipes-kernel/linux/linux-yocto_git.bbappend  |   10 +++++-----
+>   1 files changed, 5 insertions(+), 5 deletions(-)
 >
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 >
+Merged into poky Master
+
+Thanks
+	Sau!
+
 
