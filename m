@@ -1,22 +1,36 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7B0FE4C8005F
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 14:56:21 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 08 Jun 2011 12:56:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,339,1304319600"; d="scan'208";a="11339111"
-Received: from unknown (HELO [10.255.13.104]) ([10.255.13.104])
-	by orsmga001.jf.intel.com with ESMTP; 08 Jun 2011 12:56:20 -0700
-Message-ID: <4DEFD3E0.1020208@linux.intel.com>
-Date: Wed, 08 Jun 2011 12:56:16 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 5D3564C8005F
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 15:39:27 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyb40 with SMTP id 40so1012017wyb.35
+	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 13:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=9xSCNJyolaFLkE4xLmJsoxoSdt4KTqv7eLA+JmK1//k=;
+	b=mqSynRo8uQFuaaB0Hjq37zJXRrekFRaEzdIH65Or22HVCnmU15sq3BWbkeBvMhDsJ5
+	r983A4FFG+Un7H9aWgRaqhi9Ug0CgqBuaBscKoqBN8V7orj9W9MjcEyAZvJ093gucQal
+	+4NJuP4QBEbtnvTei+lYvOYB4RnO77wI+SKos=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	b=XuoEmbhUr+2kbXJ4i0gOZ/SttRhmFRWxLhlPtD9rQVz1P3C+kgi212Gh17lS66EnrQ
+	mvIKTzFZ2JrATdUOt6z/0KLzPAG55WMLZPu4J+PxiFoPv3K9mb7SUXJ0zYVdomFBslSv
+	zUfATOSUmD++0s0JEpoyXaNfdSZKAq2mpkHTA=
+Received: by 10.216.239.67 with SMTP id b45mr164548wer.44.1307565566191; Wed,
+	08 Jun 2011 13:39:26 -0700 (PDT)
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <4DEFB4BA.7050902@mlbassoc.com> <4DEFBD77.7000400@linux.intel.com>
+Received: by 10.216.28.19 with HTTP; Wed, 8 Jun 2011 13:38:56 -0700 (PDT)
 In-Reply-To: <4DEFBD77.7000400@linux.intel.com>
+References: <4DEFB4BA.7050902@mlbassoc.com> <4DEFBD77.7000400@linux.intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 8 Jun 2011 13:38:56 -0700
+Message-ID: <BANLkTi=vAMEvNYc-qN+7-bWFHOkVQ5Fh3A@mail.gmail.com>
+To: Saul Wold <sgw@linux.intel.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: BeagleBoard using GCC 4.6.0
 X-BeenThere: poky@yoctoproject.org
@@ -30,14 +44,12 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2011 19:56:21 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 08 Jun 2011 20:39:27 -0000
+Content-Type: text/plain; charset=UTF-8
 
-
-
-On 06/08/2011 11:20 AM, Saul Wold wrote:
+On Wed, Jun 8, 2011 at 11:20 AM, Saul Wold <sgw@linux.intel.com> wrote:
 > On 06/08/2011 10:43 AM, Gary Thomas wrote:
+>>
 >> Now that Poky is using GCC 4.6.0, has anyone actually checked the
 >> operation on the BeagleBoard? I suspect that you'll find that the
 >> EHCI USB does not work. I can't really check here as I don't trust
@@ -54,25 +66,15 @@ On 06/08/2011 11:20 AM, Saul Wold wrote:
 >> is dramatically different. I can see why it's failing, I just don't
 >> know why the compiler is doing what it's doing.
 >>
-> 
+>
 > Gary,
-> 
-> I am not sure if Khem Raj is on this list, so I am forwarding it to him, 
-> he might have some insight.
-
-By switching GCCVERSION to 4.5.1, a kernel that previously failed to
-bring up the USB hub on the beagleboard xM (and the ethernet port) with
-4.6.0, now successfully does so. Unfortunatley, the framebuffer device
-fails now. Any hints from the compiler crowd on things to try? Or output
-we can collect to help resolve this?
-
---
-Darren
-
-> 
+>
+> I am not sure if Khem Raj is on this list, so I am forwarding it to him, he
+> might have some insight.
+>
 > Sau!
-> 
-> 
+>
+>
 >> The lines at drivers/usb/host/ehci-hub.c:841
 >> case GetPortStatus:
 >> if (!wIndex || wIndex > ports)
@@ -115,25 +117,10 @@ Darren
 >> in a single access, the new compiler dances around and makes multiple
 >> accesses, which in the end get very incorrect data (I think that this
 >> register is like many which clear bits on reads).
->>
->> Any ideas where I can go with this? I'm really trying to keep up with
->> Poky/Yocto, but this move to GCC 4.6.0 has broken my ARM targets :-(
->> I do have PowerPC targets as well - they seem fine (from limited testing)
->> with the new compiler.
->>
->> Note: if you want to see the whole function disassembly, look at
->> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.5.2
->> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.6.0
->>
->> Thanks
->>
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+ok seems like unaligned loads are kicking in may be its missing
+some qualifier. Can you do me a  favour ? Please send me preprocessed
+output of the source file and let me see what I find
+
+-Khem
 
