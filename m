@@ -1,28 +1,24 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 45F204C80120
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 06:21:59 -0500 (CDT)
-Received: by wyb40 with SMTP id 40so384962wyb.35
-	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 04:21:58 -0700 (PDT)
-Received: by 10.227.205.19 with SMTP id fo19mr2107063wbb.58.1307532117932;
-	Wed, 08 Jun 2011 04:21:57 -0700 (PDT)
-Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id fm14sm335064wbb.7.2011.06.08.04.21.56
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 08 Jun 2011 04:21:57 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1084)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <cover.1307529994.git.kai.kang@windriver.com>
-Date: Wed, 8 Jun 2011 13:21:55 +0200
-Message-Id: <068A0948-F699-4B80-906A-2FD4C665DC29@dominion.thruhere.net>
-References: <cover.1307529994.git.kai.kang@windriver.com>
-To: Kang Kai <kai.kang@windriver.com>
-X-Mailer: Apple Mail (2.1084)
-Cc: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>,
-	"poky@yoctoproject.org Project" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/2] ghostscript & libxml-simple-perl: fix compile failures
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E64A4C80479
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 07:00:21 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p58C0KkZ013852
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 8 Jun 2011 05:00:20 -0700 (PDT)
+Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Wed, 8 Jun 2011 05:00:19 -0700
+Message-ID: <6d4d6e0b58378e0a7070e6d9fc7e9085f061ee24.1307533714.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <cover.1307533714.git.xiaofeng.yan@windriver.com>
+References: <cover.1307533714.git.xiaofeng.yan@windriver.com>
+Old-Date: Wed, 8 Jun 2011 19:42:08 +0800
+Date: Wed, 8 Jun 2011 19:57:25 +0800
+To: <poky@yoctoproject.org>
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+MIME-Version: 1.0
+X-Originating-IP: [128.224.162.28]
+Subject: [PATCH 1/1] Qt3: Add head file "cstddef" to Qt3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,49 +30,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2011 11:21:59 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Jun 2011 12:00:21 -0000
+Content-Type: text/plain
 
-Sounding like a broken record here, but these kind of patches need to =
-get sent to the oe-core list, not the poky list.
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
 
-Op 8 jun 2011, om 12:49 heeft Kang Kai het volgende geschreven:
+Failed to compile Qt3 while building lsb image with the updated library libstdc++
+and compilation tool. Qt3 reported data type "ptrdiff_t" doesn't name a type.
+Actually "ptrdiff_t" is defined in head file "cstddef".
 
-> From: Kang Kai <kai.kang@windriver.com>
->=20
-> Hi Saul,
->=20
-> These 2 patches are fix for ghostscript and libxml-simple-perl.
-> Update SRC_URI for ghostscript to avoid native package affected by =
-build os.
-> Fix libxml-simple-perl [Yocto 1132].
->=20
-> Regards,
->=20
-> The following changes since commit =
-7f34cd1eb2a459709006ae985a14decd4d2152e6:
->=20
->  tzcode: Update to 2011g (2011-06-06 15:58:42 +0100)
->=20
-> are available in the git repository at:
->  git://git.pokylinux.org/poky-contrib.git kangkai/bugfix
->  http://git.pokylinux.org/cgit.cgi//log/?h=3Dkangkai/bugfix
->=20
-> Kang Kai (2):
->  ghostscript: update SRC_URI
->  libxml-simple-perl: update EXTRA_PERLFLAGS
->=20
-> .../perl/libxml-simple-perl_2.18.bb                |    4 ++--
-> .../ghostscript/ghostscript_9.02.bb                |    7 +++++--
-> 2 files changed, 7 insertions(+), 4 deletions(-)
->=20
-> --=20
-> 1.7.5.1.300.gc565c
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+---
+ recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch |   18 ++++++++++++++++++
+ recipes-qt3/qt3/qt-x11-free_3.3.7.bb          |    3 ++-
+ 2 files changed, 20 insertions(+), 1 deletions(-)
+ create mode 100644 recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
+
+diff --git a/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch b/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
+new file mode 100644
+index 0000000..9a8f4b4
+--- /dev/null
++++ b/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
+@@ -0,0 +1,18 @@
++Qt3  will report "error: 'ptrdiff_t' does not name a type" while building lsb \
++image with the updated library libstdc++ and complication tool.
++The data type "ptrdiff_t" is defined in file cstddef.
++
++Upstream-Status: Pending
++
++Signed-off-by: xiaofeng.yan@windriver.com
++
++--- qt-x11-free-3.3.7/src/tools/qvaluelist.h	2006-10-19 22:25:01.000000000 +0800
+++++ qt-x11-free-3.3.7/src/tools/qvaluelist.h.new	2011-06-07 14:57:06.288997350 +0800
++@@ -47,6 +47,7 @@
++ #ifndef QT_NO_STL
++ #include <iterator>
++ #include <list>
+++#include <cstddef>
++ #endif
++ 
++ //#define QT_CHECK_VALUELIST_RANGE
+diff --git a/recipes-qt3/qt3/qt-x11-free_3.3.7.bb b/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+index 9a3bcf9..94486ed 100644
+--- a/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
++++ b/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+@@ -9,7 +9,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=b07b0d5ac6b1822effe47173a1744433 \
+ SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
+ 	   file://configure.patch \
+ 	   file://no-examples.patch \
+-           file://gcc4_1-HACK.patch"
++           file://gcc4_1-HACK.patch \
++           file://qt3-cstddef.patch"
+ 
+ require qt-x11-free-common.inc
+ 
+-- 
+1.7.0.4
 
 
