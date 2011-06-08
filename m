@@ -1,36 +1,22 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 04FC14C80186
-	for <poky@pokylinux.org>; Tue,  7 Jun 2011 20:23:21 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 07 Jun 2011 18:23:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,335,1304319600"; d="scan'208";a="10462891"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by orsmga002.jf.intel.com with ESMTP; 07 Jun 2011 18:23:03 -0700
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Wed, 8 Jun 2011 09:23:02 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Wed, 8 Jun 2011
-	09:23:02 +0800
-From: "Xu, Jiajun" <jiajun.xu@intel.com>
-To: Saul Wold <sgw@linux.intel.com>
-Date: Wed, 8 Jun 2011 09:23:00 +0800
-Thread-Topic: [poky] Fullpass Test Report for Yocto 1.1 M1 RC2 - 20110528
-Thread-Index: AcwlPjkWE52nkqwCQvOmp6UmYcwuuQAO03eg
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A5271FF3C@shsmsx501.ccr.corp.intel.com>
-References: <D5AB6E638E5A3E4B8F4406B113A5A19A5271FA9F@shsmsx501.ccr.corp.intel.com>
-	<4DEE69A1.8000909@linux.intel.com>
-In-Reply-To: <4DEE69A1.8000909@linux.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C59004C80120
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 00:56:25 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p585uKYm016515
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 7 Jun 2011 22:56:20 -0700 (PDT)
+Received: from localhost (128.224.162.154) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Tue, 7 Jun 2011 22:56:20 -0700
+Message-ID: <cover.1307510707.git.kai.kang@windriver.com>
+Old-Date: Wed, 8 Jun 2011 13:25:07 +0800
+Date: Wed, 8 Jun 2011 13:56:20 +0800
+To: <openembedded-core@lists.openembedded.org>, <poky@yoctoproject.org>
+From: Kang Kai <kai.kang@windriver.com>
 MIME-Version: 1.0
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	"poky@pokylinux.org" <poky@pokylinux.org>
-Subject: Re: Fullpass Test Report for Yocto 1.1 M1 RC2 - 20110528
+X-Originating-IP: [128.224.162.154]
+Subject: [PATCH 0/2] eglibc: migrate configurability from oe V4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,53 +28,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2011 01:23:22 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Jun 2011 05:56:26 -0000
+Content-Type: text/plain
 
-> On 06/06/2011 09:36 PM, Xu, Jiajun wrote:
->> Hi all,
->>=20
->> This is the fullpass test report for Yocto 1.1 M1 RC2 build. There are
->> 3 new bugs found in this testing compared with weekly testing.
->> Non-GPLv3 build could not work and one new LTP failure found with new
->> kernel. The 2 BLOCK issues on have been addressed and a new build is
->> ready for QA testing. Except for LTP and POSIX failures, there are 13
->> open bugs for RC2 build. Grub installation fails on 3 intel BSPs.
->> Graphics testing on sugarbay is blocked because there are no mesa-demos
->> and libSDL.so installed.
->>=20
-> Jiajun, Yi Zhao,
->=20
-> What's the status of the Beagleboard testing, you show blocked below,
-> but I thought we unblocked last week, so is there any update on the
-> status of beagleboard testing?  We need to know this since we have a
-> conditional GO decision based on these results.
->=20
+From: Kang Kai <kai.kang@windriver.com>
 
-Hi Saul,
-Yi is doing testing for beagleboard and I think he would send out test stat=
-us today.
+Hi All,
 
-> I would like to also understand the sugarbay graphics testing, this is
-> not a blocker, it's a new requirement, correct?  We have not had
-> mesa-demos included in any past release.  I am going to add it to the
-> sato-sdk build only, will that be?
->=20
+Thanks for all your comments.
 
-Sugarbay graphics testing was introduced during 1.0 M4. At that time, we ha=
-d to build mesa-demos by ourselves and copy it into target image. We submit=
-ted bugs for it during 1.1 M1 because we think it better to use mesa-demos =
-built from autobuilder.
-And yes, adding it into sato-sdk is good enough.
-
-Thanks a lot.
-
-> Sau!
+Update to add local.extended.conf.sample instead of local.conf.sample.extended.
+Using existing DISTRO_FEATURES "ipv6" instead of "libc-ipv6"
 
 
-Best Regards,
-Jiajun
+Migrate configurability from oe, try to shrink minimal image size
+
+The switch is in local.extended.conf, uncomment the line
+DISTRO_FEATURES = ""
+and write what options you want to enable.
+
+Regards,
+
+The following changes since commit 7f34cd1eb2a459709006ae985a14decd4d2152e6:
+
+  tzcode: Update to 2011g (2011-06-06 15:58:42 +0100)
+
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib kangkai/distro
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
+
+Kang Kai (2):
+  bitbake: add another local configuration file
+  eglibc: migrate configurability from oe
+
+ meta-yocto/conf/local.extended.conf.sample         |    5 ++
+ meta/conf/bitbake.conf                             |    1 +
+ meta/conf/distro/include/default-distrovars.inc    |    8 ++-
+ .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 ++++++
+ meta/recipes-core/eglibc/eglibc-options.inc        |   62 ++++++++++++++++++++
+ meta/recipes-core/eglibc/eglibc.inc                |    6 ++
+ meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
+ scripts/oe-setup-builddir                          |   19 ++++++
+ 8 files changed, 123 insertions(+), 2 deletions(-)
+ create mode 100644 meta-yocto/conf/local.extended.conf.sample
+ create mode 100644 meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
+ create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
+
+-- 
+1.7.5.1.300.gc565c
 
 
