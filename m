@@ -1,24 +1,33 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E054D4C80188
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 00:56:41 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p585ucAf016530
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 7 Jun 2011 22:56:38 -0700 (PDT)
-Received: from localhost (128.224.162.154) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Tue, 7 Jun 2011 22:56:37 -0700
-Message-ID: <225ae89d0031ff0b0c7ca35751d36802b50069e5.1307510707.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1307510707.git.kai.kang@windriver.com>
-References: <cover.1307510707.git.kai.kang@windriver.com>
-Old-Date: Tue, 7 Jun 2011 16:16:43 +0800
-Date: Wed, 8 Jun 2011 13:56:37 +0800
-To: <openembedded-core@lists.openembedded.org>, <poky@yoctoproject.org>
-From: Kang Kai <kai.kang@windriver.com>
+Return-Path: <cahoshing@gmail.com>
+Received: from mail-iw0-f176.google.com (mail-iw0-f176.google.com
+	[209.85.214.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 48C654C800FB
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 05:04:39 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by iwr19 with SMTP id 19so400849iwr.35
+	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 03:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:mime-version:date:message-id:subject:from:to
+	:content-type; bh=c+4KRkoLNKSJrwkZsdodkg8XH3Clj7CDohK5CF4VIVc=;
+	b=sOllaka9+VsPqpRnV5KYMoOZshqtY8SYmqd8FCDbTpy3T1XoBRX7DOmRQ/Uu797V21
+	SLauL1W36kdSqCKveC9MmnN0H9tU6R326DADdjbLsAojX/cGir4bEIAi8LahzhkBOXUZ
+	riGRjXwMNF1Cl2nItHY/XrxnwgQLNjg59OcMs=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	b=abXQsxHFCa6iBXQopiU2HMG8MXujgZw/9XX70rPysT8nJD0C4aXgeHC7VM21P1WsV9
+	HZfXnSz8nWSrX2N9S1iC3VR8n7VXsIhiLwruDdu1l2Lj/Lx9P+bjZRlOGxryqFEuaSsW
+	kgwvBmvHc5H1qSyuciylbWvfxRRAkFj/Pqu+k=
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.154]
-Subject: [PATCH 2/2] eglibc: migrate configurability from oe
+Received: by 10.231.113.214 with SMTP id b22mr11823271ibq.102.1307527478779;
+	Wed, 08 Jun 2011 03:04:38 -0700 (PDT)
+Received: by 10.231.182.15 with HTTP; Wed, 8 Jun 2011 03:04:38 -0700 (PDT)
+Date: Wed, 8 Jun 2011 15:34:38 +0530
+Message-ID: <BANLkTi=CiOjYDbkLksbmT5TOC1_ZuMUBrg@mail.gmail.com>
+From: chinmaya hoshing <cahoshing@gmail.com>
+To: poky@yoctoproject.org
+Subject: Error message in building poky for sandybridge platform
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,188 +39,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2011 05:56:42 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 08 Jun 2011 10:04:39 -0000
+Content-Type: multipart/alternative; boundary=0016e6471bd0e81e5a04a5307689
 
-From: Kang Kai <kai.kang@windriver.com>
+--0016e6471bd0e81e5a04a5307689
+Content-Type: text/plain; charset=ISO-8859-1
 
-Migrate configurability from oe, try to shrink minimal image size
+Hi,
 
-Update to get eglibc configuration options from DISTRO_FEATURES and enable them. All
-the options are enabled by default.
+I am trying to port Poky to the "sandybridge platform" and  using the branch
+"bernard" for fishriver machine.
+I am running Ubuntu 10.10 on 64 bit machine.
+My build is successful  but during build time I am getting following message
+:-
 
-Uncomment the line in conf/local.extended.conf to define DISTRO_FEATURES, so put
-what options you want to enable there.
-
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- meta/conf/distro/include/default-distrovars.inc    |    8 ++-
- .../eglibc-2.13-fix-macro-RTLD_DEBUG.patch         |   20 ++++++
- meta/recipes-core/eglibc/eglibc-options.inc        |   62 ++++++++++++++++++++
- meta/recipes-core/eglibc/eglibc.inc                |    6 ++
- meta/recipes-core/eglibc/eglibc_2.13.bb            |    4 +-
- 5 files changed, 98 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
- create mode 100644 meta/recipes-core/eglibc/eglibc-options.inc
-
-diff --git a/meta/conf/distro/include/default-distrovars.inc b/meta/conf/distro/include/default-distrovars.inc
-index 4b68a0a..052f9e6 100644
---- a/meta/conf/distro/include/default-distrovars.inc
-+++ b/meta/conf/distro/include/default-distrovars.inc
-@@ -10,7 +10,13 @@ LIMIT_BUILT_LOCALES ?= "POSIX en_US en_GB"
- ENABLE_BINARY_LOCALE_GENERATION ?= "1"
- LOCALE_UTF8_ONLY ?= "0"
- 
--DISTRO_FEATURES ?= "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci"
-+DISTRO_FEATURES ?= "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci \
-+		ipv6 libc-backtrace libc-big-macros libc-bsd libc-cxx-tests libc-catgets libc-charsets libc-crypt \
-+		libc-crypt-ufc libc-db-aliases libc-envz libc-fcvt libc-fmtmsg libc-fstab libc-ftraverse \
-+		libc-getlogin libc-idn libc-inet libc-inet-anl libc-libm libc-libm-big libc-locales libc-locale-code \
-+		libc-memusage libc-nis libc-nsswitch libc-rcmd libc-rtld-debug libc-spawn libc-streams libc-sunrpc \
-+		libc-utmp libc-utmpx libc-wordexp libc-posix-clang-wchar libc-posix-regexp libc-posix-regexp-glibc \
-+		libc-posix-wchar-io"
- 
- IMAGE_FEATURES ?= ""
- 
-diff --git a/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
-new file mode 100644
-index 0000000..dffc648
---- /dev/null
-+++ b/meta/recipes-core/eglibc/eglibc-2.13/eglibc-2.13-fix-macro-RTLD_DEBUG.patch
-@@ -0,0 +1,20 @@
-+When disable OPTION_EGLIBC_RTLD_DEBUG, compilation fails.
-+Created on Jun 1, 2011 by Kang Kai <kai.kang@windriver.com>
-+
-+Upstream-Status: Submitted
-+
-+Signed-off-by: Kang Kai <kai.kang@windriver.com>
-+Index: libc/elf/dl-lookup.c
-+===================================================================
-+--- libc/elf/dl-lookup.c	(revision 13356)
-++++ libc/elf/dl-lookup.c	(working copy)
-+@@ -423,7 +423,9 @@
-+ 		     hash table.  */
-+ 		  if (__builtin_expect (tab->size, 0))
-+ 		    {
-++              #if __OPTION_EGLIBC_RTLD_DEBUG
-+ 		      assert (GLRO(dl_debug_mask) & DL_DEBUG_PRELINK);
-++              #endif
-+ 		      __rtld_lock_unlock_recursive (tab->lock);
-+ 		      goto success;
-+ 		    }
-diff --git a/meta/recipes-core/eglibc/eglibc-options.inc b/meta/recipes-core/eglibc/eglibc-options.inc
-new file mode 100644
-index 0000000..119ceef
---- /dev/null
-+++ b/meta/recipes-core/eglibc/eglibc-options.inc
-@@ -0,0 +1,62 @@
-+def eglibc_cfg(feature, features, tokens, cnf):
-+	if type(tokens) == type(""):
-+		tokens = [tokens]
-+	if type(features) == type([]) and feature in features:
-+		cnf.extend([token + ' = y' for token in tokens])
-+	else:
-+		for token in tokens:
-+			cnf.extend([token + ' = n'])
-+			if token == 'OPTION_EGLIBC_NSSWITCH':
-+				cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_CONFIG = ${S}/nss/nsswitch.conf"])
-+				cnf.extend(["OPTION_EGLIBC_NSSWITCH_FIXED_FUNCTIONS = ${S}/nss/fixed-nsswitch.functions"])
-+
-+# Map distro features to eglibc options settings
-+def features_to_eglibc_settings(d):
-+        cnf = ([])
-+        distro_features = (bb.data.getVar('DISTRO_FEATURES', d, True) or '').split()
-+        eglibc_cfg('ipv6',      distro_features, 'OPTION_EGLIBC_ADVANCED_INET6', cnf)
-+        eglibc_cfg('libc-backtrace',      distro_features, 'OPTION_EGLIBC_BACKTRACE', cnf)
-+        eglibc_cfg('libc-big-macros',      distro_features, 'OPTION_EGLIBC_BIG_MACROS', cnf)
-+        eglibc_cfg('libc-bsd',      distro_features, 'OPTION_EGLIBC_BSD', cnf)
-+        eglibc_cfg('libc-cxx-tests',      distro_features, 'OPTION_EGLIBC_CXX_TESTS', cnf)
-+        eglibc_cfg('libc-catgets',      distro_features, 'OPTION_EGLIBC_CATGETS', cnf)
-+        eglibc_cfg('libc-charsets',      distro_features, 'OPTION_EGLIBC_CHARSETS', cnf)
-+        eglibc_cfg('libc-crypt',      distro_features, 'OPTION_EGLIBC_CRYPT', cnf)
-+        eglibc_cfg('libc-crypt-ufc',      distro_features, 'OPTION_EGLIBC_CRYPT_UFC', cnf)
-+        eglibc_cfg('libc-db-aliases',      distro_features, 'OPTION_EGLIBC_DB_ALIASES', cnf)
-+        eglibc_cfg('libc-envz',      distro_features, 'OPTION_EGLIBC_ENVZ', cnf)
-+        eglibc_cfg('libc-fcvt',      distro_features, 'OPTION_EGLIBC_FCVT', cnf)
-+        eglibc_cfg('libc-fmtmsg',      distro_features, 'OPTION_EGLIBC_FMTMSG', cnf)
-+        eglibc_cfg('libc-fstab',      distro_features, 'OPTION_EGLIBC_FSTAB', cnf)
-+        eglibc_cfg('libc-ftraverse',      distro_features, 'OPTION_EGLIBC_FTRAVERSE', cnf)
-+        eglibc_cfg('libc-getlogin',      distro_features, 'OPTION_EGLIBC_GETLOGIN', cnf)
-+        eglibc_cfg('libc-idn',      distro_features, 'OPTION_EGLIBC_IDN', cnf)
-+        eglibc_cfg('libc-inet',      distro_features, 'OPTION_EGLIBC_INET', cnf)
-+        eglibc_cfg('libc-inet-anl',      distro_features, 'OPTION_EGLIBC_INET_ANL', cnf)
-+        eglibc_cfg('libc-libm',      distro_features, 'OPTION_EGLIBC_LIBM', cnf)
-+        eglibc_cfg('libc-libm-big',      distro_features, 'OPTION_EGLIBC_LIBM_BIG', cnf)
-+        eglibc_cfg('libc-locales',      distro_features, 'OPTION_EGLIBC_LOCALES', cnf)
-+        eglibc_cfg('libc-locale-code',      distro_features, 'OPTION_EGLIBC_LOCALE_CODE', cnf)
-+        eglibc_cfg('libc-memusage',      distro_features, 'OPTION_EGLIBC_MEMUSAGE', cnf)
-+        eglibc_cfg('libc-nis',      distro_features, 'OPTION_EGLIBC_NIS', cnf)
-+        eglibc_cfg('libc-nsswitch',      distro_features, 'OPTION_EGLIBC_NSSWITCH', cnf)
-+        eglibc_cfg('libc-rcmd',      distro_features, 'OPTION_EGLIBC_RCMD', cnf)
-+        eglibc_cfg('libc-rtld-debug',      distro_features, 'OPTION_EGLIBC_RTLD_DEBUG', cnf)
-+        eglibc_cfg('libc-spawn',      distro_features, 'OPTION_EGLIBC_SPAWN', cnf)
-+        eglibc_cfg('libc-streams',      distro_features, 'OPTION_EGLIBC_STREAMS', cnf)
-+        eglibc_cfg('libc-sunrpc',      distro_features, 'OPTION_EGLIBC_SUNRPC', cnf)
-+        eglibc_cfg('libc-utmp',      distro_features, 'OPTION_EGLIBC_UTMP', cnf)
-+        eglibc_cfg('libc-utmpx',      distro_features, 'OPTION_EGLIBC_UTMPX', cnf)
-+        eglibc_cfg('libc-wordexp',      distro_features, 'OPTION_EGLIBC_WORDEXP', cnf)
-+        eglibc_cfg('libc-posix-clang-wchar',      distro_features, 'OPTION_POSIX_C_LANG_WIDE_CHAR', cnf)
-+        eglibc_cfg('libc-posix-regexp',      distro_features, 'OPTION_POSIX_REGEXP', cnf)
-+        eglibc_cfg('libc-posix-regexp-glibc',      distro_features, 'OPTION_POSIX_REGEXP_GLIBC', cnf)
-+        eglibc_cfg('libc-posix-wchar-io',      distro_features, 'OPTION_POSIX_WIDE_CHAR_DEVICE_IO', cnf)
-+
-+        # try to fix disable charsets/locales/locale-code compile fail
-+        if 'libc-charsets' in distro_features and 'libc-locales' in distro_features and 'libc-locale-code' in distro_features:
-+            bb.data.setVar('PACKAGE_NO_GCONV', '0', d)
-+        else:
-+            bb.data.setVar('PACKAGE_NO_GCONV', '1', d)
-+
-+        return "\n".join(cnf)
-diff --git a/meta/recipes-core/eglibc/eglibc.inc b/meta/recipes-core/eglibc/eglibc.inc
-index 46ffa82..616f1af 100644
---- a/meta/recipes-core/eglibc/eglibc.inc
-+++ b/meta/recipes-core/eglibc/eglibc.inc
-@@ -28,6 +28,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}gcc-intermediate linux-libc-headers"
- PROVIDES = "virtual/libc virtual/${TARGET_PREFIX}libc-for-gcc"
- PROVIDES += "virtual/libintl virtual/libiconv"
- inherit autotools
-+require eglibc-options.inc
- 
- LEAD_SONAME = "libc.so"
- 
-@@ -43,3 +44,8 @@ EXTRA_OEMAKE += ${EGLIBCPARALLELISM}
- PARALLEL_MAKE = ""
- 
- PACKAGES = "glibc catchsegv sln nscd ldd localedef glibc-utils glibc-dev glibc-doc glibc-locale libsegfault glibc-extra-nss glibc-thread-db glibc-pcprofile"
-+
-+OE_FEATURES = "${@features_to_eglibc_settings(d)}"
-+do_configure_prepend() {
-+	echo '${OE_FEATURES}' > ${B}/option-groups.config
-+}
-diff --git a/meta/recipes-core/eglibc/eglibc_2.13.bb b/meta/recipes-core/eglibc/eglibc_2.13.bb
-index 398da69..894eb88 100644
---- a/meta/recipes-core/eglibc/eglibc_2.13.bb
-+++ b/meta/recipes-core/eglibc/eglibc_2.13.bb
-@@ -4,7 +4,7 @@ SRCREV = "13356"
- 
- DEPENDS += "gperf-native"
- FILESPATHPKG =. "eglibc-svn:"
--PR = "r0"
-+PR = "r1"
- PR_append = "+svnr${SRCPV}"
- 
- EGLIBC_BRANCH="eglibc-2_13"
-@@ -16,7 +16,9 @@ SRC_URI = "svn://www.eglibc.org/svn/branches/;module=${EGLIBC_BRANCH};proto=http
-            file://stack-protector-test.patch \
-            file://etc/ld.so.conf \
-            file://generate-supported.mk \
-+           file://eglibc-2.13-fix-macro-RTLD_DEBUG.patch \
- 	   "
-+
- LIC_FILES_CHKSUM = "file://LICENSES;md5=98a1128c4b58120182cbea3b1752d8b9 \
-       file://COPYING;md5=393a5ca445f6965873eca0259a17f833 \
-       file://posix/rxspencer/COPYRIGHT;md5=dc5485bb394a13b2332ec1c785f5d83a \
--- 
-1.7.5.1.300.gc565c
+ERROR: -------------------
+ERROR: gtk+ is listed in PACKAGES multiple times, this leads to packaging
+errors.
+ERROR: Please fix the metadata/report this as bug to OE bugtracker.
+ERROR: -------------------
+:
+:
+:
+ERROR: -------------------
+ERROR: gtk-engines is listed in PACKAGES multiple times, this leads to
+packaging errors.
+ERROR: Please fix the metadata/report this as bug to OE bugtracker.
 
 
+Anybody have any idea!!!!!!! How to resolve this.As said in the message how
+to fix bug in the metadata/report.
+
+Chinmaya
+
+--0016e6471bd0e81e5a04a5307689
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><meta http-equiv=3D"content-type" content=3D"text/html; ch=
+arset=3Dutf-8"><span class=3D"Apple-style-span" style=3D"border-collapse: c=
+ollapse; font-family: arial, sans-serif; font-size: 13px; "><span style=3D"=
+border-collapse: collapse; font-family: arial, sans-serif; font-size: 13px;=
+ ">Hi,</span><div>
+<span style=3D"border-collapse: collapse; font-family: arial, sans-serif; f=
+ont-size: 13px; "><br></span></div><div><span style=3D"border-collapse: col=
+lapse; font-family: arial, sans-serif; font-size: 13px; ">I am trying=A0<sp=
+an>to</span>=A0port Poky=A0<span>to</span>=A0the &quot;sandybridge platform=
+&quot; and=A0 using the branch &quot;bernard&quot; for fishriver machine.<b=
+r>
+I am running Ubuntu 10.10 on 64 bit machine.</span></div><div><font face=3D=
+"arial, sans-serif"><span style=3D"border-collapse: collapse; ">My build is=
+=A0successful =A0but during build time I am getting following message :-</s=
+pan></font></div>
+<div><font face=3D"arial, sans-serif"><span style=3D"border-collapse: colla=
+pse; "><br></span></font></div><div><font face=3D"arial, sans-serif"><span =
+style=3D"border-collapse: collapse; "><div>ERROR: -------------------</div>=
+<div>
+ERROR: gtk+ is listed in PACKAGES multiple times, this leads to packaging e=
+rrors.</div><div>ERROR: Please fix the metadata/report this as bug to OE bu=
+gtracker.</div><div>ERROR: -------------------</div><div>:</div><div>:</div=
+>
+<div>:</div><div><div>ERROR: -------------------</div><div>ERROR: gtk-engin=
+es is listed in PACKAGES multiple times, this leads to packaging errors.</d=
+iv><div>ERROR: Please fix the metadata/report this as bug to OE bugtracker.=
+</div>
+</div><div><br></div></span></font></div><div><span style=3D"border-collaps=
+e: collapse; font-family: arial, sans-serif; "><br></span></div><div>Anybod=
+y have any idea!!!!!!! How to resolve this.As said in the message how to fi=
+x bug in the metadata/report.</div>
+<div><br></div><div>Chinmaya=A0</div><div><br></div></span></div>
+
+--0016e6471bd0e81e5a04a5307689--
