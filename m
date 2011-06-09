@@ -1,25 +1,27 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 63D574C800B6
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 15:17:36 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 09 Jun 2011 13:17:35 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C39264C800B6
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 17:33:48 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 09 Jun 2011 15:33:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,343,1304319600"; d="scan'208";a="12141522"
-Received: from unknown (HELO [10.255.12.216]) ([10.255.12.216])
-	by orsmga001.jf.intel.com with ESMTP; 09 Jun 2011 13:17:35 -0700
-Message-ID: <4DF12A5F.8070307@linux.intel.com>
-Date: Thu, 09 Jun 2011 13:17:35 -0700
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.65,343,1304319600"; d="scan'208";a="11603232"
+Received: from doubt.jf.intel.com (HELO [10.7.199.145]) ([10.7.199.145])
+	by orsmga002.jf.intel.com with ESMTP; 09 Jun 2011 15:33:48 -0700
+Message-ID: <4DF14A49.6000104@linux.intel.com>
+Date: Thu, 09 Jun 2011 15:33:45 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-References: <cover.1307533714.git.xiaofeng.yan@windriver.com>
-	<6d4d6e0b58378e0a7070e6d9fc7e9085f061ee24.1307533714.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <6d4d6e0b58378e0a7070e6d9fc7e9085f061ee24.1307533714.git.xiaofeng.yan@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] Qt3: Add head file "cstddef" to Qt3
+To: Gary Thomas <gary@mlbassoc.com>
+References: <4DEFB4BA.7050902@mlbassoc.com>
+	<4DEFBD77.7000400@linux.intel.com>	<4DF016F0.4080106@gmail.com>
+	<4DF02EDF.5040502@mlbassoc.com>	<4DF06CB0.1040501@gmail.com>
+	<4DF0AC87.2060901@mlbassoc.com> <4DF0AF61.1020108@mlbassoc.com>
+In-Reply-To: <4DF0AF61.1020108@mlbassoc.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: BeagleBoard using GCC 4.6.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,66 +33,158 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2011 20:17:36 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 09 Jun 2011 22:33:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 06/08/2011 07:31 PM, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
->
-> Failed to compile Qt3 while building lsb image with the updated library libstdc++
-> and compilation tool. Qt3 reported data type "ptrdiff_t" doesn't name a type.
-> Actually "ptrdiff_t" is defined in head file "cstddef".
->
-> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
-> ---
->   recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch |   18 ++++++++++++++++++
->   recipes-qt3/qt3/qt-x11-free_3.3.7.bb          |    3 ++-
->   2 files changed, 20 insertions(+), 1 deletions(-)
->   create mode 100644 recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
->
-> diff --git a/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch b/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
-> new file mode 100644
-> index 0000000..9a8f4b4
-> --- /dev/null
-> +++ b/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
-> @@ -0,0 +1,18 @@
-> +Qt3  will report "error: 'ptrdiff_t' does not name a type" while building lsb \
-> +image with the updated library libstdc++ and complication tool.
-> +The data type "ptrdiff_t" is defined in file cstddef.
-> +
-> +Upstream-Status: Pending
-> +
-> +Signed-off-by: xiaofeng.yan@windriver.com
-> +
-> +--- qt-x11-free-3.3.7/src/tools/qvaluelist.h	2006-10-19 22:25:01.000000000 +0800
-> ++++ qt-x11-free-3.3.7/src/tools/qvaluelist.h.new	2011-06-07 14:57:06.288997350 +0800
-> +@@ -47,6 +47,7 @@
-> + #ifndef QT_NO_STL
-> + #include<iterator>
-> + #include<list>
-> ++#include<cstddef>
-> + #endif
-> +
-> + //#define QT_CHECK_VALUELIST_RANGE
-> diff --git a/recipes-qt3/qt3/qt-x11-free_3.3.7.bb b/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
-> index 9a3bcf9..94486ed 100644
-> --- a/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
-> +++ b/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
-> @@ -9,7 +9,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=b07b0d5ac6b1822effe47173a1744433 \
->   SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
->   	   file://configure.patch \
->   	   file://no-examples.patch \
-> -           file://gcc4_1-HACK.patch"
-> +           file://gcc4_1-HACK.patch \
-> +           file://qt3-cstddef.patch"
->
->   require qt-x11-free-common.inc
->
 
-Merged into meta-qt3
 
-Thanks
-	Sau!
+On 06/09/2011 04:32 AM, Gary Thomas wrote:
+> On 06/09/2011 05:20 AM, Gary Thomas wrote:
+>> On 06/09/2011 12:48 AM, Khem Raj wrote:
+>>> On 06/08/2011 07:24 PM, Gary Thomas wrote:
+>>>> On 06/08/2011 06:42 PM, Khem Raj wrote:
+>>>>> On 06/08/2011 11:20 AM, Saul Wold wrote:
+>>>>>> On 06/08/2011 10:43 AM, Gary Thomas wrote:
+>>>>>>> Now that Poky is using GCC 4.6.0, has anyone actually checked the
+>>>>>>> operation on the BeagleBoard? I suspect that you'll find that the
+>>>>>>> EHCI USB does not work. I can't really check here as I don't trust
+>>>>>>> the EHCI on my BeagleBoard rev C3 (not xM).
+>>>>>>>
+>>>>>>> That said, I've tried this new compiler (previously reported) on
+>>>>>>> my own OMAP/3530 board which uses the same 2.6.37 kernel (just not
+>>>>>>> the linux-yocto version). When I build my kernel with GCC 4.5.2,
+>>>>>>> it works perfectly, but fails with GCC 4.6.0 (I trust the hardware).
+>>>>>>>
+>>>>>>> I've isolated it down to at least the function 'ehci_hub_control'
+>>>>>>> (but I suspect the problem is more fundamental). Comparing the code
+>>>>>>> generated by the two compilers with the same source tree, this function
+>>>>>>> is dramatically different. I can see why it's failing, I just don't
+>>>>>>> know why the compiler is doing what it's doing.
+>>>>>>>
+>>>>>>
+>>>>>> Gary,
+>>>>>>
+>>>>>> I am not sure if Khem Raj is on this list, so I am forwarding it to him,
+>>>>>> he might have some insight.
+>>>>>>
+>>>>>> Sau!
+>>>>>>
+>>>>>>
+>>>>>>> The lines at drivers/usb/host/ehci-hub.c:841
+>>>>>>> case GetPortStatus:
+>>>>>>> if (!wIndex || wIndex > ports)
+>>>>>>> goto error;
+>>>>>>> wIndex--;
+>>>>>>> status = 0;
+>>>>>>> temp = ehci_readl(ehci, status_reg);
+>>>>>>>
+>>>>>>> are being compiled very differently.
+>>>>>>>
+>>>>>>> With GCC 4.5.2:
+>>>>>>> 0xc0229810 <ehci_hub_control+672>: cmp r3, #0 ; 0x0
+>>>>>>> 0xc0229814 <ehci_hub_control+676>: beq 0xc0229df8
+>>>>>>> <ehci_hub_control+2184>
+>>>>>>> 0xc0229818 <ehci_hub_control+680>: cmp r3, r0
+>>>>>>> 0xc022981c <ehci_hub_control+684>: bgt 0xc0229df8
+>>>>>>> <ehci_hub_control+2184>
+>>>>>>> 0xc0229820 <ehci_hub_control+688>: sub r8, r3, #1 ; 0x1
+>>>>>>> 0xc0229824 <ehci_hub_control+692>: ldr r5, [r7, #4]
+>>>>>>> 0xc0229828 <ehci_hub_control+696>: uxth r8, r8
+>>>>>>> 0xc022982c <ehci_hub_control+700>: dmb sy
+>>>>>>>
+>>>>>>> With GCC 4.6.0:
+>>>>>>> 0xc0221630 <ehci_hub_control+808>: cmp r3, #0 ; 0x0
+>>>>>>> 0xc0221634 <ehci_hub_control+812>: beq 0xc0221d7c
+>>>>>>> <ehci_hub_control+2676>
+>>>>>>> 0xc0221638 <ehci_hub_control+816>: cmp r3, r0
+>>>>>>> 0xc022163c <ehci_hub_control+820>: bgt 0xc0221d7c
+>>>>>>> <ehci_hub_control+2676>
+>>>>>>> 0xc0221640 <ehci_hub_control+824>: sub r7, r3, #1 ; 0x1
+>>>>>>> 0xc0221644 <ehci_hub_control+828>: add r3, r11, #16 ; 0x10
+>>>>>>> 0xc0221648 <ehci_hub_control+832>: add r3, r8, r3, lsl #2
+>>>>>>> 0xc022164c <ehci_hub_control+836>: uxth r7, r7
+>>>>>>> 0xc0221650 <ehci_hub_control+840>: ldrb r5, [r3, #5]
+>>>>>>> 0xc0221654 <ehci_hub_control+844>: ldrb r2, [r3, #4]
+>>>>>>> 0xc0221658 <ehci_hub_control+848>: orr r5, r2, r5, lsl #8
+>>>>>>> 0xc022165c <ehci_hub_control+852>: ldrb r2, [r3, #6]
+>>>>>>> 0xc0221660 <ehci_hub_control+856>: ldrb r3, [r3, #7]
+>>>>>>> 0xc0221664 <ehci_hub_control+860>: orr r5, r5, r2, lsl #16
+>>>>>>> 0xc0221668 <ehci_hub_control+864>: orr r5, r5, r3, lsl #24
+>>>>>>> 0xc022166c <ehci_hub_control+868>: dmb sy
+>>>>>>>
+>>>>>>> As you can see, the old compiler accesses the ehci status register
+>>>>>>> in a single access, the new compiler dances around and makes multiple
+>>>>>>> accesses, which in the end get very incorrect data (I think that this
+>>>>>>> register is like many which clear bits on reads).
+>>>>>>>
+>>>>>>> Any ideas where I can go with this? I'm really trying to keep up with
+>>>>>>> Poky/Yocto, but this move to GCC 4.6.0 has broken my ARM targets :-(
+>>>>>>> I do have PowerPC targets as well - they seem fine (from limited
+>>>>>>> testing)
+>>>>>>> with the new compiler.
+>>>>>>>
+>>>>>>> Note: if you want to see the whole function disassembly, look at
+>>>>>>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.5.2
+>>>>>>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.6.0
+>>>>>>>
+>>>>>>> Thanks
+>>>>>>>
+>>>>>
+>>>>> OK. thanks for sending the sample code.
+>>>>> Can you add -fstrict-volatile-bitfields option to CFLAGS while
+>>>>> compiling this file or even the kernel for test sake ?
+>>>>> and see if the problem goes away ?
+>>>>
+>>>> Sorry, this doesn't seem to make any difference in the generated code.
+>>>> Hardly surprising as the register in question is a simple u32, not a
+>>>> bitfield.
+>>>>
+>>>
+>>> I reduced the testcase a bit further and it seems the bug is similar to http://gcc.gnu.org/bugzilla/PR45819
+>>>
+>>> but a bit different that in this case -fstrict-volatile-bitfields does not help
+>>>
+>>> a fix for this particular problem is
+>>>
+>>> diff --git a/include/linux/usb/ehci_def.h b/include/linux/usb/ehci_def.h
+>>> index 6563802..b8c1833 100644
+>>> --- a/include/linux/usb/ehci_def.h
+>>> +++ b/include/linux/usb/ehci_def.h
+>>> @@ -194,7 +194,7 @@ struct ehci_dbg_port {
+>>> u32 data47;
+>>> u32 address;
+>>> #define DBGP_EPADDR(dev, ep) (((dev)<<8)|(ep))
+>>> -} __attribute__ ((packed));
+>>> +} __attribute__ ((packed,aligned(__alignof__(int))));
+>>>
+>>> #ifdef CONFIG_EARLY_PRINTK_DBGP
+>>> #include <linux/init.h>
+>>>
+>>>
+>>> since this particular structure all elements are integers but there might be more packed structures which have say char or short ints
+>>> and are not necessarily ordered in the descending order of alignment
+>>>
+>>> Try it out and see if it helps
+>>
+>> Yes, this does fix the problem :-) The EHCI USB port on the OMAP
+>> is working again.
+> 
+> Note: it also works properly if the __attribute__ ((packed)) is simply removed.
+> Looking at the layout of this structure, I don't see what that attribute is
+> trying to accomplish - every item within the structure is u32[], so IMO there
+> is nothing to pack.  Perhaps this observation can help the GCC folks figure
+> out why things are getting confused.
 
+I tried each of these and neither worked. I confirmed the kernel was
+indeed different after each build and that gcc 4.6.0 was being used (by
+adding CC --version to the kernel do_compile and checking it in the log).
+
+Gary, are you certain that you were building with 4.6.0 ? I've found it
+to be a bit tricky to switch back and forth between compilers.
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
