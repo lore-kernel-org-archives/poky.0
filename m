@@ -1,28 +1,25 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 02D894C800B6
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 10:20:14 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p59FKAjU025906
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 9 Jun 2011 08:20:10 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Thu, 9 Jun 2011 08:20:09 -0700
-Message-ID: <4DF0E4A8.1000608@windriver.com>
-Date: Thu, 9 Jun 2011 10:20:08 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.17) Gecko/20110414 Thunderbird/3.1.10
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0A5D04C80188
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 11:50:48 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 744AE1660298; Thu,  9 Jun 2011 10:50:48 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2-r929478
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id D51471660209;
+	Thu,  9 Jun 2011 10:50:47 -0600 (MDT)
+Message-ID: <4DF0F9E7.6020806@mlbassoc.com>
+Date: Thu, 09 Jun 2011 10:50:47 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Kang Kai <Kai.Kang@windriver.com>
-References: <4DF0A70C.7080501@windriver.com>
-In-Reply-To: <4DF0A70C.7080501@windriver.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: Question about apply eglibc configurability to create minimal image
+To: Poky Project <poky@yoctoproject.org>
+Subject: GCC-4.6.0 not ready for prime time?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,119 +31,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2011 15:20:15 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Thu, 09 Jun 2011 16:50:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 6/9/11 5:57 AM, Kang Kai wrote:
-> Hi Mark,
-> 
-> I am focus on eglibc itself compilation with disabling all the 
-> configurable options, right now eglibc can be compiled with disable all 
-> the configurable options.
-> 
-> But when I build core-image-minimal in a clear new directory, some 
-> packages build failed and they need eglibc supports, such as
+I'm not convinced switching to GCC-4.6.0 is a good choice at this time.
+Not only did I have problems getting a working kernel, there are a
+lot of applications that don't build with this new compiler.  Some
+of those that do, don't work :-(
 
-core-image-minimal is simply to large of an image to see some of the advantages
-of the eglibc configuration.  Realistically the advantages come on single
-application or small (busybox + single application) systems.
+I have a local recipe to build Mozilla FireFox which has been working
+fine, but with GCC-4.6.0, it no longer runs correctly.  Given the magnitude
+of FireFox, it may take me a while to figure out why.
 
-> gcc-runtime    depends on     libc-libm
+Even some core programs no longer build, e.g. web-webkit (I was looking
+for an alternate web browser).  This was probably not obvious as it is
+no longer being built by your test images (it used to be included in
+core-image-sato but was dropped by 9d7aa1090c407ac0da6154c481f1c787fd7efbfc)
 
-The above looks like a bug to me and should be investigated.. (a bug in gcc that
-is..)
+I guess I'll be sticking with GCC-4.5.x for now
 
-> ncurse            depends on    libc-posix-wchar-io libc-posix-clang-wchar
-
-ncurses can be configured WITHOUT wide character support, the needs to be done
-with any of the wchar options disabled in eglibc.
-
-> openssl           depends on    libc-inet libc-nsswitch
-
-I'm not sure why openssl needs either inet or nsswitch.  inet perhaps if it
-tries to make certain socket calls, but libc-nsswitch should never be required
-outside of eglibc.  This is likely a configuration issue in openssl -- or a bug
-in eglibc.
-
-> gettext            depends on    libc-spawn libc-locale-code 
-> libc-getlogin libc-utmp
-> ...
-
-Once we introduce gettext (beyond simply it's m4 macros) we're no longer in
-"small" system territory.  gettext and many others really want some of the
-larger system capabilities as they are designed for multilingual systems.
-
-> After enable those options, the image size only decrease from 9.6M  to 
-> 9.4M(qemux86). And the dependencies on eglibc is hard to break, 
-> something like  libcrypt getlogin(function) can't be breaken.
-> Could you give me some directions what should I do with eglibc 
-> configurability?
-
-My suggest is to start with a new custom configuration.  (ignore the gcc-runtime
-for right now and enable libm.)  The goal of this configuration is a small,
-local system -- without network connectivity.
-
-Walk through the core-image-minimal, and you'll see:
-IMAGE_INSTALL = "task-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP}"
-
-Looking at task-core-boot:
-
-RDEPENDS_task-core-boot = "\
-    base-files \
-    base-passwd \
-    busybox \
-    initscripts \
-    ${@base_contains("MACHINE_FEATURES", "keyboard", "keymaps", "", d)} \
-    modutils-initscripts \
-    netbase \
-    sysvinit \
-    tinylogin \
-    udev \
-    ${VIRTUAL-RUNTIME_update-alternatives} \
-    ${MACHINE_ESSENTIAL_EXTRA_RDEPENDS}"
-
-RRECOMMENDS_task-core-boot = "\
-    ${MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS}"
-
-From the above, I'm pretty sure that "netbase" will require a lot of networking
-components, specifically adding things like libc-inet.  So avoid netbase.
-
-It's possible that keyboard/keymaps may cause additional stuff to come in due to
-locale requirements.. so I'd dump those as well..
-
-sysvinit may also introduce some additional items -- so if it causes problems,
-remove it and switch to the init located within busybox.
-
-update-alternatives is what included gettext -- so this might need some
-enhancement to avoid gettext as a requirement.  So I'd suggest skipping it.
-(Note without it, it's likely busybox, tinylogin may not get setup properly...)
-
-udev is quite complex and drags in a number of components -- so drop that..
-
-Leaving:
-
-    base-files \
-    base-passwd \
-    busybox \
-    initscripts \
-    modutils-initscripts \
-    sysvinit \
-    tinylogin
-
-First see if you can compile the above with a minimal eglibc configuration.  If
-not I can help you work through those issues..  If you can, you SHOULD see a
-fairly dramatic decrease in size.
-
---Mark
-
-> Thanks a lot!
-> 
-> I made a mistake that try eglibc configurability in a directory which 
-> has build core-image-minimal, so the packages which depend on eglibc 
-> didn't rebuild, and I didn't find the dependency before. I am sorry!
-> 
-> Regards,
-> Kai
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
