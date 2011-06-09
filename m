@@ -1,38 +1,25 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A61214C800A4
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 14:35:04 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyb40 with SMTP id 40so2117258wyb.35
-	for <poky@yoctoproject.org>; Thu, 09 Jun 2011 12:35:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=qtUDC0KmiX3Vn/Vfib3p69vExdK835UCyf9x1cukbNM=;
-	b=iajK6viUst2K0Arre7Qhs7Uc0UeNsbw8XVYlbNVxOP1ysARZJ+z0bC3aBn4AOTl/qd
-	Hay5kzYxhlGq9pOdqGKdxmR6X1Co8HEu6ZhKNiULLqsgN1kSocidj+M0eyvW9rtSUrU2
-	pmdw0lB8+6oVEZ0Qt4AuKvM82tOOFNZ+a0lTo=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	b=G2hAXwVx39n35FusPG4DrxHlUyxOBUmNMUAXDzBSYmHnGWCofE/HQii/vGOvvyhjf0
-	GmBIh6mtyiMXTsBWnDdKA2uChfYQXhKQplXpYCkOnAG6BrkCnDF4dnzEggP74VjMJ027
-	gN4yqxiIt9Etxoj6gocVEKQQDUd8diO7kW2ag=
-Received: by 10.216.253.215 with SMTP id f65mr1189130wes.14.1307648103468;
-	Thu, 09 Jun 2011 12:35:03 -0700 (PDT)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 63D574C800B6
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 15:17:36 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 09 Jun 2011 13:17:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,343,1304319600"; d="scan'208";a="12141522"
+Received: from unknown (HELO [10.255.12.216]) ([10.255.12.216])
+	by orsmga001.jf.intel.com with ESMTP; 09 Jun 2011 13:17:35 -0700
+Message-ID: <4DF12A5F.8070307@linux.intel.com>
+Date: Thu, 09 Jun 2011 13:17:35 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-Received: by 10.216.28.19 with HTTP; Thu, 9 Jun 2011 12:34:33 -0700 (PDT)
-In-Reply-To: <4DF0A70C.7080501@windriver.com>
-References: <4DF0A70C.7080501@windriver.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 9 Jun 2011 12:34:33 -0700
-Message-ID: <BANLkTik6c5RyzDM5ZEo6N14hrOrNsyU70g@mail.gmail.com>
-To: Kang Kai <Kai.Kang@windriver.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Question about apply eglibc configurability to create minimal image
+To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+References: <cover.1307533714.git.xiaofeng.yan@windriver.com>
+	<6d4d6e0b58378e0a7070e6d9fc7e9085f061ee24.1307533714.git.xiaofeng.yan@windriver.com>
+In-Reply-To: <6d4d6e0b58378e0a7070e6d9fc7e9085f061ee24.1307533714.git.xiaofeng.yan@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] Qt3: Add head file "cstddef" to Qt3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,53 +31,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2011 19:35:05 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 09 Jun 2011 20:17:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 9, 2011 at 3:57 AM, Kang Kai <Kai.Kang@windriver.com> wrote:
-> Hi Mark,
+On 06/08/2011 07:31 PM, Xiaofeng Yan wrote:
+> From: Xiaofeng Yan<xiaofeng.yan@windriver.com>
 >
-> I am focus on eglibc itself compilation with disabling all the configurab=
-le
-> options, right now eglibc can be compiled with disable all the configurab=
-le
-> options.
+> Failed to compile Qt3 while building lsb image with the updated library libstdc++
+> and compilation tool. Qt3 reported data type "ptrdiff_t" doesn't name a type.
+> Actually "ptrdiff_t" is defined in head file "cstddef".
 >
-> But when I build core-image-minimal in a clear new directory, some packag=
-es
-> build failed and they need eglibc supports, such as
+> Signed-off-by: Xiaofeng Yan<xiaofeng.yan@windriver.com>
+> ---
+>   recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch |   18 ++++++++++++++++++
+>   recipes-qt3/qt3/qt-x11-free_3.3.7.bb          |    3 ++-
+>   2 files changed, 20 insertions(+), 1 deletions(-)
+>   create mode 100644 recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
 >
-> gcc-runtime =C2=A0 =C2=A0depends on =C2=A0 =C2=A0 libc-libm
+> diff --git a/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch b/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
+> new file mode 100644
+> index 0000000..9a8f4b4
+> --- /dev/null
+> +++ b/recipes-qt3/qt3/qt-x11-free/qt3-cstddef.patch
+> @@ -0,0 +1,18 @@
+> +Qt3  will report "error: 'ptrdiff_t' does not name a type" while building lsb \
+> +image with the updated library libstdc++ and complication tool.
+> +The data type "ptrdiff_t" is defined in file cstddef.
+> +
+> +Upstream-Status: Pending
+> +
+> +Signed-off-by: xiaofeng.yan@windriver.com
+> +
+> +--- qt-x11-free-3.3.7/src/tools/qvaluelist.h	2006-10-19 22:25:01.000000000 +0800
+> ++++ qt-x11-free-3.3.7/src/tools/qvaluelist.h.new	2011-06-07 14:57:06.288997350 +0800
+> +@@ -47,6 +47,7 @@
+> + #ifndef QT_NO_STL
+> + #include<iterator>
+> + #include<list>
+> ++#include<cstddef>
+> + #endif
+> +
+> + //#define QT_CHECK_VALUELIST_RANGE
+> diff --git a/recipes-qt3/qt3/qt-x11-free_3.3.7.bb b/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+> index 9a3bcf9..94486ed 100644
+> --- a/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+> +++ b/recipes-qt3/qt3/qt-x11-free_3.3.7.bb
+> @@ -9,7 +9,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.GPL;md5=b07b0d5ac6b1822effe47173a1744433 \
+>   SRC_URI = "ftp://ftp.trolltech.com/qt/source/qt-x11-free-${PV}.tar.bz2 \
+>   	   file://configure.patch \
+>   	   file://no-examples.patch \
+> -           file://gcc4_1-HACK.patch"
+> +           file://gcc4_1-HACK.patch \
+> +           file://qt3-cstddef.patch"
+>
+>   require qt-x11-free-common.inc
+>
 
-can you figure out what needs libm here ?
+Merged into meta-qt3
 
-> ncurse =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0depends on =C2=A0 =C2=A0l=
-ibc-posix-wchar-io libc-posix-clang-wchar
-> openssl =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 depends on =C2=A0 =C2=A0libc-i=
-net libc-nsswitch
-> gettext =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0depends on =C2=A0 =C2=A0=
-libc-spawn libc-locale-code libc-getlogin
-> libc-utmp
-> ...
->
-> After enable those options, the image size only decrease from 9.6M =C2=A0=
-to
-> 9.4M(qemux86). And the dependencies on eglibc is hard to break, something
-> like =C2=A0libcrypt getlogin(function) can't be breaken.
-> Could you give me some directions what should I do with eglibc
-> configurability?
-> Thanks a lot!
->
-> I made a mistake that try eglibc configurability in a directory which has
-> build core-image-minimal, so the packages which depend on eglibc didn't
-> rebuild, and I didn't find the dependency before. I am sorry!
->
-> Regards,
-> Kai
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+Thanks
+	Sau!
+
 
