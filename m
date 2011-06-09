@@ -1,32 +1,43 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 210A34C800B6
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 17:38:18 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 9038D16601BA; Thu,  9 Jun 2011 16:38:17 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 53BE316601D1;
-	Thu,  9 Jun 2011 16:37:49 -0600 (MDT)
-Message-ID: <4DF14B3D.4050008@mlbassoc.com>
-Date: Thu, 09 Jun 2011 16:37:49 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
+	[209.85.210.48])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C6E6D4C800A4
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 17:55:03 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pzk10 with SMTP id 10so1344716pzk.35
+	for <poky@yoctoproject.org>; Thu, 09 Jun 2011 15:55:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
+	:subject:references:in-reply-to:content-type
+	:content-transfer-encoding;
+	bh=b7HqU5N7e9eLrafGaYNv24gxbs29SBq+Ja2tFfsJjF0=;
+	b=g2lhDPh9SlttZGWwPMMzWMpkifpyLQg8UBTndhADuMXdy9ww45iMAm1E0D09Spfg3w
+	tAze71dt27I5wMpnA5yq+2jZoOJkpAtH3F+smJlP/1Fw/805EPjjEX8xfQGpKYZKQaAs
+	CZpv7ErFquHWv+a88a6uU1+bRt7Mr2xhR4cGw=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:date:from:user-agent:mime-version:to:subject:references
+	:in-reply-to:content-type:content-transfer-encoding;
+	b=HcRiHK2+ZCBVOpvB+EZJanMxtfbSXKh2ILZN/em8Y100DNjsq1KtBMN9tLeeBTI1ZN
+	AqXkLI09X0KKw5idFm1iU1dH9z08Z7dOktqHrrRSDBD8UOgcpWyEIbaRkymwWU+Pvg6A
+	qWqI+PjoKlgUeh9xY2fFr/NmEWR148ZCWOA0E=
+Received: by 10.143.92.21 with SMTP id u21mr280769wfl.399.1307660103174;
+	Thu, 09 Jun 2011 15:55:03 -0700 (PDT)
+Received: from [192.168.1.70] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
+	[99.57.141.118])
+	by mx.google.com with ESMTPS id z32sm162855wfl.23.2011.06.09.15.55.01
+	(version=SSLv3 cipher=OTHER); Thu, 09 Jun 2011 15:55:02 -0700 (PDT)
+Message-ID: <4DF14F43.4020904@gmail.com>
+Date: Thu, 09 Jun 2011 15:54:59 -0700
+From: Khem Raj <raj.khem@gmail.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110516 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4DEFB4BA.7050902@mlbassoc.com>
-	<4DEFBD77.7000400@linux.intel.com>	<4DF016F0.4080106@gmail.com>
-	<4DF02EDF.5040502@mlbassoc.com>	<4DF06CB0.1040501@gmail.com>
-	<4DF0AC87.2060901@mlbassoc.com> <4DF0AF61.1020108@mlbassoc.com>
-	<4DF14A49.6000104@linux.intel.com>
-In-Reply-To: <4DF14A49.6000104@linux.intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: BeagleBoard using GCC 4.6.0
+To: poky@yoctoproject.org
+References: <4DF0F9E7.6020806@mlbassoc.com>
+In-Reply-To: <4DF0F9E7.6020806@mlbassoc.com>
+Subject: Re: GCC-4.6.0 not ready for prime time?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,162 +49,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2011 22:38:18 -0000
+X-List-Received-Date: Thu, 09 Jun 2011 22:55:04 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/09/2011 04:33 PM, Darren Hart wrote:
->
->
-> On 06/09/2011 04:32 AM, Gary Thomas wrote:
->> On 06/09/2011 05:20 AM, Gary Thomas wrote:
->>> On 06/09/2011 12:48 AM, Khem Raj wrote:
->>>> On 06/08/2011 07:24 PM, Gary Thomas wrote:
->>>>> On 06/08/2011 06:42 PM, Khem Raj wrote:
->>>>>> On 06/08/2011 11:20 AM, Saul Wold wrote:
->>>>>>> On 06/08/2011 10:43 AM, Gary Thomas wrote:
->>>>>>>> Now that Poky is using GCC 4.6.0, has anyone actually checked the
->>>>>>>> operation on the BeagleBoard? I suspect that you'll find that the
->>>>>>>> EHCI USB does not work. I can't really check here as I don't trust
->>>>>>>> the EHCI on my BeagleBoard rev C3 (not xM).
->>>>>>>>
->>>>>>>> That said, I've tried this new compiler (previously reported) on
->>>>>>>> my own OMAP/3530 board which uses the same 2.6.37 kernel (just not
->>>>>>>> the linux-yocto version). When I build my kernel with GCC 4.5.2,
->>>>>>>> it works perfectly, but fails with GCC 4.6.0 (I trust the hardware).
->>>>>>>>
->>>>>>>> I've isolated it down to at least the function 'ehci_hub_control'
->>>>>>>> (but I suspect the problem is more fundamental). Comparing the code
->>>>>>>> generated by the two compilers with the same source tree, this function
->>>>>>>> is dramatically different. I can see why it's failing, I just don't
->>>>>>>> know why the compiler is doing what it's doing.
->>>>>>>>
->>>>>>>
->>>>>>> Gary,
->>>>>>>
->>>>>>> I am not sure if Khem Raj is on this list, so I am forwarding it to him,
->>>>>>> he might have some insight.
->>>>>>>
->>>>>>> Sau!
->>>>>>>
->>>>>>>
->>>>>>>> The lines at drivers/usb/host/ehci-hub.c:841
->>>>>>>> case GetPortStatus:
->>>>>>>> if (!wIndex || wIndex>  ports)
->>>>>>>> goto error;
->>>>>>>> wIndex--;
->>>>>>>> status = 0;
->>>>>>>> temp = ehci_readl(ehci, status_reg);
->>>>>>>>
->>>>>>>> are being compiled very differently.
->>>>>>>>
->>>>>>>> With GCC 4.5.2:
->>>>>>>> 0xc0229810<ehci_hub_control+672>: cmp r3, #0 ; 0x0
->>>>>>>> 0xc0229814<ehci_hub_control+676>: beq 0xc0229df8
->>>>>>>> <ehci_hub_control+2184>
->>>>>>>> 0xc0229818<ehci_hub_control+680>: cmp r3, r0
->>>>>>>> 0xc022981c<ehci_hub_control+684>: bgt 0xc0229df8
->>>>>>>> <ehci_hub_control+2184>
->>>>>>>> 0xc0229820<ehci_hub_control+688>: sub r8, r3, #1 ; 0x1
->>>>>>>> 0xc0229824<ehci_hub_control+692>: ldr r5, [r7, #4]
->>>>>>>> 0xc0229828<ehci_hub_control+696>: uxth r8, r8
->>>>>>>> 0xc022982c<ehci_hub_control+700>: dmb sy
->>>>>>>>
->>>>>>>> With GCC 4.6.0:
->>>>>>>> 0xc0221630<ehci_hub_control+808>: cmp r3, #0 ; 0x0
->>>>>>>> 0xc0221634<ehci_hub_control+812>: beq 0xc0221d7c
->>>>>>>> <ehci_hub_control+2676>
->>>>>>>> 0xc0221638<ehci_hub_control+816>: cmp r3, r0
->>>>>>>> 0xc022163c<ehci_hub_control+820>: bgt 0xc0221d7c
->>>>>>>> <ehci_hub_control+2676>
->>>>>>>> 0xc0221640<ehci_hub_control+824>: sub r7, r3, #1 ; 0x1
->>>>>>>> 0xc0221644<ehci_hub_control+828>: add r3, r11, #16 ; 0x10
->>>>>>>> 0xc0221648<ehci_hub_control+832>: add r3, r8, r3, lsl #2
->>>>>>>> 0xc022164c<ehci_hub_control+836>: uxth r7, r7
->>>>>>>> 0xc0221650<ehci_hub_control+840>: ldrb r5, [r3, #5]
->>>>>>>> 0xc0221654<ehci_hub_control+844>: ldrb r2, [r3, #4]
->>>>>>>> 0xc0221658<ehci_hub_control+848>: orr r5, r2, r5, lsl #8
->>>>>>>> 0xc022165c<ehci_hub_control+852>: ldrb r2, [r3, #6]
->>>>>>>> 0xc0221660<ehci_hub_control+856>: ldrb r3, [r3, #7]
->>>>>>>> 0xc0221664<ehci_hub_control+860>: orr r5, r5, r2, lsl #16
->>>>>>>> 0xc0221668<ehci_hub_control+864>: orr r5, r5, r3, lsl #24
->>>>>>>> 0xc022166c<ehci_hub_control+868>: dmb sy
->>>>>>>>
->>>>>>>> As you can see, the old compiler accesses the ehci status register
->>>>>>>> in a single access, the new compiler dances around and makes multiple
->>>>>>>> accesses, which in the end get very incorrect data (I think that this
->>>>>>>> register is like many which clear bits on reads).
->>>>>>>>
->>>>>>>> Any ideas where I can go with this? I'm really trying to keep up with
->>>>>>>> Poky/Yocto, but this move to GCC 4.6.0 has broken my ARM targets :-(
->>>>>>>> I do have PowerPC targets as well - they seem fine (from limited
->>>>>>>> testing)
->>>>>>>> with the new compiler.
->>>>>>>>
->>>>>>>> Note: if you want to see the whole function disassembly, look at
->>>>>>>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.5.2
->>>>>>>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.6.0
->>>>>>>>
->>>>>>>> Thanks
->>>>>>>>
->>>>>>
->>>>>> OK. thanks for sending the sample code.
->>>>>> Can you add -fstrict-volatile-bitfields option to CFLAGS while
->>>>>> compiling this file or even the kernel for test sake ?
->>>>>> and see if the problem goes away ?
->>>>>
->>>>> Sorry, this doesn't seem to make any difference in the generated code.
->>>>> Hardly surprising as the register in question is a simple u32, not a
->>>>> bitfield.
->>>>>
->>>>
->>>> I reduced the testcase a bit further and it seems the bug is similar to http://gcc.gnu.org/bugzilla/PR45819
->>>>
->>>> but a bit different that in this case -fstrict-volatile-bitfields does not help
->>>>
->>>> a fix for this particular problem is
->>>>
->>>> diff --git a/include/linux/usb/ehci_def.h b/include/linux/usb/ehci_def.h
->>>> index 6563802..b8c1833 100644
->>>> --- a/include/linux/usb/ehci_def.h
->>>> +++ b/include/linux/usb/ehci_def.h
->>>> @@ -194,7 +194,7 @@ struct ehci_dbg_port {
->>>> u32 data47;
->>>> u32 address;
->>>> #define DBGP_EPADDR(dev, ep) (((dev)<<8)|(ep))
->>>> -} __attribute__ ((packed));
->>>> +} __attribute__ ((packed,aligned(__alignof__(int))));
->>>>
->>>> #ifdef CONFIG_EARLY_PRINTK_DBGP
->>>> #include<linux/init.h>
->>>>
->>>>
->>>> since this particular structure all elements are integers but there might be more packed structures which have say char or short ints
->>>> and are not necessarily ordered in the descending order of alignment
->>>>
->>>> Try it out and see if it helps
->>>
->>> Yes, this does fix the problem :-) The EHCI USB port on the OMAP
->>> is working again.
->>
->> Note: it also works properly if the __attribute__ ((packed)) is simply removed.
->> Looking at the layout of this structure, I don't see what that attribute is
->> trying to accomplish - every item within the structure is u32[], so IMO there
->> is nothing to pack.  Perhaps this observation can help the GCC folks figure
->> out why things are getting confused.
->
-> I tried each of these and neither worked. I confirmed the kernel was
-> indeed different after each build and that gcc 4.6.0 was being used (by
-> adding CC --version to the kernel do_compile and checking it in the log).
->
-> Gary, are you certain that you were building with 4.6.0 ? I've found it
-> to be a bit tricky to switch back and forth between compilers.
+On 06/09/2011 09:50 AM, Gary Thomas wrote:
+> I'm not convinced switching to GCC-4.6.0 is a good choice at this time.
 
-Absolutely - this is a clean, from scratch, build 100% GCC 4.6.0
+at some point we have to and we have time to harden it until next 
+release. Compiler upgrades are a bit of work
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+> Not only did I have problems getting a working kernel, there are a
+> lot of applications that don't build with this new compiler. Some
+> of those that do, don't work :-(
+>
+> I have a local recipe to build Mozilla FireFox which has been working
+> fine, but with GCC-4.6.0, it no longer runs correctly. Given the magnitude
+> of FireFox, it may take me a while to figure out why.
+
+yes there are always some issues that need resolving. If you are able to 
+narrow down the problem a bit it would be easier to pin point the problem.
+
+>
+> Even some core programs no longer build, e.g. web-webkit (I was looking
+> for an alternate web browser). This was probably not obvious as it is
+> no longer being built by your test images (it used to be included in
+> core-image-sato but was dropped by
+> 9d7aa1090c407ac0da6154c481f1c787fd7efbfc)
+>
+> I guess I'll be sticking with GCC-4.5.x for now
+>
+
+For something that you would like to release soon it may be a sane choice
+
+-Khem
 
