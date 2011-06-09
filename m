@@ -1,35 +1,35 @@
 Return-Path: <raj.khem@gmail.com>
-Received: from mail-px0-f169.google.com (mail-px0-f169.google.com
-	[209.85.212.169])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0CB184C800B6
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 00:14:42 -0500 (CDT)
+Received: from mail-pv0-f176.google.com (mail-pv0-f176.google.com
+	[74.125.83.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8D11B4C800B6
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 01:48:22 -0500 (CDT)
 Authentication-Results: mx1.pokylinux.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by pxi9 with SMTP id 9so705635pxi.28
-	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 22:14:42 -0700 (PDT)
+Received: by pve37 with SMTP id 37so828942pve.35
+	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 23:48:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
 	:cc:subject:references:in-reply-to:content-type
 	:content-transfer-encoding;
-	bh=LnPPzbLJEuP/Gg5yI99j10Tp2uUspfOe75uwvCEYxmQ=;
-	b=lupZD3MArVcJQPyCfYf8IpIexLitBQAbtJ4Eztb+4JWTCOmWSoJvUrZDuvSMkxfJB+
-	54SvtTYAqGpJ5bRIWE0sOFm/QYhjH9hyR+k1teEZo8u2PnvNk/y6TmK6HE9+tYA5LOta
-	bi65syS1HCzTYZBOYsX2j726BCUbxR72YwwB8=
+	bh=5coAIbq48b3WAtuqyZ3NH/kSTbdq7L0wW6AEPBB+9So=;
+	b=Sw9JCTXf9FqkALBrWknRsSgWs75kHh5w7jeG1yDKkT/xdZ62AeE6VPsrEXNYIED8kD
+	o72cU/UA2U7a6NLRiLltK7uE0jIQirDs7hQ116j0Awijp5Kck5aN12s2xPtesGOdpMjN
+	RA1cAcm4F/sWLAcU0S0wfsQ0LXLEQsxeOGr+c=
 DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
 	h=message-id:date:from:user-agent:mime-version:to:cc:subject
 	:references:in-reply-to:content-type:content-transfer-encoding;
-	b=OWz3zTju37mPUVusY5OYM2/TNwGIC43pZz2a77C1Sc9ZIHzIBeMWbtGc4HkiZNw7P6
-	Z+ykuRxitjBWLV3aAMU8Xk/PqDgc6G0hxGr3r4TnFTdKtxnDLmSI8kPEnat8LeUPM7Bl
-	7VjRLKu0R//k0G5fivG3U6YIbb9g0oh6p/SUo=
-Received: by 10.142.59.2 with SMTP id h2mr42593wfa.227.1307596482413;
-	Wed, 08 Jun 2011 22:14:42 -0700 (PDT)
+	b=a7Jtr9cQAsD2EXsAuSi55sV3nwKKsGib4ON8gMYfb9PDk0oNLZItM/naDxoNs/gOS6
+	ouS9gVaiZDGzyMdyxsM3nxjkg0qALuMVDn6FgxbT9O/HL5HrxG4syIEjcGioFj5iC88F
+	WYXmcKapTxlmHNNl3tcqOvtQx1U/QkaGwBUAM=
+Received: by 10.142.56.9 with SMTP id e9mr54249wfa.260.1307602101119;
+	Wed, 08 Jun 2011 23:48:21 -0700 (PDT)
 Received: from [192.168.1.70] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
 	[99.57.141.118])
-	by mx.google.com with ESMTPS id w16sm1332586wfd.23.2011.06.08.22.14.39
-	(version=SSLv3 cipher=OTHER); Wed, 08 Jun 2011 22:14:40 -0700 (PDT)
-Message-ID: <4DF056BD.2060305@gmail.com>
-Date: Wed, 08 Jun 2011 22:14:37 -0700
+	by mx.google.com with ESMTPS id k2sm1416826wfe.3.2011.06.08.23.48.18
+	(version=SSLv3 cipher=OTHER); Wed, 08 Jun 2011 23:48:20 -0700 (PDT)
+Message-ID: <4DF06CB0.1040501@gmail.com>
+Date: Wed, 08 Jun 2011 23:48:16 -0700
 From: Khem Raj <raj.khem@gmail.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
 	rv:1.9.2.17) Gecko/20110516 Thunderbird/3.1.10
@@ -51,7 +51,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2011 05:14:43 -0000
+X-List-Received-Date: Thu, 09 Jun 2011 06:48:22 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -153,12 +153,33 @@ On 06/08/2011 07:24 PM, Gary Thomas wrote:
 > Hardly surprising as the register in question is a simple u32, not a
 > bitfield.
 >
-No. Its not a simple u32
-its a pointer and points to address of a member of structure type 
-ehci_hcd which can have bitfields. There has been bug reports in this 
-area in GCC which
-have been fixed and some are not. I was merely trying to reduce the 
-problem. So you tried compiling kernel with this option and you found
-that it does not work ? Did I understand it correct
 
+I reduced the testcase a bit further and it seems the bug is similar to 
+http://gcc.gnu.org/bugzilla/PR45819
+
+but a bit different that in this case -fstrict-volatile-bitfields does 
+not help
+
+a fix for this particular problem is
+
+diff --git a/include/linux/usb/ehci_def.h b/include/linux/usb/ehci_def.h
+index 6563802..b8c1833 100644
+--- a/include/linux/usb/ehci_def.h
++++ b/include/linux/usb/ehci_def.h
+@@ -194,7 +194,7 @@ struct ehci_dbg_port {
+         u32     data47;
+         u32     address;
+  #define DBGP_EPADDR(dev, ep)   (((dev)<<8)|(ep))
+-} __attribute__ ((packed));
++} __attribute__ ((packed,aligned(__alignof__(int))));
+
+  #ifdef CONFIG_EARLY_PRINTK_DBGP
+  #include <linux/init.h>
+
+
+since this particular structure all elements are integers but there 
+might be more packed structures which have say char or short ints
+and are not necessarily ordered in the descending order of alignment
+
+Try it out and see if it helps
 
