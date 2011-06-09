@@ -1,27 +1,43 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 285AD4C800B6
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2011 21:24:34 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 469541660323; Wed,  8 Jun 2011 20:24:33 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2-r929478 (2010-03-31) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2-r929478
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 3747F16602B9;
-	Wed,  8 Jun 2011 20:24:31 -0600 (MDT)
-Message-ID: <4DF02EDF.5040502@mlbassoc.com>
-Date: Wed, 08 Jun 2011 20:24:31 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-px0-f169.google.com (mail-px0-f169.google.com
+	[209.85.212.169])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0CB184C800B6
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 00:14:42 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pxi9 with SMTP id 9so705635pxi.28
+	for <poky@yoctoproject.org>; Wed, 08 Jun 2011 22:14:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
+	:cc:subject:references:in-reply-to:content-type
+	:content-transfer-encoding;
+	bh=LnPPzbLJEuP/Gg5yI99j10Tp2uUspfOe75uwvCEYxmQ=;
+	b=lupZD3MArVcJQPyCfYf8IpIexLitBQAbtJ4Eztb+4JWTCOmWSoJvUrZDuvSMkxfJB+
+	54SvtTYAqGpJ5bRIWE0sOFm/QYhjH9hyR+k1teEZo8u2PnvNk/y6TmK6HE9+tYA5LOta
+	bi65syS1HCzTYZBOYsX2j726BCUbxR72YwwB8=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:references:in-reply-to:content-type:content-transfer-encoding;
+	b=OWz3zTju37mPUVusY5OYM2/TNwGIC43pZz2a77C1Sc9ZIHzIBeMWbtGc4HkiZNw7P6
+	Z+ykuRxitjBWLV3aAMU8Xk/PqDgc6G0hxGr3r4TnFTdKtxnDLmSI8kPEnat8LeUPM7Bl
+	7VjRLKu0R//k0G5fivG3U6YIbb9g0oh6p/SUo=
+Received: by 10.142.59.2 with SMTP id h2mr42593wfa.227.1307596482413;
+	Wed, 08 Jun 2011 22:14:42 -0700 (PDT)
+Received: from [192.168.1.70] (99-57-141-118.lightspeed.sntcca.sbcglobal.net
+	[99.57.141.118])
+	by mx.google.com with ESMTPS id w16sm1332586wfd.23.2011.06.08.22.14.39
+	(version=SSLv3 cipher=OTHER); Wed, 08 Jun 2011 22:14:40 -0700 (PDT)
+Message-ID: <4DF056BD.2060305@gmail.com>
+Date: Wed, 08 Jun 2011 22:14:37 -0700
+From: Khem Raj <raj.khem@gmail.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110516 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
 References: <4DEFB4BA.7050902@mlbassoc.com> <4DEFBD77.7000400@linux.intel.com>
-	<4DF016F0.4080106@gmail.com>
-In-Reply-To: <4DF016F0.4080106@gmail.com>
+	<4DF016F0.4080106@gmail.com> <4DF02EDF.5040502@mlbassoc.com>
+In-Reply-To: <4DF02EDF.5040502@mlbassoc.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: BeagleBoard using GCC 4.6.0
 X-BeenThere: poky@yoctoproject.org
@@ -35,103 +51,114 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2011 02:24:36 -0000
+X-List-Received-Date: Thu, 09 Jun 2011 05:14:43 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/08/2011 06:42 PM, Khem Raj wrote:
-> On 06/08/2011 11:20 AM, Saul Wold wrote:
->> On 06/08/2011 10:43 AM, Gary Thomas wrote:
->>> Now that Poky is using GCC 4.6.0, has anyone actually checked the
->>> operation on the BeagleBoard? I suspect that you'll find that the
->>> EHCI USB does not work. I can't really check here as I don't trust
->>> the EHCI on my BeagleBoard rev C3 (not xM).
+On 06/08/2011 07:24 PM, Gary Thomas wrote:
+> On 06/08/2011 06:42 PM, Khem Raj wrote:
+>> On 06/08/2011 11:20 AM, Saul Wold wrote:
+>>> On 06/08/2011 10:43 AM, Gary Thomas wrote:
+>>>> Now that Poky is using GCC 4.6.0, has anyone actually checked the
+>>>> operation on the BeagleBoard? I suspect that you'll find that the
+>>>> EHCI USB does not work. I can't really check here as I don't trust
+>>>> the EHCI on my BeagleBoard rev C3 (not xM).
+>>>>
+>>>> That said, I've tried this new compiler (previously reported) on
+>>>> my own OMAP/3530 board which uses the same 2.6.37 kernel (just not
+>>>> the linux-yocto version). When I build my kernel with GCC 4.5.2,
+>>>> it works perfectly, but fails with GCC 4.6.0 (I trust the hardware).
+>>>>
+>>>> I've isolated it down to at least the function 'ehci_hub_control'
+>>>> (but I suspect the problem is more fundamental). Comparing the code
+>>>> generated by the two compilers with the same source tree, this function
+>>>> is dramatically different. I can see why it's failing, I just don't
+>>>> know why the compiler is doing what it's doing.
+>>>>
 >>>
->>> That said, I've tried this new compiler (previously reported) on
->>> my own OMAP/3530 board which uses the same 2.6.37 kernel (just not
->>> the linux-yocto version). When I build my kernel with GCC 4.5.2,
->>> it works perfectly, but fails with GCC 4.6.0 (I trust the hardware).
+>>> Gary,
 >>>
->>> I've isolated it down to at least the function 'ehci_hub_control'
->>> (but I suspect the problem is more fundamental). Comparing the code
->>> generated by the two compilers with the same source tree, this function
->>> is dramatically different. I can see why it's failing, I just don't
->>> know why the compiler is doing what it's doing.
+>>> I am not sure if Khem Raj is on this list, so I am forwarding it to him,
+>>> he might have some insight.
 >>>
+>>> Sau!
+>>>
+>>>
+>>>> The lines at drivers/usb/host/ehci-hub.c:841
+>>>> case GetPortStatus:
+>>>> if (!wIndex || wIndex > ports)
+>>>> goto error;
+>>>> wIndex--;
+>>>> status = 0;
+>>>> temp = ehci_readl(ehci, status_reg);
+>>>>
+>>>> are being compiled very differently.
+>>>>
+>>>> With GCC 4.5.2:
+>>>> 0xc0229810 <ehci_hub_control+672>: cmp r3, #0 ; 0x0
+>>>> 0xc0229814 <ehci_hub_control+676>: beq 0xc0229df8
+>>>> <ehci_hub_control+2184>
+>>>> 0xc0229818 <ehci_hub_control+680>: cmp r3, r0
+>>>> 0xc022981c <ehci_hub_control+684>: bgt 0xc0229df8
+>>>> <ehci_hub_control+2184>
+>>>> 0xc0229820 <ehci_hub_control+688>: sub r8, r3, #1 ; 0x1
+>>>> 0xc0229824 <ehci_hub_control+692>: ldr r5, [r7, #4]
+>>>> 0xc0229828 <ehci_hub_control+696>: uxth r8, r8
+>>>> 0xc022982c <ehci_hub_control+700>: dmb sy
+>>>>
+>>>> With GCC 4.6.0:
+>>>> 0xc0221630 <ehci_hub_control+808>: cmp r3, #0 ; 0x0
+>>>> 0xc0221634 <ehci_hub_control+812>: beq 0xc0221d7c
+>>>> <ehci_hub_control+2676>
+>>>> 0xc0221638 <ehci_hub_control+816>: cmp r3, r0
+>>>> 0xc022163c <ehci_hub_control+820>: bgt 0xc0221d7c
+>>>> <ehci_hub_control+2676>
+>>>> 0xc0221640 <ehci_hub_control+824>: sub r7, r3, #1 ; 0x1
+>>>> 0xc0221644 <ehci_hub_control+828>: add r3, r11, #16 ; 0x10
+>>>> 0xc0221648 <ehci_hub_control+832>: add r3, r8, r3, lsl #2
+>>>> 0xc022164c <ehci_hub_control+836>: uxth r7, r7
+>>>> 0xc0221650 <ehci_hub_control+840>: ldrb r5, [r3, #5]
+>>>> 0xc0221654 <ehci_hub_control+844>: ldrb r2, [r3, #4]
+>>>> 0xc0221658 <ehci_hub_control+848>: orr r5, r2, r5, lsl #8
+>>>> 0xc022165c <ehci_hub_control+852>: ldrb r2, [r3, #6]
+>>>> 0xc0221660 <ehci_hub_control+856>: ldrb r3, [r3, #7]
+>>>> 0xc0221664 <ehci_hub_control+860>: orr r5, r5, r2, lsl #16
+>>>> 0xc0221668 <ehci_hub_control+864>: orr r5, r5, r3, lsl #24
+>>>> 0xc022166c <ehci_hub_control+868>: dmb sy
+>>>>
+>>>> As you can see, the old compiler accesses the ehci status register
+>>>> in a single access, the new compiler dances around and makes multiple
+>>>> accesses, which in the end get very incorrect data (I think that this
+>>>> register is like many which clear bits on reads).
+>>>>
+>>>> Any ideas where I can go with this? I'm really trying to keep up with
+>>>> Poky/Yocto, but this move to GCC 4.6.0 has broken my ARM targets :-(
+>>>> I do have PowerPC targets as well - they seem fine (from limited
+>>>> testing)
+>>>> with the new compiler.
+>>>>
+>>>> Note: if you want to see the whole function disassembly, look at
+>>>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.5.2
+>>>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.6.0
+>>>>
+>>>> Thanks
+>>>>
 >>
->> Gary,
->>
->> I am not sure if Khem Raj is on this list, so I am forwarding it to him,
->> he might have some insight.
->>
->> Sau!
->>
->>
->>> The lines at drivers/usb/host/ehci-hub.c:841
->>> case GetPortStatus:
->>> if (!wIndex || wIndex > ports)
->>> goto error;
->>> wIndex--;
->>> status = 0;
->>> temp = ehci_readl(ehci, status_reg);
->>>
->>> are being compiled very differently.
->>>
->>> With GCC 4.5.2:
->>> 0xc0229810 <ehci_hub_control+672>: cmp r3, #0 ; 0x0
->>> 0xc0229814 <ehci_hub_control+676>: beq 0xc0229df8 <ehci_hub_control+2184>
->>> 0xc0229818 <ehci_hub_control+680>: cmp r3, r0
->>> 0xc022981c <ehci_hub_control+684>: bgt 0xc0229df8 <ehci_hub_control+2184>
->>> 0xc0229820 <ehci_hub_control+688>: sub r8, r3, #1 ; 0x1
->>> 0xc0229824 <ehci_hub_control+692>: ldr r5, [r7, #4]
->>> 0xc0229828 <ehci_hub_control+696>: uxth r8, r8
->>> 0xc022982c <ehci_hub_control+700>: dmb sy
->>>
->>> With GCC 4.6.0:
->>> 0xc0221630 <ehci_hub_control+808>: cmp r3, #0 ; 0x0
->>> 0xc0221634 <ehci_hub_control+812>: beq 0xc0221d7c <ehci_hub_control+2676>
->>> 0xc0221638 <ehci_hub_control+816>: cmp r3, r0
->>> 0xc022163c <ehci_hub_control+820>: bgt 0xc0221d7c <ehci_hub_control+2676>
->>> 0xc0221640 <ehci_hub_control+824>: sub r7, r3, #1 ; 0x1
->>> 0xc0221644 <ehci_hub_control+828>: add r3, r11, #16 ; 0x10
->>> 0xc0221648 <ehci_hub_control+832>: add r3, r8, r3, lsl #2
->>> 0xc022164c <ehci_hub_control+836>: uxth r7, r7
->>> 0xc0221650 <ehci_hub_control+840>: ldrb r5, [r3, #5]
->>> 0xc0221654 <ehci_hub_control+844>: ldrb r2, [r3, #4]
->>> 0xc0221658 <ehci_hub_control+848>: orr r5, r2, r5, lsl #8
->>> 0xc022165c <ehci_hub_control+852>: ldrb r2, [r3, #6]
->>> 0xc0221660 <ehci_hub_control+856>: ldrb r3, [r3, #7]
->>> 0xc0221664 <ehci_hub_control+860>: orr r5, r5, r2, lsl #16
->>> 0xc0221668 <ehci_hub_control+864>: orr r5, r5, r3, lsl #24
->>> 0xc022166c <ehci_hub_control+868>: dmb sy
->>>
->>> As you can see, the old compiler accesses the ehci status register
->>> in a single access, the new compiler dances around and makes multiple
->>> accesses, which in the end get very incorrect data (I think that this
->>> register is like many which clear bits on reads).
->>>
->>> Any ideas where I can go with this? I'm really trying to keep up with
->>> Poky/Yocto, but this move to GCC 4.6.0 has broken my ARM targets :-(
->>> I do have PowerPC targets as well - they seem fine (from limited testing)
->>> with the new compiler.
->>>
->>> Note: if you want to see the whole function disassembly, look at
->>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.5.2
->>> http://www.mlbassoc.com/poky/ehci_hub_control-disassembly-gcc-4.6.0
->>>
->>> Thanks
->>>
+>> OK. thanks for sending the sample code.
+>> Can you add -fstrict-volatile-bitfields option to CFLAGS while
+>> compiling this file or even the kernel for test sake ?
+>> and see if the problem goes away ?
 >
-> OK. thanks for sending the sample code.
-> Can you add -fstrict-volatile-bitfields option to CFLAGS while compiling this file or even the kernel for test sake ?
-> and see if the problem goes away ?
+> Sorry, this doesn't seem to make any difference in the generated code.
+> Hardly surprising as the register in question is a simple u32, not a
+> bitfield.
+>
+No. Its not a simple u32
+its a pointer and points to address of a member of structure type 
+ehci_hcd which can have bitfields. There has been bug reports in this 
+area in GCC which
+have been fixed and some are not. I was merely trying to reduce the 
+problem. So you tried compiling kernel with this option and you found
+that it does not work ? Did I understand it correct
 
-Sorry, this doesn't seem to make any difference in the generated code.
-Hardly surprising as the register in question is a simple u32, not a bitfield.
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
