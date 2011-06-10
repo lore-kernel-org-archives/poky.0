@@ -1,26 +1,19 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 256F94C800D7
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 22:17:20 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 09 Jun 2011 20:17:19 -0700
+Return-Path: <lianhao.lu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 16E574C800A4
+	for <poky@yoctoproject.org>; Fri, 10 Jun 2011 02:32:34 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 Jun 2011 00:32:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,344,1304319600"; d="scan'208";a="11765258"
-Received: from unknown (HELO [10.255.12.216]) ([10.255.12.216])
-	by orsmga002.jf.intel.com with ESMTP; 09 Jun 2011 20:17:19 -0700
-Message-ID: <4DF18CBE.2080805@linux.intel.com>
-Date: Thu, 09 Jun 2011 20:17:18 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-References: <cover.1307510707.git.kai.kang@windriver.com>
-	<f0caff18791ca02c18eeb8205f3efaffd1e88cc9.1307510707.git.kai.kang@windriver.com>
-In-Reply-To: <f0caff18791ca02c18eeb8205f3efaffd1e88cc9.1307510707.git.kai.kang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] [PATCH 1/2] bitbake: add another local configuration file
+X-IronPort-AV: E=Sophos;i="4.65,345,1304319600"; d="scan'208";a="12533385"
+Received: from llu-piketon.sh.intel.com (HELO localhost) ([10.239.36.87])
+	by orsmga001.jf.intel.com with ESMTP; 10 Jun 2011 00:32:32 -0700
+From: Lianhao Lu <lianhao.lu@intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 10 Jun 2011 15:40:19 +0800
+Message-Id: <cover.1307691323.git.lianhao.lu@intel.com>
+X-Mailer: git-send-email 1.7.0.4
+Subject: [IMAGE_CREATOR 0/1] Fixed the "build again" hang
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,98 +25,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2011 03:17:20 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 10 Jun 2011 07:32:34 -0000
 
-On 06/07/2011 10:56 PM, Kang Kai wrote:
-> From: Kang Kai<kai.kang@windriver.com>
->
-> Add a new local configuration file local.extended.conf.sample, and more advanced
-> settings what user can configure could put in this file.
->
-> Signed-off-by: Kang Kai<kai.kang@windriver.com>
-> ---
->   meta-yocto/conf/local.extended.conf.sample |    5 +++++
->   meta/conf/bitbake.conf                     |    1 +
->   scripts/oe-setup-builddir                  |   19 +++++++++++++++++++
->   3 files changed, 25 insertions(+), 0 deletions(-)
->   create mode 100644 meta-yocto/conf/local.extended.conf.sample
->
+NOTE: This series of patch should be applied to the branch contrib/image-creator.
 
-Kang,
+Modified hob to use the correct pygtk treading model "gobject.threads_init()".
+See http://faq.pygtk.org/index.py?req=show&file=faq20.006.htp for details.
 
-Richard's intent here was to have a local.conf.extended, purely as a 
-holding place for advanced options such as this.  Once you create this 
-one file (no inclusion via bitbake.conf or in oe-setup-builddir), we 
-will add additional items from the current local.conf, such as some of 
-the EXTRA_IMAGE_FEATURES explaination, the DEBUG and LIBRARY management 
-examples.
+This model only allows the main thread to touch the GUI (gtk) part, what is 
+exactly the hob does.
 
-So please just submit a single file local.conf.extended.
+The following changes since commit 116c075301878dbd769b7f39ec24381ac686502c:
+  Liping Ke (1):
+        Make bitbake server type configurable(xmlrpc,none)
 
-Thanks to Khem for reminding me of this!
+are available in the git repository at:
 
-Sau!
+  git://git.pokylinux.org/poky-contrib llu/build_again
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=llu/build_again
 
-> diff --git a/meta-yocto/conf/local.extended.conf.sample b/meta-yocto/conf/local.extended.conf.sample
-> new file mode 100644
-> index 0000000..048d641
-> --- /dev/null
-> +++ b/meta-yocto/conf/local.extended.conf.sample
-> @@ -0,0 +1,5 @@
-> +# eglibc configurability is used to reduce minimal images's size.
-> +# the all supported eglibc options are default enabled by adding
-> +# to DISTRO_FEATURES in default-distrovars.inc
-> +# put the options what you want to enable below and uncomment it
-> +#DISTRO_FEATURES = "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci"
-> diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
-> index de94316..1b1cf6b 100644
-> --- a/meta/conf/bitbake.conf
-> +++ b/meta/conf/bitbake.conf
-> @@ -641,6 +641,7 @@ CPU_FEATURES_arm ?= "vfp"
->   include conf/site.conf
->   include conf/auto.conf
->   include conf/local.conf
-> +include conf/local.extended.conf
->   include conf/build/${BUILD_SYS}.conf
->   include conf/target/${TARGET_SYS}.conf
->   include conf/machine/${MACHINE}.conf
-> diff --git a/scripts/oe-setup-builddir b/scripts/oe-setup-builddir
-> index 5fc8b19..31fb3d6 100755
-> --- a/scripts/oe-setup-builddir
-> +++ b/scripts/oe-setup-builddir
-> @@ -55,6 +55,7 @@ if [ "x" != "x$TEMPLATECONF" ]; then
->       fi
->       OECORELAYERCONF="$TEMPLATECONF/bblayers.conf.sample"
->       OECORELOCALCONF="$TEMPLATECONF/local.conf.sample"
-> +    OECORELOCALCONFEXTENDED="$TEMPLATECONF/local.extended.conf.sample"
->   fi
->
->   if [ "x" = "x$OECORELOCALCONF" ]; then
-> @@ -79,6 +80,24 @@ EOM
->       cp -f $OECORELOCALCONF $BUILDDIR/conf/local.conf
->   fi
->
-> +if ! (test -r "$BUILDDIR/conf/local.extended.conf"); then
-> +cat<<EOM
-> +You had no conf/local.conf file. This configuration file has therefore been
-> +created for you with some default values. You may wish to edit it to use
-> +different eglibc configuration options for example. See the file for more
-> +information as common configuration options are commented.
-> +
-> +The Yocto Project has extensive documentation about OE including a reference manual
-> +which can be found at:
-> +    http://yoctoproject.org/community/documentation
-> +
-> +For more information about OpenEmbedded see their website:
-> +    http://www.openembedded.org/
-> +
-> +EOM
-> +	cp -f $OECORELOCALCONFEXTENDED $BUILDDIR/conf/local.extended.conf
-> +fi
-> +
->   if [ "x" = "x$OECORELAYERCONF" ]; then
->       OECORELAYERCONF="$OEROOT/meta/conf/bblayers.conf.sample"
->   fi
+Lianhao Lu (1):
+  bitbake/hob: Fixed the "build again" hang.
+
+ bitbake/lib/bb/ui/crumbs/hobeventhandler.py |    3 +++
+ bitbake/lib/bb/ui/hob.py                    |    5 +++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
 
