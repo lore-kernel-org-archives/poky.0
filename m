@@ -1,45 +1,28 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-px0-f169.google.com (mail-px0-f169.google.com
-	[209.85.212.169])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AA1FE4C800A4
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 20:05:46 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pxi9 with SMTP id 9so1234936pxi.28
-	for <poky@yoctoproject.org>; Thu, 09 Jun 2011 18:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=domainkey-signature:message-id:date:from:user-agent:mime-version:to
-	:cc:subject:references:in-reply-to:content-type
-	:content-transfer-encoding;
-	bh=bQ4yy0IJiBBRAyE4ntFlM+u9V0KuTg3EAItwHvMCOMk=;
-	b=Pz3IRmLC7Ij4htFMPvfkUbO8e5931uK6+OVNOxyxjetFCbFPbKjktxywqmczJqzasu
-	vsNePPJxikSQCU/bEA6tz/tJ5V4999oXM7SWDkdi/oaPILGa4dyJULUg8zxa6Oo6TsM7
-	Ck+fJCMZf/z/Cnw0jX52jxpHZeKZW1uh3NXFQ=
-DomainKey-Signature: a=rsa-sha1; c=nofws; d=gmail.com; s=gamma;
-	h=message-id:date:from:user-agent:mime-version:to:cc:subject
-	:references:in-reply-to:content-type:content-transfer-encoding;
-	b=THuia1izecHa+wKS2yztOiPsRLg8XrKGzZ/mp6N/XG69dQzUuQepXUx6I0E6mkZ4EC
-	3ofELCKnOD0bF7IpPBHgn1He5NlmIWRTQZfwAvaU3SQRo0CkB+PoUFbBVmtigZyy6Gya
-	El2ppMTp7okCMHcO8vc8pt82XwrJOVVJz8w0g=
-Received: by 10.142.231.2 with SMTP id d2mr239275wfh.262.1307667946182;
-	Thu, 09 Jun 2011 18:05:46 -0700 (PDT)
-Received: from [172.23.8.101] (natint3.juniper.net [66.129.224.36])
-	by mx.google.com with ESMTPS id z7sm2278888wff.5.2011.06.09.18.05.44
-	(version=SSLv3 cipher=OTHER); Thu, 09 Jun 2011 18:05:45 -0700 (PDT)
-Message-ID: <4DF16DE6.5090004@gmail.com>
-Date: Thu, 09 Jun 2011 18:05:42 -0700
-From: Khem Raj <raj.khem@gmail.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110516 Thunderbird/3.1.10
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7333F4C8055B
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2011 21:50:20 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p5A2oFfc010094
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 9 Jun 2011 19:50:15 -0700 (PDT)
+Received: from [128.224.162.154] (128.224.162.154) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Thu, 9 Jun 2011 19:50:15 -0700
+Message-ID: <4DF1866B.7010106@windriver.com>
+Date: Fri, 10 Jun 2011 10:50:19 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <4DEFB4BA.7050902@mlbassoc.com>	<4DEFBD77.7000400@linux.intel.com>	<4DF016F0.4080106@gmail.com>	<4DF02EDF.5040502@mlbassoc.com>	<4DF06CB0.1040501@gmail.com>	<4DF0AC87.2060901@mlbassoc.com>
-	<4DF0AF61.1020108@mlbassoc.com> <4DF14A49.6000104@linux.intel.com>
-	<4DF156FC.40406@linux.intel.com>
-In-Reply-To: <4DF156FC.40406@linux.intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: BeagleBoard using GCC 4.6.0
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <4DF0A70C.7080501@windriver.com> <4DF0E4A8.1000608@windriver.com>
+In-Reply-To: <4DF0E4A8.1000608@windriver.com>
+X-Originating-IP: [128.224.162.154]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: Question about apply eglibc configurability to create minimal image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,26 +34,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2011 01:05:47 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 10 Jun 2011 02:50:21 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/09/2011 04:27 PM, Darren Hart wrote:
-> This seems to demonstrate the same pile of extra ldrb and orr
-> instructions that you first saw with 4.6.0. Some quick googling suggests
-> Khem's idea of misaligned loads seems sound, but for whatever reason,
-> the fix didn't work for me.
->
-> Khem, any other thoughts on something to try?
->
-> Note: CONFIG_USB_EHCI_BIG_ENDIAN_MMIO does not appear to be set in my
->        config.
+Hi Mark,
 
-If you can narrow the down the problem a bit may be I will get some 
-direction otherwise I don't know what problem it might be. You config
-must be different to Gary's and there could be same or different problem
-in other part of code.
+Thank you very much for your detailed comments.
 
-Give me more information on the error and ideally like what Gary did
-makes it easy
+>
+>  From the above, I'm pretty sure that "netbase" will require a lot of networking
+> components, specifically adding things like libc-inet.  So avoid netbase.
+>
+> It's possible that keyboard/keymaps may cause additional stuff to come in due to
+> locale requirements.. so I'd dump those as well..
+>
+> sysvinit may also introduce some additional items -- so if it causes problems,
+> remove it and switch to the init located within busybox.
+
+sysvinit and  busybox, tinilogin require eglibc libc-crypt support.
+
+And busybox need libnsl, so I try to finger out how to break these 
+depencies.
+
+> update-alternatives is what included gettext -- so this might need some
+> enhancement to avoid gettext as a requirement.  So I'd suggest skipping it.
+> (Note without it, it's likely busybox, tinylogin may not get setup properly...)
+
+I will test it.
+
+> udev is quite complex and drags in a number of components -- so drop that..
+
+RP suggested using mdev provided by busybox instead, I'll do it later.
+
+> Leaving:
+>
+>      base-files \
+>      base-passwd \
+>      busybox \
+>      initscripts \
+>      modutils-initscripts \
+>      sysvinit \
+>      tinylogin
+>
+> First see if you can compile the above with a minimal eglibc configuration.  If
+> not I can help you work through those issues..  If you can, you SHOULD see a
+> fairly dramatic decrease in size.
+First of all, I do the minimal with your direction and give you feedback.
+
+> --Mark
+Thank & Regards,
+Kai
+>> Thanks a lot!
+>>
+>> I made a mistake that try eglibc configurability in a directory which
+>> has build core-image-minimal, so the packages which depend on eglibc
+>> didn't rebuild, and I didn't find the dependency before. I am sorry!
+>>
+>> Regards,
+>> Kai
+
 
