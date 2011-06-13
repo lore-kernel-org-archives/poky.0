@@ -1,29 +1,28 @@
-Return-Path: <prvs=51458a9b9f=jmitchell@ll.mit.edu>
-Received: from mx2.ll.mit.edu (MX2.LL.MIT.EDU [129.55.12.46])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AFB314C800A3
-	for <poky@yoctoproject.org>; Mon, 13 Jun 2011 16:04:36 -0500 (CDT)
-Received: from LLE2K7-HUB02.mitll.ad.local (LLE2K7-HUB02.mitll.ad.local) by
-	mx2.ll.mit.edu (unknown) with ESMTP id p5DL4WYu004889;
-	Mon, 13 Jun 2011 17:04:32 -0400
-Message-ID: <4DF67B60.6050008@ll.mit.edu>
-Date: Mon, 13 Jun 2011 17:04:32 -0400
-From: Jeff Mitchell <jmitchell@ll.mit.edu>
+Return-Path: <saul.wold@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C69914C80052
+	for <poky@yoctoproject.org>; Mon, 13 Jun 2011 16:09:37 -0500 (CDT)
+Received: from mail-pw0-f52.google.com ([209.85.160.52])
+	by mga09.intel.com with ESMTP/TLS/RC4-SHA; 13 Jun 2011 14:09:37 -0700
+Received: by pwi4 with SMTP id 4so2219869pwi.25
+	for <poky@yoctoproject.org>; Mon, 13 Jun 2011 14:09:36 -0700 (PDT)
+Received: by 10.142.248.38 with SMTP id v38mr1046489wfh.15.1307999376239;
+	Mon, 13 Jun 2011 14:09:36 -0700 (PDT)
+Received: from [10.6.18.227] (c-71-193-189-117.hsd1.wa.comcast.net
+	[71.193.189.117])
+	by mx.google.com with ESMTPS id y27sm3262436wfl.12.2011.06.13.14.09.34
+	(version=SSLv3 cipher=OTHER); Mon, 13 Jun 2011 14:09:35 -0700 (PDT)
+Message-ID: <4DF67C8D.4010907@intel.com>
+Date: Mon, 13 Jun 2011 14:09:33 -0700
+From: Saul Wold <saul.wold@intel.com>
+Organization: Intel
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110505 Lightning/1.0b3pre Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
+To: Jeff Mitchell <jmitchell@ll.mit.edu>
 References: <4DF668B1.1060500@ll.mit.edu> <4DF6715D.3050703@linux.intel.com>
-	<4DF67631.9000702@intel.com>
-In-Reply-To: <4DF67631.9000702@intel.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:5.4.6813, 1.0.148,
-	0.0.0000
-	definitions=2011-06-13_07:2011-06-13, 2011-06-13,
-	1970-01-01 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
-	ipscore=0 suspectscore=2
-	phishscore=0 bulkscore=0 adultscore=0 classifier=spam adjust=0
-	reason=mlx
-	scancount=1 engine=6.0.2-1012030000 definitions=main-1106130143
+	<4DF67631.9000702@intel.com> <4DF67B60.6050008@ll.mit.edu>
+In-Reply-To: <4DF67B60.6050008@ll.mit.edu>
 Cc: Darren Hart <dvhart@linux.intel.com>,
 	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Git/perl build problems
@@ -38,22 +37,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Jun 2011 21:04:37 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Mon, 13 Jun 2011 21:09:38 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/13/2011 04:42 PM, Saul Wold wrote:
-> Understood, but not fixed yet!
+On 06/13/2011 02:04 PM, Jeff Mitchell wrote:
+> On 06/13/2011 04:42 PM, Saul Wold wrote:
+>> Understood, but not fixed yet!
+>>
+>> The workaround at this point is to
+>>
+>> "bitbake -c cleansstate autoconf-native automake-native"
+>>
+>> Thanks should resolve this issue.
 >
-> The workaround at this point is to
+> Running that now, seems to be working. Would a simple revision bump to
+> those two packages fix the problem for any others?
 >
-> "bitbake -c cleansstate autoconf-native automake-native"
->
-> Thanks should resolve this issue.
+That's my thought, but this issue is that it now uses the host perl, not 
+any perl built by poky, so I am concerned that it also really need to 
+inherit perlnative and I have not completely tested that yet.
 
-Running that now, seems to be working. Would a simple revision bump to 
-those two packages fix the problem for any others?
+Sau!
 
-Thanks,
-Jeff
+> Thanks,
+> Jeff
+>
+
 
