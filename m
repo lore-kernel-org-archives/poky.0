@@ -1,25 +1,27 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 5DB474C800E0
-	for <poky@yoctoproject.org>; Fri, 10 Jun 2011 13:20:56 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 10 Jun 2011 11:20:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,348,1304319600"; d="scan'208";a="14898815"
-Received: from unknown (HELO [10.255.12.233]) ([10.255.12.233])
-	by fmsmga002.fm.intel.com with ESMTP; 10 Jun 2011 11:20:55 -0700
-Message-ID: <4DF26085.3000609@linux.intel.com>
-Date: Fri, 10 Jun 2011 11:20:53 -0700
-From: Darren Hart <dvhart@linux.intel.com>
+Return-Path: <prvs=51458a9b9f=jmitchell@ll.mit.edu>
+Received: from mx2.ll.mit.edu (MX2.LL.MIT.EDU [129.55.12.46])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 16D804C800A3
+	for <poky@yoctoproject.org>; Mon, 13 Jun 2011 14:44:50 -0500 (CDT)
+Received: from LLE2K7-HUB01.mitll.ad.local (LLE2K7-HUB01.mitll.ad.local) by
+	mx2.ll.mit.edu (unknown) with ESMTP id p5DJinFq020770 for
+	<poky@yoctoproject.org>; Mon, 13 Jun 2011 15:44:49 -0400
+Message-ID: <4DF668B1.1060500@ll.mit.edu>
+Date: Mon, 13 Jun 2011 15:44:49 -0400
+From: Jeff Mitchell <jmitchell@ll.mit.edu>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110505 Lightning/1.0b3pre Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1307727577.git.paul.eggleton@linux.intel.com>
-	<d7189aeeb5376f12f4eb32f897c2cf020d8bb677.1307727577.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <d7189aeeb5376f12f4eb32f897c2cf020d8bb677.1307727577.git.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] meta-yocto: use FILESEXTRAPATHS_prepend := in	all bbappends
+To: <poky@yoctoproject.org>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:5.4.6813, 1.0.148,
+	0.0.0000
+	definitions=2011-06-13_05:2011-06-13, 2011-06-13,
+	1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+	ipscore=0 suspectscore=4
+	phishscore=0 bulkscore=0 adultscore=0 classifier=spam adjust=0
+	reason=mlx
+	scancount=1 engine=6.0.2-1012030000 definitions=main-1106130127
+Subject: Git/perl build problems
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,72 +33,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Jun 2011 18:20:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 13 Jun 2011 19:44:51 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Thanks Paul!
+Hello,
 
-On 06/10/2011 10:43 AM, Paul Eggleton wrote:
-> Using FILESEXTRAPATHS is cleaner than the old FILESPATH-based method, and
-> as meta-intel layers are using FILESEXTRAPATHS their formfactor bbappends
-> will now work. In addition I have used FILESEXTRAPATHS_prepend which is
-> not absolutely necessary, but provides a good working example in case it
-> is copied by other layers that are intended to be used on top of it.
-> 
-> Fixes [YOCTO #1156]
-> 
-> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Late last week I did a full rebuild of packages from poky master branch 
+(beagleboard target). Today, if I update my clone's master branch to 
+current upstream, I'm unable to build git (extra whitespace added for 
+clarity)
 
-Acked-by: Darren Hart <dvhart@linux.intel.com>
+NOTE: Running task 210 of 4247 (ID: 324, 
+virtual:native:/home/jmitchell/yocto/poky/meta/recipes-devtools/git/git_1.7.5.1.bb, 
+do_configure)
 
+NOTE: package git-native-1.7.5.1-r1: task do_configure: Started
 
-> ---
->  .../recipes-bsp/formfactor/formfactor_0.0.bbappend |    4 +---
->  .../recipes-core/netbase/netbase_4.45.bbappend     |    4 +---
->  meta-yocto/recipes-core/uclibc/uclibc_git.bbappend |    4 +---
->  .../xorg-xserver/xserver-xf86-config_0.1.bbappend  |    4 +---
->  4 files changed, 4 insertions(+), 12 deletions(-)
-> 
-> diff --git a/meta-yocto/recipes-bsp/formfactor/formfactor_0.0.bbappend b/meta-yocto/recipes-bsp/formfactor/formfactor_0.0.bbappend
-> index 4b8d0e6..72d991c 100644
-> --- a/meta-yocto/recipes-bsp/formfactor/formfactor_0.0.bbappend
-> +++ b/meta-yocto/recipes-bsp/formfactor/formfactor_0.0.bbappend
-> @@ -1,3 +1 @@
-> -THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-> -FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
-> -
-> +FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-> diff --git a/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend b/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
-> index 4b8d0e6..72d991c 100644
-> --- a/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
-> +++ b/meta-yocto/recipes-core/netbase/netbase_4.45.bbappend
-> @@ -1,3 +1 @@
-> -THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-> -FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
-> -
-> +FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-> diff --git a/meta-yocto/recipes-core/uclibc/uclibc_git.bbappend b/meta-yocto/recipes-core/uclibc/uclibc_git.bbappend
-> index 4b8d0e6..72d991c 100644
-> --- a/meta-yocto/recipes-core/uclibc/uclibc_git.bbappend
-> +++ b/meta-yocto/recipes-core/uclibc/uclibc_git.bbappend
-> @@ -1,3 +1 @@
-> -THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-> -FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
-> -
-> +FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-> diff --git a/meta-yocto/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend b/meta-yocto/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
-> index 4b8d0e6..72d991c 100644
-> --- a/meta-yocto/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
-> +++ b/meta-yocto/recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend
-> @@ -1,3 +1 @@
-> -THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
-> -FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
-> -
-> +FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+ERROR: Logfile of failure stored in: 
+/home/jmitchell/yocto/build/tmp/work/i686-linux/git-native-1.7.5.1-r1/temp/log.do_configure.12679
 
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+Log data follows:
+
+| 
+/home/jmitchell/yocto/build/tmp/work/i686-linux/git-native-1.7.5.1-r1/temp/run.do_configure.12679: 
+/home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/automake: 
+/home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/perl: bad 
+interpreter: No such file or directory
+
+| 
+/home/jmitchell/yocto/build/tmp/work/i686-linux/git-native-1.7.5.1-r1/temp/run.do_configure.12679: 
+/home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/automake: 
+/home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/perl: bad 
+interpreter: No such file or directory
+
+My guess is that it's related to 4c790efa, but reverting that patch in a 
+private branch did not really help. I've tried cleaning and rebuilding 
+perl, perl-native, and git, with no success.
+
+Did I simply miss some updating step...?
+
+Thanks,
+Jeff
 
