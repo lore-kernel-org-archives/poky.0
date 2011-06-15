@@ -1,36 +1,35 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 8D7D34C800FB
-	for <poky@pokylinux.org>; Wed, 15 Jun 2011 06:47:13 -0500 (CDT)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1QWoYy-0007uk-HV
-	for poky@pokylinux.org; Wed, 15 Jun 2011 13:47:12 +0200
-Received: from 79.167.211.68 ([79.167.211.68])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Wed, 15 Jun 2011 13:47:12 +0200
-Received: from gmane by 79.167.211.68 with local (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Wed, 15 Jun 2011 13:47:12 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Wed, 15 Jun 2011 14:46:58 +0300
-Organization: Reliable Embedded Systems
-Message-ID: <ita63j$kig$1@dough.gmane.org>
-References: <it8ite$i96$1@dough.gmane.org> <4DF80B84.9000304@linux.intel.com>
-	<4DF890F0.1020307@reliableembeddedsystems.com>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: 79.167.211.68
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
-In-Reply-To: <4DF890F0.1020307@reliableembeddedsystems.com>
-Subject: Re: bernard 5.0.1 and beagle-xm rev c
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews07.kpnxchange.com (cpsmtpb-ews07.kpnxchange.com
+	[213.75.39.10])
+	by mx1.pokylinux.org (Postfix) with ESMTP id AD08F4C8009D
+	for <poky@yoctoproject.org>; Wed, 15 Jun 2011 09:39:52 -0500 (CDT)
+Received: from cpbrm-ews30.kpnxchange.com ([10.94.84.161]) by
+	cpsmtpb-ews07.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Wed, 15 Jun 2011 16:39:52 +0200
+Received: from CPSMTPM-CMT104.kpnxchange.com ([195.121.3.20]) by
+	cpbrm-ews30.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Wed, 15 Jun 2011 16:39:51 +0200
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT104.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Wed, 15 Jun 2011 16:39:51 +0200
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
+	for poky@yoctoproject.org; Wed, 15 Jun 2011 16:40:05 +0200
+Message-ID: <4DF8C435.6080800@de-haardt.com>
+Date: Wed, 15 Jun 2011 16:39:49 +0200
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: poky <poky@yoctoproject.org>
+X-OriginalArrivalTime: 15 Jun 2011 14:39:51.0208 (UTC)
+	FILETIME=[15609280:01CC2B6A]
+X-RcptDomain: yoctoproject.org
+Subject: problem booting sdcard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -39,37 +38,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2011 11:47:14 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Wed, 15 Jun 2011 14:39:53 -0000
+Content-Type: multipart/alternative;
+	boundary="------------080402060908040102020100"
+
+--------------080402060908040102020100
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-I found some more info here:
+Hello,
 
-http://thread.gmane.org/gmane.comp.hardware.beagleboard.user/20438/match=compile+u+boot+bb+xm+rev+b
+I have a demonstration next week so I wanted to switch from nfs back to 
+sdcard.
+I successfully ran on sdcard at the beginning of the project but then 
+changed to nfs for development.
 
-Those are the patches, which we could search for/try:
+Now I am having a strange problem when booting, the kernel boots fine 
+and the the rootfs gets loaded and it hangs at:
 
-MLO (upstream):
-http://gitorious.org/x-loader/x-loader/commit/2efa178acd56d83c86210b5934895cfb9ea62125
+Running postinst /etc/rpm-postinsts/gnome-vfs.sh...
 
-u-boot (upstream):
-http://git.denx.de/?p=u-boot.git;a=commitdiff;h=f6e593bb1255d1e15201cb5dec8c95264489e729
-(reports unknown version, but works)
 
-kernel:
-http://gitorious.org/beagleboard-validation/linux/commit/bfca58987039791522d1821e0506f8a113a0c239
-(looks like this one still needs to be cleaned up and submitted upstream
--- any help is useful here)
+Eventually I am getting a gconf XML error, that is different every time.
+
+When I interrupt using ctrl+c it continues booting and then gives a prompt.
+Looking with free and df there don't seem to be space issues.
+
+My bootargs are:
+mmc init; fatload mmc 0 0x80000000 uImage; bootm 0x80000000'
+root=/dev/mmcblk0p2 rw rootdelay=1
+
+The rootfs is ~500MB
+
+Does anyone have any thoughts on what might be going wrong here?
 
 Regards,
+Gerard
 
-Robert
+--------------080402060908040102020100
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-...The significant problems we face cannot be solved at the same level
-of thinking we were at when we created them. - Albert Einstein
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
 
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body bgcolor="#ffffff" text="#000000">
+    <small>Hello,<br>
+      <br>
+      I have a demonstration next week so I wanted to switch from nfs
+      back to sdcard.<br>
+      I successfully ran on sdcard at the beginning of the project but
+      then changed to nfs for development.<br>
+      <br>
+      Now I am having a strange problem when booting, the kernel boots
+      fine and the the rootfs gets loaded and it hangs at:<br>
+    </small>
+    <style type="text/css">p, li { white-space: pre-wrap; }</style>
+    <p style="margin: 0px; text-indent: 0px;"><small>Running postinst
+        /etc/rpm-postinsts/gnome-vfs.sh...</small></p>
+    <small><br>
+      Eventually I am getting a gconf XML error, that is different every
+      time.<br>
+      <br>
+      When I interrupt using ctrl+c it continues booting and then gives
+      a prompt.<br>
+      Looking with free and df there don't seem to be space issues.<br>
+      <br>
+      My bootargs are:<br>
+      mmc init; fatload mmc 0 0x80000000 uImage; bootm 0x80000000'<br>
+      root=/dev/mmcblk0p2 rw rootdelay=1 <br>
+      <br>
+      The rootfs is ~500MB<br>
+      <br>
+      Does anyone have any thoughts on what might be going wrong here?<br>
+      <br>
+      Regards,<br>
+      Gerard</small><br>
+  </body>
+</html>
 
-
-
+--------------080402060908040102020100--
