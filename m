@@ -1,23 +1,30 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6E72E4C800C1
-	for <poky@yoctoproject.org>; Wed, 15 Jun 2011 05:12:21 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p5FACKaN004430
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 15 Jun 2011 03:12:20 -0700 (PDT)
-Received: from [128.224.162.178] (128.224.162.178) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Wed, 15 Jun 2011 03:12:20 -0700
-Message-ID: <4DF88592.6010209@windriver.com>
-Date: Wed, 15 Jun 2011 18:12:34 +0800
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>, <yocto@linux.intel.com>
-X-Originating-IP: [128.224.162.178]
-Subject: Absent libraries and command on lsb image
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BD7444C800C1
+	for <poky@yoctoproject.org>; Wed, 15 Jun 2011 05:50:34 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p5FAoXsE025745;
+	Wed, 15 Jun 2011 11:50:33 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 25636-02; Wed, 15 Jun 2011 11:50:29 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p5FAoOi1025739
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 15 Jun 2011 11:50:25 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1307727577.git.paul.eggleton@linux.intel.com>
+References: <cover.1307727577.git.paul.eggleton@linux.intel.com>
+Date: Wed, 15 Jun 2011 11:50:22 +0100
+Message-ID: <1308135022.15712.405.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] meta-yocto: FILESEXTRAPATHS_prepend := in all bbappends
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,24 +36,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2011 10:12:21 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Wed, 15 Jun 2011 10:50:35 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi all,
+On Fri, 2011-06-10 at 18:43 +0100, Paul Eggleton wrote:
+> The following changes since commit b30cb584a738915113e88b7db1028d53b2bae5f9:
+> 
+>   Revert "gcc: rebase the patch to avoid patch rejection" (2011-06-10 13:30:28 +0100)
+> 
+> are available in the git repository at:
+>   git://git.pokylinux.org/poky-contrib paule/filespath
+>   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/filespath
+> 
+> Paul Eggleton (1):
+>   meta-yocto: use FILESEXTRAPATHS_prepend := in all bbappends
 
-The following  command and libraries existed on lsb image two weeks ago 
-but they don't exist after building an lsb image with the latest poky 
-now. Does anybody know  which updated recipes caused these changes ?
+Merged to master, thanks.
 
-Command check:
-|--No command "strip"
-Library check:
-|--No library libatk-1.0.so.0
-|--No library libgdk-x11-2.0.so
-|--No library libcairo.so.2
-|--No library libpango-1.0.so
-|--No library libpangoft2-1.0.so.0
-|--No library libpangoxft-1.0.so.0
-|--No library libpangocairo-1.0.so
+Richard
+
 
