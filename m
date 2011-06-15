@@ -1,26 +1,30 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 08BA84C804DC
-	for <poky@yoctoproject.org>; Tue, 14 Jun 2011 20:43:08 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 068354C800B3
+	for <poky@yoctoproject.org>; Tue, 14 Jun 2011 20:43:07 -0500 (CDT)
 Received: from localhost.localdomain (c-76-115-40-57.hsd1.or.comcast.net
 	[76.115.40.57])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id D4C2930500;
-	Tue, 14 Jun 2011 21:43:01 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 8C8E030501;
+	Tue, 14 Jun 2011 21:43:02 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 14 Jun 2011 18:42:54 -0700
-Message-Id: <cover.1308101091.git.scott.a.garman@intel.com>
+Date: Tue, 14 Jun 2011 18:42:55 -0700
+Message-Id: <b735e31ec3b5d2bd27718aec7aff868e859e66ae.1308101091.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.1
+In-Reply-To: <cover.1308101091.git.scott.a.garman@intel.com>
+References: <cover.1308101091.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1308101091.git.scott.a.garman@intel.com>
+References: <cover.1308101091.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: D4C2930500.BFE6F
+X-MailScanner-ID: 8C8E030501.E0588
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 0/1] bitbake wrapper: exit if python v3 is detected
+Subject: [PATCH 1/1] bitbake wrapper: exit if python v3 is detected
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,24 +45,34 @@ can offer a meaningful error message.
 
 This fixes bug [YOCTO #1128]
 
-I did attempt to make changes to bitbake to get the source code to
-parse under python v3, but there are issues which make it too
-difficult to get the code to work with python v2 and v3. For example,
-importing modules within a package has changed significantly in v3
-in such a way that breaks compatability with v2.
-
-The following changes since commit 7aa7673459376aff911cef820c9417c998d1aa96:
-
-  meta-yocto/linux-yocto: update to match the renamed linux-yocto recipes (2011-06-14 09:21:32 -0700)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib sgarman/bb-python-v3
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=sgarman/bb-python-v3
-
-Scott Garman (1):
-  bitbake wrapper: exit if python v3 is detected
-
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+---
  scripts/bitbake |   11 +++++++++++
  1 files changed, 11 insertions(+), 0 deletions(-)
+
+diff --git a/scripts/bitbake b/scripts/bitbake
+index 3923421..587428c 100755
+--- a/scripts/bitbake
++++ b/scripts/bitbake
+@@ -16,6 +16,17 @@ done
+ [ $needpseudo = "0" ] && break
+ done
+ 
++# Make sure we're not using python v3.x. This check can't go into
++# sanity.bbclass because bitbake's source code doesn't even pass
++# parsing stage when used with python v3, so we catch it here so we
++# can offer a meaningful error message.
++py_v3_check=`/usr/bin/env python --version 2>&1 | grep "Python 3"`
++if [ "$py_v3_check" != "" ]; then
++	echo "Bitbake is not compatible with python v3"
++	echo "Please set up python v2 as your default python interpreter"
++	exit 1
++fi
++
+ needtar="1"
+ TARVERSION=`tar --version | head -n 1 | cut -d ' ' -f 4`
+ float_test() {
+-- 
+1.7.1
 
 
