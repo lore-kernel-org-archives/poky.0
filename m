@@ -1,28 +1,37 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 228C94C800C0
-	for <poky@pokylinux.org>; Wed, 15 Jun 2011 11:38:57 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Jun 2011 09:38:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,370,1304319600"; d="scan'208";a="16603722"
-Received: from unknown (HELO [10.255.13.47]) ([10.255.13.47])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Jun 2011 09:38:56 -0700
-Message-ID: <4DF8E01F.8040209@linux.intel.com>
-Date: Wed, 15 Jun 2011 09:38:55 -0700
-From: Darren Hart <dvhart@linux.intel.com>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 4E0E94C800B3
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 12:19:09 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QWtkB-0000WO-1n
+	for poky@pokylinux.org; Wed, 15 Jun 2011 19:19:07 +0200
+Received: from 79.167.211.68 ([79.167.211.68])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 19:19:07 +0200
+Received: from gmane by 79.167.211.68 with local (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 19:19:07 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Wed, 15 Jun 2011 20:18:52 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <itaphs$mug$1@dough.gmane.org>
+References: <it8ite$i96$1@dough.gmane.org>
+	<4DF80B84.9000304@linux.intel.com>	<4DF890F0.1020307@reliableembeddedsystems.com>
+	<4DF8E01F.8040209@linux.intel.com>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: 79.167.211.68
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: gmane@reliableembeddedsystems.com
-References: <it8ite$i96$1@dough.gmane.org> <4DF80B84.9000304@linux.intel.com>
-	<4DF890F0.1020307@reliableembeddedsystems.com>
-In-Reply-To: <4DF890F0.1020307@reliableembeddedsystems.com>
-Cc: poky@pokylinux.org
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+In-Reply-To: <4DF8E01F.8040209@linux.intel.com>
 Subject: Re: bernard 5.0.1 and beagle-xm rev c
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -31,81 +40,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2011 16:38:57 -0000
+X-List-Received-Date: Wed, 15 Jun 2011 17:19:09 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 06/15/2011 07:38 PM, Darren Hart wrote:
+> 
+> For details on that effort and it's status, please see:
+> 
+> https://lists.yoctoproject.org/pipermail/yocto/2011-June/001599.html
+> 
 
-On 06/15/2011 04:01 AM, Robert Berger wrote:
-> Hi,
-> 
-> On 06/15/2011 04:31 AM, Darren Hart wrote:
->>
->> Does USB work in general on Rev C?
->>
->> --
->> Darren
->>
-> 
-> I built a minimal-image + usbutils
-> 
-> REV A3 with poky:
-> 
-> root@beagleboard:~# lsusb
-> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-> Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.
-> Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.
-> 
-> REV C with Angstrom:
-> 
-> root@beagleboard:~# lsusb
-> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-> Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-> Bus 002 Device 002: ID 0424:9514 Standard Microsystems Corp.
-> Bus 002 Device 003: ID 0424:ec00 Standard Microsystems Corp.
-> 
-> REV C with poky:
-> 
-> root@beagleboard:~# lsusb
-> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-> 
-> This looks like the USB hub on Bus 002 is not found and hence there is
-> also no Ethernet, which fits somehow into what I've found on
-> http://beagleboard.org/support/faq
-> 
-> # What do I need to do to get my software running on a BeagleBoard-xM rev C?
-
-At the Bernard release I don't believe we had support for the xM rev C
-(it supported at least up to xM rev A). I am currently working on a
-refresh of the Beagleboard BSP in meta-yocto which does support rev C.
-For details on that effort and it's status, please see:
-
-https://lists.yoctoproject.org/pipermail/yocto/2011-June/001599.html
-
-
-> Judging from the u-boot output I think it needs to be patched:
-> Beagle unknown 0x02
-
-Indeed.
+I'm aware of this.
 
 > 
-> u-boot which comes with Angstrom:
-> Beagle xM Rev C
+> Both Koen and Jason K. have been helping to get the right bits merged
+> for the kernel. I had hoped to use mainline u-boot, but it appears we
+> may need at least a set of patches in support of Rev C.
+
+What else is needed in addition to [2]?
+
 > 
-> I'm sure Koen can tell us more about this and also what patches should
-> be applied where;)
+> The updated BSP will be released with 1.1. My patches and commits will
+> of course hit the list before then and you can build from master once
+> they arrive there. Within a week I suspect.
+> 
 
-Both Koen and Jason K. have been helping to get the right bits merged
-for the kernel. I had hoped to use mainline u-boot, but it appears we
-may need at least a set of patches in support of Rev C.
+I hope we'll have something which works without graphics on the Beagle
+XM - Rev C before October (1.1) - before summer would be great.
 
-The updated BSP will be released with 1.1. My patches and commits will
-of course hit the list before then and you can build from master once
-they arrive there. Within a week I suspect.
+This means, I would assume, gcc 4.6.0 fixes and the Beagle XM Rev C
+stuff. I did not dare to touch master due to the gcc 4.6.0 issues.
+Will this be fixed as well in the near future?
 
---
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+I also played around with the patches in the meantime and
+
+[1] for the x-loader
+[2] for for u-boot
+
+seem to apply cleanly on whatever comes with bernard 5.0.1
+
+[1]
+http://gitorious.org/x-loader/x-loader/commit/2efa178acd56d83c86210b5934895cfb9ea62125
+
+[2]
+http://git.denx.de/?p=u-boot.git;a=commitdiff;h=f6e593bb1255d1e15201cb5dec8c95264489e729
+
+The kernel patch against 2.6.37 seems to be a bit more involved.
+
+Of course more code might be needed to make the Beagle XM Rev C work.
+
+Regards,
+
+Robert
+
+> --
+> Darren Hart
+> Intel Open Source Technology Center
+> Yocto Project - Linux Kernel
+
+..."In my egotistical opinion, most people's C programs should be
+indented six feet downward and covered with dirt." - Blair P. Houghton
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
+
 
