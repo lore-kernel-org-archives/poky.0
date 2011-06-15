@@ -1,33 +1,37 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 068354C800B3
-	for <poky@yoctoproject.org>; Tue, 14 Jun 2011 20:43:07 -0500 (CDT)
-Received: from localhost.localdomain (c-76-115-40-57.hsd1.or.comcast.net
-	[76.115.40.57])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 8C8E030501;
-	Tue, 14 Jun 2011 21:43:02 -0400 (EDT)
-From: Scott Garman <scott.a.garman@intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 14 Jun 2011 18:42:55 -0700
-Message-Id: <b735e31ec3b5d2bd27718aec7aff868e859e66ae.1308101091.git.scott.a.garman@intel.com>
-X-Mailer: git-send-email 1.7.1
-In-Reply-To: <cover.1308101091.git.scott.a.garman@intel.com>
-References: <cover.1308101091.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1308101091.git.scott.a.garman@intel.com>
-References: <cover.1308101091.git.scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: 8C8E030501.E0588
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 1/1] bitbake wrapper: exit if python v3 is detected
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 240194C800C1
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 01:04:25 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QWjDD-0001zg-B4
+	for poky@pokylinux.org; Wed, 15 Jun 2011 08:04:23 +0200
+Received: from 79.167.211.68 ([79.167.211.68])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 08:04:23 +0200
+Received: from gmane by 79.167.211.68 with local (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 08:04:23 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Wed, 15 Jun 2011 09:04:05 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <it9i0l$1bl$1@dough.gmane.org>
+References: <it88ph$j2v$1@dough.gmane.org>
+	<4DF7B675.6050304@linux.intel.com>	<it8hss$c59$1@dough.gmane.org>
+	<4DF7D6E4.2020908@linux.intel.com>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: 79.167.211.68
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+In-Reply-To: <4DF7D6E4.2020908@linux.intel.com>
+Subject: Re: bernard-5.0.1, poky-image-lsb, beagle, build error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -36,43 +40,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2011 01:43:08 -0000
+X-List-Received-Date: Wed, 15 Jun 2011 06:04:27 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Make sure we're not using python v3.x. This check can't go into
-sanity.bbclass because bitbake's source code doesn't even pass
-parsing stage when used with python v3, so we catch it here so we
-can offer a meaningful error message.
+Hi,
 
-This fixes bug [YOCTO #1128]
+On 06/15/2011 12:47 AM, Saul Wold wrote:
+> Then it should pick it up.  Coulg you run a bitbake -DD -v psmisc -c
+> fetch and send me the out put, on the failing build that you have?
+> 
 
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- scripts/bitbake |   11 +++++++++++
- 1 files changed, 11 insertions(+), 0 deletions(-)
+It magically healed over night;)
 
-diff --git a/scripts/bitbake b/scripts/bitbake
-index 3923421..587428c 100755
---- a/scripts/bitbake
-+++ b/scripts/bitbake
-@@ -16,6 +16,17 @@ done
- [ $needpseudo = "0" ] && break
- done
- 
-+# Make sure we're not using python v3.x. This check can't go into
-+# sanity.bbclass because bitbake's source code doesn't even pass
-+# parsing stage when used with python v3, so we catch it here so we
-+# can offer a meaningful error message.
-+py_v3_check=`/usr/bin/env python --version 2>&1 | grep "Python 3"`
-+if [ "$py_v3_check" != "" ]; then
-+	echo "Bitbake is not compatible with python v3"
-+	echo "Please set up python v2 as your default python interpreter"
-+	exit 1
-+fi
-+
- needtar="1"
- TARVERSION=`tar --version | head -n 1 | cut -d ' ' -f 4`
- float_test() {
--- 
-1.7.1
+NOTE: fetch http://downloads.sourceforge.net/psmisc/psmisc-22.2.tar.gz
+DEBUG: executing /usr/bin/env wget -t 5 -q --passive-ftp -P
+/work/rber/downloads
+'http://downloads.sourceforge.net/psmisc/psmisc-22.2.tar.gz'
+DEBUG: Fetcher accessed the network with the command /usr/bin/env wget
+-t 5 -q --passive-ftp -P /work/rber/downloads
+'http://downloads.sourceforge.net/psmisc/psmisc-22.2.tar.gz'
+
+Yesterday night it could not fetch it from this location, but in the
+meantime I guess someone cooked something on sourceforge and points to
+the new location of the file.
+
+wget http://downloads.sourceforge.net/psmisc/psmisc-22.2.tar.gz
+--2011-06-15 09:00:30--
+http://downloads.sourceforge.net/psmisc/psmisc-22.2.tar.gz
+Resolving downloads.sourceforge.net... 216.34.181.59
+Connecting to downloads.sourceforge.net|216.34.181.59|:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location:
+http://downloads.sourceforge.net/project/psmisc/psmisc/22.2/psmisc-22.2.tar.gz
+[following]
+--2011-06-15 09:00:31--
+http://downloads.sourceforge.net/project/psmisc/psmisc/22.2/psmisc-22.2.tar.gz
+Reusing existing connection to downloads.sourceforge.net:80.
+HTTP request sent, awaiting response... 302 Moved Temporarily
+Location:
+http://mesh.dl.sourceforge.net/project/psmisc/psmisc/22.2/psmisc-22.2.tar.gz
+[following]
+--2011-06-15 09:00:31--
+http://mesh.dl.sourceforge.net/project/psmisc/psmisc/22.2/psmisc-22.2.tar.gz
+Resolving mesh.dl.sourceforge.net... 213.203.218.122
+Connecting to mesh.dl.sourceforge.net|213.203.218.122|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 244247 (239K) [application/x-gzip]
+Saving to: `psmisc-22.2.tar.gz'
+
+100%[===================================================================================>]
+244,247      345K/s   in 0.7s
+
+2011-06-15 09:00:32 (345 KB/s) - `psmisc-22.2.tar.gz' saved [244247/244247]
+
+
+> This might help identify if there's a problem.
+> 
+> Thanks
+>     Sau!
+> 
+
+Regards,
+
+Robert
+..."You are in a twisty little passage of standards, all conflicting." -
+Michael Meissner, meissner@osf.org
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
 
 
