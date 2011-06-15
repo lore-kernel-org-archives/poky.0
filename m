@@ -1,32 +1,25 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews07.kpnxchange.com (cpsmtpb-ews07.kpnxchange.com
-	[213.75.39.10])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AD08F4C8009D
-	for <poky@yoctoproject.org>; Wed, 15 Jun 2011 09:39:52 -0500 (CDT)
-Received: from cpbrm-ews30.kpnxchange.com ([10.94.84.161]) by
-	cpsmtpb-ews07.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Wed, 15 Jun 2011 16:39:52 +0200
-Received: from CPSMTPM-CMT104.kpnxchange.com ([195.121.3.20]) by
-	cpbrm-ews30.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Wed, 15 Jun 2011 16:39:51 +0200
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT104.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Wed, 15 Jun 2011 16:39:51 +0200
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
-	for poky@yoctoproject.org; Wed, 15 Jun 2011 16:40:05 +0200
-Message-ID: <4DF8C435.6080800@de-haardt.com>
-Date: Wed, 15 Jun 2011 16:39:49 +0200
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 228C94C800C0
+	for <poky@pokylinux.org>; Wed, 15 Jun 2011 11:38:57 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Jun 2011 09:38:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,370,1304319600"; d="scan'208";a="16603722"
+Received: from unknown (HELO [10.255.13.47]) ([10.255.13.47])
+	by fmsmga002.fm.intel.com with ESMTP; 15 Jun 2011 09:38:56 -0700
+Message-ID: <4DF8E01F.8040209@linux.intel.com>
+Date: Wed, 15 Jun 2011 09:38:55 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: poky <poky@yoctoproject.org>
-X-OriginalArrivalTime: 15 Jun 2011 14:39:51.0208 (UTC)
-	FILETIME=[15609280:01CC2B6A]
-X-RcptDomain: yoctoproject.org
-Subject: problem booting sdcard
+To: gmane@reliableembeddedsystems.com
+References: <it8ite$i96$1@dough.gmane.org> <4DF80B84.9000304@linux.intel.com>
+	<4DF890F0.1020307@reliableembeddedsystems.com>
+In-Reply-To: <4DF890F0.1020307@reliableembeddedsystems.com>
+Cc: poky@pokylinux.org
+Subject: Re: bernard 5.0.1 and beagle-xm rev c
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,86 +31,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Jun 2011 14:39:53 -0000
-Content-Type: multipart/alternative;
-	boundary="------------080402060908040102020100"
-
---------------080402060908040102020100
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 15 Jun 2011 16:38:57 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-Hello,
-
-I have a demonstration next week so I wanted to switch from nfs back to 
-sdcard.
-I successfully ran on sdcard at the beginning of the project but then 
-changed to nfs for development.
-
-Now I am having a strange problem when booting, the kernel boots fine 
-and the the rootfs gets loaded and it hangs at:
-
-Running postinst /etc/rpm-postinsts/gnome-vfs.sh...
 
 
-Eventually I am getting a gconf XML error, that is different every time.
+On 06/15/2011 04:01 AM, Robert Berger wrote:
+> Hi,
+> 
+> On 06/15/2011 04:31 AM, Darren Hart wrote:
+>>
+>> Does USB work in general on Rev C?
+>>
+>> --
+>> Darren
+>>
+> 
+> I built a minimal-image + usbutils
+> 
+> REV A3 with poky:
+> 
+> root@beagleboard:~# lsusb
+> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+> Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.
+> Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.
+> 
+> REV C with Angstrom:
+> 
+> root@beagleboard:~# lsusb
+> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+> Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+> Bus 002 Device 002: ID 0424:9514 Standard Microsystems Corp.
+> Bus 002 Device 003: ID 0424:ec00 Standard Microsystems Corp.
+> 
+> REV C with poky:
+> 
+> root@beagleboard:~# lsusb
+> Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+> 
+> This looks like the USB hub on Bus 002 is not found and hence there is
+> also no Ethernet, which fits somehow into what I've found on
+> http://beagleboard.org/support/faq
+> 
+> # What do I need to do to get my software running on a BeagleBoard-xM rev C?
 
-When I interrupt using ctrl+c it continues booting and then gives a prompt.
-Looking with free and df there don't seem to be space issues.
+At the Bernard release I don't believe we had support for the xM rev C
+(it supported at least up to xM rev A). I am currently working on a
+refresh of the Beagleboard BSP in meta-yocto which does support rev C.
+For details on that effort and it's status, please see:
 
-My bootargs are:
-mmc init; fatload mmc 0 0x80000000 uImage; bootm 0x80000000'
-root=/dev/mmcblk0p2 rw rootdelay=1
+https://lists.yoctoproject.org/pipermail/yocto/2011-June/001599.html
 
-The rootfs is ~500MB
 
-Does anyone have any thoughts on what might be going wrong here?
+> Judging from the u-boot output I think it needs to be patched:
+> Beagle unknown 0x02
 
-Regards,
-Gerard
+Indeed.
 
---------------080402060908040102020100
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+> 
+> u-boot which comes with Angstrom:
+> Beagle xM Rev C
+> 
+> I'm sure Koen can tell us more about this and also what patches should
+> be applied where;)
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
+Both Koen and Jason K. have been helping to get the right bits merged
+for the kernel. I had hoped to use mainline u-boot, but it appears we
+may need at least a set of patches in support of Rev C.
 
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-  </head>
-  <body bgcolor="#ffffff" text="#000000">
-    <small>Hello,<br>
-      <br>
-      I have a demonstration next week so I wanted to switch from nfs
-      back to sdcard.<br>
-      I successfully ran on sdcard at the beginning of the project but
-      then changed to nfs for development.<br>
-      <br>
-      Now I am having a strange problem when booting, the kernel boots
-      fine and the the rootfs gets loaded and it hangs at:<br>
-    </small>
-    <style type="text/css">p, li { white-space: pre-wrap; }</style>
-    <p style="margin: 0px; text-indent: 0px;"><small>Running postinst
-        /etc/rpm-postinsts/gnome-vfs.sh...</small></p>
-    <small><br>
-      Eventually I am getting a gconf XML error, that is different every
-      time.<br>
-      <br>
-      When I interrupt using ctrl+c it continues booting and then gives
-      a prompt.<br>
-      Looking with free and df there don't seem to be space issues.<br>
-      <br>
-      My bootargs are:<br>
-      mmc init; fatload mmc 0 0x80000000 uImage; bootm 0x80000000'<br>
-      root=/dev/mmcblk0p2 rw rootdelay=1 <br>
-      <br>
-      The rootfs is ~500MB<br>
-      <br>
-      Does anyone have any thoughts on what might be going wrong here?<br>
-      <br>
-      Regards,<br>
-      Gerard</small><br>
-  </body>
-</html>
+The updated BSP will be released with 1.1. My patches and commits will
+of course hit the list before then and you can build from master once
+they arrive there. Within a week I suspect.
 
---------------080402060908040102020100--
+--
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
