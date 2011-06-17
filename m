@@ -1,40 +1,26 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 314764C800A6
-	for <poky@yoctoproject.org>; Thu, 16 Jun 2011 21:47:30 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 16 Jun 2011 19:47:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,379,1304319600"; d="scan'208";a="14253049"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by azsmga001.ch.intel.com with ESMTP; 16 Jun 2011 19:47:27 -0700
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 17 Jun 2011 10:46:47 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi;
-	Fri, 17 Jun 2011 10:46:37 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 'Richard Purdie'
-	<richard.purdie@linuxfoundation.org>,
-	'Jeff Mitchell' <jmitchell@ll.mit.edu>, "Wold, Saul" <saul.wold@intel.com>
-Date: Fri, 17 Jun 2011 10:46:36 +0800
-Thread-Topic: [poky] Git/perl build problems
-Thread-Index: AcwqovTKqTnyTqOERbOQbE93tAaurQB55AGwAAF6dGA=
-Message-ID: <1865303E0DED764181A9D882DEF65FB6997011C18C@shsmsx502.ccr.corp.intel.com>
-References: <4DF668B1.1060500@ll.mit.edu> <4DF6715D.3050703@linux.intel.com>
-	<4DF67631.9000702@intel.com> <4DF67B60.6050008@ll.mit.edu>
-	<4DF67C8D.4010907@intel.com> <1307999666.15712.286.camel@rex>
-	<4DF67EAE.809@intel.com> <4DF7760F.9050106@ll.mit.edu>
-	<1865303E0DED764181A9D882DEF65FB6997011C18B@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <1865303E0DED764181A9D882DEF65FB6997011C18B@shsmsx502.ccr.corp.intel.com>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id B88D14C800BA
+	for <poky@yoctoproject.org>; Thu, 16 Jun 2011 22:28:37 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p5H3SWmk006898
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 16 Jun 2011 20:28:33 -0700 (PDT)
+Received: from bruce-ashfields-macbook.local (128.224.22.12) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.1.255.0; Thu, 16 Jun 2011 20:28:32 -0700
+Message-ID: <4DFAC9DE.1080901@windriver.com>
+Date: Thu, 16 Jun 2011 23:28:30 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.18) Gecko/20110613 Thunderbird/3.1.11
 MIME-Version: 1.0
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: Re: Git/perl build problems
+To: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+References: <1308216069-25022-1-git-send-email-dongxiao.xu@intel.com>	<DD75A5DE-D7A8-435E-A20B-1F676F80DCA8@dominion.thruhere.net>	<BANLkTik-Dd6QeN4kdtjenxbg40=7T2C_7A@mail.gmail.com>
+	<D5AB6E638E5A3E4B8F4406B113A5A19A12D6721B35@shsmsx501.ccr.corp.intel.com>
+In-Reply-To: <D5AB6E638E5A3E4B8F4406B113A5A19A12D6721B35@shsmsx501.ccr.corp.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] meta-fishriver/linux-yocto: Auto load cdc-acm and cdc-wdm modules
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,46 +32,108 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jun 2011 02:47:30 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 17 Jun 2011 03:28:37 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Cui, Dexuan wrote:
-> Jeff Mitchell wrote:
->> While cleaning and recompiling autoconf-native and automake-native
->> helped with the former issue, I've got two more failing packages:
->> librsvg and avahi.=20
->>=20
->> The former is using
->> /home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/glib-mkenums
->>=20
->> with the result
->> /home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/perl: bad
->> interpreter: No such file or directory
->>=20
->> The latter is using (with the same result)
->> /home/jmitchell/yocto/build/tmp/sysroots/i686-linux/usr/bin/intltool-upd=
-ate
->>=20
->> The former at least looks like a clean/rebuild of glib-2.0 should
->> work -- but it didn't. What's the proper package that needs to be
->> cleaned/rebuilt?
->=20
-> Hi Jeff,
-> I guess you should rebuild glib-2.0-native rather than glib-2.0?
-> Or, can you bump bump the PR in the glib-2.0 recipe and try again? I
-> suppose this should work for you.=20
->=20
-> Looks we should also rebuild intltool-native.
->=20
-> I'll do a complete research and try to figure out all the recipes
-> that needs to be rebuilt and bump the PRs.=20
-Hi, I worked out a patch:
-http://git.pokylinux.org/cgit/cgit.cgi/poky-contrib/commit/?h=3Ddcui/bump_P=
-R&id=3Dbe638790e41206ed740aec69a8704fe77d1bc0b2
-and will send it to the oe-core mailing list.
+On 11-06-16 9:34 PM, Xu, Dongxiao wrote:
+>> -----Original Message-----
+>> From: Bruce Ashfield [mailto:bruce.ashfield@gmail.com]
+>> Sent: Thursday, June 16, 2011 8:53 PM
+>> To: Koen Kooi
+>> Cc: Xu, Dongxiao; poky@yoctoproject.org
+>> Subject: Re: [poky] [PATCH] meta-fishriver/linux-yocto: Auto load cdc-acm and
+>> cdc-wdm modules
+>>
+>> On Thu, Jun 16, 2011 at 5:48 AM, Koen Kooi<koen@dominion.thruhere.net>
+>> wrote:
+>>>
+>>> Op 16 jun 2011, om 11:21 heeft Dongxiao Xu het volgende geschreven:
+>>>
+>>>> Automatically load cdc-acm.ko and cdc-wdm.ko to support 3G module.
+>>>
+>>> Is USB broken in that kernel that it doesn't load the correct driver when
+>> plugging in the dongle?
+>>
+>> Should be working fine, or at least it works fine for the targets that I have near
+>> me.
+>>
+>> Dongxiao: are you seeing anything in the kernel logs when the devices are
+>> plugged in ? As part of the commit message, it would be useful to list the
+>> reasons why a change is being made, it'll allow us to suggest alternatives, or
+>> debug .. or do nothing.
+>
+> Hi Bruce and Koen,
+>
+> There is no such log you mentioned.
+>
+> My description for the commit may be not accurate. The above driver I mentioned is a generic driver which converts the USB device to be a virtual modem, and it is not the device enabling driver.
+> Also I need to mention that, my 3G module device is not an external dongle, and it is directly plugged in mother board on pci-e mini slot.
 
- Thanks,
--- Dexuan
+Aha, so this falls into the category of 'do nothing'. Thanks
+for the explanation. This sort of information is useful and
+should be included with the commit (since it saves us wondering
+'why' later and during submission).
+
+Cheers,
+
+Bruce
+
+>
+> Thanks,
+> Dongxiao
+>
+>>
+>> Cheers,
+>>
+>> Bruce
+>>
+>>>
+>>>>
+>>>> Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
+>>>> ---
+>>>> .../linux/linux-yocto_2.6.37.bbappend              |    3 +++
+>>>> 1 files changed, 3 insertions(+), 0 deletions(-)
+>>>>
+>>>> diff --git
+>>>> a/meta-fishriver/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+>>>> b/meta-fishriver/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+>>>> index b767109..5f8b8ca 100644
+>>>> --- a/meta-fishriver/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+>>>> +++ b/meta-fishriver/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+>>>> @@ -4,3 +4,6 @@ KMACHINE_fishriver  = "yocto/standard/fishriver"
+>>>>
+>>>> SRCREV_machine_pn-linux-yocto_fishriver ?=
+>> "697d84759be192403a8a87ab269196c67a0c2c88"
+>>>> SRCREV_meta_pn-linux-yocto_fishriver ?=
+>> "f1dc3722d45cdcc92c84ebfecf4ce616d2efed26"
+>>>> +
+>>>> +module_autoload_cdc-acm = "cdc-acm"
+>>>> +module_autoload_cdc-wdm = "cdc-wdm"
+>>>> --
+>>>> 1.7.0.4
+>>>>
+>>>> _______________________________________________
+>>>> poky mailing list
+>>>> poky@yoctoproject.org
+>>>> https://lists.yoctoproject.org/listinfo/poky
+>>>
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>>>
+>>
+>>
+>>
+>> --
+>> "Thou shalt not follow the NULL pointer, for chaos and madness await thee at
+>> its end"
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
+
 
