@@ -1,23 +1,21 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 3DED94C80A8C
-	for <poky@yoctoproject.org>; Mon, 20 Jun 2011 03:10:15 -0500 (CDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 20 Jun 2011 01:10:14 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8FA484C804BD
+	for <poky@yoctoproject.org>; Mon, 20 Jun 2011 15:20:33 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 20 Jun 2011 13:20:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,392,1304319600"; d="scan'208";a="15440787"
-Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.13.51])
-	by azsmga001.ch.intel.com with ESMTP; 20 Jun 2011 01:10:13 -0700
-From: Dexuan Cui <dexuan.cui@intel.com>
-To: poky@yoctoproject.org
-Date: Mon, 20 Jun 2011 16:09:56 +0800
-Message-Id: <a9896afbdcdcd80eac44529eefdbab487a9200d0.1308553185.git.dexuan.cui@intel.com>
-X-Mailer: git-send-email 1.7.2
-In-Reply-To: <cover.1308553185.git.dexuan.cui@intel.com>
-References: <cover.1308553185.git.dexuan.cui@intel.com>
-In-Reply-To: <cover.1308553185.git.dexuan.cui@intel.com>
-References: <cover.1308553185.git.dexuan.cui@intel.com>
-Subject: [PATCH 1/1][meta-intel]emenlow: fix some .bbappend files' names: poky -> core, etc.
+X-IronPort-AV: E=Sophos;i="4.65,396,1304319600"; d="scan'208";a="16069018"
+Received: from doubt.jf.intel.com (HELO [10.7.199.145]) ([10.7.199.145])
+	by orsmga002.jf.intel.com with ESMTP; 20 Jun 2011 13:20:32 -0700
+Message-ID: <4DFFAB8C.30905@linux.intel.com>
+Date: Mon, 20 Jun 2011 13:20:28 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: eggdbus build failure in master
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,31 +27,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Jun 2011 08:10:15 -0000
+X-List-Received-Date: Mon, 20 Jun 2011 20:20:33 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Dexuan Cui <dexuan.cui@intel.com>
----
- ...k-gmae.bbappend => task-core-sdk-gmae.bbappend} |    0
- ... task-core-standalone-gmae-sdk-target.bbappend} |    0
- ..._4.7.2.bbappend => qt4-x11-free_4.7.3.bbappend} |    0
- 3 files changed, 0 insertions(+), 0 deletions(-)
- rename meta-emenlow/recipes-gnome/tasks/{task-poky-sdk-gmae.bbappend => task-core-sdk-gmae.bbappend} (100%)
- rename meta-emenlow/recipes-gnome/tasks/{task-poky-standalone-gmae-sdk-target.bbappend => task-core-standalone-gmae-sdk-target.bbappend} (100%)
- rename meta-emenlow/recipes-qt/qt4/{qt4-x11-free_4.7.2.bbappend => qt4-x11-free_4.7.3.bbappend} (100%)
+I'm seeing a consistent eggdbus build failure that seems to be related
+to the perl-native relocation. I've cleanall'd autoconf and automake,
+native and target versions. The failure persists.
 
-diff --git a/meta-emenlow/recipes-gnome/tasks/task-poky-sdk-gmae.bbappend b/meta-emenlow/recipes-gnome/tasks/task-core-sdk-gmae.bbappend
-similarity index 100%
-rename from meta-emenlow/recipes-gnome/tasks/task-poky-sdk-gmae.bbappend
-rename to meta-emenlow/recipes-gnome/tasks/task-core-sdk-gmae.bbappend
-diff --git a/meta-emenlow/recipes-gnome/tasks/task-poky-standalone-gmae-sdk-target.bbappend b/meta-emenlow/recipes-gnome/tasks/task-core-standalone-gmae-sdk-target.bbappend
-similarity index 100%
-rename from meta-emenlow/recipes-gnome/tasks/task-poky-standalone-gmae-sdk-target.bbappend
-rename to meta-emenlow/recipes-gnome/tasks/task-core-standalone-gmae-sdk-target.bbappend
-diff --git a/meta-emenlow/recipes-qt/qt4/qt4-x11-free_4.7.2.bbappend b/meta-emenlow/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
-similarity index 100%
-rename from meta-emenlow/recipes-qt/qt4/qt4-x11-free_4.7.2.bbappend
-rename to meta-emenlow/recipes-qt/qt4/qt4-x11-free_4.7.3.bbappend
+Anyone have any ideas on how to get this building? I'll start a clean
+build in another directory for now.
+
+OE Build Configuration:
+BB_VERSION        = "1.13.1"
+METADATA_BRANCH   = "master"
+METADATA_REVISION = "ac06a5faa456b1e5b8db52911d3dc6cb9bca6e0c"
+TARGET_ARCH       = "arm"
+TARGET_OS         = "linux-gnueabi"
+MACHINE           = "beagleboard"
+DISTRO            = "poky"
+DISTRO_VERSION    = "1.0+snapshot-20110620"
+TARGET_FPU        = "soft"
+
+
+ERROR: Logfile of failure stored in:
+/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/temp/log.do_compile.37035
+Log data follows:
+| NOTE: make
+| make  all-recursive
+| make[1]: Entering directory
+`/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/eggdbus-0.6'
+| Making all in src
+| make[2]: Entering directory
+`/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/eggdbus-0.6/src'
+| Making all in eggdbus
+| make[3]: Entering directory
+`/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/eggdbus-0.6/src/eggdbus'
+| glib-genmarshal eggdbusmarshal.list --prefix=eggdbus_marshal --header
+> eggdbusmarshal.h
+| echo "#include \"eggdbusmarshal.h\"" > eggdbusmarshal.c &&
+glib-genmarshal eggdbusmarshal.list --prefix=eggdbus_marshal --body >>
+eggdbusmarshal.c
+| ( top_builddir=`cd ../.. && pwd`; \
+|         cd . && glib-mkenums --template eggdbusenumtypes.h.template
+eggdbusinterface.h eggdbusconnection.h eggdbuserror.h eggdbusmessage.h
+) > \
+|           eggdbusenumtypes.h.tmp && mv eggdbusenumtypes.h.tmp
+eggdbusenumtypes.h
+| /bin/sh:
+/vol/1/dvhart/poky.git/build-beagleboard/tmp/sysroots/x86_64-linux/usr/bin/glib-mkenums:
+/vol/1/dvhart/poky.git/build-beagleboard/tmp/sysroots/x86_64-linux/usr/bin/pe:
+bad interpreter: No such file or directory
+| make[3]: *** [eggdbusenumtypes.h] Error 126
+| make[3]: Leaving directory
+`/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/eggdbus-0.6/src/eggdbus'
+| make[2]: *** [all-recursive] Error 1
+| make[2]: Leaving directory
+`/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/eggdbus-0.6/src'
+| make[1]: *** [all-recursive] Error 1
+| make[1]: Leaving directory
+`/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/eggdbus-0.6'
+| make: *** [all] Error 2
+| ERROR: oe_runmake failed
+| ERROR: Function 'do_compile' failed (see
+/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/temp/log.do_compile.37035
+for further information)
+| ERROR: Function 'do_compile' failed (see
+/vol/1/dvhart/poky.git/build-beagleboard/tmp/work/x86_64-linux/eggdbus-native-0.6-r1/temp/log.do_compile.37035
+for further information)
+NOTE: package eggdbus-native-0.6-r1: task do_compile: Failed
+ERROR: Task 3556
+(virtual:native:/home/dvhart/data/poky.git/meta/recipes-core/eggdbus/eggdbus_0.6.bb,
+do_compile) failed with exit code '1'
+
 -- 
-1.7.1
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
