@@ -1,21 +1,25 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D68D94C80AC5
-	for <poky@yoctoproject.org>; Mon, 20 Jun 2011 20:05:53 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Jun 2011 18:05:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,397,1304319600"; d="scan'208";a="18635232"
-Received: from nbuild2.sc.intel.com ([172.25.110.37])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Jun 2011 18:05:53 -0700
-From: nitin.a.kamble@intel.com
-To: poky@yoctoproject.org, dvhart@linux.intel.com, bruce.ashfield@windriver.com
-Date: Mon, 20 Jun 2011 18:05:51 -0700
-Message-Id: <20ad0e846ce270a3e8363f80705aa1d80e4903fa.1308618114.git.nitin.a.kamble@intel.com>
-X-Mailer: git-send-email 1.7.4.4
-In-Reply-To: <cover.1308618114.git.nitin.a.kamble@intel.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 21B164C800A9
+	for <poky@yoctoproject.org>; Mon, 20 Jun 2011 22:40:36 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p5L3eYrC013167
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Mon, 20 Jun 2011 20:40:34 -0700 (PDT)
+Received: from bruce-ashfields-macbook.local (147.11.119.177) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.1.255.0; Mon, 20 Jun 2011 20:40:33 -0700
+Message-ID: <4E0012B0.4060207@windriver.com>
+Date: Mon, 20 Jun 2011 23:40:32 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
+	rv:1.9.2.18) Gecko/20110613 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: <nitin.a.kamble@intel.com>
 References: <cover.1308618114.git.nitin.a.kamble@intel.com>
-Subject: [PATCH 1/1] btrfs.scc, cfg: add a new feature which enables btrfs kernel configuration
+In-Reply-To: <cover.1308618114.git.nitin.a.kamble@intel.com>
+Cc: dvhart@linux.intel.com, poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] new kernel feature btrfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,34 +31,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jun 2011 01:05:54 -0000
+X-List-Received-Date: Tue, 21 Jun 2011 03:40:36 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+On 11-06-20 9:05 PM, nitin.a.kamble@intel.com wrote:
+> From: Nitin A Kamble<nitin.a.kamble@intel.com>
+>
+>
+> The following changes since commit 8888d948e0ddbc5f37bd3dc23cc1b398ab230e2e:
+>
+>    meta: add utrace feature for linux-yocto (2011-06-16 15:41:23 -0400)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/linux-yocto-2.6.37-contrib nitin/btrfs
+>    http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-contrib/log/?h=nitin/btrfs
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- meta/cfg/kernel-cache/cfg/btrfs.cfg |    2 ++
- meta/cfg/kernel-cache/cfg/btrfs.scc |    1 +
- 2 files changed, 3 insertions(+), 0 deletions(-)
- create mode 100644 meta/cfg/kernel-cache/cfg/btrfs.cfg
- create mode 100644 meta/cfg/kernel-cache/cfg/btrfs.scc
+Looks good here. I'm doing a config update at the moment, and I've
+pulled it into 2.6.37, once in, it'll propagate through to the dev
+kernels and follow us as we update.
 
-diff --git a/meta/cfg/kernel-cache/cfg/btrfs.cfg b/meta/cfg/kernel-cache/cfg/btrfs.cfg
-new file mode 100644
-index 0000000..d727f20
---- /dev/null
-+++ b/meta/cfg/kernel-cache/cfg/btrfs.cfg
-@@ -0,0 +1,2 @@
-+CONFIG_BTRFS_FS=y
-+CONFIG_BTRFS_FS_POSIX_ACL=y
-diff --git a/meta/cfg/kernel-cache/cfg/btrfs.scc b/meta/cfg/kernel-cache/cfg/btrfs.scc
-new file mode 100644
-index 0000000..cf18a2e
---- /dev/null
-+++ b/meta/cfg/kernel-cache/cfg/btrfs.scc
-@@ -0,0 +1 @@
-+kconf non-hardware btrfs.cfg
--- 
-1.7.4.4
+Cheers,
+
+Bruce
+
+>
+> Nitin A Kamble (1):
+>    btrfs.scc,cfg: add a new feature which enables btrfs kernel
+>      configuration
+>
+>   meta/cfg/kernel-cache/cfg/btrfs.cfg |    2 ++
+>   meta/cfg/kernel-cache/cfg/btrfs.scc |    1 +
+>   2 files changed, 3 insertions(+), 0 deletions(-)
+>   create mode 100644 meta/cfg/kernel-cache/cfg/btrfs.cfg
+>   create mode 100644 meta/cfg/kernel-cache/cfg/btrfs.scc
+>
 
 
