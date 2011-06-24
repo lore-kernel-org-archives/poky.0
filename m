@@ -1,31 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id F012D4C8005F
-	for <poky@yoctoproject.org>; Thu, 23 Jun 2011 05:20:05 -0500 (CDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p5NAK2a7015840;
-	Thu, 23 Jun 2011 11:20:02 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 15671-03; Thu, 23 Jun 2011 11:19:58 +0100 (BST)
-Received: from [192.168.1.45] (dynamic15.rpnet.com [192.168.1.45])
-	(authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p5NAJtwV015829
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 23 Jun 2011 11:19:56 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1308798060.git.xiaofeng.yan@windriver.com>
-References: <cover.1308798060.git.xiaofeng.yan@windriver.com>
-Date: Thu, 23 Jun 2011 11:19:54 +0100
-Message-ID: <1308824394.20015.110.camel@rex>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CA0A64C80479
+	for <poky@pokylinux.org>; Fri, 24 Jun 2011 05:56:09 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1Qa43U-0002Fl-6Y
+	for poky@pokylinux.org; Fri, 24 Jun 2011 12:56:08 +0200
+Received: from ppp92-100-107-10.pppoe.avangarddsl.ru ([92.100.107.10])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Fri, 24 Jun 2011 12:56:08 +0200
+Received: from yanok by ppp92-100-107-10.pppoe.avangarddsl.ru with local
+	(Gmexim 0.1 (Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Fri, 24 Jun 2011 12:56:08 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: IlyaYanok <yanok@emcraft.com>
+Date: Fri, 24 Jun 2011 10:55:55 +0000 (UTC)
+Message-ID: <loom.20110624T125343-935@post.gmane.org>
+References: <4DFA2CFF.6020003@emcraft.com> <4DFA5335.9030102@windriver.com>
+	<BANLkTin40ecGy8RBEbfaRKEXY6Lu-YrALA@mail.gmail.com>
+	<201106171144.00118.paul.eggleton@linux.intel.com>
+	<BANLkTinYzLcQnH3msGfivi8BAB_MPfjucQ@mail.gmail.com>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] poky-lsb.conf: Instead of += with _append
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: sea.gmane.org
+User-Agent: Loom/3.14 (http://gmane.org/)
+X-Loom-IP: 92.100.107.10 (Mozilla/5.0 (X11;
+	Linux x86_64) AppleWebKit/534.30 (KHTML, like Gecko)
+	Chrome/12.0.742.100 Safari/534.30)
+Subject: Re: bbappend and require
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,33 +40,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jun 2011 10:20:06 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 24 Jun 2011 10:56:10 -0000
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-06-23 at 15:49 +0800, Xiaofeng Yan wrote:
-> From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-> 
-> Hi Richard,
-> 
-> The variable "DISTRO_FEATURES += " lost its function because it has been moved to defaultsetup.conf.
-> Defaultsetup.conf is included after poky-lsb.conf. So the variable is empty. I use "_append" to take place of "+=".
-> Please check patch for detailed information.
-> 
-> Pull URL: git://git.pokylinux.org/poky-contrib.git
->   Branch: xiaofeng/poky-lsb
->   Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/poky-lsb
-> 
-> Thanks,
->     Xiaofeng Yan <xiaofeng.yan@windriver.com>
-> ---
-> 
-> 
-> Xiaofeng Yan (1):
->   poky-lsb.conf: Instead of += with _append
+Hi,
 
-Merged to master, thanks.
+Chris Larson <clarson@...> writes:
+> > I think it's clear from Ilya's message that he means the require command. To
+> > me it's not clear however whether using "require" (or "include" for that
+> > matter) means that bbappends should also be included. I can certainly see how
+> > someone could assume that they would be.
 
-Richard
+Thanks for the explanation guys! That's what I wanted to hear.
+
+Regards, Ilya.
+
+
 
 
