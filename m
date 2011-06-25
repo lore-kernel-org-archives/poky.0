@@ -1,33 +1,26 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 231414C800A6
-	for <poky@yoctoproject.org>; Fri, 24 Jun 2011 23:59:02 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 24 Jun 2011 21:59:02 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D423C4C80191
+	for <poky@pokylinux.org>; Sat, 25 Jun 2011 15:31:48 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 25 Jun 2011 13:31:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,422,1304319600"; d="scan'208";a="20469599"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
-	by fmsmga002.fm.intel.com with ESMTP; 24 Jun 2011 21:59:01 -0700
-Received: from orsmsx504.amr.corp.intel.com ([10.22.226.207]) by
-	orsmsx602.amr.corp.intel.com ([10.22.226.211]) with mapi;
-	Fri, 24 Jun 2011 21:59:01 -0700
-From: "Kamble, Nitin A" <nitin.a.kamble@intel.com>
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date: Fri, 24 Jun 2011 21:58:59 -0700
-Thread-Topic: [PATCH 0/1] new kernel feature btrfs
-Thread-Index: AcwvxQhKbK/dIET7Q+WLL5k0EomypgDL4Bbg
-Message-ID: <9DA5872FEF993D41B7173F58FCF6BE94DDF9002E@orsmsx504.amr.corp.intel.com>
-References: <cover.1308618114.git.nitin.a.kamble@intel.com>
-	<4E0012B0.4060207@windriver.com>
-In-Reply-To: <4E0012B0.4060207@windriver.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.65,425,1304319600"; d="scan'208";a="18185278"
+Received: from unknown (HELO [10.255.13.191]) ([10.255.13.191])
+	by orsmga002.jf.intel.com with ESMTP; 25 Jun 2011 13:31:47 -0700
+Message-ID: <4E0645B3.40800@linux.intel.com>
+Date: Sat, 25 Jun 2011 13:31:47 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
 MIME-Version: 1.0
-Cc: "dvhart@linux.intel.com" <dvhart@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 0/1] new kernel feature btrfs
+To: Holger Hans Peter Freyther <holger@freyther.de>
+References: <loom.20110606T110858-586@post.gmane.org>
+	<loom.20110606T111958-415@post.gmane.org>
+	<4DECEFC0.1080109@linux.intel.com> <4DFBAA25.9010409@freyther.de>
+In-Reply-To: <4DFBAA25.9010409@freyther.de>
+Cc: poky@pokylinux.org
+Subject: Re: udev/modutils issues with the system bringup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,55 +32,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 25 Jun 2011 04:59:03 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sat, 25 Jun 2011 20:31:49 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks Bruce for pushing forward.
-Nitin
+On 06/17/2011 12:25 PM, Holger Hans Peter Freyther wrote:
+> On 06/06/2011 05:18 PM, Saul Wold wrote:
+>
+>>> Okay, it is efce51ec11cc2a908833e80b65d2f5db81bb2fec which only works
+>>> if the time is broken... I assume one wants to add an || true or such to the
+>>> command.
+>>>
+>> Holger,
+>>
+>> I would take a patch for that.
+>
+> Hi,
+>
+> not sure what is the best way to send patches (if they need a SoB, if they
+> should go through oe-core...). The first adds a '|| true' to the udev start
+> script so udevd is started on second boot, the second move modutils after
+> udev.. if there is a module needed to make udev work... then the first boot
+> will fail as modules are only configured by S9XConfigure..
+>
+Yes, these should really go against oe-core with proper SoBs.  Please 
+re-submit there.
 
+Thanks
+	Sau!
 
-> -----Original Message-----
-> From: Bruce Ashfield [mailto:bruce.ashfield@windriver.com]
-> Sent: Monday, June 20, 2011 8:41 PM
-> To: Kamble, Nitin A
-> Cc: poky@yoctoproject.org; dvhart@linux.intel.com
-> Subject: Re: [PATCH 0/1] new kernel feature btrfs
->=20
-> On 11-06-20 9:05 PM, nitin.a.kamble@intel.com wrote:
-> > From: Nitin A Kamble<nitin.a.kamble@intel.com>
-> >
-> >
-> > The following changes since commit
-> 8888d948e0ddbc5f37bd3dc23cc1b398ab230e2e:
-> >
-> >    meta: add utrace feature for linux-yocto (2011-06-16 15:41:23 -
-> 0400)
-> >
-> > are available in the git repository at:
-> >    git://git.pokylinux.org/linux-yocto-2.6.37-contrib nitin/btrfs
-> >    http://git.pokylinux.org/cgit.cgi/linux-yocto-2.6.37-
-> contrib/log/?h=3Dnitin/btrfs
->=20
-> Looks good here. I'm doing a config update at the moment, and I've
-> pulled it into 2.6.37, once in, it'll propagate through to the dev
-> kernels and follow us as we update.
->=20
-> Cheers,
->=20
-> Bruce
->=20
-> >
-> > Nitin A Kamble (1):
-> >    btrfs.scc,cfg: add a new feature which enables btrfs kernel
-> >      configuration
-> >
-> >   meta/cfg/kernel-cache/cfg/btrfs.cfg |    2 ++
-> >   meta/cfg/kernel-cache/cfg/btrfs.scc |    1 +
-> >   2 files changed, 3 insertions(+), 0 deletions(-)
-> >   create mode 100644 meta/cfg/kernel-cache/cfg/btrfs.cfg
-> >   create mode 100644 meta/cfg/kernel-cache/cfg/btrfs.scc
-> >
-
+> holger
+>
+> PS: I was away from my build machine so the patches might be outdated.
 
