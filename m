@@ -1,26 +1,30 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id D423C4C80191
-	for <poky@pokylinux.org>; Sat, 25 Jun 2011 15:31:48 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 Jun 2011 13:31:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,425,1304319600"; d="scan'208";a="18185278"
-Received: from unknown (HELO [10.255.13.191]) ([10.255.13.191])
-	by orsmga002.jf.intel.com with ESMTP; 25 Jun 2011 13:31:47 -0700
-Message-ID: <4E0645B3.40800@linux.intel.com>
-Date: Sat, 25 Jun 2011 13:31:47 -0700
-From: Saul Wold <sgw@linux.intel.com>
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id F07304C80053
+	for <poky@yoctoproject.org>; Sun, 26 Jun 2011 21:08:21 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p5R28GPH023714
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Sun, 26 Jun 2011 19:08:16 -0700 (PDT)
+Received: from [128.224.162.154] (128.224.162.154) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Sun, 26 Jun 2011 19:08:16 -0700
+Message-ID: <4E07E63E.20702@windriver.com>
+Date: Mon, 27 Jun 2011 10:09:02 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
+	rv:1.9.2.13) Gecko/20101208 Thunderbird/3.1.7
 MIME-Version: 1.0
-To: Holger Hans Peter Freyther <holger@freyther.de>
-References: <loom.20110606T110858-586@post.gmane.org>
-	<loom.20110606T111958-415@post.gmane.org>
-	<4DECEFC0.1080109@linux.intel.com> <4DFBAA25.9010409@freyther.de>
-In-Reply-To: <4DFBAA25.9010409@freyther.de>
-Cc: poky@pokylinux.org
-Subject: Re: udev/modutils issues with the system bringup
+To: Mark Hatle <mark.hatle@windriver.com>
+References: <4DF0A70C.7080501@windriver.com>
+	<4DF0E4A8.1000608@windriver.com>	<4DFB26CE.7070807@windriver.com>
+	<4DFB76E3.5090606@windriver.com> <4E0049AE.7050609@windriver.com>
+In-Reply-To: <4E0049AE.7050609@windriver.com>
+X-Originating-IP: [128.224.162.154]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] Question about apply eglibc configurability to create minimal image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,36 +36,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 25 Jun 2011 20:31:49 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 27 Jun 2011 02:08:22 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 06/17/2011 12:25 PM, Holger Hans Peter Freyther wrote:
-> On 06/06/2011 05:18 PM, Saul Wold wrote:
->
->>> Okay, it is efce51ec11cc2a908833e80b65d2f5db81bb2fec which only works
->>> if the time is broken... I assume one wants to add an || true or such to the
->>> command.
->>>
->> Holger,
->>
->> I would take a patch for that.
->
-> Hi,
->
-> not sure what is the best way to send patches (if they need a SoB, if they
-> should go through oe-core...). The first adds a '|| true' to the udev start
-> script so udevd is started on second boot, the second move modutils after
-> udev.. if there is a module needed to make udev work... then the first boot
-> will fail as modules are only configured by S9XConfigure..
->
-Yes, these should really go against oe-core with proper SoBs.  Please 
-re-submit there.
+Hi Mark,
 
-Thanks
-	Sau!
+Thanks for your great help.
 
-> holger
->
-> PS: I was away from my build machine so the patches might be outdated.
+I record the minimal eglibc configure options and the dependencies on 
+them at
+
+https://wiki.yoctoproject.org/wiki/Minimal_Image
+
+People want make minimal image could follow the step and apply the 
+patches in the page should get the same result with what I get.
+
+I will try to put the patches on the maillist and then check what other 
+people thinking.
+
+Thanks and Regards,
+Kai
+
 
