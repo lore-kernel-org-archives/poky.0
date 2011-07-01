@@ -1,35 +1,36 @@
 Return-Path: <wenhuax.fan@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2AC724C80A1D
-	for <poky@pokylinux.org>; Thu, 30 Jun 2011 21:29:48 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Jun 2011 19:29:47 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 736E94C80A1D
+	for <poky@pokylinux.org>; Thu, 30 Jun 2011 21:31:04 -0500 (CDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 30 Jun 2011 19:31:03 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.65,455,1304319600"; 
-	d="xml'?ods'72,48?scan'72,48,208,217,72,48";a="22589238"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Jun 2011 19:29:39 -0700
+	d="xml'?ods'72,48?scan'72,48,208,217,72,48";a="20382051"
+Received: from pgsmsx601.gar.corp.intel.com ([10.221.43.69])
+	by orsmga002.jf.intel.com with ESMTP; 30 Jun 2011 19:30:42 -0700
 Received: from pgsmsx509.gar.corp.intel.com (172.30.13.17) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 1 Jul 2011 10:28:44 +0800
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Fri, 1 Jul 2011 10:30:30 +0800
 Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
 	PGSMSX509.gar.corp.intel.com (172.30.13.17) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 1 Jul 2011 10:28:44 +0800
+	(TLS) id 8.2.255.0; Fri, 1 Jul 2011 10:30:30 +0800
 Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
 	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Fri, 1 Jul 2011
-	10:28:26 +0800
+	10:30:29 +0800
 From: "Fan, WenhuaX" <wenhuax.fan@intel.com>
 To: "poky@pokylinux.org" <poky@pokylinux.org>, "yocto@yoctoproject.org"
 	<yocto@yoctoproject.org>
-Date: Fri, 1 Jul 2011 10:28:22 +0800
-Thread-Index: Acw3lowNjxHIiW3FS3iJOI17vOubkA==
-Message-ID: <2F0982C572735F46B77790D29DA0FD8712D1BB2DE7@shsmsx501.ccr.corp.intel.com>
+Date: Fri, 1 Jul 2011 10:30:27 +0800
+Thread-Topic: Weekly test report for Yocto 1.1 20110624 build
+Thread-Index: Acw3ltcOoK4Y2WCcQZWO/OPqH7+kHQ==
+Message-ID: <2F0982C572735F46B77790D29DA0FD8712D1BB2DEE@shsmsx501.ccr.corp.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
 acceptlanguage: en-US
 MIME-Version: 1.0
-Subject: (No subject)
+Subject: Weekly test report for Yocto 1.1 20110624 build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,17 +42,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jul 2011 02:29:49 -0000
-X-Groupsio-MsgNum: 6674
+X-List-Received-Date: Fri, 01 Jul 2011 02:31:05 -0000
+X-Groupsio-MsgNum: 6675
 Content-Language: en-US
 Content-Type: multipart/mixed;
-	boundary="_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_"
+	boundary="_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_"
 
---_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_
+--_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_
 Content-Type: multipart/alternative;
-	boundary="_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_"
+	boundary="_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_"
 
---_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_
+--_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_
 Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 
@@ -149,9 +150,9 @@ cGxveS1ycG0NCg0KDQoyLiAgICAgICBCdWcgMTE4NDxodHRwOi8vYnVnemlsbGEucG9reWxpbnV4
 Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTE4ND4gLSBnaG9zdHNjcmlwdCBjaGVja3N1bSBmYWlsIG9u
 IGF1dG9idWlsZGVyDQoNCg0KDQozLiAgICAgQnVnIDExODU8aHR0cDovL2J1Z3ppbGxhLnBva3ls
 aW51eC5vcmcvc2hvd19idWcuY2dpP2lkPTExODU+IC0gZ2NjLWNyb3NzLWNhbmFkaWFuIGRvX2Nv
-bmZpZ3VyZSBmYWlsIG9uIGF1dG9idWlsZGVyIGZvciBxZW11YXJtL21pcHMvcHBjDQo=
+bmZpZ3VyZSBmYWlsIG9uIGF1dG9idWlsZGVyIGZvciBxZW11YXJtL21pcHMvcHBjDQoNCg==
 
---_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_
+--_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_
 Content-Type: text/html; charset="gb2312"
 Content-Transfer-Encoding: quoted-printable
 
@@ -1570,11 +1571,12 @@ olor:black'>&nbsp;</span></span><span class=3Dapple-style-span><span lang=
 =3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
 lack'>gcc-cross-canadian do_configure fail on autobuilder for qemuarm/mips/=
 ppc</span></span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
-Arial","sans-serif"'><o:p></o:p></span></p></div></body></html>=
+Arial","sans-serif"'><o:p></o:p></span></p><p class=3DMsoNormal><span lang=
+=3DEN-US><o:p>&nbsp;</o:p></span></p></div></body></html>=
 
---_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_--
+--_000_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_--
 
---_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_
+--_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_
 Content-Type: application/oleobject;
 	name="weekly_detail_testreport-20110624.ods"
 Content-Description: weekly_detail_testreport-20110624.ods
@@ -1847,4 +1849,4 @@ AAAAAAAAAABXBgAAY29udGVudC54bWxQSwECLQAUAAYACAAAACEALtNNWPYAAADJAgAAFQAAAAAA
 AAAAAAAAAABCNgAATUVUQS1JTkYvbWFuaWZlc3QueG1sUEsBAi0AFAAGAAgAAAAhAEDoIrCKAQAA
 AwMAAAgAAAAAAAAAAAAAAAAAazcAAG1ldGEueG1sUEsFBgAAAAAFAAUAIAEAABs5AAAAAA==
 
---_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DE7shsmsx501ccrc_--
+--_004_2F0982C572735F46B77790D29DA0FD8712D1BB2DEEshsmsx501ccrc_--
