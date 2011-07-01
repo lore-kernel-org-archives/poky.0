@@ -1,24 +1,19 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id E95674C80AC5
-	for <poky@yoctoproject.org>; Fri,  1 Jul 2011 04:41:40 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p619feKc015420
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 1 Jul 2011 02:41:40 -0700 (PDT)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Fri, 1 Jul 2011 02:41:39 -0700
-Message-ID: <b5b0312005639c617b40ce2c0f6860eb08ba28a8.1309412032.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1309412032.git.xiaofeng.yan@windriver.com>
-References: <cover.1309412032.git.xiaofeng.yan@windriver.com>
-Old-Date: Wed, 29 Jun 2011 20:02:09 +0800
-Date: Fri, 1 Jul 2011 17:36:53 +0800
-To: <poky@yoctoproject.org>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
-MIME-Version: 1.0
-X-Originating-IP: [128.224.162.28]
-Subject: [PATCH 1/1] poky-lsb: Change provider of virtual/libx11 to libx11-trim
+Return-Path: <dexuan.cui@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1E1444C80A1D
+	for <poky@yoctoproject.org>; Fri,  1 Jul 2011 04:53:08 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 01 Jul 2011 02:53:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,457,1304319600"; d="scan'208";a="21401506"
+Received: from dcui-desktop.sh.intel.com (HELO localhost) ([10.239.36.71])
+	by azsmga001.ch.intel.com with ESMTP; 01 Jul 2011 02:53:06 -0700
+From: Dexuan Cui <dexuan.cui@intel.com>
+To: poky@yoctoproject.org
+Date: Fri,  1 Jul 2011 17:53:15 +0800
+Message-Id: <cover.1309513556.git.dexuan.cui@intel.com>
+X-Mailer: git-send-email 1.7.6
+Subject: [PATCH 0/1] poky.conf: add largefile support into DISTRO_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,35 +25,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jul 2011 09:41:41 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 01 Jul 2011 09:53:09 -0000
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Dexuan Cui (1):
+  poky.conf: add largefile support into DISTRO_FEATURES
 
-BUG 1196 reports  compilation error like the following information from package startup-notification  when the provider of virtual/libx11 was libx11
-| configure: error: Cannot find x11-xcb
-| ERROR: oe_runconf failed
-| ERROR: Function 'do_configure' failed (see
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib dcui/mkswap
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dcui/mkswap
 
-Fix [BUGID #1196]
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
  meta-yocto/conf/distro/poky-lsb.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta-yocto/conf/distro/poky.conf     |    2 ++
+ 2 files changed, 3 insertions(+), 1 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/poky-lsb.conf b/meta-yocto/conf/distro/poky-lsb.conf
-index 49d12da..5385012 100644
---- a/meta-yocto/conf/distro/poky-lsb.conf
-+++ b/meta-yocto/conf/distro/poky-lsb.conf
-@@ -4,6 +4,6 @@ DISTRO = "poky-lsb"
- DISTROOVERRIDES = "poky:linuxstdbase"
- 
- DISTRO_FEATURES_append = " pam largefile"
--PREFERRED_PROVIDER_virtual/libx11 = "libx11"
-+PREFERRED_PROVIDER_virtual/libx11 = "libx11-trim"
- 
- 
 -- 
-1.7.0.4
+1.7.6
 
 
