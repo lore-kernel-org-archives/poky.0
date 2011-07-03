@@ -1,20 +1,30 @@
-Return-Path: <holger@freyther.de>
-Received: from gandharva.secretlabs.de (gandharva.secretlabs.de
-	[78.46.147.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4BC314C800AC
-	for <poky@yoctoproject.org>; Sun,  3 Jul 2011 03:34:24 -0500 (CDT)
-Received: from [192.168.0.101] (91-64-95-94-dynip.superkabel.de [91.64.95.94])
-	by gandharva.secretlabs.de (Postfix) with ESMTPSA id E91091B10C05
-	for <poky@yoctoproject.org>; Sun,  3 Jul 2011 08:42:19 +0000 (UTC)
-Message-ID: <4E10298C.8080507@freyther.de>
-Date: Sun, 03 Jul 2011 10:34:20 +0200
-From: Holger Hans Peter Freyther <holger@freyther.de>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110516 Lightning/1.0b2 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-X-Enigmail-Version: 1.1.1
-Subject: kernel upgrade breaks image creation
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 379D84C800A3
+	for <poky@yoctoproject.org>; Sun,  3 Jul 2011 04:11:39 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p639BZQa004675;
+	Sun, 3 Jul 2011 10:11:35 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 04638-01; Sun,  3 Jul 2011 10:11:31 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p639BQ3B004669
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 3 Jul 2011 10:11:27 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Holger Hans Peter Freyther <holger@freyther.de>
+In-Reply-To: <4E10298C.8080507@freyther.de>
+References: <4E10298C.8080507@freyther.de>
+Date: Sun, 03 Jul 2011 10:11:00 +0100
+Message-ID: <1309684260.20015.618.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: kernel upgrade breaks image creation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,50 +36,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 03 Jul 2011 08:34:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sun, 03 Jul 2011 09:11:40 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi all,
+On Sun, 2011-07-03 at 10:34 +0200, Holger Hans Peter Freyther wrote:
+> Hi all,
+> 
+> I managed to get my build directory into an inconsistent state. There was a
+> kernel update and now the image fails to be built. It tries to copy the
+> System.map-... from the sysroot/${MACHINE}/kernel/... but it is empty:
+> 
+> | FATAL: Could not open
+> '/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
+> No such file or directory
+> | FATAL: Could not open
+> '/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
+> No such file or directory
+> | FATAL: Could not open
+> '/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
+> No such file or directory
+> | FATAL: Could not open
+> '/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
+> No such file or directory
+> 
+> 
+> I tried a bitbake -cclean virtual/kernel, also a cleanall, interestingly the
+> sysmocom-ti/kernel directory is not removed or does not seem to be
+> re-populated. Did anyone else ever see that behavior? There was one non
+> standard thing in the kernel upgrade:
+> 
+> +PR... bumped
+> -SRC_URI = "git://linux.git;protocol=ssh;branch=master"
+> +SRC_URI = "git://linux.git;protocol=ssh;branch=master \
+> +          file://defconfig-${MACHINE}"
+>  S = "${WORKDIR}/git"
+> 
+>  do_configure() {
+> -       oe_runmake foo_defconfig
+> -       oe_runmake oldconfig
+> +       install -m 0644 ${WORKDIR}/defconfig-${MACHINE} ${S}/.config
+> +       #oe_runmake foo_defconfig
+> +       #oe_runmake oldconfig
+>  }
+> 
+> is there anything that makes click?
 
-I managed to get my build directory into an inconsistent state. There was a
-kernel update and now the image fails to be built. It tries to copy the
-System.map-... from the sysroot/${MACHINE}/kernel/... but it is empty:
+I'm reminded of this commit:
 
-| FATAL: Could not open
-'/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
-No such file or directory
-| FATAL: Could not open
-'/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
-No such file or directory
-| FATAL: Could not open
-'/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
-No such file or directory
-| FATAL: Could not open
-'/poky/build/tmp/sysroots/sysmocom-foo/kernel/System.map-2.6.33-07172-g57e3d92':
-No such file or directory
+http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=2b8a68001ada2885f15ca68aa7c94cc92bb36973
 
+Did you try a "bitbake -ccleansstate virtual/kernel"?
 
-I tried a bitbake -cclean virtual/kernel, also a cleanall, interestingly the
-sysmocom-ti/kernel directory is not removed or does not seem to be
-re-populated. Did anyone else ever see that behavior? There was one non
-standard thing in the kernel upgrade:
+I'm wondering if stale sstate files for the kernel are affecting the
+build somehow? Are you using a custom do_install/copy of kernel.bbclass
+or anything like that?
 
-+PR... bumped
--SRC_URI = "git://linux.git;protocol=ssh;branch=master"
-+SRC_URI = "git://linux.git;protocol=ssh;branch=master \
-+          file://defconfig-${MACHINE}"
- S = "${WORKDIR}/git"
+Cheers,
 
- do_configure() {
--       oe_runmake foo_defconfig
--       oe_runmake oldconfig
-+       install -m 0644 ${WORKDIR}/defconfig-${MACHINE} ${S}/.config
-+       #oe_runmake foo_defconfig
-+       #oe_runmake oldconfig
- }
+Richard
 
-is there anything that makes click?
-
-	holger
 
