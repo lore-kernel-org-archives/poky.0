@@ -1,22 +1,22 @@
-Return-Path: <holger@freyther.de>
-Received: from gandharva.secretlabs.de (gandharva.secretlabs.de
-	[78.46.147.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A29274C80ABA
-	for <poky@yoctoproject.org>; Sun,  3 Jul 2011 07:28:44 -0500 (CDT)
-Received: from [192.168.0.101] (91-64-95-94-dynip.superkabel.de [91.64.95.94])
-	by gandharva.secretlabs.de (Postfix) with ESMTPSA id 340E21B10C0D
-	for <poky@yoctoproject.org>; Sun,  3 Jul 2011 12:36:42 +0000 (UTC)
-Message-ID: <4E10607A.1070909@freyther.de>
-Date: Sun, 03 Jul 2011 14:28:42 +0200
-From: Holger Hans Peter Freyther <holger@freyther.de>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110516 Lightning/1.0b2 Thunderbird/3.1.10
+Return-Path: <Xiaofeng.Yan@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6096F4C800A7
+	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 03:47:00 -0500 (CDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p658kwHw015066
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 5 Jul 2011 01:46:59 -0700 (PDT)
+Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Tue, 5 Jul 2011 01:46:58 -0700
+From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Tue, 5 Jul 2011 16:41:51 +0800
+Message-ID: <cover.1309785115.git.xiaofeng.yan@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4E0DC212.5020808@freyther.de> <4E0DCF2C.1090602@windriver.com>
-In-Reply-To: <4E0DCF2C.1090602@windriver.com>
-X-Enigmail-Version: 1.1.1
-Subject: Re: Installing GDB or the saga of getting RPM/Zypp to run on	JFFS2
+X-Originating-IP: [128.224.162.28]
+Subject: [PATCH 0/1] libOtOpenGL: Install libQtOpenGL to an lsb image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,55 +28,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 03 Jul 2011 12:28:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 05 Jul 2011 08:47:00 -0000
+Content-Type: text/plain
 
-On 07/01/2011 03:44 PM, Mark Hatle wrote:
+Hi Saul,
 
-> 
-> macro files are being loaded from:
-> 
-> %{_usrlibrpm}/macros:%{_usrlibrpm}/poky/macros:%{_usrlibrpm}/poky/%{_target}/macros:%{_etcrpm}/macros.*:%{_etcrpm}/macros:%{_etcrpm}/%{_target}/macros:~/.oerpmmacros
-> 
-> The key above is the /etc/rpm/macros.*
-> 
-> I would recommend a new file be generated called /etc/rpm/macros.jffs2 that
-> changes the setting as appropriate for that filesystem.  (How it's placed into
-> the filesystem I'm not sure.  I think it all comes down to detecting we're
-> building a jffs2 filesystem and doing it there.  Perhaps in the rootfs_rpm.bbclass?)
+I add this pakcage to task-core-lsb.bb to support qtopengl in an lsb image.
 
-What do you think about something like the change below? Alternatively one
-could write a post-inst script that checks if one is on jffs2 and then creates
-the config file.
+Pull URL: git://git.pokylinux.org/poky-contrib.git
+  Branch: xiaofeng/opengl-lsb
+  Browse: http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=xiaofeng/opengl-lsb
+
+Thanks,
+    Xiaofeng Yan <xiaofeng.yan@windriver.com>
+---
 
 
-diff --git a/meta/classes/rootfs_rpm.bbclass b/meta/classes/rootfs_rpm.bbclass
-index 3a11858..70459e5 100644
---- a/meta/classes/rootfs_rpm.bbclass
-+++ b/meta/classes/rootfs_rpm.bbclass
-@@ -139,6 +139,14 @@ EOF
-        install -d ${IMAGE_ROOTFS}/${sysconfdir}
-        echo ${BUILDNAME} > ${IMAGE_ROOTFS}/${sysconfdir}/version
+Xiaofeng Yan (1):
+  libOtOpenGL: Install libQtOpenGL to an lsb image
 
-+
-+       # check if there is a jffs2 install, it requires a workaround
-+       # due lacking support for MMAP read/write.
-+       (echo "${IMAGE_FSTYPES}" | grep "jffs2" > /dev/null)
-+       if [ $? == 0 ]; then
-+               echo "%__dbi_txn      create lock log txn auto_commit nommap
-private" > ${IMAGE_ROOTFS}/etc/rpm/macros.jffs2
-+       fi
-+
-        ${RPM_POSTPROCESS_COMMANDS}
-        ${ROOTFS_POSTPROCESS_COMMAND}
+ meta-yocto/conf/distro/poky-lsb.conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-@@ -164,6 +172,7 @@ EOF
- }
-
- remove_packaging_data_files() {
-+       rm -rf ${IMAGE_ROOTFS}/etc/rpm/macros.jffs2
-        rm -rf ${IMAGE_ROOTFS}${rpmlibdir}
-        rm -rf ${IMAGE_ROOTFS}${opkglibdir}
- }
 
