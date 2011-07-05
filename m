@@ -1,22 +1,25 @@
-Return-Path: <holger@freyther.de>
-Received: from gandharva.secretlabs.de (gandharva.secretlabs.de
-	[78.46.147.237])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 34BD84C800A7
-	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 04:11:54 -0500 (CDT)
-Received: from [192.168.0.101] (91-64-95-94-dynip.superkabel.de [91.64.95.94])
-	by gandharva.secretlabs.de (Postfix) with ESMTPSA id 5AFE81B10C0D
-	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 09:20:00 +0000 (UTC)
-Message-ID: <4E12D558.6000109@freyther.de>
-Date: Tue, 05 Jul 2011 11:11:52 +0200
-From: Holger Hans Peter Freyther <holger@freyther.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id D98014C800A7
+	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 06:20:05 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 415C1166015C; Tue,  5 Jul 2011 05:20:05 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 98A3E1660102;
+	Tue,  5 Jul 2011 05:20:03 -0600 (MDT)
+Message-ID: <4E12F363.6070708@mlbassoc.com>
+Date: Tue, 05 Jul 2011 05:20:03 -0600
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110516 Lightning/1.0b2 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1309785115.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1309785115.git.xiaofeng.yan@windriver.com>
-X-Enigmail-Version: 1.1.1
-Subject: Re: [PATCH 0/1] libOtOpenGL: Install libQtOpenGL to an lsb image
+To: Poky Project <poky@yoctoproject.org>
+Subject: eglibc build problem
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,15 +31,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jul 2011 09:11:55 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 05 Jul 2011 11:20:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07/05/2011 10:41 AM, Xiaofeng Yan wrote:
+I have a distribution which is derived from Poky.  It has been
+building great until recently, but now it fails when building
+'eglibc' for the target with this error:
 
-> 
-> Xiaofeng Yan (1):
->   libOtOpenGL: Install libQtOpenGL to an lsb image
+$ cat /home/local/p60_latest/tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/temp/log.do_install_locale.13725
+cp: cannot stat `/home/local/p60_latest/tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/image/usr/bin/localedef': No such file or directory
+ERROR: Function 'do_install_locale' failed (see /home/local/p60_latest/tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/temp/log.do_install_locale.13725 for further 
+information)
 
-libO -> libQ?
+Looking around in the eglibc build, I can't see localedef being built:
+$ find tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/ -name "locale*"
+tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/localedata
+tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/locale
+tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/intl/localealias.os.d
+tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/intl/localealias.o.d
+tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/intl/localealias.os
+tmp/work/armv7a-amltd-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-amltd-linux-gnueabi/intl/localealias.o
+
+However, if I build for the BeagleBoard using the same Poky tree,
+it does work and I see:
+$ find tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/ -name "locale*"
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/localedata
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localename.os
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localename.o
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localeconv.os
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localeconv.o
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localedef.o.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localename.o.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localeconv.os.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localedef
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/locale.o
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/locale-spec.o.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localedef.o
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localename.os.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/locale.o.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/localeconv.o.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/locale
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/locale/locale-spec.o
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/intl/localealias.os.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/intl/localealias.o.d
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/intl/localealias.os
+tmp/work/armv7a-poky-linux-gnueabi/eglibc-2.13-r3+svnr14157/build-arm-poky-linux-gnueabi/intl/localealias.o
+
+Any ideas what would keep the localedef stuff from being built for my
+board whereas it is built for a standard board?
+
+As I said, this has been working great up until some time recently.
+I can't see any hint in the commit logs of what might have changed
+to break it.  ... that will teach me to take a 2 week holiday!
+
+Thanks
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
