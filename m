@@ -1,27 +1,22 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6EF854C80227
-	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 16:44:40 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id ECCD816602A2; Tue,  5 Jul 2011 15:44:38 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 677C5166020B;
-	Tue,  5 Jul 2011 15:44:18 -0600 (MDT)
-Message-ID: <4E1385B2.7050405@mlbassoc.com>
-Date: Tue, 05 Jul 2011 15:44:18 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <holger@freyther.de>
+Received: from gandharva.secretlabs.de (gandharva.secretlabs.de
+	[78.46.147.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 8D4D44C801DA
+	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 17:43:39 -0500 (CDT)
+Received: from [192.168.0.101] (91-64-95-94-dynip.superkabel.de [91.64.95.94])
+	by gandharva.secretlabs.de (Postfix) with ESMTPSA id 70B481B10C0D
+	for <poky@yoctoproject.org>; Tue,  5 Jul 2011 22:51:48 +0000 (UTC)
+Message-ID: <4E139399.7010500@freyther.de>
+Date: Wed, 06 Jul 2011 00:43:37 +0200
+From: Holger Hans Peter Freyther <holger@freyther.de>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
+	rv:1.9.2.17) Gecko/20110516 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky@yoctoproject.org
 References: <4E133C02.1020707@mlbassoc.com> <1309884260.20015.727.camel@rex>
-In-Reply-To: <1309884260.20015.727.camel@rex>
-Cc: Poky Project <poky@yoctoproject.org>
+	<4E1385B2.7050405@mlbassoc.com>
+In-Reply-To: <4E1385B2.7050405@mlbassoc.com>
+X-Enigmail-Version: 1.1.1
 Subject: Re: Image size explosion
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -34,47 +29,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jul 2011 21:44:40 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Tue, 05 Jul 2011 22:43:40 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 07/05/2011 10:44 AM, Richard Purdie wrote:
-> On Tue, 2011-07-05 at 10:29 -0600, Gary Thomas wrote:
->> I just rebuilt my image after updating to the latest master and
->> I observed image explosion (my mimimal image went from 3.9MB to
->> 37MB!)  Looking at what went into the image, I see some packaging
->> changes.  The package
->>     libc6
->> is now a bunch of packages
->>     eglibc
->>     eglibc-dev
->>     eglibc-extra-nss
->>     libcidn1
->>     libgcc1
->>     libgcc-s-dev
->>     libthread-dbl
->>     linux-libc-headers-dev
->> which seem to be responsible for the bloat.
->>
->> Questions:
->> * What changed that now brings this in?
->> * Can I get back to my old, minimal, setup?  This is for a deeply
->>     embedded device and I don't need/want any development stuff.
->
-> When we split up the locale generation we broke eglibc. It sounds like
-> you're missing the fixes for that?
->
-> Assuming minimal stops pulling in eglibc-dev things should look
-> better...
+On 07/05/2011 11:44 PM, Gary Thomas wrote:
 
-I just updated against the latest master and rebuilt and now my images
-are back to a more sane size.
+> 
+> I just updated against the latest master and rebuilt and now my images
+> are back to a more sane size.
 
-Thanks
+I have posted a udev (libgudev ends in the wrong package, pulling in
+glib/gthread/gio/gmodule/gobject) fix to the OE ml, it might apply to you too.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+holger
 
