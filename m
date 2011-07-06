@@ -1,36 +1,23 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 0ACFC4C80AAD
-	for <poky@pokylinux.org>; Wed,  6 Jul 2011 09:06:33 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Jul 2011 07:06:33 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6583B4C80215
+	for <poky@yoctoproject.org>; Wed,  6 Jul 2011 13:16:41 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 06 Jul 2011 11:16:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,487,1304319600"; 
-	d="xml'?ods'72,48?scan'72,48,208,217,72,48";a="26876825"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 06 Jul 2011 07:06:30 -0700
-Received: from pgsmsx104.gar.corp.intel.com (10.221.44.91) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Wed, 6 Jul 2011 22:06:29 +0800
-Received: from shsmsx602.ccr.corp.intel.com (10.239.4.104) by
-	PGSMSX104.gar.corp.intel.com (10.221.44.91) with Microsoft SMTP Server
-	(TLS) id 14.1.289.1; Wed, 6 Jul 2011 22:06:28 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	SHSMSX602.ccr.corp.intel.com ([10.239.4.104]) with mapi; Wed, 6 Jul 2011
-	22:06:27 +0800
-From: "Xu, Jiajun" <jiajun.xu@intel.com>
-To: "poky@pokylinux.org" <poky@pokylinux.org>, "yocto@yoctoproject.org"
-	<yocto@yoctoproject.org>
-Date: Wed, 6 Jul 2011 22:06:25 +0800
-Thread-Topic: Weekly Test Report for Yocto 1.1 M2 RC1 - 20110701
-Thread-Index: Acw75eS12n3zFioQRB2oHYVGlScNHA==
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815B@shsmsx501.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+X-IronPort-AV: E=Sophos;i="4.65,488,1304319600"; 
+	d="dat'?sh'?png'150?plt'150?scan'150,208,150";a="23392311"
+Received: from unknown (HELO [10.255.14.20]) ([10.255.14.20])
+	by azsmga001.ch.intel.com with ESMTP; 06 Jul 2011 11:16:40 -0700
+Message-ID: <4E14A686.5020104@linux.intel.com>
+Date: Wed, 06 Jul 2011 11:16:38 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
 MIME-Version: 1.0
-Subject: Weekly Test Report for Yocto 1.1 M2 RC1 - 20110701
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Cc: Josh Lock <joshua.lock@intel.com>, Tom Rini <tom_rini@mentor.com>
+Subject: build performance: bb-matrix on 4-core (BB_NUMBER_THREADS and PARALLEL_MAKE optimization)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,2053 +29,821 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Jul 2011 14:06:35 -0000
-X-Groupsio-MsgNum: 6707
-Content-Language: en-US
-Content-Type: multipart/mixed;
-	boundary="_004_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_"
+X-List-Received-Date: Wed, 06 Jul 2011 18:16:42 -0000
+X-Groupsio-MsgNum: 6708
+Content-Type: multipart/mixed; boundary="------------060007070700020707000703"
 
---_004_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_
-Content-Type: multipart/alternative;
-	boundary="_000_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_"
+--------------060007070700020707000703
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
---_000_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_
-Content-Type: text/plain; charset="gb2312"
+I ran the attached bb-matrix.sh on the following system:
+
+CPU (1): Intel(R) Core(TM) i7 CPU         870  @ 2.93GHz
+Cores: 4
+Threads: 8
+Memory: 8186560 kB
+OS Disk: INTEL SSDSA2M040G2GC (SSD)
+Build Disk: Hitachi HDT721050SLA360 (Spinning Media)
+
+The script runs builds with all combinations of BB_NUMBER_THREADS and
+PARALLEL_MAKE from 4 through 16.
+
+Once BB_NUMBER_THREADS hit 10, the kernel OOM Killer started killing off
+tasks and build time tripled. Those runs have been removed the dataset.
+
+All of the runs with PARALLEL_MAKE=10 also failed, for a variety of
+reasons. See bb-pm-errors.txt for details. For whatever reason, 10 seems
+to be a bad number. Additional failures were seen at 09-11 and 10-14.
+These have all been removed from the dat file.
+
+From the remaining results, a clear downward trend in build time is
+evident with increasing BB_NUMBER_THREADS through 8, while build time
+mostly increases again with 9 (and dramatically so with 10, not shown).
+Optimal build time is achieved with BB_NUMBER_THREADS=8.
+
+Along the BB_NUMBER_THREADS=8 line, there is no clear trend with
+increasing values of PARALLEL_MAKE. Local downward trends appear from
+4-7 and from 11-14. Optimal build time occurs with PARALLEL_MAKE=14,
+however, it only bests PARALLEL_MAKE=7 by 68 seconds.
+
+While optimal build time is achieved with BB=8 and PM=14, a more
+resource friendly setting of BB=8 and PM=6 yields nearly as good results.
+
+To reproduce the plots and get an interactive view that you can rotate:
+
+$ gnuplot --persist < bb-pm-matrix.plt
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
+--------------060007070700020707000703
+Content-Type: application/ms-tnef;
+ name="bb-pm-runtime-fear-jul6.dat"
 Content-Transfer-Encoding: base64
-
-SGksIEFsbCwNCiAgICAgICBUaGlzIGlzIHRoZSB3ZWVrbHkgdGVzdCByZXBvcnQgZm9yIFlvY3Rv
-IDEuMSBNMiBSQzEgYnVpbGQuIFRoZXJlIGFyZSAyIG5ldyBCTE9DSyBidWdzIGFuZCAxIG5ldyBO
-T1JNQUwgYnVnIGZvdW5kIGluIHRoaXMgdGVzdGluZy4gQWxsIEJTUCBzYXRvLXNkayBpbWFnZXMg
-aGF2ZSBubyBiYXNoIGJ1aWx0LWluLCB3aGljaCBtYWtlcyBzb21lIGJhc2ggYmFzZWQgY29tbWFu
-ZCBub3Qgd29yay4gWCBzZXJ2ZXIgZmFpbHMgdG8gc3RhcnQgdXAgb24gY3Jvd25iYXkgZW1nZCBh
-bmQgYmxhY2tzYW5kLiBBbmQgd2UgZmluZCBiYXNpYyBpbWFnZSBidWlsZCBmb3IgcWVtdXg4NiBm
-YWlscyBkdWUgdG8gbGFjayBvZiBsb2NhbGUtYmFzZS1lbi11cy4gRm9yIG9sZCBidWdzLCBxZW11
-bWlwcyBhbmQgcWVtdXBwYyBsc2IgaW1hZ2VzIGJ1aWxkIHN0aWxsIGZhaWxlZCBvbiBhdXRvYnVp
-bGRlci4gbWtzd2FwIGlzc3VlIGR1cmluZyBpbnN0YWxsYXRpb24gZml4aW5nIHBhdGNoIGhhcyBu
-b3QgYmVlbiBpbmNsdWRlZCBpbiB0aGlzIGJ1aWxkLiBUaGUgcnBtL3p5cHBlciBpbnN0YWxsL3Jl
-bW92YWwgY29uc3VtZSBkaXNrIHNwYWNlIGlzc3VlIGFsc28gZXhpc3RzLg0KICAgICAgIEZvciBi
-dWcgZml4aW5nLCBsb2dpbi5kZWZzIGlzc3VlIGFuZCBubyBsaWJYaW5lcmFtYS5zbyBmb3Igc3Vk
-b2t1IGlzc3VlIG9uIGphc3BlcmZvcmVzdCBoYXZlIGJlZW4gZml4ZWQuDQoNCiAgICAgICBOb3Rl
-OiBGb3IgZGlmZmVyZW50IGltYWdlcywgdGhleSBhcmUgYnVpbHQgYWdhaW5zdCBkaWZmZXJlbnQg
-Y29tbWl0L2JyYW5jaCBvbiBhdXRvYnVpbGRlci4gU28gcGxzLiBjaGVjayBmb2xsb3dpbmcgobBD
-b21taXQgSW5mb3JtYXRpb26hsSBzZWN0aW9uIGZvciBkZXRhaWxlZCBpbmZvcm1hdGlvbi4NClRo
-ZSB0ZXN0IHJlcG9ydCBpcyBhcmNoaWV2ZWQgQCBodHRwczovL3dpa2kucG9reWxpbnV4Lm9yZy93
-aWtpL1lvY3RvXzEuMV9NaWxlc3RvbmVfVGVzdF9SZXBvcnQNCg0KVGVzdCBTdW1tYXJ5Og0KLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQpUZXN0IFJlc3VsdCBTdW1tYXJ5
-DQoNCkNvbXBvbmVudA0KDQpUYXJnZXQNCg0KU3RhdHVzDQoNCkNvbW1lbnRzDQoNCkJTUA0KDQpT
-dWdhckJheQ0KDQpHT09EDQoNCnBhcnBvcnRfcGMgcHJvYmUgZmFpbCBvZiAwMDowYg0KDQpDcm93
-bkJheS1lbWdkDQoNCkJMT0NLDQoNCkZvcm1hdCBzd2FwIHBhcnRpdGlvbiBmYWlsZWQ7IFggc2Vy
-dmVyIGZhaWxlZCB0byBzdGFydCB1cCB3aGVuIGxpdmUgYm9vdA0KDQpKYXNwZXJGb3Jlc3QNCg0K
-R09PRA0KDQpJL09BVCBETUEgZW5naW5lIGluaXQgZmFpbGVkOw0KDQpCbGFja3NhbmQNCg0KR09P
-RA0KDQpGb3JtYXQgc3dhcCBwYXJ0aXRpb24gZmFpbGVkLg0KDQplTWVubG93DQoNCkJMT0NLDQoN
-ClN0YW5kYnkgZmFpbGVkOyBGb3JtYXQgc3dhcCBwYXJ0aXRpb24gZmFpbGVkO1ggc2VydmVyIGZh
-aWxlZCB0byBzdGFydCB1cCB3aGVuIGxpdmUgYm9vdA0KDQpCZWFnbGVib2FyZA0KDQpHT09EDQoN
-CkV2ZXJ5dGhpbmcgcnVucyB3ZWxsLg0KDQpSb3V0ZXJzdGF0aW9ucHJvDQoNCkdPT0QNCg0KRXZl
-cnl0aGluZyBydW5zIHdlbGwuDQoNCk1wYzgzMTVlLXJkYg0KDQpHT09EDQoNCkV2ZXJ5dGhpbmcg
-cnVucyB3ZWxsLg0KDQpRRU1VDQoNCnFlbXV4ODYNCg0KR09PRA0KDQpObyBlbm91Z2ggZGlzayBz
-cGFjZQ0KDQpxZW11eDg2LTY0DQoNCkdPT0QNCg0KTm8gZW5vdWdoIGRpc2sgc3BhY2UNCg0KcWVt
-dWFybQ0KDQpHT09EDQoNCk1pc3NpbmcgJ3BlcmwnIGNvbW1hbmQ7IE5vdCBlbm91Z2ggZGlzayBz
-cGFjZS4NCg0KcWVtdXBwYw0KDQpCdWdneQ0KDQpNaXNzaW5nICdwZXJsJyBjb21tYW5kOyBOb3Qg
-ZW5vdWdoIGRpc2sgc3BhY2U7IFVuZnMgZG9lc24ndCB3b3JrLg0KDQpxZW11bWlwcw0KDQpHT09E
-DQoNCk1pc3NpbmcgJ3BlcmwnIGNvbW1hbmQ7IE5vdCBlbm91Z2ggZGlzayBzcGFjZS4NCg0KQURU
-DQoNCqGhDQoNCkJ1Z2d5DQoNClVuZnMgZG9lcyBub3Qgd29yayB3aXRoIHFlbXVwcGM7IENWUyBi
-dWlsZCBmYWlsZWQgd2l0aCBtaXBzIHRvb2xjaGFpbi4NCg0KDQqhoQ0KDQpDcml0aWNhbCBidWdz
-LCBvciBtb3JlIHRoYW4gNTAlIHRlc3QgY2FzZXMgYXJlIGJsb2NrZWQNCg0KoaENCg0KT25seSBO
-b3JtYWwsIE1pbm9yIG9yIEVuaGFuY2VtZW50IGJ1Z3MsIGxlc3MgdGhhbiAxMCUgdGVzdCBjYXNl
-cyBmYWlsZWQNCg0KoaENCg0KTm9ybWFsLCBNYWpvciBhbmQgQ3JpdGljYWwgYnVncywgYW5kIG1v
-cmUgdGhhbiAxMCUgdGVzdCBjYXNlcyBmYWlsZWQNCg0KDQpEZXRhaWxlZCBUZXN0IFJlc3VsdCBm
-b3IgZWFjaCBjb21wb25lbnQNCg0KVGFyZ2V0DQoNClRvdGFsIFRDcw0KDQpOb3QgUnVuDQoNClBh
-c3NlZA0KDQpGYWlsZWQNCg0KTm90IHRlc3RhYmxlIChCbG9ja2VkKQ0KDQpTdWdhcmJheSBTYXRv
-LVNESw0KDQo1NQ0KDQowDQoNCjU0DQoNCjEgKGJ1ZyAxMTg3KQ0KDQowDQoNCkphc3BlcmZvcmVz
-dCBMU0ItU0RLDQoNCjMyDQoNCjANCg0KMzENCg0KMSAoYnVnIDExODgpDQoNCjANCg0KbjQ1MCBT
-YXRvLVNESw0KDQo1NQ0KDQowDQoNCjM0DQoNCjEgKGJ1ZyAxMDk5KQ0KDQoyMChidWcgMTIxMSkN
-Cg0KZU1lbmxvdyBTYXRvLVNESw0KDQo1NQ0KDQowDQoNCjUyDQoNCjMgKGJ1ZyAzMTAsIDYzMSwx
-MDk5KQ0KDQowDQoNCkNyb3duYmF5IFNhdG8tU0RLDQoNCjU1DQoNCjANCg0KMzUNCg0KMA0KDQoy
-MChidWcgMTIxMSkNCg0KQmVhZ2xlYm9hcmQNCg0KMzYNCg0KMA0KDQozNg0KDQowDQoNCjANCg0K
-Um91dGVyc3RhdGlvbnBybw0KDQozMQ0KDQowDQoNCjMxDQoNCjANCg0KMA0KDQpNcGM4MzE1ZS1y
-ZGINCg0KMzQNCg0KMA0KDQozNA0KDQowDQoNCjANCg0KUWVtdXg4Ni02NCBTYXRvDQoNCjI4DQoN
-CjANCg0KMjcNCg0KMSAoYnVnIDExNzIpDQoNCjANCg0KUWVtdXg4Ni02NCBTYXRvLVNESw0KDQoz
-MQ0KDQowDQoNCjMxDQoNCjANCg0KMA0KDQpRZW11eDg2IFNhdG8NCg0KMjgNCg0KMA0KDQoyNw0K
-DQoxIChidWcgMTE3MikNCg0KMA0KDQpRZW11eDg2IFNhdG8tU0RLDQoNCjMxDQoNCjANCg0KMzEN
-Cg0KMA0KDQowDQoNClFlbXVtaXBzIFNhdG8NCg0KMjgNCg0KMA0KDQoyNg0KDQoyIChidWcgMTE3
-MSwgMTE3MikNCg0KMA0KDQpRZW11bWlwcyBTYXRvLVNESw0KDQozMQ0KDQowDQoNCjMxDQoNCjAN
-Cg0KMA0KDQpRZW11cHBjIFNhdG8NCg0KMjENCg0KMA0KDQoxOA0KDQozIChidWcgNDE0LCAxMTcx
-LCAxMTcyKQ0KDQowDQoNClFlbXVwcGMgU2F0by1TREsNCg0KMjQNCg0KMA0KDQoyMw0KDQoxIChi
-dWcgNDE0KQ0KDQowDQoNClFlbXVhcm0gU2F0bw0KDQoyOA0KDQowDQoNCjI2DQoNCjIgKGJ1ZyAx
-MTcxLCAxMTcyKQ0KDQowDQoNClFlbXVhcm0gU2F0by1TREsNCg0KMzENCg0KMA0KDQozMQ0KDQow
-DQoNCjANCg0KQURUDQoNCjYNCg0KMA0KDQo0DQoNCjIgKGJ1ZyA0MTQsIDExOTUpDQoNCjANCg0K
-VG90YWwNCg0KNjQwDQoNCjANCg0KNTgyDQoNCjE4DQoNCjQwDQoNCg0KKiBZb3UgY2FuIGNoZWNr
-IHRoZSBkZXRhaWxlZCB0ZXN0IHJlc3VsdCBpbiBhdHRhY2htZW50IGZvciBlYWNoIHRhcmdldC4N
-CioqIFRoZSBmYWlsZWQvYmxvY2tlZCBjYXNlIG51bWJlciBpcyBsaXN0ZWQgd2l0aCBmYWlsZWQg
-Y2FzZXOhryBidWcgbnVtYmVyLg0KDQoNCkNvbW1pdCBJbmZvcm1hdGlvbg0KLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQpGb3IgRW1lbmxvdy9CbGFja3NhbmQvQ3Jvd25i
-YXkvdG9vbGNoYWluOg0KVHJlZS9CcmFuY2ggOiBQb2t5L21hc3Rlcg0KUG9reSBDb21taXQgaWQg
-OiBhZDIzNjMyNzhmMGVhODZmY2YzNDY0ZjhmNjA3M2QzYTNkMDZiZTYzDQpNZXRhIEJyYW5jaCA6
-IG1hc3Rlcg0KTWV0YSBDb21taXQgaWQ6IDkyZmMwN2E1ZjFiOTg3Nzk4MDZjZGNjMjM0MTQ4N2Zm
-NWVhNWEyMzgNCg0KRm9yIFN1Z2FyYmF5L0phc3BlcmZvcmVzdC9xZW11eDg2L3FlbXV4ODYtNjQ6
-DQpUcmVlL0JyYW5jaCA6IFBva3kvMS4xX00yDQpQb2t5IENvbW1pdCBpZCA6IGVhNTE4ODQ2Yjg4
-OWExYmFkMjI2M2QxY2I0OWNiMjM4YTI5NWE4ZTcNCk1ldGEgQnJhbmNoIDogbWFzdGVyDQpNZXRh
-IENvbW1pdCBpZDogOTJmYzA3YTVmMWI5ODc3OTgwNmNkY2MyMzQxNDg3ZmY1ZWE1YTIzOA0KDQpG
-b3IgcWVtdWFybS9taXBzL3BwYy9iZWFnbGVib2FyZC9tcGM4MzE1ZS1yZGIvcm91dGVyc3RhdGlv
-bnBybzoNClRyZWUvQnJhbmNoIDogUG9reS9tYXN0ZXINClBva3kgQ29tbWl0IGlkIDogODUxMWQx
-ZWMxYmFjNjk5Yzc0Mjk1MmU2ZmU0YzMwNmUxYWFhMmY5Zg0KDQoNCg0KSXNzdWUgU3VtbWFyeQ0K
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQpDb21wb25lbnQNCg0KQnVn
-IE51bWJlcg0KDQpUYXJnZXQgTWlsZXN0b25lDQoNClN5c3RlbSAmIENvcmUgT1MNCg0KSW5zdGFs
-bGF0aW9uICYgQm9vdA0KDQpOZXchIEJ1ZyAxMjA2OiBbcWVtdXg4Nl0gZG9fcm9vdGZzIG9mIGNv
-cmUtaW1hZ2UtYmFzaWMgZmFpbCBkdWUgdG8gbGFjayBvZiBsb2NhbGUtYmFzZS1lbi11cw0KDQot
-LS0NCg0KQnVnIDEyMDU6W2JsYWNrc2FuZC9lbWVubG93L2Nyb3duYmF5XSBGb3JtYXQgc3dhcCBw
-YXJ0aXRpb24gZmFpbGVkIHdoZW4gaW5zdGFsbA0KDQoxLjEgTTINCg0KQnVnIDEyMDc6W0Nyb3du
-YmF5LWVtZ2RdIFggc2VydmVyIGZhaWxlZCB0byBzdGFydCB1cA0KDQoxLjEgTTINCg0KTmV3ISBC
-dWcgMTIxMSAtIFtCbGFja3NhbmRdIFggc2VydmVyIGZhaWwgdG8gc3RhcnQgdXANCg0KLS0tDQoN
-ClN5c3RlbSBVc2FnZQ0KDQpCdWcgMTE3MTogTm8gZW5vdWdoIGRpc2sgc3BhY2Ugd2l0aCBxZW11
-IHNhdG8gaW1hZ2VzDQoNCjEuMSBNMg0KDQpCdWcgMTE3MjogUGVybCBub3QgZXhpc3QgaW4gc2F0
-byBpbWFnZQ0KDQoxLjEgTTINCg0KQnVnIDExNzQ6IFt6eXBwZXIvcnBtXSBwYWNrYWdlIGluc3Rh
-bGwvcmVtb3ZhbCBjb3N0cyBsb3RzIG9mIGRpc2sgc3BhY2UNCg0KLS0tDQoNCk90aGVycw0KDQpC
-dWcgMTE5OTogcWVtdXBwYyBsc2Itc2RrIHJvb3RmcyBpbWFnZSBidWlsZCBmYWlsZWQgb24gYXV0
-b2J1aWxkZXIgaW4gbmlnaHRseSBidWlsZCAyMDExMDYyNS0xDQoNCjEuMQ0KDQpCdWcgMTIwMDog
-cWVtdW1pcHMgbHNiLXNkayBpbWFnZSBidWlsZCBmYWlsZWQgb24gYXV0b2J1aWxkZXIgd2l0aCBu
-aWdodGx5IGJ1aWxkIDIwMTEwNjI1LTEuDQoNCi0tLQ0KDQpOZXcgISBCdWcgMTIxNDogW0VtZW5s
-b3cvQmxhY2tzYW5kL0Nyb3duYmF5L1N1Z2FyYmF5XSBObyBiYXNoIGV4aXN0IGluIHNhdG8tc2Rr
-IGltYWdlDQoNCi0tLQ0KDQpBRFQNCg0KQnVnIDQxNDogW1BQQ10ga2VybmVsIHBhbmljIHdoZW4g
-Ym9vdGluZyBwb2t5LWltYWdlLXNkay1xZW11cHBjIHRocm91Z2ggVU5GUw0KDQoxLjEgTTMNCg0K
-QnVnIDExOTU6IFttaXBzIHRvb2xjaGFpbl0gY3ZzIGNvbmZpZ3VyZSBmYWlsIHdpdGggbm8gY3Zz
-X2N2X2Z1bmNfcHJpbnRmX3B0ciBzZXQNCg0KMS4xIE0yDQoNCg0KVmVyaWZpZWQgRml4ZWQgQnVn
-Og0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCjEuICAgICBCdWcg
-MTE5MDxodHRwOi8vYnVnemlsbGEucG9reWxpbnV4Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTE5MD4g
-LSBbamFwZXJmb3Jlc3RdIGxvZ2luLmRlZnMgZXJyb3Igd2hlbiBsb2dpbiBzeXN0ZW0NCg0KMi4g
-ICAgIEJ1ZyAxMTg5PGh0dHA6Ly9idWd6aWxsYS5wb2t5bGludXgub3JnL3Nob3dfYnVnLmNnaT9p
-ZD0xMTg5PiAtIFtqYXBlcmZvcmVzdF0gTm8gbGliWGluZXJhbWEuc28gZm9yIHN1ZG9rdQ0KDQoN
-Cg0KQmVzdCBSZWdhcmRzLA0KDQpKaWFqdW4NCg0KDQo=
-
---_000_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:m=3D"http://schema=
-s.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html=
-40"><head><meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dg=
-b2312"><meta name=3DGenerator content=3D"Microsoft Word 12 (filtered medium=
-)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=CB=CE=CC=E5;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=CB=CE=CC=E5";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	text-indent:21.0pt;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Calibri","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:247814077;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1291485142 -54520620 67698713 67698715 67698703 6769=
-8713 67698715 67698703 67698713 67698715;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:18.0pt;
-	text-indent:-18.0pt;}
-@list l0:level2
-	{mso-level-tab-stop:72.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level3
-	{mso-level-tab-stop:108.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level4
-	{mso-level-tab-stop:144.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level5
-	{mso-level-tab-stop:180.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level6
-	{mso-level-tab-stop:216.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level7
-	{mso-level-tab-stop:252.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level8
-	{mso-level-tab-stop:288.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level9
-	{mso-level-tab-stop:324.0pt;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DZH-CN link=3Dblue vli=
-nk=3Dpurple style=3D'text-justify-trim:punctuation'><div class=3DWordSectio=
-n1><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
-amily:"Arial","sans-serif"'>Hi, All,<o:p></o:p></span></p><p class=3DMsoNor=
-mal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-=
-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is the weekly test report=
- for Yocto 1.1 M2 RC1 build. There are 2 new BLOCK bugs and 1 new NORMAL bu=
-g found in this testing. All BSP sato-sdk images have no bash built-in, whi=
-ch makes some bash based command not work. X server fails to start up on cr=
-ownbay emgd and blacksand. And we find basic image build for qemux86 fails =
-due to lack of locale-base-en-us. For old bugs, qemumips and qemuppc lsb im=
-ages build still failed on autobuilder. mkswap issue during installation fi=
-xing patch has not been included in this build. The rpm/zypper install/remo=
-val consume disk space issue also exists.<o:p></o:p></span></p><p class=3DM=
-soNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For bug fixing, login.def=
-s issue and no libXinerama.so for sudoku issue on jasperforest have been fi=
-xed.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span>=
-</p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
-family:"Arial","sans-serif"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Note: For=
- different images, they are built against different commit/branch on autobu=
-ilder. So pls. check following =A1=B0Commit Information=A1=B1 section for d=
-etailed information.<o:p></o:p></span></p><p class=3DMsoNormal style=3D'tex=
-t-indent:21.0pt'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
-Arial","sans-serif"'>The test report is archieved<span style=3D'color:#1F49=
-7D'> @ </span><a href=3D"https://wiki.pokylinux.org/wiki/Yocto_1.1_Mileston=
-e_Test_Report">https://wiki.pokylinux.org/wiki/Yocto_1.1_Milestone_Test_Rep=
-ort</a><o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></s=
-pan></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif"'>Test Summary:<o:p></o:p></span></p><p clas=
-s=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
-Arial","sans-serif"'>---------------------------------------<o:p></o:p></sp=
-an></b></p><table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpad=
-ding=3D0 width=3D851 style=3D'width:638.0pt;margin-left:-.9pt;border-collap=
-se:collapse'><tr style=3D'height:21.0pt'><td width=3D851 nowrap colspan=3D4=
- valign=3Dbottom style=3D'width:638.0pt;border:solid windowtext 1.0pt;borde=
-r-right:solid black 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cla=
-ss=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
-'>Test Result Summary</span></b><b><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></=
-p></td></tr><tr style=3D'height:21.0pt'><td width=3D126 nowrap valign=3Dbot=
-tom style=3D'width:94.5pt;border:solid windowtext 1.0pt;border-top:none;pad=
-ding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dleft s=
-tyle=3D'text-align:left'><b><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
-nt-family:"Arial","sans-serif";color:black'>Component</span></b><b><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:black'><o:p></o:p></span></b></p></td><td width=3D168 nowrap valign=3Dbott=
-om style=3D'width:126.15pt;border-top:none;border-left:none;border-bottom:s=
-olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt=
- 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dleft style=3D'text-a=
-lign:left'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
-al","sans-serif";color:black'>Target</span></b><b><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o=
-:p></span></b></p></td><td width=3D78 nowrap valign=3Dbottom style=3D'width=
-:58.4pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0=
-pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:2=
-1.0pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><b><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:black'>Status</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></=
-td><td width=3D479 valign=3Dbottom style=3D'width:358.95pt;border-top:none;=
-border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
-ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNor=
-mal align=3Dleft style=3D'text-align:left'><b><span lang=3DEN-US style=3D'f=
-ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Comments</spa=
-n></b><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif";color:black'><o:p></o:p></span></b></p></td></tr><tr style=3D'h=
-eight:15.75pt'><td width=3D126 nowrap rowspan=3D8 style=3D'width:94.5pt;bor=
-der-top:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1=
-.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height=
-:15.75pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><=
-b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
-rif";color:black'>BSP</span></b><b><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></=
-p></td><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.15pt;borde=
-r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
-ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p cl=
-ass=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Suga=
-rBay</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D78 nowrap=
- valign=3Dbottom style=3D'width:58.4pt;border-top:none;border-left:none;bor=
-der-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;backg=
-round:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNor=
-mal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font=
--size:10.0pt;font-family:"Arial","sans-serif";color:black'>GOOD</span><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:black'><o:p></o:p></span></p></td><td width=3D479 valign=3Dbottom style=
-=3D'width:358.95pt;border-top:none;border-left:none;border-bottom:solid win=
-dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:le=
-ft'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-=
-serif";color:black'>parport_pc probe fail of 00:0b</span><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o=
-:p></o:p></span></p></td></tr><tr style=3D'height:15.75pt'><td width=3D168 =
-nowrap valign=3Dbottom style=3D'width:126.15pt;border-top:none;border-left:=
-none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0=
-pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=
-=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif";color:black'>CrownBay-emgd</span><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:black'><o:p></o:p></span></p></td><td width=3D78 nowrap valign=3Dbottom=
- style=3D'width:58.4pt;background:red;padding:0cm 5.4pt 0cm 5.4pt;height:15=
-.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:black'>BLOCK</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D=
-479 valign=3Dbottom style=3D'width:358.95pt;border-top:none;border-left:non=
-e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
-padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dle=
-ft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif";color:black'>Format swap partition failed; =
-X server failed to start up when live boot</span><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o=
-:p></span></p></td></tr><tr style=3D'height:15.75pt'><td width=3D168 nowrap=
- valign=3Dbottom style=3D'width:126.15pt;border-top:none;border-left:none;b=
-order-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;pad=
-ding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft =
-style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font=
--family:"Arial","sans-serif";color:black'>JasperForest</span><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
-'><o:p></o:p></span></p></td><td width=3D78 nowrap valign=3Dbottom style=3D=
-'width:58.4pt;border-top:none;border-left:none;border-bottom:solid windowte=
-xt 1.0pt;border-right:solid windowtext 1.0pt;background:#92D050;padding:0cm=
- 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D=
-'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
-"Arial","sans-serif";color:black'>GOOD</span><span lang=3DEN-US style=3D'fo=
-nt-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></s=
-pan></p></td><td width=3D479 valign=3Dbottom style=3D'width:358.95pt;border=
--top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-righ=
-t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p cla=
-ss=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>I/OAT=
- DMA engine init failed;</span><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><=
-/tr><tr style=3D'height:15.75pt'><td width=3D168 nowrap valign=3Dbottom sty=
-le=3D'width:126.15pt;border-top:none;border-left:none;border-bottom:solid w=
-indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
-.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:=
-left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:black'>Blacksand</span><span lang=3DEN-US style=3D'font-size=
-:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p=
-></td><td width=3D78 nowrap valign=3Dbottom style=3D'width:58.4pt;border-to=
-p:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:s=
-olid windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height=
-:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:black'>GOOD</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-fam=
-ily:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=
-=3D479 valign=3Dbottom style=3D'width:358.95pt;border-top:none;border-left:=
-none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0=
-pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=
-=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif";color:black'>Format swap partition fai=
-led.</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D'hei=
-ght:15.75pt'><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.15pt=
-;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bord=
-er-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'=
-><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
-'>eMenlow</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D78 n=
-owrap valign=3Dbottom style=3D'width:58.4pt;background:red;padding:0cm 5.4p=
-t 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text=
--align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
-l","sans-serif";color:black'>BLOCK</span><span lang=3DEN-US style=3D'font-s=
-ize:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span>=
-</p></td><td width=3D479 valign=3Dbottom style=3D'width:358.95pt;border-top=
-:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Standby=
- failed; Format swap partition failed;X server failed to start up when live=
- boot</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D'he=
-ight:15.75pt'><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.15p=
-t;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
-der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt=
-'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:blac=
-k'>Beagleboard</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=
-=3D78 nowrap valign=3Dbottom style=3D'width:58.4pt;border-top:none;border-l=
-eft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext=
- 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p cl=
-ass=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>GOOD=
-</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'><o:p></o:p></span></p></td><td width=3D479 valign=3D=
-bottom style=3D'width:358.95pt;border-top:none;border-left:none;border-bott=
-om:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5=
-.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D't=
-ext-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif";color:black'>Everything runs well.</span><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'=
-><o:p></o:p></span></p></td></tr><tr style=3D'height:15.75pt'><td width=3D1=
-68 nowrap valign=3Dbottom style=3D'width:126.15pt;border-top:none;border-le=
-ft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext =
-1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal alig=
-n=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'>Routerstationpro</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:black'><o:p></o:p></span></p></td><td width=3D78 nowrap valign=3Dbo=
-ttom style=3D'width:58.4pt;border-top:none;border-left:none;border-bottom:s=
-olid windowtext 1.0pt;border-right:solid windowtext 1.0pt;background:#92D05=
-0;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3D=
-left style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'>GOOD</span><span lang=3DEN-U=
-S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><=
-o:p></o:p></span></p></td><td width=3D479 valign=3Dbottom style=3D'width:35=
-8.95pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
-t;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15=
-.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:black'>Everything runs well.</span><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p><=
-/td></tr><tr style=3D'height:15.75pt'><td width=3D168 nowrap valign=3Dbotto=
-m style=3D'width:126.15pt;border-top:none;border-left:none;border-bottom:so=
-lid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt =
-0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-a=
-lign:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'>Mpc8315e-rdb</span><span lang=3DEN-US style=3D'f=
-ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></=
-span></p></td><td width=3D78 nowrap valign=3Dbottom style=3D'width:58.4pt;b=
-order-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border=
--right:solid windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4p=
-t;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:lef=
-t'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
-erif";color:black'>GOOD</span><span lang=3DEN-US style=3D'font-size:10.0pt;=
-font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><t=
-d width=3D479 valign=3Dbottom style=3D'width:358.95pt;border-top:none;borde=
-r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
-ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal =
-align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:black'>Everything runs well=
-.</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
-ans-serif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D'height=
-:15.75pt'><td width=3D126 nowrap rowspan=3D5 style=3D'width:94.5pt;border-t=
-op:none;border-left:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;=
-border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.7=
-5pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><sp=
-an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";=
-color:black'>QEMU</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></=
-td><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.15pt;border-to=
-p:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:s=
-olid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>qemux86=
-</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'><o:p></o:p></span></p></td><td width=3D78 nowrap val=
-ign=3Dbottom style=3D'width:58.4pt;border-top:none;border-left:none;border-=
-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;backgroun=
-d:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal =
-align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:black'>GOOD</span><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'><o:p></o:p></span></p></td><td width=3D479 valign=3Dbottom style=3D'=
-width:358.95pt;border-top:none;border-left:none;border-bottom:solid windowt=
-ext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;h=
-eight:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'>=
-<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
-f";color:black'>No enough disk space</span><span lang=3DEN-US style=3D'font=
--size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></spa=
-n></p></td></tr><tr style=3D'height:15.75pt'><td width=3D168 nowrap valign=
-=3Dbottom style=3D'width:126.15pt;border-top:none;border-left:none;border-b=
-ottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0c=
-m 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=
-=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'>qemux86-64</span><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p>=
-</o:p></span></p></td><td width=3D78 nowrap valign=3Dbottom style=3D'width:=
-58.4pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
-t;border-right:solid windowtext 1.0pt;background:#92D050;padding:0cm 5.4pt =
-0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-a=
-lign:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'>GOOD</span><span lang=3DEN-US style=3D'font-size=
-:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p=
-></td><td width=3D479 valign=3Dbottom style=3D'width:358.95pt;border-top:no=
-ne;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid=
- windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMs=
-oNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>No enough di=
-sk space</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
-ial","sans-serif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D=
-'height:15.75pt'><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.=
-15pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;=
-border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.7=
-5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'>qemuarm</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D=
-78 nowrap valign=3Dbottom style=3D'width:58.4pt;border-top:none;border-left=
-:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.=
-0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>GOOD</s=
-pan><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-=
-serif";color:black'><o:p></o:p></span></p></td><td width=3D479 valign=3Dbot=
-tom style=3D'width:358.95pt;border-top:none;border-left:none;border-bottom:=
-solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4p=
-t 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text=
--align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
-l","sans-serif";color:black'>Missing 'perl' command; Not enough disk space.=
-</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D'height:=
-15.75pt'><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.15pt;bor=
-der-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-r=
-ight:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p =
-class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>qe=
-muppc</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D78 nowra=
-p valign=3Dbottom style=3D'width:58.4pt;border-top:none;border-left:none;bo=
-rder-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;back=
-ground:#FFC000;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNo=
-rmal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Buggy</span><sp=
-an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";=
-color:black'><o:p></o:p></span></p></td><td width=3D479 valign=3Dbottom sty=
-le=3D'width:358.95pt;border-top:none;border-left:none;border-bottom:solid w=
-indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
-.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:=
-left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:black'>Missing 'perl' command; Not enough disk space; Unfs d=
-oesn't work.</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
-:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td></tr><tr styl=
-e=3D'height:15.75pt'><td width=3D168 nowrap valign=3Dbottom style=3D'width:=
-126.15pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.=
-0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:=
-15.75pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span =
-lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";col=
-or:black'>qemumips</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td wid=
-th=3D78 nowrap valign=3Dbottom style=3D'width:58.4pt;border-top:none;border=
--left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowte=
-xt 1.0pt;background:#92D050;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p =
-class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>GO=
-OD</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D479 valign=
-=3Dbottom style=3D'width:358.95pt;border-top:none;border-left:none;border-b=
-ottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0c=
-m 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=
-=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'>Missing 'perl' command; Not enough dis=
-k space.</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
-ial","sans-serif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D=
-'height:15.75pt'><td width=3D126 nowrap valign=3Dbottom style=3D'width:94.5=
-pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4p=
-t;height:15.75pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:black'>ADT</span></b><b><span lang=3DEN-US style=3D'font=
--size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></spa=
-n></b></p></td><td width=3D168 nowrap valign=3Dbottom style=3D'width:126.15=
-pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bo=
-rder-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75p=
-t'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span style=
-=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=A1=A1</span><sp=
-an lang=3DEN-US style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:bl=
-ack'><o:p></o:p></span></p></td><td width=3D78 nowrap valign=3Dbottom style=
-=3D'width:58.4pt;border-top:none;border-left:none;border-bottom:solid windo=
-wtext 1.0pt;border-right:solid windowtext 1.0pt;background:#FFC000;padding:=
-0cm 5.4pt 0cm 5.4pt;height:15.75pt'><p class=3DMsoNormal align=3Dleft style=
-=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'>Buggy</span><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o=
-:p></span></p></td><td width=3D479 valign=3Dbottom style=3D'width:358.95pt;=
-border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;borde=
-r-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:15.75pt'>=
-<p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'=
->Unfs does not work with qemuppc; CVS build failed with mips toolchain.</sp=
-an><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
-erif";color:black'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0=
-pt'><td width=3D126 nowrap valign=3Dbottom style=3D'width:94.5pt;padding:0c=
-m 5.4pt 0cm 5.4pt;height:21.0pt'></td><td width=3D168 nowrap valign=3Dbotto=
-m style=3D'width:126.15pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'></td><=
-td width=3D78 nowrap valign=3Dbottom style=3D'width:58.4pt;padding:0cm 5.4p=
-t 0cm 5.4pt;height:21.0pt'></td><td width=3D479 nowrap valign=3Dbottom styl=
-e=3D'width:358.95pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'></td></tr><t=
-r style=3D'height:21.0pt'><td width=3D126 nowrap valign=3Dbottom style=3D'w=
-idth:94.5pt;background:red;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cl=
-ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span style=3D'f=
-ont-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=A1=A1</span><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=
-<o:p></o:p></span></p></td><td width=3D725 nowrap colspan=3D3 valign=3Dbott=
-om style=3D'width:543.5pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cla=
-ss=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Criti=
-cal bugs, or more than 50% test cases are blocked</span><span lang=3DEN-US =
-style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:=
-p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><td width=3D126 no=
-wrap valign=3Dbottom style=3D'width:94.5pt;background:#9BBB59;padding:0cm 5=
-.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'=
-text-align:center'><span style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5=
-;color:black'>=A1=A1</span><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:=CB=CE=CC=E5;color:black'><o:p></o:p></span></p></td><td width=3D7=
-25 nowrap colspan=3D3 valign=3Dbottom style=3D'width:543.5pt;padding:0cm 5.=
-4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dleft style=3D'tex=
-t-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
-al","sans-serif";color:black'>Only Normal, Minor or Enhancement bugs, less =
-than 10% test cases failed</span><span lang=3DEN-US style=3D'font-size:10.0=
-pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td=
-></tr><tr style=3D'height:21.0pt'><td width=3D126 nowrap valign=3Dbottom st=
-yle=3D'width:94.5pt;background:#FFC000;padding:0cm 5.4pt 0cm 5.4pt;height:2=
-1.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><spa=
-n style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;color:black'>=A1=A1</s=
-pan><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=CB=CE=CC=E5;c=
-olor:black'><o:p></o:p></span></p></td><td width=3D725 nowrap colspan=3D3 v=
-align=3Dbottom style=3D'width:543.5pt;padding:0cm 5.4pt 0cm 5.4pt;height:21=
-.0pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'>Normal, Major and Critical bugs, and more than 10% test cases failed=
-</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'><o:p></o:p></span></p></td></tr></table><p class=3DM=
-soNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif"'><o:p>&nbsp;</o:p></span></p><table class=3DMsoNormalTable bord=
-er=3D0 cellspacing=3D0 cellpadding=3D0 width=3D717 style=3D'width:538.0pt;m=
-argin-left:-.9pt;border-collapse:collapse'><tr style=3D'height:21.0pt'><td =
-width=3D717 nowrap colspan=3D6 valign=3Dbottom style=3D'width:538.0pt;borde=
-r:solid windowtext 1.0pt;border-right:solid black 1.0pt;padding:0cm 5.4pt 0=
-cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-a=
-lign:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif";color:black'>Detailed Test Result for each component</sp=
-an></b><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:black'><o:p></o:p></span></b></p></td></tr><tr style=3D'=
-height:26.25pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0=
-pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4p=
-t;height:26.25pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:black'>Target</span></b><b><span lang=3DEN-US style=3D'f=
-ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></=
-span></b></p></td><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;bord=
-er-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-ri=
-ght:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p c=
-lass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'>Total TCs</span></b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
--family:"Arial","sans-serif";color:black'> </span><b><span lang=3DEN-US sty=
-le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p><=
-/o:p></span></b></p></td><td width=3D103 valign=3Dbottom style=3D'width:77.=
-0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;b=
-order-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25=
-pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><spa=
-n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
-olor:black'>Not Run</span></b><b><span lang=3DEN-US style=3D'font-size:10.0=
-pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p>=
-</td><td width=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top:none;b=
-order-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid win=
-dowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DMsoNor=
-mal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Passed</=
-span></b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif";color:black'> </span><b><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b><=
-/p></td><td width=3D167 valign=3Dbottom style=3D'width:125.0pt;border-top:n=
-one;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:soli=
-d windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=3DM=
-soNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Fail=
-ed</span></b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
-l","sans-serif";color:black'> </span><b><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span><=
-/b></p></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-to=
-p:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:s=
-olid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:26.25pt'><p class=
-=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
-Not testable (Blocked)</span></b><span lang=3DEN-US style=3D'font-size:10.0=
-pt;font-family:"Arial","sans-serif";color:black'> </span><b><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'=
-><o:p></o:p></span></b></p></td></tr><tr style=3D'height:21.0pt'><td width=
-=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:solid windowtex=
-t 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=
-=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
-Sugarbay Sato-SDK</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></=
-td><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;border-top:none;bor=
-der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
-wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal=
- align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'>55</span><span =
-lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";col=
-or:black'><o:p></o:p></span></p></td><td width=3D103 valign=3Dbottom style=
-=3D'width:77.0pt;border-top:none;border-left:none;border-bottom:solid windo=
-wtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt=
-;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:cen=
-ter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:black'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td=
- width=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top:none;border-le=
-ft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext =
-1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=
-=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size=
-:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>54</span><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#=
-00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3Dbottom style=3D=
-'width:125.0pt;border-top:none;border-left:none;border-bottom:solid windowt=
-ext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;h=
-eight:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:cente=
-r'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
-erif";color:red'>1 (bug 1187)</span><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></t=
-d><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none;bor=
-der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
-wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal=
- align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><td width=
-=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:solid windowtex=
-t 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=
-=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
-Jasperforest LSB-SDK</span></b><b><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p=
-></td><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;border-top:none;=
-border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
-ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNor=
-mal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>32</span><sp=
-an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";=
-color:black'><o:p></o:p></span></p></td><td width=3D103 valign=3Dbottom sty=
-le=3D'width:77.0pt;border-top:none;border-left:none;border-bottom:solid win=
-dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><=
-td width=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top:none;border-=
-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
-t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal ali=
-gn=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>31</span><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3Dbottom style=
-=3D'width:125.0pt;border-top:none;border-left:none;border-bottom:solid wind=
-owtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4p=
-t;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:ce=
-nter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:red'>1 (bug 1188)</span><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p>=
-</td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none;=
-border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
-ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNor=
-mal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><span =
-lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";col=
-or:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><td wid=
-th=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:solid windowt=
-ext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cla=
-ss=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
-'>n450 Sato-SDK</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></td=
-><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;border-top:none;borde=
-r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
-ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal a=
-lign=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-=
-size:10.0pt;font-family:"Arial","sans-serif";color:black'>55</span><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:black'><o:p></o:p></span></p></td><td width=3D103 valign=3Dbottom style=3D=
-'width:77.0pt;border-top:none;border-left:none;border-bottom:solid windowte=
-xt 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;he=
-ight:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center=
-'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
-rif";color:black'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font=
--family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td wi=
-dth=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top:none;border-left:=
-none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0=
-pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3D=
-center style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:#00B050'>34</span><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B=
-050'><o:p></o:p></span></p></td><td width=3D167 valign=3Dbottom style=3D'wi=
-dth:125.0pt;border-top:none;border-left:none;border-bottom:solid windowtext=
- 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heig=
-ht:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>=
-<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
-f";color:red'>1 (bug 1099)</span><span lang=3DEN-US style=3D'font-size:10.0=
-pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td><=
-td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none;border=
--left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowte=
-xt 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal al=
-ign=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-s=
-ize:10.0pt;font-family:"Arial","sans-serif";color:red'>20(bug 1211)</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><t=
-d width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:solid wi=
-ndowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><=
-p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'>eMenlow Sato-SDK</span></b><b><span lang=3DEN-US style=3D'font-size:=
-10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b>=
-</p></td><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;border-top:no=
-ne;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid=
- windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMso=
-Normal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>55</span=
-><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
-if";color:black'><o:p></o:p></span></p></td><td width=3D103 valign=3Dbottom=
- style=3D'width:77.0pt;border-top:none;border-left:none;border-bottom:solid=
- windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm=
- 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-ali=
-gn:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></=
-td><td width=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top:none;bor=
-der-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windo=
-wtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal=
- align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>52</span><spa=
-n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
-olor:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3Dbottom st=
-yle=3D'width:125.0pt;border-top:none;border-left:none;border-bottom:solid w=
-indowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5=
-.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align=
-:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif";color:red'>3 (bug 310, 631,1099)</span><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p=
-></span></p></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;bord=
-er-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-ri=
-ght:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cl=
-ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0<=
-/span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.=
-0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:s=
-olid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21=
-.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
-;color:black'>Crownbay Sato-SDK</span></b><b><span lang=3DEN-US style=3D'fo=
-nt-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></s=
-pan></b></p></td><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;borde=
-r-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-rig=
-ht:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cla=
-ss=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-U=
-S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>5=
-5</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
-ans-serif";color:black'><o:p></o:p></span></p></td><td width=3D103 valign=
-=3Dbottom style=3D'width:77.0pt;border-top:none;border-left:none;border-bot=
-tom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm =
-5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D=
-'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></sp=
-an></p></td><td width=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top=
-:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3D=
-MsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US sty=
-le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>35</=
-span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3D=
-bottom style=3D'width:125.0pt;border-top:none;border-left:none;border-botto=
-m:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.=
-4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D't=
-ext-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
-"Arial","sans-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p=
-></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none=
-;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid w=
-indowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNo=
-rmal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D=
-'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>20(bug 1211)<=
-/span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.=
-0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:s=
-olid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21=
-.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
-;color:black'>Beagleboard</span></b><b><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></=
-b></p></td><td width=3D79 valign=3Dbottom style=3D'width:59.0pt;border-top:=
-none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DM=
-soNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>36</spa=
-n><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
-rif";color:black'><o:p></o:p></span></p></td><td width=3D103 valign=3Dbotto=
-m style=3D'width:77.0pt;border-top:none;border-left:none;border-bottom:soli=
-d windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
-m 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
-ign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p><=
-/td><td width=3D73 valign=3Dbottom style=3D'width:55.0pt;border-top:none;bo=
-rder-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wind=
-owtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNorma=
-l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
-nt-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>36</span><sp=
-an lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";=
-color:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3Dbottom s=
-tyle=3D'width:125.0pt;border-top:none;border-left:none;border-bottom:solid =
-windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm =
-5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
-n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0p=
-t;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td><t=
-d width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none;border-=
-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
-t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal ali=
-gn=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'=
-><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><td width=3D17=
-2 valign=3Dbottom style=3D'width:129.0pt;border:solid windowtext 1.0pt;bord=
-er-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal=
- align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Routerstatio=
-npro</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
-"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></td><td width=
-=3D79 valign=3Dbottom style=3D'width:59.0pt;border-top:none;border-left:non=
-e;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;=
-padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcen=
-ter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0p=
-t;font-family:"Arial","sans-serif";color:black'>31</span><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o=
-:p></o:p></span></p></td><td width=3D103 valign=3Dbottom style=3D'width:77.=
-0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;b=
-order-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0p=
-t'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:black'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D73 v=
-align=3Dbottom style=3D'width:55.0pt;border-top:none;border-left:none;borde=
-r-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding=
-:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter sty=
-le=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
-family:"Arial","sans-serif";color:#00B050'>31</span><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'><o:p>=
-</o:p></span></p></td><td width=3D167 valign=3Dbottom style=3D'width:125.0p=
-t;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bor=
-der-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'=
-><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:r=
-ed'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:red'><o:p></o:p></span></p></td><td width=3D124 valign=
-=3Dbottom style=3D'width:93.0pt;border-top:none;border-left:none;border-bot=
-tom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm =
-5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D=
-'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-=
-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span><=
-/p></td></tr><tr style=3D'height:21.0pt'><td width=3D172 valign=3Dbottom st=
-yle=3D'width:129.0pt;border:solid windowtext 1.0pt;border-top:none;padding:=
-0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter styl=
-e=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Arial","sans-serif";color:black'>Mpc8315e-rdb</span></b><b><span =
-lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";col=
-or:black'><o:p></o:p></span></b></p></td><td width=3D79 valign=3Dbottom sty=
-le=3D'width:59.0pt;border-top:none;border-left:none;border-bottom:solid win=
-dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'>34</span><span lang=3DEN-US style=3D'font-size:10.0p=
-t;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td>=
-<td width=3D103 valign=3Dbottom style=3D'width:77.0pt;border-top:none;borde=
-r-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowt=
-ext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal a=
-lign=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-=
-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0</span><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'><o:p></o:p></span></p></td><td width=3D73 valign=3Dbottom style=3D'w=
-idth:55.0pt;border-top:none;border-left:none;border-bottom:solid windowtext=
- 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heig=
-ht:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>=
-<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
-f";color:#00B050'>34</span><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Arial","sans-serif";color:#00B050'><o:p></o:p></span></p></td><td=
- width=3D167 valign=3Dbottom style=3D'width:125.0pt;border-top:none;border-=
-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
-t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal ali=
-gn=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'=
-><o:p></o:p></span></p></td><td width=3D124 valign=3Dbottom style=3D'width:=
-93.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0p=
-t;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21=
-.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
-Arial","sans-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=3D=
-'height:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0=
-pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4p=
-t;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:ce=
-nter'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","=
-sans-serif";color:black'>Qemux86-64 Sato</span></b><b><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p>=
-</o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom style=3D'wi=
-dth:59.0pt;border-top:none;border-left:none;border-bottom:solid windowtext =
-1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heigh=
-t:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:black'>28</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-f=
-amily:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td widt=
-h=3D103 valign=3Dtop style=3D'width:77.0pt;border-top:none;border-left:none=
-;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;p=
-adding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcent=
-er style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p=
-></o:p></span></p></td><td width=3D73 valign=3Dtop style=3D'width:55.0pt;bo=
-rder-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-=
-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p =
-class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B0=
-50'>27</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
-l","sans-serif";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 v=
-align=3Dbottom style=3D'width:125.0pt;border-top:none;border-left:none;bord=
-er-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;paddin=
-g:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter st=
-yle=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font=
--family:"Arial","sans-serif";color:red'>1 (bug 1172)</span><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o=
-:p></o:p></span></p></td><td width=3D124 valign=3Dbottom style=3D'width:93.=
-0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;b=
-order-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0p=
-t'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span la=
-ng=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color=
-:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
-al","sans-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'he=
-ight:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;=
-border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;h=
-eight:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:cente=
-r'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:black'>Qemux86-64 Sato-SDK</span></b><b><span lang=3DEN-US s=
-tyle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p=
-></o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom style=3D'w=
-idth:59.0pt;border-top:none;border-left:none;border-bottom:solid windowtext=
- 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heig=
-ht:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'>=
-<span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-seri=
-f";color:black'>31</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td wid=
-th=3D103 valign=3Dbottom style=3D'width:77.0pt;border-top:none;border-left:=
-none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0=
-pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3D=
-center style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
-<o:p></o:p></span></p></td><td width=3D73 valign=3Dbottom style=3D'width:55=
-.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;=
-border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0=
-pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span l=
-ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";colo=
-r:#00B050'>31</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:#00B050'><o:p></o:p></span></p></td><td width=
-=3D167 valign=3Dbottom style=3D'width:125.0pt;border-top:none;border-left:n=
-one;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0p=
-t;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dc=
-enter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif";color:red'>0</span><span lang=3DEN-US =
-style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p>=
-</o:p></span></p></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt=
-;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bord=
-er-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'>=
-<p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:r=
-ed'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'heig=
-ht:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;bo=
-rder:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;hei=
-ght:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'=
-><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-=
-serif";color:black'>Qemux86 Sato</span></b><b><span lang=3DEN-US style=3D'f=
-ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></=
-span></b></p></td><td width=3D79 nowrap valign=3Dbottom style=3D'width:59.0=
-pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bo=
-rder-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt=
-'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'>28</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D103 =
-valign=3Dtop style=3D'width:77.0pt;border-top:none;border-left:none;border-=
-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0=
-cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=
-=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
-mily:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p><=
-/span></p></td><td width=3D73 valign=3Dtop style=3D'width:55.0pt;border-top=
-:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3D=
-MsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US sty=
-le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>27</=
-span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3D=
-bottom style=3D'width:125.0pt;border-top:none;border-left:none;border-botto=
-m:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.=
-4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D't=
-ext-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
-"Arial","sans-serif";color:red'>1 (bug 1172)</span><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p=
-></span></p></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;bord=
-er-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-ri=
-ght:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cl=
-ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0<=
-/span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.=
-0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:s=
-olid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21=
-.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
-;color:black'>Qemux86 Sato-SDK</span></b><b><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></sp=
-an></b></p></td><td width=3D79 nowrap valign=3Dbottom style=3D'width:59.0pt=
-;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;bord=
-er-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'>=
-<p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'>31</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
-ial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=3D103 v=
-align=3Dtop style=3D'width:77.0pt;border-top:none;border-left:none;border-b=
-ottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0c=
-m 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=
-=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
-mily:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p><=
-/span></p></td><td width=3D73 valign=3Dtop style=3D'width:55.0pt;border-top=
-:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3D=
-MsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US sty=
-le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>31</=
-span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3D=
-bottom style=3D'width:125.0pt;border-top:none;border-left:none;border-botto=
-m:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.=
-4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D't=
-ext-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:=
-"Arial","sans-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p=
-></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none=
-;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid w=
-indowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNo=
-rmal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D=
-'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><td wi=
-dth=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:solid window=
-text 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p cl=
-ass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:blac=
-k'>Qemumips Sato</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt;=
-font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></t=
-d><td width=3D79 nowrap valign=3Dbottom style=3D'width:59.0pt;border-top:no=
-ne;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid=
- windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMso=
-Normal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>28</span=
-><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
-if";color:black'><o:p></o:p></span></p></td><td width=3D103 nowrap valign=
-=3Dbottom style=3D'width:77.0pt;border-top:none;border-left:none;border-bot=
-tom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm =
-5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D=
-'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></sp=
-an></p></td><td width=3D73 nowrap valign=3Dbottom style=3D'width:55.0pt;bor=
-der-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-r=
-ight:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p c=
-lass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B05=
-0'>26</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 va=
-lign=3Dbottom style=3D'width:125.0pt;border-top:none;border-left:none;borde=
-r-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding=
-:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter sty=
-le=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
-family:"Arial","sans-serif";color:red'>2 (bug 1171, 1172)</span><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:r=
-ed'><o:p></o:p></span></p></td><td width=3D124 valign=3Dbottom style=3D'wid=
-th:93.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1=
-.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height=
-:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
-;color:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=
-=3D'height:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:12=
-9.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5=
-.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align=
-:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:black'>Qemumips Sato-SDK</span></b><b><span lang=3DEN-=
-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>=
-<o:p></o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom style=
-=3D'width:59.0pt;border-top:none;border-left:none;border-bottom:solid windo=
-wtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt=
-;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:cen=
-ter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:black'>31</span><span lang=3DEN-US style=3D'font-size:10.0pt;=
-font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><t=
-d width=3D103 nowrap valign=3Dbottom style=3D'width:77.0pt;border-top:none;=
-border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
-ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNor=
-mal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0</span><spa=
-n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
-olor:black'><o:p></o:p></span></p></td><td width=3D73 nowrap valign=3Dbotto=
-m style=3D'width:55.0pt;border-top:none;border-left:none;border-bottom:soli=
-d windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
-m 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
-ign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:#00B050'>31</span><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:#00B050'><o:p></o:p></span>=
-</p></td><td width=3D167 valign=3Dbottom style=3D'width:125.0pt;border-top:=
-none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DM=
-soNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:red'><o:p></o:p></span></p></td><td width=3D124 valign=3Dbottom sty=
-le=3D'width:93.0pt;border-top:none;border-left:none;border-bottom:solid win=
-dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td></tr>=
-<tr style=3D'height:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D=
-'width:129.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.=
-4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D't=
-ext-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'>Qemuppc Sato</span></b><b><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'><o:p></o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom =
-style=3D'width:59.0pt;border-top:none;border-left:none;border-bottom:solid =
-windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm =
-5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
-n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:black'>21</span><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></=
-td><td width=3D103 nowrap valign=3Dbottom style=3D'width:77.0pt;border-top:=
-none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DM=
-soNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0</span=
-><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
-if";color:black'><o:p></o:p></span></p></td><td width=3D73 nowrap valign=3D=
-bottom style=3D'width:55.0pt;border-top:none;border-left:none;border-bottom=
-:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4=
-pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'te=
-xt-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"=
-Arial","sans-serif";color:#00B050'>18</span><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'><o:p></o:p></=
-span></p></td><td width=3D167 valign=3Dbottom style=3D'width:125.0pt;border=
--top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-righ=
-t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p clas=
-s=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>3 (b=
-ug 414, 1171, 1172)</span><span lang=3DEN-US style=3D'font-size:10.0pt;font=
--family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td><td widt=
-h=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:none;border-left:n=
-one;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0p=
-t;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dc=
-enter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif";color:red'>0</span><span lang=3DEN-US =
-style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p>=
-</o:p></span></p></td></tr><tr style=3D'height:21.0pt'><td width=3D172 nowr=
-ap valign=3Dbottom style=3D'width:129.0pt;border:solid windowtext 1.0pt;bor=
-der-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNorma=
-l align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=3D=
-'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Qemuppc Sat=
-o-SDK</span></b><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
-:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p></td><td width=
-=3D79 nowrap valign=3Dbottom style=3D'width:59.0pt;border-top:none;border-l=
-eft:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext=
- 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal alig=
-n=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:black'>24</span><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'><o:p></o:p></span></p></td><td width=3D103 nowrap valign=3Dbottom sty=
-le=3D'width:77.0pt;border-top:none;border-left:none;border-bottom:solid win=
-dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:black'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><=
-td width=3D73 nowrap valign=3Dbottom style=3D'width:55.0pt;border-top:none;=
-border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
-ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNor=
-mal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B050'>23</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 valign=3Dbottom=
- style=3D'width:125.0pt;border-top:none;border-left:none;border-bottom:soli=
-d windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
-m 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
-ign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:red'>1 (bug 414)</span><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span=
-></p></td><td width=3D124 valign=3Dbottom style=3D'width:93.0pt;border-top:=
-none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DM=
-soNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:red'><o:p></o:p></span></p></td></tr><tr style=3D'height:21.0pt'><t=
-d width=3D172 nowrap valign=3Dbottom style=3D'width:129.0pt;border:solid wi=
-ndowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><=
-p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'>Qemuarm Sato</span></b><b><span lang=3DEN-US style=3D'font-size:10.0=
-pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></b></p>=
-</td><td width=3D79 nowrap valign=3Dbottom style=3D'width:59.0pt;border-top=
-:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3D=
-MsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US sty=
-le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>28</sp=
-an><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
-erif";color:black'><o:p></o:p></span></p></td><td width=3D103 nowrap valign=
-=3Dbottom style=3D'width:77.0pt;border-top:none;border-left:none;border-bot=
-tom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm =
-5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D=
-'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:black'>0</span><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></sp=
-an></p></td><td width=3D73 nowrap valign=3Dbottom style=3D'width:55.0pt;bor=
-der-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-r=
-ight:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p c=
-lass=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:#00B05=
-0'>26</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:#00B050'><o:p></o:p></span></p></td><td width=3D167 va=
-lign=3Dbottom style=3D'width:125.0pt;border-top:none;border-left:none;borde=
-r-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding=
-:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter sty=
-le=3D'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-=
-family:"Arial","sans-serif";color:red'>2 (bug 1171, 1172)</span><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:r=
-ed'><o:p></o:p></span></p></td><td width=3D124 valign=3Dbottom style=3D'wid=
-th:93.0pt;border-top:none;border-left:none;border-bottom:solid windowtext 1=
-.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height=
-:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
-;color:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td></tr><tr style=
-=3D'height:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D'width:12=
-9.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5=
-.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align=
-:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:black'>Qemuarm Sato-SDK</span></b><b><span lang=3DEN-U=
-S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><=
-o:p></o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom style=
-=3D'width:59.0pt;border-top:none;border-left:none;border-bottom:solid windo=
-wtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt=
-;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:cen=
-ter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:black'>31</span><span lang=3DEN-US style=3D'font-size:10.0pt;=
-font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><t=
-d width=3D103 nowrap valign=3Dbottom style=3D'width:77.0pt;border-top:none;=
-border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wi=
-ndowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNor=
-mal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'=
-font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0</span><spa=
-n lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";c=
-olor:black'><o:p></o:p></span></p></td><td width=3D73 nowrap valign=3Dbotto=
-m style=3D'width:55.0pt;border-top:none;border-left:none;border-bottom:soli=
-d windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
-m 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
-ign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial=
-","sans-serif";color:#00B050'>31</span><span lang=3DEN-US style=3D'font-siz=
-e:10.0pt;font-family:"Arial","sans-serif";color:#00B050'><o:p></o:p></span>=
-</p></td><td width=3D167 valign=3Dbottom style=3D'width:125.0pt;border-top:=
-none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DM=
-soNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>0</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:red'><o:p></o:p></span></p></td><td width=3D124 valign=3Dbottom sty=
-le=3D'width:93.0pt;border-top:none;border-left:none;border-bottom:solid win=
-dowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:c=
-enter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></td></tr>=
-<tr style=3D'height:21.0pt'><td width=3D172 nowrap valign=3Dbottom style=3D=
-'width:129.0pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.=
-4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D't=
-ext-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'>ADT</span></b><b><span lang=3DEN-US st=
-yle=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p>=
-</o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom style=3D'wi=
-dth:59.0pt;border-top:none;border-left:none;border-bottom:solid windowtext =
-1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heigh=
-t:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:black'>6</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-fa=
-mily:"Arial","sans-serif";color:black'><o:p></o:p></span></p></td><td width=
-=3D103 nowrap valign=3Dbottom style=3D'width:77.0pt;border-top:none;border-=
-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtex=
-t 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal ali=
-gn=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:black'>0</span><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'><o:p></o:p></span></p></td><td width=3D73 nowrap valign=3Dbottom styl=
-e=3D'width:55.0pt;border-top:none;border-left:none;border-bottom:solid wind=
-owtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4p=
-t;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:ce=
-nter'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","san=
-s-serif";color:#00B050'>4</span><span lang=3DEN-US style=3D'font-size:10.0p=
-t;font-family:"Arial","sans-serif";color:#00B050'><o:p></o:p></span></p></t=
-d><td width=3D167 valign=3Dbottom style=3D'width:125.0pt;border-top:none;bo=
-rder-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid wind=
-owtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNorma=
-l align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US style=3D'fo=
-nt-size:10.0pt;font-family:"Arial","sans-serif";color:red'>2 (bug 414, 1195=
-)</span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","s=
-ans-serif";color:red'><o:p></o:p></span></p></td><td width=3D124 valign=3Db=
-ottom style=3D'width:93.0pt;border-top:none;border-left:none;border-bottom:=
-solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4p=
-t 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'tex=
-t-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif";color:red'>0</span><span lang=3DEN-US style=3D'font-size=
-:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p><=
-/td></tr><tr style=3D'height:21.0pt'><td width=3D172 nowrap valign=3Dbottom=
- style=3D'width:129.0pt;border:solid windowtext 1.0pt;border-top:none;paddi=
-ng:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter s=
-tyle=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;=
-font-family:"Arial","sans-serif";color:black'>Total</span></b><b><span lang=
-=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:b=
-lack'><o:p></o:p></span></b></p></td><td width=3D79 nowrap valign=3Dbottom =
-style=3D'width:59.0pt;border-top:none;border-left:none;border-bottom:solid =
-windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm =
-5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-alig=
-n:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:black'>640</span><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></span></p><=
-/td><td width=3D103 nowrap valign=3Dbottom style=3D'width:77.0pt;border-top=
-:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p class=3D=
-MsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US sty=
-le=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>0</spa=
-n><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
-rif";color:black'><o:p></o:p></span></p></td><td width=3D73 nowrap valign=
-=3Dbottom style=3D'width:55.0pt;border-top:none;border-left:none;border-bot=
-tom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm =
-5.4pt 0cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D=
-'text-align:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif";color:black'>582</span><span lang=3DEN-US style=3D'f=
-ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'><o:p></o:p></=
-span></p></td><td width=3D167 valign=3Dbottom style=3D'width:125.0pt;border=
--top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-righ=
-t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:21.0pt'><p clas=
-s=3DMsoNormal align=3Dcenter style=3D'text-align:center'><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>18</=
-span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans=
--serif";color:red'><o:p></o:p></span></p></td><td width=3D124 valign=3Dbott=
-om style=3D'width:93.0pt;border-top:none;border-left:none;border-bottom:sol=
-id windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0=
-cm 5.4pt;height:21.0pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-a=
-lign:center'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Aria=
-l","sans-serif";color:red'>40</span><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></t=
-d></tr></table><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p clas=
-s=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ari=
-al","sans-serif"'>* You can check the detailed test result in attachment fo=
-r each target.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>** The failed/=
-blocked case number is listed with failed cases=A1=AF bug number.<o:p></o:p=
-></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0=
-pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=
-=3DMsoPlainText><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family=
-:"Arial","sans-serif"'>Commit Information<o:p></o:p></span></b></p><p class=
-=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"A=
-rial","sans-serif"'>---------------------------------------<o:p></o:p></spa=
-n></b></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt=
-;font-family:"Arial","sans-serif"'>For Emenlow/Blacksand/Crownbay/toolchain=
-:<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif"'>Tree/Branch : Poky/master<o=
-:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-s=
-ize:10.0pt;font-family:"Arial","sans-serif"'>Poky Commit id : ad2363278f0ea=
-86fcf3464f8f6073d3a3d06be63<o:p></o:p></span></p><p class=3DMsoNormal><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>M=
-eta Branch : master<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3D=
-EN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Meta Comm=
-it id: 92fc07a5f1b98779806cdcc2341487ff5ea5a238<o:p></o:p></span></p><p cla=
-ss=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
-ial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span l=
-ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>For=
- Sugarbay/Jasperforest/qemux86/qemux86-64:<o:p></o:p></span></p><p class=3D=
-MsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif"'>Tree/Branch : Poky/1.1_M2<o:p></o:p></span></p><p class=3DMso=
-Normal><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sa=
-ns-serif"'>Poky Commit id : ea518846b889a1bad2263d1cb49cb238a295a8e7<o:p></=
-o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:1=
-0.0pt;font-family:"Arial","sans-serif"'>Meta Branch : master<o:p></o:p></sp=
-an></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;fo=
-nt-family:"Arial","sans-serif"'>Meta Commit id: 92fc07a5f1b98779806cdcc2341=
-487ff5ea5a238<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US =
-style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:=
-p></span></p><p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif"'>For qemuarm/mips/ppc/beagleboard/mpc8=
-315e-rdb/routerstationpro:<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Tr=
-ee/Branch : Poky/master<o:p></o:p></span></p><p class=3DMsoNormal><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Poky =
-Commit id : 8511d1ec1bac699c742952e6fe4c306e1aaa2f9f<o:p></o:p></span></p><=
-p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><s=
-pan lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"=
-'><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><b><span lang=3DEN-US=
- style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>Issue Summary<=
-o:p></o:p></span></b></p><p class=3DMsoNormal><b><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>--------------------=
--------------------<o:p></o:p></span></b></p><table class=3DMsoNormalTable =
-border=3D0 cellspacing=3D0 cellpadding=3D0 width=3D1004 style=3D'width:753.=
-0pt;margin-left:-1.15pt;border-collapse:collapse'><tr style=3D'height:14.25=
-pt'><td width=3D293 nowrap colspan=3D2 valign=3Dbottom style=3D'width:220.0=
-pt;border:solid windowtext 1.0pt;border-right:solid black 1.0pt;padding:0cm=
- 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dcenter style=
-=3D'text-align:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font=
--family:"Arial","sans-serif";color:black'>Component<o:p></o:p></span></b></=
-p></td><td width=3D599 valign=3Dbottom style=3D'width:449.0pt;border:solid =
-windowtext 1.0pt;border-left:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25p=
-t'><p class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:black'>Bug Number<o:p></o:p></span></b></p></td><td width=3D112 nowrap =
-valign=3Dbottom style=3D'width:84.0pt;border:solid windowtext 1.0pt;border-=
-left:none;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal =
-align=3Dleft style=3D'text-align:left'><b><span lang=3DEN-US style=3D'font-=
-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Target Milestone<=
-o:p></o:p></span></b></p></td></tr><tr style=3D'height:13.5pt'><td width=3D=
-147 nowrap rowspan=3D10 style=3D'width:110.05pt;border-top:none;border-left=
-:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:solid =
-windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoN=
-ormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>System =
-&amp; Core OS<o:p></o:p></span></b></p></td><td width=3D147 nowrap rowspan=
-=3D4 style=3D'width:109.95pt;border-top:none;border-left:none;border-bottom=
-:solid black 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0c=
-m 5.4pt;height:13.5pt'><p class=3DMsoNormal align=3Dcenter style=3D'text-al=
-ign:center'><b><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
-ial","sans-serif";color:black'>Installation &amp; Boot<o:p></o:p></span></b=
-></p></td><td width=3D599 style=3D'width:449.0pt;border:none;border-right:s=
-olid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>New!</spa=
-n><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-se=
-rif";color:black'> Bug 1206: [qemux86] do_rootfs of core-image-basic fail d=
-ue to lack of locale-base-en-us</span><span lang=3DEN-US style=3D'font-size=
-:10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p><=
-/td><td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border:non=
-e;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13=
-.5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lan=
-g=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:=
-black'>---<o:p></o:p></span></p></td></tr><tr style=3D'height:13.5pt'><td w=
-idth=3D599 style=3D'width:449.0pt;border:none;border-right:solid windowtext=
- 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoNormal alig=
-n=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif";color:black'>Bug 1205:[blacksand/emen=
-low/crownbay] Format swap partition failed when install <o:p></o:p></span><=
-/p></td><td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border=
-:none;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;heigh=
-t:13.5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";co=
-lor:black'>1.1 M2<o:p></o:p></span></p></td></tr><tr style=3D'height:13.5pt=
-'><td width=3D599 style=3D'width:449.0pt;border:none;border-right:solid win=
-dowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoNorm=
-al align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-=
-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Bug 1207:[Crownba=
-y-emgd] X server failed to start up<o:p></o:p></span></p></td><td width=3D1=
-12 nowrap valign=3Dbottom style=3D'width:84.0pt;border:none;border-right:so=
-lid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3D=
-MsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>1.1 M2<o=
-:p></o:p></span></p></td></tr><tr style=3D'height:14.25pt'><td width=3D599 =
-style=3D'width:449.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>New! </sp=
-an><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
-erif";color:black'>Bug 1211 - [Blacksand] X server fail to start up</span><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:red'><o:p></o:p></span></p></td><td width=3D112 nowrap valign=3Dbot=
-tom style=3D'width:84.0pt;border-top:none;border-left:solid windowtext 1.0p=
-t;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt =
-0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-a=
-lign:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'>---<o:p></o:p></span></p></td></tr><tr style=3D'=
-height:13.5pt'><td width=3D147 nowrap rowspan=3D3 style=3D'width:109.95pt;b=
-order-top:none;border-left:none;border-bottom:solid black 1.0pt;border-righ=
-t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p clas=
-s=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'=
->System Usage<o:p></o:p></span></b></p></td><td width=3D599 nowrap valign=
-=3Dbottom style=3D'width:449.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'=
-><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DE=
-N-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black=
-'>Bug 1171: No enough disk space with qemu sato images<o:p></o:p></span></p=
-></td><td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border-t=
-op:none;border-left:solid windowtext 1.0pt;border-bottom:none;border-right:=
-solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>1.1 M2<=
-o:p></o:p></span></p></td></tr><tr style=3D'height:13.5pt'><td width=3D599 =
-nowrap valign=3Dbottom style=3D'width:449.0pt;padding:0cm 5.4pt 0cm 5.4pt;h=
-eight:13.5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'><=
-span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif=
-";color:black'>Bug 1172: Perl not exist in sato image<o:p></o:p></span></p>=
-</td><td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border-to=
-p:none;border-left:solid windowtext 1.0pt;border-bottom:none;border-right:s=
-olid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=
-=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US styl=
-e=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>1.1 M2<=
-o:p></o:p></span></p></td></tr><tr style=3D'height:14.25pt'><td width=3D599=
- nowrap valign=3Dbottom style=3D'width:449.0pt;padding:0cm 5.4pt 0cm 5.4pt;=
-height:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:left'=
-><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-ser=
-if";color:black'>Bug 1174: [zypper/rpm] package install/removal costs lots =
-of disk space<o:p></o:p></span></p></td><td width=3D112 nowrap valign=3Dbot=
-tom style=3D'width:84.0pt;border-top:none;border-left:solid windowtext 1.0p=
-t;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt =
-0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft style=3D'text-a=
-lign:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial"=
-,"sans-serif";color:black'>---<o:p></o:p></span></p></td></tr><tr style=3D'=
-height:13.5pt'><td width=3D147 nowrap rowspan=3D3 style=3D'width:109.95pt;b=
-order-top:none;border-left:none;border-bottom:solid black 1.0pt;border-righ=
-t:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p clas=
-s=3DMsoNormal align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'=
->Others<o:p></o:p></span></b></p></td><td width=3D599 valign=3Dbottom style=
-=3D'width:449.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMso=
-Normal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'f=
-ont-size:10.0pt;font-family:"Arial","sans-serif";color:black'>Bug 1199: qem=
-uppc lsb-sdk rootfs image build failed on autobuilder in nightly build 2011=
-0625-1<o:p></o:p></span></p></td><td width=3D112 nowrap valign=3Dbottom sty=
-le=3D'width:84.0pt;border-top:none;border-left:solid windowtext 1.0pt;borde=
-r-bottom:none;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4=
-pt;height:13.5pt'><p class=3DMsoNormal align=3Dleft style=3D'text-align:lef=
-t'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-s=
-erif";color:black'>1.1<o:p></o:p></span></p></td></tr><tr style=3D'height:1=
-3.5pt'><td width=3D599 valign=3Dbottom style=3D'width:449.0pt;padding:0cm 5=
-.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoNormal align=3Dleft style=3D'te=
-xt-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Ar=
-ial","sans-serif";color:black'>Bug 1200: qemumips lsb-sdk image build faile=
-d on autobuilder with nightly build 20110625-1.<o:p></o:p></span></p></td><=
-td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border-top:none=
-;border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid w=
-indowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoNo=
-rmal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'fon=
-t-size:10.0pt;font-family:"Arial","sans-serif";color:black'>---<o:p></o:p><=
-/span></p></td></tr><tr style=3D'height:14.25pt'><td width=3D599 valign=3Db=
-ottom style=3D'width:449.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p=
- class=3DMsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-U=
-S style=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:red'>New=
- ! </span><span lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial",=
-"sans-serif";color:black'>Bug 1214: [Emenlow/Blacksand/Crownbay/Sugarbay] N=
-o bash exist in sato-sdk image</span><span lang=3DEN-US style=3D'font-size:=
-10.0pt;font-family:"Arial","sans-serif";color:red'><o:p></o:p></span></p></=
-td><td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border-top:=
-none;border-left:solid windowtext 1.0pt;border-bottom:none;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3D=
-MsoNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>---<o:p>=
-</o:p></span></p></td></tr><tr style=3D'height:13.5pt'><td width=3D293 nowr=
-ap colspan=3D2 rowspan=3D2 style=3D'width:220.0pt;border-top:none;border-le=
-ft:solid windowtext 1.0pt;border-bottom:solid black 1.0pt;border-right:soli=
-d black 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoNorm=
-al align=3Dcenter style=3D'text-align:center'><b><span lang=3DEN-US style=
-=3D'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>ADT<o:p>=
-</o:p></span></b></p></td><td width=3D599 valign=3Dbottom style=3D'width:44=
-9.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DMsoNormal align=
-=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.=
-0pt;font-family:"Arial","sans-serif";color:black'>Bug 414: [PPC] kernel pan=
-ic when booting poky-image-sdk-qemuppc through UNFS<o:p></o:p></span></p></=
-td><td width=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border-top:=
-none;border-left:solid windowtext 1.0pt;border-bottom:none;border-right:sol=
-id windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:13.5pt'><p class=3DM=
-soNormal align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D=
-'font-size:10.0pt;font-family:"Arial","sans-serif";color:black'>1.1 M3<o:p>=
-</o:p></span></p></td></tr><tr style=3D'height:14.25pt'><td width=3D599 val=
-ign=3Dbottom style=3D'width:449.0pt;border-top:none;border-left:none;border=
--bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:=
-0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal align=3Dleft style=
-=3D'text-align:left'><span lang=3DEN-US style=3D'font-size:10.0pt;font-fami=
-ly:"Arial","sans-serif";color:black'>Bug 1195: [mips toolchain] cvs configu=
-re fail with no cvs_cv_func_printf_ptr set<o:p></o:p></span></p></td><td wi=
-dth=3D112 nowrap valign=3Dbottom style=3D'width:84.0pt;border-top:none;bord=
-er-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid window=
-text 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:14.25pt'><p class=3DMsoNormal=
- align=3Dleft style=3D'text-align:left'><span lang=3DEN-US style=3D'font-si=
-ze:10.0pt;font-family:"Arial","sans-serif";color:black'>1.1 M2<o:p></o:p></=
-span></p></td></tr></table><p class=3DMsoNormal><span lang=3DEN-US style=3D=
-'font-size:10.0pt;font-family:"Arial","sans-serif"'><o:p>&nbsp;</o:p></span=
-></p><p class=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:10.0pt;f=
-ont-family:"Arial","sans-serif"'>Verified Fixed Bug:<o:p></o:p></span></b><=
-/p><p class=3DMsoNormal><b><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Arial","sans-serif"'>---------------------------------------<o:p>=
-</o:p></span></b></p><p class=3DMsoListParagraph style=3D'margin-left:18.0p=
-t;text-indent:-18.0pt;mso-list:l0 level1 lfo1'><![if !supportLists]><span l=
-ang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><sp=
-an style=3D'mso-list:Ignore'>1.<span style=3D'font:7.0pt "Times New Roman"'=
->&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]><b><span lang=3DEN=
--US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'><a href=3D"=
-http://bugzilla.pokylinux.org/show_bug.cgi?id=3D1190">Bug&nbsp;1190</a>&nbs=
-p;-&nbsp;</span></b><span lang=3DEN-US style=3D'font-size:10.0pt;font-famil=
-y:"Arial","sans-serif"'>[japerforest] <a name=3D"OLE_LINK9"></a><a name=3D"=
-OLE_LINK8"></a>login.defs error when login system<o:p></o:p></span></p><p c=
-lass=3DMsoListParagraph style=3D'margin-left:18.0pt;text-indent:-18.0pt;mso=
--list:l0 level1 lfo1'><![if !supportLists]><span lang=3DEN-US style=3D'font=
--size:10.0pt;font-family:"Arial","sans-serif"'><span style=3D'mso-list:Igno=
-re'>2.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;=
- </span></span></span><![endif]><b><span lang=3DEN-US style=3D'font-size:10=
-.0pt;font-family:"Arial","sans-serif"'><a href=3D"http://bugzilla.pokylinux=
-.org/show_bug.cgi?id=3D1189">Bug&nbsp;1189</a>&nbsp;-&nbsp;</span></b><span=
- lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Arial","sans-serif"'>[=
-japerforest] <a name=3D"OLE_LINK11"></a><a name=3D"OLE_LINK10"></a>No libXi=
-nerama.so for sudoku</span><span lang=3DEN-US style=3D'font-size:10.0pt;fon=
-t-family:"Arial","sans-serif"'><o:p></o:p></span></p><p class=3DMsoPlainTex=
-t><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoPlainText><s=
-pan lang=3DEN-US>Best Regards,<o:p></o:p></span></p><p class=3DMsoPlainText=
-><span lang=3DEN-US>Jiajun<o:p></o:p></span></p><p class=3DMsoPlainText><sp=
-an lang=3DEN-US><o:p>&nbsp;</o:p></span></p></div></body></html>=
-
---_000_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_--
-
---_004_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_
-Content-Type: application/oleobject;
-	name="M2-RC1-20110701_detail_testreport_weekly.ods"
-Content-Description: M2-RC1-20110701_detail_testreport_weekly.ods
 Content-Disposition: attachment;
-	filename="M2-RC1-20110701_detail_testreport_weekly.ods"; size=15903;
-	creation-date="Wed, 06 Jul 2011 22:05:48 GMT";
-	modification-date="Wed, 06 Jul 2011 22:05:48 GMT"
+ filename="bb-pm-runtime-fear-jul6.dat"
+
+MDQgMDQgNzU4NC4xMyAzMTA2LjYwIDE5ODE4Ljc4IDMwMiUgMTAwMzg0NzkgNTM4MzcyMDAgMjM4
+MTA1MjkyMCA1Mjk3MiAwIDAgMTg1NzYzMiAwIDAgMCAwCjA0IDA1IDc0ODguOTMgMzE0My40MCAy
+MDM0NC4yMSAzMTMlIDEwMjkwOTIwIDUzMzA4MjE1IDIzODA1NDkzOTUgNTE2NjggMCAwIDIwMjcy
+MzIgMCAwIDAgMAowNCAwNiA3NTI0LjY5IDMxNDEuMzQgMjA1NzUuNTggMzE1JSAxMDI4NzI4OCA1
+MzYyNjUwMCAyMzgwMzMzNTc5IDUxODIwIDAgMCAyMDI3MjQ4IDAgMCAwIDAKMDQgMDcgNzQ2NC42
+MiAzMTQxLjQ3IDIwNzQxLjk0IDMxOSUgMTA2MTMwMTYgNTM0NTk4NTggMjM4MTAyNTkwOSA1MDky
+OSAwIDAgMjAyNzM3NiAwIDAgMCAwCjA0IDA4IDc1NzAuNDUgMzE1MS4yMyAyMDk0OS44NSAzMTgl
+IDEwNjI1NzQ0IDUzNDg1NzI2IDIzODIwNjExMjcgNTIzNjcgMCAwIDIwMjcyMzIgMCAwIDAgMAow
+NCAwOSA3NDg5LjAyIDMxMzQuMjkgMjA5MzEuODggMzIxJSAxMDY5NDI1MiA1MzY3NDIyMiAyMzgx
+ODU2MTg5IDUyMDk0IDAgMCAyMDI3MjMyIDAgMCAwIDAKMDQgMTEgNzQ4OC45OCAzMTMxLjIyIDIx
+MDE0Ljg1IDMyMiUgMTA3MjA2NTEgNTM4MDk5MTUgMjM4NjA3NzA1NiA0ODYxOSAwIDAgMjAyNzI0
+OCAwIDAgMCAwCjA0IDEyIDc1OTIuNzUgMzE0OS44NSAyMDg2MS4xNCAzMTYlIDEwNTM4MTAwIDUz
+OTQwODUyIDIzODE5NjUzMDggNTExMjAgMCAwIDIwMjcyMzIgMCAwIDAgMAowNCAxMyA3NzE1LjQ2
+IDMxNDUuNjUgMjA4NzcuMDEgMzExJSAxMDA2NjgyOSA1NDQyMzU5OSAyMzgyMjc0ODk0IDUxMTg5
+IDAgMCAxOTEwNzM2IDAgMCAwIDAKMDQgMTQgNzY1NC43NCAzMTI2LjM0IDIwODk1LjQ5IDMxMyUg
+MTAzMjI2MDUgNTQwNTc5MDEgMjM4MTkwMTk2NyA1MjE0NCAwIDAgMjAyNzM2MCAwIDAgMCAwCjA0
+IDE1IDc3MDEuNjUgMzEzNS4xMCAyMDgxOS43NCAzMTElIDk4NjUxNzkgNTQ1NjY1NzYgMjM4MjIy
+MzQ1OSA1MTY1NiAwIDAgMTkxMDcyMCAwIDAgMCAwCjA0IDE2IDc3ODYuMTYgMzExOC43MyAyMDg0
+Ny40MSAzMDclIDEwNDY0NTQ5IDUzODcyODE5IDIzODIxMjA5MzMgNTE4MDEgMCAwIDIwMjcyNDgg
+MCAwIDAgMAowNSAwNCA3NDc5Ljk1IDMyNTQuOTUgMjA0NDQuNDAgMzE2JSAxMzg1ODg1NiA1MDA1
+NDIwNSAyMzg3NTAwNTQ2IDUzNDU3IDAgMCAyMDI3MjMyIDAgMCAwIDAKMDUgMDUgNzQ5NC44MiAz
+MjgyLjM3IDIwNjQzLjE2IDMxOSUgMTQyNzQwMDAgNDk4NTI0NzcgMjM4MDM0Njk5MyA1MjI4OSAw
+IDAgMjAyNzI0OCAwIDAgMCAwCjA1IDA2IDc0MzIuNTUgMzI3Ny41NCAyMTA0OS42OCAzMjclIDE0
+MzQwNjg1IDQ5OTk4NTI0IDIzODAyMjE4NDUgNTM2MjIgMCAwIDIwMjczNzYgMCAwIDAgMAowNSAw
+NyA3Mzc3LjY2IDMzMDAuMTggMjEyMzguOTYgMzMyJSAxMzkyNjk1OCA1MDYzNDY4OCAyMzg0Njk5
+OTk3IDUzODUxIDAgMCAxOTQxODQwIDAgMCAwIDAKMDUgMDggNzQwOC41NyAzMjk3LjY0IDIxMzA2
+LjEyIDMzMiUgMTQxMzk4NjQgNTAzMzAwNTMgMjM4MDg2OTIxMCA1NDE2OSAwIDAgMTkxMjI3MiAw
+IDAgMCAwCjA1IDA5IDc0MzYuMjQgMzMxMS43OCAyMTM1MS43MSAzMzElIDEzOTYyMzc5IDUwNTkx
+NDQ2IDIzODUwNjEzNjMgNTQzMDkgMCAwIDIwMjczNjAgMCAwIDAgMAowNSAxMSA3MzQyLjg3IDMy
+MjYuNjYgMjEzNDAuMTEgMzM0JSAxMzcxNjkxMCA1MTM0MTM1NCAyMzgwNjEyNjExIDUyMDU2IDAg
+MCAxOTEwNzM2IDAgMCAwIDAKMDUgMTIgNzQzNi44OSAzMjg4LjMwIDIxMzYwLjkxIDMzMSUgMTM2
+OTE4MTkgNTEyMjk5ODEgMjM4MDQyNTM5NyA1MzAzOSAwIDAgMTg1NjIwOCAwIDAgMCAwCjA1IDEz
+IDc0NDQuNDkgMzI1NS4wMCAyMTM3Ny4zMiAzMzAlIDEzMzgyMjU2IDUxNTU0NzUzIDIzODA3Njgx
+MzMgNTMwMzEgMCAwIDIwMjcyNDggMCAwIDAgMAowNSAxNCA3NTM5Ljk3IDMyNjAuNzQgMjEzMDgu
+OTggMzI1JSAxMzQ5MDE1OCA1MTM0MzIyNCAyMzgxMDkwNzU2IDUyNTQ4IDAgMCAyMDI3Mzc2IDAg
+MCAwIDAKMDUgMTUgNzU1My41OCAzMjU2LjE4IDIxMzUyLjY1IDMyNSUgMTMyNzMxNzYgNTE2MzM2
+MzkgMjM4MDkxMjM0NiA1MzYyNCAwIDAgMjAyNzM3NiAwIDAgMCAwCjA1IDE2IDc1MDQuMzIgMzI1
+My44OCAyMTMyNS40MSAzMjclIDEzNDAxODgzIDUxNzQ5NDUwIDIzODEwNjM1MTMgNTI0NjAgMCAw
+IDIwMjcyMzIgMCAwIDAgMAowNiAwNCA3MzE2LjQ4IDMzMzcuODMgMjA3ODguMzggMzI5JSAxNzM0
+MTUwNiA0NzAwMTI1NyAyMzgwMDk0MTM0IDUxNDM1IDAgMCAyMDI3MjQ4IDAgMCAwIDAKMDYgMDUg
+NzM1Ny4yMiAzMzQ3LjMwIDIxMDk1LjYwIDMzMiUgMTY4NzIzMjggNDc2NjA2NTkgMjM4MDQ0NDQ0
+MyA1Mjc1MCAwIDAgMTkxMDczNiAwIDAgMCAwCjA2IDA2IDc0MDEuOTUgMzM4OS4wMyAyMTM0Ny42
+NCAzMzQlIDE2NjI2MzMxIDQ4MDAzOTMyIDIzODQ5Mzg1MDggNTIyNTUgMCAwIDIwMjcyNDggMCAw
+IDAgMAowNiAwNyA3MzYyLjM1IDMzODMuMTIgMjE2MTQuNTUgMzM5JSAxNjY2NDg5NCA0Nzg4Nzg1
+NSAyMzgwNDMxMDU3IDUyNDM0IDAgMCAyMDI3MjQ4IDAgMCAwIDAKMDYgMDggNzM0Ni45NiAzMzkw
+LjgzIDIxNjcwLjE3IDM0MSUgMTc1Mjg0ODUgNDc1Mjg4NDAgMjM4MDMwMTM4NCA1NDA4MyAwIDAg
+MjAyNzIzMiAwIDAgMCAwCjA2IDA5IDcyNzMuNTkgMzM5My43NiAyMTc1OS40NCAzNDUlIDE3Mjk3
+ODY2IDQ3ODY5NjI1IDIzODA4NjcyMTYgNTM5ODAgMCAwIDIwMjczNjAgMCAwIDAgMAowNiAxMSA3
+NDI0LjE5IDMzMzcuMDEgMjE3NzUuNTAgMzM4JSAxNjU4MjY2NSA0ODI1ODgyMiAyMzg3OTYwMTg1
+IDUyNjY4IDAgMCAyMDI3Mzc2IDAgMCAwIDAKMDYgMTIgNzQyMS40OCAzMzgwLjE1IDIxNzYxLjQy
+IDMzOCUgMTY4NjE5NzIgNDgzNDg4NjYgMjM4NzcxNDUyOCA1MzcxMCAwIDAgMjAyNzM2MCAwIDAg
+MCAwCjA2IDEzIDcyNTguMzggMzQwMS43MyAyMTgxNy4yNCAzNDclIDE3NDAyNzk3IDQ3OTM2NTcz
+IDIzODgwMTc3MTAgNTI4NjAgMCAwIDIwMjcyNDggMCAwIDAgMAowNiAxNCA3MjUxLjY4IDMzOTEu
+ODIgMjE4NzEuNDAgMzQ4JSAxNzMxOTgyNyA0ODAxMzA0NSAyMzg4MTE1MTk0IDU0NDk0IDAgMCAy
+MDI3MjMyIDAgMCAwIDAKMDYgMTUgNzI3NC4yMiAzMzk0LjM0IDIxNzk1LjYyIDM0NiUgMTY5OTQ2
+MjggNDgyMzQ5ODQgMjM4NzkyODE2NSA1NDczMiAwIDAgMjAyNzM3NiAwIDAgMCAwCjA2IDE2IDc0
+MDcuMzQgMzM3OC43MSAyMTc5NS45OCAzMzklIDE2NTQ4NTI0IDQ4NzY2MjAxIDIzODgwOTQ1MjMg
+NTU2ODEgMCAwIDIwMjcyMzIgMCAwIDAgMAowNyAwNCA3MzQwLjIzIDM0MDQuNjQgMjA5ODkuNTcg
+MzMyJSAxOTgwOTk3NSA0NDY2MDcyOSAyMzgwMDk5MjY0IDUzNDQ2IDAgMCAyMDI3Mzc2IDAgMCAw
+IDAKMDcgMDUgNzIxMy4yNyAzNDIyLjY0IDIxNDg0LjM2IDM0NSUgMjAzNTEzNjUgNDQ1NDQ0NzEg
+MjM4MDU5ODIwOCA1MzM0MSAwIDAgMjAyNzIzMiAwIDAgMCAwCjA3IDA2IDczODAuNzUgMzQzMy4w
+MyAyMTYyMy43NiAzMzklIDE5NzE0OTQ3IDQ0NzgwNzMwIDIzODAzMDc3NzYgNTM1MjggMCAwIDIw
+MjcyMzIgMCAwIDAgMAowNyAwNyA3MTE2LjMzIDM0NTYuODEgMjE5NzAuNzMgMzU3JSAyMTEyMDE5
+MiA0NDA1NzIzOSAyMzgwMjgzODc5IDUyNDA1IDAgMCAyMDI3MjQ4IDAgMCAwIDAKMDcgMDggNzE5
+My4xMSAzNDYwLjc1IDIxOTgxLjgxIDM1MyUgMjA2MDI3NTYgNDQ3MTI2MjQgMjM4MDc2MDA5NiA1
+MzcyMSAwIDAgMjAyNzIzMiAwIDAgMCAwCjA3IDA5IDcyNDMuMDggMzQ4Mi45MyAyMjAxMi44NSAz
+NTIlIDIwOTEyNjMzIDQ0MTQ1NzQwIDIzODQ0ODI5NjEgNTMwMjYgMCAwIDIwMjczNzYgMCAwIDAg
+MAowNyAxMSA3MTc1LjcxIDM0MDAuNDcgMjIwNTcuNjEgMzU0JSAyMDI3MzE5NyA0NDc0ODE0NSAy
+MzgwODU0OTg5IDUxNTM2IDAgMCAyMDI3MjMyIDAgMCAwIDAKMDcgMTIgNzIwNi4xNSAzNDUzLjY0
+IDIyMDc2LjQ2IDM1NCUgMjAzOTI2MTEgNDQ3OTQ5MzMgMjM4MTU5NjYxNSA1MjIxOCAwIDAgMTc5
+MjU2MCAwIDAgMCAwCjA3IDEzIDcyMDUuNzQgMzQ0NC43MCAyMjE2MC4zOCAzNTUlIDE5ODU3MDAw
+IDQ1Mzk0Mjg2IDIzODc3MzM2NTUgNTIzMTggMCAwIDIwMjczNzYgMCAwIDAgMAowNyAxNCA3MjY5
+LjA3IDM0NDMuNzIgMjIzNDcuODkgMzU0JSAyMDE3ODUzNiA0NDkxODE0MCAyMzgwODI2ODAzIDUy
+NjQ5IDAgMCAyMDI3MjMyIDAgMCAwIDAKMDcgMTUgNzI1NC41MSAzNDYyLjg1IDIyMDU3LjUwIDM1
+MSUgMTk5MTI1MDMgNDQ5ODM4NTYgMjM4MDc2NzI4OCA1MjYyMiAwIDAgMjAyNzI0OCAwIDAgMCAw
+CjA3IDE2IDcxNDguNTkgMzQ1Ni40MSAyMjE0MC4zMyAzNTglIDE5OTA2Nzc3IDQ1MzgwODcwIDIz
+ODExMjQ0NTkgNTIyMjYgMCAwIDIwMjcyMzIgMCAwIDAgMAowOCAwNCA3MzU4Ljg4IDM0MzcuODQg
+MjEyMDQuNTYgMzM0JSAyMjAwNDMxMCA0MjY5MTY5OSAyMzgwOTQ3NTQ0IDUzNzU3IDAgMCAyMDI3
+MzYwIDAgMCAwIDAKMDggMDUgNzIzMy41OCAzNDgyLjY2IDIxNjIxLjY0IDM0NyUgMjM1MDI1OTEg
+NDE1MjAwNjAgMjM4ODI3NzA5OCA1MzUwMiAwIDAgMjAyNzI0OCAwIDAgMCAwCjA4IDA2IDcxOTEu
+NDUgMzQ2OC44NiAyMTgzNy4xMiAzNTElIDIzMzgzMjYxIDQxODMyNTc2IDIzODA4NTI1OTMgNTEx
+NTkgMCAwIDIwMjcyNDggMCAwIDAgMAowOCAwNyA3MDc1LjQ5IDM1NDAuMjAgMjIyNTQuMDEgMzY0
+JSAyMzQ3ODUxNSA0MTg1Njc0NyAyMzgwOTEwMzc1IDUxNjI5IDAgMCAxOTEwODY0IDAgMCAwIDAK
+MDggMDggNzExMC40MyAzNTA2LjE1IDIyMjkyLjEzIDM2MiUgMjM4MjIwNzcgNDE2MzAwMjMgMjM4
+NzQ1NDM2MiA1MzIxOCAwIDAgMjAyNzIzMiAwIDAgMCAwCjA4IDA5IDcyMjguODUgMzQ4Ny43OSAy
+MjMwMi4xOCAzNTYlIDIyNTU3MjU0IDQzMDE1MzU5IDIzODgwMDUzOTEgNTMxNDUgMCAwIDIwMjcz
+NjAgMCAwIDAgMAowOCAxMSA3MTE2LjU0IDM0MzguNTUgMjIzNjAuMjIgMzYyJSAyMzI5NDY0MSA0
+MjQxMzY2OSAyMzg4MjYyMzU5IDUwODcwIDAgMCAyMDI3Mzc2IDAgMCAwIDAKMDggMTIgNzE3OC45
+NSAzNDk3LjcyIDIyNDAyLjk5IDM2MCUgMjI3NzI5NTAgNDI3MTc0ODcgMjM4MTIwMzMzNCA1MjQ4
+NSAwIDAgMTkxMDczNiAwIDAgMCAwCjA4IDEzIDcwNDcuMDAgMzUwMi43MCAyMjQxMS41NyAzNjcl
+IDIzNjM1NzQ0IDQyMDk1MzY3IDIzODg1NDkyMjUgNTA5MTggMCAwIDIwMjcyMzIgMCAwIDAgMAow
+OCAxNCA3MDA2Ljc0IDM1MjEuMDIgMjI1MzkuOTMgMzcxJSAyMzk0OTU3MyA0MTg5ODIyNSAyMzg3
+OTA0MjU2IDQ5ODYzIDAgMCAyMDI3MjQ4IDAgMCAwIDAKMDggMTUgNzEwNy44NSAzNDk3LjYwIDIy
+NDQyLjE4IDM2NCUgMjI2OTQ5NzIgNDMxNTI0OTcgMjM4ODgyOTM2MiA1Mjk3MCAwIDAgMjAyNzI0
+OCAwIDAgMCAwCjA4IDE2IDcwOTYuNjQgMzUxMC4zOSAyMjQxNS4xMSAzNjUlIDIyNzcxMjU0IDQz
+MDYxODkyIDIzODgxNTM4MTggNTI3OTIgMCAwIDIwMjcyNDggMCAwIDAgMAowOSAwNCA3MjI5LjU5
+IDM0NDcuMDMgMjE0MjUuOTYgMzQ0JSAyMzU3NzMwOSA0MTE4NTgwNSAyMzg4NTg4NTI3IDUzNjU4
+IDAgMCAyMDI3Mzc2IDAgMCAwIDAKMDkgMDUgNzIyOC4yMSAzNDgyLjQxIDIxNzQ4Ljc5IDM0OSUg
+MjMwMjA5NjAgNDE3MTgyODYgMjM4ODA4NjY1NCA1NDcwNCAwIDAgMTkzNzgyNCAwIDAgMCAwCjA5
+IDA2IDcwOTIuOTYgMzUyNy43NyAyMjA4Mi4wMSAzNjElIDIzNjkyMDk2IDQxMDA5MDM4IDIzODEy
+NDg5MjkgNTM4MzAgMCAwIDE3OTI1NjAgMCAwIDAgMAowOSAwNyA3MjM4LjYxIDM1MjYuNDkgMjIy
+MjguMDAgMzU1JSAyMzM5NTg5NSA0MTQ5NDI3NiAyMzg4NDA4NzExIDU0Nzc3IDAgMCAyMDI3MjMy
+IDAgMCAwIDAKMDkgMDggNzE0NC45NiAzNTI1Ljg5IDIyNDkzLjI0IDM2NCUgMjQzMDc3ODQgNDA3
+Mzg1NzYgMjM4ODc0NDQzMyA1NDE2NCAwIDAgMjAyNzI0OCAwIDAgMCAwCjA5IDA5IDcyNTAuNTcg
+MzUyNS4xMCAyMjM4NS44MyAzNTclIDIzMzA0NzkxIDQxMzI3NTgyIDIzODg0MjYxMjcgNTYxMTkg
+MCAwIDIwMjczNzYgMCAwIDAgMAowOSAxMiA3MTk4LjUzIDM1MjIuNzAgMjI3MDMuNzUgMzY0JSAy
+MzM2NjE0MCA0MTY4NTgxMSAyMzgyMDAxNDM1IDU0NjQxIDAgMCAyMDI3Mzc2IDAgMCAwIDAKMDkg
+MTMgNzE3NS41NyAzNTUwLjM4IDIyNTcyLjYxIDM2NCUgMjM0NTU5ODMgNDE5MDg5MDkgMjM4OTA4
+MTk1MSA1NDIxMSAwIDAgMjAyNzIzMiAwIDAgMCAwCjA5IDE0IDcyMzQuNDggMzU2OC4wMCAyMjUx
+Ny4wOCAzNjAlIDIyNTkyNjAyIDQyNjM0MzczIDIzODkxNTM3MTQgNTUzNjQgMCAwIDIwMjcyNDgg
+MCAwIDAgMAowOSAxNSA3MjMzLjU4IDM1MTQuNTAgMjI1ODAuNzUgMzYwJSAyMjg4NjkzMSA0MjM3
+Nzk3OCAyMzg5MDYzODU1IDUzODAyIDAgMCAyMDI3MjMyIDAgMCAwIDAKMDkgMTYgNzE5My43OSAz
+NTI3Ljk1IDIyNTY3LjQzIDM2MiUgMjI5NjY0NjEgNDIzNTEzNzQgMjM4ODY5NDc0MiA1NTcyNCAw
+IDAgMjAyNzM2MCAwIDAgMCAwCg==
+
+--------------060007070700020707000703
+Content-Type: image/png;
+ name="plot.png"
 Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="plot.png"
 
-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
+iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAMAAAACDyzWAAADAFBMVEX///8AAACgoKD/AAAAwAAA
+gP/AAP8A7u7AQADIyABBaeH/wCAAgEDAgP8wYICLAABAgAD/gP9//9SlKir//wBA4NAAAAAaGhoz
+MzNNTU1mZmZ/f3+ZmZmzs7PAwMDMzMzl5eX////wMjKQ7pCt2ObwVfDg///u3YL/tsGv7u7/1wAA
+/wAAZAAA/38iiyIui1cAAP8AAIsZGXAAAIAAAM2HzusA////AP8AztH/FJP/f1DwgID/RQD6gHLp
+lnrw5oy9t2u4hgv19dyggCD/pQDugu6UANPdoN2QUEBVay+AFACAFBSAQBSAQICAYMCAYP+AgAD/
+gED/oED/oGD/oHD/wMD//4D//8DNt57w//Cgts3B/8HNwLB8/0Cg/yC+vr4AAAAUAAodABQjAB4o
+ACgtADIyADw2AEY5AE89AFlAAGJDAGtGAHRJAH1MAIZOAI5RAJdTAJ9WAKZYAK5aAbVdAbxfAcNh
+AcljAc9lAdVnAdppAd9rAeRtAuhvAuxxAvByAvN0AvZ2Avh4A/t5A/x7A/19A/5+BP+ABP+BBP+D
+Bf6FBf2GBfuIBvqJBveLB/WMB/KOB+6PCOqQCOaSCeKTCd2VCtiWC9KXC8yZDMaaDMCbDbmdDrKe
+DqqfD6OhEJuiEZOjEYqkEoKmE3mnFHCoFWepFl2qF1SsGEqtGUGuGjevGy2wHCOxHRmzHg+0HwW1
+IAC2IgC3IwC4JAC5JgC6JwC8KAC9KgC+KwC/LQDALgDBMADCMQDDMwDENQDFNgDGOADHOgDIPADJ
+PgDKPwDLQQDMQwDNRQDORwDPSQDQTADRTgDSUADTUgDUVADVVwDWWQDXXADYXgDZYADaYwDbZgDc
+aADdawDebgDecADfcwDgdgDheQDifADjfwDkggDlhQDmiADniwDnjwDokgDplQDqmQDrnADsoADt
+owDupwDuqgDvrgDwsgDxtgDyugDzvQD0wQD0xQD1ygD2zgD30gD41gD52gD53wD64wD76AD87AD9
+8QD99QD++gD//wAT8zDcAAAgAElEQVR4nO2dCc/sRtaQXe0f0Z3u0PLv+f7FBbGIRSwCMoQklxGZ
+CIggTHIJXESIIAwkAaLMzRAYhigMgiCWYREMgkEwiEUsYhGLWMQibFfZtfjUqXOqqt3u7vMoea9f
+21Wubj9v7S43jSAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAI
+giAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIwkVR43/j
+//OO6ldIs9ur5HkK/LUPud+lL6mwhJyP3tXPx7067PzfvR1CPS4poKJHuD9Towt+PR67XhDszDkV
+8YTsT517UB3OTecId9h1vYWHUzqJApvqArZZUWVcdQxyPiRjIwgYBBlN6/bBGV3FP01hZhawL4UO
+nbc1neAc2av+5vS/H90I+r3zDVRt0zYnXSqqAXNkEfZ8cEtOfaazszuq/dGJ3iTVXsdsHYOcszsM
+F1BODDYVi78ML9eDvhk/6tBIoSLquBuqU527BR3pDif90wk5OmAFVO2pLxVHA5v5SBh2ON455a7O
+zuzOYet4tNHbiOZtpc/rjTvMp3TDZXdH5cUAfFrvH2973rc7+KdIEXxR1Pjtno7u1uLIkDmd9U+b
+GyidZZk71Q4B2laXja6AQdjjuGXLT52dBTv3Nnob0bytfx2Nm00+6sQqLwbg03r/eNvTv+YPYTqz
+ByzshUqobvg5lDJ2Cz5ifgYhzY6hAjjsaJ0yTzmh5rD7MJbG39mX4rpUNtHbiOZtK7bJreYYxtqa
+jSH8rJQiuDuEraLdXnLACxLcV71lq3ChT7reGBwfvFOLLdcbP6wO7lgy72yO4/23+oy7wSLYS75z
+NIwh8mnDXYYOaJWfpQ54QVQ3/EzkgPp356ezpbXrZu1aXEBbx3SCOxXPYasL9HEimq9z8BLh5IBg
+DH6au6iAkH9hRC0XIEZhhlQH1L87P52t4Za1Y+3LqQ3aE8Kwx6Bb19YB7a8nSECtxnydnV8E2zog
+GMOEjST8GCOwf5IDXhJSK1j/7vx0tvqGQNudjk6Z3DZOPT4MOzZXw0aI3Tl0L+vGbCjg0OBwr3OY
+GyFztGNAGwNgk40k/Bjjv4eg4XM4d023o/SVC7mM3W22t8/vB5yPNE1UwP6mtn013a0Utu3e6QcM
+fp697hNzZN7ZHafuvFDAcejNuU43pM6K3h2G3j/lxgCN8s2RmJjnyqdbQZ0/8zAUtw97HIWVAEow
+mKmSo5a7Vk6JcE9Qb/ssm4J2VgAedRPunSIBKxqopA4mIFjTVGS/IFwOxzMVPSIIF8K1LCyzxUDh
+4mACNjIIIFwYzzCg1SIGCpfE9wtqNouBwgVJCygGCpcjkAvuOBQDhQvRBq2MSM+1GChchFGsNt4P
+aE8UBYX6TFa18FAceK4g1MJxalIQGTwWA4W6tMBv2OwFMVCoSejTmAmi02fEQKEegE1tm5i/JQYK
+1QBlSjV2pTEsVCJikkoqWD8pwgMS80glczkxUCgnapFCj+JhBYFI3CGzMgIqmRgolIEYNLWCUQXF
+QKEEzB/bDYMpKI1hgQNjpR3vuWBMwVppE+6fNtQFMYv8WKYYKFBpl8pFFQwfy4x7JgYKNFrnp7MX
+FojxVJwYKJBovX+c/ZBB0FNxMdPEQIFAu9iwh5a74IeSIqqJgUKaFtiyu8J9vGdCpDtGSOEqAvnS
+kh5KkkxQyASa9hyeQngoKaqgGChgLBq/8FmEh5JiCoqBQhyg4RE5Mf1QUhNRUAwUokCVvtip44HU
+kqpgNZKXJuFx4E27b9u0gLS2tCCMcJuubZsWUDJBgUrGKBrprVTAOWKgsCRjJkH6mRAdPujdkdep
+CUtyJjXrZ0LICroTDEVBwSPxaBE6G4amIHmSl/CIpGwAj8+NEMIj6umBPeGBSZuQmI6Vfi4pa3GF
+h0PZtykOL4LX724fX8fY+Vt3BqUQXe7yX9WVmgoYGZwTBZcM72weXwR/Pgxvc96fuu40vsPYbt0X
+JAnS8wHhwTd0ilcjJTHA8LI81Q1bw7ve9SvFh5c52607g2YAYT7g0qU2+gsa7KEZ3xaqXyTe7Ye3
+aE877dZ9Qb79wYnge0La+G/osAo1DQ/A+B73ky6CT66Kduu+oN98/8zIaxqwMrdwWOUhMIIdhsbI
+kNnNL6Z3tu4Kzo1nzYjmzscSBUeOY9P3NFQEz0Mz+N4FDN/+kTibPCM6NitaFMTpdEGr39p93t9/
+ETzcc5aC8xZ/RnQQAS/cLaMiAKfqpq6T2915IwTtpcNCpFbJzzTwPiuD6v+BQN+gzuacHPC+u2FS
+vXRYmMRrGnINvMdskC7gzuRvO10HHGS7645o51bTb3v6mZD46Ft41cgJd6ag+r8gwDeoi9lmMLFv
+BI+Z3T0PxYVT9ajBEs+EJMt1wuDzXTmo/g/InbVnMwhvMl3BhvSuuAID7yobVP8b5OEFLHhiA3so
+qQU3g3MeSkH1v0AeXcCi+SnxNyWRxn+pUyDuw0H1P0FEQHg3cXICScBSA+8jG1T/A+TBBcQGZknh
+I2Md9MtQrkJOzpYRAQHwEQlCBIo42ltu4M2XxOq/g4iAyNH0HVfUVkyVpXtvWkH130AWAtohOmew
+7k77Acs7gxUUC61Ypl8k89yNof4rSCQHNMPB09Z9joRU6AWB3hUXnfRclBBigraL+i8gEQH3Z3fr
+TseCiS1d7CD0rriMwpY1E+dGDVT/GQQW0E53GbfuczZMjQbo/K44UrQ1DIxPM9w46j+BwAIedt7W
+fc4HZNz06Kn2wXRSrBW6Y1hnbwn1H0FAAa1geusuZ0SzbmJMQedlhaRoy7ukWWdvCY6Aekq+3bpH
+Abm3EFbQXRmBFC3SHUNqEy02bgb1H0AglcyUfLt1j0Uw/w5CIcK3ZRJiLcoEncmzt6bg2KX37z0S
+U/Lt1h02QnJuX/JNSbQWaskkVdbZ20L9OxBkSr7dur9uGN5zcDZYGCh8Wybx4vwj0PHbMlD9WxBk
+Sr6zdXcd0cO9q6FgsDgRdQpDxhHo6E0ZqP4NCDYl327d21Dc1JbMUtD9RS0OXNLA5aDfDSmo/jXI
+HbRnM7CNyYw7GHkwvQUOpxOAxk4IdDsGqn8F8pACtpFtcvg5ELhCKmnB3oxD4IGbMVAEnAmq8iUK
+AkNxwK9YDNChGrs3h/qXICJgUVUQmoxAjZJrYHSWzW0oqP4FyBoCbmzVX+B+ZVcFoelY0avQT2HW
+9m7CQPXPQdbLATez6i/sS56C4IRUcowsA7HobsFA9c9AkBnRw+Ical9tZYStrPpbsyTDe/6qGpg7
+yWEzqJ+DYDOij71p51GPCtnVZlb9rTEpb0ahjwqlnaZ3xySi2n5FUP1TEGRGtHWiRna1lVV/0ZKM
+fRf1iErBFBdqza4kN90GLAFH947BiEhRdrWVVX8rZyS29zlmYf78LG535cYNVP8EBJkRvR9XxxqM
+q5BdrbPqb/rZ2XShyLmPbTAWDL4bOD9JLeEcUkRbQP1jEGRG9NgAGRcJLLeFu+pvbKYYTtu0iTeh
+kobJyDcSWBsGun4FA4nTbLasoPoZCDIjWo01vWFGTLmA3FV/8/LDaY5LfoHIOQsUUO8PLp98k2Hq
+CONPYrOofwSCzIg2eZKqUQRzV/3NEtC/W5CEZLOoRR62Sr43PJyMCU0J3avtGjgWav/QIzEj2uRJ
+NRYpZ6/6WyKg1WeREzHiojU78XQ6OXEiPrzWwKqWblVB9Q9AkBnRu7kILu6GYa/6myMgNB/FL4xZ
+94bUeCCkc0pBgYE8pzZqoPopCDYj+jA1QtYfN8sQ0P/eHQXntjH3zuAKjgeJ6WxTjSO8O4aZq23T
+QLqAzjzove6GWX/mQLGAbguyNfeQf2OS7WlOOpMKIvtTYWkxXRX190HWnQ1DXnArpwtmscdTMG99
+vdSqatx0ohkheMD9FMwl/LeF+nsg686GcbZqN0Kgr9xXsM1yEO/PYadz6iXCIkV2kSXcnoHq74Ks
+JyBrwS3+jU3tNrcuw0FweMP8m11VgNNB6jeiSbg5A9XfAVlNQN6CW+yiLXrAG1Bt5/ogL/aoGFmt
+ddNfjokdu649kvwUWzNQ/W2Q1QTkLbhVTcDFXRzvHNvBMJJpI3PExnTMJAxM9gPhH2NjFUH1t0DW
+EpC54BYzWYk+tkUDmdAtgl3Cbud1mM/9QkASnHorKy7wIDtpF0T9TZC1BGQuuMVLVvKLhrIaroNg
+h3Z2h/nUOR3PBBnDb9HPsSUDqQI6PSV2bn5xPyB3wS3ebBjCsFmki4PlYLtUI6O1PveQ6x8RA/l1
+BHguGC+WS6L+Bgg2Jd8eKx4J4S64xbqxxLIqtp/hoG4/ODv4/YCLyKBiOFMcaCrYZhRUfx0EmZJv
+v93yKfncBbfqC4idxpCwbQsEhJ7zgEZo2BXUIOziIltA/TUQZEq+/XarzYYhL7jFGuIin4i3GWk3
+vS0ATFEbJsy2UHI19ANuxED1V0GQKfmN2qv9WN8rng/IXnCLISDn+03NB0je8vAw7w8FrqT5xTrQ
+a5TloRNqGwaqb0CQKfmDLF2lKfns1NJP5X29qd5b9H4vDzBzajgTdBodaE01Ywwn3uG4OuqvgCBT
+8jV1puSzU0s+s3xUY3FCC8+mhkKy/1DgDiFzJDm4wfPQGfbZgIHqL4MgU/KngMVFcMZiC5cTkJIf
+AJW2SCB+OqF4mPkUzUM7Fztsul+HUYFAvuQi5WPASssYsBZbQG5ssmafJj2M2raNG380QMYfCthd
+18YGh7EYkY8f/PG0G3jBl/pLIMiUfE2VKfljrJzFFpCHfSKNRh54Y8SNFpecLGAb2Z735ZaU0J9h
+ZOyRH3lN1I9BkCn5h13XdKdaU/J5iy1Eb+zcReHuqzfNzz3ijr3FLpElYGzmKaEWGI/fKhaZ6HVt
+A9VfBEGm5J+PUzdMjSn5vMUWYjc21l1RfabpYhuWkCog0AMNJqmwqEQL5SsrqL4GWXc2DHmxhUiy
+EOlyeimS+xZDF5n9gECTOnZmoSWIwU6j+Bqor0DWnQ1DXmwhsuJA+HthNgj0tSRP8Q3JFRCr7pVI
+4nQpgjEXRl+C+gsgKwnIXWwBaqDDdZuybJAwbgp2Hk/7aF8fXOfDUpU9CJeIemrUX8HB6wrIXWwB
+SBZSaPm/8lJGGDWFtRwDkr6+eK0MC5LVtMKv6Fx1fQfVj0BWEpC52AI4RSlOWTYItHrR+N0Lka4U
+jzcRJveTJL6t6d91HVR/HmQdAdmLLSyWvk11HSc6wgiB8a7ByFF8iV4TNu8QP6dK9TUGUTNjL0X9
+ORBsRnQzVM2qzIhmL7agws785CUWJTHnqyV0f8DxqSaZEeJiE45RPwrjb9Dv4iTFXoz6syDYjOhm
+yLHGE5gd0Z06Js5A0ml//oKahyNIQUuyQcLJ0BnT14dNocm+Li+nSrfoY9ddx0H1JQg2I3r0UDX8
+obiX6gh4VL+gbyz5+8nOBkmV/kRHNBxBSQndcCzhVZuDT7OCg+rPgGAzoseVJIcTmJMROgX0qVCf
+c3IEbPaqYw9jLrJBStgpo03e5PC4Co8v+w2pF09fEE1ehvyLb+qiEqovQLAZ0c00ZBHptDsNmdSY
+2Z0PZpLVyFGZWt5ej7vpo0Pm2SkzG+s8DMn9or4sV81Jqf3LQ6neHYbIlBtQvdw0Uw8+PTfjFsWc
+4ig4DHUX+dIkrg3EGRxEIk9eh/v3dEkHOQIawcbRC9VEhy32p+NhfPXbed975az9YiZUH4YXwx2m
+o/3xvkmzH/aMu4Z9x5067p/0W7vjrhv2HY7KBuxj0lmtbRFSOz442SDzLngHIyM2cxTE+0nvY4rk
+VNEKKFfByzmoXoAgM6Ltk0kxAYfFTrv9k+al/fDvXC6rk/mna7o+En10OPzSE6WnAx4GXXf7Q58R
+Hvqj52HrpSe7cQXVMaDqxqufbCV/ThzNwuVti55JCB09iEwbY9VemU1lRidVRsX2Mg6q74MgM6L1
+T6QIPo+mnVXzxPw7XarT/5iKnTna6/XkaJ5zUqchopPqs8TjsHXut57o9o0aA069QDZ5ixlY6T9u
+UjYYK9JozVO8G5VxJ9mdNW7c2T09JiY89kqMtf/PPRIzotXceIg1QlQ3/my8rsP5rhwG2XaNc1R1
+5jknNZrVDSG1Y+NWo/cNAZVpaHvJgwojcl8D9HuD5x1I5NOhhICMqj0503X3kgr6zGZQbQfVZyDJ
+GdFYN8zUYg0F1OH7RsX+cDh6Ao4H+nLWCtgsBRxaI4fxna5dkDy4vEC+qlQ2yMxFF0lBBZzCEiXM
+ycdI5Ty/wuLGXgv1p0GQGdEm3PAj0hE9CfjkZf9S86/dUKcbjupS/YnpHlTq5eH3l4ciWOvuFcHN
+PBvm5UXykGHZ6D2K/k75fvEeZkxAL1xWV7IfAfdAlVNypln6TLvVnwJBZkSbcMOPSKfdJODQzHA6
+B01zRE/p10dPLw37XnpyGhshfbO3b4T0TeG+EaIvp9xGSB9QdWP74wCMuSBGRCwEim79byQe6hXb
+2JuS4NgJ1daMoy3pYSbSX1r0APhRorjnOH+i6k+CFE1GmATsW8B9oTnLctL9gPuhEng4OEe7Ydfh
+sDuM3TCHsRvGrIM0dMMMRfaQA04BTSsH+kriaQKL5MUe1vgKFEEyIfGcGr0MnojYrrSCpDoAVpMB
+czXsfLO5ioC6X3nOOM1IiH6mpHGPDj18h5eGLhjbET2W6kp3RO/Hjug54DASEvuEeMqWX5M3sEr8
+HsMolztVLJLMxg0vE+TUJkgflv1ntjw1/GKtgJ+AXGQ61mIsmP2ckxkLfil+DVK9BisiGkYT1Z4f
+7FGxJmQ6ZbFDeMD4qVUMBPsc04Gc7zY83Qr4MchFBCyZDaMxAnbYOekq1aJ6BJfOBWWxno4FnEaK
+KSO/cTNyVkBqRhYtOIAzoT/p8Cwr4J8AWWNCasYUQ+rDPmiFCj6lWMLlSMgyQnJUfHuRWl9ZIweI
+JdJHHavAgJWUeeOPg6z1VBxziiE5WYQhtkjnYXoXctGwiu2HLSzX0/OocvtkiAkDmjaUijN4yAr4
+x0CQGdHncVIKYSUhGqwphoy/C0JBFskuSiRsw45o92YR44hft6AwrWLgJDmnvRY5xwr4EQgyI3ro
+x+tbsENPSK2lOchTDFkZM5TFpU/RuwskbP1+QNsBRguOXjdVt8BaMdyunHh6MuslHlbAPwqCz4hu
+9GhYjcWJaFMMF8mmEXxX1PrJFBaSkFhjX2a0ef4tokMq//bs2J8VehFaUkhnEa6YJ6CTHw1mVFie
+jTjFcJFsMul7hzfooH3pu6Aar4xqi5dBs1cl9dPktKRpf1qUkyhXswL+ERB0RnRjiuDiNaLJUwwX
+yWaQunOJulOWhLbni1FbSmFiibhFS2OhgfRPkfrIVsAPQbAZ0WOD5NAkbSFAnWI4p5b1opoJqCN0
+eQZ2lCdh2wLdMBUlJIsFtaSzGyqUE9zr4idbAf8wCDIjemS3P9UQkDzFMEw2k/S9T3fXEiUcd8Hd
+MBUknFZoDa8ZD8A7OXV1Ai2pzmsF/AAEmRGtOe9rFMHkKYZhstmUK0iS0GyrcId3fuo6SApMlL6E
+qQjDdGMKJq+evBTtXCvgwB/yWG+NaPoUwzDZGdRQMCHhoiMajjU7I/Qbui0tr5mDABHFL8E9Zi5C
+PtcK+AdBkjOihxywuBuGPsUwTHYW6TtF7mUBpbI7/XRCkeZI6Oa089Aba6CmtduEi5CPTNGTz80S
+cF4j+tyZF9XU6IjmUThCSLhZjO5mq8AiK0o/MmCC0i5mTgfDwm8vicZhw5H6cwj7/eQQzh2xAj4H
+QWZE67lThJWELkDxEDVFQUZkscoV9ZEB1ijfMqjdy5QwkSbS9ZcREk6dsQL+AZB1Z8OQh5crJKtO
+VVCfCNTv9T9AOpFCjyQP1Pfi98gwuhvRLsVInSEeFfVUFyvg7wdZdzYMeXi5SrKqVQXnsxeVbzCd
+7P5u8GqJKFkSRr8LoJ0Vj4N2aoAV8PeBrCcga3i5TrLqVAXDKplbt4qkM9nfTbxaIhBZwnieScnV
+YuN9pEtbAZ+BrCYgb3i5VrIqKIh0xiDpTA7hsStgsWyII2H6glBOG4mPdFVHwPdAVhOQN7xcL1mk
+Lj9+eDNUxnksE4yCGSgiEVFCaHAlGEekXA48NYYV8F2QtQRkDi9XTBat1zl6BA2Fq0u6MLNXI14g
+UiTUfzahh5FuvcSnS15MsxUBmcPLVZNVoGAqpELvOylfcmIgt8rj/Y145dMN2loRW+cEGxeeBFpK
+XQF/L0hiSr4pOIv7AbnDy3mzYaJkK5gUsGh6snMa0lKNhYhHhdbawsNuhujIiSeWnlQr4DsgyJT8
+4WHyThtYPBLCHV6unjHT8iJ2KDWFircqGNkax0CkcRrOYZgPxJPkFszxeuYMI5VWwN8DgkzJHwvN
+MWcqn5LPHV6uXzMgFof+r8kAyj0t1s4k5oLxGOJhYM3mrC5a1QMauzYFTqiFc9y/EkfA3w2SnJJP
+eIIoDXt4+RJVU7aChPNVeCKoEOnCbgyMmww2Y4IEtcG+iLn2wrGsjmtf4wr4NkhqSv6oTvF8QPbw
+8mXaRsS+CsbZKghjfluMmab7ZMIAjHsNNGOA6PAktUuc3dMp5CRZrIC/CwSdkj9snZtkk/UCXOgC
+1O6y8Sfl1Dmdy7wilBK/JJgMxi0PmrPL9Czj8xQbj7ni5SfFxwr4O0HwKfmdzroKBcxoWF/McLKC
+tO/bmRENxeIV6FjDEkkJpxUTjTKo1Lm/LHfnlLRRcgSc+0w6M35b4ak4ZsP6glksvUlAwElnuhEc
+76xJpIUoYes5iNVmHd2Aul5F/cIp+b/DIzUlf/KvxnPBzIb1Jct4UqcgMRfAp+TrvUkFaY2jpIWL
+mtpyYxkl0GKq6p8j4FsgyJT82b8qKyPwGtaXrWQmv2OoHgSSnJLfNuFcvsjVKKASunlf6+2CJPNb
+GXj6irACfgcEm5JvNaswJZ/XsL50Kyc5ZEU4ayCckg9FFeSmYM8dnVhWuGg12J3+HwAUftpZXT9X
+wDdBkCn5punQNTWm5DMb1pcfoqY1CVJ3JEznorNj+j8eZ849B3pVoHPs9ZtoiRsEqI4V8LeDrD4Z
+gdawXiFZxCYBfleW6QTsWvTqMHu7Yfx2a/SUBn7EHTw9NykYVsBvg6wkILdhXXkyAgyxSYDdO+iZ
+kMX21DqA4iy86VPRmTqBFFdZUiJYAX8byEoCchvWKyWL2CKI30MonW5XCPSPe1aNm07N4FKxVEgK
+wEYE5Das16oZLEc7iecZ4HSG2RvcqCH3dqcAm7M5cVwCK+BTkHXuNLthvd6zUtBYfvq8idhDSUFs
+kbpapVzHa+DkeXgx/xwB3wBZ506zG9brCQgVmZHzgH2xdEZHZoP2Rw0FoXoEU8PL+ecI+BoIMiO6
+OR/nVyvc3MoILIgtAuCWxtPZ+jkTFMtUdBJSiCYreoCq4QX9cwT8rSDIjOihbDSHb21tGC7UFsHi
+dqJPxcU6WxYFdJEAqcDpUvmS/jkCvgqCzIi2wQuH4jIy1ZUFpLcIgjuJpTNeuVx0nazQfIhqeKnm
+r8EK+FtAEjOi9eEqkxFYmerqAtJ7zLyzUAGR/ual7rke8IIts8PL6pcr4Nxa1YerTMdiZapXEHCg
+JbUineNoERyrBQZxOBcnJBG6DD+QnYyQE5yDFfAVkMSMaOVGUjQjmpepXknAiZSH86GEgPEpynCJ
+z1ewRKAa/ddJrIC/GQSfEV1RQF6memUBDYiHZi/aCnbOa5pllTBSI2M5UTqSVxacghXwN4GgM6Ir
+FsHMTHUbAhrggnn8PSkg3McDjc35EVOTRj/1AsEp+DOif6MHYZHyao0QZqa6KQEnQg9bZHEioPYH
+7YopSG3a0k67UHASVsDfAILMiLbBy2dEczPVVWbDZOJ4GBfF72QJdoHd0uFFSEmhnHSx4CSsgL8e
+BJkR7QSvuTTHLTRCKOAt5hb4DR5wiVlAyAZvwD9HwF8HgsyIbmz/cfFQHDdTvQEBR5SKVBAb4PdI
+zQ/JRhMOlhm0in85Al4AdqZ6GwKqn2sFVRtOO17cXGfwA+gBjF8CU/AWMkBHwF8Lsu5sGHKmegsC
+qp8bmkFB/amQcrn180H/GKogqZRns45/joC/BmSjd3qjyXKZ/RsYpbMtJ9DC1kq4BNUh/3FiLNKy
+4FSsgL8aZI07rfB87yZzQE8/o2CfF+oPO3dC+xq22IyHxIOiwKOUmSmvE5yMFfBXgax3p6fJCIua
+3w3WAdXCv0nBUcLW7UVyC2W0VZFqcSTaOTzW8s8R8FeCrHenx6U5gLbvDbaCIf0cBXVWGPRlUuY5
+JCdBxCc3cLmCgL8CBJsRTS0vSYwdfVDv3831A4LZ36ygFvDnJi8Me9QTFqbXDIm3s1ms5p8j4C8H
+ScyIJpWXJMbJCND4x4YnI0Bg+jm54IwO44/rYJMcUtevMo1qPf9yBWSVlxS0YNAI8O2MBQ+oBvdP
+K9gGu8aQYYkMT4cijMFNa27kcxUBfxkIMiOaXF5S0JMRbl1ApX6W9G+WMNRQR+C3TsCJqel0UKbN
+YsGzQ/KxAv5SEGRGNLm8JGAmI9CL4C1ORuj1M9AsNBq6Hpp45g8HikQdBKa0a5Dg62AF/CUgyIxo
+cnZFwExGuOVGSO/Mz3yIGi6yQxOdsTBDwcXMREREuEd8PayAvxgEmRFdU0AzGeGGu2EW+jEtDDT8
+UkeqLWRKgsyf8QekW9P17Ue/qn+OgE9AkBnRFYvgeTLCrXZE29K3zMKpVP5SY+JWQA5Gm2oIn+CZ
+OBXX9PBV8WdEAwBhuOVlmnkywm0OxSX0Y1v45ZcLDRfFaLxMxdPqxuKLuJgXuwo5d5JbXl6ATQkY
+K30zNfxyxs0Oh+fk2jEvnB3i9tLALZrGyRLLO3DYZNxJdnl5ATYkIC37I1v45RKj4fifnxEuhIpO
+4I9lmO3itNyZq00AABPJSURBVOIvhEfOA5Tc8vICbEZApX7K9y9uIaBfkB22U4kMtZEBexJSre3b
+gs3cSR5bSbb6qaGOhYh/roa6SB4lVI3TWQ11v+Dpv7p/m7mTTLaRbDX7V0XDtH5ekay3pin/jWcT
+tTAVATPZQrIX+pVZ+DnVv1E8raF2cJzy7zRm6RW56/u3iTuZwQaSHdEv08LPDRwFpwLZdCiz1NOI
+gLlcPdm4fmwLP/dgKPilbZ0MJvIGyTfg3/XvZB5XTnas9M3U8HMIhoJzXjj88z59qoYImM11k83R
+L20hqB9NQldBmxe+30OxcAv+iYAZ1/4J37+4hYh+FAsDBXv1ZgeTFoqA+Vwv2eonhjoWpv1LWego
++P6EI2Hcwk34JwJyL/wTj1wLf8rTD7dwUvB9h9YpjiMWioAFXCnZgX6FFn7K9C9u4aDg+yGjfXEL
+t+GfCMi5KOxfpoSfGupYOFu2UFBbOO+zs1yv8RUuEQHp14zrl2Hhpx6lEjq2BQrqbNA/OnyYdiMP
+1WwiEXzWTzaW/fEt/BQi30I/w4Mc7P8NdjfbeLTr2tfPZO1kk/WjWQj6ly3hs0WZ6xfDkIFzR821
+LRQBSZdj+odbGNcvx8JnBljB1i+JQwGvb6EISLiY+irHv5iFSf9YFj7zCTRr/c0W8u+6FoqAyUup
+rwxVJCTqR7TwGYRt/IaFsW0XLwQceKNZ30IRMHEh1XzlU2Yhz7+EhaB+WsFnCqwPtlo90L/pHeXN
+qhaKgInrfAWSKeFnOf7FLIzqNyqo3Jqh7yAs4Bs+a1koAmJXUbB+mRZ+ZqgjIerfs2fKqxj6CgL+
+vQGygoUiYPwauH5sCz/zKbMwoZ8vYKDhUkBYv1UsFAHjl6D4R9bwM5BMCb+b9A8QcJkZUvS7tIUi
+YOQCpOyPbCGsX6aF3zXkCAhYSPFv0rC+hSIgGL36jO9f3EJUP7aF3/XJENDVkKHfRSwUAaHYJyvq
+WEjxj6zhd0FyBBx4yvevsoUi4DJuFVhRpiFDv7SFsH6QhRQBnxquaaEIGMYc6ldm4ff5/sUtRPUL
+NCQI+NQj18I3yiwUAYOIUSvY+hnqWEjyb7IwKeBTiFwJn2ZbKAJ60VKs4PtXRUOGfgMqLJMJ+uVK
+OIXMsVAEdCIl+UfW8PsgmRK+z/RvFNBkhiz9Miz0QzItFAFtnHwt2PplWjh12eUICFiY9o9hIRiS
+bqEIOMX4Bd+/uIWofmwL/Y7jHAFdDan60SyMB6S1kUVAHd8XhjoWUvwjawiNnqUthAQceJXpH25h
+MmDSQhFwjO4LnzINGfqlLQT1I1gIC/iqoZKFxICYhSLgUr8yCz/m+xe3ENMPtxAU8FWPUgl5ISMW
+quZ8nHfv9mp/8TcsVKGigBH9Mi382FDHQoJ/MQsBAV+FyLcwJ+TSQjW8WMHsOR67Xsd6t/aC1BMQ
+1Y9t4cceuRZ+n6kfJOFSQNC/bAlfzwkEWKjs7cx4yerVqCUgnv1xNfwYIlfCD5j+BRaGAsb1y7Hw
+dUO+hObVXK6AxzN6rzZFHQE5+qUtBPXLlfADQ7aFiukfy8LXfYostLdzvzsodbgNC6sI+DXfv7iF
+iH4ZFn7gkSOhytCPaOHrIFkKKvXU3s6xAbLb34SBFQT82lDHwrR/DAs/gOAKOOeFXP8SFsL6ZVlo
+9JsFHBvAu5uoCRYLqL72yLXwC55+NAtB/7gWqnnraY5/MQtR/ZgWqqdPvdu5r3Rv16B0FuTXELkS
+fo/pH24hoh/HwknA6W7XkZDiH1HDOfubb+ehyr1dh7JEwv5lSvg9QyUL0/7RLFS+f4UasvVLWejq
+N93O3YMUwYh+GRZ+z6NUQqp+aQkVoF+Zha/w/YtZ6Os3387DIzRCVNo/hoXfg8i3kOcfaqGK6Zdp
+4SuGGhbayp++I1PHdHfc3303DFU/moWgf9kS5ugXtVCh+rEtfMWnRMMw+7tJMgUkZ38kC+P65VhY
+oB9kIUlAqoavgGQpqNTrdVW4DnnPv6gf5fgXszDpH8vCcv9cC8dijgVbvzwL70O/PAHVjwxVJCTq
+R7Swln6abz/lCxi1ENWPaeGdZH9NjoBq9q9Qwxz/EhZW1m9EfTvHwKWFFP+IGk76dfub6OpDYT/8
+F+pXZuEnOf7FLKyrn/GvF1BTpiFDv6SFc+532D2cgBH9Mi38xFBHwovoZwUssfANvn9RC+001NPx
+NgY7UFifANePbeEnPmUWXki/QMAsC6eZ9zUs7Evf6Zad9zcy2obCefKZ5B9Zw09AMiV8fin9IAGZ
+FgbPH5VoOFb+pls2jHQ8koAc/dIWwvplWvjccAn/YgJSNYSfwsxzUL3i3LLjiXX7tgr1E6gf8v2L
+W4jqx7bwuU9V/RICpixEH0Xn6qfcW6af+3gUAdUPDXUspPhH1vA5SK5+by/0SgsYtRDVj2mh0tnf
+fMv2Hf32bRnSJ5j9q6IhQ7+0hbB+uRa+bcgQELCQ4h9Vw1m/edazsnMPbhlC+kP9yiz8lO9f3EJU
+P76Gb3tkCOhqyNAvaaGnWWz7NkmveQPrl2nhtERkHQtJ/pEtfBsiR8CBt/j+RS0McrnHEhDVj21h
+sFJumYYM/QgagvoNqGW1MK2foYqFTunrzvkj3b7tg38CPPvjaggvF54p4bMM/+IWRvUbBFxUC6n+
+lVn4BpT93R3ogl8M/dIWou9MYOtnqGQh4t8kIN3CtyAyHbx3/VABf8z3L24hqh/bQn+d0mwLn6f1
+8wWkWAj6lynh3euHCPhjQx0LKf6RNQQXC8+W8Bnu31JA1MK4fnwL7z/7a6ICqh975Fr4Q7Z+aQux
+NyZk6GfgChixMOkf3cKH0C8iYKBfoYXZ71Pl6pdhoR+SK2AoIVE/ioVKvdE05+HhtttYZzIbSEBQ
+v1wJpzVf6lhI8I9hIRiSKaBjIc8/1MJBv/7mHM5Nd+cGLgVE9Muw0F95KNfCT5n60SSMh+QKOPBO
+jn+whUr71wzzXZpuv64RKxMKCJe+uRaCy//lSvgu07+EhcmQLAHfMVSQcNDvvkY7MIJPR9WPZmF8
+DcoM/Qy1LCSGJAr4jk+JhWp8q7q9JbexxEs2noDfMP3DLUTWQOVb+K5HsYWMYAprIoP6lVio1Fv+
+beluY4mXbBwBvzFUsjDpH8PCdyEKLOSEmN6WydQvy0Kjn3NbuhtZ4iUbK+A3HqUSEvWjWQj6l2/h
+W6yzvde1MvVjWqjeeiu4Lfee/9lP+g1EvoU8/3ALEf1yLJzudpaACwkp/hE1nLM/e1vu379pei3o
+X7aEP8jxL2Zh2j+WhcFdzxDQsZChX8pCV7/ptjyAf/qTxvXLsfAHhioSUvUjSgjf/AwBB97j+xez
+0NdvXmr3vvugRxSa/eVY+AOfMgt5/qUsREtAroDvGWpYaCt/4z2ZJp2aje5KbqyCoupHtPAHIJkS
+fpjjX9RCVL+4hREB3/Mp0TDM/h4KxTUQtRDWL9PCDw2VLKT4B2kICvgeSJaCSr1zbQmugl7aa9Bp
+zOZrWIjqx7bwQ59CCxn6BRYCAsL65Vn4oPp5S3vlW8j2j6zhhyC5En6L799s4UJAVD+mhY+a/UFL
+exVayNAvbSGsX66F3zLkOaje4vtH1PBx9Ysu7ZVr4Qu+f3ELUf34Gn7Lhy/gnBny9EtaqPXrjkod
+u3Vv//VBl/ZiW/jCUMdCkn9kC78FkiHgwJt8/6IWTlPu96euO933nL8lhKW9JgsJGr7wKdOQoR9B
+Q1g/loVWwDcNNSzsS1/9/fd1oeGGPECXswN9aS9CZvgCJFPCjzL8i1uI6ke1cBbwTY9cC9+bK39m
+tONs78jDwFzaC7MQ1i/Two8MlSyk+JfWUEH6lVmo3rPfv74Xdz7vPiRnaS/QQlQ/toUf+RRqyNAP
+tVBF9cuU0F9o0vvlscj4zIGFFP/IGn4EkivhW3z/IhYqVD+2hUpnf40ImP+ZjYUM/dIWwvrlWjjJ
+U8NCRfCPbuGs30MXwZrM18SZovvFi4oWovrxNfSzsFwLjYaK6h/BQuX498iNkAJ8aytZSPKPbCFY
+k8uV8LU3mQIiFnr6TV/lQ3bDFABkm9kWvmDrR9AQac9m6Nej+v8zHFxaqN57L/gqdXHy0tgRbcrg
+cY+diLr3v3S7YVuRizuijmbjOHV1u4G7/ckLfmvE0pxt4QcZ/sUtRPTLsPC1ScCRMgnD7G824OUn
+w1DcSe3s93veGwPNXkBA5I4oXa1suoNyI3GjvkXzDGqv9rGRyxd8C6cVIitZmPaPYaHxbhawxEIV
+Zn/6yxx/DuPyzd7UAp1ddi9TQF2q98W6ciMZTzzrp0xuWMBhuZwd9qzMZCFJQ3+d0mwLP+LpR7Pw
+NVDAPAn7eiT0XdkumN3RtEa8XplpL1PAbswC+4a1ciMZL2MyxxsWcCS5WsQLUmYILhaeLeG7TP9w
+C61uSwG5FioF6udmd70i56O/q7F7mQLqof7TSR9yoj4dukiYW4P0AVIWIkvWZ+hnqGTha0kByRaq
+SPY3fY1Drawb/qLH3MmtA857mY0Q3avYB1RuJI2y+cYNN0I09JRHLUT0y7DQHwQuldCTDBMwbeGg
+n1L7E/w1Tk3esRfmdJp2KW3KvJebAw7Pc/Yl73jIidouNXi75mm4CzYBFqb9Y1gIzsTKt9D3Kykg
+ZmGv31ABOx+O0PdiF+CYf+pq25gD2r1sAfsi3Mz49KKeDbxdAQ+7rulOOQ/sv3AtpOpHkzA+HTBH
+wtcDtWgCghYOlT/VDZ++g5dCNv+eTIk4Z3a7vbeXLWCzPxmb/agnA29XwGHV4mg3TBprIU9BzEJk
+OmqGhdObybME9CXUlT9srHfyYOq4s5ndIIrdyxdwp0x3XxB1t9+BYR6CXe/u8PFHn6pZmPSPZeHr
+PhkCzhaatsdJF8FgJdB4MNdoeu3Mrr4MdfbyBZy2FlGPAyGPKeCxzzjPc1WokoVE/YgWvg6RI2Cv
+rXrNfNKDbVWETNndVKM5H2Y1Djtn79xmDTfGVnDYoHUFXEZ960Nx2YDzPUot5PmXsBDUrxcwKJJ5
++jVjhfkcaQYL63GMNlyyLXye41/Mwoh+k4AsC/tMc/50usF2fsT5fttiv+tLkvh6s3wLp+We60gY
+9c8VkKahk/01Dz3jeVuMDRB0FLkZNVREDYNF78ssjOsHCIhb6Ou3Yg74iPU6DnpOEKULm5IZwq/+
+yJTwO5h/EQEjFob6mb+5eX6VcDW8WZEEMAvR9x+x9TNkCLiw0K38TYxVD/Hv6pisj1dCgBai+rEt
+/I4PX0Cr4TL7E7bDjlwEhwQWUvwja/gdkAwB+/PU67W/M6EmB0IjBMFYyNAvbSGsX2AhUUDRb+t0
+w8tvs/yz7bvnzytaiOpnLSQJKNnf/XOahvEqWUjxb0DF2yei3yMRlN65Fj7n6TcK6BXJYOk7TbQQ
+7hZwLDnXwmd0/2YBYxYOVQN/ooVwj8S70tgWTqs9Zwi4sHAsfWVhjfsntXqPtpCkob/meIaAVkNT
++YtPtBDuhSNpPhMhM4ReO4NaGBNwPKQvm5hoIdw+nZlaTgGzENQPlzAqoB33J020EG6ZE7eGD1qI
+6Be3MCKgmrK/hjPRQrhRGBmgQ2Bh2j/IQlhARz/+RAsBRtfjh+am3bIHJweU/2yMvxiYE9COXwCR
+OQfduOyJ/uw281jOsGN/OJmEDH1vlIqXsZCqX2ghJKDy/MubaCEsMOuSHI7Olj24s1+zJ423GJgT
+0H02pgGmxIVThZV3on8z93aZsu580jENj5t1R+pNHy1kOqgtXAoY6Fcy0UJwMTezU86Wc9A+1OxJ
+4y0G5gQMBFxMCo4JqE8MBPSWKTuPzmvxE43j095dFyPLwoWA/Y7wMoUTLQRNQsBufr2IJ423GBgi
+YFhCRQV0I9KEy5SdjuEZEY7AuhhcC9WUFUayv/HzZk+0EBzwInhqioYCeouBxYvgkhwwXKZs7JWm
+zDJW3Xj60lWGhfY0rR/gn1AHU+/fu1v2YNPM2ZAvjbsYmBMwaGdE64Bhg8TUAZ1GCLxMWdc3R3Yd
+/onQdyA8o1mo/G38gkIJUwZ0cra8g9P6TUGu5SwG5gR0ckDdugWvtmwFq8WL7GLLlJ1Px/205CIM
+ti6GRluIaWiP9adhFxNKmSpwe2fLP2gsCAS0i4G5AYMieEdtBe/CVvBymTInXUe86Ymsi+HwDMsM
+ldVP/Lssav5XBXvmzcNY0k5dgpMU82JgbsCwDrij1gF3QR1wuUzZya+bxuGsixGzUFn9uj2110fI
+Ye7lcLaCg3qNm2lmwMkUvPNiYG7ARSs4aDXEW8FjV7g9cbFMmW53n6a9COynwgELla38OetUCRcg
+WQfsOQ33oNsPoxHdyWsYIHXAxuwFrgYJ6OsbLFM2d0SrZP0u1gGUwrdQzZW/05Ebk8ACH4oz/44D
+HkO/l1moMhAQHIqbgnpZYFzAcTG7OXSwTNk8FDeslZl64jt/XYxns4Vqqvz5fxeCkKZwXYxnjn7N
+3NASBDLZ62L02a1Zinhq+h4fdmlRYX3GXNObXXBedE8Ka+BPi9pWbBdE55o7J++cB8IF4fJMHULO
+npv54xHuAKPZovks+gmrYIrghW8ioLAKuhGyHHkTAYV1OI/9N7K2vXBNZLkX4arILHvhWhyHR+4k
+AxSuhSz4JwiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiC
+IAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiC
+IAiCIKD8f3FuaDlPewLLAAAAAElFTkSuQmCC
 
---_004_D5AB6E638E5A3E4B8F4406B113A5A19A12D6C9815Bshsmsx501ccrc_--
+--------------060007070700020707000703
+Content-Type: image/png;
+ name="plot-bb.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="plot-bb.png"
+
+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
+AAAA4Dr+H2aWS3pXSYB7AAAAAElFTkSuQmCC
+
+--------------060007070700020707000703
+Content-Type: image/png;
+ name="plot-pm.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="plot-pm.png"
+
+iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAMAAAACDyzWAAADAFBMVEX///8AAACgoKD/AAAAwAAA
+gP/AAP8A7u7AQADIyABBaeH/wCAAgEDAgP8wYICLAABAgAD/gP9//9SlKir//wBA4NAAAAAaGhoz
+MzNNTU1mZmZ/f3+ZmZmzs7PAwMDMzMzl5eX////wMjKQ7pCt2ObwVfDg///u3YL/tsGv7u7/1wAA
+/wAAZAAA/38iiyIui1cAAP8AAIsZGXAAAIAAAM2HzusA////AP8AztH/FJP/f1DwgID/RQD6gHLp
+lnrw5oy9t2u4hgv19dyggCD/pQDugu6UANPdoN2QUEBVay+AFACAFBSAQBSAQICAYMCAYP+AgAD/
+gED/oED/oGD/oHD/wMD//4D//8DNt57w//Cgts3B/8HNwLB8/0Cg/yC+vr4AAAAUAAodABQjAB4o
+ACgtADIyADw2AEY5AE89AFlAAGJDAGtGAHRJAH1MAIZOAI5RAJdTAJ9WAKZYAK5aAbVdAbxfAcNh
+AcljAc9lAdVnAdppAd9rAeRtAuhvAuxxAvByAvN0AvZ2Avh4A/t5A/x7A/19A/5+BP+ABP+BBP+D
+Bf6FBf2GBfuIBvqJBveLB/WMB/KOB+6PCOqQCOaSCeKTCd2VCtiWC9KXC8yZDMaaDMCbDbmdDrKe
+DqqfD6OhEJuiEZOjEYqkEoKmE3mnFHCoFWepFl2qF1SsGEqtGUGuGjevGy2wHCOxHRmzHg+0HwW1
+IAC2IgC3IwC4JAC5JgC6JwC8KAC9KgC+KwC/LQDALgDBMADCMQDDMwDENQDFNgDGOADHOgDIPADJ
+PgDKPwDLQQDMQwDNRQDORwDPSQDQTADRTgDSUADTUgDUVADVVwDWWQDXXADYXgDZYADaYwDbZgDc
+aADdawDebgDecADfcwDgdgDheQDifADjfwDkggDlhQDmiADniwDnjwDokgDplQDqmQDrnADsoADt
+owDupwDuqgDvrgDwsgDxtgDyugDzvQD0wQD0xQD1ygD2zgD30gD41gD52gD53wD64wD76AD87AD9
+8QD99QD++gD//wAT8zDcAAAf7klEQVR4nO2d9c/8ylfH2+0fcH9sP+397u3fc/+L5xIkSJAgQYIE
+CRIkSJAgQYIEuUiQIEGCBAkSJEiQIEGCBAkSJHRm2rGese5pt7vP+5V7n0+305nOnnnvyJmz3aoC
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBS1/E/+r0+w3yHNpa2T19Xkyylne0nfso5V5No7d7/2
+bd1d3NfOCcDHngKs8wtsr7nFeS/7fpwEErtS1yJckXYY7cS6u1ajJbjuMk4q7IZ0FUEx+wuQ+1In
+y7VLlpYhQC+LVNrYeleMjJYBGi3AaRTqRudoucBKaeupcabXvV3AdFY3oDwa1KhYC+aUVd5rZ4+c
+6krr5NjXbW8VP5ft3mei93rOsRM3qK0STC1WHzKn16Ms4xbtKxIwUvcXMZ0a7SMqZewG9dfKKTVg
+CaMfplFRKrDSKX5ekT5a467qzsxJcdT3pnhTkLmPum5SXKcvGcVtL33tlEC8W+cf51ifu3TuJRiC
+d6WW1h16+2iVIjqnq/preoNadVmWMGQGMTbaAvTy9pfKGT9Vd+adbE3xpiBzH/mvVJxWcq8qWzsl
+EO/W+cc5Xv6dPwjLlRPkYA+YqEfxV4wy5ohOmf96OW1h6BO2AL28rV9K5Z6cRnE1Ks+lmYLMfeS/
+Up+XRRyqBDlbMyVUK9JD8Nj5q6JLix5wR7x2VUdmCufrSc0bvfR1ASaFyquyWyrRJ6tetr+RjzxN
+DsHO3a1Uv4TAu/VPzYzEqvyKOeCO1KP4m+gB1Wvrr3Wk/hlzBWjmmFZ2a+I5zoXZwrAK0vfpnEpY
+PSBZglvnMShASn9+QU0pRIlAkzUHVK+tv9aRarIhV4C959Y1c0DzcqAE6N3n4g7BZg5IlrBgCvHf
+hoTWH3rAPclaBavX1l/rSCwExqF3BGjN4/28crnqL0LMSeFeVotZX4D+fTq9CNHFyoymBEJNphD/
+bch/O2/h013Harzk+MrBVqS7zXj7XD+gTqmqoADlltjgzgHV/hopQOHys9wnc4o+OfaLO88XoH+f
+UdTOCH3shPevtkugdvl0IXPJevJpT1D1exZbca3vcQQHQYxgd+I8NQEHcppmp3fdwLNzFgHWmIMB
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAj0BtfppP/Kq4+iFw+dt+o3sEnoKTtrf4AWD5q+LXTvw0cDuM4yB/ENccgSfidO0tfnmt
+HsWR+OFw9fvU4peBzRF4Js7W3vKnJ+cfuG/FTzIvJ80ReCJO197yR8EH1SUPdtXMEXgiztbe8w07
+MTkV4je/cm6OwPNwuvbu5VJoEBODq1gW3b1CYFfO1t6j6njVT0Bf22SXvCzjwWNS2t67o5Y+lvoT
+k1KI74TUAYhLS9t7d5TsrU9EYlkOAXLSNCzF1P9HQrVVaXvvzWXW+0XNCcTN445JCJCPpqmPFmBx
+e++N6nZlzaZFkRR/fGsGAuRC9H5cAvxfEqKtitv7dECAPKjBl0uA/0PylG31lG/qcJa5H5cA/5vk
+KdvqKd/UwZilB5cA/4vkKdvqKd/UodgrXy4B/ifJ+dvK+IsszxEWIXviOl64BPgfJI/SVrNvcjmC
+G2Y/fL8fBChor/YRHNG7sXY7cwnw30kepK3M3os8wlbcTlC7HlwC/DeSVVttmHIdQHdxjlLBCMdV
+7GzctG9GZ+YS4L+SBNqqaMq1P0Zg6igRnvNqBdhMEmq2ajCUj0uA/0ISaKuiKdf+qPgwcwQBkjTy
+v23dYDgPlwD/mYRuq7Ip1+7M8WHmCPGAFM38f1WVdoPRy7kE+E8kdDuVTbl2x5sQYBFCoTTUWK/z
+hNPICw8Q4D+SkG1VOOXaHd0BLkdww6xonH/mFynpNFql5xJg4ZRrby7d6giOaBcttcY/H1RP46Qd
+IMB/IKHaqnTKtTc6PswcYSvOoSGO9BlCg83q5AECFPy9QyIkv8qdcp2O1ybAVE/mqG0tvmA+BZcA
+/44kEpJf5U65TsfrEqArr9A1s38mNCQfIMC/JYmE5GdPuU7HqxJgE3nlpESXxQcI8G9IYiH5uVOu
+0/GKBFgwl4vq6AAB/jXJ+dvK/v7opa1bfCnJYqWNEwvwr0gepa3k5LOflHaVs1C4YSTE+rbk4rxE
+CFAgvyKqJ6dwRAsKV7P3FuBfkjxIW0nt9d7k9JVvxdEel8LrMxK5BPgXJA/SVmpLWn5RWSgO8YCh
+bbYTC/DPSR6jreYtabEAkc9rQDhWSBQnFuCfkUQiorMXnfszb0nLugjn5KsXYHiHd0OeRCKXAP+U
+JBYRnbvo3J1lS1q9ql99PGDEoxwTy8Y0LgH+CUkkIjp70bk7y5a0evXqnw+4g8jOJsCyRefuzFvS
+Fz0Exz8RzVMLMB5oemIB/jFJJCI6e9G5N3pLulsWIfE5weav5TwAiejlMwvwj0giEdHZi869sbak
+W/WJiK+Kph7wSSXoh90TV/CncQnwD0kiEdHZi86zIYfgAyV41K0ywufPLMA/IIlERGcvOs/GPAc8
+SBfqu7hH3Gh1ELuIL40zIvr3HRIR0dmLzrOhFyEHyGKZk+0uQesGrCJrFoLZuAT4eySRiOjcRefp
+MKvgvWVhz8l2XfrkRD3npjUOOi0oQi4B/i5JLCI6c9G5M9bWjNmjSS1CzPGeEvTnZHvdzCt3swAj
+XV3kQ3S4AEsXnYcgu15T2bgbxnlTu0mQ+irkHjdblblNgJn+w7VEuQT4OyTnXs8aZEesK1vmiN5F
+gqE5GfdITH2pMnZ5pJjsfO574BLgb5M8iADVskdXNr4qWu+EZJgw/p2d9dWR0jklSBVVLsBy/6Fl
+Di4B/hbJgwhQPaymbutWjv9xvxCxFRf9QlizPB4lW4OpORmXBOlyyle62/I1vL8T8pskjyHA5fdj
+r9WYsTVD7gWT8evOpLxZTqVqk/NNNI6ReMN3eKm00GM7csoU5uAS4G+QPIYAzcNqcrZmAsEIq+cD
+hHSUmK6vEoONFyklTeSpLrFckWI2rp65fqzw10keQoDmYTWC5NZME/KwN8plHOjlPH3SVSn6ItAN
+TbfxS+TrhxNty2fD1QP+GslDCNA8rEaQ3JoJDMEpj/+q7XK1tkPvEc2WLyQW/+HBAiz3++6P0wFm
+xwOGPf70Xai1hNeCMSduoNBtj8tlEWDBUxOOEOCvksRC8jP9vruzbM10l7Gabp4TDxj3+AcSA4sJ
+rd2gjy1S94T7bVOePCFlz1VTaVwC/BWS2EPKM/2+u7NszVz7xQ2TvxXnY9SU7+BVTprssXuVVvq8
+5kSRWUIq/NL6EQL8ZZLYQ8oz/b6nI0eAFaHBrXO5dFpBE2ZkyKgLj/9QwSXAXyKJPaQ80+97OjIF
+WPlev9tEFk3L9nDHBJR9vy1z1XASlwB/kST2kPJMv+/pyBegPHOLozY/LUuCzepgw/22zlVDcAnw
+F0gSDynfPyRfLbW79dOFau91ZVbodbwCswDHuifSyAyrvVKr/L4eQ/liZa7Tku2Y6TPevOq+swB/
+niT+kHKZcd8hWCmq7XxXn9bAyi8kBZixCHmTLcBKNVxIgG8i+WJl+mmJTrAJHCfu53qbdujFOUPy
+PfElH1IuM+67CFEVuHa1f9LtAZc6darGdToecKypj0l0oWES7Zu39bix8VaKyF7mxAUYUdyJBfhz
+JJGQfMXeIflzBd6p7eHdCHCcFNdPx/OP1w29FOCgVHgREbOij6rlJ2JSsXyUjRJgX8+xtK36drNK
+beZT8sLr8sXnSeDTqbdE0y43tDLWb5c2ntGG94Wl3PlZ5uckpy43p3EJ8GdJIiH5uX7fG+sl/4oe
+kBLg2AoVTFpSdbq2lRSg6i+ngXuSzdBPkqkHkTi9EtVVAmznldR0zXThktqIMkW2TmVQOepenHqZ
+RDm+vNWIG5qMU0ld/jzP75VWfsDAJHR1IkZeXbjSuAT4MySRkPxcv++N9ZrpSQG+EaK4dMsiZRKL
+FGCrBDglThqa0t6pX6Zrp15tlGKZR2lV3DB9jCb9zqmNKHNQD13qhPYuIkfdiVPvd+qGTfNWbTKq
+/jbtbKalMbv1HI0GLrJPhBwpMS8LXdTtaVwC/GmSuztUFgEOpABf1JA/T+fE6nxejVTz3/oqhSYO
+X8TBtdYCHFVx88dlTm2WMqtFokJearki8i03bBrzORujAox3StrFE14OE90ffT/jJGRf6R4hwJ8i
+ub8A5d9r+0IKsB7F31FJRXZHvgDVJdYvvGsBquLE2CrmrHNqo5VpCldHk4pq+1zzXv0yT3YDAlyk
+l9ewDXm4zh0Kn3ciZ5OCZ0zjigf8SZKTCFA0+eK9q1YCfEf9IxdH9hAs/ULicGxdAUpGVd609ui6
+PiFAJaTpn5dmOScyvvXeuxXVA7q93gY3TDDCIbQVsppXZtyPJY0vIvrcApyGTrVq7YkhePbRGDfg
+vAiRfiFxKL04L2/PRc494PKyGqdJ5JLqDMHy1FvvNUv8lhyChbT6WmecXr1tC/Am18dKtcHR2M+3
+KjNwU24BNnxD8E+QnESAYggW69Fx6IhFiO2tdNww0i9TCb9QrRYhcpieV8Fq4azW8vWSai9C2vb9
+pnlfrJaNANUN3510t2SsqvfeatQWV2CyV9Swdt8XCTeMeQVJ7W6pSzpNnOYS4I+T3F+AaiuuHab1
+qPCOuD3gtG6t27b1Bagc0UpntfQL1eraqaBFgIPqUZXPpVtSFzdM101iekueutoClDeUlXj/3ReZ
+sRLLnKjzo7BhA3vPQU906Ivpt38YUmm834r7MZKVAO2HlM+TqwPcMNLNIp6JPqwd0VPPuBagqMa8
+4SErNA/E0nPs7IQoZ5JObeR7mPV0MY7oahkfxQ2lS0hklNdt3wkJpTVEHxYa1mNeG0rdpXWJpM3n
+uAT4oySBHlDvfF1UN/NQv5YZ3wsOdWahh6yJ4Zh/aPMWEht7uYg48+sSSltOcQnwR0gCAtQ7X7Jz
+eMynYxHRMJGRtAn510Q0THwPYuPqMt3Lpe+3nmJuqQuZps9wCfCHSWgBmp0vKcBHi4im+42oz27u
+kcJ6MYWstsQ2Nnp0a60Jys9z7eTfryjNDsxgEuAPkdACNDtfUoCPFxG9cm8kQo0Xz0ZKgOtiE5uz
+yUYP7PNmL3pCc8ctdaFf3kGAo9n5siOjavvoMMyq6CrjU9I/3dQ4juN1cMAKa1GQ0+us0zY/xYD4
+6lppwEHsVVFdQq+4BPiDJKSUerPzdX8BKsTkU3jmplqJyqV/pkE/BcEtJzapb0IXhE/rtPwvG3v1
+jJSZmRbrELeV6V7IJcAfIKGktDykXP49yRDc6l/NERtjyS+mN6EFR+zULQIMzjwj2djmaxvzBdL8
+enFGRH+/QyIi2tr5uvsixLqjUH/q0RyN6QQ9Yo6LJnBF+KyXVvhdY7YVa2qKUZS2uopLgN9HQgnQ
+/0rICdww5ktLcghOPJxIj4kZglg3Hj1NjFQu0nsEFy8FZWakReRTWub6Ii4Bfi8JIcCL052cwhG9
+CExumlSpSekSW1DF9bZ6zSDA1UhMiGWPr4FG9FNUJjVocAnwe0gIAeqHlKt84s+9H1JufU/00g6Z
+AqyoYThnAl84l4v50PzVZXpFvjGNR9TkFVwC/G6Suwcj5OB8T/TaJodgPbldd4JZr/IWL5E0MqzK
+X6XwfreD2l8uLZO+AAK84fmAejZon6BfcArQqK3xXtvpjBE2+vQtAgykcwnwu0geQoDOqkj0gPk/
+07Da9a/oY/d1/mo2kmZuTalPpQWL3SKkiIgyygx+GrgE+J0kjyBA/T3R6zg/rKboh2qqgLQyFsSR
+Ezlp0tUSUl9gD+6m+90gwHAilwC/g+QRBOh+TzTr94Kdl/ZaJLOX4xHgek3sKs4ZNOOCzLtf1LcY
+DnyI345LgN9O8ggCLGX1dCyrE8yd54WH53i+SJrRnftxCOygbNpfjmRq9HSAkvoBAvw2kkhEdO7e
+/+mgfynJMXR624xjSNR3Nn2M19kEl66r1VPu/chetHHmo3cS4LeSRCKic/f+T0fol5JMR0ibdBcB
+2stdYqRbEkLnkx+UaFpAbUQdDxDgt5DEI6KrnL3/nXG75HlPrvwZ0bP6Yh/3JvtVLJ+TYtQXamR/
+auCXWbC/TKbZ/WAsX1iC9xBg0d7/IQjliy8QjUqBBatgfVbPvmJujNDLLQJ01JfKHb553v4ymUaN
+98F8oTpyCfCbSaIR0VXW3v8hiC550Pcu+7lWfb4yc/FQeuBldJAKdajN4oaJt6Aen4NlNpG0SF3W
+/p8ooYK5BPhNJLGI6My9/yOw+tz0l1TiZg4LIjYMRnqI+E5ITusRneCqLk04jayLL9p0+FdoKsgl
+wG8kiURESzL2/o/AdMnSKx3vkskgR4le85GmDqwEzOIl81txpiWz5GfdqPHPOKWG02IlVVqMWfnW
+luES4DeQRCKiFem9/wMwNxztn9AJfCLCAqws/9ra1KGlqJWW4b6xxrL8lmu8f+O9aqIgb+ZXGP7V
++CrkjIj+eodTPCM6C90lj6oC2wUosIzdxIc2s2TJWpXOxRV2f04ZTVy78xQi7FdxHdip90em+YME
+lwC/jiQZEZ3e+98f3SWPs3soNQQHPlkLfpcVbvSG6MwCq1J/2C1sNq/vC/SAzXouFxRkuocPpZlP
+gyjjcAGW7v3vz9IlL/pLdMmpHnCtoeAikB6+iF7Hv7Co+3MLJVxFjrSojm9VCnVFtgC9XpRnxl9/
+LUkkIjp3739/5g5Q6y/RJacFSE/yqSaj50+BSdbm7s/L0zhypHuy4BBc0W8lUan1Qkof5pgzg/pr
+SB4hGME8tl+finbJWRYjuzuiNQOKsvojVzlOYhne6Bns6UJDsEpL9455afoMlwC/muQRBLh0ybV5
+9G60S86zGLn/uh5pg12aWW9kLiAyqmSXHiwlLLDY2FyVClDfh0uAX0XyCAIsJddi1GLCjiCxrwos
+Cuwrbuv+vLtERBZVUqHI4mnqrXAJ8CtJXrMA6b23VTfWEJdW1by3vLrgtiVjszpwb5kUOasA1Wku
+AX4FyasWIL3/6q9CSQHaUmisgm51WUTKyQosYBaguCmXAL+c5HUL0DW8vfL0r3FP+M5efxZ4A4Hd
+jlynHrcAGd0wjypA66HV114/u/r2RciM39Wpo8a/xlFcqIjb5adLCQs+WI1kFTamcfWAX0aSCMnP
+if88BOnva4dxru/tbhjNepPfzO5Mwmpt4iYHUrbh9rhlbpUTC/BLSSIh+bnxn4ew+KBrXb3bHNE2
+3ryLcKYsvr6YX45LfpUt+KhbhZwoll2ek8YlwC8hiYTk58Z/HoHea1P1vXUrzoN2uLgTvSrcxcXS
+tqG/wZa6bnXBiQX4xSTJkPx0/OcR6E0QVd+t8YAhCHeKe9wkvibJKr/lfjmFBuejGddmpnEJ8ItI
+UiH5GfGfB2BuWFt/t4ZjUTTW/9bZ2NTPuopbfwU9at7i+JY0LgF+IUk0JD8v/vMATIj2XgJU3Vh4
+SIu5KfjlVwLpy6SvjJYS3MfjEuAXkMRD8rPiP/fHCtHOG4IT8YAkoZ3/8BIjtfd6FDkO6niaF+rl
+BtocL8DC+M/9sUK0d1mEzITWGNTQfA7pzZC+zOhl7vlwgoRJgILPd0iF5GfGf+6PFaK9hxsmiesH
+PJP0Zta+TPKqRN4AXD3g55FEQvJz4z93x35oNb8jOod4fN4ZSM9VA2npN8QlwM8liYXkZ8Z/7o5+
+aLXZlOPbisvkvNKbIdzngUucUxnvikuAn0MSCcnPjf88HXsI8PxYvszQFXSWFFwC/GySZ2yr1ylA
+yo+5TrdfZvbpXAL8LJJnbKvXKsDUlkwTeRWBS4CfSXL+tqrjM7+D5oCPQX7sQsGU9rULULGEY63W
+Qoesgh+HmASdre18uAT4GSSP0lYyPIfwBh3iB3wsgs4is91RVB6XAD+d5EHaSrq+KX84507IE0G6
+LDM8NRRcAvw0kkhEdG4E/BFInyS1I8gTjvWc+CrMizFcwSXATyWJRETnRsAfgBIYFRPBFg3zrLiP
+rdniTucS4KeQRCKiZS759+4R0So8BwLcyNwVbtzN4RLgJ5MkIqJzgk/2Zw7PyR+Ct4RjPTubNxPv
+IcCiCPj9mcNzsAi5C1wC/CSSRER0TgDy/szhOXDD3AUuAX4iSTwi+hwC1OFYcETfAy4BfgJJNCL6
+JEOwDsfCVtw94BKg4OMdMh5Sfo5FSCEQICtcAvw4kkhEtMwl/97dDVMGBMgKlwA/liQSES1zqX/u
+7YguAwJkhUuAH0MSiYjOjYA/HRAgK4cL8OGBAFnhEuBHkzxjW0GArHAJ8KNInrGtIEBWuAT4kSTP
+2FYQICtcAvwIkmdsKwiQFS4BfjjJM7YVBMgKlwA/jCQWEZ2583U6IEBWuAT4oSSJiOicvf/TAQGy
+chcBlnwJ7XRAgKxwCfBDSCIR0bnxn6cDAmSFS4AfTBKJiM6NgD8dECArXAL8IJJIRHTud4BOBwTI
+CpcA3yOJRERDgEDAJcAXkkhENIZgIOCMiCYgLi38EtrpgABZOd6chV9COx0QICuHm7P0S2inAwJk
+5XBzln4J7XRAgKzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXA
+YqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzA
+nKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXA
+YqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzA
+nKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXA
+YqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzA
+nKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXAYqzAnKXA
+YqzAnKXAYqzAnKXAYqzAnKUcY7Fa0F3kcbs+pc/qytROzlrWclXTup8P+touZL5wbAcn+76o23TT
+nWrvnYnEdtQ1s9+i+wasjKbaRGFWol2WudB70y37m+Wkrsd2Q/Nc2rq9pC/Td1F5LkM72eWNOXVd
+Chnqiz7pHvSLIccpaz86pc7tOna1XYjMfH0zi/bat24Dxrn2lloLTKPqeRUClLa5dr2VGBKN8wZU
+isxobuuayTnrlWUudCu9WOWkiE9NuQD7SQnXPn2dvov8e33prlX79ktvnZo/nu21Myedg2Fcurd6
+HAfn01wPqgr9/A7mQmTm9uUDqlHr6Z5jvgJbfb+JAtPM9RQCVLaxiqnqN5PUuq5ufQE6b0B/0FYC
+1GZyz64FqC50K71Y5aRMvcp6bEtR/JYWg43Vpa9Uf+XYUJy9VqQAl+NBDlO9MxiNsgcZ27mHnQsR
+ry5TimrUoVKXFFdW3DLfNHM96/pq6Ugn1nXb99W6B3TeQESAfj2CArQLUmirnBTHJrn0pe9o/njW
+ozDGB16sU0oZ01nZoUYE2MmWdaRfV72Q1zCoS5ZChOq60W2Lkre4XCvqVijAaQjurZFUJ06nX0Si
+L0DnDYSH4Ft6QG2Vk7JJgO1lmm2XfK7mCcqb7tJNFn4ZzSnZo41CVqIzIAS4TJ5a2aU4XVmtXs6d
+nS5kmoXp8XzJXtJl68n7tUSAC+3yL5H4shKg/QasjN6UMTgH9OeW8xzQWoQYq5yTfpMA5QLk0uYr
+cFmidfLfYVhOzcKQA6s4G+kB66p2EtTxVOZl7jF0IVWt5nymVxkLqqpvITun8h6wrqVt3m4HKzG0
+CHHewNKH2XZwzLSqolOWudCutLHKKbl22wQoP5CX/G5lvsPQtsLCvR4nLvITq7q1sd0gwGnImTsq
+U4joWIQCdaOOZZOgZSj0b5fKtPRi8o11dl89nRyqrqUEaN6AngM6I79lplUV11a6+KtgyyqnpB1r
+wEvrfF4Uk/46MQALAS7D4aKzdlg+jtZ81Z8DXnLngBdvDjjMtTprF6jNVpZt7vrycy0GU9avrQ+5
+6KoWb1gb6wHJRchk8Xr+zJtC1IywXVwbZeOvvnehaeZ6XtvZJ1lf3R5QF9bPWhh67w0s7/m67gGV
+mVZVJKxULV3/jGWVE1M8BF82DsGtzDFZeDKTMbcux3K7rU1LuWGsI6uQedxtVaMW688f5bMzyQF1
+uMxjoTMHnF6IlUYtPw/DOP0dnDVXZA5YzWepKhICdOVrrJL7Pu5CsQDl56xoETJnE1nESm3qyJab
+TgvjpZxrp/sJ/0B0caseyW4mq5D5/Fhv3IrbJkCJ7H/0kUls6657p1XD89i3wi04VisBmoym2sZM
+RBUJAcoPoM5trJL7Pu5CuQCFEbe4N6X7pmhnyAho7P2tuKx880FuRk+whQJcBObb5tpumOgAAAAA
+J2Pbyv0O8Fb0Yd42AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAE/P/yn0/6WNm5skAAAAASUVO
+RK5CYII=
+
+--------------060007070700020707000703
+Content-Type: application/x-shellscript;
+ name="bb-matrix.sh"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="bb-matrix.sh"
+
+IyEvYmluL2Jhc2gKCiMgTk9URTogRW5zdXJlIFBBUkFMTEVMX01BS0UgaXMgc2V0IGluIHRoZSBl
+bnZpcm9ubWVudCB3aGl0ZWxpc3Q6CiMgICAgICAgQkJfRU5WX0VYVFJBV0hJVEUKIyAgICAgICBp
+biBzY3JpcHRzL29lLWJ1aWxkZW52LWludGVybmFsCgpCQl9SQU5HRT0iMDQgMDUgMDYgMDcgMDgg
+MDkgMTAgMTEgMTIgMTMgMTQgMTUgMTYiClBNX1JBTkdFPSIwNCAwNSAwNiAwNyAwOCAwOSAxMCAx
+MSAxMiAxMyAxNCAxNSAxNiIKCkRBVEFESVI9InN0YXRzLSQkIgpCQl9DTUQ9ImJpdGJha2UgY29y
+ZS1pbWFnZS1zYXRvIgojQkJfQ01EPSJiaXRiYWtlIC1lIGNvcmUtaW1hZ2Utc2F0byB8IGVncmVw
+ICcoQkJfTlVNQkVSX1RIUkVBRFN8UEFSQUxMRUxfTUFLRSknIgojREVCVUc9MQpSVU5USU1FX0xP
+Rz0iJERBVEFESVIvYmItcG0tcnVudGltZS5kYXQiCgpUSU1FX1NUUj0iJWUgJVMgJVUgJVAgJWMg
+JXcgJVIgJUYgJVcgJUsgJU0gJXQgJWsgJXIgJXMiCgppZiBbIC1lICIkREFUQURJUiIgXTsgdGhl
+bgoJZWNobyAiUGxlYXNlIG1vdmUgJERBVEFESVIgYW5kIHJ1biBhZ2Fpbi4iCglleGl0IDEKZmkK
+Cm1rZGlyICREQVRBRElSCmlmIFsgJD8gLW5lIDAgXTsgdGhlbgoJZWNobyAiRmFpbGVkIHRvIGNy
+ZWF0ZSAkREFUQURJUi4iCglleGl0IDEKZmkKCiMgQWRkIGEgc2ltcGxlIGhlYWRlcgplY2hvICJC
+QiBQTSAkVElNRV9TVFIiID4gJFJVTlRJTUVfTE9HCmZvciBCQiBpbiAkQkJfUkFOR0U7IGRvCglm
+b3IgUE0gaW4gJFBNX1JBTkdFOyBkbwoJCWlmIFsgLW4gIiRERUJVRyIgXTsgdGhlbgoJCQlta2Rp
+ciAtcCB0bXAvYnVpbGRzdGF0cyAmPiAvZGV2L251bGwKCQkJdG91Y2ggcHNldWRvZG9uZSAmPiAv
+ZGV2L251bGwKCQkJbWtkaXIgc3N0YXRlLWNhY2hlICY+IC9kZXYvbnVsbAoJCQlta2RpciB0bXAt
+ZWdsaWJjICY+IC9kZXYvbnVsbAoJCWZpCgkJUlVORElSPSIkREFUQURJUi8kQkItJFBNLWJ1aWxk
+IgoJCW1rZGlyICRSVU5ESVIKCQlCQl9MT0c9JFJVTkRJUi8kQkItJFBNLWJpdGJha2UubG9nCgkJ
+ZGF0ZQoJCWVjaG8gIkJCPSRCQiBQTT0kUE0gTG9nZ2luZyB0byAkQkJfTE9HIgoKCQkjIEV4cG9y
+dCB0aGUgdmFyaWFibGVzIHVuZGVyIHRlc3QgYW5kIHJ1biB0aGUgYml0YmFrZSBjb21tYW5kCgkJ
+ZXhwb3J0IEJCX05VTUJFUl9USFJFQURTPSIke0JCIyMqMH0iCgkJZXhwb3J0IFBBUkFMTEVMX01B
+S0U9Ii1qICR7UE0jIyowfSIKCQkvdXNyL2Jpbi90aW1lIC1mICIkQkIgJFBNICRUSU1FX1NUUiIg
+LWEgLW8gJFJVTlRJTUVfTE9HICRCQl9DTUQgJj4gJEJCX0xPRwoJCQoJCWVjaG8gIiAgJCh0YWls
+IC1uMSAkUlVOVElNRV9MT0cpIgoJCWVjaG8gLW4gIiAgQ2xlYW5pbmcgdXAuLi4iCgkJbXYgdG1w
+L2J1aWxkc3RhdHMgJFJVTkRJUi8kQkItJFBNLWJ1aWxkc3RhdHMKCQlybSAtZiBwc2V1ZG9kb25l
+ICY+IC9kZXYvbnVsbAoJCXJtIC1yZiB0bXAgJj4gL2Rldi9udWxsCgkJcm0gLXJmIHNzdGF0ZS1j
+YWNoZSAmPiAvZGV2L251bGwKCQlybSAtcmYgdG1wLWVnbGliYyAmPiAvZGV2L251bGwKCQllY2hv
+ICJkb25lIgoJZG9uZQpkb25lCg==
+
+--------------060007070700020707000703
+Content-Type: text/plain;
+ name="bb-pm-matrix.plt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="bb-pm-matrix.plt"
+
+set xlabel "BB_NUMBER_THREADS"
+set ylabel "PARALLEL_MAKE"
+set zlabel "Build Time (seconds)"
+set dgrid3d 13,6
+set pm3d at b
+set ticslevel 0.8
+
+set term png
+set output "plot.png"
+splot "bb-pm-runtime-fear-jul6.dat" u 1:2:3 with lines
+
+set view 90,0
+set output "plot-bb.png"
+replot
+
+set view 90,90
+set output "plot-pm.png"
+replot
+
+set view 60,30
+set term wxt
+replot
+
+--------------060007070700020707000703--
