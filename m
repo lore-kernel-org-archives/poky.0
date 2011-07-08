@@ -1,29 +1,36 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6E6144C8047B
-	for <poky@yoctoproject.org>; Thu,  7 Jul 2011 13:12:15 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 07 Jul 2011 11:12:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,494,1304319600"; d="scan'208";a="22742757"
-Received: from doubt.jf.intel.com (HELO [10.7.199.182]) ([10.7.199.182])
-	by orsmga002.jf.intel.com with ESMTP; 07 Jul 2011 11:12:14 -0700
-Message-ID: <4E15F6FD.6020809@linux.intel.com>
-Date: Thu, 07 Jul 2011 11:12:13 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110424 Lightning/1.0b2 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 173EE4C804D4
+	for <poky@pokylinux.org>; Fri,  8 Jul 2011 15:44:44 -0500 (CDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QfHuk-00068F-H4
+	for poky@pokylinux.org; Fri, 08 Jul 2011 22:44:42 +0200
+Received: from 178.128.117.245.dsl.dyn.forthnet.gr ([178.128.117.245])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Fri, 08 Jul 2011 22:44:42 +0200
+Received: from gmane by 178.128.117.245.dsl.dyn.forthnet.gr with local (Gmexim
+	0.1 (Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Fri, 08 Jul 2011 22:44:42 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Fri, 08 Jul 2011 23:44:26 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <iv7q7b$sqj$1@dough.gmane.org>
 References: <4E14A686.5020104@linux.intel.com> <1310035173.20015.820.camel@rex>
-In-Reply-To: <1310035173.20015.820.camel@rex>
-Cc: Josh Lock <joshua.lock@intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>,
-	Tom Rini <tom_rini@mentor.com>
+	<4E15F6FD.6020809@linux.intel.com>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: 178.128.117.245.dsl.dyn.forthnet.gr
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.17) Gecko/20110424 Thunderbird/3.1.10
+In-Reply-To: <4E15F6FD.6020809@linux.intel.com>
 Subject: Re: build performance: bb-matrix on 4-core (BB_NUMBER_THREADS and PARALLEL_MAKE optimization)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -32,73 +39,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jul 2011 18:12:15 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 08 Jul 2011 20:44:44 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
+Darren/Richard,
+
+Maybe we could instead of hacking hard coded default values (or nothing)
+into the config file default to something like this:
+
+somehow get the number of CPUs:
+
+CPUS=$(grep ^processor /proc/cpuinfo | wc -l)
+echo CPUS=${CPUS}
+
+or
+
+CPUS=`getconf _NPROCESSORS_ONLN`
+echo CPUS_UBUNTU=${CPUS_UBUNTU}
+
+(don't know if the second one will also work with other distros than Ubuntu)
+
+Do some calculation which magic number for BB_NUMBER_THREADS and
+PARALLEL_MAKE to use:
+
+e.g. what was suggested: BB=2*NR_CORES PM=1.5*NR_CORES
+
+Regards,
+
+Robert
+...For every complex problem there is a solution which is simple, neat
+and wrong. -- H.L. Mencken
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
 
 
-On 07/07/2011 03:39 AM, Richard Purdie wrote:
-> On Wed, 2011-07-06 at 11:16 -0700, Darren Hart wrote:
->> I ran the attached bb-matrix.sh on the following system:
->>
->> CPU (1): Intel(R) Core(TM) i7 CPU         870  @ 2.93GHz
->> Cores: 4
->> Threads: 8
->> Memory: 8186560 kB
->> OS Disk: INTEL SSDSA2M040G2GC (SSD)
->> Build Disk: Hitachi HDT721050SLA360 (Spinning Media)
->>
->> The script runs builds with all combinations of BB_NUMBER_THREADS and
->> PARALLEL_MAKE from 4 through 16.
->>
->> Once BB_NUMBER_THREADS hit 10, the kernel OOM Killer started killing off
->> tasks and build time tripled. Those runs have been removed the dataset.
->>
->> All of the runs with PARALLEL_MAKE=10 also failed, for a variety of
->> reasons. See bb-pm-errors.txt for details. For whatever reason, 10 seems
->> to be a bad number. Additional failures were seen at 09-11 and 10-14.
->> These have all been removed from the dat file.
->>
->> From the remaining results, a clear downward trend in build time is
->> evident with increasing BB_NUMBER_THREADS through 8, while build time
->> mostly increases again with 9 (and dramatically so with 10, not shown).
->> Optimal build time is achieved with BB_NUMBER_THREADS=8.
->>
->> Along the BB_NUMBER_THREADS=8 line, there is no clear trend with
->> increasing values of PARALLEL_MAKE. Local downward trends appear from
->> 4-7 and from 11-14. Optimal build time occurs with PARALLEL_MAKE=14,
->> however, it only bests PARALLEL_MAKE=7 by 68 seconds.
->>
->> While optimal build time is achieved with BB=8 and PM=14, a more
->> resource friendly setting of BB=8 and PM=6 yields nearly as good results.
-> 
-> Thanks Darren, I think those are interesting results.
-> 
-> Is the general advice we should give out therefore to set
-> BB_NUMBER_THREADS = PARALLEL_MAKE = number threads?
-
-I don't think we have enough data to make a general recommendation, but
-for 4 core systems, I think BB=8 and PM=6 is a good choice. With some
-additional runs on other hardware, hopefully we can come up with a more
-general number like BB=2*NR_CORES PM=1.5*NR_CORES (cores not threads).
-
-> 
-> I'd love to understand why there is the peak and second dip on the
-> PARALLEL_MAKE curve...
-
-Me too! The PM axis plots are very strange and not at all expected. I'm
-seeing similarly unexpected results on the 12 core machine currently
-running through a 12-48 bb-matrix run.
-
-> 
-> It would also be good to put the script in scripts/contrib.
-
-Yes, I'll try to get around to that soon... this week. They need a
-little cleanup I think first.
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
 
