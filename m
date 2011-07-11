@@ -1,28 +1,26 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 6A17E4C80095
-	for <poky@yoctoproject.org>; Mon, 11 Jul 2011 10:15:15 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id DDFCB1660206; Mon, 11 Jul 2011 09:15:14 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 34CE21660204;
-	Mon, 11 Jul 2011 09:15:14 -0600 (MDT)
-Message-ID: <4E1B1382.4070203@mlbassoc.com>
-Date: Mon, 11 Jul 2011 09:15:14 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4E1B0525.4030107@mlbassoc.com> <1310396843.20015.965.camel@rex>
-In-Reply-To: <1310396843.20015.965.camel@rex>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 0F1D64C80A4F
+	for <poky@yoctoproject.org>; Mon, 11 Jul 2011 10:15:36 -0500 (CDT)
+Received: by wyg34 with SMTP id 34so857054wyg.35
+	for <poky@yoctoproject.org>; Mon, 11 Jul 2011 08:15:36 -0700 (PDT)
+Received: by 10.216.56.15 with SMTP id l15mr3108055wec.105.1310397335447;
+	Mon, 11 Jul 2011 08:15:35 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
+	by mx.google.com with ESMTPS id w8sm7017814wec.0.2011.07.11.08.15.32
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Mon, 11 Jul 2011 08:15:32 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1084)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <4E1B0423.9080403@mlbassoc.com>
+Date: Mon, 11 Jul 2011 17:15:26 +0200
+Message-Id: <3DD1D86E-30CF-46AD-8E13-D10D63562FC3@dominion.thruhere.net>
+References: <4E1B0423.9080403@mlbassoc.com>
+To: Gary Thomas <gary@mlbassoc.com>
+X-Mailer: Apple Mail (2.1084)
 Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: UBIFS images
+Subject: Re: Web browser on ARM?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,48 +32,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Jul 2011 15:15:15 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 11 Jul 2011 15:15:37 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On 07/11/2011 09:07 AM, Richard Purdie wrote:
-> On Mon, 2011-07-11 at 08:13 -0600, Gary Thomas wrote:
->> I'm trying to use UBIFS on my target and I found that the images
->> are not quite right.  The soft-link points to the wrong file.
->>
->> $ ls -l tmp/deploy/images/*ubi*
->> -rw-r--r-- 1 gthomas gthomas 7483392 Jul 11 07:56 tmp/deploy/images/my_distro-console-image-my_target-20110711135454.ubifs.img
->> lrwxrwxrwx 1 gthomas gthomas      62 Jul 11 07:56 tmp/deploy/images/my_distro-console-image-my_target.ubifs ->  my_distro-console-image-my_target-20110711135454.rootfs.ubifs
->>
->> I've looked through meta/classes/image_types.bbclass but it's not
->> clear to me [yet] where that soft-link gets built and why it gets
->> it wrong.
->>
->> Any pointers?
->
-> image_types.bbclass:
->
-> ln -s ${IMAGE_NAME}.rootfs.${type} ${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}.${type}
->
-> The problem is that $type=ubifs but the extenstion the ubifs image
-> generates is ubifs.img:
->
-> IMAGE_CMD_ubifs = "mkfs.ubifs -r ${IMAGE_ROOTFS} -o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.ubifs.img ${MKUBIFS_ARGS}"
->
-> and we don't support generating image types where the image extension
-> and the type name differ...
->
-> I'd guess the quick fix is s/ubifs.img/ubifs/ in the above...
 
-Thanks
+Op 11 jul 2011, om 16:09 heeft Gary Thomas het volgende geschreven:
 
-A bigger question is why is there an unused image command (IMAGE_CMD_ubi)
-which seems to do it right and also sets up a proper volume layout vs
-the current command (IMAGE_CMD_ubifs) which is incorrect?
+> Is there a working web browser for ARM based targets on Poky/Yocto?
+> The only one I find is web-webkit and it currently does not build
+> on ARM platforms.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Meta-oe has midori and epiphany, but you'd need the patch to update =
+webkit I sent today to stop them from crashing on non-simple sites.=
 
