@@ -1,26 +1,30 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C944A4C800A9
-	for <poky@yoctoproject.org>; Tue, 12 Jul 2011 14:55:03 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6CJt3Sj001426
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 12 Jul 2011 12:55:03 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Tue, 12 Jul 2011 12:55:02 -0700
-Message-ID: <4E1CA696.9010406@windriver.com>
-Date: Tue, 12 Jul 2011 14:55:02 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US;
-	rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <4E0DC212.5020808@freyther.de> <4E0DCF2C.1090602@windriver.com>
-	<4E10607A.1070909@freyther.de>
-In-Reply-To: <4E10607A.1070909@freyther.de>
-Subject: Re: Installing GDB or the saga of getting RPM/Zypp to run on	JFFS2
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 79BDF4C80BEE
+	for <poky@yoctoproject.org>; Wed, 13 Jul 2011 06:32:34 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p6DBWRlG028791;
+	Wed, 13 Jul 2011 12:32:27 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 28092-10; Wed, 13 Jul 2011 12:32:23 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p6DBWLcY028785
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 13 Jul 2011 12:32:22 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4E1C7A3E.6040502@mlbassoc.com>
+References: <4E1C7A3E.6040502@mlbassoc.com>
+Date: Wed, 13 Jul 2011 12:32:20 +0100
+Message-ID: <1310556740.20015.1113.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Bad patch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,68 +36,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jul 2011 19:55:04 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Wed, 13 Jul 2011 11:32:40 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 7/3/11 7:28 AM, Holger Hans Peter Freyther wrote:
-> On 07/01/2011 03:44 PM, Mark Hatle wrote:
+On Tue, 2011-07-12 at 10:45 -0600, Gary Thomas wrote:
+> The change applied in the Poky/Yocto tree as f8bf4e2b16f5b36187a966f5bc9121033f038e90
+> has a shell syntax error.  In particular, look at these lines:
 > 
->>
->> macro files are being loaded from:
->>
->> %{_usrlibrpm}/macros:%{_usrlibrpm}/poky/macros:%{_usrlibrpm}/poky/%{_target}/macros:%{_etcrpm}/macros.*:%{_etcrpm}/macros:%{_etcrpm}/%{_target}/macros:~/.oerpmmacros
->>
->> The key above is the /etc/rpm/macros.*
->>
->> I would recommend a new file be generated called /etc/rpm/macros.jffs2 that
->> changes the setting as appropriate for that filesystem.  (How it's placed into
->> the filesystem I'm not sure.  I think it all comes down to detecting we're
->> building a jffs2 filesystem and doing it there.  Perhaps in the rootfs_rpm.bbclass?)
-> 
-> What do you think about something like the change below? Alternatively one
-> could write a post-inst script that checks if one is on jffs2 and then creates
-> the config file.
-
-Sorry for the late reply.  I'm back from vacation now.
-
-The below is fine with me.  I suggest it be submitted as a patch to oe-core.
-I'll be happy to ack it.
-
---Mark
-
-> 
-> diff --git a/meta/classes/rootfs_rpm.bbclass b/meta/classes/rootfs_rpm.bbclass
-> index 3a11858..70459e5 100644
-> --- a/meta/classes/rootfs_rpm.bbclass
-> +++ b/meta/classes/rootfs_rpm.bbclass
-> @@ -139,6 +139,14 @@ EOF
->         install -d ${IMAGE_ROOTFS}/${sysconfdir}
->         echo ${BUILDNAME} > ${IMAGE_ROOTFS}/${sysconfdir}/version
-> 
+> @@ -179,8 +185,18 @@ kernel_do_configure() {
+>                  cp "${WORKDIR}/defconfig" "${S}/.config"
+>          fi
+>           yes '' | oe_runmake oldconfig
 > +
-> +       # check if there is a jffs2 install, it requires a workaround
-> +       # due lacking support for MMAP read/write.
-> +       (echo "${IMAGE_FSTYPES}" | grep "jffs2" > /dev/null)
-> +       if [ $? == 0 ]; then
-> +               echo "%__dbi_txn      create lock log txn auto_commit nommap
-> private" > ${IMAGE_ROOTFS}/etc/rpm/macros.jffs2
-> +       fi
-> +
->         ${RPM_POSTPROCESS_COMMANDS}
->         ${ROOTFS_POSTPROCESS_COMMAND}
+> +       if [ ! -z "${INITRAMFS_IMAGE}" ]; then
+> +               for img in cpio.gz cpio.lzo cpio.lzma cpio.xz; do
+> +               if [ -e "${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE}-${MACHINE}.$img"
+> +                       cp "${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE}-${MACHINE}.$i
+> ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > 
-> @@ -164,6 +172,7 @@ EOF
->  }
-> 
->  remove_packaging_data_files() {
-> +       rm -rf ${IMAGE_ROOTFS}/etc/rpm/macros.jffs2
->         rm -rf ${IMAGE_ROOTFS}${rpmlibdir}
->         rm -rf ${IMAGE_ROOTFS}${opkglibdir}
->  }
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> This line seems to have been broken (no closing quote, etc)
+
+Thanks, this should be fixed now...
+
+Cheers,
+
+Richard
+
 
 
