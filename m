@@ -1,23 +1,33 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 4E0794C80908
-	for <poky@yoctoproject.org>; Thu, 14 Jul 2011 10:13:08 -0500 (CDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 14 Jul 2011 08:13:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,529,1304319600"; d="scan'208";a="27946063"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.255.17.207])
-	by fmsmga002.fm.intel.com with ESMTP; 14 Jul 2011 08:13:07 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 14 Jul 2011 16:13:03 +0100
-Message-Id: <054f9b34d7aa72f3a2a5e9a422e8c2f941071d3c.1310656158.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.7.4.1
-In-Reply-To: <cover.1310656158.git.paul.eggleton@linux.intel.com>
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
+	[209.85.213.176])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 404614C800AB
+	for <poky@yoctoproject.org>; Thu, 14 Jul 2011 10:57:45 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by yxl11 with SMTP id 11so214424yxl.35
+	for <poky@yoctoproject.org>; Thu, 14 Jul 2011 08:57:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	bh=KSJlgKxhW2iB2SMCmmPnJDruxT8WUCos75PzdpYKYSY=;
+	b=is9m9NUkOLREMQVoCLh+NDsUwLVtLnTy3MenbxxST7ktM6RKC75EFp9qG/YJT9DNAj
+	pBsg35R7WzZ/J/pbQONdvtrJp0063B5hgsE/19+uHy0/z9q13c4DA6EWUMMqxdovoagi
+	iY9XHX+xnc04axWAGZl44Pz9g4ZWD5CSeiO+w=
+MIME-Version: 1.0
+Received: by 10.91.32.35 with SMTP id k35mr2583914agj.140.1310659062952; Thu,
+	14 Jul 2011 08:57:42 -0700 (PDT)
+Received: by 10.90.148.11 with HTTP; Thu, 14 Jul 2011 08:57:42 -0700 (PDT)
+In-Reply-To: <ba97d44dfd74473c3b790c0dedcaf362a4acf844.1310656158.git.paul.eggleton@linux.intel.com>
 References: <cover.1310656158.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1310656158.git.paul.eggleton@linux.intel.com>
-References: <cover.1310656158.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 2/2] README.hardware: update MPC8315E-RDB instructions
+	<ba97d44dfd74473c3b790c0dedcaf362a4acf844.1310656158.git.paul.eggleton@linux.intel.com>
+Date: Thu, 14 Jul 2011 11:57:42 -0400
+Message-ID: <CADkTA4OEs2Bj-fmFRnW=FOENSvTXQPo86E3KbGeocD3QSF745w@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/2] linux-yocto: allow configuration of MAC addresses for mpc8315e-rdb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,102 +39,139 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jul 2011 15:13:08 -0000
+X-List-Received-Date: Thu, 14 Jul 2011 15:57:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Update the instructions for setting up the MPC8315E-RDB so that they are
-clearer, use correct filenames, match the other board instructions more
-closely, and include details about how to set the MAC address variables
-prior to building. Additionally, add notes about ordering MPC8315E-RDBA.
+On Thu, Jul 14, 2011 at 11:13 AM, Paul Eggleton
+<paul.eggleton@linux.intel.com> wrote:
+> Add MPC8315ERDB_MAC0 and MPC8315ERDB_MAC1 variables to allow specifying
+> the MAC addresses to be used in the dtb. The default is 00:00:00:00:00:00=
+,
+> however with the version of u-boot supplied from the factory, these must
+> match the hardware or configuring the network at boot time will fail, and
+> thus booting from an NFS root will not work.
+>
+> Newer versions of u-boot support passing MAC address values through and
+> would not need this fix; however in the absence of a safe established
+> procedure for updating u-boot on these boards this workaround will have
+> to suffice.
+>
+> Addresses [YOCTO #1227]
+>
+> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+> ---
+> =A0.../linux/linux-yocto/mpc8315e-rdb-dts.patch =A0 =A0 =A0 | =A0 28 ++++=
+++++++++++++++++
+> =A0.../linux/linux-yocto_2.6.37.bbappend =A0 =A0 =A0 =A0 =A0 =A0 =A0| =A0=
+ 16 +++++++++++
+> =A02 files changed, 44 insertions(+), 0 deletions(-)
+> =A0create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315=
+e-rdb-dts.patch
+>
+> diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts=
+.patch b/meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch
+> new file mode 100644
+> index 0000000..d575d01
+> --- /dev/null
+> +++ b/meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch
+> @@ -0,0 +1,28 @@
+> +Enable configuration of the MAC addresses for the two ethernet ports on
+> +the MPC8315E-RDB. This modifies the dts file, do_configure will use
+> +sed to substitute the appropriate values in, and they will be built into
+> +the dtb file.
+> +
+> +Upstream-status: Inappropriate [configuration]
+> +Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+> +
+> +--- linux/arch/powerpc/boot/dts/mpc8315erdb.dts
+> ++++ linux/arch/powerpc/boot/dts/mpc8315erdb.dts
+> +@@ -205,7 +205,7 @@
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 compatible =3D "gianfar";
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 reg =3D <0x24000 0x1000>;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 ranges =3D <0x0 0x24000 0x1=
+000>;
+> +- =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0local-mac-address =3D [ 00 =
+00 00 00 00 00 ];
+> ++ =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0local-mac-address =3D [ SED=
+_MAC_ADDRESS_0 ];
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 interrupts =3D <32 0x8 33 0=
+x8 34 0x8>;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 interrupt-parent =3D <&ipic=
+>;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 tbi-handle =3D <&tbi0>;
+> +@@ -248,7 +248,7 @@
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 compatible =3D "gianfar";
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 reg =3D <0x25000 0x1000>;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 ranges =3D <0x0 0x25000 0x1=
+000>;
+> +- =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0local-mac-address =3D [ 00 =
+00 00 00 00 00 ];
+> ++ =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0local-mac-address =3D [ SED=
+_MAC_ADDRESS_1 ];
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 interrupts =3D <35 0x8 36 0=
+x8 37 0x8>;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 interrupt-parent =3D <&ipic=
+>;
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 tbi-handle =3D <&tbi1>;
+> diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend =
+b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+> index b12dcef..a1c50a2 100644
+> --- a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+> +++ b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+> @@ -13,3 +13,19 @@ COMPATIBLE_MACHINE_mpc8315e-rdb =3D "mpc8315e-rdb"
+> =A0COMPATIBLE_MACHINE_routerstationpro =3D "routerstationpro"
+> =A0COMPATIBLE_MACHINE_beagleboard =3D "beagleboard"
+> =A0COMPATIBLE_MACHINE_atom-pc =3D "atom-pc"
+> +
+> +FILESEXTRAPATHS_prepend :=3D "${THISDIR}/${PN}:"
+> +SRC_URI_append_mpc8315e-rdb =3D " file://mpc8315e-rdb-dts.patch"
+> +
+> +do_configure_prepend_mpc8315e-rdb() {
+> + =A0 =A0 =A0 if [ -z "${MPC8315ERDB_MAC0}" -o -z "${MPC8315ERDB_MAC1}" ]=
+ ; then
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 echo "Please set MPC8315ERDB_MAC0 and MPC83=
+15ERDB_MAC1 in your local.conf (based on"
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 echo "the MAC addresses from your hardware,=
+ you can use the bdinfo command in u-boot)"
+> + =A0 =A0 =A0 =A0 =A0 =A0 =A0 exit 1
+> + =A0 =A0 =A0 fi
+> + =A0 =A0 =A0 MAC0=3D`echo ${MPC8315ERDB_MAC0} | sed 's/:/ /g'`
+> + =A0 =A0 =A0 MAC1=3D`echo ${MPC8315ERDB_MAC1} | sed 's/:/ /g'`
+> + =A0 =A0 =A0 sed -i -e "s/SED_MAC_ADDRESS_0/$MAC0/g" ${WORKDIR}/linux/ar=
+ch/powerpc/boot/dts/mpc8315erdb.dts
+> + =A0 =A0 =A0 sed -i -e "s/SED_MAC_ADDRESS_1/$MAC1/g" ${WORKDIR}/linux/ar=
+ch/powerpc/boot/dts/mpc8315erdb.dts
+> +}
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- README.hardware |   62 ++++++++++++++++++++++++++++++++++++++++++------------
- 1 files changed, 48 insertions(+), 14 deletions(-)
+The change looks fine, in the sense that it'll work, but it's a lot of hoop=
+s
+to jump through for the mac address. In the past, we've solved this by
+allowing the mac address to be specified via the bootline, which we could
+then simply drop into the boot environment and have it work more
+easily.
 
-diff --git a/README.hardware b/README.hardware
-index 3602957..a471034 100644
---- a/README.hardware
-+++ b/README.hardware
-@@ -239,30 +239,64 @@ software development of network attached storage (NAS) and digital media server
- applications. The MPC8315E-RDB features the PowerQUICC II Pro processor, which
- includes a built-in security accelerator.
- 
-+(Note: you may find it easier to order MPC8315E-RDBA; this appears to be the
-+same board in an enclosure with accessories. In any case it is fully
-+compatible with the instructions given here.)
-+
- Setup instructions
- ------------------
- 
- You will need the following:
--* nfs root setup on your workstation
--* tftp server installed on your workstation
-+* NFS root setup on your workstation
-+* TFTP server installed on your workstation
-+* Null modem cable connected from your workstation to the first serial port
-+  on the board
-+* Ethernet connected to the first ethernet port on the board
-+
-+--- Preparation ---
-+
-+Prior to building, obtain the ethernet MAC addresses from your MPC8315E-RDB
-+system and set them in your build configuration:
-+
-+ 1. Connect the board's first serial port to your workstation and then start up
-+    your favourite serial terminal so that you will be able to interact with
-+    the serial console. If you don't have a favourite, picocom is suggested:
-+
-+  $ picocom /dev/ttyUSB0 -b 115200
-+
-+ 2. Power up or reset the board and press a key on the terminal when prompted
-+    to get to the U-Boot command line
-+
-+ 3. Type bdinfo, press enter, and look for the ethaddr and eth1addr values
-+
-+ 4. Edit your local.conf and set MPC8315ERDB_MAC0 and MPC8315ERDB_MAC1 to the
-+    ethaddr and eth1addr values (respectively) obtained in the previous step.
-+
-+Now you can build the desired image as normal. If you already built an image
-+before this step you will need to rebuild the kernel (virtual/kernel target)
-+before continuing.
-+
-+--- Booting from NFS root ---
-+
-+Load the kernel and dtb (device tree blob), and boot the system as follows:
- 
--Load the kernel and boot it as follows:
-+ 1. Get the kernel (uImage-mpc8315e-rdb.bin) and dtb (uImage-mpc8315e-rdb.dtb)
-+    files from the Poky build tmp/deploy directory, and make them available on
-+    your TFTP server.
- 
-- 1. Get the kernel (uImage.mpc8315erdb) and dtb (mpc8315erdb.dtb) files from
--    the Poky build tmp/deploy directory, and make them available on your tftp
--    server.
-+ 2. Get access to the U-Boot command line as above
- 
-- 2. Set up the environment in U-Boot:
-+ 3. Set up the environment in U-Boot:
- 
-- =>setenv ipaddr <board ip>
-- =>setenv serverip <tftp server ip>
-- =>setenv bootargs root=/dev/nfs rw nfsroot=<nfsroot ip>:<rootfs path> ip=<board ip>:<server ip>:<gateway ip>:255.255.255.0:mpc8315e:eth0:off console=ttyS0,115200
-+ => setenv ipaddr <board ip>
-+ => setenv serverip <tftp server ip>
-+ => setenv bootargs root=/dev/nfs rw nfsroot=<nfsroot ip>:<rootfs path> ip=<board ip>:<server ip>:<gateway ip>:255.255.255.0:mpc8315e:eth0:off console=ttyS0,115200
- 
-- 3. Download kernel and dtb to boot kernel.
-+ 4. Download the kernel and dtb, and boot:
- 
-- =>tftp 800000 uImage.mpc8315erdb
-- =>tftp 780000 mpc8315erdb.dtb
-- =>bootm 800000 - 780000
-+ => tftp 800000 uImage-mpc8315e-rdb.bin
-+ => tftp 780000 uImage-mpc8315e-rdb.dtb
-+ => bootm 800000 - 780000
- 
- 
- Ubiquiti Networks RouterStation Pro (routerstationpro)
--- 
-1.7.4.1
+I didn't think of this when we were talking about this issue, but now that
+I see the change ... it's been faulted into the right memory banks.
 
+I'll dig up these patches, and we can take them for a spin and hopefully we
+can drop this part of the series.
+
+Bruce
+
+> +
+> --
+> 1.7.4.1
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
