@@ -1,23 +1,23 @@
 Return-Path: <paul.eggleton@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 543BE4C800C1
-	for <poky@yoctoproject.org>; Fri, 15 Jul 2011 10:12:08 -0500 (CDT)
+	by mx1.pokylinux.org (Postfix) with ESMTP id 3654E4C80A78
+	for <poky@yoctoproject.org>; Fri, 15 Jul 2011 10:12:09 -0500 (CDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 15 Jul 2011 08:12:08 -0700
+	by orsmga102.jf.intel.com with ESMTP; 15 Jul 2011 08:12:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,536,1304319600"; d="scan'208";a="28104732"
+X-IronPort-AV: E=Sophos;i="4.65,536,1304319600"; d="scan'208";a="28104735"
 Received: from unknown (HELO helios.ger.corp.intel.com) ([10.255.17.182])
-	by orsmga001.jf.intel.com with ESMTP; 15 Jul 2011 08:12:07 -0700
+	by orsmga001.jf.intel.com with ESMTP; 15 Jul 2011 08:12:08 -0700
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 15 Jul 2011 16:12:04 +0100
-Message-Id: <cda7004942b3590fefb021f66a12c4333e1a6a84.1310741956.git.paul.eggleton@linux.intel.com>
+Date: Fri, 15 Jul 2011 16:12:05 +0100
+Message-Id: <73c8a10546d1fda3359c6090e1a87c7dd0d8eeaa.1310741956.git.paul.eggleton@linux.intel.com>
 X-Mailer: git-send-email 1.7.4.1
 In-Reply-To: <cover.1310741956.git.paul.eggleton@linux.intel.com>
 References: <cover.1310741956.git.paul.eggleton@linux.intel.com>
 In-Reply-To: <cover.1310741956.git.paul.eggleton@linux.intel.com>
 References: <cover.1310741956.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 1/2] linux-yocto: fix ethernet at boot time on MPC8315E-RDB
+Subject: [PATCH 2/2] README.hardware: update MPC8315E-RDB instructions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,73 +29,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jul 2011 15:12:08 -0000
+X-List-Received-Date: Fri, 15 Jul 2011 15:12:09 -0000
 
-The default MAC address in the device tree source for the two ethernet
-ports on the MPC8315E-RDB is 00:00:00:00:00:00, however with the version of
-u-boot supplied from the factory, the value in the device tree blob must
-match the hardware or configuring the network at boot time will fail, and
-thus booting from an NFS root will not work.
-
-Newer versions of U-Boot support passing MAC address values through and
-would not need this fix; however in the absence of a safe established
-procedure for updating U-Boot on these boards this workaround will suffice
-(and won't need to be backed out when we are able to upgrade U-Boot).
-
-Addresses [YOCTO #1227]
+Update the instructions for setting up the MPC8315E-RDB so that they are
+clearer, use correct filenames, match the other board instructions more
+closely, and include a note about dealing with non-default MAC addresses.
+Additionally, add a note about ordering MPC8315E-RDBA.
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- .../linux/linux-yocto/mpc8315e-rdb-dts.patch       |   27 ++++++++++++++++++++
- .../linux/linux-yocto_2.6.37.bbappend              |    4 +++
- 2 files changed, 31 insertions(+), 0 deletions(-)
- create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch
+ README.hardware |   55 +++++++++++++++++++++++++++++++++++++++++--------------
+ 1 files changed, 41 insertions(+), 14 deletions(-)
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch b/meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch
-new file mode 100644
-index 0000000..000fbb8
---- /dev/null
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch
-@@ -0,0 +1,27 @@
-+Set the default MAC addresses for the two ethernet ports on the
-+MPC8315E-RDB to the factory default values, allowing ethernet to come up
-+correctly during boot without upgrading U-Boot.
+diff --git a/README.hardware b/README.hardware
+index 3602957..d4f7b47 100644
+--- a/README.hardware
++++ b/README.hardware
+@@ -239,30 +239,57 @@ software development of network attached storage (NAS) and digital media server
+ applications. The MPC8315E-RDB features the PowerQUICC II Pro processor, which
+ includes a built-in security accelerator.
+ 
++(Note: you may find it easier to order MPC8315E-RDBA; this appears to be the
++same board in an enclosure with accessories. In any case it is fully
++compatible with the instructions given here.)
 +
-+Upstream-status: Pending
-+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+ Setup instructions
+ ------------------
+ 
+ You will need the following:
+-* nfs root setup on your workstation
+-* tftp server installed on your workstation
++* NFS root setup on your workstation
++* TFTP server installed on your workstation
++* Null modem cable connected from your workstation to the first serial port
++  on the board
++* Ethernet connected to the first ethernet port on the board
 +
-+--- linux/arch/powerpc/boot/dts/mpc8315erdb.dts
-++++ linux/arch/powerpc/boot/dts/mpc8315erdb.dts
-+@@ -205,7 +205,7 @@
-+ 			compatible = "gianfar";
-+ 			reg = <0x24000 0x1000>;
-+ 			ranges = <0x0 0x24000 0x1000>;
-+-			local-mac-address = [ 00 00 00 00 00 00 ];
-++			local-mac-address = [ 04 00 00 00 00 0A ];
-+ 			interrupts = <32 0x8 33 0x8 34 0x8>;
-+ 			interrupt-parent = <&ipic>;
-+ 			tbi-handle = <&tbi0>;
-+@@ -248,7 +248,7 @@
-+ 			compatible = "gianfar";
-+ 			reg = <0x25000 0x1000>;
-+ 			ranges = <0x0 0x25000 0x1000>;
-+-			local-mac-address = [ 00 00 00 00 00 00 ];
-++			local-mac-address = [ 04 00 00 00 00 0B ];
-+ 			interrupts = <35 0x8 36 0x8 37 0x8>;
-+ 			interrupt-parent = <&ipic>;
-+ 			tbi-handle = <&tbi1>;
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
-index b12dcef..445ab92 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
-@@ -13,3 +13,7 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
- COMPATIBLE_MACHINE_beagleboard = "beagleboard"
- COMPATIBLE_MACHINE_atom-pc = "atom-pc"
++--- Preparation ---
 +
-+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-+SRC_URI_append_mpc8315e-rdb = " file://mpc8315e-rdb-dts.patch"
++Note: if you have altered your board's ethernet MAC address(es) from the
++defaults, or you need to do so because you want multiple boards on the same
++network, then you will need to change the values in the dts file (patch
++linux/arch/powerpc/boot/dts/mpc8315erdb.dts within the kernel source). If
++you have left them at the factory default then you shouldn't need to do
++anything here.
+ 
+-Load the kernel and boot it as follows:
++--- Booting from NFS root ---
 +
++Load the kernel and dtb (device tree blob), and boot the system as follows:
++
++ 1. Get the kernel (uImage-mpc8315e-rdb.bin) and dtb (uImage-mpc8315e-rdb.dtb)
++    files from the Poky build tmp/deploy directory, and make them available on
++    your TFTP server.
++
++ 2. Connect the board's first serial port to your workstation and then start up
++    your favourite serial terminal so that you will be able to interact with
++    the serial console. If you don't have a favourite, picocom is suggested:
++
++  $ picocom /dev/ttyUSB0 -b 115200
+ 
+- 1. Get the kernel (uImage.mpc8315erdb) and dtb (mpc8315erdb.dtb) files from
+-    the Poky build tmp/deploy directory, and make them available on your tftp
+-    server.
++ 3. Power up or reset the board and press a key on the terminal when prompted
++    to get to the U-Boot command line
+ 
+- 2. Set up the environment in U-Boot:
++ 4. Set up the environment in U-Boot:
+ 
+- =>setenv ipaddr <board ip>
+- =>setenv serverip <tftp server ip>
+- =>setenv bootargs root=/dev/nfs rw nfsroot=<nfsroot ip>:<rootfs path> ip=<board ip>:<server ip>:<gateway ip>:255.255.255.0:mpc8315e:eth0:off console=ttyS0,115200
++ => setenv ipaddr <board ip>
++ => setenv serverip <tftp server ip>
++ => setenv bootargs root=/dev/nfs rw nfsroot=<nfsroot ip>:<rootfs path> ip=<board ip>:<server ip>:<gateway ip>:255.255.255.0:mpc8315e:eth0:off console=ttyS0,115200
+ 
+- 3. Download kernel and dtb to boot kernel.
++ 5. Download the kernel and dtb, and boot:
+ 
+- =>tftp 800000 uImage.mpc8315erdb
+- =>tftp 780000 mpc8315erdb.dtb
+- =>bootm 800000 - 780000
++ => tftp 800000 uImage-mpc8315e-rdb.bin
++ => tftp 780000 uImage-mpc8315e-rdb.dtb
++ => bootm 800000 - 780000
+ 
+ 
+ Ubiquiti Networks RouterStation Pro (routerstationpro)
 -- 
 1.7.4.1
 
