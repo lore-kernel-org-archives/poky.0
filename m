@@ -1,36 +1,19 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A6DAE4C8007E
-	for <poky@yoctoproject.org>; Fri, 15 Jul 2011 09:08:52 -0500 (CDT)
-Authentication-Results: mx1.pokylinux.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by yic24 with SMTP id 24so738222yic.35
-	for <poky@yoctoproject.org>; Fri, 15 Jul 2011 07:08:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	bh=YSVP6Vp248qL8OFUbAeQKdSx02Zjz4hNiHAAKfmQRy8=;
-	b=SjSRhpuNEI8hzwMD7eyOlkjsknPOXjAlL+NAyPj9tMWQ7ibM9vpjADk2GagT1haoIZ
-	3NZhiBis59GwybtUw1sp7Bcbqmrzw4V4PbrHzTFcuZNk1q7VSb6ZdaZPlDbZt0pJKeyR
-	+nVd8yEIZWBxNNsYTEyOOvvLBukkaOP+HhiW8=
-MIME-Version: 1.0
-Received: by 10.90.248.10 with SMTP id v10mr3626941agh.54.1310738930184; Fri,
-	15 Jul 2011 07:08:50 -0700 (PDT)
-Received: by 10.91.164.38 with HTTP; Fri, 15 Jul 2011 07:08:50 -0700 (PDT)
-In-Reply-To: <4E204856.1030908@mentor.com>
-References: <cover.1310656158.git.paul.eggleton@linux.intel.com>
-	<ba97d44dfd74473c3b790c0dedcaf362a4acf844.1310656158.git.paul.eggleton@linux.intel.com>
-	<CADkTA4OEs2Bj-fmFRnW=FOENSvTXQPo86E3KbGeocD3QSF745w@mail.gmail.com>
-	<201107141717.19891.paul.eggleton@linux.intel.com>
-	<4E204856.1030908@mentor.com>
-Date: Fri, 15 Jul 2011 10:08:50 -0400
-Message-ID: <CADkTA4PVr5Ku0fM+TBeBbNEUvuKJv4SKehCi+AbrdwpVkw2QBg@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Tom Rini <tom_rini@mentor.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/2] linux-yocto: allow configuration of MAC addresses for mpc8315e-rdb
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id BC93C4C800C1
+	for <poky@yoctoproject.org>; Fri, 15 Jul 2011 10:12:07 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 15 Jul 2011 08:12:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.65,536,1304319600"; d="scan'208";a="28104730"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.255.17.182])
+	by orsmga001.jf.intel.com with ESMTP; 15 Jul 2011 08:12:06 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 15 Jul 2011 16:12:03 +0100
+Message-Id: <cover.1310741956.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.4.1
+Subject: [PATCH 0/2] MPC8315E-RDB fixes v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,66 +25,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jul 2011 14:08:52 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 15 Jul 2011 15:12:08 -0000
 
-On Fri, Jul 15, 2011 at 10:01 AM, Tom Rini <tom_rini@mentor.com> wrote:
-> On 07/14/2011 09:17 AM, Paul Eggleton wrote:
->> On Thursday 14 July 2011 16:57:42 Bruce Ashfield wrote:
->>> The change looks fine, in the sense that it'll work, but it's a lot of
->>> hoops to jump through for the mac address. In the past, we've solved th=
-is
->>> by allowing the mac address to be specified via the bootline, which we
->>> could then simply drop into the boot environment and have it work more
->>> easily.
->>>
->>> I didn't think of this when we were talking about this issue, but now t=
-hat
->>> I see the change ... it's been faulted into the right memory banks.
->>>
->>> I'll dig up these patches, and we can take them for a spin and hopefull=
-y we
->>> can drop this part of the series.
->>
->> If we have a better solution that would make things easier for the user =
-I'd
->> definitely prefer it over this.
->
-> I know we mentioned this on IRC, but why not just ask the user to
-> upgrade U-Boot? =A0This isn't a bleeding edge board so that shouldn't be
-> difficult...
+Fix the default ethernet MAC addresses so that networking works at boot time,
+and improve our setup instructions for this machine.
 
-That's definitely the right solution, and the one that I'm talking about ag=
-ain
-via the bug/email.  The only reason we are not quite there yet, is due to
-an unfortunate board bricking episode. Once we've got jtag and a few minute=
-s,
-we'll revisit the u-boot update (it should be trivial) and once confirmed s=
-imply
-go with that.
+(Since v1, simplify things by removing the configurable MAC address
+variables, as all of these boards should have the same MAC addresses from
+the factory.)
 
-So that being said, I'm definitely leaning away from any patches like this,=
- just
-so we don't have anything to undo once later.
+Note, Bruce may choose to merge the kernel patch into the linux-yocto
+repository itself.
 
-Cheers,
+The following changes since commit fa4bcfdb73167f8159b88e5a4d711c0d37627a70:
 
-Bruce
+  bb-matrix: correct BB and PM number canonicalization (2011-07-14 22:23:09 +0100)
 
->
-> --
-> Tom Rini
-> Mentor Graphics Corporation
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib paule/mpc8315erdb-fixes-2
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/mpc8315erdb-fixes-2
 
+Paul Eggleton (2):
+  linux-yocto: fix ethernet at boot time on MPC8315E-RDB
+  README.hardware: update MPC8315E-RDB instructions
 
+ README.hardware                                    |   55 +++++++++++++++-----
+ .../linux/linux-yocto/mpc8315e-rdb-dts.patch       |   27 ++++++++++
+ .../linux/linux-yocto_2.6.37.bbappend              |    4 ++
+ 3 files changed, 72 insertions(+), 14 deletions(-)
+ create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto/mpc8315e-rdb-dts.patch
 
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+-- 
+1.7.4.1
+
 
