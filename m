@@ -1,24 +1,25 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 47BC34C800AB
-	for <poky@yoctoproject.org>; Thu, 14 Jul 2011 11:17:23 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 14 Jul 2011 09:17:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.65,529,1304319600"; d="scan'208";a="30329198"
-Received: from unknown (HELO helios.localnet) ([10.255.17.207])
-	by fmsmga001.fm.intel.com with ESMTP; 14 Jul 2011 09:17:20 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 14 Jul 2011 17:17:19 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic-pae; KDE/4.6.2; i686; ; )
-References: <cover.1310656158.git.paul.eggleton@linux.intel.com>
-	<ba97d44dfd74473c3b790c0dedcaf362a4acf844.1310656158.git.paul.eggleton@linux.intel.com>
-	<CADkTA4OEs2Bj-fmFRnW=FOENSvTXQPo86E3KbGeocD3QSF745w@mail.gmail.com>
-In-Reply-To: <CADkTA4OEs2Bj-fmFRnW=FOENSvTXQPo86E3KbGeocD3QSF745w@mail.gmail.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id C93084C80A8F
+	for <poky@yoctoproject.org>; Fri, 15 Jul 2011 07:22:16 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 4167516601A8; Fri, 15 Jul 2011 06:22:16 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id A3176166019E;
+	Fri, 15 Jul 2011 06:22:11 -0600 (MDT)
+Message-ID: <4E2030F3.9050906@mlbassoc.com>
+Date: Fri, 15 Jul 2011 06:22:11 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
 MIME-Version: 1.0
-Message-Id: <201107141717.19891.paul.eggleton@linux.intel.com>
-Subject: Re: [PATCH 1/2] linux-yocto: allow configuration of MAC addresses for mpc8315e-rdb
+To: Poky Project <poky@yoctoproject.org>
+Subject: TERMCMD and SSH
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,32 +31,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jul 2011 16:17:23 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Fri, 15 Jul 2011 12:22:17 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thursday 14 July 2011 16:57:42 Bruce Ashfield wrote:
-> The change looks fine, in the sense that it'll work, but it's a lot of
-> hoops to jump through for the mac address. In the past, we've solved this
-> by allowing the mac address to be specified via the bootline, which we
-> could then simply drop into the boot environment and have it work more
-> easily.
-> 
-> I didn't think of this when we were talking about this issue, but now that
-> I see the change ... it's been faulted into the right memory banks.
-> 
-> I'll dig up these patches, and we can take them for a spin and hopefully we
-> can drop this part of the series.
+I often build Poky on remote systems which I access using 'ssh -X' (SSH
+connection with X forwarding).  However, I have problems when the build
+needs to open a terminal window, e.g. 'bitbake virtual/kernel -c menuconfig'
+I get this error:
 
-If we have a better solution that would make things easier for the user I'd 
-definitely prefer it over this.
+| Failed to summon the GConf demon; exiting.  Failed to contact configuration server; some possible causes are that you need to enable TCP/IP networking for ORBit, or you have 
+stale NFS locks due to a system crash. See http://projects.gnome.org/gconf/ for information. (Details -  1: Failed to get connection to session: Address does not contain a colon)
 
-Cheers,
-Paul
+As far as I can see, bitbake is trying to run this command:
+   gnome-terminal --disable-factory -t "something" -x "make menuconfig"
+
+If I run this command manually from my SSH window, it works fine.
+How can I get it working from bitbake?  I tried adding 'SSH_CONNECTION'
+and 'DISPLAY' (both set specially in this situation) to BB_ENV_EXTRAWHITE
+without success.
+
+Thanks
 
 -- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
