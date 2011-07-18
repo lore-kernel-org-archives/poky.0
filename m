@@ -1,18 +1,22 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 10DEF4C800E5
+	by mx1.pokylinux.org (Postfix) with ESMTP id CA9134C800B2
 	for <poky@yoctoproject.org>; Mon, 18 Jul 2011 15:51:42 -0500 (CDT)
 Received: from yow-bashfiel-l1.corp.ad.wrs.com
 	(dhcp-146-217.ottawa.windriver.com [128.224.146.217])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6IKpaOE016605;
-	Mon, 18 Jul 2011 13:51:37 -0700 (PDT)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6IKpaOF016605;
+	Mon, 18 Jul 2011 13:51:38 -0700 (PDT)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: richard.purdie@linuxfoundation.org
-Date: Mon, 18 Jul 2011 16:51:34 -0400
-Message-Id: <cover.1311022118.git.bruce.ashfield@windriver.com>
+Date: Mon, 18 Jul 2011 16:51:35 -0400
+Message-Id: <caf8b76b849de31ddc5be0c9994f7721e56c2ddc.1311022118.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.4.1
+In-Reply-To: <cover.1311022118.git.bruce.ashfield@windriver.com>
+References: <cover.1311022118.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1311022118.git.bruce.ashfield@windriver.com>
+References: <cover.1311022118.git.bruce.ashfield@windriver.com>
 Cc: paul.eggleton@linux.intel.com, poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 0/1] linux-yocto: update SRCREVs
+Subject: [PATCH 1/1] linux-yocto: update mpc8315erdb SRCREV
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,15 +30,9 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 18 Jul 2011 20:51:43 -0000
 
-Saul/Richard,
+Fixes [YOCTO #1227]
 
-Here's another kernel pull request, this is stacked on top
-of any pending requests that I have out.  If there's issues with
-the exising ones, just let me know and I'll resend.
-
-This new one Fixes [YOCTO #1227]
-
-And contains this commit to the kernel.
+Updating the fsl-mpc8315erdb SRCREV to include the following commit:
 
 [
     mpc8315erdb: fix ethernet at boot time
@@ -46,22 +44,24 @@ And contains this commit to the kernel.
     Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ]
 
-cc: Paul Eggleton <paul.eggleton@linux.intel.com>
-
-The following changes since commit cd10391398897106d2618c82bc7403353bb7d5f6:
-
-  linux-yocto/meta-yocto: update SRCREVS (2011-07-15 13:08:59 -0400)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
-
-Bruce Ashfield (1):
-  linux-yocto: update mpc8315erdb SRCREV
-
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
  .../linux/linux-yocto_2.6.37.bbappend              |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
+diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+index ba25c3a..56c3d18 100644
+--- a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
++++ b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
+@@ -6,7 +6,7 @@ KMACHINE_beagleboard = "yocto/standard/beagleboard"
+ SRCREV_machine_emenlow = "398d5adac19cb411cd80753e177769f6a666a7e7"
+ SRCREV_machine_atom-pc = "fce17f046d3756045e4dfb49221d1cf60fcae329"
+ SRCREV_machine_routerstationpro = "8f84c1aec0907766ab6d6ac79fcc3b7b9ce79b70"
+-SRCREV_machine_mpc8315e-rdb = "2c54835ac49cd8abaf294009a00ccc516daa31cd"
++SRCREV_machine_mpc8315e-rdb = "bda049366dad5fc3c7ba229cd4633992581e7a1f"
+ SRCREV_machine_beagleboard = "3ddb22772862a8223640fa97580569924f51bddc"
+ 
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
 -- 
 1.7.4.1
 
