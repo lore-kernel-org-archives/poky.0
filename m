@@ -1,37 +1,36 @@
-Return-Path: <Paul.Ourada@Covidien.com>
-Received: from mx01no.tycohealthcare.com (mx01no.tycohealthcare.com
-	[216.75.208.72])
-	by mx1.pokylinux.org (Postfix) with ESMTP id EBD234C800AB
-	for <poky@yoctoproject.org>; Wed, 20 Jul 2011 16:44:16 -0500 (CDT)
-X-IronPort-AV: E=Sophos;i="4.67,237,1309752000"; d="scan'208";a="274562950"
-Received: from unknown (HELO tamans-bh02.thcg.net) ([10.80.3.108])
-	by mx01no.tycohealthcare.com with ESMTP; 20 Jul 2011 17:44:16 -0400
-Received: from TAMANS-HT100V.thcg.net ([10.80.9.28]) by tamans-bh02.thcg.net
-	with Microsoft SMTPSVC(6.0.3790.4675); 
-	Wed, 20 Jul 2011 17:44:16 -0400
-Received: from TAMANS-HT101V.thcg.net (10.80.9.29) by TAMANS-HT100V.thcg.net
-	(10.80.9.28) with Microsoft SMTP Server (TLS) id 14.1.289.1;
-	Wed, 20 Jul 2011 17:44:16 -0400
-Received: from TAMANS-MB100V.thcg.net ([169.254.8.4]) by
-	TAMANS-HT101V.thcg.net ([10.80.9.29]) with mapi id 14.01.0289.001;
-	Wed, 20 Jul 2011 17:43:55 -0400
-From: "Ourada, Paul" <Paul.Ourada@Covidien.com>
-To: "Zhang, Jessica" <jessica.zhang@intel.com>, Gary Thomas
-	<gary@mlbassoc.com>, Poky Project <poky@yoctoproject.org>
+Return-Path: <jessica.zhang@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by mx1.pokylinux.org (Postfix) with ESMTP id CF3794C800AB
+	for <poky@yoctoproject.org>; Wed, 20 Jul 2011 16:49:27 -0500 (CDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 20 Jul 2011 14:49:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,237,1309762800"; d="scan'208";a="30045451"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.226.49])
+	by orsmga001.jf.intel.com with ESMTP; 20 Jul 2011 14:49:23 -0700
+Received: from orsmsx106.amr.corp.intel.com (10.22.225.133) by
+	orsmsx603.amr.corp.intel.com (10.22.226.49) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Wed, 20 Jul 2011 14:49:22 -0700
+Received: from orsmsx101.amr.corp.intel.com ([169.254.8.233]) by
+	ORSMSX106.amr.corp.intel.com ([169.254.5.75]) with mapi id
+	14.01.0289.001; Wed, 20 Jul 2011 14:49:22 -0700
+From: "Zhang, Jessica" <jessica.zhang@intel.com>
+To: "Ourada, Paul" <Paul.Ourada@Covidien.com>, Gary Thomas
+	<gary@mlbassoc.com>, Poky Project <poky@yoctoproject.org>, "Flanagan,
+	Elizabeth" <elizabeth.flanagan@intel.com>
 Thread-Topic: [poky] SDK (GMAE) questions
-Thread-Index: AQHMRxkA3iH02uim0kS60ag7EEJvMJT1/zKA//+9nBA=
-Date: Wed, 20 Jul 2011 21:43:54 +0000
-Message-ID: <4D9E0AFD9C2FCC428A8EAADA898F5B2D8F54@TAMANS-MB100V.thcg.net>
+Thread-Index: AQHMRxkAZ51rmeST7E2t4INIlbRPB5T1uoFAgAB44wD//4udIA==
+Date: Wed, 20 Jul 2011 21:49:22 +0000
+Message-ID: <C6510F6D410BB64A8C15398EDC6B847C136F6171@ORSMSX101.amr.corp.intel.com>
 References: <4E2735F8.3060409@mlbassoc.com>
 	<C6510F6D410BB64A8C15398EDC6B847C136F6102@ORSMSX101.amr.corp.intel.com>
-In-Reply-To: <C6510F6D410BB64A8C15398EDC6B847C136F6102@ORSMSX101.amr.corp.intel.com>
+	<4D9E0AFD9C2FCC428A8EAADA898F5B2D8F54@TAMANS-MB100V.thcg.net>
+In-Reply-To: <4D9E0AFD9C2FCC428A8EAADA898F5B2D8F54@TAMANS-MB100V.thcg.net>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.80.12.25]
+x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-X-OriginalArrivalTime: 20 Jul 2011 21:44:16.0070 (UTC)
-	FILETIME=[2C136660:01CC4726]
 Subject: Re: SDK (GMAE) questions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -44,10 +43,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jul 2011 21:44:17 -0000
+X-List-Received-Date: Wed, 20 Jul 2011 21:49:28 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Paul,
+
+Thanks for the interest.  I'll adding Beth, our release engineer to the ema=
+il thread since she's managing our auto builder which generate the weekly, =
+nightly build, etc through scripts.
+
+Thanks,
+Jessica
+
+-----Original Message-----
+From: Ourada, Paul [mailto:Paul.Ourada@Covidien.com]
+Sent: Wednesday, July 20, 2011 2:44 PM
+To: Zhang, Jessica; Gary Thomas; Poky Project
+Subject: RE: [poky] SDK (GMAE) questions
 
 Hi Jessica -
 
