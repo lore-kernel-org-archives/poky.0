@@ -1,39 +1,33 @@
 Return-Path: <jessica.zhang@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 03AE84C800A1
-	for <poky@yoctoproject.org>; Thu, 21 Jul 2011 14:42:11 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 21 Jul 2011 12:42:11 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by mx1.pokylinux.org (Postfix) with ESMTP id A05474C8009D;
+	Thu, 21 Jul 2011 17:59:36 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Jul 2011 15:59:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,242,1309762800"; d="scan'208";a="30477918"
+X-IronPort-AV: E=Sophos;i="4.67,244,1309762800"; d="scan'208,217";a="30950244"
 Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
-	by orsmga001.jf.intel.com with ESMTP; 21 Jul 2011 12:42:00 -0700
-Received: from orsmsx103.amr.corp.intel.com (10.22.225.130) by
+	by fmsmga002.fm.intel.com with ESMTP; 21 Jul 2011 15:59:35 -0700
+Received: from orsmsx151.amr.corp.intel.com (10.22.226.38) by
 	orsmsx602.amr.corp.intel.com (10.22.226.211) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 21 Jul 2011 12:42:00 -0700
+	(TLS) id 8.2.255.0; Thu, 21 Jul 2011 15:59:36 -0700
 Received: from orsmsx101.amr.corp.intel.com ([169.254.8.233]) by
-	ORSMSX103.amr.corp.intel.com ([169.254.2.105]) with mapi id
-	14.01.0289.001; Thu, 21 Jul 2011 12:41:59 -0700
+	ORSMSX151.amr.corp.intel.com ([169.254.5.9]) with mapi id
+	14.01.0289.001; Thu, 21 Jul 2011 15:59:35 -0700
 From: "Zhang, Jessica" <jessica.zhang@intel.com>
-To: "Ourada, Paul" <Paul.Ourada@Covidien.com>, Gary Thomas
-	<gary@mlbassoc.com>, Poky Project <poky@yoctoproject.org>, "Flanagan,
-	Elizabeth" <elizabeth.flanagan@intel.com>
-Thread-Topic: [poky] WAS: SDK (GMAE) questions NOW: build scripting question
-Thread-Index: AQHMR91BcKwwmo3Ui0yBbf8otcf/K5T3K83Q
-Date: Thu, 21 Jul 2011 19:41:58 +0000
-Message-ID: <C6510F6D410BB64A8C15398EDC6B847C136F76FD@ORSMSX101.amr.corp.intel.com>
-References: <4E2735F8.3060409@mlbassoc.com>
-	<C6510F6D410BB64A8C15398EDC6B847C136F6102@ORSMSX101.amr.corp.intel.com>
-	<4D9E0AFD9C2FCC428A8EAADA898F5B2D8F54@TAMANS-MB100V.thcg.net>
-	<C6510F6D410BB64A8C15398EDC6B847C136F6171@ORSMSX101.amr.corp.intel.com>
-	<4D9E0AFD9C2FCC428A8EAADA898F5B2D94E0@TAMANS-MB100V.thcg.net>
-In-Reply-To: <4D9E0AFD9C2FCC428A8EAADA898F5B2D94E0@TAMANS-MB100V.thcg.net>
+To: Poky Project <poky@yoctoproject.org>, "yocto@yoctoproject.org"
+	<yocto@yoctoproject.org>
+Thread-Topic: Yocto bug traige call for action: Please Verify Resolved bugs
+	in bugzilla
+Thread-Index: AcxH+dk748o3/UUXTS6RbXT17sE/pg==
+Date: Thu, 21 Jul 2011 22:59:34 +0000
+Message-ID: <C6510F6D410BB64A8C15398EDC6B847C136F8894@ORSMSX101.amr.corp.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [10.22.254.132]
 MIME-Version: 1.0
-Subject: Re: WAS: SDK (GMAE) questions NOW: build scripting question
+Subject: Yocto bug traige call for action: Please Verify Resolved bugs in bugzilla
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,134 +39,106 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jul 2011 19:42:12 -0000
+X-List-Received-Date: Thu, 21 Jul 2011 22:59:37 -0000
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_C6510F6D410BB64A8C15398EDC6B847C136F8894ORSMSX101amrcor_"
+
+--_000_C6510F6D410BB64A8C15398EDC6B847C136F8894ORSMSX101amrcor_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Yes, this is the command line to generate the target rootfs, build the cros=
-s toolchain and also the ipk package index.  You can definitely build your =
-automated build setup from there.
-
------Original Message-----
-From: Ourada, Paul [mailto:Paul.Ourada@Covidien.com]
-Sent: Thursday, July 21, 2011 12:35 PM
-To: Zhang, Jessica; Gary Thomas; Poky Project; Flanagan, Elizabeth
-Subject: RE: [poky] WAS: SDK (GMAE) questions NOW: build scripting question
-
-OK, I think I found out how to do this in one of this year's ELC presentati=
-ons on Yocto by David Stewart (Intel).
-
-CLI-prompt>MACHINE=3D[qemu[x86|arm] | atom-pc | emenlow | ...] bitbake poky=
--image-sato-sdk meta-toolchain package-index ...
-
-Am I on the right track?
-
-Thanks for listening! :)
-
-Paul
-
-Paul E. Ourada
-Sr. Principal Software Engineer
-Covidien, Energy-based Devices
-5920 Longbow Drive
-Boulder, CO 80301
-paul.ourada@covidien.com
-www.covidien.com
-Main: 303-530-2300
-Ofc: 303-581-6940
-Fax: 303-581-6741
+Hi All,
 
 
------Original Message-----
-From: Zhang, Jessica [mailto:jessica.zhang@intel.com]
-Sent: Wednesday, July 20, 2011 3:49 PM
-To: Ourada, Paul; Gary Thomas; Poky Project; Flanagan, Elizabeth
-Subject: RE: [poky] SDK (GMAE) questions
 
-Hi Paul,
+In today's bug triage meeting, we noticed there're total 564 bugs that are =
+in "Resolved" status.  The process is once a bug is in Resolved status, the=
+ original reporter of the bug should verify the resolution, either a valid =
+fix or acceptable reason and mark the bug as "Verified".  So please take a =
+look at Yocto bugzilla (http://bugzilla.pokylinux.org/buglist.cgi?query_for=
+mat=3Dadvanced&bug_status=3DRESOLVED) and verify those bugs that you've rep=
+orted and now is marked as Resolved.
 
-Thanks for the interest.  I'll adding Beth, our release engineer to the ema=
-il thread since she's managing our auto builder which generate the weekly, =
-nightly build, etc through scripts.
+
 
 Thanks,
+
 Jessica
 
------Original Message-----
-From: Ourada, Paul [mailto:Paul.Ourada@Covidien.com]
-Sent: Wednesday, July 20, 2011 2:44 PM
-To: Zhang, Jessica; Gary Thomas; Poky Project
-Subject: RE: [poky] SDK (GMAE) questions
 
-Hi Jessica -
+--_000_C6510F6D410BB64A8C15398EDC6B847C136F8894ORSMSX101amrcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-This is interesting to me, because I'm also getting started on a Poky proje=
-ct. How would you automate the different target builds? I'm contemplating a=
- qemu build for on-host debug, and an atom-pc release target. I know that t=
-here's a MACHINE variable in local.conf, but I'd like to script this for au=
-tomated nightly builds.
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi All,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-top:12.0pt">In today&#8217;s bug tri=
+age meeting, we noticed there&#8217;re total 564 bugs that are in &#8220;Re=
+solved&#8221; status.&nbsp; The process is once a bug is in Resolved status=
+, the original reporter of the bug should verify the resolution,
+ either a valid fix or acceptable reason and mark the bug as &#8220;Verifie=
+d&#8221;.&nbsp; So please take a look at Yocto bugzilla (<a href=3D"http://=
+bugzilla.pokylinux.org/buglist.cgi?query_format=3Dadvanced&amp;bug_status=
+=3DRESOLVED">http://bugzilla.pokylinux.org/buglist.cgi?query_format=3Dadvan=
+ced&amp;bug_status=3DRESOLVED</a>)
+ and verify those bugs that you&#8217;ve reported and now is marked as Reso=
+lved.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Jessica<o:p></o:p></p>
+</div>
+</body>
+</html>
 
-Paul E. Ourada
-Sr. Principal Software Engineer
-Covidien, Energy-based Devices
-5920 Longbow Drive
-Boulder, CO 80301
-paul.ourada@covidien.com
-www.covidien.com
-Main: 303-530-2300
-Ofc: 303-581-6940
-Fax: 303-581-6741
-
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Zhang, Jessica
-Sent: Wednesday, July 20, 2011 3:37 PM
-To: Gary Thomas; Poky Project
-Subject: Re: [poky] SDK (GMAE) questions
-
-Hi Gary,
-
-You can achieve one host to support multiple target config, through Yocto a=
-dt-installer, this way you'll have desired target cross toolchain installed=
- under /opt/poky instead of all the overlapping packages.  Since the Yocto =
-toolchain supports sysroot, you can setup your sysroot by using your target=
- image rootfs under desired directories of your choice.  Also, since adt-in=
-staller is based on ipk, it's easier to customize your sysroot setup throug=
-h opkg pkgm.
-
-Thanks,
-Jessica
-
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Gary Thomas
-Sent: Wednesday, July 20, 2011 1:09 PM
-To: Poky Project
-Subject: [poky] SDK (GMAE) questions
-
-I'd like to use one host machine to support multiple target configurations,
-e.g. ppc603 + armv7a + armv5e  Currently, if I build the SDK, it seems that
-there are too many overlaps, conflicts, for this to work.  Am I missing
-something?
-
-Also, is there a way I can [easily] select what goes into the SDK?  For
-example, my armv5e targets are bare with no X, etc, so it seems silly
-to populate the SDK with tons of X oriented packages.
-
-Thanks for any pointers
-
---
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
-
+--_000_C6510F6D410BB64A8C15398EDC6B847C136F8894ORSMSX101amrcor_--
