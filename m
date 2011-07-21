@@ -1,25 +1,36 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C15154C800A1
-	for <poky@yoctoproject.org>; Thu, 21 Jul 2011 14:00:42 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 3CEFE16603F5; Thu, 21 Jul 2011 13:00:42 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id DB9C816603EF;
-	Thu, 21 Jul 2011 13:00:41 -0600 (MDT)
-Message-ID: <4E287759.3050806@mlbassoc.com>
-Date: Thu, 21 Jul 2011 13:00:41 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pz0-f50.google.com (mail-pz0-f50.google.com
+	[209.85.210.50])
+	by mx1.pokylinux.org (Postfix) with ESMTP id EF9EC4C800A1
+	for <poky@yoctoproject.org>; Thu, 21 Jul 2011 14:18:20 -0500 (CDT)
+Authentication-Results: mx1.pokylinux.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by pzk2 with SMTP id 2so3058493pzk.23
+	for <poky@yoctoproject.org>; Thu, 21 Jul 2011 12:18:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	bh=ISd8DAiDA8ZxLMBVvcuKC08diXyBvmAk/B3wTQTqJ/s=;
+	b=D6aYqAriE0LndQ4SebR0FjDSu9rOTUMON++Er+OiW74uOaTqGx5AwsN2opTZmP/rxL
+	eAi9tlquPZvyiap9VPOwA34LPRDcPWLprtybyNgZm08ifNZWNxDUgrX09hVLPZ93hub/
+	/v2PpyeH2N0E66UcCsAX9N4gNtQsJTCSqSoAg=
+Received: by 10.68.9.165 with SMTP id a5mr819535pbb.412.1311275900050; Thu, 21
+	Jul 2011 12:18:20 -0700 (PDT)
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: meta-toolchain question
+Received: by 10.68.62.36 with HTTP; Thu, 21 Jul 2011 12:17:49 -0700 (PDT)
+In-Reply-To: <4E244458.8040406@mlbassoc.com>
+References: <4E243A67.3090400@mlbassoc.com>
+	<CABcZANmcWYoF4wb6Nx=w9LDhaRdzSdhc9XOHD7n8w_NfskGThA@mail.gmail.com>
+	<4E243DA5.4090207@mlbassoc.com>
+	<CABcZANnQ9J9DDdVMgjbF2nKwcwOBcMp9XyHyBDwRyiHAYvu=iA@mail.gmail.com>
+	<1310999306.20015.1267.camel@rex> <4E244458.8040406@mlbassoc.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 21 Jul 2011 12:17:49 -0700
+Message-ID: <CAMKF1srZMrVH357sEQ-xAHtw4BJg9QAHnWjWm4TqHmeEEFPRkw@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: Chris Larson <clarson@kergoth.com>, Poky Project <poky@yoctoproject.org>
+Subject: Re: Order of .conf processing?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,36 +42,80 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jul 2011 19:00:43 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 21 Jul 2011 19:18:21 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-When I build the meta-toolchain for my armv5te target, I see
-some confusing paths.  For example, why is the environment script named
-   /opt/poky/1.00+snapshot/environment-setup-armv5te-poky-linux-gnueabi
-but the sysroot is named
-   /opt/poky/1.00+snapshot/sysroots/arm-poky-linux-gnueabi
-Why isn't it
-   /opt/poky/1.00+snapshot/sysroots/armv5te-poky-linux-gnueabi
+On Mon, Jul 18, 2011 at 7:34 AM, Gary Thomas <gary@mlbassoc.com> wrote:
+> On 07/18/2011 08:28 AM, Richard Purdie wrote:
+>>
+>> On Mon, 2011-07-18 at 07:12 -0700, Chris Larson wrote:
+>>>
+>>> On Mon, Jul 18, 2011 at 7:05 AM, Gary Thomas<gary@mlbassoc.com> =C2=A0w=
+rote:
+>>>>
+>>>> On 07/18/2011 07:59 AM, Chris Larson wrote:
+>>>>>
+>>>>> On Mon, Jul 18, 2011 at 6:51 AM, Gary Thomas<gary@mlbassoc.com>
+>>>>> wrote:
+>>>>>>
+>>>>>> What's the order of processing of the various .conf files?
+>>>>>>
+>>>>>> It seems to me that bitbake.conf must be first as it seems
+>>>>>> impossible to override settings in that file using a soft
+>>>>>> assignment. =C2=A0In particular, local.conf often has soft settings
+>>>>>> but these dont' seem to change what's in bitbake.conf
+>>>>>
+>>>>> BitBake only parses one global configuration file, bitbake.conf. It's
+>>>>> bitbake.conf that includes/requires all the other configuration files=
+.
+>>>>> You can see the order by reading those inclusions in bitbake.conf.
+>>>>> Historically, the intention was for the configuration file load order
+>>>>> to be relatively parallel to the overrides order -- two different
+>>>>> mechanisms for implementing what is essentially a layered architectur=
+e
+>>>>> for the metadata, allowing, generally, more specific information to
+>>>>> override more general information. The configuration file order
+>>>>> differs slightly from that, however, as it's not possible to load the
+>>>>> distro or machine config files after local.conf, as local.conf is
+>>>>> generally where DISTRO and MACHINE are defined.
+>>>>
+>>>> In that case, isn't using ?=3D assignments in bitbake.conf a bit
+>>>> misleading?
+>>>
+>>> First, there is one place variables can come from before the
+>>> configuration files, and that's the process environment, for variables
+>>> which aren't filtered out. Second, it could use ?=3D sanely after the
+>>> configuration files are included, as well.
+>>
+>> It does this second part pretty clearly:
+>>
+>> [...]
+>> require conf/xxx.conf
+>> require conf/yyy.conf
+>>
+>> TUNE_ARCH ?=3D "INVALID"
+>> TUNE_FEATURES ?=3D "${TUNE_FEATURES_tune-${TUNENAME}}"
+>>
+>> ##################################################################
+>> # Weak variables (usually to retain backwards compatibility)
+>> ##################################################################
+>>
+>> DL_DIR ?=3D "${TOPDIR}/downloads"
+>> [...]
+>>
+>> so most of the ?=3D variables are after the includes.
+>>
+>> Looking at the file, there are some good candidates for either =3D or ??=
+=3D
+>> though, including I suspect the console ones which are likely what
+>> prompted this?
+>
+> Yes, I tried to override TERMCMD using ?=3D in local.conf and that didn't
+> work. =C2=A0Using =3D fixed it though.
 
-I even see some stranger paths, like these
-   /opt/poky/1.00+snapshot/sysroots/i686-pokysdk-linux/usr/lib/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi
-
-I would think it should be armv5te-poky-linux-gnueabi everywhere.
-
-If I wanted to also have a meta-toolchain for armv7a, there would
-be a clash since they both use the same sysroots.
-
-Note: I sort of asked this question yesterday and the answer was
-"use ADT".  I don't see that ADT will solve this and I also find
-ADT much to heavyweight for my customers who just want a simple
-toolchain that matches their Poky-built system.
-
-Thanks
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+?=3D means you still wanted others places to override it if any
+local.conf settings are mostly like what you want to have override over oth=
+ers
+so using =3D would be right here.
 
