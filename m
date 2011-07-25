@@ -1,23 +1,22 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 307F14C80332
-	for <poky@yoctoproject.org>; Mon, 25 Jul 2011 10:31:45 -0500 (CDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 25 Jul 2011 08:31:44 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 257634C801BF
+	for <poky@yoctoproject.org>; Mon, 25 Jul 2011 10:37:11 -0500 (CDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 25 Jul 2011 08:37:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,262,1309762800"; d="scan'208";a="29820065"
-Received: from unknown (HELO [10.255.14.61]) ([10.255.14.61])
-	by orsmga002.jf.intel.com with ESMTP; 25 Jul 2011 08:31:40 -0700
-Message-ID: <4E2D8C5C.6060808@linux.intel.com>
-Date: Mon, 25 Jul 2011 08:31:40 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc13 Thunderbird/3.1.10
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.67,262,1309762800"; d="scan'208";a="31183709"
+Received: from unknown (HELO helios.localnet) ([10.255.17.240])
+	by azsmga001.ch.intel.com with ESMTP; 25 Jul 2011 08:37:09 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 25 Jul 2011 16:37:08 +0100
+User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic-pae; KDE/4.6.2; i686; ; )
 References: <cover.1311603837.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1311603837.git.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
+	<4E2D8C5C.6060808@linux.intel.com>
+In-Reply-To: <4E2D8C5C.6060808@linux.intel.com>
+MIME-Version: 1.0
+Message-Id: <201107251637.08912.paul.eggleton@linux.intel.com>
 Subject: Re: [PATCH 0/6] meta-yocto: cleanup of local.conf.sample
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,40 +29,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jul 2011 15:31:45 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 25 Jul 2011 15:37:11 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On 07/25/2011 07:28 AM, Paul Eggleton wrote:
-> A number of changes aimed at cleaning up local.conf.sample so it is easier
-> to deal with for new users. These are not necessarily final, happy to take
-> comments/suggestions.
->
-How is this going to affect the oe-core local.conf.sample?
+On Monday 25 July 2011 16:31:40 Saul Wold wrote:
+> On 07/25/2011 07:28 AM, Paul Eggleton wrote:
+> > A number of changes aimed at cleaning up local.conf.sample so it is
+> > easier to deal with for new users. These are not necessarily final,
+> > happy to take comments/suggestions.
+> 
+> How is this going to affect the oe-core local.conf.sample?
 
-Sau!
+That's a good question - it is of course a separate file. I guess it depends on 
+how people using oe-core feel about moving these options out into a separate 
+file. I was intending to tackle the oe-core file as a separate exercise.
 
+Cheers,
+Paul
 
-> The following changes since commit eea4bd731ef286516ee1fb934fe2222a09c06e70:
->
->    mpc8315e-rdb: Set TARGET_FPU correct (2011-07-22 09:02:58 -0700)
->
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib paule/local-conf-cleanup
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/local-conf-cleanup
->
-> Paul Eggleton (6):
->    meta-yocto/local.conf.sample.extended: update DISTRO_FEATURES
->    meta-yocto/local.conf.sample: remove oprofileui-native related
->      settings
->    meta-yocto/conf/local.conf.sample: move advanced settings to extended
->      sample file
->    meta-yocto/conf/local.conf.sample: improve comments/layout
->    meta-yocto/conf/local.conf.sample: remove emenlow from machine list
->    meta-yocto/conf/local.conf.sample: add rm_work example
->
->   meta-yocto/conf/local.conf.sample          |  130 ++++++----------------------
->   meta-yocto/conf/local.conf.sample.extended |   92 +++++++++++++++++++-
->   2 files changed, 118 insertions(+), 104 deletions(-)
->
+-- 
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
