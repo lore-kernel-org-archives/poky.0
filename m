@@ -1,33 +1,32 @@
-Return-Path: <Tom_Rini@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 678484C80332
-	for <poky@yoctoproject.org>; Mon, 25 Jul 2011 15:16:35 -0500 (CDT)
-Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
-	by relay1.mentorg.com with esmtp 
-	id 1QlRZq-0007H9-3N from Tom_Rini@mentor.com ;
-	Mon, 25 Jul 2011 13:16:34 -0700
-Received: from SVR-ORW-FEM-02.mgc.mentorg.com ([147.34.96.206]) by
-	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
-	SMTPSVC(6.0.3790.4675); Mon, 25 Jul 2011 13:13:54 -0700
-Received: from [172.30.80.87] (147.34.91.1) by svr-orw-fem-02.mgc.mentorg.com
-	(147.34.96.168) with Microsoft SMTP Server id 14.1.289.1;
-	Mon, 25 Jul 2011 13:16:32 -0700
-Message-ID: <4E2DCF1E.4030509@mentor.com>
-Date: Mon, 25 Jul 2011 13:16:30 -0700
-From: Tom Rini <tom_rini@mentor.com>
-Organization: Mentor Graphics Corporation
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.18) Gecko/20110617 Lightning/1.0b2 Thunderbird/3.1.11
+Return-Path: <Paul.Ourada@Covidien.com>
+Received: from mx01no.tycohealthcare.com (mx01no.tycohealthcare.com
+	[216.75.208.72])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 6F0764C80332
+	for <poky@yoctoproject.org>; Mon, 25 Jul 2011 16:59:23 -0500 (CDT)
+X-IronPort-AV: E=Sophos;i="4.67,265,1309752000"; 
+	d="scan'208,217";a="277520680"
+Received: from unknown (HELO tamans-bh02.thcg.net) ([10.80.3.108])
+	by mx01no.tycohealthcare.com with ESMTP; 25 Jul 2011 17:59:10 -0400
+Received: from TAMANS-HT100V.thcg.net ([10.80.9.28]) by tamans-bh02.thcg.net
+	with Microsoft SMTPSVC(6.0.3790.4675); 
+	Mon, 25 Jul 2011 17:59:11 -0400
+Received: from TAMANS-MB100V.thcg.net ([169.254.8.245]) by
+	TAMANS-HT100V.thcg.net ([10.80.9.28]) with mapi id 14.01.0289.001;
+	Mon, 25 Jul 2011 17:59:10 -0400
+From: "Ourada, Paul" <Paul.Ourada@Covidien.com>
+To: Poky Project <poky@yoctoproject.org>
+Thread-Topic: RedHat Network Config
+Thread-Index: AcxLFhS1ZDcN1NaASWuIdQ8nHBo+5A==
+Date: Mon, 25 Jul 2011 21:59:10 +0000
+Message-ID: <4D9E0AFD9C2FCC428A8EAADA898F5B2DFDFA@TAMANS-MB100V.thcg.net>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.80.12.29]
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-References: <cover.1311616990.git.bruce.ashfield@windriver.com>	<4E2DB8FD.8020903@mentor.com>	<CADkTA4N+5WpjvDp+apuCH=1G4oJD6vb49tJVv7+v7GtQ7-LsOA@mail.gmail.com>	<4E2DBD1C.40206@mentor.com>
-	<CADkTA4MwZgnPeymKQhCJ_G_ySsGE1bzFc98jjzkRuDSYDq6HPg@mail.gmail.com>
-In-Reply-To: <CADkTA4MwZgnPeymKQhCJ_G_ySsGE1bzFc98jjzkRuDSYDq6HPg@mail.gmail.com>
-X-Enigmail-Version: 1.1.1
-X-OriginalArrivalTime: 25 Jul 2011 20:13:54.0530 (UTC)
-	FILETIME=[60A6CC20:01CC4B07]
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] poky.conf: explicitly referenced preferred linux-yocto version
+X-OriginalArrivalTime: 25 Jul 2011 21:59:11.0012 (UTC)
+	FILETIME=[15917640:01CC4B16]
+Subject: RedHat Network Config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,84 +38,199 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jul 2011 20:16:35 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 25 Jul 2011 21:59:24 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_4D9E0AFD9C2FCC428A8EAADA898F5B2DFDFATAMANSMB100Vthcgnet_"
 
-On 07/25/2011 12:04 PM, Bruce Ashfield wrote:
-> On Mon, Jul 25, 2011 at 2:59 PM, Tom Rini <tom_rini@mentor.com> wrote:
->> On 07/25/2011 11:50 AM, Bruce Ashfield wrote:
->>> On Mon, Jul 25, 2011 at 2:42 PM, Tom Rini <tom_rini@mentor.com> wrote:
->>>> On 07/25/2011 11:05 AM, Bruce Ashfield wrote:
->>>>> Here's a similar change to the meta-yocto boards, as was done
->>>>> to the qemu machines in oe-core. Since referencing yocto makes
->>>>> more sense in this layer, I made the change in the poky.conf
->>>>> distro default file.
->>>>>
->>>>> As the staging of linux-yocto-3.0 showed, we should explicitly
->>>>> state our preferred version of linux-yocto. This prevents unvalidated
->>>>> changes from being forced into machines. Layers and machines are free
->>>>> to override this as they are updated.
->>>>>
->>>>> cc: Tom Zanussi <tom.zanussi@intel.com>
->>>>>
->>>>> The following changes since commit dfec64a66e66ad4ec94a06ad900307fb0d932b98:
->>>>>
->>>>>   machine/qemu: set preferred linux-yocto kernel version (2011-07-25 10:56:46 -0400)
->>>>>
->>>>> are available in the git repository at:
->>>>>   git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
->>>>>   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
->>>>>
->>>>> Bruce Ashfield (1):
->>>>>   poky.conf: explicitly referenced preferred linux-yocto version
->>>>>
->>>>>  meta-yocto/conf/distro/poky.conf |    2 ++
->>>>>  1 files changed, 2 insertions(+), 0 deletions(-)
->>>>
->>>> I guess as an aside, the convention we have/had in oe.dev was
->>>> DEFAULT_PREFERENCE = -1, D_P_testedmachine1 = 1, etc, etc, in the kernel
->>>> recipes.
->>>
->>> I've noticed that .. and it would work here as well. I'm hesitant to
->>> maintain a set of tested machine overrides in the yocto layers, since
->>> we are at a small number now, but that number isn't guaranteed to
->>> stay small. I have enough of a pain updating SRCREVs constantly,
->>> tweaking another set of vars isn't high on my 'fun' list.
->>>
->>> I prefer to have the machines opt-in, versus maintaining a list of known
->>> good machines in a central file (I realize that the machines would/could
->>> be the ones setting the default_preference back to 1 as wel, but it is
->>> still another variable to manipulate). But am not religious about any of this :)
->>>
->>> The flip to 3.0 is sort of a special case, and typically it is just a switch
->>> I throw, since all machines are tested at once.
->>>
->>> Good comment and food for thought indeed!
->>
->> So, if you go down the D_P route, meta-$whatever has
->> linux_testedVer.bbappend D_P = "1" in it for what it wants to opt into
->> and the meta-yocto / oe-core recipes just stay having to track qemu
->> machines, too.
-> 
-> Understood, that's what I tried to say (badly) when I mentioned that the
-> machines could set this variable in their own layer, versus a central
-> update.
-> 
-> The question that pops up for me, what's the pros and cons of this
-> versus the machine setting a version preference by machine specific
-> overrides (maybe they can't?) or setting their compatibility variables.
-> I can see that this is an explicit statement of tested versus not
-> tested, versus something more implicit. But are there others ?
+--_000_4D9E0AFD9C2FCC428A8EAADA898F5B2DFDFATAMANSMB100Vthcgnet_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-To me, it boils down to where do you make the pain point.  If it's in
-the kernel recipe (/ bbappend), we don't cause a re-parse of the
-metadata.  It can however be arguably more of a surprise when the kernel
-upgrades.  With my Mentor hat, we've always pinned the recipe version
-down for the kernel, but with my community hat, building the latest
-that's supposed to work feels best.
+I'm trying to set up what on Ubuntu would be the /etc/network/interfaces fi=
+le for the qemu, and/or PXE boot configurations that my team is likely to u=
+se for development. However, my company's IS department is asking us to emb=
+race RedHat Linux for standardization purposes. I'm seeing that RedHat has =
+a whole 'nuther idea about network configuration. Here's what the Poky Linu=
+x Handbook suggests for Ubuntu:
 
--- 
-Tom Rini
-Mentor Graphics Corporation
 
+allow-hotplug tap0
+iface tap0 inet static
+    address 192.168.7.200
+    netmask 255.255.255.0
+    network 192.168.7.0
+    post-up iptables -A POSTROUTING -t nat -j MASQUERADE -s 192.168.7.0/24
+    post-up echo 1 > /proc/sys/net/ipv4/ip_forward
+    post-up iptables -P FORWARD ACCEPT
+Where/how do I set this up for RedHat? Any ideas out there?
+
+Thanks,
+
+Paul E. Ourada
+Sr. Principal Software Engineer
+Covidien, Energy-based Devices
+5920 Longbow Drive
+Boulder, CO 80301
+paul.ourada@covidien.com<mailto:paul.ourada@covidien.com>
+www.covidien.com<mailto:paul.ourada@covidien.com>
+Main: 303-530-2300
+Ofc: 303-581-6940
+Fax: 303-581-6741
+
+
+--_000_4D9E0AFD9C2FCC428A8EAADA898F5B2DFDFATAMANSMB100Vthcgnet_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:p=3D"urn:schemas-m=
+icrosoft-com:office:powerpoint" xmlns:a=3D"urn:schemas-microsoft-com:office=
+:access" xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:s=3D"=
+uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" xmlns:rs=3D"urn:schemas-microsof=
+t-com:rowset" xmlns:z=3D"#RowsetSchema" xmlns:b=3D"urn:schemas-microsoft-co=
+m:office:publisher" xmlns:ss=3D"urn:schemas-microsoft-com:office:spreadshee=
+t" xmlns:c=3D"urn:schemas-microsoft-com:office:component:spreadsheet" xmlns=
+:odc=3D"urn:schemas-microsoft-com:office:odc" xmlns:oa=3D"urn:schemas-micro=
+soft-com:office:activation" xmlns:html=3D"http://www.w3.org/TR/REC-html40" =
+xmlns:q=3D"http://schemas.xmlsoap.org/soap/envelope/" xmlns:rtc=3D"http://m=
+icrosoft.com/officenet/conferencing" xmlns:D=3D"DAV:" xmlns:Repl=3D"http://=
+schemas.microsoft.com/repl/" xmlns:mt=3D"http://schemas.microsoft.com/share=
+point/soap/meetings/" xmlns:x2=3D"http://schemas.microsoft.com/office/excel=
+/2003/xml" xmlns:ppda=3D"http://www.passport.com/NameSpace.xsd" xmlns:ois=
+=3D"http://schemas.microsoft.com/sharepoint/soap/ois/" xmlns:dir=3D"http://=
+schemas.microsoft.com/sharepoint/soap/directory/" xmlns:ds=3D"http://www.w3=
+.org/2000/09/xmldsig#" xmlns:dsp=3D"http://schemas.microsoft.com/sharepoint=
+/dsp" xmlns:udc=3D"http://schemas.microsoft.com/data/udc" xmlns:xsd=3D"http=
+://www.w3.org/2001/XMLSchema" xmlns:sub=3D"http://schemas.microsoft.com/sha=
+repoint/soap/2002/1/alerts/" xmlns:ec=3D"http://www.w3.org/2001/04/xmlenc#"=
+ xmlns:sp=3D"http://schemas.microsoft.com/sharepoint/" xmlns:sps=3D"http://=
+schemas.microsoft.com/sharepoint/soap/" xmlns:xsi=3D"http://www.w3.org/2001=
+/XMLSchema-instance" xmlns:udcs=3D"http://schemas.microsoft.com/data/udc/so=
+ap" xmlns:udcxf=3D"http://schemas.microsoft.com/data/udc/xmlfile" xmlns:udc=
+p2p=3D"http://schemas.microsoft.com/data/udc/parttopart" xmlns:wf=3D"http:/=
+/schemas.microsoft.com/sharepoint/soap/workflow/" xmlns:dsss=3D"http://sche=
+mas.microsoft.com/office/2006/digsig-setup" xmlns:dssi=3D"http://schemas.mi=
+crosoft.com/office/2006/digsig" xmlns:mdssi=3D"http://schemas.openxmlformat=
+s.org/package/2006/digital-signature" xmlns:mver=3D"http://schemas.openxmlf=
+ormats.org/markup-compatibility/2006" xmlns:m=3D"http://schemas.microsoft.c=
+om/office/2004/12/omml" xmlns:mrels=3D"http://schemas.openxmlformats.org/pa=
+ckage/2006/relationships" xmlns:spwp=3D"http://microsoft.com/sharepoint/web=
+partpages" xmlns:ex12t=3D"http://schemas.microsoft.com/exchange/services/20=
+06/types" xmlns:ex12m=3D"http://schemas.microsoft.com/exchange/services/200=
+6/messages" xmlns:pptsl=3D"http://schemas.microsoft.com/sharepoint/soap/Sli=
+deLibrary/" xmlns:spsl=3D"http://microsoft.com/webservices/SharePointPortal=
+Server/PublishedLinksService" xmlns:Z=3D"urn:schemas-microsoft-com:" xmlns:=
+st=3D"&#1;" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I&#8217;m trying to set up what on Ubuntu would be t=
+he /etc/network/interfaces file for the qemu, and/or PXE boot configuration=
+s that my team is likely to use for development. However, my company&#8217;=
+s IS department is asking us to embrace RedHat
+ Linux for standardization purposes. I&#8217;m seeing that RedHat has a who=
+le &#8216;nuther idea about network configuration. Here&#8217;s what the Po=
+ky Linux Handbook suggests for Ubuntu:<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"mso-margin-top-alt:15.95pt;margin-right:0in;margin-bottom:15.95=
+pt;margin-left:.5in;background:white">
+<span lang=3D"EN" style=3D"font-size:9.0pt;font-family:&quot;Arial&quot;,&q=
+uot;sans-serif&quot;;color:#333333">allow-hotplug tap0<br>
+iface tap0 inet static<br>
+&nbsp;&nbsp;&nbsp; address 192.168.7.200<br>
+&nbsp;&nbsp;&nbsp; netmask 255.255.255.0<br>
+&nbsp;&nbsp;&nbsp; network 192.168.7.0<br>
+&nbsp;&nbsp;&nbsp; post-up iptables -A POSTROUTING -t nat -j MASQUERADE -s =
+192.168.7.0/24<br>
+&nbsp;&nbsp;&nbsp; post-up echo 1 &gt; /proc/sys/net/ipv4/ip_forward<br>
+&nbsp;&nbsp;&nbsp; post-up iptables -P FORWARD ACCEPT<o:p></o:p></span></p>
+<p class=3D"MsoNormal">Where/how do I set this up for RedHat? Any ideas out=
+ there?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Paul E. Ourada<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Sr. Principal Software Engineer<o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Covidien, Energy-based Devices<o:p></o:p>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">5920 Longbow Drive<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Boulder, CO 80301<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;"><a href=3D"mailto:paul.ourada@covidien.co=
+m"><span style=3D"color:blue">paul.ourada@covidien.com</span></a><o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;"><a href=3D"mailto:paul.ourada@covidien.co=
+m"><span style=3D"color:blue">www.covidien.com</span></a><o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Main: 303-530-2300<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Ofc: 303-581-6940<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;">Fax: 303-581-6741<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_4D9E0AFD9C2FCC428A8EAADA898F5B2DFDFATAMANSMB100Vthcgnet_--
