@@ -1,23 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by mx1.pokylinux.org (Postfix) with ESMTP id AD9CF4C800A1
-	for <poky@yoctoproject.org>; Wed, 27 Jul 2011 08:01:49 -0500 (CDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 27 Jul 2011 06:01:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,276,1309762800"; d="scan'208";a="32613215"
-Received: from unknown (HELO helios.localnet) ([10.255.17.250])
-	by orsmga001.jf.intel.com with ESMTP; 27 Jul 2011 06:01:48 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Holger Hans Peter Freyther <holger@freyther.de>
-Date: Wed, 27 Jul 2011 14:01:47 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic-pae; KDE/4.6.2; i686; ; )
-References: <4E3008DA.8090401@freyther.de>
-	<CA073376-0D42-400B-95A7-1A8D420353C1@dominion.thruhere.net>
-	<4E300B32.5000808@freyther.de>
-In-Reply-To: <4E300B32.5000808@freyther.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7729A4C803E4
+	for <poky@yoctoproject.org>; Wed, 27 Jul 2011 08:02:34 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 29A451660401; Wed, 27 Jul 2011 07:02:34 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 86BC51660194;
+	Wed, 27 Jul 2011 07:02:33 -0600 (MDT)
+Message-ID: <4E300C69.4010408@mlbassoc.com>
+Date: Wed, 27 Jul 2011 07:02:33 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
 MIME-Version: 1.0
-Message-Id: <201107271401.47256.paul.eggleton@linux.intel.com>
+To: Holger Hans Peter Freyther <holger@freyther.de>
+References: <4E3008DA.8090401@freyther.de>
+In-Reply-To: <4E3008DA.8090401@freyther.de>
 Cc: poky@yoctoproject.org
 Subject: Re: Another story of a non upstream user of poky
 X-BeenThere: poky@yoctoproject.org
@@ -31,25 +34,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jul 2011 13:01:49 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Wed, 27 Jul 2011 13:02:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wednesday 27 July 2011 13:57:22 Holger Hans Peter Freyther wrote:
-> thanks, the problem is with meta-yocto in this case, there is
-> netbase_4.45.bbappend in there, so THISDIR is not what I think it is when
-> using it, or such.
+On 2011-07-27 06:47, Holger Hans Peter Freyther wrote:
+> Hi,
+>
+> todays story is adding a 'interfaces' to netbase.
+>
+>
+> $ touch sysmocom/recipes-core/netbase/netbase-4.45/alix/interfaces
+>
+> $ vi sysmocom/recipes-core/netbase/netbase_4.45.bbappend
+> FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}-${PV}"], d)}:"
+> PRINC = "1"
+>
+> $ bitbake netbase
+>
+>
+> So does it work? The answer is no. Why doesn't it work? meta-yocto already has
+> a bbappend file? How to solve it? Use different names? Automatically add
+> FILESPATH for bbappends?
+>
+> comments?
 
-THISDIR should be correct at parse time; if not, something's wrong. After 
-that, it won't of course. (Hence my use of := in my example; I suspect your 
-use of =. is why your example didn't work).
-
-Cheers,
-Paul
+Set the layer priority for sysmocom/ higher than meta-yocto
 
 -- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
