@@ -1,26 +1,29 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 91A754C800A1
-	for <poky@yoctoproject.org>; Wed, 27 Jul 2011 08:20:55 -0500 (CDT)
-Received: by wwf4 with SMTP id 4so1316286wwf.11
-	for <poky@yoctoproject.org>; Wed, 27 Jul 2011 06:20:54 -0700 (PDT)
-Received: by 10.216.9.134 with SMTP id 6mr2958739wet.111.1311772854640;
-	Wed, 27 Jul 2011 06:20:54 -0700 (PDT)
-Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl [84.80.112.235])
-	by mx.google.com with ESMTPS id n6sm87097wed.16.2011.07.27.06.20.53
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 27 Jul 2011 06:20:54 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1244.3)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <201107271417.45336.paul.eggleton@linux.intel.com>
-Date: Wed, 27 Jul 2011 15:20:47 +0200
-Message-Id: <ED9B98B8-EA29-4407-9892-D333F803BD71@dominion.thruhere.net>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 267474C803E4
+	for <poky@yoctoproject.org>; Wed, 27 Jul 2011 08:22:51 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p6RDMip8030067;
+	Wed, 27 Jul 2011 14:22:44 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 29338-04; Wed, 27 Jul 2011 14:22:40 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p6RDMdkA030061
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 27 Jul 2011 14:22:39 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <CA073376-0D42-400B-95A7-1A8D420353C1@dominion.thruhere.net>
 References: <4E3008DA.8090401@freyther.de>
-	<201107271357.22352.paul.eggleton@linux.intel.com>
-	<4E300F10.6090102@freyther.de>
-	<201107271417.45336.paul.eggleton@linux.intel.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-X-Mailer: Apple Mail (2.1244.3)
+	<CA073376-0D42-400B-95A7-1A8D420353C1@dominion.thruhere.net>
+Date: Wed, 27 Jul 2011 14:22:28 +0100
+Message-ID: <1311772948.2344.356.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
 Subject: Re: Another story of a non upstream user of poky
 X-BeenThere: poky@yoctoproject.org
@@ -34,23 +37,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Jul 2011 13:20:55 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 27 Jul 2011 13:22:51 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
+On Wed, 2011-07-27 at 14:53 +0200, Koen Kooi wrote:
+> Op 27 jul. 2011, om 14:47 heeft Holger Hans Peter Freyther het volgende geschreven:
+> > todays story is adding a 'interfaces' to netbase.
+> > 
+> > 
+> > $ touch sysmocom/recipes-core/netbase/netbase-4.45/alix/interfaces
+> > 
+> > $ vi sysmocom/recipes-core/netbase/netbase_4.45.bbappend
+> > FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}-${PV}"], d)}:"
+> > PRINC = "1"
+> > 
+> > $ bitbake netbase
+> > 
+> > 
+> > So does it work? The answer is no. Why doesn't it work? meta-yocto already has
+> > a bbappend file? How to solve it? Use different names? Automatically add
+> > FILESPATH for bbappends?
+> 
+> 
+> touch oe-core/meta/recipes-core/netbase/netbase_4.45.bb to force a reparse. bbappends only get parsed if the main recipe changed.
 
-Op 27 jul. 2011, om 15:17 heeft Paul Eggleton het volgende geschreven:
+Wrong, that bug has been fixed in bitbake! :)
 
-> On Wednesday 27 July 2011 14:13:52 Holger Hans Peter Freyther wrote:
->> Now there appears to be one more bug, PACKAGE_ARCH is
->> not set to the MACHINE_ARCH even after the right interfaces is used. =
-Is
->> that known?
->=20
-> Hmm, you're right, this is an omission. Presumably for meta-yocto this =
-should=20
-> be PACKAGE_ARCH_beagleboard =3D "${MACHINE_ARCH}" ?
+Cheers,
 
-OE should be doing that automatically since something in SRC_URI is =
-getting pulled from a machine specific dir.=
+Richard
+
 
