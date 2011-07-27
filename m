@@ -1,22 +1,18 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 2456C4C80ADD
+	by mx1.pokylinux.org (Postfix) with ESMTP id 046D44C801DA
 	for <poky@yoctoproject.org>; Tue, 26 Jul 2011 22:58:19 -0500 (CDT)
 Received: from yow-bashfiel-l1.corp.ad.wrs.com
 	(dhcp-146-223.ottawa.windriver.com [128.224.146.223])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6R3wFMR016749;
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6R3wFMQ016749;
 	Tue, 26 Jul 2011 20:58:16 -0700 (PDT)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: richard.purdie@linuxfoundation.org
-Date: Tue, 26 Jul 2011 23:58:13 -0400
-Message-Id: <a02b26818337f27c46abaf4c2ab1913337f56bc8.1311738987.git.bruce.ashfield@windriver.com>
+Date: Tue, 26 Jul 2011 23:58:12 -0400
+Message-Id: <cover.1311738987.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.4.1
-In-Reply-To: <cover.1311738987.git.bruce.ashfield@windriver.com>
-References: <cover.1311738987.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1311738987.git.bruce.ashfield@windriver.com>
-References: <cover.1311738987.git.bruce.ashfield@windriver.com>
 Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto/meta-yocto: create linux-yocto 3.0 bbappend
+Subject: [PATCH 0/1] meta-yocto: create linux-yocto-3.0 infastructure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,37 +26,34 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Wed, 27 Jul 2011 03:58:20 -0000
 
-Creating a 3.0 bbappend to enable work on the hardware yocto targets.
-The SRCREV updates in this file are accurate, but compatibility
-has been commented out until support can be verified.
+Richard/Saul,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
+The patch pretty much says it all:
+
+[
+  linux-yocto/meta-yocto: create linux-yocto 3.0 bbappend                                                                          
+                                                                                                                                                      
+  Creating a 3.0 bbappend to enable work on the hardware yocto targets.                                                                                 
+  The SRCREV updates in this file are accurate, but compatibility                                                                                       
+  has been commented out until support can be verified.  
+]
+
+
+The following changes since commit 35a96b8d01511443b0743cca3543a4cdc007cff2:
+
+  linux-yocto: update SRCREVs (2011-07-26 23:43:03 -0400)
+
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib zedd/yocto-kern-update
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/yocto-kern-update
+
+Bruce Ashfield (1):
+  linux-yocto/meta-yocto: create linux-yocto 3.0 bbappend
+
  .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |   15 +++++++++++++++
  1 files changed, 15 insertions(+), 0 deletions(-)
  create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-new file mode 100644
-index 0000000..ef580a5
---- /dev/null
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-@@ -0,0 +1,15 @@
-+KMACHINE_atom-pc  = "yocto/standard/common-pc/atom-pc"
-+KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
-+KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
-+KMACHINE_beagleboard = "yocto/standard/beagleboard"
-+
-+SRCREV_machine_emenlow = "374340f311d7b035451f45e29bab5e1b8c058ce8"
-+SRCREV_machine_atom-pc = "fdd23ed909594ba6c32c894ee6536cf823b0377f"
-+SRCREV_machine_routerstationpro = "fd6d538850a28413e3c4867b905c56039773df3a"
-+SRCREV_machine_mpc8315e-rdb = "5d3c0b06071abd663c7790df141060ae462660a9"
-+SRCREV_machine_beagleboard = "32631d785b0b907e5c14435ef7531ed041ab8c64"
-+
-+# COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
-+# COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
-+# COMPATIBLE_MACHINE_beagleboard = "beagleboard"
-+# COMPATIBLE_MACHINE_atom-pc = "atom-pc"
 -- 
 1.7.4.1
 
