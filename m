@@ -1,24 +1,22 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by mx1.pokylinux.org (Postfix) with ESMTP id A9E9A4C808F9
-	for <poky@yoctoproject.org>; Tue, 26 Jul 2011 10:55:24 -0500 (CDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 26 Jul 2011 08:55:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,270,1309762800"; d="scan'208";a="34666122"
-Received: from unknown (HELO helios.localnet) ([10.255.17.235])
-	by fmsmga001.fm.intel.com with ESMTP; 26 Jul 2011 08:55:17 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 26 Jul 2011 16:55:16 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic-pae; KDE/4.6.2; i686; ; )
-References: <cover.1311603837.git.paul.eggleton@linux.intel.com>
-	<4E2D8C5C.6060808@linux.intel.com>
-	<201107251637.08912.paul.eggleton@linux.intel.com>
-In-Reply-To: <201107251637.08912.paul.eggleton@linux.intel.com>
-MIME-Version: 1.0
-Message-Id: <201107261655.16763.paul.eggleton@linux.intel.com>
-Subject: Re: [PATCH 0/6] meta-yocto: cleanup of local.conf.sample
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 2456C4C80ADD
+	for <poky@yoctoproject.org>; Tue, 26 Jul 2011 22:58:19 -0500 (CDT)
+Received: from yow-bashfiel-l1.corp.ad.wrs.com
+	(dhcp-146-223.ottawa.windriver.com [128.224.146.223])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6R3wFMR016749;
+	Tue, 26 Jul 2011 20:58:16 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Tue, 26 Jul 2011 23:58:13 -0400
+Message-Id: <a02b26818337f27c46abaf4c2ab1913337f56bc8.1311738987.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.4.1
+In-Reply-To: <cover.1311738987.git.bruce.ashfield@windriver.com>
+References: <cover.1311738987.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1311738987.git.bruce.ashfield@windriver.com>
+References: <cover.1311738987.git.bruce.ashfield@windriver.com>
+Cc: poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 1/1] linux-yocto/meta-yocto: create linux-yocto 3.0 bbappend
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,34 +28,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Jul 2011 15:55:25 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 27 Jul 2011 03:58:20 -0000
 
-On Monday 25 July 2011 16:37:08 Paul Eggleton wrote:
-> On Monday 25 July 2011 16:31:40 Saul Wold wrote:
-> > On 07/25/2011 07:28 AM, Paul Eggleton wrote:
-> > > A number of changes aimed at cleaning up local.conf.sample so it is
-> > > easier to deal with for new users. These are not necessarily final,
-> > > happy to take comments/suggestions.
-> > 
-> > How is this going to affect the oe-core local.conf.sample?
-> 
-> That's a good question - it is of course a separate file. I guess it
-> depends on how people using oe-core feel about moving these options out
-> into a separate file. I was intending to tackle the oe-core file as a
-> separate exercise.
+Creating a 3.0 bbappend to enable work on the hardware yocto targets.
+The SRCREV updates in this file are accurate, but compatibility
+has been commented out until support can be verified.
 
-I've posted patches to update the OE-core version of this file first (sans the 
-splitting). We can bring over those patches and then decide what we want to do 
-for everything else; so consider this patchset superseded for now.
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |   15 +++++++++++++++
+ 1 files changed, 15 insertions(+), 0 deletions(-)
+ create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
 
-Cheers,
-Paul
-
+diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
+new file mode 100644
+index 0000000..ef580a5
+--- /dev/null
++++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
+@@ -0,0 +1,15 @@
++KMACHINE_atom-pc  = "yocto/standard/common-pc/atom-pc"
++KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
++KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
++KMACHINE_beagleboard = "yocto/standard/beagleboard"
++
++SRCREV_machine_emenlow = "374340f311d7b035451f45e29bab5e1b8c058ce8"
++SRCREV_machine_atom-pc = "fdd23ed909594ba6c32c894ee6536cf823b0377f"
++SRCREV_machine_routerstationpro = "fd6d538850a28413e3c4867b905c56039773df3a"
++SRCREV_machine_mpc8315e-rdb = "5d3c0b06071abd663c7790df141060ae462660a9"
++SRCREV_machine_beagleboard = "32631d785b0b907e5c14435ef7531ed041ab8c64"
++
++# COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
++# COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
++# COMPATIBLE_MACHINE_beagleboard = "beagleboard"
++# COMPATIBLE_MACHINE_atom-pc = "atom-pc"
 -- 
+1.7.4.1
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
