@@ -1,25 +1,26 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 356AD4C8007E
-	for <poky@yoctoproject.org>; Fri, 29 Jul 2011 11:57:10 -0500 (CDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p6TGv97a029579
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 29 Jul 2011 09:57:09 -0700 (PDT)
-Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Fri, 29 Jul 2011 09:57:08 -0700
-Message-ID: <4E32E664.2020109@windriver.com>
-Date: Fri, 29 Jul 2011 11:57:08 -0500
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
-	rv:5.0) Gecko/20110624 Thunderbird/5.0
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 7F14A4C8009A
+	for <poky@yoctoproject.org>; Tue,  2 Aug 2011 15:35:57 -0500 (CDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 02 Aug 2011 13:35:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,307,1309762800"; 
+   d="scan'208";a="3516841"
+Received: from unknown (HELO [10.255.14.78]) ([10.255.14.78])
+	by AZSMGA002.ch.intel.com with ESMTP; 02 Aug 2011 13:35:55 -0700
+Message-ID: <4E385FAA.9090300@linux.intel.com>
+Date: Tue, 02 Aug 2011 13:35:54 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.18) Gecko/20110617 Lightning/1.0b2 Thunderbird/3.1.11
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <C10D3FB0CD45994C8A51FEC1227CE22F2C40DBB269@shsmsx502.ccr.corp.intel.com>
-In-Reply-To: <C10D3FB0CD45994C8A51FEC1227CE22F2C40DBB269@shsmsx502.ccr.corp.intel.com>
-Subject: Re: Need some advice of how to get the ld.so names in multilib situation
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+References: <cover.1311603837.git.paul.eggleton@linux.intel.com>	<2273c01d6547d6d1eb5b8a60dd061c5d3722856d.1311603837.git.paul.eggleton@linux.intel.com>	<4ADD3708-C485-47E1-9BD6-B4839E5E8151@dominion.thruhere.net>
+	<201107251549.07198.paul.eggleton@linux.intel.com>
+In-Reply-To: <201107251549.07198.paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 6/6] meta-yocto/conf/local.conf.sample: add	rm_work example
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,67 +32,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jul 2011 16:57:10 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Tue, 02 Aug 2011 20:35:57 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 7/28/11 10:20 PM, Lu, Lianhao wrote:
-> Hi guys,
+
+
+On 07/25/2011 07:49 AM, Paul Eggleton wrote:
+> On Monday 25 July 2011 15:44:32 Koen Kooi wrote:
+>> Op 25 jul. 2011, om 16:28 heeft Paul Eggleton het volgende geschreven:
+>>> +# Uncomment this to delete work files as the build progresses rather
+>>> than +# keeping them around, which saves a lot of disk space. However,
+
+This reads as keeping them around save a lot of disk space to me. You
+can add a comma after progresses, or reword to group the modifier with
+the subject.
+
+>>> if any +# problems arise it can be useful to have the work files to
+>>> examine, which +# is why it is off by default.
+>>> +#INHERIT += "rm_work"
+>>
+>> That implies that you expect problems to happen by default :)
 > 
-> Bug #1236 http://bugzilla.pokylinux.org/show_bug.cgi?id=1236
-> 
-> In order to get ldd work under the multilib situation, ldd and ldconfig.h need
-> to know all the full path names for all the dynamic loaders(ld.so) in the
-> current multilib configuration. 
-> 
-> The dynamic loader's full path names would be something like:
->   ${base_libdir}/<ld.so name>
-> 
-> We can get the ${base_libdir} for each variant in the multilib configuration by
-> setting the correct TUNE name. The problem resides in the <ld.so name>. For
-> i586 and x86_32, the ld.so name would be "ld-linux.so.2"; for x86_64 it would
-> be "ld-linux-x86-64.so.2"; but for other ABI, I see names like "ld-linux.so.3",
-> "ld.so.1", "ld64.so.1", etc.
-> 
-> So the question is how we can get the correct ld.so names in the current
-> multilib configuration? Hard code them in the TUNE configurations?
+> It does say "if" ;)  I'm happy to take suggestions on an alternative 
+> comment...
 
-We can likely create a custom ldd and ldconfig.h (assuming it's only used by
-ldconfig) machine package.  In this we can iterate over the multilibs configured
-for the system and construct the necessary table of library paths.  (This is of
-course way more complicated then just saying "the paths are here for this
-architecture..."  but it seems to me that people want/require the flexibility to
-change the library paths for their particular devices and distributions.
+If we assume people will be adding and developing recipes as part of the
+typical usage model, then yes, I would expect problems to happen by
+default - it is development afterall. :)
 
-To iterate over it, we'll need to use python and then the base and multilib
-values.. we can evaluate the ${libdir} and ${base_libdir} as necessary.  For the
-individual ld.so names, those will need to be encoded into the libc itself.. the
-tunes don't have the knowledge for the machine ABI -> ld.so mapping.
 
-Then the table can be constructed something like (pseudo code, not python):
-
-def so_mapping:
-	if "i386" return "ld-linux.so.2"
-	if "x86_64" return "ld-linux-x86-64.so.2"
-	...
-
-set multilib value to ""
-so_name = so_mapping($TARGET_ARCH)
-echo ${base_libdir}/${so_name} > list
-
-for each multilib
- set OVERRIDES with multilib
- so_name = so_mapping($TARGET_ARCH)
- echo ${base_libdir}/${so_name} >> list
-done
-
---Mark
-
-> Best Regards,
-> -Lianhao
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
