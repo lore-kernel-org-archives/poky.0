@@ -1,26 +1,19 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 7F14A4C8009A
-	for <poky@yoctoproject.org>; Tue,  2 Aug 2011 15:35:57 -0500 (CDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 02 Aug 2011 13:35:55 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 1FDE24C8009A
+	for <poky@yoctoproject.org>; Tue,  2 Aug 2011 15:50:49 -0500 (CDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 02 Aug 2011 13:50:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,307,1309762800"; 
-   d="scan'208";a="3516841"
-Received: from unknown (HELO [10.255.14.78]) ([10.255.14.78])
-	by AZSMGA002.ch.intel.com with ESMTP; 02 Aug 2011 13:35:55 -0700
-Message-ID: <4E385FAA.9090300@linux.intel.com>
-Date: Tue, 02 Aug 2011 13:35:54 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.18) Gecko/20110617 Lightning/1.0b2 Thunderbird/3.1.11
-MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <cover.1311603837.git.paul.eggleton@linux.intel.com>	<2273c01d6547d6d1eb5b8a60dd061c5d3722856d.1311603837.git.paul.eggleton@linux.intel.com>	<4ADD3708-C485-47E1-9BD6-B4839E5E8151@dominion.thruhere.net>
-	<201107251549.07198.paul.eggleton@linux.intel.com>
-In-Reply-To: <201107251549.07198.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 6/6] meta-yocto/conf/local.conf.sample: add	rm_work example
+X-IronPort-AV: E=Sophos;i="4.67,307,1309762800"; d="scan'208";a="35104579"
+Received: from unknown (HELO swold-MOBL.bigsur.com) ([10.255.14.76])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Aug 2011 13:50:48 -0700
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue,  2 Aug 2011 13:50:48 -0700
+Message-Id: <1312318248-28422-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.3.4
+Subject: [PATCH] atom-pc.conf: Add live image type
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,38 +25,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Aug 2011 20:35:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 02 Aug 2011 20:50:49 -0000
 
+This change will cause the live image to be built by default
+No longer is it necessary to build a -live image type.
 
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ meta-yocto/conf/machine/atom-pc.conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-On 07/25/2011 07:49 AM, Paul Eggleton wrote:
-> On Monday 25 July 2011 15:44:32 Koen Kooi wrote:
->> Op 25 jul. 2011, om 16:28 heeft Paul Eggleton het volgende geschreven:
->>> +# Uncomment this to delete work files as the build progresses rather
->>> than +# keeping them around, which saves a lot of disk space. However,
-
-This reads as keeping them around save a lot of disk space to me. You
-can add a comma after progresses, or reword to group the modifier with
-the subject.
-
->>> if any +# problems arise it can be useful to have the work files to
->>> examine, which +# is why it is off by default.
->>> +#INHERIT += "rm_work"
->>
->> That implies that you expect problems to happen by default :)
-> 
-> It does say "if" ;)  I'm happy to take suggestions on an alternative 
-> comment...
-
-If we assume people will be adding and developing recipes as part of the
-typical usage model, then yes, I would expect problems to happen by
-default - it is development afterall. :)
-
-
+diff --git a/meta-yocto/conf/machine/atom-pc.conf b/meta-yocto/conf/machine/atom-pc.conf
+index 6ac012f..a0a8104 100644
+--- a/meta-yocto/conf/machine/atom-pc.conf
++++ b/meta-yocto/conf/machine/atom-pc.conf
+@@ -28,7 +28,7 @@ XSERVER ?= "xserver-xf86-dri-lite \
+ 
+ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
+ 
+-IMAGE_FSTYPES ?= "ext3 cpio.gz"
++IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+ 
+ APPEND += "usbcore.autosuspend=1"
+ 
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
+1.7.3.4
+
 
