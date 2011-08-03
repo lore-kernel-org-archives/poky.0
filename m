@@ -1,29 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by mx1.pokylinux.org (Postfix) with ESMTP id C622C4C800A9
-	for <poky@yoctoproject.org>; Wed,  3 Aug 2011 10:29:43 -0500 (CDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 70E9316604EC; Wed,  3 Aug 2011 09:29:42 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id BB02216604F7;
-	Wed,  3 Aug 2011 09:29:38 -0600 (MDT)
-Message-ID: <4E396962.1000104@mlbassoc.com>
-Date: Wed, 03 Aug 2011 09:29:38 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
-MIME-Version: 1.0
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 878304C800A9
+	for <poky@yoctoproject.org>; Wed,  3 Aug 2011 12:03:22 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p73H3JaI027828;
+	Wed, 3 Aug 2011 18:03:19 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 27767-01; Wed,  3 Aug 2011 18:03:15 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p73H3Dmo027822
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 3 Aug 2011 18:03:14 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Saul Wold <sgw@linux.intel.com>
-References: <4E393728.6040309@mlbassoc.com> <4E3939ED.5070608@mlbassoc.com>
-	<4E39640C.4030005@linux.intel.com>
-In-Reply-To: <4E39640C.4030005@linux.intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Augmenting base files
+In-Reply-To: <1312318248-28422-1-git-send-email-sgw@linux.intel.com>
+References: <1312318248-28422-1-git-send-email-sgw@linux.intel.com>
+Date: Wed, 03 Aug 2011 18:02:56 +0100
+Message-ID: <1312390976.2344.712.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] atom-pc.conf: Add live image type
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,103 +36,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Aug 2011 15:29:44 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 03 Aug 2011 17:03:23 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 2011-08-03 09:06, Saul Wold wrote:
-> On 08/03/2011 05:07 AM, Gary Thomas wrote:
->> On 2011-08-03 05:55, Gary Thomas wrote:
->>> I'd like to add some additional files to my build. These are
->>> simple scripts, etc, and it makes sense to include them as part
->>> of the base-files package for my platform.
->>>
->>> I tried to use the attached .bbappend file for this. Sadly, after
->>> the package fetch/unpack/patch, it has virtually nothing in it
->>> and the build fails miserably.
->>> ERROR: Function 'base-files: LIC_FILES_CHKSUM points to invalid file:
->>> licenses/GPL-2' failed
->>>
->>> Looking at the work tree:
->>> $ ls tmp/work/mytarget-mydistro-linux/base-files-3.0.14-r69.1/
->>> license-destdir my_script temp
->>>
->>> Without the .bbappend, I see this in the work tree:
->>> $ ls tmp/work/mytarget-mydistro-linux/base-files-3.0.14-r69
->>> deploy-ipks host.conf issue licenses package profile share temp
->>> filesystems image issue.net motd packages-split pseudo shells usbd
->>> fstab inputrc license-destdir nsswitch.conf pkgdata rotation shlibs
->>>
->>> Note: I put my script in
->>> my-layer/packages/misc/base-files-3.0.14/mytarget/my_script
->>>
->>> If I replace this line in the .bbappend
->>> FILESEXTRAPATHS := "${THISDIR}/${PN}-${PV}"
->>> with these (the way I was told to do this when .bbappend first came
->>> available):
->>> THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
->>> FILESPATH =.
->>> "${@base_set_filespath(["${THISDIR}/${PN}-${PV}/${MACHINE}"], d)}:"
->>> then the recipe works.
->>
->> Sorry, this doesn't seem to be true - it still has problems either way.
->>
->> The only way I've been able to get this to work at all is by changing
->> SRC_URI
->> SRC_URI += "\
->> file://my_script \
->> "
->> No other form seems to work.
->>
->> A follow up problem is that my script gets installed, but doesn't seem
->> to be
->> packaged. I get a warning:
->> WARNING: For recipe base-files, the following files were installed but
->> not shipped in any package:
->> WARNING: my_script
->> I thought that this line in the main recipe should include my file:
->> FILES_${PN} = "/"
->> How do I get my script to be included?
->>
-> If it's simply your script, then you could try
->
-> FILES_${PN} += "my_script"
+On Tue, 2011-08-02 at 13:50 -0700, Saul Wold wrote:
+> This change will cause the live image to be built by default
+> No longer is it necessary to build a -live image type.
+> 
+> Signed-off-by: Saul Wold <sgw@linux.intel.com>
+> ---
+>  meta-yocto/conf/machine/atom-pc.conf |    2 +-
+>  1 files changed, 1 insertions(+), 1 deletions(-)
+> 
+> diff --git a/meta-yocto/conf/machine/atom-pc.conf b/meta-yocto/conf/machine/atom-pc.conf
+> index 6ac012f..a0a8104 100644
+> --- a/meta-yocto/conf/machine/atom-pc.conf
+> +++ b/meta-yocto/conf/machine/atom-pc.conf
+> @@ -28,7 +28,7 @@ XSERVER ?= "xserver-xf86-dri-lite \
+>  
+>  MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
+>  
+> -IMAGE_FSTYPES ?= "ext3 cpio.gz"
+> +IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+>  
+>  APPEND += "usbcore.autosuspend=1"
 
-Sorry, but that doesn't help.  The resulting image is very confusing:
-   $ ls tmp/work/mytarget-mydistro-linux/base-files-3.0.14-r69.1/image/
-   my_script
-which doesn't match up at all where my recipe said to put it.
+Merged to master, thanks.
 
->
->> Note: this is becoming such a pain, I'll probably just write a special
->> recipe
->> for it even though I think it makes sense to do it like I've been
->> attempting...
->>
-> It does make sense, not sure what's going on, but you could file a bug
+Richard
 
-Done - http://bugzilla.pokylinux.org/show_bug.cgi?id=1324
 
->>>
->>> Obviously, I've done something major to upset things and/or I don't
->>> understand
->>> FILESEXTRAPATHS which I think should just add to the current list of
->>> places to
->>> satisfy SRC_URI.
->>>
->>> Ideas what I've done wrong?
->>>
->>>
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
