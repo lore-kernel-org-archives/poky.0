@@ -1,24 +1,25 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by mx1.pokylinux.org (Postfix) with ESMTP id 264684C800E5
-	for <poky@yoctoproject.org>; Wed,  3 Aug 2011 04:57:21 -0500 (CDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 03 Aug 2011 02:57:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,309,1309762800"; 
-   d="scan'208";a="3694031"
-Received: from unknown (HELO helios.localnet) ([10.255.18.43])
-	by AZSMGA002.ch.intel.com with ESMTP; 03 Aug 2011 02:57:19 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 3 Aug 2011 10:57:18 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-8-generic-pae; KDE/4.6.2; i686; ; )
-References: <1312364893.6304.YahooMailClassic@web95713.mail.in.yahoo.com>
-In-Reply-To: <1312364893.6304.YahooMailClassic@web95713.mail.in.yahoo.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by mx1.pokylinux.org (Postfix) with ESMTP id 382F24C80332
+	for <poky@yoctoproject.org>; Wed,  3 Aug 2011 06:55:23 -0500 (CDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 54DA05AE686; Wed,  3 Aug 2011 05:55:22 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id A056216603C2;
+	Wed,  3 Aug 2011 05:55:20 -0600 (MDT)
+Message-ID: <4E393728.6040309@mlbassoc.com>
+Date: Wed, 03 Aug 2011 05:55:20 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.17) Gecko/20110428 Fedora/3.1.10-1.fc15 Thunderbird/3.1.10
 MIME-Version: 1.0
-Message-Id: <201108031057.18818.paul.eggleton@linux.intel.com>
-Cc: Sparsh Wid hope <sparsh150847@yahoo.com>
-Subject: Re: problem in building qt for archos.
+To: Poky Project <poky@yoctoproject.org>
+Subject: Augmenting base files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,25 +31,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Aug 2011 09:57:21 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-15"
+X-List-Received-Date: Wed, 03 Aug 2011 11:55:23 -0000
+X-Groupsio-MsgNum: 6832
+Content-Type: multipart/mixed; boundary="------------040104000201010008030601"
+
+--------------040104000201010008030601
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi there,
+I'd like to add some additional files to my build.  These are
+simple scripts, etc, and it makes sense to include them as part
+of the base-files package for my platform.
 
-On Wednesday 03 August 2011 10:48:13 Sparsh Wid hope wrote:
-> I'm trying to bitbake qt4-embedded on openembedded, but it getting fail
+I tried to use the attached .bbappend file for this.  Sadly, after
+the package fetch/unpack/patch, it has virtually nothing in it
+and the build fails miserably.
+   ERROR: Function 'base-files: LIC_FILES_CHKSUM points to invalid file: licenses/GPL-2' failed
 
-This is the mailing list for Poky. If you are using OpenEmbedded itself please 
-use the openembedded-devel@lists.openembedded.org mailing list rather than 
-this one. (You may want to attach the full build output as well.)
+Looking at the work tree:
+   $ ls tmp/work/mytarget-mydistro-linux/base-files-3.0.14-r69.1/
+   license-destdir  my_script  temp
 
-Cheers,
-Paul
+Without the .bbappend, I see this in the work tree:
+   $ ls tmp/work/mytarget-mydistro-linux/base-files-3.0.14-r69
+   deploy-ipks  host.conf  issue            licenses       package         profile   share   temp
+   filesystems  image      issue.net        motd           packages-split  pseudo    shells  usbd
+   fstab        inputrc    license-destdir  nsswitch.conf  pkgdata         rotation  shlibs
+
+Note: I put my script in
+   my-layer/packages/misc/base-files-3.0.14/mytarget/my_script
+
+If I replace this line in the .bbappend
+   FILESEXTRAPATHS := "${THISDIR}/${PN}-${PV}"
+with these (the way I was told to do this when .bbappend first came available):
+   THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
+   FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}-${PV}/${MACHINE}"], d)}:"
+then the recipe works.
+
+Obviously, I've done something major to upset things and/or I don't understand
+FILESEXTRAPATHS which I think should just add to the current list of places to
+satisfy SRC_URI.
+
+Ideas what I've done wrong?
 
 -- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
-Paul Eggleton
-Intel Open Source Technology Centre
+--------------040104000201010008030601
+Content-Type: text/plain;
+ name="base-files_3.0.14.bbappend"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="base-files_3.0.14.bbappend"
 
+#
+# Just tell BitBake where to find my component files
+#
+FILESEXTRAPATHS := "${THISDIR}/${PN}-${PV}"
+PR .= ".1"
+
+SRC_URI_mytarget_append = "\
+    file://my_script \
+"
+
+do_install_mytarget_append () {
+    install -m 0755 ${WORKDIR}/my_script ${D}${SYSCONFDIR}/my_script
+}
+
+
+--------------040104000201010008030601--
