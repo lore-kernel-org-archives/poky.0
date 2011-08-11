@@ -1,22 +1,31 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4CB95E00767
-	for <poky@yoctoproject.org>; Thu, 11 Aug 2011 12:15:58 -0700 (PDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p7BJG3fv009374;
-	Thu, 11 Aug 2011 12:16:04 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Thu, 11 Aug 2011 15:16:30 -0400
-Message-Id: <606861a92864cb728203fdf5db286d684d2537eb.1313090099.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1313090099.git.bruce.ashfield@windriver.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A3239E00771
+	for <poky@yoctoproject.org>; Thu, 11 Aug 2011 16:48:05 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p7BNm9uq003097;
+	Fri, 12 Aug 2011 00:48:09 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02375-06; Fri, 12 Aug 2011 00:48:05 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p7BNm34G003091
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 12 Aug 2011 00:48:04 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+In-Reply-To: <606861a92864cb728203fdf5db286d684d2537eb.1313090099.git.bruce.ashfield@windriver.com>
 References: <cover.1313090099.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1313090099.git.bruce.ashfield@windriver.com>
-References: <cover.1313090099.git.bruce.ashfield@windriver.com>
+	<606861a92864cb728203fdf5db286d684d2537eb.1313090099.git.bruce.ashfield@windriver.com>
+Date: Fri, 12 Aug 2011 00:47:25 +0100
+Message-ID: <1313106445.14274.478.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] meta-yocto: remove apm from beagleboard MACHINE_FEATURES
+Subject: Re: [PATCH 1/1] meta-yocto: remove apm from beagleboard MACHINE_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,37 +37,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Aug 2011 19:15:58 -0000
+X-List-Received-Date: Thu, 11 Aug 2011 23:48:06 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Fixes [YOCTO: #916]
+On Thu, 2011-08-11 at 15:16 -0400, Bruce Ashfield wrote:
+> Fixes [YOCTO: #916]
+> 
+> apm is not something that we require in our yocto reference beagleboard
+> BSP. It currently is listed in the MACHINE_FEATURES for the board, which
+> leads to the runtime message:
+> 
+>   Starting advanced power management daemon: No APM support in kernel
+> 
+> Since "/proc/apm" is not present. The board config we are targeting does
+> not have the hardware to back this, so adding the emulation support
+> wouldn't yield useful data. We'll leave this extended functionality for
+> other more appropriate beagleboard configs.
 
-apm is not something that we require in our yocto reference beagleboard
-BSP. It currently is listed in the MACHINE_FEATURES for the board, which
-leads to the runtime message:
+On arm it used to be the case that this was the only way to expose user
+interface to suspend/resume the machine. Its not so much about their
+being hardware present for it as the whole kernel side was emulation of
+the user space notification part.
 
-  Starting advanced power management daemon: No APM support in kernel
+Has something changed in recent kernels in this area?
 
-Since "/proc/apm" is not present. The board config we are targeting does
-not have the hardware to back this, so adding the emulation support
-wouldn't yield useful data. We'll leave this extended functionality for
-other more appropriate beagleboard configs.
+Cheers,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta-yocto/conf/machine/beagleboard.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Richard
 
-diff --git a/meta-yocto/conf/machine/beagleboard.conf b/meta-yocto/conf/machine/beagleboard.conf
-index 0b3cebc..fc0ecc7 100644
---- a/meta-yocto/conf/machine/beagleboard.conf
-+++ b/meta-yocto/conf/machine/beagleboard.conf
-@@ -36,4 +36,4 @@ UBOOT_MACHINE = "omap3_beagle_config"
- UBOOT_ENTRYPOINT = "0x80008000"
- UBOOT_LOADADDRESS = "0x80008000"
- 
--MACHINE_FEATURES = "kernel26 apm usbgadget usbhost vfat alsa"
-+MACHINE_FEATURES = "kernel26 usbgadget usbhost vfat alsa"
--- 
-1.7.0.4
+
 
 
