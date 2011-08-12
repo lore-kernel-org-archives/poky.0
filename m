@@ -1,24 +1,24 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DF5A9E011B6
-	for <poky@yoctoproject.org>; Fri, 12 Aug 2011 06:27:10 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 42916E011B6
+	for <poky@yoctoproject.org>; Fri, 12 Aug 2011 06:29:32 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p7CDRI0s026232
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p7CDTe5M026639
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 12 Aug 2011 06:27:18 -0700 (PDT)
+	Fri, 12 Aug 2011 06:29:40 -0700 (PDT)
 Received: from [128.224.147.214] (128.224.147.214) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Fri, 12 Aug 2011 06:27:18 -0700
-Message-ID: <4E452A34.3020302@windriver.com>
-Date: Fri, 12 Aug 2011 09:27:16 -0400
+	Fri, 12 Aug 2011 06:29:40 -0700
+Message-ID: <4E452AC1.6090507@windriver.com>
+Date: Fri, 12 Aug 2011 09:29:37 -0400
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
 	rv:1.9.2.18) Gecko/20110617 Thunderbird/3.1.11 ThunderBrowse/3.8
 MIME-Version: 1.0
 To: v sailaja <vsailub4u@gmail.com>
-References: <CAFt-coyFKC+d0qYtyO7_NZ-SZU16bbv+6geeXD+d4YCdSc5N1A@mail.gmail.com>	<CADkTA4MULaQ+cJS7K3eB1NhPiLo7s6Yb5_OO4a=tJTvxOy2=kg@mail.gmail.com>	<CAFt-coynhjj4e6NLGcBo=0CXMs_d2v=rWQ7c-hR40o=ZrHviCg@mail.gmail.com>
-	<CAFt-cow_YiMhP9sa_Q-5U=GZe8SPTFmxc9kieHJHoxNDPThc+Q@mail.gmail.com>
-In-Reply-To: <CAFt-cow_YiMhP9sa_Q-5U=GZe8SPTFmxc9kieHJHoxNDPThc+Q@mail.gmail.com>
+References: <CAFt-coyFKC+d0qYtyO7_NZ-SZU16bbv+6geeXD+d4YCdSc5N1A@mail.gmail.com>	<CADkTA4MULaQ+cJS7K3eB1NhPiLo7s6Yb5_OO4a=tJTvxOy2=kg@mail.gmail.com>	<CAFt-coztLFfvmbB0fAY4Pmtcy-8AOaOvhqMg=JoQ5VKPWz-GeQ@mail.gmail.com>
+	<CAFt-cowDU2Jru9DZp5AmmSHjpi6gDSgVWzrt=6n5ch=NJJ3XaQ@mail.gmail.com>
+In-Reply-To: <CAFt-cowDU2Jru9DZp5AmmSHjpi6gDSgVWzrt=6n5ch=NJJ3XaQ@mail.gmail.com>
 Cc: poky@yoctoproject.org
 Subject: Re: Error for upgrading linux-yocto version from 3.0 to 3.0.1 for fishriver machine.
 X-BeenThere: poky@yoctoproject.org
@@ -32,38 +32,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Aug 2011 13:27:11 -0000
+X-List-Received-Date: Fri, 12 Aug 2011 13:29:32 -0000
 Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11-08-12 01:43 AM, v sailaja wrote:
->
->
-> ---------- Forwarded message ----------
-> From: *v sailaja* <vsailub4u@gmail.com <mailto:vsailub4u@gmail.com>>
-> Date: Fri, Aug 12, 2011 at 10:00 AM
-> Subject: Re: [poky] Error for upgrading linux-yocto version from 3.0 to
-> 3.0.1 for fishriver machine.
-> To: Bruce Ashfield <bruce.ashfield@gmail.com
-> <mailto:bruce.ashfield@gmail.com>>
->
+On 11-08-12 01:44 AM, v sailaja wrote:
 >
 > Hi Bruce,
 >
-> Can you please suggest me which/branch/ can I pull for v3.0.1 for
-> /"fishriver"/ machine and
-> If possible can you send me the commit of the kernel and SRCREV s for
-> fishriver machine.
+> I replaced the version number 3.0 in the "linux-yocto_3.0.bb
+> <http://linux-yocto_3.0.bb>" file as you said. I just tried.
+> But still I am facing the same error.
+> I Included the SRCREV s in the file
+> "meta-intel/meta-fishriver/conf/machine/fishriver.conf "
+>
+> SRCREV_machine_pn-linux-yocto_fishriver ?=
+> "c111526f70815ceff495bab07df64c0cee494d8a"
+> SRCREV_meta_pn-linux-yocto_fishriver ?=
 
-Are you using meta-intel ? That's the right way to build the
-fishriver boards.
+Just reading this now. You shouldn't need to update the SRCREVs
+vs what's in that file already.
 
-http://git.yoctoproject.org/cgit/cgit.cgi/meta-intel/commit/?id=58f707b29e20c2f1712da2e0c1eedc78ea7de6c8
+But the latest and greatest SRCREV for yocto/standard/fishriver
+would be: ad13129a87957656c18584793abcee51de0e196a and for the
+meta branch: 7782fc673afd6a1c742409896ae787560d96fce8
 
 Bruce
 
+
+> "55f9c40ff632d03c527d6a6ceddcda0a224587a6"
 >
 >
+> Can you please tell me, Are these SRCREV s for "fishriver" machine for
+> v3.0.1 kernel??
 >
 >
 > On Thu, Aug 11, 2011 at 9:58 PM, Bruce Ashfield
@@ -161,6 +162,7 @@ Bruce
 >
 >     I'm about to send another update that adds preempt-rt support on top of
 >     3.0.1, so you might want to just wait and pickup those changes as well.
+>
 >
 >     The error that you are seeing is because the wrong branch was checked
 >     out, and hence you end up with conflicting files during the merge.
