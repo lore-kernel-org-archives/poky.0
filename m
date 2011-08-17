@@ -1,23 +1,31 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4E61DE00320
-	for <poky@yoctoproject.org>; Wed, 17 Aug 2011 06:00:29 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 17 Aug 2011 06:00:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="39268864"
-Received: from unknown (HELO [10.255.14.5]) ([10.255.14.5])
-	by orsmga001.jf.intel.com with ESMTP; 17 Aug 2011 06:00:39 -0700
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: v sailaja <vsailub4u@gmail.com>
-In-Reply-To: <CAFt-cozcx0uPkdK5P7JLUrMcYsSRU6sKyjgEdKTC2Q4kdnvekQ@mail.gmail.com>
-References: <CAFt-cozcx0uPkdK5P7JLUrMcYsSRU6sKyjgEdKTC2Q4kdnvekQ@mail.gmail.com>
-Date: Wed, 17 Aug 2011 08:00:43 -0500
-Message-ID: <1313586043.2394.6.camel@elmorro>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5BAA7E006AB
+	for <poky@pokylinux.org>; Wed, 17 Aug 2011 07:49:54 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p7HEo4Tv007992;
+	Wed, 17 Aug 2011 15:50:04 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 07786-03; Wed, 17 Aug 2011 15:50:00 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p7HEnssf007977
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 17 Aug 2011 15:49:56 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Jiajun Xu <jiajun.xu@intel.com>
+In-Reply-To: <90c7a0495c570e70d0445468788efb16a4083824.1313477829.git.jiajun.xu@intel.com>
+References: <cover.1313477829.git.jiajun.xu@intel.com>
+	<90c7a0495c570e70d0445468788efb16a4083824.1313477829.git.jiajun.xu@intel.com>
+Date: Wed, 17 Aug 2011 15:49:46 +0100
+Message-ID: <1313592586.13995.47.camel@rex>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: SRCREV s for linux-yocto v3.0.1
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@pokylinux.org
+Subject: Re: [PATCH 1/1] poky.conf: add flag opengl into DISTRO_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,113 +37,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Aug 2011 13:00:29 -0000
+X-List-Received-Date: Wed, 17 Aug 2011 14:49:54 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2011-08-17 at 00:15 -0700, v sailaja wrote:
-> Hi,
+On Tue, 2011-08-16 at 14:59 +0800, Jiajun Xu wrote:
+> libsdl will check if opengl is set in DISTRO_FEATURES, then enable
+> openGL option during do_configure. It is required for 3D game testing.
 > 
+> Fix [YOCTO #883]
 > 
-> I downloaded the poky  and meta-intel source using "git clone"
-> 
-> 
-> git clone git://git.pokylinux.org/poky.git
-> git clone git://git.yoctoproject.org/meta-intel.
-> 
-> 
-> I changed the branch from "master" to "remotes/origin/1.1_M3". The
-> source contains both the poky and openembedded recipes.
-> 
-> 
-> I modified the local.conf and bblayers.conf for "sugarbay" machine.
-> I am trying to build the "core-image-minimal". But by default It is
-> taking the linux-yocto v3.0-rc7 because of the SRCREVs.
-> 
-> 
-> "meta-intel/meta-sugarbay/recipes-kernel/linux/linux-yocto_3.0.bbappend"
-> 
-> 
-> ----------------------------ooo---------------------------------
-> 
-> 
-> 
-> 
-> FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-> 
-> 
-> COMPATIBLE_MACHINE_sugarbay = "sugarbay"
-> KMACHINE_sugarbay  = "yocto/standard/common-pc-64/sugarbay"
-> 
-> 
-> SRCREV_machine_pn-linux-yocto_sugarbay ?=
-> "3216e7d5c3cada16161481826cdb39c930457587"
-> SRCREV_meta_pn-linux-yocto_sugarbay ?=
-> "9010d1cbef2633dac7e559a7705c326b7601dd4c"
-> 
-> 
-> -----------------------------ooo-----------------------------------
-> 
-> 
-> 
-> 
-> SRCREV_machine_pn-linux-yocto_sugarbay ?=
-> "3216e7d5c3cada16161481826cdb39c930457587"
-> SRCREV_meta_pn-linux-yocto_sugarbay ?=
-> "9010d1cbef2633dac7e559a7705c326b7601dd4c"
-> 
-> 
-> These SRCREVs are for linux-yocto v3.0-rc7 but I want to build the
-> source for v3.0.1.
-> 
-> 
-> 
-> 
-> Can anyone Please send me the SRCREV s for linux-yocto v3.0.1 for
-> "sugarbay" and "fishriver" machines for the branch
-> "remotes/origin/1.1_M3" and Please tell me how to get the SRCREVs.
-> 
-> 
+> Signed-off-by: Jiajun Xu <jiajun.xu@intel.com>
 
-Hi, I just updated the SRCREVs, so if you want, you can grab them from
-the below commit in meta-intel/master.
+Merged to master, thanks.
 
-In the future, you can do the same thing to update the SRCREVs to
-whatever you want - basically look at the last commit id (or whatever
-commit id you want to use) in the machine branch for the machine you're
-interested in and put that in SRCREV_machine_pn-linux-yocto_... and the
-same thing for the meta branch - put that SRCREV in
-SRCREV_meta_pn-linux-yocto_... of the kernel .bbappend.
-
-Thanks,
-
-Tom
-
-
-commit fa92a44396b16be74f0de10256b0d42e52cf0bb6
-Author: Tom Zanussi <tom.zanussi@intel.com>
-Date:   Wed Aug 17 07:50:46 2011 -0500
-
-    meta-intel: update linux-yocto 3.0 kernel SRCREVs
-    
-    Update 3.0 kernel SRCREVs for fishriver, fri2, jasperforest,
-sugarbay.
-    
-    Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
-
-
-
-> 
-> 
-> 
-> 
-> 
-> 
-> -- 
-> Thanks & Regards,
-> SAI
-> 
-> 
-
+Richard
 
 
