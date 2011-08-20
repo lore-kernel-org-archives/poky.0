@@ -1,22 +1,32 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0B260E011B2
-	for <poky@yoctoproject.org>; Thu, 18 Aug 2011 22:26:30 -0700 (PDT)
-Received: from yow-bashfiel-l1.corp.ad.wrs.com
-	(dhcp-146-223.ottawa.windriver.com [128.224.146.223])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p7J5QPYC005930;
-	Thu, 18 Aug 2011 22:26:27 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
+	[209.85.218.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D4D7E00777
+	for <poky@yoctoproject.org>; Fri, 19 Aug 2011 22:10:30 -0700 (PDT)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by yib17 with SMTP id 17so3649826yib.35
+	for <poky@yoctoproject.org>; Fri, 19 Aug 2011 22:10:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	bh=P9xrMKgK05lVw+a87yEqsyzN2MHTFt6qxXvKMJT70HM=;
+	b=loJ1pwzeht+rzlA/K8zVL1p6zFNLIVl5FiV1JpVA3WlyxergYmqE11/GafH/CYMY7h
+	sZQii+glRrdCGS9OMR+WHMVgtwoDFWkXfOHj2q/943YM7z6c90rhths/C1vu4+nO8IZO
+	nPMsTAr2fqHb+3ehebbX+x+hk8QXcxIomiS7U=
+MIME-Version: 1.0
+Received: by 10.101.28.7 with SMTP id f7mr117242anj.120.1313817029549; Fri, 19
+	Aug 2011 22:10:29 -0700 (PDT)
+Received: by 10.100.95.3 with HTTP; Fri, 19 Aug 2011 22:10:29 -0700 (PDT)
+In-Reply-To: <cover.1313731370.git.bruce.ashfield@windriver.com>
+References: <cover.1313731370.git.bruce.ashfield@windriver.com>
+Date: Sat, 20 Aug 2011 01:10:29 -0400
+Message-ID: <CADkTA4N6DVML98pZAkX=yYALr515GKcpyFkhMVD4-mU_u7YLPg@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: richard.purdie@linuxfoundation.org
-Date: Fri, 19 Aug 2011 01:26:21 -0400
-Message-Id: <28ee5057065b6d43ddd86675d028ad1b53ba11b7.1313731370.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.4.1
-In-Reply-To: <cover.1313731370.git.bruce.ashfield@windriver.com>
-References: <cover.1313731370.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1313731370.git.bruce.ashfield@windriver.com>
-References: <cover.1313731370.git.bruce.ashfield@windriver.com>
 Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 2/2] linux-yocto/meta-yocto: update SRCREVs for 3.0.3
+Subject: Re: [PATCH 0/2] meta-yocto/linux-yocto updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,38 +38,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Aug 2011 05:26:30 -0000
+X-List-Received-Date: Sat, 20 Aug 2011 05:10:30 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Updating the SRCREVs to pickup the kernel.org -stable update for
-3.0.3
+On Fri, Aug 19, 2011 at 1:26 AM, Bruce Ashfield
+<bruce.ashfield@windriver.com> wrote:
+> Richard/Saul,
+>
+> These updates switch the mpc8315e-rdb and atom-pc to use the 3.0.3
+> kernel as their default preference, and as such also update the
+> SRCREVs to 3.0.3 for these boards.
+>
+> These are based on top of a similar set of changes destined for
+> linux-yocto in oe-core.
+>
+> The following changes since commit 180e52d7b1b6754d91a98b09cb3d9ebe702fea=
+ec:
+>
+> =A0linux-yocto: update SRCREVs for 3.0.3 (2011-08-19 01:02:06 -0400)
+>
+> are available in the git repository at:
+> =A0git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+> =A0http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dzedd/kernel-yo=
+cto
+>
+> Bruce Ashfield (2):
+> =A0meta-yocto: atom-pc/mpc8315e-rdb change preferred version to 3.0
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |   10 +++++-----
- 1 files changed, 5 insertions(+), 5 deletions(-)
+This series was re-pushed on top of my oe-core updated series, with the
+only change being that the preferred version string is now "3.0%"
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-index e224d80..a0ae1ab 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-@@ -3,11 +3,11 @@ KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
- KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
- KMACHINE_beagleboard = "yocto/standard/beagleboard"
- 
--SRCREV_machine_emenlow = "374340f311d7b035451f45e29bab5e1b8c058ce8"
--SRCREV_machine_atom-pc = "fdd23ed909594ba6c32c894ee6536cf823b0377f"
--SRCREV_machine_routerstationpro = "fd6d538850a28413e3c4867b905c56039773df3a"
--SRCREV_machine_mpc8315e-rdb = "5d3c0b06071abd663c7790df141060ae462660a9"
--SRCREV_machine_beagleboard = "32631d785b0b907e5c14435ef7531ed041ab8c64"
-+SRCREV_machine_emenlow = "102a649046f1badacbefe27df487eda0f04d1dd1"
-+SRCREV_machine_atom-pc = "c54453332efbd86c2ea3caa64e908b39cfac1e76"
-+SRCREV_machine_routerstationpro = "1e268b8f2074f528f33d8f8426cbee41c33f5650"
-+SRCREV_machine_mpc8315e-rdb = "022493ebcaac08af5751fb36668a6a08cf2fc820"
-+SRCREV_machine_beagleboard = "ff28d92f1af586924e85ce3e625dfef06ed9c022"
- 
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- # COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
--- 
-1.7.4.1
+Bruce
 
+> =A0linux-yocto/meta-yocto: update SRCREVs for 3.0.3
+>
+> =A0meta-yocto/conf/machine/atom-pc.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
+ =A01 +
+> =A0meta-yocto/conf/machine/mpc8315e-rdb.conf =A0 =A0 =A0 =A0 =A0| =A0 =A0=
+2 ++
+> =A0.../recipes-kernel/linux/linux-yocto_3.0.bbappend =A0| =A0 14 +++++++-=
+------
+> =A03 files changed, 10 insertions(+), 7 deletions(-)
+>
+> --
+> 1.7.4.1
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
