@@ -1,32 +1,34 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-yi0-f48.google.com (mail-yi0-f48.google.com
-	[209.85.218.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D4D7E00777
-	for <poky@yoctoproject.org>; Fri, 19 Aug 2011 22:10:30 -0700 (PDT)
+Return-Path: <darthhunterix@wp.pl>
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.8])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5E648E011CA
+	for <poky@yoctoproject.org>; Sun, 21 Aug 2011 11:49:34 -0700 (PDT)
 Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
+	(1024-bit key; insecure key) header.i=@wp.pl;
 	x-dkim-adsp=none (insecure policy)
-Received: by yib17 with SMTP id 17so3649826yib.35
-	for <poky@yoctoproject.org>; Fri, 19 Aug 2011 22:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	bh=P9xrMKgK05lVw+a87yEqsyzN2MHTFt6qxXvKMJT70HM=;
-	b=loJ1pwzeht+rzlA/K8zVL1p6zFNLIVl5FiV1JpVA3WlyxergYmqE11/GafH/CYMY7h
-	sZQii+glRrdCGS9OMR+WHMVgtwoDFWkXfOHj2q/943YM7z6c90rhths/C1vu4+nO8IZO
-	nPMsTAr2fqHb+3ehebbX+x+hk8QXcxIomiS7U=
+Received: (wp-smtpd smtp.wp.pl 26793 invoked from network);
+	21 Aug 2011 20:49:32 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=1024a;
+	t=1313952572; bh=l7VlnyLtRkoCXTiSjXmH2AXbMnLgas9V3DyVMjHXaKI=;
+	h=From:To:Subject;
+	b=YxtDvb0Yxyi8HmP17rQuvPkUySi440MFjHxqXuSMYxT+QWzVGCoHfWF8+/IAcwyW5
+	dCELE54Sk7U3xj2IutIzx0GDFBBWprOlLe1JL6gSuTOdVLpGktxEAkZzpbeUrgnnXu
+	i/SlMUk+gOcMFESqP0grWH/rrc0FSGaTRwP2mu6g=
+Received: from out.poczta.wp.pl (HELO localhost) ([212.77.101.240])
+	(envelope-sender <darthhunterix@wp.pl>)
+	by smtp.wp.pl (WP-SMTPD) with SMTP
+	for <poky@yoctoproject.org>; 21 Aug 2011 20:49:32 +0200
+Date: Sun, 21 Aug 2011 20:49:32 +0200
+From: =?ISO-8859-2?Q?Przemek_Ogorza=B3ek?= <darthhunterix@wp.pl>
+To: poky@yoctoproject.org
+Message-ID: <4e51533cbaea03.13400098@wp.pl>
 MIME-Version: 1.0
-Received: by 10.101.28.7 with SMTP id f7mr117242anj.120.1313817029549; Fri, 19
-	Aug 2011 22:10:29 -0700 (PDT)
-Received: by 10.100.95.3 with HTTP; Fri, 19 Aug 2011 22:10:29 -0700 (PDT)
-In-Reply-To: <cover.1313731370.git.bruce.ashfield@windriver.com>
-References: <cover.1313731370.git.bruce.ashfield@windriver.com>
-Date: Sat, 20 Aug 2011 01:10:29 -0400
-Message-ID: <CADkTA4N6DVML98pZAkX=yYALr515GKcpyFkhMVD4-mU_u7YLPg@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: richard.purdie@linuxfoundation.org
-Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: Re: [PATCH 0/2] meta-yocto/linux-yocto updates
+X-Mailer: Interfejs WWW nowej poczty Wirtualnej Polski
+X-User-Agent: Mozilla/5.0 (X11; Linux i686; rv:6.0) Gecko/20100101 Firefox/6.0
+Organization: Poznaj Poczte WP http://poczta.wp.pl/info-start.html
+X-WP-IP: 83.24.49.235
+X-WP-AV: skaner antywirusowy poczty Wirtualnej Polski S. A.
+X-WP-SPAM: NO 0000000 [cYNk]                               
+Subject: Several noob's problems:
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,61 +40,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 20 Aug 2011 05:10:30 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sun, 21 Aug 2011 18:49:36 -0000
+Content-Type: text/html; charset=iso-8859-2
+Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
 
-On Fri, Aug 19, 2011 at 1:26 AM, Bruce Ashfield
-<bruce.ashfield@windriver.com> wrote:
-> Richard/Saul,
->
-> These updates switch the mpc8315e-rdb and atom-pc to use the 3.0.3
-> kernel as their default preference, and as such also update the
-> SRCREVs to 3.0.3 for these boards.
->
-> These are based on top of a similar set of changes destined for
-> linux-yocto in oe-core.
->
-> The following changes since commit 180e52d7b1b6754d91a98b09cb3d9ebe702fea=
-ec:
->
-> =A0linux-yocto: update SRCREVs for 3.0.3 (2011-08-19 01:02:06 -0400)
->
-> are available in the git repository at:
-> =A0git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
-> =A0http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Dzedd/kernel-yo=
-cto
->
-> Bruce Ashfield (2):
-> =A0meta-yocto: atom-pc/mpc8315e-rdb change preferred version to 3.0
-
-This series was re-pushed on top of my oe-core updated series, with the
-only change being that the preferred version string is now "3.0%"
-
-Bruce
-
-> =A0linux-yocto/meta-yocto: update SRCREVs for 3.0.3
->
-> =A0meta-yocto/conf/machine/atom-pc.conf =A0 =A0 =A0 =A0 =A0 =A0 =A0 | =A0=
- =A01 +
-> =A0meta-yocto/conf/machine/mpc8315e-rdb.conf =A0 =A0 =A0 =A0 =A0| =A0 =A0=
-2 ++
-> =A0.../recipes-kernel/linux/linux-yocto_3.0.bbappend =A0| =A0 14 +++++++-=
-------
-> =A03 files changed, 10 insertions(+), 7 deletions(-)
->
-> --
-> 1.7.4.1
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+<style>blockquote {padding-left: 1ex; margin: 0px 0px 0px 0.8ex; border-left: #cccccc 1px solid;} p {margin: 0px;padding: 0px;} </style>
+<p>Hello!</p>
+<p>I've got some problems with using Poky and I couldn't find any solutions in documentation or wiki, so I hope that someone will be able to help me. Some questions might sound stupid, but I've got almost zero experience with embedded hardware, and even some obvious things are a mystery to me.</p>
+<p>&nbsp;</p>
+<p>Question one:</p>
+<p>There is an excellent instruction of booting the device over network, but I need to download the image directly to device. How do I do that?</p>
+<p>&nbsp;</p>
+<p>Question two:</p>
+<p>I have installed the Eclipse plug-in, but it requires running "bitbake meta-ide-support" to build toolchain. Is there any way to use pre-build tarballs from http://autobuilder.yoctoproject.org/downloads/yocto-1.0/toolchain/i686/ ?</p>
+<p>I have written in another mail (Subject: "glibc building problem")&nbsp; why I can't simply create my own toolchain (compilation problems).</p>
+<p>&nbsp;</p>
+<p>Question three:</p>
+<p>As I understand, to customize my Poky, I have to edit recipes (or write my own). There are plenty of them however in meta directory, and finding a pattern among them is rather difficult. Is there any sort of wizard (I mean something like "make menuconfig" during normal kernel compilation) for it, or I have to study meta directory?</p>
+<p>&nbsp;</p>
+<p>I use Poky 5.0.1 on 32-bit host with Fedora 15 and my target is PowerPC.</p>
+<p>&nbsp;</p>
+<p>That's all, for now at least.</p>
+<p>Thanks in advance for any help.</p>
+<p>Best regards</p>
+<p>Przemek "Darth Hunterix"</p><br />
 
 
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
