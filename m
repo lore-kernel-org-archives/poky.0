@@ -1,31 +1,30 @@
-Return-Path: <akshat.embedded@gmail.com>
-Received: from mail-pz0-f43.google.com (mail-pz0-f43.google.com
-	[209.85.210.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1D15E0124B
-	for <poky@yoctoproject.org>; Tue, 30 Aug 2011 03:27:34 -0700 (PDT)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by pzk1 with SMTP id 1so11685122pzk.16
-	for <poky@yoctoproject.org>; Tue, 30 Aug 2011 03:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=8HTDG5HJZbT9xx6VS/fQtbWpdUrrjvUAeR4trlhdk+k=;
-	b=W4AS8P+N725jZMokjaSX7s0TVS1SyUgGoI173g85fE5hOLNR7bp8jZ/qgVKZS29DJl
-	sU33Tkn3XiAQS4GM7R4zxGuvWjl9+sCHRVk/Th+PR9HiLfrr5fa5VPsOiNU9RtpvqmCo
-	jNtWnL/EnRt0okq91UqcCByk8yslZcHrfjWA0=
-MIME-Version: 1.0
-Received: by 10.142.52.21 with SMTP id z21mr654126wfz.14.1314700054271; Tue,
-	30 Aug 2011 03:27:34 -0700 (PDT)
-Received: by 10.142.127.6 with HTTP; Tue, 30 Aug 2011 03:27:34 -0700 (PDT)
-In-Reply-To: <1314696866.5939.306.camel@rex>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 437C1E0124B
+	for <poky@yoctoproject.org>; Tue, 30 Aug 2011 04:38:53 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p7UBcnVR018334;
+	Tue, 30 Aug 2011 12:38:49 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 15446-09; Tue, 30 Aug 2011 12:38:45 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id p7UBcb0p018328
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 30 Aug 2011 12:38:41 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Akshat Saha <akshat.embedded@gmail.com>
+In-Reply-To: <CAJrrM54=ERn4W-KRLUS408p2YYL7Y4SVHJ8gVJeUTcHJriw0=g@mail.gmail.com>
 References: <CAJrrM567cYtH6C--o=eZtsObmkqfUU=MROTvKnquDEY=o2-N0Q@mail.gmail.com>
 	<1314696866.5939.306.camel@rex>
-Date: Tue, 30 Aug 2011 15:57:34 +0530
-Message-ID: <CAJrrM54=ERn4W-KRLUS408p2YYL7Y4SVHJ8gVJeUTcHJriw0=g@mail.gmail.com>
-From: Akshat Saha <akshat.embedded@gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+	<CAJrrM54=ERn4W-KRLUS408p2YYL7Y4SVHJ8gVJeUTcHJriw0=g@mail.gmail.com>
+Date: Tue, 30 Aug 2011 12:38:26 +0100
+Message-ID: <1314704306.5939.325.camel@rex>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
 Subject: Re: Error Executing Binaries in Sugarbay Machine
 X-BeenThere: poky@yoctoproject.org
@@ -39,76 +38,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Aug 2011 10:27:35 -0000
-Content-Type: multipart/alternative; boundary=000e0cd28f1cb898d404abb675c9
+X-List-Received-Date: Tue, 30 Aug 2011 11:38:53 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---000e0cd28f1cb898d404abb675c9
-Content-Type: text/plain; charset=ISO-8859-1
+On Tue, 2011-08-30 at 15:57 +0530, Akshat Saha wrote:
+> Yes, ld-linux-x86-64.so.2 is present but in /lib. There is no
+> directory as /lib64.
 
-Yes, ld-linux-x86-64.so.2 is present but in /lib. There is no directory as
-/lib64.
+That is your problem as the binaries have the /lib64 path encoded in
+them. I suspect that if you created a symlink from /lib64 to /lib,
+things would start working.
 
-On Tue, Aug 30, 2011 at 3:04 PM, Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
+Are you using master and if so, which revision and was it a build from
+scratch?
 
-> On Tue, 2011-08-30 at 11:41 +0530, Akshat Saha wrote:
-> > HI,
-> >
-> > I am facing the following error while trying to execute some
-> > dynamically linked binaries. Also find the readelf, strace and ldd
-> > logs attached with respect to "file" command.
-> >
-> > ERROR: -sh: file: not found
-> >
-> >
-> > Please help me find the solution.
->
-> A long shot but does /lib64/ld-linux-x86-64.so.2 exist on your system?
->
-> Cheers,
->
-> Richard
->
->
->
+There have been a number of bugs in this area recently but they should
+be fixed now...
+
+Cheers,
+
+Richard
 
 
--- 
-Akshat
-
---000e0cd28f1cb898d404abb675c9
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-Yes, ld-linux-x86-64.so.2 is present but in /lib. There is no directory as =
-/lib64.<br><br><div class=3D"gmail_quote">On Tue, Aug 30, 2011 at 3:04 PM, =
-Richard Purdie <span dir=3D"ltr">&lt;<a href=3D"mailto:richard.purdie@linux=
-foundation.org">richard.purdie@linuxfoundation.org</a>&gt;</span> wrote:<br=
->
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex;"><div><div></div><div class=3D"h5">On Tue, 2=
-011-08-30 at 11:41 +0530, Akshat Saha wrote:<br>
-&gt; HI,<br>
-&gt;<br>
-&gt; I am facing the following error while trying to execute some<br>
-&gt; dynamically linked binaries. Also find the readelf, strace and ldd<br>
-&gt; logs attached with respect to &quot;file&quot; command.<br>
-&gt;<br>
-&gt; ERROR: -sh: file: not found<br>
-&gt;<br>
-&gt;<br>
-&gt; Please help me find the solution.<br>
-<br>
-</div></div>A long shot but does /lib64/ld-linux-x86-64.so.2 exist on your =
-system?<br>
-<br>
-Cheers,<br>
-<font color=3D"#888888"><br>
-Richard<br>
-<br>
-<br>
-</font></blockquote></div><br><br clear=3D"all"><div><br></div>-- <br><div>=
-<span style=3D"color:rgb(51, 51, 51);font-family:georgia, serif">Akshat=A0<=
-/span></div><div><br></div><br>
-
---000e0cd28f1cb898d404abb675c9--
