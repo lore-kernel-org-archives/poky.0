@@ -1,25 +1,35 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 600ADE01271
-	for <poky@yoctoproject.org>; Fri,  2 Sep 2011 20:07:57 -0700 (PDT)
-Received: from yow-bashfiel-l1.corp.ad.wrs.com
-	(dhcp-146-223.ottawa.windriver.com [128.224.146.223])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p8337LDn012790;
-	Fri, 2 Sep 2011 20:07:22 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Fri,  2 Sep 2011 23:06:54 -0400
-Message-Id: <227658350facad588eb7be2e3a167bd57148435c.1315019063.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.4.1
-In-Reply-To: <cover.1315019063.git.bruce.ashfield@windriver.com>
-References: <cover.1315019063.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1315019063.git.bruce.ashfield@windriver.com>
-References: <cover.1315019063.git.bruce.ashfield@windriver.com>
-Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto/meta-yocto: update SRCREV for v3.0.4
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E331DE0126A
+	for <poky@pokylinux.org>; Sat,  3 Sep 2011 03:21:06 -0700 (PDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1QznLU-0007dg-TM
+	for poky@pokylinux.org; Sat, 03 Sep 2011 12:21:04 +0200
+Received: from p578b5e99.dip0.t-ipconnect.de ([87.139.94.153])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sat, 03 Sep 2011 12:21:04 +0200
+Received: from gmane by p578b5e99.dip0.t-ipconnect.de with local (Gmexim 0.1
+	(Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Sat, 03 Sep 2011 12:21:04 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Sat, 03 Sep 2011 13:20:50 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <j3sv23$rbe$1@dough.gmane.org>
+References: <4E5D200B.20209@mlbassoc.com>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: p578b5e99.dip0.t-ipconnect.de
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.20) Gecko/20110805 Thunderbird/3.1.12
+In-Reply-To: <4E5D200B.20209@mlbassoc.com>
+Subject: Re: Debugging udev
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -28,60 +38,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 03 Sep 2011 03:07:57 -0000
+X-List-Received-Date: Sat, 03 Sep 2011 10:21:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Updating the kernel SRCREVs to pickup the latest meta and BSP
-changes.
+Hi Gary,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../linux/linux-yocto-rt_3.0.bbappend              |    4 ++--
- .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |   11 ++++++-----
- 2 files changed, 8 insertions(+), 7 deletions(-)
+I'm currently on the road and can not try it myself on a yocto/poky, so
+here are some wild guesses and ideas...
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
-index a575105..ab0f24c 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
-@@ -4,13 +4,13 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
- COMPATIBLE_MACHINE_atom-pc = "atom-pc"
- KMACHINE_atom-pc = "atom-pc"
- KBRANCH_atom-pc = "yocto/standard/preempt-rt/base"
--SRCREV_machine_pn-linux-yocto-rt_atom-pc = "7e1e5b6c8a13c615feb0d7b6d37988a094aae98f"
-+SRCREV_machine_pn-linux-yocto-rt_atom-pc = "0b805cce57f61a244eb3b8fce460b14f1be442b3"
- 
- # mpc8315e-rdb support
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- KMACHINE_mpc8315e-rdb = "fsl-mpc8315e-rdb"
- KBRANCH_mpc8315e-rdb = "yocto/standard/preempt-rt/base"
--SRCREV_machine_pn-linux-yocto-rt_mpc8315e-rdb = "7e1e5b6c8a13c615feb0d7b6d37988a094aae98f"
-+SRCREV_machine_pn-linux-yocto-rt_mpc8315e-rdb = "0b805cce57f61a244eb3b8fce460b14f1be442b3"
- 
- # beagleboard support - 3.0 support has not yet been completed, build failure
- #COMPATIBLE_MACHINE_beagleboard = "beagleboard"
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-index 52ff1a2..1ae9c12 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-@@ -3,11 +3,12 @@ KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
- KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
- KMACHINE_beagleboard = "yocto/standard/beagleboard"
- 
--SRCREV_machine_emenlow ?= "985f4b7b1df7e4dbfd73af8312f544a9fcd537e7"
--SRCREV_machine_atom-pc ?= "ead7d8334e4c075906d029789333f43e54f6257a"
--SRCREV_machine_routerstationpro ?= "81d3603cf9354533f8a747b9cf9be721cb70d4fb"
--SRCREV_machine_mpc8315e-rdb ?= "59503eebe7ad5951973be8bc66eeeb98cf98193a"
--SRCREV_machine_beagleboard ?= "73d4dce6a853bab7e943a5d7eee67e593f259ecf"
-+
-+SRCREV_machine_emenlow ?= "9948ca260f316afa99c0d87d8ddb2736bf1d3709"
-+SRCREV_machine_atom-pc ?= "1e18e44adbe79b846e382370eb29bc4b8cd5a1a0"
-+SRCREV_machine_routerstationpro ?= "ed0e03a8b04388a982141919da805392b7ca1c91"
-+SRCREV_machine_mpc8315e-rdb ?= "58ffdb8000e34d2ba7c3ef278b26680b0886e8b5"
-+SRCREV_machine_beagleboard ?= "2bba211297d10047637b8f49abd2c5415480ce4d"
- 
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- # COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
--- 
-1.7.4.1
+On 08/30/2011 08:38 PM, Gary Thomas wrote:
+> I'm having trouble with udev creating all the devices I need in
+> my system.  Based on the latest master, using udev 164.
+> 
+> My system is based on the 3.0 kernel (mainline, not yocto) with
+> Video4Linux enabled with OMAP3 ISP.  This creates a bunch of
+> special devices:
+>   # ls /sys/class/video4linux/
+>   v4l-subdev0  v4l-subdev3  v4l-subdev6  video0       video3       video6
+>   v4l-subdev1  v4l-subdev4  v4l-subdev7  video1       video4
+>   v4l-subdev2  v4l-subdev5  v4l-subdev8  video2       video5
+> However, udev is not actually creating the device nodes.
+> 
+> Any ideas why?
+> Any hints on how to debug this?
+
+*) make sure udev is running - I guess it is.
+*) run on a terminal something like udevmonitor --env or udevadm monitor
+(don't know which one comes with poky) and load some kernel modules
+where udev works. Like this you should be able to see the messages sent
+by the kernel to udev. Manually load v4l so you can see if the kernel
+events are sent.
+*) if messages are sent, you most likely need to cook the udev config to
+create the proper devices for you
+*) Manually you could do make the /dev entries like this:
+
+If you run
+
+find /sys -name dev
+
+you will get many hits, such as:
+
+/sys/block/fd0/dev
+
+cat /sys/block/fd0/dev
+2:0
+
+means if loading this module, one should also create its device as follows:
+mknod /dev/fd0 b 2 0
+
+Your goal should be to make a 'dev' entry appear under /sys for your
+device and then udev (and mdev in embedded busybox systems) will mknod
+it automatically.
+
+*) DEVTMPFS
+Besides I'm not a big fan of udev/mkdev for embedded systems since we
+have user space dependencies. The kernel obviously knows about the v4l
+class, but there are no device entries made.
+
+I prefer to use DEVTMPFS (enable CONFIG_DEVTMPFS in your kernel config)
+where the kernel makes the dev entries and you don't have user space
+dependencies.
+
+> 
+> Thanks
+> 
+
+I hope this gives you some new ideas;)
+
+Regards,
+
+Robert
+
+
+..."Experience is what causes a person to make new mistakes instead of
+old ones."
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
 
 
