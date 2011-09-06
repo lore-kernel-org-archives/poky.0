@@ -1,30 +1,20 @@
-Return-Path: <rpjday@crashcourse.ca>
-Received: from astoria.ccjclearline.com (astoria.ccjclearline.com
-	[64.235.106.9])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4F36DE011B8
-	for <poky@yoctoproject.org>; Tue,  6 Sep 2011 07:20:45 -0700 (PDT)
-Received: from [128.224.252.2] (helo=crashcourse.ca)
-	by astoria.ccjclearline.com with esmtpsa (TLSv1:AES256-SHA:256)
-	(Exim 4.69) (envelope-from <rpjday@crashcourse.ca>)
-	id 1R0wW4-0006FD-J5
-	for poky@yoctoproject.org; Tue, 06 Sep 2011 10:20:44 -0400
-Date: Tue, 6 Sep 2011 10:20:33 -0400 (EDT)
-From: "Robert P. J. Day" <rpjday@crashcourse.ca>
-X-X-Sender: rpjday@localhost6.localdomain6
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82648E0075D
+	for <poky@yoctoproject.org>; Tue,  6 Sep 2011 09:39:17 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 06 Sep 2011 09:39:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="45534816"
+Received: from unknown (HELO localhost) ([10.255.14.186])
+	by orsmga002.jf.intel.com with ESMTP; 06 Sep 2011 09:39:16 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 To: poky@yoctoproject.org
-Message-ID: <alpine.DEB.2.02.1109061016470.17792@localhost6.localdomain6>
-User-Agent: Alpine 2.02 (DEB 1266 2009-07-14)
-MIME-Version: 1.0
-X-AntiAbuse: This header was added to track abuse,
-	please include it with any abuse report
-X-AntiAbuse: Primary Hostname - astoria.ccjclearline.com
-X-AntiAbuse: Original Domain - yoctoproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - crashcourse.ca
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Subject: wanting to clarify some details about PREMIRRORS
+Date: Tue,  6 Sep 2011 09:39:06 -0700
+Message-Id: <cover.1315326700.git.dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.6
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH 0/1] meta-yocto: beagleboard: document hard floating point abi
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,57 +26,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Sep 2011 14:20:45 -0000
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+X-List-Received-Date: Tue, 06 Sep 2011 16:39:17 -0000
 
+The following changes since commit dbff56238e083d0110eb13c1f5a07716340fdfe4:
 
-  after a short and educational chat with a couple people who should
-know, i want to clarify what i understand about PREMIRRORS so i can
-document it properly.  and it seems that the poky list, not the yocto
-list, is the right place for that.  (correct me if i'm wrong.)
+  icu-3.6: fix building with big make -j (2011-09-06 16:37:02 +0100)
 
-  i'm reading the poky reference manual:
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib dvhart/beagleboard
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/beagleboard
 
-http://www.yoctoproject.org/docs/poky-ref-manual/poky-ref-manual.html
+Darren Hart (1):
+  beagleboard: document how to enable the hard floating point abi
 
-and here's what i *think* i understand about the proper use of
-PREMIRRORS.
-
-  first, it's for identifying more quickly accessible and downloadable
-source for a given build, and it reflects *only tarballs*, is that
-correct?  as in, regardless of how you would *normally* get some
-software component for your build (ftp, http, git, svn, ...), what
-PREMIRRORS represents is ***only*** tarballs that match precisely the
-software component your build needs.  is that correct?
-
-  also, is there a list of acceptable archive suffixes that PREMIRRORS
-can handle?  i've seen .tar.gz, .tar.bz2, .tgz and so on.  is there a
-fetcher method that makes it clear what you can and can't have in
-PREMIRRORS?
-
-  next, as i read it, the PREMIRRORS entries for ftp, http and https
-represent what are normally tarballs, anyway.  when you get into
-SCM-based fetches, then the PREMIRRORS location would contain the
-resulting tarball you would have ended up with.
-
-  for instance, with my default yocto build, i need to "git" the
-3.0... linux kernel.  what i end up with is the 500M tarball
-git2_git.yoctoproject.org.linux-yocto-3.0.tar.gz.  so as long as i
-copy that tarball into my PREMIRRORS local directory, as long as my
-subsequent yocto builds require *precisely* that git clone of the
-kernel, my local PREMIRRORS tarball will be used, correct?
-
-  am i making sense so far?  i'm sure i'll be asking more.
-
-rday
+ meta-yocto/conf/machine/beagleboard.conf |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
 
 -- 
+1.7.6
 
-========================================================================
-Robert P. J. Day                                 Ottawa, Ontario, CANADA
-                        http://crashcourse.ca
-
-Twitter:                                       http://twitter.com/rpjday
-LinkedIn:                               http://ca.linkedin.com/in/rpjday
-========================================================================
 
