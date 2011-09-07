@@ -1,23 +1,27 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 179E1E0075D
-	for <poky@yoctoproject.org>; Tue,  6 Sep 2011 10:04:48 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p86H4kOU007910
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 6 Sep 2011 10:04:46 -0700 (PDT)
-Received: from [128.224.147.214] (128.224.147.214) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Tue, 6 Sep 2011 10:04:46 -0700
-Message-ID: <4E6652A8.7000001@windriver.com>
-Date: Tue, 6 Sep 2011 13:04:40 -0400
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.18) Gecko/20110617 Thunderbird/3.1.11 ThunderBrowse/3.8
-MIME-Version: 1.0
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7D345E01254
+	for <poky@yoctoproject.org>; Wed,  7 Sep 2011 15:14:06 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p87MJxPd029736; Wed, 7 Sep 2011 23:19:59 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id xdajfzKjiIRP; Wed,  7 Sep 2011 23:19:59 +0100 (BST)
+Received: from [192.168.1.40] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p87MJtvu029729
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Wed, 7 Sep 2011 23:19:57 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1315327540.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1315327540.git.dvhart@linux.intel.com>
+References: <cover.1315327540.git.dvhart@linux.intel.com>
+Date: Wed, 07 Sep 2011 23:13:52 +0100
+Message-ID: <1315433632.13021.35.camel@ted>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 0/1] meta-yocto: linux-yocto: remove emenlow from bbappend
 X-BeenThere: poky@yoctoproject.org
@@ -31,29 +35,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Sep 2011 17:04:48 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Wed, 07 Sep 2011 22:14:07 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 11-09-06 12:46 PM, Darren Hart wrote:
+On Tue, 2011-09-06 at 09:46 -0700, Darren Hart wrote:
 > The following changes since commit dbff56238e083d0110eb13c1f5a07716340fdfe4:
->
->    icu-3.6: fix building with big make -j (2011-09-06 16:37:02 +0100)
-
-Ack'd. I was getting tired of updating this!
-
-Bruce
-
->
+> 
+>   icu-3.6: fix building with big make -j (2011-09-06 16:37:02 +0100)
+> 
 > are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib dvhart/noemenlow
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/noemenlow
->
+>   git://git.pokylinux.org/poky-contrib dvhart/noemenlow
+>   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dvhart/noemenlow
+> 
 > Darren Hart (1):
->    linux-yocto: remove emenlow from meta-yocto bbappend
->
->   .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |    1 -
->   1 files changed, 0 insertions(+), 1 deletions(-)
->
+>   linux-yocto: remove emenlow from meta-yocto bbappend
+
+Merged to master, thanks.
+
+Richard
 
 
