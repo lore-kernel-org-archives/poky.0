@@ -1,25 +1,23 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C5F6AE0071C
-	for <poky@yoctoproject.org>; Wed, 14 Sep 2011 08:18:05 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 14 Sep 2011 08:18:04 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E91D1E0074C
+	for <poky@yoctoproject.org>; Wed, 14 Sep 2011 13:46:02 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 14 Sep 2011 13:45:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.68,380,1312182000"; d="scan'208";a="17051680"
-Received: from unknown (HELO helios.localnet) ([10.252.120.105])
-	by AZSMGA002.ch.intel.com with ESMTP; 14 Sep 2011 08:18:03 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Date: Wed, 14 Sep 2011 16:18:02 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-10-generic-pae; KDE/4.6.2; i686; ; )
-References: <cover.1315327540.git.dvhart@linux.intel.com>
-	<201109141133.13235.paul.eggleton@linux.intel.com>
-	<4E70C54B.4070506@linux.intel.com>
-In-Reply-To: <4E70C54B.4070506@linux.intel.com>
-MIME-Version: 1.0
-Message-Id: <201109141618.02210.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] meta-yocto: linux-yocto: remove emenlow from bbappend
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="48488655"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.14.252])
+	by orsmga001.jf.intel.com with ESMTP; 14 Sep 2011 13:45:48 -0700
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 14 Sep 2011 13:45:42 -0700
+Message-Id: <152a29e8c66bc359ba09d252272e3376a931b100.1316033090.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.6
+In-Reply-To: <cover.1316033090.git.sgw@linux.intel.com>
+References: <cover.1316033090.git.sgw@linux.intel.com>
+In-Reply-To: <cover.1316033090.git.sgw@linux.intel.com>
+References: <cover.1316033090.git.sgw@linux.intel.com>
+Subject: [PATCH 1/2] qt-x11-free-common: allow BBPATH to find qt3x11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,29 +29,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Sep 2011 03:50:27 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 15 Sep 2011 03:55:27 -0000
 
-On Wednesday 14 September 2011 16:16:27 Darren Hart wrote:
-> On 09/14/2011 03:33 AM, Paul Eggleton wrote:
-> > On Tuesday 06 September 2011 17:46:42 Darren Hart wrote:
-> >>   linux-yocto: remove emenlow from meta-yocto bbappend
-> > 
-> > I notice there's still a similar line in linux-yocto_2.6.37.bbappend,
-> > should this stay or also be removed?'
-> 
-> It should also be removed.
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ recipes-qt3/qt3/qt-x11-free-common.inc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-OK I have some related emenlow-removal patches ready, will add one for this 
-also.
-
-Cheers,
-Paul
-
+diff --git a/recipes-qt3/qt3/qt-x11-free-common.inc b/recipes-qt3/qt3/qt-x11-free-common.inc
+index 9e6cc81..6aa6306 100644
+--- a/recipes-qt3/qt3/qt-x11-free-common.inc
++++ b/recipes-qt3/qt3/qt-x11-free-common.inc
+@@ -8,7 +8,7 @@ PR = "r1"
+ S = "${WORKDIR}/qt-x11-free-${PV}"
+ 
+ 
+-inherit qmake_base ${COREBASE}/meta-qt3/classes/qt3x11.bbclass
++inherit qmake_base qt3x11
+ 
+ export QTDIR = "${S}"
+ STAGING_QT_DIR = "${STAGING_DIR_HOST}/qt3"
 -- 
+1.7.6
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
