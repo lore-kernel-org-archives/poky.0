@@ -1,24 +1,29 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7B9AEE004E5
-	for <poky@yoctoproject.org>; Thu, 15 Sep 2011 02:51:21 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 15 Sep 2011 02:51:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.68,386,1312182000"; d="scan'208";a="51698903"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.120.100])
-	by fmsmga001.fm.intel.com with ESMTP; 15 Sep 2011 02:51:20 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org,
-	rpurdie@rpsys.net
-Date: Thu, 15 Sep 2011 10:51:10 +0100
-Message-Id: <67ffaa5253aaee7589526ff69bb71d119b089043.1316013940.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.7.4.1
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5CC1AE004D1
+	for <poky@yoctoproject.org>; Thu, 15 Sep 2011 03:28:01 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p8FAY3XH026136; Thu, 15 Sep 2011 11:34:03 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id vBR7yPNXXiLN; Thu, 15 Sep 2011 11:34:03 +0100 (BST)
+Received: from [192.168.1.36] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p8FAXu0t026131
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Thu, 15 Sep 2011 11:33:58 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+Date: Thu, 15 Sep 2011 11:27:44 +0100
 In-Reply-To: <cover.1316013940.git.paul.eggleton@linux.intel.com>
 References: <cover.1316013940.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1316013940.git.paul.eggleton@linux.intel.com>
-References: <cover.1316013940.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 3/3] linux-yocto: remove emenlow from meta-yocto bbappend (2.6.37 version)
+X-Mailer: Evolution 3.1.91- 
+Message-ID: <1316082473.25993.12.camel@ted>
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/3] Remove remaining emenlow references from meta-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,28 +35,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Sep 2011 09:51:21 -0000
+X-List-Received-Date: Thu, 15 Sep 2011 10:28:01 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-The emenlow BSP is now contained in the meta-intel layer.
+On Thu, 2011-09-15 at 10:51 +0100, Paul Eggleton wrote:
+> The following changes since commit ce66e2c6bd117d1a40b547b10b376524f9276d16:
+> 
+>   core-image-minimal: Add missing POKY_EXTRA_IMAGE variable (2011-09-14 01:29:30 +0100)
+> 
+> are available in the git repository at:
+>   git://git.pokylinux.org/poky-contrib paule/emenlow-tidy
+>   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=paule/emenlow-tidy
+> 
+> Paul Eggleton (3):
+>   local.conf.sample: remove emenlow from example machines
+>   qt4-x11-free: remove emenlow reference from meta-yocto bbappend
+>   linux-yocto: remove emenlow from meta-yocto bbappend (2.6.37 version)
+> 
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- .../linux/linux-yocto_2.6.37.bbappend              |    1 -
- 1 files changed, 0 insertions(+), 1 deletions(-)
+Merged to master, thanks.
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
-index 56c3d18..24b6cea 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.37.bbappend
-@@ -3,7 +3,6 @@ KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
- KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
- KMACHINE_beagleboard = "yocto/standard/beagleboard"
- 
--SRCREV_machine_emenlow = "398d5adac19cb411cd80753e177769f6a666a7e7"
- SRCREV_machine_atom-pc = "fce17f046d3756045e4dfb49221d1cf60fcae329"
- SRCREV_machine_routerstationpro = "8f84c1aec0907766ab6d6ac79fcc3b7b9ce79b70"
- SRCREV_machine_mpc8315e-rdb = "bda049366dad5fc3c7ba229cd4633992581e7a1f"
--- 
-1.7.4.1
+Richard
 
 
