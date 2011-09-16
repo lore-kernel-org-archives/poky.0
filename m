@@ -1,27 +1,29 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C425BE00502
-	for <poky@yoctoproject.org>; Fri, 16 Sep 2011 08:11:07 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p8GFB38l021392
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 16 Sep 2011 08:11:03 -0700 (PDT)
-Received: from [128.224.146.67] (128.224.146.67) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Fri, 16 Sep 2011 08:11:02 -0700
-Message-ID: <4E736705.3040005@windriver.com>
-Date: Fri, 16 Sep 2011 11:11:01 -0400
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:7.0) Gecko/20110914 Thunderbird/7.0
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3FB70E00502
+	for <poky@yoctoproject.org>; Fri, 16 Sep 2011 08:22:34 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 0759516600C5; Fri, 16 Sep 2011 09:22:32 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=4.0 tests=ALL_TRUSTED,BAYES_00,
+	MISSING_HEADERS autolearn=no version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 9181F16600B5;
+	Fri, 16 Sep 2011 09:22:31 -0600 (MDT)
+Message-ID: <4E7369B7.7080201@mlbassoc.com>
+Date: Fri, 16 Sep 2011 09:22:31 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:6.0) Gecko/20110816 Thunderbird/6.0
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+CC: poky@yoctoproject.org
 References: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
 	<CADkTA4PVKxWW1f1CmfXD3sKd+W0+Vn3JGOV6TeL9PVS+VrWu5A@mail.gmail.com>
 	<CADkTA4PXcrk=b92UEPS72Byd5ine_ZRKJs7bzohfZfKBUbzVmw@mail.gmail.com>
 	<1316185585.20858.29.camel@ted>
 In-Reply-To: <1316185585.20858.29.camel@ted>
-Cc: poky@yoctoproject.org, chinmaya hoshing <cahoshing@gmail.com>
 Subject: Re: Getting error in linux-yocto kernel during build.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -34,11 +36,11 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Sep 2011 15:11:08 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Fri, 16 Sep 2011 15:22:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11-09-16 11:06 AM, Richard Purdie wrote:
+On 2011-09-16 09:06, Richard Purdie wrote:
 > On Fri, 2011-09-16 at 10:35 -0400, Bruce Ashfield wrote:
 >> On Fri, Sep 16, 2011 at 10:24 AM, Bruce Ashfield
 >> <bruce.ashfield@gmail.com>  wrote:
@@ -90,23 +92,13 @@ On 11-09-16 11:06 AM, Richard Purdie wrote:
 > therefore not touch the network. If its incomplete it will only fetch
 > the different (delta).
 
-That's what my slightly deeper look in the code told me as
-well. As long as what lands in the working directory is the same,
-the recipes don't care where it came from.
+This does work as advertised - I use it exclusively.  I have a local
+package cache which I use with PREMIRROR and I set BB_NO_NETWORK to
+prove/protect that no network access is required.
 
-But should the preferred version have to change to pickup that
-tarball ? That's the part that eludes me.
-
-Bruce
-
->
-> Cheers,
->
-> Richard
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
