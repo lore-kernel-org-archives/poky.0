@@ -1,19 +1,29 @@
-Return-Path: <holger@freyther.de>
-Received: from mail.symoco.de (sysmocom.de [78.46.147.233])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 611E0E004DD
-	for <poky@yoctoproject.org>; Thu, 15 Sep 2011 17:19:42 -0700 (PDT)
-Received: from [172.17.1.50] (bbcarfel.sites.bitbuzz.net [78.24.19.221])
-	by mail.symoco.de (Postfix) with ESMTPSA id DC8982543634
-	for <poky@yoctoproject.org>; Fri, 16 Sep 2011 00:20:04 +0000 (UTC)
-Message-ID: <4E729619.9@freyther.de>
-Date: Fri, 16 Sep 2011 02:19:37 +0200
-From: Holger Hans Peter Freyther <holger@freyther.de>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.21) Gecko/20110831 Lightning/1.0b2 Thunderbird/3.1.13
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-X-Enigmail-Version: 1.1.1
-Subject: udev and pci devices
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DEDDBE004E4
+	for <poky@yoctoproject.org>; Fri, 16 Sep 2011 05:35:15 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p8GCfJEO015134; Fri, 16 Sep 2011 13:41:19 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 3nyEgxUrDfmF; Fri, 16 Sep 2011 13:41:19 +0100 (BST)
+Received: from [192.168.1.36] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p8GCfCe7015105
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Fri, 16 Sep 2011 13:41:14 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Holger Hans Peter Freyther <holger@freyther.de>
+Date: Fri, 16 Sep 2011 13:35:00 +0100
+In-Reply-To: <4E729619.9@freyther.de>
+References: <4E729619.9@freyther.de>
+X-Mailer: Evolution 3.1.91- 
+Message-ID: <1316176509.20858.4.camel@ted>
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: udev and pci devices
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,33 +35,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Sep 2011 00:19:44 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 16 Sep 2011 12:35:16 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi all,
+On Fri, 2011-09-16 at 02:19 +0200, Holger Hans Peter Freyther wrote:
+> Hi all,
+> 
+> we stumbled across an issue of udev and busybox/modprobe. udev detects a PCI
+> device and according to udevadm test it is selecting:
+> 
+> udev_rules_apply_to_event: RUN '/sbin/modprobe -bv $env{MODALIAS}'
+> /lib/udev/rules.d/80-drivers.rules:5
+> udev_rules_apply_to_event: RUN '/sbin/modprobe $env{MODALIAS}'
+> /etc/udev/rules.d/local.rules:31
+> 
+> 
+> but as the busybox modprobe does not support the 'b' option it just fails
+> before executing the other rules. There are some possible fixes to it.
+> 
+> 1.)
+>   - remove the local.rules rule for loading the module
+>   - build busybox with CONFIG_FEATURE_MODPROBE_BLACKLIST for -b support
 
-we stumbled across an issue of udev and busybox/modprobe. udev detects a PCI
-device and according to udevadm test it is selecting:
+This sounds like the correct thing to do I think since the
+80-driver.rules file is coming from upstream, the local.rules piece is
+our extras piece.
 
-udev_rules_apply_to_event: RUN '/sbin/modprobe -bv $env{MODALIAS}'
-/lib/udev/rules.d/80-drivers.rules:5
-udev_rules_apply_to_event: RUN '/sbin/modprobe $env{MODALIAS}'
-/etc/udev/rules.d/local.rules:31
+Cheers,
 
+Richard
 
-but as the busybox modprobe does not support the 'b' option it just fails
-before executing the other rules. There are some possible fixes to it.
-
-1.)
-  - remove the local.rules rule for loading the module
-  - build busybox with CONFIG_FEATURE_MODPROBE_BLACKLIST for -b support
-
-2.)
-  - remove the 80-drivers.rules and let the modprobe just be executed by the
-    other udev rules.
-
-comments?
-
-	holger
 
