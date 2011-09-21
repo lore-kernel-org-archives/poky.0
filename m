@@ -1,28 +1,29 @@
-Return-Path: <dromede@gmail.com>
-Received: from mail-qy0-f176.google.com (mail-qy0-f176.google.com
-	[209.85.216.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 24D32E004E9
-	for <poky@yoctoproject.org>; Wed, 21 Sep 2011 09:36:19 -0700 (PDT)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by qyk27 with SMTP id 27so2151271qyk.14
-	for <poky@yoctoproject.org>; Wed, 21 Sep 2011 09:36:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=oTPdYOPwfWlbPEAwMh0gVBF+w2C85oZhgfz4uL8Ds5o=;
-	b=S3gbDJqfIf1Cyz/6ETP4XVvT5OmICW8Yw7dirkPc1AHS6Vo4Dk+07S/BUezKaUE+Fq
-	NuF5UjOOMdB8H2BVC3VVCoUuqiqkfLdwWEONlh5w3RNnW/5Dle+rQimEPPKA9fE3y4Ts
-	Rq+nTLhquBPu5adVqTcugvDW9PoEaGQ5jL24E=
-MIME-Version: 1.0
-Received: by 10.52.24.82 with SMTP id s18mr840816vdf.85.1316622977530; Wed, 21
-	Sep 2011 09:36:17 -0700 (PDT)
-Received: by 10.52.181.73 with HTTP; Wed, 21 Sep 2011 09:36:17 -0700 (PDT)
-Date: Wed, 21 Sep 2011 18:36:17 +0200
-Message-ID: <CAHod+GdxhL_SpWX8jSD-5AONre335aHT_aE3wLU5SErzTuc+zg@mail.gmail.com>
-From: =?UTF-8?B?TWFya28gS2F0acSH?= <dromede@gmail.com>
-To: poky@yoctoproject.org
-Subject: [PATCH] bluez4: replace deprecated configure switch
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
+	[209.85.161.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3C71EE004E9
+	for <poky@yoctoproject.org>; Wed, 21 Sep 2011 11:10:18 -0700 (PDT)
+Received: by fxd23 with SMTP id 23so2797775fxd.35
+	for <poky@yoctoproject.org>; Wed, 21 Sep 2011 11:10:17 -0700 (PDT)
+Received: by 10.223.59.136 with SMTP id l8mr1449750fah.54.1316628617633;
+	Wed, 21 Sep 2011 11:10:17 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl.
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id y8sm4953412faj.10.2011.09.21.11.10.15
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 21 Sep 2011 11:10:16 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1244.3)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <CAHod+GdxhL_SpWX8jSD-5AONre335aHT_aE3wLU5SErzTuc+zg@mail.gmail.com>
+Date: Wed, 21 Sep 2011 20:10:10 +0200
+Message-Id: <82ECBEC7-074D-4F04-B53B-79D11E576951@dominion.thruhere.net>
+References: <CAHod+GdxhL_SpWX8jSD-5AONre335aHT_aE3wLU5SErzTuc+zg@mail.gmail.com>
+To: =?utf-8?Q?Marko_Kati=C4=87?= <dromede@gmail.com>
+X-Mailer: Apple Mail (2.1244.3)
+Cc: Poky Project <poky@yoctoproject.org>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [PATCH] bluez4: replace deprecated configure switch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,59 +35,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Sep 2011 16:36:19 -0000
-Content-Type: multipart/alternative; boundary=20cf3079baf6e0f93204ad762cee
-
---20cf3079baf6e0f93204ad762cee
-Content-Type: text/plain; charset=ISO-8859-1
-
-"--enable-configfiles" is deprecated upstream. Here is the original reason &
-patch:
-
-http://www.spinics.net/lists/linux-bluetooth/msg14266.html
-
-Replace "--enable-configfiles" with "--enable-datafiles" in the bluez4
-recipe.
-
-diff --git a/meta/recipes-connectivity/bluez/bluez4_4.96.bbb/meta/recipes-connectivity/bluez/
-bluez4_4.96.bb
-index 994cec7..062b8f2 100644
---- a/meta/recipes-connectivity/bluez/bluez4_4.96.bb
-+++ b/meta/recipes-connectivity/bluez/bluez4_4.96.bb
-@@ -39,7 +39,7 @@ EXTRA_OECONF = "\
-   --enable-dund \
-   --disable-cups \
-   --enable-test \
--  --enable-configfiles \
-+  --enable-datafiles \
- "
-
- do_install_append() {
-
---20cf3079baf6e0f93204ad762cee
-Content-Type: text/html; charset=ISO-8859-1
+X-List-Received-Date: Wed, 21 Sep 2011 18:10:20 -0000
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-<div>&quot;--enable-configfiles&quot; is deprecated upstream. Here is the o=
-riginal reason &amp; patch:</div><div><br></div><div><meta http-equiv=3D"co=
-ntent-type" content=3D"text/html; charset=3Dutf-8"><meta http-equiv=3D"cont=
-ent-type" content=3D"text/html; charset=3Dutf-8"><a href=3D"http://www.spin=
-ics.net/lists/linux-bluetooth/msg14266.html">http://www.spinics.net/lists/l=
-inux-bluetooth/msg14266.html</a></div>
-<div><br></div>Replace &quot;--enable-configfiles&quot; with &quot;--enable=
--datafiles&quot; in the bluez4 recipe.<div><br></div><div><div>diff --git a=
-/meta/recipes-connectivity/bluez/<a href=3D"http://bluez4_4.96.bb">bluez4_4=
-.96.bb</a> b/meta/recipes-connectivity/bluez/<a href=3D"http://bluez4_4.96.=
-bb">bluez4_4.96.bb</a></div>
-<div>index 994cec7..062b8f2 100644</div><div>--- a/meta/recipes-connectivit=
-y/bluez/<a href=3D"http://bluez4_4.96.bb">bluez4_4.96.bb</a></div><div>+++ =
-b/meta/recipes-connectivity/bluez/<a href=3D"http://bluez4_4.96.bb">bluez4_=
-4.96.bb</a></div>
-<div>@@ -39,7 +39,7 @@ EXTRA_OECONF =3D &quot;\</div><div>=A0 =A0--enable-d=
-und \</div><div>=A0 =A0--disable-cups \</div><div>=A0 =A0--enable-test \</d=
-iv><div>- =A0--enable-configfiles \</div><div>+ =A0--enable-datafiles \</di=
-v><div>=A0&quot;</div>
-<div>=A0</div><div>=A0do_install_append() {</div><div><br></div><div>=A0
-</div></div>
 
---20cf3079baf6e0f93204ad762cee--
+Op 21 sep. 2011, om 18:36 heeft Marko Kati=C4=87 het volgende =
+geschreven:
+
+> "--enable-configfiles" is deprecated upstream. Here is the original =
+reason & patch:
+>=20
+> http://www.spinics.net/lists/linux-bluetooth/msg14266.html
+>=20
+> Replace "--enable-configfiles" with "--enable-datafiles" in the bluez4 =
+recipe.
+>=20
+> diff --git a/meta/recipes-connectivity/bluez/bluez4_4.96.bb =
+b/meta/recipes-connectivity/bluez/bluez4_4.96.bb
+> index 994cec7..062b8f2 100644
+> --- a/meta/recipes-connectivity/bluez/bluez4_4.96.bb
+> +++ b/meta/recipes-connectivity/bluez/bluez4_4.96.bb
+> @@ -39,7 +39,7 @@ EXTRA_OECONF =3D "\
+>    --enable-dund \
+>    --disable-cups \
+>    --enable-test \
+> -  --enable-configfiles \
+> +  --enable-datafiles \
+
+This needs to go to the oe-core list and is missing a PR bump=
+
