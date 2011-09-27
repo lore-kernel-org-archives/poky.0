@@ -1,25 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C9338E00707
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 08:48:56 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 179851660AD5; Tue, 27 Sep 2011 09:48:56 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 339CA1660ACB;
-	Tue, 27 Sep 2011 09:48:55 -0600 (MDT)
-Message-ID: <4E81F067.1090503@mlbassoc.com>
-Date: Tue, 27 Sep 2011 09:48:55 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F296E004CF
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 09:10:35 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 27 Sep 2011 09:10:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.68,449,1312182000"; d="scan'208";a="56216175"
+Received: from unknown (HELO helios.localnet) ([10.252.120.163])
+	by azsmga001.ch.intel.com with ESMTP; 27 Sep 2011 09:10:32 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: "McClintock Matthew-B29882" <B29882@freescale.com>
+Date: Tue, 27 Sep 2011 17:10:31 +0100
+User-Agent: KMail/1.13.6 (Linux/2.6.38-10-generic-pae; KDE/4.6.2; i686; ; )
+References: <cover.1317129817.git.paul.eggleton@linux.intel.com>
+	<76951fc9ca9407ebb26a59302697213334937a6b.1317129817.git.paul.eggleton@linux.intel.com>
+	<CAEsOVNc3BQLKkHHmvRE6oDe6k8CA_3Lybgqh8XmvLyNA+xhQ2A@mail.gmail.com>
+In-Reply-To: <CAEsOVNc3BQLKkHHmvRE6oDe6k8CA_3Lybgqh8XmvLyNA+xhQ2A@mail.gmail.com>
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Bitbake in a loop
+Message-Id: <201109271710.31382.paul.eggleton@linux.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] conf/distro/poky.conf: set SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,37 +31,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2011 15:48:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 27 Sep 2011 16:10:35 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-I typed ^C while bitbake was "preparing runqueue" for a job and it went nuts:
+Hi Matthew,
 
-Traceback (most recent call last):
-   File "/home/local/poky-multi/bitbake/lib/bb/server/process.py", line 122, in ProcessServer.idle_commands(delay=0.10000000000000001):
-                  try:
-     >                retval = function(self, data, False)
-                      if retval is False:
-   File "/home/local/poky-multi/bitbake/lib/bb/cooker.py", line 1069, in buildTargetsIdle(server=<ProcessServer(ProcessServer-1, started)>, rq=<bb.runqueue.RunQueue instance at 
-0xda252ec>, abort=False):
-                  if abort or self.state == state.stop:
-     >                rq.finish_runqueue(True)
-                  elif self.state == state.shutdown:
-   File "/home/local/poky-multi/bitbake/lib/bb/runqueue.py", line 982, in RunQueue.finish_runqueue(now=True):
-              if now:
-     >            self.rqexe.finish_now()
-              else:
-AttributeError: RunQueue instance has no attribute 'rqexe'
+On Tuesday 27 September 2011 16:41:42 McClintock Matthew-B29882 wrote:
+> <paul.eggleton@linux.intel.com> wrote:
+> > Specify a list of tested distributions, based on those tested prior
+> > to the Yocto Project 1.1 release as recorded on the wiki.
+> 
+> What are the specific qualifications to make this list? I have run on
+> CentOS 5.X in addition to ones on this list.
 
-This happened repeatedly until I pressed ^C a couple more times.
-meta
-meta-yocto        = "master:7a0cbe6b0e5185aebabedc515b427994bc2a15dc"
+Well, there are two aspects:
 
-Should I file a bug?
+1) We need the concrete information on what was tested; we've been collecting 
+this on the following wiki page:
+
+   https://wiki.yoctoproject.org/wiki/Distribution_Support
+
+So, I'm not the person that sets policy on this (I'm not sure we have a policy 
+yet) but thinking off the top of my head, ideally a Poky build of core-image-
+sato should run "out of the box" (after installation of necessary packages, 
+that is) with no hacks, although if we are able to document any necessary 
+changes clearly I suspect even that shouldn't be an issue.
+
+2) More practically we need to know what the ID string is for the distro. The 
+code in sanity.bbclass looks at /etc/redhat-release, /etc/SuSE-release, 
+/etc/lsb-release etc. to determine this.
+
+FWIW I agree that CentOS should be on the list but I do not have a system 
+running it to test, and I was missing the above information when I put 
+together the patch. If you're confident that it works well for builds and can 
+help with the above then I'm sure we can add it.
+
+Cheers,
+Paul
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
