@@ -1,27 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88C2EE004E9
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 06:11:36 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p8RDHnHm016291; Tue, 27 Sep 2011 14:17:50 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 5U8q0g+ad7WE; Tue, 27 Sep 2011 14:17:49 +0100 (BST)
-Received: from [192.168.1.40] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p8RDHh0m016282
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 27 Sep 2011 14:17:46 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Tue, 27 Sep 2011 14:11:19 +0100
-In-Reply-To: <4E81C907.8080407@mlbassoc.com>
-References: <4E81C907.8080407@mlbassoc.com>
-X-Mailer: Evolution 3.1.91- 
-Message-ID: <1317129087.26109.148.camel@ted>
-Mime-Version: 1.0
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 377AAE004E9
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 06:19:05 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id B66801660AF2; Tue, 27 Sep 2011 07:19:03 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id C11951660AEB;
+	Tue, 27 Sep 2011 07:19:02 -0600 (MDT)
+Message-ID: <4E81CD46.4070807@mlbassoc.com>
+Date: Tue, 27 Sep 2011 07:19:02 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4E81C907.8080407@mlbassoc.com> <1317129087.26109.148.camel@ted>
+In-Reply-To: <1317129087.26109.148.camel@ted>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Crazy versioning
 X-BeenThere: poky@yoctoproject.org
@@ -35,46 +34,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2011 13:11:37 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 27 Sep 2011 13:19:05 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-09-27 at 07:00 -0600, Gary Thomas wrote:
-> I'm trying to use the recipe meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-> Since there are a number of u-boot recipes, I want to make sure I get
-> the right one, plus I'm writing a .bbappend file to add patches for
-> my own boards.
-> 
-> So I added this to my MACHINE.conf:
->    PREFERRED_VERSION_u-boot = "2011.06"
-> 
-> When I try to build, I get this error:
->    NOTE: preferred version 2011.06 of u-boot not available (for item u-boot)
->    NOTE: versions of u-boot available: git v2011.06+git16+b1af6f532e0d348b153d5c148369229d24af361a
-> I guess this is because the recipe has this for PV
->    SRCREV = "b1af6f532e0d348b153d5c148369229d24af361a"
->    PV = "v2011.06+git${SRCPV}"
-> The truly bizarre thing is that if my cache is rebuilt, the version printed changes, e.g.
->    % touch conf/local.conf
->    % bitbake u-boot
->    NOTE: versions of u-boot available: git v2011.06+git18+b1af6f532e0d348b153d5c148369229d24af361a
-> 
-> So, how do I specify the right value in PREFERRED_VERSION?
+On 2011-09-27 07:11, Richard Purdie wrote:
+> On Tue, 2011-09-27 at 07:00 -0600, Gary Thomas wrote:
+>> I'm trying to use the recipe meta/recipes-bsp/u-boot/u-boot_2011.06.bb
+>> Since there are a number of u-boot recipes, I want to make sure I get
+>> the right one, plus I'm writing a .bbappend file to add patches for
+>> my own boards.
+>>
+>> So I added this to my MACHINE.conf:
+>>     PREFERRED_VERSION_u-boot = "2011.06"
+>>
+>> When I try to build, I get this error:
+>>     NOTE: preferred version 2011.06 of u-boot not available (for item u-boot)
+>>     NOTE: versions of u-boot available: git v2011.06+git16+b1af6f532e0d348b153d5c148369229d24af361a
+>> I guess this is because the recipe has this for PV
+>>     SRCREV = "b1af6f532e0d348b153d5c148369229d24af361a"
+>>     PV = "v2011.06+git${SRCPV}"
+>> The truly bizarre thing is that if my cache is rebuilt, the version printed changes, e.g.
+>>     % touch conf/local.conf
+>>     % bitbake u-boot
+>>     NOTE: versions of u-boot available: git v2011.06+git18+b1af6f532e0d348b153d5c148369229d24af361a
+>>
+>> So, how do I specify the right value in PREFERRED_VERSION?
+>
+> You look at the PV value in the recipe and then write something like:
+>
+> PREFERRED_VERSION_u-boot = "2011.06+git%"
+>
+> where % is a wildcard that matches the revision.
+>
+> The reason the version incremented is down to bitbake thinking multiple
+> versions were being built and trying to keep versions atomically
+> increasing.
 
-You look at the PV value in the recipe and then write something like:
+Thanks, that does work.
 
-PREFERRED_VERSION_u-boot = "2011.06+git%"
+I gave a cursory look in the documentation (both Yocto & bitbake) and
+I didn't see an explanation of this.  There's a single reference
+   ../documentation/bsp-guide/bsp.xml:     PREFERRED_VERSION_linux-yocto = "3.0%"
+but nothing that explains it.
 
-where % is a wildcard that matches the revision.
-
-The reason the version incremented is down to bitbake thinking multiple
-versions were being built and trying to keep versions atomically
-increasing.
-
-Cheers,
-
-Richard
-
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
