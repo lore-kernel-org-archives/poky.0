@@ -1,29 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE805E004CF
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 09:17:14 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p8RGNUcE027735; Tue, 27 Sep 2011 17:23:30 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Vl0--Rvol8SD; Tue, 27 Sep 2011 17:23:30 +0100 (BST)
-Received: from [192.168.1.40] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p8RGNOAV027708
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 27 Sep 2011 17:23:27 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Tue, 27 Sep 2011 17:17:00 +0100
-In-Reply-To: <4E81DC24.8020307@mlbassoc.com>
-References: <4E81DC24.8020307@mlbassoc.com>
-X-Mailer: Evolution 3.1.91- 
-Message-ID: <1317140228.26109.164.camel@ted>
-Mime-Version: 1.0
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Sharing sstate
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5F108E004CF
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 09:40:08 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 27 Sep 2011 09:40:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.68,450,1312182000"; d="scan'208";a="71253385"
+Received: from unknown (HELO helios.localnet) ([10.252.120.163])
+	by fmsmga002.fm.intel.com with ESMTP; 27 Sep 2011 09:40:06 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: "McClintock Matthew-B29882" <B29882@freescale.com>
+Date: Tue, 27 Sep 2011 17:40:05 +0100
+User-Agent: KMail/1.13.6 (Linux/2.6.38-10-generic-pae; KDE/4.6.2; i686; ; )
+References: <cover.1317129817.git.paul.eggleton@linux.intel.com>
+	<201109271710.31382.paul.eggleton@linux.intel.com>
+	<CAEsOVNd=Ns1EfSBewKMoiMhDz9DvX9h-ULrJQkLa+h08XEfKJw@mail.gmail.com>
+In-Reply-To: <CAEsOVNd=Ns1EfSBewKMoiMhDz9DvX9h-ULrJQkLa+h08XEfKJw@mail.gmail.com>
+MIME-Version: 1.0
+Message-Id: <201109271740.05725.paul.eggleton@linux.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] conf/distro/poky.conf: set SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,53 +31,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2011 16:17:16 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 27 Sep 2011 16:40:08 -0000
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-09-27 at 08:22 -0600, Gary Thomas wrote:
-> I'd really like to be able to share sstate effectively.  One problem I have with
-> it is the size - for a build of my system (something similar to core-image-sato
-> on BeagleBoard), the sstate cache for a build-from-scratch is nearly 5GB!  Not
-> exactly simple to share across sites.
-> 
-> It seems to me that maybe I don't need to share everything.  For example, the
-> webkit-gtk package:
-> 
-> $ ls -l sstate-cache/*webkit-gtk*
-> -rw-rw-r-- 1 gary gary 331221793 Sep 23 16:21 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-4a04fc210c0a565767a2ad9bb11d8322_deploy-ipk.tgz
-> -rw-rw-r-- 1 gary gary     12740 Sep 23 16:21 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-4a04fc210c0a565767a2ad9bb11d8322_deploy-ipk.tgz.siginfo
-> -rw-r--r-- 1 gary gary 326376172 Sep 23 16:15 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-67b4ac238844551dd48eed3255ea33d0_populate-sysroot.tgz
-> -rw-r--r-- 1 gary gary     21652 Sep 23 16:15 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-67b4ac238844551dd48eed3255ea33d0_populate-sysroot.tgz.siginfo
-> -rw-r--r-- 1 gary gary 665832323 Sep 23 16:19 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-726c31c08826bf24e6db77fdf5f4408b_package.tgz
-> -rw-r--r-- 1 gary gary     98746 Sep 23 16:19 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-726c31c08826bf24e6db77fdf5f4408b_package.tgz.siginfo
-> -rw-rw-r-- 1 gary gary      3117 Sep 23 15:38 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-f9267d59a61b218bd6ab76ed55f12e8e_populate-lic.tgz
-> -rw-rw-r-- 1 gary gary      8359 Sep 23 15:38 
-> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-f9267d59a61b218bd6ab76ed55f12e8e_populate-lic.tgz.siginfo
-> 
-> Would it be possible to only share part of this, maybe the "package" file?
-> It seems to me that this could make the needed (shared) cache much smaller...
+On Tuesday 27 September 2011 17:19:50 you wrote:
+> The other question is what MACHINE's we build for - it should be
+> fairly comprehensive to just test for one, but it's hardly adequate...
+> I'd assume x86, arm, ppc, mips all need to be build tested and boot
+> tested?
 
-The build will only use the pieces it needs. If your build only needs
-the deploy-ipk pieces and doesn't need to write new packages files it
-can survive without the package part. If it doesn't need to compile
-something against webkit, it won't use the populate-sysroot file.
+I'm not sure we need to go that far. We do run such comprehensive tests for a 
+small list of common distros as part of the core testing done by the Yocto QA 
+team. However, whilst it's entirely possible that a host distribution might 
+cause failures with one MACHINE / TARGET_ARCH and not another, in practice I 
+would expect that if a build of a fairly comprehensive image (such as core-
+image-sato) for one machine is able to complete successfully and run within 
+QEMU then that should be a good indicator that the host distro is suitable. 
+Additionally, if builds are being run on that system on a regular basis (e.g. 
+the autobuilders, or a developer's main machine) then that would of course 
+increase the level of confidence in that distribution.
 
-So what I'm saying is you likely could get away with not sharing the
-*_package files at least. The only downside is if you turn on rpm
-packaging it would have to rebuild.
+Naturally, resources allowing we would like to have full batches of tests run 
+on more distributions, but I don't think it's practical to commit to testing 
+every distro.
+
+Jiajun might have some other opinions/experience here, Jiajun...?
 
 Cheers,
+Paul
 
-Richard
+-- 
 
-
-
+Paul Eggleton
+Intel Open Source Technology Centre
 
