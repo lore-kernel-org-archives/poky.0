@@ -1,24 +1,25 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F04DE004DD
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 07:19:56 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 27 Sep 2011 07:19:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="57060580"
-Received: from unknown (HELO helios.localnet) ([10.252.120.163])
-	by orsmga002.jf.intel.com with ESMTP; 27 Sep 2011 07:19:55 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Tue, 27 Sep 2011 15:19:54 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-10-generic-pae; KDE/4.6.2; i686; ; )
-References: <4E81C907.8080407@mlbassoc.com> <1317129087.26109.148.camel@ted>
-	<4E81CD46.4070807@mlbassoc.com>
-In-Reply-To: <4E81CD46.4070807@mlbassoc.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DB96FE004DD
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 07:22:34 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 6CBFD1660A80; Tue, 27 Sep 2011 08:22:30 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id ED5E71660A78;
+	Tue, 27 Sep 2011 08:22:28 -0600 (MDT)
+Message-ID: <4E81DC24.8020307@mlbassoc.com>
+Date: Tue, 27 Sep 2011 08:22:28 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
 MIME-Version: 1.0
-Message-Id: <201109271519.54267.paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Crazy versioning
+To: Poky Project <poky@yoctoproject.org>
+Subject: Sharing sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,27 +31,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2011 14:19:56 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Tue, 27 Sep 2011 14:22:35 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Gary,
+I'd really like to be able to share sstate effectively.  One problem I have with
+it is the size - for a build of my system (something similar to core-image-sato
+on BeagleBoard), the sstate cache for a build-from-scratch is nearly 5GB!  Not
+exactly simple to share across sites.
 
-On Tuesday 27 September 2011 14:19:02 Gary Thomas wrote:
-> I gave a cursory look in the documentation (both Yocto & bitbake) and
-> I didn't see an explanation of this.  There's a single reference
->    ../documentation/bsp-guide/bsp.xml:     PREFERRED_VERSION_linux-yocto =
-> "3.0%" but nothing that explains it.
+It seems to me that maybe I don't need to share everything.  For example, the
+webkit-gtk package:
 
-FYI I have sent Scott R some additions to the variable reference in the manual 
-that will mention the % wildcard and give an example.
+$ ls -l sstate-cache/*webkit-gtk*
+-rw-rw-r-- 1 gary gary 331221793 Sep 23 16:21 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-4a04fc210c0a565767a2ad9bb11d8322_deploy-ipk.tgz
+-rw-rw-r-- 1 gary gary     12740 Sep 23 16:21 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-4a04fc210c0a565767a2ad9bb11d8322_deploy-ipk.tgz.siginfo
+-rw-r--r-- 1 gary gary 326376172 Sep 23 16:15 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-67b4ac238844551dd48eed3255ea33d0_populate-sysroot.tgz
+-rw-r--r-- 1 gary gary     21652 Sep 23 16:15 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-67b4ac238844551dd48eed3255ea33d0_populate-sysroot.tgz.siginfo
+-rw-r--r-- 1 gary gary 665832323 Sep 23 16:19 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-726c31c08826bf24e6db77fdf5f4408b_package.tgz
+-rw-r--r-- 1 gary gary     98746 Sep 23 16:19 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-726c31c08826bf24e6db77fdf5f4408b_package.tgz.siginfo
+-rw-rw-r-- 1 gary gary      3117 Sep 23 15:38 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-f9267d59a61b218bd6ab76ed55f12e8e_populate-lic.tgz
+-rw-rw-r-- 1 gary gary      8359 Sep 23 15:38 
+sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-f9267d59a61b218bd6ab76ed55f12e8e_populate-lic.tgz.siginfo
 
-Cheers,
-Paul
+Would it be possible to only share part of this, maybe the "package" file?
+It seems to me that this could make the needed (shared) cache much smaller...
 
 -- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
