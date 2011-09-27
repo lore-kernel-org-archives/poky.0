@@ -1,22 +1,26 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 357CEE004E9
-	for <poky@yoctoproject.org>; Mon, 26 Sep 2011 21:28:22 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 26 Sep 2011 21:28:21 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 83323E004E9
+	for <poky@yoctoproject.org>; Mon, 26 Sep 2011 21:40:53 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 26 Sep 2011 21:40:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="56865909"
+X-IronPort-AV: E=Sophos;i="4.68,448,1312182000"; d="scan'208";a="67767251"
 Received: from unknown (HELO envy.home) ([10.255.14.198])
-	by orsmga002.jf.intel.com with ESMTP; 26 Sep 2011 21:28:21 -0700
-Message-ID: <4E8150E4.2040200@linux.intel.com>
-Date: Mon, 26 Sep 2011 21:28:20 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 26 Sep 2011 21:40:40 -0700
+Message-ID: <4E8153C8.4010705@linux.intel.com>
+Date: Mon, 26 Sep 2011 21:40:40 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
 MIME-Version: 1.0
 To: chinmaya hoshing <cahoshing@gmail.com>
 References: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
-In-Reply-To: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
+	<CADkTA4PVKxWW1f1CmfXD3sKd+W0+Vn3JGOV6TeL9PVS+VrWu5A@mail.gmail.com>
+	<CADkTA4PXcrk=b92UEPS72Byd5ine_ZRKJs7bzohfZfKBUbzVmw@mail.gmail.com>
+	<1316185585.20858.29.camel@ted> <4E7369B7.7080201@mlbassoc.com>
+	<CAMTw45Di1_n0N_bOno6_tms0DMpUovWPJ-CbKPiFaptXoE3B8A@mail.gmail.com>
+In-Reply-To: <CAMTw45Di1_n0N_bOno6_tms0DMpUovWPJ-CbKPiFaptXoE3B8A@mail.gmail.com>
 Cc: poky@yoctoproject.org
 Subject: Re: Getting error in linux-yocto kernel during build.
 X-BeenThere: poky@yoctoproject.org
@@ -30,63 +34,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2011 04:28:22 -0000
+X-List-Received-Date: Tue, 27 Sep 2011 04:40:53 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
 
 
-On 09/16/2011 05:38 AM, chinmaya hoshing wrote:
+On 09/20/2011 02:51 AM, chinmaya hoshing wrote:
 > Hi ,
 > 
-> I am building poky-build minimal live image for fishriver machine on 64
-> bit host machine.
-> As I am having limited internet band-width, so I have identified all the
-> dependent packages and setup a Apache server on my local system so that
-> I can redirect the SRC_URI of all the packages to my local server.
-> I have changed the related recipes to build  minimal live image, and
-> modify bitbake.conf to add LOCAL_MIRROR="xxx.xxx.xxx.xxx/packages" , in
-> side packages I have tars which  was present "build/download" folder. 
+> I have set up a git server for linux-yocto. 
 
-OK... why not just use a common download directory? From what you've
-described your just trying to speed up the build on a single build system.
-
---
-Darren
+Did you do a --bare clone?
 
 > 
-> While building linux-yocto, fetch and unpack was done but during kernel
-> checkout whatever git commits I have done previously in poky source were
-> flashed out (lost),  also the only recipe remains in
+> Following is my recipe  :
+
+Is there a reason you are recreating the entire recipe instead of just
+adding a layer which only makes the necessary changes in a bbappend file?
+
+> require linux-yocto.inc
+> 
+> KMACHINE = "yocto/standard/base"
+> KMACHINE_qemux86  = "yocto/standard/common-pc/base"
+> KMACHINE_qemux86-64  = "yocto/standard/common-pc-64/base"
+> KMACHINE_qemuppc  = "yocto/standard/qemu-ppc32"
+> KMACHINE_qemumips = "yocto/standard/mti-malta32-be"
+> KMACHINE_qemuarm  = "yocto/standard/arm-versatile-926ejs"
+> KMACHINE_atom-pc  = "yocto/standard/common-pc/atom-pc"
+> KMACHINE_routerstationpro = "yocto/standard/routerstationpro"
+> KMACHINE_mpc8315e-rdb = "yocto/standard/fsl-mpc8315e-rdb"
+> KMACHINE_beagleboard = "yocto/standard/beagleboard"
+> KMACHINE_fishriver = "yocto/standard/fishriver"
+> 
+> KBRANCH = ${KMACHINE}
+> KMETA = meta
+> 
+> LINUX_VERSION ?= "3.0"
+> LINUX_VERSION_EXTENSION ?= "-yocto-${LINUX_KERNEL_TYPE}"
+> PR = "r0"
+> #PV = "${LINUX_VERSION}+git${SRCPV}"
+> #SRCREV_FORMAT = "meta_machine"
+> 
+> SRC_URI =
+> "git://xxx.xxx.xxx.xx/linux-yocto-3.0.git;protocol=git;nocheckout=1;branch=$%7BKBRANCH%7D,meta;name=machine,meta" 
+>            
+> COMPATIBLE_MACHINE =
+> "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64|mpc8315e-rdb|routerstationpro|beagleboard)"
+> 
+> # Functionality flags
+> KERNEL_REVISION_CHECKING ?= "t" 
+> KERNEL_FEATURES="features/netfilter"
+> KERNEL_FEATURES_append_qemux86=" cfg/sound"
+> KERNEL_FEATURES_append_qemux86-64=" cfg/sound"
+> 
+> YOCTO_KERNEL_META_DATA=t
+> 
+> # Temporary fix for oprofile and latencytop on qemux86-64
+> KERNEL_FEATURES_append_qemux86-64=" features/profiling"
+> KERNEL_FEATURES_append_qemux86-64=" features/latencytop"
+> 
+> # extra tasks
+> addtask kernel_link_vmlinux after do_compile before do_install
+> addtask validate_branches before do_patch after do_kernel_checkout
+> addtask kernel_configcheck after do_configure before do_compile
+> 
+> require linux-tools.inc
+> 
+> 
+>  
+> But still I am getting the same result as before . My previous git
+> commits in poky source are flashed out , also the only recipe remains in
 >  meta/recipe-kernel/ is linux .
 > 
 > 
-> Following are the changes made in
-> meta/recipes-kernel/linux/linux-yocto_git.bb <http://linux-yocto_git.bb>
-> #SRCREV_FORMAT = "meta_machine"  
-> SRC_URI = "${LOCAL_MIRROR}/linux-yocto-3.0-3.0.tar.bz2"                
->      // This tar file I took from
-> http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto-3.0/snapshot/linux-yocto-3.0-3.0.tar.bz2 
-> PV = "${LINUX_VERSION}"
-> 
-> In file meta-intel/meta-fishriver/conf/machine/fishriver.conf I modified 
-> PREFERRED_VERSION_linux-yocto = "3.0"                (which  was  
-> PREFERRED_VERSION_linux-yocto = "3.0+git%" )
-> 
-> 
-> Can any one help me to find the solution that if I had to pull linux
-> kernel source from tar file or such and not from git repository. What
-> things I have to do.
-> 
 > Regards
 > C Hoshing
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
 Darren Hart
