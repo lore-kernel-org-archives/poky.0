@@ -1,25 +1,24 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D195BE00559
-	for <poky@yoctoproject.org>; Mon, 26 Sep 2011 06:45:40 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 7D4E616602D2; Mon, 26 Sep 2011 07:45:38 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 6DCA316602D1;
-	Mon, 26 Sep 2011 07:45:37 -0600 (MDT)
-Message-ID: <4E808201.8080103@mlbassoc.com>
-Date: Mon, 26 Sep 2011 07:45:37 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 357CEE004E9
+	for <poky@yoctoproject.org>; Mon, 26 Sep 2011 21:28:22 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 26 Sep 2011 21:28:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="56865909"
+Received: from unknown (HELO envy.home) ([10.255.14.198])
+	by orsmga002.jf.intel.com with ESMTP; 26 Sep 2011 21:28:21 -0700
+Message-ID: <4E8150E4.2040200@linux.intel.com>
+Date: Mon, 26 Sep 2011 21:28:20 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: How to build a kernel using menuconfig
+To: chinmaya hoshing <cahoshing@gmail.com>
+References: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
+In-Reply-To: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Getting error in linux-yocto kernel during build.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,42 +30,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Sep 2011 13:45:41 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 27 Sep 2011 04:28:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-I'm working with a recent Poky checkout:
-   meta-yocto        = "master:7a0cbe6b0e5185aebabedc515b427994bc2a15dc"
 
-I used to be able to do this:
-   % bitbake <some-image>
-This step builds everything, including the kernel
-   % bitbake virtual/kernel -c menuconfig
-Adjust some settings
-   % bitbake virtual/kernel -c compile -f
-   % bitbake virtual/kernel
-Rebuild my image with the new kernel included
-   % bitbake <some-image>
 
-In the past, this would let me adjust some kernel settings, e.g. add a new
-module, then rebuild it and later add this to an image.  Sadly, when I run
-through these steps with the current master, the new kernel gets compiled
-(because I used -f), but not packaged.
+On 09/16/2011 05:38 AM, chinmaya hoshing wrote:
+> Hi ,
+> 
+> I am building poky-build minimal live image for fishriver machine on 64
+> bit host machine.
+> As I am having limited internet band-width, so I have identified all the
+> dependent packages and setup a Apache server on my local system so that
+> I can redirect the SRC_URI of all the packages to my local server.
+> I have changed the related recipes to build  minimal live image, and
+> modify bitbake.conf to add LOCAL_MIRROR="xxx.xxx.xxx.xxx/packages" , in
+> side packages I have tars which  was present "build/download" folder. 
 
-The only thing I've done differently, save updating master, is my build
-today includes
-   INHERIT += "rm_work"
+OK... why not just use a common download directory? From what you've
+described your just trying to speed up the build on a single build system.
 
-Am I missing something?
+--
+Darren
 
-How can I build the kernel and make these in-tree adjustments like I used to?
-I do this to figure out what kernel settings to set/save for my final packaging.
-
-Thanks
+> 
+> While building linux-yocto, fetch and unpack was done but during kernel
+> checkout whatever git commits I have done previously in poky source were
+> flashed out (lost),  also the only recipe remains in
+>  meta/recipe-kernel/ is linux .
+> 
+> 
+> Following are the changes made in
+> meta/recipes-kernel/linux/linux-yocto_git.bb <http://linux-yocto_git.bb>
+> #SRCREV_FORMAT = "meta_machine"  
+> SRC_URI = "${LOCAL_MIRROR}/linux-yocto-3.0-3.0.tar.bz2"                
+>      // This tar file I took from
+> http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto-3.0/snapshot/linux-yocto-3.0-3.0.tar.bz2 
+> PV = "${LINUX_VERSION}"
+> 
+> In file meta-intel/meta-fishriver/conf/machine/fishriver.conf I modified 
+> PREFERRED_VERSION_linux-yocto = "3.0"                (which  was  
+> PREFERRED_VERSION_linux-yocto = "3.0+git%" )
+> 
+> 
+> Can any one help me to find the solution that if I had to pull linux
+> kernel source from tar file or such and not from git repository. What
+> things I have to do.
+> 
+> Regards
+> C Hoshing
+> 
+> 
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
