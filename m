@@ -1,25 +1,29 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F296E004CF
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 09:10:35 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 27 Sep 2011 09:10:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.68,449,1312182000"; d="scan'208";a="56216175"
-Received: from unknown (HELO helios.localnet) ([10.252.120.163])
-	by azsmga001.ch.intel.com with ESMTP; 27 Sep 2011 09:10:32 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: "McClintock Matthew-B29882" <B29882@freescale.com>
-Date: Tue, 27 Sep 2011 17:10:31 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-10-generic-pae; KDE/4.6.2; i686; ; )
-References: <cover.1317129817.git.paul.eggleton@linux.intel.com>
-	<76951fc9ca9407ebb26a59302697213334937a6b.1317129817.git.paul.eggleton@linux.intel.com>
-	<CAEsOVNc3BQLKkHHmvRE6oDe6k8CA_3Lybgqh8XmvLyNA+xhQ2A@mail.gmail.com>
-In-Reply-To: <CAEsOVNc3BQLKkHHmvRE6oDe6k8CA_3Lybgqh8XmvLyNA+xhQ2A@mail.gmail.com>
-MIME-Version: 1.0
-Message-Id: <201109271710.31382.paul.eggleton@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] conf/distro/poky.conf: set SANITY_TESTED_DISTROS
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE805E004CF
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2011 09:17:14 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p8RGNUcE027735; Tue, 27 Sep 2011 17:23:30 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Vl0--Rvol8SD; Tue, 27 Sep 2011 17:23:30 +0100 (BST)
+Received: from [192.168.1.40] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p8RGNOAV027708
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 27 Sep 2011 17:23:27 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 27 Sep 2011 17:17:00 +0100
+In-Reply-To: <4E81DC24.8020307@mlbassoc.com>
+References: <4E81DC24.8020307@mlbassoc.com>
+X-Mailer: Evolution 3.1.91- 
+Message-ID: <1317140228.26109.164.camel@ted>
+Mime-Version: 1.0
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Sharing sstate
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,48 +35,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2011 16:10:35 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Tue, 27 Sep 2011 16:17:16 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Hi Matthew,
-
-On Tuesday 27 September 2011 16:41:42 McClintock Matthew-B29882 wrote:
-> <paul.eggleton@linux.intel.com> wrote:
-> > Specify a list of tested distributions, based on those tested prior
-> > to the Yocto Project 1.1 release as recorded on the wiki.
+On Tue, 2011-09-27 at 08:22 -0600, Gary Thomas wrote:
+> I'd really like to be able to share sstate effectively.  One problem I have with
+> it is the size - for a build of my system (something similar to core-image-sato
+> on BeagleBoard), the sstate cache for a build-from-scratch is nearly 5GB!  Not
+> exactly simple to share across sites.
 > 
-> What are the specific qualifications to make this list? I have run on
-> CentOS 5.X in addition to ones on this list.
+> It seems to me that maybe I don't need to share everything.  For example, the
+> webkit-gtk package:
+> 
+> $ ls -l sstate-cache/*webkit-gtk*
+> -rw-rw-r-- 1 gary gary 331221793 Sep 23 16:21 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-4a04fc210c0a565767a2ad9bb11d8322_deploy-ipk.tgz
+> -rw-rw-r-- 1 gary gary     12740 Sep 23 16:21 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-4a04fc210c0a565767a2ad9bb11d8322_deploy-ipk.tgz.siginfo
+> -rw-r--r-- 1 gary gary 326376172 Sep 23 16:15 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-67b4ac238844551dd48eed3255ea33d0_populate-sysroot.tgz
+> -rw-r--r-- 1 gary gary     21652 Sep 23 16:15 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-67b4ac238844551dd48eed3255ea33d0_populate-sysroot.tgz.siginfo
+> -rw-r--r-- 1 gary gary 665832323 Sep 23 16:19 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-726c31c08826bf24e6db77fdf5f4408b_package.tgz
+> -rw-r--r-- 1 gary gary     98746 Sep 23 16:19 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-726c31c08826bf24e6db77fdf5f4408b_package.tgz.siginfo
+> -rw-rw-r-- 1 gary gary      3117 Sep 23 15:38 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-f9267d59a61b218bd6ab76ed55f12e8e_populate-lic.tgz
+> -rw-rw-r-- 1 gary gary      8359 Sep 23 15:38 
+> sstate-cache/sstate-webkit-gtk-armv7a-vfp-neon-amltd-linux-gnueabi-1.5.1+svnr90727-r0-armv7a-vfp-neon-2-f9267d59a61b218bd6ab76ed55f12e8e_populate-lic.tgz.siginfo
+> 
+> Would it be possible to only share part of this, maybe the "package" file?
+> It seems to me that this could make the needed (shared) cache much smaller...
 
-Well, there are two aspects:
+The build will only use the pieces it needs. If your build only needs
+the deploy-ipk pieces and doesn't need to write new packages files it
+can survive without the package part. If it doesn't need to compile
+something against webkit, it won't use the populate-sysroot file.
 
-1) We need the concrete information on what was tested; we've been collecting 
-this on the following wiki page:
-
-   https://wiki.yoctoproject.org/wiki/Distribution_Support
-
-So, I'm not the person that sets policy on this (I'm not sure we have a policy 
-yet) but thinking off the top of my head, ideally a Poky build of core-image-
-sato should run "out of the box" (after installation of necessary packages, 
-that is) with no hacks, although if we are able to document any necessary 
-changes clearly I suspect even that shouldn't be an issue.
-
-2) More practically we need to know what the ID string is for the distro. The 
-code in sanity.bbclass looks at /etc/redhat-release, /etc/SuSE-release, 
-/etc/lsb-release etc. to determine this.
-
-FWIW I agree that CentOS should be on the list but I do not have a system 
-running it to test, and I was missing the above information when I put 
-together the patch. If you're confident that it works well for builds and can 
-help with the above then I'm sure we can add it.
+So what I'm saying is you likely could get away with not sharing the
+*_package files at least. The only downside is if you turn on rpm
+packaging it would have to rebuild.
 
 Cheers,
-Paul
 
--- 
+Richard
 
-Paul Eggleton
-Intel Open Source Technology Centre
+
+
 
