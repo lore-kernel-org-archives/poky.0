@@ -1,26 +1,33 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 815D7E0051B
-	for <poky@yoctoproject.org>; Wed, 28 Sep 2011 07:08:34 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Sep 2011 07:08:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.68,456,1312182000"; d="scan'208";a="68279061"
-Received: from unknown (HELO [10.255.14.186]) ([10.255.14.186])
-	by fmsmga001.fm.intel.com with ESMTP; 28 Sep 2011 07:08:33 -0700
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: v sailaja <vsailub4u@gmail.com>
-In-Reply-To: <CAFt-coxvnV=WbYBAyRTBXeeXZ0Zc1ascqCXPC3V_WmWAWTspyQ@mail.gmail.com>
-References: <CAFt-coxvnV=WbYBAyRTBXeeXZ0Zc1ascqCXPC3V_WmWAWTspyQ@mail.gmail.com>
-Date: Wed, 28 Sep 2011 09:08:28 -0500
-Message-ID: <1317218908.2327.10.camel@elmorro>
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 15890E004CF
+	for <poky@pokylinux.org>; Wed, 28 Sep 2011 12:15:21 -0700 (PDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1R8zbA-0007KH-U7
+	for poky@pokylinux.org; Wed, 28 Sep 2011 21:15:16 +0200
+Received: from ppp089210160092.dsl.hol.gr ([89.210.160.92])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 28 Sep 2011 21:15:16 +0200
+Received: from gmane by ppp089210160092.dsl.hol.gr with local (Gmexim 0.1
+	(Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Wed, 28 Sep 2011 21:15:16 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Wed, 28 Sep 2011 22:14:59 +0300
+Organization: Reliable Embedded Systems
+Message-ID: <j5vrnk$mgu$1@dough.gmane.org>
 Mime-Version: 1.0
-X-Mailer: Evolution 2.28.3 
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: How to pull grub2
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: ppp089210160092.dsl.hol.gr
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.20) Gecko/20110805 Thunderbird/3.1.12
+Subject: networking support in u-boot for beagle-xm rev c
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -29,59 +36,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Sep 2011 14:08:34 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 28 Sep 2011 19:15:22 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
-
-
-On Wed, 2011-09-28 at 06:21 -0700, v sailaja wrote:
-> Hi,
-> 
-> 
-> I  have built the poky source with grub-0.97 but Now i want to pull
-> grub2.
-> I have grub2 recipe i.e, grub_1.98.bb.
-> If grub_0.97.bb file is there, then it is building for grub-0.97 only,
-> so I deleted the grub_0.97.bb file from meta/recipes-bsp/ and
-> I just changed the preferred version of grub from 0.97 to 1.98
-> in  fishriver.conf.
-> 
-> 
-> -REFERRED_VERSION_grub ?= "0.97"
-> +REFERRED_VERSION_grub ?= "1.98"
-> 
-> 
-> But i am facing an error "ERROR: Nothing PROVIDES 'grub'".
-> Can anyone tell me how to resolve this error and why i  am facing this
-> error though the grub recipe is there in meta/recipes-bsp/.
-> 
 
 Hi,
 
-It's because the grub 1.98 recipe is restricted to only x86.64 and the
-grub 0.97 recipe to only i.86, so fishriver will only use .97 and won't
-see 1.98.
+I just built with a pretty recent version (commit
+e3c5d7a90ae179af0ac128ea4dfc1a5a6602c2e4) of
+core-image-sato-sdk-beagleboard and I'm running it on my beagle-xm rev c.
 
-There's now a grub 1.99 recipe in poky/master that does both, so I'd
-recommend you upgrade to edison or master of both poky and meta-intel to
-take advantage of it.
+At the moment it does not seem to do much about networking from u-boot:
 
-Tom
+Texas Instruments X-Loader 1.5.0 (Sep 28 2011 - 02:50:26)
+Beagle xM
+Reading boot sector
+Loading u-boot.bin from mmc
 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> 
-> -- 
-> Thanks & Regards,
-> SAI
-> 
-> 
+
+U-Boot 2011.06 (Sep 28 2011 - 02:54:31)
+
+OMAP3630/3730-GP ES2.1, CPU-OPP2, L3-165MHz, Max CPU Clock 1 Ghz
+OMAP3 Beagle board + LPDDR/NAND
+I2C:   ready
+DRAM:  512 MiB
+NAND:  0 MiB
+MMC:   OMAP SD/MMC: 0
+*** Warning - readenv() failed, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+Beagle unknown 0x02
+No EEPROM on expansion board
+Die ID #1c0400229ff800000163810c0f033025
+Hit any key to stop autoboot:  0
+OMAP3 beagleboard.org # sete ipaddr 192.168.5.3; sete serverip
+192.168.5.5; sete netmask 255.255.255.0; usb start
+(Re)start USB...
+USB:
+
+--- and here we get stuck ---
+
+If I remember well Koen has some u-boot under his git repo, which also
+contains networking support from within u-boot.
+
+Are there any plan to include something like this with the official release?
+
+Regards,
+
+Robert..."Developing software is difficult. It is difficult primarily
+because the "ether" of software - the material of it's existance - is
+complexity itself."
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
 
 
 
