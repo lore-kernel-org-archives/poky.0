@@ -1,33 +1,34 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 454BCE004CF
-	for <poky@yoctoproject.org>; Wed, 28 Sep 2011 16:58:11 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 0D4BF16601EA; Wed, 28 Sep 2011 17:58:10 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 080F416601D7;
-	Wed, 28 Sep 2011 17:58:08 -0600 (MDT)
-Message-ID: <4E83B490.2060805@mlbassoc.com>
-Date: Wed, 28 Sep 2011 17:58:08 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
+Return-Path: <s-uNlJa-Ge2s64kHYbOyRyXsU3sNnzqwK4GsgyTW6eni6_FoebZhmsSv@bounce.linkedin.com>
+Received: from mailb-ae.linkedin.com (mailb-ae.linkedin.com [69.28.147.150])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8FB20E004CF
+	for <poky@yoctoproject.org>; Thu, 29 Sep 2011 04:32:54 -0700 (PDT)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(768-bit key; insecure key) header.i=@linkedin.com;
+	x-dkim-adsp=none (insecure policy)
+DomainKey-Signature: q=dns; a=rsa-sha1; c=nofws; s=prod; d=linkedin.com;
+	h=DKIM-Signature:Sender:Date:From:Reply-To:To:Message-ID:Subject:MIME-Version:Content-Type:X-LinkedIn-Template:X-LinkedIn-Class:X-LinkedIn-fbl;
+	b=PL5oXTsddscyNqGaqXO6WOfk+swssx08cUueum+UaTyE3r7g/cn6alz3ra+XbgqY
+	QFR930ElQN10JkjMpZ/p/kZhQjxmSkYyeq57Atmqi2uYTO57wIZn87DAW5KXm+Tf
+DKIM-Signature: v=1; a=rsa-sha1; d=linkedin.com; s=proddkim; c=relaxed/relaxed;
+	q=dns/txt; i=@linkedin.com; t=1317295972;
+	h=From:Subject:Date:To:MIME-Version:Content-Type:X-LinkedIn-Class:X-LinkedIn-fbl:
+	X-LinkedIn-Template; bh=ZwSfBp17t4hbB4NH3hrFzB6SfME=;
+	b=i6nPINJrpk1TGqcc3QLvBh7+E+MrfXyLkM1YP3FggSa1DDs9lh22OSbWzCMzKVQT
+	xJP8t5YOkjPumaM4s3jUwcBBitUhijIKMTuqISSD1iPr3MMZAcljs6uY6oDRiJuJ;
+Sender: messages-noreply@bounce.linkedin.com
+Date: Thu, 29 Sep 2011 11:32:52 +0000 (UTC)
+From: Bhanu Prakash Singh via LinkedIn <member@linkedin.com>
+To: Ni Qingliang <poky@yoctoproject.org>
+Message-ID: <1770670228.5320914.1317295972820.JavaMail.app@ela4-app0134.prod>
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4E808201.8080103@mlbassoc.com> <4E82985F.9080009@linux.intel.com>
-	<4E830605.2070504@mlbassoc.com> <1317215746.26109.250.camel@ted>
-	<4E832289.5070706@mlbassoc.com>
-In-Reply-To: <4E832289.5070706@mlbassoc.com>
-Cc: Darren Hart <dvhart@linux.intel.com>, Poky Project <poky@yoctoproject.org>
-Subject: Re: How to build a kernel using menuconfig
+X-LinkedIn-Template: invite_member_28
+X-LinkedIn-Class: INVITE-MBR
+X-LinkedIn-fbl: s-uNlJa-Ge2s64kHYbOyRyXsU3sNnzqwK4GsgyTW6eni6_FoebZhmsSv
+Subject: Join my network on LinkedIn
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: Bhanu Prakash Singh <sparsh150847@yahoo.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -36,74 +37,175 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Sep 2011 23:58:11 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Thu, 29 Sep 2011 11:32:55 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5320913_112324099.1317295972818"
+
+------=_Part_5320913_112324099.1317295972818
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2011-09-28 07:35, Gary Thomas wrote:
-> On 2011-09-28 07:15, Richard Purdie wrote:
->> On Wed, 2011-09-28 at 05:33 -0600, Gary Thomas wrote:
->>> On 2011-09-27 21:45, Darren Hart wrote:
->>>>
->>>>
->>>> On 09/26/2011 06:45 AM, Gary Thomas wrote:
->>>>> I'm working with a recent Poky checkout:
->>>>> meta-yocto = "master:7a0cbe6b0e5185aebabedc515b427994bc2a15dc"
->>>>>
->>>>> I used to be able to do this:
->>>>> % bitbake<some-image>
->>>>> This step builds everything, including the kernel
->>>>> % bitbake virtual/kernel -c menuconfig
->>>>> Adjust some settings
->>>>> % bitbake virtual/kernel -c compile -f
->>>>> % bitbake virtual/kernel
->>>>> Rebuild my image with the new kernel included
->>>>> % bitbake<some-image>
->>>>>
->>>>> In the past, this would let me adjust some kernel settings, e.g. add a new
->>>>> module, then rebuild it and later add this to an image. Sadly, when I run
->>>>> through these steps with the current master, the new kernel gets compiled
->>>>> (because I used -f), but not packaged.
->>>>>
->>>>> The only thing I've done differently, save updating master, is my build
->>>>> today includes
->>>>> INHERIT += "rm_work"
->>>>>
->>>>> Am I missing something?
->>>>>
->>>>> How can I build the kernel and make these in-tree adjustments like I used to?
->>>>> I do this to figure out what kernel settings to set/save for my final packaging.
->>>>
->>>>
->>>> Yeah, this is standard kernel devel workflow. I typically use the kernel
->>>> recipe name directly, but otherwise my process is the same. What happens
->>>> now when you run "bitbake virtual/kernel" after the compile -f ?
->>>>
->>>
->>> As indicated above, nothing. If I remove rm_work from my configuration
->>> and then rebuild the kernel, it works as expected.
->>
->> It sounds like there is a bad interaction between rm_work and this set
->> of steps. I can kind of see why, rm_work promotes the stamp files to
->> setscene ones (so the same as if a sstate build was made). Nothing in
->> the above steps would actually remove the setscene stamps so bitbake
->> sees them and assumes everything is still valid.
->>
->> If you did a bitbake -c package -f virtual/kernel then I suspect it
->> would actually sort itself out. Off the top of my head I can't see a way
->> to fix this in any straightforward way :/.
->
-> My inclination is to just not allow rm_work for kernel recipes. Perhaps
-> it's possible to filter out rm_work for this recipe like this?
-> INHERIT := "${@oe_filter_out('rm_work', '${INHERIT}', d)}"
-> Note: I've not tried it, just a thought.
+LinkedIn
+------------
 
-Sadly, this doesn't work.  For now, I'll just note that rm_work is
-incompatible with kernel fiddling :-(
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
+
+    
+    
+    
+    
+      Bhanu Prakash Singh has indicated you are a Friend
+      
+    
+      
+    
+    
+  
+------------------------------------------
+
+I'd like to add you to my professional network.
+
+- Bhanu Prakash
+
+Accept invitation from Bhanu Prakash Singh
+http://www.linkedin.com/e/76kha2-gt5o0dsg-1h/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/blk/I134069248_125/6lColZJrmZznQNdhjRQnOpBtn9QfmhBt71BoSd1p65Lr6lOfPkOclYUd38Vdz0QcP59bPh3ljBIjRBNbP0Tdj0PdPkVcPgLrCBxbOYWrSlI/EML_comm_afe/?hs=false&tok=1BCBC59txQ0kY1
+
+View profile of Bhanu Prakash Singh
+http://www.linkedin.com/e/76kha2-gt5o0dsg-1h/rsn/104041102/FJ1E/?hs=false&tok=3ZPLNgVuRQ0kY1
+------------------------------------------
+
+
+------=_Part_5320913_112324099.1317295972818
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+<html>
+  <body>
+    
+
+
+
+    
+      
+      
+      
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#F4F4F4" style="border:solid 1px #F4F4F4;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;">
+  <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div></td></tr></table></td></tr>
+
+  <tr align="center">
+    <td>
+      <table width="590" border="0" cellspacing="0" cellpadding="0">
+        <tr align="right">
+          <td>
+            <a href="http://www.linkedin.com/"><img src="http://www.linkedin.com/scds/common/u/img/logos/logo_emails_trans_98x24.png" height="24" width="98" alt="LinkedIn Logo" border="0"></a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div></td></tr></table></td></tr>
+
+  <tr align="center">
+    <td>
+      
+      <table width="590" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="border:solid 1px #DDDDDD;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;">
+        <tr><td colspan="3"><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:15px;font-size:15px;line-height:15px;">&nbsp;</div></td></tr></table></td></tr>
+        <tr>
+          <td width="1%"><table width="15" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:0px;font-size:0px;line-height:0px;">&nbsp;</div></td></tr></table></td><!-- LEFT PADDING - 1% with a min-width of 15px -->
+          <td width="98%">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">  
+              <tr>
+                  <td valign="top" width="60">
+                      <img src="http://media.linkedin.com/mpr/mpr/shrink_80_80/p/2/000/0a5/165/0518520.jpg" width="60" height="60" border="0" style="display: block;">
+                  </td>
+                  <td width="10"></td>
+                <td align="left" valign="top">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td style="font-family: Arial;color:#333333; font-weight: bold; font-size:12px;">
+                        From Bhanu Prakash Singh
+                      </td>
+                      <td width="10"></td>
+                      <td style="font-family: Arial;color:#333333; font-size:12px;">
+                        <a href="http://www.linkedin.com/e/76kha2-gt5o0dsg-1h/rsn/104041102/FJ1E/?hs=false&amp;tok=3ZPLNgVuRQ0kY1" style="text-decoration: none;"><span style="font-family:Arial;font-size:11px;color:#006699;">View Profile &#187;</span></a>
+                      </td>
+                    </tr>
+                  </table>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:3px;font-size:3px;line-height:3px;">&nbsp;</div></td></tr></table></td></tr>
+                    <tr>
+                      <td style="font-family: Arial;color:#333333; font-size:12px;" colspan="3">Associate Engineer at SpectraCore Technologies</td>
+                    </tr>
+                    <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:3px;font-size:3px;line-height:3px;">&nbsp;</div></td></tr></table></td></tr>
+                    <tr>
+                      <td style="font-family: Arial;color:#333333; font-size:12px;" colspan="3">1 shared connection</td>
+                    </tr>
+                    <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div></td></tr></table></td></tr>
+                    <tr>
+                      <td>
+                        <table width="100%" border="0" cellspacing="15" cellpadding="0" bgcolor="#F2FAFF" style="border-top: 1px dotted #ddd; border-bottom: 1px dotted #ddd;">
+                          <tr>
+                            <td style="font-family: Arial;color:#333333; font-size:12px;">
+                              <div>
+                                I'd like to add you to my professional network.
+<br/>
+
+<br/>
+- Bhanu Prakash
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div></td></tr></table></td></tr>
+                    <tr>
+                      <td><table border="0" cellpadding="6" cellspacing="1" align=""><tr><td align="center" valign="middle" bgcolor="#FFE86C" background="http://www.linkedin.com/scds/common/u/img/bg/yellow_button_back.png" style="background:url(http://www.linkedin.com/scds/common/u/img/bg/yellow_button_back.png) repeat-x scroll 100% 0 #FFE86C;background-color:#FFE86C;border:1px solid #E8B463;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;"><div style="padding-right:10px;padding-left:10px;"><a href="http://www.linkedin.com/e/76kha2-gt5o0dsg-1h/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/blk/I134069248_125/6lColZJrmZznQNdhjRQnOpBtn9QfmhBt71BoSd1p65Lr6lOfPkOclYUd38Vdz0QcP59bPh3ljBIjRBNbP0Tdj0PdPkVcPgLrCBxbOYWrSlI/EML_comm_afe/?hs=false&amp;tok=1BCBC59txQ0kY1" style="text-decoration:none;"><span style="font-size:12px;font-family:Arial;font-weight:bold;color:#333333;white-space:nowrap;"> Accept</span></a></div></td></tr></table></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td width="1%"><table width="15" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:0px;font-size:0px;line-height:0px;">&nbsp;</div></td></tr></table></td><!-- RIGHT PADDING - 1% with a min-width of 15px -->
+        </tr>
+        <tr><td colspan="3"><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:15px;font-size:15px;line-height:15px;">&nbsp;</div></td></tr></table></td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr align="center">
+    <td>
+      <table width="590" border="0" cellspacing="0" cellpadding="0">
+        <tr align="left">
+          <td>
+            <table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td style="color:#666666;font-family: Arial;font-size: 11px;" valign="bottom">
+                  <table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div></td></tr></table>
+                  &copy; 2011, LinkedIn Corporation
+                </td>
+                <td><table width="10" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:0px;font-size:0px;line-height:0px;">&nbsp;</div></td></tr></table></td>
+                <td valign="bottom">
+                  <a href="https://www.linkedin.com/e/76kha2-gt5o0dsg-1h/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/prv/?hs=false&amp;tok=28xJjlZ0tQ0kY1" style="text-decoration:none;">
+                    <span style="font-family:Arial;font-size:11px;color:#006699;">Adjust your invitation email settings.</span></a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr><td><table width="1" border="0" cellspacing="0" cellpadding="0"><tr><td><div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div></td></tr></table></td></tr>
+</table>
+
+    
+  <img src="http://www.linkedin.com/emimp/76kha2-gt5o0dsg-1h.gif" style="width:1px; height:1px;"/></body>
+</html>
+
+------=_Part_5320913_112324099.1317295972818--
