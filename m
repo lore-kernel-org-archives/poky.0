@@ -1,22 +1,28 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D2720E004D1
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 10:08:09 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 30 Sep 2011 10:08:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.68,468,1312182000"; d="scan'208";a="72889949"
-Received: from unknown (HELO [10.255.15.62]) ([10.255.15.62])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Sep 2011 10:08:02 -0700
-From: Joshua Lock <josh@linux.intel.com>
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C2E4E004D1
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 10:56:14 -0700 (PDT)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id 9571D188A183
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:13 +0200 (CEST)
+X-Auth-Info: qX+F68JxOYjclXh9TZeeHQqVVKPkLE5ReA7JBG+0GOo=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 302601C00050
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:13 +0200 (CEST)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id F0C0EC913108
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:12 +0200 (CEST)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 667D21208F1C
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:12 +0200 (CEST)
 To: poky@yoctoproject.org
-Date: Fri, 30 Sep 2011 10:07:57 -0700
-In-Reply-To: <CAFt-coyH+xTzgY03s-oVAeY55zVRhKaMKAJSqqCCuibnTS+Avg@mail.gmail.com>
-References: <CAFt-coyH+xTzgY03s-oVAeY55zVRhKaMKAJSqqCCuibnTS+Avg@mail.gmail.com>
-X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
-Message-ID: <1317402482.11645.10.camel@scimitar>
-Mime-Version: 1.0
-Subject: Re: Error while pulling XBMC package.
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+Date: Fri, 30 Sep 2011 19:56:12 +0200
+Message-Id: <20110930175612.667D21208F1C@gemini.denx.de>
+Subject: debian.o-hand.com unreachable ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,59 +34,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Sep 2011 17:08:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 30 Sep 2011 17:56:15 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On Fri, 2011-09-30 at 12:51 +0530, v sailaja wrote:
-> Hi,
-> 
-> I'm trying to pull the package XBMC 10.05 which depends on
-> libsdl_mixer and its there in the meta/recipe as libsdl. Another
-> dependency libsdl_image also present in libsdl is getting pulled 
-> easily but while building for libsdl_mixer with the recipe
-> libsdl-mixer_1.2.11.bb i'm getting the 
-> error as below:
-> ERROR: Nothing PROVIDES 'libsdl_mixer'
-> ERROR: Command execution failed: Traceback (most recent call last):
->   File "/home/sct/logi/gigabyte/poky_ gigabyte_16Sep2011/bitbake/ lib/bb/command.py", line 102, in runAsyncCommand
-> 
->     commandmethod(self.cmds_async,
->  self, options)
->   File "/home/sct/logi/gigabyte/poky_ gigabyte_16Sep2011/bitbake/ lib/bb/command.py", line 200, in buildTargets
->     command.cooker.buildTargets( pkgs_to_build, task)
->   File "/home/sct/logi/gigabyte/poky_
->  gigabyte_16Sep2011/bitbake/ lib/bb/cooker.py", line 826, in buildTargets
->     taskdata.add_provider( localdata, self.status, k)
->   File
->  "/home/sct/logi/gigabyte/poky_ gigabyte_16Sep2011/bitbake/ lib/bb/taskdata.py", line 353, in add_provider
-> 
->     self.add_provider_internal( cfgData, dataCache, item)
->   File "/home/sct/logi/gigabyte/poky_ gigabyte_16Sep2011/bitbake/ lib/bb/taskdata.py", line 373, in add_provider_internal
->     raise bb.providers.NoProvider(item)
-> 
-> NoProvider: libsdl_mixer
-> 
-> 
-> I'm building the poky for "Fishriver" machine . My host machine is "
-> Ubuntu 10.10, 64 bit ".
-> Can someone help me out of this problem ? 
+Hello,
 
-BitBake doesn't think it can build libsdl_mixer for your target. Is the
-recipe restricted by COMPATIBLE_MACHINE, COMPATIBLE_HOST, or similar
-mechanism?
+there are several parts of the Poky Handbok that refer to the
+OpenedHand repository at http://debian.o-hand.com/
 
-You're probably going to have to share more information for anyone to be
-able to help you - is the libsdl_mixer recipe somewhere we can take a
-look?
+However, this site seems to be down, and has been unreachable for some
+time.
 
-Where are you 'pulling' these things from?
+Is there some alternative address for example for the Debian packages
+poky-depends and poky-scripts ?
 
-Regards,
-Joshua
+Best regards,
+
+Wolfgang Denk
+
 -- 
-Joshua Lock
-        Yocto Project "Johannes factotum"
-        Intel Open Source Technology Centre
-
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Gods don't like people not doing much work. People  who  aren't  busy
+all the time might start to _think_.  - Terry Pratchett, _Small Gods_
 
