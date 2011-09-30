@@ -1,28 +1,25 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C2E4E004D1
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 10:56:14 -0700 (PDT)
-Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
-	[192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id 9571D188A183
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:13 +0200 (CEST)
-X-Auth-Info: qX+F68JxOYjclXh9TZeeHQqVVKPkLE5ReA7JBG+0GOo=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216])
-	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id 302601C00050
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:13 +0200 (CEST)
-Received: from gemini.denx.de (unknown [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id F0C0EC913108
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:12 +0200 (CEST)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id 667D21208F1C
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 19:56:12 +0200 (CEST)
-To: poky@yoctoproject.org
-From: Wolfgang Denk <wd@denx.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1D6FE004D1
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 13:15:35 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 528F91660184; Fri, 30 Sep 2011 14:15:32 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 6BE99166016D;
+	Fri, 30 Sep 2011 14:15:31 -0600 (MDT)
+Message-ID: <4E862363.8010704@mlbassoc.com>
+Date: Fri, 30 Sep 2011 14:15:31 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
 MIME-Version: 1.0
-Date: Fri, 30 Sep 2011 19:56:12 +0200
-Message-Id: <20110930175612.667D21208F1C@gemini.denx.de>
-Subject: debian.o-hand.com unreachable ?
+To: Poky Project <poky@yoctoproject.org>
+Subject: web2 on PPC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,29 +31,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Sep 2011 17:56:15 -0000
-Content-type: text/plain; charset=ISO-8859-1
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Fri, 30 Sep 2011 20:15:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+I'm trying to run the web-webkit browser on my PowerPC system (built using Poky).
+I've built this on ARM and it runs great, but on PowerPC it fails almost immediately.
+Following into the failure with GDB, it looks like it's trying to build up a string
+using a [possibly] wide character iterator.  It fails on line 76 of the code below,
+going through it by hand shows that 'iterator' is NULL.
 
-there are several parts of the Poky Handbok that refer to the
-OpenedHand repository at http://debian.o-hand.com/
+(gdb) dir /local/logopak8347tbga_new/tmp/work/ppc603e-amltd-linux/webkit-gtk-1.5.1+svnr90727-r0
+(gdb) l
+71      TextBreakIterator* acquireLineBreakIterator(const UChar* string, int length, const AtomicString& locale)
+72      {
+73          UBreakIterator* iterator = LineBreakIteratorPool::sharedPool().take(locale);
+74
+75          UErrorCode setTextStatus = U_ZERO_ERROR;
+76          ubrk_setText(iterator, string, length, &setTextStatus);
+77          if (U_FAILURE(setTextStatus)) {
+78              LOG_ERROR("ubrk_setText failed with status %d", setTextStatus);
+79              return 0;
+80          }
+(gdb) b 75
+Breakpoint 1 at 0xf8a7440: file Source/WebCore/platform/text/TextBreakIteratorICU.cpp, line 75.
 
-However, this site seems to be down, and has been unreachable for some
-time.
+Any ideas what might be wrong here?  Maybe some confusion about wide vs not-wide
+character representation (I've seen this one a lot, especially on PowerPC systems)?
+Any clues where to look next?
+I did note that 'locale' into this function is also NULL.
 
-Is there some alternative address for example for the Debian packages
-poky-depends and poky-scripts ?
+Should I file a bug?
 
-Best regards,
+Note: I tried this with the stock Poky master 9d1db6cc928199f8ac4960e8d4648563ef141427
+building for qemuppc and running web2 via ssh -X (since qemu doesn't support graphics?)
+The failure is the same, so this is not something special in my setup.
 
-Wolfgang Denk
+Note 2: it's difficult to get this to fail when running in qemu since it only fails
+when it's loading and rendering the www.google.co.uk default page.  I couldn't figure
+out how to get my qemu system to be able to access that page over the net, but I ran
+the same Yocto filesystem on my hardware (this is not a hardware bug) with the same
+failure.  Maybe someone smarter than me can show me how to get qemu to actually access
+the internet (when the machine that's running qemu is inside a NAT'd zone)?
+
+Thanks for any help/ideas
 
 -- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-Gods don't like people not doing much work. People  who  aren't  busy
-all the time might start to _think_.  - Terry Pratchett, _Small Gods_
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
