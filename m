@@ -1,27 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB386E012A0
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 14:26:16 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p8ULWRre011211; Fri, 30 Sep 2011 22:32:28 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 6Jxwb3mjpb0C; Fri, 30 Sep 2011 22:32:27 +0100 (BST)
-Received: from [192.168.1.40] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p8ULWOg4011191
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 30 Sep 2011 22:32:26 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Wolfgang Denk <wd@denx.de>
-Date: Fri, 30 Sep 2011 22:25:57 +0100
-In-Reply-To: <20110930175612.667D21208F1C@gemini.denx.de>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 742DCE012A0
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 14:30:01 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 205481660178; Fri, 30 Sep 2011 15:30:00 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 67E03166016D;
+	Fri, 30 Sep 2011 15:29:59 -0600 (MDT)
+Message-ID: <4E8634D7.6050207@mlbassoc.com>
+Date: Fri, 30 Sep 2011 15:29:59 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
 References: <20110930175612.667D21208F1C@gemini.denx.de>
-X-Mailer: Evolution 3.1.91- 
-Message-ID: <1317417965.12332.234.camel@ted>
-Mime-Version: 1.0
+	<1317417965.12332.234.camel@ted>
+In-Reply-To: <1317417965.12332.234.camel@ted>
 Cc: poky@yoctoproject.org
 Subject: Re: debian.o-hand.com unreachable ?
 X-BeenThere: poky@yoctoproject.org
@@ -35,31 +35,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Sep 2011 21:26:18 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 30 Sep 2011 21:30:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-09-30 at 19:56 +0200, Wolfgang Denk wrote:
-> Hello,
-> 
-> there are several parts of the Poky Handbok that refer to the
-> OpenedHand repository at http://debian.o-hand.com/
-> 
-> However, this site seems to be down, and has been unreachable for some
-> time.
-> 
-> Is there some alternative address for example for the Debian packages
-> poky-depends and poky-scripts ?
+On 2011-09-30 15:25, Richard Purdie wrote:
+> On Fri, 2011-09-30 at 19:56 +0200, Wolfgang Denk wrote:
+>> Hello,
+>>
+>> there are several parts of the Poky Handbok that refer to the
+>> OpenedHand repository at http://debian.o-hand.com/
+>>
+>> However, this site seems to be down, and has been unreachable for some
+>> time.
+>>
+>> Is there some alternative address for example for the Debian packages
+>> poky-depends and poky-scripts ?
+>
+> The packages that were in there were ancient and not likely of any use
+> on modern distros having not been maintained for a long time.
+>
+> If we had replacements and someone to maintain it we could reinstate
+> this but I'm not aware of having anything at this point. I thought the
+> references had been removed from the manual?
 
-The packages that were in there were ancient and not likely of any use
-on modern distros having not been maintained for a long time.
+There are still a number of SRC_URI references to o-hand.com in master
+Is that site dead [in genera[]?
 
-If we had replacements and someone to maintain it we could reinstate
-this but I'm not aware of having anything at this point. I thought the
-references had been removed from the manual?
-
-Cheers,
-
-Richard
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
