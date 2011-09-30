@@ -1,25 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1D6FE004D1
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 13:15:35 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 528F91660184; Fri, 30 Sep 2011 14:15:32 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 6BE99166016D;
-	Fri, 30 Sep 2011 14:15:31 -0600 (MDT)
-Message-ID: <4E862363.8010704@mlbassoc.com>
-Date: Fri, 30 Sep 2011 14:15:31 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
+Return-Path: <scott.m.rifenbark@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 05CDDE012A0
+	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 14:19:01 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 30 Sep 2011 14:18:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.68,469,1312182000"; d="scan'208";a="57541601"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.226.211])
+	by azsmga001.ch.intel.com with ESMTP; 30 Sep 2011 14:18:59 -0700
+Received: from orsmsx105.amr.corp.intel.com (10.22.225.132) by
+	orsmsx602.amr.corp.intel.com (10.22.226.211) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Fri, 30 Sep 2011 14:18:58 -0700
+Received: from orsmsx101.amr.corp.intel.com ([169.254.8.109]) by
+	ORSMSX105.amr.corp.intel.com ([169.254.4.120]) with mapi id
+	14.01.0323.003; Fri, 30 Sep 2011 14:18:58 -0700
+From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+To: Wolfgang Denk <wd@denx.de>, "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky] debian.o-hand.com unreachable ?
+Thread-Index: AQHMf5pTPjDoWr1fekWfTiObbPvCOJVmbQ9g
+Date: Fri, 30 Sep 2011 21:18:58 +0000
+Message-ID: <41DEA4B02DBDEF40A0F3B6D0DDB1237916E8463C@ORSMSX101.amr.corp.intel.com>
+References: <20110930175612.667D21208F1C@gemini.denx.de>
+In-Reply-To: <20110930175612.667D21208F1C@gemini.denx.de>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.22.254.139]
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: web2 on PPC
+Subject: Re: debian.o-hand.com unreachable ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,54 +39,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Sep 2011 20:15:36 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 30 Sep 2011 21:19:03 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I'm trying to run the web-webkit browser on my PowerPC system (built using Poky).
-I've built this on ARM and it runs great, but on PowerPC it fails almost immediately.
-Following into the failure with GDB, it looks like it's trying to build up a string
-using a [possibly] wide character iterator.  It fails on line 76 of the code below,
-going through it by hand shows that 'iterator' is NULL.
+Wolfgang,=20
 
-(gdb) dir /local/logopak8347tbga_new/tmp/work/ppc603e-amltd-linux/webkit-gtk-1.5.1+svnr90727-r0
-(gdb) l
-71      TextBreakIterator* acquireLineBreakIterator(const UChar* string, int length, const AtomicString& locale)
-72      {
-73          UBreakIterator* iterator = LineBreakIteratorPool::sharedPool().take(locale);
-74
-75          UErrorCode setTextStatus = U_ZERO_ERROR;
-76          ubrk_setText(iterator, string, length, &setTextStatus);
-77          if (U_FAILURE(setTextStatus)) {
-78              LOG_ERROR("ubrk_setText failed with status %d", setTextStatus);
-79              return 0;
-80          }
-(gdb) b 75
-Breakpoint 1 at 0xf8a7440: file Source/WebCore/platform/text/TextBreakIteratorICU.cpp, line 75.
+What is the URL you are using for the Poky Handbook?  I would suggest not u=
+sing the Poky Handbook, but rather the Poky Reference manual at http://www.=
+yoctoproject.org/docs/1.1/poky-ref-manual/poky-ref-manual.html.  This manua=
+l is much more up-to-date.
 
-Any ideas what might be wrong here?  Maybe some confusion about wide vs not-wide
-character representation (I've seen this one a lot, especially on PowerPC systems)?
-Any clues where to look next?
-I did note that 'locale' into this function is also NULL.
+I can't really respond to why the http://debian.o-hand.com site is down or =
+unreachable.
 
-Should I file a bug?
+Thanks,=20
+Scott Rifenbark
 
-Note: I tried this with the stock Poky master 9d1db6cc928199f8ac4960e8d4648563ef141427
-building for qemuppc and running web2 via ssh -X (since qemu doesn't support graphics?)
-The failure is the same, so this is not something special in my setup.
+-----Original Message-----
+From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
+On Behalf Of Wolfgang Denk
+Sent: Friday, September 30, 2011 10:56 AM
+To: poky@yoctoproject.org
+Subject: [poky] debian.o-hand.com unreachable ?
 
-Note 2: it's difficult to get this to fail when running in qemu since it only fails
-when it's loading and rendering the www.google.co.uk default page.  I couldn't figure
-out how to get my qemu system to be able to access that page over the net, but I ran
-the same Yocto filesystem on my hardware (this is not a hardware bug) with the same
-failure.  Maybe someone smarter than me can show me how to get qemu to actually access
-the internet (when the machine that's running qemu is inside a NAT'd zone)?
+Hello,
 
-Thanks for any help/ideas
+there are several parts of the Poky Handbok that refer to the
+OpenedHand repository at http://debian.o-hand.com/
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+However, this site seems to be down, and has been unreachable for some
+time.
+
+Is there some alternative address for example for the Debian packages
+poky-depends and poky-scripts ?
+
+Best regards,
+
+Wolfgang Denk
+
+--=20
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Gods don't like people not doing much work. People  who  aren't  busy
+all the time might start to _think_.  - Terry Pratchett, _Small Gods_
+_______________________________________________
+poky mailing list
+poky@yoctoproject.org
+https://lists.yoctoproject.org/listinfo/poky
 
