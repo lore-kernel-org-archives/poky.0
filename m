@@ -1,29 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F32B1E004D1
-	for <poky@yoctoproject.org>; Fri, 30 Sep 2011 15:43:02 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 9DC8916600C6; Fri, 30 Sep 2011 16:43:00 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id B41091660069;
-	Fri, 30 Sep 2011 16:42:59 -0600 (MDT)
-Message-ID: <4E8645F3.5070908@mlbassoc.com>
-Date: Fri, 30 Sep 2011 16:42:59 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BBFE3E004D1
+	for <poky@yoctoproject.org>; Sat,  1 Oct 2011 04:28:45 -0700 (PDT)
+Received: from frontend1.mail.m-online.net (frontend1.mail.intern.m-online.net
+	[192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id B62DE180400D;
+	Sat,  1 Oct 2011 13:28:41 +0200 (CEST)
+X-Auth-Info: aipaI4+PYA4FlsfkeThIwYHYQ9sJeo3f12u5Vb36Zdk=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216])
+	by smtp-auth.mnet-online.de (Postfix) with ESMTPA id C0BBD1C0013D;
+	Sat,  1 Oct 2011 13:28:41 +0200 (CEST)
+Received: from gemini.denx.de (gemini.denx.de [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 38304C0C846B;
+	Sat,  1 Oct 2011 13:28:27 +0200 (CEST)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id 7981B18D9ECB;
+	Sat,  1 Oct 2011 13:28:26 +0200 (CEST)
+To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+From: Wolfgang Denk <wd@denx.de>
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+In-reply-to: <41DEA4B02DBDEF40A0F3B6D0DDB1237916E8463C@ORSMSX101.amr.corp.intel.com>
 References: <20110930175612.667D21208F1C@gemini.denx.de>
-	<1317417965.12332.234.camel@ted>
-	<4E8634D7.6050207@mlbassoc.com> <1317421103.4454.3.camel@ted>
-In-Reply-To: <1317421103.4454.3.camel@ted>
-Cc: poky@yoctoproject.org
+	<41DEA4B02DBDEF40A0F3B6D0DDB1237916E8463C@ORSMSX101.amr.corp.intel.com>
+Comments: In-reply-to "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+	message dated "Fri, 30 Sep 2011 21:18:58 -0000."
+Date: Sat, 01 Oct 2011 13:28:26 +0200
+Message-Id: <20111001112826.7981B18D9ECB@gemini.denx.de>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: debian.o-hand.com unreachable ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -36,45 +40,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Sep 2011 22:43:03 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 01 Oct 2011 11:28:48 -0000
+Content-type: text/plain; charset=ISO-8859-1
+Content-transfer-encoding: 8bit
 
-On 2011-09-30 16:18, Richard Purdie wrote:
-> On Fri, 2011-09-30 at 15:29 -0600, Gary Thomas wrote:
->> On 2011-09-30 15:25, Richard Purdie wrote:
->>> On Fri, 2011-09-30 at 19:56 +0200, Wolfgang Denk wrote:
->>>> Hello,
->>>>
->>>> there are several parts of the Poky Handbok that refer to the
->>>> OpenedHand repository at http://debian.o-hand.com/
->>>>
->>>> However, this site seems to be down, and has been unreachable for some
->>>> time.
->>>>
->>>> Is there some alternative address for example for the Debian packages
->>>> poky-depends and poky-scripts ?
->>>
->>> The packages that were in there were ancient and not likely of any use
->>> on modern distros having not been maintained for a long time.
->>>
->>> If we had replacements and someone to maintain it we could reinstate
->>> this but I'm not aware of having anything at this point. I thought the
->>> references had been removed from the manual?
->>
->> There are still a number of SRC_URI references to o-hand.com in master
->> Is that site dead [in genera[]?
->
-> Pieces of o-hand are being relocated to new homes over time. Existing
-> references should still work.
+Dear Scott,
 
-At least the matchbox references are being redirected to matchbox-project.org
-Perhaps the SRC_URI should be updated to reflect this, before it's too late?
-I could go through them and propose a patch.
+In message <41DEA4B02DBDEF40A0F3B6D0DDB1237916E8463C@ORSMSX101.amr.corp.intel.com> you wrote:
+> 
+> What is the URL you are using for the Poky Handbook? I would suggest
+> not using the Poky Handbook, but rather the Poky Reference manual at
+> http://www.yoctoproject.org/docs/1.1/poky-ref-manual/poky-ref-manual.html.
+> This manual is much more up-to-date.
+
+Thanks for pointing out.  Indeed this was my problem - I used to
+gootgle for "Poky Handbook" which takes me to
+http://pokylinux.org/doc/poky-handbook.html
+which has all these obsolete links.
+
+Hm... would it not make sense to update pokylinux.org and have it
+point to the currecnt docs instead?
+
+Thanks.
+
+Best regards,
+
+Wolfgang Denk
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Wenn Du ein' weise Antwort verlangst, Mußt Du vernünftig fragen.
+                                                -- Goethe, Invektiven
 
