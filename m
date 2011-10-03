@@ -1,27 +1,26 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 06C5BE004E9
-	for <poky@yoctoproject.org>; Mon,  3 Oct 2011 07:59:28 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 6F6FF1660321; Mon,  3 Oct 2011 08:59:27 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id EB89916602EE;
-	Mon,  3 Oct 2011 08:59:21 -0600 (MDT)
-Message-ID: <4E89CDC9.9050500@mlbassoc.com>
-Date: Mon, 03 Oct 2011 08:59:21 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 24624E004E9
+	for <poky@yoctoproject.org>; Mon,  3 Oct 2011 08:39:47 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 03 Oct 2011 08:39:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="59389101"
+Received: from unknown (HELO envy.home) ([10.7.199.150])
+	by orsmga002.jf.intel.com with ESMTP; 03 Oct 2011 08:39:44 -0700
+Message-ID: <4E89D741.3080607@linux.intel.com>
+Date: Mon, 03 Oct 2011 08:39:45 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:6.0.2) Gecko/20110906 Thunderbird/6.0.2
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-References: <4E862363.8010704@mlbassoc.com>
-In-Reply-To: <4E862363.8010704@mlbassoc.com>
-Subject: Re: web2 on PPC
+To: chinmaya hoshing <cahoshing@gmail.com>
+References: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
+	<4E8150E4.2040200@linux.intel.com>
+	<CAMTw45Aercppi1zWi1FFeV1Pr_ypu-eXzevBF2zhfts+AXk3BA@mail.gmail.com>
+In-Reply-To: <CAMTw45Aercppi1zWi1FFeV1Pr_ypu-eXzevBF2zhfts+AXk3BA@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Getting error in linux-yocto kernel during build.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,62 +32,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Oct 2011 14:59:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 03 Oct 2011 15:39:48 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 2011-09-30 14:15, Gary Thomas wrote:
-> I'm trying to run the web-webkit browser on my PowerPC system (built using Poky).
-> I've built this on ARM and it runs great, but on PowerPC it fails almost immediately.
-> Following into the failure with GDB, it looks like it's trying to build up a string
-> using a [possibly] wide character iterator. It fails on line 76 of the code below,
-> going through it by hand shows that 'iterator' is NULL.
->
-> (gdb) dir /local/logopak8347tbga_new/tmp/work/ppc603e-amltd-linux/webkit-gtk-1.5.1+svnr90727-r0
-> (gdb) l
-> 71 TextBreakIterator* acquireLineBreakIterator(const UChar* string, int length, const AtomicString& locale)
-> 72 {
-> 73 UBreakIterator* iterator = LineBreakIteratorPool::sharedPool().take(locale);
-> 74
-> 75 UErrorCode setTextStatus = U_ZERO_ERROR;
-> 76 ubrk_setText(iterator, string, length, &setTextStatus);
-> 77 if (U_FAILURE(setTextStatus)) {
-> 78 LOG_ERROR("ubrk_setText failed with status %d", setTextStatus);
-> 79 return 0;
-> 80 }
-> (gdb) b 75
-> Breakpoint 1 at 0xf8a7440: file Source/WebCore/platform/text/TextBreakIteratorICU.cpp, line 75.
->
-> Any ideas what might be wrong here? Maybe some confusion about wide vs not-wide
-> character representation (I've seen this one a lot, especially on PowerPC systems)?
-> Any clues where to look next?
-> I did note that 'locale' into this function is also NULL.
->
-> Should I file a bug?
->
-> Note: I tried this with the stock Poky master 9d1db6cc928199f8ac4960e8d4648563ef141427
-> building for qemuppc and running web2 via ssh -X (since qemu doesn't support graphics?)
-> The failure is the same, so this is not something special in my setup.
->
-> Note 2: it's difficult to get this to fail when running in qemu since it only fails
-> when it's loading and rendering the www.google.co.uk default page. I couldn't figure
-> out how to get my qemu system to be able to access that page over the net, but I ran
-> the same Yocto filesystem on my hardware (this is not a hardware bug) with the same
-> failure. Maybe someone smarter than me can show me how to get qemu to actually access
-> the internet (when the machine that's running qemu is inside a NAT'd zone)?
->
-> Thanks for any help/ideas
->
 
-Filed as http://bugzilla.pokylinux.org/show_bug.cgi?id=1570
 
-Still looking for ideas on where to look, how to debug this.
+On 10/02/2011 09:54 PM, chinmaya hoshing wrote:
+> Hi,
+> 
+> In Downloads directory whatever were the entries for linux kernel 
+> I have kept them in downloads folder while building.
+> After this I disconnected the network and started the build ,But it
+> throws error for Unable to fetch source for linux-libc-headers, whereas
+> building my kernel  i.e linux-yocto_git.bb <http://linux-yocto_git.bb>
+> with this downloads does not create any problem.
 
-Thanks
+
+When building your kernel, which linux-libc-headers provider are you using?
+
+Have you ensured that you did a "-c fetchall" for the image you want to
+build so that all the downloads are sure to have downloaded before you
+switch to no network?
+
+Note that linux-libc-headers-yocto is the default linux-libc-headers
+provider, and it uses the 2.6.37 yocto recipe, so it will need to
+download that repository as well.
+
+--
+Darren
+
+> 
+> On Tue, Sep 27, 2011 at 9:58 AM, Darren Hart <dvhart@linux.intel.com
+> <mailto:dvhart@linux.intel.com>> wrote:
+> 
+> 
+> 
+>     On 09/16/2011 05:38 AM, chinmaya hoshing wrote:
+>     > Hi ,
+>     >
+>     > I am building poky-build minimal live image for fishriver machine
+>     on 64
+>     > bit host machine.
+>     > As I am having limited internet band-width, so I have identified
+>     all the
+>     > dependent packages and setup a Apache server on my local system so
+>     that
+>     > I can redirect the SRC_URI of all the packages to my local server.
+>     > I have changed the related recipes to build  minimal live image, and
+>     > modify bitbake.conf to add LOCAL_MIRROR="xxx.xxx.xxx.xxx/packages"
+>     , in
+>     > side packages I have tars which  was present "build/download" folder.
+> 
+>     OK... why not just use a common download directory? From what you've
+>     described your just trying to speed up the build on a single build
+>     system.
+> 
+>     --
+>     Darren
+> 
+>     >
+>     > While building linux-yocto, fetch and unpack was done but during
+>     kernel
+>     > checkout whatever git commits I have done previously in poky
+>     source were
+>     > flashed out (lost),  also the only recipe remains in
+>     >  meta/recipe-kernel/ is linux .
+>     >
+>     >
+>     > Following are the changes made in
+>     > meta/recipes-kernel/linux/linux-yocto_git.bb
+>     <http://linux-yocto_git.bb> <http://linux-yocto_git.bb>
+>     > #SRCREV_FORMAT = "meta_machine"
+>     > SRC_URI = "${LOCAL_MIRROR}/linux-yocto-3.0-3.0.tar.bz2"
+>     >      // This tar file I took from
+>     >
+>     http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto-3.0/snapshot/linux-yocto-3.0-3.0.tar.bz2
+>     > PV = "${LINUX_VERSION}"
+>     >
+>     > In file meta-intel/meta-fishriver/conf/machine/fishriver.conf I
+>     modified
+>     > PREFERRED_VERSION_linux-yocto = "3.0"                (which  was
+>     > PREFERRED_VERSION_linux-yocto = "3.0+git%" )
+>     >
+>     >
+>     > Can any one help me to find the solution that if I had to pull linux
+>     > kernel source from tar file or such and not from git repository. What
+>     > things I have to do.
+>     >
+>     > Regards
+>     > C Hoshing
+>     >
+>     >
+>     >
+>     > _______________________________________________
+>     > poky mailing list
+>     > poky@yoctoproject.org <mailto:poky@yoctoproject.org>
+>     > https://lists.yoctoproject.org/listinfo/poky
+> 
+>     --
+>     Darren Hart
+>     Intel Open Source Technology Center
+>     Yocto Project - Linux Kernel
+> 
+> 
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
