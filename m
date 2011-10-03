@@ -1,33 +1,31 @@
-Return-Path: <cahoshing@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 78F97E006AC
-	for <poky@yoctoproject.org>; Sun,  2 Oct 2011 21:54:04 -0700 (PDT)
+Return-Path: <vsailub4u@gmail.com>
+Received: from mail-pz0-f48.google.com (mail-pz0-f48.google.com
+	[209.85.210.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A0C9E004E9
+	for <poky@yoctoproject.org>; Mon,  3 Oct 2011 07:11:14 -0700 (PDT)
 Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by iabz7 with SMTP id z7so6971660iab.35
-	for <poky@yoctoproject.org>; Sun, 02 Oct 2011 21:54:02 -0700 (PDT)
+Received: by pzk36 with SMTP id 36so3388179pzk.7
+	for <poky@yoctoproject.org>; Mon, 03 Oct 2011 07:11:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=BIGgKMtROP40wIkufsLsUAdc+VLD2JDuiIgMxhoLy6o=;
-	b=e7OJy47XISEfKBOs7ApNXv0wlh+qPcdb0Pk5ouninOQkXnp6rZoSHxTTR9qX1lDRAl
-	qw7j7bePJZmA/7TfPs/TS2zqT/xW5r8vUZPn5kQipuQCUBH/J5qbqA6sjjtMaYkYAmur
-	HSnvRkNroX1S16RM47OEQWkjJcwV2ZAAjpqok=
+	:content-type; bh=17ZuluGLniR+mRjp1+YpLtd9LN7CdQc9/IMrrq6fO9k=;
+	b=Ra++TGMiF01erET6cgWfWZ7J6Q3a2K/7me3GGtAYbWlBpNPA1SFvCsLvLepg1X0vGs
+	7FFPv++LmR64UuXJFJREGsm9Um30nKlAB0HEKeMK+CGiYPRk+1QHN9nW8mi2lZwl9iFm
+	7o5g3Mv2sujjOPE2fFtr+K/Dp2SARHz7B/mdI=
 MIME-Version: 1.0
-Received: by 10.231.48.142 with SMTP id r14mr13483200ibf.5.1317617642659; Sun,
-	02 Oct 2011 21:54:02 -0700 (PDT)
-Received: by 10.231.207.65 with HTTP; Sun, 2 Oct 2011 21:54:02 -0700 (PDT)
-In-Reply-To: <4E8150E4.2040200@linux.intel.com>
-References: <CAMTw45BRK9H5THCL+h33KPMrZh8EgAJnQ3sO5QVoiz822Xf-bQ@mail.gmail.com>
-	<4E8150E4.2040200@linux.intel.com>
-Date: Mon, 3 Oct 2011 10:24:02 +0530
-Message-ID: <CAMTw45Aercppi1zWi1FFeV1Pr_ypu-eXzevBF2zhfts+AXk3BA@mail.gmail.com>
-From: chinmaya hoshing <cahoshing@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Getting error in linux-yocto kernel during build.
+Received: by 10.68.32.133 with SMTP id j5mr1367018pbi.68.1317651073991; Mon,
+	03 Oct 2011 07:11:13 -0700 (PDT)
+Received: by 10.142.177.7 with HTTP; Mon, 3 Oct 2011 07:11:13 -0700 (PDT)
+In-Reply-To: <1317650995.67125.YahooMailNeo@web94712.mail.in2.yahoo.com>
+References: <1317650263.70639.YahooMailNeo@web94705.mail.in2.yahoo.com>
+	<1317650995.67125.YahooMailNeo@web94712.mail.in2.yahoo.com>
+Date: Mon, 3 Oct 2011 19:41:13 +0530
+Message-ID: <CAFt-cowut0x80hGjRK3tRxzRygsurb0pHmNR=WHARoLvv16P7w@mail.gmail.com>
+From: v sailaja <vsailub4u@gmail.com>
+To: poky@yoctoproject.org
+Subject: : XBMC error (libsdl-mixer_1.2.11.bb & libsdl-image_1.2.10.bb failed)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,188 +37,166 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Oct 2011 04:54:05 -0000
-Content-Type: multipart/alternative; boundary=0015176f0ac08a5fe004ae5dc36f
+X-List-Received-Date: Mon, 03 Oct 2011 14:11:15 -0000
+Content-Type: multipart/alternative; boundary=bcaec51dd7d934035404ae658cdd
 
---0015176f0ac08a5fe004ae5dc36f
+--bcaec51dd7d934035404ae658cdd
 Content-Type: text/plain; charset=ISO-8859-1
 
 Hi,
+I'm trying to pull the package XBMC 10.05 which depends on libsdl-mixer and
+libsdl-image and these are there in the
 
-In Downloads directory whatever were the entries for linux kernel
-I have kept them in downloads folder while building.
-After this I disconnected the network and started the build ,But it throws
-error for Unable to fetch source for linux-libc-headers, whereas building my
-kernel  i.e linux-yocto_git.bb with this downloads does not create any
-problem.
+meta/recipe as libsdl. While building for libsdl-mixer with the recipe
+libsdl-mixer_1.2.11.bb and libsdl-image with the
 
-On Tue, Sep 27, 2011 at 9:58 AM, Darren Hart <dvhart@linux.intel.com> wrote:
+recipe libsdl-image_1.2.10.bb i'm getting the error as below:
 
->
->
-> On 09/16/2011 05:38 AM, chinmaya hoshing wrote:
-> > Hi ,
-> >
-> > I am building poky-build minimal live image for fishriver machine on 64
-> > bit host machine.
-> > As I am having limited internet band-width, so I have identified all the
-> > dependent packages and setup a Apache server on my local system so that
-> > I can redirect the SRC_URI of all the packages to my local server.
-> > I have changed the related recipes to build  minimal live image, and
-> > modify bitbake.conf to add LOCAL_MIRROR="xxx.xxx.xxx.xxx/packages" , in
-> > side packages I have tars which  was present "build/download" folder.
->
-> OK... why not just use a common download directory? From what you've
-> described your just trying to speed up the build on a single build system.
->
-> --
-> Darren
->
-> >
-> > While building linux-yocto, fetch and unpack was done but during kernel
-> > checkout whatever git commits I have done previously in poky source were
-> > flashed out (lost),  also the only recipe remains in
-> >  meta/recipe-kernel/ is linux .
-> >
-> >
-> > Following are the changes made in
-> > meta/recipes-kernel/linux/linux-yocto_git.bb <http://linux-yocto_git.bb>
-> > #SRCREV_FORMAT = "meta_machine"
-> > SRC_URI = "${LOCAL_MIRROR}/linux-yocto-3.0-3.0.tar.bz2"
-> >      // This tar file I took from
-> >
-> http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto-3.0/snapshot/linux-yocto-3.0-3.0.tar.bz2
-> > PV = "${LINUX_VERSION}"
-> >
-> > In file meta-intel/meta-fishriver/conf/machine/fishriver.conf I modified
-> > PREFERRED_VERSION_linux-yocto = "3.0"                (which  was
-> > PREFERRED_VERSION_linux-yocto = "3.0+git%" )
-> >
-> >
-> > Can any one help me to find the solution that if I had to pull linux
-> > kernel source from tar file or such and not from git repository. What
-> > things I have to do.
-> >
-> > Regards
-> > C Hoshing
-> >
-> >
-> >
-> > _______________________________________________
-> > poky mailing list
-> > poky@yoctoproject.org
-> > https://lists.yoctoproject.org/listinfo/poky
->
-> --
-> Darren Hart
-> Intel Open Source Technology Center
-> Yocto Project - Linux Kernel
->
 
---0015176f0ac08a5fe004ae5dc36f
+
+| i586-poky-linux-libtool: link: warning:
+`/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/usr/lib/
+libz.la'
+seems to be moved
+
+| i586-poky-linux-libtool: link: warning: library
+`/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/usr/lib/
+libjpeg.la'
+was moved.
+
+| /bin/grep:
+/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-poky-linux/jpeg-6b-r0/image/usr/lib/
+libjpeg.la:
+No such file or directory
+
+| /bin/sed: can't read
+/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-poky-linux/jpeg-6b-r0/image/usr/lib/
+libjpeg.la:
+No such file or directory
+
+| i586-poky-linux-libtool: link:
+`/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-poky-linux/jpeg-6b-r0/image/usr/lib/
+libjpeg.la'
+is not a valid libtool archive
+
+| make: *** [libSDL_image.la] Error 1
+
+| FATAL: oe_runmake failed
+
+| ERROR: Function 'do_compile' failed (see
+/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-poky-linux/libsdl-image-1.2.10-r5.2/temp/log.do_compile.10878
+for further information)
+
+NOTE: package libsdl-image-1.2.10-r5.2: task do_compile: Failed
+
+ERROR: Task 3048
+(/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/meta-sct/recipes-sct/libsdl/
+libsdl-image_1.2.10.bb,
+do_compile) failed with exit code '1'
+
+
+
+I'm pulling for the Fishriver machine . My host machine is Ubuntu 10.10 ,64
+bit .
+Can someone help me out of this problem ?
+
+
+
+
+-- 
+Thanks & Regards,
+SAI
+
+--bcaec51dd7d934035404ae658cdd
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi,<div><br><div><div>In Downloads directory whatever were=
- the entries for linux kernel=A0</div><div>I have kept them in downloads fo=
-lder while building.<br></div><div><div>After this I disconnected the netwo=
-rk and started the build ,But it throws error for Unable to fetch source fo=
-r linux-libc-headers, whereas building my kernel =A0i.e <a href=3D"http://l=
-inux-yocto_git.bb">linux-yocto_git.bb</a> with this downloads does not crea=
-te any problem.</div>
+<br><br><div class=3D"gmail_quote"><br><div><div style=3D"color: rgb(0, 0, =
+0); background-color: rgb(255, 255, 255); "><div><div><div><div style=3D"co=
+lor: rgb(0, 0, 0); background-color: rgb(255, 255, 255); "><div><span style=
+=3D"color: rgb(0, 0, 0); font-family: arial, sans-serif; font-size: 13px; f=
+ont-style: normal; font-variant: normal; letter-spacing: normal; line-heigh=
+t: normal; text-indent: 0px; text-transform: none; white-space: normal; wor=
+d-spacing: 0px; background-color: rgb(255, 255, 255); "><font size=3D"3">Hi=
+,<br>
+</font><span style=3D"font-family:&#39;Times New Roman&#39;;white-space:pre=
+-wrap;background-color:rgb(255, 255, 255);font-size:16px">I&#39;m trying to=
+ pull the package XBMC 10.05 which depends on libsdl-mixer  and libsdl-imag=
+e and these are there in the<br>
+<br>meta/recipe as libsdl. </span></span><span style=3D"color: rgb(0, 0, 0)=
+; font-family: arial, sans-serif; font-size: 13px; font-style: normal; font=
+-variant: normal; letter-spacing: normal; line-height: normal; text-indent:=
+ 0px; text-transform: none; white-space: normal; word-spacing: 0px; backgro=
+und-color: rgb(255, 255, 255); "><span style=3D"font-family:&#39;Times New =
+Roman&#39;;white-space:pre-wrap;background-color:rgb(255, 255, 255);font-si=
+ze:16px">While building for libsdl-mixer with the recipe <a rel=3D"nofollow=
+" href=3D"http://libsdl-mixer_1.2.11.bb/" style=3D"color:rgb(0, 0, 204);out=
+line-style:none" target=3D"_blank">libsdl-mixer_1.2.11.bb</a> and libsdl-im=
+age with the <br>
+<br>recipe <a href=3D"http://libsdl-image_1.2.10.bb" target=3D"_blank">libs=
+dl-image_1.2.10.bb</a> i&#39;m getting the </span></span><span style=3D"col=
+or: rgb(0, 0, 0); font-family: arial, sans-serif; font-size: 13px; font-sty=
+le: normal; font-variant: normal; letter-spacing: normal; line-height: norm=
+al; text-indent: 0px; text-transform: none; white-space: normal; word-spaci=
+ng: 0px; background-color: rgb(255, 255, 255); "><span style=3D"font-family=
+:&#39;Times New Roman&#39;;white-space:pre-wrap;background-color:rgb(255, 2=
+55, 255);font-size:16px">error as below:<br>
+<br>  <br><br>| i586-poky-linux-libtool: link: warning: <br>`/home/sct/logi=
+/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/usr/lib/<a h=
+ref=3D"http://libz.la" target=3D"_blank">libz.la</a>&#39;<br> seems to be m=
+oved<br>
+<br>| i586-poky-linux-libtool: link: warning: library <br>`/home/sct/logi/g=
+igabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/usr/lib/<a hre=
+f=3D"http://libjpeg.la" target=3D"_blank">libjpeg.la</a>&#39;<br> was moved=
+.<br>
+<br>| /bin/grep: <br>/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/=
+tmp/sysroots/fishriver/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build=
+/tmp/work/atom-poky-linux/jpeg-6b-r0/image/usr/lib/<a href=3D"http://libjpe=
+g.la" target=3D"_blank">libjpeg.la</a>:<br>
+ No such file or directory<br><br>| /bin/sed: can&#39;t read <br>/home/sct/=
+logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/home/sct=
+/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-poky-linux/jpeg-=
+6b-r0/image/usr/lib/<a href=3D"http://libjpeg.la" target=3D"_blank">libjpeg=
+.la</a>:<br>
+ No
+ such file or directory<br><br>| i586-poky-linux-libtool: link: <br>`/home/=
+sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/sysroots/fishriver/home=
+/sct/logi/gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-poky-linux/j=
+peg-6b-r0/image/usr/lib/<a href=3D"http://libjpeg.la" target=3D"_blank">lib=
+jpeg.la</a>&#39;<br>
+ is not a valid libtool archive<br><br>| make: *** [libSDL_image.la] Error =
+1<br><br>| FATAL: oe_runmake failed<br><br>| ERROR: Function &#39;do_compil=
+e&#39; failed (see <br>/home/sct/logi/gigabyte/poky_gigabyte_16Sep2011/buil=
+d/tmp/work/atom-poky-linux/libsdl-image-1.2.10-r5.2/temp/log.do_compile.108=
+78<br>
+ for further information)<br><br>NOTE: package libsdl-image-1.2.10-r5.2: ta=
+sk do_compile: Failed<br><br>ERROR: Task 3048 <br>(/home/sct/logi/gigabyte/=
+poky_gigabyte_16Sep2011/meta-sct/recipes-sct/libsdl/<a href=3D"http://libsd=
+l-image_1.2.10.bb" target=3D"_blank">libsdl-image_1.2.10.bb</a>,<br>
+ do_compile) failed with exit code &#39;1&#39;<br><br>  <br><br></span></sp=
+an><span style=3D"color: rgb(69, 69, 69); "><span style=3D"color: rgb(0, 0,=
+ 0); font-style: normal; font-variant: normal; letter-spacing: normal; line=
+-height: normal; text-indent: 0px; text-transform: none; word-spacing: 0px;=
+ background-color: rgb(255, 255, 255); "><span style=3D"font-family: &#39;T=
+imes New Roman&#39;; white-space: pre-wrap; background-color: rgb(255, 255,=
+ 255); font-size: 16px; ">I&#39;m pulling for the Fishriver machine . My ho=
+st machine is Ubuntu 10.10 ,64 bit . </span><div style=3D"font-family: aria=
+l, sans-serif; white-space: normal; font-size: 13px; ">
+<font face=3D"&#39;Times New Roman&#39;" size=3D"3"><span style=3D"white-sp=
+ace:pre-wrap">Can someone help me out of this problem ? </span></font></div=
+><div style=3D"font-family: arial, sans-serif; white-space: normal; font-si=
+ze: 13px; ">
+<font face=3D"&#39;Times New Roman&#39;" size=3D"3"><span style=3D"white-sp=
+ace:pre-wrap"><br></span></font></div></span></span><span class=3D"Apple-st=
+yle-span" style=3D"font-family: &#39;Times New Roman&#39;; font-size: 16px;=
+ white-space: pre-wrap; ">  </span><span style=3D"color: rgb(0, 0, 0); font=
+-family: arial, sans-serif; font-size: 13px; font-style: normal; font-varia=
+nt: normal; letter-spacing: normal; line-height: normal; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; background-co=
+lor: rgb(255, 255, 255); "><span style=3D"font-family:&#39;Times New Roman&=
+#39;;white-space:pre-wrap;background-color:rgb(255, 255, 255);font-size:16p=
+x"><br>
+</span></span></div></div></div></div></div></div></div></div><br clear=3D"=
+all"><div><br></div>-- <br>Thanks &amp; Regards,<br>SAI<br><br>
 
-
-<div><br></div><div class=3D"gmail_quote">On Tue, Sep 27, 2011 at 9:58 AM, =
-Darren Hart <span dir=3D"ltr">&lt;<a href=3D"mailto:dvhart@linux.intel.com"=
- target=3D"_blank">dvhart@linux.intel.com</a>&gt;</span> wrote:<br><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
-olid;padding-left:1ex">
-
-
-<div><br>
-<br>
-On 09/16/2011 05:38 AM, chinmaya hoshing wrote:<br>
-&gt; Hi ,<br>
-&gt;<br>
-&gt; I am building poky-build minimal live image for fishriver machine on 6=
-4<br>
-&gt; bit host machine.<br>
-&gt; As I am having limited internet band-width, so I have identified all t=
-he<br>
-&gt; dependent packages and setup a Apache server on my local system so tha=
-t<br>
-&gt; I can redirect the SRC_URI of all the packages to my local server.<br>
-&gt; I have changed the related recipes to build =A0minimal live image, and=
-<br>
-&gt; modify bitbake.conf to add LOCAL_MIRROR=3D&quot;xxx.xxx.xxx.xxx/packag=
-es&quot; , in<br>
-&gt; side packages I have tars which =A0was present &quot;build/download&qu=
-ot; folder.<br>
-<br>
-</div>OK... why not just use a common download directory? From what you&#39=
-;ve<br>
-described your just trying to speed up the build on a single build system.<=
-br>
-<br>
---<br>
-Darren<br>
-<div><br>
-&gt;<br>
-&gt; While building linux-yocto, fetch and unpack was done but during kerne=
-l<br>
-&gt; checkout whatever git commits I have done previously in poky source we=
-re<br>
-&gt; flashed out (lost), =A0also the only recipe remains in<br>
-&gt; =A0meta/recipe-kernel/ is linux .<br>
-&gt;<br>
-&gt;<br>
-&gt; Following are the changes made in<br>
-</div>&gt; meta/recipes-kernel/linux/<a href=3D"http://linux-yocto_git.bb" =
-target=3D"_blank">linux-yocto_git.bb</a> &lt;<a href=3D"http://linux-yocto_=
-git.bb" target=3D"_blank">http://linux-yocto_git.bb</a>&gt;<br>
-<div>&gt; #SRCREV_FORMAT =3D &quot;meta_machine&quot;<br>
-&gt; SRC_URI =3D &quot;${LOCAL_MIRROR}/linux-yocto-3.0-3.0.tar.bz2&quot;<br=
->
-&gt; =A0 =A0 =A0// This tar file I took from<br>
-&gt; <a href=3D"http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto-3.0/s=
-napshot/linux-yocto-3.0-3.0.tar.bz2" target=3D"_blank">http://git.yoctoproj=
-ect.org/cgit/cgit.cgi/linux-yocto-3.0/snapshot/linux-yocto-3.0-3.0.tar.bz2<=
-/a><br>
-
-
-
-&gt; PV =3D &quot;${LINUX_VERSION}&quot;<br>
-&gt;<br>
-&gt; In file meta-intel/meta-fishriver/conf/machine/fishriver.conf I modifi=
-ed<br>
-&gt; PREFERRED_VERSION_linux-yocto =3D &quot;3.0&quot; =A0 =A0 =A0 =A0 =A0 =
-=A0 =A0 =A0(which =A0was<br>
-&gt; PREFERRED_VERSION_linux-yocto =3D &quot;3.0+git%&quot; )<br>
-&gt;<br>
-&gt;<br>
-&gt; Can any one help me to find the solution that if I had to pull linux<b=
-r>
-&gt; kernel source from tar file or such and not from git repository. What<=
-br>
-&gt; things I have to do.<br>
-&gt;<br>
-&gt; Regards<br>
-&gt; C Hoshing<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-</div><div><div></div><div>&gt; ___________________________________________=
-____<br>
-&gt; poky mailing list<br>
-&gt; <a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctop=
-roject.org</a><br>
-&gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_bl=
-ank">https://lists.yoctoproject.org/listinfo/poky</a><br>
-<br>
-</div></div><font color=3D"#888888">--<br>
-Darren Hart<br>
-Intel Open Source Technology Center<br>
-Yocto Project - Linux Kernel<br>
-</font></blockquote></div><br></div></div></div></div>
-
---0015176f0ac08a5fe004ae5dc36f--
+--bcaec51dd7d934035404ae658cdd--
