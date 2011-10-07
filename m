@@ -1,34 +1,52 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23745E004CF
-	for <poky@yoctoproject.org>; Wed,  5 Oct 2011 08:10:37 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id 3B54216609E8; Wed,  5 Oct 2011 09:10:35 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 107C91660836;
-	Wed,  5 Oct 2011 09:10:25 -0600 (MDT)
-Message-ID: <4E8C7360.2090003@mlbassoc.com>
-Date: Wed, 05 Oct 2011 09:10:24 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
+Return-Path: <vishwasonu2000@yahoo.com>
+Received: from nm3-vm0.bullet.mail.in.yahoo.com
+	(nm3-vm0.bullet.mail.in.yahoo.com [121.101.151.212])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id C433AE004CF
+	for <poky@yoctoproject.org>; Fri,  7 Oct 2011 03:02:09 -0700 (PDT)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@yahoo.com;
+	x-dkim-adsp=none (insecure policy)
+Received: from [121.101.151.237] by nm3.bullet.mail.in.yahoo.com with NNFMP;
+	07 Oct 2011 10:02:07 -0000
+Received: from [121.101.151.235] by tm2.bullet.mail.in.yahoo.com with NNFMP;
+	07 Oct 2011 10:01:47 -0000
+Received: from [127.0.0.1] by omp1004.mail.in.yahoo.com with NNFMP;
+	07 Oct 2011 10:02:07 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 673550.78634.bm@omp1004.mail.in.yahoo.com
+Received: (qmail 30704 invoked by uid 60001); 7 Oct 2011 10:02:07 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024;
+	t=1317981727; bh=g9gBMC7JzROD7tT0OodgNjy3p1E5juaHv1+eDi+viNM=;
+	h=X-YMail-OSG:Received:X-Mailer:References:Message-ID:Date:From:Reply-To:Subject:To:In-Reply-To:MIME-Version:Content-Type;
+	b=JjTAM0bCrMVdpNUA3HA0HhSzFN/zgHjfXelYxZ7b2YD4Vy7cdRys8kfraBnsDIFg7agBJRM6wJPvc72nVNEKMUod9veFAA9Jk0qXAEwj/d/4iB54B5EV1OHvYZRSyzSMBc+cIpkmDvmLCH/vBsjUD/u2zd3qBBJ19eAhheMFe9g=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.com;
+	h=X-YMail-OSG:Received:X-Mailer:References:Message-ID:Date:From:Reply-To:Subject:To:In-Reply-To:MIME-Version:Content-Type;
+	b=J0oJAJPGtAwUCVobahwOB8t2kl05ZFADfzwgOxAdU5CyH6sxBPEAzbuyZCNPHrFpWrXN2oix6EJRr7WjGmfB02I8WfxraoBEtM7e58ICc0p45K7VyDaBBaD7+fejmRgOKEtdN79yRjO7aJXFViY6zctdP66mrJOmFpS/Uo5pZfo=;
+X-YMail-OSG: cxjtnI8VM1kJCaiRmYkTHKQiP6vgOY90VIZSl4876LjfL7V
+	tttscLoOtdYI7DUJXE3ko5eHs_LOifukjj1psA3ft97u1ao_Y6s7dS_swUnG
+	gQE92tyOHuWxn.CsXK7C4WG_ZpkkS9MFDA1mTm0bMv.vzMEL2_tmkpKOX1Ru
+	rEVsPISB.6jnxwYhoqCR3IYXuMHDGDp_yhTwNlhikgAn.OYIw2en_J6.G0da
+	BUJiuXtQqkieU93KqUxqvhlR20nQ4sVMUBVYv.aLngNA4z2wReBWxo3l1y5w
+	A9XRu_i7tgRo2Ra9PMOzqnb2IDVu7KshmybpzIwnToU7U_BjoPWE7RSuWH86
+	6soXbpAA8N4UVlC9Xs6jBf3F5nX3VF54Zej_aRrUlkZjiwWfQDjMzihSsKxQ
+	8tb0KnQJ.sr.btbnmVDEGwE6gCuY6AQ9MlMaAfSW.qBuVa6fDn_HJW8M-
+Received: from [115.111.25.162] by web94701.mail.in2.yahoo.com via HTTP;
+	Fri, 07 Oct 2011 15:32:07 IST
+X-Mailer: YahooMailWebService/0.8.114.317681
+References: <1317712610.92069.YahooMailNeo@web94711.mail.in2.yahoo.com>
+	<1317742677.2229.11.camel@scimitar>
+Message-ID: <1317981727.19703.YahooMailNeo@web94701.mail.in2.yahoo.com>
+Date: Fri, 7 Oct 2011 15:32:07 +0530 (IST)
+From: sonu vishwakarma <vishwasonu2000@yahoo.com>
+To: Joshua Lock <josh@linux.intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+In-Reply-To: <1317742677.2229.11.camel@scimitar>
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4E862363.8010704@mlbassoc.com> <4E89CDC9.9050500@mlbassoc.com>
-	<4E8A1795.6020306@gmail.com> <4E8B06BD.8020100@mlbassoc.com>
-	<4E8B303F.4010508@gmail.com> <4E8B31FB.1020603@mlbassoc.com>
-	<1317822299.14671.157.camel@ted> <4E8C6176.5020103@mlbassoc.com>
-In-Reply-To: <4E8C6176.5020103@mlbassoc.com>
-Cc: poky@yoctoproject.org
-Subject: Re: web2 on PPC
+Subject: Re: : XBMC PACKAGE (package libsdl-mixer-1.2.11-r5: task do_compile: Failed)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: sonu vishwakarma <vishwasonu2000@yahoo.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -37,144 +55,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Oct 2011 15:10:38 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 07 Oct 2011 10:02:11 -0000
+Content-Type: multipart/alternative;
+	boundary="1604857446-1617387030-1317981727=:19703"
 
-On 2011-10-05 07:53, Gary Thomas wrote:
-> On 2011-10-05 07:44, Richard Purdie wrote:
->> On Tue, 2011-10-04 at 10:19 -0600, Gary Thomas wrote:
->>> On 2011-10-04 10:11, Khem Raj wrote:
->>>> On 10/4/2011 6:14 AM, Gary Thomas wrote:
->>>>> On 2011-10-03 14:14, Khem Raj wrote:
->>>>>> On 10/3/2011 7:59 AM, Gary Thomas wrote:
->>>>>>> On 2011-09-30 14:15, Gary Thomas wrote:
->>>>>>>> I'm trying to run the web-webkit browser on my PowerPC system (built
->>>>>>>> using Poky).
->>>>>>>> I've built this on ARM and it runs great, but on PowerPC it fails
->>>>>>>> almost immediately.
->>>>>>>> Following into the failure with GDB, it looks like it's trying to
->>>>>>>> build up a string
->>>>>>>> using a [possibly] wide character iterator. It fails on line 76 of the
->>>>>>>> code below,
->>>>>>>> going through it by hand shows that 'iterator' is NULL.
->>>>>>>>
->>>>>>>> (gdb) dir
->>>>>>>> /local/logopak8347tbga_new/tmp/work/ppc603e-amltd-linux/webkit-gtk-1.5.1+svnr90727-r0
->>>>>>>>
->>>>>>>>
->>>>>>>> (gdb) l
->>>>>>>> 71 TextBreakIterator* acquireLineBreakIterator(const UChar* string,
->>>>>>>> int length, const AtomicString& locale)
->>>>>>>> 72 {
->>>>>>>> 73 UBreakIterator* iterator =
->>>>>>>> LineBreakIteratorPool::sharedPool().take(locale);
->>>>>>>> 74
->>>>>>>> 75 UErrorCode setTextStatus = U_ZERO_ERROR;
->>>>>>>> 76 ubrk_setText(iterator, string, length,&setTextStatus);
->>>>>>>> 77 if (U_FAILURE(setTextStatus)) {
->>>>>>>> 78 LOG_ERROR("ubrk_setText failed with status %d", setTextStatus);
->>>>>>>> 79 return 0;
->>>>>>>> 80 }
->>>>>>>> (gdb) b 75
->>>>>>>> Breakpoint 1 at 0xf8a7440: file
->>>>>>>> Source/WebCore/platform/text/TextBreakIteratorICU.cpp, line 75.
->>>>>>>>
->>>>>>>> Any ideas what might be wrong here? Maybe some confusion about wide vs
->>>>>>>> not-wide
->>>>>>>> character representation (I've seen this one a lot, especially on
->>>>>>>> PowerPC systems)?
->>>>>>>> Any clues where to look next?
->>>>>>>> I did note that 'locale' into this function is also NULL.
->>>>>>>>
->>>>>>>> Should I file a bug?
->>>>>>>>
->>>>>>>> Note: I tried this with the stock Poky master
->>>>>>>> 9d1db6cc928199f8ac4960e8d4648563ef141427
->>>>>>>> building for qemuppc and running web2 via ssh -X (since qemu doesn't
->>>>>>>> support graphics?)
->>>>>>>> The failure is the same, so this is not something special in my setup.
->>>>>>>>
->>>>>>>> Note 2: it's difficult to get this to fail when running in qemu since
->>>>>>>> it only fails
->>>>>>>> when it's loading and rendering the www.google.co.uk default page. I
->>>>>>>> couldn't figure
->>>>>>>> out how to get my qemu system to be able to access that page over the
->>>>>>>> net, but I ran
->>>>>>>> the same Yocto filesystem on my hardware (this is not a hardware bug)
->>>>>>>> with the same
->>>>>>>> failure. Maybe someone smarter than me can show me how to get qemu to
->>>>>>>> actually access
->>>>>>>> the internet (when the machine that's running qemu is inside a NAT'd
->>>>>>>> zone)?
->>>>>>>>
->>>>>>>> Thanks for any help/ideas
->>>>>>>>
->>>>>>>
->>>>>>> Filed as http://bugzilla.pokylinux.org/show_bug.cgi?id=1570
->>>>>>>
->>>>>>> Still looking for ideas on where to look, how to debug this.
->>>>>>
->>>>>> such problems can happen when autoconf variables are not cached with
->>>>>> right values. So look into site files. What variables to look for can be
->>>>>> taken from config.log of the package.
->>>>>>
->>>>>
->>>>> It turns out the problem is that the ICU library does not work
->>>>> properly (at all!) when the host and target systems have different
->>>>> endianness. If I install ICU libraries which were built on a
->>>>> native PowerPC system, the 'web2' program works.
->>>>>
->>>>
->>>> compare the configure outputs of icu between cross and native ppc build
->>>
->>> I have - they are totally broken in the cross-compile setup.
->>>
->>> The ICU library has a tool which is used to covert their internal
->>> data base to the proper endianness. However, it only works properly
->>> when converting _to_ the endianness of the machine it runs on. It will
->>> not convert a little endian data base to a big endian version when the
->>> tool is run on a little endian machine. I tried to get the ICU folks
->>> to fix this more than a year ago, but they weren't interested in this
->>> case.
->>
->> Is there much needed to make this tool work across different endians? It
->> depends what its doing I guess...
->
-> It's a horrible mess :-( I've spent a number of days trying to get this
-> thing working with no luck. As I said, I got little joy from the upstream
-> folks - they don't seem to be concerned that this doesn't work properly.
-> Maybe if they were contacted from someone with more clout (Intel?), they'd
-> be more interested.
->
->>
->>> I think I have a solution, albeit a bit crude. The ICU library builder
->>> can take a properly ordered data base as input and not do any of this
->>> mucking around. In fact, the library ships with the little endian version
->>> which is used untouched on little endian targets. I can produce the big
->>> endian version and just provide it to the recipe. One problem with this
->>> is that it's HUGE - 18MB, so I'm not quite sure where to put it.
->>
->> Is that compressed?
->
-> Compressed it's less than 7MB.
->
->>
->> I'd be prepared to host that on the Yocto web server so that we can fix
->> the big endian builds for now although its not really a long term
->> solution...
->
-> The only "solution" I've come up with so far is to simply replace one
-> of the libraries that gets built with one that works. There doesn't
-> seem to be any way to get the existing build system to create the library
-> properly. I'll package up what I have and send a pointer for review.
+--1604857446-1617387030-1317981727=:19703
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-Recipe and data file (working library) attached to http://bugzilla.pokylinux.org/show_bug.cgi?id=1570
+=0A=0AHi,=0AAfter knowing the problem , i =0Alooked for the solution and fo=
+und a patch to libtool =0A'libtool-2.4-r2/libtool-2.4/libltdl/config/ltmain=
+.m4sh'=0Athat describes a function" if PATH begins with the sysroot replace=
+ it with =3D " , this may be creating the problem . Also in the =0A=0AlibSD=
+L.la i could see the definition of dependency_libs that include "=3D/usr/li=
+b.=0AWhat to do now ? i couldn't find a solution to this .=0A=0A=0AThanks &=
+ Regards,=0ASonu Vishwakarma=0A=0A________________________________=0AFrom: =
+Joshua Lock <josh@linux.intel.com>=0ATo: poky@yoctoproject.org=0ASent: Tues=
+day, 4 October 2011 9:07 PM=0ASubject: Re: [poky] [POKY] : XBMC PACKAGE (pa=
+ckage libsdl-mixer-1.2.11-r5: task do_compile: Failed)=0A=0AOn Tue, 2011-10=
+-04 at 12:46 +0530, sonu vishwakarma wrote:=0A> | ./libtool: line 6399: cd:=
+ =3D/usr/lib: No such file or directory=0A=0AHere's the problem! Somewhere =
+you're passing =3D/usr/lib which isn't a=0Areal path.=0A=0APlease don't sta=
+rt new threads to continue existing discussion.=0A=0APlease share the recip=
+es you're trying to build so that we can try and=0Ahelp.=0A=0AThanks,=0AJos=
+hua=0A-- =0AJoshua Lock=0A=A0 =A0 =A0 =A0 Yocto Project "Johannes factotum"=
+=0A=A0 =A0 =A0 =A0 Intel Open Source Technology Centre=0A=0A_______________=
+________________________________=0Apoky mailing list=0Apoky@yoctoproject.or=
+g=0Ahttps://lists.yoctoproject.org/listinfo/poky
 
+--1604857446-1617387030-1317981727=:19703
+Content-Type: text/html; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+<html><body><div style=3D"color:#000; background-color:#fff; font-family:ti=
+mes new roman, new york, times, serif;font-size:12pt"><div><span><br></span=
+></div><div><span>Hi,</span></div>=0A<div><span>After knowing the problem ,=
+ i =0Alooked for the solution and found a patch to libtool =0A'libtool-2.4-=
+r2/libtool-2.4/libltdl/config/ltmain.m4sh'</span></div>=0A<div><span> that =
+describes a function</span><span> " if PATH begins with the sysroot replace=
+ it with =3D " , this may be creating the problem . Also in the <br></span>=
+</div>=0A<div><span>libSDL.la i could see </span><span>the definition of de=
+pendency_libs that include "=3D/usr/lib.</span></div>=0A<div><span>What to =
+do now ? i couldn't find a solution to this .<br></span></div>=0A=0A<div><b=
+r></div>=0A<div>Thanks &amp; Regards,</div>=0ASonu Vishwakarma<div style=3D=
+"font-family: times new roman,new york,times,serif; font-size: 12pt;"><div =
+style=3D"font-family: times new roman,new york,times,serif; font-size: 12pt=
+;"><font face=3D"Arial" size=3D"2"><hr size=3D"1"><b><span style=3D"font-we=
+ight: bold;">From:</span></b> Joshua Lock &lt;josh@linux.intel.com&gt;<br><=
+b><span style=3D"font-weight: bold;">To:</span></b> poky@yoctoproject.org<b=
+r><b><span style=3D"font-weight: bold;">Sent:</span></b> Tuesday, 4 October=
+ 2011 9:07 PM<br><b><span style=3D"font-weight: bold;">Subject:</span></b> =
+Re: [poky] [POKY] : XBMC PACKAGE (package libsdl-mixer-1.2.11-r5: task do_c=
+ompile: Failed)<br></font><br>On Tue, 2011-10-04 at 12:46 +0530, sonu vishw=
+akarma wrote:<br>&gt; | ./libtool: line 6399: cd: =3D/usr/lib: No such file=
+ or directory<br><br>Here's the problem! Somewhere you're passing =3D/usr/l=
+ib which isn't a<br>real path.<br><br>Please don't start new threads to con=
+tinue existing discussion.<br><br>Please share the recipes
+ you're trying to build so that we can try and<br>help.<br><br>Thanks,<br>J=
+oshua<br>-- <br>Joshua Lock<br>&nbsp; &nbsp; &nbsp; &nbsp; Yocto Project "J=
+ohannes factotum"<br>&nbsp; &nbsp; &nbsp; &nbsp; Intel Open Source Technolo=
+gy Centre<br><br>_______________________________________________<br>poky ma=
+iling list<br><a ymailto=3D"mailto:poky@yoctoproject.org" href=3D"mailto:po=
+ky@yoctoproject.org">poky@yoctoproject.org</a><br><a href=3D"https://lists.=
+yoctoproject.org/listinfo/poky" target=3D"_blank">https://lists.yoctoprojec=
+t.org/listinfo/poky</a><br><br><br></div></div></div></body></html>
 
+--1604857446-1617387030-1317981727=:19703--
