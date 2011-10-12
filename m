@@ -1,28 +1,21 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23CD7E01335
-	for <poky@lists.yoctoproject.org>; Wed, 12 Oct 2011 06:40:55 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p9CDlVcV005919
-	for <poky@lists.yoctoproject.org>; Wed, 12 Oct 2011 14:47:32 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id X9cg7jAvPCJd for <poky@lists.yoctoproject.org>;
-	Wed, 12 Oct 2011 14:47:31 +0100 (BST)
-Received: from [192.168.1.66] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p9CDlRnv005904
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT)
-	for <poky@lists.yoctoproject.org>; Wed, 12 Oct 2011 14:47:29 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@lists.yoctoproject.org>
-Date: Wed, 12 Oct 2011 14:40:45 +0100
-X-Mailer: Evolution 3.1.91- 
-Message-ID: <1318426854.23801.165.camel@ted>
-Mime-Version: 1.0
-Subject: [PATCH] clutter: Update bbappend after oe-core upgrade
+Return-Path: <holger@freyther.de>
+Received: from mail.symoco.de (sysmocom.de [78.46.147.233])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA924E004E9
+	for <poky@yoctoproject.org>; Wed, 12 Oct 2011 12:41:50 -0700 (PDT)
+Received: from [192.168.0.101] (91-64-80-26-dynip.superkabel.de [91.64.80.26])
+	by mail.symoco.de (Postfix) with ESMTPSA id 6487E2543634
+	for <poky@yoctoproject.org>; Wed, 12 Oct 2011 19:39:40 +0000 (UTC)
+Message-ID: <4E95ED78.9030603@freyther.de>
+Date: Wed, 12 Oct 2011 21:41:44 +0200
+From: Holger Hans Peter Freyther <holger@freyther.de>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.23) Gecko/20110922 Lightning/1.0b2 Thunderbird/3.1.15
+MIME-Version: 1.0
+To: poky@yoctoproject.org
+References: <4E729619.9@freyther.de> <4E875D29.8050008@freyther.de>
+In-Reply-To: <4E875D29.8050008@freyther.de>
+X-Enigmail-Version: 1.1.1
+Subject: Re: udev and pci devices
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,16 +27,13 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2011 13:40:57 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 12 Oct 2011 19:41:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
-diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.14.bbappend b/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
-index c7cc683..c7cc683 100644
---- a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.14.bbappend
-+++ b/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+On 10/01/2011 08:34 PM, Holger Hans Peter Freyther wrote:
 
+> ping? any interest in having module loading for PCI devices working?
 
+no interest?
 
