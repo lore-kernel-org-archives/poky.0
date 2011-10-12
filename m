@@ -1,38 +1,25 @@
-Return-Path: <dexuan.cui@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A89DFE005BB
-	for <poky@yoctoproject.org>; Wed, 12 Oct 2011 00:37:31 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 12 Oct 2011 00:37:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.69,333,1315206000"; d="scan'208";a="72648692"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 12 Oct 2011 00:37:30 -0700
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Wed, 12 Oct 2011 15:35:44 +0800
-Received: from shsmsx502.ccr.corp.intel.com ([10.239.4.96]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi;
-	Wed, 12 Oct 2011 15:34:58 +0800
-From: "Cui, Dexuan" <dexuan.cui@intel.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Date: Wed, 12 Oct 2011 15:34:56 +0800
-Thread-Topic: [poky] [PATCH 1/1] xserver-xf86-dri-lite: rename it to
-	xserver-xorg
-Thread-Index: AcyIsEd6QQZzKM7SS7WeU60cZ3qEaAAAFINA
-Message-ID: <1865303E0DED764181A9D882DEF65FB6D23164EA25@shsmsx502.ccr.corp.intel.com>
-References: <cover.1318403772.git.dexuan.cui@intel.com>
-	<ad155bb2f7c2032a923332275d698d0787c764d2.1318403772.git.dexuan.cui@intel.com>
-	<20111012072254.GL27073@jama.jama.net>
-	<20111012072624.GM27073@jama.jama.net>
-In-Reply-To: <20111012072624.GM27073@jama.jama.net>
-Accept-Language: zh-CN, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: zh-CN, en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] xserver-xf86-dri-lite: rename it to xserver-xorg
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 684F9E005BB
+	for <poky@yoctoproject.org>; Wed, 12 Oct 2011 02:46:46 -0700 (PDT)
+Received: by wwf5 with SMTP id 5so624964wwf.11
+	for <poky@yoctoproject.org>; Wed, 12 Oct 2011 02:46:45 -0700 (PDT)
+Received: by 10.223.91.87 with SMTP id l23mr47180954fam.5.1318412805058;
+	Wed, 12 Oct 2011 02:46:45 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl.
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id y8sm2810352faj.10.2011.10.12.02.46.35
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 12 Oct 2011 02:46:40 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1244.3)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <CABRtByO8SsdAQm+0dH9N946MN8nMXnfGQAbMjAYV1hu4U9rBnQ@mail.gmail.com>
+Date: Wed, 12 Oct 2011 11:46:30 +0200
+Message-Id: <6423790F-59AC-4742-9951-6AE5E1570736@dominion.thruhere.net>
+References: <CABRtByO8SsdAQm+0dH9N946MN8nMXnfGQAbMjAYV1hu4U9rBnQ@mail.gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+X-Mailer: Apple Mail (2.1244.3)
+Subject: Re: : package libsdl-mixer-1.2.11-r5: task do_compile: Failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,36 +31,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2011 07:37:31 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Wed, 12 Oct 2011 09:46:48 -0000
+Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-Martin Jansa wrote on 2011-10-12:
-> On Wed, Oct 12, 2011 at 09:22:54AM +0200, Martin Jansa wrote:
->> On Wed, Oct 12, 2011 at 03:17:53PM +0800, Dexuan Cui wrote:
->>> Recently poky's commit c09f0eb561a53b97a769dd0744076af7d904eafb
->>> (xserver-xf86(-dri)-lite: rename to xserver-xorg and
->>> xserver-xorg-lite) breaks BSP building.
->>> This patch makes changes accordingly.
->>> common/recipes-graphics/xorg-xserver/{xserver-xf86-dri-lite =3D>=20
->>> xserver-xorg}/nodolt.patch (100%)  rename=20
->>> common/recipes-graphics/xorg-xserver/{xserver-xf86-dri-lite_1.9.3.
->>> bb
->>> =3D> xserver-xorg_1.11.1.bb} (87%)
->>=20
->> just curious, why there is whole xserver-xorg_1.11.1.bb recipe and=20
->> patches not just small .bbappend?
-Yes, it seems strange to me, too.
-I suppose Tom may know the history?=20
 
-> looking at
-> http://git.yoctoproject.org/cgit/cgit.cgi/meta-intel/tree/common/recip
-> es-grap hics/xorg-xserver/xserver-xf86-dri-lite_1.9.3.bb i don't know=20
-> why it's here at all :)
+Op 12 okt. 2011, om 07:11 heeft sonu vishwakarma het volgende =
+geschreven:
 
-Thanks,
--- Dexuan
+> Hi,
+>=20
+> I'm trying the build for XBMC 10.05 which depends on libsdl-mixer. I =
+pulled the recipe from open embedded which i'm=20
+> sharing here along with the log file.
+> I'm getting the error as below :
+>=20
+> | ./libtool: line 6399: cd: =3D/usr/lib: No such file or directory
+> | libtool: link: warning: cannot determine absolute directory name of =
+`=3D/usr/lib'
+> | /bin/grep: =3D/usr/lib/libdirectfb.la: No such file or directory
+> | /bin/sed: can't read =3D/usr/lib/libdirectfb.la: No such file or =
+directory
+> | libtool: link: `=3D/usr/lib/libdirectfb.la' is not a valid libtool =
+archive
+> | make: *** [build/libSDL_mixer.la] Error 1
+> | make: *** Waiting for unfinished jobs....
+> | FATAL: oe_runmake failed
+> | ERROR: Function 'do_compile' failed (see =
+/home/sct/logi/test-gigabyte/poky_gigabyte_16Sep2011/build/tmp/work/atom-p=
+oky-linux/libsdl-mixer-1.2.11-r5/temp/log.do_compile.23677 for further =
+information)
+> NOTE: package libsdl-mixer-1.2.11-r5: task do_compile: Failed
+>=20
+> I'm pulling for the Fishriver machine . My host machine is Ubuntu =
+10.10 ,64 bit .=20
+> Can someone help me out of this problem ?=20
+
+
+The libsdl-mixer recipe in meta-oe works just fine, why not use that?
 
 
 
