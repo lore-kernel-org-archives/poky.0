@@ -1,23 +1,21 @@
 Return-Path: <holger@freyther.de>
 Received: from mail.symoco.de (sysmocom.de [78.46.147.233])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2333AE0124A
-	for <poky@yoctoproject.org>; Thu, 13 Oct 2011 01:45:32 -0700 (PDT)
-Received: from [192.168.0.101] (91-64-80-26-dynip.superkabel.de [91.64.80.26])
-	by mail.symoco.de (Postfix) with ESMTPSA id 4ECF12543634
-	for <poky@yoctoproject.org>; Thu, 13 Oct 2011 08:43:27 +0000 (UTC)
-Message-ID: <4E96A529.2090207@freyther.de>
-Date: Thu, 13 Oct 2011 10:45:29 +0200
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 12137E00B11
+	for <poky@yoctoproject.org>; Thu, 13 Oct 2011 03:45:49 -0700 (PDT)
+Received: from [87.77.171.181] (zabb5.pia.fu-berlin.de [87.77.171.181])
+	by mail.symoco.de (Postfix) with ESMTPSA id 9EFF72543634
+	for <poky@yoctoproject.org>; Thu, 13 Oct 2011 10:43:40 +0000 (UTC)
+Message-ID: <4E96C156.90402@freyther.de>
+Date: Thu, 13 Oct 2011 12:45:42 +0200
 From: Holger Hans Peter Freyther <holger@freyther.de>
 User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
 	rv:1.9.2.23) Gecko/20110922 Lightning/1.0b2 Thunderbird/3.1.15
 MIME-Version: 1.0
 To: poky@yoctoproject.org
-References: <4E729619.9@freyther.de>
-	<4E875D29.8050008@freyther.de>	<4E95ED78.9030603@freyther.de>
-	<4E95EEEF.70702@windriver.com>
-In-Reply-To: <4E95EEEF.70702@windriver.com>
+References: <4E969C83.9070407@freyther.de>
+In-Reply-To: <4E969C83.9070407@freyther.de>
 X-Enigmail-Version: 1.1.1
-Subject: Re: udev and pci devices
+Subject: Re: kernel packages and /etc in FILES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,20 +27,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Oct 2011 08:45:33 -0000
+X-List-Received-Date: Thu, 13 Oct 2011 10:45:51 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 10/12/2011 09:47 PM, Mark Hatle wrote:
+On 10/13/2011 10:08 AM, Holger Hans Peter Freyther wrote:
 
-> In my experience things like PCI devices are better setup statically based on
-> the system being created.  (Note, I'm not sure if we have an easy way to do that
-> at this point or not..)
+> Does this still apply to the latest version?
 
-With statically you mean putting module_autoload_NAME = "name" in the out of
-tree kernel module recipe? This will not 'scale' for us (e.g. one system image
-but n-different ethernet NICs we can put in our hardware)
+I had to put FILES_${PN} = "" into my kernel recipe. Is this something that
+applies to the default yocto kernel?
 
-cheers
-	holger
+holger
 
