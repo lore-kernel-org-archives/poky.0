@@ -1,28 +1,28 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0EDBCE01277
-	for <poky@yoctoproject.org>; Fri, 14 Oct 2011 15:24:11 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id C8A531660A6D; Fri, 14 Oct 2011 16:24:07 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 551C61660A5D;
-	Fri, 14 Oct 2011 16:24:06 -0600 (MDT)
-Message-ID: <4E98B686.3060601@mlbassoc.com>
-Date: Fri, 14 Oct 2011 16:24:06 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
-MIME-Version: 1.0
-To: Tom Rini <tom.rini@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 616EFE01277
+	for <poky@yoctoproject.org>; Fri, 14 Oct 2011 15:28:47 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p9EMZK1T003473; Fri, 14 Oct 2011 23:35:21 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id VDtlUNj-R2Mx; Fri, 14 Oct 2011 23:35:20 +0100 (BST)
+Received: from [192.168.1.66] (tim [93.97.173.237]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
+	p9EMZEvf003438
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Fri, 14 Oct 2011 23:35:16 +0100
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Mark Hatle <mark.hatle@windriver.com>
+Date: Fri, 14 Oct 2011 23:28:31 +0100
+In-Reply-To: <4E98617D.5040501@windriver.com>
 References: <4E984ACB.1080901@mlbassoc.com> <4E985E22.1080008@windriver.com>
-	<1318608939.2342.37.camel@ted> <4E9886EE.2080107@mlbassoc.com>
-	<CA+M6bX=Rx-oT6mx1RwSzQQy0+8-mZhjG5A_1V=K8F0JFpCT34A@mail.gmail.com>
-In-Reply-To: <CA+M6bX=Rx-oT6mx1RwSzQQy0+8-mZhjG5A_1V=K8F0JFpCT34A@mail.gmail.com>
+	<1318608939.2342.37.camel@ted> <4E98617D.5040501@windriver.com>
+X-Mailer: Evolution 3.1.91- 
+Message-ID: <1318631320.2342.55.camel@ted>
+Mime-Version: 1.0
 Cc: poky@yoctoproject.org
 Subject: Re: Poky SDK as an external toolchain
 X-BeenThere: poky@yoctoproject.org
@@ -36,80 +36,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Oct 2011 22:24:12 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 14 Oct 2011 22:28:48 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 2011-10-14 13:58, Tom Rini wrote:
-> On Fri, Oct 14, 2011 at 12:01 PM, Gary Thomas<gary@mlbassoc.com>  wrote:
->> On 2011-10-14 10:15, Richard Purdie wrote:
->>>
->>> On Fri, 2011-10-14 at 11:06 -0500, Mark Hatle wrote:
->>>>
->>>> On 10/14/11 9:44 AM, Gary Thomas wrote:
->>>>>
->>>>> Premise: I'm happy with the toolchain that builds with Poky/Yocto
->>>>> Problem: I'm not happy rebuilding said toolchain all the time, nor
->>>>> having my customers have to rebuild it.
->>>>>
->>>>> Solution? I'd like to build the meta-toolchain and then be able to
->>>>> use that as an external toolchain for subsequent builds.  That way,
->>>>> I can create the tools and reuse them internally as well as pass
->>>>> them to my customers.
->>>>>
->>>>> How can I make this happen?  The last time I tried anything like
->>>>> this, I spent many days in the attempt only to find out that it
->>>>> was never going to work...
->>>>
->>>> We have a similar need for our commercial products.  We allow/enable our
->>>> customers to rebuild the toolchains (and use the results), but we only
->>>> provide
->>>> official support for our binary versions.  There are simply too many
->>>> variations
->>>> possible to try to support the toolchains in source format.  (Toolchains
->>>> =
->>>> bintuils, gcc, stock eglibc and a stock uclibc configurations...)
->>>>
->>>> Our intention is simply to create custom recipes that extract our
->>>> binaries and
->>>> use them instead of doing a by-source build.  If there is an easier way
->>>> that
->>>> would be nice.  (And I agree, using the results of the meta-toolchain
->>>> build is
->>>> the right approach for anything standard.)
->>>>
->>>> I'd suggest this get added as an enhancement request to the bugzilla.
->>>>   We're
->>>> currently working on feature planning for 1.2 so this would be a good
->>>> time to
->>>> add it into the bucket of possible work items.
->>>
->>> We already support external toolchains just fine. You can use a
->>> meta-toolchain as an external toolchain.
->>
->> How do I do this?   I really don't want to deal with another toolchain
->> [vendor]
->> like CSL.  As I said, I'm very happy with the toolchains that are being
->> built,
->> I just want to reuse them.
->
-> What Richard is saying is that based on the recipe for CSL (which just
-> plugs the binary in and satisfies DEPENDS, etc) you can do the same
-> for one that comes out via the meta-toolchain recipe.  Provided that is,
-> the toolchain that comes out of meta-toolchain does what you want it to do.
->
-> See http://cgit.openembedded.org/openembedded-core/tree/meta/recipes-core/meta/external-csl-toolchain_2008q3-72.bb
-> as an example
->
+On Fri, 2011-10-14 at 11:21 -0500, Mark Hatle wrote:
+> On 10/14/11 11:15 AM, Richard Purdie wrote:
+> > On Fri, 2011-10-14 at 11:06 -0500, Mark Hatle wrote:
+> >> On 10/14/11 9:44 AM, Gary Thomas wrote:
+> >>> Premise: I'm happy with the toolchain that builds with Poky/Yocto
+> >>> Problem: I'm not happy rebuilding said toolchain all the time, nor
+> >>> having my customers have to rebuild it.
+> >>>
+> >>> Solution? I'd like to build the meta-toolchain and then be able to
+> >>> use that as an external toolchain for subsequent builds.  That way,
+> >>> I can create the tools and reuse them internally as well as pass
+> >>> them to my customers.
+> >>>
+> >>> How can I make this happen?  The last time I tried anything like
+> >>> this, I spent many days in the attempt only to find out that it
+> >>> was never going to work...
+> >>
+> >> We have a similar need for our commercial products.  We allow/enable our
+> >> customers to rebuild the toolchains (and use the results), but we only provide
+> >> official support for our binary versions.  There are simply too many variations
+> >> possible to try to support the toolchains in source format.  (Toolchains =
+> >> bintuils, gcc, stock eglibc and a stock uclibc configurations...)
+> >>
+> >> Our intention is simply to create custom recipes that extract our binaries and
+> >> use them instead of doing a by-source build.  If there is an easier way that
+> >> would be nice.  (And I agree, using the results of the meta-toolchain build is
+> >> the right approach for anything standard.)
+> >>
+> >> I'd suggest this get added as an enhancement request to the bugzilla.  We're
+> >> currently working on feature planning for 1.2 so this would be a good time to
+> >> add it into the bucket of possible work items.
+> > 
+> > We already support external toolchains just fine. You can use a
+> > meta-toolchain as an external toolchain.
+> 
+> But we don't have a way to use OUR external toolchain directly as the toolchain
+> for building, avoiding building new ones right?
 
-Filed as enhancement bug: http://bugzilla.pokylinux.org/show_bug.cgi?id=1681
+We have a way of generically using external toolchains to replace our
+internal self-built one. As Tom pointed out see:
 
-Note: I think this should be solveable with just a limited number of soft links
-to the [well known] meta-toolchain install.
+http://cgit.openembedded.org/openembedded-core/tree/meta/recipes-core/meta/external-csl-toolchain_2008q3-72.bb
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+and also the TCMODE variable.
+
+> > If you want to reuse the toolchain directly, we do have sstate and we
+> > need to fix issues it has. We know and acknowledge they exist, we just
+> > need to track down the problems and fix them. The more people who help
+> > with that the sooner it will get done.
+> 
+> This is one case where I think sstate is only the answer for those folks who
+> want to speed rebuilding.  But in the case where you've come up with a certified
+> set of binary components.. there needs to be a way to inject that in without the
+> weight of the sstate.  (Copy of all of the various stages of the install, build,
+> packaging..)
+
+Agreed, although I'm hoping sstate can actually be used here generically
+with a brute force of the sstate hash compatibility. The whole of the
+checksum infrsatructure is configurable and customisable but we've not
+seen people use it much, yet
+
+> I think this is a different usecase then the sstate.  To me sstate allows the
+> use of a cache to speed up building.  This is a case where we want to use
+> something external (which happens to be built by the build system -- setting the
+> default format) to avoid performing any build operations.
+
+This is exactly what ASSUME_PROVIDED is for and how our external
+toolchain support works. We can do this, people just don't chose to much
+at the moment...
+
+Cheers,
+
+Richard
+
 
