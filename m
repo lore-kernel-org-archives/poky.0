@@ -1,28 +1,24 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 01A3CE01244
-	for <poky@yoctoproject.org>; Fri, 14 Oct 2011 09:04:47 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p9EGBLg0023657; Fri, 14 Oct 2011 17:11:22 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id pHRUUwS+CFEJ; Fri, 14 Oct 2011 17:11:21 +0100 (BST)
-Received: from [192.168.1.66] (tim [93.97.173.237]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.2/8.14.2/Debian-2build1) with ESMTP id
-	p9EGBHq1023652
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Fri, 14 Oct 2011 17:11:19 +0100
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Fri, 14 Oct 2011 17:04:33 +0100
-In-Reply-To: <4E984ACB.1080901@mlbassoc.com>
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A726BE01244
+	for <poky@yoctoproject.org>; Fri, 14 Oct 2011 09:07:01 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id p9EG6xvT009996
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Fri, 14 Oct 2011 09:06:59 -0700 (PDT)
+Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Fri, 14 Oct 2011 09:06:59 -0700
+Message-ID: <4E985E22.1080008@windriver.com>
+Date: Fri, 14 Oct 2011 11:06:58 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:7.0.1) Gecko/20110929 Thunderbird/7.0.1
+MIME-Version: 1.0
+To: <poky@yoctoproject.org>
 References: <4E984ACB.1080901@mlbassoc.com>
-X-Mailer: Evolution 3.1.91- 
-Message-ID: <1318608283.2342.32.camel@ted>
-Mime-Version: 1.0
-Cc: Poky Project <poky@yoctoproject.org>
+In-Reply-To: <4E984ACB.1080901@mlbassoc.com>
 Subject: Re: Poky SDK as an external toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -35,11 +31,11 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Oct 2011 16:04:48 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 14 Oct 2011 16:07:02 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2011-10-14 at 08:44 -0600, Gary Thomas wrote:
+On 10/14/11 9:44 AM, Gary Thomas wrote:
 > Premise: I'm happy with the toolchain that builds with Poky/Yocto
 > Problem: I'm not happy rebuilding said toolchain all the time, nor
 > having my customers have to rebuild it.
@@ -53,26 +49,30 @@ On Fri, 2011-10-14 at 08:44 -0600, Gary Thomas wrote:
 > this, I spent many days in the attempt only to find out that it
 > was never going to work...
 
-We used to have code for doing exactly what you describe. It was error
-prone, buggy and a world of pain. I was very relived when we removed it.
+We have a similar need for our commercial products.  We allow/enable our
+customers to rebuild the toolchains (and use the results), but we only provide
+official support for our binary versions.  There are simply too many variations
+possible to try to support the toolchains in source format.  (Toolchains =
+bintuils, gcc, stock eglibc and a stock uclibc configurations...)
 
-We do have external toolchain support. You could use that as you would
-for a toolchain shipped by CSL or similar.
+Our intention is simply to create custom recipes that extract our binaries and
+use them instead of doing a by-source build.  If there is an easier way that
+would be nice.  (And I agree, using the results of the meta-toolchain build is
+the right approach for anything standard.)
+
+I'd suggest this get added as an enhancement request to the bugzilla.  We're
+currently working on feature planning for 1.2 so this would be a good time to
+add it into the bucket of possible work items.
+
+--Mark
 
 > Note: sstate is *not* the answer.  Not only is it HUGE (well over
 > 1GB for a typical setup), but it doesn't work reliably - see
 > bug #1536
-
-sstate is the answer and we need to actually make it work for your use
-cases. We need to look at the problems you're having and find ways to
-address them. I know it has issues but there isn't anything
-fundamentally wrong with what its doing, we just need to get the issues
-addressed. I'll happily do what I can to help that (and have been trying
-to already) if the issues are known about. This is the first time anyone
-has mentioed the 1GB size problem of the toolchain for example...
-
-Cheers,
-
-Richard
+> 
+> Ideas/hints?
+> 
+> Thanks
+> 
 
 
