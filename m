@@ -1,22 +1,29 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 38DA4E004E9
-	for <poky@yoctoproject.org>; Tue, 18 Oct 2011 10:41:03 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 18 Oct 2011 10:41:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.69,366,1315206000"; d="scan'208";a="79327640"
-Received: from unknown (HELO helios.localnet) ([10.252.121.62])
-	by fmsmga002.fm.intel.com with ESMTP; 18 Oct 2011 10:41:01 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 18 Oct 2011 18:41:00 +0100
-User-Agent: KMail/1.13.6 (Linux/2.6.38-11-generic-pae; KDE/4.6.5; i686; ; )
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F3004E004E9
+	for <poky@yoctoproject.org>; Tue, 18 Oct 2011 10:44:19 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 9A1D99AA2D6; Tue, 18 Oct 2011 11:44:18 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 0E6A99AA2C7;
+	Tue, 18 Oct 2011 11:44:18 -0600 (MDT)
+Message-ID: <4E9DBAF2.5020903@mlbassoc.com>
+Date: Tue, 18 Oct 2011 11:44:18 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
+MIME-Version: 1.0
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
 References: <4E9D90A9.6010303@mlbassoc.com> <4E9D957A.8090301@mlbassoc.com>
 	<1318958371.2250.19.camel@ted>
-In-Reply-To: <1318958371.2250.19.camel@ted>
-MIME-Version: 1.0
-Message-Id: <201110181841.00487.paul.eggleton@linux.intel.com>
+	<201110181841.00487.paul.eggleton@linux.intel.com>
+In-Reply-To: <201110181841.00487.paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
 Subject: Re: gstreamer update
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -29,22 +36,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Oct 2011 17:41:03 -0000
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
+X-List-Received-Date: Tue, 18 Oct 2011 17:44:20 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tuesday 18 October 2011 18:19:21 Richard Purdie wrote:
-> I've just merged Pauls gstreamer update to OE-Core and Poky...
+On 2011-10-18 11:41, Paul Eggleton wrote:
+> On Tuesday 18 October 2011 18:19:21 Richard Purdie wrote:
+>> I've just merged Pauls gstreamer update to OE-Core and Poky...
+>
+> I guess all that's missing then is an update to gst-plugins-good; I didn't
+> update the version of that.
 
-I guess all that's missing then is an update to gst-plugins-good; I didn't 
-update the version of that.
-
-Cheers,
-Paul
+You also need to update gst-plugins-base to 0.10.35
 
 -- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
