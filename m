@@ -1,36 +1,25 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
-	[209.85.213.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 76658E01358
-	for <poky@yoctoproject.org>; Thu, 20 Oct 2011 22:37:01 -0700 (PDT)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by yxk8 with SMTP id 8so428915yxk.35
-	for <poky@yoctoproject.org>; Thu, 20 Oct 2011 22:37:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=Wixjw7rPkcQzEE9guZpN03rAR3B2VB1LXSACQ4LaXT4=;
-	b=APwcM0Sn8rNxUD661UrhLR9tBkOV5pMuxHjrU5wLsCM6LRCW4czBNfTwAjpaZnTNqI
-	UpucEqiphYVMglQfm8lL2KrR5DgjVQ9G7wFgxhUR4YWO8NuOLs7OGrwBI+c6O/Hvk7gp
-	P99eAX+pwrEJJAEKTlkQxTdk2xwxw2oa4tRWY=
-Received: by 10.68.20.226 with SMTP id q2mr24989532pbe.115.1319175420068; Thu,
-	20 Oct 2011 22:37:00 -0700 (PDT)
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A4DA5E01358
+	for <poky@yoctoproject.org>; Fri, 21 Oct 2011 04:50:38 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id 3B1E91660892; Fri, 21 Oct 2011 05:50:36 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4876C1660870;
+	Fri, 21 Oct 2011 05:50:35 -0600 (MDT)
+Message-ID: <4EA15C8B.1050504@mlbassoc.com>
+Date: Fri, 21 Oct 2011 05:50:35 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
 MIME-Version: 1.0
-Received: by 10.68.48.230 with HTTP; Thu, 20 Oct 2011 22:36:30 -0700 (PDT)
-In-Reply-To: <CABRtByOW8azV5mZ3_57WGCwc+yvBHP0h0ErANsXjDj6Af3OUmQ@mail.gmail.com>
-References: <CABRtByPR-GmTN54BVUxnORRxex6NcmyjqiOdb_yCgkndBPjOdQ@mail.gmail.com>
-	<CABRtByNQkz1vq_X1v-3dNNAJtPOJjT6074vjHb216KOAUT5m6Q@mail.gmail.com>
-	<CAMKF1soeVC7WUm7MsWrbu_-ZiQCz=H0ogcGRobG6pPrDTrwrTw@mail.gmail.com>
-	<CAMKF1spw3NVTYMLzEHH9LH+R70baxqbuPcfPddZ3fZ_2TvCUag@mail.gmail.com>
-	<CABRtByOW8azV5mZ3_57WGCwc+yvBHP0h0ErANsXjDj6Af3OUmQ@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 20 Oct 2011 22:36:30 -0700
-Message-ID: <CAMKF1soQRxvaOSY4+=mzjWMXs87Cnd6K2Vhrj8izRuQK7=_ZEg@mail.gmail.com>
-To: sonu vishwakarma <vishwasonu2000@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: :Package xbmc-10.05-r11+gitr1+e2ab481ebe964321c358ab9d6402088c714adcbe: task do_compile: Failed
+To: Poky Project <poky@yoctoproject.org>
+Subject: Error managing features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,16 +31,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2011 05:37:01 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 21 Oct 2011 11:50:39 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 20, 2011 at 10:01 PM, sonu vishwakarma
-<vishwasonu2000@gmail.com> wrote:
-> When i include require egl.inc in my xbmc recipe i get the error as below:
+In my $DISTRO, I have a default set of image features:
+   IMAGE_FEATURES ?= "package-management debug-tweaks "
 
-thats not the point that you should include it. Point is that file
-makes it a package for certain type of machines
-therefore if your machine is not one of those then you are likely to
-get into problems since no one has probably
-ported that recipe to the machine you are building for.
+I'd like to build a minimized image which leaves out the package stuff, so
+I added this line to my <image>.bb:
+   IMAGE_FEATURES := "${@oe_filter_out('package-management', '${IMAGE_FEATURES}', d)}"
+
+Sadly, this gives me this error:
+   ERROR: Failure expanding variable IMAGE_FEATURES[:=], expression was ${@oe_filter_out('package-management', 'package-management debug-tweaks  ${EXTRA_IMAGE_FEATURES}', d)} which 
+triggered exception SyntaxError: EOL while scanning string literal (IMAGE_FEATURES[:=], line 1)
+
+Any idea what I've done wrong?
+
+Thanks
+
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
