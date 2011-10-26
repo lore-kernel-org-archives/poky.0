@@ -1,28 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D603E006B4
-	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 09:57:48 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id B955816608E6; Wed, 26 Oct 2011 10:57:45 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id F06B716608B4;
-	Wed, 26 Oct 2011 10:57:44 -0600 (MDT)
-Message-ID: <4EA83C08.5010002@mlbassoc.com>
-Date: Wed, 26 Oct 2011 10:57:44 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
+Return-Path: <scott.a.garman@intel.com>
+Received: from fmsmga102.fm.intel.com (mga10.intel.com [192.55.52.92])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C82EFE006B4
+	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 10:26:07 -0700 (PDT)
+Received: from mail-ww0-f44.google.com ([74.125.82.44])
+	by mga11.intel.com with ESMTP/TLS/RC4-SHA; 26 Oct 2011 10:26:07 -0700
+Received: by wwe6 with SMTP id 6so1998174wwe.13
+	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 10:26:05 -0700 (PDT)
+Received: by 10.227.198.141 with SMTP id eo13mr353199wbb.19.1319649965648;
+	Wed, 26 Oct 2011 10:26:05 -0700 (PDT)
+Received: from [127.0.0.1] (masterfoo.zenlinux.com. [207.192.74.254])
+	by mx.google.com with ESMTPS id 11sm4360652wby.15.2011.10.26.10.26.03
+	(version=SSLv3 cipher=OTHER); Wed, 26 Oct 2011 10:26:04 -0700 (PDT)
+Message-ID: <4EA8428F.9070205@intel.com>
+Date: Wed, 26 Oct 2011 10:25:35 -0700
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:7.0.1) Gecko/20110929 Thunderbird/7.0.1
 MIME-Version: 1.0
-To: McClintock Matthew-B29882 <B29882@freescale.com>
+To: poky@yoctoproject.org
 References: <4EA8186C.9060906@mlbassoc.com>
 	<CAEsOVNejiifxREadD5-Lh6_MazhH1Qh1dgWg-nAw_e1yA8kTXA@mail.gmail.com>
-In-Reply-To: <CAEsOVNejiifxREadD5-Lh6_MazhH1Qh1dgWg-nAw_e1yA8kTXA@mail.gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
+	<4EA83C08.5010002@mlbassoc.com>
+In-Reply-To: <4EA83C08.5010002@mlbassoc.com>
 Subject: Re: Strange ext filesystem error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -35,38 +34,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Oct 2011 16:57:48 -0000
+X-List-Received-Date: Wed, 26 Oct 2011 17:26:08 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2011-10-26 10:44, McClintock Matthew-B29882 wrote:
-> On Wed, Oct 26, 2011 at 9:25 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
->> I've noticed this behaviour on my Poky/Yocto based systems.
->> First, I format some device, in this case an MMC card, as ext3
->> (yes, my kernel supports ext3)
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
->>   # mkfs.ext3 /dev/mmcblk0p1
->> Then, when I go to mount it, I get this error:
->>   # mount /dev/mmcblk0p1 /tmp/disk
->>   EXT2-fs (mmcblk0p1): warning: mounting ext3 filesystem as ext2
+On 10/26/2011 09:57 AM, Gary Thomas wrote:
+> On 2011-10-26 10:44, McClintock Matthew-B29882 wrote:
+>> On Wed, Oct 26, 2011 at 9:25 AM, Gary Thomas<gary@mlbassoc.com> wrote:
+>>> I've noticed this behaviour on my Poky/Yocto based systems.
+>>> First, I format some device, in this case an MMC card, as ext3
+>>> (yes, my kernel supports ext3)
+> ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>
+>>> # mkfs.ext3 /dev/mmcblk0p1
+>>> Then, when I go to mount it, I get this error:
+>>> # mount /dev/mmcblk0p1 /tmp/disk
+>>> EXT2-fs (mmcblk0p1): warning: mounting ext3 filesystem as ext2
+>>>
+>>> Any ideas why? How can I get ext3 file system working?
 >>
->> Any ideas why?  How can I get ext3 file system working?
+>> Does your kernel support ext3? Otherwise you can try:
 >
-> Does your kernel support ext3? Otherwise you can try:
-
-See above :-)
-
+> See above :-)
 >
-> $ mount -t ext3 /dev/mmcblk0p1 /tmp/disk
+>>
+>> $ mount -t ext3 /dev/mmcblk0p1 /tmp/disk
+>
+> This does work although forcing the file system type should not
+> be necessary, but I'll live with it. This warning/error must have
+> something to do with the mount program (part of busybox).
 
-This does work although forcing the file system type should not
-be necessary, but I'll live with it.  This warning/error must have
-something to do with the mount program (part of busybox).
+Does dmesg complain about the filesystem at all?
+
+FWIW if the datestamps on the filesystem are unusual (e.g, in the 
+future), this would likely cause problems when mouting them. But 
+generally I would think that might raise a warning to run fsck, and not 
+cause an ext3 fs to be degraded to ext2.
+
+Scott
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Scott Garman
+Embedded Linux Engineer - Yocto Project
+Intel Open Source Technology Center
 
