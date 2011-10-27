@@ -1,31 +1,27 @@
-Return-Path: <tom.rini@gmail.com>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EB2CEE006B4
-	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 17:22:44 -0700 (PDT)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wyf19 with SMTP id 19so3268685wyf.35
-	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 17:22:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	bh=oiNQvXNSavZCpBDRMdUqPR+of6H8Y7LiCdFFNbk2UAc=;
-	b=wcUqb/ysIMOESfRKRxpCznG/2L40l5WKl1EtIZoerE4FN/CmXsFPv9055agt8FeEMq
-	RVmHylkaAPE7O28SndbTQDvwGp5wxxpOMfCDs6E18CAPqAaQEl1edcR18keEy+0N2Lw9
-	w6Bc6yRD+RskjHLxtTA2ZHrimqhou9P9dpkMM=
-MIME-Version: 1.0
-Received: by 10.216.137.84 with SMTP id x62mr356991wei.28.1319674963721; Wed,
-	26 Oct 2011 17:22:43 -0700 (PDT)
-Received: by 10.180.83.232 with HTTP; Wed, 26 Oct 2011 17:22:43 -0700 (PDT)
-In-Reply-To: <4EA8186C.9060906@mlbassoc.com>
+Return-Path: <anders@chargestorm.se>
+Received: from STOEXHUB01.domain01.net (STOEXHUB01.domain01.net
+	[83.145.59.142])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 28FAAE006B4
+	for <poky@yoctoproject.org>; Thu, 27 Oct 2011 00:05:19 -0700 (PDT)
+Received: from STOEXMBXC03.domain01.net
+	([fe80:0000:0000:0000:8de9:60e6:88.102.95.97]) by
+	STOEXHUB01.domain01.net
+	([10.12.10.1]) with mapi; Thu, 27 Oct 2011 09:05:17 +0200
+From: Anders Darander <anders@chargestorm.se>
+To: Poky Project <poky@yoctoproject.org>
+Date: Thu, 27 Oct 2011 09:05:20 +0200
+Thread-Topic: [poky] Strange ext filesystem error
+Thread-Index: AcyUdsfD4AugflKgQ2iQpssT5hto5A==
+Message-ID: <147A0F47-650D-4595-A163-8C313BDF6BFC@chargestorm.se>
 References: <4EA8186C.9060906@mlbassoc.com>
-Date: Wed, 26 Oct 2011 17:22:43 -0700
-Message-ID: <CA+M6bXkW5FeMeYSifC=7Z86Dcg2xvwvxXzPrtOp-GLLX2_q4+A@mail.gmail.com>
-From: Tom Rini <tom.rini@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky Project <poky@yoctoproject.org>
+	<CA+M6bXkW5FeMeYSifC=7Z86Dcg2xvwvxXzPrtOp-GLLX2_q4+A@mail.gmail.com>
+In-Reply-To: <CA+M6bXkW5FeMeYSifC=7Z86Dcg2xvwvxXzPrtOp-GLLX2_q4+A@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: Tom Rini <tom.rini@gmail.com>
 Subject: Re: Strange ext filesystem error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -38,25 +34,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Oct 2011 00:22:45 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 27 Oct 2011 07:05:21 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 26, 2011 at 7:25 AM, Gary Thomas <gary@mlbassoc.com> wrote:
-> I've noticed this behaviour on my Poky/Yocto based systems.
-> First, I format some device, in this case an MMC card, as ext3
-> (yes, my kernel supports ext3)
-> =A0# mkfs.ext3 /dev/mmcblk0p1
-> Then, when I go to mount it, I get this error:
-> =A0# mount /dev/mmcblk0p1 /tmp/disk
-> =A0EXT2-fs (mmcblk0p1): warning: mounting ext3 filesystem as ext2
->
-> Any ideas why? =A0How can I get ext3 file system working?
 
-Sounds like once again the file mount uses to guess types is out of order.
-I think it's part of base-files but I don't have a chance to check right no=
-w...
+On 27 okt 2011, at 02:24, "Tom Rini" <tom.rini@gmail.com> wrote:
 
---=20
-Tom
+> On Wed, Oct 26, 2011 at 7:25 AM, Gary Thomas <gary@mlbassoc.com> wrote:
+>> I've noticed this behaviour on my Poky/Yocto based systems.
+>> First, I format some device, in this case an MMC card, as ext3
+>> (yes, my kernel supports ext3)
+>>  # mkfs.ext3 /dev/mmcblk0p1
+>> Then, when I go to mount it, I get this error:
+>>  # mount /dev/mmcblk0p1 /tmp/disk
+>>  EXT2-fs (mmcblk0p1): warning: mounting ext3 filesystem as ext2
+>>=20
+>> Any ideas why?  How can I get ext3 file system working?
+>=20
+> Sounds like once again the file mount uses to guess types is out of order=
+.
+> I think it's part of base-files but I don't have a chance to check right =
+now...
+
+Yes, that's the case.
+It's also out of order in upstream oe-core, as compared to the old oe-dev.
+
+Cheers,
+Anders=
 
