@@ -1,27 +1,31 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from fmsmga102.fm.intel.com (mga10.intel.com [192.55.52.92])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C82EFE006B4
-	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 10:26:07 -0700 (PDT)
-Received: from mail-ww0-f44.google.com ([74.125.82.44])
-	by mga11.intel.com with ESMTP/TLS/RC4-SHA; 26 Oct 2011 10:26:07 -0700
-Received: by wwe6 with SMTP id 6so1998174wwe.13
-	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 10:26:05 -0700 (PDT)
-Received: by 10.227.198.141 with SMTP id eo13mr353199wbb.19.1319649965648;
-	Wed, 26 Oct 2011 10:26:05 -0700 (PDT)
-Received: from [127.0.0.1] (masterfoo.zenlinux.com. [207.192.74.254])
-	by mx.google.com with ESMTPS id 11sm4360652wby.15.2011.10.26.10.26.03
-	(version=SSLv3 cipher=OTHER); Wed, 26 Oct 2011 10:26:04 -0700 (PDT)
-Message-ID: <4EA8428F.9070205@intel.com>
-Date: Wed, 26 Oct 2011 10:25:35 -0700
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:7.0.1) Gecko/20110929 Thunderbird/7.0.1
+Return-Path: <tom.rini@gmail.com>
+Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
+	[74.125.82.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EB2CEE006B4
+	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 17:22:44 -0700 (PDT)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyf19 with SMTP id 19so3268685wyf.35
+	for <poky@yoctoproject.org>; Wed, 26 Oct 2011 17:22:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	bh=oiNQvXNSavZCpBDRMdUqPR+of6H8Y7LiCdFFNbk2UAc=;
+	b=wcUqb/ysIMOESfRKRxpCznG/2L40l5WKl1EtIZoerE4FN/CmXsFPv9055agt8FeEMq
+	RVmHylkaAPE7O28SndbTQDvwGp5wxxpOMfCDs6E18CAPqAaQEl1edcR18keEy+0N2Lw9
+	w6Bc6yRD+RskjHLxtTA2ZHrimqhou9P9dpkMM=
 MIME-Version: 1.0
-To: poky@yoctoproject.org
+Received: by 10.216.137.84 with SMTP id x62mr356991wei.28.1319674963721; Wed,
+	26 Oct 2011 17:22:43 -0700 (PDT)
+Received: by 10.180.83.232 with HTTP; Wed, 26 Oct 2011 17:22:43 -0700 (PDT)
+In-Reply-To: <4EA8186C.9060906@mlbassoc.com>
 References: <4EA8186C.9060906@mlbassoc.com>
-	<CAEsOVNejiifxREadD5-Lh6_MazhH1Qh1dgWg-nAw_e1yA8kTXA@mail.gmail.com>
-	<4EA83C08.5010002@mlbassoc.com>
-In-Reply-To: <4EA83C08.5010002@mlbassoc.com>
+Date: Wed, 26 Oct 2011 17:22:43 -0700
+Message-ID: <CA+M6bXkW5FeMeYSifC=7Z86Dcg2xvwvxXzPrtOp-GLLX2_q4+A@mail.gmail.com>
+From: Tom Rini <tom.rini@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Strange ext filesystem error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -34,47 +38,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Oct 2011 17:26:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 27 Oct 2011 00:22:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On 10/26/2011 09:57 AM, Gary Thomas wrote:
-> On 2011-10-26 10:44, McClintock Matthew-B29882 wrote:
->> On Wed, Oct 26, 2011 at 9:25 AM, Gary Thomas<gary@mlbassoc.com> wrote:
->>> I've noticed this behaviour on my Poky/Yocto based systems.
->>> First, I format some device, in this case an MMC card, as ext3
->>> (yes, my kernel supports ext3)
-> ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+On Wed, Oct 26, 2011 at 7:25 AM, Gary Thomas <gary@mlbassoc.com> wrote:
+> I've noticed this behaviour on my Poky/Yocto based systems.
+> First, I format some device, in this case an MMC card, as ext3
+> (yes, my kernel supports ext3)
+> =A0# mkfs.ext3 /dev/mmcblk0p1
+> Then, when I go to mount it, I get this error:
+> =A0# mount /dev/mmcblk0p1 /tmp/disk
+> =A0EXT2-fs (mmcblk0p1): warning: mounting ext3 filesystem as ext2
 >
->>> # mkfs.ext3 /dev/mmcblk0p1
->>> Then, when I go to mount it, I get this error:
->>> # mount /dev/mmcblk0p1 /tmp/disk
->>> EXT2-fs (mmcblk0p1): warning: mounting ext3 filesystem as ext2
->>>
->>> Any ideas why? How can I get ext3 file system working?
->>
->> Does your kernel support ext3? Otherwise you can try:
->
-> See above :-)
->
->>
->> $ mount -t ext3 /dev/mmcblk0p1 /tmp/disk
->
-> This does work although forcing the file system type should not
-> be necessary, but I'll live with it. This warning/error must have
-> something to do with the mount program (part of busybox).
+> Any ideas why? =A0How can I get ext3 file system working?
 
-Does dmesg complain about the filesystem at all?
+Sounds like once again the file mount uses to guess types is out of order.
+I think it's part of base-files but I don't have a chance to check right no=
+w...
 
-FWIW if the datestamps on the filesystem are unusual (e.g, in the 
-future), this would likely cause problems when mouting them. But 
-generally I would think that might raise a warning to run fsck, and not 
-cause an ext3 fs to be degraded to ext2.
-
-Scott
-
--- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
+--=20
+Tom
 
