@@ -1,19 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5C064E006B4
-	for <poky@yoctoproject.org>; Wed,  2 Nov 2011 12:25:57 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8A9D6E01366
+	for <poky@yoctoproject.org>; Wed,  2 Nov 2011 12:25:59 -0700 (PDT)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 02 Nov 2011 12:25:56 -0700
+	by azsmga101.ch.intel.com with ESMTP; 02 Nov 2011 12:25:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.69,445,1315206000"; d="scan'208";a="69846574"
+X-IronPort-AV: E=Sophos;i="4.69,445,1315206000"; d="scan'208";a="69846591"
 Received: from unknown (HELO shamshir.amr.corp.intel.com) ([10.255.15.168])
-	by azsmga001.ch.intel.com with ESMTP; 02 Nov 2011 12:25:54 -0700
+	by azsmga001.ch.intel.com with ESMTP; 02 Nov 2011 12:25:57 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Wed,  2 Nov 2011 12:25:51 -0700
-Message-Id: <cover.1320261024.git.josh@linux.intel.com>
+Date: Wed,  2 Nov 2011 12:25:52 -0700
+Message-Id: <e5f24b1ad532a40b74e4e6453604af1d6a8d67ee.1320261024.git.josh@linux.intel.com>
 X-Mailer: git-send-email 1.7.7
-Subject: [PATCH 0/1] Enable Alsa for atom-pc
+In-Reply-To: <cover.1320261024.git.josh@linux.intel.com>
+References: <cover.1320261024.git.josh@linux.intel.com>
+In-Reply-To: <cover.1320261024.git.josh@linux.intel.com>
+References: <cover.1320261024.git.josh@linux.intel.com>
+Subject: [PATCH 1/1] machine/atom-pc: enable sound
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,27 +29,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Nov 2011 19:25:57 -0000
+X-List-Received-Date: Wed, 02 Nov 2011 19:25:59 -0000
 
-Seems like to have not done so must have been an oversight?
+Add alsa to the MACHINE_FEATURES - looks like this was an oversight.
 
-Cheers,
-Joshua
-
-The following changes since commit 9b76e6a2cfc5a4d779f3b06e3acc5ff7b8275470:
-
-  meta: glib-2.0: don't apply qsort_r test removable patch for native version (2011-11-02 09:08:28 +0000)
-
-are available in the git repository at:
-  git://git.yoctoproject.org/poky-contrib josh/work
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=josh/work
-
-Joshua Lock (1):
-  machine/atom-pc: enable sound
-
+Signed-off-by: Joshua Lock <josh@linux.intel.com>
+---
  meta-yocto/conf/machine/atom-pc.conf |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
+diff --git a/meta-yocto/conf/machine/atom-pc.conf b/meta-yocto/conf/machine/atom-pc.conf
+index 4bab4c8..5b51799 100644
+--- a/meta-yocto/conf/machine/atom-pc.conf
++++ b/meta-yocto/conf/machine/atom-pc.conf
+@@ -6,7 +6,7 @@
+ include conf/machine/include/tune-atom.inc
+ 
+ MACHINE_FEATURES = "kernel26 screen keyboard pci usbhost ext2 ext3 x86 wifi \
+-                    acpi"
++                    acpi alsa"
+ 
+ KERNEL_IMAGETYPE = "bzImage"
+ 
 -- 
 1.7.7
 
