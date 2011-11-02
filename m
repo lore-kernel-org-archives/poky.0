@@ -1,33 +1,27 @@
-Return-Path: <redzhepoff@gmail.com>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8C669E006B4
-	for <poky@yoctoproject.org>; Wed,  2 Nov 2011 09:15:50 -0700 (PDT)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by eyh5 with SMTP id 5so397774eyh.35
-	for <poky@yoctoproject.org>; Wed, 02 Nov 2011 09:15:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:sender:date:x-google-sender-auth:message-id:subject
-	:from:to:cc:content-type;
-	bh=4Pvbw68QS4tftyN92KoeDpZl+utByMnMAAOZOlczz5k=;
-	b=epSrio+ucaX1wx9Wlyg2Jy74qCMjMV8hzF0uZrFqRPvlTOyRg1Qdmj8rOz6F4okjE2
-	HIodoM3VAm5XxOg2E/efsczc2HEjEhKfafl61CYmkaG0i+5L5ZOYZhL1857NENHC2IqN
-	U5qPQlCp9idEopvbrjD3d41eX6HbfKTfJZGMQ=
-MIME-Version: 1.0
-Received: by 10.14.2.3 with SMTP id 3mr488969eee.82.1320250549043; Wed, 02 Nov
-	2011 09:15:49 -0700 (PDT)
-Sender: redzhepoff@gmail.com
-Received: by 10.14.185.129 with HTTP; Wed, 2 Nov 2011 09:15:48 -0700 (PDT)
-Date: Wed, 2 Nov 2011 19:15:48 +0300
-X-Google-Sender-Auth: sq5mYZWUDHjZLe0qpreZCw2BpFQ
-Message-ID: <CAK_2FrnaBEFNpDLbgH28zoXgmyO4qDSVkiAqQSC0RJFoErxziA@mail.gmail.com>
-From: =?UTF-8?B?0JLQu9Cw0LTQuNC80LjRgCDQoNC10LTQttC10L/QvtCy?=
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29842E006B4
+	for <poky@yoctoproject.org>; Wed,  2 Nov 2011 09:46:02 -0700 (PDT)
+Received: by wwf10 with SMTP id 10so499628wwf.11
+	for <poky@yoctoproject.org>; Wed, 02 Nov 2011 09:46:01 -0700 (PDT)
+Received: by 10.227.202.149 with SMTP id fe21mr6650329wbb.15.1320252361384;
+	Wed, 02 Nov 2011 09:46:01 -0700 (PDT)
+Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl.
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id fr4sm5170952wbb.0.2011.11.02.09.45.59
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 02 Nov 2011 09:46:00 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1251.1)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <CAK_2FrnaBEFNpDLbgH28zoXgmyO4qDSVkiAqQSC0RJFoErxziA@mail.gmail.com>
+Date: Wed, 2 Nov 2011 17:45:53 +0100
+Message-Id: <490AAE50-6326-455E-B63A-4D272BCB9B36@dominion.thruhere.net>
+References: <CAK_2FrnaBEFNpDLbgH28zoXgmyO4qDSVkiAqQSC0RJFoErxziA@mail.gmail.com>
+To: =?utf-8?B?0JLQu9Cw0LTQuNC80LjRgCDQoNC10LTQttC10L/QvtCy?=
 	<vladimir.redzhepoff@promwad.com>
-To: poky@yoctoproject.org
-Cc: Ivan.Kuten@promwad.com
-Subject: [PATCH] Sdparm package added
+X-Mailer: Apple Mail (2.1251.1)
+Cc: poky@yoctoproject.org, Ivan.Kuten@promwad.com
+Subject: Re: [PATCH] Sdparm package added
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,82 +33,79 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Nov 2011 16:15:51 -0000
-Content-Type: multipart/alternative; boundary=0016363ba55afd835d04b0c2c824
+X-List-Received-Date: Wed, 02 Nov 2011 16:46:04 -0000
+X-Groupsio-MsgNum: 7114
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_29E922AC-A0BB-4166-A824-9E964D0AE491";
+	protocol="application/pgp-signature"; micalg=pgp-sha1
 
---0016363ba55afd835d04b0c2c824
-Content-Type: text/plain; charset=ISO-8859-1
-
-From 756f41347ac3cf53b76d43714d43f84bd6dba6e0 Mon Sep 17 00:00:00 2001
-From: vladimir redzhepoff <vladimir.redzhepoff@promwad.com>
-Date: Wed, 2 Nov 2011 18:44:18 +0300
-Subject: [PATCH] Sdparm package added
-
----
- meta/recipes-devtools/sdparm/sdparm_1.06.bb |   12 ++++++++++++
- 1 files changed, 12 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-devtools/sdparm/sdparm_1.06.bb
-
-diff --git a/meta/recipes-devtools/sdparm/sdparm_1.06.bbb/meta/recipes-devtools/sdparm/
-sdparm_1.06.bb
-new file mode 100644
-index 0000000..b49a753
---- /dev/null
-+++ b/meta/recipes-devtools/sdparm/sdparm_1.06.bb
-@@ -0,0 +1,12 @@
-+DESCRIPTION = "The sdparm utility accesses SCSI device parameters."
-+HOMEPAGE = "http://sg.danny.cz/sg/sdparm.html#mozTocId166213"
-+SECTION = "console/utils"
-+LICENSE = "BSD"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=03299eb2d80659ec83507fcc511c5b42"
-+PR = "r0"
-+
-+SRC_URI = "http://sg.danny.cz/sg/p/${PN}-${PV}.tgz"
-+
-+SRC_URI[md5sum] = "5e19913658bb4f9849ddd909e0f47cde"
-+SRC_URI[sha256sum] =
-"e011a7a9e87e4e24c9c115f456ac4916fdc314d36ae99167979175782ea2f6b4"
-+inherit autotools
--- 
-1.7.2.5
-
---0016363ba55afd835d04b0c2c824
-Content-Type: text/html; charset=ISO-8859-1
+--Apple-Mail=_29E922AC-A0BB-4166-A824-9E964D0AE491
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-<div dir=3D"ltr"><div><br></div><div dir=3D"ltr"><div><div><div><div><div><=
-div></div></div></div></div></div></div></div><div>From 756f41347ac3cf53b76=
-d43714d43f84bd6dba6e0 Mon Sep 17 00:00:00 2001</div><div>From: vladimir red=
-zhepoff &lt;<a href=3D"mailto:vladimir.redzhepoff@promwad.com">vladimir.red=
-zhepoff@promwad.com</a>&gt;</div>
-<div>Date: Wed, 2 Nov 2011 18:44:18 +0300</div><div>Subject: [PATCH] Sdparm=
- package added</div><div><br></div><div>---</div><div>=A0meta/recipes-devto=
-ols/sdparm/<a href=3D"http://sdparm_1.06.bb">sdparm_1.06.bb</a> | =A0 12 ++=
-++++++++++</div>
-<div>=A01 files changed, 12 insertions(+), 0 deletions(-)</div><div>=A0crea=
-te mode 100644 meta/recipes-devtools/sdparm/<a href=3D"http://sdparm_1.06.b=
-b">sdparm_1.06.bb</a></div><div><br></div><div>diff --git a/meta/recipes-de=
-vtools/sdparm/<a href=3D"http://sdparm_1.06.bb">sdparm_1.06.bb</a> b/meta/r=
-ecipes-devtools/sdparm/<a href=3D"http://sdparm_1.06.bb">sdparm_1.06.bb</a>=
-</div>
-<div>new file mode 100644</div><div>index 0000000..b49a753</div><div>--- /d=
-ev/null</div><div>+++ b/meta/recipes-devtools/sdparm/<a href=3D"http://sdpa=
-rm_1.06.bb">sdparm_1.06.bb</a></div><div>@@ -0,0 +1,12 @@</div><div>+DESCRI=
-PTION =3D &quot;The sdparm utility accesses SCSI device parameters.&quot;</=
-div>
-<div>+HOMEPAGE =3D &quot;<a href=3D"http://sg.danny.cz/sg/sdparm.html#mozTo=
-cId166213">http://sg.danny.cz/sg/sdparm.html#mozTocId166213</a>&quot;</div>=
-<div>+SECTION =3D &quot;console/utils&quot;</div><div>+LICENSE =3D &quot;BS=
-D&quot;</div>
-<div>+LIC_FILES_CHKSUM =3D &quot;file://COPYING;md5=3D03299eb2d80659ec83507=
-fcc511c5b42&quot;</div><div>+PR =3D &quot;r0&quot;</div><div>+</div><div>+S=
-RC_URI =3D &quot;<a href=3D"http://sg.danny.cz/sg/p/${PN}-${PV}.tgz">http:/=
-/sg.danny.cz/sg/p/${PN}-${PV}.tgz</a>&quot;</div>
-<div>+</div><div>+SRC_URI[md5sum] =3D &quot;5e19913658bb4f9849ddd909e0f47cd=
-e&quot;</div><div>+SRC_URI[sha256sum] =3D &quot;e011a7a9e87e4e24c9c115f456a=
-c4916fdc314d36ae99167979175782ea2f6b4&quot;</div><div>+inherit autotools</d=
-iv>
-<div>--=A0</div><div>1.7.2.5</div><div><br></div>
-</div>
+THis really needs to get sent to the oe-core list and be based on =
+oe-core, not poky
 
---0016363ba55afd835d04b0c2c824--
+Op 2 nov. 2011, om 17:15 heeft =D0=92=D0=BB=D0=B0=D0=B4=D0=B8=D0=BC=D0=B8=D1=
+=80 =D0=A0=D0=B5=D0=B4=D0=B6=D0=B5=D0=BF=D0=BE=D0=B2 het volgende =
+geschreven:
+
+>=20
+> =46rom 756f41347ac3cf53b76d43714d43f84bd6dba6e0 Mon Sep 17 00:00:00 =
+2001
+> From: vladimir redzhepoff <vladimir.redzhepoff@promwad.com>
+> Date: Wed, 2 Nov 2011 18:44:18 +0300
+> Subject: [PATCH] Sdparm package added
+>=20
+> ---
+>  meta/recipes-devtools/sdparm/sdparm_1.06.bb |   12 ++++++++++++
+>  1 files changed, 12 insertions(+), 0 deletions(-)
+>  create mode 100644 meta/recipes-devtools/sdparm/sdparm_1.06.bb
+>=20
+> diff --git a/meta/recipes-devtools/sdparm/sdparm_1.06.bb =
+b/meta/recipes-devtools/sdparm/sdparm_1.06.bb
+> new file mode 100644
+> index 0000000..b49a753
+> --- /dev/null
+> +++ b/meta/recipes-devtools/sdparm/sdparm_1.06.bb
+> @@ -0,0 +1,12 @@
+> +DESCRIPTION =3D "The sdparm utility accesses SCSI device parameters."
+> +HOMEPAGE =3D "http://sg.danny.cz/sg/sdparm.html#mozTocId166213"
+> +SECTION =3D "console/utils"
+> +LICENSE =3D "BSD"
+> +LIC_FILES_CHKSUM =3D =
+"file://COPYING;md5=3D03299eb2d80659ec83507fcc511c5b42"
+> +PR =3D "r0"
+> +
+> +SRC_URI =3D "http://sg.danny.cz/sg/p/${PN}-${PV}.tgz"
+> +
+> +SRC_URI[md5sum] =3D "5e19913658bb4f9849ddd909e0f47cde"
+> +SRC_URI[sha256sum] =3D =
+"e011a7a9e87e4e24c9c115f456ac4916fdc314d36ae99167979175782ea2f6b4"
+> +inherit autotools
+> --=20
+> 1.7.2.5
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
+--Apple-Mail=_29E922AC-A0BB-4166-A824-9E964D0AE491
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+
+iEYEARECAAYFAk6xc8EACgkQMkyGM64RGpHvlQCgroJH01kH0klm6DRq3inPH2Rr
+Z2oAnRKqg792GAoHLBervhx98vwiOoiT
+=qGfA
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_29E922AC-A0BB-4166-A824-9E964D0AE491--
