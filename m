@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7A111E00301
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9C91DE00306
 	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 14:31:32 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960389"
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960390"
 Received: from unknown (HELO shamshir.jf.intel.com) ([10.7.199.72])
 	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  3 Nov 2011 14:31:19 -0700
-Message-Id: <e3e50d2c69a5e78c32ca9717e313c6c79f7efd97.1320355735.git.josh@linux.intel.com>
+Date: Thu,  3 Nov 2011 14:31:20 -0700
+Message-Id: <bf8d577f1d8fb8e3c5744cc483d1c685cb04f333.1320355735.git.josh@linux.intel.com>
 X-Mailer: git-send-email 1.7.7
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
-Subject: [BERNARD 07/17] libpng: backport security fixes
+Subject: [BERNARD 08/17] python: fix CVE-2011-1015
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,160 +31,219 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 03 Nov 2011 21:31:32 -0000
 
-This patch includes various security fixes from upstream (though the patches
-were taken from Debian's packaging) to address the following CVE issues:
-
-libpng CVE-2011-2690
-http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2690
-libpng CVE-2011-2692
-http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2692
-libpng CVE-2011-2501
-http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2501
+This patch adds a backported security fix from upstream for CVE-2011-1015 to
+address a vulnerability in the CGIHTTPServer module.
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- .../libpng/libpng/02-CVE-2011-2501.patch           |   29 +++++++++++++++
- .../libpng/libpng/03-CVE-2011-2690.patch           |   38 ++++++++++++++++++++
- .../libpng/libpng/04-CVE-2011-2692.patch           |   29 +++++++++++++++
- meta/recipes-multimedia/libpng/libpng_1.2.44.bb    |    7 +++-
- 4 files changed, 101 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-multimedia/libpng/libpng/02-CVE-2011-2501.patch
- create mode 100644 meta/recipes-multimedia/libpng/libpng/03-CVE-2011-2690.patch
- create mode 100644 meta/recipes-multimedia/libpng/libpng/04-CVE-2011-2692.patch
+ .../python/python/fix-cgi-http-server.patch        |  176 ++++++++++++++++++++
+ meta/recipes-devtools/python/python_2.6.6.bb       |    3 +-
+ 2 files changed, 178 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-devtools/python/python/fix-cgi-http-server.patch
 
-diff --git a/meta/recipes-multimedia/libpng/libpng/02-CVE-2011-2501.patch b/meta/recipes-multimedia/libpng/libpng/02-CVE-2011-2501.patch
+diff --git a/meta/recipes-devtools/python/python/fix-cgi-http-server.patch b/meta/recipes-devtools/python/python/fix-cgi-http-server.patch
 new file mode 100644
-index 0000000..c4f98c6
+index 0000000..5df0fa5
 --- /dev/null
-+++ b/meta/recipes-multimedia/libpng/libpng/02-CVE-2011-2501.patch
-@@ -0,0 +1,29 @@
-+This patch is taken from upstream and is a fix for CVE CVE-2011-2501
-+
-+Description: fix denial of service via error message data
-+Origin: upstream, http://libpng.git.sourceforge.net/git/gitweb.cgi?p=libpng/libpng;a=commitdiff;h=65e6d5a34f49acdb362a0625a706c6b914e670af
++++ b/meta/recipes-devtools/python/python/fix-cgi-http-server.patch
+@@ -0,0 +1,176 @@
++This patch is taken from upstream and is a fix for CVE CVE-2011-1015
 +
 +Upstream-Status: Backport
 +
 +Signed-off-by: Joshua Lock <josh@linux.intel.com>
 +
-+Index: libpng-1.2.44/pngerror.c
++# HG changeset patch
++# User Gregory P. Smith <greg@mad-scientist.com>
++# Date 1238999606 0
++# Node ID c6c4398293bd682b355f1050bb16bb3e18c8b40f
++# Parent  e363958fcd70a43ad07b39df999552d0fa1cefc1
++- Issue #2254: Fix CGIHTTPServer information disclosure.  Relative paths are
++  now collapsed within the url properly before looking in cgi_directories.
++
++Index: Python-2.6.6/Lib/CGIHTTPServer.py
 +===================================================================
-+--- libpng-1.2.44.orig/pngerror.c	2011-07-26 08:18:20.769498103 -0400
-++++ libpng-1.2.44/pngerror.c	2011-07-26 08:18:32.819498098 -0400
-+@@ -181,8 +181,13 @@
-+    {
-+       buffer[iout++] = ':';
-+       buffer[iout++] = ' ';
-+-      png_memcpy(buffer + iout, error_message, PNG_MAX_ERROR_TEXT);
-+-      buffer[iout + PNG_MAX_ERROR_TEXT - 1] = '\0';
-++
-++      iin = 0;
-++      while (iin < PNG_MAX_ERROR_TEXT-1 && error_message[iin] != '\0')
-++         buffer[iout++] = error_message[iin++];
-++
-++      /* iin < PNG_MAX_ERROR_TEXT, so the following is safe: */
-++      buffer[iout] = '\0';
-+    }
-+ }
++--- Python-2.6.6.orig/Lib/CGIHTTPServer.py	2009-11-11 09:24:53.000000000 -0800
+++++ Python-2.6.6/Lib/CGIHTTPServer.py	2011-10-13 13:51:33.815347721 -0700
++@@ -70,27 +70,20 @@
++             return SimpleHTTPServer.SimpleHTTPRequestHandler.send_head(self)
 + 
-diff --git a/meta/recipes-multimedia/libpng/libpng/03-CVE-2011-2690.patch b/meta/recipes-multimedia/libpng/libpng/03-CVE-2011-2690.patch
-new file mode 100644
-index 0000000..f38a222
---- /dev/null
-+++ b/meta/recipes-multimedia/libpng/libpng/03-CVE-2011-2690.patch
-@@ -0,0 +1,38 @@
-+This patch is taken from upstream and is a fix for CVE CVE-2011-2690
-+
-+Description: fix denial of service and possible arbitrary code
-+ execution via crafted PNG image
-+Origin: upstream, http://libpng.git.sourceforge.net/git/gitweb.cgi?p=libpng/libpng;a=commit;h=d572394c2a018ef22e9685ac189f5f05c08ea6f5
-+
-+Upstream-Status: Backport
-+
-+Signed-off-by: Joshua Lock <josh@linux.intel.com>
-+
-+Index: libpng-1.2.44/pngrtran.c
-+===================================================================
-+--- libpng-1.2.44.orig/pngrtran.c	2011-07-26 08:18:55.489498092 -0400
-++++ libpng-1.2.44/pngrtran.c	2011-07-26 08:19:02.079498092 -0400
-+@@ -676,10 +676,21 @@
-+ png_set_rgb_to_gray(png_structp png_ptr, int error_action, double red,
-+    double green)
-+ {
-+-   int red_fixed = (int)((float)red*100000.0 + 0.5);
-+-   int green_fixed = (int)((float)green*100000.0 + 0.5);
-++   int red_fixed, green_fixed;
-+    if (png_ptr == NULL)
-+       return;
-++   if (red > 21474.83647 || red < -21474.83648 ||
-++       green > 21474.83647 || green < -21474.83648)
-++   {
-++      png_warning(png_ptr, "ignoring out of range rgb_to_gray coefficients");
-++      red_fixed = -1;
-++      green_fixed = -1;
-++   }
-++   else
-++   {
-++      red_fixed = (int)((float)red*100000.0 + 0.5);
-++      green_fixed = (int)((float)green*100000.0 + 0.5);
-++   }
-+    png_set_rgb_to_gray_fixed(png_ptr, error_action, red_fixed, green_fixed);
-+ }
-+ #endif
-diff --git a/meta/recipes-multimedia/libpng/libpng/04-CVE-2011-2692.patch b/meta/recipes-multimedia/libpng/libpng/04-CVE-2011-2692.patch
-new file mode 100644
-index 0000000..5a0f51e
---- /dev/null
-+++ b/meta/recipes-multimedia/libpng/libpng/04-CVE-2011-2692.patch
-@@ -0,0 +1,29 @@
-+This patch is taken from upstream and is a fix for CVE CVE-2011-2962
-+
-+Description: fix denial of service and possible arbitrary code
-+ execution via invalid sCAL chunks
-+Origin: upstream, http://libpng.git.sourceforge.net/git/gitweb.cgi?p=libpng/libpng;a=commit;h=61a2d8a2a7b03023e63eae9a3e64607aaaa6d339
-+
-+Upstream-Status: Backport
-+
-+Signed-off-by: Joshua Lock <josh@linux.intel.com>
-+
-+Index: libpng-1.2.44/pngrutil.c
-+===================================================================
-+--- libpng-1.2.44.orig/pngrutil.c	2011-07-26 08:19:22.619498085 -0400
-++++ libpng-1.2.44/pngrutil.c	2011-07-26 08:19:26.909498086 -0400
-+@@ -1812,6 +1812,14 @@
-+       return;
-+    }
++     def is_cgi(self):
++-        """Test whether self.path corresponds to a CGI script,
++-        and return a boolean.
+++        """Test whether self.path corresponds to a CGI script.
 + 
-++   /* Need unit type, width, \0, height: minimum 4 bytes */
-++   else if (length < 4)
-++   {
-++      png_warning(png_ptr, "sCAL chunk too short");
-++      png_crc_finish(png_ptr, length);
-++      return;
-++   }
++-        This function sets self.cgi_info to a tuple (dir, rest)
++-        when it returns True, where dir is the directory part before
++-        the CGI script name.  Note that rest begins with a
++-        slash if it is not empty.
++-
++-        The default implementation tests whether the path
++-        begins with one of the strings in the list
++-        self.cgi_directories (and the next character is a '/'
++-        or the end of the string).
+++        Returns True and updates the cgi_info attribute to the tuple
+++        (dir, rest) if self.path requires running a CGI script.
+++        Returns False otherwise.
 ++
-+    png_debug1(2, "Allocating and reading sCAL chunk data (%lu bytes)",
-+       length + 1);
-+    png_ptr->chunkdata = (png_charp)png_malloc_warn(png_ptr, length + 1);
-diff --git a/meta/recipes-multimedia/libpng/libpng_1.2.44.bb b/meta/recipes-multimedia/libpng/libpng_1.2.44.bb
-index 4a8d5c3..58c20f0 100644
---- a/meta/recipes-multimedia/libpng/libpng_1.2.44.bb
-+++ b/meta/recipes-multimedia/libpng/libpng_1.2.44.bb
-@@ -6,9 +6,12 @@ LICENSE = "libpng"
- LIC_FILES_CHKSUM = "file://LICENSE;md5=a294a2bb08b7f25558119edbfd6b2e92 \
-                     file://png.h;startline=172;endline=261;md5=3253923f0093658f470e52a06ddcf4e7"
- DEPENDS = "zlib"
--PR = "r0"
-+PR = "r1"
+++        The default implementation tests whether the normalized url
+++        path begins with one of the strings in self.cgi_directories
+++        (and the next character is a '/' or the end of the string).
++         """
++-
++-        path = self.path
++-
++-        for x in self.cgi_directories:
++-            i = len(x)
++-            if path[:i] == x and (not path[i:] or path[i] == '/'):
++-                self.cgi_info = path[:i], path[i+1:]
++-                return True
+++        splitpath = _url_collapse_path_split(self.path)
+++        if splitpath[0] in self.cgi_directories:
+++            self.cgi_info = splitpath
+++            return True
++         return False
++ 
++     cgi_directories = ['/cgi-bin', '/htbin']
++@@ -299,6 +292,46 @@
++                 self.log_message("CGI script exited OK")
++ 
++ 
+++# TODO(gregory.p.smith): Move this into an appropriate library.
+++def _url_collapse_path_split(path):
+++    """
+++    Given a URL path, remove extra '/'s and '.' path elements and collapse
+++    any '..' references.
+++
+++    Implements something akin to RFC-2396 5.2 step 6 to parse relative paths.
+++
+++    Returns: A tuple of (head, tail) where tail is everything after the final /
+++    and head is everything before it.  Head will always start with a '/' and,
+++    if it contains anything else, never have a trailing '/'.
+++
+++    Raises: IndexError if too many '..' occur within the path.
+++    """
+++    # Similar to os.path.split(os.path.normpath(path)) but specific to URL
+++    # path semantics rather than local operating system semantics.
+++    path_parts = []
+++    for part in path.split('/'):
+++        if part == '.':
+++            path_parts.append('')
+++        else:
+++            path_parts.append(part)
+++    # Filter out blank non trailing parts before consuming the '..'.
+++    path_parts = [part for part in path_parts[:-1] if part] + path_parts[-1:]
+++    if path_parts:
+++        tail_part = path_parts.pop()
+++    else:
+++        tail_part = ''
+++    head_parts = []
+++    for part in path_parts:
+++        if part == '..':
+++            head_parts.pop()
+++        else:
+++            head_parts.append(part)
+++    if tail_part and tail_part == '..':
+++        head_parts.pop()
+++        tail_part = ''
+++    return ('/' + '/'.join(head_parts), tail_part)
+++
+++
++ nobody = None
++ 
++ def nobody_uid():
++Index: Python-2.6.6/Lib/test/test_httpservers.py
++===================================================================
++--- Python-2.6.6.orig/Lib/test/test_httpservers.py	2010-04-25 15:09:32.000000000 -0700
+++++ Python-2.6.6/Lib/test/test_httpservers.py	2011-10-13 13:51:33.815347721 -0700
++@@ -7,6 +7,7 @@
++ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
++ from SimpleHTTPServer import SimpleHTTPRequestHandler
++ from CGIHTTPServer import CGIHTTPRequestHandler
+++import CGIHTTPServer
++ 
++ import os
++ import sys
++@@ -324,6 +325,45 @@
++         finally:
++             BaseTestCase.tearDown(self)
++ 
+++    def test_url_collapse_path_split(self):
+++        test_vectors = {
+++            '': ('/', ''),
+++            '..': IndexError,
+++            '/.//..': IndexError,
+++            '/': ('/', ''),
+++            '//': ('/', ''),
+++            '/\\': ('/', '\\'),
+++            '/.//': ('/', ''),
+++            'cgi-bin/file1.py': ('/cgi-bin', 'file1.py'),
+++            '/cgi-bin/file1.py': ('/cgi-bin', 'file1.py'),
+++            'a': ('/', 'a'),
+++            '/a': ('/', 'a'),
+++            '//a': ('/', 'a'),
+++            './a': ('/', 'a'),
+++            './C:/': ('/C:', ''),
+++            '/a/b': ('/a', 'b'),
+++            '/a/b/': ('/a/b', ''),
+++            '/a/b/c/..': ('/a/b', ''),
+++            '/a/b/c/../d': ('/a/b', 'd'),
+++            '/a/b/c/../d/e/../f': ('/a/b/d', 'f'),
+++            '/a/b/c/../d/e/../../f': ('/a/b', 'f'),
+++            '/a/b/c/../d/e/.././././..//f': ('/a/b', 'f'),
+++            '../a/b/c/../d/e/.././././..//f': IndexError,
+++            '/a/b/c/../d/e/../../../f': ('/a', 'f'),
+++            '/a/b/c/../d/e/../../../../f': ('/', 'f'),
+++            '/a/b/c/../d/e/../../../../../f': IndexError,
+++            '/a/b/c/../d/e/../../../../f/..': ('/', ''),
+++        }
+++        for path, expected in test_vectors.iteritems():
+++            if isinstance(expected, type) and issubclass(expected, Exception):
+++                self.assertRaises(expected,
+++                                  CGIHTTPServer._url_collapse_path_split, path)
+++            else:
+++                actual = CGIHTTPServer._url_collapse_path_split(path)
+++                self.assertEquals(expected, actual,
+++                                  msg='path = %r\nGot:    %r\nWanted: %r' % (
+++                                  path, actual, expected))
+++
++     def test_headers_and_content(self):
++         res = self.request('/cgi-bin/file1.py')
++         self.assertEquals(('Hello World\n', 'text/html', 200), \
++@@ -348,6 +388,12 @@
++         self.assertEquals(('Hello World\n', 'text/html', 200), \
++              (res.read(), res.getheader('Content-type'), res.status))
++ 
+++    def test_no_leading_slash(self):
+++        # http://bugs.python.org/issue2254
+++        res = self.request('cgi-bin/file1.py')
+++        self.assertEquals(('Hello World\n', 'text/html', 200),
+++             (res.read(), res.getheader('Content-type'), res.status))
+++
++ 
++ def test_main(verbose=None):
++     cwd = os.getcwd()
+diff --git a/meta/recipes-devtools/python/python_2.6.6.bb b/meta/recipes-devtools/python/python_2.6.6.bb
+index b0438fe..59493f3 100644
+--- a/meta/recipes-devtools/python/python_2.6.6.bb
++++ b/meta/recipes-devtools/python/python_2.6.6.bb
+@@ -1,7 +1,7 @@
+ require python.inc
+ DEPENDS = "python-native db gdbm openssl readline sqlite3 zlib"
+ DEPENDS_sharprom = "python-native db readline zlib gdbm openssl"
+-PR = "${INC_PR}.2"
++PR = "${INC_PR}.3"
+ LIC_FILES_CHKSUM = "file://LICENSE;md5=38fdd546420fab09ac6bd3d8a1c83eb6"
  
--SRC_URI = "${SOURCEFORGE_MIRROR}/libpng/libpng-${PV}.tar.bz2"
-+SRC_URI = "${SOURCEFORGE_MIRROR}/libpng/libpng-${PV}.tar.bz2 \
-+           file://02-CVE-2011-2501.patch \
-+           file://03-CVE-2011-2690.patch \
-+           file://04-CVE-2011-2692.patch"
+ DISTRO_SRC_URI ?= "file://sitecustomize.py"
+@@ -17,6 +17,7 @@ SRC_URI = "\
+   file://06-avoid_usr_lib_termcap_path_in_linking.patch \
+   file://07-linux3-regen-fix.patch \
+   file://99-ignore-optimization-flag.patch \
++  file://fix-cgi-http-server.patch \
+   ${DISTRO_SRC_URI} \
+ "
  
- SRC_URI[md5sum] = "e3ac7879d62ad166a6f0c7441390d12b"
- SRC_URI[sha256sum] = "b9ab20f1c2c3bf6c4448fd9bd8a4a8905b918114d5fada56c97bb758a17b7215"
 -- 
 1.7.7
 
