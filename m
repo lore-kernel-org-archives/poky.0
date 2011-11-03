@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 22324E00301
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 38352E00300
 	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 14:31:32 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960383"
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960384"
 Received: from unknown (HELO shamshir.jf.intel.com) ([10.7.199.72])
 	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  3 Nov 2011 14:31:15 -0700
-Message-Id: <1c5171b2518ea3e037a53caaf50c4bf46bfc13ee.1320355735.git.josh@linux.intel.com>
+Date: Thu,  3 Nov 2011 14:31:16 -0700
+Message-Id: <7779a1fedcaa9e0797893d00cff036ecd8823be0.1320355735.git.josh@linux.intel.com>
 X-Mailer: git-send-email 1.7.7
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
-Subject: [BERNARD 03/17] qemu: Poke more paths for presence of libgl
+Subject: [BERNARD 04/17] Magic file path should be given for rpmbuild
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,32 +31,40 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 03 Nov 2011 21:31:32 -0000
 
-From: Khem Raj <raj.khem@gmail.com>
+From: "jani.uusi-rantala@nokia.com" <jani.uusi-rantala@nokia.com>
 
-On ubuntu 11.10 libGL is not in
-/usr/lib/`uname -i`-linux-gnu/ directory
-so we search this dir too.
+Magic file path should be given for rpmbuild in
+_rpmfc_magic_path define so that build system default file
+is not used by accident. Not doing this caused many
+packages to fail building in several systems.
 
-(From OE-Core rev: ced947e989dfbca8055fe57e14207cb6f1357430)
+Fixes [YOCTO #1358]
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Jani Uusi-Rantala <jani.uusi-rantala@nokia.com>
 ---
- meta/recipes-devtools/qemu/qemu.inc |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+ meta/classes/package_rpm.bbclass |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-diff --git a/meta/recipes-devtools/qemu/qemu.inc b/meta/recipes-devtools/qemu/qemu.inc
-index 2c6b114..1fb75d9 100644
---- a/meta/recipes-devtools/qemu/qemu.inc
-+++ b/meta/recipes-devtools/qemu/qemu.inc
-@@ -15,6 +15,7 @@ do_configure_prepend_virtclass-native() {
+diff --git a/meta/classes/package_rpm.bbclass b/meta/classes/package_rpm.bbclass
+index 70170d1..4f300f8 100644
+--- a/meta/classes/package_rpm.bbclass
++++ b/meta/classes/package_rpm.bbclass
+@@ -763,6 +763,7 @@ python do_package_rpm () {
+ 	targetsys = bb.data.getVar('TARGET_SYS', d, True)
+ 	pkgwritedir = bb.data.expand('${PKGWRITEDIRRPM}/${PACKAGE_ARCH}', d)
+ 	pkgarch = bb.data.expand('${PACKAGE_ARCH}', d)
++	magicfile = bb.data.expand('${STAGING_DIR_NATIVE}/usr/share/misc/magic.mgc', d)
+ 	bb.mkdirhier(pkgwritedir)
+ 	os.chmod(pkgwritedir, 0755)
  
-     test -e /usr/lib/libGL.so -a -e /usr/lib/libGLU.so && libgl='yes'
-     test -e /usr/lib64/libGL.so -a -e /usr/lib64/libGLU.so && libgl='yes'
-+    test -e /usr/lib/`uname -i`-linux-gnu/libGL.so -a -e /usr/lib/`uname -i`-linux-gnu/libGLU.so && libgl='yes'
+@@ -775,6 +776,7 @@ python do_package_rpm () {
+ 	cmd = cmd + " --define '__find_provides " + outprovides + "'"
+ 	cmd = cmd + " --define '_unpackaged_files_terminate_build 0'"
+ 	cmd = cmd + " --define 'debug_package %{nil}'"
++	cmd = cmd + " --define '_rpmfc_magic_path " + magicfile + "'"
+ 	cmd = cmd + " -bb " + outspecfile
  
-     test -e /usr/lib/pkgconfig/sdl.pc -o -e /usr/lib64/pkgconfig/sdl.pc -o -e /usr/include/SDL/SDL.h && libsdl='yes'
- 
+ 	# Build the rpm package!
 -- 
 1.7.7
 
