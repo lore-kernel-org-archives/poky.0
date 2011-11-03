@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BEE11E00307
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C2F99E00308
 	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 14:31:32 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960392"
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960394"
 Received: from unknown (HELO shamshir.jf.intel.com) ([10.7.199.72])
 	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  3 Nov 2011 14:31:22 -0700
-Message-Id: <2816cc0db87004a4a6dd7580887cd843101c241f.1320355735.git.josh@linux.intel.com>
+Date: Thu,  3 Nov 2011 14:31:23 -0700
+Message-Id: <0a69e60cfc060472c19de2b50fd1bb4235be94c6.1320355735.git.josh@linux.intel.com>
 X-Mailer: git-send-email 1.7.7
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
-Subject: [BERNARD 10/17] valgrind: supporting on Linux kernel 3.x
+Subject: [BERNARD 11/17] matchbox-wm-2: fix typo in Makefile
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,78 +31,59 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 03 Nov 2011 21:31:32 -0000
 
-From: Lin Tong <tong.lin@intel.com>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-The old valgrind package do not support for Linux kernel 3.x, only for
-kernel 2.4 and 2.6. Now adding the configuration to the configure.in
-file to support Linux kernel 3.0.
+(From OE-Core rev: a708c42065eeeaabf97b97b530f63e4ef484bcf7)
 
-This commit fixes the problem in valgrind [YOCTO #1129]
-
-(From OE-Core rev: 5fc1e6d27f52e2032aa7a8ca20bb90d939d03c77)
-
-Signed-off-by: Lin Tong <tong.lin@intel.com>
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-
-Applied to Bernard's valgrind 3.6.0
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- .../valgrind-3.6.0/fix_unsupporting_kernel_3.patch |   26 ++++++++++++++++++++
- meta/recipes-devtools/valgrind/valgrind_3.6.0.bb   |    5 ++-
- 2 files changed, 29 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-devtools/valgrind/valgrind-3.6.0/fix_unsupporting_kernel_3.patch
+ .../matchbox-wm-2/matchbox-wm-2/fix_makefile.patch |   19 +++++++++++++++++++
+ .../matchbox-wm-2/matchbox-wm-2_svn.bb             |    3 ++-
+ 2 files changed, 21 insertions(+), 1 deletions(-)
+ create mode 100644 meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
 
-diff --git a/meta/recipes-devtools/valgrind/valgrind-3.6.0/fix_unsupporting_kernel_3.patch b/meta/recipes-devtools/valgrind/valgrind-3.6.0/fix_unsupporting_kernel_3.patch
+diff --git a/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
 new file mode 100644
-index 0000000..346ffeb
+index 0000000..8c40e85
 --- /dev/null
-+++ b/meta/recipes-devtools/valgrind/valgrind-3.6.0/fix_unsupporting_kernel_3.patch
-@@ -0,0 +1,26 @@
-+valgrind: Add 3.x statements to "case" for supporting the kernel 3.x
-+
-+Signed-off-by: Lin Tong <tong.lin@intel.com>
-+
++++ b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2/fix_makefile.patch
+@@ -0,0 +1,19 @@
 +Upstream-Status: Pending
 +
-+diff --git a/configure.in b/configure.in
-+index 3878619..1cb7dc7 100644
-+--- a/configure.in
-++++ b/configure.in
-+@@ -229,10 +229,14 @@ case "${host_os}" in
-+         	    AC_MSG_RESULT([2.4 family (${kernel})])
-+         	    AC_DEFINE([KERNEL_2_4], 1, [Define to 1 if you're using Linux 2.4.x])
-+         	    ;;
-++             3.*)
-++                    AC_MSG_RESULT([3 family (${kernel})])
-++                    AC_DEFINE([KERNEL_3], 1, [Define to 1 if you're using Linux 3.x])
-++                    ;;
++Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/10
++Fix following build error:
++| Makefile:734: *** missing separator (did you mean TAB instead of 8 spaces?).  Stop.
++| ERROR: oe_runmake failed
++
++Index: matchbox-window-manager-2/Makefile.am
++===================================================================
++--- matchbox-window-manager-2.orig/Makefile.am
+++++ matchbox-window-manager-2/Makefile.am
++@@ -3,6 +3,6 @@ SUBDIRS = matchbox data doc util
++ # Extra clean files so that maintainer-clean removes *everything*
 + 
-+              *) 
-+         	    AC_MSG_RESULT([unsupported (${kernel})])
-+-        	    AC_MSG_ERROR([Valgrind works on kernels 2.4, 2.6])
-++        	    AC_MSG_ERROR([Valgrind works on kernels 2.4, 2.6, 3.x])
-+         	    ;;
-+         esac
++ snapshot:
++-        $(MAKE) dist distdir=$(PACKAGE)-snapshot-`date +"%Y%m%d"`
+++	$(MAKE) dist distdir=$(PACKAGE)-snapshot-`date +"%Y%m%d"`
 + 
-diff --git a/meta/recipes-devtools/valgrind/valgrind_3.6.0.bb b/meta/recipes-devtools/valgrind/valgrind_3.6.0.bb
-index a33a540..066c16d 100644
---- a/meta/recipes-devtools/valgrind/valgrind_3.6.0.bb
-+++ b/meta/recipes-devtools/valgrind/valgrind_3.6.0.bb
-@@ -7,11 +7,12 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=c46082167a314d785d012a244748d803 \
-                     file://include/valgrind.h;beginline=1;endline=56;md5=13a71cedba99112334d8596162aec37e \
-                     file://COPYING.DOCS;md5=8fdeb5abdb235a08e76835f8f3260215"
- DEPENDS = "virtual/libx11"
--PR = "r0"
-+PR = "r1"
++ MAINTAINERCLEANFILES = aclocal.m4 compile config.guess config.sub configure depcomp install-sh ltmain.sh Makefile.in missing
+diff --git a/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb
+index 2eb12e1..786406d 100644
+--- a/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb
++++ b/meta/recipes-graphics/matchbox-wm-2/matchbox-wm-2_svn.bb
+@@ -6,9 +6,10 @@ LIC_FILES_CHKSUM = "file://matchbox/core/mb-wm.h;endline=21;md5=1b1d328a52790635
+ DEPENDS = "virtual/libx11 libxext libxrender startup-notification expat gconf pango libxdamage libxcomposite gtk+"
  
- SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2 \
- 	   file://fix_issue_caused_by_ccache.patch \
--           file://fixed-perl-path.patch"
-+           file://fixed-perl-path.patch \
-+	   file://fix_unsupporting_kernel_3.patch"
+ PV = "0.0+svnr${SRCPV}"
+-PR = "r4"
++PR = "r5"
  
- SRC_URI[md5sum] = "b289c5f4ab8e39741602445f1dd09b34"
- SRC_URI[sha256sum] = "bc0f0153b5a47b986f1d8efa2c488e0aea85a1cf2c4b11c52be127903080285f"
+ SRC_URI = "svn://svn.o-hand.com/repos/matchbox/trunk;module=matchbox-window-manager-2;proto=http \
++	file://fix_makefile.patch \
+ 	  "
+ 
+ S = "${WORKDIR}/matchbox-window-manager-2"
 -- 
 1.7.7
 
