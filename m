@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D4261E00301
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DA83AE00309
 	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 14:31:32 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960397"
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="70960395"
 Received: from unknown (HELO shamshir.jf.intel.com) ([10.7.199.72])
 	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2011 14:31:31 -0700
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  3 Nov 2011 14:31:25 -0700
-Message-Id: <2319b2d2d7f971916e8d84b24f99a542a986e8e8.1320355735.git.josh@linux.intel.com>
+Date: Thu,  3 Nov 2011 14:31:24 -0700
+Message-Id: <da22a78bd424654e56c9201ec796294ac85ede50.1320355735.git.josh@linux.intel.com>
 X-Mailer: git-send-email 1.7.7
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
 In-Reply-To: <cover.1320355735.git.josh@linux.intel.com>
 References: <cover.1320355735.git.josh@linux.intel.com>
-Subject: [BERNARD 13/17] Remove help2man dependency
+Subject: [BERNARD 12/17] zaurusd: fix a typo in Makefile
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,41 +29,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2011 21:31:32 -0000
+X-List-Received-Date: Thu, 03 Nov 2011 21:31:33 -0000
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-The help2man script is pretty useless to us. It requires to run the target
-binary to extract help information which is not possible for any of our
-cross compiled target binaries.
+(From OE-Core rev: fcc7800834fda37df5a5c2bbd1da712ec8ff12b9)
 
-We're not interested in man pages for -cross/-native tools.
-
-It therefore makes no sense to have this as a core build dependency.
-
-This patch removes the dependeny and replaces it with a script
-returning false. This will trigger autotool's missing utility
-to use the copy of the man page included with the sources which
-is what would already happen when we tried to run cross compiled
-binaries anyway.
-
-(From OE-Core rev: 288343e30604b944dc18fd82172febd314d9c520)
-
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- scripts/help2man |    3 +++
- 1 files changed, 3 insertions(+), 0 deletions(-)
- create mode 100755 scripts/help2man
+ .../recipes-bsp/zaurusd/zaurusd/fix_makefile.patch |   19 +++++++++++++++++++
+ meta/recipes-bsp/zaurusd/zaurusd_svn.bb            |    5 +++--
+ 2 files changed, 22 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-bsp/zaurusd/zaurusd/fix_makefile.patch
 
-diff --git a/scripts/help2man b/scripts/help2man
-new file mode 100755
-index 0000000..2bb8d86
+diff --git a/meta/recipes-bsp/zaurusd/zaurusd/fix_makefile.patch b/meta/recipes-bsp/zaurusd/zaurusd/fix_makefile.patch
+new file mode 100644
+index 0000000..9b28202
 --- /dev/null
-+++ b/scripts/help2man
-@@ -0,0 +1,3 @@
-+#!/bin/sh
++++ b/meta/recipes-bsp/zaurusd/zaurusd/fix_makefile.patch
+@@ -0,0 +1,19 @@
++Upstream-Status: Pending
 +
-+exit 1
++Nitin A Kamble <nitin.a.kamble@intel.com> 2011/05/10
++Fix following build error:
++
++| Makefile:716: *** missing separator (did you mean TAB instead of 8 spaces?).  Stop.
++| ERROR: oe_runmake failed
++
++Index: zaurusd/Makefile.am
++===================================================================
++--- zaurusd.orig/Makefile.am
+++++ zaurusd/Makefile.am
++@@ -4,5 +4,5 @@ SUBDIRS = apps config scripts
++ MAINTAINERCLEANFILES = aclocal.m4 compile config.guess config.sub configure depcomp install-sh ltmain.sh Makefile.in missing
++ 
++ snapshot:
++-        $(MAKE) dist distdir=$(PACKAGE)-snap`date +"%Y%m%d"`
+++	$(MAKE) dist distdir=$(PACKAGE)-snap`date +"%Y%m%d"`
++ 
+diff --git a/meta/recipes-bsp/zaurusd/zaurusd_svn.bb b/meta/recipes-bsp/zaurusd/zaurusd_svn.bb
+index 455a29f..556d158 100644
+--- a/meta/recipes-bsp/zaurusd/zaurusd_svn.bb
++++ b/meta/recipes-bsp/zaurusd/zaurusd_svn.bb
+@@ -5,9 +5,10 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
+ DEPENDS = "tslib"
+ RDEPENDS_${PN} = "xrandr"
+ PV = "0.0+svnr${SRCPV}"
+-PR = "r2"
++PR = "r3"
+ 
+-SRC_URI = "svn://svn.o-hand.com/repos/misc/trunk;module=zaurusd;proto=http"
++SRC_URI = "svn://svn.o-hand.com/repos/misc/trunk;module=zaurusd;proto=http \
++	file://fix_makefile.patch"
+ 
+ S = "${WORKDIR}/${PN}"
+ 
 -- 
 1.7.7
 
