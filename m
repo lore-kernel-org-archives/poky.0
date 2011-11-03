@@ -1,29 +1,34 @@
-Return-Path: <hemmo.nieminen@aalto.fi>
-Received: from mx05.aalto.fi (mx05.aalto.fi [130.233.222.104])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 03DAEE0132F
-	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 04:54:59 -0700 (PDT)
-Received: from mx05.aalto.fi (localhost [127.0.0.1])
-	by localhost (Postfix) with SMTP id B7DDA80DB9
-	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 13:54:57 +0200 (EET)
-Received: from EXHUB03.org.aalto.fi (ex-hub03.org.aalto.fi [130.233.222.116])
-	by mx05.aalto.fi (Postfix) with ESMTP id AC0E380DB1
-	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 13:54:57 +0200 (EET)
-Received: from localhost (80.221.42.148) by mail.aalto.fi (130.233.222.116)
-	with Microsoft SMTP Server (TLS) id 14.1.270.1; Thu, 3 Nov 2011 13:54:57
-	+0200
-Date: Thu, 3 Nov 2011 13:53:43 +0200
-From: Hemmo Nieminen <hemmo.nieminen@aalto.fi>
-To: Poky Project <poky@yoctoproject.org>
-Message-ID: <20111103115343.GA15780@fcku>
-Mail-Followup-To: Poky Project <poky@yoctoproject.org>
-MIME-Version: 1.0
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Originating-IP: [80.221.42.148]
-Subject: Depending on a specific version of a package
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3FFE0E006F9
+	for <poky@yoctoproject.org>; Thu,  3 Nov 2011 07:43:33 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pA3EhTcu028621;
+	Thu, 3 Nov 2011 14:43:29 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 28034-05; Thu,  3 Nov 2011 14:43:25 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pA3EhLY0028615
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 3 Nov 2011 14:43:21 GMT
+Message-ID: <1320331401.20107.57.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Joshua Lock <josh@linux.intel.com>
+Date: Thu, 03 Nov 2011 14:43:21 +0000
+In-Reply-To: <e5f24b1ad532a40b74e4e6453604af1d6a8d67ee.1320261024.git.josh@linux.intel.com>
+References: <cover.1320261024.git.josh@linux.intel.com>
+	<e5f24b1ad532a40b74e4e6453604af1d6a8d67ee.1320261024.git.josh@linux.intel.com>
+X-Mailer: Evolution 3.2.1- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] machine/atom-pc: enable sound
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: Hemmo Nieminen <hemmo.nieminen@iki.fi>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -32,55 +37,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2011 11:55:00 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+X-List-Received-Date: Thu, 03 Nov 2011 14:43:39 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi all,
+On Wed, 2011-11-02 at 12:25 -0700, Joshua Lock wrote:
+> Add alsa to the MACHINE_FEATURES - looks like this was an oversight.
+> 
+> Signed-off-by: Joshua Lock <josh@linux.intel.com>
+> ---
+>  meta-yocto/conf/machine/atom-pc.conf |    2 +-
+>  1 files changed, 1 insertions(+), 1 deletions(-)
 
-I was wondering if it was possible to depend on a specific
-version of a package? Say, I have the following packages
+Merged to master, thanks.
 
-packageA_1.0.bb
+Richard
 
-packageB_2.2.bb
-packageB_2.3.bb
-
-I then want packageA to depend on packageB-2.2 (say,
-packageB-2.3 is not backwards compatible). How could I do this?
-
-
-I've noticed, that some of the existing recipes in Poky contain
-Debian-like dependency definitions like the one below from
-meta/recipes-support/gnutls/gnutls.inc. 
-
-DEPENDS = "zlib lzo libtasn1 libgcrypt (>= 1.4.2) libcap"
-
-I expect that this would mean that gnutls depends on version
-1.4.2 or higher of package libgcrypt. This would be exactly what
-I'm looking for, expect that I haven't been able to get the
-desired effect with this. The version information inside the
-parentheses seems to be completely ignored. 
-
-
-I also tried adding a line like
-
-DEPENDS += "packageB-2.2" 
-
-into packageA's recipe, but this made Bitbake to start compiling
-both the version I had specified as a dependency and the latest
-version of that package and eventually to fail compiling either
-one of those. 
-
-
-Bitbake's manual also suggests using
-PREFERRED_VERSION_package-name variable in some .conf file.
-However, I'd rather define the version dependency in a recipe
-file.
-
-
-I'm using the latest Poky from Git.
-
-Br,
-Hemmo
 
