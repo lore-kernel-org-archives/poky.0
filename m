@@ -1,47 +1,33 @@
-Return-Path: <jiajun.xu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F2A6CE00307
-	for <poky@pokylinux.org>; Fri,  4 Nov 2011 08:44:30 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 04 Nov 2011 08:44:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.69,456,1315206000"; d="scan'208";a="81273066"
-Received: from pgsmsx602.gar.corp.intel.com ([10.221.43.81])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Nov 2011 08:44:29 -0700
-Received: from pgsmsx102.gar.corp.intel.com (10.221.44.80) by
-	pgsmsx602.gar.corp.intel.com (10.221.43.81) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Fri, 4 Nov 2011 23:44:27 +0800
-Received: from shsmsx601.ccr.corp.intel.com (10.239.4.112) by
-	PGSMSX102.gar.corp.intel.com (10.221.44.80) with Microsoft SMTP Server
-	(TLS) id 14.1.323.3; Fri, 4 Nov 2011 23:44:27 +0800
-Received: from shsmsx501.ccr.corp.intel.com ([10.239.4.141]) by
-	shsmsx601.ccr.corp.intel.com ([10.239.4.112]) with mapi; Fri, 4 Nov 2011
-	23:44:26 +0800
-From: "Xu, Jiajun" <jiajun.xu@intel.com>
-To: "poky@pokylinux.org" <poky@pokylinux.org>, "yocto@yoctoproject.org"
-	<yocto@yoctoproject.org>
-Date: Fri, 4 Nov 2011 23:44:19 +0800
-Thread-Topic: build result by diabling nls and reducing -native dependencies
-	for gettext
-Thread-Index: AcybCJ392MwIgoz5SwmcUOoLpyTH/A==
-Message-ID: <D5AB6E638E5A3E4B8F4406B113A5A19A12DBA30CDD@shsmsx501.ccr.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-cr-puzzleid: {4474457B-A0DB-452D-BE82-F9B1D32CD75E}
-x-cr-hashedpuzzle: Csss DJhv EEOg ELcQ EQlk EYi6 FCoX IzmM Jv0l K8+z NNHl
-	NtDu N4GR OGIw OhNW QbGS; 2;
-	cABvAGsAeQBAAHAAbwBrAHkAbABpAG4AdQB4AC4AbwByAGcAOwB5AG8AYwB0AG8AQAB5AG8AYwB0AG8AcAByAG8AagBlAGMAdAAuAG8AcgBnAA==;
-	Sosha1_v1; 7; {4474457B-A0DB-452D-BE82-F9B1D32CD75E};
-	agBpAGEAagB1AG4ALgB4AHUAQABpAG4AdABlAGwALgBjAG8AbQA=; Fri,
-	04 Nov 2011 15:44:20 GMT;
-	YgB1AGkAbABkACAAcgBlAHMAdQBsAHQAIABiAHkAIABkAGkAYQBiAGwAaQBuAGcAIABuAGwAcwAgAGEAbgBkACAAcgBlAGQAdQBjAGkAbgBnACAALQBuAGEAdABpAHYAZQAgAGQAZQBwAGUAbgBkAGUAbgBjAGkAZQBzACAAZgBvAHIAIABnAGUAdAB0AGUAeAB0AA==
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: build result by diabling nls and reducing -native dependencies for gettext
+Return-Path: <glep-poky@m.gmane.org>
+Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BFBCDE00307
+	for <poky@pokylinux.org>; Fri,  4 Nov 2011 10:23:52 -0700 (PDT)
+Received: from list by lo.gmane.org with local (Exim 4.69)
+	(envelope-from <glep-poky@m.gmane.org>) id 1RMNUc-0003Zd-9p
+	for poky@pokylinux.org; Fri, 04 Nov 2011 18:23:50 +0100
+Received: from ppp089210140055.dsl.hol.gr ([89.210.140.55])
+	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
+	id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Fri, 04 Nov 2011 18:23:50 +0100
+Received: from gmane by ppp089210140055.dsl.hol.gr with local (Gmexim 0.1
+	(Debian)) id 1AlnuQ-0007hv-00
+	for <poky@pokylinux.org>; Fri, 04 Nov 2011 18:23:50 +0100
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@pokylinux.org
+From: Robert Berger <gmane@reliableembeddedsystems.com>
+Date: Fri, 04 Nov 2011 19:23:35 +0200
+Organization: Reliable Embedded Systems
+Message-ID: <j9172o$j0s$1@dough.gmane.org>
+Mime-Version: 1.0
+X-Complaints-To: usenet@dough.gmane.org
+X-Gmane-NNTP-Posting-Host: ppp089210140055.dsl.hol.gr
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.14) Gecko/20110223 Thunderbird/3.1.8
+Subject: workflow - kernel config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -50,35 +36,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Nov 2011 15:44:31 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 04 Nov 2011 17:23:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Hi all,
-I have a test with Richard's recent patch to improve build performance - "g=
-ettext: Switch to disabling nls and reducing -native build dependencies to =
-a set of pre built m4 macros", http://git.yoctoproject.org/cgit.cgi/poky/co=
-mmit/?id=3Db090fde5c184a64d3dd77c5f87b9596854e272ec.
+Hi,
 
-With the patch, the build time of core-image-sato against qemux86 costs 106=
- minutes. Without the patch, the build time is 114 minutes. So the patch co=
-uld give 7% performance gain. Detailed result as above:
-w/ commit b090fde5c184a6...
-real 106m20s
-user 376m39s
-sys 51m51s
+I'm playing with poky-edison-6.0 and the default 2.6.37.6 kernel on a
+beagle board with core-image-sato-sdk.
 
-w/o commit b090fde5c184a6...
-w/o
-real 114m17s
-user 370m3s
-sys 50m59s
+Interestingly enough there is user space support e.g. for oprofile, but
+oprofile is not configured in the kernel.
 
-My testing is performed on a 4-core Core-i7 system with 4GB memory. BB_NUMB=
-ER_THREADS and PARALLEL_MAKE are set to 8.
+The same for lacencytop and powertop,...
 
-Best Regards,
-Jiajun
+So I was wondering what's the preferred workflow to start with the
+"yocto-default" kernel config and add kernel configuration options
+afterwards.
+
+What's I've tried so far is:
+
+bitbake virtual/kernel -c clean
+bitbake virtual/kernel -c configure
+bitbake virtual/kernel -c menuconfig
+bitbake virtual/kernel -c compile
+bitbake virtual/kernel -c deploy
+
+Once I'll have a kernel config I'm happy with I would like to use a
+config file instead of menuconfig.
+
+Please advise,
+
+Regards,
+
+Robert
+...WANTED: Schroedinger's Cat. Dead or Alive.
+
+My public pgp key is available at:
+http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
+
 
 
