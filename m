@@ -1,28 +1,28 @@
-Return-Path: <mail@ing-duebon.de>
-Received: from leonardo.servertools24.de (leonardo.servertools24.de
-	[31.47.248.18])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1D216E00310
-	for <poky@yoctoproject.org>; Sun,  6 Nov 2011 01:49:00 -0700 (PDT)
-Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
-	[209.85.161.48]) (Authenticated sender: web54p1)
-	by leonardo.servertools24.de (Postfix) with ESMTP id 8F4391531A7D
-	for <poky@yoctoproject.org>; Sun,  6 Nov 2011 09:48:54 +0100 (CET)
-Received: by faap19 with SMTP id p19so1173884faa.35
-	for <poky@yoctoproject.org>; Sun, 06 Nov 2011 01:48:54 -0700 (PDT)
+Return-Path: <chgans@gna.org>
+Received: from mailx.techworks.ie (mailx.techworks.ie [88.198.36.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27CE2E00310
+	for <poky@yoctoproject.org>; Sun,  6 Nov 2011 05:06:12 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mailx.techworks.ie (Postfix) with ESMTP id 4A5725E0041
+	for <poky@yoctoproject.org>; Sun,  6 Nov 2011 13:06:12 +0000 (GMT)
+X-Virus-Scanned: amavisd-new at techworks.ie
+Received: from mailx.techworks.ie ([127.0.0.1])
+	by localhost (mailx.techworks.ie [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id gp8dwHCaK3gB for <poky@yoctoproject.org>;
+	Sun,  6 Nov 2011 13:06:09 +0000 (GMT)
+Received: from archeopterix.techworks.local (unknown [89.100.127.27])
+	by mailx.techworks.ie (Postfix) with ESMTPSA id 523FD5E0034
+	for <poky@yoctoproject.org>; Sun,  6 Nov 2011 13:06:09 +0000 (GMT)
+Message-ID: <4EB68640.4080809@gna.org>
+Date: Sun, 06 Nov 2011 13:06:08 +0000
+From: Christian Gagneraud <chgans@gna.org>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:7.0.1) Gecko/20110929 Thunderbird/7.0.1
 MIME-Version: 1.0
-Received: by 10.223.77.71 with SMTP id f7mr37634274fak.33.1320569334318; Sun,
-	06 Nov 2011 01:48:54 -0700 (PDT)
-Received: by 10.223.79.77 with HTTP; Sun, 6 Nov 2011 01:48:54 -0700 (PDT)
-Date: Sun, 6 Nov 2011 09:48:54 +0100
-Message-ID: <CANv1b=0WaEi032+aBYPstKwvG6C-QD3aXbEa-947k_P_7aiLYA@mail.gmail.com>
-From: =?ISO-8859-1?Q?Matthias_D=FCbon?= <mail@ing-duebon.de>
 To: poky@yoctoproject.org
-X-leonardo-MailScanner-Information: Please contact the ISP for more information
-X-leonardo-MailScanner-ID: 8F4391531A7D.A3E51
-X-leonardo-MailScanner: Found to be clean
-X-leonardo-MailScanner-From: mail@ing-duebon.de
-X-Spam-Status: No
-Subject: content of build/tmp/work folder?
+References: <CANv1b=0WaEi032+aBYPstKwvG6C-QD3aXbEa-947k_P_7aiLYA@mail.gmail.com>
+In-Reply-To: <CANv1b=0WaEi032+aBYPstKwvG6C-QD3aXbEa-947k_P_7aiLYA@mail.gmail.com>
+Subject: Re: content of build/tmp/work folder?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,94 +34,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 06 Nov 2011 08:49:02 -0000
-Content-Type: multipart/alternative; boundary=0015174be34e12c89f04b10d02c7
+X-List-Received-Date: Sun, 06 Nov 2011 13:06:13 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
 
---0015174be34e12c89f04b10d02c7
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+On 06/11/11 08:48, Matthias Dübon wrote:
+> Hello everyone,
+>
+> I am just starting to dive into Poky (and embedded linux). I really like
+> the concept and the idea of Yocto(resp. Poky) and up to now (almost)
+> everything worked as expected. But the build/tmp/work directory is
+> puzzling me.
+> The handbook stated "this directory contains various subdirectories for
+> each architecture". In m my working directory I found the following folders:
+>
+> all-poky-linux
+> beagleboard-poky-linux-gnueabi
+> i686-nativesdk-pokysdk-linux
+> qemux86-poky-linux
+> armv5te-poky-linux-gnueabi
+> i586-poky-linux
+> i686-pokysdk-linux
+> armv7a-vfp-neon-poky-linux-gnueabi
+> i686-linux
+> qemuarm-poky-linux-gnueabi
+>
+> Ok, beagleboard-poky-linux-gnueabi, qemuarm-poky-linux-gnueabi, ... are
+> architectures I build. But what about the others folders. What the
+> meaning of all-poky-linux?
+>
+> A rough explanation would be very helpful.
 
-Hello everyone,
+"all" stands for all architectures, it contains stuff like python, perl, 
+etc... which are architecture independent.
+"beagleboard" and "qemuarm" are machine specific, "armv5te" and "i586" 
+are architecture specific.
 
-I am just starting to dive into Poky (and embedded linux). I really like
-the concept and the idea of Yocto(resp. Poky) and up to now (almost)
-everything worked as expected. But the build/tmp/work directory is puzzling
-me.
-The handbook stated "this directory contains various subdirectories for
-each architecture". In m my working directory I found the following folders=
-:
+Chris
 
-all-poky-linux
-beagleboard-poky-linux-gnueabi
-i686-nativesdk-pokysdk-linux
-qemux86-poky-linux
-armv5te-poky-linux-gnueabi
-i586-poky-linux
-i686-pokysdk-linux
-armv7a-vfp-neon-poky-linux-gnueabi
-i686-linux
-qemuarm-poky-linux-gnueabi
-
-Ok, beagleboard-poky-linux-gnueabi, qemuarm-poky-linux-gnueabi, ... are
-architectures I build. But what about the others folders. What the meaning
-of all-poky-linux?
-
-A rough explanation would be very helpful.
-
---=20
-Regards
-Matthias D=FCbon
-
-Ingenieurb=FCro D=FCbon
-Eberhardstr. 18
-72072 Tuebingen
-Germany
-
-http://www.ing-duebon.de
-
---0015174be34e12c89f04b10d02c7
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hello everyone,</div><div><br></div><div>I am just starting to dive in=
-to Poky (and embedded linux). I really like the concept and the idea of Yoc=
-to(resp. Poky) and up to now (almost) everything worked as expected. But th=
-e build/tmp/work directory is puzzling me.=A0</div>
-
-
-
-<div>The handbook stated &quot;this directory contains various subdirectori=
-es for each architecture&quot;. In m my working directory I found the follo=
-wing folders:</div><div><br></div><div><span style=3D"background-color:tran=
-sparent">all-poky-linux =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0</span><=
-/div>
+>
+> --
+> Regards
+> Matthias Dübon
+>
+> Ingenieurbüro Dübon
+> Eberhardstr. 18
+> 72072 Tuebingen
+> Germany
+>
+> http://www.ing-duebon.de <http://www.ing-duebon.de/>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
+-- 
+Chris
 
-<div>beagleboard-poky-linux-gnueabi=A0</div><div>i686-nativesdk-pokysdk-lin=
-ux =A0</div>
-<div>qemux86-poky-linux</div><div><span style=3D"background-color:transpare=
-nt">armv5te-poky-linux-gnueabi</span></div><div><span style=3D"background-c=
-olor:transparent">i586-poky-linux</span></div><div><span style=3D"backgroun=
-d-color:transparent">i686-pokysdk-linux</span></div>
-
-
-
-
-<div>armv7a-vfp-neon-poky-linux-gnueabi=A0</div><div>i686-linux =A0 =A0 =A0=
- =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0</div><div>qemuarm-poky-linux-gnueabi</div>=
-<div><br></div><div>Ok, <span style=3D"background-color:transparent">beagle=
-board-poky-linux-</span><span style=3D"background-color:transparent">gnueab=
-i,=A0</span><span style=3D"background-color:transparent">qemuarm-poky-linux=
--gnueabi, ... are architectures I build. But what about the others folders.=
- What the meaning of all-poky-linux?</span></div>
-
-<div><span style=3D"background-color:transparent"><br></span></div><div>A r=
-ough explanation would be very helpful.</div><div><br></div><div><span styl=
-e=3D"background-color: transparent; ">--=A0</span></div>Regards<br>Matthias=
- D=FCbon<br>
-<br>Ingenieurb=FCro D=FCbon<br>Eberhardstr. 18<br>72072 Tuebingen<br>German=
-y<br><br><a href=3D"http://www.ing-duebon.de/" target=3D"_blank">http://www=
-.ing-duebon.de</a><br>
-
---0015174be34e12c89f04b10d02c7--
