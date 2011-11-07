@@ -1,23 +1,34 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 80E56E01358
-	for <poky@yoctoproject.org>; Mon,  7 Nov 2011 09:40:00 -0800 (PST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 07 Nov 2011 09:40:00 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="71911002"
-Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.14])
-	by orsmga002.jf.intel.com with ESMTP; 07 Nov 2011 09:40:00 -0800
-From: Saul Wold <sgw@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  7 Nov 2011 09:39:58 -0800
-Message-Id: <8698d46481551038f2baa147debcc66061d18b7f.1320687487.git.sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.6.4
-In-Reply-To: <cover.1320687487.git.sgw@linux.intel.com>
-References: <cover.1320687487.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1320687487.git.sgw@linux.intel.com>
-References: <cover.1320687487.git.sgw@linux.intel.com>
-Subject: [PATCH 1/1] Self Hosted Image: Added Task and Images
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-wy0-f171.google.com (mail-wy0-f171.google.com
+	[74.125.82.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4F9B3E013A3
+	for <poky@pokylinux.org>; Mon,  7 Nov 2011 09:58:18 -0800 (PST)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wyh11 with SMTP id 11so6082333wyh.2
+	for <poky@pokylinux.org>; Mon, 07 Nov 2011 09:58:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type:content-transfer-encoding;
+	bh=pldhW03liATg2QZC04gNWzWSowiRvEHExi86KWwLsks=;
+	b=wO0BD6PxuK0Pv6hqTxvnYdwFyYTExqlA+17EB5JGrwj1w08D8Fh9qdRlKopxRsxa3s
+	Xdhjfwdsq97irxTN+48Ax2U2TjVsWc24K+9MM+BF4xWSl0WGpCkr8q0Z1igV+FdG0CO1
+	N06lmx+CugMQxpwEZ7P0Z9Yl+qch/aJ8LBym8=
+MIME-Version: 1.0
+Received: by 10.216.80.18 with SMTP id j18mr8296221wee.18.1320688680464; Mon,
+	07 Nov 2011 09:58:00 -0800 (PST)
+Received: by 10.216.179.142 with HTTP; Mon, 7 Nov 2011 09:58:00 -0800 (PST)
+In-Reply-To: <1320683982.23708.24.camel@ted>
+References: <j9172o$j0s$1@dough.gmane.org>
+	<CADkTA4N=My0k31D2moYzK6gi70r2B9hL_-Bqw5T320pLqGGZ1g@mail.gmail.com>
+	<1320683982.23708.24.camel@ted>
+Date: Mon, 7 Nov 2011 12:58:00 -0500
+Message-ID: <CADkTA4OJ5qFh50jJCKBDJiLHHhdaDdJ8_W8jpOhpWY4_zdg=0w@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: gmane@reliableembeddedsystems.com, poky@pokylinux.org
+Subject: Re: workflow - kernel config
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,207 +40,101 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Nov 2011 17:40:00 -0000
+X-List-Received-Date: Mon, 07 Nov 2011 17:58:18 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-This is the first pass of creating a self hosted image, this task
-and image can pass bitbake's sanity check (if modified to remove the
-cvs check) and can build psuedo, albit very slowly on qemu
+On Mon, Nov 7, 2011 at 11:39 AM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+> On Fri, 2011-11-04 at 15:15 -0400, Bruce Ashfield wrote:
+>> On Fri, Nov 4, 2011 at 1:23 PM, Robert Berger
+>> <gmane@reliableembeddedsystems.com> wrote:
+>> > Hi,
+>> >
+>> > I'm playing with poky-edison-6.0 and the default 2.6.37.6 kernel on a
+>> > beagle board with core-image-sato-sdk.
+>> >
+>> > Interestingly enough there is user space support e.g. for oprofile, bu=
+t
+>> > oprofile is not configured in the kernel.
+>> >
+>> > The same for lacencytop and powertop,...
+>>
+>> We have feature descriptions for all of the above as components in the
+>> linux-yocto
+>> kernel repository, but they do need to be turned on and tested on a per =
+board
+>> basis.
+>>
+>> We can trigger kernel options based on userspace packages being enabled =
+or
+>> disabled, but that still wouldn't be a guarantee that they'd work. The
+>> options that
+>> are within the tree are a documentation of what has actually been tested=
+.
+>>
+>> The 2.6.37 tree was a transition point,and we've continued standardizing=
+ the
+>> options and feature set in the later kernels. For yocto 1.2 we'll have a=
+ better
+>> defined and consistent set of feature blocks. It's a building process
+>> and we move
+>> forward.
+>>
+>> As others will point out there are other/deeper beagle board BSPs and la=
+yers
+>> (i.e. meta-texasinstruments) that likely already have support for these =
+options\
+>> (but I haven't checked recently), so that's an avenue to explore as well=
+.
+>>
+>> >
+>> > So I was wondering what's the preferred workflow to start with the
+>> > "yocto-default" kernel config and add kernel configuration options
+>> > afterwards.
+>> >
+>> > What's I've tried so far is:
+>> >
+>> > bitbake virtual/kernel -c clean
+>> > bitbake virtual/kernel -c configure
+>> > bitbake virtual/kernel -c menuconfig
+>> > bitbake virtual/kernel -c compile
+>> > bitbake virtual/kernel -c deploy
+>>
+>> This is one flow that will work to make changes to the default kernel, a=
+nd
+>> test them on a board. I use something like:
+>>
+>> =A0bitbake -f -c configure linux-yocto
+>> =A0bitbake -f -c menuconfig
+>> =A0bitbake -c linux-yocto
+>
+> I suspect you mean:
+>
+> bitbake -f -c configure linux-yocto
+> bitbake -f -c menuconfig
+> bitbake linux-yocto
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- .../recipes-core/images/self-hosted-image.bb       |   16 ++
- meta-yocto/recipes-core/tasks/task-self-hosted.bb  |  158 ++++++++++++++++++++
- 2 files changed, 174 insertions(+), 0 deletions(-)
- create mode 100644 meta-yocto/recipes-core/images/self-hosted-image.bb
- create mode 100644 meta-yocto/recipes-core/tasks/task-self-hosted.bb
+Heh. Indeed. Random use of -c does not produce the results that
+one is looking for.
 
-diff --git a/meta-yocto/recipes-core/images/self-hosted-image.bb b/meta-yocto/recipes-core/images/self-hosted-image.bb
-new file mode 100644
-index 0000000..26174e2
---- /dev/null
-+++ b/meta-yocto/recipes-core/images/self-hosted-image.bb
-@@ -0,0 +1,16 @@
-+IMAGE_INSTALL = "task-core-boot task-core-apps-console task-core-ssh-openssh task-self-hosted"
-+
-+MACHINE_FEATURES = "kernel26"
-+
-+DISTRO_FEATURES="argp usbgadget usbhost xattr nfs zeroconf pci ipv4 ipv6 libc-backtrace libc-big-macros libc-bsd libc-cxx-tests libc-catgets libc-charsets libc-crypt                                     libc-crypt-ufc libc-db-aliases libc-envz libc-fcvt libc-fmtmsg libc-fstab libc-ftraverse                                        libc-getlogin libc-idn libc-inet-anl libc-libm libc-libm-big libc-locales libc-locale-code                                      libc-memusage libc-nis libc-nsswitch libc-rcmd libc-rtld-debug libc-spawn libc-streams libc-sunrpc                                      libc-utmp libc-utmpx libc-wordexp libc-posix-clang-wchar libc-posix-regexp libc-posix-regexp-glibc                                      libc-posix-wchar-io largefile"
-+
-+
-+POKY_EXTRA_INSTALL = "\
-+    task-self-hosted \
-+    "
-+
-+IMAGE_ROOTFS_EXTRA_SPACE = "1048576"
-+
-+inherit core-image
-+
-+PR = "r3"
-diff --git a/meta-yocto/recipes-core/tasks/task-self-hosted.bb b/meta-yocto/recipes-core/tasks/task-self-hosted.bb
-new file mode 100644
-index 0000000..e8a87e3
---- /dev/null
-+++ b/meta-yocto/recipes-core/tasks/task-self-hosted.bb
-@@ -0,0 +1,158 @@
-+#
-+# Copyright (C) 2010 Intel Corporation
-+#
-+
-+DESCRIPTION = "Create Basic Image Tasks"
-+PR = "r33"
-+LICENSE = "MIT"
-+LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-+                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+
-+PACKAGES = "\
-+    task-self-hosted \
-+    task-self-hosted-debug \
-+    task-self-hosted-sdk \
-+    task-self-hosted-extended \
-+    task-self-hosted-graphics \
-+    "
-+
-+ALLOW_EMPTY = "1"
-+
-+RDEPENDS_task-self-hosted = "\
-+    task-self-hosted-debug \
-+    task-self-hosted-sdk \
-+    task-self-hosted-extended \
-+    task-self-hosted-graphics \
-+    "
-+
-+RDEPENDS_task-self-hosted-sdk = "\
-+    autoconf \
-+    automake \
-+    binutils-symlinks \
-+    binutils \
-+    cpp \
-+    cpp-symlinks \
-+    ccache \
-+    gcc \
-+    gcc-symlinks \
-+    g++ \
-+    g++-symlinks \
-+    gettext \
-+    make \
-+    intltool \
-+    libstdc++ \
-+    libstdc++-dev \
-+    libtool \
-+    perl-module-re \
-+    perl-module-text-wrap \
-+    coreutils \
-+    diffutils \
-+    pkgconfig \
-+    findutils \
-+    quilt \
-+    less \
-+    distcc \
-+    ldd \
-+    file \
-+    tcl \
-+    "
-+
-+RDEPENDS_task-self-hosted-debug = " \
-+    gdb \
-+    gdbserver \
-+    tcf-agent \
-+    rsync \
-+    strace"
-+
-+
-+RDEPENDS_task-self-hosted-extended = "\
-+    binutils \
-+    bzip2 \
-+    chkconfig \
-+    chrpath \
-+    curl \
-+    dhcp-client \
-+    diffstat \
-+    diffutils \
-+    elfutils \
-+    expat \
-+    gamin \
-+    gdbm \
-+    git \
-+    gettext \
-+    gettext-runtime \
-+    grep \
-+    groff \
-+    gawk \
-+    hdparm \
-+    libaio \
-+    libxml2 \
-+    libusb1 \
-+    lrzsz \
-+    lsof \
-+    lzo \
-+    man \
-+    man-pages \
-+    mc \
-+    mdadm \
-+    minicom \
-+    mtools \
-+    ncurses \
-+    neon \
-+    openssl \
-+    opkg \
-+    opkg-utils \
-+    parted \
-+    patch \
-+    perl \
-+    perl-modules \
-+    perl-dev \
-+    pth \
-+    python \
-+    python-compile \
-+    python-compiler \
-+    python-core \
-+    python-curses \
-+    python-datetime \
-+    python-distutils \
-+    python-elementtree \
-+    python-fcntl \
-+    python-logging \
-+    python-misc \
-+    python-multiprocessing \
-+    python-netclient \
-+    python-netserver \
-+    python-pickle \
-+    python-re \
-+    python-rpm \
-+    python-shell \
-+    python-sqlite3 \
-+    python-subprocess \
-+    python-textutils \
-+    python-xmlrpc \
-+    quota \
-+    readline \
-+    rpm \
-+    screen \
-+    setserial \
-+    strace \
-+    subversion \
-+    sysstat \
-+    tar \
-+    tcl \
-+    texi2html \
-+    texinfo \
-+    usbutils \
-+    unzip \
-+    watchdog \
-+    wget \
-+    which \
-+    xinetd \
-+    zip \
-+    zlib \
-+    "
-+
-+
-+RDEPENDS_task-self-hosted-graphics = "\
-+    python-pygtk \
-+    "
--- 
-1.7.6.4
+Bruce
 
+>
+> :)
+>
+> Cheers,
+>
+> Richard
+>
+>
+>
+>
+>
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
