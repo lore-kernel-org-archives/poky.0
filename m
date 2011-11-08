@@ -1,23 +1,23 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DCD87E01384
-	for <poky@yoctoproject.org>; Tue,  8 Nov 2011 09:53:53 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 049CAE013B5
+	for <poky@yoctoproject.org>; Tue,  8 Nov 2011 09:54:35 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pA8Hrmm4003281;
-	Tue, 8 Nov 2011 17:53:48 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pA8HsYPF003304;
+	Tue, 8 Nov 2011 17:54:34 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 02982-06; Tue,  8 Nov 2011 17:53:40 +0000 (GMT)
+	id 02911-07; Tue,  8 Nov 2011 17:54:29 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pA8HrZ2w003251
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pA8HsOwU003298
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 8 Nov 2011 17:53:36 GMT
-Message-ID: <1320774817.10843.97.camel@ted>
+	Tue, 8 Nov 2011 17:54:25 GMT
+Message-ID: <1320774867.10843.98.camel@ted>
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Joshua Lock <josh@linux.intel.com>
-Date: Tue, 08 Nov 2011 17:53:37 +0000
+Date: Tue, 08 Nov 2011 17:54:27 +0000
 In-Reply-To: <e38ded40c965fbf1f3b6242786dfe191322f276b.1320768816.git.josh@linux.intel.com>
 References: <cover.1320768816.git.josh@linux.intel.com>
 	<e38ded40c965fbf1f3b6242786dfe191322f276b.1320768816.git.josh@linux.intel.com>
@@ -37,7 +37,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Nov 2011 17:53:59 -0000
+X-List-Received-Date: Tue, 08 Nov 2011 17:54:41 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
@@ -50,9 +50,23 @@ On Tue, 2011-11-08 at 08:14 -0800, Joshua Lock wrote:
 >  .../recipes-graphics/clutter/clutter-1.8_1.8.0.bb  |    4 ++++
 >  1 files changed, 4 insertions(+), 0 deletions(-)
 >  create mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bb
+> 
+> diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bb b/meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bb
+> new file mode 100644
+> index 0000000..c7cc683
+> --- /dev/null
+> +++ b/meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bb
+> @@ -0,0 +1,4 @@
+> +DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
+> +EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
+> +PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
 
-Merged to master, thanks.
+Incidentally, why don't we just add an x86 override to the clutter
+recipe so we avoid doing this every time?
+
+Cheers,
 
 Richard
+
 
 
