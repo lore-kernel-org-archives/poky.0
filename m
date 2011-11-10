@@ -1,26 +1,27 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4C0ABE00307
-	for <poky@yoctoproject.org>; Thu, 10 Nov 2011 00:12:41 -0800 (PST)
-Received: by wyg34 with SMTP id 34so4408287wyg.35
-	for <poky@yoctoproject.org>; Thu, 10 Nov 2011 00:12:40 -0800 (PST)
-Received: by 10.227.203.198 with SMTP id fj6mr3437577wbb.24.1320912760248;
-	Thu, 10 Nov 2011 00:12:40 -0800 (PST)
-Received: from [172.20.1.19] (ip545070eb.adsl-surfen.hetnet.nl.
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id l20sm8656155wbo.6.2011.11.10.00.12.38
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 10 Nov 2011 00:12:39 -0800 (PST)
-From: Koen Kooi <koen@dominion.thruhere.net>
-Mime-Version: 1.0 (Apple Message framework v1251.1)
-Date: Thu, 10 Nov 2011 09:12:30 +0100
-In-Reply-To: <CABRtByM593uOJDGHKWMVmWU46AwzghwXCUZY=cPM5narFo47Pw@mail.gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-References: <CABRtByM593uOJDGHKWMVmWU46AwzghwXCUZY=cPM5narFo47Pw@mail.gmail.com>
-Message-Id: <9E507444-F7E4-49B6-BBBE-9A2965AA8ABE@dominion.thruhere.net>
-X-Mailer: Apple Mail (2.1251.1)
-Subject: Re: error cd: =/usr/lib: No such file or directory
+Return-Path: <vishwasonu2000@gmail.com>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 991C0E00307
+	for <poky@yoctoproject.org>; Thu, 10 Nov 2011 02:38:13 -0800 (PST)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wwi36 with SMTP id 36so1619146wwi.11
+	for <poky@yoctoproject.org>; Thu, 10 Nov 2011 02:38:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=kXUZDyl6Fetsizdbvuhn0+LnfNw/3etCML2I0X0BuiI=;
+	b=LVAkxFAMOGaNnC6sehg2JuyCvXw2fHhFJo/IGID3q1aqCT8MyI5GYyKbUnUwGWtlth
+	+DiEq0TxJnG/1WFGFsSKFmiJTq/zWn7ymvBjUP0Y81GMjfXyNN4UTr5u5RgKlcznmXth
+	jtql3Rl3PGkJMPjrz2p8IIDML4v+/irWL10ls=
+MIME-Version: 1.0
+Received: by 10.180.89.5 with SMTP id bk5mr7848510wib.60.1320921491731; Thu,
+	10 Nov 2011 02:38:11 -0800 (PST)
+Received: by 10.180.81.65 with HTTP; Thu, 10 Nov 2011 02:38:11 -0800 (PST)
+Date: Thu, 10 Nov 2011 16:08:11 +0530
+Message-ID: <CABRtByMJ=A-e09p_PH3Yp7ngdVNjNLhg0tU8BB0EGTcouGz6ng@mail.gmail.com>
+From: sonu vishwakarma <vishwasonu2000@gmail.com>
+To: poky@yoctoproject.org
+Subject: error : WinSystemX11.cpp:302:25: error: 'struct SDL_SysWMinfo' has no member named 'info'
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,64 +33,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Nov 2011 08:12:42 -0000
-X-Groupsio-MsgNum: 7165
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_66774941-A84B-4B02-B124-A872E5A3F477";
-	protocol="application/pgp-signature"; micalg=pgp-sha1
+X-List-Received-Date: Thu, 10 Nov 2011 10:38:14 -0000
+Content-Type: multipart/alternative; boundary=f46d04447e1f4a75e804b15f0032
 
---Apple-Mail=_66774941-A84B-4B02-B124-A872E5A3F477
+--f46d04447e1f4a75e804b15f0032
+Content-Type: text/plain; charset=ISO-8859-1
+
+Hi,
+I'm trying the build for XBMC 10.0 . I'm getting compilation error as below:
+
+ WinSystemX11.cpp: In member function 'bool
+CWinSystemX11::RefreshGlxContext()':
+| WinSystemX11.cpp:302:25: error: 'struct SDL_SysWMinfo' has no member
+named 'info'
+| WinSystemX11.cpp:316:21: error: 'struct SDL_SysWMinfo' has no member
+named 'info'
+| WinSystemX11.cpp:317:21: error: 'struct SDL_SysWMinfo' has no member
+named 'info'
+| make[1]: *** [WinSystemX11.o] Error 1
+| make[1]: *** Waiting for unfinished jobs....
+| make[1]: Leaving directory
+`/home/poky/build/tmp/work/atom-poky-linux/xbmc-10.0-r0/xbmc-10.0/xbmc'
+| make: *** [xbmc/xbmc.a] Error 2
+| FATAL: oe_runmake failed
+| ERROR: Function 'do_compile' failed (see
+/home/poky/build/tmp/work/atom-poky-linux/xbmc-10.0-r0/temp/log.do_compile.31272
+for further information)
+NOTE: package xbmc-10.0-r0: task do_compile: Failed
+
+I'm pulling for the Fishriver machine . My host machine is Ubuntu 10.10 ,64
+bit .
+Can someone help me out of this problem ?
+Thanks & Regards,
+Sonu.
+
+--f46d04447e1f4a75e804b15f0032
+Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=iso-8859-1
 
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+><br></font></div><div><font class=3D"Apple-style-span" face=3D"arial, helv=
+etica, sans-serif">Hi,</font></div><div><font class=3D"Apple-style-span" fa=
+ce=3D"arial, helvetica, sans-serif">I&#39;m trying the build for XBMC 10.0 =
+. I&#39;m getting compilation error as below:</font></div>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+><br></font></div><div><font class=3D"Apple-style-span" face=3D"arial, helv=
+etica, sans-serif">=A0WinSystemX11.cpp: In member function &#39;bool CWinSy=
+stemX11::RefreshGlxContext()&#39;:</font></div>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+>| WinSystemX11.cpp:302:25: error: &#39;struct SDL_SysWMinfo&#39; has no me=
+mber named &#39;info&#39;</font></div><div><font class=3D"Apple-style-span"=
+ face=3D"arial, helvetica, sans-serif">| WinSystemX11.cpp:316:21: error: &#=
+39;struct SDL_SysWMinfo&#39; has no member named &#39;info&#39;</font></div=
+>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+>| WinSystemX11.cpp:317:21: error: &#39;struct SDL_SysWMinfo&#39; has no me=
+mber named &#39;info&#39;</font></div><div><font class=3D"Apple-style-span"=
+ face=3D"arial, helvetica, sans-serif">| make[1]: *** [WinSystemX11.o] Erro=
+r 1</font></div>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+>| make[1]: *** Waiting for unfinished jobs....</font></div><div><font clas=
+s=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif">| make[1]: Lea=
+ving directory `/home/poky/build/tmp/work/atom-poky-linux/xbmc-10.0-r0/xbmc=
+-10.0/xbmc&#39;</font></div>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+>| make: *** [xbmc/xbmc.a] Error 2</font></div><div><font class=3D"Apple-st=
+yle-span" face=3D"arial, helvetica, sans-serif">| FATAL: oe_runmake failed<=
+/font></div>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+>| ERROR: Function &#39;do_compile&#39; failed (see /home/poky/build/tmp/wo=
+rk/atom-poky-linux/xbmc-10.0-r0/temp/log.do_compile.31272 for further infor=
+mation)</font></div>
+<div><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"=
+>NOTE: package xbmc-10.0-r0: task do_compile: Failed</font></div><div><font=
+ class=3D"Apple-style-span" face=3D"arial, helvetica, sans-serif"><br></fon=
+t></div>
+<div><span class=3D"Apple-style-span" style=3D"white-space: pre-wrap; backg=
+round-color: rgb(255, 255, 255); "><font class=3D"Apple-style-span" face=3D=
+"arial, helvetica, sans-serif">I&#39;m pulling for the Fishriver machine . =
+My host machine is Ubuntu 10.10 ,64 bit . </font></span></div>
+<div><span class=3D"Apple-style-span" style=3D"background-color: rgb(255, 2=
+55, 255); "><font class=3D"Apple-style-span" face=3D"arial, helvetica, sans=
+-serif"><div><span style=3D"white-space: pre-wrap; ">Can someone help me ou=
+t of this problem ? </span></div>
+<div><span style=3D"white-space: pre-wrap; ">
+</span></div><div><span style=3D"white-space: pre-wrap; ">Thanks &amp; Rega=
+rds,</span></div><div><font><span style=3D"white-space: pre-wrap; ">Sonu.</=
+span></font></div></font></span></div>
 
-Op 10 nov. 2011, om 08:18 heeft sonu vishwakarma het volgende =
-geschreven:
-
->=20
->=20
-> Hi,
-> I'm trying the build for libmicrohttpd but i'm getting some path =
-related error which is as follow:
->=20
->  i586-poky-linux-libtool: link: warning: library =
-`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libgcrypt.la' was =
-moved.
-> | ../../../../i586-poky-linux-libtool: line 6402: cd: =3D/usr/lib: No =
-such file or directory
-> | i586-poky-linux-libtool: link: warning: cannot determine absolute =
-directory name of `=3D/usr/lib'
-> | /bin/grep: =3D/usr/lib/libgpg-error.la: No such file or directory
-> | /bin/sed: can't read =3D/usr/lib/libgpg-error.la: No such file or =
-directory
-> | i586-poky-linux-libtool: link: `=3D/usr/lib/libgpg-error.la' is not =
-a valid libtool archive.
->=20
-> I'm attaching the recipe with the mail.
->=20
-> I'm pulling for the Fishriver machine . My host machine is Ubuntu =
-10.10 ,64 bit .=20
-> Can someone help me out of this problem ?=20
-
-The libmicrohttp in meta-oe builds and works just fine.
-
-
-
-
---Apple-Mail=_66774941-A84B-4B02-B124-A872E5A3F477
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP using GPGMail
-
------BEGIN PGP SIGNATURE-----
-
-iEYEARECAAYFAk67h3AACgkQMkyGM64RGpFv7wCeJ6yCuzxlIJV/FA7LwM0QKbDS
-z/sAn109d/6YAG2+jHMGwdyIO/Sv+YLC
-=ZZeA
------END PGP SIGNATURE-----
-
---Apple-Mail=_66774941-A84B-4B02-B124-A872E5A3F477--
+--f46d04447e1f4a75e804b15f0032--
