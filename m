@@ -1,37 +1,26 @@
-Return-Path: <walters@verbum.org>
-Received: from out2.smtp.messagingengine.com (out2.smtp.messagingengine.com
-	[66.111.4.26])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B9238E00502
-	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 09:17:05 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@messagingengine.com;
-	x-dkim-adsp=none (insecure policy)
-Received: from compute5.internal (compute5.nyi.mail.srv.osa [10.202.2.45])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 65DF820F58
-	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 12:17:04 -0500 (EST)
-Received: from frontend1.nyi.mail.srv.osa ([10.202.2.160])
-	by compute5.internal (MEProxy); Sun, 13 Nov 2011 12:17:04 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
-	messagingengine.com; h=subject:from:to:cc:date:in-reply-to
-	:references:content-type:content-transfer-encoding:message-id
-	:mime-version; s=smtpout; bh=5VJi33Wvy45D4zMLAvdfL8G2UwE=; b=PfK
-	wPbkHhS2iJNnL3bks9WXrfizDUgEZHicePa+95H1dbQTzDobPhYr+VqxW61Rg5mU
-	7/GG6mJi55TeMMNArwm9dLLil/BcTcq+SUit/X4Z8djtgjccOYNsEScaRwrTQTHz
-	r0cj54mSGkUeeMHKoc3MGVqNbQv1v8DDUdwc/zN4=
-X-Sasl-enc: 07COjl17blSGjSH38DCvNoMof+NUwFMZ+qBpYXVydpto 1321204624
-Received: from [192.168.1.6] (c-65-96-172-131.hsd1.ma.comcast.net
-	[65.96.172.131])
-	by mail.messagingengine.com (Postfix) with ESMTPA id 201BE8E0089;
-	Sun, 13 Nov 2011 12:17:04 -0500 (EST)
-From: Colin Walters <walters@verbum.org>
-To: Koen Kooi <koen@dominion.thruhere.net>
-Date: Sun, 13 Nov 2011 12:16:37 -0500
-In-Reply-To: <68FDBEA5-4FA5-4511-8FFA-03924A5171D5@dominion.thruhere.net>
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF75BE00303
+	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 11:52:03 -0800 (PST)
+Received: by wwi36 with SMTP id 36so5259400wwi.11
+	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 11:52:02 -0800 (PST)
+Received: by 10.227.16.156 with SMTP id o28mr5900324wba.19.1321213920647;
+	Sun, 13 Nov 2011 11:52:00 -0800 (PST)
+Received: from [172.20.1.19] (ip545070eb.adsl-surfen.hetnet.nl.
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id eu16sm22112158wbb.7.2011.11.13.11.51.59
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Sun, 13 Nov 2011 11:51:59 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1251.1)
+From: Koen Kooi <koen@dominion.thruhere.net>
+In-Reply-To: <1321204598.14976.19.camel@lenny>
+Date: Sun, 13 Nov 2011 20:51:55 +0100
+Message-Id: <C629DDDD-2D2B-4D59-BB0F-08E62AFC57C4@dominion.thruhere.net>
 References: <1321145853.14976.12.camel@lenny>
 	<68FDBEA5-4FA5-4511-8FFA-03924A5171D5@dominion.thruhere.net>
-X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
-Message-ID: <1321204598.14976.19.camel@lenny>
-Mime-Version: 1.0
+	<1321204598.14976.19.camel@lenny>
+To: Colin Walters <walters@verbum.org>
+X-Mailer: Apple Mail (2.1251.1)
 Cc: poky@yoctoproject.org
 Subject: Re: non-upstreamed patches
 X-BeenThere: poky@yoctoproject.org
@@ -45,22 +34,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Nov 2011 17:17:06 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Sun, 13 Nov 2011 19:52:04 -0000
+X-Groupsio-MsgNum: 7174
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_726210FB-2C5F-46AE-97EF-95148D85C2ED";
+	protocol="application/pgp-signature"; micalg=pgp-sha1
+
+--Apple-Mail=_726210FB-2C5F-46AE-97EF-95148D85C2ED
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+Op 13 nov. 2011, om 18:16 heeft Colin Walters het volgende geschreven:
+
+> On Sun, 2011-11-13 at 10:28 +0100, Koen Kooi wrote:
+>> Op 13 nov. 2011, om 01:57 heeft Colin Walters het volgende =
+geschreven:
+>>=20
+>>> So I've switched back to looking at Yocto again for a project, and =
+the
+>>> Edison release works fine.  Thanks!
+>>>=20
+>>> I work on GNOME (almost all of it)
+>>=20
+>> Have a look at the GNOME layer as well =
+http://cgit.openembedded.org/meta-openembedded/tree/ :)
+>=20
+> What's the high level relationship of this tree versus the Yocto one?
+
+There's no such thing as a yocto tree, only a poky tree, which consists =
+of openembedded-core, bitbake and some other stuff
+
+> The git log looks very similar, are Yocto commits cherry-picked into =
+it?
+
+No, oe-core generally picks up fixes from here.=
+
+--Apple-Mail=_726210FB-2C5F-46AE-97EF-95148D85C2ED
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP using GPGMail
 
-On Sun, 2011-11-13 at 10:28 +0100, Koen Kooi wrote:
-> Op 13 nov. 2011, om 01:57 heeft Colin Walters het volgende geschreven:
-> 
-> > So I've switched back to looking at Yocto again for a project, and the
-> > Edison release works fine.  Thanks!
-> > 
-> > I work on GNOME (almost all of it)
-> 
-> Have a look at the GNOME layer as well http://cgit.openembedded.org/meta-openembedded/tree/ :)
+-----BEGIN PGP SIGNATURE-----
 
-What's the high level relationship of this tree versus the Yocto one?
-The git log looks very similar, are Yocto commits cherry-picked into it?
+iEYEARECAAYFAk7AH90ACgkQMkyGM64RGpGshwCeO6sDP/40RZvcX/VvBWeut9mk
+D48AnRv0RVdFi76mcJ/FGk5ixk9IS5lt
+=3hHA
+-----END PGP SIGNATURE-----
 
-
-
+--Apple-Mail=_726210FB-2C5F-46AE-97EF-95148D85C2ED--
