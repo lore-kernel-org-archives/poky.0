@@ -1,25 +1,28 @@
-Return-Path: <koen@dominion.thruhere.net>
-Received: from mail-wy0-f176.google.com (mail-wy0-f176.google.com
-	[74.125.82.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 11798E00304
-	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 01:28:34 -0800 (PST)
-Received: by wyg34 with SMTP id 34so8177750wyg.35
-	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 01:28:32 -0800 (PST)
-Received: by 10.227.197.129 with SMTP id ek1mr11848043wbb.13.1321176510996;
-	Sun, 13 Nov 2011 01:28:30 -0800 (PST)
-Received: from [172.20.0.96] (ip545070eb.adsl-surfen.hetnet.nl.
-	[84.80.112.235])
-	by mx.google.com with ESMTPS id eu16sm20396690wbb.7.2011.11.13.01.28.29
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sun, 13 Nov 2011 01:28:29 -0800 (PST)
-Mime-Version: 1.0 (Apple Message framework v1251.1)
-From: Koen Kooi <koen@dominion.thruhere.net>
-In-Reply-To: <1321145853.14976.12.camel@lenny>
-Date: Sun, 13 Nov 2011 10:28:23 +0100
-Message-Id: <68FDBEA5-4FA5-4511-8FFA-03924A5171D5@dominion.thruhere.net>
-References: <1321145853.14976.12.camel@lenny>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0CF1DE00304
+	for <poky@yoctoproject.org>; Sun, 13 Nov 2011 01:48:04 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pAD9m1ex001462;
+	Sun, 13 Nov 2011 09:48:01 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 29416-06; Sun, 13 Nov 2011 09:47:57 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pAD9lm54001456
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 13 Nov 2011 09:47:51 GMT
+Message-ID: <1321177671.26881.44.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Colin Walters <walters@verbum.org>
-X-Mailer: Apple Mail (2.1251.1)
+Date: Sun, 13 Nov 2011 09:47:51 +0000
+In-Reply-To: <1321145853.14976.12.camel@lenny>
+References: <1321145853.14976.12.camel@lenny>
+X-Mailer: Evolution 3.2.1- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
 Subject: Re: non-upstreamed patches
 X-BeenThere: poky@yoctoproject.org
@@ -33,45 +36,108 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 13 Nov 2011 09:28:35 -0000
-X-Groupsio-MsgNum: 7171
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_5EF59518-35C7-49E3-B5EE-13006D63CF6B";
-	protocol="application/pgp-signature"; micalg=pgp-sha1
+X-List-Received-Date: Sun, 13 Nov 2011 09:48:10 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---Apple-Mail=_5EF59518-35C7-49E3-B5EE-13006D63CF6B
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-
-Op 13 nov. 2011, om 01:57 heeft Colin Walters het volgende geschreven:
-
+On Sat, 2011-11-12 at 19:57 -0500, Colin Walters wrote:
 > So I've switched back to looking at Yocto again for a project, and the
 > Edison release works fine.  Thanks!
->=20
-> I work on GNOME (almost all of it)
 
-Have a look at the GNOME layer as well =
-http://cgit.openembedded.org/meta-openembedded/tree/ :)
+Pleased to hear it! :)
 
-regards,
+> I work on GNOME (almost all of it), and I see quite a number of patches
+> in the Yocto tree that I think have been inappropriately categorized as
+> Upstream-Status: Inappropriate.
 
-Koen=
+The Upstream-Status fields are relatively new and I think some of the
+categorizations are perhaps not quite right or need to be interpreted
+correctly. 
 
---Apple-Mail=_5EF59518-35C7-49E3-B5EE-13006D63CF6B
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP using GPGMail
+http://www.openembedded.org/wiki/Commit_Patch_Message_Guidelines#Patch_Header_Recommendations
 
------BEGIN PGP SIGNATURE-----
+> For example,
+> recipies-core/glib-2.0/glib-2.0/remove.test.for.qsort_r.patch
+> 
+> We definitely want upstream GLib to work for cross builds.
 
-iEYEARECAAYFAk6/jbgACgkQMkyGM64RGpHbVwCfXrdDBxwRRjxwyka9ePAIT9Rl
-/A4AoLwvq+5v7PYy4DTcXFUWIqMNtciX
-=gaxK
------END PGP SIGNATURE-----
+Taking this one as an example, someone has run into problems and fixed
+it in a way that is certainly not appropriate for upstream as the patch
+stands.
 
---Apple-Mail=_5EF59518-35C7-49E3-B5EE-13006D63CF6B--
+>   It was my
+> understanding that the better way to handle autoconf checks that require
+> running code was to pass a precomputed cache file:
+> http://www.gnu.org/s/hello/manual/autoconf/Site-Defaults.html
+>
+> I think this makes sense to do for fundamental libraries like GLib;
+> hacking up the configure.ac isn't a good long term plan.
+
+Totally agreed. We do have site cache files an a much better way of
+handling that issue would be to add the value to the site cache. In an
+ideal world I've have caught that patch and asked it to be a site entry,
+it looks like its slipped through. I'll certainly take a site file entry
+and change to drop the patch.
+
+> Another thing that seems to be proliferating is gtk-doc workarounds.  If
+> it isn't working for you guys to --disable-gtk-doc, just tell me why and
+> I'll fix it.
+> 
+> (The -Werror bit there is a total fuckup on our part, I will eventually
+> convince Owen to remove it...)
+> 
+> librsvg/librsvg-2.31.1/doc_Makefile.patch is also TOTALLY appropriate
+> upstream.  Why would you think it isn't?
+
+This is a mess of our own making :/. You'd probably get a bit of a shock
+if you look at our gtk-doc recipe. Since we reautoconf files, we need
+the gtk-doc .m4 file. We just provide a static copy of it. To handle the
+makefile, we just touch that.
+
+I have a suspicion that EXTRA_DIST exists if you use the gtk-doc
+makefile and hence appending to it is a good idea and hence that patch
+truly is inappropriate for upstream.
+
+In many cases we've learnt from our experiences and instead of touching
+the makefile, we echo EXTRA_DIST = "" to it instead (or similar).
+
+Ultimately I'd like to see a fixed gtk-doc recipe. It was so long ago I
+last tried that I can't remember what issues we found.
+
+> gtk+/gtk+-2.24.6/run-iconcache.patch is another cross build issue that
+> I'm pretty sure we can solve better upstream.  gtk+ for example already
+> has an automake conditional:
+> AM_CONDITIONAL(CROSS_COMPILING, test $cross_compiling = yes)
+> 
+> We can just not run this code if that's true.
+
+That would be a nice change to get upstream. The current patch is
+inappropriate but I'm sure we could create one that could be accepted.
+
+> (And I am totally fine with just copying that conditional into every
+> single GNOME module).
+> 
+> hardcoded_libtool.patch is another one I think we can get upstream in a
+> better way; shouldn't it just be using $LIBTOOL ?
+
+Good question, I think I might tried that and had some kind of problem
+but if that did would it would be great to see it upstream too.
+
+> Finally, on the Upstream-Status: pending patches, can you guys please
+> add links to bugzilla?
+
+If its been filed there should be links. "Pending" can also mean "needs
+to be submitted upstream". As I said, this is a relatively new thing, we
+used to have no information in the patches at all so it is getting
+better. We're making progress although never as fast as we would in an
+ideal world! :)
+
+Any help would be appreciated, the reminders above are helpful as there
+does appear to be some low hanging fruit there. Also the pointers on
+which ones might make it into gnome upstream are useful!
+
+Cheers,
+
+Richard
+
+
