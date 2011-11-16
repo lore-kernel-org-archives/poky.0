@@ -1,23 +1,20 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BA08DE006BA
-	for <poky@yoctoproject.org>; Tue, 15 Nov 2011 16:16:04 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 15 Nov 2011 16:16:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.69,517,1315206000"; d="scan'208";a="75377951"
-Received: from unknown (HELO shamshir.amr.corp.intel.com) ([10.255.12.41])
-	by azsmga001.ch.intel.com with ESMTP; 15 Nov 2011 16:16:03 -0800
-From: Joshua Lock <josh@linux.intel.com>
+Return-Path: <fdupoux@free.fr>
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4CF5CE00307
+	for <poky@yoctoproject.org>; Wed, 16 Nov 2011 11:47:34 -0800 (PST)
+Received: from zimbra33-e6.priv.proxad.net (unknown [172.20.243.183])
+	by smtp6-g21.free.fr (Postfix) with ESMTP id C688C8226D
+	for <poky@yoctoproject.org>; Wed, 16 Nov 2011 20:47:28 +0100 (CET)
+Date: Wed, 16 Nov 2011 20:47:27 +0100 (CET)
+From: Francois Dupoux <fdupoux@free.fr>
 To: poky@yoctoproject.org
-Date: Tue, 15 Nov 2011 16:16:02 -0800
-Message-Id: <7c8386ea75beeecb76ba507a6d42cc78a23758e6.1321402302.git.josh@linux.intel.com>
-X-Mailer: git-send-email 1.7.7.1
-In-Reply-To: <cover.1321402302.git.josh@linux.intel.com>
-References: <cover.1321402302.git.josh@linux.intel.com>
-In-Reply-To: <cover.1321402302.git.josh@linux.intel.com>
-References: <cover.1321402302.git.josh@linux.intel.com>
-Subject: [RFC PATCH 1/1] clutter: drop unneeded bbappends
+Message-ID: <aeedea3c-261d-447f-beb5-d2c6752c583f@zimbra33-e6.priv.proxad.net>
+In-Reply-To: <37aa3d7e-7cbb-48f7-8339-8f2b6f7ee06d@zimbra33-e6.priv.proxad.net>
+MIME-Version: 1.0
+X-Originating-IP: [46.33.16.32]
+X-Mailer: Zimbra 7.1.4-GA3333 (ZimbraWebClient - GC15 (Linux)/7.1.4-GA3333)
+X-Authenticated-User: fdupoux@free.fr
+Subject: Qt should be linked to openssl at compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,51 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Nov 2011 00:16:04 -0000
+X-List-Received-Date: Wed, 16 Nov 2011 19:47:37 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-The --with-flavour-glx option is the default in clutter.inc now
+Hi,
 
-Signed-off-by: Joshua Lock <josh@linux.intel.com>
----
- .../clutter/clutter-1.6_1.6.18.bbappend            |    4 ----
- .../clutter/clutter-1.8_1.8.0.bbappend             |    4 ----
- .../recipes-graphics/clutter/clutter_git.bbappend  |    4 ----
- 3 files changed, 0 insertions(+), 12 deletions(-)
- delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
- delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend
- delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter_git.bbappend
+Would it be possible to link Qt with openssl at compilation time ?
 
-diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend b/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
-deleted file mode 100644
-index c7cc683..0000000
---- a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
-+++ /dev/null
-@@ -1,4 +0,0 @@
--DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
--EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
--PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
--
-diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend b/meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend
-deleted file mode 100644
-index c7cc683..0000000
---- a/meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend
-+++ /dev/null
-@@ -1,4 +0,0 @@
--DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
--EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
--PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
--
-diff --git a/meta-yocto/recipes-graphics/clutter/clutter_git.bbappend b/meta-yocto/recipes-graphics/clutter/clutter_git.bbappend
-deleted file mode 100644
-index c7cc683..0000000
---- a/meta-yocto/recipes-graphics/clutter/clutter_git.bbappend
-+++ /dev/null
-@@ -1,4 +0,0 @@
--DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
--EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
--PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
--
--- 
-1.7.7.1
+The problem we are having is our minimal root filesystem provides one Qt-4.7 application which connects to an HTTPS backend. But the openssl library is not in the root filesystem as it is not linked to any other application. So we end up with a run time error when Qt fails to dynamically load openssl:
 
+QSslSocket: cannot call unresolved function d2i_X509
+
+In that particular case this error is triggered by this function call:
+QSslCertificate::fromPath("/path/to/ca.crt");
+
+We are using Qt-Embedded but I guess the problem would be exactly the same with Qt-x11
+
+So it would be great to just link Qt with openssl so that all SSL related classes can work.
+
+We just need to add "-openssl-linked" to QT_CONFIG_FLAGS in recipes-qt/qt4.
+
+Many thanks
+Francois
 
