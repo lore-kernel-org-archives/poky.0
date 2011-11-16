@@ -1,20 +1,25 @@
-Return-Path: <fdupoux@free.fr>
-Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0455EE00307
-	for <poky@yoctoproject.org>; Wed, 16 Nov 2011 14:34:03 -0800 (PST)
-Received: from zimbra33-e6.priv.proxad.net (unknown [172.20.243.183])
-	by smtp5-g21.free.fr (Postfix) with ESMTP id 4D82CD482A8;
-	Wed, 16 Nov 2011 23:33:57 +0100 (CET)
-Date: Wed, 16 Nov 2011 23:33:56 +0100 (CET)
-From: Francois Dupoux <fdupoux@free.fr>
-To: William Mills <wmills@ti.com>
-Message-ID: <3e9f54b5-3bb2-4d4c-b0f0-1ab4a0b50d6b@zimbra33-e6.priv.proxad.net>
-In-Reply-To: <4EC431AC.2010207@ti.com>
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1682BE00721
+	for <poky@yoctoproject.org>; Wed, 16 Nov 2011 15:42:24 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pAGNgNpW022860
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 16 Nov 2011 15:42:24 -0800 (PST)
+Received: from Macintosh-5.local (172.25.36.235) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Wed, 16 Nov 2011 15:42:23 -0800
+Message-ID: <4EC44A5E.2050206@windriver.com>
+Date: Wed, 16 Nov 2011 17:42:22 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:8.0) Gecko/20111105 Thunderbird/8.0
 MIME-Version: 1.0
-X-Originating-IP: [46.33.16.32]
-X-Mailer: Zimbra 7.1.4-GA3333 (ZimbraWebClient - GC15 (Linux)/7.1.4-GA3333)
-X-Authenticated-User: fdupoux@free.fr
-Cc: poky@yoctoproject.org
+To: <poky@yoctoproject.org>
+References: <5c7672eb-ff1d-4bc7-bdf8-81f467051e8d@zimbra33-e6.priv.proxad.net>
+	<4EC42C07.7010409@windriver.com> <4EC4348B.7010003@freyther.de>
+In-Reply-To: <4EC4348B.7010003@freyther.de>
 Subject: Re: Qt should be linked to openssl at compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -27,45 +32,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Nov 2011 22:34:05 -0000
-Content-Type: text/plain; charset=utf-8
+X-List-Received-Date: Wed, 16 Nov 2011 23:42:25 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi William,
-
-I confirm I am building all the packages in a 100% automated way using
-bitbake, I am not copying any binary manually, and I am just using
-the squashfs root filesystem built by bitbake.
-
-Thanks
-Francois
-
------ Original Message -----
-From: "William Mills" <wmills@ti.com>
-To: "Mark Hatle" <mark.hatle@windriver.com>
-Cc: "Francois Dupoux" <fdupoux@free.fr>, poky@yoctoproject.org
-Sent: Wednesday, 16 November, 2011 9:57:00 PM
-Subject: Re: [poky] Qt should be linked to openssl at compilation
-
-
->> Hi Mark,
+On 11/16/11 4:09 PM, Holger Hans Peter Freyther wrote:
+> On 11/16/2011 10:32 PM, Mark Hatle wrote:
+>
 >>
->> Yes, I am using RPM packages, with the latest stable version (poky-6.0)
+>> I'd like to try to reproduce this linking to openssl, but not getting
+>> referenced in the dependency set.
+>
+> Qt has three SSL options:
+> 	1.) no SSL
+> 	2.) dlopen at runtime (the one probably configured), some people
+>              believe it avoids the OpenSSL advertizement clause.. and saves
+> 	    static initialization when SSL is not used..
 
-Francois,  are you building your application using bitbake or 
-externally?  Are you adding it to your board using an RPM package or 
-just coping it there?
+Ahh, I didn't know there was a dlopen option.  If that is the case then there is 
+no way for auto detection to be able to determine the need for OpenSSL.  So 
+RDEPENDS would be the correct way in that case.
 
-If your building it externally and just copying it, all the magic others 
-are talking about won't happen.  However you can just add the openssl 
-packages to you target.  You can do this by building them and using RPM 
-or you can create a custom image/task recipie and add the needed 
-packages.  You could even use HOB if you want an easy way to create a 
-custom image.
+--Mark
 
-If your building your app in bitbake, then ignore me and continue your 
-conversation with Mark.
-
-
+> 	3.) link to OpenSSL (the -openssl-linked config option the original
+> 	    mail is referring to)
+>
+>
+> Either you do 2.) and make QtNetwork RDEPEND on libssl/libcrypt and make sure
+> the symlinks are present... or you do 3.) as proposed in the original email.
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
