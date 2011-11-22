@@ -1,54 +1,29 @@
-Return-Path: <B29882@freescale.com>
-Received: from VA3EHSOBE010.bigfish.com (mail-va3.bigfish.com [216.32.180.10])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 107DAE0059C
-	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 09:49:35 -0800 (PST)
-Received: from mail109-va3-R.bigfish.com (10.7.14.253) by
-	VA3EHSOBE010.bigfish.com (10.7.40.12) with Microsoft SMTP Server id
-	14.1.225.22; Tue, 22 Nov 2011 17:48:55 +0000
-Received: from mail109-va3 (localhost [127.0.0.1])	by
-	mail109-va3-R.bigfish.com (Postfix) with ESMTP id 1FD817002DA;
-	Tue, 22 Nov 2011 17:54:08 +0000 (UTC)
-X-SpamScore: -15
-X-BigFish: VS-15(zzbb2dK9371K1432N98dKzz1202hzz8275bhz2dh2a8h668h839h8e2h8e3h61h)
-X-Spam-TCS-SCL: 0:0
-X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
-	H:mail.freescale.net; RD:none; EFVD:NLI
-X-FB-SS: 0,
-Received: from mail109-va3 (localhost.localdomain [127.0.0.1]) by mail109-va3
-	(MessageSwitch) id 132198444833473_23831;
-	Tue, 22 Nov 2011 17:54:08 +0000 (UTC)
-Received: from VA3EHSMHS011.bigfish.com (unknown [10.7.14.254])	by
-	mail109-va3.bigfish.com (Postfix) with ESMTP id F1EF46C0048;
-	Tue, 22 Nov 2011 17:54:07 +0000 (UTC)
-Received: from mail.freescale.net (70.37.183.190) by VA3EHSMHS011.bigfish.com
-	(10.7.99.21) with Microsoft SMTP Server (TLS) id 14.1.225.22;
-	Tue, 22 Nov 2011 17:48:53 +0000
-Received: from 039-SN1MPN1-002.039d.mgd.msft.net ([169.254.2.83]) by
-	039-SN1MMR1-002.039d.mgd.msft.net ([10.84.1.15]) with mapi id
-	14.01.0339.002; Tue, 22 Nov 2011 11:49:32 -0600
-From: McClintock Matthew-B29882 <B29882@freescale.com>
-To: Saul Wold <sgw@linux.intel.com>
-Thread-Topic: [poky] [PATCH] Self Hosted Image: Added Task and Images
-Thread-Index: AQHMqT8W73szdQ/pYkuMZnt6G5QZEw==
-Date: Tue, 22 Nov 2011 17:49:32 +0000
-Message-ID: <CAEsOVNcOXXjXKivhWnCeHOyMubDFXABaFXatjp+LL0iPHpjCjQ@mail.gmail.com>
-References: <1321058705-8230-1-git-send-email-sgw@linux.intel.com>
-	<4ECBBEBF.2030308@linux.intel.com>
-	<CE673F23-1499-4A3D-BF35-79D7B0455A0F@dominion.thruhere.net>
-	<4ECBD9C4.50005@linux.intel.com>
-In-Reply-To: <4ECBD9C4.50005@linux.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [99.47.177.27]
+Return-Path: <josh@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3445BE006BA
+	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 13:44:41 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 22 Nov 2011 13:44:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.69,555,1315206000"; d="scan'208";a="94255779"
+Received: from unknown (HELO [10.255.12.38]) ([10.255.12.38])
+	by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2011 13:44:23 -0800
+Message-ID: <4ECC17B7.2030503@linux.intel.com>
+Date: Tue, 22 Nov 2011 13:44:23 -0800
+From: Joshua Lock <josh@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:8.0) Gecko/20111115 Thunderbird/8.0
 MIME-Version: 1.0
-X-OriginatorOrg: freescale.com
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] Self Hosted Image: Added Task and Images
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <cover.1321402302.git.josh@linux.intel.com>
+	<7c8386ea75beeecb76ba507a6d42cc78a23758e6.1321402302.git.josh@linux.intel.com>
+	<1321961328.18926.54.camel@ted>
+In-Reply-To: <1321961328.18926.54.camel@ted>
+Cc: poky@yoctoproject.org
+Subject: Re: [RFC PATCH 1/1] clutter: drop unneeded bbappends
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: McClintock Matthew-B29882 <B29882@freescale.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -57,31 +32,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2011 17:49:36 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <34E10C08962AC340BBE1F036F382FE59@freescale.net>
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 22 Nov 2011 21:44:41 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 22, 2011 at 11:20 AM, Saul Wold <sgw@linux.intel.com> wrote:
-> On 11/22/2011 08:27 AM, Koen Kooi wrote:
+On 22/11/11 03:28, Richard Purdie wrote:
+> On Tue, 2011-11-15 at 16:16 -0800, Joshua Lock wrote:
+>> The --with-flavour-glx option is the default in clutter.inc now
 >>
->> Op 22 nov. 2011, om 16:24 heeft Saul Wold het volgende geschreven:
+>> Signed-off-by: Joshua Lock<josh@linux.intel.com>
+>> ---
+>>   .../clutter/clutter-1.6_1.6.18.bbappend            |    4 ----
+>>   .../clutter/clutter-1.8_1.8.0.bbappend             |    4 ----
+>>   .../recipes-graphics/clutter/clutter_git.bbappend  |    4 ----
+>>   3 files changed, 0 insertions(+), 12 deletions(-)
+>>   delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+>>   delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend
+>>   delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter_git.bbappend
 >>
->>>
->>> Ping?
->>
->> put it in oe-core?
->>
+>> diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend b/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+>> deleted file mode 100644
+>> index c7cc683..0000000
+>> --- a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+>> +++ /dev/null
+>> @@ -1,4 +0,0 @@
+>> -DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
+>> -EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
+>> -PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
 >
-> Yeah, I guess it could be core, but I was initial thinking it was buildin=
-g
-> Poky and was not sure if everyone would be interested. It is also not ver=
-y
-> stable yet, it will build minimal with a couple more patches.
+>
+> I'm fine with this but one question - is the virtual/xserver dependency
+> still needed? If so we should add it to .inc. I'm in favour of merging
+> this patch though.
 
-I'm interested in this..
+My git fu is failing me so I've not been able to work out why 
+virtual/xserver was added to the DEPENDS for atom-pc. I suspect it's not 
+needed, though - I've been able to build clutter-1.8 for atom-pc in a 
+clean TMPDIR without virtual/xserver in DEPENDS (though I have found a 
+fix for cogl - expect it soon).
 
--M=
-
+Cheers,
+Joshua
+-- 
+Joshua Lock
+         Yocto Project "Johannes factotum"
+         Intel Open Source Technology Centre
 
