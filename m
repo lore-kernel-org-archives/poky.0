@@ -1,23 +1,31 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6C388E00502
-	for <poky@yoctoproject.org>; Mon, 21 Nov 2011 10:47:29 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 21 Nov 2011 10:47:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="78483523"
-Received: from unknown (HELO [10.7.199.61]) ([10.7.199.61])
-	by orsmga001.jf.intel.com with ESMTP; 21 Nov 2011 10:47:29 -0800
-Message-ID: <4ECA9CC1.4020002@linux.intel.com>
-Date: Mon, 21 Nov 2011 10:47:29 -0800
-From: Joshua Lock <josh@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
-MIME-Version: 1.0
-To: poky@yoctoproject.org
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 77873E00303
+	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 03:28:54 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pAMBSmCL018268;
+	Tue, 22 Nov 2011 11:28:48 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 17377-08; Tue, 22 Nov 2011 11:28:44 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pAMBSgtH018262
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 22 Nov 2011 11:28:42 GMT
+Message-ID: <1321961328.18926.54.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Joshua Lock <josh@linux.intel.com>
+Date: Tue, 22 Nov 2011 11:28:48 +0000
+In-Reply-To: <7c8386ea75beeecb76ba507a6d42cc78a23758e6.1321402302.git.josh@linux.intel.com>
 References: <cover.1321402302.git.josh@linux.intel.com>
-In-Reply-To: <cover.1321402302.git.josh@linux.intel.com>
-Subject: Re: [RFC PATCH 0/1] Can we drop Clutter bbappends?
+	<7c8386ea75beeecb76ba507a6d42cc78a23758e6.1321402302.git.josh@linux.intel.com>
+X-Mailer: Evolution 3.2.1- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [RFC PATCH 1/1] clutter: drop unneeded bbappends
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,28 +37,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Nov 2011 18:47:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 22 Nov 2011 11:28:59 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 15/11/11 16:16, Joshua Lock wrote:
-> All,
+On Tue, 2011-11-15 at 16:16 -0800, Joshua Lock wrote:
+> The --with-flavour-glx option is the default in clutter.inc now
 > 
-> The subject says it all. My reading of recent changes in oe-core around X and
-> clutter lead me to believe that our bbappend is redundant so I'm proposing we
-> drop it.
+> Signed-off-by: Joshua Lock <josh@linux.intel.com>
+> ---
+>  .../clutter/clutter-1.6_1.6.18.bbappend            |    4 ----
+>  .../clutter/clutter-1.8_1.8.0.bbappend             |    4 ----
+>  .../recipes-graphics/clutter/clutter_git.bbappend  |    4 ----
+>  3 files changed, 0 insertions(+), 12 deletions(-)
+>  delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+>  delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend
+>  delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter_git.bbappend
 > 
-> Both virtual/libgl being in DEPENDS and passing the --with-flavour=glx option
-> are part of the standard clutter.inc now.
-> 
-> I may well be wrong but I like patches as a way to start discussion.
+> diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend b/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+> deleted file mode 100644
+> index c7cc683..0000000
+> --- a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
+> +++ /dev/null
+> @@ -1,4 +0,0 @@
+> -DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
+> -EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
+> -PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
 
-Any discusser's?
+
+I'm fine with this but one question - is the virtual/xserver dependency
+still needed? If so we should add it to .inc. I'm in favour of merging
+this patch though.
 
 Cheers,
-Joshua
--- 
-Joshua Lock
-        Yocto Project "Johannes factotum"
-        Intel Open Source Technology Centre
+
+Richard
+
+
+
+
 
