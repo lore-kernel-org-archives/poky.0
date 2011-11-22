@@ -1,31 +1,24 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 77873E00303
-	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 03:28:54 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pAMBSmCL018268;
-	Tue, 22 Nov 2011 11:28:48 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 17377-08; Tue, 22 Nov 2011 11:28:44 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pAMBSgtH018262
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 22 Nov 2011 11:28:42 GMT
-Message-ID: <1321961328.18926.54.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Joshua Lock <josh@linux.intel.com>
-Date: Tue, 22 Nov 2011 11:28:48 +0000
-In-Reply-To: <7c8386ea75beeecb76ba507a6d42cc78a23758e6.1321402302.git.josh@linux.intel.com>
-References: <cover.1321402302.git.josh@linux.intel.com>
-	<7c8386ea75beeecb76ba507a6d42cc78a23758e6.1321402302.git.josh@linux.intel.com>
-X-Mailer: Evolution 3.2.1- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA5AAE0059C
+	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 07:24:48 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 22 Nov 2011 07:24:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.69,553,1315206000"; d="scan'208";a="94086084"
+Received: from unknown (HELO [10.255.12.15]) ([10.255.12.15])
+	by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2011 07:24:47 -0800
+Message-ID: <4ECBBEBF.2030308@linux.intel.com>
+Date: Tue, 22 Nov 2011 07:24:47 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:7.0) Gecko/20110927 Thunderbird/7.0
+MIME-Version: 1.0
+To: Saul Wold <sgw@linux.intel.com>
+References: <1321058705-8230-1-git-send-email-sgw@linux.intel.com>
+In-Reply-To: <1321058705-8230-1-git-send-email-sgw@linux.intel.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [RFC PATCH 1/1] clutter: drop unneeded bbappends
+Subject: Re: [PATCH] Self Hosted Image: Added Task and Images
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,43 +30,206 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Nov 2011 11:28:59 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 22 Nov 2011 15:24:48 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2011-11-15 at 16:16 -0800, Joshua Lock wrote:
-> The --with-flavour-glx option is the default in clutter.inc now
-> 
-> Signed-off-by: Joshua Lock <josh@linux.intel.com>
+
+Ping?
+
+
+On 11/11/2011 04:45 PM, Saul Wold wrote:
+> This is the first pass of creating a self hosted image, this task
+> and image can pass bitbake's sanity check (if modified to remove the
+> cvs check) and can build psuedo, albit very slowly on qemu
+>
+> Signed-off-by: Saul Wold<sgw@linux.intel.com>
 > ---
->  .../clutter/clutter-1.6_1.6.18.bbappend            |    4 ----
->  .../clutter/clutter-1.8_1.8.0.bbappend             |    4 ----
->  .../recipes-graphics/clutter/clutter_git.bbappend  |    4 ----
->  3 files changed, 0 insertions(+), 12 deletions(-)
->  delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
->  delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter-1.8_1.8.0.bbappend
->  delete mode 100644 meta-yocto/recipes-graphics/clutter/clutter_git.bbappend
-> 
-> diff --git a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend b/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
-> deleted file mode 100644
-> index c7cc683..0000000
-> --- a/meta-yocto/recipes-graphics/clutter/clutter-1.6_1.6.18.bbappend
-> +++ /dev/null
-> @@ -1,4 +0,0 @@
-> -DEPENDS_atom-pc = "${STDDEPENDS} virtual/xserver-xf86 virtual/libgl"
-> -EXTRA_OECONF_atom-pc = "${BASE_CONF} --with-flavour=glx"
-> -PACKAGE_ARCH_atom-pc = "${MACHINE_ARCH}"
-
-
-I'm fine with this but one question - is the virtual/xserver dependency
-still needed? If so we should add it to .inc. I'm in favour of merging
-this patch though.
-
-Cheers,
-
-Richard
-
-
-
-
+>   .../recipes-core/images/self-hosted-image.bb       |   11 ++
+>   meta-yocto/recipes-core/tasks/task-self-hosted.bb  |  158 ++++++++++++++++++++
+>   2 files changed, 169 insertions(+), 0 deletions(-)
+>   create mode 100644 meta-yocto/recipes-core/images/self-hosted-image.bb
+>   create mode 100644 meta-yocto/recipes-core/tasks/task-self-hosted.bb
+>
+> diff --git a/meta-yocto/recipes-core/images/self-hosted-image.bb b/meta-yocto/recipes-core/images/self-hosted-image.bb
+> new file mode 100644
+> index 0000000..3a244f7
+> --- /dev/null
+> +++ b/meta-yocto/recipes-core/images/self-hosted-image.bb
+> @@ -0,0 +1,11 @@
+> +IMAGE_INSTALL = "task-core-boot task-core-apps-console task-core-ssh-openssh task-self-hosted"
+> +
+> +POKY_EXTRA_INSTALL = "\
+> +    task-self-hosted \
+> +    "
+> +
+> +IMAGE_ROOTFS_EXTRA_SPACE = "1048576"
+> +
+> +inherit core-image
+> +
+> +PR = "r3"
+> diff --git a/meta-yocto/recipes-core/tasks/task-self-hosted.bb b/meta-yocto/recipes-core/tasks/task-self-hosted.bb
+> new file mode 100644
+> index 0000000..d7b6e87
+> --- /dev/null
+> +++ b/meta-yocto/recipes-core/tasks/task-self-hosted.bb
+> @@ -0,0 +1,158 @@
+> +#
+> +# Copyright (C) 2010 Intel Corporation
+> +#
+> +
+> +DESCRIPTION = "Create Basic Image Tasks"
+> +PR = "r32"
+> +LICENSE = "MIT"
+> +LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
+> +                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+> +
+> +PACKAGES = "\
+> +    task-self-hosted \
+> +    task-self-hosted-debug \
+> +    task-self-hosted-sdk \
+> +    task-self-hosted-extended \
+> +    task-self-hosted-graphics \
+> +    "
+> +
+> +ALLOW_EMPTY = "1"
+> +
+> +RDEPENDS_task-self-hosted = "\
+> +    task-self-hosted-debug \
+> +    task-self-hosted-sdk \
+> +    task-self-hosted-extended \
+> +    task-self-hosted-graphics \
+> +    "
+> +
+> +RDEPENDS_task-self-hosted-sdk = "\
+> +    autoconf \
+> +    automake \
+> +    binutils-symlinks \
+> +    binutils \
+> +    cpp \
+> +    cpp-symlinks \
+> +    ccache \
+> +    gcc \
+> +    gcc-symlinks \
+> +    g++ \
+> +    g++-symlinks \
+> +    gettext \
+> +    make \
+> +    intltool \
+> +    libstdc++ \
+> +    libstdc++-dev \
+> +    libtool \
+> +    perl-module-re \
+> +    perl-module-text-wrap \
+> +    coreutils \
+> +    diffutils \
+> +    pkgconfig \
+> +    findutils \
+> +    quilt \
+> +    less \
+> +    distcc \
+> +    ldd \
+> +    file \
+> +    tcl \
+> +    "
+> +
+> +RDEPENDS_task-self-hosted-debug = " \
+> +    gdb \
+> +    gdbserver \
+> +    tcf-agent \
+> +    rsync \
+> +    strace"
+> +
+> +
+> +RDEPENDS_task-self-hosted-extended = "\
+> +    binutils \
+> +    bzip2 \
+> +    chkconfig \
+> +    chrpath \
+> +    curl \
+> +    dhcp-client \
+> +    diffstat \
+> +    diffutils \
+> +    elfutils \
+> +    expat \
+> +    gamin \
+> +    gdbm \
+> +    git \
+> +    gettext \
+> +    gettext-runtime \
+> +    grep \
+> +    groff \
+> +    gawk \
+> +    hdparm \
+> +    libaio \
+> +    libxml2 \
+> +    libusb1 \
+> +    lrzsz \
+> +    lsof \
+> +    lzo \
+> +    man \
+> +    man-pages \
+> +    mc \
+> +    mdadm \
+> +    minicom \
+> +    mtools \
+> +    ncurses \
+> +    neon \
+> +    openssl \
+> +    opkg \
+> +    opkg-utils \
+> +    parted \
+> +    patch \
+> +    perl \
+> +    perl-modules \
+> +    perl-dev \
+> +    pth \
+> +    python \
+> +    python-compile \
+> +    python-compiler \
+> +    python-core \
+> +    python-curses \
+> +    python-datetime \
+> +    python-distutils \
+> +    python-elementtree \
+> +    python-fcntl \
+> +    python-logging \
+> +    python-misc \
+> +    python-multiprocessing \
+> +    python-netclient \
+> +    python-netserver \
+> +    python-pickle \
+> +    python-re \
+> +    python-rpm \
+> +    python-shell \
+> +    python-sqlite3 \
+> +    python-subprocess \
+> +    python-textutils \
+> +    python-xmlrpc \
+> +    quota \
+> +    readline \
+> +    rpm \
+> +    screen \
+> +    setserial \
+> +    strace \
+> +    subversion \
+> +    sysstat \
+> +    tar \
+> +    tcl \
+> +    texi2html \
+> +    texinfo \
+> +    usbutils \
+> +    unzip \
+> +    watchdog \
+> +    wget \
+> +    which \
+> +    xinetd \
+> +    zip \
+> +    zlib \
+> +    "
+> +
+> +
+> +RDEPENDS_task-self-hosted-graphics = "\
+> +    python-pygtk \
+> +    "
 
