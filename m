@@ -1,42 +1,28 @@
-Return-Path: <B29882@freescale.com>
-Received: from AM1EHSOBE005.bigfish.com (am1ehsobe005.messaging.microsoft.com
-	[213.199.154.208])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A2FAE006BA
-	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 00:19:27 -0800 (PST)
-Received: from mail114-am1-R.bigfish.com (10.3.201.241) by
-	AM1EHSOBE005.bigfish.com (10.3.204.25) with Microsoft SMTP Server id
-	14.1.225.22; Wed, 23 Nov 2011 08:18:45 +0000
-Received: from mail114-am1 (localhost [127.0.0.1])	by
-	mail114-am1-R.bigfish.com (Postfix) with ESMTP id F2DFE3600B2;
-	Wed, 23 Nov 2011 08:21:02 +0000 (UTC)
-X-SpamScore: 3
-X-BigFish: VS3(zzzz1202h1082kzz8275bhz2dh2a8h668h839h)
-X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
-	H:mail.freescale.net; RD:none; EFVD:NLI
-Received: from mail114-am1 (localhost.localdomain [127.0.0.1]) by mail114-am1
-	(MessageSwitch) id 1322036462791878_2651;
-	Wed, 23 Nov 2011 08:21:02 +0000 (UTC)
-Received: from AM1EHSMHS001.bigfish.com (unknown [10.3.201.251])	by
-	mail114-am1.bigfish.com (Postfix) with ESMTP id BBD365C0042;
-	Wed, 23 Nov 2011 08:21:02 +0000 (UTC)
-Received: from mail.freescale.net (70.37.183.190) by AM1EHSMHS001.bigfish.com
-	(10.3.207.101) with Microsoft SMTP Server (TLS) id 14.1.225.22;
-	Wed, 23 Nov 2011 08:18:45 +0000
-Received: from az33smr02.freescale.net (10.64.34.200) by
-	039-SN1MMR1-002.039d.mgd.msft.net (10.84.1.15) with Microsoft SMTP
-	Server id 14.1.339.2; Wed, 23 Nov 2011 02:19:19 -0600
-Received: from right.am.freescale.net (right.am.freescale.net [10.82.193.13])
-	by az33smr02.freescale.net (8.13.1/8.13.0) with ESMTP id
-	pAN8JIOn018348; Wed, 23 Nov 2011 02:19:18 -0600 (CST)
-From: Matthew McClintock <msm@freescale.com>
-To: <poky@yoctoproject.org>
-Date: Wed, 23 Nov 2011 02:19:17 -0600
-Message-ID: <1322036357-18211-1-git-send-email-msm@freescale.com>
-X-Mailer: git-send-email 1.7.6.1
+Return-Path: <d.moussaud@gmail.com>
+Received: from mail-qy0-f176.google.com (mail-qy0-f176.google.com
+	[209.85.216.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C987EE006BA
+	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 01:22:35 -0800 (PST)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by qyk10 with SMTP id 10so988806qyk.35
+	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 01:22:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:from:date:message-id:subject:to:content-type;
+	bh=A7Q4xnvw3zHbUx46gO+MzXFkMppEkioRS4O29XJQ9m0=;
+	b=Ip4y4REDS9iurk1WFj/St48QJ5y4zv9KdvOpHT467u55NoPotwuGlvOi3DFU6dZKGV
+	QJVwptxPhPJq3LQCOalX+FNHygw5KH84uzBTTKP8x68Ie1M5iJfKjyvDYvnyXcOzuWRF
+	AlXaun1MWClp8vPY7Bz6JgJg4s786cbdeqo3E=
+Received: by 10.229.61.99 with SMTP id s35mr2510560qch.229.1322040153759; Wed,
+	23 Nov 2011 01:22:33 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: freescale.com
-Cc: joshua.lock@intel.com
-Subject: [PATCH] sudo_1.8.1p2.bb: Pull patch from upstream to fix parallel build issue
+Received: by 10.229.212.82 with HTTP; Wed, 23 Nov 2011 01:22:12 -0800 (PST)
+From: David MOUSSAUD <d.moussaud@gmail.com>
+Date: Wed, 23 Nov 2011 10:22:12 +0100
+Message-ID: <CAEx4ggfUfvgnoGvFZkkqARk5VGs4HiVGLJSkgxWbaqVyqEgCeg@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: "ONLINE" package-management
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,61 +34,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2011 08:19:28 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 23 Nov 2011 09:22:36 -0000
+Content-Type: multipart/alternative; boundary=001485f7d07abe617b04b26375a8
 
-Signed-off-by: Matthew McClintock <msm@freescale.com>
----
-This is for the edison 1.1.1 point release if accepted. It's already in the
-upstream version used in master
+--001485f7d07abe617b04b26375a8
+Content-Type: text/plain; charset=ISO-8859-1
 
-I'm not exactly sure where to send this so I choose the poky list to start
-with
+Hi,
 
- .../sudo/files/sudo-parallel-build.patch           |   15 +++++++++++++++
- meta/recipes-extended/sudo/sudo_1.8.1p2.bb         |    3 ++-
- 2 files changed, 17 insertions(+), 1 deletions(-)
- create mode 100755 meta/recipes-extended/sudo/files/sudo-parallel-build.patch
+I'm migrating my projects from old OE to poky.
+I used to set the variable ONLINE_PACKAGE_MANAGEMENT = "full" in my image
+file.
+The impact was that some scripts were executed at the first start of my
+rootfs (create user for openssh, dbus, ....)
 
-diff --git a/meta/recipes-extended/sudo/files/sudo-parallel-build.patch b/meta/recipes-extended/sudo/files/sudo-parallel-build.patch
-new file mode 100755
-index 0000000..6cfe56d
---- /dev/null
-+++ b/meta/recipes-extended/sudo/files/sudo-parallel-build.patch
-@@ -0,0 +1,15 @@
-+Upstream-Status: Accepted
-+
-+Index: sudo-1.8.1p2/plugins/sudoers/Makefile.in
-+===================================================================
-+--- sudo-1.8.1p2.orig/plugins/sudoers/Makefile.in
-++++ sudo-1.8.1p2/plugins/sudoers/Makefile.in
-+@@ -164,7 +164,7 @@ sudoers.la: $(SUDOERS_OBJS) libsudoers.l
-+ visudo: libsudoers.la $(VISUDO_OBJS) $(LIBS)
-+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(VISUDO_OBJS) $(LDFLAGS) libsudoers.la $(LIBS) $(NET_LIBS)
-+ 
-+-sudoreplay: $(REPLAY_OBJS) $(LIBS)
-++sudoreplay: timestr.lo $(REPLAY_OBJS) $(LIBS)
-+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(REPLAY_OBJS) $(LDFLAGS) timestr.lo $(REPLAY_LIBS) $(LIBS)
-+ 
-+ testsudoers: libsudoers.la $(TEST_OBJS) $(LIBS)
-diff --git a/meta/recipes-extended/sudo/sudo_1.8.1p2.bb b/meta/recipes-extended/sudo/sudo_1.8.1p2.bb
-index b568291..0cf8d03 100644
---- a/meta/recipes-extended/sudo/sudo_1.8.1p2.bb
-+++ b/meta/recipes-extended/sudo/sudo_1.8.1p2.bb
-@@ -1,9 +1,10 @@
- require sudo.inc
- 
--PR = "r2"
-+PR = "r3"
- 
- SRC_URI = "http://ftp.sudo.ws/sudo/dist/sudo-${PV}.tar.gz \
-            file://libtool.patch \
-+	   file://sudo-parallel-build.patch \ 
-            ${@base_contains('DISTRO_FEATURES', 'pam', '${PAM_SRC_URI}', '', d)}"
- 
- PAM_SRC_URI = "file://sudo.pam"
--- 
-1.7.6.1
+I could not find the equivalent for poky/yocto.
 
+I've set the IMAGE_FEATURES += "package-management" in the file
+core-image-minimal.bb but it does not have any  impact on the rootfs
+generated.
 
+Best Regards,
+David.
 
+--001485f7d07abe617b04b26375a8
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hi,=A0<div><br></div><div>I&#39;m migrating my projects from old OE to poky=
+.</div><div>I used to set the variable=A0ONLINE_PACKAGE_MANAGEMENT =3D &quo=
+t;full&quot; in my image file.</div><div>The impact was that some scripts w=
+ere executed at the first start of my rootfs (create user for openssh, dbus=
+, ....)</div>
+
+<div><br></div><div>I could not find the equivalent for poky/yocto.</div><d=
+iv><br></div><div>I&#39;ve set the=A0IMAGE_FEATURES +=3D &quot;package-mana=
+gement&quot; in the file <a href=3D"http://core-image-minimal.bb">core-imag=
+e-minimal.bb</a> but it does not have any =A0impact on the rootfs generated=
+.</div>
+
+<div><br></div><div>Best Regards,</div><div>David.</div><meta http-equiv=3D=
+"content-type" content=3D"text/html; charset=3Dutf-8">
+
+--001485f7d07abe617b04b26375a8--
