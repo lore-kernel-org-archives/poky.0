@@ -1,32 +1,42 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
-	[209.85.161.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82B5FE006BA
-	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 18:11:35 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by faap19 with SMTP id p19so1674529faa.35
-	for <poky@yoctoproject.org>; Tue, 22 Nov 2011 18:11:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	bh=flKOvRxkKE1ixZpgqViRyNYUwUk6qJ1FTb0w7KUrfIw=;
-	b=SvF+xJ4sYN5x1AF4Tl4sMYYewunBQXXjfDBEd1+lFk7JvTQ6uyG9I+AVrbiMNTfPUI
-	CQb4l9cX1Av+RjQjqP5BGMFdmQqQqkzThbTsKEe1/bKOeCntFK4U3z2jGIf81yIkcYB9
-	OEV8zPTC0kTRoYK/3AsSZpM2wkflWF5Fl9aMM=
-Received: by 10.152.132.39 with SMTP id or7mr13307071lab.14.1322014286070;
-	Tue, 22 Nov 2011 18:11:26 -0800 (PST)
+Return-Path: <B29882@freescale.com>
+Received: from AM1EHSOBE005.bigfish.com (am1ehsobe005.messaging.microsoft.com
+	[213.199.154.208])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A2FAE006BA
+	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 00:19:27 -0800 (PST)
+Received: from mail114-am1-R.bigfish.com (10.3.201.241) by
+	AM1EHSOBE005.bigfish.com (10.3.204.25) with Microsoft SMTP Server id
+	14.1.225.22; Wed, 23 Nov 2011 08:18:45 +0000
+Received: from mail114-am1 (localhost [127.0.0.1])	by
+	mail114-am1-R.bigfish.com (Postfix) with ESMTP id F2DFE3600B2;
+	Wed, 23 Nov 2011 08:21:02 +0000 (UTC)
+X-SpamScore: 3
+X-BigFish: VS3(zzzz1202h1082kzz8275bhz2dh2a8h668h839h)
+X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
+	H:mail.freescale.net; RD:none; EFVD:NLI
+Received: from mail114-am1 (localhost.localdomain [127.0.0.1]) by mail114-am1
+	(MessageSwitch) id 1322036462791878_2651;
+	Wed, 23 Nov 2011 08:21:02 +0000 (UTC)
+Received: from AM1EHSMHS001.bigfish.com (unknown [10.3.201.251])	by
+	mail114-am1.bigfish.com (Postfix) with ESMTP id BBD365C0042;
+	Wed, 23 Nov 2011 08:21:02 +0000 (UTC)
+Received: from mail.freescale.net (70.37.183.190) by AM1EHSMHS001.bigfish.com
+	(10.3.207.101) with Microsoft SMTP Server (TLS) id 14.1.225.22;
+	Wed, 23 Nov 2011 08:18:45 +0000
+Received: from az33smr02.freescale.net (10.64.34.200) by
+	039-SN1MMR1-002.039d.mgd.msft.net (10.84.1.15) with Microsoft SMTP
+	Server id 14.1.339.2; Wed, 23 Nov 2011 02:19:19 -0600
+Received: from right.am.freescale.net (right.am.freescale.net [10.82.193.13])
+	by az33smr02.freescale.net (8.13.1/8.13.0) with ESMTP id
+	pAN8JIOn018348; Wed, 23 Nov 2011 02:19:18 -0600 (CST)
+From: Matthew McClintock <msm@freescale.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 23 Nov 2011 02:19:17 -0600
+Message-ID: <1322036357-18211-1-git-send-email-msm@freescale.com>
+X-Mailer: git-send-email 1.7.6.1
 MIME-Version: 1.0
-Received: by 10.152.24.36 with HTTP; Tue, 22 Nov 2011 18:10:55 -0800 (PST)
-In-Reply-To: <CAMTw45A5mG11yxRKF16A8YVA4eG420gRk6hBCnchbuiNRcg3fw@mail.gmail.com>
-References: <CAMTw45A5mG11yxRKF16A8YVA4eG420gRk6hBCnchbuiNRcg3fw@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 22 Nov 2011 18:10:55 -0800
-Message-ID: <CAMKF1so_kfqiUSTpHUL8PqLsD_wa776d9zQE-ZL30TjtgM9xQQ@mail.gmail.com>
-To: chinmaya hoshing <cahoshing@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Error in compilation for Cpluff library
+X-OriginatorOrg: freescale.com
+Cc: joshua.lock@intel.com
+Subject: [PATCH] sudo_1.8.1p2.bb: Pull patch from upstream to fix parallel build issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,95 +48,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2011 02:11:36 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 23 Nov 2011 08:19:28 -0000
+Content-Type: text/plain
 
-On Mon, Nov 14, 2011 at 3:29 AM, chinmaya hoshing <cahoshing@gmail.com> wro=
-te:
-> Hi ,
-> I am trying=C2=A0to=C2=A0port Poky=C2=A0to=C2=A0the "sandybridge platform=
-" and=C2=A0 using the branch
-> "bernard" for "fishriver" machine.
-> I am running Ubuntu 10.10 on 64 bit machine.
-> In this =C2=A0I am trying to pull cpluff library
-> Following is the error I am getting :-
-> | /bin/sh ../libtool --tag=3DCC =C2=A0 --mode=3Dlink ccache i586-poky-lin=
-ux-gcc -m32
-> -march=3Dcore2 -msse3 -mtune=3Dgeneric -mfpmath=3Dsse
-> --sysroot=3D/home/poky/build/tmp/sysroots/fishriver =C2=A0-fexpensive-opt=
-imizations
-> -fomit-frame-pointer -frename-registers -O2 -ggdb
-> -feliminate-unused-debug-types -no-undefined -version-info 0:3:0
-> -L/home/poky/build/tmp/sysroots/fishriver/usr/lib -o libcpluff.la -rpath
-> /usr/lib psymbol.lo pscan.lo ploader.lo pinfo.lo pcontrol.lo serial.lo
-> logging.lo context.lo cpluff.lo util.lo list.lo hash.lo thread_posix.lo
-> -lexpat -ldl
-> | ccache i586-poky-linux-gcc -m32 -march=3Dcore2 -msse3 -mtune=3Dgeneric
-> -mfpmath=3Dsse --sysroot=3D/home/poky/build/tmp/sysroots/fishriver -share=
-d
-> =C2=A0.libs/psymbol.o .libs/pscan.o .libs/ploader.o .libs/pinfo.o
-> .libs/pcontrol.o .libs/serial.o .libs/logging.o .libs/context.o
-> .libs/cpluff.o .libs/util.o .libs/list.o .libs/hash.o .libs/thread_posix.=
-o
-> =C2=A0-L/home/poky/build/tmp/sysroots/fishriver/usr/lib /usr/lib/libexpat=
-.so -ldl
-> =C2=A0-m32 -march=3Dcore2 -msse3 -mtune=3Dgeneric -mfpmath=3Dsse -Wl,-son=
-ame
-> -Wl,libcpluff.so.0 -o .libs/libcpluff.so.0.0.3
-> | /usr/lib/libexpat.so: could not read symbols: File in wrong format
-> | collect2: ld returned 1 exit status
-> | make[3]: *** [libcpluff.la] Error 1
-> | make[3]: Leaving directory
-> `/home/poky/build/tmp/work/atom-poky-linux/cpluff-0.1.3-r0/cpluff-0.1.3/l=
-ibcpluff'
-> | make[2]: *** [all-recursive] Error 1
-> | make[2]: Leaving directory
-> `/home/poky/build/tmp/work/atom-poky-linux/cpluff-0.1.3-r0/cpluff-0.1.3/l=
-ibcpluff'
-> | make[1]: *** [all-recursive] Error 1
-> | make[1]: Leaving directory
-> `/home/poky/build/tmp/work/atom-poky-linux/cpluff-0.1.3-r0/cpluff-0.1.3'
-> | make: *** [all] Error 2
-> | FATAL: oe_runmake failed
-> | ERROR: Function 'do_compile' failed (see
-> /home/poky/build/tmp/work/atom-poky-linux/cpluff-0.1.3-r0/temp/log.do_com=
-pile.546
-> for further information)
-> NOTE: package cpluff-0.1.3-r0: task do_compile: Failed
-> ERROR: Task 8
-> (/home/sct/black_gigabyte/poky/meta-sct/recipes-sct/cpluff/cpluff_0.1.3.b=
-b,
-> do_compile) failed with exit code '1'
->
-> After going through the error it seems that during compilation it is taki=
-ng
-> the expat library from my system instead it should take from poky
-> environment =C2=A0so throwing error.
-> So what changes should I make in my recipe .Can any one help me too solve
-> the error.
->
-> following is the recipe =C2=A0for Cpluff
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 ************cpluff_0.1.3.bb*****************
-> DESCRIPTION =3D "C-Pluff, a plug-in framework for C"
-> HOMEPAGE =3D "http://www.c-pluff.org"
-> LICENSE =3D "MIT"
-> DEPENDS +=3D "expat"
-> SRC_URI =3D "http://www.c-pluff.org/downloads/${PN}-${PV}.tar.gz"
-> S =3D "${WORKDIR}/cpluff-0.1.3"
-> export TARGET_LDFLAGS=3D"-L${STAGING_DIR}/${MACHINE}${libdir}" =C2=A0 =C2=
-=A0 //line
-> added so that during compilation it should take libraries from poky
-> environment =C2=A0 but after adding this line getting same error as above
-> inherit autotools
-> do_configure() {
-> =C2=A0 cd ${S}
-> =C2=A0 ./configure --prefix=3D/usr
-> }
-> do_qa_configure() {
-> }
+Signed-off-by: Matthew McClintock <msm@freescale.com>
+---
+This is for the edison 1.1.1 point release if accepted. It's already in the
+upstream version used in master
 
-this seems to be a libtool error to me. Somehow either the new libtool
-macros are not being used or libtool script itself used is old.
+I'm not exactly sure where to send this so I choose the poky list to start
+with
+
+ .../sudo/files/sudo-parallel-build.patch           |   15 +++++++++++++++
+ meta/recipes-extended/sudo/sudo_1.8.1p2.bb         |    3 ++-
+ 2 files changed, 17 insertions(+), 1 deletions(-)
+ create mode 100755 meta/recipes-extended/sudo/files/sudo-parallel-build.patch
+
+diff --git a/meta/recipes-extended/sudo/files/sudo-parallel-build.patch b/meta/recipes-extended/sudo/files/sudo-parallel-build.patch
+new file mode 100755
+index 0000000..6cfe56d
+--- /dev/null
++++ b/meta/recipes-extended/sudo/files/sudo-parallel-build.patch
+@@ -0,0 +1,15 @@
++Upstream-Status: Accepted
++
++Index: sudo-1.8.1p2/plugins/sudoers/Makefile.in
++===================================================================
++--- sudo-1.8.1p2.orig/plugins/sudoers/Makefile.in
+++++ sudo-1.8.1p2/plugins/sudoers/Makefile.in
++@@ -164,7 +164,7 @@ sudoers.la: $(SUDOERS_OBJS) libsudoers.l
++ visudo: libsudoers.la $(VISUDO_OBJS) $(LIBS)
++ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(VISUDO_OBJS) $(LDFLAGS) libsudoers.la $(LIBS) $(NET_LIBS)
++ 
++-sudoreplay: $(REPLAY_OBJS) $(LIBS)
+++sudoreplay: timestr.lo $(REPLAY_OBJS) $(LIBS)
++ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(REPLAY_OBJS) $(LDFLAGS) timestr.lo $(REPLAY_LIBS) $(LIBS)
++ 
++ testsudoers: libsudoers.la $(TEST_OBJS) $(LIBS)
+diff --git a/meta/recipes-extended/sudo/sudo_1.8.1p2.bb b/meta/recipes-extended/sudo/sudo_1.8.1p2.bb
+index b568291..0cf8d03 100644
+--- a/meta/recipes-extended/sudo/sudo_1.8.1p2.bb
++++ b/meta/recipes-extended/sudo/sudo_1.8.1p2.bb
+@@ -1,9 +1,10 @@
+ require sudo.inc
+ 
+-PR = "r2"
++PR = "r3"
+ 
+ SRC_URI = "http://ftp.sudo.ws/sudo/dist/sudo-${PV}.tar.gz \
+            file://libtool.patch \
++	   file://sudo-parallel-build.patch \ 
+            ${@base_contains('DISTRO_FEATURES', 'pam', '${PAM_SRC_URI}', '', d)}"
+ 
+ PAM_SRC_URI = "file://sudo.pam"
+-- 
+1.7.6.1
+
+
 
