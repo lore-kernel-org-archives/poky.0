@@ -1,22 +1,25 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 43C62E00723
-	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 01:30:28 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 23 Nov 2011 01:30:27 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.69,558,1315206000"; d="scan'208";a="40429869"
-Received: from unknown (HELO helios.localnet) ([10.252.121.173])
-	by AZSMGA002.ch.intel.com with ESMTP; 23 Nov 2011 01:30:26 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 23 Nov 2011 09:30:25 +0000
-Message-ID: <1384449.sAlYLhjn63@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.7.3 (Linux/3.0.0-13-generic-pae; KDE/4.7.3; i686; ; )
+Return-Path: <koen@dominion.thruhere.net>
+Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71B23E00723
+	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 01:32:41 -0800 (PST)
+Received: by wwn31 with SMTP id 31so378475wwn.11
+	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 01:32:40 -0800 (PST)
+Received: by 10.216.133.29 with SMTP id p29mr3596121wei.70.1322040760158;
+	Wed, 23 Nov 2011 01:32:40 -0800 (PST)
+Received: from [172.20.1.19] (ip545070eb.adsl-surfen.hetnet.nl.
+	[84.80.112.235])
+	by mx.google.com with ESMTPS id d17sm19925449wbh.19.2011.11.23.01.32.38
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 23 Nov 2011 01:32:39 -0800 (PST)
+Mime-Version: 1.0 (Apple Message framework v1251.1)
+From: Koen Kooi <koen@dominion.thruhere.net>
 In-Reply-To: <CAEx4ggfUfvgnoGvFZkkqARk5VGs4HiVGLJSkgxWbaqVyqEgCeg@mail.gmail.com>
+Date: Wed, 23 Nov 2011 10:32:39 +0100
+Message-Id: <A40556E3-F32D-4120-9FF6-5614730A7ADC@dominion.thruhere.net>
 References: <CAEx4ggfUfvgnoGvFZkkqARk5VGs4HiVGLJSkgxWbaqVyqEgCeg@mail.gmail.com>
-MIME-Version: 1.0
+To: David MOUSSAUD <d.moussaud@gmail.com>
+X-Mailer: Apple Mail (2.1251.1)
+Cc: poky@yoctoproject.org
 Subject: Re: "ONLINE" package-management
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -29,34 +32,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2011 09:30:28 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Wed, 23 Nov 2011 09:32:42 -0000
+X-Groupsio-MsgNum: 7207
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_E772F42A-8F83-4E71-8ACD-C02E3E0152BF";
+	protocol="application/pgp-signature"; micalg=pgp-sha1
 
-On Wednesday 23 November 2011 10:22:12 David MOUSSAUD wrote:
+--Apple-Mail=_E772F42A-8F83-4E71-8ACD-C02E3E0152BF
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=iso-8859-1
+
+
+Op 23 nov. 2011, om 10:22 heeft David MOUSSAUD het volgende geschreven:
+
+> Hi,=20
+>=20
 > I'm migrating my projects from old OE to poky.
-> I used to set the variable ONLINE_PACKAGE_MANAGEMENT = "full" in my image
-> file.
-> The impact was that some scripts were executed at the first start of my
-> rootfs (create user for openssh, dbus, ....)
-> 
-> I could not find the equivalent for poky/yocto.
-> 
-> I've set the IMAGE_FEATURES += "package-management" in the file
-> core-image-minimal.bb but it does not have any  impact on the rootfs
-> generated.
+> I used to set the variable ONLINE_PACKAGE_MANAGEMENT =3D "full" in my =
+image file.
+> The impact was that some scripts were executed at the first start of =
+my rootfs (create user for openssh, dbus, ....)
 
-That is the correct equivalent, however it will not work with core-image-
-minimal because it sets its own IMAGE_INSTALL rather than using the one from 
-core-image that implements the IMAGE_FEATURES logic. You may wish to create 
-your own image based upon core-image-base.bb instead since that uses the 
-default IMAGE_INSTALL.
+Note that with the recent addition of useradd.bbclass to OE-core that =
+type of scripts (user creation) now run at do_rootfs time and not during =
+first boot.
 
-Cheers,
-Paul
+regards,
 
--- 
+Koen=
 
-Paul Eggleton
-Intel Open Source Technology Centre
+--Apple-Mail=_E772F42A-8F83-4E71-8ACD-C02E3E0152BF
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP using GPGMail
 
+-----BEGIN PGP SIGNATURE-----
+
+iEYEARECAAYFAk7MvbcACgkQMkyGM64RGpE7wQCeNZCWNVqxK6helER3onYgWe6y
+42kAnj4HLTSgoF4shgx4vTzLS/lXx4s9
+=WbJG
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_E772F42A-8F83-4E71-8ACD-C02E3E0152BF--
