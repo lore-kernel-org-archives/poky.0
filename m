@@ -1,23 +1,27 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A8CCE00303
-	for <poky@yoctoproject.org>; Mon, 28 Nov 2011 12:53:43 -0800 (PST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 28 Nov 2011 12:53:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="80812497"
-Received: from rakasten-mobl1.amr.corp.intel.com (HELO [10.7.199.160])
-	([10.7.199.160])
-	by orsmga002.jf.intel.com with ESMTP; 28 Nov 2011 12:53:42 -0800
-Message-ID: <4ED3F4D5.3060106@linux.intel.com>
-Date: Mon, 28 Nov 2011 12:53:41 -0800
-From: Joshua Lock <josh@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:8.0) Gecko/20111115 Thunderbird/8.0
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5C6C8E00303
+	for <poky@yoctoproject.org>; Mon, 28 Nov 2011 13:31:50 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 999)
+	id C786316607F9; Mon, 28 Nov 2011 14:31:47 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 4B2B9166038B;
+	Mon, 28 Nov 2011 14:31:47 -0700 (MST)
+Message-ID: <4ED3FDC3.6030805@mlbassoc.com>
+Date: Mon, 28 Nov 2011 14:31:47 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4ED3F3BF.6030305@mlbassoc.com>
-In-Reply-To: <4ED3F3BF.6030305@mlbassoc.com>
+To: Joshua Lock <josh@linux.intel.com>
+References: <4ED3F3BF.6030305@mlbassoc.com> <4ED3F4D5.3060106@linux.intel.com>
+In-Reply-To: <4ED3F4D5.3060106@linux.intel.com>
+Cc: poky@yoctoproject.org
 Subject: Re: Fixed /etc/resolv.conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,28 +34,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Nov 2011 20:53:43 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 28 Nov 2011 21:31:50 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 2011-11-28 13:53, Joshua Lock wrote:
+>
+>
+> On 28/11/11 12:49, Gary Thomas wrote:
+>> I'd like to have my network hard-wired - fixed IP, fixed /etc/resolv.conf
+>>
+>> I can see how to adjust my network settings by providing my own version of
+>> /etc/network/interfaces.  However, I don't see how to have a fixed
+>> (immutable)
+>> version of /etc/resolv.conf
+>>
+>> Any ideas?
+>
+> Do you have connman in your image? If so, do you need it if you're
+> providing static versions of those files?
 
+No conman/network-manager is included.  This image needs to be static
+and as absolutely minimal as possible.
 
-On 28/11/11 12:49, Gary Thomas wrote:
-> I'd like to have my network hard-wired - fixed IP, fixed /etc/resolv.conf
-> 
-> I can see how to adjust my network settings by providing my own version of
-> /etc/network/interfaces.  However, I don't see how to have a fixed
-> (immutable)
-> version of /etc/resolv.conf
-> 
-> Any ideas?
-
-Do you have connman in your image? If so, do you need it if you're
-providing static versions of those files?
-
-Joshua
 -- 
-Joshua Lock
-        Yocto Project "Johannes factotum"
-        Intel Open Source Technology Centre
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
