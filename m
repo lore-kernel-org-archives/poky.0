@@ -1,32 +1,31 @@
-Return-Path: <d.moussaud@gmail.com>
-Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 44815E00309
-	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 11:57:56 -0800 (PST)
+Return-Path: <derek.c.browne@gmail.com>
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2553EE0030A
+	for <poky@yoctoproject.org>; Mon, 28 Nov 2011 09:22:22 -0800 (PST)
 Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
 	(1024-bit key; insecure key) header.i=@gmail.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by wwo28 with SMTP id 28so1569433wwo.5
-	for <poky@yoctoproject.org>; Wed, 23 Nov 2011 11:57:55 -0800 (PST)
+Received: by ywp31 with SMTP id 31so6720301ywp.35
+	for <poky@yoctoproject.org>; Mon, 28 Nov 2011 09:22:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=8gIqkjVreR/ci6Wfb88IuBQ+8IwbUrsFrb5vBGA+90k=;
-	b=WKpyl2oSth45oW9zDXAQZky6SZMOr7QjqKaZH17CBuA0pgGGpAbda0kOfi/y0B9u3V
-	8s0kqdQxRV+7DurwoxoVWPO2Zt0LLBY1xSVFLsENVvOFTrFzwMal/sVIWH1Du6actSAw
-	gpXZXLLFANfHogFrsrFwVn137kmGZKYkgDPKM=
-Received: by 10.227.57.66 with SMTP id b2mr16268343wbh.6.1322078275102; Wed,
-	23 Nov 2011 11:57:55 -0800 (PST)
+	h=mime-version:sender:date:x-google-sender-auth:message-id:subject
+	:from:to:content-type;
+	bh=UktRGqvpMCWHnS1yR1e5LDuihFgY5bd+eYs5h3ZrxqY=;
+	b=rty6kxkuGCvE3MNyCmVX9ow6G3Qm2OcJeM9+1uuOqXMsWZPbrM3dFjYboRGmAtl5uo
+	j8jmEmJgqJfu0XV/o2tK9WT/eiAKkICkl8hVtUCLOvsB1hYHjPMQenaGblo8dH9+1D8u
+	DmXmI3Iche5tV28FN62b4lPzAJShm9Yy3VWBk=
 MIME-Version: 1.0
-Received: by 10.180.103.39 with HTTP; Wed, 23 Nov 2011 11:57:34 -0800 (PST)
-In-Reply-To: <A40556E3-F32D-4120-9FF6-5614730A7ADC@dominion.thruhere.net>
-References: <CAEx4ggfUfvgnoGvFZkkqARk5VGs4HiVGLJSkgxWbaqVyqEgCeg@mail.gmail.com>
-	<A40556E3-F32D-4120-9FF6-5614730A7ADC@dominion.thruhere.net>
-From: David MOUSSAUD <d.moussaud@gmail.com>
-Date: Wed, 23 Nov 2011 20:57:34 +0100
-Message-ID: <CAEx4gge6nMhU_gHDjGgqu0zXPVyrh58ViB5JPVcRPRf5tYALkw@mail.gmail.com>
-To: Koen Kooi <koen@dominion.thruhere.net>
-Cc: poky@yoctoproject.org
-Subject: Re: "ONLINE" package-management
+Received: by 10.236.197.72 with SMTP id s48mr64306566yhn.81.1322500941400;
+	Mon, 28 Nov 2011 09:22:21 -0800 (PST)
+Sender: derek.c.browne@gmail.com
+Received: by 10.236.180.37 with HTTP; Mon, 28 Nov 2011 09:22:21 -0800 (PST)
+Date: Mon, 28 Nov 2011 17:22:21 +0000
+X-Google-Sender-Auth: 91sOY2onIHzYrrqn5OxW6c-5rx8
+Message-ID: <CAJa-nAwJ_EFLovm_+wr-n+WaRsDscCCfCgFtAnsCYNdy4Cx3AA@mail.gmail.com>
+From: Derek Browne <derek.browne@intel.com>
+To: poky@yoctoproject.org
+Subject: ERROR: Execution of event handler 'run_buildstats' failed on non-local storage
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,76 +37,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Nov 2011 19:57:56 -0000
-Content-Type: multipart/alternative; boundary=0015174bdb92f3e8f804b26c55b4
-
---0015174bdb92f3e8f804b26c55b4
+X-List-Received-Date: Mon, 28 Nov 2011 17:22:22 -0000
 Content-Type: text/plain; charset=ISO-8859-1
 
-thanks, it works :)
+Hi all,
 
-On 23 November 2011 10:32, Koen Kooi <koen@dominion.thruhere.net> wrote:
+I have run into an issue completing a build on non-local storage(NFS).
 
->
-> Op 23 nov. 2011, om 10:22 heeft David MOUSSAUD het volgende geschreven:
->
-> > Hi,
-> >
-> > I'm migrating my projects from old OE to poky.
-> > I used to set the variable ONLINE_PACKAGE_MANAGEMENT = "full" in my
-> image file.
-> > The impact was that some scripts were executed at the first start of my
-> rootfs (create user for openssh, dbus, ....)
->
-> Note that with the recent addition of useradd.bbclass to OE-core that type
-> of scripts (user creation) now run at do_rootfs time and not during first
-> boot.
->
-> regards,
->
-> Koen
-> -----BEGIN PGP SIGNATURE-----
->
-> iEYEARECAAYFAk7MvbcACgkQMkyGM64RGpE7wQCeNZCWNVqxK6helER3onYgWe6y
-> 42kAnj4HLTSgoF4shgx4vTzLS/lXx4s9
-> =WbJG
-> -----END PGP SIGNATURE-----
->
->
+Current configuration:
+Poky Edison branch with commit revision :
+c5bdef56175c0b6863e3d588a5a2c23cbea7b568
+Using the default local.conf configuration(qemux86) with a build
+target of core-image-minimal.
 
---0015174bdb92f3e8f804b26c55b4
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+An error is thrown at the beginning of the build:
 
-thanks, it works :)<br><br><div class=3D"gmail_quote">On 23 November 2011 1=
-0:32, Koen Kooi <span dir=3D"ltr">&lt;<a href=3D"mailto:koen@dominion.thruh=
-ere.net">koen@dominion.thruhere.net</a>&gt;</span> wrote:<br><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;p=
-adding-left:1ex;">
+ERROR: Execution of event handler 'run_buildstats' failed
+Traceback (most recent call last):
+  File "run_buildstats(e)", line 18, in
+run_buildstats(e=<bb.event.BuildStarted object at 0x11c3450>)
+  File "buildstats.bbclass", line 21, in
+set_device(e=<bb.event.BuildStarted object at 0x11c3450>)
+UnboundLocalError: local variable 'rdev' referenced before assignment
 
-<br>
-Op 23 nov. 2011, om 10:22 heeft David MOUSSAUD het volgende geschreven:<br>
-<div class=3D"im"><br>
-&gt; Hi,<br>
-&gt;<br>
-&gt; I&#39;m migrating my projects from old OE to poky.<br>
-&gt; I used to set the variable ONLINE_PACKAGE_MANAGEMENT =3D &quot;full&qu=
-ot; in my image file.<br>
-&gt; The impact was that some scripts were executed at the first start of m=
-y rootfs (create user for openssh, dbus, ....)<br>
-<br>
-</div>Note that with the recent addition of useradd.bbclass to OE-core that=
- type of scripts (user creation) now run at do_rootfs time and not during f=
-irst boot.<br>
-<br>
-regards,<br>
-<br>
-Koen<br>-----BEGIN PGP SIGNATURE-----<br>
-<br>
-iEYEARECAAYFAk7MvbcACgkQMkyGM64RGpE7wQCeNZCWNVqxK6helER3onYgWe6y<br>
-42kAnj4HLTSgoF4shgx4vTzLS/lXx4s9<br>
-=3DWbJG<br>
------END PGP SIGNATURE-----<br>
-<br></blockquote></div><br>
+The build then continues with the initial 126 host dependency build
+tasks, which makes it very easy to miss the error output. The build
+then stops when the 126 initial build tasks are completed and does not
+continue.
 
---0015174bdb92f3e8f804b26c55b4--
+Due to the build being performed on non-local storage as apposed to a
+physical drive, the build cannot access the disk statistics via
+/proc/diskstats.
+
+To make the build continue, a hack had to be introduced to the
+/poky/meta/classes/buildstats.bbclass .The disk device(rdev) was hard
+coded to an available physical drive sda1. As shown below:
+
+diff --git a/meta/classes/buildstats.bbclass b/meta/classes/buildstats.bbclass
+index 55cbb3c..8718e79 100644
+--- a/meta/classes/buildstats.bbclass
++++ b/meta/classes/buildstats.bbclass
+@@ -52,6 +52,7 @@ def set_device(e):
+     device=os.stat(tmpdir)
+     majordev=os.major(device.st_dev)
+     minordev=os.minor(device.st_dev)
++    rdev = "sda1"
+     for line in open("/proc/diskstats", "r"):
+         if majordev == int(line.split()[0]) and minordev ==
+int(line.split()[1]):
+            rdev=line.split()[2]
+
+
+This allows the build to run to completion. Should I report this as a
+bug via bugzilla ?
+
+Thanks,
+Derek
+
