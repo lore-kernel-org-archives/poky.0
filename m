@@ -1,32 +1,19 @@
-Return-Path: <gerard@de-haardt.com>
-Received: from cpsmtpb-ews03.kpnxchange.com (cpsmtpb-ews03.kpnxchange.com
-	[213.75.39.6])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA18BE0030A
-	for <poky@yoctoproject.org>; Thu,  1 Dec 2011 01:30:07 -0800 (PST)
-Received: from cpsps-ews25.kpnxchange.com ([10.94.84.191]) by
-	cpsmtpb-ews03.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
-	Thu, 1 Dec 2011 10:30:06 +0100
-Received: from CPSMTPM-CMT103.kpnxchange.com ([195.121.3.19]) by
-	cpsps-ews25.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
-	Thu, 1 Dec 2011 10:30:06 +0100
-Received: from mail.de-haardt.com ([86.81.67.223]) by
-	CPSMTPM-CMT103.kpnxchange.com with Microsoft
-	SMTPSVC(7.0.6002.18264); Thu, 1 Dec 2011 10:30:05 +0100
-Received: from [192.168.1.160] ([192.168.1.160])
-	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
-	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
-	for poky@yoctoproject.org; Thu, 1 Dec 2011 10:30:03 +0100
-Message-ID: <4ED7491B.4010205@de-haardt.com>
-Date: Thu, 01 Dec 2011 10:30:03 +0100
-From: Gerard van den Bosch <gerard@de-haardt.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.21) Gecko/20110831 Lightning/1.0b2 Thunderbird/3.1.13
-MIME-Version: 1.0
-To: poky <poky@yoctoproject.org>
-X-OriginalArrivalTime: 01 Dec 2011 09:30:05.0782 (UTC)
-	FILETIME=[CF695F60:01CCB00B]
-X-RcptDomain: yoctoproject.org
-Subject: kernel do_install copy error
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3510FE0059F
+	for <poky@yoctoproject.org>; Thu,  1 Dec 2011 15:52:43 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 01 Dec 2011 15:52:42 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,281,1320652800"; d="scan'208";a="97665217"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.15.251])
+	by fmsmga002.fm.intel.com with ESMTP; 01 Dec 2011 15:52:42 -0800
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  1 Dec 2011 15:52:41 -0800
+Message-Id: <1322783561-4324-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.6.4
+Subject: [PATCH 2/3] linux-yocto_2.6.34: remove bbappend
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,83 +25,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Dec 2011 09:30:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 01 Dec 2011 23:52:43 -0000
 
-Hello,
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ .../linux/linux-yocto_2.6.34.bbappend              |   12 ------------
+ 1 files changed, 0 insertions(+), 12 deletions(-)
+ delete mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto_2.6.34.bbappend
 
-I have some problems with the do_install of a vendor kernel on the 
-Edison release. I used the same kernel recipe as in the very old Laverne 
-release that I last build several months ago.
-
-It gave the following error during the do_install routine of the kernel:
-+ cp -fR COPYING CREDITS Documentation Kbuild MAINTAINERS Makefile 
-Module.symvers README REPORTING-BUGS System.map arch block crypto 
-defconfig drivers firmware fs headerstash image include init ipc kernel 
-lib mm modules.order net pseudo samples scripts security sound temp 
-tools usr virt vmlinux vmlinux.o 
-/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel
-cp: cannot copy a directory, `image', into itself, 
-`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/image'
-
-Looked in the kernel.bbclass where this happened and the error seemed 
-originating from this command:
-151    cp -fR * $kerneldir
-
-Found this was changed in this commit:
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/meta/classes/kernel.bbclass?id=3b49416fc7a7ee9bfe722f2e6089aa18df41dc58
-
-First try I have reverted from "#Take care of arch specific headers" to 
-"#Clean and remove files....".
-
-But then the oe_runmake stuff after that gave errors:
-make[3]: *** [silentoldconfig] Error 1
-make[2]: *** [silentoldconfig] Error 2
-   CLEAN   arch/arm/kernel
-scripts/Makefile.clean:17: 
-/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile: 
-No such file or directory
-make[1]: *** No rule to make target 
-`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile'.  
-Stop.
-make: *** [_clean_block] Error 2
-make: Leaving directory `/hom
-arch/arm/Kconfig:192: can't open file "init/Kconfig"
-make[3]: *** [silentoldconfig] Error 1
-make[2]: *** [silentoldconfig] Error 2
-   CLEAN   arch/arm/kernel
-scripts/Makefile.clean:17: 
-/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile: 
-No such file or directory
-make[1]: *** No rule to make target 
-`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile'.  
-Stop.
-make: *** [_clean_block] Error 2
-e/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel'
-+ die 'oe_runmake failed'
-+ bbfatal 'oe_runmake failed'
-+ echo 'ERROR: oe_runmake failed'
-ERROR: oe_runmake failed
-+ exit 1
-
-make: Leaving directory 
-`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel'
-+ die 'oe_runmake failed'
-+ bbfatal 'oe_runmake failed'
-+ echo 'ERROR: oe_runmake failed'
-ERROR: oe_runmake failed
-+ exit 1
-
-When I commented the 4 lines from oe_runmake the do_install succeeded.
-I have made a pastebin of my kernel recipe here: 
-http://pastebin.com/vh3C0jzb
-
-Are there problems with my recipe or are there other things going wrong?
-
-Regards,
-Gerard
-
-
+diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.34.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.34.bbappend
+deleted file mode 100644
+index ea0287d..0000000
+--- a/meta-yocto/recipes-kernel/linux/linux-yocto_2.6.34.bbappend
++++ /dev/null
+@@ -1,12 +0,0 @@
+-KMACHINE_atom-pc  = "atom-pc"
+-KMACHINE_routerstationpro = "routerstationpro"
+-KMACHINE_mpc8315e-rdb = "fsl-mpc8315e-rdb"
+-KMACHINE_beagleboard = "beagleboard"
+-
+-SRCREV_machine_atom-pc = "72ca49ab08b8eb475cec82a10049503602325791"
+-SRCREV_machine_routerstationpro = "49745cd45c92a89e70c6e2334caa80818c134562"
+-SRCREV_machine_mpc8315e-rdb = "a1c0ed6bf4060c10874b2a8547d81b3169dcf16a"
+-SRCREV_machine_beagleboard = "ef7f944e773950d4016b7643f9ecf052bbe250cd"
+-
+-COMPATIBLE_MACHINE += "(atom-pc|routerstationpro|mpc8315e-rdb|beagleboard)"
+-
+-- 
+1.7.6.4
 
 
