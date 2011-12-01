@@ -1,32 +1,32 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-lpp01m010-f48.google.com (mail-lpp01m010-f48.google.com
-	[209.85.215.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C4A79E00502
-	for <poky@yoctoproject.org>; Wed, 30 Nov 2011 19:22:57 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by lagv3 with SMTP id v3so775438lag.35
-	for <poky@yoctoproject.org>; Wed, 30 Nov 2011 19:22:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=gHSjPC98Pa9OqRHtQRzqYX/RLEuv02rnscBDyv0098Y=;
-	b=IT6o5AVmGOaB7krdM98dFODvruDukMfdhaP6SeOzKFltY81oy51aiB4q+ssFoybvu1
-	SLdiE/Jwde3G0c7KMF7rnh+SAWaS9L2wkEioMVQEQNcJk1kfbxoLYqHyK4OdpualZb+3
-	Qgiit5WhNEamHzLV+l/4tVWCxCFEsKtiucby8=
-Received: by 10.152.105.67 with SMTP id gk3mr3256788lab.48.1322709776294; Wed,
-	30 Nov 2011 19:22:56 -0800 (PST)
+Return-Path: <gerard@de-haardt.com>
+Received: from cpsmtpb-ews03.kpnxchange.com (cpsmtpb-ews03.kpnxchange.com
+	[213.75.39.6])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA18BE0030A
+	for <poky@yoctoproject.org>; Thu,  1 Dec 2011 01:30:07 -0800 (PST)
+Received: from cpsps-ews25.kpnxchange.com ([10.94.84.191]) by
+	cpsmtpb-ews03.kpnxchange.com with Microsoft SMTPSVC(6.0.3790.4675); 
+	Thu, 1 Dec 2011 10:30:06 +0100
+Received: from CPSMTPM-CMT103.kpnxchange.com ([195.121.3.19]) by
+	cpsps-ews25.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+	Thu, 1 Dec 2011 10:30:06 +0100
+Received: from mail.de-haardt.com ([86.81.67.223]) by
+	CPSMTPM-CMT103.kpnxchange.com with Microsoft
+	SMTPSVC(7.0.6002.18264); Thu, 1 Dec 2011 10:30:05 +0100
+Received: from [192.168.1.160] ([192.168.1.160])
+	(authenticated user gerard@de-haardt.com) by mail.de-haardt.com
+	(using TLSv1/SSLv3 with cipher AES256-SHA (256 bits))
+	for poky@yoctoproject.org; Thu, 1 Dec 2011 10:30:03 +0100
+Message-ID: <4ED7491B.4010205@de-haardt.com>
+Date: Thu, 01 Dec 2011 10:30:03 +0100
+From: Gerard van den Bosch <gerard@de-haardt.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.2.21) Gecko/20110831 Lightning/1.0b2 Thunderbird/3.1.13
 MIME-Version: 1.0
-Received: by 10.152.24.36 with HTTP; Wed, 30 Nov 2011 19:22:26 -0800 (PST)
-In-Reply-To: <CABRtByMv9xpdK6Wy7d1hJ8Kbvhjj8Dk=n9YLijdbT+QfiZZGcA@mail.gmail.com>
-References: <CABRtByMv9xpdK6Wy7d1hJ8Kbvhjj8Dk=n9YLijdbT+QfiZZGcA@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 30 Nov 2011 19:22:26 -0800
-Message-ID: <CAMKF1srVgs2h2B-5ACmeUjZfYDnvbcm-vtxRqL3fG9S+jzMvNA@mail.gmail.com>
-To: sonu vishwakarma <vishwasonu2000@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: package libsexy-0.1.11-r1: task do_compile: Failed
+To: poky <poky@yoctoproject.org>
+X-OriginalArrivalTime: 01 Dec 2011 09:30:05.0782 (UTC)
+	FILETIME=[CF695F60:01CCB00B]
+X-RcptDomain: yoctoproject.org
+Subject: kernel do_install copy error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,28 +38,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Dec 2011 03:22:58 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 01 Dec 2011 09:30:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 28, 2011 at 11:24 PM, sonu vishwakarma
-<vishwasonu2000@gmail.com> wrote:
-> Hi,
-> I'm trying the build for XBMC , which depends on libsexy , i'm getting the
-> compilation error as follows:
->
-> |
-> /home/sct/poky_gigabyte_09Nov_xbmc/build/tmp/sysroots/fishriver/usr/lib/libcairo.so:
-> undefined reference to `__longjmp_chk@GLIBC_2.11'
-> | collect2: ld returned 1 exit status
-> | make[2]: *** [test-spell-entry] Error 1
-> | make[2]: *** Waiting for unfinished jobs....
-> |
+Hello,
 
-Its because the make system of this package is using fortified sources
-probably can you
-add -U_FORTIFY_SOURCE to CFLAGS and see if that helps ?
+I have some problems with the do_install of a vendor kernel on the 
+Edison release. I used the same kernel recipe as in the very old Laverne 
+release that I last build several months ago.
 
-something like
+It gave the following error during the do_install routine of the kernel:
++ cp -fR COPYING CREDITS Documentation Kbuild MAINTAINERS Makefile 
+Module.symvers README REPORTING-BUGS System.map arch block crypto 
+defconfig drivers firmware fs headerstash image include init ipc kernel 
+lib mm modules.order net pseudo samples scripts security sound temp 
+tools usr virt vmlinux vmlinux.o 
+/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel
+cp: cannot copy a directory, `image', into itself, 
+`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/image'
 
-CFLAGS += "-U_FORTIFY_SOURCE"
+Looked in the kernel.bbclass where this happened and the error seemed 
+originating from this command:
+151    cp -fR * $kerneldir
+
+Found this was changed in this commit:
+http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/meta/classes/kernel.bbclass?id=3b49416fc7a7ee9bfe722f2e6089aa18df41dc58
+
+First try I have reverted from "#Take care of arch specific headers" to 
+"#Clean and remove files....".
+
+But then the oe_runmake stuff after that gave errors:
+make[3]: *** [silentoldconfig] Error 1
+make[2]: *** [silentoldconfig] Error 2
+   CLEAN   arch/arm/kernel
+scripts/Makefile.clean:17: 
+/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile: 
+No such file or directory
+make[1]: *** No rule to make target 
+`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile'.  
+Stop.
+make: *** [_clean_block] Error 2
+make: Leaving directory `/hom
+arch/arm/Kconfig:192: can't open file "init/Kconfig"
+make[3]: *** [silentoldconfig] Error 1
+make[2]: *** [silentoldconfig] Error 2
+   CLEAN   arch/arm/kernel
+scripts/Makefile.clean:17: 
+/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile: 
+No such file or directory
+make[1]: *** No rule to make target 
+`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel/block/Makefile'.  
+Stop.
+make: *** [_clean_block] Error 2
+e/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel'
++ die 'oe_runmake failed'
++ bbfatal 'oe_runmake failed'
++ echo 'ERROR: oe_runmake failed'
+ERROR: oe_runmake failed
++ exit 1
+
+make: Leaving directory 
+`/home/gerard/poky-edison-6.0/build/tmp/work/tao3530-poky-linux-gnueabi/tao-psp-2.6.32-r1/image/kernel'
++ die 'oe_runmake failed'
++ bbfatal 'oe_runmake failed'
++ echo 'ERROR: oe_runmake failed'
+ERROR: oe_runmake failed
++ exit 1
+
+When I commented the 4 lines from oe_runmake the do_install succeeded.
+I have made a pastebin of my kernel recipe here: 
+http://pastebin.com/vh3C0jzb
+
+Are there problems with my recipe or are there other things going wrong?
+
+Regards,
+Gerard
+
+
+
 
