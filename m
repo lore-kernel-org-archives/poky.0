@@ -1,32 +1,52 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A4489E0030F
-	for <poky@yoctoproject.org>; Mon,  5 Dec 2011 09:23:38 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 999)
-	id CCA831660C3A; Mon,  5 Dec 2011 10:23:35 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 501FB1660C37;
-	Mon,  5 Dec 2011 10:23:28 -0700 (MST)
-Message-ID: <4EDCFE10.4000208@mlbassoc.com>
-Date: Mon, 05 Dec 2011 10:23:28 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:7.0.1) Gecko/20110930 Thunderbird/7.0.1
+Return-Path: <B29882@freescale.com>
+Received: from VA3EHSOBE004.bigfish.com (va3ehsobe004.messaging.microsoft.com
+	[216.32.180.14])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3C067E00747
+	for <poky@yoctoproject.org>; Mon,  5 Dec 2011 09:24:41 -0800 (PST)
+Received: from mail23-va3-R.bigfish.com (10.7.14.249) by
+	VA3EHSOBE004.bigfish.com (10.7.40.24) with Microsoft SMTP Server id
+	14.1.225.23; Mon, 5 Dec 2011 17:24:40 +0000
+Received: from mail23-va3 (localhost [127.0.0.1])	by mail23-va3-R.bigfish.com
+	(Postfix) with ESMTP id E21FA44032B;
+	Mon,  5 Dec 2011 17:24:39 +0000 (UTC)
+X-SpamScore: -6
+X-BigFish: VS-6(zzc89bh1432Nzz1202hzzz2dhb2ch2a8h668h839h8e2h8e3h61h)
+X-Spam-TCS-SCL: 0:0
+X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
+	H:mail.freescale.net; RD:none; EFVD:NLI
+X-FB-SS: 0,
+Received: from mail23-va3 (localhost.localdomain [127.0.0.1]) by mail23-va3
+	(MessageSwitch) id 1323105819681533_27054;
+	Mon,  5 Dec 2011 17:23:39 +0000 (UTC)
+Received: from VA3EHSMHS029.bigfish.com (unknown [10.7.14.247])	by
+	mail23-va3.bigfish.com (Postfix) with ESMTP id 7BC44180047;
+	Mon,  5 Dec 2011 17:23:39 +0000 (UTC)
+Received: from mail.freescale.net (70.37.183.190) by VA3EHSMHS029.bigfish.com
+	(10.7.99.39) with Microsoft SMTP Server (TLS) id 14.1.225.23;
+	Mon, 5 Dec 2011 17:23:25 +0000
+Received: from 039-SN1MPN1-002.039d.mgd.msft.net ([169.254.2.83]) by
+	039-SN1MMR1-001.039d.mgd.msft.net ([10.84.1.13]) with mapi id
+	14.01.0339.002; Mon, 5 Dec 2011 11:23:24 -0600
+From: McClintock Matthew-B29882 <B29882@freescale.com>
+To: =?iso-8859-1?Q?Matthias_D=FCbon?= <mail@ing-duebon.de>
+Thread-Topic: [poky] external toolchain example
+Thread-Index: AQHMs3KXyAxcoqnUQ0yhdMFSdJmV+A==
+Date: Mon, 5 Dec 2011 17:23:24 +0000
+Message-ID: <CAEsOVNcoydm=-ztxsvVPcf1WyComD5upCf3A7qA1C4H3t8wmbQ@mail.gmail.com>
+References: <CANv1b=2D8rkzkDpf8Xbwau4_JwPP6_Q_bRicPofxafCnKxe9=A@mail.gmail.com>
+In-Reply-To: <CANv1b=2D8rkzkDpf8Xbwau4_JwPP6_Q_bRicPofxafCnKxe9=A@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [99.47.177.27]
 MIME-Version: 1.0
-To: McClintock Matthew-B29882 <B29882@freescale.com>
-References: <4EDCFB28.9010402@mlbassoc.com>
-	<CAEsOVNfgTpENJvuQCjGd+BEytb7W4+MmPgJtrX4YqL9Q1-RXZw@mail.gmail.com>
-In-Reply-To: <CAEsOVNfgTpENJvuQCjGd+BEytb7W4+MmPgJtrX4YqL9Q1-RXZw@mail.gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Can't build glib-2.0
+X-OriginatorOrg: freescale.com
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: external toolchain example
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: McClintock Matthew-B29882 <B29882@freescale.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -35,75 +55,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Dec 2011 17:23:38 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 05 Dec 2011 17:24:41 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <B180EB5299B7134C8E732A375BF333DE@freescale.net>
+Content-Transfer-Encoding: quoted-printable
 
-On 2011-12-05 10:18, McClintock Matthew-B29882 wrote:
-> On Mon, Dec 5, 2011 at 11:11 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
->> NOTE: package glib-2.0-1_2.30.1-r0: task do_install: Started
->> ERROR: Function 'do_install' failed (see
->> /home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/temp/log.do_install.8610
->> for further information)
->> ERROR: Logfile of failure stored in:
->> /home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/temp/log.do_install.8610
->> Log data follows:
->> | DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common',
->> 'common-linux', 'common-glibc', 'arm-linux', 'arm-linux-gnueabi', 'common']
->> | ERROR: Function 'do_install' failed (see
->> /home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/temp/log.do_install.8610
->> for further information)
->> |
->> /home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/temp/run.do_install.8610:
->> line 96: oe_runmake: command not found
->> NOTE: package glib-2.0-1_2.30.1-r0: task do_install: Failed
+2011/12/5 Matthias D=FCbon <mail@ing-duebon.de>:
+> Hello,
 >
-> What's on line 96?
+> did anyone ever try to use the external example toolchain "csl-2008q3-72"
+> (TCMODE =3D "external-csl2008q3")
+> When building bitbake core-image-minimal I got an error in do_configure
+> of=A0external-csl-toolchain_2008q3-72.bb:
+>
+> "sed: can't read
+> /home/matthias/poky/build/tmp/work/armv5te-none-linux-gnueabi/external-cs=
+l-toolchain-2008q3-72-r1/external-csl-toolchain-2008q3-72/elf/ldd.bash.in:
+> No such file or directory
+>
+> Should I try to debug this? Is it of any interest?
 
-The normal 'autotools_do_install' boilerplate:
+I'm not sure if this is currently working. I think some have expressed
+interest in it working again...
 
-autotools_do_install() {
-         oe_runmake 'DESTDIR=/home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/image' install
-         # Info dir listing isn't interesting at this point so remove it if it exists.
-         if [ -e "/home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/image/usr/share/info/dir" ]; then
-                 rm -f /home/local/p60_poky/tmp/work/armv7a-vfp-neon-amltd-linux-gnueabi/glib-2.0-1_2.30.1-r0/image/usr/share/info/dir
-         fi
+-M=
 
-}
-
-What's missing is the functions which should be coming from base.bbclass.
-I looked at an older build of glib-2.0 and these functions are missing:
-==============================================================
-oe_runmake() {
-         if [ x"$MAKE" = x ]; then MAKE=make; fi
-         bbnote make -j 4  "$@"
-         make -j 4  "$@" || die "oe_runmake failed"
-
-}
-
-die() {
-         bbfatal "$*"
-
-}
-
-bbnote() {
-         echo "NOTE: $*"
-
-}
-
-bbfatal() {
-         echo "ERROR: $*"
-         exit 1
-
-}
-==============================================================
-
-Why would they be missing from this run.do_install script?
-
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
