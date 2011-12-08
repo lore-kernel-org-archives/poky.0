@@ -1,30 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 65201E00728
-	for <poky@yoctoproject.org>; Thu,  8 Dec 2011 03:19:13 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pB8BJ7He027300;
-	Thu, 8 Dec 2011 11:19:07 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 26934-02; Thu,  8 Dec 2011 11:19:03 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pB8BIuG9027263
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 8 Dec 2011 11:18:57 GMT
-Message-ID: <1323343148.971.14.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Saul Wold <sgw@linux.intel.com>
-Date: Thu, 08 Dec 2011 11:19:08 +0000
-In-Reply-To: <1323333949-20359-1-git-send-email-sgw@linux.intel.com>
-References: <1323333949-20359-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: Evolution 3.2.1- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] atom-pc.conf: ensure grub is included in base image
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB609E005B9
+	for <poky@yoctoproject.org>; Thu,  8 Dec 2011 08:05:15 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pB8G5EO1023412
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 8 Dec 2011 08:05:14 -0800 (PST)
+Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Thu, 8 Dec 2011 08:05:14 -0800
+Message-ID: <4EE0E03A.9020307@windriver.com>
+Date: Thu, 8 Dec 2011 10:05:14 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:8.0) Gecko/20111105 Thunderbird/8.0
+MIME-Version: 1.0
+To: <poky@yoctoproject.org>
+References: <4EE01E6F.8090700@windriver.com>
+In-Reply-To: <4EE01E6F.8090700@windriver.com>
+Subject: Re: Where is bridge-utils in yocto recipes ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,36 +31,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Dec 2011 11:19:18 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 08 Dec 2011 16:05:16 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2011-12-08 at 00:45 -0800, Saul Wold wrote:
-> Signed-off-by: Saul Wold <sgw@linux.intel.com>
-> ---
->  meta-yocto/conf/machine/atom-pc.conf |    2 ++
->  1 files changed, 2 insertions(+), 0 deletions(-)
-> 
-> diff --git a/meta-yocto/conf/machine/atom-pc.conf b/meta-yocto/conf/machine/atom-pc.conf
-> index 7cbe157..1585a74 100644
-> --- a/meta-yocto/conf/machine/atom-pc.conf
-> +++ b/meta-yocto/conf/machine/atom-pc.conf
-> @@ -27,6 +27,8 @@ XSERVER ?= "xserver-xorg \
->  
->  #MACHINE_EXTRA_RDEPENDS = "rt2860"
->  
-> +MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "grub" 
-> +
->  MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
->  
->  IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+On 12/7/11 8:18 PM, Zumeng Chen wrote:
+> Hi All,
+>
+> I want to use bridge control brctl, but bit-bake bridge-utils
+> returns failure, name changed? or not existence?
+>
+> Any comments are welcome?
 
-I can think of several scenarios this doesn't make sense. Its only
-really essential if you're making live images. Could you give some
-details about the problem you're seeing please?
+I don't believe anyone has ported bridge-utils to oe-core/Poky yet.
 
-Cheers,
+--Mark
 
-Richard
+> Thanks,
+> Zumeng
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
