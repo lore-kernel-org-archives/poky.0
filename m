@@ -1,22 +1,19 @@
-Return-Path: <Zumeng.Chen@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 32169E00728
-	for <poky@yoctoproject.org>; Wed,  7 Dec 2011 18:17:57 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pB82Hub0006379
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 7 Dec 2011 18:17:56 -0800 (PST)
-Received: from [128.224.162.181] (128.224.162.181) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Wed, 7 Dec 2011 18:17:56 -0800
-Message-ID: <4EE01E6F.8090700@windriver.com>
-Date: Thu, 8 Dec 2011 10:18:23 +0800
-From: Zumeng Chen <zumeng.chen@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.11) Gecko/20100713 Lightning/1.0b1 Thunderbird/3.0.6
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-Subject: Where is bridge-utils in yocto recipes ?
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AE31FE00728
+	for <poky@yoctoproject.org>; Thu,  8 Dec 2011 00:45:50 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 08 Dec 2011 00:45:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="99988427"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.35])
+	by fmsmga002.fm.intel.com with ESMTP; 08 Dec 2011 00:45:50 -0800
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  8 Dec 2011 00:45:49 -0800
+Message-Id: <1323333949-20359-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.6.4
+Subject: [PATCH] atom-pc.conf: ensure grub is included in base image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,17 +25,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Dec 2011 02:17:57 -0000
-Content-Type: text/plain; charset="GB2312"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 08 Dec 2011 08:45:50 -0000
 
-Hi All,
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ meta-yocto/conf/machine/atom-pc.conf |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
-I want to use bridge control brctl, but bit-bake bridge-utils
-returns failure, name changed? or not existence?
+diff --git a/meta-yocto/conf/machine/atom-pc.conf b/meta-yocto/conf/machine/atom-pc.conf
+index 7cbe157..1585a74 100644
+--- a/meta-yocto/conf/machine/atom-pc.conf
++++ b/meta-yocto/conf/machine/atom-pc.conf
+@@ -27,6 +27,8 @@ XSERVER ?= "xserver-xorg \
+ 
+ #MACHINE_EXTRA_RDEPENDS = "rt2860"
+ 
++MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "grub" 
++
+ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts"
+ 
+ IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+-- 
+1.7.6.4
 
-Any comments are welcome?
-
-Thanks,
-Zumeng
 
