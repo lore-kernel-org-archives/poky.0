@@ -1,23 +1,25 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 941DFE00303
-	for <poky@yoctoproject.org>; Fri,  9 Dec 2011 16:02:16 -0800 (PST)
-Received: by eekb47 with SMTP id b47so2292550eek.35
-	for <poky@yoctoproject.org>; Fri, 09 Dec 2011 16:02:15 -0800 (PST)
-Received: by 10.14.18.100 with SMTP id k76mr1122584eek.93.1323475333781;
-	Fri, 09 Dec 2011 16:02:13 -0800 (PST)
-Received: from [192.168.1.2] ([79.117.116.240])
-	by mx.google.com with ESMTPS id f47sm4673436eea.1.2011.12.09.16.02.12
-	(version=SSLv3 cipher=OTHER); Fri, 09 Dec 2011 16:02:13 -0800 (PST)
-Message-ID: <4EE2A184.6020901@gherzan.ro>
-Date: Sat, 10 Dec 2011 02:02:12 +0200
-From: Andrei Gherzan <andrei@gherzan.ro>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:8.0) Gecko/20111124 Thunderbird/8.0
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 89E53E00305
+	for <poky@yoctoproject.org>; Fri,  9 Dec 2011 20:08:53 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pBA48qI0012546
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Fri, 9 Dec 2011 20:08:52 -0800 (PST)
+Received: from Macintosh-5.local (172.25.36.226) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Fri, 9 Dec 2011 20:08:51 -0800
+Message-ID: <4EE2DB52.5050107@windriver.com>
+Date: Fri, 9 Dec 2011 22:08:50 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:8.0) Gecko/20111105 Thunderbird/8.0
 MIME-Version: 1.0
-To: poky@yoctoproject.org
+To: <poky@yoctoproject.org>
 References: <4EE2887C.3000601@gherzan.ro> <4EE29B38.3030104@linux.intel.com>
-In-Reply-To: <4EE29B38.3030104@linux.intel.com>
+	<4EE2A184.6020901@gherzan.ro>
+In-Reply-To: <4EE2A184.6020901@gherzan.ro>
 Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,109 +32,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 10 Dec 2011 00:02:18 -0000
-Content-Type: multipart/alternative;
-	boundary="------------050907040506010903030909"
-
---------------050907040506010903030909
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Sat, 10 Dec 2011 04:08:53 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-> This looks like our debian-style package renaming, which renames
-> libraries to include the lib prefix.
+On 12/9/11 6:02 PM, Andrei Gherzan wrote:
 >
-> We have a brief blurb about it here:
-> http://www.yoctoproject.org/docs/current/poky-ref-manual/poky-ref-manual.html#ref-classes-debian
+>> This looks like our debian-style package renaming, which renames
+>> libraries to include the lib prefix.
+>>
+>> We have a brief blurb about it here:
+>> http://www.yoctoproject.org/docs/current/poky-ref-manual/poky-ref-manual.html#ref-classes-debian
+>>
+>> Regards,
+>> Joshua
 >
-> Regards,
-> Joshua
+> Yes it looks like. But here is the problem: i included this pkg in IMAGE-INSTALL
+> and i found library from -extra with even if
+> LICENSE_${PN}-extra = "GPLv3+"
+>
+> And i think that this could be because of this name style change.
 
-Yes it looks like. But here is the problem: i included this pkg in 
-IMAGE-INSTALL and i found library from -extra with even if
-LICENSE_${PN}-extra = "GPLv3+"
+There are two issues here.  The first is that IMAGE_INSTALL is the binary 
+package name.  This name can be munged with the renaming as Joshua mentioned. 
+Most people assume that this name matches the source recipe name.  So there is 
+confusion to deal with.
 
-And i think that this could be because of this name style change.
+The other issue is that any place a user is asked to list a -binary- package 
+name, it should go through the same munging process as it does when things are 
+generated.  The IMAGE_INSTALL does not do this at this time.  (It -really- 
+should!)  This has been on my list of things to work on for a while now, but I 
+have not had the time to get to it.
 
--- 
-*Andrei Gherzan*, Engineer
-mobile +40.744.478.414  fax +40.031.816.28.12
-Email: andrei@gherzan.ro
-Email: andrei.gherzan@windriver.com
-Romania
+Patches are welcome!  ;)
 
-Acest e-mail reprezinta corespondenta pentru care dumneavoastra v-ati 
-exprimat acordul si se supune politicii noastre de anti-spamming.
-Daca totusi considerati ca acest email reprezinta spamming va rugam sa 
-ne contactati folosind e-mail-ul info@gherzan.ro. Multumim.
+--Mark
 
---------------050907040506010903030909
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+> --
+> *Andrei Gherzan*, Engineer
+> mobile +40.744.478.414 fax +40.031.816.28.12
+> Email: andrei@gherzan.ro
+> Email: andrei.gherzan@windriver.com
+> Romania
+>
+> Acest e-mail reprezinta corespondenta pentru care dumneavoastra v-ati exprimat
+> acordul si se supune politicii noastre de anti-spamming.
+> Daca totusi considerati ca acest email reprezinta spamming va rugam sa ne
+> contactati folosind e-mail-ul info@gherzan.ro. Multumim.
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-<html>
-  <head>
-    <meta content="text/html; charset=ISO-8859-1"
-      http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <br>
-    <blockquote cite="mid:4EE29B38.3030104@linux.intel.com" type="cite">
-      <pre wrap="">
-This looks like our debian-style package renaming, which renames
-libraries to include the lib prefix.
 
-We have a brief blurb about it here:
-<a class="moz-txt-link-freetext" href="http://www.yoctoproject.org/docs/current/poky-ref-manual/poky-ref-manual.html#ref-classes-debian">http://www.yoctoproject.org/docs/current/poky-ref-manual/poky-ref-manual.html#ref-classes-debian</a>
-
-Regards,
-Joshua
-</pre>
-    </blockquote>
-    <br>
-    Yes it looks like. But here is the problem: i included this pkg in
-    IMAGE-INSTALL and i found library from -extra with even if <br>
-    LICENSE_${PN}-extra = "GPLv3+"<br>
-    <br>
-    And i think that this could be because of this name style change.<br>
-    <br>
-    <div class="moz-signature">-- <br>
-      <title>work Signature</title>
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=ISO-8859-1">
-      <meta content="MSHTML 6.00.5730.11" name="GENERATOR">
-      <style type="text/css">
-<!--
-a {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #cc0000;
-	text-decoration: none;
-}
--->
-</style>
-      <div vertical-align="middle" align="left"><font color="#333333"
-          face="Arial" size="-1"> <strong>Andrei Gherzan</strong>,
-          Engineer</font><br>
-        <font color="#333333" face="Arial" size="-1"> mobile
-          +40.744.478.414&nbsp;&nbsp;fax +40.031.816.28.12</font><br>
-        <font color="#333333" face="Arial" size="-1"> Email:
-          <a class="moz-txt-link-abbreviated" href="mailto:andrei@gherzan.ro">andrei@gherzan.ro</a></font><br>
-        <font color="#333333" face="Arial" size="-1"> Email:
-          <a class="moz-txt-link-abbreviated" href="mailto:andrei.gherzan@windriver.com">andrei.gherzan@windriver.com</a></font><br>
-        <font color="#333333" face="Arial" size="-1"> Romania</font><br>
-        <br>
-      </div>
-      <div>
-        <font color="#333333" face="Arial" size="-2">
-          Acest e-mail reprezinta corespondenta pentru care
-          dumneavoastra v-ati exprimat acordul si se supune politicii
-          noastre de anti-spamming. <br>
-          Daca totusi considerati ca acest email reprezinta spamming va
-          rugam sa ne contactati folosind e-mail-ul <a class="moz-txt-link-abbreviated" href="mailto:info@gherzan.ro">info@gherzan.ro</a>.
-          Multumim. </font>
-      </div>
-    </div>
-  </body>
-</html>
-
---------------050907040506010903030909--
