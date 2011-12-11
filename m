@@ -1,26 +1,24 @@
-Return-Path: <flocirel@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 42E26E006B8
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 02:58:07 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wgbdt13 with SMTP id dt13so8044406wgb.11
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 02:58:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=gnHlVqsdTRviOvz98/NV9ujZ0YhwwFg8bCrfY4d5B3E=;
-	b=sIkt59p+pX2zRYoxn5Rzf5+PxePIu6IkUqKBb1fjDB7uDjIwvcYuY3Ba/KWBe80mX6
-	+u7hwoFhpRsgtUymggUrmV1bs15wbAIvQIF6IWdWxO0sLDmHHzLzRbqHNFDEQBChkTfM
-	1H/eBMz6eECG5CBhY1ePB9PPYWw3JQHvrbjtU=
+Return-Path: <andrei@gherzan.ro>
+Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
+	[209.85.215.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6359EE0030B
+	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 08:10:37 -0800 (PST)
+Received: by eaac13 with SMTP id c13so1567465eaa.35
+	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 08:10:36 -0800 (PST)
+Received: by 10.213.17.145 with SMTP id s17mr2838709eba.14.1323619836274;
+	Sun, 11 Dec 2011 08:10:36 -0800 (PST)
+Received: from [192.168.1.2] ([79.117.116.240])
+	by mx.google.com with ESMTPS id z54sm62840880eeh.5.2011.12.11.08.10.35
+	(version=SSLv3 cipher=OTHER); Sun, 11 Dec 2011 08:10:35 -0800 (PST)
+Message-ID: <4EE4D5FA.3050604@gherzan.ro>
+Date: Sun, 11 Dec 2011 18:10:34 +0200
+From: Andrei Gherzan <andrei@gherzan.ro>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:8.0) Gecko/20111124 Thunderbird/8.0
 MIME-Version: 1.0
-Received: by 10.227.206.144 with SMTP id fu16mr11663587wbb.23.1323601085854;
-	Sun, 11 Dec 2011 02:58:05 -0800 (PST)
-Received: by 10.223.75.200 with HTTP; Sun, 11 Dec 2011 02:58:05 -0800 (PST)
-Date: Sun, 11 Dec 2011 12:58:05 +0200
-Message-ID: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
-From: Foinel <flocirel@gmail.com>
 To: poky@yoctoproject.org
+References: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
+In-Reply-To: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
 Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -33,14 +31,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 11 Dec 2011 10:58:08 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sun, 11 Dec 2011 16:10:40 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
-I am seeing this issue too. Basically, even if gnutls is not
-explicitly added to IMAGE_INSTALL, some GPLv3 rpm (the -extra one) is
-getting added to the rootfs in spite of the restriction to not include
-GPLv3 packages. Any idea on how to get a list of package dependencies
-to get a clue at least on why gnutls (or which of the rpm's it creates
-) gets(get) dragged in? Any way to find this out automatically?
+I tried something else today.
+
+I created from scratch a new image-minimal and i added wpa-supplicant to 
+IMAGE_INSTALL - rpm's names are wpa-supplicant-[stuff]. After finishing 
+this image i could see that gnutls-extra is again in rootfs even if i 
+excluded GPLv3 from build. After searching a little i could see that 
+gnutls is a dependency for wpa-supplicant and, in the generated gnutls 
+spec, that gnutls-extra is required by gnutls-bin.
+
+If bin requires extra than this build should have ended with an error... 
+no provider as GPLv3 excluded. Am i right?
 
