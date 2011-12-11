@@ -1,24 +1,30 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6359EE0030B
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 08:10:37 -0800 (PST)
-Received: by eaac13 with SMTP id c13so1567465eaa.35
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 08:10:36 -0800 (PST)
-Received: by 10.213.17.145 with SMTP id s17mr2838709eba.14.1323619836274;
-	Sun, 11 Dec 2011 08:10:36 -0800 (PST)
-Received: from [192.168.1.2] ([79.117.116.240])
-	by mx.google.com with ESMTPS id z54sm62840880eeh.5.2011.12.11.08.10.35
-	(version=SSLv3 cipher=OTHER); Sun, 11 Dec 2011 08:10:35 -0800 (PST)
-Message-ID: <4EE4D5FA.3050604@gherzan.ro>
-Date: Sun, 11 Dec 2011 18:10:34 +0200
-From: Andrei Gherzan <andrei@gherzan.ro>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:8.0) Gecko/20111124 Thunderbird/8.0
-MIME-Version: 1.0
-To: poky@yoctoproject.org
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 99C33E0030B
+	for <poky@yoctoproject.org>; Sun, 11 Dec 2011 14:12:26 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pBBMCL8B022433;
+	Sun, 11 Dec 2011 22:12:21 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 22269-01; Sun, 11 Dec 2011 22:12:18 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pBBMCCjE022427
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 11 Dec 2011 22:12:14 GMT
+Message-ID: <1323641532.2731.5.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Andrei Gherzan <andrei@gherzan.ro>
+Date: Sun, 11 Dec 2011 22:12:12 +0000
+In-Reply-To: <4EE4D5FA.3050604@gherzan.ro>
 References: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
-In-Reply-To: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
+	<4EE4D5FA.3050604@gherzan.ro>
+X-Mailer: Evolution 3.2.1- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
 Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -31,19 +37,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 11 Dec 2011 16:10:40 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Sun, 11 Dec 2011 22:12:32 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-I tried something else today.
+On Sun, 2011-12-11 at 18:10 +0200, Andrei Gherzan wrote:
+> I tried something else today.
+> 
+> I created from scratch a new image-minimal and i added wpa-supplicant to 
+> IMAGE_INSTALL - rpm's names are wpa-supplicant-[stuff]. After finishing 
+> this image i could see that gnutls-extra is again in rootfs even if i 
+> excluded GPLv3 from build. After searching a little i could see that 
+> gnutls is a dependency for wpa-supplicant and, in the generated gnutls 
+> spec, that gnutls-extra is required by gnutls-bin.
+> 
+> If bin requires extra than this build should have ended with an error... 
+> no provider as GPLv3 excluded. Am i right?
 
-I created from scratch a new image-minimal and i added wpa-supplicant to 
-IMAGE_INSTALL - rpm's names are wpa-supplicant-[stuff]. After finishing 
-this image i could see that gnutls-extra is again in rootfs even if i 
-excluded GPLv3 from build. After searching a little i could see that 
-gnutls is a dependency for wpa-supplicant and, in the generated gnutls 
-spec, that gnutls-extra is required by gnutls-bin.
+Are you running a build which includes GPLv3, then running a build
+excluding GPLv3? I suspect doing that could confuse the system a little
+but I'm not sure exactly what the issue would be.
 
-If bin requires extra than this build should have ended with an error... 
-no provider as GPLv3 excluded. Am i right?
+If on the other hand you always exclude GPLv3 from a given build
+directory, there shouldn't be any way for it to become contaminated.
+
+There are various changes in master which are working towards making the
+license checking a build and runtime check rather than the build time
+check in 1.1.
+
+Cheers,
+
+Richard
+
 
