@@ -1,32 +1,34 @@
-Return-Path: <flocirel@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2DE23E01358
-	for <poky@yoctoproject.org>; Tue, 13 Dec 2011 02:22:05 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by wgbdt13 with SMTP id dt13so11766268wgb.11
-	for <poky@yoctoproject.org>; Tue, 13 Dec 2011 02:22:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type; bh=HGpBkPwOQsq0+9WjN0oV8IbZZOhg/VPoKCH38RBfaQs=;
-	b=JnRIEui6wvPAbafCfetRXzUUxJ/oalxavDLuuZyMKzyhlI6yYanFROUymBs8zWWnmI
-	X2t0IwIAQL4f29+0e3zJH+TIDm46nyOoVMk+NwE0UzbN8fIQoRNOPA6sCJx2UO7hZpp/
-	nh6iqbdtx8Rz1ZiqJoPCBpy2OLajuWlMxtVs0=
-MIME-Version: 1.0
-Received: by 10.227.205.14 with SMTP id fo14mr16311614wbb.22.1323771724161;
-	Tue, 13 Dec 2011 02:22:04 -0800 (PST)
-Received: by 10.223.75.200 with HTTP; Tue, 13 Dec 2011 02:22:04 -0800 (PST)
-In-Reply-To: <CAMKF1srCZg4-S-4EPsbCifk7Kr=SuDvsoqX0ww9p8WGdy=53Fg@mail.gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A808AE00739
+	for <poky@yoctoproject.org>; Tue, 13 Dec 2011 07:23:49 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pBDFNl9M010482;
+	Tue, 13 Dec 2011 15:23:47 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 09849-06; Tue, 13 Dec 2011 15:23:43 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id pBDFNbf7010476
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 13 Dec 2011 15:23:38 GMT
+Message-ID: <1323789817.25336.1.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Foinel <flocirel@gmail.com>
+Date: Tue, 13 Dec 2011 15:23:37 +0000
+In-Reply-To: <CANdftmN1g5VvOJ7znkzi1-mTgF1_QOnpwnA4hBjnQ9grF7VO+w@mail.gmail.com>
 References: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
 	<4EE4D5FA.3050604@gherzan.ro> <1323641532.2731.5.camel@ted>
 	<CANdftmPSkw9fEcucJcZPLm4kFticM6t7-pe4HUZoRxgsuj8t0w@mail.gmail.com>
 	<4EE68351.5090600@gherzan.ro>
 	<CAMKF1srCZg4-S-4EPsbCifk7Kr=SuDvsoqX0ww9p8WGdy=53Fg@mail.gmail.com>
-Date: Tue, 13 Dec 2011 12:22:04 +0200
-Message-ID: <CANdftmN1g5VvOJ7znkzi1-mTgF1_QOnpwnA4hBjnQ9grF7VO+w@mail.gmail.com>
-From: Foinel <flocirel@gmail.com>
-To: poky@yoctoproject.org
+	<CANdftmN1g5VvOJ7znkzi1-mTgF1_QOnpwnA4hBjnQ9grF7VO+w@mail.gmail.com>
+X-Mailer: Evolution 3.2.1- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
 Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -39,40 +41,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Dec 2011 10:22:05 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 13 Dec 2011 15:23:55 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Looking at gnutls-2.12.14/libextra/COPYING it says just GPLv3, so no
-dual licensing or exceptions of any kind for these extra libraries.
-Can anyone explain why in
-meta/conf/distro/include/default-distrovars.inc it says:
+On Tue, 2011-12-13 at 12:22 +0200, Foinel wrote:
+> Looking at gnutls-2.12.14/libextra/COPYING it says just GPLv3, so no
+> dual licensing or exceptions of any kind for these extra libraries.
+> Can anyone explain why in
+> meta/conf/distro/include/default-distrovars.inc it says:
+> 
+> # This is a list of packages that are used by the build system to
+> build the distribution, they are not
+> # directly part of the distribution..
+> HOSTTOOLS_WHITELIST_GPLv3 ?= ""
+> WHITELIST_GPLv3 ?= "less"
+> LGPLv2_WHITELIST_GPLv3 ?= "libassuan gnutls libtasn1 libidn libgcc gcc-runtime"
+> 
+> Does this mean gnutls is some sort of a host tool?
+> Because of this fact (gnutls being in LGPLv2_WHITELIST_GPLv3), then
+> the restriction to avoid GPLv3 packages seems not applicable to
+> gnutls. Does anyone know if gnutls is a special case in what concerns
+> the licensing?
 
-# This is a list of packages that are used by the build system to
-build the distribution, they are not
-# directly part of the distribution..
-HOSTTOOLS_WHITELIST_GPLv3 ?= ""
-WHITELIST_GPLv3 ?= "less"
-LGPLv2_WHITELIST_GPLv3 ?= "libassuan gnutls libtasn1 libidn libgcc gcc-runtime"
+I think we were only including GPLv2 pieces of gnutls in most images. If
+something is now pulling in the -extras package, we have a problem. It
+sounds like we should remove it from the whitelist.
 
-Does this mean gnutls is some sort of a host tool?
-Because of this fact (gnutls being in LGPLv2_WHITELIST_GPLv3), then
-the restriction to avoid GPLv3 packages seems not applicable to
-gnutls. Does anyone know if gnutls is a special case in what concerns
-the licensing?
+Cheers,
 
-Thanks.
+Richard
 
-On Tue, Dec 13, 2011 at 1:21 AM, Khem Raj <raj.khem@gmail.com> wrote:
-> On Mon, Dec 12, 2011 at 2:42 PM, Andrei Gherzan <andrei@gherzan.ro> wrote:
->> So as you can see here is checked every package. This variable,
->> LGPLv2_WHITELIST_GPLv3, is defined in default-distrovars.inc as:
->> LGPLv2_WHITELIST_GPLv3 ?= "libassuan gnutls libtasn1 libidn libgcc
->> gcc-runtime"
->
-> most of them have exceptions along with gplv3 or are lgplv3/lgplv2.1
-> e.g. the gcc bits in there are gplv3 with GCC Runtime Library Exception
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
