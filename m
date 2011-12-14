@@ -1,33 +1,24 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-yx0-f176.google.com (mail-yx0-f176.google.com
-	[209.85.213.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 183A6E00305
-	for <poky@yoctoproject.org>; Tue, 13 Dec 2011 23:26:45 -0800 (PST)
-Received: by yenm10 with SMTP id m10so478711yen.35
-	for <poky@yoctoproject.org>; Tue, 13 Dec 2011 23:26:45 -0800 (PST)
-Received: by 10.236.129.202 with SMTP id h50mr9790301yhi.1.1323847604950;
-	Tue, 13 Dec 2011 23:26:44 -0800 (PST)
-Received: from [128.224.170.203] ([89.121.200.106])
-	by mx.google.com with ESMTPS id o7sm2760262yhl.15.2011.12.13.23.26.42
-	(version=SSLv3 cipher=OTHER); Tue, 13 Dec 2011 23:26:43 -0800 (PST)
-Message-ID: <4EE84FB0.3040205@gherzan.ro>
-Date: Wed, 14 Dec 2011 09:26:40 +0200
-From: Andrei Gherzan <andrei@gherzan.ro>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:8.0) Gecko/20111124 Thunderbird/8.0
+Return-Path: <Zumeng.Chen@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E678FE00305
+	for <poky@yoctoproject.org>; Wed, 14 Dec 2011 00:23:05 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pBE8N4uT008770
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 14 Dec 2011 00:23:04 -0800 (PST)
+Received: from [128.224.162.181] (128.224.162.181) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Wed, 14 Dec 2011 00:23:04 -0800
+Message-ID: <4EE85D07.6020308@windriver.com>
+Date: Wed, 14 Dec 2011 16:23:35 +0800
+From: Zumeng Chen <zumeng.chen@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
+	rv:1.9.1.11) Gecko/20100713 Lightning/1.0b1 Thunderbird/3.0.6
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
-	<4EE4D5FA.3050604@gherzan.ro> <1323641532.2731.5.camel@ted>
-	<CANdftmPSkw9fEcucJcZPLm4kFticM6t7-pe4HUZoRxgsuj8t0w@mail.gmail.com>
-	<4EE68351.5090600@gherzan.ro>
-	<CAMKF1srCZg4-S-4EPsbCifk7Kr=SuDvsoqX0ww9p8WGdy=53Fg@mail.gmail.com>
-	<CANdftmPXu-zrbaha3Gc5bP7=cZX29bqe8Nw2437XTgeEqJacQw@mail.gmail.com>
-	<20111213094002.GA6336@ad.chargestorm.se>
-	<CANdftmPpQAjkTiZ0KzaxjmjsXMgTr0Oy=pH3WjTUhv_oyjeatQ@mail.gmail.com>
-	<CAMKF1so_12LcZ5ZhAVf7+AsM+t-DTgsutroFbsCy10==NnN_pg@mail.gmail.com>
-In-Reply-To: <CAMKF1so_12LcZ5ZhAVf7+AsM+t-DTgsutroFbsCy10==NnN_pg@mail.gmail.com>
-Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
+To: <poky@yoctoproject.org>
+References: <4EE01E6F.8090700@windriver.com> <4EE84690.8090601@bluegiga.com>
+In-Reply-To: <4EE84690.8090601@bluegiga.com>
+Subject: Re: Where is bridge-utils in yocto recipes ?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,12 +30,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Dec 2011 07:26:47 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 14 Dec 2011 08:23:06 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> thats a bug.
+于 2011年12月14日 14:47, Lauri Hintsala 写道:
+> If you are using busybox I would prefer to try brctl applet of 
+> busybox. Just enable "CONFIG_BRCTL=y" from config and recompile busybox.
+Yeah, it should be OK, thanks Lauri, and it's OK small filesystem on 
+rspro too.
+
+Regards,
+Zumeng
 >
-It certainly looks like one.
-Shouldn't this gnutls be removed from WHITELIST?
+> BR,
+> Lauri Hintsala
+>
+>
+> On 12/08/2011 04:18 AM, Zumeng Chen wrote:
+>> Hi All,
+>>
+>> I want to use bridge control brctl, but bit-bake bridge-utils
+>> returns failure, name changed? or not existence?
+>>
+>> Any comments are welcome?
+>>
+>> Thanks,
+>> Zumeng
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
