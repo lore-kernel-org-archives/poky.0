@@ -1,24 +1,36 @@
-Return-Path: <Zumeng.Chen@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E678FE00305
-	for <poky@yoctoproject.org>; Wed, 14 Dec 2011 00:23:05 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pBE8N4uT008770
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 14 Dec 2011 00:23:04 -0800 (PST)
-Received: from [128.224.162.181] (128.224.162.181) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Wed, 14 Dec 2011 00:23:04 -0800
-Message-ID: <4EE85D07.6020308@windriver.com>
-Date: Wed, 14 Dec 2011 16:23:35 +0800
-From: Zumeng Chen <zumeng.chen@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.1.11) Gecko/20100713 Lightning/1.0b1 Thunderbird/3.0.6
+Return-Path: <flocirel@gmail.com>
+Received: from mail-fx0-f48.google.com (mail-fx0-f48.google.com
+	[209.85.161.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47DA3E00305
+	for <poky@yoctoproject.org>; Wed, 14 Dec 2011 02:54:47 -0800 (PST)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by fanq24 with SMTP id q24so1422482fan.35
+	for <poky@yoctoproject.org>; Wed, 14 Dec 2011 02:54:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type; bh=TnJPSgqakQxErJF0GL/Q9szGfVZnsJ9zvpsPgnBtURM=;
+	b=SLrwWi5SV3sZI/huRnjnvGJ7I35X4HLgZ851OV19n1NtBts8H1SKwIZTWgBQ8VDWIM
+	pTzeF5oFVrUeX4kvj6QsgPlo7bUWig8U6qgI4HrO+3hvyTYDJWvLhDYQDHnZLXQkEr0a
+	O2LnA9k/Waa2w8fLLF/pxerclasObp+GWLoqU=
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <4EE01E6F.8090700@windriver.com> <4EE84690.8090601@bluegiga.com>
-In-Reply-To: <4EE84690.8090601@bluegiga.com>
-Subject: Re: Where is bridge-utils in yocto recipes ?
+Received: by 10.180.84.202 with SMTP id b10mr3684113wiz.10.1323860085792; Wed,
+	14 Dec 2011 02:54:45 -0800 (PST)
+Received: by 10.223.75.200 with HTTP; Wed, 14 Dec 2011 02:54:45 -0800 (PST)
+In-Reply-To: <1323789817.25336.1.camel@ted>
+References: <CANdftmOckSa7hg1OByDod3C9df5YzP2scQ7eVZ8bZM-mSQE+Kg@mail.gmail.com>
+	<4EE4D5FA.3050604@gherzan.ro> <1323641532.2731.5.camel@ted>
+	<CANdftmPSkw9fEcucJcZPLm4kFticM6t7-pe4HUZoRxgsuj8t0w@mail.gmail.com>
+	<4EE68351.5090600@gherzan.ro>
+	<CAMKF1srCZg4-S-4EPsbCifk7Kr=SuDvsoqX0ww9p8WGdy=53Fg@mail.gmail.com>
+	<CANdftmN1g5VvOJ7znkzi1-mTgF1_QOnpwnA4hBjnQ9grF7VO+w@mail.gmail.com>
+	<1323789817.25336.1.camel@ted>
+Date: Wed, 14 Dec 2011 12:54:45 +0200
+Message-ID: <CANdftmOEcHMDp6skHttwz=t65-1o0tY3jBR2tmxLpHmvQWKv_A@mail.gmail.com>
+From: Foinel <flocirel@gmail.com>
+To: poky@yoctoproject.org
+Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,40 +42,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Dec 2011 08:23:06 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 14 Dec 2011 10:54:47 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-于 2011年12月14日 14:47, Lauri Hintsala 写道:
-> If you are using busybox I would prefer to try brctl applet of 
-> busybox. Just enable "CONFIG_BRCTL=y" from config and recompile busybox.
-Yeah, it should be OK, thanks Lauri, and it's OK small filesystem on 
-rspro too.
+Hi, I think I've narrowed the problem down to wpa-supplicant.
+If you look into wpa-supplicant-0.7.3/defconfig-gnutls you can see
+there CONFIG_GNUTLS_EXTRA=y. Commenting out this CONFIG_GNUTLS_EXTRA=y
+creates a build into which I do not have anymore the libraries from
+the -extra rpm.
 
-Regards,
-Zumeng
->
-> BR,
-> Lauri Hintsala
->
->
-> On 12/08/2011 04:18 AM, Zumeng Chen wrote:
->> Hi All,
+On Tue, Dec 13, 2011 at 5:23 PM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+> On Tue, 2011-12-13 at 12:22 +0200, Foinel wrote:
+>> Looking at gnutls-2.12.14/libextra/COPYING it says just GPLv3, so no
+>> dual licensing or exceptions of any kind for these extra libraries.
+>> Can anyone explain why in
+>> meta/conf/distro/include/default-distrovars.inc it says:
 >>
->> I want to use bridge control brctl, but bit-bake bridge-utils
->> returns failure, name changed? or not existence?
+>> # This is a list of packages that are used by the build system to
+>> build the distribution, they are not
+>> # directly part of the distribution..
+>> HOSTTOOLS_WHITELIST_GPLv3 ?= ""
+>> WHITELIST_GPLv3 ?= "less"
+>> LGPLv2_WHITELIST_GPLv3 ?= "libassuan gnutls libtasn1 libidn libgcc gcc-runtime"
 >>
->> Any comments are welcome?
->>
->> Thanks,
->> Zumeng
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
+>> Does this mean gnutls is some sort of a host tool?
+>> Because of this fact (gnutls being in LGPLv2_WHITELIST_GPLv3), then
+>> the restriction to avoid GPLv3 packages seems not applicable to
+>> gnutls. Does anyone know if gnutls is a special case in what concerns
+>> the licensing?
+>
+> I think we were only including GPLv2 pieces of gnutls in most images. If
+> something is now pulling in the -extras package, we have a problem. It
+> sounds like we should remove it from the whitelist.
+>
+> Cheers,
+>
+> Richard
+>
 
