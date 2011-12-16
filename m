@@ -1,23 +1,22 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <paul.eggleton@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6B7CFE00303
-	for <poky@yoctoproject.org>; Fri, 16 Dec 2011 09:39:52 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 24481E00303
+	for <poky@yoctoproject.org>; Fri, 16 Dec 2011 10:02:29 -0800 (PST)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 16 Dec 2011 09:39:52 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 16 Dec 2011 10:02:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="103033921"
-Received: from unknown (HELO [10.255.12.77]) ([10.255.12.77])
-	by fmsmga002.fm.intel.com with ESMTP; 16 Dec 2011 09:39:51 -0800
-Message-ID: <4EEB8267.6040500@linux.intel.com>
-Date: Fri, 16 Dec 2011 09:39:51 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:7.0) Gecko/20110927 Thunderbird/7.0
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="103042906"
+Received: from unknown (HELO helios.localnet) ([10.252.122.31])
+	by fmsmga002.fm.intel.com with ESMTP; 16 Dec 2011 10:02:23 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 16 Dec 2011 18:00:22 +0000
+Message-ID: <2515584.y5UYPoyKeW@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.7.4 (Linux/3.0.0-14-generic-pae; KDE/4.7.4; i686; ; )
+In-Reply-To: <4EEB8267.6040500@linux.intel.com>
+References: <4EEB1EF8.7060204@gherzan.ro> <4EEB8267.6040500@linux.intel.com>
 MIME-Version: 1.0
-To: Andrei Gherzan <andrei@gherzan.ro>
-References: <4EEB1EF8.7060204@gherzan.ro>
-In-Reply-To: <4EEB1EF8.7060204@gherzan.ro>
-Cc: poky@yoctoproject.org
 Subject: Re: License | "or" problem?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,65 +29,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Dec 2011 17:39:52 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 16 Dec 2011 18:02:29 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 12/16/2011 02:35 AM, Andrei Gherzan wrote:
-> As i know qt4 has double license. This means that everybody can choose
-> from GPLv3 and LGPLv2.1. This fact is reflected in bb file as:
+On Friday 16 December 2011 09:39:51 Saul Wold wrote:
+> On 12/16/2011 02:35 AM, Andrei Gherzan wrote:
+> > As i know qt4 has double license. This means that everybody can choose
+> > from GPLv3 and LGPLv2.1. This fact is reflected in bb file as:
+> > 
+> > LICENSE = "LGPLv2.1 | GPLv3"
 >
-> LICENSE = "LGPLv2.1 | GPLv3"
->
-> Well, this "or" operand doesn't work as i end up with this error in a
-> GPLv3 incompatible build:
->
-You need to explicitly white list qt4-embedded in the 
-LGPLv2_WHITELIST_GPLv3, currently the parsing for exclusion just looks 
-at the incompatible license.
+> Also, looking at the current LICENSE in qt, it will need to be further
+> defined on a package level as to how each package is licensed, so that
+> when the manifest and audit occurs only the LGPLv2.1 bits are included.
 
-Also, looking at the current LICENSE in qt, it will need to be further 
-defined on a package level as to how each package is licensed, so that 
-when the manifest and audit occurs only the LGPLv2.1 bits are included.
+Where do you get the idea that there is a mix of licenses for Qt4? As far as I 
+am aware, the user is supposed to select either LGPLv2.1 or GPLv3, which is 
+exactly what the current value of LICENSE above means.
 
-We are open to patches such as this.
+Cheers,
+Paul
 
-BTW, we have not tested building a graphical non-GPLv3 image, so you are 
-treading on new ground, please let me know how it goes and we might 
-include a qt image that is non-GPLv3.
+-- 
 
-Sau!
-
-
-> ERROR: Nothing PROVIDES 'qt4-embedded'
-> ERROR: qt4-embedded was skipped: incompatible with license LGPLv2.1 | GPLv3
-> ERROR: Command execution failed: Traceback (most recent call last):
-> File
-> "/home/agherzan/work/wrs/yocto-adige/poky/bitbake/lib/bb/command.py",
-> line 87, in runAsyncCommand
-> commandmethod(self.cmds_async, self, options)
-> File
-> "/home/agherzan/work/wrs/yocto-adige/poky/bitbake/lib/bb/command.py",
-> line 192, in buildTargets
-> command.cooker.buildTargets(pkgs_to_build, task)
-> File
-> "/home/agherzan/work/wrs/yocto-adige/poky/bitbake/lib/bb/cooker.py",
-
-> line 1111, in buildTargets
-> taskdata.add_provider(localdata, self.status, k)
-> File
-> "/home/agherzan/work/wrs/yocto-adige/poky/bitbake/lib/bb/taskdata.py",
-> line 371, in add_provider
-> self.add_provider_internal(cfgData, dataCache, item)
-> File
-> "/home/agherzan/work/wrs/yocto-adige/poky/bitbake/lib/bb/taskdata.py",
-> line 391, in add_provider_internal
-> raise bb.providers.NoProvider(item)
-> NoProvider: qt4-embedded
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+Paul Eggleton
+Intel Open Source Technology Centre
 
