@@ -1,25 +1,25 @@
 Return-Path: <andrei@gherzan.ro>
-Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
-	[209.85.213.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E0F66E00306
-	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 04:47:49 -0800 (PST)
-Received: by yhpp56 with SMTP id p56so4518680yhp.35
-	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 04:47:48 -0800 (PST)
-Received: by 10.236.123.108 with SMTP id u72mr27323260yhh.45.1324298866080;
-	Mon, 19 Dec 2011 04:47:46 -0800 (PST)
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A25CFE00306
+	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 06:06:01 -0800 (PST)
+Received: by iapp10 with SMTP id p10so11605691iap.35
+	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 06:06:01 -0800 (PST)
+Received: by 10.50.57.138 with SMTP id i10mr27506655igq.3.1324303561253;
+	Mon, 19 Dec 2011 06:06:01 -0800 (PST)
 Received: from [128.224.170.182] ([89.121.200.106])
-	by mx.google.com with ESMTPS id 32sm46595398ant.12.2011.12.19.04.47.44
-	(version=SSLv3 cipher=OTHER); Mon, 19 Dec 2011 04:47:45 -0800 (PST)
-Message-ID: <4EEF326F.3060901@gherzan.ro>
-Date: Mon, 19 Dec 2011 14:47:43 +0200
+	by mx.google.com with ESMTPS id b20sm68012188ibj.7.2011.12.19.06.05.59
+	(version=SSLv3 cipher=OTHER); Mon, 19 Dec 2011 06:06:00 -0800 (PST)
+Message-ID: <4EEF44C6.1040707@gherzan.ro>
+Date: Mon, 19 Dec 2011 16:05:58 +0200
 From: Andrei Gherzan <andrei@gherzan.ro>
 User-Agent: Mozilla/5.0 (X11; Linux i686;
 	rv:8.0) Gecko/20111124 Thunderbird/8.0
 MIME-Version: 1.0
 To: poky@yoctoproject.org
-References: <4EEB1EF8.7060204@gherzan.ro>
-In-Reply-To: <4EEB1EF8.7060204@gherzan.ro>
-Subject: Re: License | "or" problem?
+References: <4EE2887C.3000601@gherzan.ro>
+In-Reply-To: <4EE2887C.3000601@gherzan.ro>
+Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,13 +31,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Dec 2011 12:47:51 -0000
+X-List-Received-Date: Mon, 19 Dec 2011 14:06:03 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Bug summited with proposed patch:
+Bug added to bugzilla:
 
-*Bug 1844* 
-<http://bugzilla.yoctoproject.org/show_bug.cgi?id=1844>-base.bbclass 
-should check for multiple (or) licenses in bb files
+*Bug 1845* 
+<http://bugzilla.yoctoproject.org/show_bug.cgi?id=1845>-gnutls-2.12.14-r3.1 
+- GPLv3 license rpm present in a non-GPLv3 build(edit 
+<http://bugzilla.yoctoproject.org/post_bug.cgi#>)
 
