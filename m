@@ -1,25 +1,25 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A25CFE00306
-	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 06:06:01 -0800 (PST)
-Received: by iapp10 with SMTP id p10so11605691iap.35
-	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 06:06:01 -0800 (PST)
-Received: by 10.50.57.138 with SMTP id i10mr27506655igq.3.1324303561253;
-	Mon, 19 Dec 2011 06:06:01 -0800 (PST)
-Received: from [128.224.170.182] ([89.121.200.106])
-	by mx.google.com with ESMTPS id b20sm68012188ibj.7.2011.12.19.06.05.59
-	(version=SSLv3 cipher=OTHER); Mon, 19 Dec 2011 06:06:00 -0800 (PST)
-Message-ID: <4EEF44C6.1040707@gherzan.ro>
-Date: Mon, 19 Dec 2011 16:05:58 +0200
-From: Andrei Gherzan <andrei@gherzan.ro>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:8.0) Gecko/20111124 Thunderbird/8.0
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A17C7E00749
+	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 07:59:27 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pBJFxPkF019231
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Mon, 19 Dec 2011 07:59:25 -0800 (PST)
+Received: from Macintosh-5.local (172.25.36.232) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Mon, 19 Dec 2011 07:59:25 -0800
+Message-ID: <4EEF5F5C.4070502@windriver.com>
+Date: Mon, 19 Dec 2011 09:59:24 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:8.0) Gecko/20111105 Thunderbird/8.0
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4EE2887C.3000601@gherzan.ro>
-In-Reply-To: <4EE2887C.3000601@gherzan.ro>
-Subject: Re: gnutls-2.12.14-r3.1 - strange rpm names yocto
+To: <poky@yoctoproject.org>
+References: <CANdftmOF6p5eZoYR_TGO4XPe3X-PPE0tP-PwR8o835AnHHCXEQ@mail.gmail.com>
+In-Reply-To: <CANdftmOF6p5eZoYR_TGO4XPe3X-PPE0tP-PwR8o835AnHHCXEQ@mail.gmail.com>
+Subject: Re: qemu armv7a
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,14 +31,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Dec 2011 14:06:03 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 19 Dec 2011 15:59:28 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Bug added to bugzilla:
+On 12/19/11 2:48 AM, Foinel wrote:
+> Hello,
+> the default qemuarm build seems to be building for ARM926EJ-S as it
+> requires tune-arm926ejs.
+> Has anybody tried to build for armv7a (cortex a9) ? Have tried it
+> myself, by modifying the qemuarf.conf to require tune-cortexa9.inc
+> instead of tune-arm926ejs but the qemu machine won't boot anymore, it
+> just stays blank.
+> Any ideas, thoughts, suggestions regarding this would be appreciated.
 
-*Bug 1845* 
-<http://bugzilla.yoctoproject.org/show_bug.cgi?id=1845>-gnutls-2.12.14-r3.1 
-- GPLv3 license rpm present in a non-GPLv3 build(edit 
-<http://bugzilla.yoctoproject.org/post_bug.cgi#>)
+The emulated QEMU machine is an arm926ej-s emulated ARM Versatile platform.
+
+AFAIK, cortex a9 isn't supported in that version of QEMU, nor the emulated 
+virtual platforms required to support the a9 either.
+
+--Mark
+
 
