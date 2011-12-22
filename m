@@ -1,22 +1,21 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8A9FCE01276
-	for <poky@yoctoproject.org>; Thu, 22 Dec 2011 10:12:35 -0800 (PST)
-Received: from yow-bashfiel-l1.corp.ad.wrs.com
-	(dhcp-145-187.ottawa.windriver.com [128.224.145.187])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id pBMICVsB014521;
-	Thu, 22 Dec 2011 10:12:33 -0800 (PST)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Thu, 22 Dec 2011 13:12:19 -0500
-Message-Id: <0058411215f087e3f41a9e1aa6ef3764e2e77e28.1324577368.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.4.1
-In-Reply-To: <cover.1324577368.git.bruce.ashfield@windriver.com>
-References: <cover.1324577368.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1324577368.git.bruce.ashfield@windriver.com>
-References: <cover.1324577368.git.bruce.ashfield@windriver.com>
-Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 2/2] linux-yocto-rt/meta-yocto: add routerstationpro support
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 69E36E00720
+	for <poky@yoctoproject.org>; Thu, 22 Dec 2011 11:02:36 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 22 Dec 2011 11:02:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="105196210"
+Received: from unknown (HELO [10.255.12.90]) ([10.255.12.90])
+	by fmsmga002.fm.intel.com with ESMTP; 22 Dec 2011 11:02:35 -0800
+Message-ID: <4EF37ECB.8020603@linux.intel.com>
+Date: Thu, 22 Dec 2011 11:02:35 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:7.0) Gecko/20110927 Thunderbird/7.0
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Edison 1.1.1 Status
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,35 +27,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Dec 2011 18:12:35 -0000
+X-List-Received-Date: Thu, 22 Dec 2011 19:02:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fixes [YOCTO #1390]
 
-Updated the meta-yocto support for the routerstationpro on the
-preempt-rt kernel support.
+Folks,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../linux/linux-yocto-rt_3.0.bbappend              |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+Just a quick update on where we are with 1.1.1, last night we built 
+1.1.1 on the autobuilder to see where things where we found the 
+following failures. While it looks pretty bad at first, it's not that 
+bad. There are 4 related to dependency and ordering issues, an ICE on 
+beagleboard qt4, and the meta-toolchain-gmae NATIVESDK failure.
 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
-index ab0f24c..831df8d 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
-@@ -19,7 +19,7 @@ SRCREV_machine_pn-linux-yocto-rt_mpc8315e-rdb = "0b805cce57f61a244eb3b8fce460b14
- #SRCREV_machine_pn-linux-yocto-rt_beagleboard = 
- 
- # routerstationpro support - preempt-rt kernel build failure
--#COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
--#KMACHINE_routerstationpro = "routerstationpro"
--#KBRANCH_routerstationpro = "yocto/standard/preempt-rt/base"
--#SRCREV_machine_pn-linux-yocto-rt_routerstationpro = "7e1e5b6c8a13c615feb0d7b6d37988a094aae98f"
-+COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
-+KMACHINE_routerstationpro = "routerstationpro"
-+KBRANCH_routerstationpro = "yocto/standard/preempt-rt/routerstationpro"
-+SRCREV_machine_pn-linux-yocto-rt_routerstationpro = "43dcdffebb64d9ce2f5cdcb18bb74bd9c301133f"
+Also Autobuild itself reported wrong branch on waterfall page, but built 
+josh/edison correctly - Beth will address this issue.
+
+qemupcc (LSB) - coreutils dependency on libcap
+  - disable libcap (and ls --color)
+  OR
+  - add libcap to DEPENDS for coreutils
+
+qemux86-64 (LSB) - "which" build fails libiberty dependency
+  - Richard has a patch for this one to disable libiberty
+
+qemuarm - libzypp dependecny on binutils' ansidecl.h
+Routerstation Pro  - Kernel dependency on binutils' bfd.h
+  - Both of these need to ensure bintuils is completely installed in
+    sysroot before being build not sure if that should be by DEPENDS or
+    some other mechanism (possibly due to sstate ordering).
+
+
+Beageboard
+qt4-x11-free - ICE
+  painting/qdrawhelper.cpp:1229:1: error: insn does not satisfy its 
+constraints:
+| (insn 2860 2859 951 57 (set (mem/c:V4SI (plus:SI (reg:SI 12 ip)
+|                 (const_int -140 [0xffffffffffffff74])) [66 %sfp+-16424 
+S16 A64])
+|         (reg:V4SI 0 r0)) 
+/srv/home/pokybuild/yocto-autobuilder/yocto-slave/nightly-arm/build/build/tmp/sysroots/x86_64-linux/usr/lib/armv7a-vfp-neon-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.6.2/include/arm_neon.h:5346 
+746 {*neon_movv4si}
+|      (nil))
+| painting/qdrawhelper.cpp:1229:1: internal compiler error: in 
+reload_cse_simplify_operands, at postreload.c:403
+| Please submit a full bug report,
+| with preprocessed source if appropriate.
+
+Maybe fixed by the following commit, need to here from Khem or Nitin:
+
+http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/?id=7022a8f8045bdf82b9209b8cd62fb09c4a7a24f8
+
+ALL - meta-toolchain-gmae
+| Manifest: 
+/srv/home/pokybuild/yocto-autobuilder/yocto-slave/nightly-ppc/build/build/tmp/work/ppc603e-poky-linux/meta-toolchain-gmae-1.0-r6/sdk/image/install/install.manifest
+| mv: cannot stat 
+`/srv/home/pokybuild/yocto-autobuilder/yocto-slave/nightly-ppc/build/build/tmp/work/ppc603e-poky-linux/meta-toolchain-gmae-1.0-r6/sdk/image/var/lib/rpm/*': 
+No such file or directory
+NOTE: package meta-toolchain-gmae-1.0-r6: task do_populate_sdk: Failed
+
+
 -- 
-1.7.4.1
+     Sau!
+
+Saul Wold
+Yocto Component Wrangler @ Intel
+Yocto Project / Poky Build System
 
 
