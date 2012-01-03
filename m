@@ -1,29 +1,34 @@
-Return-Path: <saul.wold@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B39BBE0070D
-	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 14:12:56 -0800 (PST)
-Received: from mail-iy0-f180.google.com ([209.85.210.180])
-	by mga09.intel.com with ESMTP/TLS/RC4-SHA; 03 Jan 2012 14:12:56 -0800
-Received: by iazz13 with SMTP id z13so29579246iaz.25
-	for <poky@yoctoproject.org>; Tue, 03 Jan 2012 14:12:55 -0800 (PST)
-Received: by 10.42.151.68 with SMTP id d4mr56766164icw.36.1325628775529;
-	Tue, 03 Jan 2012 14:12:55 -0800 (PST)
-Received: from [10.6.18.227] (c-71-193-189-117.hsd1.wa.comcast.net.
-	[71.193.189.117])
-	by mx.google.com with ESMTPS id r18sm181511331ibh.4.2012.01.03.14.12.54
-	(version=SSLv3 cipher=OTHER); Tue, 03 Jan 2012 14:12:54 -0800 (PST)
-Message-ID: <4F037D65.10409@intel.com>
-Date: Tue, 03 Jan 2012 14:12:53 -0800
-From: Saul Wold <saul.wold@intel.com>
-Organization: Intel
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:7.0) Gecko/20110927 Thunderbird/7.0
-MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <cover.1324577368.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1324577368.git.bruce.ashfield@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] linux-yocto/meta-yocto: update routerstationpro & beagleboard
+Return-Path: <walters@verbum.org>
+Received: from out5.smtp.messagingengine.com (out5.smtp.messagingengine.com
+	[66.111.4.29])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 931E6E0070D
+	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 15:50:46 -0800 (PST)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@messagingengine.com;
+	x-dkim-adsp=none (insecure policy)
+Received: from compute3.internal (compute3.nyi.mail.srv.osa [10.202.2.43])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id E2CF020C6C
+	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 18:50:44 -0500 (EST)
+Received: from frontend1.nyi.mail.srv.osa ([10.202.2.160])
+	by compute3.internal (MEProxy); Tue, 03 Jan 2012 18:50:44 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+	messagingengine.com; h=subject:from:to:date:content-type
+	:message-id:mime-version; s=smtpout; bh=KHP47jRMu7y3sK+rsR9BvgA7
+	VFI=; b=ilDvXbx4CboQOeOH6/YaRvqyuDCoqdwPZS0P8FLjGIpvQHOtQ4O7vKVo
+	C8b3GLaFpG1y/eAuPCLvMZSpESz7n+m2wJlHIGyFV8BVqWUvTQpNrciF0m01gZP3
+	lopuIB7av/PMJFQ56elBTMHemaSSTWIr1HKHmzxtp+5RZ6fQDrI=
+X-Sasl-enc: EBs+P+Hid/Cq2uhJ8i2owaS3KUVsP5qBGz8ovOXKDqf6 1325634644
+Received: from [192.168.1.6] (c-65-96-60-117.hsd1.ct.comcast.net
+	[65.96.60.117])
+	by mail.messagingengine.com (Postfix) with ESMTPA id A63758E008D
+	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 18:50:44 -0500 (EST)
+From: Colin Walters <walters@verbum.org>
+To: poky <poky@yoctoproject.org>
+Date: Tue, 03 Jan 2012 18:50:27 -0500
+X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
+Message-ID: <1325634627.24646.0.camel@lenny>
+Mime-Version: 1.0
+Subject: [PATCH] flex/bison: Don't hardcode M4 path
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,45 +40,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jan 2012 22:12:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 03 Jan 2012 23:50:48 -0000
+X-Groupsio-MsgNum: 7309
+Content-Type: multipart/mixed; boundary="=-sD1piQWUopOj38V/SJbb"
+
+--=-sD1piQWUopOj38V/SJbb
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 12/22/2011 10:12 AM, Bruce Ashfield wrote:
-> Richard/Saul,
->
-> This is a follow on to my oe-core pull request for fixes and updates
-> to the kernel. This change bumps the preferred kernel for the yocto
-> beagleboard and routerstationpro support to 3.0.x and fixes the -rt
-> support for the routerstationpro.
->
-> Cheers,
->
-> Bruce
->
->
-> The following changes since commit 906567682d06d8de1915b78ddf6128cd7bda6adc:
->
->    linux-yocto: use PATH to locate kconf_check (2011-12-22 12:15:25 -0500)
->
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
->
-> Bruce Ashfield (2):
->    linux-yocto/meta-yocto: routerstationpro/beagleboard: add 3.0.x
->      support
->    linux-yocto-rt/meta-yocto: add routerstationpro support
->
->   meta-yocto/conf/machine/beagleboard.conf           |    1 +
->   meta-yocto/conf/machine/routerstationpro.conf      |    1 +
->   .../linux/linux-yocto-rt_3.0.bbappend              |    8 ++++----
->   .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |    8 ++++----
->   4 files changed, 10 insertions(+), 8 deletions(-)
->
+The flex and bison configure scripts use AC_PATH_PROG to get a
+full path to m4 and embed this in config.h (and then to the
+generated binary), but this blows up when the m4 binary is in a
+temporary staging directory.
+    
+Since we are always shipping GNU m4, just set M4=m4 at configure
+time so we don't use a hardcoded path.
+    
+This is an equivalent to what already exists in autoconf.bb.
 
-Merged into Poky Master
 
-Thanks
-	Sau!
+--=-sD1piQWUopOj38V/SJbb
+Content-Disposition: attachment; filename="0001-flex-bison-Don-t-hardcode-M4-path.patch"
+Content-Type: text/x-patch; name="0001-flex-bison-Don-t-hardcode-M4-path.patch";
+	charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
+From d33924d0de58e25bce73e5b4d61983fe0c1d0119 Mon Sep 17 00:00:00 2001
+From: Colin Walters <walters@verbum.org>
+Date: Tue, 3 Jan 2012 18:47:32 -0500
+Subject: [PATCH] flex/bison: Don't hardcode M4 path
+
+The flex and bison configure scripts use AC_PATH_PROG to get a full
+path to m4 and embed this in config.h (and then to the generated
+binary), but this blows up when the m4 binary is in a temporary
+staging directory.
+
+Since we are always shipping GNU m4, just set M4=m4 at configure time
+so we don't use a hardcoded path.
+
+This is an equivalent to what already exists in autoconf.bb.
+---
+ meta/recipes-devtools/bison/bison_2.5.bb |   10 ++++------
+ meta/recipes-devtools/flex/flex.inc      |    7 ++++---
+ 2 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/meta/recipes-devtools/bison/bison_2.5.bb b/meta/recipes-devtools/bison/bison_2.5.bb
+index c5113cd..0536dd4 100644
+--- a/meta/recipes-devtools/bison/bison_2.5.bb
++++ b/meta/recipes-devtools/bison/bison_2.5.bb
+@@ -21,16 +21,14 @@ SRC_URI = "${BASE_SRC_URI} \
+ SRC_URI[md5sum] = "687e1dcd29452789d34eaeea4c25abe4"
+ SRC_URI[sha256sum] = "722def46e4a19a5b7a579ef30db1965f86c37c1a20a5f0113743a2e4399f7c99"
+ 
++# We don't want to hardcode the m4 path since it will be found
++# in the staging directory.
++EXTRA_OECONF = " M4=m4"
++
+ DEPENDS_virtclass-native = "gettext-minimal-native"
+ SRC_URI_virtclass-native = "${BASE_SRC_URI}"
+ 
+ inherit autotools gettext
+ acpaths = "-I ${S}/m4"
+ 
+-do_install_append_virtclass-native() {
+-	create_wrapper ${D}/${bindir}/bison \
+-		M4=${STAGING_BINDIR_NATIVE}/m4 \
+-		BISON_PKGDATADIR=${STAGING_DATADIR_NATIVE}/bison
+-}
+-#bison-native encodes the staging M4 path
+ BBCLASSEXTEND = "native"
+diff --git a/meta/recipes-devtools/flex/flex.inc b/meta/recipes-devtools/flex/flex.inc
+index 01f7571..a913d21 100644
+--- a/meta/recipes-devtools/flex/flex.inc
++++ b/meta/recipes-devtools/flex/flex.inc
+@@ -10,6 +10,7 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/flex/flex-${PV}.tar.bz2 "
+ 
+ inherit autotools gettext
+ 
+-do_install_append_virtclass-native() {
+-	create_wrapper ${D}/${bindir}/flex M4=${STAGING_BINDIR_NATIVE}/m4
+-}
++# We don't want to hardcode the m4 path since it will be found
++# in the staging directory.
++EXTRA_OECONF = " M4=m4"
++
+-- 
+1.7.6.4
+
+
+--=-sD1piQWUopOj38V/SJbb--
