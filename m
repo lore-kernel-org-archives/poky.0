@@ -1,27 +1,32 @@
-Return-Path: <mark.hatle@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27F09E006DD
-	for <poky@yoctoproject.org>; Wed,  4 Jan 2012 07:55:48 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q04Ftlqb023338
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 4 Jan 2012 07:55:47 -0800 (PST)
-Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Wed, 4 Jan 2012 07:55:46 -0800
-Message-ID: <4F047682.5030204@windriver.com>
-Date: Wed, 4 Jan 2012 09:55:46 -0600
-From: Mark Hatle <mark.hatle@windriver.com>
-Organization: Wind River Systems
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
-	rv:8.0) Gecko/20111105 Thunderbird/8.0
-MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <1325616533.23339.10.camel@lenny>
-	<4F03A361.3000408@linux.intel.com>
-	<1325643446.24646.11.camel@lenny>
-In-Reply-To: <1325643446.24646.11.camel@lenny>
-Subject: Re: [PATCH] rpm: Move postinsts to /var
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ACAF1E006DD
+	for <poky@yoctoproject.org>; Wed,  4 Jan 2012 08:19:24 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q04GJ4i2020758;
+	Wed, 4 Jan 2012 16:19:04 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 19758-08; Wed,  4 Jan 2012 16:19:00 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q04GIsxq020752
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 4 Jan 2012 16:18:56 GMT
+Message-ID: <1325693934.20759.19.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Colin Walters <walters@verbum.org>
+Date: Wed, 04 Jan 2012 16:18:54 +0000
+In-Reply-To: <1325643628.24646.13.camel@lenny>
+References: <1325634627.24646.0.camel@lenny>
+	<4F03A316.2070305@linux.intel.com> <1325643628.24646.13.camel@lenny>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: openembedded-core <openembedded-core@lists.openembedded.org>,
+	poky <poky@yoctoproject.org>
+Subject: Re: [PATCH] flex/bison: Don't hardcode M4 path
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,51 +38,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jan 2012 15:55:48 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Wed, 04 Jan 2012 16:19:30 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 1/3/12 8:17 PM, Colin Walters wrote:
-> On Tue, 2012-01-03 at 16:54 -0800, Saul Wold wrote:
->> On 01/03/2012 10:48 AM, Colin Walters wrote:
->>> My OS has read-only bind mounts over most directories (including
->>> /etc), with the exception of /var.  Since these scripts need to
->>> be run once and then deleted, it's better for me if these are in
->>> /var, and won't hurt anyone else for them to be there.
->>>
->>> You fixed this for RPM, does it exist for deb and ipkg also?
->
->  From a glance, no:
->
-> rootfs_deb.bbclass
-> 	# Attempt to run postinsts
-> 	# Mark packages with postinst failures as unpacked
-> 	for i in ${IMAGE_ROOTFS}/var/lib/dpkg/info/*.postinst; do
-> 		if [ -f $i ]&&  ! sh $i configure; then
-> 			_flag unpacked `basename $i .postinst`
-> 		fi
-> 	done
->
-> rootfs_ipk.bbclass:
-> 	for i in ${IMAGE_ROOTFS}${opkglibdir}/info/*.postinst; do
-> 		if [ -f $i ]&&  ! sh $i configure; then
-> 		     	runtime_script_required=1
-> 			opkg-cl ${IPKG_ARGS} flag unpacked `basename $i .postinst`
-> 		fi
-> 	done
+On Tue, 2012-01-03 at 21:20 -0500, Colin Walters wrote:
+> On Tue, 2012-01-03 at 16:53 -0800, Saul Wold wrote:
+> > > The flex and bison configure scripts use AC_PATH_PROG to get a
+> > > full path to m4 and embed this in config.h (and then to the
+> > > generated binary), but this blows up when the m4 binary is in a
+> > > temporary staging directory.
+> > >
+> > > Since we are always shipping GNU m4, just set M4=m4 at configure
+> > > time so we don't use a hardcoded path.
+> > >
+> > > This is an equivalent to what already exists in autoconf.bb.
+> > >
+> > >
+> > This should really be posted to openembedded-core@lists.openembedded.org.
+> 
+> I CC'd, hopefully won't be rejected as I'm not yet a subscriber.
+> 
+> > Don't you loose the setting of BISON_PKGDATADIR in this case?  Does that 
+> > need to be poart of the EXTRA_OECONF?
+> 
+> Good catch - I'll double check, but I doubt it's necessary.  From the
+> bison source:
+> 
+> char const *
+> compute_pkgdatadir (void)
+> {
+>   char const *pkgdatadir = getenv ("BISON_PKGDATADIR");
+>   return pkgdatadir ? pkgdatadir : PKGDATADIR;
+> }
+> 
+> For us though PKGDATADIR should be enough I think.
 
-Based on the above, I would then suggest you use /var/lib/rpm/info/*.postinst
+For on target device development, yes. For use in bison-native, its not
+enough unfortunately as it gets added into the sstate packages and those
+may end up installed at a different location.
 
-That way the files are contained within the rpm directory of database and 
-associated files.  Otherwise, I agree, this is a bug in the current 
-implementation.  It shouldn't be using etc for things that can change.
+I like the idea of simplifying looking for m4 though.
 
---Mark
+Cheers,
 
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Richard
 
 
