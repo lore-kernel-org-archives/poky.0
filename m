@@ -1,30 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D79C7E01366
-	for <poky@yoctoproject.org>; Wed,  4 Jan 2012 06:33:12 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q04EX9gQ019718;
-	Wed, 4 Jan 2012 14:33:09 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 19653-01; Wed,  4 Jan 2012 14:33:05 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q04EX28G019712
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 4 Jan 2012 14:33:04 GMT
-Message-ID: <1325687580.20759.4.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Wed, 04 Jan 2012 14:33:00 +0000
-In-Reply-To: <4F045A23.7070208@mlbassoc.com>
-References: <4F045A23.7070208@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: Can't build vte
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27F09E006DD
+	for <poky@yoctoproject.org>; Wed,  4 Jan 2012 07:55:48 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q04Ftlqb023338
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 4 Jan 2012 07:55:47 -0800 (PST)
+Received: from Macintosh-5.local (172.25.36.228) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Wed, 4 Jan 2012 07:55:46 -0800
+Message-ID: <4F047682.5030204@windriver.com>
+Date: Wed, 4 Jan 2012 09:55:46 -0600
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:8.0) Gecko/20111105 Thunderbird/8.0
+MIME-Version: 1.0
+To: <poky@yoctoproject.org>
+References: <1325616533.23339.10.camel@lenny>
+	<4F03A361.3000408@linux.intel.com>
+	<1325643446.24646.11.camel@lenny>
+In-Reply-To: <1325643446.24646.11.camel@lenny>
+Subject: Re: [PATCH] rpm: Move postinsts to /var
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,38 +33,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jan 2012 14:33:18 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 04 Jan 2012 15:55:48 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2012-01-04 at 06:54 -0700, Gary Thomas wrote:
-> It seems that master is rather broken at the moment.
-> 
-> OE Build Configuration:
-> BB_VERSION        = "1.15.0"
-> TARGET_ARCH       = "arm"
-> TARGET_OS         = "linux-gnueabi"
-> MACHINE           = "beagleboard"
-> DISTRO            = "poky"
-> DISTRO_VERSION    = "1.1+snapshot-20120104"
-> TUNE_FEATURES     = "armv7a vfp neon cortexa8"
-> TARGET_FPU        = "vfp-neon"
-> meta
-> meta-yocto        = "master:f3a1a8897c78e116d7d28947a85687d0ce9d7df7"
-> 
-> 'bitbake vte' fails to configure.  Log attached.
+On 1/3/12 8:17 PM, Colin Walters wrote:
+> On Tue, 2012-01-03 at 16:54 -0800, Saul Wold wrote:
+>> On 01/03/2012 10:48 AM, Colin Walters wrote:
+>>> My OS has read-only bind mounts over most directories (including
+>>> /etc), with the exception of /var.  Since these scripts need to
+>>> be run once and then deleted, it's better for me if these are in
+>>> /var, and won't hurt anyone else for them to be there.
+>>>
+>>> You fixed this for RPM, does it exist for deb and ipkg also?
+>
+>  From a glance, no:
+>
+> rootfs_deb.bbclass
+> 	# Attempt to run postinsts
+> 	# Mark packages with postinst failures as unpacked
+> 	for i in ${IMAGE_ROOTFS}/var/lib/dpkg/info/*.postinst; do
+> 		if [ -f $i ]&&  ! sh $i configure; then
+> 			_flag unpacked `basename $i .postinst`
+> 		fi
+> 	done
+>
+> rootfs_ipk.bbclass:
+> 	for i in ${IMAGE_ROOTFS}${opkglibdir}/info/*.postinst; do
+> 		if [ -f $i ]&&  ! sh $i configure; then
+> 		     	runtime_script_required=1
+> 			opkg-cl ${IPKG_ARGS} flag unpacked `basename $i .postinst`
+> 		fi
+> 	done
 
-There is a fix in master for that:
+Based on the above, I would then suggest you use /var/lib/rpm/info/*.postinst
 
-http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=93855361b76565bef7b8cc5b474a51b20b328464
+That way the files are contained within the rpm directory of database and 
+associated files.  Otherwise, I agree, this is a bug in the current 
+implementation.  It shouldn't be using etc for things that can change.
 
-We're working through a backlog of changes from over the holidays but
-fixes are being worked on for known issues.
+--Mark
 
-Cheers,
-
-Richard
-
-
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
