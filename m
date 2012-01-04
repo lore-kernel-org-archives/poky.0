@@ -1,34 +1,35 @@
-Return-Path: <derek.buitenhuis@gmail.com>
-Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
-	[209.85.212.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E9C14E0070D
-	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 17:24:01 -0800 (PST)
+Return-Path: <walters@verbum.org>
+Received: from out5.smtp.messagingengine.com (out5.smtp.messagingengine.com
+	[66.111.4.29])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C78EFE0070D
+	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 18:08:28 -0800 (PST)
 Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
+	(1024-bit key; insecure key) header.i=@messagingengine.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by vbbfa15 with SMTP id fa15so17053238vbb.35
-	for <poky@yoctoproject.org>; Tue, 03 Jan 2012 17:24:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=from:to:cc:subject:date:message-id:x-mailer:in-reply-to:references;
-	bh=y6SEa5XWKqcl0awL6RmGEsSjNGoCIea5pgDmVYyJ3PU=;
-	b=rwMyc5cjprXOYo59fEn01Tmq5asanOrKdwRdaSzt34dZAx9kZ4Xr44n1bfD7GpJh+j
-	EgLvXQ5bjbZy3V+ans1T0RiFHgfLO5ag2Su6Hy04Bok3G+g8IyO72660EndWSC+BeSwH
-	3L4ImjFgpgvz/dS80D/Wt0+InH8wywmdpPqss=
-Received: by 10.52.179.33 with SMTP id dd1mr19138258vdc.43.1325640241122;
-	Tue, 03 Jan 2012 17:24:01 -0800 (PST)
-Received: from localhost.localdomain (S0106586d8f4832af.tb.shawcable.net.
-	[174.5.7.80])
-	by mx.google.com with ESMTPS id ek9sm29598906vdc.19.2012.01.03.17.24.00
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 03 Jan 2012 17:24:00 -0800 (PST)
-From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+Received: from compute2.internal (compute2.nyi.mail.srv.osa [10.202.2.42])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 4944B20E44
+	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 21:08:27 -0500 (EST)
+Received: from frontend1.nyi.mail.srv.osa ([10.202.2.160])
+	by compute2.internal (MEProxy); Tue, 03 Jan 2012 21:08:27 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+	messagingengine.com; h=subject:from:to:date:content-type
+	:content-transfer-encoding:message-id:mime-version; s=smtpout;
+	bh=O5a4O58WI/rBnB2MVp+/7Nx2MGQ=; b=bsIlx49DqvI06YXOdlMAaUkdVX01
+	rEZN7Vz2EvDQvlCy6wzm3NE9L9rGaXkAzNaUdfYfexLhKaMPNuC0sKH50TVd5WeV
+	4PD+1NxBZxVYDapcGJp/QOBPISh+ungBaRzGAqtVGs62bgV1Qnoa6my/MYaQBwyj
+	5vBxKvONMCqTuEQ=
+X-Sasl-enc: u7nSD/pQdx3+/8Q9PSwHbuwZ8QFbjchGNfTNCtTmVoS1 1325642907
+Received: from [192.168.1.6] (c-65-96-60-117.hsd1.ct.comcast.net
+	[65.96.60.117])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 149CB8E007F
+	for <poky@yoctoproject.org>; Tue,  3 Jan 2012 21:08:27 -0500 (EST)
+From: Colin Walters <walters@verbum.org>
 To: poky@yoctoproject.org
-Date: Tue,  3 Jan 2012 20:23:57 -0500
-Message-Id: <1325640237-17019-2-git-send-email-derek.buitenhuis@gmail.com>
-X-Mailer: git-send-email 1.7.7.3
-In-Reply-To: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
-References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
-Subject: [PATCH 2/2] binutils: Allow plugins
+Date: Tue, 03 Jan 2012 21:08:09 -0500
+X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
+Message-ID: <1325642890.24646.8.camel@lenny>
+Mime-Version: 1.0
+Subject: -dev RPM packages Require:ing all of their bitbake build dependences
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,46 +41,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jan 2012 01:24:02 -0000
+X-List-Received-Date: Wed, 04 Jan 2012 02:08:30 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Make sure it's possible to build binutils with
-plugin support.
+I'm trying to use Yocto to generate a target which has standard build
+tools like gcc, make, the glibc headers etc.
 
-Signed-off-by: Derek Buitenhuis <derek.buitenhuis@gmail.com>
----
- .../binutils/binutils-cross-canadian.inc           |    3 ++-
- meta/recipes-devtools/binutils/binutils-cross.inc  |    3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+In theory, this is solved by task-core-sdk, but I ran into the issue
+that "pkg-config-dev" contains pkg.m4 which is obviously necessary for
+building anything that uses pkg-config and the autotools.  The further
+issue is that OE has a rule that -dev packages Require: all of the RPMs
+used to build the recipie.
 
-diff --git a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
-index 00648a6..4f20ad7 100644
---- a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
-+++ b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
-@@ -8,7 +8,8 @@ DEPENDS = "flex-native bison-native virtual/${HOST_PREFIX}gcc-crosssdk virtual/l
- EXTRA_OECONF = "--with-sysroot=${SDKPATH}/sysroots/${TUNE_PKGARCH}${TARGET_VENDOR}-${TARGET_OS} \
-                 --program-prefix=${TARGET_PREFIX} \
-                 --disable-werror \
--                ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)}"
-+                ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)} \
-+                ${@base_contains('DISTRO_FEATURES', 'binutils-plugins', '--enable-plugins', '', d)}"
- 
- do_install () {
- 	autotools_do_install
-diff --git a/meta/recipes-devtools/binutils/binutils-cross.inc b/meta/recipes-devtools/binutils/binutils-cross.inc
-index 80152a9..0af913d 100644
---- a/meta/recipes-devtools/binutils/binutils-cross.inc
-+++ b/meta/recipes-devtools/binutils/binutils-cross.inc
-@@ -10,7 +10,8 @@ EXTRA_OECONF = "--with-sysroot=${STAGING_DIR_TARGET} \
-                 --disable-werror \
-                 --enable-poison-system-directories \
-                 ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)} \
--                ${@base_contains('DISTRO_FEATURES', 'multiarch', '--enable-64-bit-bfd', '', d)}"
-+                ${@base_contains('DISTRO_FEATURES', 'multiarch', '--enable-64-bit-bfd', '', d)} \
-+                ${@base_contains('DISTRO_FEATURES', 'binutils-plugins', '--enable-plugins', '', d)}"
- 
- do_install () {
- 	oe_runmake 'DESTDIR=${D}' install
--- 
-1.7.7.3
+In the case of pkgconfig-dev, that pulls in libglib-2.0-dev which pulls
+in libx11-dev which is already way more than I want.
+
+One approach to this problem is to drain the -dev packages into the main
+"runtime" package.  I have difficulty imagining someone wanting to
+ship /usr/bin/pkg-config but not pkg.m4 for example.  I'm not yet sure
+how many recipes are affected though.
+
+Another approach would be to stop injecting -dev Requires by default.  I
+imagine this was done to handle the case of library A whose headers
+require library B.  However, a saner way to handle this I think is
+simply to push people to use pkg-config; IIRC a script exists to extract
+pkg-config dependencies from the .pc files and use that for the RPM
+auto-dependency phase.  That would ensure that e.g. gtk+-dev Requires:
+glib-dev.  This doesn't help non-pkg-config libraries, but those people
+should be shamed anyways =)
+
 
 
