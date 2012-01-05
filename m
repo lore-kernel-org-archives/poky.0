@@ -1,36 +1,24 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-qy0-f176.google.com (mail-qy0-f176.google.com
-	[209.85.216.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E25B4E006DD
-	for <poky@yoctoproject.org>; Wed,  4 Jan 2012 08:35:12 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
-	x-dkim-adsp=none (insecure policy)
-Received: by qcsc2 with SMTP id c2so13008842qcs.35
-	for <poky@yoctoproject.org>; Wed, 04 Jan 2012 08:35:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=G5vnq3xf0NwsHg4vtOwimUoma9T4WsLETSPRtbpE5bE=;
-	b=rd8o62onkzZ7vOmTX0dwz0mJuaeaVGZ3/dfaxmyqrNtjwx8cipzP7u6FOqYB+mfWRn
-	RNjHuz8uLgu1fje/Q2AEms1YckQyhgq6iMF2KxipcprvP5FDO3c5Rrb7tWgSxbwX+jLQ
-	nEqI2TFU6LkPBGBErNyhZ1dCfYORifVcS993w=
-Received: by 10.224.200.197 with SMTP id ex5mr23563273qab.88.1325694912256;
-	Wed, 04 Jan 2012 08:35:12 -0800 (PST)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6E6F4E00303
+	for <poky@yoctoproject.org>; Thu,  5 Jan 2012 12:15:06 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 05 Jan 2012 12:15:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="103942465"
+Received: from unknown (HELO [10.255.13.127]) ([10.255.13.127])
+	by fmsmga001.fm.intel.com with ESMTP; 05 Jan 2012 12:15:05 -0800
+Message-ID: <4F0604C9.1070208@linux.intel.com>
+Date: Thu, 05 Jan 2012 12:15:05 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:7.0) Gecko/20110927 Thunderbird/7.0
 MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.229.187.141 with HTTP; Wed, 4 Jan 2012 08:34:51 -0800 (PST)
-In-Reply-To: <1325694194.20759.23.camel@ted>
-References: <1325642890.24646.8.camel@lenny> <1325694194.20759.23.camel@ted>
-From: Chris Larson <clarson@kergoth.com>
-Date: Wed, 4 Jan 2012 09:34:51 -0700
-X-Google-Sender-Auth: p6iN4mt9RsTGubeOYrBGcMTyXJM
-Message-ID: <CABcZANkD1Dik9YDK82UJ72wMV4jLnczCKtDrPYH9gJchqjH=sQ@mail.gmail.com>
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
+To: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
+In-Reply-To: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [OE-core] -dev RPM packages Require:ing all of their bitbake build dependences
+Subject: Re: [PATCH 1/2] binutils-cross-canadian: Allow ld-is-gold
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,37 +30,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Jan 2012 16:35:13 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 05 Jan 2012 20:15:06 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jan 4, 2012 at 9:23 AM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
->> Another approach would be to stop injecting -dev Requires by default. =
-=C2=A0I
->> imagine this was done to handle the case of library A whose headers
->> require library B. =C2=A0However, a saner way to handle this I think is
->> simply to push people to use pkg-config; IIRC a script exists to extract
->> pkg-config dependencies from the .pc files and use that for the RPM
->> auto-dependency phase. =C2=A0That would ensure that e.g. gtk+-dev Requir=
-es:
->> glib-dev. =C2=A0This doesn't help non-pkg-config libraries, but those pe=
-ople
->> should be shamed anyways =3D)
+On 01/03/2012 05:23 PM, Derek Buitenhuis wrote:
+> In order to actually generate a toolchain (with
+> bitbake meta-toolchain) that supports gold, binutils-
+> cross-canadian also needs to be built this way.
 >
-> I think these dependencies are wrong and need revisiting. Currently,
-> -dev and -dbg packages share the same code and its tilted more in favour
-> of -dbg than it is for -dev.
+> Signed-off-by: Derek Buitenhuis<derek.buitenhuis@gmail.com>
+> ---
+>   .../binutils/binutils-cross-canadian.inc           |    3 ++-
+>   1 files changed, 2 insertions(+), 1 deletions(-)
 >
-> I think the -dev packages make sense if you want to build X but not
-> build something that just depends on X. We should therefore move the
-> dependencies to a new package (need a good name) and rethink the -dev
-> package dependencies.
+> diff --git a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> index b1cee67..00648a6 100644
+> --- a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> +++ b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> @@ -7,7 +7,8 @@ BPN = "binutils"
+>   DEPENDS = "flex-native bison-native virtual/${HOST_PREFIX}gcc-crosssdk virtual/libc-nativesdk zlib-nativesdk gettext-nativesdk"
+>   EXTRA_OECONF = "--with-sysroot=${SDKPATH}/sysroots/${TUNE_PKGARCH}${TARGET_VENDOR}-${TARGET_OS} \
+>                   --program-prefix=${TARGET_PREFIX} \
+> -                --disable-werror"
+> +                --disable-werror \
+> +                ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)}"
+>
+>   do_install () {
+>   	autotools_do_install
 
+Merged into OE-Core
 
-I'm inclined to say let the user install the deps needed to build X
-themselves, or build it with bitbake, and let -dev work the way it
-does in other distros, the bits needed to build against X.
---=20
-Christopher Larson
+In the future for OE-Core (meta/*) changes please send them to 
+openembedded-core@lists.openembedded.org
+
+Thanks
+	Sau!
 
