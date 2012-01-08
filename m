@@ -1,23 +1,25 @@
-Return-Path: <Xiaofeng.Yan@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 28D75E0030B
-	for <poky@yoctoproject.org>; Sat,  7 Jan 2012 23:44:46 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q087ikqo013135
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Sat, 7 Jan 2012 23:44:46 -0800 (PST)
-Received: from localhost (128.224.162.28) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
-	Sat, 7 Jan 2012 23:44:45 -0800
-Message-ID: <607332c9ba838db6774e5141218ce9107d6b1aaf.1326007408.git.xiaofeng.yan@windriver.com>
-In-Reply-To: <cover.1326007408.git.xiaofeng.yan@windriver.com>
-References: <cover.1326007408.git.xiaofeng.yan@windriver.com>
-Old-Date: Sun, 8 Jan 2012 15:15:36 +0800
-Date: Sun, 8 Jan 2012 15:33:47 +0800
-To: <poky@yoctoproject.org>, <mark.hatle@windriver.com>
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Return-Path: <andrei@gherzan.ro>
+Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82A12E00303
+	for <poky@yoctoproject.org>; Sun,  8 Jan 2012 04:32:55 -0800 (PST)
+Received: by eekd49 with SMTP id d49so1961991eek.35
+	for <poky@yoctoproject.org>; Sun, 08 Jan 2012 04:32:54 -0800 (PST)
+Received: by 10.14.127.68 with SMTP id c44mr4893192eei.47.1326025974325;
+	Sun, 08 Jan 2012 04:32:54 -0800 (PST)
+Received: from [192.168.1.2] ([79.115.118.211])
+	by mx.google.com with ESMTPS id b49sm245038305eec.9.2012.01.08.04.32.53
+	(version=SSLv3 cipher=OTHER); Sun, 08 Jan 2012 04:32:53 -0800 (PST)
+Message-ID: <4F098CF9.7090309@gherzan.ro>
+Date: Sun, 08 Jan 2012 14:32:57 +0200
+From: Andrei Gherzan <andrei@gherzan.ro>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:8.0) Gecko/20111124 Thunderbird/8.0
 MIME-Version: 1.0
-Subject: [OE-core][PATCH 1/1] local.conf.sample: Define variable "ARCHIVE_TYPE"
+To: poky@yoctoproject.org
+References: <4F098BF6.1090404@gherzan.ro>
+In-Reply-To: <4F098BF6.1090404@gherzan.ro>
+X-Forwarded-Message-Id: <4F098BF6.1090404@gherzan.ro>
+Subject: Miss-match between excluded license names and license name files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,44 +31,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 08 Jan 2012 07:44:46 -0000
-Content-Type: text/plain
+X-List-Received-Date: Sun, 08 Jan 2012 12:32:57 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xiaofeng Yan <xiaofeng.yan@windriver.com>
+Hello all,
 
-This variable is used for selecting the type of packaging source codes tree (src.rpm or tar.gz)
-source codes tree is a directory after unpacking and patching.
+I faced another GPLv3 related bug/issue. This one goes like this. In 
+base.class excluded/skipped packages from build are those that are 
+EXACTLY as they are typed in INCOMPATIBLE_LICENSE. For example a package 
+with LICENSE=GPLv3 will be excluded from build and one with 
+LICENSE=GPL-3 won't be. That would be a problem because a package like 
+gettext 0.18 where LICENSE=GPL-3 is not excluded even if it is GPLv3. 
+The standard license name for versions of GPL is indeed GPL-X.Y. Example 
+GPL-3.0. So, as i see we have a couple (2) of fixes for this.
 
-[YOCTO #1655]
+1. Modify gettext's LICENSE to GPLv3. This is the quick one but no so... 
+let's say standardized. I will commit this change as a workaround (or 
+not) until we will have a conclusion upon this matter.
+2. Recode base.bbclass part where INCOMPATIBLE_LICENSE is managed in 
+order to take into consideration those license variations defined in 
+license.bbclass. This is the "long" fix. An issue here would be that all 
+mapping in license.bbclass is on GPL-3.0 (as i think should be in this 
+naming standard). So we will have to redefine INCOMPATIBLE_LICENSE to 
+this value after the base.bbclass specified recoding is done. In this 
+way all those workarounds with "if GPLv3 is in INCOMPATIBLE_LICENSE" 
+will have to be modified as well, to check for GPL-3.0. In this way we 
+can take advantage of the already done mapping in license.bbclass, let 
+developers have their variations of LICENSE and still skipping those 
+packages from non-GPL-3.0 license builds. I think that this would be the 
+most complete fix in order to scale this INCOMPATIBLE_LICENSE issue.
 
-Signed-off-by: Xiaofeng Yan <xiaofeng.yan@windriver.com>
----
- meta-yocto/conf/local.conf.sample |   11 +++++++++++
- 1 files changed, 11 insertions(+), 0 deletions(-)
-
-diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
-index 38507e3..8745e65 100644
---- a/meta-yocto/conf/local.conf.sample
-+++ b/meta-yocto/conf/local.conf.sample
-@@ -187,6 +187,17 @@ USER_CLASSES ?= "buildstats image-mklibs image-prelink"
- #TEST_SERIALIZE = "1"
- 
- #
-+# Pacakge source codes tree to source rpm and tar packages
-+#
-+# ARCHIVE_TYPE ?= "SRPM":  package source codes tree to source rpm package
-+# ARCHIVE_TYPE ?= "TARGZ": package source codes tree to tar package
-+# Inherit tar_archive.bbclass in package_rpm.bbclass before enabling this variable
-+# Run like the following command 
-+# $ bitbake core-image-sato -c copysources <get all of packages>
-+# $ ls build/tmp/deploy/sources
-+#ARCHIVE_TYPE ?= "SRPM"
-+
-+#
- # Interactive shell configuration
- #
- # Under certain circumstances the system may need input from you and to do this it 
--- 
-1.7.0.4
-
+Andrei
 
