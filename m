@@ -1,28 +1,34 @@
-Return-Path: <vishwasonu2000@gmail.com>
-Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
-	[209.85.212.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0E9D9E0121A
-	for <poky@yoctoproject.org>; Mon,  9 Jan 2012 04:08:38 -0800 (PST)
+Return-Path: <walters@verbum.org>
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+	[66.111.4.27])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E1B65E006E9
+	for <poky@yoctoproject.org>; Mon,  9 Jan 2012 13:24:16 -0800 (PST)
 Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@gmail.com;
+	(1024-bit key; insecure key) header.i=@messagingengine.com;
 	x-dkim-adsp=none (insecure policy)
-Received: by wibhq4 with SMTP id hq4so3797997wib.35
-	for <poky@yoctoproject.org>; Mon, 09 Jan 2012 04:08:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=If8sFUQsYHTi+w9vmPCuOyK1tjmUIHvijV+S6ymHL8g=;
-	b=mx4UM8ivSWQc0ECSMWqIvQ8aFFt3r5LJJ7uzNw1lH6pjW+vUP2x5bpLRqmTY/F1ZTa
-	/7nm2qhxwWcm/vlrG2K8reJ13uIIridIwzpMxzpCPG5wLN4ZnIUDV2mtCRjHj7MX2CaB
-	ZimwBI3nXdCBxE1vd/RvCoFlWjg/ob27af8qI=
-MIME-Version: 1.0
-Received: by 10.180.101.35 with SMTP id fd3mr26693353wib.22.1326110917700;
-	Mon, 09 Jan 2012 04:08:37 -0800 (PST)
-Received: by 10.180.7.9 with HTTP; Mon, 9 Jan 2012 04:08:37 -0800 (PST)
-Date: Mon, 9 Jan 2012 17:38:37 +0530
-Message-ID: <CABRtByOefPO-tZp6sF7QAFjgobGHK82GNkT6fqTbA6Hrwk8MFA@mail.gmail.com>
-From: sonu vishwakarma <vishwasonu2000@gmail.com>
-To: poky@yoctoproject.org
-Subject: ERROR: '/home/poky/vlc/vlc_1.1.11.bb' failed
+Received: from compute2.internal (compute2.nyi.mail.srv.osa [10.202.2.42])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 73A5520F56
+	for <poky@yoctoproject.org>; Mon,  9 Jan 2012 16:24:15 -0500 (EST)
+Received: from frontend2.nyi.mail.srv.osa ([10.202.2.161])
+	by compute2.internal (MEProxy); Mon, 09 Jan 2012 16:24:15 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+	messagingengine.com; h=subject:from:to:date:content-type
+	:message-id:mime-version; s=smtpout; bh=d+TKJV+L+ySw9BKF5U2yUOtq
+	b4g=; b=YB6OBzne6lpmTFXT2AnHOnnCdiMQk9QNu4nSw9tVC3hIw700VC9WAl0u
+	F9vsXH1IqGHZPERyeNJQuUvRtrRMGego/77VCI/tcBFYxqQqPEjvkuS6FeEhmxB4
+	QWo9C6l4YsvoZQtilG8ZNYQDwn5jcceUJ2GxFj7MJ2kDhEIxGug=
+X-Sasl-enc: Hzzc1JT2Byimvxi0z3g+gogDte3S3sUATTN3runwp+fq 1326144255
+Received: from [192.168.1.6] (c-65-96-60-117.hsd1.ct.comcast.net
+	[65.96.60.117])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 3E152482559
+	for <poky@yoctoproject.org>; Mon,  9 Jan 2012 16:24:15 -0500 (EST)
+From: Colin Walters <walters@verbum.org>
+To: poky <poky@yoctoproject.org>
+Date: Mon, 09 Jan 2012 16:23:57 -0500
+X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
+Message-ID: <1326144238.18105.22.camel@lenny>
+Mime-Version: 1.0
+Subject: [PATCH] util-linux: .pc files should go in the -dev packages for subpackages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,113 +40,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Jan 2012 12:08:39 -0000
-Content-Type: multipart/alternative; boundary=f46d041825522eab0e04b61742f0
+X-List-Received-Date: Mon, 09 Jan 2012 21:24:17 -0000
+X-Groupsio-MsgNum: 7341
+Content-Type: multipart/mixed; boundary="=-EpnjwH6yGi32S2ZXDUVZ"
 
---f46d041825522eab0e04b61742f0
-Content-Type: text/plain; charset=ISO-8859-1
+--=-EpnjwH6yGi32S2ZXDUVZ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi,
-I'm trying the build for vlc , i'm getting the compilation error as follows:
-
-| i586-poky-linux-libtool: link: warning:
-`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
-moved
-| i586-poky-linux-libtool: link: warning:
-`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
-moved
-| i586-poky-linux-libtool: link: warning:
-`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
-moved
-| i586-poky-linux-libtool: link: warning:
-`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
-moved
-|
-/home/poky/build/tmp/sysroots/x86_64-linux/usr/libexec/atom-poky-linux/gcc/i586-poky-linux/4.5.1/ld:
-cannot find -ldvdnav
-|
-/home/poky/build/tmp/sysroots/x86_64-linux/usr/libexec/atom-poky-linux/gcc/i586-poky-linux/4.5.1/ld:
-cannot find -ldvdread
-| collect2: ld returned 1 exit status
-| make[5]: *** [libdvdnav_plugin.la] Error 1
-| make[5]: *** Waiting for unfinished jobs....
-| make[5]: Leaving directory
-`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access'
-| make[4]: *** [all-recursive] Error 1
-| make[4]: Leaving directory
-`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access'
-| make[3]: *** [all] Error 2
-| make[3]: Leaving directory
-`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access'
-| make[2]: *** [all-recursive] Error 1
-| make[2]: Leaving directory
-`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules'
-| make[1]: *** [all-recursive] Error 1
-| make[1]: Leaving directory
-`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11'
-| make: *** [all] Error 2
-| FATAL: oe_runmake failed
-| ERROR: Function 'do_compile' failed (see
-/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/temp/log.do_compile.27091
-for further information)
-NOTE: package vlc-1.1.11-r1: task do_compile: Failed
+    The .pc files were ending up in util-linux-dev, not the correct
+    subpackage like libuuid1-dev.
 
 
-I'm pulling for the Fishriver machine . My host machine is Ubuntu 10.10 ,64
-bit .
-Can someone help me out of this problem ?
-Thanks & Regards,
-Sonu.
 
---f46d041825522eab0e04b61742f0
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+--=-EpnjwH6yGi32S2ZXDUVZ
+Content-Disposition: attachment;
+	filename*0=0001-util-linux-.pc-files-should-go-in-the-dev-packages-f.pat;
+	filename*1=ch
+Content-Type: text/x-patch;
+	name="0001-util-linux-.pc-files-should-go-in-the-dev-packages-f.patch";
+	charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-<span class=3D"Apple-style-span" style>Hi,<div>I&#39;m trying the build for=
- vlc , i&#39;m getting the compilation error as follows:</div><div><br></di=
-v><div><div>| i586-poky-linux-libtool: link: warning: `/home/poky/build/tmp=
-/sysroots/fishriver/usr/lib/<a href=3D"http://libdbus-1.la">libdbus-1.la</a=
->&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/poky/build/tmp/sysroo=
-ts/fishriver/usr/lib/<a href=3D"http://libdbus-1.la">libdbus-1.la</a>&#39; =
-seems to be moved</div><div>| i586-poky-linux-libtool: link: warning: `/hom=
-e/poky/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libdbus-1.la"=
->libdbus-1.la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/poky/build/tmp/sysroo=
-ts/fishriver/usr/lib/<a href=3D"http://libdbus-1.la">libdbus-1.la</a>&#39; =
-seems to be moved</div><div>| /home/poky/build/tmp/sysroots/x86_64-linux/us=
-r/libexec/atom-poky-linux/gcc/i586-poky-linux/4.5.1/ld: cannot find -ldvdna=
-v</div>
-<div>| /home/poky/build/tmp/sysroots/x86_64-linux/usr/libexec/atom-poky-lin=
-ux/gcc/i586-poky-linux/4.5.1/ld: cannot find -ldvdread</div><div>| collect2=
-: ld returned 1 exit status</div><div>| make[5]: *** [<a href=3D"http://lib=
-dvdnav_plugin.la">libdvdnav_plugin.la</a>] Error 1</div>
-<div>| make[5]: *** Waiting for unfinished jobs....</div><div>| make[5]: Le=
-aving directory `/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vl=
-c-1.1.11/modules/access&#39;</div><div>| make[4]: *** [all-recursive] Error=
- 1</div>
-<div>| make[4]: Leaving directory `/home/poky/build/tmp/work/atom-poky-linu=
-x/vlc-1.1.11-r1/vlc-1.1.11/modules/access&#39;</div><div>| make[3]: *** [al=
-l] Error 2</div><div>| make[3]: Leaving directory `/home/poky/build/tmp/wor=
-k/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access&#39;</div>
-<div>| make[2]: *** [all-recursive] Error 1</div><div>| make[2]: Leaving di=
-rectory `/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11=
-/modules&#39;</div><div>| make[1]: *** [all-recursive] Error 1</div><div>
-| make[1]: Leaving directory `/home/poky/build/tmp/work/atom-poky-linux/vlc=
--1.1.11-r1/vlc-1.1.11&#39;</div><div>| make: *** [all] Error 2</div><div>| =
-FATAL: oe_runmake failed</div><div>| ERROR: Function &#39;do_compile&#39; f=
-ailed (see /home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/temp/log=
-.do_compile.27091 for further information)</div>
-<div>NOTE: package vlc-1.1.11-r1: task do_compile: Failed</div></div><div><=
-br></div><div><br></div></span><span class=3D"Apple-style-span" style><div>=
-<span style=3D"white-space:pre-wrap"><font face=3D"arial, helvetica, sans-s=
-erif">I&#39;m pulling for the Fishriver machine . My host machine is Ubuntu=
- 10.10 ,64 bit . </font></span></div>
-<div><span><font face=3D"arial, helvetica, sans-serif"><div><span style=3D"=
-white-space:pre-wrap">Can someone help me out of this problem ? </span></di=
-v><div><span style=3D"white-space:pre-wrap">
-</span></div><div><span style=3D"white-space:pre-wrap">Thanks &amp; Regards=
-,</span></div><div><font><span style=3D"white-space:pre-wrap">Sonu.</span><=
-/font></div></font></span></div></span>
+From da609d5d86242f8eb3eb040388b12a4642253829 Mon Sep 17 00:00:00 2001
+From: Colin Walters <walters@verbum.org>
+Date: Mon, 9 Jan 2012 16:22:39 -0500
+Subject: [PATCH] util-linux: .pc files should go in the -dev packages for
+ subpackages
 
---f46d041825522eab0e04b61742f0--
+The .pc files were ending up in util-linux-dev, not the correct
+subpackage like libuuid1-dev.
+---
+ meta/recipes-core/util-linux/util-linux.inc |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-core/util-linux/util-linux.inc
+index dcf0ed9..c814581 100644
+--- a/meta/recipes-core/util-linux/util-linux.inc
++++ b/meta/recipes-core/util-linux/util-linux.inc
+@@ -51,9 +51,9 @@ FILES_util-linux-readprofile = "${base_sbindir}/readprofile.${PN}"
+ FILES_util-linux-uuidgen = "${bindir}/uuidgen"
+ 
+ FILES_util-linux-libblkid = "${libdir}/libblkid.so.*"
+-FILES_util-linux-libblkid-dev = "${libdir}/libblkid.so ${libdir}/libblkid.a ${libdir}/libblkid.la ${includedir}/blkid"
++FILES_util-linux-libblkid-dev = "${libdir}/libblkid.so ${libdir}/libblkid.a ${libdir}/libblkid.la ${includedir}/blkid ${libdir}/pkgconfig/blkid.pc"
+ FILES_util-linux-libuuid = "${libdir}/libuuid.so.*"
+-FILES_util-linux-libuuid-dev = "${libdir}/libuuid.so ${libdir}/libuuid.a ${libdir}/libuuid.la ${includedir}/uuid"
++FILES_util-linux-libuuid-dev = "${libdir}/libuuid.so ${libdir}/libuuid.a ${libdir}/libuuid.la ${includedir}/uuid ${libdir}/pkgconfig/uuid.pc"
+ FILES_util-linux-lscpu = "${bindir}/lscpu"
+ 
+ FILES_util-linux-fsck = "${base_sbindir}/fsck*"
+-- 
+1.7.6.4
+
+
+--=-EpnjwH6yGi32S2ZXDUVZ--
