@@ -1,25 +1,28 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82A12E00303
-	for <poky@yoctoproject.org>; Sun,  8 Jan 2012 04:32:55 -0800 (PST)
-Received: by eekd49 with SMTP id d49so1961991eek.35
-	for <poky@yoctoproject.org>; Sun, 08 Jan 2012 04:32:54 -0800 (PST)
-Received: by 10.14.127.68 with SMTP id c44mr4893192eei.47.1326025974325;
-	Sun, 08 Jan 2012 04:32:54 -0800 (PST)
-Received: from [192.168.1.2] ([79.115.118.211])
-	by mx.google.com with ESMTPS id b49sm245038305eec.9.2012.01.08.04.32.53
-	(version=SSLv3 cipher=OTHER); Sun, 08 Jan 2012 04:32:53 -0800 (PST)
-Message-ID: <4F098CF9.7090309@gherzan.ro>
-Date: Sun, 08 Jan 2012 14:32:57 +0200
-From: Andrei Gherzan <andrei@gherzan.ro>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:8.0) Gecko/20111124 Thunderbird/8.0
+Return-Path: <vishwasonu2000@gmail.com>
+Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
+	[209.85.212.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0E9D9E0121A
+	for <poky@yoctoproject.org>; Mon,  9 Jan 2012 04:08:38 -0800 (PST)
+Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
+	(1024-bit key; insecure key) header.i=@gmail.com;
+	x-dkim-adsp=none (insecure policy)
+Received: by wibhq4 with SMTP id hq4so3797997wib.35
+	for <poky@yoctoproject.org>; Mon, 09 Jan 2012 04:08:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=If8sFUQsYHTi+w9vmPCuOyK1tjmUIHvijV+S6ymHL8g=;
+	b=mx4UM8ivSWQc0ECSMWqIvQ8aFFt3r5LJJ7uzNw1lH6pjW+vUP2x5bpLRqmTY/F1ZTa
+	/7nm2qhxwWcm/vlrG2K8reJ13uIIridIwzpMxzpCPG5wLN4ZnIUDV2mtCRjHj7MX2CaB
+	ZimwBI3nXdCBxE1vd/RvCoFlWjg/ob27af8qI=
 MIME-Version: 1.0
+Received: by 10.180.101.35 with SMTP id fd3mr26693353wib.22.1326110917700;
+	Mon, 09 Jan 2012 04:08:37 -0800 (PST)
+Received: by 10.180.7.9 with HTTP; Mon, 9 Jan 2012 04:08:37 -0800 (PST)
+Date: Mon, 9 Jan 2012 17:38:37 +0530
+Message-ID: <CABRtByOefPO-tZp6sF7QAFjgobGHK82GNkT6fqTbA6Hrwk8MFA@mail.gmail.com>
+From: sonu vishwakarma <vishwasonu2000@gmail.com>
 To: poky@yoctoproject.org
-References: <4F098BF6.1090404@gherzan.ro>
-In-Reply-To: <4F098BF6.1090404@gherzan.ro>
-X-Forwarded-Message-Id: <4F098BF6.1090404@gherzan.ro>
-Subject: Miss-match between excluded license names and license name files
+Subject: ERROR: '/home/poky/vlc/vlc_1.1.11.bb' failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,36 +34,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 08 Jan 2012 12:32:57 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 09 Jan 2012 12:08:39 -0000
+Content-Type: multipart/alternative; boundary=f46d041825522eab0e04b61742f0
 
-Hello all,
+--f46d041825522eab0e04b61742f0
+Content-Type: text/plain; charset=ISO-8859-1
 
-I faced another GPLv3 related bug/issue. This one goes like this. In 
-base.class excluded/skipped packages from build are those that are 
-EXACTLY as they are typed in INCOMPATIBLE_LICENSE. For example a package 
-with LICENSE=GPLv3 will be excluded from build and one with 
-LICENSE=GPL-3 won't be. That would be a problem because a package like 
-gettext 0.18 where LICENSE=GPL-3 is not excluded even if it is GPLv3. 
-The standard license name for versions of GPL is indeed GPL-X.Y. Example 
-GPL-3.0. So, as i see we have a couple (2) of fixes for this.
+Hi,
+I'm trying the build for vlc , i'm getting the compilation error as follows:
 
-1. Modify gettext's LICENSE to GPLv3. This is the quick one but no so... 
-let's say standardized. I will commit this change as a workaround (or 
-not) until we will have a conclusion upon this matter.
-2. Recode base.bbclass part where INCOMPATIBLE_LICENSE is managed in 
-order to take into consideration those license variations defined in 
-license.bbclass. This is the "long" fix. An issue here would be that all 
-mapping in license.bbclass is on GPL-3.0 (as i think should be in this 
-naming standard). So we will have to redefine INCOMPATIBLE_LICENSE to 
-this value after the base.bbclass specified recoding is done. In this 
-way all those workarounds with "if GPLv3 is in INCOMPATIBLE_LICENSE" 
-will have to be modified as well, to check for GPL-3.0. In this way we 
-can take advantage of the already done mapping in license.bbclass, let 
-developers have their variations of LICENSE and still skipping those 
-packages from non-GPL-3.0 license builds. I think that this would be the 
-most complete fix in order to scale this INCOMPATIBLE_LICENSE issue.
+| i586-poky-linux-libtool: link: warning:
+`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
+moved
+| i586-poky-linux-libtool: link: warning:
+`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
+moved
+| i586-poky-linux-libtool: link: warning:
+`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
+moved
+| i586-poky-linux-libtool: link: warning:
+`/home/poky/build/tmp/sysroots/fishriver/usr/lib/libdbus-1.la' seems to be
+moved
+|
+/home/poky/build/tmp/sysroots/x86_64-linux/usr/libexec/atom-poky-linux/gcc/i586-poky-linux/4.5.1/ld:
+cannot find -ldvdnav
+|
+/home/poky/build/tmp/sysroots/x86_64-linux/usr/libexec/atom-poky-linux/gcc/i586-poky-linux/4.5.1/ld:
+cannot find -ldvdread
+| collect2: ld returned 1 exit status
+| make[5]: *** [libdvdnav_plugin.la] Error 1
+| make[5]: *** Waiting for unfinished jobs....
+| make[5]: Leaving directory
+`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access'
+| make[4]: *** [all-recursive] Error 1
+| make[4]: Leaving directory
+`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access'
+| make[3]: *** [all] Error 2
+| make[3]: Leaving directory
+`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access'
+| make[2]: *** [all-recursive] Error 1
+| make[2]: Leaving directory
+`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules'
+| make[1]: *** [all-recursive] Error 1
+| make[1]: Leaving directory
+`/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11'
+| make: *** [all] Error 2
+| FATAL: oe_runmake failed
+| ERROR: Function 'do_compile' failed (see
+/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/temp/log.do_compile.27091
+for further information)
+NOTE: package vlc-1.1.11-r1: task do_compile: Failed
 
-Andrei
 
+I'm pulling for the Fishriver machine . My host machine is Ubuntu 10.10 ,64
+bit .
+Can someone help me out of this problem ?
+Thanks & Regards,
+Sonu.
+
+--f46d041825522eab0e04b61742f0
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<span class=3D"Apple-style-span" style>Hi,<div>I&#39;m trying the build for=
+ vlc , i&#39;m getting the compilation error as follows:</div><div><br></di=
+v><div><div>| i586-poky-linux-libtool: link: warning: `/home/poky/build/tmp=
+/sysroots/fishriver/usr/lib/<a href=3D"http://libdbus-1.la">libdbus-1.la</a=
+>&#39; seems to be moved</div>
+<div>| i586-poky-linux-libtool: link: warning: `/home/poky/build/tmp/sysroo=
+ts/fishriver/usr/lib/<a href=3D"http://libdbus-1.la">libdbus-1.la</a>&#39; =
+seems to be moved</div><div>| i586-poky-linux-libtool: link: warning: `/hom=
+e/poky/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libdbus-1.la"=
+>libdbus-1.la</a>&#39; seems to be moved</div>
+<div>| i586-poky-linux-libtool: link: warning: `/home/poky/build/tmp/sysroo=
+ts/fishriver/usr/lib/<a href=3D"http://libdbus-1.la">libdbus-1.la</a>&#39; =
+seems to be moved</div><div>| /home/poky/build/tmp/sysroots/x86_64-linux/us=
+r/libexec/atom-poky-linux/gcc/i586-poky-linux/4.5.1/ld: cannot find -ldvdna=
+v</div>
+<div>| /home/poky/build/tmp/sysroots/x86_64-linux/usr/libexec/atom-poky-lin=
+ux/gcc/i586-poky-linux/4.5.1/ld: cannot find -ldvdread</div><div>| collect2=
+: ld returned 1 exit status</div><div>| make[5]: *** [<a href=3D"http://lib=
+dvdnav_plugin.la">libdvdnav_plugin.la</a>] Error 1</div>
+<div>| make[5]: *** Waiting for unfinished jobs....</div><div>| make[5]: Le=
+aving directory `/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vl=
+c-1.1.11/modules/access&#39;</div><div>| make[4]: *** [all-recursive] Error=
+ 1</div>
+<div>| make[4]: Leaving directory `/home/poky/build/tmp/work/atom-poky-linu=
+x/vlc-1.1.11-r1/vlc-1.1.11/modules/access&#39;</div><div>| make[3]: *** [al=
+l] Error 2</div><div>| make[3]: Leaving directory `/home/poky/build/tmp/wor=
+k/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11/modules/access&#39;</div>
+<div>| make[2]: *** [all-recursive] Error 1</div><div>| make[2]: Leaving di=
+rectory `/home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/vlc-1.1.11=
+/modules&#39;</div><div>| make[1]: *** [all-recursive] Error 1</div><div>
+| make[1]: Leaving directory `/home/poky/build/tmp/work/atom-poky-linux/vlc=
+-1.1.11-r1/vlc-1.1.11&#39;</div><div>| make: *** [all] Error 2</div><div>| =
+FATAL: oe_runmake failed</div><div>| ERROR: Function &#39;do_compile&#39; f=
+ailed (see /home/poky/build/tmp/work/atom-poky-linux/vlc-1.1.11-r1/temp/log=
+.do_compile.27091 for further information)</div>
+<div>NOTE: package vlc-1.1.11-r1: task do_compile: Failed</div></div><div><=
+br></div><div><br></div></span><span class=3D"Apple-style-span" style><div>=
+<span style=3D"white-space:pre-wrap"><font face=3D"arial, helvetica, sans-s=
+erif">I&#39;m pulling for the Fishriver machine . My host machine is Ubuntu=
+ 10.10 ,64 bit . </font></span></div>
+<div><span><font face=3D"arial, helvetica, sans-serif"><div><span style=3D"=
+white-space:pre-wrap">Can someone help me out of this problem ? </span></di=
+v><div><span style=3D"white-space:pre-wrap">
+</span></div><div><span style=3D"white-space:pre-wrap">Thanks &amp; Regards=
+,</span></div><div><font><span style=3D"white-space:pre-wrap">Sonu.</span><=
+/font></div></font></span></div></span>
+
+--f46d041825522eab0e04b61742f0--
