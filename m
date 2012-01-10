@@ -1,38 +1,19 @@
-Return-Path: <walters@verbum.org>
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
-	[66.111.4.27])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 61B98E0123F
-	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 06:29:30 -0800 (PST)
-Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(1024-bit key; insecure key) header.i=@messagingengine.com;
-	x-dkim-adsp=none (insecure policy)
-Received: from compute6.internal (compute6.nyi.mail.srv.osa [10.202.2.46])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id CDC0A206ED
-	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 09:29:28 -0500 (EST)
-Received: from frontend2.nyi.mail.srv.osa ([10.202.2.161])
-	by compute6.internal (MEProxy); Tue, 10 Jan 2012 09:29:28 -0500
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
-	messagingengine.com; h=subject:from:to:cc:date:in-reply-to
-	:references:content-type:content-transfer-encoding:message-id
-	:mime-version; s=smtpout; bh=V57soFrMGYvkzhokSqqKoqBTs+o=; b=jC8
-	EK/VbiVW/ECuiVovIP3sk4F8QX2QlnkPPXfhpWxqAGE95EiYhTeHEOTbxvJ9tpQc
-	5McuAcN+ewO1T79+LSh4y6rbpx6KdxI51HUM90My9oERZZzSHogtjvv4h+vwjdwZ
-	kPGSQei6fL25nlRRCgS4JzJ+aFWzNJtfGk+YRt6o=
-X-Sasl-enc: SmDqhru9vy4s/Oa05CUnLyRZHfYl/YM87sJY/kdeM/yk 1326205768
-Received: from [10.16.189.124] (nat-pool-rdu.redhat.com [66.187.233.202])
-	by mail.messagingengine.com (Postfix) with ESMTPA id 658B5482483;
-	Tue, 10 Jan 2012 09:29:28 -0500 (EST)
-From: Colin Walters <walters@verbum.org>
-To: Saul Wold <sgw@linux.intel.com>
-Date: Tue, 10 Jan 2012 09:29:09 -0500
-In-Reply-To: <4F0B6250.8030105@linux.intel.com>
-References: <1326144238.18105.22.camel@lenny>
-	<4F0B6250.8030105@linux.intel.com>
-X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
-Message-ID: <1326205750.18105.37.camel@lenny>
-Mime-Version: 1.0
-Cc: poky <poky@yoctoproject.org>
-Subject: Re: [PATCH] util-linux: .pc files should go in the -dev packages for subpackages
+Return-Path: <josh@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF861E006E9
+	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 09:39:24 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 10 Jan 2012 09:39:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="96630052"
+Received: from unknown (HELO shamshir.amr.corp.intel.com) ([10.255.14.3])
+	by orsmga002.jf.intel.com with ESMTP; 10 Jan 2012 09:39:23 -0800
+From: Joshua Lock <josh@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 10 Jan 2012 09:39:21 -0800
+Message-Id: <cover.1326216193.git.josh@linux.intel.com>
+X-Mailer: git-send-email 1.7.7.5
+Subject: [PATCH 0/2] Add alsa-state configuration for Beagleboard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,31 +25,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jan 2012 14:29:31 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 10 Jan 2012 17:39:24 -0000
 
-On Mon, 2012-01-09 at 13:55 -0800, Saul Wold wrote:
-> On 01/09/2012 01:23 PM, Colin Walters wrote:
-> >      The .pc files were ending up in util-linux-dev, not the correct
-> >      subpackage like libuuid1-dev.
-> >
-> Colin,
-> 
-> We appreciate these patches against oe-core, can you please send them to 
-> openembedded-core@lists.openembedded.org, as these are patches to OE-Core.
+CAVEAT: This series requires the alsa-state series recently submitted to the
+OE-Core mailing list.
 
-Sorry, I'm on the list now.
+This change set drops the BSP-specific beagleboard-audio recipe in favour of
+extending the common alsa-state recipe for alsa configuration.
 
-> Also, I am not sure what format and mailer you are sending, but each 
-> patch I have received does not apply cleanly,
+Note: the beagleboard-audio recipe was not working in any stock image as the
+amixer package is not included by default.
 
-It's very likely because I'm building my OS against the Edison release,
-so my patches so far are against that.  Sorry for not specifying that
-explicitly.
+The following changes since commit 6ccf3fe442a2f7b2d330c749c66b3227bc47c3d6:
 
-(I'd like to rebase of course, but that's a bit farther back on the task
-queue, behind getting NetworkManager working e.g.)
+  task-base: add alsa-state to task-base-alsa (2012-01-10 08:34:20 -0800)
 
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib josh/devices
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=josh/devices
+
+Joshua Lock (2):
+  alsa-state: add beagleboard specific asound.state
+  beagleboard-audio: drop in favour of alsa-state
+
+ meta-yocto/conf/machine/beagleboard.conf           |    3 -
+ .../recipes-bsp/alsa-state/alsa-state.bbappend     |    1 +
+ .../alsa-state/alsa-state/beagleboard/asound.state |  656 ++++++++++++++++++++
+ .../beagleboard-audio/beagleboard-audio.bb         |   33 -
+ .../beagleboard-audio/beagleboard-audio            |   44 --
+ 5 files changed, 657 insertions(+), 80 deletions(-)
+ create mode 100644 meta-yocto/recipes-bsp/alsa-state/alsa-state.bbappend
+ create mode 100644 meta-yocto/recipes-bsp/alsa-state/alsa-state/beagleboard/asound.state
+ delete mode 100644 meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio.bb
+ delete mode 100644 meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio/beagleboard-audio
+
+-- 
+1.7.7.5
 
 
