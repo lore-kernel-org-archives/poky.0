@@ -1,34 +1,41 @@
-Return-Path: <s-qji3a8jMQwzVE0No2RSUfUWCqXrVHe4o2iKT6AKMQ8InKffIpy0vD6@bounce.linkedin.com>
-Received: from mailb-bb.linkedin.com (mailb-bb.linkedin.com [216.52.242.147])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 79042E006E9
-	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 05:28:49 -0800 (PST)
+Return-Path: <walters@verbum.org>
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+	[66.111.4.27])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 61B98E0123F
+	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 06:29:30 -0800 (PST)
 Authentication-Results: yocto-www.yoctoproject.org; dkim=pass
-	(768-bit key; insecure key) header.i=@linkedin.com;
+	(1024-bit key; insecure key) header.i=@messagingengine.com;
 	x-dkim-adsp=none (insecure policy)
-DomainKey-Signature: q=dns; a=rsa-sha1; c=nofws; s=prod; d=linkedin.com;
-	h=DKIM-Signature:Sender:Date:From:Reply-To:To:Message-ID:Subject:MIME-Version:Content-Type:X-LinkedIn-Template:X-LinkedIn-Class:X-LinkedIn-fbl;
-	b=voXLEqYDNK5VDkmiC1XnnKWfKSAae0DD2WN7u84jGL+voCdKILg4AfYHbMSIg6ZK
-	gzuDcA/cXr9REcjO5pSElAMyYyAtV9E1abdN1Sk8FmiXDdQcNZJlZlrdeQ029v7k
-DKIM-Signature: v=1; a=rsa-sha1; d=linkedin.com; s=proddkim; c=relaxed/relaxed;
-	q=dns/txt; i=@linkedin.com; t=1326202128;
-	h=From:Subject:Date:To:MIME-Version:Content-Type:X-LinkedIn-Class:X-LinkedIn-fbl:
-	X-LinkedIn-Template; bh=KDex+mewmxWRNzYzJBmxlDr37ZA=;
-	b=fOBau3i+PdkJ+CKm4YErN8O+BzGTgdJdmT+jCuumrCynUo1+o4859CkI5+up/Cp6
-	Ld4Qzvy7e6yDTT/5uIRPc91U8l2OfHqv/x0M21o8/5fdsedNSKvysNZs8pB2AVGN;
-Sender: messages-noreply@bounce.linkedin.com
-Date: Tue, 10 Jan 2012 13:28:48 +0000 (UTC)
-From: Bhanu Prakash Singh via LinkedIn <member@linkedin.com>
-To: Ni Qingliang <poky@yoctoproject.org>
-Message-ID: <1907949917.17511806.1326202128756.JavaMail.app@ela4-bed80.prod>
-MIME-Version: 1.0
-X-LinkedIn-Template: invite_member_17
-X-LinkedIn-Class: INVITE-MBR
-X-LinkedIn-fbl: s-qji3a8jMQwzVE0No2RSUfUWCqXrVHe4o2iKT6AKMQ8InKffIpy0vD6
-Subject: Invitation to connect on LinkedIn
+Received: from compute6.internal (compute6.nyi.mail.srv.osa [10.202.2.46])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id CDC0A206ED
+	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 09:29:28 -0500 (EST)
+Received: from frontend2.nyi.mail.srv.osa ([10.202.2.161])
+	by compute6.internal (MEProxy); Tue, 10 Jan 2012 09:29:28 -0500
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=
+	messagingengine.com; h=subject:from:to:cc:date:in-reply-to
+	:references:content-type:content-transfer-encoding:message-id
+	:mime-version; s=smtpout; bh=V57soFrMGYvkzhokSqqKoqBTs+o=; b=jC8
+	EK/VbiVW/ECuiVovIP3sk4F8QX2QlnkPPXfhpWxqAGE95EiYhTeHEOTbxvJ9tpQc
+	5McuAcN+ewO1T79+LSh4y6rbpx6KdxI51HUM90My9oERZZzSHogtjvv4h+vwjdwZ
+	kPGSQei6fL25nlRRCgS4JzJ+aFWzNJtfGk+YRt6o=
+X-Sasl-enc: SmDqhru9vy4s/Oa05CUnLyRZHfYl/YM87sJY/kdeM/yk 1326205768
+Received: from [10.16.189.124] (nat-pool-rdu.redhat.com [66.187.233.202])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 658B5482483;
+	Tue, 10 Jan 2012 09:29:28 -0500 (EST)
+From: Colin Walters <walters@verbum.org>
+To: Saul Wold <sgw@linux.intel.com>
+Date: Tue, 10 Jan 2012 09:29:09 -0500
+In-Reply-To: <4F0B6250.8030105@linux.intel.com>
+References: <1326144238.18105.22.camel@lenny>
+	<4F0B6250.8030105@linux.intel.com>
+X-Mailer: Evolution 3.0.3 (3.0.3-1.fc15) 
+Message-ID: <1326205750.18105.37.camel@lenny>
+Mime-Version: 1.0
+Cc: poky <poky@yoctoproject.org>
+Subject: Re: [PATCH] util-linux: .pc files should go in the -dev packages for subpackages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: Bhanu Prakash Singh <sparsh150847@yahoo.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -37,112 +44,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jan 2012 13:28:50 -0000
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_17511804_520788505.1326202128753"
-
-------=_Part_17511804_520788505.1326202128753
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 10 Jan 2012 14:29:31 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-LinkedIn
-------------
+On Mon, 2012-01-09 at 13:55 -0800, Saul Wold wrote:
+> On 01/09/2012 01:23 PM, Colin Walters wrote:
+> >      The .pc files were ending up in util-linux-dev, not the correct
+> >      subpackage like libuuid1-dev.
+> >
+> Colin,
+> 
+> We appreciate these patches against oe-core, can you please send them to 
+> openembedded-core@lists.openembedded.org, as these are patches to OE-Core.
+
+Sorry, I'm on the list now.
+
+> Also, I am not sure what format and mailer you are sending, but each 
+> patch I have received does not apply cleanly,
+
+It's very likely because I'm building my OS against the Edison release,
+so my patches so far are against that.  Sorry for not specifying that
+explicitly.
+
+(I'd like to rebase of course, but that's a bit farther back on the task
+queue, behind getting NetworkManager working e.g.)
 
 
 
-
-    Bhanu Prakash Singh requested to add you as a connection on LinkedIn:
-  
-
-------------------------------------------
-
-Ni,
-
-I'd like to add you to my professional network on LinkedIn.
-
-- Bhanu Prakash
-
-Accept invitation from Bhanu Prakash Singh
-http://www.linkedin.com/e/76kha2-gx8yi7ov-2t/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/blk/I169853809_125/6lColZJrmZznQNdhjRQnOpBtn9QfmhBt71BoSd1p65Lr6lOfPkOclYVc3wPdjwVdz59bSldcQgOqndvbPoNejcUe3kSd3kLrCBxbOYWrSlI/EML_comm_afe/?hs=false&tok=0CuIclOkJ8hl41
-
-View invitation from Bhanu Prakash Singh
-http://www.linkedin.com/e/76kha2-gx8yi7ov-2t/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/blk/I169853809_125/dj8NnPAMe3cRe3ASckALqnpPbOYWrSlI/svi/?hs=false&tok=0s2m4j_pd8hl41
-
-------------------------------------------
-
-Why might connecting with Bhanu Prakash Singh be a good idea?
-
-Bhanu Prakash Singh's connections could be useful to you:
-
-After accepting Bhanu Prakash Singh's invitation, check Bhanu Prakash Singh's connections to see who else you may know and who you might want an introduction to. Building these connections can create opportunities in the future.
- 
--- 
-(c) 2011, LinkedIn Corporation
-
-------=_Part_17511804_520788505.1326202128753
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-
-<html>
-  <body>
-
-
-
-
-  
-  
-  
-
-<table border="0" width="550" cellpadding="0" cellspacing="0" style="max-width:550px; border-top:4px solid #39C; font: 12px arial, sans-serif; margin: 0 auto;"><tr><td>  
-  <h1 style="color: #000; font: bold 23px arial; margin:5px 0;" >LinkedIn</h1>
-<div style="font:13px arial, sans-serif; width:540px">
-  
-
-
-
-
-    Bhanu Prakash Singh requested to add you as a connection on LinkedIn:
-  
-
-
-  <p>
-    Ni,<br/>
-<br/>
-I'd like to add you to my professional network on LinkedIn.<br/>
-<br/>
-- Bhanu Prakash
-  </p>
-  
-  <div style="margin-top: 15px; margin-bottom:10px; border-bottom: 1px solid #ddd; line-height:1px">&nbsp;</div>
-
-  <table cellpadding="0" cellspacing="0">
-    <tr>
-        <td style="width:15%; padding-right:20px;">
-					<table border="0" cellpadding="6" cellspacing="1" align=""><tr><td align="center" valign="middle" bgcolor="#FFE86C" background="http://www.linkedin.com/scds/common/u/img/bg/yellow_button_back.png" style="background:url(http://www.linkedin.com/scds/common/u/img/bg/yellow_button_back.png) repeat-x scroll 100% 0 #FFE86C;background-color:#FFE86C;border:1px solid #E8B463;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;"><div style="padding-right:10px;padding-left:10px;"><a href="http://www.linkedin.com/e/76kha2-gx8yi7ov-2t/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/blk/I169853809_125/6lColZJrmZznQNdhjRQnOpBtn9QfmhBt71BoSd1p65Lr6lOfPkOclYVc3wPdjwVdz59bSldcQgOqndvbPoNejcUe3kSd3kLrCBxbOYWrSlI/EML_comm_afe/?hs=false&amp;tok=0CuIclOkJ8hl41" style="text-decoration:none;"><span style="font-size:12px;font-family:Arial;font-weight:bold;color:#333333;white-space:nowrap;display:block;">Accept</span></a></div></td></tr></table>
-        </td>
-        <td style="font: 13px arial, sans-serif;"> 
-              <a href="http://www.linkedin.com/e/76kha2-gx8yi7ov-2t/vCPVwss2FMTS2f1DhTW2OlJtJN7YQTppNc/blk/I169853809_125/dj8NnPAMe3cRe3ASckALqnpPbOYWrSlI/S2_svi/?hs=false&amp;tok=2ge2GOm1V8hl41">View invitation from Bhanu Prakash Singh</a>
-        </td>
-    </tr>
-  </table>
-  
-  <br>
-  <div style="margin-top: 5px; border-bottom: 2px solid #ddd; line-height:2px">&nbsp;</div>
-  <br>
-  <p><strong>WHY MIGHT CONNECTING WITH BHANU PRAKASH SINGH BE A GOOD IDEA?</strong></p>
-  <p><strong>Bhanu Prakash Singh's connections could be useful to you</strong></p>
-  <p>After accepting Bhanu Prakash Singh's invitation, check Bhanu Prakash Singh's connections to see who else you may know and who you might want an introduction to. Building these connections can create opportunities in the future.</p>
-  <div style="margin-top: 6px; border-bottom: 2px solid #ddd; line-height:3px">&nbsp;</div>
-</div>
-
-
-
-
-
-    <p style="width: 550px; margin: 3px auto; font: 10px arial, sans-serif; color: #999;">
-&#169; 2011, LinkedIn Corporation    </p>
-</body>
-</html>
-
-------=_Part_17511804_520788505.1326202128753--
