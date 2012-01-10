@@ -1,23 +1,23 @@
 Return-Path: <josh@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C521CE0123F
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA180E006E9
 	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 09:39:24 -0800 (PST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga101.jf.intel.com with ESMTP; 10 Jan 2012 09:39:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="96630055"
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="96630058"
 Received: from unknown (HELO shamshir.amr.corp.intel.com) ([10.255.14.3])
 	by orsmga002.jf.intel.com with ESMTP; 10 Jan 2012 09:39:24 -0800
 From: Joshua Lock <josh@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 10 Jan 2012 09:39:22 -0800
-Message-Id: <315deab8fbcd6f653aa8eb5e42701150e287f6d9.1326216193.git.josh@linux.intel.com>
+Date: Tue, 10 Jan 2012 09:39:23 -0800
+Message-Id: <c8348ca5f224050eda364d5195e38c8a1ca5f125.1326216193.git.josh@linux.intel.com>
 X-Mailer: git-send-email 1.7.7.5
 In-Reply-To: <cover.1326216193.git.josh@linux.intel.com>
 References: <cover.1326216193.git.josh@linux.intel.com>
 In-Reply-To: <cover.1326216193.git.josh@linux.intel.com>
 References: <cover.1326216193.git.josh@linux.intel.com>
-Subject: [PATCH 1/2] alsa-state: add beagleboard specific asound.state
+Subject: [PATCH 2/2] beagleboard-audio: drop in favour of alsa-state
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,685 +29,120 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jan 2012 17:39:24 -0000
+X-List-Received-Date: Tue, 10 Jan 2012 17:39:25 -0000
 
 Signed-off-by: Joshua Lock <josh@linux.intel.com>
 ---
- .../recipes-bsp/alsa-state/alsa-state.bbappend     |    1 +
- .../alsa-state/alsa-state/beagleboard/asound.state |  656 ++++++++++++++++++++
- 2 files changed, 657 insertions(+), 0 deletions(-)
- create mode 100644 meta-yocto/recipes-bsp/alsa-state/alsa-state.bbappend
- create mode 100644 meta-yocto/recipes-bsp/alsa-state/alsa-state/beagleboard/asound.state
+ meta-yocto/conf/machine/beagleboard.conf           |    3 -
+ .../beagleboard-audio/beagleboard-audio.bb         |   33 ---------------
+ .../beagleboard-audio/beagleboard-audio            |   44 --------------------
+ 3 files changed, 0 insertions(+), 80 deletions(-)
+ delete mode 100644 meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio.bb
+ delete mode 100644 meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio/beagleboard-audio
 
-diff --git a/meta-yocto/recipes-bsp/alsa-state/alsa-state.bbappend b/meta-yocto/recipes-bsp/alsa-state/alsa-state.bbappend
-new file mode 100644
-index 0000000..72d991c
---- /dev/null
-+++ b/meta-yocto/recipes-bsp/alsa-state/alsa-state.bbappend
-@@ -0,0 +1 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-diff --git a/meta-yocto/recipes-bsp/alsa-state/alsa-state/beagleboard/asound.state b/meta-yocto/recipes-bsp/alsa-state/alsa-state/beagleboard/asound.state
-new file mode 100644
-index 0000000..f924491
---- /dev/null
-+++ b/meta-yocto/recipes-bsp/alsa-state/alsa-state/beagleboard/asound.state
-@@ -0,0 +1,656 @@
-+state.omap3beagle {
-+	control.1 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 'Option 2 (voice/audio)'
-+		comment.item.1 'Option 1 (audio)'
-+		iface MIXER
-+		name 'Codec Operation Mode'
-+		value 'Option 1 (audio)'
-+	}
-+	control.2 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 63'
-+		comment.dbmin -6300
-+		comment.dbmax 0
-+		iface MIXER
-+		name 'DAC1 Digital Fine Playback Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.3 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 63'
-+		comment.dbmin -6300
-+		comment.dbmax 0
-+		iface MIXER
-+		name 'DAC2 Digital Fine Playback Volume'
-+		value.0 50
-+		value.1 50
-+	}
-+	control.4 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 2'
-+		comment.dbmin 0
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'DAC1 Digital Coarse Playback Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.5 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 2'
-+		comment.dbmin 0
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'DAC2 Digital Coarse Playback Volume'
-+		value.0 2
-+		value.1 2
-+	}
-+	control.6 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 18'
-+		comment.dbmin -2400
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'DAC1 Analog Playback Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.7 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 18'
-+		comment.dbmin -2400
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'DAC2 Analog Playback Volume'
-+		value.0 15
-+		value.1 15
-+	}
-+	control.8 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 2
-+		iface MIXER
-+		name 'DAC1 Analog Playback Switch'
-+		value.0 false
-+		value.1 false
-+	}
-+	control.9 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 2
-+		iface MIXER
-+		name 'DAC2 Analog Playback Switch'
-+		value.0 true
-+		value.1 true
-+	}
-+	control.10 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 1
-+		comment.range '0 - 49'
-+		comment.dbmin -3700
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'DAC Voice Digital Downlink Volume'
-+		value 0
-+	}
-+	control.11 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 1
-+		comment.range '0 - 18'
-+		comment.dbmin -2400
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'DAC Voice Analog Downlink Volume'
-+		value 18
-+	}
-+	control.12 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'DAC Voice Analog Downlink Switch'
-+		value false
-+	}
-+	control.13 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 3'
-+		comment.dbmin -1200
-+		comment.dbmax 600
-+		iface MIXER
-+		name 'PreDriv Playback Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.14 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 3'
-+		comment.dbmin -1200
-+		comment.dbmax 600
-+		iface MIXER
-+		name 'Headset Playback Volume'
-+		value.0 3
-+		value.1 3
-+	}
-+	control.15 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 3'
-+		comment.dbmin -1200
-+		comment.dbmax 600
-+		iface MIXER
-+		name 'Carkit Playback Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.16 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 1
-+		comment.range '0 - 3'
-+		comment.dbmin -600
-+		comment.dbmax 1200
-+		iface MIXER
-+		name 'Earpiece Playback Volume'
-+		value 0
-+	}
-+	control.17 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 31'
-+		comment.dbmin 0
-+		comment.dbmax 3100
-+		iface MIXER
-+		name 'TX1 Digital Capture Volume'
-+		value.0 12
-+		value.1 12
-+	}
-+	control.18 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 31'
-+		comment.dbmin 0
-+		comment.dbmax 3100
-+		iface MIXER
-+		name 'TX2 Digital Capture Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.19 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 2
-+		comment.range '0 - 5'
-+		comment.dbmin 0
-+		comment.dbmax 3000
-+		iface MIXER
-+		name 'Analog Capture Volume'
-+		value.0 0
-+		value.1 0
-+	}
-+	control.20 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 'Voice high priority'
-+		comment.item.1 'HiFi high priority'
-+		iface MIXER
-+		name 'AVADC Clock Priority'
-+		value 'Voice high priority'
-+	}
-+	control.21 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 '27/20/14 ms'
-+		comment.item.1 '55/40/27 ms'
-+		comment.item.2 '109/81/55 ms'
-+		comment.item.3 '218/161/109 ms'
-+		comment.item.4 '437/323/218 ms'
-+		comment.item.5 '874/645/437 ms'
-+		comment.item.6 '1748/1291/874 ms'
-+		comment.item.7 '3495/2581/1748 ms'
-+		iface MIXER
-+		name 'HS ramp delay'
-+		value '27/20/14 ms'
-+	}
-+	control.22 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 'Vibra H-bridge direction'
-+		comment.item.1 'Audio data MSB'
-+		iface MIXER
-+		name 'Vibra H-bridge mode'
-+		value 'Vibra H-bridge direction'
-+	}
-+	control.23 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 'Positive polarity'
-+		comment.item.1 'Negative polarity'
-+		iface MIXER
-+		name 'Vibra H-bridge direction'
-+		value 'Positive polarity'
-+	}
-+	control.24 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Analog Right Sub Mic Capture Switch'
-+		value false
-+	}
-+	control.25 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Analog Right AUXR Capture Switch'
-+		value true
-+	}
-+	control.26 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Analog Left Main Mic Capture Switch'
-+		value false
-+	}
-+	control.27 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Analog Left Headset Mic Capture Switch'
-+		value false
-+	}
-+	control.28 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Analog Left AUXL Capture Switch'
-+		value true
-+	}
-+	control.29 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Analog Left Carkit Mic Capture Switch'
-+		value false
-+	}
-+	control.30 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 Analog
-+		comment.item.1 Digimic1
-+		iface MIXER
-+		name 'TX2 Capture Route'
-+		value Analog
-+	}
-+	control.31 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 Analog
-+		comment.item.1 Digimic0
-+		iface MIXER
-+		name 'TX1 Capture Route'
-+		value Analog
-+	}
-+	control.32 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 'Local vibrator'
-+		comment.item.1 Audio
-+		iface MIXER
-+		name 'Vibra Route'
-+		value 'Local vibrator'
-+	}
-+	control.33 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 AudioL1
-+		comment.item.1 AudioR1
-+		comment.item.2 AudioL2
-+		comment.item.3 AudioR2
-+		iface MIXER
-+		name 'Vibra Mux'
-+		value AudioL1
-+	}
-+	control.34 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HandsfreeR Switch'
-+		value false
-+	}
-+	control.35 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 Voice
-+		comment.item.1 AudioR1
-+		comment.item.2 AudioR2
-+		comment.item.3 AudioL2
-+		iface MIXER
-+		name 'HandsfreeR Mux'
-+		value Voice
-+	}
-+	control.36 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HandsfreeL Switch'
-+		value false
-+	}
-+	control.37 {
-+		comment.access 'read write'
-+		comment.type ENUMERATED
-+		comment.count 1
-+		comment.item.0 Voice
-+		comment.item.1 AudioL1
-+		comment.item.2 AudioL2
-+		comment.item.3 AudioR2
-+		iface MIXER
-+		name 'HandsfreeL Mux'
-+		value Voice
-+	}
-+	control.38 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'CarkitR Mixer Voice'
-+		value false
-+	}
-+	control.39 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'CarkitR Mixer AudioR1'
-+		value false
-+	}
-+	control.40 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'CarkitR Mixer AudioR2'
-+		value false
-+	}
-+	control.41 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'CarkitL Mixer Voice'
-+		value false
-+	}
-+	control.42 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'CarkitL Mixer AudioL1'
-+		value false
-+	}
-+	control.43 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'CarkitL Mixer AudioL2'
-+		value false
-+	}
-+	control.44 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HeadsetR Mixer Voice'
-+		value false
-+	}
-+	control.45 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HeadsetR Mixer AudioR1'
-+		value false
-+	}
-+	control.46 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HeadsetR Mixer AudioR2'
-+		value true
-+	}
-+	control.47 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HeadsetL Mixer Voice'
-+		value false
-+	}
-+	control.48 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HeadsetL Mixer AudioL1'
-+		value false
-+	}
-+	control.49 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'HeadsetL Mixer AudioL2'
-+		value true
-+	}
-+	control.50 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveR Mixer Voice'
-+		value false
-+	}
-+	control.51 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveR Mixer AudioR1'
-+		value false
-+	}
-+	control.52 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveR Mixer AudioR2'
-+		value false
-+	}
-+	control.53 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveR Mixer AudioL2'
-+		value false
-+	}
-+	control.54 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveL Mixer Voice'
-+		value false
-+	}
-+	control.55 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveL Mixer AudioL1'
-+		value false
-+	}
-+	control.56 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveL Mixer AudioL2'
-+		value false
-+	}
-+	control.57 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'PredriveL Mixer AudioR2'
-+		value false
-+	}
-+	control.58 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Earpiece Mixer Voice'
-+		value false
-+	}
-+	control.59 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Earpiece Mixer AudioL1'
-+		value false
-+	}
-+	control.60 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Earpiece Mixer AudioL2'
-+		value false
-+	}
-+	control.61 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Earpiece Mixer AudioR1'
-+		value false
-+	}
-+	control.62 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 1
-+		comment.range '0 - 41'
-+		comment.dbmin -5100
-+		comment.dbmax -1000
-+		iface MIXER
-+		name 'Voice Digital Loopback Volume'
-+		value 0
-+	}
-+	control.63 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 1
-+		comment.range '0 - 7'
-+		comment.dbmin -2400
-+		comment.dbmax 0
-+		iface MIXER
-+		name 'Right Digital Loopback Volume'
-+		value 0
-+	}
-+	control.64 {
-+		comment.access 'read write'
-+		comment.type INTEGER
-+		comment.count 1
-+		comment.range '0 - 7'
-+		comment.dbmin -2400
-+		comment.dbmax 0
-+		iface MIXER
-+		name 'Left Digital Loopback Volume'
-+		value 0
-+	}
-+	control.65 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Voice Analog Loopback Switch'
-+		value false
-+	}
-+	control.66 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Left2 Analog Loopback Switch'
-+		value false
-+	}
-+	control.67 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Right2 Analog Loopback Switch'
-+		value false
-+	}
-+	control.68 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Left1 Analog Loopback Switch'
-+		value false
-+	}
-+	control.69 {
-+		comment.access 'read write'
-+		comment.type BOOLEAN
-+		comment.count 1
-+		iface MIXER
-+		name 'Right1 Analog Loopback Switch'
-+		value false
-+	}
-+}
+diff --git a/meta-yocto/conf/machine/beagleboard.conf b/meta-yocto/conf/machine/beagleboard.conf
+index dd549d0..fa2f8e7 100644
+--- a/meta-yocto/conf/machine/beagleboard.conf
++++ b/meta-yocto/conf/machine/beagleboard.conf
+@@ -12,9 +12,6 @@ XSERVER = "xserver-xorg-lite \
+ # Ship all kernel modules by default
+ MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+ 
+-# Setup sane default mixer settings
+-MACHINE_EXTRA_RRECOMMENDS += "beagleboard-audio"
+-
+ # Allow for MMC booting (required by the NAND-less Beagleboard XM)
+ EXTRA_IMAGEDEPENDS += "u-boot x-load"
+ 
+diff --git a/meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio.bb b/meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio.bb
+deleted file mode 100644
+index 0bfd7dc..0000000
+--- a/meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio.bb
++++ /dev/null
+@@ -1,33 +0,0 @@
+-SUMMARY = "Provide a basic init script to enable audio"
+-DESCRIPTION = "Set the volume and unmute the Front mixer setting during boot."
+-SECTION = "base"
+-LICENSE = "MIT"
+-LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58"
+-
+-PR = "r5"
+-
+-inherit update-rc.d
+-
+-RDEPENDS_${PN} = "alsa-utils-amixer"
+-
+-SRC_URI = "file://beagleboard-audio"
+-
+-INITSCRIPT_NAME = "beagleboard-audio"
+-INITSCRIPT_PARAMS = "defaults 90"
+-
+-COMPATIBLE_MACHINE = "beagleboard"
+-INHIBIT_DEFAULT_DEPS = "1"
+-
+-do_install() {
+-	install -d ${D}${sysconfdir} \
+-	           ${D}${sysconfdir}/init.d
+-	install -m 0755 ${WORKDIR}/beagleboard-audio ${D}${sysconfdir}/init.d
+-        cat ${WORKDIR}/${INITSCRIPT_NAME} | \
+-            sed -e 's,/etc,${sysconfdir},g' \
+-                -e 's,/usr/sbin,${sbindir},g' \
+-                -e 's,/var,${localstatedir},g' \
+-                -e 's,/usr/bin,${bindir},g' \
+-                -e 's,/usr,${prefix},g' > ${D}${sysconfdir}/init.d/${INITSCRIPT_NAME}
+-        chmod 755 ${D}${sysconfdir}/init.d/${INITSCRIPT_NAME}
+-}
+-
+diff --git a/meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio/beagleboard-audio b/meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio/beagleboard-audio
+deleted file mode 100644
+index ed2bd50..0000000
+--- a/meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio/beagleboard-audio
++++ /dev/null
+@@ -1,44 +0,0 @@
+-#!/bin/sh
+-### BEGIN INIT INFO
+-# Provides:          beagleboard mixer setup
+-# Required-Start:    $syslog
+-# Required-Stop:     $syslog
+-# Default-Start:     2 3 4 5
+-# Default-Stop:      0 1 6
+-# Short-Description: Initialize the beagleboard audio mixer
+-# Description:       Unmute FRONT and set volume to ~70%.
+-### END INIT INFO
+-
+-# Author: Darren Hart <dvhart@linux.intel.com>
+-# Based on /etc/init.d/skeleton
+-
+-PATH=/sbin:/usr/sbin:/bin:/usr/bin
+-DESC="Audio mixer settings"
+-NAME=beagleboard-audio
+-AMIXER=`which amixer`
+-SCRIPTNAME=/etc/init.d/$NAME
+-
+-# Exit if amixer is not installed
+-[ -x "$AMIXER" ] || exit 0
+-
+-do_start() {
+-	# Enable the Headset (Audio Out)
+-	$AMIXER sset "Headset" 2 > /dev/null
+-	$AMIXER sset "HeadsetL Mixer AudioL1" on > /dev/null
+-	$AMIXER sset "HeadsetR Mixer AudioR1" on > /dev/null
+-}
+-
+-case "$1" in
+-start)
+-	echo "$NAME: setting default mixer settings."
+-	do_start
+-	;;
+-stop)
+-	;;
+-*)
+-	echo "Usage: $SCRIPTNAME {start|stop}" >&2
+-	exit 3
+-	;;
+-esac
+-
+-exit 0
 -- 
 1.7.7.5
 
