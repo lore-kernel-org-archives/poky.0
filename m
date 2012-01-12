@@ -1,34 +1,53 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5A73DE0030C
-	for <poky@yoctoproject.org>; Thu, 12 Jan 2012 07:33:31 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id DA5FFF8122F; Thu, 12 Jan 2012 08:33:28 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 83B70F811E8;
-	Thu, 12 Jan 2012 08:33:27 -0700 (MST)
-Message-ID: <4F0EFD47.1070708@mlbassoc.com>
-Date: Thu, 12 Jan 2012 08:33:27 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:9.0) Gecko/20111222 Thunderbird/9.0
-MIME-Version: 1.0
-To: Martin Jansa <martin.jansa@gmail.com>
+Return-Path: <B29882@freescale.com>
+Received: from AM1EHSOBE001.bigfish.com (am1ehsobe001.messaging.microsoft.com
+	[213.199.154.204])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DC366E0030C
+	for <poky@yoctoproject.org>; Thu, 12 Jan 2012 08:54:04 -0800 (PST)
+Received: from mail27-am1-R.bigfish.com (10.3.201.252) by
+	AM1EHSOBE001.bigfish.com (10.3.204.21) with Microsoft SMTP Server id
+	14.1.225.23; Thu, 12 Jan 2012 16:54:03 +0000
+Received: from mail27-am1 (localhost [127.0.0.1])	by mail27-am1-R.bigfish.com
+	(Postfix) with ESMTP id 2298E480455;
+	Thu, 12 Jan 2012 16:54:03 +0000 (UTC)
+X-SpamScore: -7
+X-BigFish: VS-7(zz9371I1432N98dKzz1202hzz8275bhz2dhc1ahc1bh2a8h668h839h8e2h8e3hbe9k)
+X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
+	H:mail.freescale.net; RD:none; EFVD:NLI
+X-FB-SS: 13,
+Received: from mail27-am1 (localhost.localdomain [127.0.0.1]) by mail27-am1
+	(MessageSwitch) id 1326387224354638_10781;
+	Thu, 12 Jan 2012 16:53:44 +0000 (UTC)
+Received: from AM1EHSMHS020.bigfish.com (unknown [10.3.201.241])	by
+	mail27-am1.bigfish.com (Postfix) with ESMTP id 49A3C4C0043;
+	Thu, 12 Jan 2012 16:53:44 +0000 (UTC)
+Received: from mail.freescale.net (70.37.183.190) by AM1EHSMHS020.bigfish.com
+	(10.3.206.23) with Microsoft SMTP Server (TLS) id 14.1.225.23;
+	Thu, 12 Jan 2012 16:53:42 +0000
+Received: from 039-SN1MPN1-002.039d.mgd.msft.net ([169.254.2.86]) by
+	039-SN1MMR1-002.039d.mgd.msft.net ([10.84.1.15]) with mapi id
+	14.01.0355.003; Thu, 12 Jan 2012 10:53:40 -0600
+From: McClintock Matthew-B29882 <B29882@freescale.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Thread-Topic: [poky] sstate info
+Thread-Index: AQHM0Uq8oQGAPfjfAUCEy4RiWbY3eg==
+Date: Thu, 12 Jan 2012 16:53:40 +0000
+Message-ID: <CAEsOVNcLNJ2iD2YANL6z2ris6kjbQ1kbky2onu8hZrNTim=P+Q@mail.gmail.com>
 References: <4F0EAE81.8030800@mlbassoc.com>
-	<20120112131352.GC3452@jama.jama.net>
-	<4F0EE095.1090709@mlbassoc.com>
-	<20120112133749.GD3452@jama.jama.net>
-In-Reply-To: <20120112133749.GD3452@jama.jama.net>
+	<20120112131352.GC3452@jama.jama.net> <4F0EE095.1090709@mlbassoc.com>
+	<20120112133749.GD3452@jama.jama.net> <4F0EFD47.1070708@mlbassoc.com>
+In-Reply-To: <4F0EFD47.1070708@mlbassoc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [99.47.177.27]
+MIME-Version: 1.0
+X-OriginatorOrg: freescale.com
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: sstate info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: McClintock Matthew-B29882 <B29882@freescale.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -37,75 +56,77 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Jan 2012 15:33:32 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 12 Jan 2012 16:54:05 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <A69BF2CA0FBAAF488FB2D9309860969C@freescale.net>
+Content-Transfer-Encoding: quoted-printable
 
-On 2012-01-12 06:37, Martin Jansa wrote:
-> On Thu, Jan 12, 2012 at 06:31:01AM -0700, Gary Thomas wrote:
->> On 2012-01-12 06:13, Martin Jansa wrote:
->>> On Thu, Jan 12, 2012 at 02:57:21AM -0700, Gary Thomas wrote:
->>>> I'm trying to understand why sstate sometimes [most times in my case]
->>>> is not reusable.  Comparing some of the .siginfo files gives me some
->>>> info, e.g.
->>>>
->>>> $ bitbake-diffsigs p60_poky/sstate-cache/sstate-pseudo-native-i686-linux-1.2-r4-i686-2-66ad8e10f260d506d065831a738c04a3_populate-sysroot.tgz.siginfo
->>>> p60_test_pass1/sstate-cache/sstate-pseudo-native-i686-linux-1.2-r4-i686-2-c7e01d52b467bbe3af0556a43806521a_populate-sysroot.tgz.siginfo
->>>> Hash for dependent task virtual:nativepseudo_1.2.bb.do_install changed from 9edd41e331b29f08941225709c325a0d to 9865df7c4aa84fdb288c06faecf63426
->>>>
->>>> How do I figure out what went into the hash(es) that changed?
->>>
->>> Try to look in stamps directory
->>>
->>> something like:
->>> tmp-eglibc/stamps/x86_64-linux/pseudo-native-1.2-r4.do_install.sigdata.504f9aac443e1f135aa2d1cbcf84c614
->>
->> How can I interpret the contents of that file?
+First off, what version of Yocto are you running? I've made a lot of
+fixes post 1.1 release (others have made some as well ;)), and I
+believe lots of these fixes will be in the 1.1.1 release. They should
+all be in master, although I've not tested master sstate-cache in a
+while now.
+
+On Thu, Jan 12, 2012 at 9:33 AM, Gary Thomas <gary@mlbassoc.com> wrote:
+> I worked this down to the do_patch in pseudo-native:
+> $ bitbake-diffsigs
+> p60_poky/tmp/stamps/i686-linux/pseudo-native-1.2-r4.do_patch.sigdata.6e97=
+a41d825568db298fdc9dbaed563c
+> p60_test_pass1/tmp/stamps/i686-linux/pseudo-native-1.2-r4.do_patch.sigdat=
+a.a0d4e99625c211f4f1d793213014ac07
+> basehash changed from f5994d735ee2b909b72ee811364befc1 to
+> 564be8db4146afa5fc3579dc4c1618d3
+> Variable DATE value changed from 20120110 to 20120111
+> Hash for dependent task quilt-native_0.50.bb.do_populate_sysroot changed
+> from 9307106f3c5dfd49d953e206cb1b6da5 to 24151a370083d625b84a2afb77955021
 >
-> find file for virtual:nativepseudo_1.2.bb.do_install
-> with checksum 9edd41e331b29f08941225709c325a0d and
-> with checksum 9865df7c4aa84fdb288c06faecf63426 and
-> then compare them with bitbake-diffsigs again
+
+This is telling you that you need to look at the quilt-native task
+now. Nothing is wrong about the signature for psuedo-natve.
+
+> Why is DATE as a variable important?
+> Why is it not ignored by this statement in ./meta/classes/patch.bbclass?
+> =A0 patch_do_patch[vardepsexclude] =3D "DATE SRCDATE PATCHRESOLVE"
+
+DATE is not important, that is why we are explicitly telling the
+signature to ignore this variable.
+
+> As is, it seems that the sstate cache is only good on the day it
+> was made :-(
+
+This is possible, but you need to check the upstream task that
+changed. Since psuedo-native depends on quilt-native it's getting a
+new signature since something that changed in quilt-native might
+effect psuedo-native.
+
+> Here's what I tried yesterday:
+> =A0* Create a new build, e.g.
+> =A0 =A0% . /local/poky/oe-init-build-env /local/test_pass1
+> =A0 =A0-- adjust local.conf to match desired target
+> =A0 =A0% bitbake core-image-minimal
+> =A0* Create a new build, using the previous one's sstate-cache
+> =A0 =A0% . /local/poky/oe-init-build-env /local/test_pass2
+> =A0 =A0-- adjust local.conf to match desired target
+> =A0 =A0-- enable sstate cache via these lines in local.conf:
+> =A0 =A0 =A0 =A0 SSTATE_MIRRORS ?=3D "\
+> =A0 =A0 =A0 =A0 file://.* file:///local/test_pass1/sstate-cache/"
+> =A0 =A0% bitbake core-image-minimal
 >
-> or use bitbake-diffsigs for one sigdata file
+> This all went to plan - the sstate cache was reused for every package exc=
+ept
+> one. =A0For some reason, dbus-1 had to be rebuilt.
 
-I worked this down to the do_patch in pseudo-native:
-$ bitbake-diffsigs p60_poky/tmp/stamps/i686-linux/pseudo-native-1.2-r4.do_patch.sigdata.6e97a41d825568db298fdc9dbaed563c 
-p60_test_pass1/tmp/stamps/i686-linux/pseudo-native-1.2-r4.do_patch.sigdata.a0d4e99625c211f4f1d793213014ac07
-basehash changed from f5994d735ee2b909b72ee811364befc1 to 564be8db4146afa5fc3579dc4c1618d3
-Variable DATE value changed from 20120110 to 20120111
-Hash for dependent task quilt-native_0.50.bb.do_populate_sysroot changed from 9307106f3c5dfd49d953e206cb1b6da5 to 24151a370083d625b84a2afb77955021
+This should work. I'm building on one machine and reusing on others
+including native cache. I'm doing thing on something close to what
+1.1.1 will look like.
 
-Why is DATE as a variable important?
-Why is it not ignored by this statement in ./meta/classes/patch.bbclass?
-    patch_do_patch[vardepsexclude] = "DATE SRCDATE PATCHRESOLVE"
+> Today, I tried it again, just like the second step. =A0Low and behold,
+> virtually
+> none of the sstate packages were reused :-( =A0This seems totally broken =
+to me
+> and has been filed as bug #1896
 
-As is, it seems that the sstate cache is only good on the day it
-was made :-(
+-M=
 
-Here's what I tried yesterday:
-   * Create a new build, e.g.
-     % . /local/poky/oe-init-build-env /local/test_pass1
-     -- adjust local.conf to match desired target
-     % bitbake core-image-minimal
-   * Create a new build, using the previous one's sstate-cache
-     % . /local/poky/oe-init-build-env /local/test_pass2
-     -- adjust local.conf to match desired target
-     -- enable sstate cache via these lines in local.conf:
-          SSTATE_MIRRORS ?= "\
-          file://.* file:///local/test_pass1/sstate-cache/"
-     % bitbake core-image-minimal
-
-This all went to plan - the sstate cache was reused for every package except
-one.  For some reason, dbus-1 had to be rebuilt.
-
-Today, I tried it again, just like the second step.  Low and behold, virtually
-none of the sstate packages were reused :-(  This seems totally broken to me
-and has been filed as bug #1896
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
