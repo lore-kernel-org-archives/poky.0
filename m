@@ -1,23 +1,25 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 54E35E0123F
-	for <poky@yoctoproject.org>; Tue, 10 Jan 2012 19:02:57 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 10 Jan 2012 19:02:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="55317494"
-Received: from dongxiao-desktop.sh.intel.com (HELO localhost) ([10.239.36.108])
-	by AZSMGA002.ch.intel.com with ESMTP; 10 Jan 2012 19:02:56 -0800
-From: Dongxiao Xu <dongxiao.xu@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 11 Jan 2012 11:05:10 +0800
-Message-Id: <af5b2e3b5370cb7638935fb4c413cc02f8ae71db.1326250470.git.dongxiao.xu@intel.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1326250470.git.dongxiao.xu@intel.com>
-References: <cover.1326250470.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1326250470.git.dongxiao.xu@intel.com>
-References: <cover.1326250470.git.dongxiao.xu@intel.com>
-Subject: [PATCH 1/1] scripts/hob: Launch the new hob
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 30276E0072A
+	for <poky@yoctoproject.org>; Thu, 12 Jan 2012 01:57:24 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id C8639F811EA; Thu, 12 Jan 2012 02:57:21 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 52855F811E3;
+	Thu, 12 Jan 2012 02:57:21 -0700 (MST)
+Message-ID: <4F0EAE81.8030800@mlbassoc.com>
+Date: Thu, 12 Jan 2012 02:57:21 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: sstate info
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,55 +31,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jan 2012 03:02:57 -0000
+X-List-Received-Date: Thu, 12 Jan 2012 09:57:24 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Change the scripts to launch the new Hob.
+I'm trying to understand why sstate sometimes [most times in my case]
+is not reusable.  Comparing some of the .siginfo files gives me some
+info, e.g.
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
----
- scripts/hob |   30 +-----------------------------
- 1 files changed, 1 insertions(+), 29 deletions(-)
+$ bitbake-diffsigs p60_poky/sstate-cache/sstate-pseudo-native-i686-linux-1.2-r4-i686-2-66ad8e10f260d506d065831a738c04a3_populate-sysroot.tgz.siginfo 
+p60_test_pass1/sstate-cache/sstate-pseudo-native-i686-linux-1.2-r4-i686-2-c7e01d52b467bbe3af0556a43806521a_populate-sysroot.tgz.siginfo
+Hash for dependent task virtual:nativepseudo_1.2.bb.do_install changed from 9edd41e331b29f08941225709c325a0d to 9865df7c4aa84fdb288c06faecf63426
 
-diff --git a/scripts/hob b/scripts/hob
-index 480413b..ee80cb3 100755
---- a/scripts/hob
-+++ b/scripts/hob
-@@ -1,33 +1,5 @@
- #!/usr/bin/env bash
--if ! (test -r "$BUILDDIR/conf/hob-pre.conf"); then
--    cat <<EOM
--You had no conf/hob-pre.conf file. An initial version of this configuration
--file has therefore been created for you. This file will be used to store
--configuration values you set in hob.
--
--EOM
--touch conf/hob-pre.conf
--fi
--
--if ! (test -r "$BUILDDIR/conf/hob-post.conf"); then
--    cat <<EOM
--You had no conf/hob-post.conf file. An initial version of this configuration
--file has therefore been created for you. This file will be used to store
--configuration values you set in hob.
--
--EOM
--(cat <<EOF
--INHERIT += "image_types"
--EOF
--) > conf/hob-post.conf
--fi
--
--# Users don't like to launch GUI's and see a bunch of text whiz by, notify them
--if [ ! -e "$BUILDDIR/pseudodone" ]; then
--    echo "Before we can launch the GUI we need to build some native tools required for running"
--fi
--
--bitbake -r conf/hob-pre.conf -R conf/hob-post.conf -u hob
-+bitbake -u hob
- 
- ret=$?
- exit $ret
+How do I figure out what went into the hash(es) that changed?
+
 -- 
-1.7.0.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
