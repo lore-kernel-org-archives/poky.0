@@ -1,27 +1,29 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A40EAE0137D
-	for <poky@yoctoproject.org>; Fri, 13 Jan 2012 10:11:01 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0DIAvPp024673;
-	Fri, 13 Jan 2012 18:10:57 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 24290-04; Fri, 13 Jan 2012 18:10:53 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0DIAmsf024664
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 13 Jan 2012 18:10:49 GMT
-Message-ID: <1326478252.18815.3.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Fri, 13 Jan 2012 18:10:52 +0000
-In-Reply-To: <4F10619F.4080002@mlbassoc.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F8D7E006B0
+	for <poky@yoctoproject.org>; Fri, 13 Jan 2012 10:20:02 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 46D15F812BF; Fri, 13 Jan 2012 11:20:00 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id E8AC5F812B9;
+	Fri, 13 Jan 2012 11:19:58 -0700 (MST)
+Message-ID: <4F1075CE.2020108@mlbassoc.com>
+Date: Fri, 13 Jan 2012 11:19:58 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
 References: <4F0EAE81.8030800@mlbassoc.com>
-	<20120112131352.GC3452@jama.jama.net> <4F0EE095.1090709@mlbassoc.com>
-	<20120112133749.GD3452@jama.jama.net> <4F0EFD47.1070708@mlbassoc.com>
+	<20120112131352.GC3452@jama.jama.net>
+	<4F0EE095.1090709@mlbassoc.com>
+	<20120112133749.GD3452@jama.jama.net>
+	<4F0EFD47.1070708@mlbassoc.com>
 	<CAEsOVNcLNJ2iD2YANL6z2ris6kjbQ1kbky2onu8hZrNTim=P+Q@mail.gmail.com>
 	<4F0F1321.8080706@mlbassoc.com>
 	<CAEsOVNfC5t6p3enJdauZDSiPZxDA3MkHCwPMgqkOD8s9qyz3Zg@mail.gmail.com>
@@ -30,9 +32,8 @@ References: <4F0EAE81.8030800@mlbassoc.com>
 	<4F104C72.8010605@mlbassoc.com>
 	<CAEsOVNeuCt3aqoTm_LG=8TLKZtXQwg+ptYPX8+rc1UaBkfOkDw@mail.gmail.com>
 	<1326472079.15389.43.camel@ted> <4F10619F.4080002@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+	<1326478194.18815.1.camel@ted>
+In-Reply-To: <1326478194.18815.1.camel@ted>
 Cc: McClintock Matthew-B29882 <B29882@freescale.com>,
 	Chris Larson <clarson@kergoth.com>, Poky Project <poky@yoctoproject.org>
 Subject: Re: sstate info
@@ -47,68 +48,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jan 2012 18:11:07 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 13 Jan 2012 18:20:03 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2012-01-13 at 09:53 -0700, Gary Thomas wrote:
-> On 2012-01-13 09:27, Richard Purdie wrote:
-> > On Fri, 2012-01-13 at 15:40 +0000, McClintock Matthew-B29882 wrote:
-> >> On Fri, Jan 13, 2012 at 9:23 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
-> >>>>
-> >>>> You can't just override DATE in local.conf? I don't see the point in
-> >>>> holding off, unless your builds will take till tomorrow to finish?
-> >>>
-> >>>
-> >>> Actually, I didn't think of that.  I also didn't see this message
-> >>> until Friday (the next day) due to some network issues, so it's moot.
-> >>>
-> >>> That notwithstanding, I tried it today (new DATE) and it behaved as
-> >>> I would like.  The only problem was that dbus-1 is still being rebuilt.
-> >>> I compared the siginfo files between the two builds and they are
-> >>> identical, so I don't know why.
-> >>
-> >> Are the hashes the same too?
-> >
-> > I've found the root cause of this problem and have posted a fix on the
-> > OE-Core mailing list.
-> 
-> Cool, I'll start testing this now :-)
+On 2012-01-13 11:09, Richard Purdie wrote:
+> On Fri, 2012-01-13 at 09:53 -0700, Gary Thomas wrote:
+>> On 2012-01-13 09:27, Richard Purdie wrote:
+>>> On Fri, 2012-01-13 at 15:40 +0000, McClintock Matthew-B29882 wrote:
+>>>> On Fri, Jan 13, 2012 at 9:23 AM, Gary Thomas<gary@mlbassoc.com>   wrote:
+>>>>>>
+>>>>>> You can't just override DATE in local.conf? I don't see the point in
+>>>>>> holding off, unless your builds will take till tomorrow to finish?
+>>>>>
+>>>>>
+>>>>> Actually, I didn't think of that.  I also didn't see this message
+>>>>> until Friday (the next day) due to some network issues, so it's moot.
+>>>>>
+>>>>> That notwithstanding, I tried it today (new DATE) and it behaved as
+>>>>> I would like.  The only problem was that dbus-1 is still being rebuilt.
+>>>>> I compared the siginfo files between the two builds and they are
+>>>>> identical, so I don't know why.
+>>>>
+>>>> Are the hashes the same too?
+>>>
+>>> I've found the root cause of this problem and have posted a fix on the
+>>> OE-Core mailing list.
+>>
+>> Cool, I'll start testing this now :-)
+>
+> I've also noticed a problem with gcc being rebuilt. It seems to be from
+> do_headerfix() and:
+>
+> diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> index d014980..3a82720 100644
+> --- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> +++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+> @@ -77,6 +77,9 @@ do_headerfix () {
+>
+>   addtask headerfix after do_unpack before do_patch
+>
+> +CROSS_TARGET_SYS_DIR[vardepsexclude] = "PN"
+> +CROSS_TARGET_SYS_DIR[vardepvalue] = "1"
+> +
+>   do_configure_prepend () {
+>          # teach gcc to find correct target includedir when checking libc ssp support
+>          mkdir -p ${B}/gcc
+>
+> "fixes" it. I merged the other fix but this one needs a little bit more thought. bitbake-diffsigs can also mislead:
+>
+> $ ls *headerfix*
+> gcc-cross-4.6.2+svnr181430-r20.do_headerfix.sigdata.84c0ca9d0fc07438f453910901a222b6
+> gcc-cross-initial-4.6.2+svnr181430-r20.do_headerfix.sigdata.84c0ca9d0fc07438f453910901a222b6
+> $ bitbake-diffsigs *headerfix*
+> Dependency on task gcc-cross_4.6.bb.do_unpack was added
+> Dependency on task gcc-cross-initial_4.6.bb.do_unpack was removed
 
-I've also noticed a problem with gcc being rebuilt. It seems to be from
-do_headerfix() and:
+While you're looking at gcc, I noticed something else.  I have
+multiple MACHINE configurations which are all the same basic
+hardware (OMAP3530), the only difference being kernel settings
+and other minor target variations.  As far as things like the
+compiler and common ARM tools, they are identical.
 
-diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc b/meta/recipes-devtools/gcc/gcc-configure-common.inc
-index d014980..3a82720 100644
---- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
-+++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
-@@ -77,6 +77,9 @@ do_headerfix () {
- 
- addtask headerfix after do_unpack before do_patch
- 
-+CROSS_TARGET_SYS_DIR[vardepsexclude] = "PN"
-+CROSS_TARGET_SYS_DIR[vardepvalue] = "1"
-+
- do_configure_prepend () {
-        # teach gcc to find correct target includedir when checking libc ssp support
-        mkdir -p ${B}/gcc
+I tried sharing the sstate between two of these and for the
+most part, all was well - only the truly machine dependent
+recipes were rebuilt.  Except for gcc-cross-4.6.2 which seems
+to have a dependency on the MACHINE variable.  This cascaded
+into also building a few other packages (glib, libtool, shadow?
+and udev)  [note: I was building a board with SDK tools which
+may have brought some of these in].  Does this seem reasonable
+to you?  I would hope that these packages, which are placed
+in the architecture (armv7a-vfp-neon-amltd-linux-gnueabi) tree
+should *not* depend on MACHINE.
 
-"fixes" it. I merged the other fix but this one needs a little bit more thought. bitbake-diffsigs can also mislead:
+Thanks for your help with this.
 
-$ ls *headerfix*
-gcc-cross-4.6.2+svnr181430-r20.do_headerfix.sigdata.84c0ca9d0fc07438f453910901a222b6
-gcc-cross-initial-4.6.2+svnr181430-r20.do_headerfix.sigdata.84c0ca9d0fc07438f453910901a222b6
-$ bitbake-diffsigs *headerfix*
-Dependency on task gcc-cross_4.6.bb.do_unpack was added
-Dependency on task gcc-cross-initial_4.6.bb.do_unpack was removed
-
-Note that the hashes are the same and these are in fact identical. The
-dependency hashes *do* match and its bitbake-diffsigs that is wrong here
-as the file changed names.
-
-Cheers,
-
-Richard
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
