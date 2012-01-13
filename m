@@ -1,23 +1,23 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2572DE006B0
-	for <poky@yoctoproject.org>; Fri, 13 Jan 2012 10:10:09 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A40EAE0137D
+	for <poky@yoctoproject.org>; Fri, 13 Jan 2012 10:11:01 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0DIA2gO024650;
-	Fri, 13 Jan 2012 18:10:02 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0DIAvPp024673;
+	Fri, 13 Jan 2012 18:10:57 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 23814-10; Fri, 13 Jan 2012 18:09:58 +0000 (GMT)
+	id 24290-04; Fri, 13 Jan 2012 18:10:53 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0DI9oMa024638
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0DIAmsf024664
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 13 Jan 2012 18:09:52 GMT
-Message-ID: <1326478194.18815.1.camel@ted>
+	Fri, 13 Jan 2012 18:10:49 GMT
+Message-ID: <1326478252.18815.3.camel@ted>
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: Gary Thomas <gary@mlbassoc.com>
-Date: Fri, 13 Jan 2012 18:09:54 +0000
+Date: Fri, 13 Jan 2012 18:10:52 +0000
 In-Reply-To: <4F10619F.4080002@mlbassoc.com>
 References: <4F0EAE81.8030800@mlbassoc.com>
 	<20120112131352.GC3452@jama.jama.net> <4F0EE095.1090709@mlbassoc.com>
@@ -47,7 +47,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jan 2012 18:10:15 -0000
+X-List-Received-Date: Fri, 13 Jan 2012 18:11:07 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
@@ -101,6 +101,14 @@ gcc-cross-initial-4.6.2+svnr181430-r20.do_headerfix.sigdata.84c0ca9d0fc07438f453
 $ bitbake-diffsigs *headerfix*
 Dependency on task gcc-cross_4.6.bb.do_unpack was added
 Dependency on task gcc-cross-initial_4.6.bb.do_unpack was removed
+
+Note that the hashes are the same and these are in fact identical. The
+dependency hashes *do* match and its bitbake-diffsigs that is wrong here
+as the file changed names.
+
+Cheers,
+
+Richard
 
 
 
