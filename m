@@ -1,35 +1,30 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB437E0134D
-	for <poky@pokylinux.org>; Tue, 17 Jan 2012 10:33:44 -0800 (PST)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1RnDql-0001ws-N6
-	for poky@pokylinux.org; Tue, 17 Jan 2012 19:33:39 +0100
-Received: from host-82-135-33-74.customer.m-online.net ([82.135.33.74])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Tue, 17 Jan 2012 19:33:39 +0100
-Received: from gmane by host-82-135-33-74.customer.m-online.net with local
-	(Gmexim 0.1 (Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Tue, 17 Jan 2012 19:33:39 +0100
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Tue, 17 Jan 2012 20:33:23 +0200
-Organization: Reliable Embedded Systems
-Message-ID: <jf4etk$ku3$1@dough.gmane.org>
-References: <loom.20120117T081408-739@post.gmane.org>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: host-82-135-33-74.customer.m-online.net
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.24) Gecko/20111108 Thunderbird/3.1.16
-In-Reply-To: <loom.20120117T081408-739@post.gmane.org>
-Subject: Re: Beagleboard-xm rev C and u-boot
+Return-Path: <sgw@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 721EBE0134D
+	for <poky@yoctoproject.org>; Tue, 17 Jan 2012 12:58:03 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 17 Jan 2012 12:58:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="108065755"
+Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
+	by fmsmga001.fm.intel.com with ESMTP; 17 Jan 2012 12:58:02 -0800
+Message-ID: <4F15E0DA.4000406@linux.intel.com>
+Date: Tue, 17 Jan 2012 12:58:02 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:8.0) Gecko/20111115 Thunderbird/8.0
+MIME-Version: 1.0
+To: =?UTF-8?B?SmVhbi1GcmFuw6dvaXMgRGFnZW5haXM=?=
+ <jeff.dagenais@gmail.com>
+References: <1326676265-31778-1-git-send-email-jeff.dagenais@gmail.com>
+In-Reply-To: <1326676265-31778-1-git-send-email-jeff.dagenais@gmail.com>
+Cc: marc.ferland@gmail.com,
+	=?UTF-8?B?SmVhbi1GcmFuw6dvaQ==?= =?UTF-8?B?cyBEYWdlbmFpcw==?=
+	<dagenaisj@sonatest.com>, poky@yoctoproject.org, roym@sonatest.com
+Subject: Re: [PATCH] buildstats: tolerate absence of /proc/diskstats
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: gmane@reliableembeddedsystems.com
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -38,33 +33,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2012 18:33:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 17 Jan 2012 20:58:03 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On 01/15/2012 05:11 PM, Jean-François Dagenais wrote:
+> From: Jean-François Dagenais<dagenaisj@sonatest.com>
+>
+> In OpenVZ containers (and probably lx containers as well),
+> the diskstats entry is not even present. Use the "NoLogicalDrive"
+> introduced by Elizabeth Flanagan in such case.
+>
+> This allows the bitbaking to occure within such containers.
+>
+> Signed-off-by: Jean-François Dagenais<jeff.dagenais@gmail.com>
+> ---
+>   meta/classes/buildstats.bbclass |   25 +++++++++++++++----------
+>   1 files changed, 15 insertions(+), 10 deletions(-)
+>
+> diff --git a/meta/classes/buildstats.bbclass b/meta/classes/buildstats.bbclass
+> index 4cd8fe6..9690a04 100644
+> --- a/meta/classes/buildstats.bbclass
+> +++ b/meta/classes/buildstats.bbclass
+> @@ -61,11 +61,13 @@ def set_device(e):
+>       # we do not collect diskstats as the method to collect meaningful statistics
+>       # for these fs types requires a bit more research.
+>       ############################################################################
+> -    for line in open("/proc/diskstats", "r"):
+> -        if majordev == int(line.split()[0]) and minordev == int(line.split()[1]):
+> -           rdev=line.split()[2]
+> -        else:
+> -           rdev="NoLogicalDevice"
+> +    rdev="NoLogicalDevice"
+> +    try:
+> +        for line in open("/proc/diskstats", "r"):
+> +            if majordev == int(line.split()[0]) and minordev == int(line.split()[1]):
+> +               rdev=line.split()[2]
+> +    except:
+> +        pass
+>       file = open(e.data.getVar('DEVFILE', True), "w")
+>       file.write(rdev)
+>       file.close()
+> @@ -82,12 +84,15 @@ def get_diskstats(dev):
+>       # For info on what these are, see kernel doc file iostats.txt
+>       ############################################################################
+>       DSTAT_KEYS = ['ReadsComp', 'ReadsMerged', 'SectRead', 'TimeReads', 'WritesComp', 'SectWrite', 'TimeWrite', 'IOinProgress', 'TimeIO', 'WTimeIO']
+> -    for x in open("/proc/diskstats", "r"):
+> -        if dev in x:
+> -            diskstats_val = x.rstrip().split()[4:]
+> -    diskstats = dict(itertools.izip(DSTAT_KEYS, diskstats_val))
+> +    try:
+> +        for x in open("/proc/diskstats", "r"):
+> +            if dev in x:
+> +                diskstats_val = x.rstrip().split()[4:]
+> +    except IOError as e:
+> +        return
+> +    diskstats = dict(itertools.izip(DSTAT_KEYS, diskstats_val))
+>       return diskstats
+> -
+> +
+>   def set_diskdata(var, dev, data):
+>       data.setVar(var, get_diskstats(dev))
+>
 
-On 01/17/2012 09:26 AM, Robert Berger wrote:
-> 
-> Did someone manage to get a newer version of u-boot to run on a beagle-xm Rev C?
-> 
-I did in the meantime without any special tricks like replacying -Os
-with -O2.
+Merged into OE-Core
 
-Just use u-boot mainline v2011.12.
+For future reference, please send patches for the meta layer to 
+openembedded-core@lists.openembedded.org, as the meta layer is really 
+OE-Core
 
-The trick is, that you need to use the MLO generated by u-boot mainline
-and u-boot.img instead of u-boot.bin.
-
-So I guess this could be also updated here.
-
-Regards,
-
-Robert...If you've found 3 bugs in a program, best estimate is that
-there are 3 more.-Jack Ganssle
-
-My public pgp key is available at:
-http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x90320BF1
-
-
+Thanks
+	Sau!
 
