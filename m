@@ -1,30 +1,20 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from lo.gmane.org (lo.gmane.org [80.91.229.12])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 24EF6E0030C
-	for <poky@pokylinux.org>; Mon, 16 Jan 2012 23:27:03 -0800 (PST)
-Received: from list by lo.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1Rn3Ra-0002ul-TC
-	for poky@pokylinux.org; Tue, 17 Jan 2012 08:26:58 +0100
-Received: from host-82-135-33-74.customer.m-online.net ([82.135.33.74])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Tue, 17 Jan 2012 08:26:58 +0100
-Received: from gmane by host-82-135-33-74.customer.m-online.net with local
-	(Gmexim 0.1 (Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Tue, 17 Jan 2012 08:26:58 +0100
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Robert Berger <gmane@reliableembeddedsystems.com>
-Date: Tue, 17 Jan 2012 07:26:44 +0000 (UTC)
-Message-ID: <loom.20120117T081408-739@post.gmane.org>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: sea.gmane.org
-User-Agent: Loom/3.14 (http://gmane.org/)
-X-Loom-IP: 82.135.33.74 (Mozilla/5.0 (X11;
-	Linux x86_64) AppleWebKit/535.2 (KHTML, like Gecko) Ubuntu/10.04
-	Chromium/15.0.874.106 Chrome/15.0.874.106 Safari/535.2)
-Subject: Beagleboard-xm rev C and u-boot
+Return-Path: <shane.wang@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8FCFAE0030C
+	for <poky@pokylinux.org>; Tue, 17 Jan 2012 00:01:52 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 17 Jan 2012 00:01:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="99417143"
+Received: from yocto-build5.sh.intel.com (HELO localhost) ([10.239.48.2])
+	by orsmga002.jf.intel.com with ESMTP; 17 Jan 2012 00:01:51 -0800
+From: Shane Wang <shane.wang@intel.com>
+To: poky@pokylinux.org,
+	paul.eggleton@linux.intel.com
+Date: Tue, 17 Jan 2012 16:15:04 +0800
+Message-Id: <cover.1326787792.git.shane.wang@intel.com>
+X-Mailer: git-send-email 1.7.6
+Subject: [PATCH 0/1] meta-baryon: correct the SRC_URI for libgsm
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,52 +26,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2012 07:27:05 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 17 Jan 2012 08:01:52 -0000
 
-Hi,
+correct the SRC_URI for libgsm in meta-baryon
 
-Sorry for cross-posting something similar also on the beagleboard mailing list, 
-but I think that some people here might be able to help.
+The following changes since commit d662381a38fa5fd31a87a6c26d2efa5065e76a27:
 
-I'm using a beagle-xm Rev C and trying to find a "proper" u-boot version, which 
-is at least able to load a kernel and ideally also has network support from u-
-boot.
+  webmin: add missing patch header info (2011-11-09 14:09:23 +0000)
 
-So I saw this:
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib shane/fix-1878
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=shane/fix-1878
 
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-bsp/u-boot/u-
-boot_2011.06.bb
+Shane Wang (1):
+  meta-baryon: correct the SRC_URI for libgsm
 
-which gets u-boot from mainline with tag v2011.06
+ recipes-multimedia/libgsm/libgsm_1.0.12.bb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-I compiled this and it did not work;)
-
-So I saw this innocent comment in 
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-bsp/u-boot/u-
-boot.inc
-
-# GCC 4.5.1 builds unusable binaries using -Os, remove it from 
-OPTFLAGS 
-EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS='-O2'" 
-
-Which means yocto builds u-boot v2011.06 replacing -Os with -O2 and indeed this 
-did the trick. 
-
-Up to now I thought that the problem with -Os and -O2 existed only with PPC, but 
-my experiments show that it also exists with ARM.
-
-Trying any new version than v2011.06 creates some linker error at the end.
-
-Did someone manage to get a newer version of u-boot to run on a beagle-xm Rev C?
-
-How and with which toolchain?
-
-Regards,
-
-Robert
-
-
+-- 
+1.7.6
 
 
