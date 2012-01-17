@@ -1,27 +1,24 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 721EBE0134D
-	for <poky@yoctoproject.org>; Tue, 17 Jan 2012 12:58:03 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1EEF8E01358
+	for <poky@yoctoproject.org>; Tue, 17 Jan 2012 12:58:29 -0800 (PST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 17 Jan 2012 12:58:02 -0800
+	by fmsmga102.fm.intel.com with ESMTP; 17 Jan 2012 12:58:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="108065755"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="108065860"
 Received: from unknown (HELO [10.255.14.6]) ([10.255.14.6])
-	by fmsmga001.fm.intel.com with ESMTP; 17 Jan 2012 12:58:02 -0800
-Message-ID: <4F15E0DA.4000406@linux.intel.com>
-Date: Tue, 17 Jan 2012 12:58:02 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 17 Jan 2012 12:58:28 -0800
+Message-ID: <4F15E0F4.5010707@linux.intel.com>
+Date: Tue, 17 Jan 2012 12:58:28 -0800
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:8.0) Gecko/20111115 Thunderbird/8.0
 MIME-Version: 1.0
-To: =?UTF-8?B?SmVhbi1GcmFuw6dvaXMgRGFnZW5haXM=?=
- <jeff.dagenais@gmail.com>
-References: <1326676265-31778-1-git-send-email-jeff.dagenais@gmail.com>
-In-Reply-To: <1326676265-31778-1-git-send-email-jeff.dagenais@gmail.com>
-Cc: marc.ferland@gmail.com,
-	=?UTF-8?B?SmVhbi1GcmFuw6dvaQ==?= =?UTF-8?B?cyBEYWdlbmFpcw==?=
-	<dagenaisj@sonatest.com>, poky@yoctoproject.org, roym@sonatest.com
-Subject: Re: [PATCH] buildstats: tolerate absence of /proc/diskstats
+To: Joshua Lock <josh@linux.intel.com>
+References: <cover.1326216193.git.josh@linux.intel.com>
+In-Reply-To: <cover.1326216193.git.josh@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] Add alsa-state configuration for Beagleboard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,74 +30,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2012 20:58:03 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 17 Jan 2012 20:58:29 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 01/15/2012 05:11 PM, Jean-François Dagenais wrote:
-> From: Jean-François Dagenais<dagenaisj@sonatest.com>
+On 01/10/2012 09:39 AM, Joshua Lock wrote:
+> CAVEAT: This series requires the alsa-state series recently submitted to the
+> OE-Core mailing list.
 >
-> In OpenVZ containers (and probably lx containers as well),
-> the diskstats entry is not even present. Use the "NoLogicalDrive"
-> introduced by Elizabeth Flanagan in such case.
+> This change set drops the BSP-specific beagleboard-audio recipe in favour of
+> extending the common alsa-state recipe for alsa configuration.
 >
-> This allows the bitbaking to occure within such containers.
+> Note: the beagleboard-audio recipe was not working in any stock image as the
+> amixer package is not included by default.
 >
-> Signed-off-by: Jean-François Dagenais<jeff.dagenais@gmail.com>
-> ---
->   meta/classes/buildstats.bbclass |   25 +++++++++++++++----------
->   1 files changed, 15 insertions(+), 10 deletions(-)
+> The following changes since commit 6ccf3fe442a2f7b2d330c749c66b3227bc47c3d6:
 >
-> diff --git a/meta/classes/buildstats.bbclass b/meta/classes/buildstats.bbclass
-> index 4cd8fe6..9690a04 100644
-> --- a/meta/classes/buildstats.bbclass
-> +++ b/meta/classes/buildstats.bbclass
-> @@ -61,11 +61,13 @@ def set_device(e):
->       # we do not collect diskstats as the method to collect meaningful statistics
->       # for these fs types requires a bit more research.
->       ############################################################################
-> -    for line in open("/proc/diskstats", "r"):
-> -        if majordev == int(line.split()[0]) and minordev == int(line.split()[1]):
-> -           rdev=line.split()[2]
-> -        else:
-> -           rdev="NoLogicalDevice"
-> +    rdev="NoLogicalDevice"
-> +    try:
-> +        for line in open("/proc/diskstats", "r"):
-> +            if majordev == int(line.split()[0]) and minordev == int(line.split()[1]):
-> +               rdev=line.split()[2]
-> +    except:
-> +        pass
->       file = open(e.data.getVar('DEVFILE', True), "w")
->       file.write(rdev)
->       file.close()
-> @@ -82,12 +84,15 @@ def get_diskstats(dev):
->       # For info on what these are, see kernel doc file iostats.txt
->       ############################################################################
->       DSTAT_KEYS = ['ReadsComp', 'ReadsMerged', 'SectRead', 'TimeReads', 'WritesComp', 'SectWrite', 'TimeWrite', 'IOinProgress', 'TimeIO', 'WTimeIO']
-> -    for x in open("/proc/diskstats", "r"):
-> -        if dev in x:
-> -            diskstats_val = x.rstrip().split()[4:]
-> -    diskstats = dict(itertools.izip(DSTAT_KEYS, diskstats_val))
-> +    try:
-> +        for x in open("/proc/diskstats", "r"):
-> +            if dev in x:
-> +                diskstats_val = x.rstrip().split()[4:]
-> +    except IOError as e:
-> +        return
-> +    diskstats = dict(itertools.izip(DSTAT_KEYS, diskstats_val))
->       return diskstats
-> -
-> +
->   def set_diskdata(var, dev, data):
->       data.setVar(var, get_diskstats(dev))
+>    task-base: add alsa-state to task-base-alsa (2012-01-10 08:34:20 -0800)
+>
+> are available in the git repository at:
+>    git://git.yoctoproject.org/poky-contrib josh/devices
+>    http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=josh/devices
+>
+> Joshua Lock (2):
+>    alsa-state: add beagleboard specific asound.state
+>    beagleboard-audio: drop in favour of alsa-state
+>
+>   meta-yocto/conf/machine/beagleboard.conf           |    3 -
+>   .../recipes-bsp/alsa-state/alsa-state.bbappend     |    1 +
+>   .../alsa-state/alsa-state/beagleboard/asound.state |  656 ++++++++++++++++++++
+>   .../beagleboard-audio/beagleboard-audio.bb         |   33 -
+>   .../beagleboard-audio/beagleboard-audio            |   44 --
+>   5 files changed, 657 insertions(+), 80 deletions(-)
+>   create mode 100644 meta-yocto/recipes-bsp/alsa-state/alsa-state.bbappend
+>   create mode 100644 meta-yocto/recipes-bsp/alsa-state/alsa-state/beagleboard/asound.state
+>   delete mode 100644 meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio.bb
+>   delete mode 100644 meta-yocto/recipes-bsp/beagleboard-audio/beagleboard-audio/beagleboard-audio
 >
 
-Merged into OE-Core
-
-For future reference, please send patches for the meta layer to 
-openembedded-core@lists.openembedded.org, as the meta layer is really 
-OE-Core
+Merged into Poky Master
 
 Thanks
 	Sau!
