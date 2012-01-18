@@ -1,25 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2CF67E004D2
-	for <poky@yoctoproject.org>; Wed, 18 Jan 2012 03:39:26 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 79929F81278; Wed, 18 Jan 2012 04:39:24 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id F16B8F81277;
-	Wed, 18 Jan 2012 04:39:22 -0700 (MST)
-Message-ID: <4F16AF6A.2060704@mlbassoc.com>
-Date: Wed, 18 Jan 2012 04:39:22 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:9.0) Gecko/20111222 Thunderbird/9.0
-MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: New sstate concern
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8F3FEE004D2
+	for <poky@yoctoproject.org>; Wed, 18 Jan 2012 04:54:33 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0ICsSI4018416;
+	Wed, 18 Jan 2012 12:54:28 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 17449-07; Wed, 18 Jan 2012 12:54:22 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0ICsHsV018410
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Wed, 18 Jan 2012 12:54:19 GMT
+Message-ID: <1326891257.2511.2.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Wed, 18 Jan 2012 12:54:17 +0000
+In-Reply-To: <4F16AF6A.2060704@mlbassoc.com>
+References: <4F16AF6A.2060704@mlbassoc.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: New sstate concern
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,28 +36,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jan 2012 11:39:26 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 18 Jan 2012 12:54:39 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-Updating today to rev 5724ee9c3a99519fea96446638910b727b89898d, I have new
-concerns my sstate-cache is once again useless with most every package
-being rebuilt, e.g.:
+On Wed, 2012-01-18 at 04:39 -0700, Gary Thomas wrote:
+> Updating today to rev 5724ee9c3a99519fea96446638910b727b89898d, I have new
+> concerns my sstate-cache is once again useless with most every package
+> being rebuilt, e.g.:
+> 
+> p60_test_pass1/tmp/stamps/i686-linux/u-boot-mkimage-native-2011.06-r0.do_fetch.sigdata.275c6cb8e401bc01179906d05ff611c7
+> p60_new/tmp/stamps/i686-linux/u-boot-mkimage-native-2011.06-r0.do_fetch.sigdata.275c6cb8e401bc01179906d05ff611c7
+> basewhitelist changed from set(['SSTATE_DIR', 'FILESPATH', 'TERM', 'BB_TASKHASH', 'STAGING_DIR_HOST', 'FILESEXTRAPATHS', 'PWD', 'COREBASE', 'BBPATH', 'SHELL', 'DL_DIR', 
+> 'STAGING_DIR_TARGET', 'LOGNAME', 'THISDIR', 'FILE', 'FILE_DIRNAME', 'PATH', 'HOME', 'TMPDIR', 'USER']) to set(['PRSERV_PORT', 'DL_DIR', 'LOGNAME', 'USER', 'FILE', 'HOME', 'PATH', 
+> 'TERM', 'SHELL', 'COREBASE', 'PRSERV_DUMPDIR', 'SSTATE_DIR', 'BB_TASKHASH', 'FILESEXTRAPATHS', 'THISDIR', 'BBPATH', 'STAGING_DIR_TARGET', 'FILE_DIRNAME', 'PRSERV_HOST', 'TMPDIR', 
+> 'FILESPATH', 'STAGING_DIR_HOST', 'PRSERV_DUMPFILE', 'PRSERV_LOCKDOWN', 'PWD'])
+> changed items: set(['PRSERV_PORT', 'PRSERV_HOST', 'PRSERV_DUMPFILE', 'PRSERV_LOCKDOWN', 'PRSERV_DUMPDIR'])
+> 
+> Are these newly introduced variables really necessary in the
+> signatures?
 
-p60_test_pass1/tmp/stamps/i686-linux/u-boot-mkimage-native-2011.06-r0.do_fetch.sigdata.275c6cb8e401bc01179906d05ff611c7
-p60_new/tmp/stamps/i686-linux/u-boot-mkimage-native-2011.06-r0.do_fetch.sigdata.275c6cb8e401bc01179906d05ff611c7
-basewhitelist changed from set(['SSTATE_DIR', 'FILESPATH', 'TERM', 'BB_TASKHASH', 'STAGING_DIR_HOST', 'FILESEXTRAPATHS', 'PWD', 'COREBASE', 'BBPATH', 'SHELL', 'DL_DIR', 
-'STAGING_DIR_TARGET', 'LOGNAME', 'THISDIR', 'FILE', 'FILE_DIRNAME', 'PATH', 'HOME', 'TMPDIR', 'USER']) to set(['PRSERV_PORT', 'DL_DIR', 'LOGNAME', 'USER', 'FILE', 'HOME', 'PATH', 
-'TERM', 'SHELL', 'COREBASE', 'PRSERV_DUMPDIR', 'SSTATE_DIR', 'BB_TASKHASH', 'FILESEXTRAPATHS', 'THISDIR', 'BBPATH', 'STAGING_DIR_TARGET', 'FILE_DIRNAME', 'PRSERV_HOST', 'TMPDIR', 
-'FILESPATH', 'STAGING_DIR_HOST', 'PRSERV_DUMPFILE', 'PRSERV_LOCKDOWN', 'PWD'])
-changed items: set(['PRSERV_PORT', 'PRSERV_HOST', 'PRSERV_DUMPFILE', 'PRSERV_LOCKDOWN', 'PRSERV_DUMPDIR'])
+Its telling you there was a difference and the configuration changed but
+those variables are not included in the stamp and that message is for
+information purposes only. 
 
-Are these newly introduced variables really necessary in the
-signatures?
+If you look closely at the above, the same checksum is shown
+(275c6cb8e401bc01179906d05ff611c7 for both)!
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Cheers,
+
+Richard
+
+
+
+
+
 
