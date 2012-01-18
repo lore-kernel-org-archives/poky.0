@@ -1,31 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 283A3E004D2
-	for <poky@yoctoproject.org>; Wed, 18 Jan 2012 05:21:35 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0IDLWh5018716;
-	Wed, 18 Jan 2012 13:21:32 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18638-01; Wed, 18 Jan 2012 13:21:28 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q0IDLMPq018710
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 18 Jan 2012 13:21:23 GMT
-Message-ID: <1326892881.2511.5.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Wed, 18 Jan 2012 13:21:21 +0000
-In-Reply-To: <4F16C3BE.4040806@mlbassoc.com>
-References: <4F16AF6A.2060704@mlbassoc.com> <1326891257.2511.2.camel@ted>
-	<4F16C3BE.4040806@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: New sstate concern
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E40D8E004D2
+	for <poky@yoctoproject.org>; Wed, 18 Jan 2012 08:27:50 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 9C475F811ED; Wed, 18 Jan 2012 09:27:49 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 13016F811DD;
+	Wed, 18 Jan 2012 09:27:48 -0700 (MST)
+Message-ID: <4F16F304.9030907@mlbassoc.com>
+Date: Wed, 18 Jan 2012 09:27:48 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: eglibc schizophrenia?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,42 +31,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Jan 2012 13:21:41 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 18 Jan 2012 16:27:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2012-01-18 at 06:06 -0700, Gary Thomas wrote:
-> Still trying to understand why this update is causing everything to
-> be rebuilt, how about this one?
-> 
-> p60_test_pass1/tmp/stamps/i686-linux/ldconfig-native-2.12.1-r2.do_configure.sigdata.7313d9d2da9a7307214c707b22ba14bd
-> p60_new/tmp/stamps/i686-linux/ldconfig-native-2.12.1-r2.do_configure.sigdata.c7fdc1d3d32037e732a62ac55f07c115
-[...]
-> List of dependencies for variable BUILD_LDFLAGS changed from set(['STAGING_LIBDIR_NATIVE']) to set(['STAGING_BASE_LIBDIR_NATIVE', 'STAGING_LIBDIR_NATIVE'])
-> changed items: set(['STAGING_BASE_LIBDIR_NATIVE'])
-> Dependency on Variable base_libdir_native was removed
-> Dependency on Variable STAGING_BASE_LIBDIR_NATIVE was removed
-> Variable BUILD_LDFLAGS value changed from -L${STAGING_LIBDIR_NATIVE} -Wl,-rpath-link,${STAGING_LIBDIR_NATIVE} -Wl,-rpath,${STAGING_LIBDIR_NATIVE} -Wl,-O1 to 
-> -L${STAGING_LIBDIR_NATIVE} -L${STAGING_BASE_LIBDIR_NATIVE} -Wl,-rpath-link,${STAGING_LIBDIR_NATIVE} -Wl,-rpath-link,${STAGING_BASE_LIBDIR_NATIVE} 
-> -Wl,-rpath,${STAGING_LIBDIR_NATIVE} -Wl,-rpath,${STAGING_BASE_LIBDIR_NATIVE} -Wl,-O1
-> Hash for dependent task ldconfig-native_2.12.1.bb.do_patch changed from 194974324a80455c3b58f824421da3d0 to f4a5d01ab2e6c472629392ba1d83e288
-> 
-> I can see that basehash changed which is probably the killer.
-> Can you tell me what causes this?
-> 
-> Thanks for your help understanding this.
+Using master 5724ee9c3a99519fea96446638910b727b89898d (2012-01-18)
+with MACHINE=beagleboard
 
-The bit I've quoted above is key. Basically BUILD_LDFLAGS (which is
-exported to every task's environment) changed.
+I just noticed that a build from scratch is using two different
+versions of eglibc:
+   eglibc-2_12_www.eglibc.org_.svn.branches._11982_.tar.gz
+   eglibc-2_13_www.eglibc.org_.svn.branches._15508_.tar.gz
 
-This is from this commit:
-http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=35759f977eec6ef81e125a509a7148d7e53a6515
+Is there some reason for this?  Why not just use version 2.13
+full stop?
 
-(We don't do this kind of thing often)
-
-Cheers,
-
-Richard
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
