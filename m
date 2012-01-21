@@ -1,24 +1,37 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D5DBE00B08
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2012 17:57:42 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 19 Jan 2012 17:57:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="98531439"
-Received: from unknown (HELO [10.255.14.77]) ([10.255.14.77])
-	by orsmga001.jf.intel.com with ESMTP; 19 Jan 2012 17:57:41 -0800
-Message-ID: <4F18CA15.1060007@linux.intel.com>
-Date: Thu, 19 Jan 2012 17:57:41 -0800
-From: Joshua Lock <josh@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:9.0) Gecko/20111222 Thunderbird/9.0
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5B8F8E00718
+	for <poky@yoctoproject.org>; Sat, 21 Jan 2012 14:58:35 -0800 (PST)
+Received: by iagj37 with SMTP id j37so3901853iag.35
+	for <poky@yoctoproject.org>; Sat, 21 Jan 2012 14:58:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=date:from:to:cc:subject:message-id:mail-followup-to:references
+	:mime-version:content-type:content-disposition:in-reply-to
+	:user-agent; bh=eR8Kl7QFyi4sy1owBmWc+OambocNPJKS6FWr2QWyWaQ=;
+	b=F/DJKH0U49MctuwEyv5EQkJJTBQpcS4NR8dBedqq9QUQyy1fUP6j2YxhuQd6ks1lpk
+	pluJdRdakz7ZfdhbMthAWY7hCc637NHdH7+P2RPSoXOoqgmFPpeWk79TbYKnlYprhalr
+	d1ZeSnS10yBDHxU4z3ca9io6YJ5fe1+MDMFlg=
+Received: by 10.50.88.163 with SMTP id bh3mr3805412igb.0.1327186714695;
+	Sat, 21 Jan 2012 14:58:34 -0800 (PST)
+Received: from sakrah.homelinux.org
+	(99-57-141-118.lightspeed.sntcca.sbcglobal.net. [99.57.141.118])
+	by mx.google.com with ESMTPS id bj1sm6863827igb.0.2012.01.21.14.58.31
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Sat, 21 Jan 2012 14:58:32 -0800 (PST)
+Date: Sat, 21 Jan 2012 14:58:23 -0800
+From: Khem Raj <raj.khem@gmail.com>
+To: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+Message-ID: <20120121225823.GA12691@sakrah.homelinux.org>
+Mail-Followup-To: Derek Buitenhuis <derek.buitenhuis@gmail.com>,
+	poky@yoctoproject.org
+References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
+	<1325640237-17019-2-git-send-email-derek.buitenhuis@gmail.com>
 MIME-Version: 1.0
-To: Kang Kai <Kai.Kang@windriver.com>
-References: <4F17C7D9.10506@windriver.com> <4F17E37B.7030506@windriver.com>
-In-Reply-To: <4F17E37B.7030506@windriver.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Please help to review the Yocto 1656: Recipe creation/import script
+In-Reply-To: <1325640237-17019-2-git-send-email-derek.buitenhuis@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/2] binutils: Allow plugins
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,35 +43,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jan 2012 01:57:42 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 21 Jan 2012 22:58:35 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On (03/01/12 20:23), Derek Buitenhuis wrote:
+> Make sure it's possible to build binutils with
+> plugin support.
+> 
+> Signed-off-by: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+> ---
+>  .../binutils/binutils-cross-canadian.inc           |    3 ++-
+>  meta/recipes-devtools/binutils/binutils-cross.inc  |    3 ++-
+>  2 files changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> index 00648a6..4f20ad7 100644
+> --- a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> +++ b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+> @@ -8,7 +8,8 @@ DEPENDS = "flex-native bison-native virtual/${HOST_PREFIX}gcc-crosssdk virtual/l
+>  EXTRA_OECONF = "--with-sysroot=${SDKPATH}/sysroots/${TUNE_PKGARCH}${TARGET_VENDOR}-${TARGET_OS} \
+>                  --program-prefix=${TARGET_PREFIX} \
+>                  --disable-werror \
+> -                ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)}"
+> +                ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)} \
+> +                ${@base_contains('DISTRO_FEATURES', 'binutils-plugins', '--enable-plugins', '', d)}"
 
+enabling plugins regardless is a good thing and since we use binutils
+2.22+ now a days in oe-core plugins are well supported. Please submit the patch
+where you add this option (--enable-plugins) to binutils common configure
+that will be add to EXTRA_OECONF in binutils.inc
 
-On 19/01/12 01:33, Kang Kai wrote:
-> Hi Josh,
->
-> The attachment is the the design document V2 and implement.
->
-> The V2 document changes are:
-> 1 remove patch_set from argument list
-> 2 deb is not support right now
->
-> Any comment is welcome.
-> And I will on vacation until Jan 30, so my reply may not in time.
+-Khem
 
-This looks like a good start, Paul has offered some great feedback. In 
-addition I'd add that we need a license header on the script, we should 
-probably attribute autospectacle in the header too (Inspired by? Based on?).
-
-I haven't had chance to do a thorough code review but will try and do so 
-whilst you're on your break.
-
-Cheers,
-Joshua
--- 
-Joshua Lock
-         Yocto Project "Johannes factotum"
-         Intel Open Source Technology Centre
 
