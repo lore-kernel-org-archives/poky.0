@@ -1,31 +1,36 @@
 Return-Path: <derek.buitenhuis@gmail.com>
-Received: from mail-vx0-f176.google.com (mail-vx0-f176.google.com
-	[209.85.220.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6205E0030B
-	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 10:41:31 -0800 (PST)
-Received: by vcbfk13 with SMTP id fk13so1967055vcb.35
-	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 10:41:30 -0800 (PST)
+Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
+	[209.85.212.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C6FE2E01371
+	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 10:41:51 -0800 (PST)
+Received: by vbbfn1 with SMTP id fn1so1947856vbb.35
+	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 10:41:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=from:to:cc:subject:date:message-id:x-mailer:in-reply-to:references;
-	bh=MA6p7AkbDd1FqCKWAn89lEYvyeuT6teQ4tLDW4FT810=;
-	b=fOkUppSszaw2NxWz6976FQLIMWoiz2tobwaWMerN1lBBatdYyAB9ek5XMIZIcAorW6
-	INqRMuHQFS+dXHXtHA9myGaF711u/CNGsZ/AQaC9KZpjAMG481YsjacnZ+z00UhZn3Xh
-	S/ri8t5r2ZPnBegKKU0Uno3kwtYnqjFYVl2Pg=
-Received: by 10.220.225.200 with SMTP id it8mr3049329vcb.18.1327257690769;
-	Sun, 22 Jan 2012 10:41:30 -0800 (PST)
-Received: from localhost.localdomain (S0106586d8f4832af.tb.shawcable.net.
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:references:in-reply-to:content-type:content-transfer-encoding;
+	bh=NhobiKrE9SGHTa9/CRFJi8YyMJCBw5fVW5FS/tEexKg=;
+	b=NgucBOm9pM+B+ePK+BHFKX7KLKAjXWfnTu3viNofXsfxudUrPkxg7v1upNVmVXNMLJ
+	xA/7l9RQZgTrJ9MUN3cZCn1wH0WPkPYAwncXG9jwV2xDdGitG5nVeADZBvc+xXQZegdk
+	S0Hmoo7P1RnNjaEZQbZ/DHw5JnU7DMs6/ZVjU=
+Received: by 10.52.23.5 with SMTP id i5mr2579999vdf.50.1327257711204;
+	Sun, 22 Jan 2012 10:41:51 -0800 (PST)
+Received: from [192.168.1.111] (S0106586d8f4832af.tb.shawcable.net.
 	[174.5.7.80])
-	by mx.google.com with ESMTPS id fq7sm8636183vdc.16.2012.01.22.10.41.29
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sun, 22 Jan 2012 10:41:30 -0800 (PST)
+	by mx.google.com with ESMTPS id fq7sm8636968vdc.16.2012.01.22.10.41.49
+	(version=SSLv3 cipher=OTHER); Sun, 22 Jan 2012 10:41:50 -0800 (PST)
+Message-ID: <4F1C586E.7030809@gmail.com>
+Date: Sun, 22 Jan 2012 13:41:50 -0500
 From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
-To: poky@yoctoproject.org
-Date: Sun, 22 Jan 2012 13:41:22 -0500
-Message-Id: <1327257682-1324-1-git-send-email-derek.buitenhuis@gmail.com>
-X-Mailer: git-send-email 1.7.8.3
-In-Reply-To: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0.1
+MIME-Version: 1.0
+To: raj.khem@gmail.com
 References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
-Subject: [PATCH 2/2 v2] binutils: Always enable plugins
+	<1325640237-17019-2-git-send-email-derek.buitenhuis@gmail.com>
+	<20120121225823.GA12691@sakrah.homelinux.org>
+In-Reply-To: <20120121225823.GA12691@sakrah.homelinux.org>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/2] binutils: Allow plugins
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,55 +42,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 22 Jan 2012 18:41:32 -0000
+X-List-Received-Date: Sun, 22 Jan 2012 18:41:52 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Since oe-core now uses binutils 2.22+, plugins should be
-well supported. Enable them by default.
+On 21/01/2012 5:58 PM, Khem Raj wrote:
+> enabling plugins regardless is a good thing and since we use binutils
+> 2.22+ now a days in oe-core plugins are well supported. Please submit the patch
+> where you add this option (--enable-plugins) to binutils common configure
+> that will be add to EXTRA_OECONF in binutils.inc
+>
+> -Khem
 
-Signed-off-by: Derek Buitenhuis <derek.buitenhuis@gmail.com>
----
- .../binutils/binutils-cross-canadian.inc           |    1 +
- meta/recipes-devtools/binutils/binutils-cross.inc  |    1 +
- meta/recipes-devtools/binutils/binutils.inc        |    1 +
- 3 files changed, 3 insertions(+), 0 deletions(-)
+Sweet! Sorry I've been MIA for a bit. I've sent in the new patch,
+which patches all 3 includes. From a look, this seemed necessary,
+but if it isn't, let me know.
 
-diff --git a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
-index 15b9abb..c902c51 100644
---- a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
-+++ b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
-@@ -8,6 +8,7 @@ DEPENDS = "flex-native bison-native virtual/${HOST_PREFIX}gcc-crosssdk virtual/l
- EXTRA_OECONF = "--with-sysroot=${SDKPATH}/sysroots/${TUNE_PKGARCH}${TARGET_VENDOR}-${TARGET_OS} \
-                 --program-prefix=${TARGET_PREFIX} \
-                 --disable-werror \
-+                --enable-plugins \
-                 ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)}"
- 
- do_install () {
-diff --git a/meta/recipes-devtools/binutils/binutils-cross.inc b/meta/recipes-devtools/binutils/binutils-cross.inc
-index 80152a9..38457e8 100644
---- a/meta/recipes-devtools/binutils/binutils-cross.inc
-+++ b/meta/recipes-devtools/binutils/binutils-cross.inc
-@@ -9,6 +9,7 @@ EXTRA_OECONF = "--with-sysroot=${STAGING_DIR_TARGET} \
-                 --disable-install-libbfd \
-                 --disable-werror \
-                 --enable-poison-system-directories \
-+                --enable-plugins \
-                 ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)} \
-                 ${@base_contains('DISTRO_FEATURES', 'multiarch', '--enable-64-bit-bfd', '', d)}"
- 
-diff --git a/meta/recipes-devtools/binutils/binutils.inc b/meta/recipes-devtools/binutils/binutils.inc
-index 30a0416..5449e1a 100644
---- a/meta/recipes-devtools/binutils/binutils.inc
-+++ b/meta/recipes-devtools/binutils/binutils.inc
-@@ -52,6 +52,7 @@ B = "${S}/build.${HOST_SYS}.${TARGET_SYS}"
- EXTRA_OECONF = "--program-prefix=${TARGET_PREFIX} \
-                 --enable-install-libbfd \
-                 --enable-shared \
-+                --enable-plugins \
-                 ${@base_contains('DISTRO_FEATURES', 'multiarch', '--enable-64-bit-bfd', '', d)}"
- 
- EXTRA_OECONF_virtclass-native = "--enable-target=all --enable-64-bit-bfd --enable-install-libbfd"
--- 
-1.7.8.3
+Patch is sent in reply to the original patch set, titled:
 
+     [PATCH 2/2 v2] binutils: Always enable plugins
+
+Enjoy.
+
+- Derek
 
