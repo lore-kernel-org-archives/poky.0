@@ -1,36 +1,31 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 169B8E00718
-	for <poky@yoctoproject.org>; Sat, 21 Jan 2012 19:29:21 -0800 (PST)
-Received: by iagj37 with SMTP id j37so4192968iag.35
-	for <poky@yoctoproject.org>; Sat, 21 Jan 2012 19:29:20 -0800 (PST)
+Return-Path: <derek.buitenhuis@gmail.com>
+Received: from mail-vx0-f176.google.com (mail-vx0-f176.google.com
+	[209.85.220.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6205E0030B
+	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 10:41:31 -0800 (PST)
+Received: by vcbfk13 with SMTP id fk13so1967055vcb.35
+	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 10:41:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=date:from:to:cc:subject:message-id:mail-followup-to:references
-	:mime-version:content-type:content-disposition:in-reply-to
-	:user-agent; bh=Qz8I9CUDpeHWnj6RxyEKydMvjrENT4/ZPZOT+mzSwXs=;
-	b=k1QYZ7HrujMsocv60dgqpDzPO02t8vLaglFhHgQGXaCqpKer14/4qcfAV57D9ftsM6
-	UDxhUXXOXL4hs7okPxnG8dpRRVY5rL6T3cl961p7lYnuLDRkRJrW5sMmYAmgtofBUAZV
-	Bvac7wZ50lcEDO9BIHmsgwLmthmFXZorY8FME=
-Received: by 10.50.180.233 with SMTP id dr9mr4998728igc.11.1327202960555;
-	Sat, 21 Jan 2012 19:29:20 -0800 (PST)
-Received: from sakrah.homelinux.org
-	(99-57-141-118.lightspeed.sntcca.sbcglobal.net. [99.57.141.118])
-	by mx.google.com with ESMTPS id or1sm14725249igc.3.2012.01.21.19.29.18
+	h=from:to:cc:subject:date:message-id:x-mailer:in-reply-to:references;
+	bh=MA6p7AkbDd1FqCKWAn89lEYvyeuT6teQ4tLDW4FT810=;
+	b=fOkUppSszaw2NxWz6976FQLIMWoiz2tobwaWMerN1lBBatdYyAB9ek5XMIZIcAorW6
+	INqRMuHQFS+dXHXtHA9myGaF711u/CNGsZ/AQaC9KZpjAMG481YsjacnZ+z00UhZn3Xh
+	S/ri8t5r2ZPnBegKKU0Uno3kwtYnqjFYVl2Pg=
+Received: by 10.220.225.200 with SMTP id it8mr3049329vcb.18.1327257690769;
+	Sun, 22 Jan 2012 10:41:30 -0800 (PST)
+Received: from localhost.localdomain (S0106586d8f4832af.tb.shawcable.net.
+	[174.5.7.80])
+	by mx.google.com with ESMTPS id fq7sm8636183vdc.16.2012.01.22.10.41.29
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sat, 21 Jan 2012 19:29:19 -0800 (PST)
-Date: Sat, 21 Jan 2012 19:30:14 -0800
-From: Khem Raj <raj.khem@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Message-ID: <20120122033014.GH27997@sakrah.homelinux.org>
-Mail-Followup-To: Gary Thomas <gary@mlbassoc.com>,
-	Poky Project <poky@yoctoproject.org>
-References: <4F16F304.9030907@mlbassoc.com>
-MIME-Version: 1.0
-In-Reply-To: <4F16F304.9030907@mlbassoc.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: eglibc schizophrenia?
+	Sun, 22 Jan 2012 10:41:30 -0800 (PST)
+From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+To: poky@yoctoproject.org
+Date: Sun, 22 Jan 2012 13:41:22 -0500
+Message-Id: <1327257682-1324-1-git-send-email-derek.buitenhuis@gmail.com>
+X-Mailer: git-send-email 1.7.8.3
+In-Reply-To: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
+References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
+Subject: [PATCH 2/2 v2] binutils: Always enable plugins
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,34 +37,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 22 Jan 2012 03:29:21 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Sun, 22 Jan 2012 18:41:32 -0000
 
-On (18/01/12 09:27), Gary Thomas wrote:
-> Using master 5724ee9c3a99519fea96446638910b727b89898d (2012-01-18)
-> with MACHINE=beagleboard
-> 
-> I just noticed that a build from scratch is using two different
-> versions of eglibc:
->   eglibc-2_12_www.eglibc.org_.svn.branches._11982_.tar.gz
->   eglibc-2_13_www.eglibc.org_.svn.branches._15508_.tar.gz
-> 
-> Is there some reason for this?  Why not just use version 2.13
-> full stop?
+Since oe-core now uses binutils 2.22+, plugins should be
+well supported. Enable them by default.
 
-Check your eglibc recipes do any one of them need 2.12 ?
-> 
-> -- 
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Signed-off-by: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+---
+ .../binutils/binutils-cross-canadian.inc           |    1 +
+ meta/recipes-devtools/binutils/binutils-cross.inc  |    1 +
+ meta/recipes-devtools/binutils/binutils.inc        |    1 +
+ 3 files changed, 3 insertions(+), 0 deletions(-)
 
+diff --git a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+index 15b9abb..c902c51 100644
+--- a/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
++++ b/meta/recipes-devtools/binutils/binutils-cross-canadian.inc
+@@ -8,6 +8,7 @@ DEPENDS = "flex-native bison-native virtual/${HOST_PREFIX}gcc-crosssdk virtual/l
+ EXTRA_OECONF = "--with-sysroot=${SDKPATH}/sysroots/${TUNE_PKGARCH}${TARGET_VENDOR}-${TARGET_OS} \
+                 --program-prefix=${TARGET_PREFIX} \
+                 --disable-werror \
++                --enable-plugins \
+                 ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)}"
+ 
+ do_install () {
+diff --git a/meta/recipes-devtools/binutils/binutils-cross.inc b/meta/recipes-devtools/binutils/binutils-cross.inc
+index 80152a9..38457e8 100644
+--- a/meta/recipes-devtools/binutils/binutils-cross.inc
++++ b/meta/recipes-devtools/binutils/binutils-cross.inc
+@@ -9,6 +9,7 @@ EXTRA_OECONF = "--with-sysroot=${STAGING_DIR_TARGET} \
+                 --disable-install-libbfd \
+                 --disable-werror \
+                 --enable-poison-system-directories \
++                --enable-plugins \
+                 ${@base_contains('DISTRO_FEATURES', 'ld-is-gold', '--enable-gold=default', '', d)} \
+                 ${@base_contains('DISTRO_FEATURES', 'multiarch', '--enable-64-bit-bfd', '', d)}"
+ 
+diff --git a/meta/recipes-devtools/binutils/binutils.inc b/meta/recipes-devtools/binutils/binutils.inc
+index 30a0416..5449e1a 100644
+--- a/meta/recipes-devtools/binutils/binutils.inc
++++ b/meta/recipes-devtools/binutils/binutils.inc
+@@ -52,6 +52,7 @@ B = "${S}/build.${HOST_SYS}.${TARGET_SYS}"
+ EXTRA_OECONF = "--program-prefix=${TARGET_PREFIX} \
+                 --enable-install-libbfd \
+                 --enable-shared \
++                --enable-plugins \
+                 ${@base_contains('DISTRO_FEATURES', 'multiarch', '--enable-64-bit-bfd', '', d)}"
+ 
+ EXTRA_OECONF_virtclass-native = "--enable-target=all --enable-64-bit-bfd --enable-install-libbfd"
 -- 
--Khem
+1.7.8.3
+
 
