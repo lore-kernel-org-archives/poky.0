@@ -1,32 +1,25 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-lpp01m010-f48.google.com (mail-lpp01m010-f48.google.com
-	[209.85.215.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0063BE0030B
-	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 11:06:00 -0800 (PST)
-Received: by lahl5 with SMTP id l5so1722491lah.35
-	for <poky@yoctoproject.org>; Sun, 22 Jan 2012 11:05:59 -0800 (PST)
+Return-Path: <jim.sheldon@gmail.com>
+Received: from mail-we0-f176.google.com (mail-we0-f176.google.com
+	[74.125.82.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A3F26E00592
+	for <poky@yoctoproject.org>; Tue, 24 Jan 2012 14:20:42 -0800 (PST)
+Received: by wejx9 with SMTP id x9so3131704wej.35
+	for <poky@yoctoproject.org>; Tue, 24 Jan 2012 14:20:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=0J1VUkau2Pwm//o8+rdkHLZF/BWsUBJMiOjEGSzuU8o=;
-	b=Sne5YLAUWiMoNZ74tWEGt+/DYoadOQTMmmXXsBrx1uLdmpR0PeA86xF3Zkx9sJJTzL
-	HdgYvIn54GV5vCWcYc1kv2f4l3JsY1+AVy17dwKwIXF9PKXG7aG6BXcCXrJ5bOiMssZn
-	vrTJjmRiJD3MQTx7zCkYtgmm+2Vf4JQ7QQrQw=
-Received: by 10.152.103.169 with SMTP id fx9mr2922352lab.10.1327259159781;
-	Sun, 22 Jan 2012 11:05:59 -0800 (PST)
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=Q5C/Q8C/GwmyTlaha+8zxwNYyvrbidqW9MiU5tGNesA=;
+	b=YY9mkm/KN+uSjoSpMqfch5jIqAZUQLTCj7sXM+RkbWfSEt3jKd06NsviXDTVXAcRcg
+	NgIsXocdiRxUYl6tT63ABihWOeLAtg1s2KPeZWX2QEI104eRfjupXH30d0DSfABcPqQw
+	5NR+T12PA04YLQqVmOcuRJzQ6ofNW+SupgVsM=
 MIME-Version: 1.0
-Received: by 10.152.22.233 with HTTP; Sun, 22 Jan 2012 11:05:28 -0800 (PST)
-In-Reply-To: <4F1C5D08.6020408@gmail.com>
-References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
-	<1327257682-1324-1-git-send-email-derek.buitenhuis@gmail.com>
-	<CAMKF1sq0K_uTNLbACaUO=-dQVj8JPkWbjbDxubTZFm6cxRRJPw@mail.gmail.com>
-	<4F1C5D08.6020408@gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Sun, 22 Jan 2012 11:05:28 -0800
-Message-ID: <CAMKF1so_+tau94h+OaRgy2g3jU8Rjp0mf=SLMKuAXi0p5Gws3g@mail.gmail.com>
-To: Derek Buitenhuis <derek.buitenhuis@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2 v2] binutils: Always enable plugins
+Received: by 10.216.136.152 with SMTP id w24mr6018641wei.50.1327443641734;
+	Tue, 24 Jan 2012 14:20:41 -0800 (PST)
+Received: by 10.180.91.230 with HTTP; Tue, 24 Jan 2012 14:20:41 -0800 (PST)
+Date: Tue, 24 Jan 2012 17:20:41 -0500
+Message-ID: <CAOm48iiXdJWM5xrejiYFzLUuD-c4Q8X8RR=2RLVMVoinfQ8TuA@mail.gmail.com>
+From: Jim Sheldon <jim.sheldon@gmail.com>
+To: poky@yoctoproject.org
+Subject: [PATCH] fix configure.patch sed line
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,23 +31,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 22 Jan 2012 19:06:01 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 24 Jan 2012 22:20:43 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-On Sun, Jan 22, 2012 at 11:01 AM, Derek Buitenhuis
-<derek.buitenhuis@gmail.com> wrote:
-> On 22/01/2012 1:57 PM, Khem Raj wrote:
->>
->> while this patch is ok. It occurs to me that we might have to find an
->> easier way to specify common options once for all binutils recipes
->
->
-> A singular EXTRA_OECONF = ... in binutils.inc, and use EXTRA_OECONF +=
-> elsewhere after including it, perhaps? :/
->
+pciutils: configure.patch has a sed line without a trailing single quote
 
+Signed-off-by: Jim Sheldon <jim.sheldon@gmail.com>
+---
+ .../pciutils/pciutils-3.1.9/configure.patch        |    2 +-
+ meta/recipes-bsp/pciutils/pciutils_3.1.9.bb        |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-yes we can refactor binutils.inc into binutils-common.inc and binutils.inc
-where the former holds the shareable parts
-> - Derek
+diff --git a/meta/recipes-bsp/pciutils/pciutils-3.1.9/configure.patch
+b/meta/recipes-bsp/pciutils/pciutils-3.1.9/configure.patch
+index 658e597..66c9f91 100644
+--- a/meta/recipes-bsp/pciutils/pciutils-3.1.9/configure.patch
++++ b/meta/recipes-bsp/pciutils/pciutils-3.1.9/configure.patch
+@@ -67,7 +67,7 @@ diff -r af2b10cc3c14 lib/configure
+  		cpu=`/usr/sbin/lsattr -F value -l $proc -a type | sed 's/_.*//'`
+  	else
+ -		cpu=`uname -m | sed
+'s/^i.86$/i386/;s/^sun4u$/sparc64/;s/^i86pc$/i386/;s/^BePC$/i386/;s/^BeMac$/powerpc/;s/^BeBox$/powerpc/'`
+-+		cpu=${4:-`uname -m | sed
+'s/^i.86$/i386/;s/^sun4u$/sparc64/;s/^i86pc$/i386/;s/^BePC$/i386/;s/^BeMac$/powerpc/;s/^BeBox$/powerpc/`}
+++		cpu=${4:-`uname -m | sed
+'s/^i.86$/i386/;s/^sun4u$/sparc64/;s/^i86pc$/i386/;s/^BePC$/i386/;s/^BeMac$/powerpc/;s/^BeBox$/powerpc/'`}
+  	fi
+  	if [ "$sys" = "GNU/kFreeBSD" -o "$sys" = "DragonFly" ]
+  	then
+diff --git a/meta/recipes-bsp/pciutils/pciutils_3.1.9.bb
+b/meta/recipes-bsp/pciutils/pciutils_3.1.9.bb
+index 51e7476..ebda0e5 100644
+--- a/meta/recipes-bsp/pciutils/pciutils_3.1.9.bb
++++ b/meta/recipes-bsp/pciutils/pciutils_3.1.9.bb
+@@ -9,7 +9,7 @@ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+ DEPENDS = "zlib"
+ RDEPENDS_${PN} = "${PN}-ids"
+-PR = "r0"
++PR = "r1"
+
+ SRC_URI = "${KERNELORG_MIRROR}/software/utils/pciutils/pciutils-${PV}.tar.bz2 \
+            file://configure.patch \
+-- 
+1.7.5.4
 
