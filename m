@@ -1,38 +1,26 @@
-Return-Path: <wd@denx.de>
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 00504E00599
-	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 09:33:22 -0800 (PST)
-Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
-	by mail-out.m-online.net (Postfix) with ESMTP id AFF971C0C0D8;
-	Fri, 27 Jan 2012 18:33:17 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.8.164])
-	by mail.m-online.net (Postfix) with ESMTP id 628EF1C0014F;
-	Fri, 27 Jan 2012 18:33:17 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from smtp-auth.mnet-online.de ([192.168.8.180])
-	by localhost (dynscan1.mail.m-online.net [192.168.8.164]) (amavisd-new,
-	port 10024)
-	with ESMTP id oKnRGZgRGvwf; Fri, 27 Jan 2012 18:33:16 +0100 (CET)
-X-Auth-Info: Hl09dnqBY60FhxwtyECUmpoE6KADlyLYXZbsOr1+i7c=
-Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
-	[80.81.18.216]) by smtp-auth.mnet-online.de (Postfix) with ESMTPA;
-	Fri, 27 Jan 2012 18:33:16 +0100 (CET)
-Received: from gemini.denx.de (unknown [10.0.0.2])
-	by diddl.denx.de (Postfix) with ESMTP id 342651A58C2;
-	Fri, 27 Jan 2012 18:33:16 +0100 (CET)
-Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
-	by gemini.denx.de (Postfix) with ESMTP id A632E1581959;
-	Fri, 27 Jan 2012 18:33:15 +0100 (CET)
-To: Paul Gortmaker <paul.gortmaker@windriver.com>
-From: Wolfgang Denk <wd@denx.de>
+Return-Path: <Paul.Gortmaker@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3283AE00599
+	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 09:39:46 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q0RHdfMo021716
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 27 Jan 2012 09:39:41 -0800 (PST)
+Received: from [128.224.146.65] (128.224.146.65) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Fri, 27 Jan 2012 09:39:41 -0800
+Message-ID: <4F22E15B.4070105@windriver.com>
+Date: Fri, 27 Jan 2012 12:39:39 -0500
+From: Paul Gortmaker <paul.gortmaker@windriver.com>
+User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
+	rv:1.9.2.24) Gecko/20111109 Thunderbird/3.1.16
 MIME-Version: 1.0
-In-reply-to: <1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com>
+To: Wolfgang Denk <wd@denx.de>
 References: <1327681281-11454-1-git-send-email-paul.gortmaker@windriver.com>
 	<1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com>
-Comments: In-reply-to Paul Gortmaker <paul.gortmaker@windriver.com>
-	message dated "Fri, 27 Jan 2012 11:21:19 -0500."
-Date: Fri, 27 Jan 2012 18:33:15 +0100
-Message-Id: <20120127173315.A632E1581959@gemini.denx.de>
+	<20120127173315.A632E1581959@gemini.denx.de>
+In-Reply-To: <20120127173315.A632E1581959@gemini.denx.de>
+X-Originating-IP: [128.224.146.65]
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 1/3] u-boot: Don't make the -Os removal part of global settings.
 X-BeenThere: poky@yoctoproject.org
@@ -46,29 +34,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Jan 2012 17:33:24 -0000
-Content-type: text/plain; charset=UTF-8
-Content-transfer-encoding: 8bit
+X-List-Received-Date: Fri, 27 Jan 2012 17:39:46 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Dear Paul Gortmaker,
+On 12-01-27 12:33 PM, Wolfgang Denk wrote:
+> Dear Paul Gortmaker,
+> 
+> In message <1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com> you wrote:
+>> We don't want to force everyone to be stripping the -Os
+>> flags from their u-boot builds.  Move it to the existing
+>> recipes so that current behaviour is maintained, while
+>> opening up the possibility for new recipes to avoid it.
+> 
+> Is there any reason to keep this at all?  The compiler issues that
+> caused builds with -Os to fail have long been fixed.
 
-In message <1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com> you wrote:
-> We don't want to force everyone to be stripping the -Os
-> flags from their u-boot builds.  Move it to the existing
-> recipes so that current behaviour is maintained, while
-> opening up the possibility for new recipes to avoid it.
+I would agree with you, but as I said in the commit log,
+I don't want to be changing other people's settings that
+I can't personally test.  If the owners of those platforms
+figure that is an acceptable risk, then I'll gladly send
+another patch to remove the -Os toggle entirely.
 
-Is there any reason to keep this at all?  The compiler issues that
-caused builds with -Os to fail have long been fixed.
+Paul.
 
-Best regards,
-
-Wolfgang Denk
-
--- 
-DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-Where people stand is not as important as which way they face.
-        - Terry Pratchett & Stephen Briggs, _The Discworld Companion_
+> 
+> Best regards,
+> 
+> Wolfgang Denk
+> 
 
