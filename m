@@ -1,19 +1,19 @@
 Return-Path: <paul.gortmaker@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 55909E00599
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CCCACE00599
 	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 08:21:23 -0800 (PST)
 Received: from yow-pgortmak-d2.corp.ad.wrs.com
 	(yow-pgortmak-d2.ottawa.windriver.com [128.224.146.165])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q0RGLLEV020184
-	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 08:21:22 -0800 (PST)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q0RGLLEW020184
+	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 08:21:23 -0800 (PST)
 From: Paul Gortmaker <paul.gortmaker@windriver.com>
 To: poky@yoctoproject.org
-Date: Fri, 27 Jan 2012 11:21:20 -0500
-Message-Id: <1327681281-11454-3-git-send-email-paul.gortmaker@windriver.com>
+Date: Fri, 27 Jan 2012 11:21:21 -0500
+Message-Id: <1327681281-11454-4-git-send-email-paul.gortmaker@windriver.com>
 X-Mailer: git-send-email 1.7.7
 In-Reply-To: <1327681281-11454-1-git-send-email-paul.gortmaker@windriver.com>
 References: <1327681281-11454-1-git-send-email-paul.gortmaker@windriver.com>
-Subject: [PATCH 2/3] u-boot: make FILESDIR a shared setting.
+Subject: [PATCH 3/3] u-boot: Add recipe for u-boot v2011.12
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,54 +27,40 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 27 Jan 2012 16:21:23 -0000
 
-The setting is the same in both recipes, so move it to
-the shared settings in u-boot.inc
+The v2011.12 is the latest stable release of u-boot.
 
 Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
 ---
- meta/recipes-bsp/u-boot/u-boot.inc        |    1 +
- meta/recipes-bsp/u-boot/u-boot_2011.03.bb |    2 --
- meta/recipes-bsp/u-boot/u-boot_2011.06.bb |    2 --
- 3 files changed, 1 insertions(+), 4 deletions(-)
+ meta/recipes-bsp/u-boot/u-boot_2011.12.bb |   20 ++++++++++++++++++++
+ 1 files changed, 20 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-bsp/u-boot/u-boot_2011.12.bb
 
-diff --git a/meta/recipes-bsp/u-boot/u-boot.inc b/meta/recipes-bsp/u-boot/u-boot.inc
-index c19eb48..1979a56 100644
---- a/meta/recipes-bsp/u-boot/u-boot.inc
-+++ b/meta/recipes-bsp/u-boot/u-boot.inc
-@@ -36,6 +36,7 @@ do_install () {
- }
- 
- FILES_${PN} = "/boot"
-+FILESDIR = "${@os.path.dirname(d.getVar('FILE',1))}/u-boot-git/${MACHINE}"
- 
- do_deploy () {
- 	install ${S}/u-boot.bin ${DEPLOYDIR}/${UBOOT_IMAGE}
-diff --git a/meta/recipes-bsp/u-boot/u-boot_2011.03.bb b/meta/recipes-bsp/u-boot/u-boot_2011.03.bb
-index fea1c74..aa2e03a 100644
---- a/meta/recipes-bsp/u-boot/u-boot_2011.03.bb
-+++ b/meta/recipes-bsp/u-boot/u-boot_2011.03.bb
-@@ -13,8 +13,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
- # GCC 4.5.1 builds unusable binaries using -Os, remove it from OPTFLAGS
- EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS='-O2'"
- 
--FILESDIR = "${@os.path.dirname(d.getVar('FILE',1))}/u-boot-git/${MACHINE}"
--
- # This revision corresponds to the tag "v2011.03"
- # We use the revision in order to avoid having to fetch it from the repo during parse
- SRCREV = "19b54a701811220221fc4d5089a2bb18892018ca"
-diff --git a/meta/recipes-bsp/u-boot/u-boot_2011.06.bb b/meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-index 1bb6c48..295af1a 100644
---- a/meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-+++ b/meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-@@ -10,8 +10,6 @@ LICENSE = "GPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
-                     file://README;beginline=1;endline=22;md5=5ba4218ac89af7846802d0348df3fb90"
- 
--FILESDIR = "${@os.path.dirname(d.getVar('FILE',1))}/u-boot-git/${MACHINE}"
--
- # GCC 4.5.1 builds unusable binaries using -Os, remove it from OPTFLAGS
- EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS='-O2'"
- 
+diff --git a/meta/recipes-bsp/u-boot/u-boot_2011.12.bb b/meta/recipes-bsp/u-boot/u-boot_2011.12.bb
+new file mode 100644
+index 0000000..1dc0476
+--- /dev/null
++++ b/meta/recipes-bsp/u-boot/u-boot_2011.12.bb
+@@ -0,0 +1,20 @@
++require u-boot.inc
++
++LICENSE = "GPLv2+"
++LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
++                    file://README;beginline=1;endline=22;md5=5ba4218ac89af7846802d0348df3fb90"
++
++EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX}"
++
++# This revision corresponds to the tag "v2011.12"
++# We use the revision in order to avoid having to fetch it from the repo during parse
++SRCREV = "cba9a894fdb1cb49b60fcd1d1d6919cbd7995dd5"
++
++PV = "v2011.12+git${SRCPV}"
++PR = "r0"
++
++SRC_URI = "git://git.denx.de/u-boot.git;branch=master;protocol=git"
++
++S = "${WORKDIR}/git"
++
++PACKAGE_ARCH = "${MACHINE_ARCH}"
 -- 
 1.7.7
 
