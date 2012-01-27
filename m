@@ -1,19 +1,40 @@
-Return-Path: <paul.gortmaker@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CCCACE00599
-	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 08:21:23 -0800 (PST)
-Received: from yow-pgortmak-d2.corp.ad.wrs.com
-	(yow-pgortmak-d2.ottawa.windriver.com [128.224.146.165])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q0RGLLEW020184
-	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 08:21:23 -0800 (PST)
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
-To: poky@yoctoproject.org
-Date: Fri, 27 Jan 2012 11:21:21 -0500
-Message-Id: <1327681281-11454-4-git-send-email-paul.gortmaker@windriver.com>
-X-Mailer: git-send-email 1.7.7
-In-Reply-To: <1327681281-11454-1-git-send-email-paul.gortmaker@windriver.com>
+Return-Path: <wd@denx.de>
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 00504E00599
+	for <poky@yoctoproject.org>; Fri, 27 Jan 2012 09:33:22 -0800 (PST)
+Received: from frontend1.mail.m-online.net (unknown [192.168.8.180])
+	by mail-out.m-online.net (Postfix) with ESMTP id AFF971C0C0D8;
+	Fri, 27 Jan 2012 18:33:17 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.8.164])
+	by mail.m-online.net (Postfix) with ESMTP id 628EF1C0014F;
+	Fri, 27 Jan 2012 18:33:17 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from smtp-auth.mnet-online.de ([192.168.8.180])
+	by localhost (dynscan1.mail.m-online.net [192.168.8.164]) (amavisd-new,
+	port 10024)
+	with ESMTP id oKnRGZgRGvwf; Fri, 27 Jan 2012 18:33:16 +0100 (CET)
+X-Auth-Info: Hl09dnqBY60FhxwtyECUmpoE6KADlyLYXZbsOr1+i7c=
+Received: from diddl.denx.de (host-80-81-18-216.customer.m-online.net
+	[80.81.18.216]) by smtp-auth.mnet-online.de (Postfix) with ESMTPA;
+	Fri, 27 Jan 2012 18:33:16 +0100 (CET)
+Received: from gemini.denx.de (unknown [10.0.0.2])
+	by diddl.denx.de (Postfix) with ESMTP id 342651A58C2;
+	Fri, 27 Jan 2012 18:33:16 +0100 (CET)
+Received: from gemini.denx.de (localhost.localdomain [127.0.0.1])
+	by gemini.denx.de (Postfix) with ESMTP id A632E1581959;
+	Fri, 27 Jan 2012 18:33:15 +0100 (CET)
+To: Paul Gortmaker <paul.gortmaker@windriver.com>
+From: Wolfgang Denk <wd@denx.de>
+MIME-Version: 1.0
+In-reply-to: <1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com>
 References: <1327681281-11454-1-git-send-email-paul.gortmaker@windriver.com>
-Subject: [PATCH 3/3] u-boot: Add recipe for u-boot v2011.12
+	<1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com>
+Comments: In-reply-to Paul Gortmaker <paul.gortmaker@windriver.com>
+	message dated "Fri, 27 Jan 2012 11:21:19 -0500."
+Date: Fri, 27 Jan 2012 18:33:15 +0100
+Message-Id: <20120127173315.A632E1581959@gemini.denx.de>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/3] u-boot: Don't make the -Os removal part of global settings.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,43 +46,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Jan 2012 16:21:23 -0000
+X-List-Received-Date: Fri, 27 Jan 2012 17:33:24 -0000
+Content-type: text/plain; charset=UTF-8
+Content-transfer-encoding: 8bit
 
-The v2011.12 is the latest stable release of u-boot.
+Dear Paul Gortmaker,
 
-Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
----
- meta/recipes-bsp/u-boot/u-boot_2011.12.bb |   20 ++++++++++++++++++++
- 1 files changed, 20 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-bsp/u-boot/u-boot_2011.12.bb
+In message <1327681281-11454-2-git-send-email-paul.gortmaker@windriver.com> you wrote:
+> We don't want to force everyone to be stripping the -Os
+> flags from their u-boot builds.  Move it to the existing
+> recipes so that current behaviour is maintained, while
+> opening up the possibility for new recipes to avoid it.
 
-diff --git a/meta/recipes-bsp/u-boot/u-boot_2011.12.bb b/meta/recipes-bsp/u-boot/u-boot_2011.12.bb
-new file mode 100644
-index 0000000..1dc0476
---- /dev/null
-+++ b/meta/recipes-bsp/u-boot/u-boot_2011.12.bb
-@@ -0,0 +1,20 @@
-+require u-boot.inc
-+
-+LICENSE = "GPLv2+"
-+LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb \
-+                    file://README;beginline=1;endline=22;md5=5ba4218ac89af7846802d0348df3fb90"
-+
-+EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX}"
-+
-+# This revision corresponds to the tag "v2011.12"
-+# We use the revision in order to avoid having to fetch it from the repo during parse
-+SRCREV = "cba9a894fdb1cb49b60fcd1d1d6919cbd7995dd5"
-+
-+PV = "v2011.12+git${SRCPV}"
-+PR = "r0"
-+
-+SRC_URI = "git://git.denx.de/u-boot.git;branch=master;protocol=git"
-+
-+S = "${WORKDIR}/git"
-+
-+PACKAGE_ARCH = "${MACHINE_ARCH}"
+Is there any reason to keep this at all?  The compiler issues that
+caused builds with -Os to fail have long been fixed.
+
+Best regards,
+
+Wolfgang Denk
+
 -- 
-1.7.7
-
+DENX Software Engineering GmbH,     MD: Wolfgang Denk & Detlev Zundel
+HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
+Where people stand is not as important as which way they face.
+        - Terry Pratchett & Stephen Briggs, _The Discworld Companion_
 
