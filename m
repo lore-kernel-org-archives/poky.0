@@ -1,25 +1,25 @@
-Return-Path: <Paul.Gortmaker@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DC45EE00303
-	for <poky@yoctoproject.org>; Tue, 31 Jan 2012 09:42:47 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q0VHgkSx020016
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 31 Jan 2012 09:42:46 -0800 (PST)
-Received: from [128.224.146.65] (128.224.146.65) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
-	Tue, 31 Jan 2012 09:42:46 -0800
-Message-ID: <4F282815.1070407@windriver.com>
-Date: Tue, 31 Jan 2012 12:42:45 -0500
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux x86_64; en-US;
-	rv:1.9.2.24) Gecko/20111109 Thunderbird/3.1.16
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 46C0CE00303
+	for <poky@yoctoproject.org>; Tue, 31 Jan 2012 10:34:36 -0800 (PST)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 31 Jan 2012 10:34:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="61759309"
+Received: from unknown (HELO [10.255.14.89]) ([10.255.14.89])
+	by AZSMGA002.ch.intel.com with ESMTP; 31 Jan 2012 10:34:35 -0800
+Message-ID: <4F28343A.8070501@linux.intel.com>
+Date: Tue, 31 Jan 2012 10:34:34 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
+To: Paul Gortmaker <paul.gortmaker@windriver.com>, 
+	'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>
 References: <1327681281-11454-1-git-send-email-paul.gortmaker@windriver.com>
-	<4F281CAC.5010304@linux.intel.com>
-In-Reply-To: <4F281CAC.5010304@linux.intel.com>
-X-Originating-IP: [128.224.146.65]
+	<4F281CAC.5010304@linux.intel.com> <4F282815.1070407@windriver.com>
+In-Reply-To: <4F282815.1070407@windriver.com>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 0/3] U-boot recipe for most recent stable release.
 X-BeenThere: poky@yoctoproject.org
@@ -33,45 +33,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jan 2012 17:42:48 -0000
-Content-Type: text/plain; charset="ISO-8859-1"
+X-List-Received-Date: Tue, 31 Jan 2012 18:34:36 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12-01-31 11:54 AM, Saul Wold wrote:
-> On 01/27/2012 08:21 AM, Paul Gortmaker wrote:
->> This adds a recipe for U-Boot v2011.12.  In doing so, some of
->> non-shareable settings were moved out of u-boot.inc and others
->> moved in.
+On 01/31/2012 09:42 AM, Paul Gortmaker wrote:
+> On 12-01-31 11:54 AM, Saul Wold wrote:
+>> On 01/27/2012 08:21 AM, Paul Gortmaker wrote:
+>>> This adds a recipe for U-Boot v2011.12.  In doing so, some of
+>>> non-shareable settings were moved out of u-boot.inc and others
+>>> moved in.
+>>>
+>>> The recipe was tested on an mpc8315 Yocto configuration.
+>>>
+>>> Paul Gortmaker (3):
+>>>     u-boot: Don't make the -Os removal part of global settings.
+>>>     u-boot: make FILESDIR a shared setting.
+>>>     u-boot: Add recipe for u-boot v2011.12
+>>>
+>>>    meta/recipes-bsp/u-boot/u-boot.inc        |    4 +---
+>>>    meta/recipes-bsp/u-boot/u-boot_2011.03.bb |    3 ++-
+>>>    meta/recipes-bsp/u-boot/u-boot_2011.06.bb |    3 ++-
+>>>    meta/recipes-bsp/u-boot/u-boot_2011.12.bb |   20 ++++++++++++++++++++
+>>>    4 files changed, 25 insertions(+), 5 deletions(-)
+>>>    create mode 100644 meta/recipes-bsp/u-boot/u-boot_2011.12.bb
+>>>
 >>
->> The recipe was tested on an mpc8315 Yocto configuration.
+>> What about the u-boot-mkimage recipe, does that also need to be updated?
+>
+> It could be, but it strictly doesn't have to be.  I'd say that
+> mkimage is a tool akin to something like tar -- i.e. you can build
+> whatever version you want, but its functionality isn't going
+> to really change often from one release to the next.
+>
+> If you want it updated, I can send a follow on patch to do
+> that.  What do you guys usually do with the old recipes, leave
+> them laying around, or STONITH?
+>
+Adding openembedded-core since that is really where patches to meta 
+should go.
+
+u-boot seems to be a special beast since we keep the older recipes 
+around for u-boot itself, are they are compatibility issues with going 
+to the latest u-boot-mkimage and older u-boot itself?
+
+Comments from the u-boot users?  Do we need to keep the older u-boot or 
+u-boot-mkimage around, or should the move to BSP/layers that need the 
+compatibility of the older version?
+
+Thanks
+	Sau!
+
+> Thanks,
+> Paul.
+>
 >>
->> Paul Gortmaker (3):
->>    u-boot: Don't make the -Os removal part of global settings.
->>    u-boot: make FILESDIR a shared setting.
->>    u-boot: Add recipe for u-boot v2011.12
->>
->>   meta/recipes-bsp/u-boot/u-boot.inc        |    4 +---
->>   meta/recipes-bsp/u-boot/u-boot_2011.03.bb |    3 ++-
->>   meta/recipes-bsp/u-boot/u-boot_2011.06.bb |    3 ++-
->>   meta/recipes-bsp/u-boot/u-boot_2011.12.bb |   20 ++++++++++++++++++++
->>   4 files changed, 25 insertions(+), 5 deletions(-)
->>   create mode 100644 meta/recipes-bsp/u-boot/u-boot_2011.12.bb
->>
-> 
-> What about the u-boot-mkimage recipe, does that also need to be updated?
-
-It could be, but it strictly doesn't have to be.  I'd say that
-mkimage is a tool akin to something like tar -- i.e. you can build
-whatever version you want, but its functionality isn't going
-to really change often from one release to the next.
-
-If you want it updated, I can send a follow on patch to do
-that.  What do you guys usually do with the old recipes, leave
-them laying around, or STONITH?
-
-Thanks,
-Paul.
-
-> 
-> Sau!
+>> Sau!
+>
 
