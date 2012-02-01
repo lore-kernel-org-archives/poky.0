@@ -1,29 +1,35 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-pz0-f41.google.com (mail-pz0-f41.google.com
-	[209.85.210.41])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A306FE00594
-	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 07:18:03 -0800 (PST)
-Received: by dadv6 with SMTP id v6so986762dad.28
-	for <poky@yoctoproject.org>; Wed, 01 Feb 2012 07:18:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=TeDn3yFBwxkeoBZqo+bgozAjiFqZiqYpy2WkLit4PN0=;
-	b=OoqKdPOemkM4M1lNlTCfOmyeH7s33Glntq8a/Nuyl5tYP5Rob5fur/1J0IUisuxbs7
-	CBTjwmMbOCKR3OnVPI3u3x3NcNepKM1NazLJs0AhYhwVqNSJSTzJFnzyH/5W/+W7x0I1
-	GoY3/UTJXQpPY5mF7A8AO8TUhVW/gPHC5i8eA=
-MIME-Version: 1.0
-Received: by 10.68.83.105 with SMTP id p9mr61002951pby.92.1328109482517; Wed,
-	01 Feb 2012 07:18:02 -0800 (PST)
-Received: by 10.143.7.11 with HTTP; Wed, 1 Feb 2012 07:18:02 -0800 (PST)
-In-Reply-To: <B80010913FB1F346A630B7F2E18A60C00789E7@IRSMSX102.ger.corp.intel.com>
+Return-Path: <bryan.odonoghue@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 21ACDE00595
+	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 07:22:56 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 01 Feb 2012 07:22:55 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="112853305"
+Received: from irsmsx602.ger.corp.intel.com ([163.33.3.242])
+	by fmsmga001.fm.intel.com with ESMTP; 01 Feb 2012 07:22:53 -0800
+Received: from irsmsx101.ger.corp.intel.com (163.33.3.153) by
+	irsmsx602.ger.corp.intel.com (163.33.3.242) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Wed, 1 Feb 2012 15:22:30 +0000
+Received: from irsmsx102.ger.corp.intel.com ([169.254.2.194]) by
+	IRSMSX101.ger.corp.intel.com ([169.254.1.99]) with mapi id
+	14.01.0355.002; Wed, 1 Feb 2012 15:22:29 +0000
+From: "O'donoghue, Bryan" <bryan.odonoghue@intel.com>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+Thread-Topic: [poky] Simple recipe for local kernel/git development
+Thread-Index: AQHM4Ofinsi/1jQEqkeQ1RNUYEVsS5YoJKzggAAC5ACAAACScA==
+Date: Wed, 1 Feb 2012 15:22:28 +0000
+Message-ID: <B80010913FB1F346A630B7F2E18A60C0078A17@IRSMSX102.ger.corp.intel.com>
 References: <B80010913FB1F346A630B7F2E18A60C007897E@IRSMSX102.ger.corp.intel.com>
 	<CADkTA4Mo_wE883Ceg1SBRxJ-ctV5ieb71vRhyVt4kjKfXTjYbg@mail.gmail.com>
 	<B80010913FB1F346A630B7F2E18A60C00789E7@IRSMSX102.ger.corp.intel.com>
-Date: Wed, 1 Feb 2012 10:18:02 -0500
-Message-ID: <CADkTA4Oeb78DP==N7MD98L5Pc7vWPt4ccsHiOVbhN7dyzNkZMw@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: "O'donoghue, Bryan" <bryan.odonoghue@intel.com>
+	<CADkTA4Oeb78DP==N7MD98L5Pc7vWPt4ccsHiOVbhN7dyzNkZMw@mail.gmail.com>
+In-Reply-To: <CADkTA4Oeb78DP==N7MD98L5Pc7vWPt4ccsHiOVbhN7dyzNkZMw@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [163.33.239.180]
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Simple recipe for local kernel/git development
 X-BeenThere: poky@yoctoproject.org
@@ -37,75 +43,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2012 15:18:03 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Wed, 01 Feb 2012 15:22:56 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Feb 1, 2012 at 10:09 AM, O'donoghue, Bryan
-<bryan.odonoghue@intel.com> wrote:
->>
->> There's no requirement of a meta branch if the repository isn't a full
->> yocto repository, and I have several more enhancements in this area
->> that
->> will be part of M3.
->>
->> So the question that I have is .. what is your local kernel repository
->> that
->> you are working with ?
->>
->> Cheers,
->>
->> Bruce
->
-> Hi Bruce.
->
-> I've taken a git clone of linux-yocto-dev the current kernel on yoctoproject.org
->
-> All I really want to do in simple terms is to have that local git repository
->
-> a. Be the kernel
-> b. Be configured by one defconfig (not a bunch of fragments)
->
-> If you have a bitbake recipe that accomplishes this it'd be highly useful to me !
+> Are you working from yocto master ?
 
-There are several. Since you are starting from a yocto base, the meta
-branch really
-shouldn't be a problem for you.
+Yes.=20
 
-Are you working from yocto master ?
+Our "poky" directory is from a fairly recent yocoto pull ~ 3 weeks
 
-That being said, if you aren't using meta or aren't using existing BSP
-patches (and
-branches), then starting from a yocto kernel tree isn't strictly
-required. In fact, it
-probably confuses things.
+> That being said, if you aren't using meta or aren't using existing BSP
+> patches (and
+> branches), then starting from a yocto kernel tree isn't strictly
+> required. In fact, it
+> probably confuses things.
 
-The tools can work with a korg tree, using a defconfig, etc. In a nice
-coincidence, I'm
-completing re-validation of the example korg recipe today.
+It confuses me !
 
-So if you confirm the above, I can send along/point you to something
-that should
-meet your needs. (assuming everything works in my tests ;)
+>=20
+> The tools can work with a korg tree, using a defconfig, etc. In a nice
+> coincidence, I'm
+> completing re-validation of the example korg recipe today.
 
-Cheers,
+Yes - assume this is a korg snapshot (it basically is)
 
-Bruce
+All I need to do is to build the korg snapshot from a local git repo and ap=
+ply a defconfig (it sounds simple when you type it like that)
+-------------------------------------------------------------
+Intel Ireland Limited (Branch)
+Collinstown Industrial Park, Leixlip, County Kildare, Ireland
+Registered Number: E902934
 
->
-> -------------------------------------------------------------
-> Intel Ireland Limited (Branch)
-> Collinstown Industrial Park, Leixlip, County Kildare, Ireland
-> Registered Number: E902934
->
-> This e-mail and any attachments may contain confidential material for
-> the sole use of the intended recipient(s). Any review or distribution
-> by others is strictly prohibited. If you are not the intended
-> recipient, please contact the sender and delete all copies.
->
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
 
-
-
--- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
