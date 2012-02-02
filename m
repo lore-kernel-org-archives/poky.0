@@ -1,32 +1,29 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-lpp01m010-f48.google.com (mail-lpp01m010-f48.google.com
-	[209.85.215.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02326E00595
-	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 21:05:21 -0800 (PST)
-Received: by lagw12 with SMTP id w12so1517598lag.35
-	for <poky@yoctoproject.org>; Wed, 01 Feb 2012 21:05:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=DsulqVJ2F5op0F6vBwgipeQa9fFmzovjEp7XsAEmV+4=;
-	b=BR4+FfTl/ICXIvTjoJEAaKhO/esl736UYBx8fFaAVMEoMUdR9fj0d8AyF92ABcHLTj
-	9kCdvDT/gV3Xn9gVf8ARvehPdF1IKsSTl+x2MCO+roF1H4zs6mFl/92bLy9WIxyVdo1G
-	VG/r0O3Qnwf8kQemTHhft0DO53kZ7zaijB6fQ=
-Received: by 10.152.122.38 with SMTP id lp6mr699792lab.13.1328159120479; Wed,
-	01 Feb 2012 21:05:20 -0800 (PST)
+Return-Path: <saul.wold@intel.com>
+Received: from azsmga101.ch.intel.com (mga07.intel.com [143.182.124.22])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0CD3E00307
+	for <poky@yoctoproject.org>; Thu,  2 Feb 2012 10:00:53 -0800 (PST)
+Received: from mail-iy0-f180.google.com ([209.85.210.180])
+	by mga03.intel.com with ESMTP/TLS/RC4-SHA; 02 Feb 2012 09:54:56 -0800
+Received: by iabz7 with SMTP id z7so3680366iab.25
+	for <poky@yoctoproject.org>; Thu, 02 Feb 2012 09:54:55 -0800 (PST)
+Received: by 10.50.236.5 with SMTP id uq5mr13355984igc.13.1328205295499;
+	Thu, 02 Feb 2012 09:54:55 -0800 (PST)
+Received: from [10.6.18.218] (c-71-193-189-117.hsd1.wa.comcast.net.
+	[71.193.189.117])
+	by mx.google.com with ESMTPS id l35sm6105871ibj.0.2012.02.02.09.54.54
+	(version=SSLv3 cipher=OTHER); Thu, 02 Feb 2012 09:54:54 -0800 (PST)
+Message-ID: <4F2ACDED.2050602@intel.com>
+Date: Thu, 02 Feb 2012 09:54:53 -0800
+From: Saul Wold <saul.wold@intel.com>
+Organization: Intel
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0
 MIME-Version: 1.0
-Received: by 10.152.5.201 with HTTP; Wed, 1 Feb 2012 21:04:50 -0800 (PST)
-In-Reply-To: <4F29F010.5030406@gmail.com>
-References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
-	<1327257682-1324-1-git-send-email-derek.buitenhuis@gmail.com>
-	<CAMKF1sq0K_uTNLbACaUO=-dQVj8JPkWbjbDxubTZFm6cxRRJPw@mail.gmail.com>
-	<4F29F010.5030406@gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 1 Feb 2012 21:04:50 -0800
-Message-ID: <CAMKF1soPhW=-A9z5i7z3Msi4jjE9jB5m3yXKVrn1tRgn_=fwxw@mail.gmail.com>
-To: Derek Buitenhuis <derek.buitenhuis@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2 v2] binutils: Always enable plugins
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+References: <cover.1327954069.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1327954069.git.bruce.ashfield@windriver.com>
+Cc: dvhart@linux.intel.com, poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] linux-yocto/meta-yocto: 3.2.2 and 3.0.18
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,22 +35,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Feb 2012 05:05:22 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 02 Feb 2012 18:00:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 1, 2012 at 6:08 PM, Derek Buitenhuis
-<derek.buitenhuis@gmail.com> wrote:
-> On 22/01/2012 1:57 PM, Khem Raj wrote:
->>
->> while this patch is ok. It occurs to me that we might have to find an
->> easier way to specify common options once for all binutils recipes
+On 01/30/2012 12:16 PM, Bruce Ashfield wrote:
+> Richard/Saul,
 >
+> This is a follow up to the oe-core pull request that I just sent.
+> Once that merges, this can go into yocto to add 3.0.18 and 3.2.2
+> support for the emulated boards.
 >
-> So uh, I am not clear if this patch will be pushed or if you're
-> waiting for a refactor of binutils...
+> Testing and updating of the hardware reference platforms will follow
+> in the next few days.
+>
+> Cheers,
+>
+> Bruce
+>
+> The following changes since commit 879bdbb8ec2c01eaca6ac6769b39cf7bdd9d6a2d:
+>
+>    linux-yocto/meta-yocto: update to v3.0.18 + features (2012-01-30 14:35:20 -0500)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+>
+> Bruce Ashfield (2):
+>    linux-yocto/meta-yocto: create linux-yocto 3.2 bbappend
+>    meta-yocto/poky.conf: set qemu* preferred linux-yocto version to 3.2
+>
+>   meta-yocto/conf/distro/poky.conf                   |   12 ++++++------
+>   .../recipes-kernel/linux/linux-yocto_3.2.bbappend  |   19 +++++++++++++++++++
+>   2 files changed, 25 insertions(+), 6 deletions(-)
+>   create mode 100644 meta-yocto/recipes-kernel/linux/linux-yocto_3.2.bbappend
+>
 
-this is ok to go in. cleanup can happen at later times
+Merged into Poky master
 
->
-> - Derek
+Thanks
+	Sau!
+
 
