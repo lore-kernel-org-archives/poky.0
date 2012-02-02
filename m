@@ -1,40 +1,36 @@
-Return-Path: <bryan.odonoghue@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B0386E004D2
-	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 10:31:53 -0800 (PST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 01 Feb 2012 10:31:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="119227676"
-Received: from irsmsx601.ger.corp.intel.com ([163.33.7.164])
-	by fmsmga002.fm.intel.com with ESMTP; 01 Feb 2012 10:31:52 -0800
-Received: from irsmsx103.ger.corp.intel.com (163.33.3.157) by
-	irsmsx601.ger.corp.intel.com (163.33.7.164) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Wed, 1 Feb 2012 18:31:38 +0000
-Received: from irsmsx102.ger.corp.intel.com ([169.254.2.194]) by
-	IRSMSX103.ger.corp.intel.com ([169.254.3.221]) with mapi id
-	14.01.0355.002; Wed, 1 Feb 2012 18:31:37 +0000
-From: "O'donoghue, Bryan" <bryan.odonoghue@intel.com>
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-Thread-Topic: [poky] Simple recipe for local kernel/git development
-Thread-Index: AQHM4Ofinsi/1jQEqkeQ1RNUYEVsS5YoJKzggAAC5ACAAACScIAAAtIAgAAt6ACAAASZEA==
-Date: Wed, 1 Feb 2012 18:31:37 +0000
-Message-ID: <B80010913FB1F346A630B7F2E18A60C0078BB2@IRSMSX102.ger.corp.intel.com>
-References: <B80010913FB1F346A630B7F2E18A60C007897E@IRSMSX102.ger.corp.intel.com>
-	<CADkTA4Mo_wE883Ceg1SBRxJ-ctV5ieb71vRhyVt4kjKfXTjYbg@mail.gmail.com>
-	<B80010913FB1F346A630B7F2E18A60C00789E7@IRSMSX102.ger.corp.intel.com>
-	<CADkTA4Oeb78DP==N7MD98L5Pc7vWPt4ccsHiOVbhN7dyzNkZMw@mail.gmail.com>
-	<B80010913FB1F346A630B7F2E18A60C0078A17@IRSMSX102.ger.corp.intel.com>
-	<CADkTA4MLgXCH5HGCDxUx+sfSdph5bnL19+p5+9Cn-cBdkQXeyA@mail.gmail.com>
-	<CADkTA4On0R0hoSdKLMcP_XmeRTAyj1qAvLgTJP1N=fZqViYrzA@mail.gmail.com>
-In-Reply-To: <CADkTA4On0R0hoSdKLMcP_XmeRTAyj1qAvLgTJP1N=fZqViYrzA@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [163.33.239.180]
+Return-Path: <derek.buitenhuis@gmail.com>
+Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
+	[209.85.210.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 10176E004D2
+	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 18:08:15 -0800 (PST)
+Received: by iagz35 with SMTP id z35so3386648iag.35
+	for <poky@yoctoproject.org>; Wed, 01 Feb 2012 18:08:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:references:in-reply-to:content-type:content-transfer-encoding;
+	bh=n28hEMjgHGKwJKHk/6jHoa+iO5PyFQV2Z6KpmhNo3EM=;
+	b=MlA0L5z3StyusYl0JvfOzTcL+bimx8nkuiVrf9qYt1uFk9Tkt6DhmMyLqwgQqiKSJE
+	Ts+gNx2wmK+/XOdIp9hR5RgK38b0qZBh4nDnld9LO4kN1HhkiVfl7waP2tvhkDhbj3SS
+	HefNdZWpgkCF8Y0iyLOmhvOcl0Mx3FGQB+LL4=
+Received: by 10.50.140.101 with SMTP id rf5mr1114881igb.27.1328148494534;
+	Wed, 01 Feb 2012 18:08:14 -0800 (PST)
+Received: from [192.168.1.111] (S0106586d8f4832af.tb.shawcable.net.
+	[174.5.7.80])
+	by mx.google.com with ESMTPS id k3sm9227655igq.1.2012.02.01.18.08.12
+	(version=SSLv3 cipher=OTHER); Wed, 01 Feb 2012 18:08:13 -0800 (PST)
+Message-ID: <4F29F010.5030406@gmail.com>
+Date: Wed, 01 Feb 2012 21:08:16 -0500
+From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0.1
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Simple recipe for local kernel/git development
+To: Khem Raj <raj.khem@gmail.com>
+References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
+	<1327257682-1324-1-git-send-email-derek.buitenhuis@gmail.com>
+	<CAMKF1sq0K_uTNLbACaUO=-dQVj8JPkWbjbDxubTZFm6cxRRJPw@mail.gmail.com>
+In-Reply-To: <CAMKF1sq0K_uTNLbACaUO=-dQVj8JPkWbjbDxubTZFm6cxRRJPw@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 2/2 v2] binutils: Always enable plugins
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,57 +42,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Feb 2012 18:31:53 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 02 Feb 2012 02:08:15 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> > Easily supported. I'll follow up once my fetches have completed here
-> > and I see that the
-> > recipe builds properly.
->=20
-> Sorry for the slow reply, I got bogged down fixing a few things.
->=20
-> I confirmed that the sample recipe I mentioned still builds. Although
-> I do have some
-> tweaks to things that I'm preparing for master at the moment. But they
-> are
-> cosmetic/streamlining changes, not fundamental issues.
->=20
-> The recipe I was referring to is here:
->=20
->   http://git.yoctoproject.org/cgit/cgit.cgi/poky-extras/tree/meta-
-> kernel-dev/recipes-kernel/linux/linux-korg.bb
->=20
-> cloning poky-extras and looking in meta-kernel-dev will get you your
-> own copy.
->=20
-> The recipe is intended to build kernel.org, or really any git
-> repository, plus a defconfig.
->=20
-> It creates some minimal infrastructure to work with the yocto tools,
-> and to create someplace
-> that work could be done, and then flipped into a formatted kernel
-> feature. But the branch that
-> is built is created automatically and directly off the point you
-> specify. Which in our case would
-> be master HEAD.
->=20
-> You'd need to tweak the kernel version, etc, but in the end it the
-> build system that consumes
-> and uses that, more than the kernel build itself.
+On 22/01/2012 1:57 PM, Khem Raj wrote:
+> while this patch is ok. It occurs to me that we might have to find an
+> easier way to specify common options once for all binutils recipes
 
-Thanks very much Bruce.
+So uh, I am not clear if this patch will be pushed or if you're
+waiting for a refactor of binutils...
 
-We'll give it a whirl and let you know how we go
--------------------------------------------------------------
-Intel Ireland Limited (Branch)
-Collinstown Industrial Park, Leixlip, County Kildare, Ireland
-Registered Number: E902934
-
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
-
+- Derek
 
