@@ -1,34 +1,30 @@
-Return-Path: <derek.buitenhuis@gmail.com>
-Received: from mail-iy0-f176.google.com (mail-iy0-f176.google.com
-	[209.85.210.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 10176E004D2
-	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 18:08:15 -0800 (PST)
-Received: by iagz35 with SMTP id z35so3386648iag.35
-	for <poky@yoctoproject.org>; Wed, 01 Feb 2012 18:08:14 -0800 (PST)
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-lpp01m010-f48.google.com (mail-lpp01m010-f48.google.com
+	[209.85.215.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02326E00595
+	for <poky@yoctoproject.org>; Wed,  1 Feb 2012 21:05:21 -0800 (PST)
+Received: by lagw12 with SMTP id w12so1517598lag.35
+	for <poky@yoctoproject.org>; Wed, 01 Feb 2012 21:05:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=message-id:date:from:user-agent:mime-version:to:cc:subject
-	:references:in-reply-to:content-type:content-transfer-encoding;
-	bh=n28hEMjgHGKwJKHk/6jHoa+iO5PyFQV2Z6KpmhNo3EM=;
-	b=MlA0L5z3StyusYl0JvfOzTcL+bimx8nkuiVrf9qYt1uFk9Tkt6DhmMyLqwgQqiKSJE
-	Ts+gNx2wmK+/XOdIp9hR5RgK38b0qZBh4nDnld9LO4kN1HhkiVfl7waP2tvhkDhbj3SS
-	HefNdZWpgkCF8Y0iyLOmhvOcl0Mx3FGQB+LL4=
-Received: by 10.50.140.101 with SMTP id rf5mr1114881igb.27.1328148494534;
-	Wed, 01 Feb 2012 18:08:14 -0800 (PST)
-Received: from [192.168.1.111] (S0106586d8f4832af.tb.shawcable.net.
-	[174.5.7.80])
-	by mx.google.com with ESMTPS id k3sm9227655igq.1.2012.02.01.18.08.12
-	(version=SSLv3 cipher=OTHER); Wed, 01 Feb 2012 18:08:13 -0800 (PST)
-Message-ID: <4F29F010.5030406@gmail.com>
-Date: Wed, 01 Feb 2012 21:08:16 -0500
-From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
-	rv:9.0) Gecko/20111222 Thunderbird/9.0.1
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	bh=DsulqVJ2F5op0F6vBwgipeQa9fFmzovjEp7XsAEmV+4=;
+	b=BR4+FfTl/ICXIvTjoJEAaKhO/esl736UYBx8fFaAVMEoMUdR9fj0d8AyF92ABcHLTj
+	9kCdvDT/gV3Xn9gVf8ARvehPdF1IKsSTl+x2MCO+roF1H4zs6mFl/92bLy9WIxyVdo1G
+	VG/r0O3Qnwf8kQemTHhft0DO53kZ7zaijB6fQ=
+Received: by 10.152.122.38 with SMTP id lp6mr699792lab.13.1328159120479; Wed,
+	01 Feb 2012 21:05:20 -0800 (PST)
 MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
+Received: by 10.152.5.201 with HTTP; Wed, 1 Feb 2012 21:04:50 -0800 (PST)
+In-Reply-To: <4F29F010.5030406@gmail.com>
 References: <1325640237-17019-1-git-send-email-derek.buitenhuis@gmail.com>
 	<1327257682-1324-1-git-send-email-derek.buitenhuis@gmail.com>
 	<CAMKF1sq0K_uTNLbACaUO=-dQVj8JPkWbjbDxubTZFm6cxRRJPw@mail.gmail.com>
-In-Reply-To: <CAMKF1sq0K_uTNLbACaUO=-dQVj8JPkWbjbDxubTZFm6cxRRJPw@mail.gmail.com>
+	<4F29F010.5030406@gmail.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 1 Feb 2012 21:04:50 -0800
+Message-ID: <CAMKF1soPhW=-A9z5i7z3Msi4jjE9jB5m3yXKVrn1tRgn_=fwxw@mail.gmail.com>
+To: Derek Buitenhuis <derek.buitenhuis@gmail.com>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 2/2 v2] binutils: Always enable plugins
 X-BeenThere: poky@yoctoproject.org
@@ -42,16 +38,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Feb 2012 02:08:15 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 02 Feb 2012 05:05:22 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On 22/01/2012 1:57 PM, Khem Raj wrote:
-> while this patch is ok. It occurs to me that we might have to find an
-> easier way to specify common options once for all binutils recipes
+On Wed, Feb 1, 2012 at 6:08 PM, Derek Buitenhuis
+<derek.buitenhuis@gmail.com> wrote:
+> On 22/01/2012 1:57 PM, Khem Raj wrote:
+>>
+>> while this patch is ok. It occurs to me that we might have to find an
+>> easier way to specify common options once for all binutils recipes
+>
+>
+> So uh, I am not clear if this patch will be pushed or if you're
+> waiting for a refactor of binutils...
 
-So uh, I am not clear if this patch will be pushed or if you're
-waiting for a refactor of binutils...
+this is ok to go in. cleanup can happen at later times
 
-- Derek
+>
+> - Derek
 
