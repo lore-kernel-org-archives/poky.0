@@ -1,28 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE58FE00307
-	for <poky@yoctoproject.org>; Fri,  3 Feb 2012 02:11:54 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q13A80dK019655;
-	Fri, 3 Feb 2012 10:08:00 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18831-04; Fri,  3 Feb 2012 10:07:56 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q13A7oBJ019647
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 3 Feb 2012 10:07:52 GMT
-Message-ID: <1328263676.3895.86.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Fri, 03 Feb 2012 10:07:56 +0000
-In-Reply-To: <4F2B1AC9.9000904@mlbassoc.com>
-References: <4F2B1AC9.9000904@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E4098E00307
+	for <poky@yoctoproject.org>; Fri,  3 Feb 2012 05:27:56 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 7B156F811F2; Fri,  3 Feb 2012 06:27:53 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id AD266F811EC;
+	Fri,  3 Feb 2012 06:27:51 -0700 (MST)
+Message-ID: <4F2BE0D7.7040101@mlbassoc.com>
+Date: Fri, 03 Feb 2012 06:27:51 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:9.0) Gecko/20111222 Thunderbird/9.0
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <4F2B1AC9.9000904@mlbassoc.com> <1328263676.3895.86.camel@ted>
+In-Reply-To: <1328263676.3895.86.camel@ted>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: require statement does not honor .bbappend
 X-BeenThere: poky@yoctoproject.org
@@ -36,31 +34,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2012 10:11:55 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 03 Feb 2012 13:27:57 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2012-02-02 at 16:22 -0700, Gary Thomas wrote:
-> This is really a bitbake problem, but I'll bring it up here.
-> 
-> I have a statement like this in one of my recipes:
->     require xyz.bb
-> 
-> If I also have within my layers a xyz.bbappend file, it gets
-> processed when I build xyz, e.g.
->    % bitbake xyz
-> but is ignored when I only 'require' that recipe.
-> 
-> Should it not be always processed?
+On 2012-02-03 03:07, Richard Purdie wrote:
+> On Thu, 2012-02-02 at 16:22 -0700, Gary Thomas wrote:
+>> This is really a bitbake problem, but I'll bring it up here.
+>>
+>> I have a statement like this in one of my recipes:
+>>      require xyz.bb
+>>
+>> If I also have within my layers a xyz.bbappend file, it gets
+>> processed when I build xyz, e.g.
+>>     % bitbake xyz
+>> but is ignored when I only 'require' that recipe.
+>>
+>> Should it not be always processed?
+>
+> No, as designed and implemented you can't bbappend to anything being
+> used as an include (or require), only the final .bb file.
 
-No, as designed and implemented you can't bbappend to anything being
-used as an include (or require), only the final .bb file.
+Bummer.  What's the rationale behind this [restriction]?
 
-Cheers,
-
-Richard
-
-
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
