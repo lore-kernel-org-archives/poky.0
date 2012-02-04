@@ -1,31 +1,28 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA6FFE0030F
-	for <poky@yoctoproject.org>; Fri,  3 Feb 2012 07:01:25 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q13F1HJt021476;
-	Fri, 3 Feb 2012 15:01:17 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 20022-08; Fri,  3 Feb 2012 15:01:14 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q13F1AK2021470
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 3 Feb 2012 15:01:11 GMT
-Message-ID: <1328281275.3895.117.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Fri, 03 Feb 2012 15:01:15 +0000
-In-Reply-To: <4F2BE0D7.7040101@mlbassoc.com>
-References: <4F2B1AC9.9000904@mlbassoc.com> <1328263676.3895.86.camel@ted>
-	<4F2BE0D7.7040101@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: require statement does not honor .bbappend
+Return-Path: <magnificopaddy@gmail.com>
+Received: from mail-vw0-f48.google.com (mail-vw0-f48.google.com
+	[209.85.212.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 18B9CE003E3
+	for <poky@yoctoproject.org>; Sat,  4 Feb 2012 02:53:15 -0800 (PST)
+Received: by vbjk13 with SMTP id k13so4527021vbj.35
+	for <poky@yoctoproject.org>; Sat, 04 Feb 2012 02:53:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
+	h=mime-version:sender:date:x-google-sender-auth:message-id:subject
+	:from:to:cc:content-type;
+	bh=FNbAaTsPtcNE9UvAHvL45ZQmOsuKLmIMJUZW+1ft+JI=;
+	b=kBhydE70dDbFIOdp8psfP4/zJYCmOou4Ss/OIT+Q48Fb2863VtGOP/BMaofjZo8APY
+	NoT1iVvyHQ7ibKczvrci+qMnZpq0NYJxN1jRxXYKpNfC8VQG9pa1qhB0fvuomzc9Ck6g
+	149g/rjvd9dqIZUA17LRfZjB5Q/SfCTRVFZRc=
+MIME-Version: 1.0
+Received: by 10.52.26.199 with SMTP id n7mr5632734vdg.17.1328352794605; Sat,
+	04 Feb 2012 02:53:14 -0800 (PST)
+Sender: magnificopaddy@gmail.com
+Received: by 10.52.38.233 with HTTP; Sat, 4 Feb 2012 02:53:14 -0800 (PST)
+Date: Sat, 4 Feb 2012 10:53:14 +0000
+X-Google-Sender-Auth: Tj3zLblUOmdc4uNlO5hB5Mzzap8
+Message-ID: <CAMeAviSsRcsO8283-tKYWudpEFJVfeNHTNMAnUsU1H3K5Ln_sw@mail.gmail.com>
+From: "Bryan O'Donoghue" <bryan.odonoghue@intel.com>
+To: poky@yoctoproject.org
+Subject: Applying a defconfig easily to a kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,44 +34,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Feb 2012 15:01:26 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 04 Feb 2012 10:53:15 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-On Fri, 2012-02-03 at 06:27 -0700, Gary Thomas wrote:
-> On 2012-02-03 03:07, Richard Purdie wrote:
-> > On Thu, 2012-02-02 at 16:22 -0700, Gary Thomas wrote:
-> >> This is really a bitbake problem, but I'll bring it up here.
-> >>
-> >> I have a statement like this in one of my recipes:
-> >>      require xyz.bb
-> >>
-> >> If I also have within my layers a xyz.bbappend file, it gets
-> >> processed when I build xyz, e.g.
-> >>     % bitbake xyz
-> >> but is ignored when I only 'require' that recipe.
-> >>
-> >> Should it not be always processed?
-> >
-> > No, as designed and implemented you can't bbappend to anything being
-> > used as an include (or require), only the final .bb file.
-> 
-> Bummer.  What's the rationale behind this [restriction]?
+Greetings list.
 
-Trying to implement generic "append" files to conf and inc files was
-going to be a significant headache for the parser and cache logic,
-create a pile of ordering issues and was going to mean significant code
-changes. The bbappend files were simple to understand and easy to
-implement by comparison.
+I've had a hard time applying a complete - unmodified defconfig to my
+local git kernel config. So rather than dig through the internals of
+the build process, I took the following short-cut.
 
-At the time, bbappend was seen as a sideline feature by most so we went
-for the less invasive and simpler implementation (which was simpler to
-use too).
+It works - is it "wrong" though ? I like it because it's
+easy/straightforward. Basically if I define a defconfig - the system
+will trust the file and apply it directly - which I suspect is what
+99% of people who supply a defconfig will want anyway.
 
-Cheers,
+Consider applying.
 
-Richard
+diff --git a/meta/classes/kernel-yocto.bbclass
+b/meta/classes/kernel-yocto.bbclass
+index 1b73e6e..f278472 100644
+--- a/meta/classes/kernel-yocto.bbclass
++++ b/meta/classes/kernel-yocto.bbclass
+@@ -178,8 +178,15 @@ do_kernel_configme() {
+               exit 1
+       fi
 
+-       echo "# Global settings from linux recipe" >> ${B}/.config
+-       echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >>
+${B}/.config
++       if [ -f ${WORKDIR}/defconfig ]; then
++               echo "[INFO] HAVE A DEFCONFIG - copying verbatim"
++               cat ${WORKDIR}/defconfig
++               cp ${WORKDIR}/defconfig ${B}/.config
++       else
++               echo "# Global settings from linux recipe" >> ${B}/.config
++               echo
+"CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >> ${B}/.config
++       fi
++
+ }
 
-
+ python do_kernel_configcheck()
 
