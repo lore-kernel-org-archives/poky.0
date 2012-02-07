@@ -1,25 +1,19 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23860E0030B
-	for <poky@yoctoproject.org>; Tue,  7 Feb 2012 03:39:53 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 07 Feb 2012 03:39:52 -0800
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39A14E01353
+	for <poky@yoctoproject.org>; Tue,  7 Feb 2012 14:50:20 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 07 Feb 2012 14:50:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="104093745"
-Received: from unknown (HELO helios.localnet) ([10.252.123.5])
-	by azsmga001.ch.intel.com with ESMTP; 07 Feb 2012 03:38:51 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="107498274"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.14.116])
+	by orsmga002.jf.intel.com with ESMTP; 07 Feb 2012 14:50:19 -0800
+From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 07 Feb 2012 11:38:50 +0000
-Message-ID: <7865396.XVNKqPiEta@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.8.0 (Linux/3.0.0-15-generic-pae; KDE/4.8.0; i686; ; )
-In-Reply-To: <7146402.Q3sl0gRNQ4@helios>
-References: <cover.1326787792.git.shane.wang@intel.com>
-	<3AB6CE7F274E534CAFD089D127A8A1FC0FCEDE9D@SHSMSX102.ccr.corp.intel.com>
-	<7146402.Q3sl0gRNQ4@helios>
-MIME-Version: 1.0
-Subject: Re: [PATCH 1/1] meta-baryon: correct the SRC_URI for libgsm
+Date: Tue,  7 Feb 2012 14:50:16 -0800
+Message-Id: <cover.1328654906.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.6.5
+Subject: [PATCH 0/2] Changes to match up with oe-core
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,37 +25,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Feb 2012 11:39:53 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 07 Feb 2012 22:50:20 -0000
 
-On Monday 06 February 2012 15:22:48 Paul Eggleton wrote:
-> On Monday 06 February 2012 11:44:22 Wang, Shane wrote:
-> > Resend.
-> > 
-> > Richard, or Paul, can anyone of you help to check in the patch for
-> > meta-baryon?
-> 
-> Sorry Shane I missed this one.
-> 
-> I did just try accessing the "new" website (http://www.quut.com/gsm/) and it
-> just times out - perhaps it is down at the moment? I feel a little
-> uncomfortable changing to another URL that doesn't work...
-> 
-> I did find http://libgsm.sourcearchive.com, perhaps we could use this if the
-> quut.com site is gone for good.
+Changes to match oe-core task-core-tools and update the
+MIRRORS to use the correct URL.
 
-This morning Koen and I have been talking about the content of meta-baryon; it 
-seems like we ought to be moving to libav instead of ffmpeg and since that's 
-what pulled in libgsm (and faac) and these two shouldn't really be needed for 
-Baryon anyway in the context of doing thumbnails in Mediatomb, we should be 
-able to remove libgsm. I've entered bug #1965 to tidy this up.
+Sau!
 
-Cheers,
-Paul
+The following changes since commit cb89d43473a91ff4cb2447d642fcd9308d7366e3:
+
+  libzypp: add missing runtime dependences on gzip and gnupg (2012-02-03 17:23:34 +0000)
+
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib sgw/fix
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/fix
+
+Saul Wold (2):
+  task-core-tools-profile: change to match oe-core
+  poky.conf: Fix the MIRROR URI
+
+ meta-yocto/conf/distro/poky.conf                   |   22 ++++++++++----------
+ ...s.bbappend => task-core-tools-profile.bbappend} |    0
+ 2 files changed, 11 insertions(+), 11 deletions(-)
+ rename meta-yocto/recipes-core/tasks/{task-core-tools.bbappend => task-core-tools-profile.bbappend} (100%)
 
 -- 
+1.7.6.5
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
