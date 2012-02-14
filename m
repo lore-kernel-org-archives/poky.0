@@ -1,44 +1,40 @@
-Return-Path: <kpa_info@yahoo.fr>
-Received: from nm4-vm0.bullet.mail.ird.yahoo.com
-	(nm4-vm0.bullet.mail.ird.yahoo.com [77.238.189.211])
-	by yocto-www.yoctoproject.org (Postfix) with SMTP id 80CA6E0136A
-	for <poky@yoctoproject.org>; Tue, 14 Feb 2012 00:46:29 -0800 (PST)
-Received: from [77.238.189.56] by nm4.bullet.mail.ird.yahoo.com with NNFMP;
-	14 Feb 2012 08:46:28 -0000
-Received: from [212.82.108.243] by tm9.bullet.mail.ird.yahoo.com with NNFMP;
-	14 Feb 2012 08:46:28 -0000
-Received: from [127.0.0.1] by omp1008.mail.ird.yahoo.com with NNFMP;
-	14 Feb 2012 08:46:28 -0000
-X-Yahoo-Newman-Property: ymail-3
-X-Yahoo-Newman-Id: 443968.97606.bm@omp1008.mail.ird.yahoo.com
-Received: (qmail 19690 invoked by uid 60001); 14 Feb 2012 08:46:28 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
-	t=1329209188; bh=Hwz5CdxRCpwpluxEZuticUZ3QiBCH2pQXS2aA/HHf4s=;
-	h=X-YMail-OSG:Received:X-Mailer:Message-ID:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	b=J7lNodTgY8M/7Dj8z4xnjvUokjCwsbGa6Ew7yr+6qErx8b+BoNyNwadASt/ZCWLO5gKxdlSP4hKLtpqgkftOV+nrIqRDsU61LHFPH8rQYOqY70p0gRV1p0COb1R15zH9CC2opmawgUYQXIXuZXqXxg9QyxkC6MD5f4FPCCpZ1So=
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.fr;
-	h=X-YMail-OSG:Received:X-Mailer:Message-ID:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	b=1dpGJsTonvV+BHcacR4XJ60lwoaG6umPgm0KJX5AounSMuzA9dB+VyA3EIAOelrfLEX+Y3HNinJsHfs6fmNkQ2RdDzDBxUEJgcMrklWMd7s1w+Fq77cQPmwmd1ttdWgLSVzToOraS1sjU92VZ7sWsle0gdiz44BhlfADnTsnXos=;
-X-YMail-OSG: oCJkUlYVM1nTiitPkREnqehY5ULW4XFKrsuEa.Hw.L1tibg
-	1ylMhjW9ioFIj27nVdyrf5i2aGe0PVEU0KK2F4r1bH3Ycz3TGY0lcEsH7qxo
-	Laf1K2pR6MMi0XlCiLLxgTPBLiHpm2WOjrcRi8x9LTF_yJKBLDUjZ20yjtiX
-	X1TZ.fJVnUSW3Q.6frj0RVTn8k8_qgVlENK._umP_vMB4migbwCX1IaaVGXP
-	WiieYthL6nLXlC8w19PI7BsR.NQN7ZPuHdm5YwTGEFoqr6QIzr1E7RLe1ZYc
-	ccM6sabvDtUsvgvcnvndoKtKI0As.PbI4RMCFYAgUkNbAU8hE6GNrYV_myVO
-	Eh3RjoCClpJPpMK5ihPoxejtf7NTY_lU.IgfAXDfHSrcVJas9U09smZghM6E F
-Received: from [213.193.97.58] by web29001.mail.ird.yahoo.com via HTTP;
-	Tue, 14 Feb 2012 08:46:28 GMT
-X-Mailer: YahooMailWebService/0.8.116.338427
-Message-ID: <1329209188.15247.YahooMailNeo@web29001.mail.ird.yahoo.com>
-Date: Tue, 14 Feb 2012 08:46:28 +0000 (GMT)
-From: Patrick <kpa_info@yahoo.fr>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Return-Path: <lianhao.lu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1944E0059B
+	for <poky@yoctoproject.org>; Tue, 14 Feb 2012 01:34:15 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Feb 2012 01:34:09 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="117345174"
+Received: from pgsmsx101.gar.corp.intel.com ([10.221.44.78])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Feb 2012 01:34:08 -0800
+Received: from pgsmsx601.gar.corp.intel.com (10.221.43.69) by
+	PGSMSX101.gar.corp.intel.com (10.221.44.78) with Microsoft SMTP Server
+	(TLS) id 14.1.355.2; Tue, 14 Feb 2012 17:33:50 +0800
+Received: from shsmsx101.ccr.corp.intel.com (10.239.4.153) by
+	pgsmsx601.gar.corp.intel.com (10.221.43.69) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Tue, 14 Feb 2012 17:29:53 +0800
+Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.36]) by
+	SHSMSX101.ccr.corp.intel.com ([169.254.1.142]) with mapi id
+	14.01.0355.002; Tue, 14 Feb 2012 17:29:45 +0800
+From: "Lu, Lianhao" <lianhao.lu@intel.com>
+To: Patrick <kpa_info@yahoo.fr>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Thread-Topic: [poky] Building sysroot for SDK
+Thread-Index: AQHM6vUuNZijibUrRkykVFQBzSpZepY8GYcA
+Date: Tue, 14 Feb 2012 09:29:45 +0000
+Message-ID: <857BE142E5399E46B20FD45B9DB8A7BC0FCE74DE@SHSMSX102.ccr.corp.intel.com>
+References: <1329209188.15247.YahooMailNeo@web29001.mail.ird.yahoo.com>
+In-Reply-To: <1329209188.15247.YahooMailNeo@web29001.mail.ird.yahoo.com>
+Accept-Language: zh-CN, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-Subject: Building sysroot for SDK
+Subject: Re: Building sysroot for SDK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: Patrick <kpa_info@yahoo.fr>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -47,17 +43,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Feb 2012 08:46:30 -0000
-Content-Type: text/plain; charset=utf-8
+X-List-Received-Date: Tue, 14 Feb 2012 09:34:15 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Dear list,=0A=0AI use poky 6.0 to build a complete rootfs for my own target=
-, it's working nicely !Now I would like to build a small application SDK fo=
-r my system. =0A=0AI have red carefully the ADT manual and decided to build=
- a toolchain with meta-toolchain. The toolchain generated works properly bu=
-t some libraries and headers are missing. =0AFor example my target use SQLi=
-te built in the rootfs. The sqlite library and the headers files are missin=
-g in the toolchain.=0A=0AI would like to know how to build the sysroot to a=
-dd those files in the toolchain or how to add it directly to the toolchain.=
-=0A=0AThanks in advance for any help=0A=0APatrick=0A
+
+Patrick wrote on 2012-02-14:
+> Dear list,
+>=20
+> I use poky 6.0 to build a complete rootfs for my own target, it's
+> working nicely !Now I would like to build a small application SDK for my
+> system.
+>=20
+> I have red carefully the ADT manual and decided to build a toolchain with=
+ meta-toolchain. The toolchain generated works properly but some
+> libraries and headers are missing.
+> For example my target use SQLite built in the rootfs. The sqlite library =
+and the headers files are missing in the toolchain.
+>=20
+> I would like to know how to build the sysroot to add those files in the t=
+oolchain or how to add it directly to the toolchain.
+>=20
+Hi Patrick,
+
+If you want to add more packages into the sysroot built by meta-toolchain, =
+you may add your extra packages(i.e. libsqlite3-dev) into the variable "TOO=
+LCHAIN_TARGET_TASK".  Meta/recipes-core/meta/meta-toolchain-gmae.bb might b=
+e an example of how to add more packages into the target sysroot.
+
+Best Regards,
+Lianhao
+
+
 
