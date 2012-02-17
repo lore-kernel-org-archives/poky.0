@@ -1,24 +1,23 @@
-Return-Path: <David.Nystrom@enea.com>
-Received: from mx-3.enea.com (sestofw01.enea.se [192.36.1.252])
-	by yocto-www.yoctoproject.org (Postfix) with SMTP id CB3FAE0030B
-	for <poky@yoctoproject.org>; Thu, 16 Feb 2012 06:13:31 -0800 (PST)
-Received: from [172.16.140.132] (172.16.140.132) by smtp.enea.com
-	(172.21.1.208) with Microsoft SMTP Server id 14.2.247.3;
-	Thu, 16 Feb 2012 15:13:29 +0100
-Message-ID: <4F3D0F10.3070902@enea.com>
-Date: Thu, 16 Feb 2012 15:13:36 +0100
-From: =?UTF-8?B?RGF2aWQgTnlzdHLDtm0=?= <david.nystrom@enea.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:9.0) Gecko/20111229 Thunderbird/9.0
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0D8FE003E1
+	for <poky@yoctoproject.org>; Fri, 17 Feb 2012 01:25:47 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q1H9PkKh021596
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 17 Feb 2012 01:25:46 -0800 (PST)
+Received: from localhost.localdomain (128.224.162.202) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Fri, 17 Feb 2012 01:25:46 -0800
+From: Kang Kai <kai.kang@windriver.com>
+To: <sgw@linux.intel.com>, <poky@yoctoproject.org>
+Date: Fri, 17 Feb 2012 17:25:37 +0800
+Message-ID: <cover.1329470296.git.kai.kang@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <1329209188.15247.YahooMailNeo@web29001.mail.ird.yahoo.com>
-	<857BE142E5399E46B20FD45B9DB8A7BC0FCE74DE@SHSMSX102.ccr.corp.intel.com>
-	<1329213674.19294.YahooMailNeo@web29004.mail.ird.yahoo.com>
-	<1329214323.96557.YahooMailNeo@web29011.mail.ird.yahoo.com>
-In-Reply-To: <1329214323.96557.YahooMailNeo@web29011.mail.ird.yahoo.com>
-X-Originating-IP: [172.16.140.132]
-Subject: Re: Re : Re : Building sysroot for SDK
+X-Originating-IP: [128.224.162.202]
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/1] Yocto 1656: Recipe creation/import script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,49 +29,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Feb 2012 14:13:32 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 17 Feb 2012 09:25:47 -0000
+Content-Type: text/plain
 
-On 02/14/2012 11:12 AM, Patrick wrote:
->
->>> Hi Patrick,
->>>
->>> If you want to add more packages into the sysroot built by meta-toolchain, you may add your extra packages(i.e. libsqlite3-dev) into the variable "TOOLCHAIN_TARGET_TASK". 
->>> Meta/recipes-core/meta/meta-toolchain-gmae.bb might be an example of how to add more packages into the target sysroot.
->>>
->>> Best Regards,
->>> Lianhao
->>>
->> Hi Lianhao,
->>
->> Thanks for your help ! I have created my own meta-toolchain based on meta-toolchain-gmae.bb and it's work nicely.
->> However, there remains a small problem. My own meta-toolchain-perso.bb file is stored in my own layer meta-perso.
->> To include the meta-toolchain.bb with require I need to use the full path to the meta layer: require ../../../meta/recipes-core/meta/meta-toolchain.bb
->> This is not really clean, do you know how to point the meta-toolchain.bb file without using the full path ?
->>
->> Thanks again for your help
->>
->> Patrick
-> I answer myself to my question:
-> I used a meta-toolchain.bbappend file placed in my own layer. This file append the libqlite3-dev package to the TOOLCHAIN_TARGET_TASK.
-> This works fine !
->
-> Patrick
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-Hi,
+Hi Saul,
 
-Should you not also be able to use your favourite package manager 
-included in the toolchain tarball for this ?
-opkg-cl -f /opt/poky/1.1/sysroots/ppce500mc-enea-linux/etc/opkg.conf 
---offline-root /opt/poky/1.1/sysroots/ppce500mc-enea-linux/ update
-opkg-cl -f /opt/poky/1.1/sysroots/ppce500mc-enea-linux/etc/opkg.conf 
---offline-root /opt/poky/1.1/sysroots/ppce500mc-enea-linux/ install 
-libsqlite3-dev
+I send this patch version 2 one week ago, and no new comment received.
+So would you like to give some comments or commit it?
 
+Thanks a lot.
+
+The following changes since commit 41a83ccfe50ec69425a4828fb5836d38d3f99e67:
+
+  guile: fix cross configure failure (2012-02-10 17:01:42 +0000)
+
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib kangkai/distro
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
+
+Kang Kai (1):
+  create-recipe: create a recipe from source URI
+
+ scripts/create-recipe |  769 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 769 insertions(+), 0 deletions(-)
+ create mode 100755 scripts/create-recipe
+
+-- 
+1.7.5.4
 
 
