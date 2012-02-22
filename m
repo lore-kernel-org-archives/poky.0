@@ -1,34 +1,61 @@
-Return-Path: <cahoshing@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C0375E013A3
-	for <poky@yoctoproject.org>; Tue, 21 Feb 2012 22:20:37 -0800 (PST)
-Received: by wgbdq12 with SMTP id dq12so5896078wgb.11
-	for <poky@yoctoproject.org>; Tue, 21 Feb 2012 22:20:36 -0800 (PST)
-Received-SPF: pass (google.com: domain of cahoshing@gmail.com designates
-	10.180.86.105 as permitted sender) client-ip=10.180.86.105; 
-Authentication-Results: mr.google.com;
-	spf=pass (google.com: domain of cahoshing@gmail.com
-	designates 10.180.86.105 as permitted sender)
-	smtp.mail=cahoshing@gmail.com;
-	dkim=pass header.i=cahoshing@gmail.com
-Received: from mr.google.com ([10.180.86.105])
-	by 10.180.86.105 with SMTP id o9mr32271890wiz.4.1329891636612 (num_hops
-	= 1); Tue, 21 Feb 2012 22:20:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=v75yppfZPye64+PQdI0sJJ/L+d5FRdbjlHF5vgmhu28=;
-	b=ruBLgBLzo/GOBjU51OK1ljsmzuYbzFKbIjbvGDRpH3fFIRoh/2xx0ZpLyLSAaLPryX
-	zZIgNkuLT3ctBhoN9M/A/qhOJmDFCPYVvMDHjHtpXl1V+roXWmp6AikJd1PABSCuR3ur
-	Cg0Mg3K4Gm3FucFPe0m3uVgd+cOjemb4uy+4E=
+Return-Path: <chang@altera.com>
+Received: from TX2EHSOBE005.bigfish.com (tx2ehsobe001.messaging.microsoft.com
+	[65.55.88.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4180FE0123C
+	for <poky@yoctoproject.org>; Wed, 22 Feb 2012 00:00:57 -0800 (PST)
+Received: from mail192-tx2-R.bigfish.com (10.9.14.243) by
+	TX2EHSOBE005.bigfish.com (10.9.40.25) with Microsoft SMTP Server id
+	14.1.225.23; Wed, 22 Feb 2012 08:00:51 +0000
+Received: from mail192-tx2 (localhost [127.0.0.1])	by
+	mail192-tx2-R.bigfish.com (Postfix) with ESMTP id 2AECC2A049B	for
+	<poky@yoctoproject.org>; Wed, 22 Feb 2012 08:00:51 +0000 (UTC)
+X-SpamScore: -8
+X-BigFish: VS-8(zz217bLc85fh13fcMzz1202hz31iz8275bh8275dhz2fh2a8h668h839h)
+X-Forefront-Antispam-Report: CIP:66.35.227.6; KIP:(null); UIP:(null); IPV:NLI;
+	H:sj-smtp01.altera.com; RD:sj-smtp01.altera.com; EFVD:NLI
+Received-SPF: pass (mail192-tx2: domain of altera.com designates 66.35.227.6
+	as permitted sender) client-ip=66.35.227.6;
+	envelope-from=chang@altera.com; helo=sj-smtp01.altera.com ;
+	1.altera.com ; 
+Received: from mail192-tx2 (localhost.localdomain [127.0.0.1]) by mail192-tx2
+	(MessageSwitch) id 1329897649555799_7016;
+	Wed, 22 Feb 2012 08:00:49 +0000 (UTC)
+Received: from TX2EHSMHS007.bigfish.com (unknown [10.9.14.249])	by
+	mail192-tx2.bigfish.com (Postfix) with ESMTP id 777DF3A0043	for
+	<poky@yoctoproject.org>; Wed, 22 Feb 2012 08:00:49 +0000 (UTC)
+Received: from sj-smtp01.altera.com (66.35.227.6) by TX2EHSMHS007.bigfish.com
+	(10.9.99.107) with Microsoft SMTP Server (TLS) id 14.1.225.23;
+	Wed, 22 Feb 2012 08:00:48 +0000
+Received: from sj-mail01.altera.com ([137.57.1.6])	by sj-smtp01.altera.com
+	(8.13.7+Sun/8.13.7) with ESMTP id q1M84LCp009750	for
+	<poky@yoctoproject.org>; Wed, 22 Feb 2012 00:04:21 -0800 (PST)
+Received: from sj-ithc02.altera.priv.altera.com
+	(sj-ithc02.altera.priv.altera.com [137.57.245.21])	by
+	sj-mail01.altera.com
+	(8.13.7+Sun/8.13.7) with ESMTP id q1M80qU9000994	for
+	<poky@yoctoproject.org>; Wed, 22 Feb 2012 00:00:52 -0800 (PST)
+Received: from sj-itevmsg01.altera.priv.altera.com (137.57.216.86) by
+	sj-ithc02.altera.priv.altera.com (137.57.245.21) with Microsoft SMTP
+	Server (TLS) id 8.3.106.1; Wed, 22 Feb 2012 00:00:51 -0800
+Received: from pg-ithc01.altera.priv.altera.com (137.57.105.42) by
+	sj-itevmsg01.altera.priv.altera.com (137.57.216.86) with Microsoft SMTP
+	Server (TLS) id 8.3.213.0; Wed, 22 Feb 2012 00:00:51 -0800
+Received: from PG-ITMSG03.altera.priv.altera.com ([137.57.105.40]) by
+	pg-ithc01.altera.priv.altera.com ([137.57.105.42]) with mapi;
+	Wed, 22 Feb 2012 16:00:49 +0800
+From: Chin Huat Ang <chang@altera.com>
+To: "'poky@yoctoproject.org'" <poky@yoctoproject.org>
+Date: Wed, 22 Feb 2012 16:00:48 +0800
+Thread-Topic: Using non-distro gcc
+Thread-Index: AczxOBZ5JuI5XnFxRx2VUKQRyo1FeQ==
+Message-ID: <0BB3B561D7068A4E89FD8E9ABFB538BEB0B9F942C2@PG-ITMSG03.altera.priv.altera.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-Received: by 10.180.86.105 with SMTP id o9mr26787376wiz.4.1329891635721; Tue,
-	21 Feb 2012 22:20:35 -0800 (PST)
-Received: by 10.223.143.19 with HTTP; Tue, 21 Feb 2012 22:20:35 -0800 (PST)
-Date: Wed, 22 Feb 2012 11:50:35 +0530
-Message-ID: <CAMTw45B_fy7-YnK+GrJ7dPAJWQ-dH0yF59bF_ZOhLeHc6p6BYA@mail.gmail.com>
-From: chinmaya hoshing <cahoshing@gmail.com>
-To: poky@yoctoproject.org
-Subject: Error in compilation of opkg pacakge
+X-OriginatorOrg: altera.com
+Subject: Using non-distro gcc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,213 +67,161 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Feb 2012 06:20:38 -0000
-Content-Type: multipart/alternative; boundary=f46d0418266289763304b9878644
+X-List-Received-Date: Wed, 22 Feb 2012 08:00:57 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_0BB3B561D7068A4E89FD8E9ABFB538BEB0B9F942C2PGITMSG03alte_"
 
---f46d0418266289763304b9878644
-Content-Type: text/plain; charset=ISO-8859-1
-
-Hi ,
-
-I am building poky working on bernard branch on Ubuntu 10.10 ,32bit host
-machine and
-compiling xbmc with all its dependency pulled and is working fine.
-
-But if I  start the complete build from scratch I get the error in
-do_compile in opkg package something like this :
-
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgcrypt.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libtasn1.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libz.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgcrypt.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libtasn1.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libz.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgcrypt.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libassuan.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| Making all in src
-|   CC    opkg-cl.o
-|   LINK  opkg-cl
-|
-/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/libldap.so:
-undefined reference to `sys_errlist@GLIBC_2.12'
-|
-/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/libldap.so:
-undefined reference to `sys_nerr@GLIBC_2.12'
-| collect2: ld returned 1 exit status
-| make[1]: *** [opkg-cl] Error 1
-| make: *** [all-recursive] Error 1
-| FATAL: oe_runmake failed
-| ERROR: Function 'do_compile' failed (see
-/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/work/atom-poky-linux/opkg-1_0.1.8+svnr596-r1/temp/log.do_compile.13807
-for further information)
-NOTE: package opkg-1_0.1.8+svnr596-r1: task do_compile: Failed
-ERROR: Task 2964
-(/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/meta/recipes-devtools/opkg/
-opkg_svn.bb, do_compile) failed with exit code '1'
-
-
-I just tried to  remove all instances of opkg and openldap in build folder
-i.e remove the source from build/tmp/work folder ,remove the stamps and
-clean from sstate-cache
-then perform bitbake opkg ,I dont get any error and the build continues
-
-So why I am getting this problem if I am start the build from scratch can
-anybody help me I want the whole build to be completed continuously and how
-can I avoid this type of error .
-
-Regards
-Chinmaya
-
---f46d0418266289763304b9878644
-Content-Type: text/html; charset=ISO-8859-1
+--_000_0BB3B561D7068A4E89FD8E9ABFB538BEB0B9F942C2PGITMSG03alte_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hi ,</div><div><br></div><div><div>I am building poky=
- working on bernard branch on Ubuntu 10.10 ,32bit host machine and=A0</div>=
-<div>compiling xbmc with all its dependency pulled and is working fine.</di=
-v>
-<div><br></div><div>But if I=A0=A0start the complete build from scratch I g=
-et the error in do_compile in opkg=A0package=A0something like this : =A0=A0=
-</div><div><br></div><div>| i586-poky-linux-libtool: link: warning: `/home/=
-sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/li=
-b/<a href=3D"http://libgcrypt.la" target=3D"_blank">libgcrypt.la</a>&#39; s=
-eems to be moved</div>
-</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibtasn1.la" target=3D"_blank">libtasn1.la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibz.la" target=3D"_blank">libz.la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgcrypt.la" target=3D"_blank">libgcrypt.la</a>&#39; seems to be moved</div=
+My Centos 5.6's gcc is a bit outdated and I'm seeing compiler bugs when com=
+piling elfutils-native. As such I've rolled my own gcc 4.5.3 with MPC/MPFR/=
+GMP all installed to /opt, my intention is to make the new toolchain self-c=
+ontained and reusable on other machines/distros.
+
+The problem is that, in order to use this gcc I will need to set LD_LIBRARY=
+_PATH so that it can picks up MPC/MPFR/GMP from /opt.
+
+Poky seems to always build with pristine environment (i.e. no LD_LIBRARY_PA=
+TH), so my new toolchain is unusable. This problem will not happen on distr=
+o gcc as MPC et al are always installed in /usr/lib.
+
+Is there a way to tell Poky to set LD_LIBRARY_PATH whenever it uses the non=
+-distro toolchain? Or is it the right thing to do at all?
+
+________________________________
+Confidentiality Notice.
+This message may contain information that is confidential or otherwise prot=
+ected from disclosure. If you are not the intended recipient, you are hereb=
+y notified that any use, disclosure, dissemination, distribution, or copyin=
+g of this message, or any attachments, is strictly prohibited. If you have =
+received this message in error, please advise the sender by reply e-mail, a=
+nd delete the message and any attachments. Thank you.
+
+--_000_0BB3B561D7068A4E89FD8E9ABFB538BEB0B9F942C2PGITMSG03alte_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:x=3D"urn:schemas-microsoft-com:office:excel" xmlns:p=3D"urn:schemas-m=
+icrosoft-com:office:powerpoint" xmlns:a=3D"urn:schemas-microsoft-com:office=
+:access" xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:s=3D"=
+uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" xmlns:rs=3D"urn:schemas-microsof=
+t-com:rowset" xmlns:z=3D"#RowsetSchema" xmlns:b=3D"urn:schemas-microsoft-co=
+m:office:publisher" xmlns:ss=3D"urn:schemas-microsoft-com:office:spreadshee=
+t" xmlns:c=3D"urn:schemas-microsoft-com:office:component:spreadsheet" xmlns=
+:odc=3D"urn:schemas-microsoft-com:office:odc" xmlns:oa=3D"urn:schemas-micro=
+soft-com:office:activation" xmlns:html=3D"http://www.w3.org/TR/REC-html40" =
+xmlns:q=3D"http://schemas.xmlsoap.org/soap/envelope/" xmlns:rtc=3D"http://m=
+icrosoft.com/officenet/conferencing" xmlns:D=3D"DAV:" xmlns:Repl=3D"http://=
+schemas.microsoft.com/repl/" xmlns:mt=3D"http://schemas.microsoft.com/share=
+point/soap/meetings/" xmlns:x2=3D"http://schemas.microsoft.com/office/excel=
+/2003/xml" xmlns:ppda=3D"http://www.passport.com/NameSpace.xsd" xmlns:ois=
+=3D"http://schemas.microsoft.com/sharepoint/soap/ois/" xmlns:dir=3D"http://=
+schemas.microsoft.com/sharepoint/soap/directory/" xmlns:ds=3D"http://www.w3=
+.org/2000/09/xmldsig#" xmlns:dsp=3D"http://schemas.microsoft.com/sharepoint=
+/dsp" xmlns:udc=3D"http://schemas.microsoft.com/data/udc" xmlns:xsd=3D"http=
+://www.w3.org/2001/XMLSchema" xmlns:sub=3D"http://schemas.microsoft.com/sha=
+repoint/soap/2002/1/alerts/" xmlns:ec=3D"http://www.w3.org/2001/04/xmlenc#"=
+ xmlns:sp=3D"http://schemas.microsoft.com/sharepoint/" xmlns:sps=3D"http://=
+schemas.microsoft.com/sharepoint/soap/" xmlns:xsi=3D"http://www.w3.org/2001=
+/XMLSchema-instance" xmlns:udcs=3D"http://schemas.microsoft.com/data/udc/so=
+ap" xmlns:udcxf=3D"http://schemas.microsoft.com/data/udc/xmlfile" xmlns:udc=
+p2p=3D"http://schemas.microsoft.com/data/udc/parttopart" xmlns:wf=3D"http:/=
+/schemas.microsoft.com/sharepoint/soap/workflow/" xmlns:dsss=3D"http://sche=
+mas.microsoft.com/office/2006/digsig-setup" xmlns:dssi=3D"http://schemas.mi=
+crosoft.com/office/2006/digsig" xmlns:mdssi=3D"http://schemas.openxmlformat=
+s.org/package/2006/digital-signature" xmlns:mver=3D"http://schemas.openxmlf=
+ormats.org/markup-compatibility/2006" xmlns:m=3D"http://schemas.microsoft.c=
+om/office/2004/12/omml" xmlns:mrels=3D"http://schemas.openxmlformats.org/pa=
+ckage/2006/relationships" xmlns:spwp=3D"http://microsoft.com/sharepoint/web=
+partpages" xmlns:ex12t=3D"http://schemas.microsoft.com/exchange/services/20=
+06/types" xmlns:ex12m=3D"http://schemas.microsoft.com/exchange/services/200=
+6/messages" xmlns:pptsl=3D"http://schemas.microsoft.com/sharepoint/soap/Sli=
+deLibrary/" xmlns:spsl=3D"http://microsoft.com/webservices/SharePointPortal=
+Server/PublishedLinksService" xmlns:Z=3D"urn:schemas-microsoft-com:" xmlns:=
+st=3D"&#1;" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibtasn1.la" target=3D"_blank">libtasn1.la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibz.la" target=3D"_blank">libz.la</a>&#39; seems to be moved</div><div>| i5=
-86-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/poky_xbmc_=
-01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgcrypt.=
-la" target=3D"_blank">libgcrypt.la</a>&#39; seems to be moved</div>
-
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibassuan.la" target=3D"_blank">libassuan.la</a>&#39; seems to be moved</div=
->
-
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/sct/xbmc_final/test/p=
-oky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://l=
-ibgpg-error.la" target=3D"_blank">libgpg-error.la</a>&#39; seems to be move=
-d</div>
-
-<div>| Making all in src</div><div>| =A0 CC =A0 =A0opkg-cl.o</div><div>| =
-=A0 LINK =A0opkg-cl</div><div>| /home/sct/xbmc_final/test/poky_xbmc_01Dec20=
-11/build/tmp/sysroots/fishriver/usr/lib/libldap.so: undefined reference to =
-`sys_errlist@GLIBC_2.12&#39;</div>
-
-<div>| /home/sct/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fis=
-hriver/usr/lib/libldap.so: undefined reference to `sys_nerr@GLIBC_2.12&#39;=
-</div><div>| collect2: ld returned 1 exit status</div><div>| make[1]: *** [=
-opkg-cl] Error 1</div>
-
-<div>| make: *** [all-recursive] Error 1</div><div>| FATAL: oe_runmake fail=
-ed</div><div>| ERROR: Function &#39;do_compile&#39; failed (see /home/sct/x=
-bmc_final/test/poky_xbmc_01Dec2011/build/tmp/work/atom-poky-linux/opkg-1_0.=
-1.8+svnr596-r1/temp/log.do_compile.13807 for further information)</div>
-
-<div>NOTE: package opkg-1_0.1.8+svnr596-r1: task do_compile: Failed</div><d=
-iv>ERROR: Task 2964 (/home/sct/xbmc_final/test/poky_xbmc_01Dec2011/meta/rec=
-ipes-devtools/opkg/<a href=3D"http://opkg_svn.bb" target=3D"_blank">opkg_sv=
-n.bb</a>, do_compile) failed with exit code &#39;1&#39;</div>
-<div><br></div><div><br></div><div><div>I just tried to =A0remove all insta=
-nces of opkg and openldap in build folder i.e remove the source from build/=
-tmp/work folder ,remove the stamps and clean from sstate-cache</div><div>
-then perform bitbake opkg ,I dont get any error and the build continues</di=
-v><div><br></div><div>So why I am getting this problem if I am start the bu=
-ild from scratch can anybody help me I want the whole build to be completed=
- continuously and how can I avoid this type of error .</div>
-</div><div><br></div><div>Regards=A0</div><div>Chinmaya</div>
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">My Centos 5.6&#8217;s gcc is a bit outdated and I&#8=
+217;m seeing compiler bugs when compiling elfutils-native. As such I&#8217;=
+ve rolled my own gcc 4.5.3 with MPC/MPFR/GMP all installed to /opt, my inte=
+ntion is to make the new toolchain self-contained and
+ reusable on other machines/distros.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">The problem is that, in order to use this gcc I will=
+ need to set LD_LIBRARY_PATH so that it can picks up MPC/MPFR/GMP from /opt=
+.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Poky seems to always build with pristine environment=
+ (i.e. no LD_LIBRARY_PATH), so my new toolchain is unusable. This problem w=
+ill not happen on distro gcc as MPC et al are always installed in /usr/lib.=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Is there a way to tell Poky to set LD_LIBRARY_PATH w=
+henever it uses the non-distro toolchain? Or is it the right thing to do at=
+ all?<o:p></o:p></p>
 </div>
+<br>
+<hr>
+<font face=3D"Arial" color=3D"Black" size=3D"2">Confidentiality Notice.<br>
+This message may contain information that is confidential or otherwise prot=
+ected from disclosure. If you are not the intended recipient, you are hereb=
+y notified that any use, disclosure, dissemination, distribution, or copyin=
+g of this message, or any attachments,
+ is strictly prohibited. If you have received this message in error, please=
+ advise the sender by reply e-mail, and delete the message and any attachme=
+nts. Thank you.<br>
+</font>
+</body>
+</html>
 
---f46d0418266289763304b9878644--
+--_000_0BB3B561D7068A4E89FD8E9ABFB538BEB0B9F942C2PGITMSG03alte_--
