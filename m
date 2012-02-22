@@ -1,28 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BE10AE013A3
-	for <poky@lists.yoctoproject.org>; Tue, 21 Feb 2012 14:03:39 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q1LM3ZMq020286;
-	Tue, 21 Feb 2012 22:03:35 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 19096-10; Tue, 21 Feb 2012 22:03:30 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q1LM3Tj6020278
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 21 Feb 2012 22:03:30 GMT
-Message-ID: <1329861809.20261.68.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky <poky@lists.yoctoproject.org>, openembedded-core
-	<openembedded-core@lists.openembedded.org>
-Date: Tue, 21 Feb 2012 22:03:29 +0000
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: Heads up: basichash being enabled for poky by default
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2A103E013A3
+	for <poky@yoctoproject.org>; Tue, 21 Feb 2012 17:51:42 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q1M1pfoN003547
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 21 Feb 2012 17:51:41 -0800 (PST)
+Received: from [128.224.162.202] (128.224.162.202) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Tue, 21 Feb 2012 17:51:41 -0800
+Message-ID: <4F444A34.8030203@windriver.com>
+Date: Wed, 22 Feb 2012 09:51:48 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:7.0.1) Gecko/20110929 Thunderbird/7.0.1
+MIME-Version: 1.0
+To: Saul Wold <sgw@linux.intel.com>
+References: <cover.1329470296.git.kai.kang@windriver.com>
+	<4F43D09B.5000500@linux.intel.com>
+In-Reply-To: <4F43D09B.5000500@linux.intel.com>
+X-Originating-IP: [128.224.162.202]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Yocto 1656: Recipe creation/import script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,38 +33,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Feb 2012 22:03:40 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 22 Feb 2012 01:51:42 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This is just to warn people that I'm going to push a change making
-basichash the default for DISTRO=poky as of tomorrow. This change has
-been brewing for a while and has seen plenty of discussion. Its time to
-throw the switch:
+On 2012年02月22日 01:12, Saul Wold wrote:
+> On 02/17/2012 01:25 AM, Kang Kai wrote:
+>> Hi Saul,
+>>
+>> I send this patch version 2 one week ago, and no new comment received.
+>> So would you like to give some comments or commit it?
+>>
+> Kai,
+>
+Hi Saul,
 
-http://git.yoctoproject.org/cgit.cgi/poky-contrib/commit/?id=f65bbb41d6fe9763acbd80df5885b3526259ce80
+> Most of the team has been at the ELC conference this last week with no 
+> time to review patches, we are catching up this week. Please have some 
+> patience while we catch up.
+OK.
 
-I haven't yet decided what should happen when in OE-Core and am open to
-opinions on that.
+Thanks,
+Kai
 
-If you're not ready for the change, you can still set:
-
-BB_SIGNATURE_HANDLER = 'OEbasic'
-
-to get the existing behaviour either at a local or distro level. The
-difference is one will include the sstate hash in the files in
-tmp/stamps/*. This means if the hash changes, it gets rebuilt.
-
-As a result of this commit your tree will rebuild. I'll bump the TMPDIR
-ABI version number at the same time so people more easily spot the
-change and can either revert or continue at their choice.
-
-Cheers,
-
-Richard
-
-
-
-
+>
+> Thanks
+> Sau!
+>
+>
+>> Thanks a lot.
+>>
+>> The following changes since commit 
+>> 41a83ccfe50ec69425a4828fb5836d38d3f99e67:
+>>
+>> guile: fix cross configure failure (2012-02-10 17:01:42 +0000)
+>>
+>> are available in the git repository at:
+>> git://git.pokylinux.org/poky-contrib kangkai/distro
+>> http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
+>>
+>> Kang Kai (1):
+>> create-recipe: create a recipe from source URI
+>>
+>> scripts/create-recipe | 769 
+>> +++++++++++++++++++++++++++++++++++++++++++++++++
+>> 1 files changed, 769 insertions(+), 0 deletions(-)
+>> create mode 100755 scripts/create-recipe
+>>
 
 
