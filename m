@@ -1,19 +1,19 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 93215E0030B
-	for <poky@yoctoproject.org>; Thu, 23 Feb 2012 05:51:05 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 23 Feb 2012 05:50:39 -0800
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1BC7FE0059A
+	for <poky@yoctoproject.org>; Thu, 23 Feb 2012 11:36:05 -0800 (PST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 23 Feb 2012 11:35:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="69498158"
-Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.11])
-	by AZSMGA002.ch.intel.com with ESMTP; 23 Feb 2012 05:50:38 -0800
-From: Dongxiao Xu <dongxiao.xu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="110049227"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.123.61])
+	by azsmga001.ch.intel.com with ESMTP; 23 Feb 2012 11:35:56 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 23 Feb 2012 21:49:12 +0800
-Message-Id: <cover.1330004166.git.dongxiao.xu@intel.com>
-X-Mailer: git-send-email 1.7.4.1
-Subject: [PATCH 0/1][PULL] Hob2: Yocto specific changes
+Date: Thu, 23 Feb 2012 19:35:52 +0000
+Message-Id: <cover.1330025617.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.5.4
+Subject: [PATCH 0/1] Set custom Yocto psplash image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,36 +25,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Feb 2012 13:51:05 -0000
+X-List-Received-Date: Thu, 23 Feb 2012 19:36:05 -0000
 
-Hi Richard,
+This patch corresponds to the one just sent to OE-Core which sets the OE
+logo as the default splash image there. They should be applied at around
+the same time.
 
-This pull request is Hob2 related Yocto specific changes, please help to review and pull.
+The following changes since commit d8b3718303c3d56394c722059f1a73bd79131d0a:
 
-Note that this pull request has dependency on the following pull requests:
-
- - hob2-bitbake-changes
- - hob2-oecore-changes
- - hob2
-
-Thanks,
-Dongxiao
-
-The following changes since commit 869cf1102d0ebf795c5f2aaa0bf465fab8801a74:
-
-  Hob: A new implemetation for Human Oriented Builder (2012-02-23 21:14:26 +0800)
+  texi2html: Fix for multilib (2012-02-22 23:03:16 +0000)
 
 are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib dxu4/hob2-yocto-changes
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/hob2-yocto-changes
+  git://git.yoctoproject.org/poky-contrib paule/yocto-psplash
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/yocto-psplash
 
-Dongxiao Xu (1):
-  scripts/hob: Launch the new hob
+Paul Eggleton (1):
+  meta-yocto: add bbappend to restore Yocto psplash image
 
- scripts/hob |   30 +-----------------------------
- 1 files changed, 1 insertions(+), 29 deletions(-)
+ .../recipes-core/psplash/files/psplash-poky-img.h  |  914 ++++++++++++++++++++
+ .../recipes-core/psplash/psplash_git.bbappend      |    4 +
+ 2 files changed, 918 insertions(+), 0 deletions(-)
+ create mode 100644 meta-yocto/recipes-core/psplash/files/psplash-poky-img.h
+ create mode 100644 meta-yocto/recipes-core/psplash/psplash_git.bbappend
 
 -- 
-1.7.4.1
+1.7.5.4
 
 
