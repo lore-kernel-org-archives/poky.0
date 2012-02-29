@@ -1,33 +1,33 @@
 Return-Path: <vishwasonu2000@gmail.com>
-Received: from mail-ww0-f54.google.com (mail-ww0-f54.google.com [74.125.82.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5F5E7E00596
-	for <poky@yoctoproject.org>; Mon, 27 Feb 2012 22:30:27 -0800 (PST)
-Received: by wgbdq13 with SMTP id dq13so864578wgb.11
-	for <poky@yoctoproject.org>; Mon, 27 Feb 2012 22:30:26 -0800 (PST)
+Received: from mail-ww0-f42.google.com (mail-ww0-f42.google.com [74.125.82.42])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 18123E00749
+	for <poky@yoctoproject.org>; Tue, 28 Feb 2012 20:57:22 -0800 (PST)
+Received: by wgbdt10 with SMTP id dt10so2777808wgb.5
+	for <poky@yoctoproject.org>; Tue, 28 Feb 2012 20:57:21 -0800 (PST)
 Received-SPF: pass (google.com: domain of vishwasonu2000@gmail.com designates
-	10.180.14.230 as permitted sender) client-ip=10.180.14.230; 
+	10.180.92.73 as permitted sender) client-ip=10.180.92.73; 
 Authentication-Results: mr.google.com; spf=pass (google.com: domain of
-	vishwasonu2000@gmail.com designates 10.180.14.230 as permitted
+	vishwasonu2000@gmail.com designates 10.180.92.73 as permitted
 	sender) smtp.mail=vishwasonu2000@gmail.com;
 	dkim=pass header.i=vishwasonu2000@gmail.com
-Received: from mr.google.com ([10.180.14.230])
-	by 10.180.14.230 with SMTP id s6mr1359321wic.2.1330410626218 (num_hops
-	= 1); Mon, 27 Feb 2012 22:30:26 -0800 (PST)
+Received: from mr.google.com ([10.180.92.73])
+	by 10.180.92.73 with SMTP id ck9mr45094992wib.2.1330491441817 (num_hops
+	= 1); Tue, 28 Feb 2012 20:57:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=gamma;
 	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=8TEy8yZsJSG6S29R8LZcGm6LqGjBQCTHq/VBLVP7KYI=;
-	b=nBH7YSazCzDYhsbcYryYNb95dduPeS2EngysgdAgLBJazmkTsZ6nYkKFFVjbREk8lw
-	mHWX8iYtLfvCHWtNQrbgfcp39TBO+7AoIKJY9HpMFT9cYgYMBl/p4q7qxah29HRUDURn
-	kwV3NueK9nPHnG/PKjSluBXOW2giD1bPGU5ic=
+	bh=ypanFjuYddhQMLJiRY3TfgSNOsvtebsMMJAybzcTh+4=;
+	b=lSLwmViA9AWKzfYVPj17kpZFnJA0dy2Z9Z/Cr81YYi0sNW+wMCH/u3sk7cuVsUazOj
+	f8wT6rMEfEN3rZw7hePWuwDyYOyjiZ6xsun7fxBcgPUw4oq1jWKlHHRXzNcuiNvCYiI1
+	SyKMN5XAHC7yNnLfxWL2DlzKaf1FaXyzzhQjo=
 MIME-Version: 1.0
-Received: by 10.180.14.230 with SMTP id s6mr1076687wic.2.1330410626041; Mon,
-	27 Feb 2012 22:30:26 -0800 (PST)
-Received: by 10.180.14.106 with HTTP; Mon, 27 Feb 2012 22:30:26 -0800 (PST)
-Date: Tue, 28 Feb 2012 12:00:26 +0530
-Message-ID: <CABRtByOiXr_f0HYhM15NG6OWDuSMES73UvFfnuLeW11-uQOfQw@mail.gmail.com>
+Received: by 10.180.92.73 with SMTP id ck9mr35820148wib.2.1330491440822; Tue,
+	28 Feb 2012 20:57:20 -0800 (PST)
+Received: by 10.180.14.106 with HTTP; Tue, 28 Feb 2012 20:57:20 -0800 (PST)
+Date: Wed, 29 Feb 2012 10:27:20 +0530
+Message-ID: <CABRtByOfAeCkrnVJ8Y40HsrjXRaLjmOARb-hj4_B87EoeZ6XDQ@mail.gmail.com>
 From: sonu vishwakarma <vishwasonu2000@gmail.com>
 To: poky@yoctoproject.org
-Subject: : undefined reference to `sys_errlist@GLIBC_2.12
+Subject: glibc-2.12.1-r6: task do_package: Failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,193 +39,302 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Feb 2012 06:30:27 -0000
-Content-Type: multipart/alternative; boundary=f46d04138ce1c547e804ba005c0d
+X-List-Received-Date: Wed, 29 Feb 2012 04:57:23 -0000
+X-Groupsio-MsgNum: 7488
+Content-Type: multipart/mixed; boundary=f46d043892c5b4f8d004ba132d76
 
---f46d04138ce1c547e804ba005c0d
+--f46d043892c5b4f8d004ba132d76
+Content-Type: multipart/alternative; boundary=f46d043892c5b4f8cc04ba132d74
+
+--f46d043892c5b4f8cc04ba132d74
 Content-Type: text/plain; charset=ISO-8859-1
 
 Hi ,
 
 I am building poky working on bernard branch on Ubuntu 10.10 ,64 bit host.
-I get the error in do_compile in opkg package something like this :
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgcrypt.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libtasn1.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libz.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgcrypt.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libtasn1.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libz.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgcrypt.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libassuan.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| i586-poky-linux-libtool: link: warning:
-`/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/
-libgpg-error.la' seems to be moved
-| Making all in src
-|   CC    opkg-cl.o
-|   LINK  opkg-cl
-|
-/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/libldap.so:
-undefined reference to `sys_errlist@GLIBC_2.12'
-|
-/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/libldap.so:
-undefined reference to `sys_nerr@GLIBC_2.12'
-| collect2: ld returned 1 exit status
-| make[1]: *** [opkg-cl] Error 1
-| make: *** [all-recursive] Error 1
-| FATAL: oe_runmake failed
-| ERROR: Function 'do_compile' failed (see
-/home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/work/atom-poky-linux/opkg-1_0.1.8+svnr596-r1/temp/log.do_compile.13807
-for further information)
-NOTE: package opkg-1_0.1.8+svnr596-r1: task do_compile: Failed
-ERROR: Task 2964
-(/home/xbmc_final/test/poky_xbmc_01Dec2011/meta/recipes-devtools/opkg/
-opkg_svn.bb, do_compile) failed with exit code '1'
+I get the error in do_package in glibc-2.12  something like this :
 
-Currently i'm having glibc-2.10 , Is it related to glibc package version ?
-Can anyone help me out ??
+********************************************************
+| NOTE: generating locale es_CR (UTF-8)
+| NOTE: cmd:
+| NOTE: stdout:
+| NOTE:
+| NOTE: stderr:
+| NOTE:
+/home/poky/build/tmp/work/atom-poky-linux/glibc-2.12.1-r6/locale-tree//usr/share/i18n/locales/es_CR:56:
+LC_MONETARY: syntax error
+| LC_MONETARY: field `currency_symbol' not defined
+|
+| ERROR: Function 'localedef returned an error' failed
+NOTE: package glibc-2.12.1-r6: task do_package: Failed
+**********************************************************
 
+I'm attaching the recipec 'glibc_2.12.1.bb' as well as the
+'usr/share/i18n/locales/es_CR' for your reference.
+Can anyone help me out of this issue ????
 Thanks in advance.
+
+Regards
 Sonu Vishwakarma
 
---f46d04138ce1c547e804ba005c0d
+--f46d043892c5b4f8cc04ba132d74
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-<span class=3D"Apple-style-span" style><div>Hi ,</div></span><span class=3D=
-"Apple-style-span" style><div><span class=3D"Apple-style-span" style><br></=
-span></div>I am building poky working on bernard branch on Ubuntu 10.10 ,64=
- bit host.</span><div>
-<span class=3D"Apple-style-span" style>I get the error in do_compile in opk=
-g=A0package=A0something like this :=A0</span></div><div><span class=3D"Appl=
-e-style-span" style><div><div>| i586-poky-linux-libtool: link: warning: `/h=
-ome/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/li=
-b/<a href=3D"http://libgcrypt.la/" target=3D"_blank" style=3D"color:rgb(17,=
-85,204)">libgcrypt.la</a>&#39; seems to be moved</div>
-</div><div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test=
-/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http:/=
-/libtasn1.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libtasn1.la=
-</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libz.=
-la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libz.la</a>&#39; seem=
-s to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgc=
-rypt.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgcrypt.la</a>=
-&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libta=
-sn1.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libtasn1.la</a>&#=
-39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libz.=
-la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libz.la</a>&#39; seem=
-s to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgc=
-rypt.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgcrypt.la</a>=
-&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libas=
-suan.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libassuan.la</a>=
-&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| i586-poky-linux-libtool: link: warning: `/home/xbmc_final/test/poky_=
-xbmc_01Dec2011/build/tmp/sysroots/fishriver/usr/lib/<a href=3D"http://libgp=
-g-error.la/" target=3D"_blank" style=3D"color:rgb(17,85,204)">libgpg-error.=
-la</a>&#39; seems to be moved</div>
-<div>| Making all in src</div><div>| =A0 CC =A0 =A0opkg-cl.o</div><div>| =
-=A0 LINK =A0opkg-cl</div><div>| /home/xbmc_final/test/poky_xbmc_01Dec2011/b=
-uild/tmp/sysroots/fishriver/usr/lib/libldap.so: undefined reference to `sys=
-_errlist@GLIBC_2.12&#39;</div>
-<div>| /home/xbmc_final/test/poky_xbmc_01Dec2011/build/tmp/sysroots/fishriv=
-er/usr/lib/libldap.so: undefined reference to `sys_nerr@GLIBC_2.12&#39;</di=
-v><div>| collect2: ld returned 1 exit status</div><div>| make[1]: *** [opkg=
--cl] Error 1</div>
-<div>| make: *** [all-recursive] Error 1</div><div>| FATAL: oe_runmake fail=
-ed</div><div>| ERROR: Function &#39;do_compile&#39; failed (see /home/xbmc_=
-final/test/poky_xbmc_01Dec2011/build/tmp/work/atom-poky-linux/opkg-1_0.1.8+=
-svnr596-r1/temp/log.do_compile.13807 for further information)</div>
-<div>NOTE: package opkg-1_0.1.8+svnr596-r1: task do_compile: Failed</div><d=
-iv>ERROR: Task 2964 (/home/xbmc_final/test/poky_xbmc_01Dec2011/meta/recipes=
--devtools/opkg/<a href=3D"http://opkg_svn.bb/" target=3D"_blank" style=3D"c=
-olor:rgb(17,85,204)">opkg_svn.bb</a>, do_compile) failed with exit code &#3=
-9;1&#39;</div>
-<div><br></div><div>Currently i&#39;m having glibc-2.10 , Is it related to =
-glibc package version ?=A0</div><div>Can anyone help me out ??</div><div><b=
-r></div><div>Thanks in advance.</div></span><span class=3D"Apple-style-span=
-" style>Sonu Vishwakarma</span><span class=3D"Apple-style-span" style><div>
-<br></div></span></div>
+<span class=3D"Apple-style-span" style><span><div>Hi ,</div></span><span><d=
+iv><span><br></span></div>I am building poky working on bernard branch on U=
+buntu 10.10 ,64 bit host.</span></span><div><div><span class=3D"Apple-style=
+-span" style>I get the error in do_package in glibc-2.12 =A0something like =
+this :=A0</span></div>
+<div><span class=3D"Apple-style-span" style><br></span></div><div><span cla=
+ss=3D"Apple-style-span" style>*********************************************=
+***********</span></div><div><span class=3D"Apple-style-span" style>| NOTE:=
+ generating locale es_CR (UTF-8)<div>
+| NOTE: cmd:</div></span><span class=3D"Apple-style-span" style>| NOTE: std=
+out:</span><span class=3D"Apple-style-span" style><div><span><div>| NOTE:</=
+div><div>| NOTE: stderr:</div><div>| NOTE: /home/poky/build/tmp/work/atom-p=
+oky-linux/glibc-2.12.1-r6/locale-tree//usr/share/i18n/locales/es_CR:56: LC_=
+MONETARY: syntax error</div>
+<div>| LC_MONETARY: field `currency_symbol&#39; not defined</div><div>|=A0<=
+/div><div>| ERROR: Function &#39;localedef returned an error&#39; failed</d=
+iv><div>NOTE: package glibc-2.12.1-r6: task do_package: Failed</div><div>
+**********************************************************</div><div><br></=
+div><div>I&#39;m attaching the recipec &#39;<a href=3D"http://glibc_2.12.1.=
+bb">glibc_2.12.1.bb</a>&#39; as well as the &#39;usr/share/i18n/locales/es_=
+CR&#39; for your reference.</div>
+<div>Can anyone help me out of this issue ????=A0</div></span></div></span>=
+<span class=3D"Apple-style-span" style>Thanks in advance.</span></div><div>=
+<span class=3D"Apple-style-span" style><br></span></div><div><span class=3D=
+"Apple-style-span" style>Regards</span><span class=3D"Apple-style-span" sty=
+le><div>
+<span><div>Sonu Vishwakarma=A0</div></span></div></span></div></div>
 
---f46d04138ce1c547e804ba005c0d--
+--f46d043892c5b4f8cc04ba132d74--
+
+--f46d043892c5b4f8d004ba132d76
+Content-Type: application/octet-stream; name="glibc_2.12.1.bb"
+Content-Disposition: attachment; filename="glibc_2.12.1.bb"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_gz7w5lm70
+
+cmVxdWlyZSBnbGliYy5pbmMKCkFSTV9JTlNUUlVDVElPTl9TRVQgPSAiYXJtIgoKUEFDS0FHRVNf
+RFlOQU1JQyA9ICJsaWJjNioiClJQUk9WSURFU18ke1BOfS1kZXYgPSAibGliYzYtZGV2IHZpcnR1
+YWwtbGliYy1kZXYiCgpQUiA9ICJyNiIKCiMgdGhlIC1pc3lzdGVtIGluIGJpdGJha2UuY29uZiBz
+Y3Jld3MgdXAgZ2xpYmMgZG9fc3RhZ2UKQlVJTERfQ1BQRkxBR1MgPSAiLUkke1NUQUdJTkdfSU5D
+RElSX05BVElWRX0iClRBUkdFVF9DUFBGTEFHUyA9ICItSSR7U1RBR0lOR19ESVJfVEFSR0VUfSR7
+aW5jbHVkZWRpcn0iCgpHTElCQ19BRERPTlMgPz0gInBvcnRzLG5wdGwsbGliaWRuIgoKR0xJQkNf
+QlJPS0VOX0xPQ0FMRVMgPSAiIF9FUiBfRVQgc29fRVQgeW5fRVIgc2lkX0VUIHRyX1RSIG1uX01O
+IGdlel9FVCBnZXpfRVIgYm5fQkQgdGVfSU4iCgpGSUxFU1BBVEggPSAiJHtAYmFzZV9zZXRfZmls
+ZXNwYXRoKFsgJyR7RklMRV9ESVJOQU1FfS9nbGliYy0yLjEyLjEnLCAnJHtGSUxFX0RJUk5BTUV9
+L2dsaWJjLTIuNCcsICcke0ZJTEVfRElSTkFNRX0vZ2xpYmMnLCAnJHtGSUxFX0RJUk5BTUV9L2Zp
+bGVzJywgJyR7RklMRV9ESVJOQU1FfScgXSwgZCl9IgoKIwojIEZvciBub3csIHdlIHdpbGwgc2tp
+cCBidWlsZGluZyBvZiBhIGdjYyBwYWNrYWdlIGlmIGl0IGlzIGEgdWNsaWJjIG9uZQojIGFuZCBv
+dXIgYnVpbGQgaXMgbm90IGEgdWNsaWJjIG9uZSwgYW5kIHdlIHNraXAgYSBnbGliYyBvbmUgaWYg
+b3VyIGJ1aWxkCiMgaXMgYSB1Y2xpYmMgYnVpbGQuCiMKIyBTZWUgdGhlIG5vdGUgaW4gZ2NjL2dj
+Y18zLjQuMC5vZQojCgpweXRob24gX19hbm9ueW1vdXMgKCkgewogICAgaW1wb3J0IGJiLCByZQog
+ICAgdWNfb3MgPSAocmUubWF0Y2goJy4qdWNsaWJjJCcsIGJiLmRhdGEuZ2V0VmFyKCdUQVJHRVRf
+T1MnLCBkLCAxKSkgIT0gTm9uZSkKICAgIGlmIHVjX29zOgogICAgICAgIHJhaXNlIGJiLnBhcnNl
+LlNraXBQYWNrYWdlKCJpbmNvbXBhdGlibGUgd2l0aCB0YXJnZXQgJXMiICUKICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBiYi5kYXRhLmdldFZhcignVEFSR0VUX09TJywgZCwgMSkp
+Cn0KClJERVBFTkRTXyR7UE59LWRldiA9ICJsaW51eC1saWJjLWhlYWRlcnMtZGV2IgoKIwkgICBm
+aWxlOi8vbm9pbmZvLnBhdGNoO3BhdGNoPTEKIwkgICBmaWxlOi8vbGRjb25maWcucGF0Y2g7cGF0
+Y2g9MTtwbnVtPTAKIwkgICBmaWxlOi8vYXJtLW1hY2hpbmUtZ21vbi5wYXRjaDtwYXRjaD0xO3Bu
+dW09MAojCSAgIGZpbGU6Ly9hcm0taW9wZXJtLnBhdGNoO3BhdGNoPTE7cG51bT0wCiMJICAgZmls
+ZTovL2xkZC5wYXRjaDtwYXRjaD0xO3BudW09MApTUkNfVVJJID0gImZ0cDovL2Z0cC5nbnUub3Jn
+L3B1Yi9nbnUvZ2xpYmMvZ2xpYmMtMi4xMi4xLnRhci5iejIgXAogICAgICAgICAgIGZ0cDovL2Z0
+cC5nbnUub3JnL3B1Yi9nbnUvZ2xpYmMvZ2xpYmMtcG9ydHMtMi4xMi4xLnRhci5iejIgXAogICAg
+ICAgICAgIGZ0cDovL2Z0cC5nbnUub3JnL3B1Yi9nbnUvZ2xpYmMvZ2xpYmMtbGliaWRuLTIuMTAu
+MS50YXIuYnoyIFwKCSAgIGZpbGU6Ly9uc2NkLWluaXQucGF0Y2g7c3RyaXBsZXZlbD0wIFwKICAg
+ICAgICAgICBmaWxlOi8vYXJtLW1lbWNweS5wYXRjaCBcCiAgICAgICAgICAgZmlsZTovL2FybS1s
+b25nbG9uZy5wYXRjaCBcCiAgICAgICAgICAgZmlsZTovL2Zocy1saW51eC1wYXRocy5wYXRjaCBc
+CiAgICAgICAgICAgZmlsZTovL2RsLWNhY2hlLWxpYmNtcC5wYXRjaCBcCiAgICAgICAgICAgZmls
+ZTovL2xkc29jYWNoZS12YXJydW4ucGF0Y2ggXAogICAgICAgICAgIGZpbGU6Ly9nbGliYy1jaGVj
+a19wZi5wYXRjaDtzdHJpcGxldmVsPTAgXAogICAgICAgICAgIGZpbGU6Ly9sZGQtdW5iYXNoLnBh
+dGNoIFwKICAgICAgICAgICBmaWxlOi8vZ2xpYmMtYXJtLUlPLWFjcXVpcmUtbG9jay1maXguZGlm
+ZiBcCiAgICAgICAgICAgZmlsZTovL21pcHMtcmxkLW1hcC1jaGVjay5wYXRjaCBcCiAgICAgICAg
+ICAgZmlsZTovL2dlbmVyaWMtYml0c19zZWxlY3QuaCBcCiAgICAgICAgICAgZmlsZTovL2dlbmVy
+aWMtYml0c190eXBlcy5oIFwKICAgICAgICAgICBmaWxlOi8vZ2VuZXJpYy1iaXRzX3R5cGVzaXpl
+cy5oIFwKICAgICAgICAgICBmaWxlOi8vZ2VuZXJpYy1iaXRzX3RpbWUuaCBcCiAgICAgICAgICAg
+ZmlsZTovL2V0Yy9sZC5zby5jb25mIFwKICAgICAgICAgICBmaWxlOi8vZ2VuZXJhdGUtc3VwcG9y
+dGVkLm1rIFwKICAgICAgICAgICBmaWxlOi8vbWFyY2gtaTY4Ni5wYXRjaDtzdHJpcGxldmVsPTAg
+XAogICAgICAgICAgIGZpbGU6Ly9nbGliY19lc19DUi5wYXRjaCBcCiAgICAgICAgICAgZmlsZTov
+L3J1bGVzZml4LnBhdGNoICIKCgojCSAgICBmaWxlOi8vbnB0bC1jcm9zc2NvbXBpbGUucGF0Y2gg
+XCAKIwkgICAgZmlsZTovL2dsaWJjLTIuOS1lbmFibGUtYmludXRpbHMtMi4yLnBhdGNoIFwKIyAg
+ICAgICAgICAgZmlsZTovL2dsaWJjX2NfdHJhbnNsaXQucGF0Y2ggXAojICAgICAgICAgICBmaWxl
+Oi8vZ2xpYmNfdHJhbnNsaXRfbmV1dHJhbC5wYXRjaCBcCgpTUkNfVVJJW21kNXN1bV0gPSAiYmUw
+ZWE5ZTU4N2YwOGM4NzYwNGZlMTBhOTFmNzJhZmQiClNSQ19VUklbc2hhMjU2c3VtXSA9ICI3NTlm
+MTE1YzUyYmMxMmM1YmI0NTNhZjU1OWRjZDQ1NmQzMjEzODI1MGI3Y2M5NmU0NzgwNGUzZDBlYzk3
+NDA3IgoKCiMgQnVpbGQgZmFpbHMgb24gc2gzIGFuZCBzaDQgd2l0aG91dCBhZGRpdGlvbmFsIHBh
+dGNoZXMKU1JDX1VSSV9hcHBlbmRfc2gzID0gIiBmaWxlOi8vbm8tei1kZWZzLnBhdGNoIgpTUkNf
+VVJJX2FwcGVuZF9zaDQgPSAiIGZpbGU6Ly9uby16LWRlZnMucGF0Y2giCgojcG93ZXJwYyBwYXRj
+aGVzIHRvIGFkZCBzdXBwb3J0IGZvciBzb2Z0LWZsb2F0ClNSQ19VUklfYXBwZW5kX3Bvd2VycGM9
+ICIgZmlsZTovL3Bvd2VycGMtc3FydC1oYWNrLmRpZmYiCgpTID0gIiR7V09SS0RJUn0vZ2xpYmMt
+Mi4xMi4xIgpCID0gIiR7V09SS0RJUn0vYnVpbGQtJHtUQVJHRVRfU1lTfSIKCiMgV2UgbmVlZCB0
+aGlzIGZvciBuYXRpdmVzZGsKZXhwb3J0IGxpYmNfY3Zfc2xpYmRpciA9ICIke2Jhc2VfbGliZGly
+fSIKCkVYVFJBX09FQ09ORiA9ICItLWVuYWJsZS1rZXJuZWw9JHtPTERFU1RfS0VSTkVMfSBcCiAg
+ICAgICAgICAgICAgICAtLXdpdGhvdXQtY3ZzIC0tZGlzYWJsZS1wcm9maWxlIC0tZGlzYWJsZS1k
+ZWJ1ZyAtLXdpdGhvdXQtZ2QgXAogICAgICAgICAgICAgICAgLS1lbmFibGUtY2xvY2FsZT1nbnUg
+XAogICAgICAgICAgICAgICAgLS1lbmFibGUtYWRkLW9ucz1ucHRsIFwKICAgICAgICAgICAgICAg
+IC0td2l0aC1iaW51dGlscz0ke1NUQUdJTkdfQklORElSfSBcICAgIAogICAgICAgICAgICAgICAg
+LS1lbmFibGUtYWRkLW9ucz0ke0dMSUJDX0FERE9OU30gXAogICAgICAgICAgICAgICAgLS13aXRo
+LWhlYWRlcnM9JHtTVEFHSU5HX0lOQ0RJUn0gXAogICAgICAgICAgICAgICAgLS13aXRob3V0LXNl
+bGludXggXAogICAgICAgICAgICAgICAgJHtHTElCQ19FWFRSQV9PRUNPTkZ9IgoKCkVYVFJBX09F
+Q09ORiArPSAiJHtAZ2V0X2xpYmNfZnB1X3NldHRpbmcoYmIsIGQpfSIKCmRvX211bmdlKCkgewoJ
+IyBJbnRlZ3JhdGUgcG9ydHMgYW5kIGxpYmlkbiBpbnRvIHRyZWUKCgltdiAke1dPUktESVJ9L2ds
+aWJjLXBvcnRzLTIuMTIuMSAke1N9L3BvcnRzCgltdiAke1dPUktESVJ9L2dsaWJjLWxpYmlkbi0y
+LjEwLjEgJHtTfS9saWJpZG4KCgkjIFBvcnRzIGlzbid0IHJlYWxseSB3b3JraW5nLi4uIEZpeCBp
+dAoJIyBTb21lIG9mIHRoaXMgaXMgcmF0aGVyIGRpcnR5LCBidXQgaXQgc2VlbXMgdG8gYmUgdGhl
+IG9ubHkKCSMgcXVpY2sgd2F5IHRvIGdldCB0aGlzIGNydWZ0IHRvIGNvbXBpbGUKCXJtIC1yZiAk
+e1N9L3BvcnRzL3N5c2RlcHMvdW5peC9zeXN2L2xpbnV4L2FybS9saW51eHRocmVhZHMKCWxuIC1z
+IG5wdGwgJHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0vbGludXh0aHJlYWRz
+CgljcCAke1N9L25wdGwvc3lzZGVwcy9wdGhyZWFkL2JpdHMvc2lndGhyZWFkLmggJHtTfS9wb3J0
+cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0vYml0cy8KCWNwICR7U30vc3lzZGVwcy91bml4
+L3N5c3YvbGludXgvaTM4Ni9iaXRzL3djaGFyLmggJHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lz
+di9saW51eC9hcm0vYml0cy8KCWNwICR7U30vc3lzZGVwcy93b3Jkc2l6ZS0zMi9iaXRzL3dvcmRz
+aXplLmggJHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0vYml0cy8KCWNwICR7
+V09SS0RJUn0vZ2VuZXJpYy1iaXRzX3NlbGVjdC5oICR7U30vcG9ydHMvc3lzZGVwcy91bml4L3N5
+c3YvbGludXgvYXJtL2JpdHMvc2VsZWN0LmgKCWNwICR7V09SS0RJUn0vZ2VuZXJpYy1iaXRzX3R5
+cGVzLmggJHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0vYml0cy90eXBlcy5o
+CgljcCAke1dPUktESVJ9L2dlbmVyaWMtYml0c190eXBlc2l6ZXMuaCAke1N9L3BvcnRzL3N5c2Rl
+cHMvdW5peC9zeXN2L2xpbnV4L2FybS9iaXRzL3R5cGVzaXplcy5oCgljcCAke1dPUktESVJ9L2dl
+bmVyaWMtYml0c190aW1lLmggJHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0v
+Yml0cy90aW1lLmgKCSMgQ29weSBpbiBnZW5lcmljIHN0dWZmIGZvciBub3QgeWV0IGltcGxlbWVu
+dGVkIGhlYWRlcnMKCWZvciBpIGluICR7U30vYml0cy8qLmg7IGRvCgkJRj1gYmFzZW5hbWUgJGlg
+CgkJWyAiJEYiID0gImxvY2FsX2xpbS5oIiBdICYmIGNvbnRpbnVlCgkJWyAiJEYiID0gImVycm5v
+LmgiIF0gJiYgY29udGludWUKCQl0ZXN0IC1lICR7U30vcG9ydHMvc3lzZGVwcy91bml4L3N5c3Yv
+bGludXgvYXJtL2JpdHMvJEYgfHwgdGVzdCAtZSAke1N9L3BvcnRzL3N5c2RlcHMvYXJtL2JpdHMv
+JEYgfHwgdGVzdCAtZSAke1N9L3N5c2RlcHMvdW5peC9zeXN2L2xpbnV4L2JpdHMvJEYgfHwgdGVz
+dCAtZSAke1N9L3N5c2RlcHMvaWVlZTc1NC9iaXRzLyRGIHx8IGNwICRpICR7U30vcG9ydHMvc3lz
+ZGVwcy91bml4L3N5c3YvbGludXgvYXJtL2JpdHMvCglkb25lCgkjIFRoaXMgaXMgaGFybWZ1bDsg
+d2UgbmVlZCB0byBnZXQgdGhlIG9uZSBmcm9tIG5wdGwvc3lzZGVwcy9wdGhyZWFkcwoJcm0gLWYg
+JHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0vYml0cy9saWJjLWxvY2suaAoJ
+IyBPYnNvbGV0ZWQgYnkgc3lzZGVwcy9hcm0ve2ZwdSxlYWJpfS9iaXRzL2ZlbnYuaAoJcm0gLWYg
+JHtTfS9wb3J0cy9zeXNkZXBzL3VuaXgvc3lzdi9saW51eC9hcm0vYml0cy9mZW52LmgKCSMgT2Jz
+b2xldGVkIGJ5IHN5c2RlcHMvZ251L2JpdHMvdXRtcC5oCglybSAtZiAke1N9L3BvcnRzL3N5c2Rl
+cHMvdW5peC9zeXN2L2xpbnV4L2FybS9iaXRzL3V0bXAuaAp9CgphZGR0YXNrIG11bmdlIGJlZm9y
+ZSBkb19wYXRjaCBhZnRlciBkb191bnBhY2sKCgpkb19jb25maWd1cmUgKCkgewojIC92YXIvZGIg
+d2FzIG5vdCBpbmNsdWRlZCB0byBGSFMKCXNlZCAtaSBzOi92YXIvZGIvbnNjZDovdmFyL3J1bi9u
+c2NkOiAke1N9L25zY2QvbnNjZC5oCiMgb3ZlcnJpZGUgdGhpcyBmdW5jdGlvbiB0byBhdm9pZCB0
+aGUgYXV0b2NvbmYvYXV0b21ha2UvYWNsb2NhbC9hdXRvaGVhZGVyCiMgY2FsbHMgZm9yIG5vdwoj
+IGRvbid0IHBhc3MgQ1BQRkxBR1MgaW50byBjb25maWd1cmUsIHNpbmNlIGl0IHVwc2V0cyB0aGUg
+a2VybmVsLWhlYWRlcnMKIyB2ZXJzaW9uIGNoZWNrIGFuZCBkb2Vzbid0IHJlYWxseSBoZWxwIHdp
+dGggYW55dGhpbmcKCWlmIFsgLXogImB3aGljaCBycGNnZW5gIiBdOyB0aGVuCgkJZWNobyAicnBj
+Z2VuIG5vdCBmb3VuZC4gIEluc3RhbGwgZ2xpYmMtZGV2ZWwuIgoJCWV4aXQgMQoJZmkKCShjZCAk
+e1N9ICYmIGdudS1jb25maWdpemUpIHx8IGRpZSAiZmFpbHVyZSBpbiBydW5uaW5nIGdudS1jb25m
+aWdpemUiCglDUFBGTEFHUz0iIiBvZV9ydW5jb25mCn0KCnJwY3N2YyA9ICJib290cGFyYW1fcHJv
+dC54IG5sbV9wcm90LnggcnN0YXQueCBcCiAgICAgICAgICB5cHBhc3N3ZC54IGtsbV9wcm90Lngg
+cmV4Lnggc21faW50ZXIueCBtb3VudC54IFwKICAgICAgICAgIHJ1c2Vycy54IHNwcmF5LnggbmZz
+X3Byb3QueCBycXVvdGEueCBrZXlfcHJvdC54IgoKZG9fY29tcGlsZSAoKSB7CgkjIC1XbCwtcnBh
+dGgtbGluayA8c3RhZ2luZz4vbGliIGluIExERkxBR1MgY2FuIGNhdXNlIGJyZWFrYWdlIGlmIGFu
+b3RoZXIgZ2xpYmMgaXMgaW4gc3RhZ2luZwoJdW5zZXQgTERGTEFHUwoJYmFzZV9kb19jb21waWxl
+CgkoCgkJY2QgJHtTfS9zdW5ycGMvcnBjc3ZjCgkJZm9yIHIgaW4gJHtycGNzdmN9OyBkbwoJCQlo
+PWBlY2hvICRyfHNlZCAtZSdzLFwueCQsLmgsJ2AKCQkJcnBjZ2VuIC1oICRyIC1vICRoIHx8IG9l
+d2FybiAidW5hYmxlIHRvIGdlbmVyYXRlIGhlYWRlciBmb3IgJHIiCgkJZG9uZQoJKQp9CgpyZXF1
+aXJlIGdsaWJjLXN0YWdlLmluYwoKcmVxdWlyZSBnbGliYy1wYWNrYWdlLmluYwoKQkJDTEFTU0VY
+VEVORCA9ICJuYXRpdmVzZGsiCg==
+
+--f46d043892c5b4f8d004ba132d76
+Content-Type: application/octet-stream; name=es_CR
+Content-Disposition: attachment; filename=es_CR
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_gz7w5s1y1
+
+Y29tbWVudF9jaGFyICUKZXNjYXBlX2NoYXIgIC8KJQolIFNwYW5pc2ggbGFuZ3VhZ2UgbG9jYWxl
+IGZvciBDb3N0YSBSaWNhCiUgTGFuZ3VhZ2U6IGVzCiUgVGVycml0b3J5OiBDUgolIERhdGU6IDIw
+MDAtMDgtMjEKJSBBcHBsaWNhdGlvbjogZ2VuZXJhbAolIFVzZXJzOiBnZW5lcmFsCiUgQ2hhcnNl
+dDogSVNPLTg4NTktMQolIERpc3RyaWJ1dGlvbiBhbmQgdXNlIGlzIGZyZWUsIGFsc28KJSBmb3Ig
+Y29tbWVyY2lhbCBwdXJwb3Nlcy4KCkxDX0lERU5USUZJQ0FUSU9OCnRpdGxlICAgICAgIlNwYW5p
+c2ggbG9jYWxlIGZvciBDb3N0YSBSaWNhIgpzb3VyY2UgICAgICJGcmVlIFNvZnR3YXJlIEZvdW5k
+YXRpb24sIEluYy4iCmFkZHJlc3MgICAgIjU5IFRlbXBsZSBQbGFjZSAtIFN1aXRlIDMzMCwgQm9z
+dG9uLCBNQSAwMjExMS0xMzA3LCBVU0EiCmNvbnRhY3QgICAgIiIKZW1haWwgICAgICAiYnVnLWds
+aWJjLWxvY2FsZXNAZ251Lm9yZyIKdGVsICAgICAgICAiIgpmYXggICAgICAgICIiCmxhbmd1YWdl
+ICAgIlNwYW5pc2giCnRlcnJpdG9yeSAgIkNvc3RhIFJpY2EiCnJldmlzaW9uICAgIjEuMSIKZGF0
+ZSAgICAgICAiMjAwOS0xMi0yMyIKJQpjYXRlZ29yeSAgImVzX0NSOjIwMDAiO0xDX0lERU5USUZJ
+Q0FUSU9OCmNhdGVnb3J5ICAiZXNfQ1I6MjAwMCI7TENfQ1RZUEUKY2F0ZWdvcnkgICJlc19DUjoy
+MDAwIjtMQ19DT0xMQVRFCmNhdGVnb3J5ICAiZXNfQ1I6MjAwMCI7TENfVElNRQpjYXRlZ29yeSAg
+ImVzX0NSOjIwMDAiO0xDX05VTUVSSUMKY2F0ZWdvcnkgICJlc19DUjoyMDAwIjtMQ19NT05FVEFS
+WQpjYXRlZ29yeSAgImVzX0NSOjIwMDAiO0xDX01FU1NBR0VTCmNhdGVnb3J5ICAiZXNfQ1I6MjAw
+MCI7TENfUEFQRVIKY2F0ZWdvcnkgICJlc19DUjoyMDAwIjtMQ19OQU1FCmNhdGVnb3J5ICAiZXNf
+Q1I6MjAwMCI7TENfQUREUkVTUwpjYXRlZ29yeSAgImVzX0NSOjIwMDAiO0xDX1RFTEVQSE9ORQoK
+RU5EIExDX0lERU5USUZJQ0FUSU9OCgpMQ19DT0xMQVRFCmNvcHkgImVzX0VTIgpFTkQgTENfQ09M
+TEFURQoKTENfQ1RZUEUKY29weSAiZXNfRVMiCkVORCBMQ19DVFlQRQoKTENfTUVTU0FHRVMKeWVz
+ZXhwciAiPFUwMDVFPjxVMDA1Qj48VTAwNzM+PFUwMDUzPjxVMDA3OT48VTAwNTk+PFUwMDVEPjxV
+MDAyRT48VTAwMkE+Igpub2V4cHIgICI8VTAwNUU+PFUwMDVCPjxVMDA2RT48VTAwNEU+PFUwMDVE
+PjxVMDAyRT48VTAwMkE+IgpFTkQgTENfTUVTU0FHRVMKCkxDX01PTkVUQVJZCmludF9jdXJyX3N5
+bWJvbCAgICAgICI8VTAwNDM+PFUwMDUyPjxVMDA0Mz48VTAwMjA+IgpjdXJyZW5jeV9zeW1ib2wg
+ICAgICAiPFUyMEExPiIKJSBEZWNyZXRvIEVqZWN1dGl2byAyOTY2MAptb25fZGVjaW1hbF9wb2lu
+dCAgICAiPFUwMDJDPiIKbW9uX3Rob3VzYW5kc19zZXAgICAgIjxVMDAyMD4iCm1vbl9ncm91cGlu
+ZyAgICAgICAgIDM7Mwpwb3NpdGl2ZV9zaWduICAgICAgICAiIgpuZWdhdGl2ZV9zaWduICAgICAg
+ICAiPFUwMDJEPiIKaW50X2ZyYWNfZGlnaXRzICAgICAgMgpmcmFjX2RpZ2l0cyAgICAgICAgICAy
+CnBfY3NfcHJlY2VkZXMgICAgICAgIDEKcF9zZXBfYnlfc3BhY2UgICAgICAgMQpuX2NzX3ByZWNl
+ZGVzICAgICAgICAxCm5fc2VwX2J5X3NwYWNlICAgICAgIDEKcF9zaWduX3Bvc24gICAgICAgICAg
+MQpuX3NpZ25fcG9zbiAgICAgICAgICAxCkVORCBMQ19NT05FVEFSWQoKTENfTlVNRVJJQwolIERl
+Y3JldG8gRWplY3V0aXZvIDI5NjYwCmRlY2ltYWxfcG9pbnQgICAgICAgICI8VTAwMkM+Igp0aG91
+c2FuZHNfc2VwICAgICAgICAiPFUwMDIwPiIKZ3JvdXBpbmcgICAgICAgICAgICAgMzszCkVORCBM
+Q19OVU1FUklDCgpMQ19USU1FCmFiZGF5ICAgIjxVMDA2ND48VTAwNkY+PFUwMDZEPiI7IjxVMDA2
+Qz48VTAwNzU+PFUwMDZFPiI7LwogICAgICAgICI8VTAwNkQ+PFUwMDYxPjxVMDA3Mj4iOyI8VTAw
+NkQ+PFUwMDY5PjxVMDBFOT4iOy8KICAgICAgICAiPFUwMDZBPjxVMDA3NT48VTAwNjU+IjsiPFUw
+MDc2PjxVMDA2OT48VTAwNjU+IjsvCiAgICAgICAgIjxVMDA3Mz48VTAwRTE+PFUwMDYyPiIKZGF5
+ICAgICAiPFUwMDY0PjxVMDA2Rj48VTAwNkQ+PFUwMDY5PjxVMDA2RT48VTAwNjc+PFUwMDZGPiI7
+LwogICAgICAgICI8VTAwNkM+PFUwMDc1PjxVMDA2RT48VTAwNjU+PFUwMDczPiI7LwogICAgICAg
+ICI8VTAwNkQ+PFUwMDYxPjxVMDA3Mj48VTAwNzQ+PFUwMDY1PjxVMDA3Mz4iOy8KICAgICAgICAi
+PFUwMDZEPjxVMDA2OT48VTAwRTk+PFUwMDcyPjxVMDA2Mz48VTAwNkY+PFUwMDZDPjxVMDA2NT48
+VTAwNzM+IjsvCiAgICAgICAgIjxVMDA2QT48VTAwNzU+PFUwMDY1PjxVMDA3Nj48VTAwNjU+PFUw
+MDczPiI7LwogICAgICAgICI8VTAwNzY+PFUwMDY5PjxVMDA2NT48VTAwNzI+PFUwMDZFPjxVMDA2
+NT48VTAwNzM+IjsvCiAgICAgICAgIjxVMDA3Mz48VTAwRTE+PFUwMDYyPjxVMDA2MT48VTAwNjQ+
+PFUwMDZGPiIKYWJtb24gICAiPFUwMDY1PjxVMDA2RT48VTAwNjU+IjsiPFUwMDY2PjxVMDA2NT48
+VTAwNjI+IjsvCiAgICAgICAgIjxVMDA2RD48VTAwNjE+PFUwMDcyPiI7IjxVMDA2MT48VTAwNjI+
+PFUwMDcyPiI7LwogICAgICAgICI8VTAwNkQ+PFUwMDYxPjxVMDA3OT4iOyI8VTAwNkE+PFUwMDc1
+PjxVMDA2RT4iOy8KICAgICAgICAiPFUwMDZBPjxVMDA3NT48VTAwNkM+IjsiPFUwMDYxPjxVMDA2
+Nz48VTAwNkY+IjsvCiAgICAgICAgIjxVMDA3Mz48VTAwNjU+PFUwMDcwPiI7IjxVMDA2Rj48VTAw
+NjM+PFUwMDc0PiI7LwogICAgICAgICI8VTAwNkU+PFUwMDZGPjxVMDA3Nj4iOyI8VTAwNjQ+PFUw
+MDY5PjxVMDA2Mz4iCm1vbiAgICAgIjxVMDA2NT48VTAwNkU+PFUwMDY1PjxVMDA3Mj48VTAwNkY+
+IjsvCiAgICAgICAgIjxVMDA2Nj48VTAwNjU+PFUwMDYyPjxVMDA3Mj48VTAwNjU+PFUwMDcyPjxV
+MDA2Rj4iOy8KICAgICAgICAiPFUwMDZEPjxVMDA2MT48VTAwNzI+PFUwMDdBPjxVMDA2Rj4iOy8K
+ICAgICAgICAiPFUwMDYxPjxVMDA2Mj48VTAwNzI+PFUwMDY5PjxVMDA2Qz4iOy8KICAgICAgICAi
+PFUwMDZEPjxVMDA2MT48VTAwNzk+PFUwMDZGPiI7LwogICAgICAgICI8VTAwNkE+PFUwMDc1PjxV
+MDA2RT48VTAwNjk+PFUwMDZGPiI7LwogICAgICAgICI8VTAwNkE+PFUwMDc1PjxVMDA2Qz48VTAw
+Njk+PFUwMDZGPiI7LwogICAgICAgICI8VTAwNjE+PFUwMDY3PjxVMDA2Rj48VTAwNzM+PFUwMDc0
+PjxVMDA2Rj4iOy8KICAgICAgICAiPFUwMDczPjxVMDA2NT48VTAwNzA+PFUwMDc0PjxVMDA2OT48
+VTAwNjU+PFUwMDZEPjxVMDA2Mj48VTAwNzI+PFUwMDY1PiI7LwogICAgICAgICI8VTAwNkY+PFUw
+MDYzPjxVMDA3ND48VTAwNzU+PFUwMDYyPjxVMDA3Mj48VTAwNjU+IjsvCiAgICAgICAgIjxVMDA2
+RT48VTAwNkY+PFUwMDc2PjxVMDA2OT48VTAwNjU+PFUwMDZEPjxVMDA2Mj48VTAwNzI+PFUwMDY1
+PiI7LwogICAgICAgICI8VTAwNjQ+PFUwMDY5PjxVMDA2Mz48VTAwNjk+PFUwMDY1PjxVMDA2RD48
+VTAwNjI+PFUwMDcyPjxVMDA2NT4iCmRfdF9mbXQgIjxVMDAyNT48VTAwNjE+PFUwMDIwPjxVMDAy
+NT48VTAwNjQ+PFUwMDIwPjxVMDAyNT48VTAwNjI+PFUwMDIwPjxVMDAyNT48VTAwNTk+PFUwMDIw
+PjxVMDAyNT48VTAwNTQ+PFUwMDIwPjxVMDAyNT48VTAwNUE+IgpkX2ZtdCAgICI8VTAwMjU+PFUw
+MDY0PjxVMDAyRj48VTAwMjU+PFUwMDZEPjxVMDAyRj48VTAwMjU+PFUwMDU5PiIKdF9mbXQgICAi
+PFUwMDI1PjxVMDA1ND4iCmFtX3BtICAgIjxVMDA2MT48VTAwMkU+PFUwMDZEPjxVMDAyRT4iOyI8
+VTAwNzA+PFUwMDJFPjxVMDA2RD48VTAwMkU+Igp0X2ZtdF9hbXBtICI8VTAwMjU+PFUwMDQ5PjxV
+MDAzQT48VTAwMjU+PFUwMDREPjxVMDAzQT48VTAwMjU+PFUwMDUzPjxVMDAyMD48VTAwMjU+PFUw
+MDcwPiIKZGF0ZV9mbXQJIjxVMDAyNT48VTAwNjE+PFUwMDIwPjxVMDAyNT48VTAwNjU+PFUwMDIw
+PjxVMDAyNT48VTAwNjI+Lwo8VTAwMjA+PFUwMDI1PjxVMDA0OD48VTAwM0E+PFUwMDI1PjxVMDA0
+RD48VTAwM0E+PFUwMDI1PjxVMDA1Mz48VTAwMjA+Lwo8VTAwMjU+PFUwMDVBPjxVMDAyMD48VTAw
+MjU+PFUwMDU5PiIKZmlyc3Rfd2Vla2RheSAyCmZpcnN0X3dvcmtkYXkgMgpFTkQgTENfVElNRQoK
+TENfUEFQRVIKaGVpZ2h0ICAgMjc5CndpZHRoICAgIDIxNgpFTkQgTENfUEFQRVIKCkxDX1RFTEVQ
+SE9ORQp0ZWxfaW50X2ZtdCAiPFUwMDJCPjxVMDAyNT48VTAwNjM+PFUwMDIwPjxVMDAyNT48VTAw
+NjE+PFUwMDIwPi8KPFUwMDI1PjxVMDA2Qz4iCnRlbF9kb21fZm10ICI8VTAwMjU+PFUwMDZDPiIK
+aW50X3ByZWZpeCAgICAgIjxVMDAzNT48VTAwMzA+PFUwMDM2PiIKaW50X3NlbGVjdCAgICAgIjxV
+MDAzMD48VTAwMzA+IgpFTkQgTENfVEVMRVBIT05FCgpMQ19NRUFTVVJFTUVOVAptZWFzdXJlbWVu
+dCAgICAxCkVORCBMQ19NRUFTVVJFTUVOVAoKTENfTkFNRQpuYW1lX2ZtdCAgICAiPFUwMDI1PjxV
+MDA2ND48VTAwMjU+PFUwMDc0PjxVMDAyNT48VTAwNjc+PFUwMDI1PjxVMDA3ND4vCjxVMDAyNT48
+VTAwNkQ+PFUwMDI1PjxVMDA3ND48VTAwMjU+PFUwMDY2PiIKbmFtZV9nZW4gICAgIjxVMDA1Mz48
+VTAwNzI+PFUwMDJFPjxVMDAyRj48VTAwNTM+PFUwMDcyPjxVMDA2MT48VTAwMkU+IgpuYW1lX21p
+c3MgICAiPFUwMDUzPjxVMDA3Mj48VTAwNzQ+PFUwMDYxPjxVMDAyRT4iCm5hbWVfbXIgICAgICI8
+VTAwNTM+PFUwMDcyPjxVMDAyRT4iCm5hbWVfbXJzICAgICI8VTAwNTM+PFUwMDcyPjxVMDA2MT48
+VTAwMkU+IgpuYW1lX21zICAgICAiPFUwMDUzPjxVMDA3Mj48VTAwNjE+PFUwMDJFPiIKRU5EIExD
+X05BTUUKCkxDX0FERFJFU1MKcG9zdGFsX2ZtdCAgICAiPFUwMDI1PjxVMDA2Nj48VTAwMjU+PFUw
+MDRFPjxVMDAyNT48VTAwNjE+PFUwMDI1PjxVMDA0RT4vCjxVMDAyNT48VTAwNjQ+PFUwMDI1PjxV
+MDA0RT48VTAwMjU+PFUwMDYyPjxVMDAyNT48VTAwNEU+PFUwMDI1PjxVMDA3Mz4vCjxVMDAyMD48
+VTAwMjU+PFUwMDY4PjxVMDAyMD48VTAwMjU+PFUwMDY1PjxVMDAyMD48VTAwMjU+PFUwMDcyPjxV
+MDAyNT4vCjxVMDA0RT48VTAwMjU+PFUwMDdBPjxVMDAyMD48VTAwMjU+PFUwMDU0PjxVMDAyNT4v
+CjxVMDA0RT48VTAwMjU+PFUwMDYzPjxVMDAyNT48VTAwNEU+Igpjb3VudHJ5X25hbWUgICI8VTAw
+NDM+PFUwMDZGPjxVMDA3Mz48VTAwNzQ+PFUwMDYxPjxVMDAyMD48VTAwNTI+PFUwMDY5PjxVMDA2
+Mz48VTAwNjE+Igpjb3VudHJ5X3Bvc3QgICI8VTAwNDM+PFUwMDUyPiIKY291bnRyeV9jYXIgICAi
+PFUwMDQzPjxVMDA1Mj4iCmNvdW50cnlfaXNibiAgIjk5MzAsOTk3Nyw5OTY4IgpsYW5nX25hbWUg
+ICAgICI8VTAwNDU+PFUwMDczPjxVMDA3MD48VTAwNjE+PFUwMEYxPjxVMDA2Rj48VTAwNkM+Igps
+YW5nX2FiICAgICAgICI8VTAwNjU+PFUwMDczPiIKbGFuZ190ZXJtICAgICAiPFUwMDczPjxVMDA3
+MD48VTAwNjE+Igpjb3VudHJ5X2FiMiAgICI8VTAwNDM+PFUwMDUyPiIKY291bnRyeV9hYjMgICAi
+PFUwMDQzPjxVMDA1Mj48VTAwNDk+Igpjb3VudHJ5X251bSAgIDE4OApFTkQgTENfQUREUkVTUwo=
+
+--f46d043892c5b4f8d004ba132d76--
