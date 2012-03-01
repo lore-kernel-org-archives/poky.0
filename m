@@ -1,31 +1,23 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F89DE013CC
-	for <poky@yoctoproject.org>; Wed, 29 Feb 2012 03:08:19 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q1TB8H8c029337;
-	Wed, 29 Feb 2012 11:08:17 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 28765-04; Wed, 29 Feb 2012 11:08:13 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q1TB88i7029329
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Wed, 29 Feb 2012 11:08:09 GMT
-Message-ID: <1330513691.9185.154.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: sonu vishwakarma <vishwasonu2000@gmail.com>
-Date: Wed, 29 Feb 2012 11:08:11 +0000
-In-Reply-To: <CABRtByOL_9OcbVRfu+pMpjYtjLj4M1hBUUWt-WC6RTb9o6yxiw@mail.gmail.com>
-References: <CABRtByOfAeCkrnVJ8Y40HsrjXRaLjmOARb-hj4_B87EoeZ6XDQ@mail.gmail.com>
-	<CABRtByOL_9OcbVRfu+pMpjYtjLj4M1hBUUWt-WC6RTb9o6yxiw@mail.gmail.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F74FE013E8
+	for <poky@yoctoproject.org>; Wed, 29 Feb 2012 22:06:21 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q2166KrO016197
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 29 Feb 2012 22:06:20 -0800 (PST)
+Received: from localhost.localdomain (128.224.162.225) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Wed, 29 Feb 2012 22:06:20 -0800
+From: Kang Kai <kai.kang@windriver.com>
+To: <sgw@linux.intel.com>
+Date: Thu, 1 Mar 2012 14:06:05 +0800
+Message-ID: <cover.1330581369.git.kai.kang@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
+MIME-Version: 1.0
+X-Originating-IP: [128.224.162.225]
 Cc: poky@yoctoproject.org
-Subject: Re: glibc-2.12.1-r6: task do_package: Failed
+Subject: [PATCH 0/1] V3: Yocto 1656: Recipe creation/import script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,38 +29,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Feb 2012 11:08:19 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 01 Mar 2012 06:06:21 -0000
+Content-Type: text/plain
 
-On Wed, 2012-02-29 at 12:55 +0530, sonu vishwakarma wrote:
-> Hi,
-> The error mentioned was generated on commenting the line , 
-> #currency_symbol      "<U20A1>" in file es_CR .
-> But the actual error was something like this :
-> ************************
-> | NOTE: stdout:
-> | NOTE:
-> | NOTE: stderr:
-> |
-> NOTE: /home/poky_gigabyte_09Nov_xbmc/build/tmp/work/atom-poky-linux/glibc-2.12.1-r6/locale-tree//usr/share/i18n/locales/es_CR:56: LC_MONETARY: unknown character in field `currency_symbol'
-> | 
-> | ERROR: Function 'localedef returned an error' failed
-> NOTE: package glibc-2.12.1-r6: task do_package: Failed
-> ************************
-> 
+Hi Saul,
 
-Bernard shipped with glibc 2.10, not 2.12. I'd imagine the easiest way
-to work around this is to blacklist the locale. You can see the locale
-blacklist in the glibc recipe:
+This is version 3 of create-recipe. According to Joshua's review, I update the license
+and add the original autospectacle's description and link.
 
-GLIBC_BROKEN_LOCALES = " _ER _ET so_ET yn_ER sid_ET tr_TR mn_MN gez_ET gez_ER bn_BD te_IN"
+Regards,
 
-so try adding es_CR to the list.
+The following changes since commit d86e3082e695cde555df276a2436873fa5381130:
 
-Cheers,
+  licenses.conf: fix quotting of SRC_DISTRIBUTE_LICENSES (2012-02-28 17:51:52 +0000)
 
-Richard
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib kangkai/distro
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
 
+Kang Kai (1):
+  create-recipe: create a recipe from source URI
+
+ scripts/create-recipe |  785 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 785 insertions(+), 0 deletions(-)
+ create mode 100755 scripts/create-recipe
+
+-- 
+1.7.5.4
 
 
