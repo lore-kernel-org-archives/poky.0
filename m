@@ -1,25 +1,30 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7CD95E0132F
-	for <poky@lists.pokylinux.org>; Tue,  6 Mar 2012 05:52:44 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 24E1BF81274; Tue,  6 Mar 2012 06:52:44 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 9303DF81208;
-	Tue,  6 Mar 2012 06:52:43 -0700 (MST)
-Message-ID: <4F5616AB.6000603@mlbassoc.com>
-Date: Tue, 06 Mar 2012 06:52:43 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
-MIME-Version: 1.0
-To: Poky <poky@lists.pokylinux.org>
-Subject: Unable to build
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3B5B3E0132F
+	for <poky@lists.pokylinux.org>; Tue,  6 Mar 2012 06:26:40 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q26EQdQN016104;
+	Tue, 6 Mar 2012 14:26:39 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 15207-06; Tue,  6 Mar 2012 14:26:34 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q26EQRq4016097
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 6 Mar 2012 14:26:30 GMT
+Message-ID: <1331043985.25887.8.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 06 Mar 2012 06:26:25 -0800
+In-Reply-To: <4F5616AB.6000603@mlbassoc.com>
+References: <4F5616AB.6000603@mlbassoc.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Poky <poky@lists.pokylinux.org>
+Subject: Re: Unable to build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,30 +36,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Mar 2012 13:52:44 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 06 Mar 2012 14:26:40 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-After a recent update, I'm now getting this error in a previously
-working setup.
+On Tue, 2012-03-06 at 06:52 -0700, Gary Thomas wrote:
+> After a recent update, I'm now getting this error in a previously
+> working setup.
+> 
+> ERROR:  OE-core's config sanity checker detected a potential misconfiguration.
+>      Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
+>      Following is the list of potential problems / advisories:
+> 
+>      Your configuration is using stamp files including the sstate hash but your build directory was built with stamp files that do not include this.
+> To continue, either rebuild or switch back to the OEBasic signature handler with BB_SIGNATURE_HANDLER = 'OEBasic'.
+> 
+> I'm using my own distro.conf (not poky.conf), and I'm not setting
+> BB_SIGNATURE_HANDLER anywhere, so I think it should already be
+> set to OEBasic.  I even tried to put that line (cut & pasted
+> from the error message) in local.conf - no change.
+> 
+> How can I get past this, short of a complete rebuild?
 
-ERROR:  OE-core's config sanity checker detected a potential misconfiguration.
-     Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
-     Following is the list of potential problems / advisories:
+You've somehow merged a change like:
 
-     Your configuration is using stamp files including the sstate hash but your build directory was built with stamp files that do not include this.
-To continue, either rebuild or switch back to the OEBasic signature handler with BB_SIGNATURE_HANDLER = 'OEBasic'.
+http://git.yoctoproject.org/cgit.cgi/poky/commit/meta-yocto?id=ea2c8defd570bc2c4d29c6b0bd9fd84865d4e144
 
-I'm using my own distro.conf (not poky.conf), and I'm not setting
-BB_SIGNATURE_HANDLER anywhere, so I think it should already be
-set to OEBasic.  I even tried to put that line (cut & pasted
-from the error message) in local.conf - no change.
+which sets OELAYOUT_ABI = "8" and triggers the transition message about
+OEBasicHash. Set it to "7" and it won't show that message.
 
-How can I get past this, short of a complete rebuild?
+Cheers,
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Richard
+
+
 
