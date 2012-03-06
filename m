@@ -1,21 +1,21 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BDF34E0132F
-	for <poky@yoctoproject.org>; Mon,  5 Mar 2012 21:44:17 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EBA4CE0044D
+	for <poky@yoctoproject.org>; Mon,  5 Mar 2012 22:37:22 -0800 (PST)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q265iGXU005302
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q266bLaP005778
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 5 Mar 2012 21:44:16 -0800 (PST)
+	Mon, 5 Mar 2012 22:37:21 -0800 (PST)
 Received: from localhost.localdomain (128.224.162.241) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.1.255.0; Mon, 5 Mar 2012 21:44:16 -0800
+	(TLS) id 14.1.255.0; Mon, 5 Mar 2012 22:37:21 -0800
 From: Kang Kai <kai.kang@windriver.com>
 To: <richard.purdie@linuxfoundation.org>, <poky@yoctoproject.org>
-Date: Tue, 6 Mar 2012 13:44:00 +0800
-Message-ID: <2c95a96b0be0b2109487620fc5865ecee427afb3.1331012298.git.kai.kang@windriver.com>
+Date: Tue, 6 Mar 2012 14:36:29 +0800
+Message-ID: <144ee0162388cf7d64804ddd7be5cf509d146aba.1331014918.git.kai.kang@windriver.com>
 X-Mailer: git-send-email 1.7.5.4
-In-Reply-To: <cover.1331012298.git.kai.kang@windriver.com>
-References: <cover.1331012298.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1331014918.git.kai.kang@windriver.com>
+References: <cover.1331014918.git.kai.kang@windriver.com>
 MIME-Version: 1.0
 X-Originating-IP: [128.224.162.241]
 Subject: [PATCH 1/1] cleanup-workdir: add a script to clean up WORKDIR
@@ -30,7 +30,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Mar 2012 05:44:17 -0000
+X-List-Received-Date: Tue, 06 Mar 2012 06:37:23 -0000
 Content-Type: text/plain
 
 [Yocto 1561]
@@ -41,16 +41,16 @@ package prefer version then delete the directory.
 
 Signed-off-by: Kang Kai <kai.kang@windriver.com>
 ---
- scripts/cleanup-workdir |  149 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 files changed, 149 insertions(+), 0 deletions(-)
+ scripts/cleanup-workdir |  147 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 147 insertions(+), 0 deletions(-)
  create mode 100755 scripts/cleanup-workdir
 
 diff --git a/scripts/cleanup-workdir b/scripts/cleanup-workdir
 new file mode 100755
-index 0000000..15bc99c
+index 0000000..5827ff9
 --- /dev/null
 +++ b/scripts/cleanup-workdir
-@@ -0,0 +1,149 @@
+@@ -0,0 +1,147 @@
 +#!/usr/bin/env python
 +
 +# Copyright (c) 2012 Wind River Systems, Inc.
@@ -72,9 +72,7 @@ index 0000000..15bc99c
 +import sys
 +import optparse
 +import re
-+import logging
-+
-+logger = logging.getLogger("Bitbake")
++import shutil
 +
 +versions = {}
 +obsolete_dirs = []
