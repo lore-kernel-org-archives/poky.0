@@ -1,22 +1,25 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B313DE0132F
-	for <poky@yoctoproject.org>; Mon,  5 Mar 2012 22:37:24 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q266bJJ0007635
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 5 Mar 2012 22:37:20 -0800 (PST)
-Received: from localhost.localdomain (128.224.162.241) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.1.255.0; Mon, 5 Mar 2012 22:37:19 -0800
-From: Kang Kai <kai.kang@windriver.com>
-To: <richard.purdie@linuxfoundation.org>, <poky@yoctoproject.org>
-Date: Tue, 6 Mar 2012 14:36:28 +0800
-Message-ID: <cover.1331014918.git.kai.kang@windriver.com>
-X-Mailer: git-send-email 1.7.5.4
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7CD95E0132F
+	for <poky@lists.pokylinux.org>; Tue,  6 Mar 2012 05:52:44 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 24E1BF81274; Tue,  6 Mar 2012 06:52:44 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 9303DF81208;
+	Tue,  6 Mar 2012 06:52:43 -0700 (MST)
+Message-ID: <4F5616AB.6000603@mlbassoc.com>
+Date: Tue, 06 Mar 2012 06:52:43 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.241]
-Subject: [PATCH 0/1] V2: Yocoto 1561: clean up the workdir
+To: Poky <poky@lists.pokylinux.org>
+Subject: Unable to build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,35 +31,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Mar 2012 06:37:24 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 06 Mar 2012 13:52:44 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Richard,
+After a recent update, I'm now getting this error in a previously
+working setup.
 
-Forget to import shutil, just add it. 
+ERROR:  OE-core's config sanity checker detected a potential misconfiguration.
+     Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
+     Following is the list of potential problems / advisories:
 
-V1:
-This time I write it as a seperated script.
-Would you like to help me review it? Thanks.
+     Your configuration is using stamp files including the sstate hash but your build directory was built with stamp files that do not include this.
+To continue, either rebuild or switch back to the OEBasic signature handler with BB_SIGNATURE_HANDLER = 'OEBasic'.
 
-Regards,
+I'm using my own distro.conf (not poky.conf), and I'm not setting
+BB_SIGNATURE_HANDLER anywhere, so I think it should already be
+set to OEBasic.  I even tried to put that line (cut & pasted
+from the error message) in local.conf - no change.
 
-The following changes since commit a8dc76ee69cfe1ffe846c07a510e3a562a5b1a7f:
-
-  base.bbclass: Fix PACKAGECONFIG handling when no flags are set (2012-03-05 13:04:11 -0800)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib kangkai/cleanup
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
-
-Kang Kai (1):
-  cleanup-workdir: add a script to clean up WORKDIR
-
- scripts/cleanup-workdir |  147 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 files changed, 147 insertions(+), 0 deletions(-)
- create mode 100755 scripts/cleanup-workdir
+How can I get past this, short of a complete rebuild?
 
 -- 
-1.7.5.4
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
