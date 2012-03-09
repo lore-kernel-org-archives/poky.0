@@ -1,25 +1,26 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0BA2E0030B
-	for <poky@yoctoproject.org>; Thu,  8 Mar 2012 11:37:56 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 120AEF812AF; Thu,  8 Mar 2012 12:37:55 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 96060F81226;
-	Thu,  8 Mar 2012 12:37:53 -0700 (MST)
-Message-ID: <4F590A91.4000400@mlbassoc.com>
-Date: Thu, 08 Mar 2012 12:37:53 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1D22EE0030B
+	for <poky@yoctoproject.org>; Thu,  8 Mar 2012 17:47:29 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q291lRai026832
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 8 Mar 2012 17:47:27 -0800 (PST)
+Received: from [128.224.162.241] (128.224.162.241) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.1.255.0;
+	Thu, 8 Mar 2012 17:47:27 -0800
+Message-ID: <4F59612D.5070802@windriver.com>
+Date: Fri, 9 Mar 2012 09:47:25 +0800
+From: Kang Kai <Kai.Kang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:10.0.2) Gecko/20120216 Thunderbird/10.0.2
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Icon problems with Sato theme
+To: <richard.purdie@linuxfoundation.org>
+References: <cover.1331014918.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1331014918.git.kai.kang@windriver.com>
+X-Originating-IP: [128.224.162.241]
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] V2: Yocoto 1561: clean up the workdir
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,50 +32,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Mar 2012 19:37:56 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 09 Mar 2012 01:47:29 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Note: I reported this a year ago, but I still don't have a good solution.
+Hi Richard,
 
-I'm trying to run the midori browser on my Poky based system.  I have
-an image which is based on core-image-sato.  I imported the midori
-recipe from OE and it builds fine.  When I run midori, it fails
-like this:
-   %midori
-   (midori:1629): Gtk-WARNING **: Error loading theme icon 'stock_new-tab' for stock: Icon 'stock_new-tab' not present in te
-   (midori:1629): Gtk-WARNING **: Error loading theme icon 'gnome-stock-trash' for stock: Icon 'gnome-stock-trash' not prese
-   (midori:1629): Gtk-WARNING **: Error loading theme icon 'gtk-undo-ltr' for stock: Icon 'gtk-undo-ltr' not present in thee
-   Segmentation fault
+Would you please comment this patch?
 
-I do have those icons - they come from the gnome-icon-theme package
-which I also installed.  I even tried duplicating them into the Sato
-icon tree and ran 'gtk-update-icon-cache -q /usr/share/icons/Sato'
-afterwards.  I now have these files:
-   root@logopak8347tbga:~# find /usr/share/icons -name "stock_new-tab*"
-   /usr/share/icons/Sato/16x16/actions/stock_new-tab.png
-   /usr/share/icons/Sato/22x22/actions/stock_new-tab.png
-   /usr/share/icons/gnome/24x24/actions/stock_new-tab.png
-   /usr/share/icons/gnome/16x16/actions/stock_new-tab.png
-   /usr/share/icons/gnome/22x22/actions/stock_new-tab.png
-but I still get the same failure.
+Thanks.
+Kai
 
-The really strange thing is this is what happens if I run midori
-to the local X server.  If I 'ssh -X' into my board it works properly!
-I've run strace on it in this mode and I can see that it's using a
-different GTK theme - Raleigh, which does seem to find the icons.
+> Hi Richard,
+>
+> Forget to import shutil, just add it.
+>
+> V1:
+> This time I write it as a seperated script.
+> Would you like to help me review it? Thanks.
+>
+> Regards,
+>
+> The following changes since commit a8dc76ee69cfe1ffe846c07a510e3a562a5b1a7f:
+>
+>    base.bbclass: Fix PACKAGECONFIG handling when no flags are set (2012-03-05 13:04:11 -0800)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib kangkai/cleanup
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
+>
+> Kang Kai (1):
+>    cleanup-workdir: add a script to clean up WORKDIR
+>
+>   scripts/cleanup-workdir |  147 +++++++++++++++++++++++++++++++++++++++++++++++
+>   1 files changed, 147 insertions(+), 0 deletions(-)
+>   create mode 100755 scripts/cleanup-workdir
+>
 
-Any ideas how I can get this to work on my local X server?
-
-n.b. there seems to be a bug in the GTK libraries that make them fail if the default
-icons are not available.  It tries to render GTK_STOCK_MISSING_IMAGE for the missing
-icons and this fails if there is no such icon available in the set (e.g. in sato).
-On ARM at least, this is a fatal segmentation error.  Should I report this as a bug
-in Poky?
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
 
