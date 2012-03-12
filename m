@@ -1,21 +1,36 @@
-Return-Path: <bjst@giant.haxx.se>
-Received: from giant.haxx.se (giant.haxx.se [80.67.6.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 896C1E01363
-	for <poky@yoctoproject.org>; Mon, 12 Mar 2012 08:48:09 -0700 (PDT)
-Received: from giant.haxx.se (localhost.localdomain [127.0.0.1])
-	by giant.haxx.se (8.14.4/8.14.4/Debian-2) with ESMTP id q2CFm1dP020800
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 12 Mar 2012 16:48:01 +0100
-Received: (from bjst@localhost)
-	by giant.haxx.se (8.14.4/8.14.4/Submit) id q2CFm1Sm020764;
-	Mon, 12 Mar 2012 16:48:01 +0100
-From: =?UTF-8?q?Bj=C3=B6rn=20Stenberg?= <bjst@enea.com>
-To: poky@yoctoproject.org
-Date: Mon, 12 Mar 2012 16:47:19 +0100
-Message-Id: <1331567239-20200-1-git-send-email-bjst@enea.com>
-X-Mailer: git-send-email 1.7.9.1
+Return-Path: <rpjday@crashcourse.ca>
+Received: from astoria.ccjclearline.com (astoria.ccjclearline.com
+	[64.235.106.9])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DADEE01363
+	for <poky@yoctoproject.org>; Mon, 12 Mar 2012 08:50:26 -0700 (PDT)
+Received: from cpec03f0ed08c7f-cm001ac318e826.cpe.net.cable.rogers.com
+	([99.241.91.63] helo=crashcourse.ca)
+	by astoria.ccjclearline.com with esmtpsa (TLSv1:AES256-SHA:256)
+	(Exim 4.69) (envelope-from <rpjday@crashcourse.ca>)
+	id 1S77Vm-0008AD-PT; Mon, 12 Mar 2012 11:50:15 -0400
+Date: Mon, 12 Mar 2012 11:50:01 -0400 (EDT)
+From: "Robert P. J. Day" <rpjday@crashcourse.ca>
+X-X-Sender: rpjday@oneiric
+To: Gary Thomas <gary@mlbassoc.com>
+In-Reply-To: <4F5E19A9.7070705@mlbassoc.com>
+Message-ID: <alpine.DEB.2.02.1203121149020.3491@oneiric>
+References: <9F69795E29C890408AC2DAF646C89BB379D1059697@MAILBOX.arc.local>,
+	<4F5A288D.9010900@windriver.com>
+	<9F69795E29C890408AC2DAF646C89BB379D106EC5B@MAILBOX.arc.local>
+	<4F5E1594.4010702@windriver.com> <4F5E19A9.7070705@mlbassoc.com>
+User-Agent: Alpine 2.02 (DEB 1266 2009-07-14)
 MIME-Version: 1.0
-Subject: [PATCH] Add pigz as gzip-native alternative.
+X-AntiAbuse: This header was added to track abuse,
+	please include it with any abuse report
+X-AntiAbuse: Primary Hostname - astoria.ccjclearline.com
+X-AntiAbuse: Original Domain - yoctoproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - crashcourse.ca
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: poky@yoctoproject.org
+Subject: Re: How to create a PREMIRROR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,84 +42,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Mar 2012 15:48:10 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 12 Mar 2012 15:50:26 -0000
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 
-pigz, which stands for parallel implementation of gzip, is a fully functional replacement for gzip that exploits multiple processors and multiple cores to the hilt when compressing data. pigz was written by Mark Adler, and uses the zlib and pthread libraries.
+On Mon, 12 Mar 2012, Gary Thomas wrote:
 
-This recipe adds pigz as an alternative provider of gzip-native. Pigz is much faster than gzip on multi-core machines.
+> On 2012-03-12 09:26, Mark Hatle wrote:
+> > On 3/10/12 4:42 AM, Zoufal Andreas wrote:
+> > > Thx Mark, I will try it. One more question: which files are really
+> > > required for the mirrors?
+> > > Only the archives or the "done" files, patch files, patch result files
+> > > etc?
+> >
+> > I believe you don't need the done files. I'm not sure about the others. (I
+> > didn't remove them in my usage, as they're small enough and they allow me to
+> > use the DL_DOWNLOAD to keep
+> > the mirror up to date.)
+>
+> All [true] files at the top level of 'downloads', except for the .done ones
+> This does include some patches (bash!) and mostly tarballs.
 
-Signed-off-by: Björn Stenberg <bjst@enea.com>
----
- meta/recipes-extended/pigz/files/ldflags.patch |   11 +++++++++++
- meta/recipes-extended/pigz/pigz.inc            |   21 +++++++++++++++++++++
- meta/recipes-extended/pigz/pigz_2.2.4.bb       |    9 +++++++++
- 3 files changed, 41 insertions(+), 0 deletions(-)
- create mode 100644 meta/recipes-extended/pigz/files/ldflags.patch
- create mode 100644 meta/recipes-extended/pigz/pigz.inc
- create mode 100644 meta/recipes-extended/pigz/pigz_2.2.4.bb
+  that's how it appears to me.  it's enough to check the recipe files
+to see the values in SRC_URI to verify what should be in the
+premirror.
 
-diff --git a/meta/recipes-extended/pigz/files/ldflags.patch b/meta/recipes-extended/pigz/files/ldflags.patch
-new file mode 100644
-index 0000000..534d280
---- /dev/null
-+++ b/meta/recipes-extended/pigz/files/ldflags.patch
-@@ -0,0 +1,11 @@
-+--- pigz-2.2.3/Makefile.orig	2012-01-01 02:46:58.000000000 +0100
-++++ pigz-2.2.3/Makefile	2012-03-09 08:47:40.025094863 +0100
-+@@ -2,7 +2,7 @@
-+ CFLAGS=-O3 -Wall -Wextra
-+ 
-+ pigz: pigz.o yarn.o
-+-	$(CC) -o pigz pigz.o yarn.o -lpthread -lz
-++	$(CC) $(LDFLAGS) -o pigz pigz.o yarn.o -lpthread -lz
-+ 	ln -f pigz unpigz
-+ 
-+ pigz.o: pigz.c yarn.h
-diff --git a/meta/recipes-extended/pigz/pigz.inc b/meta/recipes-extended/pigz/pigz.inc
-new file mode 100644
-index 0000000..b501d7a
---- /dev/null
-+++ b/meta/recipes-extended/pigz/pigz.inc
-@@ -0,0 +1,21 @@
-+SUMMARY = "A parallel implementation of gzip"
-+DESCRIPTION = "pigz, which stands for parallel implementation of gzip, is a \
-+fully functional replacement for gzip that exploits multiple processors and \
-+multiple cores to the hilt when compressing data. pigz was written by Mark \
-+Adler, and uses the zlib and pthread libraries."
-+HOMEPAGE = "http://zlib.net/pigz/"
-+SECTION = "console/utils"
-+LICENSE = "Zlib"
-+
-+SRC_URI = "http://zlib.net/pigz/pigz-${PV}.tar.gz \
-+           file://ldflags.patch"
-+
-+PROVIDES += "gzip-native"
-+
-+DEPENDS_virtclass-native = "zlib-native"
-+
-+do_install () {
-+        install -d ${D}${bindir}
-+        install ${B}/pigz ${D}${bindir}/gzip
-+        install ${B}/unpigz ${D}${bindir}/gunzip
-+}
-diff --git a/meta/recipes-extended/pigz/pigz_2.2.4.bb b/meta/recipes-extended/pigz/pigz_2.2.4.bb
-new file mode 100644
-index 0000000..598bbe3
---- /dev/null
-+++ b/meta/recipes-extended/pigz/pigz_2.2.4.bb
-@@ -0,0 +1,9 @@
-+require pigz.inc
-+
-+PR = "r0"
-+
-+BBCLASSEXTEND = "native"
-+
-+SRC_URI[md5sum] = "9df2a3c742524446fa4e797c17e8fd85"
-+SRC_URI[sha256sum] = "7e7967c47f66c07be97cbfa25c8816b72f9d35258466ea31eddc7666c914160e"
-+LIC_FILES_CHKSUM = "file://pigz.c;md5=53f47c097bbf11b937a421b1816a8dc5"
+rday
+
 -- 
-1.7.5.4
 
+========================================================================
+Robert P. J. Day                                 Ottawa, Ontario, CANADA
+                        http://crashcourse.ca
+
+Twitter:                                       http://twitter.com/rpjday
+LinkedIn:                               http://ca.linkedin.com/in/rpjday
+========================================================================
 
