@@ -1,30 +1,21 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36B6AE011D1
-	for <poky@yoctoproject.org>; Mon, 12 Mar 2012 08:44:03 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 29593F81188; Mon, 12 Mar 2012 09:44:02 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id E54F3F8120A;
-	Mon, 12 Mar 2012 09:43:37 -0600 (MDT)
-Message-ID: <4F5E19A9.7070705@mlbassoc.com>
-Date: Mon, 12 Mar 2012 09:43:37 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
-MIME-Version: 1.0
+Return-Path: <bjst@giant.haxx.se>
+Received: from giant.haxx.se (giant.haxx.se [80.67.6.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 896C1E01363
+	for <poky@yoctoproject.org>; Mon, 12 Mar 2012 08:48:09 -0700 (PDT)
+Received: from giant.haxx.se (localhost.localdomain [127.0.0.1])
+	by giant.haxx.se (8.14.4/8.14.4/Debian-2) with ESMTP id q2CFm1dP020800
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Mon, 12 Mar 2012 16:48:01 +0100
+Received: (from bjst@localhost)
+	by giant.haxx.se (8.14.4/8.14.4/Submit) id q2CFm1Sm020764;
+	Mon, 12 Mar 2012 16:48:01 +0100
+From: =?UTF-8?q?Bj=C3=B6rn=20Stenberg?= <bjst@enea.com>
 To: poky@yoctoproject.org
-References: <9F69795E29C890408AC2DAF646C89BB379D1059697@MAILBOX.arc.local>,
-	<4F5A288D.9010900@windriver.com>
-	<9F69795E29C890408AC2DAF646C89BB379D106EC5B@MAILBOX.arc.local>
-	<4F5E1594.4010702@windriver.com>
-In-Reply-To: <4F5E1594.4010702@windriver.com>
-Subject: Re: How to create a PREMIRROR
+Date: Mon, 12 Mar 2012 16:47:19 +0100
+Message-Id: <1331567239-20200-1-git-send-email-bjst@enea.com>
+X-Mailer: git-send-email 1.7.9.1
+MIME-Version: 1.0
+Subject: [PATCH] Add pigz as gzip-native alternative.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,107 +27,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Mar 2012 15:44:03 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
+X-List-Received-Date: Mon, 12 Mar 2012 15:48:10 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2012-03-12 09:26, Mark Hatle wrote:
-> On 3/10/12 4:42 AM, Zoufal Andreas wrote:
->> Thx Mark, I will try it. One more question: which files are really required for the mirrors?
->> Only the archives or the "done" files, patch files, patch result files etc?
->
-> I believe you don't need the done files. I'm not sure about the others. (I didn't remove them in my usage, as they're small enough and they allow me to use the DL_DOWNLOAD to keep
-> the mirror up to date.)
+pigz, which stands for parallel implementation of gzip, is a fully functional replacement for gzip that exploits multiple processors and multiple cores to the hilt when compressing data. pigz was written by Mark Adler, and uses the zlib and pthread libraries.
 
-All [true] files at the top level of 'downloads', except for the .done ones
-This does include some patches (bash!) and mostly tarballs.
+This recipe adds pigz as an alternative provider of gzip-native. Pigz is much faster than gzip on multi-core machines.
 
->> ________________________________________
->> From: poky-bounces@yoctoproject.org [poky-bounces@yoctoproject.org] On Behalf Of Mark Hatle [mark.hatle@windriver.com]
->> Sent: Friday, March 09, 2012 4:58 PM
->> To: poky@yoctoproject.org
->> Subject: Re: [poky] How to create a PREMIRROR
->>
->> On 3/9/12 9:40 AM, Zoufal Andreas wrote:
->>> Hello everybody,
->>>
->>> I am new here in this mailing list. We are starting to use Yocto/Poky for an
->>> embedded project, and we have the need to collect all source code in our SVN
->>> repository for the case internet is not available. I think using PREMIRRORS (and
->>> SSTATE_MIRRORS for speedup) is the right way?
->>>
->>> How to create and maintain a local PREMIRRROR? What is the best practice? Iím
->>> pretty sure this is not the first time for this question, so can you give me
->>> some hints for a good documentation, or advices?
->>
->> For the premirrors, what I've done is start a new build directory.. setup my
->> DL_DIR to some place "safe".. and then do a "bitbake -c fetchall world"
->>
->> I then export my DL_DIR for others via NFS, FTP, HTTPS, etc... whatever is
->> appropriate within your organization -- then everyone else uses PREMIRROR
->> settings to use that DL_DIR.
->>
->> For the SSTATE_MIRROR, you can do something similar... but sstate_mirroring is
->> really only useful if everyone is on a fast link. In my experience anything
->> slower then a gigabit link and it's usually (not always) faster to compile stuff
->> locally, then pull from an sstate_mirror.
->>
->> (Also if you have problems with an sstate_mirror, please let us know. Not a lot
->> of people are using them yet -- I had some issues w/ 1.1 and the sstate being
->> used by multiple userids, but I believe these are resolved in newer versions.)
->>
->> --Mark
->>
->>> Thanx, Andi
->>>
->>> *ANDREAS ZOUFAL
->>> *Engineer
->>> Safety& Security Department
->>> Video and Security Technology
->>>
->>> **
->>>
->>> *AIT Austrian Institute of Technology GmbH
->>> *Donau-City-Straﬂe 1 | 1220 Vienna | Austria
->>> T +43(0) 50550-4266 | F +43(0) 50550-4150
->>> _andreas.zoufal@ait.ac.at<mailto:andreas.zoufal@ait.ac.at>_|
->>> _http://www.ait.ac.at__
->>> _
->>> FN: 115980 i HG Wien | UID: ATU14703506
->>> This email and any attachments thereto, is intended only for use by the
->>> addressee(s) named herein and may contain legally privileged and/or confidential
->>> information. If you are not the intended recipient, please notify the sender by
->>> return e-mail or by telephone and delete this message from your system and any
->>> printout thereof. Any unauthorized use, reproduction, or dissemination of this
->>> message is strictly prohibited. Please note that e-mails are susceptible to
->>> change. AIT Austrian Institute of Technology GmbH shall not be liable for the
->>> improper or incomplete transmission of the information contained in this
->>> communication, nor shall it be liable for any delay in its receipt.
->>>
->>>
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Signed-off-by: Bj√∂rn Stenberg <bjst@enea.com>
+---
+ meta/recipes-extended/pigz/files/ldflags.patch |   11 +++++++++++
+ meta/recipes-extended/pigz/pigz.inc            |   21 +++++++++++++++++++++
+ meta/recipes-extended/pigz/pigz_2.2.4.bb       |    9 +++++++++
+ 3 files changed, 41 insertions(+), 0 deletions(-)
+ create mode 100644 meta/recipes-extended/pigz/files/ldflags.patch
+ create mode 100644 meta/recipes-extended/pigz/pigz.inc
+ create mode 100644 meta/recipes-extended/pigz/pigz_2.2.4.bb
 
+diff --git a/meta/recipes-extended/pigz/files/ldflags.patch b/meta/recipes-extended/pigz/files/ldflags.patch
+new file mode 100644
+index 0000000..534d280
+--- /dev/null
++++ b/meta/recipes-extended/pigz/files/ldflags.patch
+@@ -0,0 +1,11 @@
++--- pigz-2.2.3/Makefile.orig	2012-01-01 02:46:58.000000000 +0100
+++++ pigz-2.2.3/Makefile	2012-03-09 08:47:40.025094863 +0100
++@@ -2,7 +2,7 @@
++ CFLAGS=-O3 -Wall -Wextra
++ 
++ pigz: pigz.o yarn.o
++-	$(CC) -o pigz pigz.o yarn.o -lpthread -lz
+++	$(CC) $(LDFLAGS) -o pigz pigz.o yarn.o -lpthread -lz
++ 	ln -f pigz unpigz
++ 
++ pigz.o: pigz.c yarn.h
+diff --git a/meta/recipes-extended/pigz/pigz.inc b/meta/recipes-extended/pigz/pigz.inc
+new file mode 100644
+index 0000000..b501d7a
+--- /dev/null
++++ b/meta/recipes-extended/pigz/pigz.inc
+@@ -0,0 +1,21 @@
++SUMMARY = "A parallel implementation of gzip"
++DESCRIPTION = "pigz, which stands for parallel implementation of gzip, is a \
++fully functional replacement for gzip that exploits multiple processors and \
++multiple cores to the hilt when compressing data. pigz was written by Mark \
++Adler, and uses the zlib and pthread libraries."
++HOMEPAGE = "http://zlib.net/pigz/"
++SECTION = "console/utils"
++LICENSE = "Zlib"
++
++SRC_URI = "http://zlib.net/pigz/pigz-${PV}.tar.gz \
++           file://ldflags.patch"
++
++PROVIDES += "gzip-native"
++
++DEPENDS_virtclass-native = "zlib-native"
++
++do_install () {
++        install -d ${D}${bindir}
++        install ${B}/pigz ${D}${bindir}/gzip
++        install ${B}/unpigz ${D}${bindir}/gunzip
++}
+diff --git a/meta/recipes-extended/pigz/pigz_2.2.4.bb b/meta/recipes-extended/pigz/pigz_2.2.4.bb
+new file mode 100644
+index 0000000..598bbe3
+--- /dev/null
++++ b/meta/recipes-extended/pigz/pigz_2.2.4.bb
+@@ -0,0 +1,9 @@
++require pigz.inc
++
++PR = "r0"
++
++BBCLASSEXTEND = "native"
++
++SRC_URI[md5sum] = "9df2a3c742524446fa4e797c17e8fd85"
++SRC_URI[sha256sum] = "7e7967c47f66c07be97cbfa25c8816b72f9d35258466ea31eddc7666c914160e"
++LIC_FILES_CHKSUM = "file://pigz.c;md5=53f47c097bbf11b937a421b1816a8dc5"
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.5.4
+
 
