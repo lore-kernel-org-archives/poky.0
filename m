@@ -1,25 +1,22 @@
-Return-Path: <bjst@giant.haxx.se>
-Received: from giant.haxx.se (giant.haxx.se [80.67.6.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7F14E01363
-	for <poky@yoctoproject.org>; Tue, 13 Mar 2012 02:00:02 -0700 (PDT)
-Received: from giant.haxx.se (localhost.localdomain [127.0.0.1])
-	by giant.haxx.se (8.14.4/8.14.4/Debian-2) with ESMTP id q2D8xtcC030194
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 13 Mar 2012 09:59:55 +0100
-Received: (from bjst@localhost)
-	by giant.haxx.se (8.14.4/8.14.4/Submit) id q2D8xtBQ030192;
-	Tue, 13 Mar 2012 09:59:55 +0100
-Date: Tue, 13 Mar 2012 09:59:54 +0100
-From: =?iso-8859-1?Q?Bj=F6rn?= Stenberg <bjst@enea.com>
-To: McClintock Matthew-B29882 <B29882@freescale.com>
-Message-ID: <20120313085953.GA5754@giant>
-References: <1331567239-20200-1-git-send-email-bjst@enea.com>
-	<CAEsOVNcXW_AAuq3aJORztmW9-pCH9ztJsUZ8PwGzFX2yjs8uzQ@mail.gmail.com>
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0AF22E01363
+	for <poky@yoctoproject.org>; Tue, 13 Mar 2012 02:46:04 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q2D9k3bi005384
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 13 Mar 2012 02:46:03 -0700 (PDT)
+Received: from localhost.localdomain (128.224.162.241) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Tue, 13 Mar 2012 02:46:03 -0700
+From: Kang Kai <kai.kang@windriver.com>
+To: <sgw@linux.intel.com>, <poky@yoctoproject.org>
+Date: Tue, 13 Mar 2012 17:45:42 +0800
+Message-ID: <cover.1331631626.git.kai.kang@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
 MIME-Version: 1.0
-In-Reply-To: <CAEsOVNcXW_AAuq3aJORztmW9-pCH9ztJsUZ8PwGzFX2yjs8uzQ@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] Add pigz as gzip-native alternative.
+X-Originating-IP: [128.224.162.241]
+Subject: [PATCH 0/2] Yocto 1656: rebase on autospectacle.pl
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,30 +28,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Mar 2012 09:00:03 -0000
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 13 Mar 2012 09:46:04 -0000
+Content-Type: text/plain
 
-McClintock Matthew-B29882 wrote:
-> I thought about doing this - can you share any performance numbers?
+Hi Saul,
 
-pigz seems to scale fairly well. I compared the time it takes to compress the final rootfs tarball in do_rootfs for one of my images. 
+I rebase Yocto 1656: Recipe creation/import script on autospectacle.pl and
+add feature to create recipe file.
 
-gzip:
+Regards,
 
-real    1m33.523s
-user    1m33.146s
-sys     0m0.368s
+The following changes since commit 19b38a6486086b62efbff2bf8192adbaa34ecc0a:
 
-pigz:
+  package.bbclass: Drop python depends from rpmdeps (2012-03-11 18:27:45 +0000)
 
-real    0m2.239s
-user    1m40.554s
-sys     0m0.716s
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib kangkai/distro
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/distro
 
-This is on a 64-core machine.
+Kang Kai (2):
+  autospectacle.pl: pull it from meego as a base
+  autospectacle.pl: create recipe file
+
+ scripts/autospectacle.pl | 1926 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 1926 insertions(+), 0 deletions(-)
+ create mode 100755 scripts/autospectacle.pl
 
 -- 
-Björn
+1.7.5.4
+
 
