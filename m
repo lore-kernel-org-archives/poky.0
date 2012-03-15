@@ -1,30 +1,24 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BC045E01373
-	for <poky@yoctoproject.org>; Thu, 15 Mar 2012 06:13:47 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2FDDgbZ021743;
-	Thu, 15 Mar 2012 13:13:42 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 21190-04; Thu, 15 Mar 2012 13:13:38 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2FDDXxA021737
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 15 Mar 2012 13:13:35 GMT
-Message-ID: <1331817213.18586.81.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Lauri Hintsala <lauri.hintsala@bluegiga.com>
-Date: Thu, 15 Mar 2012 13:13:33 +0000
-In-Reply-To: <1331812156-32344-1-git-send-email-lauri.hintsala@bluegiga.com>
-References: <1331812156-32344-1-git-send-email-lauri.hintsala@bluegiga.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 87C18E0132F
+	for <poky@yoctoproject.org>; Thu, 15 Mar 2012 08:24:37 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 15 Mar 2012 08:24:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="129364931"
+Received: from unknown (HELO helios.localnet) ([10.252.123.170])
+	by fmsmga001.fm.intel.com with ESMTP; 15 Mar 2012 08:24:36 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Thu, 15 Mar 2012 15:24:34 +0000
+Message-ID: <1856275.4JdY7aZveN@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.8.0 (Linux/3.0.0-16-generic-pae; KDE/4.8.1; i686; ; )
+In-Reply-To: <4F5B73E6.9040908@mlbassoc.com>
+References: <4F5B73E6.9040908@mlbassoc.com>
+MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] .gitignore: expand pyshtables.py ignoring
+Subject: Re: Poky doesn't play nice with meta-oe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,21 +30,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Mar 2012 13:13:48 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 15 Mar 2012 15:24:37 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, 2012-03-15 at 13:49 +0200, Lauri Hintsala wrote:
-> Bitbake generates pyshtables.py to bitbake/lib/bb/pysh/ folder if the user
-> has write permissions there. Let's ignore generated file also on that location.
-> 
-> Signed-off-by: Lauri Hintsala <lauri.hintsala@bluegiga.com>
-> ---
->  .gitignore |    2 +-
->  1 files changed, 1 insertions(+), 1 deletions(-)
+On Saturday 10 March 2012 08:31:50 Gary Thomas wrote:
+> I wanted to do some experimenting with midori (a webkit based
+> browser that is [arguably] better than web2) in my familiar Poky
+> environment.
+>...
+> * Rebuild core-image-sato
+>    Lots of packages get rebuilt, down to GCC which has been updated
+>    to r27 from r22.  I thought the poky meta "core" was tracking meta-oe
+>    and openembedded-core more closely than this.
 
-Merged to master, thanks.
+I agree, this is not particularly desirable. We've discussed this in the OE 
+TSC and the agreement was that the toolchain bits currently in the meta-oe 
+layer itself will be moved out to a separate layer.
 
-Richard
+> Image will boot, but most things are broken, no X, no network, ...
 
+That's not good :(
+
+> It looks like the evil systemd has pervaded meta-oe (which IMO should
+> be at least a DISTRO decision).
+
+I agree, but there are others who think it should be switchable on a per-image 
+basis. I don't think it's going to be long before that's impossible however.
+
+> I guess the only way I'll be able to test this in Poky, if at all,
+> will be to only import the midori recipes and its dependencies, which
+> there seem to be many.
+
+That's not an unreasonable approach for now. However we do really want to tidy 
+up meta-oe such that it doesn't do surprising things when you enable it. 
+Hopefully we will get a chance to make progress on this over the next few 
+months.
+
+Cheers,
+Paul
+
+-- 
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
