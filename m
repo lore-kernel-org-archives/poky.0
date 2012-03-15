@@ -1,16 +1,30 @@
-Return-Path: <lauri.hintsala@bluegiga.com>
-Received: from blue-gw.bluegiga.fi (bluegiga.fi [194.100.31.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0F7DCE011D1
-	for <poky@yoctoproject.org>; Thu, 15 Mar 2012 04:49:29 -0700 (PDT)
-Received: from bgtlh.bgt.local (unknown [10.1.1.28])
-	by blue-gw.bluegiga.fi (Postfix) with ESMTP id E5C557BE256;
-	Thu, 15 Mar 2012 13:49:26 +0200 (EET)
-From: Lauri Hintsala <lauri.hintsala@bluegiga.com>
-To: poky@yoctoproject.org
-Date: Thu, 15 Mar 2012 13:49:16 +0200
-Message-Id: <1331812156-32344-1-git-send-email-lauri.hintsala@bluegiga.com>
-X-Mailer: git-send-email 1.7.4.1
-Subject: [PATCH] .gitignore: expand pyshtables.py ignoring
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BC045E01373
+	for <poky@yoctoproject.org>; Thu, 15 Mar 2012 06:13:47 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2FDDgbZ021743;
+	Thu, 15 Mar 2012 13:13:42 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 21190-04; Thu, 15 Mar 2012 13:13:38 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2FDDXxA021737
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 15 Mar 2012 13:13:35 GMT
+Message-ID: <1331817213.18586.81.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Lauri Hintsala <lauri.hintsala@bluegiga.com>
+Date: Thu, 15 Mar 2012 13:13:33 +0000
+In-Reply-To: <1331812156-32344-1-git-send-email-lauri.hintsala@bluegiga.com>
+References: <1331812156-32344-1-git-send-email-lauri.hintsala@bluegiga.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] .gitignore: expand pyshtables.py ignoring
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -22,30 +36,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Mar 2012 11:49:30 -0000
+X-List-Received-Date: Thu, 15 Mar 2012 13:13:48 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Bitbake generates pyshtables.py to bitbake/lib/bb/pysh/ folder if the user
-has write permissions there. Let's ignore generated file also on that location.
+On Thu, 2012-03-15 at 13:49 +0200, Lauri Hintsala wrote:
+> Bitbake generates pyshtables.py to bitbake/lib/bb/pysh/ folder if the user
+> has write permissions there. Let's ignore generated file also on that location.
+> 
+> Signed-off-by: Lauri Hintsala <lauri.hintsala@bluegiga.com>
+> ---
+>  .gitignore |    2 +-
+>  1 files changed, 1 insertions(+), 1 deletions(-)
 
-Signed-off-by: Lauri Hintsala <lauri.hintsala@bluegiga.com>
----
- .gitignore |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+Merged to master, thanks.
 
-diff --git a/.gitignore b/.gitignore
-index 11b7024..04e36c5 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -5,7 +5,7 @@ build*/conf/bblayers.conf
- build*/downloads
- build*/tmp/
- build*/sstate-cache
--build*/pyshtables.py
-+pyshtables.py
- pstage/
- scripts/oe-git-proxy-socks
- sources/
--- 
-1.7.4.1
+Richard
 
 
