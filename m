@@ -1,24 +1,22 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 87C18E0132F
-	for <poky@yoctoproject.org>; Thu, 15 Mar 2012 08:24:37 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 15 Mar 2012 08:24:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="129364931"
-Received: from unknown (HELO helios.localnet) ([10.252.123.170])
-	by fmsmga001.fm.intel.com with ESMTP; 15 Mar 2012 08:24:36 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Thu, 15 Mar 2012 15:24:34 +0000
-Message-ID: <1856275.4JdY7aZveN@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.8.0 (Linux/3.0.0-16-generic-pae; KDE/4.8.1; i686; ; )
-In-Reply-To: <4F5B73E6.9040908@mlbassoc.com>
-References: <4F5B73E6.9040908@mlbassoc.com>
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DB263E004D2
+	for <poky@yoctoproject.org>; Fri, 16 Mar 2012 00:57:16 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q2G7vDp0029991
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 16 Mar 2012 00:57:13 -0700 (PDT)
+Received: from localhost.localdomain (128.224.162.241) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Fri, 16 Mar 2012 00:57:13 -0700
+From: Kang Kai <kai.kang@windriver.com>
+To: <richard.purdie@linuxfoundation.org>, <poky@yoctoproject.org>
+Date: Fri, 16 Mar 2012 15:57:07 +0800
+Message-ID: <cover.1331884360.git.kai.kang@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: Poky doesn't play nice with meta-oe
+X-Originating-IP: [128.224.162.241]
+Subject: [PATCH 0/1] V3: Yocoto 1561: clean up the workdir
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,48 +28,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Mar 2012 15:24:37 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Fri, 16 Mar 2012 07:57:17 -0000
+Content-Type: text/plain
 
-On Saturday 10 March 2012 08:31:50 Gary Thomas wrote:
-> I wanted to do some experimenting with midori (a webkit based
-> browser that is [arguably] better than web2) in my familiar Poky
-> environment.
->...
-> * Rebuild core-image-sato
->    Lots of packages get rebuilt, down to GCC which has been updated
->    to r27 from r22.  I thought the poky meta "core" was tracking meta-oe
->    and openembedded-core more closely than this.
+Hi Richard,
 
-I agree, this is not particularly desirable. We've discussed this in the OE 
-TSC and the agreement was that the toolchain bits currently in the meta-oe 
-layer itself will be moved out to a separate layer.
+This version update:
+1 limits the script run under BUILDDIR and after source oe-init-build-env file
+2 get WORKDIR by TMPDIR+'/work'
+3 replace system() call with module commands
 
-> Image will boot, but most things are broken, no X, no network, ...
+Regards,
 
-That's not good :(
+The following changes since commit 8bae18bb358755131f13865abb279ac687a03848:
 
-> It looks like the evil systemd has pervaded meta-oe (which IMO should
-> be at least a DISTRO decision).
+  slang: Fix rpath QA warnings (2012-03-15 00:11:40 +0000)
 
-I agree, but there are others who think it should be switchable on a per-image 
-basis. I don't think it's going to be long before that's impossible however.
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib kangkai/cleanup
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/cleanup
 
-> I guess the only way I'll be able to test this in Poky, if at all,
-> will be to only import the midori recipes and its dependencies, which
-> there seem to be many.
+Kang Kai (1):
+  cleanup-workdir: add a script to clean up WORKDIR
 
-That's not an unreasonable approach for now. However we do really want to tidy 
-up meta-oe such that it doesn't do surprising things when you enable it. 
-Hopefully we will get a chance to make progress on this over the next few 
-months.
-
-Cheers,
-Paul
+ scripts/cleanup-workdir |  150 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 150 insertions(+), 0 deletions(-)
+ create mode 100755 scripts/cleanup-workdir
 
 -- 
+1.7.5.4
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
