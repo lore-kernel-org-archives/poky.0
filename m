@@ -1,29 +1,30 @@
 Return-Path: <gary@mlbassoc.com>
 Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 097E2E013A6
-	for <poky@yoctoproject.org>; Tue, 20 Mar 2012 03:03:29 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8268DE013C2
+	for <poky@yoctoproject.org>; Tue, 20 Mar 2012 03:04:49 -0700 (PDT)
 Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 7D1ACF81244; Tue, 20 Mar 2012 04:03:27 -0600 (MDT)
+	id 12D11F81244; Tue, 20 Mar 2012 04:04:48 -0600 (MDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
 	hermes.chez-thomas.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
 	autolearn=unavailable version=3.3.2
 Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 55ADCF81238;
-	Tue, 20 Mar 2012 04:03:25 -0600 (MDT)
-Message-ID: <4F6855ED.2020904@mlbassoc.com>
-Date: Tue, 20 Mar 2012 04:03:25 -0600
+	by mail.chez-thomas.org (Postfix) with ESMTP id 6E869F81235;
+	Tue, 20 Mar 2012 04:04:45 -0600 (MDT)
+Message-ID: <4F68563D.6030206@mlbassoc.com>
+Date: Tue, 20 Mar 2012 04:04:45 -0600
 From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; Linux i686;
 	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
 MIME-Version: 1.0
 To: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-References: <4F67E970.2020708@mlbassoc.com>
-	<1332224739.1848.26.camel@dongxiao-osel>
-In-Reply-To: <1332224739.1848.26.camel@dongxiao-osel>
+References: <4F67EA50.7000708@mlbassoc.com>
+	<1332210703.1041.86.camel@localhost.localdomain>
+	<1332224231.1848.24.camel@dongxiao-osel>
+In-Reply-To: <1332224231.1848.24.camel@dongxiao-osel>
 Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Can't run HOB
+Subject: Re: HOB doesn't see my image recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,44 +36,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Mar 2012 10:03:29 -0000
+X-List-Received-Date: Tue, 20 Mar 2012 10:04:49 -0000
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2012-03-20 00:25, Xu, Dongxiao wrote:
-> On Mon, 2012-03-19 at 20:20 -0600, Gary Thomas wrote:
->> When I try HOB on my tree, it parses the metadata to around 57%
->> and then brings up what I guess is a warning (sadly, it only shows
->> an empty dialogue with an "OK" button).  This seems to happen because
->> I have meta-ti in my bblayers.conf.  I also have this statement in
->> my local.conf:
->>     # Ignore troublesome TI recipes
->>     BBMASK = ".*/meta-ti/recipes-misc/"
->>
->> Maybe HOB is not honouring the BBMASK?
+On 2012-03-20 00:17, Xu, Dongxiao wrote:
+> On Tue, 2012-03-20 at 10:31 +0800, Ni Qingliang wrote:
+>> maybe all image recipes should be placed in the directory
+>> "meta-xx/images"?
 >
-> Variables are still handled in bitbake server side, Hob only acts as a
-> bridge between user and bitbake server.
->
-> The phenomenon is strange since the code piece will detect if the error
-> msg is None or not. If it is None, it will not pop up the error dialog.
->
-> ================================================================
->      def handler_command_failed_cb(self, handler, msg):
->          if msg:
->              lbl = "<b>Error</b>\n"
->              lbl = lbl + "%s\n\n" % msg
->              dialog = CrumbsMessageDialog(self, lbl,
-> gtk.STOCK_DIALOG_WARNING)
->              dialog.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
->              response = dialog.run()
->              dialog.destroy()
-> ================================================================
->
-> What's does it do if you click the "OK" button?
+> Hob recognizes image whose file name is "xxx-image-xxx", like
+> core-image-sato.
 
-It seems to stop scanning recipes immediately.  There is no text
-along with the warning dialogue.
+Sadly, all of my image recipes are named XXX-image.bb
+
+>>
+>> wait expert...
+>>
+>> On Tue, 2012-03-20 at 10:24 +0800, Gary Thomas wrote:
+>>> I have my own distribution, layered over poky (I use meta&  meta-yocto
+>>> with my own distribution layers).  HOB doesn't seem to find any of my
+>>> [non-yocto] images.
+>>>
+>>> I thought that this was to be fixed so that any recipe which inherited
+>>> 'image.bbclass' (or relied on one that did) would be listed as an image?
+>>>
+>>> Am I missing something, or is this a bug?
+>>>
 
 -- 
 ------------------------------------------------------------
