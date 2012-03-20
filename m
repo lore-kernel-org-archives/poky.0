@@ -1,32 +1,25 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29A1EE0052E
-	for <poky@yoctoproject.org>; Sat, 17 Mar 2012 08:21:11 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2HFL9g0015991;
-	Sat, 17 Mar 2012 15:21:09 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 15905-01; Sat, 17 Mar 2012 15:21:02 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2HFKwL2015982
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sat, 17 Mar 2012 15:20:59 GMT
-Message-ID: <1331997658.18586.230.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Sat, 17 Mar 2012 15:20:58 +0000
-In-Reply-To: <4F648B78.8070108@mlbassoc.com>
-References: <4F63546E.4000407@mlbassoc.com> <4F635D1A.2030304@mlbassoc.com>
-	<4F638691.6020803@mlbassoc.com> <1331941648.18586.213.camel@ted>
-	<4F648B78.8070108@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: Can't build web-webkit
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39AEBE013E9
+	for <poky@yoctoproject.org>; Mon, 19 Mar 2012 19:20:34 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 889F8F8122F; Mon, 19 Mar 2012 20:20:33 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 97971F8122C;
+	Mon, 19 Mar 2012 20:20:32 -0600 (MDT)
+Message-ID: <4F67E970.2020708@mlbassoc.com>
+Date: Mon, 19 Mar 2012 20:20:32 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: Can't run HOB
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,24 +31,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 17 Mar 2012 15:21:12 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 20 Mar 2012 02:20:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sat, 2012-03-17 at 07:02 -0600, Gary Thomas wrote:
-> On 2012-03-16 17:47, Richard Purdie wrote:
-> No problem, after bisection it was pretty obvious.  Of course
-> bisecting 198 revisions where each test took around 20 minutes
-> was a bit trying...
-> 
-> Sadly, the actual clone error remains.  It was only exposed by
-> this error that made it happen unexpectedly.
+When I try HOB on my tree, it parses the metadata to around 57%
+and then brings up what I guess is a warning (sadly, it only shows
+an empty dialogue with an "OK" button).  This seems to happen because
+I have meta-ti in my bblayers.conf.  I also have this statement in
+my local.conf:
+   # Ignore troublesome TI recipes
+   BBMASK = ".*/meta-ti/recipes-misc/"
 
-Right, this should be fixed now too.
+Maybe HOB is not honouring the BBMASK?
 
-Cheers,
-
-Richard
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
