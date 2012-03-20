@@ -1,24 +1,26 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 97F29E013A5
-	for <poky@yoctoproject.org>; Mon, 19 Mar 2012 23:27:44 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Mar 2012 23:27:44 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CD723E013A6
+	for <poky@yoctoproject.org>; Tue, 20 Mar 2012 02:53:48 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 20 Mar 2012 02:53:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="141688876"
-Received: from dongxiao-osel.sh.intel.com (HELO [10.239.36.11])
-	([10.239.36.11])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Mar 2012 23:27:43 -0700
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-In-Reply-To: <4F67E970.2020708@mlbassoc.com>
-References: <4F67E970.2020708@mlbassoc.com>
-Date: Tue, 20 Mar 2012 14:25:39 +0800
-Message-ID: <1332224739.1848.26.camel@dongxiao-osel>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Can't run HOB
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="119470936"
+Received: from unknown (HELO helios.localnet) ([10.252.123.195])
+	by orsmga001.jf.intel.com with ESMTP; 20 Mar 2012 02:53:47 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+Date: Tue, 20 Mar 2012 09:53:46 +0000
+Message-ID: <2153250.yonJ7Q2VZR@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.8.0 (Linux/3.0.0-16-generic-pae; KDE/4.8.1; i686; ; )
+In-Reply-To: <1332224231.1848.24.camel@dongxiao-osel>
+References: <4F67EA50.7000708@mlbassoc.com>
+	<1332210703.1041.86.camel@localhost.localdomain>
+	<1332224231.1848.24.camel@dongxiao-osel>
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: HOB doesn't see my image recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,45 +32,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Mar 2012 06:27:44 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 20 Mar 2012 09:53:48 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, 2012-03-19 at 20:20 -0600, Gary Thomas wrote:
-> When I try HOB on my tree, it parses the metadata to around 57%
-> and then brings up what I guess is a warning (sadly, it only shows
-> an empty dialogue with an "OK" button).  This seems to happen because
-> I have meta-ti in my bblayers.conf.  I also have this statement in
-> my local.conf:
->    # Ignore troublesome TI recipes
->    BBMASK = ".*/meta-ti/recipes-misc/"
+On Tuesday 20 March 2012 14:17:11 Xu, Dongxiao wrote:
+> On Tue, 2012-03-20 at 10:31 +0800, Ni Qingliang wrote:
+> > maybe all image recipes should be placed in the directory
+> > "meta-xx/images"?
 > 
-> Maybe HOB is not honouring the BBMASK?
+> Hob recognizes image whose file name is "xxx-image-xxx", like
+> core-image-sato.
 
-Variables are still handled in bitbake server side, Hob only acts as a
-bridge between user and bitbake server.
+Would it be possible to detect recipes that inherit from image.bbclass 
+instead?
 
-The phenomenon is strange since the code piece will detect if the error
-msg is None or not. If it is None, it will not pop up the error dialog.
+Cheers,
+Paul
 
-================================================================
-    def handler_command_failed_cb(self, handler, msg):
-        if msg:               
-            lbl = "<b>Error</b>\n"         
-            lbl = lbl + "%s\n\n" % msg     
-            dialog = CrumbsMessageDialog(self, lbl,
-gtk.STOCK_DIALOG_WARNING)
-            dialog.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
-            response = dialog.run()        
-            dialog.destroy()
-================================================================
+-- 
 
-What's does it do if you click the "OK" button?
-
-Thanks,
-Dongxiao
-
-> 
-
-
+Paul Eggleton
+Intel Open Source Technology Centre
 
