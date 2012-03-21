@@ -1,27 +1,25 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 83E7EE0070C
-	for <poky@yoctoproject.org>; Tue, 20 Mar 2012 23:58:54 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 20 Mar 2012 23:58:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="142351245"
-Received: from dongxiao-osel.sh.intel.com (HELO [10.239.36.11])
-	([10.239.36.11])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Mar 2012 23:58:52 -0700
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>, Gary Thomas
-	<gary@mlbassoc.com>, lauri.hintsala@bluegiga.com
-In-Reply-To: <2153250.yonJ7Q2VZR@helios>
-References: <4F67EA50.7000708@mlbassoc.com>
-	<1332210703.1041.86.camel@localhost.localdomain>
-	<1332224231.1848.24.camel@dongxiao-osel>  <2153250.yonJ7Q2VZR@helios>
-Date: Wed, 21 Mar 2012 14:56:45 +0800
-Message-ID: <1332313005.10433.9.camel@dongxiao-osel>
-Mime-Version: 1.0
-X-Mailer: Evolution 2.32.2 
-Cc: poky@yoctoproject.org
-Subject: Re: HOB doesn't see my image recipes
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DA65E0070C
+	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 04:25:55 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id F1351F811F6; Wed, 21 Mar 2012 05:25:54 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 64593F811F0;
+	Wed, 21 Mar 2012 05:25:54 -0600 (MDT)
+Message-ID: <4F69BAC2.30902@mlbassoc.com>
+Date: Wed, 21 Mar 2012 05:25:54 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: abi_version.conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,34 +31,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Mar 2012 06:58:54 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 21 Mar 2012 11:25:55 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2012-03-20 at 09:53 +0000, Paul Eggleton wrote:
-> On Tuesday 20 March 2012 14:17:11 Xu, Dongxiao wrote:
-> > On Tue, 2012-03-20 at 10:31 +0800, Ni Qingliang wrote:
-> > > maybe all image recipes should be placed in the directory
-> > > "meta-xx/images"?
-> > 
-> > Hob recognizes image whose file name is "xxx-image-xxx", like
-> > core-image-sato.
-> 
-> Would it be possible to detect recipes that inherit from image.bbclass 
-> instead?
+Poky has two:
+   meta/conf/abi_version.conf
+   meta-yocto/conf/abi_version.conf
+and they are different:
+   $ diff -u meta/conf/abi_version.conf meta-yocto/conf/abi_version.conf
+   --- meta/conf/abi_version.conf  2012-03-16 05:28:23.000000000 -0600
+   +++ meta-yocto/conf/abi_version.conf    2012-03-16 05:28:23.000000000 -0600
+   @@ -4,4 +4,4 @@
+    # that breaks the format and have been previously discussed on the mailing list
+    # with general agreement from the core team.
+    #
+   -OELAYOUT_ABI = "7"
+   +OELAYOUT_ABI = "8"
 
-Thanks all for your feedback.
+So, as Robert Day pointed out, depending on how these layers are
+processed, you get different build results...
 
-I will try to find the possibility to detect the inherits of
-image.bbclass instead of judging my image file name.
-
-Thanks,
-Dongxiao
-
-> 
-> Cheers,
-> Paul
-> 
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
