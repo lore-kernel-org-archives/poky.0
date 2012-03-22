@@ -1,24 +1,39 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E705AE0059A
-	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 18:26:30 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 21 Mar 2012 18:26:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="123647044"
-Received: from unknown (HELO [10.255.12.49]) ([10.255.12.49])
-	by orsmga002.jf.intel.com with ESMTP; 21 Mar 2012 18:26:30 -0700
-Message-ID: <4F6A7FC6.2080504@linux.intel.com>
-Date: Wed, 21 Mar 2012 18:26:30 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
-MIME-Version: 1.0
-To: Kang Kai <kai.kang@windriver.com>
-References: <cover.1331884360.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1331884360.git.kai.kang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] V3: Yocoto 1561: clean up the workdir
+Return-Path: <sivan.wang@huawei.com>
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 99E10E0059A
+	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 19:38:58 -0700 (PDT)
+Received: from huawei.com (szxga05-in [172.24.2.49])
+	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M19009NOLZNOY@szxga05-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 10:38:12 +0800 (CST)
+Received: from szxrg02-dlp.huawei.com ([172.24.2.119])
+	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1900A60LZNPJ@szxga05-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 10:38:11 +0800 (CST)
+Received: from szxeml210-edg.china.huawei.com ([172.24.2.119])
+	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIA66149; Thu,
+	22 Mar 2012 10:38:11 +0800
+Received: from SZXEML428-HUB.china.huawei.com (10.72.61.36)
+	by szxeml210-edg.china.huawei.com (172.24.2.183) with Microsoft SMTP
+	Server (TLS) id 14.1.323.3; Thu, 22 Mar 2012 10:38:04 +0800
+Received: from SZXEML526-MBS.china.huawei.com ([169.254.7.172])
+	by szxeml428-hub.china.huawei.com ([10.72.61.36]) with mapi id
+	14.01.0323.003; Thu, 22 Mar 2012 10:38:09 +0800
+Date: Thu, 22 Mar 2012 02:38:08 +0000
+From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
+X-Originating-IP: [10.66.60.200]
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Message-id: <7E29EF69110C17499E6B3A9844CD4FD91341D738@szxeml526-mbs.china.huawei.com>
+MIME-version: 1.0
+Accept-Language: zh-CN, en-US
+Thread-topic: [question]replace the toolchain
+Thread-index: Ac0H1M6uLCynFsrFTn+PHvtkodM2ZA==
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+X-CFilter-Loop: Reflected
+Subject: [question]replace the toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,37 +45,254 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2012 01:26:31 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 22 Mar 2012 02:38:59 -0000
+X-Groupsio-MsgNum: 7558
+Content-type: multipart/related;
+	boundary="Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)";
+	type="multipart/alternative"
+Content-language: zh-CN
 
-On 03/16/2012 12:57 AM, Kang Kai wrote:
-> Hi Richard,
->
-> This version update:
-> 1 limits the script run under BUILDDIR and after source oe-init-build-env file
-> 2 get WORKDIR by TMPDIR+'/work'
-> 3 replace system() call with module commands
->
-> Regards,
->
-> The following changes since commit 8bae18bb358755131f13865abb279ac687a03848:
->
->    slang: Fix rpath QA warnings (2012-03-15 00:11:40 +0000)
->
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib kangkai/cleanup
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/cleanup
->
-> Kang Kai (1):
->    cleanup-workdir: add a script to clean up WORKDIR
->
->   scripts/cleanup-workdir |  150 +++++++++++++++++++++++++++++++++++++++++++++++
->   1 files changed, 150 insertions(+), 0 deletions(-)
->   create mode 100755 scripts/cleanup-workdir
->
+--Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)
+Content-type: multipart/alternative;
+ boundary="Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)"
 
-Merged into OE-Core
+--Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)
+Content-type: text/plain; charset=us-ascii
+Content-transfer-encoding: 7BIT
 
-Sau!
+Hi guys,
 
+         Did anyone know the steps that how to build my application used the binary toolchain I have got ? I try to use the TCMODE option ,but there is no effect
+
+Best Regards
+
+kyle sivan
+Huawei Technologies Co., Ltd.
+cell phone: +86-18665326540
+(Office) 755-28384495
+sivan.wang@huawei.com<mailto:sivan.wang@huawei.com>
+[cid:image001.png@01CD0817.DCBFCDC0]
+
+
+
+--Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)
+Content-type: text/html; charset=us-ascii
+Content-transfer-encoding: 7BIT
+
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<meta name="Generator" content="Microsoft Word 12 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:\5B8B\4F53;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe Script";
+	panose-1:2 11 5 4 2 0 0 0 0 3;}
+@font-face
+	{font-family:"\@\5B8B\4F53";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Comic Sans MS";
+	panose-1:3 15 7 2 3 3 2 2 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"\6279\6CE8\6846\6587\672C Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:9.0pt;
+	font-family:"Calibri","sans-serif";}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.Char
+	{mso-style-name:"\6279\6CE8\6846\6587\672C Char";
+	mso-style-priority:99;
+	mso-style-link:\6279\6CE8\6846\6587\672C;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="2050" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang="ZH-CN" link="blue" vlink="purple" style="text-justify-trim:punctuation">
+<div class="WordSection1">
+<p class="MsoNormal"><span lang="EN-US">Hi guys,<o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Did anyone know the steps that how to build my application used the binary toolchain I have got ? I try to use the TCMODE option ,but there is no effect<o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:11.0pt;color:#004080">Best Regards<o:p></o:p></span></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:11.0pt;color:#004080"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><b><span lang="EN-US" style="font-size:11.0pt;font-family:&quot;Segoe Script&quot;,&quot;sans-serif&quot;;color:black">kyle sivan<o:p></o:p></span></b></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#333333">Huawei Technologies Co., Ltd.</span><b><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:black"><o:p></o:p></span></b></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080">cell phone: &#43;86-18665326540<o:p></o:p></span></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080">(Office) 755-28384495<o:p></o:p></span></p>
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080"><a href="mailto:sivan.wang@huawei.com"><i><span style="color:blue;text-shadow:auto">sivan.wang@huawei.com</span></i></a></span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto">
+<o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"><img border="0" width="87" height="79" id="&#22270;&#29255;_x0020_1" src="cid:image001.png@01CD0817.DCBFCDC0"></span><span lang="EN-US"><o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
+
+--Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)--
+
+--Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)
+Content-id: <image001.png@01CD0817.DCBFCDC0>
+Content-type: image/png; name=image001.png
+Content-transfer-encoding: base64
+Content-disposition: inline; filename=image001.png; size=6069;
+ creation-date="Thu, 22 Mar 2012 02:38:08 GMT";
+ modification-date="Thu, 22 Mar 2012 02:38:08 GMT"
+Content-description: image001.png
+
+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
+d3/ofdQ/AHIkg9bc73HOAAAAAElFTkSuQmCC
+
+--Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)--
