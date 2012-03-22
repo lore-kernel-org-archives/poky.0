@@ -1,39 +1,39 @@
 Return-Path: <sivan.wang@huawei.com>
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 99E10E0059A
-	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 19:38:58 -0700 (PDT)
-Received: from huawei.com (szxga05-in [172.24.2.49])
-	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [58.251.152.66])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7227BE00746
+	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 00:29:33 -0700 (PDT)
+Received: from huawei.com (szxga03-in [172.24.2.9])
+	by szxga03-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
 	(built Aug
-	8 2006)) with ESMTP id <0M19009NOLZNOY@szxga05-in.huawei.com> for
-	poky@yoctoproject.org; Thu, 22 Mar 2012 10:38:12 +0800 (CST)
+	8 2006)) with ESMTP id <0M1900G3TZDPB8@szxga03-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 15:27:25 +0800 (CST)
 Received: from szxrg02-dlp.huawei.com ([172.24.2.119])
-	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	by szxga03-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
 	(built Aug
-	8 2006)) with ESMTP id <0M1900A60LZNPJ@szxga05-in.huawei.com> for
-	poky@yoctoproject.org; Thu, 22 Mar 2012 10:38:11 +0800 (CST)
-Received: from szxeml210-edg.china.huawei.com ([172.24.2.119])
-	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIA66149; Thu,
-	22 Mar 2012 10:38:11 +0800
-Received: from SZXEML428-HUB.china.huawei.com (10.72.61.36)
-	by szxeml210-edg.china.huawei.com (172.24.2.183) with Microsoft SMTP
-	Server (TLS) id 14.1.323.3; Thu, 22 Mar 2012 10:38:04 +0800
+	8 2006)) with ESMTP id <0M1900JX6ZDPSU@szxga03-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 15:27:25 +0800 (CST)
+Received: from szxeml212-edg.china.huawei.com ([172.24.2.119])
+	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIA79396; Thu,
+	22 Mar 2012 15:27:24 +0800
+Received: from SZXEML434-HUB.china.huawei.com (10.72.61.62)
+	by szxeml212-edg.china.huawei.com (172.24.2.181) with Microsoft SMTP
+	Server (TLS) id 14.1.323.3; Thu, 22 Mar 2012 15:27:16 +0800
 Received: from SZXEML526-MBS.china.huawei.com ([169.254.7.172])
-	by szxeml428-hub.china.huawei.com ([10.72.61.36]) with mapi id
-	14.01.0323.003; Thu, 22 Mar 2012 10:38:09 +0800
-Date: Thu, 22 Mar 2012 02:38:08 +0000
+	by szxeml434-hub.china.huawei.com ([10.72.61.62]) with mapi id
+	14.01.0323.003; Thu, 22 Mar 2012 15:27:21 +0800
+Date: Thu, 22 Mar 2012 07:27:20 +0000
 From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
 X-Originating-IP: [10.66.60.200]
 To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Message-id: <7E29EF69110C17499E6B3A9844CD4FD91341D738@szxeml526-mbs.china.huawei.com>
+Message-id: <7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com>
 MIME-version: 1.0
 Accept-Language: zh-CN, en-US
-Thread-topic: [question]replace the toolchain
-Thread-index: Ac0H1M6uLCynFsrFTn+PHvtkodM2ZA==
+Thread-topic: [question]how to defined my own distro
+Thread-index: Ac0H1M6uLCynFsrFTn+PHvtkodM2ZAAJ7AQA
 X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
 X-CFilter-Loop: Reflected
-Subject: [question]replace the toolchain
+Subject: [question]how to defined my own distro
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,24 +45,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2012 02:38:59 -0000
-X-Groupsio-MsgNum: 7558
+X-List-Received-Date: Thu, 22 Mar 2012 07:29:52 -0000
+X-Groupsio-MsgNum: 7559
 Content-type: multipart/related;
-	boundary="Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)";
+	boundary="Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)";
 	type="multipart/alternative"
 Content-language: zh-CN
 
---Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)
+--Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)
 Content-type: multipart/alternative;
- boundary="Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)"
+ boundary="Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)"
 
---Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)
+--Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)
 Content-type: text/plain; charset=us-ascii
 Content-transfer-encoding: 7BIT
 
+
 Hi guys,
 
-         Did anyone know the steps that how to build my application used the binary toolchain I have got ? I try to use the TCMODE option ,but there is no effect
+         I want to build a rootfs , that I can decide which package I will build into the image . is there some config file to do this ?I can't find the config file in poky . Is there any way to complete this ?for example I just want to build busybox and glibc for my image ,how can I config this ?
 
 Best Regards
 
@@ -75,7 +76,7 @@ sivan.wang@huawei.com<mailto:sivan.wang@huawei.com>
 
 
 
---Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)
+--Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)
 Content-type: text/html; charset=us-ascii
 Content-transfer-encoding: 7BIT
 
@@ -90,7 +91,7 @@ w\:* {behavior:url(#default#VML);}
 </style><![endif]--><style><!--
 /* Font Definitions */
 @font-face
-	{font-family:\5B8B\4F53;
+	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Cambria Math";
@@ -102,7 +103,7 @@ w\:* {behavior:url(#default#VML);}
 	{font-family:"Segoe Script";
 	panose-1:2 11 5 4 2 0 0 0 0 3;}
 @font-face
-	{font-family:"\@\5B8B\4F53";
+	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
 	{font-family:"Comic Sans MS";
@@ -132,24 +133,28 @@ p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	text-justify:inter-ideograph;
 	font-size:9.0pt;
 	font-family:"Calibri","sans-serif";}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
 span.Char
 	{mso-style-name:"\6279\6CE8\6846\6587\672C Char";
 	mso-style-priority:99;
 	mso-style-link:\6279\6CE8\6846\6587\672C;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
 .MsoChpDefault
-	{mso-style-type:export-only;}
-/* Page Definitions */
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
 @page WordSection1
 	{size:612.0pt 792.0pt;
 	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
 div.WordSection1
 	{page:WordSection1;}
 --></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="2050" />
+<o:shapedefaults v:ext="edit" spidmax="1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
 <o:shapelayout v:ext="edit">
 <o:idmap v:ext="edit" data="1" />
@@ -157,9 +162,11 @@ div.WordSection1
 </head>
 <body lang="ZH-CN" link="blue" vlink="purple" style="text-justify-trim:punctuation">
 <div class="WordSection1">
+<p class="MsoNormal" align="left" style="text-align:left"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
 <p class="MsoNormal"><span lang="EN-US">Hi guys,<o:p></o:p></span></p>
 <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Did anyone know the steps that how to build my application used the binary toolchain I have got ? I try to use the TCMODE option ,but there is no effect<o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#1F497D">I want to build a rootfs , that I can decide which package I will build into the image . is there some config file to do this ?I can&#8217;t find the config file in poky . Is there any way
+ to complete this ?for example I just want to build busybox and glibc for my image ,how can I config this ?</span><o:p></o:p></span></p>
 <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
 <p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:11.0pt;color:#004080">Best Regards<o:p></o:p></span></p>
 <p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:11.0pt;color:#004080"><o:p>&nbsp;</o:p></span></p>
@@ -167,24 +174,24 @@ div.WordSection1
 <p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#333333">Huawei Technologies Co., Ltd.</span><b><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:black"><o:p></o:p></span></b></p>
 <p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080">cell phone: &#43;86-18665326540<o:p></o:p></span></p>
 <p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080">(Office) 755-28384495<o:p></o:p></span></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080"><a href="mailto:sivan.wang@huawei.com"><i><span style="color:blue;text-shadow:auto">sivan.wang@huawei.com</span></i></a></span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto">
+<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080"><a href="mailto:sivan.wang@huawei.com"><i><span style="text-shadow:auto">sivan.wang@huawei.com</span></i></a></span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto">
 <o:p></o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"><img border="0" width="87" height="79" id="&#22270;&#29255;_x0020_1" src="cid:image001.png@01CD0817.DCBFCDC0"></span><span lang="EN-US"><o:p></o:p></span></p>
+<p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"><img border="0" width="87" height="79" id="_x56fe__x7247__x0020_1" src="cid:image001.png@01CD0817.DCBFCDC0"></span><span lang="EN-US"><o:p></o:p></span></p>
 <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
 <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
 </div>
 </body>
 </html>
 
---Boundary_(ID_KVN1E3l/lTTBvOyJQHlLoQ)--
+--Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)--
 
---Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)
+--Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)
 Content-id: <image001.png@01CD0817.DCBFCDC0>
 Content-type: image/png; name=image001.png
 Content-transfer-encoding: base64
 Content-disposition: inline; filename=image001.png; size=6069;
- creation-date="Thu, 22 Mar 2012 02:38:08 GMT";
- modification-date="Thu, 22 Mar 2012 02:38:08 GMT"
+ creation-date="Thu, 22 Mar 2012 07:27:20 GMT";
+ modification-date="Thu, 22 Mar 2012 07:27:20 GMT"
 Content-description: image001.png
 
 iVBORw0KGgoAAAANSUhEUgAAAFcAAABPCAYAAACeTVmaAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAAO
@@ -295,4 +302,4 @@ Hu43UWyI5JTKLH6LFisvN1fenhShnU1ACmivfr+JLebP4fwKMZbjRDEgwMvl+98WD/LcmRlykeD8
 3Z6wsH/3uGjp1GdBBpEnRCEh5hOfE/NZH91T5u7y9xE2N7hucN3gupsbXDe4bnDdzQ3unwvuKPYk
 d3/ofdQ/AHIkg9bc73HOAAAAAElFTkSuQmCC
 
---Boundary_(ID_rA4Z2h502w0pkWqBm3gaYg)--
+--Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)--
