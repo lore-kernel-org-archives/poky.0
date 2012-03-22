@@ -1,41 +1,27 @@
-Return-Path: <robert21abel@gmail.com>
-Received: from mail-bk0-f48.google.com (mail-bk0-f48.google.com
-	[209.85.214.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB918E01373
-	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 10:18:34 -0700 (PDT)
-Received: by bkcji17 with SMTP id ji17so1663103bkc.35
-	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 10:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:message-id:date:from:reply-to:user-agent:mime-version:to
-	:subject:x-enigmail-version:content-type:content-transfer-encoding;
-	bh=CTVueHreFlMs5qajpuEPA7vv/wtvzefnx0VLgST5gOc=;
-	b=ECS5O41eon+LWHHW3U7bQ3ah5qNtpvRf+TLSgq4GSiaBuZtXhLS3+Ec55PwBcypfA0
-	T20vnAyhB7HNnVNiol0SoJYgqjK2ikI741H3K1dWTythLjBvlpTSHY22//NfUYOFhVGr
-	ipb6WKdrLlAEzwm8WatjfotVmKKW5J9RWv6JVl7Unw2D2QasqKcfAcLHBAmqTEIRUUSx
-	jNa7hIhAxB0kzayVnevRborx0jfXCZrEq6j0GvPc/R3YWL0sRRhXAQ0Mjz5ceMQnF7NZ
-	d9/pIz1kaXQzZ1x8+CthUIWhIvEcg8EyKePH0TQrOr9zpE+Y9l7kMQKJ5lRExNjNXxAj
-	JjEQ==
-Received: by 10.205.132.141 with SMTP id hu13mr1763102bkc.87.1332350313653;
-	Wed, 21 Mar 2012 10:18:33 -0700 (PDT)
-Received: from [129.70.144.26] (floreana.TechFak.Uni-Bielefeld.DE.
-	[129.70.144.26])
-	by mx.google.com with ESMTPS id jd17sm4746737bkb.4.2012.03.21.10.18.32
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 21 Mar 2012 10:18:32 -0700 (PDT)
-Sender: Robert Abel <robert21abel@gmail.com>
-Message-ID: <4F6A0D67.3080005@uni-bielefeld.de>
-Date: Wed, 21 Mar 2012 18:18:31 +0100
-From: Robert Abel <abel@uni-bielefeld.de>
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
-	rv:10.0.2) Gecko/20120216 Thunderbird/10.0.2
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E705AE0059A
+	for <poky@yoctoproject.org>; Wed, 21 Mar 2012 18:26:30 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 21 Mar 2012 18:26:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="123647044"
+Received: from unknown (HELO [10.255.12.49]) ([10.255.12.49])
+	by orsmga002.jf.intel.com with ESMTP; 21 Mar 2012 18:26:30 -0700
+Message-ID: <4F6A7FC6.2080504@linux.intel.com>
+Date: Wed, 21 Mar 2012 18:26:30 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-X-Enigmail-Version: 1.4
-Subject: Patch.bbclass URL Reasoning
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1331884360.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1331884360.git.kai.kang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] V3: Yocoto 1561: clean up the workdir
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: abel@uni-bielefeld.de
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -44,51 +30,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Mar 2012 17:18:35 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 22 Mar 2012 01:26:31 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 03/16/2012 12:57 AM, Kang Kai wrote:
+> Hi Richard,
+>
+> This version update:
+> 1 limits the script run under BUILDDIR and after source oe-init-build-env file
+> 2 get WORKDIR by TMPDIR+'/work'
+> 3 replace system() call with module commands
+>
+> Regards,
+>
+> The following changes since commit 8bae18bb358755131f13865abb279ac687a03848:
+>
+>    slang: Fix rpath QA warnings (2012-03-15 00:11:40 +0000)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib kangkai/cleanup
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/cleanup
+>
+> Kang Kai (1):
+>    cleanup-workdir: add a script to clean up WORKDIR
+>
+>   scripts/cleanup-workdir |  150 +++++++++++++++++++++++++++++++++++++++++++++++
+>   1 files changed, 150 insertions(+), 0 deletions(-)
+>   create mode 100755 scripts/cleanup-workdir
+>
 
-Could somebody enlighten me why the following is done in patch.bbclass?
+Merged into OE-Core
 
-> def src_patches(d, all = False ):
->     workdir = d.getVar('WORKDIR', True)
->     fetch = bb.fetch2.Fetch([], d)
->     patches = []
->     sources = []
->     for url in fetch.urls:
->         local = patch_path(url, fetch, workdir)
->         if not local:
->             if all:
->                 local = fetch.localpath(url)
->                 sources.append(local)
->             continue
-
-As you can see (or guess), patches are resolved back to their original
-URLs inside the recipe folder. The ones that are copied to ${WORKDIR}
-during unpack don't seem to be used at all. Is there any special reason
-why this is done?
-
-Basically, I was happily editing patches using sed when I noticed that
-my changes weren't applied at all. I thought the patches are copied to
-${WORKDIR} precisely for the reason that they are used, i.e. can be
-edited before patching.
-
-The reason for editing them in the first place is that they contain
-specific IDs (which I put there) that a task before do_patch replaces
-for actual values (e.g. MHz for external hardware) for the board
-configuration so my users will be able to simply change a variable
-inside their local.conf for added comfort/ease-of-use.
-
-It seems the patches are copied just because and aren't actually
-utilized at all. Could this behavior be changed to use the copied
-patches instead of the original patches inside the recipe folder? IMHO
-it would make much more sense to be able to edit the patches before they
-are being applied without having to overwrite the original patches in
-the process.
-
-Regards
-
-Robert
+Sau!
 
