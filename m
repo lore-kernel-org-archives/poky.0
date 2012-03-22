@@ -1,20 +1,43 @@
-Return-Path: <ml@communistcode.co.uk>
-Received: from tinyArch.localdomain (unknown [78.110.170.148])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F3036E00746
-	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 02:28:06 -0700 (PDT)
-Received: from [192.168.0.57] (unknown [195.171.99.130])
-	by tinyArch.localdomain (Postfix) with ESMTPSA id B12232A701
-	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 08:43:37 +0000 (GMT)
-Message-ID: <4F6AF0AD.4060000@communistcode.co.uk>
-Date: Thu, 22 Mar 2012 09:28:13 +0000
-From: Jack Mitchell <ml@communistcode.co.uk>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:11.0) Gecko/20120314 Thunderbird/11.0
-MIME-Version: 1.0
-To: poky@yoctoproject.org
+Return-Path: <sivan.wang@huawei.com>
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [58.251.152.66])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3648FE00746
+	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 02:34:41 -0700 (PDT)
+Received: from huawei.com (szxga03-in [172.24.2.9])
+	by szxga03-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1A00GI956YB8@szxga03-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 17:32:58 +0800 (CST)
+Received: from szxrg02-dlp.huawei.com ([172.24.2.119])
+	by szxga03-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1A009BQ56YGY@szxga03-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 17:32:58 +0800 (CST)
+Received: from szxeml212-edg.china.huawei.com ([172.24.2.119])
+	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIA86562; Thu,
+	22 Mar 2012 17:32:58 +0800
+Received: from SZXEML408-HUB.china.huawei.com (10.82.67.95)
+	by szxeml212-edg.china.huawei.com (172.24.2.181) with Microsoft SMTP
+	Server (TLS) id 14.1.323.3; Thu, 22 Mar 2012 17:32:50 +0800
+Received: from SZXEML526-MBS.china.huawei.com ([169.254.7.172])
+	by szxeml408-hub.china.huawei.com ([10.82.67.95]) with mapi id
+	14.01.0323.003; Thu, 22 Mar 2012 17:32:55 +0800
+Date: Thu, 22 Mar 2012 09:32:54 +0000
+From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
+In-reply-to: <4F6AF0AD.4060000@communistcode.co.uk>
+X-Originating-IP: [10.66.60.200]
+To: Jack Mitchell <ml@communistcode.co.uk>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Message-id: <7E29EF69110C17499E6B3A9844CD4FD91341F80B@szxeml526-mbs.china.huawei.com>
+MIME-version: 1.0
+Accept-Language: zh-CN, en-US
+Thread-topic: [poky] [question]how to defined my own distro
+Thread-index: Ac0H1M6uLCynFsrFTn+PHvtkodM2ZAAJ7AQA//+dG4D//3lYgA==
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+X-CFilter-Loop: Reflected
 References: <7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com>
-In-Reply-To: <7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com>
-Subject: Re: [question]how to defined my own distro
+	<4F6AF0AD.4060000@communistcode.co.uk>
+Subject: =?UTF-8?B?562U5aSNOiBbcXVlc3Rpb25daG93IHRvIGRlZmluZWQgbXkgb3duIGRpc3Rybw==?=
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,90 +49,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2012 09:28:07 -0000
-X-Groupsio-MsgNum: 7560
-Content-Type: multipart/alternative;
-	boundary="------------090402050606090405040303"
+X-List-Received-Date: Thu, 22 Mar 2012 09:34:43 -0000
+X-Groupsio-MsgNum: 7561
+Content-type: multipart/related;
+	boundary="Boundary_(ID_Kp56NKlb+ZiHL8kfcceuEw)";
+	type="multipart/alternative"
+Content-language: zh-CN
 
---------------090402050606090405040303
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+--Boundary_(ID_Kp56NKlb+ZiHL8kfcceuEw)
+Content-type: multipart/alternative;
+ boundary="Boundary_(ID_zTWvbc7+nUTJJF+p8JIIsQ)"
 
-On 22/03/12 07:27, Wangdawei (Sivan) wrote:
->
-> Hi guys,
->
-> I want to build a rootfs , that I can decide which package I will 
-> build into the image . is there some config file to do this ?I can't 
-> find the config file in poky . Is there any way to complete this ?for 
-> example I just want to build busybox and glibc for my image ,how can I 
-> config this ?
->
-> Best Regards
->
-> *kyle sivan*
->
-> Huawei Technologies Co., Ltd.**
->
-> cell phone: +86-18665326540
->
-> (Office) 755-28384495
->
-> /sivan.wang@huawei.com/ <mailto:sivan.wang@huawei.com>
->
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+--Boundary_(ID_zTWvbc7+nUTJJF+p8JIIsQ)
+Content-type: text/plain; charset=gb2312
+Content-transfer-encoding: base64
 
-Hi Kyle,
+WWVzICxJIGhhdmUgY2hlY2tlZCB0aGlzICwgYnV0IEkganVzdCBjYW4gZmluZCBob3cgdG8gYWRk
+IGEgcGFja2FnZSAsIEkgZG9uoa90IGZpbmQgaG93IHRvIHJlZHVjZSB0aGUgcGFja2FnZXMgLEkg
+ZG9uoa90IG5lZWQgc28gbXVjaCBwYWNrYWdlcyBsaWtlIGl0IGluIGNvcmUtaW1hZ2UgLkRvIEkg
+bmVlZCB0byBjaGFuZ2UgdGhlIGNvcmUtaW1hZ2UuYmJjbGFzcyA/IG9yIHRoZXJlIGlzIGFub3Ro
+ZXIgY29uZmlndXJlIGZpbGUgY2FuIGZpbmlzaCB0aGlzIHdvcmsgPw0KDQq3orz+yMs6IHBva3kt
+Ym91bmNlc0B5b2N0b3Byb2plY3Qub3JnIFttYWlsdG86cG9reS1ib3VuY2VzQHlvY3RvcHJvamVj
+dC5vcmddILT6se0gSmFjayBNaXRjaGVsbA0Kt6LLzcqxvOQ6IDIwMTLE6jPUwjIyyNUgMTc6MjgN
+CsrVvP7IyzogcG9reUB5b2N0b3Byb2plY3Qub3JnDQrW98ziOiBSZTogW3Bva3ldIFtxdWVzdGlv
+bl1ob3cgdG8gZGVmaW5lZCBteSBvd24gZGlzdHJvDQoNCk9uIDIyLzAzLzEyIDA3OjI3LCBXYW5n
+ZGF3ZWkgKFNpdmFuKSB3cm90ZToNCg0KSGkgZ3V5cywNCg0KICAgICAgICAgSSB3YW50IHRvIGJ1
+aWxkIGEgcm9vdGZzICwgdGhhdCBJIGNhbiBkZWNpZGUgd2hpY2ggcGFja2FnZSBJIHdpbGwgYnVp
+bGQgaW50byB0aGUgaW1hZ2UgLiBpcyB0aGVyZSBzb21lIGNvbmZpZyBmaWxlIHRvIGRvIHRoaXMg
+P0kgY2Fuoa90IGZpbmQgdGhlIGNvbmZpZyBmaWxlIGluIHBva3kgLiBJcyB0aGVyZSBhbnkgd2F5
+IHRvIGNvbXBsZXRlIHRoaXMgP2ZvciBleGFtcGxlIEkganVzdCB3YW50IHRvIGJ1aWxkIGJ1c3li
+b3ggYW5kIGdsaWJjIGZvciBteSBpbWFnZSAsaG93IGNhbiBJIGNvbmZpZyB0aGlzID8NCg0KQmVz
+dCBSZWdhcmRzDQoNCmt5bGUgc2l2YW4NCkh1YXdlaSBUZWNobm9sb2dpZXMgQ28uLCBMdGQuDQpj
+ZWxsIHBob25lOiArODYtMTg2NjUzMjY1NDANCihPZmZpY2UpIDc1NS0yODM4NDQ5NQ0Kc2l2YW4u
+d2FuZ0BodWF3ZWkuY29tPG1haWx0bzpzaXZhbi53YW5nQGh1YXdlaS5jb20+DQpbY2lkOmltYWdl
+MDAxLnBuZ0AwMUNEMDg1MS5DRkE1OTE4MF0NCg0KDQoNCg0KDQoNCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNCnBva3kgbWFpbGluZyBsaXN0DQoNCnBv
+a3lAeW9jdG9wcm9qZWN0Lm9yZzxtYWlsdG86cG9reUB5b2N0b3Byb2plY3Qub3JnPg0KDQpodHRw
+czovL2xpc3RzLnlvY3RvcHJvamVjdC5vcmcvbGlzdGluZm8vcG9reQ0KDQpIaSBLeWxlLA0KDQpU
+aGVyZSBhcmUgcmVhbXMgb2YgZG9jdW1lbnRhdGlvbiB0aGF0IHBlb3BsZSBoYXZlIHdvcmtlZCB2
+ZXJ5IGhhcmQgb24sIHdoaWNoIGFyZSBiZSBsb2NhdGVkIGhlcmU6IGh0dHA6Ly93d3cueW9jdG9w
+cm9qZWN0Lm9yZy9kb2N1bWVudGF0aW9uLiBPbmUgb2YgdGhlbSBjb3ZlcnMgYWRkaW5nIHBhY2th
+Z2VzIHRvIHlvdXIgYnVpbGQuDQoNClJlZ2FyZHMsDQpKYWNrLg0KDQoNCg0KLS0NCg0KDQoNCiAg
+SmFjayBNaXRjaGVsbCAoamFja0BlbWJlZC5tZS51azxtYWlsdG86amFja0BlbWJlZC5tZS51az4p
+DQoNCiAgRW1iZWRkZWQgU3lzdGVtcyBFbmdpbmVlcg0KDQogIGh0dHA6Ly93d3cuZW1iZWQubWUu
+dWsNCg0KDQoNCi0tDQo=
 
-There are reams of documentation that people have worked very hard on, 
-which are be located here: http://www.yoctoproject.org/documentation. 
-One of them covers adding packages to your build.
-
-Regards,
-Jack.
-
--- 
-
-   Jack Mitchell (jack@embed.me.uk)
-   Embedded Systems Engineer
-   http://www.embed.me.uk
-
---
-
-
---------------090402050606090405040303
-Content-Type: multipart/related;
- boundary="------------040005030804040001080605"
-
---------------040005030804040001080605
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+--Boundary_(ID_zTWvbc7+nUTJJF+p8JIIsQ)
+Content-type: text/html; charset=gb2312
+Content-transfer-encoding: quoted-printable
 
 <html>
-  <head>
-    <meta content="text/html; charset=ISO-8859-1"
-      http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    On 22/03/12 07:27, Wangdawei (Sivan) wrote:
-    <blockquote
-cite="mid:7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=ISO-8859-1">
-      <meta name="Generator" content="Microsoft Word 12 (filtered
-        medium)">
-      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
 o\:* {behavior:url(#default#VML);}
 w\:* {behavior:url(#default#VML);}
 .shape {behavior:url(#default#VML);}
-</style><![endif]-->
-      <style><!--
+</style><![endif]--><style><!--
 /* Font Definitions */
 @font-face
 	{font-family:SimSun;
@@ -121,14 +118,14 @@ w\:* {behavior:url(#default#VML);}
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"Segoe Script";
-	panose-1:2 11 5 4 2 0 0 0 0 3;}
-@font-face
 	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:"Comic Sans MS";
-	panose-1:3 15 7 2 3 3 2 2 2 4;}
+	{font-family:"Comic Sans MS \;color\:\#333333";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Comic Sans MS \;color\:\#004080";
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0cm;
@@ -136,7 +133,8 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	text-align:justify;
 	text-justify:inter-ideograph;
 	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
+	font-family:"Calibri","sans-serif";
+	color:black;}
 a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:blue;
@@ -145,6 +143,17 @@ a:visited, span.MsoHyperlinkFollowed
 	{mso-style-priority:99;
 	color:purple;
 	text-decoration:underline;}
+pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML \9884\8BBE\683C\5F0F Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:black;}
+tt
+	{mso-style-priority:99;
+	font-family:"Courier New";}
 p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	{mso-style-priority:99;
 	mso-style-link:"\6279\6CE8\6846\6587\672C Char";
@@ -153,7 +162,8 @@ p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	text-align:justify;
 	text-justify:inter-ideograph;
 	font-size:9.0pt;
-	font-family:"Calibri","sans-serif";}
+	font-family:"Calibri","sans-serif";
+	color:black;}
 span.Char
 	{mso-style-name:"\6279\6CE8\6846\6587\672C Char";
 	mso-style-priority:99;
@@ -163,6 +173,16 @@ span.EmailStyle19
 	font-family:"Calibri","sans-serif";
 	color:windowtext;}
 span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.HTMLChar
+	{mso-style-name:"HTML \9884\8BBE\683C\5F0F Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML \9884\8BBE\683C\5F0F";
+	font-family:"Courier New";
+	color:black;}
+span.EmailStyle24
 	{mso-style-type:personal-reply;
 	font-family:"Calibri","sans-serif";
 	color:#1F497D;}
@@ -175,106 +195,155 @@ span.EmailStyle20
 div.WordSection1
 	{page:WordSection1;}
 --></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
 </o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal" style="text-align:left" align="left"><span
-            lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-        <p class="MsoNormal"><span lang="EN-US">Hi guys,<o:p></o:p></span></p>
-        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-        <p class="MsoNormal"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
-              style="color:#1F497D">I want to build a rootfs , that I
-              can decide which package I will build into the image . is
-              there some config file to do this ?I can&#8217;t find the config
-              file in poky . Is there any way to complete this ?for
-              example I just want to build busybox and glibc for my
-              image ,how can I config this ?</span><o:p></o:p></span></p>
-        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><span style="font-size:11.0pt;color:#004080"
-            lang="EN-US">Best Regards<o:p></o:p></span></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><span style="font-size:11.0pt;color:#004080"
-            lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><b><span
-              style="font-size:11.0pt;font-family:&quot;Segoe
-              Script&quot;,&quot;sans-serif&quot;;color:black"
-              lang="EN-US">kyle sivan<o:p></o:p></span></b></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><span
-            style="font-size:10.0pt;font-family:&quot;Comic Sans
-            MS&quot;;color:#333333" lang="EN-US">Huawei Technologies
-            Co., Ltd.</span><b><span
-              style="font-size:10.0pt;font-family:&quot;Comic Sans
-              MS&quot;;color:black" lang="EN-US"><o:p></o:p></span></b></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><span
-            style="font-size:10.0pt;font-family:&quot;Comic Sans
-            MS&quot;;color:#004080" lang="EN-US">cell phone:
-            +86-18665326540<o:p></o:p></span></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><span
-            style="font-size:10.0pt;font-family:&quot;Comic Sans
-            MS&quot;;color:#004080" lang="EN-US">(Office) 755-28384495<o:p></o:p></span></p>
-        <p class="MsoNormal" style="text-align:left;text-autospace:none"
-          align="left"><span
-            style="font-size:10.0pt;font-family:&quot;Comic Sans
-            MS&quot;;color:#004080" lang="EN-US"><a
-              moz-do-not-send="true" href="mailto:sivan.wang@huawei.com"><i><span
-                  style="text-shadow:auto">sivan.wang@huawei.com</span></i></a></span><span
-            style="font-size:12.0pt;font-family:&quot;Times New
-            Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"
-            lang="EN-US">
-            <o:p></o:p></span></p>
-        <p class="MsoNormal"><span
-            style="font-size:12.0pt;font-family:&quot;Times New
-            Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"
-            lang="EN-US"><img id="_x56fe__x7247__x0020_1"
-              src="cid:part2.08010005.06020201@communistcode.co.uk"
-              height="79" width="87" border="0"></span><span
-            lang="EN-US"><o:p></o:p></span></p>
-        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-poky mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:poky@yoctoproject.org">poky@yoctoproject.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/listinfo/poky</a>
-</pre>
-    </blockquote>
-    <tt><br>
-      Hi Kyle,<br>
-      <br>
-      There are reams of documentation that people have worked very hard
-      on, which are be located here:
-      <a class="moz-txt-link-freetext" href="http://www.yoctoproject.org/documentation">http://www.yoctoproject.org/documentation</a>. One of them covers
-      adding packages to your build.<br>
-      <br>
-      Regards,<br>
-      Jack.<br>
-    </tt><br>
-    <pre class="moz-signature" cols="72">-- 
-
-  Jack Mitchell (<a class="moz-txt-link-abbreviated" href="mailto:jack@embed.me.uk">jack@embed.me.uk</a>)             
-  Embedded Systems Engineer
-  <a class="moz-txt-link-freetext" href="http://www.embed.me.uk">http://www.embed.me.uk</a>
-
---
-</pre>
-  </body>
+</head>
+<body bgcolor=3D"white" lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Yes ,I =
+have checked this , but I just can find how to add a package , I don=A1=AFt=
+ find how to reduce the packages ,I don=A1=AFt need so much packages like i=
+t in core-image .Do I need to change the core-image.bbclass
+ ? or there is another configure file can finish this work ?<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
+bsp;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><b><span st=
+yle=3D"font-size:10.0pt;font-family:SimSun;color:windowtext">=B7=A2=BC=FE=
+=C8=CB<span lang=3D"EN-US">:</span></span></b><span lang=3D"EN-US" style=3D=
+"font-size:10.0pt;font-family:SimSun;color:windowtext"> poky-bounces@yoctop=
+roject.org
+ [mailto:poky-bounces@yoctoproject.org] </span><b><span style=3D"font-size:=
+10.0pt;font-family:SimSun;color:windowtext">=B4=FA=B1=ED
+</span></b><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:SimSu=
+n;color:windowtext">Jack Mitchell<br>
+</span><b><span style=3D"font-size:10.0pt;font-family:SimSun;color:windowte=
+xt">=B7=A2=CB=CD=CA=B1=BC=E4<span lang=3D"EN-US">:</span></span></b><span l=
+ang=3D"EN-US" style=3D"font-size:10.0pt;font-family:SimSun;color:windowtext=
+"> 2012</span><span style=3D"font-size:10.0pt;font-family:SimSun;color:wind=
+owtext">=C4=EA<span lang=3D"EN-US">3</span>=D4=C2<span lang=3D"EN-US">22</s=
+pan>=C8=D5<span lang=3D"EN-US">
+ 17:28<br>
+</span><b>=CA=D5=BC=FE=C8=CB<span lang=3D"EN-US">:</span></b><span lang=3D"=
+EN-US"> poky@yoctoproject.org<br>
+</span><b>=D6=F7=CC=E2<span lang=3D"EN-US">:</span></b><span lang=3D"EN-US"=
+> Re: [poky] [question]how to defined my own distro<o:p></o:p></span></span=
+></p>
+</div>
+</div>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">On 22/03/12 07:27, Wangdawei (S=
+ivan) wrote:
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi guys,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; </span><span lang=3D"EN-US" style=3D"color:#1F497D">I wan=
+t to build a rootfs , that I can decide which package I will build into the=
+ image . is there some config file to do this ?I can=A1=AFt find the config=
+ file in poky
+ . Is there any way to complete this ?for example I just want to build busy=
+box and glibc for my image ,how can I config this ?</span><span lang=3D"EN-=
+US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><span lang=3D"EN-US" style=3D"font-size:11.0pt;color:#004080">Best=
+ Regards</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><span lang=3D"EN-US" style=3D"font-size:11.0pt;color:#004080">&nbs=
+p;</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><b><span lang=3D"EN-US" style=3D"font-size:11.0pt">kyle sivan</spa=
+n></b><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;C=
+omic Sans MS ;color:#333333&quot;,&quot;serif&quot;">Huawei Technologies Co=
+., Ltd.</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;C=
+omic Sans MS ;color:#004080&quot;,&quot;serif&quot;">cell phone: &#43;86-18=
+665326540</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;C=
+omic Sans MS ;color:#004080&quot;,&quot;serif&quot;">(Office) 755-28384495<=
+/span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left;text-autospa=
+ce:none"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;C=
+omic Sans MS ;color:#004080&quot;,&quot;serif&quot;"><a href=3D"mailto:siva=
+n.wang@huawei.com"><i><span style=3D"text-shadow:auto">sivan.wang@huawei.co=
+m</span></i></a></span><span lang=3D"EN-US" style=3D"font-size:12.0pt">
+</span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt"><img=
+ border=3D"0" width=3D"87" height=3D"79" id=3D"_x56fe__x7247__x0020_1" src=
+=3D"cid:image001.png@01CD0851.CFA59180"></span><span lang=3D"EN-US"><o:p></=
+o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"font-size:12.0pt;font-family:&quot;Times New Roman&quot=
+;,&quot;serif&quot;"><br>
+<br>
+<br>
+<o:p></o:p></span></p>
+<pre><span lang=3D"EN-US">_______________________________________________<o=
+:p></o:p></span></pre>
+<pre><span lang=3D"EN-US">poky mailing list<o:p></o:p></span></pre>
+<pre><span lang=3D"EN-US"><a href=3D"mailto:poky@yoctoproject.org">poky@yoc=
+toproject.org</a><o:p></o:p></span></pre>
+<pre><span lang=3D"EN-US"><a href=3D"https://lists.yoctoproject.org/listinf=
+o/poky">https://lists.yoctoproject.org/listinfo/poky</a><o:p></o:p></span><=
+/pre>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;"><=
+br>
+<tt>Hi Kyle,</tt><br>
+<br>
+<tt>There are reams of documentation that people have worked very hard on, =
+which are be located here:
+<a href=3D"http://www.yoctoproject.org/documentation">http://www.yoctoproje=
+ct.org/documentation</a>. One of them covers adding packages to your build.=
+</tt><br>
+<br>
+<tt>Regards,</tt><br>
+<tt>Jack.</tt><br>
+</span><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-family:&quot;Tim=
+es New Roman&quot;,&quot;serif&quot;"><br>
+<br>
+<o:p></o:p></span></p>
+<pre><span lang=3D"EN-US">-- <o:p></o:p></span></pre>
+<pre><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></pre>
+<pre><span lang=3D"EN-US">&nbsp; Jack Mitchell (<a href=3D"mailto:jack@embe=
+d.me.uk">jack@embed.me.uk</a>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></span></pre>
+<pre><span lang=3D"EN-US">&nbsp;&nbsp;Embedded Systems Engineer<o:p></o:p><=
+/span></pre>
+<pre><span lang=3D"EN-US">&nbsp; <a href=3D"http://www.embed.me.uk">http://=
+www.embed.me.uk</a><o:p></o:p></span></pre>
+<pre><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></pre>
+<pre><span lang=3D"EN-US">--<o:p></o:p></span></pre>
+</div>
+</body>
 </html>
 
---------------040005030804040001080605
-Content-Type: image/png
-Content-Transfer-Encoding: base64
-Content-ID: <part2.08010005.06020201@communistcode.co.uk>
+--Boundary_(ID_zTWvbc7+nUTJJF+p8JIIsQ)--
+
+--Boundary_(ID_Kp56NKlb+ZiHL8kfcceuEw)
+Content-id: <image001.png@01CD0851.CFA59180>
+Content-type: image/png; name=image001.png
+Content-transfer-encoding: base64
+Content-disposition: inline; filename=image001.png; size=6069;
+ creation-date="Thu, 22 Mar 2012 09:32:54 GMT";
+ modification-date="Thu, 22 Mar 2012 09:32:54 GMT"
+Content-description: image001.png
 
 iVBORw0KGgoAAAANSUhEUgAAAFcAAABPCAYAAACeTVmaAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAAO
 xAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAABc1SURBVHja
@@ -384,6 +453,4 @@ Hu43UWyI5JTKLH6LFisvN1fenhShnU1ACmivfr+JLebP4fwKMZbjRDEgwMvl+98WD/LcmRlykeD8
 3Z6wsH/3uGjp1GdBBpEnRCEh5hOfE/NZH91T5u7y9xE2N7hucN3gupsbXDe4bnDdzQ3unwvuKPYk
 d3/ofdQ/AHIkg9bc73HOAAAAAElFTkSuQmCC
 
---------------040005030804040001080605--
-
---------------090402050606090405040303--
+--Boundary_(ID_Kp56NKlb+ZiHL8kfcceuEw)--
