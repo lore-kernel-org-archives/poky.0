@@ -1,31 +1,42 @@
-Return-Path: <lianhao.lu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5AB6AE00746
-	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 03:09:44 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 22 Mar 2012 03:09:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="121897654"
-Received: from azsmsx603.amr.corp.intel.com ([10.2.161.23])
-	by azsmga001.ch.intel.com with ESMTP; 22 Mar 2012 03:09:43 -0700
-Received: from shsmsx101.ccr.corp.intel.com (10.239.4.153) by
-	azsmsx603.amr.corp.intel.com (10.2.161.23) with Microsoft SMTP Server
-	(TLS) id 8.2.255.0; Thu, 22 Mar 2012 03:09:43 -0700
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.36]) by
-	SHSMSX101.ccr.corp.intel.com ([169.254.1.142]) with mapi id
-	14.01.0355.002; Thu, 22 Mar 2012 18:09:41 +0800
-From: "Lu, Lianhao" <lianhao.lu@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] [question]how to defined my own distro
-Thread-Index: Ac0IE+TOS+sZF0HgQ5evuYEzsAmNsQ==
-Date: Thu, 22 Mar 2012 10:09:41 +0000
-Message-ID: <857BE142E5399E46B20FD45B9DB8A7BC0FD04E6E@SHSMSX102.ccr.corp.intel.com>
+Return-Path: <sivan.wang@huawei.com>
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CA193E00746
+	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 03:24:47 -0700 (PDT)
+Received: from huawei.com (szxga05-in [172.24.2.49])
+	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1A00H5H7FWZF@szxga05-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 18:21:32 +0800 (CST)
+Received: from szxrg02-dlp.huawei.com ([172.24.2.119])
+	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1A00J9R7FH2G@szxga05-in.huawei.com> for
+	poky@yoctoproject.org; Thu, 22 Mar 2012 18:21:32 +0800 (CST)
+Received: from szxeml212-edg.china.huawei.com ([172.24.2.119])
+	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIA89111; Thu,
+	22 Mar 2012 18:21:32 +0800
+Received: from SZXEML416-HUB.china.huawei.com (10.82.67.155)
+	by szxeml212-edg.china.huawei.com (172.24.2.181) with Microsoft SMTP
+	Server (TLS) id 14.1.323.3; Thu, 22 Mar 2012 18:21:24 +0800
+Received: from SZXEML526-MBS.china.huawei.com ([169.254.7.172])
+	by szxeml416-hub.china.huawei.com ([10.82.67.155])
+	with mapi id 14.01.0323.003; Thu, 22 Mar 2012 18:21:11 +0800
+Date: Thu, 22 Mar 2012 10:21:10 +0000
+From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
+In-reply-to: <857BE142E5399E46B20FD45B9DB8A7BC0FD04E6E@SHSMSX102.ccr.corp.intel.com>
+X-Originating-IP: [10.66.60.200]
+To: "Lu, Lianhao" <lianhao.lu@intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Message-id: <7E29EF69110C17499E6B3A9844CD4FD91341F82E@szxeml526-mbs.china.huawei.com>
+MIME-version: 1.0
 Accept-Language: zh-CN, en-US
+Thread-topic: [poky] [question]how to defined my own distro
+Thread-index: Ac0IE+TOLCynFsrFTn+PHvtkodM2ZAAAUErg
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-MIME-Version: 1.0
-Subject: Re: [question]how to defined my own distro
+X-CFilter-Loop: Reflected
+References: <857BE142E5399E46B20FD45B9DB8A7BC0FD04E6E@SHSMSX102.ccr.corp.intel.com>
+Subject: =?UTF-8?B?562U5aSNOiBbcXVlc3Rpb25daG93IHRvIGRlZmluZWQgbXkgb3duIGRpc3Rybw==?=
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,40 +48,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2012 10:09:44 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 22 Mar 2012 10:24:48 -0000
+Content-type: text/plain; charset=gb2312
+Content-language: zh-CN
+Content-transfer-encoding: base64
 
-V2FuZ2Rhd2VpIChTaXZhbikgd3JvdGUgb24gMjAxMi0wMy0yMjoNCj4gWWVzICxJIGhhdmUgY2hl
-Y2tlZCB0aGlzICwgYnV0IEkganVzdCBjYW4gZmluZCBob3cgdG8gYWRkIGEgcGFja2FnZSAsIEkg
-ZG9uoa90IGZpbmQgaG93IHRvIHJlZHVjZSB0aGUgcGFja2FnZXMgLEkgZG9uoa90IG5lZWQgc28g
-bXVjaCBwYWNrYWdlcw0KPiBsaWtlIGl0IGluIGNvcmUtaW1hZ2UgLkRvIEkgbmVlZCB0byBjaGFu
-Z2UgdGhlIGNvcmUtaW1hZ2UuYmJjbGFzcyA/IG9yIHRoZXJlIGlzIGFub3RoZXIgY29uZmlndXJl
-IGZpbGUgY2FuIGZpbmlzaCB0aGlzIHdvcmsgPw0KPiANCg0KTWF5YmUgeW91IGNvdWxkIHRyeSBo
-b2IsIHRoZSBndGsgYmFzZWQgR1VJIGZyb250ZW5kIHRvIGN1c3RvbWl6ZSBpbWFnZSBjb250ZW50
-LiANCg0KQmVzdCBSZWdhcmRzLA0KTGlhbmhhbw0KDQo+IA0KPiC3orz+yMs6IHBva3ktYm91bmNl
-c0B5b2N0b3Byb2plY3Qub3JnIFttYWlsdG86cG9reS1ib3VuY2VzQHlvY3RvcHJvamVjdC5vcmdd
-ILT6se0gSmFjayBNaXRjaGVsbA0KPiC3osvNyrG85DogMjAxMsTqM9TCMjLI1SAxNzoyOA0KPiDK
-1bz+yMs6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KPiDW98ziOiBSZTogW3Bva3ldIFtxdWVzdGlv
-bl1ob3cgdG8gZGVmaW5lZCBteSBvd24gZGlzdHJvDQo+IA0KPiANCj4gDQo+IE9uIDIyLzAzLzEy
-IDA3OjI3LCBXYW5nZGF3ZWkgKFNpdmFuKSB3cm90ZToNCj4gDQo+IA0KPiANCj4gSGkgZ3V5cywN
-Cj4gDQo+IA0KPiANCj4gICAgICAgICAgSSB3YW50IHRvIGJ1aWxkIGEgcm9vdGZzICwgdGhhdCBJ
-IGNhbiBkZWNpZGUgd2hpY2ggcGFja2FnZSBJIHdpbGwgYnVpbGQgaW50byB0aGUgaW1hZ2UgLiBp
-cyB0aGVyZSBzb21lIGNvbmZpZyBmaWxlIHRvIGRvIHRoaXMgP0kgY2Fuoa90DQo+IGZpbmQgdGhl
-IGNvbmZpZyBmaWxlIGluIHBva3kgLiBJcyB0aGVyZSBhbnkgd2F5IHRvIGNvbXBsZXRlIHRoaXMg
-P2ZvciBleGFtcGxlIEkganVzdCB3YW50IHRvIGJ1aWxkIGJ1c3lib3ggYW5kIGdsaWJjIGZvciBt
-eSBpbWFnZSAsaG93IGNhbiBJDQo+IGNvbmZpZyB0aGlzID8NCj4gDQo+IA0KPiANCj4gQmVzdCBS
-ZWdhcmRzDQo+IA0KPiANCj4gDQo+IGt5bGUgc2l2YW4NCj4gDQo+IEh1YXdlaSBUZWNobm9sb2dp
-ZXMgQ28uLCBMdGQuDQo+IA0KPiBjZWxsIHBob25lOiArODYtMTg2NjUzMjY1NDANCj4gDQo+IChP
-ZmZpY2UpIDc1NS0yODM4NDQ5NQ0KPiANCj4gc2l2YW4ud2FuZ0BodWF3ZWkuY29tIDxtYWlsdG86
-c2l2YW4ud2FuZ0BodWF3ZWkuY29tPg0KPiANCj4gDQo+IA0KPiANCj4gDQo+IA0KPiANCj4gDQo+
-IA0KPiANCj4gDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXyBwb2t5IG1haWxpbmcgbGlzdA0KPiBwb2t5QHlvY3RvcHJvamVjdC5vcmcgaHR0cHM6
-Ly9saXN0cy55b2N0b3Byb2plY3Qub3JnL2xpc3RpbmZvL3Bva3kNCj4gDQo+IA0KPiBIaSBLeWxl
-LA0KPiANCj4gVGhlcmUgYXJlIHJlYW1zIG9mIGRvY3VtZW50YXRpb24gdGhhdCBwZW9wbGUgaGF2
-ZSB3b3JrZWQgdmVyeSBoYXJkIG9uLCB3aGljaCBhcmUgYmUgbG9jYXRlZCBoZXJlOg0KPiBodHRw
-Oi8vd3d3LnlvY3RvcHJvamVjdC5vcmcvZG9jdW1lbnRhdGlvbi4gT25lIG9mIHRoZW0gY292ZXJz
-IGFkZGluZyBwYWNrYWdlcyB0byB5b3VyIGJ1aWxkLg0KPiANCj4gUmVnYXJkcywNCj4gSmFjay4N
-Cj4gDQo+IA0KPiANCj4NCg0KDQo=
+SXMgdGhlcmUgc29tZSBtZXRob2QgdG8gdXNlIHRoZSBjb21tYW5kIGxpbmUgdG8gZmluaXNoIHRo
+aXMgd29yayA/bm90IHRoZSBHVUkgPw0KDQotLS0tLdPKvP7Urbz+LS0tLS0NCreivP7IyzogcG9r
+eS1ib3VuY2VzQHlvY3RvcHJvamVjdC5vcmcgW21haWx0bzpwb2t5LWJvdW5jZXNAeW9jdG9wcm9q
+ZWN0Lm9yZ10gtPqx7SBMdSwgTGlhbmhhbw0Kt6LLzcqxvOQ6IDIwMTLE6jPUwjIyyNUgMTg6MTAN
+CsrVvP7IyzogcG9reUB5b2N0b3Byb2plY3Qub3JnDQrW98ziOiBSZTogW3Bva3ldIFtxdWVzdGlv
+bl1ob3cgdG8gZGVmaW5lZCBteSBvd24gZGlzdHJvDQoNCldhbmdkYXdlaSAoU2l2YW4pIHdyb3Rl
+IG9uIDIwMTItMDMtMjI6DQo+IFllcyAsSSBoYXZlIGNoZWNrZWQgdGhpcyAsIGJ1dCBJIGp1c3Qg
+Y2FuIGZpbmQgaG93IHRvIGFkZCBhIHBhY2thZ2UgLCBJIGRvbqGvdCBmaW5kIGhvdyB0byByZWR1
+Y2UgdGhlIHBhY2thZ2VzICxJIGRvbqGvdCBuZWVkIHNvIG11Y2ggcGFja2FnZXMNCj4gbGlrZSBp
+dCBpbiBjb3JlLWltYWdlIC5EbyBJIG5lZWQgdG8gY2hhbmdlIHRoZSBjb3JlLWltYWdlLmJiY2xh
+c3MgPyBvciB0aGVyZSBpcyBhbm90aGVyIGNvbmZpZ3VyZSBmaWxlIGNhbiBmaW5pc2ggdGhpcyB3
+b3JrID8NCj4gDQoNCk1heWJlIHlvdSBjb3VsZCB0cnkgaG9iLCB0aGUgZ3RrIGJhc2VkIEdVSSBm
+cm9udGVuZCB0byBjdXN0b21pemUgaW1hZ2UgY29udGVudC4gDQoNCkJlc3QgUmVnYXJkcywNCkxp
+YW5oYW8NCg0KPiANCj4gt6K8/sjLOiBwb2t5LWJvdW5jZXNAeW9jdG9wcm9qZWN0Lm9yZyBbbWFp
+bHRvOnBva3ktYm91bmNlc0B5b2N0b3Byb2plY3Qub3JnXSC0+rHtIEphY2sgTWl0Y2hlbGwNCj4g
+t6LLzcqxvOQ6IDIwMTLE6jPUwjIyyNUgMTc6MjgNCj4gytW8/sjLOiBwb2t5QHlvY3RvcHJvamVj
+dC5vcmcNCj4g1vfM4jogUmU6IFtwb2t5XSBbcXVlc3Rpb25daG93IHRvIGRlZmluZWQgbXkgb3du
+IGRpc3Rybw0KPiANCj4gDQo+IA0KPiBPbiAyMi8wMy8xMiAwNzoyNywgV2FuZ2Rhd2VpIChTaXZh
+bikgd3JvdGU6DQo+IA0KPiANCj4gDQo+IEhpIGd1eXMsDQo+IA0KPiANCj4gDQo+ICAgICAgICAg
+IEkgd2FudCB0byBidWlsZCBhIHJvb3RmcyAsIHRoYXQgSSBjYW4gZGVjaWRlIHdoaWNoIHBhY2th
+Z2UgSSB3aWxsIGJ1aWxkIGludG8gdGhlIGltYWdlIC4gaXMgdGhlcmUgc29tZSBjb25maWcgZmls
+ZSB0byBkbyB0aGlzID9JIGNhbqGvdA0KPiBmaW5kIHRoZSBjb25maWcgZmlsZSBpbiBwb2t5IC4g
+SXMgdGhlcmUgYW55IHdheSB0byBjb21wbGV0ZSB0aGlzID9mb3IgZXhhbXBsZSBJIGp1c3Qgd2Fu
+dCB0byBidWlsZCBidXN5Ym94IGFuZCBnbGliYyBmb3IgbXkgaW1hZ2UgLGhvdyBjYW4gSQ0KPiBj
+b25maWcgdGhpcyA/DQo+IA0KPiANCj4gDQo+IEJlc3QgUmVnYXJkcw0KPiANCj4gDQo+IA0KPiBr
+eWxlIHNpdmFuDQo+IA0KPiBIdWF3ZWkgVGVjaG5vbG9naWVzIENvLiwgTHRkLg0KPiANCj4gY2Vs
+bCBwaG9uZTogKzg2LTE4NjY1MzI2NTQwDQo+IA0KPiAoT2ZmaWNlKSA3NTUtMjgzODQ0OTUNCj4g
+DQo+IHNpdmFuLndhbmdAaHVhd2VpLmNvbSA8bWFpbHRvOnNpdmFuLndhbmdAaHVhd2VpLmNvbT4N
+Cj4gDQo+IA0KPiANCj4gDQo+IA0KPiANCj4gDQo+IA0KPiANCj4gDQo+IA0KPiANCj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18gcG9reSBtYWlsaW5nIGxp
+c3QNCj4gcG9reUB5b2N0b3Byb2plY3Qub3JnIGh0dHBzOi8vbGlzdHMueW9jdG9wcm9qZWN0Lm9y
+Zy9saXN0aW5mby9wb2t5DQo+IA0KPiANCj4gSGkgS3lsZSwNCj4gDQo+IFRoZXJlIGFyZSByZWFt
+cyBvZiBkb2N1bWVudGF0aW9uIHRoYXQgcGVvcGxlIGhhdmUgd29ya2VkIHZlcnkgaGFyZCBvbiwg
+d2hpY2ggYXJlIGJlIGxvY2F0ZWQgaGVyZToNCj4gaHR0cDovL3d3dy55b2N0b3Byb2plY3Qub3Jn
+L2RvY3VtZW50YXRpb24uIE9uZSBvZiB0aGVtIGNvdmVycyBhZGRpbmcgcGFja2FnZXMgdG8geW91
+ciBidWlsZC4NCj4gDQo+IFJlZ2FyZHMsDQo+IEphY2suDQo+IA0KPiANCj4gDQo+DQoNCg0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCnBva3kgbWFpbGlu
+ZyBsaXN0DQpwb2t5QHlvY3RvcHJvamVjdC5vcmcNCmh0dHBzOi8vbGlzdHMueW9jdG9wcm9qZWN0
+Lm9yZy9saXN0aW5mby9wb2t5DQo=
 
