@@ -1,39 +1,20 @@
-Return-Path: <sivan.wang@huawei.com>
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [58.251.152.66])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7227BE00746
-	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 00:29:33 -0700 (PDT)
-Received: from huawei.com (szxga03-in [172.24.2.9])
-	by szxga03-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
-	(built Aug
-	8 2006)) with ESMTP id <0M1900G3TZDPB8@szxga03-in.huawei.com> for
-	poky@yoctoproject.org; Thu, 22 Mar 2012 15:27:25 +0800 (CST)
-Received: from szxrg02-dlp.huawei.com ([172.24.2.119])
-	by szxga03-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
-	(built Aug
-	8 2006)) with ESMTP id <0M1900JX6ZDPSU@szxga03-in.huawei.com> for
-	poky@yoctoproject.org; Thu, 22 Mar 2012 15:27:25 +0800 (CST)
-Received: from szxeml212-edg.china.huawei.com ([172.24.2.119])
-	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIA79396; Thu,
-	22 Mar 2012 15:27:24 +0800
-Received: from SZXEML434-HUB.china.huawei.com (10.72.61.62)
-	by szxeml212-edg.china.huawei.com (172.24.2.181) with Microsoft SMTP
-	Server (TLS) id 14.1.323.3; Thu, 22 Mar 2012 15:27:16 +0800
-Received: from SZXEML526-MBS.china.huawei.com ([169.254.7.172])
-	by szxeml434-hub.china.huawei.com ([10.72.61.62]) with mapi id
-	14.01.0323.003; Thu, 22 Mar 2012 15:27:21 +0800
-Date: Thu, 22 Mar 2012 07:27:20 +0000
-From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
-X-Originating-IP: [10.66.60.200]
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Message-id: <7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com>
-MIME-version: 1.0
-Accept-Language: zh-CN, en-US
-Thread-topic: [question]how to defined my own distro
-Thread-index: Ac0H1M6uLCynFsrFTn+PHvtkodM2ZAAJ7AQA
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-X-CFilter-Loop: Reflected
-Subject: [question]how to defined my own distro
+Return-Path: <ml@communistcode.co.uk>
+Received: from tinyArch.localdomain (unknown [78.110.170.148])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F3036E00746
+	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 02:28:06 -0700 (PDT)
+Received: from [192.168.0.57] (unknown [195.171.99.130])
+	by tinyArch.localdomain (Postfix) with ESMTPSA id B12232A701
+	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 08:43:37 +0000 (GMT)
+Message-ID: <4F6AF0AD.4060000@communistcode.co.uk>
+Date: Thu, 22 Mar 2012 09:28:13 +0000
+From: Jack Mitchell <ml@communistcode.co.uk>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:11.0) Gecko/20120314 Thunderbird/11.0
+MIME-Version: 1.0
+To: poky@yoctoproject.org
+References: <7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com>
+In-Reply-To: <7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com>
+Subject: Re: [question]how to defined my own distro
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,50 +26,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Mar 2012 07:29:52 -0000
-X-Groupsio-MsgNum: 7559
-Content-type: multipart/related;
-	boundary="Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)";
-	type="multipart/alternative"
-Content-language: zh-CN
+X-List-Received-Date: Thu, 22 Mar 2012 09:28:07 -0000
+X-Groupsio-MsgNum: 7560
+Content-Type: multipart/alternative;
+	boundary="------------090402050606090405040303"
 
---Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)
-Content-type: multipart/alternative;
- boundary="Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)"
+--------------090402050606090405040303
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)
-Content-type: text/plain; charset=us-ascii
-Content-transfer-encoding: 7BIT
+On 22/03/12 07:27, Wangdawei (Sivan) wrote:
+>
+> Hi guys,
+>
+> I want to build a rootfs , that I can decide which package I will 
+> build into the image . is there some config file to do this ?I can't 
+> find the config file in poky . Is there any way to complete this ?for 
+> example I just want to build busybox and glibc for my image ,how can I 
+> config this ?
+>
+> Best Regards
+>
+> *kyle sivan*
+>
+> Huawei Technologies Co., Ltd.**
+>
+> cell phone: +86-18665326540
+>
+> (Office) 755-28384495
+>
+> /sivan.wang@huawei.com/ <mailto:sivan.wang@huawei.com>
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+Hi Kyle,
+
+There are reams of documentation that people have worked very hard on, 
+which are be located here: http://www.yoctoproject.org/documentation. 
+One of them covers adding packages to your build.
+
+Regards,
+Jack.
+
+-- 
+
+   Jack Mitchell (jack@embed.me.uk)
+   Embedded Systems Engineer
+   http://www.embed.me.uk
+
+--
 
 
-Hi guys,
+--------------090402050606090405040303
+Content-Type: multipart/related;
+ boundary="------------040005030804040001080605"
 
-         I want to build a rootfs , that I can decide which package I will build into the image . is there some config file to do this ?I can't find the config file in poky . Is there any way to complete this ?for example I just want to build busybox and glibc for my image ,how can I config this ?
+--------------040005030804040001080605
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Best Regards
-
-kyle sivan
-Huawei Technologies Co., Ltd.
-cell phone: +86-18665326540
-(Office) 755-28384495
-sivan.wang@huawei.com<mailto:sivan.wang@huawei.com>
-[cid:image001.png@01CD0817.DCBFCDC0]
-
-
-
---Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)
-Content-type: text/html; charset=us-ascii
-Content-transfer-encoding: 7BIT
-
-<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
-<meta name="Generator" content="Microsoft Word 12 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+<html>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    On 22/03/12 07:27, Wangdawei (Sivan) wrote:
+    <blockquote
+cite="mid:7E29EF69110C17499E6B3A9844CD4FD91341F783@szxeml526-mbs.china.huawei.com"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=ISO-8859-1">
+      <meta name="Generator" content="Microsoft Word 12 (filtered
+        medium)">
+      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
 o\:* {behavior:url(#default#VML);}
 w\:* {behavior:url(#default#VML);}
 .shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
+</style><![endif]-->
+      <style><!--
 /* Font Definitions */
 @font-face
 	{font-family:SimSun;
@@ -159,40 +180,101 @@ div.WordSection1
 <o:shapelayout v:ext="edit">
 <o:idmap v:ext="edit" data="1" />
 </o:shapelayout></xml><![endif]-->
-</head>
-<body lang="ZH-CN" link="blue" vlink="purple" style="text-justify-trim:punctuation">
-<div class="WordSection1">
-<p class="MsoNormal" align="left" style="text-align:left"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US">Hi guys,<o:p></o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#1F497D">I want to build a rootfs , that I can decide which package I will build into the image . is there some config file to do this ?I can&#8217;t find the config file in poky . Is there any way
- to complete this ?for example I just want to build busybox and glibc for my image ,how can I config this ?</span><o:p></o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:11.0pt;color:#004080">Best Regards<o:p></o:p></span></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:11.0pt;color:#004080"><o:p>&nbsp;</o:p></span></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><b><span lang="EN-US" style="font-size:11.0pt;font-family:&quot;Segoe Script&quot;,&quot;sans-serif&quot;;color:black">kyle sivan<o:p></o:p></span></b></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#333333">Huawei Technologies Co., Ltd.</span><b><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:black"><o:p></o:p></span></b></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080">cell phone: &#43;86-18665326540<o:p></o:p></span></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080">(Office) 755-28384495<o:p></o:p></span></p>
-<p class="MsoNormal" align="left" style="text-align:left;text-autospace:none"><span lang="EN-US" style="font-size:10.0pt;font-family:&quot;Comic Sans MS&quot;;color:#004080"><a href="mailto:sivan.wang@huawei.com"><i><span style="text-shadow:auto">sivan.wang@huawei.com</span></i></a></span><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto">
-<o:p></o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"><img border="0" width="87" height="79" id="_x56fe__x7247__x0020_1" src="cid:image001.png@01CD0817.DCBFCDC0"></span><span lang="EN-US"><o:p></o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
-</div>
-</body>
+      <div class="WordSection1">
+        <p class="MsoNormal" style="text-align:left" align="left"><span
+            lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">Hi guys,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+              style="color:#1F497D">I want to build a rootfs , that I
+              can decide which package I will build into the image . is
+              there some config file to do this ?I can&#8217;t find the config
+              file in poky . Is there any way to complete this ?for
+              example I just want to build busybox and glibc for my
+              image ,how can I config this ?</span><o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><span style="font-size:11.0pt;color:#004080"
+            lang="EN-US">Best Regards<o:p></o:p></span></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><span style="font-size:11.0pt;color:#004080"
+            lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><b><span
+              style="font-size:11.0pt;font-family:&quot;Segoe
+              Script&quot;,&quot;sans-serif&quot;;color:black"
+              lang="EN-US">kyle sivan<o:p></o:p></span></b></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><span
+            style="font-size:10.0pt;font-family:&quot;Comic Sans
+            MS&quot;;color:#333333" lang="EN-US">Huawei Technologies
+            Co., Ltd.</span><b><span
+              style="font-size:10.0pt;font-family:&quot;Comic Sans
+              MS&quot;;color:black" lang="EN-US"><o:p></o:p></span></b></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><span
+            style="font-size:10.0pt;font-family:&quot;Comic Sans
+            MS&quot;;color:#004080" lang="EN-US">cell phone:
+            +86-18665326540<o:p></o:p></span></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><span
+            style="font-size:10.0pt;font-family:&quot;Comic Sans
+            MS&quot;;color:#004080" lang="EN-US">(Office) 755-28384495<o:p></o:p></span></p>
+        <p class="MsoNormal" style="text-align:left;text-autospace:none"
+          align="left"><span
+            style="font-size:10.0pt;font-family:&quot;Comic Sans
+            MS&quot;;color:#004080" lang="EN-US"><a
+              moz-do-not-send="true" href="mailto:sivan.wang@huawei.com"><i><span
+                  style="text-shadow:auto">sivan.wang@huawei.com</span></i></a></span><span
+            style="font-size:12.0pt;font-family:&quot;Times New
+            Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"
+            lang="EN-US">
+            <o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+            style="font-size:12.0pt;font-family:&quot;Times New
+            Roman&quot;,&quot;serif&quot;;color:black;text-shadow:auto"
+            lang="EN-US"><img id="_x56fe__x7247__x0020_1"
+              src="cid:part2.08010005.06020201@communistcode.co.uk"
+              height="79" width="87" border="0"></span><span
+            lang="EN-US"><o:p></o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+        <p class="MsoNormal"><span lang="EN-US"><o:p>&nbsp;</o:p></span></p>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+poky mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:poky@yoctoproject.org">poky@yoctoproject.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/listinfo/poky</a>
+</pre>
+    </blockquote>
+    <tt><br>
+      Hi Kyle,<br>
+      <br>
+      There are reams of documentation that people have worked very hard
+      on, which are be located here:
+      <a class="moz-txt-link-freetext" href="http://www.yoctoproject.org/documentation">http://www.yoctoproject.org/documentation</a>. One of them covers
+      adding packages to your build.<br>
+      <br>
+      Regards,<br>
+      Jack.<br>
+    </tt><br>
+    <pre class="moz-signature" cols="72">-- 
+
+  Jack Mitchell (<a class="moz-txt-link-abbreviated" href="mailto:jack@embed.me.uk">jack@embed.me.uk</a>)             
+  Embedded Systems Engineer
+  <a class="moz-txt-link-freetext" href="http://www.embed.me.uk">http://www.embed.me.uk</a>
+
+--
+</pre>
+  </body>
 </html>
 
---Boundary_(ID_czDgMw1pHAMdUXIReEv/Jg)--
-
---Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)
-Content-id: <image001.png@01CD0817.DCBFCDC0>
-Content-type: image/png; name=image001.png
-Content-transfer-encoding: base64
-Content-disposition: inline; filename=image001.png; size=6069;
- creation-date="Thu, 22 Mar 2012 07:27:20 GMT";
- modification-date="Thu, 22 Mar 2012 07:27:20 GMT"
-Content-description: image001.png
+--------------040005030804040001080605
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-ID: <part2.08010005.06020201@communistcode.co.uk>
 
 iVBORw0KGgoAAAANSUhEUgAAAFcAAABPCAYAAACeTVmaAAAAAXNSR0ICQMB9xQAAAAlwSFlzAAAO
 xAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAABc1SURBVHja
@@ -302,4 +384,6 @@ Hu43UWyI5JTKLH6LFisvN1fenhShnU1ACmivfr+JLebP4fwKMZbjRDEgwMvl+98WD/LcmRlykeD8
 3Z6wsH/3uGjp1GdBBpEnRCEh5hOfE/NZH91T5u7y9xE2N7hucN3gupsbXDe4bnDdzQ3unwvuKPYk
 d3/ofdQ/AHIkg9bc73HOAAAAAElFTkSuQmCC
 
---Boundary_(ID_r2Tq3Go4w2iVEITGAZJFOw)--
+--------------040005030804040001080605--
+
+--------------090402050606090405040303--
