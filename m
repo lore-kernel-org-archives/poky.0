@@ -1,26 +1,23 @@
-Return-Path: <edwin.zhai@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AE9C5E013D6
-	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 21:13:17 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 22 Mar 2012 21:13:17 -0700
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A518DE013D6
+	for <poky@yoctoproject.org>; Thu, 22 Mar 2012 21:31:25 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 22 Mar 2012 21:31:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="80704817"
-Received: from edwin-gen.sh.intel.com (HELO [10.239.36.17]) ([10.239.36.17])
-	by AZSMGA002.ch.intel.com with ESMTP; 22 Mar 2012 21:13:16 -0700
-Message-ID: <4F6BF8CF.6040801@intel.com>
-Date: Fri, 23 Mar 2012 12:15:11 +0800
-From: "Zhai, Edwin" <edwin.zhai@intel.com>
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US;
-	rv:1.9.2.14) Gecko/20110223 Lightning/1.0b2 Thunderbird/3.1.8
-MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="132281169"
+Received: from unknown (HELO [10.255.15.202]) ([10.255.15.202])
+	by fmsmga001.fm.intel.com with ESMTP; 22 Mar 2012 21:31:23 -0700
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: edwin.zhai@intel.com
+In-Reply-To: <cover.1332466139.git.edwin.zhai@intel.com>
 References: <cover.1332466139.git.edwin.zhai@intel.com>
-	<99b3a94a7298427e306aaced77694bdc047d30b2.1332466139.git.edwin.zhai@intel.com>
-	<4F6BF3B8.20502@linux.intel.com>
-In-Reply-To: <4F6BF3B8.20502@linux.intel.com>
+Date: Thu, 22 Mar 2012 23:31:26 -0500
+Message-ID: <1332477086.2310.1.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] n450: fix wrong video driver
+Subject: Re: [PATCH 0/1] choose right video driver for n450
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,32 +29,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2012 04:13:17 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Fri, 23 Mar 2012 04:31:25 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 03/23/2012 11:53 AM, Darren Hart wrote:
->> >  diff --git a/meta-sugarbay/conf/machine/sugarbay.conf b/meta-sugarbay/conf/machine/sugarbay.conf
->> >  index 776089e..a44f918 100644
->> >  --- a/meta-sugarbay/conf/machine/sugarbay.conf
->> >  +++ b/meta-sugarbay/conf/machine/sugarbay.conf
->> >  @@ -11,5 +11,5 @@ require conf/machine/include/ia32-base.inc
->> >
->> >    XSERVER ?= "${XSERVER_IA32_BASE} \
->> >               ${XSERVER_IA32_EXT} \
->> >  -           ${XSERVER_IA32_I915} \
->> >  +           ${XSERVER_IA32_I965} \
->> >               "
-> Tom, this one is your call - I presume this is right? Will leave to you
-> to pull in, I'm good with the common i915 definition.
+On Fri, 2012-03-23 at 09:36 +0800, edwin.zhai@intel.com wrote:
+> From: Zhai Edwin <edwin.zhai@intel.com>
+> 
+> Tom,
+> n450 should use i915 driver rather than i965. With this [YOCTO #1840] got fixed.
+> 
 
-There are some commits in history to show:
-6f65f6
-2061bb
-9e0325
+You're right, pulled into meta-intel/master.
 
->
+Tom
+
 > Thanks,
->
+> Edwin
+> 
+> The following changes since commit 1ada91f40c9c7684ec0963c72de20c639c42ec70:
+> 
+>   fri2: Add 3.2 kernel recipes (2012-03-20 11:19:28 -0700)
+> 
+> are available in the git repository at:
+>   git://git.pokylinux.org/poky-contrib gzhai/bsp
+>   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=gzhai/bsp
+> 
+> Zhai Edwin (1):
+>   n450: fix wrong video driver
+> 
+>  conf/machine/include/ia32-base.inc       |    4 ++++
+>  meta-sugarbay/conf/machine/sugarbay.conf |    2 +-
+>  2 files changed, 5 insertions(+), 1 deletions(-)
+> 
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
 
