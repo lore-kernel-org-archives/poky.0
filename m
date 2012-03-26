@@ -1,22 +1,21 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A9917E004D2
-	for <poky@yoctoproject.org>; Fri, 23 Mar 2012 10:11:16 -0700 (PDT)
-Received: from localhost.localdomain (yow-bashfiel-d2.ottawa.windriver.com
-	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q2NHBCML008436;
-	Fri, 23 Mar 2012 10:11:14 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Fri, 23 Mar 2012 13:12:42 -0400
-Message-Id: <df3c9be1863f12baab73fe8692ebae50151729ac.1332522512.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.0.4
-In-Reply-To: <cover.1332522512.git.bruce.ashfield@windriver.com>
-References: <cover.1332522512.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1332522512.git.bruce.ashfield@windriver.com>
-References: <cover.1332522512.git.bruce.ashfield@windriver.com>
-Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-libc-headers-yocto: move to meta-yocto
+Return-Path: <Andreas.Zoufal@ait.ac.at>
+Received: from mail.ait.ac.at (arcss01.ait.ac.at [62.218.164.126])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6CCC6E01374
+	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 08:57:43 -0700 (PDT)
+Received: from Mailbox.arc.local ([169.254.1.137]) by S0HCN1.arc.local ([::1])
+	with mapi; Mon, 26 Mar 2012 17:57:41 +0200
+From: Zoufal Andreas <Andreas.Zoufal@ait.ac.at>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 26 Mar 2012 17:57:41 +0200
+Thread-Topic: gcc -print-file-name option without path?
+Thread-Index: Ac0LZ9XbvdZAI0lBRpiSlVbUSL33Lg==
+Message-ID: <9F69795E29C890408AC2DAF646C89BB379D69623E5@MAILBOX.arc.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: gcc -print-file-name option without path?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,92 +27,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2012 17:11:16 -0000
+X-List-Received-Date: Mon, 26 Mar 2012 15:57:43 -0000
+Content-Language: de-DE
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-linux-libc-headers-yocto is not directly required in meta, so we can
-safely move it to meta-yocto.
-
-Machines including meta-yocto that are using linux-yocto that need headers
-which are completely up to date with the linux-yocto git tree can use this
-as their preferred linux-libc-headers.
-
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../linux-libc-headers-yocto_git.bb                |   64 ++++++++++++++++++++
- 1 files changed, 64 insertions(+), 0 deletions(-)
- create mode 100644 meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-
-diff --git a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-new file mode 100644
-index 0000000..756b596
---- /dev/null
-+++ b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
-@@ -0,0 +1,64 @@
-+require recipes-kernel/linux-libc-headers/linux-libc-headers.inc
-+include recipes-kernel/linux/linux-yocto.inc
-+
-+B = "${S}"
-+
-+INHIBIT_DEFAULT_DEPS = "1"
-+DEPENDS += "unifdef-native"
-+PROVIDES = "linux-libc-headers"
-+RPROVIDES_${PN}-dev = "linux-libc-headers-dev"
-+RPROVIDES_${PN}-dbg = "linux-libc-headers-dbg"
-+SRCREV = "21ab5dca134a6bf1316aa59f69f9ee9e091d5702"
-+KBRANCH ?= "standard/base"
-+KMETA ?= "meta"
-+PV = "3.2+git-${SRCPV}"
-+PR = "r5"
-+
-+SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.2;protocol=git;nocheckout=1;branch=${KBRANCH},meta;name=machine,meta"
-+
-+# force this to empty to prevent installation failures, we aren't
-+# building a device tree as part of kern headers
-+KERNEL_DEVICETREE = ""
-+
-+set_arch() {
-+	case ${TARGET_ARCH} in
-+		arm*)     ARCH=arm ;;
-+		i*86*)    ARCH=i386 ;;
-+		ia64*)    ARCH=ia64 ;;
-+		mips*)    ARCH=mips ;;
-+		powerpc*) ARCH=powerpc ;;
-+		x86_64*)  ARCH=x86_64 ;;
-+	esac
-+}
-+
-+do_configure() {
-+	set_arch
-+	oe_runmake allnoconfig ARCH=$ARCH
-+}
-+
-+do_install() {
-+	set_arch
-+	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix} ARCH=$ARCH
-+
-+        # The ..install.cmd conflicts between various configure runs
-+        find ${D}${includedir} -name ..install.cmd | xargs rm -f
-+}
-+
-+# The following tasks are not required when we just want
-+# headers. So we override and stub them out.
-+do_kernel_configme() {
-+}
-+
-+do_patch () {
-+}
-+
-+do_compile () {
-+}
-+
-+do_validate_branches () {
-+}
-+
-+do_kernel_configcheck () {
-+}
-+
-+BBCLASSEXTEND = "nativesdk"
--- 
-1.7.0.4
-
+Hello,
+We am starting to use the Yocto/Poky toolchain as replacement for ELDK5. Tr=
+ying to compile our existing kernel fails, but it worked fine with ELDK5. D=
+oing some investigation we recognized a different behavior which I guess is=
+ the reason for the problem: using the cross compiler to show the path of t=
+he libgcc.a with the option "-print-libgcc-file-name" doesn't show the full=
+ path, only the filename itself! But ELDK5 does.=20
+I'm using poky-1.2_M3.final for arm, and the build folder is in my home dir=
+ectory, like:
+/home/user/path/to/project/poky/build/tmp/sysroots   ...and so on
+Am I doing something wrong? gcc --help says that the -print-file-name shoul=
+d return the full path, which is even not true.
+Kind regards, Andi
 
