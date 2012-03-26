@@ -1,25 +1,31 @@
-Return-Path: <Andreas.Zoufal@ait.ac.at>
-Received: from mail.ait.ac.at (arcss01.ait.ac.at [62.218.164.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5E33DE00596
-	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 10:12:14 -0700 (PDT)
-Received: from Mailbox.arc.local ([169.254.1.137]) by S0HCN2.arc.local ([::1])
-	with mapi; Mon, 26 Mar 2012 19:12:13 +0200
-From: Zoufal Andreas <Andreas.Zoufal@ait.ac.at>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 26 Mar 2012 19:12:12 +0200
-Thread-Topic: [poky] gcc -print-file-name option without path?
-Thread-Index: AQHNC2nXNOXaYCxRS0uHRzeRERNfVJZ8z/KQ
-Message-ID: <9F69795E29C890408AC2DAF646C89BB379D69623E8@MAILBOX.arc.local>
-References: <9F69795E29C890408AC2DAF646C89BB379D69623E5@MAILBOX.arc.local>
-	<CAEsOVNdCKXjEhtMGTUVwCcKmexUMy=6RZXTU7B9CBwy3SfLAsg@mail.gmail.com>
-	<9F69795E29C890408AC2DAF646C89BB379D69623E6@MAILBOX.arc.local>
-	<CAEsOVNfEs7F9RgY4SGvKvrXekK=dSZV9tU168YaS+7zYi3X1YQ@mail.gmail.com>
-In-Reply-To: <CAEsOVNfEs7F9RgY4SGvKvrXekK=dSZV9tU168YaS+7zYi3X1YQ@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-lb0-f176.google.com (mail-lb0-f176.google.com
+	[209.85.217.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 00BB8E011D1
+	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 14:44:31 -0700 (PDT)
+Received: by lbom11 with SMTP id m11so5763726lbo.35
+	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 14:44:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:content-transfer-encoding;
+	bh=vdZXLQmL7XdOaG1sO9u4dGe0tHXQVy38phTKC1jO3jQ=;
+	b=n1NnBo5V18qWg/X2sFB4ss+ExKz6F/du9MwVfXRZS/UCPqxHUavpV8vOBjasc9t2Gg
+	RwCzWw+LoYuV3nZh5XuC2XnbOO/kmEmX9HCET2sGJQLNho/C9EDTLb49AimtVKli8604
+	RsQy5FT+tbXVFpjpIELtt6dtfzXerlteOcdGsWEYtBv9l1OIrEPaBa7mi97Hd4GBW0H2
+	3CHv0xtNNwc/6ipW9d1OQAbSfMa7fNN3+FD37xTHmEm8bNQfXx9ETreRM+A0AtU7n1/8
+	t6RxB9Yj4p9BqSHUHYlxITqewix8SAwaRjcRrrua5rzw2SHyFBfElZofVM8WIaQsam8K
+	KTlQ==
+Received: by 10.112.83.105 with SMTP id p9mr8703300lby.43.1332798270634; Mon,
+	26 Mar 2012 14:44:30 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 10.152.3.161 with HTTP; Mon, 26 Mar 2012 14:44:00 -0700 (PDT)
+In-Reply-To: <9F69795E29C890408AC2DAF646C89BB379D69623E5@MAILBOX.arc.local>
+References: <9F69795E29C890408AC2DAF646C89BB379D69623E5@MAILBOX.arc.local>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 26 Mar 2012 14:44:00 -0700
+Message-ID: <CAMKF1sqHunoqyc_qodHKGqV-fFyYevpOs9nHma+cfZXSZ91+Cg@mail.gmail.com>
+To: Zoufal Andreas <Andreas.Zoufal@ait.ac.at>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: gcc -print-file-name option without path?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -32,31 +38,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2012 17:12:14 -0000
-Content-Language: de-DE
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Mon, 26 Mar 2012 21:44:32 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Yes look like that. It is a Kernel build system, I try to use KCFLAGS=3D$CF=
-LAGS
+On Mon, Mar 26, 2012 at 8:57 AM, Zoufal Andreas
+<Andreas.Zoufal@ait.ac.at> wrote:
+> Hello,
+> We am starting to use the Yocto/Poky toolchain as replacement for ELDK5. =
+Trying to compile our existing kernel fails, but it worked fine with ELDK5.=
+ Doing some investigation we recognized a different behavior which I guess =
+is the reason for the problem: using the cross compiler to show the path of=
+ the libgcc.a with the option "-print-libgcc-file-name" doesn't show the fu=
+ll path, only the filename itself! But ELDK5 does.
+> I'm using poky-1.2_M3.final for arm, and the build folder is in my home d=
+irectory, like:
+> /home/user/path/to/project/poky/build/tmp/sysroots =C2=A0 ...and so on
+> Am I doing something wrong? gcc --help says that the -print-file-name sho=
+uld return the full path, which is even not true.
+> Kind regards, Andi
 
------Original Message-----
-From: McClintock Matthew-B29882 [mailto:B29882@freescale.com]=20
-Sent: Monday, March 26, 2012 6:28 PM
-To: Zoufal Andreas
-Cc: poky@yoctoproject.org
-Subject: Re: [poky] gcc -print-file-name option without path?
 
-On Mon, Mar 26, 2012 at 11:23 AM, Zoufal Andreas <Andreas.Zoufal@ait.ac.at>=
- wrote:
-> Thanks Matthew, yes it seems this is the solution. I tried it manually.
-> I wonder, I sourced the environment file and the CFLAGS, LDFLAGS and so o=
-n should be set with --sysroot. Can it be, kernel make file overwrite this =
-options? And how can I make this option available to kernels makefile witho=
-ut modifying it?
-
-Basically, the Makefile for whatever you are building is not passing it thr=
-ough.
-
--M
+while the problem is not passing --sysroot option I wonder why do you query=
+ for
+libgcc when you are building kernel ? kernel should not need libgcc as
+it provides any function needed from libgcc in a library of its own.
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
