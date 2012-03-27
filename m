@@ -1,32 +1,27 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-lb0-f176.google.com (mail-lb0-f176.google.com
-	[209.85.217.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 00BB8E011D1
-	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 14:44:31 -0700 (PDT)
-Received: by lbom11 with SMTP id m11so5763726lbo.35
-	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 14:44:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	bh=vdZXLQmL7XdOaG1sO9u4dGe0tHXQVy38phTKC1jO3jQ=;
-	b=n1NnBo5V18qWg/X2sFB4ss+ExKz6F/du9MwVfXRZS/UCPqxHUavpV8vOBjasc9t2Gg
-	RwCzWw+LoYuV3nZh5XuC2XnbOO/kmEmX9HCET2sGJQLNho/C9EDTLb49AimtVKli8604
-	RsQy5FT+tbXVFpjpIELtt6dtfzXerlteOcdGsWEYtBv9l1OIrEPaBa7mi97Hd4GBW0H2
-	3CHv0xtNNwc/6ipW9d1OQAbSfMa7fNN3+FD37xTHmEm8bNQfXx9ETreRM+A0AtU7n1/8
-	t6RxB9Yj4p9BqSHUHYlxITqewix8SAwaRjcRrrua5rzw2SHyFBfElZofVM8WIaQsam8K
-	KTlQ==
-Received: by 10.112.83.105 with SMTP id p9mr8703300lby.43.1332798270634; Mon,
-	26 Mar 2012 14:44:30 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.152.3.161 with HTTP; Mon, 26 Mar 2012 14:44:00 -0700 (PDT)
-In-Reply-To: <9F69795E29C890408AC2DAF646C89BB379D69623E5@MAILBOX.arc.local>
-References: <9F69795E29C890408AC2DAF646C89BB379D69623E5@MAILBOX.arc.local>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Mon, 26 Mar 2012 14:44:00 -0700
-Message-ID: <CAMKF1sqHunoqyc_qodHKGqV-fFyYevpOs9nHma+cfZXSZ91+Cg@mail.gmail.com>
-To: Zoufal Andreas <Andreas.Zoufal@ait.ac.at>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: gcc -print-file-name option without path?
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 766D8E0137D
+	for <poky@yoctoproject.org>; Mon, 26 Mar 2012 19:00:18 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 26 Mar 2012 19:00:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="81908937"
+Received: from dongxiao-osel.sh.intel.com (HELO [10.239.36.11])
+	([10.239.36.11])
+	by AZSMGA002.ch.intel.com with ESMTP; 26 Mar 2012 19:00:16 -0700
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+In-Reply-To: <1332313005.10433.9.camel@dongxiao-osel>
+References: <4F67EA50.7000708@mlbassoc.com>
+	<1332210703.1041.86.camel@localhost.localdomain>
+	<1332224231.1848.24.camel@dongxiao-osel>  <2153250.yonJ7Q2VZR@helios>
+	<1332313005.10433.9.camel@dongxiao-osel>
+Date: Tue, 27 Mar 2012 09:58:00 +0800
+Message-ID: <1332813480.10454.0.camel@dongxiao-osel>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.32.2 
+Cc: poky@yoctoproject.org
+Subject: Re: HOB doesn't see my image recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,33 +33,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2012 21:44:32 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 27 Mar 2012 02:00:18 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 26, 2012 at 8:57 AM, Zoufal Andreas
-<Andreas.Zoufal@ait.ac.at> wrote:
-> Hello,
-> We am starting to use the Yocto/Poky toolchain as replacement for ELDK5. =
-Trying to compile our existing kernel fails, but it worked fine with ELDK5.=
- Doing some investigation we recognized a different behavior which I guess =
-is the reason for the problem: using the cross compiler to show the path of=
- the libgcc.a with the option "-print-libgcc-file-name" doesn't show the fu=
-ll path, only the filename itself! But ELDK5 does.
-> I'm using poky-1.2_M3.final for arm, and the build folder is in my home d=
-irectory, like:
-> /home/user/path/to/project/poky/build/tmp/sysroots =C2=A0 ...and so on
-> Am I doing something wrong? gcc --help says that the -print-file-name sho=
-uld return the full path, which is even not true.
-> Kind regards, Andi
+On Wed, 2012-03-21 at 14:56 +0800, Xu, Dongxiao wrote:
+> On Tue, 2012-03-20 at 09:53 +0000, Paul Eggleton wrote:
+> > On Tuesday 20 March 2012 14:17:11 Xu, Dongxiao wrote:
+> > > On Tue, 2012-03-20 at 10:31 +0800, Ni Qingliang wrote:
+> > > > maybe all image recipes should be placed in the directory
+> > > > "meta-xx/images"?
+> > > 
+> > > Hob recognizes image whose file name is "xxx-image-xxx", like
+> > > core-image-sato.
+> > 
+> > Would it be possible to detect recipes that inherit from image.bbclass 
+> > instead?
+> 
+> Thanks all for your feedback.
+> 
+> I will try to find the possibility to detect the inherits of
+> image.bbclass instead of judging my image file name.
+> 
+> Thanks,
+> Dongxiao
 
+I have fixed this issue in latest master, welcome to have a test for
+your image.
 
-while the problem is not passing --sysroot option I wonder why do you query=
- for
-libgcc when you are building kernel ? kernel should not need libgcc as
-it provides any function needed from libgcc in a library of its own.
+Thanks,
+Dongxiao
+
+> 
+> > 
+> > Cheers,
+> > Paul
+> > 
+> 
+> 
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
+
+
 
