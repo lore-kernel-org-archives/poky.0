@@ -1,41 +1,27 @@
-Return-Path: <robert21abel@gmail.com>
-Received: from mail-bk0-f48.google.com (mail-bk0-f48.google.com
-	[209.85.214.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4FE6BE0137D
-	for <poky@yoctoproject.org>; Tue, 27 Mar 2012 05:41:38 -0700 (PDT)
-Received: by bkcji17 with SMTP id ji17so7327551bkc.35
-	for <poky@yoctoproject.org>; Tue, 27 Mar 2012 05:41:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:message-id:date:from:reply-to:user-agent:mime-version:to
-	:subject:x-enigmail-version:content-type:content-transfer-encoding;
-	bh=VcSw64txYw+B5N0pMlBiXVD8jictqy6ucfCnI0iY16M=;
-	b=dLk9x1YGG15hS4vp8JBvwfqtAdR1gNr50jvpr6jHKcS7Q2ffCFw1RCHdvqH2T0/7GH
-	wFjCAFTD2hKJjGQDsAUaF0jPgkDEFIN0qQ6HRbZmZDs73I8Ft+xJs3EApNnktzUep2Tw
-	m4o8gd8nHCAiBJmEiB1Wj8Pymk6WG1YAX0ki05YZ7MZZXXHmM0PKe0qoZYetd+4B1kge
-	PAEcLcZmGIC3sXlE5vmxO1x4Jgj4nL3J0teUsDPRi87Z7kSSGGS//hl2HQOpUCVndlz8
-	jiHaP0HHUpMziEQpNnLla3YPSbtFMP6EZLokXoln0+aK65brz0XG5iNSfCKk4x99gJhb
-	yvYw==
-Received: by 10.204.154.83 with SMTP id n19mr2879416bkw.69.1332852096916;
-	Tue, 27 Mar 2012 05:41:36 -0700 (PDT)
-Received: from [129.70.144.26] (floreana.TechFak.Uni-Bielefeld.DE.
-	[129.70.144.26])
-	by mx.google.com with ESMTPS id je3sm38891464bkb.15.2012.03.27.05.41.35
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 27 Mar 2012 05:41:36 -0700 (PDT)
-Sender: Robert Abel <robert21abel@gmail.com>
-Message-ID: <4F71B57F.30103@uni-bielefeld.de>
-Date: Tue, 27 Mar 2012 14:41:35 +0200
-From: Robert Abel <abel@uni-bielefeld.de>
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
-	rv:10.0.2) Gecko/20120216 Thunderbird/10.0.2
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EDC62E0137D
+	for <poky@yoctoproject.org>; Tue, 27 Mar 2012 05:55:16 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 27 Mar 2012 05:55:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="123788377"
+Received: from unknown (HELO helios.localnet) ([10.252.123.228])
+	by azsmga001.ch.intel.com with ESMTP; 27 Mar 2012 05:55:15 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: abel@uni-bielefeld.de
+Date: Tue, 27 Mar 2012 13:55:11 +0100
+Message-ID: <17090847.kqXxAj3sEM@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.8.0 (Linux/3.0.0-16-generic-pae; KDE/4.8.1; i686; ; )
+In-Reply-To: <4F71B57F.30103@uni-bielefeld.de>
+References: <4F71B57F.30103@uni-bielefeld.de>
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-X-Enigmail-Version: 1.4
+Cc: poky@yoctoproject.org
 Subject: Re: Patch.bbclass URL Reasoning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: abel@uni-bielefeld.de
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -44,16 +30,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2012 12:41:38 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 27 Mar 2012 12:55:17 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-Bumpity...
+On Tuesday 27 March 2012 14:41:35 Robert Abel wrote:
+> Bumpity...
+> 
+> So nobody is aware of this issue or has ever tried to edit a patch
+> before do_patch?
 
-So nobody is aware of this issue or has ever tried to edit a patch
-before do_patch?
+I'm aware of the behaviour, I can't speak to its intention (well, the part 
+where it symlinks back to the original patch I suspect intended to allow you 
+to update the patch in the metadata, but I don't know why we also copy the 
+patch to the WORKDIR as well). 
 
-Regards
+However if I needed to do what you want to do I would do it differently - 
+instead of modifying the patches, why not just modify the file(s) in the source 
+code directly? I would suggest using sed in a do_configure_prepend() to change 
+the values in the source to the desired value from a variable. Depending on 
+the complexity you could have the patches change the values to some easily 
+replaceable string beforehand.
 
-Robert
+Cheers,
+Paul
+
+-- 
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
