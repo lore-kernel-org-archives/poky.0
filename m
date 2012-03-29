@@ -1,33 +1,24 @@
-Return-Path: <simonsonc@gmail.com>
-Received: from mail-lpp01m010-f48.google.com (mail-lpp01m010-f48.google.com
-	[209.85.215.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 319D6E0059A
-	for <poky@yoctoproject.org>; Thu, 29 Mar 2012 06:39:10 -0700 (PDT)
-Received: by lagu2 with SMTP id u2so3581696lag.35
-	for <poky@yoctoproject.org>; Thu, 29 Mar 2012 06:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type:content-transfer-encoding;
-	bh=uATxgdJL8+TKpgfu0LYS/1UFyGwAOgY5JvS/CdPZkpg=;
-	b=dgzr488K7N7oc9+gBYXbOSTLRwNjmnjjxrr2fud58HCkyTc5EJ24zymBxwuGJdooA1
-	SfVFhyES3s4RZOw8S+3n+PEpqE4hEcIIShVyZMhk9BDEqLll43AaBqYwIYwkwCnZZnBc
-	ERtSvl9eaRACUXGmUYPdT/ownGSfabqu+vOffOQEqX2+j7QxtifAVt9e22P/alHLlepf
-	BSTr7kQb+0a0QoeBZwuaG4M0CRHcsDlYVv2/5cEUrKBFy07glDHWoSzRObtMUzr9i5gH
-	V1AmFladHC5dvakdcBwMA5B8NhG6Nn2g2CXUPOcR9EyfHuBinrRXjGDlXwOb2ts9GJNO
-	wdLQ==
-MIME-Version: 1.0
-Received: by 10.152.162.72 with SMTP id xy8mr28109825lab.32.1333028350070;
-	Thu, 29 Mar 2012 06:39:10 -0700 (PDT)
-Received: by 10.112.66.7 with HTTP; Thu, 29 Mar 2012 06:39:10 -0700 (PDT)
-In-Reply-To: <1333027388.17502.2.camel@ted>
-References: <cover.1333022130.git.dongxiao.xu@intel.com>
-	<eb5271caf52a62ab102078eb90fcd0482b74536e.1333022130.git.dongxiao.xu@intel.com>
-	<1333027388.17502.2.camel@ted>
-Date: Thu, 29 Mar 2012 08:39:10 -0500
-Message-ID: <CANpFMipWhrBppTW5ETPd_zXqc=Ep5i6NvC+ncP3ZgrSknMe7zw@mail.gmail.com>
-From: Carl Simonson <simonsonc@gmail.com>
-To: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] meta-yocto: Define DISTRO in layer.conf
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75D83E0059A
+	for <poky@pokylinux.org>; Thu, 29 Mar 2012 07:09:03 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 29 Mar 2012 07:09:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="83079735"
+Received: from unknown (HELO [10.255.12.50]) ([10.255.12.50])
+	by AZSMGA002.ch.intel.com with ESMTP; 29 Mar 2012 07:09:02 -0700
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: Detlev Zundel <dzu@denx.de>
+In-Reply-To: <m2wr634wjd.fsf@lamuella.denx.de>
+References: <4F71D17B.2030200@mlbassoc.com>
+	<1332859973.3854.15.camel@elmorro>  <m2wr634wjd.fsf@lamuella.denx.de>
+Date: Thu, 29 Mar 2012 09:09:41 -0500
+Message-ID: <1333030181.23875.29.camel@elmorro>
+Mime-Version: 1.0
+X-Mailer: Evolution 2.28.3 
+Cc: poky@pokylinux.org
+Subject: Re: Strange file names
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,55 +30,90 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Mar 2012 13:39:11 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 29 Mar 2012 14:09:03 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 29, 2012 at 8:23 AM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> On Thu, 2012-03-29 at 20:01 +0800, Dongxiao Xu wrote:
->> Add the definition of DISTRO variable in meta-yocto/conf/layer.conf,
->> and remove the corresponding definition in local.conf.sample.
->>
->> As we know, if we source oe-init-build-env in Yocto project environment,
->> we will have DISTRO=3D"poky" set in local.conf by default, where the
->> "poky" DISTRO comes from the meta-yocto layer. If user deletes
->> meta-yocto layer from BBLAYERS in bblayers.conf, and then error will
->> happen when bitbake parsing the local.conf, since it could not find
->> where the "poky" DISTRO comes from.
->>
->> Putting the DISTRO definition in layer.conf to avoid defining two
->> related variables (DISTRO and BBLAYERS) in two separate
->> configuration files (local.conf and bblayers.conf).
->>
->> Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
->> ---
->> =C2=A0meta-yocto/conf/distro/poky.conf =C2=A0| =C2=A0 =C2=A01 -
->> =C2=A0meta-yocto/conf/layer.conf =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A0 =C2=
-=A01 +
->> =C2=A0meta-yocto/conf/local.conf.sample | =C2=A0 =C2=A04 ++--
->> =C2=A03 files changed, 3 insertions(+), 3 deletions(-)
->
-> I'm afraid this is the wrong approach. The UI should simply not allow
-> selection of a DISTRO option which is no longer available.
->
-> Setting DISTRO in local.conf is the way people expect to use the system
-> and we can't change that.
->
-> Cheers,
->
-> Richard
->
+On Thu, 2012-03-29 at 10:54 +0200, Detlev Zundel wrote:
+> Hi Tom,
+> 
+> > It may seem strange, but filenames are just text after all, and I wanted
+> > to avoid having separate 'meta-files' describing that same logic that
+> > would also have to be kept in sync, so decided it would be less
+> > error-prone to keep that information in the filenames themselves.
+> 
+> It indeed is a possibility to encode "more than usual" into filenames,
+> but it certainly will have other effects also.  Now that the name of the
+> file itself contains "business logic" that is important for the system,
+> I wonder how this interacts with other parts of the (sometimes
+> unwritten) expectations of the development environment.  One thing which
+> immediately comes to my mind is the interaction with the version control
+> system.
+> 
+> Changing "an attribute" of such a file (which is coded in the inline
+> python code) will essentially look like the deletion and addition of a
+> file for version control.  Of course our version control (git) will be
+> clever enough to identify the file as being the same, but still we now
+> have an operation which was previously not used to change "business
+> logic", i.e. renaming files, doing just that.  So for tracing the
+> history of such an item I now need to trace the "rename history"
+> additionally to the "content history".
+> 
+> So in contrast to the original idea of "keeping the information in one
+> place", we now have two places, i.e. the content and the filename and
+> the latter is really a very uncommon place for that.
+> 
+> I do have a severe bad feeling in my stomach about going into this
+> (uncharted) territory and I do not know whether the potential problems
+> that we (yet) do not see are worth it.  So I would also like you to
+> reconsider that strategy.
+> 
+
+Yes, I think it would make sense for various reasons to get rid of it if
+possible - it's not central to the mechanism, just convenient.
+
+So the current uses of it are the following:
+
+- having a particular filename match the machine name:
+ 
+    ./powerpc/conf/machine/{{=machine}}.conf
+
+- having a particular filename conditionally included or not:
+
+    ./i386/recipes-kernel/linux/{{ if kernel_choice ==
+"linux-yocto_3.2": }} linux-yocto_3.2.bbappend
+
+For those two types of cases, I think it should be possible to move that
+logic into the file itself using special filename and/or conditional
+filename directives.
+
+The other usage is to have directory names match the machine name for
+instance:
+
+ ./i386/recipes-graphics/xorg-xserver/xserver-xf86-config/{{=machine}}/{{ if xserver_choice == "xserver_vesa": }} xorg.conf
+
+In the case of directory names, since there's no file to put that
+directive into, and we can't use the directory name any longer, we'll
+have to again use some kind of special directory name directive and find
+some file to put it into, probably just another .noinstall file, which
+we already have a case of but that I wanted to get rid of.  There may be
+a better way to do it, but we could keep those and do things that way in
+the worst case.
+
+Tom
+
+> Thanks
+>   Detlev
+> 
+> --
+> DENX Software Engineering GmbH,      MD: Wolfgang Denk & Detlev Zundel
+> HRB 165235 Munich,  Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+> Phone: (+49)-8142-66989-40 Fax: (+49)-8142-66989-80 Email: dzu@denx.de
+> 
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
 
-Agreed. It's important that DISTRO remains in local.conf. Remember,
-also, that local.conf.sample is only a suggestion as to how to
-configure your build. The real configuration is in
-build/conf/local.conf, and that is meant to be changed freely.
 
-Carl Simonson
-simonsonc@gmail.com
 
