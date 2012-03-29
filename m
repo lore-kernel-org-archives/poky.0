@@ -1,30 +1,23 @@
-Return-Path: <glep-poky@m.gmane.org>
-Received: from plane.gmane.org (plane.gmane.org [80.91.229.3])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8643DE0059A
-	for <poky@pokylinux.org>; Thu, 29 Mar 2012 02:00:13 -0700 (PDT)
-Received: from list by plane.gmane.org with local (Exim 4.69)
-	(envelope-from <glep-poky@m.gmane.org>) id 1SDBDC-0007dm-KJ
-	for poky@pokylinux.org; Thu, 29 Mar 2012 11:00:06 +0200
-Received: from pd9e17ed1.dip.t-dialin.net ([217.225.126.209])
-	by main.gmane.org with esmtp (Gmexim 0.1 (Debian))
-	id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Thu, 29 Mar 2012 11:00:06 +0200
-Received: from dzu by pd9e17ed1.dip.t-dialin.net with local (Gmexim 0.1
-	(Debian)) id 1AlnuQ-0007hv-00
-	for <poky@pokylinux.org>; Thu, 29 Mar 2012 11:00:06 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: poky@pokylinux.org
-From: Detlev Zundel <dzu@denx.de>
-Date: Thu, 29 Mar 2012 10:54:30 +0200
-Organization: Church of Emacs - Missionary division
-Message-ID: <m2wr634wjd.fsf@lamuella.denx.de>
-References: <4F71D17B.2030200@mlbassoc.com> <1332859973.3854.15.camel@elmorro>
-Mime-Version: 1.0
-X-Complaints-To: usenet@dough.gmane.org
-X-Gmane-NNTP-Posting-Host: pd9e17ed1.dip.t-dialin.net
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/24.0.93 (gnu/linux)
-Cancel-Lock: sha1:fIkX/riIl2wGIS657NuZaORSrDs=
-Subject: Re: Strange file names
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 16A0EE0059A
+	for <poky@yoctoproject.org>; Thu, 29 Mar 2012 05:04:22 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 29 Mar 2012 05:04:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="123067489"
+Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.11])
+	by orsmga001.jf.intel.com with ESMTP; 29 Mar 2012 05:04:21 -0700
+From: Dongxiao Xu <dongxiao.xu@intel.com>
+To: poky@yoctoproject.org
+Date: Thu, 29 Mar 2012 20:01:58 +0800
+Message-Id: <eb5271caf52a62ab102078eb90fcd0482b74536e.1333022130.git.dongxiao.xu@intel.com>
+X-Mailer: git-send-email 1.7.4.1
+In-Reply-To: <cover.1333022130.git.dongxiao.xu@intel.com>
+References: <cover.1333022130.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1333022130.git.dongxiao.xu@intel.com>
+References: <cover.1333022130.git.dongxiao.xu@intel.com>
+Subject: [PATCH 1/1] meta-yocto: Define DISTRO in layer.conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,48 +29,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Mar 2012 09:00:13 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 29 Mar 2012 12:04:22 -0000
 
-Hi Tom,
+Add the definition of DISTRO variable in meta-yocto/conf/layer.conf,
+and remove the corresponding definition in local.conf.sample.
 
-> It may seem strange, but filenames are just text after all, and I wanted
-> to avoid having separate 'meta-files' describing that same logic that
-> would also have to be kept in sync, so decided it would be less
-> error-prone to keep that information in the filenames themselves.
+As we know, if we source oe-init-build-env in Yocto project environment,
+we will have DISTRO="poky" set in local.conf by default, where the
+"poky" DISTRO comes from the meta-yocto layer. If user deletes
+meta-yocto layer from BBLAYERS in bblayers.conf, and then error will
+happen when bitbake parsing the local.conf, since it could not find
+where the "poky" DISTRO comes from.
 
-It indeed is a possibility to encode "more than usual" into filenames,
-but it certainly will have other effects also.  Now that the name of the
-file itself contains "business logic" that is important for the system,
-I wonder how this interacts with other parts of the (sometimes
-unwritten) expectations of the development environment.  One thing which
-immediately comes to my mind is the interaction with the version control
-system.
+Putting the DISTRO definition in layer.conf to avoid defining two
+related variables (DISTRO and BBLAYERS) in two separate
+configuration files (local.conf and bblayers.conf).
 
-Changing "an attribute" of such a file (which is coded in the inline
-python code) will essentially look like the deletion and addition of a
-file for version control.  Of course our version control (git) will be
-clever enough to identify the file as being the same, but still we now
-have an operation which was previously not used to change "business
-logic", i.e. renaming files, doing just that.  So for tracing the
-history of such an item I now need to trace the "rename history"
-additionally to the "content history".
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+---
+ meta-yocto/conf/distro/poky.conf  |    1 -
+ meta-yocto/conf/layer.conf        |    1 +
+ meta-yocto/conf/local.conf.sample |    4 ++--
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-So in contrast to the original idea of "keeping the information in one
-place", we now have two places, i.e. the content and the filename and
-the latter is really a very uncommon place for that.
-
-I do have a severe bad feeling in my stomach about going into this
-(uncharted) territory and I do not know whether the potential problems
-that we (yet) do not see are worth it.  So I would also like you to
-reconsider that strategy.
-
-Thanks
-  Detlev
-
---
-DENX Software Engineering GmbH,      MD: Wolfgang Denk & Detlev Zundel
-HRB 165235 Munich,  Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-40 Fax: (+49)-8142-66989-80 Email: dzu@denx.de
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index e4d7c1d..31c3de5 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -1,4 +1,3 @@
+-DISTRO = "poky"
+ DISTRO_NAME = "Yocto (Built by Poky 6.0)"
+ DISTRO_VERSION = "1.1+snapshot-${DATE}"
+ SDK_VENDOR = "-pokysdk"
+diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
+index 7917962..b24d7e9 100644
+--- a/meta-yocto/conf/layer.conf
++++ b/meta-yocto/conf/layer.conf
+@@ -9,3 +9,4 @@ BBFILE_COLLECTIONS += "yocto"
+ BBFILE_PATTERN_yocto := "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yocto = "5"
+ 
++DISTRO ?= "poky"
+diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
+index 38507e3..eca1fbe 100644
+--- a/meta-yocto/conf/local.conf.sample
++++ b/meta-yocto/conf/local.conf.sample
+@@ -99,12 +99,12 @@ MACHINE ??= "qemux86"
+ # Ultimately when creating custom policy, people will likely end up subclassing 
+ # these defaults.
+ #
+-DISTRO ?= "poky"
++# DISTRO = "poky"
+ # As an example of a subclass there is a "bleeding" edge policy configuration
+ # where many versions are set to the absolute latest code from the upstream 
+ # source control systems. This is just mentioned here as an example, its not
+ # useful to most new users.
+-# DISTRO ?= "poky-bleeding"
++# DISTRO = "poky-bleeding"
+ 
+ #
+ # Package Management configuration
+-- 
+1.7.4.1
 
 
