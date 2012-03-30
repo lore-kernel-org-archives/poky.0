@@ -1,32 +1,29 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-lpp01m010-f48.google.com (mail-lpp01m010-f48.google.com
-	[209.85.215.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B085DE013D6
-	for <poky@yoctoproject.org>; Thu, 29 Mar 2012 23:22:57 -0700 (PDT)
-Received: by lagu2 with SMTP id u2so517856lag.35
-	for <poky@yoctoproject.org>; Thu, 29 Mar 2012 23:22:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	bh=Fbj9NwZ6/3Saa/zfgT5JSt603c4Tgb+iZwgntgugqHU=;
-	b=i7ddriEIoUTIm9kUUGFxJ+rsp4LG2/ggUidmoAhNVTqfvtQztF/lokUL5NPNzXyjVj
-	1W4BckzN6li/CjgTK4IlkEArDva+LJicd65K3k8cqCvubZ1EYaykPMrPoE85bdvLNJLg
-	QOBnGAD0AdJjNPX2HVmfAQ/64/BweJITLDt1ZbEsyMMIjHaT0aDaMRHhohNvZXnLpXJ7
-	dSeubgjCje8VC/PTo0L/ZHLpDm+q4pdtZp3QodAT+emExTEF3CHZgeCUaKSQ3F0Gh/0z
-	BnzWebdGO1qWLEG3STX826kWqYH98+QGwDaXGrEbvOCw0/sI8Y2o49VYBKSivm49jEXw
-	SRtQ==
-Received: by 10.152.130.105 with SMTP id od9mr1238609lab.17.1333088576128;
-	Thu, 29 Mar 2012 23:22:56 -0700 (PDT)
+Return-Path: <bryan.odonoghue@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1FA5DE00723
+	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 06:25:12 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 30 Mar 2012 06:25:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; 
+	d="scan'208,217";a="123609384"
+Received: from irsmsx103.ger.corp.intel.com ([163.33.3.157])
+	by orsmga001.jf.intel.com with ESMTP; 30 Mar 2012 06:25:10 -0700
+Received: from irsmsx102.ger.corp.intel.com ([169.254.2.39]) by
+	IRSMSX103.ger.corp.intel.com ([169.254.3.225]) with mapi id
+	14.01.0355.002; Fri, 30 Mar 2012 14:24:56 +0100
+From: "O'donoghue, Bryan" <bryan.odonoghue@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: udev configuration
+Thread-Index: Ac0OeH9FqDmK4UGBT6akTx89WIKAeA==
+Date: Fri, 30 Mar 2012 13:24:56 +0000
+Message-ID: <B80010913FB1F346A630B7F2E18A60C015768050@IRSMSX102.ger.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [163.33.212.78]
 MIME-Version: 1.0
-Received: by 10.152.3.161 with HTTP; Thu, 29 Mar 2012 23:22:25 -0700 (PDT)
-In-Reply-To: <CAJKYVfs6tUMF5=PdzbBTb5=ifbsWXBQLGJOgFM7f-2MGAQYZag@mail.gmail.com>
-References: <CAJKYVfs6tUMF5=PdzbBTb5=ifbsWXBQLGJOgFM7f-2MGAQYZag@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 29 Mar 2012 23:22:25 -0700
-Message-ID: <CAMKF1sp9_JeZxVay3UATzNBKe8_QDrfcSgH-EcV1abNxEp2xGA@mail.gmail.com>
-To: Zhouheng Zhuang <zz245@cornell.edu>
-Cc: poky@yoctoproject.org
-Subject: Re: Problem building MIPS image (core-image-minimal)
+Subject: udev configuration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,70 +35,110 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Mar 2012 06:22:58 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 30 Mar 2012 13:25:12 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_"
+
+--_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 29, 2012 at 1:51 PM, Zhouheng Zhuang <zz245@cornell.edu> wrote:
-> Hi all,
-> I am a student, and I just started using Yocto Project, and tried to buil=
-d a
-> MIPS image (core-image-minimal) myself, but failed. Can anyone help me on
-> this issue?
->
-> I downloaded Yocto 1.1. After
-> % source oe-init-build-env
-> I set configurations in ./build/conf/local.conf with (the file is attache=
-d)
-> ------
-> BB_NUMBER_THREADS =3D "4"
-> PARALLEL_MAKE =3D "-j 3"
-> MACHINE ??=3D "qemumips"
-> DISTRO ?=3D "poky"
-> PACKAGE_CLASSES =3D "package_deb"
+Greetings list.
 
-what happens when you use package_ipk or package_rpm and rebuild?
-just want to make sure if its related to package backend
+I'm booting a yocto image a "core-image-minimal" and I've noticed that not =
+all of the serial ports have entries in /dev. More generally for hardware c=
+oming down the line, I'd like to know how/where the configuration for udev =
+is supposed to go in a yocto BSP.
 
-> EXTRA_IMAGE_FEATURES =3D "debug-tweaks"
-> USER_CLASSES ?=3D "image-mklibs image-prelink"
-> PATCHRESOLVE =3D "noop"
-> CONF_VERSION =3D "1"
-> INHERIT +=3D rm_work
-> ------
->
-> Then, I ran
-> % bitbake -k core-image-minimal
-> and got errors:
-> ------
-> Errors were encountered while processing:
-> =C2=A0/home/zhouheng/poky/build/tmp/deploy/deb/mips/./base-passwd_3.5.22-=
-r9_mips.deb
-> W: Ignoring Provides line with DepCompareOp for package rtld
-> W: You may want to run apt-get update to correct these problems
-> E: Sub-process dpkg returned an error code (1)
-> ERROR: Function 'do_rootfs' failed (see
-> /home/zhouheng/poky/build/tmp/work/qemumips-poky-linux/core-image-minimal=
--1.0-r0/temp/log.do_rootfs.2097
-> for further information)
-> -------
-> I have attached the errorlog with the email, too.
-> I have tried searching the error, but I haven't figured out why it happen=
-s.
-> Can anyone answer my questions?
-> I would appreciate it very much if anyone can share their configuration t=
-o
-> successfully build the image.
-> Thank you very much!
->
-> Zhouheng (Philip) Zhuang
->
->
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+I can't see anything obvious in the meta-intel BSPs but, there must be some=
+ way (probably very obvious way) of setting up the udev script to do what y=
+ou'd typically want to do ?
+-------------------------------------------------------------
+Intel Ireland Limited (Branch)
+Collinstown Industrial Park, Leixlip, County Kildare, Ireland
+Registered Number: E902934
 
+This e-mail and any attachments may contain confidential material for
+the sole use of the intended recipient(s). Any review or distribution
+by others is strictly prohibited. If you are not the intended
+recipient, please contact the sender and delete all copies.
+
+--_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-IE" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Greetings list.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I'm booting a yocto image a &quot;core-image-minimal=
+&quot; and I've noticed that not all of the serial ports have entries in /d=
+ev. More generally for hardware coming down the line, I'd like to know how/=
+where the configuration for udev is supposed
+ to go in a yocto BSP.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I can't see anything obvious in the meta-intel BSPs =
+but, there must be some way (probably very obvious way) of setting up the u=
+dev script to do what you'd typically want to do ?<o:p></o:p></p>
+</div>
+<font face=3D"monospace">--------------------------------------------------=
+-----------<br>
+Intel Ireland Limited (Branch)<br>
+Collinstown Industrial Park, Leixlip, County Kildare, Ireland<br>
+Registered Number: E902934<br>
+<br>
+This e-mail and any attachments may contain confidential material for<br>
+the sole use of the intended recipient(s). Any review or distribution<br>
+by others is strictly prohibited. If you are not the intended<br>
+recipient, please contact the sender and delete all copies.</font></body>
+</html>
+
+--_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_--
