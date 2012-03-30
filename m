@@ -1,29 +1,40 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4623BE004D2
-	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 09:50:40 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id AD64DF8126F; Fri, 30 Mar 2012 10:50:39 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 2FD29F81237;
-	Fri, 30 Mar 2012 10:50:30 -0600 (MDT)
-Message-ID: <4F75E456.3020101@mlbassoc.com>
-Date: Fri, 30 Mar 2012 10:50:30 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:10.0.1) Gecko/20120216 Thunderbird/10.0.1
+Return-Path: <SRS0=PGs/tu=CF=mindchasers.com=yocto@eigbox.net>
+Received: from bosmailout10.eigbox.net (bosmailout10.eigbox.net [66.96.184.10])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B8658E004D2
+	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 09:57:11 -0700 (PDT)
+Received: from bosmailscan13.eigbox.net ([10.20.15.13])
+	by bosmailout10.eigbox.net with esmtp (Exim) id 1SDf8Q-0002so-QZ
+	for poky@yoctoproject.org; Fri, 30 Mar 2012 12:57:10 -0400
+Received: from bosimpout01.eigbox.net ([10.20.55.1])
+	by bosmailscan13.eigbox.net with esmtp (Exim) id 1SDf8Q-0007a7-DV
+	for poky@yoctoproject.org; Fri, 30 Mar 2012 12:57:10 -0400
+Received: from bosauthsmtp10.eigbox.net ([10.20.18.10])
+	by bosimpout01.eigbox.net with NO UCE
+	id rsxA1i0070D2CUy01sxAEg; Fri, 30 Mar 2012 12:57:10 -0400
+X-Authority-Analysis: v=2.0 cv=eq1oOPVX c=1 sm=1
+	a=ezw8LHFQp/lSHt//sRtX8Q==:17 a=mn2ndCrYJZwA:10 a=Na1N3YiFAQsA:10
+	a=k55E2sBG-7gA:10 a=Lk7aQFya1KUA:10 a=8nJEP1OIZ-IA:10 a=jV2zTg0wAAAA:8
+	a=bJmF3G1P5emTBPe69o8A:9 a=XcO2ypPKjckwy8PHyBIA:7 a=wPNLvfGTeEIA:10
+	a=2JmKTArPWNwA:10 a=Kpo39fPXdbgqDwiI3/AEUA==:117
+X-EN-OrigOutIP: 10.20.18.10
+X-EN-IMPSID: rsxA1i0070D2CUy01sxAEg
+Received: from pool-108-25-202-179.atclnj.east.verizon.net ([108.25.202.179]
+	helo=[192.168.1.3]) by bosauthsmtp10.eigbox.net with esmtpa (Exim)
+	id 1SDf8Q-0006xd-9r
+	for poky@yoctoproject.org; Fri, 30 Mar 2012 12:57:10 -0400
+Message-ID: <4F75E5E3.9050407@mindchasers.com>
+Date: Fri, 30 Mar 2012 12:57:07 -0400
+From: Bob Cochran <yocto@mindchasers.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:11.0) Gecko/20120310 Thunderbird/11.0
 MIME-Version: 1.0
 To: poky@yoctoproject.org
-References: <CAJKYVfs6tUMF5=PdzbBTb5=ifbsWXBQLGJOgFM7f-2MGAQYZag@mail.gmail.com>
-	<CAMKF1sp9_JeZxVay3UATzNBKe8_QDrfcSgH-EcV1abNxEp2xGA@mail.gmail.com>
-	<CAJKYVfv_mQstkE4OPUzpDkGKihJ=j-Fu5QmdgYO2-F7q73JPyA@mail.gmail.com>
-In-Reply-To: <CAJKYVfv_mQstkE4OPUzpDkGKihJ=j-Fu5QmdgYO2-F7q73JPyA@mail.gmail.com>
-Subject: Re: Problem building MIPS image (core-image-minimal)
+X-EN-UserInfo: cb6d325fe03740ac93d537d78041f599:2186c883651a1065ea1e15c5a112545a
+X-EN-AuthUser: bcochran@mindchasers.com
+Sender: Bob Cochran <yocto@mindchasers.com>
+X-EN-OrigIP: 108.25.202.179
+X-EN-OrigHost: pool-108-25-202-179.atclnj.east.verizon.net
+Subject: [PATCH] README.hardware for mpc8315erdb incorrectly specified a null modem serial cable
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,87 +46,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Mar 2012 16:50:40 -0000
+X-List-Received-Date: Fri, 30 Mar 2012 16:57:11 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2012-03-30 09:17, Zhouheng Zhuang wrote:
-> I used package_rpm instead and it worked. Thanks.
-> I am wondering why package_rpm works, but package_deb doesn't. Can you explain what happens here? Thanks.
+I noticed this while beta testing 1.2. but patch is against master 
+(latest commit: bcd4d14425cadc5bd6296f59f14733e8c39c49dd).
 
-Looks like package_deb is broken all around - check out https://bugzilla.yoctoproject.org/show_bug.cgi?id=1858
-package_ipk (what I use all the time) and package_rpm work fine
+Instructions specified a null modem.  This isn't the case.  A straight 
+serial cable is required.  I verified it with my own setup and 
+Freescale's user manual.
 
-> On Fri, Mar 30, 2012 at 2:22 AM, Khem Raj <raj.khem@gmail.com <mailto:raj.khem@gmail.com>> wrote:
->
->     On Thu, Mar 29, 2012 at 1:51 PM, Zhouheng Zhuang <zz245@cornell.edu <mailto:zz245@cornell.edu>> wrote:
->     >  Hi all,
->     >  I am a student, and I just started using Yocto Project, and tried to build a
->     >  MIPS image (core-image-minimal) myself, but failed. Can anyone help me on
->     >  this issue?
->     >
->     >  I downloaded Yocto 1.1. After
->     >  % source oe-init-build-env
->     >  I set configurations in ./build/conf/local.conf with (the file is attached)
->     >  ------
->     >  BB_NUMBER_THREADS = "4"
->     >  PARALLEL_MAKE = "-j 3"
->     >  MACHINE ??= "qemumips"
->     >  DISTRO ?= "poky"
->     >  PACKAGE_CLASSES = "package_deb"
->
->     what happens when you use package_ipk or package_rpm and rebuild?
->     just want to make sure if its related to package backend
->
->     >  EXTRA_IMAGE_FEATURES = "debug-tweaks"
->     >  USER_CLASSES ?= "image-mklibs image-prelink"
->     >  PATCHRESOLVE = "noop"
->     >  CONF_VERSION = "1"
->     >  INHERIT += rm_work
->     >  ------
->     >
->     >  Then, I ran
->     >  % bitbake -k core-image-minimal
->     >  and got errors:
->     >  ------
->     >  Errors were encountered while processing:
->     >   /home/zhouheng/poky/build/tmp/deploy/deb/mips/./base-passwd_3.5.22-r9_mips.deb
->     >  W: Ignoring Provides line with DepCompareOp for package rtld
->     >  W: You may want to run apt-get update to correct these problems
->     >  E: Sub-process dpkg returned an error code (1)
->     >  ERROR: Function 'do_rootfs' failed (see
->     >  /home/zhouheng/poky/build/tmp/work/qemumips-poky-linux/core-image-minimal-1.0-r0/temp/log.do_rootfs.2097
->     >  for further information)
->     >  -------
->     >  I have attached the errorlog with the email, too.
->     >  I have tried searching the error, but I haven't figured out why it happens.
->     >  Can anyone answer my questions?
->     >  I would appreciate it very much if anyone can share their configuration to
->     >  successfully build the image.
->     >  Thank you very much!
->     >
->     >  Zhouheng (Philip) Zhuang
->     >
->     >
->     >
->     >
->     >  _______________________________________________
->     >  poky mailing list
->     >  poky@yoctoproject.org <mailto:poky@yoctoproject.org>
->     >  https://lists.yoctoproject.org/listinfo/poky
->     >
->
->
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
+Signed-off-by: Robert Cochran<yocto@mindchasers.com>
+
+---
+   README.hardware |    3 +--
+  1 files changed, 1 insertions(+), 2 deletions(-)
+
+diff --git a/README.hardware b/README.hardware
+index f72da94..1e7df76 100644
+--- a/README.hardware
++++ b/README.hardware
+@@ -241,8 +241,7 @@ Setup instructions
+  You will need the following:
+  * NFS root setup on your workstation
+  * TFTP server installed on your workstation
+-* Null modem cable connected from your workstation to the first serial port
+-  on the board
++* Straight-thru 9-conductor serial cable (DB9, M/F) connected from your 
+PC to UART1
+  * Ethernet connected to the first ethernet port on the board
+
+  --- Preparation ---
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.5.4
 
