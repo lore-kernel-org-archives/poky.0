@@ -1,29 +1,35 @@
 Return-Path: <bryan.odonoghue@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1FA5DE00723
-	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 06:25:12 -0700 (PDT)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 245B2E013D6
+	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 06:30:26 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 30 Mar 2012 06:25:11 -0700
+	by orsmga101.jf.intel.com with ESMTP; 30 Mar 2012 06:30:25 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; 
-	d="scan'208,217";a="123609384"
-Received: from irsmsx103.ger.corp.intel.com ([163.33.3.157])
-	by orsmga001.jf.intel.com with ESMTP; 30 Mar 2012 06:25:10 -0700
+	d="scan'208,217";a="123611094"
+Received: from irsmsx101.ger.corp.intel.com ([163.33.3.153])
+	by orsmga001.jf.intel.com with ESMTP; 30 Mar 2012 06:30:24 -0700
+Received: from irsmsx152.ger.corp.intel.com (163.33.192.66) by
+	IRSMSX101.ger.corp.intel.com (163.33.3.153) with Microsoft SMTP Server
+	(TLS) id 14.1.355.2; Fri, 30 Mar 2012 14:30:23 +0100
 Received: from irsmsx102.ger.corp.intel.com ([169.254.2.39]) by
-	IRSMSX103.ger.corp.intel.com ([169.254.3.225]) with mapi id
-	14.01.0355.002; Fri, 30 Mar 2012 14:24:56 +0100
+	IRSMSX152.ger.corp.intel.com ([169.254.6.86]) with mapi id
+	14.01.0355.002; Fri, 30 Mar 2012 14:30:22 +0100
 From: "O'donoghue, Bryan" <bryan.odonoghue@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+To: "O'donoghue, Bryan" <bryan.odonoghue@intel.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
 Thread-Topic: udev configuration
-Thread-Index: Ac0OeH9FqDmK4UGBT6akTx89WIKAeA==
-Date: Fri, 30 Mar 2012 13:24:56 +0000
-Message-ID: <B80010913FB1F346A630B7F2E18A60C015768050@IRSMSX102.ger.corp.intel.com>
+Thread-Index: Ac0OeH9FqDmK4UGBT6akTx89WIKAeAAALHqA
+Date: Fri, 30 Mar 2012 13:30:22 +0000
+Message-ID: <B80010913FB1F346A630B7F2E18A60C01576806A@IRSMSX102.ger.corp.intel.com>
+References: <B80010913FB1F346A630B7F2E18A60C015768050@IRSMSX102.ger.corp.intel.com>
+In-Reply-To: <B80010913FB1F346A630B7F2E18A60C015768050@IRSMSX102.ger.corp.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [163.33.212.78]
 MIME-Version: 1.0
-Subject: udev configuration
+Subject: Re: udev configuration
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,25 +41,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Mar 2012 13:25:12 -0000
+X-List-Received-Date: Fri, 30 Mar 2012 13:30:26 -0000
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_"
+	boundary="_000_B80010913FB1F346A630B7F2E18A60C01576806AIRSMSX102gercor_"
 
---_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_
+--_000_B80010913FB1F346A630B7F2E18A60C01576806AIRSMSX102gercor_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Greetings list.
+Ok.
 
-I'm booting a yocto image a "core-image-minimal" and I've noticed that not =
-all of the serial ports have entries in /dev. More generally for hardware c=
-oming down the line, I'd like to know how/where the configuration for udev =
-is supposed to go in a yocto BSP.
+udev appears not to be running - please ignore !
 
-I can't see anything obvious in the meta-intel BSPs but, there must be some=
- way (probably very obvious way) of setting up the udev script to do what y=
-ou'd typically want to do ?
 -------------------------------------------------------------
 Intel Ireland Limited (Branch)
 Collinstown Industrial Park, Leixlip, County Kildare, Ireland
@@ -64,7 +64,7 @@ the sole use of the intended recipient(s). Any review or distribution
 by others is strictly prohibited. If you are not the intended
 recipient, please contact the sender and delete all copies.
 
---_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_
+--_000_B80010913FB1F346A630B7F2E18A60C01576806AIRSMSX102gercor_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -98,11 +98,16 @@ a:visited, span.MsoHyperlinkFollowed
 	color:purple;
 	text-decoration:underline;}
 span.EmailStyle17
-	{mso-style-type:personal-compose;
+	{mso-style-type:personal;
 	font-family:"Calibri","sans-serif";
 	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
 .MsoChpDefault
-	{mso-style-type:export-only;}
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
 @page WordSection1
 	{size:612.0pt 792.0pt;
 	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
@@ -117,17 +122,19 @@ div.WordSection1
 </head>
 <body lang=3D"EN-IE" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
-<p class=3D"MsoNormal">Greetings list.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I'm booting a yocto image a &quot;core-image-minimal=
-&quot; and I've noticed that not all of the serial ports have entries in /d=
-ev. More generally for hardware coming down the line, I'd like to know how/=
-where the configuration for udev is supposed
- to go in a yocto BSP.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I can't see anything obvious in the meta-intel BSPs =
-but, there must be some way (probably very obvious way) of setting up the u=
-dev script to do what you'd typically want to do ?<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Ok.<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">udev appears not to be=
+ running &#8211; please ignore !</span><span style=3D"font-size:12.0pt;font=
+-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><o:p></o:p></span></=
+p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
+4.0pt">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
+mes New Roman&quot;,&quot;serif&quot;"><o:p>&nbsp;</o:p></span></p>
+</div>
 </div>
 <font face=3D"monospace">--------------------------------------------------=
 -----------<br>
@@ -141,4 +148,4 @@ by others is strictly prohibited. If you are not the intended<br>
 recipient, please contact the sender and delete all copies.</font></body>
 </html>
 
---_000_B80010913FB1F346A630B7F2E18A60C015768050IRSMSX102gercor_--
+--_000_B80010913FB1F346A630B7F2E18A60C01576806AIRSMSX102gercor_--
