@@ -1,19 +1,23 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 45DDEE004D2
-	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 22:48:43 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 30 Mar 2012 22:48:42 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2B571E00596
+	for <poky@yoctoproject.org>; Fri, 30 Mar 2012 22:48:44 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 30 Mar 2012 22:48:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="83775028"
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="127215628"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.11])
-	by AZSMGA002.ch.intel.com with ESMTP; 30 Mar 2012 22:48:41 -0700
+	by orsmga002.jf.intel.com with ESMTP; 30 Mar 2012 22:48:43 -0700
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 To: poky@yoctoproject.org
-Date: Sat, 31 Mar 2012 13:46:16 +0800
-Message-Id: <cover.1333172695.git.dongxiao.xu@intel.com>
+Date: Sat, 31 Mar 2012 13:46:17 +0800
+Message-Id: <772bae8a380a006f5bde3154a406a458b7f56313.1333172695.git.dongxiao.xu@intel.com>
 X-Mailer: git-send-email 1.7.4.1
-Subject: [PATCH 0/1][PULL] baryon: variable fix
+In-Reply-To: <cover.1333172695.git.dongxiao.xu@intel.com>
+References: <cover.1333172695.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1333172695.git.dongxiao.xu@intel.com>
+References: <cover.1333172695.git.dongxiao.xu@intel.com>
+Subject: [PATCH 1/1] baryon: Fix variable naming
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,29 +29,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 31 Mar 2012 05:48:43 -0000
+X-List-Received-Date: Sat, 31 Mar 2012 05:48:44 -0000
 
-Hi Richard,
+The POKY_EXTRA_INSTALL is changed to CORE_IMAGE_EXTRA_INSTALL in core
+layer. Therefore change it in meta-baryon accordingly.
 
-This pull request is a bugfix for baryon layer, please help to review and pull.
-
-Thanks,
-Dongxiao
-
-The following changes since commit d662381a38fa5fd31a87a6c26d2efa5065e76a27:
-
-  webmin: add missing patch header info (2011-11-09 14:09:23 +0000)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib dxu4/baryon
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/baryon
-
-Dongxiao Xu (1):
-  baryon: Fix variable naming
-
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+---
  recipes-extended/images/baryon-image.bb |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
+diff --git a/recipes-extended/images/baryon-image.bb b/recipes-extended/images/baryon-image.bb
+index 4ac9dcf..663c80d 100644
+--- a/recipes-extended/images/baryon-image.bb
++++ b/recipes-extended/images/baryon-image.bb
+@@ -1,6 +1,6 @@
+ IMAGE_FEATURES = "nfs-server package-management ssh-server-dropbear debug-tweaks"
+ 
+-POKY_EXTRA_INSTALL = "samba procps mdadm e2fsprogs-mke2fs util-linux \
++CORE_IMAGE_EXTRA_INSTALL = "samba procps mdadm e2fsprogs-mke2fs util-linux \
+                      webmin \
+                      webmin-module-status \
+                      webmin-module-proc \
 -- 
 1.7.4.1
 
