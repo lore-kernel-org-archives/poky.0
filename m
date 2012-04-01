@@ -1,29 +1,47 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C7B81E01347
-	for <poky@yoctoproject.org>; Sat, 31 Mar 2012 08:44:46 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2VFibHA024695;
-	Sat, 31 Mar 2012 16:44:37 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 24555-02; Sat, 31 Mar 2012 16:44:31 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q2VFiQaW024689
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sat, 31 Mar 2012 16:44:27 +0100
-Message-ID: <1333208666.18082.242.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
-Date: Sat, 31 Mar 2012 16:44:26 +0100
-In-Reply-To: <7E29EF69110C17499E6B3A9844CD4FD913424EF9@szxeml526-mbx.china.huawei.com>
+Return-Path: <sivan.wang@huawei.com>
+Received: from szxga04-in.huawei.com (unknown [58.251.152.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D24A9E01347
+	for <poky@yoctoproject.org>; Sat, 31 Mar 2012 19:34:01 -0700 (PDT)
+Received: from huawei.com (szxga04-in [172.24.2.12])
+	by szxga04-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1S00MUT4GOGN@szxga04-in.huawei.com> for
+	poky@yoctoproject.org; Sun, 01 Apr 2012 10:34:00 +0800 (CST)
+Received: from szxrg02-dlp.huawei.com ([172.24.2.119])
+	by szxga04-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1S00B434GIIT@szxga04-in.huawei.com> for
+	poky@yoctoproject.org; Sun, 01 Apr 2012 10:34:00 +0800 (CST)
+Received: from szxeml210-edg.china.huawei.com ([172.24.2.119])
+	by szxrg02-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AID97024; Sun,
+	01 Apr 2012 10:34:00 +0800
+Received: from SZXEML405-HUB.china.huawei.com (10.82.67.60)
+	by szxeml210-edg.china.huawei.com (172.24.2.183) with Microsoft SMTP
+	Server (TLS) id 14.1.323.3; Sun, 01 Apr 2012 10:33:49 +0800
+Received: from SZXEML526-MBX.china.huawei.com ([169.254.2.214])
+	by szxeml405-hub.china.huawei.com ([::1]) with mapi id 14.01.0323.003;
+	Sun, 01 Apr 2012 10:33:49 +0800
+Date: Sun, 01 Apr 2012 02:33:47 +0000
+From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
+In-reply-to: <1333208666.18082.242.camel@ted>
+X-Originating-IP: [10.66.60.200]
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-id: <7E29EF69110C17499E6B3A9844CD4FD913424F55@szxeml526-mbx.china.huawei.com>
+MIME-version: 1.0
+Accept-Language: zh-CN, en-US
+Thread-topic: [poky] The problem of using the external toolchain
+Thread-index: AQHND1UzeYG09vDQQ0yt+bmKpsTVOpaFOb0A
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+X-CFilter-Loop: Reflected
 References: <7E29EF69110C17499E6B3A9844CD4FD913424EF9@szxeml526-mbx.china.huawei.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+	<1333208666.18082.242.camel@ted>
+Cc: Sanil kumar <sanil.kumar@huawei.com>,
+	"v71149@notesmail.huawei.com" <v71149@notesmail.huawei.com>,
+	Venkata ramana gollamudi <ramana.gollamudi@huawei.com>,
+	"c00197859@notesmial.huawei.com" <c00197859@notesmial.huawei.com>,
+	"s00900579@notesmail.huawei.com" <s00900579@notesmail.huawei.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: The problem of using the external toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -36,117 +54,157 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 31 Mar 2012 15:44:47 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sun, 01 Apr 2012 02:34:02 -0000
+Content-type: text/plain; charset=utf-8
+Content-language: en-US
+Content-transfer-encoding: base64
 
-On Sat, 2012-03-31 at 09:55 +0000, Wangdawei (Sivan) wrote:
-> The reason is that I want to use the binary toolchain I have own in
-> yocto, and I don=E2=80=99t have the source code of the toolchain , then I=
- do
-> the steps below:
-> =20
-> 1. add a line in local.conf like this TCMODE ?=3D "external-csl2008q3"
-> 2.modify the file tcmode-external-csl2008q3.inc, change
-> EXTERNAL_TOOLCHAIN =3D "/opt/toolchain-be8/armeb-linux-gnueabi" to refer
-> to where my binary toolchain stored
-> 3. comment the line =E2=80=9C#SRC_URI =3D "file://SUPPORTED"=E2=80=9D in =
-file
-> =E2=80=9Cexternal-csl-toolchain_2008q3-72.bb=E2=80=9D,because we don=E2=
-=80=99t have the source
-> code ,so I think the SRC_URI maybe will be NULL
-> =20
-> When I do this , but it failed , below is the log I have got:
-> =20
-> NOTE: package binutils-cross-2.21.1a-r0: task do_configure: Started
->
-> ERROR: Function 'do_configure' failed
-> (see /home/ccc/poky-second/build/tmp/work/i586-none-linux/binutils-cross-=
-2.21.1a-r0/temp/log.do_configure.5085 for further information)
->
-> ERROR: Logfile of failure stored
-> in: /home/ccc/poky-second/build/tmp/work/i586-none-linux/binutils-cross-2=
-.21.1a-r0/temp/log.do_configure.5085
->
-> Log data follows:
->
-> | DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc',=20
-> | 'bit-64', 'x86_64-linux', 'common']
-> | configure.ac:32: error: Please use exactly Autoconf 2.64 instead of
-> 2.68.
-> | config/override.m4:12: _GCC_AUTOCONF_VERSION_CHECK is expanded
-> from...
-> | configure.ac:32: the top level
-> |
-> autom4te: /home/ccc/poky-second/build/tmp/sysroots/x86_64-linux/usr/bin/m=
-4 failed with exit status: 1
-> | NOTE:
-> Running /home/ccc/poky-second/build/tmp/work/i586-none-linux/binutils-cro=
-ss-2.21.1a-r0/binutils-2.21.1/configure                 --build=3Dx86_64-li=
-nux             --host=3Dx86_64-linux             --target=3Di586-none-linu=
-x               --prefix=3D/home/ccc/poky-second/build/tmp/sysroots/x86_64-=
-linux/usr              --exec_prefix=3D/home/ccc/poky-second/build/tmp/sysr=
-oots/x86_64-linux/usr                 --bindir=3D/home/ccc/poky-second/buil=
-d/tmp/sysroots/x86_64-linux/usr/bin/i586-none-linux                 --sbind=
-ir=3D/home/ccc/poky-second/build/tmp/sysroots/x86_64-linux/usr/bin/i586-non=
-e-linux                 --libexecdir=3D/home/ccc/poky-second/build/tmp/sysr=
-oots/x86_64-linux/usr/libexec/i586-none-linux                 --datadir=3D/=
-home/ccc/poky-second/build/tmp/sysroots/x86_64-linux/usr/share             =
-  --sysconfdir=3D/home/ccc/poky-second/build/tmp/sysroots/x86_64-linux/etc =
-                --sharedstatedir=3D/home/ccc/poky-second/build/tmp/sysroots=
-/x86_64-linux/com              --localstatedir=3D/home/ccc/poky-second/buil=
-d/tmp/sysroots/x86_64-linux/var              --libdir=3D/home/ccc/poky-seco=
-nd/build/tmp/sysroots/x86_64-linux/usr/lib/i586-none-linux                 =
- --includedir=3D/home/ccc/poky-second/build/tmp/sysroots/x86_64-linux/usr/i=
-nclude                 --oldincludedir=3D/home/ccc/poky-second/build/tmp/sy=
-sroots/x86_64-linux/usr/include               --infodir=3D/home/ccc/poky-se=
-cond/build/tmp/sysroots/x86_64-linux/usr/share/info                 --mandi=
-r=3D/home/ccc/poky-second/build/tmp/sysroots/x86_64-linux/usr/share/man    =
-        --disable-silent-rules                  --with-libtool-sysroot=3D/h=
-ome/ccc/poky-second/build/tmp/sysroots/x86_64-linux --with-sysroot=3D/home/=
-ccc/poky-second/build/tmp/sysroots/qemux86                 --program-prefix=
-=3Di586-none-linux-                 --disable-install-libbfd               =
-  --disable-werror                 --enable-poison-system-directories      =
-            --enable-nls ...
->
-> | checking build system type... x86_64-pc-linux-gnu checking host
-> system=20
-> | type... x86_64-pc-linux-gnu checking target system type...=20
-> | i586-none-linux-gnu checking for a BSD-compatible install...=20
-> | /usr/bin/install -c checking whether ln works... yes checking
-> whether
-> | ln -s works... yes checking for a sed that does not truncate
-> output...=20
-> | /bin/sed checking for gawk... gawk checking for x86_64-linux-gcc...=20
-> | gcc checking for C compiler default output file name...
-> | configure: error: in
-> `/home/ccc/poky-second/build/tmp/work/i586-none-linux/binutils-cross-2.21=
-.1a-r0/binutils-2.21.1/build.x86_64-linux.i586-none-linux':
-> | configure: error: C compiler cannot create executables See=20
-> | `config.log' for more details
-> | ERROR: oe_runconf failed
-> | ERROR: Function 'do_configure' failed (see=20
-> | /home/ccc/poky-second/build/tmp/work/i586-none-linux/binutils-cross-2.
-> | 21.1a-r0/temp/log.do_configure.5085 for further information)
-> NOTE: package binutils-cross-2.21.1a-r0: task do_configure: Failed
-
-
-> We can see the toolchain it checked is also the x86_64-linux-gcc , not
-> the toolchain I assigned  =E2=80=9CEXTERNAL_TOOLCHAIN =3D
-> "/opt/toolchain-be8/armeb-linux-gnueabi"=E2=80=9D
-
-This is for the *build* system (i.e. the system you are compiling on) so
-its likely correct.
-
-It then goes on to look at the target of "i586-none-linux-gnu" which
-sounds wrong given you appear to have an armeb toolchain?
-
-I suspect you need to target a big endian arm machine rather than
-MACHINE=3Dqemux86 which I suspect you're currently using?
-
-Cheers,
-
-Richard
-
-
+SGkgUmljaGFyZCwNCglZZXMsIHlvdSBhcmUgcmlnaHQgLCBJIGhhdmUgYSB0b29sY2hhaW4gdGhh
+dCBpcyBiaWcgZW5kaWFuIEFSTSwgc28gSSB3YW50IHRvIHVzZSB0aGUgdG9vbGNoYWluIHdpdGgg
+dGhlIGJpbmFyeSwgbm90IHRoZSBzb3VyY2UgY29kZSAsIGNhbiB3ZSBoYXZlIHNvbWUgbWV0aG9k
+IHRvIGZpbmlzaCB0aGlzIHdvcmsgaW4geW9jdG8gPyBJIHN0aWxsIGhhdmUgbm8gY2x1ZSBhYm91
+dCB0aGlzIC4NCglJIGhhdmUgZG9uZSB0aGUgYmVsb3cgc3RlcHM6DQoJCTEubW9kaWZ5IE1BQ0hJ
+TkU9cWVtdXg4NiB0byBNQUNISU5FPXFlbXVhcm0gDQoJCTIubW9kaWZ5IHRoZSBmaWxlICIgZXh0
+ZXJuYWwtY3NsLXRvb2xjaGFpbl8yMDA4cTMtNzIuYmIiIGFkZCBhIGxpbmUgIiBTUkNfVVJJID0g
+ImZpbGU6Ly9nY2MtNC40LjEudGFyLmJ6MiIiLCB0aGUgZ2NjLTQuNC4xLnRhci5iejIgaXMgdGhl
+IHNvdXJjZSBjb2RlIG9mIHRoZSBhcm0gYmlnIGVuZGlhbiB0b29sY2hhaW4NCgkJMy50aGVuIEkg
+ZmFjZSB0aGUgc29tZSBwcm9ibGVtIGxpa2UgdGhpcyB3ZWJzaXRlIGh0dHBzOi8vbGlzdHMueW9j
+dG9wcm9qZWN0Lm9yZy9waXBlcm1haWwvcG9reS8yMDExLUZlYnJ1YXJ5LzAwMzgwOS5odG1sICx0
+aGVuIEkgYWRkIGEgbGluZSAiIExJQ19GSUxFU19DSEtTVU0gPSAiZmlsZTovLyR7Q09NTU9OX0xJ
+Q0VOU0VfRElSfS9NSVQ7bWQ1PTA4MzVhZGU2OThlMGJjZjg1MDZlY2RhMmY3YjRmMzAyIiIgLGlu
+IGZpbGUgCQkJCQkJICAgICBleHRlcm5hbC1jc2wtdG9vbGNoYWluXzIwMDhxMy03Mi5iYiB0byBm
+aXggdGhpcyBwcm9ibGVtIA0KCQk0Lm5vdyBJIGdvdCB0aGUgYmVsb3cgbG9nIDoNCk5PVEU6IFJl
+c29sdmluZyBhbnkgbWlzc2luZyB0YXNrIHF1ZXVlIGRlcGVuZGVuY2llcw0KTk9URTogbXVsdGlw
+bGUgcHJvdmlkZXJzIGFyZSBhdmFpbGFibGUgZm9yIHZpcnR1YWwvYXJtLW5vbmUtbGludXgtZ251
+ZWFiaS1nKysgKGV4dGVybmFsLWNzbC10b29sY2hhaW4sIGdjYy1jcm9zcykNCk5PVEU6IGNvbnNp
+ZGVyIGRlZmluaW5nIGEgUFJFRkVSUkVEX1BST1ZJREVSIGVudHJ5IHRvIG1hdGNoIHZpcnR1YWwv
+YXJtLW5vbmUtbGludXgtZ251ZWFiaS1nKysNCk5PVEU6IG11bHRpcGxlIHByb3ZpZGVycyBhcmUg
+YXZhaWxhYmxlIGZvciBydW50aW1lIGxpbnV4LWxpYmMtaGVhZGVycy1kZXYgKGxpbnV4LWxpYmMt
+aGVhZGVycywgbGludXgtbGliYy1oZWFkZXJzLXlvY3RvLCBsaW51eC1saWJjLWhlYWRlcnMteW9j
+dG8tbmF0aXZlc2RrKQ0KTk9URTogY29uc2lkZXIgZGVmaW5pbmcgYSBQUkVGRVJSRURfUFJPVklE
+RVIgZW50cnkgdG8gbWF0Y2ggbGludXgtbGliYy1oZWFkZXJzLWRldg0KTk9URTogUHJlcGFyaW5n
+IHJ1bnF1ZXVlDQpOT1RFOiBFeGVjdXRpbmcgU2V0U2NlbmUgVGFza3MNCk5PVEU6IEV4ZWN1dGlu
+ZyBSdW5RdWV1ZSBUYXNrcw0KTk9URTogUnVubmluZyB0YXNrIDIwNiBvZiAxMzYwIChJRDogNDU1
+LCAvaG9tZS9reWxlL3Bva3ktZWRpc29uLTYuMC9tZXRhL3JlY2lwZXMtY29yZS9tZXRhL2V4dGVy
+bmFsLWNzbC10b29sY2hhaW5fMjAwOHEzLTcyLmJiLCBkb19pbnN0YWxsKQ0KTk9URTogcGFja2Fn
+ZSBleHRlcm5hbC1jc2wtdG9vbGNoYWluLTIwMDhxMy03Mi1yMTogdGFzayBkb19pbnN0YWxsOiBT
+dGFydGVkDQpFUlJPUjogRnVuY3Rpb24gJ2RvX2luc3RhbGwnIGZhaWxlZCAoc2VlIC9ob21lL2t5
+bGUvY2NjL3RtcC93b3JrL2FybXY1dGUtbm9uZS1saW51eC1nbnVlYWJpL2V4dGVybmFsLWNzbC10
+b29sY2hhaW4tMjAwOHEzLTcyLXIxL3RlbXAvbG9nLmRvX2luc3RhbGwuOTU3OSBmb3IgZnVydGhl
+ciBpbmZvcm1hdGlvbikNCkVSUk9SOiBMb2dmaWxlIG9mIGZhaWx1cmUgc3RvcmVkIGluOiAvaG9t
+ZS9reWxlL2NjYy90bXAvd29yay9hcm12NXRlLW5vbmUtbGludXgtZ251ZWFiaS9leHRlcm5hbC1j
+c2wtdG9vbGNoYWluLTIwMDhxMy03Mi1yMS90ZW1wL2xvZy5kb19pbnN0YWxsLjk1NzkNCkxvZyBk
+YXRhIGZvbGxvd3M6DQp8IE5PVEU6IG1ha2UgLWUgTUFLRUZMQUdTPSBpbnN0YWxsX3Jvb3Q9L2hv
+bWUva3lsZS9jY2MvdG1wL3dvcmsvYXJtdjV0ZS1ub25lLWxpbnV4LWdudWVhYmkvZXh0ZXJuYWwt
+Y3NsLXRvb2xjaGFpbi0yMDA4cTMtNzItcjEvaW1hZ2UgaW5zdGFsbA0KfCBtYWtlOiAqKiogTm8g
+cnVsZSB0byBtYWtlIHRhcmdldCBgaW5zdGFsbCcuICBTdG9wLg0KfCBFUlJPUjogb2VfcnVubWFr
+ZSBmYWlsZWQNCnwgRVJST1I6IEZ1bmN0aW9uICdkb19pbnN0YWxsJyBmYWlsZWQgKHNlZSAvaG9t
+ZS9reWxlL2NjYy90bXAvd29yay9hcm12NXRlLW5vbmUtbGludXgtZ251ZWFiaS9leHRlcm5hbC1j
+c2wtdG9vbGNoYWluLTIwMDhxMy03Mi1yMS90ZW1wL2xvZy5kb19pbnN0YWxsLjk1NzkgZm9yIGZ1
+cnRoZXIgaW5mb3JtYXRpb24pDQpOT1RFOiBwYWNrYWdlIGV4dGVybmFsLWNzbC10b29sY2hhaW4t
+MjAwOHEzLTcyLXIxOiB0YXNrIGRvX2luc3RhbGw6IEZhaWxlZA0KRVJST1I6IFRhc2sgNDU1ICgv
+aG9tZS9reWxlL3Bva3ktZWRpc29uLTYuMC9tZXRhL3JlY2lwZXMtY29yZS9tZXRhL2V4dGVybmFs
+LWNzbC10b29sY2hhaW5fMjAwOHEzLTcyLmJiLCBkb19pbnN0YWxsKSBmYWlsZWQgd2l0aCBleGl0
+IGNvZGUgJzEnDQpFUlJPUjogJy9ob21lL2t5bGUvcG9reS1lZGlzb24tNi4wL21ldGEvcmVjaXBl
+cy1jb3JlL21ldGEvZXh0ZXJuYWwtY3NsLXRvb2xjaGFpbl8yMDA4cTMtNzIuYmInIGZhaWxlZA0K
+a3lsZUB1YnVudHU6fi9jY2MkDQoNClNvICwgSSBoYXZlIHR3byBxdWVzdGlvbnMgDQoNCjEuaG93
+IGNhbiBJIGZpeCB0aGlzIHByb2JsZW0gdXNlIHRoZSBzb3VyY2UgY29kZSBvZiB0b29sY2hhaW4g
+dG8gYnVpbGQgb3VyIHN5c3RlbT8NCjIuaG93IGNhbiBJIHVzZSBteSBiaW5hcnkgdG9vbGNoYWlu
+IHRvIGJ1aWxkIG15IHN5c3RlbSA/RGlkIGFueW9uZSB0byB0aGVzZSB0aGluZ3MgYmVmb3JlID8N
+Cg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBSaWNoYXJkIFB1cmRpZSBb
+bWFpbHRvOnJpY2hhcmQucHVyZGllQGxpbnV4Zm91bmRhdGlvbi5vcmddIA0KU2VudDogMjAxMuW5
+tDPmnIgzMeaXpSAyMzo0NA0KVG86IFdhbmdkYXdlaSAoU2l2YW4pDQpDYzogcG9reUB5b2N0b3By
+b2plY3Qub3JnDQpTdWJqZWN0OiBSZTogW3Bva3ldIFRoZSBwcm9ibGVtIG9mIHVzaW5nIHRoZSBl
+eHRlcm5hbCB0b29sY2hhaW4NCg0KT24gU2F0LCAyMDEyLTAzLTMxIGF0IDA5OjU1ICswMDAwLCBX
+YW5nZGF3ZWkgKFNpdmFuKSB3cm90ZToNCj4gVGhlIHJlYXNvbiBpcyB0aGF0IEkgd2FudCB0byB1
+c2UgdGhlIGJpbmFyeSB0b29sY2hhaW4gSSBoYXZlIG93biBpbg0KPiB5b2N0bywgYW5kIEkgZG9u
+4oCZdCBoYXZlIHRoZSBzb3VyY2UgY29kZSBvZiB0aGUgdG9vbGNoYWluICwgdGhlbiBJIGRvDQo+
+IHRoZSBzdGVwcyBiZWxvdzoNCj4gIA0KPiAxLiBhZGQgYSBsaW5lIGluIGxvY2FsLmNvbmYgbGlr
+ZSB0aGlzIFRDTU9ERSA/PSAiZXh0ZXJuYWwtY3NsMjAwOHEzIg0KPiAyLm1vZGlmeSB0aGUgZmls
+ZSB0Y21vZGUtZXh0ZXJuYWwtY3NsMjAwOHEzLmluYywgY2hhbmdlDQo+IEVYVEVSTkFMX1RPT0xD
+SEFJTiA9ICIvb3B0L3Rvb2xjaGFpbi1iZTgvYXJtZWItbGludXgtZ251ZWFiaSIgdG8gcmVmZXIN
+Cj4gdG8gd2hlcmUgbXkgYmluYXJ5IHRvb2xjaGFpbiBzdG9yZWQNCj4gMy4gY29tbWVudCB0aGUg
+bGluZSDigJwjU1JDX1VSSSA9ICJmaWxlOi8vU1VQUE9SVEVEIuKAnSBpbiBmaWxlDQo+IOKAnGV4
+dGVybmFsLWNzbC10b29sY2hhaW5fMjAwOHEzLTcyLmJi4oCdLGJlY2F1c2Ugd2UgZG9u4oCZdCBo
+YXZlIHRoZSBzb3VyY2UNCj4gY29kZSAsc28gSSB0aGluayB0aGUgU1JDX1VSSSBtYXliZSB3aWxs
+IGJlIE5VTEwNCj4gIA0KPiBXaGVuIEkgZG8gdGhpcyAsIGJ1dCBpdCBmYWlsZWQgLCBiZWxvdyBp
+cyB0aGUgbG9nIEkgaGF2ZSBnb3Q6DQo+ICANCj4gTk9URTogcGFja2FnZSBiaW51dGlscy1jcm9z
+cy0yLjIxLjFhLXIwOiB0YXNrIGRvX2NvbmZpZ3VyZTogU3RhcnRlZA0KPg0KPiBFUlJPUjogRnVu
+Y3Rpb24gJ2RvX2NvbmZpZ3VyZScgZmFpbGVkDQo+IChzZWUgL2hvbWUvY2NjL3Bva3ktc2Vjb25k
+L2J1aWxkL3RtcC93b3JrL2k1ODYtbm9uZS1saW51eC9iaW51dGlscy1jcm9zcy0yLjIxLjFhLXIw
+L3RlbXAvbG9nLmRvX2NvbmZpZ3VyZS41MDg1IGZvciBmdXJ0aGVyIGluZm9ybWF0aW9uKQ0KPg0K
+PiBFUlJPUjogTG9nZmlsZSBvZiBmYWlsdXJlIHN0b3JlZA0KPiBpbjogL2hvbWUvY2NjL3Bva3kt
+c2Vjb25kL2J1aWxkL3RtcC93b3JrL2k1ODYtbm9uZS1saW51eC9iaW51dGlscy1jcm9zcy0yLjIx
+LjFhLXIwL3RlbXAvbG9nLmRvX2NvbmZpZ3VyZS41MDg1DQo+DQo+IExvZyBkYXRhIGZvbGxvd3M6
+DQo+DQo+IHwgREVCVUc6IFNJVEUgZmlsZXMgWydlbmRpYW4tbGl0dGxlJywgJ2NvbW1vbi1saW51
+eCcsICdjb21tb24tZ2xpYmMnLCANCj4gfCAnYml0LTY0JywgJ3g4Nl82NC1saW51eCcsICdjb21t
+b24nXQ0KPiB8IGNvbmZpZ3VyZS5hYzozMjogZXJyb3I6IFBsZWFzZSB1c2UgZXhhY3RseSBBdXRv
+Y29uZiAyLjY0IGluc3RlYWQgb2YNCj4gMi42OC4NCj4gfCBjb25maWcvb3ZlcnJpZGUubTQ6MTI6
+IF9HQ0NfQVVUT0NPTkZfVkVSU0lPTl9DSEVDSyBpcyBleHBhbmRlZA0KPiBmcm9tLi4uDQo+IHwg
+Y29uZmlndXJlLmFjOjMyOiB0aGUgdG9wIGxldmVsDQo+IHwNCj4gYXV0b200dGU6IC9ob21lL2Nj
+Yy9wb2t5LXNlY29uZC9idWlsZC90bXAvc3lzcm9vdHMveDg2XzY0LWxpbnV4L3Vzci9iaW4vbTQg
+ZmFpbGVkIHdpdGggZXhpdCBzdGF0dXM6IDENCj4gfCBOT1RFOg0KPiBSdW5uaW5nIC9ob21lL2Nj
+Yy9wb2t5LXNlY29uZC9idWlsZC90bXAvd29yay9pNTg2LW5vbmUtbGludXgvYmludXRpbHMtY3Jv
+c3MtMi4yMS4xYS1yMC9iaW51dGlscy0yLjIxLjEvY29uZmlndXJlICAgICAgICAgICAgICAgICAt
+LWJ1aWxkPXg4Nl82NC1saW51eCAgICAgICAgICAgICAtLWhvc3Q9eDg2XzY0LWxpbnV4ICAgICAg
+ICAgICAgIC0tdGFyZ2V0PWk1ODYtbm9uZS1saW51eCAgICAgICAgICAgICAgIC0tcHJlZml4PS9o
+b21lL2NjYy9wb2t5LXNlY29uZC9idWlsZC90bXAvc3lzcm9vdHMveDg2XzY0LWxpbnV4L3VzciAg
+ICAgICAgICAgICAgLS1leGVjX3ByZWZpeD0vaG9tZS9jY2MvcG9reS1zZWNvbmQvYnVpbGQvdG1w
+L3N5c3Jvb3RzL3g4Nl82NC1saW51eC91c3IgICAgICAgICAgICAgICAgIC0tYmluZGlyPS9ob21l
+L2NjYy9wb2t5LXNlY29uZC9idWlsZC90bXAvc3lzcm9vdHMveDg2XzY0LWxpbnV4L3Vzci9iaW4v
+aTU4Ni1ub25lLWxpbnV4ICAgICAgICAgICAgICAgICAtLXNiaW5kaXI9L2hvbWUvY2NjL3Bva3kt
+c2Vjb25kL2J1aWxkL3RtcC9zeXNyb290cy94ODZfNjQtbGludXgvdXNyL2Jpbi9pNTg2LW5vbmUt
+bGludXggICAgICAgICAgICAgICAgIC0tbGliZXhlY2Rpcj0vaG9tZS9jY2MvcG9reS1zZWNvbmQv
+YnVpbGQvdG1wL3N5c3Jvb3RzL3g4Nl82NC1saW51eC91c3IvbGliZXhlYy9pNTg2LW5vbmUtbGlu
+dXggICAgICAgICAgICAgICAgIC0tZGF0YWRpcj0vaG9tZS9jY2MvcG9reS1zZWNvbmQvYnVpbGQv
+dG1wL3N5c3Jvb3RzL3g4Nl82NC1saW51eC91c3Ivc2hhcmUgICAgICAgICAgICAgICAtLXN5c2Nv
+bmZkaXI9L2hvbWUvY2NjL3Bva3ktc2Vjb25kL2J1aWxkL3RtcC9zeXNyb290cy94ODZfNjQtbGlu
+dXgvZXRjICAgICAgICAgICAgICAgICAtLXNoYXJlZHN0YXRlZGlyPS9ob21lL2NjYy9wb2t5LXNl
+Y29uZC9idWlsZC90bXAvc3lzcm9vdHMveDg2XzY0LWxpbnV4L2NvbSAgICAgICAgICAgICAgLS1s
+b2NhbHN0YXRlZGlyPS9ob21lL2NjYy9wb2t5LXNlY29uZC9idWlsZC90bXAvc3lzcm9vdHMveDg2
+XzY0LWxpbnV4L3ZhciAgICAgICAgICAgICAgLS1saWJkaXI9L2hvbWUvY2NjL3Bva3ktc2Vjb25k
+L2J1aWxkL3RtcC9zeXNyb290cy94ODZfNjQtbGludXgvdXNyL2xpYi9pNTg2LW5vbmUtbGludXgg
+ICAgICAgICAgICAgICAgICAtLWluY2x1ZGVkaXI9L2hvbWUvY2NjL3Bva3ktc2Vjb25kL2J1aWxk
+L3RtcC9zeXNyb290cy94ODZfNjQtbGludXgvdXNyL2luY2x1ZGUgICAgICAgICAgICAgICAgIC0t
+b2xkaW5jbHVkZWRpcj0vaG9tZS9jY2MvcG9reS1zZWNvbmQvYnVpbGQvdG1wL3N5c3Jvb3RzL3g4
+Nl82NC1saW51eC91c3IvaW5jbHVkZSAgICAgICAgICAgICAgIC0taW5mb2Rpcj0vaG9tZS9jY2Mv
+cG9reS1zZWNvbmQvYnVpbGQvdG1wL3N5c3Jvb3RzL3g4Nl82NC1saW51eC91c3Ivc2hhcmUvaW5m
+byAgICAgICAgICAgICAgICAgLS1tYW5kaXI9L2hvbWUvY2NjL3Bva3ktc2Vjb25kL2J1aWxkL3Rt
+cC9zeXNyb290cy94ODZfNjQtbGludXgvdXNyL3NoYXJlL21hbiAgICAgICAgICAgIC0tZGlzYWJs
+ZS1zaWxlbnQtcnVsZXMgICAgICAgICAgICAgICAgICAtLXdpdGgtbGlidG9vbC1zeXNyb290PS9o
+b21lL2NjYy9wb2t5LXNlY29uZC9idWlsZC90bXAvc3lzcm9vdHMveDg2XzY0LWxpbnV4IC0td2l0
+aC1zeXNyb290PS9ob21lL2NjYy9wb2t5LXNlY29uZC9idWlsZC90bXAvc3lzcm9vdHMvcWVtdXg4
+NiAgICAgICAgICAgICAgICAgLS1wcm9ncmFtLXByZWZpeD1pNTg2LW5vbmUtbGludXgtICAgICAg
+ICAgICAgICAgICAtLWRpc2FibGUtaW5zdGFsbC1saWJiZmQgICAgICAgICAgICAgICAgIC0tZGlz
+YWJsZS13ZXJyb3IgICAgICAgICAgICAgICAgIC0tZW5hYmxlLXBvaXNvbi1zeXN0ZW0tZGlyZWN0
+b3JpZXMgICAgICAgICAgICAgICAgICAtLWVuYWJsZS1ubHMgLi4uDQo+DQo+IHwgY2hlY2tpbmcg
+YnVpbGQgc3lzdGVtIHR5cGUuLi4geDg2XzY0LXBjLWxpbnV4LWdudSBjaGVja2luZyBob3N0DQo+
+IHN5c3RlbSANCj4gfCB0eXBlLi4uIHg4Nl82NC1wYy1saW51eC1nbnUgY2hlY2tpbmcgdGFyZ2V0
+IHN5c3RlbSB0eXBlLi4uIA0KPiB8IGk1ODYtbm9uZS1saW51eC1nbnUgY2hlY2tpbmcgZm9yIGEg
+QlNELWNvbXBhdGlibGUgaW5zdGFsbC4uLiANCj4gfCAvdXNyL2Jpbi9pbnN0YWxsIC1jIGNoZWNr
+aW5nIHdoZXRoZXIgbG4gd29ya3MuLi4geWVzIGNoZWNraW5nDQo+IHdoZXRoZXINCj4gfCBsbiAt
+cyB3b3Jrcy4uLiB5ZXMgY2hlY2tpbmcgZm9yIGEgc2VkIHRoYXQgZG9lcyBub3QgdHJ1bmNhdGUN
+Cj4gb3V0cHV0Li4uIA0KPiB8IC9iaW4vc2VkIGNoZWNraW5nIGZvciBnYXdrLi4uIGdhd2sgY2hl
+Y2tpbmcgZm9yIHg4Nl82NC1saW51eC1nY2MuLi4gDQo+IHwgZ2NjIGNoZWNraW5nIGZvciBDIGNv
+bXBpbGVyIGRlZmF1bHQgb3V0cHV0IGZpbGUgbmFtZS4uLg0KPiB8IGNvbmZpZ3VyZTogZXJyb3I6
+IGluDQo+IGAvaG9tZS9jY2MvcG9reS1zZWNvbmQvYnVpbGQvdG1wL3dvcmsvaTU4Ni1ub25lLWxp
+bnV4L2JpbnV0aWxzLWNyb3NzLTIuMjEuMWEtcjAvYmludXRpbHMtMi4yMS4xL2J1aWxkLng4Nl82
+NC1saW51eC5pNTg2LW5vbmUtbGludXgnOg0KPiB8IGNvbmZpZ3VyZTogZXJyb3I6IEMgY29tcGls
+ZXIgY2Fubm90IGNyZWF0ZSBleGVjdXRhYmxlcyBTZWUgDQo+IHwgYGNvbmZpZy5sb2cnIGZvciBt
+b3JlIGRldGFpbHMNCj4gfCBFUlJPUjogb2VfcnVuY29uZiBmYWlsZWQNCj4gfCBFUlJPUjogRnVu
+Y3Rpb24gJ2RvX2NvbmZpZ3VyZScgZmFpbGVkIChzZWUgDQo+IHwgL2hvbWUvY2NjL3Bva3ktc2Vj
+b25kL2J1aWxkL3RtcC93b3JrL2k1ODYtbm9uZS1saW51eC9iaW51dGlscy1jcm9zcy0yLg0KPiB8
+IDIxLjFhLXIwL3RlbXAvbG9nLmRvX2NvbmZpZ3VyZS41MDg1IGZvciBmdXJ0aGVyIGluZm9ybWF0
+aW9uKQ0KPiBOT1RFOiBwYWNrYWdlIGJpbnV0aWxzLWNyb3NzLTIuMjEuMWEtcjA6IHRhc2sgZG9f
+Y29uZmlndXJlOiBGYWlsZWQNCg0KDQo+IFdlIGNhbiBzZWUgdGhlIHRvb2xjaGFpbiBpdCBjaGVj
+a2VkIGlzIGFsc28gdGhlIHg4Nl82NC1saW51eC1nY2MgLCBub3QNCj4gdGhlIHRvb2xjaGFpbiBJ
+IGFzc2lnbmVkICDigJxFWFRFUk5BTF9UT09MQ0hBSU4gPQ0KPiAiL29wdC90b29sY2hhaW4tYmU4
+L2FybWViLWxpbnV4LWdudWVhYmki4oCdDQoNClRoaXMgaXMgZm9yIHRoZSAqYnVpbGQqIHN5c3Rl
+bSAoaS5lLiB0aGUgc3lzdGVtIHlvdSBhcmUgY29tcGlsaW5nIG9uKSBzbw0KaXRzIGxpa2VseSBj
+b3JyZWN0Lg0KDQpJdCB0aGVuIGdvZXMgb24gdG8gbG9vayBhdCB0aGUgdGFyZ2V0IG9mICJpNTg2
+LW5vbmUtbGludXgtZ251IiB3aGljaA0Kc291bmRzIHdyb25nIGdpdmVuIHlvdSBhcHBlYXIgdG8g
+aGF2ZSBhbiBhcm1lYiB0b29sY2hhaW4/DQoNCkkgc3VzcGVjdCB5b3UgbmVlZCB0byB0YXJnZXQg
+YSBiaWcgZW5kaWFuIGFybSBtYWNoaW5lIHJhdGhlciB0aGFuDQpNQUNISU5FPXFlbXV4ODYgd2hp
+Y2ggSSBzdXNwZWN0IHlvdSdyZSBjdXJyZW50bHkgdXNpbmc/DQoNCkNoZWVycywNCg0KUmljaGFy
+ZA0KDQoNCg==
 
