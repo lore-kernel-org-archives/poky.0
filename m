@@ -1,33 +1,41 @@
-Return-Path: <kergoth@gmail.com>
-Received: from mail-qa0-f47.google.com (mail-qa0-f47.google.com
-	[209.85.216.47])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D2B20E00746;
-	Wed,  4 Apr 2012 20:24:19 -0700 (PDT)
-Received: by qabg1 with SMTP id g1so1065948qab.13
-	for <multiple recipients>; Wed, 04 Apr 2012 20:24:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:sender:in-reply-to:references:from:date
-	:x-google-sender-auth:message-id:subject:to:cc:content-type
-	:content-transfer-encoding;
-	bh=WsG2KSgBN42hmn+iiFuSPykMIg+T7EWGr8OYAA+XBHA=;
-	b=b0uK8sF6r1ATbYhOKA1b0mMus+zstxxuE0otRJ20o+ZXnObln3KdmN+WWzL99ieAw4
-	duM70oOZgxaNhlfCGnaYiMpf2vi0ZOGTWE7SgUkgPiRJUwsYkLMRBcOXBXINKTPCGeFN
-	H81fLCfiM3FqJwW1qp167DQfGrrppBiiF5lwGhyI6TyOJweXg/JMxYLaUaN53JWcr8aE
-	FfOEJQDCJq7rbVZNozFKVWpNNtKVi7SiDXiq7sEatgH5YAxQywi88dOCuWBMDhQ4w3Kr
-	3kQeXnaxsPEgbQ32xhRdpoHB/wzuhG0CJkIlO5miIa1/GjtnAiOv8g30fbQOnsFVgZLR
-	4ZzA==
-Received: by 10.224.215.10 with SMTP id hc10mr2025692qab.28.1333596259210;
-	Wed, 04 Apr 2012 20:24:19 -0700 (PDT)
-MIME-Version: 1.0
-Sender: kergoth@gmail.com
-Received: by 10.229.79.79 with HTTP; Wed, 4 Apr 2012 20:23:59 -0700 (PDT)
-In-Reply-To: <7E29EF69110C17499E6B3A9844CD4FD913425078@szxeml526-mbx.china.huawei.com>
+Return-Path: <sivan.wang@huawei.com>
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C2275E0070C;
+	Wed,  4 Apr 2012 20:38:16 -0700 (PDT)
+Received: from huawei.com (szxga05-in [172.24.2.49])
+	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1Z00HC3M1346@szxga05-in.huawei.com>; Thu,
+	05 Apr 2012 11:36:39 +0800 (CST)
+Received: from szxrg01-dlp.huawei.com ([172.24.2.119])
+	by szxga05-in.huawei.com (iPlanet Messaging Server 5.2 HotFix 2.14
+	(built Aug
+	8 2006)) with ESMTP id <0M1Z000ADM0SE2@szxga05-in.huawei.com>; Thu,
+	05 Apr 2012 11:36:39 +0800 (CST)
+Received: from szxeml213-edg.china.huawei.com ([172.24.2.119])
+	by szxrg01-dlp.huawei.com (MOS 4.1.9-GA)	with ESMTP id AIC23428; Thu,
+	05 Apr 2012 11:36:38 +0800
+Received: from SZXEML423-HUB.china.huawei.com (10.82.67.162)
+	by szxeml213-edg.china.huawei.com (172.24.2.30) with Microsoft SMTP
+	Server (TLS) id 14.1.323.3; Thu, 05 Apr 2012 11:36:19 +0800
+Received: from SZXEML526-MBX.china.huawei.com ([169.254.2.214])
+	by szxeml423-hub.china.huawei.com ([10.82.67.162])
+	with mapi id 14.01.0323.003; Thu, 05 Apr 2012 11:36:34 +0800
+Date: Thu, 05 Apr 2012 03:36:34 +0000
+From: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
+In-reply-to: <CABcZANnUUTNpsuYEqJniUMcL+aWFS2rNEJLCuXR-9Ewkmk5Xmw@mail.gmail.com>
+X-Originating-IP: [10.66.61.74]
+To: Chris Larson <clarson@kergoth.com>
+Message-id: <7E29EF69110C17499E6B3A9844CD4FD9134250C5@szxeml526-mbx.china.huawei.com>
+MIME-version: 1.0
+Accept-Language: zh-CN, en-US
+Thread-topic: [poky] The problem of using the external toolchain
+Thread-index: AQHND1UzeYG09vDQQ0yt+bmKpsTVOpaFOb0AgAZWqWD//4HngIAAiTJA
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+X-CFilter-Loop: Reflected
 References: <7E29EF69110C17499E6B3A9844CD4FD913425078@szxeml526-mbx.china.huawei.com>
-From: Chris Larson <clarson@kergoth.com>
-Date: Wed, 4 Apr 2012 20:23:59 -0700
-X-Google-Sender-Auth: LuznTfhQasjSyj1eyb9HkqsmVdE
-Message-ID: <CABcZANnUUTNpsuYEqJniUMcL+aWFS2rNEJLCuXR-9Ewkmk5Xmw@mail.gmail.com>
-To: "Wangdawei (Sivan)" <sivan.wang@huawei.com>
+	<CABcZANnUUTNpsuYEqJniUMcL+aWFS2rNEJLCuXR-9Ewkmk5Xmw@mail.gmail.com>
 Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
 	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: The problem of using the external toolchain
@@ -42,39 +50,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Apr 2012 03:24:20 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 05 Apr 2012 03:38:17 -0000
+Content-type: text/plain; charset=utf-8
+Content-language: en-US
+Content-transfer-encoding: base64
 
-On Wed, Apr 4, 2012 at 8:15 PM, Wangdawei (Sivan) <sivan.wang@huawei.com> w=
-rote:
-> =C2=A0Did anyone help me to resolve this problem , it block me a long tim=
-e ,Thank you very much
->
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0I have a toolchain that is big endian ARM, so =
-I want to use the toolchain with the binary, not the source code , can we h=
-ave some method to finish this work in yocto ? I still have no clue about t=
-his .
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0I have done the below steps:
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A01.modify MACHINE=
-=3Dqemux86 to MACHINE=3Dqemuarm
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A02.modify the file =
-" external-csl-toolchain_2008q3-72.bb" add a line " SRC_URI =3D "file://gcc=
--4.4.1.tar.bz2"", the gcc-4.4.1.tar.bz2 is the source code of the arm big e=
-ndian toolchain
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A03.then I face the =
-some problem like this website "https://lists.yoctoproject.org/pipermail/po=
-ky/2011-February/003809.html" =C2=A0,then I add a line " LIC_FILES_CHKSUM =
-=3D "file://${COMMON_LICENSE_DIR}/MIT;md5=3D0835ade698e0bcf8506ecda2f7b4f30=
-2"" ,in file =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0external-csl-toolchain_2008q3-72.bb to fix t=
-his problem
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A04.now I got the be=
-low log :
-
-
-I assume this is with the edison branch?
---=20
-Christopher Larson
+WWVzICwgZWRpc29uLTYuMCAsIGlzIGl0IHNvbWUgcHJvYmxlbSA/DQoNCi0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQpGcm9tOiBrZXJnb3RoQGdtYWlsLmNvbSBbbWFpbHRvOmtlcmdvdGhAZ21h
+aWwuY29tXSBPbiBCZWhhbGYgT2YgQ2hyaXMgTGFyc29uDQpTZW50OiAyMDEy5bm0NOaciDXml6Ug
+MTE6MjQNClRvOiBXYW5nZGF3ZWkgKFNpdmFuKQ0KQ2M6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZzsg
+eW9jdG9AeW9jdG9wcm9qZWN0Lm9yZw0KU3ViamVjdDogUmU6IFtwb2t5XSBUaGUgcHJvYmxlbSBv
+ZiB1c2luZyB0aGUgZXh0ZXJuYWwgdG9vbGNoYWluDQoNCk9uIFdlZCwgQXByIDQsIDIwMTIgYXQg
+ODoxNSBQTSwgV2FuZ2Rhd2VpIChTaXZhbikgPHNpdmFuLndhbmdAaHVhd2VpLmNvbT4gd3JvdGU6
+DQo+IMKgRGlkIGFueW9uZSBoZWxwIG1lIHRvIHJlc29sdmUgdGhpcyBwcm9ibGVtICwgaXQgYmxv
+Y2sgbWUgYSBsb25nIHRpbWUgLFRoYW5rIHlvdSB2ZXJ5IG11Y2gNCj4NCj4gwqAgwqAgwqAgwqBJ
+IGhhdmUgYSB0b29sY2hhaW4gdGhhdCBpcyBiaWcgZW5kaWFuIEFSTSwgc28gSSB3YW50IHRvIHVz
+ZSB0aGUgdG9vbGNoYWluIHdpdGggdGhlIGJpbmFyeSwgbm90IHRoZSBzb3VyY2UgY29kZSAsIGNh
+biB3ZSBoYXZlIHNvbWUgbWV0aG9kIHRvIGZpbmlzaCB0aGlzIHdvcmsgaW4geW9jdG8gPyBJIHN0
+aWxsIGhhdmUgbm8gY2x1ZSBhYm91dCB0aGlzIC4NCj4gwqAgwqAgwqAgwqBJIGhhdmUgZG9uZSB0
+aGUgYmVsb3cgc3RlcHM6DQo+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMS5tb2RpZnkgTUFDSElO
+RT1xZW11eDg2IHRvIE1BQ0hJTkU9cWVtdWFybQ0KPiDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoDIu
+bW9kaWZ5IHRoZSBmaWxlICIgZXh0ZXJuYWwtY3NsLXRvb2xjaGFpbl8yMDA4cTMtNzIuYmIiIGFk
+ZCBhIGxpbmUgIiBTUkNfVVJJID0gImZpbGU6Ly9nY2MtNC40LjEudGFyLmJ6MiIiLCB0aGUgZ2Nj
+LTQuNC4xLnRhci5iejIgaXMgdGhlIHNvdXJjZSBjb2RlIG9mIHRoZSBhcm0gYmlnIGVuZGlhbiB0
+b29sY2hhaW4NCj4gwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAzLnRoZW4gSSBmYWNlIHRoZSBzb21l
+IHByb2JsZW0gbGlrZSB0aGlzIHdlYnNpdGUgImh0dHBzOi8vbGlzdHMueW9jdG9wcm9qZWN0Lm9y
+Zy9waXBlcm1haWwvcG9reS8yMDExLUZlYnJ1YXJ5LzAwMzgwOS5odG1sIiDCoCx0aGVuIEkgYWRk
+IGEgbGluZSAiIExJQ19GSUxFU19DSEtTVU0gPSAiZmlsZTovLyR7Q09NTU9OX0xJQ0VOU0VfRElS
+fS9NSVQ7bWQ1PTA4MzVhZGU2OThlMGJjZjg1MDZlY2RhMmY3YjRmMzAyIiIgLGluIGZpbGUgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqBleHRlcm5hbC1jc2wtdG9vbGNoYWluXzIwMDhxMy03Mi5iYiB0byBmaXggdGhp
+cyBwcm9ibGVtDQo+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgNC5ub3cgSSBnb3QgdGhlIGJlbG93
+IGxvZyA6DQoNCg0KSSBhc3N1bWUgdGhpcyBpcyB3aXRoIHRoZSBlZGlzb24gYnJhbmNoPw0KLS0g
+DQpDaHJpc3RvcGhlciBMYXJzb24NCg==
 
