@@ -1,40 +1,26 @@
-Return-Path: <derek.buitenhuis@gmail.com>
-Received: from mail-gy0-f176.google.com (mail-gy0-f176.google.com
-	[209.85.160.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 46810E0059A
-	for <poky@yoctoproject.org>; Mon,  9 Apr 2012 13:48:32 -0700 (PDT)
-Received: by ghbz10 with SMTP id z10so2618750ghb.35
-	for <poky@yoctoproject.org>; Mon, 09 Apr 2012 13:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:cc:subject
-	:references:in-reply-to:x-enigmail-version:content-type
-	:content-transfer-encoding;
-	bh=oDI2pJ6PGhaHcp4anYkSs2GWxauvF1MXqYfXuhRa2xw=;
-	b=cAUy906Nh/7o8kRYIWO1RscDGyYkOWeQbgbxutSNpP2MEE63IBQJCsyHpjTua38ZOK
-	uBqhh9uftVzzyz0RJt6hYF+UEcwAz6NicfB0D+3X6icsh5dJcJUJ9tigMH74AYijCrRq
-	sPUT1VRwmVCvVLIiCNOoaM7iYrbb//td8HTtmqEkc0LGxBSvGn8S4MqevKFtuQJvTmL6
-	RsZ0/Rxb0o1jO6I633ZznbFmj6L781y14TMI/m59DgAURbT+8U/KBNGq3yHPASEw53Na
-	9kZ7EGXahEqSk0WjpTx1YU84BuZ54CUkq0s+V1iDHQUyARchHIMrIVOYua5dWAaqpbot
-	W3+A==
-Received: by 10.60.172.231 with SMTP id bf7mr12206847oec.45.1334004511583;
-	Mon, 09 Apr 2012 13:48:31 -0700 (PDT)
-Received: from [192.168.1.111] (S0106586d8f4832af.tb.shawcable.net.
-	[24.109.142.27])
-	by mx.google.com with ESMTPS id t5sm13749944oef.10.2012.04.09.13.48.30
-	(version=SSLv3 cipher=OTHER); Mon, 09 Apr 2012 13:48:31 -0700 (PDT)
-Message-ID: <4F834B2C.7080702@gmail.com>
-Date: Mon, 09 Apr 2012 16:48:44 -0400
-From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
-	rv:11.0) Gecko/20120327 Thunderbird/11.0.1
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 57F85E0059A
+	for <poky@yoctoproject.org>; Mon,  9 Apr 2012 14:53:55 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q39Lrt9C011019
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Mon, 9 Apr 2012 14:53:55 -0700 (PDT)
+Received: from msp-dhcp17.wrs.com (172.25.34.17) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Mon, 9 Apr 2012 14:53:54 -0700
+Message-ID: <4F835A71.9050204@windriver.com>
+Date: Mon, 9 Apr 2012 16:53:53 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:10.0.2) Gecko/20120216 Thunderbird/10.0.2
 MIME-Version: 1.0
-To: poky@yoctoproject.org
+To: <poky@yoctoproject.org>
 References: <4F7F2AA5.2010400@linux.intel.com> <4F801898.2060107@freyther.de>
 	<4F833F34.5050901@linux.intel.com> <4F834601.6020507@gmail.com>
 	<4F8347A1.3050007@linux.intel.com>
-	<4F834AB9.8060907@linux.intel.com>
-In-Reply-To: <4F834AB9.8060907@linux.intel.com>
-X-Enigmail-Version: 1.4
+In-Reply-To: <4F8347A1.3050007@linux.intel.com>
 Subject: Re: Edison Next
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -47,16 +33,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Apr 2012 20:48:32 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 09 Apr 2012 21:53:55 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 09/04/2012 4:46 PM, Saul Wold wrote:
-> Joshua is correct, we should update the FAQ to state "Major Version" 
-> changes to toolchain or kernel.  If there is a CVE that is addressed by 
-> a patch or maintence update we will ensure those get in.
+On 4/9/12 3:33 PM, Joshua Lock wrote:
+>
+>
+> On 09/04/12 13:26, Derek Buitenhuis wrote:
+>> On 09/04/2012 3:57 PM, Joshua Lock wrote:
+>>> "Q: What is the overall support plan for the Yocto Project?
+>>>
+>>> A: Security patches and critical bug fixes are supplied one release
+>>> back. No toolchain or kernel changes are allowed for these updates.
+>>> Support for longer periods of time can be supplied by commercial OSVs."
+>>
+>> Random Question:
+>>
+>> The above FAQ is a tad vague... what if the kernel or toolchain change
+>> is a security fix?
+>
+> That's a reasonable question, but not one I can answer with any
+> authority, having not authored the FAQ.
+>
+> I infer that it means toolchain or kernel *version* changes, as we
+> strive to avoid breaking compatibility with any existing layers, etc.
+> when providing a stable release update.
 
-OK. Thanks.
+Yes, the intention is toolchain/kernel -bug fixes- are allowed.. version and 
+more specifically API changes are not allowed.  Feature/ABI stability is the key.
 
-- Derek
+--Mark
+
+> Regards,
+> Joshua
+
 
