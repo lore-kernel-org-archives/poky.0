@@ -1,22 +1,38 @@
-Return-Path: <josh@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2E98CE0044D
-	for <poky@yoctoproject.org>; Mon,  9 Apr 2012 12:57:41 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 09 Apr 2012 12:57:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="130413430"
-Received: from unknown (HELO [10.7.198.71]) ([10.7.198.71])
-	by orsmga002.jf.intel.com with ESMTP; 09 Apr 2012 12:57:40 -0700
-Message-ID: <4F833F34.5050901@linux.intel.com>
-Date: Mon, 09 Apr 2012 12:57:40 -0700
-From: Joshua Lock <josh@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:11.0) Gecko/20120329 Thunderbird/11.0.1
+Return-Path: <derek.buitenhuis@gmail.com>
+Received: from mail-gx0-f176.google.com (mail-gx0-f176.google.com
+	[209.85.161.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3527CE00596
+	for <poky@yoctoproject.org>; Mon,  9 Apr 2012 13:26:30 -0700 (PDT)
+Received: by ggcs6 with SMTP id s6so2600658ggc.35
+	for <poky@yoctoproject.org>; Mon, 09 Apr 2012 13:26:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:references:in-reply-to:x-enigmail-version:content-type
+	:content-transfer-encoding;
+	bh=0Ne1IoYSrJQqhPO8Th+tg3go3jirkzuDk59hCrOtdKc=;
+	b=yVT2XpEZE6PHH5S2+LjWynlTrgbM9HJ5VAlrTOTTksDqUdCDKpiEahuuLpURj0uhHH
+	451ijACzDvKP6lktEwTlNCqGalReSciNZTu+8WGXIAGtt65FV4DQEKi1bxogf4xJch+g
+	bjGyjNmm+XwiwEIazFG6dzf989Kx3FtwUvWB3ihmn/+E5WYi4tXgcCZkXHmcouGK1WAF
+	Uk4gJakzZOOdoAbdHtqqw2ZWfwCOeENYjzEXsVNJ1eEiFXZvL+sfUEx36JxbtSplKTF9
+	rViYeCbpLW3HHWeDvUVScsOmv19lumFUMfasjBcQ0oNnPEUYxVuJ/Cgg87fRrUKw6Ukz
+	AVUA==
+Received: by 10.60.8.129 with SMTP id r1mr12168337oea.28.1334003189486;
+	Mon, 09 Apr 2012 13:26:29 -0700 (PDT)
+Received: from [192.168.1.111] (S0106586d8f4832af.tb.shawcable.net.
+	[24.109.142.27])
+	by mx.google.com with ESMTPS id m3sm13697126oem.7.2012.04.09.13.26.28
+	(version=SSLv3 cipher=OTHER); Mon, 09 Apr 2012 13:26:28 -0700 (PDT)
+Message-ID: <4F834601.6020507@gmail.com>
+Date: Mon, 09 Apr 2012 16:26:41 -0400
+From: Derek Buitenhuis <derek.buitenhuis@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64;
+	rv:11.0) Gecko/20120327 Thunderbird/11.0.1
 MIME-Version: 1.0
 To: poky@yoctoproject.org
 References: <4F7F2AA5.2010400@linux.intel.com> <4F801898.2060107@freyther.de>
-In-Reply-To: <4F801898.2060107@freyther.de>
+	<4F833F34.5050901@linux.intel.com>
+In-Reply-To: <4F833F34.5050901@linux.intel.com>
+X-Enigmail-Version: 1.4
 Subject: Re: Edison Next
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -29,45 +45,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Apr 2012 19:57:41 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 09 Apr 2012 20:26:30 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 07/04/12 03:36, Holger Hans Peter Freyther wrote:
-> On 04/06/2012 07:40 PM, Joshua Lock wrote:
->> Hi,
->>
->> There are plenty of folks still using Edison and bugs being filed against that
->> release series so I've started pulling together a branch of fixes for another
->> Edison point release.
->
-> Hi,
->
-> is there a page somewhere on the yoctoproject or pokylinux that explains what
-> the current release is, what the next one will be, when the next one will be
-> released, how long the old one will be supported/
+On 09/04/2012 3:57 PM, Joshua Lock wrote:
+> "Q: What is the overall support plan for the Yocto Project?
+> 
+> A: Security patches and critical bug fixes are supplied one release 
+> back. No toolchain or kernel changes are allowed for these updates. 
+> Support for longer periods of time can be supplied by commercial OSVs."
 
-Releases are on an approximately 6 month cadence, the last release was 
-Edison in October 2011[1].
+Random Question:
 
-Our FAQ addresses the support question[2]:
+The above FAQ is a tad vague... what if the kernel or toolchain change
+is a security fix?
 
-"Q: What is the overall support plan for the Yocto Project?
-
-A: Security patches and critical bug fixes are supplied one release 
-back. No toolchain or kernel changes are allowed for these updates. 
-Support for longer periods of time can be supplied by commercial OSVs."
-
-We also have a public calendar that others have linked to.
-
-Cheers,
-Joshua
-
-1. 
-http://www.yoctoproject.org/blogs/davest/2011/meet-edison-yocto-project-v1.1-release
-2. https://wiki.yoctoproject.org/wiki/FAQ
--- 
-Joshua '贾詡' Lock
-         Yocto Project "Johannes factotum"
-         Intel Open Source Technology Centre
+- Derek
 
