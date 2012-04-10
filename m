@@ -1,23 +1,18 @@
-Return-Path: <Liezhi.Yang@windriver.com>
+Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D8F3AE00596
-	for <poky@yoctoproject.org>; Mon,  9 Apr 2012 22:00:08 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q3A5088A029207
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Mon, 9 Apr 2012 22:00:08 -0700 (PDT)
-Received: from usp-ub10.corp.ad.wrs.com (128.224.163.69) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.1.255.0; Mon, 9 Apr 2012 22:00:08 -0700
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Tue, 10 Apr 2012 13:00:05 +0800
-Message-ID: <7f1dbead94f74f0acad5c8a382718715c7defed9.1334033789.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.7.1
-In-Reply-To: <cover.1334033789.git.liezhi.yang@windriver.com>
-References: <cover.1334033789.git.liezhi.yang@windriver.com>
-MIME-Version: 1.0
-Subject: [PATCH 1/1] beagleboard.conf: fix hardcode of virtual/xserver
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 77723E01363
+	for <poky@yoctoproject.org>; Tue, 10 Apr 2012 06:23:42 -0700 (PDT)
+Received: from yow-bashfiel-l1.corp.ad.wrs.com (yow-bashfiel-d3.wrs.com
+	[128.224.147.67])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q3ADNcgT007244;
+	Tue, 10 Apr 2012 06:23:38 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Tue, 10 Apr 2012 09:23:31 -0400
+Message-Id: <cover.1334064083.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
+Cc: poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/1] linux-yocto/meta-yocto: update hardware reference boards to v3.0.24
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,44 +24,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Apr 2012 05:00:09 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 10 Apr 2012 13:23:42 -0000
 
-Here is the message from the bug 2260:
+Richard/Saul,
 
-meta-yocto/conf/machine/beagleboard.conf hardcodes the virtual/xserver
-provider, i.e., it includes the following:
+Here's a quick bump of the reference board SRCREVs to v3.0.24.
+This has been in tree for some time, and has been built many
+times by anyone using AUTOREV (myself included). This escaped my
+mass update to v3.0.24.
 
-PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg-lite"
+Cheers,
 
-I don't think machine conf is the correct place for selecting what is
-essentially a distro feature, but at least this should use the '?='
-operator; as is to select a different provider one must provide a
-complete beagleboard.conf file.
+Bruce
 
-[YOCTO #2260]
+The following changes since commit c0a812c22272887390e44734fb426fd47c05e346:
 
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
----
- meta-yocto/conf/machine/beagleboard.conf |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+  documentation/bsp-guide/bsp.xml: Added a info about meta-intel layer (2012-04-10 13:32:45 +0100)
 
-diff --git a/meta-yocto/conf/machine/beagleboard.conf b/meta-yocto/conf/machine/beagleboard.conf
-index fa2f8e7..06a0ecd 100644
---- a/meta-yocto/conf/machine/beagleboard.conf
-+++ b/meta-yocto/conf/machine/beagleboard.conf
-@@ -2,8 +2,8 @@
- #@NAME: Beagleboard machine
- #@DESCRIPTION: Machine configuration for the http://beagleboard.org/ board 
- 
--PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg-lite"
--XSERVER = "xserver-xorg-lite \
-+PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg-lite"
-+XSERVER ?= "xserver-xorg-lite \
-            xf86-input-evdev \
-            xf86-input-mouse \
-            xf86-video-omapfb \
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (1):
+  linux-yocto/meta-yocto: update hardware reference boards to v3.0.24
+
+ .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
 -- 
-1.7.1
+1.7.5.4
 
 
