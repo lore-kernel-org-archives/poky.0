@@ -1,23 +1,23 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ABA17E013BA
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C9EB6E013A8
 	for <poky@yoctoproject.org>; Tue, 10 Apr 2012 18:37:50 -0700 (PDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
 	by fmsmga101.fm.intel.com with ESMTP; 10 Apr 2012 18:37:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="152180204"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="152180207"
 Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.159])
 	by fmsmga002.fm.intel.com with ESMTP; 10 Apr 2012 18:37:50 -0700
 From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 10 Apr 2012 18:37:47 -0700
-Message-Id: <0acfd5f023d418e758882897395494fe0496e25e.1334108211.git.sgw@linux.intel.com>
+Date: Tue, 10 Apr 2012 18:37:48 -0700
+Message-Id: <d1ffd4880e76094291ade5758d32e6c0b4f79311.1334108211.git.sgw@linux.intel.com>
 X-Mailer: git-send-email 1.7.7.6
 In-Reply-To: <cover.1334108211.git.sgw@linux.intel.com>
 References: <cover.1334108211.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1334108211.git.sgw@linux.intel.com>
 References: <cover.1334108211.git.sgw@linux.intel.com>
-Subject: [meta-yocto CONSOLIDATED PULL (for RC3) 1/3] poky-tiny.conf: adjust eglibc options for poky-tiny
+Subject: [meta-yocto CONSOLIDATED PULL (for RC3) 2/3] beagleboard.conf: fix hardcode of virtual/xserver
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,34 +31,42 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Wed, 11 Apr 2012 01:37:50 -0000
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+From: Robert Yang <liezhi.yang@windriver.com>
 
-Avoid errors for building meta-toolchain for poky-tiny
+Here is the message from the bug 2260:
 
-This Fixes Bug: [YOCTO #2259]
+meta-yocto/conf/machine/beagleboard.conf hardcodes the virtual/xserver
+provider, i.e., it includes the following:
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg-lite"
+
+I don't think machine conf is the correct place for selecting what is
+essentially a distro feature, but at least this should use the '?='
+operator; as is to select a different provider one must provide a
+complete beagleboard.conf file.
+
+[YOCTO #2260]
+
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
 ---
- meta-yocto/conf/distro/poky-tiny.conf |    6 ++++++
- 1 files changed, 6 insertions(+), 0 deletions(-)
+ meta-yocto/conf/machine/beagleboard.conf |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
-index 395c6fb..58d64ec 100644
---- a/meta-yocto/conf/distro/poky-tiny.conf
-+++ b/meta-yocto/conf/distro/poky-tiny.conf
-@@ -63,6 +63,12 @@ ASSUME_PROVIDED += "pkgconfig$"
- # Reconfigure eglibc for a smaller installation
- # Comment out any of the lines below to disable them in the build
- DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt"
-+# for gettext
-+DISTRO_FEATURES_LIBC_TINY += "libc-posix-clang-wchar"
-+# for m4
-+DISTRO_FEATURES_LIBC_TINY += "libc-spawn libc-locale-code"
-+# for elfutils
-+DISTRO_FEATURES_LIBC_TINY += "libc-ftraverse"
- # Required for "who"
- DISTRO_FEATURES_LIBC_MINIMAL = "libc-utmp libc-getlogin"
- DISTRO_FEATURES_LIBC_REGEX = "libc-posix-regexp"
+diff --git a/meta-yocto/conf/machine/beagleboard.conf b/meta-yocto/conf/machine/beagleboard.conf
+index fa2f8e7..06a0ecd 100644
+--- a/meta-yocto/conf/machine/beagleboard.conf
++++ b/meta-yocto/conf/machine/beagleboard.conf
+@@ -2,8 +2,8 @@
+ #@NAME: Beagleboard machine
+ #@DESCRIPTION: Machine configuration for the http://beagleboard.org/ board 
+ 
+-PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg-lite"
+-XSERVER = "xserver-xorg-lite \
++PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg-lite"
++XSERVER ?= "xserver-xorg-lite \
+            xf86-input-evdev \
+            xf86-input-mouse \
+            xf86-video-omapfb \
 -- 
 1.7.7.6
 
