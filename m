@@ -1,28 +1,19 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AE788E013A8
-	for <poky@yoctoproject.org>; Tue, 10 Apr 2012 18:36:15 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id E34F6F811FD; Tue, 10 Apr 2012 19:36:14 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 8FC77F811FC;
-	Tue, 10 Apr 2012 19:36:13 -0600 (MDT)
-Message-ID: <4F84E00D.7030302@mlbassoc.com>
-Date: Tue, 10 Apr 2012 19:36:13 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:11.0) Gecko/20120329 Thunderbird/11.0.1
-MIME-Version: 1.0
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8FC49E013A8
+	for <poky@yoctoproject.org>; Tue, 10 Apr 2012 18:37:50 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 10 Apr 2012 18:37:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="152180202"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.159])
+	by fmsmga002.fm.intel.com with ESMTP; 10 Apr 2012 18:37:50 -0700
+From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-References: <4F8493BB.5070400@mlbassoc.com> <1334100422.10826.99.camel@ted>
-	<4F84CCE3.1060504@mlbassoc.com>
-In-Reply-To: <4F84CCE3.1060504@mlbassoc.com>
-Subject: Re: SRC checksum checking broken
+Date: Tue, 10 Apr 2012 18:37:46 -0700
+Message-Id: <cover.1334108211.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.7.6
+Subject: [meta-yocto CONSOLIDATED PULL (for RC3) 0/3]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,74 +25,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Apr 2012 01:36:15 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 11 Apr 2012 01:37:50 -0000
 
-On 2012-04-10 18:14, Gary Thomas wrote:
-> On 2012-04-10 17:27, Richard Purdie wrote:
->> On Tue, 2012-04-10 at 14:10 -0600, Gary Thomas wrote:
->>> I'm not sure how, but this revision broke the checking of checksums:
->>>
->>> commit 3d69d9462d550ce4e00e14768cc616bc9ad7e8a5
->>> Author: Richard Purdie<richard.purdie@linuxfoundation.org>
->>> Date: Fri Mar 23 14:52:23 2012 +0000
->>>
->>> bitbake/fetch2: Ensure mirror tarballs have .done stamps so we don't redownload and corrupt them
->>>
->>> [YOCTO #2154]
->>>
->>> (Bitbake rev: 521d6b14151d3bf934b9597557f7ae46e50a3d7a)
->>>
->>> Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
->>>
->>> The attached log shows this failure - I've modified the busybox_1.19.4.bb
->>> recipe to have incorrect checksums. With revision 67c83a8, the failure
->>> is correctly identified. With revision 3d69d94, it is not.
->>>
->>> The error happens with direct downloads (using DL_DIR) and also
->>> with a mirror setup (using own-mirrors).
->>>
->>> I've reviewed the change and I don't see how/why this happens.
->>
->> There was a patch just merged for something that sounds very similar. I
->> was going to give you a link and realised something has gone wrong with
->> the commit:
->>
->> http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=a46aafb8b27bd86d046385a569deee6b4c9b8bb6
->>
->> as its been squashed with a subsequent commit I had to resolve a
->> conflict with.
->>
->> Regardless, could you see whether that change solves your problem
->> please?
->
-> No change, sorry.
->
+Please pull these updates for RC3
 
-I think the problem is this part of the change:
-diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index 7524fa9..e5c4b34 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -476,6 +476,7 @@ def try_mirrors(d, origud, mirrors, check = False):
+Thanks
+	Sau!
 
-              if not os.path.exists(ud.donestamp) or ud.method.need_update(newuri, ud, ld):
-                  ud.method.download(newuri, ud, ld)
-+                open(ud.donestamp, 'w').close()
-                  if hasattr(ud.method,"build_mirror_data"):
-                      ud.method.build_mirror_data(newuri, ud, ld)
+The following changes since commit 9067f7bfc295e2f47fda8031d2bcdcce8f63e894:
 
-I think the call to open() that creates the .done stamp file should really
-be a call to the update_stamp() function.  This is the only place checksums
-are being checked (as far as I can tell) and the fact that the .done file
-has already been created is getting in the way. I'd suggest a patch, but I don't
-understand enough of the context to figure out the parameters to call update_stamp() with
-[parameters named u, ud & d don't help me much]
+  Hob:Fixed some incorrect values of Build configuration tab (2012-04-11 00:05:23 +0100)
+
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib sgw/stage
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/stage
+
+Bruce Ashfield (1):
+  linux-yocto/meta-yocto: update hardware reference boards to v3.0.24
+
+Nitin A Kamble (1):
+  poky-tiny.conf: adjust eglibc options for poky-tiny
+
+Robert Yang (1):
+  beagleboard.conf: fix hardcode of virtual/xserver
+
+ meta-yocto/conf/distro/poky-tiny.conf              |    6 ++++++
+ meta-yocto/conf/machine/beagleboard.conf           |    4 ++--
+ .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |    8 ++++----
+ 3 files changed, 12 insertions(+), 6 deletions(-)
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.7.6
+
 
