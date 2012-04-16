@@ -1,19 +1,23 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 478A6E013FB
-	for <poky@yoctoproject.org>; Mon, 16 Apr 2012 00:55:12 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 16 Apr 2012 00:55:11 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2BB18E013FE
+	for <poky@yoctoproject.org>; Mon, 16 Apr 2012 00:55:13 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 16 Apr 2012 00:55:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="89461304"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="142174541"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.11])
-	by AZSMGA002.ch.intel.com with ESMTP; 16 Apr 2012 00:55:10 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 16 Apr 2012 00:55:12 -0700
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 16 Apr 2012 15:52:15 +0800
-Message-Id: <cover.1334562500.git.dongxiao.xu@intel.com>
+Date: Mon, 16 Apr 2012 15:52:16 +0800
+Message-Id: <4fed98c4af3f78a7c76e92a57f714f4d93b3dd1f.1334562500.git.dongxiao.xu@intel.com>
 X-Mailer: git-send-email 1.7.4.1
-Subject: [PATCH 0/1][PULL] meta-yocto: Move OELAYOUT_ABI definition to poky.conf
+In-Reply-To: <cover.1334562500.git.dongxiao.xu@intel.com>
+References: <cover.1334562500.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1334562500.git.dongxiao.xu@intel.com>
+References: <cover.1334562500.git.dongxiao.xu@intel.com>
+Subject: [PATCH 1/1] meta-yocto: Move OELAYOUT_ABI definition to poky.conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,36 +29,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Apr 2012 07:55:12 -0000
+X-List-Received-Date: Mon, 16 Apr 2012 07:55:13 -0000
 
-Hi Richard,
+The ABI version definition should go along with the DISTRO variable
+since it impact the TMPDIR definition.
 
-This pull request contains a commit that moves the OELAYOUT_ABI definition from abi_version.conf
-to poky.conf, which could fix [YOCTO #2303].
+Otherwise, if a user used to work with pure OE-Core, and then he/she
+added meta-yocto layer, it will report ABI version incompatibility
+issue. This is because ABI is changed to "8" by adding meta-yocto layer,
+however the DISTRO variable is not defined and TMPDIR is still
+"tmp-eglibc".
 
-This pull request does depend on another pull request (bitbake.conf: Include abi_version.conf in earlier stage) that I sent in oe-core mailing list.
+Defining the OELAYOUT_ABI variable in poky.conf could fix this issue.
 
-Please help to review and pull.
+This fixes [YOCTO #2303]
 
-Thanks,
-Dongxiao
-
-The following changes since commit 2ddf7d3e8326e8cb07101ddb2d6e5dc6866371e2:
-
-  gcc-configure-common.inc: Stop gcc looking at build system paths (2012-04-15 18:09:57 +0100)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib dxu4/hob-bugfix-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/hob-bugfix-yocto
-
-Dongxiao Xu (1):
-  meta-yocto: Move OELAYOUT_ABI definition to poky.conf
-
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+---
  meta-yocto/conf/abi_version.conf |    7 -------
  meta-yocto/conf/distro/poky.conf |    7 +++++++
  2 files changed, 7 insertions(+), 7 deletions(-)
  delete mode 100644 meta-yocto/conf/abi_version.conf
 
+diff --git a/meta-yocto/conf/abi_version.conf b/meta-yocto/conf/abi_version.conf
+deleted file mode 100644
+index 83b668a..0000000
+--- a/meta-yocto/conf/abi_version.conf
++++ /dev/null
+@@ -1,7 +0,0 @@
+-#
+-# OELAYOUT_ABI allows us to notify users when the format of TMPDIR changes in 
+-# an incompatible way. Such changes should usually be detailed in the commit
+-# that breaks the format and have been previously discussed on the mailing list 
+-# with general agreement from the core team.
+-#
+-OELAYOUT_ABI = "8"
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index e4d7c1d..e51ccdf 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -67,3 +67,10 @@ CONNECTIVITY_CHECK_URIS ?= "git://git.yoctoproject.org/yocto-firewall-test;proto
+ 
+ # Default hash policy for distro
+ BB_SIGNATURE_HANDLER ?= 'OEBasicHash'
++#
++# OELAYOUT_ABI allows us to notify users when the format of TMPDIR changes in 
++# an incompatible way. Such changes should usually be detailed in the commit
++# that breaks the format and have been previously discussed on the mailing list 
++# with general agreement from the core team.
++#
++OELAYOUT_ABI = "8"
 -- 
 1.7.4.1
 
