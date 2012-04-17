@@ -1,30 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C8C00E0132F
-	for <poky@yoctoproject.org>; Tue, 17 Apr 2012 09:59:55 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 46471F81233; Tue, 17 Apr 2012 10:59:55 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7B3B2F81231;
-	Tue, 17 Apr 2012 10:59:45 -0600 (MDT)
-Message-ID: <4F8DA181.9070005@mlbassoc.com>
-Date: Tue, 17 Apr 2012 10:59:45 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:11.0) Gecko/20120329 Thunderbird/11.0.1
-MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EAC2BE013A6
+	for <poky@yoctoproject.org>; Tue, 17 Apr 2012 14:20:57 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q3HLKsZm023226;
+	Tue, 17 Apr 2012 22:20:54 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 20408-03; Tue, 17 Apr 2012 22:20:50 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q3HLKkhu023217
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 17 Apr 2012 22:20:47 +0100
+Message-ID: <1334697649.616.138.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 17 Apr 2012 22:20:49 +0100
+In-Reply-To: <4F8DA181.9070005@mlbassoc.com>
 References: <4F8493BB.5070400@mlbassoc.com> <1334100422.10826.99.camel@ted>
 	<4F84CCE3.1060504@mlbassoc.com> <4F84E00D.7030302@mlbassoc.com>
 	<4F8D5F61.1010002@mlbassoc.com> <1334674913.616.98.camel@ted>
 	<4F8D8A73.3030408@mlbassoc.com> <1334677494.616.101.camel@ted>
 	<4F8D934D.9070704@mlbassoc.com> <1334679589.616.106.camel@ted>
-In-Reply-To: <1334679589.616.106.camel@ted>
+	<4F8DA181.9070005@mlbassoc.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
 Subject: Re: SRC checksum checking broken
 X-BeenThere: poky@yoctoproject.org
@@ -38,105 +41,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Apr 2012 16:59:56 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Tue, 17 Apr 2012 21:20:58 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 2012-04-17 10:19, Richard Purdie wrote:
-> On Tue, 2012-04-17 at 09:59 -0600, Gary Thomas wrote:
->> On 2012-04-17 09:44, Richard Purdie wrote:
->>> On Tue, 2012-04-17 at 09:21 -0600, Gary Thomas wrote:
->>>> On 2012-04-17 09:01, Richard Purdie wrote:
->>>>> On Tue, 2012-04-17 at 06:17 -0600, Gary Thomas wrote:
->>>>>> On 2012-04-10 19:36, Gary Thomas wrote:
->>>>>> This is still broken, both in master (04d6aa1) and 1.2_M4.rc4 (4d9f4d6)
->>>>>> Filed as https://bugzilla.yoctoproject.org/show_bug.cgi?id=2311
->>>>>
->>>>> Does this help?:
->>>>>
->>>>> bitbake/fetch2: Ensure directly mirrored files have their checksum validated
->>>>>
->>>>> Signed-off-by: Richard Purdie<richard.purdie@linuxfoundation.org>
->>>>> ---
->>>>> diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
->>>>> index 414cc2b..e36d3ec 100644
->>>>> --- a/bitbake/lib/bb/fetch2/__init__.py
->>>>> +++ b/bitbake/lib/bb/fetch2/__init__.py
->>>>> @@ -477,7 +477,10 @@ def try_mirrors(d, origud, mirrors, check = False):
->>>>>                 if not os.path.exists(ud.donestamp) or ud.method.need_update(newuri, ud, ld):
->>>>>                     ud.method.download(newuri, ud, ld)
->>>>>                     if os.path.exists(ud.localpath):
->>>>> -                    open(ud.donestamp, 'w').close()
->>>>> +                    if ud.localpath == origud.localpath:
->>>>> +                        update_stamp(newuri, origud, ld)
->>>>> +                    else:
->>>>> +                        open(ud.donestamp, 'w').close()
->>>>>                         if hasattr(ud.method,"build_mirror_data"):
->>>>>                             ud.method.build_mirror_data(newuri, ud, ld)
->>>>
->>>> It does fix the case when using DL_DIR, but own-mirrors is still broken.
->>>> Note: both used to work correctly.
->>>
->>> Can you give more details of the configuration please? Is this using
->>> file:// urls?
->>
->> Here's what I use.  I've not tried any other transport method:
->>     SOURCE_MIRROR_URL ?= "file:///work/misc/Poky/sources/"
->>     INHERIT += "own-mirrors"
->
-> Part of me wants to argue that its not expected to check checksums for
-> file:// urls, as indicated for example by the code:
->
-> def verify_checksum(u, ud, d):
->      [...]
->      if not ud.type in ["http", "https", "ftp", "ftps"]:
->          return
->
-> but I can see a case for wanting to check the checksums I guess.
+On Tue, 2012-04-17 at 10:59 -0600, Gary Thomas wrote:
+> On 2012-04-17 10:19, Richard Purdie wrote:
+> Well, it seems that the checksums are encouraged, if not required, these days.
+> I was just making sure that they actually work & in my opinion, it shouldn't
+> matter how you got the file, the checksums should still be checked and match.
 
-Well, it seems that the checksums are encouraged, if not required, these days.
-I was just making sure that they actually work & in my opinion, it shouldn't
-matter how you got the file, the checksums should still be checked and match.
+You can argue this both ways. I'm leaning that direction although it has
+its risks.
 
->
-> Perhaps this will work better?
->
-> diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-> index 414cc2b..329b5bc 100644
-> --- a/bitbake/lib/bb/fetch2/__init__.py
-> +++ b/bitbake/lib/bb/fetch2/__init__.py
-> @@ -477,7 +477,6 @@ def try_mirrors(d, origud, mirrors, check = False):
->               if not os.path.exists(ud.donestamp) or ud.method.need_update(newuri, ud, ld):
->                   ud.method.download(newuri, ud, ld)
->                   if os.path.exists(ud.localpath):
-> -                    open(ud.donestamp, 'w').close()
->                       if hasattr(ud.method,"build_mirror_data"):
->                           ud.method.build_mirror_data(newuri, ud, ld)
->
-> @@ -492,12 +491,14 @@ def try_mirrors(d, origud, mirrors, check = False):
->               dldir = ld.getVar("DL_DIR", True)
->               if os.path.basename(ud.localpath) != os.path.basename(origud.localpath):
->                   dest = os.path.join(dldir, os.path.basename(ud.localpath))
-> +                open(ud.donestamp, 'w').close()
->                   if not os.path.exists(dest):
->                       os.symlink(ud.localpath, dest)
->                   return None
->               # Otherwise the result is a local file:// and we symlink to it
->               if not os.path.exists(origud.localpath):
->                    os.symlink(ud.localpath, origud.localpath)
-> +            update_stamp(newuri, origud, ld)
->               return ud.localpath
->
->           except bb.fetch2.NetworkAccess:
+> Sadly, this is much worse.  It even [somehow] reached "through" my
+> mirror setup and deleted the file on the backing store (i.e. the
+> file /work/misc/Poky/sources/busybox-1.19.4.tar.bz2 gets deleted
+> when the checksum fails even though it's part of the own-mirror)
 
-Sadly, this is much worse.  It even [somehow] reached "through" my
-mirror setup and deleted the file on the backing store (i.e. the
-file /work/misc/Poky/sources/busybox-1.19.4.tar.bz2 gets deleted
-when the checksum fails even though it's part of the own-mirror)
+Was that the only issue? I can see how it managed to do that, I agree it
+shouldn't :/.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Cheers,
+
+Richard
+
 
