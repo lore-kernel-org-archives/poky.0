@@ -1,19 +1,23 @@
 Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E89A9E0044D
-	for <poky@yoctoproject.org>; Tue, 17 Apr 2012 00:49:43 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 17 Apr 2012 00:49:43 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63C29E00596
+	for <poky@yoctoproject.org>; Tue, 17 Apr 2012 00:49:45 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Apr 2012 00:49:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="130537375"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="154545064"
 Received: from dongxiao-osel.sh.intel.com (HELO localhost) ([10.239.36.11])
-	by orsmga001.jf.intel.com with ESMTP; 17 Apr 2012 00:49:43 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 17 Apr 2012 00:49:44 -0700
 From: Dongxiao Xu <dongxiao.xu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 17 Apr 2012 15:46:42 +0800
-Message-Id: <cover.1334648692.git.dongxiao.xu@intel.com>
+Date: Tue, 17 Apr 2012 15:46:43 +0800
+Message-Id: <3398cf01806d1d585e5b92c1ad36116021af86d3.1334648692.git.dongxiao.xu@intel.com>
 X-Mailer: git-send-email 1.7.4.1
-Subject: [PATCH 0/1][PULL] scripts/bitbake: fix sanity check not functional issue
+In-Reply-To: <cover.1334648692.git.dongxiao.xu@intel.com>
+References: <cover.1334648692.git.dongxiao.xu@intel.com>
+In-Reply-To: <cover.1334648692.git.dongxiao.xu@intel.com>
+References: <cover.1334648692.git.dongxiao.xu@intel.com>
+Subject: [PATCH 1/1] scripts/bitbake: Remove sanity_info after run "bitbake -e"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,31 +29,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Apr 2012 07:49:44 -0000
+X-List-Received-Date: Tue, 17 Apr 2012 07:49:45 -0000
 
-Hi Richard,
+With latest master, we found certain sanity check doesn't work
+(e.x., the network check). This is because it created the sanity_info
+file at the first time when running "bitbake -e" command in
+scripts/bitbake, therefore while running the real bitbake command,
+it finds that the sanity_check file does exist so it skip the network
+check.
 
-This pull request is to fix certain sanity check not functional issue (e.x, network check).
+The fix is to remove the sanity_info file after running "bitbake -e"
+command.
 
-Please help to review and pull.
-
-Thanks,
-Dongxiao
-
-The following changes since commit c936fca6e163bc19bc08cbd0036b31ca6f6c3ed6:
-
-  bitbake.conf: Add PARALLEL_MAKE to BB_HASHBASE_WHITELIST (2012-04-16 23:37:45 +0100)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib dxu4/hob-bugfix-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=dxu4/hob-bugfix-yocto
-
-Dongxiao Xu (1):
-  scripts/bitbake: Remove sanity_info after run "bitbake -e"
-
+Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+---
  scripts/bitbake |    1 +
  1 files changed, 1 insertions(+), 0 deletions(-)
 
+diff --git a/scripts/bitbake b/scripts/bitbake
+index 3772d82..a6fb2e5 100755
+--- a/scripts/bitbake
++++ b/scripts/bitbake
+@@ -73,6 +73,7 @@ if [ $needpseudo = "1" ]; then
+         PSEUDOBINDIR=`cat $BUILDDIR/pseudodone`
+     else
+         PSEUDOBINDIR=`bitbake -e | grep STAGING_BINDIR_NATIVE=\" | cut -d '=' -f2 | cut -d '"' -f2`
++        rm -rf conf/sanity_info
+     fi
+     if [ -e "$PSEUDOBINDIR/pseudo" ]; then
+         buildpseudo="0"
 -- 
 1.7.4.1
 
