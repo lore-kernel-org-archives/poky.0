@@ -1,37 +1,44 @@
-Return-Path: <gizero@gmail.com>
-Received: from mail-qa0-f47.google.com (mail-qa0-f47.google.com
-	[209.85.216.47])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5FF0E006C7
-	for <poky@yoctoproject.org>; Fri, 20 Apr 2012 10:15:40 -0700 (PDT)
-Received: by qabg1 with SMTP id g1so724451qab.13
-	for <poky@yoctoproject.org>; Fri, 20 Apr 2012 10:15:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=XRUloIg+GLLtTlvu5XKwhm7N1eCYrznJunBN1rDLQwI=;
-	b=h3P/4VQOoyJntHkDF/2daEiB8Ii8ZFIf4H69BpoSBtLD3RTBHtYeWSHIyK6wMj+ojK
-	eEgCf9iyTb4NZGKy/fhF46OplwO4NQrcf9QN1PXdcDGYc82xf0fstaPsHCkvWj2/r43u
-	OgfIkTMmV2ZO/tqgpHQfS08GOq2upPj+18b9BBt2iyvIig1aO1xokvxS9QszRD5oraKx
-	06vz/eZOUkwh5EfZYw7yPH0NguFulyyOBUY2heqdNQ6/YqXL9VRXEvjetH+DzSPoRWyS
-	XIvcQ2fV4h5DyqnTZg5H+tZV+uUyjwA3eCqJp0NYBTzH3szOhubi05Ah3SGVxBFwCdEY
-	aIeg==
+Return-Path: <petertornel@yahoo.com>
+Received: from nm21-vm3.bullet.mail.ne1.yahoo.com
+	(nm21-vm3.bullet.mail.ne1.yahoo.com [98.138.91.151])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id DACD9E01206
+	for <poky@yoctoproject.org>; Mon, 23 Apr 2012 18:19:07 -0700 (PDT)
+Received: from [98.138.90.52] by nm21.bullet.mail.ne1.yahoo.com with NNFMP;
+	24 Apr 2012 01:19:06 -0000
+Received: from [98.138.89.161] by tm5.bullet.mail.ne1.yahoo.com with NNFMP;
+	24 Apr 2012 01:19:06 -0000
+Received: from [127.0.0.1] by omp1017.mail.ne1.yahoo.com with NNFMP;
+	24 Apr 2012 01:19:06 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 908707.37068.bm@omp1017.mail.ne1.yahoo.com
+Received: (qmail 78007 invoked by uid 60001); 24 Apr 2012 01:19:06 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024;
+	t=1335230346; bh=itMyZJwZIOgjLYAnqoUGHk4upQY191sYmLFDr5x27ps=;
+	h=X-YMail-OSG:Received:X-Mailer:Message-ID:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type;
+	b=XVHkmI/8R0Mtb0BYn/aCXZiXsVBLXVDOj0s6hi5AyMQZvmZepAE8YQVJKPrN/RBFnitA52oCWSRXqag53crZPpaypVQfuHnGNjdr+NqNyk7p7YwJ1OrPe0ReDF+g9LTu4kUZ4Ge8K5ulJ99ECHL5uiUHqWivji40Pvos91CpJHI=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.com;
+	h=X-YMail-OSG:Received:X-Mailer:Message-ID:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type;
+	b=Bvx4pmxrgXMR7mWj9wbHhKTIRcwnt/Ud6BchR0TvenB7W3UggJj9THVk0bl13+SlACPJzpJ0bXAMIVIBqSMIgx9rOQova9zuW6+nYqVSrJ4SZfIkliWfoAu1TwmAnh8wnjUlaYEIqFFJT2okJ2qEuruHfbrEzDZKfTj1KT4ENAw=;
+X-YMail-OSG: swNOk6gVM1lYYPehWTHDgc34LRxpWeU4BKzuwuzkfF9PL80
+	irogzO3JFdxyZwBeMYr3dcmmeKMsVKcBHFgCvOOrwgi_AKt17OY_SjnWq4PD
+	YjV3oGs6if0_40ABdX.vJdGGtJifj25OLvm0GtP6XWfKuvaXnXdkOz78im6V
+	0d4dqnucinH4MyFCLpg6R9na5cv4Ky_ooBgLEs6M.uu5UTzHKqMqssOkBlja
+	wSybyInOWEUaUi9LTXKg.NWLmHfJbA5orZESBn1iqsC4QLJ7yXJYwqDz.rei
+	OUpt3uqV9xX4B2M6AwuGTFsqZKWaW7NEwTMMmrxLtdDV2DmMDUVIMu3f2xsO
+	V1Nvf8CH1OzVvbYR0haiukosEsJO0lYEPRDsrTpjEi39Gb4cDddUXcpSDJRA KFg--
+Received: from [108.11.41.42] by web122202.mail.ne1.yahoo.com via HTTP;
+	Mon, 23 Apr 2012 18:19:06 PDT
+X-Mailer: YahooMailWebService/0.8.117.340979
+Message-ID: <1335230346.58869.YahooMailNeo@web122202.mail.ne1.yahoo.com>
+Date: Mon, 23 Apr 2012 18:19:06 -0700 (PDT)
+From: Peter Tornel <petertornel@yahoo.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
 MIME-Version: 1.0
-Received: by 10.229.135.201 with SMTP id o9mr2195824qct.148.1334942140161;
-	Fri, 20 Apr 2012 10:15:40 -0700 (PDT)
-Received: by 10.229.225.202 with HTTP; Fri, 20 Apr 2012 10:15:40 -0700 (PDT)
-In-Reply-To: <74169790.jigKjBi9LZ@helios>
-References: <4F5B73E6.9040908@mlbassoc.com> <1856275.4JdY7aZveN@helios>
-	<CAC+thW26psx39QTFBUqXexPkxao8hk_D_nmrMhOis5+0Gdo3YQ@mail.gmail.com>
-	<74169790.jigKjBi9LZ@helios>
-Date: Fri, 20 Apr 2012 19:15:40 +0200
-Message-ID: <CAC+thW1yrn9sm0hMyrBF5N4Rw7+eSRuPw1iq54XXhv1O8GpAeA@mail.gmail.com>
-From: Andrea Galbusera <gizero@gmail.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Poky doesn't play nice with meta-oe
+Subject: Determining dependencies by looking under work or tmp?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: Peter Tornel <petertornel@yahoo.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -40,36 +47,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Apr 2012 17:15:40 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 24 Apr 2012 01:19:08 -0000
+Content-Type: multipart/alternative;
+	boundary="251260810-277431107-1335230346=:58869"
 
-Paul,
+--251260810-277431107-1335230346=:58869
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 20, 2012 at 6:38 PM, Paul Eggleton
-<paul.eggleton@linux.intel.com> wrote:
-> On Friday 20 April 2012 18:01:54 Andrea Galbusera wrote:
->> On Thu, Mar 15, 2012 at 4:24 PM, Paul Eggleton
->> <paul.eggleton@linux.intel.com> wrote:
->> > That's not an unreasonable approach for now. However we do really want to
->> > tidy up meta-oe such that it doesn't do surprising things when you enable
->> > it. Hopefully we will get a chance to make progress on this over the next
->> > few months.
->>
->> Before starting to mess up things I'm asking if there is any relevant
->> improvement on this side? I need a few recipes that are in meta-oe but
->> not in poky/yocto (python-twisted, gpsd and a few more). Enabling
->> meta-oe over my current edison environment would be nice to avoid
->> manually importing those recipes with dependencies. Maybe master
->> branch and upcoming 1.2 are expected to work better on this side?
->
-> No major progress as yet, I've been busy with things leading up to the 1.2
-> release; however once that's out the door there should be more time available
-> for improving meta-oe.
+Hello Group,=0A=0AI'm wondering why some packages were built in my work dir=
+ectory even though I didn't specify them in my recipes and they didn't show=
+ up in my rootfs.=A0 For example, I find strace under work, but I don't fin=
+d it in my rootfs.=A0 There are some others I'm wondering about too.=A0 =0A=
+=0A=0AIs there evidence left in work or somewhere under tmp for a particula=
+r package that shows why it was built or what dependency it filled?=0A=0ARe=
+gards,=0A=0APete=0A
 
-Thank you for updating on this. I'm looking forward to hopefully see
-progress in this area in the future. For the time being, I'll go on
-manually importing those recipes. By the way, one of them
-(python-twisted) is triggering some problems when RDEPENDing on it: I
-have to figure out if they are yocto specific or not. If not, I'll
-report to meta-oe people.
+--251260810-277431107-1335230346=:58869
+Content-Type: text/html; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
+<html><body><div style=3D"color:#000; background-color:#fff; font-family:ti=
+mes new roman, new york, times, serif;font-size:12pt"><div>Hello Group,</di=
+v><div><br></div><div>I'm wondering why some packages were built in my work=
+ directory even though I didn't specify them in my recipes and they didn't =
+show up in my rootfs.&nbsp; For example, I find strace under work, but I do=
+n't find it in my rootfs.&nbsp; There are some others I'm wondering about t=
+oo.&nbsp; <br></div><div><br></div><div>Is there evidence left in work or s=
+omewhere under tmp for a particular package that shows why it was built or =
+what dependency it filled?</div><div><br></div><div>Regards,</div><div><br>=
+</div><div>Pete</div><div></div></div></body></html>
+
+--251260810-277431107-1335230346=:58869--
