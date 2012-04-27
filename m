@@ -1,24 +1,22 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0B425E0044D
-	for <poky@yoctoproject.org>; Thu, 26 Apr 2012 08:47:23 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 26 Apr 2012 08:47:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="158692950"
-Received: from unknown (HELO [10.255.12.214]) ([10.255.12.214])
-	by fmsmga002.fm.intel.com with ESMTP; 26 Apr 2012 08:47:22 -0700
-Message-ID: <4F996E0A.40407@linux.intel.com>
-Date: Thu, 26 Apr 2012 08:47:22 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:11.0) Gecko/20120329 Thunderbird/11.0.1
+Return-Path: <Kai.Kang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C973E01206
+	for <poky@yoctoproject.org>; Thu, 26 Apr 2012 19:41:05 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q3R2f3IK020534
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 26 Apr 2012 19:41:05 -0700 (PDT)
+Received: from localhost.localdomain (128.224.162.164) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
+	(TLS) id 14.1.255.0; Thu, 26 Apr 2012 19:41:03 -0700
+From: Kang Kai <kai.kang@windriver.com>
+To: <sgw@linux.intel.com>, <poky@yoctoproject.org>
+Date: Fri, 27 Apr 2012 10:41:08 +0800
+Message-ID: <cover.1335494224.git.kai.kang@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
 MIME-Version: 1.0
-To: Kang Kai <kai.kang@windriver.com>
-References: <cover.1335427135.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1335427135.git.kai.kang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] Yocto 1656: rebase on autospectacle.pl
+X-Originating-IP: [128.224.162.164]
+Subject: [PATCH V2 0/2] Yocto 1656: add script create-recipe base on autospectacle
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,44 +28,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Apr 2012 15:47:24 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 27 Apr 2012 02:41:06 -0000
+Content-Type: text/plain
 
-On 04/26/2012 01:10 AM, Kang Kai wrote:
-> Hi Saul,
->
-> I sent these patches to poky mail list on March 13, and didn't see the
-> comments. If I miss your comment, would you like to comment them again?
->
-> Thanks a lot.
->
-> I rebase Yocto 1656: Recipe creation/import script on autospectacle.pl and
-> add feature to create recipe file.
->
-Kai,
+Hi Saul,
 
-It can you please rename the script to some more appropriate for the 
-Yocto Project.  Since this tool creates .bb files not spec files we 
-should rename it.
+this version just rename autospectacle.pl to create-recipe because you asked.
 
-Thanks
-	Sau!
+Regards,
 
-> The following changes since commit 492a58cabdc053b2312712681dbcffa8270d4ea4:
->
->    self-hosted-image: Update poky revision to point at the 1.2 release branch (2012-04-24 10:21:11 +0100)
->
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib kangkai/autospectacle
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/autospectacle
->
-> Kang Kai (2):
->    autospectacle.pl: pull it from meego as a base
->    autospectacle.pl: create recipe file
->
->   scripts/autospectacle.pl | 1926 ++++++++++++++++++++++++++++++++++++++++++++++
->   1 files changed, 1926 insertions(+), 0 deletions(-)
->   create mode 100755 scripts/autospectacle.pl
->
+The following changes since commit 492a58cabdc053b2312712681dbcffa8270d4ea4:
+
+  self-hosted-image: Update poky revision to point at the 1.2 release branch (2012-04-24 10:21:11 +0100)
+
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib kangkai/create-recipe
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/create-recipe
+
+Kang Kai (2):
+  autospectacle.pl: pull it from meego as a base
+  create-recipe: base on autospectacle.pl to create recipe file
+
+ scripts/create-recipe | 1926 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 1926 insertions(+), 0 deletions(-)
+ create mode 100755 scripts/create-recipe
+
+-- 
+1.7.5.4
+
 
