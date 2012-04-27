@@ -1,24 +1,40 @@
-Return-Path: <Kai.Kang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B53F4E01408
-	for <poky@yoctoproject.org>; Thu, 26 Apr 2012 19:41:08 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q3R2f8A8020541
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 26 Apr 2012 19:41:08 -0700 (PDT)
-Received: from localhost.localdomain (128.224.162.164) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.1.255.0; Thu, 26 Apr 2012 19:41:07 -0700
-From: Kang Kai <kai.kang@windriver.com>
-To: <sgw@linux.intel.com>, <poky@yoctoproject.org>
-Date: Fri, 27 Apr 2012 10:41:10 +0800
-Message-ID: <8b550819d34937d53cd74f33247bb742b1b2780e.1335494224.git.kai.kang@windriver.com>
-X-Mailer: git-send-email 1.7.5.4
-In-Reply-To: <cover.1335494224.git.kai.kang@windriver.com>
-References: <cover.1335494224.git.kai.kang@windriver.com>
+Return-Path: <kpa_info@yahoo.fr>
+Received: from nm2.bullet.mail.ird.yahoo.com (nm2.bullet.mail.ird.yahoo.com
+	[77.238.189.59])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 93BCEE006C7
+	for <poky@yoctoproject.org>; Fri, 27 Apr 2012 07:59:07 -0700 (PDT)
+Received: from [77.238.189.48] by nm2.bullet.mail.ird.yahoo.com with NNFMP;
+	27 Apr 2012 14:59:06 -0000
+Received: from [217.146.188.161] by tm1.bullet.mail.ird.yahoo.com with NNFMP;
+	27 Apr 2012 14:59:06 -0000
+Received: from [127.0.0.1] by smtp129.mail.ird.yahoo.com with NNFMP;
+	27 Apr 2012 14:59:06 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
+	t=1335538746; bh=3/N6zGmcSMT5PSJijTp6kPBz8jZUZpjBQY5vTh9k58A=;
+	h=X-Yahoo-Newman-Id:X-Yahoo-Newman-Property:X-YMail-OSG:X-Yahoo-SMTP:Received:Message-ID:Date:From:User-Agent:MIME-Version:To:Subject:Content-Type:Content-Transfer-Encoding;
+	b=N/l5MxV/6rIiq1CvNJDllLWtGw8liQg3CdyUJba77IGc7h+gmqKAKT/Oa9DBclPcgAWBBeZSMEyz6NRDNhRaQQGe8hxy8KUWUHpRXOBPCbbYQVtYsMFbtOkfOKbsI04ybyb+ii+TfeD5RBXyLdBffJmMwTwLmu7v6rbVbFeX8tM=
+X-Yahoo-Newman-Id: 360032.31246.bm@smtp129.mail.ird.yahoo.com
+X-Yahoo-Newman-Property: ymail-3
+X-YMail-OSG: eq2YjJoVM1mbo76qAei0iuNuupunfZy0f5F1iXQuATUqkhF
+	A4Gbj5SuusMmx4C.SaieafQankY3c2wUC1LDyWK_ebsxeWcK8FS.WpcV9Yur
+	Gry.FDGM8Zejx15rkNDlvvsm5DY4rFaH4WXGFF_IOtgOAB6TPHoMcIpPumR5
+	r2u8.xZNiPWfMML15GdAa7eCJruo_vCIe7GCJ5FdlW36Vz43WCma2qjuzw8J
+	LTIk7JmAEqhphmWkMLEUNg_e3HIPwK_hLcZ8XmpZONxOILIWFC_dZG0wg5B0
+	EoN.t.1y2xg1atmSrratCpFHQtZPz946Pkq2Bij9PKNAfb8L58hScUFLyh80
+	S4zL1jeHCw0RwT3NicBtEWwarFTp01ry4F2YADENs7GdF1euDG5efvBlpGin
+	X5nr0n465LkuvlgAOTR9rrIGJufDYAJmK9PaTSRTsOpTpfoFsav541Q0699F
+	.EBBCFOg1W2z34XbCkxXDBI604t_zHDncRUhPvA--
+X-Yahoo-SMTP: gXxkLaeswBDA9gtBSIbQ8XWSflp0
+Received: from [192.168.2.63] (kpa_info@213.193.97.58 with plain)
+	by smtp129.mail.ird.yahoo.com with SMTP; 27 Apr 2012 07:59:06 -0700 PDT
+Message-ID: <4F9AB437.1040404@yahoo.fr>
+Date: Fri, 27 Apr 2012 16:59:03 +0200
+From: Patrick <kpa_info@yahoo.fr>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:11.0) Gecko/20120412 Thunderbird/11.0.1
 MIME-Version: 1.0
-X-Originating-IP: [128.224.162.164]
-Subject: [PATCH 2/2] create-recipe: base on autospectacle.pl to create recipe file
+To: poky@yoctoproject.org
+Subject: Compiling sp-rtrace
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,275 +46,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Apr 2012 02:41:08 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 27 Apr 2012 14:59:08 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-[Yocto 1656]
-create-recipe is based on original autospectacle.pl from project Meego.
-Add feature to create a recipe .bb file. It requires a parameter to be
-told where to download source package, then download and parse.
-Create recipe file according to parse results.
+Dear mailing-list,
 
-Signed-off-by: Kang Kai <kai.kang@windriver.com>
----
- scripts/{autospectacle.pl => create-recipe} |  117 +++++++++++++++++++++++---
- 1 files changed, 103 insertions(+), 14 deletions(-)
- rename scripts/{autospectacle.pl => create-recipe} (94%)
+I am trying to include the sp-rtrace tool 
+(http://maemo.gitorious.org/maemo-tools/sp-rtrace) in my Poky image.
+I have made the beginning of a receipe but I am facing some problems.
 
-diff --git a/scripts/autospectacle.pl b/scripts/create-recipe
-similarity index 94%
-rename from scripts/autospectacle.pl
-rename to scripts/create-recipe
-index bb9f8dc..aba9ac3 100755
---- a/scripts/autospectacle.pl
-+++ b/scripts/create-recipe
-@@ -1,5 +1,7 @@
- #!/usr/bin/perl -w
- 
-+#      Copyright (C) 2012 Wind River Systems, Inc.
-+#
- #      Copyright (C) 2010 Intel Corporation
- #
- #   
-@@ -29,6 +31,7 @@
- use File::Temp qw(tempdir);
- use File::Path qw(mkpath rmtree); 
- use File::Spec (); 
-+use File::Basename qw(basename dirname);
- 
- 
- my $name = "";
-@@ -42,6 +45,10 @@ my @sources;
- my @mainfiles;
- my @patches;
- 
-+my $md5sum = "";
-+my $sh256sum = "";
-+my @inherits;
-+
- my $printed_subpackages = 0;
- my $fulldir = "";
- 
-@@ -70,6 +77,7 @@ my %failed_headers;
- 
- my %licenses;
- my @license;
-+my %lic_files;
- 
- sub setup_licenses
- {
-@@ -115,8 +123,14 @@ sub guess_license_from_file {
- 	if (defined($licenses{$sha1})) {
- 		my $lic = $licenses{$sha1};
- 		push(@license, $lic);
-+
-+		my $md5output = `md5sum $copying`;
-+		$md5output =~ /^([a-zA-Z0-9]*) /;
-+		my $md5 = $1;
-+		chomp($md5);
-+		$lic_files{$copying} = $md5
- 	}
--	
-+
- 	#
- 	# We also must make sure that the COPYING/etc files
- 	# end up in the main package as %doc..
-@@ -124,7 +138,7 @@ sub guess_license_from_file {
- 	$copying =~ s/$fulldir//g;
- 	$copying =~ s/^\///g;
- 	$copying = "\"\%doc " . $copying ."\"";
--	
-+
- 	push(@mainfiles, $copying);
- }
- 
-@@ -1522,7 +1536,7 @@ sub guess_name_from_url {
- 	}
- 	my $tarfile = $spliturl[0];
- 	
--	if ($tarfile =~ /(.*?)\-([0-9\.\-\~]+)\.tar/) {
-+	if ($tarfile =~ /(.*?)\-([0-9\.\-\~]+)[-\.].*?\.tar/) {
- 		$name = $1;
- 		$version = $2;
-                 $version =~ s/\-/\_/g;
-@@ -1650,7 +1664,7 @@ sub write_yaml
- 	write_makefile();
- 	write_changelog();
- 
--	system("rm $name.spec");
-+	system("rm $name.spec 2>/dev/null");
- 	system("specify &> /dev/null");
- 	if ($oscmode > 0) {
- 	        system("osc addremove");
-@@ -1659,6 +1673,65 @@ sub write_yaml
- 
- }
- 
-+sub write_bbfile
-+{
-+	open(BBFILE, ">${name}_$version.bb");
-+	print BBFILE "SUMMARY = \"$summary\"\n";
-+	print BBFILE "DESCRIPTION = \"$description\"\n";
-+
-+	print BBFILE "LICENSE = \"@license\"\n";
-+	print BBFILE "LIC_FILES_CHKSUM = \"";
-+	foreach (keys %lic_files) {
-+		print BBFILE "file://" . basename($_) . ";md5=$lic_files{$_} \\\n";
-+	}
-+	print BBFILE "\"\n\n";
-+
-+	if (@license <= 0) {
-+		print "Can NOT get license from package itself.\n";
-+		print "Please update the license and license file manually.\n";
-+	}
-+
-+	if (@buildreqs > 0) {
-+		my %saw;
-+		my @out = grep(!$saw{$_}++,@buildreqs);
-+		print BBFILE "DEPENDS = \"@out\"\n\n";
-+	};
-+
-+	print BBFILE 'PR = "r0"' . "\n\n";
-+	print BBFILE "SRC_URI = \"";
-+	foreach (@sources) {
-+		print BBFILE "$_ \\\n";
-+	}
-+	print BBFILE "\"\n\n";
-+	print BBFILE "SRC_URI[md5sum] = \"$md5sum\"\n";
-+	print BBFILE "SRC_URI[sha256sum] = \"$sha256sum\"\n";
-+
-+	if (@inherits) {
-+		print BBFILE "inherit ";
-+		foreach (@inherits) {
-+			print BBFILE "$_ ";
-+		}
-+	}
-+
-+	close(BBFILE);
-+
-+	my $curdir = `pwd`;
-+	chomp($curdir);
-+	print "Create bb file: $curdir/${name}_$version.bb\n";
-+}
-+
-+sub calculate_sums
-+{
-+    @_ = basename $dir;
-+    my $md5output = `md5sum @_`;
-+    $md5output =~ /^([a-zA-Z0-9]*) /;
-+    $md5sum = $1;
-+    chomp($md5sum);
-+    my $sha256output = `sha256sum @_`;
-+    $sha256output =~ /^([a-zA-Z0-9]*) /;
-+    $sha256sum = $1;
-+    chomp($sha256sum);
-+}
- 
- ############################################################################
- #
-@@ -1696,33 +1769,40 @@ $dir = $ARGV[0];
- guess_name_from_url($dir);
- push(@sources, $dir);
- 
--
- #system("cd $tmpdir; curl -s -O $dir");
- $orgdir = `pwd`;
- chomp($orgdir);
-+my $outputdir = $name;
-+if (! $name) {
-+	$outputdir = basename $dir;
-+}
-+mkpath($outputdir);
-+chdir($outputdir);
- print "Downloading package: $dir\n";
--system("wget --quiet $dir");
-+system("wget --quiet $dir") == 0 or die "Download $dir failed.";
-+
-+calculate_sums($outputdir);
-+
- print "Unpacking to       : $tmpdir\n";
- 
--my @tgzfiles = <$orgdir/*.tgz>;
-+my @tgzfiles = <$orgdir/$outputdir/*.tgz>;
- foreach (@tgzfiles) {
--        my $tgz = $_;
-+        my $tgz = basename $_;
-         my $tar = $tgz;
-         $tar =~ s/tgz/tar\.gz/g;
-         $dir =~ s/tgz/tar\.gz/g;
--        system("mv $tgz $tar");
-+        system("mv $orgdir/$outputdir/$tgz $orgdir/$outputdir/$tar");
-         guess_name_from_url($dir);
- }
- 
--
- #
- # I really really hate the fact that meego deleted the -a option from tar.
- # this is a step backwards in time that is just silly.
- #
- 
- 
--system("cd $tmpdir; tar -jxf $orgdir/*\.tar\.bz2");
--system("cd $tmpdir; tar -zxf $orgdir/*\.tar\.gz");
-+system("cd $tmpdir; tar -jxf $orgdir/$outputdir/*\.tar\.bz2 &>/dev/null");
-+system("cd $tmpdir; tar -zxf $orgdir/$outputdir/*\.tar\.gz &>/dev/null");
- print "Parsing content    ....\n";
- my @dirs = <$tmpdir/*>;
- foreach (@dirs) {
-@@ -1734,11 +1814,13 @@ $fulldir = $dir;
- if ( -e "$dir/autogen.sh" ) {
- 	$configure = "autogen";
- 	$uses_configure = 1;
-+	push(@inherits, "autotools");
- }
- if ( -e "$dir/BUILD-CMAKE" ) {
- 	$configure = "cmake";
- 	push(@buildreqs, "cmake");
- 	$uses_configure = 1;
-+	push(@inherits, "cmake");
- }
- 
- if ( -e "$dir/configure" ) {
-@@ -1747,7 +1829,7 @@ if ( -e "$dir/configure" ) {
- 
- my @files = <$dir/configure.*>;
- 
--my $findoutput = `find $dir -name "configure.ac"`;
-+my $findoutput = `find $dir -name "configure.ac" 2>/dev/null`;
- my @findlist = split(/\n/, $findoutput);
- foreach (@findlist) {
- 	push(@files, $_);
-@@ -1756,7 +1838,7 @@ foreach (@files) {
- 	process_configure_ac("$_");
- }
- 
--$findoutput = `find $dir -name "*.pro"`;
-+$findoutput = `find $dir -name "*.pro" 2>/dev/null`;
- @findlist = split(/\n/, $findoutput);
- foreach (@findlist) {
- 	process_qmake_pro("$_");
-@@ -1765,6 +1847,7 @@ foreach (@findlist) {
- if (-e "$dir/$name.pro") {
-         $builder = "qmake";
-         push_pkgconfig_buildreq("Qt");
-+	push(@inherits, "qmake2");
- }
- 
- 
-@@ -1804,6 +1887,12 @@ foreach (@files) {
- 
- guess_description($dir);
- 
-+#
-+# Output of bbfile file
-+#
-+write_bbfile();
-+chdir($orgdir);
-+exit 0;
- 
- #
- # Output of the yaml file
--- 
-1.7.5.4
+Does any one have already tried to build this tool ?
+
+Below is the receipes that I have made. He is not working and 
+compilation crash with a strange conflict when linking.
+This tool need the demangle.h file that is not included in this project. 
+I have found that gdb have a similar file, this is why I have made the 
+dirty hack of the last line...
+
+Thanks in advance for your help
+
+Patrick
+
+--------------------------------------------
+
+DESCRIPTION = "sp-rtrace provides function tracing for different 
+resource types and the traced data post-processing and visualization 
+tools. "
+HOMEPAGE = "http://maemo.gitorious.org/maemo-tools/sp-rtrace"
+LICENSE = "GPLv2 & GPLv2+"
+LIC_FILES_CHKSUM = 
+"file://COPYING.GPL;md5=4325afd396febcb659c36b49533135d4 \
+                     
+file://COPYING.LGPL;md5=3214f080875748938ba060314b4f727d"
+
+PR = "r0"
+DEPENDS = "binutils gdb"
+
+SRC_URI = "git://gitorious.org/maemo-tools/sp-rtrace.git"
+SRCREV = "4d2870b43a9ae45b47be8701622b9baf7a534d6e"
+
+S = "${WORKDIR}/git"
+
+inherit autotools gettext
+
+EXTRA_OECONF = "--build=arm"
+CFLAGS_prepend = "-fPIC -I../../../gdb-7.3a-r4.0/gdb-7.3/include/"
+
+
 
 
