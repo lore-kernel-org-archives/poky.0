@@ -1,24 +1,23 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02B5FE00723
-	for <poky@yoctoproject.org>; Thu,  3 May 2012 12:10:12 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 03 May 2012 12:09:49 -0700
+Return-Path: <josh@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7D628E00596
+	for <poky@yoctoproject.org>; Thu,  3 May 2012 16:12:21 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 03 May 2012 16:12:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="138583120"
-Received: from unknown (HELO [10.255.12.171]) ([10.255.12.171])
-	by azsmga001.ch.intel.com with ESMTP; 03 May 2012 12:09:49 -0700
-Message-ID: <4FA2D7FD.4000106@linux.intel.com>
-Date: Thu, 03 May 2012 12:09:49 -0700
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="139850585"
+Received: from unknown (HELO [10.7.198.54]) ([10.7.198.54])
+	by orsmga002.jf.intel.com with ESMTP; 03 May 2012 16:12:21 -0700
+Message-ID: <4FA310D4.1070102@linux.intel.com>
+Date: Thu, 03 May 2012 16:12:20 -0700
+From: Joshua Lock <josh@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:12.0) Gecko/20120424 Thunderbird/12.0
 MIME-Version: 1.0
-To: Kang Kai <kai.kang@windriver.com>
-References: <cover.1335494224.git.kai.kang@windriver.com>
-In-Reply-To: <cover.1335494224.git.kai.kang@windriver.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH V2 0/2] Yocto 1656: add script create-recipe base on autospectacle
+To: poky@yoctoproject.org
+References: <4F7F2AA5.2010400@linux.intel.com>
+In-Reply-To: <4F7F2AA5.2010400@linux.intel.com>
+Subject: Re: Edison Next
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,36 +29,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 May 2012 19:10:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Thu, 03 May 2012 23:12:21 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/26/2012 07:41 PM, Kang Kai wrote:
-> Hi Saul,
->
-> this version just rename autospectacle.pl to create-recipe because you asked.
->
-> Regards,
->
-> The following changes since commit 492a58cabdc053b2312712681dbcffa8270d4ea4:
->
->    self-hosted-image: Update poky revision to point at the 1.2 release branch (2012-04-24 10:21:11 +0100)
->
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib kangkai/create-recipe
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/create-recipe
->
-> Kang Kai (2):
->    autospectacle.pl: pull it from meego as a base
->    create-recipe: base on autospectacle.pl to create recipe file
->
->   scripts/create-recipe | 1926 +++++++++++++++++++++++++++++++++++++++++++++++++
->   1 files changed, 1926 insertions(+), 0 deletions(-)
->   create mode 100755 scripts/create-recipe
->
+An update for the curious...
 
-Merged into OE-Core
+On 06/04/12 10:40, Joshua Lock wrote:
+> There are plenty of folks still using Edison and bugs being filed
+> against that release series so I've started pulling together a branch of
+> fixes for another Edison point release.
+>
+> So far I have:
+> * Several fixes for useradd
+> * A fix for building syslinux on hosts with 3.3 or newer kernels [YOCTO
+> #2236]
+> * Fixes so that live images greater than 1GB in size can boot [YOCTO #2138]
 
-Thanks
-	Sau!
+I'm running into an issue with xserver-nodm where useradd retries 10 
+times and gives up. I think it's the RPM ordering issue from #2218
+
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=2218
+
+This is fixed in master and Denzil but the RPM package backend has 
+changed significantly since Edison. I'm trying to figure out the 
+smallest change possible for Edison to fix this issue.
+
+> If there are other fixes you would like to see in the Edison series
+> please point me at bug numbers or, even better, patches.
+
+Matthew, any update from you here?
+
+> My current branch can be seen here:
+>
+> http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=josh/edison
+
+Note: this has useradd failures as above.
+
+Regards,
+
+Joshua
+-- 
+Joshua Lock
+         Yocto Project
+         Intel Open Source Technology Centre
 
