@@ -1,40 +1,26 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 54A69E0044D
-	for <poky@yoctoproject.org>; Fri,  4 May 2012 11:13:04 -0700 (PDT)
-Received: from mail-pz0-f45.google.com ([209.85.210.45])
-	by mga09.intel.com with ESMTP/TLS/RC4-SHA; 04 May 2012 11:13:04 -0700
-Received: by dadv2 with SMTP id v2so4396579dad.4
-	for <poky@yoctoproject.org>; Fri, 04 May 2012 11:13:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding
-	:x-gm-message-state;
-	bh=iRjq9iGcC7frlMSiqGoe85mcLSDrpzBWfCKs8SjuS7s=;
-	b=aiVHXBhJ0KVJGR7lkKdy7TkLGD2+RCXGcaw/TaHu4/QeS4BkyV5JmB3jlwb8EL8UNd
-	ijmfy9RNRrz6wKmi2jPcGp/3Lu4VDC5dpPplRSYXHExWpVxqTv/+37UuRE3ObgpGJGmD
-	Bj4N6UyCQQXpznIJ0jgcqJxTXXonax95vwD7IBnKqH2FABr1SE3KgOIqVj27acHSU7lW
-	1ATt5mh+06xM7aVKC00PFDr/6CVPWEVctS4nPo2Lv9g0nU1zkrtkVzoq3qAHw17ynd6d
-	t0RdYPsXV5BOFi1as+Q5QF62QghLp4Lpxcsf8cP+s68qDGj0Tgt8GMCtnfl71v1eT0lF
-	bsTA==
-Received: by 10.68.231.72 with SMTP id te8mr11901217pbc.99.1336155183784;
-	Fri, 04 May 2012 11:13:03 -0700 (PDT)
-Received: from [192.168.1.12] (c-76-105-137-48.hsd1.or.comcast.net.
-	[76.105.137.48])
-	by mx.google.com with ESMTPS id rd4sm9275386pbc.40.2012.05.04.11.13.01
-	(version=SSLv3 cipher=OTHER); Fri, 04 May 2012 11:13:02 -0700 (PDT)
-Message-ID: <4FA41C34.90600@intel.com>
-Date: Fri, 04 May 2012 11:13:08 -0700
-From: Scott Garman <scott.a.garman@intel.com>
+Return-Path: <josh@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9096EE0044D
+	for <poky@yoctoproject.org>; Fri,  4 May 2012 16:09:44 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 04 May 2012 16:09:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="139091947"
+Received: from unknown (HELO [10.255.12.237]) ([10.255.12.237])
+	by azsmga001.ch.intel.com with ESMTP; 04 May 2012 16:09:42 -0700
+Message-ID: <4FA461B4.30608@linux.intel.com>
+Date: Fri, 04 May 2012 16:09:40 -0700
+From: Joshua Lock <josh@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:11.0) Gecko/20120329 Thunderbird/11.0.1
+	rv:12.0) Gecko/20120424 Thunderbird/12.0
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1336063152.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1336063152.git.paul.eggleton@linux.intel.com>
-X-Gm-Message-State: ALoCoQmnrZ8DWDx+KRv7wWm7SJe1RsTqIE1pxJtM+WgIkee0hzOnh4pmAzpDeE2okypqJfEzjvhu
-Subject: Re: [PATCH 0/1] Ubuntu 12.04 version string fix
+To: McClintock Matthew-B29882 <B29882@freescale.com>
+References: <4F7F2AA5.2010400@linux.intel.com>
+	<4FA310D4.1070102@linux.intel.com>
+	<CAEsOVNcrbCn1rdULX7mC4e-2nEaz8UJLP98XpaXETQvD08ecXA@mail.gmail.com>
+In-Reply-To: <CAEsOVNcrbCn1rdULX7mC4e-2nEaz8UJLP98XpaXETQvD08ecXA@mail.gmail.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Edison Next
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,33 +32,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 May 2012 18:13:04 -0000
+X-List-Received-Date: Fri, 04 May 2012 23:09:44 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/03/2012 09:40 AM, Paul Eggleton wrote:
-> This fix should also go into denzil-next.
+On 04/05/12 09:11, McClintock Matthew-B29882 wrote:
+> On Thu, May 3, 2012 at 6:12 PM, Joshua Lock<josh@linux.intel.com>  wrote:
+>>> If there are other fixes you would like to see in the Edison series
+>>> please point me at bug numbers or, even better, patches.
+>>
+>>
+>> Matthew, any update from you here?
 >
->
-> The following changes since commit d89f7b9cab1946a3267e3b0402f168f946d480b2:
->
->    documentation/Makefile: Fixed figures publishing bug (2012-05-01 20:50:56 +0100)
->
-> are available in the git repository at:
->    git://git.yoctoproject.org/poky-contrib paule/ubuntu-1204-ver
->    http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/ubuntu-1204-ver
->
-> Paul Eggleton (1):
->    poky.conf: use correct version string for Ubuntu 12.04
+> I should try to throw a branch together for you to see my changes.
+> Perhaps I will get to it next week. I need to re-acclimate to what
+> I've done though.
 
-Merged to denzil-next, thanks!
+Thanks!
 
-http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next
-
-Scott
-
+Joshua
 -- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
+Joshua Lock
+         Yocto Project
+         Intel Open Source Technology Centre
 
