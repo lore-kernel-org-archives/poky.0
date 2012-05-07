@@ -1,22 +1,24 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B9325E01396
-	for <poky@yoctoproject.org>; Mon,  7 May 2012 08:23:28 -0700 (PDT)
-Received: from yow-bashfiel-l1.wrs.com (yow-bashfiel-d3.wrs.com
-	[128.224.147.67])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q47FNMmJ028783;
-	Mon, 7 May 2012 08:23:23 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Mon,  7 May 2012 11:23:18 -0400
-Message-Id: <6ac1db88c0fab765723fa56611053abec73564ae.1336404072.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.5.4
-In-Reply-To: <cover.1336404072.git.bruce.ashfield@windriver.com>
-References: <cover.1336404072.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1336404072.git.bruce.ashfield@windriver.com>
-References: <cover.1336404072.git.bruce.ashfield@windriver.com>
-Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto/3.0: mm/msync: tweak tmpfs patch for syscall msync
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AD1DFE01363
+	for <poky@yoctoproject.org>; Mon,  7 May 2012 09:22:42 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 07 May 2012 09:22:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="97270094"
+Received: from unknown (HELO [10.255.12.143]) ([10.255.12.143])
+	by AZSMGA002.ch.intel.com with ESMTP; 07 May 2012 09:22:42 -0700
+Message-ID: <4FA7F6D1.2@linux.intel.com>
+Date: Mon, 07 May 2012 09:22:41 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:12.0) Gecko/20120424 Thunderbird/12.0
+MIME-Version: 1.0
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+References: <cover.1336063152.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1336063152.git.paul.eggleton@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] Ubuntu 12.04 version string fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,56 +30,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 May 2012 15:23:28 -0000
+X-List-Received-Date: Mon, 07 May 2012 16:22:42 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Bumping the routerstationpro SRCREV for the following fix:
+On 05/03/2012 09:40 AM, Paul Eggleton wrote:
+> This fix should also go into denzil-next.
+>
+>
+> The following changes since commit d89f7b9cab1946a3267e3b0402f168f946d480b2:
+>
+>    documentation/Makefile: Fixed figures publishing bug (2012-05-01 20:50:56 +0100)
+>
+> are available in the git repository at:
+>    git://git.yoctoproject.org/poky-contrib paule/ubuntu-1204-ver
+>    http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/ubuntu-1204-ver
+>
+> Paul Eggleton (1):
+>    poky.conf: use correct version string for Ubuntu 12.04
+>
+>   meta-yocto/conf/distro/poky.conf |    2 +-
+>   1 files changed, 1 insertions(+), 1 deletions(-)
+>
 
-    mm/msync: tweak tmpfs patch for syscall msync
+Merged into Poky Master
 
-    Commit 1c3ae5441 "mm: msync: fix issues of sys_msync on tmpfs"
-    fixes the problem that sys_msync fails with tmpfs on MIPS CPU which
-    has feature "cache alias".
-
-    But it makes POSIX test cases mlockall/3-6 3-7 fail on MIPS.
-    Case mlockall/3-6 creates a share memory, and maps it to memory.
-      fd = shm_open(SHM_NAME, O_RDWR|O_CREAT, S_IRUSR|S_IWUSR);
-      foo = mmap(NULL, BUF_SIZE, PROT_WRITE, MAP_SHARED, fd, 0);
-    Then calls mlockall to lock all of the virtual address space:
-      if (mlockall(MCL_CURRENT) == -1) {
-    At last tests whether the virtual address spaces are locked:
-      page_ptr = (void*) ((long)foo - ((long)foo % page_size));
-      result = msync(page_ptr, page_size, MS_SYNC|MS_INVALIDATE);
-    It espects msync returns -1 with EBUSY but returns 0.
-    Case mlockall/3-7 creates a normal file to mmap, and it fails too.
-
-    Tweak the patch to:
-    1 Moved the CONFIG_TMPFS block down in the loop so that the normal
-      vma flag checking will perform.
-    2 There may be other VMAs in the list after this VMA which belongs
-      to tmpfs file, and we should sync them after the tmpfs one. So
-      remove the break loop clauses.
-
-    Signed-off-by: Kang Kai <kai.kang@windriver.com>
-
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_3.0.bbappend  |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
-
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-index 944f601..68c7cad 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
-@@ -5,7 +5,7 @@ KMACHINE_beagleboard = "yocto/standard/beagleboard"
- 
- 
- SRCREV_machine_atom-pc ?= "afdda882f902dd28693cd8701a7d497958290f09"
--SRCREV_machine_routerstationpro ?= "982522e3901fad56bb908565b22c498025ab536c"
-+SRCREV_machine_routerstationpro ?= "220d89fcf345ee28fb0cdcf0f33f83b3dc7c460f"
- SRCREV_machine_mpc8315e-rdb ?= "83f422f718cf15633cb4c2d309aa041c3c354f65"
- SRCREV_machine_beagleboard ?= "8fd5a8eb4067c7032389e82d54f0e54e1e27f78c"
- 
--- 
-1.7.5.4
-
+Thanks
+	Sau!
 
