@@ -1,19 +1,23 @@
 Return-Path: <bruce.ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1C1BE013EC
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B08C4E01206
 	for <poky@yoctoproject.org>; Tue,  8 May 2012 20:42:50 -0700 (PDT)
 Received: from localhost.localdomain (yow-bashfiel-d2.wrs.com
 	[128.224.146.167])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q493ggew021932;
-	Tue, 8 May 2012 20:42:42 -0700 (PDT)
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q493ggex021932;
+	Tue, 8 May 2012 20:42:43 -0700 (PDT)
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: richard.purdie@linuxfoundation.org
-Date: Tue,  8 May 2012 23:48:43 -0400
-Message-Id: <cover.1336535085.git.bruce.ashfield@windriver.com>
+Date: Tue,  8 May 2012 23:48:44 -0400
+Message-Id: <893d8018c655f70ada731eaf5f03b178f4dfe2b3.1336535085.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.0.4
+In-Reply-To: <cover.1336535085.git.bruce.ashfield@windriver.com>
+References: <cover.1336535085.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1336535085.git.bruce.ashfield@windriver.com>
+References: <cover.1336535085.git.bruce.ashfield@windriver.com>
 Cc: openembedded-core@lists.openembedded.org, dvhart@linux.intel.com,
 	poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 0/1] kern-tools: fix meta-intel builds
+Subject: [PATCH 1/1] kern-tools: checkpoint restoration for reset branches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,37 +31,41 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Wed, 09 May 2012 03:42:50 -0000
 
-Richard/Saul,
+Updating the SRCREV to pickup the following fix:
 
-This fixes a problem reported by Tom and Darren when the latest tools
-updates were used against meta intel. Some optional code that supported
-merge meta and BSP branches wasn't handling the case where a BSP layer
-might not be tracking the HEAD of the meta branch, and hence blowing up
-its test to see if the meta branch needs to be thawed. 
+    createme: fix checkpoint restoration for reset branches
 
-The fix was simple. Adjust the threshold for declaring the meta content
-global.
+    The meta branch can optionally be merged out to BSP branches. This removes
+    the need to restore the checkpoint when working with the tree.  The way
+    it detects the merge is by checking to see how many branches contain the
+    meta data. If there's more than one, the branch was was merged out.
 
-cc: Tom Zanussi <tom.zanussi@intel.com>
-cc: Darren Hart <dvhart@linux.intel.com>
+    Unless you are a BSP that isn't tracking the latest meta, and you get
+    meta and meta-orig created. That's two branches and the code opts to not
+    restore the checkpoint, which leads to configuration errors.
 
-Cheers,
+    The fix is simple. We allow for 2 or less branches with meta, and will
+    still restore the checkpoint. Three and up, we won't.
 
-Bruce
-
-The following changes since commit 8afd5747802c4eb0e8296e440bd7366393595f8e:
-  Bruce Ashfield (1):
-        kernel-yocto: export GUILT_BASE
-
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib zedd/kern-tools
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kern-tools
-
-Bruce Ashfield (1):
-  kern-tools: checkpoint restoration for reset branches
-
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
  .../kern-tools/kern-tools-native_git.bb            |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb b/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
+index b6fab39..b5e203e 100644
+--- a/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
++++ b/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
+@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://git/tools/kgit;beginline=5;endline=9;md5=e2bf4415f3d8
+ 
+ DEPENDS = "git-native guilt-native"
+ 
+-SRCREV = "9bb704df0a86578b8ae1f4c85e45089bef28e026"
++SRCREV = "de3649840e8e3ca25bc79d2444f04a1b158a1769"
+ PR = "r12"
+ PV = "0.1+git${SRCPV}"
+ 
+-- 
+1.7.0.4
 
 
