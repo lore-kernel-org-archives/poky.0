@@ -1,19 +1,32 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7C167E0140E
-	for <poky@yoctoproject.org>; Wed,  9 May 2012 14:25:03 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 09 May 2012 14:25:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="98267234"
-Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.218])
-	by AZSMGA002.ch.intel.com with ESMTP; 09 May 2012 14:25:02 -0700
-From: Saul Wold <sgw@linux.intel.com>
+Return-Path: <redzhepoff@gmail.com>
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 633A4E0141F
+	for <poky@yoctoproject.org>; Thu, 10 May 2012 05:30:25 -0700 (PDT)
+Received: by yhfq46 with SMTP id q46so1828410yhf.35
+	for <poky@yoctoproject.org>; Thu, 10 May 2012 05:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:sender:date:x-google-sender-auth:message-id:subject
+	:from:to:cc:content-type;
+	bh=R5CFL7YLUZp8+fSnR51XOh7qfm7Nv4q82nZZISjaxFQ=;
+	b=bA+0r+LwwLAqikXH1RlZKfO8GjtrxgGPVP38g3ZQ+SWTCR783f5Obg7CWAZDfkfR4G
+	oCBD+ai/MmIzML59lGsZnr2pWd2Qcj4ZHsyjFMQZHrPqniK6Ay7cLlBXVTd8HW2bDhpR
+	0B5SqLna1ubLIX4iz0nTJtsk4XBDlaQJE4HWrepduAmlvnfcuKOPSKKxHekxd9dzXX7i
+	ldA0/QpB9Nn5qM1Wqg0le+x+xHIgU/vG3yGQJr2Jzvw2/deONzl5m4g9b9gkcSp2JKrF
+	35IviAtCqwyNQ75HR891vBxe6TB1/VokobL4zMKn01476LV3igPi7OZd/vCmZRslC/ic
+	BMVw==
+MIME-Version: 1.0
+Received: by 10.50.180.225 with SMTP id dr1mr2192571igc.52.1336653024658; Thu,
+	10 May 2012 05:30:24 -0700 (PDT)
+Sender: redzhepoff@gmail.com
+Received: by 10.231.174.139 with HTTP; Thu, 10 May 2012 05:30:24 -0700 (PDT)
+Date: Thu, 10 May 2012 15:30:24 +0300
+X-Google-Sender-Auth: DN6MttTvqXm1Id82A8qTAVUzgqQ
+Message-ID: <CAK_2Fr=uizjqCOecKzuGndi00nMDtEiYpFPJbf-B=o=eO6ZNnA@mail.gmail.com>
+From: Vladimir Redzhepoff <vladimir.redzhepoff@promwad.com>
 To: poky@yoctoproject.org
-Date: Wed,  9 May 2012 14:25:02 -0700
-Message-Id: <1336598702-1202-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.7.6
-Subject: [PATCH] poky.conf: Change WARNS -> ERRORS
+Cc: denx@promwad.com
+Subject: Missing native compiler in the core-image-sato-dev
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,30 +38,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 May 2012 21:25:03 -0000
+X-List-Received-Date: Thu, 10 May 2012 12:30:25 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-A major effort was completed as part of 1.2 to fix many WARNING
-messages, change the level of those fixed areas to ERROR so we
-do not backslide on our quality level
+Hi Group
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- meta-yocto/conf/distro/poky.conf |    4 ++++
- 1 files changed, 4 insertions(+), 0 deletions(-)
+According to http://www.yoctoproject.org/docs/current/poky-ref-manual/poky-ref-manual.html
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index c01e2b8..9c1e4b6 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -90,3 +90,7 @@ BB_SIGNATURE_HANDLER ?= 'OEBasicHash'
- # with general agreement from the core team.
- #
- OELAYOUT_ABI = "8"
-+
-+WARN_QA = "unsafe-references-in-binaries unsafe-references-in-scripts"
-+ERROR_QA = "dev-so debug-deps dev-deps debug-files arch la2 pkgconfig la perms useless-rpaths rpaths staticdev ldflags"
-+
+core-image-sato-dev: A core-image-sato image suitable for development
+that also includes
+a native toolchain and libraries needed to build applications on the
+device itself. The image
+also includes testing and profiling tools as well as debug symbols.
+This image was
+formerly core-image-sdk.
+
+I've built for core-image-sato-dev for armv7-a and didn't find native
+toolchain in the image.
+Is it known issue for poky now?
+
 -- 
-1.7.7.6
-
+Best regards,
+Vladimir Redzhepoff
 
