@@ -1,29 +1,38 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C0985E0044A
-	for <poky@yoctoproject.org>; Thu, 10 May 2012 10:08:10 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 75DCFF81222; Thu, 10 May 2012 11:08:10 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id EEBFAF81221;
-	Thu, 10 May 2012 11:08:08 -0600 (MDT)
-Message-ID: <4FABF5F8.3070207@mlbassoc.com>
-Date: Thu, 10 May 2012 11:08:08 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
-MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
+Return-Path: <martin.jansa@gmail.com>
+Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
+	[209.85.212.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2DCCDE0044A
+	for <poky@yoctoproject.org>; Thu, 10 May 2012 13:06:25 -0700 (PDT)
+Received: by wibhn14 with SMTP id hn14so894889wib.11
+	for <poky@yoctoproject.org>; Thu, 10 May 2012 13:06:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	bh=CYyubdtNm1C/xFMfKmneOlBVvbgrjfIq1mW9IGqfFUw=;
+	b=rBUQvWvN0e5lWDolzNl9TeYSaMeSmBXuE2/3OqYWI+5Wj/hMRTcG7zyKJJyNeak/JN
+	/hrhsRESkFLM4dxfJcSVNhpOHXsT+sxJxxqSl49nmaLiJI8MV/5bSbQrM10L79IBdSYs
+	dfV7TYbwDAWofdngY0fPxNstByby+EL/xKinIJB1JzJEAKdQZVh6+TbgrH3JqnujxvjZ
+	EpSlMVUy0vQ7yzhp6VqrEaPJ+/lNrQDtsaYkKADVHrd5yLZYs2EC4bOeeu5A7lWdXYXz
+	Ot8f4wH3YzX30iIHjPczFJRHfVIYnPdcF1MDZUJGSuemHakLl9fm+Hs+sDuxj93//Ug8
+	BEEw==
+Received: by 10.180.97.3 with SMTP id dw3mr666907wib.19.1336680383919;
+	Thu, 10 May 2012 13:06:23 -0700 (PDT)
+Received: from localhost ([94.230.152.246])
+	by mx.google.com with ESMTPS id j4sm8606551wix.5.2012.05.10.13.06.20
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 10 May 2012 13:06:22 -0700 (PDT)
+Date: Thu, 10 May 2012 22:06:23 +0200
+From: Martin Jansa <martin.jansa@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Message-ID: <20120510200623.GA3141@jama.jama.net>
 References: <4FABD070.9090100@mlbassoc.com>
 	<CAMKF1soadVR07jQ_QGBjkc0=UAvCrTHFPu2V3hxf_dNXg4vmEw@mail.gmail.com>
 	<4FABEA1B.4050901@mlbassoc.com>
 	<CAMKF1sqUt4QrNh9ff0ZERDCttdUSams-wUcOR4e4hDs+7z-Txw@mail.gmail.com>
-In-Reply-To: <CAMKF1sqUt4QrNh9ff0ZERDCttdUSams-wUcOR4e4hDs+7z-Txw@mail.gmail.com>
+	<4FABF5F8.3070207@mlbassoc.com>
+MIME-Version: 1.0
+In-Reply-To: <4FABF5F8.3070207@mlbassoc.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Bad ARM code with GCC 4.7.1
 X-BeenThere: poky@yoctoproject.org
@@ -37,394 +46,498 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 May 2012 17:08:11 -0000
-X-Groupsio-MsgNum: 7765
-Content-Type: multipart/mixed; boundary="------------020306010606020403010009"
+X-List-Received-Date: Thu, 10 May 2012 20:06:25 -0000
+X-Groupsio-MsgNum: 7766
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="C7zPtVaVf+AK4Oqc"
+Content-Disposition: inline
 
---------------020306010606020403010009
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--C7zPtVaVf+AK4Oqc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 2012-05-10 10:30, Khem Raj wrote:
-> On Thu, May 10, 2012 at 9:17 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
->>
->> My board is DM3730, much like a BeagleBoard
->>   ARM architecture: armv7a
->>   Linux kernel 3.0
->
-> hmmm that should be able to handle alignment faults in hardware
->
->>
->>
->>>
->>> gcc generate unaligned accesses by default
->>>
->>> Does adding -mno-unaligned-access to cflags help ?
->>
->>
->> I'll check.
+On Thu, May 10, 2012 at 11:08:08AM -0600, Gary Thomas wrote:
+> On 2012-05-10 10:30, Khem Raj wrote:
+> > On Thu, May 10, 2012 at 9:17 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
+> >>
+> >> My board is DM3730, much like a BeagleBoard
+> >>   ARM architecture: armv7a
+> >>   Linux kernel 3.0
+> >
+> > hmmm that should be able to handle alignment faults in hardware
+> >
+> >>
+> >>
+> >>>
+> >>> gcc generate unaligned accesses by default
+> >>>
+> >>> Does adding -mno-unaligned-access to cflags help ?
+> >>
+> >>
+> >> I'll check.
+>=20
+> Using -mno-unaligned-access fixes this problem, but the kernel just dies =
+a bit
+> later on (kernel 3.0 + gcc 4.7.1 =3D=3D bad owies...)
 
-Using -mno-unaligned-access fixes this problem, but the kernel just dies a bit
-later on (kernel 3.0 + gcc 4.7.1 == bad owies...)
+We had to use -mno-unaligned-access in kernel Makefile even with gcc-4.6
+since gcc-4.6/linaro/gcc-4.6-linaro-r106827.patch was added in meta-oe.
 
->
-> Its not entirely clear whats going on so post the complete function disassembly
-> so further context can be seen as well.
+And it was affecting
+nokia900 (2.6.37 based kernel)
+crespo - Samsung Nexus S (3.0.8 based kernel)
 
-Code dump attached - first with /m, then with /r
+but with -mno-unaligned-access and gcc-4.7 we don't see any new issues.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Cheers,
 
---------------020306010606020403010009
-Content-Type: text/plain; charset=UTF-8;
- name="disas.out"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment;
- filename="disas.out"
+>=20
+> >
+> > Its not entirely clear whats going on so post the complete function dis=
+assembly
+> > so further context can be seen as well.
+>=20
+> Code dump attached - first with /m, then with /r
+>=20
+> --=20
+> ------------------------------------------------------------
+> Gary Thomas                 |  Consulting for the
+> MLB Associates              |    Embedded world
+> ------------------------------------------------------------
 
-RHVtcCBvZiBhc3NlbWJsZXIgY29kZSBmb3IgZnVuY3Rpb24gcGNwdV9kdW1wX2FsbG9jX2luZm86
-CjEwODMgICAgewogICAweGMwM2ZiN2RjIDwrND46ICAgICBwdXNoICAgIHtyNCwgcjUsIHI2LCBy
-NywgcjgsIHI5LCByMTAsIHIxMSwgbHJ9CiAgIDB4YzAzZmI3ZTAgPCs4PjogICAgIHN1YiAgICAg
-c3AsIHNwLCAjNjAgICAgIDsgMHgzYwogICAweGMwM2ZiN2U4IDwrMTY+OiAgICBzdHIgICAgIHIw
-LCBbc3AsICMyOF0KICAgMHhjMDNmYjdmOCA8KzMyPjogICAgbW92ICAgICByNCwgcjEKCjEwODQg
-ICAgICAgICAgICBpbnQgZ3JvdXBfd2lkdGggPSAxLCBjcHVfd2lkdGggPSAxLCB3aWR0aDsKICAg
-MHhjMDNmYjgwOCA8KzQ4PjogICAgbW92ICAgICByNywgIzEKICAgMHhjMDNmYjgyOCA8KzgwPjog
-ICAgbW92ICAgICByNiwgIzEKCjEwODUgICAgICAgICAgICBjaGFyIGVtcHR5X3N0cltdID0gIi0t
-LS0tLS0tIjsKICAgMHhjMDNmYjdkOCA8KzA+OiAgICAgbGRyICAgICByMywgW3BjLCAjNTUyXSAg
-OyAweGMwM2ZiYTA4IDxwY3B1X2R1bXBfYWxsb2NfaW5mbys1NjA+CiAgIDB4YzAzZmI3ZTQgPCsx
-Mj46ICAgIGxkciAgICAgcjIsIFtyM10KICAgMHhjMDNmYjdlYyA8KzIwPjogICAgc3RyICAgICBy
-MiwgW3NwLCAjNDddICAgOyAweDJmCiAgIDB4YzAzZmI3ZjAgPCsyND46ICAgIGxkciAgICAgcjIs
-IFtyMywgIzRdCiAgIDB4YzAzZmI3ZjQgPCsyOD46ICAgIGxkcmIgICAgcjMsIFtyMywgIzhdCiAg
-IDB4YzAzZmI3ZmMgPCszNj46ICAgIHN0ciAgICAgcjIsIFtzcCwgIzUxXSAgIDsgMHgzMwogICAw
-eGMwM2ZiODAwIDwrNDA+OiAgICBzdHJiICAgIHIzLCBbc3AsICM1NV0gICA7IDB4MzcKCjEwODYg
-ICAgICAgICAgICBpbnQgYWxsb2MgPSAwLCBhbGxvY19lbmQgPSAwOwogICAweGMwM2ZiOGUwIDwr
-MjY0PjogICBtb3YgICAgIHI4LCByNQogICAweGMwM2ZiOGYwIDwrMjgwPjogICBzdHIgICAgIHI1
-LCBbc3AsICMyNF0KCjEwODcgICAgICAgICAgICBpbnQgZ3JvdXAsIHY7CjEwODggICAgICAgICAg
-ICBpbnQgdXBhLCBhcGw7ICAgLyogdW5pdHMgcGVyIGFsbG9jLCBhbGxvY3MgcGVyIGxpbmUgKi8K
-MTA4OQoxMDkwICAgICAgICAgICAgdiA9IGFpLT5ucl9ncm91cHM7CiAgIDB4YzAzZmI4MDQgPCs0
-ND46ICAgIGxkciAgICAgcjAsIFtyMSwgIzI4XQoKMTA5MSAgICAgICAgICAgIHdoaWxlICh2IC89
-IDEwKQogICAweGMwM2ZiODBjIDwrNTI+OiAgICBiICAgICAgIDB4YzAzZmI4MTQgPHBjcHVfZHVt
-cF9hbGxvY19pbmZvKzYwPgogICAweGMwM2ZiODE0IDwrNjA+OiAgICBtb3YgICAgIHIxLCAjMTAK
-ICAgMHhjMDNmYjgxOCA8KzY0PjogICAgYmwgICAgICAweGMwMjM4NmI4IDxfX2RpdnNpMz4KICAg
-MHhjMDNmYjgxYyA8KzY4PjogICAgY21wICAgICByMCwgIzAKICAgMHhjMDNmYjgyMCA8KzcyPjog
-ICAgYm5lICAgICAweGMwM2ZiODEwIDxwY3B1X2R1bXBfYWxsb2NfaW5mbys1Nj4KCjEwOTIgICAg
-ICAgICAgICAgICAgICAgIGdyb3VwX3dpZHRoKys7CiAgIDB4YzAzZmI4MTAgPCs1Nj46ICAgIGFk
-ZCAgICAgcjcsIHI3LCAjMQoKMTA5MwoxMDk0ICAgICAgICAgICAgdiA9IG51bV9wb3NzaWJsZV9j
-cHVzKCk7CjEwOTUgICAgICAgICAgICB3aGlsZSAodiAvPSAxMCkKICAgMHhjMDNmYjg0MCA8KzEw
-ND46ICAgYiAgICAgICAweGMwM2ZiODQ4IDxwY3B1X2R1bXBfYWxsb2NfaW5mbysxMTI+CiAgIDB4
-YzAzZmI4NDggPCsxMTI+OiAgIG1vdiAgICAgcjAsIHI1CiAgIDB4YzAzZmI4NGMgPCsxMTY+OiAg
-IG1vdiAgICAgcjEsICMxMAogICAweGMwM2ZiODUwIDwrMTIwPjogICBibCAgICAgIDB4YzAyMzg2
-YjggPF9fZGl2c2kzPgogICAweGMwM2ZiODU0IDwrMTI0PjogICBzdWJzICAgIHI1LCByMCwgIzAK
-ICAgMHhjMDNmYjg1OCA8KzEyOD46ICAgYm5lICAgICAweGMwM2ZiODQ0IDxwY3B1X2R1bXBfYWxs
-b2NfaW5mbysxMDg+CgoxMDk2ICAgICAgICAgICAgICAgICAgICBjcHVfd2lkdGgrKzsKICAgMHhj
-MDNmYjg0NCA8KzEwOD46ICAgYWRkICAgICByNiwgcjYsICMxCgoxMDk3ICAgICAgICAgICAgZW1w
-dHlfc3RyW21pbl90KGludCwgY3B1X3dpZHRoLCBzaXplb2YoZW1wdHlfc3RyKSAtIDEpXSA9ICdc
-MCc7CiAgIDB4YzAzZmI4NWMgPCsxMzI+OiAgIGFkZCAgICAgcjEsIHNwLCAjNTYgICAgIDsgMHgz
-OAogICAweGMwM2ZiODYwIDwrMTM2PjogICBjbXAgICAgIHI2LCAjOAogICAweGMwM2ZiODY0IDwr
-MTQwPjogICBtb3ZsdCAgIHIzLCByNgogICAweGMwM2ZiODY4IDwrMTQ0PjogICBtb3ZnZSAgIHIz
-LCAjOAogICAweGMwM2ZiODZjIDwrMTQ4PjogICBhZGQgICAgIHIzLCByMSwgcjMKICAgMHhjMDNm
-Yjg3OCA8KzE2MD46ICAgc3RyYiAgICByNSwgW3IzLCAjLTldCgoxMDk4CjEwOTkgICAgICAgICAg
-ICB1cGEgPSBhaS0+YWxsb2Nfc2l6ZSAvIGFpLT51bml0X3NpemU7CiAgIDB4YzAzZmI4NzAgPCsx
-NTI+OiAgIGxkciAgICAgcjksIFtyNCwgIzIwXQogICAweGMwM2ZiODc0IDwrMTU2PjogICBsZHIg
-ICAgIHIxMSwgW3I0LCAjMTJdCiAgIDB4YzAzZmI4N2MgPCsxNjQ+OiAgIG1vdiAgICAgcjEsIHIx
-MQogICAweGMwM2ZiODgwIDwrMTY4PjogICBtb3YgICAgIHIwLCByOQogICAweGMwM2ZiODg0IDwr
-MTcyPjogICBibCAgICAgIDB4YzAyMzg1N2MgPF9fdWRpdnNpMz4KICAgMHhjMDNmYjg5MCA8KzE4
-ND46ICAgbW92ICAgICByMTAsIHIwCgoxMTAwICAgICAgICAgICAgd2lkdGggPSB1cGEgKiAoY3B1
-X3dpZHRoICsgMSkgKyBncm91cF93aWR0aCArIDM7CiAgIDB4YzAzZmI4ODggPCsxNzY+OiAgIGFk
-ZCAgICAgcjEsIHI2LCAjMQogICAweGMwM2ZiODhjIDwrMTgwPjogICBtbGEgICAgIHIxLCByMSwg
-cjAsIHI3CgoxMTAxICAgICAgICAgICAgYXBsID0gcm91bmRkb3duX3Bvd19vZl90d28obWF4KDYw
-IC8gd2lkdGgsIDEpKTsKICAgMHhjMDNmYjg5NCA8KzE4OD46ICAgYWRkICAgICByMSwgcjEsICMz
-CiAgIDB4YzAzZmI4OTggPCsxOTI+OiAgIG1vdiAgICAgcjAsICM2MCA7IDB4M2MKICAgMHhjMDNm
-Yjg5YyA8KzE5Nj46ICAgYmwgICAgICAweGMwMjM4NmI4IDxfX2RpdnNpMz4KICAgMHhjMDNmYjhh
-YyA8KzIxMj46ICAgY21wICAgICByMCwgIzEKICAgMHhjMDNmYjhiMCA8KzIxNj46ICAgbW92bHQg
-ICByMCwgIzEKCjExMDIKMTEwMyAgICAgICAgICAgIHByaW50aygiJXNwY3B1LWFsbG9jOiBzJXp1
-IHIlenUgZCV6dSB1JXp1IGFsbG9jPSV6dSolenUiLAogICAweGMwM2ZiOGE4IDwrMjA4PjogICBt
-b3YgICAgIHIxLCByOAogICAweGMwM2ZiOGJjIDwrMjI4PjogICBtb3YgICAgIHIwLCByOQogICAw
-eGMwM2ZiOGM0IDwrMjM2PjogICBsZHIgICAgIHIzLCBbcjQsICM4XQogICAweGMwM2ZiOGNjIDwr
-MjQ0PjogICBzdG0gICAgIHNwLCB7cjMsIHIxMX0KICAgMHhjMDNmYjhkMCA8KzI0OD46ICAgYmwg
-ICAgICAweGMwMjM4NTdjIDxfX3VkaXZzaTM+CiAgIDB4YzAzZmI4ZDQgPCsyNTI+OiAgIHN0ciAg
-ICAgcjgsIFtzcCwgIzEyXQogICAweGMwM2ZiOGQ4IDwrMjU2PjogICBsZHIgICAgIHIxLCBbc3As
-ICMyOF0KICAgMHhjMDNmYjhkYyA8KzI2MD46ICAgbGRtICAgICByNCwge3IyLCByM30KICAgMHhj
-MDNmYjhlNCA8KzI2OD46ICAgc3RyICAgICByMCwgW3NwLCAjOF0KICAgMHhjMDNmYjhlOCA8KzI3
-Mj46ICAgbGRyICAgICByMCwgW3BjLCAjMjg4XSAgOyAweGMwM2ZiYTEwIDxwY3B1X2R1bXBfYWxs
-b2NfaW5mbys1Njg+CiAgIDB4YzAzZmI4ZWMgPCsyNzY+OiAgIGJsICAgICAgMHhjMDNmOWY0OCA8
-cHJpbnRrPgoKMTEwNCAgICAgICAgICAgICAgICAgICBsdmwsIGFpLT5zdGF0aWNfc2l6ZSwgYWkt
-PnJlc2VydmVkX3NpemUsIGFpLT5keW5fc2l6ZSwKMTEwNSAgICAgICAgICAgICAgICAgICBhaS0+
-dW5pdF9zaXplLCBhaS0+YWxsb2Nfc2l6ZSAvIGFpLT5hdG9tX3NpemUsIGFpLT5hdG9tX3NpemUp
-OwogICAweGMwM2ZiOGE0IDwrMjA0PjogICBsZHIgICAgIHI4LCBbcjQsICMxNl0KCjExMDYKMTEw
-NyAgICAgICAgICAgIGZvciAoZ3JvdXAgPSAwOyBncm91cCA8IGFpLT5ucl9ncm91cHM7IGdyb3Vw
-KyspIHsKICAgMHhjMDNmYjhmNCA8KzI4ND46ICAgYiAgICAgICAweGMwM2ZiOWVjIDxwY3B1X2R1
-bXBfYWxsb2NfaW5mbys1MzI+CiAgIDB4YzAzZmI5ZTggPCs1Mjg+OiAgIGFkZCAgICAgcjUsIHI1
-LCAjMQogICAweGMwM2ZiOWVjIDwrNTMyPjogICBsZHIgICAgIHIzLCBbcjQsICMyOF0KICAgMHhj
-MDNmYjlmMCA8KzUzNj46ICAgY21wICAgICByNSwgcjMKICAgMHhjMDNmYjlmNCA8KzU0MD46ICAg
-Ymx0ICAgICAweGMwM2ZiOGY4IDxwY3B1X2R1bXBfYWxsb2NfaW5mbysyODg+CgoxMTA4ICAgICAg
-ICAgICAgICAgICAgICBjb25zdCBzdHJ1Y3QgcGNwdV9ncm91cF9pbmZvICpnaSA9ICZhaS0+Z3Jv
-dXBzW2dyb3VwXTsKICAgMHhjMDNmYjhmOCA8KzI4OD46ICAgbW92ICAgICByMywgIzEyCiAgIDB4
-YzAzZmI5MDAgPCsyOTY+OiAgIG11bCAgICAgcjMsIHIzLCByNQogICAweGMwM2ZiOTA0IDwrMzAw
-PjogICBhZGQgICAgIHIzLCByMywgIzMyCiAgIDB4YzAzZmI5MDggPCszMDQ+OiAgIGFkZCAgICAg
-cjIsIHI0LCByMwogICAweGMwM2ZiOTEwIDwrMzEyPjogICBzdHIgICAgIHIyLCBbc3AsICMzNl0g
-ICA7IDB4MjQKCjExMDkgICAgICAgICAgICAgICAgICAgIGludCB1bml0ID0gMCwgdW5pdF9lbmQg
-PSAwOwogICAweGMwM2ZiOTM4IDwrMzUyPjogICBtb3YgICAgIHI5LCByMTEKCjExMTAKMTExMSAg
-ICAgICAgICAgICAgICAgICAgQlVHX09OKGdpLT5ucl91bml0cyAlIHVwYSk7CiAgIDB4YzAzZmI4
-ZmMgPCsyOTI+OiAgIG1vdiAgICAgcjEsIHIxMAogICAweGMwM2ZiOTBjIDwrMzA4PjogICBsZHIg
-ICAgIHI5LCBbcjQsIHIzXQogICAweGMwM2ZiOTE0IDwrMzE2PjogICBtb3YgICAgIHIwLCByOQog
-ICAweGMwM2ZiOTE4IDwrMzIwPjogICBibCAgICAgIDB4YzAyMzg4NTQgPF9fYWVhYmlfaWRpdm1v
-ZD4KICAgMHhjMDNmYjkxYyA8KzMyND46ICAgc3VicyAgICByMTEsIHIxLCAjMAogICAweGMwM2Zi
-OTIwIDwrMzI4PjogICBiZXEgICAgIDB4YzAzZmI5MjggPHBjcHVfZHVtcF9hbGxvY19pbmZvKzMz
-Nj4KICAgMHhjMDNmYjkyNCA8KzMzMj46ICAgYiAgICAgICAweGMwM2ZiOTI0IDxwY3B1X2R1bXBf
-YWxsb2NfaW5mbyszMzI+CgoxMTEyICAgICAgICAgICAgICAgICAgICBmb3IgKGFsbG9jX2VuZCAr
-PSBnaS0+bnJfdW5pdHMgLyB1cGE7CiAgIDB4YzAzZmI5MjggPCszMzY+OiAgIG1vdiAgICAgcjAs
-IHI5CiAgIDB4YzAzZmI5MmMgPCszNDA+OiAgIG1vdiAgICAgcjEsIHIxMAogICAweGMwM2ZiOTMw
-IDwrMzQ0PjogICBibCAgICAgIDB4YzAyMzg2YjggPF9fZGl2c2kzPgogICAweGMwM2ZiOTM0IDwr
-MzQ4PjogICBsZHIgICAgIHIzLCBbc3AsICMyNF0KICAgMHhjMDNmYjkzYyA8KzM1Nj46ICAgYWRk
-ICAgICByMywgcjMsIHIwCiAgIDB4YzAzZmI5NDAgPCszNjA+OiAgIHN0ciAgICAgcjMsIFtzcCwg
-IzI0XQogICAweGMwM2ZiOTQ0IDwrMzY0PjogICBiICAgICAgIDB4YzAzZmI5ZGMgPHBjcHVfZHVt
-cF9hbGxvY19pbmZvKzUxNj4KICAgMHhjMDNmYjlkYyA8KzUxNj46ICAgbGRyICAgICByMywgW3Nw
-LCAjMjRdCiAgIDB4YzAzZmI5ZTAgPCs1MjA+OiAgIGNtcCAgICAgcjgsIHIzCiAgIDB4YzAzZmI5
-ZTQgPCs1MjQ+OiAgIGJsdCAgICAgMHhjMDNmYjk0OCA8cGNwdV9kdW1wX2FsbG9jX2luZm8rMzY4
-PgoKMTExMyAgICAgICAgICAgICAgICAgICAgICAgICBhbGxvYyA8IGFsbG9jX2VuZDsgYWxsb2Mr
-KykgewogICAweGMwM2ZiOWQ4IDwrNTEyPjogICBhZGQgICAgIHI4LCByOCwgIzEKCjExMTQgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCEoYWxsb2MgJSBhcGwpKSB7CiAgIDB4YzAzZmI5
-NDggPCszNjg+OiAgIG1vdiAgICAgcjAsIHI4CiAgIDB4YzAzZmI5NGMgPCszNzI+OiAgIGxkciAg
-ICAgcjEsIFtzcCwgIzMyXQogICAweGMwM2ZiOTUwIDwrMzc2PjogICBibCAgICAgIDB4YzAyMzg4
-NTQgPF9fYWVhYmlfaWRpdm1vZD4KICAgMHhjMDNmYjk1NCA8KzM4MD46ICAgY21wICAgICByMSwg
-IzAKICAgMHhjMDNmYjk1OCA8KzM4ND46ICAgYm5lICAgICAweGMwM2ZiOTcwIDxwY3B1X2R1bXBf
-YWxsb2NfaW5mbys0MDg+CgoxMTE1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cHJpbnRrKCJcbiIpOwogICAweGMwM2ZiOTVjIDwrMzg4PjogICBsZHIgICAgIHIwLCBbcGMsICMx
-NzZdICA7IDB4YzAzZmJhMTQgPHBjcHVfZHVtcF9hbGxvY19pbmZvKzU3Mj4KICAgMHhjMDNmYjk2
-MCA8KzM5Mj46ICAgYmwgICAgICAweGMwM2Y5ZjQ4IDxwcmludGs+CgoxMTE2ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcHJpbnRrKCIlc3BjcHUtYWxsb2M6ICIsIGx2bCk7CiAg
-IDB4YzAzZmI5NjQgPCszOTY+OiAgIGxkciAgICAgcjAsIFtwYywgIzE3Ml0gIDsgMHhjMDNmYmEx
-OCA8cGNwdV9kdW1wX2FsbG9jX2luZm8rNTc2PgogICAweGMwM2ZiOTY4IDwrNDAwPjogICBsZHIg
-ICAgIHIxLCBbc3AsICMyOF0KICAgMHhjMDNmYjk2YyA8KzQwND46ICAgYmwgICAgICAweGMwM2Y5
-ZjQ4IDxwcmludGs+CgoxMTE3ICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KMTExOCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwcmludGsoIlslMCpkXSAiLCBncm91cF93aWR0aCwgZ3Jv
-dXApOwogICAweGMwM2ZiOTcwIDwrNDA4PjogICBsZHIgICAgIHIwLCBbcGMsICMxNjRdICA7IDB4
-YzAzZmJhMWMgPHBjcHVfZHVtcF9hbGxvY19pbmZvKzU4MD4KICAgMHhjMDNmYjk3NCA8KzQxMj46
-ICAgbW92ICAgICByMSwgcjcKICAgMHhjMDNmYjk3OCA8KzQxNj46ICAgbW92ICAgICByMiwgcjUK
-ICAgMHhjMDNmYjk3YyA8KzQyMD46ICAgYmwgICAgICAweGMwM2Y5ZjQ4IDxwcmludGs+CgoxMTE5
-CjExMjAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZm9yICh1bml0X2VuZCArPSB1cGE7IHVu
-aXQgPCB1bml0X2VuZDsgdW5pdCsrKQogICAweGMwM2ZiOTgwIDwrNDI0PjogICBhZGQgICAgIHIx
-MSwgcjExLCByMTAKICAgMHhjMDNmYjk4NCA8KzQyOD46ICAgbHNsICAgICByMywgcjksICMyCiAg
-IDB4YzAzZmI5ODggPCs0MzI+OiAgIGIgICAgICAgMHhjMDNmYjlkMCA8cGNwdV9kdW1wX2FsbG9j
-X2luZm8rNTA0PgogICAweGMwM2ZiOWM4IDwrNDk2PjogICBhZGQgICAgIHI5LCByOSwgIzEKICAg
-MHhjMDNmYjljYyA8KzUwMD46ICAgYWRkICAgICByMywgcjMsICM0CiAgIDB4YzAzZmI5ZDAgPCs1
-MDQ+OiAgIGNtcCAgICAgcjksIHIxMQogICAweGMwM2ZiOWQ0IDwrNTA4PjogICBibHQgICAgIDB4
-YzAzZmI5OGMgPHBjcHVfZHVtcF9hbGxvY19pbmZvKzQzNj4KCjExMjEgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBpZiAoZ2ktPmNwdV9tYXBbdW5pdF0gIT0gTlJfQ1BVUykKICAg
-MHhjMDNmYjk4YyA8KzQzNj46ICAgbGRyICAgICByMSwgW3NwLCAjMzZdICAgOyAweDI0CiAgIDB4
-YzAzZmI5OTAgPCs0NDA+OiAgIGxkciAgICAgcjIsIFtyMSwgIzhdCiAgIDB4YzAzZmI5OTQgPCs0
-NDQ+OiAgIGxkciAgICAgcjIsIFtyMiwgcjNdCiAgIDB4YzAzZmI5OTggPCs0NDg+OiAgIGNtcCAg
-ICAgcjIsICMyCiAgIDB4YzAzZmI5OWMgPCs0NTI+OiAgIGJlcSAgICAgMHhjMDNmYjliNCA8cGNw
-dV9kdW1wX2FsbG9jX2luZm8rNDc2PgoKMTEyMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcHJpbnRrKCIlMCpkICIsIGNwdV93aWR0aCwKICAgMHhjMDNmYjlhMCA8
-KzQ1Nj46ICAgbW92ICAgICByMSwgcjYKICAgMHhjMDNmYjlhNCA8KzQ2MD46ICAgbGRyICAgICBy
-MCwgW3BjLCAjMTE2XSAgOyAweGMwM2ZiYTIwIDxwY3B1X2R1bXBfYWxsb2NfaW5mbys1ODQ+CiAg
-IDB4YzAzZmI5YTggPCs0NjQ+OiAgIHN0ciAgICAgcjMsIFtzcCwgIzIwXQogICAweGMwM2ZiOWFj
-IDwrNDY4PjogICBibCAgICAgIDB4YzAzZjlmNDggPHByaW50az4KICAgMHhjMDNmYjliMCA8KzQ3
-Mj46ICAgYiAgICAgICAweGMwM2ZiOWM0IDxwY3B1X2R1bXBfYWxsb2NfaW5mbys0OTI+CgoxMTIz
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ2ktPmNw
-dV9tYXBbdW5pdF0pOwoxMTI0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZWxz
-ZQoxMTI1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcmludGso
-IiVzICIsIGVtcHR5X3N0cik7CiAgIDB4YzAzZmI5YjQgPCs0NzY+OiAgIGxkciAgICAgcjAsIFtw
-YywgIzEwNF0gIDsgMHhjMDNmYmEyNCA8cGNwdV9kdW1wX2FsbG9jX2luZm8rNTg4PgogICAweGMw
-M2ZiOWI4IDwrNDgwPjogICBhZGQgICAgIHIxLCBzcCwgIzQ3ICAgICA7IDB4MmYKICAgMHhjMDNm
-YjliYyA8KzQ4ND46ICAgc3RyICAgICByMywgW3NwLCAjMjBdCiAgIDB4YzAzZmI5YzAgPCs0ODg+
-OiAgIGJsICAgICAgMHhjMDNmOWY0OCA8cHJpbnRrPgogICAweGMwM2ZiOWM0IDwrNDkyPjogICBs
-ZHIgICAgIHIzLCBbc3AsICMyMF0KCjExMjYgICAgICAgICAgICAgICAgICAgIH0KMTEyNyAgICAg
-ICAgICAgIH0KMTEyOCAgICAgICAgICAgIHByaW50aygiXG4iKTsKICAgMHhjMDNmYjlmOCA8KzU0
-ND46ICAgbGRyICAgICByMCwgW3BjLCAjMjBdICAgOyAweGMwM2ZiYTE0IDxwY3B1X2R1bXBfYWxs
-b2NfaW5mbys1NzI+CiAgIDB4YzAzZmI5ZmMgPCs1NDg+OiAgIGJsICAgICAgMHhjMDNmOWY0OCA8
-cHJpbnRrPgoxMTI5ICAgIH0KICAgMHhjMDNmYmEwMCA8KzU1Mj46ICAgYWRkICAgICBzcCwgc3As
-ICM2MCAgICAgOyAweDNjCiAgIDB4YzAzZmJhMDQgPCs1NTY+OiAgIHBvcCAgICAge3I0LCByNSwg
-cjYsIHI3LCByOCwgcjksIHIxMCwgcjExLCBwY30KICAgMHhjMDNmYmEwOCA8KzU2MD46ICAgc3Vi
-c2d0ICByMTEsIHIwLCByNiwgcm9yIHIxCiAgIDB4YzAzZmJhMGMgPCs1NjQ+OiAgIHN0cmRndCAg
-cjEyLCBbcjBdLCAjLTE0NCAgICAgICAgOyAweGZmZmZmZjcwCiAgIDB4YzAzZmJhMTAgPCs1Njg+
-OiAgIHN1YnNndCAgcjExLCByMCwgcjksIGxzciAjMgogICAweGMwM2ZiYTE0IDwrNTcyPjogICBz
-dWJzZ3QgIHI0LCByMCwgcjEsIHJvciByMAogICAweGMwM2ZiYTE4IDwrNTc2PjogICBzdWJzZ3Qg
-IHIxMSwgcjAsIHI5LCBhc3IgcjEKICAgMHhjMDNmYmExYyA8KzU4MD46ICAgc3Vic2d0ICByMTEs
-IHIwLCByOCwgcm9yICMyCiAgIDB4YzAzZmJhMjAgPCs1ODQ+OiAgIHN1YnNndCAgcjExLCByMCwg
-cjAsIHJvciByMQogICAweGMwM2ZiYTI0IDwrNTg4PjogICBzdWJzZ3QgIHI5LCByMiwgcjQsIGFz
-ciAjMTkKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KRHVtcCBvZiBhc3Nl
-bWJsZXIgY29kZSBmb3IgZnVuY3Rpb24gcGNwdV9kdW1wX2FsbG9jX2luZm86CiAgIDB4YzAzZmI3
-ZDggPCswPjogICAgIDI4IDMyIDlmIGU1ICAgICBsZHIgICAgIHIzLCBbcGMsICM1NTJdICA7IDB4
-YzAzZmJhMDggPHBjcHVfZHVtcF9hbGxvY19pbmZvKzU2MD4KICAgMHhjMDNmYjdkYyA8KzQ+OiAg
-ICAgZjAgNGYgMmQgZTkgICAgIHB1c2ggICAge3I0LCByNSwgcjYsIHI3LCByOCwgcjksIHIxMCwg
-cjExLCBscn0KICAgMHhjMDNmYjdlMCA8Kzg+OiAgICAgM2MgZDAgNGQgZTIgICAgIHN1YiAgICAg
-c3AsIHNwLCAjNjAgICAgIDsgMHgzYwogICAweGMwM2ZiN2U0IDwrMTI+OiAgICAwMCAyMCA5MyBl
-NSAgICAgbGRyICAgICByMiwgW3IzXQogICAweGMwM2ZiN2U4IDwrMTY+OiAgICAxYyAwMCA4ZCBl
-NSAgICAgc3RyICAgICByMCwgW3NwLCAjMjhdCiAgIDB4YzAzZmI3ZWMgPCsyMD46ICAgIDJmIDIw
-IDhkIGU1ICAgICBzdHIgICAgIHIyLCBbc3AsICM0N10gICA7IDB4MmYKICAgMHhjMDNmYjdmMCA8
-KzI0PjogICAgMDQgMjAgOTMgZTUgICAgIGxkciAgICAgcjIsIFtyMywgIzRdCiAgIDB4YzAzZmI3
-ZjQgPCsyOD46ICAgIDA4IDMwIGQzIGU1ICAgICBsZHJiICAgIHIzLCBbcjMsICM4XQogICAweGMw
-M2ZiN2Y4IDwrMzI+OiAgICAwMSA0MCBhMCBlMSAgICAgbW92ICAgICByNCwgcjEKICAgMHhjMDNm
-YjdmYyA8KzM2PjogICAgMzMgMjAgOGQgZTUgICAgIHN0ciAgICAgcjIsIFtzcCwgIzUxXSAgIDsg
-MHgzMwogICAweGMwM2ZiODAwIDwrNDA+OiAgICAzNyAzMCBjZCBlNSAgICAgc3RyYiAgICByMywg
-W3NwLCAjNTVdICAgOyAweDM3CiAgIDB4YzAzZmI4MDQgPCs0ND46ICAgIDFjIDAwIDkxIGU1ICAg
-ICBsZHIgICAgIHIwLCBbcjEsICMyOF0KICAgMHhjMDNmYjgwOCA8KzQ4PjogICAgMDEgNzAgYTAg
-ZTMgICAgIG1vdiAgICAgcjcsICMxCiAgIDB4YzAzZmI4MGMgPCs1Mj46ICAgIDAwIDAwIDAwIGVh
-ICAgICBiICAgICAgIDB4YzAzZmI4MTQgPHBjcHVfZHVtcF9hbGxvY19pbmZvKzYwPgogICAweGMw
-M2ZiODEwIDwrNTY+OiAgICAwMSA3MCA4NyBlMiAgICAgYWRkICAgICByNywgcjcsICMxCiAgIDB4
-YzAzZmI4MTQgPCs2MD46ICAgIDBhIDEwIGEwIGUzICAgICBtb3YgICAgIHIxLCAjMTAKICAgMHhj
-MDNmYjgxOCA8KzY0PjogICAgYTYgZjMgZjggZWIgICAgIGJsICAgICAgMHhjMDIzODZiOCA8X19k
-aXZzaTM+CiAgIDB4YzAzZmI4MWMgPCs2OD46ICAgIDAwIDAwIDUwIGUzICAgICBjbXAgICAgIHIw
-LCAjMAogICAweGMwM2ZiODIwIDwrNzI+OiAgICBmYSBmZiBmZiAxYSAgICAgYm5lICAgICAweGMw
-M2ZiODEwIDxwY3B1X2R1bXBfYWxsb2NfaW5mbys1Nj4KICAgMHhjMDNmYjgyNCA8Kzc2PjogICAg
-ZTAgMzEgOWYgZTUgICAgIGxkciAgICAgcjMsIFtwYywgIzQ4MF0gIDsgMHhjMDNmYmEwYyA8cGNw
-dV9kdW1wX2FsbG9jX2luZm8rNTY0PgogICAweGMwM2ZiODI4IDwrODA+OiAgICAwMSA2MCBhMCBl
-MyAgICAgbW92ICAgICByNiwgIzEKICAgMHhjMDNmYjgyYyA8Kzg0PjogICAgMDAgMzAgOTMgZTUg
-ICAgIGxkciAgICAgcjMsIFtyM10KICAgMHhjMDNmYjgzMCA8Kzg4PjogICAgMDAgMDAgOTMgZTUg
-ICAgIGxkciAgICAgcjAsIFtyM10KICAgMHhjMDNmYjgzNCA8KzkyPjogICAgMDMgMDAgMDAgZTIg
-ICAgIGFuZCAgICAgcjAsIHIwLCAjMwogICAweGMwM2ZiODM4IDwrOTY+OiAgICBjNiAyYiBmOSBl
-YiAgICAgYmwgICAgICAweGMwMjQ2NzU4IDxfX3N3X2h3ZWlnaHQzMj4KICAgMHhjMDNmYjgzYyA8
-KzEwMD46ICAgMDAgNTAgYTAgZTEgICAgIG1vdiAgICAgcjUsIHIwCiAgIDB4YzAzZmI4NDAgPCsx
-MDQ+OiAgIDAwIDAwIDAwIGVhICAgICBiICAgICAgIDB4YzAzZmI4NDggPHBjcHVfZHVtcF9hbGxv
-Y19pbmZvKzExMj4KICAgMHhjMDNmYjg0NCA8KzEwOD46ICAgMDEgNjAgODYgZTIgICAgIGFkZCAg
-ICAgcjYsIHI2LCAjMQogICAweGMwM2ZiODQ4IDwrMTEyPjogICAwNSAwMCBhMCBlMSAgICAgbW92
-ICAgICByMCwgcjUKICAgMHhjMDNmYjg0YyA8KzExNj46ICAgMGEgMTAgYTAgZTMgICAgIG1vdiAg
-ICAgcjEsICMxMAogICAweGMwM2ZiODUwIDwrMTIwPjogICA5OCBmMyBmOCBlYiAgICAgYmwgICAg
-ICAweGMwMjM4NmI4IDxfX2RpdnNpMz4KICAgMHhjMDNmYjg1NCA8KzEyND46ICAgMDAgNTAgNTAg
-ZTIgICAgIHN1YnMgICAgcjUsIHIwLCAjMAogICAweGMwM2ZiODU4IDwrMTI4PjogICBmOSBmZiBm
-ZiAxYSAgICAgYm5lICAgICAweGMwM2ZiODQ0IDxwY3B1X2R1bXBfYWxsb2NfaW5mbysxMDg+CiAg
-IDB4YzAzZmI4NWMgPCsxMzI+OiAgIDM4IDEwIDhkIGUyICAgICBhZGQgICAgIHIxLCBzcCwgIzU2
-ICAgICA7IDB4MzgKICAgMHhjMDNmYjg2MCA8KzEzNj46ICAgMDggMDAgNTYgZTMgICAgIGNtcCAg
-ICAgcjYsICM4CiAgIDB4YzAzZmI4NjQgPCsxNDA+OiAgIDA2IDMwIGEwIGIxICAgICBtb3ZsdCAg
-IHIzLCByNgogICAweGMwM2ZiODY4IDwrMTQ0PjogICAwOCAzMCBhMCBhMyAgICAgbW92Z2UgICBy
-MywgIzgKICAgMHhjMDNmYjg2YyA8KzE0OD46ICAgMDMgMzAgODEgZTAgICAgIGFkZCAgICAgcjMs
-IHIxLCByMwogICAweGMwM2ZiODcwIDwrMTUyPjogICAxNCA5MCA5NCBlNSAgICAgbGRyICAgICBy
-OSwgW3I0LCAjMjBdCiAgIDB4YzAzZmI4NzQgPCsxNTY+OiAgIDBjIGIwIDk0IGU1ICAgICBsZHIg
-ICAgIHIxMSwgW3I0LCAjMTJdCiAgIDB4YzAzZmI4NzggPCsxNjA+OiAgIDA5IDUwIDQzIGU1ICAg
-ICBzdHJiICAgIHI1LCBbcjMsICMtOV0KICAgMHhjMDNmYjg3YyA8KzE2ND46ICAgMGIgMTAgYTAg
-ZTEgICAgIG1vdiAgICAgcjEsIHIxMQogICAweGMwM2ZiODgwIDwrMTY4PjogICAwOSAwMCBhMCBl
-MSAgICAgbW92ICAgICByMCwgcjkKICAgMHhjMDNmYjg4NCA8KzE3Mj46ICAgM2MgZjMgZjggZWIg
-ICAgIGJsICAgICAgMHhjMDIzODU3YyA8X191ZGl2c2kzPgogICAweGMwM2ZiODg4IDwrMTc2Pjog
-ICAwMSAxMCA4NiBlMiAgICAgYWRkICAgICByMSwgcjYsICMxCiAgIDB4YzAzZmI4OGMgPCsxODA+
-OiAgIDkxIDcwIDIxIGUwICAgICBtbGEgICAgIHIxLCByMSwgcjAsIHI3CiAgIDB4YzAzZmI4OTAg
-PCsxODQ+OiAgIDAwIGEwIGEwIGUxICAgICBtb3YgICAgIHIxMCwgcjAKICAgMHhjMDNmYjg5NCA8
-KzE4OD46ICAgMDMgMTAgODEgZTIgICAgIGFkZCAgICAgcjEsIHIxLCAjMwogICAweGMwM2ZiODk4
-IDwrMTkyPjogICAzYyAwMCBhMCBlMyAgICAgbW92ICAgICByMCwgIzYwIDsgMHgzYwogICAweGMw
-M2ZiODljIDwrMTk2PjogICA4NSBmMyBmOCBlYiAgICAgYmwgICAgICAweGMwMjM4NmI4IDxfX2Rp
-dnNpMz4KICAgMHhjMDNmYjhhMCA8KzIwMD46ICAgMDEgMjAgYTAgZTMgICAgIG1vdiAgICAgcjIs
-ICMxCiAgIDB4YzAzZmI4YTQgPCsyMDQ+OiAgIDEwIDgwIDk0IGU1ICAgICBsZHIgICAgIHI4LCBb
-cjQsICMxNl0KICAgMHhjMDNmYjhhOCA8KzIwOD46ICAgMDggMTAgYTAgZTEgICAgIG1vdiAgICAg
-cjEsIHI4CiAgIDB4YzAzZmI4YWMgPCsyMTI+OiAgIDAxIDAwIDUwIGUzICAgICBjbXAgICAgIHIw
-LCAjMQogICAweGMwM2ZiOGIwIDwrMjE2PjogICAwMSAwMCBhMCBiMyAgICAgbW92bHQgICByMCwg
-IzEKICAgMHhjMDNmYjhiNCA8KzIyMD46ICAgMTAgM2YgNmYgZTEgICAgIGNseiAgICAgcjMsIHIw
-CiAgIDB4YzAzZmI4YjggPCsyMjQ+OiAgIDFmIDMwIDYzIGUyICAgICByc2IgICAgIHIzLCByMywg
-IzMxCiAgIDB4YzAzZmI4YmMgPCsyMjg+OiAgIDA5IDAwIGEwIGUxICAgICBtb3YgICAgIHIwLCBy
-OQogICAweGMwM2ZiOGMwIDwrMjMyPjogICAxMiAyMyBhMCBlMSAgICAgbHNsICAgICByMiwgcjIs
-IHIzCiAgIDB4YzAzZmI4YzQgPCsyMzY+OiAgIDA4IDMwIDk0IGU1ICAgICBsZHIgICAgIHIzLCBb
-cjQsICM4XQogICAweGMwM2ZiOGM4IDwrMjQwPjogICAyMCAyMCA4ZCBlNSAgICAgc3RyICAgICBy
-MiwgW3NwLCAjMzJdCiAgIDB4YzAzZmI4Y2MgPCsyNDQ+OiAgIDA4IDA4IDhkIGU4ICAgICBzdG0g
-ICAgIHNwLCB7cjMsIHIxMX0KICAgMHhjMDNmYjhkMCA8KzI0OD46ICAgMjkgZjMgZjggZWIgICAg
-IGJsICAgICAgMHhjMDIzODU3YyA8X191ZGl2c2kzPgogICAweGMwM2ZiOGQ0IDwrMjUyPjogICAw
-YyA4MCA4ZCBlNSAgICAgc3RyICAgICByOCwgW3NwLCAjMTJdCiAgIDB4YzAzZmI4ZDggPCsyNTY+
-OiAgIDFjIDEwIDlkIGU1ICAgICBsZHIgICAgIHIxLCBbc3AsICMyOF0KICAgMHhjMDNmYjhkYyA8
-KzI2MD46ICAgMGMgMDAgOTQgZTggICAgIGxkbSAgICAgcjQsIHtyMiwgcjN9CiAgIDB4YzAzZmI4
-ZTAgPCsyNjQ+OiAgIDA1IDgwIGEwIGUxICAgICBtb3YgICAgIHI4LCByNQogICAweGMwM2ZiOGU0
-IDwrMjY4PjogICAwOCAwMCA4ZCBlNSAgICAgc3RyICAgICByMCwgW3NwLCAjOF0KICAgMHhjMDNm
-YjhlOCA8KzI3Mj46ICAgMjAgMDEgOWYgZTUgICAgIGxkciAgICAgcjAsIFtwYywgIzI4OF0gIDsg
-MHhjMDNmYmExMCA8cGNwdV9kdW1wX2FsbG9jX2luZm8rNTY4PgogICAweGMwM2ZiOGVjIDwrMjc2
-PjogICA5NSBmOSBmZiBlYiAgICAgYmwgICAgICAweGMwM2Y5ZjQ4IDxwcmludGs+CiAgIDB4YzAz
-ZmI4ZjAgPCsyODA+OiAgIDE4IDUwIDhkIGU1ICAgICBzdHIgICAgIHI1LCBbc3AsICMyNF0KICAg
-MHhjMDNmYjhmNCA8KzI4ND46ICAgM2MgMDAgMDAgZWEgICAgIGIgICAgICAgMHhjMDNmYjllYyA8
-cGNwdV9kdW1wX2FsbG9jX2luZm8rNTMyPgogICAweGMwM2ZiOGY4IDwrMjg4PjogICAwYyAzMCBh
-MCBlMyAgICAgbW92ICAgICByMywgIzEyCiAgIDB4YzAzZmI4ZmMgPCsyOTI+OiAgIDBhIDEwIGEw
-IGUxICAgICBtb3YgICAgIHIxLCByMTAKICAgMHhjMDNmYjkwMCA8KzI5Nj46ICAgOTMgMDUgMDMg
-ZTAgICAgIG11bCAgICAgcjMsIHIzLCByNQogICAweGMwM2ZiOTA0IDwrMzAwPjogICAyMCAzMCA4
-MyBlMiAgICAgYWRkICAgICByMywgcjMsICMzMgogICAweGMwM2ZiOTA4IDwrMzA0PjogICAwMyAy
-MCA4NCBlMCAgICAgYWRkICAgICByMiwgcjQsIHIzCiAgIDB4YzAzZmI5MGMgPCszMDg+OiAgIDAz
-IDkwIDk0IGU3ICAgICBsZHIgICAgIHI5LCBbcjQsIHIzXQogICAweGMwM2ZiOTEwIDwrMzEyPjog
-ICAyNCAyMCA4ZCBlNSAgICAgc3RyICAgICByMiwgW3NwLCAjMzZdICAgOyAweDI0CiAgIDB4YzAz
-ZmI5MTQgPCszMTY+OiAgIDA5IDAwIGEwIGUxICAgICBtb3YgICAgIHIwLCByOQogICAweGMwM2Zi
-OTE4IDwrMzIwPjogICBjZCBmMyBmOCBlYiAgICAgYmwgICAgICAweGMwMjM4ODU0IDxfX2FlYWJp
-X2lkaXZtb2Q+CiAgIDB4YzAzZmI5MWMgPCszMjQ+OiAgIDAwIGIwIDUxIGUyICAgICBzdWJzICAg
-IHIxMSwgcjEsICMwCiAgIDB4YzAzZmI5MjAgPCszMjg+OiAgIDAwIDAwIDAwIDBhICAgICBiZXEg
-ICAgIDB4YzAzZmI5MjggPHBjcHVfZHVtcF9hbGxvY19pbmZvKzMzNj4KICAgMHhjMDNmYjkyNCA8
-KzMzMj46ICAgZmUgZmYgZmYgZWEgICAgIGIgICAgICAgMHhjMDNmYjkyNCA8cGNwdV9kdW1wX2Fs
-bG9jX2luZm8rMzMyPgogICAweGMwM2ZiOTI4IDwrMzM2PjogICAwOSAwMCBhMCBlMSAgICAgbW92
-ICAgICByMCwgcjkKICAgMHhjMDNmYjkyYyA8KzM0MD46ICAgMGEgMTAgYTAgZTEgICAgIG1vdiAg
-ICAgcjEsIHIxMAogICAweGMwM2ZiOTMwIDwrMzQ0PjogICA2MCBmMyBmOCBlYiAgICAgYmwgICAg
-ICAweGMwMjM4NmI4IDxfX2RpdnNpMz4KICAgMHhjMDNmYjkzNCA8KzM0OD46ICAgMTggMzAgOWQg
-ZTUgICAgIGxkciAgICAgcjMsIFtzcCwgIzI0XQogICAweGMwM2ZiOTM4IDwrMzUyPjogICAwYiA5
-MCBhMCBlMSAgICAgbW92ICAgICByOSwgcjExCiAgIDB4YzAzZmI5M2MgPCszNTY+OiAgIDAwIDMw
-IDgzIGUwICAgICBhZGQgICAgIHIzLCByMywgcjAKICAgMHhjMDNmYjk0MCA8KzM2MD46ICAgMTgg
-MzAgOGQgZTUgICAgIHN0ciAgICAgcjMsIFtzcCwgIzI0XQogICAweGMwM2ZiOTQ0IDwrMzY0Pjog
-ICAyNCAwMCAwMCBlYSAgICAgYiAgICAgICAweGMwM2ZiOWRjIDxwY3B1X2R1bXBfYWxsb2NfaW5m
-bys1MTY+CiAgIDB4YzAzZmI5NDggPCszNjg+OiAgIDA4IDAwIGEwIGUxICAgICBtb3YgICAgIHIw
-LCByOAogICAweGMwM2ZiOTRjIDwrMzcyPjogICAyMCAxMCA5ZCBlNSAgICAgbGRyICAgICByMSwg
-W3NwLCAjMzJdCiAgIDB4YzAzZmI5NTAgPCszNzY+OiAgIGJmIGYzIGY4IGViICAgICBibCAgICAg
-IDB4YzAyMzg4NTQgPF9fYWVhYmlfaWRpdm1vZD4KICAgMHhjMDNmYjk1NCA8KzM4MD46ICAgMDAg
-MDAgNTEgZTMgICAgIGNtcCAgICAgcjEsICMwCiAgIDB4YzAzZmI5NTggPCszODQ+OiAgIDA0IDAw
-IDAwIDFhICAgICBibmUgICAgIDB4YzAzZmI5NzAgPHBjcHVfZHVtcF9hbGxvY19pbmZvKzQwOD4K
-ICAgMHhjMDNmYjk1YyA8KzM4OD46ICAgYjAgMDAgOWYgZTUgICAgIGxkciAgICAgcjAsIFtwYywg
-IzE3Nl0gIDsgMHhjMDNmYmExNCA8cGNwdV9kdW1wX2FsbG9jX2luZm8rNTcyPgogICAweGMwM2Zi
-OTYwIDwrMzkyPjogICA3OCBmOSBmZiBlYiAgICAgYmwgICAgICAweGMwM2Y5ZjQ4IDxwcmludGs+
-CiAgIDB4YzAzZmI5NjQgPCszOTY+OiAgIGFjIDAwIDlmIGU1ICAgICBsZHIgICAgIHIwLCBbcGMs
-ICMxNzJdICA7IDB4YzAzZmJhMTggPHBjcHVfZHVtcF9hbGxvY19pbmZvKzU3Nj4KICAgMHhjMDNm
-Yjk2OCA8KzQwMD46ICAgMWMgMTAgOWQgZTUgICAgIGxkciAgICAgcjEsIFtzcCwgIzI4XQogICAw
-eGMwM2ZiOTZjIDwrNDA0PjogICA3NSBmOSBmZiBlYiAgICAgYmwgICAgICAweGMwM2Y5ZjQ4IDxw
-cmludGs+CiAgIDB4YzAzZmI5NzAgPCs0MDg+OiAgIGE0IDAwIDlmIGU1ICAgICBsZHIgICAgIHIw
-LCBbcGMsICMxNjRdICA7IDB4YzAzZmJhMWMgPHBjcHVfZHVtcF9hbGxvY19pbmZvKzU4MD4KICAg
-MHhjMDNmYjk3NCA8KzQxMj46ICAgMDcgMTAgYTAgZTEgICAgIG1vdiAgICAgcjEsIHI3CiAgIDB4
-YzAzZmI5NzggPCs0MTY+OiAgIDA1IDIwIGEwIGUxICAgICBtb3YgICAgIHIyLCByNQogICAweGMw
-M2ZiOTdjIDwrNDIwPjogICA3MSBmOSBmZiBlYiAgICAgYmwgICAgICAweGMwM2Y5ZjQ4IDxwcmlu
-dGs+CiAgIDB4YzAzZmI5ODAgPCs0MjQ+OiAgIDBhIGIwIDhiIGUwICAgICBhZGQgICAgIHIxMSwg
-cjExLCByMTAKICAgMHhjMDNmYjk4NCA8KzQyOD46ICAgMDkgMzEgYTAgZTEgICAgIGxzbCAgICAg
-cjMsIHI5LCAjMgogICAweGMwM2ZiOTg4IDwrNDMyPjogICAxMCAwMCAwMCBlYSAgICAgYiAgICAg
-ICAweGMwM2ZiOWQwIDxwY3B1X2R1bXBfYWxsb2NfaW5mbys1MDQ+CiAgIDB4YzAzZmI5OGMgPCs0
-MzY+OiAgIDI0IDEwIDlkIGU1ICAgICBsZHIgICAgIHIxLCBbc3AsICMzNl0gICA7IDB4MjQKICAg
-MHhjMDNmYjk5MCA8KzQ0MD46ICAgMDggMjAgOTEgZTUgICAgIGxkciAgICAgcjIsIFtyMSwgIzhd
-CiAgIDB4YzAzZmI5OTQgPCs0NDQ+OiAgIDAzIDIwIDkyIGU3ICAgICBsZHIgICAgIHIyLCBbcjIs
-IHIzXQogICAweGMwM2ZiOTk4IDwrNDQ4PjogICAwMiAwMCA1MiBlMyAgICAgY21wICAgICByMiwg
-IzIKICAgMHhjMDNmYjk5YyA8KzQ1Mj46ICAgMDQgMDAgMDAgMGEgICAgIGJlcSAgICAgMHhjMDNm
-YjliNCA8cGNwdV9kdW1wX2FsbG9jX2luZm8rNDc2PgogICAweGMwM2ZiOWEwIDwrNDU2PjogICAw
-NiAxMCBhMCBlMSAgICAgbW92ICAgICByMSwgcjYKICAgMHhjMDNmYjlhNCA8KzQ2MD46ICAgNzQg
-MDAgOWYgZTUgICAgIGxkciAgICAgcjAsIFtwYywgIzExNl0gIDsgMHhjMDNmYmEyMCA8cGNwdV9k
-dW1wX2FsbG9jX2luZm8rNTg0PgogICAweGMwM2ZiOWE4IDwrNDY0PjogICAxNCAzMCA4ZCBlNSAg
-ICAgc3RyICAgICByMywgW3NwLCAjMjBdCiAgIDB4YzAzZmI5YWMgPCs0Njg+OiAgIDY1IGY5IGZm
-IGViICAgICBibCAgICAgIDB4YzAzZjlmNDggPHByaW50az4KICAgMHhjMDNmYjliMCA8KzQ3Mj46
-ICAgMDMgMDAgMDAgZWEgICAgIGIgICAgICAgMHhjMDNmYjljNCA8cGNwdV9kdW1wX2FsbG9jX2lu
-Zm8rNDkyPgogICAweGMwM2ZiOWI0IDwrNDc2PjogICA2OCAwMCA5ZiBlNSAgICAgbGRyICAgICBy
-MCwgW3BjLCAjMTA0XSAgOyAweGMwM2ZiYTI0IDxwY3B1X2R1bXBfYWxsb2NfaW5mbys1ODg+CiAg
-IDB4YzAzZmI5YjggPCs0ODA+OiAgIDJmIDEwIDhkIGUyICAgICBhZGQgICAgIHIxLCBzcCwgIzQ3
-ICAgICA7IDB4MmYKICAgMHhjMDNmYjliYyA8KzQ4ND46ICAgMTQgMzAgOGQgZTUgICAgIHN0ciAg
-ICAgcjMsIFtzcCwgIzIwXQogICAweGMwM2ZiOWMwIDwrNDg4PjogICA2MCBmOSBmZiBlYiAgICAg
-YmwgICAgICAweGMwM2Y5ZjQ4IDxwcmludGs+CiAgIDB4YzAzZmI5YzQgPCs0OTI+OiAgIDE0IDMw
-IDlkIGU1ICAgICBsZHIgICAgIHIzLCBbc3AsICMyMF0KICAgMHhjMDNmYjljOCA8KzQ5Nj46ICAg
-MDEgOTAgODkgZTIgICAgIGFkZCAgICAgcjksIHI5LCAjMQogICAweGMwM2ZiOWNjIDwrNTAwPjog
-ICAwNCAzMCA4MyBlMiAgICAgYWRkICAgICByMywgcjMsICM0CiAgIDB4YzAzZmI5ZDAgPCs1MDQ+
-OiAgIDBiIDAwIDU5IGUxICAgICBjbXAgICAgIHI5LCByMTEKICAgMHhjMDNmYjlkNCA8KzUwOD46
-ICAgZWMgZmYgZmYgYmEgICAgIGJsdCAgICAgMHhjMDNmYjk4YyA8cGNwdV9kdW1wX2FsbG9jX2lu
-Zm8rNDM2PgogICAweGMwM2ZiOWQ4IDwrNTEyPjogICAwMSA4MCA4OCBlMiAgICAgYWRkICAgICBy
-OCwgcjgsICMxCiAgIDB4YzAzZmI5ZGMgPCs1MTY+OiAgIDE4IDMwIDlkIGU1ICAgICBsZHIgICAg
-IHIzLCBbc3AsICMyNF0KICAgMHhjMDNmYjllMCA8KzUyMD46ICAgMDMgMDAgNTggZTEgICAgIGNt
-cCAgICAgcjgsIHIzCiAgIDB4YzAzZmI5ZTQgPCs1MjQ+OiAgIGQ3IGZmIGZmIGJhICAgICBibHQg
-ICAgIDB4YzAzZmI5NDggPHBjcHVfZHVtcF9hbGxvY19pbmZvKzM2OD4KICAgMHhjMDNmYjllOCA8
-KzUyOD46ICAgMDEgNTAgODUgZTIgICAgIGFkZCAgICAgcjUsIHI1LCAjMQogICAweGMwM2ZiOWVj
-IDwrNTMyPjogICAxYyAzMCA5NCBlNSAgICAgbGRyICAgICByMywgW3I0LCAjMjhdCiAgIDB4YzAz
-ZmI5ZjAgPCs1MzY+OiAgIDAzIDAwIDU1IGUxICAgICBjbXAgICAgIHI1LCByMwogICAweGMwM2Zi
-OWY0IDwrNTQwPjogICBiZiBmZiBmZiBiYSAgICAgYmx0ICAgICAweGMwM2ZiOGY4IDxwY3B1X2R1
-bXBfYWxsb2NfaW5mbysyODg+CiAgIDB4YzAzZmI5ZjggPCs1NDQ+OiAgIDE0IDAwIDlmIGU1ICAg
-ICBsZHIgICAgIHIwLCBbcGMsICMyMF0gICA7IDB4YzAzZmJhMTQgPHBjcHVfZHVtcF9hbGxvY19p
-bmZvKzU3Mj4KICAgMHhjMDNmYjlmYyA8KzU0OD46ICAgNTEgZjkgZmYgZWIgICAgIGJsICAgICAg
-MHhjMDNmOWY0OCA8cHJpbnRrPgogICAweGMwM2ZiYTAwIDwrNTUyPjogICAzYyBkMCA4ZCBlMiAg
-ICAgYWRkICAgICBzcCwgc3AsICM2MCAgICAgOyAweDNjCiAgIDB4YzAzZmJhMDQgPCs1NTY+OiAg
-IGYwIDhmIGJkIGU4ICAgICBwb3AgICAgIHtyNCwgcjUsIHI2LCByNywgcjgsIHI5LCByMTAsIHIx
-MSwgcGN9CiAgIDB4YzAzZmJhMDggPCs1NjA+OiAgIDc2IGIxIDUwIGMwICAgICBzdWJzZ3QgIHIx
-MSwgcjAsIHI2LCByb3IgcjEKICAgMHhjMDNmYmEwYyA8KzU2ND46ICAgZjAgYzkgNDAgYzAgICAg
-IHN0cmRndCAgcjEyLCBbcjBdLCAjLTE0NCAgICAgICAgOyAweGZmZmZmZjcwCiAgIDB4YzAzZmJh
-MTAgPCs1Njg+OiAgIDI5IGIxIDUwIGMwICAgICBzdWJzZ3QgIHIxMSwgcjAsIHI5LCBsc3IgIzIK
-ICAgMHhjMDNmYmExNCA8KzU3Mj46ICAgNzEgNDAgNTAgYzAgICAgIHN1YnNndCAgcjQsIHIwLCBy
-MSwgcm9yIHIwCiAgIDB4YzAzZmJhMTggPCs1NzY+OiAgIDU5IGIxIDUwIGMwICAgICBzdWJzZ3Qg
-IHIxMSwgcjAsIHI5LCBhc3IgcjEKICAgMHhjMDNmYmExYyA8KzU4MD46ICAgNjggYjEgNTAgYzAg
-ICAgIHN1YnNndCAgcjExLCByMCwgcjgsIHJvciAjMgogICAweGMwM2ZiYTIwIDwrNTg0PjogICA3
-MCBiMSA1MCBjMCAgICAgc3Vic2d0ICByMTEsIHIwLCByMCwgcm9yIHIxCiAgIDB4YzAzZmJhMjQg
-PCs1ODg+OiAgIGM0IDk5IDUyIGMwICAgICBzdWJzZ3QgIHI5LCByMiwgcjQsIGFzciAjMTkK
+> Dump of assembler code for function pcpu_dump_alloc_info:
+> 1083    {
+>    0xc03fb7dc <+4>:     push    {r4, r5, r6, r7, r8, r9, r10, r11, lr}
+>    0xc03fb7e0 <+8>:     sub     sp, sp, #60     ; 0x3c
+>    0xc03fb7e8 <+16>:    str     r0, [sp, #28]
+>    0xc03fb7f8 <+32>:    mov     r4, r1
+>=20
+> 1084            int group_width =3D 1, cpu_width =3D 1, width;
+>    0xc03fb808 <+48>:    mov     r7, #1
+>    0xc03fb828 <+80>:    mov     r6, #1
+>=20
+> 1085            char empty_str[] =3D "--------";
+>    0xc03fb7d8 <+0>:     ldr     r3, [pc, #552]  ; 0xc03fba08 <pcpu_dump_a=
+lloc_info+560>
+>    0xc03fb7e4 <+12>:    ldr     r2, [r3]
+>    0xc03fb7ec <+20>:    str     r2, [sp, #47]   ; 0x2f
+>    0xc03fb7f0 <+24>:    ldr     r2, [r3, #4]
+>    0xc03fb7f4 <+28>:    ldrb    r3, [r3, #8]
+>    0xc03fb7fc <+36>:    str     r2, [sp, #51]   ; 0x33
+>    0xc03fb800 <+40>:    strb    r3, [sp, #55]   ; 0x37
+>=20
+> 1086            int alloc =3D 0, alloc_end =3D 0;
+>    0xc03fb8e0 <+264>:   mov     r8, r5
+>    0xc03fb8f0 <+280>:   str     r5, [sp, #24]
+>=20
+> 1087            int group, v;
+> 1088            int upa, apl;   /* units per alloc, allocs per line */
+> 1089
+> 1090            v =3D ai->nr_groups;
+>    0xc03fb804 <+44>:    ldr     r0, [r1, #28]
+>=20
+> 1091            while (v /=3D 10)
+>    0xc03fb80c <+52>:    b       0xc03fb814 <pcpu_dump_alloc_info+60>
+>    0xc03fb814 <+60>:    mov     r1, #10
+>    0xc03fb818 <+64>:    bl      0xc02386b8 <__divsi3>
+>    0xc03fb81c <+68>:    cmp     r0, #0
+>    0xc03fb820 <+72>:    bne     0xc03fb810 <pcpu_dump_alloc_info+56>
+>=20
+> 1092                    group_width++;
+>    0xc03fb810 <+56>:    add     r7, r7, #1
+>=20
+> 1093
+> 1094            v =3D num_possible_cpus();
+> 1095            while (v /=3D 10)
+>    0xc03fb840 <+104>:   b       0xc03fb848 <pcpu_dump_alloc_info+112>
+>    0xc03fb848 <+112>:   mov     r0, r5
+>    0xc03fb84c <+116>:   mov     r1, #10
+>    0xc03fb850 <+120>:   bl      0xc02386b8 <__divsi3>
+>    0xc03fb854 <+124>:   subs    r5, r0, #0
+>    0xc03fb858 <+128>:   bne     0xc03fb844 <pcpu_dump_alloc_info+108>
+>=20
+> 1096                    cpu_width++;
+>    0xc03fb844 <+108>:   add     r6, r6, #1
+>=20
+> 1097            empty_str[min_t(int, cpu_width, sizeof(empty_str) - 1)] =
+=3D '\0';
+>    0xc03fb85c <+132>:   add     r1, sp, #56     ; 0x38
+>    0xc03fb860 <+136>:   cmp     r6, #8
+>    0xc03fb864 <+140>:   movlt   r3, r6
+>    0xc03fb868 <+144>:   movge   r3, #8
+>    0xc03fb86c <+148>:   add     r3, r1, r3
+>    0xc03fb878 <+160>:   strb    r5, [r3, #-9]
+>=20
+> 1098
+> 1099            upa =3D ai->alloc_size / ai->unit_size;
+>    0xc03fb870 <+152>:   ldr     r9, [r4, #20]
+>    0xc03fb874 <+156>:   ldr     r11, [r4, #12]
+>    0xc03fb87c <+164>:   mov     r1, r11
+>    0xc03fb880 <+168>:   mov     r0, r9
+>    0xc03fb884 <+172>:   bl      0xc023857c <__udivsi3>
+>    0xc03fb890 <+184>:   mov     r10, r0
+>=20
+> 1100            width =3D upa * (cpu_width + 1) + group_width + 3;
+>    0xc03fb888 <+176>:   add     r1, r6, #1
+>    0xc03fb88c <+180>:   mla     r1, r1, r0, r7
+>=20
+> 1101            apl =3D rounddown_pow_of_two(max(60 / width, 1));
+>    0xc03fb894 <+188>:   add     r1, r1, #3
+>    0xc03fb898 <+192>:   mov     r0, #60 ; 0x3c
+>    0xc03fb89c <+196>:   bl      0xc02386b8 <__divsi3>
+>    0xc03fb8ac <+212>:   cmp     r0, #1
+>    0xc03fb8b0 <+216>:   movlt   r0, #1
+>=20
+> 1102
+> 1103            printk("%spcpu-alloc: s%zu r%zu d%zu u%zu alloc=3D%zu*%zu=
+",
+>    0xc03fb8a8 <+208>:   mov     r1, r8
+>    0xc03fb8bc <+228>:   mov     r0, r9
+>    0xc03fb8c4 <+236>:   ldr     r3, [r4, #8]
+>    0xc03fb8cc <+244>:   stm     sp, {r3, r11}
+>    0xc03fb8d0 <+248>:   bl      0xc023857c <__udivsi3>
+>    0xc03fb8d4 <+252>:   str     r8, [sp, #12]
+>    0xc03fb8d8 <+256>:   ldr     r1, [sp, #28]
+>    0xc03fb8dc <+260>:   ldm     r4, {r2, r3}
+>    0xc03fb8e4 <+268>:   str     r0, [sp, #8]
+>    0xc03fb8e8 <+272>:   ldr     r0, [pc, #288]  ; 0xc03fba10 <pcpu_dump_a=
+lloc_info+568>
+>    0xc03fb8ec <+276>:   bl      0xc03f9f48 <printk>
+>=20
+> 1104                   lvl, ai->static_size, ai->reserved_size, ai->dyn_s=
+ize,
+> 1105                   ai->unit_size, ai->alloc_size / ai->atom_size, ai-=
+>atom_size);
+>    0xc03fb8a4 <+204>:   ldr     r8, [r4, #16]
+>=20
+> 1106
+> 1107            for (group =3D 0; group < ai->nr_groups; group++) {
+>    0xc03fb8f4 <+284>:   b       0xc03fb9ec <pcpu_dump_alloc_info+532>
+>    0xc03fb9e8 <+528>:   add     r5, r5, #1
+>    0xc03fb9ec <+532>:   ldr     r3, [r4, #28]
+>    0xc03fb9f0 <+536>:   cmp     r5, r3
+>    0xc03fb9f4 <+540>:   blt     0xc03fb8f8 <pcpu_dump_alloc_info+288>
+>=20
+> 1108                    const struct pcpu_group_info *gi =3D &ai->groups[=
+group];
+>    0xc03fb8f8 <+288>:   mov     r3, #12
+>    0xc03fb900 <+296>:   mul     r3, r3, r5
+>    0xc03fb904 <+300>:   add     r3, r3, #32
+>    0xc03fb908 <+304>:   add     r2, r4, r3
+>    0xc03fb910 <+312>:   str     r2, [sp, #36]   ; 0x24
+>=20
+> 1109                    int unit =3D 0, unit_end =3D 0;
+>    0xc03fb938 <+352>:   mov     r9, r11
+>=20
+> 1110
+> 1111                    BUG_ON(gi->nr_units % upa);
+>    0xc03fb8fc <+292>:   mov     r1, r10
+>    0xc03fb90c <+308>:   ldr     r9, [r4, r3]
+>    0xc03fb914 <+316>:   mov     r0, r9
+>    0xc03fb918 <+320>:   bl      0xc0238854 <__aeabi_idivmod>
+>    0xc03fb91c <+324>:   subs    r11, r1, #0
+>    0xc03fb920 <+328>:   beq     0xc03fb928 <pcpu_dump_alloc_info+336>
+>    0xc03fb924 <+332>:   b       0xc03fb924 <pcpu_dump_alloc_info+332>
+>=20
+> 1112                    for (alloc_end +=3D gi->nr_units / upa;
+>    0xc03fb928 <+336>:   mov     r0, r9
+>    0xc03fb92c <+340>:   mov     r1, r10
+>    0xc03fb930 <+344>:   bl      0xc02386b8 <__divsi3>
+>    0xc03fb934 <+348>:   ldr     r3, [sp, #24]
+>    0xc03fb93c <+356>:   add     r3, r3, r0
+>    0xc03fb940 <+360>:   str     r3, [sp, #24]
+>    0xc03fb944 <+364>:   b       0xc03fb9dc <pcpu_dump_alloc_info+516>
+>    0xc03fb9dc <+516>:   ldr     r3, [sp, #24]
+>    0xc03fb9e0 <+520>:   cmp     r8, r3
+>    0xc03fb9e4 <+524>:   blt     0xc03fb948 <pcpu_dump_alloc_info+368>
+>=20
+> 1113                         alloc < alloc_end; alloc++) {
+>    0xc03fb9d8 <+512>:   add     r8, r8, #1
+>=20
+> 1114                            if (!(alloc % apl)) {
+>    0xc03fb948 <+368>:   mov     r0, r8
+>    0xc03fb94c <+372>:   ldr     r1, [sp, #32]
+>    0xc03fb950 <+376>:   bl      0xc0238854 <__aeabi_idivmod>
+>    0xc03fb954 <+380>:   cmp     r1, #0
+>    0xc03fb958 <+384>:   bne     0xc03fb970 <pcpu_dump_alloc_info+408>
+>=20
+> 1115                                    printk("\n");
+>    0xc03fb95c <+388>:   ldr     r0, [pc, #176]  ; 0xc03fba14 <pcpu_dump_a=
+lloc_info+572>
+>    0xc03fb960 <+392>:   bl      0xc03f9f48 <printk>
+>=20
+> 1116                                    printk("%spcpu-alloc: ", lvl);
+>    0xc03fb964 <+396>:   ldr     r0, [pc, #172]  ; 0xc03fba18 <pcpu_dump_a=
+lloc_info+576>
+>    0xc03fb968 <+400>:   ldr     r1, [sp, #28]
+>    0xc03fb96c <+404>:   bl      0xc03f9f48 <printk>
+>=20
+> 1117                            }
+> 1118                            printk("[%0*d] ", group_width, group);
+>    0xc03fb970 <+408>:   ldr     r0, [pc, #164]  ; 0xc03fba1c <pcpu_dump_a=
+lloc_info+580>
+>    0xc03fb974 <+412>:   mov     r1, r7
+>    0xc03fb978 <+416>:   mov     r2, r5
+>    0xc03fb97c <+420>:   bl      0xc03f9f48 <printk>
+>=20
+> 1119
+> 1120                            for (unit_end +=3D upa; unit < unit_end; =
+unit++)
+>    0xc03fb980 <+424>:   add     r11, r11, r10
+>    0xc03fb984 <+428>:   lsl     r3, r9, #2
+>    0xc03fb988 <+432>:   b       0xc03fb9d0 <pcpu_dump_alloc_info+504>
+>    0xc03fb9c8 <+496>:   add     r9, r9, #1
+>    0xc03fb9cc <+500>:   add     r3, r3, #4
+>    0xc03fb9d0 <+504>:   cmp     r9, r11
+>    0xc03fb9d4 <+508>:   blt     0xc03fb98c <pcpu_dump_alloc_info+436>
+>=20
+> 1121                                    if (gi->cpu_map[unit] !=3D NR_CPU=
+S)
+>    0xc03fb98c <+436>:   ldr     r1, [sp, #36]   ; 0x24
+>    0xc03fb990 <+440>:   ldr     r2, [r1, #8]
+>    0xc03fb994 <+444>:   ldr     r2, [r2, r3]
+>    0xc03fb998 <+448>:   cmp     r2, #2
+>    0xc03fb99c <+452>:   beq     0xc03fb9b4 <pcpu_dump_alloc_info+476>
+>=20
+> 1122                                            printk("%0*d ", cpu_width,
+>    0xc03fb9a0 <+456>:   mov     r1, r6
+>    0xc03fb9a4 <+460>:   ldr     r0, [pc, #116]  ; 0xc03fba20 <pcpu_dump_a=
+lloc_info+584>
+>    0xc03fb9a8 <+464>:   str     r3, [sp, #20]
+>    0xc03fb9ac <+468>:   bl      0xc03f9f48 <printk>
+>    0xc03fb9b0 <+472>:   b       0xc03fb9c4 <pcpu_dump_alloc_info+492>
+>=20
+> 1123                                                   gi->cpu_map[unit]);
+> 1124                                    else
+> 1125                                            printk("%s ", empty_str);
+>    0xc03fb9b4 <+476>:   ldr     r0, [pc, #104]  ; 0xc03fba24 <pcpu_dump_a=
+lloc_info+588>
+>    0xc03fb9b8 <+480>:   add     r1, sp, #47     ; 0x2f
+>    0xc03fb9bc <+484>:   str     r3, [sp, #20]
+>    0xc03fb9c0 <+488>:   bl      0xc03f9f48 <printk>
+>    0xc03fb9c4 <+492>:   ldr     r3, [sp, #20]
+>=20
+> 1126                    }
+> 1127            }
+> 1128            printk("\n");
+>    0xc03fb9f8 <+544>:   ldr     r0, [pc, #20]   ; 0xc03fba14 <pcpu_dump_a=
+lloc_info+572>
+>    0xc03fb9fc <+548>:   bl      0xc03f9f48 <printk>
+> 1129    }
+>    0xc03fba00 <+552>:   add     sp, sp, #60     ; 0x3c
+>    0xc03fba04 <+556>:   pop     {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+>    0xc03fba08 <+560>:   subsgt  r11, r0, r6, ror r1
+>    0xc03fba0c <+564>:   strdgt  r12, [r0], #-144        ; 0xffffff70
+>    0xc03fba10 <+568>:   subsgt  r11, r0, r9, lsr #2
+>    0xc03fba14 <+572>:   subsgt  r4, r0, r1, ror r0
+>    0xc03fba18 <+576>:   subsgt  r11, r0, r9, asr r1
+>    0xc03fba1c <+580>:   subsgt  r11, r0, r8, ror #2
+>    0xc03fba20 <+584>:   subsgt  r11, r0, r0, ror r1
+>    0xc03fba24 <+588>:   subsgt  r9, r2, r4, asr #19
+>=20
+>=20
+> -------------------------------------------------------------------------=
+--------------------
+> Dump of assembler code for function pcpu_dump_alloc_info:
+>    0xc03fb7d8 <+0>:     28 32 9f e5     ldr     r3, [pc, #552]  ; 0xc03fb=
+a08 <pcpu_dump_alloc_info+560>
+>    0xc03fb7dc <+4>:     f0 4f 2d e9     push    {r4, r5, r6, r7, r8, r9, =
+r10, r11, lr}
+>    0xc03fb7e0 <+8>:     3c d0 4d e2     sub     sp, sp, #60     ; 0x3c
+>    0xc03fb7e4 <+12>:    00 20 93 e5     ldr     r2, [r3]
+>    0xc03fb7e8 <+16>:    1c 00 8d e5     str     r0, [sp, #28]
+>    0xc03fb7ec <+20>:    2f 20 8d e5     str     r2, [sp, #47]   ; 0x2f
+>    0xc03fb7f0 <+24>:    04 20 93 e5     ldr     r2, [r3, #4]
+>    0xc03fb7f4 <+28>:    08 30 d3 e5     ldrb    r3, [r3, #8]
+>    0xc03fb7f8 <+32>:    01 40 a0 e1     mov     r4, r1
+>    0xc03fb7fc <+36>:    33 20 8d e5     str     r2, [sp, #51]   ; 0x33
+>    0xc03fb800 <+40>:    37 30 cd e5     strb    r3, [sp, #55]   ; 0x37
+>    0xc03fb804 <+44>:    1c 00 91 e5     ldr     r0, [r1, #28]
+>    0xc03fb808 <+48>:    01 70 a0 e3     mov     r7, #1
+>    0xc03fb80c <+52>:    00 00 00 ea     b       0xc03fb814 <pcpu_dump_all=
+oc_info+60>
+>    0xc03fb810 <+56>:    01 70 87 e2     add     r7, r7, #1
+>    0xc03fb814 <+60>:    0a 10 a0 e3     mov     r1, #10
+>    0xc03fb818 <+64>:    a6 f3 f8 eb     bl      0xc02386b8 <__divsi3>
+>    0xc03fb81c <+68>:    00 00 50 e3     cmp     r0, #0
+>    0xc03fb820 <+72>:    fa ff ff 1a     bne     0xc03fb810 <pcpu_dump_all=
+oc_info+56>
+>    0xc03fb824 <+76>:    e0 31 9f e5     ldr     r3, [pc, #480]  ; 0xc03fb=
+a0c <pcpu_dump_alloc_info+564>
+>    0xc03fb828 <+80>:    01 60 a0 e3     mov     r6, #1
+>    0xc03fb82c <+84>:    00 30 93 e5     ldr     r3, [r3]
+>    0xc03fb830 <+88>:    00 00 93 e5     ldr     r0, [r3]
+>    0xc03fb834 <+92>:    03 00 00 e2     and     r0, r0, #3
+>    0xc03fb838 <+96>:    c6 2b f9 eb     bl      0xc0246758 <__sw_hweight3=
+2>
+>    0xc03fb83c <+100>:   00 50 a0 e1     mov     r5, r0
+>    0xc03fb840 <+104>:   00 00 00 ea     b       0xc03fb848 <pcpu_dump_all=
+oc_info+112>
+>    0xc03fb844 <+108>:   01 60 86 e2     add     r6, r6, #1
+>    0xc03fb848 <+112>:   05 00 a0 e1     mov     r0, r5
+>    0xc03fb84c <+116>:   0a 10 a0 e3     mov     r1, #10
+>    0xc03fb850 <+120>:   98 f3 f8 eb     bl      0xc02386b8 <__divsi3>
+>    0xc03fb854 <+124>:   00 50 50 e2     subs    r5, r0, #0
+>    0xc03fb858 <+128>:   f9 ff ff 1a     bne     0xc03fb844 <pcpu_dump_all=
+oc_info+108>
+>    0xc03fb85c <+132>:   38 10 8d e2     add     r1, sp, #56     ; 0x38
+>    0xc03fb860 <+136>:   08 00 56 e3     cmp     r6, #8
+>    0xc03fb864 <+140>:   06 30 a0 b1     movlt   r3, r6
+>    0xc03fb868 <+144>:   08 30 a0 a3     movge   r3, #8
+>    0xc03fb86c <+148>:   03 30 81 e0     add     r3, r1, r3
+>    0xc03fb870 <+152>:   14 90 94 e5     ldr     r9, [r4, #20]
+>    0xc03fb874 <+156>:   0c b0 94 e5     ldr     r11, [r4, #12]
+>    0xc03fb878 <+160>:   09 50 43 e5     strb    r5, [r3, #-9]
+>    0xc03fb87c <+164>:   0b 10 a0 e1     mov     r1, r11
+>    0xc03fb880 <+168>:   09 00 a0 e1     mov     r0, r9
+>    0xc03fb884 <+172>:   3c f3 f8 eb     bl      0xc023857c <__udivsi3>
+>    0xc03fb888 <+176>:   01 10 86 e2     add     r1, r6, #1
+>    0xc03fb88c <+180>:   91 70 21 e0     mla     r1, r1, r0, r7
+>    0xc03fb890 <+184>:   00 a0 a0 e1     mov     r10, r0
+>    0xc03fb894 <+188>:   03 10 81 e2     add     r1, r1, #3
+>    0xc03fb898 <+192>:   3c 00 a0 e3     mov     r0, #60 ; 0x3c
+>    0xc03fb89c <+196>:   85 f3 f8 eb     bl      0xc02386b8 <__divsi3>
+>    0xc03fb8a0 <+200>:   01 20 a0 e3     mov     r2, #1
+>    0xc03fb8a4 <+204>:   10 80 94 e5     ldr     r8, [r4, #16]
+>    0xc03fb8a8 <+208>:   08 10 a0 e1     mov     r1, r8
+>    0xc03fb8ac <+212>:   01 00 50 e3     cmp     r0, #1
+>    0xc03fb8b0 <+216>:   01 00 a0 b3     movlt   r0, #1
+>    0xc03fb8b4 <+220>:   10 3f 6f e1     clz     r3, r0
+>    0xc03fb8b8 <+224>:   1f 30 63 e2     rsb     r3, r3, #31
+>    0xc03fb8bc <+228>:   09 00 a0 e1     mov     r0, r9
+>    0xc03fb8c0 <+232>:   12 23 a0 e1     lsl     r2, r2, r3
+>    0xc03fb8c4 <+236>:   08 30 94 e5     ldr     r3, [r4, #8]
+>    0xc03fb8c8 <+240>:   20 20 8d e5     str     r2, [sp, #32]
+>    0xc03fb8cc <+244>:   08 08 8d e8     stm     sp, {r3, r11}
+>    0xc03fb8d0 <+248>:   29 f3 f8 eb     bl      0xc023857c <__udivsi3>
+>    0xc03fb8d4 <+252>:   0c 80 8d e5     str     r8, [sp, #12]
+>    0xc03fb8d8 <+256>:   1c 10 9d e5     ldr     r1, [sp, #28]
+>    0xc03fb8dc <+260>:   0c 00 94 e8     ldm     r4, {r2, r3}
+>    0xc03fb8e0 <+264>:   05 80 a0 e1     mov     r8, r5
+>    0xc03fb8e4 <+268>:   08 00 8d e5     str     r0, [sp, #8]
+>    0xc03fb8e8 <+272>:   20 01 9f e5     ldr     r0, [pc, #288]  ; 0xc03fb=
+a10 <pcpu_dump_alloc_info+568>
+>    0xc03fb8ec <+276>:   95 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fb8f0 <+280>:   18 50 8d e5     str     r5, [sp, #24]
+>    0xc03fb8f4 <+284>:   3c 00 00 ea     b       0xc03fb9ec <pcpu_dump_all=
+oc_info+532>
+>    0xc03fb8f8 <+288>:   0c 30 a0 e3     mov     r3, #12
+>    0xc03fb8fc <+292>:   0a 10 a0 e1     mov     r1, r10
+>    0xc03fb900 <+296>:   93 05 03 e0     mul     r3, r3, r5
+>    0xc03fb904 <+300>:   20 30 83 e2     add     r3, r3, #32
+>    0xc03fb908 <+304>:   03 20 84 e0     add     r2, r4, r3
+>    0xc03fb90c <+308>:   03 90 94 e7     ldr     r9, [r4, r3]
+>    0xc03fb910 <+312>:   24 20 8d e5     str     r2, [sp, #36]   ; 0x24
+>    0xc03fb914 <+316>:   09 00 a0 e1     mov     r0, r9
+>    0xc03fb918 <+320>:   cd f3 f8 eb     bl      0xc0238854 <__aeabi_idivm=
+od>
+>    0xc03fb91c <+324>:   00 b0 51 e2     subs    r11, r1, #0
+>    0xc03fb920 <+328>:   00 00 00 0a     beq     0xc03fb928 <pcpu_dump_all=
+oc_info+336>
+>    0xc03fb924 <+332>:   fe ff ff ea     b       0xc03fb924 <pcpu_dump_all=
+oc_info+332>
+>    0xc03fb928 <+336>:   09 00 a0 e1     mov     r0, r9
+>    0xc03fb92c <+340>:   0a 10 a0 e1     mov     r1, r10
+>    0xc03fb930 <+344>:   60 f3 f8 eb     bl      0xc02386b8 <__divsi3>
+>    0xc03fb934 <+348>:   18 30 9d e5     ldr     r3, [sp, #24]
+>    0xc03fb938 <+352>:   0b 90 a0 e1     mov     r9, r11
+>    0xc03fb93c <+356>:   00 30 83 e0     add     r3, r3, r0
+>    0xc03fb940 <+360>:   18 30 8d e5     str     r3, [sp, #24]
+>    0xc03fb944 <+364>:   24 00 00 ea     b       0xc03fb9dc <pcpu_dump_all=
+oc_info+516>
+>    0xc03fb948 <+368>:   08 00 a0 e1     mov     r0, r8
+>    0xc03fb94c <+372>:   20 10 9d e5     ldr     r1, [sp, #32]
+>    0xc03fb950 <+376>:   bf f3 f8 eb     bl      0xc0238854 <__aeabi_idivm=
+od>
+>    0xc03fb954 <+380>:   00 00 51 e3     cmp     r1, #0
+>    0xc03fb958 <+384>:   04 00 00 1a     bne     0xc03fb970 <pcpu_dump_all=
+oc_info+408>
+>    0xc03fb95c <+388>:   b0 00 9f e5     ldr     r0, [pc, #176]  ; 0xc03fb=
+a14 <pcpu_dump_alloc_info+572>
+>    0xc03fb960 <+392>:   78 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fb964 <+396>:   ac 00 9f e5     ldr     r0, [pc, #172]  ; 0xc03fb=
+a18 <pcpu_dump_alloc_info+576>
+>    0xc03fb968 <+400>:   1c 10 9d e5     ldr     r1, [sp, #28]
+>    0xc03fb96c <+404>:   75 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fb970 <+408>:   a4 00 9f e5     ldr     r0, [pc, #164]  ; 0xc03fb=
+a1c <pcpu_dump_alloc_info+580>
+>    0xc03fb974 <+412>:   07 10 a0 e1     mov     r1, r7
+>    0xc03fb978 <+416>:   05 20 a0 e1     mov     r2, r5
+>    0xc03fb97c <+420>:   71 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fb980 <+424>:   0a b0 8b e0     add     r11, r11, r10
+>    0xc03fb984 <+428>:   09 31 a0 e1     lsl     r3, r9, #2
+>    0xc03fb988 <+432>:   10 00 00 ea     b       0xc03fb9d0 <pcpu_dump_all=
+oc_info+504>
+>    0xc03fb98c <+436>:   24 10 9d e5     ldr     r1, [sp, #36]   ; 0x24
+>    0xc03fb990 <+440>:   08 20 91 e5     ldr     r2, [r1, #8]
+>    0xc03fb994 <+444>:   03 20 92 e7     ldr     r2, [r2, r3]
+>    0xc03fb998 <+448>:   02 00 52 e3     cmp     r2, #2
+>    0xc03fb99c <+452>:   04 00 00 0a     beq     0xc03fb9b4 <pcpu_dump_all=
+oc_info+476>
+>    0xc03fb9a0 <+456>:   06 10 a0 e1     mov     r1, r6
+>    0xc03fb9a4 <+460>:   74 00 9f e5     ldr     r0, [pc, #116]  ; 0xc03fb=
+a20 <pcpu_dump_alloc_info+584>
+>    0xc03fb9a8 <+464>:   14 30 8d e5     str     r3, [sp, #20]
+>    0xc03fb9ac <+468>:   65 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fb9b0 <+472>:   03 00 00 ea     b       0xc03fb9c4 <pcpu_dump_all=
+oc_info+492>
+>    0xc03fb9b4 <+476>:   68 00 9f e5     ldr     r0, [pc, #104]  ; 0xc03fb=
+a24 <pcpu_dump_alloc_info+588>
+>    0xc03fb9b8 <+480>:   2f 10 8d e2     add     r1, sp, #47     ; 0x2f
+>    0xc03fb9bc <+484>:   14 30 8d e5     str     r3, [sp, #20]
+>    0xc03fb9c0 <+488>:   60 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fb9c4 <+492>:   14 30 9d e5     ldr     r3, [sp, #20]
+>    0xc03fb9c8 <+496>:   01 90 89 e2     add     r9, r9, #1
+>    0xc03fb9cc <+500>:   04 30 83 e2     add     r3, r3, #4
+>    0xc03fb9d0 <+504>:   0b 00 59 e1     cmp     r9, r11
+>    0xc03fb9d4 <+508>:   ec ff ff ba     blt     0xc03fb98c <pcpu_dump_all=
+oc_info+436>
+>    0xc03fb9d8 <+512>:   01 80 88 e2     add     r8, r8, #1
+>    0xc03fb9dc <+516>:   18 30 9d e5     ldr     r3, [sp, #24]
+>    0xc03fb9e0 <+520>:   03 00 58 e1     cmp     r8, r3
+>    0xc03fb9e4 <+524>:   d7 ff ff ba     blt     0xc03fb948 <pcpu_dump_all=
+oc_info+368>
+>    0xc03fb9e8 <+528>:   01 50 85 e2     add     r5, r5, #1
+>    0xc03fb9ec <+532>:   1c 30 94 e5     ldr     r3, [r4, #28]
+>    0xc03fb9f0 <+536>:   03 00 55 e1     cmp     r5, r3
+>    0xc03fb9f4 <+540>:   bf ff ff ba     blt     0xc03fb8f8 <pcpu_dump_all=
+oc_info+288>
+>    0xc03fb9f8 <+544>:   14 00 9f e5     ldr     r0, [pc, #20]   ; 0xc03fb=
+a14 <pcpu_dump_alloc_info+572>
+>    0xc03fb9fc <+548>:   51 f9 ff eb     bl      0xc03f9f48 <printk>
+>    0xc03fba00 <+552>:   3c d0 8d e2     add     sp, sp, #60     ; 0x3c
+>    0xc03fba04 <+556>:   f0 8f bd e8     pop     {r4, r5, r6, r7, r8, r9, =
+r10, r11, pc}
+>    0xc03fba08 <+560>:   76 b1 50 c0     subsgt  r11, r0, r6, ror r1
+>    0xc03fba0c <+564>:   f0 c9 40 c0     strdgt  r12, [r0], #-144        ;=
+ 0xffffff70
+>    0xc03fba10 <+568>:   29 b1 50 c0     subsgt  r11, r0, r9, lsr #2
+>    0xc03fba14 <+572>:   71 40 50 c0     subsgt  r4, r0, r1, ror r0
+>    0xc03fba18 <+576>:   59 b1 50 c0     subsgt  r11, r0, r9, asr r1
+>    0xc03fba1c <+580>:   68 b1 50 c0     subsgt  r11, r0, r8, ror #2
+>    0xc03fba20 <+584>:   70 b1 50 c0     subsgt  r11, r0, r0, ror r1
+>    0xc03fba24 <+588>:   c4 99 52 c0     subsgt  r9, r2, r4, asr #19
 
---------------020306010606020403010009--
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
+--=20
+Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+
+--C7zPtVaVf+AK4Oqc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.19 (GNU/Linux)
+
+iEYEARECAAYFAk+sH78ACgkQN1Ujt2V2gBylAgCgr4vI3Tp8jUI/imyppw/TE0Dy
+81gAn1g+32HLvfhYSq4YoZKgrhKL4LDK
+=TaFF
+-----END PGP SIGNATURE-----
+
+--C7zPtVaVf+AK4Oqc--
