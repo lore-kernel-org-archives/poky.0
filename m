@@ -1,32 +1,27 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E09F6E0044A
-	for <poky@yoctoproject.org>; Thu, 10 May 2012 09:31:08 -0700 (PDT)
-Received: by eekb45 with SMTP id b45so806879eek.35
-	for <poky@yoctoproject.org>; Thu, 10 May 2012 09:31:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	bh=5bibmFISlwbF+PBtICU1b6q8AUMmBSH/i95wNUejfXw=;
-	b=jzP2GqflR0u5d8MvxrcecSneArKwVcvvdIJcg99Li4Lm0ziDnNWPH8K3TojgY/O0oc
-	bMrL4qZfShz7PPM6kXkWKkn8CE4FGLDEvdyMRew/nGPF0HOTX/J78crTC8cY9RFByrCS
-	MmbJlmCSUlMMVl3cLT0yK0wrcb0jleCstXKGybVynEp1z2kXiWJu7sKND0OzedNVe/KP
-	/tX+KW7AEmaDbRJKdt6J9hvLEuhnuLdaeOeJ2YTg1H4ajpD0AAAxQuotRgxyxRnikIzH
-	kTBPYbCSUR+3lYtXw76pyIwgk/R+GjadG++Esk+EGLmXtWvlEWMvW0LYG5gYQBE/jhEh
-	PZ9A==
-Received: by 10.213.20.200 with SMTP id g8mr1585318ebb.103.1336667467930; Thu,
-	10 May 2012 09:31:07 -0700 (PDT)
+Return-Path: <mark.hatle@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C3B28E0044A
+	for <poky@yoctoproject.org>; Thu, 10 May 2012 09:49:10 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q4AGnAIG015326
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 10 May 2012 09:49:10 -0700 (PDT)
+Received: from msp-dhcp22.wrs.com (172.25.34.22) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Thu, 10 May 2012 09:49:09 -0700
+Message-ID: <4FABF185.5060205@windriver.com>
+Date: Thu, 10 May 2012 11:49:09 -0500
+From: Mark Hatle <mark.hatle@windriver.com>
+Organization: Wind River Systems
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6;
+	rv:12.0) Gecko/20120428 Thunderbird/12.0.1
 MIME-Version: 1.0
-Received: by 10.14.2.132 with HTTP; Thu, 10 May 2012 09:30:37 -0700 (PDT)
-In-Reply-To: <4FABEA1B.4050901@mlbassoc.com>
+To: <poky@yoctoproject.org>
 References: <4FABD070.9090100@mlbassoc.com>
 	<CAMKF1soadVR07jQ_QGBjkc0=UAvCrTHFPu2V3hxf_dNXg4vmEw@mail.gmail.com>
 	<4FABEA1B.4050901@mlbassoc.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 10 May 2012 09:30:37 -0700
-Message-ID: <CAMKF1sqUt4QrNh9ff0ZERDCttdUSams-wUcOR4e4hDs+7z-Txw@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Poky Project <poky@yoctoproject.org>
+	<CAMKF1sqUt4QrNh9ff0ZERDCttdUSams-wUcOR4e4hDs+7z-Txw@mail.gmail.com>
+In-Reply-To: <CAMKF1sqUt4QrNh9ff0ZERDCttdUSams-wUcOR4e4hDs+7z-Txw@mail.gmail.com>
 Subject: Re: Bad ARM code with GCC 4.7.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -39,29 +34,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 May 2012 16:31:09 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 10 May 2012 16:49:10 -0000
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 10, 2012 at 9:17 AM, Gary Thomas <gary@mlbassoc.com> wrote:
->
-> My board is DM3730, much like a BeagleBoard
-> =C2=A0ARM architecture: armv7a
-> =C2=A0Linux kernel 3.0
-
-hmmm that should be able to handle alignment faults in hardware
-
->
->
+On 5/10/12 11:30 AM, Khem Raj wrote:
+> On Thu, May 10, 2012 at 9:17 AM, Gary Thomas<gary@mlbassoc.com>  wrote:
 >>
->> gcc generate unaligned accesses by default
->>
->> Does adding -mno-unaligned-access to cflags help ?
+>> My board is DM3730, much like a BeagleBoard
+>>   ARM architecture: armv7a
+>>   Linux kernel 3.0
 >
->
-> I'll check.
+> hmmm that should be able to handle alignment faults in hardware
 
-Its not entirely clear whats going on so post the complete function disasse=
-mbly
-so further context can be seen as well.
+As far as I know, most armv7a handle alignment in the kernel, but there are 
+newer crops of CPUs coming out that will no longer have alignment handlers as a 
+"speed optimization".. (I think they're a bit nuts myself, but anyway.)
+
+But if the code in question is inside the kernel, then the alignment faults 
+won't work -- or will they?  (Certainly won't from within the alignment handlers 
+of course...)
+
+--Mark
+
+>>
+>>
+>>>
+>>> gcc generate unaligned accesses by default
+>>>
+>>> Does adding -mno-unaligned-access to cflags help ?
+>>
+>>
+>> I'll check.
+>
+> Its not entirely clear whats going on so post the complete function disassembly
+> so further context can be seen as well.
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
