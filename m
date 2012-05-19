@@ -1,30 +1,33 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6F26DE01408
-	for <poky@yoctoproject.org>; Tue, 15 May 2012 11:16:40 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4FIGa4w009885;
-	Tue, 15 May 2012 19:16:36 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 09639-02; Tue, 15 May 2012 19:16:32 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4FIGS1J009878
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 15 May 2012 19:16:30 +0100
-Message-ID: <1337105788.2711.46.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Peter Tornel <petertornel@yahoo.com>
-Date: Tue, 15 May 2012 19:16:28 +0100
-In-Reply-To: <1337097794.60983.YahooMailNeo@web122202.mail.ne1.yahoo.com>
-References: <1337097794.60983.YahooMailNeo@web122202.mail.ne1.yahoo.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: building packages in a general recipe without adding to rootfs
+Return-Path: <andrei@gherzan.ro>
+Received: from mail-ob0-f176.google.com (mail-ob0-f176.google.com
+	[209.85.214.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 368D9E01402
+	for <poky@yoctoproject.org>; Sat, 19 May 2012 14:51:24 -0700 (PDT)
+Received: by obbef5 with SMTP id ef5so8696403obb.35
+	for <poky@yoctoproject.org>; Sat, 19 May 2012 14:51:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=mime-version:x-originating-ip:from:date:message-id:subject:to:cc
+	:content-type:x-gm-message-state;
+	bh=kEfxSv0/gp1lG53/+u8+3k6Fz3B26BJeg5316nPkByk=;
+	b=mm1SmyY298qUEWaRvrAN0TJEqCS4SC1RlzNLBOSUF3fdqcYOojs24jI+YG8z7YOd9O
+	h1yBUOOOfZqbXDmx3NZ5rxPADWasQ5/iCe/1n06vZbDGvfsHNuQvBsVQCmCwvVMLbNnb
+	zfBflYR0CU44OSOTup8rIAFsnFgMkunnLnAFHsG6ovHxFxX8xKxguAnKTM82vfQ56d7a
+	alWJrAsqblaQVuHldSarTOqapC7mQYkGiSxjhC3e3poGl6ChpZuzD/cbq9nx3LKmujB7
+	CtGUyst6OH7Dt30crC2GwJvQxQ3oH0nB92xXg8YqeAZPOzVNjwa4qwmgEWWp84XERNs1
+	SGKQ==
+Received: by 10.50.135.37 with SMTP id pp5mr3683613igb.33.1337464283322; Sat,
+	19 May 2012 14:51:23 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.64.25.18 with HTTP; Sat, 19 May 2012 14:51:02 -0700 (PDT)
+X-Originating-IP: [79.117.116.178]
+From: Andrei Gherzan <andrei@gherzan.ro>
+Date: Sun, 20 May 2012 00:51:02 +0300
+Message-ID: <CAK18fxEh2HW+VQ5yrLdh3pr4hE8ZZzG2ecZXFLy2=40hQ+zYdg@mail.gmail.com>
+To: yocto@yoctoproject.org, poky@yoctoproject.org
+X-Gm-Message-State: ALoCoQlL1xDzmV+wiaAoRsBP5kq81BFTezyooakI2ul48sNwFj+QsoVl/U49CzUs64StuJaow7Cj
+Cc: John.Willis@distant-earth.com
+Subject: RaspberryPi Layer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,29 +39,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2012 18:16:40 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 19 May 2012 21:51:24 -0000
+Content-Type: multipart/alternative; boundary=e89a8f83a12f81da5e04c06aab2e
 
-On Tue, 2012-05-15 at 09:03 -0700, Peter Tornel wrote:
-> I want a single recipe that contains some core packages to install in
-> rootfs using IMAGE_INSTALL, and I also want to specify a number of
-> packages to be built in deploy/rpm so I can install them later to my
-> hard drive without having them included in my rootfs. 
->
-> What's the best way to specify the additional packages in my recipe
-> without having them included in my rootfs?
->
-> I believe EXTRA_IMAGEDEPENDS gets the job done, but it's intended to
-> be used to specify a dependency, which isn't the case here.   Is there
-> something else I should be using?
+--e89a8f83a12f81da5e04c06aab2e
+Content-Type: text/plain; charset=ISO-8859-1
 
-I'd create a recipe which lists them as DEPENDS and then simply include
-the name of that recipe on the commandline along with your image.
+After an exchange of messages with Richard, Saul and John Willis (he
+already started a layer for oe and did a good job in it) i want to announce
+that i started start a fork from his layer and with Florin Sarbu will
+prepare a layer for RaspberryPi to work upon poky.
+Until a stable version of this layer we will keep this layer on bitbucket:
+https://bitbucket.org/agherzan/meta-raspberrypi.
+I don't know if a mailing list is needed but if there are any others who
+want to contribute on this, we can adopt meta-fsl-arm's solution of a
+google group and use it as a way of communicating.
 
-Cheers,
+Waiting for feedback and hope there will be others to come along.
 
-Richard
+@g
+
+--e89a8f83a12f81da5e04c06aab2e
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+After an exchange of messages with Richard, Saul and John Willis (he alread=
+y started a layer for oe and did a good job in it) i want to announce that =
+i started start a fork from his layer and with Florin Sarbu will prepare a =
+layer for RaspberryPi to work upon poky.=A0<div>
 
 
+Until a stable version of this layer we will keep this layer on bitbucket:=
+=A0<a href=3D"https://bitbucket.org/agherzan/meta-raspberrypi" target=3D"_b=
+lank">https://bitbucket.org/agherzan/meta-raspberrypi</a>.=A0</div><div>I d=
+on&#39;t know if a mailing list is needed but if there are any others who w=
+ant to contribute on this, we can adopt meta-fsl-arm&#39;s solution of a go=
+ogle group and use it as a way of=A0communicating.=A0</div>
 
+
+<div><br></div><div>Waiting for feedback and hope there will be others to c=
+ome along.=A0<br clear=3D"all"><div style=3D"text-align:center"></div><div =
+style=3D"text-align:center"><div align=3D"left"><font color=3D"#333333" fac=
+e=3D"Arial"><br>
+
+
+</font></div><div align=3D"left"><font color=3D"#333333" face=3D"Arial">@g<=
+/font></div></div><br>
+</div>
+
+--e89a8f83a12f81da5e04c06aab2e--
