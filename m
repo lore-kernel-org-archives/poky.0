@@ -1,33 +1,37 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-ob0-f176.google.com (mail-ob0-f176.google.com
-	[209.85.214.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 368D9E01402
-	for <poky@yoctoproject.org>; Sat, 19 May 2012 14:51:24 -0700 (PDT)
-Received: by obbef5 with SMTP id ef5so8696403obb.35
-	for <poky@yoctoproject.org>; Sat, 19 May 2012 14:51:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:x-originating-ip:from:date:message-id:subject:to:cc
-	:content-type:x-gm-message-state;
-	bh=kEfxSv0/gp1lG53/+u8+3k6Fz3B26BJeg5316nPkByk=;
-	b=mm1SmyY298qUEWaRvrAN0TJEqCS4SC1RlzNLBOSUF3fdqcYOojs24jI+YG8z7YOd9O
-	h1yBUOOOfZqbXDmx3NZ5rxPADWasQ5/iCe/1n06vZbDGvfsHNuQvBsVQCmCwvVMLbNnb
-	zfBflYR0CU44OSOTup8rIAFsnFgMkunnLnAFHsG6ovHxFxX8xKxguAnKTM82vfQ56d7a
-	alWJrAsqblaQVuHldSarTOqapC7mQYkGiSxjhC3e3poGl6ChpZuzD/cbq9nx3LKmujB7
-	CtGUyst6OH7Dt30crC2GwJvQxQ3oH0nB92xXg8YqeAZPOzVNjwa4qwmgEWWp84XERNs1
-	SGKQ==
-Received: by 10.50.135.37 with SMTP id pp5mr3683613igb.33.1337464283322; Sat,
-	19 May 2012 14:51:23 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.64.25.18 with HTTP; Sat, 19 May 2012 14:51:02 -0700 (PDT)
-X-Originating-IP: [79.117.116.178]
-From: Andrei Gherzan <andrei@gherzan.ro>
-Date: Sun, 20 May 2012 00:51:02 +0300
-Message-ID: <CAK18fxEh2HW+VQ5yrLdh3pr4hE8ZZzG2ecZXFLy2=40hQ+zYdg@mail.gmail.com>
-To: yocto@yoctoproject.org, poky@yoctoproject.org
-X-Gm-Message-State: ALoCoQlL1xDzmV+wiaAoRsBP5kq81BFTezyooakI2ul48sNwFj+QsoVl/U49CzUs64StuJaow7Cj
-Cc: John.Willis@distant-earth.com
-Subject: RaspberryPi Layer
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 66838E013FB
+	for <poky@yoctoproject.org>; Sun, 20 May 2012 01:29:29 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4K8TQjJ010533;
+	Sun, 20 May 2012 09:29:26 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 03035-10; Sun, 20 May 2012 09:29:22 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4K8TGVY010527
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Sun, 20 May 2012 09:29:18 +0100
+Message-ID: <1337502556.28145.22.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Sun, 20 May 2012 09:29:16 +0100
+In-Reply-To: <4FB034B3.9070505@mlbassoc.com>
+References: <4F8493BB.5070400@mlbassoc.com> <1334100422.10826.99.camel@ted>
+	<4F84CCE3.1060504@mlbassoc.com> <4F84E00D.7030302@mlbassoc.com>
+	<4F8D5F61.1010002@mlbassoc.com> <1334674913.616.98.camel@ted>
+	<4F8D8A73.3030408@mlbassoc.com> <1334677494.616.101.camel@ted>
+	<4F8D934D.9070704@mlbassoc.com> <1334679589.616.106.camel@ted>
+	<4F8DA181.9070005@mlbassoc.com> <1334697649.616.138.camel@ted>
+	<4F8DEB4A.7020401@mlbassoc.com> <1336912769.2711.16.camel@ted>
+	<4FB034B3.9070505@mlbassoc.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: SRC checksum checking broken
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,52 +43,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 19 May 2012 21:51:24 -0000
-Content-Type: multipart/alternative; boundary=e89a8f83a12f81da5e04c06aab2e
+X-List-Received-Date: Sun, 20 May 2012 08:29:29 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---e89a8f83a12f81da5e04c06aab2e
-Content-Type: text/plain; charset=ISO-8859-1
+On Sun, 2012-05-13 at 16:24 -0600, Gary Thomas wrote:
+> On 2012-05-13 06:39, Richard Purdie wrote:
+> > Having gone over this several times, I think the original patch is
+> > correct but it highlights some other issues. The nastiest of those is
+> > the deletion of files. I think I've found a way of fixing that by
+> > correctly using fetcher clean functions (which are null operations for
+> > the local fetcher).
+> >
+> > The remaining issue is then one of better output from the fetcher as
+> > there wasn't enough info in the above logs but that is really a separate
+> > problem.
+> >
+> > I've sent out several fetcher patches to the bitbake list which will
+> > hopefully address some of these issues. I'm travelling at the moment and
+> > these were written without internet access so my testing is limited to
+> > the local file:// urls but I'm confident they move things in the right
+> > direction.
+> 
+> Is there something I should check wrt this problem?  A bitbake URL/version?
 
-After an exchange of messages with Richard, Saul and John Willis (he
-already started a layer for oe and did a good job in it) i want to announce
-that i started start a fork from his layer and with Florin Sarbu will
-prepare a layer for RaspberryPi to work upon poky.
-Until a stable version of this layer we will keep this layer on bitbucket:
-https://bitbucket.org/agherzan/meta-raspberrypi.
-I don't know if a mailing list is needed but if there are any others who
-want to contribute on this, we can adopt meta-fsl-arm's solution of a
-google group and use it as a way of communicating.
+I've just checked in a number of patches to master (bitbake and poky)
+which should fix the various fetcher issues people have been seeing.
 
-Waiting for feedback and hope there will be others to come along.
+I'd appreciate it if you could test with that and see if this issue is
+now resolved.
 
-@g
+Cheers,
 
---e89a8f83a12f81da5e04c06aab2e
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-After an exchange of messages with Richard, Saul and John Willis (he alread=
-y started a layer for oe and did a good job in it) i want to announce that =
-i started start a fork from his layer and with Florin Sarbu will prepare a =
-layer for RaspberryPi to work upon poky.=A0<div>
-
-
-Until a stable version of this layer we will keep this layer on bitbucket:=
-=A0<a href=3D"https://bitbucket.org/agherzan/meta-raspberrypi" target=3D"_b=
-lank">https://bitbucket.org/agherzan/meta-raspberrypi</a>.=A0</div><div>I d=
-on&#39;t know if a mailing list is needed but if there are any others who w=
-ant to contribute on this, we can adopt meta-fsl-arm&#39;s solution of a go=
-ogle group and use it as a way of=A0communicating.=A0</div>
+Richard
 
 
-<div><br></div><div>Waiting for feedback and hope there will be others to c=
-ome along.=A0<br clear=3D"all"><div style=3D"text-align:center"></div><div =
-style=3D"text-align:center"><div align=3D"left"><font color=3D"#333333" fac=
-e=3D"Arial"><br>
 
 
-</font></div><div align=3D"left"><font color=3D"#333333" face=3D"Arial">@g<=
-/font></div></div><br>
-</div>
-
---e89a8f83a12f81da5e04c06aab2e--
