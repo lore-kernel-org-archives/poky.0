@@ -1,24 +1,24 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 66838E013FB
-	for <poky@yoctoproject.org>; Sun, 20 May 2012 01:29:29 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4K8TQjJ010533;
-	Sun, 20 May 2012 09:29:26 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 03035-10; Sun, 20 May 2012 09:29:22 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4K8TGVY010527
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Sun, 20 May 2012 09:29:18 +0100
-Message-ID: <1337502556.28145.22.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Sun, 20 May 2012 09:29:16 +0100
-In-Reply-To: <4FB034B3.9070505@mlbassoc.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 833B1E0044A
+	for <poky@yoctoproject.org>; Mon, 21 May 2012 07:30:35 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id BEEBAF81218; Mon, 21 May 2012 08:30:34 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
+	by mail.chez-thomas.org (Postfix) with ESMTP id A6411F811F0;
+	Mon, 21 May 2012 08:30:33 -0600 (MDT)
+Message-ID: <4FBA5189.3060601@mlbassoc.com>
+Date: Mon, 21 May 2012 08:30:33 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
 References: <4F8493BB.5070400@mlbassoc.com> <1334100422.10826.99.camel@ted>
 	<4F84CCE3.1060504@mlbassoc.com> <4F84E00D.7030302@mlbassoc.com>
 	<4F8D5F61.1010002@mlbassoc.com> <1334674913.616.98.camel@ted>
@@ -26,10 +26,8 @@ References: <4F8493BB.5070400@mlbassoc.com> <1334100422.10826.99.camel@ted>
 	<4F8D934D.9070704@mlbassoc.com> <1334679589.616.106.camel@ted>
 	<4F8DA181.9070005@mlbassoc.com> <1334697649.616.138.camel@ted>
 	<4F8DEB4A.7020401@mlbassoc.com> <1336912769.2711.16.camel@ted>
-	<4FB034B3.9070505@mlbassoc.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+	<4FB034B3.9070505@mlbassoc.com> <1337502556.28145.22.camel@ted>
+In-Reply-To: <1337502556.28145.22.camel@ted>
 Cc: poky@yoctoproject.org
 Subject: Re: SRC checksum checking broken
 X-BeenThere: poky@yoctoproject.org
@@ -43,40 +41,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 20 May 2012 08:29:29 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 21 May 2012 14:30:35 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2012-05-13 at 16:24 -0600, Gary Thomas wrote:
-> On 2012-05-13 06:39, Richard Purdie wrote:
-> > Having gone over this several times, I think the original patch is
-> > correct but it highlights some other issues. The nastiest of those is
-> > the deletion of files. I think I've found a way of fixing that by
-> > correctly using fetcher clean functions (which are null operations for
-> > the local fetcher).
-> >
-> > The remaining issue is then one of better output from the fetcher as
-> > there wasn't enough info in the above logs but that is really a separate
-> > problem.
-> >
-> > I've sent out several fetcher patches to the bitbake list which will
-> > hopefully address some of these issues. I'm travelling at the moment and
-> > these were written without internet access so my testing is limited to
-> > the local file:// urls but I'm confident they move things in the right
-> > direction.
-> 
-> Is there something I should check wrt this problem?  A bitbake URL/version?
+On 2012-05-20 02:29, Richard Purdie wrote:
+> On Sun, 2012-05-13 at 16:24 -0600, Gary Thomas wrote:
+>> On 2012-05-13 06:39, Richard Purdie wrote:
+>>> Having gone over this several times, I think the original patch is
+>>> correct but it highlights some other issues. The nastiest of those is
+>>> the deletion of files. I think I've found a way of fixing that by
+>>> correctly using fetcher clean functions (which are null operations for
+>>> the local fetcher).
+>>>
+>>> The remaining issue is then one of better output from the fetcher as
+>>> there wasn't enough info in the above logs but that is really a separate
+>>> problem.
+>>>
+>>> I've sent out several fetcher patches to the bitbake list which will
+>>> hopefully address some of these issues. I'm travelling at the moment and
+>>> these were written without internet access so my testing is limited to
+>>> the local file:// urls but I'm confident they move things in the right
+>>> direction.
+>>
+>> Is there something I should check wrt this problem?  A bitbake URL/version?
+>
+> I've just checked in a number of patches to master (bitbake and poky)
+> which should fix the various fetcher issues people have been seeing.
+>
+> I'd appreciate it if you could test with that and see if this issue is
+> now resolved.
 
-I've just checked in a number of patches to master (bitbake and poky)
-which should fix the various fetcher issues people have been seeing.
+Yes, SRC_URI checksum checking seems to be working again.  Tested with
+"own-mirrors" and normal fetching.
 
-I'd appreciate it if you could test with that and see if this issue is
-now resolved.
+Thanks
 
-Cheers,
-
-Richard
-
-
-
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
