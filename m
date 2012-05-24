@@ -1,39 +1,41 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from fmsmga101.fm.intel.com (mga05.intel.com [192.55.52.89])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7BEFE01206
-	for <poky@yoctoproject.org>; Wed, 23 May 2012 15:01:31 -0700 (PDT)
-Received: from mail-pz0-f52.google.com ([209.85.210.52])
-	by mga01.intel.com with ESMTP/TLS/RC4-MD5; 23 May 2012 15:00:53 -0700
-Received: by dano14 with SMTP id o14so10446303dan.25
-	for <poky@yoctoproject.org>; Wed, 23 May 2012 15:00:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:cc:subject
-	:content-type:content-transfer-encoding:x-gm-message-state;
-	bh=enL3Fkk6CUHFIKfjsYC57FU649k2yDqTLKgBhleAOfw=;
-	b=dR8yqr0rBA0Z7NUhdPQpxBTWYPGeBATn0qrAGJuR3g45kATHCcRf0rpphR2Nls/56j
-	21iN7CxzhLdoIk/Q5cCtE50wO64xlZoikujbI50NtfFoMcT0r9JtGJ/sLK/SD+P8J4Fv
-	fUKItv+CDPcKVG5TVb9NBqrKJw9ygusZraAOD3+ZWxbVudvE8HWUSWtdM4eWwvJo4Oul
-	Rxchl08SCyBtGDAs+Ypyds1YGDuirSfH7n4mgx185FYJA9BuAN/3z1C9aPT+m5NX7QhL
-	G925Kfoq2ZCbgx8FH/FEDtPtycHwHHU13+uMfrNBYD4TfCkNst76pR4SR8VSv13pVtF2
-	4YNQ==
-Received: by 10.68.234.129 with SMTP id ue1mr10549223pbc.140.1337810453264;
-	Wed, 23 May 2012 15:00:53 -0700 (PDT)
-Received: from [192.168.1.105] (c-76-105-137-48.hsd1.or.comcast.net.
-	[76.105.137.48])
-	by mx.google.com with ESMTPS id x1sm3106639pbp.50.2012.05.23.15.00.50
-	(version=SSLv3 cipher=OTHER); Wed, 23 May 2012 15:00:51 -0700 (PDT)
-Message-ID: <4FBD5E10.3070403@intel.com>
-Date: Wed, 23 May 2012 15:00:48 -0700
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+Return-Path: <kpa_info@yahoo.fr>
+Received: from nm10.bullet.mail.ukl.yahoo.com (nm10.bullet.mail.ukl.yahoo.com
+	[217.146.182.251])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 67763E01304
+	for <poky@yoctoproject.org>; Thu, 24 May 2012 02:22:45 -0700 (PDT)
+Received: from [217.146.183.181] by nm10.bullet.mail.ukl.yahoo.com with NNFMP;
+	24 May 2012 09:22:44 -0000
+Received: from [77.238.184.57] by tm12.bullet.mail.ukl.yahoo.com with NNFMP;
+	24 May 2012 09:22:44 -0000
+Received: from [127.0.0.1] by smtp126.mail.ukl.yahoo.com with NNFMP;
+	24 May 2012 09:22:44 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
+	t=1337851364; bh=It/fqq69+Y4FsrtHsibNbcDTUDZPp5bJrhQViddR09E=;
+	h=X-Yahoo-Newman-Id:X-Yahoo-Newman-Property:X-YMail-OSG:X-Yahoo-SMTP:Received:Message-ID:Date:From:User-Agent:MIME-Version:To:Subject:References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	b=LVr9aISRFBmQi+zh8me8Yik0sS7a4BfMi1Nmz7yd1npBqXYWGVhUS496QAY2skZ2D8tB7R6Ohks7+JZFdJ7jxd9hzdD4Hc/DbWssrmdn6oBcNRRZynrguUTJqYAq3YtEOIaO6TphgHER4N6eHNIn7tgg/kE7zMk4TBmaCPmvVmM=
+X-Yahoo-Newman-Id: 427834.62632.bm@smtp126.mail.ukl.yahoo.com
+X-Yahoo-Newman-Property: ymail-3
+X-YMail-OSG: 4.K_XYEVM1lSIhLGRvfT3n6K4cLKsLDc9iN7If2Z2LKLpGj
+	c_LHLZ9LMP53hR5sKP0Jc_IivZB.BFzeqmu6gSUfTq4qIRMMqYJ2ojQRxEjx
+	tF8Ny7OPXAQkephuAtqPWdFOJqItlL2mNS99fEBVaE6iukj6AnM6jKZYQlfl
+	goOHi_hW1P66vseoBnAUrjsye4rilPS3o0lxMDqc6hAv07FSpsQChMlykNYo
+	ZW1jan8b1hBdsu7glaHOYCrbtCTFaW5GmflXp.HfdtatV0YFoRfuHwHS5MqM
+	WMTTD69RKCpHUnjAtVIfZbTQqEdXR_AkM0QPcB0zdHv1BNOD3jYnR9HOwxa.
+	Qrgyb2hZD6Q38LX9L.xtJyHx3X9ShXi.cXiIV8lbTiYpFixVm5F6Xx4CdWew
+	HI62XjefUcIyuKi9clhI8HlsgdhB6xjgIZcPY3jW5ThCPg7jYvlDIiTef.A- -
+X-Yahoo-SMTP: gXxkLaeswBDA9gtBSIbQ8XWSflp0
+Received: from [10.22.2.59] (kpa_info@213.193.97.58 with plain)
+	by smtp126.mail.ukl.yahoo.com with SMTP; 24 May 2012 09:22:44 +0000 GMT
+Message-ID: <4FBDFDE1.3050505@yahoo.fr>
+Date: Thu, 24 May 2012 11:22:41 +0200
+From: Patrick <kpa_info@yahoo.fr>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
 	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
-To: Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-X-Gm-Message-State: ALoCoQl8UJ57doV0CGQodei3VW7R4/gEvG5rQt5uDSWmuE1ispmzm8SrGHmY/exUyWah/kpW1zrU
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>, poky@yoctoproject.org
-Subject: RFC: Merging commits from into the main denzil branch
+To: poky@yoctoproject.org
+References: <4F981E9A.5050704@yahoo.fr> <4F982FA9.8010909@windriver.com>
+In-Reply-To: <4F982FA9.8010909@windriver.com>
+Subject: Re: Include already exisiting rpm or .spec
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,63 +47,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 May 2012 22:01:31 -0000
+X-List-Received-Date: Thu, 24 May 2012 09:22:45 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hello all,
 
-As most of you know, I've been pulling commits into a pair of 
-sgarman/denzil-next branches which are intended to eventually become the 
-next Denzil point-release, 1.2.1.
+We have tried to add one of our package called 
+test_libs-v27_v30-1.armv7a.rpm into tmp/deploy/rpm/armv7a directory.
 
-oe-core based branch:
-http://git.openembedded.org/openembedded-core-contrib/log/?h=sgarman/denzil-next
+Then in our image receipes we have added test_libs in  IMAGE_INSTALL.
 
-poky based branch:
-http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next
+The when we bitbake our image we have the following error message:
 
-So far I haven't merged or requested to merge any of these commits into 
-the main denzil branches of oe-core and poky, for two main reasons:
+Resolving any missing task queue dependencies
+ERROR: Nothing RPROVIDES 'test_libs' (but 
+/home/yocto/poky-denzil-7.0/meta-test/recipes-extended/images/test-image.bb 
+RDEPENDS on or otherwise requires it)
+NOTE: Runtime target 'test_libs' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['test_libs']
+ERROR: Required build target 'test-image' has no buildable providers.
+Missing or unbuildable dependency chain was: ['test-image', 'test_libs']
 
-1. I've only performed the most basic build testing of these branches on 
-a desktop system, building core-image-minimal and core-image-sato for 
-our 5 qemu machines.
+Thanks for any help !
 
-2. To date, we haven't had a clear process on how to transition from the 
-maintainer's personal branch into the official repo branch. I'd like to 
-develop a clear and documented process on doing this that involves 
-community feedback on the commits.
+Patrick
 
-Just this week I've been able to start using the Yocto autobuilder to do 
-more comprehensive testing of my denzil-next branch, so issue #1 is 
-finally resolved, and I've got a green build to raise my confidence level:
 
-http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/462
+On 04/25/2012 07:08 PM, Mark Hatle wrote:
+> On 4/25/12 10:56 AM, Patrick wrote:
+>> Dear all,
+>>
+>> We have some software that we develop from a while that we release as
+>> rpm. To build these rpm we have some complexe .spec files.
+>>
+>> Now we use Yocto/Poky to build many new elements and I would like to
+>> include in my rootfs generated with Yocto/Poky some of our "old"
+>> software. We don't want to manage the bitbake recipes and the .spec for
+>> each of our "old" software.
+>>
+>> I then would like to know if I could made a simple bitbake recipes that
+>> "call/include/use" the .specs files ?
+>> Another solution would be to include directly the rpm to the final
+>> image. Do you think that it's possible ?
+>
+> This is something that we have discussed, but nobody has implement it yet.
+>
+> It is best for long term maintenance to transfer the spec file items
+> into recipe format... but if you don't want to do that you can copy your
+> built binary RPM packages into the deploy/RPMS/<arch> directory and then
+> add the package names to install into IMAGE_INSTALL (from memory).
+>
+> --Mark
+>
+>> Thanks in advance for idea or hint
+>>
+>> Patrick
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-So now to address issue #2. The goal is to incorporate community 
-feedback, so I'm looking to get ACKs or NAKs for these commits before 
-they go into the main denzil branch.
-
-My proposal is to send denzil pull requests to the appropriate mailing 
-lists, and Richard can merge them into the main repo denzil branches 
-once they've received review by the community.
-
-My goal is to send these pull requests about once per week, once I've 
-managed to get a green build out of the Yocto autobuilder for my contrib 
-branch.
-
-What do folks think about this? Now's your opportunity to offer feedback 
-and influence this process.
-
-Thanks!
-
-Scott
-
-Yocto 1.2.1 release maintainer
-
--- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
 
