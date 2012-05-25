@@ -1,40 +1,42 @@
 Return-Path: <kpa_info@yahoo.fr>
-Received: from nm10.bullet.mail.ukl.yahoo.com (nm10.bullet.mail.ukl.yahoo.com
-	[217.146.182.251])
-	by yocto-www.yoctoproject.org (Postfix) with SMTP id 67763E01304
-	for <poky@yoctoproject.org>; Thu, 24 May 2012 02:22:45 -0700 (PDT)
-Received: from [217.146.183.181] by nm10.bullet.mail.ukl.yahoo.com with NNFMP;
-	24 May 2012 09:22:44 -0000
-Received: from [77.238.184.57] by tm12.bullet.mail.ukl.yahoo.com with NNFMP;
-	24 May 2012 09:22:44 -0000
-Received: from [127.0.0.1] by smtp126.mail.ukl.yahoo.com with NNFMP;
-	24 May 2012 09:22:44 -0000
+Received: from nm6-vm0.bullet.mail.ukl.yahoo.com
+	(nm6-vm0.bullet.mail.ukl.yahoo.com [217.146.183.234])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 2944CE01402
+	for <poky@yoctoproject.org>; Fri, 25 May 2012 05:05:46 -0700 (PDT)
+Received: from [217.146.183.217] by nm6.bullet.mail.ukl.yahoo.com with NNFMP;
+	25 May 2012 12:03:32 -0000
+Received: from [217.146.182.143] by tm10.bullet.mail.ukl.yahoo.com with NNFMP;
+	25 May 2012 12:03:32 -0000
+Received: from [127.0.0.1] by smtp116.mail.ukl.yahoo.com with NNFMP;
+	25 May 2012 12:03:32 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
-	t=1337851364; bh=It/fqq69+Y4FsrtHsibNbcDTUDZPp5bJrhQViddR09E=;
+	t=1337947412; bh=t+fzQm0jjgJQrpRQCvFr0gEI4NTBYxNA3nP5wz5HtO0=;
 	h=X-Yahoo-Newman-Id:X-Yahoo-Newman-Property:X-YMail-OSG:X-Yahoo-SMTP:Received:Message-ID:Date:From:User-Agent:MIME-Version:To:Subject:References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	b=LVr9aISRFBmQi+zh8me8Yik0sS7a4BfMi1Nmz7yd1npBqXYWGVhUS496QAY2skZ2D8tB7R6Ohks7+JZFdJ7jxd9hzdD4Hc/DbWssrmdn6oBcNRRZynrguUTJqYAq3YtEOIaO6TphgHER4N6eHNIn7tgg/kE7zMk4TBmaCPmvVmM=
-X-Yahoo-Newman-Id: 427834.62632.bm@smtp126.mail.ukl.yahoo.com
+	b=ktSSd3TFhyJH/81HQ0Vi2+ZPfn9WDBW2uInV+DyIICoDT8O/ckeo5WO1LN9DxZcxxHefQj0qMBfu3mmLV4buzdU2XbDiCwumm2y5heckWfV3ABKcihoIy4J6JZazPFnYqC5CddqGKK//Od+F9liEijLRWcbHl37R6s+N1bFyclI=
+X-Yahoo-Newman-Id: 792863.6239.bm@smtp116.mail.ukl.yahoo.com
 X-Yahoo-Newman-Property: ymail-3
-X-YMail-OSG: 4.K_XYEVM1lSIhLGRvfT3n6K4cLKsLDc9iN7If2Z2LKLpGj
-	c_LHLZ9LMP53hR5sKP0Jc_IivZB.BFzeqmu6gSUfTq4qIRMMqYJ2ojQRxEjx
-	tF8Ny7OPXAQkephuAtqPWdFOJqItlL2mNS99fEBVaE6iukj6AnM6jKZYQlfl
-	goOHi_hW1P66vseoBnAUrjsye4rilPS3o0lxMDqc6hAv07FSpsQChMlykNYo
-	ZW1jan8b1hBdsu7glaHOYCrbtCTFaW5GmflXp.HfdtatV0YFoRfuHwHS5MqM
-	WMTTD69RKCpHUnjAtVIfZbTQqEdXR_AkM0QPcB0zdHv1BNOD3jYnR9HOwxa.
-	Qrgyb2hZD6Q38LX9L.xtJyHx3X9ShXi.cXiIV8lbTiYpFixVm5F6Xx4CdWew
-	HI62XjefUcIyuKi9clhI8HlsgdhB6xjgIZcPY3jW5ThCPg7jYvlDIiTef.A- -
+X-YMail-OSG: CM_a8h8VM1niis._6Kg14UA2dbe.cREE58kipJZtQsLZNO2
+	VIhNDDt5BP6h_Hl4GC8l8AE5NJ63zYQxjoO7VbZjWclK9TpQaLFrBdE3bSGR
+	ZOshziYUBjF3s0eHunj_.T9d_Kq1u5MJFs7Del2P2Tt3YvrHRc89rsv.2KcI
+	iSLEvzmcrM8o_GTrzs43fUs4vn4cKzvPZsTqIy1s4sVZDmdrH2v6e4lHuGjp
+	IdvyWceIVFwYhTdixaQtNL_D5FxV2SX4WPCF4aNcYvwTiAtPwQEZ_nGb7TWq
+	k2wkZhvQo5uoYQsNCesnVkY8ZeSqjwVt4QjCpPEMaoWDVnXoWK7NLRC0aop5
+	rqzOITST_c46SDM8lfik4jForuXdFT0JTczZiqhIiAOXUS0jbiGYwyw5mDwU
+	hE8BZVb8Zp7nCA.Oq4PnNkQQ01mbZ6gI0xwSymSxD1S4tEHFMiCN79ciNllo
+	8Vd91qQdcHPyhY2.x9NXSeXFWdgN9pg--
 X-Yahoo-SMTP: gXxkLaeswBDA9gtBSIbQ8XWSflp0
 Received: from [10.22.2.59] (kpa_info@213.193.97.58 with plain)
-	by smtp126.mail.ukl.yahoo.com with SMTP; 24 May 2012 09:22:44 +0000 GMT
-Message-ID: <4FBDFDE1.3050505@yahoo.fr>
-Date: Thu, 24 May 2012 11:22:41 +0200
+	by smtp116.mail.ukl.yahoo.com with SMTP; 25 May 2012 05:03:32 -0700 PDT
+Message-ID: <4FBF7512.5090709@yahoo.fr>
+Date: Fri, 25 May 2012 14:03:30 +0200
 From: Patrick <kpa_info@yahoo.fr>
 User-Agent: Mozilla/5.0 (X11; Linux i686;
 	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
 To: poky@yoctoproject.org
 References: <4F981E9A.5050704@yahoo.fr> <4F982FA9.8010909@windriver.com>
-In-Reply-To: <4F982FA9.8010909@windriver.com>
+	<4FBDFDE1.3050505@yahoo.fr>
+In-Reply-To: <4FBDFDE1.3050505@yahoo.fr>
 Subject: Re: Include already exisiting rpm or .spec
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -47,70 +49,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 May 2012 09:22:45 -0000
+X-List-Received-Date: Fri, 25 May 2012 12:05:46 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hello all,
+On 05/24/2012 11:22 AM, Patrick wrote:
+> Hello all,
+>
+> We have tried to add one of our package called
+> test_libs-v27_v30-1.armv7a.rpm into tmp/deploy/rpm/armv7a directory.
+>
+> Then in our image receipes we have added test_libs in IMAGE_INSTALL.
+>
+> The when we bitbake our image we have the following error message:
+>
+> Resolving any missing task queue dependencies
+> ERROR: Nothing RPROVIDES 'test_libs' (but
+> /home/yocto/poky-denzil-7.0/meta-test/recipes-extended/images/test-image.bb
+> RDEPENDS on or otherwise requires it)
+> NOTE: Runtime target 'test_libs' is unbuildable, removing...
+> Missing or unbuildable dependency chain was: ['test_libs']
+> ERROR: Required build target 'test-image' has no buildable providers.
+> Missing or unbuildable dependency chain was: ['test-image', 'test_libs']
+>
+> Thanks for any help !
+>
+> Patrick
+>
 
-We have tried to add one of our package called 
-test_libs-v27_v30-1.armv7a.rpm into tmp/deploy/rpm/armv7a directory.
+I reply myself, we have simply added a dummy recipes with a RPROVIDES 
+with the name of our package and everything work like a charm.
 
-Then in our image receipes we have added test_libs in  IMAGE_INSTALL.
-
-The when we bitbake our image we have the following error message:
-
-Resolving any missing task queue dependencies
-ERROR: Nothing RPROVIDES 'test_libs' (but 
-/home/yocto/poky-denzil-7.0/meta-test/recipes-extended/images/test-image.bb 
-RDEPENDS on or otherwise requires it)
-NOTE: Runtime target 'test_libs' is unbuildable, removing...
-Missing or unbuildable dependency chain was: ['test_libs']
-ERROR: Required build target 'test-image' has no buildable providers.
-Missing or unbuildable dependency chain was: ['test-image', 'test_libs']
-
-Thanks for any help !
+Thanks to all
 
 Patrick
-
-
-On 04/25/2012 07:08 PM, Mark Hatle wrote:
-> On 4/25/12 10:56 AM, Patrick wrote:
->> Dear all,
->>
->> We have some software that we develop from a while that we release as
->> rpm. To build these rpm we have some complexe .spec files.
->>
->> Now we use Yocto/Poky to build many new elements and I would like to
->> include in my rootfs generated with Yocto/Poky some of our "old"
->> software. We don't want to manage the bitbake recipes and the .spec for
->> each of our "old" software.
->>
->> I then would like to know if I could made a simple bitbake recipes that
->> "call/include/use" the .specs files ?
->> Another solution would be to include directly the rpm to the final
->> image. Do you think that it's possible ?
->
-> This is something that we have discussed, but nobody has implement it yet.
->
-> It is best for long term maintenance to transfer the spec file items
-> into recipe format... but if you don't want to do that you can copy your
-> built binary RPM packages into the deploy/RPMS/<arch> directory and then
-> add the package names to install into IMAGE_INSTALL (from memory).
->
-> --Mark
->
->> Thanks in advance for idea or hint
->>
->> Patrick
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
 
