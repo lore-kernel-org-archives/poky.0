@@ -1,22 +1,28 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 91631E011D1
-	for <poky@yoctoproject.org>; Tue, 29 May 2012 02:57:48 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 29 May 2012 02:57:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="148890910"
-Received: from unknown (HELO helios.localnet) ([10.252.120.40])
-	by azsmga001.ch.intel.com with ESMTP; 29 May 2012 02:57:47 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Tue, 29 May 2012 10:57:46 +0100
-Message-ID: <1860364.RiBI5vjcRR@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.8.2 (Linux/3.2.0-24-generic-pae; KDE/4.8.2; i686; ; )
-In-Reply-To: <4FC3B862.7040305@mlbassoc.com>
-References: <4FC3B862.7040305@mlbassoc.com>
-MIME-Version: 1.0
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 56E8DE011D1
+	for <poky@yoctoproject.org>; Tue, 29 May 2012 03:12:55 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4TACnu2011718;
+	Tue, 29 May 2012 11:12:49 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 07953-09; Tue, 29 May 2012 11:12:45 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q4TACfPS011711
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 29 May 2012 11:12:42 +0100
+Message-ID: <1338286361.20169.101.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+Date: Tue, 29 May 2012 11:12:41 +0100
+In-Reply-To: <1860364.RiBI5vjcRR@helios>
+References: <4FC3B862.7040305@mlbassoc.com> <1860364.RiBI5vjcRR@helios>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
 Subject: Re: Unexpected bugzilla behaviour
 X-BeenThere: poky@yoctoproject.org
@@ -30,34 +36,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2012 09:57:48 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 29 May 2012 10:12:55 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Monday 28 May 2012 11:39:46 Gary Thomas wrote:
-> I was making a reply to bug #1570 and the next thing I know I had
-> a full-up page for bug #1587 where I errantly added an attachment.
+On Tue, 2012-05-29 at 10:57 +0100, Paul Eggleton wrote:
+> On Monday 28 May 2012 11:39:46 Gary Thomas wrote:
+> > I was making a reply to bug #1570 and the next thing I know I had
+> > a full-up page for bug #1587 where I errantly added an attachment.
+> > 
+> > My recall was that bugzilla would stay with the bug you're working
+> > on - I could make a comment and then add an attachment without leaving
+> > the same bug report.  That doesn't seem to be the case now and it
+> > left me not only confused but putting comments and attachments in
+> > the wrong place.
+> > 
+> > Did this change with the bugzilla "upgrade"?
 > 
-> My recall was that bugzilla would stay with the bug you're working
-> on - I could make a comment and then add an attachment without leaving
-> the same bug report.  That doesn't seem to be the case now and it
-> left me not only confused but putting comments and attachments in
-> the wrong place.
+> AFAIK Bugzilla has always had this mis-feature. The worst thing is it's not 
+> consistent - if you didn't have a bug "list" (previous search results) then it 
+> will stay on the current bug.
 > 
-> Did this change with the bugzilla "upgrade"?
+> I've even heard of a Firefox add-on that will override this behaviour, but I 
+> never looked into it.
 
-AFAIK Bugzilla has always had this mis-feature. The worst thing is it's not 
-consistent - if you didn't have a bug "list" (previous search results) then it 
-will stay on the current bug.
-
-I've even heard of a Firefox add-on that will override this behaviour, but I 
-never looked into it.
+Its always done this but there is an option in your preferences to stop
+it doing it. I know I set that a while ago for me and it is still set
+after the upgrade...
 
 Cheers,
-Paul
 
--- 
+Richard
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
