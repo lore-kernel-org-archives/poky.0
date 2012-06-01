@@ -1,21 +1,23 @@
 Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 78293E0030B
-	for <poky@yoctoproject.org>; Fri,  1 Jun 2012 01:51:11 -0700 (PDT)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E701EE0044A
+	for <poky@yoctoproject.org>; Fri,  1 Jun 2012 01:51:12 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q518pBZr015785
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q518pC9h009101
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Fri, 1 Jun 2012 01:51:11 -0700 (PDT)
+	for <poky@yoctoproject.org>; Fri, 1 Jun 2012 01:51:12 -0700 (PDT)
 Received: from usp-ub10.corp.ad.wrs.com (128.224.163.69) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.1.255.0; Fri, 1 Jun 2012 01:51:10 -0700
+	14.1.255.0; Fri, 1 Jun 2012 01:51:12 -0700
 From: Robert Yang <liezhi.yang@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Fri, 1 Jun 2012 16:51:42 +0800
-Message-ID: <cover.1338538332.git.liezhi.yang@windriver.com>
+Date: Fri, 1 Jun 2012 16:51:43 +0800
+Message-ID: <abb5651cbd1e4851b0b766d44ae10984429ca3d9.1338538332.git.liezhi.yang@windriver.com>
 X-Mailer: git-send-email 1.7.1
+In-Reply-To: <cover.1338538332.git.liezhi.yang@windriver.com>
+References: <cover.1338538332.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH 0/1] kernel.py: replace os.popen with subprocess.Popen
+Subject: [PATCH 1/1] kernel.py: replace os.popen with subprocess.Popen
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +29,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Jun 2012 08:51:11 -0000
+X-List-Received-Date: Fri, 01 Jun 2012 08:51:13 -0000
 Content-Type: text/plain
 
-Note: This is only for yocto, not for oe-core, since oe-core doesn't
-have scripts/lib/bsp/kernel.py.
+Replace os.popen with subprocess.Popen since the older function would
+fail (more or less) silently if the executed program cannot be found
 
-// Robert
+More info:
+http://docs.python.org/library/subprocess.html#subprocess-replacements
 
-The following changes since commit de4cdfd6bc1280ac7ac0559b87734d26294ef773:
+[YOCTO #2454]
 
-  documentation/kernel-manual/kernel-how-to.xml: Updated to kernel 3.4 (2012-05-31 21:16:55 +0100)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib robert/kernel_py
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/kernel_py
-
-Robert Yang (1):
-  kernel.py: replace os.popen with subprocess.Popen
-
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
  scripts/lib/bsp/kernel.py |    5 +++--
  1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
+index 8b3aa72..7c6da4e 100644
+--- a/scripts/lib/bsp/kernel.py
++++ b/scripts/lib/bsp/kernel.py
+@@ -31,6 +31,7 @@ import os
+ import shutil
+ from tags import *
+ import glob
++import subprocess
+ 
+ 
+ def find_bblayers(scripts_path):
+@@ -678,7 +679,7 @@ def base_branches(context):
+     print "Getting branches from remote repo %s..." % giturl
+ 
+     gitcmd = "git ls-remote %s *heads* 2>&1" % (giturl)
+-    tmp = os.popen(gitcmd).read()
++    tmp = subprocess.Popen(gitcmd, shell=True, stdout=subprocess.PIPE).stdout.read()
+ 
+     branches = []
+ 
+@@ -708,7 +709,7 @@ def all_branches(context):
+     print "Getting branches from remote repo %s..." % giturl
+ 
+     gitcmd = "git ls-remote %s *heads* 2>&1" % (giturl)
+-    tmp = os.popen(gitcmd).read()
++    tmp = subprocess.Popen(gitcmd, shell=True, stdout=subprocess.PIPE).stdout.read()
+ 
+     branches = []
+ 
+-- 
+1.7.1
 
 
