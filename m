@@ -1,29 +1,30 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9B5E3E01445
-	for <poky@yoctoproject.org>; Mon,  4 Jun 2012 14:00:40 -0700 (PDT)
-Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 7FB0130465
-	for <poky@yoctoproject.org>; Mon,  4 Jun 2012 17:00:35 -0400 (EDT)
-From: Scott Garman <scott.a.garman@intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  4 Jun 2012 14:00:24 -0700
-Message-Id: <e5b844eca8cb9cb0efe65d3e03c73bad0437287a.1338843506.git.scott.a.garman@intel.com>
-X-Mailer: git-send-email 1.7.9.5
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 89D78E0142F
+	for <poky@yoctoproject.org>; Tue,  5 Jun 2012 15:11:02 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q55MAwug002940;
+	Tue, 5 Jun 2012 23:10:58 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02845-02; Tue,  5 Jun 2012 23:10:52 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q55MAof3002934
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 5 Jun 2012 23:10:51 +0100
+Message-ID: <1338934250.20169.281.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Scott Garman <scott.a.garman@intel.com>
+Date: Tue, 05 Jun 2012 23:10:50 +0100
 In-Reply-To: <cover.1338843506.git.scott.a.garman@intel.com>
 References: <cover.1338843506.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1338843506.git.scott.a.garman@intel.com>
-References: <cover.1338843506.git.scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: 7FB0130465.F2BC3
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 7/7] Update version to 1.15.2 (correspdoning to Yocto 1.2 release)
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/7] denzil pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,45 +36,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Jun 2012 21:00:40 -0000
+X-List-Received-Date: Tue, 05 Jun 2012 22:11:03 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+On Mon, 2012-06-04 at 14:00 -0700, Scott Garman wrote:
+> This is a pull request for the poky denzil branch, based on a set of
+> commits I've been testing from my sgarman/denzil-next branch.
+> 
+> These commits have passed an array of build and runtime tests,
+> including the following nightly build:
+> 
+> http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/492
+> 
+> a non-gplv3 build:
+> 
+> http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/87
+> 
+> and a tiny build:
+> 
+> http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/69
 
-(Bitbake rev: 270a05b0b4ba0959fe0624d2a4885d7b70426da5)
+I've merged these into poky's denzil branch, thanks.
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- bitbake/bin/bitbake        |    2 +-
- bitbake/lib/bb/__init__.py |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/bitbake/bin/bitbake b/bitbake/bin/bitbake
-index a90f6c6..420e69d 100755
---- a/bitbake/bin/bitbake
-+++ b/bitbake/bin/bitbake
-@@ -40,7 +40,7 @@ from bb import cooker
- from bb import ui
- from bb import server
- 
--__version__ = "1.15.1"
-+__version__ = "1.15.2"
- logger = logging.getLogger("BitBake")
- 
- 
-diff --git a/bitbake/lib/bb/__init__.py b/bitbake/lib/bb/__init__.py
-index 8d579c7..0b3c4bf 100644
---- a/bitbake/lib/bb/__init__.py
-+++ b/bitbake/lib/bb/__init__.py
-@@ -21,7 +21,7 @@
- # with this program; if not, write to the Free Software Foundation, Inc.,
- # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- 
--__version__ = "1.15.1"
-+__version__ = "1.15.2"
- 
- import sys
- if sys.version_info < (2, 6, 0):
--- 
-1.7.9.5
+Richard
 
 
