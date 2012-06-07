@@ -1,30 +1,22 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 89D78E0142F
-	for <poky@yoctoproject.org>; Tue,  5 Jun 2012 15:11:02 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q55MAwug002940;
-	Tue, 5 Jun 2012 23:10:58 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 02845-02; Tue,  5 Jun 2012 23:10:52 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q55MAof3002934
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 5 Jun 2012 23:10:51 +0100
-Message-ID: <1338934250.20169.281.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Garman <scott.a.garman@intel.com>
-Date: Tue, 05 Jun 2012 23:10:50 +0100
-In-Reply-To: <cover.1338843506.git.scott.a.garman@intel.com>
-References: <cover.1338843506.git.scott.a.garman@intel.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/7] denzil pull request
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 11AF8E013BB
+	for <poky@yoctoproject.org>; Thu,  7 Jun 2012 13:04:06 -0700 (PDT)
+Received: from yow-bashfiel-l1.wrs.com (yow-bashfiel-d3.wrs.com
+	[128.224.147.67])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q57K40C3019543;
+	Thu, 7 Jun 2012 13:04:02 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Thu,  7 Jun 2012 16:03:42 -0400
+Message-Id: <7df6f87492955f64a6d9ff580d488bdc5be2d4f6.1339099275.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
+In-Reply-To: <cover.1339099275.git.bruce.ashfield@windriver.com>
+References: <cover.1339099275.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1339099275.git.bruce.ashfield@windriver.com>
+References: <cover.1339099275.git.bruce.ashfield@windriver.com>
+Cc: dvhart@linux.intel.com, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 2/7] linux-yocto/meta-yocto: update to v3.2.18
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,29 +28,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jun 2012 22:11:03 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 07 Jun 2012 20:04:06 -0000
 
-On Mon, 2012-06-04 at 14:00 -0700, Scott Garman wrote:
-> This is a pull request for the poky denzil branch, based on a set of
-> commits I've been testing from my sgarman/denzil-next branch.
-> 
-> These commits have passed an array of build and runtime tests,
-> including the following nightly build:
-> 
-> http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/492
-> 
-> a non-gplv3 build:
-> 
-> http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/87
-> 
-> and a tiny build:
-> 
-> http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/69
+Updating the 3.2 linux-yocto SRCREVs to pick up the v3.2.18
+-stable release.
 
-I've merged these into poky's denzil branch, thanks.
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_3.2.bbappend  |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
 
-Richard
+diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.2.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.2.bbappend
+index 589904f..815650a 100644
+--- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.2.bbappend
++++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.2.bbappend
+@@ -8,10 +8,10 @@ KBRANCH_routerstationpro = "standard/default/routerstationpro"
+ KBRANCH_mpc8315e-rdb = "standard/default/fsl-mpc8315e-rdb"
+ KBRANCH_beagleboard = "standard/default/beagleboard"
+ 
+-SRCREV_machine_atom-pc ?= "f29531a41df15d74be5ad47d958e4117ca9e489e"
+-SRCREV_machine_routerstationpro ?= "a6755fa847a9362470d31a6d71d08069ece749ff"
+-SRCREV_machine_mpc8315e-rdb ?= "818339ef5a53e281e28fdcf10aca1183c4ff71e0"
+-SRCREV_machine_beagleboard ?= "90e3138c5a2a390dd6ddf2ed84fe5a9756d43397"
++SRCREV_machine_atom-pc ?= "624509ef194d14aa498ed6f1620093b8e40e3a30"
++SRCREV_machine_routerstationpro ?= "6eb6f908bbca493bbce4b7c460f8bf07272a78a9"
++SRCREV_machine_mpc8315e-rdb ?= "bd08c2cdee3c980060ee6d3206ece374570f74d2"
++SRCREV_machine_beagleboard ?= "ab826acad523e8858dcf867847a732c7288b5dc7"
+ 
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
+-- 
+1.7.5.4
 
 
