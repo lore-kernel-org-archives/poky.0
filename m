@@ -1,22 +1,26 @@
-Return-Path: <tf+lists.yocto@r-finger.com>
-Received: from r-finger.com (r-finger.com [178.79.160.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 296FEE013BB
-	for <poky@yoctoproject.org>; Fri,  8 Jun 2012 05:46:11 -0700 (PDT)
-Received: from [192.168.0.2] (host86-170-63-25.range86-170.btcentralplus.com
-	[86.170.63.25]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by r-finger.com (Postfix) with ESMTPSA id 3662F9C07
-	for <poky@yoctoproject.org>; Fri,  8 Jun 2012 13:46:10 +0100 (BST)
-Message-ID: <4FD1F411.60808@r-finger.com>
-Date: Fri, 08 Jun 2012 13:46:09 +0100
-From: Tomas Frydrych <tf+lists.yocto@r-finger.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 622E6E006D9
+	for <poky@yoctoproject.org>; Fri,  8 Jun 2012 08:10:10 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 08 Jun 2012 08:10:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="109631266"
+Received: from unknown (HELO envy.home) ([10.255.12.197])
+	by AZSMGA002.ch.intel.com with ESMTP; 08 Jun 2012 08:10:09 -0700
+Message-ID: <4FD2158B.8070102@linux.intel.com>
+Date: Fri, 08 Jun 2012 08:08:59 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:10.0.3) Gecko/20120329 Icedove/10.0.3
+	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4FD1F20F.6060908@mlbassoc.com>
-In-Reply-To: <4FD1F20F.6060908@mlbassoc.com>
-Subject: Re: RaspberryPi with Poky
+To: Robert Yang <liezhi.yang@windriver.com>
+References: <cover.1338538332.git.liezhi.yang@windriver.com>
+	<abb5651cbd1e4851b0b766d44ae10984429ca3d9.1338538332.git.liezhi.yang@windriver.com>
+In-Reply-To: <abb5651cbd1e4851b0b766d44ae10984429ca3d9.1338538332.git.liezhi.yang@windriver.com>
+X-Enigmail-Version: 1.4.2
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] kernel.py: replace os.popen with subprocess.Popen
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,18 +32,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Jun 2012 12:46:11 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 08 Jun 2012 15:10:10 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
 
-On 08/06/12 13:37, Gary Thomas wrote:
-> First problem: 'core-image-sato-raspberrypi.rpi-sdimg' is broken (no file)
 
-I noticed this the the other day; on further investigation the sdimg
-class in meta-raspberrypi is rather nasty, IIRC you need to set up some
-stuff by hand on the build machine first and then run the build as root
-as well. I am not sure there is any need for the sdimg either, you
-should be able to use the tarball to extract the rootfs onto the SD card.
 
-Tomas
+On 06/01/2012 01:51 AM, Robert Yang wrote:
+> Replace os.popen with subprocess.Popen since the older function would
+> fail (more or less) silently if the executed program cannot be found
+> 
+> More info:
+> http://docs.python.org/library/subprocess.html#subprocess-replacements
+> 
+> [YOCTO #2454]
+> 
+> Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+> ---
+>  scripts/lib/bsp/kernel.py |    5 +++--
+>  1 files changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
+> index 8b3aa72..7c6da4e 100644
+> --- a/scripts/lib/bsp/kernel.py
+> +++ b/scripts/lib/bsp/kernel.py
+> @@ -31,6 +31,7 @@ import os
+>  import shutil
+>  from tags import *
+>  import glob
+> +import subprocess
+>  
+>  
+>  def find_bblayers(scripts_path):
+> @@ -678,7 +679,7 @@ def base_branches(context):
+>      print "Getting branches from remote repo %s..." % giturl
+>  
+>      gitcmd = "git ls-remote %s *heads* 2>&1" % (giturl)
+> -    tmp = os.popen(gitcmd).read()
+> +    tmp = subprocess.Popen(gitcmd, shell=True, stdout=subprocess.PIPE).stdout.read()
+
+Subprocess is right module to use here, but I believe the recommended
+method would be:
+
+subprocess.call(gitcmd...
+
+According to:
+http://docs.python.org/library/subprocess.html
+
+>  
+>      branches = []
+>  
+> @@ -708,7 +709,7 @@ def all_branches(context):
+>      print "Getting branches from remote repo %s..." % giturl
+>  
+>      gitcmd = "git ls-remote %s *heads* 2>&1" % (giturl)
+> -    tmp = os.popen(gitcmd).read()
+> +    tmp = subprocess.Popen(gitcmd, shell=True, stdout=subprocess.PIPE).stdout.read()
+>  
+>      branches = []
+>  
+
+And here I think subprocess.check_output(...) is preferred.
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
