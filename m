@@ -1,21 +1,29 @@
-Return-Path: <tf+lists.yocto@r-finger.com>
-Received: from r-finger.com (r-finger.com [178.79.160.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 86685E0140C
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 07:49:19 -0700 (PDT)
-Received: from [192.168.0.2] (host86-170-63-53.range86-170.btcentralplus.com
-	[86.170.63.53]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by r-finger.com (Postfix) with ESMTPSA id 004AF9C07
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 15:49:17 +0100 (BST)
-Message-ID: <4FD756ED.8020308@r-finger.com>
-Date: Tue, 12 Jun 2012 15:49:17 +0100
-From: Tomas Frydrych <tf+lists.yocto@r-finger.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:10.0.3) Gecko/20120329 Icedove/10.0.3
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <4FD753B2.9060705@yahoo.fr>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7968BE01421
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 07:50:59 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5CEllBo011552;
+	Tue, 12 Jun 2012 15:47:47 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 11362-04; Tue, 12 Jun 2012 15:47:43 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5CElbdX011525
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 12 Jun 2012 15:47:38 +0100
+Message-ID: <1339512456.8065.13.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Patrick <kpa_info@yahoo.fr>
+Date: Tue, 12 Jun 2012 15:47:36 +0100
 In-Reply-To: <4FD753B2.9060705@yahoo.fr>
+References: <4FD753B2.9060705@yahoo.fr>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
 Subject: Re: Running script after installation (postinst)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -28,31 +36,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 14:49:19 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 12 Jun 2012 14:51:00 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 12/06/12 15:35, Patrick wrote:
-> In one of our recipes we need to execute a small script after the
-> installation of the package. Following yocto dev manual point 4.3.6 we
+On Tue, 2012-06-12 at 16:35 +0200, Patrick wrote:
+> Dear all,
+> 
+> In one of our recipes we need to execute a small script after the 
+> installation of the package. Following yocto dev manual point 4.3.6 we 
 > have added a pkg_postinst function.
 > 
-> This doesn’t work properly as the script is executed at first start-up
+> This doesn’t work properly as the script is executed at first start-up 
 > and not after installation. Below are an example of this recipe.
 > 
-> Do you have any idea why this script is started as first boot time and
+> Do you have any idea why this script is started as first boot time and 
 > not after installation ?
+> 
+> Thanks in advance for any help !
 
-It will be run both times (often postinst scripts have to be run on the
-actual HW). You can chose when your code takes effect by testing the $D
-variable; when it is set, your script is being run during the rootfs
-creation, when it is unset, it is being run on the first boot. There are
-many examples of this in the Yocto recipes.
+We try and run postinstalls "offline" at image creation time. If they
+fail, they run at first boot.
 
-Your particular script will not work as is at rootfs time, since it is
-trying to modify '/etc', which at that point is the host /etc directory.
+You can tell which context you're in by the contents of the $D variable
+(note, $D, not ${D}). For example, you could therefore do:
 
-Tomas
+
+pkg_postinst_task-system-tweaks () {
+   #!/bin/sh -e
+
+   #Mount tmprecovery at startup
+   mkdir -p $D/tmprecovery
+   mkdir -p $D/data
+   echo "/dev/mtdblock6        /tmprecovery        yaffs2      0 0" >> $D/etc/fstab
+   echo "/dev/mtdblock7        /data               yaffs2   noauto  0 0" >> $D/etc/fstab
+
+Cheers,
+
+Richard
+
 
