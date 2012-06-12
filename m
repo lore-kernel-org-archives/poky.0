@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D2069E006D9
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 13:42:06 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7DFD2E006D9
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 13:42:08 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id F30682FF40
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 16:42:00 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 361152FD1D
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 16:42:03 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 12 Jun 2012 13:41:10 -0700
-Message-Id: <46ffde90589ffe4d873a450e582b200a4fca5fa2.1339533508.git.scott.a.garman@intel.com>
+Date: Tue, 12 Jun 2012 13:41:11 -0700
+Message-Id: <e948e4cda81cc8a6bc673bc47482df76118f2f8a.1339533508.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
 References: <cover.1339533507.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
 References: <cover.1339533507.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: F30682FF40.97DF3
+X-MailScanner-ID: 361152FD1D.C9EB4
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 20/31] webkit-gtk: Use glib as unicode backend to avoid browser crash
+Subject: [PATCH 21/31] gnupg: add libusb to DEPENDS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,54 +35,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 20:42:07 -0000
+X-List-Received-Date: Tue, 12 Jun 2012 20:42:08 -0000
 
-From: Zhai Edwin <edwin.zhai@intel.com>
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-webkit-gtk depends on ICU for the unicode, but ICU is not safe when build and
-target system owns different endian. ICU's community is not responsive to make
-a patch for this, so glib is used as work around here.
+gnupg apparently depends on libusb:
 
-[YOCTO #1570] got fixed
+| error: Failed dependencies:
+| 	 libusb-0.1-4 >= 0.1.3 is needed by gnupg-2.0.18-r1.core2
 
-Signed-off-by: Zhai Edwin <edwin.zhai@intel.com>
+So add libusb to gnupg DEPENDS.
+
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta/recipes-sato/webkit/webkit-gtk_svn.bb |   10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/meta/recipes-sato/webkit/webkit-gtk_svn.bb b/meta/recipes-sato/webkit/webkit-gtk_svn.bb
-index 7db573d..9381486 100644
---- a/meta/recipes-sato/webkit/webkit-gtk_svn.bb
-+++ b/meta/recipes-sato/webkit/webkit-gtk_svn.bb
-@@ -10,12 +10,13 @@ LIC_FILES_CHKSUM = "file://Source/WebCore/rendering/RenderApplet.h;endline=22;md
- DEPENDS = "zlib enchant gnome-keyring libsoup-2.4 curl icu libxml2 cairo libxslt libxt libidn gnutls gtk+ gstreamer gst-plugins-base flex-native gperf-native perl-native-runtime sqlite3"
- DEPENDS += " ${@base_contains('DISTRO_FEATURES', 'opengl', 'virtual/libgl', '', d)}"
- DEPENDS_darwin8 = "curl icu libxml2 cairo libxslt libidn gnutls gtk+ gstreamer flex-native gperf-native perl-native-runtime sqlite3"
-+DEPENDS_append_qemuppc += "pango"
+Resolved merge conflicts when importing from oe-core master.
+
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+---
+ meta/recipes-support/gnupg/gnupg_2.0.18.bb |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-support/gnupg/gnupg_2.0.18.bb b/meta/recipes-support/gnupg/gnupg_2.0.18.bb
+index 3085494..7dfd908 100644
+--- a/meta/recipes-support/gnupg/gnupg_2.0.18.bb
++++ b/meta/recipes-support/gnupg/gnupg_2.0.18.bb
+@@ -4,8 +4,8 @@ LICENSE = "GPLv3 & LGPLv3"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
+                     file://COPYING.LIB;md5=6a6a8e020838b23406c81b19c1d46df6"
  
- SRCREV_FORMAT = "source"
+-DEPENDS = "pth libassuan libksba zlib bzip2 readline libgcrypt"
+-PR = "r1"
++DEPENDS = "pth libassuan libksba zlib bzip2 readline libgcrypt libusb"
++PR = "r2"
  
- SRCREV = "101488"
- PV = "1.7.2+svnr${SRCPV}"
--PR = "r4"
-+PR = "r5"
- 
- SRC_URI = "\
-   svn://svn.webkit.org/repository/webkit/trunk/;module=Source;proto=http;name=source \
-@@ -47,6 +48,13 @@ EXTRA_OECONF = "\
-                 UNICODE_CFLAGS=-D_REENTRANT \
-                "
- 
-+#default unicode backend icu breaks in cross-compile when target and host owns different endian type
-+EXTRA_OECONF_append_qemuppc += "--with-unicode-backend=glib"
-+
-+CPPFLAGS_append_qemuppc += "-I${STAGING_INCDIR}/pango-1.0 \
-+                            -I${STAGING_LIBDIR}/glib-2.0/include \
-+                            -I${STAGING_INCDIR}/glib-2.0"
-+
- EXTRA_AUTORECONF = " -I Source/autotools "
- 
+ inherit autotools gettext
  
 -- 
 1.7.9.5
