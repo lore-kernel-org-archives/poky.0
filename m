@@ -1,41 +1,38 @@
 Return-Path: <kpa_info@yahoo.fr>
-Received: from nm4-vm0.bullet.mail.ird.yahoo.com
-	(nm4-vm0.bullet.mail.ird.yahoo.com [77.238.189.211])
-	by yocto-www.yoctoproject.org (Postfix) with SMTP id 08B8FE00747
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 05:10:12 -0700 (PDT)
-Received: from [77.238.189.230] by nm4.bullet.mail.ird.yahoo.com with NNFMP;
-	12 Jun 2012 12:10:11 -0000
-Received: from [217.146.189.67] by tm11.bullet.mail.ird.yahoo.com with NNFMP;
-	12 Jun 2012 12:10:11 -0000
-Received: from [127.0.0.1] by smtp147.mail.ird.yahoo.com with NNFMP;
-	12 Jun 2012 12:10:11 -0000
+Received: from nm10-vm0.bullet.mail.ird.yahoo.com
+	(nm10-vm0.bullet.mail.ird.yahoo.com [77.238.189.90])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 4B2ADE0140C
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 07:35:33 -0700 (PDT)
+Received: from [77.238.189.233] by nm10.bullet.mail.ird.yahoo.com with NNFMP;
+	12 Jun 2012 14:35:32 -0000
+Received: from [217.146.188.173] by tm14.bullet.mail.ird.yahoo.com with NNFMP;
+	12 Jun 2012 14:35:32 -0000
+Received: from [127.0.0.1] by smtp141.mail.ird.yahoo.com with NNFMP;
+	12 Jun 2012 14:35:32 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
-	t=1339503011; bh=KXPYqWIeJrJNHeb/Jco5p9NwmG1tDoT9eoK3iWuzUmY=;
+	t=1339511732; bh=C7jq4/swGSH2/aafHwaq29MrRjg4UnvRT5HE0k83Ky8=;
 	h=X-Yahoo-Newman-Id:X-Yahoo-Newman-Property:X-YMail-OSG:X-Yahoo-SMTP:Received:Message-ID:Date:From:User-Agent:MIME-Version:To:Subject:Content-Type:Content-Transfer-Encoding;
-	b=2C4xvRTMXIhDjGoHrjswMlbKFIbLbB/ad70nznVdG7oJM1hznndsxZLUlm0pb16FEeQ2aUgOY1XnFPV9f6heh56sixLB79qrtUV7rL1UYmlKWCCZI3WIbSQ5A1WljN8vo7kujRCICG25v3jMl5lYBmPDzDNCir2JycdBPkocly8=
-X-Yahoo-Newman-Id: 590135.21133.bm@smtp147.mail.ird.yahoo.com
+	b=mmlwub+ufl8TMWHFBiaoJ3TLXgJj6GH9EYOrbpVIBN3BGgBBkoN28zlPa8jN26tLYWq1f8BT/vj+NDNXNqeomBJPPlSACFH8mRYFMVjna7nBBkPczCx9IPOVdCOwhPg7MKcWtvzezz06aG7flu/8qzSTNYN9vxCVAO7iW+YsjyE=
+X-Yahoo-Newman-Id: 193419.26099.bm@smtp141.mail.ird.yahoo.com
 X-Yahoo-Newman-Property: ymail-3
-X-YMail-OSG: IrR_INMVM1n9ASnmd7OUvyg7z_Xt2nU75y85sF8Vu6AQbM4
-	TTQfwSq1Sx5LYDGvDvrcpaMjgRLznUoaHdYz9dQtWdzO3RBuxZ7tAIQw67t.
-	87IM56nYeYfQKEKl8qfyfpKCldEJhpuXZxE0H1nEYqOvXYhb2cyTPHh8a7vQ
-	ygNJDcZ7VkybaSgVd37lxp1sY8nt.UqKuWH4dNnoKHeKzqitynzbC_4V932K
-	mzTHEo.U5zKuY_miTMFHXBXwv2YdWFVdcb3m8a_N7B0.KG7X6MTOgXoPHc0P
-	TBZsD.5VNwbrOKwLw.uNDE85hy4i9L9KMiQCYggK7RHFVUsqOOQIqWWOotPk
-	3dHW09KJuIhPdupe8onVRCAD_e7jkUWASwaK6SKjBocL9VJ.OR68s9ILC755
-	.f2a.Rmz7nyNsYs6z_MK_nHkP0jSaoVZktpP5JRZCcSgO3WPPiEeUX5gKJ2o
-	mhVuNVZ3b2_FODmnJ8DFa_SbTlxgBqmnSkpA3hFyWTzQacVAhmJ.jdlzRWzK
-	jGoe2f5slM28_QvLC0DcR
+X-YMail-OSG: B5GuSSQVM1nTLlbhxS9JGN_fm.ULM22ZMen8.ZD3hXoamP3
+	d5YIZw.wv_yP7w2Cca_k4HkOn3T.WIaPV24BwZ7dJdCS2DZbDbB6BOdGwXQh
+	O_TJayVieiqNGcjB_8GANTI3HHmZCeMOywSkmFwZcinegUixU6ihGTYFyMGg
+	Qitn7CHcEtjHeHXtp34MTno3RDug9JPz4TtWlmFgGHIoPHg2CReRors8yIrO
+	N.dpefy7S21L_YAUSquMB_w8SFIazDuW.qSLwmVdqQcp1ZUntYxdoEjC2c3P
+	EdialKF8dX0uFxITg._GrxlMiqOelVlmplluW30N87sJPQn9idleGokZaOCl
+	InLkjWshLIFhIJbFZjj7vglAPrkUFp0Oq.OlNc8LH16cCYWRDenwlZsuMcg- -
 X-Yahoo-SMTP: gXxkLaeswBDA9gtBSIbQ8XWSflp0
 Received: from [10.22.2.59] (kpa_info@213.193.97.58 with plain)
-	by smtp147.mail.ird.yahoo.com with SMTP; 12 Jun 2012 05:10:11 -0700 PDT
-Message-ID: <4FD731A1.6020503@yahoo.fr>
-Date: Tue, 12 Jun 2012 14:10:09 +0200
+	by smtp141.mail.ird.yahoo.com with SMTP; 12 Jun 2012 07:35:31 -0700 PDT
+Message-ID: <4FD753B2.9060705@yahoo.fr>
+Date: Tue, 12 Jun 2012 16:35:30 +0200
 From: Patrick <kpa_info@yahoo.fr>
 User-Agent: Mozilla/5.0 (X11; Linux i686;
 	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
 To: poky@yoctoproject.org
-Subject: How to set root password
+Subject: Running script after installation (postinst)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,17 +44,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 12:10:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 12 Jun 2012 14:35:33 -0000
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
 Dear all,
 
-How could I set the root password on my own images ?
-I have found this post  on the FAQ but no answer...
-https://wiki.yoctoproject.org/wiki/FAQ:How_do_I_set_or_change_the_root_password
+In one of our recipes we need to execute a small script after the 
+installation of the package. Following yocto dev manual point 4.3.6 we 
+have added a pkg_postinst function.
 
-Any help is welcome !
+This doesn’t work properly as the script is executed at first start-up 
+and not after installation. Below are an example of this recipe.
+
+Do you have any idea why this script is started as first boot time and 
+not after installation ?
+
+Thanks in advance for any help !
 
 Patrick
+
+
+DESCRIPTION = "System modifications needed for System"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = 
+"file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+ALLOW_EMPTY = "1"
+
+PR = "r5"
+
+RDEPENDS = "\
+     rpm \
+     "
+
+pkg_postinst_task-system-tweaks () {
+   #!/bin/sh -e
+
+   #Mount tmprecovery at startup
+   mkdir -p /tmprecovery
+   mkdir -p /data
+   echo "/dev/mtdblock6        /tmprecovery        yaffs2      0 0" >> 
+/etc/fstab
+   echo "/dev/mtdblock7        /data               yaffs2   noauto  0 0" 
+ >> /etc/fstab
+}
+
 
