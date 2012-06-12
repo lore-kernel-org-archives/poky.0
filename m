@@ -1,34 +1,15 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B93C8E00746
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 03:34:17 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5CAYCKH004403;
-	Tue, 12 Jun 2012 11:34:12 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 01774-02; Tue, 12 Jun 2012 11:34:08 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5CAY6MB004391
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 12 Jun 2012 11:34:06 +0100
-Message-ID: <1339497248.28854.20.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Darren Hart <dvhart@linux.intel.com>
-Date: Tue, 12 Jun 2012 11:34:08 +0100
-In-Reply-To: <4FD21C99.8000904@linux.intel.com>
-References: <cover.1338538332.git.liezhi.yang@windriver.com>
-	<abb5651cbd1e4851b0b766d44ae10984429ca3d9.1338538332.git.liezhi.yang@windriver.com>
-	<4FD2158B.8070102@linux.intel.com>
-	<20120608151448.GJ3140@jama.jama.net>
-	<4FD21C99.8000904@linux.intel.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] kernel.py: replace os.popen with subprocess.Popen
+Return-Path: <gthomas@mail.chez-thomas.org>
+Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 31418E00746
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 04:39:44 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 996)
+	id 255D2F811F9; Tue, 12 Jun 2012 05:39:44 -0600 (MDT)
+From: Gary Thomas <gary@mlbassoc.com>
+To: poky@yoctoproject.org
+Date: Tue, 12 Jun 2012 05:39:43 -0600
+Message-Id: <1339501183-16643-1-git-send-email-gary@mlbassoc.com>
+X-Mailer: git-send-email 1.7.7.6
+Subject: [PATCH] webkit-gtk: Apply work around for all PowerPC targets
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,38 +21,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 10:34:18 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 12 Jun 2012 11:39:45 -0000
 
-On Fri, 2012-06-08 at 08:39 -0700, Darren Hart wrote:
-> 
-> On 06/08/2012 08:14 AM, Martin Jansa wrote:
-> > On Fri, Jun 08, 2012 at 08:08:59AM -0700, Darren Hart wrote:
-> >> And here I think subprocess.check_output(...) is preferred.
-> > 
-> > That's only in python 2.7 and newer, are distros with python-2.6 
-> > unsupported now?
-> > 
-> > I did the same mistake in opkg-utils (patch for it is on yocto
-> > ML). 
-> > https://lists.yoctoproject.org/pipermail/yocto/2012-May/009182.html
-> 
-> Ah,
-> > 
-> thanks for catching that. What is the minimum python requirement?
-> 
-> I thought we had something in place to allow for older distributions
-> to work with more modern python syntax.
+The current patch for bug #1570 only applies to qemuppc but should be
+applicable for all PowerPC targets.  Also update the patch so that
+only one language backend, either ICU or PANGO, is built.
 
-We have the option of the external python tarball but we only resort to
-that for really old systems. Our minimum python version is currently 2.6
-and whilst there are some benefits from 2.7 (such as the process stuff),
-we've not seen enough to warrant switching at this point. We have
-workarounds in place for the process pieces.
+Also remove some old customizations (dependencies on darwin) as these
+should now be handled in a layer specific .bbappend file.
 
-Cheers,
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+---
+ meta/recipes-sato/webkit/webkit-gtk_svn.bb |   15 +++++++++------
+ 1 files changed, 9 insertions(+), 6 deletions(-)
 
-Richard
+diff --git a/meta/recipes-sato/webkit/webkit-gtk_svn.bb b/meta/recipes-sato/webkit/webkit-gtk_svn.bb
+index 9381486..716afce 100644
+--- a/meta/recipes-sato/webkit/webkit-gtk_svn.bb
++++ b/meta/recipes-sato/webkit/webkit-gtk_svn.bb
+@@ -7,10 +7,13 @@ LIC_FILES_CHKSUM = "file://Source/WebCore/rendering/RenderApplet.h;endline=22;md
+                     file://Source/WebKit/gtk/webkit/webkit.h;endline=21;md5=b4fbe9f4a944f1d071dba1d2c76b3351 \
+                     file://Source/JavaScriptCore/parser/Parser.h;endline=23;md5=2f3cff0ad0a9c486da5a376928973a90"
+ 
+-DEPENDS = "zlib enchant gnome-keyring libsoup-2.4 curl icu libxml2 cairo libxslt libxt libidn gnutls gtk+ gstreamer gst-plugins-base flex-native gperf-native perl-native-runtime sqlite3"
++# Choice of language backends - icu has issues on Big Endian machines so use pango
++ICU_LIB = "icu"
++ICU_LIB_powerpc = "pango"
++
++DEPENDS = "zlib enchant gnome-keyring libsoup-2.4 curl libxml2 cairo libxslt libxt libidn gnutls \
++           gtk+ gstreamer gst-plugins-base flex-native gperf-native perl-native-runtime sqlite3 ${ICU_LIB}"
+ DEPENDS += " ${@base_contains('DISTRO_FEATURES', 'opengl', 'virtual/libgl', '', d)}"
+-DEPENDS_darwin8 = "curl icu libxml2 cairo libxslt libidn gnutls gtk+ gstreamer flex-native gperf-native perl-native-runtime sqlite3"
+-DEPENDS_append_qemuppc += "pango"
+ 
+ SRCREV_FORMAT = "source"
+ 
+@@ -48,10 +51,10 @@ EXTRA_OECONF = "\
+                 UNICODE_CFLAGS=-D_REENTRANT \
+                "
+ 
+-#default unicode backend icu breaks in cross-compile when target and host owns different endian type
+-EXTRA_OECONF_append_qemuppc += "--with-unicode-backend=glib"
++#default unicode backend icu breaks in cross-compile when target and host are different endian type
++EXTRA_OECONF_append_powerpc += "--with-unicode-backend=glib"
+ 
+-CPPFLAGS_append_qemuppc += "-I${STAGING_INCDIR}/pango-1.0 \
++CPPFLAGS_append_powerpc += "-I${STAGING_INCDIR}/pango-1.0 \
+                             -I${STAGING_LIBDIR}/glib-2.0/include \
+                             -I${STAGING_INCDIR}/glib-2.0"
+ 
+-- 
+1.7.7.6
 
 
