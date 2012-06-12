@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7968BE01421
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 07:50:59 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5CEllBo011552;
-	Tue, 12 Jun 2012 15:47:47 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 11362-04; Tue, 12 Jun 2012 15:47:43 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5CElbdX011525
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Tue, 12 Jun 2012 15:47:38 +0100
-Message-ID: <1339512456.8065.13.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patrick <kpa_info@yahoo.fr>
-Date: Tue, 12 Jun 2012 15:47:36 +0100
-In-Reply-To: <4FD753B2.9060705@yahoo.fr>
-References: <4FD753B2.9060705@yahoo.fr>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: Running script after installation (postinst)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 510CAE01421
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 07:52:43 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 12 Jun 2012 07:52:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="111189732"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.133])
+	by AZSMGA002.ch.intel.com with ESMTP; 12 Jun 2012 07:52:42 -0700
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 12 Jun 2012 07:52:40 -0700
+Message-Id: <cover.1339512665.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.7.6
+Subject: [PATCH 0/1] Add set of distro tracking to meta-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,43 +25,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 14:51:00 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 12 Jun 2012 14:52:43 -0000
 
-On Tue, 2012-06-12 at 16:35 +0200, Patrick wrote:
-> Dear all,
-> 
-> In one of our recipes we need to execute a small script after the 
-> installation of the package. Following yocto dev manual point 4.3.6 we 
-> have added a pkg_postinst function.
-> 
-> This doesn’t work properly as the script is executed at first start-up 
-> and not after installation. Below are an example of this recipe.
-> 
-> Do you have any idea why this script is started as first boot time and 
-> not after installation ?
-> 
-> Thanks in advance for any help !
+This adds back the distro_tracking info as multiple files
 
-We try and run postinstalls "offline" at image creation time. If they
-fail, they run at first boot.
+Sau!
 
-You can tell which context you're in by the contents of the $D variable
-(note, $D, not ${D}). For example, you could therefore do:
+The following changes since commit cc96daa4443ca39e409040e3e4aff783658b8f6a:
 
+  qt-x11-free.bbappend: Update to 4.8.1 (2012-06-12 13:10:00 +0100)
 
-pkg_postinst_task-system-tweaks () {
-   #!/bin/sh -e
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib sgw/dist_files
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/dist_files
 
-   #Mount tmprecovery at startup
-   mkdir -p $D/tmprecovery
-   mkdir -p $D/data
-   echo "/dev/mtdblock6        /tmprecovery        yaffs2      0 0" >> $D/etc/fstab
-   echo "/dev/mtdblock7        /data               yaffs2   noauto  0 0" >> $D/etc/fstab
+Saul Wold (1):
+  distro tracking files: Add seperated set of files
 
-Cheers,
+ meta-yocto/conf/distro/include/distro_alias.inc    |  426 ++++++++
+ meta-yocto/conf/distro/include/maintainers.inc     |  727 +++++++++++++
+ meta-yocto/conf/distro/include/recipe_color.inc    |  457 +++++++++
+ .../conf/distro/include/upstream_tracking.inc      | 1078 ++++++++++++++++++++
+ 4 files changed, 2688 insertions(+), 0 deletions(-)
+ create mode 100644 meta-yocto/conf/distro/include/distro_alias.inc
+ create mode 100644 meta-yocto/conf/distro/include/maintainers.inc
+ create mode 100644 meta-yocto/conf/distro/include/recipe_color.inc
+ create mode 100644 meta-yocto/conf/distro/include/upstream_tracking.inc
 
-Richard
+-- 
+1.7.7.6
 
 
