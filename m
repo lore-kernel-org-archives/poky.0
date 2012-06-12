@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C5F30E01421
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 13:41:29 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 54118E01425
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 13:41:32 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 1A7C22FD1D
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 16:41:24 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 39A7C2FE86
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 16:41:26 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 12 Jun 2012 13:40:54 -0700
-Message-Id: <644cd62f4f4b4869b87a1d8aa9e3d35ca93c3915.1339533507.git.scott.a.garman@intel.com>
+Date: Tue, 12 Jun 2012 13:40:55 -0700
+Message-Id: <816c6d41a2b610ec74927ce62a97072e594f2abc.1339533507.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
 References: <cover.1339533507.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
 References: <cover.1339533507.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 1A7C22FD1D.7587C
+X-MailScanner-ID: 39A7C2FE86.76346
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 04/31] Hob: Clear the building status if command failed
+Subject: [PATCH 05/31] Hob: change the refresh icon speed to make it view clear
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,36 +35,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 20:41:29 -0000
+X-List-Received-Date: Tue, 12 Jun 2012 20:41:32 -0000
 
-From: Dongxiao Xu <dongxiao.xu@intel.com>
+From: Liming An <limingx.l.an@intel.com>
 
-We may meet certain command failure during build time, for example,
-out of memory. In this case, we need to clear the "building" status.
+Because the arrow icon refresh so fast as the go backward by illusion, so adjust it slow.
 
-This fixes [YOCTO #2371]
+[YOCTO #2335]
 
-(Bitbake rev: 283dbbbf5d34adb4c9e3aa87e3925fdebe21ff42)
+(Bitbake rev: ac4a8885fafdc0d1e79831334ead9a8ddb6e2472)
 
-Signed-off-by: Dongxiao Xu <dongxiao.xu@intel.com>
+Signed-off-by: Liming An <limingx.l.an@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- bitbake/lib/bb/ui/crumbs/hobeventhandler.py |    2 ++
- 1 file changed, 2 insertions(+)
+ bitbake/lib/bb/ui/crumbs/hobwidget.py |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/bitbake/lib/bb/ui/crumbs/hobeventhandler.py b/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
-index a07afdd..624d7b5 100644
---- a/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
-+++ b/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
-@@ -199,6 +199,8 @@ class HobHandler(gobject.GObject):
-             self.clear_busy()
-             self.emit("command-failed", self.error_msg)
-             self.error_msg = ""
-+            if self.building:
-+                self.building = False
-         elif isinstance(event, (bb.event.ParseStarted,
-                  bb.event.CacheLoadStarted,
-                  bb.event.TreeDataPreparationStarted,
+diff --git a/bitbake/lib/bb/ui/crumbs/hobwidget.py b/bitbake/lib/bb/ui/crumbs/hobwidget.py
+index 751b3e0..6cf73b0 100644
+--- a/bitbake/lib/bb/ui/crumbs/hobwidget.py
++++ b/bitbake/lib/bb/ui/crumbs/hobwidget.py
+@@ -1057,7 +1057,7 @@ class HobCellRendererPixbuf(gtk.CellRendererPixbuf):
+             if self.control.is_active():
+                 self.control.on_draw_pixbuf_cb(pix, window.cairo_create(), x, y, w, h, True)
+             else:
+-                self.control.start_run(200, 0, 0, 1000, 200, tree)
++                self.control.start_run(200, 0, 0, 1000, 150, tree)
+         else:
+             self.control.remove_running_cell_area(cell_area)
+             self.control.on_draw_pixbuf_cb(pix, window.cairo_create(), x, y, w, h, False)
 -- 
 1.7.9.5
 
