@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F820E006D9
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 13:42:02 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 56637E006D9
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 13:42:04 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id A202B2FF3C
-	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 16:41:56 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id CD68E2FE87
+	for <poky@yoctoproject.org>; Tue, 12 Jun 2012 16:41:58 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 12 Jun 2012 13:41:08 -0700
-Message-Id: <86acf668137729e072ba4f95d2b8b2a4634dca61.1339533507.git.scott.a.garman@intel.com>
+Date: Tue, 12 Jun 2012 13:41:09 -0700
+Message-Id: <f62bcb1054487e47db07362dbe882115ae831123.1339533507.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
 References: <cover.1339533507.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
 References: <cover.1339533507.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: A202B2FF3C.A110E
+X-MailScanner-ID: CD68E2FE87.A0CDA
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 18/31] classes/sanity: send sanity check failure as a separate event for Hob
+Subject: [PATCH 19/31] hob: handle sanity check failures as a separate event
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,75 +35,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Jun 2012 20:42:02 -0000
+X-List-Received-Date: Tue, 12 Jun 2012 20:42:04 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-In order to show a friendlier error message within Hob that does not
-bury the actual sanity error in our typical preamble about disabling
-sanity checks, use a separate event to indicate that sanity checks
-failed.
+In order to show a friendlier error message that does not bury the
+actual sanity error in our typical preamble about disabling sanity
+checks, use a separate event to indicate that sanity checks failed.
 
 This change is intended to work together with the related change to
-BitBake, however it has a check to ensure that it does not fail with
-older versions that do not include that change.
+sanity.bbclass in OE-Core.
 
 Fixes [YOCTO #2336].
+
+(Bitbake rev: 24b631acdaa143a4de39c6e1328849660c66f219)
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/classes/sanity.bbclass |   16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ bitbake/lib/bb/event.py                     |    8 ++++++++
+ bitbake/lib/bb/ui/crumbs/builder.py         |    7 ++++++-
+ bitbake/lib/bb/ui/crumbs/hobeventhandler.py |    6 ++++++
+ 3 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
-index 0c2fa04..9755694 100644
---- a/meta/classes/sanity.bbclass
-+++ b/meta/classes/sanity.bbclass
-@@ -4,7 +4,16 @@
- 
- SANITY_REQUIRED_UTILITIES ?= "patch diffstat texi2html makeinfo svn bzip2 tar gzip gawk chrpath wget cpio"
- 
--def raise_sanity_error(msg):
-+def raise_sanity_error(msg, d):
-+    if d.getVar("SANITY_USE_EVENTS", True) == "1":
-+        # FIXME: handle when BitBake version is too old to support bb.event.SanityCheckFailed
-+        # We can just fire the event directly once the minimum version is bumped beyond 1.15.1
-+        try:
-+            bb.event.fire(bb.event.SanityCheckFailed(msg), d)
-+            return
-+        except AttributeError:
-+            pass
+diff --git a/bitbake/lib/bb/event.py b/bitbake/lib/bb/event.py
+index f3fb521..1116c0a 100644
+--- a/bitbake/lib/bb/event.py
++++ b/bitbake/lib/bb/event.py
+@@ -527,3 +527,11 @@ class SanityCheckPassed(Event):
+     """
+     Event to indicate sanity check is passed
+     """
 +
-     bb.fatal(""" OE-core's config sanity checker detected a potential misconfiguration.
-     Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
-     Following is the list of potential problems / advisories:
-@@ -219,7 +228,7 @@ def check_sanity(sanity_data):
-         return
++class SanityCheckFailed(Event):
++    """
++    Event to indicate sanity check has failed
++    """
++    def __init__(self, msg):
++        Event.__init__(self)
++        self._msg = msg
+diff --git a/bitbake/lib/bb/ui/crumbs/builder.py b/bitbake/lib/bb/ui/crumbs/builder.py
+index 3f68782..df85326 100755
+--- a/bitbake/lib/bb/ui/crumbs/builder.py
++++ b/bitbake/lib/bb/ui/crumbs/builder.py
+@@ -354,6 +354,7 @@ class Builder(gtk.Window):
+         self.handler.connect("data-generated",           self.handler_data_generated_cb)
+         self.handler.connect("command-succeeded",        self.handler_command_succeeded_cb)
+         self.handler.connect("command-failed",           self.handler_command_failed_cb)
++        self.handler.connect("sanity-failed",            self.handler_sanity_failed_cb)
+         self.handler.connect("recipe-populated",         self.handler_recipe_populated_cb)
+         self.handler.connect("package-populated",        self.handler_package_populated_cb)
  
-     if 0 == os.getuid():
--        raise_sanity_error("Do not use Bitbake as root.")
-+        raise_sanity_error("Do not use Bitbake as root.", sanity_data)
+@@ -652,10 +653,14 @@ class Builder(gtk.Window):
  
-     messages = ""
+     def handler_command_failed_cb(self, handler, msg):
+         if msg:
+-            msg = msg.replace("your local.conf", "Settings")
+             self.show_error_dialog(msg)
+         self.reset()
  
-@@ -449,7 +458,7 @@ def check_sanity(sanity_data):
-         messages = messages + "Error, you have a space in your COREBASE directory path. Please move the installation to a directory which doesn't include a space."
++    def handler_sanity_failed_cb(self, handler, msg):
++        msg = msg.replace("your local.conf", "Settings")
++        self.show_error_dialog(msg)
++        self.reset()
++
+     def window_sensitive(self, sensitive):
+         self.image_configuration_page.machine_combo.set_sensitive(sensitive)
+         self.image_configuration_page.image_combo.set_sensitive(sensitive)
+diff --git a/bitbake/lib/bb/ui/crumbs/hobeventhandler.py b/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
+index 424bcfa..74138cb 100644
+--- a/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
++++ b/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
+@@ -42,6 +42,9 @@ class HobHandler(gobject.GObject):
+          "command-failed"          : (gobject.SIGNAL_RUN_LAST,
+                                       gobject.TYPE_NONE,
+                                      (gobject.TYPE_STRING,)),
++         "sanity-failed"           : (gobject.SIGNAL_RUN_LAST,
++                                      gobject.TYPE_NONE,
++                                     (gobject.TYPE_STRING,)),
+          "generating-data"         : (gobject.SIGNAL_RUN_LAST,
+                                       gobject.TYPE_NONE,
+                                      ()),
+@@ -170,6 +173,9 @@ class HobHandler(gobject.GObject):
+         elif isinstance(event, bb.event.SanityCheckPassed):
+             self.run_next_command()
  
-     if messages != "":
--        raise_sanity_error(messages)
-+        raise_sanity_error(messages, sanity_data)
- 
- # Create a copy of the datastore and finalise it to ensure appends and 
- # overrides are set - the datastore has yet to be finalised at ConfigParsed
-@@ -465,6 +474,7 @@ python check_sanity_eventhandler() {
-         check_sanity(sanity_data)
-     elif bb.event.getName(e) == "SanityCheck":
-         sanity_data = copy_data(e)
-+        sanity_data.setVar("SANITY_USE_EVENTS", "1")
-         check_sanity(sanity_data)
-         bb.event.fire(bb.event.SanityCheckPassed(), e.data)
- 
++        elif isinstance(event, bb.event.SanityCheckFailed):
++            self.emit("sanity-failed", event._msg)
++
+         elif isinstance(event, logging.LogRecord):
+             if event.levelno >= logging.ERROR:
+                 self.error_msg += event.msg + '\n'
 -- 
 1.7.9.5
 
