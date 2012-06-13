@@ -1,43 +1,40 @@
-Return-Path: <kpa_info@yahoo.fr>
-Received: from nm2.bullet.mail.ukl.yahoo.com (nm2.bullet.mail.ukl.yahoo.com
-	[217.146.183.219])
-	by yocto-www.yoctoproject.org (Postfix) with SMTP id 9677DE013D3
-	for <poky@yoctoproject.org>; Wed, 13 Jun 2012 08:22:41 -0700 (PDT)
-Received: from [217.146.183.209] by nm2.bullet.mail.ukl.yahoo.com with NNFMP;
-	13 Jun 2012 15:22:40 -0000
-Received: from [77.238.184.60] by tm2.bullet.mail.ukl.yahoo.com with NNFMP;
-	13 Jun 2012 15:22:40 -0000
-Received: from [127.0.0.1] by smtp129.mail.ukl.yahoo.com with NNFMP;
-	13 Jun 2012 15:22:40 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
-	t=1339600960; bh=bSLN3iF30780/Us9E++DdpMRCDmst+eOzCqC4o86IM0=;
-	h=X-Yahoo-Newman-Id:X-Yahoo-Newman-Property:X-YMail-OSG:X-Yahoo-SMTP:Received:Message-ID:Date:From:User-Agent:MIME-Version:To:CC:Subject:References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	b=DJ7usjtEycAs5bKbfWseOj77lR0Pvb/NSbZJiP7FLLdysmUFUHvtSc+orOCFhiMp6l2lfL9RHzM0GQj1Sr0DC/xIahufr71TnbPHiF1GcsMJNg5+MaJhscho1STPzTLcRQYwypndaW0Q7Khs3yVllCAGSWgpMFo3KbKFjTstRgY=
-X-Yahoo-Newman-Id: 397477.85404.bm@smtp129.mail.ukl.yahoo.com
-X-Yahoo-Newman-Property: ymail-3
-X-YMail-OSG: czsDKkYVM1mUwiDJs6YJMEPMuKPiO6paQAsaOvIcDHYbDhQ
-	74Dl9PaWUw.C2sn_IaOk3EzoQ17qadLqIowolvhKbLF3VCkZ1RnhdqcJ4xZW
-	kHub7LFZTCaeHqsohETsDC8Y7el7ktACwUDGIybtKwwkoTr78d2kvtTGt2WB
-	Hl22kG6cVkgilxB6uYxTzYQ.G4f0SW5x_PTB2OwSB6lBHf3lShSdpgyQwNiQ
-	UUSmYzYKS.Iul93PenCnS99mbrM1lYWovZEq0O8Mns.24tvLeUM.xNK.Qy9N
-	qX.i4eaVVTCD5tr4mnnzXPIvbJ1V1mgsVWwo0mky2UhO3n5TYInVQrL33gPd
-	4ulUvZLhldZkbhh.cFvUkh18twLQ7w4.8PTz7KbG1GpfU720Qb1435rRv_A- -
-X-Yahoo-SMTP: gXxkLaeswBDA9gtBSIbQ8XWSflp0
-Received: from [10.22.2.59] (kpa_info@213.193.97.58 with plain)
-	by smtp129.mail.ukl.yahoo.com with SMTP; 13 Jun 2012 15:22:40 +0000 GMT
-Message-ID: <4FD8B03E.8090408@yahoo.fr>
-Date: Wed, 13 Jun 2012 17:22:38 +0200
-From: Patrick <kpa_info@yahoo.fr>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
+Return-Path: <scott.a.garman@intel.com>
+Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E57B5E006D9
+	for <poky@yoctoproject.org>; Wed, 13 Jun 2012 09:10:09 -0700 (PDT)
+Received: from mail-pb0-f52.google.com ([209.85.160.52])
+	by mga02.intel.com with ESMTP/TLS/RC4-MD5; 13 Jun 2012 09:10:09 -0700
+Received: by pbbro8 with SMTP id ro8so2520542pbb.25
+	for <poky@yoctoproject.org>; Wed, 13 Jun 2012 09:10:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject:references
+	:in-reply-to:content-type:content-transfer-encoding
+	:x-gm-message-state;
+	bh=Wq3P+b/UnJ38zQS9Dnypr3b24VAM8bQ1O/Qkc97jv7o=;
+	b=aU+lqTAbWWD78cqs0ocbZPwUcL76cEFyUbJO29T+KktBIWo5T7+xB1M0fjJ9D0c+aP
+	kyP+v4bt4H0FzQYjNnI4sGEK3K68XlHnOrUpa5PoRartG5UxUu8WIDtvsRMWdLdrX3et
+	hwZ1ssOdLc1/VCrwL9YyrUd86296I+aw59tcZbfmjSr7hbPFAv9rkHeK/nQajOUMgriJ
+	q0SC6runMZtELWQAKAkX6CnMZTTziIGpHWuxVeRAFaPMjgds2XFH7xNviXqGoXcmXYA/
+	h7rMZ7NQuGh4u3z5XocOMfKXJ+7eFuJ78e0nAFpZ/qfKSMiv/Y8AdTfBHvxzZCyIJtGI
+	FyUw==
+Received: by 10.68.193.195 with SMTP id hq3mr51377244pbc.30.1339603808769;
+	Wed, 13 Jun 2012 09:10:08 -0700 (PDT)
+Received: from [10.1.10.192] (c-50-137-42-92.hsd1.or.comcast.net.
+	[50.137.42.92])
+	by mx.google.com with ESMTPS id rd7sm6171042pbc.70.2012.06.13.09.10.06
+	(version=SSLv3 cipher=OTHER); Wed, 13 Jun 2012 09:10:07 -0700 (PDT)
+Message-ID: <4FD8BB5D.2040101@intel.com>
+Date: Wed, 13 Jun 2012 09:10:05 -0700
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <4FD753B2.9060705@yahoo.fr> <1339512456.8065.13.camel@ted>
-	<4FD83EC0.7050605@yahoo.fr> <1339574880.8065.20.camel@ted>
-	<4FD8A5F5.4080001@yahoo.fr>
-In-Reply-To: <4FD8A5F5.4080001@yahoo.fr>
-Cc: poky@yoctoproject.org
-Subject: Re: Running script after installation (postinst)
+To: poky@yoctoproject.org
+References: <cover.1339533507.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
+X-Gm-Message-State: ALoCoQk9CkFfmZ4ljPZoUn9OfO+H5suJPAAm/8UJ8plBTnRCK6/EB8gESK/1yQ8unlJoNOpHFFpO
+Subject: Re: RFC: [PATCH 00/31] denzil pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,77 +46,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jun 2012 15:22:42 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 13 Jun 2012 16:10:10 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/13/2012 04:38 PM, Patrick wrote:
-> On 06/13/2012 10:08 AM, Richard Purdie wrote:
->> On Wed, 2012-06-13 at 09:18 +0200, Patrick wrote:
->>> On 06/12/2012 04:47 PM, Richard Purdie wrote:
->>>> On Tue, 2012-06-12 at 16:35 +0200, Patrick wrote:
->>>>> Dear all,
->>>>>
->>>>> In one of our recipes we need to execute a small script after the
->>>>> installation of the package. Following yocto dev manual point 4.3.6 we
->>>>> have added a pkg_postinst function.
->>>>>
->>>>> This doesn’t work properly as the script is executed at first start-up
->>>>> and not after installation. Below are an example of this recipe.
->>>>>
->>>>> Do you have any idea why this script is started as first boot time and
->>>>> not after installation ?
->>>>>
->>>>> Thanks in advance for any help !
->>>>
->>>> We try and run postinstalls "offline" at image creation time. If they
->>>> fail, they run at first boot.
->>>>
->>>> You can tell which context you're in by the contents of the $D variable
->>>> (note, $D, not ${D}). For example, you could therefore do:
->>>>
->>>>
->>>> pkg_postinst_task-system-tweaks () {
->>>> #!/bin/sh -e
->>>>
->>>> #Mount tmprecovery at startup
->>>> mkdir -p $D/tmprecovery
->>>> mkdir -p $D/data
->>>> echo "/dev/mtdblock6 /tmprecovery yaffs2 0 0">> $D/etc/fstab
->>>> echo "/dev/mtdblock7 /data yaffs2 noauto 0 0">> $D/etc/fstab
->>>>
->>
->>> The problems when using $D is that the script is executed against the
->>> files of the package not against the whole rootfs. For example in the
->>> dummy recipes above we change the file $D/etc/fstab that is not in the
->>> package of the recipes.
->>
->> If you reference $D as part of a postinst script, it will run against
->> the files of the rootfs, not just the package. There are some problems
->> ensuring dependencies are present when this happens though, some
->> backends like rpm don't like ensuring that dependencies are present.
->>
->>> We have also tried to add (R)DEPENDS to the package that contains fstab
->>> with no change.
->>>
->>> Any idea why ?
->>
->> You would need to add the dependency in and then it sounds like you're
->> probably using rpm and it doesn't want to honour the dependency for some
->> reason. You could add a rootfs post process command to add in what you
->> need which would guarantee all the files are present first...
+On 06/12/2012 01:40 PM, Scott Garman wrote:
+> Hello,
 >
-> That's a good idea ! What would be the correct function name ? Something
-> like do_rootfs_append() ?
-> In this case do we have to prefix all the path with ${IMAGE_ROOTFS} ?
+> This is a pull request for the poky denzil branch, based on a set of
+> commits I've been testing from my sgarman/denzil-next branch.
 >
-> Patrick
+> I'm submitting this as an RFC so the community can offer feedback as
+> soon as possible. I'm planning on running this through the Yocto
+> autobuilder tonight and will reply to this thread with test results.
+> Assuming we get green builds, the goal is to get this pull request
+> merged into poky's denzil branch fairly quickly, so please speak
+> up if you have any comments or concerns with these commits.
 
-I reply myself:
-as suggested above, using do_rootfs_append() and ${IMAGE_ROOTFS} it 
-works nicely !
+Autobuilder test results are in:
 
-Thanks to all for your help
+nightly:
+http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/509
 
-Patrick
+We appear to have a package_index failure:
+
+http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/509/steps/shell_45/logs/stdio
+
+I'll file a bug for this after confirming some things with Beth.
+
+nightly-non-gpl3:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/105
+
+nightly-tiny:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/86
+
+nightly-meta-intel:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-meta-intel/builds/101
+
+Scott
+
+-- 
+Scott Garman
+Embedded Linux Engineer - Yocto Project
+Intel Open Source Technology Center
 
