@@ -1,33 +1,42 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88679E00723
-	for <poky@yoctoproject.org>; Thu, 14 Jun 2012 07:40:24 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5EEeLOW002094;
-	Thu, 14 Jun 2012 15:40:21 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 01153-09; Thu, 14 Jun 2012 15:40:16 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5EEeCIu002088
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Thu, 14 Jun 2012 15:40:13 +0100
-Message-ID: <1339684811.24333.88.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Patrick <kpa_info@yahoo.fr>
-Date: Thu, 14 Jun 2012 15:40:11 +0100
-In-Reply-To: <4FD9E759.8010208@yahoo.fr>
-References: <4FD753B2.9060705@yahoo.fr> <1339512456.8065.13.camel@ted>
-	<4FD83EC0.7050605@yahoo.fr> <1339574880.8065.20.camel@ted>
-	<4FD8A5F5.4080001@yahoo.fr> <4FD8B03E.8090408@yahoo.fr>
-	<4FD9E759.8010208@yahoo.fr>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
+Return-Path: <kpa_info@yahoo.fr>
+Received: from nm12.bullet.mail.ird.yahoo.com (nm12.bullet.mail.ird.yahoo.com
+	[77.238.189.65])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 22881E00723
+	for <poky@yoctoproject.org>; Thu, 14 Jun 2012 08:40:33 -0700 (PDT)
+Received: from [77.238.189.234] by nm12.bullet.mail.ird.yahoo.com with NNFMP;
+	14 Jun 2012 15:40:33 -0000
+Received: from [217.146.189.106] by tm15.bullet.mail.ird.yahoo.com with NNFMP;
+	14 Jun 2012 15:40:33 -0000
+Received: from [127.0.0.1] by smtp122.mail.ird.yahoo.com with NNFMP;
+	14 Jun 2012 15:40:33 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s1024;
+	t=1339688433; bh=2Bpk8amGp0atrpRoTVSxlyXK1GDcd+vun0zcT85DNLo=;
+	h=X-Yahoo-Newman-Id:X-Yahoo-Newman-Property:X-YMail-OSG:X-Yahoo-SMTP:Received:Message-ID:Date:From:User-Agent:MIME-Version:To:CC:Subject:References:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	b=2MC2qRgVnLIqDeQtwrubw0C8XwkNvJw2nTa0B9qn4QQBw2rI4LBok791Tmcpt0OIIdYosRZ7RS2OgFMNWNbMX4q/KIEmse/JeFtXHi3NTj0sdS55P/DqkVRF4rZgIr6qe84JCAhND3+4x4fq1zuOxEguRyRSJfpBi6JeHt7AWfo=
+X-Yahoo-Newman-Id: 97309.41283.bm@smtp122.mail.ird.yahoo.com
+X-Yahoo-Newman-Property: ymail-3
+X-YMail-OSG: q59avwgVM1mMrETnwxAhy7_T_ogcBDqc6A8bzn1lgl4PzoK
+	y_zTe.Z60LuseGwzp1etdcolrbY51H0iF4aIZznkWtBedawVT6Q1jJeYW7uV
+	Miis7z4Jx2Ag_atQViSX4jEM31KtWtI0bEtPaXn.8MJjlex8ZeB2dfjrXML.
+	hSTCfWy6Vrn8gkWcaLkSoRQABENkZYptqAuUxFh8Z8JJmfBS5EwL5zsb.URA
+	PI3KjeiNj3bTBcbr0JNuTF8Sq.6OTEvhwv63Mt7qCEY1HIQWkjLK1sg.R5rO
+	TCyC7xRDUjRDQb1AzdvqqCnfnix7Fxe_6rUymDtfjbxEgabxFH3H5xR7j6AS
+	ZA5fbfcjg.h6rm9VHsuqK1uh1o_hjLJWdx9Y.QxtA_xsJOvDs_V8EmIdJ4A- -
+X-Yahoo-SMTP: gXxkLaeswBDA9gtBSIbQ8XWSflp0
+Received: from [10.22.2.59] (kpa_info@213.193.97.58 with plain)
+	by smtp122.mail.ird.yahoo.com with SMTP; 14 Jun 2012 08:40:32 -0700 PDT
+Message-ID: <4FDA05EC.5090006@yahoo.fr>
+Date: Thu, 14 Jun 2012 17:40:28 +0200
+From: Patrick <kpa_info@yahoo.fr>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
+MIME-Version: 1.0
+To: Andrei Gherzan <andrei@gherzan.ro>
+References: <4FD731A1.6020503@yahoo.fr>
+	<CAK18fxGPgrxmXoJ5Wf4s_-2C8Bpnv-xetUBSHXsRVQi+VHheYQ@mail.gmail.com>
+In-Reply-To: <CAK18fxGPgrxmXoJ5Wf4s_-2C8Bpnv-xetUBSHXsRVQi+VHheYQ@mail.gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: Running script after installation (postinst)
+Subject: Re: How to set root password
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,42 +48,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jun 2012 14:40:25 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 14 Jun 2012 15:40:34 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2012-06-14 at 15:30 +0200, Patrick wrote:
-> On 06/13/2012 05:22 PM, Patrick wrote:
-> > On 06/13/2012 04:38 PM, Patrick wrote:
-> >> On 06/13/2012 10:08 AM, Richard Purdie wrote:
-> >>> You would need to add the dependency in and then it sounds like you're
-> >>> probably using rpm and it doesn't want to honour the dependency for some
-> >>> reason. You could add a rootfs post process command to add in what you
-> >>> need which would guarantee all the files are present first...
-> >>
-> >> That's a good idea ! What would be the correct function name ? Something
-> >> like do_rootfs_append() ?
-> >> In this case do we have to prefix all the path with ${IMAGE_ROOTFS} ?
-> >>
-> >> Patrick
-> >
-> > I reply myself:
-> > as suggested above, using do_rootfs_append() and ${IMAGE_ROOTFS} it
-> > works nicely !
-> >
-> 
-> Argh, in fact it doesn't work. The script is executed against right 
-> files but *after* packaging everything into a single image...
-> The script should be executed just before packaging of the image.
-> 
-> Any idea how to do that ?
+On 06/14/2012 09:06 AM, Andrei Gherzan wrote:
+> You can find your answer in these places:
+>
+> core-image.bbclass - at the end of this file
+> zap_root_password () - from image.bbclass
+>
 
-ROOTFS_POSTPROCESS_COMMAND is probably what you're looking for.
+I could see that if debug-tweaks is in IMAGE_FEATURES the root password 
+is set to *, but we would like to set a real password.
 
-Cheers,
+Do we have to generate a password hash and put it in /etc/passwd ?
 
-Richard
-
-
-
+Patrick
 
