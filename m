@@ -1,40 +1,30 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E57B5E006D9
-	for <poky@yoctoproject.org>; Wed, 13 Jun 2012 09:10:09 -0700 (PDT)
-Received: from mail-pb0-f52.google.com ([209.85.160.52])
-	by mga02.intel.com with ESMTP/TLS/RC4-MD5; 13 Jun 2012 09:10:09 -0700
-Received: by pbbro8 with SMTP id ro8so2520542pbb.25
-	for <poky@yoctoproject.org>; Wed, 13 Jun 2012 09:10:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding
-	:x-gm-message-state;
-	bh=Wq3P+b/UnJ38zQS9Dnypr3b24VAM8bQ1O/Qkc97jv7o=;
-	b=aU+lqTAbWWD78cqs0ocbZPwUcL76cEFyUbJO29T+KktBIWo5T7+xB1M0fjJ9D0c+aP
-	kyP+v4bt4H0FzQYjNnI4sGEK3K68XlHnOrUpa5PoRartG5UxUu8WIDtvsRMWdLdrX3et
-	hwZ1ssOdLc1/VCrwL9YyrUd86296I+aw59tcZbfmjSr7hbPFAv9rkHeK/nQajOUMgriJ
-	q0SC6runMZtELWQAKAkX6CnMZTTziIGpHWuxVeRAFaPMjgds2XFH7xNviXqGoXcmXYA/
-	h7rMZ7NQuGh4u3z5XocOMfKXJ+7eFuJ78e0nAFpZ/qfKSMiv/Y8AdTfBHvxzZCyIJtGI
-	FyUw==
-Received: by 10.68.193.195 with SMTP id hq3mr51377244pbc.30.1339603808769;
-	Wed, 13 Jun 2012 09:10:08 -0700 (PDT)
-Received: from [10.1.10.192] (c-50-137-42-92.hsd1.or.comcast.net.
-	[50.137.42.92])
-	by mx.google.com with ESMTPS id rd7sm6171042pbc.70.2012.06.13.09.10.06
-	(version=SSLv3 cipher=OTHER); Wed, 13 Jun 2012 09:10:07 -0700 (PDT)
-Message-ID: <4FD8BB5D.2040101@intel.com>
-Date: Wed, 13 Jun 2012 09:10:05 -0700
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
+Return-Path: <scanli@126.com>
+Received: from m15-49.126.com (m15-49.126.com [220.181.15.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C656FE013A6
+	for <poky@yoctoproject.org>; Wed, 13 Jun 2012 18:45:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Received:Date:From:To:Subject:Content-Type:
+	MIME-Version:Message-ID; bh=dkFhsGNLMeMh1cJ6BzIfGj7Qsk0L+CIUUj9T
+	jZbj1ds=; b=LXC0Or1yFIMIoILnvigB/EdqitZInZ7Eq8qb5CKjonyJpop6dxKg
+	v41BjyJg2OKK4fcA8U+v2fBG8bZpAlt2qobiRndE2olZTfbCMAqAeyF8XWwkcENb
+	+/Qy4MxccXBA3bG+97mhhh9pSo9oprlBo42hy1cgdEGKHMyB71qd200=
+Received: from scanli$126.com ( [192.168.208.32] ) by ajax-webmail-wmsvr49
+	(Coremail) ; Thu, 14 Jun 2012 09:45:19 +0800 (CST)
+X-Originating-IP: [192.168.208.32]
+Date: Thu, 14 Jun 2012 09:45:19 +0800 (CST)
+From: =?GBK?B?wO698LPJ?= <scanli@126.com>
+To: poky <poky@yoctoproject.org>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+	20120507(18390.4657.4663) Copyright (c) 2002-2012 www.mailtech.cn
+	126com
+X-CM-CTRLDATA: foJZs2Zvb3Rlcl9odG09MjYxNzo4MQ==
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1339533507.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
-X-Gm-Message-State: ALoCoQk9CkFfmZ4ljPZoUn9OfO+H5suJPAAm/8UJ8plBTnRCK6/EB8gESK/1yQ8unlJoNOpHFFpO
-Subject: Re: RFC: [PATCH 00/31] denzil pull request
+Message-ID: <7141f1c9.f8d.137e8aa8b71.Coremail.scanli@126.com>
+X-CM-TRANSID: McqowEDJy0QwQtlPia0OAA--.185W
+X-CM-SenderInfo: hvfd0zbl6rjloofrz/1tbiWB-NdE3AMOPUKQABsc
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Subject: =?UTF-8?B?SE9CIGZhaWxlZCB3aGVuIHVzZSBleHRlcm5hbCB0b29sY2hhaW4g4oCcU291cmNlcnkgQ29kZUJlbmNoIExpdGUgMjAxMS4wOS03MOKAnQ==?=
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,47 +36,98 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Jun 2012 16:10:10 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 14 Jun 2012 01:45:23 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_11530_2136840370.1339638319985"
 
-On 06/12/2012 01:40 PM, Scott Garman wrote:
-> Hello,
->
-> This is a pull request for the poky denzil branch, based on a set of
-> commits I've been testing from my sgarman/denzil-next branch.
->
-> I'm submitting this as an RFC so the community can offer feedback as
-> soon as possible. I'm planning on running this through the Yocto
-> autobuilder tonight and will reply to this thread with test results.
-> Assuming we get green builds, the goal is to get this pull request
-> merged into poky's denzil branch fairly quickly, so please speak
-> up if you have any comments or concerns with these commits.
+------=_Part_11530_2136840370.1339638319985
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Autobuilder test results are in:
+SGkgQWxsCkhvYiBmYWlsZWQgd2hlbiB1c2UgIGV4dGVybmFsIHRvb2xjaGFpbiChsFNvdXJjZXJ5
+IENvZGVCZW5jaCBMaXRlIDIwMTEuMDktNzChsSAuCk15IGRldmVsb3BtZW50IGVudmlyb25tZW50
+o7oKICAgVWJ1bnR1IDEyLjA0IExUUwogICBTb3VyY2VyeSBDb2RlQmVuY2ggTGl0ZSAyMDExLjA5
+LTcwIGlzIGluICAvaG9tZS9samMvYXJtLTIwMTEuMDkvYXJtCk15IHN0ZXBzIGFyZToKICAxLiAg
+Z2l0IGNsb25lIGdpdDovL2dpdC55b2N0b3Byb2plY3Qub3JnL3Bva3kKICAyLiAgY2QgL2hvbWUv
+bGpjL3Bva3kKICAzLiAgLiBvZS1pbml0LWJ1aWxkLWVudgogIDQuIGhvYgogIDUuIGNsb3NlIGhv
+YgogIDYuIGFkZGVkIHRoZSBmZWxsb3cgbGluZXMgaW4gIlBva3kuY29uZiI6CiAgICAgICAgVENN
+T0RFID0gImV4dGVybmFsLWNzbCIKICAgICAgICBDU0xfVkVSX01BSU4gID0gIjIwMTEuMDktNzAi
+CiAgICAgICAgRVhURVJOQUxfVE9PTENIQUlOID0gIi9ob21lL2xqYy9hcm0tMjAxMS4wOS9hcm0i
+CiAgICAgICAgVEFSR0VUX1BSRUZJWCA9ICJhcm0tbm9uZS1saW51eC1nbnVlYWJpLSIgCiAgNy4g
+SW4gInRjbW9kZS1leHRlcm5hbC1zb3VyY2VyeS5pbmMiLEkgY2hhbmdlZAogICAgICAgIFRBUkdF
+VF9QUkVGSVggPSAiJHtDU0xfVEFSR0VUX1NZU30tIgogICAgIHRvCiAgICAgICAgVEFSR0VUX1BS
+RUZJWCA/PSAiJHtDU0xfVEFSR0VUX1NZU30tIgogIDgucnVuIGhvYiBhZ2FpbgogIDkuYWZ0ZXIg
+Y29uZmlndXJlZCBteSBzeXN0ZW0gaW4gaG9iIGd1aSxhbmQgYSBsb25nIHRpbWUgd2FpdCAsSSBy
+ZWNlaXZlZCB0aG9zIG1lc3NhZ2VzOgogICAgVHJhY2ViYWNrIChtb3N0IHJlY2VudCBjYWxsIGxh
+c3QpOgogICAgICBGaWxlICIvaG9tZS9samMvZWNsaXBzZV95b2N0by9lY2xpcHNlX3lvY3RvL2Jp
+dGJha2UvbGliL2JiL3VpL2NydW1icy9idWlsZGVyLnB5IiwgbGluZSA5MTksCiAgICAgICAgICBp
+biBoYW5kbGVyX2J1aWxkX2ZhaWxlZF9jYiBzZWxmLmJ1aWxkX2ZhaWxlZCgpCiAgICAgIEZpbGUg
+Ii9ob21lL2xqYy9lY2xpcHNlX3lvY3RvL2VjbGlwc2VfeW9jdG8vYml0YmFrZS9saWIvYmIvdWkv
+Y3J1bWJzL2J1aWxkZXIucHkiLCBsaW5lIDkwMiwKICAgICAgICAgaW4gYnVpbGRfZmFpbGVkIHNl
+bGYuYnVpbGRfZGV0YWlsc19wYWdlLnNob3dfZmFpbF9wYWdlKGZhaWxfdG9fbmV4dF9lZGl0LnNw
+bGl0KCcgJylbMF0sCiAgICAgICAgIGZhaWxfdG9fbmV4dF9lZGl0KQogICAgICBGaWxlICIvaG9t
+ZS9samMvZWNsaXBzZV95b2N0by9lY2xpcHNlX3lvY3RvL2JpdGJha2UvbGliL2JiL3VpL2NydW1i
+cy9idWlsZGRldGFpbHNwYWdlLnB5IiwKICAgICAgICAgIGxpbmUgMjcxLCBpbiBzaG93X2ZhaWxf
+cGFnZSBzZWxmLmJ1aWxkX2ZhaWxfYmFyID0gc2VsZi5hZGRfYnVpbGRfZmFpbF90b3BfYmFyKGFj
+dGlvbl9uYW1lcykKICAgICAgRmlsZSAiL2hvbWUvbGpjL2VjbGlwc2VfeW9jdG8vZWNsaXBzZV95
+b2N0by9iaXRiYWtlL2xpYi9iYi91aS9jcnVtYnMvYnVpbGRkZXRhaWxzcGFnZS5weSIsCiAgICAg
+ICAgICBsaW5lIDIyMSwgaW4gYWRkX2J1aWxkX2ZhaWxfdG9wX2JhciBzZWxmLm5vdGVib29rLnNl
+dF9wYWdlKCJJc3N1ZXMiKQogICAgICBUeXBlRXJyb3I6IGFuIGludGVnZXIgaXMgcmVxdWlyZWQK
+MTAudGhlcmUgYXJlIG5vdGhpbmcgaW4gSG9iIHdpbmRvd24gYW5kIGhvYiBjYW4ndCBiZSBjb2xz
+ZWQgdXNlIGhvYiBndWkuClBscyBnaXZlIG1lIHNvbWUgZGV0YWlscyBpbnN0cnVjdGlvbnMgIGhv
+dyB0byB1c2UgZXh0ZXJuYWwgdG9vbGNoYWluIGluIHBva3kuClRoYW5rcyEKCgo=
 
-nightly:
-http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/509
+------=_Part_11530_2136840370.1339638319985
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-We appear to have a package_index failure:
+PGRpdj5IaSBBbGw8YnI+SG9iIGZhaWxlZCB3aGVuIHVzZSZuYnNwOyBleHRlcm5hbCB0b29sY2hh
+aW4gobBTb3VyY2VyeSBDb2RlQmVuY2ggTGl0ZSAyMDExLjA5LTcwobEgLjxicj5NeSBkZXZlbG9w
+bWVudCBlbnZpcm9ubWVudKO6PGJyPiZuYnNwOyZuYnNwOyBVYnVudHUgMTIuMDQgTFRTPGJyPiZu
+YnNwOyZuYnNwOyBTb3VyY2VyeSBDb2RlQmVuY2ggTGl0ZSAyMDExLjA5LTcwIGlzIGluJm5ic3A7
+IC9ob21lL2xqYy9hcm0tMjAxMS4wOS9hcm08YnI+TXkgc3RlcHMgYXJlOjxicj4mbmJzcDsgMS4m
+bmJzcDsgZ2l0IGNsb25lIDxhIGhyZWY9ImdpdDovL2dpdC55b2N0b3Byb2plY3Qub3JnL3Bva3ki
+PmdpdDovL2dpdC55b2N0b3Byb2plY3Qub3JnL3Bva3k8L2E+PGJyPiZuYnNwOyAyLiZuYnNwOyBj
+ZCAvaG9tZS9samMvcG9reTxicj4mbmJzcDsgMy4mbmJzcDsgLiBvZS1pbml0LWJ1aWxkLWVudjxi
+cj4mbmJzcDsgNC4gaG9iPGJyPiZuYnNwOyA1LiBjbG9zZSBob2I8YnI+Jm5ic3A7IDYuJm5ic3A7
+YWRkZWQgdGhlIGZlbGxvdyBsaW5lcyBpbiAiUG9reS5jb25mIjo8YnI+Jm5ic3A7ICZuYnNwOyAm
+bmJzcDsmbmJzcDsmbmJzcDsgVENNT0RFID0gImV4dGVybmFsLWNzbCI8YnI+Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IENTTF9WRVJfTUFJTiZuYnNwOyA9ICIyMDEx
+LjA5LTcwIjxicj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRVhU
+RVJOQUxfVE9PTENIQUlOID0gIi9ob21lL2xqYy9hcm0tMjAxMS4wOS9hcm0iPGJyPiZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBUQVJHRVRfUFJFRklYID0gImFybS1u
+b25lLWxpbnV4LWdudWVhYmktIiZuYnNwOyA8YnI+Jm5ic3A7IDcuICBJbiAidGNtb2RlLWV4dGVy
+bmFsLXNvdXJjZXJ5LmluYyIsSSBjaGFuZ2VkIDxicj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsgVEFSR0VUX1BSRUZJWCA9ICIke0NTTF9UQVJHRVRfU1lTfS0iPGJy
+PiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB0bzxicj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsgVEFSR0VUX1BSRUZJWCA/PSAiJHtDU0xfVEFSR0VUX1NZU30tIjxi
+cj4mbmJzcDsgOC5ydW4gaG9iIGFnYWluPGJyPiZuYnNwOyA5LmFmdGVyIGNvbmZpZ3VyZWQgbXkg
+c3lzdGVtIGluIGhvYiBndWksYW5kIGEgbG9uZyB0aW1lIHdhaXQgLEkgcmVjZWl2ZWQgdGhvcyBt
+ZXNzYWdlczo8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7IFRyYWNlYmFjayAobW9zdCByZWNlbnQgY2Fs
+bCBsYXN0KTo8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IEZpbGUgIi9ob21lL2xq
+Yy9lY2xpcHNlX3lvY3RvL2VjbGlwc2VfeW9jdG8vYml0YmFrZS9saWIvYmIvdWkvY3J1bWJzL2J1
+aWxkZXIucHkiLCBsaW5lIDkxOSwgPGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpbiBoYW5kbGVyX2J1aWxkX2ZhaWxlZF9jYiBzZWxmLmJ1
+aWxkX2ZhaWxlZCgpPGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBGaWxlICIvaG9t
+ZS9samMvZWNsaXBzZV95b2N0by9lY2xpcHNlX3lvY3RvL2JpdGJha2UvbGliL2JiL3VpL2NydW1i
+cy9idWlsZGVyLnB5IiwgbGluZSA5MDIsIDxicj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgaW4gYnVpbGRfZmFpbGVkIHNlbGYuYnVpbGRfZGV0YWlsc19w
+YWdlLnNob3dfZmFpbF9wYWdlKGZhaWxfdG9fbmV4dF9lZGl0LnNwbGl0KCcgJylbMF0sPGJyPiZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyZuYnNwOyBmYWlsX3RvX25leHRfZWRpdCk8YnI+Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IEZpbGUgIi9ob21lL2xqYy9lY2xpcHNlX3lvY3Rv
+L2VjbGlwc2VfeW9jdG8vYml0YmFrZS9saWIvYmIvdWkvY3J1bWJzL2J1aWxkZGV0YWlsc3BhZ2Uu
+cHkiLDxicj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IGxpbmUgMjcxLCBpbiBz
+aG93X2ZhaWxfcGFnZSBzZWxmLmJ1aWxkX2ZhaWxfYmFyID0gc2VsZi5hZGRfYnVpbGRfZmFpbF90
+b3BfYmFyKGFjdGlvbl9uYW1lcyk8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IEZp
+bGUgIi9ob21lL2xqYy9lY2xpcHNlX3lvY3RvL2VjbGlwc2VfeW9jdG8vYml0YmFrZS9saWIvYmIv
+dWkvY3J1bWJzL2J1aWxkZGV0YWlsc3BhZ2UucHkiLDxicj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7IGxpbmUgMjIxLCBpbiBhZGRfYnVpbGRfZmFpbF90b3BfYmFyIHNlbGYubm90
+ZWJvb2suc2V0X3BhZ2UoIklzc3VlcyIpPGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyBUeXBlRXJyb3I6IGFuIGludGVnZXIgaXMgcmVxdWlyZWQ8YnI+MTAudGhlcmUgYXJlIG5vdGhp
+bmcgaW4gSG9iIHdpbmRvd24gYW5kIGhvYiBjYW4ndCBiZSBjb2xzZWQgdXNlIGhvYiBndWkuPGJy
+PlBscyBnaXZlIG1lIHNvbWUgZGV0YWlscyBpbnN0cnVjdGlvbnMmbmJzcDsgaG93IHRvIHVzZSBl
+eHRlcm5hbCB0b29sY2hhaW4gaW4gcG9reS48YnI+VGhhbmtzITxicj48YnI+PGJyPjwvZGl2Pjxi
+cj48YnI+PHNwYW4gdGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxzcGFuIGlkPSJuZXRlYXNlX21haWxf
+Zm9vdGVyIj48L3NwYW4+PC9zcGFuPg==
 
-http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/509/steps/shell_45/logs/stdio
-
-I'll file a bug for this after confirming some things with Beth.
-
-nightly-non-gpl3:
-http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/105
-
-nightly-tiny:
-http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/86
-
-nightly-meta-intel:
-http://autobuilder.yoctoproject.org:8010/builders/nightly-meta-intel/builds/101
-
-Scott
-
--- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
-
+------=_Part_11530_2136840370.1339638319985--
