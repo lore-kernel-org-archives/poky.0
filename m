@@ -1,35 +1,30 @@
-Return-Path: <andrei@gherzan.ro>
-Received: from mail-gg0-f176.google.com (mail-gg0-f176.google.com
-	[209.85.161.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5FD7DE01408
-	for <poky@yoctoproject.org>; Thu, 14 Jun 2012 00:06:32 -0700 (PDT)
-Received: by ggnk4 with SMTP id k4so1295026ggn.35
-	for <poky@yoctoproject.org>; Thu, 14 Jun 2012 00:06:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:x-originating-ip:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:x-gm-message-state;
-	bh=2Oy+Cc3dmL2D1sAqH1IzxyFuTdN/Krp18boJLaffSmQ=;
-	b=UoDx0pXC4DbBcVhrPdJEiv/2aLbgSs9aJkyyodO0NhS3rk8wlSPm1mukF9vHWsJUBe
-	DsOE7viaPiGdK6RjSF6Jg89UPKthg6pX3ijC/iTMZzBp9DsmmjiF71tfon4W49mfHuia
-	5nNBWptJbIpsejRhPEwIAfzNaOTJyk5GYI0pt3bSm8ETeTy4QqRHQCBVfL/t8UCinbFG
-	HM+87rkYrL/M926SWQrSQtQ4UmayieC/zhGh+/6LPV3mNFoQq/KQvO5fE1wgs0QYlG3y
-	k0S9glapJb1WXfJtW8wTmJrc/q7NF08VMQ3c0FOwU4CAsaPF/IQ3a399y0VxBUoq8vmz
-	DD5w==
-Received: by 10.50.95.132 with SMTP id dk4mr225148igb.67.1339657591092; Thu,
-	14 Jun 2012 00:06:31 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.64.162.166 with HTTP; Thu, 14 Jun 2012 00:06:10 -0700 (PDT)
-X-Originating-IP: [79.117.123.32]
-In-Reply-To: <4FD731A1.6020503@yahoo.fr>
-References: <4FD731A1.6020503@yahoo.fr>
-From: Andrei Gherzan <andrei@gherzan.ro>
-Date: Thu, 14 Jun 2012 10:06:10 +0300
-Message-ID: <CAK18fxGPgrxmXoJ5Wf4s_-2C8Bpnv-xetUBSHXsRVQi+VHheYQ@mail.gmail.com>
-To: Patrick <kpa_info@yahoo.fr>
-X-Gm-Message-State: ALoCoQnLt2xvWvLx86DEyg7zzsMgTUZRFFBGsuyqVDMkgW84auEMorcsAP/GGadFL3aQbgbjnBwz
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 50523E013A6
+	for <poky@yoctoproject.org>; Thu, 14 Jun 2012 03:32:51 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5EAWkCJ032313;
+	Thu, 14 Jun 2012 11:32:46 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 32033-03; Thu, 14 Jun 2012 11:32:40 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5EAWcbw032307
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Thu, 14 Jun 2012 11:32:39 +0100
+Message-ID: <1339669959.24333.54.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Scott Garman <scott.a.garman@intel.com>
+Date: Thu, 14 Jun 2012 11:32:39 +0100
+In-Reply-To: <cover.1339533507.git.scott.a.garman@intel.com>
+References: <cover.1339533507.git.scott.a.garman@intel.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
 Cc: poky@yoctoproject.org
-Subject: Re: How to set root password
+Subject: Re: RFC: [PATCH 00/31] denzil pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,86 +36,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jun 2012 07:06:32 -0000
-Content-Type: multipart/alternative; boundary=e89a8f234555d673e704c2695688
+X-List-Received-Date: Thu, 14 Jun 2012 10:32:51 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---e89a8f234555d673e704c2695688
-Content-Type: text/plain; charset=ISO-8859-1
+On Tue, 2012-06-12 at 13:40 -0700, Scott Garman wrote:
+> Hello,
+> 
+> This is a pull request for the poky denzil branch, based on a set of
+> commits I've been testing from my sgarman/denzil-next branch.
+> 
+> I'm submitting this as an RFC so the community can offer feedback as
+> soon as possible. I'm planning on running this through the Yocto
+> autobuilder tonight and will reply to this thread with test results.
+> Assuming we get green builds, the goal is to get this pull request
+> merged into poky's denzil branch fairly quickly, so please speak
+> up if you have any comments or concerns with these commits.
+> 
+> Thanks,
+> 
+> Scott
+> 
+> 
+> The following changes since commit 7552ccd06c6327b5f36ee0cceb432946f8e98d3f:
+> 
+>   documentation/yocto-project-qs/yocto-project-qs.xml: pre-built example fix (2012-05-31 21:22:29 +0100)
+> 
+> are available in the git repository at:
+> 
+>   git://git.yoctoproject.org/poky-contrib sgarman/denzil-next-testing
+>   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next
+> 
+> Dongxiao Xu (1):
+>   Hob: Clear the building status if command failed
+> 
+> Jesse Zhang (1):
+>   beecrypt: disable java
+> 
+> Joe Slater (1):
+>   shared-mime-info: fix build race condition
+> 
+> Joshua Lock (1):
+>   sanity.bbclass: copy the data store and finalise before running
+>     checks
+> 
+> Kang Kai (1):
+>   cooker.py: terminate the Parser processes
+> 
+> Laurentiu Palcu (1):
+>   freetype: upgrade to 2.4.9
+> 
+> Liming An (2):
+>   Hob: change the refresh icon speed to make it view clear
+>   Hob: add original url show function with the tooltip hyperlink for
+>     user
+> 
+> Mihai Lindner (1):
+>   sudo: fixed wrong `chmod` path
+> 
+> Paul Eggleton (3):
+>   classes/sanity: send sanity check failure as a separate event for Hob
+>   hob: handle sanity check failures as a separate event
+>   poky.conf: use correct version string for Ubuntu 12.04
+> 
+> Paul Gortmaker (1):
+>   gitignore: add wildcard to match toplevel patch files
+> 
+> Richard Purdie (4):
+>   netbase: Correctly set FILESEXTRAPATHS to include the version
+>   Update version to 1.15.2 (correspdoning to Yocto 1.2 release)
+>   bitbake.conf: Improve wget timeouts
+>   image.bbclass: Ensure ${S} is cleaned at the start of rootfs
+>     generation
+> 
+> Robert Yang (1):
+>   rpm 5.4.0: respect to the arch when choose the alternatives
+> 
+> Scott Garman (1):
+>   runqemu-ifup: enable arp proxying
+> 
+> Scott Rifenbark (4):
+>   documentation/bsp-guide/bsp.xml: BSP recommendations section added
+>   documentation/bsp-guide/bsp.xml: Updates to requirements section
+>   documentation/bsp-guide/bsp.xml: Review comments to recommendations
+>   documentation/poky.ent:  Updated variables for correct 1.2.1 build.
+> 
+> Shane Wang (1):
+>   Hob: Adjust the progress bar and set 100% only when all is done.
+> 
+> Song.Li (1):
+>   groff: Fix build on Fedora 17
+> 
+> Tom Zanussi (4):
+>   yocto-kernel: use BUILDDIR to find bblayers.conf
+>   yocto-bsp: clarify help with reference to meta-intel
+>   gnupg: add libusb to DEPENDS
+>   gnupg: disable CCID driver
+> 
+> Xiaofeng Yan (1):
+>   ncurses: Avoid occasional builling failure when having parallel
+>     processable task
+> 
+> Zhai Edwin (1):
+>   webkit-gtk: Use glib as unicode backend to avoid browser crash
 
-You can find your answer in these places:
+Merged to poky's denzil branch, thanks.
 
-core-image.bbclass - at the end of this file
-zap_root_password () - from image.bbclass
+I did get a little confused here as some of these appeared to have
+already been merged but I think I've got it right...
 
-@g
-*
-*
+Cheers,
+
+Richard
 
 
-
-On Tue, Jun 12, 2012 at 3:10 PM, Patrick <kpa_info@yahoo.fr> wrote:
-
-> Dear all,
->
-> How could I set the root password on my own images ?
-> I have found this post  on the FAQ but no answer...
-> https://wiki.yoctoproject.org/**wiki/FAQ:How_do_I_set_or_**
-> change_the_root_password<https://wiki.yoctoproject.org/wiki/FAQ:How_do_I_set_or_change_the_root_password>
->
-> Any help is welcome !
->
-> Patrick
-> ______________________________**_________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.**org/listinfo/poky<https://lists.yoctoproject.org/listinfo/poky>
->
-
---e89a8f234555d673e704c2695688
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-You can find your answer in these places:<br clear=3D"all"><div style=3D"te=
-xt-align:center"></div><div style=3D"text-align:center"><div align=3D"left"=
-><font face=3D"Arial" color=3D"#333333" size=3D"-1"><br></font></div><div a=
-lign=3D"left">
-
-<font color=3D"#333333" face=3D"Arial">core-image.bbclass - at the end of t=
-his file</font></div><div align=3D"left"><font color=3D"#333333" face=3D"Ar=
-ial">zap_root_password () - from=A0</font><span style=3D"text-align:center"=
-><font color=3D"#333333" face=3D"Arial">image.bbclass</font></span></div>
-
-<div align=3D"left"><span style=3D"text-align:center"><font color=3D"#33333=
-3" face=3D"Arial"><br></font></span></div><div align=3D"left"><font color=
-=3D"#333333" face=3D"Arial">@g</font></div></div><div style=3D"text-align:c=
-enter"></div>
-<div style=3D"text-align:center">
-<div align=3D"left" style=3D"font-family:&#39;Times New Roman&#39;;font-siz=
-e:medium"><font face=3D"Arial" color=3D"#333333" size=3D"-1"><b><br></b></f=
-ont></div></div><br>
-<br><br><div class=3D"gmail_quote">On Tue, Jun 12, 2012 at 3:10 PM, Patrick=
- <span dir=3D"ltr">&lt;<a href=3D"mailto:kpa_info@yahoo.fr" target=3D"_blan=
-k">kpa_info@yahoo.fr</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex=
-">
-
-Dear all,<br>
-<br>
-How could I set the root password on my own images ?<br>
-I have found this post =A0on the FAQ but no answer...<br>
-<a href=3D"https://wiki.yoctoproject.org/wiki/FAQ:How_do_I_set_or_change_th=
-e_root_password" target=3D"_blank">https://wiki.yoctoproject.org/<u></u>wik=
-i/FAQ:How_do_I_set_or_<u></u>change_the_root_password</a><br>
-<br>
-Any help is welcome !<span class=3D"HOEnZb"><font color=3D"#888888"><br>
-<br>
-Patrick<br>
-______________________________<u></u>_________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
-t.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.<u></u>org/listinfo/poky</a><br>
-</font></span></blockquote></div><br>
-
---e89a8f234555d673e704c2695688--
