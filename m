@@ -1,22 +1,42 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 73376E0044A
-	for <poky@yoctoproject.org>; Fri, 15 Jun 2012 09:33:34 -0700 (PDT)
-Received: from yow-bashfiel-l1.wrs.com (yow-bashfiel-d3.wrs.com
-	[128.224.147.67])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q5FGXVa0021955;
-	Fri, 15 Jun 2012 09:33:32 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Fri, 15 Jun 2012 12:33:28 -0400
-Message-Id: <6f101bddff3dce1240801a22ed2b2ac27c3b2491.1339777907.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.5.4
-In-Reply-To: <cover.1339777907.git.bruce.ashfield@windriver.com>
+Return-Path: <saul.wold@intel.com>
+Received: from azsmga102.ch.intel.com (mga12.intel.com [143.182.124.36])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A1CB0E0044A
+	for <poky@yoctoproject.org>; Fri, 15 Jun 2012 13:21:46 -0700 (PDT)
+Received: from mail-pb0-f52.google.com ([209.85.160.52])
+	by mga14.intel.com with ESMTP/TLS/RC4-MD5; 15 Jun 2012 13:21:46 -0700
+Received: by pbbro8 with SMTP id ro8so5722700pbb.25
+	for <poky@yoctoproject.org>; Fri, 15 Jun 2012 13:21:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:organization:user-agent:mime-version:to:cc
+	:subject:references:in-reply-to:content-type
+	:content-transfer-encoding:x-gm-message-state;
+	bh=Q+rjJOquUhbm+dBZT2dOEx9YjtJ3WmIiXCFC0cXd4Yg=;
+	b=MptggdGdCiPSDYwFIeLKUjEQxqU5trB4V8A2zAy2+Bz79tv4K7hrbizqLJdJF6dOMG
+	OH4alONkklZGBPR4assVcozPDcpX2TR2rSj/s3m0jOcdipjOz0iVSnQtfGfZcm30VFeq
+	Ae8eGvHwsuGjTOKkkaVpFjQcEg5WeSynvh3JiyuGez/vBmNQJUEJRsXR7YR2Ws/qxnEP
+	vowOI3ITysXLT+TsWEoAZ/liocpuXEwn7Xz48WKM2tFXbrsQ7uUPv6GJGszzOtVN+kOS
+	fmXVRn62Z85tOygRLBaUzZ2Bnee/UlETqMD98pwY5nb1BDaGLCrplAvQ03PKSYVLV0Pm
+	RYMw==
+Received: by 10.68.217.233 with SMTP id pb9mr23742139pbc.121.1339791705365;
+	Fri, 15 Jun 2012 13:21:45 -0700 (PDT)
+Received: from [10.6.18.71] (c-71-193-189-117.hsd1.wa.comcast.net.
+	[71.193.189.117])
+	by mx.google.com with ESMTPS id rv5sm14281215pbc.56.2012.06.15.13.21.43
+	(version=SSLv3 cipher=OTHER); Fri, 15 Jun 2012 13:21:44 -0700 (PDT)
+Message-ID: <4FDB9956.7060001@intel.com>
+Date: Fri, 15 Jun 2012 13:21:42 -0700
+From: Saul Wold <saul.wold@intel.com>
+Organization: Intel
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
+MIME-Version: 1.0
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
 References: <cover.1339777907.git.bruce.ashfield@windriver.com>
 In-Reply-To: <cover.1339777907.git.bruce.ashfield@windriver.com>
-References: <cover.1339777907.git.bruce.ashfield@windriver.com>
-Cc: poky@yoctoproject.org, saul.wold@intel.com
-Subject: [PATCH 1/1] linux-yocto/meta-yocto: update yaffs2 and drop rc6
+X-Gm-Message-State: ALoCoQnRC2oJ9/C8iyfd/EBKy0eMZcijhje8uOxOxVwXk8/WQ0qZvOH1dsIA5CvO4g671yYuuMm/
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] linux-yocto/meta-yocto: update yaffs2 and drop rc6
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,52 +48,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jun 2012 16:33:34 -0000
+X-List-Received-Date: Fri, 15 Jun 2012 20:21:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Updating the 3.4 SRCREVs to pickup a yaffs2 update and the removal
-of a feature that was required in the 3.2 kernel tree.
+On 06/15/2012 09:33 AM, Bruce Ashfield wrote:
+> Richard/Saul,
+>
+> The oe-core part of this has already merged, this is the meta-yocto
+> update to the latest 3.4 SRCREVs.
+>
+> Cheers,
+>
+> Bruce
+>
+> The following changes since commit 4c678307c8188f4956acf66d047d213e4417d0bf:
+>
+>    meta-skeleton: add linux-yocto-custom reference recipe (2012-06-15 12:16:33 -0400)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+>
+> Bruce Ashfield (1):
+>    linux-yocto/meta-yocto: update yaffs2 and drop rc6
+>
+>   .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    8 ++++----
+>   1 files changed, 4 insertions(+), 4 deletions(-)
+>
 
-1/2 [
-    meta: rc6: remove rc6 patches for snb
+Merged into Poky/master
 
-    The sandybridge rc6 patches are part of the released v3.4 kernel.
-    Hence there is no need to keep these patches in the 3.4 linux
-    yocto kernel repository.
-
-    Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
-]
-
-2/2 [
-    yaffs2: update core support
-
-    Uprev yaffs2 to latest version as of 2012-05-29
-]
-
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend
-index cb8c3aa..6d7d54d 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend
-@@ -3,10 +3,10 @@ KBRANCH_routerstationpro = "standard/routerstationpro"
- KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KBRANCH_beagleboard = "standard/beagleboard"
- 
--SRCREV_machine_atom-pc ?= "780ab7e11f03931295e8f0e29707f2abb688e9ad"
--SRCREV_machine_routerstationpro ?= "780ab7e11f03931295e8f0e29707f2abb688e9ad"
--SRCREV_machine_mpc8315e-rdb ?= "2d99f67fe6b4301cefd4e6f9a5ce75a9cc84686b"
--SRCREV_machine_beagleboard ?= "780ab7e11f03931295e8f0e29707f2abb688e9ad"
-+SRCREV_machine_atom-pc ?= "a8291fa6f723b0182d2b7033b5d59f412ba7cf72"
-+SRCREV_machine_routerstationpro ?= "a8291fa6f723b0182d2b7033b5d59f412ba7cf72"
-+SRCREV_machine_mpc8315e-rdb ?= "a371ff9dc5cbf9629fd3257d57120d5182e0d981"
-+SRCREV_machine_beagleboard ?= "a8291fa6f723b0182d2b7033b5d59f412ba7cf72"
- 
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- # COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
--- 
-1.7.5.4
-
+Thanks
+	Sau!
 
