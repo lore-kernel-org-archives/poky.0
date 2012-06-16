@@ -1,42 +1,30 @@
-Return-Path: <saul.wold@intel.com>
-Received: from azsmga102.ch.intel.com (mga12.intel.com [143.182.124.36])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A1CB0E0044A
-	for <poky@yoctoproject.org>; Fri, 15 Jun 2012 13:21:46 -0700 (PDT)
-Received: from mail-pb0-f52.google.com ([209.85.160.52])
-	by mga14.intel.com with ESMTP/TLS/RC4-MD5; 15 Jun 2012 13:21:46 -0700
-Received: by pbbro8 with SMTP id ro8so5722700pbb.25
-	for <poky@yoctoproject.org>; Fri, 15 Jun 2012 13:21:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:organization:user-agent:mime-version:to:cc
-	:subject:references:in-reply-to:content-type
-	:content-transfer-encoding:x-gm-message-state;
-	bh=Q+rjJOquUhbm+dBZT2dOEx9YjtJ3WmIiXCFC0cXd4Yg=;
-	b=MptggdGdCiPSDYwFIeLKUjEQxqU5trB4V8A2zAy2+Bz79tv4K7hrbizqLJdJF6dOMG
-	OH4alONkklZGBPR4assVcozPDcpX2TR2rSj/s3m0jOcdipjOz0iVSnQtfGfZcm30VFeq
-	Ae8eGvHwsuGjTOKkkaVpFjQcEg5WeSynvh3JiyuGez/vBmNQJUEJRsXR7YR2Ws/qxnEP
-	vowOI3ITysXLT+TsWEoAZ/liocpuXEwn7Xz48WKM2tFXbrsQ7uUPv6GJGszzOtVN+kOS
-	fmXVRn62Z85tOygRLBaUzZ2Bnee/UlETqMD98pwY5nb1BDaGLCrplAvQ03PKSYVLV0Pm
-	RYMw==
-Received: by 10.68.217.233 with SMTP id pb9mr23742139pbc.121.1339791705365;
-	Fri, 15 Jun 2012 13:21:45 -0700 (PDT)
-Received: from [10.6.18.71] (c-71-193-189-117.hsd1.wa.comcast.net.
-	[71.193.189.117])
-	by mx.google.com with ESMTPS id rv5sm14281215pbc.56.2012.06.15.13.21.43
-	(version=SSLv3 cipher=OTHER); Fri, 15 Jun 2012 13:21:44 -0700 (PDT)
-Message-ID: <4FDB9956.7060001@intel.com>
-Date: Fri, 15 Jun 2012 13:21:42 -0700
-From: Saul Wold <saul.wold@intel.com>
-Organization: Intel
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
+Return-Path: <scanli@126.com>
+Received: from m15-56.126.com (m15-56.126.com [220.181.15.56])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4A427E01351
+	for <poky@yoctoproject.org>; Sat, 16 Jun 2012 16:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Received:Date:From:To:Subject:Content-Type:
+	MIME-Version:Message-ID; bh=mnJStrvUro1n3GUTbGIcZUS5+annYpVAanTW
+	xp+Wc38=; b=D441FEv81NT9v1+r1Tz3f+qMKc5RYykFZT2UUVoNg9uUBfaGDDcG
+	KzYmkUmRFeI+RRRxKdLskbAPrzmUXrLUypVMXaU3+L6ZOyUAGgEaVRTONXkV6vuF
+	EVK256ZTWKF4ckz41Q5H5jL8LKS+LeMVGkbBp9LlY88v+dFpUoaHZLo=
+Received: from scanli$126.com ( [211.136.28.180] ) by ajax-webmail-wmsvr56
+	(Coremail) ; Sun, 17 Jun 2012 07:08:24 +0800 (CST)
+X-Originating-IP: [211.136.28.180]
+Date: Sun, 17 Jun 2012 07:08:24 +0800 (CST)
+From: =?GBK?B?wO698LPJ?= <scanli@126.com>
+To: poky@yoctoproject.org
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+	20120507(18390.4657.4663) Copyright (c) 2002-2012 www.mailtech.cn
+	126com
+X-CM-CTRLDATA: eoqW32Zvb3Rlcl9odG09MTU4OTo4MQ==
 MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-References: <cover.1339777907.git.bruce.ashfield@windriver.com>
-In-Reply-To: <cover.1339777907.git.bruce.ashfield@windriver.com>
-X-Gm-Message-State: ALoCoQnRC2oJ9/C8iyfd/EBKy0eMZcijhje8uOxOxVwXk8/WQ0qZvOH1dsIA5CvO4g671yYuuMm/
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/1] linux-yocto/meta-yocto: update yaffs2 and drop rc6
+Message-ID: <78248fe8.5b6.137f78df488.Coremail.scanli@126.com>
+X-CM-TRANSID: OMqowEA5KkXoEd1P5LQiAA--.8605W
+X-CM-SenderInfo: hvfd0zbl6rjloofrz/1tbiOhjPdE501HJDMAABs3
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Subject: HOB can't ignore "QA Issue: No GNU_HASH in the elf binary....."
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,37 +36,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jun 2012 20:21:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 16 Jun 2012 23:08:27 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3852_224868263.1339888104584"
 
-On 06/15/2012 09:33 AM, Bruce Ashfield wrote:
-> Richard/Saul,
->
-> The oe-core part of this has already merged, this is the meta-yocto
-> update to the latest 3.4 SRCREVs.
->
-> Cheers,
->
-> Bruce
->
-> The following changes since commit 4c678307c8188f4956acf66d047d213e4417d0bf:
->
->    meta-skeleton: add linux-yocto-custom reference recipe (2012-06-15 12:16:33 -0400)
->
-> are available in the git repository at:
->    git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
->
-> Bruce Ashfield (1):
->    linux-yocto/meta-yocto: update yaffs2 and drop rc6
->
->   .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    8 ++++----
->   1 files changed, 4 insertions(+), 4 deletions(-)
->
+------=_Part_3852_224868263.1339888104584
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Merged into Poky/master
+IEhpIGFsbCEKSSdtIHVzaW5nIHBva3kgZ3VpIGhvYiB0byBkZXZlbG9wIG15IHN5c3RlbSBpbWFn
+ZSB3aXRoIGV4dGVybmFsIHRvb2xjaGFpbiChsFNvdXJjZXJ5IENvZGVCZW5jaCBMaXRlIDIwMTEu
+MDktNzChsS4KTXkgcG9reSBpcyAicG9reS1kZW56aWwtNy4wIixJbiBVYnVudHUgMTIsMDQgTFRT
+LgpXaGVuIEkgbGF1bmNoZSBwb2t5ICB3aXRoIGhvYiBndWksIHRoZSBwb2t5IGZhaWxlZCB3aXRo
+IHRoZSBmZWxsb3cgbWVzc2FnZXM6CiAgICAgIC4uLi4uLgogICAgICBRQSBJc3N1ZTpObyBHTlVf
+SEFTSCBpbiB0aGUgZWxmIGJpbmFyeTonL2hvbWUvbGpjL3Bva3ktZGVuemlsLTcuMC9idWlsZC90
+bXAvd29yay9hcm12Ni12ZnAtcG9reS1saW51eC1nbnVlYWJpL3BlcmwtCiAgICAgICAgICAgICAg
+ICAgICAgICA1LjE0LjItcjYvcGFja2FnZXMtc3BsaXQvcGVybC1tb2R1bGUtdGhyZWFkcy91c3Iv
+bGliL3BlcmwvNS4xNC4yL2F1dG8vdGhyZWFkcy9zaGFyZWQvc2hhcmVkLnNvJwogICAgICBRQSBy
+dW4gZm91bmQgZmF0YWwgZXJyb3JzLlBsZWFzZSBjb25zaWRlciBmaXhpbmcgdGhlbi4KICAgICAg
+RnVuY3Rpb24gZmFpbGQ6ZG9fcGFja2FnZV9xYQoKV2hlbiBJIGxhdW5jaGUgcG9reSAgd2l0aCBj
+bWQgbGluZSwgdGhlIHBva3kgcGFzc2VkIHdpdGggdGhlIGZlbGxvdyBtZXNzYWdlczoKICAgICAg
+Li4uLi4KICAgICAgIFdBUk5JTkc6IFFBIElzc3VlOiBObyBHTlVfSEFTSCBpbiB0aGUgZWxmIGJp
+bmFyeTogJy9ob21lL2xqYy9wb2t5LWRlbnppbC03LjAvYnVpbGQvdG1wL3dvcmsvYXJtdjYtdmZw
+LXBva3ktbGludXgtCiAgICAgICAgICAgICAgIGdudWVhYmkvcGVybC01LjE0LjItcjYvcGFja2Fn
+ZXMtc3BsaXQvcGVybC1tb2R1bGUtdGhyZWFkcy91c3IvbGliL3BlcmwvNS4xNC4yL2F1dG8vdGhy
+ZWFkcy9zaGFyZWQvc2hhcmVkLnNvJwogICAgICAgIE5PVEU6IHBhY2thZ2UgcHl0aG9uLTIuNy4y
+LXIyLjE0OiB0YXNrIGRvX3BhY2thZ2Vfd3JpdGVfcnBtOiBTdWNjZWVkZWQKCkhvdyBjYW4gSSBz
+ZXR1cCB0byBpZ25vcmUgdGhlICJRQSBJc3N1ZTogTm8gR05VX0hBU0ggaW4gdGhlIGVsZiBiaW5h
+cnkuLi4uLi4iIHdoZW4gdXNlIEhPQj8KVGhhbmtzIQoKCg==
 
-Thanks
-	Sau!
+------=_Part_3852_224868263.1339888104584
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6YXJpYWwiPiZuYnNwO0hpIGFsbCE8YnI+SSdtIHVzaW5nIHBva3kgZ3VpIGhv
+YiB0byBkZXZlbG9wIG15IHN5c3RlbSBpbWFnZSB3aXRoICBleHRlcm5hbCB0b29sY2hhaW4gobBT
+b3VyY2VyeSBDb2RlQmVuY2ggTGl0ZSAyMDExLjA5LTcwobEuPGJyPk15IHBva3kgaXMgInBva3kt
+ZGVuemlsLTcuMCIsSW4gVWJ1bnR1IDEyLDA0IExUUy48YnI+V2hlbiBJIGxhdW5jaGUgcG9reSZu
+YnNwOyB3aXRoIGhvYiBndWksIHRoZSBwb2t5IGZhaWxlZCB3aXRoIHRoZSBmZWxsb3cgbWVzc2Fn
+ZXM6PGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAuLi4uLi48YnI+Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IFFBIElzc3VlOk5vIEdOVV9IQVNIIGluIHRoZSBlbGYgYmlu
+YXJ5OicvaG9tZS9samMvcG9reS1kZW56aWwtNy4wL2J1aWxkL3RtcC93b3JrL2FybXY2LXZmcC1w
+b2t5LWxpbnV4LWdudWVhYmkvcGVybC0gPGJyPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgNS4xNC4yLXI2
+L3BhY2thZ2VzLXNwbGl0L3BlcmwtbW9kdWxlLXRocmVhZHMvdXNyL2xpYi9wZXJsLzUuMTQuMi9h
+dXRvL3RocmVhZHMvc2hhcmVkL3NoYXJlZC5zbyc8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IFFBIHJ1biBmb3VuZCBmYXRhbCBlcnJvcnMuUGxlYXNlIGNvbnNpZGVyIGZpeGluZyB0
+aGVuLjxicj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRnVuY3Rpb24gZmFpbGQ6ZG9f
+cGFja2FnZV9xYTxicj48YnI+V2hlbiBJIGxhdW5jaGUgcG9reSZuYnNwOyB3aXRoIGNtZCBsaW5l
+LCB0aGUgcG9reSBwYXNzZWQgd2l0aCB0aGUgZmVsbG93IG1lc3NhZ2VzOjxicj4mbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsgLi4uLi48YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7IFdBUk5JTkc6IFFBIElzc3VlOiBObyBHTlVfSEFTSCBpbiB0aGUgZWxmIGJpbmFy
+eTogJy9ob21lL2xqYy9wb2t5LWRlbnppbC03LjAvYnVpbGQvdG1wL3dvcmsvYXJtdjYtdmZwLXBv
+a3ktbGludXgtPGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBnbnVlYWJpL3BlcmwtNS4x
+NC4yLXI2L3BhY2thZ2VzLXNwbGl0L3BlcmwtbW9kdWxlLXRocmVhZHMvdXNyL2xpYi9wZXJsLzUu
+MTQuMi9hdXRvL3RocmVhZHMvc2hhcmVkL3NoYXJlZC5zbyc8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IE5PVEU6IHBhY2thZ2UgcHl0aG9uLTIuNy4yLXIyLjE0
+OiB0YXNrIGRvX3BhY2thZ2Vfd3JpdGVfcnBtOiBTdWNjZWVkZWQ8YnI+PGJyPkhvdyBjYW4gSSBz
+ZXR1cCB0byBpZ25vcmUgdGhlICJRQSBJc3N1ZTogTm8gR05VX0hBU0ggaW4gdGhlIGVsZiBiaW5h
+cnkuLi4uLi4iIHdoZW4gdXNlIEhPQj88YnI+VGhhbmtzITxicj48YnI+PGJyPjwvZGl2Pjxicj48
+YnI+PHNwYW4gdGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxzcGFuIGlkPSJuZXRlYXNlX21haWxfZm9v
+dGVyIj48L3NwYW4+PC9zcGFuPg==
+
+------=_Part_3852_224868263.1339888104584--
