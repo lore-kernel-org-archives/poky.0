@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E36C6E01428
-	for <poky@yoctoproject.org>; Mon, 18 Jun 2012 12:56:56 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 927E2E01459
+	for <poky@yoctoproject.org>; Mon, 18 Jun 2012 12:56:58 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 5CE4130461
-	for <poky@yoctoproject.org>; Mon, 18 Jun 2012 15:56:48 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 5634930468
+	for <poky@yoctoproject.org>; Mon, 18 Jun 2012 15:56:53 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 18 Jun 2012 12:56:37 -0700
-Message-Id: <f9dba34e2aa4d7d38fdceeaea567839405c56e8a.1340038494.git.scott.a.garman@intel.com>
+Date: Mon, 18 Jun 2012 12:56:39 -0700
+Message-Id: <4d98db4e9688ce4d640b553982c230bf9a9af35e.1340038494.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1340038493.git.scott.a.garman@intel.com>
 References: <cover.1340038493.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1340038493.git.scott.a.garman@intel.com>
 References: <cover.1340038493.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 5CE4130461.1EE7B
+X-MailScanner-ID: 5634930468.B8DB7
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 5/8] eglibc: package mtrace separately
+Subject: [PATCH 7/8] quilt: added ac_cv_path_BASH to CACHED_CONFIGUREVARS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,101 +35,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jun 2012 19:56:57 -0000
+X-List-Received-Date: Mon, 18 Jun 2012 19:56:58 -0000
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+From: Saul Wold <sgw@linux.intel.com>
 
-add libc-mtrace as dependency for task-core-tools-debug
+On Fedora 17, bash has moved to /usr/bin/bash and the configure process finds it
+on the host machine there, this ensures that it is set correctly for the target.
 
-now eglibc-mtrace gets included in an sdk image and not in a non-sdk image.
+[YOCTO #2363]
 
-This does not affect builds with uclibc.
+(From OE-Core rev: 958934049e4b3b84e5eaa9c6b0d672cf2c4a693e)
 
-This fixes bug: [YOCTO# 2374]
-
-(From OE-Core rev: a2ad2870a54108027ed33e977470f5f72e0bce1b)
-
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta/recipes-core/eglibc/eglibc-package.inc      |    7 ++++++-
- meta/recipes-core/eglibc/eglibc_2.13.bb          |    2 +-
- meta/recipes-core/tasks/task-core-tools-debug.bb |    4 ++++
- 3 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-core/eglibc/eglibc-package.inc b/meta/recipes-core/eglibc/eglibc-package.inc
-index 0db221f..3c371a7 100644
---- a/meta/recipes-core/eglibc/eglibc-package.inc
-+++ b/meta/recipes-core/eglibc/eglibc-package.inc
-@@ -20,11 +20,12 @@ USE_LDCONFIG ?= "1"
- PKGSUFFIX = ""
- PKGSUFFIX_virtclass-nativesdk = "-nativesdk"
- 
--PACKAGES = "${PN}-dbg ${PN} catchsegv${PKGSUFFIX} sln${PKGSUFFIX} nscd${PKGSUFFIX} ldd${PKGSUFFIX} ${PN}-utils eglibc-extra-nss${PKGSUFFIX} eglibc-thread-db${PKGSUFFIX} ${PN}-pic ${PN}-dev ${PN}-staticdev ${PN}-doc libcidn${PKGSUFFIX} libmemusage${PKGSUFFIX} libsegfault${PKGSUFFIX} ${PN}-pcprofile libsotruss${PKGSUFFIX}"
-+PACKAGES = "${PN}-dbg ${PN} catchsegv${PKGSUFFIX} sln${PKGSUFFIX} nscd${PKGSUFFIX} ldd${PKGSUFFIX} ${PN}-mtrace ${PN}-utils eglibc-extra-nss${PKGSUFFIX} eglibc-thread-db${PKGSUFFIX} ${PN}-pic ${PN}-dev ${PN}-staticdev ${PN}-doc libcidn${PKGSUFFIX} libmemusage${PKGSUFFIX} libsegfault${PKGSUFFIX} ${PN}-pcprofile libsotruss${PKGSUFFIX}"
- 
- # The ld.so in this eglibc supports the GNU_HASH
- RPROVIDES_${PN} = "glibc${PKGSUFFIX} rtld(GNU_HASH)"
- RPROVIDES_${PN}-utils = "glibc${PKGSUFFIX}-utils"
-+RPROVIDES_${PN}-mtrace = "glibc${PKGSUFFIX}-mtrace libc-mtrace"
- RPROVIDES_${PN}-pic = "glibc${PKGSUFFIX}-pic"
- RPROVIDES_${PN}-dev = "glibc${PKGSUFFIX}-dev"
- RPROVIDES_${PN}-staticdev = "glibc${PKGSUFFIX}-staticdev"
-@@ -48,11 +49,13 @@ FILES_${PN}-dev_append += "${bindir}/rpcgen ${libdir}/*_nonshared.a \
- 	${base_libdir}/*_nonshared.a ${base_libdir}/*.o ${datadir}/aclocal"
- FILES_${PN}-staticdev_append += "${libdir}/*.a ${base_libdir}/*.a"
- FILES_nscd${PKGSUFFIX} = "${sbindir}/nscd*"
-+FILES_${PN}-mtrace = "${bindir}/mtrace"
- FILES_${PN}-utils = "${bindir}/* ${sbindir}/*"
- FILES_${PN}-dbg += "${libexecdir}/*/.debug ${libdir}/audit/.debug"
- FILES_catchsegv${PKGSUFFIX} = "${bindir}/catchsegv"
- RDEPENDS_catchsegv${PKGSUFFIX} = "libsegfault"
- RDEPENDS_${PN}-utils += "bash"
-+RDEPENDS_${PN}-mtrace += "perl"
- FILES_${PN}-pcprofile = "${base_libdir}/libpcprofile.so"
- FILES_eglibc-thread-db${PKGSUFFIX} = "${base_libdir}/libthread_db.so.* ${base_libdir}/libthread_db-*.so"
- RPROVIDES_${PN}-dev += "libc-dev"
-@@ -68,6 +71,8 @@ SUMMARY_ldd = "print shared library dependencies"
- DESCRIPTION_ldd = "/usr/bin/ldd prints shared library dependencies for each program or shared library specified on the command line."
- SUMMARY_${PN}-utils = "Miscellaneous utilities provided by eglibc"
- DESCRIPTION_${PN}-utils = "Miscellaneous utilities including getconf, iconf, locale, gencat, tzselect, zic, rpcinfo, ..."
-+SUMMARY_${PN}-mtrace = "mtrace utility provided by eglibc"
-+DESCRIPTION_${PN}-mtrace = "mtrace utility provided by eglibc"
- DESCRIPTION_libsotruss = "Library to support sotruss which traces calls through PLTs"
- 
- inherit libc-common multilib_header
-diff --git a/meta/recipes-core/eglibc/eglibc_2.13.bb b/meta/recipes-core/eglibc/eglibc_2.13.bb
-index d8a41dc..73cd0aa 100644
---- a/meta/recipes-core/eglibc/eglibc_2.13.bb
-+++ b/meta/recipes-core/eglibc/eglibc_2.13.bb
-@@ -3,7 +3,7 @@ require eglibc.inc
- SRCREV = "15508"
- 
- DEPENDS += "gperf-native"
--PR = "r26"
-+PR = "r27"
- PR_append = "+svnr${SRCPV}"
- 
- EGLIBC_BRANCH="eglibc-2_13"
-diff --git a/meta/recipes-core/tasks/task-core-tools-debug.bb b/meta/recipes-core/tasks/task-core-tools-debug.bb
-index 3c92f3f..1dddbb8 100644
---- a/meta/recipes-core/tasks/task-core-tools-debug.bb
-+++ b/meta/recipes-core/tasks/task-core-tools-debug.bb
-@@ -17,10 +17,14 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
- 
- ALLOW_EMPTY = "1"
- 
-+MTRACE = ""
-+MTRACE_libc-glibc = "libc-mtrace"
+Reworked commit to fix merge conflicts with denzil branch.
+
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+---
+ meta/recipes-devtools/quilt/quilt_0.51.bb |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/meta/recipes-devtools/quilt/quilt_0.51.bb b/meta/recipes-devtools/quilt/quilt_0.51.bb
+index 4e51b49..81a7a9a 100644
+--- a/meta/recipes-devtools/quilt/quilt_0.51.bb
++++ b/meta/recipes-devtools/quilt/quilt_0.51.bb
+@@ -4,7 +4,10 @@ RDEPENDS_${PN} += "patch diffstat bzip2 util-linux"
+ SRC_URI += "file://aclocal.patch \
+             file://gnu_patch_test_fix_target.patch \
+            "
+-PR = "r4"
++PR = "r5"
 +
- RDEPENDS_${PN} = "\
-     gdb \
-     gdbserver \
-     tcf-agent \
-     rsync \
-     strace \
-+    ${MTRACE} \
-     "
++
++CACHED_CONFIGUREVARS += "ac_cv_path_BASH=${base_bindir}/bash"
+ 
+ PERLPATH = "${bindir}/env perl"
+ PERLPATH_virtclass-nativesdk = "/usr/bin/env perl"
 -- 
 1.7.9.5
 
