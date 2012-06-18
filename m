@@ -1,30 +1,25 @@
-Return-Path: <scanli@126.com>
-Received: from m15-56.126.com (m15-56.126.com [220.181.15.56])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4A427E01351
-	for <poky@yoctoproject.org>; Sat, 16 Jun 2012 16:08:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Received:Date:From:To:Subject:Content-Type:
-	MIME-Version:Message-ID; bh=mnJStrvUro1n3GUTbGIcZUS5+annYpVAanTW
-	xp+Wc38=; b=D441FEv81NT9v1+r1Tz3f+qMKc5RYykFZT2UUVoNg9uUBfaGDDcG
-	KzYmkUmRFeI+RRRxKdLskbAPrzmUXrLUypVMXaU3+L6ZOyUAGgEaVRTONXkV6vuF
-	EVK256ZTWKF4ckz41Q5H5jL8LKS+LeMVGkbBp9LlY88v+dFpUoaHZLo=
-Received: from scanli$126.com ( [211.136.28.180] ) by ajax-webmail-wmsvr56
-	(Coremail) ; Sun, 17 Jun 2012 07:08:24 +0800 (CST)
-X-Originating-IP: [211.136.28.180]
-Date: Sun, 17 Jun 2012 07:08:24 +0800 (CST)
-From: =?GBK?B?wO698LPJ?= <scanli@126.com>
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1FE2E00746
+	for <poky@yoctoproject.org>; Mon, 18 Jun 2012 12:56:41 -0700 (PDT)
+Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 0028030461
+	for <poky@yoctoproject.org>; Mon, 18 Jun 2012 15:56:35 -0400 (EDT)
+From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
-	20120507(18390.4657.4663) Copyright (c) 2002-2012 www.mailtech.cn
-	126com
-X-CM-CTRLDATA: eoqW32Zvb3Rlcl9odG09MTU4OTo4MQ==
-MIME-Version: 1.0
-Message-ID: <78248fe8.5b6.137f78df488.Coremail.scanli@126.com>
-X-CM-TRANSID: OMqowEA5KkXoEd1P5LQiAA--.8605W
-X-CM-SenderInfo: hvfd0zbl6rjloofrz/1tbiOhjPdE501HJDMAABs3
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-Subject: HOB can't ignore "QA Issue: No GNU_HASH in the elf binary....."
+Date: Mon, 18 Jun 2012 12:56:32 -0700
+Message-Id: <cover.1340038493.git.scott.a.garman@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 0028030461.C306E
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/8] denzil pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,68 +31,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Jun 2012 23:08:27 -0000
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_3852_224868263.1339888104584"
+X-List-Received-Date: Mon, 18 Jun 2012 19:56:41 -0000
 
-------=_Part_3852_224868263.1339888104584
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+Hello,
 
-IEhpIGFsbCEKSSdtIHVzaW5nIHBva3kgZ3VpIGhvYiB0byBkZXZlbG9wIG15IHN5c3RlbSBpbWFn
-ZSB3aXRoIGV4dGVybmFsIHRvb2xjaGFpbiChsFNvdXJjZXJ5IENvZGVCZW5jaCBMaXRlIDIwMTEu
-MDktNzChsS4KTXkgcG9reSBpcyAicG9reS1kZW56aWwtNy4wIixJbiBVYnVudHUgMTIsMDQgTFRT
-LgpXaGVuIEkgbGF1bmNoZSBwb2t5ICB3aXRoIGhvYiBndWksIHRoZSBwb2t5IGZhaWxlZCB3aXRo
-IHRoZSBmZWxsb3cgbWVzc2FnZXM6CiAgICAgIC4uLi4uLgogICAgICBRQSBJc3N1ZTpObyBHTlVf
-SEFTSCBpbiB0aGUgZWxmIGJpbmFyeTonL2hvbWUvbGpjL3Bva3ktZGVuemlsLTcuMC9idWlsZC90
-bXAvd29yay9hcm12Ni12ZnAtcG9reS1saW51eC1nbnVlYWJpL3BlcmwtCiAgICAgICAgICAgICAg
-ICAgICAgICA1LjE0LjItcjYvcGFja2FnZXMtc3BsaXQvcGVybC1tb2R1bGUtdGhyZWFkcy91c3Iv
-bGliL3BlcmwvNS4xNC4yL2F1dG8vdGhyZWFkcy9zaGFyZWQvc2hhcmVkLnNvJwogICAgICBRQSBy
-dW4gZm91bmQgZmF0YWwgZXJyb3JzLlBsZWFzZSBjb25zaWRlciBmaXhpbmcgdGhlbi4KICAgICAg
-RnVuY3Rpb24gZmFpbGQ6ZG9fcGFja2FnZV9xYQoKV2hlbiBJIGxhdW5jaGUgcG9reSAgd2l0aCBj
-bWQgbGluZSwgdGhlIHBva3kgcGFzc2VkIHdpdGggdGhlIGZlbGxvdyBtZXNzYWdlczoKICAgICAg
-Li4uLi4KICAgICAgIFdBUk5JTkc6IFFBIElzc3VlOiBObyBHTlVfSEFTSCBpbiB0aGUgZWxmIGJp
-bmFyeTogJy9ob21lL2xqYy9wb2t5LWRlbnppbC03LjAvYnVpbGQvdG1wL3dvcmsvYXJtdjYtdmZw
-LXBva3ktbGludXgtCiAgICAgICAgICAgICAgIGdudWVhYmkvcGVybC01LjE0LjItcjYvcGFja2Fn
-ZXMtc3BsaXQvcGVybC1tb2R1bGUtdGhyZWFkcy91c3IvbGliL3BlcmwvNS4xNC4yL2F1dG8vdGhy
-ZWFkcy9zaGFyZWQvc2hhcmVkLnNvJwogICAgICAgIE5PVEU6IHBhY2thZ2UgcHl0aG9uLTIuNy4y
-LXIyLjE0OiB0YXNrIGRvX3BhY2thZ2Vfd3JpdGVfcnBtOiBTdWNjZWVkZWQKCkhvdyBjYW4gSSBz
-ZXR1cCB0byBpZ25vcmUgdGhlICJRQSBJc3N1ZTogTm8gR05VX0hBU0ggaW4gdGhlIGVsZiBiaW5h
-cnkuLi4uLi4iIHdoZW4gdXNlIEhPQj8KVGhhbmtzIQoKCg==
+This is a request for the poky denzil branch, based on a set of
+commits I've been testing from my sgarman/denzil-next branch.
 
-------=_Part_3852_224868263.1339888104584
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+These commits have undergone the following testing on the autobuilder:
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6YXJpYWwiPiZuYnNwO0hpIGFsbCE8YnI+SSdtIHVzaW5nIHBva3kgZ3VpIGhv
-YiB0byBkZXZlbG9wIG15IHN5c3RlbSBpbWFnZSB3aXRoICBleHRlcm5hbCB0b29sY2hhaW4gobBT
-b3VyY2VyeSBDb2RlQmVuY2ggTGl0ZSAyMDExLjA5LTcwobEuPGJyPk15IHBva3kgaXMgInBva3kt
-ZGVuemlsLTcuMCIsSW4gVWJ1bnR1IDEyLDA0IExUUy48YnI+V2hlbiBJIGxhdW5jaGUgcG9reSZu
-YnNwOyB3aXRoIGhvYiBndWksIHRoZSBwb2t5IGZhaWxlZCB3aXRoIHRoZSBmZWxsb3cgbWVzc2Fn
-ZXM6PGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAuLi4uLi48YnI+Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IFFBIElzc3VlOk5vIEdOVV9IQVNIIGluIHRoZSBlbGYgYmlu
-YXJ5OicvaG9tZS9samMvcG9reS1kZW56aWwtNy4wL2J1aWxkL3RtcC93b3JrL2FybXY2LXZmcC1w
-b2t5LWxpbnV4LWdudWVhYmkvcGVybC0gPGJyPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgNS4xNC4yLXI2
-L3BhY2thZ2VzLXNwbGl0L3BlcmwtbW9kdWxlLXRocmVhZHMvdXNyL2xpYi9wZXJsLzUuMTQuMi9h
-dXRvL3RocmVhZHMvc2hhcmVkL3NoYXJlZC5zbyc8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7IFFBIHJ1biBmb3VuZCBmYXRhbCBlcnJvcnMuUGxlYXNlIGNvbnNpZGVyIGZpeGluZyB0
-aGVuLjxicj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgRnVuY3Rpb24gZmFpbGQ6ZG9f
-cGFja2FnZV9xYTxicj48YnI+V2hlbiBJIGxhdW5jaGUgcG9reSZuYnNwOyB3aXRoIGNtZCBsaW5l
-LCB0aGUgcG9reSBwYXNzZWQgd2l0aCB0aGUgZmVsbG93IG1lc3NhZ2VzOjxicj4mbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgLi4uLi48YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IFdBUk5JTkc6IFFBIElzc3VlOiBObyBHTlVfSEFTSCBpbiB0aGUgZWxmIGJpbmFy
-eTogJy9ob21lL2xqYy9wb2t5LWRlbnppbC03LjAvYnVpbGQvdG1wL3dvcmsvYXJtdjYtdmZwLXBv
-a3ktbGludXgtPGJyPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBnbnVlYWJpL3BlcmwtNS4x
-NC4yLXI2L3BhY2thZ2VzLXNwbGl0L3BlcmwtbW9kdWxlLXRocmVhZHMvdXNyL2xpYi9wZXJsLzUu
-MTQuMi9hdXRvL3RocmVhZHMvc2hhcmVkL3NoYXJlZC5zbyc8YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IE5PVEU6IHBhY2thZ2UgcHl0aG9uLTIuNy4yLXIyLjE0
-OiB0YXNrIGRvX3BhY2thZ2Vfd3JpdGVfcnBtOiBTdWNjZWVkZWQ8YnI+PGJyPkhvdyBjYW4gSSBz
-ZXR1cCB0byBpZ25vcmUgdGhlICJRQSBJc3N1ZTogTm8gR05VX0hBU0ggaW4gdGhlIGVsZiBiaW5h
-cnkuLi4uLi4iIHdoZW4gdXNlIEhPQj88YnI+VGhhbmtzITxicj48YnI+PGJyPjwvZGl2Pjxicj48
-YnI+PHNwYW4gdGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxzcGFuIGlkPSJuZXRlYXNlX21haWxfZm9v
-dGVyIj48L3NwYW4+PC9zcGFuPg==
+nightly:
+http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/518
 
-------=_Part_3852_224868263.1339888104584--
+nightly-multilib:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-multilib/builds/114
+
+nightly-non-gpl3:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/115
+
+nightly-tiny:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/97
+
+nightly-meta-intel:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-meta-intel/builds/106
+
+Scott
+
+The following changes since commit 119e1b7dc97a82ff0791d1b4ba519361ff46cbd1:
+
+  poky.conf: use correct version string for Ubuntu 12.04 (2012-06-14 11:27:19 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib sgarman/denzil-next-testing
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-pull2
+
+Gary Thomas (1):
+  webkit-gtk: Apply work around for all PowerPC targets
+
+Laurentiu Palcu (1):
+  sanity.bbclass: warn the user if BBPATH contains wrong entries
+
+Nitin A Kamble (1):
+  eglibc: package mtrace separately
+
+Richard Purdie (2):
+  openjade-native: Ensure we reautoconf the package
+  poky-tiny: eliminate mtrace rdepends
+
+Saul Wold (2):
+  quilt: added ac_cv_path_BASH to CACHED_CONFIGUREVARS
+  eglibc: added ac_cv_path_ to CACHED_CONFIGUREVARS
+
+Scott Rifenbark (1):
+  documentation: Updated Manual revision history table
+
+ documentation/adt-manual/adt-manual.xml            |    2 +-
+ documentation/bsp-guide/bsp-guide.xml              |    2 +-
+ documentation/dev-manual/dev-manual.xml            |    2 +-
+ documentation/kernel-manual/kernel-manual.xml      |    2 +-
+ documentation/poky-ref-manual/poky-ref-manual.xml  |    2 +-
+ meta-yocto/conf/distro/poky-tiny.conf              |    5 ++
+ meta/classes/sanity.bbclass                        |   13 ++-
+ meta/recipes-core/eglibc/eglibc-package.inc        |    7 +-
+ meta/recipes-core/eglibc/eglibc.inc                |    2 +
+ meta/recipes-core/eglibc/eglibc_2.13.bb            |    2 +-
+ meta/recipes-core/eglibc/eglibc_2.15.bb            |    2 +-
+ meta/recipes-core/tasks/task-core-tools-debug.bb   |    4 +
+ .../openjade/openjade-1.3.2/reautoconf.patch       |   83 ++++++++++++++++++++
+ .../openjade/openjade-native_1.3.2.bb              |    5 ++
+ meta/recipes-devtools/quilt/quilt_0.51.bb          |    5 +-
+ meta/recipes-sato/webkit/webkit-gtk_svn.bb         |   15 ++--
+ 16 files changed, 137 insertions(+), 16 deletions(-)
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/reautoconf.patch
+
+-- 
+1.7.9.5
+
+
