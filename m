@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F1A9DE0140C
-	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 16:10:48 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 19498E01443
+	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 16:10:53 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 497C930415
-	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 19:10:43 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 8BE0D30414
+	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 19:10:45 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 20 Jun 2012 16:10:41 -0700
-Message-Id: <263dc2c3d8129cdf7e12f2d83b0e0b46faa77198.1340233660.git.scott.a.garman@intel.com>
+Date: Wed, 20 Jun 2012 16:10:42 -0700
+Message-Id: <29454e8a68aeef8d13940f58aae8c1b6c5ea5489.1340233660.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1340233660.git.scott.a.garman@intel.com>
 References: <cover.1340233660.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1340233660.git.scott.a.garman@intel.com>
 References: <cover.1340233660.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 497C930415.B795A
+X-MailScanner-ID: 8BE0D30414.0DF14
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 4/6] linux-yocto/3.2: update to v3.2.18
+Subject: [PATCH 5/6] linux-yocto/3.0: update to v3.0.32
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,89 +35,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jun 2012 23:10:49 -0000
+X-List-Received-Date: Wed, 20 Jun 2012 23:10:53 -0000
 
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 
-Updating the 3.2 kernel SRCREVs to pickup the -stable update
-to v3.2.18.
+Updating the 3.0 kernel SRCREVs to integrate the v3.0.32 -stable
+release.
 
-(From OE-Core rev: 11f2e4b0dcfc66cd9982471173ba42c6e31b470a)
+(From OE-Core rev: be8b5332ddc8e3e1a1fb8fb119c5ab5c7c290c99)
 
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-
-Reworked commit to fix merge conflicts with denzil branch.
-
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb   |    6 +++---
- meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb |    4 ++--
- meta/recipes-kernel/linux/linux-yocto_3.2.bb      |   16 ++++++++--------
- 3 files changed, 13 insertions(+), 13 deletions(-)
+ meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb |    6 +++---
+ meta/recipes-kernel/linux/linux-yocto_3.0.bb    |   16 ++++++++--------
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb b/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb
-index 21cd84d..690d3e9 100644
---- a/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb
+diff --git a/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb b/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb
+index 36dcb6e..b6215c8 100644
+--- a/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb
++++ b/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb
 @@ -11,11 +11,11 @@ KMACHINE_qemumips = "mti-malta32-be"
- KBRANCH = "standard/preempt-rt/base"
- KBRANCH_qemuppc = "standard/preempt-rt/qemu-ppc32"
+ KBRANCH = "yocto/standard/preempt-rt/base"
+ KBRANCH_qemuppc = "yocto/standard/preempt-rt/qemu-ppc32"
  
--LINUX_VERSION ?= "3.2.11"
-+LINUX_VERSION ?= "3.2.18"
+-LINUX_VERSION ?= "3.0.24"
++LINUX_VERSION ?= "3.0.32"
  LINUX_KERNEL_TYPE = "preempt-rt"
  
--SRCREV_machine ?= "3ebf4d172cf4a41d2abf09e4036f0850e08064e7"
--SRCREV_machine_qemuppc ?= "7cebfe717987f4ffa9ae90558c28f45049847c1c"
-+SRCREV_machine ?= "fe2630b38159ea7b9cf977b5fed40a9917002087"
-+SRCREV_machine_qemuppc ?= "0259e5a3ef568c6979f2cb31280a43c55c784f4f"
- SRCREV_meta ?= "49f931bc294d5b6be60502bbd448cff5aa766235"
+-SRCREV_machine ?= "cf280f1dc5877d4ca43d21307222326efa68bb27"
+-SRCREV_machine_qemuppc ?= "afaa5baa6a9ca9c8a03a9a3eee2ba9fba089f416"
++SRCREV_machine ?= "e67428d9966eecec4c081993dc64ceb5c0e64643"
++SRCREV_machine_qemuppc ?= "dcca458cb92cc287f70e4062f02460f36a881b16"
+ SRCREV_meta ?= "34e0d2b4b4e9778b31f9ea99ca43f0dc71a7ee23"
  
- PR = "r1"
-diff --git a/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb b/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb
-index f50e12e..80be112 100644
---- a/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb
-@@ -9,9 +9,9 @@ KBRANCH = "standard/tiny"
- LINUX_KERNEL_TYPE = "tiny"
- KCONFIG_MODE = "--allnoconfig"
+ PR = "r2"
+diff --git a/meta/recipes-kernel/linux/linux-yocto_3.0.bb b/meta/recipes-kernel/linux/linux-yocto_3.0.bb
+index 074b1ed..c4f976d 100644
+--- a/meta/recipes-kernel/linux/linux-yocto_3.0.bb
++++ b/meta/recipes-kernel/linux/linux-yocto_3.0.bb
+@@ -10,14 +10,14 @@ KMACHINE_qemuarm  = "yocto/standard/arm-versatile-926ejs"
  
--LINUX_VERSION ?= "3.2.11"
-+LINUX_VERSION ?= "3.2.18"
+ KBRANCH = "${KMACHINE}"
  
--SRCREV_machine ?= "61960ba8e910d54b5525d5e9b6a7469bc399c246"
-+SRCREV_machine ?= "8b8cfaaab2b8d79ac56e8c9a85bad9ae7bca399c"
- SRCREV_meta ?= "49f931bc294d5b6be60502bbd448cff5aa766235"
- 
- PR = "r0"
-diff --git a/meta/recipes-kernel/linux/linux-yocto_3.2.bb b/meta/recipes-kernel/linux/linux-yocto_3.2.bb
-index c228794..edffec9 100644
---- a/meta/recipes-kernel/linux/linux-yocto_3.2.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto_3.2.bb
-@@ -15,14 +15,14 @@ KBRANCH_qemuppc  = "standard/default/qemu-ppc32"
- KBRANCH_qemumips = "standard/default/mti-malta32-be"
- KBRANCH_qemuarm  = "standard/default/arm-versatile-926ejs"
- 
--LINUX_VERSION ?= "3.2.11"
+-LINUX_VERSION ?= "3.0.24"
 -
--SRCREV_machine_qemuarm ?= "ba47a1cc9bb6ad576b2ac7adb3036bcfa569fe2e"
--SRCREV_machine_qemumips ?= "3b2fd654392a2f33aed12748548c04e9b169591b"
--SRCREV_machine_qemuppc ?= "cf3e188cf2a18c48a0e6f9ca54c36e6ac39512ec"
--SRCREV_machine_qemux86 ?= "46f1007ad22b6790224c66a8dc4e80fdbd21eea1"
--SRCREV_machine_qemux86-64 ?= "00e5ec2393bada6723bd9a07ded3d001c02fa727"
--SRCREV_machine ?= "f4f8ba730e7783e09413872414d0a17c142c816d"
-+LINUX_VERSION ?= "3.2.18"
+-SRCREV_machine_qemuarm ?= "62bbe1d7a0e5c1200a99dabca889a52c9417b96b"
+-SRCREV_machine_qemumips ?= "66de88919f24f1e590a48dae6de752a68fed2353"
+-SRCREV_machine_qemuppc ?= "7528f1d06ef5665eed8c1498f62d5403b82bbbd6"
+-SRCREV_machine_qemux86 ?= "f153b0eb8264dc1e69f59d4c9173619feb4d5bd9"
+-SRCREV_machine_qemux86-64 ?= "aac580659dc0ce083f250fb05abf82e58d7f4531"
+-SRCREV_machine ?= "da7c40006b08916ff3a3db104def82aaf9ac2716"
++LINUX_VERSION ?= "3.0.32"
 +
-+SRCREV_machine_qemuarm ?= "259cff0813417d16baaaaf44b00a9f75103ebfcb"
-+SRCREV_machine_qemumips ?= "9a803ecc05b3af481036a6d9bb0da3a899be3074"
-+SRCREV_machine_qemuppc ?= "466746d1fe6370957ba087f9ca6f2e31201b2162"
-+SRCREV_machine_qemux86 ?= "c228cadee60f0ada73d11a36f6932f50a1c52d48"
-+SRCREV_machine_qemux86-64 ?= "b95a0ae3773545fa0ed9a47088d0361527c42e6c"
-+SRCREV_machine ?= "8b8cfaaab2b8d79ac56e8c9a85bad9ae7bca399c"
- SRCREV_meta ?= "49f931bc294d5b6be60502bbd448cff5aa766235"
++SRCREV_machine_qemuarm ?= "b8b6c3b6b3edf129ac26a27d779dd972c36e8ebd"
++SRCREV_machine_qemumips ?= "33a643547e983adb442ff8e15645881816b17a7d"
++SRCREV_machine_qemuppc ?= "bd9a3c4c066bd4b9f52b51aaaec9b029a7abe793"
++SRCREV_machine_qemux86 ?= "70342faea067476774eb55f4e3098af0bcc48782"
++SRCREV_machine_qemux86-64 ?= "cba836a545fbeb96f6f2392c3ecbac9d7735fa65"
++SRCREV_machine ?= "bd6ad607c754dea30d91502a237870b4c45e0f1b"
+ SRCREV_meta ?= "34e0d2b4b4e9778b31f9ea99ca43f0dc71a7ee23"
  
- PR = "r1"
+ PR = "r4"
 -- 
 1.7.9.5
 
