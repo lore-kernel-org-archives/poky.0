@@ -1,29 +1,25 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (hermes.mlbassoc.com [64.234.241.98])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB343E0070B
-	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 15:51:21 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 404B2F81205; Wed, 20 Jun 2012 16:51:21 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from hermes.chez-thomas.org (localhost.localdomain [127.0.0.1])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 4EE33F811E2;
-	Wed, 20 Jun 2012 16:51:20 -0600 (MDT)
-Message-ID: <4FE253E8.7090901@mlbassoc.com>
-Date: Wed, 20 Jun 2012 16:51:20 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
-MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
-References: <4FE220B8.2080903@mlbassoc.com>
-	<CAMKF1so1L3GNuELFb4stPPORTwN29vOLngJM_x_9BrV7_jMaiQ@mail.gmail.com>
-In-Reply-To: <CAMKF1so1L3GNuELFb4stPPORTwN29vOLngJM_x_9BrV7_jMaiQ@mail.gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: New warning
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3770DE0070B
+	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 16:10:40 -0700 (PDT)
+Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 6D92230411
+	for <poky@yoctoproject.org>; Wed, 20 Jun 2012 19:10:34 -0400 (EDT)
+From: Scott Garman <scott.a.garman@intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 20 Jun 2012 16:10:37 -0700
+Message-Id: <cover.1340233660.git.scott.a.garman@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: 6D92230411.F26EB
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 0/6] denzil pull request
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,29 +31,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Jun 2012 22:51:21 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 20 Jun 2012 23:10:40 -0000
 
-On 2012-06-20 15:55, Khem Raj wrote:
-> On Wed, Jun 20, 2012 at 12:12 PM, Gary Thomas<gary@mlbassoc.com>  wrote:
->> This happens when I have two intertwined layers - I have a recipe in layer1
->> which references a file satisfied only by layer2.
->
-> why not move the reference from layer1 to layer2 as well ?
+Hello,
 
-Layer1 holds the recipe and I find it more informative to have the
-reference there - that way the .bbappends in layer2 _must_ define
-it and the dependency is obvious since the recipe will fail without
-this file being specified.
+This is a pull request for the poky denzil branch, based on
+a set of commits I've been testing from my sgarman/denzil-next branch.
+At the time I'm composing this, my previous pull request hasn't been
+merged yet, so I created this pull against my previous branch,
+sgarman/denzil-next-pull2.
 
-My use case is layer1 has a generic kernel recipe and layer2 (BSP)
-has a platform specific patch for that kernel.  I have other use
-cases, but this is indicative of how I view the layering.
+Once this branch gets merged, we will generate the first denzil release
+candidate, which will undergo a full QA pass.
+
+These commits have undergone the following testing on the autobuilder:
+
+nightly:
+http://autobuilder.yoctoproject.org:8010/builders/nightly/builds/521
+
+nightly-multilib:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-multilib/builds/117
+
+nightly-non-gpl3:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/118
+
+nightly-tiny:
+http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/100
+
+nightly-meta-intel (still finishing):
+http://autobuilder.yoctoproject.org:8010/builders/nightly-meta-intel/builds/107
+
+Scott
+
+The following changes since commit 5b5895175b9fcb4da22cb84751e0f40216f29688:
+
+  eglibc: added ac_cv_path_ to CACHED_CONFIGUREVARS (2012-06-15 09:48:09 -0700)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib sgarman/denzil-next-testing
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-pull3
+
+Anders Darander (1):
+  qt4-embedded: fix QT_ARCH usage in QT_CONFIG_FLAGS
+
+Bruce Ashfield (5):
+  linux-yocto/3.2: configuration and pch merge
+  linux-yocto: intel BSP config changes
+  linux-yocto: policy cleanups
+  linux-yocto/3.2: update to v3.2.18
+  linux-yocto/3.0: update to v3.0.32
+
+ meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb   |    6 +++---
+ meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb   |    8 ++++----
+ meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb |    6 +++---
+ meta/recipes-kernel/linux/linux-yocto_3.0.bb      |   16 ++++++++--------
+ meta/recipes-kernel/linux/linux-yocto_3.2.bb      |   18 +++++++++---------
+ meta/recipes-qt/qt4/qt4-embedded.inc              |    2 +-
+ 6 files changed, 28 insertions(+), 28 deletions(-)
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.9.5
+
 
