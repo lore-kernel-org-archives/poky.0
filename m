@@ -1,34 +1,38 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68160E006D9
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 07:25:40 -0700 (PDT)
-Received: by eekb45 with SMTP id b45so791327eek.35
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 07:25:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	bh=3XFPOFJqMglCGrlNLSOQ8IuuQk2zanpW3764dyufZBE=;
-	b=VFj9a8ff48vGbxR9WbGTwAXaXTqOhGdoS6tOgFFHnOBrlN9Ycf6B2H4KYAtsbHhwYT
-	KWnx6/lm/LsxvdtQzRn0xsh8vLDbe1DEsZtyuZvNpSC+WeFTCcq7vRi8anhTMSGqF91B
-	Gx+Yvmme3IsvzgSL/pS4niW+m7TQVtaN38EIWNeVHAepj7zBr/4aWfP0YqRUiGp2xCkU
-	utxcz7A0rnL3EPBJ9wmBaUhcMLtX3N15FZWNwSAYhuNxVfgaYmbF6biJ91+1dS5TC2eg
-	4jSNPLYIcaCqfEebaqGTTav9fedyubpiRKCL9UVMlX0kXoLP9TFaBGlAFk1ZeYK4hRRq
-	PIHw==
-Received: by 10.14.37.206 with SMTP id y54mr498843eea.218.1340375139016; Fri,
-	22 Jun 2012 07:25:39 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.14.219.71 with HTTP; Fri, 22 Jun 2012 07:25:08 -0700 (PDT)
-In-Reply-To: <4FE45BE3.3090200@mlbassoc.com>
-References: <4FE220B8.2080903@mlbassoc.com>
-	<CAMKF1so1L3GNuELFb4stPPORTwN29vOLngJM_x_9BrV7_jMaiQ@mail.gmail.com>
-	<4FE253E8.7090901@mlbassoc.com> <3380572.szjuG0GuWa@helios>
-	<4FE45BE3.3090200@mlbassoc.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 22 Jun 2012 07:25:08 -0700
-Message-ID: <CAMKF1spwDas33mEkGEsmjzC323MXMT_0L6_Dq=NuJH=5a0_jjQ@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, poky@yoctoproject.org
-Subject: Re: New warning
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 16281E006D9
+	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 07:57:22 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5MEvIvn002709;
+	Fri, 22 Jun 2012 15:57:18 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 02530-02; Fri, 22 Jun 2012 15:57:13 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5MEvA5d002703
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Fri, 22 Jun 2012 15:57:11 +0100
+Message-ID: <1340377031.394.52.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Khem Raj <raj.khem@gmail.com>
+Date: Fri, 22 Jun 2012 15:57:11 +0100
+In-Reply-To: <CAMKF1soPhy2n4O9+cFU4hWTXcJDy63zJ=5W_hX9S3RawJsjavA@mail.gmail.com>
+References: <cover.1340038493.git.scott.a.garman@intel.com>
+	<3a231c484aaa511b95f9232d000b1190327b4626.1340038494.git.scott.a.garman@intel.com>
+	<CAMKF1sp4KvDtK68NQNtOhSmCF6WK738Yr9cXOA0ntkHJ9wpYUQ@mail.gmail.com>
+	<CAK18fxEp=CsaCPXBocP3PCb9dnxBTR_jb_Qv+oUSKn6qwM7acQ@mail.gmail.com>
+	<CAK18fxGm5_7xMHpOOUpWWjkAaq33hN-fqeJwrFDDvB5XgekmYA@mail.gmail.com>
+	<20120621211416.GI9352@jama.jama.net>
+	<CAK18fxHhSDnqyqbfnwKYLZJJf7z_m9Zt47e+zpkPgot-eYppzg@mail.gmail.com>
+	<20120622053904.GJ9352@jama.jama.net>
+	<CAMKF1soPhy2n4O9+cFU4hWTXcJDy63zJ=5W_hX9S3RawJsjavA@mail.gmail.com>
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 4/8] sanity.bbclass: warn the user if BBPATH contains wrong entries
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,28 +44,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2012 14:25:40 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 22 Jun 2012 14:57:23 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 22, 2012 at 4:49 AM, Gary Thomas <gary@mlbassoc.com> wrote:
->
->
-> It gets more complicated as my kernel recipe (in meta-MYDISTRO) reference=
-s
-> files like
-> =C2=A0SRC_URI +=3D "file://${MACHINE}.patch"
-> I don't see any way to define a dummy version of this.
->
-> Is this clear now? =C2=A0Any ideas how to clean it up?
+On Thu, 2012-06-21 at 22:58 -0700, Khem Raj wrote:
+> On Thu, Jun 21, 2012 at 10:39 PM, Martin Jansa <martin.jansa@gmail.com> wrote:
+> >
+> > bblayers.conf:
+> > BBPATH ?= "${TOPDIR}"
+> >
+> > BBFILES ?= ""
+> 
+> yeah I guess a way is to always have BBPATH non empty by default and
+> then layers append their respective
+> BBPATHS to it and all falls into place.
+> 
+> In OE-Core it still wont work since there BBPATH is empty by default
+> and we can not assume some initial value for
+> it since user may place OE-Core anywhere in his layer heirarchy
 
-well you should be fine if file://${MACHINE}.patch is available for
-every machine you build.
+I've proposed a patch for this on the OE-Core list. It uses BBPATH ?=
+"${TOPDIR}" which I came to independently but matches what Martin is
+doing :). We need the local build directory in BBPATH for local.conf
 
-You can also call it same name e.g. platform.patch and then put
-platform.patch in files/<MACHINE>/ directory
+Cheers,
 
+Richard
 
-But If I were you I would put these patches in a bbappend in same
-layer where they come from
 
