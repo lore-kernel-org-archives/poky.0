@@ -1,38 +1,18 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 16281E006D9
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 07:57:22 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5MEvIvn002709;
-	Fri, 22 Jun 2012 15:57:18 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 02530-02; Fri, 22 Jun 2012 15:57:13 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5MEvA5d002703
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
-	Fri, 22 Jun 2012 15:57:11 +0100
-Message-ID: <1340377031.394.52.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 22 Jun 2012 15:57:11 +0100
-In-Reply-To: <CAMKF1soPhy2n4O9+cFU4hWTXcJDy63zJ=5W_hX9S3RawJsjavA@mail.gmail.com>
-References: <cover.1340038493.git.scott.a.garman@intel.com>
-	<3a231c484aaa511b95f9232d000b1190327b4626.1340038494.git.scott.a.garman@intel.com>
-	<CAMKF1sp4KvDtK68NQNtOhSmCF6WK738Yr9cXOA0ntkHJ9wpYUQ@mail.gmail.com>
-	<CAK18fxEp=CsaCPXBocP3PCb9dnxBTR_jb_Qv+oUSKn6qwM7acQ@mail.gmail.com>
-	<CAK18fxGm5_7xMHpOOUpWWjkAaq33hN-fqeJwrFDDvB5XgekmYA@mail.gmail.com>
-	<20120621211416.GI9352@jama.jama.net>
-	<CAK18fxHhSDnqyqbfnwKYLZJJf7z_m9Zt47e+zpkPgot-eYppzg@mail.gmail.com>
-	<20120622053904.GJ9352@jama.jama.net>
-	<CAMKF1soPhy2n4O9+cFU4hWTXcJDy63zJ=5W_hX9S3RawJsjavA@mail.gmail.com>
-X-Mailer: Evolution 3.2.2- 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 4/8] sanity.bbclass: warn the user if BBPATH contains wrong entries
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 22CE9E006D9;
+	Fri, 22 Jun 2012 08:54:46 -0700 (PDT)
+Received: from localhost.localdomain (yow-bashfiel-d2.wrs.com
+	[128.224.146.167])
+	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q5MFsWU0003308;
+	Fri, 22 Jun 2012 08:54:32 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Fri, 22 Jun 2012 12:04:44 -0400
+Message-Id: <cover.1340380930.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/2] linux-libc-headers-yocto: 3.4 and cleanups
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,32 +24,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2012 14:57:23 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 22 Jun 2012 15:54:46 -0000
 
-On Thu, 2012-06-21 at 22:58 -0700, Khem Raj wrote:
-> On Thu, Jun 21, 2012 at 10:39 PM, Martin Jansa <martin.jansa@gmail.com> wrote:
-> >
-> > bblayers.conf:
-> > BBPATH ?= "${TOPDIR}"
-> >
-> > BBFILES ?= ""
-> 
-> yeah I guess a way is to always have BBPATH non empty by default and
-> then layers append their respective
-> BBPATHS to it and all falls into place.
-> 
-> In OE-Core it still wont work since there BBPATH is empty by default
-> and we can not assume some initial value for
-> it since user may place OE-Core anywhere in his layer heirarchy
+Richard/Saul,
 
-I've proposed a patch for this on the OE-Core list. It uses BBPATH ?=
-"${TOPDIR}" which I came to independently but matches what Martin is
-doing :). We need the local build directory in BBPATH for local.conf
+There aren't that many users of this recipe, but for those cases
+that we need it .. this needed a bit of love. I've made the same
+fix that went into the oe-core libc-headers and then bumped this
+recipe to the 3.4 standard/base for headers. With recent updates
+to the tools, there were parts of this recipe that could be removed,
+and they are now gone!
 
 Cheers,
 
-Richard
+Bruce
+
+The following changes since commit b876f42821383bf0069ee49b607ba06614417fba:
+  Bogdan Marinescu (1):
+        guile: fix compilation on MIPS/PPC
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/libc-headers
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/libc-headers
+
+Bruce Ashfield (2):
+  linux-libc-headers-yocto: use kernel-arch to set ARCH
+  linux-libc-headers-yocto: update to v3.4 and remove unecessary code
+
+ .../linux-libc-headers-yocto_git.bb                |   45 ++++----------------
+ 1 files changed, 8 insertions(+), 37 deletions(-)
 
 
