@@ -1,22 +1,25 @@
-Return-Path: <tf+lists.yocto@r-finger.com>
-Received: from r-finger.com (r-finger.com [178.79.160.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA3A9E01426
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 02:12:52 -0700 (PDT)
-Received: from [192.168.0.2] (host86-170-63-199.range86-170.btcentralplus.com
-	[86.170.63.199]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by r-finger.com (Postfix) with ESMTPSA id E7EE59C07
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 10:12:51 +0100 (BST)
-Message-ID: <4FE43712.8000604@r-finger.com>
-Date: Fri, 22 Jun 2012 10:12:50 +0100
-From: Tomas Frydrych <tf+lists.yocto@r-finger.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:10.0.3) Gecko/20120329 Icedove/10.0.3
-MIME-Version: 1.0
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5B85E01426
+	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 02:44:15 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 22 Jun 2012 02:44:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="114981543"
+Received: from unknown (HELO helios.localnet) ([10.252.120.123])
+	by AZSMGA002.ch.intel.com with ESMTP; 22 Jun 2012 02:44:14 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-References: <9F69795E29C890408AC2DAF646C89BB379D8AB96AC@MAILBOX.arc.local>
-In-Reply-To: <9F69795E29C890408AC2DAF646C89BB379D8AB96AC@MAILBOX.arc.local>
-Subject: Re: Installing shared libraries for custom application
+Date: Fri, 22 Jun 2012 10:44:12 +0100
+Message-ID: <3380572.szjuG0GuWa@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.8.3 (Linux/3.2.0-25-generic-pae; KDE/4.8.3; i686; ; )
+In-Reply-To: <4FE253E8.7090901@mlbassoc.com>
+References: <4FE220B8.2080903@mlbassoc.com>
+	<CAMKF1so1L3GNuELFb4stPPORTwN29vOLngJM_x_9BrV7_jMaiQ@mail.gmail.com>
+	<4FE253E8.7090901@mlbassoc.com>
+MIME-Version: 1.0
+Subject: Re: New warning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,62 +31,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2012 09:12:53 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Fri, 22 Jun 2012 09:44:16 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-Hi,
+On Wednesday 20 June 2012 16:51:20 Gary Thomas wrote:
+> On 2012-06-20 15:55, Khem Raj wrote:
+> > On Wed, Jun 20, 2012 at 12:12 PM, Gary Thomas<gary@mlbassoc.com>  wrote:
+> >> This happens when I have two intertwined layers - I have a recipe in
+> >> layer1
+> >> which references a file satisfied only by layer2.
+> > 
+> > why not move the reference from layer1 to layer2 as well ?
+> 
+> Layer1 holds the recipe and I find it more informative to have the
+> reference there - that way the .bbappends in layer2 _must_ define
+> it and the dependency is obvious since the recipe will fail without
+> this file being specified.
+>
+> My use case is layer1 has a generic kernel recipe and layer2 (BSP)
+> has a platform specific patch for that kernel.  I have other use
+> cases, but this is indicative of how I view the layering.
 
-On 22/06/12 09:38, Fletzer Martin wrote:
-> But now I'm not able to install shared libraries of ncurses for a custom image. Namely libform, libmenu, and libpanel.
-> I always get a "Error: Nothing PROVIDES ..."
+Well, that's not unreasonable I suppose. However I've just tested a trivial 
+example of cross-layer file references here and it does not produce a warning. 
+In any case, the code that does the checksums uses the same code as do_fetch 
+when it locates the files, so I'm a bit puzzled as to how it would not be able 
+to find the file in the first instance and it would when it came to fetch time.
 
-'Nothing PROVIDES' means there is no bb recipe that provides the a
-dependency, i.e., there is no bb recipe that declares it provides
-'libform'. The libform package is generated dynamically from the ncurses
-package, so the correct DEPENDS (which denotes a *build-time*
-dependency), is 'ncurses'.
+FWIW, Andrea and I figured out that his reported case was caused by some 
+recipes that only provided a file for specific machines which did not include 
+the current MACHINE, but the recipes were not marked with COMPATIBLE_MACHINE, 
+so the warning there was legitimate. Gary, is it possible something similar is 
+happening for your layer structure? If not, can you provide some more 
+information that might help me reproduce the warning?
 
+Thanks,
+Paul
 
-> How can I install this  shared libraries to a custom image?
+-- 
 
-If your application links against libform, then this should be
-automatically pulled into the image; you can manually add something to a
-package run-time dependencies by adding it to the RDEPENDS variable (as
-Jack says, in this case that should be 'ncurses-libform'), but you
-should only need to do this for a library if the application dlopens it.
-
-I hope this helps,
-
-Tomas
-
-
-> 
-> Thanks,
-> Martin
-> 
-> 
-> MARTIN FLETZER
-> Engineer
-> Safety & Security Department
-> Video and Security Technology
-> 
-> AIT Austrian Institute of Technology GmbH
-> M +43 664 8251090  |  F +43 50550-4150
-> Donau-City-Straße 1  |  1220 Vienna  | Austria
-> martin.fletzer@ait.ac.at<mailto:martin.fletzer@ait.ac.at>  |  http://www.ait.ac.at<http://www.ait.ac.at/>
-> 
-> FN: 115980 i HG Wien  |  UID: ATU14703506
-> This email and any attachments thereto, is intended only for use by the addressee(s) named herein and may contain legally privileged and/or confidential information. If you are not the intended recipient, please notify the sender by return e-mail or by telephone and delete this message from your system and any printout thereof. Any unauthorized use, reproduction, or dissemination of this message is strictly prohibited. Please note that e-mails are susceptible to change. AIT Austrian Institute of Technology GmbH shall not be liable for the improper or incomplete transmission of the information contained in this communication, nor shall it be liable for any delay in its receipt.
-> 
-> 
-> 
-> 
-> 
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
+Paul Eggleton
+Intel Open Source Technology Centre
 
