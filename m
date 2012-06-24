@@ -1,40 +1,25 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D4337E006D9
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 09:58:07 -0700 (PDT)
-Received: from mail-pb0-f52.google.com ([209.85.160.52])
-	by mga02.intel.com with ESMTP/TLS/RC4-MD5; 22 Jun 2012 09:58:06 -0700
-Received: by pbbro8 with SMTP id ro8so3864498pbb.25
-	for <poky@yoctoproject.org>; Fri, 22 Jun 2012 09:58:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding
-	:x-gm-message-state;
-	bh=JsDu31Vxs5gN52gB+CJ4//JgZD7V8GRk+aZgWatekvU=;
-	b=FmlJ9vddDY7U7w9XaZBbLehvGZrKLUVBAXuYfi6JHVtZzI/Z4s1alSAFhUQ8GEWzrR
-	Gg7/KpaIM7WjCzlgO09s0U92oEKtSQG9CH7SXtHj+g9qe/usW/MYEE8bWMbt7JNenfbk
-	32PZM4MhUXEbyyyB55X4kXR4jy0Ky46L5SnmueK4utwFtL/SPDw1UBzcPkv8djSGM1hf
-	KT65LMV+NXyhXb3l7qHcR/D4Pp//IHe3KZYXjT8658uau7rW9TRWrNb8IgQwmGuQ+xQA
-	yeyd79ooEi8ZUlvV0Os2zP251CuT29EXWzAOeGeGX7+VHjKKoR+kbgUWFiy2AKjZRwyJ
-	tZhw==
-Received: by 10.68.192.39 with SMTP id hd7mr11705441pbc.97.1340384285557;
-	Fri, 22 Jun 2012 09:58:05 -0700 (PDT)
-Received: from [10.1.10.192] (c-50-137-42-92.hsd1.or.comcast.net.
-	[50.137.42.92])
-	by mx.google.com with ESMTPS id ns5sm39441958pbb.26.2012.06.22.09.58.03
-	(version=SSLv3 cipher=OTHER); Fri, 22 Jun 2012 09:58:04 -0700 (PDT)
-Message-ID: <4FE4A41A.7090906@intel.com>
-Date: Fri, 22 Jun 2012 09:58:02 -0700
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
+Return-Path: <Martin.Fletzer@ait.ac.at>
+Received: from mail.ait.ac.at (arcss01.ait.ac.at [62.218.164.126])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C72F8E01408
+	for <poky@yoctoproject.org>; Sun, 24 Jun 2012 05:53:20 -0700 (PDT)
+Received: from Mailbox.arc.local ([169.254.1.253]) by S0HCN2.arc.local ([::1])
+	with mapi; Sun, 24 Jun 2012 14:53:17 +0200
+From: Fletzer Martin <Martin.Fletzer@ait.ac.at>
+To: Tomas Frydrych <tf+lists.yocto@r-finger.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Sun, 24 Jun 2012 14:53:29 +0200
+Thread-Topic: [poky] Installing shared libraries for custom application
+Thread-Index: Ac1QVzohv6ZuBUMjSAyFGbDKs8LYMQBr3sqQ
+Message-ID: <9F69795E29C890408AC2DAF646C89BB379D8AB97F4@MAILBOX.arc.local>
+References: <9F69795E29C890408AC2DAF646C89BB379D8AB96AC@MAILBOX.arc.local>
+	<4FE43712.8000604@r-finger.com>
+In-Reply-To: <4FE43712.8000604@r-finger.com>
+Accept-Language: de-DE, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: de-DE, en-US
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <47c63612.1964.1381327a5cb.Coremail.scanli@126.com>
-In-Reply-To: <47c63612.1964.1381327a5cb.Coremail.scanli@126.com>
-X-Gm-Message-State: ALoCoQk/cjFVqki6Bj3JohvcogSURbqfTticZQ+9c2HVF9LO/zIDlAUH58fVxXvkFvEOK+7socda
-Subject: Re: Is there bug in the newest poky-denzil7.01?
+Subject: Re: Installing shared libraries for custom application
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,61 +31,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Jun 2012 16:58:07 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Sun, 24 Jun 2012 12:53:21 -0000
+Content-Language: de-DE
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 06/22/2012 12:46 AM, 李金成 wrote:
-> I'm trying the newest poky-denzil7.01/1.2.1,and found one problem:
-> My develop environment：
->       Ubuntu 12.04 LTS.
->       use the external CSL toolchain--*Sourcery CodeBench Lite
-> 2011.09-70*.the toolchain path is: /home/ljc/arm-2011.09/arm/
-> My steps:
->     1.  download the newest poky-denzil7.01/1.2.1 from
-> http://git.yoctoproject.org/cgit/cgit.cgi/poky/snapshot/poky-denzil.tar.bz2.
->     2.  decompressioned it to /home/ljc/
->     3.  cd /home/ljc/poky-denzil
->     4.  modified /home/ljc/poky-denzil/meta-yocto/conf/distro/poky.conf.
->         add the fellow lines:
->           TCMODE = "external-csl"
->           CSL_VER_MAIN  = "2011.09-70"
->           EXTERNAL_TOOLCHAIN = "/home/ljc/arm-2011.09/arm"
->           TARGET_PREFIX = "arm-none-linux-gnueabi-"
->     5.  modified
-> /home/ljc/poky-denzil/meta/conf/distro/include/tcmode-external-csl.inc
->           from
->             TARGET_PREFIX = "${CSL_TARGET_SYS}-"
->           to
->             TARGET_PREFIX ?= "${CSL_TARGET_SYS}-"
->     6.   . oe-init-build-env
->     7.   then input command:  hob
->     8.   In hob gui:
->             Select machine: qemuarm
->             Select a base image:core-image-minimal
->             press down：Build image
->     9. After a long time the HOB stopped:
->          Building packages...
->             Running task 1147 of 1148:do_build
->             Recipe:task-core-boot
->             -----------------------------------------------------
->             |               Build completed:90%          |      |    Stop
->             -----------------------------------------------------
->      10. the HOB can't be closed with the GUI window's "Stop" botton or
-> X icon.
-
-This sounds like a legitimate bug. Can you please file it on our bugtracker?
-
-https://bugzilla.yoctoproject.org/
-
-Thanks,
-
-Scott
-
--- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
-
-
+VGhhbmsgeW91IGZvciB0aGUgZmFzdCByZXNwb25zZS4NCg0KSSB0cmllZCBhZ2FpbiB3aXRoIGFu
+IHVubW9kaWZpZWQgbWFzdGVyIGNoZWNrb3V0LCBidWlsZGluZyBjb3JlLWltYWdlLW1pbmltYWwu
+DQpJIGFkZGVkIFJERVBFTkRTID0gIm5jdXJzZXMtbGliZm9ybSIgd2l0aG91dCBzdWNjZXNzLiBC
+aXRiYWtlIHJldHVybnMgTm90aGluZyBQcm92aWRlcy4NCg0KVGhlbiBJIGFkZGVkIHRoZSBmb2xs
+b3dpbmcgbGluZSB0byBuY3Vyc2VzLmluYzoNClBBQ0tBR0VTX0RZTkFNSUM9Im5jdXJzZXMtbGli
+KiINCkkgdHJpZWQgaXQsIGJlY2F1c2Ugb3RoZXIgcmVjaXBlcyB1c2UgaXQuDQoNCk5vdyBJIGNh
+biBpbnN0YWxsIHRoZSBydW50aW1lIGxpYnJhcmllcyBvZiBuY3Vyc2VzIHRvIHRoZSBpbWFnZSB3
+aXRoIElNQUdFX0lOU1RBTEwgKz0gIm5jdXJzZXMtbGliZm9ybSIuDQoNCklzIGl0IHJpZ2h0IHRv
+IHNldCBQQUNLQUdFU19EWU5BTUlDPw0KDQpCZXN0IHJlZ2FyZHMsDQpNYXJ0aW4NCg0KLS0tLS1V
+cnNwcsO8bmdsaWNoZSBOYWNocmljaHQtLS0tLQ0KVm9uOiBwb2t5LWJvdW5jZXNAeW9jdG9wcm9q
+ZWN0Lm9yZyBbbWFpbHRvOnBva3ktYm91bmNlc0B5b2N0b3Byb2plY3Qub3JnXSBJbSBBdWZ0cmFn
+IHZvbiBUb21hcyBGcnlkcnljaA0KR2VzZW5kZXQ6IEZyZWl0YWcsIDIyLiBKdW5pIDIwMTIgMTE6
+MTMNCkFuOiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCkJldHJlZmY6IFJlOiBbcG9reV0gSW5zdGFs
+bGluZyBzaGFyZWQgbGlicmFyaWVzIGZvciBjdXN0b20gYXBwbGljYXRpb24NCg0KSGksDQoNCk9u
+IDIyLzA2LzEyIDA5OjM4LCBGbGV0emVyIE1hcnRpbiB3cm90ZToNCj4gQnV0IG5vdyBJJ20gbm90
+IGFibGUgdG8gaW5zdGFsbCBzaGFyZWQgbGlicmFyaWVzIG9mIG5jdXJzZXMgZm9yIGEgY3VzdG9t
+IGltYWdlLiBOYW1lbHkgbGliZm9ybSwgbGlibWVudSwgYW5kIGxpYnBhbmVsLg0KPiBJIGFsd2F5
+cyBnZXQgYSAiRXJyb3I6IE5vdGhpbmcgUFJPVklERVMgLi4uIg0KDQonTm90aGluZyBQUk9WSURF
+UycgbWVhbnMgdGhlcmUgaXMgbm8gYmIgcmVjaXBlIHRoYXQgcHJvdmlkZXMgdGhlIGEgZGVwZW5k
+ZW5jeSwgaS5lLiwgdGhlcmUgaXMgbm8gYmIgcmVjaXBlIHRoYXQgZGVjbGFyZXMgaXQgcHJvdmlk
+ZXMgJ2xpYmZvcm0nLiBUaGUgbGliZm9ybSBwYWNrYWdlIGlzIGdlbmVyYXRlZCBkeW5hbWljYWxs
+eSBmcm9tIHRoZSBuY3Vyc2VzIHBhY2thZ2UsIHNvIHRoZSBjb3JyZWN0IERFUEVORFMgKHdoaWNo
+IGRlbm90ZXMgYSAqYnVpbGQtdGltZSogZGVwZW5kZW5jeSksIGlzICduY3Vyc2VzJy4NCg0KDQo+
+IEhvdyBjYW4gSSBpbnN0YWxsIHRoaXMgIHNoYXJlZCBsaWJyYXJpZXMgdG8gYSBjdXN0b20gaW1h
+Z2U/DQoNCklmIHlvdXIgYXBwbGljYXRpb24gbGlua3MgYWdhaW5zdCBsaWJmb3JtLCB0aGVuIHRo
+aXMgc2hvdWxkIGJlIGF1dG9tYXRpY2FsbHkgcHVsbGVkIGludG8gdGhlIGltYWdlOyB5b3UgY2Fu
+IG1hbnVhbGx5IGFkZCBzb21ldGhpbmcgdG8gYSBwYWNrYWdlIHJ1bi10aW1lIGRlcGVuZGVuY2ll
+cyBieSBhZGRpbmcgaXQgdG8gdGhlIFJERVBFTkRTIHZhcmlhYmxlIChhcyBKYWNrIHNheXMsIGlu
+IHRoaXMgY2FzZSB0aGF0IHNob3VsZCBiZSAnbmN1cnNlcy1saWJmb3JtJyksIGJ1dCB5b3Ugc2hv
+dWxkIG9ubHkgbmVlZCB0byBkbyB0aGlzIGZvciBhIGxpYnJhcnkgaWYgdGhlIGFwcGxpY2F0aW9u
+IGRsb3BlbnMgaXQuDQoNCkkgaG9wZSB0aGlzIGhlbHBzLA0KDQpUb21hcw0KDQoNCj4gDQo+IFRo
+YW5rcywNCj4gTWFydGluDQo+IA0KPiANCj4gTUFSVElOIEZMRVRaRVINCj4gRW5naW5lZXINCj4g
+U2FmZXR5ICYgU2VjdXJpdHkgRGVwYXJ0bWVudA0KPiBWaWRlbyBhbmQgU2VjdXJpdHkgVGVjaG5v
+bG9neQ0KPiANCj4gQUlUIEF1c3RyaWFuIEluc3RpdHV0ZSBvZiBUZWNobm9sb2d5IEdtYkggTSAr
+NDMgNjY0IDgyNTEwOTAgIHwgIEYgKzQzIA0KPiA1MDU1MC00MTUwIERvbmF1LUNpdHktU3RyYcOf
+ZSAxICB8ICAxMjIwIFZpZW5uYSAgfCBBdXN0cmlhIA0KPiBtYXJ0aW4uZmxldHplckBhaXQuYWMu
+YXQ8bWFpbHRvOm1hcnRpbi5mbGV0emVyQGFpdC5hYy5hdD4gIHwgIA0KPiBodHRwOi8vd3d3LmFp
+dC5hYy5hdDxodHRwOi8vd3d3LmFpdC5hYy5hdC8+DQo+IA0KPiBGTjogMTE1OTgwIGkgSEcgV2ll
+biAgfCAgVUlEOiBBVFUxNDcwMzUwNiBUaGlzIGVtYWlsIGFuZCBhbnkgDQo+IGF0dGFjaG1lbnRz
+IHRoZXJldG8sIGlzIGludGVuZGVkIG9ubHkgZm9yIHVzZSBieSB0aGUgYWRkcmVzc2VlKHMpIG5h
+bWVkIGhlcmVpbiBhbmQgbWF5IGNvbnRhaW4gbGVnYWxseSBwcml2aWxlZ2VkIGFuZC9vciBjb25m
+aWRlbnRpYWwgaW5mb3JtYXRpb24uIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRlZCByZWNpcGll
+bnQsIHBsZWFzZSBub3RpZnkgdGhlIHNlbmRlciBieSByZXR1cm4gZS1tYWlsIG9yIGJ5IHRlbGVw
+aG9uZSBhbmQgZGVsZXRlIHRoaXMgbWVzc2FnZSBmcm9tIHlvdXIgc3lzdGVtIGFuZCBhbnkgcHJp
+bnRvdXQgdGhlcmVvZi4gQW55IHVuYXV0aG9yaXplZCB1c2UsIHJlcHJvZHVjdGlvbiwgb3IgZGlz
+c2VtaW5hdGlvbiBvZiB0aGlzIG1lc3NhZ2UgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4gUGxlYXNl
+IG5vdGUgdGhhdCBlLW1haWxzIGFyZSBzdXNjZXB0aWJsZSB0byBjaGFuZ2UuIEFJVCBBdXN0cmlh
+biBJbnN0aXR1dGUgb2YgVGVjaG5vbG9neSBHbWJIIHNoYWxsIG5vdCBiZSBsaWFibGUgZm9yIHRo
+ZSBpbXByb3BlciBvciBpbmNvbXBsZXRlIHRyYW5zbWlzc2lvbiBvZiB0aGUgaW5mb3JtYXRpb24g
+Y29udGFpbmVkIGluIHRoaXMgY29tbXVuaWNhdGlvbiwgbm9yIHNoYWxsIGl0IGJlIGxpYWJsZSBm
+b3IgYW55IGRlbGF5IGluIGl0cyByZWNlaXB0Lg0KPiANCj4gDQo+IA0KPiANCj4gDQo+IA0KPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBwb2t5IG1h
+aWxpbmcgbGlzdA0KPiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCj4gaHR0cHM6Ly9saXN0cy55b2N0
+b3Byb2plY3Qub3JnL2xpc3RpbmZvL3Bva3kNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18NCnBva3kgbWFpbGluZyBsaXN0DQpwb2t5QHlvY3RvcHJvamVj
+dC5vcmcNCmh0dHBzOi8vbGlzdHMueW9jdG9wcm9qZWN0Lm9yZy9saXN0aW5mby9wb2t5DQo=
 
