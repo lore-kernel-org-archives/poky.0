@@ -1,25 +1,25 @@
-Return-Path: <Martin.Fletzer@ait.ac.at>
-Received: from mail.ait.ac.at (arcss01.ait.ac.at [62.218.164.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C72F8E01408
-	for <poky@yoctoproject.org>; Sun, 24 Jun 2012 05:53:20 -0700 (PDT)
-Received: from Mailbox.arc.local ([169.254.1.253]) by S0HCN2.arc.local ([::1])
-	with mapi; Sun, 24 Jun 2012 14:53:17 +0200
-From: Fletzer Martin <Martin.Fletzer@ait.ac.at>
-To: Tomas Frydrych <tf+lists.yocto@r-finger.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Sun, 24 Jun 2012 14:53:29 +0200
-Thread-Topic: [poky] Installing shared libraries for custom application
-Thread-Index: Ac1QVzohv6ZuBUMjSAyFGbDKs8LYMQBr3sqQ
-Message-ID: <9F69795E29C890408AC2DAF646C89BB379D8AB97F4@MAILBOX.arc.local>
-References: <9F69795E29C890408AC2DAF646C89BB379D8AB96AC@MAILBOX.arc.local>
-	<4FE43712.8000604@r-finger.com>
-In-Reply-To: <4FE43712.8000604@r-finger.com>
-Accept-Language: de-DE, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: de-DE, en-US
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 86019E006D9
+	for <poky@yoctoproject.org>; Mon, 25 Jun 2012 09:04:23 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 25 Jun 2012 09:04:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="160439583"
+Received: from unknown (HELO [10.255.12.180]) ([10.255.12.180])
+	by azsmga001.ch.intel.com with ESMTP; 25 Jun 2012 09:04:22 -0700
+Message-ID: <4FE88C06.80900@linux.intel.com>
+Date: Mon, 25 Jun 2012 09:04:22 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
-Subject: Re: Installing shared libraries for custom application
+To: Kang Kai <kai.kang@windriver.com>
+References: <cover.1340182393.git.kai.kang@windriver.com>
+In-Reply-To: <cover.1340182393.git.kai.kang@windriver.com>
+Cc: poky@yoctoproject.org, 'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [PATCH 0/1] [Yocto 2579] fix runqemu on ext2 image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,65 +31,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 24 Jun 2012 12:53:21 -0000
-Content-Language: de-DE
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 25 Jun 2012 16:04:23 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-VGhhbmsgeW91IGZvciB0aGUgZmFzdCByZXNwb25zZS4NCg0KSSB0cmllZCBhZ2FpbiB3aXRoIGFu
-IHVubW9kaWZpZWQgbWFzdGVyIGNoZWNrb3V0LCBidWlsZGluZyBjb3JlLWltYWdlLW1pbmltYWwu
-DQpJIGFkZGVkIFJERVBFTkRTID0gIm5jdXJzZXMtbGliZm9ybSIgd2l0aG91dCBzdWNjZXNzLiBC
-aXRiYWtlIHJldHVybnMgTm90aGluZyBQcm92aWRlcy4NCg0KVGhlbiBJIGFkZGVkIHRoZSBmb2xs
-b3dpbmcgbGluZSB0byBuY3Vyc2VzLmluYzoNClBBQ0tBR0VTX0RZTkFNSUM9Im5jdXJzZXMtbGli
-KiINCkkgdHJpZWQgaXQsIGJlY2F1c2Ugb3RoZXIgcmVjaXBlcyB1c2UgaXQuDQoNCk5vdyBJIGNh
-biBpbnN0YWxsIHRoZSBydW50aW1lIGxpYnJhcmllcyBvZiBuY3Vyc2VzIHRvIHRoZSBpbWFnZSB3
-aXRoIElNQUdFX0lOU1RBTEwgKz0gIm5jdXJzZXMtbGliZm9ybSIuDQoNCklzIGl0IHJpZ2h0IHRv
-IHNldCBQQUNLQUdFU19EWU5BTUlDPw0KDQpCZXN0IHJlZ2FyZHMsDQpNYXJ0aW4NCg0KLS0tLS1V
-cnNwcsO8bmdsaWNoZSBOYWNocmljaHQtLS0tLQ0KVm9uOiBwb2t5LWJvdW5jZXNAeW9jdG9wcm9q
-ZWN0Lm9yZyBbbWFpbHRvOnBva3ktYm91bmNlc0B5b2N0b3Byb2plY3Qub3JnXSBJbSBBdWZ0cmFn
-IHZvbiBUb21hcyBGcnlkcnljaA0KR2VzZW5kZXQ6IEZyZWl0YWcsIDIyLiBKdW5pIDIwMTIgMTE6
-MTMNCkFuOiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCkJldHJlZmY6IFJlOiBbcG9reV0gSW5zdGFs
-bGluZyBzaGFyZWQgbGlicmFyaWVzIGZvciBjdXN0b20gYXBwbGljYXRpb24NCg0KSGksDQoNCk9u
-IDIyLzA2LzEyIDA5OjM4LCBGbGV0emVyIE1hcnRpbiB3cm90ZToNCj4gQnV0IG5vdyBJJ20gbm90
-IGFibGUgdG8gaW5zdGFsbCBzaGFyZWQgbGlicmFyaWVzIG9mIG5jdXJzZXMgZm9yIGEgY3VzdG9t
-IGltYWdlLiBOYW1lbHkgbGliZm9ybSwgbGlibWVudSwgYW5kIGxpYnBhbmVsLg0KPiBJIGFsd2F5
-cyBnZXQgYSAiRXJyb3I6IE5vdGhpbmcgUFJPVklERVMgLi4uIg0KDQonTm90aGluZyBQUk9WSURF
-UycgbWVhbnMgdGhlcmUgaXMgbm8gYmIgcmVjaXBlIHRoYXQgcHJvdmlkZXMgdGhlIGEgZGVwZW5k
-ZW5jeSwgaS5lLiwgdGhlcmUgaXMgbm8gYmIgcmVjaXBlIHRoYXQgZGVjbGFyZXMgaXQgcHJvdmlk
-ZXMgJ2xpYmZvcm0nLiBUaGUgbGliZm9ybSBwYWNrYWdlIGlzIGdlbmVyYXRlZCBkeW5hbWljYWxs
-eSBmcm9tIHRoZSBuY3Vyc2VzIHBhY2thZ2UsIHNvIHRoZSBjb3JyZWN0IERFUEVORFMgKHdoaWNo
-IGRlbm90ZXMgYSAqYnVpbGQtdGltZSogZGVwZW5kZW5jeSksIGlzICduY3Vyc2VzJy4NCg0KDQo+
-IEhvdyBjYW4gSSBpbnN0YWxsIHRoaXMgIHNoYXJlZCBsaWJyYXJpZXMgdG8gYSBjdXN0b20gaW1h
-Z2U/DQoNCklmIHlvdXIgYXBwbGljYXRpb24gbGlua3MgYWdhaW5zdCBsaWJmb3JtLCB0aGVuIHRo
-aXMgc2hvdWxkIGJlIGF1dG9tYXRpY2FsbHkgcHVsbGVkIGludG8gdGhlIGltYWdlOyB5b3UgY2Fu
-IG1hbnVhbGx5IGFkZCBzb21ldGhpbmcgdG8gYSBwYWNrYWdlIHJ1bi10aW1lIGRlcGVuZGVuY2ll
-cyBieSBhZGRpbmcgaXQgdG8gdGhlIFJERVBFTkRTIHZhcmlhYmxlIChhcyBKYWNrIHNheXMsIGlu
-IHRoaXMgY2FzZSB0aGF0IHNob3VsZCBiZSAnbmN1cnNlcy1saWJmb3JtJyksIGJ1dCB5b3Ugc2hv
-dWxkIG9ubHkgbmVlZCB0byBkbyB0aGlzIGZvciBhIGxpYnJhcnkgaWYgdGhlIGFwcGxpY2F0aW9u
-IGRsb3BlbnMgaXQuDQoNCkkgaG9wZSB0aGlzIGhlbHBzLA0KDQpUb21hcw0KDQoNCj4gDQo+IFRo
-YW5rcywNCj4gTWFydGluDQo+IA0KPiANCj4gTUFSVElOIEZMRVRaRVINCj4gRW5naW5lZXINCj4g
-U2FmZXR5ICYgU2VjdXJpdHkgRGVwYXJ0bWVudA0KPiBWaWRlbyBhbmQgU2VjdXJpdHkgVGVjaG5v
-bG9neQ0KPiANCj4gQUlUIEF1c3RyaWFuIEluc3RpdHV0ZSBvZiBUZWNobm9sb2d5IEdtYkggTSAr
-NDMgNjY0IDgyNTEwOTAgIHwgIEYgKzQzIA0KPiA1MDU1MC00MTUwIERvbmF1LUNpdHktU3RyYcOf
-ZSAxICB8ICAxMjIwIFZpZW5uYSAgfCBBdXN0cmlhIA0KPiBtYXJ0aW4uZmxldHplckBhaXQuYWMu
-YXQ8bWFpbHRvOm1hcnRpbi5mbGV0emVyQGFpdC5hYy5hdD4gIHwgIA0KPiBodHRwOi8vd3d3LmFp
-dC5hYy5hdDxodHRwOi8vd3d3LmFpdC5hYy5hdC8+DQo+IA0KPiBGTjogMTE1OTgwIGkgSEcgV2ll
-biAgfCAgVUlEOiBBVFUxNDcwMzUwNiBUaGlzIGVtYWlsIGFuZCBhbnkgDQo+IGF0dGFjaG1lbnRz
-IHRoZXJldG8sIGlzIGludGVuZGVkIG9ubHkgZm9yIHVzZSBieSB0aGUgYWRkcmVzc2VlKHMpIG5h
-bWVkIGhlcmVpbiBhbmQgbWF5IGNvbnRhaW4gbGVnYWxseSBwcml2aWxlZ2VkIGFuZC9vciBjb25m
-aWRlbnRpYWwgaW5mb3JtYXRpb24uIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRlZCByZWNpcGll
-bnQsIHBsZWFzZSBub3RpZnkgdGhlIHNlbmRlciBieSByZXR1cm4gZS1tYWlsIG9yIGJ5IHRlbGVw
-aG9uZSBhbmQgZGVsZXRlIHRoaXMgbWVzc2FnZSBmcm9tIHlvdXIgc3lzdGVtIGFuZCBhbnkgcHJp
-bnRvdXQgdGhlcmVvZi4gQW55IHVuYXV0aG9yaXplZCB1c2UsIHJlcHJvZHVjdGlvbiwgb3IgZGlz
-c2VtaW5hdGlvbiBvZiB0aGlzIG1lc3NhZ2UgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4gUGxlYXNl
-IG5vdGUgdGhhdCBlLW1haWxzIGFyZSBzdXNjZXB0aWJsZSB0byBjaGFuZ2UuIEFJVCBBdXN0cmlh
-biBJbnN0aXR1dGUgb2YgVGVjaG5vbG9neSBHbWJIIHNoYWxsIG5vdCBiZSBsaWFibGUgZm9yIHRo
-ZSBpbXByb3BlciBvciBpbmNvbXBsZXRlIHRyYW5zbWlzc2lvbiBvZiB0aGUgaW5mb3JtYXRpb24g
-Y29udGFpbmVkIGluIHRoaXMgY29tbXVuaWNhdGlvbiwgbm9yIHNoYWxsIGl0IGJlIGxpYWJsZSBm
-b3IgYW55IGRlbGF5IGluIGl0cyByZWNlaXB0Lg0KPiANCj4gDQo+IA0KPiANCj4gDQo+IA0KPiBf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBwb2t5IG1h
-aWxpbmcgbGlzdA0KPiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCj4gaHR0cHM6Ly9saXN0cy55b2N0
-b3Byb2plY3Qub3JnL2xpc3RpbmZvL3Bva3kNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18NCnBva3kgbWFpbGluZyBsaXN0DQpwb2t5QHlvY3RvcHJvamVj
-dC5vcmcNCmh0dHBzOi8vbGlzdHMueW9jdG9wcm9qZWN0Lm9yZy9saXN0aW5mby9wb2t5DQo=
+On 06/20/2012 01:55 AM, Kang Kai wrote:
+> Hi,
+>
+> This patch is for Yocto 2579.
+>
+> When set DISTRO to poky-tiny it only builds ext2 image and runqemu doesn't set qemu options for ext2 image that cause qemu fails to boot. Fix it.
+>
+> Regards,
+> Kai
+>
+> The following changes since commit e0a70547069fe7e8a2d6bdaffc985fb172d46c31:
+>
+>    perl: Allow perl to cross build and native build in a directory named "t" (2012-06-18 17:33:04 +0100)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib kangkai/runqemu
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=kangkai/runqemu
+>
+> Kang Kai (1):
+>    runqemu-internal: qemu fails to run on ext2 image
+>
+>   scripts/runqemu-internal |    2 +-
+>   1 files changed, 1 insertions(+), 1 deletions(-)
+>
+Merged into OE-Core
+
+Thanks
+	Sau!
+
+(BTW, please use openembedded-core for items in meta)
 
