@@ -1,23 +1,23 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E949DE006D9
-	for <poky@yoctoproject.org>; Mon, 25 Jun 2012 10:07:29 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 760D4E006D9
+	for <poky@yoctoproject.org>; Mon, 25 Jun 2012 10:07:30 -0700 (PDT)
 Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 25 Jun 2012 10:07:29 -0700
+	by azsmga102.ch.intel.com with ESMTP; 25 Jun 2012 10:07:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="115827481"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="115827482"
 Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.180])
 	by AZSMGA002.ch.intel.com with ESMTP; 25 Jun 2012 10:07:29 -0700
 From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 25 Jun 2012 10:07:19 -0700
-Message-Id: <f115d3ffe174a4e410bb877e18bc6f8a40c5bcfd.1340643949.git.sgw@linux.intel.com>
+Date: Mon, 25 Jun 2012 10:07:20 -0700
+Message-Id: <57b135aea87987819a3094eaac28012ed7aca065.1340643949.git.sgw@linux.intel.com>
 X-Mailer: git-send-email 1.7.7.6
 In-Reply-To: <cover.1340643949.git.sgw@linux.intel.com>
 References: <cover.1340643949.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1340643949.git.sgw@linux.intel.com>
 References: <cover.1340643949.git.sgw@linux.intel.com>
-Subject: [Consolidated Poky Pull 4/7] yocto-bsp: update yocto-bsp machine.conf template
+Subject: [Consolidated Poky Pull 5/7] yocto-bsp: update yocto-bsp xorg.conf templates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,53 +33,54 @@ X-List-Received-Date: Mon, 25 Jun 2012 17:07:30 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Some changes in the ordering assumptions of the qemu include rendered
-X inoperative, fix those in the qemu machine template.
+The non-x86 qemu machines now require an xorg.conf, change the
+templates accordingly.
 
 Fixes [YOCTO #2559]
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- .../arch/qemu/conf/machine/{{=machine}}.conf       |    7 +++++--
- 1 files changed, 5 insertions(+), 2 deletions(-)
+ .../xserver-xf86-config/{{=machine}}/xorg.conf     |    8 ++++++++
+ ..."x86_64\": }} xserver-xf86-config_0.1.bbappend" |    2 --
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/{{ if qemuarch == \"i386\" or qemuarch == \"x86_64\": }} xserver-xf86-config_0.1.bbappend"
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-index 0e4ecad..1ab6e58 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-@@ -8,6 +8,7 @@
- PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
- PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/xserver-xf86-config/{{=machine}}/xorg.conf b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/xserver-xf86-config/{{=machine}}/xorg.conf
+index 10a6d9a..1351980 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/xserver-xf86-config/{{=machine}}/xorg.conf
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/xserver-xf86-config/{{=machine}}/xorg.conf
+@@ -14,7 +14,11 @@ EndSection
  
+ Section "InputDevice"
+     Identifier    "Configured Mouse"
++{{ if qemuarch == "arm" or qemuarch == "powerpc" or qemuarch == "mips": }}
++    Driver        "mouse"
 +{{ if qemuarch == "i386" or qemuarch == "x86_64": }}
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- PREFERRED_PROVIDER_virtual/libgl ?= "mesa-dri"
+     Driver        "vmmouse"
++
+     Option        "CorePointer"
+     Option        "Device"        "/dev/input/mice"
+     Option        "Protocol"        "ImPS/2"
+@@ -32,7 +36,11 @@ EndSection
  
-@@ -22,13 +23,14 @@ require conf/machine/include/tune-i586.inc
- {{ if qemuarch == "x86_64": }}
- require conf/machine/include/tune-x86_64.inc
- {{ if qemuarch == "arm": }}
-+require conf/machine/include/qemu.inc
- require conf/machine/include/tune-arm926ejs.inc
- {{ if qemuarch == "powerpc": }}
-+require conf/machine/include/qemu.inc
- require conf/machine/include/tune-ppc603e.inc
- {{ if qemuarch == "mips": }}
--require conf/machine/include/tune-mips32.inc
--
- require conf/machine/include/qemu.inc
-+require conf/machine/include/tune-mips32.inc
+ Section "Device"
+     Identifier    "Graphics Controller"
++{{ if qemuarch == "arm" or qemuarch == "powerpc" or qemuarch == "mips": }}
++    Driver        "fbdev"
++{{ if qemuarch == "i386" or qemuarch == "x86_64": }}
+     Driver        "vmware"
++
+ EndSection
  
- {{ if qemuarch == "i386" or qemuarch == "x86_64": }}
- MACHINE_FEATURES += "x86"
-@@ -42,6 +44,7 @@ XSERVER ?= "xserver-xorg \
-            xf86-input-evdev \
-            xf86-video-vmware \
-            qemugl"
-+require conf/machine/include/qemu.inc
- GLIBC_ADDONS = "nptl"
- GLIBC_EXTRA_OECONF = "--with-tls"
- 
+ Section "Monitor"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/{{ if qemuarch == \"i386\" or qemuarch == \"x86_64\": }} xserver-xf86-config_0.1.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/{{ if qemuarch == \"i386\" or qemuarch == \"x86_64\": }} xserver-xf86-config_0.1.bbappend"
+deleted file mode 100644
+index d3420e0..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-graphics/xorg-xserver/{{ if qemuarch == \"i386\" or qemuarch == \"x86_64\": }} xserver-xf86-config_0.1.bbappend"	
++++ /dev/null
+@@ -1,2 +0,0 @@
+-THISDIR := "${@os.path.dirname(bb.data.getVar('FILE', d, True))}"
+-FILESPATH =. "${@base_set_filespath(["${THISDIR}/${PN}"], d)}:"
 -- 
 1.7.7.6
 
