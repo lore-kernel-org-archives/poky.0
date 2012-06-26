@@ -1,23 +1,30 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1E532E006D9
-	for <poky@yoctoproject.org>; Mon, 25 Jun 2012 10:07:31 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 25 Jun 2012 10:07:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="115827488"
-Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.180])
-	by AZSMGA002.ch.intel.com with ESMTP; 25 Jun 2012 10:07:30 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Mon, 25 Jun 2012 10:07:22 -0700
-Message-Id: <13bb0560dcb0189563f00b6d6605c5462ef5f915.1340643949.git.sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.7.6
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CCB8BE006D9
+	for <poky@yoctoproject.org>; Tue, 26 Jun 2012 07:36:12 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5QEa8RX004018;
+	Tue, 26 Jun 2012 15:36:08 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 26014-09; Tue, 26 Jun 2012 15:36:04 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q5QEZvTI004012
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+	Tue, 26 Jun 2012 15:35:59 +0100
+Message-ID: <1340721361.23146.11.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <sgw@linux.intel.com>
+Date: Tue, 26 Jun 2012 15:36:01 +0100
 In-Reply-To: <cover.1340643949.git.sgw@linux.intel.com>
 References: <cover.1340643949.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1340643949.git.sgw@linux.intel.com>
-References: <cover.1340643949.git.sgw@linux.intel.com>
-Subject: [Consolidated Poky Pull 7/7] tiny-init: Basic init mechanism for poky-tiny
+X-Mailer: Evolution 3.2.2- 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [Consolidated Poky Pull 0/7] Poky Kernel, Tiny and scripts updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,166 +36,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Jun 2012 17:07:31 -0000
+X-List-Received-Date: Tue, 26 Jun 2012 14:36:13 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Darren Hart <dvhart@linux.intel.com>
+On Mon, 2012-06-25 at 10:07 -0700, Saul Wold wrote:
+> Richard,
+> 
+> This pulls together a number of changes pending for meta-yocto
+> in Poky Master.
+> 
+> Sau!
+> 
+> 
+> The following changes since commit 5e3a61b40b7b697d83b41e7e247cd1f94eb7673c:
+> 
+>   bblayers.conf.sample: Fix empty BBPATH entry warnings (2012-06-25 16:35:55 +0100)
+> 
+> are available in the git repository at:
+>   git://git.yoctoproject.org/poky-contrib sgw/stage
+>   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/stage
+> 
+> Bruce Ashfield (2):
+>   linux-libc-headers-yocto: use kernel-arch to set ARCH
+>   linux-libc-headers-yocto: update to v3.4 and remove unecessary code
+> 
+> Darren Hart (2):
+>   busybox: Introduce poky-tiny defconfig override
+>   tiny-init: Basic init mechanism for poky-tiny
+> 
+> Saul Wold (1):
+>   upstream_tracking: Update Upgraded and Manual Checked upstream
+> 
+> Tom Zanussi (2):
+>   yocto-bsp: update yocto-bsp machine.conf template
+>   yocto-bsp: update yocto-bsp xorg.conf templates
 
-Currently poky-tiny images will boot and run /bin/sh, which results in
-error messages to the console about being unable to open the tty and job
-control being disabled.
+Merged to meta-yocto master, thanks.
 
-The shell must be session leader to open the tty, and the tty must not
-be /dev/console (it should be a vt or a physical tty like ttyS0), the
-tty is required for job control (handling signals, etc.).
-
-The goals of poky-tiny are to be an initial starting point from which to
-build a distribution that does what you want, and NOTHING more.
-
-This patch results in a system that boots with the virtual filesystems
-mounted, the local network interface up, and a shell with job control
-running, and a hook (/etc/rc.local) for easy customization. Nothing
-else.
-
-Enabling the basic busybox init, including the ability to give the
-controlling console to commands starting with a dash in inittab results
-in a 5664 byte delta (compared with 2560 bytes for enabling setsid and
-cttyhack). Note that the help in busybox suggests the cttyhack may be
-more reliable than the init support for handing over the controlling
-terminal.
-
-So the difference between using a standard init and just enabling the
-two options is about 3k, but enabling setsid and cttyhack may enable
-others to things besides what I am looking to do. Enabling init in both
-DISTRO_FEATURES and busybox is fairly trivial to do, so I think it's
-better to leave that as something to add if needed, rather than
-something to remove, as that is more consistent with the goals of
-poky-tiny.
-
-Thanks to Tim Bird for his suggestion to include support for rc.local by
-default.
-
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: Tim Bird <tim.bird@am.sony.com>
-CC: Thomas Frydrych <tf+lists.yocto@r-finger.com>
-CC: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-CC: Paul Eggleton <paul.eggleton@linux.intel.com>
-CC: Phil Blundell <philb@gnu.org>
-CC: Khem Raj <raj.khem@gmail.com>
-CC: Koen Kooi <koen@dominion.thruhere.net>
----
- meta-yocto/conf/distro/poky-tiny.conf              |    2 +-
- meta-yocto/recipes-core/tiny-init/files/init       |   21 +++++++++++++++
- .../recipes-core/tiny-init/files/rc.local.sample   |   23 ++++++++++++++++
- meta-yocto/recipes-core/tiny-init/tiny-init.bb     |   28 ++++++++++++++++++++
- 4 files changed, 73 insertions(+), 1 deletions(-)
- create mode 100644 meta-yocto/recipes-core/tiny-init/files/init
- create mode 100644 meta-yocto/recipes-core/tiny-init/files/rc.local.sample
- create mode 100644 meta-yocto/recipes-core/tiny-init/tiny-init.bb
-
-diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
-index a34c7dc..8ae1d85 100644
---- a/meta-yocto/conf/distro/poky-tiny.conf
-+++ b/meta-yocto/conf/distro/poky-tiny.conf
-@@ -95,7 +95,7 @@ DISTRO_FEATURES = "${DISTRO_FEATURES_TINY} \
- # Use tmpdevfs and the busybox runtime services
- VIRTUAL-RUNTIME_dev_manager = ""
- VIRTUAL-RUNTIME_login_manager = ""
--VIRTUAL-RUNTIME_init_manager = ""
-+VIRTUAL-RUNTIME_init_manager = "tiny-init"
- VIRTUAL-RUNTIME_keymaps = ""
- 
- # FIXME: Consider adding "modules" to MACHINE_FEATURES and using that in
-diff --git a/meta-yocto/recipes-core/tiny-init/files/init b/meta-yocto/recipes-core/tiny-init/files/init
-new file mode 100644
-index 0000000..bf2817d
---- /dev/null
-+++ b/meta-yocto/recipes-core/tiny-init/files/init
-@@ -0,0 +1,21 @@
-+#!/bin/sh
-+
-+# Mount the Linux kernel virtual filesystems
-+mount none -t proc /proc
-+mount none -t sysfs /sys
-+mkdir /dev/pts
-+mount none -t devpts /dev/pts
-+
-+ifup lo
-+
-+# Allow for distro or local customizations
-+if [ -f /etc/rc.local ] ; then
-+	source /etc/rc.local
-+fi
-+
-+# Become session leader and try to find a real tty (e.g. ttyS0)
-+while true; do
-+	setsid cttyhack sh
-+	echo "Console sh exited with $?, respawning..."
-+	sleep 1
-+done
-diff --git a/meta-yocto/recipes-core/tiny-init/files/rc.local.sample b/meta-yocto/recipes-core/tiny-init/files/rc.local.sample
-new file mode 100644
-index 0000000..d9e198a
---- /dev/null
-+++ b/meta-yocto/recipes-core/tiny-init/files/rc.local.sample
-@@ -0,0 +1,23 @@
-+#!/bin/sh
-+
-+# Start services and customize the boot process here.
-+echo "Running /etc/rc.local..."
-+
-+# Use init scripts included with packages such as dropbear
-+#/etc/init.d/dropbear start
-+
-+# Spawn a getty manually
-+#setsid /sbin/getty 115200 ttyS2
-+
-+# Print a banner
-+#echo "You are running a poky-tiny image brought to you by the Yocto Project."
-+
-+# Setup a debugging environment
-+#mkdir /debugfs
-+#mount none -t debugfs /debugfs
-+
-+# Load modules (note: linux-yocto-tiny does not have module support by default)
-+#modprobe yourdriver
-+
-+# DO NOT run any long running tasks or loops as these will delay
-+# the /init script and the console shell.
-diff --git a/meta-yocto/recipes-core/tiny-init/tiny-init.bb b/meta-yocto/recipes-core/tiny-init/tiny-init.bb
-new file mode 100644
-index 0000000..f5892ed
---- /dev/null
-+++ b/meta-yocto/recipes-core/tiny-init/tiny-init.bb
-@@ -0,0 +1,28 @@
-+SUMMARY = "Poky-tiny init"
-+DESCRIPTION = "Basic init system for poky-tiny"
-+LICENSE = "MIT"
-+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-+
-+PR = "r0"
-+
-+RDEPENDS_${PN} = "busybox"
-+
-+SRC_URI = "file://init \
-+	   file://rc.local.sample \
-+	  "
-+
-+do_configure() {
-+	:
-+}
-+
-+do_compile() {
-+	:
-+}
-+
-+do_install() {
-+	install -d ${D}${sysconfdir}
-+	install -m 0755 ${WORKDIR}/init ${D}
-+	install -m 0755 ${WORKDIR}/rc.local.sample ${D}${sysconfdir}
-+}
-+
-+FILES_${PN} = "/init ${sysconfdir}/rc.local.sample"
--- 
-1.7.7.6
+Richard
 
 
