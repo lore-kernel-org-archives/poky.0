@@ -1,31 +1,19 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7AF2FE0070C
-	for <poky@yoctoproject.org>; Tue, 26 Jun 2012 10:44:03 -0700 (PDT)
-Received: by eekb45 with SMTP id b45so110827eek.35
-	for <poky@yoctoproject.org>; Tue, 26 Jun 2012 10:44:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=TY7OCuW7qyEkz4wYUpVzckcT7WPd7ngf5C0nE7foeDw=;
-	b=pLP0+ndezwmzfM8SQWs740l5GykXQHC5H79shBsICPhGNLhvAfEW5ld1WfaVE0RSMZ
-	hUooPGSED54hUCtIShFi9i7nXWCm22HQvXF161wtVSGIdsZ0jdwYDQKa7p7YqJwMuA6M
-	effR+AoMDIhTKNWwl5Y5L6y4E6Hgj3bBPNy4JANQjw8HuP4L1DRne6rsfKanayxoSZhC
-	pozkyc4mq1NYsjGIdpbM4nz4V5816DOAVpxh8M3cHGEyE+CkVu6EdCylgPhKCVvNplLG
-	cDccYk+fj5fJC0PokJIYdymxZrpofMGafX6GWQOMbhx/srW7QMPvuql9PH10F0qkGw+1
-	QPqQ==
-Received: by 10.14.37.132 with SMTP id y4mr3131735eea.142.1340732642380; Tue,
-	26 Jun 2012 10:44:02 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.14.219.71 with HTTP; Tue, 26 Jun 2012 10:43:32 -0700 (PDT)
-In-Reply-To: <009701cd53c0$9d41e4e0$d7c5aea0$@com>
-References: <009701cd53c0$9d41e4e0$d7c5aea0$@com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 26 Jun 2012 10:43:32 -0700
-Message-ID: <CAMKF1sr327zYUxe+-=cXTosX2CSAMXm3zQh5yeORBdRyM=UKWA@mail.gmail.com>
-To: Paul Demetrotion <pdemetrotion@winsystems.com>
-Cc: poky@yoctoproject.org
-Subject: Re: Linux Build Help Needed
+Return-Path: <valentin.popa@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E4AD6E013E5
+	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 06:39:21 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Jun 2012 06:39:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="171110444"
+Received: from valentin-desktop (HELO localhost.localdomain) ([10.237.105.52])
+	by fmsmga001.fm.intel.com with ESMTP; 28 Jun 2012 06:39:18 -0700
+From: Valentin Popa <valentin.popa@intel.com>
+To: poky@yoctoproject.org
+Date: Thu, 28 Jun 2012 15:46:19 +0300
+Message-Id: <1340887579-30748-1-git-send-email-valentin.popa@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] build-appliance-image: rename from self-hosted-image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,33 +25,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Jun 2012 17:44:03 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 28 Jun 2012 13:39:22 -0000
 
-On Tue, Jun 26, 2012 at 10:25 AM, Paul Demetrotion
-<pdemetrotion@winsystems.com> wrote:
-> WARNING: Host distribution "Ubuntu 12.04 LTS" has not been validated with
-> this version of the build system; you may possibly experience unexpected
-> failures. It is recommended that you use a tested distribution.
+(-) rename it also in maintainers.inc
 
-keep above in mind. so you are using meta-oe. are you using denzil
-branch of meta-openembedded repo as well or master ? you might want to
-stick with denzil branch for meta-openembedded as well.
+[YOCTO #2636]
 
-This commit is of interest do you have it or not.
+Signed-off-by: Valentin Popa <valentin.popa@intel.com>
+---
+ meta-yocto/conf/distro/include/maintainers.inc |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-commit b84f1a473856e8560761e1e3f045f805a7fe9362
-Author: Saul Wold <sgw@linux.intel.com>
-Date:   Tue Jun 19 08:36:19 2012 +0000
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index b88fe2e..d60ee93 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -577,7 +577,7 @@ RECIPE_MAINTAINER_pn-screen = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-screenshot = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-scrnsaverproto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-sed = "Valentin Popa <valentin.popa@intel.com>"
+-RECIPE_MAINTAINER_pn-self-hosted-image = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-build-appliance-image = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-setserial = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-settings-daemon = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-sgml-common = "Scott Garman <scott.a.garman@intel.com>"
+-- 
+1.7.9.5
 
-    rfkill: use update-alternatives
-
-    * Since oe-core added rfkill to busybox, this recipe needs to use u-a
-      also.
-    * MJ: added ALERNATIVE_LINK_NAME[rfkill]
-    * MJ: increased ALTERNATIVE_PRIORITY (busybox also have 50)
-
-    Signed-off-by: Saul Wold <sgw@linux.intel.com>
-    Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
-    Signed-off-by: Koen Kooi <koen@dominion.thruhere.net>
 
