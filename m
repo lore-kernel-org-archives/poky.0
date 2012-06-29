@@ -1,38 +1,33 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6CED0E01400
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 00:22:36 -0700 (PDT)
-Received: by eaab16 with SMTP id b16so1511230eaa.35
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 00:22:35 -0700 (PDT)
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-qc0-f176.google.com (mail-qc0-f176.google.com
+	[209.85.216.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5A4B0E01426
+	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 06:02:20 -0700 (PDT)
+Received: by qcsc21 with SMTP id c21so2023499qcs.35
+	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 06:02:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type:content-transfer-encoding;
-	bh=Iwlgdo75H5CRN5+I+Int4myXrAiq+X3tDQju9D+SEMY=;
-	b=L9OiWRSfIqFi/ixb+u8D3uqw3GriO37a6UA/IfyvnYNaCgYuu+sENCL1OemzYh+cK1
-	HIvQBCnGs0GAuODtDgwKsjgyI3MtWHnFjAB8Pyx3Yj+vIHQjtBhWDz+cnZgp/V3W7amO
-	2T6ciHZTKH/4KYt+PMJfgfjzV/5ViKUw6LnTidEvsNGXgz/B3CWFfO/FFg5SVxnuZHPa
-	pkYkB5NFRXjxQLfEXmcWaFEEC/ReoxF08zVoH6ZgE/YaYj/M9QZVZtQRjYjHGpbW+LSM
-	YNQ6eCXaU3cTClungD+iRMvsAH+vBP1ctuFNw+lQ8FLLqMp6zL+aRPd9mXwHxZjWbOJt
-	sX0A==
-Received: by 10.14.185.137 with SMTP id u9mr285976eem.220.1340954555057; Fri,
-	29 Jun 2012 00:22:35 -0700 (PDT)
+	bh=6DaBJw24+469XBNT7pcUb7w6b3CIsK1Xk3C1A7N03kE=;
+	b=iQQwVguBA/v3uPV023vzb/k039phVAUNah/BB90iQQFR5Dsc/oBGGRwYI/gqJzUpjE
+	9mKJcZUPk92ss7i5rCbJQQob+7DBysduYpzkcbUZy0DTbyVaGRv9eGPbYXRDRIVHw61u
+	KyGKactp5/i8N+jfqYiuKsDegrl1Ou8NCyScX3FU86Wwg1w8fhVFPKpIyFosB7xL4hx+
+	+9R1nUY3pnSyWlPruAkAKeBnQ2tbhPlX1PmMTQspqvvkYcyQNF+R8sYS0okXAj65ppDe
+	W8fKcyeBo8Z/QcPvGQtoBb/FWyCEnX3TBJE2+fT1YBxs5lQn1BFLuCmLzKf+BqSTPjIM
+	s1wA==
 MIME-Version: 1.0
-Received: by 10.14.210.199 with HTTP; Fri, 29 Jun 2012 00:22:04 -0700 (PDT)
-In-Reply-To: <4FED47D7.7080107@linux.intel.com>
+Received: by 10.229.137.84 with SMTP id v20mr652669qct.36.1340974939462; Fri,
+	29 Jun 2012 06:02:19 -0700 (PDT)
+Received: by 10.229.41.5 with HTTP; Fri, 29 Jun 2012 06:02:19 -0700 (PDT)
+In-Reply-To: <4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340942930.git.dvhart@linux.intel.com>
 References: <cover.1340942930.git.dvhart@linux.intel.com>
 	<4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340942930.git.dvhart@linux.intel.com>
-	<5b45f71fee3c593e5420a5a9b36ba947c429a397.1340942930.git.dvhart@linux.intel.com>
-	<CAMKF1sopV66-Rohk5HYMygcSamkcxDgOM8bfruF7VWR0ZAXpnQ@mail.gmail.com>
-	<4FED4226.30700@linux.intel.com>
-	<CAMKF1sojfidUA9mne_RfXz+tE8d3pRboHbGxJL-dLD5wkeKVRw@mail.gmail.com>
-	<4FED47D7.7080107@linux.intel.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 29 Jun 2012 00:22:04 -0700
-Message-ID: <CAMKF1sqm=A5za70vND38jdyUdUUyB017+OuoCWwpwBX3w6WWqA@mail.gmail.com>
+Date: Fri, 29 Jun 2012 09:02:19 -0400
+Message-ID: <CADkTA4MUhn4nUEkUdxG_TkV6qg8VHorhoPjYpeFOqAPrxEr4=A@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: Darren Hart <dvhart@linux.intel.com>
 Cc: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 3/4] kernel: Add kernel-headers package for target module build
+Subject: Re: [PATCH 1/4] linux-libc-headers-yocto: Do not include linux-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,56 +39,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jun 2012 07:22:36 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 29 Jun 2012 13:02:20 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 28, 2012 at 11:14 PM, Darren Hart <dvhart@linux.intel.com> wrot=
+On Fri, Jun 29, 2012 at 12:17 AM, Darren Hart <dvhart@linux.intel.com> wrot=
 e:
+> The only bit we seem to need from the linux-yocto include is the
+> SRCREV_FORMAT. If we define this explicitly, we can avoid including the
+> linux-yocto include.
 >
->
-> On 06/28/2012 11:04 PM, Khem Raj wrote:
->> On Thu, Jun 28, 2012 at 10:50 PM, Darren Hart <dvhart@linux.intel.com> w=
-rote:
->>>
->>> However, I don't have a strong opinion here, I'll happily call it
->>> kernel-devel if that is strongly preferred by some.
->>
->> in oe terminology it will be -dev
->
-> THe other reason I didn't go that route is that we already have a
-> kernel-dev (although I don't much like the way it is used):
->
-> From kernel.bbclass:
->
-> PACKAGES =3D "kernel kernel-base kernel-vmlinux kernel-image kernel-dev \
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kernel-misc kernel-headers"
-> FILES =3D ""
-> FILES_kernel-image =3D "/boot/${KERNEL_IMAGETYPE}*"
-> FILES_kernel-dev =3D "/boot/System.map* /boot/Module.symvers* /boot/confi=
-g*"
-> FILES_kernel-vmlinux =3D "/boot/vmlinux*"
-> # misc is a package to contain files we need in staging
-> FILES_kernel-misc =3D "/kernel/include/config /kernel/scripts
-> /kernel/drivers/crypto /kernel/drivers/media"
-> FILES_kernel-headers =3D "/usr/src/kernel-headers"
->
-> And looking at that it appears I broke kernel-misc by moving things to
-> /usr/src (didn't notice that in my testing).
->
-> How would you propose we redefine the above in order to use "kernel-dev"
-> for the new package?
+> This is desirable so that linux-yocto can require kernel and simplify
+> the PR update process of all the linux-yocto* recipes. Pulling in
+> kernel to the linux-libc-headers-yocto recipes causes build failures by
+> pulling in "update-modules-nativesdk".
 
-hmmm interesting so I guess, linux-dev being already taken, you might
-call it linux-kernel-headers as you were doing. So we have
-linux-libc-headers and linux-kernel-headers to differentiate between
-raw and sanitized headers
+I'm familiar with this particular issue .. and I've tried to fix it
+myself (I have
+something that does largely work with both kernel and kernel yocto
+included), but I didn't know you were looking into this, so I'll toss
+that out :)
+
+There's something missing with this change, that I had restored the ability
+to patch and modify the tree, but I'll bolt that on later when I fix up tho=
+se
+nativesdk parts.
+
+Acked-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 
 >
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+> CC: Tom Zanussi <tom.zanussi@intel.com>
+> ---
+> =A0.../linux-libc-headers/linux-libc-headers-yocto_git.bb =A0 =A0 =A0 =A0=
+ =A0 =A0 =A0| =A0 =A03 ++-
+> =A01 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-head=
+ers-yocto_git.bb b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-=
+headers-yocto_git.bb
+> index b4222f1..8ab4fb1 100644
+> --- a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yoc=
+to_git.bb
+> +++ b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yoc=
+to_git.bb
+> @@ -1,5 +1,4 @@
+> =A0require recipes-kernel/linux-libc-headers/linux-libc-headers.inc
+> -include recipes-kernel/linux/linux-yocto.inc
+>
+> =A0B =3D "${S}"
+>
+> @@ -13,6 +12,8 @@ SRCREV =3D "a1cdb60720c452c3965eaec3ec2cd10f06261cc5"
+> =A0PV =3D "3.4+git-${SRCPV}"
+> =A0PR =3D "r6"
+>
+> +SRCREV_FORMAT ?=3D "meta_machine"
+> +
+> =A0SRC_URI =3D "git://git.yoctoproject.org/linux-yocto-3.4.git;protocol=
+=3Dgit;nocheckout=3D1;branch=3D${KBRANCH},meta;name=3Dmachine,meta"
+>
+> =A0# force this to empty to prevent installation failures, we aren't
 > --
-> Darren Hart
-> Intel Open Source Technology Center
-> Yocto Project - Linux Kernel
+> 1.7.10.2
 >
->
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
+
+
+--=20
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
