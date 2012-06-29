@@ -1,21 +1,23 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BCD3FE006D9
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 12:56:06 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 29 Jun 2012 12:56:06 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6870BE00723
+	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 12:56:09 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 29 Jun 2012 12:56:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="159841735"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="117475534"
 Received: from unknown (HELO localhost) ([10.255.13.25])
-	by orsmga001.jf.intel.com with ESMTP; 29 Jun 2012 12:56:06 -0700
+	by AZSMGA002.ch.intel.com with ESMTP; 29 Jun 2012 12:56:08 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 To: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org,
 	Kishore Bodke <kishore.k.bodke@intel.com>
 Date: Fri, 29 Jun 2012 12:54:31 -0700
-Message-Id: <cover.1340998763.git.dvhart@linux.intel.com>
+Message-Id: <4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340998763.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.10.2
+In-Reply-To: <cover.1340998763.git.dvhart@linux.intel.com>
+References: <cover.1340998763.git.dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 0/5 V2] Enable building modules on target
+Subject: [PATCH 1/5] linux-libc-headers-yocto: Do not include linux-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,53 +29,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jun 2012 19:56:06 -0000
+X-List-Received-Date: Fri, 29 Jun 2012 19:56:09 -0000
 
-This series simplifies the include mechanisms for the linux-yocto recipes
-and adds support for a kernel-headers package which enables the building
-of modules on the target.
+The only bit we seem to need from the linux-yocto include is the
+SRCREV_FORMAT. If we define this explicitly, we can avoid including the
+linux-yocto include.
 
-Sending to both oe-core and poky as this series touches files in both
-and I didn't want to confuse the intent or the dependency by splitting
-them up.
+This is desirable so that linux-yocto can require kernel and simplify
+the PR update process of all the linux-yocto* recipes. Pulling in
+kernel to the linux-libc-headers-yocto recipes causes build failures by
+pulling in "update-modules-nativesdk".
 
-V2:
-o Add files to kernel-dev rather than create a new kernel-headers package
-o Move the location to /usr/src/kernel from /usr/src/kernel-headers
-o Eliminate the kernel-misc package as kernel-dev covers it now
-o Fix a bug with linux-yocto-custom exposed during testing
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Bruce Ashfield <bruce.ashfield@windriver.com>
+CC: Tom Zanussi <tom.zanussi@intel.com>
+---
+ .../linux-libc-headers/linux-libc-headers-yocto_git.bb              |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The following changes since commit 4d48398798c898c5db08294ba64d9bfc7daca19c:
-
-  local.conf.sample.extended: Add filtering function to archiver.bbclass (2012-06-28 16:32:58 +0100)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib dvhart/modules
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=dvhart/modules
-
-Darren Hart (5):
-  linux-libc-headers-yocto: Do not include linux-yocto
-  linux-yocto: Use INC_PR and move kernel require to linux-yocto.inc
-  kernel: Add kernel headers to kernel-dev package
-  tasl-core-sdk: Add kernel-dev to task-core-sdk RDEPENDS
-  linux-yocto-custom: Remove linux-tools
-
- .../recipes-kernel/linux/linux-yocto-custom.bb          |    2 --
- .../linux-libc-headers/linux-libc-headers-yocto_git.bb  |    3 ++-
- meta/classes/kernel.bbclass                             |   15 +++++++--------
- meta/conf/bitbake.conf                                  |    2 +-
- meta/recipes-core/tasks/task-core-sdk.bb                |    5 +++--
- meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb         |    3 +--
- meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb         |    3 +--
- meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb         |    3 +--
- meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb       |    3 +--
- meta/recipes-kernel/linux/linux-yocto.inc               |    3 +++
- meta/recipes-kernel/linux/linux-yocto_3.0.bb            |    3 +--
- meta/recipes-kernel/linux/linux-yocto_3.2.bb            |    3 +--
- meta/recipes-kernel/linux/linux-yocto_3.4.bb            |    3 +--
- 13 files changed, 23 insertions(+), 28 deletions(-)
-
+diff --git a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
+index b4222f1..8ab4fb1 100644
+--- a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
++++ b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yocto_git.bb
+@@ -1,5 +1,4 @@
+ require recipes-kernel/linux-libc-headers/linux-libc-headers.inc
+-include recipes-kernel/linux/linux-yocto.inc
+ 
+ B = "${S}"
+ 
+@@ -13,6 +12,8 @@ SRCREV = "a1cdb60720c452c3965eaec3ec2cd10f06261cc5"
+ PV = "3.4+git-${SRCPV}"
+ PR = "r6"
+ 
++SRCREV_FORMAT ?= "meta_machine"
++
+ SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.4.git;protocol=git;nocheckout=1;branch=${KBRANCH},meta;name=machine,meta"
+ 
+ # force this to empty to prevent installation failures, we aren't
 -- 
 1.7.10.2
 
