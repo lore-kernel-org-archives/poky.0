@@ -1,33 +1,26 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-qc0-f176.google.com (mail-qc0-f176.google.com
-	[209.85.216.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5A4B0E01426
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 06:02:20 -0700 (PDT)
-Received: by qcsc21 with SMTP id c21so2023499qcs.35
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 06:02:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type:content-transfer-encoding;
-	bh=6DaBJw24+469XBNT7pcUb7w6b3CIsK1Xk3C1A7N03kE=;
-	b=iQQwVguBA/v3uPV023vzb/k039phVAUNah/BB90iQQFR5Dsc/oBGGRwYI/gqJzUpjE
-	9mKJcZUPk92ss7i5rCbJQQob+7DBysduYpzkcbUZy0DTbyVaGRv9eGPbYXRDRIVHw61u
-	KyGKactp5/i8N+jfqYiuKsDegrl1Ou8NCyScX3FU86Wwg1w8fhVFPKpIyFosB7xL4hx+
-	+9R1nUY3pnSyWlPruAkAKeBnQ2tbhPlX1PmMTQspqvvkYcyQNF+R8sYS0okXAj65ppDe
-	W8fKcyeBo8Z/QcPvGQtoBb/FWyCEnX3TBJE2+fT1YBxs5lQn1BFLuCmLzKf+BqSTPjIM
-	s1wA==
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 66982E01426
+	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 06:10:52 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
+	by mail1.windriver.com (8.14.3/8.14.3) with ESMTP id q5TDAkZ5027787
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 29 Jun 2012 06:10:46 -0700 (PDT)
+Received: from [128.224.146.67] (128.224.146.67) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.1.255.0;
+	Fri, 29 Jun 2012 06:10:46 -0700
+Message-ID: <4FEDA947.8060105@windriver.com>
+Date: Fri, 29 Jun 2012 09:10:31 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:12.0) Gecko/20120430 Thunderbird/12.0.1
 MIME-Version: 1.0
-Received: by 10.229.137.84 with SMTP id v20mr652669qct.36.1340974939462; Fri,
-	29 Jun 2012 06:02:19 -0700 (PDT)
-Received: by 10.229.41.5 with HTTP; Fri, 29 Jun 2012 06:02:19 -0700 (PDT)
-In-Reply-To: <4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340942930.git.dvhart@linux.intel.com>
-References: <cover.1340942930.git.dvhart@linux.intel.com>
-	<4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340942930.git.dvhart@linux.intel.com>
-Date: Fri, 29 Jun 2012 09:02:19 -0400
-Message-ID: <CADkTA4MUhn4nUEkUdxG_TkV6qg8VHorhoPjYpeFOqAPrxEr4=A@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: Darren Hart <dvhart@linux.intel.com>
+References: <cover.1340942930.git.dvhart@linux.intel.com>
+	<e5738406d99b07701d77d873a5a6c9ea95b4adb2.1340942930.git.dvhart@linux.intel.com>
+In-Reply-To: <e5738406d99b07701d77d873a5a6c9ea95b4adb2.1340942930.git.dvhart@linux.intel.com>
 Cc: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 1/4] linux-libc-headers-yocto: Do not include linux-yocto
+Subject: Re: [PATCH 2/4] linux-yocto: Use INC_PR and move kernel require to linux-yocto.inc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,78 +32,183 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jun 2012 13:02:20 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 29 Jun 2012 13:10:52 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 29, 2012 at 12:17 AM, Darren Hart <dvhart@linux.intel.com> wrot=
-e:
-> The only bit we seem to need from the linux-yocto include is the
-> SRCREV_FORMAT. If we define this explicitly, we can avoid including the
-> linux-yocto include.
+On 12-06-29 12:18 AM, Darren Hart wrote:
+> When making changes to kernel.bbclass, it would be nice not to have to
+> manually change the PR of every linux-yocto*.bb file that requires it.
 >
-> This is desirable so that linux-yocto can require kernel and simplify
-> the PR update process of all the linux-yocto* recipes. Pulling in
-> kernel to the linux-libc-headers-yocto recipes causes build failures by
-> pulling in "update-modules-nativesdk".
+> Move the "require kernel" line to linux-yocto.inc and update the
+> linux-yocto recipes to use INC_PR.
 
-I'm familiar with this particular issue .. and I've tried to fix it
-myself (I have
-something that does largely work with both kernel and kernel yocto
-included), but I didn't know you were looking into this, so I'll toss
-that out :)
-
-There's something missing with this change, that I had restored the ability
-to patch and modify the tree, but I'll bolt that on later when I fix up tho=
-se
-nativesdk parts.
+Looks good. I've been getting ready to change this myself .. saves me
+the work!
 
 Acked-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 
 >
-> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> CC: Bruce Ashfield <bruce.ashfield@windriver.com>
-> CC: Tom Zanussi <tom.zanussi@intel.com>
+> Signed-off-by: Darren Hart<dvhart@linux.intel.com>
+> CC: Bruce Ashfield<bruce.ashfield@windriver.com>
+> CC: Tom Zanussi<tom.zanussi@intel.com>
 > ---
-> =A0.../linux-libc-headers/linux-libc-headers-yocto_git.bb =A0 =A0 =A0 =A0=
- =A0 =A0 =A0| =A0 =A03 ++-
-> =A01 file changed, 2 insertions(+), 1 deletion(-)
+>   meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb   |    3 +--
+>   meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb   |    3 +--
+>   meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb   |    3 +--
+>   meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb |    3 +--
+>   meta/recipes-kernel/linux/linux-yocto.inc         |    3 +++
+>   meta/recipes-kernel/linux/linux-yocto_3.0.bb      |    3 +--
+>   meta/recipes-kernel/linux/linux-yocto_3.2.bb      |    3 +--
+>   meta/recipes-kernel/linux/linux-yocto_3.4.bb      |    3 +--
+>   8 files changed, 10 insertions(+), 14 deletions(-)
 >
-> diff --git a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-head=
-ers-yocto_git.bb b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-=
-headers-yocto_git.bb
-> index b4222f1..8ab4fb1 100644
-> --- a/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yoc=
-to_git.bb
-> +++ b/meta-yocto/recipes-kernel/linux-libc-headers/linux-libc-headers-yoc=
-to_git.bb
-> @@ -1,5 +1,4 @@
-> =A0require recipes-kernel/linux-libc-headers/linux-libc-headers.inc
-> -include recipes-kernel/linux/linux-yocto.inc
+> diff --git a/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb b/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb
+> index 1de0411..1dd95c6 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto-rt_3.0.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
 >
-> =A0B =3D "${S}"
+>   KBRANCH = "yocto/standard/preempt-rt/base"
+> @@ -12,7 +11,7 @@ SRCREV_machine ?= "e67428d9966eecec4c081993dc64ceb5c0e64643"
+>   SRCREV_machine_qemuppc ?= "dcca458cb92cc287f70e4062f02460f36a881b16"
+>   SRCREV_meta ?= "d282029891bba5440630a885b940dea5e34e3e2c"
 >
-> @@ -13,6 +12,8 @@ SRCREV =3D "a1cdb60720c452c3965eaec3ec2cd10f06261cc5"
-> =A0PV =3D "3.4+git-${SRCPV}"
-> =A0PR =3D "r6"
+> -PR = "r2"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
 >
-> +SRCREV_FORMAT ?=3D "meta_machine"
+>   SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.0.git;protocol=git;bareclone=1;branch=${KBRANCH},meta;name=machine,meta"
+> diff --git a/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb b/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb
+> index ada66b8..cf88fae 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto-rt_3.2.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
+>
+>   KBRANCH = "standard/preempt-rt/base"
+> @@ -13,7 +12,7 @@ SRCREV_machine ?= "c413f23eafb3e91ff98653e578e771532fd71be9"
+>   SRCREV_machine_qemuppc ?= "d7020ba154df03cba5351011ff664f5e3e1ce678"
+>   SRCREV_meta ?= "ee78519365bdb25287703bbc31c06b193263c654"
+>
+> -PR = "r1"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
+>
+>   SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.2.git;protocol=git;bareclone=1;branch=${KBRANCH},meta;name=machine,meta"
+> diff --git a/meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb b/meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb
+> index 9b77186..fde9020 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
+>
+>   KBRANCH = "standard/preempt-rt/base"
+> @@ -13,7 +12,7 @@ SRCREV_machine ?= "4a688295a1c6d44f3eea409d51a0344c8830d829"
+>   SRCREV_machine_qemuppc ?= "83843542dd524007547eddba507690cd4bab393b"
+>   SRCREV_meta ?= "d65afd9e42230a3ef4cc1f9ad62d0aa84a533cd0"
+>
+> -PR = "r0"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
+>
+>   SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.4.git;protocol=git;bareclone=1;branch=${KBRANCH},meta;name=machine,meta"
+> diff --git a/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb b/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb
+> index 546971b..78337fb 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto-tiny_3.2.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
+>
+>   # We need lzma (as CONFIG_KERNEL_LZMA=y)
+> @@ -13,7 +12,7 @@ LINUX_VERSION ?= "3.2.18"
+>   SRCREV_machine ?= "27b68a93eb791e830da8d3a2c0fc99780897ad89"
+>   SRCREV_meta ?= "ee78519365bdb25287703bbc31c06b193263c654"
+>
+> -PR = "r0"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
+>
+>   SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.2;protocol=git;bareclone=1;branch=${KBRANCH},meta;name=machine,meta"
+> diff --git a/meta/recipes-kernel/linux/linux-yocto.inc b/meta/recipes-kernel/linux/linux-yocto.inc
+> index 0912bee..2e01946 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto.inc
+> +++ b/meta/recipes-kernel/linux/linux-yocto.inc
+> @@ -4,6 +4,8 @@ LICENSE = "GPLv2"
+>
+>   LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
+>
+> +INC_PR = "r0"
 > +
-> =A0SRC_URI =3D "git://git.yoctoproject.org/linux-yocto-3.4.git;protocol=
-=3Dgit;nocheckout=3D1;branch=3D${KBRANCH},meta;name=3Dmachine,meta"
+>   # A KMACHINE is the mapping of a yocto $MACHINE to what is built
+>   # by the kernel. This is typically the branch that should be built,
+>   # and it can be specific to the machine or shared
+> @@ -23,6 +25,7 @@ do_patch[depends] = "kern-tools-native:do_populate_sysroot"
+>   addtask kernel_configme before do_configure after do_patch
 >
-> =A0# force this to empty to prevent installation failures, we aren't
-> --
-> 1.7.10.2
+>   # Pick up shared functions
+> +inherit kernel
+>   inherit kernel-yocto
+>   require linux-dtb.inc
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> diff --git a/meta/recipes-kernel/linux/linux-yocto_3.0.bb b/meta/recipes-kernel/linux/linux-yocto_3.0.bb
+> index 362e65a..d178cd0 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto_3.0.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto_3.0.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
+>
+>   KBRANCH = "yocto/standard/base"
+> @@ -20,7 +19,7 @@ SRCREV_machine_qemux86-64 ?= "cba836a545fbeb96f6f2392c3ecbac9d7735fa65"
+>   SRCREV_machine ?= "bd6ad607c754dea30d91502a237870b4c45e0f1b"
+>   SRCREV_meta ?= "d282029891bba5440630a885b940dea5e34e3e2c"
+>
+> -PR = "r4"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
+>
+>   SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.0;protocol=git;bareclone=1;branch=${KBRANCH},meta;name=machine,meta"
+> diff --git a/meta/recipes-kernel/linux/linux-yocto_3.2.bb b/meta/recipes-kernel/linux/linux-yocto_3.2.bb
+> index 3e4a9dd..1e9a1d1 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto_3.2.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto_3.2.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
+>
+>   KBRANCH = "standard/default/base"
+> @@ -18,7 +17,7 @@ SRCREV_machine_qemux86-64 ?= "dd488f551fa0f8e3bf1aadd78083b8547bba8bdf"
+>   SRCREV_machine ?= "76133a1cadf0de417c29ed15d6fbb12c41c0802b"
+>   SRCREV_meta ?= "ee78519365bdb25287703bbc31c06b193263c654"
+>
+> -PR = "r1"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
+>
+>   KMETA = "meta"
+> diff --git a/meta/recipes-kernel/linux/linux-yocto_3.4.bb b/meta/recipes-kernel/linux/linux-yocto_3.4.bb
+> index 7d14967..0247d24 100644
+> --- a/meta/recipes-kernel/linux/linux-yocto_3.4.bb
+> +++ b/meta/recipes-kernel/linux/linux-yocto_3.4.bb
+> @@ -1,4 +1,3 @@
+> -inherit kernel
+>   require recipes-kernel/linux/linux-yocto.inc
+>
+>   KBRANCH = "standard/base"
+> @@ -22,7 +21,7 @@ SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.4.git;protocol=git;nocheckou
+>
+>   LINUX_VERSION ?= "3.4.3"
+>
+> -PR = "r0"
+> +PR = "${INC_PR}.0"
+>   PV = "${LINUX_VERSION}+git${SRCPV}"
+>
+>   KMETA = "meta"
 
-
-
---=20
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
 
