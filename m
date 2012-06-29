@@ -1,28 +1,35 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F17C9E01458
-	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 22:54:44 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 28 Jun 2012 22:54:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="171502522"
-Received: from unknown (HELO envy.home) ([10.255.12.71])
-	by fmsmga001.fm.intel.com with ESMTP; 28 Jun 2012 22:54:44 -0700
-Message-ID: <4FED42C9.6010402@linux.intel.com>
-Date: Thu, 28 Jun 2012 22:53:13 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4BB37E0145C
+	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 23:05:06 -0700 (PDT)
+Received: by eekb45 with SMTP id b45so1406628eek.35
+	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 23:05:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	bh=hZOOyiKlMHD1gONejEDHRru+Nf2cu0MDSGX1WXoEsWE=;
+	b=TTBwPak6WmaWRpnTbCTUQUblpJ+o3csAevETr8CyV16HfTflC2clfGzalw7UVwEiXG
+	ULUnwbnngrAUDntmQoVmekubP+gq9zAHw7YlYcm3k4UfGCuvyWStmWQUOXsRNPJ5D9uh
+	Xph91B7ZqodLerkICW0eXLji9mjj/cvQMx2Z0H3LnW07ditW2ckj0LXDNkdtqRGed+OS
+	r8h99MAXGopIA1QrHU82bSTkRY3IRWiko+IklT1YemlvbgjrhaTshRe329Ut9Cg7Ouey
+	OjVZ6uZuRXc5Jk2AcD5FrBrXBkQDW57T89P0gn+PocRAs2koLggeSSCZ5wY4fvnXABuC
+	UpZA==
+Received: by 10.14.97.16 with SMTP id s16mr160125eef.117.1340949905136; Thu,
+	28 Jun 2012 23:05:05 -0700 (PDT)
 MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
+Received: by 10.14.210.199 with HTTP; Thu, 28 Jun 2012 23:04:34 -0700 (PDT)
+In-Reply-To: <4FED4226.30700@linux.intel.com>
 References: <cover.1340942930.git.dvhart@linux.intel.com>
 	<4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340942930.git.dvhart@linux.intel.com>
-	<e5738406d99b07701d77d873a5a6c9ea95b4adb2.1340942930.git.dvhart@linux.intel.com>
-	<CAMKF1sqpt2uONWcXBM2mH8otYE2XXoGSGW1uDwi-3VCLcV033Q@mail.gmail.com>
-In-Reply-To: <CAMKF1sqpt2uONWcXBM2mH8otYE2XXoGSGW1uDwi-3VCLcV033Q@mail.gmail.com>
-X-Enigmail-Version: 1.4.2
+	<5b45f71fee3c593e5420a5a9b36ba947c429a397.1340942930.git.dvhart@linux.intel.com>
+	<CAMKF1sopV66-Rohk5HYMygcSamkcxDgOM8bfruF7VWR0ZAXpnQ@mail.gmail.com>
+	<4FED4226.30700@linux.intel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 28 Jun 2012 23:04:34 -0700
+Message-ID: <CAMKF1sojfidUA9mne_RfXz+tE8d3pRboHbGxJL-dLD5wkeKVRw@mail.gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
 Cc: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 2/4] linux-yocto: Use INC_PR and move kernel require to linux-yocto.inc
+Subject: Re: [PATCH 3/4] kernel: Add kernel-headers package for target module build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,30 +41,13 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jun 2012 05:54:45 -0000
+X-List-Received-Date: Fri, 29 Jun 2012 06:05:06 -0000
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+On Thu, Jun 28, 2012 at 10:50 PM, Darren Hart <dvhart@linux.intel.com> wrote:
+>
+> However, I don't have a strong opinion here, I'll happily call it
+> kernel-devel if that is strongly preferred by some.
 
-
-On 06/28/2012 09:50 PM, Khem Raj wrote:
-> On Thu, Jun 28, 2012 at 9:18 PM, Darren Hart <dvhart@linux.intel.com> wrote:
->> +INC_PR = "r0"
->> +
-> 
-> it is diverting a recipe which once had PR = "r2"
-> back to "r0" this should instead be
-> 
-> INC_PR = "r3" here which is largest pr value + 1
-
-Duh. Fixed in the branch:
-
-http://git.yoctoproject.org/cgit.cgi/poky-contrib/commit/?h=dvhart/modules&id=2de1e7bb6fba137fe2ef7047f16a63c4824551c1
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
-
-
+in oe terminology it will be -dev
 
