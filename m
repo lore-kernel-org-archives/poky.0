@@ -1,33 +1,28 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4BB37E0145C
-	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 23:05:06 -0700 (PDT)
-Received: by eekb45 with SMTP id b45so1406628eek.35
-	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 23:05:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=hZOOyiKlMHD1gONejEDHRru+Nf2cu0MDSGX1WXoEsWE=;
-	b=TTBwPak6WmaWRpnTbCTUQUblpJ+o3csAevETr8CyV16HfTflC2clfGzalw7UVwEiXG
-	ULUnwbnngrAUDntmQoVmekubP+gq9zAHw7YlYcm3k4UfGCuvyWStmWQUOXsRNPJ5D9uh
-	Xph91B7ZqodLerkICW0eXLji9mjj/cvQMx2Z0H3LnW07ditW2ckj0LXDNkdtqRGed+OS
-	r8h99MAXGopIA1QrHU82bSTkRY3IRWiko+IklT1YemlvbgjrhaTshRe329Ut9Cg7Ouey
-	OjVZ6uZuRXc5Jk2AcD5FrBrXBkQDW57T89P0gn+PocRAs2koLggeSSCZ5wY4fvnXABuC
-	UpZA==
-Received: by 10.14.97.16 with SMTP id s16mr160125eef.117.1340949905136; Thu,
-	28 Jun 2012 23:05:05 -0700 (PDT)
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 04274E01458
+	for <poky@yoctoproject.org>; Thu, 28 Jun 2012 23:16:19 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 28 Jun 2012 23:16:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="164382295"
+Received: from unknown (HELO envy.home) ([10.255.12.71])
+	by orsmga002.jf.intel.com with ESMTP; 28 Jun 2012 23:16:17 -0700
+Message-ID: <4FED47D7.7080107@linux.intel.com>
+Date: Thu, 28 Jun 2012 23:14:47 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
 MIME-Version: 1.0
-Received: by 10.14.210.199 with HTTP; Thu, 28 Jun 2012 23:04:34 -0700 (PDT)
-In-Reply-To: <4FED4226.30700@linux.intel.com>
+To: Khem Raj <raj.khem@gmail.com>
 References: <cover.1340942930.git.dvhart@linux.intel.com>
 	<4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340942930.git.dvhart@linux.intel.com>
 	<5b45f71fee3c593e5420a5a9b36ba947c429a397.1340942930.git.dvhart@linux.intel.com>
 	<CAMKF1sopV66-Rohk5HYMygcSamkcxDgOM8bfruF7VWR0ZAXpnQ@mail.gmail.com>
 	<4FED4226.30700@linux.intel.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 28 Jun 2012 23:04:34 -0700
-Message-ID: <CAMKF1sojfidUA9mne_RfXz+tE8d3pRboHbGxJL-dLD5wkeKVRw@mail.gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
+	<CAMKF1sojfidUA9mne_RfXz+tE8d3pRboHbGxJL-dLD5wkeKVRw@mail.gmail.com>
+In-Reply-To: <CAMKF1sojfidUA9mne_RfXz+tE8d3pRboHbGxJL-dLD5wkeKVRw@mail.gmail.com>
+X-Enigmail-Version: 1.4.2
 Cc: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org
 Subject: Re: [PATCH 3/4] kernel: Add kernel-headers package for target module build
 X-BeenThere: poky@yoctoproject.org
@@ -41,13 +36,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jun 2012 06:05:06 -0000
+X-List-Received-Date: Fri, 29 Jun 2012 06:16:20 -0000
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 28, 2012 at 10:50 PM, Darren Hart <dvhart@linux.intel.com> wrote:
->
-> However, I don't have a strong opinion here, I'll happily call it
-> kernel-devel if that is strongly preferred by some.
 
-in oe terminology it will be -dev
+
+On 06/28/2012 11:04 PM, Khem Raj wrote:
+> On Thu, Jun 28, 2012 at 10:50 PM, Darren Hart <dvhart@linux.intel.com> wrote:
+>>
+>> However, I don't have a strong opinion here, I'll happily call it
+>> kernel-devel if that is strongly preferred by some.
+> 
+> in oe terminology it will be -dev
+
+THe other reason I didn't go that route is that we already have a
+kernel-dev (although I don't much like the way it is used):
+
+From kernel.bbclass:
+
+PACKAGES = "kernel kernel-base kernel-vmlinux kernel-image kernel-dev \
+            kernel-misc kernel-headers"
+FILES = ""
+FILES_kernel-image = "/boot/${KERNEL_IMAGETYPE}*"
+FILES_kernel-dev = "/boot/System.map* /boot/Module.symvers* /boot/config*"
+FILES_kernel-vmlinux = "/boot/vmlinux*"
+# misc is a package to contain files we need in staging
+FILES_kernel-misc = "/kernel/include/config /kernel/scripts
+/kernel/drivers/crypto /kernel/drivers/media"
+FILES_kernel-headers = "/usr/src/kernel-headers"
+
+And looking at that it appears I broke kernel-misc by moving things to
+/usr/src (didn't notice that in my testing).
+
+How would you propose we redefine the above in order to use "kernel-dev"
+for the new package?
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
+
 
