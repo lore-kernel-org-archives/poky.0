@@ -1,32 +1,26 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
-	[209.85.215.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4FCEBE006D9
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 14:59:43 -0700 (PDT)
-Received: by eaab16 with SMTP id b16so1897382eaa.35
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 14:59:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=SX2x86mjm0zUBz7H9ucnD6+A4JJeok47Vyqvnbunsrc=;
-	b=LImqURffbyiTIEJcH0HkN4OTKkwjxHc2+wah+Bc3rPJGijIXGnFZsEEHsY1zIrdU51
-	5Q6IWMmynA48qt5/Sj2ZigXntleTa2ug5E6B2S7DmoDtfA8OtD1Br7LX59BateWKnSO/
-	NU1IXdJJakX75RP6G+jdv26rbTOwWO4tCtRPcGzkyHyySs/mDoSL4BvDPY5KKKDaDlxx
-	QZI4AWYJ9sLqgw/ufFnsNLut5HnqIZq1xAU4mnZwiLiagzWO15wbDIPBzOR5Quut9Nn3
-	NjWZWOf1OVxagmwVlnFZRiJkhJSOdVkFJGD8zpkILIx/TITOGEnBmYjmF4P/uXwDEAtn
-	h1FQ==
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 45D0CE006D9
+	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 16:03:03 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 29 Jun 2012 16:03:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="171807503"
+Received: from unknown (HELO envy.home) ([10.255.13.25])
+	by fmsmga001.fm.intel.com with ESMTP; 29 Jun 2012 16:03:02 -0700
+Message-ID: <4FEE33CB.3010609@linux.intel.com>
+Date: Fri, 29 Jun 2012 16:01:31 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
 MIME-Version: 1.0
-Received: by 10.14.37.76 with SMTP id x52mr1072006eea.102.1341007182055; Fri,
-	29 Jun 2012 14:59:42 -0700 (PDT)
-Received: by 10.14.210.199 with HTTP; Fri, 29 Jun 2012 14:59:42 -0700 (PDT)
-In-Reply-To: <53ce203eec118e3d5b0faac4c8e71f69c9857146.1340998763.git.dvhart@linux.intel.com>
+To: Khem Raj <raj.khem@gmail.com>
 References: <cover.1340998763.git.dvhart@linux.intel.com>
 	<4263ffefaa6f3b0069bc41c0f7578d36717edcfc.1340998763.git.dvhart@linux.intel.com>
 	<53ce203eec118e3d5b0faac4c8e71f69c9857146.1340998763.git.dvhart@linux.intel.com>
-Date: Fri, 29 Jun 2012 14:59:42 -0700
-Message-ID: <CAMKF1sqrg5O7A1Tt=XjTzc0PfV5ZKcETe1tJfHOP460NNmpojw@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
+	<CAMKF1sqrg5O7A1Tt=XjTzc0PfV5ZKcETe1tJfHOP460NNmpojw@mail.gmail.com>
+In-Reply-To: <CAMKF1sqrg5O7A1Tt=XjTzc0PfV5ZKcETe1tJfHOP460NNmpojw@mail.gmail.com>
+X-Enigmail-Version: 1.4.2
 Cc: Poky <poky@yoctoproject.org>, Kishore Bodke <kishore.k.bodke@intel.com>,
 	"openembedded-core@lists.openembedded.org"
 	<openembedded-core@lists.openembedded.org>
@@ -42,101 +36,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Jun 2012 21:59:43 -0000
-Content-Type: multipart/alternative; boundary=90e6ba6153daba478804c3a3901b
-
---90e6ba6153daba478804c3a3901b
+X-List-Received-Date: Fri, 29 Jun 2012 23:03:03 -0000
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Friday, June 29, 2012, Darren Hart <dvhart@linux.intel.com> wrote:
-> Add kernel-dev to task-core-sdk so it will be included with
-> core-image-sato-sdk and similar image recipes. This enables
-> building Linux kernel modules on the target.
->
-> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> CC: Jessica Zhang <jessica.zhang@intel.com>
-> ---
->  meta/recipes-core/tasks/task-core-sdk.bb |    5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/meta/recipes-core/tasks/task-core-sdk.bbb/meta/recipes-core/tasks/
-task-core-sdk.bb
-> index ec6cdcc..d65a53a 100644
-> --- a/meta/recipes-core/tasks/task-core-sdk.bb
-> +++ b/meta/recipes-core/tasks/task-core-sdk.bb
-> @@ -7,7 +7,7 @@ LICENSE = "MIT"
->  LIC_FILES_CHKSUM =
-"file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
->
-file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
->  DEPENDS = "task-core-console"
-> -PR = "r7"
-> +PR = "r8"
->
->  ALLOW_EMPTY = "1"
->  #PACKAGEFUNCS =+ 'generate_sdk_pkgs'
-> @@ -46,7 +46,8 @@ RDEPENDS_task-core-sdk = "\
->     distcc \
->     ldd \
->     file \
-> -    tcl"
-> +    tcl \
-> +    kernel-dev"
+On 06/29/2012 02:59 PM, Khem Raj wrote:
 
-Doesn't this.make sdk to be machine specific now
->
->  #python generate_sdk_pkgs () {
->  #    poky_pkgs = read_pkgdata('task-core', d)['PACKAGES']
-> --
-> 1.7.10.2
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+>>  ALLOW_EMPTY = "1"
+>>  #PACKAGEFUNCS =+ 'generate_sdk_pkgs'
+>> @@ -46,7 +46,8 @@ RDEPENDS_task-core-sdk = "\
+>>     distcc \
+>>     ldd \
+>>     file \
+>> -    tcl"
+>> +    tcl \
+>> +    kernel-dev"
+> 
+> Doesn't this.make sdk to be machine specific now
 
---90e6ba6153daba478804c3a3901b
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+It does indeed as the kernel-dev contains the system map, config, and
+possibly even modified headers dependingon the KBRANCH.
 
-<br><br>On Friday, June 29, 2012, Darren Hart &lt;<a href=3D"mailto:dvhart@=
-linux.intel.com">dvhart@linux.intel.com</a>&gt; wrote:<br>&gt; Add kernel-d=
-ev to task-core-sdk so it will be included with<br>&gt; core-image-sato-sdk=
- and similar image recipes. This enables<br>
-&gt; building Linux kernel modules on the target.<br>&gt;<br>&gt; Signed-of=
-f-by: Darren Hart &lt;<a href=3D"mailto:dvhart@linux.intel.com">dvhart@linu=
-x.intel.com</a>&gt;<br>&gt; CC: Jessica Zhang &lt;<a href=3D"mailto:jessica=
-.zhang@intel.com">jessica.zhang@intel.com</a>&gt;<br>
-&gt; ---<br>&gt; =C2=A0meta/recipes-core/tasks/<a href=3D"http://task-core-=
-sdk.bb">task-core-sdk.bb</a> | =C2=A0 =C2=A05 +++--<br>&gt; =C2=A01 file ch=
-anged, 3 insertions(+), 2 deletions(-)<br>&gt;<br>&gt; diff --git a/meta/re=
-cipes-core/tasks/<a href=3D"http://task-core-sdk.bb">task-core-sdk.bb</a> b=
-/meta/recipes-core/tasks/<a href=3D"http://task-core-sdk.bb">task-core-sdk.=
-bb</a><br>
-&gt; index ec6cdcc..d65a53a 100644<br>&gt; --- a/meta/recipes-core/tasks/<a=
- href=3D"http://task-core-sdk.bb">task-core-sdk.bb</a><br>&gt; +++ b/meta/r=
-ecipes-core/tasks/<a href=3D"http://task-core-sdk.bb">task-core-sdk.bb</a><=
-br>
-&gt; @@ -7,7 +7,7 @@ LICENSE =3D &quot;MIT&quot;<br>&gt; =C2=A0LIC_FILES_CH=
-KSUM =3D &quot;file://${COREBASE}/LICENSE;md5=3D3f40d7994397109285ec7b81fde=
-b3b58 \<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 file://${COREBASE}/meta/COPYING.MIT;md5=3D3da9cfbcb788c80a038436=
-1b4de20420&quot;<br>
-&gt; =C2=A0DEPENDS =3D &quot;task-core-console&quot;<br>&gt; -PR =3D &quot;=
-r7&quot;<br>&gt; +PR =3D &quot;r8&quot;<br>&gt;<br>&gt; =C2=A0ALLOW_EMPTY =
-=3D &quot;1&quot;<br>&gt; =C2=A0#PACKAGEFUNCS =3D+ &#39;generate_sdk_pkgs&#=
-39;<br>&gt; @@ -46,7 +46,8 @@ RDEPENDS_task-core-sdk =3D &quot;\<br>
-&gt; =C2=A0 =C2=A0 distcc \<br>&gt; =C2=A0 =C2=A0 ldd \<br>&gt; =C2=A0 =C2=
-=A0 file \<br>&gt; - =C2=A0 =C2=A0tcl&quot;<br>&gt; + =C2=A0 =C2=A0tcl \<br=
->&gt; + =C2=A0 =C2=A0kernel-dev&quot;<br><br>Doesn&#39;t this.make sdk to b=
-e machine specific now <br>&gt;<br>&gt; =C2=A0#python generate_sdk_pkgs () =
-{<br>
-&gt; =C2=A0# =C2=A0 =C2=A0poky_pkgs =3D read_pkgdata(&#39;task-core&#39;, d=
-)[&#39;PACKAGES&#39;]<br>&gt; --<br>&gt; 1.7.10.2<br>&gt;<br>&gt; _________=
-______________________________________<br>&gt; poky mailing list<br>&gt; <a=
- href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
-&gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky">https://lists=
-.yoctoproject.org/listinfo/poky</a><br>&gt;
+Is task-core-sdk intended to be only architecture specific?
 
---90e6ba6153daba478804c3a3901b--
+If so, I can just add kernel-dev to the -sdk image recipes directly
+rather than modifying task-core-sdk.
+
+Jessica, any opinion here?
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
+
+
