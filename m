@@ -1,26 +1,26 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9E80FE0145A
-	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 21:22:16 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 29 Jun 2012 21:22:16 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 96FA1E0145B
+	for <poky@yoctoproject.org>; Fri, 29 Jun 2012 21:22:17 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 29 Jun 2012 21:22:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="159946910"
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="162476743"
 Received: from unknown (HELO localhost) ([10.255.13.25])
-	by orsmga001.jf.intel.com with ESMTP; 29 Jun 2012 21:22:15 -0700
+	by azsmga001.ch.intel.com with ESMTP; 29 Jun 2012 21:22:16 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 To: Poky <poky@yoctoproject.org>, Saul Wold <sgw@linux.intel.com>,
 	openembedded-core@lists.openembedded.org,
 	Kishore Bodke <kishore.k.bodke@intel.com>
-Date: Fri, 29 Jun 2012 21:20:42 -0700
-Message-Id: <d9a86274e0c39bc6e2a1757f061b62c554620ef2.1341000751.git.dvhart@linux.intel.com>
+Date: Fri, 29 Jun 2012 21:20:43 -0700
+Message-Id: <8f8ee34bc932394b05669490cedcc8b1d976f7d0.1341000751.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.10.2
 In-Reply-To: <a18f7d70be0fd3581d0a696ff9886f5572a37867.1341000751.git.dvhart@linux.intel.com>
 References: <a18f7d70be0fd3581d0a696ff9886f5572a37867.1341000751.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1341000751.git.dvhart@linux.intel.com>
 References: <cover.1341000751.git.dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 2/3] task-core-sdk: Add kernel-dev to task-core-sdk RDEPENDS
+Subject: [PATCH 3/3] linux-yocto-custom: Remove linux-tools
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,42 +32,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 30 Jun 2012 04:22:16 -0000
+X-List-Received-Date: Sat, 30 Jun 2012 04:22:17 -0000
 
-Add kernel-dev to task-core-sdk so it will be included with
-core-image-sato-sdk and similar image recipes. This enables
-building Linux kernel modules on the target.
+Remove the linux-tools include as perf is now packaged independently.
+Without this, including meta-skeleton in bblayers.conf results in a
+build failure as linux-tools.inc cannot be found.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Acked-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-CC: Jessica Zhang <jessica.zhang@intel.com>
+CC: Tom Zanussi <tom.zanussi@intel.com>
 ---
- meta/recipes-core/tasks/task-core-sdk.bb |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ meta-skeleton/recipes-kernel/linux/linux-yocto-custom.bb |    2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/meta/recipes-core/tasks/task-core-sdk.bb b/meta/recipes-core/tasks/task-core-sdk.bb
-index ec6cdcc..d65a53a 100644
---- a/meta/recipes-core/tasks/task-core-sdk.bb
-+++ b/meta/recipes-core/tasks/task-core-sdk.bb
-@@ -7,7 +7,7 @@ LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- DEPENDS = "task-core-console"
--PR = "r7"
-+PR = "r8"
+diff --git a/meta-skeleton/recipes-kernel/linux/linux-yocto-custom.bb b/meta-skeleton/recipes-kernel/linux/linux-yocto-custom.bb
+index 1438ad8..55f0c38 100644
+--- a/meta-skeleton/recipes-kernel/linux/linux-yocto-custom.bb
++++ b/meta-skeleton/recipes-kernel/linux/linux-yocto-custom.bb
+@@ -42,5 +42,3 @@ PR = "r0"
+ PV = "${LINUX_VERSION}+git${SRCPV}"
  
- ALLOW_EMPTY = "1"
- #PACKAGEFUNCS =+ 'generate_sdk_pkgs'
-@@ -46,7 +46,8 @@ RDEPENDS_task-core-sdk = "\
-     distcc \
-     ldd \
-     file \
--    tcl"
-+    tcl \
-+    kernel-dev"
- 
- #python generate_sdk_pkgs () {
- #    poky_pkgs = read_pkgdata('task-core', d)['PACKAGES']
+ COMPATIBLE_MACHINE = "(qemuarm|qemux86|qemuppc|qemumips|qemux86-64)"
+-
+-require recipes-kernel/linux/linux-tools.inc
 -- 
 1.7.10.2
 
