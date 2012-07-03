@@ -1,37 +1,37 @@
 Return-Path: <raj.khem@gmail.com>
-Received: from mail-pb0-f48.google.com (mail-pb0-f48.google.com
-	[209.85.160.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02316E01471
-	for <poky@yoctoproject.org>; Tue,  3 Jul 2012 15:32:38 -0700 (PDT)
-Received: by mail-pb0-f48.google.com with SMTP id rq8so11784488pbb.35
-	for <poky@yoctoproject.org>; Tue, 03 Jul 2012 15:32:38 -0700 (PDT)
+Received: from mail-yw0-f48.google.com (mail-yw0-f48.google.com
+	[209.85.213.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47609E0146B
+	for <poky@yoctoproject.org>; Tue,  3 Jul 2012 15:32:41 -0700 (PDT)
+Received: by yhfq46 with SMTP id q46so6118239yhf.35
+	for <poky@yoctoproject.org>; Tue, 03 Jul 2012 15:32:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=from:to:subject:date:message-id:x-mailer:in-reply-to:references
 	:in-reply-to:references;
-	bh=CBq5fYygpAjzlpAO5rVTxR8Q3R+2serFODxMlf+Kdso=;
-	b=fC6pYUyOsp1UK/mfJtSAydnRDpiHu4MgzYRuSIFSWTolopZH74joPOhg3DW9Mbk03x
-	u6L85r+xgI06hpIqsLMeJuITtmSvKhDCHbU102+fVjFiM/SCcmO9Rogr2lFud27p/sjl
-	Y5KHzLO4WI5NAtGrh7lpwntzLjRsill65G1vb/5R73kDTG1Eg/4QGkUzdFyuTPEPruKu
-	IGoWoa0xrEobROeiNwQVnx4J3Y4w14Ov0Dba9LBEyaFWkISrSnf0irez1NMfJAr8uW6b
-	oigBWk9RjCK4Eh9eOxAXfhunTJ2rwSCHHwHr52u9x4PGjcHF3AUmXJkVRv5oVnb+K4Oe
-	NqoQ==
-Received: by 10.68.221.41 with SMTP id qb9mr11425436pbc.147.1341354758939;
-	Tue, 03 Jul 2012 15:32:38 -0700 (PDT)
+	bh=HREnPJKhM96ClXNNlwohUQ5WU3yhK5j3tRUFzmyxmiw=;
+	b=HiUIVEdn3zO/NhZYua2Onxoj9/Du3Xg0/9Tb+Fpw74miIGXS4y7KOiw/w0WIaW1cD0
+	U4TbR5WUXltdMPr2rolH9CDJuAoZm5rkY5Iq5QDYfRndkosncwtYIa7FanyChHWx/Fj+
+	v+Zb0LmhcgFb3hYuBkhLhf6uffBg4SLuicXDywwZg64IBSgniWufdFZEbdzunXXXKQAC
+	Csl39+d0DmFZVojHWD+MpIOn173Vh6dDh7mxPQ4d0bjxdv2BlrKPmZD/q0ZSw7COZmXL
+	p+1ji+QNNJl4aPjxLlV/BA6qG3eprEi+bqLsED0X7B36D2muu1J/OBktdill8BHzf0N7
+	COMg==
+Received: by 10.68.236.34 with SMTP id ur2mr11705412pbc.108.1341354760529;
+	Tue, 03 Jul 2012 15:32:40 -0700 (PDT)
 Received: from leo.gateway.2wire.net
 	(99-57-140-209.lightspeed.sntcca.sbcglobal.net. [99.57.140.209])
-	by mx.google.com with ESMTPS id nj4sm2425447pbc.5.2012.07.03.15.32.37
+	by mx.google.com with ESMTPS id nj4sm2425447pbc.5.2012.07.03.15.32.38
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 03 Jul 2012 15:32:38 -0700 (PDT)
+	Tue, 03 Jul 2012 15:32:39 -0700 (PDT)
 From: Khem Raj <raj.khem@gmail.com>
 To: poky@yoctoproject.org
-Date: Tue,  3 Jul 2012 15:32:08 -0700
-Message-Id: <698ad12b6571de4a951e7da18cd459cd1727ad11.1341354357.git.raj.khem@gmail.com>
+Date: Tue,  3 Jul 2012 15:32:09 -0700
+Message-Id: <16d17f72ad2a970b8182868a5dfc2045fa142e94.1341354357.git.raj.khem@gmail.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <f6a37520b3bcecef1618bf98a15eac5b69000b78.1341354357.git.raj.khem@gmail.com>
 References: <f6a37520b3bcecef1618bf98a15eac5b69000b78.1341354357.git.raj.khem@gmail.com>
 In-Reply-To: <cover.1341354357.git.raj.khem@gmail.com>
 References: <cover.1341354357.git.raj.khem@gmail.com>
-Subject: [denzil][PATCH 7/9] bitbake: fetch2: Explicitly check for mirror tarballs in mirror handling code
+Subject: [denzil][PATCH 8/9] bitbake: fetch2: Improve mirror looping to consider more cases
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,37 +43,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2012 22:32:39 -0000
+X-List-Received-Date: Tue, 03 Jul 2012 22:32:41 -0000
 
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-With support for things like git:// -> git:// urls, we need to be
-more explicity about the mirrortarball check since we need to fall
-through to the following code in other cases.
+Currently we only consider one pass through the mirror list. This doesn't
+catch cases where for example you might want to setup a mirror of a mirror
+and allow multiple redirection. There is no reason we can't support this
+and the patch loops through the list recursively now.
 
-(From Poky rev: 28e858cd6f7509468ef3e527a86820b9e06044db)
+As a safeguard, it will stop if any duplicate urls are found, hence
+avoiding circular dependency looping.
 
-(Bitbake rev: a2459f5ca2f517964287f9a7c666a6856434e631)
+(From Poky rev: 0ec0a4412865e54495c07beea1ced8355da58073)
+
+(Bitbake rev: e585730e931e6abdb15ba8a3849c5fd22845b891)
 
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- bitbake/lib/bb/fetch2/__init__.py |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ bitbake/lib/bb/fetch2/__init__.py |   41 ++++++++++++++++++++++++++-----------
+ 1 file changed, 29 insertions(+), 12 deletions(-)
 
 diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index 7c05c61..b3b3b48 100644
+index b3b3b48..f6ead2f 100644
 --- a/bitbake/lib/bb/fetch2/__init__.py
 +++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -476,7 +476,8 @@ def try_mirror_url(newuri, origud, ud, ld, check = False):
-         # We may be obtaining a mirror tarball which needs further processing by the real fetcher
-         # If that tarball is a local file:// we need to provide a symlink to it
-         dldir = ld.getVar("DL_DIR", True)
--        if os.path.basename(ud.localpath) != os.path.basename(origud.localpath):
-+        if origud.mirrortarball and os.path.basename(ud.localpath) == os.path.basename(origud.mirrortarball) \
-+                and os.path.basename(ud.localpath) != os.path.basename(origud.localpath):
-             open(ud.donestamp, 'w').close()
-             dest = os.path.join(dldir, os.path.basename(ud.localpath))
-             if not os.path.exists(dest):
+@@ -450,6 +450,30 @@ def check_network_access(d, info = "", url = None):
+     else:
+         logger.debug(1, "Fetcher accessed the network with the command %s" % info)
+ 
++def build_mirroruris(origud, mirrors, ld):
++    uris = []
++    uds = []
++
++    def adduri(uri, ud, uris, uds):
++        for line in mirrors:
++            try:
++                (find, replace) = line
++            except ValueError:
++                continue
++            newuri = uri_replace(ud, find, replace, ld)
++            if not newuri or newuri in uris or newuri == origud.url:
++                continue
++            uris.append(newuri)
++            newud = FetchData(newuri, ld)
++            newud.setup_localpath(ld)
++            uds.append(newud)
++
++            adduri(newuri, newud, uris, uds)
++
++    adduri(None, origud, uris, uds)
++
++    return uris, uds
++
+ def try_mirror_url(newuri, origud, ud, ld, check = False):
+     # Return of None or a value means we're finished
+     # False means try another url
+@@ -515,18 +539,11 @@ def try_mirrors(d, origud, mirrors, check = False):
+     mirrors is the list of mirrors we're going to try
+     """
+     ld = d.createCopy()
+-    for line in mirrors:
+-        try:
+-            (find, replace) = line
+-        except ValueError:
+-            continue
+-        newuri = uri_replace(origud, find, replace, ld)
+-        if not newuri:
+-            continue
+-        ud = FetchData(newuri, ld)
+-        ud.setup_localpath(ld)
+-
+-        ret = try_mirror_url(newuri, origud, ud, ld, check)
++
++    uris, uds = build_mirroruris(origud, mirrors, ld)
++
++    for index, uri in enumerate(uris):
++        ret = try_mirror_url(uri, origud, uds[index], ld, check)
+         if ret != False:
+             return ret
+     return None
 -- 
 1.7.9.5
 
