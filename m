@@ -1,37 +1,37 @@
 Return-Path: <raj.khem@gmail.com>
 Received: from mail-pb0-f48.google.com (mail-pb0-f48.google.com
 	[209.85.160.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F3DDE0145B
-	for <poky@yoctoproject.org>; Tue,  3 Jul 2012 15:32:32 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2193AE0145E
+	for <poky@yoctoproject.org>; Tue,  3 Jul 2012 15:32:34 -0700 (PDT)
 Received: by mail-pb0-f48.google.com with SMTP id rq8so11784488pbb.35
-	for <poky@yoctoproject.org>; Tue, 03 Jul 2012 15:32:32 -0700 (PDT)
+	for <poky@yoctoproject.org>; Tue, 03 Jul 2012 15:32:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=from:to:subject:date:message-id:x-mailer:in-reply-to:references
 	:in-reply-to:references;
-	bh=pSw/AwTUsdCoCfKeW31FtQmC+1ylw30IW93LyOvolrs=;
-	b=r8ZDihn/W5Z+izLevAMY2EktXwWjBvdK7BiqG2++Fdzq8/lFUOEmHKe3ImcZ0rVmjo
-	qRVf3f8WwAM9h11J3AFZ3qmkCTWDwg5GqdVDi0+H6PtFdRO6DRN98R3EwnE/KEFd2Ize
-	iVyKwtE1uLRH2CblyhZNdCRiiEnexsqVXH8aheF5LbVDxz1WDp+xyWwBNzWBazXuStIX
-	/0ydlpu8CJ/u66/om+EA7+x2aieXCdgbg2J/US/o69rzb1uKhu87z8qEdgaECPGx4ltM
-	DAONxfKi0NrgxXKnSMEIsTi903a9Yhe5fetDLNF9hXfkl52uFoJcMe49enLvjYtNmziN
-	hlqA==
-Received: by 10.68.192.97 with SMTP id hf1mr9326638pbc.132.1341354752480;
-	Tue, 03 Jul 2012 15:32:32 -0700 (PDT)
+	bh=e0Vp15NiVYy6/zXxozHtqTiwyvi7+vbhip6KXVgBZCE=;
+	b=wwNYd34VWQZcM7q51o/4xBiTwL0hhGB36mvAYUqciNGmaZ+9Gl5dDZs5+Xlap3tl2/
+	Hq1w3+pG9yEWy0aV/KwFhCF5torxV0j6zUjerByYR61+D4vNubVZc8bG+D/am5iF/RWg
+	B5D5+RsDe1ky62RkRZ62SGVVu0ax1qxSS/+G83CBKRk3fdaO0+iH42SH5u7CtyNu3VVx
+	FAekgUYo+8/O3JM2yx6wfaMdLIu/7o/hPIbMxiQpeDXuhPkX2DsyZkXVohgAfvNBdBYd
+	jTvltO67HlxQwEkT8hnziUihn8WKFQOPk3aMjTJ5r1x7K7kVh0nKMIsF4m0Z6xxpSTjC
+	Kbsg==
+Received: by 10.68.136.229 with SMTP id qd5mr11561812pbb.2.1341354754071;
+	Tue, 03 Jul 2012 15:32:34 -0700 (PDT)
 Received: from leo.gateway.2wire.net
 	(99-57-140-209.lightspeed.sntcca.sbcglobal.net. [99.57.140.209])
-	by mx.google.com with ESMTPS id nj4sm2425447pbc.5.2012.07.03.15.32.30
+	by mx.google.com with ESMTPS id nj4sm2425447pbc.5.2012.07.03.15.32.32
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Tue, 03 Jul 2012 15:32:31 -0700 (PDT)
+	Tue, 03 Jul 2012 15:32:33 -0700 (PDT)
 From: Khem Raj <raj.khem@gmail.com>
 To: poky@yoctoproject.org
-Date: Tue,  3 Jul 2012 15:32:04 -0700
-Message-Id: <64df5f948e435f04ea876e881582e077cbfd4c48.1341354357.git.raj.khem@gmail.com>
+Date: Tue,  3 Jul 2012 15:32:05 -0700
+Message-Id: <3a87d37f46a9694f9f6164e37e348839adb5531c.1341354357.git.raj.khem@gmail.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <f6a37520b3bcecef1618bf98a15eac5b69000b78.1341354357.git.raj.khem@gmail.com>
 References: <f6a37520b3bcecef1618bf98a15eac5b69000b78.1341354357.git.raj.khem@gmail.com>
 In-Reply-To: <cover.1341354357.git.raj.khem@gmail.com>
 References: <cover.1341354357.git.raj.khem@gmail.com>
-Subject: [denzil][PATCH 3/9] bitbake: fetch2: Fix error handling in uri_replace()
+Subject: [denzil][PATCH 4/9] bitbake: fetch2: Only cache data if fn is set, its pointless caching it against a None value
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,33 +43,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Jul 2012 22:32:32 -0000
+X-List-Received-Date: Tue, 03 Jul 2012 22:32:34 -0000
 
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-(From Poky rev: 1bfba28a583cb167f60e05ecdf34d0786dc1eec5)
+(From Poky rev: c2df30bf6d1f8c263a38c45866936c1bf496ece5)
 
-(Bitbake rev: aa7467a764ddcbc7d65af99e88cf093b6ec6d24e)
+(Bitbake rev: f4b59cc6e1c3ddc168a1678ce39ff402ea1ff4cc)
 
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- bitbake/lib/bb/fetch2/__init__.py |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ bitbake/lib/bb/fetch2/__init__.py |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index b19c84a..3e96282 100644
+index 3e96282..4b32599 100644
 --- a/bitbake/lib/bb/fetch2/__init__.py
 +++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -174,7 +174,8 @@ def encodeurl(decoded):
+@@ -922,14 +922,14 @@ class Fetch(object):
+         self.ud = {}
  
- def uri_replace(ud, uri_find, uri_replace, d):
-     if not ud.url or not uri_find or not uri_replace:
--        logger.debug(1, "uri_replace: passed an undefined value, not replacing")
-+        logger.error("uri_replace: passed an undefined value, not replacing")
-+        return None
-     uri_decoded = list(decodeurl(ud.url))
-     uri_find_decoded = list(decodeurl(uri_find))
-     uri_replace_decoded = list(decodeurl(uri_replace))
+         fn = d.getVar('FILE', True)
+-        if cache and fn in urldata_cache:
++        if cache and fn and fn in urldata_cache:
+             self.ud = urldata_cache[fn]
+ 
+         for url in urls:
+             if url not in self.ud:
+                 self.ud[url] = FetchData(url, d)
+ 
+-        if cache:
++        if fn and cache:
+             urldata_cache[fn] = self.ud
+ 
+     def localpath(self, url):
 -- 
 1.7.9.5
 
