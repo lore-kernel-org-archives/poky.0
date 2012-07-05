@@ -1,36 +1,40 @@
-Return-Path: <dongxiao.xu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5DE6AE006B1
-	for <poky@yoctoproject.org>; Wed,  4 Jul 2012 18:37:15 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 04 Jul 2012 18:36:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="167061627"
-Received: from fmsmsx107.amr.corp.intel.com ([10.19.9.54])
-	by orsmga002.jf.intel.com with ESMTP; 04 Jul 2012 18:36:57 -0700
-Received: from fmsmsx102.amr.corp.intel.com (10.19.9.53) by
-	FMSMSX107.amr.corp.intel.com (10.19.9.54) with Microsoft SMTP Server
-	(TLS) id 14.1.355.2; Wed, 4 Jul 2012 18:36:56 -0700
-Received: from shsmsx102.ccr.corp.intel.com (10.239.4.154) by
-	FMSMSX102.amr.corp.intel.com (10.19.9.53) with Microsoft SMTP Server
-	(TLS) id 14.1.355.2; Wed, 4 Jul 2012 18:36:56 -0700
-Received: from shsmsx101.ccr.corp.intel.com ([169.254.1.220]) by
-	SHSMSX102.ccr.corp.intel.com ([169.254.2.145]) with mapi id
-	14.01.0355.002; Thu, 5 Jul 2012 09:36:56 +0800
-From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] [PATCH 0/1][PULL] Multilib: add sanity check script
-Thread-Index: AQHNWKApPNFzc/fNXE6Oh5kAUFD3gZcZ65rA
-Date: Thu, 5 Jul 2012 01:36:55 +0000
-Message-ID: <40776A41FC278F40B59438AD47D147A90FDCF43D@SHSMSX101.ccr.corp.intel.com>
-References: <cover.1341266885.git.dongxiao.xu@intel.com>
-In-Reply-To: <cover.1341266885.git.dongxiao.xu@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
+Return-Path: <scott.a.garman@intel.com>
+Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0EACE006B1
+	for <poky@yoctoproject.org>; Thu,  5 Jul 2012 08:38:40 -0700 (PDT)
+Received: from mail-gh0-f180.google.com ([209.85.160.180])
+	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 05 Jul 2012 08:38:40 -0700
+Received: by ghbz12 with SMTP id z12so7138408ghb.25
+	for <poky@yoctoproject.org>; Thu, 05 Jul 2012 08:38:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:references:in-reply-to:content-type:content-transfer-encoding
+	:x-gm-message-state;
+	bh=Unmr7jmXSNdHrUiBxria+WO+rolSmr4VjMlEscJt+es=;
+	b=f2l1HeSHiQszq8agIXIRHdl93+CP9vfIAJbD2Nc9BMdOxl+x3CWj6z9mQ/GpPc7cnu
+	1ZX7O4Vr9ZmgC+mIt3RoN8XHDJyter/YdaZOKU+/SbIjDPOm/Y9f4TuU2fQV/awx8uwX
+	bVzZaZUwU88GOfXQ7R02WlosqVGog/9d/iuflTIhHDm9WRLttnhU3oUQ5VuA8L+Zss1M
+	LXgvmZcAfwtjdQ9cov0hJK+yspagn/K1WZ7O96h9w7kh/e1IaMO5GDfhWaQvxBtrVEJW
+	fonyvqpP6twcXs+FaejK6tdrjMqZ5Sb0N5Ep1tXtzJGcNpyzqhEDeO5BAsyo5q6Nk5+M
+	e60A==
+Received: by 10.66.76.134 with SMTP id k6mr37978161paw.58.1341502718542;
+	Thu, 05 Jul 2012 08:38:38 -0700 (PDT)
+Received: from [127.0.0.1] (masterfoo.zenlinux.com. [207.192.74.254])
+	by mx.google.com with ESMTPS id ru10sm9609345pbc.50.2012.07.05.08.38.35
+	(version=SSLv3 cipher=OTHER); Thu, 05 Jul 2012 08:38:37 -0700 (PDT)
+Message-ID: <4FF5B4EA.5000302@intel.com>
+Date: Thu, 05 Jul 2012 08:38:18 -0700
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/1][PULL] Multilib: add sanity check script
+To: poky@yoctoproject.org
+References: <cover.1341354357.git.raj.khem@gmail.com>
+In-Reply-To: <cover.1341354357.git.raj.khem@gmail.com>
+X-Gm-Message-State: ALoCoQn2KDiETA8BDh7aW+JnTHNYHsQVtuT+4cDF/QV/mEBqhgYq/KcKDDcf4KOTy0mA8YdeFn1+
+Cc: "Purdie, Richard" <richard.purdie@intel.com>
+Subject: Re: [denzil][PATCH 0/9] bitbake fetch improvements backport to denzil
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,56 +46,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jul 2012 01:37:15 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 05 Jul 2012 15:38:40 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Do you have any comment on this one?
+On 07/03/2012 03:31 PM, Khem Raj wrote:
+> On denzil bitbake was still trying to go out to internet for git repos
+> when BB_NO_NETWORK was set. This set of backports fix that issue
+> and now BB_NO_NETWORK works as expected
 
-Thanks,
-Dongxiao
+Hi Khem,
 
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org
-> [mailto:poky-bounces@yoctoproject.org] On Behalf Of Dongxiao Xu
-> Sent: Tuesday, July 03, 2012 6:09 AM
-> To: poky@yoctoproject.org
-> Subject: [poky] [PATCH 0/1][PULL] Multilib: add sanity check script
->=20
-> Hi Richard,
->=20
-> This pull request is to add sanity check for multilib, please help to rev=
-iew and
-> pull.
->=20
-> Thanks,
-> Dongxiao
->=20
-> The following changes since commit
-> 644ad4bf1e30fcee4b9d5abb819046d1f2193d27:
->=20
->   documentation/bsp-guide/bsp.xml: Yocto term paring (2012-07-02 16:47:45
-> +0100)
->=20
+Denzil 1.2.1 is already in release candidate phase and going through QA. 
+I'm not sure if we can take this for 1.2.1, it may have to wait for 
+1.2.2. Richard should probably weigh in here.
+
+Scott
+
+
+>
+> The following changes since commit 73cdebf60df225ee10f2eb215935be3b61e1b831:
+>
+>    documentation/dev-manual/dev-manual-kernel-appendix.xml: Add note about conflict (2012-06-29 15:54:26 +0100)
+>
 > are available in the git repository at:
->   git://git.pokylinux.org/poky-contrib dxu4/multilib-check
->   http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=3Ddxu4/multilib-c=
-heck
->=20
-> Dongxiao Xu (1):
->   scripts/multilib-check: Check for multilib build results
->=20
->  scripts/multilib-check |  117
-> ++++++++++++++++++++++++++++++++++++++++++++++++
->  1 files changed, 117 insertions(+), 0 deletions(-)  create mode 100755
-> scripts/multilib-check
->=20
-> --
-> 1.7.4.1
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>
+>    git://git.yoctoproject.org/poky-contrib kraj/denzil-fetcher-update
+>    http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=kraj/denzil-fetcher-update
+>
+> Richard Purdie (9):
+>    bitbake/fetch: Spell out which fetcher backends support and recommend
+>      checksums
+>    bitbake: fetch2/__init__: Make it clearer when uri_replace doesn't
+>      return a match
+>    bitbake: fetch2: Fix error handling in uri_replace()
+>    bitbake: fetch2: Only cache data if fn is set, its pointless caching
+>      it against a None value
+>    bitbake: fetch2: Ensure when downloading we are consistently in the
+>      same directory
+>    bitbake: fetch2: Split try_mirrors into two parts
+>    bitbake: fetch2: Explicitly check for mirror tarballs in mirror
+>      handling code
+>    bitbake: fetch2: Improve mirror looping to consider more cases
+>    bitbake: fetch2: Handle errors orruring when building mirror urls
+>
+>   bitbake/lib/bb/fetch2/__init__.py |  218 ++++++++++++++++++++++++-------------
+>   bitbake/lib/bb/fetch2/git.py      |    3 +
+>   bitbake/lib/bb/fetch2/ssh.py      |    3 +
+>   bitbake/lib/bb/fetch2/wget.py     |    3 +
+>   4 files changed, 149 insertions(+), 78 deletions(-)
+>
+
+
+-- 
+Scott Garman
+Embedded Linux Engineer - Yocto Project
+Intel Open Source Technology Center
+
+
 
