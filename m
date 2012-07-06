@@ -1,39 +1,39 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from fmsmga102.fm.intel.com (mga10.intel.com [192.55.52.92])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A211CE006AD
-	for <poky@yoctoproject.org>; Thu,  5 Jul 2012 13:06:44 -0700 (PDT)
-Received: from mail-pb0-f52.google.com ([209.85.160.52])
-	by mga11.intel.com with ESMTP/TLS/RC4-SHA; 05 Jul 2012 13:06:44 -0700
-Received: by pbbro8 with SMTP id ro8so13017626pbb.25
-	for <poky@yoctoproject.org>; Thu, 05 Jul 2012 13:06:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding
-	:x-gm-message-state;
-	bh=n1LQX2rGoPU+nF6Gs1uabfPwOUC98Vmt4ynFtEOhWRg=;
-	b=nmxp6MjVazMnbfso1eF8agUM2gV8MLtlMWwi+IZggo7cVM6D74bi8OnKKxxHWzZfI1
-	BQlPdllqueRTj9Eoj8GamvoHUFh/yfc76hza/aN72BP8DSMlkPd2sSIsYhPEm44K4UCD
-	LaWOKL9wqvXkdBkjf0V6dWSz+H/eeXVM7tOnh0wky5snMfeyYt3BnRtDUwIe+2CnqK+k
-	ngUHksGNzKgPI/Srbmheut1TpFZU58lVtcXX9Hk3tAVhIXUQ+aGIg14Fi1z2/KzM3Yj0
-	uS9Cmdfffag5RC+aQaY313Tk/qOaXg9uj5c8MyjQkmmHzKdx/7cp7A64eCNJbplVp9dM
-	OR/A==
-Received: by 10.68.226.137 with SMTP id rs9mr29711878pbc.114.1341518803970;
-	Thu, 05 Jul 2012 13:06:43 -0700 (PDT)
-Received: from [127.0.0.1] (masterfoo.zenlinux.com. [207.192.74.254])
-	by mx.google.com with ESMTPS id ng8sm20341005pbc.13.2012.07.05.13.06.41
-	(version=SSLv3 cipher=OTHER); Thu, 05 Jul 2012 13:06:42 -0700 (PDT)
-Message-ID: <4FF5F3CA.6090101@intel.com>
-Date: Thu, 05 Jul 2012 13:06:34 -0700
-From: Scott Garman <scott.a.garman@intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
+Return-Path: <dongxiao.xu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9D936E01429
+	for <poky@yoctoproject.org>; Thu,  5 Jul 2012 19:53:20 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 05 Jul 2012 19:53:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="164623451"
+Received: from fmsmsx108.amr.corp.intel.com ([10.19.9.228])
+	by azsmga001.ch.intel.com with ESMTP; 05 Jul 2012 19:53:19 -0700
+Received: from shsmsx151.ccr.corp.intel.com (10.239.6.50) by
+	FMSMSX108.amr.corp.intel.com (10.19.9.228) with Microsoft SMTP Server
+	(TLS) id 14.1.355.2; Thu, 5 Jul 2012 19:53:19 -0700
+Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.70]) by
+	SHSMSX151.ccr.corp.intel.com ([10.239.6.50]) with mapi id
+	14.01.0355.002; Fri, 6 Jul 2012 10:53:15 +0800
+From: "Xu, Dongxiao" <dongxiao.xu@intel.com>
+To: Saul Wold <sgw@linux.intel.com>, "Richard Purdie
+	(richard.purdie@linuxfoundation.org)" <richard.purdie@linuxfoundation.org>
+Thread-Topic: [poky] [PATCH 1/1] scripts/multilib-check: Check for multilib
+	build results
+Thread-Index: AQHNWKO3S/yO+qO3ckWv8SVPJemtRZcWlrbwgAT83kA=
+Date: Fri, 6 Jul 2012 02:53:14 +0000
+Message-ID: <40776A41FC278F40B59438AD47D147A90FDD73E1@SHSMSX102.ccr.corp.intel.com>
+References: <cover.1341266885.git.dongxiao.xu@intel.com>
+	<143f3d11aa26ce16aa8d31a0cdfa063ae5a608e4.1341266885.git.dongxiao.xu@intel.com>
+	<4FF2236A.3040909@linux.intel.com>
+	<40776A41FC278F40B59438AD47D147A90FDC77E6@SHSMSX102.ccr.corp.intel.com>
+In-Reply-To: <40776A41FC278F40B59438AD47D147A90FDC77E6@SHSMSX102.ccr.corp.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <cover.1341354357.git.raj.khem@gmail.com>
-In-Reply-To: <cover.1341354357.git.raj.khem@gmail.com>
-X-Gm-Message-State: ALoCoQkwpVyZJ/OTk/RnFDigEugazkGSNMZKJpDFNmwqAJ+tQzhAVjC4hrLKhRbK7rok2nz4kqN8
-Subject: Re: [denzil][PATCH 0/9] bitbake fetch improvements backport to denzil
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] scripts/multilib-check: Check for multilib build results
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,62 +45,237 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Jul 2012 20:06:44 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 06 Jul 2012 02:53:21 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/03/2012 03:31 PM, Khem Raj wrote:
-> On denzil bitbake was still trying to go out to internet for git repos
-> when BB_NO_NETWORK was set. This set of backports fix that issue
-> and now BB_NO_NETWORK works as expected
+Hi Richard,
 
-Ok, I've now created a contrib branch to start tracking changes for 
-1.2.2, and have included this series:
+Do you have specific comment on this one?
 
-http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-1.2.2
+Thanks,
+Dongxiao
 
-The usual caveats apply - I can rebase this branch at any time, etc.
-
-Scott
-
->
-> The following changes since commit 73cdebf60df225ee10f2eb215935be3b61e1b831:
->
->    documentation/dev-manual/dev-manual-kernel-appendix.xml: Add note about conflict (2012-06-29 15:54:26 +0100)
->
-> are available in the git repository at:
->
->    git://git.yoctoproject.org/poky-contrib kraj/denzil-fetcher-update
->    http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=kraj/denzil-fetcher-update
->
-> Richard Purdie (9):
->    bitbake/fetch: Spell out which fetcher backends support and recommend
->      checksums
->    bitbake: fetch2/__init__: Make it clearer when uri_replace doesn't
->      return a match
->    bitbake: fetch2: Fix error handling in uri_replace()
->    bitbake: fetch2: Only cache data if fn is set, its pointless caching
->      it against a None value
->    bitbake: fetch2: Ensure when downloading we are consistently in the
->      same directory
->    bitbake: fetch2: Split try_mirrors into two parts
->    bitbake: fetch2: Explicitly check for mirror tarballs in mirror
->      handling code
->    bitbake: fetch2: Improve mirror looping to consider more cases
->    bitbake: fetch2: Handle errors orruring when building mirror urls
->
->   bitbake/lib/bb/fetch2/__init__.py |  218 ++++++++++++++++++++++++-------------
->   bitbake/lib/bb/fetch2/git.py      |    3 +
->   bitbake/lib/bb/fetch2/ssh.py      |    3 +
->   bitbake/lib/bb/fetch2/wget.py     |    3 +
->   4 files changed, 149 insertions(+), 78 deletions(-)
->
-
-
--- 
-Scott Garman
-Embedded Linux Engineer - Yocto Project
-Intel Open Source Technology Center
-
-
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org
+> [mailto:poky-bounces@yoctoproject.org] On Behalf Of Xu, Dongxiao
+> Sent: Tuesday, July 03, 2012 6:50 AM
+> To: Saul Wold
+> Cc: poky@yoctoproject.org
+> Subject: Re: [poky] [PATCH 1/1] scripts/multilib-check: Check for multili=
+b build
+> results
+>=20
+> > -----Original Message-----
+> > From: Saul Wold [mailto:sgw@linux.intel.com]
+> > Sent: Tuesday, July 03, 2012 6:41 AM
+> > To: Xu, Dongxiao
+> > Cc: poky@yoctoproject.org
+> > Subject: Re: [poky] [PATCH 1/1] scripts/multilib-check: Check for
+> > multilib build results
+> >
+> > On 07/02/2012 03:09 PM, Dongxiao Xu wrote:
+> > > This script is used to check whether the multilib build for a
+> > > certain recipe outcomes the right files/directories.
+> > >
+> > > The usage for the script is:
+> > >
+> > > $ source oe-init-build-env
+> > > $ multilib-check recipeA recipeB ...
+> > >
+> > > or
+> > >
+> > > $ source oe-init-build-env
+> > > $ multilib-check world
+> > >
+> > Is there a reason that this is an external script rather than a
+> > default test as part of insane.bbclass.
+>=20
+> The method in my script is based on the comparison between a normal build
+> "WORKDIR/image" and a multilib build "WORKDIR/image", and this is not eas=
+y
+> to achieve in insane.bbclass.
+> Or do you have other ideas on how to perform this check? Suggestions are
+> welcome. :-)
+>=20
+> Another thought for adding it as a separate script is that, we don't need=
+ to run
+> this script for each build, only recipe owner or multilib feature owner m=
+ay need
+> this script to check whether certain recipe is multilib enabled or not.
+>=20
+> >
+> > Maybe you have been in touch with RP about this?
+>=20
+> No, we haven't discussed it before, this is the first draft.
+>=20
+> >
+> > Also I think this should be part of oe-core, not in poky only.
+>=20
+> If we do it in a separate script, where we should put for OE-Core?
+>=20
+> Thanks,
+> Dongxiao
+>=20
+> >
+> > Thanks
+> >
+> > Sau!
+> >
+> > > This fixes [YOCTO #2038]
+> > >
+> > > Signed-off-by: Dongxiao Xu<dongxiao.xu@intel.com>
+> > > ---
+> > >   scripts/multilib-check |  117
+> > ++++++++++++++++++++++++++++++++++++++++++++++++
+> > >   1 files changed, 117 insertions(+), 0 deletions(-)
+> > >   create mode 100755 scripts/multilib-check
+> > >
+> > > diff --git a/scripts/multilib-check b/scripts/multilib-check new
+> > > file mode 100755 index 0000000..69a5dd3
+> > > --- /dev/null
+> > > +++ b/scripts/multilib-check
+> > > @@ -0,0 +1,117 @@
+> > > +#!/usr/bin/env python
+> > > +
+> > > +import os
+> > > +import os.path
+> > > +import sys
+> > > +
+> > > +# AAA: BBB
+> > > +# AAA is the multilib prefix, BBB is its DEFAULTTUNE.
+> > > +multilib_arch_tune =3D {"lib32": "x86", "lib64": "x86-64"}
+> > > +
+> > > +# The machine we now support is x86 and x86-64.
+> > > +machine =3D "qemux86"
+> > > +
+> > > +def usage():
+> > > +    print("Usage: multilib-check recipe_name1 recipe_name2 ... \n \
+> > > +           or multilib-check world")
+> > > +
+> > > +def generate_multilib_config():
+> > > +    os.system("cp -f conf/local.conf conf/local.conf.orig")
+> > > +    f =3D open("conf/local.conf", "a")
+> > > +    f.write('require conf/multilib.conf\n')
+> > > +    multilibs =3D ""
+> > > +    for i in multilib_arch_tune.keys():
+> > > +        f.write('DEFAULTTUNE_virtclass-multilib-%s=3D"%s"\n' % (i,
+> > multilib_arch_tune[i]))
+> > > +        multilibs +=3D "multilib:%s " % i
+> > > +    f.write('MULTILIBS=3D"%s"\n' % multilibs.strip())
+> > > +    f.close()
+> > > +
+> > > +def restore_original_config():
+> > > +    os.system("mv -f conf/local.conf.orig conf/local.conf")
+> > > +
+> > > +def build_recipe(mach, recipe_name):
+> > > +    print("INFO: Building %s ..." % recipe_name)
+> > > +    return os.system("MACHINE=3D%s bitbake %s&>  /dev/null" % (mach,
+> > > +recipe_name))
+> > > +
+> > > +def get_variable(mach, recipe_name, variable):
+> > > +    return os.popen('bitbake -e %s | grep "^%s=3D"' % (recipe_name,
+> > > +variable)).readline().split("%s=3D" % variable)[1].strip("\"\n")
+> > > +
+> > > +# Check if dir2 contains the same set of files as in dir1.
+> > > +def compare_folders(dir1, dir2):
+> > > +    if not os.path.exists(dir1):
+> > > +        return
+> > > +    for i in os.listdir(dir1):
+> > > +        path_normal =3D os.path.join(dir1, i)
+> > > +        path_multilib =3D os.path.join(dir2, i)
+> > > +
+> > > +        if not os.path.exists(path_multilib):
+> > > +            print("ERROR: %s exists while %s doesn't" %
+> > > + (path_normal,
+> > path_multilib))
+> > > +            continue
+> > > +
+> > > +        if os.path.isdir(path_normal):
+> > > +            if not os.path.isdir(path_multilib):
+> > > +                print("ERROR: %s is a directory while %s is a file"
+> > > + %
+> > (path_normal, path_multilib))
+> > > +                continue
+> > > +            compare_folders(path_normal, path_multilib)
+> > > +        else:
+> > > +            if not os.path.isfile(path_multilib):
+> > > +                print("ERROR: %s is a file while %s is a directory"
+> > > + % (path_normal, path_multilib))
+> > > +
+> > > +def multilib_sanity_check(rootdir_normal, baselib_normal,
+> > > +rootdir_multilib,
+> > baselib_multilib):
+> > > +    compare_folders(rootdir_normal+"/usr/"+baselib_normal,
+> > rootdir_multilib+"/usr/"+baselib_multilib)
+> > > +    compare_folders(rootdir_normal+"/"+baselib_normal,
+> > > +rootdir_multilib+"/"+baselib_multilib)
+> > > +
+> > > +# Use bitbake -s to get the recipe list, for example "world"
+> > > +def get_recipe_list(name):
+> > > +    begin =3D False
+> > > +    recipe_list =3D []
+> > > +    fd =3D os.popen('bitbake -s %s' % name)
+> > > +    for i in fd:
+> > > +        if i.startswith("=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D"):
+> > > +            begin =3D True
+> > > +            continue
+> > > +        if begin and i.strip("\n"):
+> > > +            recipe_name =3D i.split()[0].strip()
+> > > +            if "native" in recipe_name:
+> > > +                continue
+> > > +            else:
+> > > +                recipe_list.append(recipe_name)
+> > > +
+> > > +    return recipe_list
+> > > +
+> > > +def main():
+> > > +    if len(sys.argv)<=3D 1:
+> > > +        usage()
+> > > +        exit(1)
+> > > +    elif len(sys.argv) =3D=3D 2 and sys.argv[1] =3D=3D "world":
+> > > +        recipe_list =3D get_recipe_list("world")
+> > > +    else:
+> > > +        recipe_list =3D sys.argv[1:]
+> > > +
+> > > +    mach =3D machine
+> > > +    generate_multilib_config()
+> > > +    try:
+> > > +        for i in range(0, len(recipe_list)):
+> > > +            print("INFO: checking for recipe %s ..." % recipe_list[i=
+])
+> > > +            ret =3D build_recipe(mach, recipe_list[i])
+> > > +            if ret:
+> > > +                print("ERROR: Build %s failed" % recipe_list[i])
+> > > +                continue
+> > > +            rootdir_normal =3D get_variable(mach, recipe_list[i],
+> > "WORKDIR") + "/image"
+> > > +            baselib_normal =3D get_variable(mach, recipe_list[i],
+> > > + "baselib")
+> > > +
+> > > +            for j in multilib_arch_tune.keys():
+> > > +                ret =3D build_recipe(mach, j + "-" + recipe_list[i])
+> > > +                if ret:
+> > > +                    print("ERROR: Build %s failed" % (j + "-" +
+> > recipe_list[i]))
+> > > +                    continue
+> > > +                rootdir_multilib =3D get_variable(mach, j + "-" +
+> > recipe_list[i], "WORKDIR") + "/image"
+> > > +                baselib_multilib =3D get_variable(mach, j + "-" +
+> > > + recipe_list[i], "baselib")
+> > > +
+> > > +                multilib_sanity_check(rootdir_normal,
+> > > + baselib_normal,
+> > rootdir_multilib, baselib_multilib)
+> > > +    except Exception as e:
+> > > +        print "ERROR: %s" % e
+> > > +    finally:
+> > > +        restore_original_config()
+> > > +
+> > > +main()
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
