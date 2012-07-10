@@ -1,24 +1,25 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BA206E006AD
-	for <poky@yoctoproject.org>; Fri,  6 Jul 2012 11:22:52 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 06 Jul 2012 11:22:52 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ABC39E00280
+	for <poky@yoctoproject.org>; Tue, 10 Jul 2012 00:52:09 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 10 Jul 2012 00:52:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="189309882"
-Received: from unknown (HELO [10.255.12.157]) ([10.255.12.157])
-	by fmsmga002.fm.intel.com with ESMTP; 06 Jul 2012 11:22:52 -0700
-Message-ID: <4FF72CFB.7030209@linux.intel.com>
-Date: Fri, 06 Jul 2012 11:22:51 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:13.0) Gecko/20120605 Thunderbird/13.0
-MIME-Version: 1.0
+X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="120645988"
+Received: from unknown (HELO helios.localnet) ([10.252.121.7])
+	by AZSMGA002.ch.intel.com with ESMTP; 10 Jul 2012 00:52:08 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: "Iorga, Cristian" <cristian.iorga@intel.com>
+Date: Tue, 10 Jul 2012 08:52:07 +0100
+Message-ID: <2005498.qfgcbCYeBx@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.8.4 (Linux/3.2.0-26-generic-pae; KDE/4.8.4; i686; ; )
+In-Reply-To: <4FF72CFB.7030209@linux.intel.com>
 References: <1341585314-3345-1-git-send-email-cristian.iorga@intel.com>
 	<969F26A8BAB325438E7EB80D3C3134FB16165C71@IRSMSX102.ger.corp.intel.com>
-In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB16165C71@IRSMSX102.ger.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+	<4FF72CFB.7030209@linux.intel.com>
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCH] Upstream tracking partial updates - observations while doing the updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -31,521 +32,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Jul 2012 18:22:52 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 10 Jul 2012 07:52:09 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 07/06/2012 07:44 AM, Iorga, Cristian wrote:
-> Hello,
->
-> My observations related to the upstream tracking activity:
->
-> 1.I don't know how to proceed with matchbox-keyboard.
+Hi Cristian,
 
-Not sure I understand the question, what's the issue your trying to 
-procced with?
+On Friday 06 July 2012 11:22:51 Saul Wold wrote:
+> On 07/06/2012 07:44 AM, Iorga, Cristian wrote:
+> > 1.I don't know how to proceed with matchbox-keyboard.
+> 
+> Not sure I understand the question, what's the issue your trying to
+> procced with?
 
-> 2. Idem for web-webkit.
-> Please advise.
->
-Check in with Ross on web-webkit, again not sure exactly what you are 
-asking about.
+ I think Ross may be able to help if there's specific issues with this.
 
-> 3. usbutils recipe seems broken. Http 404 while trying to access the archive. Will investigate further. Our usbutils seems to be an old/unspecified/obsolete version. No exact package found.
-> Please advise.
->
-Was hosted on the kernel.org, but seems to have moved, have you tried a 
-google search, it shows that usbutils is now under git at 
-https://github.com/gregkh/usbutils
+> > 7. libgsmd not updated; needs to be checked via SVN. Is deprecated ->
+> > should be replaced with something else; please advise
+> Well, here's where your involvement with the community comes into play,
+> can you advise me what you would replace it with?  Do you know who uses
+> it ?  Do other distributions like SHR or Angstrom depend on libgsmd?
+> Are there other layers that depend on it?  Ask in oe-devel.
 
-Maybe this recipe needs to convert to git.
+libgsmd (not to be confused with libgsm) is well and truly dead, and I'm not 
+convinced it worked particularly well in the first place. I've sent a patch to 
+remove it and replace its usage with ofono (sorry Cristian I should have 
+notified you first; this was something that had been on my todo list for a 
+while.)
 
-also check at www.linux-usb.org
+> > 8. tinylogin is now integrated into busybox; please advise.
+> 
+> I seem to remember something about that, there was a reason, but I can't
+> recall why we have a separate version, Richard, Paul or Ross might have
+> some insight as to why we have it separate, maybe due to the
+> functionality it offers, you can look at the code for both and see if
+> there is a difference.
 
-> 4. kmod version is now 9. Not added to upstream_tracking.inc. Please advise.
->
-If it needs to be added to the upstream_tracking for manual checking, 
-then please add it, if it ready to be upgraded to a new version, then by 
-all means please upgrade it.
+This is a tricky one - IIRC, the problem is upstream has merged it into 
+busybox but that means the busybox executable has to be suid root. The BusyBox 
+developers claim that's not a problem because busybox drops privileges as soon 
+as it figures out it doesn't need them, but many are not satisfied by this. Thus 
+we've kept tinylogin separate. Long term this may become a problem 
+maintenance-wise, I'm not sure what the plan to address that is. FYI there was 
+a discussion about this on the OE-Core mailing list some months ago - have a 
+search for it and if you're still unsure, send something out to the OE-Core 
+list asking about it.
 
-> 5. btrfs is git access only. Needs to checked later on.
->
-If it needs manual checking or updating because it's git based then 
-please add the appropriate fields to the upstream_tracking and update 
-the SRCREV in the recipe to the latest version
+Cheers,
+Paul
 
-You could check with Nitin about how he picked the version.
+-- 
 
-
-> 6. python-scons not found in upstream_tracking.inc. Please advise.
->
-you can add it, anything missing from upstream_tracking that needs to be 
-there can be added, if we can check it automatically it does not need to 
-be added.
-
-Looks like the -native could be merged with the non-native and use 
-BBCLASSEXTENDS instead of inherit native, you will also have to fix up 
-the DEPENDS with a DEPENDS_native override.
-
-
-> 7. libgsmd not updated; needs to be checked via SVN. Is deprecated -> should be replaced with something else; please advise
->
-Well, here's where your involvement with the community comes into play, 
-can you advise me what you would replace it with?  Do you know who uses 
-it ?  Do other distributions like SHR or Angstrom depend on libgsmd?
-Are there other layers that depend on it?  Ask in oe-devel.
-
-> 8. tinylogin is now integrated into busybox; please advise.
->
-I seem to remember something about that, there was a reason, but I can't 
-recall why we have a separate version, Richard, Paul or Ross might have 
-some insight as to why we have it separate, maybe due to the 
-functionality it offers, you can look at the code for both and see if 
-there is a difference.
-
-Sau!
-
-
-> Regards,
-> Cristian Iorga
->
-> Cristian Iorga
-> Linux Software Engineer
-> Open Source Technology Center
-> System Software Division Romania
->
->
-> -----Original Message-----
-> From: Iorga, Cristian
-> Sent: Friday, July 06, 2012 5:35 PM
-> To: poky@yoctoproject.org
-> Cc: Iorga, Cristian
-> Subject: [PATCH] Upstream tracking partial updates
->
-> Manually checked packages for updates.
-> Changed the necessary fields with updated values.
-> Added missing recording where necessary.
-> Beautified some packages info.
-> Removed small typos in distro_alias.inc and recipe_color.inc.
-> All changes easy detectable in the diff.
->
-> Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
-> ---
->   meta-yocto/conf/distro/include/distro_alias.inc    |    2 +-
->   meta-yocto/conf/distro/include/recipe_color.inc    |    4 +-
->   .../conf/distro/include/upstream_tracking.inc      |  111 ++++++++++++--------
->   3 files changed, 68 insertions(+), 49 deletions(-)
->
-> diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-> index 0f97986..0c0684b 100644
-> --- a/meta-yocto/conf/distro/include/distro_alias.inc
-> +++ b/meta-yocto/conf/distro/include/distro_alias.inc
-> @@ -1,7 +1,7 @@
->   #
->   # This is a list for tracking status of package relative to Major  # distributions such as Fedora, Ubuntu, Debian, ... The package -# name is the major distribution equivlant to the name used in oe-core
-> +# name is the major distribution equivalent to the name used in oe-core
->   #
->   # The format is as a bitbake variable override for each recipe  # diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
-> index 9dc5dd1..b3f9b46 100644
-> --- a/meta-yocto/conf/distro/include/recipe_color.inc
-> +++ b/meta-yocto/conf/distro/include/recipe_color.inc
-> @@ -1,6 +1,6 @@
->   # This is a "burndown" list of recipes that need to be reviewed  # and corrected based on their color they may have some issues.
-> -# If a recipe is fixed and OK, then their entry can be removed.
-> +# If a recipe is fixed and OK, then its entry can be removed.
->   #
->   # The format is as a bitbake variable override for each recipe  # @@ -13,7 +13,7 @@  # Please keep this list in alphabetical order.
->   #
->
-> -# Default for all recipes not speficied here
-> +# Default for all recipes not specified here
->   RECIPE_COLOR = "green"
->
->   RECIPE_COLOR_pn-aaina = "red"
-> diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-> index fa46a5a..6a67734 100644
-> --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-> +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-> @@ -21,7 +21,7 @@ RECIPE_UPSTREAM_VERSION_pn-acl = "2.2.49"
->   RECIPE_UPSTREAM_DATE_pn-acl = "Nov 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-acpid = "1.0.10"
->   RECIPE_UPSTREAM_DATE_pn-acpid = "Apr 22, 2009"
-> -CHECK_DATE_pn-acpid = "Apr 25, 2012"
-> +CHECK_DATE_pn-acpid = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
->   RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-apmd = "3.2.2-14"
-> @@ -61,8 +61,8 @@ RECIPE_UPSTREAM_VERSION_pn-bdwgc = "20110107"
->   RECIPE_NO_UPDATE_REASON_pn-bdwgc = "20110107 is same as the 7.2alpha5"
->   CHECK_DATE_pn-bdwgc = "Feb 01, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-beecrypt = "4.2.1"
-> -CHECK_DATE_pn-beecrypt = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-beecrypt = "Jul 12, 2009"
-> +CHECK_DATE_pn-beecrypt = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-bigreqsproto="1.1.0"
->   RECIPE_UPSTREAM_DATE_pn-bigreqsproto="Aug 26, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-bind = "9.7.2-P3"
-> @@ -145,7 +145,8 @@ CHECK_DATE_pn-cups = "Sep 28, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-curl = "7.23.1"
->   RECIPE_UPSTREAM_DATE_pn-curl = "Nov 17, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-cwautomacros = "20110201"
-> -CHECK_DATE_pn-cwautomacros = "Apr 25, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-cwautomacros = "Feb 01, 2011"
-> +CHECK_DATE_pn-cwautomacros = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-cwautomacros = "Feb 01, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-damageproto = "1.2.1"
->   RECIPE_UPSTREAM_DATE_pn-damageproto = "Oct 29, 2010"
-> @@ -189,8 +190,8 @@ RECIPE_UPSTREAM_DATE_pn-ed = "Jan 01, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-eds-tools = "git"
->   RECIPE_UPSTREAM_VERSION_pn-eee-acpi-scripts = "1.1.12+9d4cdedca25b396405f8587f9c4fbf8229e041c2"
->   RECIPE_UPSTREAM_VERSION_pn-eggdbus = "0.6"
-> -CHECK_DATE_pn-eggdbus = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-eggdbus = "Nov 01, 2009"
-> +CHECK_DATE_pn-eggdbus = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-eglibc = "git:16540"
->   CHECK_DATE_pn-eglibc = "Jan 01, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-elfutils="0.148"
-> @@ -219,10 +220,12 @@ RECIPE_UPSTREAM_DATE_pn-findutils = "Jun 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-fixesproto = "5.0"
->   RECIPE_UPSTREAM_DATE_pn-fixesproto = "Mar 8, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-flac="1.2.1"
-> -CHECK_DATE_pn-flac = "Apr 25, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-flac= "Sep 8, 2007"
-> +CHECK_DATE_pn-flac = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-flac="Sep 16, 2007"
-> -RECIPE_UPSTREAM_VERSION_pn-flex="2.5.35"
-> -CHECK_DATE_pn-flex = "Feb 01, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-flex = "2.5.35"
-> +RECIPE_UPSTREAM_DATE_pn-flex = "Feb 02, 2008"
-> +CHECK_DATE_pn-flex = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-font-alias = "Oct 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-fontcacheproto = "0.1.3"
->   RECIPE_UPSTREAM_DATE_pn-fontcacheproto = "Oct 01, 2009"
-> @@ -235,9 +238,9 @@ RECIPE_UPSTREAM_DATE_pn-formfactor = "n/a"
->   RECIPE_UPSTREAM_VERSION_pn-fotowall=""
->   RECIPE_UPSTREAM_VERSION_pn-fotowall="0.9"
->   RECIPE_UPSTREAM_DATE_pn-fotowall="Dec 08, 2009"
-> -RECIPE_UPSTREAM_VERSION_pn-freetype = "2.4.9"
-> -CHECK_DATE_pn-freetype = "Apr 25, 2012"
-> -RECIPE_UPSTREAM_DATE_pn-freetype = "Mar 08, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-freetype = "2.4.10"
-> +RECIPE_UPSTREAM_DATE_pn-freetype = "Jun 15, 2012"
-> +CHECK_DATE_pn-freetype = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-fstests="0.0+svnr426"
->   CHECK_DATE_pn-fstests = "Jul 06, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-fuse = "2.8.4"
-> @@ -248,8 +251,8 @@ RECIPE_UPSTREAM_VERSION_pn-gamin = "0.1.10"
->   RECIPE_UPSTREAM_DATE_pn-gamin = "Nov 01, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-gawk = "4.0.0"
->   RECIPE_UPSTREAM_VERSION_pn-gcc-runtime = "4.6.2+git"
-> -RECIPE_UPSTREAM_VERSION_pn-gcc="4.6.2+git"
-> -CHECK_DATE_pn-gcc = "Feb 01, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-gcc="4.7.1+svnr188658"
-> +CHECK_DATE_pn-gcc = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-gccmakedep = "1.0.2"
->   RECIPE_UPSTREAM_DATE_pn-gccmakedep = "May 19, 2006"
->   RECIPE_UPSTREAM_DATE_pn-gconf-dbus = "n/a"
-> @@ -320,8 +323,8 @@ RECIPE_UPSTREAM_DATE_pn-hal-info = "Nov 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-hal = "0.5.14"
->   RECIPE_UPSTREAM_DATE_pn-hal = "Nov 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-hdparm = "9.39"
-> -CHECK_DATE_pn-hdparm = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-hdparm = "Feb 03, 2012"
-> +CHECK_DATE_pn-hdparm = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-hicolor-icon-theme = "Sep 01, 2009"
->   RECIPE_UPSTREAM_DATE_pn-hostap-utils="Dec 03, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-icu = "3.6"
-> @@ -344,7 +347,9 @@ RECIPE_UPSTREAM_DATE_pn-iproute2 = "Mar 20, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-iptables = "1.4.13"
->   RECIPE_UPSTREAM_DATE_pn-iptables = "Apr 28, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-iputils="s20100418"
-> +RECIPE_UPSTREAM_VERSION_pn-irda-utils = "0.9.18"
->   RECIPE_UPSTREAM_DATE_pn-irda-utils="Jul 10, 2006"
-> +CHECK_DATE_pn-irda-utils = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-iso-codes = "3.16"
->   RECIPE_UPSTREAM_VERSION_pn-jpeg = "8c"
->   CHECK_DATE_pn-jpeg = "Dec 24, 2011"
-> @@ -364,8 +369,8 @@ RECIPE_UPSTREAM_VERSION_pn-keymaps = "1.0"
->   RECIPE_UPSTREAM_DATE_pn-keymaps = "n/a"
->   RECIPE_UPSTREAM_VERSION_pn-kf = "n/a"
->   RECIPE_UPSTREAM_VERSION_pn-lame = "3.99.5"
-> -CHECK_DATE_pn-lame = "Apr 18, 2012"
->   RECIPE_UPSTREAM_DATE_pn-lame = "Feb 28, 2012"
-> +CHECK_DATE_pn-lame = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-latencytop = "0.5"
->   CHECK_DATE_pn-latencytop = "Apr 20, 2011"
->   RECIPE_UPSTREAM_DATE_pn-latencytop = "Apr 28, 2009"
-> @@ -419,8 +424,8 @@ RECIPE_UPSTREAM_VERSION_pn-libffi  = "3.0.10"
->   RECIPE_NO_UPDATE_REASON_pn-libffi="3.0.11 is still RC"
->   RECIPE_UPSTREAM_DATE_pn-libffi = "Aug 23, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libfm = "0.1.17"
-> -CHECK_DATE_pn-libfm = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libfm = "Oct 24, 2011"
-> +CHECK_DATE_pn-libfm = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libfontenc = "1.0.5"
->   RECIPE_UPSTREAM_DATE_pn-libfontenc = "Aug 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-libfribidi = "0.19.2"
-> @@ -443,10 +448,11 @@ RECIPE_UPSTREAM_DATE_pn-libgpg-error = "Jul 01, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-libgsf = "1.14.18"
->   RECIPE_UPSTREAM_VERSION_pn-libgsmd = "5394"
->   RECIPE_UPSTREAM_DATE_pn-libgsmd ="Aug 06, 2009"
-> -CHECK_DATE_pn-libgsmd = "Jun 29, 2011"
-> +CHECK_DATE_pn-libgsmd = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libgtkstylus = "0.5"
->   RECIPE_UPSTREAM_VERSION_pn-libical = "0.48"
-> -CHECK_DATE_pn-libical = "Apr 25, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-libical ="Dec 13, 2011"
-> +CHECK_DATE_pn-libical = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libical = "Dec 13, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libice = "1.0.6"
->   RECIPE_UPSTREAM_DATE_pn-libice = "Aug 01, 2009"
-> @@ -483,8 +489,8 @@ RECIPE_UPSTREAM_DATE_pn-libogg="Aug 04, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-liboil = "0.3.17"
->   RECIPE_UPSTREAM_DATE_pn-liboil = "Feb 01, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-libomxil = "0.9.3"
-> -CHECK_DATE_pn-libomxil = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libomxil = "May 20, 2011"
-> +CHECK_DATE_pn-libomxil = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libopensync-plugin-evolution2 = "0.39"
->   RECIPE_UPSTREAM_VERSION_pn-libopensync = "0.39"
->   RECIPE_UPSTREAM_DATE_pn-libowl-av = "Dec 01, 2008"
-> @@ -497,8 +503,9 @@ RECIPE_UPSTREAM_VERSION_pn-libpcap="1.2.0"
->   RECIPE_UPSTREAM_DATE_pn-libpcap="Jul 24, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libpciaccess = "0.13.1"
->   RECIPE_UPSTREAM_DATE_pn-libpciaccess = "Apr 09, 2012"
-> -RECIPE_UPSTREAM_VERSION_pn-libpcre = "8.21"
-> -CHECK_DATE_pn-libpcre = "Feb 01, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-libpcre = "8.30"
-> +RECIPE_UPSTREAM_DATE_pn-libpcre = "Mar 01, 2012"
-> +CHECK_DATE_pn-libpcre = "Jul 06, 2012"
->   RECIPE_NO_UPDATE_REASON_pn-libpng = "1.4.3 and later changes the API and breaks libmatchbox. Sticking with the 1.2.x series instead"
->   RECIPE_UPSTREAM_VERSION_pn-libpng = "1.5.10"
->   RECIPE_UPSTREAM_DATE_pn-libpng = "Mar 29, 2012"
-> @@ -510,8 +517,8 @@ RECIPE_UPSTREAM_DATE_pn-libpthread-stubs = "Oct 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-librsvg = "2.32.1"
->   RECIPE_UPSTREAM_DATE_pn-librsvg = "Nov 13, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-libsamplerate0 = "0.1.8"
-> -CHECK_DATE_pn-libsamplerate0 = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libsamplerate0 = "Aug 15, 2011"
-> +CHECK_DATE_pn-libsamplerate0 = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsdl = "1.2.15"
->   CHECK_DATE_pn-libsdl = "Mar 14, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsm = "1.1.1"
-> @@ -527,8 +534,8 @@ RECIPE_NO_UPDATE_REASON_pn-libtheora = "1.1.1 is latest stable release not 1.2.0  RECIPE_UPSTREAM_VERSION_pn-libtheora = "1.2.0"
->   RECIPE_UPSTREAM_VERSION_pn-libtimedate-perl = "1.20"
->   RECIPE_UPSTREAM_VERSION_pn-libtirpc = "0.2.2"
-> -CHECK_DATE_pn-libtirpc = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libtirpc = "May 02, 2011"
-> +CHECK_DATE_pn-libtirpc = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libtool="2.4.2"
->   CHECK_DATE_pn-libtool = "Nov 28, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libunique = "2.91.4"
-> @@ -668,15 +675,17 @@ RECIPE_UPSTREAM_VERSION_pn-mc = "4.8.1"
->   RECIPE_UPSTREAM_DATE_pn-mc = "Dec 1, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-mdadm = "3.2.5"
->   RECIPE_UPSTREAM_DATE_pn-mdadm = "May 18, 2012"
-> -RECIPE_UPSTREAM_DATE_pn-menu-cache = "Feb 01, 2010"
-> +RECIPE_UPSTREAM_VERSION_pn-menu-cache = "0.3.3"
-> +RECIPE_UPSTREAM_DATE_pn-menu-cache = "May 20, 2012"
-> +CHECK_DATE_pn-minicom = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-mesa-dri="Jun 17, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
->   RECIPE_UPSTREAM_VERSION_pn-metacity = "2.30.3"
->   RECIPE_UPSTREAM_VERSION_pn-mingetty = "1.08"
->   CHECK_DATE_pn-mingetty = "Jan 12, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.1"
-> -CHECK_DATE_pn-minicom = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 11, 2012"
-> +CHECK_DATE_pn-minicom = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-mkfontdir="1.0.7"
->   RECIPE_UPSTREAM_DATE_pn-mkfontdir="Feb 10, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-mkfontscale="1.10.0"
-> @@ -688,8 +697,9 @@ RECIPE_UPSTREAM_DATE_pn-modutils-initscripts = "n/a"
->   RECIPE_UPSTREAM_VERSION_pn-mpeg2dec = "0.5.1"
->   CHECK_DATE_pn-mpeg2dec = "May 24, 2011"
->   RECIPE_NO_UPDATE_REASON_pn-mpeg2dec = "Why are we currently at 0.4.1?"
-> -RECIPE_UPSTREAM_VERSION_pn-mpfr="3.1.0"
-> -CHECK_DATE_pn-mpfr = "Jan 10, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-mpfr="3.1.1"
-> +RECIPE_UPSTREAM_DATE_pn-mpfr = "Jul 04, 2012"
-> +CHECK_DATE_pn-mpfr = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-msynctool = "0.38"
->   RECIPE_UPSTREAM_DATE_pn-msynctool = "Nov 11, 2008"
->   RECIPE_UPSTREAM_DATE_pn-mtd-utils = "Dec 17, 2011"
-> @@ -725,13 +735,13 @@ RECIPE_UPSTREAM_DATE_pn-openssl = "Apr 26, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-openswan = "2.6.26"
->   RECIPE_UPSTREAM_DATE_pn-opkg-collateral = "n/a"
->   RECIPE_UPSTREAM_VERSION_pn-opkg = "0.1.8"
-> -CHECK_DATE_pn-opkg = "Apr 25, 2012"
-> +CHECK_DATE_pn-opkg = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-opkg = "Feb 01, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-opkg_nogpg = "0.1.8"
->   RECIPE_UPSTREAM_DATE_pn-opkg_nogpg = "Feb 01, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-oprofile = "0.9.7"
-> -CHECK_DATE_pn-oprofile = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-oprofile = "Aug 12, 2011"
-> +CHECK_DATE_pn-oprofile = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-oprofileui = "0.0+git0+82ecf8c6b53b84f80682a8312f9defa83a95f2a3"
->   CHECK_DATE_pn-oprofileui = "Dec 24, 2011"
->   RECIPE_UPSTREAM_DATE_pn-oprofileui = "Nov 14, 2011"
-> @@ -749,7 +759,8 @@ RECIPE_UPSTREAM_DATE_pn-pax = "Aug 01, 2005"
->   RECIPE_UPSTREAM_VERSION_pn-pciutils = "3.1.9"
->   RECIPE_UPSTREAM_DATE_pn-pciutils = "Jan 14, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-pcmanfm = "0.9.10"
-> -CHECK_DATE_pn-pcmanfm = "Apr 25, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-pcmanfm = "Oct 24, 2011"
-> +CHECK_DATE_pn-pcmanfm = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-pcmanfm = "Oct 24, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-pcmciautils = "017"
->   RECIPE_UPSTREAM_DATE_pn-pcmciautils = "Jan 01, 2010"
-> @@ -798,8 +809,8 @@ RECIPE_UPSTREAM_VERSION_pn-pth = "2.0.7"
->   RECIPE_UPSTREAM_DATE_pn-pth = "Jun 01, 2006"
->   RECIPE_UPSTREAM_VERSION_pn-pulseaudio = "0.9.22"
->   RECIPE_UPSTREAM_DATE_pn-pulseaudio = "Nov 26, 2010"
-> -CHECK_DATE_pn-puzzles = "Apr 25, 2012"
-> -RECIPE_UPSTREAM_VERSION_pn-puzzles = "r9455"
-> +RECIPE_UPSTREAM_VERSION_pn-puzzles = "r9561"
-> +CHECK_DATE_pn-puzzles = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-python-pycurl = "Sep 01, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-python="2.7.3"
->   CHECK_DATE_pn-python = "May 01, 2012"
-> @@ -818,8 +829,8 @@ RECIPE_UPSTREAM_VERSION_pn-quicky = "0.4"
->   RECIPE_UPSTREAM_DATE_pn-quicky = "Jun 18, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-quilt="0.60"
->   RECIPE_UPSTREAM_VERSION_pn-quota = "4.00"
-> -CHECK_DATE_pn-quota = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-quota = "Aug 17, 2011"
-> +CHECK_DATE_pn-quota = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-randrproto = "1.3.2"
->   RECIPE_UPSTREAM_DATE_pn-randrproto = "Oct 29, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-readline = "6.2"
-> @@ -833,7 +844,8 @@ RECIPE_UPSTREAM_DATE_pn-resolvconf = "Jun 19, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-resourceproto = "1.2.0"
->   RECIPE_UPSTREAM_DATE_pn-resourceproto = "May 27, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-rpcbind = "0.2.0"
-> -CHECK_DATE_pn-rpcbind = "Apr 25, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-rpcbind = "May 29, 2009"
-> +CHECK_DATE_pn-rpcbind = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-rpcbind = "May 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-rpm = "5.1.10"
->   RECIPE_UPSTREAM_DATE_pn-rpm = "Jan 01, 2010"
-> @@ -875,13 +887,15 @@ RECIPE_UPSTREAM_DATE_pn-speex="Jul 24, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-sqlite3 = "3.7.13"
->   RECIPE_UPSTREAM_DATE_pn-sqlite3 = "Jun 11, 2012"
->   CHECK_DATE_pn-sqlite3= "Jun 22, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-squashfs-tools = "4.2"
->   RECIPE_UPSTREAM_DATE_pn-squashfs-tools = "Feb 28, 2011"
-> +CHECK_DATE_pn-squashfs-tools = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-startup-notification = "May 16, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-stat = "3.3"
->   CHECK_DATE_pn-stat = "Dec 30, 2011"
-> -RECIPE_UPSTREAM_VERSION_pn-strace = "4.6"
-> -CHECK_DATE_pn-strace = "Apr 25, 2012"
-> -RECIPE_UPSTREAM_DATE_pn-strace = "Mar 15, 2011"
-> +RECIPE_UPSTREAM_VERSION_pn-strace = "4.7"
-> +RECIPE_UPSTREAM_DATE_pn-strace = "May 02, 2012"
-> +CHECK_DATE_pn-strace = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-subversion = "1.6.15"
->   CHECK_DATE_pn-subversion = "Jan 25, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-sudo = "1.8.4p4"
-> @@ -914,7 +928,8 @@ RECIPE_UPSTREAM_VERSION_pn-tasks = "0.18"
->   RECIPE_UPSTREAM_DATE_pn-tasks = "Jul 01, 2010"
->   RECIPE_UPSTREAM_DATE_pn-tcf-agent = "Jul 07, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-tcl="8.5.11"
-> -CHECK_DATE_pn-tcl = "Feb 01, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-tcl = "Jul 07, 2011"
-> +CHECK_DATE_pn-tcl = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-tcp-wrappers = "Apr 08, 1997"
->   RECIPE_UPSTREAM_DATE_pn-telepathy-glib = "Apr 20, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-texi2html = "5.0"
-> @@ -932,7 +947,6 @@ RECIPE_UPSTREAM_DATE_pn-time = "Jul 01, 1996"
->   RECIPE_UPSTREAM_VERSION_pn-tinylogin = "1.4"
->   CHECK_DATE_pn-tinylogin = "Dec 24, 2011"
->   RECIPE_UPSTREAM_DATE_pn-tinylogin = "Jan 03, 2003"
-> -RECIPE_UPSTREAM_DATE_pn-tinylogin = "n/a"
->   RECIPE_UPSTREAM_DATE_pn-trace-cmd = "Nov 7, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-transfig = "3.2.5d"
->   RECIPE_UPSTREAM_DATE_pn-transfig = "Jul 23, 2010"
-> @@ -941,12 +955,13 @@ RECIPE_UPSTREAM_DATE_pn-trapproto = "Jan 01, 2006"
->   RECIPE_UPSTREAM_VERSION_pn-tremor="20120122"
->   RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-tslib = "1.0"
-> -CHECK_DATE_pn-tslib = "Apr 25, 2012"
-> +RECIPE_UPSTREAM_DATE_pn-tslib ="Sep 09, 2006"
-> +CHECK_DATE_pn-tslib = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-tslib = "Aug 01, 2006"
->   RECIPE_UPSTREAM_DATE_pn-ttf-bitstream-vera = "Apr 16, 2003"
->   RECIPE_UPSTREAM_VERSION_pn-tzdata = "2012c"
->   RECIPE_UPSTREAM_DATE_pn-tzdata = "Apr 02, 2012"
-> -CHECK_DATE_pn-tzdata = "Apr 25, 2012"
-> +CHECK_DATE_pn-tzdata = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Dec 23, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
->   RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
-> @@ -954,13 +969,13 @@ RECIPE_UPSTREAM_VERSION_pn-udev = "164"
->   RECIPE_UPSTREAM_DATE_pn-udev = "Jan 11, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-unifdef="2.6.18+git"
->   RECIPE_UPSTREAM_VERSION_pn-unzip = "6.0"
-> -CHECK_DATE_pn-unzip = "Apr 18, 2012"
->   RECIPE_UPSTREAM_DATE_pn-unzip = "Apr 25, 2009"
-> +CHECK_DATE_pn-unzip = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-update-rc.d = "unknown"
->   RECIPE_UPSTREAM_VERSION_pn-usbinit = "n/a"
->   RECIPE_UPSTREAM_VERSION_pn-usbutils = "0.91"
-> -CHECK_DATE_pn-usbutils = "Apr 18, 2012"
->   RECIPE_UPSTREAM_DATE_pn-usbutils = "Oct 22, 2010"
-> +CHECK_DATE_pn-usbutils = "Apr 18, 2012"
->   RECIPE_UPSTREAM_DATE_pn-util-linux = "Feb 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-v86d = "0.1.10"
->   RECIPE_UPSTREAM_DATE_pn-v86d = "Feb 25, 2011"
-> @@ -972,22 +987,26 @@ RECIPE_UPSTREAM_VERSION_pn-vte="0.24.3"
->   RECIPE_UPSTREAM_DATE_pn-vte="Jul 12, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-watchdog = "5.12"
->   RECIPE_UPSTREAM_DATE_pn-watchdog = "Apr 05, 2012"
-> -CHECK_DATE_pn-watchdog = "Apr 25, 2012"
-> +CHECK_DATE_pn-watchdog = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-wbxml2 = "0.10.8"
->   RECIPE_UPSTREAM_DATE_pn-web-webkit = "Aug 01, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-web = "0.0+svnr129"
-> -RECIPE_UPSTREAM_DATE_pn-webkit-gtk = "Jun 01, 2011"
-> +RECIPE_UPSTREAM_VERSION_pn-webkit-gtk = "1.8.1"
-> +RECIPE_UPSTREAM_DATE_pn-webkit-gtk = "Apr 24, 2012"
-> +CHECK_DATE_pn-webkit-gtk = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-which = "2.20"
->   RECIPE_UPSTREAM_DATE_pn-which = "Aug 01, 2008"
->   CHECK_DATE_pn-which = "Nov 22, 2011"
-> +RECIPE_UPSTREAM_VERSION_pn-wireless-tools = "29"
->   RECIPE_UPSTREAM_DATE_pn-wireless-tools="Sep 18, 2007"
-> +CHECK_DATE_pn-wireless-tools = "Jul 06, 2012"
->   RECIPE_UPSTREAM_DATE_pn-wpa-supplicant="Sep 07, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-wv = "1.2.1"
->   RECIPE_UPSTREAM_DATE_pn-x11-common="Sep 22, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-x11perf = "1.5.4"
->   RECIPE_UPSTREAM_VERSION_pn-x11vnc = "0.9.13"
-> -CHECK_DATE_pn-x11vnc = "Apr 25, 2012"
->   RECIPE_UPSTREAM_DATE_pn-x11vnc = "Sep 13, 2011"
-> +CHECK_DATE_pn-x11vnc = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-xauth="1.0.5"
->   RECIPE_UPSTREAM_DATE_pn-xauth="Sep 24, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-xbacklight = "1.1.1"
-> @@ -1063,8 +1082,8 @@ CHECK_DATE_pn-zaurusd = "Jul 12, 2011"
->   RECIPE_NO_UPDATE_REASON_pn-zaurusd = "SVN rev 426 is last Stable release"
->   RECIPE_UPSTREAM_VERSION_pn-zeroconf = "0.9"
->   RECIPE_UPSTREAM_VERSION_pn-zip = "3.0"
-> -CHECK_DATE_pn-zip = "Apr 18, 2012"
->   RECIPE_UPSTREAM_DATE_pn-zip = "Sep 01, 2009"
-> +CHECK_DATE_pn-zip = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-zlib = "1.2.5"
->   RECIPE_UPSTREAM_DATE_pn-zlib = "Mar 01, 2010"
->   RECIPE_NO_UPDATE_REASON_pn-zlib = "zlib-1.2.5 is latest, version parser reports 121 in error"
-> --
-> 1.7.9.5
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
-
+Paul Eggleton
+Intel Open Source Technology Centre
 
