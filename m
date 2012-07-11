@@ -1,29 +1,31 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A80B7E00344
-	for <poky@yoctoproject.org>; Wed, 11 Jul 2012 08:34:31 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.3/8.14.3) with ESMTP id q6BFYUPU013536
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 11 Jul 2012 08:34:30 -0700 (PDT)
-Received: from bruce-ashfields-macbook.local (128.224.22.10) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.1.255.0; Wed, 11 Jul 2012 08:34:30 -0700
-Message-ID: <4FFD9D05.6040601@windriver.com>
-Date: Wed, 11 Jul 2012 11:34:29 -0400
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
-	rv:9.0) Gecko/20111222 Thunderbird/9.0.1
+Return-Path: <msundius@sundius.com>
+Received: from mail-gh0-f176.google.com (mail-gh0-f176.google.com
+	[209.85.160.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0255E00345
+	for <poky@yoctoproject.org>; Wed, 11 Jul 2012 12:05:53 -0700 (PDT)
+Received: by ghbz10 with SMTP id z10so1838269ghb.35
+	for <poky@yoctoproject.org>; Wed, 11 Jul 2012 12:05:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type
+	:x-gm-message-state;
+	bh=5KLTfXyoOUszgAGmj3DBzvmKTGcrhg/Bm1SBS+iVgYQ=;
+	b=MiN6pDQytR+CnIMWFvie759id7cy8x8YEjmsNmdNHSKd4CtHn7a6ClxQnJ1Xt0S4ha
+	H4LeKfuHXVAfqTZEswfQ8EHoD+RZmZOklke8YdAFcB8CESCXtsjKwH6yJnM1ekfNugeQ
+	ddolzowF015GZVRUZbtDGT5NJ3xA1zteSPK134rPbcj6A/6fcaCUjxgwxrd8EiUucZYP
+	wLSxlcqfru94net6Mt/L5rh3qeGg9khQTbwPN3hpMxvlsMHhl+WNotdSnKx1dEUetZGr
+	jFGOmoL0a08ar6Z/dOOexk8hDSUdY1VrdxMY333RTCkCPfesjafXTF1wi+Kd5uZ1ACx5
+	wMUg==
 MIME-Version: 1.0
-To: Saul Wold <saul.wold@intel.com>
-References: <cover.1342017991.git.bruce.ashfield@windriver.com>
-	<8eb56d8676650879a1551f532ace758bb0bf7939.1342017991.git.bruce.ashfield@windriver.com>
-	<4FFD944F.3050903@intel.com> <4FFD9563.7020304@windriver.com>
-	<4FFD9CB8.9080607@intel.com>
-In-Reply-To: <4FFD9CB8.9080607@intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>, "Purdie,
-	Richard" <richard.purdie@intel.com>
-Subject: Re: [PATCH 1/1] linux-yocto-3.0/meta-yocto: perf script fixes
+Received: by 10.60.24.7 with SMTP id q7mr20028069oef.54.1342033552796; Wed, 11
+	Jul 2012 12:05:52 -0700 (PDT)
+Received: by 10.76.85.65 with HTTP; Wed, 11 Jul 2012 12:05:52 -0700 (PDT)
+Date: Wed, 11 Jul 2012 15:05:52 -0400
+Message-ID: <CAGVhguGdhhqx=XqUFfaXYA8Ne2Yq2NFLbRLYYk0_yZ8HHSP4KQ@mail.gmail.com>
+From: C Michael Sundius <msundius@sundius.com>
+To: poky@yoctoproject.org
+X-Gm-Message-State: ALoCoQni20V72zM3kfL8jVPBIzRrpF5D+6/EZjNRgkY0M0lvhjKTrAQBF1sdAkBTQIbcp05iKzCt
+Subject: conga-b945 bsp support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,119 +37,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jul 2012 15:34:31 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 11 Jul 2012 19:05:54 -0000
+Content-Type: multipart/alternative; boundary=e89a8ff1c4e630ecde04c4928981
 
-On 12-07-11 11:33 AM, Saul Wold wrote:
-> On 07/11/2012 08:01 AM, Bruce Ashfield wrote:
->> On 12-07-11 10:57 AM, Saul Wold wrote:
->>> On 07/11/2012 07:49 AM, Bruce Ashfield wrote:
->>>> Updating the yocto reference boards to have the perf scripting fixes
->>>> from 3.2/3.4:
->>>>
->>>> cef17a1 perf: add sgidefs.h to for mips builds
->>>> 3258da3 perf: change --root to --prefix for python install
->>>> 1f9c25b perf: add 'libperl not found' warning
->>>> f2b1bf1 perf: use pkg-config instead of python-config
->>>> 568e05f perf tools: Add support to install perf python extension
->>>> 7e47f81 Revert "perf: hard-code NO_LIBPERL/NO_LIBPYTHON"
->>>>
->>>> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
->>>> ---
->>>> .../linux/linux-yocto-rt_3.0.bbappend | 6 +++---
->>>> .../recipes-kernel/linux/linux-yocto_3.0.bbappend | 1 +
->>>> 2 files changed, 4 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git
->>>> a/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
->>>> b/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
->>>> index fdd9f7d..274eb82 100644
->>>> --- a/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
->>>> +++ b/meta-yocto/recipes-kernel/linux/linux-yocto-rt_3.0.bbappend
->>>> @@ -4,13 +4,13 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
->>>> COMPATIBLE_MACHINE_atom-pc = "atom-pc"
->>>> KMACHINE_atom-pc = "atom-pc"
->>>> KBRANCH_atom-pc = "yocto/standard/preempt-rt/base"
->>>> -SRCREV_machine_pn-linux-yocto-rt_atom-pc =
->>>> "e67428d9966eecec4c081993dc64ceb5c0e64643"
->>>> +SRCREV_machine_pn-linux-yocto-rt_atom-pc =
->>>> "bbd5bfe49403fdcca294ca4b163d5f7195ea3a8e"
->>>>
->>>> # mpc8315e-rdb support
->>>> COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
->>>> KMACHINE_mpc8315e-rdb = "fsl-mpc8315e-rdb"
->>>> KBRANCH_mpc8315e-rdb = "yocto/standard/preempt-rt/base"
->>>> -SRCREV_machine_pn-linux-yocto-rt_mpc8315e-rdb =
->>>> "e67428d9966eecec4c081993dc64ceb5c0e64643"
->>>> +SRCREV_machine_pn-linux-yocto-rt_mpc8315e-rdb =
->>>> "bbd5bfe49403fdcca294ca4b163d5f7195ea3a8e"
->>>>
->>>> # beagleboard support - 3.0 support has not yet been completed, build
->>>> failure
->>>> #COMPATIBLE_MACHINE_beagleboard = "beagleboard"
->>>> @@ -22,4 +22,4 @@ SRCREV_machine_pn-linux-yocto-rt_mpc8315e-rdb =
->>>> "e67428d9966eecec4c081993dc64ceb
->>>> COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
->>>> KMACHINE_routerstationpro = "routerstationpro"
->>>> KBRANCH_routerstationpro = "yocto/standard/preempt-rt/routerstationpro"
->>>> -SRCREV_machine_pn-linux-yocto-rt_routerstationpro =
->>>> "94b9545c58bf4dee8321b800b90958d10875fda8"
->>>> +SRCREV_machine_pn-linux-yocto-rt_routerstationpro =
->>>> "634ba79510753eecd27a39a315f690f1c9d46efe"
->>>> diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
->>>> b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
->>>> index 6de9def..fc1a7df 100644
->>>> --- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
->>>> +++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.0.bbappend
->>>> @@ -8,6 +8,7 @@ SRCREV_machine_routerstationpro ?=
->>>> "af74f58ef6ffdc68cc77d314ad31bd6a322309d3"
->>>> SRCREV_machine_mpc8315e-rdb ?=
->>>> "0c781e306559d5e9816e202a60aa2543f4eea39e"
->>>> SRCREV_machine_beagleboard ?=
->>>> "567c989c90ce5f2c62f6ef788be763150b65a0fb"
->>>>
->>>> +
->>>> COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
->>>> COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
->>>> COMPATIBLE_MACHINE_beagleboard = "beagleboard"
->>>>
->>> I see changes for atom-pc, mpc, and routerstation, but not the
->>> beagleboard, does it not need the change also?
->>
->>
->> Not for -rt at least. I thought we disabled this for ARM. give me
->> a minute to double check .... it's easy enough to be safe, I'll
->> update them all regardless.
->>
-> Oh, I missed the -rt bit, so now I am again confused, you did not update
-> the regular images, or is that part of the meta/ change set?
->
-> It's not -rt that failed, it's that standard image.
+--e89a8ff1c4e630ecde04c4928981
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-I did a full update, just to be sure, all -rt and standard images
-are updated on the branch now, so we should be fully covered.
+I'm working on a project that is using a conga-b945 com express module.
+This board has:
 
-fun stuff :)
+an intel core duo t7400 (2.16 GHz, 4 MB L2 Cache, 34 W)
+an intel GME 82945 graphics and memory controller
+Hub: Intel=AE 82801GBM (ICH7-M) I/O Controller: Winbond 83627HG Ethernet PH=
+Y:
+Intel=AE 82562
 
-Cheers,
+is there a BSP definition for this board or one like it out there?
 
-Bruce
+thanks
+Mike
 
->
-> Sau!
->
->> Cheers,
->>
->> Bruce
->>
->>>
->>> Sau!
->>>
->>>
->>>
->>
->
->
+--e89a8ff1c4e630ecde04c4928981
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
+I&#39;m working on a project that is using a conga-b945 com express module.=
+ This board has:<div><span style=3D"background-color:rgb(255,255,255);color=
+:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-se=
+rif;font-size:12px;line-height:18px;text-align:left"><br>
+</span></div><div style=3D"text-align:-webkit-auto"><span style=3D"backgrou=
+nd-color:rgb(255,255,255);text-align:left">an intel core duo t7400</span><s=
+pan style=3D"background-color:rgb(255,255,255);color:rgb(51,51,51);font-fam=
+ily:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-serif;font-size:12px;line=
+-height:18px;text-align:left">=A0</span><span style=3D"background-color:rgb=
+(255,255,255);color:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39=
+;,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:left">(2.=
+16 GHz, 4 MB L2 Cache, 34 W)</span></div>
+<div style=3D"text-align:-webkit-auto"><span style=3D"background-color:rgb(=
+255,255,255);color:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39;=
+,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:left">an i=
+ntel GME 82945 graphics and memory controller</span></div>
+<div style=3D"text-align:-webkit-auto"><span style=3D"color:rgb(51,51,51);f=
+ont-family:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-serif;font-size:12=
+px;line-height:18px;text-align:left;background-color:rgb(255,255,255)">Hub:=
+ Intel=AE 82801GBM (ICH7-M) I/O Controller: Winbond 83627HG Ethernet PHY: I=
+ntel=AE 82562</span></div>
+<div style=3D"text-align:-webkit-auto"><span style=3D"background-color:rgb(=
+255,255,255);color:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39;=
+,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:left"><br>
+</span></div><div style=3D"text-align:left"><font color=3D"#333333" face=3D=
+"Arial, Helvetica Neue, Helvetica, sans-serif"><span style=3D"font-size:12p=
+x;line-height:18px">is there a BSP definition for this board or one like it=
+ out there?</span></font></div>
+<div style=3D"text-align:left"><font color=3D"#333333" face=3D"Arial, Helve=
+tica Neue, Helvetica, sans-serif"><span style=3D"font-size:12px;line-height=
+:18px"><br></span></font></div><div style=3D"text-align:left"><font color=
+=3D"#333333" face=3D"Arial, Helvetica Neue, Helvetica, sans-serif"><span st=
+yle=3D"font-size:12px;line-height:18px">thanks</span></font></div>
+<div style=3D"text-align:left"><font color=3D"#333333" face=3D"Arial, Helve=
+tica Neue, Helvetica, sans-serif"><span style=3D"font-size:12px;line-height=
+:18px">Mike</span></font></div><div style=3D"text-align:left"><font color=
+=3D"#333333" face=3D"Arial, Helvetica Neue, Helvetica, sans-serif"><span st=
+yle=3D"font-size:12px;line-height:18px"><br>
+</span></font></div>
 
+--e89a8ff1c4e630ecde04c4928981--
