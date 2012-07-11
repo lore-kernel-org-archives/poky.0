@@ -1,26 +1,38 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ABC39E00280
-	for <poky@yoctoproject.org>; Tue, 10 Jul 2012 00:52:09 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 10 Jul 2012 00:52:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.71,315,1320652800"; d="scan'208";a="120645988"
-Received: from unknown (HELO helios.localnet) ([10.252.121.7])
-	by AZSMGA002.ch.intel.com with ESMTP; 10 Jul 2012 00:52:08 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: "Iorga, Cristian" <cristian.iorga@intel.com>
-Date: Tue, 10 Jul 2012 08:52:07 +0100
-Message-ID: <2005498.qfgcbCYeBx@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.8.4 (Linux/3.2.0-26-generic-pae; KDE/4.8.4; i686; ; )
-In-Reply-To: <4FF72CFB.7030209@linux.intel.com>
-References: <1341585314-3345-1-git-send-email-cristian.iorga@intel.com>
-	<969F26A8BAB325438E7EB80D3C3134FB16165C71@IRSMSX102.ger.corp.intel.com>
-	<4FF72CFB.7030209@linux.intel.com>
+Return-Path: <scott.a.garman@intel.com>
+Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 287C2E00282
+	for <poky@yoctoproject.org>; Tue, 10 Jul 2012 21:41:58 -0700 (PDT)
+Received: from mail-pb0-f52.google.com ([209.85.160.52])
+	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 10 Jul 2012 21:41:57 -0700
+Received: by pbbro8 with SMTP id ro8so1386617pbb.25
+	for <poky@yoctoproject.org>; Tue, 10 Jul 2012 21:41:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:content-type:content-transfer-encoding:x-gm-message-state;
+	bh=yNBs1AjYwnYvBqIB98PrWOxvSUYdHdVHUsxOuSvB3OI=;
+	b=oXZF+zyDLlkV0P5nGQ/nwTbHzcQAUOinC+Enh77dFJpY/0qCevIhDMVUA9Pcu+/Llh
+	LE9Ewap67PJRRdrND+sWxC510fX3i9Hm1kpRkmE55vC5MKlHtvRwcTfbMjwX9eFV7iqI
+	o1NJQVs+fkpOQFWXYoN1Ar4fEpHhguzhbZJZ/+eF6vfk5fXeodJ6/v19Wy11T0tcCUkz
+	Jb1+xv21d8MhbV2T67ND7K35o9iFCIFUdvi2DSBB/hBiKA1SHvLkjCvmVWnfBFiMIpMl
+	JRKxTmPdb0jKJXEBtGKjOrVqmnfLXb+mgq/FV1wOpf/JQKfJ0z2YKNJToAeB9WsqyBLR
+	er8A==
+Received: by 10.68.221.38 with SMTP id qb6mr74555500pbc.144.1341981717281;
+	Tue, 10 Jul 2012 21:41:57 -0700 (PDT)
+Received: from [192.168.1.12] (c-76-105-137-48.hsd1.or.comcast.net.
+	[76.105.137.48])
+	by mx.google.com with ESMTPS id mt9sm909936pbb.14.2012.07.10.21.41.55
+	(version=SSLv3 cipher=OTHER); Tue, 10 Jul 2012 21:41:55 -0700 (PDT)
+Message-ID: <4FFD0425.7040004@intel.com>
+Date: Tue, 10 Jul 2012 21:42:13 -0700
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] Upstream tracking partial updates - observations while doing the updates
+To: openembedded-core@lists.openembedded.org
+X-Gm-Message-State: ALoCoQnj2gZx95ZJ8FnwRgeqK878UYlfLsVN6bhWXITs6nVERid7iRHci0FImUOCuKElAlxU67Ss
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: Upcoming Yocto 1.2.1 "denzil" release this week.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,57 +44,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Jul 2012 07:52:09 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Wed, 11 Jul 2012 04:41:58 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Cristian,
+Hello,
 
-On Friday 06 July 2012 11:22:51 Saul Wold wrote:
-> On 07/06/2012 07:44 AM, Iorga, Cristian wrote:
-> > 1.I don't know how to proceed with matchbox-keyboard.
-> 
-> Not sure I understand the question, what's the issue your trying to
-> procced with?
+After a review of the QA full pass test report for Yocto 1.2.1, the 
+release team has agreed to submit this release candidate as our final 
+release for 1.2.1. Song Liu will organize the release readiness 
+decision, and I expect Beth Flanagan will be able to perform the 
+official release by the end of this week.
 
- I think Ross may be able to help if there's specific issues with this.
+Unfortunately the timing of this is such that I will be out of the 
+office for the rest of this week. Saul Wold can handle any 
+questions/concerns in my absence.
 
-> > 7. libgsmd not updated; needs to be checked via SVN. Is deprecated ->
-> > should be replaced with something else; please advise
-> Well, here's where your involvement with the community comes into play,
-> can you advise me what you would replace it with?  Do you know who uses
-> it ?  Do other distributions like SHR or Angstrom depend on libgsmd?
-> Are there other layers that depend on it?  Ask in oe-devel.
+Thanks so much to everyone who contributed work that went into 1.2.1! We 
+now have 35 bugfixes and a few further enhancements to denzil since 1.2 
+to share with our users.
 
-libgsmd (not to be confused with libgsm) is well and truly dead, and I'm not 
-convinced it worked particularly well in the first place. I've sent a patch to 
-remove it and replace its usage with ofono (sorry Cristian I should have 
-notified you first; this was something that had been on my todo list for a 
-while.)
-
-> > 8. tinylogin is now integrated into busybox; please advise.
-> 
-> I seem to remember something about that, there was a reason, but I can't
-> recall why we have a separate version, Richard, Paul or Ross might have
-> some insight as to why we have it separate, maybe due to the
-> functionality it offers, you can look at the code for both and see if
-> there is a difference.
-
-This is a tricky one - IIRC, the problem is upstream has merged it into 
-busybox but that means the busybox executable has to be suid root. The BusyBox 
-developers claim that's not a problem because busybox drops privileges as soon 
-as it figures out it doesn't need them, but many are not satisfied by this. Thus 
-we've kept tinylogin separate. Long term this may become a problem 
-maintenance-wise, I'm not sure what the plan to address that is. FYI there was 
-a discussion about this on the OE-Core mailing list some months ago - have a 
-search for it and if you're still unsure, send something out to the OE-Core 
-list asking about it.
-
-Cheers,
-Paul
+Scott
 
 -- 
+Scott Garman
+Embedded Linux Engineer - Yocto Project
+Intel Open Source Technology Center
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
