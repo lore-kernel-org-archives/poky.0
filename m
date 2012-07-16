@@ -1,31 +1,28 @@
-Return-Path: <msundius@sundius.com>
-Received: from mail-gh0-f176.google.com (mail-gh0-f176.google.com
-	[209.85.160.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0255E00345
-	for <poky@yoctoproject.org>; Wed, 11 Jul 2012 12:05:53 -0700 (PDT)
-Received: by ghbz10 with SMTP id z10so1838269ghb.35
-	for <poky@yoctoproject.org>; Wed, 11 Jul 2012 12:05:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type
-	:x-gm-message-state;
-	bh=5KLTfXyoOUszgAGmj3DBzvmKTGcrhg/Bm1SBS+iVgYQ=;
-	b=MiN6pDQytR+CnIMWFvie759id7cy8x8YEjmsNmdNHSKd4CtHn7a6ClxQnJ1Xt0S4ha
-	H4LeKfuHXVAfqTZEswfQ8EHoD+RZmZOklke8YdAFcB8CESCXtsjKwH6yJnM1ekfNugeQ
-	ddolzowF015GZVRUZbtDGT5NJ3xA1zteSPK134rPbcj6A/6fcaCUjxgwxrd8EiUucZYP
-	wLSxlcqfru94net6Mt/L5rh3qeGg9khQTbwPN3hpMxvlsMHhl+WNotdSnKx1dEUetZGr
-	jFGOmoL0a08ar6Z/dOOexk8hDSUdY1VrdxMY333RTCkCPfesjafXTF1wi+Kd5uZ1ACx5
-	wMUg==
+Return-Path: <vishwasonu2000@gmail.com>
+Received: from mail-we0-f176.google.com (mail-we0-f176.google.com
+	[74.125.82.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CDBB2E0027D
+	for <poky@yoctoproject.org>; Mon, 16 Jul 2012 06:21:22 -0700 (PDT)
+Received: by weyu3 with SMTP id u3so3824862wey.35
+	for <poky@yoctoproject.org>; Mon, 16 Jul 2012 06:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=i/kbPv5C0tlpM9r05FPtOKTQVKD6Kf7XvVPJ63nsCsg=;
+	b=uWDg0E81pIzmy++TVlW/JMm4VNXHoaqHHy2P3Cjo6iVALawlZDNqTv6iILffUUOyW6
+	xlkQ0gZb64qqb4uPv6uFXKt7Vrx0cIFHR60HHUfCZctVxySFvhM0Uy5KOhqMYpU+xgXw
+	GOvLk9RJ2H3RpnWbKL4KU6uLmN48zGuajkfeuN1GnW3e9iIWbaRHbvuJzA3nZcv0dR+O
+	LDJIMje9jHp5eYQeLi89HhjqIu26Ofmt/RsAZo9SyEx/EjUpk50rGm74QCjm3SnfkpKw
+	43k6i/wUC/IL6y6AgWNxIo7PihN+KQX8zNs04ZcQzurCkiqJoWxpL/kHyFX0PCOrnSIn
+	VAbg==
 MIME-Version: 1.0
-Received: by 10.60.24.7 with SMTP id q7mr20028069oef.54.1342033552796; Wed, 11
-	Jul 2012 12:05:52 -0700 (PDT)
-Received: by 10.76.85.65 with HTTP; Wed, 11 Jul 2012 12:05:52 -0700 (PDT)
-Date: Wed, 11 Jul 2012 15:05:52 -0400
-Message-ID: <CAGVhguGdhhqx=XqUFfaXYA8Ne2Yq2NFLbRLYYk0_yZ8HHSP4KQ@mail.gmail.com>
-From: C Michael Sundius <msundius@sundius.com>
+Received: by 10.180.100.37 with SMTP id ev5mr18231696wib.5.1342444881447; Mon,
+	16 Jul 2012 06:21:21 -0700 (PDT)
+Received: by 10.180.109.227 with HTTP; Mon, 16 Jul 2012 06:21:21 -0700 (PDT)
+Date: Mon, 16 Jul 2012 18:51:21 +0530
+Message-ID: <CABRtByNGNXAdyzdeLoVe2JbZdry2i4w832oedPEunJs6JO11ow@mail.gmail.com>
+From: sonu vishwakarma <vishwasonu2000@gmail.com>
 To: poky@yoctoproject.org
-X-Gm-Message-State: ALoCoQni20V72zM3kfL8jVPBIzRrpF5D+6/EZjNRgkY0M0lvhjKTrAQBF1sdAkBTQIbcp05iKzCt
-Subject: conga-b945 bsp support
+Subject: ERROR : libtimedate-perl-native-1.20-r3: task do_compile: Failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,69 +34,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jul 2012 19:05:54 -0000
-Content-Type: multipart/alternative; boundary=e89a8ff1c4e630ecde04c4928981
+X-List-Received-Date: Mon, 16 Jul 2012 13:21:23 -0000
+X-Groupsio-MsgNum: 8054
+Content-Type: multipart/mixed; boundary=f46d041826d64a0b2b04c4f24ea8
 
---e89a8ff1c4e630ecde04c4928981
+--f46d041826d64a0b2b04c4f24ea8
+Content-Type: multipart/alternative; boundary=f46d041826d64a0b2204c4f24ea6
+
+--f46d041826d64a0b2204c4f24ea6
 Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
 
-I'm working on a project that is using a conga-b945 com express module.
-This board has:
+Hi ,
 
-an intel core duo t7400 (2.16 GHz, 4 MB L2 Cache, 34 W)
-an intel GME 82945 graphics and memory controller
-Hub: Intel=AE 82801GBM (ICH7-M) I/O Controller: Winbond 83627HG Ethernet PH=
-Y:
-Intel=AE 82562
+I am building poky working on bernard branch on Ubuntu 10.10 ,64 bit host.
+I'm getting the error while building mythtv in the package
+libtimedate-perl_1.20.bb which is one of its dependency.
+The error is as follows:
 
-is there a BSP definition for this board or one like it out there?
+**************************************
+| NOTE: make -e MAKEFLAGS=
+PASTHRU_INC=-isystem/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/include
+-O2
+CCFLAGS=-isystem/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/include
+-O2 LD=gcc
+| make: *** No rule to make target
+`/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/lib/perl/None/Config.pm',
+needed by `Makefile'.  Stop.
+| FATAL: oe_runmake failed
+| ERROR: Function 'do_compile' failed (see
+/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/work/i686-linux/libtimedate-perl-native-1.20-r3/temp/log.do_compile.20054
+for further information)
+NOTE: package libtimedate-perl-native-1.20-r3: task do_compile: FAILED
+****************************************
+Can anyone help me out of this error .
+Attaching the error log for more reference .
 
-thanks
-Mike
+Thanks in advance,
+Regards,
+Sonu Vishwakarma
 
---e89a8ff1c4e630ecde04c4928981
+--f46d041826d64a0b2204c4f24ea6
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-I&#39;m working on a project that is using a conga-b945 com express module.=
- This board has:<div><span style=3D"background-color:rgb(255,255,255);color=
-:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-se=
-rif;font-size:12px;line-height:18px;text-align:left"><br>
-</span></div><div style=3D"text-align:-webkit-auto"><span style=3D"backgrou=
-nd-color:rgb(255,255,255);text-align:left">an intel core duo t7400</span><s=
-pan style=3D"background-color:rgb(255,255,255);color:rgb(51,51,51);font-fam=
-ily:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-serif;font-size:12px;line=
--height:18px;text-align:left">=A0</span><span style=3D"background-color:rgb=
-(255,255,255);color:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39=
-;,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:left">(2.=
-16 GHz, 4 MB L2 Cache, 34 W)</span></div>
-<div style=3D"text-align:-webkit-auto"><span style=3D"background-color:rgb(=
-255,255,255);color:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39;=
-,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:left">an i=
-ntel GME 82945 graphics and memory controller</span></div>
-<div style=3D"text-align:-webkit-auto"><span style=3D"color:rgb(51,51,51);f=
-ont-family:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-serif;font-size:12=
-px;line-height:18px;text-align:left;background-color:rgb(255,255,255)">Hub:=
- Intel=AE 82801GBM (ICH7-M) I/O Controller: Winbond 83627HG Ethernet PHY: I=
-ntel=AE 82562</span></div>
-<div style=3D"text-align:-webkit-auto"><span style=3D"background-color:rgb(=
-255,255,255);color:rgb(51,51,51);font-family:Arial,&#39;Helvetica Neue&#39;=
-,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:left"><br>
-</span></div><div style=3D"text-align:left"><font color=3D"#333333" face=3D=
-"Arial, Helvetica Neue, Helvetica, sans-serif"><span style=3D"font-size:12p=
-x;line-height:18px">is there a BSP definition for this board or one like it=
- out there?</span></font></div>
-<div style=3D"text-align:left"><font color=3D"#333333" face=3D"Arial, Helve=
-tica Neue, Helvetica, sans-serif"><span style=3D"font-size:12px;line-height=
-:18px"><br></span></font></div><div style=3D"text-align:left"><font color=
-=3D"#333333" face=3D"Arial, Helvetica Neue, Helvetica, sans-serif"><span st=
-yle=3D"font-size:12px;line-height:18px">thanks</span></font></div>
-<div style=3D"text-align:left"><font color=3D"#333333" face=3D"Arial, Helve=
-tica Neue, Helvetica, sans-serif"><span style=3D"font-size:12px;line-height=
-:18px">Mike</span></font></div><div style=3D"text-align:left"><font color=
-=3D"#333333" face=3D"Arial, Helvetica Neue, Helvetica, sans-serif"><span st=
-yle=3D"font-size:12px;line-height:18px"><br>
-</span></font></div>
+<span><span><div>Hi ,</div></span><span><div><span><br></span></div>I am bu=
+ilding poky working on bernard branch on Ubuntu 10.10 ,64 bit host.</span><=
+/span><div><div><span>I&#39;m getting the error while building mythtv in th=
+e package <a href=3D"http://libtimedate-perl_1.20.bb">libtimedate-perl_1.20=
+.bb</a> which is one of its dependency.<br>
+The error is as follows: <br></span><br>***********************************=
+***<br>| NOTE: make -e MAKEFLAGS=3D PASTHRU_INC=3D-isystem/home/xbmc_11jul/=
+poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/incl=
+ude -O2 CCFLAGS=3D-isystem/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar=
+2012/build/tmp/sysroots/i686-linux/usr/include -O2 LD=3Dgcc<br>
+| make: *** No rule to make target `/home/xbmc_11jul/poky_xbmc_12july/poky_=
+xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/lib/perl/None/Config.pm&#3=
+9;, needed by `Makefile&#39;.=A0 Stop.<br>| FATAL: oe_runmake failed<br>| E=
+RROR: Function &#39;do_compile&#39; failed (see /home/xbmc_11jul/poky_xbmc_=
+12july/poky_xbmc_09Mar2012/build/tmp/work/i686-linux/libtimedate-perl-nativ=
+e-1.20-r3/temp/log.do_compile.20054 for further information)<br>
+NOTE: package libtimedate-perl-native-1.20-r3: task do_compile: FAILED<br>*=
+***************************************</div>
 
---e89a8ff1c4e630ecde04c4928981--
+</div><div><span><div>Can anyone help me out of this error .<br>Attaching t=
+he error log for more reference .<br><br></div>
+<div>Thanks in advance,</div><div>Regards,</div><div>Sonu Vishwakarma</div>=
+</span></div>
+
+--f46d041826d64a0b2204c4f24ea6--
+
+--f46d041826d64a0b2b04c4f24ea8
+Content-Type: application/octet-stream; name="libtimedate-perl_1.20.bb"
+Content-Disposition: attachment; filename="libtimedate-perl_1.20.bb"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_h4pl072m0
+
+REVTQ1JJUFRJT04gPSAiVGltZURhdGUgLSBwYXJzZXIgZm9yIGFic29sdXRlIHRpbWVzIgpTRUNU
+SU9OID0gImxpYnMiCiMgWW91IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIG1vZGlmeSBpdCB1
+bmRlciB0aGUgc2FtZSB0ZXJtcyBhcyBQZXJsIGl0c2VsZi4KTElDRU5TRSA9ICJBcnRpc3RpY3xH
+UEx2MSsiClBSID0gInIzIgoKClNSQ19VUkkgPSAiaHR0cDovL3NlYXJjaC5jcGFuLm9yZy9DUEFO
+L2F1dGhvcnMvaWQvRy9HQi9HQkFSUi9UaW1lRGF0ZS0ke1BWfS50YXIuZ3oiCgpTID0gIiR7V09S
+S0RJUn0vVGltZURhdGUtJHtQVn0iCgppbmhlcml0IGNwYW4KCkJCQ0xBU1NFWFRFTkQ9Im5hdGl2
+ZSIKClJERVBFTkRTXyR7UE59X3ZpcnRjbGFzcy1uYXRpdmUgPSAiIgpSREVQRU5EU18ke1BOfSAr
+PSAicGVybC1tb2R1bGUtY2FycCBwZXJsLW1vZHVsZS1leHBvcnRlciBwZXJsLW1vZHVsZS1zdHJp
+Y3QgcGVybC1tb2R1bGUtdGltZS1sb2NhbCIKUEFDS0FHRV9BUkNIID0gImFsbCIKClNSQ19VUklb
+bWQ1c3VtXSA9ICI3ZGE3NDUyYmNlNGM2ODRlNDIzOGU2ZDA5YjM5MDIwMCIKU1JDX1VSSVtzaGEy
+NTZzdW1dID0gImY4MjUxYTc5MWY2NjkyYzY5OTUyYjRhZjY5N2MwMWRmOTM5ODFhZDFhYjEzMzI3
+OWQwMzQ2NTZhMDNjZDM3NTUiCg==
+
+--f46d041826d64a0b2b04c4f24ea8--
