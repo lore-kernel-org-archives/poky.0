@@ -1,28 +1,41 @@
-Return-Path: <vishwasonu2000@gmail.com>
-Received: from mail-we0-f176.google.com (mail-we0-f176.google.com
-	[74.125.82.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CDBB2E0027D
-	for <poky@yoctoproject.org>; Mon, 16 Jul 2012 06:21:22 -0700 (PDT)
-Received: by weyu3 with SMTP id u3so3824862wey.35
-	for <poky@yoctoproject.org>; Mon, 16 Jul 2012 06:21:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=i/kbPv5C0tlpM9r05FPtOKTQVKD6Kf7XvVPJ63nsCsg=;
-	b=uWDg0E81pIzmy++TVlW/JMm4VNXHoaqHHy2P3Cjo6iVALawlZDNqTv6iILffUUOyW6
-	xlkQ0gZb64qqb4uPv6uFXKt7Vrx0cIFHR60HHUfCZctVxySFvhM0Uy5KOhqMYpU+xgXw
-	GOvLk9RJ2H3RpnWbKL4KU6uLmN48zGuajkfeuN1GnW3e9iIWbaRHbvuJzA3nZcv0dR+O
-	LDJIMje9jHp5eYQeLi89HhjqIu26Ofmt/RsAZo9SyEx/EjUpk50rGm74QCjm3SnfkpKw
-	43k6i/wUC/IL6y6AgWNxIo7PihN+KQX8zNs04ZcQzurCkiqJoWxpL/kHyFX0PCOrnSIn
-	VAbg==
+Return-Path: <scott.a.garman@intel.com>
+Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F041E00282
+	for <poky@yoctoproject.org>; Tue, 17 Jul 2012 10:33:56 -0700 (PDT)
+Received: from mail-gg0-f180.google.com ([209.85.161.180])
+	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 17 Jul 2012 10:33:17 -0700
+Received: by ggnf1 with SMTP id f1so618525ggn.25
+	for <poky@yoctoproject.org>; Tue, 17 Jul 2012 10:33:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject:references
+	:in-reply-to:content-type:content-transfer-encoding
+	:x-gm-message-state;
+	bh=28eY55tzzC7sZBK0yOTU6OFIDXxtd6lnUCrxfEuMY7I=;
+	b=WgO7srPFrIW7xH5Xr+nKmgjsS7VtrC5r4oTgePmCTkFUScoRIOIJd19rpGOlMc4hoh
+	Gcb+T+pVR7WOB310tsy0msabrcYysv96vV89InjR/bYLJqBlfCqi0/6YJcIz4CdBVDan
+	R4EK54sZT8E14UtRxc2OiyndAJc5i9GL9jWwNOFj43YirkKTcctte2z5GJDkI2A0RPwi
+	d2VVBgagqNo6k0NVWjmOHgvDtgmIDZ+TFiySCd96zlqKPChJQoRnx+I/4tIOzIxBsuf0
+	xmBOm5duLxVU7LR6YIhFNLoSsvB+mz5whb86PDtLozHE4yWVsmpyQMNqZrL6RJZVikzY
+	tAtQ==
+Received: by 10.66.76.34 with SMTP id h2mr6945816paw.16.1342546396265;
+	Tue, 17 Jul 2012 10:33:16 -0700 (PDT)
+Received: from [192.168.1.12] (c-76-105-137-48.hsd1.or.comcast.net.
+	[76.105.137.48])
+	by mx.google.com with ESMTPS id ru4sm14400474pbc.66.2012.07.17.10.33.13
+	(version=SSLv3 cipher=OTHER); Tue, 17 Jul 2012 10:33:14 -0700 (PDT)
+Message-ID: <5005A1E5.8000704@intel.com>
+Date: Tue, 17 Jul 2012 10:33:25 -0700
+From: Scott Garman <scott.a.garman@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
 MIME-Version: 1.0
-Received: by 10.180.100.37 with SMTP id ev5mr18231696wib.5.1342444881447; Mon,
-	16 Jul 2012 06:21:21 -0700 (PDT)
-Received: by 10.180.109.227 with HTTP; Mon, 16 Jul 2012 06:21:21 -0700 (PDT)
-Date: Mon, 16 Jul 2012 18:51:21 +0530
-Message-ID: <CABRtByNGNXAdyzdeLoVe2JbZdry2i4w832oedPEunJs6JO11ow@mail.gmail.com>
-From: sonu vishwakarma <vishwasonu2000@gmail.com>
 To: poky@yoctoproject.org
-Subject: ERROR : libtimedate-perl-native-1.20-r3: task do_compile: Failed
+References: <cover.1341511275.git.scott.a.garman@intel.com>
+	<b0edda9f3b91ae9ab25382399191f64a02e323b5.1341511275.git.scott.a.garman@intel.com>
+In-Reply-To: <b0edda9f3b91ae9ab25382399191f64a02e323b5.1341511275.git.scott.a.garman@intel.com>
+X-Gm-Message-State: ALoCoQkBuhqqktCDU0ZQWlpPgEwGKhCuCPw2zXDvUyCCGmwDO2OAL5ABLYuldr615FwD0ZkDn+oz
+Subject: Re: [PATCH 2/2] .gitignore: unmask meta-yocto files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,92 +47,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jul 2012 13:21:23 -0000
-X-Groupsio-MsgNum: 8054
-Content-Type: multipart/mixed; boundary=f46d041826d64a0b2b04c4f24ea8
+X-List-Received-Date: Tue, 17 Jul 2012 17:33:56 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---f46d041826d64a0b2b04c4f24ea8
-Content-Type: multipart/alternative; boundary=f46d041826d64a0b2204c4f24ea6
+On 07/05/2012 11:02 AM, Scott Garman wrote:
+> Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+> ---
+>   .gitignore |    1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/.gitignore b/.gitignore
+> index bd0acdc..4a3d660 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -10,6 +10,7 @@ sources/
+>   meta-*
+>   !meta-skeleton
+>   !meta-demoapps
+> +!meta-yocto
+>   *.swp
+>   *.orig
+>   *.rej
+>
 
---f46d041826d64a0b2204c4f24ea6
-Content-Type: text/plain; charset=ISO-8859-1
+I noticed this patch wasn't merged but the other one in this pull 
+request was. Is there a reason for not including this one?
 
-Hi ,
+Scott
 
-I am building poky working on bernard branch on Ubuntu 10.10 ,64 bit host.
-I'm getting the error while building mythtv in the package
-libtimedate-perl_1.20.bb which is one of its dependency.
-The error is as follows:
+-- 
+Scott Garman
+Embedded Linux Engineer - Yocto Project
+Intel Open Source Technology Center
 
-**************************************
-| NOTE: make -e MAKEFLAGS=
-PASTHRU_INC=-isystem/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/include
--O2
-CCFLAGS=-isystem/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/include
--O2 LD=gcc
-| make: *** No rule to make target
-`/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/lib/perl/None/Config.pm',
-needed by `Makefile'.  Stop.
-| FATAL: oe_runmake failed
-| ERROR: Function 'do_compile' failed (see
-/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/work/i686-linux/libtimedate-perl-native-1.20-r3/temp/log.do_compile.20054
-for further information)
-NOTE: package libtimedate-perl-native-1.20-r3: task do_compile: FAILED
-****************************************
-Can anyone help me out of this error .
-Attaching the error log for more reference .
 
-Thanks in advance,
-Regards,
-Sonu Vishwakarma
 
---f46d041826d64a0b2204c4f24ea6
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<span><span><div>Hi ,</div></span><span><div><span><br></span></div>I am bu=
-ilding poky working on bernard branch on Ubuntu 10.10 ,64 bit host.</span><=
-/span><div><div><span>I&#39;m getting the error while building mythtv in th=
-e package <a href=3D"http://libtimedate-perl_1.20.bb">libtimedate-perl_1.20=
-.bb</a> which is one of its dependency.<br>
-The error is as follows: <br></span><br>***********************************=
-***<br>| NOTE: make -e MAKEFLAGS=3D PASTHRU_INC=3D-isystem/home/xbmc_11jul/=
-poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/incl=
-ude -O2 CCFLAGS=3D-isystem/home/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar=
-2012/build/tmp/sysroots/i686-linux/usr/include -O2 LD=3Dgcc<br>
-| make: *** No rule to make target `/home/xbmc_11jul/poky_xbmc_12july/poky_=
-xbmc_09Mar2012/build/tmp/sysroots/i686-linux/usr/lib/perl/None/Config.pm&#3=
-9;, needed by `Makefile&#39;.=A0 Stop.<br>| FATAL: oe_runmake failed<br>| E=
-RROR: Function &#39;do_compile&#39; failed (see /home/xbmc_11jul/poky_xbmc_=
-12july/poky_xbmc_09Mar2012/build/tmp/work/i686-linux/libtimedate-perl-nativ=
-e-1.20-r3/temp/log.do_compile.20054 for further information)<br>
-NOTE: package libtimedate-perl-native-1.20-r3: task do_compile: FAILED<br>*=
-***************************************</div>
-
-</div><div><span><div>Can anyone help me out of this error .<br>Attaching t=
-he error log for more reference .<br><br></div>
-<div>Thanks in advance,</div><div>Regards,</div><div>Sonu Vishwakarma</div>=
-</span></div>
-
---f46d041826d64a0b2204c4f24ea6--
-
---f46d041826d64a0b2b04c4f24ea8
-Content-Type: application/octet-stream; name="libtimedate-perl_1.20.bb"
-Content-Disposition: attachment; filename="libtimedate-perl_1.20.bb"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_h4pl072m0
-
-REVTQ1JJUFRJT04gPSAiVGltZURhdGUgLSBwYXJzZXIgZm9yIGFic29sdXRlIHRpbWVzIgpTRUNU
-SU9OID0gImxpYnMiCiMgWW91IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIG1vZGlmeSBpdCB1
-bmRlciB0aGUgc2FtZSB0ZXJtcyBhcyBQZXJsIGl0c2VsZi4KTElDRU5TRSA9ICJBcnRpc3RpY3xH
-UEx2MSsiClBSID0gInIzIgoKClNSQ19VUkkgPSAiaHR0cDovL3NlYXJjaC5jcGFuLm9yZy9DUEFO
-L2F1dGhvcnMvaWQvRy9HQi9HQkFSUi9UaW1lRGF0ZS0ke1BWfS50YXIuZ3oiCgpTID0gIiR7V09S
-S0RJUn0vVGltZURhdGUtJHtQVn0iCgppbmhlcml0IGNwYW4KCkJCQ0xBU1NFWFRFTkQ9Im5hdGl2
-ZSIKClJERVBFTkRTXyR7UE59X3ZpcnRjbGFzcy1uYXRpdmUgPSAiIgpSREVQRU5EU18ke1BOfSAr
-PSAicGVybC1tb2R1bGUtY2FycCBwZXJsLW1vZHVsZS1leHBvcnRlciBwZXJsLW1vZHVsZS1zdHJp
-Y3QgcGVybC1tb2R1bGUtdGltZS1sb2NhbCIKUEFDS0FHRV9BUkNIID0gImFsbCIKClNSQ19VUklb
-bWQ1c3VtXSA9ICI3ZGE3NDUyYmNlNGM2ODRlNDIzOGU2ZDA5YjM5MDIwMCIKU1JDX1VSSVtzaGEy
-NTZzdW1dID0gImY4MjUxYTc5MWY2NjkyYzY5OTUyYjRhZjY5N2MwMWRmOTM5ODFhZDFhYjEzMzI3
-OWQwMzQ2NTZhMDNjZDM3NTUiCg==
-
---f46d041826d64a0b2b04c4f24ea8--
