@@ -1,19 +1,20 @@
 Return-Path: <nitin.a.kamble@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B0570E00288
-	for <poky@yoctoproject.org>; Thu, 19 Jul 2012 11:14:57 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5E17E002A5
+	for <poky@yoctoproject.org>; Thu, 19 Jul 2012 11:21:45 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 19 Jul 2012 11:14:43 -0700
+	by orsmga102.jf.intel.com with ESMTP; 19 Jul 2012 11:21:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="168595261"
+X-IronPort-AV: E=Sophos;i="4.67,352,1309762800"; d="scan'208";a="168597909"
 Received: from yocto-hm1.jf.intel.com ([10.23.232.32])
-	by orsmga001.jf.intel.com with ESMTP; 19 Jul 2012 11:14:43 -0700
+	by orsmga001.jf.intel.com with ESMTP; 19 Jul 2012 11:21:45 -0700
 From: nitin.a.kamble@intel.com
-To: poky@yoctoproject.org
-Date: Wed, 18 Jul 2012 11:14:14 -0700
-Message-Id: <cover.1342635153.git.nitin.a.kamble@intel.com>
+To: Openembedded-core@lists.openembedded.org,
+	poky@yoctoproject.org
+Date: Wed, 18 Jul 2012 11:21:17 -0700
+Message-Id: <cover.1342635547.git.nitin.a.kamble@intel.com>
 X-Mailer: git-send-email 1.7.3.4
-Subject: [PATCH 0/1] add downloadfilename parameter to bitbake wget fetcher
+Subject: [PATCH 0/1] V2 add downloadfilename to wget fetcher
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,9 +26,13 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jul 2012 18:14:57 -0000
+X-List-Received-Date: Thu, 19 Jul 2012 18:21:45 -0000
 
 From: Nitin A Kamble <nitin.a.kamble@intel.com>
+
+In this V2 commit, not required changes from __init__.py are removed.
+Thanks,
+Nitin
 
 The following changes since commit 5b014eae151a1584df4e3d3b96d18f9df3e55665:
 
@@ -40,9 +45,8 @@ are available in the git repository at:
 Nitin A Kamble (1):
   bitbake wget fetcher: add parameter: downloadfilename
 
- bitbake/lib/bb/fetch2/__init__.py |    4 ++++
- bitbake/lib/bb/fetch2/wget.py     |    9 ++++++++-
- 2 files changed, 12 insertions(+), 1 deletions(-)
+ bitbake/lib/bb/fetch2/wget.py |    9 ++++++++-
+ 1 files changed, 8 insertions(+), 1 deletions(-)
 
 -- 
 1.7.3.4
