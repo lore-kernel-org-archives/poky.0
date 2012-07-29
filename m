@@ -1,23 +1,32 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8A26FE002AA
-	for <poky@yoctoproject.org>; Thu, 26 Jul 2012 11:59:46 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 26 Jul 2012 11:59:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.67,351,1309762800"; d="scan'208";a="177969304"
-Received: from unknown (HELO [10.255.12.157]) ([10.255.12.157])
-	by orsmga002.jf.intel.com with ESMTP; 26 Jul 2012 11:59:46 -0700
-Message-ID: <501193A1.5020208@linux.intel.com>
-Date: Thu, 26 Jul 2012 11:59:45 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:13.0) Gecko/20120615 Thunderbird/13.0.1
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <1343137420-30809-1-git-send-email-cristian.iorga@intel.com>
-In-Reply-To: <1343137420-30809-1-git-send-email-cristian.iorga@intel.com>
-Subject: Re: [OE-core] [PATCH] Connectivity and multimedia manual packages
+Return-Path: <net147@gmail.com>
+Received: from mail-pb0-f48.google.com (mail-pb0-f48.google.com
+	[209.85.160.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DE93E0034B
+	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 18:18:17 -0700 (PDT)
+Received: by pbbrq8 with SMTP id rq8so8844508pbb.35
+	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 18:18:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:subject:date:message-id:x-mailer;
+	bh=91QYu4IT7NHl1CpehUGh0Y6IueOs4ONVhMYpCS5tYf8=;
+	b=PlUEWw0RxX9QXFUoG5rTW/o60/AebaSO2u/LbCyVRuv7170qs1X+dYZGl2Fi+5e0Aj
+	OmCtyHMfF79IZO84X12m2ms7shDBDgloEP5+W8Fjx0PfeEZh0MNU7NiYvwgepJgmmDDE
+	A8BJQRlXHPA0WZF3wn2s6hrMxEWWdEiL/xINM1R6t4kTtWF3Xwlr5jJJp3l/x0vRjHWj
+	ab2F8EMaaq7kO/6h2fLX14CXGebmwOM/6iBztu5xKh/UmnMuWxxJPA6ueDx4+11YIOtZ
+	seoCwd+WftcdFA0hUMffUnSN1iMDLb9+F7r+f7Duray7Y8/Y7PnOrfud6OTLWSlr59Cj
+	WJ5w==
+Received: by 10.68.224.225 with SMTP id rf1mr24723546pbc.55.1343524697034;
+	Sat, 28 Jul 2012 18:18:17 -0700 (PDT)
+Received: from net147.co.cc (60-242-179-244.static.tpgi.com.au.
+	[60.242.179.244])
+	by mx.google.com with ESMTPS id rg9sm4868033pbc.67.2012.07.28.18.18.13
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Sat, 28 Jul 2012 18:18:15 -0700 (PDT)
+From: Jonathan Liu <net147@gmail.com>
+To: poky@yoctoproject.org
+Date: Sun, 29 Jul 2012 11:18:08 +1000
+Message-Id: <1343524688-12488-1-git-send-email-net147@gmail.com>
+X-Mailer: git-send-email 1.7.11.3
+Subject: [PATCH] bison: apply remove-gets.patch to native build as well
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,138 +38,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Jul 2012 18:59:46 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 29 Jul 2012 01:18:17 -0000
 
-On 07/24/2012 06:43 AM, Cristian Iorga wrote:
-> Upstream updates checked.
->
-> Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
-> ---
->   .../conf/distro/include/upstream_tracking.inc      |   28 ++++++++++----------
->   1 file changed, 14 insertions(+), 14 deletions(-)
->
-> diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-> index 98e7d16..ba52d02 100644
-> --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-> +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-> @@ -187,7 +187,7 @@ RECIPE_UPSTREAM_VERSION_pn-eds-tools = "git"
->   RECIPE_UPSTREAM_VERSION_pn-eee-acpi-scripts = "1.1.12+9d4cdedca25b396405f8587f9c4fbf8229e041c2"
->   RECIPE_UPSTREAM_VERSION_pn-eggdbus = "0.6"
->   RECIPE_UPSTREAM_DATE_pn-eggdbus = "Nov 01, 2009"
-> -CHECK_DATE_pn-eggdbus = "Jul 06, 2012"
-> +CHECK_DATE_pn-eggdbus = "Jul 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-eglibc = "git:16540"
->   CHECK_DATE_pn-eglibc = "Jan 01, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-elfutils="0.148"
-> @@ -217,7 +217,7 @@ RECIPE_UPSTREAM_VERSION_pn-fixesproto = "5.0"
->   RECIPE_UPSTREAM_DATE_pn-fixesproto = "Mar 8, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-flac="1.2.1"
->   RECIPE_UPSTREAM_DATE_pn-flac= "Sep 8, 2007"
-> -CHECK_DATE_pn-flac = "Jul 06, 2012"
-> +CHECK_DATE_pn-flac = "Jul 24, 2012"
->   RECIPE_UPSTREAM_DATE_pn-flac="Sep 16, 2007"
->   RECIPE_UPSTREAM_VERSION_pn-flex = "2.5.35"
->   RECIPE_UPSTREAM_DATE_pn-flex = "Feb 02, 2008"
-> @@ -345,7 +345,7 @@ RECIPE_UPSTREAM_DATE_pn-iptables = "Apr 28, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-iputils="s20100418"
->   RECIPE_UPSTREAM_VERSION_pn-irda-utils = "0.9.18"
->   RECIPE_UPSTREAM_DATE_pn-irda-utils="Jul 10, 2006"
-> -CHECK_DATE_pn-irda-utils = "Jul 06, 2012"
-> +CHECK_DATE_pn-irda-utils = "Jul 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-iso-codes = "3.16"
->   RECIPE_UPSTREAM_VERSION_pn-jpeg = "8c"
->   CHECK_DATE_pn-jpeg = "Dec 24, 2011"
-> @@ -448,7 +448,7 @@ CHECK_DATE_pn-libgsmd = "Jul 06, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libgtkstylus = "0.5"
->   RECIPE_UPSTREAM_VERSION_pn-libical = "0.48"
->   RECIPE_UPSTREAM_DATE_pn-libical ="Dec 13, 2011"
-> -CHECK_DATE_pn-libical = "Jul 06, 2012"
-> +CHECK_DATE_pn-libical = "Jul 24, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libical = "Dec 13, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libice = "1.0.6"
->   RECIPE_UPSTREAM_DATE_pn-libice = "Aug 01, 2009"
-> @@ -486,7 +486,7 @@ RECIPE_UPSTREAM_VERSION_pn-liboil = "0.3.17"
->   RECIPE_UPSTREAM_DATE_pn-liboil = "Feb 01, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-libomxil = "0.9.3"
->   RECIPE_UPSTREAM_DATE_pn-libomxil = "May 20, 2011"
-> -CHECK_DATE_pn-libomxil = "Jul 06, 2012"
-> +CHECK_DATE_pn-libomxil = "Jul 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libopensync-plugin-evolution2 = "0.39"
->   RECIPE_UPSTREAM_VERSION_pn-libopensync = "0.39"
->   RECIPE_UPSTREAM_DATE_pn-libowl-av = "Dec 01, 2008"
-> @@ -499,9 +499,9 @@ RECIPE_UPSTREAM_VERSION_pn-libpcap="1.2.0"
->   RECIPE_UPSTREAM_DATE_pn-libpcap="Jul 24, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libpciaccess = "0.13.1"
->   RECIPE_UPSTREAM_DATE_pn-libpciaccess = "Apr 09, 2012"
-> -RECIPE_UPSTREAM_VERSION_pn-libpcre = "8.30"
-> -RECIPE_UPSTREAM_DATE_pn-libpcre = "Mar 01, 2012"
-> -CHECK_DATE_pn-libpcre = "Jul 06, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-libpcre = "8.31"
-> +RECIPE_UPSTREAM_DATE_pn-libpcre = "Jul 23, 2012"
-> +CHECK_DATE_pn-libpcre = "Jul 24, 2012"
->   RECIPE_NO_UPDATE_REASON_pn-libpng = "1.4.3 and later changes the API and breaks libmatchbox. Sticking with the 1.2.x series instead"
->   RECIPE_UPSTREAM_VERSION_pn-libpng = "1.5.11"
->   RECIPE_UPSTREAM_DATE_pn-libpng = "Jun 14, 2012"
-> @@ -514,7 +514,7 @@ RECIPE_UPSTREAM_VERSION_pn-librsvg = "2.32.1"
->   RECIPE_UPSTREAM_DATE_pn-librsvg = "Nov 13, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-libsamplerate0 = "0.1.8"
->   RECIPE_UPSTREAM_DATE_pn-libsamplerate0 = "Aug 15, 2011"
-> -CHECK_DATE_pn-libsamplerate0 = "Jul 06, 2012"
-> +CHECK_DATE_pn-libsamplerate0 = "Jul 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsdl = "1.2.15"
->   CHECK_DATE_pn-libsdl = "Mar 14, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsm = "1.1.1"
-> @@ -531,7 +531,7 @@ RECIPE_UPSTREAM_VERSION_pn-libtheora = "1.2.0"
->   RECIPE_UPSTREAM_VERSION_pn-libtimedate-perl = "1.20"
->   RECIPE_UPSTREAM_VERSION_pn-libtirpc = "0.2.2"
->   RECIPE_UPSTREAM_DATE_pn-libtirpc = "May 02, 2011"
-> -CHECK_DATE_pn-libtirpc = "Jul 06, 2012"
-> +CHECK_DATE_pn-libtirpc = "Jul 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libtool="2.4.2"
->   CHECK_DATE_pn-libtool = "Nov 28, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libunique = "2.91.4"
-> @@ -671,7 +671,7 @@ RECIPE_UPSTREAM_VERSION_pn-mdadm = "3.2.5"
->   RECIPE_UPSTREAM_DATE_pn-mdadm = "May 18, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-menu-cache = "0.3.3"
->   RECIPE_UPSTREAM_DATE_pn-menu-cache = "May 20, 2012"
-> -CHECK_DATE_pn-minicom = "Jul 06, 2012"
-> +CHECK_DATE_pn-minicom = "Jul 24, 2012"
->   RECIPE_UPSTREAM_DATE_pn-mesa-dri="Jun 17, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
->   RECIPE_UPSTREAM_VERSION_pn-metacity = "2.30.3"
-> @@ -826,7 +826,7 @@ RECIPE_UPSTREAM_DATE_pn-quicky = "Jun 18, 2008"
->   RECIPE_UPSTREAM_VERSION_pn-quilt="0.60"
->   RECIPE_UPSTREAM_VERSION_pn-quota = "4.00"
->   RECIPE_UPSTREAM_DATE_pn-quota = "Aug 17, 2011"
-> -CHECK_DATE_pn-quota = "Jul 06, 2012"
-> +CHECK_DATE_pn-quota = "Jul 24, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-randrproto = "1.3.2"
->   RECIPE_UPSTREAM_DATE_pn-randrproto = "Oct 29, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-readline = "6.2"
-> @@ -841,7 +841,7 @@ RECIPE_UPSTREAM_VERSION_pn-resourceproto = "1.2.0"
->   RECIPE_UPSTREAM_DATE_pn-resourceproto = "May 27, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-rpcbind = "0.2.0"
->   RECIPE_UPSTREAM_DATE_pn-rpcbind = "May 29, 2009"
-> -CHECK_DATE_pn-rpcbind = "Jul 06, 2012"
-> +CHECK_DATE_pn-rpcbind = "Jul 24, 2012"
->   RECIPE_UPSTREAM_DATE_pn-rpcbind = "May 01, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-rpm = "5.1.10"
->   RECIPE_UPSTREAM_DATE_pn-rpm = "Jan 01, 2010"
-> @@ -996,7 +996,7 @@ RECIPE_UPSTREAM_DATE_pn-which = "Aug 01, 2008"
->   CHECK_DATE_pn-which = "Nov 22, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-wireless-tools = "29"
->   RECIPE_UPSTREAM_DATE_pn-wireless-tools="Sep 18, 2007"
-> -CHECK_DATE_pn-wireless-tools = "Jul 06, 2012"
-> +CHECK_DATE_pn-wireless-tools = "Jul 24, 2012"
->   RECIPE_UPSTREAM_DATE_pn-wpa-supplicant="Sep 07, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-wv = "1.2.1"
->   RECIPE_UPSTREAM_DATE_pn-x11-common="Sep 22, 2008"
->
+In addition to the gets function possibly not being available with
+the target glibc, it may not be available with the host glibc either.
 
-Merged into Poky/Master
+Move remove-gets.patch from SRC_URI to BASE_SRC_URI to fix compile
+error for native build when host glibc does not have the gets function.
 
-Thanks
-	Sau!
+Signed-off-by: Jonathan Liu <net147@gmail.com>
+---
+ meta/recipes-devtools/bison/bison_2.5.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta/recipes-devtools/bison/bison_2.5.bb b/meta/recipes-devtools/bison/bison_2.5.bb
+index 687f06a..ae090d2 100644
+--- a/meta/recipes-devtools/bison/bison_2.5.bb
++++ b/meta/recipes-devtools/bison/bison_2.5.bb
+@@ -13,11 +13,11 @@ PR = "r2"
+ 
+ BASE_SRC_URI = "${GNU_MIRROR}/bison/bison-${PV}.tar.gz \
+ 	   file://m4.patch \
++	   file://remove-gets.patch \
+ 	  "
+ 
+ SRC_URI = "${BASE_SRC_URI} \
+            file://fix_cross_manpage_building.patch \
+-           file://remove-gets.patch \
+           "
+ 
+ SRC_URI[md5sum] = "687e1dcd29452789d34eaeea4c25abe4"
+-- 
+1.7.11.3
+
 
