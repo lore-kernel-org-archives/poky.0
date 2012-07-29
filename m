@@ -1,32 +1,36 @@
-Return-Path: <net147@gmail.com>
-Received: from mail-pb0-f48.google.com (mail-pb0-f48.google.com
-	[209.85.160.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DE93E0034B
-	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 18:18:17 -0700 (PDT)
-Received: by pbbrq8 with SMTP id rq8so8844508pbb.35
-	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 18:18:17 -0700 (PDT)
+Return-Path: <martin.jansa@gmail.com>
+Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
+	[209.85.212.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D76EE0034B
+	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 23:36:27 -0700 (PDT)
+Received: by wibhn17 with SMTP id hn17so701067wib.11
+	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 23:36:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=from:to:subject:date:message-id:x-mailer;
-	bh=91QYu4IT7NHl1CpehUGh0Y6IueOs4ONVhMYpCS5tYf8=;
-	b=PlUEWw0RxX9QXFUoG5rTW/o60/AebaSO2u/LbCyVRuv7170qs1X+dYZGl2Fi+5e0Aj
-	OmCtyHMfF79IZO84X12m2ms7shDBDgloEP5+W8Fjx0PfeEZh0MNU7NiYvwgepJgmmDDE
-	A8BJQRlXHPA0WZF3wn2s6hrMxEWWdEiL/xINM1R6t4kTtWF3Xwlr5jJJp3l/x0vRjHWj
-	ab2F8EMaaq7kO/6h2fLX14CXGebmwOM/6iBztu5xKh/UmnMuWxxJPA6ueDx4+11YIOtZ
-	seoCwd+WftcdFA0hUMffUnSN1iMDLb9+F7r+f7Duray7Y8/Y7PnOrfud6OTLWSlr59Cj
-	WJ5w==
-Received: by 10.68.224.225 with SMTP id rf1mr24723546pbc.55.1343524697034;
-	Sat, 28 Jul 2012 18:18:17 -0700 (PDT)
-Received: from net147.co.cc (60-242-179-244.static.tpgi.com.au.
-	[60.242.179.244])
-	by mx.google.com with ESMTPS id rg9sm4868033pbc.67.2012.07.28.18.18.13
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	bh=ZwrOIeAo0i14gRs5v8lMkeEn0Y1y7vpjDRlWIPPymVI=;
+	b=hcVdUDmUGSeceDCjp3NwpoVQV+s5DaASY0rv7e3H/Kuy7XudbATZuPIu3aJa5fR83z
+	7rKxIdKg/+PRxj8HMkA2Tdt+AYRK8ZMIF7MWox7HU0GiDHTgg1d4fAHkJkZBFpB1e1aH
+	FSwU+NEJDxyHu31OxBKBLzPujEqlQzJojG8AxMIsrR82wDNIDFi6hxBfJcfTYXK+Reou
+	ke0VrbW38Vv4HX9j8w/dIfW/nyP8hJPEAlFLcQCfmnrFqBDbKjmjoKp/Qb7hD0LnGiSW
+	dbGhZaHKneMyVxYR5vcSUcUcCgHEsxFyI8uRANSEYi9wtU27jQHGK2xZL2vFrFR3y1lI
+	ZDXA==
+Received: by 10.180.79.69 with SMTP id h5mr17664126wix.6.1343543786151;
+	Sat, 28 Jul 2012 23:36:26 -0700 (PDT)
+Received: from localhost ([94.230.152.246])
+	by mx.google.com with ESMTPS id w7sm8617033wiz.0.2012.07.28.23.36.24
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sat, 28 Jul 2012 18:18:15 -0700 (PDT)
-From: Jonathan Liu <net147@gmail.com>
-To: poky@yoctoproject.org
-Date: Sun, 29 Jul 2012 11:18:08 +1000
-Message-Id: <1343524688-12488-1-git-send-email-net147@gmail.com>
-X-Mailer: git-send-email 1.7.11.3
-Subject: [PATCH] bison: apply remove-gets.patch to native build as well
+	Sat, 28 Jul 2012 23:36:25 -0700 (PDT)
+Date: Sun, 29 Jul 2012 08:36:19 +0200
+From: Martin Jansa <martin.jansa@gmail.com>
+To: Jonathan Liu <net147@gmail.com>
+Message-ID: <20120729063619.GC3261@jama.jama.net>
+References: <1343524688-12488-1-git-send-email-net147@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <1343524688-12488-1-git-send-email-net147@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] bison: apply remove-gets.patch to native build as well
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,37 +42,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 29 Jul 2012 01:18:17 -0000
+X-List-Received-Date: Sun, 29 Jul 2012 06:36:27 -0000
+X-Groupsio-MsgNum: 8064
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="2/5bycvrmDh4d1IB"
+Content-Disposition: inline
 
-In addition to the gets function possibly not being available with
-the target glibc, it may not be available with the host glibc either.
+--2/5bycvrmDh4d1IB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Move remove-gets.patch from SRC_URI to BASE_SRC_URI to fix compile
-error for native build when host glibc does not have the gets function.
+On Sun, Jul 29, 2012 at 11:18:08AM +1000, Jonathan Liu wrote:
+> In addition to the gets function possibly not being available with
+> the target glibc, it may not be available with the host glibc either.
+>=20
+> Move remove-gets.patch from SRC_URI to BASE_SRC_URI to fix compile
+> error for native build when host glibc does not have the gets function.
 
-Signed-off-by: Jonathan Liu <net147@gmail.com>
----
- meta/recipes-devtools/bison/bison_2.5.bb | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This belongs to openembedded-core ML and there is one already.
 
-diff --git a/meta/recipes-devtools/bison/bison_2.5.bb b/meta/recipes-devtools/bison/bison_2.5.bb
-index 687f06a..ae090d2 100644
---- a/meta/recipes-devtools/bison/bison_2.5.bb
-+++ b/meta/recipes-devtools/bison/bison_2.5.bb
-@@ -13,11 +13,11 @@ PR = "r2"
- 
- BASE_SRC_URI = "${GNU_MIRROR}/bison/bison-${PV}.tar.gz \
- 	   file://m4.patch \
-+	   file://remove-gets.patch \
- 	  "
- 
- SRC_URI = "${BASE_SRC_URI} \
-            file://fix_cross_manpage_building.patch \
--           file://remove-gets.patch \
-           "
- 
- SRC_URI[md5sum] = "687e1dcd29452789d34eaeea4c25abe4"
--- 
-1.7.11.3
+Cheers,
 
+--=20
+Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
+--2/5bycvrmDh4d1IB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.19 (GNU/Linux)
+
+iEYEARECAAYFAlAU2eMACgkQN1Ujt2V2gBzaAgCgmz9+/+5qicNwtbbMauGC8hu3
+9m0Anjg8jg8d4+2mkococG5qcy65n97h
+=VGFO
+-----END PGP SIGNATURE-----
+
+--2/5bycvrmDh4d1IB--
