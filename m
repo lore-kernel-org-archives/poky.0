@@ -1,36 +1,33 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
-	[209.85.212.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D76EE0034B
-	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 23:36:27 -0700 (PDT)
-Received: by wibhn17 with SMTP id hn17so701067wib.11
-	for <poky@yoctoproject.org>; Sat, 28 Jul 2012 23:36:26 -0700 (PDT)
+Return-Path: <sidebranch.openembedded@gmail.com>
+Received: from mail-ey0-f176.google.com (mail-ey0-f176.google.com
+	[209.85.215.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BD40BE0027D
+	for <poky@yoctoproject.org>; Mon, 30 Jul 2012 15:03:34 -0700 (PDT)
+Received: by eaab14 with SMTP id b14so1358144eaa.35
+	for <poky@yoctoproject.org>; Mon, 30 Jul 2012 15:03:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=ZwrOIeAo0i14gRs5v8lMkeEn0Y1y7vpjDRlWIPPymVI=;
-	b=hcVdUDmUGSeceDCjp3NwpoVQV+s5DaASY0rv7e3H/Kuy7XudbATZuPIu3aJa5fR83z
-	7rKxIdKg/+PRxj8HMkA2Tdt+AYRK8ZMIF7MWox7HU0GiDHTgg1d4fAHkJkZBFpB1e1aH
-	FSwU+NEJDxyHu31OxBKBLzPujEqlQzJojG8AxMIsrR82wDNIDFi6hxBfJcfTYXK+Reou
-	ke0VrbW38Vv4HX9j8w/dIfW/nyP8hJPEAlFLcQCfmnrFqBDbKjmjoKp/Qb7hD0LnGiSW
-	dbGhZaHKneMyVxYR5vcSUcUcCgHEsxFyI8uRANSEYi9wtU27jQHGK2xZL2vFrFR3y1lI
-	ZDXA==
-Received: by 10.180.79.69 with SMTP id h5mr17664126wix.6.1343543786151;
-	Sat, 28 Jul 2012 23:36:26 -0700 (PDT)
-Received: from localhost ([94.230.152.246])
-	by mx.google.com with ESMTPS id w7sm8617033wiz.0.2012.07.28.23.36.24
+	h=from:to:cc:subject:date:message-id:x-mailer;
+	bh=4HyXrE+rgpLRYBXbJsbVtfcfwkHP92MP+80eOqoVh1M=;
+	b=U4tFlEWD25dtM6i7mrycrKyxV37hRNO+sbpwevUYe8UlZqmgXoCRcZ/G5vBQiXsaUj
+	HXQU3Hsa9GPkLKmY9V/48d0hbA52uVAmp97rShqURktqBC/CDsx85AFBFwbrR+C1i3kX
+	Sj1YDlwDC+BimivO5q7+KEp2HKUMtbOKd5cewIZHyjwKN+UmzAdUNPGZ/HnrUqeVJcAS
+	vNMIAZuyps02zm9IRkKq+1TrZV/l8VzVxmXwDB/jUQAa6EK+x4p9MHlCzyP+eInhqnBA
+	Dur/8PESL8nB5XaKMGTxO3WWQieGD6Rl19DMT1K9aC+bgdJiNXkT/g7OAELBdbF0I4J6
+	ESUA==
+Received: by 10.14.184.130 with SMTP id s2mr13760438eem.43.1343685813491;
+	Mon, 30 Jul 2012 15:03:33 -0700 (PDT)
+Received: from localhost.localdomain (095-097-098-131.static.chello.nl.
+	[95.97.98.131])
+	by mx.google.com with ESMTPS id 8sm31637168eeg.16.2012.07.30.15.03.32
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sat, 28 Jul 2012 23:36:25 -0700 (PDT)
-Date: Sun, 29 Jul 2012 08:36:19 +0200
-From: Martin Jansa <martin.jansa@gmail.com>
-To: Jonathan Liu <net147@gmail.com>
-Message-ID: <20120729063619.GC3261@jama.jama.net>
-References: <1343524688-12488-1-git-send-email-net147@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <1343524688-12488-1-git-send-email-net147@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] bison: apply remove-gets.patch to native build as well
+	Mon, 30 Jul 2012 15:03:32 -0700 (PDT)
+From: Leon Woestenberg <sidebranch.openembedded@gmail.com>
+To: poky@yoctoproject.org
+Date: Tue, 31 Jul 2012 00:03:27 +0200
+Message-Id: <1343685807-4157-1-git-send-email-sidebranch.openembedded@gmail.com>
+X-Mailer: git-send-email 1.7.0.4
+Cc: Leon Woestenberg <leon@sidebranch.com>
+Subject: [master] kernel.bbclass: Copy bounds.h only if it exists, needed for 2.6.x.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,41 +39,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 29 Jul 2012 06:36:27 -0000
-X-Groupsio-MsgNum: 8064
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="2/5bycvrmDh4d1IB"
-Content-Disposition: inline
+X-List-Received-Date: Mon, 30 Jul 2012 22:03:35 -0000
 
---2/5bycvrmDh4d1IB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Leon Woestenberg <leon@sidebranch.com>
 
-On Sun, Jul 29, 2012 at 11:18:08AM +1000, Jonathan Liu wrote:
-> In addition to the gets function possibly not being available with
-> the target glibc, it may not be available with the host glibc either.
->=20
-> Move remove-gets.patch from SRC_URI to BASE_SRC_URI to fix compile
-> error for native build when host glibc does not have the gets function.
+Linux 2.6.x kernels did not (all) have the bounds.h file, so copy
+only iff exists.
 
-This belongs to openembedded-core ML and there is one already.
+Signed-off-by: Leon Woestenberg <leon@sidebranch.com>
+---
+ meta/classes/kernel.bbclass |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-Cheers,
+diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
+index ab984e3..1d8dff9 100644
+--- a/meta/classes/kernel.bbclass
++++ b/meta/classes/kernel.bbclass
+@@ -188,7 +188,9 @@ kernel_do_install() {
+ 	fi
+ 
+ 	# Necessary for building modules like compat-wireless.
+-	cp include/generated/bounds.h $kerneldir/include/generated/bounds.h
++	if [ -f include/generated/bounds.h ]; then
++		cp include/generated/bounds.h $kerneldir/include/generated/bounds.h
++	fi
+ 
+ 	# Remove the following binaries which cause strip or arch QA errors
+ 	# during do_package for cross-compiled platforms
+-- 
+1.7.0.4
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
---2/5bycvrmDh4d1IB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.19 (GNU/Linux)
-
-iEYEARECAAYFAlAU2eMACgkQN1Ujt2V2gBzaAgCgmz9+/+5qicNwtbbMauGC8hu3
-9m0Anjg8jg8d4+2mkococG5qcy65n97h
-=VGFO
------END PGP SIGNATURE-----
-
---2/5bycvrmDh4d1IB--
