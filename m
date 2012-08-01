@@ -1,57 +1,31 @@
-Return-Path: <B29882@freescale.com>
-Received: from ch1outboundpool.messaging.microsoft.com
-	(ch1ehsobe004.messaging.microsoft.com [216.32.181.184])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1DCA4E00283
-	for <poky@yoctoproject.org>; Tue, 31 Jul 2012 15:06:28 -0700 (PDT)
-Received: from mail2-ch1-R.bigfish.com (10.43.68.251) by
-	CH1EHSOBE006.bigfish.com (10.43.70.56) with Microsoft SMTP Server id
-	14.1.225.23; Tue, 31 Jul 2012 22:06:26 +0000
-Received: from mail2-ch1 (localhost [127.0.0.1])	by mail2-ch1-R.bigfish.com
-	(Postfix) with ESMTP id 3CB0B260374;
-	Tue, 31 Jul 2012 22:06:26 +0000 (UTC)
-X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
-	H:mail.freescale.net; RD:none; EFVD:NLI
-X-SpamScore: -4
-X-BigFish: VS-4(zzbb2dI98dI9371I148cI1432Izz1202hzz8275bh8275dhz2dh2a8h668h839h8e2h8e3hf0ah107ah10d2hbe9i)
-Received: from mail2-ch1 (localhost.localdomain [127.0.0.1]) by mail2-ch1
-	(MessageSwitch) id 1343772383268727_4966;
-	Tue, 31 Jul 2012 22:06:23 +0000 (UTC)
-Received: from CH1EHSMHS014.bigfish.com (snatpool3.int.messaging.microsoft.com
-	[10.43.68.228])	by mail2-ch1.bigfish.com (Postfix) with ESMTP id
-	356C6200049; Tue, 31 Jul 2012 22:06:23 +0000 (UTC)
-Received: from mail.freescale.net (70.37.183.190) by CH1EHSMHS014.bigfish.com
-	(10.43.70.14) with Microsoft SMTP Server (TLS) id 14.1.225.23;
-	Tue, 31 Jul 2012 22:06:19 +0000
-Received: from 039-SN1MPN1-002.039d.mgd.msft.net ([169.254.2.109]) by
-	039-SN1MMR1-001.039d.mgd.msft.net ([10.84.1.13]) with mapi id
-	14.02.0298.005; Tue, 31 Jul 2012 17:06:18 -0500
-From: McClintock Matthew-B29882 <B29882@freescale.com>
-To: Scott Garman <scott.a.garman@intel.com>
-Thread-Topic: [poky] [denzil][PATCH 1/9] bitbake/fetch: Spell out which
-	fetcher backends support and recommend checksums
-Thread-Index: AQHNbqX2zHQCco3130e8Mjn8BFdUyZdEQIUAgAAA8ACAAAW8gIAAAKSA
-Date: Tue, 31 Jul 2012 22:06:17 +0000
-Message-ID: <CAEsOVNdR9Dc4zPw1yi2pktj61FTyYL+VTQa_uQ-3EeixDQop9A@mail.gmail.com>
-References: <cover.1341354357.git.raj.khem@gmail.com>
-	<f6a37520b3bcecef1618bf98a15eac5b69000b78.1341354357.git.raj.khem@gmail.com>
-	<CAEsOVNdkMmJT5T3zUbKHcFXEFWPbHJ-rXrSnU=aaeBUjE--rJw@mail.gmail.com>
-	<501850A0.1020302@intel.com>
-	<CAEsOVNdpWGp7rUbszWdSeu9u3w91Zk-j1u2FBJNO0f0UiZx39Q@mail.gmail.com>
-	<50185639.9020104@intel.com>
-In-Reply-To: <50185639.9020104@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [70.112.201.132]
+Return-Path: <ratheendran.s@gmail.com>
+Received: from mail-gh0-f176.google.com (mail-gh0-f176.google.com
+	[209.85.160.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5F02BE013BB
+	for <poky@yoctoproject.org>; Wed,  1 Aug 2012 11:01:06 -0700 (PDT)
+Received: by ghbz10 with SMTP id z10so8685583ghb.35
+	for <poky@yoctoproject.org>; Wed, 01 Aug 2012 11:01:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=wUrSLsOB42kjzxfE0v+NeZnHEwuCvUeTKTpXPl9nzA4=;
+	b=tczLg8CElc0bIpQaoHnHhor+W1cgr0Zt9DXBVbRRFjxz1oBVgeGk7/Tz5clZzyb6EA
+	XHxx/EBbgtXt4/ZPFzFT4vpI2ePkNJvXjr/+Z+Uag5vyML2J7F9jmhbZUtLDLbA/OL+Z
+	mFdIOai6nrpPFCp+AnUWqJRbcmuH6BuvoLEM3QdGuPBzFFruan2m2djl39cMumoyF79g
+	4iyZQ3zSbTb3SedUAHaGQaxCdjUtt3EtNWUB1jwg0+hUEl66XDO+mdZI+oMymfGgFoON
+	LGZtVfUmn7MNEAV2ScEK2fos1Zer8gZVLoOW58x3I9ycyBc3/YHbmEvAW/uFxEm9hW1f
+	A8nw==
 MIME-Version: 1.0
-X-OriginatorOrg: freescale.com
-Cc: McClintock Matthew-B29882 <B29882@freescale.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [denzil][PATCH 1/9] bitbake/fetch: Spell out which fetcher backends support and recommend checksums
+Received: by 10.50.41.165 with SMTP id g5mr6388569igl.13.1343844065422; Wed,
+	01 Aug 2012 11:01:05 -0700 (PDT)
+Received: by 10.50.135.10 with HTTP; Wed, 1 Aug 2012 11:01:05 -0700 (PDT)
+Date: Wed, 1 Aug 2012 23:31:05 +0530
+Message-ID: <CALM_QrXnC+y7S2EFq1bJhJxr5YVfgMvRuVx0BoTJ0+1TaGjUYQ@mail.gmail.com>
+From: Ratheendran R <ratheendran.s@gmail.com>
+To: poky@yoctoproject.org
+Subject: Qt embedded in
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: McClintock Matthew-B29882 <B29882@freescale.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -60,105 +34,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Jul 2012 22:06:28 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <115EBD1C3312B740AC89F1899B50068D@mgd.freescale.com>
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 01 Aug 2012 18:01:06 -0000
+Content-Type: multipart/alternative; boundary=14dae9340f6f272bfa04c6381480
 
-On Tue, Jul 31, 2012 at 5:03 PM, Scott Garman <scott.a.garman@intel.com> wr=
-ote:
-> On 07/31/2012 02:43 PM, McClintock Matthew-B29882 wrote:
->>
->> On Tue, Jul 31, 2012 at 4:39 PM, Scott Garman <scott.a.garman@intel.com>
->> wrote:
->>>
->>> On 07/30/2012 03:52 PM, McClintock Matthew-B29882 wrote:
->>>>
->>>>
->>>> On Tue, Jul 3, 2012 at 5:32 PM, Khem Raj <raj.khem@gmail.com> wrote:
->>>>>
->>>>>
->>>>> From: Richard Purdie <richard.purdie@linuxfoundation.org>
->>>>>
->>>>> There were some hardcoded behaviours in the system for which backends
->>>>> support checksums verses which backends recommend them verses which
->>>>> don't recommend them.
->>>>>
->>>>> This moves the functionality into specific fetchers and then makes th=
-e
->>>>> general code generic. This cleans up the codebase and fixes some corn=
-er
->>>>> cases such as trying to checksum directories returned by the git
->>>>> fetcher.
->>>>>
->>>>> (Bitbake rev: ef6d268f7b8527541a7fb044cf95a973be4097f4)
->>>>>
->>>>> Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
->>>>
->>>>
->>>>
->>>> This patch is causing the following issue in the denzil branch of poky=
-:
->>>>
->>>> NOTE: package libpam-1.1.5-r3: task do_fetch: Started
->>>> ERROR: Error executing a python function in
->>>>
->>>>
->>>> /local/home/mattsm/git/poky-upstream/meta/recipes-extended/pam/libpam_=
-1.1.5.bb:
->>>> IOError: [Errno 2] No such file or directory:
->>>>
->>>>
->>>> '/local/home/mattsm/git/poky-upstream/meta/recipes-extended/pam/libpam=
-/./pam.d/*'
->>>
->>>
->>>
->>> Thanks for testing and reporting this, Matthew. I have rebased my
->>> sgarman/denzil-1.2.2 branch to remove this commit.
->>>
->>> I'm going through my denzil queue of patches right now and hope to be o=
-n
->>> top
->>> of everything by EOD - I will send out an overall status email then in
->>> which
->>> I will also announce renaming my branch to simply sgarman/denzil-next.
->>
->>
->> Scott,
->>
->> I have a few more patches on my tree as well:
->>
->>
->> http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=3Dmattsm/d=
-enzil
->>
->> I will rebase once you are done.
->
->
-> I'm about to merge most of these, but the two recent ones with
-> "NEEDSTOUPSTREAM" git subjects are not in proper format and will need to =
-be
-> redone.
+--14dae9340f6f272bfa04c6381480
+Content-Type: text/plain; charset=ISO-8859-1
 
-Sorry, those are pending upstream patches being accepted. They can be
-a) ignored until I can cherry-pick from upstream or b) I can remove
-them for you.
+Hi all,
 
--M
+I am new to yocto linux distribution, I am trying out yocto 0.9 release
+which is of my interest
 
->
-> Scott
->
->
-> --
-> Scott Garman
-> Embedded Linux Engineer - Yocto Project
-> Intel Open Source Technology Center
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky=
+Yocto Project 0.9 Release Notes for Poky
+4.0<http://www.yoctoproject.org/download/yocto/yocto-project-0.9-release-notes-poky-4.0>
+ Version: 4.0.1 "Laverne"
+ Release date: 11 Mar 2011
+ Type: Yocto
 
+I am not able to find the recipe for Qt embedded 4.6.3,kindly let me know
+if that is missing from my observation,please let me the work around for
+this.
 
+Ratheendran
+
+--14dae9340f6f272bfa04c6381480
+Content-Type: text/html; charset=ISO-8859-1
+
+Hi all,<br><br>I am new to yocto linux distribution, I am trying out yocto 0.9 release which is of my interest<br><br><div class="views-field-title">
+                <span class="field-content"><a href="http://www.yoctoproject.org/download/yocto/yocto-project-0.9-release-notes-poky-4.0">Yocto Project 0.9 Release Notes for Poky 4.0</a></span>
+  </div>
+  
+  <div class="views-field-field-download-version-value">
+          <label class="views-label-field-download-version-value">
+        Version:
+      </label>
+                <span class="field-content">4.0.1 &quot;Laverne&quot;</span>
+  </div>
+  
+  <div class="views-field-created">
+          <label class="views-label-created">
+        Release date:
+      </label>
+                <span class="field-content">11 Mar 2011</span>
+  </div>
+  
+  <div class="views-field-field-download-type-value">
+          <label class="views-label-field-download-type-value">
+        Type:
+      </label>
+                <span class="field-content">Yocto<br><br></span>
+  </div>I am not able to find the recipe for Qt embedded 4.6.3,kindly let me know if that is missing from my observation,please let me the work around for this.<br><br>Ratheendran <br>
+
+--14dae9340f6f272bfa04c6381480--
