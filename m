@@ -1,35 +1,36 @@
-Return-Path: <cristian.iorga@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1C7D0E013BB
-	for <poky@yoctoproject.org>; Thu,  9 Aug 2012 21:25:58 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 09 Aug 2012 21:25:57 -0700
+Return-Path: <jessica.zhang@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B626FE013B2
+	for <poky@yoctoproject.org>; Thu,  9 Aug 2012 22:22:15 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 09 Aug 2012 22:22:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.77,744,1336374000"; d="scan'208";a="132248098"
-Received: from irsmsx103.ger.corp.intel.com ([163.33.3.157])
-	by AZSMGA002.ch.intel.com with ESMTP; 09 Aug 2012 21:25:56 -0700
-Received: from irsmsx104.ger.corp.intel.com (163.33.3.159) by
-	IRSMSX103.ger.corp.intel.com (163.33.3.157) with Microsoft SMTP Server
-	(TLS) id 14.1.355.2; Fri, 10 Aug 2012 05:25:55 +0100
-Received: from irsmsx102.ger.corp.intel.com ([169.254.2.176]) by
-	IRSMSX104.ger.corp.intel.com ([169.254.5.248]) with mapi id
-	14.01.0355.002; Fri, 10 Aug 2012 05:25:55 +0100
-From: "Iorga, Cristian" <cristian.iorga@intel.com>
-To: "Zhang, Jessica" <jessica.zhang@intel.com>, "poky@yoctoproject.org"
+X-IronPort-AV: E=Sophos;i="4.77,744,1336374000"; d="scan'208";a="178419485"
+Received: from orsmsx606.amr.corp.intel.com ([10.22.226.128])
+	by orsmga001.jf.intel.com with ESMTP; 09 Aug 2012 22:22:15 -0700
+Received: from orsmsx108.amr.corp.intel.com (10.22.225.40) by
+	orsmsx606.amr.corp.intel.com (10.22.226.128) with Microsoft SMTP Server
+	(TLS) id 8.2.255.0; Thu, 9 Aug 2012 22:22:14 -0700
+Received: from orsmsx101.amr.corp.intel.com ([169.254.8.106]) by
+	ORSMSX108.amr.corp.intel.com ([169.254.9.229]) with mapi id
+	14.01.0355.002; Thu, 9 Aug 2012 22:22:14 -0700
+From: "Zhang, Jessica" <jessica.zhang@intel.com>
+To: "Iorga, Cristian" <cristian.iorga@intel.com>, "poky@yoctoproject.org"
 	<poky@yoctoproject.org>
 Thread-Topic: [poky] [PATCH] Hob wizard-like reorganization
-Thread-Index: AQHNdYQk7dqWt3j8lEizqFNVEla6OZdQbxkAgACdi8CAANoRgIAAjDaw
-Date: Fri, 10 Aug 2012 04:25:54 +0000
-Message-ID: <969F26A8BAB325438E7EB80D3C3134FB1617AB1D@IRSMSX102.ger.corp.intel.com>
+Thread-Index: AQHNdYQmRY2xVDZ+JkmCcsBc4jRBSJdQf49AgAEDgACAAGqD8IAA/TQA//+SLeA=
+Date: Fri, 10 Aug 2012 05:22:14 +0000
+Message-ID: <C6510F6D410BB64A8C15398EDC6B847C46ACEA07@ORSMSX101.amr.corp.intel.com>
 References: <1344443835-15436-1-git-send-email-cristian.iorga@intel.com>
 	<C6510F6D410BB64A8C15398EDC6B847C46ACDF7B@ORSMSX101.amr.corp.intel.com>
 	<969F26A8BAB325438E7EB80D3C3134FB1617A577@IRSMSX102.ger.corp.intel.com>
 	<C6510F6D410BB64A8C15398EDC6B847C46ACE6CE@ORSMSX101.amr.corp.intel.com>
-In-Reply-To: <C6510F6D410BB64A8C15398EDC6B847C46ACE6CE@ORSMSX101.amr.corp.intel.com>
+	<969F26A8BAB325438E7EB80D3C3134FB1617AB1D@IRSMSX102.ger.corp.intel.com>
+In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB1617AB1D@IRSMSX102.ger.corp.intel.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [163.33.239.180]
+x-originating-ip: [10.22.254.140]
 MIME-Version: 1.0
 Subject: Re: [PATCH] Hob wizard-like reorganization
 X-BeenThere: poky@yoctoproject.org
@@ -43,10 +44,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Aug 2012 04:25:58 -0000
+X-List-Received-Date: Fri, 10 Aug 2012 05:22:15 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Cristian,
+
+I see your point.  But you also brought up a very interesting scenario.  I =
+thought with the change that you're implementing based on Belen's new desig=
+n, we try to streamline the process in 2 clear path:
+1. Just pick a predefined image and build image
+2. Edit image and go through the 2 steps linear path as your implementation=
+ to achieve customization
+
+But you mentioned that seems we still allow user to access the edit package=
+ in the build details pages, which in my mind should be eliminated.
+
+-----Original Message-----
+From: Iorga, Cristian
+Sent: Thursday, August 09, 2012 9:26 PM
+To: Zhang, Jessica; poky@yoctoproject.org
+Subject: RE: [poky] [PATCH] Hob wizard-like reorganization
 
 Hello Jessica,
 
@@ -54,8 +73,8 @@ I can do it this way, and in fact I did had a variant implementation with S=
 tep 1 of 2, etc, but, there is small issue with that.
 In the case of the following scenario:
 1. Start a build of quemux86, with core-image-sato as a target (no editing,=
- straight build from the "Image configuration" page)
-2. In the build details page, go to "Edit packages" page.
+ straight build from the "Image configuration" page) 2. In the build detail=
+s page, go to "Edit packages" page.
 3. The Edit Packages page starts, and it will show like this: "Step 2 of 2:=
  Edit Packages", which would be confusing, since there is no "Step 1 of 2".
 
@@ -73,7 +92,7 @@ Thanks,
 Cristian
 
 -----Original Message-----
-From: Zhang, Jessica=20
+From: Zhang, Jessica
 Sent: Thursday, August 09, 2012 11:55 PM
 To: Iorga, Cristian; poky@yoctoproject.org
 Subject: RE: [poky] [PATCH] Hob wizard-like reorganization
@@ -153,7 +172,7 @@ index 30eab29..4d2d947 100755
          self.builder.handler.build.model.connect_after("row-changed", self=
 .scroll_to_present_row, self.scrolled_view_build.get_vadjustment(), self.bu=
 ild_tv)
-=20
+
          self.button_box =3D gtk.HBox(False, 6)
 -        self.back_button =3D HobAltButton("<< Back to image configuration"=
 )
@@ -161,7 +180,7 @@ ild_tv)
          self.back_button.connect("clicked", self.back_button_clicked_cb)
          self.button_box.pack_start(self.back_button, expand=3DFalse, fill=
 =3DFalse)
-=20
+
 diff --git a/bitbake/lib/bb/ui/crumbs/builder.py b/bitbake/lib/bb/ui/crumbs=
 /builder.py
 index cb2338e..dd7ebe1 100755
@@ -170,15 +189,15 @@ index cb2338e..dd7ebe1 100755
 @@ -41,7 +41,7 @@ from bb.ui.crumbs.hig import CrumbsMessageDialog, ImageSe=
 lectionDialog, \  from bb.ui.crumbs.persistenttooltip import PersistentTool=
 tip  import bb.ui.crumbs.utils
-=20
+
 -hobVer =3D 20120530
 +hobVer =3D 20120808
-=20
+
  class Configuration:
      '''Represents the data structure of configuration.'''
 @@ -640,16 +640,28 @@ class Builder(gtk.Window):
              self.image_configuration_page.show_baseimg_selected()
-=20
+
          elif next_step =3D=3D self.RECIPE_SELECTION:
 -            pass
 +            if self.recipe_model.get_selected_image() =3D=3D self.recipe_m=
@@ -186,41 +205,41 @@ odel.__custom_image__:
 +                self.recipe_details_page.set_recipe_curr_tab(self.recipe_d=
 etails_page.ALL)
 +            else:
-+               =20
++
 + self.recipe_details_page.set_recipe_curr_tab(self.recipe_details_page.
 + INCLUDED)
-=20
+
          elif next_step =3D=3D self.PACKAGE_SELECTION:
 +            if self.recipe_model.get_selected_image() =3D=3D self.recipe_m=
 odel.__custom_image__:
 +                self.package_details_page.set_packages_curr_tab(self.packa=
 ge_details_page.ALL)
 +            else:
-+               =20
++
 + self.package_details_page.set_packages_curr_tab(self.package_details_p
 + age.INCLUDED)
              self.package_details_page.show_page(self.current_logfile)
-=20
+
 +
          elif next_step =3D=3D self.PACKAGE_GENERATING or next_step =3D=3D =
 self.FAST_IMAGE_GENERATING:
 -            # both PACKAGE_GENEATING and FAST_IMAGE_GENERATING share the s=
 ame page
-+            # both PACKAGE_GENERATING and FAST_IMAGE_GENERATING share=20
++            # both PACKAGE_GENERATING and FAST_IMAGE_GENERATING share
 + the same page
              self.build_details_page.show_page(next_step)
-=20
+
          elif next_step =3D=3D self.PACKAGE_GENERATED:
 +            if self.recipe_model.get_selected_image() =3D=3D self.recipe_m=
 odel.__custom_image__:
 +                self.package_details_page.set_packages_curr_tab(self.packa=
 ge_details_page.ALL)
 +            else:
-+               =20
++
 + self.package_details_page.set_packages_curr_tab(self.package_details_p
 + age.INCLUDED)
              self.package_details_page.show_page(self.current_logfile)
-=20
+
          elif next_step =3D=3D self.IMAGE_GENERATING:
 @@ -781,8 +793,6 @@ class Builder(gtk.Window):
          self.image_configuration_page.layer_button.set_sensitive(sensitive=
@@ -234,25 +253,25 @@ nsitive)
 ensitive)
          self.image_configuration_page.config_build_button.set_sensitive(se=
 nsitive)
-=20
+
          self.recipe_details_page.set_sensitive(sensitive)
 @@ -1270,6 +1280,9 @@ class Builder(gtk.Window):
      def show_recipes(self):
          self.switch_page(self.RECIPE_SELECTION)
-=20
+
 +    def show_image_details(self):
 +        self.switch_page(self.IMAGE_GENERATED)
 +
      def show_configuration(self):
          self.switch_page(self.BASEIMG_SELECTED)
-=20
+
 diff --git a/bitbake/lib/bb/ui/crumbs/hoblistmodel.py b/bitbake/lib/bb/ui/c=
 rumbs/hoblistmodel.py
 index 37cee78..3de9e5b 100644
 --- a/bitbake/lib/bb/ui/crumbs/hoblistmodel.py
 +++ b/bitbake/lib/bb/ui/crumbs/hoblistmodel.py
 @@ -566,9 +566,8 @@ class RecipeListModel(gtk.ListStore):
-=20
+
          # dummy image for prompt
          self.set(self.append(), self.COL_NAME, self.__custom_image__,
 -                 self.COL_DESC, "Use the 'View recipes' and 'View packages=
@@ -281,13 +300,13 @@ index 80332fe..6aeb6dc 100644
 der.recipe_model.__custom_image__:
 +            self.just_bake_button.hide()
 +            self.or_label.hide()
-=20
+
      def create_config_machine(self):
          self.machine_title =3D gtk.Label() @@ -207,22 +209,6 @@ class Imag=
 eConfigurationPage (HobPage):
          self.image_desc.set_justify(gtk.JUSTIFY_LEFT)
          self.image_desc.set_line_wrap(True)
-=20
+
 -        # button to view recipes
 -        icon_file =3D hic.ICON_RCIPE_DISPLAY_FILE
 -        hover_file =3D hic.ICON_RCIPE_HOVER_FILE
@@ -308,12 +327,12 @@ ges",
 tton_clicked_cb)
 -
          self.image_separator =3D gtk.HSeparator()
-=20
+
      def set_config_baseimg_layout(self):
 @@ -232,29 +218,27 @@ class ImageConfigurationPage (HobPage):
          self.gtable.attach(self.image_desc, 13, 38, 23, 28)
          self.gtable.attach(self.image_separator, 0, 40, 35, 36)
-=20
+
 -    def set_rcppkg_layout(self):
 -        self.gtable.attach(self.view_recipes_button, 0, 20, 28, 33)
 -        self.gtable.attach(self.view_packages_button, 20, 40, 28, 33)
@@ -322,7 +341,7 @@ tton_clicked_cb)
          # Create the "Build packages" and "Build image" buttons at the bot=
 tom
          button_box =3D gtk.HBox(False, 6)
-=20
+
          # create button "Build image"
 -        just_bake_button =3D HobButton("Build image")
 -        just_bake_button.set_size_request(205, 49)
@@ -363,13 +382,13 @@ cked_cb)
 licked_cb)
 +        button_box.pack_end(self.edit_image_button, expand=3DFalse,
 + fill=3DFalse)
-=20
+
          return button_box
-=20
+
 @@ -347,6 +331,10 @@ class ImageConfigurationPage (HobPage):
-=20
+
          self.show_baseimg_selected()
-=20
+
 +        if selected_image =3D=3D self.builder.recipe_model.__custom_image_=
 _:
 +            self.just_bake_button.hide()
@@ -377,12 +396,12 @@ _:
 +
          glib.idle_add(self.image_combo_changed_idle_cb, selected_image, se=
 lected_recipes, selected_packages)
-=20
+
      def _image_combo_connect_signal(self):
 @@ -426,17 +414,11 @@ class ImageConfigurationPage (HobPage):
          # Create a layer selection dialog
          self.builder.show_layer_selection_dialog()
-=20
+
 -    def view_recipes_button_clicked_cb(self, button):
 -        self.builder.show_recipes()
 -
@@ -391,12 +410,12 @@ lected_recipes, selected_packages)
 -
      def just_bake_button_clicked_cb(self, button):
          self.builder.just_bake()
-=20
+
 -    def build_packages_button_clicked_cb(self, button):
 -        self.builder.build_packages()
 +    def edit_image_button_clicked_cb(self, button):
 +        self.builder.show_recipes()
-=20
+
      def template_button_clicked_cb(self, button):
          response, path =3D self.builder.show_load_template_dialog()
 diff --git a/bitbake/lib/bb/ui/crumbs/packageselectionpage.py b/bitbake/lib=
@@ -408,24 +427,24 @@ index d101535..3576ed5 100755
                        }]
          }
      ]
-+   =20
++
 +    (INCLUDED,
 +     ALL) =3D range(2)
-=20
+
      def __init__(self, builder):
 -        super(PackageSelectionPage, self).__init__(builder, "Packages")
 +        super(PackageSelectionPage, self).__init__(builder, "Edit
 + packages")
-=20
+
          # set invisiable members
          self.recipe_model =3D self.builder.recipe_model @@ -110,7 +113,7 @=
 @ class PackageSelectionPage (HobPage):
          self.create_visual_elements()
-=20
+
      def included_clicked_cb(self, button):
 -        self.ins.set_current_page(0)
 +        self.ins.set_current_page(self.INCLUDED)
-=20
+
      def create_visual_elements(self):
          self.label =3D gtk.Label("Packages included: 0\nSelected packages =
 size: 0 MB") @@ -154,7 +157,7 @@ class PackageSelectionPage (HobPage):
@@ -433,17 +452,17 @@ size: 0 MB") @@ -154,7 +157,7 @@ class PackageSelectionPage (HobPage):
 d_cb)
          self.button_box.pack_end(self.build_image_button, expand=3DFalse, =
 fill=3DFalse)
-=20
+
 -        self.back_button =3D HobAltButton("<< Back to image configuration"=
 )
 +        self.back_button =3D HobAltButton('<< Back')
          self.back_button.connect("clicked", self.back_button_clicked_cb)
          self.button_box.pack_start(self.back_button, expand=3DFalse, fill=
 =3DFalse)
-=20
+
 @@ -189,7 +192,10 @@ class PackageSelectionPage (HobPage):
          self.builder.build_image()
-=20
+
      def back_button_clicked_cb(self, button):
 -        self.builder.show_configuration()
 +        if self.builder.current_step =3D=3D  self.builder.PACKAGE_GENERATE=
@@ -452,7 +471,7 @@ D:
 +        elif self.builder.previous_step =3D=3D  self.builder.IMAGE_GENERAT=
 ED:
 +            self.builder.show_image_details()
-=20
+
      def _expand_all(self):
          for tab in self.tables:
 @@ -294,3 +300,5 @@ class PackageSelectionPage (HobPage):
@@ -460,7 +479,7 @@ ED:
  paths[0])
              self.package_model.foreach(self.foreach_cell_change_font, chil=
 d_path)
-=20
+
 +    def set_packages_curr_tab(self, curr_page):
 +        self.ins.set_current_page(curr_page)
 diff --git a/bitbake/lib/bb/ui/crumbs/recipeselectionpage.py b/bitbake/lib/=
@@ -472,27 +491,27 @@ index af68f2a..d8e71b0 100755
                        }]
          }
      ]
-+   =20
++
 +    (INCLUDED,
 +     ALL,
 +     TASKS) =3D range(3)
-=20
+
      def __init__(self, builder =3D None):
 -        super(RecipeSelectionPage, self).__init__(builder, "Recipes")
 +        super(RecipeSelectionPage, self).__init__(builder, "Edit
 + recipes")
-=20
+
 -        # set invisiable members
 +        # set invisible members
          self.recipe_model =3D self.builder.recipe_model
-=20
+
          # create visual elements
          self.create_visual_elements()
-=20
+
      def included_clicked_cb(self, button):
 -        self.ins.set_current_page(0)
 +        self.ins.set_current_page(self.INCLUDED)
-=20
+
      def create_visual_elements(self):
          self.eventbox =3D self.add_onto_top_bar(None, 73) @@ -180,7 +184,7=
  @@ class RecipeSelectionPage (HobPage):
@@ -500,16 +519,16 @@ index af68f2a..d8e71b0 100755
 clicked_cb)
          button_box.pack_end(self.build_packages_button, expand=3DFalse, fi=
 ll=3DFalse)
-=20
+
 -        self.back_button =3D HobAltButton("<< Back to image configuration"=
 )
 +        self.back_button =3D HobAltButton('<< Back')
          self.back_button.connect("clicked", self.back_button_clicked_cb)
          button_box.pack_start(self.back_button, expand=3DFalse, fill=3DFal=
 se)
-=20
+
 @@ -261,3 +265,6 @@ class RecipeSelectionPage (HobPage):
-=20
+
      def after_fadeout_checkin_include(self, table, ctrl, cell, tree):
          tree.set_model(self.recipe_model.tree_model(self.pages[0]['filter'=
 ]))
