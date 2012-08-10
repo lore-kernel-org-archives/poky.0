@@ -1,29 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E6526E0034A
-	for <poky@yoctoproject.org>; Fri, 10 Aug 2012 07:58:40 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 49C60F81242; Fri, 10 Aug 2012 08:58:40 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 800B2F81239;
-	Fri, 10 Aug 2012 08:58:39 -0600 (MDT)
-Message-ID: <502521A9.5030700@mlbassoc.com>
-Date: Fri, 10 Aug 2012 08:58:49 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:14.0) Gecko/20120714 Thunderbird/14.0
-MIME-Version: 1.0
-To: "Luke A. Guest" <laguest@archeia.com>
-References: <1344533174.4828.29.camel@rogue> <5023F425.1090801@mlbassoc.com>
-	<1344610399.4828.31.camel@rogue>
-In-Reply-To: <1344610399.4828.31.camel@rogue>
-Cc: poky@yoctoproject.org
-Subject: Re: [denzil][meta-ti] Problems building compiler for Pandaboard
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0315E0034A
+	for <poky@yoctoproject.org>; Fri, 10 Aug 2012 09:13:51 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 10 Aug 2012 09:13:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.77,745,1336374000"; d="scan'208";a="206252217"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.121.78])
+	by fmsmga002.fm.intel.com with ESMTP; 10 Aug 2012 09:13:50 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org,
+	Scott Garman <scott.a.garman@intel.com>
+Date: Fri, 10 Aug 2012 17:13:45 +0100
+Message-Id: <cover.1344615154.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [denzil][PATCH 0/1] denzil fix for bitbake
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,25 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Aug 2012 14:58:41 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 10 Aug 2012 16:13:51 -0000
 
-On 2012-08-10 08:53, Luke A. Guest wrote:
-> On Thu, 2012-08-09 at 11:32 -0600, Gary Thomas wrote:
->
->> Try cleaning out your build tree (remove sstate-cache/ and tmp/) and run
->> it again.  The error you are seeing is related to reusing the same tree
->> with [somewhat] different target machines.
->
-> I did this and did it get further, failed somewhere else though.
->
+A single bitbake patch cherry-picked from master for denzil-next.
 
-Without more information, it will be hard for anyone to help you out :-(
+
+The following changes since commit 73cdebf60df225ee10f2eb215935be3b61e1b831:
+
+  documentation/dev-manual/dev-manual-kernel-appendix.xml: Add note about conflict (2012-06-29 15:54:26 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/denzil-fixes-bitbake
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/denzil-fixes-bitbake
+
+Paul Eggleton (1):
+  cooker: fix UnboundLocalError when exception occurs during parsing
+
+ bitbake/lib/bb/cooker.py |    2 ++
+ 1 file changed, 2 insertions(+)
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.9.5
+
 
