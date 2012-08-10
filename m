@@ -1,24 +1,24 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A55F2E01404
-	for <poky@yoctoproject.org>; Fri, 10 Aug 2012 09:13:52 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 10 Aug 2012 09:13:52 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 227D9E0034A
+	for <poky@yoctoproject.org>; Fri, 10 Aug 2012 10:47:04 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 10 Aug 2012 10:47:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.77,745,1336374000"; d="scan'208";a="206252226"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.121.78])
-	by fmsmga002.fm.intel.com with ESMTP; 10 Aug 2012 09:13:51 -0700
+X-IronPort-AV: E=Sophos;i="4.77,747,1336374000"; d="scan'208";a="132765770"
+Received: from unknown (HELO helios.localnet) ([10.252.121.78])
+	by AZSMGA002.ch.intel.com with ESMTP; 10 Aug 2012 10:47:02 -0700
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org,
-	Scott Garman <scott.a.garman@intel.com>
-Date: Fri, 10 Aug 2012 17:13:46 +0100
-Message-Id: <f337cfe301cd00c296fe771c4f29eb133ff21fb3.1344615154.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1344615154.git.paul.eggleton@linux.intel.com>
-References: <cover.1344615154.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1344615154.git.paul.eggleton@linux.intel.com>
-References: <cover.1344615154.git.paul.eggleton@linux.intel.com>
-Subject: [denzil][PATCH 1/1] cooker: fix UnboundLocalError when exception occurs during parsing
+To: Wangdawei <kyle.wangdawei@huawei.com>
+Date: Fri, 10 Aug 2012 18:47:01 +0100
+Message-ID: <1856518.ulv8gcrKua@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.9 (Linux/3.2.0-27-generic-pae; KDE/4.9.0; i686; ; )
+In-Reply-To: <7E29EF69110C17499E6B3A9844CD4FD917AE81D3@szxeml526-mbs.china.huawei.com>
+References: <7E29EF69110C17499E6B3A9844CD4FD917AE81D3@szxeml526-mbs.china.huawei.com>
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: The problem of MULTILIB in poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,42 +30,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Aug 2012 16:13:52 -0000
+X-List-Received-Date: Fri, 10 Aug 2012 17:47:04 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-Fix a recent regression where we see the following additional error
-after an error occurs during parsing:
+On Friday 10 August 2012 06:59:12 Wangdawei wrote:
+> Hi
+>          I have faced a problem about the MULTILIB in poky , that is I
+> enable the MULTILIB in the local.conf like this: require conf/multilib.conf
+> MULTILIBS = "multilib:lib32"
+> DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
+> IMAGE_INSTALL = "lib32-connman"
+> 
+> And I have my own layer name meta-rtos. I set the layer.conf like this:
+> # We have a conf and classes directory, add to BBPATH
+> BBPATH := "${BBPATH}:${LAYERDIR}"
+> 
+> # We have a packages directory, add to BBFILES
+> BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
+>                                ${LAYERDIR}/recipes-*/*/*.bbappend"
+> 
+> BBFILE_COLLECTIONS += "rtos"
+> BBFILE_PATTERN_rtos := "^${LAYERDIR}/"
+> BBFILE_PRIORITY_rtos = "8"
+> 
+>          The problem is that I compile a package "bitbake lib32-ncurses" ,
+> poky find the sourcecode from meta not from meta-rtos , because the version
+> in meta-rtos is 5.7 the version in meta is 5.9 . So I want to know why the
+> problem occur? Why the priority have no effect in MULTILIB ? Is there any
+> problem of my configure file ?
 
-ERROR: Command execution failed: Traceback (most recent call last):
-  File "/home/paul/poky/poky/bitbake/lib/bb/command.py", line 84, in runAsyncCommand
-    self.cooker.updateCache()
-  File "/home/paul/poky/poky/bitbake/lib/bb/cooker.py", line 1202, in updateCache
-    if not self.parser.parse_next():
-  File "/home/paul/poky/poky/bitbake/lib/bb/cooker.py", line 1672, in parse_next
-    self.virtuals += len(result)
-UnboundLocalError: local variable 'result' referenced before assignment
+It seems to me this is a bug - you can see it even with native/nativesdk 
+versions of ncurses, so I suspect it applies to anything using BBCLASSEXTEND. 
+I've filed a bug for this:
 
-(Bitbake rev: 1ae0181ba49ccfcb2d889de5dd1d8912b9e49157)
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=2933
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- bitbake/lib/bb/cooker.py |    2 ++
- 1 file changed, 2 insertions(+)
+As a workaround you should be able to do the following:
 
-diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
-index 4a4dc38..4016f3b 100644
---- a/bitbake/lib/bb/cooker.py
-+++ b/bitbake/lib/bb/cooker.py
-@@ -1644,6 +1644,8 @@ class CookerParser(object):
-                     yield result
- 
-     def parse_next(self):
-+        result = []
-+        parsed = None
-         try:
-             parsed, result = self.results.next()
-         except StopIteration:
+PREFERRED_VERSION_lib32-ncurses = "5.7"
+
+Cheers,
+Paul
+
 -- 
-1.7.9.5
 
+Paul Eggleton
+Intel Open Source Technology Centre
 
