@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3FC41E01404
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:45 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DA1A1E01439
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:47 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 08CE83042E
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:39 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 269123043B
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:42 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:19:56 -0700
-Message-Id: <5d7ef59d947315f87e5fbb8ad4101bb0d0d628f4.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:19:57 -0700
+Message-Id: <c921dd0a799a351cd4f1ec8a19728b7035f70fc1.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 08CE83042E.7813D
+X-MailScanner-ID: 269123043B.4AAC0
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 30/57] task-core-tools-testapps.bb: kexec-tools does not work on e5500-64b parts
+Subject: [PATCH 31/57] image_types.bbclass: redefine EXTRA_IMAGECMD_jffs2 to leverage siteinfo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,33 +35,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:21:45 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:21:48 -0000
 
-From: Matthew McClintock <msm@freescale.com>
+From: Ting Liu <b28495@freescale.com>
 
-This prevents kexec from building for this part since it does not work
+(From OE-Core rev: 7c803cea58737ea0abc62cd21c3813d955f07224)
 
-(From OE-Core rev: c7beda1b779ce189c614fcce13e9ccf2c1b4ca6c)
-
-Signed-off-by: Matthew McClintock <msm@freescale.com>
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+Signed-off-by: Ting Liu <b28495@freescale.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../recipes-core/tasks/task-core-tools-testapps.bb |    1 +
- 1 file changed, 1 insertion(+)
+ meta/classes/image_types.bbclass |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/meta/recipes-core/tasks/task-core-tools-testapps.bb b/meta/recipes-core/tasks/task-core-tools-testapps.bb
-index b5847f8..bdd0d05 100644
---- a/meta/recipes-core/tasks/task-core-tools-testapps.bb
-+++ b/meta/recipes-core/tasks/task-core-tools-testapps.bb
-@@ -22,6 +22,7 @@ KEXECTOOLS ?= "kexec"
- KEXECTOOLS_mips ?= ""
- KEXECTOOLS_mipsel ?= ""
- KEXECTOOLS_powerpc ?= ""
-+KEXECTOOLS_e5500-64b ?= ""
+diff --git a/meta/classes/image_types.bbclass b/meta/classes/image_types.bbclass
+index b590ae1..55f122e 100644
+--- a/meta/classes/image_types.bbclass
++++ b/meta/classes/image_types.bbclass
+@@ -188,7 +188,12 @@ IMAGE_CMD_ubi () {
+ IMAGE_CMD_ubifs = "mkfs.ubifs -r ${IMAGE_ROOTFS} -o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.ubifs ${MKUBIFS_ARGS}"
  
- RDEPENDS_${PN} = "\
-     blktool \
+ EXTRA_IMAGECMD = ""
+-EXTRA_IMAGECMD_jffs2 ?= "--pad --little-endian --eraseblock=0x40000"
++
++inherit siteinfo
++JFFS2_ENDIANNESS ?= "${@base_conditional('SITEINFO_ENDIANNESS', 'le', '--little-endian', '--big-endian', d)}"
++JFFS2_ERASEBLOCK ?= "0x40000"
++EXTRA_IMAGECMD_jffs2 ?= "--pad ${JFFS2_ENDIANNESS} --eraseblock=${JFFS2_ERASEBLOCK} --no-cleanmarkers"
++
+ # Change these if you want default genext2fs behavior (i.e. create minimal inode number)
+ EXTRA_IMAGECMD_ext2 ?= "-i 8192"
+ EXTRA_IMAGECMD_ext3 ?= "-i 8192"
 -- 
 1.7.9.5
 
