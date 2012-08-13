@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25EB2E0044A
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:22:11 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 48294E0044A
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:22:15 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id EE02530446
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:22:04 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 92FA630441
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:22:09 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:20:07 -0700
-Message-Id: <de71a383c1c61f24da04378a034a5b2479dc37d1.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:20:09 -0700
+Message-Id: <8e92dc008bcdd916a7424316aa567891ebc62514.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: EE02530446.ED64A
+X-MailScanner-ID: 92FA630441.6B322
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 41/57] scripts/buildhistory-diff: add GitPython version check
+Subject: [PATCH 43/57] cooker: fix UnboundLocalError when exception occurs during parsing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,48 +35,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:22:11 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:22:15 -0000
 
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Display an error if the user does not have at least version 0.3.1 of
-GitPython installed.
+Fix a recent regression where we see the following additional error
+after an error occurs during parsing:
 
-(From OE-Core rev: 2f0f5a895504924b5a21699854678e9bc25b447c)
+ERROR: Command execution failed: Traceback (most recent call last):
+  File "/home/paul/poky/poky/bitbake/lib/bb/command.py", line 84, in runAsyncCommand
+    self.cooker.updateCache()
+  File "/home/paul/poky/poky/bitbake/lib/bb/cooker.py", line 1202, in updateCache
+    if not self.parser.parse_next():
+  File "/home/paul/poky/poky/bitbake/lib/bb/cooker.py", line 1672, in parse_next
+    self.virtuals += len(result)
+UnboundLocalError: local variable 'result' referenced before assignment
+
+(Bitbake rev: 1ae0181ba49ccfcb2d889de5dd1d8912b9e49157)
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- scripts/buildhistory-diff |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ bitbake/lib/bb/cooker.py |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/scripts/buildhistory-diff b/scripts/buildhistory-diff
-index 9936a4b..3f27eab 100755
---- a/scripts/buildhistory-diff
-+++ b/scripts/buildhistory-diff
-@@ -7,16 +7,20 @@
+diff --git a/bitbake/lib/bb/cooker.py b/bitbake/lib/bb/cooker.py
+index 4a4dc38..4016f3b 100644
+--- a/bitbake/lib/bb/cooker.py
++++ b/bitbake/lib/bb/cooker.py
+@@ -1644,6 +1644,8 @@ class CookerParser(object):
+                     yield result
  
- import sys
- import os
-+from distutils.version import LooseVersion
- 
- # Ensure PythonGit is installed (buildhistory_analysis needs it)
- try:
-     import git
- except ImportError:
--    print("Please install PythonGit 0.3.1 or later in order to use this script")
-+    print("Please install GitPython (python-git) 0.3.1 or later in order to use this script")
-     sys.exit(1)
- 
--
- def main():
-+    if LooseVersion(git.__version__) < '0.3.1':
-+        print("Version of GitPython is too old, please install GitPython (python-git) 0.3.1 or later in order to use this script")
-+        sys.exit(1)
-+
-     if (len(sys.argv) < 3):
-         print("Report significant differences in the buildhistory repository")
-         print("Syntax: %s <buildhistory-path> <since-revision> [to-revision]" % os.path.basename(sys.argv[0]))
+     def parse_next(self):
++        result = []
++        parsed = None
+         try:
+             parsed, result = self.results.next()
+         except StopIteration:
 -- 
 1.7.9.5
 
