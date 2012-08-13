@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 921D0E00718
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:30 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3B22AE00718
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:32 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 72C2330431
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:24 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id C3FA330426
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:26 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:19:49 -0700
-Message-Id: <f597f579eedc978fd0aa3100c06d0651b0c14e32.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:19:50 -0700
+Message-Id: <a03041711941cb82fcb998f353fb7d75985907a2.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 72C2330431.6AD09
+X-MailScanner-ID: C3FA330426.EA697
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 23/57] task-core-sdk.bb: add libgomp and libgomp-dev by RECOMMENDS
+Subject: [PATCH 24/57] augeas: Add libxml2 dependency
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,43 +35,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:21:30 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:21:32 -0000
 
-From: Zhenhua Luo <b19537@freescale.com>
+From: Martin Donnelly <martin.donnelly@ge.com>
 
-(From OE-Core rev: b2b682331cc1ec54448b5002ff94672d09fe9e7c)
+This patch fixes the following Augeas configure error.
 
-Signed-off-by: Zhenhua Luo <b19537@freescale.com>
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+| checking for LIBXML... no
+| configure: error: Package requirements (libxml-2.0) were not met:
+|
+| No package 'libxml-2.0' found
+|
+| Consider adjusting the PKG_CONFIG_PATH environment variable if you
+| installed software in a non-standard prefix.
+|
+| Alternatively, you may set the environment variables LIBXML_CFLAGS
+| and LIBXML_LIBS to avoid the need to call pkg-config.
+| See the pkg-config man page for more details.
+| ERROR: oe_runconf failed
+
+(From OE-Core rev: 72edbba1ad212986be74aaa15eb9c785c6456d30)
+
+Signed-off-by: Martin Donnelly <martin.donnelly@ge.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/recipes-core/tasks/task-core-sdk.bb |    6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ meta/recipes-extended/augeas/augeas.inc |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta/recipes-core/tasks/task-core-sdk.bb b/meta/recipes-core/tasks/task-core-sdk.bb
-index ec6cdcc..fe95236 100644
---- a/meta/recipes-core/tasks/task-core-sdk.bb
-+++ b/meta/recipes-core/tasks/task-core-sdk.bb
-@@ -7,7 +7,7 @@ LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58 \
-                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
- DEPENDS = "task-core-console"
--PR = "r7"
-+PR = "r8"
+diff --git a/meta/recipes-extended/augeas/augeas.inc b/meta/recipes-extended/augeas/augeas.inc
+index 40be762..9fe864d 100644
+--- a/meta/recipes-extended/augeas/augeas.inc
++++ b/meta/recipes-extended/augeas/augeas.inc
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=bbb461211a33b134d42ed5ee802b37ff"
  
- ALLOW_EMPTY = "1"
- #PACKAGEFUNCS =+ 'generate_sdk_pkgs'
-@@ -48,6 +48,10 @@ RDEPENDS_task-core-sdk = "\
-     file \
-     tcl"
+ SRC_URI = "http://augeas.net/download/${BP}.tar.gz"
  
-+RRECOMMENDS_task-core-sdk = "\
-+    libgomp \
-+    libgomp-dev"
-+
- #python generate_sdk_pkgs () {
- #    poky_pkgs = read_pkgdata('task-core', d)['PACKAGES']
- #    pkgs = d.getVar('PACKAGES', True).split()
+-DEPENDS = "readline"
++DEPENDS = "readline libxml2"
+ 
+ inherit autotools
+ 
 -- 
 1.7.9.5
 
