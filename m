@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F212DE01470
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:40 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 87F40E013B7
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:43 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 895183043A
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:35 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id B289230426
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:37 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:19:54 -0700
-Message-Id: <d87d5c60c65b79b1ea4183f0234c7094cbaef90d.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:19:55 -0700
+Message-Id: <5203c462ab95c05abe555f1f59504af63e05c32d.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 895183043A.DC01E
+X-MailScanner-ID: B289230426.81A0F
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 28/57] kernel.bbclass: Copy bounds.h only if it exists, needed for 2.6.x.
+Subject: [PATCH 29/57] gcc-package-runtime.inc: Fix QA warning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,37 +35,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:21:41 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:21:43 -0000
 
-From: Leon Woestenberg <leon@sidebranch.com>
+From: Matthew McClintock <msm@freescale.com>
 
-Linux 2.6.x kernels did not (all) have the bounds.h file, so copy
-only iff exists.
+> ERROR: QA Issue: gcc-runtime: Files/directories were installed but not shipped
+>   /usr/lib/libgomp.so.1.0.0
+>   /usr/lib/libgomp.so.1
 
-(See OE-Core 02ac0d1b65389e1779d5f95047f761d7a82ef7a4)
+(From OE-Core rev: fee3def2ca49e3349758d9cd9a9cf5645f03cf18)
 
-Signed-off-by: Leon Woestenberg <leon@sidebranch.com>
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Matthew McClintock <msm@freescale.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/classes/kernel.bbclass |    5 +++++
- 1 file changed, 5 insertions(+)
+ meta/recipes-devtools/gcc/gcc-package-runtime.inc |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index c21ab96..5f6ff66 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -183,6 +183,11 @@ kernel_do_install() {
- 		cp arch/powerpc/lib/crtsavres.o $kerneldir/arch/powerpc/lib/crtsavres.o
- 	fi
+diff --git a/meta/recipes-devtools/gcc/gcc-package-runtime.inc b/meta/recipes-devtools/gcc/gcc-package-runtime.inc
+index 9962615..eeec957 100644
+--- a/meta/recipes-devtools/gcc/gcc-package-runtime.inc
++++ b/meta/recipes-devtools/gcc/gcc-package-runtime.inc
+@@ -64,8 +64,9 @@ FILES_libmudflap-dev = "\
+   ${libdir}/libmudflap*.a \
+   ${libdir}/libmudflap*.la"
  
-+	# Necessary for building modules like compat-wireless.
-+	if [ -f include/generated/bounds.h ]; then
-+		cp include/generated/bounds.h $kerneldir/include/generated/bounds.h
-+	fi
-+
- 	# Remove the following binaries which cause strip errors
- 	# during do_package for cross-compiled platforms
- 	bin_files="arch/powerpc/boot/addnote arch/powerpc/boot/hack-coff \
++FILES_libgomp = "${libdir}/libgomp*${SOLIBS}"
+ FILES_libgomp-dev = "\
+-  ${libdir}/libgomp*.so \
++  ${libdir}/libgomp*${SOLIBSDEV} \
+   ${libdir}/libgomp*.la \
+   ${libdir}/libgomp.spec \
+   ${libdir}/gcc/${TARGET_SYS}/${BINV}/include/omp.h \
 -- 
 1.7.9.5
 
