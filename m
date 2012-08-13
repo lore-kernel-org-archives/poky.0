@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A8F0AE013B2
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:20:37 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ED873E0044A
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:20:39 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 9415F3042C
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:20:30 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 3875730426
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:20:34 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:19:27 -0700
-Message-Id: <96bdbf6a416c08edda0a987b2c7bb79d1f9c664d.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:19:28 -0700
+Message-Id: <a40d795ee97d8ada6a0b76c9741a8653fd646893.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 9415F3042C.E38D9
+X-MailScanner-ID: 3875730426.AF1EB
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 01/57] xinetd: Update to 2.3.15
+Subject: [PATCH 02/57] linux-dtb: add multi-dtb build support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,46 +35,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:20:37 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:20:40 -0000
 
-From: Saul Wold <sgw@linux.intel.com>
+From: Zhenhua Luo <b19537@freescale.com>
 
-(From OE-Core rev: 17d7f2a9ee4c56bc697f05a8e703ddb02c262d99)
+    including following enhancement:
+    * support multi-dtb build
+    * skip dtb build and install when KERNEL_DEVICETREE is empty
+    * print a warning message when specified dts file is not available
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+(From OE-Core rev: 66f7921f34dfa8b3c7f8f7184715214164f3f8b0)
+
+Signed-off-by: Zhenhua Luo <b19537@freescale.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../xinetd/{xinetd_2.3.14.bb => xinetd_2.3.15.bb}  |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
- rename meta/recipes-extended/xinetd/{xinetd_2.3.14.bb => xinetd_2.3.15.bb} (90%)
+ meta/recipes-kernel/linux/linux-dtb.inc |   36 +++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 7 deletions(-)
 
-diff --git a/meta/recipes-extended/xinetd/xinetd_2.3.14.bb b/meta/recipes-extended/xinetd/xinetd_2.3.15.bb
-similarity index 90%
-rename from meta/recipes-extended/xinetd/xinetd_2.3.14.bb
-rename to meta/recipes-extended/xinetd/xinetd_2.3.15.bb
-index 26ba78f..3d55e99 100644
---- a/meta/recipes-extended/xinetd/xinetd_2.3.14.bb
-+++ b/meta/recipes-extended/xinetd/xinetd_2.3.15.bb
-@@ -7,7 +7,7 @@ LICENSE = "BSD"
- LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=8ad8615198542444f84d28a6cf226dd8"
+diff --git a/meta/recipes-kernel/linux/linux-dtb.inc b/meta/recipes-kernel/linux/linux-dtb.inc
+index 9188cee..8aa1458 100644
+--- a/meta/recipes-kernel/linux/linux-dtb.inc
++++ b/meta/recipes-kernel/linux/linux-dtb.inc
+@@ -15,13 +15,35 @@ python __anonymous () {
  
- DEPENDS = ""
--PR ="r1"
-+PR = "r0"
+ do_install_append() {
+     if test -n "${KERNEL_DEVICETREE}"; then
+-	dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o devicetree ${KERNEL_DEVICETREE}
+-	install -m 0644 devicetree ${D}/boot/devicetree-${KERNEL_VERSION}
+-	install -d ${DEPLOYDIR}
+-	install -m 0644 devicetree ${DEPLOYDIR}/${KERNEL_IMAGE_BASE_NAME}.dtb
+-	cd ${DEPLOYDIR}
+-	rm -f ${KERNEL_IMAGE_SYMLINK_NAME}.dtb
+-	ln -sf ${KERNEL_IMAGE_BASE_NAME}.dtb ${KERNEL_IMAGE_SYMLINK_NAME}.dtb
++        for DTS_FILE in ${KERNEL_DEVICETREE}; do
++            if [ ! -f ${DTS_FILE} ]; then
++                echo "Warning: ${DTS_FILE} is not available!"
++                continue
++            fi
++            DTS_BASE_NAME=`basename ${DTS_FILE} | awk -F "." '{print $1}'`
++            DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
++            DTB_SYMLINK_NAME=`echo ${KERNEL_IMAGE_SYMLINK_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
++            dtc -I dts -O dtb ${KERNEL_DEVICETREE_FLAGS} -o ${DTS_BASE_NAME} ${DTS_FILE}
++            install -m 0644 ${DTS_BASE_NAME} ${D}/boot/devicetree-${DTB_SYMLINK_NAME}.dtb
++        done
+     fi
+ }
  
- SRC_URI = "http://www.xinetd.org/xinetd-${PV}.tar.gz \
-       file://xinetd.init \
-@@ -17,8 +17,8 @@ SRC_URI = "http://www.xinetd.org/xinetd-${PV}.tar.gz \
-       file://xinetd-should-be-able-to-listen-on-IPv6-even-in-ine.patch \
-       "
- 
--SRC_URI[md5sum] = "567382d7972613090215c6c54f9b82d9"
--SRC_URI[sha256sum] = "760e0e617c609a0509ef63fc7e9580d2f1d88c6113bb6d63273de7de7cd0bc1f"
-+SRC_URI[md5sum] = "77358478fd58efa6366accae99b8b04c"
-+SRC_URI[sha256sum] = "bf4e060411c75605e4dcbdf2ac57c6bd9e1904470a2f91e01ba31b50a80a5be3"
- 
- inherit autotools update-rc.d
- 
++do_deploy_append() {
++    if test -n "${KERNEL_DEVICETREE}"; then
++        for DTS_FILE in ${KERNEL_DEVICETREE}; do
++            if [ ! -f ${DTS_FILE} ]; then
++                echo "Warning: ${DTS_FILE} is not available!"
++                continue
++            fi
++            DTS_BASE_NAME=`basename ${DTS_FILE} | awk -F "." '{print $1}'`
++            DTB_NAME=`echo ${KERNEL_IMAGE_BASE_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
++            DTB_SYMLINK_NAME=`echo ${KERNEL_IMAGE_SYMLINK_NAME} | sed "s/${MACHINE}/${DTS_BASE_NAME}/g"`
++            install -d ${DEPLOYDIR}
++            install -m 0644 ${B}/${DTS_BASE_NAME} ${DEPLOYDIR}/${DTB_NAME}.dtb
++            cd ${DEPLOYDIR}
++            ln -sf ${DTB_NAME}.dtb ${DTB_SYMLINK_NAME}.dtb
++            cd -
++        done
++    fi
++}
 -- 
 1.7.9.5
 
