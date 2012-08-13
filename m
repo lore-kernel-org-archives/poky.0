@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DA1A1E01439
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:47 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 92E41E013B7
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:49 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 269123043B
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:42 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 69B7D30439
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:44 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:19:57 -0700
-Message-Id: <c921dd0a799a351cd4f1ec8a19728b7035f70fc1.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:19:58 -0700
+Message-Id: <437872d235d3f2b384c40c5bb10221bd50114d7a.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 269123043B.4AAC0
+X-MailScanner-ID: 69B7D30439.30222
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 31/57] image_types.bbclass: redefine EXTRA_IMAGECMD_jffs2 to leverage siteinfo
+Subject: [PATCH 32/57] libtool: fixed parallel build related race
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,36 +35,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:21:48 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:21:49 -0000
 
-From: Ting Liu <b28495@freescale.com>
+From: Enrico Scholz <enrico.scholz@sigma-chemnitz.de>
 
-(From OE-Core rev: 7c803cea58737ea0abc62cd21c3813d955f07224)
+While building libtool, the libtool script itself will be regenerated
+because OE modifies a dependency[1]. With -jX, this operation (-->
+removal, creation of non-x file, 'chmod a+x') can happen at a time when
+the script is going to be executed.  This can cause errors like:
 
-Signed-off-by: Ting Liu <b28495@freescale.com>
+| arm-linux-gnueabi-libtool: compile:  ccache arm-linux-gnueabi-gcc ...
+| ...
+| /bin/sh ./config.status libtool
+| ...
+| arm-linux-gnueabi-libtool: compile:  ccache arm-linux-gnueabi-gcc ...
+| /bin/sh: ./arm-linux-gnueabi-libtool: Permission denied
+| make[2]: *** [libltdl/libltdl_libltdl_la-lt__alloc.lo] Error 126
+
+I am not sure whether the custom do_compile_prepend() is still needed.
+For now only the issue above will be fixed by executing ./config.status
+yet again.
+
+[1] see 648290d5bf4d6ff50d3643bb7ad902dfc23aa702
+
+(From OE-Core rev: e065c11b6066f8c1d37496b58dd853a684cd9136)
+
+Signed-off-by: Enrico Scholz <enrico.scholz@sigma-chemnitz.de>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/classes/image_types.bbclass |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ meta/recipes-devtools/libtool/libtool-2.4.2.inc |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/meta/classes/image_types.bbclass b/meta/classes/image_types.bbclass
-index b590ae1..55f122e 100644
---- a/meta/classes/image_types.bbclass
-+++ b/meta/classes/image_types.bbclass
-@@ -188,7 +188,12 @@ IMAGE_CMD_ubi () {
- IMAGE_CMD_ubifs = "mkfs.ubifs -r ${IMAGE_ROOTFS} -o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.ubifs ${MKUBIFS_ARGS}"
+diff --git a/meta/recipes-devtools/libtool/libtool-2.4.2.inc b/meta/recipes-devtools/libtool/libtool-2.4.2.inc
+index 084062a..c1ef7c4 100644
+--- a/meta/recipes-devtools/libtool/libtool-2.4.2.inc
++++ b/meta/recipes-devtools/libtool/libtool-2.4.2.inc
+@@ -8,7 +8,7 @@ LICENSE = "GPLv2 & LGPLv2.1"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+     file://libltdl/COPYING.LIB;md5=e3eda01d9815f8d24aae2dbd89b68b06"
  
- EXTRA_IMAGECMD = ""
--EXTRA_IMAGECMD_jffs2 ?= "--pad --little-endian --eraseblock=0x40000"
-+
-+inherit siteinfo
-+JFFS2_ENDIANNESS ?= "${@base_conditional('SITEINFO_ENDIANNESS', 'le', '--little-endian', '--big-endian', d)}"
-+JFFS2_ERASEBLOCK ?= "0x40000"
-+EXTRA_IMAGECMD_jffs2 ?= "--pad ${JFFS2_ENDIANNESS} --eraseblock=${JFFS2_ERASEBLOCK} --no-cleanmarkers"
-+
- # Change these if you want default genext2fs behavior (i.e. create minimal inode number)
- EXTRA_IMAGECMD_ext2 ?= "-i 8192"
- EXTRA_IMAGECMD_ext3 ?= "-i 8192"
+-INC_PR = "r2"
++INC_PR = "r3"
+ 
+ SRC_URI = "${GNU_MIRROR}/libtool/libtool-${PV}.tar.gz \
+            file://trailingslash.patch \
+@@ -27,6 +27,7 @@ do_compile_prepend () {
+ 	# Sometimes this file doesn't get rebuilt, force the issue
+ 	rm -f ${S}/libltdl/config/ltmain.sh
+ 	make libltdl/config/ltmain.sh
++	./config.status
+ }
+ 
+ inherit autotools
 -- 
 1.7.9.5
 
