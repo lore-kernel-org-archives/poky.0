@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 35508E013B7
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:52 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 79C8AE013B7
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:21:56 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id A9DCB30440
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:46 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id E10973043A
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:48 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:19:59 -0700
-Message-Id: <345ac51c805488845e625c5ade0ea1f343bcf3fa.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:20:00 -0700
+Message-Id: <bba368f5ee2bf90731f50d078e3316fab6ef470a.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: A9DCB30440.3FFB7
+X-MailScanner-ID: E10973043A.EB46B
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 33/57] utils.bbclass: add helper function to add all multilib variants of a specific package
+Subject: [PATCH 34/57] tcl: fix target recipe build issue on older distros
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,41 +35,163 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:21:52 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:21:56 -0000
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: Nitin A Kamble <nitin.a.kamble@intel.com>
 
-This is useful for the scenario where we want to add 'gcc' to
-the root file system for all multilib variants
+the builddir is put in front of the LD_LIBRARY_PATH, causing dynamically
+linking of target library with native tclsh.
 
-(From OE-Core rev: 7cd54693363882854cd026ebe071e9f2e03d364e)
+Fix this behavior to cross build tcl correctly.
 
-Signed-off-by: Matthew McClintock <msm@freescale.com>
+This issue got exposed when eglibc-2.15 was configured for the target.
+
+(From OE-Core rev: 76e8df78bdb641b045e34dcf01d7b9eb626401dc)
+
+Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/classes/utils.bbclass |    9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../tcl/fix_issue_with_old_distro_glibc.patch      |  109 ++++++++++++++++++++
+ meta/recipes-devtools/tcltk/tcl_8.5.11.bb          |    5 +-
+ 2 files changed, 112 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-devtools/tcltk/tcl/fix_issue_with_old_distro_glibc.patch
 
-diff --git a/meta/classes/utils.bbclass b/meta/classes/utils.bbclass
-index fde8f44..cc3acfa 100644
---- a/meta/classes/utils.bbclass
-+++ b/meta/classes/utils.bbclass
-@@ -351,6 +351,15 @@ def extend_variants(d, var, extend, delim=':'):
- 			variants.append(eext[1])
- 	return " ".join(variants)
- 
-+def multilib_pkg_extend(d, pkg):
-+	variants = (d.getVar("MULTILIB_VARIANTS", True) or "").split()
-+	if not variants:
-+	    return pkg
-+	pkgs = pkg
-+	for v in variants:
-+	    pkgs = pkgs + " " + v + "-" + pkg
-+	return pkgs
+diff --git a/meta/recipes-devtools/tcltk/tcl/fix_issue_with_old_distro_glibc.patch b/meta/recipes-devtools/tcltk/tcl/fix_issue_with_old_distro_glibc.patch
+new file mode 100644
+index 0000000..9c295a6
+--- /dev/null
++++ b/meta/recipes-devtools/tcltk/tcl/fix_issue_with_old_distro_glibc.patch
+@@ -0,0 +1,109 @@
++Upstream-Status: inappropriate [embedded specific]
 +
- def all_multilib_tune_values(d, var, unique = True, need_split = True, delim = ' '):
- 	"""Return a string of all ${var} in all multilib tune configuration"""
- 	values = []
++Fixes tcl target recipe build on old distros which have glibc older than 2.14
++
++| + echo 'NOTE: make  DESTDIR=/srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/image install'
++| NOTE: make  DESTDIR=/srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/image install
++| + make  DESTDIR=/srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/image install
++| Making directory /srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/image/usr/lib
++| Installing message catalogs
++| Making directory /srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/image/usr/share/man
++| tclsh: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by /srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/tcl8.5.11/unix/libtcl8.5.so)
++| Making directory /srv/home/nitin/builds/build-gcc47/tmp/work/x86_64-poky-linux/tcl-8.5.11-r5/image/usr/bin
++| make: *** [install-msgs] Error 1
++
++Signed-Off-By: Nitin A Kamble <nitin.a.kamble@intel.com>
++2012/04/26
++
++Index: unix/Makefile.in
++===================================================================
++--- unix.orig/Makefile.in
+++++ unix/Makefile.in
++@@ -592,12 +592,12 @@ tcltest-real:
++ #	% make test TESTFLAGS="-verbose bps -file fileName.test"
++ 
++ test: tcltest@EXEEXT@
++-	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	./tcltest@EXEEXT@ $(TOP_DIR)/tests/all.tcl $(TESTFLAGS)
++ 
++ gdb-test: tcltest@EXEEXT@
++-	@echo "set env @LD_LIBRARY_PATH_VAR@=\"`pwd`:$${@LD_LIBRARY_PATH_VAR@}\"" > gdb.run
+++	@echo "set env @LD_LIBRARY_PATH_VAR@=\"$${@LD_LIBRARY_PATH_VAR@}\"" > gdb.run
++ 	@echo "set env TCL_LIBRARY=${TCL_BUILDTIME_LIBRARY}" >> gdb.run
++ 	@echo "set args $(TOP_DIR)/tests/all.tcl $(TESTFLAGS) -singleproc 1" >> gdb.run
++ 	$(GDB) ./tcltest@EXEEXT@ --command=gdb.run
++@@ -605,27 +605,27 @@ gdb-test: tcltest@EXEEXT@
++ 
++ # Useful target to launch a built tcltest with the proper path,...
++ runtest: tcltest@EXEEXT@
++-	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	./tcltest@EXEEXT@
++ 
++ # Useful target for running the test suite with an unwritable current
++ # directory...
++ ro-test: tcltest@EXEEXT@
++-	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	echo 'exec chmod -w .;package require tcltest;tcltest::temporaryDirectory /tmp;source ../tests/all.tcl;exec chmod +w .' | ./tcltest@EXEEXT@
++ 
++ # This target can be used to run tclsh from the build directory
++ # via `make shell SCRIPT=/tmp/foo.tcl`
++ shell: ${TCL_EXE}
++-	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	${TCL_EXE} $(SCRIPT)
++ 
++ # This target can be used to run tclsh inside either gdb or insight
++ gdb: ${TCL_EXE}
++-	@echo "set env @LD_LIBRARY_PATH_VAR@=\"`pwd`:$${@LD_LIBRARY_PATH_VAR@}\"" > gdb.run
+++	@echo "set env @LD_LIBRARY_PATH_VAR@=\"$${@LD_LIBRARY_PATH_VAR@}\"" > gdb.run
++ 	@echo "set env TCL_LIBRARY=${TCL_BUILDTIME_LIBRARY}" >> gdb.run
++ 	$(GDB) ${TCL_EXE} --command=gdb.run
++ 	rm gdb.run
++@@ -633,12 +633,12 @@ gdb: ${TCL_EXE}
++ VALGRINDARGS=--tool=memcheck --num-callers=8 --leak-resolution=high --leak-check=yes --show-reachable=yes -v
++ 
++ valgrind: ${TCL_EXE} tcltest@EXEEXT@
++-	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	valgrind $(VALGRINDARGS) ./tcltest@EXEEXT@ $(TOP_DIR)/tests/all.tcl -singleproc 1 $(TESTFLAGS)
++ 
++ valgrindshell: ${TCL_EXE}
++-	@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	valgrind $(VALGRINDARGS) ${TCL_EXE} $(SCRIPT)
++ 
++@@ -802,14 +802,14 @@ install-libraries: libraries $(INSTALL_T
++ 
++ install-tzdata: ${TCL_EXE}
++ 	@echo "Installing time zone data"
++-	@@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	${TCL_EXE} $(TOOL_DIR)/installData.tcl \
++ 	    $(TOP_DIR)/library/tzdata "$(SCRIPT_INSTALL_DIR)"/tzdata
++ 
++ install-msgs: ${TCL_EXE}
++ 	@echo "Installing message catalogs"
++-	@@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	${TCL_EXE} $(TOOL_DIR)/installData.tcl \
++ 	    $(TOP_DIR)/library/msgs "$(SCRIPT_INSTALL_DIR)"/msgs
++@@ -1733,7 +1733,7 @@ html-tk: ${TCL_EXE}
++ 	@EXTRA_BUILD_HTML@
++ 
++ BUILD_HTML = \
++-	@@LD_LIBRARY_PATH_VAR@="`pwd`:$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
+++	@@LD_LIBRARY_PATH_VAR@="$${@LD_LIBRARY_PATH_VAR@}"; export @LD_LIBRARY_PATH_VAR@; \
++ 	TCL_LIBRARY="${TCL_BUILDTIME_LIBRARY}"; export TCL_LIBRARY; \
++ 	${TCL_EXE} $(TOOL_DIR)/tcltk-man2html.tcl --htmldir="$(HTML_INSTALL_DIR)" \
++ 		--srcdir=$(TOP_DIR)/.. $(BUILD_HTML_FLAGS)
+diff --git a/meta/recipes-devtools/tcltk/tcl_8.5.11.bb b/meta/recipes-devtools/tcltk/tcl_8.5.11.bb
+index 09dd155..1d43371 100644
+--- a/meta/recipes-devtools/tcltk/tcl_8.5.11.bb
++++ b/meta/recipes-devtools/tcltk/tcl_8.5.11.bb
+@@ -11,13 +11,14 @@ LIC_FILES_CHKSUM = "file://../license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11
+     file://../win/license.terms;md5=a47a9be26d03f925fc1fbd2784f27e11 \
+     "
+ 
+-PR = "r5"
++PR = "r6"
+ 
+ BASE_SRC_URI = "${SOURCEFORGE_MIRROR}/tcl/tcl${PV}-src.tar.gz \
+                 file://tcl-add-soname.patch"
+ 
+ SRC_URI = "${BASE_SRC_URI} \
+-	   file://fix_non_native_build_issue.patch "
++	   file://fix_non_native_build_issue.patch \
++	   file://fix_issue_with_old_distro_glibc.patch "
+ 
+ SRC_URI[md5sum] = "b01a9691c83990b3db0ce62d1012ca67"
+ SRC_URI[sha256sum] = "8addc385fa6b5be4605e6d68fbdc4c0e674c5af1dc1c95ec5420390c4b08042a"
 -- 
 1.7.9.5
 
