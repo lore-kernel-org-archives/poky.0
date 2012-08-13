@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 14A85E0143A
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:22:01 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6AA98E0145A
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 14:22:02 -0700 (PDT)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 6A0ED30426
-	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:51 -0400 (EDT)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id F20D230445
+	for <poky@yoctoproject.org>; Mon, 13 Aug 2012 17:21:55 -0400 (EDT)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 Aug 2012 14:20:01 -0700
-Message-Id: <b7c0651013c523ecd62167658b6533045b5bb552.1344892714.git.scott.a.garman@intel.com>
+Date: Mon, 13 Aug 2012 14:20:03 -0700
+Message-Id: <e7027d507db90bf434eba26f7ee621135ed2d81b.1344892714.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1344892714.git.scott.a.garman@intel.com>
 References: <cover.1344892714.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 6A0ED30426.50CC4
+X-MailScanner-ID: F20D230445.4A99D
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 35/57] u-boot.inc: update linker arguments to pass --sysroot arg
+Subject: [PATCH 37/57] shadow: use 'users' group by default
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,74 +35,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 13 Aug 2012 21:22:01 -0000
+X-List-Received-Date: Mon, 13 Aug 2012 21:22:02 -0000
 
-From: Matthew McClintock <msm@freescale.com>
+From: Otavio Salvador <otavio@ossystems.com.br>
 
-If we are building from sstate-cache it's possible to be building
-from another folder on another machine, therefore the linker requires
-that a proper --sysroot is passed too it so it can find things like
-libgcc.a and avoid errors such as:
+The rootfs has 'users' group at number 100 and without this fix it
+would assign to a non-existent group and if a group with gid as 1000
+is created later it would own all files for users created.
 
-| arm-poky-linux-gnueabi-gcc  -g  -O2  -fno-common -ffixed-r8 -msoft-float   -D__KERNEL__ -DCONFIG_SYS_TEXT_BASE=0x80008000 -I/local/yocto/upstream/label/ubuntu1204-64b/machine/beagleboard/poky/edison/tmp/work/beagleboard-poky-linux-gnueabi/u-boot-v2011.06+git5+b1af6f532e0d348b153d5c148369229d24af361a-r0/git/include -fno-builtin -ffreestanding -nostdinc -isystem /local/yocto/upstream/label/ubuntu1204-64b/machine/beagleboard/poky/edison/tmp/sysroots/x86_64-linux/usr/bin/armv7a-vfp-neon-poky-linux-gnueabi/../../lib/armv7a-vfp-neon-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.6.3/include -pipe  -DCONFIG_ARM -D__ARM__ -marm  -mabi=aapcs-linux -mno-thumb-interwork -march=armv5 -Wall -Wstrict-prototypes -fno-stack-protector -fno-toplevel-reorder   -o hello_world.o hello_world.c -c
-| arm-poky-linux-gnueabi-gcc  -g  -O2  -fno-common -ffixed-r8 -msoft-float   -D__KERNEL__ -DCONFIG_SYS_TEXT_BASE=0x80008000 -I/local/yocto/upstream/label/ubuntu1204-64b/machine/beagleboard/poky/edison/tmp/work/beagleboard-poky-linux-gnueabi/u-boot-v2011.06+git5+b1af6f532e0d348b153d5c148369229d24af361a-r0/git/include -fno-builtin -ffreestanding -nostdinc -isystem /local/yocto/upstream/label/ubuntu1204-64b/machine/beagleboard/poky/edison/tmp/sysroots/x86_64-linux/usr/bin/armv7a-vfp-neon-poky-linux-gnueabi/../../lib/armv7a-vfp-neon-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.6.3/include -pipe  -DCONFIG_ARM -D__ARM__ -marm  -mabi=aapcs-linux -mno-thumb-interwork -march=armv5 -Wall -Wstrict-prototypes -fno-stack-protector -fno-toplevel-reorder   -o stubs.o stubs.c -c
-| arm-poky-linux-gnueabi-ld  -r -o libstubs.o  stubs.o
-| arm-poky-linux-gnueabi-ld -g -Ttext 0x80300000 \
-| 			-o hello_world -e hello_world hello_world.o libstubs.o \
-| 			-L. -lgcc
-| arm-poky-linux-gnueabi-ld: cannot find -lgcc
-| make[1]: *** [hello_world] Error 1
+(From OE-Core rev: a67d77d25cbab0d88b9ff76e3f28429d4ac4f34b)
 
-(From OE-Core rev: 923eb657f24a1feaa93172eda8f87252e86bfea2)
-
-Signed-off-by: Matthew McClintock <msm@freescale.com>
+Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta/recipes-bsp/u-boot/u-boot.inc        |    2 +-
- meta/recipes-bsp/u-boot/u-boot_2011.03.bb |    2 +-
- meta/recipes-bsp/u-boot/u-boot_2011.06.bb |    2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta/recipes-bsp/u-boot/u-boot.inc b/meta/recipes-bsp/u-boot/u-boot.inc
-index 0445c34..e627e97 100644
---- a/meta/recipes-bsp/u-boot/u-boot.inc
-+++ b/meta/recipes-bsp/u-boot/u-boot.inc
-@@ -8,7 +8,7 @@ inherit deploy
- PARALLEL_MAKE=""
+Reworked commit to fix merge conflicts with denzil branch.
+
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+---
+ meta/recipes-extended/shadow/shadow_4.1.4.3.bb |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/meta/recipes-extended/shadow/shadow_4.1.4.3.bb b/meta/recipes-extended/shadow/shadow_4.1.4.3.bb
+index f892eb9..38cc005 100644
+--- a/meta/recipes-extended/shadow/shadow_4.1.4.3.bb
++++ b/meta/recipes-extended/shadow/shadow_4.1.4.3.bb
+@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=08c553a87d4e51bbed50b20e0adcaede \
  
- # GCC 4.5.1 builds unusable binaries using -Os, remove it from OPTFLAGS
--EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS='-O2'"
-+EXTRA_OEMAKE = "CROSS_COMPILE=${TARGET_PREFIX} OPTFLAGS='-O2' CC='${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}'"
+ DEPENDS = "${@base_contains('DISTRO_FEATURES', 'pam', 'libpam', '', d)}"
+ RDEPENDS_${PN} = "shadow-securetty ${@base_contains('DISTRO_FEATURES', 'pam', '${PAM_PLUGINS}', '', d)}"
+-PR = "r8"
++PR = "r9"
  
- python () {
- 	if not d.getVar("UBOOT_MACHINE", True):
-diff --git a/meta/recipes-bsp/u-boot/u-boot_2011.03.bb b/meta/recipes-bsp/u-boot/u-boot_2011.03.bb
-index e99bc2c..5d79e1a 100644
---- a/meta/recipes-bsp/u-boot/u-boot_2011.03.bb
-+++ b/meta/recipes-bsp/u-boot/u-boot_2011.03.bb
-@@ -17,7 +17,7 @@ FILESDIR = "${@os.path.dirname(d.getVar('FILE',1))}/u-boot-git/${MACHINE}"
- SRCREV = "19b54a701811220221fc4d5089a2bb18892018ca"
+ SRC_URI = "http://pkg-shadow.alioth.debian.org/releases/${BPN}-${PV}.tar.bz2 \
+            file://login_defs_pam.sed \
+@@ -83,6 +83,9 @@ do_install_append() {
+ 	sed -i 's:/bin/bash:/bin/sh:g' ${D}${sysconfdir}/default/useradd
+ 	sed -i '/^CREATE_MAIL_SPOOL/ s:^:#:' ${D}${sysconfdir}/default/useradd
  
- PV = "v2011.03+git${SRCPV}"
--PR = "r6"
-+PR = "r7"
- 
- SRC_URI = "git://git.denx.de/u-boot.git;branch=master;protocol=git"
- 
-diff --git a/meta/recipes-bsp/u-boot/u-boot_2011.06.bb b/meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-index 680401f..43f2c06 100644
---- a/meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-+++ b/meta/recipes-bsp/u-boot/u-boot_2011.06.bb
-@@ -17,7 +17,7 @@ FILESDIR = "${@os.path.dirname(d.getVar('FILE',1))}/u-boot-git/${MACHINE}"
- SRCREV = "b1af6f532e0d348b153d5c148369229d24af361a"
- 
- PV = "v2011.06+git${SRCPV}"
--PR = "r1"
-+PR = "r2"
- 
- SRC_URI = "git://git.denx.de/u-boot.git;branch=master;protocol=git"
- 
++	# Use users group by default
++	sed -i 's,^GROUP=1000,GROUP=100,g' ${D}${sysconfdir}/default/useradd
++
+ 	install -d ${D}${sbindir} ${D}${base_sbindir} ${D}${base_bindir} 
+ 	for i in passwd chfn newgrp chsh groups ; do
+ 		mv ${D}${bindir}/$i ${D}${bindir}/$i.${PN}
 -- 
 1.7.9.5
 
