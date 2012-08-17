@@ -1,27 +1,51 @@
-Return-Path: <Paul.Gortmaker@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1015AE0027E;
-	Fri, 17 Aug 2012 08:24:34 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca [147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id q7HFOXBU004825
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 17 Aug 2012 08:24:33 -0700 (PDT)
-Received: from yow-pgortmak-d2.corp.ad.wrs.com (128.224.146.165) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.2.309.2; Fri, 17 Aug 2012 08:24:32 -0700
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 17 Aug 2012 11:24:19 -0400
-Message-ID: <1345217059-10448-1-git-send-email-paul.gortmaker@windriver.com>
-X-Mailer: git-send-email 1.7.12.rc2
-In-Reply-To: <502D73D4.6090408@linux.intel.com>
-References: <502D73D4.6090408@linux.intel.com>
+Return-Path: <B29882@freescale.com>
+Received: from db3outboundpool.messaging.microsoft.com
+	(db3ehsobe002.messaging.microsoft.com [213.199.154.140])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08217E0027F
+	for <poky@yoctoproject.org>; Fri, 17 Aug 2012 11:33:00 -0700 (PDT)
+Received: from mail8-db3-R.bigfish.com (10.3.81.235) by
+	DB3EHSOBE008.bigfish.com (10.3.84.28) with Microsoft SMTP Server id
+	14.1.225.23; Fri, 17 Aug 2012 18:32:58 +0000
+Received: from mail8-db3 (localhost [127.0.0.1])	by mail8-db3-R.bigfish.com
+	(Postfix) with ESMTP id 2BF572E00D2;
+	Fri, 17 Aug 2012 18:32:58 +0000 (UTC)
+X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
+	H:mail.freescale.net; RD:none; EFVD:NLI
+X-SpamScore: -2
+X-BigFish: VS-2(zz98dI9371I1432Izz1202hzz8275bh8275dhz2dh2a8h668h839h8e2h8e3hf0ah107ah10d2hbe9i1155h)
+Received: from mail8-db3 (localhost.localdomain [127.0.0.1]) by mail8-db3
+	(MessageSwitch) id 1345228376550882_17463;
+	Fri, 17 Aug 2012 18:32:56 +0000 (UTC)
+Received: from DB3EHSMHS007.bigfish.com (unknown [10.3.81.242])	by
+	mail8-db3.bigfish.com (Postfix) with ESMTP id 81E1A220047;
+	Fri, 17 Aug 2012 18:32:56 +0000 (UTC)
+Received: from mail.freescale.net (70.37.183.190) by DB3EHSMHS007.bigfish.com
+	(10.3.87.107) with Microsoft SMTP Server (TLS) id 14.1.225.23;
+	Fri, 17 Aug 2012 18:32:51 +0000
+Received: from 039-SN1MPN1-001.039d.mgd.msft.net ([169.254.1.41]) by
+	039-SN1MMR1-002.039d.mgd.msft.net ([10.84.1.15]) with mapi id
+	14.02.0298.005; Fri, 17 Aug 2012 13:32:32 -0500
+From: McClintock Matthew-B29882 <B29882@freescale.com>
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+Thread-Topic: [poky] [PATCH] poky.conf: update distro ID string for Ubuntu
+	12.04.1 LTS
+Thread-Index: AQHNfKapi2GHylpQdEax1tcnizpZbw==
+Date: Fri, 17 Aug 2012 18:32:31 +0000
+Message-ID: <CAEsOVNfLjOkFUy682fjcj0L+vKtkaRZ83Rn5CHgGNc3Ppe7=oA@mail.gmail.com>
+References: <1345200925-3178-1-git-send-email-paul.eggleton@linux.intel.com>
+In-Reply-To: <1345200925-3178-1-git-send-email-paul.eggleton@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [70.112.201.132]
 MIME-Version: 1.0
-Cc: yocto@yoctoproject.org, Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH v2] routerstationpro: move board off 3.0 and onto the 3.4 kernel
+X-OriginatorOrg: freescale.com
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] poky.conf: update distro ID string for Ubuntu 12.04.1 LTS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: McClintock Matthew-B29882 <B29882@freescale.com>
 List-Id: Poky build system developer discussion <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=unsubscribe>
@@ -30,61 +54,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Aug 2012 15:24:34 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 17 Aug 2012 18:33:01 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <5F7FBD200E8F684395AFCC62A68D8CD0@mgd.freescale.com>
+Content-Transfer-Encoding: quoted-printable
 
-The updated patch series to support this target is in place
-on the BSP specific branch in the 3.4 kernel tree now[1], so
-we can move it ahead off of the old 3.0 kernel.
+On Fri, Aug 17, 2012 at 5:55 AM, Paul Eggleton
+<paul.eggleton@linux.intel.com> wrote:
+> If you have 12.04 LTS it will now have been updated to 12.04.1.
+>
+> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+> ---
+>  meta-yocto/conf/distro/poky.conf |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/po=
+ky.conf
+> index cc9fa6c..711087b 100644
+> --- a/meta-yocto/conf/distro/poky.conf
+> +++ b/meta-yocto/conf/distro/poky.conf
+> @@ -69,7 +69,7 @@ SANITY_TESTED_DISTROS ?=3D " \
+>              Yocto (Built by Poky 7.0) 1.2 \n \
+>              Ubuntu 10.04.4 LTS \n \
+>              Ubuntu 11.10 \n \
+> -            Ubuntu 12.04 LTS \n \
+> +            Ubuntu 12.04.1 LTS \n \
 
-[1] https://lists.yoctoproject.org/pipermail/linux-yocto/2012-July/000023.html
+Wait, wouldn't you keep the old one too? Or do we just validate poky
+for the latest only?
 
-Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
-Cc: Saul Wold <sgw@linux.intel.com>
-Acked-by: Darren Hart <dvhart@linux.intel.com>
-Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
----
+-M
 
-[v2: update to the SRCREV-of-the-day.  Note that if anyone sees
- build failures with this, you are also missing the meta SRCREV
- update in linux-yocto_3.4.bb from Bruce.  Yay SRCREV. ]
-
- meta-yocto/conf/machine/routerstationpro.conf            | 2 +-
- meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/meta-yocto/conf/machine/routerstationpro.conf b/meta-yocto/conf/machine/routerstationpro.conf
-index 3c2f56f..adf36a9 100644
---- a/meta-yocto/conf/machine/routerstationpro.conf
-+++ b/meta-yocto/conf/machine/routerstationpro.conf
-@@ -10,7 +10,7 @@ KERNEL_IMAGETYPE = "vmlinux"
- KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.0%"
-+PREFERRED_VERSION_linux-yocto ?= "3.4%"
- PREFERRED_PROVIDER_virtual/xserver = "xserver-kdrive"
- XSERVER = "xserver-kdrive-fbdev"
- 
-diff --git a/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend b/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend
-index 2ff467b..fe8e97c 100644
---- a/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend
-+++ b/meta-yocto/recipes-kernel/linux/linux-yocto_3.4.bbappend
-@@ -4,11 +4,11 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KBRANCH_beagleboard = "standard/beagleboard"
- 
- SRCREV_machine_atom-pc ?= "a8291fa6f723b0182d2b7033b5d59f412ba7cf72"
--SRCREV_machine_routerstationpro ?= "a8291fa6f723b0182d2b7033b5d59f412ba7cf72"
-+SRCREV_machine_routerstationpro ?= "2c4707476e4295ee58c3e7963b9028ab98bf41e5"
- SRCREV_machine_mpc8315e-rdb ?= "47d3076aa7e2a640a1dab8d663529a784709f697"
- SRCREV_machine_beagleboard ?= "a8291fa6f723b0182d2b7033b5d59f412ba7cf72"
- 
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
--# COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
-+COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
- # COMPATIBLE_MACHINE_beagleboard = "beagleboard"
- COMPATIBLE_MACHINE_atom-pc = "atom-pc"
--- 
-1.7.12.rc2
+>              Fedora release 15 (Lovelock) \n \
+>              Fedora release 16 (Verne) \n \
+>              Fedora release 17 (Beefy Miracle) \n \
+> --
+> 1.7.9.5
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky=
 
 
