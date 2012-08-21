@@ -1,28 +1,19 @@
-Return-Path: <vishwasonu2000@gmail.com>
-Received: from mail-vb0-f48.google.com (mail-vb0-f48.google.com
-	[209.85.212.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 49E18E0044A
-	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 04:25:43 -0700 (PDT)
-Received: by vbme21 with SMTP id e21so8086892vbm.35
-	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 04:25:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=TFRRJ4Zgu9xPNBiqSt7+2t68Mcx/brlehbSDMILmkls=;
-	b=FXWTWKdRWihpCBC5dKq4gDB9aXr0RCCyMb+UGm9E8wkOxfgvHuCa3Xkb0eOXotkBxy
-	7AUjVe9NSqhQaZUoZRtrQxLDiE5rwuSXwCb7/bF/qLGphSc4TYmVVXLIqAWxapw5rfQ3
-	8W8ZpLr2qNjtJRt2IZzSfGlIp2X1+wnskDg1DUzUbK8LNddmPwKHfxgMAsF6Xwn7IwQM
-	QHTKoMZpWXcNPyLgUDohD7p7AyZ/VA3GNnOCbfrGR/kaLJzQF5rjuKtDWlSq0sM+uWwo
-	F6ueApT9HL5xYjFNy1SZIIJoil9cnz6NuHUchGf5f8A4AyMB+uEonYP4xe2DF0nUAGa7
-	G+IA==
-MIME-Version: 1.0
-Received: by 10.220.155.203 with SMTP id t11mr13180105vcw.36.1345548342397;
-	Tue, 21 Aug 2012 04:25:42 -0700 (PDT)
-Received: by 10.58.64.76 with HTTP; Tue, 21 Aug 2012 04:25:42 -0700 (PDT)
-Date: Tue, 21 Aug 2012 16:55:42 +0530
-Message-ID: <CABRtByNhY-ZU2vPNZnkrWynPU_vnXG95iTLKohaQjRNAovbbag@mail.gmail.com>
-From: sonu vishwakarma <vishwasonu2000@gmail.com>
+Return-Path: <radu.moisan@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D62B5E0044A
+	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 06:11:43 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 21 Aug 2012 06:11:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.77,802,1336374000"; d="scan'208";a="189268704"
+Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
+	by orsmga002.jf.intel.com with ESMTP; 21 Aug 2012 06:11:08 -0700
+From: Radu Moisan <radu.moisan@intel.com>
 To: poky@yoctoproject.org
-Subject: package lirc-modules-0.9.0-r0: task do_configure: Failed
+Date: Tue, 21 Aug 2012 16:13:27 +0300
+Message-Id: <1345554807-19227-1-git-send-email-radu.moisan@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] upstream_tracking.inc: Updates for upstream/check date
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,499 +26,473 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2012 11:25:43 -0000
-X-Groupsio-MsgNum: 8188
-Content-Type: multipart/mixed; boundary=f46d04389099fa0a3304c7c4e298
+X-List-Received-Date: Tue, 21 Aug 2012 13:11:44 -0000
 
---f46d04389099fa0a3304c7c4e298
-Content-Type: multipart/alternative; boundary=f46d04389099fa0a2804c7c4e296
+Manually checked all packages assigned to me and updated accordingly.
 
---f46d04389099fa0a2804c7c4e296
-Content-Type: text/plain; charset=ISO-8859-1
+Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+---
+ .../conf/distro/include/upstream_tracking.inc      |  165 ++++++++++++--------
+ 1 file changed, 103 insertions(+), 62 deletions(-)
 
-Hi ,
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index d34d980..59480f8 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -30,15 +30,19 @@ RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-apmd = "3.2.2-14"
+ RECIPE_UPSTREAM_DATE_pn-apmd = "Jul 01, 2009"
+ CHECK_DATE_pn-apmd = "Jul 12, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-apr-util = "1.3.12"
+-RECIPE_UPSTREAM_VERSION_pn-apr = "1.4.5"
++RECIPE_UPSTREAM_DATE_pn-apr-util = "Dec 13, 2011"
++CHECK_DATE_pn-apr-util = "Jul 12, 2012"
++RECIPE_UPSTREAM_DATE_pn-apr = "Feb 14, 2012"
++CHECK_DATE_pn-apr = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-apt = "0.8.15.9"
+ CHECK_DATE_pn-apt = "Jan 18, 2012"
+ RECIPE_UPSTREAM_DATE_pn-apt = "Oct 14, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-aspell = "0.60.6"
++RECIPE_UPSTREAM_DATE_pn-aspell = "Jul 04, 2011"
++CHECK_DATE_pn-aspell = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-at = "3.1.13"
+-RECIPE_UPSTREAM_VERSION_pn-atk = "1.32.0"
+-RECIPE_UPSTREAM_DATE_pn-atk = "Sep 01, 2010"
++RECIPE_UPSTREAM_VERSION_pn-atk = "2.5.4"
++RECIPE_UPSTREAM_DATE_pn-atk = "Jul 17, 2012"
++CHECK_DATE_pn-atk = "Jul 27, 2012"
+ CHECK_DATE_pn-at = "Mar 15, 2012"
+ RECIPE_UPSTREAM_DATE_pn-at = "unknown"
+ RECIPE_UPSTREAM_VERSION_pn-autoconf="2.68"
+@@ -51,18 +55,21 @@ CHECK_DATE_pn-automake = "Mar 14, 2012"
+ RECIPE_UPSTREAM_DATE_pn-avahi-ui = "Oct 01, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-avahi = "0.6.31"
+ RECIPE_UPSTREAM_DATE_pn-avahi = "Oct 01, 2010"
++RECIPE_UPSTREAM_DATE_pn-babeltrace = "May 30, 2012"
++CHECK_DATE_pn-babeltrace = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-bash = "4.1"
+ RECIPE_UPSTREAM_DATE_pn-bash = "Dec 01, 2009"
+ RECIPE_UPSTREAM_VERSION_pn-bc = "1.06"
++CHECK_DATA_pn-bc = "Jul 27, 2012"
+ RECIPE_UPSTREAM_DATE_pn-bc = "Nov 01, 2000"
+ RECIPE_UPSTREAM_VERSION_pn-bdwgc = "20110107"
+ RECIPE_NO_UPDATE_REASON_pn-bdwgc = "20110107 is same as the 7.2alpha5"
+ CHECK_DATE_pn-bdwgc = "Feb 01, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-beecrypt = "4.2.1"
+ RECIPE_UPSTREAM_DATE_pn-beecrypt = "Jul 12, 2009"
+-CHECK_DATE_pn-beecrypt = "Jul 06, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-bigreqsproto="1.1.0"
+-RECIPE_UPSTREAM_DATE_pn-bigreqsproto="Aug 26, 2009"
++CHECK_DATE_pn-beecrypt = "Jul 27, 2012"
++RECIPE_UPSTREAM_DATE_pn-bigreqsproto = "Mar 22, 2012"
++CHECK_DATE_pn-bigreqsproto = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-bind = "9.7.2-P3"
+ RECIPE_NO_UPDATE_REASON_pn-bind = "Latest Stable version, newer versions are Alpha/Beta"
+ RECIPE_UPSTREAM_VERSION_pn-binutils="2.22"
+@@ -83,13 +90,13 @@ RECIPE_UPSTREAM_VERSION_pn-boost = "1.50.0"
+ CHECK_DATE_pn-boost = "Jul 05, 2012"
+ RECIPE_UPSTREAM_DATE_pn-boost = "Feb 24, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-btrfs-tools="git"
+-RECIPE_UPSTREAM_VERSION_pn-busybox = "1.16.2"
+-RECIPE_UPSTREAM_DATE_pn-busybox = "Jun 01, 2010"
++RECIPE_UPSTREAM_DATE_pn-busybox = "Jul 02, 2012"
++CHECK_DATE_pn-busybox = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-byacc="20120115"
+ CHECK_DATE_pn-byacc = "Feb 01, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-bzip2 = "1.0.6"
+-RECIPE_UPSTREAM_DATE_pn-bzip2 = "Mar 01, 2008"
+-CHECK_DATE_pn-bzip2 = "May 24, 2011"
++RECIPE_UPSTREAM_DATE_pn-bzip2 = "Sep 20, 2010"
++CHECK_DATE_pn-bzip2 = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-cairo="1.9.10"
+ RECIPE_UPSTREAM_DATE_pn-cairo="Feb 20, 2010"
+ RECIPE_NO_UPDATE_REASON_pn-cairo="latest version is not stable release"
+@@ -125,8 +132,9 @@ RECIPE_UPSTREAM_VERSION_pn-consolekit = "0.4.3"
+ RECIPE_UPSTREAM_VERSION_pn-contacts = "0.12+git0+19853893fdb595de6aa59db0d9dc2f9451ed2933"
+ RECIPE_UPSTREAM_DATE_pn-contacts = "Nov 01, 2009"
+ RECIPE_UPSTREAM_VERSION_pn-core-image-minimal = "1.0"
+-RECIPE_UPSTREAM_VERSION_pn-coreutils = "8.12"
+-RECIPE_UPSTREAM_DATE_pn-coreutils = "Apr 01, 2011"
++RECIPE_UPSTREAM_VERSION_pn-coreutils = "8.17"
++RECIPE_UPSTREAM_DATE_pn-coreutils = "May 10, 2012"
++CHECK_DATE_pn-coreutils = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-cpio = "2.11"
+ RECIPE_UPSTREAM_DATE_pn-cpio = "Mar 01, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-cracklib="2.8.19"
+@@ -135,13 +143,14 @@ RECIPE_UPSTREAM_DATE_pn-cracklib = "May 18, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-createrepo = "0.9.9"
+ RECIPE_NO_UPDATE_REASON_pn-createrepo = "Versions after 0.9.* use YUM, so we hold at 0.4.11"
+ RECIPE_UPSTREAM_VERSION_pn-cronie = "1.4.8"
+-CHECK_DATE_pn-cronie = "Aug 16, 2011"
++RECIPE_UPSTREAM_DATE_pn-cronie = "Jun 27, 2011"
++CHECK_DATE_pn-cronie = "Jul 27, 2012"
+ RECIPE_UPSTREAM_DATE_pn-cronie = "Jun 27, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-cups = "1.5.0"
+ RECIPE_UPSTREAM_DATE_pn-cups = "Jul 25, 2011"
+ CHECK_DATE_pn-cups = "Sep 28, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-curl = "7.23.1"
+-RECIPE_UPSTREAM_DATE_pn-curl = "Nov 17, 2011"
++RECIPE_UPSTREAM_DATE_pn-curl = "May 24, 2012"
++CHECK_DATE_pn-curl = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-cwautomacros = "20110201"
+ RECIPE_UPSTREAM_DATE_pn-cwautomacros = "Feb 01, 2011"
+ CHECK_DATE_pn-cwautomacros = "Jul 06, 2012"
+@@ -161,6 +170,8 @@ RECIPE_UPSTREAM_DATE_pn-dhcp = "Oct 19, 2011"
+ RECIPE_NO_UPDATE_REASON_pn-dhcp = "We are at latest P2 version"
+ RECIPE_UPSTREAM_VERSION_pn-diffstat="1.54"
+ RECIPE_UPSTREAM_VERSION_pn-diffutils = "3.2"
++RECIPE_UPSTREAM_DATE_pn-diffutils = "Sep 02, 2011"
++CHECK_DATE_pn-diffutils = "Sep 02, 2011"
+ RECIPE_UPSTREAM_DATE_pn-direcfb = "Aug 9, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-directfb = "1.5.3"
+ RECIPE_UPSTREAM_VERSION_pn-distcc="2.18.3"
+@@ -175,22 +186,27 @@ CHECK_DATE_pn-dpkg = "Jan 18, 2012"
+ RECIPE_UPSTREAM_DATE_pn-dpkg = "Nov 25, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-dri2proto = "2.6"
+ RECIPE_UPSTREAM_DATE_pn-dri2proto = "Jun 29, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-dropbear = "2011.54"
+-RECIPE_UPSTREAM_DATE_pn-dropbear = "Nov 08, 2011"
++RECIPE_UPSTREAM_DATE_pn-dropbear = "Feb 24, 2012"
++CHECK_DATE_pn-dropbear = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-dtc = "37c0b6a0916c31a5eae0a9ddfcc5d0b8fb4569c6"
+ RECIPE_UPSTREAM_VERSION_pn-e2fsprogs = "1.42.4"
+ CHECK_DATE_pn-e2fsprogs = "Jul 05, 2012"
+ RECIPE_UPSTREAM_DATE_pn-e2fsprogs = "Jun 12, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-ed = "1.6"
+ RECIPE_UPSTREAM_DATE_pn-ed = "Jan 01, 2012"
++CHECK_DATE-pn-ed = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-eds-tools = "git"
+ RECIPE_UPSTREAM_VERSION_pn-eee-acpi-scripts = "1.1.12+9d4cdedca25b396405f8587f9c4fbf8229e041c2"
++RECIPE_UPSTREAM_DATE_pn-eee-acpi-scripts = "Oct 03, 2011"
++CHECK_DATE_pn-eee-acpi-scripts = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-eggdbus = "0.6"
+ RECIPE_UPSTREAM_DATE_pn-eggdbus = "Nov 01, 2009"
+ CHECK_DATE_pn-eggdbus = "Jul 24, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-eglibc = "git:16540"
+ CHECK_DATE_pn-eglibc = "Jan 01, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-elfutils="0.148"
++RECIPE_UPSTREAM_DATE_pn-elfutils = "Jun 28, 2010"
++CHECK_DATE_pn-elfutils = "Jul 27, 2012"
+ RECIPE_UPSTREAM_DATE_pn-elfutils="Jun 01, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-empathy = "2.31.2"
+ RECIPE_UPSTREAM_VERSION_pn-enchant="1.6.0"
+@@ -211,8 +227,8 @@ RECIPE_UPSTREAM_VERSION_pn-farsight2 = "0.0.20"
+ RECIPE_UPSTREAM_VERSION_pn-file = "5.11"
+ RECIPE_UPSTREAM_DATE_pn-file = "Feb 21, 2012"
+ CHECK_DATE_pn-file = "Feb 27, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-findutils = "4.4.2"
+-RECIPE_UPSTREAM_DATE_pn-findutils = "Jun 01, 2009"
++RECIPE_UPSTREAM_DATE_pn-findutils = "Jun 06, 2009"
++CHECK_DATE_pn-findutils = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-fixesproto = "5.0"
+ RECIPE_UPSTREAM_DATE_pn-fixesproto = "Mar 8, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-flac="1.2.1"
+@@ -234,6 +250,7 @@ RECIPE_UPSTREAM_DATE_pn-formfactor = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-fotowall=""
+ RECIPE_UPSTREAM_VERSION_pn-fotowall="0.9"
+ RECIPE_UPSTREAM_DATE_pn-fotowall="Dec 08, 2009"
++CHECK_DATE_pn-fotowall = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-freetype = "2.4.10"
+ RECIPE_UPSTREAM_DATE_pn-freetype = "Jun 15, 2012"
+ CHECK_DATE_pn-freetype = "Jul 06, 2012"
+@@ -244,8 +261,11 @@ RECIPE_UPSTREAM_VERSION_pn-gaku="0.0+svnr399"
+ RECIPE_UPSTREAM_DATE_pn-gaku="Jul 03, 2008"
+ RECIPE_UPSTREAM_DATE_pn-galago-daemon = "Oct 7, 2006"
+ RECIPE_UPSTREAM_VERSION_pn-gamin = "0.1.10"
+-RECIPE_UPSTREAM_DATE_pn-gamin = "Nov 01, 2008"
++RECIPE_UPSTREAM_DATE_pn-gamin = "Nov 24, 2008"
++CHECK_DATE_pn-gamin = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-gawk = "4.0.0"
++RECIPE_UPSTREAM_DATE_pn-gawk = "Mar 28, 2012"
++CHECK_DATE_pn-gawk = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-gcc-runtime = "4.6.2+git"
+ RECIPE_UPSTREAM_VERSION_pn-gcc="4.7.1+svnr188658"
+ CHECK_DATE_pn-gcc = "Jul 06, 2012"
+@@ -291,8 +311,8 @@ RECIPE_UPSTREAM_VERSION_pn-grep = "2.9"
+ RECIPE_UPSTREAM_DATE_pn-grep = "Jun 01, 2011"
+ RECIPE_NO_UPDATE_REASON_pn-groff = "1.18.1.4 is latest GPLv2 Version no 1.21"
+ RECIPE_UPSTREAM_VERSION_pn-groff = "1.21"
+-RECIPE_UPSTREAM_VERSION_pn-grub = "0.97"
+-RECIPE_UPSTREAM_DATE_pn-grub = "Dec 01, 2005"
++RECIPE_UPSTREAM_DATE_pn-grub = "Jun 28, 2012"
++CHECK_DATE_pn-grub = "Jul 27, 2012"
+ RECIPE_NO_UPDATE_REASON_pn-grub="grub2 is a different thing"
+ RECIPE_UPSTREAM_VERSION_pn-gssdp = "0.10.0"
+ RECIPE_UPSTREAM_DATE_pn-gssdp="Apr 07, 2011"
+@@ -308,9 +328,10 @@ RECIPE_UPSTREAM_VERSION_pn-gtkhtml2 = "2.11.1"
+ RECIPE_UPSTREAM_DATE_pn-gtk+ = "Nov 10, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-guile = "2.0.3"
+ CHECK_DATE_pn-guile = "Jan 17, 2012"
+-RECIPE_UPSTREAM_DATE_pn-gupnp-av= "Apr 08, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-gupnp = "0.16.1"
+-RECIPE_UPSTREAM_DATE_pn-gupnp= "Apr 30, 2011"
++RECIPE_UPSTREAM_DATE_pn-gupnp-av= "Apr 20, 2012"
++CHECK_DATE_pn-gupnp-av = "Jul 27, 2012"
++RECIPE_UPSTREAM_DATE_pn-gupnp= "May 03, 2012"
++CHECK_DATE_pn-gupnp = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-gypsy="0.8"
+ RECIPE_UPSTREAM_DATE_pn-gypsy="Jun 09, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-gzip = "1.5"
+@@ -326,8 +347,8 @@ RECIPE_UPSTREAM_DATE_pn-hostap-utils="Dec 03, 2008"
+ RECIPE_UPSTREAM_VERSION_pn-icu = "3.6"
+ RECIPE_UPSTREAM_DATE_pn-icu = "Aug 01, 2006"
+ CHECK_DATE_pn-icu = "Jul 12, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-imake = "1.0.3"
+-RECIPE_UPSTREAM_DATE_pn-imake = "Apr 16, 2010"
++RECIPE_UPSTREAM_DATE_pn-imake = "Mar 08, 2012"
++CHECK_DATE_pn-imake = "Jul 27, 2012"
+ RECIPE_UPSTREAM_DATE_pn-initramfs-boot = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-initscripts = "1.0"
+ RECIPE_UPSTREAM_DATE_pn-initscripts = "n/a"
+@@ -343,6 +364,8 @@ RECIPE_UPSTREAM_DATE_pn-iproute2 = "Mar 20, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-iptables = "1.4.13"
+ RECIPE_UPSTREAM_DATE_pn-iptables = "Apr 28, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-iputils="s20100418"
++RECIPE_UPSTREAM_DATE_pn-iputils = "Oct 06, 2010"
++CHECK_DATE_pn-iputils = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-irda-utils = "0.9.18"
+ RECIPE_UPSTREAM_DATE_pn-irda-utils="Jul 10, 2006"
+ CHECK_DATE_pn-irda-utils = "Jul 24, 2012"
+@@ -351,7 +374,8 @@ RECIPE_UPSTREAM_VERSION_pn-jpeg = "8c"
+ CHECK_DATE_pn-jpeg = "Dec 24, 2011"
+ RECIPE_UPSTREAM_DATE_pn-jpeg = "Jan 01, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-js = "1.7.0+1.8.0rc1"
+-RECIPE_UPSTREAM_DATE_pn-js = "Mar 01, 2009"
++RECIPE_UPSTREAM_DATE_pn-js = "Mar 09, 2009"
++CHECK_DATE_pn-js = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-json-glib = "0.14.2"
+ RECIPE_UPSTREAM_VERSION_pn-kbproto = "1.0.6"
+ RECIPE_UPSTREAM_DATE_pn-kbproto = "Mar 23, 2012"
+@@ -364,8 +388,12 @@ RECIPE_UPSTREAM_DATE_pn-kexec-tools="Jan 15, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-keymaps = "1.0"
+ RECIPE_UPSTREAM_DATE_pn-keymaps = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-kf = "n/a"
++RECIPE_UPSTREAM_VERSION_pn-kmod = "9"
++RECIPE_UPSTREAM_DATE_pn-kmod = "Jun 19, 2012"
++CHECK_DATE_pn-kmod = "Jul 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-lame = "3.99.5"
+ RECIPE_UPSTREAM_DATE_pn-lame = "Feb 28, 2012"
++CHECK_DATE_pn-lame = "Jul 27, 2012"
+ CHECK_DATE_pn-lame = "Jul 06, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-latencytop = "0.5"
+ CHECK_DATE_pn-latencytop = "Apr 20, 2011"
+@@ -401,8 +429,8 @@ RECIPE_UPSTREAM_VERSION_pn-libcroco = "0.6.3"
+ RECIPE_UPSTREAM_DATE_pn-libcroco = "Nov 14, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-libdaemon = "0.14"
+ RECIPE_UPSTREAM_DATE_pn-libdaemon = "Nov 01, 2009"
+-RECIPE_UPSTREAM_VERSION_pn-libdmx = "1.1.1"
+-RECIPE_UPSTREAM_DATE_pn-libdmx = "Oct 28, 2010"
++RECIPE_UPSTREAM_DATE_pn-libdmx = "Mar 07, 2012"
++CHECK_DATE_pn-libdmx = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-libdrm-poulsbo = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-libdrm = "2.4.34"
+ RECIPE_UPSTREAM_DATE_pn-libdrm = "May 10, 2012"
+@@ -653,6 +681,7 @@ CHECK_DATE_pn-ltp = "Jul 25, 2012"
+ RECIPE_UPSTREAM_DATE_pn-lttng-ust = "Dec 15, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-lzo = "2.06"
+ RECIPE_UPSTREAM_DATE_pn-lzo = "Aug 12, 2011"
++CHECK_DATE_pn-lzo = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-m4="1.4.15"
+ CHECK_DATE_pn-m4 = "Jul 06, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-mailx = "12.5"
+@@ -683,10 +712,12 @@ RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 11, 2012"
+ CHECK_DATE_pn-minicom = "Jul 06, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-mkfontdir="1.0.7"
+ RECIPE_UPSTREAM_DATE_pn-mkfontdir="Feb 10, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-mkfontscale="1.10.0"
++CHECK_DATE_pn-mkfontdir = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-mkfontscale="Feb 10, 2012"
++CHECK_DATE_pn-mkfontscale = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-mktemp="1.7"
+ RECIPE_UPSTREAM_VERSION_pn-mobile-broadband-provider-info = "1.0.0+git"
++CHECK_DATE_pn-mobile-broadband-provider-info = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-module-init-tools = "Oct 01, 2009"
+ RECIPE_UPSTREAM_DATE_pn-modutils-initscripts = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-mpeg2dec = "0.5.1"
+@@ -697,7 +728,8 @@ RECIPE_UPSTREAM_DATE_pn-mpfr = "Jul 04, 2012"
+ CHECK_DATE_pn-mpfr = "Jul 06, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-msynctool = "0.38"
+ RECIPE_UPSTREAM_DATE_pn-msynctool = "Nov 11, 2008"
+-RECIPE_UPSTREAM_DATE_pn-mtd-utils = "Dec 17, 2011"
++RECIPE_UPSTREAM_DATE_pn-mtd-utils = "May 07, 2012"
++CHECK_DATE_pn-mtd-utils = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-mtools = "4.0.17"
+ RECIPE_UPSTREAM_DATE_pn-mtools = "Jun 28, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-mutter = "2.29.1_0.4"
+@@ -713,8 +745,9 @@ RECIPE_UPSTREAM_VERSION_pn-netbase = "4.46"
+ RECIPE_UPSTREAM_DATE_pn-netbase = "Jun 06, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-nfs-utils = "1.2.6"
+ CHECK_DATE_pn-nfs-utils = "Jul 05, 2012"
+-RECIPE_UPSTREAM_DATE_pn-nfs-utils = "May 14, 2012"
++RECIPE_UPSTREAM_DAE_pn-nfs-utils = "May 14, 2012"
+ RECIPE_UPSTREAM_DATE_pn-ocf-linux = "Jan 27, 2012"
++CHECK_DATE_pn-ocf-linux = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-ofono = "1.6"
+ RECIPE_UPSTREAM_DATE_pn-ofono="Apr 20, 2012"
+ RECIPE_UPSTREAM_DATE_pn-oh-puzzles = "Oct 1, 2011"
+@@ -729,10 +762,11 @@ RECIPE_UPSTREAM_DATE_pn-openssh = "Apr 22, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-openssl = "1.0.1b"
+ RECIPE_NO_UPDATE_REASON_pn-openssl = "1.0.1 is beta 1.0.0i is latest"
+ RECIPE_UPSTREAM_DATE_pn-openssl = "Apr 26, 2012"
++CHECK_DATE_pn-openssl = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-openswan = "2.6.26"
+ RECIPE_UPSTREAM_DATE_pn-opkg-collateral = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-opkg = "0.1.8"
+-CHECK_DATE_pn-opkg = "Jul 06, 2012"
++CHECK_DATE_pn-opkg = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-opkg = "Feb 01, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-opkg_nogpg = "0.1.8"
+ RECIPE_UPSTREAM_DATE_pn-opkg_nogpg = "Feb 01, 2010"
+@@ -744,8 +778,8 @@ CHECK_DATE_pn-oprofileui = "Dec 24, 2011"
+ RECIPE_UPSTREAM_DATE_pn-oprofileui = "Nov 14, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-orinoco-conf = "1.0"
+ RECIPE_UPSTREAM_DATE_pn-owl-video = "Jun 01, 2008"
+-RECIPE_UPSTREAM_VERSION_pn-pango="1.28.0"
+-RECIPE_UPSTREAM_DATE_pn-pango="Mar 10, 2010"
++RECIPE_UPSTREAM_DATE_pn-pango="Jun 05, 2012"
++CHECK_DATE_pn-pango = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-parted = "3.0"
+ CHECK_DATE_pn-parted = "Nov 22, 2011"
+ RECIPE_LATEST_VERIONS_pn-patch = "2.6.1"
+@@ -824,6 +858,7 @@ RECIPE_UPSTREAM_DATE_pn-qt-mobility-embedded = "May 10, 2011"
+ RECIPE_UPSTREAM_DATE_pn-qt4-native = "Dec 15, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-quicky = "0.4"
+ RECIPE_UPSTREAM_DATE_pn-quicky = "Jun 18, 2008"
++CHECK_DATE_pn-quicky = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-quilt="0.60"
+ RECIPE_UPSTREAM_VERSION_pn-quota = "4.00"
+ RECIPE_UPSTREAM_DATE_pn-quota = "Aug 17, 2011"
+@@ -851,6 +886,7 @@ RECIPE_UPSTREAM_DATE_pn-rsync = "Dec 01, 2009"
+ RECIPE_UPSTREAM_DATE_pn-rt-tests = "Sep 26, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-run-postinsts = "check"
+ RECIPE_UPSTREAM_DATE_pn-rxvt-unicode = "Jan 21, 2012"
++CHECK_DATE_pn-rxvt-unicode = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-sat-solver = "0.0-git1+e74e0bfd23e4e95064d08e13efb5de9caf433f40"
+ RECIPE_UPSTREAM_DATE_pn-sato-icon-theme = "Feb 01, 2008"
+ RECIPE_UPSTREAM_VERSION_pn-screen = "4.0.3"
+@@ -864,7 +900,7 @@ RECIPE_UPSTREAM_VERSION_pn-sed = "4.2.1"
+ CHECK_DATE_pn-sed = "Jul 28, 2011"
+ RECIPE_UPSTREAM_DATE_pn-sed = "Jun 01, 2009"
+ RECIPE_UPSTREAM_VERSION_pn-setserial = "2.17"
+-CHECK_DATE_pn-setserial = "Apr 25, 2012"
++CHECK_DATE_pn-setserial = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-setserial = "Feb 09, 2000"
+ RECIPE_UPSTREAM_DATE_pn-settings-daemon = "Jun 01, 2008"
+ RECIPE_UPSTREAM_DATE_pn-sgml-common = "May 25, 2001"
+@@ -886,10 +922,11 @@ RECIPE_UPSTREAM_DATE_pn-sqlite3 = "Jun 11, 2012"
+ CHECK_DATE_pn-sqlite3= "Jul 05, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-squashfs-tools = "4.2"
+ RECIPE_UPSTREAM_DATE_pn-squashfs-tools = "Feb 28, 2011"
+-CHECK_DATE_pn-squashfs-tools = "Jul 06, 2012"
++CHECK_DATE_pn-squashfs-tools = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-startup-notification = "May 16, 2011"
++CHECK_DATE_pn-startup-notification = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-stat = "3.3"
+-CHECK_DATE_pn-stat = "Dec 30, 2011"
++CHECK_DATE_pn-stat = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-strace = "4.7"
+ RECIPE_UPSTREAM_DATE_pn-strace = "May 02, 2012"
+ CHECK_DATE_pn-strace = "Jul 06, 2012"
+@@ -928,6 +965,7 @@ RECIPE_UPSTREAM_VERSION_pn-tcl="8.5.11"
+ RECIPE_UPSTREAM_DATE_pn-tcl = "Jul 07, 2011"
+ CHECK_DATE_pn-tcl = "Jul 06, 2012"
+ RECIPE_UPSTREAM_DATE_pn-tcp-wrappers = "Apr 08, 1997"
++CEHCK_DATE_pn-tcp-wrappers = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-telepathy-glib = "Apr 20, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-texi2html = "5.0"
+ CHECK_DATE_pn-texi2html = "Dec 18, 2011"
+@@ -942,7 +980,8 @@ CHECK_DATE_pn-tiff = "Feb 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-time = "1.7"
+ RECIPE_UPSTREAM_DATE_pn-time = "Jul 01, 1996"
+ RECIPE_UPSTREAM_VERSION_pn-tinylogin = "1.4"
+-CHECK_DATE_pn-tinylogin = "Jul 19, 2012"
++RECIPE_NO_UPDATE_REASON_pm-tinylogin = "TinyLogin was merged into BusyBox"
++CHECK_DATE_pn-tinylogin = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-tinylogin = "Jan 03, 2003"
+ RECIPE_NO_UPDATE_REASON_pn-tinylogin = "TinyLogin was merged into BusyBox."
+ RECIPE_UPSTREAM_DATE_pn-trace-cmd = "Nov 7, 2011"
+@@ -953,39 +992,40 @@ RECIPE_UPSTREAM_DATE_pn-trapproto = "Jan 01, 2006"
+ RECIPE_UPSTREAM_VERSION_pn-tremor="20120122"
+ RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-tslib = "1.0"
+-RECIPE_UPSTREAM_DATE_pn-tslib ="Sep 09, 2006"
+-CHECK_DATE_pn-tslib = "Jul 06, 2012"
++RECIPE_UPSTREAM_DATE_pn-tslib ="Aug 08, 2006"
++CHECK_DATE_pn-tslib = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-tslib = "Aug 01, 2006"
+ RECIPE_UPSTREAM_DATE_pn-ttf-bitstream-vera = "Apr 16, 2003"
+-RECIPE_UPSTREAM_VERSION_pn-tzdata = "2012c"
+-RECIPE_UPSTREAM_DATE_pn-tzdata = "Apr 02, 2012"
+-CHECK_DATE_pn-tzdata = "Jul 06, 2012"
+-RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Dec 23, 2011"
++RECIPE_UPSTREAM_VERSION_pn-tzdata = "2012d"
++RECIPE_UPSTREAM_DATE_pn-tzdata = "Jul 20, 2012"
++CHECK_DATE_pn-tzdata = "Jul 30, 2012"
++RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Apr 21, 2012"
++CHECK_DATE_pn-u-boot-fw-utils = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
+ RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
+-RECIPE_UPSTREAM_VERSION_pn-udev = "164"
+-RECIPE_UPSTREAM_DATE_pn-udev = "Jan 11, 2012"
++RECIPE_UPSTREAM_DATE_pn-udev = "Mar 18, 2012"
++CHECK_DATE_pn-udev = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-unifdef="2.6.18+git"
+ RECIPE_UPSTREAM_VERSION_pn-unzip = "6.0"
+ RECIPE_UPSTREAM_DATE_pn-unzip = "Apr 25, 2009"
+-CHECK_DATE_pn-unzip = "Jul 06, 2012"
++CHECK_DATE_pn-unzip = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-update-rc.d = "unknown"
+ RECIPE_UPSTREAM_VERSION_pn-usbinit = "n/a"
+-RECIPE_UPSTREAM_VERSION_pn-usbutils = "0.91"
+-RECIPE_UPSTREAM_DATE_pn-usbutils = "Oct 22, 2010"
+-CHECK_DATE_pn-usbutils = "Apr 18, 2012"
++RECIPE_UPSTREAM_DATE_pn-usbutils = "Jul 06, 2012"
++CHECK_DATE_pn-usbutils = "Jul 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-util-linux = "Feb 24, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-v86d = "0.1.10"
+ RECIPE_UPSTREAM_DATE_pn-v86d = "Feb 25, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-valgrind = "3.7.0"
+ RECIPE_UPSTREAM_DATE_pn-valgrind = "Nov 05, 2011"
++CHECK_DATE_pn-valgrind = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-videoproto = "2.3.1"
+ RECIPE_UPSTREAM_DATE_pn-videoproto = "Aug 10, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-vte="0.24.3"
+ RECIPE_UPSTREAM_DATE_pn-vte="Jul 12, 2010"
+ RECIPE_UPSTREAM_VERSION_pn-watchdog = "5.12"
+ RECIPE_UPSTREAM_DATE_pn-watchdog = "Apr 05, 2012"
+-CHECK_DATE_pn-watchdog = "Jul 06, 2012"
++CHECK_DATE_pn-watchdog = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-wbxml2 = "0.10.8"
+ RECIPE_UPSTREAM_DATE_pn-web-webkit = "Aug 01, 2008"
+ RECIPE_UPSTREAM_VERSION_pn-web = "0.0+svnr129"
+@@ -993,8 +1033,8 @@ RECIPE_UPSTREAM_VERSION_pn-webkit-gtk = "1.8.1"
+ RECIPE_UPSTREAM_DATE_pn-webkit-gtk = "Apr 24, 2012"
+ CHECK_DATE_pn-webkit-gtk = "Jul 06, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-which = "2.20"
+-RECIPE_UPSTREAM_DATE_pn-which = "Aug 01, 2008"
+-CHECK_DATE_pn-which = "Nov 22, 2011"
++RECIPE_UPSTREAM_DATE_pn-which = "Aug 06, 2008"
++CHECK_DATE_pn-which = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-wireless-tools = "29"
+ RECIPE_UPSTREAM_DATE_pn-wireless-tools="Sep 18, 2007"
+ CHECK_DATE_pn-wireless-tools = "Jul 24, 2012"
+@@ -1079,9 +1119,10 @@ CHECK_DATE_pn-zaurusd = "Jul 12, 2011"
+ RECIPE_NO_UPDATE_REASON_pn-zaurusd = "SVN rev 426 is last Stable release"
+ RECIPE_UPSTREAM_VERSION_pn-zeroconf = "0.9"
+ RECIPE_UPSTREAM_VERSION_pn-zip = "3.0"
+-RECIPE_UPSTREAM_DATE_pn-zip = "Sep 01, 2009"
+-CHECK_DATE_pn-zip = "Jul 06, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-zlib = "1.2.5"
+-RECIPE_UPSTREAM_DATE_pn-zlib = "Mar 01, 2010"
+-RECIPE_NO_UPDATE_REASON_pn-zlib = "zlib-1.2.5 is latest, version parser reports 121 in error"
++RECIPE_UPSTREAM_DATE_pn-zip = "Jul 06, 2008"
++CHECK_DATE_pn-zip = "Jul 30, 2012"
++RECIPE_UPSTREAM_VERSION_pn-zlib = "1.2.7"
++RECIPE_UPSTREAM_DATE_pn-zlib = "May 02, 2012"
++RECIPE_NO_UPDATE_REASON_pn-zlib = "zlib-1.2.7 is latest, version parser reports 121 in error"
++CHECK_DATE_pn-zlib = "Jul 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-zypper = "git"
+-- 
+1.7.9.5
 
-I am building poky working on bernard branch on Ubuntu 10.10 ,64 bit host.
-I'm getting the error while building mythtv in the package
-li<http://libtimedate-perl_1.20.bb/>rc-modules which
-is one of its dependency.
-The error is as follows:
-**********************************************************
-/home/poky/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/sysroots/fishriver/kernel/
-| checking for which drivers can be installed on this system...
-| checking for caraca_init in -lcaraca_client... no
-| checking ftdi.h usability... no
-| checking ftdi.h presence... no
-| checking for ftdi.h... no
-| checking iguanaIR.h usability... no
-| checking iguanaIR.h presence... no
-| checking for iguanaIR.h... no
-| checking for ir_strerror in -lirman... no
-| checking for ir_strerror in -lirman_sw... no
-| checking portaudio.h usability... no
-| checking portaudio.h presence... no
-| checking for portaudio.h... no
-| checking alsa/asoundlib.h usability... yes
-| checking alsa/asoundlib.h presence... yes
-| checking for alsa/asoundlib.h... yes
-| checking for snd_pcm_open in -lasound... yes
-| checking for ALSA SB RC hwdep support... yes
-| checking scsi/sg.h usability... yes
-| checking scsi/sg.h presence... yes
-| checking for scsi/sg.h... yes
-| checking linux/input.h usability... yes
-| checking linux/input.h presence... yes
-| checking for linux/input.h... yes
-| checking linux/types.h usability... yes
-| checking linux/types.h presence... yes
-| checking for linux/types.h... yes
-| checking for linux/hiddev.h... yes
-| checking for HIDDEV_FLAG_UREF support... yes
-| checking for sys/soundcard.h... (cached) yes
-| checking linux/i2c-dev.h usability... yes
-| checking linux/i2c-dev.h presence... yes
-| checking for linux/i2c-dev.h... yes
-| configure: error: *** it is not possible to install the specified driver
-| on this system
-| FATAL: oe_runconf failed
-| ERROR: Function 'do_configure' failed (see
-/home/poky/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/tmp/work/fishriver-poky-linux/lirc-modules-0.9.0-r0/temp/log.do_configure.26525
-for further information)
-NOTE: package lirc-modules-0.9.0-r0: task do_configure: Failed
-ERROR: Task 279
-(/home/poky/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/meta-sct/recipes-sct/lirc/
-lirc-modules_0.9.0.bb, do_configure) failed with exit code '1'
 
-****************************************
-Can anyone help me out of this error .
-Attaching the error log for more reference .
-
-Thanks in advance,
-Regards,
-Sonu Vishwakarma
-
---f46d04389099fa0a2804c7c4e296
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<div><br></div><div><span style=3D"color:rgb(34,34,34);font-family:arial,sa=
-ns-serif;font-size:13px;background-color:rgb(255,255,255)"><div>Hi ,</div><=
-div><br></div>I am building poky working on bernard branch on Ubuntu 10.10 =
-,64 bit host.</span><div style=3D"color:rgb(34,34,34);font-family:arial,san=
-s-serif;font-size:13px;background-color:rgb(255,255,255)">
-I&#39;m getting the error while building mythtv in the package=A0<a href=3D=
-"http://libtimedate-perl_1.20.bb/" target=3D"_blank" style=3D"color:rgb(17,=
-85,204)">li</a>rc-modules=A0which is one of its dependency.<br>The error is=
- as follows:=A0</div>
-</div><div>**********************************************************</div>=
-<div><div>/home/poky/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2012/build/=
-tmp/sysroots/fishriver/kernel/</div><div>| checking for which drivers can b=
-e installed on this system...</div>
-<div>| checking for caraca_init in -lcaraca_client... no</div><div>| checki=
-ng ftdi.h usability... no</div><div>| checking ftdi.h presence... no</div><=
-div>| checking for ftdi.h... no</div><div>| checking iguanaIR.h usability..=
-. no</div>
-<div>| checking iguanaIR.h presence... no</div><div>| checking for iguanaIR=
-.h... no</div><div>| checking for ir_strerror in -lirman... no</div><div>| =
-checking for ir_strerror in -lirman_sw... no</div><div>| checking portaudio=
-.h usability... no</div>
-<div>| checking portaudio.h presence... no</div><div>| checking for portaud=
-io.h... no</div><div>| checking alsa/asoundlib.h usability... yes</div><div=
->| checking alsa/asoundlib.h presence... yes</div><div>| checking for alsa/=
-asoundlib.h... yes</div>
-<div>| checking for snd_pcm_open in -lasound... yes</div><div>| checking fo=
-r ALSA SB RC hwdep support... yes</div><div>| checking scsi/sg.h usability.=
-.. yes</div><div>| checking scsi/sg.h presence... yes</div><div>| checking =
-for scsi/sg.h... yes</div>
-<div>| checking linux/input.h usability... yes</div><div>| checking linux/i=
-nput.h presence... yes</div><div>| checking for linux/input.h... yes</div><=
-div>| checking linux/types.h usability... yes</div><div>| checking linux/ty=
-pes.h presence... yes</div>
-<div>| checking for linux/types.h... yes</div><div>| checking for linux/hid=
-dev.h... yes</div><div>| checking for HIDDEV_FLAG_UREF support... yes</div>=
-<div>| checking for sys/soundcard.h... (cached) yes</div><div>| checking li=
-nux/i2c-dev.h usability... yes</div>
-<div>| checking linux/i2c-dev.h presence... yes</div><div>| checking for li=
-nux/i2c-dev.h... yes</div><div>| configure: error: *** it is not possible t=
-o install the specified driver</div><div>| <span class=3D"Apple-tab-span" s=
-tyle=3D"white-space:pre">	</span>on this system</div>
-<div>| FATAL: oe_runconf failed</div><div>| ERROR: Function &#39;do_configu=
-re&#39; failed (see /home/poky/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2=
-012/build/tmp/work/fishriver-poky-linux/lirc-modules-0.9.0-r0/temp/log.do_c=
-onfigure.26525 for further information)</div>
-<div>NOTE: package lirc-modules-0.9.0-r0: task do_configure: Failed</div><d=
-iv>ERROR: Task 279 (/home/poky/xbmc_11jul/poky_xbmc_12july/poky_xbmc_09Mar2=
-012/meta-sct/recipes-sct/lirc/<a href=3D"http://lirc-modules_0.9.0.bb">lirc=
--modules_0.9.0.bb</a>, do_configure) failed with exit code &#39;1&#39;</div=
->
-</div><div><br></div><div>****************************************</div><di=
-v><div style=3D"color:rgb(34,34,34);font-family:arial,sans-serif;font-size:=
-13px;background-color:rgb(255,255,255)">Can anyone help me out of this erro=
-r .<br>
-Attaching the error log for more reference .<br><br></div><div style=3D"col=
-or:rgb(34,34,34);font-family:arial,sans-serif;font-size:13px;background-col=
-or:rgb(255,255,255)">Thanks in advance,</div><div style=3D"color:rgb(34,34,=
-34);font-family:arial,sans-serif;font-size:13px;background-color:rgb(255,25=
-5,255)">
-Regards,</div><div style=3D"color:rgb(34,34,34);font-family:arial,sans-seri=
-f;font-size:13px;background-color:rgb(255,255,255)">Sonu Vishwakarma</div><=
-/div><div><br></div><div><br></div>
-
---f46d04389099fa0a2804c7c4e296--
-
---f46d04389099fa0a3304c7c4e298
-Content-Type: application/octet-stream; name="log.do_configure.26525"
-Content-Disposition: attachment; filename="log.do_configure.26525"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_h64wufkb0
-
-YXV0b21ha2UgKEdOVSBhdXRvbWFrZSkgMS4xMS4xCkNvcHlyaWdodCAoQykgMjAwOSBGcmVlIFNv
-ZnR3YXJlIEZvdW5kYXRpb24sIEluYy4KTGljZW5zZSBHUEx2Mis6IEdOVSBHUEwgdmVyc2lvbiAy
-IG9yIGxhdGVyIDxodHRwOi8vZ251Lm9yZy9saWNlbnNlcy9ncGwtMi4wLmh0bWw+ClRoaXMgaXMg
-ZnJlZSBzb2Z0d2FyZTogeW91IGFyZSBmcmVlIHRvIGNoYW5nZSBhbmQgcmVkaXN0cmlidXRlIGl0
-LgpUaGVyZSBpcyBOTyBXQVJSQU5UWSwgdG8gdGhlIGV4dGVudCBwZXJtaXR0ZWQgYnkgbGF3LgoK
-V3JpdHRlbiBieSBUb20gVHJvbWV5IDx0cm9tZXlAcmVkaGF0LmNvbT4KICAgICAgIGFuZCBBbGV4
-YW5kcmUgRHVyZXQtTHV0eiA8YWRsQGdudS5vcmc+LgpBVVRPViBpcyAxLjExCk5PVEU6IEV4ZWN1
-dGluZyBhdXRvcmVjb25mIC0tdmVyYm9zZSAtLWluc3RhbGwgLS1mb3JjZSAtLWV4Y2x1ZGU9YXV0
-b3BvaW50IC1JIC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNf
-MTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3dvcmsvZmlzaHJpdmVyLXBva3kt
-bGludXgvbGlyYy1tb2R1bGVzLTAuOS4wLXIwL2xpcmMtMC45LjAvY29udHJpYi8gLUkgL2hvbWUv
-c2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1j
-XzA5TWFyMjAxMi9idWlsZC90bXAvd29yay9maXNocml2ZXItcG9reS1saW51eC9saXJjLW1vZHVs
-ZXMtMC45LjAtcjAvbGlyYy0wLjkuMC9tNC8gLUkvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hi
-bWNfMTFqdWwvcG9reV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9z
-eXNyb290cy9pNjg2LWxpbnV4L3Vzci9zaGFyZS9hY2xvY2FsLTEuMTEgLUkgL2hvbWUvc2N0L3hi
-bWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFy
-MjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyL3Vzci9zaGFyZS9hY2xvY2FsCmF1dG9y
-ZWNvbmY6IEVudGVyaW5nIGRpcmVjdG9yeSBgLicKYXV0b3JlY29uZjogY29uZmlndXJlLmFjOiBu
-b3QgdXNpbmcgR2V0dGV4dAphdXRvcmVjb25mOiBydW5uaW5nOiBhY2xvY2FsIC1JIC9ob21lL3Nj
-dC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18w
-OU1hcjIwMTIvYnVpbGQvdG1wL3dvcmsvZmlzaHJpdmVyLXBva3ktbGludXgvbGlyYy1tb2R1bGVz
-LTAuOS4wLXIwL2xpcmMtMC45LjAvY29udHJpYi8gLUkgL2hvbWUvc2N0L3hibWNfZmluYWwvdGVz
-dC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90
-bXAvd29yay9maXNocml2ZXItcG9reS1saW51eC9saXJjLW1vZHVsZXMtMC45LjAtcjAvbGlyYy0w
-LjkuMC9tNC8gLUkgL2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJt
-Y18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvaTY4Ni1saW51
-eC91c3Ivc2hhcmUvYWNsb2NhbC0xLjExIC1JIC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJt
-Y18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5
-c3Jvb3RzL2Zpc2hyaXZlci91c3Ivc2hhcmUvYWNsb2NhbCAtSSAvaG9tZS9zY3QveGJtY19maW5h
-bC90ZXN0L3hibWNfMTFqdWwvcG9reV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1
-aWxkL3RtcC93b3JrL2Zpc2hyaXZlci1wb2t5LWxpbnV4L2xpcmMtbW9kdWxlcy0wLjkuMC1yMC9s
-aXJjLTAuOS4wL2NvbnRyaWIvIC1JIC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1
-bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3dvcmsvZmlz
-aHJpdmVyLXBva3ktbGludXgvbGlyYy1tb2R1bGVzLTAuOS4wLXIwL2xpcmMtMC45LjAvbTQvIC1J
-IC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bv
-a3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNyL3NoYXJl
-L2FjbG9jYWwtMS4xMSAtSSAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9r
-eV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9maXNo
-cml2ZXIvdXNyL3NoYXJlL2FjbG9jYWwgLS1mb3JjZSAKYXV0b3JlY29uZjogY29uZmlndXJlLmFj
-OiB0cmFjaW5nCmF1dG9yZWNvbmY6IHJ1bm5pbmc6IGxpYnRvb2xpemUgLS1jb3B5IC0tZm9yY2UK
-bGlidG9vbGl6ZTogcHV0dGluZyBhdXhpbGlhcnkgZmlsZXMgaW4gYC4nLgpsaWJ0b29saXplOiBj
-b3B5aW5nIGZpbGUgYC4vbHRtYWluLnNoJwpsaWJ0b29saXplOiBwdXR0aW5nIG1hY3JvcyBpbiBB
-Q19DT05GSUdfTUFDUk9fRElSLCBgbTQnLgpsaWJ0b29saXplOiBjb3B5aW5nIGZpbGUgYG00L2xp
-YnRvb2wubTQnCmxpYnRvb2xpemU6IGNvcHlpbmcgZmlsZSBgbTQvbHRvcHRpb25zLm00JwpsaWJ0
-b29saXplOiBjb3B5aW5nIGZpbGUgYG00L2x0c3VnYXIubTQnCmxpYnRvb2xpemU6IGNvcHlpbmcg
-ZmlsZSBgbTQvbHR2ZXJzaW9uLm00JwpsaWJ0b29saXplOiBjb3B5aW5nIGZpbGUgYG00L2x0fm9i
-c29sZXRlLm00JwpsaWJ0b29saXplOiBDb25zaWRlciBhZGRpbmcgYC1JIG00JyB0byBBQ0xPQ0FM
-X0FNRkxBR1MgaW4gTWFrZWZpbGUuYW0uCmF1dG9yZWNvbmY6IHJ1bm5pbmc6IC9ob21lL3NjdC94
-Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1h
-cjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNyL2Jpbi9hdXRvY29uZiAtLWlu
-Y2x1ZGU9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1
-bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvd29yay9maXNocml2ZXItcG9reS1saW51
-eC9saXJjLW1vZHVsZXMtMC45LjAtcjAvbGlyYy0wLjkuMC9jb250cmliLyAtLWluY2x1ZGU9L2hv
-bWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94
-Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvd29yay9maXNocml2ZXItcG9reS1saW51eC9saXJjLW1v
-ZHVsZXMtMC45LjAtcjAvbGlyYy0wLjkuMC9tNC8gLS1pbmNsdWRlPS9ob21lL3NjdC94Ym1jX2Zp
-bmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIv
-YnVpbGQvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNyL3NoYXJlL2FjbG9jYWwtMS4xMSAtLWlu
-Y2x1ZGU9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1
-bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyL3Vzci9z
-aGFyZS9hY2xvY2FsIC0tZm9yY2UgLS13YXJuaW5ncz1jcm9zcwphdXRvcmVjb25mOiBydW5uaW5n
-OiAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9reV94Ym1jXzEyanVseS9w
-b2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9pNjg2LWxpbnV4L3Vzci9iaW4v
-YXV0b2hlYWRlciAtLWluY2x1ZGU9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVs
-L3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvd29yay9maXNo
-cml2ZXItcG9reS1saW51eC9saXJjLW1vZHVsZXMtMC45LjAtcjAvbGlyYy0wLjkuMC9jb250cmli
-LyAtLWluY2x1ZGU9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJt
-Y18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvd29yay9maXNocml2ZXItcG9r
-eS1saW51eC9saXJjLW1vZHVsZXMtMC45LjAtcjAvbGlyYy0wLjkuMC9tNC8gLS1pbmNsdWRlPS9o
-b21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lf
-eGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNyL3NoYXJlL2Fj
-bG9jYWwtMS4xMSAtLWluY2x1ZGU9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVs
-L3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMv
-ZmlzaHJpdmVyL3Vzci9zaGFyZS9hY2xvY2FsIC0tZm9yY2UgLS13YXJuaW5ncz1jcm9zcwphdXRv
-cmVjb25mOiBydW5uaW5nOiBhdXRvbWFrZSAtLWZvcmVpZ24gLS1hZGQtbWlzc2luZyAtLWNvcHkg
-LS1mb3JjZS1taXNzaW5nIC0td2FybmluZ3M9Y3Jvc3MKYXV0b21ha2U6IHVua25vd24gd2Fybmlu
-ZyBjYXRlZ29yeSBgY3Jvc3MnCmF1dG9yZWNvbmY6IHJ1bm5pbmc6IGdudS1jb25maWdpemUKUGVy
-bCBsaWIgdmVyc2lvbiAoNS4xMi4yKSBkb2Vzbid0IG1hdGNoIGV4ZWN1dGFibGUgdmVyc2lvbiAo
-djUuMTAuMSkgYXQgL2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJt
-Y18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvaTY4Ni1saW51
-eC91c3IvbGliL3BlcmwvNS4xMi4yL0NvbmZpZy5wbSBsaW5lIDUwLgpDb21waWxhdGlvbiBmYWls
-ZWQgaW4gcmVxdWlyZSBhdCAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9r
-eV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9pNjg2
-LWxpbnV4L3Vzci9saWIvcGVybC81LjEyLjIvRmlsZS9Db3B5LnBtIGxpbmUgMTQuCkJFR0lOIGZh
-aWxlZC0tY29tcGlsYXRpb24gYWJvcnRlZCBhdCAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hi
-bWNfMTFqdWwvcG9reV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9z
-eXNyb290cy9pNjg2LWxpbnV4L3Vzci9saWIvcGVybC81LjEyLjIvRmlsZS9Db3B5LnBtIGxpbmUg
-MTQuCkNvbXBpbGF0aW9uIGZhaWxlZCBpbiByZXF1aXJlIGF0IC9ob21lL3NjdC94Ym1jX2ZpbmFs
-L3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVp
-bGQvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNyL3NoYXJlL2F1dG9jb25mL0F1dG9tNHRlL0Zp
-bGVVdGlscy5wbSBsaW5lIDE2Ni4KQkVHSU4gZmFpbGVkLS1jb21waWxhdGlvbiBhYm9ydGVkIGF0
-IC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bv
-a3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2k2ODYtbGludXgvdXNyL3NoYXJl
-L2F1dG9jb25mL0F1dG9tNHRlL0ZpbGVVdGlscy5wbSBsaW5lIDE2Ni4KQ29tcGlsYXRpb24gZmFp
-bGVkIGluIHJlcXVpcmUgYXQgL2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bv
-a3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvaTY4
-Ni1saW51eC91c3IvYmluL2F1dG9tNHRlIGxpbmUgNDEuCkJFR0lOIGZhaWxlZC0tY29tcGlsYXRp
-b24gYWJvcnRlZCBhdCAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9reV94
-Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9pNjg2LWxp
-bnV4L3Vzci9iaW4vYXV0b200dGUgbGluZSA0MS4KYXV0b3JlY29uZjogTGVhdmluZyBkaXJlY3Rv
-cnkgYC4nCk5PVEU6IFJ1bm5pbmcgL2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVs
-L3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvd29yay9maXNo
-cml2ZXItcG9reS1saW51eC9saXJjLW1vZHVsZXMtMC45LjAtcjAvbGlyYy0wLjkuMC9jb25maWd1
-cmUgCQkgLS1idWlsZD1pNjg2LWxpbnV4IAkJICAtLWhvc3Q9aTU4Ni1wb2t5LWxpbnV4IAkJICAt
-LXRhcmdldD1pNTg2LXBva3ktbGludXggCQkgIC0tcHJlZml4PS91c3IgCQkgIC0tZXhlY19wcmVm
-aXg9L3VzciAJCSAgLS1iaW5kaXI9L3Vzci9iaW4gCQkgIC0tc2JpbmRpcj0vdXNyL3NiaW4gCQkg
-IC0tbGliZXhlY2Rpcj0vdXNyL2xpYmV4ZWMgCQkgIC0tZGF0YWRpcj0vdXNyL3NoYXJlIAkJICAt
-LXN5c2NvbmZkaXI9L2V0YyAJCSAgLS1zaGFyZWRzdGF0ZWRpcj0vY29tIAkJICAtLWxvY2Fsc3Rh
-dGVkaXI9L3ZhciAJCSAgLS1saWJkaXI9L3Vzci9saWIgCQkgIC0taW5jbHVkZWRpcj0vdXNyL2lu
-Y2x1ZGUgCQkgIC0tb2xkaW5jbHVkZWRpcj0vdXNyL2luY2x1ZGUgCQkgIC0taW5mb2Rpcj0vdXNy
-L3NoYXJlL2luZm8gCQkgIC0tbWFuZGlyPS91c3Ivc2hhcmUvbWFuIAkJICAtLXdpdGgtbGlidG9v
-bC1zeXNyb290PS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNf
-MTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zpc2hyaXZlciAt
-LXdpdGgta2VybmVsZGlyPS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5
-X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zpc2hy
-aXZlci9rZXJuZWwgLS13aXRoLWRyaXZlcj1zZXJpYWwgLS13aXRoLWRyaXZlcj1tY2V1c2IgLi4u
-CmNvbmZpZ3VyZTogbG9hZGluZyBzaXRlIHNjcmlwdCAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0
-L3hibWNfMTFqdWwvcG9reV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL21ldGEvc2l0
-ZS9lbmRpYW4tbGl0dGxlCmNvbmZpZ3VyZTogbG9hZGluZyBzaXRlIHNjcmlwdCAvaG9tZS9zY3Qv
-eGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9reV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlN
-YXIyMDEyL21ldGEvc2l0ZS9jb21tb24tZ2xpYmMKY29uZmlndXJlOiBsb2FkaW5nIHNpdGUgc2Ny
-aXB0IC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5
-L3Bva3lfeGJtY18wOU1hcjIwMTIvbWV0YS9zaXRlL2l4ODYtY29tbW9uCmNvbmZpZ3VyZTogbG9h
-ZGluZyBzaXRlIHNjcmlwdCAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9r
-eV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL21ldGEvc2l0ZS9jb21tb24KY29uZmln
-dXJlOiBsb2FkaW5nIHNpdGUgc2NyaXB0IC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18x
-MWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jv
-b3RzL2Zpc2hyaXZlci91c3Ivc2hhcmUvaTU4Ni1wb2t5LWxpbnV4X2NvbmZpZ19zaXRlLmQvZWds
-aWJjX2NvbmZpZwpjb25maWd1cmU6IGxvYWRpbmcgc2l0ZSBzY3JpcHQgL2hvbWUvc2N0L3hibWNf
-ZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAx
-Mi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyL3Vzci9zaGFyZS9pNTg2LXBva3ktbGludXhf
-Y29uZmlnX3NpdGUuZC96bGliX2NvbmZpZwpjb25maWd1cmU6IGxvYWRpbmcgc2l0ZSBzY3JpcHQg
-L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9r
-eV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyL3Vzci9zaGFyZS9p
-NTg2LXBva3ktbGludXhfY29uZmlnX3NpdGUuZC9nbGliY19jb25maWcKY2hlY2tpbmcgZm9yIGEg
-QlNELWNvbXBhdGlibGUgaW5zdGFsbC4uLiAvdXNyL2Jpbi9pbnN0YWxsIC1jCmNoZWNraW5nIHdo
-ZXRoZXIgYnVpbGQgZW52aXJvbm1lbnQgaXMgc2FuZS4uLiB5ZXMKY2hlY2tpbmcgZm9yIGk1ODYt
-cG9reS1saW51eC1zdHJpcC4uLiBpNTg2LXBva3ktbGludXgtc3RyaXAKY2hlY2tpbmcgZm9yIGEg
-dGhyZWFkLXNhZmUgbWtkaXIgLXAuLi4gL2Jpbi9ta2RpciAtcApjaGVja2luZyBmb3IgZ2F3ay4u
-LiBnYXdrCmNoZWNraW5nIHdoZXRoZXIgbWFrZSBzZXRzICQoTUFLRSkuLi4geWVzCmNoZWNraW5n
-IGZvciBpNTg2LXBva3ktbGludXgtZ2NjLi4uIGk1ODYtcG9reS1saW51eC1nY2MgLW0zMiAtbWFy
-Y2g9Y29yZTIgLW1zc2UzIC1tdHVuZT1nZW5lcmljIC1tZnBtYXRoPXNzZSAtLXN5c3Jvb3Q9L2hv
-bWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94
-Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyCmNoZWNraW5nIHdoZXRo
-ZXIgdGhlIEMgY29tcGlsZXIgd29ya3MuLi4geWVzCmNoZWNraW5nIGZvciBDIGNvbXBpbGVyIGRl
-ZmF1bHQgb3V0cHV0IGZpbGUgbmFtZS4uLiBhLm91dApjaGVja2luZyBmb3Igc3VmZml4IG9mIGV4
-ZWN1dGFibGVzLi4uIApjaGVja2luZyB3aGV0aGVyIHdlIGFyZSBjcm9zcyBjb21waWxpbmcuLi4g
-eWVzCmNoZWNraW5nIGZvciBzdWZmaXggb2Ygb2JqZWN0IGZpbGVzLi4uIG8KY2hlY2tpbmcgd2hl
-dGhlciB3ZSBhcmUgdXNpbmcgdGhlIEdOVSBDIGNvbXBpbGVyLi4uIHllcwpjaGVja2luZyB3aGV0
-aGVyIGk1ODYtcG9reS1saW51eC1nY2MgLW0zMiAtbWFyY2g9Y29yZTIgLW1zc2UzIC1tdHVuZT1n
-ZW5lcmljIC1tZnBtYXRoPXNzZSAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94
-Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAv
-c3lzcm9vdHMvZmlzaHJpdmVyIGFjY2VwdHMgLWcuLi4geWVzCmNoZWNraW5nIGZvciBpNTg2LXBv
-a3ktbGludXgtZ2NjIC1tMzIgLW1hcmNoPWNvcmUyIC1tc3NlMyAtbXR1bmU9Z2VuZXJpYyAtbWZw
-bWF0aD1zc2UgLS1zeXNyb290PS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9w
-b2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zp
-c2hyaXZlciBvcHRpb24gdG8gYWNjZXB0IElTTyBDODkuLi4gbm9uZSBuZWVkZWQKY2hlY2tpbmcg
-Zm9yIHN0eWxlIG9mIGluY2x1ZGUgdXNlZCBieSBtYWtlLi4uIEdOVQpjaGVja2luZyBkZXBlbmRl
-bmN5IHN0eWxlIG9mIGk1ODYtcG9reS1saW51eC1nY2MgLW0zMiAtbWFyY2g9Y29yZTIgLW1zc2Uz
-IC1tdHVuZT1nZW5lcmljIC1tZnBtYXRoPXNzZSAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmlu
-YWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9i
-dWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyLi4uIGdjYzMKY2hlY2tpbmcgd2hldGhlciBpNTg2
-LXBva3ktbGludXgtZ2NjIC1tMzIgLW1hcmNoPWNvcmUyIC1tc3NlMyAtbXR1bmU9Z2VuZXJpYyAt
-bWZwbWF0aD1zc2UgLS1zeXNyb290PS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1
-bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3Rz
-L2Zpc2hyaXZlciBhbmQgY2MgdW5kZXJzdGFuZCAtYyBhbmQgLW8gdG9nZXRoZXIuLi4geWVzCmNo
-ZWNraW5nIHdoZXRoZXIgbWFrZSBzZXRzICQoTUFLRSkuLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5n
-IGZvciBta25vZC4uLiAvYmluL21rbm9kCmNoZWNraW5nIGZvciBta2ZpZm8uLi4gL3Vzci9iaW4v
-bWtmaWZvCmNoZWNraW5nIGZvciBkZXBtb2QuLi4gL3NiaW4vZGVwbW9kCmNoZWNraW5nIGZvciBs
-aWJ1c2ItY29uZmlnLi4uIC9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5
-X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zpc2hy
-aXZlci91c3IvYmluL2Nyb3Nzc2NyaXB0cy9saWJ1c2ItY29uZmlnCmNoZWNraW5nIHdoZXRoZXIg
-bG4gLXMgd29ya3MuLi4geWVzCmNoZWNraW5nIGJ1aWxkIHN5c3RlbSB0eXBlLi4uIGk2ODYtcGMt
-bGludXgtZ251CmNoZWNraW5nIGhvc3Qgc3lzdGVtIHR5cGUuLi4gaTU4Ni1wb2t5LWxpbnV4LWdu
-dQpjaGVja2luZyBob3cgdG8gcHJpbnQgc3RyaW5ncy4uLiBwcmludGYKY2hlY2tpbmcgZm9yIGEg
-c2VkIHRoYXQgZG9lcyBub3QgdHJ1bmNhdGUgb3V0cHV0Li4uIC9iaW4vc2VkCmNoZWNraW5nIGZv
-ciBncmVwIHRoYXQgaGFuZGxlcyBsb25nIGxpbmVzIGFuZCAtZS4uLiAvYmluL2dyZXAKY2hlY2tp
-bmcgZm9yIGVncmVwLi4uIC9iaW4vZ3JlcCAtRQpjaGVja2luZyBmb3IgZmdyZXAuLi4gL2Jpbi9n
-cmVwIC1GCmNoZWNraW5nIGZvciBsZCB1c2VkIGJ5IGk1ODYtcG9reS1saW51eC1nY2MgLW0zMiAt
-bWFyY2g9Y29yZTIgLW1zc2UzIC1tdHVuZT1nZW5lcmljIC1tZnBtYXRoPXNzZSAtLXN5c3Jvb3Q9
-L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9r
-eV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyLi4uIGk1ODYtcG9r
-eS1saW51eC1sZCAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVs
-L3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMv
-ZmlzaHJpdmVyCmNoZWNraW5nIGlmIHRoZSBsaW5rZXIgKGk1ODYtcG9reS1saW51eC1sZCAtLXN5
-c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1
-bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyKSBpcyBH
-TlUgbGQuLi4geWVzCmNoZWNraW5nIGZvciBCU0QtIG9yIE1TLWNvbXBhdGlibGUgbmFtZSBsaXN0
-ZXIgKG5tKS4uLiBpNTg2LXBva3ktbGludXgtbm0KY2hlY2tpbmcgdGhlIG5hbWUgbGlzdGVyIChp
-NTg2LXBva3ktbGludXgtbm0pIGludGVyZmFjZS4uLiBCU0Qgbm0KY2hlY2tpbmcgdGhlIG1heGlt
-dW0gbGVuZ3RoIG9mIGNvbW1hbmQgbGluZSBhcmd1bWVudHMuLi4gMTU3Mjg2NApjaGVja2luZyB3
-aGV0aGVyIHRoZSBzaGVsbCB1bmRlcnN0YW5kcyBzb21lIFhTSSBjb25zdHJ1Y3RzLi4uIHllcwpj
-aGVja2luZyB3aGV0aGVyIHRoZSBzaGVsbCB1bmRlcnN0YW5kcyAiKz0iLi4uIHllcwpjaGVja2lu
-ZyBob3cgdG8gY29udmVydCBpNjg2LXBjLWxpbnV4LWdudSBmaWxlIG5hbWVzIHRvIGk1ODYtcG9r
-eS1saW51eC1nbnUgZm9ybWF0Li4uIGZ1bmNfY29udmVydF9maWxlX25vb3AKY2hlY2tpbmcgaG93
-IHRvIGNvbnZlcnQgaTY4Ni1wYy1saW51eC1nbnUgZmlsZSBuYW1lcyB0byB0b29sY2hhaW4gZm9y
-bWF0Li4uIGZ1bmNfY29udmVydF9maWxlX25vb3AKY2hlY2tpbmcgZm9yIGk1ODYtcG9reS1saW51
-eC1sZCAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lf
-eGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJp
-dmVyIG9wdGlvbiB0byByZWxvYWQgb2JqZWN0IGZpbGVzLi4uIC1yCmNoZWNraW5nIGZvciBpNTg2
-LXBva3ktbGludXgtb2JqZHVtcC4uLiBpNTg2LXBva3ktbGludXgtb2JqZHVtcApjaGVja2luZyBo
-b3cgdG8gcmVjb2duaXplIGRlcGVuZGVudCBsaWJyYXJpZXMuLi4gcGFzc19hbGwKY2hlY2tpbmcg
-Zm9yIGk1ODYtcG9reS1saW51eC1kbGx0b29sLi4uIG5vCmNoZWNraW5nIGZvciBkbGx0b29sLi4u
-IG5vCmNoZWNraW5nIGhvdyB0byBhc3NvY2lhdGUgcnVudGltZSBhbmQgbGluayBsaWJyYXJpZXMu
-Li4gcHJpbnRmICVzXG4KY2hlY2tpbmcgZm9yIGk1ODYtcG9reS1saW51eC1hci4uLiBpNTg2LXBv
-a3ktbGludXgtYXIKY2hlY2tpbmcgZm9yIGFyY2hpdmVyIEBGSUxFIHN1cHBvcnQuLi4gQApjaGVj
-a2luZyBmb3IgaTU4Ni1wb2t5LWxpbnV4LXN0cmlwLi4uIChjYWNoZWQpIGk1ODYtcG9reS1saW51
-eC1zdHJpcApjaGVja2luZyBmb3IgaTU4Ni1wb2t5LWxpbnV4LXJhbmxpYi4uLiBpNTg2LXBva3kt
-bGludXgtcmFubGliCmNoZWNraW5nIGNvbW1hbmQgdG8gcGFyc2UgaTU4Ni1wb2t5LWxpbnV4LW5t
-IG91dHB1dCBmcm9tIGk1ODYtcG9reS1saW51eC1nY2MgLW0zMiAtbWFyY2g9Y29yZTIgLW1zc2Uz
-IC1tdHVuZT1nZW5lcmljIC1tZnBtYXRoPXNzZSAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmlu
-YWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9i
-dWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyIG9iamVjdC4uLiBvawpjaGVja2luZyBmb3Igc3lz
-cm9vdC4uLiAvaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9reV94Ym1jXzEy
-anVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9maXNocml2ZXIKY2hl
-Y2tpbmcgZm9yIGk1ODYtcG9reS1saW51eC1tdC4uLiBubwpjaGVja2luZyBmb3IgbXQuLi4gbXQK
-Y29uZmlndXJlOiBXQVJOSU5HOiB1c2luZyBjcm9zcyB0b29scyBub3QgcHJlZml4ZWQgd2l0aCBo
-b3N0IHRyaXBsZXQKY2hlY2tpbmcgaWYgbXQgaXMgYSBtYW5pZmVzdCB0b29sLi4uIG5vCmNoZWNr
-aW5nIGhvdyB0byBydW4gdGhlIEMgcHJlcHJvY2Vzc29yLi4uIGk1ODYtcG9reS1saW51eC1nY2Mg
-LUUgLS1zeXNyb290PS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hi
-bWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zpc2hyaXZl
-cgpjaGVja2luZyBmb3IgQU5TSSBDIGhlYWRlciBmaWxlcy4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tp
-bmcgZm9yIHN5cy90eXBlcy5oLi4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3Igc3lzL3N0YXQu
-aC4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tpbmcgZm9yIHN0ZGxpYi5oLi4uIChjYWNoZWQpIHllcwpj
-aGVja2luZyBmb3Igc3RyaW5nLmguLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciBtZW1vcnku
-aC4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tpbmcgZm9yIHN0cmluZ3MuaC4uLiAoY2FjaGVkKSB5ZXMK
-Y2hlY2tpbmcgZm9yIGludHR5cGVzLmguLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciBzdGRp
-bnQuaC4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tpbmcgZm9yIHVuaXN0ZC5oLi4uIChjYWNoZWQpIHll
-cwpjaGVja2luZyBmb3IgZGxmY24uaC4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tpbmcgZm9yIG9iamRp
-ci4uLiAubGlicwpjaGVja2luZyBpZiBpNTg2LXBva3ktbGludXgtZ2NjIC1tMzIgLW1hcmNoPWNv
-cmUyIC1tc3NlMyAtbXR1bmU9Z2VuZXJpYyAtbWZwbWF0aD1zc2UgLS1zeXNyb290PS9ob21lL3Nj
-dC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18w
-OU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zpc2hyaXZlciBzdXBwb3J0cyAtZm5vLXJ0dGkg
-LWZuby1leGNlcHRpb25zLi4uIG5vCmNoZWNraW5nIGZvciBpNTg2LXBva3ktbGludXgtZ2NjIC1t
-MzIgLW1hcmNoPWNvcmUyIC1tc3NlMyAtbXR1bmU9Z2VuZXJpYyAtbWZwbWF0aD1zc2UgLS1zeXNy
-b290PS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5
-L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQvdG1wL3N5c3Jvb3RzL2Zpc2hyaXZlciBvcHRpb24g
-dG8gcHJvZHVjZSBQSUMuLi4gLWZQSUMgLURQSUMKY2hlY2tpbmcgaWYgaTU4Ni1wb2t5LWxpbnV4
-LWdjYyAtbTMyIC1tYXJjaD1jb3JlMiAtbXNzZTMgLW10dW5lPWdlbmVyaWMgLW1mcG1hdGg9c3Nl
-IC0tc3lzcm9vdD0vaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9reV94Ym1j
-XzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9maXNocml2ZXIg
-UElDIGZsYWcgLWZQSUMgLURQSUMgd29ya3MuLi4geWVzCmNoZWNraW5nIGlmIGk1ODYtcG9reS1s
-aW51eC1nY2MgLW0zMiAtbWFyY2g9Y29yZTIgLW1zc2UzIC1tdHVuZT1nZW5lcmljIC1tZnBtYXRo
-PXNzZSAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lf
-eGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJp
-dmVyIHN0YXRpYyBmbGFnIC1zdGF0aWMgd29ya3MuLi4geWVzCmNoZWNraW5nIGlmIGk1ODYtcG9r
-eS1saW51eC1nY2MgLW0zMiAtbWFyY2g9Y29yZTIgLW1zc2UzIC1tdHVuZT1nZW5lcmljIC1tZnBt
-YXRoPXNzZSAtLXN5c3Jvb3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bv
-a3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlz
-aHJpdmVyIHN1cHBvcnRzIC1jIC1vIGZpbGUuby4uLiB5ZXMKY2hlY2tpbmcgaWYgaTU4Ni1wb2t5
-LWxpbnV4LWdjYyAtbTMyIC1tYXJjaD1jb3JlMiAtbXNzZTMgLW10dW5lPWdlbmVyaWMgLW1mcG1h
-dGg9c3NlIC0tc3lzcm9vdD0vaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9r
-eV94Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC9zeXNyb290cy9maXNo
-cml2ZXIgc3VwcG9ydHMgLWMgLW8gZmlsZS5vLi4uIChjYWNoZWQpIHllcwpjaGVja2luZyB3aGV0
-aGVyIHRoZSBpNTg2LXBva3ktbGludXgtZ2NjIC1tMzIgLW1hcmNoPWNvcmUyIC1tc3NlMyAtbXR1
-bmU9Z2VuZXJpYyAtbWZwbWF0aD1zc2UgLS1zeXNyb290PS9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rl
-c3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQv
-dG1wL3N5c3Jvb3RzL2Zpc2hyaXZlciBsaW5rZXIgKGk1ODYtcG9reS1saW51eC1sZCAtLXN5c3Jv
-b3Q9L2hvbWUvc2N0L3hibWNfZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkv
-cG9reV94Ym1jXzA5TWFyMjAxMi9idWlsZC90bXAvc3lzcm9vdHMvZmlzaHJpdmVyKSBzdXBwb3J0
-cyBzaGFyZWQgbGlicmFyaWVzLi4uIHllcwpjaGVja2luZyB3aGV0aGVyIC1sYyBzaG91bGQgYmUg
-ZXhwbGljaXRseSBsaW5rZWQgaW4uLi4gbm8KY2hlY2tpbmcgZHluYW1pYyBsaW5rZXIgY2hhcmFj
-dGVyaXN0aWNzLi4uIEdOVS9MaW51eCBsZC5zbwpjaGVja2luZyBob3cgdG8gaGFyZGNvZGUgbGli
-cmFyeSBwYXRocyBpbnRvIHByb2dyYW1zLi4uIGltbWVkaWF0ZQpjaGVja2luZyB3aGV0aGVyIHN0
-cmlwcGluZyBsaWJyYXJpZXMgaXMgcG9zc2libGUuLi4geWVzCmNoZWNraW5nIGlmIGxpYnRvb2wg
-c3VwcG9ydHMgc2hhcmVkIGxpYnJhcmllcy4uLiB5ZXMKY2hlY2tpbmcgd2hldGhlciB0byBidWls
-ZCBzaGFyZWQgbGlicmFyaWVzLi4uIHllcwpjaGVja2luZyB3aGV0aGVyIHRvIGJ1aWxkIHN0YXRp
-YyBsaWJyYXJpZXMuLi4geWVzCmNoZWNraW5nIGZvciBweXRob24uLi4gL2hvbWUvc2N0L3hibWNf
-ZmluYWwvdGVzdC94Ym1jXzExanVsL3Bva3lfeGJtY18xMmp1bHkvcG9reV94Ym1jXzA5TWFyMjAx
-Mi9idWlsZC90bXAvc3lzcm9vdHMvaTY4Ni1saW51eC91c3IvYmluL3B5dGhvbgpjaGVja2luZyBm
-b3IgcHl0aG9uIHZlcnNpb24uLi4gMi42CmNoZWNraW5nIGZvciBweXRob24gcGxhdGZvcm0uLi4g
-bGludXgyCmNoZWNraW5nIGZvciBweXRob24gc2NyaXB0IGRpcmVjdG9yeS4uLiAke3ByZWZpeH0v
-bGliL3B5dGhvbjIuNi9zaXRlLXBhY2thZ2VzCmNoZWNraW5nIGZvciBweXRob24gZXh0ZW5zaW9u
-IG1vZHVsZSBkaXJlY3RvcnkuLi4gJHtleGVjX3ByZWZpeH0vbGliL3B5dGhvbjIuNi9zaXRlLXBh
-Y2thZ2VzCmNoZWNraW5nIGZvciBBTlNJIEMgaGVhZGVyIGZpbGVzLi4uIChjYWNoZWQpIHllcwpj
-aGVja2luZyB3aGV0aGVyIHRpbWUuaCBhbmQgc3lzL3RpbWUuaCBtYXkgYm90aCBiZSBpbmNsdWRl
-ZC4uLiB5ZXMKY2hlY2tpbmcgZm9yIGZjbnRsLmguLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5nIGZv
-ciBsaW1pdHMuaC4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tpbmcgZm9yIHN5cy9pb2N0bC5oLi4uIChj
-YWNoZWQpIHllcwpjaGVja2luZyBmb3Igc3lzL3RpbWUuaC4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tp
-bmcgZm9yIHN5c2xvZy5oLi4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3IgdW5pc3RkLmguLi4g
-KGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciBhbiBBTlNJIEMtY29uZm9ybWluZyBjb25zdC4uLiB5
-ZXMKY2hlY2tpbmcgZm9yIGlubGluZS4uLiBpbmxpbmUKY2hlY2tpbmcgZm9yIG9mZl90Li4uIHll
-cwpjaGVja2luZyBmb3IgcGlkX3QuLi4geWVzCmNoZWNraW5nIGZvciBzaXplX3QuLi4geWVzCmNo
-ZWNraW5nIHdoZXRoZXIgc3RydWN0IHRtIGlzIGluIHN5cy90aW1lLmggb3IgdGltZS5oLi4uIHRp
-bWUuaApjaGVja2luZyByZXR1cm4gdHlwZSBvZiBzaWduYWwgaGFuZGxlcnMuLi4gdm9pZApjaGVj
-a2luZyBmb3IgdnByaW50Zi4uLiAoY2FjaGVkKSB5ZXMKY2hlY2tpbmcgZm9yIF9kb3BybnQuLi4g
-bm8KY2hlY2tpbmcgZm9yIGdldGhvc3RuYW1lLi4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3Ig
-Z2V0dGltZW9mZGF5Li4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3IgbWtmaWZvLi4uIChjYWNo
-ZWQpIHllcwpjaGVja2luZyBmb3Igc2VsZWN0Li4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3Ig
-c29ja2V0Li4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3Igc3RyZHVwLi4uIChjYWNoZWQpIHll
-cwpjaGVja2luZyBmb3Igc3RyZXJyb3IuLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciBzdHJ0
-b3VsLi4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3Igc25wcmludGYuLi4gKGNhY2hlZCkgeWVz
-CmNoZWNraW5nIGZvciBzdHJzZXAuLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciB2c3lzbG9n
-Li4uIHllcwpjaGVja2luZyBmb3IgZm9ya3B0eS4uLiBubwpjaGVja2luZyBmb3IgZm9ya3B0eSBp
-biAtbHV0aWwuLi4geWVzCmNoZWNraW5nIHZnYS5oIHVzYWJpbGl0eS4uLiBubwpjaGVja2luZyB2
-Z2EuaCBwcmVzZW5jZS4uLiBubwpjaGVja2luZyBmb3IgdmdhLmguLi4gbm8KY2hlY2tpbmcgZm9y
-IFguLi4gbGlicmFyaWVzICwgaGVhZGVycyAKY2hlY2tpbmcgZm9yIGdldGhvc3RieW5hbWUuLi4g
-KGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciBjb25uZWN0Li4uIChjYWNoZWQpIHllcwpjaGVja2lu
-ZyBmb3IgcmVtb3ZlLi4uIChjYWNoZWQpIHllcwpjaGVja2luZyBmb3Igc2htYXQuLi4gKGNhY2hl
-ZCkgeWVzCmNoZWNraW5nIGZvciBJY2VDb25uZWN0aW9uTnVtYmVyIGluIC1sSUNFLi4uIHllcwpj
-aGVja2luZyBmb3IgZ2V0b3B0X2xvbmcuLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5nIGZvciBta3Rl
-bXAuLi4geWVzCmNoZWNraW5nIGZvciBMaW51eCBrZXJuZWwgc291cmNlcy4uLiAvdG1wL0xJUkNN
-Ri5URUNTQW06Mjk6IHdhcm5pbmc6IG92ZXJyaWRpbmcgY29tbWFuZHMgZm9yIHRhcmdldCBgbGly
-Y190ZWxsX21lX3doYXRfdmVyc2lvbl9pcycKL3RtcC9MSVJDTUYuVEVDU0FtOjI0OiB3YXJuaW5n
-OiBpZ25vcmluZyBvbGQgY29tbWFuZHMgZm9yIHRhcmdldCBgbGlyY190ZWxsX21lX3doYXRfdmVy
-c2lvbl9pcycKbWFrZVsyXTogKioqIE5vIHJ1bGUgdG8gbWFrZSB0YXJnZXQgYGxpcmNfdGVsbF9t
-ZV93aGF0X3ZlcnNpb25faXMnLiAgU3RvcC4KbWFrZVsxXTogKioqIFtzdWItbWFrZV0gRXJyb3Ig
-MgptYWtlOiAqKiogW2FsbF0gRXJyb3IgMgovdG1wL0xJUkNNRi5URUNTQW06MzE6IHdhcm5pbmc6
-IG92ZXJyaWRpbmcgY29tbWFuZHMgZm9yIHRhcmdldCBgbGlyY190ZWxsX21lX3doYXRfcGF0Y2hs
-ZXZlbF9pcycKL3RtcC9MSVJDTUYuVEVDU0FtOjI0OiB3YXJuaW5nOiBpZ25vcmluZyBvbGQgY29t
-bWFuZHMgZm9yIHRhcmdldCBgbGlyY190ZWxsX21lX3doYXRfcGF0Y2hsZXZlbF9pcycKbWFrZVsy
-XTogKioqIE5vIHJ1bGUgdG8gbWFrZSB0YXJnZXQgYGxpcmNfdGVsbF9tZV93aGF0X3BhdGNobGV2
-ZWxfaXMnLiAgU3RvcC4KbWFrZVsxXTogKioqIFtzdWItbWFrZV0gRXJyb3IgMgptYWtlOiAqKiog
-W2FsbF0gRXJyb3IgMgovaG9tZS9zY3QveGJtY19maW5hbC90ZXN0L3hibWNfMTFqdWwvcG9reV94
-Ym1jXzEyanVseS9wb2t5X3hibWNfMDlNYXIyMDEyL2J1aWxkL3RtcC93b3JrL2Zpc2hyaXZlci1w
-b2t5LWxpbnV4L2xpcmMtbW9kdWxlcy0wLjkuMC1yMC9saXJjLTAuOS4wL2NvbmZpZ3VyZTogbGlu
-ZSAxMzE5NDogdGVzdDogdG9vIG1hbnkgYXJndW1lbnRzCi9ob21lL3NjdC94Ym1jX2ZpbmFsL3Rl
-c3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIvYnVpbGQv
-dG1wL3N5c3Jvb3RzL2Zpc2hyaXZlci9rZXJuZWwvCmNoZWNraW5nIGZvciB3aGljaCBkcml2ZXJz
-IGNhbiBiZSBpbnN0YWxsZWQgb24gdGhpcyBzeXN0ZW0uLi4gCmNoZWNraW5nIGZvciBjYXJhY2Ff
-aW5pdCBpbiAtbGNhcmFjYV9jbGllbnQuLi4gbm8KY2hlY2tpbmcgZnRkaS5oIHVzYWJpbGl0eS4u
-LiBubwpjaGVja2luZyBmdGRpLmggcHJlc2VuY2UuLi4gbm8KY2hlY2tpbmcgZm9yIGZ0ZGkuaC4u
-LiBubwpjaGVja2luZyBpZ3VhbmFJUi5oIHVzYWJpbGl0eS4uLiBubwpjaGVja2luZyBpZ3VhbmFJ
-Ui5oIHByZXNlbmNlLi4uIG5vCmNoZWNraW5nIGZvciBpZ3VhbmFJUi5oLi4uIG5vCmNoZWNraW5n
-IGZvciBpcl9zdHJlcnJvciBpbiAtbGlybWFuLi4uIG5vCmNoZWNraW5nIGZvciBpcl9zdHJlcnJv
-ciBpbiAtbGlybWFuX3N3Li4uIG5vCmNoZWNraW5nIHBvcnRhdWRpby5oIHVzYWJpbGl0eS4uLiBu
-bwpjaGVja2luZyBwb3J0YXVkaW8uaCBwcmVzZW5jZS4uLiBubwpjaGVja2luZyBmb3IgcG9ydGF1
-ZGlvLmguLi4gbm8KY2hlY2tpbmcgYWxzYS9hc291bmRsaWIuaCB1c2FiaWxpdHkuLi4geWVzCmNo
-ZWNraW5nIGFsc2EvYXNvdW5kbGliLmggcHJlc2VuY2UuLi4geWVzCmNoZWNraW5nIGZvciBhbHNh
-L2Fzb3VuZGxpYi5oLi4uIHllcwpjaGVja2luZyBmb3Igc25kX3BjbV9vcGVuIGluIC1sYXNvdW5k
-Li4uIHllcwpjaGVja2luZyBmb3IgQUxTQSBTQiBSQyBod2RlcCBzdXBwb3J0Li4uIHllcwpjaGVj
-a2luZyBzY3NpL3NnLmggdXNhYmlsaXR5Li4uIHllcwpjaGVja2luZyBzY3NpL3NnLmggcHJlc2Vu
-Y2UuLi4geWVzCmNoZWNraW5nIGZvciBzY3NpL3NnLmguLi4geWVzCmNoZWNraW5nIGxpbnV4L2lu
-cHV0LmggdXNhYmlsaXR5Li4uIHllcwpjaGVja2luZyBsaW51eC9pbnB1dC5oIHByZXNlbmNlLi4u
-IHllcwpjaGVja2luZyBmb3IgbGludXgvaW5wdXQuaC4uLiB5ZXMKY2hlY2tpbmcgbGludXgvdHlw
-ZXMuaCB1c2FiaWxpdHkuLi4geWVzCmNoZWNraW5nIGxpbnV4L3R5cGVzLmggcHJlc2VuY2UuLi4g
-eWVzCmNoZWNraW5nIGZvciBsaW51eC90eXBlcy5oLi4uIHllcwpjaGVja2luZyBmb3IgbGludXgv
-aGlkZGV2LmguLi4geWVzCmNoZWNraW5nIGZvciBISURERVZfRkxBR19VUkVGIHN1cHBvcnQuLi4g
-eWVzCmNoZWNraW5nIGZvciBzeXMvc291bmRjYXJkLmguLi4gKGNhY2hlZCkgeWVzCmNoZWNraW5n
-IGxpbnV4L2kyYy1kZXYuaCB1c2FiaWxpdHkuLi4geWVzCmNoZWNraW5nIGxpbnV4L2kyYy1kZXYu
-aCBwcmVzZW5jZS4uLiB5ZXMKY2hlY2tpbmcgZm9yIGxpbnV4L2kyYy1kZXYuaC4uLiB5ZXMKY29u
-ZmlndXJlOiBlcnJvcjogKioqIGl0IGlzIG5vdCBwb3NzaWJsZSB0byBpbnN0YWxsIHRoZSBzcGVj
-aWZpZWQgZHJpdmVyCglvbiB0aGlzIHN5c3RlbQpGQVRBTDogb2VfcnVuY29uZiBmYWlsZWQKRVJS
-T1I6IEZ1bmN0aW9uICdkb19jb25maWd1cmUnIGZhaWxlZCAoc2VlIC9ob21lL3NjdC94Ym1jX2Zp
-bmFsL3Rlc3QveGJtY18xMWp1bC9wb2t5X3hibWNfMTJqdWx5L3Bva3lfeGJtY18wOU1hcjIwMTIv
-YnVpbGQvdG1wL3dvcmsvZmlzaHJpdmVyLXBva3ktbGludXgvbGlyYy1tb2R1bGVzLTAuOS4wLXIw
-L3RlbXAvbG9nLmRvX2NvbmZpZ3VyZS4yNjUyNSBmb3IgZnVydGhlciBpbmZvcm1hdGlvbikK
-
---f46d04389099fa0a3304c7c4e298--
