@@ -1,25 +1,27 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DFAECE0044A
-	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 07:10:00 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 18F6DF811F3; Tue, 21 Aug 2012 08:10:00 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 9D3BCF811ED;
-	Tue, 21 Aug 2012 08:09:58 -0600 (MDT)
-Message-ID: <503396C3.9020705@mlbassoc.com>
-Date: Tue, 21 Aug 2012 08:10:11 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 92B3FE0027F
+	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 08:22:35 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Aug 2012 08:18:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.77,802,1336374000"; d="scan'208";a="136538423"
+Received: from unknown (HELO envy.home) ([10.255.13.36])
+	by AZSMGA002.ch.intel.com with ESMTP; 21 Aug 2012 08:18:37 -0700
+Message-ID: <5033A655.4040802@linux.intel.com>
+Date: Tue, 21 Aug 2012 08:16:37 -0700
+From: Darren Hart <dvhart@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:14.0) Gecko/20120714 Thunderbird/14.0
+	rv:14.0) Gecko/20120717 Thunderbird/14.0
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: knotty2
+To: Khem Raj <raj.khem@gmail.com>
+References: <ef9f8fc7a6283b51a67b343c40a1826a659875a6.1345498314.git.dvhart@linux.intel.com>
+	<CAMKF1sprfQp57Z95x4y7zqDvndA5n8xPYPik__HuPAatQqFpWg@mail.gmail.com>
+In-Reply-To: <CAMKF1sprfQp57Z95x4y7zqDvndA5n8xPYPik__HuPAatQqFpWg@mail.gmail.com>
+X-Enigmail-Version: 1.4.3
+Cc: Richard Purdie <richard.purdie@intel.com>, Poky <poky@yoctoproject.org>,
+	Paul Eggleton <paul.eggleton@linux.intel.com>
+Subject: Re: [PATCH V2] README: Clarify where to send patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,29 +34,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2012 14:10:01 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 21 Aug 2012 15:22:36 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-I just updated to master:6ed4012fefee1294d98f2ea76163d44acf3d045
-The new "knotty2" interface is very impressive and a welcome improvement
-from the old CLI :-)
 
-One thing I noticed though - during much of the first phase(*) of a
-new build (where it's building the early native packages), I only
-get one task running at a time even though I've set BB_NUMBER_THREADS ?= "4"
-What needs to be so serialized?
 
-Once it gets past this phase and into building the main recipes,
-it goes back to running more than one task at a time.
+On 08/20/2012 04:53 PM, Khem Raj wrote:
+> On Mon, Aug 20, 2012 at 2:32 PM, Darren Hart <dvhart@linux.intel.com> wrote:
+>>
+>> +
+>> +Most everything else should be sent to the OpenEmbedded Core mailing list.
+>> +If in doubt, check the oe-core git repository for the content you intend to
+>> +modify. If it exists there, send the patches to:
+>> +    openembedded-core@lists.openembedded.org
+>> +
+>> +Note: The scripts directory should be treated with extra care as it is a mix
+>> +      of oe-core and poky-specific files.
+> 
+> can you also a phrase saying that rebase your patches for OE-Core on
+> oe-core repo
+> before sending ?
 
-(*) Do these various build phases have names?  Is this documented?
-
-Thanks
+Will do so now.
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Technical Lead - Linux Kernel
 
