@@ -1,19 +1,19 @@
 Return-Path: <radu.moisan@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 95387E0044A
-	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 06:30:41 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 21 Aug 2012 06:30:40 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 12535E0044A
+	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 06:32:08 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 21 Aug 2012 06:32:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.77,802,1336374000"; d="scan'208";a="211653487"
+X-IronPort-AV: E=Sophos;i="4.77,802,1336374000"; d="scan'208";a="183438847"
 Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
-	by fmsmga002.fm.intel.com with ESMTP; 21 Aug 2012 06:30:38 -0700
+	by orsmga001.jf.intel.com with ESMTP; 21 Aug 2012 06:32:04 -0700
 From: Radu Moisan <radu.moisan@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 21 Aug 2012 16:32:57 +0300
-Message-Id: <1345555977-19974-1-git-send-email-radu.moisan@intel.com>
+Date: Tue, 21 Aug 2012 16:34:22 +0300
+Message-Id: <1345556062-20091-1-git-send-email-radu.moisan@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH v2] upstream_tracking.inc: Updates for upstream/check date
+Subject: [PATCH v3] upstream_tracking.inc: Updates for upstream/check date
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,17 +26,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2012 13:30:41 -0000
+X-List-Received-Date: Tue, 21 Aug 2012 13:32:08 -0000
 
 Manually checked all packages assigned to me and updated accordingly.
 
 Signed-off-by: Radu Moisan <radu.moisan@intel.com>
 ---
- .../conf/distro/include/upstream_tracking.inc      |  165 ++++++++++++--------
- 1 file changed, 103 insertions(+), 62 deletions(-)
+ .../conf/distro/include/upstream_tracking.inc      |  166 ++++++++++++--------
+ 1 file changed, 104 insertions(+), 62 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index d34d980..59480f8 100644
+index d34d980..de0adfb 100644
 --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
 +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
 @@ -30,15 +30,19 @@ RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
@@ -319,18 +319,19 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-mtools = "4.0.17"
  RECIPE_UPSTREAM_DATE_pn-mtools = "Jun 28, 2011"
  RECIPE_UPSTREAM_VERSION_pn-mutter = "2.29.1_0.4"
-@@ -713,8 +745,9 @@ RECIPE_UPSTREAM_VERSION_pn-netbase = "4.46"
+@@ -713,8 +745,10 @@ RECIPE_UPSTREAM_VERSION_pn-netbase = "4.46"
  RECIPE_UPSTREAM_DATE_pn-netbase = "Jun 06, 2011"
  RECIPE_UPSTREAM_VERSION_pn-nfs-utils = "1.2.6"
  CHECK_DATE_pn-nfs-utils = "Jul 05, 2012"
 -RECIPE_UPSTREAM_DATE_pn-nfs-utils = "May 14, 2012"
 +RECIPE_UPSTREAM_DAE_pn-nfs-utils = "May 14, 2012"
  RECIPE_UPSTREAM_DATE_pn-ocf-linux = "Jan 27, 2012"
++RECIPE_NO_UPDATE_REASON_pn-ocf-linux = "it is coupled to a particular BSP such that appropriate hardware are needed, and kernel options enabled for any acceleration to happen"
 +CHECK_DATE_pn-ocf-linux = "Jul 30, 2012"
  RECIPE_UPSTREAM_VERSION_pn-ofono = "1.6"
  RECIPE_UPSTREAM_DATE_pn-ofono="Apr 20, 2012"
  RECIPE_UPSTREAM_DATE_pn-oh-puzzles = "Oct 1, 2011"
-@@ -729,10 +762,11 @@ RECIPE_UPSTREAM_DATE_pn-openssh = "Apr 22, 2012"
+@@ -729,10 +763,11 @@ RECIPE_UPSTREAM_DATE_pn-openssh = "Apr 22, 2012"
  RECIPE_UPSTREAM_VERSION_pn-openssl = "1.0.1b"
  RECIPE_NO_UPDATE_REASON_pn-openssl = "1.0.1 is beta 1.0.0i is latest"
  RECIPE_UPSTREAM_DATE_pn-openssl = "Apr 26, 2012"
@@ -343,7 +344,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_DATE_pn-opkg = "Feb 01, 2010"
  RECIPE_UPSTREAM_VERSION_pn-opkg_nogpg = "0.1.8"
  RECIPE_UPSTREAM_DATE_pn-opkg_nogpg = "Feb 01, 2010"
-@@ -744,8 +778,8 @@ CHECK_DATE_pn-oprofileui = "Dec 24, 2011"
+@@ -744,8 +779,8 @@ CHECK_DATE_pn-oprofileui = "Dec 24, 2011"
  RECIPE_UPSTREAM_DATE_pn-oprofileui = "Nov 14, 2011"
  RECIPE_UPSTREAM_VERSION_pn-orinoco-conf = "1.0"
  RECIPE_UPSTREAM_DATE_pn-owl-video = "Jun 01, 2008"
@@ -354,7 +355,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-parted = "3.0"
  CHECK_DATE_pn-parted = "Nov 22, 2011"
  RECIPE_LATEST_VERIONS_pn-patch = "2.6.1"
-@@ -824,6 +858,7 @@ RECIPE_UPSTREAM_DATE_pn-qt-mobility-embedded = "May 10, 2011"
+@@ -824,6 +859,7 @@ RECIPE_UPSTREAM_DATE_pn-qt-mobility-embedded = "May 10, 2011"
  RECIPE_UPSTREAM_DATE_pn-qt4-native = "Dec 15, 2011"
  RECIPE_UPSTREAM_VERSION_pn-quicky = "0.4"
  RECIPE_UPSTREAM_DATE_pn-quicky = "Jun 18, 2008"
@@ -362,7 +363,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-quilt="0.60"
  RECIPE_UPSTREAM_VERSION_pn-quota = "4.00"
  RECIPE_UPSTREAM_DATE_pn-quota = "Aug 17, 2011"
-@@ -851,6 +886,7 @@ RECIPE_UPSTREAM_DATE_pn-rsync = "Dec 01, 2009"
+@@ -851,6 +887,7 @@ RECIPE_UPSTREAM_DATE_pn-rsync = "Dec 01, 2009"
  RECIPE_UPSTREAM_DATE_pn-rt-tests = "Sep 26, 2011"
  RECIPE_UPSTREAM_VERSION_pn-run-postinsts = "check"
  RECIPE_UPSTREAM_DATE_pn-rxvt-unicode = "Jan 21, 2012"
@@ -370,7 +371,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-sat-solver = "0.0-git1+e74e0bfd23e4e95064d08e13efb5de9caf433f40"
  RECIPE_UPSTREAM_DATE_pn-sato-icon-theme = "Feb 01, 2008"
  RECIPE_UPSTREAM_VERSION_pn-screen = "4.0.3"
-@@ -864,7 +900,7 @@ RECIPE_UPSTREAM_VERSION_pn-sed = "4.2.1"
+@@ -864,7 +901,7 @@ RECIPE_UPSTREAM_VERSION_pn-sed = "4.2.1"
  CHECK_DATE_pn-sed = "Jul 28, 2011"
  RECIPE_UPSTREAM_DATE_pn-sed = "Jun 01, 2009"
  RECIPE_UPSTREAM_VERSION_pn-setserial = "2.17"
@@ -379,7 +380,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_DATE_pn-setserial = "Feb 09, 2000"
  RECIPE_UPSTREAM_DATE_pn-settings-daemon = "Jun 01, 2008"
  RECIPE_UPSTREAM_DATE_pn-sgml-common = "May 25, 2001"
-@@ -886,10 +922,11 @@ RECIPE_UPSTREAM_DATE_pn-sqlite3 = "Jun 11, 2012"
+@@ -886,10 +923,11 @@ RECIPE_UPSTREAM_DATE_pn-sqlite3 = "Jun 11, 2012"
  CHECK_DATE_pn-sqlite3= "Jul 05, 2012"
  RECIPE_UPSTREAM_VERSION_pn-squashfs-tools = "4.2"
  RECIPE_UPSTREAM_DATE_pn-squashfs-tools = "Feb 28, 2011"
@@ -393,7 +394,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-strace = "4.7"
  RECIPE_UPSTREAM_DATE_pn-strace = "May 02, 2012"
  CHECK_DATE_pn-strace = "Jul 06, 2012"
-@@ -928,6 +965,7 @@ RECIPE_UPSTREAM_VERSION_pn-tcl="8.5.11"
+@@ -928,6 +966,7 @@ RECIPE_UPSTREAM_VERSION_pn-tcl="8.5.11"
  RECIPE_UPSTREAM_DATE_pn-tcl = "Jul 07, 2011"
  CHECK_DATE_pn-tcl = "Jul 06, 2012"
  RECIPE_UPSTREAM_DATE_pn-tcp-wrappers = "Apr 08, 1997"
@@ -401,7 +402,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_DATE_pn-telepathy-glib = "Apr 20, 2012"
  RECIPE_UPSTREAM_VERSION_pn-texi2html = "5.0"
  CHECK_DATE_pn-texi2html = "Dec 18, 2011"
-@@ -942,7 +980,8 @@ CHECK_DATE_pn-tiff = "Feb 27, 2012"
+@@ -942,7 +981,8 @@ CHECK_DATE_pn-tiff = "Feb 27, 2012"
  RECIPE_UPSTREAM_VERSION_pn-time = "1.7"
  RECIPE_UPSTREAM_DATE_pn-time = "Jul 01, 1996"
  RECIPE_UPSTREAM_VERSION_pn-tinylogin = "1.4"
@@ -411,7 +412,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_DATE_pn-tinylogin = "Jan 03, 2003"
  RECIPE_NO_UPDATE_REASON_pn-tinylogin = "TinyLogin was merged into BusyBox."
  RECIPE_UPSTREAM_DATE_pn-trace-cmd = "Nov 7, 2011"
-@@ -953,39 +992,40 @@ RECIPE_UPSTREAM_DATE_pn-trapproto = "Jan 01, 2006"
+@@ -953,39 +993,40 @@ RECIPE_UPSTREAM_DATE_pn-trapproto = "Jan 01, 2006"
  RECIPE_UPSTREAM_VERSION_pn-tremor="20120122"
  RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
  RECIPE_UPSTREAM_VERSION_pn-tslib = "1.0"
@@ -465,7 +466,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-wbxml2 = "0.10.8"
  RECIPE_UPSTREAM_DATE_pn-web-webkit = "Aug 01, 2008"
  RECIPE_UPSTREAM_VERSION_pn-web = "0.0+svnr129"
-@@ -993,8 +1033,8 @@ RECIPE_UPSTREAM_VERSION_pn-webkit-gtk = "1.8.1"
+@@ -993,8 +1034,8 @@ RECIPE_UPSTREAM_VERSION_pn-webkit-gtk = "1.8.1"
  RECIPE_UPSTREAM_DATE_pn-webkit-gtk = "Apr 24, 2012"
  CHECK_DATE_pn-webkit-gtk = "Jul 06, 2012"
  RECIPE_UPSTREAM_VERSION_pn-which = "2.20"
@@ -476,7 +477,7 @@ index d34d980..59480f8 100644
  RECIPE_UPSTREAM_VERSION_pn-wireless-tools = "29"
  RECIPE_UPSTREAM_DATE_pn-wireless-tools="Sep 18, 2007"
  CHECK_DATE_pn-wireless-tools = "Jul 24, 2012"
-@@ -1079,9 +1119,10 @@ CHECK_DATE_pn-zaurusd = "Jul 12, 2011"
+@@ -1079,9 +1120,10 @@ CHECK_DATE_pn-zaurusd = "Jul 12, 2011"
  RECIPE_NO_UPDATE_REASON_pn-zaurusd = "SVN rev 426 is last Stable release"
  RECIPE_UPSTREAM_VERSION_pn-zeroconf = "0.9"
  RECIPE_UPSTREAM_VERSION_pn-zip = "3.0"
