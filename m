@@ -1,19 +1,19 @@
 Return-Path: <radu.moisan@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D62B5E0044A
-	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 06:11:43 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 21 Aug 2012 06:11:10 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 95387E0044A
+	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 06:30:41 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 21 Aug 2012 06:30:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.77,802,1336374000"; d="scan'208";a="189268704"
+X-IronPort-AV: E=Sophos;i="4.77,802,1336374000"; d="scan'208";a="211653487"
 Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
-	by orsmga002.jf.intel.com with ESMTP; 21 Aug 2012 06:11:08 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 21 Aug 2012 06:30:38 -0700
 From: Radu Moisan <radu.moisan@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 21 Aug 2012 16:13:27 +0300
-Message-Id: <1345554807-19227-1-git-send-email-radu.moisan@intel.com>
+Date: Tue, 21 Aug 2012 16:32:57 +0300
+Message-Id: <1345555977-19974-1-git-send-email-radu.moisan@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] upstream_tracking.inc: Updates for upstream/check date
+Subject: [PATCH v2] upstream_tracking.inc: Updates for upstream/check date
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,7 +26,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2012 13:11:44 -0000
+X-List-Received-Date: Tue, 21 Aug 2012 13:30:41 -0000
 
 Manually checked all packages assigned to me and updated accordingly.
 
