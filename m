@@ -1,31 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4F2C4E01304
-	for <poky@yoctoproject.org>; Tue, 21 Aug 2012 15:11:24 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q7LMBLqH017167;
-	Tue, 21 Aug 2012 23:11:21 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 15911-06; Tue, 21 Aug 2012 23:11:17 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q7LMBBYG017161
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Tue, 21 Aug 2012 23:11:12 +0100
-Message-ID: <1345587073.3907.101.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 21 Aug 2012 23:11:13 +0100
-In-Reply-To: <CAMKF1sqHnvv0863VfSeXA00q2wR0+5hxmooSuP=MH8MeMjPZmQ@mail.gmail.com>
-References: <1345533440.3907.43.camel@ted>
-	<CAMKF1sqHnvv0863VfSeXA00q2wR0+5hxmooSuP=MH8MeMjPZmQ@mail.gmail.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: atom-pc: Drop glibc --with-tls option, its now the only option for glibc
+Return-Path: <radu.moisan@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1C8A2E01388
+	for <poky@yoctoproject.org>; Wed, 22 Aug 2012 02:22:15 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 22 Aug 2012 02:22:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.77,808,1336374000"; d="scan'208";a="212171646"
+Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
+	by fmsmga002.fm.intel.com with ESMTP; 22 Aug 2012 02:22:10 -0700
+From: Radu Moisan <radu.moisan@intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 22 Aug 2012 12:24:31 +0300
+Message-Id: <1345627471-3533-1-git-send-email-radu.moisan@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] busybox: Update to upstream 1.20.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,46 +26,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Aug 2012 22:11:24 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 22 Aug 2012 09:22:15 -0000
 
-On Tue, 2012-08-21 at 10:40 -0700, Khem Raj wrote:
-> On Tue, Aug 21, 2012 at 12:17 AM, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
-> > This option is unused by (e)glibc since 2011 and is the default. It has been
-> > shown to interact badly with the configure option in ia32-base.inc from meta-intel
-> > causing a rebuild of the whole system despite the only change being an
-> > assignment with += vs =. The easiest fix is simply to drop it.
-> 
-> yes, is TLS disabled got atompc somehow ?
+Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+---
+ .../poky-tiny/defconfig                            |    0
+ ...box_1.19.4.bbappend => busybox_1.20.2.bbappend} |    0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ rename meta-yocto/recipes-core/busybox/{busybox-1.19.4 => busybox-1.20.2}/poky-tiny/defconfig (100%)
+ rename meta-yocto/recipes-core/busybox/{busybox_1.19.4.bbappend => busybox_1.20.2.bbappend} (100%)
 
-No, one has GLIBC_EXTRA_OECONF = "--with-tls" and the other
-GLIBC_EXTRA_OECONF = " --with-tls" so bitbake sees them as different and
-rebuilds things it shouldn't.
-
-I was going to move this to the eglibc recipe but since its not needed
-at all, its simpler just to drop it.
-
-Cheers,
-
-Richard
-
-
-> >
-> > Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-> > ---
-> > diff --git a/meta-yocto/conf/machine/atom-pc.conf b/meta-yocto/conf/machine/atom-pc.conf
-> > index 38db414..92d5938 100644
-> > --- a/meta-yocto/conf/machine/atom-pc.conf
-> > +++ b/meta-yocto/conf/machine/atom-pc.conf
-> > @@ -35,7 +35,6 @@ IMAGE_FSTYPES ?= "ext3.lzma live"
-> >  APPEND += "usbcore.autosuspend=1"
-> >
-> >  GLIBC_ADDONS = "nptl"
-> > -GLIBC_EXTRA_OECONF = "--with-tls"
-> >
-> >  EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
-> >
+diff --git a/meta-yocto/recipes-core/busybox/busybox-1.19.4/poky-tiny/defconfig b/meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig
+similarity index 100%
+rename from meta-yocto/recipes-core/busybox/busybox-1.19.4/poky-tiny/defconfig
+rename to meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig
+diff --git a/meta-yocto/recipes-core/busybox/busybox_1.19.4.bbappend b/meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend
+similarity index 100%
+rename from meta-yocto/recipes-core/busybox/busybox_1.19.4.bbappend
+rename to meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend
+-- 
+1.7.9.5
 
 
