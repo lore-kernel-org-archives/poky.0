@@ -1,30 +1,33 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75C80E01388
-	for <poky@yoctoproject.org>; Wed, 22 Aug 2012 06:48:16 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q7MDmDGb003670;
-	Wed, 22 Aug 2012 14:48:13 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 03207-06; Wed, 22 Aug 2012 14:48:09 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q7MDm3cJ003654
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Wed, 22 Aug 2012 14:48:04 +0100
-Message-ID: <1345643284.3907.123.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gary Thomas <gary@mlbassoc.com>
-Date: Wed, 22 Aug 2012 14:48:04 +0100
-In-Reply-To: <503396C3.9020705@mlbassoc.com>
-References: <503396C3.9020705@mlbassoc.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: knotty2
+Return-Path: <flocirel@gmail.com>
+Received: from mail-wi0-f182.google.com (mail-wi0-f182.google.com
+	[209.85.212.182])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CEFFDE01404
+	for <poky@yoctoproject.org>; Wed, 22 Aug 2012 14:35:52 -0700 (PDT)
+Received: by wibhq12 with SMTP id hq12so95618wib.11
+	for <poky@yoctoproject.org>; Wed, 22 Aug 2012 14:35:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject
+	:content-type:content-transfer-encoding;
+	bh=2hfgL760TWyU9tlDy+f/TzG3N67lqiKGtKXiFuUKJYI=;
+	b=SnseOrYm8LQRR4yYOCSIv344WCCJLyXtrRcQqLDRhAo7B953vHvBG/ILlPK0fwZFVk
+	YwySff+hPmdBab5JuCMRSukZPqX8ycNPALi4Y1JxpgACuIRgcbdIc8Ru1ri457zDQhol
+	b324dItI702EGKc+bRlJEFQBPOFk015W9nF7wlT6vTEzha2dvKaHJvGB7VMIIB0An40k
+	ICebTeBvsRxyY0h9dAfTBzc3XTvChREDi5GN9dEtZq34e21oyTieqH7W4QLKClOCAkrX
+	p55iSiPFmLt/l58wwvwvj6vecf/dNg0OQr+LY30BWPX4KE9NBBv4msFK1gYXwP1mtUod
+	nlqQ==
+Received: by 10.180.97.33 with SMTP id dx1mr8982568wib.18.1345671349838;
+	Wed, 22 Aug 2012 14:35:49 -0700 (PDT)
+Received: from [192.168.1.118] ([79.115.97.134])
+	by mx.google.com with ESMTPS id dc3sm41255529wib.7.2012.08.22.14.35.49
+	(version=SSLv3 cipher=OTHER); Wed, 22 Aug 2012 14:35:49 -0700 (PDT)
+Message-ID: <503550B4.6060708@gmail.com>
+Date: Thu, 23 Aug 2012 00:35:48 +0300
+From: Florin <flocirel@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:14.0) Gecko/20120714 Thunderbird/14.0
+MIME-Version: 1.0
+To: poky@yoctoproject.org
+Subject: do_fetch error with gcc-cross-initial_4.7
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,37 +40,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Aug 2012 13:48:17 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 22 Aug 2012 21:35:53 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2012-08-21 at 08:10 -0600, Gary Thomas wrote:
-> I just updated to master:6ed4012fefee1294d98f2ea76163d44acf3d045
-> The new "knotty2" interface is very impressive and a welcome improvement
-> from the old CLI :-)
-> 
-> One thing I noticed though - during much of the first phase(*) of a
-> new build (where it's building the early native packages), I only
-> get one task running at a time even though I've set BB_NUMBER_THREADS ?= "4"
-> What needs to be so serialized?
-> 
-> Once it gets past this phase and into building the main recipes,
-> it goes back to running more than one task at a time.
-> 
-> (*) Do these various build phases have names?  Is this documented?
+Hi all,
+using today's poky master branch, sha 
+603f6c631e9454d10517599e229943f2b26d08a5 , I get an error when fetching 
+gcc.
 
-This is probably the bit where its building pseudo-native. It
-effectively does:
+I first get this warning:
 
-bitbake pseudo-native
-bitbake <original target>
+WARNING: Failed to fetch URL 
+git://github.com/mirrors/gcc.git;branch=gcc-4_7-branch;protocol=git, 
+attempting MIRRORS if available
 
-so the pseudo-native bit is not very parallel. Its the lesser of several
-evils. I have ideas to improve this but they're invasive, complex and
-I'm not finding the time to look at that :(
 
-Cheers,
+Then it stays stuck at fetching for a while and ends up with:
 
-Richard
+git clone --bare --mirror git://github.com/mirrors/gcc.git 
+/home/me/poky/build/downloads/git2/github.com.mirrors.gcc.git failed 
+with exit code 128, output:
+STDOUT: Cloning into bare repository 
+/home/me/poky/build/downloads/git2/github.com.mirrors.gcc.git...
 
+STDERR: fatal: The remote end hung up unexpectedly
+fatal: early EOF
+fatal: index-pack failed
+
+ERROR: Function failed: Fetcher failure for URL: 
+'git://github.com/mirrors/gcc.git;branch=gcc-4_7-branch;protocol=git'. 
+Unable to fetch URL from any source.
+
+
+After the build stops with this error, retrying the bitbake command to 
+produce the rootfs fetches gcc successfully and gcc (and the rest of the 
+packages) is compiled just fine.
+Is there anybody else seeing this behavior?
+
+Thank you,
+Florin
 
