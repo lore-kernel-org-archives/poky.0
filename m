@@ -1,19 +1,30 @@
-Return-Path: <radu.moisan@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1C8A2E01388
-	for <poky@yoctoproject.org>; Wed, 22 Aug 2012 02:22:15 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 22 Aug 2012 02:22:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.77,808,1336374000"; d="scan'208";a="212171646"
-Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
-	by fmsmga002.fm.intel.com with ESMTP; 22 Aug 2012 02:22:10 -0700
-From: Radu Moisan <radu.moisan@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 22 Aug 2012 12:24:31 +0300
-Message-Id: <1345627471-3533-1-git-send-email-radu.moisan@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] busybox: Update to upstream 1.20.2
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 399DDE01388
+	for <poky@yoctoproject.org>; Wed, 22 Aug 2012 06:05:58 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q7MD5sXG003377;
+	Wed, 22 Aug 2012 14:05:54 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 03272-02; Wed, 22 Aug 2012 14:05:49 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q7MD5jeg003369
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
+	Wed, 22 Aug 2012 14:05:46 +0100
+Message-ID: <1345640747.3907.118.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Darren Hart <dvhart@linux.intel.com>
+Date: Wed, 22 Aug 2012 14:05:47 +0100
+In-Reply-To: <05d539a9494fad9e5a84891631abe046c16b3063.1345566425.git.dvhart@linux.intel.com>
+References: <05d539a9494fad9e5a84891631abe046c16b3063.1345566425.git.dvhart@linux.intel.com>
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>, Poky <poky@yoctoproject.org>
+Subject: Re: [PATCH V3] README: Clarify where to send patches
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,25 +37,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Aug 2012 09:22:15 -0000
+X-List-Received-Date: Wed, 22 Aug 2012 13:05:59 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Radu Moisan <radu.moisan@intel.com>
----
- .../poky-tiny/defconfig                            |    0
- ...box_1.19.4.bbappend => busybox_1.20.2.bbappend} |    0
- 2 files changed, 0 insertions(+), 0 deletions(-)
- rename meta-yocto/recipes-core/busybox/{busybox-1.19.4 => busybox-1.20.2}/poky-tiny/defconfig (100%)
- rename meta-yocto/recipes-core/busybox/{busybox_1.19.4.bbappend => busybox_1.20.2.bbappend} (100%)
+On Tue, 2012-08-21 at 09:27 -0700, Darren Hart wrote:
+> There is still a great deal of confusion over where patches for the
+> various components of the poky repository should be sent. Attempt to
+> mitigate this by including a blurb in the poky README similar to what
+> other layers and repositories do.
+> 
+> V2: Call out the special care required when dealing with the scripts
+>     directory per Saul Wold's recommendation.
+> 
+> V3: Recommend applying patches to oe-core prior to sending patches to
+>     the oe-core mailing list.
+> 
+> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> CC: Richard Purdie <richard.purdie@intel.com>
+> CC: Paul Gortmaker <paul.gortmaker@windriver.com>
+> CC: Paul Eggleton <paul.eggleton@linux.intel.com>
+> CC: Khem Raj <raj.khem@gmail.com>
+> ---
+>  README | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 
-diff --git a/meta-yocto/recipes-core/busybox/busybox-1.19.4/poky-tiny/defconfig b/meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig
-similarity index 100%
-rename from meta-yocto/recipes-core/busybox/busybox-1.19.4/poky-tiny/defconfig
-rename to meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig
-diff --git a/meta-yocto/recipes-core/busybox/busybox_1.19.4.bbappend b/meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend
-similarity index 100%
-rename from meta-yocto/recipes-core/busybox/busybox_1.19.4.bbappend
-rename to meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend
--- 
-1.7.9.5
+
+Merged to master, thanks.
+
+Richard
 
 
