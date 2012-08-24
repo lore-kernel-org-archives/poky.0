@@ -1,32 +1,24 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 44188E0027E
-	for <poky@yoctoproject.org>; Thu, 23 Aug 2012 08:35:48 -0700 (PDT)
-Received: by eekd41 with SMTP id d41so376568eek.35
-	for <poky@yoctoproject.org>; Thu, 23 Aug 2012 08:35:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=otANCJOf0LFdDdWz149UEvTJDPCmU5i/Cs+eT40zuWw=;
-	b=WBDIpjZ7foPMZL/2IyPvuFkbQ4zB5yLvs7mSKATUYKYkbbuOuAn5VJUcYP/0D8OSgB
-	gXxjaIccdv9JvNcGxfIOCdUXyp7mxVnpUQCTYRxOM5AoD2J0tJswYzsGapzQJFepbdpq
-	1ddds0O6r2gQr+PLo55qRU0XL4sywrQJEj9GkeoaE5WiGwUk1KLGQkx3tDrhRElCPDci
-	/BtnLDAKaZUHWrGi886dsqzZW5IWWvu03FZfVSCr+8yi3tnYm4eJ/3SpwXdqvO7sCsL7
-	7CJzVad1KNFomO00eA8d+pOafF4B129+XVz3eVUrR5q2xJWzoV9Ch4BKbiqkIrAgdSfF
-	LHlA==
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23009E0027E
+	for <poky@yoctoproject.org>; Fri, 24 Aug 2012 11:56:00 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 24 Aug 2012 11:55:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,304,1344236400"; d="scan'208";a="184590630"
+Received: from unknown (HELO [10.255.13.21]) ([10.255.13.21])
+	by azsmga001.ch.intel.com with ESMTP; 24 Aug 2012 11:55:48 -0700
+Message-ID: <5037CE34.80700@linux.intel.com>
+Date: Fri, 24 Aug 2012 11:55:48 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:14.0) Gecko/20120717 Thunderbird/14.0
 MIME-Version: 1.0
-Received: by 10.14.204.72 with SMTP id g48mr2516400eeo.45.1345736142893; Thu,
-	23 Aug 2012 08:35:42 -0700 (PDT)
-Received: by 10.14.2.5 with HTTP; Thu, 23 Aug 2012 08:35:42 -0700 (PDT)
-In-Reply-To: <503639B2.4000605@gmail.com>
-References: <503550B4.6060708@gmail.com> <5035DBF4.2020201@r-finger.com>
-	<503639B2.4000605@gmail.com>
-Date: Thu, 23 Aug 2012 08:35:42 -0700
-Message-ID: <CAMKF1sqhPaHkiOn5uTiF6mQixoatRL8queN6XX5AvQaxL1nvzg@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-To: Florin <flocirel@gmail.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: do_fetch error with gcc-cross-initial_4.7
+To: Radu Moisan <radu.moisan@intel.com>
+References: <1345556062-20091-1-git-send-email-radu.moisan@intel.com>
+In-Reply-To: <1345556062-20091-1-git-send-email-radu.moisan@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH v3] upstream_tracking.inc: Updates for upstream/check date
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,112 +31,481 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Aug 2012 15:35:48 -0000
-Content-Type: multipart/alternative; boundary=047d7b343cccc2307904c7f09c44
+X-List-Received-Date: Fri, 24 Aug 2012 18:56:01 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
---047d7b343cccc2307904c7f09c44
-Content-Type: text/plain; charset=UTF-8
-
-On Thursday, August 23, 2012, Florin <flocirel@gmail.com> wrote:
-> On 08/23/2012 10:29 AM, Tomas Frydrych wrote:
->>
->> Hi,
->>
->> On 22/08/12 22:35, Florin wrote:
->>>
->>> ERROR: Function failed: Fetcher failure for URL:
->>> 'git://github.com/mirrors/gcc.git;branch=gcc-4_7-branch;protocol=git'.
->>> Unable to fetch URL from any source.
->>>
->>>
->>> After the build stops with this error, retrying the bitbake command to
->>> produce the rootfs fetches gcc successfully and gcc (and the rest of the
->>> packages) is compiled just fine.
->>> Is there anybody else seeing this behavior?
->>
->> FWIW, over the last few days I have seen intermittent fetch failures
->> from various packages that pull source from github; they pretty much
->> always go away on the next attempt; I assume it's github's fault.
+On 08/21/2012 06:34 AM, Radu Moisan wrote:
+> Manually checked all packages assigned to me and updated accordingly.
 >
-> Hi Tomas,
-> thanks for your answer. The problem I am seeing is that it always behaves
-like this: in the stages of creating the rootfs it gets to the fetching of
-gcc cross initial, this stalls a while (tens of minutes) in which time
-bitbake fetches (all kind of native and target packages) and compiles
-native packages and it throws an error at the point where the dependency
-chain would have had gcc cross initial compiled and ready to be used by
-other packages. After that, rerunning the bitbake command to create the
-rootfs fetches successfully gcc and the build finishes. So I am always
-seeing this behavior: first fetch fails, second fetch works. Always like
-this, never had to try a third time to fetch gcc. That is why I am not
-suspecting especially a problem with github but rather the way bitbake
-tries the mirrors for gcc.
+> Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+> ---
+>   .../conf/distro/include/upstream_tracking.inc      |  166 ++++++++++++--------
+>   1 file changed, 104 insertions(+), 62 deletions(-)
 >
 
-Git archive for gcc is in terabytes so it will take long time to fetch it.
-I have sent a patch to switch back to Svn in src_URI
-That should avoid long delays in fetching gcc srcs
-> Thanks,
-> Florin
->>
->> Tomas
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
+Please rebase this patch as it did not apply correctly to master.
+
+Thanks
+	Sau!
+
+> diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+> index d34d980..de0adfb 100644
+> --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
+> +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+> @@ -30,15 +30,19 @@ RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-apmd = "3.2.2-14"
+>   RECIPE_UPSTREAM_DATE_pn-apmd = "Jul 01, 2009"
+>   CHECK_DATE_pn-apmd = "Jul 12, 2011"
+> -RECIPE_UPSTREAM_VERSION_pn-apr-util = "1.3.12"
+> -RECIPE_UPSTREAM_VERSION_pn-apr = "1.4.5"
+> +RECIPE_UPSTREAM_DATE_pn-apr-util = "Dec 13, 2011"
+> +CHECK_DATE_pn-apr-util = "Jul 12, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-apr = "Feb 14, 2012"
+> +CHECK_DATE_pn-apr = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-apt = "0.8.15.9"
+>   CHECK_DATE_pn-apt = "Jan 18, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-apt = "Oct 14, 2011"
+> -RECIPE_UPSTREAM_VERSION_pn-aspell = "0.60.6"
+> +RECIPE_UPSTREAM_DATE_pn-aspell = "Jul 04, 2011"
+> +CHECK_DATE_pn-aspell = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-at = "3.1.13"
+> -RECIPE_UPSTREAM_VERSION_pn-atk = "1.32.0"
+> -RECIPE_UPSTREAM_DATE_pn-atk = "Sep 01, 2010"
+> +RECIPE_UPSTREAM_VERSION_pn-atk = "2.5.4"
+> +RECIPE_UPSTREAM_DATE_pn-atk = "Jul 17, 2012"
+> +CHECK_DATE_pn-atk = "Jul 27, 2012"
+>   CHECK_DATE_pn-at = "Mar 15, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-at = "unknown"
+>   RECIPE_UPSTREAM_VERSION_pn-autoconf="2.68"
+> @@ -51,18 +55,21 @@ CHECK_DATE_pn-automake = "Mar 14, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-avahi-ui = "Oct 01, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-avahi = "0.6.31"
+>   RECIPE_UPSTREAM_DATE_pn-avahi = "Oct 01, 2010"
+> +RECIPE_UPSTREAM_DATE_pn-babeltrace = "May 30, 2012"
+> +CHECK_DATE_pn-babeltrace = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-bash = "4.1"
+>   RECIPE_UPSTREAM_DATE_pn-bash = "Dec 01, 2009"
+>   RECIPE_UPSTREAM_VERSION_pn-bc = "1.06"
+> +CHECK_DATA_pn-bc = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-bc = "Nov 01, 2000"
+>   RECIPE_UPSTREAM_VERSION_pn-bdwgc = "20110107"
+>   RECIPE_NO_UPDATE_REASON_pn-bdwgc = "20110107 is same as the 7.2alpha5"
+>   CHECK_DATE_pn-bdwgc = "Feb 01, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-beecrypt = "4.2.1"
+>   RECIPE_UPSTREAM_DATE_pn-beecrypt = "Jul 12, 2009"
+> -CHECK_DATE_pn-beecrypt = "Jul 06, 2012"
+> -RECIPE_UPSTREAM_VERSION_pn-bigreqsproto="1.1.0"
+> -RECIPE_UPSTREAM_DATE_pn-bigreqsproto="Aug 26, 2009"
+> +CHECK_DATE_pn-beecrypt = "Jul 27, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-bigreqsproto = "Mar 22, 2012"
+> +CHECK_DATE_pn-bigreqsproto = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-bind = "9.7.2-P3"
+>   RECIPE_NO_UPDATE_REASON_pn-bind = "Latest Stable version, newer versions are Alpha/Beta"
+>   RECIPE_UPSTREAM_VERSION_pn-binutils="2.22"
+> @@ -83,13 +90,13 @@ RECIPE_UPSTREAM_VERSION_pn-boost = "1.50.0"
+>   CHECK_DATE_pn-boost = "Jul 05, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-boost = "Feb 24, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-btrfs-tools="git"
+> -RECIPE_UPSTREAM_VERSION_pn-busybox = "1.16.2"
+> -RECIPE_UPSTREAM_DATE_pn-busybox = "Jun 01, 2010"
+> +RECIPE_UPSTREAM_DATE_pn-busybox = "Jul 02, 2012"
+> +CHECK_DATE_pn-busybox = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-byacc="20120115"
+>   CHECK_DATE_pn-byacc = "Feb 01, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-bzip2 = "1.0.6"
+> -RECIPE_UPSTREAM_DATE_pn-bzip2 = "Mar 01, 2008"
+> -CHECK_DATE_pn-bzip2 = "May 24, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-bzip2 = "Sep 20, 2010"
+> +CHECK_DATE_pn-bzip2 = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-cairo="1.9.10"
+>   RECIPE_UPSTREAM_DATE_pn-cairo="Feb 20, 2010"
+>   RECIPE_NO_UPDATE_REASON_pn-cairo="latest version is not stable release"
+> @@ -125,8 +132,9 @@ RECIPE_UPSTREAM_VERSION_pn-consolekit = "0.4.3"
+>   RECIPE_UPSTREAM_VERSION_pn-contacts = "0.12+git0+19853893fdb595de6aa59db0d9dc2f9451ed2933"
+>   RECIPE_UPSTREAM_DATE_pn-contacts = "Nov 01, 2009"
+>   RECIPE_UPSTREAM_VERSION_pn-core-image-minimal = "1.0"
+> -RECIPE_UPSTREAM_VERSION_pn-coreutils = "8.12"
+> -RECIPE_UPSTREAM_DATE_pn-coreutils = "Apr 01, 2011"
+> +RECIPE_UPSTREAM_VERSION_pn-coreutils = "8.17"
+> +RECIPE_UPSTREAM_DATE_pn-coreutils = "May 10, 2012"
+> +CHECK_DATE_pn-coreutils = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-cpio = "2.11"
+>   RECIPE_UPSTREAM_DATE_pn-cpio = "Mar 01, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-cracklib="2.8.19"
+> @@ -135,13 +143,14 @@ RECIPE_UPSTREAM_DATE_pn-cracklib = "May 18, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-createrepo = "0.9.9"
+>   RECIPE_NO_UPDATE_REASON_pn-createrepo = "Versions after 0.9.* use YUM, so we hold at 0.4.11"
+>   RECIPE_UPSTREAM_VERSION_pn-cronie = "1.4.8"
+> -CHECK_DATE_pn-cronie = "Aug 16, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-cronie = "Jun 27, 2011"
+> +CHECK_DATE_pn-cronie = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-cronie = "Jun 27, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-cups = "1.5.0"
+>   RECIPE_UPSTREAM_DATE_pn-cups = "Jul 25, 2011"
+>   CHECK_DATE_pn-cups = "Sep 28, 2011"
+> -RECIPE_UPSTREAM_VERSION_pn-curl = "7.23.1"
+> -RECIPE_UPSTREAM_DATE_pn-curl = "Nov 17, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-curl = "May 24, 2012"
+> +CHECK_DATE_pn-curl = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-cwautomacros = "20110201"
+>   RECIPE_UPSTREAM_DATE_pn-cwautomacros = "Feb 01, 2011"
+>   CHECK_DATE_pn-cwautomacros = "Jul 06, 2012"
+> @@ -161,6 +170,8 @@ RECIPE_UPSTREAM_DATE_pn-dhcp = "Oct 19, 2011"
+>   RECIPE_NO_UPDATE_REASON_pn-dhcp = "We are at latest P2 version"
+>   RECIPE_UPSTREAM_VERSION_pn-diffstat="1.54"
+>   RECIPE_UPSTREAM_VERSION_pn-diffutils = "3.2"
+> +RECIPE_UPSTREAM_DATE_pn-diffutils = "Sep 02, 2011"
+> +CHECK_DATE_pn-diffutils = "Sep 02, 2011"
+>   RECIPE_UPSTREAM_DATE_pn-direcfb = "Aug 9, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-directfb = "1.5.3"
+>   RECIPE_UPSTREAM_VERSION_pn-distcc="2.18.3"
+> @@ -175,22 +186,27 @@ CHECK_DATE_pn-dpkg = "Jan 18, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-dpkg = "Nov 25, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-dri2proto = "2.6"
+>   RECIPE_UPSTREAM_DATE_pn-dri2proto = "Jun 29, 2011"
+> -RECIPE_UPSTREAM_VERSION_pn-dropbear = "2011.54"
+> -RECIPE_UPSTREAM_DATE_pn-dropbear = "Nov 08, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-dropbear = "Feb 24, 2012"
+> +CHECK_DATE_pn-dropbear = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-dtc = "37c0b6a0916c31a5eae0a9ddfcc5d0b8fb4569c6"
+>   RECIPE_UPSTREAM_VERSION_pn-e2fsprogs = "1.42.4"
+>   CHECK_DATE_pn-e2fsprogs = "Jul 05, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-e2fsprogs = "Jun 12, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-ed = "1.6"
+>   RECIPE_UPSTREAM_DATE_pn-ed = "Jan 01, 2012"
+> +CHECK_DATE-pn-ed = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-eds-tools = "git"
+>   RECIPE_UPSTREAM_VERSION_pn-eee-acpi-scripts = "1.1.12+9d4cdedca25b396405f8587f9c4fbf8229e041c2"
+> +RECIPE_UPSTREAM_DATE_pn-eee-acpi-scripts = "Oct 03, 2011"
+> +CHECK_DATE_pn-eee-acpi-scripts = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-eggdbus = "0.6"
+>   RECIPE_UPSTREAM_DATE_pn-eggdbus = "Nov 01, 2009"
+>   CHECK_DATE_pn-eggdbus = "Jul 24, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-eglibc = "git:16540"
+>   CHECK_DATE_pn-eglibc = "Jan 01, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-elfutils="0.148"
+> +RECIPE_UPSTREAM_DATE_pn-elfutils = "Jun 28, 2010"
+> +CHECK_DATE_pn-elfutils = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-elfutils="Jun 01, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-empathy = "2.31.2"
+>   RECIPE_UPSTREAM_VERSION_pn-enchant="1.6.0"
+> @@ -211,8 +227,8 @@ RECIPE_UPSTREAM_VERSION_pn-farsight2 = "0.0.20"
+>   RECIPE_UPSTREAM_VERSION_pn-file = "5.11"
+>   RECIPE_UPSTREAM_DATE_pn-file = "Feb 21, 2012"
+>   CHECK_DATE_pn-file = "Feb 27, 2012"
+> -RECIPE_UPSTREAM_VERSION_pn-findutils = "4.4.2"
+> -RECIPE_UPSTREAM_DATE_pn-findutils = "Jun 01, 2009"
+> +RECIPE_UPSTREAM_DATE_pn-findutils = "Jun 06, 2009"
+> +CHECK_DATE_pn-findutils = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-fixesproto = "5.0"
+>   RECIPE_UPSTREAM_DATE_pn-fixesproto = "Mar 8, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-flac="1.2.1"
+> @@ -234,6 +250,7 @@ RECIPE_UPSTREAM_DATE_pn-formfactor = "n/a"
+>   RECIPE_UPSTREAM_VERSION_pn-fotowall=""
+>   RECIPE_UPSTREAM_VERSION_pn-fotowall="0.9"
+>   RECIPE_UPSTREAM_DATE_pn-fotowall="Dec 08, 2009"
+> +CHECK_DATE_pn-fotowall = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-freetype = "2.4.10"
+>   RECIPE_UPSTREAM_DATE_pn-freetype = "Jun 15, 2012"
+>   CHECK_DATE_pn-freetype = "Jul 06, 2012"
+> @@ -244,8 +261,11 @@ RECIPE_UPSTREAM_VERSION_pn-gaku="0.0+svnr399"
+>   RECIPE_UPSTREAM_DATE_pn-gaku="Jul 03, 2008"
+>   RECIPE_UPSTREAM_DATE_pn-galago-daemon = "Oct 7, 2006"
+>   RECIPE_UPSTREAM_VERSION_pn-gamin = "0.1.10"
+> -RECIPE_UPSTREAM_DATE_pn-gamin = "Nov 01, 2008"
+> +RECIPE_UPSTREAM_DATE_pn-gamin = "Nov 24, 2008"
+> +CHECK_DATE_pn-gamin = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-gawk = "4.0.0"
+> +RECIPE_UPSTREAM_DATE_pn-gawk = "Mar 28, 2012"
+> +CHECK_DATE_pn-gawk = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-gcc-runtime = "4.6.2+git"
+>   RECIPE_UPSTREAM_VERSION_pn-gcc="4.7.1+svnr188658"
+>   CHECK_DATE_pn-gcc = "Jul 06, 2012"
+> @@ -291,8 +311,8 @@ RECIPE_UPSTREAM_VERSION_pn-grep = "2.9"
+>   RECIPE_UPSTREAM_DATE_pn-grep = "Jun 01, 2011"
+>   RECIPE_NO_UPDATE_REASON_pn-groff = "1.18.1.4 is latest GPLv2 Version no 1.21"
+>   RECIPE_UPSTREAM_VERSION_pn-groff = "1.21"
+> -RECIPE_UPSTREAM_VERSION_pn-grub = "0.97"
+> -RECIPE_UPSTREAM_DATE_pn-grub = "Dec 01, 2005"
+> +RECIPE_UPSTREAM_DATE_pn-grub = "Jun 28, 2012"
+> +CHECK_DATE_pn-grub = "Jul 27, 2012"
+>   RECIPE_NO_UPDATE_REASON_pn-grub="grub2 is a different thing"
+>   RECIPE_UPSTREAM_VERSION_pn-gssdp = "0.10.0"
+>   RECIPE_UPSTREAM_DATE_pn-gssdp="Apr 07, 2011"
+> @@ -308,9 +328,10 @@ RECIPE_UPSTREAM_VERSION_pn-gtkhtml2 = "2.11.1"
+>   RECIPE_UPSTREAM_DATE_pn-gtk+ = "Nov 10, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-guile = "2.0.3"
+>   CHECK_DATE_pn-guile = "Jan 17, 2012"
+> -RECIPE_UPSTREAM_DATE_pn-gupnp-av= "Apr 08, 2011"
+> -RECIPE_UPSTREAM_VERSION_pn-gupnp = "0.16.1"
+> -RECIPE_UPSTREAM_DATE_pn-gupnp= "Apr 30, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-gupnp-av= "Apr 20, 2012"
+> +CHECK_DATE_pn-gupnp-av = "Jul 27, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-gupnp= "May 03, 2012"
+> +CHECK_DATE_pn-gupnp = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-gypsy="0.8"
+>   RECIPE_UPSTREAM_DATE_pn-gypsy="Jun 09, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-gzip = "1.5"
+> @@ -326,8 +347,8 @@ RECIPE_UPSTREAM_DATE_pn-hostap-utils="Dec 03, 2008"
+>   RECIPE_UPSTREAM_VERSION_pn-icu = "3.6"
+>   RECIPE_UPSTREAM_DATE_pn-icu = "Aug 01, 2006"
+>   CHECK_DATE_pn-icu = "Jul 12, 2011"
+> -RECIPE_UPSTREAM_VERSION_pn-imake = "1.0.3"
+> -RECIPE_UPSTREAM_DATE_pn-imake = "Apr 16, 2010"
+> +RECIPE_UPSTREAM_DATE_pn-imake = "Mar 08, 2012"
+> +CHECK_DATE_pn-imake = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-initramfs-boot = "n/a"
+>   RECIPE_UPSTREAM_VERSION_pn-initscripts = "1.0"
+>   RECIPE_UPSTREAM_DATE_pn-initscripts = "n/a"
+> @@ -343,6 +364,8 @@ RECIPE_UPSTREAM_DATE_pn-iproute2 = "Mar 20, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-iptables = "1.4.13"
+>   RECIPE_UPSTREAM_DATE_pn-iptables = "Apr 28, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-iputils="s20100418"
+> +RECIPE_UPSTREAM_DATE_pn-iputils = "Oct 06, 2010"
+> +CHECK_DATE_pn-iputils = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-irda-utils = "0.9.18"
+>   RECIPE_UPSTREAM_DATE_pn-irda-utils="Jul 10, 2006"
+>   CHECK_DATE_pn-irda-utils = "Jul 24, 2012"
+> @@ -351,7 +374,8 @@ RECIPE_UPSTREAM_VERSION_pn-jpeg = "8c"
+>   CHECK_DATE_pn-jpeg = "Dec 24, 2011"
+>   RECIPE_UPSTREAM_DATE_pn-jpeg = "Jan 01, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-js = "1.7.0+1.8.0rc1"
+> -RECIPE_UPSTREAM_DATE_pn-js = "Mar 01, 2009"
+> +RECIPE_UPSTREAM_DATE_pn-js = "Mar 09, 2009"
+> +CHECK_DATE_pn-js = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-json-glib = "0.14.2"
+>   RECIPE_UPSTREAM_VERSION_pn-kbproto = "1.0.6"
+>   RECIPE_UPSTREAM_DATE_pn-kbproto = "Mar 23, 2012"
+> @@ -364,8 +388,12 @@ RECIPE_UPSTREAM_DATE_pn-kexec-tools="Jan 15, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-keymaps = "1.0"
+>   RECIPE_UPSTREAM_DATE_pn-keymaps = "n/a"
+>   RECIPE_UPSTREAM_VERSION_pn-kf = "n/a"
+> +RECIPE_UPSTREAM_VERSION_pn-kmod = "9"
+> +RECIPE_UPSTREAM_DATE_pn-kmod = "Jun 19, 2012"
+> +CHECK_DATE_pn-kmod = "Jul 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-lame = "3.99.5"
+>   RECIPE_UPSTREAM_DATE_pn-lame = "Feb 28, 2012"
+> +CHECK_DATE_pn-lame = "Jul 27, 2012"
+>   CHECK_DATE_pn-lame = "Jul 06, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-latencytop = "0.5"
+>   CHECK_DATE_pn-latencytop = "Apr 20, 2011"
+> @@ -401,8 +429,8 @@ RECIPE_UPSTREAM_VERSION_pn-libcroco = "0.6.3"
+>   RECIPE_UPSTREAM_DATE_pn-libcroco = "Nov 14, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-libdaemon = "0.14"
+>   RECIPE_UPSTREAM_DATE_pn-libdaemon = "Nov 01, 2009"
+> -RECIPE_UPSTREAM_VERSION_pn-libdmx = "1.1.1"
+> -RECIPE_UPSTREAM_DATE_pn-libdmx = "Oct 28, 2010"
+> +RECIPE_UPSTREAM_DATE_pn-libdmx = "Mar 07, 2012"
+> +CHECK_DATE_pn-libdmx = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-libdrm-poulsbo = "n/a"
+>   RECIPE_UPSTREAM_VERSION_pn-libdrm = "2.4.34"
+>   RECIPE_UPSTREAM_DATE_pn-libdrm = "May 10, 2012"
+> @@ -653,6 +681,7 @@ CHECK_DATE_pn-ltp = "Jul 25, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-lttng-ust = "Dec 15, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-lzo = "2.06"
+>   RECIPE_UPSTREAM_DATE_pn-lzo = "Aug 12, 2011"
+> +CHECK_DATE_pn-lzo = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-m4="1.4.15"
+>   CHECK_DATE_pn-m4 = "Jul 06, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-mailx = "12.5"
+> @@ -683,10 +712,12 @@ RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 11, 2012"
+>   CHECK_DATE_pn-minicom = "Jul 06, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-mkfontdir="1.0.7"
+>   RECIPE_UPSTREAM_DATE_pn-mkfontdir="Feb 10, 2012"
+> -RECIPE_UPSTREAM_VERSION_pn-mkfontscale="1.10.0"
+> +CHECK_DATE_pn-mkfontdir = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-mkfontscale="Feb 10, 2012"
+> +CHECK_DATE_pn-mkfontscale = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-mktemp="1.7"
+>   RECIPE_UPSTREAM_VERSION_pn-mobile-broadband-provider-info = "1.0.0+git"
+> +CHECK_DATE_pn-mobile-broadband-provider-info = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-module-init-tools = "Oct 01, 2009"
+>   RECIPE_UPSTREAM_DATE_pn-modutils-initscripts = "n/a"
+>   RECIPE_UPSTREAM_VERSION_pn-mpeg2dec = "0.5.1"
+> @@ -697,7 +728,8 @@ RECIPE_UPSTREAM_DATE_pn-mpfr = "Jul 04, 2012"
+>   CHECK_DATE_pn-mpfr = "Jul 06, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-msynctool = "0.38"
+>   RECIPE_UPSTREAM_DATE_pn-msynctool = "Nov 11, 2008"
+> -RECIPE_UPSTREAM_DATE_pn-mtd-utils = "Dec 17, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-mtd-utils = "May 07, 2012"
+> +CHECK_DATE_pn-mtd-utils = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-mtools = "4.0.17"
+>   RECIPE_UPSTREAM_DATE_pn-mtools = "Jun 28, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-mutter = "2.29.1_0.4"
+> @@ -713,8 +745,10 @@ RECIPE_UPSTREAM_VERSION_pn-netbase = "4.46"
+>   RECIPE_UPSTREAM_DATE_pn-netbase = "Jun 06, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-nfs-utils = "1.2.6"
+>   CHECK_DATE_pn-nfs-utils = "Jul 05, 2012"
+> -RECIPE_UPSTREAM_DATE_pn-nfs-utils = "May 14, 2012"
+> +RECIPE_UPSTREAM_DAE_pn-nfs-utils = "May 14, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-ocf-linux = "Jan 27, 2012"
+> +RECIPE_NO_UPDATE_REASON_pn-ocf-linux = "it is coupled to a particular BSP such that appropriate hardware are needed, and kernel options enabled for any acceleration to happen"
+> +CHECK_DATE_pn-ocf-linux = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-ofono = "1.6"
+>   RECIPE_UPSTREAM_DATE_pn-ofono="Apr 20, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-oh-puzzles = "Oct 1, 2011"
+> @@ -729,10 +763,11 @@ RECIPE_UPSTREAM_DATE_pn-openssh = "Apr 22, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-openssl = "1.0.1b"
+>   RECIPE_NO_UPDATE_REASON_pn-openssl = "1.0.1 is beta 1.0.0i is latest"
+>   RECIPE_UPSTREAM_DATE_pn-openssl = "Apr 26, 2012"
+> +CHECK_DATE_pn-openssl = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-openswan = "2.6.26"
+>   RECIPE_UPSTREAM_DATE_pn-opkg-collateral = "n/a"
+>   RECIPE_UPSTREAM_VERSION_pn-opkg = "0.1.8"
+> -CHECK_DATE_pn-opkg = "Jul 06, 2012"
+> +CHECK_DATE_pn-opkg = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-opkg = "Feb 01, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-opkg_nogpg = "0.1.8"
+>   RECIPE_UPSTREAM_DATE_pn-opkg_nogpg = "Feb 01, 2010"
+> @@ -744,8 +779,8 @@ CHECK_DATE_pn-oprofileui = "Dec 24, 2011"
+>   RECIPE_UPSTREAM_DATE_pn-oprofileui = "Nov 14, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-orinoco-conf = "1.0"
+>   RECIPE_UPSTREAM_DATE_pn-owl-video = "Jun 01, 2008"
+> -RECIPE_UPSTREAM_VERSION_pn-pango="1.28.0"
+> -RECIPE_UPSTREAM_DATE_pn-pango="Mar 10, 2010"
+> +RECIPE_UPSTREAM_DATE_pn-pango="Jun 05, 2012"
+> +CHECK_DATE_pn-pango = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-parted = "3.0"
+>   CHECK_DATE_pn-parted = "Nov 22, 2011"
+>   RECIPE_LATEST_VERIONS_pn-patch = "2.6.1"
+> @@ -824,6 +859,7 @@ RECIPE_UPSTREAM_DATE_pn-qt-mobility-embedded = "May 10, 2011"
+>   RECIPE_UPSTREAM_DATE_pn-qt4-native = "Dec 15, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-quicky = "0.4"
+>   RECIPE_UPSTREAM_DATE_pn-quicky = "Jun 18, 2008"
+> +CHECK_DATE_pn-quicky = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-quilt="0.60"
+>   RECIPE_UPSTREAM_VERSION_pn-quota = "4.00"
+>   RECIPE_UPSTREAM_DATE_pn-quota = "Aug 17, 2011"
+> @@ -851,6 +887,7 @@ RECIPE_UPSTREAM_DATE_pn-rsync = "Dec 01, 2009"
+>   RECIPE_UPSTREAM_DATE_pn-rt-tests = "Sep 26, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-run-postinsts = "check"
+>   RECIPE_UPSTREAM_DATE_pn-rxvt-unicode = "Jan 21, 2012"
+> +CHECK_DATE_pn-rxvt-unicode = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-sat-solver = "0.0-git1+e74e0bfd23e4e95064d08e13efb5de9caf433f40"
+>   RECIPE_UPSTREAM_DATE_pn-sato-icon-theme = "Feb 01, 2008"
+>   RECIPE_UPSTREAM_VERSION_pn-screen = "4.0.3"
+> @@ -864,7 +901,7 @@ RECIPE_UPSTREAM_VERSION_pn-sed = "4.2.1"
+>   CHECK_DATE_pn-sed = "Jul 28, 2011"
+>   RECIPE_UPSTREAM_DATE_pn-sed = "Jun 01, 2009"
+>   RECIPE_UPSTREAM_VERSION_pn-setserial = "2.17"
+> -CHECK_DATE_pn-setserial = "Apr 25, 2012"
+> +CHECK_DATE_pn-setserial = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-setserial = "Feb 09, 2000"
+>   RECIPE_UPSTREAM_DATE_pn-settings-daemon = "Jun 01, 2008"
+>   RECIPE_UPSTREAM_DATE_pn-sgml-common = "May 25, 2001"
+> @@ -886,10 +923,11 @@ RECIPE_UPSTREAM_DATE_pn-sqlite3 = "Jun 11, 2012"
+>   CHECK_DATE_pn-sqlite3= "Jul 05, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-squashfs-tools = "4.2"
+>   RECIPE_UPSTREAM_DATE_pn-squashfs-tools = "Feb 28, 2011"
+> -CHECK_DATE_pn-squashfs-tools = "Jul 06, 2012"
+> +CHECK_DATE_pn-squashfs-tools = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-startup-notification = "May 16, 2011"
+> +CHECK_DATE_pn-startup-notification = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-stat = "3.3"
+> -CHECK_DATE_pn-stat = "Dec 30, 2011"
+> +CHECK_DATE_pn-stat = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-strace = "4.7"
+>   RECIPE_UPSTREAM_DATE_pn-strace = "May 02, 2012"
+>   CHECK_DATE_pn-strace = "Jul 06, 2012"
+> @@ -928,6 +966,7 @@ RECIPE_UPSTREAM_VERSION_pn-tcl="8.5.11"
+>   RECIPE_UPSTREAM_DATE_pn-tcl = "Jul 07, 2011"
+>   CHECK_DATE_pn-tcl = "Jul 06, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-tcp-wrappers = "Apr 08, 1997"
+> +CEHCK_DATE_pn-tcp-wrappers = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-telepathy-glib = "Apr 20, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-texi2html = "5.0"
+>   CHECK_DATE_pn-texi2html = "Dec 18, 2011"
+> @@ -942,7 +981,8 @@ CHECK_DATE_pn-tiff = "Feb 27, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-time = "1.7"
+>   RECIPE_UPSTREAM_DATE_pn-time = "Jul 01, 1996"
+>   RECIPE_UPSTREAM_VERSION_pn-tinylogin = "1.4"
+> -CHECK_DATE_pn-tinylogin = "Jul 19, 2012"
+> +RECIPE_NO_UPDATE_REASON_pm-tinylogin = "TinyLogin was merged into BusyBox"
+> +CHECK_DATE_pn-tinylogin = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-tinylogin = "Jan 03, 2003"
+>   RECIPE_NO_UPDATE_REASON_pn-tinylogin = "TinyLogin was merged into BusyBox."
+>   RECIPE_UPSTREAM_DATE_pn-trace-cmd = "Nov 7, 2011"
+> @@ -953,39 +993,40 @@ RECIPE_UPSTREAM_DATE_pn-trapproto = "Jan 01, 2006"
+>   RECIPE_UPSTREAM_VERSION_pn-tremor="20120122"
+>   RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-tslib = "1.0"
+> -RECIPE_UPSTREAM_DATE_pn-tslib ="Sep 09, 2006"
+> -CHECK_DATE_pn-tslib = "Jul 06, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-tslib ="Aug 08, 2006"
+> +CHECK_DATE_pn-tslib = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-tslib = "Aug 01, 2006"
+>   RECIPE_UPSTREAM_DATE_pn-ttf-bitstream-vera = "Apr 16, 2003"
+> -RECIPE_UPSTREAM_VERSION_pn-tzdata = "2012c"
+> -RECIPE_UPSTREAM_DATE_pn-tzdata = "Apr 02, 2012"
+> -CHECK_DATE_pn-tzdata = "Jul 06, 2012"
+> -RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Dec 23, 2011"
+> +RECIPE_UPSTREAM_VERSION_pn-tzdata = "2012d"
+> +RECIPE_UPSTREAM_DATE_pn-tzdata = "Jul 20, 2012"
+> +CHECK_DATE_pn-tzdata = "Jul 30, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Apr 21, 2012"
+> +CHECK_DATE_pn-u-boot-fw-utils = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
+>   RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
+> -RECIPE_UPSTREAM_VERSION_pn-udev = "164"
+> -RECIPE_UPSTREAM_DATE_pn-udev = "Jan 11, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-udev = "Mar 18, 2012"
+> +CHECK_DATE_pn-udev = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-unifdef="2.6.18+git"
+>   RECIPE_UPSTREAM_VERSION_pn-unzip = "6.0"
+>   RECIPE_UPSTREAM_DATE_pn-unzip = "Apr 25, 2009"
+> -CHECK_DATE_pn-unzip = "Jul 06, 2012"
+> +CHECK_DATE_pn-unzip = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-update-rc.d = "unknown"
+>   RECIPE_UPSTREAM_VERSION_pn-usbinit = "n/a"
+> -RECIPE_UPSTREAM_VERSION_pn-usbutils = "0.91"
+> -RECIPE_UPSTREAM_DATE_pn-usbutils = "Oct 22, 2010"
+> -CHECK_DATE_pn-usbutils = "Apr 18, 2012"
+> +RECIPE_UPSTREAM_DATE_pn-usbutils = "Jul 06, 2012"
+> +CHECK_DATE_pn-usbutils = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_DATE_pn-util-linux = "Feb 24, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-v86d = "0.1.10"
+>   RECIPE_UPSTREAM_DATE_pn-v86d = "Feb 25, 2011"
+>   RECIPE_UPSTREAM_VERSION_pn-valgrind = "3.7.0"
+>   RECIPE_UPSTREAM_DATE_pn-valgrind = "Nov 05, 2011"
+> +CHECK_DATE_pn-valgrind = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-videoproto = "2.3.1"
+>   RECIPE_UPSTREAM_DATE_pn-videoproto = "Aug 10, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-vte="0.24.3"
+>   RECIPE_UPSTREAM_DATE_pn-vte="Jul 12, 2010"
+>   RECIPE_UPSTREAM_VERSION_pn-watchdog = "5.12"
+>   RECIPE_UPSTREAM_DATE_pn-watchdog = "Apr 05, 2012"
+> -CHECK_DATE_pn-watchdog = "Jul 06, 2012"
+> +CHECK_DATE_pn-watchdog = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-wbxml2 = "0.10.8"
+>   RECIPE_UPSTREAM_DATE_pn-web-webkit = "Aug 01, 2008"
+>   RECIPE_UPSTREAM_VERSION_pn-web = "0.0+svnr129"
+> @@ -993,8 +1034,8 @@ RECIPE_UPSTREAM_VERSION_pn-webkit-gtk = "1.8.1"
+>   RECIPE_UPSTREAM_DATE_pn-webkit-gtk = "Apr 24, 2012"
+>   CHECK_DATE_pn-webkit-gtk = "Jul 06, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-which = "2.20"
+> -RECIPE_UPSTREAM_DATE_pn-which = "Aug 01, 2008"
+> -CHECK_DATE_pn-which = "Nov 22, 2011"
+> +RECIPE_UPSTREAM_DATE_pn-which = "Aug 06, 2008"
+> +CHECK_DATE_pn-which = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-wireless-tools = "29"
+>   RECIPE_UPSTREAM_DATE_pn-wireless-tools="Sep 18, 2007"
+>   CHECK_DATE_pn-wireless-tools = "Jul 24, 2012"
+> @@ -1079,9 +1120,10 @@ CHECK_DATE_pn-zaurusd = "Jul 12, 2011"
+>   RECIPE_NO_UPDATE_REASON_pn-zaurusd = "SVN rev 426 is last Stable release"
+>   RECIPE_UPSTREAM_VERSION_pn-zeroconf = "0.9"
+>   RECIPE_UPSTREAM_VERSION_pn-zip = "3.0"
+> -RECIPE_UPSTREAM_DATE_pn-zip = "Sep 01, 2009"
+> -CHECK_DATE_pn-zip = "Jul 06, 2012"
+> -RECIPE_UPSTREAM_VERSION_pn-zlib = "1.2.5"
+> -RECIPE_UPSTREAM_DATE_pn-zlib = "Mar 01, 2010"
+> -RECIPE_NO_UPDATE_REASON_pn-zlib = "zlib-1.2.5 is latest, version parser reports 121 in error"
+> +RECIPE_UPSTREAM_DATE_pn-zip = "Jul 06, 2008"
+> +CHECK_DATE_pn-zip = "Jul 30, 2012"
+> +RECIPE_UPSTREAM_VERSION_pn-zlib = "1.2.7"
+> +RECIPE_UPSTREAM_DATE_pn-zlib = "May 02, 2012"
+> +RECIPE_NO_UPDATE_REASON_pn-zlib = "zlib-1.2.7 is latest, version parser reports 121 in error"
+> +CHECK_DATE_pn-zlib = "Jul 30, 2012"
+>   RECIPE_UPSTREAM_VERSION_pn-zypper = "git"
 >
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
 
---047d7b343cccc2307904c7f09c44
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Thursday, August 23, 2012, Florin &lt;<a href=3D"mailto:flocirel=
-@gmail.com">flocirel@gmail.com</a>&gt; wrote:<br>&gt; On 08/23/2012 10:29 A=
-M, Tomas Frydrych wrote:<br>&gt;&gt;<br>&gt;&gt; Hi,<br>&gt;&gt;<br>&gt;&gt=
-; On 22/08/12 22:35, Florin wrote:<br>
-&gt;&gt;&gt;<br>&gt;&gt;&gt; ERROR: Function failed: Fetcher failure for UR=
-L:<br>&gt;&gt;&gt; &#39;git://<a href=3D"http://github.com/mirrors/gcc.git;=
-branch=3Dgcc-4_7-branch;protocol=3Dgit">github.com/mirrors/gcc.git;branch=
-=3Dgcc-4_7-branch;protocol=3Dgit</a>&#39;.<br>
-&gt;&gt;&gt; Unable to fetch URL from any source.<br>&gt;&gt;&gt;<br>&gt;&g=
-t;&gt;<br>&gt;&gt;&gt; After the build stops with this error, retrying the =
-bitbake command to<br>&gt;&gt;&gt; produce the rootfs fetches gcc successfu=
-lly and gcc (and the rest of the<br>
-&gt;&gt;&gt; packages) is compiled just fine.<br>&gt;&gt;&gt; Is there anyb=
-ody else seeing this behavior?<br>&gt;&gt;<br>&gt;&gt; FWIW, over the last =
-few days I have seen intermittent fetch failures<br>&gt;&gt; from various p=
-ackages that pull source from github; they pretty much<br>
-&gt;&gt; always go away on the next attempt; I assume it&#39;s github&#39;s=
- fault.<br>&gt;<br>&gt; Hi Tomas,<br>&gt; thanks for your answer. The probl=
-em I am seeing is that it always behaves like this: in the stages of creati=
-ng the rootfs it gets to the fetching of gcc cross initial, this stalls a w=
-hile (tens of minutes) in which time bitbake fetches (all kind of native an=
-d target packages) and compiles native packages and it throws an error at t=
-he point where the dependency chain would have had gcc cross initial compil=
-ed and ready to be used by other packages. After that, rerunning the bitbak=
-e command to create the rootfs fetches successfully gcc and the build finis=
-hes. So I am always seeing this behavior: first fetch fails, second fetch w=
-orks. Always like this, never had to try a third time to fetch gcc. That is=
- why I am not suspecting especially a problem with github but rather the wa=
-y bitbake tries the mirrors for gcc.<br>
-&gt;<br><br>Git archive for gcc is in terabytes so it will take long time t=
-o fetch it. I have sent a patch to switch back to Svn in src_URI<br>That sh=
-ould avoid long delays in fetching gcc srcs<br>&gt; Thanks,<br>&gt; Florin<=
-br>
-&gt;&gt;<br>&gt;&gt; Tomas<br>&gt;&gt; ____________________________________=
-___________<br>&gt;&gt; poky mailing list<br>&gt;&gt; <a href=3D"mailto:pok=
-y@yoctoproject.org">poky@yoctoproject.org</a><br>&gt;&gt; <a href=3D"https:=
-//lists.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/list=
-info/poky</a><br>
-&gt;<br>&gt; _______________________________________________<br>&gt; poky m=
-ailing list<br>&gt; <a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproj=
-ect.org</a><br>&gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky=
-">https://lists.yoctoproject.org/listinfo/poky</a><br>
-&gt;
-
---047d7b343cccc2307904c7f09c44--
