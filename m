@@ -1,39 +1,44 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-bk0-f48.google.com (mail-bk0-f48.google.com
-	[209.85.214.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3E7B6E0049B
-	for <poky@yoctoproject.org>; Mon, 27 Aug 2012 09:22:07 -0700 (PDT)
-Received: by bkty5 with SMTP id y5so1389036bkt.35
-	for <poky@yoctoproject.org>; Mon, 27 Aug 2012 09:22:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=AtRNex0ibxLHR/GXGowntTV1C4FEtOIo0NEsftXuZlw=;
-	b=sNH255HxEl6Nxi4kpVIStD9CWzXGGx8UDj3kBmv4+GcoyHi/1YCgLT5+HkZrJwBDvo
-	UYL3a6uzdSFLpOaGaDZ7GXsiWgLPjR5w7ed4Dgenl2p13esuty+E9rvbwuHX1/lntvnM
-	9HOMMu58uK+moong42XEP81QlC5RL0D5CLtlqJgz3erPuiVtvOTonaZl47tPb60gi2yU
-	SUQz/yIl5qo+Zmnl7z1uZ8J9ni7ACOFTAjy7eN3tv31Dy5kCj5oaazD9JRvYVPAJw+ot
-	OQ9VQQStst26k1X+zJ2zULobSRP83xtEgodt9jWNStcRisq4CtvzTQrkXF5TQlfRlv7I
-	pypA==
-Received: by 10.204.129.208 with SMTP id p16mr3957601bks.129.1346084523543;
-	Mon, 27 Aug 2012 09:22:03 -0700 (PDT)
-Received: from localhost ([94.230.152.246])
-	by mx.google.com with ESMTPS id y20sm11003439bkv.11.2012.08.27.09.22.01
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Mon, 27 Aug 2012 09:22:02 -0700 (PDT)
-Date: Mon, 27 Aug 2012 18:22:14 +0200
-From: Martin Jansa <martin.jansa@gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-Message-ID: <20120827162214.GB3438@jama.jama.net>
-References: <503B76C0.30307@mlbassoc.com>
+Return-Path: <sparsh150847@yahoo.com>
+Received: from nm7-vm8.bullet.mail.sg3.yahoo.com
+	(nm7-vm8.bullet.mail.sg3.yahoo.com [106.10.148.183])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 6792EE01402
+	for <poky@yoctoproject.org>; Mon, 27 Aug 2012 23:50:34 -0700 (PDT)
+Received: from [106.10.166.118] by nm7.bullet.mail.sg3.yahoo.com with NNFMP;
+	28 Aug 2012 06:50:19 -0000
+Received: from [106.10.150.23] by tm7.bullet.mail.sg3.yahoo.com with NNFMP;
+	28 Aug 2012 06:50:19 -0000
+Received: from [127.0.0.1] by omp1024.mail.sg3.yahoo.com with NNFMP;
+	28 Aug 2012 06:50:19 -0000
+X-Yahoo-Newman-Property: ymail-3
+X-Yahoo-Newman-Id: 135132.20475.bm@omp1024.mail.sg3.yahoo.com
+Received: (qmail 73178 invoked by uid 60001); 28 Aug 2012 06:50:19 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s1024;
+	t=1346136619; bh=J91MOclDRRfDvdDcLqCWBhllz9QqaVT9aKa9wopfUyE=;
+	h=X-YMail-OSG:Received:X-Mailer:Message-ID:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type;
+	b=D1DLwVpt+d2JkuF4zAVTePN2zIkB7QYb5j84S8xAgAufHx5TUUDrcImdF3HWbF9j1uxvJXphsxiAbvnAx+1Syr5MzHxJIIZrDtln62qvX/ihEXtyVxh1rbAR6h4vFi+P5Fi4RX5P56BodS4c4BM4TiX/L+FLDhQclg4pCTNMJDc=
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=s1024; d=yahoo.com;
+	h=X-YMail-OSG:Received:X-Mailer:Message-ID:Date:From:Reply-To:Subject:To:MIME-Version:Content-Type;
+	b=fUHYdSsB/XPBboR4ChD+owChEMPuvaFFwb7Sr93Be7bTLdZs+UB0ir6VSyLgs7EFHxbE7A8xANUhfZJ88PndKqYlJOcgVs6wdVfav8xSpA1UjD6vE7YlJV7O2oDvvHwnTEfmMFGRe3HX53DSzAj1gcUmCkSS2Z+2IF0wXFXvFbA=;
+X-YMail-OSG: wqv8kWgVM1mE9lWbM4e.I_cq1URD2pOAnqz6T4201I8PbSh
+	io3sj7ZaJJnep0_n6AWUWrBZtatdKsN3dec.fLTD9LCvh7odYoxAXbh_v2.w
+	45FU0FoGhs0rjJtShI_YknA6Fwb3xjIewAW.KrpeBPadDEgBxN8YJguC80yD
+	9ESeQg2agFWavBW_u5QaGbFVCEvmbOe55.01s8sOWNQFMebE8n.3XjSv2jsR
+	ECY99wxofaLbpEncqF5HM_2GJdpP1rU3rU5_Va3gjzbQkw1PUDLpVP7WmXrW
+	5.PaRh9yuBeGUFqZd7evgCyDnuK73zOjbdEhM6iiT838h.6XdHhwz5cenpLW
+	kdB6ZIwxrrvkh8QkHcHs6UzP71FRRhMocu.MVae0W75rmeRmL
+Received: from [115.111.25.162] by web194606.mail.sg3.yahoo.com via HTTP;
+	Tue, 28 Aug 2012 14:50:18 SGT
+X-Mailer: YahooMailWebService/0.8.121.416
+Message-ID: <1346136618.70838.YahooMailNeo@web194606.mail.sg3.yahoo.com>
+Date: Tue, 28 Aug 2012 14:50:18 +0800 (SGT)
+From: Sparsh Wid hope <sparsh150847@yahoo.com>
+To: poky <poky@yoctoproject.org>
 MIME-Version: 1.0
-In-Reply-To: <503B76C0.30307@mlbassoc.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Problems building webkit-gtk
+Subject: Problem while compiling libvpx
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: Sparsh Wid hope <sparsh150847@yahoo.com>
 List-Id: Poky build system developer discussion & patch submission for
 	meta-yocto <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
@@ -43,169 +48,151 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Aug 2012 16:22:07 -0000
-X-Groupsio-MsgNum: 8209
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="V0207lvV8h4k8FAm"
-Content-Disposition: inline
+X-List-Received-Date: Tue, 28 Aug 2012 06:50:35 -0000
+Content-Type: multipart/alternative;
+	boundary="-1722158877-597880144-1346136618=:70838"
 
---V0207lvV8h4k8FAm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+---1722158877-597880144-1346136618=:70838
+Content-Type: text/plain; charset=iso-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 27, 2012 at 07:31:44AM -0600, Gary Thomas wrote:
-> It seems that this commit may have been overzealous:
+Hi All,=0A=0AI'm compiling libvpx through poky and got the error related to=
+ linking of toolchain.=A0Build info is here:=0A=0AOE Build Configuration:=
+=0ABB_VERSION =A0 =A0 =A0 =A0=3D "1.11.0"=0AMETADATA_BRANCH =A0 =3D "bernar=
+d-cur"=0AMETADATA_REVISION =3D "1f2e1abbe2726ea6fc83e83b644ce7ee32a54fa2"=
+=0ATARGET_ARCH =A0 =A0 =A0 =3D "i586"=0ATARGET_OS =A0 =A0 =A0 =A0 =3D "linu=
+x"=0AMACHINE =A0 =A0 =A0 =A0 =A0 =3D "fishriver"=0ADISTRO =A0 =A0 =A0 =A0 =
+=A0 =A0=3D "poky"=0ADISTRO_VERSION =A0 =A0=3D "1.0"=0ATARGET_FPU =A0 =A0 =
+=A0 =A0=3D ""=0A=0AError log is as follows:=0A=0AERROR: Logfile of failure =
+stored in: /home/sct/my_workspace/poky_xbmc_09Mar2012/build/tmp/work/atom-p=
+oky-linux/libvpx-1.0-r0/temp/log.do_configure.4510=0ALog data follows:=0A| =
+Configuring selected codecs=0A| =A0 enabling vp8_encoder=0A| =A0 enabling v=
+p8_decoder=0A| Configuring for target 'x86-linux-gcc'=0A| =A0 enabling x86=
+=0A| =A0 enabling pic=0A| =A0 enabling runtime_cpu_detect=0A| =A0 enabling =
+mmx=0A| =A0 enabling sse=0A| =A0 enabling sse2=0A| =A0 enabling sse3=0A| =
+=A0 enabling ssse3=0A| =A0 enabling sse4_1=0A| =A0 using i586-poky-linux-as=
+=0A| =A0 enabling postproc=0A| Toolchain is unable to link executables=0A|=
+=A0=0A| Configuration failed. This could reflect a misconfiguration of your=
+=0A| toolchains, improper options selected, or another problem. If you=0A| =
+don't see any useful error messages above, the next step is to look=0A| at =
+the configure error log file (config.err) to determine what=0A| configure w=
+as trying to do when it died.=0A=0APlease help me to resolve the error.
 
-http://lists.linuxtogo.org/pipermail/openembedded-core/2012-August/027505.h=
-tml
-http://lists.linuxtogo.org/pipermail/openembedded-core/2012-August/027887.h=
-tml
-http://lists.linuxtogo.org/pipermail/openembedded-core/2012-August/027886.h=
-tml
-http://lists.linuxtogo.org/pipermail/openembedded-core/2012-August/028036.h=
-tml
+---1722158877-597880144-1346136618=:70838
+Content-Type: text/html; charset=iso-8859-1
+Content-Transfer-Encoding: quoted-printable
 
->=20
-> commit e4c43e2f186b86d00fd285dff1b2dedc60c01172
-> Author: Ross Burton <ross.burton@intel.com>
-> Date:   Tue Jul 17 19:44:19 2012 +0100
->=20
->      webkit-gtk: remove no-parallel bodge
->=20
->      This workaround was originally for GNU Make 3.82 which upstream was =
-blaming
->      for a parallel build failure.  Since then I've changed numerous vari=
-ables
->      and now parallel builds are working with 3.82 (and succeed in 20 min=
-utes
->      instead of 2 hours).
->=20
->      Revert the change until we've more data about what causes the breaka=
-ge, then
->      we can bring it back with more finesse.
->=20
->      (From OE-Core rev: 90ca88a6f9dd5e2bc055739f84cb224f9a82455a)
->=20
->      Signed-off-by: Ross Burton <ross.burton@intel.com>
->      Signed-off-by: Saul Wold <sgw@linux.intel.com>
->      Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
->=20
-> Building on my 4-way box (Core-2 duo) fails with this error:
-> | arm-amltd-linux-gnueabi-libtool: link: cannot find the library `libjava=
-scriptcoregtk-1.0.la' or unhandled argument `libjavascriptcoregtk-1.0.la'
-> | make[1]: *** [Programs/unittests/testdomdocument] Error 1
-> | make[1]: *** Waiting for unfinished jobs....
-> | arm-amltd-linux-gnueabi-libtool: link: cannot find the library `libjava=
-scriptcoregtk-1.0.la' or unhandled argument `libjavascriptcoregtk-1.0.la'
-> | make[1]: *** [Programs/unittests/testdomdomwindow] Error 1
-> | In file included from ./Source/JavaScriptCore/assembler/MacroAssembler.=
-h:36:0,
-> |                  from ./Source/JavaScriptCore/jit/JITWriteBarrier.h:31,
-> |                  from ./Source/JavaScriptCore/bytecode/CallLinkInfo.h:3=
-0,
-> |                  from ./Source/JavaScriptCore/bytecode/CodeBlock.h:33,
-> |                  from ./Source/JavaScriptCore/bytecompiler/BytecodeGene=
-rator.h:34,
-> |                  from Source/JavaScriptCore/jsc.cpp:25:
-> | ./Source/JavaScriptCore/assembler/MacroAssemblerARM.h: In member functi=
-on 'JSC::AbstractMacroAssembler<JSC::ARMAssembler>::Jump=20
-> JSC::MacroAssemblerARM::branch32(JSC::MacroAssemblerARM::RelationalCondit=
-ion, JSC::AbstractMacroAssembler<JSC::ARMAssembler>::RegisterID,=20
-> JSC::AbstractMacroAssembler<JSC::ARMAssembler>::TrustedImm32, int)':
-> | ./Source/JavaScriptCore/assembler/MacroAssemblerARM.h:446:45: warning: =
-comparison between signed and unsigned integer expressions [-Wsign-compare]
-> | mv -f Source/WebKit/gtk/tests/.deps/Programs_unittests_testapplicationc=
-ache-testapplicationcache.Tpo=20
-> Source/WebKit/gtk/tests/.deps/Programs_unittests_testapplicationcache-tes=
-tapplicationcache.Po
-> | In file included from ./Source/JavaScriptCore/wtf/text/WTFString.h:28:0,
-> |                  from ./Source/JavaScriptCore/wtf/DateMath.h:54,
-> |                  from ./Source/JavaScriptCore/runtime/JSDateMath.h:46,
-> |                  from ./Source/JavaScriptCore/runtime/DateInstanceCache=
-=2Eh:29,
-> |                  from ./Source/JavaScriptCore/runtime/JSGlobalData.h:34,
-> |                  from ./Source/JavaScriptCore/assembler/AssemblerBuffer=
-=2Eh:31,
-> |                  from ./Source/JavaScriptCore/assembler/AssemblerBuffer=
-WithConstantPool.h:32,
-> |                  from ./Source/JavaScriptCore/assembler/ARMAssembler.h:=
-32,
-> |                  from ./Source/JavaScriptCore/assembler/MacroAssemblerA=
-RM.h:33,
-> |                  from ./Source/JavaScriptCore/assembler/MacroAssembler.=
-h:36,
-> |                  from ./Source/JavaScriptCore/jit/JITWriteBarrier.h:31,
-> |                  from ./Source/JavaScriptCore/bytecode/CallLinkInfo.h:3=
-0,
-> |                  from ./Source/JavaScriptCore/bytecode/CodeBlock.h:33,
-> |                  from ./Source/JavaScriptCore/bytecompiler/BytecodeGene=
-rator.h:34,
-> |                  from Source/JavaScriptCore/jsc.cpp:25:
-> | ./Source/JavaScriptCore/wtf/text/ASCIIFastPath.h: In function 'bool WTF=
-::charactersAreAllASCII(const CharacterType*, size_t) [with CharacterType =
-=3D unsigned char, size_t =3D=20
-> unsigned int]':
-> | ./Source/JavaScriptCore/wtf/text/WTFString.h:493:69:   instantiated fro=
-m here
-> | ./Source/JavaScriptCore/wtf/text/ASCIIFastPath.h:84:9: warning: cast fr=
-om 'const unsigned char*' to 'const MachineWord* {aka const unsigned int*}'=
- increases required alignment of=20
-> target type [-Wcast-align]
-> | ./Source/JavaScriptCore/wtf/text/ASCIIFastPath.h: In function 'bool WTF=
-::charactersAreAllASCII(const CharacterType*, size_t) [with CharacterType =
-=3D short unsigned int, size_t =3D=20
-> unsigned int]':
-> | ./Source/JavaScriptCore/wtf/text/WTFString.h:495:66:   instantiated fro=
-m here
-> | ./Source/JavaScriptCore/wtf/text/ASCIIFastPath.h:84:9: warning: cast fr=
-om 'const short unsigned int*' to 'const MachineWord* {aka const unsigned i=
-nt*}' increases required=20
-> alignment of target type [-Wcast-align]
-> | mv -f Source/JavaScriptCore/.deps/Programs_jsc_1-jsc.Tpo Source/JavaScr=
-iptCore/.deps/Programs_jsc_1-jsc.Po
-> | make[1]: Leaving directory `/local/p60_test/tmp/work/armv7a-vfp-neon-am=
-ltd-linux-gnueabi/webkit-gtk-1.8.2-r0/webkit-1.8.2'
-> | make: *** [all] Error 2
-> | ERROR: oe_runmake failed
-> | ERROR: Function failed: do_compile (see /local/p60_test/tmp/work/armv7a=
--vfp-neon-amltd-linux-gnueabi/webkit-gtk-1.8.2-r0/temp/log.do_compile.21411=
- for further information)
-> ERROR: Task 6 (/local/poky-multi/meta/recipes-sato/webkit/webkit-gtk_1.8.=
-2.bb, do_compile) failed with exit code '1'
-> NOTE: Tasks Summary: Attempted 2148 tasks of which 2142 didn't need to be=
- rerun and 1 failed.
->=20
-> If I rerun it, the build will succeed.
->=20
-> One additional question: the commit message says that this now
-> builds in 2 minutes?  What kind of super machines do you guys have?
-> I takes about 30 minutes on my (I thought fast) machine just to get
-> to this first break and then another 45 minutes to complete...
->=20
-> --=20
-> ------------------------------------------------------------
-> Gary Thomas                 |  Consulting for the
-> MLB Associates              |    Embedded world
-> ------------------------------------------------------------
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+<html><body><div style=3D"color:#000; background-color:#fff; font-family:ti=
+mes new roman, new york, times, serif;font-size:12pt"><div style=3D"font-fa=
+mily: 'times new roman', 'new york', times, serif; font-size: 12pt; ">Hi Al=
+l,</div><div style=3D"font-family: 'times new roman', 'new york', times, se=
+rif; font-size: 12pt; "><br></div><div style=3D"font-family: 'times new rom=
+an', 'new york', times, serif; font-size: 16px; color: rgb(0, 0, 0); backgr=
+ound-color: transparent; font-style: normal; ">I'm compiling <span style=3D=
+"font-weight: bold;">libvpx </span>through poky and got the error related t=
+o <span style=3D"font-weight: bold;">linking of toolchain.</span>&nbsp;Buil=
+d info is here:</div><div style=3D"font-family: 'times new roman', 'new yor=
+k', times, serif; font-size: 16px; color: rgb(0, 0, 0); background-color: t=
+ransparent; font-style: normal; "><br></div><div style=3D"background-color:=
+ transparent; "><div style=3D"background-color: transparent; "><span
+ style=3D"font-family: 'times new roman', 'new york', times, serif; font-we=
+ight: bold;">OE Build Configuration:</span></div><div style=3D"background-c=
+olor: transparent; "><span style=3D"font-family: 'times new roman', 'new yo=
+rk', times, serif;">BB_VERSION &nbsp; &nbsp; &nbsp; &nbsp;=3D "1.11.0"</spa=
+n></div><div style=3D"background-color: transparent; "><span style=3D"font-=
+family: 'times new roman', 'new york', times, serif;">METADATA_BRANCH &nbsp=
+; =3D "bernard-cur"</span></div><div style=3D"background-color: transparent=
+; "><span style=3D"font-family: 'times new roman', 'new york', times, serif=
+;">METADATA_REVISION =3D "1f2e1abbe2726ea6fc83e83b644ce7ee32a54fa2"</span><=
+/div><div style=3D"background-color: transparent; "><span style=3D"font-fam=
+ily: 'times new roman', 'new york', times, serif;">TARGET_ARCH &nbsp; &nbsp=
+; &nbsp; =3D "i586"</span></div><div style=3D"background-color: transparent=
+; "><span style=3D"font-family: 'times new roman', 'new york', times, serif=
+;">TARGET_OS &nbsp;
+ &nbsp; &nbsp; &nbsp; =3D "linux"</span></div><div style=3D"background-colo=
+r: transparent; "><span style=3D"font-family: 'times new roman', 'new york'=
+, times, serif;">MACHINE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =3D "fishriver"=
+</span></div><div style=3D"background-color: transparent; "><span style=3D"=
+font-family: 'times new roman', 'new york', times, serif;">DISTRO &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp;=3D "poky"</span></div><div style=3D"backgr=
+ound-color: transparent; "><span style=3D"font-family: 'times new roman', '=
+new york', times, serif;">DISTRO_VERSION &nbsp; &nbsp;=3D "1.0"</span></div=
+><div style=3D"background-color: transparent; "><span style=3D"font-family:=
+ 'times new roman', 'new york', times, serif;">TARGET_FPU &nbsp; &nbsp; &nb=
+sp; &nbsp;=3D ""</span></div><div style=3D"background-color: transparent; c=
+olor: rgb(0, 0, 0); font-size: 16px; font-family: 'times new roman', 'new y=
+ork', times, serif; font-style: normal; "><span style=3D"font-family: 'time=
+s new roman', 'new
+ york', times, serif;"><br></span></div><div style=3D"background-color: tra=
+nsparent; color: rgb(0, 0, 0); font-size: 16px; font-family: 'times new rom=
+an', 'new york', times, serif; font-style: normal; ">Error log is as follow=
+s:</div><div style=3D"background-color: transparent; color: rgb(0, 0, 0); f=
+ont-size: 16px; font-family: 'times new roman', 'new york', times, serif; f=
+ont-style: normal; "><br></div><div style=3D"background-color: transparent;=
+ "><div style=3D"background-color: transparent; "><span style=3D"font-famil=
+y: 'times new roman', 'new york', times, serif;">ERROR: Logfile of failure =
+stored in: /home/sct/my_workspace/poky_xbmc_09Mar2012/build/tmp/work/atom-p=
+oky-linux/libvpx-1.0-r0/temp/log.do_configure.4510</span></div><div style=
+=3D"background-color: transparent; "><span style=3D"font-family: 'times new=
+ roman', 'new york', times, serif;">Log data follows:</span></div><div styl=
+e=3D"background-color: transparent; "><span style=3D"font-family: 'times ne=
+w roman',
+ 'new york', times, serif;">| Configuring selected codecs</span></div><div =
+style=3D"background-color: transparent; "><span style=3D"font-family: 'time=
+s new roman', 'new york', times, serif;">| &nbsp; enabling vp8_encoder</spa=
+n></div><div style=3D"background-color: transparent; "><span style=3D"font-=
+family: 'times new roman', 'new york', times, serif;">| &nbsp; enabling vp8=
+_decoder</span></div><div style=3D"background-color: transparent; "><span s=
+tyle=3D"font-family: 'times new roman', 'new york', times, serif;">| Config=
+uring for target 'x86-linux-gcc'</span></div><div style=3D"background-color=
+: transparent; "><span style=3D"font-family: 'times new roman', 'new york',=
+ times, serif;">| &nbsp; enabling x86</span></div><div style=3D"background-=
+color: transparent; "><span style=3D"font-family: 'times new roman', 'new y=
+ork', times, serif;">| &nbsp; enabling pic</span></div><div style=3D"backgr=
+ound-color: transparent; "><span style=3D"font-family: 'times new roman', '=
+new york', times,
+ serif;">| &nbsp; enabling runtime_cpu_detect</span></div><div style=3D"bac=
+kground-color: transparent; "><span style=3D"font-family: 'times new roman'=
+, 'new york', times, serif;">| &nbsp; enabling mmx</span></div><div style=
+=3D"background-color: transparent; "><span style=3D"font-family: 'times new=
+ roman', 'new york', times, serif;">| &nbsp; enabling sse</span></div><div =
+style=3D"background-color: transparent; "><span style=3D"font-family: 'time=
+s new roman', 'new york', times, serif;">| &nbsp; enabling sse2</span></div=
+><div style=3D"background-color: transparent; "><span style=3D"font-family:=
+ 'times new roman', 'new york', times, serif;">| &nbsp; enabling sse3</span=
+></div><div style=3D"background-color: transparent; "><span style=3D"font-f=
+amily: 'times new roman', 'new york', times, serif;">| &nbsp; enabling ssse=
+3</span></div><div style=3D"background-color: transparent; "><span style=3D=
+"font-family: 'times new roman', 'new york', times, serif;">| &nbsp; enabli=
+ng
+ sse4_1</span></div><div style=3D"background-color: transparent; "><span st=
+yle=3D"font-family: 'times new roman', 'new york', times, serif;">| &nbsp; =
+using i586-poky-linux-as</span></div><div style=3D"background-color: transp=
+arent; "><span style=3D"font-family: 'times new roman', 'new york', times, =
+serif;">| &nbsp; enabling postproc</span></div><div style=3D"background-col=
+or: transparent; "><span style=3D"font-family: 'times new roman', 'new york=
+', times, serif; font-weight: bold;">| Toolchain is unable to link executab=
+les</span></div><div style=3D"background-color: transparent; "><span style=
+=3D"font-family: 'times new roman', 'new york', times, serif; ">|&nbsp;</sp=
+an></div><div style=3D"background-color: transparent; "><span style=3D"font=
+-family: 'times new roman', 'new york', times, serif;">| Configuration fail=
+ed. This could reflect a misconfiguration of your</span></div><div style=3D=
+"background-color: transparent; "><span style=3D"font-family: 'times new ro=
+man', 'new york',
+ times, serif;">| toolchains, improper options selected, or another problem=
+. If you</span></div><div style=3D"background-color: transparent; "><span s=
+tyle=3D"font-family: 'times new roman', 'new york', times, serif;">| don't =
+see any useful error messages above, the next step is to look</span></div><=
+div style=3D"background-color: transparent; "><span style=3D"font-family: '=
+times new roman', 'new york', times, serif;">| at the configure error log f=
+ile (config.err) to determine what</span></div><div style=3D"background-col=
+or: transparent; "><span style=3D"font-family: 'times new roman', 'new york=
+', times, serif;">| configure was trying to do when it died.</span></div><d=
+iv style=3D"color: rgb(0, 0, 0); font-family: 'times new roman', 'new york'=
+, times, serif; font-size: 16px; font-style: normal; "><br></div><div style=
+=3D"color: rgb(0, 0, 0); font-family: 'times new roman', 'new york', times,=
+ serif; font-size: 16px; font-style: normal; background-color: transparent;=
+ ">Please
+ help me to resolve the error.</div></div></div></div></body></html>
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
-
---V0207lvV8h4k8FAm
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.19 (GNU/Linux)
-
-iEYEARECAAYFAlA7nrYACgkQN1Ujt2V2gBw1WwCcCmcddSm39P4B4c2Cah5vrMxk
-rLcAn0QSMzF4gHPl3Ul+eYxcFY1T1/Av
-=oc6N
------END PGP SIGNATURE-----
-
---V0207lvV8h4k8FAm--
+---1722158877-597880144-1346136618=:70838--
