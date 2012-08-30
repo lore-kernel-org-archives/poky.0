@@ -1,24 +1,24 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D06BAE01430
-	for <poky@yoctoproject.org>; Wed, 29 Aug 2012 17:15:32 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 29 Aug 2012 17:15:32 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2F0C7E01438
+	for <poky@yoctoproject.org>; Wed, 29 Aug 2012 17:15:34 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 29 Aug 2012 17:15:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,336,1344236400"; d="scan'208";a="215954510"
+X-IronPort-AV: E=Sophos;i="4.80,336,1344236400"; d="scan'208";a="215535247"
 Received: from unknown (HELO localhost) ([10.255.13.47])
-	by fmsmga001.fm.intel.com with ESMTP; 29 Aug 2012 17:15:31 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 29 Aug 2012 17:15:33 -0700
 From: tom.zanussi@intel.com
 To: poky@yoctoproject.org, richard.purdie@linuxfoundation.org,
 	sgw@linux.intel.com
-Date: Wed, 29 Aug 2012 19:15:26 -0500
-Message-Id: <b5a8505f8b768df981f83dd1ef22e5c61dcd94c7.1346285456.git.tom.zanussi@intel.com>
+Date: Wed, 29 Aug 2012 19:15:27 -0500
+Message-Id: <e78f3a332f03a237d4ac3baef6b4c5979c185c03.1346285456.git.tom.zanussi@intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <f67c891daeccc13c5e97431b8a7f9959b332a562.1346285456.git.tom.zanussi@intel.com>
 References: <f67c891daeccc13c5e97431b8a7f9959b332a562.1346285456.git.tom.zanussi@intel.com>
 In-Reply-To: <cover.1346285456.git.tom.zanussi@intel.com>
 References: <cover.1346285456.git.tom.zanussi@intel.com>
-Subject: [PATCH 2/4] yocto-bsp: update the help regarding the meta-intel layer
+Subject: [PATCH 3/4] yocto-bsp: add a LICENSE_FLAGS_WHITELIST blurb for emgd to README
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,51 +31,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2012 00:15:32 -0000
+X-List-Received-Date: Thu, 30 Aug 2012 00:15:34 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-With move of ia32-base to oe-core, the only case remaining where
-meta-intel needs to be added to bblayers.conf for a new BSP is the
-case of an x86 BSP that selects EMGD.
-
-Update the documentation to note that fact.
+Add a text snippet to the README to say that if emgd-driver-bin is
+included in the BSP, LICENSE_FLAGS_WHITELIST needs to be set to for a
+successful build.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- scripts/lib/bsp/help.py | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ scripts/lib/bsp/substrate/target/arch/common/README | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
-index 2d16d2e..3a1f52c 100644
---- a/scripts/lib/bsp/help.py
-+++ b/scripts/lib/bsp/help.py
-@@ -122,9 +122,9 @@ yocto_bsp_create_usage = """
+diff --git a/scripts/lib/bsp/substrate/target/arch/common/README b/scripts/lib/bsp/substrate/target/arch/common/README
+index 928659f..228c0e2 100644
+--- a/scripts/lib/bsp/substrate/target/arch/common/README
++++ b/scripts/lib/bsp/substrate/target/arch/common/README
+@@ -65,6 +65,14 @@ You should then be able to build a {{=machine}} image as such:
+   $ source oe-init-build-env
+   $ bitbake core-image-sato
  
-  See 'yocto bsp help create' for more detailed instructions.
- 
-- NOTE: For x86- and x86_64-based BSPs, the generated BSP assumes the
-- presence of the meta-intel layer. Ensure the meta-intel layer is
-- present and added to bblayers.conf.
-+ NOTE: For x86-based BSPs that select the EMGD xserver, the generated
-+ BSP assumes the presence of the meta-intel layer. Ensure the
-+ meta-intel layer is present and added to bblayers.conf.
- 
-  See 'yocto bsp help create' for more detailed instructions.
- """
-@@ -183,9 +183,9 @@ DESCRIPTION
-       /path/to/poky/meta-mybsp \\
-       "
- 
--    NOTE: For x86- and x86_64-based BSPs, the generated BSP assumes
--    the presence of the meta-intel layer. Ensure the meta-intel layer
--    is present and added to bblayers.conf.
-+    NOTE: For x86-based BSPs that select the EMGD xserver, the
-+    generated BSP assumes the presence of the meta-intel layer. Ensure
-+    the meta-intel layer is present and added to bblayers.conf.
- 
-     For example, assuming your poky repo is at /path/to/poky, your new
-     BSP layer is at /path/to/poky/meta-mybsp, and your build directory
++NOTE: if the '{{=machine}}' machine includes the emgd-driver-bin
++package (i.e. if the emgd version of the xserver is being used), it
++has a proprietary license that must be whitelisted by adding the
++string "license_emgd-driver-bin_1.14" to the LICENSE_FLAGS_WHITELIST
++variable in your local.conf.  For example:
++
++  LICENSE_FLAGS_WHITELIST = "license_emgd-driver-bin_1.14"
++
+ At the end of a successful build, you should have a live image that
+ you can boot from a USB flash drive (see instructions on how to do
+ that below, in the section 'Booting the images from /binary').
 -- 
 1.7.11.4
 
