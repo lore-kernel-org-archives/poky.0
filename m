@@ -1,34 +1,23 @@
-Return-Path: <ross.burton@intel.com>
-Received: from azsmga101.ch.intel.com (mga07.intel.com [143.182.124.22])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 42521E00346
-	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 07:20:06 -0700 (PDT)
-Received: from mail-wi0-f176.google.com ([209.85.212.176])
-	by mga03.intel.com with ESMTP/TLS/RC4-SHA; 30 Aug 2012 07:19:56 -0700
-Received: by wibhn17 with SMTP id hn17so278403wib.11
-	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 07:19:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
-	bh=jMeQWTlqIOP3C+cxO4JlPofgP3VClNo83oYe6fvYt0c=;
-	b=OIxq1yAGQjOzxNrkj8CyVLJ31FXO7FgVgvG0SBGBbiDeeMG3gJGfmbwsz2bQ8bfwGJ
-	BY1gdqowpBqwKqNtxE+qY4TSeSM4rz2bhkUbjxOIIOHZpm9+1LzJ5ri0PnyGupb30M57
-	ir8MIoVymYhAGAvrQHWT0f/0P2e5/lI9BjEcaG5X3k1Io4Vt2YqVxcMjto1UbFONzsC6
-	Jc7Z36kswsyYjB5Jo9FAuDHEYQ3J1dDCmwh+mGth+FGv2CGRV3Q2CL31BlgtXLScQcLE
-	s9rhBp9Vq+VXhgGJ5ilMun2xy2hyOUVO/29s02xlc1c2ekeQMkr6SI98F+Z80rwfkrgh
-	2IAw==
-Received: by 10.180.103.136 with SMTP id fw8mr848615wib.20.1346336394441;
-	Thu, 30 Aug 2012 07:19:54 -0700 (PDT)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id h9sm1019646wiz.1.2012.08.30.07.19.52
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 30 Aug 2012 07:19:53 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 30 Aug 2012 15:19:09 +0100
-Message-Id: <1346336349-15790-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10
-X-Gm-Message-State: ALoCoQk9oivETLnATkfEhoAxL5mJLLhGfP+ZuTpeQVgcDqtacGwSOeDnbvuyYTvOX1xpFpYd2ftD
-Subject: [PATCH] meta-emenlow: unset preferred providers for virtual/libgles[12]
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B3E54E00346
+	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 07:52:47 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 30 Aug 2012 07:52:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,341,1344236400"; d="scan'208";a="215825031"
+Received: from unknown (HELO [10.255.13.47]) ([10.255.13.47])
+	by fmsmga002.fm.intel.com with ESMTP; 30 Aug 2012 07:52:42 -0700
+Message-ID: <1346338362.12571.8.camel@empanada>
+From: Tom Zanussi <tom.zanussi@intel.com>
+To: Ross Burton <ross.burton@intel.com>
+Date: Thu, 30 Aug 2012 09:52:42 -0500
+In-Reply-To: <1346336349-15790-1-git-send-email-ross.burton@intel.com>
+References: <1346336349-15790-1-git-send-email-ross.burton@intel.com>
+X-Mailer: Evolution 3.4.1 (3.4.1-2.fc17) 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] meta-emenlow: unset preferred providers for virtual/libgles[12]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,38 +30,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2012 14:20:06 -0000
+X-List-Received-Date: Thu, 30 Aug 2012 14:52:47 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-The recent changes to enable GLES/EGL in mesa-dri have caused emenlow to fail:
+On Thu, 2012-08-30 at 15:19 +0100, Ross Burton wrote:
+> The recent changes to enable GLES/EGL in mesa-dri have caused emenlow to fail:
+> 
+> ERROR: Trying to resolve runtime dependency libglu resulted in conflicting PREFERRED_PROVIDER entries being found.
+> The providers found were: ['/srv/home/pokybuild/yocto-autobuilder/yocto-slave/emenlow/build/yocto/meta-intel/meta-emenlow/recipes-graphics/xpsb-glx/xpsb-glx_0.18.bb', '/srv/home/pokybuild/yocto-autobuilder/yocto-slave/emenlow/build/meta/recipes-graphics/mesa/mesa-dri_8.0.4.bb']
+> The PREFERRED_PROVIDER entries resulting in this conflict were: ['PREFERRED_PROVIDER_mesa-dri = xpsb-glx', 'PREFERRED_PROVIDER_virtual/libgles1 = mesa-dri']
+> 
+> Because emenlow's xpsb-glx contains mesa, it needs to entirely replace
+> mesa-dri. We'd normally set virtual/libgles1 and virtual/libgles2 to xpsb-glx
+> but these drivers don't build the GLES libraries so that would be a lie.
+> 
+> So, unset the preferred provider entries so that bitbake doesn't look at
+> mesa-dri at all.
 
-ERROR: Trying to resolve runtime dependency libglu resulted in conflicting PREFERRED_PROVIDER entries being found.
-The providers found were: ['/srv/home/pokybuild/yocto-autobuilder/yocto-slave/emenlow/build/yocto/meta-intel/meta-emenlow/recipes-graphics/xpsb-glx/xpsb-glx_0.18.bb', '/srv/home/pokybuild/yocto-autobuilder/yocto-slave/emenlow/build/meta/recipes-graphics/mesa/mesa-dri_8.0.4.bb']
-The PREFERRED_PROVIDER entries resulting in this conflict were: ['PREFERRED_PROVIDER_mesa-dri = xpsb-glx', 'PREFERRED_PROVIDER_virtual/libgles1 = mesa-dri']
+Pulled into meta-intel/master, thanks.
 
-Because emenlow's xpsb-glx contains mesa, it needs to entirely replace
-mesa-dri. We'd normally set virtual/libgles1 and virtual/libgles2 to xpsb-glx
-but these drivers don't build the GLES libraries so that would be a lie.
+Tom
 
-So, unset the preferred provider entries so that bitbake doesn't look at
-mesa-dri at all.
----
- meta-emenlow/conf/machine/emenlow.conf |    2 ++
- 1 file changed, 2 insertions(+)
+> ---
+>  meta-emenlow/conf/machine/emenlow.conf |    2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/meta-emenlow/conf/machine/emenlow.conf b/meta-emenlow/conf/machine/emenlow.conf
+> index afb3866..65dcd5a 100644
+> --- a/meta-emenlow/conf/machine/emenlow.conf
+> +++ b/meta-emenlow/conf/machine/emenlow.conf
+> @@ -13,6 +13,8 @@ PREFERRED_PROVIDER_libdrm = "libdrm-poulsbo"
+>  PREFERRED_PROVIDER_drm = "libdrm-poulsbo"
+>  PREFERRED_PROVIDER_virtual/libx11 = "libx11-trim"
+>  PREFERRED_PROVIDER_virtual/libgl = "xpsb-glx"
+> +PREFERRED_PROVIDER_virtual/libgles1 = ""
+> +PREFERRED_PROVIDER_virtual/libgles2 = ""
+>  PREFERRED_PROVIDER_virtual/xserver = "xserver-psb"
+>  PREFERRED_PROVIDER_virtual/xserver-xf86 = "xserver-psb"
+>  PREFERRED_PROVIDER_mesa-dri = "xpsb-glx"
 
-diff --git a/meta-emenlow/conf/machine/emenlow.conf b/meta-emenlow/conf/machine/emenlow.conf
-index afb3866..65dcd5a 100644
---- a/meta-emenlow/conf/machine/emenlow.conf
-+++ b/meta-emenlow/conf/machine/emenlow.conf
-@@ -13,6 +13,8 @@ PREFERRED_PROVIDER_libdrm = "libdrm-poulsbo"
- PREFERRED_PROVIDER_drm = "libdrm-poulsbo"
- PREFERRED_PROVIDER_virtual/libx11 = "libx11-trim"
- PREFERRED_PROVIDER_virtual/libgl = "xpsb-glx"
-+PREFERRED_PROVIDER_virtual/libgles1 = ""
-+PREFERRED_PROVIDER_virtual/libgles2 = ""
- PREFERRED_PROVIDER_virtual/xserver = "xserver-psb"
- PREFERRED_PROVIDER_virtual/xserver-xf86 = "xserver-psb"
- PREFERRED_PROVIDER_mesa-dri = "xpsb-glx"
--- 
-1.7.10
 
 
