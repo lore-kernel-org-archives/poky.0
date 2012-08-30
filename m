@@ -1,34 +1,34 @@
 Return-Path: <ross.burton@intel.com>
-Received: from fmsmga102.fm.intel.com (mga10.intel.com [192.55.52.92])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39DC9E01438
-	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 05:26:18 -0700 (PDT)
-Received: from mail-ob0-f176.google.com ([209.85.214.176])
-	by mga11.intel.com with ESMTP/TLS/RC4-SHA; 30 Aug 2012 05:26:17 -0700
-Received: by obbtb18 with SMTP id tb18so3897477obb.35
-	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 05:26:16 -0700 (PDT)
+Received: from azsmga101.ch.intel.com (mga07.intel.com [143.182.124.22])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 42521E00346
+	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 07:20:06 -0700 (PDT)
+Received: from mail-wi0-f176.google.com ([209.85.212.176])
+	by mga03.intel.com with ESMTP/TLS/RC4-SHA; 30 Aug 2012 07:19:56 -0700
+Received: by wibhn17 with SMTP id hn17so278403wib.11
+	for <poky@yoctoproject.org>; Thu, 30 Aug 2012 07:19:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:content-type:x-gm-message-state;
-	bh=90XG3JTid1yxN9EBJTmSMJ7NgsSvNhhsrEeFRzmSPdg=;
-	b=lOGFJ3C8jMyIhhNdude8ZOrmic4+/f1nktGbyBycJV8qLwloAOEPAH7p1KFU/B0PgZ
-	fsMA54fwcVYutQy3rXASprFXyascMt3hD62vqPhlp1jNQxv4HJwe2XGkNECGNJiehipU
-	KPoa22+97GpiOLqDBykqebTrAUSqevXQpL7sHqSr+xS6qTiRgfzMINLzBRK2HO4WjDqx
-	nnNc5IFjs+5cw0Rgnn5ksdnSJruN6uLLGXZImjotZkgRK0OaVW8wUaacDCOKY9/cfAL2
-	RKJgaK2uL/Lp8Zl7D67D8CEVuVmOXtXL/fJKnmRj9TSqi1hk7gk1vNYJfduPQQ8Q2Wtb
-	WrOQ==
-Received: by 10.182.44.7 with SMTP id a7mr4132411obm.80.1346329576776; Thu, 30
-	Aug 2012 05:26:16 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.182.79.105 with HTTP; Thu, 30 Aug 2012 05:25:56 -0700 (PDT)
-In-Reply-To: <1346255318-13168-1-git-send-email-ross.burton@intel.com>
-References: <1346255318-13168-1-git-send-email-ross.burton@intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 30 Aug 2012 13:25:56 +0100
-Message-ID: <CAJTo0LaqffZbP22RaOmz+xm1EJj8tU-inixj1HQ6WU6G25Og9Q@mail.gmail.com>
+	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
+	bh=jMeQWTlqIOP3C+cxO4JlPofgP3VClNo83oYe6fvYt0c=;
+	b=OIxq1yAGQjOzxNrkj8CyVLJ31FXO7FgVgvG0SBGBbiDeeMG3gJGfmbwsz2bQ8bfwGJ
+	BY1gdqowpBqwKqNtxE+qY4TSeSM4rz2bhkUbjxOIIOHZpm9+1LzJ5ri0PnyGupb30M57
+	ir8MIoVymYhAGAvrQHWT0f/0P2e5/lI9BjEcaG5X3k1Io4Vt2YqVxcMjto1UbFONzsC6
+	Jc7Z36kswsyYjB5Jo9FAuDHEYQ3J1dDCmwh+mGth+FGv2CGRV3Q2CL31BlgtXLScQcLE
+	s9rhBp9Vq+VXhgGJ5ilMun2xy2hyOUVO/29s02xlc1c2ekeQMkr6SI98F+Z80rwfkrgh
+	2IAw==
+Received: by 10.180.103.136 with SMTP id fw8mr848615wib.20.1346336394441;
+	Thu, 30 Aug 2012 07:19:54 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPS id h9sm1019646wiz.1.2012.08.30.07.19.52
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 30 Aug 2012 07:19:53 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-X-Gm-Message-State: ALoCoQmxpnStRxlZqLFRqwWcPmzpwk2fvyjIcYPCR1Kyd9gpixR/jpcQbYjw0tCz+SQ4YiSd/fzh
-Subject: Re: [PATCH 1/2] mpc8315e: switch to Xorg instead of kdrive
+Date: Thu, 30 Aug 2012 15:19:09 +0100
+Message-Id: <1346336349-15790-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10
+X-Gm-Message-State: ALoCoQk9oivETLnATkfEhoAxL5mJLLhGfP+ZuTpeQVgcDqtacGwSOeDnbvuyYTvOX1xpFpYd2ftD
+Subject: [PATCH] meta-emenlow: unset preferred providers for virtual/libgles[12]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,14 +41,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2012 12:26:18 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 30 Aug 2012 14:20:06 -0000
 
-On 29 August 2012 16:48, Ross Burton <ross.burton@intel.com> wrote:
-> All of the other BSPs are using Xorg and kdrive is only maintained for Xephyr.
+The recent changes to enable GLES/EGL in mesa-dri have caused emenlow to fail:
 
-I've a slightly revised version of this patch (and 2/2) in my
-poky-contrib/ross/xorg branch.  Please pull that instead of this.
+ERROR: Trying to resolve runtime dependency libglu resulted in conflicting PREFERRED_PROVIDER entries being found.
+The providers found were: ['/srv/home/pokybuild/yocto-autobuilder/yocto-slave/emenlow/build/yocto/meta-intel/meta-emenlow/recipes-graphics/xpsb-glx/xpsb-glx_0.18.bb', '/srv/home/pokybuild/yocto-autobuilder/yocto-slave/emenlow/build/meta/recipes-graphics/mesa/mesa-dri_8.0.4.bb']
+The PREFERRED_PROVIDER entries resulting in this conflict were: ['PREFERRED_PROVIDER_mesa-dri = xpsb-glx', 'PREFERRED_PROVIDER_virtual/libgles1 = mesa-dri']
 
-Ross
+Because emenlow's xpsb-glx contains mesa, it needs to entirely replace
+mesa-dri. We'd normally set virtual/libgles1 and virtual/libgles2 to xpsb-glx
+but these drivers don't build the GLES libraries so that would be a lie.
+
+So, unset the preferred provider entries so that bitbake doesn't look at
+mesa-dri at all.
+---
+ meta-emenlow/conf/machine/emenlow.conf |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/meta-emenlow/conf/machine/emenlow.conf b/meta-emenlow/conf/machine/emenlow.conf
+index afb3866..65dcd5a 100644
+--- a/meta-emenlow/conf/machine/emenlow.conf
++++ b/meta-emenlow/conf/machine/emenlow.conf
+@@ -13,6 +13,8 @@ PREFERRED_PROVIDER_libdrm = "libdrm-poulsbo"
+ PREFERRED_PROVIDER_drm = "libdrm-poulsbo"
+ PREFERRED_PROVIDER_virtual/libx11 = "libx11-trim"
+ PREFERRED_PROVIDER_virtual/libgl = "xpsb-glx"
++PREFERRED_PROVIDER_virtual/libgles1 = ""
++PREFERRED_PROVIDER_virtual/libgles2 = ""
+ PREFERRED_PROVIDER_virtual/xserver = "xserver-psb"
+ PREFERRED_PROVIDER_virtual/xserver-xf86 = "xserver-psb"
+ PREFERRED_PROVIDER_mesa-dri = "xpsb-glx"
+-- 
+1.7.10
+
 
