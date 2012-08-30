@@ -1,24 +1,24 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2F0C7E01438
-	for <poky@yoctoproject.org>; Wed, 29 Aug 2012 17:15:34 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 29 Aug 2012 17:15:33 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5CECAE01439
+	for <poky@yoctoproject.org>; Wed, 29 Aug 2012 17:15:36 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 29 Aug 2012 17:15:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,336,1344236400"; d="scan'208";a="215535247"
+X-IronPort-AV: E=Sophos;i="4.80,336,1344236400"; d="scan'208";a="186668931"
 Received: from unknown (HELO localhost) ([10.255.13.47])
-	by fmsmga002.fm.intel.com with ESMTP; 29 Aug 2012 17:15:33 -0700
+	by azsmga001.ch.intel.com with ESMTP; 29 Aug 2012 17:15:34 -0700
 From: tom.zanussi@intel.com
 To: poky@yoctoproject.org, richard.purdie@linuxfoundation.org,
 	sgw@linux.intel.com
-Date: Wed, 29 Aug 2012 19:15:27 -0500
-Message-Id: <e78f3a332f03a237d4ac3baef6b4c5979c185c03.1346285456.git.tom.zanussi@intel.com>
+Date: Wed, 29 Aug 2012 19:15:28 -0500
+Message-Id: <0a3d9278084a057153154e8ebdabc6f139349b74.1346285456.git.tom.zanussi@intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <f67c891daeccc13c5e97431b8a7f9959b332a562.1346285456.git.tom.zanussi@intel.com>
 References: <f67c891daeccc13c5e97431b8a7f9959b332a562.1346285456.git.tom.zanussi@intel.com>
 In-Reply-To: <cover.1346285456.git.tom.zanussi@intel.com>
 References: <cover.1346285456.git.tom.zanussi@intel.com>
-Subject: [PATCH 3/4] yocto-bsp: add a LICENSE_FLAGS_WHITELIST blurb for emgd to README
+Subject: [PATCH 4/4] yocto-bsp: add new strip_base() function
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,38 +31,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Aug 2012 00:15:34 -0000
+X-List-Received-Date: Thu, 30 Aug 2012 00:15:36 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Add a text snippet to the README to say that if emgd-driver-bin is
-included in the BSP, LICENSE_FLAGS_WHITELIST needs to be set to for a
-successful build.
+Add a strip_base() function to remove '/base' from the branch names
+presented to the user.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- scripts/lib/bsp/substrate/target/arch/common/README | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ scripts/lib/bsp/engine.py | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/common/README b/scripts/lib/bsp/substrate/target/arch/common/README
-index 928659f..228c0e2 100644
---- a/scripts/lib/bsp/substrate/target/arch/common/README
-+++ b/scripts/lib/bsp/substrate/target/arch/common/README
-@@ -65,6 +65,14 @@ You should then be able to build a {{=machine}} image as such:
-   $ source oe-init-build-env
-   $ bitbake core-image-sato
+diff --git a/scripts/lib/bsp/engine.py b/scripts/lib/bsp/engine.py
+index 00ce863..ac5058c 100644
+--- a/scripts/lib/bsp/engine.py
++++ b/scripts/lib/bsp/engine.py
+@@ -449,6 +449,16 @@ def boolean(input_str, name):
+         return name
  
-+NOTE: if the '{{=machine}}' machine includes the emgd-driver-bin
-+package (i.e. if the emgd version of the xserver is being used), it
-+has a proprietary license that must be whitelisted by adding the
-+string "license_emgd-driver-bin_1.14" to the LICENSE_FLAGS_WHITELIST
-+variable in your local.conf.  For example:
+ 
++def strip_base(input_str):
++    """
++    strip '/base' off the end of input_str, so we can use 'base' in
++    the branch names we present to the user.
++    """
++    if input_str and input_str.endswith("/base"):
++        return input_str[:-len("/base")]
++    return input_str.strip()
 +
-+  LICENSE_FLAGS_WHITELIST = "license_emgd-driver-bin_1.14"
 +
- At the end of a successful build, you should have a live image that
- you can boot from a USB flash drive (see instructions on how to do
- that below, in the section 'Booting the images from /binary').
+ deferred_choices = {}
+ 
+ def gen_choices_defer(input_line, context, checklist = False):
 -- 
 1.7.11.4
 
