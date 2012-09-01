@@ -1,22 +1,19 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9117DE002A5
-	for <poky@yoctoproject.org>; Fri, 31 Aug 2012 13:55:02 -0700 (PDT)
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8B7D9E004A1
+	for <poky@yoctoproject.org>; Sat,  1 Sep 2012 09:56:06 -0700 (PDT)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 31 Aug 2012 13:55:02 -0700
+	by fmsmga101.fm.intel.com with ESMTP; 01 Sep 2012 09:55:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,349,1344236400"; d="scan'208";a="216872283"
-Received: from unknown (HELO [10.255.13.47]) ([10.255.13.47])
-	by fmsmga001.fm.intel.com with ESMTP; 31 Aug 2012 13:55:01 -0700
-Message-ID: <1346446500.12571.23.camel@empanada>
-From: Tom Zanussi <tom.zanussi@intel.com>
+X-IronPort-AV: E=Sophos;i="4.80,353,1344236400"; d="scan'208";a="217094047"
+Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.251])
+	by fmsmga001.fm.intel.com with ESMTP; 01 Sep 2012 09:55:51 -0700
+From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 31 Aug 2012 15:55:00 -0500
-In-Reply-To: <cover.1346285456.git.tom.zanussi@intel.com>
-References: <cover.1346285456.git.tom.zanussi@intel.com>
-X-Mailer: Evolution 3.4.1 (3.4.1-2.fc17) 
-Mime-Version: 1.0
-Subject: Re: [PATCH 0/4] yocto-bsp updates to reflect ia32-base move, v2
+Date: Sat,  1 Sep 2012 09:55:51 -0700
+Message-Id: <cover.1346518417.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.7.6
+Subject: [CONSOLIDATED REQUEST - meta-yocto 0/8] yocto-bsp & X changes (cover letter only)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,46 +26,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Aug 2012 20:55:02 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 01 Sep 2012 16:56:06 -0000
 
-On Wed, 2012-08-29 at 19:15 -0500, tom.zanussi@intel.com wrote:
-> From: Tom Zanussi <tom.zanussi@intel.com>
-> 
-> ia32-base was moved to oe-core, which resulted in some more changes
-> yo yocto-bsp.
-> 
-> v2: exactly the same as the previous version, but again adds 
-> 'yocto-bsp: add new strip_base() function', which for some reason
-> keeps not getting pulled in.
-> 
+Richard:
 
-ping...
+These pending changes are needed if you pull the kdrive
+changes into OE-Core
 
-Tom
+Thanks
+	Sau!
 
-> The following changes since commit bb0aab79e488a99cb1b43f72f0e8ddbe39d97519:
-> 
->   yocto-bsp: use KBRANCH_DEFAULT in 'newbranch' cases (2012-08-29 14:23:36 -0700)
-> 
-> are available in the git repository at:
-> 
->   git://git.yoctoproject.org/poky-contrib.git tzanussi/yocto-bsp-ia32-base-updates.v2
->   http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/yocto-bsp-ia32-base-updates.v2
-> 
-> Tom Zanussi (4):
->   yocto-bsp: include meta-intel.inc if emgd selected
->   yocto-bsp: update the help regarding the meta-intel layer
->   yocto-bsp: add a LICENSE_FLAGS_WHITELIST blurb for emgd to README
->   yocto-bsp: add new strip_base() function
-> 
->  scripts/lib/bsp/engine.py                                    | 10 ++++++++++
->  scripts/lib/bsp/help.py                                      | 12 ++++++------
->  scripts/lib/bsp/substrate/target/arch/common/README          |  8 ++++++++
->  .../target/arch/i386/conf/machine/{{=machine}}.conf          |  2 ++
->  4 files changed, 26 insertions(+), 6 deletions(-)
-> 
+The following changes since commit 9ba1e33e2d14362971d6441ee6142bcb0857df1a:
 
+  sstate: Ensure master.list exists if it doesn't already (2012-08-30 22:45:56 -0700)
+
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib stage/meta-yocto
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=stage/meta-yocto
+
+Robert Yang (1):
+  local.conf.sample.extended: update the sample for archiver.bbclass
+
+Ross Burton (3):
+  bsp: set default XSERVER for PowerPC and MIPS machines to Xorg
+  routerstationpro: switch to Xorg instead of kdrive
+  mpc8315e: switch to Xorg instead of kdrive
+
+Tom Zanussi (4):
+  yocto-bsp: include meta-intel.inc if emgd selected
+  yocto-bsp: update the help regarding the meta-intel layer
+  yocto-bsp: add a LICENSE_FLAGS_WHITELIST blurb for emgd to README
+  yocto-bsp: add new strip_base() function
+
+ meta-yocto/conf/local.conf.sample.extended         |   50 +++++++++++---------
+ meta-yocto/conf/machine/mpc8315e-rdb.conf          |    7 ++-
+ meta-yocto/conf/machine/routerstationpro.conf      |    7 ++-
+ scripts/lib/bsp/engine.py                          |   10 ++++
+ scripts/lib/bsp/help.py                            |   12 ++--
+ .../lib/bsp/substrate/target/arch/common/README    |    8 +++
+ .../arch/i386/conf/machine/{{=machine}}.conf       |    2 +
+ .../arch/mips/conf/machine/{{=machine}}.conf       |    7 ++-
+ .../arch/powerpc/conf/machine/{{=machine}}.conf    |    7 ++-
+ 9 files changed, 73 insertions(+), 37 deletions(-)
+
+-- 
+1.7.7.6
 
 
