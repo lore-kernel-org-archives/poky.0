@@ -1,19 +1,19 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8B7D9E004A1
-	for <poky@yoctoproject.org>; Sat,  1 Sep 2012 09:56:06 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 01 Sep 2012 09:55:52 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7B063E013A6
+	for <poky@yoctoproject.org>; Mon,  3 Sep 2012 03:45:13 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 03 Sep 2012 03:45:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,353,1344236400"; d="scan'208";a="217094047"
-Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.251])
-	by fmsmga001.fm.intel.com with ESMTP; 01 Sep 2012 09:55:51 -0700
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.80,359,1344236400"; d="scan'208";a="188338820"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.121.155])
+	by orsmga001.jf.intel.com with ESMTP; 03 Sep 2012 03:45:12 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Sat,  1 Sep 2012 09:55:51 -0700
-Message-Id: <cover.1346518417.git.sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.7.6
-Subject: [CONSOLIDATED REQUEST - meta-yocto 0/8] yocto-bsp & X changes (cover letter only)
+Date: Mon,  3 Sep 2012 11:44:56 +0100
+Message-Id: <cover.1346668926.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [meta-yocto][PATCH 0/1] Package group fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,50 +26,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 01 Sep 2012 16:56:06 -0000
+X-List-Received-Date: Mon, 03 Sep 2012 10:45:13 -0000
 
-Richard:
+This patch on top of the changes submitted for OE-Core fixes up
+meta-yocto after the rename of task to packagegroup.
 
-These pending changes are needed if you pull the kdrive
-changes into OE-Core
 
-Thanks
-	Sau!
 
-The following changes since commit 9ba1e33e2d14362971d6441ee6142bcb0857df1a:
+The following changes since commit 9789b60fb0668eb978de64f032a23048f780c78a:
 
-  sstate: Ensure master.list exists if it doesn't already (2012-08-30 22:45:56 -0700)
+  packagegroup-*: add RPROVIDES for backwards compatibility (2012-09-03 11:27:23 +0100)
 
 are available in the git repository at:
-  git://git.yoctoproject.org/poky-contrib stage/meta-yocto
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=stage/meta-yocto
 
-Robert Yang (1):
-  local.conf.sample.extended: update the sample for archiver.bbclass
+  git://git.yoctoproject.org/poky-contrib paule/task-rework
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/task-rework
 
-Ross Burton (3):
-  bsp: set default XSERVER for PowerPC and MIPS machines to Xorg
-  routerstationpro: switch to Xorg instead of kdrive
-  mpc8315e: switch to Xorg instead of kdrive
+Paul Eggleton (1):
+  meta-yocto: fix for task rename
 
-Tom Zanussi (4):
-  yocto-bsp: include meta-intel.inc if emgd selected
-  yocto-bsp: update the help regarding the meta-intel layer
-  yocto-bsp: add a LICENSE_FLAGS_WHITELIST blurb for emgd to README
-  yocto-bsp: add new strip_base() function
-
- meta-yocto/conf/local.conf.sample.extended         |   50 +++++++++++---------
- meta-yocto/conf/machine/mpc8315e-rdb.conf          |    7 ++-
- meta-yocto/conf/machine/routerstationpro.conf      |    7 ++-
- scripts/lib/bsp/engine.py                          |   10 ++++
- scripts/lib/bsp/help.py                            |   12 ++--
- .../lib/bsp/substrate/target/arch/common/README    |    8 +++
- .../arch/i386/conf/machine/{{=machine}}.conf       |    2 +
- .../arch/mips/conf/machine/{{=machine}}.conf       |    7 ++-
- .../arch/powerpc/conf/machine/{{=machine}}.conf    |    7 ++-
- 9 files changed, 73 insertions(+), 37 deletions(-)
+ meta-yocto/conf/distro/include/distro_alias.inc    |   60 ++++++++++----------
+ meta-yocto/conf/distro/include/maintainers.inc     |   36 ++++++------
+ meta-yocto/conf/distro/include/recipe_color.inc    |   12 ++--
+ .../conf/distro/include/upstream_tracking.inc      |    2 +-
+ meta-yocto/conf/distro/poky-tiny.conf              |    6 +-
+ meta-yocto/conf/distro/poky.conf                   |    2 +-
+ .../packagegroup-core-tools-profile.bbappend       |    2 +
+ .../tasks/task-core-tools-profile.bbappend         |    2 -
+ .../packagegroup-core-sdk-gmae.bbappend}           |    0
+ ...group-core-standalone-gmae-sdk-target.bbappend} |    0
+ .../packagegroup-core-tools-profile.bbappend       |    2 +
+ .../tasks/task-core-tools-profile.bbappend         |    2 -
+ 12 files changed, 63 insertions(+), 63 deletions(-)
+ create mode 100644 meta-yocto/recipes-core/packagegroups/packagegroup-core-tools-profile.bbappend
+ delete mode 100644 meta-yocto/recipes-core/tasks/task-core-tools-profile.bbappend
+ rename meta-yocto/recipes-gnome/{tasks/task-core-sdk-gmae.bbappend => packagegroups/packagegroup-core-sdk-gmae.bbappend} (100%)
+ rename meta-yocto/recipes-gnome/{tasks/task-core-standalone-gmae-sdk-target.bbappend => packagegroups/packagegroup-core-standalone-gmae-sdk-target.bbappend} (100%)
+ create mode 100644 scripts/lib/bsp/substrate/target/arch/common/recipes-core/packagegroups/packagegroup-core-tools-profile.bbappend
+ delete mode 100644 scripts/lib/bsp/substrate/target/arch/common/recipes-core/tasks/task-core-tools-profile.bbappend
 
 -- 
-1.7.7.6
+1.7.9.5
 
 
