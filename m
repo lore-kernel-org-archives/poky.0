@@ -1,31 +1,18 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8D5E0E0147F
-	for <poky@yoctoproject.org>; Tue,  4 Sep 2012 05:44:17 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q84CiEqJ017036;
-	Tue, 4 Sep 2012 13:44:14 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 17016-01; Tue,  4 Sep 2012 13:44:09 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q84Ci5Ih017030
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Tue, 4 Sep 2012 13:44:06 +0100
-Message-ID: <1346762645.30964.46.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Date: Tue, 04 Sep 2012 13:44:05 +0100
-In-Reply-To: <3982601ba10cf2fa66189fef0de4ba99a9a716b2.1346668926.git.paul.eggleton@linux.intel.com>
-References: <cover.1346668926.git.paul.eggleton@linux.intel.com>
-	<3982601ba10cf2fa66189fef0de4ba99a9a716b2.1346668926.git.paul.eggleton@linux.intel.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [meta-yocto][PATCH 1/1] meta-yocto: fix for task rename
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3B419E00344
+	for <poky@yoctoproject.org>; Tue,  4 Sep 2012 08:35:09 -0700 (PDT)
+Received: from yow-bashfiel-l1.wrs.com (yow-bashfiel-d3.wrs.com
+	[128.224.147.67])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id q84FZ5SP008607;
+	Tue, 4 Sep 2012 08:35:06 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Tue,  4 Sep 2012 11:35:04 -0400
+Message-Id: <cover.1346772644.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
+Cc: poky@yoctoproject.org, saul.wold@intel.com
+Subject: [PATCH 0/1] linux-yocto/meta-yocto: update SRCREVs to 3.4.9, unionfs, perf and cfg
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,35 +25,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Sep 2012 12:44:18 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 04 Sep 2012 15:35:09 -0000
 
-On Mon, 2012-09-03 at 11:44 +0100, Paul Eggleton wrote:
-> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
-> ---
->  meta-yocto/conf/distro/include/distro_alias.inc    |   60 ++++++++++----------
->  meta-yocto/conf/distro/include/maintainers.inc     |   36 ++++++------
->  meta-yocto/conf/distro/include/recipe_color.inc    |   12 ++--
->  .../conf/distro/include/upstream_tracking.inc      |    2 +-
->  meta-yocto/conf/distro/poky-tiny.conf              |    6 +-
->  meta-yocto/conf/distro/poky.conf                   |    2 +-
->  .../packagegroup-core-tools-profile.bbappend       |    2 +
->  .../tasks/task-core-tools-profile.bbappend         |    2 -
->  .../packagegroup-core-sdk-gmae.bbappend}           |    0
->  ...group-core-standalone-gmae-sdk-target.bbappend} |    0
->  .../packagegroup-core-tools-profile.bbappend       |    2 +
->  .../tasks/task-core-tools-profile.bbappend         |    2 -
->  12 files changed, 63 insertions(+), 63 deletions(-)
->  create mode 100644 meta-yocto/recipes-core/packagegroups/packagegroup-core-tools-profile.bbappend
->  delete mode 100644 meta-yocto/recipes-core/tasks/task-core-tools-profile.bbappend
->  rename meta-yocto/recipes-gnome/{tasks/task-core-sdk-gmae.bbappend => packagegroups/packagegroup-core-sdk-gmae.bbappend} (100%)
->  rename meta-yocto/recipes-gnome/{tasks/task-core-standalone-gmae-sdk-target.bbappend => packagegroups/packagegroup-core-standalone-gmae-sdk-target.bbappend} (100%)
->  create mode 100644 scripts/lib/bsp/substrate/target/arch/common/recipes-core/packagegroups/packagegroup-core-tools-profile.bbappend
->  delete mode 100644 scripts/lib/bsp/substrate/target/arch/common/recipes-core/tasks/task-core-tools-profile.bbappend
+Richard/Saul,
 
-Merged to master, thanks.
+This is a sync for the meta-yocto boards to match what qemu* has in
+oe-core. I'm doing more build testing here, but I wanted to get my
+queue pushed out, since there's only so many board combos I can 
+build myself.
 
-Richard
+I don't expect any issues, but obviously, I'm around to fix anything
+that goes off the rails.
+
+Cheers,
+
+Bruce
+
+The following changes since commit fc1c6360e80b1d094a5b618cb7aeabe0700a4971:
+
+  linux-yocto-rt: update to 3.4.9-rt17 (2012-09-04 11:13:36 -0400)
+
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (1):
+  linux-yocto/meta-yocto: update SRCREVs to 3.4.9, unionfs, perf and cfg
+
+ .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+-- 
+1.7.5.4
 
 
