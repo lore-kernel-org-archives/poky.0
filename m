@@ -1,19 +1,30 @@
-Return-Path: <radu.moisan@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B774EE0146C
-	for <poky@yoctoproject.org>; Tue,  4 Sep 2012 00:51:09 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 04 Sep 2012 00:51:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,365,1344236400"; d="scan'208";a="217791731"
-Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Sep 2012 00:51:08 -0700
-From: Radu Moisan <radu.moisan@intel.com>
-To: poky@yoctoproject.org
-Date: Tue,  4 Sep 2012 10:53:51 +0300
-Message-Id: <1346745231-11227-1-git-send-email-radu.moisan@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] pango: Add missing sign-off-by and upstream-status
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25CC5E0147F
+	for <poky@yoctoproject.org>; Tue,  4 Sep 2012 05:33:51 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q84CXmpZ016870;
+	Tue, 4 Sep 2012 13:33:48 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 15631-05; Tue,  4 Sep 2012 13:33:44 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q84CXcH4016864
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
+	Tue, 4 Sep 2012 13:33:39 +0100
+Message-ID: <1346762017.30964.32.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Radu Moisan <radu.moisan@intel.com>
+Date: Tue, 04 Sep 2012 13:33:37 +0100
+In-Reply-To: <1346743790-10579-1-git-send-email-radu.moisan@intel.com>
+References: <1346743790-10579-1-git-send-email-radu.moisan@intel.com>
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH v4444] upstream_tracking.inc: Updates for upstream/check date
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,25 +37,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Sep 2012 07:51:09 -0000
+X-List-Received-Date: Tue, 04 Sep 2012 12:33:52 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Radu Moisan <radu.moisan@intel.com>
----
- .../pango/pango-1.30.0/no-tests.patch              |    3 +++
- 1 file changed, 3 insertions(+)
+On Tue, 2012-09-04 at 10:29 +0300, Radu Moisan wrote:
+> Manually checked all packages assigned to me and updated accordingly.
+> 
+> Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+> ---
+>  .../conf/distro/include/upstream_tracking.inc      |  166 ++++++++++++--------
+>  1 file changed, 104 insertions(+), 62 deletions(-)
 
-diff --git a/meta/recipes-graphics/pango/pango-1.30.0/no-tests.patch b/meta/recipes-graphics/pango/pango-1.30.0/no-tests.patch
-index 5a6e4c1..ddfc126 100644
---- a/meta/recipes-graphics/pango/pango-1.30.0/no-tests.patch
-+++ b/meta/recipes-graphics/pango/pango-1.30.0/no-tests.patch
-@@ -1,3 +1,6 @@
-+Signed-off-by: Radu Moisan <radu.moisan@intel.com>
-+Upstream-Status: Pending
-+
- Index: pango-1.30.0/Makefile.am
- ===================================================================
- --- pango-1.30.0.orig/Makefile.am	2011-08-16 04:11:08.000000000 +0300
--- 
-1.7.9.5
+Merged to master, thanks.
+
+Richard
 
 
