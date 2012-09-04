@@ -1,19 +1,19 @@
 Return-Path: <radu.moisan@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7DE38E0146C
-	for <poky@yoctoproject.org>; Tue,  4 Sep 2012 00:27:08 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 04 Sep 2012 00:27:07 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F28DCE0146C
+	for <poky@yoctoproject.org>; Tue,  4 Sep 2012 00:31:11 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 04 Sep 2012 00:31:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,365,1344236400"; d="scan'208";a="217785455"
+X-IronPort-AV: E=Sophos;i="4.80,365,1344236400"; d="scan'208";a="141214656"
 Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Sep 2012 00:27:06 -0700
+	by AZSMGA002.ch.intel.com with ESMTP; 04 Sep 2012 00:31:10 -0700
 From: Radu Moisan <radu.moisan@intel.com>
 To: poky@yoctoproject.org
-Date: Tue,  4 Sep 2012 10:29:50 +0300
-Message-Id: <1346743790-10579-1-git-send-email-radu.moisan@intel.com>
+Date: Tue,  4 Sep 2012 10:33:54 +0300
+Message-Id: <1346744034-10710-1-git-send-email-radu.moisan@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH v4444] upstream_tracking.inc: Updates for upstream/check date
+Subject: [PATCH v5] upstream_tracking.inc: Updates for upstream/check date
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,7 +26,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Sep 2012 07:27:08 -0000
+X-List-Received-Date: Tue, 04 Sep 2012 07:31:12 -0000
 
 Manually checked all packages assigned to me and updated accordingly.
 
