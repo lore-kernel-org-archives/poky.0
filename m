@@ -1,20 +1,19 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D1F6DE01447
-	for <poky@yoctoproject.org>; Fri,  7 Sep 2012 17:12:02 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 07 Sep 2012 17:12:02 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E64F7E0049F
+	for <poky@yoctoproject.org>; Sat,  8 Sep 2012 10:02:48 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 08 Sep 2012 10:02:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,388,1344236400"; d="scan'208";a="219615606"
+X-IronPort-AV: E=Sophos;i="4.80,392,1344236400"; d="scan'208";a="199652019"
 Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.13.76])
-	by fmsmga001.fm.intel.com with ESMTP; 07 Sep 2012 17:12:02 -0700
+	by orsmga002.jf.intel.com with ESMTP; 08 Sep 2012 10:02:48 -0700
 From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri,  7 Sep 2012 17:12:02 -0700
-Message-Id: <1347063122-29824-1-git-send-email-sgw@linux.intel.com>
+Date: Sat,  8 Sep 2012 10:02:47 -0700
+Message-Id: <cover.1347063149.git.sgw@linux.intel.com>
 X-Mailer: git-send-email 1.7.7.6
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH] poky-tiny: Enable x86-64 to build eglibc correctly
+Subject: [CONSOLIDATED REQUEST 0/4] meta-yocto updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,35 +26,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 08 Sep 2012 00:12:02 -0000
+X-List-Received-Date: Sat, 08 Sep 2012 17:02:49 -0000
 
-There is bug in the eglibc configure scripts that prevent a
-x86-64 from configuring correctly and finding the smaller
-library fucntions.
+The following changes since commit 5343cdb20ee56a8b507733c637dcc2466ae13288:
 
-This has been reported to the eglibc community via the issues ML
+  bitbake: fetch2: replace double slashes in paths in encodeurl() (2012-09-07 14:50:04 +0100)
 
-Cc: Darren Hart <dvhart@linux.intel.com>
+are available in the git repository at:
+  git://git.yoctoproject.org/poky-contrib sgw/stage
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/stage
 
-[YOCTO #2943]
+Andrei Dinu (1):
+  Manual updates to upstream_tracking.inc up to 04 Sep 2012
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- meta-yocto/conf/distro/poky-tiny.conf |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
+Kang Kai (1):
+  upstream_tracking: update lsb and ltp
 
-diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
-index f3cc874..3196fa0 100644
---- a/meta-yocto/conf/distro/poky-tiny.conf
-+++ b/meta-yocto/conf/distro/poky-tiny.conf
-@@ -63,6 +63,7 @@ ASSUME_PROVIDED += "pkgconfig$"
- # Reconfigure eglibc for a smaller installation
- # Comment out any of the lines below to disable them in the build
- DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt"
-+DISTRO_FEATURES_LIBC_TINY_append_x86-64 = " libc-libm-big"
- 
- # Required for "who"
- DISTRO_FEATURES_LIBC_MINIMAL = "libc-utmp libc-getlogin"
+Saul Wold (1):
+  poky-tiny: Enable x86-64 to build eglibc correctly
+
+Tom Zanussi (1):
+  yocto-bsp: remove packagegroup-core-tools-profile.bbappend
+
+ .../conf/distro/include/upstream_tracking.inc      | 1504 +++++++++++++-------
+ meta-yocto/conf/distro/poky-tiny.conf              |    1 +
+ .../packagegroup-core-tools-profile.bbappend       |    2 -
+ 3 files changed, 966 insertions(+), 541 deletions(-)
+ delete mode 100644 scripts/lib/bsp/substrate/target/arch/common/recipes-core/packagegroups/packagegroup-core-tools-profile.bbappend
+
 -- 
 1.7.7.6
 
