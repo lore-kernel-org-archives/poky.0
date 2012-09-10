@@ -1,17 +1,17 @@
 Return-Path: <andrei.adrianx.dinu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8F6EDE01468
-	for <poky@yoctoproject.org>; Mon, 10 Sep 2012 09:10:22 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 10 Sep 2012 09:10:22 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B4922E0146B
+	for <poky@yoctoproject.org>; Mon, 10 Sep 2012 09:14:48 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 Sep 2012 09:14:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,398,1344236400"; d="scan'208";a="143388620"
+X-IronPort-AV: E=Sophos;i="4.80,398,1344236400"; d="scan'208";a="191208532"
 Received: from adinu-vostro-460 (HELO localhost.localdomain) ([10.237.105.39])
-	by AZSMGA002.ch.intel.com with ESMTP; 10 Sep 2012 09:10:19 -0700
+	by orsmga001.jf.intel.com with ESMTP; 10 Sep 2012 09:14:45 -0700
 From: Andrei Dinu <andrei.adrianx.dinu@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 10 Sep 2012 19:10:38 +0300
-Message-Id: <1347293438-13914-1-git-send-email-andrei.adrianx.dinu@intel.com>
+Date: Mon, 10 Sep 2012 19:15:05 +0300
+Message-Id: <1347293705-14046-1-git-send-email-andrei.adrianx.dinu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 Subject: [PATCH] Manual updates to upstream_tracking.inc
 X-BeenThere: poky@yoctoproject.org
@@ -26,7 +26,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Sep 2012 16:10:22 -0000
+X-List-Received-Date: Mon, 10 Sep 2012 16:14:48 -0000
 
 Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
 ---
@@ -34,7 +34,7 @@ Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
  1 file changed, 962 insertions(+), 536 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index b27b8e6..e0b7d04 100644
+index b27b8e6..b03422a 100644
 --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
 +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
 @@ -24,363 +24,460 @@
@@ -850,7 +850,7 @@ index b27b8e6..e0b7d04 100644
 +CHECL_DATE_pn-libglade = "Aug 30, 2012"
 +RECIPE_UPSTREAM_DATE_pn-libgnome-keyring = "Aug 17, 2012"
 +RECIPE_UPSTREAM_VERSION_pn-libgnome-keyring = "3.5.6"
-+CHECK_DATE_pn-libgnome-keyring = "30 Aug 2012"
++CHECK_DATE_pn-libgnome-keyring = "Aug 30, 2012"
 +RECIPE_UPSTREAM_VERSION_pn-libgnomecanvas = "2.30.3"
 +RECIPE_UPSTREAM_DATE_pn-libgnomecanvas = "Jan 31, 2011"
 +CHECK_DATE_pn-libgnomecanvas = "Aug 30, 2012"
@@ -1065,7 +1065,7 @@ index b27b8e6..e0b7d04 100644
 +CHECK_DATE_pn-libuser = "Aug 30, 2012"
 +RECIPE_UPSTREAM_VERSION_pn-libvorbis="1.3.3"
 +RECIPE_UPSTREAM_DATE_pn-libvorbis="Feb 03, 2012"
-+CHECK_DATE_pn-libvorbis = "31 Aug, 2012"
++CHECK_DATE_pn-libvorbis = "Aug 31, 2012"
 +RECIPE_UPSTREAM_DATE_pn-libx11 = "Jun 02, 2012"
 +RECIPE_UPSTREAM_VERSION_pn-libx11 = "1.5.0"
 +CHECK_DATE_pn-libx11 = "Aug 31, 2012"
@@ -1585,7 +1585,7 @@ index b27b8e6..e0b7d04 100644
 -RECIPE_UPSTREAM_VERSION_pn-qemu = "0.13.0"
 +RECIPE_UPSTREAM_VERSION_pn-qemu = "1.1.0"
 +RECIPE_UPSTREAM_DATE_pn-qemu = "Jun 1, 2012"
-+CHECK_DATE_pn-qemu = "3 Sep, 2012"
++CHECK_DATE_pn-qemu = "Sep 3, 2012"
  RECIPE_UPSTREAM_VERSION_pn-qemugl="0.0+git0+d888bbc723c00d197d34a39b5b7448660ec1b1c0"
  CHECK_DATE_pn-qemugl= "Jul 05, 2012"
  RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because the upstream is broken in x86_64 build"
