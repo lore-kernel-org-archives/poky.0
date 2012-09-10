@@ -1,17 +1,17 @@
 Return-Path: <andrei.adrianx.dinu@intel.com>
 Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27F26E01468
-	for <poky@yoctoproject.org>; Mon, 10 Sep 2012 08:59:09 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8F6EDE01468
+	for <poky@yoctoproject.org>; Mon, 10 Sep 2012 09:10:22 -0700 (PDT)
 Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 10 Sep 2012 08:58:52 -0700
+	by azsmga102.ch.intel.com with ESMTP; 10 Sep 2012 09:10:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,398,1344236400"; d="scan'208";a="143383792"
+X-IronPort-AV: E=Sophos;i="4.80,398,1344236400"; d="scan'208";a="143388620"
 Received: from adinu-vostro-460 (HELO localhost.localdomain) ([10.237.105.39])
-	by AZSMGA002.ch.intel.com with ESMTP; 10 Sep 2012 08:58:50 -0700
+	by AZSMGA002.ch.intel.com with ESMTP; 10 Sep 2012 09:10:19 -0700
 From: Andrei Dinu <andrei.adrianx.dinu@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 10 Sep 2012 18:59:08 +0300
-Message-Id: <1347292748-13618-1-git-send-email-andrei.adrianx.dinu@intel.com>
+Date: Mon, 10 Sep 2012 19:10:38 +0300
+Message-Id: <1347293438-13914-1-git-send-email-andrei.adrianx.dinu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 Subject: [PATCH] Manual updates to upstream_tracking.inc
 X-BeenThere: poky@yoctoproject.org
@@ -26,7 +26,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Sep 2012 15:59:10 -0000
+X-List-Received-Date: Mon, 10 Sep 2012 16:10:22 -0000
 
 Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
 ---
@@ -34,7 +34,7 @@ Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
  1 file changed, 962 insertions(+), 536 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index b27b8e6..88c6ac0 100644
+index b27b8e6..e0b7d04 100644
 --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
 +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
 @@ -24,363 +24,460 @@
@@ -739,7 +739,7 @@ index b27b8e6..88c6ac0 100644
  RECIPE_UPSTREAM_DATE_pn-libatomics-ops = "unknown"
 -RECIPE_UPSTREAM_VERSION_pn-libcanberra = "0.26"
 +RECIPE_UPSTREAM_VERSION_pn-libcanberra = "0.29"
-+RECIPE_UPSTREAM_DATE_pn-libcanberra = "May 15,2012"
++RECIPE_UPSTREAM_DATE_pn-libcanberra = "May 15, 2012"
 +CHECK_DATE_pn-libcanberra = "Aug 30, 2012"
  RECIPE_UPSTREAM_VERSION_pn-libcap = "2.22"
 -CHECK_DATE_pn-libcap = "Jul 05, 2012"
@@ -1522,7 +1522,7 @@ index b27b8e6..88c6ac0 100644
 -RECIPE_UPSTREAM_VERSION_pn-poppler = "0.12.4"
 +RECIPE_UPSTREAM_VERSION_pn-poppler-data = "0.4.5"
 +RECIPE_UPSTREAM_DATE_pn-poppler-data = "Aug 31, 2011"
-+CHECK_DATE_pn-poppler-data "Aug 31, 2012"
++CHECK_DATE_pn-poppler-data = "Aug 31, 2012"
 +RECIPE_UPSTREAM_VERSION_pn-poppler = "0.20.3"
 +RECIPE_UPSTREAM_DATE_pn-poppler = "Aug 10, 2012"
 +CHECK_DATE_pn-poppler-data = "Aug 31, 2012"
