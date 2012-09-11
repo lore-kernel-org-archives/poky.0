@@ -1,32 +1,19 @@
-Return-Path: <sujith.h@gmail.com>
-Received: from mail-ob0-f176.google.com (mail-ob0-f176.google.com
-	[209.85.214.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D58BBE00344
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 01:26:03 -0700 (PDT)
-Received: by obbtb18 with SMTP id tb18so400650obb.35
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 01:26:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=Ni2m19emqr7a+L++fsT5Z+J9uezIbJl2Lrj1p7zho2o=;
-	b=zMt2Ld1qwyYv/81zzsJMqeoVhzHMrsyvMGm5Plssf2fdQgVv4HNkJqLQDb1vLUVuuH
-	hXYpH/jTUFuQnOTn7Qt9nrlSGmyJOYtVW3AgQKPlc1lNC0NYby/VZFJvL5CYJvB5a/au
-	svWwaIrtl97r+cRvLvom//5kk108Rtlc0x/7Oe7exOZ+jTG768IxdbvoWZgpOXiQQjg5
-	YXhmyr3lzKxWySZmWvQ/Aj6rSMcFD0Zu93ciirBWl+tTvg1tTHAAncUxzz1IRgRZrP6x
-	+7bVOJjdXufDn9mD20TaY+ioQPupiFmpPBTACB3AB9THTcDdwVAn0zSdNoo2hivQhtfi
-	BN4A==
-Received: by 10.60.12.8 with SMTP id u8mr16911265oeb.46.1347351963295; Tue, 11
-	Sep 2012 01:26:03 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.76.171.131 with HTTP; Tue, 11 Sep 2012 01:25:25 -0700 (PDT)
-In-Reply-To: <CADyYWL=24p+Te_AM2c5Y3BPmRiDfwXwiFxH0VPwhbMsbDohdeA@mail.gmail.com>
-References: <CADyYWL=24p+Te_AM2c5Y3BPmRiDfwXwiFxH0VPwhbMsbDohdeA@mail.gmail.com>
-From: sujith h <sujith.h@gmail.com>
-Date: Tue, 11 Sep 2012 13:55:25 +0530
-Message-ID: <CADyYWL=vKyQxBTQG3XV3FKPVES42rCEjoNDTmbx-AnycTAYadQ@mail.gmail.com>
+Return-Path: <andrei.adrianx.dinu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D2F4FE00344
+	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 02:15:58 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 11 Sep 2012 02:15:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,402,1344236400"; d="scan'208";a="143713122"
+Received: from adinu-vostro-460 (HELO localhost.localdomain) ([10.237.105.39])
+	by AZSMGA002.ch.intel.com with ESMTP; 11 Sep 2012 02:15:56 -0700
+From: Andrei Dinu <andrei.adrianx.dinu@intel.com>
 To: poky@yoctoproject.org
-Cc: florin.sarbu@windriver.com
-Subject: Re: Patch for DLT-viewer
+Date: Tue, 11 Sep 2012 12:16:17 +0300
+Message-Id: <1347354977-30142-1-git-send-email-andrei.adrianx.dinu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] Update to upstream_tracking.inc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,68 +26,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2012 08:26:04 -0000
-Content-Type: multipart/alternative; boundary=e89a8fb1ef5628e08a04c968d387
+X-List-Received-Date: Tue, 11 Sep 2012 09:15:59 -0000
 
---e89a8fb1ef5628e08a04c968d387
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
+---
+ .../conf/distro/include/upstream_tracking.inc      |   13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-On Tue, Sep 11, 2012 at 12:37 PM, sujith h <sujith.h@gmail.com> wrote:
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index b3f90a7..fcaf789 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -26,6 +26,7 @@ RECIPE_UPSTREAM_VERSION_pn-acpid = "1.0.10"
+ RECIPE_UPSTREAM_DATE_pn-acpid = "Apr 22, 2009"
+ CHECK_DATE_pn-acpid = "Aug 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
++CHECK_DATE_pn-adt-installer = "Sep 11, 2012"
+ RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-apmd = "3.2.2-14"
+ RECIPE_UPSTREAM_DATE_pn-apmd = "Jul 01, 2009"
+@@ -84,7 +85,7 @@ RECIPE_UPSTREAM_DATE_pn-bluez-dtl1-workaround="n/a"
+ RECIPE_UPSTREAM_VERSION_pn-bluez4="4.101"
+ RECIPE_UPSTREAM_DATE_pn-bluez4="Jun 22, 2012"
+ CHECK_DATE_pn-bluez4 = "Aug 27, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-boost = "1.50.1"
++RECIPE_UPSTREAM_VERSION_pn-boost = "1.51.0"
+ CHECK_DATE_pn-boost = "Aug 27, 2012"
+ RECIPE_UPSTREAM_DATE_pn-boost = "Aug 20, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-btrfs-tools="git"
+@@ -470,6 +471,9 @@ CHECK_DATE_pn-json-glib = "Aug 29, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-kbproto = "1.0.6"
+ RECIPE_UPSTREAM_DATE_pn-kbproto = "Mar 23, 2012"
+ CHECK_DATE_pn-kbproto = "Aug 29, 2012"
++RECIPE_UPSTREAM_VERSION_pn-kconfig-frontends = "3.5.0"
++RECIPE_UPSTREAM_DATE_pn-kconfig-frontends = "Jul 22, 2012"
++CHECK_DATE_pn-kconfig-frontends = "Sep 11, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-kern-tools-native = "check"
+ RECIPE_UPSTREAM_VERSION_pn-kernelshark = "0.2"
+ RECIPE_NO_UPDATE_REASON_pn-kernelshark = "0.2 is the latest version."
+@@ -520,6 +524,9 @@ CHECK_DATE_pn-libcanberra = "Aug 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-libcap = "2.22"
+ CHECK_DATE_pn-libcap = "Aug 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-libcap = "Jan 01, 2010"
++RECIPE_UPSTREAM_VERSION_pn-libcgroup = "0.38-1"
++RECIPE_UPSTREAM_DATE_pn-libcgroup = "Jun 06, 2012"
++CHECK_DATE_pn-libcgroup = "Sep 11, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-libcheck = "0.9.8"
+ CHECK_DATE_pn-libcheck = "Aug 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-libcheck = "Sep 23, 2009"
+@@ -1141,6 +1148,9 @@ CHECK_DATE_pn-puzzles = "Aug 31, 2012"
+ RECIPE_UPSTREAM_DATE_pn-python-pycurl = "Sep 09, 2008"
+ RECIPE_UPSTREAM_VERSION_pn-python-pycurl = "7.19.0"
+ CHECK_DATE_pn-python-pycurl = "Aug 31, 2012"
++RECIPE_UPSTREAM_VERSION_pn-python-scons = "2.2.0"
++RECIPE_UPSTREAM_DATE_pn-python-scons = "Aug 05, 2012"
++CHECK_DATE_pn-python-scons = "Sep 11, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-python="3.2.3"
+ RECIPE_UPSTREAM_DATE_pn-python = "Apr 10, 2012"
+ CHECK_DATE_pn-python = "Aug 31, 2012"
+@@ -1349,6 +1359,7 @@ RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Dec 23, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-u-boot-fw-utils = "20012.07"
+ CHCEK_DATE_pn-u-boot-fw-utils = "Sep 03, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
++CHECK_DATE_pn-ubootchart = "Sep 11, 2012"
+ RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-udev = "182"
+ RECIPE_UPSTREAM_DATE_pn-udev = "Mar 19, 2012"
+-- 
+1.7.9.5
 
-> Hi,
->
-> I had created the patch for DLT-viewer 2.6 version. It was created in the
-> meta-ivi repo. I saw that DLT-daemo recipe is there. Hence thought of
-> creating DLT-viewer patch. Please let me know if this is not the mailing
-> list for
-> posting the patch for meta-ivi.
->
 
-Adding florin.sarbu@windriver.com in the cc list.
-
-Thanks,
-
-Sujith H
-
-
---=20
-=E0=B4=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=
-=E0=B4=BF=E0=B4=A6=E0=B4=BE=E0=B4=B8=E0=B4=A8=E0=B5=8D
-Bangalore
-<Project>Contributor to KDE project
-http://fci.wikia.com/wiki/Anti-DRM-Campaign
-<Blog> http://sujithh.info
-
---e89a8fb1ef5628e08a04c968d387
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<br><br><div class=3D"gmail_quote">On Tue, Sep 11, 2012 at 12:37 PM, sujith=
- h <span dir=3D"ltr">&lt;<a href=3D"mailto:sujith.h@gmail.com" target=3D"_b=
-lank">sujith.h@gmail.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left=
-:1ex">
-
-Hi,<div><br></div><div>I had created the patch for DLT-viewer 2.6 version. =
-It was created in the</div><div>meta-ivi repo. I saw that DLT-daemo recipe =
-is there. Hence thought of</div><div>creating DLT-viewer patch. Please let =
-me know if this is not the mailing list for</div>
-
-
-<div>posting the patch for meta-ivi.=C2=A0</div></blockquote><div><br></div=
-><div>Adding <a href=3D"mailto:florin.sarbu@windriver.com">florin.sarbu@win=
-driver.com</a> in the cc list.</div><div><br></div><div>Thanks,</div><div><=
-br>
-
-</div><div>Sujith H</div><div><br></div></div><div><br></div>-- <br>=E0=B4=
-=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=E0=B4=
-=BF=E0=B4=A6=E0=B4=BE=E0=B4=B8=E0=B4=A8=E0=B5=8D<br>Bangalore<br>&lt;Projec=
-t&gt;Contributor to KDE project<br><a href=3D"http://fci.wikia.com/wiki/Ant=
-i-DRM-Campaign" target=3D"_blank">http://fci.wikia.com/wiki/Anti-DRM-Campai=
-gn</a><br>
-
-&lt;Blog&gt; <a href=3D"http://sujithh.info" target=3D"_blank">http://sujit=
-hh.info</a><br><br>
-
---e89a8fb1ef5628e08a04c968d387--
