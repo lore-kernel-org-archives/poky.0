@@ -1,28 +1,32 @@
 Return-Path: <sujith.h@gmail.com>
 Received: from mail-ob0-f176.google.com (mail-ob0-f176.google.com
 	[209.85.214.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D1760E00344
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 00:07:30 -0700 (PDT)
-Received: by obbtb18 with SMTP id tb18so311384obb.35
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 00:07:30 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D58BBE00344
+	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 01:26:03 -0700 (PDT)
+Received: by obbtb18 with SMTP id tb18so400650obb.35
+	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 01:26:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:from:date:message-id:subject:to:content-type;
-	bh=n7hCZXBwDhz6NLG/ib8C/QS2mDU+jJZt0dx9AsfdgM4=;
-	b=pC/3MDGUQ8n/ZqGig0aCSn2dJYHDMwiL4ckiQi1YaGYSFJzjMXUl0g8lWUctt6kWDc
-	NsveEA0etcB3hYTqR/wmMvHPKzS/3VkU9OXMQAdYJLXfB82tArTazFhh7K/LZGi/hn5d
-	G4CE5AHXoDWyv47UEMo91h7hXCkQUbJIwlhtmL2Z+ZNyqZcXOK5F2wGyZU1VKYUJQl4e
-	WjJAr+IysvmlxSNn/nY9DccxyiLstF0tbrD6iF3fKjG9+/w/Upi2mvE+1rqmoz0TLcwf
-	jLWLEnrkiLK5tjpz7kqTZEEVaegAJRpPLk77z8AfnVw7B5/x0zsVLQahiG4yKuhs6+hm
-	Bx8Q==
-Received: by 10.60.22.196 with SMTP id g4mr17130693oef.95.1347347250291; Tue,
-	11 Sep 2012 00:07:30 -0700 (PDT)
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	bh=Ni2m19emqr7a+L++fsT5Z+J9uezIbJl2Lrj1p7zho2o=;
+	b=zMt2Ld1qwyYv/81zzsJMqeoVhzHMrsyvMGm5Plssf2fdQgVv4HNkJqLQDb1vLUVuuH
+	hXYpH/jTUFuQnOTn7Qt9nrlSGmyJOYtVW3AgQKPlc1lNC0NYby/VZFJvL5CYJvB5a/au
+	svWwaIrtl97r+cRvLvom//5kk108Rtlc0x/7Oe7exOZ+jTG768IxdbvoWZgpOXiQQjg5
+	YXhmyr3lzKxWySZmWvQ/Aj6rSMcFD0Zu93ciirBWl+tTvg1tTHAAncUxzz1IRgRZrP6x
+	+7bVOJjdXufDn9mD20TaY+ioQPupiFmpPBTACB3AB9THTcDdwVAn0zSdNoo2hivQhtfi
+	BN4A==
+Received: by 10.60.12.8 with SMTP id u8mr16911265oeb.46.1347351963295; Tue, 11
+	Sep 2012 01:26:03 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.76.171.131 with HTTP; Tue, 11 Sep 2012 00:07:09 -0700 (PDT)
+Received: by 10.76.171.131 with HTTP; Tue, 11 Sep 2012 01:25:25 -0700 (PDT)
+In-Reply-To: <CADyYWL=24p+Te_AM2c5Y3BPmRiDfwXwiFxH0VPwhbMsbDohdeA@mail.gmail.com>
+References: <CADyYWL=24p+Te_AM2c5Y3BPmRiDfwXwiFxH0VPwhbMsbDohdeA@mail.gmail.com>
 From: sujith h <sujith.h@gmail.com>
-Date: Tue, 11 Sep 2012 12:37:09 +0530
-Message-ID: <CADyYWL=24p+Te_AM2c5Y3BPmRiDfwXwiFxH0VPwhbMsbDohdeA@mail.gmail.com>
+Date: Tue, 11 Sep 2012 13:55:25 +0530
+Message-ID: <CADyYWL=vKyQxBTQG3XV3FKPVES42rCEjoNDTmbx-AnycTAYadQ@mail.gmail.com>
 To: poky@yoctoproject.org
-Subject: Patch for DLT-viewer
+Cc: florin.sarbu@windriver.com
+Subject: Re: Patch for DLT-viewer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,28 +39,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2012 07:07:31 -0000
-X-Groupsio-MsgNum: 8274
-Content-Type: multipart/mixed; boundary=e89a8fb203883e236b04c967ba07
+X-List-Received-Date: Tue, 11 Sep 2012 08:26:04 -0000
+Content-Type: multipart/alternative; boundary=e89a8fb1ef5628e08a04c968d387
 
---e89a8fb203883e236b04c967ba07
-Content-Type: multipart/alternative; boundary=e89a8fb203883e235904c967ba05
-
---e89a8fb203883e235904c967ba05
+--e89a8fb1ef5628e08a04c968d387
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Tue, Sep 11, 2012 at 12:37 PM, sujith h <sujith.h@gmail.com> wrote:
 
-I had created the patch for DLT-viewer 2.6 version. It was created in the
-meta-ivi repo. I saw that DLT-daemo recipe is there. Hence thought of
-creating DLT-viewer patch. Please let me know if this is not the mailing
-list for
-posting the patch for meta-ivi.
+> Hi,
+>
+> I had created the patch for DLT-viewer 2.6 version. It was created in the
+> meta-ivi repo. I saw that DLT-daemo recipe is there. Hence thought of
+> creating DLT-viewer patch. Please let me know if this is not the mailing
+> list for
+> posting the patch for meta-ivi.
+>
+
+Adding florin.sarbu@windriver.com in the cc list.
 
 Thanks,
 
-Sujtih H
+Sujith H
+
 
 --=20
 =E0=B4=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=
@@ -66,67 +72,35 @@ Bangalore
 http://fci.wikia.com/wiki/Anti-DRM-Campaign
 <Blog> http://sujithh.info
 
---e89a8fb203883e235904c967ba05
+--e89a8fb1ef5628e08a04c968d387
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+
+<br><br><div class=3D"gmail_quote">On Tue, Sep 11, 2012 at 12:37 PM, sujith=
+ h <span dir=3D"ltr">&lt;<a href=3D"mailto:sujith.h@gmail.com" target=3D"_b=
+lank">sujith.h@gmail.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left=
+:1ex">
 
 Hi,<div><br></div><div>I had created the patch for DLT-viewer 2.6 version. =
 It was created in the</div><div>meta-ivi repo. I saw that DLT-daemo recipe =
 is there. Hence thought of</div><div>creating DLT-viewer patch. Please let =
 me know if this is not the mailing list for</div>
 
-<div>posting the patch for meta-ivi.=C2=A0</div><div><br></div><div>Thanks,=
-</div><div><br></div><div>Sujtih H<br clear=3D"all"><div><br></div>-- <br>=
-=E0=B4=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=
-=E0=B4=BF=E0=B4=A6=E0=B4=BE=E0=B4=B8=E0=B4=A8=E0=B5=8D<br>Bangalore<br>&lt;=
-Project&gt;Contributor to KDE project<br><a href=3D"http://fci.wikia.com/wi=
-ki/Anti-DRM-Campaign" target=3D"_blank">http://fci.wikia.com/wiki/Anti-DRM-=
-Campaign</a><br>
+
+<div>posting the patch for meta-ivi.=C2=A0</div></blockquote><div><br></div=
+><div>Adding <a href=3D"mailto:florin.sarbu@windriver.com">florin.sarbu@win=
+driver.com</a> in the cc list.</div><div><br></div><div>Thanks,</div><div><=
+br>
+
+</div><div>Sujith H</div><div><br></div></div><div><br></div>-- <br>=E0=B4=
+=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=E0=B4=
+=BF=E0=B4=A6=E0=B4=BE=E0=B4=B8=E0=B4=A8=E0=B5=8D<br>Bangalore<br>&lt;Projec=
+t&gt;Contributor to KDE project<br><a href=3D"http://fci.wikia.com/wiki/Ant=
+i-DRM-Campaign" target=3D"_blank">http://fci.wikia.com/wiki/Anti-DRM-Campai=
+gn</a><br>
 
 &lt;Blog&gt; <a href=3D"http://sujithh.info" target=3D"_blank">http://sujit=
 hh.info</a><br><br>
-</div>
 
---e89a8fb203883e235904c967ba05--
-
---e89a8fb203883e236b04c967ba07
-Content-Type: application/octet-stream; 
-	name="0001-Adding-DLT-viewer-into-the-repository.patch"
-Content-Disposition: attachment; 
-	filename="0001-Adding-DLT-viewer-into-the-repository.patch"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_h6ynpa2i0
-
-RnJvbSBlOWUxNzc1ODE5OGFjMzBhOTM5NGIzMzlhNTZmOTNlOWJmNDA5NGQxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBTdWppdGggSCA8c3VqaXRoLmhAZ21haWwuY29tPgpEYXRlOiBN
-b24sIDMgU2VwIDIwMTIgMTI6NDU6MDQgKzA1MzAKU3ViamVjdDogW1BBVENIXSBBZGRpbmcgRExU
-LXZpZXdlciBpbnRvIHRoZSByZXBvc2l0b3J5LgoKRExULXZpZXdlciBjYW4gc2VuZCBjb250cm9s
-IG1lc3NhZ2VzIHRvIHRoZSBETFQtZGFlbW9uLgotLS0KIHJlY2lwZXMtZXh0ZW5kZWQvRExULXZp
-ZXdlci9ETFQtdmlld2VyXzIuNy4wLmJiIHwgICAzMCArKysrKysrKysrKysrKysrKysrKysrKwog
-MSBmaWxlcyBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspLCAwIGRlbGV0aW9ucygtKQogY3JlYXRl
-IG1vZGUgMTAwNjQ0IHJlY2lwZXMtZXh0ZW5kZWQvRExULXZpZXdlci9ETFQtdmlld2VyXzIuNy4w
-LmJiCgpkaWZmIC0tZ2l0IGEvcmVjaXBlcy1leHRlbmRlZC9ETFQtdmlld2VyL0RMVC12aWV3ZXJf
-Mi43LjAuYmIgYi9yZWNpcGVzLWV4dGVuZGVkL0RMVC12aWV3ZXIvRExULXZpZXdlcl8yLjcuMC5i
-YgpuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwLi4zN2U3YWUyCi0tLSAvZGV2L251
-bGwKKysrIGIvcmVjaXBlcy1leHRlbmRlZC9ETFQtdmlld2VyL0RMVC12aWV3ZXJfMi43LjAuYmIK
-QEAgLTAsMCArMSwzMCBAQAorREVTQ1JJUFRJT04gPSAiRExUIFZpZXdlciAtIEF1dG9tb3RpdmUg
-RGlhZ25vc3RpYyBMb2cgYW5kIFRyYWNlIFZpZXdlciIKK0FVVEhPUiA9ICJTdWppdGggSGFyaWRh
-c2FuIDxzdWppdGguaEBnbWFpbC5jb20+IgorSE9NRVBBR0UgPSAiaHR0cHM6Ly93d3cuZ2VuaXZp
-Lm9yZy8iCitTRUNUSU9OID0gImRldmVsIgorTElDRU5TRSA9ICJNUEx2MiIKKworREVQRU5EUyA9
-ICJ2aXJ0dWFsL3F0NCIKK1BSID0gInIxIgorCitTUkNfVVJJID0gImdpdDovL2dpdC5nZW5pdmku
-b3JnL3Nydi9naXQvRExULXZpZXdlcjtwcm90b2NvbD1naXQ7dGFnPTUyZTgwMzhmMzYxNmNkOTFj
-ODNhN2Y0MTcyNjc0Nzg1ZWJjODI1ODMiCisKK0xJQ19GSUxFU19DSEtTVU0gPSAiZmlsZTovL0xJ
-Q0VOU0UudHh0O21kNT02NDNjYzk3N2RjYTgyNzkyNTEyOTgxZDJiYmMxYWVmMCBcCisJCSAgICBm
-aWxlOi8vTVBMLnR4dDttZDU9Y2NkYjI3NjFjZWY3MGM4YjI2MTI2MjRjMzIzZjg5ZGMiCisKK2lu
-aGVyaXQgcW1ha2UyCisKK1MgPSAiJHtXT1JLRElSfS9naXQiCisKK2RvX2luc3RhbGxfYXBwZW5k
-ICgpIHsKKyAgICAgICAgaW5zdGFsbCAtZCAke0R9JHtiaW5kaXJ9ICR7RH0ke2xpYmRpcn0gJHtE
-fSR7bGliZGlyfS9kbHQtdmlld2VyL3BsdWdpbnMKKyAgICAgICAgb2VfbGliaW5zdGFsbCAtQyBy
-ZWxlYXNlIC1zbyBsaWJxZGx0ICR7RH0ke2xpYmRpcn0KKyAgICAgICAgb2VfbGliaW5zdGFsbCAt
-QyByZWxlYXNlIC1zbyBsaWJxZXh0c2VyaWFscG9ydCAke0R9JHtsaWJkaXJ9CisgICAgICAgIGlu
-c3RhbGwgLW0gMDc1NSByZWxlYXNlL2RsdF92aWV3ZXIgJHtEfSR7YmluZGlyfQorICAgICAgICBp
-bnN0YWxsIC1tIDA2NDQgcmVsZWFzZS9wbHVnaW5zL2xpYiouc28gJHtEfSR7bGliZGlyfS9kbHQt
-dmlld2VyL3BsdWdpbnMKK30KKworRklMRVNfJHtQTn0gPSAiICR7bGliZGlyfS8qLnNvLiogJHti
-aW5kaXJ9IFwKKyAgICAgICAgICAgICAgICAke2xpYmRpcn0vZGx0LXZpZXdlci9wbHVnaW5zLyou
-c28iCisKK0ZJTEVTXyR7UE59LWRldiA9ICIke2xpYmRpcn0vKi5zbyIKLS0gCjEuNy43LjYKCg==
-
---e89a8fb203883e236b04c967ba07--
+--e89a8fb1ef5628e08a04c968d387--
