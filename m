@@ -1,19 +1,28 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68715E0147F
-	for <poky@yoctoproject.org>; Mon, 10 Sep 2012 14:41:51 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 10 Sep 2012 14:41:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,400,1344236400"; d="scan'208";a="143511379"
-Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.13.123])
-	by AZSMGA002.ch.intel.com with ESMTP; 10 Sep 2012 14:41:50 -0700
-From: Saul Wold <sgw@linux.intel.com>
+Return-Path: <sujith.h@gmail.com>
+Received: from mail-ob0-f176.google.com (mail-ob0-f176.google.com
+	[209.85.214.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D1760E00344
+	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 00:07:30 -0700 (PDT)
+Received: by obbtb18 with SMTP id tb18so311384obb.35
+	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 00:07:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:from:date:message-id:subject:to:content-type;
+	bh=n7hCZXBwDhz6NLG/ib8C/QS2mDU+jJZt0dx9AsfdgM4=;
+	b=pC/3MDGUQ8n/ZqGig0aCSn2dJYHDMwiL4ckiQi1YaGYSFJzjMXUl0g8lWUctt6kWDc
+	NsveEA0etcB3hYTqR/wmMvHPKzS/3VkU9OXMQAdYJLXfB82tArTazFhh7K/LZGi/hn5d
+	G4CE5AHXoDWyv47UEMo91h7hXCkQUbJIwlhtmL2Z+ZNyqZcXOK5F2wGyZU1VKYUJQl4e
+	WjJAr+IysvmlxSNn/nY9DccxyiLstF0tbrD6iF3fKjG9+/w/Upi2mvE+1rqmoz0TLcwf
+	jLWLEnrkiLK5tjpz7kqTZEEVaegAJRpPLk77z8AfnVw7B5/x0zsVLQahiG4yKuhs6+hm
+	Bx8Q==
+Received: by 10.60.22.196 with SMTP id g4mr17130693oef.95.1347347250291; Tue,
+	11 Sep 2012 00:07:30 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.76.171.131 with HTTP; Tue, 11 Sep 2012 00:07:09 -0700 (PDT)
+From: sujith h <sujith.h@gmail.com>
+Date: Tue, 11 Sep 2012 12:37:09 +0530
+Message-ID: <CADyYWL=24p+Te_AM2c5Y3BPmRiDfwXwiFxH0VPwhbMsbDohdeA@mail.gmail.com>
 To: poky@yoctoproject.org
-Date: Mon, 10 Sep 2012 14:41:50 -0700
-Message-Id: <1347313310-21352-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.7.6
-Subject: [PATCH] upstream_tracking: Fix format issues
+Subject: Patch for DLT-viewer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,80 +35,98 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Sep 2012 21:41:51 -0000
+X-List-Received-Date: Tue, 11 Sep 2012 07:07:31 -0000
+X-Groupsio-MsgNum: 8274
+Content-Type: multipart/mixed; boundary=e89a8fb203883e236b04c967ba07
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- .../conf/distro/include/upstream_tracking.inc      |   13 ++++++-------
- 1 files changed, 6 insertions(+), 7 deletions(-)
+--e89a8fb203883e236b04c967ba07
+Content-Type: multipart/alternative; boundary=e89a8fb203883e235904c967ba05
 
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index b03422a..b3f90a7 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -182,7 +182,7 @@ RECIPE_UPSTREAM_VERSION_pn-diffstat="1.55"
- RECIPE_UPSTREAM_DATE_pn-diffstat = "Jan 03, 2012"
- CHECK_DATE_pn-diffstat = "Aug 28, 2012"
- RECIPE_UPSTREAM_VERSION_pn-diffutils = "3.2"
--RECIPE_UPSTREAM_DATE_Pn-diffutils = "Sept 3, 2011"
-+RECIPE_UPSTREAM_DATE_pn-diffutils = "Sept 3, 2011"
- CHECK_DATE_pn-diffutils = "Aug 28, 2012"
- RECIPE_UPSTREAM_DATE_pn-direcfb = "Jun 29, 2012"
- RECIPE_UPSTREAM_VERSION_pn-directfb = "1.6.1"
-@@ -457,7 +457,7 @@ RECIPE_UPSTREAM_DATE_pn-irda-utils="Jul 10, 2006"
- CHECK_DATE_pn-irda-utils = "Aug 29, 2012"
- RECIPE_UPSTREAM_VERSION_pn-iso-codes = "3.38"
- RECIPE_UPSTREAM_DATE_pn-iso-codes = "Aug 08, 2012"
--CHECK_DATE_Pn-iso-codes = "Aug 29, 2012"
-+CHECK_DATE_pn-iso-codes = "Aug 29, 2012"
- RECIPE_UPSTREAM_VERSION_pn-jpeg = "8d"
- CHECK_DATE_pn-jpeg = "Aug 29, 2012"
- RECIPE_UPSTREAM_DATE_pn-jpeg = "Jan 15, 2012"
-@@ -500,7 +500,7 @@ CHECK_DATE_pn-liba52 = "Aug 29, 2012"
- RECIPE_UPSTREAM_DATE_pn-liba52="Jul 27, 2002"
- RECIPE_UPSTREAM_VERSION_pn-libacpi = "0.2"
- RECIPE_UPSTREAM_DATE_pn-libacpi = "unknown"
--CHECK_DATE_pn_libacpi = "Aug 29, 2012"
-+CHECK_DATE_pn-libacpi = "Aug 29, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libaio = "0.3.109"
- RECIPE_UPSTREAM_DATE_pn-libaio = "Aug 30, 2011"
- CHECK_DATE_pn-libaio = "Aug 29, 2012"
-@@ -848,7 +848,7 @@ RECIPE_UPSTREAM_DATE_pn-libxscrnsaver = "Mar 08, 2012"
- CHECK_DATE_pn-libxscrnsaver = "Aug 31, 2012"
- RECIPE_UPSTREAM_DATE_pn-libxsettings-client = "Mar 24, 2008"
- RECIPE_UPSTREAM_VERSION_pn-libxsettings-client = "0.17-5"
--CHECK_DATE_pn0libxsettings-client = "Aug 31, 2012"
-+CHECK_DATE_pn-libxsettings-client = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libxslt = "1.1.26"
- CHECK_DATE_pn-libxslt = "AUg 31, 2012"
- RECIPE_UPSTREAM_DATE_pn-libxslt = "Sep 01, 2009"
-@@ -954,7 +954,7 @@ RECIPE_UPSTREAM_VERSION_pn-metacity = "2.34.3"
- RECIPE_UPSTREAM_DATE_pn-metacity = "Mar 20, 2012"
- CHECK_DATE_pn-metacity = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-mingetty = "1.08"
--RECIPE_UPSTREAM_DATE_pn_mingetty = "Jan 18, 2008"
-+RECIPE_UPSTREAM_DATE_pn-mingetty = "Jan 18, 2008"
- CHECK_DATE_pn-mingetty = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.1"
- RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 11, 2012"
-@@ -1160,7 +1160,7 @@ RECIPE_UPSTREAM_DATE_pn-qt-mobility-embedded = "May 10, 2011"
- CHECK_DATE_pn-qt-mobility-embedded = "Sep 03, 2012"
- RECIPE_UPSTREAM_VERSION_pn-quickly = "0.4.1"
- RECIPE_UPSTREAM_DATE_pn-quickly = "Apr 10, 2010"
--CHECK_DATE_pn-quickly = "Sep 31, 2012"
-+CHECK_DATE_pn-quickly = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-quilt="0.60"
- RECIPE_UPSTREAM_DATE_pn-quilt = "Feb 29, 2012"
- CHECK_DATE_pn-quilt = "Sep 03, 2012"
-@@ -1428,7 +1428,6 @@ RECIPE_UPSTREAM_DATE_pn-xcursor-transparent-theme = "Dec 01, 2004"
- RECIPE_UPSTREAM_VERSION_pn-xcursor-transparent-theme = "0.1.1-1mamba"
- CHECK_DATE_pn-xcursor-transparent-theme = "Sep 03, 2012"
- RECIPE_UPSTREAM_VERSION_pn-xdg-utils = "1.0.2"
--RECIPE_UPSTREAM_DATE_pn-xdg-utils = "unkown"
- CHECK_DATE_pn-xdg-utils = "Sep 03, 2012"
- RECIPE_NO_UPDATE_REASON_pn-xdg-utils = "only release candidates available "
- RECIPE_UPSTREAM_VERSION_pn-xdpyinfo="1.3.0"
--- 
-1.7.7.6
+--e89a8fb203883e235904c967ba05
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
+I had created the patch for DLT-viewer 2.6 version. It was created in the
+meta-ivi repo. I saw that DLT-daemo recipe is there. Hence thought of
+creating DLT-viewer patch. Please let me know if this is not the mailing
+list for
+posting the patch for meta-ivi.
+
+Thanks,
+
+Sujtih H
+
+--=20
+=E0=B4=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=
+=E0=B4=BF=E0=B4=A6=E0=B4=BE=E0=B4=B8=E0=B4=A8=E0=B5=8D
+Bangalore
+<Project>Contributor to KDE project
+http://fci.wikia.com/wiki/Anti-DRM-Campaign
+<Blog> http://sujithh.info
+
+--e89a8fb203883e235904c967ba05
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi,<div><br></div><div>I had created the patch for DLT-viewer 2.6 version. =
+It was created in the</div><div>meta-ivi repo. I saw that DLT-daemo recipe =
+is there. Hence thought of</div><div>creating DLT-viewer patch. Please let =
+me know if this is not the mailing list for</div>
+
+<div>posting the patch for meta-ivi.=C2=A0</div><div><br></div><div>Thanks,=
+</div><div><br></div><div>Sujtih H<br clear=3D"all"><div><br></div>-- <br>=
+=E0=B4=B8=E0=B5=81=E0=B4=9C=E0=B4=BF=E0=B4=A4=E0=B5=8D =E0=B4=B9=E0=B4=B0=
+=E0=B4=BF=E0=B4=A6=E0=B4=BE=E0=B4=B8=E0=B4=A8=E0=B5=8D<br>Bangalore<br>&lt;=
+Project&gt;Contributor to KDE project<br><a href=3D"http://fci.wikia.com/wi=
+ki/Anti-DRM-Campaign" target=3D"_blank">http://fci.wikia.com/wiki/Anti-DRM-=
+Campaign</a><br>
+
+&lt;Blog&gt; <a href=3D"http://sujithh.info" target=3D"_blank">http://sujit=
+hh.info</a><br><br>
+</div>
+
+--e89a8fb203883e235904c967ba05--
+
+--e89a8fb203883e236b04c967ba07
+Content-Type: application/octet-stream; 
+	name="0001-Adding-DLT-viewer-into-the-repository.patch"
+Content-Disposition: attachment; 
+	filename="0001-Adding-DLT-viewer-into-the-repository.patch"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_h6ynpa2i0
+
+RnJvbSBlOWUxNzc1ODE5OGFjMzBhOTM5NGIzMzlhNTZmOTNlOWJmNDA5NGQxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBTdWppdGggSCA8c3VqaXRoLmhAZ21haWwuY29tPgpEYXRlOiBN
+b24sIDMgU2VwIDIwMTIgMTI6NDU6MDQgKzA1MzAKU3ViamVjdDogW1BBVENIXSBBZGRpbmcgRExU
+LXZpZXdlciBpbnRvIHRoZSByZXBvc2l0b3J5LgoKRExULXZpZXdlciBjYW4gc2VuZCBjb250cm9s
+IG1lc3NhZ2VzIHRvIHRoZSBETFQtZGFlbW9uLgotLS0KIHJlY2lwZXMtZXh0ZW5kZWQvRExULXZp
+ZXdlci9ETFQtdmlld2VyXzIuNy4wLmJiIHwgICAzMCArKysrKysrKysrKysrKysrKysrKysrKwog
+MSBmaWxlcyBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspLCAwIGRlbGV0aW9ucygtKQogY3JlYXRl
+IG1vZGUgMTAwNjQ0IHJlY2lwZXMtZXh0ZW5kZWQvRExULXZpZXdlci9ETFQtdmlld2VyXzIuNy4w
+LmJiCgpkaWZmIC0tZ2l0IGEvcmVjaXBlcy1leHRlbmRlZC9ETFQtdmlld2VyL0RMVC12aWV3ZXJf
+Mi43LjAuYmIgYi9yZWNpcGVzLWV4dGVuZGVkL0RMVC12aWV3ZXIvRExULXZpZXdlcl8yLjcuMC5i
+YgpuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwLi4zN2U3YWUyCi0tLSAvZGV2L251
+bGwKKysrIGIvcmVjaXBlcy1leHRlbmRlZC9ETFQtdmlld2VyL0RMVC12aWV3ZXJfMi43LjAuYmIK
+QEAgLTAsMCArMSwzMCBAQAorREVTQ1JJUFRJT04gPSAiRExUIFZpZXdlciAtIEF1dG9tb3RpdmUg
+RGlhZ25vc3RpYyBMb2cgYW5kIFRyYWNlIFZpZXdlciIKK0FVVEhPUiA9ICJTdWppdGggSGFyaWRh
+c2FuIDxzdWppdGguaEBnbWFpbC5jb20+IgorSE9NRVBBR0UgPSAiaHR0cHM6Ly93d3cuZ2VuaXZp
+Lm9yZy8iCitTRUNUSU9OID0gImRldmVsIgorTElDRU5TRSA9ICJNUEx2MiIKKworREVQRU5EUyA9
+ICJ2aXJ0dWFsL3F0NCIKK1BSID0gInIxIgorCitTUkNfVVJJID0gImdpdDovL2dpdC5nZW5pdmku
+b3JnL3Nydi9naXQvRExULXZpZXdlcjtwcm90b2NvbD1naXQ7dGFnPTUyZTgwMzhmMzYxNmNkOTFj
+ODNhN2Y0MTcyNjc0Nzg1ZWJjODI1ODMiCisKK0xJQ19GSUxFU19DSEtTVU0gPSAiZmlsZTovL0xJ
+Q0VOU0UudHh0O21kNT02NDNjYzk3N2RjYTgyNzkyNTEyOTgxZDJiYmMxYWVmMCBcCisJCSAgICBm
+aWxlOi8vTVBMLnR4dDttZDU9Y2NkYjI3NjFjZWY3MGM4YjI2MTI2MjRjMzIzZjg5ZGMiCisKK2lu
+aGVyaXQgcW1ha2UyCisKK1MgPSAiJHtXT1JLRElSfS9naXQiCisKK2RvX2luc3RhbGxfYXBwZW5k
+ICgpIHsKKyAgICAgICAgaW5zdGFsbCAtZCAke0R9JHtiaW5kaXJ9ICR7RH0ke2xpYmRpcn0gJHtE
+fSR7bGliZGlyfS9kbHQtdmlld2VyL3BsdWdpbnMKKyAgICAgICAgb2VfbGliaW5zdGFsbCAtQyBy
+ZWxlYXNlIC1zbyBsaWJxZGx0ICR7RH0ke2xpYmRpcn0KKyAgICAgICAgb2VfbGliaW5zdGFsbCAt
+QyByZWxlYXNlIC1zbyBsaWJxZXh0c2VyaWFscG9ydCAke0R9JHtsaWJkaXJ9CisgICAgICAgIGlu
+c3RhbGwgLW0gMDc1NSByZWxlYXNlL2RsdF92aWV3ZXIgJHtEfSR7YmluZGlyfQorICAgICAgICBp
+bnN0YWxsIC1tIDA2NDQgcmVsZWFzZS9wbHVnaW5zL2xpYiouc28gJHtEfSR7bGliZGlyfS9kbHQt
+dmlld2VyL3BsdWdpbnMKK30KKworRklMRVNfJHtQTn0gPSAiICR7bGliZGlyfS8qLnNvLiogJHti
+aW5kaXJ9IFwKKyAgICAgICAgICAgICAgICAke2xpYmRpcn0vZGx0LXZpZXdlci9wbHVnaW5zLyou
+c28iCisKK0ZJTEVTXyR7UE59LWRldiA9ICIke2xpYmRpcn0vKi5zbyIKLS0gCjEuNy43LjYKCg==
+
+--e89a8fb203883e236b04c967ba07--
