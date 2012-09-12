@@ -1,19 +1,34 @@
-Return-Path: <andrei.adrianx.dinu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D2F4FE00344
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2012 02:15:58 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 11 Sep 2012 02:15:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,402,1344236400"; d="scan'208";a="143713122"
-Received: from adinu-vostro-460 (HELO localhost.localdomain) ([10.237.105.39])
-	by AZSMGA002.ch.intel.com with ESMTP; 11 Sep 2012 02:15:56 -0700
-From: Andrei Dinu <andrei.adrianx.dinu@intel.com>
+Return-Path: <ross.burton@intel.com>
+Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF84BE014B1
+	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:34:51 -0700 (PDT)
+Received: from mail-wi0-f182.google.com ([209.85.212.182])
+	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 12 Sep 2012 03:34:50 -0700
+Received: by wibhq12 with SMTP id hq12so1460917wib.11
+	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:34:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
+	bh=IASZm5xYXyDskuoPMjUTqdROmJ7Fs68LoSc1uHms6Jk=;
+	b=ERo8dMEZspygnNuDqMlZPdNH6QNZCj5KmOi8KedIjdIxiqL1lxQhchUPw5NzwY0o+z
+	JG8+j9ocKIrkpgSzZP9C/2HxVQrHDrd5hqzay8sGa2sYjKbp0VZNl5ghLRnxJRgYnpQZ
+	r4QHu4sgkyLum0Hkb0cYBIv1gIxcX7zWAbREgIIHy4LQTNKkdxJAI8JmUDwv8sWmWk1I
+	PZ18ubDnnQyY9GNAEQHQtfhhUb2RPnM+joI7Ii+EULBkaJW6OvUHrz3x8NegcvCgaux8
+	zoQks1uoLzwEtwHmiZbWfreIIuUjfEYR0naDDYsRg2VY3nIvEqlNVPVVoYygGc83KtUR
+	wU5Q==
+Received: by 10.180.84.104 with SMTP id x8mr31760188wiy.20.1347446089256;
+	Wed, 12 Sep 2012 03:34:49 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPS id k20sm7423749wiv.11.2012.09.12.03.34.47
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 12 Sep 2012 03:34:47 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 11 Sep 2012 12:16:17 +0300
-Message-Id: <1347354977-30142-1-git-send-email-andrei.adrianx.dinu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] Update to upstream_tracking.inc
+Date: Wed, 12 Sep 2012 11:33:57 +0100
+Message-Id: <1347446038-16720-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10
+X-Gm-Message-State: ALoCoQnmjJv52mMd7F6rLCTc4P5wY5Jpc5KIXDW9b9GcXo4gApbGK/Cj6YW8GCpR/bomX6iiWM5L
+Subject: [PATCH 1/2] distro-tracking; remove references to xserver-xorg-lite
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,73 +41,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2012 09:15:59 -0000
+X-List-Received-Date: Wed, 12 Sep 2012 10:34:51 -0000
 
-Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
+
+Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- .../conf/distro/include/upstream_tracking.inc      |   13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ meta-yocto/conf/distro/include/distro_alias.inc |    1 -
+ meta-yocto/conf/distro/include/maintainers.inc  |    1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index b3f90a7..fcaf789 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -26,6 +26,7 @@ RECIPE_UPSTREAM_VERSION_pn-acpid = "1.0.10"
- RECIPE_UPSTREAM_DATE_pn-acpid = "Apr 22, 2009"
- CHECK_DATE_pn-acpid = "Aug 27, 2012"
- RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
-+CHECK_DATE_pn-adt-installer = "Sep 11, 2012"
- RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
- RECIPE_UPSTREAM_VERSION_pn-apmd = "3.2.2-14"
- RECIPE_UPSTREAM_DATE_pn-apmd = "Jul 01, 2009"
-@@ -84,7 +85,7 @@ RECIPE_UPSTREAM_DATE_pn-bluez-dtl1-workaround="n/a"
- RECIPE_UPSTREAM_VERSION_pn-bluez4="4.101"
- RECIPE_UPSTREAM_DATE_pn-bluez4="Jun 22, 2012"
- CHECK_DATE_pn-bluez4 = "Aug 27, 2012"
--RECIPE_UPSTREAM_VERSION_pn-boost = "1.50.1"
-+RECIPE_UPSTREAM_VERSION_pn-boost = "1.51.0"
- CHECK_DATE_pn-boost = "Aug 27, 2012"
- RECIPE_UPSTREAM_DATE_pn-boost = "Aug 20, 2012"
- RECIPE_UPSTREAM_VERSION_pn-btrfs-tools="git"
-@@ -470,6 +471,9 @@ CHECK_DATE_pn-json-glib = "Aug 29, 2012"
- RECIPE_UPSTREAM_VERSION_pn-kbproto = "1.0.6"
- RECIPE_UPSTREAM_DATE_pn-kbproto = "Mar 23, 2012"
- CHECK_DATE_pn-kbproto = "Aug 29, 2012"
-+RECIPE_UPSTREAM_VERSION_pn-kconfig-frontends = "3.5.0"
-+RECIPE_UPSTREAM_DATE_pn-kconfig-frontends = "Jul 22, 2012"
-+CHECK_DATE_pn-kconfig-frontends = "Sep 11, 2012"
- RECIPE_UPSTREAM_VERSION_pn-kern-tools-native = "check"
- RECIPE_UPSTREAM_VERSION_pn-kernelshark = "0.2"
- RECIPE_NO_UPDATE_REASON_pn-kernelshark = "0.2 is the latest version."
-@@ -520,6 +524,9 @@ CHECK_DATE_pn-libcanberra = "Aug 30, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libcap = "2.22"
- CHECK_DATE_pn-libcap = "Aug 30, 2012"
- RECIPE_UPSTREAM_DATE_pn-libcap = "Jan 01, 2010"
-+RECIPE_UPSTREAM_VERSION_pn-libcgroup = "0.38-1"
-+RECIPE_UPSTREAM_DATE_pn-libcgroup = "Jun 06, 2012"
-+CHECK_DATE_pn-libcgroup = "Sep 11, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libcheck = "0.9.8"
- CHECK_DATE_pn-libcheck = "Aug 30, 2012"
- RECIPE_UPSTREAM_DATE_pn-libcheck = "Sep 23, 2009"
-@@ -1141,6 +1148,9 @@ CHECK_DATE_pn-puzzles = "Aug 31, 2012"
- RECIPE_UPSTREAM_DATE_pn-python-pycurl = "Sep 09, 2008"
- RECIPE_UPSTREAM_VERSION_pn-python-pycurl = "7.19.0"
- CHECK_DATE_pn-python-pycurl = "Aug 31, 2012"
-+RECIPE_UPSTREAM_VERSION_pn-python-scons = "2.2.0"
-+RECIPE_UPSTREAM_DATE_pn-python-scons = "Aug 05, 2012"
-+CHECK_DATE_pn-python-scons = "Sep 11, 2012"
- RECIPE_UPSTREAM_VERSION_pn-python="3.2.3"
- RECIPE_UPSTREAM_DATE_pn-python = "Apr 10, 2012"
- CHECK_DATE_pn-python = "Aug 31, 2012"
-@@ -1349,6 +1359,7 @@ RECIPE_UPSTREAM_DATE_pn-u-boot-fw-utils = "Dec 23, 2011"
- RECIPE_UPSTREAM_VERSION_pn-u-boot-fw-utils = "20012.07"
- CHCEK_DATE_pn-u-boot-fw-utils = "Sep 03, 2012"
- RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
-+CHECK_DATE_pn-ubootchart = "Sep 11, 2012"
- RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
- RECIPE_UPSTREAM_VERSION_pn-udev = "182"
- RECIPE_UPSTREAM_DATE_pn-udev = "Mar 19, 2012"
+diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
+index c63bd47..4b97774 100644
+--- a/meta-yocto/conf/distro/include/distro_alias.inc
++++ b/meta-yocto/conf/distro/include/distro_alias.inc
+@@ -409,7 +409,6 @@ DISTRO_PN_ALIAS_pn-xserver-xf86-config = "OE-Core"
+ DISTRO_PN_ALIAS_pn-xserver-xf86-dri-lite = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
+ DISTRO_PN_ALIAS_pn-xserver-xf86-lite = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
+ DISTRO_PN_ALIAS_pn-xserver-xorg = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
+-DISTRO_PN_ALIAS_pn-xserver-xorg-lite = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
+ DISTRO_PN_ALIAS_pn-xset = "Fedora=xorg-x11-server-utils Ubuntu=x11-xserver-utils Debian=x11-xserver-utils Opensuse=xorg-x11"
+ DISTRO_PN_ALIAS_pn-xtscal = "OSPDT upstream=http://gpe.linuxtogo.org/download/source/"
+ DISTRO_PN_ALIAS_pn-xvideo-tests = "OpenedHand"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index dace3b9..f5f35f2 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -722,7 +722,6 @@ RECIPE_MAINTAINER_pn-xrestop = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-xserver-nodm-init = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-xserver-xf86-config = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-xserver-xorg = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+-RECIPE_MAINTAINER_pn-xserver-xorg-lite = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-xset = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-xtrans = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-xtscal = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
 -- 
-1.7.9.5
+1.7.10
 
 
