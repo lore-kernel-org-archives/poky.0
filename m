@@ -1,34 +1,37 @@
 Return-Path: <ross.burton@intel.com>
-Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF84BE014B1
-	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:34:51 -0700 (PDT)
-Received: from mail-wi0-f182.google.com ([209.85.212.182])
-	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 12 Sep 2012 03:34:50 -0700
-Received: by wibhq12 with SMTP id hq12so1460917wib.11
-	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:34:49 -0700 (PDT)
+Received: from fmsmga102.fm.intel.com (mga10.intel.com [192.55.52.92])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DBF25E014B6
+	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:35:15 -0700 (PDT)
+Received: from mail-wg0-f54.google.com ([74.125.82.54])
+	by mga11.intel.com with ESMTP/TLS/RC4-SHA; 12 Sep 2012 03:34:52 -0700
+Received: by wgx1 with SMTP id 1so928096wgx.11
+	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:34:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
-	bh=IASZm5xYXyDskuoPMjUTqdROmJ7Fs68LoSc1uHms6Jk=;
-	b=ERo8dMEZspygnNuDqMlZPdNH6QNZCj5KmOi8KedIjdIxiqL1lxQhchUPw5NzwY0o+z
-	JG8+j9ocKIrkpgSzZP9C/2HxVQrHDrd5hqzay8sGa2sYjKbp0VZNl5ghLRnxJRgYnpQZ
-	r4QHu4sgkyLum0Hkb0cYBIv1gIxcX7zWAbREgIIHy4LQTNKkdxJAI8JmUDwv8sWmWk1I
-	PZ18ubDnnQyY9GNAEQHQtfhhUb2RPnM+joI7Ii+EULBkaJW6OvUHrz3x8NegcvCgaux8
-	zoQks1uoLzwEtwHmiZbWfreIIuUjfEYR0naDDYsRg2VY3nIvEqlNVPVVoYygGc83KtUR
-	wU5Q==
-Received: by 10.180.84.104 with SMTP id x8mr31760188wiy.20.1347446089256;
-	Wed, 12 Sep 2012 03:34:49 -0700 (PDT)
+	h=from:to:subject:date:message-id:x-mailer:in-reply-to:references
+	:x-gm-message-state;
+	bh=YNsplyLKBbi1StCWgTJHlPfY3vmRntwGM3bygkQWSpE=;
+	b=YoZMoqq8q+MwITC7EADLEKFA03YBgug0y6pR4zKURBfc+Z+2ER5BFmMYowsbXnnXvP
+	ReqlxlflJDPLJFuMviBceH5paG+BlrEXQiu8bpCsqO4gjtNITgUy1qvqdHs64zs08SDf
+	o7Vw/hFLyEXNLjcK239C1IOjhQ0Sy6u4KYdUNHHLS8ZzgNhFWV4cFdtXSLzJxSIM4cCq
+	51zOe9MCz+w+bMbpu8q9IRAXkl3AKBTJWfZtRTDjo7uzuPOa3m/wnbXQEu4UGNTrN+Ig
+	MtuliTClxQqjuc+jHE3YwlYrRbh5bO43NPATyGiGmo8RQZFMxFWeQtVPeyY4+lhV57RN
+	I3KQ==
+Received: by 10.216.233.208 with SMTP id p58mr10849698weq.56.1347446090672;
+	Wed, 12 Sep 2012 03:34:50 -0700 (PDT)
 Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id k20sm7423749wiv.11.2012.09.12.03.34.47
+	by mx.google.com with ESMTPS id k20sm7423749wiv.11.2012.09.12.03.34.49
 	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 12 Sep 2012 03:34:47 -0700 (PDT)
+	Wed, 12 Sep 2012 03:34:49 -0700 (PDT)
 From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 12 Sep 2012 11:33:57 +0100
-Message-Id: <1347446038-16720-1-git-send-email-ross.burton@intel.com>
+Date: Wed, 12 Sep 2012 11:33:58 +0100
+Message-Id: <1347446038-16720-2-git-send-email-ross.burton@intel.com>
 X-Mailer: git-send-email 1.7.10
-X-Gm-Message-State: ALoCoQnmjJv52mMd7F6rLCTc4P5wY5Jpc5KIXDW9b9GcXo4gApbGK/Cj6YW8GCpR/bomX6iiWM5L
-Subject: [PATCH 1/2] distro-tracking; remove references to xserver-xorg-lite
+In-Reply-To: <1347446038-16720-1-git-send-email-ross.burton@intel.com>
+References: <1347446038-16720-1-git-send-email-ross.burton@intel.com>
+X-Gm-Message-State: ALoCoQkpe/FzXK1/1VMfJEAtWMBRr6BrAzX7xKCpX0GiSxWi5M8Fu6ArSlt4G9XAjiYNk62qt4rM
+Subject: [PATCH 2/2] scripts: change default ARM BSP to use xserver-xorg, not -lite
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,39 +44,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Sep 2012 10:34:51 -0000
+X-List-Received-Date: Wed, 12 Sep 2012 10:35:16 -0000
 
 
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto/conf/distro/include/distro_alias.inc |    1 -
- meta-yocto/conf/distro/include/maintainers.inc  |    1 -
- 2 files changed, 2 deletions(-)
+ .../bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf   |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-index c63bd47..4b97774 100644
---- a/meta-yocto/conf/distro/include/distro_alias.inc
-+++ b/meta-yocto/conf/distro/include/distro_alias.inc
-@@ -409,7 +409,6 @@ DISTRO_PN_ALIAS_pn-xserver-xf86-config = "OE-Core"
- DISTRO_PN_ALIAS_pn-xserver-xf86-dri-lite = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
- DISTRO_PN_ALIAS_pn-xserver-xf86-lite = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
- DISTRO_PN_ALIAS_pn-xserver-xorg = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
--DISTRO_PN_ALIAS_pn-xserver-xorg-lite = "Fedora=xorg-x11-server Ubuntu=xserver-xorg"
- DISTRO_PN_ALIAS_pn-xset = "Fedora=xorg-x11-server-utils Ubuntu=x11-xserver-utils Debian=x11-xserver-utils Opensuse=xorg-x11"
- DISTRO_PN_ALIAS_pn-xtscal = "OSPDT upstream=http://gpe.linuxtogo.org/download/source/"
- DISTRO_PN_ALIAS_pn-xvideo-tests = "OpenedHand"
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index dace3b9..f5f35f2 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -722,7 +722,6 @@ RECIPE_MAINTAINER_pn-xrestop = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xserver-nodm-init = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xserver-xf86-config = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xserver-xorg = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-xserver-xorg-lite = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-xset = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xtrans = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xtscal = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+diff --git a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
+index 1cf6097..a3e2970 100644
+--- a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
+@@ -5,8 +5,8 @@
+ 
+ {{ input type:"boolean" name:"xserver" prio:"50" msg:"Do you need support for X? (y/n)" default:"y" }}
+ {{ if xserver == "y": }}
+-PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg-lite"
+-XSERVER = "xserver-xorg-lite \
++PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
++XSERVER = "xserver-xorg \
+            xf86-input-evdev \
+            xf86-input-mouse \
+            xf86-video-omapfb \
 -- 
 1.7.10
 
