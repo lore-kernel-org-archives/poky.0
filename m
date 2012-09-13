@@ -1,37 +1,27 @@
-Return-Path: <ross.burton@intel.com>
-Received: from fmsmga102.fm.intel.com (mga10.intel.com [192.55.52.92])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DBF25E014B6
-	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:35:15 -0700 (PDT)
-Received: from mail-wg0-f54.google.com ([74.125.82.54])
-	by mga11.intel.com with ESMTP/TLS/RC4-SHA; 12 Sep 2012 03:34:52 -0700
-Received: by wgx1 with SMTP id 1so928096wgx.11
-	for <poky@yoctoproject.org>; Wed, 12 Sep 2012 03:34:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=from:to:subject:date:message-id:x-mailer:in-reply-to:references
-	:x-gm-message-state;
-	bh=YNsplyLKBbi1StCWgTJHlPfY3vmRntwGM3bygkQWSpE=;
-	b=YoZMoqq8q+MwITC7EADLEKFA03YBgug0y6pR4zKURBfc+Z+2ER5BFmMYowsbXnnXvP
-	ReqlxlflJDPLJFuMviBceH5paG+BlrEXQiu8bpCsqO4gjtNITgUy1qvqdHs64zs08SDf
-	o7Vw/hFLyEXNLjcK239C1IOjhQ0Sy6u4KYdUNHHLS8ZzgNhFWV4cFdtXSLzJxSIM4cCq
-	51zOe9MCz+w+bMbpu8q9IRAXkl3AKBTJWfZtRTDjo7uzuPOa3m/wnbXQEu4UGNTrN+Ig
-	MtuliTClxQqjuc+jHE3YwlYrRbh5bO43NPATyGiGmo8RQZFMxFWeQtVPeyY4+lhV57RN
-	I3KQ==
-Received: by 10.216.233.208 with SMTP id p58mr10849698weq.56.1347446090672;
-	Wed, 12 Sep 2012 03:34:50 -0700 (PDT)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id k20sm7423749wiv.11.2012.09.12.03.34.49
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Wed, 12 Sep 2012 03:34:49 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 12 Sep 2012 11:33:58 +0100
-Message-Id: <1347446038-16720-2-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10
-In-Reply-To: <1347446038-16720-1-git-send-email-ross.burton@intel.com>
-References: <1347446038-16720-1-git-send-email-ross.burton@intel.com>
-X-Gm-Message-State: ALoCoQkpe/FzXK1/1VMfJEAtWMBRr6BrAzX7xKCpX0GiSxWi5M8Fu6ArSlt4G9XAjiYNk62qt4rM
-Subject: [PATCH 2/2] scripts: change default ARM BSP to use xserver-xorg, not -lite
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F7D9E011C0
+	for <poky@lists.yoctoproject.org>; Thu, 13 Sep 2012 10:51:04 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q8DHowYm000892;
+	Thu, 13 Sep 2012 18:50:58 +0100
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 00460-02; Thu, 13 Sep 2012 18:50:54 +0100 (BST)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q8DHolep000885
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
+	Thu, 13 Sep 2012 18:50:48 +0100
+Message-ID: <1347558649.11710.114.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky <poky@lists.yoctoproject.org>
+Date: Thu, 13 Sep 2012 18:50:49 +0100
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Subject: Default network connectivity sanity tests
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,30 +34,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Sep 2012 10:35:16 -0000
+X-List-Received-Date: Thu, 13 Sep 2012 17:51:06 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
+Currently the poky distro config tests for three different kinds of
+network connectivity:
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- .../bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf   |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+# The CONNECTIVITY_CHECK_URI's are used to test whether we can succesfully
+# fetch from the network (and warn you if not). To disable the test set
+# the variable to be empty.
+CONNECTIVITY_CHECK_URIS ?= "git://git.yoctoproject.org/yocto-firewall-test;protocol=git;rev=HEAD \
+                          https://eula-downloads.yoctoproject.org/index.php \
+                          http://bugzilla.yoctoproject.org/report.cgi"
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
-index 1cf6097..a3e2970 100644
---- a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
-@@ -5,8 +5,8 @@
- 
- {{ input type:"boolean" name:"xserver" prio:"50" msg:"Do you need support for X? (y/n)" default:"y" }}
- {{ if xserver == "y": }}
--PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg-lite"
--XSERVER = "xserver-xorg-lite \
-+PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
-+XSERVER = "xserver-xorg \
-            xf86-input-evdev \
-            xf86-input-mouse \
-            xf86-video-omapfb \
--- 
-1.7.10
+So this tests http, https and git. The theory goes that the project
+mirrors should be a) preferred and b) be up to date in most cases so
+that you'd only ever usually need http:// to run a build successfully.
+
+There are some "windows of opportunity" when building from master where
+this might not be true, for example, a kernel update has just been
+pushed and the mirrors have not updated to the latest code. In this
+scenario, bitbake would pull the mirror tarball, then updated it using
+the git protocol.
+
+I'm getting continued complaints that git is horrible to proxy behind
+firewalls and this check continues to cause pain for people when in fact
+the builds would probably work. These complains go so far as to say
+we're ruining the reputation of the project by having this as people
+leave after an initial bad experience. I'm reaching the point where I
+become tempted to remove it.
+
+Opinions?
+
+One other option would be to remove it on release branches. Those should
+be more stable and therefore shouldn't need this kind of check...
+
+Cheers,
+
+Richard
+
 
 
