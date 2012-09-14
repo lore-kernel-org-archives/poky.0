@@ -1,21 +1,20 @@
-Return-Path: <holger@freyther.de>
-Received: from mail.sysmocom.de (sysmocom.de [78.46.147.233])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C102E01430
-	for <poky@lists.yoctoproject.org>; Thu, 13 Sep 2012 23:05:48 -0700 (PDT)
-Received: from sangmingze-mail.local (91-66-230-199-dynip.superkabel.de
-	[91.66.230.199])
-	by mail.sysmocom.de (Postfix) with ESMTPSA id 7BA992543428
-	for <poky@lists.yoctoproject.org>; Fri, 14 Sep 2012 06:09:09 +0000 (UTC)
-Received: from ich by sangmingze-mail.local with local (Exim 4.80)
-	(envelope-from <holger@freyther.de>) id 1TCP24-0005vH-7E
-	for poky@lists.yoctoproject.org; Fri, 14 Sep 2012 08:05:40 +0200
-Date: Fri, 14 Sep 2012 08:05:40 +0200
-From: Holger Hans Peter Freyther <holger@freyther.de>
-To: poky@lists.yoctoproject.org
-Message-ID: <20120914060540.GA22757@localhost>
-MIME-Version: 1.0
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Subject: syslog-startup.conf and filesize limit of the logfile
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 49321E01438
+	for <poky@yoctoproject.org>; Fri, 14 Sep 2012 05:51:37 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Sep 2012 05:51:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,422,1344236400"; d="scan'208";a="222040685"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.121.221])
+	by fmsmga002.fm.intel.com with ESMTP; 14 Sep 2012 05:51:12 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: Scott Garman <scott.a.garman@intel.com>,
+	poky@yoctoproject.org
+Date: Fri, 14 Sep 2012 13:51:00 +0100
+Message-Id: <cover.1347620476.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [denzil][PATCH 0/2] Hob error reporting fixes for denzil
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,25 +27,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Sep 2012 06:05:49 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 14 Sep 2012 12:51:37 -0000
 
-Hi,
+The following changes since commit 65ffa7395055f7e012cb973f63f92380828eed0d:
 
-I am currently rebasing my work from edison to master and while doing
-this I noticed that the busysbox syslog changed from using a fixed
-internal buffer to a logfile that should reside in memory/tmpfs.
+  yocto-bsp: use base branches for qemu 'newbranch' case (2012-08-21 11:35:22 +0100)
 
-The commit message in 35d1c6821d0ad6557203336a4440cfd8e1480c7d does not
-discuss how much space will be consumed as a maximum, the ROTATEGENS
-and ROTATESIZE parameters are not set and the commit sadly does not
-describe what is the default of busybox.
+are available in the git repository at:
 
-Looking at the source (and the help message busybox will print) the
-default size should be 200kb and the number of rotation is 1? Can somebody
-confirm that?
+  git://git.yoctoproject.org/poky-contrib paule/denzil-fixes-bitbake
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/denzil-fixes-bitbake
 
+Paul Eggleton (2):
+  bitbake: hob: ensure error message text is properly escaped
+  bitbake: hob: format error messages properly
 
-holger
+ bitbake/lib/bb/ui/crumbs/builder.py         |    5 +++--
+ bitbake/lib/bb/ui/crumbs/hobeventhandler.py |    4 +++-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+-- 
+1.7.9.5
+
 
