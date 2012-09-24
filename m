@@ -1,24 +1,18 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1AB50E0144C
-	for <poky@yoctoproject.org>; Mon, 24 Sep 2012 08:22:01 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 24 Sep 2012 08:22:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,476,1344236400"; d="scan'208";a="148440139"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.122.13])
-	by AZSMGA002.ch.intel.com with ESMTP; 24 Sep 2012 08:21:59 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Scott Garman <scott.a.garman@intel.com>,
-	poky@yoctoproject.org
-Date: Mon, 24 Sep 2012 16:21:55 +0100
-Message-Id: <e38b43e04744416581697673ecc4008fa8f517f8.1348499999.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1348499999.git.paul.eggleton@linux.intel.com>
-References: <cover.1348499999.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1348499999.git.paul.eggleton@linux.intel.com>
-References: <cover.1348499999.git.paul.eggleton@linux.intel.com>
-Subject: [denzil][PATCH 2/2] bitbake: lib/bb/siggen.py: log when tainting the signature of a task
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 13040E0049F
+	for <poky@yoctoproject.org>; Mon, 24 Sep 2012 13:31:38 -0700 (PDT)
+Received: from yow-bashfiel-l1.wrs.com (yow-bashfiel-d3.wrs.com
+	[128.224.147.67])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id q8OKVZ3c001058;
+	Mon, 24 Sep 2012 13:31:36 -0700 (PDT)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Mon, 24 Sep 2012 16:31:05 -0400
+Message-Id: <cover.1348518450.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
+Cc: poky@yoctoproject.org, liang.li@windriver.com
+Subject: [PATCH 0/1] linux-yocto-bsp: update the beagleboard preference to v3.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,33 +25,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Sep 2012 15:22:01 -0000
+X-List-Received-Date: Mon, 24 Sep 2012 20:31:38 -0000
 
-Log a note when applying a taint to a task signature (e.g. when using
-the -f or -C command line options) so that the user knows this has been
-done.
+Richard,
 
-(Bitbake rev: 0fd960fdea83874eedb541cbc2920257e0f3fb81)
+This has been asked for several times, and we've finally finished
+our testing with the beagleboard on the 3.4 kernel .. although it
+was already well known to work out of the box, it was worth
+sitting on this a bit to double check.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- bitbake/lib/bb/siggen.py |    1 +
- 1 file changed, 1 insertion(+)
+build, boot and testing has been done on the beagleboard (revC) and
+beagleboard XM. Existing functionality has been confirmed using
+core-image-sato, and in particular mouse, keyboard and graphics have
+been re-validated.
 
-diff --git a/bitbake/lib/bb/siggen.py b/bitbake/lib/bb/siggen.py
-index 4a0af94..70ae062 100644
---- a/bitbake/lib/bb/siggen.py
-+++ b/bitbake/lib/bb/siggen.py
-@@ -254,6 +254,7 @@ class SignatureGeneratorBasicHash(SignatureGeneratorBasic):
-         return ("%s.%s.%s.%s" % (stampbase, taskname, h, extrainfo)).rstrip('.')
- 
-     def invalidate_task(self, task, d, fn):
-+        bb.note("Tainting hash to force rebuild of task %s, %s" % (fn, task))
-         bb.build.write_taint(task, d, fn)
- 
- def dump_this_task(outfile, d):
+With this, all of the hardware reference boards are now on v3.4 and
+we can prep v3.0 to be pushed off a cliff in yocto-1.4 :)
+
+Cheers,
+
+Bruce
+
+cc: Liang Li <liang.li@windriver.com>
+
+The following changes since commit a8341c40ffa945b862a7f880fb87679308584847:
+
+  linux-yocto/3.4: update beagleboard configs (2012-09-24 16:03:00 -0400)
+
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (1):
+  beagleboard: update to 3.4
+
+ meta-yocto-bsp/conf/machine/beagleboard.conf       |    2 +-
+ .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 -- 
-1.7.9.5
+1.7.5.4
 
 
