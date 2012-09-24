@@ -1,31 +1,20 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6FF29E01447
-	for <poky@yoctoproject.org>; Mon, 24 Sep 2012 05:24:43 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 63725F8120C; Mon, 24 Sep 2012 06:24:42 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 9D2FAF81201;
-	Mon, 24 Sep 2012 06:24:41 -0600 (MDT)
-Message-ID: <50605109.6020407@mlbassoc.com>
-Date: Mon, 24 Sep 2012 06:24:41 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120827 Thunderbird/15.0
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <503550B4.6060708@gmail.com> <5035DBF4.2020201@r-finger.com>
-	<503639B2.4000605@gmail.com>
-	<CAMKF1sqhPaHkiOn5uTiF6mQixoatRL8queN6XX5AvQaxL1nvzg@mail.gmail.com>
-	<50598A24.1040503@gmail.com> <1348483894.8662.3.camel@ted>
-	<506041A9.10009@mlbassoc.com>
-In-Reply-To: <506041A9.10009@mlbassoc.com>
-Subject: Re: do_fetch error with gcc-cross-initial_4.7
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 085FCE00344
+	for <poky@yoctoproject.org>; Mon, 24 Sep 2012 08:21:58 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 24 Sep 2012 08:21:58 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,476,1344236400"; d="scan'208";a="148440116"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.122.13])
+	by AZSMGA002.ch.intel.com with ESMTP; 24 Sep 2012 08:21:57 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: Scott Garman <scott.a.garman@intel.com>,
+	poky@yoctoproject.org
+Date: Mon, 24 Sep 2012 16:21:53 +0100
+Message-Id: <cover.1348499999.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [denzil][PATCH 0/2] bitbake force build backports for denzil
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,33 +27,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Sep 2012 12:24:43 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 24 Sep 2012 15:21:59 -0000
 
-On 2012-09-24 05:19, Gary Thomas wrote:
-> On 2012-09-24 04:51, Richard Purdie wrote:
->> On Wed, 2012-09-19 at 12:02 +0300, Florin wrote:
->>> Trying to build something today and still takes forever and crashes at
->>> fetch. Looking at the gcc-4.7.inc I see it's still from git.
->>> What would the resolution be for this issue?
->>
->> The recipe is now using a release tarball. There is talk of ways to
->> improve the fetcher in this regard in future too but that is probably
->> 1.4 work at this point.
->
-> Has this change actually been merged to master?  I just updated and
-> did not see it.
->
-> ... anxiously awaiting this change to arrive in master :-)
->
+The following changes since commit 65ffa7395055f7e012cb973f63f92380828eed0d:
 
-Indeed, this is already in master (and I missed it!)  Sorry for the
-noise, thanks for getting this going.
+  yocto-bsp: use base branches for qemu 'newbranch' case (2012-08-21 11:35:22 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/denzil-force-bitbake
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/denzil-force-bitbake
+
+Paul Eggleton (2):
+  bitbake: bitbake: ensure -f causes dependent tasks to be re-run
+  bitbake: lib/bb/siggen.py: log when tainting the signature of a task
+
+ bitbake/lib/bb/build.py    |   18 ++++++++++++++++++
+ bitbake/lib/bb/cooker.py   |    6 +++---
+ bitbake/lib/bb/runqueue.py |   12 ++++++------
+ bitbake/lib/bb/siggen.py   |   35 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 62 insertions(+), 9 deletions(-)
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.7.9.5
+
 
