@@ -1,18 +1,22 @@
-Return-Path: <bruce.ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 57924E01448
-	for <poky@yoctoproject.org>; Sun, 23 Sep 2012 20:23:28 -0700 (PDT)
-Received: from yow-bashfiel-l1.wrs.com (yow-bashfiel-d3.wrs.com
-	[128.224.147.67])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id q8O3NQor012607;
-	Sun, 23 Sep 2012 20:23:26 -0700 (PDT)
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: richard.purdie@linuxfoundation.org
-Date: Sun, 23 Sep 2012 23:22:56 -0400
-Message-Id: <cover.1348456829.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.5.4
-Cc: poky@yoctoproject.org
-Subject: [PATCH 0/1] meta-yocto-bsp: update machine SRCREVs
+Return-Path: <Qi.Chen@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 72CB8E01447
+	for <poky@yoctoproject.org>; Sun, 23 Sep 2012 21:50:29 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id q8O4oSek024946
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Sun, 23 Sep 2012 21:50:28 -0700 (PDT)
+Received: from chenqi-OptiPlex-760.corp.ad.wrs.com (128.224.163.154) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.2.309.2; Sun, 23 Sep 2012 21:50:28 -0700
+From: <Qi.Chen@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Mon, 24 Sep 2012 12:50:27 +0800
+Message-ID: <1348462227-6672-1-git-send-email-Qi.Chen@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
+MIME-Version: 1.0
+Subject: [PATCH] routerstation: Disable virtual terminal by default
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,32 +29,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Sep 2012 03:23:28 -0000
+X-List-Received-Date: Mon, 24 Sep 2012 04:50:29 -0000
+Content-Type: text/plain
 
-This is stacked on my just sent oe-core update, and the patch says it all again.
-This is a bump of the hardware reference boards to match the content changes
-that the oe-core BSPs have had for a few weeks.
+From: Chen Qi <Qi.Chen@windriver.com>
 
-Cheers,
+This modifies the /etc/inittab on routerstationpro, avoiding the
+"respawning too fast" message. The routerstation has a low memory,
+so virtual terminal should be disable by default.
 
-Bruce
+Fixes [YOCTO #3088]
 
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ meta-yocto-bsp/conf/machine/routerstationpro.conf |    1 +
+ 1 file changed, 1 insertion(+)
 
-The following changes since commit 302d0a0fcb7450756a88775e9ffd01e1f834e67d:
-
-  linux-yocto/3.4: Update fri2 and sys940x to emgd-1.14 (2012-09-23 23:03:51 -0400)
-
-are available in the git repository at:
-  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
-
-Bruce Ashfield (1):
-  linux-yocto/meta-yocto/3.4: update machine SRCREVs
-
- .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
-
+diff --git a/meta-yocto-bsp/conf/machine/routerstationpro.conf b/meta-yocto-bsp/conf/machine/routerstationpro.conf
+index 707392d..feaa26e 100644
+--- a/meta-yocto-bsp/conf/machine/routerstationpro.conf
++++ b/meta-yocto-bsp/conf/machine/routerstationpro.conf
+@@ -19,6 +19,7 @@ XSERVER ?= "xserver-xorg \
+             xf86-video-fbdev"
+ 
+ SERIAL_CONSOLE = "115200 ttyS0"
++USE_VT ?= "0"
+ 
+ MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+ 
 -- 
-1.7.5.4
+1.7.9.5
 
 
