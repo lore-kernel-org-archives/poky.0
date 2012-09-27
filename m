@@ -1,23 +1,20 @@
 Return-Path: <constantinx.musca@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0AE03E01371
-	for <poky@yoctoproject.org>; Wed, 26 Sep 2012 00:47:31 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 26 Sep 2012 00:47:31 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 32716E00717
+	for <poky@yoctoproject.org>; Thu, 27 Sep 2012 06:38:51 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 27 Sep 2012 06:38:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,489,1344236400"; d="scan'208";a="149188463"
+X-IronPort-AV: E=Sophos;i="4.80,495,1344236400"; d="scan'208";a="227279199"
 Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.66])
-	by AZSMGA002.ch.intel.com with ESMTP; 26 Sep 2012 00:47:30 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 27 Sep 2012 06:38:43 -0700
 From: Constantin Musca <constantinx.musca@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 26 Sep 2012 09:52:57 +0300
-Message-Id: <1348642377-27555-2-git-send-email-constantinx.musca@intel.com>
+Date: Thu, 27 Sep 2012 15:44:11 +0300
+Message-Id: <1348749851-12086-1-git-send-email-constantinx.musca@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <1348642377-27555-1-git-send-email-constantinx.musca@intel.com>
-References: <1348642377-27555-1-git-send-email-constantinx.musca@intel.com>
-Cc: Constantin Musca <constantinx.musca@intel.com>,
-	Constantin Musca <constantin.musca@gmail.com>
-Subject: [PATCH] poky-sanity.bbclass: bblayers.conf should be updated automatically
+Cc: Constantin Musca <constantinx.musca@intel.com>
+Subject: [PATCH v2] poky-sanity.bbclass: bblayers.conf should be updated automatically
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,9 +27,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Sep 2012 07:47:32 -0000
-
-From: Constantin Musca <constantin.musca@gmail.com>
+X-List-Received-Date: Thu, 27 Sep 2012 13:38:51 -0000
 
 - we need a bbclass (poky-sanity) so that we can append to the
 check_bblayers_conf bitbake function from sanity.bbclass the
@@ -75,7 +70,7 @@ index 0000000..1c7514f
 +                f.write(''.join(lines))
 +}
 diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index ecce9f5..c54608b 100644
+index de82543..f7f03db 100644
 --- a/meta-yocto/conf/distro/poky.conf
 +++ b/meta-yocto/conf/distro/poky.conf
 @@ -93,6 +93,9 @@ BB_SIGNATURE_HANDLER ?= 'OEBasicHash'
@@ -86,8 +81,8 @@ index ecce9f5..c54608b 100644
 +INHERIT += "poky-sanity"
 +
  #WARN_QA = "unsafe-references-in-binaries unsafe-references-in-scripts"
+ WARN_QA = ""
  ERROR_QA = "dev-so debug-deps dev-deps debug-files arch la2 pkgconfig la perms useless-rpaths rpaths staticdev ldflags"
- 
 -- 
 1.7.9.5
 
