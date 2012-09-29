@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 96BB4E0049B
-	for <poky@yoctoproject.org>; Fri, 28 Sep 2012 03:21:15 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q8SAL7tS008968;
-	Fri, 28 Sep 2012 11:21:07 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 06607-09; Fri, 28 Sep 2012 11:21:01 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q8SAKxmO008962
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Fri, 28 Sep 2012 11:20:59 +0100
-Message-ID: <1348827660.15753.39.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: tom.zanussi@intel.com
-Date: Fri, 28 Sep 2012 11:21:00 +0100
-In-Reply-To: <cover.1348777841.git.tom.zanussi@intel.com>
-References: <cover.1348777841.git.tom.zanussi@intel.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/2] yocto-bsp: update a couple ppc/mips config settings
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71416E01404
+	for <poky@yoctoproject.org>; Sat, 29 Sep 2012 16:45:33 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 29 Sep 2012 16:45:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,509,1344236400"; d="scan'208";a="216436699"
+Received: from unknown (HELO localhost) ([10.255.14.37])
+	by orsmga002.jf.intel.com with ESMTP; 29 Sep 2012 16:45:32 -0700
+From: tom.zanussi@intel.com
+To: poky@yoctoproject.org
+Date: Sat, 29 Sep 2012 18:45:28 -0500
+Message-Id: <cover.1348958103.git.tom.zanussi@intel.com>
+X-Mailer: git-send-email 1.7.11.4
+Subject: [PATCH 0/2] yocto-bsp: fix for xserver-xorg-config bbappend FILESPATH
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,35 +26,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Sep 2012 10:21:16 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 29 Sep 2012 23:45:33 -0000
 
-On Thu, 2012-09-27 at 17:12 -0500, tom.zanussi@intel.com wrote:
-> From: Tom Zanussi <tom.zanussi@intel.com>
-> 
-> This patchset fixes YOCTO #3178 [building a power pc image with a
-> layer created using yocto-bsp fails due to cfg/vfat not available] and
-> a similar problem with the dmaengine feature.
-> 
-> Build-tested both 3.2 and 3.4 kernels using yocto-bsp-generated
-> powerpc BSPs.
-> 
-> The following changes since commit f40bfd2e5f91a3c699833f19cec435a9b897f4b5:
-> 
->   bitbake: hob/builder: When you stop a build, Hob should tell you stopping is happening (2012-09-27 16:45:28 +0100)
-> 
-> are available in the git repository at:
-> 
->   git://git.yoctoproject.org/poky-contrib.git tzanussi/yocto-bsp-ppc-fix
->   http://git.yoctoproject.org/cgit.cgi//log/?h=tzanussi/yocto-bsp-ppc-fix
-> 
-> Tom Zanussi (2):
->   yocto-bsp: make vfat feature inclusion conditional on kernel version
->   yocto-bsp: fix dmaengine feature inclusion
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Merged to master, thanks.
+This patchset fixes Yocto bug Bug 3158 [xserver-xorg-config_0.1.bbappend
+bsp FILESPATH not set in a robust manner].
 
-Richard
+It also removes a few 'test' config options left in a couple of the
+machine templates.
+
+The following changes since commit 7c39c87d52c20e47cf90275a16e4517a296c8388:
+
+  documentation: adt-manual, yocto-project-qs - Added tarball installer info (2012-09-28 17:54:28 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/yocto-bsp-filesextrapaths
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/yocto-bsp-filesextrapaths
+
+Tom Zanussi (2):
+  yocto-bsp: use FILESEXTRAPATHS for xserver-xf86-config bbappends
+  yocto-bsp: remove 'test' options from user-config.cfg
+
+ .../{{ if xserver == \"y\": }} xserver-xf86-config_0.1.bbappend"      | 4 +---
+ .../{{ if xserver == \"y\": }} xserver-xf86-config_0.1.bbappend"      | 4 +---
+ .../target/arch/powerpc/recipes-kernel/linux/files/user-config.cfg    | 4 ----
+ .../recipes-graphics/xorg-xserver/xserver-xf86-config_0.1.bbappend    | 3 +--
+ .../target/arch/qemu/recipes-kernel/linux/files/user-config.cfg       | 4 ----
+ .../{{ if xserver == \"y\": }} xserver-xf86-config_0.1.bbappend"      | 4 +---
+ 6 files changed, 4 insertions(+), 19 deletions(-)
+
+-- 
+1.7.11.4
 
 
