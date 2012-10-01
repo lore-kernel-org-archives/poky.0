@@ -1,33 +1,23 @@
-Return-Path: <ross.burton@intel.com>
-Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 819DAE011C0
-	for <poky@yoctoproject.org>; Mon,  1 Oct 2012 09:54:39 -0700 (PDT)
-Received: from mail-ob0-f176.google.com ([209.85.214.176])
-	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 01 Oct 2012 09:54:39 -0700
-Received: by obhx4 with SMTP id x4so6852887obh.35
-	for <poky@yoctoproject.org>; Mon, 01 Oct 2012 09:54:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:x-gm-message-state;
-	bh=FcKEywE9o3CW0gGbDbsngQ8fuwFbjNJH22WvN8mv/2s=;
-	b=a5fA+bV95fNY3AL7D3Eqkm6I43FdPPwyR7BwB7BcWJLGhS64LmHK0hJMqk6mNF3RY3
-	wIYexTG96nDcLHzp7DxR5TYpDoQ20DxPR+kuxFz0Gw3ClpH1+ctrbstC0bEEKcp17Tk2
-	FNkb3ibdd5dx/XeU9Jjd8pQVORFYfnx+c0K/cRMHGF1pGXiXsWmuw3DRuwbey0BG+/2L
-	XdyEqRgRWtRIwwjC4+cZ0DIQPpdPzPpMmqAnkU+AGWvnwx7sjs+4Ds5VaS3F+tFdXOlf
-	8MSlT4fRbLPFEaY3Du8/dmUS726uoUFrrDOoyFhcifR4iahhur53/NnLdzwisXU9vXs4
-	YYnA==
-Received: by 10.60.31.12 with SMTP id w12mr4834821oeh.17.1349110478081; Mon,
-	01 Oct 2012 09:54:38 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.182.79.105 with HTTP; Mon, 1 Oct 2012 09:54:16 -0700 (PDT)
-In-Reply-To: <1349109710-7478-1-git-send-email-paul.eggleton@linux.intel.com>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EBE33E011C0
+	for <poky@yoctoproject.org>; Mon,  1 Oct 2012 09:58:27 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 01 Oct 2012 09:58:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,517,1344236400"; d="scan'208";a="229154953"
+Received: from unknown (HELO helios.localnet) ([10.252.122.40])
+	by fmsmga002.fm.intel.com with ESMTP; 01 Oct 2012 09:58:26 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: "Burton, Ross" <ross.burton@intel.com>
+Date: Mon, 01 Oct 2012 17:58:25 +0100
+Message-ID: <4890658.Z4EHLe5yFh@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.9.1 (Linux/3.2.0-31-generic-pae; KDE/4.9.1; i686; ; )
+In-Reply-To: <CAJTo0LYVJTzEQT6uhUL8ASKORJL_1coJAa-rLXG25C4o3Khq0g@mail.gmail.com>
 References: <1349109710-7478-1-git-send-email-paul.eggleton@linux.intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Mon, 1 Oct 2012 17:54:16 +0100
-Message-ID: <CAJTo0LYVJTzEQT6uhUL8ASKORJL_1coJAa-rLXG25C4o3Khq0g@mail.gmail.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-X-Gm-Message-State: ALoCoQn6dwk2cXMfJxqApovufcmt/MeFRpkrB6tFhy+VtmTcakrdiULiJ+NtUGaleYLNwtl9BZ3X
+	<CAJTo0LYVJTzEQT6uhUL8ASKORJL_1coJAa-rLXG25C4o3Khq0g@mail.gmail.com>
+MIME-Version: 1.0
 Cc: poky@yoctoproject.org
 Subject: Re: [meta-yocto][PATCH] poky.conf: supported distro warning update
 X-BeenThere: poky@yoctoproject.org
@@ -42,19 +32,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Oct 2012 16:54:39 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Mon, 01 Oct 2012 16:58:28 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 1 October 2012 17:41, Paul Eggleton <paul.eggleton@linux.intel.com> wrote:
-> * Remove Fedora 15 (no longer supported by Fedora project)
-> * Add upcoming Fedora 18
-> * Add upcoming Ubuntu 12.10
-> * Add CentOS 5.8 & 6.3
-> * Add new Poky distro name format (self-hosted / build appliance) for
->   Yocto Project 1.2 / 1.3
-> * Update Debian squeeze to 6.0.5 (automatic update from earlier 6.0.x)
+On Monday 01 October 2012 17:54:16 Burton, Ross wrote:
+> On 1 October 2012 17:41, Paul Eggleton <paul.eggleton@linux.intel.com> 
+wrote:
+> > * Remove Fedora 15 (no longer supported by Fedora project)
+> > * Add upcoming Fedora 18
+> > * Add upcoming Ubuntu 12.10
+> > * Add CentOS 5.8 & 6.3
+> > * Add new Poky distro name format (self-hosted / build appliance) for
+> > 
+> >   Yocto Project 1.2 / 1.3
+> > 
+> > * Update Debian squeeze to 6.0.5 (automatic update from earlier 6.0.x)
+> 
+> 6.0.6 was literally just released. :)
 
-6.0.6 was literally just released. :)
+Well knock me down with a feather. ;)
 
-Ross
+Patch v2 on the way I guess...
+
+Cheers,
+Paul
+
+-- 
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
