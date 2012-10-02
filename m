@@ -1,24 +1,25 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DFFE3E011AF
-	for <poky@yoctoproject.org>; Tue,  2 Oct 2012 07:57:24 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 02 Oct 2012 07:57:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,523,1344236400"; d="scan'208";a="218349601"
-Received: from unknown (HELO [10.255.13.203]) ([10.255.13.203])
-	by orsmga002.jf.intel.com with ESMTP; 02 Oct 2012 07:57:20 -0700
-Message-ID: <506B00D0.90808@linux.intel.com>
-Date: Tue, 02 Oct 2012 07:57:20 -0700
-From: Saul Wold <sgw@linux.intel.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7B498E00524
+	for <poky@yoctoproject.org>; Tue,  2 Oct 2012 08:34:17 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 0D02FF81246; Tue,  2 Oct 2012 09:34:16 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from [192.168.1.114] (zeus [192.168.1.114])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 861C0F81245;
+	Tue,  2 Oct 2012 09:34:15 -0600 (MDT)
+Message-ID: <506B0983.3060500@mlbassoc.com>
+Date: Tue, 02 Oct 2012 09:34:27 -0600
+From: Gary Thomas <gary@mlbassoc.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
+	rv:15.0) Gecko/20120912 Thunderbird/15.0.1
 MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-References: <1349111207-7657-1-git-send-email-paul.eggleton@linux.intel.com>
-In-Reply-To: <1349111207-7657-1-git-send-email-paul.eggleton@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [meta-yocto][PATCH v2] poky.conf: supported distro warning update
+To: Poky Project <poky@yoctoproject.org>
+Subject: New warning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,62 +32,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Oct 2012 14:57:25 -0000
+X-List-Received-Date: Tue, 02 Oct 2012 15:34:17 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/01/2012 10:06 AM, Paul Eggleton wrote:
-> * Remove Fedora 15 (no longer supported by Fedora project)
-> * Add upcoming Fedora 18
-> * Add upcoming Ubuntu 12.10
-> * Add CentOS 5.8 & 6.3
-> * Add new Poky distro name format (self-hosted / build appliance) for
->    Yocto Project 1.2 / 1.3
-> * Update Debian squeeze to 6.0.6 (automatic update from earlier 6.0.x)
-> * Add openSUSE 12.2
->
-> Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
-> ---
->   meta-yocto/conf/distro/poky.conf |   11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
->
-> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-> index de82543..6cd29ba 100644
-> --- a/meta-yocto/conf/distro/poky.conf
-> +++ b/meta-yocto/conf/distro/poky.conf
-> @@ -68,19 +68,24 @@ CONNECTIVITY_CHECK_URIS ?= "git://git.yoctoproject.org/yocto-firewall-test;proto
->
->   SANITY_TESTED_DISTROS ?= " \
->               Yocto (Built by Poky 7.0) 1.2 \n \
-> +            Poky 7.0 (Yocto Project 1.2 Reference Distro) \n \
-> +            Poky 8.0 (Yocto Project 1.3 Reference Distro) \n \
->               Ubuntu 10.04.4 LTS \n \
->               Ubuntu 11.10 \n \
->               Ubuntu 12.04 LTS \n \
->               Ubuntu 12.04.1 LTS \n \
-> -            Fedora release 15 (Lovelock) \n \
-> +            Ubuntu 12.10 \n \
->               Fedora release 16 (Verne) \n \
->               Fedora release 17 (Beefy Miracle) \n \
-> +            Fedora release 18 (Spherical Cow) \n \
->               CentOS release 5.6 (Final) \n \
->               CentOS release 5.7 (Final) \n \
-> -            CentOS release 6.2 (Final) \n \
-> -            Debian GNU/Linux 6.0.4 (squeeze) \n \
-> +            CentOS release 5.8 (Final) \n \
-> +            CentOS release 6.3 (Final) \n \
-> +            Debian GNU/Linux 6.0.6 (squeeze) \n \
->               openSUSE 11.4 \n \
->               openSUSE 12.1 \n \
-> +            openSUSE 12.2 \n \
->   	    "
->
->   # Default hash policy for distro
->
+I'm getting these new warnings, even with a build from scratch.  This is from
+poky master rev 7c39c87d52c20e47cf90275a16e4517a296c8388
 
-Merged into Poky Master
+WARNING: The recipe is trying to install files into a shared area when those files already exist. Those files are:
+    /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/include/python2.7/pyconfig.h
+    /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/libpython2.7.so
+    /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/libpython2.7.so.1.0
+    /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/python2.7/config/Makefile
+
+Do they hurt anything?  Why am I getting them now, what's changed, etc?
 
 Thanks
-	Sau!
 
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
