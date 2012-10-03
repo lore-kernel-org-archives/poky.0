@@ -1,31 +1,34 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-wg0-f54.google.com (mail-wg0-f54.google.com [74.125.82.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A57B2E011C5
-	for <poky@yoctoproject.org>; Tue,  2 Oct 2012 23:22:36 -0700 (PDT)
-Received: by wgbdt10 with SMTP id dt10so4177102wgb.11
-	for <poky@yoctoproject.org>; Tue, 02 Oct 2012 23:22:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=lCvMlDsJFNFE3YXTssQOHiQfBLW80V5v2X+XYeJ9InY=;
-	b=QMyvMX0ea1JM1RgFq/h/FUaNPEVKnrs3/Cw2+QnNp/AK5D/NxogUoPfe0ugbU4bC8K
-	gokjK+4tN9EkrMOXM/bpWEXuspuBdUSNFEN9idumxJYQzHL50b2zunYAmKimlJKn5wco
-	MEj+Mak9sMNQWcyqDBtJ0VVJbqu3Dn2lK8t/B/G+aZkBQFekaWDLGST2TC0QabpMJwbo
-	4o5/SaEhp0ehA/AXWz/4FDLoFe1OM9xyvmLJh5VVXkdHfPprfnFn4LaIdX/I0d0iPOql
-	tqTaK1jLsnGzcvFDeGMf9YHOR+j5jD/U+uzx+WNOrvbua/SyDJ/Px1oT1uHaTbPc+Edd
-	dUHA==
-Received: by 10.216.241.200 with SMTP id g50mr621089wer.79.1349245354875; Tue,
-	02 Oct 2012 23:22:34 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.194.28.38 with HTTP; Tue, 2 Oct 2012 23:22:04 -0700 (PDT)
-In-Reply-To: <1349192635.18301.5.camel@ted>
-References: <506B0983.3060500@mlbassoc.com> <1349192635.18301.5.camel@ted>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 2 Oct 2012 23:22:04 -0700
-Message-ID: <CAMKF1spz8e=XYjQm4ztctLKEfkg=Jcf=XAB0JA94cri+kAbT2A@mail.gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: New warning
+Return-Path: <ross.burton@intel.com>
+Received: from azsmga102.ch.intel.com (mga12.intel.com [143.182.124.36])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9ABC0E01199
+	for <poky@yoctoproject.org>; Wed,  3 Oct 2012 02:51:05 -0700 (PDT)
+Received: from mail-we0-f176.google.com ([74.125.82.176])
+	by mga14.intel.com with ESMTP/TLS/RC4-SHA; 03 Oct 2012 02:51:04 -0700
+Received: by weyz53 with SMTP id z53so4867607wey.35
+	for <poky@yoctoproject.org>; Wed, 03 Oct 2012 02:51:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
+	bh=drLBJMZhL9vw5uij7e5TqwlcT/kWCG9xBLirpT9AFbo=;
+	b=K8DHEDihMLcrsl43e5aGE++NakLFvsZb70ub66jL91wXMCznHe1XCaqJoemkdGbD01
+	m2I8DPd6UslvY2O3MM7bMGb/Pya+lPo062fi7RQfonZlCb++qKQ6oYM33h0RcbYUb7Pd
+	o8UXe1sA9GbG2w+1qPHdz9r1cE2UaX3Kr4jbNYZg3jSR5s/g3rHPNg7OAgXGVEZ6EWQ2
+	MwGhq4EuHFaaU9yHtLpXbowTYwwRspqA61zcwNVclUENjbk9XojxQ/rIPzq9goILpZim
+	+lBSpFv1aITU6vpVhUmMnePcQ001BsIX440ckZp1BK8eQo+GO3Bu3nLlhx8+iDDyNaGX
+	+Ayw==
+Received: by 10.180.108.45 with SMTP id hh13mr28299779wib.15.1349257862250;
+	Wed, 03 Oct 2012 02:51:02 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPS id gm7sm7520449wib.10.2012.10.03.02.51.00
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Wed, 03 Oct 2012 02:51:01 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Wed,  3 Oct 2012 10:49:59 +0100
+Message-Id: <1349257799-32764-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10
+X-Gm-Message-State: ALoCoQlrkcg17wTxIzYnF7NyvHOhPIxg5IHrIMQkp/18vkb5igqjKxK4b016rLbPgy2MAohEJ5Aq
+Subject: [PATCH] distro-tracking: remove mesa-xlib
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,47 +41,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2012 06:22:37 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 03 Oct 2012 09:51:05 -0000
 
-On Tue, Oct 2, 2012 at 8:43 AM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> On Tue, 2012-10-02 at 09:34 -0600, Gary Thomas wrote:
->> I'm getting these new warnings, even with a build from scratch.  This is from
->> poky master rev 7c39c87d52c20e47cf90275a16e4517a296c8388
->>
->> WARNING: The recipe is trying to install files into a shared area when those files already exist. Those files are:
->>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/include/python2.7/pyconfig.h
->>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/libpython2.7.so
->>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/libpython2.7.so.1.0
->>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/python2.7/config/Makefile
->>
->> Do they hurt anything?  Why am I getting them now, what's changed, etc?
->
-> I fixed the code that was supposed to be generate these messages and we
-> started seeing them. Its a new type of check added relatively recently
-> but was accidentally disabled in its original commit.
->
-> The python recipe does something particularly evil, the do_compile pokes
-> file into STAGING_DIR_* directly for various reasons.
->
-> The do_install then does save off the files correctly but there is an
-> overwrite situation occurring there and I don't consider the recipe to
-> be doing something particularly nice.
->
-> So there is an issue there, it won't break your build but we should
-> really do something better.
->
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto/conf/distro/include/distro_alias.inc |    1 -
+ meta-yocto/conf/distro/include/maintainers.inc  |    1 -
+ 2 files changed, 2 deletions(-)
 
-yeah probably we need two stage approach may be a python-initial and
-then real python.
+diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
+index e0cfa35..835696c 100644
+--- a/meta-yocto/conf/distro/include/distro_alias.inc
++++ b/meta-yocto/conf/distro/include/distro_alias.inc
+@@ -222,7 +222,6 @@ DISTRO_PN_ALIAS_pn-matchbox-wm = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-menu-cache = "OSPDT"
+ DISTRO_PN_ALIAS_pn-mesa-dri = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
+ DISTRO_PN_ALIAS_pn-mesa-dri-glsl-native = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
+-DISTRO_PN_ALIAS_pn-mesa-xlib = "Fedora=mesa Ubuntu=libgl1-mesa-swx11"
+ DISTRO_PN_ALIAS_pn-meta-environment-i586 = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-ide-support = 'OE-Core'
+ DISTRO_PN_ALIAS_pn-meta-toolchain-gmae = "OE-Core"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index 38b6974..830aebe 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -448,7 +448,6 @@ RECIPE_MAINTAINER_pn-mdadm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-menu-cache = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa-dri = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa-dri-glsl-native = "Valentin Popa <valentin.popa@intel.com>"
+-RECIPE_MAINTAINER_pn-mesa-xlib = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-ide-support = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-metacity = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-mingetty = "Kai Kang <kai.kang@windriver.com>"
+-- 
+1.7.10
 
-> Cheers,
->
-> Richard
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
