@@ -1,24 +1,31 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 91021E01199
-	for <poky@yoctoproject.org>; Tue,  2 Oct 2012 18:45:19 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 02 Oct 2012 18:45:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,525,1344236400"; d="scan'208";a="229823626"
-Received: from unknown (HELO [10.255.13.203]) ([10.255.13.203])
-	by fmsmga002.fm.intel.com with ESMTP; 02 Oct 2012 18:45:18 -0700
-Message-ID: <506B98AE.4090502@linux.intel.com>
-Date: Tue, 02 Oct 2012 18:45:18 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-wg0-f54.google.com (mail-wg0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A57B2E011C5
+	for <poky@yoctoproject.org>; Tue,  2 Oct 2012 23:22:36 -0700 (PDT)
+Received: by wgbdt10 with SMTP id dt10so4177102wgb.11
+	for <poky@yoctoproject.org>; Tue, 02 Oct 2012 23:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type;
+	bh=lCvMlDsJFNFE3YXTssQOHiQfBLW80V5v2X+XYeJ9InY=;
+	b=QMyvMX0ea1JM1RgFq/h/FUaNPEVKnrs3/Cw2+QnNp/AK5D/NxogUoPfe0ugbU4bC8K
+	gokjK+4tN9EkrMOXM/bpWEXuspuBdUSNFEN9idumxJYQzHL50b2zunYAmKimlJKn5wco
+	MEj+Mak9sMNQWcyqDBtJ0VVJbqu3Dn2lK8t/B/G+aZkBQFekaWDLGST2TC0QabpMJwbo
+	4o5/SaEhp0ehA/AXWz/4FDLoFe1OM9xyvmLJh5VVXkdHfPprfnFn4LaIdX/I0d0iPOql
+	tqTaK1jLsnGzcvFDeGMf9YHOR+j5jD/U+uzx+WNOrvbua/SyDJ/Px1oT1uHaTbPc+Edd
+	dUHA==
+Received: by 10.216.241.200 with SMTP id g50mr621089wer.79.1349245354875; Tue,
+	02 Oct 2012 23:22:34 -0700 (PDT)
 MIME-Version: 1.0
-To: Constantin Musca <constantinx.musca@intel.com>
-References: <1348749851-12086-1-git-send-email-constantinx.musca@intel.com>
-In-Reply-To: <1348749851-12086-1-git-send-email-constantinx.musca@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH v2] poky-sanity.bbclass: bblayers.conf should be updated automatically
+Received: by 10.194.28.38 with HTTP; Tue, 2 Oct 2012 23:22:04 -0700 (PDT)
+In-Reply-To: <1349192635.18301.5.camel@ted>
+References: <506B0983.3060500@mlbassoc.com> <1349192635.18301.5.camel@ted>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 2 Oct 2012 23:22:04 -0700
+Message-ID: <CAMKF1spz8e=XYjQm4ztctLKEfkg=Jcf=XAB0JA94cri+kAbT2A@mail.gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: New warning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,70 +38,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Oct 2012 01:45:19 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 03 Oct 2012 06:22:37 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On 09/27/2012 05:44 AM, Constantin Musca wrote:
-> - we need a bbclass (poky-sanity) so that we can append to the
-> check_bblayers_conf bitbake function from sanity.bbclass the
-> bblayers.conf specific merging functionality
-> - add check_bblayers_conf_append bitbake function which does the
-> meta-yocto specific updates (the bblayers.conf v5 -> v6 update)
-> - every layer should make its specific bblayers.conf updates
-> - we ask the user to re-run bitbake because we can't trigger
-> reparsing without being invasive
+On Tue, Oct 2, 2012 at 8:43 AM, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+> On Tue, 2012-10-02 at 09:34 -0600, Gary Thomas wrote:
+>> I'm getting these new warnings, even with a build from scratch.  This is from
+>> poky master rev 7c39c87d52c20e47cf90275a16e4517a296c8388
+>>
+>> WARNING: The recipe is trying to install files into a shared area when those files already exist. Those files are:
+>>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/include/python2.7/pyconfig.h
+>>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/libpython2.7.so
+>>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/libpython2.7.so.1.0
+>>     /home/local/p81_build/tmp/sysroots/cobra3530p81/usr/lib/python2.7/config/Makefile
+>>
+>> Do they hurt anything?  Why am I getting them now, what's changed, etc?
 >
-> [YOCTO #3082]
+> I fixed the code that was supposed to be generate these messages and we
+> started seeing them. Its a new type of check added relatively recently
+> but was accidentally disabled in its original commit.
 >
-> Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
-> ---
->   meta-yocto/classes/poky-sanity.bbclass |   16 ++++++++++++++++
->   meta-yocto/conf/distro/poky.conf       |    3 +++
->   2 files changed, 19 insertions(+)
->   create mode 100644 meta-yocto/classes/poky-sanity.bbclass
+> The python recipe does something particularly evil, the do_compile pokes
+> file into STAGING_DIR_* directly for various reasons.
 >
-> diff --git a/meta-yocto/classes/poky-sanity.bbclass b/meta-yocto/classes/poky-sanity.bbclass
-> new file mode 100644
-> index 0000000..1c7514f
-> --- /dev/null
-> +++ b/meta-yocto/classes/poky-sanity.bbclass
-> @@ -0,0 +1,16 @@
-> +python check_bblayers_conf_append() {
-> +    if current_lconf != lconf_version:
-> +        if current_lconf == 5:
-> +            index, meta_yocto_line = find_line('meta-yocto\s*\\\\\\n', lines)
-> +            if meta_yocto_line:
-> +                lines.insert(index + 1, meta_yocto_line.replace('meta-yocto',
-> +                                                                'meta-yocto-bsp'))
-> +            else:
-> +                sys.exit()
-> +
-> +            index, line = find_line('LCONF_VERSION', lines)
-> +            current_lconf += 1
-> +            lines[index] = 'LCONF_VERSION = "%d"\n' % current_lconf
-> +            with open(bblayers_fn, "w") as f:
-> +                f.write(''.join(lines))
-> +}
-> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-> index de82543..f7f03db 100644
-> --- a/meta-yocto/conf/distro/poky.conf
-> +++ b/meta-yocto/conf/distro/poky.conf
-> @@ -93,6 +93,9 @@ BB_SIGNATURE_HANDLER ?= 'OEBasicHash'
->   #
->   OELAYOUT_ABI = "8"
+> The do_install then does save off the files correctly but there is an
+> overwrite situation occurring there and I don't consider the recipe to
+> be doing something particularly nice.
 >
-> +# add poky sanity bbclass
-> +INHERIT += "poky-sanity"
-> +
->   #WARN_QA = "unsafe-references-in-binaries unsafe-references-in-scripts"
->   WARN_QA = ""
->   ERROR_QA = "dev-so debug-deps dev-deps debug-files arch la2 pkgconfig la perms useless-rpaths rpaths staticdev ldflags"
+> So there is an issue there, it won't break your build but we should
+> really do something better.
 >
 
-Merged into Poky Master
+yeah probably we need two stage approach may be a python-initial and
+then real python.
 
-Thanks	
-	Sau!
-
+> Cheers,
+>
+> Richard
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
