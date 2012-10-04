@@ -1,32 +1,42 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B57BCE013D9
-	for <poky@yoctoproject.org>; Thu,  4 Oct 2012 03:41:00 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q94Aew1D005923;
-	Thu, 4 Oct 2012 11:40:58 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 05539-08; Thu,  4 Oct 2012 11:40:53 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q94Aelfx005917
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Thu, 4 Oct 2012 11:40:48 +0100
-Message-ID: <1349347251.18301.80.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: alexander@mezon.ru
-Date: Thu, 04 Oct 2012 11:40:51 +0100
-In-Reply-To: <1349346798.6218.8.camel@localhost>
-References: <1349343340.6218.4.camel@localhost>
-	<1349346251.18301.74.camel@ted> <1349346365.6218.6.camel@localhost>
-	<1349346798.6218.8.camel@localhost>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: building rpm distro
+Return-Path: <sgw@bigsur.com>
+Received: from mail-da0-f48.google.com (mail-da0-f48.google.com
+	[209.85.210.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9E2A1E0049D
+	for <poky@yoctoproject.org>; Thu,  4 Oct 2012 16:52:48 -0700 (PDT)
+Received: by mail-da0-f48.google.com with SMTP id z8so621601dad.35
+	for <poky@yoctoproject.org>; Thu, 04 Oct 2012 16:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=bigsur.com; s=bigsur.com;
+	h=sender:from:to:subject:date:message-id:x-mailer;
+	bh=1q1UyYd1Ol1DZH5of4U0cDeEuYPoaDuy6asd3i+Tp8s=;
+	b=i9mslnGaT5ZPancKIY38ASpQnnCW9BD7HJ7ITGxHQDdyGA5B33gnBRiH0KuK+Iq/j+
+	YiijyyG94afRqccpXxyaLf2txYWgbKjqXOGn4xmRCxaOlbW5BftGAP12dhe54Qk4xXtt
+	kFWvmkdz6E7jCz+/oEDpw3p9+JqSvkdorn25w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=sender:from:to:subject:date:message-id:x-mailer:x-gm-message-state;
+	bh=1q1UyYd1Ol1DZH5of4U0cDeEuYPoaDuy6asd3i+Tp8s=;
+	b=KZj+X5h/XYw8PbN0NkTIrrQ1N2f3jV6FNH9tudMwzyb2K/zDtENF8dcoDclKCeFAOg
+	iZA8hlcY0iisNbvtCGIcdnaBEoY5GQJXx4D3Da1wBbgE/m3ndDQ1vExgGpwdMa5n7Iin
+	JGhxlhwlsXEBqvLQN0b977JNH5EehvDTb5yGBGSnXwdPv/MybaqIn0QlrziMoZSqVePQ
+	7b7YncFL8R7b/eA4ouVyWYwWLnK0u8Eyn+aI+/GbzIHHdk4AF5WgKfYr51IHusU2d5ZV
+	1D+Aiazf+9pIQIpvLEcj7trJy2DmynVGFeCcAZKX7uqqniYHJl695kvUPOlUNB+a29I8
+	Y31g==
+Received: by 10.68.226.100 with SMTP id rr4mr26028066pbc.143.1349394753989;
+	Thu, 04 Oct 2012 16:52:33 -0700 (PDT)
+Received: from localhost (c-71-193-189-117.hsd1.wa.comcast.net.
+	[71.193.189.117])
+	by mx.google.com with ESMTPS id nd6sm1493994pbc.68.2012.10.04.16.52.32
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Thu, 04 Oct 2012 16:52:33 -0700 (PDT)
+Sender: Saul Wold <sgw@bigsur.com>
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  4 Oct 2012 16:52:31 -0700
+Message-Id: <1349394751-28272-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.7.9.5
+X-Gm-Message-State: ALoCoQlKI6MC2UXui1faYvJdO4FNk6X5S7IOLivTr6b7KZzMbDffCf3i0yj1V0g/MtpeEHC2nFyv
+Subject: [PATCH] poky.conf: fix Poky release info to include release number
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,40 +49,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Oct 2012 10:41:01 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 04 Oct 2012 23:52:48 -0000
 
-On Thu, 2012-10-04 at 14:33 +0400, Alexander Khryukin wrote:
-> Also in meta/lib/oe/distro_check.py 
-> i see function
-> 
-> 
-> def get_latest_released_mandriva_source_package_list():
->     "Returns list of all the name os packages in the latest mandriva
-> distro"
->     latest =
-> find_latest_numeric_release("http://distrib-coffee.ipsl.jussieu.fr/pub/linux/MandrivaLinux/devel/")
->     package_names =
-> get_source_package_list_from_url("http://distrib-coffee.ipsl.jussieu.fr/pub/linux/MandrivaLinux/devel/%s/SRPMS/main/release/" % latest, "main")
-> #    package_names +=
-> get_source_package_list_from_url("http://distrib-coffee.ipsl.jussieu.fr/pub/linux/MandrivaLinux/official/%s/SRPMS/contrib/release/" % latest, "contrib")
->     package_names +=
-> get_source_package_list_from_url("http://distrib-coffee.ipsl.jussieu.fr/pub/linux/MandrivaLinux/devel/%s/SRPMS/main/updates/" % latest, "updates")
-> 
->     package_list=clean_package_list(package_names)
->     return latest, package_list
-> 
-> 
-> It will downloads SRPMs from repo and build them, right?
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ meta-yocto/conf/distro/poky.conf |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-No, this is part of the license checking code where we check which other
-distributions contain a given piece of software for various reasons.
-
-We do not download and build SRPMs directly.
-
-Cheers,
-
-Richard
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index ad45f25..8e82496 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -71,8 +71,8 @@ CONNECTIVITY_CHECK_URIS ?= " \
+ SANITY_TESTED_DISTROS ?= " \
+             Yocto (Built by Poky 7.0) 1.2 \n \
+             Yocto (Built by Poky 8.0) 1.3 \n \
+-            Poky 7.0 (Yocto Project 1.2 Reference Distro) \n \
+-            Poky 8.0 (Yocto Project 1.3 Reference Distro) \n \
++            Poky 7.0 (Yocto Project 1.2 Reference Distro) 1.2 \n \
++            Poky 8.0 (Yocto Project 1.3 Reference Distro) 1.3 \n \
+             Ubuntu 10.04.4 LTS \n \
+             Ubuntu 11.10 \n \
+             Ubuntu 12.04 LTS \n \
+-- 
+1.7.9.5
 
 
