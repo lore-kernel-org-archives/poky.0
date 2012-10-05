@@ -1,27 +1,31 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8CB9FE0049B
-	for <poky@yoctoproject.org>; Thu,  4 Oct 2012 20:19:14 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 04 Oct 2012 20:19:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,538,1344236400"; d="scan'208";a="152665087"
-Received: from unknown (HELO [10.255.13.203]) ([10.255.13.203])
-	by AZSMGA002.ch.intel.com with ESMTP; 04 Oct 2012 20:19:13 -0700
-Message-ID: <506E51B1.6060801@linux.intel.com>
-Date: Thu, 04 Oct 2012 20:19:13 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
+Return-Path: <nobodydead@gmail.com>
+Received: from mail-pa0-f48.google.com (mail-pa0-f48.google.com
+	[209.85.220.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DED8E0049B
+	for <poky@yoctoproject.org>; Fri,  5 Oct 2012 02:12:44 -0700 (PDT)
+Received: by mail-pa0-f48.google.com with SMTP id kp12so1873785pab.35
+	for <poky@yoctoproject.org>; Fri, 05 Oct 2012 02:12:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:sender:date:x-google-sender-auth:message-id:subject
+	:from:to:content-type;
+	bh=+JUGbqkyXesvdyGNallSHh8PhojB29ws+tlgq03zwEU=;
+	b=eJVMhT4AbrWdToOBrjvt+/V6X14qsGHMS7T8MLPyGW4D0qE1trE2wljURakhiwIf2Z
+	hv+5Nq7PPGUG/9PU9hqrL7zAgcH0Gv+EcP5kg8tQ2jLOzPFVYdK/IqMphFgImB8Ai22u
+	CWzQ8zhDMqvJ0oT015xvdM7ISYA/wvMWGguOXSJcGJx2GMVZ2a6Hc9cgM+xuWH/0ZbQr
+	I0Eo+m9iElDwt2QJ0ct69HLe9+R8Jg3kzxPiF33kUdwoc5oLtyYAF6u66bf065AmciI3
+	ZmS4oST0qvuUzoNhZbVPKq8nH/RHXaVHbzJP52jygtIPKo9/hHNnO9RTrc12D+IT+KRd
+	NVlA==
 MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
-References: <1349394751-28272-1-git-send-email-sgw@linux.intel.com>
-	<1472694.z6zoviGNz8@helios>
-	<CAMKF1so_3v3+qQAcsDa2jJbRL+Ot2H-xozCGZW+FkrACmZ+UCg@mail.gmail.com>
-In-Reply-To: <CAMKF1so_3v3+qQAcsDa2jJbRL+Ot2H-xozCGZW+FkrACmZ+UCg@mail.gmail.com>
-Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] poky.conf: fix Poky release info to include release number
+Received: by 10.66.81.202 with SMTP id c10mr20023280pay.31.1349428361887; Fri,
+	05 Oct 2012 02:12:41 -0700 (PDT)
+Sender: nobodydead@gmail.com
+Received: by 10.68.55.230 with HTTP; Fri, 5 Oct 2012 02:12:41 -0700 (PDT)
+Date: Fri, 5 Oct 2012 13:12:41 +0400
+X-Google-Sender-Auth: fxKDQXTCp2oWQbDAZ6secnm8K9c
+Message-ID: <CABtOAfw9y1rjQ3YsS42ZiM71nCUtmWVoOkNZiSb7X1r2JXFjcg@mail.gmail.com>
+From: Alexander Khryukin <alexander@mezon.ru>
+To: poky@yoctoproject.org
+Subject: docbook-utils-native-0.6.14-r3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,61 +38,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Oct 2012 03:19:14 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 05 Oct 2012 09:12:44 -0000
+Content-Type: multipart/alternative; boundary=f46d042f94dc28fe8f04cb4c462a
 
-On 10/04/2012 05:31 PM, Khem Raj wrote:
->
->
-> On Thursday, October 4, 2012, Paul Eggleton
-> <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>
-> wrote:
->  > On Thursday 04 October 2012 16:52:31 Saul Wold wrote:
->  >> Signed-off-by: Saul Wold <sgw@linux.intel.com
-> <mailto:sgw@linux.intel.com>>
->  >> ---
->  >>  meta-yocto/conf/distro/poky.conf |    4 ++--
->  >>  1 file changed, 2 insertions(+), 2 deletions(-)
->  >>
->  >> diff --git a/meta-yocto/conf/distro/poky.conf
->  >> b/meta-yocto/conf/distro/poky.conf index ad45f25..8e82496 100644
->  >> --- a/meta-yocto/conf/distro/poky.conf
->  >> +++ b/meta-yocto/conf/distro/poky.conf
->  >> @@ -71,8 +71,8 @@ CONNECTIVITY_CHECK_URIS ?= " \
->  >>  SANITY_TESTED_DISTROS ?= " \
->  >>              Yocto (Built by Poky 7.0) 1.2 \n \
->  >>              Yocto (Built by Poky 8.0) 1.3 \n \
->  >> -            Poky 7.0 (Yocto Project 1.2 Reference Distro) \n \
->  >> -            Poky 8.0 (Yocto Project 1.3 Reference Distro) \n \
->  >> +            Poky 7.0 (Yocto Project 1.2 Reference Distro) 1.2 \n \
->  >> +            Poky 8.0 (Yocto Project 1.3 Reference Distro) 1.3 \n \
->  >
->  > Hmm, in prompting Richard to change DISTRO_NAME in the manner we have, I
->  > hadn't realised we would still end up with the version at the end as
-> well :(
->
-> Yeah that looks a bit odd
+--f46d042f94dc28fe8f04cb4c462a
+Content-Type: text/plain; charset=ISO-8859-1
 
-I think this is due to the issue put both the DISTRO_NAME and 
-DISTRO_VERSION into the issue and the LSB DISTRIB_RELEASE is both also.
+Hello!
 
-We could change issue, but I am not sure we can change the LSB, I would 
-have to dig into the standard!
+I faced with strange error
 
-Sau!
+http://pastie.org/4913775
 
->  >
->  > Cheers,
->  > Paul
->  >
->  > --
->  >
->  > Paul Eggleton
->  > Intel Open Source Technology Centre
->  > _______________________________________________
->  > poky mailing list
->  > poky@yoctoproject.org <mailto:poky@yoctoproject.org>
->  > https://lists.yoctoproject.org/listinfo/poky
->  >
 
+| jade: symbol lookup error:
+/home/user/poky/build/tmp/sysroots/x86_64-linux/usr/bin/../../usr/lib/libospgrove.so.0:
+undefined symbol: _ZN14OpenJade_Grove8ClassDef12sgmlDocumentE
+
+
+I'm already trying to google it, and found simple solution but not working
+for me
+
+>Try install the XML parser perl module on your host machine and see if it
+resolves it
+
+
+
+rpm -qa | grep -i xml
+
+lib64xml2_2-2.8.0-1-mdv2012.0.x86_64
+perl-XML-NamespaceSupport-1.110.0-5-mdv2012.0.noarch
+perl-XML-SAX-Base-1.80.0-1-mdv2012.0.noarch
+perl-XML-SAX-0.990.0-1-mdv2012.0.noarch
+perl-XML-LibXML-1.980.0-1-mdv2012.0.x86_64
+perl-XML-Parser-2.410.0-5-mdv2012.0.x86_64
+perl-XML-Twig-3.380.0-5-mdv2012.0.noarch
+perl-XML-XPath-1.130.0-5-mdv2012.0.noarch
+lib64xml1-1.8.17-19-mdv2012.0.x86_64
+lib64xml1-devel-1.8.17-19-mdv2012.0.x86_64
+libxml2-utils-2.8.0-1-mdv2012.0.x86_64
+lib64xml2-devel-2.8.0-1-mdv2012.0.x86_64
+docbook-dtd42-xml-1.0-13-mdv2011.0.noarch
+
+Please help .
+
+--f46d042f94dc28fe8f04cb4c462a
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+Hello!<br><br>I faced with strange error<br><br><a href=3D"http://pastie.or=
+g/4913775">http://pastie.org/4913775</a><br><br><br>| jade: symbol lookup e=
+rror: /home/user/poky/build/tmp/sysroots/x86_64-linux/usr/bin/../../usr/lib=
+/libospgrove.so.0: undefined symbol: _ZN14OpenJade_Grove8ClassDef12sgmlDocu=
+mentE<br>
+<br><br>I&#39;m already trying to google it, and found simple solution but =
+not working for me<br><br>&gt;Try install the XML parser perl module on you=
+r host
+machine and see if it resolves it<br><br><br><br>rpm -qa | grep -i xml<br><=
+br>lib64xml2_2-2.8.0-1-mdv2012.0.x86_64<br>perl-XML-NamespaceSupport-1.110.=
+0-5-mdv2012.0.noarch<br>perl-XML-SAX-Base-1.80.0-1-mdv2012.0.noarch<br>
+perl-XML-SAX-0.990.0-1-mdv2012.0.noarch<br>perl-XML-LibXML-1.980.0-1-mdv201=
+2.0.x86_64<br>perl-XML-Parser-2.410.0-5-mdv2012.0.x86_64<br>perl-XML-Twig-3=
+.380.0-5-mdv2012.0.noarch<br>perl-XML-XPath-1.130.0-5-mdv2012.0.noarch<br>
+lib64xml1-1.8.17-19-mdv2012.0.x86_64<br>lib64xml1-devel-1.8.17-19-mdv2012.0=
+.x86_64<br>libxml2-utils-2.8.0-1-mdv2012.0.x86_64<br>lib64xml2-devel-2.8.0-=
+1-mdv2012.0.x86_64<br>docbook-dtd42-xml-1.0-13-mdv2011.0.noarch<br><br>
+Please help .<br><br>
+
+--f46d042f94dc28fe8f04cb4c462a--
