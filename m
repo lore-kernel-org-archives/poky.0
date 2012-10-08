@@ -1,27 +1,21 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D9FCDE0027E
-	for <poky@yoctoproject.org>; Mon,  8 Oct 2012 09:32:36 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 92E69F81209; Mon,  8 Oct 2012 10:32:36 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id B9685F8119A;
-	Mon,  8 Oct 2012 10:32:35 -0600 (MDT)
-Message-ID: <5073003A.3010500@mlbassoc.com>
-Date: Mon, 08 Oct 2012 10:32:58 -0600
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <tf+lists.yocto@r-finger.com>
+Received: from r-finger.com (r-finger.com [178.79.160.5])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71D6BE0027E
+	for <poky@yoctoproject.org>; Mon,  8 Oct 2012 10:41:01 -0700 (PDT)
+Received: from [192.168.0.2] (host81-153-117-118.range81-153.btcentralplus.com
+	[81.153.117.118]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by r-finger.com (Postfix) with ESMTPSA id 96FBF99A4
+	for <poky@yoctoproject.org>; Mon,  8 Oct 2012 18:40:46 +0100 (BST)
+Message-ID: <5073101D.9080204@r-finger.com>
+Date: Mon, 08 Oct 2012 18:40:45 +0100
+From: Tomas Frydrych <tf+lists.yocto@r-finger.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120912 Thunderbird/15.0.1
+	rv:10.0.5) Gecko/20120624 Icedove/10.0.5
 MIME-Version: 1.0
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
 References: <5072FBB8.9060703@mlbassoc.com> <5797264.jLXkT5xyjF@helios>
 In-Reply-To: <5797264.jLXkT5xyjF@helios>
-Cc: poky@yoctoproject.org
 Subject: Re: Files missing from package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -35,73 +29,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Oct 2012 16:32:37 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Mon, 08 Oct 2012 17:41:01 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2012-10-08 10:24, Paul Eggleton wrote:
-> On Monday 08 October 2012 10:13:44 Gary Thomas wrote:
->> I'm building a package(recipe) for a system which uses opkg
->> as the packaging tool.  In my recipe, I have these additional
->> lines (only the relevant parts shown):
->>
->>     do_install_append() {
->>         install -d ${D}${sbindir}
->>         install -d ${D}/etc
->>         install -m 0755 ${S}/tools/get_tool ${D}${sbindir}
->>         ln -s get_tool ${D}${sbindir}/put_tool
->>         install -m 0644 ${WORKDIR}/tool.config ${D}/etc
->>     }
->>
->>     PACKAGES += "${PN}-tools"
->>     FILES_${PN}-tools = "${sbindir}/get_tool \
->>     		     ${sbindir}/put_tool \
->>                          /etc/tool.config \
->>     "
->>
->> When the recipe is built, I get the correct files in my image:
->>     $ find tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/
->>     tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/
->>     tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/etc
->>
->> tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/etc/tool.conf
->> ig tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/usr
->> tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/usr/sbin
->> tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/usr/sbin/get_
->> tool
->> tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/usr/sbin/put_
->> tool tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/bin
->> tmp/work/mytarget-poky-linux-gnueabi/some-tool-1.0-r0.1/image/bin/some_tool
->>
->> However, the 'some-tool-tools' package it missing the '/etc/tools.config'
->> file. I unpacked it manually to see this:
->>
->>     $ tar -ztvf data.tar.gz
->>     drwxr-xr-x root/root         0 2012-10-08 09:28 ./
->>     drwxr-xr-x root/root         0 2012-10-08 09:28 ./usr/
->>     drwxr-xr-x root/root         0 2012-10-08 09:28 ./usr/sbin/
->>     lrwxrwxrwx root/root         0 2012-10-08 09:28 ./usr/sbin/put_tool ->
->> get_tool -rwxr-xr-x root/root     15044 2012-10-08 09:28
->> ./usr/sbin/get_tool
->>
->> There is no '/etc' directory to be seen.
->>
->> What am I doing wrong?  This is built using poky:master
->> '7c39c87d52c20e47cf90275a16e4517a296c8388' from just a few days ago.
->
-> Since ${sysconfdir} is /etc by default and ${sysconfdir} is in the default
-> value of FILES_${PN}, and your additional package is appended to PACKAGES, I
-> suspect you'll find the file is being picked up by the main package first. You
-> need to use =+ instead of += so that the some-tool-tools package is prepended
+On 08/10/12 17:24, Paul Eggleton wrote:
+> Since ${sysconfdir} is /etc by default and ${sysconfdir} is in the default 
+> value of FILES_${PN}, and your additional package is appended to PACKAGES, I 
+> suspect you'll find the file is being picked up by the main package first. You 
+> need to use =+ instead of += so that the some-tool-tools package is prepended 
 > to PACKAGES and thus gets the file before the main package.
 
-Pretty obscure, but that did indeed solve the problem.
+Probably worth noting that using =+ with PACKAGES can have some
+undesirable side effects. For example, if the recipe in question
+generates packages dynamically, e.g., for plugins, the first package in
+the PACKAGES list will be considered the 'main' package, and the dynamic
+packages will RDEPEND on it. If you modify PACKAGES in such a recipe
+using the =+, this will result in broken dependency chain without any
+obvious signs something is not right. I think it's much better to
+explicitly specify what should go into the main package than using =+ to
+work around the unsuitable main package default.
 
-Thanks!
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Tomas
 
