@@ -1,25 +1,37 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 00989E012F0
-	for <poky@yoctoproject.org>; Sun,  7 Oct 2012 20:36:24 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 07 Oct 2012 20:36:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,549,1344236400"; d="scan'208";a="231819829"
-Received: from unknown (HELO envy.home) ([10.255.14.4])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Oct 2012 20:36:22 -0700
-Message-ID: <50724A08.7050500@linux.intel.com>
-Date: Sun, 07 Oct 2012 20:35:36 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
-MIME-Version: 1.0
-To: Poky <poky@yoctoproject.org>, 
- openembedded-core@lists.openembedded.org
-References: <cover.1349479383.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1349479383.git.dvhart@linux.intel.com>
-X-Enigmail-Version: 1.4.4
-Subject: Re: [PATCH 0/2] Update poky-tiny to linux-yocto-tiny_3.4 for qemux86
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-ie0-f176.google.com (mail-ie0-f176.google.com
+	[209.85.223.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F9BFE01300
+	for <poky@yoctoproject.org>; Sun,  7 Oct 2012 20:41:45 -0700 (PDT)
+Received: by mail-ie0-f176.google.com with SMTP id k11so9678763iea.35
+	for <poky@yoctoproject.org>; Sun, 07 Oct 2012 20:41:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=sender:from:to:cc:subject:date:message-id:x-mailer:in-reply-to
+	:references:in-reply-to:references;
+	bh=VKbsEQ1sCoO/DyTv8YU2wgdLsAyiA+QWAVS6SRgJzqQ=;
+	b=UfeMsyPyqAoAvxXY8+ZW6mkENhcozuCR+HVyoHAs7fb64JLcRmCx6IwC6OwNn0chpM
+	75EbFqMmojxdK3p4DYuq7DMlNlnDXzWRayPLcDxIRNdz6grud/P8spws6GMKjDO8Z66E
+	QwcP3xnMQRXi+3YvPO4dBbN08+Nf4+uvHzfS/YoeZwfpQpYY0oafPSJq3oPRP1xWYoPZ
+	gbm6AOL5V7P3moIFcRi+9HPjuQ3xn/fkQWmKMcE62Y9MkW3YNiW1f93xCc0e8Q2AKiDO
+	1N6kKxkOJXNlk8OjO4wbVU9P6DtfTLVv3p1Tuivq3IcaQX0/t4sR02p7ez+PEz7Yu39z
+	BCtw==
+Received: by 10.50.190.163 with SMTP id gr3mr6957732igc.69.1349667704726;
+	Sun, 07 Oct 2012 20:41:44 -0700 (PDT)
+Received: from localhost.localdomain ([96.44.93.233])
+	by mx.google.com with ESMTPS id 10sm6143359ign.5.2012.10.07.20.41.42
+	(version=SSLv3 cipher=OTHER); Sun, 07 Oct 2012 20:41:43 -0700 (PDT)
+Sender: Bruce Ashfield <bruce.ashfield@gmail.com>
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Sun,  7 Oct 2012 23:41:31 -0400
+Message-Id: <af84c18279bdf7c2c7f5ee5d5e88f7ce666f3a29.1349666145.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.5.4
+In-Reply-To: <cover.1349666145.git.bruce.ashfield@windriver.com>
+References: <cover.1349666145.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1349666145.git.bruce.ashfield@windriver.com>
+References: <cover.1349666145.git.bruce.ashfield@windriver.com>
+Cc: mark.asselstine@windriver.com, poky@yoctoproject.org
+Subject: [PATCH 1/1] linux-yocto-bsps: update hardware reference BSPs to v3.4.11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,56 +44,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Oct 2012 03:36:25 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 08 Oct 2012 03:41:45 -0000
 
+The hardware reference BSPs are missing the update to 3.4.11
+that the qemu* machines received several weeks ago.
 
+Bumping to 3.4.11 specifically addresses the segfaults being
+seen with rpm on the beagleboard.
 
-On 10/05/2012 04:31 PM, Darren Hart wrote:
-> As these patches are dependent on eachother, sending to both poky and oe-core
-> lists. Flame away.
-> 
-> The refresh to 3.4 for tiny is coming in rather late as I was focused on other
-> BSPs. However, qemux86 has been at 3.4 for poky and linux-yocto for a while now.
-> This update effectively uses a subset of that tested config for the images built
-> with poky-tiny. This only impacts qemux86 on poky-tiny.  That configuration
-> builds and boots to the serial console.
-> 
-> NOTE: This kernel recipe is pending a minor meta-data change to the
-> linux-yocto_3.4 git repository which will require a SRCREV_meta update. That
-> update can be made to only the linux-yocto-tiny_3.4 recipe in order to minimize
-> risk to the rest of the system. However, please do not commit this until the
-> meta-data patch goes in. At that point I will update the branch with the new
-> SRCREV and notify the list in response to this email.
+[YOCTO #3186]
 
-The necessary changes have been committed to linux-yocto-3.4.git. I have
-updated the branch with the appropriate SRCREV_meta for
-linux-yocto-tiny_3.4.bb. These patches are ready to pull.
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    9 ++++-----
+ 1 files changed, 4 insertions(+), 5 deletions(-)
 
-
-> The following changes since commit 415be864abdbd6f86e554aba684f5d7a9499e2e7:
-> 
->   sstate: Add extra entries to the sstate duplicate files whitelist (2012-10-05 16:18:26 +0100)
-> 
-> are available in the git repository at:
->   git://git.yoctoproject.org/poky-contrib dvhart/1.3/tiny
->   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=dvhart/1.3/tiny
-> 
-> Darren Hart (2):
->   linux-yocto-tiny: Add tiny recipe for the 3.4 linux-yocto kernel
->   poky-tiny: Update the default kernel to linux-yocto-tiny_3.4
-> 
->  meta-yocto/conf/distro/poky-tiny.conf             |    2 +-
->  meta/recipes-kernel/linux/linux-yocto-tiny_3.4.bb |   26 +++++++++++++++++++++
->  2 files changed, 27 insertions(+), 1 deletions(-)
->  create mode 100644 meta/recipes-kernel/linux/linux-yocto-tiny_3.4.bb
-
-
-Thanks,
-
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
+index 6a6176e..0a70143 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
+@@ -3,11 +3,10 @@ KBRANCH_routerstationpro = "standard/routerstationpro"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ KBRANCH_beagleboard = "standard/beagleboard"
+ 
+-SRCREV_machine_atom-pc ?= "59c3ff750831338d05ab67d5efd7fc101c451aff"
+-SRCREV_machine_routerstationpro ?= "009935376be574746446f4bead6f0fb7b40d6d79"
+-SRCREV_machine_mpc8315e-rdb ?= "6b18b6f483716b757c7c8642fa3792235118bb63"
+-SRCREV_machine_beagleboard ?= "59c3ff750831338d05ab67d5efd7fc101c451aff"
+-
++SRCREV_machine_atom-pc ?= "3fa06aa29078fdb2af431de2d3fdae7d281ba85f"
++SRCREV_machine_routerstationpro ?= "d041a78adac8cefd70ba42c316c07069b7b83def"
++SRCREV_machine_mpc8315e-rdb ?= "b7f8afa34eb1f3de110c0acfd6fb44bdae200e6a"
++SRCREV_machine_beagleboard ?= "3fa06aa29078fdb2af431de2d3fdae7d281ba85f"
+ 
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Technical Lead - Linux Kernel
+1.7.5.4
+
 
