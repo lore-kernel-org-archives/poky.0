@@ -1,28 +1,23 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 96501E00346
-	for <poky@yoctoproject.org>; Tue,  9 Oct 2012 05:36:00 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 7194AF8123D; Tue,  9 Oct 2012 06:35:59 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id AF9C3F811FB;
-	Tue,  9 Oct 2012 06:35:58 -0600 (MDT)
-Message-ID: <50741A47.1010107@mlbassoc.com>
-Date: Tue, 09 Oct 2012 06:36:23 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120912 Thunderbird/15.0.1
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DD1CBE00346
+	for <poky@yoctoproject.org>; Tue,  9 Oct 2012 05:41:30 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 09 Oct 2012 05:41:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,560,1344236400"; d="scan'208";a="231688668"
+Received: from unknown (HELO helios.localnet) ([10.252.122.38])
+	by fmsmga001.fm.intel.com with ESMTP; 09 Oct 2012 05:41:27 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Date: Tue, 09 Oct 2012 13:41:26 +0100
+Message-ID: <2044692.De8MTCDQ8r@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.9.2 (Linux/3.2.0-31-generic-pae; KDE/4.9.2; i686; ; )
+In-Reply-To: <50741A47.1010107@mlbassoc.com>
+References: <5072FBB8.9060703@mlbassoc.com> <1349735995.15658.156.camel@ted>
+	<50741A47.1010107@mlbassoc.com>
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <5072FBB8.9060703@mlbassoc.com> <5797264.jLXkT5xyjF@helios>
-	<5073101D.9080204@r-finger.com> <1349728637.15658.127.camel@ted>
-	<50735211.1090100@mlbassoc.com> <1349735995.15658.156.camel@ted>
-In-Reply-To: <1349735995.15658.156.camel@ted>
 Cc: poky@yoctoproject.org
 Subject: Re: Files missing from package
 X-BeenThere: poky@yoctoproject.org
@@ -37,57 +32,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Oct 2012 12:36:00 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 09 Oct 2012 12:41:31 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 2012-10-08 16:39, Richard Purdie wrote:
-> On Mon, 2012-10-08 at 16:22 -0600, Gary Thomas wrote:
->> On 2012-10-08 14:37, Richard Purdie wrote:
->>> On Mon, 2012-10-08 at 18:40 +0100, Tomas Frydrych wrote:
->>>> On 08/10/12 17:24, Paul Eggleton wrote:
->>>>> Since ${sysconfdir} is /etc by default and ${sysconfdir} is in the default
->>>>> value of FILES_${PN}, and your additional package is appended to PACKAGES, I
->>>>> suspect you'll find the file is being picked up by the main package first. You
->>>>> need to use =+ instead of += so that the some-tool-tools package is prepended
->>>>> to PACKAGES and thus gets the file before the main package.
->>>>
->>>> Probably worth noting that using =+ with PACKAGES can have some
->>>> undesirable side effects. For example, if the recipe in question
->>>> generates packages dynamically, e.g., for plugins, the first package in
->>>> the PACKAGES list will be considered the 'main' package, and the dynamic
->>>> packages will RDEPEND on it. If you modify PACKAGES in such a recipe
->>>> using the =+, this will result in broken dependency chain without any
->>>> obvious signs something is not right. I think it's much better to
->>>> explicitly specify what should go into the main package than using =+ to
->>>> work around the unsuitable main package default.
->>>
->>> FWIW, there is the PACKAGE_BEFORE_PN variable for this and other
->>> scenarios where you want something just before PN in PACKAGES.
->>
->> This does sound better, I always like to be explicit, especially when
->> the default/background has a possibility of biting me!
->>
->> So, how would I use that for my case (i.e. what lines do I add/change
->> in my recipe to use it)?
->
-> PACKAGE_BEFORE_PN += "${PN}-tools"
-> FILES_${PN}-tools = "${sbindir}/get_tool \
->                       ${sbindir}/put_tool \
->                          /etc/tool.config \
->
->
-> PACKAGE_BEFORE_PN lets you put the package specifically after
-> -dev/-dbg/-doc/-locale and so on but before PN.
+On Tuesday 09 October 2012 06:36:23 Gary Thomas wrote:
+> On 2012-10-08 16:39, Richard Purdie wrote:
+> > PACKAGE_BEFORE_PN lets you put the package specifically after
+> > -dev/-dbg/-doc/-locale and so on but before PN.
+> 
+> I needed to write this as
+>    PACKAGES_BEFORE_${PN} += "${PN}-tools"
 
-I needed to write this as
-   PACKAGES_BEFORE_${PN} += "${PN}-tools"
+Just to be clear the variable is called PACKAGE_BEFORE_PN and not 
+PACKAGES_BEFORE_PN; otherwise yes.
 
-Thanks
+Cheers,
+Paul
 
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
