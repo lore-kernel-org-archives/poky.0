@@ -1,23 +1,23 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB3C2E0145B
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CEDEFE0027E
 	for <poky@yoctoproject.org>; Thu, 11 Oct 2012 11:43:56 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 11 Oct 2012 11:43:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,573,1344236400"; d="scan'208";a="204473768"
+X-IronPort-AV: E=Sophos;i="4.80,573,1344236400"; d="scan'208";a="204473769"
 Received: from duke.jf.intel.com (HELO localhost) ([10.7.199.52])
-	by orsmga001.jf.intel.com with ESMTP; 11 Oct 2012 11:43:55 -0700
+	by orsmga001.jf.intel.com with ESMTP; 11 Oct 2012 11:43:56 -0700
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 11 Oct 2012 11:43:53 -0700
-Message-Id: <9ccd4738df982f884490e4b0797a5c404b0fb83d.1349980878.git.scott.a.garman@intel.com>
+Date: Thu, 11 Oct 2012 11:43:54 -0700
+Message-Id: <1dcbee3c58d445a10cb3f3ad5a94bc9038874e59.1349980878.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1349980878.git.scott.a.garman@intel.com>
 References: <cover.1349980878.git.scott.a.garman@intel.com>
 In-Reply-To: <cover.1349980878.git.scott.a.garman@intel.com>
 References: <cover.1349980878.git.scott.a.garman@intel.com>
-Subject: [PATCH 5/8] gnutls: Update SRC_URI to use GNU_MIRROR
+Subject: [PATCH 6/8] siteconfig: Clear cache before rebuilding
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,40 +32,30 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Thu, 11 Oct 2012 18:43:56 -0000
 
-From: Darren Hart <dvhart@linux.intel.com>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-The current SRC_URI fails. Update it with the GNU_MIRROR SRC_URI from
-upstream commit 753b22012f10c393c191d3116b9d38ee4be6d112.
+This ensures consistent build results and avoids build failures when compiler flags
+change for example.
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-CC: John Howard <john.howard@intel.com>
-CC: Scott Garman <scott.a.garman@intel.com>
+(From OE-Core rev: a5ff8396cad130f809f8f8da49bb38e6f80f923c)
+
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/recipes-support/gnutls/gnutls.inc |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta/classes/siteconfig.bbclass |    1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta/recipes-support/gnutls/gnutls.inc b/meta/recipes-support/gnutls/gnutls.inc
-index 157612e..e818f07 100644
---- a/meta/recipes-support/gnutls/gnutls.inc
-+++ b/meta/recipes-support/gnutls/gnutls.inc
-@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.gnu.org/software/gnutls/"
- BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
- DEPENDS = "zlib lzo libtasn1 libgcrypt (>= 1.4.2) libcap readline"
- 
--INC_PR = "r6"
-+INC_PR = "r7"
- 
- LICENSE = "GPLv3+ & LGPLv2.1+"
- LICENSE_${PN} = "LGPLv2.1+"
-@@ -15,7 +15,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504 \
-                     file://lib/COPYING;md5=a6f89e2100d9b6cdffcea4f398e37343 \
-                     file://libextra/COPYING;md5=d32239bcb673463ab874e80d47fae504"
- 
--SRC_URI = "ftp://ftp.gnutls.org/pub/gnutls/gnutls-${PV}.tar.bz2"
-+SRC_URI = "${GNU_MIRROR}/gnutls/gnutls-${PV}.tar.bz2"
- 
- inherit autotools binconfig pkgconfig gettext
- 
+diff --git a/meta/classes/siteconfig.bbclass b/meta/classes/siteconfig.bbclass
+index ccbe5b9..3701b7c 100644
+--- a/meta/classes/siteconfig.bbclass
++++ b/meta/classes/siteconfig.bbclass
+@@ -18,6 +18,7 @@ siteconfig_do_siteconfig_gencache () {
+ 		>${WORKDIR}/site_config_${MACHINE}/configure.ac
+ 	cd ${WORKDIR}/site_config_${MACHINE}
+ 	autoconf
++	rm -f ${PN}_cache
+         CONFIG_SITE="" ${EXTRASITECONFIG} ./configure ${CONFIGUREOPTS} --cache-file ${PN}_cache
+ 	sed -n -e "/ac_cv_c_bigendian/p" -e "/ac_cv_sizeof_/p" \
+ 		-e "/ac_cv_type_/p" -e "/ac_cv_header_/p" -e "/ac_cv_func_/p" \
 -- 
 1.7.9.5
 
