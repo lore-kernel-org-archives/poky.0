@@ -1,19 +1,19 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 76033E0144D
-	for <poky@yoctoproject.org>; Thu, 11 Oct 2012 06:27:32 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 11 Oct 2012 06:27:31 -0700
+Return-Path: <scott.a.garman@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 497CDE0027E
+	for <poky@yoctoproject.org>; Thu, 11 Oct 2012 11:43:56 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 11 Oct 2012 11:43:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,571,1344236400"; d="scan'208";a="203257204"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.122.70])
-	by azsmga001.ch.intel.com with ESMTP; 11 Oct 2012 06:27:31 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.80,573,1344236400"; d="scan'208";a="204473762"
+Received: from duke.jf.intel.com (HELO localhost) ([10.7.199.52])
+	by orsmga001.jf.intel.com with ESMTP; 11 Oct 2012 11:43:55 -0700
+From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 11 Oct 2012 14:27:27 +0100
-Message-Id: <1349962047-9347-1-git-send-email-paul.eggleton@linux.intel.com>
+Date: Thu, 11 Oct 2012 11:43:48 -0700
+Message-Id: <cover.1349980878.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [meta-yocto][PATCH] local.conf.sample: add PATH to SSTATE_MIRRORS comments
+Subject: [PATCH 0/8] denzil pull request 3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,42 +26,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Oct 2012 13:27:32 -0000
+X-List-Received-Date: Thu, 11 Oct 2012 18:43:56 -0000
 
-The shared state cache as pointed to by SSTATE_DIR by default now has
-two-character subdirectories to prevent there being an issue with too
-many files in the same directory; also, native sstate packages will go
-into a subdirectory named using the distro ID string. If you copy the
-newly structured sstate cache to a mirror location (either local or
-remote) and then point to it in SSTATE_MIRRORS, you need to append
-"PATH" to the end of the mirror URL so that the path used by bitbake
-before the mirror substitution is appended to the path used to access
-the mirror.
+Hi Richard,
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta-yocto/conf/local.conf.sample |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+This pull request correspons to the one I submitted to oe-core recently
+and that you've already merged, except for the two bitbake patches which
+we also need for the poky tree.
 
-diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
-index 31d58d7..23af275 100644
---- a/meta-yocto/conf/local.conf.sample
-+++ b/meta-yocto/conf/local.conf.sample
-@@ -216,9 +216,12 @@ PATCHRESOLVE = "noop"
- # would contain the sstate-cache results from previous builds (possibly from other 
- # machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the 
- # cache locations to check for the shared objects.
-+# NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
-+# at the end as shown in the examples below. This will be substituted with the
-+# correct path within the directory structure.
- #SSTATE_MIRRORS ?= "\
--#file://.* http://someserver.tld/share/sstate/ \n \
--#file://.* file:///some/local/dir/sstate/"
-+#file://.* http://someserver.tld/share/sstate/PATH \n \
-+#file://.* file:///some/local/dir/sstate/PATH"
- 
- # CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
- # track the version of this file when it was generated. This can safely be ignored if
+Scott
+
+The following changes since commit e7d4eba0a9bc02d61a77129da4be2f0c9239884b:
+
+  Save proxy settings (2012-10-01 18:13:15 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib sgarman/denzil-next
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-pull3
+
+Darren Hart (1):
+  gnutls: Update SRC_URI to use GNU_MIRROR
+
+Dennis Lan (1):
+  openjade-native: fix undefined Getopts error, use std namespace
+
+Jesse Zhang (1):
+  udev: don't mount with -o sync
+
+Martin Jansa (1):
+  openssl: add deprecated and unmaintained find.pl from perl-5.14 to
+    fix perlpath.pl
+
+Paul Eggleton (3):
+  classes/cml1: ensure -c menuconfig forces a rebuild next time
+  bitbake: bitbake: ensure -f causes dependent tasks to be re-run
+  bitbake: lib/bb/siggen.py: log when tainting the signature of a task
+
+Richard Purdie (1):
+  siteconfig: Clear cache before rebuilding
+
+ bitbake/lib/bb/build.py                            |   18 +++++++
+ bitbake/lib/bb/cooker.py                           |    6 +--
+ bitbake/lib/bb/runqueue.py                         |   12 ++---
+ bitbake/lib/bb/siggen.py                           |   35 +++++++++++++
+ meta/classes/cml1.bbclass                          |   16 ++++++
+ meta/classes/siteconfig.bbclass                    |    1 +
+ .../openssl/openssl-1.0.0i/find.pl                 |   54 ++++++++++++++++++++
+ .../recipes-connectivity/openssl/openssl_1.0.0i.bb |    7 ++-
+ meta/recipes-core/udev/udev/mount.sh               |    2 +-
+ meta/recipes-core/udev/udev_164.bb                 |    2 +-
+ .../openjade/openjade-1.3.2/msggen.pl.patch        |   44 ++++++++++++++++
+ .../openjade/openjade-native_1.3.2.bb              |    3 +-
+ meta/recipes-support/gnutls/gnutls.inc             |    4 +-
+ 13 files changed, 189 insertions(+), 15 deletions(-)
+ create mode 100644 meta/recipes-connectivity/openssl/openssl-1.0.0i/find.pl
+ create mode 100644 meta/recipes-devtools/openjade/openjade-1.3.2/msggen.pl.patch
+
 -- 
 1.7.9.5
 
