@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4A44EE01467
-	for <poky@yoctoproject.org>; Fri, 12 Oct 2012 00:59:20 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q9C7xGBT025408;
-	Fri, 12 Oct 2012 08:59:16 +0100
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 25167-03; Fri, 12 Oct 2012 08:59:12 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id q9C7x8SZ025402
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Fri, 12 Oct 2012 08:59:09 +0100
-Message-ID: <1350028753.14368.49.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Garman <scott.a.garman@intel.com>
-Date: Fri, 12 Oct 2012 08:59:13 +0100
-In-Reply-To: <cover.1349980878.git.scott.a.garman@intel.com>
-References: <cover.1349980878.git.scott.a.garman@intel.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/8] denzil pull request 3
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5E2D1E0027E
+	for <poky@yoctoproject.org>; Fri, 12 Oct 2012 12:53:37 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 12 Oct 2012 12:53:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,577,1344236400"; d="scan'208";a="155640371"
+Received: from unknown (HELO localhost) ([10.255.14.130])
+	by AZSMGA002.ch.intel.com with ESMTP; 12 Oct 2012 12:53:35 -0700
+From: tom.zanussi@intel.com
+To: poky@yoctoproject.org, bruce.ashfield@windriver.com, dvhart@linux.intel.com
+Date: Fri, 12 Oct 2012 14:53:33 -0500
+Message-Id: <cover.1350070372.git.tom.zanussi@intel.com>
+X-Mailer: git-send-email 1.7.11.4
+Subject: [PATCH 0/1] replace lttng with lttng-2.0 in core-tools-profile
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,19 +26,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Oct 2012 07:59:20 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 12 Oct 2012 19:53:37 -0000
 
-On Thu, 2012-10-11 at 11:43 -0700, Scott Garman wrote:
-> Hi Richard,
-> 
-> This pull request correspons to the one I submitted to oe-core recently
-> and that you've already merged, except for the two bitbake patches which
-> we also need for the poky tree.
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Merged to denzil, thanks.
+The current packagegroup-core-tools-profile pulls in 'legacy' lttng
+packages, which are useless with the linux-yocto kernels since those
+don't include lttng support.
 
-Richard
+lttng-2.0 does seem to work, if the patch for lttng-modules that I just
+sent to oe-core is applied as well (lttng-modules: update SRCREV and
+remove is_compat_task).
+
+I've only done minimal testing using qemux86, but even so it should at
+least be better than the curent situation.
+
+Sending this patch to poky instead of oe-core since it could be that
+legacy lttng is what's being used by most people, but it clearly doesn't
+work for yocto.
+
+The following changes since commit 0260bb5c6978839c068007fcff2f704937805faf:
+
+  gitignore: Fix for poky repository (2012-10-11 13:52:14 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/lttng-fixes.0
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/lttng-fixes.0
+
+Tom Zanussi (2):
+  lttng-modules: update SRCREV and remove is_compat_task patch
+  packagegroup-core-tools-profile: replace 'legacy' lttng with lttng
+    2.0
+
+ .../packagegroup-core-tools-profile.bb             |  9 ++---
+ ...ls-protect-is_compat_task-from-redefiniti.patch | 41 ----------------------
+ .../lttng-2.0/lttng-modules_2.0.5.bb               |  9 +++--
+ 3 files changed, 9 insertions(+), 50 deletions(-)
+ delete mode 100644 meta/recipes-kernel/lttng-2.0/lttng-modules/lttng-sycalls-protect-is_compat_task-from-redefiniti.patch
+
+-- 
+1.7.11.4
 
 
