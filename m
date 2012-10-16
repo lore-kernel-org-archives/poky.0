@@ -1,25 +1,19 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DE655E00292
-	for <poky@yoctoproject.org>; Mon, 15 Oct 2012 19:33:11 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 15 Oct 2012 19:33:11 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 35EF1E00292
+	for <poky@yoctoproject.org>; Mon, 15 Oct 2012 21:59:08 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 15 Oct 2012 21:59:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,593,1344236400"; d="scan'208";a="235480700"
-Received: from unknown (HELO [10.255.14.132]) ([10.255.14.132])
-	by fmsmga002.fm.intel.com with ESMTP; 15 Oct 2012 19:33:10 -0700
-Message-ID: <1350354790.27257.21.camel@empanada>
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: Saul Wold <sgw@linux.intel.com>
-Date: Mon, 15 Oct 2012 21:33:10 -0500
-In-Reply-To: <507CA199.2000509@linux.intel.com>
-References: <cover.1350070372.git.tom.zanussi@intel.com>
-	<83af67a8e717a631355c0deed80cf64969b8ae99.1350070372.git.tom.zanussi@intel.com>
-	<507CA199.2000509@linux.intel.com>
-X-Mailer: Evolution 3.4.1 (3.4.1-2.fc17) 
-Mime-Version: 1.0
-Cc: dvhart@linux.intel.com, poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] packagegroup-core-tools-profile: replace 'legacy' lttng with lttng 2.0
+X-IronPort-AV: E=Sophos;i="4.80,593,1344236400"; d="scan'208";a="156591539"
+Received: from unknown (HELO localhost) ([10.255.14.132])
+	by AZSMGA002.ch.intel.com with ESMTP; 15 Oct 2012 21:59:06 -0700
+From: tom.zanussi@intel.com
+To: poky@yoctoproject.org
+Date: Mon, 15 Oct 2012 23:59:04 -0500
+Message-Id: <cover.1350363132.git.tom.zanussi@intel.com>
+X-Mailer: git-send-email 1.7.11.4
+Subject: [PATCH 0/1] replace lttng with lttng-2.0 in core-tools-profile, v2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,74 +26,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Oct 2012 02:33:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 16 Oct 2012 04:59:08 -0000
 
-On Mon, 2012-10-15 at 16:51 -0700, Saul Wold wrote:
-> On 10/12/2012 12:53 PM, tom.zanussi@intel.com wrote:
-> > From: Tom Zanussi <tom.zanussi@intel.com>
-> >
-> > packagegroup-core-tools-profile currently pulls in the 'legacy' lttng
-> > packages, which are useless without legacy lttng support in the kernel.
-> >
-> > This makes packagegroup-core-tools-profile pull in the lttng 2.0
-> > packages instead, which don't need any kernel modifications to work.
-> >
-> > Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
-> > ---
-> >   .../packagegroups/packagegroup-core-tools-profile.bb             | 9 +++++----
-> >   1 file changed, 5 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb b/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
-> > index 1035036..bf6e16e 100644
-> > --- a/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
-> > +++ b/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
-> > @@ -5,7 +5,7 @@
-> >   SUMMARY = "Profiling tools"
-> >   LICENSE = "MIT"
-> >
-> > -PR = "r1"
-> > +PR = "r2"
-> >
-> >   inherit packagegroup
-> >
-> > @@ -29,8 +29,9 @@ PROFILETOOLS = "\
-> >       oprofileui-server \
-> >       powertop \
-> >       latencytop \
-> > -    lttng-control \
-> > -    lttng-viewer"
-> > +    lttng-tools \
-> > +    lttng-modules \
-> > +    babeltrace"
-> >
-> Not sure this will work since babeltrace is not buildable for mips machines.
-> 
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Yeah, I guess things like this are another reason it hasn't been
-switched over (though I wouldn't have expected a userspace translation
-tool to be the thing that choked on mips).
+The current packagegroup-core-tools-profile pulls in 'legacy' lttng
+packages, which are useless with the linux-yocto kernels since those
+don't include lttng support.
 
-So might as well hold off on this until I can test lttng on all the
-arches.
+lttng-2.0 does seem to work, if the patch for lttng-modules that I just
+sent to oe-core is applied as well (lttng-modules: update SRCREV and
+remove is_compat_task).
 
-Tom
+I've only done minimal testing using qemux86, but even so it should at
+least be better than the curent situation.
 
-> Sau!
-> 
-> >   # systemtap needs elfutils which is not fully buildable on uclibc
-> >   # hence we exclude it from uclibc based builds
-> > @@ -44,7 +45,7 @@ SYSTEMTAP_mips = ""
-> >   # which means we can not use syscall() to call it. So we ignore
-> >   # it for x86_64/uclibc
-> >
-> > -LTTNGUST = "lttng-ust"
-> > +LTTNGUST = "lttng2-ust"
-> >   LTTNGUST_libc-uclibc = ""
-> >   LTTNGUST_mips = ""
-> >
-> >
+Sending this patch to poky instead of oe-core since it could be that
+legacy lttng is what's being used by most people, but it clearly doesn't
+work for yocto.
 
+v2: the current lttng2 recipes don't build for mips.  From the recipes:
+
+  # Due to liburcu not building for MIPS currently this recipe needs to
+  # be limited also.
+  # So here let us first suppport x86/arm/powerpc platforms now.
+
+NOTE: this patch requires the accompanying oe-core patch to be applied
+as well:
+
+http://lists.linuxtogo.org/pipermail/openembedded-core/2012-October/030957.html
+
+The following changes since commit 83448c4b318ce60a54aae24a9a247456fa94caaf:
+
+  documentation: kernel-manual - Fixed typo. (2012-10-15 14:45:16 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/switch-to-lttng2
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/switch-to-lttng2
+
+Tom Zanussi (1):
+  packagegroup-core-tools-profile: replace 'legacy' lttng with lttng
+    2.0
+
+ .../packagegroup-core-tools-profile.bb             | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+-- 
+1.7.11.4
 
 
