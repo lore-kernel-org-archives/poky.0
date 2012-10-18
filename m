@@ -1,21 +1,20 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 40E43E002AB
-	for <poky@yoctoproject.org>; Mon, 15 Oct 2012 21:59:10 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 15 Oct 2012 21:58:46 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 216D1E01275
+	for <poky@yoctoproject.org>; Thu, 18 Oct 2012 07:25:01 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 18 Oct 2012 07:24:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,593,1344236400"; d="scan'208";a="227437700"
-Received: from unknown (HELO localhost) ([10.255.14.132])
-	by orsmga002.jf.intel.com with ESMTP; 15 Oct 2012 21:59:09 -0700
-From: tom.zanussi@intel.com
-To: poky@yoctoproject.org
-Date: Mon, 15 Oct 2012 23:59:08 -0500
-Message-Id: <ea602300d9211669df0acc5c346e4486d6bf6f67.1350363132.git.tom.zanussi@intel.com>
-X-Mailer: git-send-email 1.7.11.4
-In-Reply-To: <cover.1350363132.git.tom.zanussi@intel.com>
-References: <cover.1350363132.git.tom.zanussi@intel.com>
-Subject: [PATCH 1/1] packagegroup-core-tools-profile: replace 'legacy' lttng with lttng 2.0
+X-IronPort-AV: E=Sophos;i="4.80,607,1344236400"; d="scan'208";a="235548278"
+Received: from unknown (HELO localhost) ([10.255.14.139])
+	by fmsmga001.fm.intel.com with ESMTP; 18 Oct 2012 07:24:40 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+To: Poky <poky@yoctoproject.org>
+Date: Thu, 18 Oct 2012 10:23:23 -0400
+Message-Id: <d4af8f9ad5defd3922ac5d6744092e1d650b07fe.1350570203.git.dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.11.7
+Cc: Darren Hart <dvhart@linux.intel.com>, evadeflow@gmail.com
+Subject: [PATCH] yocto-bsp: Fix git url parsing, allowing for local mirrors
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,79 +27,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Oct 2012 04:59:10 -0000
+X-List-Received-Date: Thu, 18 Oct 2012 14:25:01 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+The git URLs used in bitbake recipes are not compatible directly with git.  In
+bitbake-speak, all git URLs start with git:// and the protocol is optionally
+specified in the SRC_URI. Local git mirrors are specified like so:
 
-packagegroup-core-tools-profile currently pulls in the 'legacy' lttng
-packages, which are useless without legacy lttng support in the kernel.
+    git:///path/to/local/mirror.git;protocol=file
 
-This makes packagegroup-core-tools-profile pull in the lttng 2.0
-packages instead, which don't need any kernel modifications to work.
+The URL that git requires would be:
 
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+    file:///path/to/local/mirror.git
+
+Update the yocto-bsp kernel.py to make the necessary adjustment when parsing
+the SRC_URI to extract the git URL.
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+CC: Tom Zanussi <tom.zanussi@intel.com>
+CC: evadeflow@gmail.com
 ---
- .../packagegroup-core-tools-profile.bb             | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ scripts/lib/bsp/kernel.py | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb b/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
-index 1035036..0ab2bc9 100644
---- a/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
-+++ b/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
-@@ -5,7 +5,7 @@
- SUMMARY = "Profiling tools"
- LICENSE = "MIT"
+diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
+index d4bdc4c..128fad0 100644
+--- a/scripts/lib/bsp/kernel.py
++++ b/scripts/lib/bsp/kernel.py
+@@ -631,6 +631,7 @@ def extract_giturl(file):
+     Extract the git url of the kernel repo from the kernel recipe's
+     SRC_URI.
+     """
++    url = None
+     f = open(file, "r")
+     lines = f.readlines()
+     for line in lines:
+@@ -641,10 +642,15 @@ def extract_giturl(file):
+                 line = line[1:].strip()
+                 if line.startswith("\""):
+                     line = line[1:].strip()
+-                    fields = line.split(";")
+-                    if fields:
+-                        return fields[0]
+-    return None
++                    prot = "git"
++                    for s in line.split(";"):
++                        if s.startswith("git://"):
++                            url = s
++                        if s.startswith("protocol="):
++                            prot = s.split("=")[1]
++                    if url:
++                        url = prot + url[3:]
++    return url
  
--PR = "r1"
-+PR = "r2"
  
- inherit packagegroup
- 
-@@ -29,8 +29,7 @@ PROFILETOOLS = "\
-     oprofileui-server \
-     powertop \
-     latencytop \
--    lttng-control \
--    lttng-viewer"
-+    "
- 
- # systemtap needs elfutils which is not fully buildable on uclibc
- # hence we exclude it from uclibc based builds
-@@ -44,10 +43,22 @@ SYSTEMTAP_mips = ""
- # which means we can not use syscall() to call it. So we ignore
- # it for x86_64/uclibc
- 
--LTTNGUST = "lttng-ust"
-+LTTNGUST = "lttng2-ust"
- LTTNGUST_libc-uclibc = ""
- LTTNGUST_mips = ""
- 
-+# lttng-tools, lttng-modules and babeltrace all depend on liburcu
-+# which currentl doesn't build on mips
-+
-+LTTNGTOOLS = "lttng-tools"
-+LTTNGTOOLS_mips = ""
-+
-+LTTNGMODULES = "lttng-modules"
-+LTTNGMODULES_mips = ""
-+
-+BABELTRACE = "babeltrace"
-+BABELTRACE_mips = ""
-+
- # valgrind does not work on mips
- 
- VALGRIND = "valgrind"
-@@ -65,6 +76,9 @@ VALGRIND_arm = ""
- RDEPENDS_${PN} = "\
-     ${PROFILETOOLS} \
-     ${LTTNGUST} \
-+    ${LTTNGTOOLS} \
-+    ${LTTNGMODULES} \
-+    ${BABELTRACE} \
-     ${SYSTEMTAP} \
-     ${VALGRIND} \
-     "
+ def find_giturl(context):
 -- 
-1.7.11.4
+1.7.11.7
 
 
