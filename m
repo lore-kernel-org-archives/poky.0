@@ -1,41 +1,21 @@
-Return-Path: <ross.burton@intel.com>
-Received: from azsmga101.ch.intel.com (mga07.intel.com [143.182.124.22])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F1FEAE0127A
-	for <poky@yoctoproject.org>; Thu, 18 Oct 2012 12:06:42 -0700 (PDT)
-Received: from mail-ea0-f176.google.com ([209.85.215.176])
-	by mga03.intel.com with ESMTP/TLS/RC4-SHA; 18 Oct 2012 12:06:26 -0700
-Received: by mail-ea0-f176.google.com with SMTP id n12so2676325eaa.35
-	for <poky@yoctoproject.org>; Thu, 18 Oct 2012 12:06:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=date:from:to:cc:message-id:in-reply-to:references:subject:x-mailer
-	:mime-version:content-type:content-transfer-encoding
-	:content-disposition:x-gm-message-state;
-	bh=Pc8Ui+kCNDd50//hNUpQ6IliXmBkDJ+DZXF6CYrE+Mw=;
-	b=RASOCX2B+5rKQxxBTrOGxfuhObU14RMShghfPrSFxAQkEDthHTkUk4dGUqrToOAQHg
-	NkGCKeDQbn8+3FdFX+hfUAKg+n/Ui0vP3mH9agAYJauueqVCVtzQCClK3XgnBDIgFu9D
-	WkcrSrgMh+47IfcYNimI3bOX5NaIQf/JbUlUOqDc6QnQ0GVLBhdEMs2jneJvMyajZTwu
-	oBE2AS0NyimSNroFKk8DwVbs+TEeKvSqnDMJLU66n/Ozq82yhWbrc5Xg+d0mKIgDhuSI
-	Igu4m1rGb1wzfN92VRBlnyGwlToTcT7vNd2Pp8ZoooT1a2cZfxDuEWFPbfGczDVoPBpN
-	19GQ==
-Received: by 10.14.193.129 with SMTP id k1mr33209003een.13.1350587184409;
-	Thu, 18 Oct 2012 12:06:24 -0700 (PDT)
-Received: from [192.168.1.7] (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id b44sm37246816eep.12.2012.10.18.12.06.21
-	(version=SSLv3 cipher=OTHER); Thu, 18 Oct 2012 12:06:23 -0700 (PDT)
-Date: Thu, 18 Oct 2012 20:06:19 +0100
-From: Ross Burton <ross.burton@intel.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Message-ID: <96D6ACEBF8C64289AACE61DBA5928D65@intel.com>
-In-Reply-To: <20121018174301.GB3087@jama.jama.net>
-References: <5080305D.2060001@mlbassoc.com>
-	<CAJTo0Lb7e7-OJMC1yG3c9DVSDoAri0vjD79mBm7K8MmU9sbiJg@mail.gmail.com>
-	<20121018174301.GB3087@jama.jama.net>
-X-Mailer: sparrow 1.6.4 (build 1178)
-MIME-Version: 1.0
-X-Gm-Message-State: ALoCoQlUqtzU2+rRJRULsdJ1jtoAnoyFO8nML2ws8aMqfq3cDpytgEH+M3L9l0fhDVm+jDeQz9EQ
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Issue with git fetcher
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 66220E00348
+	for <poky@yoctoproject.org>; Fri, 19 Oct 2012 10:22:15 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 19 Oct 2012 10:21:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,613,1344236400"; d="scan'208";a="208199404"
+Received: from unknown (HELO localhost) ([10.255.14.73])
+	by orsmga001.jf.intel.com with ESMTP; 19 Oct 2012 10:22:14 -0700
+From: tom.zanussi@intel.com
+To: poky@yoctoproject.org
+Date: Fri, 19 Oct 2012 12:22:13 -0500
+Message-Id: <fb09064abc2df8e5162663fce150ffcd532aa649.1350666665.git.tom.zanussi@intel.com>
+X-Mailer: git-send-email 1.7.11.4
+In-Reply-To: <cover.1350666665.git.tom.zanussi@intel.com>
+References: <cover.1350666665.git.tom.zanussi@intel.com>
+Subject: [PATCH 1/1] yocto-bsp: set branches_base for list_property_values()
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,18 +28,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Oct 2012 19:06:43 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+X-List-Received-Date: Fri, 19 Oct 2012 17:22:15 -0000
 
-On Thursday, 18 October 2012 at 18:43, Martin Jansa wrote:
-> It does make sense.
-> 
-> e.g. AUTOREV set in some .inc file.
-Fair enough.  If anyone is actually doing that with libav then this can remain, but clearly bitbake's fetcher has a bug too then - it shouldn't hit the network to resolve a branch name if it has an explicit srcrev.
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Ross 
+yocto_bsp_list_property_values() is missing the context it needs to
+properly filter choicelists, so add it to the context object.
 
+Fixes [YOCTO #3233]
+
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+---
+ scripts/lib/bsp/engine.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/scripts/lib/bsp/engine.py b/scripts/lib/bsp/engine.py
+index ac5058c..8d47bbf 100644
+--- a/scripts/lib/bsp/engine.py
++++ b/scripts/lib/bsp/engine.py
+@@ -1445,6 +1445,10 @@ def yocto_bsp_list_property_values(arch, property, scripts_path, properties_file
+             gen_fn = input_line.props["gen"]
+             if nested_properties:
+                 context["filename"] = nested_properties[0]
++                try:
++                    context["branches_base"] = input_line.props["branches_base"]
++                except KeyError:
++                    context["branches_base"] = None
+             values_list = input_line.gen_choices_list(context, False)
+         except KeyError:
+             for choice in input_line.choices:
+-- 
+1.7.11.4
 
 
