@@ -1,19 +1,25 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8C36BE00348
-	for <poky@yoctoproject.org>; Fri, 19 Oct 2012 10:22:15 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Oct 2012 10:22:13 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5F8BE0027E
+	for <poky@yoctoproject.org>; Tue, 23 Oct 2012 12:13:13 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 23 Oct 2012 12:13:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,613,1344236400"; d="scan'208";a="237598978"
-Received: from unknown (HELO localhost) ([10.255.14.73])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Oct 2012 10:22:12 -0700
-From: tom.zanussi@intel.com
-To: poky@yoctoproject.org
-Date: Fri, 19 Oct 2012 12:22:10 -0500
-Message-Id: <cover.1350666665.git.tom.zanussi@intel.com>
-X-Mailer: git-send-email 1.7.11.4
-Subject: [PATCH 0/1] Fix for YOCTO #3233
+X-IronPort-AV: E=Sophos;i="4.80,637,1344236400"; d="scan'208";a="159501395"
+Received: from unknown (HELO [10.255.14.141]) ([10.255.14.141])
+	by AZSMGA002.ch.intel.com with ESMTP; 23 Oct 2012 12:12:58 -0700
+Message-ID: <5086EC3A.7020507@linux.intel.com>
+Date: Tue, 23 Oct 2012 12:12:58 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
+MIME-Version: 1.0
+To: tom.zanussi@intel.com
+References: <cover.1350666665.git.tom.zanussi@intel.com>
+	<fb09064abc2df8e5162663fce150ffcd532aa649.1350666665.git.tom.zanussi@intel.com>
+In-Reply-To: <fb09064abc2df8e5162663fce150ffcd532aa649.1350666665.git.tom.zanussi@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] yocto-bsp: set branches_base for list_property_values()
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,30 +32,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Oct 2012 17:22:15 -0000
+X-List-Received-Date: Tue, 23 Oct 2012 19:13:13 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+On 10/19/2012 10:22 AM, tom.zanussi@intel.com wrote:
+> From: Tom Zanussi <tom.zanussi@intel.com>
+>
+> yocto_bsp_list_property_values() is missing the context it needs to
+> properly filter choicelists, so add it to the context object.
+>
+> Fixes [YOCTO #3233]
+>
+> Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+> ---
+>   scripts/lib/bsp/engine.py | 4 ++++
+>   1 file changed, 4 insertions(+)
+>
+> diff --git a/scripts/lib/bsp/engine.py b/scripts/lib/bsp/engine.py
+> index ac5058c..8d47bbf 100644
+> --- a/scripts/lib/bsp/engine.py
+> +++ b/scripts/lib/bsp/engine.py
+> @@ -1445,6 +1445,10 @@ def yocto_bsp_list_property_values(arch, property, scripts_path, properties_file
+>               gen_fn = input_line.props["gen"]
+>               if nested_properties:
+>                   context["filename"] = nested_properties[0]
+> +                try:
+> +                    context["branches_base"] = input_line.props["branches_base"]
+> +                except KeyError:
+> +                    context["branches_base"] = None
+>               values_list = input_line.gen_choices_list(context, False)
+>           except KeyError:
+>               for choice in input_line.choices:
+>
+Merged into Poky Master
 
-This fixes a problem seen on one of the QA systems running 'create bsp'
-functionality in ADT.  We haven't been able to reproduce the problem
-elsewhere, but it fixes it there.
-
-The following changes since commit fadb4079014514beb7d2d3e6c66f63397d4ebce2:
-
-  PACKAGES_DYNAMIC: use += instead of = in most cases (2012-10-19 18:02:26 +0100)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib.git tzanussi/3233-fix
-  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/3233-fix
-
-Tom Zanussi (1):
-  yocto-bsp: set branches_base for list_property_values()
-
- scripts/lib/bsp/engine.py | 4 ++++
- 1 file changed, 4 insertions(+)
-
--- 
-1.7.11.4
-
+Thanks
+	Sau!
 
