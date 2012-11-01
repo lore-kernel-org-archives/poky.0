@@ -1,41 +1,41 @@
 Return-Path: <B29882@freescale.com>
-Received: from tx2outboundpool.messaging.microsoft.com
-	(tx2ehsobe003.messaging.microsoft.com [65.55.88.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AAE9BE00346
-	for <poky@yoctoproject.org>; Thu,  1 Nov 2012 11:15:33 -0700 (PDT)
-Received: from mail253-tx2-R.bigfish.com (10.9.14.249) by
-	TX2EHSOBE010.bigfish.com (10.9.40.30) with Microsoft SMTP Server id
-	14.1.225.23; Thu, 1 Nov 2012 18:15:32 +0000
-Received: from mail253-tx2 (localhost [127.0.0.1])	by
-	mail253-tx2-R.bigfish.com (Postfix) with ESMTP id 9EFBA1680255;
-	Thu,  1 Nov 2012 18:15:32 +0000 (UTC)
+Received: from ch1outboundpool.messaging.microsoft.com
+	(ch1ehsobe004.messaging.microsoft.com [216.32.181.184])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CEEFFE00346
+	for <poky@yoctoproject.org>; Thu,  1 Nov 2012 11:16:08 -0700 (PDT)
+Received: from mail242-ch1-R.bigfish.com (10.43.68.250) by
+	CH1EHSOBE015.bigfish.com (10.43.70.65) with Microsoft SMTP Server id
+	14.1.225.23; Thu, 1 Nov 2012 18:16:08 +0000
+Received: from mail242-ch1 (localhost [127.0.0.1])	by
+	mail242-ch1-R.bigfish.com (Postfix) with ESMTP id EB2B3D4017F;
+	Thu,  1 Nov 2012 18:16:07 +0000 (UTC)
 X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
 	H:mail.freescale.net; RD:none; EFVD:NLI
 X-SpamScore: 3
 X-BigFish: VS3(zzzz1de0h1202h1d1ah1d2ah1082kzz8275bh8275dhz2dh2a8h668h839hd24he5bhf0ah1288h12a5h12a9h12bdh12e5h137ah139eh13b6h1441h1504h1537h1155h)
-Received: from mail253-tx2 (localhost.localdomain [127.0.0.1]) by mail253-tx2
-	(MessageSwitch) id 1351793730447292_23081;
-	Thu,  1 Nov 2012 18:15:30 +0000 (UTC)
-Received: from TX2EHSMHS013.bigfish.com (unknown [10.9.14.236])	by
-	mail253-tx2.bigfish.com (Postfix) with ESMTP id 69059D40047;
-	Thu,  1 Nov 2012 18:15:30 +0000 (UTC)
-Received: from mail.freescale.net (70.37.183.190) by TX2EHSMHS013.bigfish.com
-	(10.9.99.113) with Microsoft SMTP Server (TLS) id 14.1.225.23;
-	Thu, 1 Nov 2012 18:15:28 +0000
+Received: from mail242-ch1 (localhost.localdomain [127.0.0.1]) by mail242-ch1
+	(MessageSwitch) id 1351793765926771_16443;
+	Thu,  1 Nov 2012 18:16:05 +0000 (UTC)
+Received: from CH1EHSMHS016.bigfish.com (snatpool3.int.messaging.microsoft.com
+	[10.43.68.226])	by mail242-ch1.bigfish.com (Postfix) with ESMTP id
+	E0278B400D7;	Thu,  1 Nov 2012 18:16:05 +0000 (UTC)
+Received: from mail.freescale.net (70.37.183.190) by CH1EHSMHS016.bigfish.com
+	(10.43.70.16) with Microsoft SMTP Server (TLS) id 14.1.225.23;
+	Thu, 1 Nov 2012 18:16:05 +0000
 Received: from tx30smr01.am.freescale.net (10.81.153.31) by
-	039-SN1MMR1-003.039d.mgd.msft.net (10.84.1.16) with Microsoft SMTP
-	Server (TLS) id 14.2.318.3; Thu, 1 Nov 2012 18:15:28 +0000
+	039-SN1MMR1-002.039d.mgd.msft.net (10.84.1.15) with Microsoft SMTP
+	Server (TLS) id 14.2.318.3; Thu, 1 Nov 2012 18:16:04 +0000
 Received: from right.am.freescale.net (right.am.freescale.net [10.82.176.228])
 	by tx30smr01.am.freescale.net (8.14.3/8.14.0) with ESMTP id
-	qA1IFOAe001080; Thu, 1 Nov 2012 11:15:25 -0700
+	qA1IG3vF001328; Thu, 1 Nov 2012 11:16:03 -0700
 From: Matthew McClintock <msm@freescale.com>
 To: <poky@yoctoproject.org>
-Date: Thu, 1 Nov 2012 13:15:24 -0500
-Message-ID: <1351793724-3182-1-git-send-email-msm@freescale.com>
+Date: Thu, 1 Nov 2012 13:16:03 -0500
+Message-ID: <1351793763-5317-1-git-send-email-msm@freescale.com>
 X-Mailer: git-send-email 1.7.9.7
 MIME-Version: 1.0
 X-OriginatorOrg: freescale.com
-Subject: [PATCH] bitbake: command: add error to return of runCommand
+Subject: [for-denzil] bitbake: command: add error to return of runCommand
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,7 +48,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Nov 2012 18:15:34 -0000
+X-List-Received-Date: Thu, 01 Nov 2012 18:16:09 -0000
 Content-Type: text/plain
 
 From: Christopher Larson <chris_larson@mentor.com>
@@ -82,15 +82,15 @@ Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
  bitbake/lib/bb/command.py                   |   43 +++++++++++++++----------
  bitbake/lib/bb/server/process.py            |    2 +-
- bitbake/lib/bb/ui/crumbs/hobeventhandler.py |   10 ++----
+ bitbake/lib/bb/ui/crumbs/hobeventhandler.py |    5 ++-
  bitbake/lib/bb/ui/depexp.py                 |   38 ++++++++++++++--------
- bitbake/lib/bb/ui/goggle.py                 |   17 ++++++----
- bitbake/lib/bb/ui/knotty.py                 |   46 +++++++++++++++++++--------
- bitbake/lib/bb/ui/ncurses.py                |   21 ++++++++----
- 7 files changed, 112 insertions(+), 65 deletions(-)
+ bitbake/lib/bb/ui/goggle.py                 |   17 +++++-----
+ bitbake/lib/bb/ui/knotty.py                 |   45 ++++++++++++++++++---------
+ bitbake/lib/bb/ui/ncurses.py                |   21 ++++++++-----
+ 7 files changed, 112 insertions(+), 59 deletions(-)
 
 diff --git a/bitbake/lib/bb/command.py b/bitbake/lib/bb/command.py
-index 27b5171..3f28bca 100644
+index fd8912a..00b854e 100644
 --- a/bitbake/lib/bb/command.py
 +++ b/bitbake/lib/bb/command.py
 @@ -44,6 +44,9 @@ class CommandFailed(CommandExit):
@@ -171,28 +171,23 @@ index ba91336..3ae9ede 100644
                  pass
  
 diff --git a/bitbake/lib/bb/ui/crumbs/hobeventhandler.py b/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
-index 5d038f4..82ebc7d 100644
+index 52acec1..21bea23 100644
 --- a/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
 +++ b/bitbake/lib/bb/ui/crumbs/hobeventhandler.py
-@@ -101,13 +101,9 @@ class HobHandler(gobject.GObject):
+@@ -102,7 +102,10 @@ class HobHandler(gobject.GObject):
  
      def runCommand(self, commandline):
          try:
--            result = self.server.runCommand(commandline)
--            result_str = str(result)
--            if (result_str.startswith("Busy (") or
--                    result_str == "No such command"):
--                raise Exception('%s has failed with output "%s". ' %
--                        (str(commandline), result_str) +
--                        "We recommend that you restart Hob.")
+-            return self.server.runCommand(commandline)
 +            result, error = self.server.runCommand(commandline)
 +            if error:
 +                raise Exception("Error running command '%s': %s" % (commandline, error))
-             return result
++            return result
          except Exception as e:
              self.commands_async = []
+             self.clear_busy()
 diff --git a/bitbake/lib/bb/ui/depexp.py b/bitbake/lib/bb/ui/depexp.py
-index 1a716a8..85910f6 100644
+index b62adbf..1254128 100644
 --- a/bitbake/lib/bb/ui/depexp.py
 +++ b/bitbake/lib/bb/ui/depexp.py
 @@ -198,17 +198,23 @@ class gtkthread(threading.Thread):
@@ -229,7 +224,7 @@ index 1a716a8..85910f6 100644
      except xmlrpclib.Fault as x:
          print("XMLRPC Fault getting commandline:\n %s" % x)
          return
-@@ -234,7 +240,9 @@ def main(server, eventHandler):
+@@ -229,7 +235,9 @@ def main(server, eventHandler):
          try:
              event = eventHandler.waitEvent(0.25)
              if gtkthread.quit.isSet():
@@ -240,7 +235,7 @@ index 1a716a8..85910f6 100644
                  break
  
              if event is None:
-@@ -310,9 +318,13 @@ def main(server, eventHandler):
+@@ -302,9 +310,13 @@ def main(server, eventHandler):
                  break
              if shutdown == 1:
                  print("\nSecond Keyboard Interrupt, stopping...\n")
@@ -288,10 +283,10 @@ index b2fd274..c0785b7 100644
      except xmlrpclib.Fault as x:
          print("XMLRPC Fault getting commandline:\n %s" % x)
 diff --git a/bitbake/lib/bb/ui/knotty.py b/bitbake/lib/bb/ui/knotty.py
-index 3799018..8c63d74 100644
+index 0167416..439a792 100644
 --- a/bitbake/lib/bb/ui/knotty.py
 +++ b/bitbake/lib/bb/ui/knotty.py
-@@ -217,9 +217,19 @@ class TerminalFilter(object):
+@@ -107,9 +107,18 @@ class TerminalFilter(object):
  def main(server, eventHandler, tf = TerminalFilter):
  
      # Get values of variables which control our output
@@ -310,11 +305,10 @@ index 3799018..8c63d74 100644
 +    if error:
 +        logger.error("Unable to get the value of BB_CONSOLELOG variable: %s" % error)
 +        return 1
-+
-     if sys.stdin.isatty() and sys.stdout.isatty():
-         log_exec_tty = True
-     else:
-@@ -240,19 +250,22 @@ def main(server, eventHandler, tf = TerminalFilter):
+ 
+     helper = uihelper.BBUIHelper()
+ 
+@@ -125,19 +134,22 @@ def main(server, eventHandler, tf = TerminalFilter):
          logger.addHandler(consolelog)
  
      try:
@@ -345,7 +339,7 @@ index 3799018..8c63d74 100644
          return 1
  
      parseprogress = None
-@@ -447,14 +460,19 @@ def main(server, eventHandler, tf = TerminalFilter):
+@@ -318,14 +330,19 @@ def main(server, eventHandler, tf = TerminalFilter):
              if ioerror.args[0] == 4:
                  pass
          except KeyboardInterrupt:
@@ -369,10 +363,10 @@ index 3799018..8c63d74 100644
              pass
  
 diff --git a/bitbake/lib/bb/ui/ncurses.py b/bitbake/lib/bb/ui/ncurses.py
-index f6ea7f9..98647fc 100644
+index 8524446..896ed01 100644
 --- a/bitbake/lib/bb/ui/ncurses.py
 +++ b/bitbake/lib/bb/ui/ncurses.py
-@@ -236,15 +236,18 @@ class NCursesUI:
+@@ -230,15 +230,18 @@ class NCursesUI:
          shutdown = 0
  
          try:
@@ -396,7 +390,7 @@ index f6ea7f9..98647fc 100644
                  print("Couldn't get default commandlind! %s" % ret)
                  return
          except xmlrpclib.Fault as x:
-@@ -345,10 +348,14 @@ class NCursesUI:
+@@ -337,10 +340,14 @@ class NCursesUI:
                      exitflag = True
                  if shutdown == 1:
                      mw.appendText("Second Keyboard Interrupt, stopping...\n")
