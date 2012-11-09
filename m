@@ -1,31 +1,19 @@
-Return-Path: <erik.boto@pelagicore.com>
-Received: from mail-da0-f48.google.com (mail-da0-f48.google.com
-	[209.85.210.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5EDEEE003DA
-	for <poky@yoctoproject.org>; Fri,  9 Nov 2012 02:16:02 -0800 (PST)
-Received: by mail-da0-f48.google.com with SMTP id z8so1634889dad.35
-	for <poky@yoctoproject.org>; Fri, 09 Nov 2012 02:16:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type
-	:x-gm-message-state;
-	bh=Jt8XlQF3z/J5oHNGQXICJWVJqImNgqYCwq+wLUOhcgo=;
-	b=X4cAQKQVIaLq/mHu9YD9TJXnA8/d55BzG5usLq48yJljLfBdIFr+kR1Q2/CEsQfyTb
-	j40wMBtosg08wZ4R+9+NiIdvVXHdtfpf9+9XP44iuVNu0dtDa+CH/Tjll3WEIfE5JqSh
-	PMzpuJKMkyyVjp7UR8CB0F6ehdnDsMI5GCnbTq8SZVELFxWxDDWDrA7eJROxtBUeEvbG
-	5v+EWmPoiOb9jlnudxk9usDZv3AtQrZdBcPZNh1ezKFfJo0Zo+GHBDWKsrVF/wDCl27Z
-	A+d8y53YhJlpG8xASjIfC+kyQl0bceozquf/6TQsKXxWNAbi0DrfqagPaDMBeS3QYMr4
-	iYDg==
-MIME-Version: 1.0
-Received: by 10.68.253.4 with SMTP id zw4mr32405482pbc.143.1352456162020; Fri,
-	09 Nov 2012 02:16:02 -0800 (PST)
-Received: by 10.68.82.35 with HTTP; Fri, 9 Nov 2012 02:16:02 -0800 (PST)
-Date: Fri, 9 Nov 2012 11:16:02 +0100
-Message-ID: <CA+AhUGydak7kaCY=gGXeCS=XAfdEqiZ9wbMjQZbiF7FA71LSew@mail.gmail.com>
-From: =?ISO-8859-1?Q?Erik_Bot=F6?= <erik.boto@pelagicore.com>
+Return-Path: <radu.moisan@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1B9FFE003DA
+	for <poky@yoctoproject.org>; Fri,  9 Nov 2012 02:25:30 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 09 Nov 2012 02:25:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,744,1344236400"; d="scan'208";a="246381059"
+Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
+	by fmsmga002.fm.intel.com with ESMTP; 09 Nov 2012 02:25:01 -0800
+From: Radu Moisan <radu.moisan@intel.com>
 To: poky@yoctoproject.org
-X-Gm-Message-State: ALoCoQnNTtfK5H38ukaR7YuMw5GB0z9iBa5Ua7pOMnrHBGtLeW36e2I3bJpT45GDGVtO2F/Ui7on
-Subject: Cannot use QT_VERSION in project file when building Qt app
+Date: Fri,  9 Nov 2012 12:29:28 +0200
+Message-Id: <1352456969-17505-1-git-send-email-radu.moisan@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] upstream_tracking: update for 1.4 planning
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,39 +26,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Nov 2012 10:16:02 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 09 Nov 2012 10:25:30 -0000
 
-Hi,
+Updated upstream_tracking.inc, mainly CHECK_DATE.
 
-I have a very simple recipe:
+Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+---
+ .../conf/distro/include/upstream_tracking.inc      |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-DESCRIPTION = "My App"
-SECTION = "system"
-LICENSE = "CLOSED"
-PR="r1"
-SRC_URI = "file://${PN}_${PV}.tar.gz"
-DEPENDS = "qt-mobility-x11"
-S = "${WORKDIR}/${PN}-${PV}/"
-inherit qmake2 qt4x11
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index fd422cf..e69a082 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -24,7 +24,7 @@
+ #
+ RECIPE_UPSTREAM_VERSION_pn-acpid = "1.0.10"
+ RECIPE_UPSTREAM_DATE_pn-acpid = "Apr 22, 2009"
+-CHECK_DATE_pn-acpid = "Aug 27, 2012"
++CHECK_DATE_pn-acpid = "Nov 09, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
+ CHECK_DATE_pn-adt-installer = "Sep 11, 2012"
+ RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
+@@ -62,7 +62,7 @@ RECIPE_UPSTREAM_DATE_pn-bdwc = "Aug 15, 2012"
+ CHECK_DATE_pn-bdwgc = "Aug 27, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-beecrypt = "4.2.1"
+ RECIPE_UPSTREAM_DATE_pn-beecrypt = "Jul 12, 2009"
+-CHECK_DATE_pn-beecrypt = "Aug 27, 2012"
++CHECK_DATE_pn-beecrypt = "Nov 09, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-bigreqsproto= "1.1.1"
+ RECIPE_UPSTREAM_DATE_pn-bigreqsproto= "Feb 25, 2011"
+ CHECK_DATE_pn-bigreqsproto= "Aug 27, 2012"
+@@ -1016,7 +1016,7 @@ CHECK_DATE_pn-nfs-utils = "Aug 31, 2012"
+ RECIPE_UPSTREAM_DATE_pn-nfs-utils = "May 14, 2012"
+ RECIPE_UPSTREAM_DATE_pn-ocf-linux = "Jan 27, 2012"
+ RECIPE_UPSTREA_VERSION_pn-ocf-linux = "20120107"
+-CHECK_DATE_pn-ocf-linux = "Aug 31, 2012"
++CHECK_DATE_pn-ocf-linux = "Nov 09, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-ofono = "1.6"
+ RECIPE_UPSTREAM_DATE_pn-ofono="Apr 20, 2012"
+ CHECK_DATE_pn-ofono = "Aug 31, 2012"
+@@ -1226,7 +1226,7 @@ RECIPE_UPSTREAM_VERSION_pn-sed = "4.2"
+ CHECK_DATE_pn-sed = "Sep 03, 2012"
+ RECIPE_UPSTREAM_DATE_pn-sed = "Apr 30, 2009"
+ RECIPE_UPSTREAM_VERSION_pn-setserial = "2.17"
+-CHECK_DATE_pn-setserial = "Sep 03, 2012"
++CHECK_DATE_pn-setserial = "Nov 09, 2012"
+ RECIPE_UPSTREAM_DATE_pn-setserial = "Feb 09, 2000"
+ RECIPE_UPSTREAM_VERSION_pn-settings-daemon = "3.4.2"
+ RECIPE_UPSTREAM_DATE_pn-settings-daemon = "May 15, 2012"
+@@ -1258,7 +1258,7 @@ RECIPE_UPSTREAM_DATE_pn-sqlite3 = "Jun 11, 2012"
+ CHECK_DATE_pn-sqlite3= "Sep 03, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-squashfs-tools = "4.2"
+ RECIPE_UPSTREAM_DATE_pn-squashfs-tools = "Feb 28, 2011"
+-CHECK_DATE_pn-squashfs-tools = "Sep 03, 2012"
++CHECK_DATE_pn-squashfs-tools = "Nov 09, 2012"
+ RECIPE_UPSTREAM_DATE_pn-startup-notification = "May 16, 2011"
+ RECIPE_UPSTREAM_VERSION_pn-startup-notification = "0.12"
+ CHECK_DATE_pn-startup-notification = "Sep 03, 2012"
+@@ -1390,7 +1390,7 @@ RECIPE_UPSTREAM_DATE_pn-vte="May 30, 2012"
+ CHECK_DATE_pn-vte = "Sep 03, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-watchdog = "5.12"
+ RECIPE_UPSTREAM_DATE_pn-watchdog = "Apr 05, 2012"
+-CHECK_DATE_pn-watchdog = "Sep 03, 2012"
++CHECK_DATE_pn-watchdog = "Nov 09, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-wbxml2 = "0.10.8"
+ RECIPE_UPSTREAM_DATE_pn-wbxml2 = "Jul 06, 2010"
+ CHECK_DATE_pn-wbxml2 = "Sep 03, 2012"
+-- 
+1.7.9.5
 
-In the .pro file I have some checks for the QT version used, e.g. :
-
-contains(QT_MAJOR_VERSION, 4):lessThan(QT_MINOR_VERSION, 6) {
-    // stuff
-}
-
-But it appears as the QT_VERSION, QT_MAJOR_VERSION and
-QT_MINOR_VERSION variables are not set.
-
-If I run qmake2 --version in i devshell I get the correct version:
-$ qmake2 -v
-QMake version 2.01a
-Using Qt version 4.8.1 in
-/home/erbo/pcore/yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib
-
-Any ideas what the issue could be?
-
-Cheers,
-Erik
 
