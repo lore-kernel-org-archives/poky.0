@@ -1,23 +1,20 @@
-Return-Path: <bevenson@melinkcorp.com>
-Received: from pluto.melinkcorp.com (rrcs-98-100-91-244.central.biz.rr.com
-	[98.100.91.244])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 073B0E01275
-	for <poky@yoctoproject.org>; Fri,  9 Nov 2012 10:28:00 -0800 (PST)
-Received: from pluto.melinkcorp.local ([10.0.2.4]) by pluto.melinkcorp.local
-	([10.0.2.4]) with mapi; Fri, 9 Nov 2012 13:28:00 -0500
-From: Bryan Evenson <bevenson@melinkcorp.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Fri, 9 Nov 2012 13:27:58 -0500
-Thread-Topic: Errors attempting to build AT91SAM9x5 BSP
-Thread-Index: Ac2+p/HJGF/PFlj+S0eIOlKPBBI7Jw==
-Message-ID: <91586D499ADFD74FBCFB8425266A5DE4012C7CE153F8@pluto.melinkcorp.local>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-vipre-scanned: 013C73CE00364C013C751B
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Errors attempting to build AT91SAM9x5 BSP
+Return-Path: <radu.moisan@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 441FAE00294
+	for <poky@yoctoproject.org>; Mon, 12 Nov 2012 11:46:46 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 12 Nov 2012 11:46:46 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.80,764,1344236400"; d="scan'208";a="218436703"
+Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.32])
+	by orsmga001.jf.intel.com with ESMTP; 12 Nov 2012 11:46:44 -0800
+From: Radu Moisan <radu.moisan@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 12 Nov 2012 21:51:18 +0200
+Message-Id: <1352749878-10645-1-git-send-email-radu.moisan@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Cc: Alexandru Damian <alexandru.damian@intel.com>
+Subject: [PATCH] initrd: add recovery feature
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,244 +27,86 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Nov 2012 18:28:01 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 12 Nov 2012 19:46:46 -0000
 
-All,
+Allows you to use as root a partition instead of the rootfs.img
+for recovering an old install, and fails safe when no rootfs is
+found, dropping the user to a shell if something goes wrong.
 
-I am using an Atmel AT91SAM9G25 board and have been using the OpenEmbedded =
-Classic development tree (2011.03-maintenance branch) to build images for m=
-y board.  This setup is on Linux kernel 2.6.39 and uses a special patch fro=
-m Atmel to add SAM9x5 support.  There are some kernel fixes starting at ker=
-nel 3.2 that are applicable to my setup that I would like to incorporate in=
-to my image.  After reading the Yocto Project documentation, I thought the =
-best approach to take would be to use the Yocto Project tools to build a BS=
-P for my AT91SAM9G25 board.  So far I have been unsuccessful and I am looki=
-ng for help.
+Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+Signed-off-by: Alexandru Damian <alexandru.damian@intel.com>
+---
+ meta/recipes-core/initrdscripts/files/init-live.sh |   44 +++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 2 deletions(-)
 
-What I've done so far:
-1.  Followed the instructions in Section 2.2 of the Development Manual to o=
-btain the latest Yocto project release, Yocto Project kernel and poky extra=
-s from Git.  Associated commit hashes are:
-poky: e421e95de0ce430cc2c6db9b0712a66ab96288a1 (on branch master)
-linux-yocto-3.4-git: 7eb5fbf903d9db90c3cf371b65e1f2a68d5676d7 (on branch ma=
-ster)
-poky-extras: 33714938c2b246e4894225b3170cb8972a389618 (on branch master)
-
-Build configuration as announced by Bitbake:
-Build Configuration:
-BB_VERSION        =3D "1.16.0"
-TARGET_ARCH       =3D "arm"
-TARGET_OS         =3D "linux-gnueabi"
-MACHINE           =3D "qemuarm"
-DISTRO            =3D "poky"
-DISTRO_VERSION    =3D "1.3+snapshot-20121109"
-TUNE_FEATURES     =3D "armv5 dsp thumb arm926ejs"
-TARGET_FPU        =3D "soft"
-meta             =20
-meta-yocto       =20
-meta-yocto-bsp    =3D "master:e421e95de0ce430cc2c6db9b0712a66ab96288a1"
-
-2. Modified the local.conf file for an arm setup in hopes of building a qem=
-uarm image first with a modified kernel.
-
-3. bitbake -c menuconfig virtual/kernel, and then modified the kernel confi=
-guration to fit my needs for a SAM9G25.
-4. bitbake virtual/kernel
-5. bitbake core-image-sato, which then fails.  It is failing on compiling t=
-he util-linux package with the following log from log.do_compile:
-DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common', 'common-linux',=
- 'common-glibc', 'arm-linux', 'arm-linux-gnueabi', 'common']
-DEBUG: Executing shell function do_compile
-NOTE: make -j 2 ARCH=3Darm CPU=3D CPUOPT=3D OPT=3D -O2 -pipe -g -feliminate=
--unused-debug-types
-make  all-recursive
-make[1]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2'
-Making all in include
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/include'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/include'
-Making all in disk-utils
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/disk-utils'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/disk-utils'
-Making all in fdisk
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/fdisk'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/fdisk'
-Making all in getopt
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/getopt'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/getopt'
-Making all in lib
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/lib'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/lib'
-Making all in libuuid
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
-Making all in src
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/src'
-make[3]: Nothing to be done for `all'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/src'
-Making all in man
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/man'
-make[3]: Nothing to be done for `all'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/man'
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
-make[3]: Nothing to be done for `all-am'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
-Making all in libblkid
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
-Making all in src
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
-Making all in superblocks
-make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/supe=
-rblocks'
-make[4]: Nothing to be done for `all'.
-make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/super=
-blocks'
-Making all in topology
-make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/topo=
-logy'
-make[4]: Nothing to be done for `all'.
-make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/topol=
-ogy'
-Making all in partitions
-make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/part=
-itions'
-make[4]: Nothing to be done for `all'.
-make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/parti=
-tions'
-Making all in .
-make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
-make[4]: Nothing to be done for `all-am'.
-make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
-Making all in samples
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/samples'
-make[3]: Nothing to be done for `all'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/samples'
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
-make[3]: Nothing to be done for `all-am'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
-Making all in libmount
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
-Making all in src
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount/src'
-make[3]: Nothing to be done for `all'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount/src'
-make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
-make[3]: Nothing to be done for `all-am'.
-make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
-Making all in man/ru
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/man/ru'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/man/ru'
-Making all in login-utils
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/login-utils'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/login-utils'
-Making all in misc-utils
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/misc-utils'
-make[2]: Nothing to be done for `all'.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/misc-utils'
-Making all in po
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
-poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/po'
-make[2]: *** No rule to make target `all'.  Stop.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/po'
-make[1]: *** [all-recursive] Error 1
-make[1]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
-oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2'
-make: *** [all] Error 2
-ERROR: oe_runmake failed
-ERROR: Function failed: do_compile (see /media/sda3/yocto/poky-build/tmp/wo=
-rk/armv5te-poky-linux-gnueabi/util-linux-2.21.2-r6/temp/log.do_compile.3192=
-5 for further information)
-
-6. I thought there might be e piece in the toolchain that was missing, so I=
- did a "bitbake meta-toolchain", which resulted in the following error duri=
-ng the compilation of the nativesdk-gdbm package:
-DEBUG: SITE files ['endian-little', 'bit-32', 'ix86-common', 'common-linux'=
-, 'common-glibc', 'i686-linux', 'common']
-DEBUG: Executing shell function do_compile
-NOTE: make -j 2
-make  all-recursive
-make[1]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/i686-nat=
-ivesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10'
-Making all in po
-make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/i686-nat=
-ivesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10/po'
-make[2]: *** No rule to make target `all'.  Stop.
-make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/i686-nati=
-vesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10/po'
-make[1]: *** [all-recursive] Error 1
-make[1]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/i686-nati=
-vesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10'
-make: *** [all] Error 2
-ERROR: oe_runmake failed
-ERROR: Function failed: do_compile (see /media/sda3/yocto/poky-build/tmp/wo=
-rk/i686-nativesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/temp/log.do_compile.=
-26132 for further information)
-
-At this point I'm not sure why I'm seeing these errors and what is going wr=
-ong.  I'd welcome any suggestions that would help me get the build to compl=
-ete.
-
-Thanks,
-Bryan Evenson
+diff --git a/meta/recipes-core/initrdscripts/files/init-live.sh b/meta/recipes-core/initrdscripts/files/init-live.sh
+index 5682fd1..0ef30ea 100644
+--- a/meta/recipes-core/initrdscripts/files/init-live.sh
++++ b/meta/recipes-core/initrdscripts/files/init-live.sh
+@@ -68,13 +68,49 @@ fatal() {
+ 
+ early_setup
+ 
++# wait for the udevd to settle
++echo "Waiting for udev to settle..."
++sleep 3
++
+ [ -z "$CONSOLE" ] && CONSOLE="/dev/console"
+ 
+ read_args
+ 
+-echo "Waiting for removable media..."
+-while true
++# boot partiton menu, if one or more bootable partitions exist
++BOOTMENU=`ls /media/sd*/sbin/init 2>/dev/null | wc -l`
++if [ $BOOTMENU -gt 0 ]; then
++   choice=0
++   while [ $choice -le 0 ]; do
++       echo "1). boot live ramfs image"
++       count=2
++       for i in `ls /media/sd*/sbin/init 2>/dev/null | cut -d "/" -f 3`; do
++           echo $count"). boot /dev/"$i
++           choicecmd[$count]=$i
++           count=$(( count + 1))
++       done
++       echo
++       echo -n "Your choice: "
++       read choice
++   done
++
++   if [ $choice -gt 1 ]; then
++       #ROOT_MOUNT=/media/${choicecmd[${choice}]}
++       ROOT_MOUNT=none #testing
++       echo "Booting local root ... $ROOT_MOUNT"
++       if [ -d $ROOT_MOUNT ]; then
++           boot_live_root
++       else
++           fatal "Rootfs partition not mounted"
++       fi
++   fi
++fi
++
++echo -n "Waiting for removable media... "
++CNT=0
++while [ $CNT -le 3 ];
+ do
++  echo -n "$CNT "
++  CNT=$(( $CNT + 1 ))
+   for i in `ls /media 2>/dev/null`; do
+       if [ -f /media/$i/$ROOT_IMAGE ] ; then
+ 		found="yes"
+@@ -91,6 +127,10 @@ do
+   sleep 1
+ done
+ 
++if [ "$found" != "yes" ]; then
++   fatal "...could not mount removable media, drop to shell"
++fi
++
+ case $label in
+     boot)
+ 	mkdir $ROOT_MOUNT
+-- 
+1.7.9.5
 
 
