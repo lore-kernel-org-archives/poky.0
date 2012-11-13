@@ -1,25 +1,25 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7F4AE00348
-	for <poky@yoctoproject.org>; Tue, 13 Nov 2012 08:12:28 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 13 Nov 2012 08:12:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,767,1344236400"; d="scan'208";a="167823480"
-Received: from unknown (HELO [10.255.12.71]) ([10.255.12.71])
-	by AZSMGA002.ch.intel.com with ESMTP; 13 Nov 2012 08:12:27 -0800
-Message-ID: <50A2716B.2020300@linux.intel.com>
-Date: Tue, 13 Nov 2012 08:12:27 -0800
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
+Return-Path: <bevenson@melinkcorp.com>
+Received: from pluto.melinkcorp.com (rrcs-98-100-91-244.central.biz.rr.com
+	[98.100.91.244])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 351ADE011AC
+	for <poky@yoctoproject.org>; Tue, 13 Nov 2012 08:26:10 -0800 (PST)
+Received: from pluto.melinkcorp.local ([10.0.2.4]) by pluto.melinkcorp.local
+	([10.0.2.4]) with mapi; Tue, 13 Nov 2012 11:26:09 -0500
+From: Bryan Evenson <bevenson@melinkcorp.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Tue, 13 Nov 2012 11:26:08 -0500
+Thread-Topic: Errors attempting to build AT91SAM9x5 BSP
+Thread-Index: Ac2+p/HJGF/PFlj+S0eIOlKPBBI7JwDEiHfQ
+Message-ID: <91586D499ADFD74FBCFB8425266A5DE4012C7CF327A4@pluto.melinkcorp.local>
+References: <91586D499ADFD74FBCFB8425266A5DE4012C7CE153F8@pluto.melinkcorp.local>
+In-Reply-To: <91586D499ADFD74FBCFB8425266A5DE4012C7CE153F8@pluto.melinkcorp.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-vipre-scanned: 00C7DB9300368800C7DCE0
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: "Iorga, Cristian" <cristian.iorga@intel.com>
-References: <1352400125-5264-1-git-send-email-cristian.iorga@intel.com>
-	<969F26A8BAB325438E7EB80D3C3134FB161B566D@IRSMSX102.ger.corp.intel.com>
-In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB161B566D@IRSMSX102.ger.corp.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] upstream_tracking.inc: update according to YP 1.4
+Subject: Re: Errors attempting to build AT91SAM9x5 BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,276 +32,272 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2012 16:12:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 13 Nov 2012 16:26:10 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/08/2012 10:45 AM, Iorga, Cristian wrote:
-> Also my comments:
->
-> Comments about manual Pus for maintainer Cristian Iorga:
->
-> 1. db cannot be upgraded due to compatibility issues; Who can enlighten me into this one?
-I am not sure at this point, but you can check the newer version against 
-the tools that depend on db.
+All,
 
-> 2. libpcap versioning seems wrong libpcap 1.3.0 = tcpdump 4.3.0?? Cand someone clarify this one for me?
+I decided to start over with the stable danny tarball instead of using the =
+Git repository.  I've been able to build a core-image-minimal QEMU image an=
+d run it in QEMU.  After that I created my new BSP using the yocto-bsp scri=
+pt and added my new BSP to the build/conf/bblayers.conf file as directed in=
+ the BSP Guide.  However, now whenever I try to use bitbake for anything I =
+get the error message "NOTE: Your conf/bblayers.conf has been automatically=
+ updated. Please re-run bitbake."  I've tried incrementing the LCONF_VERSIO=
+N variable in conf/bblayers.conf and incrementing the CONF_VERSION in conf/=
+local.conf.  I've also tried issuing "bitbake -f -c clean core-image-minima=
+l" and I get the same error.  The only way I've been able to use bitbake ag=
+ain is to remove the line for my new BSP from the BBLAYERS variable in conf=
+/bblayers.conf.  What am I doing wrong?
 
-> 3. gssdp 0.13.1 is unstable/beta one. 0.12.2. is stable one.
-right so you should upgrade to 0.12.2 and mark the 
-RECIPE_NO_UPDATE_REASON_pn-gssdp = "0.13.1 is unstable version"
+Thanks,
+Bryan
 
-> 4. situation unclear with tremor; there is a newer svn head than what YP has. However, I don't know the release date or if it is stable. Please help.
->
-Can you determine what's changed between our snapshot (18221) and 
-current?  Bug fixes, new features, ...???
+-----Original Message-----
+From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
+On Behalf Of Bryan Evenson
+Sent: Friday, November 09, 2012 1:28 PM
+To: poky@yoctoproject.org
+Subject: [poky] Errors attempting to build AT91SAM9x5 BSP
 
-That will help determine if we want to update, they don't seem to have 
-branches or tages for release points.
+All,
 
-Hope the above helps
+I am using an Atmel AT91SAM9G25 board and have been using the OpenEmbedded =
+Classic development tree (2011.03-maintenance branch) to build images for m=
+y board.  This setup is on Linux kernel 2.6.39 and uses a special patch fro=
+m Atmel to add SAM9x5 support.  There are some kernel fixes starting at ker=
+nel 3.2 that are applicable to my setup that I would like to incorporate in=
+to my image.  After reading the Yocto Project documentation, I thought the =
+best approach to take would be to use the Yocto Project tools to build a BS=
+P for my AT91SAM9G25 board.  So far I have been unsuccessful and I am looki=
+ng for help.
 
-Sau!
+What I've done so far:
+1.  Followed the instructions in Section 2.2 of the Development Manual to o=
+btain the latest Yocto project release, Yocto Project kernel and poky extra=
+s from Git.  Associated commit hashes are:
+poky: e421e95de0ce430cc2c6db9b0712a66ab96288a1 (on branch master)
+linux-yocto-3.4-git: 7eb5fbf903d9db90c3cf371b65e1f2a68d5676d7 (on branch ma=
+ster)
+poky-extras: 33714938c2b246e4894225b3170cb8972a389618 (on branch master)
 
-> Regards,
-> Cristian
->
-> -----Original Message-----
-> From: Iorga, Cristian
-> Sent: Thursday, November 08, 2012 8:42 PM
-> To: poky@yoctoproject.org
-> Cc: Iorga, Cristian
-> Subject: [PATCH] upstream_tracking.inc: update according to YP 1.4
->
-> Updated upstream_tracking.inc with manually checked packages.
->
-> Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
-> ---
->   .../conf/distro/include/upstream_tracking.inc      |   61 +++++++++++---------
->   1 file changed, 35 insertions(+), 26 deletions(-)
->
-> diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-> index fd422cf..a6af9dd 100644
-> --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-> +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-> @@ -27,7 +27,12 @@ RECIPE_UPSTREAM_DATE_pn-acpid = "Apr 22, 2009"
->   CHECK_DATE_pn-acpid = "Aug 27, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
->   CHECK_DATE_pn-adt-installer = "Sep 11, 2012"
-> -RECIPE_UPSTREAM_DATE_pn-alsa-utils="Jan 25, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-alsa-utils = "1.0.26"
-> +RECIPE_UPSTREAM_DATE_pn-alsa-utils = "Jan 25, 2012"
-> +CHECK_DATE_pn-alsa-utils = "Nov 08, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-alsa-lib = "1.0.26"
-> +RECIPE_UPSTREAM_DATE_pn-alsa-lib = "Jan 25, 2012"
-> +CHECK_DATE_pn-alsa-lib = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-apmd = "3.2.2-14"
->   RECIPE_UPSTREAM_DATE_pn-apmd = "Jul 01, 2009"
->   CHECK_DATE_pn-apmd = "Aug 27, 2012"
-> @@ -165,7 +170,7 @@ RECIPE_UPSTREAM_DATE_pn-curl = "Jul 27, 2012"
->   CHECK_DATE_pn-curl = "Aug 28, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-cwautomacros = "20110201"
->   RECIPE_UPSTREAM_DATE_pn-cwautomacros = "Feb 01, 2011"
-> -CHECK_DATE_pn-cwautomacros = "Aug 28, 2012"
-> +CHECK_DATE_pn-cwautomacros = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-damageproto = "1.2.1"
->   RECIPE_UPSTREAM_DATE_pn-damageproto = "Oct 29, 2010"
->   CHECK_DATE_pn-damageproto = "Aug 28, 2012"
-> @@ -262,7 +267,7 @@ RECIPE_UPSTREAM_VERSION_pn-fixesproto = "5.0"
->   RECIPE_UPSTREAM_DATE_pn-fixesproto = "Mar 8, 2011"
->   CHECK_DATE_pn-fixesproto = "Aug 28, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-flac="1.2.1"
-> -CHECK_DATE_pn-flac = "Aug 28, 2012"
-> +CHECK_DATE_pn-flac = "Nov 08, 2012"
->   RECIPE_UPSTREAM_DATE_pn-flac="Sep 16, 2007"
->   RECIPE_UPSTREAM_VERSION_pn-flex = "2.5.37"
->   RECIPE_UPSTREAM_DATE_pn-flex = "Aug 08, 2012"
-> @@ -367,9 +372,9 @@ CHECK_DATE_pn-groff = "Aug 29, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-grub = "0.97"
->   RECIPE_UPSTREAM_DATE_pn-grub = "Dec 01, 2005"
->   RECIPE_NO_UPDATE_REASON_pn-grub="grub2 is a different thing"
-> -RECIPE_UPSTREAM_VERSION_pn-gssdp = "0.10.0"
-> -RECIPE_UPSTREAM_DATE_pn-gssdp="Apr 07, 2011"
-> -CHECK_DATE_pn-gssdp = "Aug 29, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-gssdp = "0.12.2"
-> +RECIPE_UPSTREAM_DATE_pn-gssdp="Aug 19, 2012"
-> +CHECK_DATE_pn-gssdp = "Nov 08, 2012"
->   RECIPE_UPSTREAM_DATE_pn-gst-meta-base="n/a"
->   RECIPE_NO_UPDATE_REASON_pn-gst-plugins-base = "not compatible with gst-fluendo 0.10.x"
->   RECIPE_UPSTREAM_VERSION_pn-gst-plugins-base = "0.11.90"
-> @@ -400,10 +405,13 @@ RECIPE_UPSTREAM_DATE_pn-guile = "Jul 07, 2012"
->   CHECK_DATE_pn-guile = "Aug 29, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-gupnp-av = "0.10.3"
->   RECIPE_UPSTREAM_DATE_pn-gupnp-av= "Aug 19, 2012"
-> -CHECK_DATE_pn-gupnp-av = "Aug 29, 2012"
-> +CHECK_DATE_pn-gupnp-av = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-gupnp = "0.18.4"
->   RECIPE_UPSTREAM_DATE_pn-gupnp= "Aug 19, 2012"
->   CHECK_DATE_pn-gupnp = "Aug 29, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-gupnp-tools = "0.8.4"
-> +RECIPE_UPSTREAM_DATE_pn-gupnp-tools = "Dec 12, 2011"
-> +CHECK_DATE_pn-gupnp-tools  = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-gypsy="0.9"
->   RECIPE_UPSTREAM_DATE_pn-gypsy="Aug 28, 2012"
->   CHECK_DATE_pn-gypsy = "Aug 29, 2012"
-> @@ -455,7 +463,7 @@ RECIPE_UPSTREAM_DATE_pn-iputils = "Oct 06, 2010"
->   CHECK_DATE_pn-iputils = "Aug 29, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-irda-utils = "0.9.18"
->   RECIPE_UPSTREAM_DATE_pn-irda-utils="Jul 10, 2006"
-> -CHECK_DATE_pn-irda-utils = "Aug 29, 2012"
-> +CHECK_DATE_pn-irda-utils = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-iso-codes = "3.38"
->   RECIPE_UPSTREAM_DATE_pn-iso-codes = "Aug 08, 2012"
->   CHECK_DATE_pn-iso-codes = "Aug 29, 2012"
-> @@ -500,8 +508,8 @@ RECIPE_UPSTREAM_VERSION_pn-less = "444"
->   CHECK_DATE_pn-less = "Aug 29, 2012"
->   RECIPE_UPSTREAM_DATE_pn-less = "Jun 9, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-liba52="0.7.4"
-> -CHECK_DATE_pn-liba52 = "Aug 29, 2012"
->   RECIPE_UPSTREAM_DATE_pn-liba52="Jul 27, 2002"
-> +CHECK_DATE_pn-liba52 = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libacpi = "0.2"
->   RECIPE_UPSTREAM_DATE_pn-libacpi = "unknown"
->   CHECK_DATE_pn-libacpi = "Aug 29, 2012"
-> @@ -615,7 +623,7 @@ RECIPE_UPSTREAM_DATE_pn-libgtkstylus = "Jun 1, 2012"
->   CHECK_DATE_pn-libgtkstylus = "Aug 30, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libical = "0.48"
->   RECIPE_UPSTREAM_DATE_pn-libical ="Dec 13, 2011"
-> -CHECK_DATE_pn-libical = "Aug 30, 2012"
-> +CHECK_DATE_pn-libical = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libice = "1.0.8"
->   RECIPE_UPSTREAM_DATE_pn-libice = "Mar 02, 2012"
->   CHECK_DATE_pn-libice = "Aug 30, 2012"
-> @@ -624,7 +632,7 @@ RECIPE_UPSTREAM_DATE_pn-libiconv = "Aug 07, 2011"
->   CHECK_DATE_pn-libiconv = "Aug 30, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libid3tag="0.15.1b"
->   RECIPE_UPSTREAM_DATE_pn-libid3tag="Feb 18, 2004"
-> -CHECK_DATE_pn-libid3tag = "Aug 30, 2012"
-> +CHECK_DATE_pn-libid3tag = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libidn = "1.25"
->   RECIPE_UPSTREAM_DATE_pn-libidn = "May 23, 2012"
->   CHECK_DATE_pn-libidn = "Aug 30, 2012"
-> @@ -669,7 +677,7 @@ RECIPE_UPSTREAM_DATE_pn-liboil = "Feb 01, 2010"
->   CHECK_DATE_pn-liboil = "Aug 30, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libomxil = "0.9.3"
->   RECIPE_UPSTREAM_DATE_pn-libomxil = "May 20, 2011"
-> -CHECK_DATE_pn-libomxil = "Aug 30, 2012"
-> +CHECK_DATE_pn-libomxil = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libopensync-plugin-evolution2 = "0.39"
->   RECIPE_UPSTREAM_DATE_pn-libopensyc-plugin-evolution2 = "Aug 26, 2011"
->   CHECK_DATE_pn-libopensync-plugin-evolution2 = "Aug 30, 2012"
-> @@ -685,7 +693,7 @@ CHECK_DATE_pn-libpam = "Aug 30, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libpam = "Oct 25, 2011"
->   RECIPE_UPSTREAM_VERSION_pn-libpcap="4.3.0"
->   RECIPE_UPSTREAM_DATE_pn-libpcap="Jun 12, 2012"
-> -CHECK_DATE_pn-libpcap = "Aug 30, 2012"
-> +CHECK_DATE_pn-libpcap = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libpciaccess = "0.13.1"
->   RECIPE_UPSTREAM_DATE_pn-libpciaccess = "Apr 09, 2012"
->   CHECK_DATE_pn-libpciaccess = "Aug 30, 2012"
-> @@ -696,8 +704,9 @@ RECIPE_NO_UPDATE_REASON_pn-libpng = "1.4.3 and later changes the API and breaks  RECIPE_UPSTREAM_VERSION_pn-libpng = "1.5.11"
->   RECIPE_UPSTREAM_DATE_pn-libpng = "Jun 14, 2012"
->   CHECK_DATE_pn-libpng = "Jul 05, 2012"
-> -RECIPE_UPSTREAM_VERSION_pn-libproxy="0.4.7"
-> -CHECK_DATE_pn-libproxy = "Aug 30, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-libproxy = "0.4.10"
-> +RECIPE_UPSTREAM_DATE_pn-libproxy = "Oct 15, 2012"
-> +CHECK_DATE_pn-libproxy = "Nov 08, 2012"
->   RECIPE_UPSTREAM_DATE_pn-libproxy="Jun 01, 2011"
->   RECIPE_UPSTREAM_DATE_pn-libpthread-stubs = "Oct 14, 2009"
->   RECIPE_UPSTREAM_VERSION_pn-libpthread-stubs = "0.3"
-> @@ -707,7 +716,7 @@ RECIPE_UPSTREAM_DATE_pn-librsvg = "Aug 19, 2012"
->   CHECK_DATE_pn-librsvg = "Aug 30, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsamplerate0 = "0.1.8"
->   RECIPE_UPSTREAM_DATE_pn-libsamplerate0 = "Aug 15, 2011"
-> -CHECK_DATE_pn-libsamplerate0 = "Aug 30, 2012"
-> +CHECK_DATE_pn-libsamplerate0 = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsdl = "1.2.15"
->   CHECK_DATE_pn-libsdl = "Mar 14, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libsm = "1.2.1"
-> @@ -732,7 +741,7 @@ CHECK_DATE_pn-libtheora = "Aug 30, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libtimedate-perl = "1.20"
->   RECIPE_UPSTREAM_VERSION_pn-libtirpc = "0.2.2"
->   RECIPE_UPSTREAM_DATE_pn-libtirpc = "May 02, 2011"
-> -CHECK_DATE_pn-libtirpc = "Aug 30, 2012"
-> +CHECK_DATE_pn-libtirpc = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libtool="2.4.2"
->   CHECK_DATE_pn-libtool = "Aug 30, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-libunique = "2.91.4"
-> @@ -905,7 +914,7 @@ RECIPE_UPSTREAM_DATE_pn-loudmouth = "Mar 27, 2012"
->   CHECK_DATE_pn-loudmouth = "Aug 31, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-lrzsz="0.12.20"
->   RECIPE_UPSTREAM_DATE_pn-lrzsz="Dec 31, 1998"
-> -CHECK_DATE_pn-lrzsz = "Aug 31, 2012"
-> +CHECK_DATE_pn-lrzsz = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-lsb = "4.1"
->   CHECK_DATE_pn-lsb = "Sep 5, 2012"
->   RECIPE_UPSTREAM_DATE_pn-lsb = "Jan 04, 2001"
-> @@ -951,7 +960,7 @@ RECIPE_UPSTREAM_DATE_pn-menu-cache = "May 20, 2012"
->   CHECK_DATE_pn-menu-cache = "Aug 31, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.1"
->   RECIPE_UPSTREAM_DATE_pn-minicom = "Mar 29, 2012"
-> -CHECK_DATE_pn-minicom = "Aug 31, 2012"
-> +CHECK_DATE_pn-minicom = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-mesa-dri = "8.0.3"
->   RECIPE_UPSTREAM_DATE_pn-mesa-dri="May 18, 2012"
->   CHECK_DATE_pn-mesa-dri = "Aug 31, 2012"
-> @@ -1175,7 +1184,7 @@ RECIPE_UPSTREAM_DATE_pn-quilt = "Feb 29, 2012"
->   CHECK_DATE_pn-quilt = "Sep 03, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-quota = "4.00"
->   RECIPE_UPSTREAM_DATE_pn-quota = "Aug 17, 2011"
-> -CHECK_DATE_pn-quota = "Sep 03, 2012"
-> +CHECK_DATE_pn-quota = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-randrproto = "1.4.0"
->   RECIPE_UPSTREAM_DATE_pn-randrproto = "Jul 12, 2012"
->   CHECK_DATE_pn-randrproto = "Sep 03, 2012"
-> @@ -1196,7 +1205,7 @@ RECIPE_UPSTREAM_DATE_pn-resourceproto = "May 27, 2011"
->   CHECK_DATE_pn-resourceproto = "Sep 03, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-rpcbind = "0.2.0"
->   RECIPE_UPSTREAM_DATE_pn-rpcbind = "May 29, 2009"
-> -CHECK_DATE_pn-rpcbind = "Sep 03, 2012"
-> +CHECK_DATE_pn-rpcbind = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-rpm = "5.4.10"
->   RECIPE_UPSTREAM_DATE_pn-rpm = "Jul 06, 2012"
->   CHECK_DATE_pn-rpm = "Sep 03, 2012"
-> @@ -1293,9 +1302,9 @@ RECIPE_UPSTREAM_VERSION_pn-sysvinit = "2.86"
->   RECIPE_UPSTREAM_DATE_pn-sysvinit = "Oct 10, 2006"
->   CHECK_DATE_pn-sysvinit = "Sep 03, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-table = "d42a44938699ee30a998fc42bc149aebf69389db"
-> -RECIPE_UPSTREAM_VERSION_pn-taglib = "1.7.2"
-> -RECIPE_UPSTREAM_DATE_pn-taglib = "Apr 19, 2010"
-> -CHECK_DATE_pn-taglib = "Sep 03, 2012"
-> +RECIPE_UPSTREAM_VERSION_pn-taglib = "1.8"
-> +RECIPE_UPSTREAM_DATE_pn-taglib = "Sep 05, 2012"
-> +CHECK_DATE_pn-taglib = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-talloc = "2.0.7"
->   RECIPE_UPSTREAM_DATE_pn-talloc = "Sep 16, 2011"
->   CHECK_DATE_pn-talloc = "Sep 03, 2012"
-> @@ -1344,7 +1353,7 @@ RECIPE_UPSTREAM_DATE_pn-trapproto = "Jan 01, 2006"
->   CHECK_DATE_pn-trapproto = "Sep 03, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-tremor="20120122"
->   RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
-> -CHECK_DATE_pn-tremor = "Sep 03, 2012"
-> +CHECK_DATE_pn-tremor = "Nov 08, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-tslib = "1.0"
->   RECIPE_UPSTREAM_DATE_pn-tslib ="Sep 09, 2006"
->   CHECK_DATE_pn-tslib = "Sep 03, 2012"
-> @@ -1406,7 +1415,7 @@ RECIPE_UPSTREAM_DATE_pn-which = "Aug 01, 2008"
->   CHECK_DATE_pn-which = "Sep 03, 2012"
->   RECIPE_UPSTREAM_VERSION_pn-wireless-tools = "29"
->   RECIPE_UPSTREAM_DATE_pn-wireless-tools="Sep 18, 2007"
-> -CHECK_DATE_pn-wireless-tools = "Sep 03, 2012"
-> +CHECK_DATE_pn-wireless-tools = "Nov 08, 2012"
->   RECIPE_UPSTREAM_DATE_pn-wpa-supplicant="Sep 07, 2010"
->   RECIPE_UPSTREAM_VERSION_pn-wpa-supplicant = "1.0"
->   CHECK_DATE_pn-wpa-supplicant = "Sep 03, 2012"
-> --
-> 1.7.10.4
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
+Build configuration as announced by Bitbake:
+Build Configuration:
+BB_VERSION        =3D "1.16.0"
+TARGET_ARCH       =3D "arm"
+TARGET_OS         =3D "linux-gnueabi"
+MACHINE           =3D "qemuarm"
+DISTRO            =3D "poky"
+DISTRO_VERSION    =3D "1.3+snapshot-20121109"
+TUNE_FEATURES     =3D "armv5 dsp thumb arm926ejs"
+TARGET_FPU        =3D "soft"
+meta             =20
+meta-yocto       =20
+meta-yocto-bsp    =3D "master:e421e95de0ce430cc2c6db9b0712a66ab96288a1"
+
+2. Modified the local.conf file for an arm setup in hopes of building a qem=
+uarm image first with a modified kernel.
+
+3. bitbake -c menuconfig virtual/kernel, and then modified the kernel confi=
+guration to fit my needs for a SAM9G25.
+4. bitbake virtual/kernel
+5. bitbake core-image-sato, which then fails.  It is failing on compiling t=
+he util-linux package with the following log from log.do_compile:
+DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common', 'common-linux',=
+ 'common-glibc', 'arm-linux', 'arm-linux-gnueabi', 'common']
+DEBUG: Executing shell function do_compile
+NOTE: make -j 2 ARCH=3Darm CPU=3D CPUOPT=3D OPT=3D -O2 -pipe -g -feliminate=
+-unused-debug-types make  all-recursive
+make[1]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2'
+Making all in include
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/include'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/include'
+Making all in disk-utils
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/disk-utils'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/disk-utils'
+Making all in fdisk
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/fdisk'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/fdisk'
+Making all in getopt
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/getopt'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/getopt'
+Making all in lib
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/lib'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/lib'
+Making all in libuuid
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
+Making all in src
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/src'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/src'
+Making all in man
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/man'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid/man'
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libuuid'
+Making all in libblkid
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
+Making all in src
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
+Making all in superblocks
+make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/supe=
+rblocks'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/super=
+blocks'
+Making all in topology
+make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/topo=
+logy'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/topol=
+ogy'
+Making all in partitions
+make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/part=
+itions'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src/parti=
+tions'
+Making all in .
+make[4]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/src'
+Making all in samples
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/samples'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid/samples'
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libblkid'
+Making all in libmount
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
+Making all in src
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount/src'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount/src'
+make[3]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/libmount'
+Making all in man/ru
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/man/ru'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/man/ru'
+Making all in login-utils
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/login-utils'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/login-utils'
+Making all in misc-utils
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/misc-utils'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/misc-utils'
+Making all in po
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-=
+poky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/po'
+make[2]: *** No rule to make target `all'.  Stop.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2/po'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/armv5te-p=
+oky-linux-gnueabi/util-linux-2.21.2-r6/util-linux-2.21.2'
+make: *** [all] Error 2
+ERROR: oe_runmake failed
+ERROR: Function failed: do_compile (see /media/sda3/yocto/poky-build/tmp/wo=
+rk/armv5te-poky-linux-gnueabi/util-linux-2.21.2-r6/temp/log.do_compile.3192=
+5 for further information)
+
+6. I thought there might be e piece in the toolchain that was missing, so I=
+ did a "bitbake meta-toolchain", which resulted in the following error duri=
+ng the compilation of the nativesdk-gdbm package:
+DEBUG: SITE files ['endian-little', 'bit-32', 'ix86-common', 'common-linux'=
+, 'common-glibc', 'i686-linux', 'common']
+DEBUG: Executing shell function do_compile
+NOTE: make -j 2
+make  all-recursive
+make[1]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/i686-nat=
+ivesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10'
+Making all in po
+make[2]: Entering directory `/media/sda3/yocto/poky-build/tmp/work/i686-nat=
+ivesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10/po'
+make[2]: *** No rule to make target `all'.  Stop.
+make[2]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/i686-nati=
+vesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10/po'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/media/sda3/yocto/poky-build/tmp/work/i686-nati=
+vesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/gdbm-1.10'
+make: *** [all] Error 2
+ERROR: oe_runmake failed
+ERROR: Function failed: do_compile (see /media/sda3/yocto/poky-build/tmp/wo=
+rk/i686-nativesdk-pokysdk-linux/nativesdk-gdbm-1.10-r3/temp/log.do_compile.=
+26132 for further information)
+
+At this point I'm not sure why I'm seeing these errors and what is going wr=
+ong.  I'd welcome any suggestions that would help me get the build to compl=
+ete.
+
+Thanks,
+Bryan Evenson
+
+_______________________________________________
+poky mailing list
+poky@yoctoproject.org
+https://lists.yoctoproject.org/listinfo/poky
 
