@@ -1,23 +1,24 @@
 Return-Path: <sgw@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C81D4E011AC
-	for <poky@yoctoproject.org>; Tue, 13 Nov 2012 07:45:30 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 13 Nov 2012 07:45:09 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7F4AE00348
+	for <poky@yoctoproject.org>; Tue, 13 Nov 2012 08:12:28 -0800 (PST)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 13 Nov 2012 08:12:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.80,767,1344236400"; d="scan'208";a="246373763"
+X-IronPort-AV: E=Sophos;i="4.80,767,1344236400"; d="scan'208";a="167823480"
 Received: from unknown (HELO [10.255.12.71]) ([10.255.12.71])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Nov 2012 07:45:09 -0800
-Message-ID: <50A26B05.8040500@linux.intel.com>
-Date: Tue, 13 Nov 2012 07:45:09 -0800
+	by AZSMGA002.ch.intel.com with ESMTP; 13 Nov 2012 08:12:27 -0800
+Message-ID: <50A2716B.2020300@linux.intel.com>
+Date: Tue, 13 Nov 2012 08:12:27 -0800
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
 MIME-Version: 1.0
-To: Cristian Iorga <cristian.iorga@intel.com>
+To: "Iorga, Cristian" <cristian.iorga@intel.com>
 References: <1352400125-5264-1-git-send-email-cristian.iorga@intel.com>
-In-Reply-To: <1352400125-5264-1-git-send-email-cristian.iorga@intel.com>
-Cc: poky@yoctoproject.org
+	<969F26A8BAB325438E7EB80D3C3134FB161B566D@IRSMSX102.ger.corp.intel.com>
+In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB161B566D@IRSMSX102.ger.corp.intel.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH] upstream_tracking.inc: update according to YP 1.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -31,11 +32,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Nov 2012 15:45:31 -0000
+X-List-Received-Date: Tue, 13 Nov 2012 16:12:29 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/08/2012 10:42 AM, Cristian Iorga wrote:
+On 11/08/2012 10:45 AM, Iorga, Cristian wrote:
+> Also my comments:
+>
+> Comments about manual Pus for maintainer Cristian Iorga:
+>
+> 1. db cannot be upgraded due to compatibility issues; Who can enlighten me into this one?
+I am not sure at this point, but you can check the newer version against 
+the tools that depend on db.
+
+> 2. libpcap versioning seems wrong libpcap 1.3.0 = tcpdump 4.3.0?? Cand someone clarify this one for me?
+
+> 3. gssdp 0.13.1 is unstable/beta one. 0.12.2. is stable one.
+right so you should upgrade to 0.12.2 and mark the 
+RECIPE_NO_UPDATE_REASON_pn-gssdp = "0.13.1 is unstable version"
+
+> 4. situation unclear with tremor; there is a newer svn head than what YP has. However, I don't know the release date or if it is stable. Please help.
+>
+Can you determine what's changed between our snapshot (18221) and 
+current?  Bug fixes, new features, ...???
+
+That will help determine if we want to update, they don't seem to have 
+branches or tages for release points.
+
+Hope the above helps
+
+Sau!
+
+> Regards,
+> Cristian
+>
+> -----Original Message-----
+> From: Iorga, Cristian
+> Sent: Thursday, November 08, 2012 8:42 PM
+> To: poky@yoctoproject.org
+> Cc: Iorga, Cristian
+> Subject: [PATCH] upstream_tracking.inc: update according to YP 1.4
+>
 > Updated upstream_tracking.inc with manually checked packages.
 >
 > Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
@@ -43,12 +80,6 @@ On 11/08/2012 10:42 AM, Cristian Iorga wrote:
 >   .../conf/distro/include/upstream_tracking.inc      |   61 +++++++++++---------
 >   1 file changed, 35 insertions(+), 26 deletions(-)
 >
-
-Merged into Poky Master
-
-Thanks
-	Sau!
-
 > diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
 > index fd422cf..a6af9dd 100644
 > --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
@@ -168,8 +199,7 @@ Thanks
 >   RECIPE_UPSTREAM_VERSION_pn-libpciaccess = "0.13.1"
 >   RECIPE_UPSTREAM_DATE_pn-libpciaccess = "Apr 09, 2012"
 >   CHECK_DATE_pn-libpciaccess = "Aug 30, 2012"
-> @@ -696,8 +704,9 @@ RECIPE_NO_UPDATE_REASON_pn-libpng = "1.4.3 and later changes the API and breaks
->   RECIPE_UPSTREAM_VERSION_pn-libpng = "1.5.11"
+> @@ -696,8 +704,9 @@ RECIPE_NO_UPDATE_REASON_pn-libpng = "1.4.3 and later changes the API and breaks  RECIPE_UPSTREAM_VERSION_pn-libpng = "1.5.11"
 >   RECIPE_UPSTREAM_DATE_pn-libpng = "Jun 14, 2012"
 >   CHECK_DATE_pn-libpng = "Jul 05, 2012"
 > -RECIPE_UPSTREAM_VERSION_pn-libproxy="0.4.7"
@@ -265,5 +295,13 @@ Thanks
 >   RECIPE_UPSTREAM_DATE_pn-wpa-supplicant="Sep 07, 2010"
 >   RECIPE_UPSTREAM_VERSION_pn-wpa-supplicant = "1.0"
 >   CHECK_DATE_pn-wpa-supplicant = "Sep 03, 2012"
+> --
+> 1.7.10.4
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 >
 
