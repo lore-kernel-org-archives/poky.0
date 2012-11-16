@@ -1,22 +1,25 @@
-Return-Path: <stefanx.stanacar@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 34A40E00498
-	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 03:36:47 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 16 Nov 2012 03:36:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.83,264,1352102400"; d="scan'208";a="218672584"
-Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by azsmga001.ch.intel.com with ESMTP; 16 Nov 2012 03:36:46 -0800
-Received: from localhost.localdomain (unknown [10.237.112.141])
-	by linux.intel.com (Postfix) with ESMTP id 3692F2C8001;
-	Fri, 16 Nov 2012 03:36:45 -0800 (PST)
-From: Stefan Stanacar <stefanx.stanacar@intel.com>
-To: poky@yoctoproject.org
-Date: Fri, 16 Nov 2012 13:36:58 +0200
-Message-Id: <1353065818-21168-1-git-send-email-stefanx.stanacar@intel.com>
-X-Mailer: git-send-email 1.7.11.7
-Subject: [PATCH] yocto-bsp: update qemu machine.conf template
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88FFFE00533
+	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 06:12:21 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 148FBF81215; Fri, 16 Nov 2012 07:12:20 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from [192.168.1.114] (zeus [192.168.1.114])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 6672BF81213;
+	Fri, 16 Nov 2012 07:12:19 -0700 (MST)
+Message-ID: <50A649D6.9030301@mlbassoc.com>
+Date: Fri, 16 Nov 2012 07:12:38 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:16.0) Gecko/20121028 Thunderbird/16.0.2
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: Wacky dependencies
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,42 +32,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Nov 2012 11:36:47 -0000
+X-List-Received-Date: Fri, 16 Nov 2012 14:12:21 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Building a qemu sato image with a MACHINE created by yocto-bsp fails because nothing RPROVIDES qemugl anymore so remove qemugl support from the template as well (drop the entire XSERVER assign because it's included from qemu.inc)
+I wanted to run an experiment with X11 vs GTK-directfb on my platform.
+I built a complete image with X11 in DISTRO_FEATURES.
+When I changed DISTRO_FEATURES to have gtk-directfb, nearly everything
+was rebuilt!  Why on earth do GCC & EGLIBC have to be rebuilt??  This
+doesn't seem logical at all to me.
 
-Also drop redundant glibc configure knobs (nptl and tls are no longer optional and they don't exist in conf/machine/qemux86* anyway).
-
-This is basically a sync with latest commits on meta/conf/machine/qemux86*
-
-Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
----
- .../substrate/target/arch/qemu/conf/machine/{{=machine}}.conf  | 10 ----------
- 1 file changed, 10 deletions(-)
-
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-index d1f50c1..958d6da 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-@@ -38,17 +38,7 @@ require conf/machine/include/tune-mips32.inc
- MACHINE_FEATURES += "x86"
- KERNEL_IMAGETYPE = "bzImage"
- SERIAL_CONSOLE = "115200 ttyS0"
--# We bypass swrast but we need it to be present for X to load correctly
--XSERVER ?= "xserver-xorg \
--           mesa-dri-driver-swrast \
--           xf86-input-vmmouse \
--           xf86-input-keyboard \
--           xf86-input-evdev \
--           xf86-video-vmware \
--           qemugl"
- require conf/machine/include/qemu.inc
--GLIBC_ADDONS = "nptl"
--GLIBC_EXTRA_OECONF = "--with-tls"
- 
- {{ if qemuarch == "arm": }}
- KERNEL_IMAGETYPE = "zImage"
 -- 
-1.7.11.7
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
