@@ -1,22 +1,22 @@
-Return-Path: <stefanx.stanacar@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 082D3E006B3
-	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 08:37:40 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 16 Nov 2012 08:37:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.83,265,1352102400"; d="scan'208";a="248310424"
-Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by fmsmga001.fm.intel.com with ESMTP; 16 Nov 2012 08:37:36 -0800
-Received: from localhost.localdomain (unknown [10.237.112.141])
-	by linux.intel.com (Postfix) with ESMTP id 20AC22C8001;
-	Fri, 16 Nov 2012 08:37:34 -0800 (PST)
-From: Stefan Stanacar <stefanx.stanacar@intel.com>
-To: poky@yoctoproject.org
-Date: Fri, 16 Nov 2012 18:37:27 +0200
-Message-Id: <1353083847-6879-1-git-send-email-stefanx.stanacar@intel.com>
-X-Mailer: git-send-email 1.7.11.7
-Subject: [PATCH v2] yocto-bsp: update qemu machine.conf template
+Return-Path: <andy.ross@windriver.com>
+Received: from plausible.org (li44-10.members.linode.com [72.14.181.10])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E250EE003DA
+	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 10:14:42 -0800 (PST)
+Received: from [0.0.0.0] (c-67-171-188-207.hsd1.or.comcast.net
+	[67.171.188.207]) (Authenticated sender: andy-wrs)
+	by plausible.org (Postfix) with ESMTPSA id BD76C2141E;
+	Fri, 16 Nov 2012 10:14:41 -0800 (PST)
+Message-ID: <50A68290.4000909@windriver.com>
+Date: Fri, 16 Nov 2012 10:14:40 -0800
+From: Andy Ross <andy.ross@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:16.0) Gecko/20121016 Thunderbird/16.0.1
+MIME-Version: 1.0
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
+References: <50A649D6.9030301@mlbassoc.com> <7871104.EdYNj4Ce18@helios>
+In-Reply-To: <7871104.EdYNj4Ce18@helios>
+Cc: poky@yoctoproject.org
+Subject: Re: Wacky dependencies
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,35 +29,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Nov 2012 16:37:41 -0000
+X-List-Received-Date: Fri, 16 Nov 2012 18:14:43 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Update the template with the changes from the last commits to meta/conf/machine/qemux86.conf
-Building sato image for a machine created using yocto-bsp with qemux86/x86-64 templates fails because nothing RPROVIDES qemugl anymore so remove support from the template as well.
-Also drop redundant glibc configure knobs (they are no longer optional and they don't exist in conf/machine/qemux86.conf anymore so for consistency the template shouldn't keep them).
+On 11/16/2012 06:24 AM, Paul Eggleton wrote:
+> The build system is not able to determine whether a variable within a recipe
+> depends on a single value within DISTRO_FEATURES, it only knows that it looks
+> at the variable; thus any change to DISTRO_FEATURES will change the hash of
+> all recipes that read DISTRO_FEATURES.
+>
+> I'd like to fix this but given that we check if DISTRO_FEATURES and other list
+> variables like it contain values using inline python code i.e.
+> ${@base_contains(...)} this seems like it would be tricky to implement in a
+> reliable way.
 
-Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
----
- .../bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf    | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+I've been playing with variable dependency tracking recently and saw
+issues like this too.  I don't think it can be done compatibly (in the
+sense of preserving the existing list-in-a-string representation) at
+all.  The problem is that dependencies are only tracked at the
+variable level and the "logical dependency" is on substructure in the
+data that isn't visible to the dependency system.
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-index d1f50c1..01e646d 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-@@ -44,11 +44,8 @@ XSERVER ?= "xserver-xorg \
-            xf86-input-vmmouse \
-            xf86-input-keyboard \
-            xf86-input-evdev \
--           xf86-video-vmware \
--           qemugl"
-+           xf86-video-vmware"
- require conf/machine/include/qemu.inc
--GLIBC_ADDONS = "nptl"
--GLIBC_EXTRA_OECONF = "--with-tls"
- 
- {{ if qemuarch == "arm": }}
- KERNEL_IMAGETYPE = "zImage"
--- 
-1.7.11.7
+You could do this with the existing data model though, but splitting
+things out into distinct variables.  Test for the presence of
+"DISTRO_FEATURES_directfb" for example.  Or use flags:
+"DISTRO_FEATURES[directfb]".  Flags would require bitbake modification
+though, because they aren't part of the taskdeps field in the
+siguatures.
+
+DISTRO_FEATURES is interpreted outside bitbake, of course.  But in a
+more limited sense this could be done for OVERRIDES, as it's handled
+internally and could be special-cased in the dependency handling.
+
+Andy
 
 
