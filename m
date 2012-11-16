@@ -1,26 +1,22 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E9351E0051E
-	for <poky@yoctoproject.org>; Thu, 15 Nov 2012 03:03:22 -0800 (PST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 15 Nov 2012 03:03:22 -0800
+Return-Path: <stefanx.stanacar@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 34A40E00498
+	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 03:36:47 -0800 (PST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 16 Nov 2012 03:36:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.83,255,1352102400"; d="scan'208";a="242619089"
-Received: from unknown (HELO helios.localnet) ([10.252.122.197])
-	by orsmga002.jf.intel.com with ESMTP; 15 Nov 2012 03:03:01 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Bryan Evenson <bevenson@melinkcorp.com>
-Date: Thu, 15 Nov 2012 11:03:01 +0000
-Message-ID: <18536739.oUeeJqhr6W@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.9.2 (Linux/3.2.0-32-generic-pae; KDE/4.9.2; i686; ; )
-In-Reply-To: <91586D499ADFD74FBCFB8425266A5DE4012C7CF328B4@pluto.melinkcorp.local>
-References: <91586D499ADFD74FBCFB8425266A5DE4012C7CE153F8@pluto.melinkcorp.local>
-	<7874263.lvMpyGKaak@helios>
-	<91586D499ADFD74FBCFB8425266A5DE4012C7CF328B4@pluto.melinkcorp.local>
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: Errors attempting to build AT91SAM9x5 BSP
+X-IronPort-AV: E=Sophos;i="4.83,264,1352102400"; d="scan'208";a="218672584"
+Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
+	by azsmga001.ch.intel.com with ESMTP; 16 Nov 2012 03:36:46 -0800
+Received: from localhost.localdomain (unknown [10.237.112.141])
+	by linux.intel.com (Postfix) with ESMTP id 3692F2C8001;
+	Fri, 16 Nov 2012 03:36:45 -0800 (PST)
+From: Stefan Stanacar <stefanx.stanacar@intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 16 Nov 2012 13:36:58 +0200
+Message-Id: <1353065818-21168-1-git-send-email-stefanx.stanacar@intel.com>
+X-Mailer: git-send-email 1.7.11.7
+Subject: [PATCH] yocto-bsp: update qemu machine.conf template
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,58 +29,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Nov 2012 11:03:23 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Fri, 16 Nov 2012 11:36:47 -0000
 
-On Tuesday 13 November 2012 14:17:06 Bryan Evenson wrote:
-> Thanks for the information.  From my reading of the BSP manual I'd thought I
-> was supposed to increment the LCONF_VERSION each time I made a change to
-> the bblayers.conf file; I appreciate the clarification.
+Building a qemu sato image with a MACHINE created by yocto-bsp fails because nothing RPROVIDES qemugl anymore so remove qemugl support from the template as well (drop the entire XSERVER assign because it's included from qemu.inc)
 
-Could you suggest a change to the BSP manual that would help avoid this 
-confusion?
+Also drop redundant glibc configure knobs (nptl and tls are no longer optional and they don't exist in conf/machine/qemux86* anyway).
+
+This is basically a sync with latest commits on meta/conf/machine/qemux86*
+
+Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
+---
+ .../substrate/target/arch/qemu/conf/machine/{{=machine}}.conf  | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
+index d1f50c1..958d6da 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
+@@ -38,17 +38,7 @@ require conf/machine/include/tune-mips32.inc
+ MACHINE_FEATURES += "x86"
+ KERNEL_IMAGETYPE = "bzImage"
+ SERIAL_CONSOLE = "115200 ttyS0"
+-# We bypass swrast but we need it to be present for X to load correctly
+-XSERVER ?= "xserver-xorg \
+-           mesa-dri-driver-swrast \
+-           xf86-input-vmmouse \
+-           xf86-input-keyboard \
+-           xf86-input-evdev \
+-           xf86-video-vmware \
+-           qemugl"
+ require conf/machine/include/qemu.inc
+-GLIBC_ADDONS = "nptl"
+-GLIBC_EXTRA_OECONF = "--with-tls"
  
-> I searched for the error message I was getting, and I think it was
-> originating in this section of sanity.bbclass:
-> 
->     # Check bblayers.conf is valid
->     current_lconf = sanity_data.getVar('LCONF_VERSION', True)
->     lconf_version = sanity_data.getVar('LAYER_CONF_VERSION', True)
->     if current_lconf != lconf_version:
->         try:
->             bb.build.exec_func("check_bblayers_conf", sanity_data)
->             if sanity_data.getVar("SANITY_USE_EVENTS", True) == "1":
->                 bb.event.fire(bb.event.SanityCheckFailed("Your
-> conf/bblayers.conf has been automatically updated. Please close and
-> re-run."), sanity_data) return
->             else:
->                 bb.note("Your conf/bblayers.conf has been automatically
-> updated. Please re-run %s." % os.path.basename(sys.argv[0])) sys.exit(0)
->         except Exception:
->             messages = messages + "Your version of bblayers.conf was
-> generated from an older version of bblayers.conf.sample and there have been
-> updates made to this file. Please compare the two files and merge any
-> changes before continuing.\nMatching the version numbers will remove this
-> message.\n\"meld conf/bblayers.conf
-> ${COREBASE}/meta*/conf/bblayers.conf.sample\" is a good way to visualise
-> the changes.\n"
-
-Right, I guess (without having tested it recently) what I expected to happen 
-was the check_bblayers_conf function would have raised an exception if it 
-couldn't do anything with the file; currently it doesn't.
-
-> Would it be helpful if the current_lconf != lconf_version check changed to
-> have different messages when current_lconf > lconf_version and when
-> current_lcong < lconf_version?
-
-I think that would be a good idea, yes.
-
-Cheers,
-Paul
-
+ {{ if qemuarch == "arm": }}
+ KERNEL_IMAGETYPE = "zImage"
 -- 
+1.7.11.7
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
