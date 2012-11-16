@@ -1,22 +1,35 @@
-Return-Path: <tf+lists.yocto@r-finger.com>
-Received: from r-finger.com (r-finger.com [178.79.160.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 52916E006B3
-	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 07:06:33 -0800 (PST)
-Received: from [192.168.0.2] (host81-147-178-119.range81-147.btcentralplus.com
-	[81.147.178.119]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by r-finger.com (Postfix) with ESMTPSA id 532F99BE3
-	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 15:06:31 +0000 (GMT)
-Message-ID: <50A65676.1090504@r-finger.com>
-Date: Fri, 16 Nov 2012 15:06:30 +0000
-From: Tomas Frydrych <tf+lists.yocto@r-finger.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:10.0.5) Gecko/20120624 Icedove/10.0.5
+Return-Path: <kergoth@gmail.com>
+Received: from mail-lb0-f176.google.com (mail-lb0-f176.google.com
+	[209.85.217.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BF158E006B3
+	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 07:32:56 -0800 (PST)
+Received: by mail-lb0-f176.google.com with SMTP id k6so2466125lbo.35
+	for <poky@yoctoproject.org>; Fri, 16 Nov 2012 07:32:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:sender:in-reply-to:references:from:date
+	:x-google-sender-auth:message-id:subject:to:cc:content-type;
+	bh=2Z3BG220MFltQEy6gje5bsOn8jyezml2KtxLgetyAQ8=;
+	b=YAOhm52abwnh26LMru5v/g9vjhUcZyedoMHFQNrXE1oW2jp5hDGBPqXnwRv1FsJE8l
+	bKc41VcEanz17lWPN0tkvdBVEFeUnFnKNifwzlbXE/N8o2eUX6ovkMg0FoLbq1OT8nXT
+	63HiDtFN45Ijc8sVrhoK2Ir1dGDZa0UI4kTB1k29IoIeWMb2v+1iRh+N06RB1hiyINcH
+	j071fU6rmR3ejKVOJcyymTnVJedGavOslXcQmsbiONhVizNmMeQg5uYMhn3OtfUXdRhG
+	K82YQ9Aaw8SpYfNxanEvJAJ04duRLJkEuoLJc6dQ81hWwGV7bFUn7zYImf0G5ntIB0r0
+	HEJg==
+Received: by 10.112.26.233 with SMTP id o9mr2148339lbg.101.1353079975219; Fri,
+	16 Nov 2012 07:32:55 -0800 (PST)
 MIME-Version: 1.0
-To: poky@yoctoproject.org
+Sender: kergoth@gmail.com
+Received: by 10.114.18.239 with HTTP; Fri, 16 Nov 2012 07:32:34 -0800 (PST)
+In-Reply-To: <50A64DBE.3020106@mlbassoc.com>
 References: <50A649D6.9030301@mlbassoc.com> <7871104.EdYNj4Ce18@helios>
 	<50A64DBE.3020106@mlbassoc.com>
-In-Reply-To: <50A64DBE.3020106@mlbassoc.com>
+From: Chris Larson <clarson@kergoth.com>
+Date: Fri, 16 Nov 2012 08:32:34 -0700
+X-Google-Sender-Auth: 6Pnpkgi4qtGDaUsVOxd94fvqPJo
+Message-ID: <CABcZANmsH1z3zZWSq6_LnVd4=CrEt5Gwtp4=UmRoZGoskzCuOA@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Wacky dependencies
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,27 +43,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Nov 2012 15:06:33 -0000
+X-List-Received-Date: Fri, 16 Nov 2012 15:32:57 -0000
+Content-Type: multipart/alternative; boundary=bcaec554dbca4692fc04ce9e7bc5
+
+--bcaec554dbca4692fc04ce9e7bc5
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 16/11/12 14:29, Gary Thomas wrote:
-> In this particular case, I think the problem is that DISTRO_FEATURES 
-> contains too many controls.  In particular, all of the LIBC settings
-> which *are* important to GCC & EGLIBC.  Maybe that part should be
-> kept separate and only have DISTRO_FEATURES contain non-compiler
-> items?
+On Fri, Nov 16, 2012 at 7:29 AM, Gary Thomas <gary@mlbassoc.com> wrote:
 
-Changing distro features is not something you do on daily basis, but
-when you do, the breakage potential is significant, so this really needs
-to be robust more than efficient. If the check can be made smarter the
-way Paul suggested, that would have some benefit, but multiplying the
-variables that make up distro config will make maintaining distros, and
-packages that depend on distro features, harder and more error prone, I
-think.
-
-Tomas
-
+> I'd like to fix this but given that we check if DISTRO_FEATURES and other
+>> list
+>> variables like it contain values using inline python code i.e.
+>> ${@base_contains(...)} this seems like it would be tricky to implement in
+>> a
+>> reliable way.
+>
+>
+I think you'd probably have to add the appropriate vardepsexclude on a
+case-by-case basis, unless you wanted to play with the ast module and try
+to determine what's being passed to base_contains :)
 -- 
-http://sleepfive.com
+Christopher Larson
 
+--bcaec554dbca4692fc04ce9e7bc5
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div class=3D"gmail_extra">On Fri, Nov 16, 2012 at 7:29 AM, Gary Thomas <sp=
+an dir=3D"ltr">&lt;<a href=3D"mailto:gary@mlbassoc.com" target=3D"_blank">g=
+ary@mlbassoc.com</a>&gt;</span> wrote:<br><div class=3D"gmail_quote"><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex">
+
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">I&#39;d like to fix this but given that we c=
+heck if DISTRO_FEATURES and other list<br>
+variables like it contain values using inline python code i.e.<br>
+${@base_contains(...)} this seems like it would be tricky to implement in a=
+<br>
+reliable way.</blockquote></blockquote></div><br>I think you&#39;d probably=
+ have to add the appropriate vardepsexclude on a case-by-case basis, unless=
+ you wanted to play with the ast module and try to determine what&#39;s bei=
+ng passed to base_contains :)<br>
+
+-- <br>Christopher Larson<br>
+</div>
+
+--bcaec554dbca4692fc04ce9e7bc5--
