@@ -1,19 +1,20 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 882F6E00348
-	for <poky@yoctoproject.org>; Sun, 18 Nov 2012 21:56:15 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 18 Nov 2012 21:55:36 -0800
+Return-Path: <constantinx.musca@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB74FE006C2
+	for <poky@yoctoproject.org>; Mon, 19 Nov 2012 04:39:19 -0800 (PST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 19 Nov 2012 04:39:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.83,276,1352102400"; d="scan'208";a="221530603"
-Received: from unknown (HELO swold-mobl.bigsur.com) ([10.255.12.202])
-	by orsmga001.jf.intel.com with ESMTP; 18 Nov 2012 21:56:14 -0800
-From: Saul Wold <sgw@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.83,279,1352102400"; d="scan'208";a="219656402"
+Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.152])
+	by azsmga001.ch.intel.com with ESMTP; 19 Nov 2012 04:39:17 -0800
+From: Constantin Musca <constantinx.musca@intel.com>
 To: poky@yoctoproject.org
-Date: Sun, 18 Nov 2012 21:56:14 -0800
-Message-Id: <1353304574-15072-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 1.7.7.6
-Subject: [PATCH] maintainers: Tweak ownership of recipes
+Date: Mon, 19 Nov 2012 14:39:48 +0200
+Message-Id: <1353328788-31664-1-git-send-email-constantinx.musca@intel.com>
+X-Mailer: git-send-email 1.7.11.7
+Cc: Constantin Musca <constantinx.musca@intel.com>
+Subject: [PATCH] poky-tiny.conf: blacklist inappropriate image options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,49 +27,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Nov 2012 05:56:15 -0000
+X-List-Received-Date: Mon, 19 Nov 2012 12:39:20 -0000
 
-hwlatdetect -> Darren Hart
-lttng-modules -> Bogdan Marinescu
-mtdev -> Ross Burton
+Blacklist all images that aren't core-image-minimal-*
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+[YOCTO #2565]
+
+Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
 ---
- meta-yocto/conf/distro/include/maintainers.inc |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+ meta-yocto/conf/distro/poky-tiny.conf | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 5ea4531..18efb4a 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -274,7 +274,7 @@ RECIPE_MAINTAINER_pn-help2man-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-hicolor-icon-theme = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-hostap-conf = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-hostap-utils = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-hwlatdetect = "Saul Wold <sgw@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-hwlatdetect = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-icecc-create-env-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-icon-naming-utils-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-icu = "Scott Garman <scott.a.garman@intel.com>"
-@@ -494,7 +494,7 @@ RECIPE_MAINTAINER_pn-lsof = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
- RECIPE_MAINTAINER_pn-ltp = "Mihai Lindner <mihaix.lindner@linux.intel.com>"
- RECIPE_MAINTAINER_pn-lttng2-ust = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
- RECIPE_MAINTAINER_pn-lttng-control = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
--RECIPE_MAINTAINER_pn-lttng-modules = "Saul Wold <sgw@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-lttng-modules = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
- RECIPE_MAINTAINER_pn-lttng-tools = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
- RECIPE_MAINTAINER_pn-lttng-ust = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
- RECIPE_MAINTAINER_pn-lttng-viewer = "Valentin Popa <valentin.popa@intel.com>"
-@@ -554,7 +554,7 @@ RECIPE_MAINTAINER_pn-mpeg2dec = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mpfr = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
- RECIPE_MAINTAINER_pn-msmtp = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-msynctool = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-mtdev = "Saul Wold <sgw@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-mtdev = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-mtd-utils = "Radu Moisan <radu.moisan@intel.com>"
- RECIPE_MAINTAINER_pn-mtools = "Scott Garman <scott.a.garman@intel.com>"
- RECIPE_MAINTAINER_pn-mutter = "Valentin Popa <valentin.popa@intel.com>"
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+index d40748e..121534e 100644
+--- a/meta-yocto/conf/distro/poky-tiny.conf
++++ b/meta-yocto/conf/distro/poky-tiny.conf
+@@ -120,3 +120,20 @@ MACHINE_ESSENTIAL_EXTRA_RDEPENDS = ""
+ # will build perl in case this package is installed. Since we don't care about
+ # this script for the purposes of tiny, remove the dependency from here.
+ RDEPENDS_${PN}-mtrace_pn-eglibc = ""
++
++INHERIT_DISTRO += "blacklist"
++PNBLACKLIST[build-appliance-image] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-base] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-basic] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-clutter] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-gtk-directfb] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-lsb] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-lsb-dev] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-lsb-sdk] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-rt] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-rt-sdk] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-sato] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-sato-dev] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-sato-sdk] = "not buildable with poky-tiny"
++PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
++PNBLACKLIST[qt4e-demo-image] = "not buildable with poky-tiny"
 -- 
-1.7.7.6
+1.7.11.7
 
 
