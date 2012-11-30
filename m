@@ -1,25 +1,35 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71ED2E00655
-	for <poky@yoctoproject.org>; Fri, 30 Nov 2012 07:09:13 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id C380EF81213; Fri, 30 Nov 2012 08:09:12 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 7551EF81211;
-	Fri, 30 Nov 2012 08:09:11 -0700 (MST)
-Message-ID: <50B8CC44.9070903@mlbassoc.com>
-Date: Fri, 30 Nov 2012 08:09:56 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:16.0) Gecko/20121028 Thunderbird/16.0.2
+Return-Path: <martin.jansa@gmail.com>
+Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4B72DE00655
+	for <poky@yoctoproject.org>; Fri, 30 Nov 2012 08:43:00 -0800 (PST)
+Received: by mail-ee0-f48.google.com with SMTP id b57so444741eek.35
+	for <poky@yoctoproject.org>; Fri, 30 Nov 2012 08:42:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	bh=5yaCzUskPHd0EcEt6EInGnjF9gp6p/VobySrbtWPnCA=;
+	b=f/wNrmqD2DF4CkNLPC2X5e6zz0r8WRlTth/CqQAsYjKcHELXGNR6VTApqALsKYwVas
+	LYl3E0M8VmdQ+gWTYaqvR+F2GWljyPidbZs3RuWvnofsG2c7ZrBjZtfpb+OsRew9mNWA
+	RURJrA/qmsDvLCXC5nMDZw8fd6EuKhAAuyCKgUkGwkGz+ApXym+I8V1PjjacgHFzeL04
+	swIv524689M14sgnlhHHmR23z1e70LuLsPQyrHbCOyNUDbXJnHYEGtSkBmJhK/QqmfMf
+	UvcYseRcNT8Hbht4kRnyM6c9mAa1LKr7eYs8ri50W7pzrXYba0Cr7K1/46/f7iROKcJT
+	Ngsw==
+Received: by 10.14.214.132 with SMTP id c4mr6379473eep.18.1354293779112;
+	Fri, 30 Nov 2012 08:42:59 -0800 (PST)
+Received: from localhost ([94.230.152.246])
+	by mx.google.com with ESMTPS id z8sm11448501eeo.11.2012.11.30.08.42.57
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Fri, 30 Nov 2012 08:42:58 -0800 (PST)
+Date: Fri, 30 Nov 2012 17:42:56 +0100
+From: Martin Jansa <martin.jansa@gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+Message-ID: <20121130164256.GH3436@jama.jama.net>
+References: <50B8CC44.9070903@mlbassoc.com>
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Problems building from master
+In-Reply-To: <50B8CC44.9070903@mlbassoc.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Problems building from master
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,63 +42,95 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Nov 2012 15:09:13 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 30 Nov 2012 16:43:00 -0000
+X-Groupsio-MsgNum: 8458
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="YPJ8CVbwFUtL7OFW"
+Content-Disposition: inline
 
-trying to build 'core-image-sato' with this configuration:
+--YPJ8CVbwFUtL7OFW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Build Configuration:
-BB_VERSION        = "1.17.0"
-BUILD_SYS         = "i686-linux"
-NATIVELSBSTRING   = "Unknown"
-TARGET_SYS        = "arm-poky-linux-gnueabi"
-MACHINE           = "qemuarm"
-DISTRO            = "poky"
-DISTRO_VERSION    = "1.3+snapshot-20121130"
-TUNE_FEATURES     = "armv5 dsp thumb"
-TARGET_FPU        = "soft"
-meta
-meta-yocto
-meta-yocto-bsp    = "master:247b6a3754c2c50318e2a73d79981ba0e9cb560b"
-meta-oe           = "master:8e489120f9c4ae91e121ae9d33fecc1aacdf3257"
+On Fri, Nov 30, 2012 at 08:09:56AM -0700, Gary Thomas wrote:
+> trying to build 'core-image-sato' with this configuration:
+>=20
+> Build Configuration:
+> BB_VERSION        =3D "1.17.0"
+> BUILD_SYS         =3D "i686-linux"
+> NATIVELSBSTRING   =3D "Unknown"
+> TARGET_SYS        =3D "arm-poky-linux-gnueabi"
+> MACHINE           =3D "qemuarm"
+> DISTRO            =3D "poky"
+> DISTRO_VERSION    =3D "1.3+snapshot-20121130"
+> TUNE_FEATURES     =3D "armv5 dsp thumb"
+> TARGET_FPU        =3D "soft"
+> meta
+> meta-yocto
+> meta-yocto-bsp    =3D "master:247b6a3754c2c50318e2a73d79981ba0e9cb560b"
+> meta-oe           =3D "master:8e489120f9c4ae91e121ae9d33fecc1aacdf3257"
+>=20
+> Fails with:
+> /local/qemuarm_test/tmp/sysroots/i686-linux/usr/libexec/armv5te-poky-linu=
+x-gnueabi/gcc/arm-poky-linux-gnueabi/4.7.2/ld: cannot find -lsndfile
+> collect2: error: ld returned 1 exit status
+> make[1]: *** [sbc/sbctester] Error 1
+> make[1]: *** Waiting for unfinished jobs....
+> arm-poky-linux-gnueabi-libtool: link: arm-poky-linux-gnueabi-gcc -march=
+=3Darmv5te -marm -mthumb-interwork --sysroot=3D/local/qemuarm_test/tmp/sysr=
+oots/qemuarm -D_FORTIFY_SOURCE=3D2=20
+> -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/include/dbus-1.0 -I/local/=
+qemuarm_test/tmp/sysroots/qemuarm/usr/lib/dbus-1.0/include=20
+> -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/include/glib-2.0 -I/local/=
+qemuarm_test/tmp/sysroots/qemuarm/usr/lib/glib-2.0/include -O2 -pipe -g -fe=
+liminate-unused-debug-types=20
+> -Wl,-O1 -Wl,--hash-style=3Dgnu -o tools/hcisecfilter tools/hcisecfilter.o
+> make: *** [all] Error 2
+> ERROR: oe_runmake failed
+> ERROR: Function failed: do_compile (see /local/qemuarm_test/tmp/work/armv=
+5te-poky-linux-gnueabi/bluez4/4.101-r3/temp/log
 
-Fails with:
-/local/qemuarm_test/tmp/sysroots/i686-linux/usr/libexec/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.7.2/ld: cannot find -lsndfile
-collect2: error: ld returned 1 exit status
-make[1]: *** [sbc/sbctester] Error 1
-make[1]: *** Waiting for unfinished jobs....
-arm-poky-linux-gnueabi-libtool: link: arm-poky-linux-gnueabi-gcc -march=armv5te -marm -mthumb-interwork --sysroot=/local/qemuarm_test/tmp/sysroots/qemuarm -D_FORTIFY_SOURCE=2 
--I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/include/dbus-1.0 -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/lib/dbus-1.0/include 
--I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/include/glib-2.0 -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/lib/glib-2.0/include -O2 -pipe -g -feliminate-unused-debug-types 
--Wl,-O1 -Wl,--hash-style=gnu -o tools/hcisecfilter tools/hcisecfilter.o
-make: *** [all] Error 2
-ERROR: oe_runmake failed
-ERROR: Function failed: do_compile (see /local/qemuarm_test/tmp/work/armv5te-poky-linux-gnueabi/bluez4/4.101-r3/temp/log
+missing libsndfile1 in depends?
 
-I then ran 'bitbake core-image-sato -k' to see what other failures I came
-up with.  There were none.
+> I then ran 'bitbake core-image-sato -k' to see what other failures I came
+> up with.  There were none.
+>=20
+> When I ran 'bitbake core-image-sato' again (after the run with -k that had
+> the single failure), it succeeded!  Must be a parallel build issue.
+> I'm using:
+>    BB_NUMBER_THREADS =3D "4"
+>    PARALLEL_MAKE =3D "-j 4"
+>=20
+> I also had a problem building 'web-webkit':
+>=20
+> | /local/qemuarm_test/tmp/sysroots/i686-linux/usr/libexec/armv5te-poky-li=
+nux-gnueabi/gcc/arm-poky-linux-gnueabi/4.7.2/ld: failed to set dynamic sect=
+ion sizes: Memory exhausted
+> | collect2: error: ld returned 1 exit status
+> | make[1]: *** [libwebkitgtk-1.0.la] Error 1
+> | make[1]: Leaving directory `/local/qemuarm_test/tmp/work/armv5te-poky-l=
+inux-gnueabi/webkit-gtk/1.8.2-r2/webkit-1.8.2'
+>=20
+> Any ideas on how I can fix the build of webkit-gtk?
 
-When I ran 'bitbake core-image-sato' again (after the run with -k that had
-the single failure), it succeeded!  Must be a parallel build issue.
-I'm using:
-   BB_NUMBER_THREADS = "4"
-   PARALLEL_MAKE = "-j 4"
+Add more RAM/swap.
 
-I also had a problem building 'web-webkit':
+Cheers,
 
-| /local/qemuarm_test/tmp/sysroots/i686-linux/usr/libexec/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.7.2/ld: failed to set dynamic section sizes: Memory exhausted
-| collect2: error: ld returned 1 exit status
-| make[1]: *** [libwebkitgtk-1.0.la] Error 1
-| make[1]: Leaving directory `/local/qemuarm_test/tmp/work/armv5te-poky-linux-gnueabi/webkit-gtk/1.8.2-r2/webkit-1.8.2'
+--=20
+Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
-Any ideas on how I can fix the build of webkit-gtk?
+--YPJ8CVbwFUtL7OFW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-Thanks
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.19 (GNU/Linux)
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+iEYEARECAAYFAlC44hAACgkQN1Ujt2V2gBz4ZgCeNz71xuWbqtmrwL2KFULDpg13
+jwoAn2q3q4D8E4FNuBJp+qRwQ/6yYpzA
+=bOvn
+-----END PGP SIGNATURE-----
 
+--YPJ8CVbwFUtL7OFW--
