@@ -1,36 +1,25 @@
-Return-Path: <ross.burton@intel.com>
-Received: from orsmga101.jf.intel.com (mga06.intel.com [134.134.136.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8A155E0144A
-	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 04:16:07 -0800 (PST)
-Received: from mail-wi0-f200.google.com ([209.85.212.200])
-	by mga02.intel.com with ESMTP/TLS/RC4-SHA; 06 Dec 2012 04:16:06 -0800
-Received: by mail-wi0-f200.google.com with SMTP id hn14so558255wib.11
-	for <poky@yoctoproject.org>; Thu, 06 Dec 2012 04:16:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
-	bh=610D83gB0sGoCIsHXcP2eYNcKbsA9OXymoFPwcXT7T8=;
-	b=Di5aX7fUcJyT7jQoJATEWWL16/yBO0lYFh1+xn3hRD5mSHp6AeqkVMBi2jpbiNbEYt
-	x2MvWkBlaWmHg0uao8nQsEIYZlAJQmhOdRJ7qYpiXL09GkIDXwzMHzmpJxxqG5vyThkW
-	jDEVRytn2Qs3rp0fAK1twkTHSU9hwkZE4QPDBn2ofOMKSe3Rk7j7U+o0u+VeDcw9I4YE
-	sxx0cTyu+jukYHHoQgzrLPwrQhYe8coO+UHUmejEtNRvAkSIQ6wMByFhjcMnhQFumkHh
-	xyqgtCG7F+EUL2mi8MJ335csUYTOOgqOOtm8PqWiv5oT8uoiOaHcSFaVURCRikgkBS6Z
-	7vlA==
-Received: by 10.180.98.8 with SMTP id ee8mr8747318wib.4.1354796164919;
-	Thu, 06 Dec 2012 04:16:04 -0800 (PST)
-Received: by 10.180.98.8 with SMTP id ee8mr8747307wib.4.1354796164685;
-	Thu, 06 Dec 2012 04:16:04 -0800 (PST)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id t17sm10764318wiv.6.2012.12.06.04.16.02
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 06 Dec 2012 04:16:03 -0800 (PST)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Thu,  6 Dec 2012 12:14:26 +0000
-Message-Id: <1354796066-17284-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10
-X-Gm-Message-State: ALoCoQkUHmQu1fvdPNaFBZiMzh8vwVKb1AC2b3z6TPsvxthVBVkoLytgJFgy1my039b2BwsuGdmuPXOaiWOkaqDqysME6w1mFxzOUc7vqUHNSkbthryBTkHpgV9nWvsaLswzZSOnOAYEYtmqAhSGBR5D4D0JaOLveQ==
-Subject: [PATCH] mesa: remove atom-pc specific overrides
+Return-Path: <constantinx.musca@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 21655E01454
+	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 05:12:51 -0800 (PST)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 06 Dec 2012 05:12:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,230,1355126400"; d="scan'208";a="176961299"
+Received: from costin-desktop (HELO [10.237.105.152]) ([10.237.105.152])
+	by AZSMGA002.ch.intel.com with ESMTP; 06 Dec 2012 05:12:49 -0800
+Message-ID: <50C099EF.2020106@intel.com>
+Date: Thu, 06 Dec 2012 15:13:19 +0200
+From: Constantin Musca <constantinx.musca@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:16.0) Gecko/20121016 Thunderbird/16.0.1
+MIME-Version: 1.0
+To: Saul Wold <sgw@linux.intel.com>
+References: <1353328788-31664-1-git-send-email-constantinx.musca@intel.com>
+	<50C02D93.1060208@linux.intel.com>
+In-Reply-To: <50C02D93.1060208@linux.intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] poky-tiny.conf: blacklist inappropriate image options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,38 +32,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Dec 2012 12:16:07 -0000
+X-List-Received-Date: Thu, 06 Dec 2012 13:12:51 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-These bbappends were used so that atom-pc would prefer mesa-dri over mesa-xlib.
-We don't have mesa-xlib anymore, so these are not required.
+On 12/06/2012 07:30 AM, Saul Wold wrote:
+> On 11/19/2012 04:39 AM, Constantin Musca wrote:
+>> Blacklist all images that aren't core-image-minimal-*
+>>
+>> [YOCTO #2565]
+>>
+>
+> During my testing of MUT, I found that poky-tiny would not build with 
+> this patch.
+>
+> Please verify.
+>
+> You can see the failure here:
+>
+> http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/357/steps/shell_43/logs/stdio 
+>
+>
+> I was able to reproduce it on my desktop machine.
+>
+> Sau!
+>
+>> Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
+>> ---
+>>   meta-yocto/conf/distro/poky-tiny.conf | 17 +++++++++++++++++
+>>   1 file changed, 17 insertions(+)
+>>
+>> diff --git a/meta-yocto/conf/distro/poky-tiny.conf 
+>> b/meta-yocto/conf/distro/poky-tiny.conf
+>> index d40748e..121534e 100644
+>> --- a/meta-yocto/conf/distro/poky-tiny.conf
+>> +++ b/meta-yocto/conf/distro/poky-tiny.conf
+>> @@ -120,3 +120,20 @@ MACHINE_ESSENTIAL_EXTRA_RDEPENDS = ""
+>>   # will build perl in case this package is installed. Since we don't 
+>> care about
+>>   # this script for the purposes of tiny, remove the dependency from 
+>> here.
+>>   RDEPENDS_${PN}-mtrace_pn-eglibc = ""
+>> +
+>> +INHERIT_DISTRO += "blacklist"
+>> +PNBLACKLIST[build-appliance-image] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-base] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-basic] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-clutter] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-gtk-directfb] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-lsb] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-lsb-dev] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-lsb-sdk] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-rt] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-rt-sdk] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-sato] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-sato-dev] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-sato-sdk] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
+>> +PNBLACKLIST[qt4e-demo-image] = "not buildable with poky-tiny"
+>>
+I only tested it using hob. It seems that Hob includes it in a different 
+way. The solution is to use INHERIT_DISTRO_append = " blacklist" in 
+order to permit INHERIT_DISTRO ?= "debian devshell sstate license" to 
+work (_append is delayed until the end of parsing). I will send patch v2.
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_8.0.4.bbappend |    3 ---
- meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_git.bbappend   |    3 ---
- 2 files changed, 6 deletions(-)
- delete mode 100644 meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_8.0.4.bbappend
- delete mode 100644 meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_git.bbappend
 
-diff --git a/meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_8.0.4.bbappend b/meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_8.0.4.bbappend
-deleted file mode 100644
-index 7e8e773..0000000
---- a/meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_8.0.4.bbappend
-+++ /dev/null
-@@ -1,3 +0,0 @@
--# Atom PCs have DRI support so use mesa-dri by default
--DEFAULT_PREFERENCE_atom-pc = "2"
--
-diff --git a/meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_git.bbappend b/meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_git.bbappend
-deleted file mode 100644
-index 61d3891..0000000
---- a/meta-yocto-bsp/recipes-graphics/mesa/mesa-dri_git.bbappend
-+++ /dev/null
-@@ -1,3 +0,0 @@
--# Atom PCs have DRI support so use mesa-dri by default
--DEFAULT_PREFERENCE_atom-pc = "1"
--
--- 
-1.7.10
-
+Cheers,
+Constantin
 
