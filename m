@@ -1,29 +1,24 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 41952E00655
-	for <poky@yoctoproject.org>; Fri, 30 Nov 2012 09:11:31 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id D368BF81218; Fri, 30 Nov 2012 10:11:30 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 6B34BF81217;
-	Fri, 30 Nov 2012 10:11:28 -0700 (MST)
-Message-ID: <50B8E8ED.5000802@mlbassoc.com>
-Date: Fri, 30 Nov 2012 10:12:13 -0700
-From: Gary Thomas <gary@mlbassoc.com>
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE156E006C6
+	for <poky@yoctoproject.org>; Wed,  5 Dec 2012 21:31:00 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 05 Dec 2012 21:31:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,228,1355126400"; d="scan'208";a="252772983"
+Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.13.117])
+	by orsmga002.jf.intel.com with ESMTP; 05 Dec 2012 21:30:59 -0800
+Message-ID: <50C02D93.1060208@linux.intel.com>
+Date: Wed, 05 Dec 2012 21:30:59 -0800
+From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:16.0) Gecko/20121028 Thunderbird/16.0.2
+	rv:17.0) Gecko/17.0 Thunderbird/17.0
 MIME-Version: 1.0
-To: Martin Jansa <martin.jansa@gmail.com>
-References: <50B8CC44.9070903@mlbassoc.com>
-	<20121130164256.GH3436@jama.jama.net>
-In-Reply-To: <20121130164256.GH3436@jama.jama.net>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Problems building from master
+To: Constantin Musca <constantinx.musca@intel.com>
+References: <1353328788-31664-1-git-send-email-constantinx.musca@intel.com>
+In-Reply-To: <1353328788-31664-1-git-send-email-constantinx.musca@intel.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] poky-tiny.conf: blacklist inappropriate image options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,69 +31,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Nov 2012 17:11:31 -0000
+X-List-Received-Date: Thu, 06 Dec 2012 05:31:00 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2012-11-30 09:42, Martin Jansa wrote:
-> On Fri, Nov 30, 2012 at 08:09:56AM -0700, Gary Thomas wrote:
->> trying to build 'core-image-sato' with this configuration:
->>
->> Build Configuration:
->> BB_VERSION        = "1.17.0"
->> BUILD_SYS         = "i686-linux"
->> NATIVELSBSTRING   = "Unknown"
->> TARGET_SYS        = "arm-poky-linux-gnueabi"
->> MACHINE           = "qemuarm"
->> DISTRO            = "poky"
->> DISTRO_VERSION    = "1.3+snapshot-20121130"
->> TUNE_FEATURES     = "armv5 dsp thumb"
->> TARGET_FPU        = "soft"
->> meta
->> meta-yocto
->> meta-yocto-bsp    = "master:247b6a3754c2c50318e2a73d79981ba0e9cb560b"
->> meta-oe           = "master:8e489120f9c4ae91e121ae9d33fecc1aacdf3257"
->>
->> Fails with:
->> /local/qemuarm_test/tmp/sysroots/i686-linux/usr/libexec/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.7.2/ld: cannot find -lsndfile
->> collect2: error: ld returned 1 exit status
->> make[1]: *** [sbc/sbctester] Error 1
->> make[1]: *** Waiting for unfinished jobs....
->> arm-poky-linux-gnueabi-libtool: link: arm-poky-linux-gnueabi-gcc -march=armv5te -marm -mthumb-interwork --sysroot=/local/qemuarm_test/tmp/sysroots/qemuarm -D_FORTIFY_SOURCE=2
->> -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/include/dbus-1.0 -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/lib/dbus-1.0/include
->> -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/include/glib-2.0 -I/local/qemuarm_test/tmp/sysroots/qemuarm/usr/lib/glib-2.0/include -O2 -pipe -g -feliminate-unused-debug-types
->> -Wl,-O1 -Wl,--hash-style=gnu -o tools/hcisecfilter tools/hcisecfilter.o
->> make: *** [all] Error 2
->> ERROR: oe_runmake failed
->> ERROR: Function failed: do_compile (see /local/qemuarm_test/tmp/work/armv5te-poky-linux-gnueabi/bluez4/4.101-r3/temp/log
+On 11/19/2012 04:39 AM, Constantin Musca wrote:
+> Blacklist all images that aren't core-image-minimal-*
 >
-> missing libsndfile1 in depends?
+> [YOCTO #2565]
 >
->> I then ran 'bitbake core-image-sato -k' to see what other failures I came
->> up with.  There were none.
->>
->> When I ran 'bitbake core-image-sato' again (after the run with -k that had
->> the single failure), it succeeded!  Must be a parallel build issue.
->> I'm using:
->>     BB_NUMBER_THREADS = "4"
->>     PARALLEL_MAKE = "-j 4"
->>
->> I also had a problem building 'web-webkit':
->>
->> | /local/qemuarm_test/tmp/sysroots/i686-linux/usr/libexec/armv5te-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/4.7.2/ld: failed to set dynamic section sizes: Memory exhausted
->> | collect2: error: ld returned 1 exit status
->> | make[1]: *** [libwebkitgtk-1.0.la] Error 1
->> | make[1]: Leaving directory `/local/qemuarm_test/tmp/work/armv5te-poky-linux-gnueabi/webkit-gtk/1.8.2-r2/webkit-1.8.2'
->>
->> Any ideas on how I can fix the build of webkit-gtk?
->
-> Add more RAM/swap.
 
-Didn't help - my machine has 6GB RAM + 20GB SWAP - still fails.
+During my testing of MUT, I found that poky-tiny would not build with 
+this patch.
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Please verify.
+
+You can see the failure here:
+
+http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/357/steps/shell_43/logs/stdio
+
+I was able to reproduce it on my desktop machine.
+
+Sau!
+
+> Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
+> ---
+>   meta-yocto/conf/distro/poky-tiny.conf | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
+>
+> diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+> index d40748e..121534e 100644
+> --- a/meta-yocto/conf/distro/poky-tiny.conf
+> +++ b/meta-yocto/conf/distro/poky-tiny.conf
+> @@ -120,3 +120,20 @@ MACHINE_ESSENTIAL_EXTRA_RDEPENDS = ""
+>   # will build perl in case this package is installed. Since we don't care about
+>   # this script for the purposes of tiny, remove the dependency from here.
+>   RDEPENDS_${PN}-mtrace_pn-eglibc = ""
+> +
+> +INHERIT_DISTRO += "blacklist"
+> +PNBLACKLIST[build-appliance-image] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-base] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-basic] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-clutter] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-gtk-directfb] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-lsb] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-lsb-dev] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-lsb-sdk] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-rt] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-rt-sdk] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-sato] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-sato-dev] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-sato-sdk] = "not buildable with poky-tiny"
+> +PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
+> +PNBLACKLIST[qt4e-demo-image] = "not buildable with poky-tiny"
+>
 
