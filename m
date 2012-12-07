@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DACCE0141C
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8D6B8E003DA
 	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 21:06:37 -0800 (PST)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id BE95E3040D
-	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:06:28 -0500 (EST)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 829D130410
+	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:06:31 -0500 (EST)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  6 Dec 2012 21:05:48 -0800
-Message-Id: <02161be1e7b0c95761fcd011c01796d0c8ec04e8.1354856621.git.scott.a.garman@intel.com>
+Date: Thu,  6 Dec 2012 21:05:49 -0800
+Message-Id: <1b07e40ad6ea3c3a24f172c46001f29972c1fb12.1354856621.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
 References: <cover.1354856621.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
 References: <cover.1354856621.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: BE95E3040D.C96A2
+X-MailScanner-ID: 829D130410.E65A0
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 15/18] libxml2: Update to 2.8.0
+Subject: [PATCH 16/18] libxml: disable lzma
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,130 +38,64 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 07 Dec 2012 05:06:37 -0000
 
-From: Saul Wold <sgw@linux.intel.com>
+From: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 
-removed 2 patches that are now fixed upstream
-updated hash.c LIC_FILES_CHKSUM due to updating the date to 2012
+On my system libxml-native got linked with host copy of liblzma and as a
+result libxslt-native was not linkable:
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+| x86_64-linux-libtool: link: gcc -isystem/home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/include -O2 -pipe -Wall -Wl,-rpath-link -Wl,/home/hrw
+/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib -Wl,-rpath-link -Wl,/home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-
+linux/lib -Wl,-rpath -Wl,/home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib -Wl,-rpath -Wl,/home/hrw/HDD/devel/canonical/ci-linaro/oecore/buil
+d/tmp-eglibc/sysroots/x86_64-linux/lib -Wl,-O1 -o .libs/xsltproc xsltproc.o  -L/home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib -L/home/hrw/
+HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/lib ../libxslt/.libs/libxslt.so ../libexslt/.libs/libexslt.so /home/hrw/HDD/devel/canonical/ci-linaro/oecore/
+build/tmp-eglibc/work/x86_64-linux/libxslt-native-1.1.26-r8/libxslt-1.1.26/libxslt/.libs/libxslt.so /home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux
+/usr/lib/libxml2.so -ldl /home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib/liblzma.so -lrt -lz -lm -pthread -Wl,-rpath -Wl,/home/hrw/HDD/deve
+l/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib
+| /home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib/libxml2.so: undefined reference to `lzma_code@XZ_5.0'
+| /home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib/libxml2.so: undefined reference to `lzma_auto_decoder@XZ_5.0'
+| /home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib/libxml2.so: undefined reference to `lzma_end@XZ_5.0'
+| /home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/sysroots/x86_64-linux/usr/lib/libxml2.so: undefined reference to `lzma_properties_decode@XZ_5.0'
+| collect2: error: ld returned 1 exit status
+| make[2]: *** [xsltproc] Error 1
+| make[2]: Leaving directory `/home/hrw/HDD/devel/canonical/ci-linaro/oecore/build/tmp-eglibc/work/x86_64-linux/libxslt-native-1.1.26-r8/libxslt-1.1.26/xsltproc'
 
-Resolved merge conflicts in denzil branch.
-
-Addresses CVE-2011-1944.
-
-Fixes denzil [YOCTO #2703]
-
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 ---
- meta/recipes-core/libxml/libxml2.inc               |    2 +-
- .../libxml/libxml2/fix_version_info.patch          |   23 --------------------
- .../libxml2/libxml2_fix_for_automake_1.12.patch    |   23 --------------------
- meta/recipes-core/libxml/libxml2_2.7.8.bb          |    9 --------
- meta/recipes-core/libxml/libxml2_2.8.0.bb          |    6 +++++
- 5 files changed, 7 insertions(+), 56 deletions(-)
- delete mode 100644 meta/recipes-core/libxml/libxml2/fix_version_info.patch
- delete mode 100644 meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch
- delete mode 100644 meta/recipes-core/libxml/libxml2_2.7.8.bb
- create mode 100644 meta/recipes-core/libxml/libxml2_2.8.0.bb
+ meta/recipes-core/libxml/libxml2.inc      |    8 ++++----
+ meta/recipes-core/libxml/libxml2_2.8.0.bb |    2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/meta/recipes-core/libxml/libxml2.inc b/meta/recipes-core/libxml/libxml2.inc
-index 32d6e8c..9b14524 100644
+index 9b14524..2af1dbf 100644
 --- a/meta/recipes-core/libxml/libxml2.inc
 +++ b/meta/recipes-core/libxml/libxml2.inc
-@@ -5,7 +5,7 @@ BUGTRACKER = "http://bugzilla.gnome.org/buglist.cgi?product=libxml2"
- SECTION = "libs"
- LICENSE = "MIT"
- LIC_FILES_CHKSUM = "file://Copyright;md5=bb90c48926316d9af6e2d70ca7013ade \
--                    file://hash.c;beginline=6;endline=15;md5=ce702952bfddd7aee22639a2d6b54136 \
-+                    file://hash.c;beginline=6;endline=15;md5=96f7296605eae807670fb08947829969 \
-                     file://list.c;beginline=4;endline=13;md5=cdbfa3dee51c099edb04e39f762ee907 \
-                     file://trio.c;beginline=5;endline=14;md5=6c025753c86d958722ec76e94cae932e"
+@@ -23,10 +23,10 @@ do_configure_prepend () {
+ 	sed -i -e '/.*ansidecl.h.*/d' ${S}/configure.in
+ }
  
-diff --git a/meta/recipes-core/libxml/libxml2/fix_version_info.patch b/meta/recipes-core/libxml/libxml2/fix_version_info.patch
-deleted file mode 100644
-index 77113ef..0000000
---- a/meta/recipes-core/libxml/libxml2/fix_version_info.patch
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Upstream-Status: Already upstream
--
--From 00819877651b87842ed878898ba17dba489820f0 Mon Sep 17 00:00:00 2001
--From: Daniel Veillard <veillard@redhat.com>
--Date: Thu, 04 Nov 2010 20:53:14 +0000
--Subject: Reactivate the shared library versionning script
--
-----
--diff --git a/configure.in b/configure.in
--index 59d0629..a1d2c89 100644
----- a/configure.in
--+++ b/configure.in
--@@ -84,7 +84,7 @@ else
--   esac
-- fi
-- AC_SUBST(VERSION_SCRIPT_FLAGS)
---AM_CONDITIONAL([USE_VERSION_SCRIPT], [test -z "$VERSION_SCRIPT_FLAGS"])
--+AM_CONDITIONAL([USE_VERSION_SCRIPT], [test -n "$VERSION_SCRIPT_FLAGS"])
-- 
-- dnl
-- dnl We process the AC_ARG_WITH first so that later we can modify
----
--cgit v0.9.0.2
-diff --git a/meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch b/meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch
-deleted file mode 100644
-index 5c25882..0000000
---- a/meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Upstream-Status: Pending
--
--automake 1.12 has decpricated automatic de-ANSI-fication support
--
--this patch fixes this build issue:
--
--| configure.in:67: error: automatic de-ANSI-fication support has been removed
--Signed-Off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
--2012/05/02
--
--Index: libxml2-2.7.8/configure.in
--===================================================================
----- libxml2-2.7.8.orig/configure.in
--+++ libxml2-2.7.8/configure.in
--@@ -63,8 +63,6 @@ AC_PATH_PROG(WGET, wget, /usr/bin/wget)
-- AC_PATH_PROG(XMLLINT, xmllint, /usr/bin/xmllint)
-- AC_PATH_PROG(XSLTPROC, xsltproc, /usr/bin/xsltproc)
-- 
---dnl Make sure we have an ANSI compiler
---AM_C_PROTOTYPES
-- test "x$U" != "x" && AC_MSG_ERROR(Compiler not ANSI compliant)
-- 
-- AC_LIBTOOL_WIN32_DLL
-diff --git a/meta/recipes-core/libxml/libxml2_2.7.8.bb b/meta/recipes-core/libxml/libxml2_2.7.8.bb
-deleted file mode 100644
-index 9111120..0000000
---- a/meta/recipes-core/libxml/libxml2_2.7.8.bb
-+++ /dev/null
-@@ -1,9 +0,0 @@
--require libxml2.inc
--
--PR = "r8"
--
--SRC_URI += "file://fix_version_info.patch \
--            file://libxml2_fix_for_automake_1.12.patch"
--
--SRC_URI[md5sum] = "8127a65e8c3b08856093099b52599c86"
--SRC_URI[sha256sum] = "cda23bc9ebd26474ca8f3d67e7d1c4a1f1e7106364b690d822e009fdc3c417ec"
+-EXTRA_OECONF = "--without-python --without-debug --without-legacy --without-catalog --without-docbook --with-c14n"
+-EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
+-EXTRA_OECONF_virtclass-nativesdk = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
+-EXTRA_OECONF_linuxstdbase = "--without-python --with-debug --with-legacy --with-catalog --with-docbook --with-c14n"
++EXTRA_OECONF = "--without-python --without-debug --without-legacy --without-catalog --without-docbook --with-c14n --without-lzma"
++EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n --without-lzma"
++EXTRA_OECONF_virtclass-nativesdk = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n --without-lzma"
++EXTRA_OECONF_linuxstdbase = "--without-python --with-debug --with-legacy --with-catalog --with-docbook --with-c14n --without-lzma"
+ 
+ # required for pythong binding
+ export HOST_SYS
 diff --git a/meta/recipes-core/libxml/libxml2_2.8.0.bb b/meta/recipes-core/libxml/libxml2_2.8.0.bb
-new file mode 100644
-index 0000000..243789c
---- /dev/null
+index 243789c..fe9ec05 100644
+--- a/meta/recipes-core/libxml/libxml2_2.8.0.bb
 +++ b/meta/recipes-core/libxml/libxml2_2.8.0.bb
-@@ -0,0 +1,6 @@
-+require libxml2.inc
-+
-+PR = "r0"
-+
-+SRC_URI[md5sum] = "c62106f02ee00b6437f0fb9d370c1093"
-+SRC_URI[sha256sum] = "f2e2d0e322685193d1affec83b21dc05d599e17a7306d7b90de95bb5b9ac622a"
+@@ -1,6 +1,6 @@
+ require libxml2.inc
+ 
+-PR = "r0"
++PR = "r1"
+ 
+ SRC_URI[md5sum] = "c62106f02ee00b6437f0fb9d370c1093"
+ SRC_URI[sha256sum] = "f2e2d0e322685193d1affec83b21dc05d599e17a7306d7b90de95bb5b9ac622a"
 -- 
 1.7.9.5
 
