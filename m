@@ -1,35 +1,25 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 40D21E00348
-	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 13:29:49 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Dec 2012 13:29:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,232,1355126400"; d="scan'208";a="258361396"
-Received: from orsmsx105.amr.corp.intel.com ([10.22.225.132])
-	by fmsmga001.fm.intel.com with ESMTP; 06 Dec 2012 13:29:48 -0800
-Received: from orsmsx151.amr.corp.intel.com (10.22.226.38) by
-	ORSMSX105.amr.corp.intel.com (10.22.225.132) with Microsoft SMTP Server
-	(TLS) id 14.1.355.2; Thu, 6 Dec 2012 13:29:48 -0800
-Received: from orsmsx101.amr.corp.intel.com ([169.254.8.81]) by
-	ORSMSX151.amr.corp.intel.com ([169.254.7.43]) with mapi id
-	14.01.0355.002; Thu, 6 Dec 2012 13:29:47 -0800
-From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-To: "Voicu, Cristiana" <cristiana.voicu@intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Thread-Topic: [poky] [PATCH] bblayers.conf: Add a new variable to prevent
-	certain	layers to be removed
-Thread-Index: AQHNy6vAdZv1jjSFtECvAnjfWL7D9JgMWGnA
-Date: Thu, 6 Dec 2012 21:29:46 +0000
-Message-ID: <41DEA4B02DBDEF40A0F3B6D0DDB1237946ACB35C@ORSMSX101.amr.corp.intel.com>
-References: <1353916805-29483-1-git-send-email-cristiana.voicu@intel.com>
-In-Reply-To: <1353916805-29483-1-git-send-email-cristiana.voicu@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.22.254.140]
-MIME-Version: 1.0
-Subject: Re: [PATCH] bblayers.conf: Add a new variable to prevent certain	layers to be removed
+Return-Path: <scott.a.garman@intel.com>
+Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E77A8E003DA
+	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 21:06:02 -0800 (PST)
+Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
+	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id EA16D303EF
+	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:05:55 -0500 (EST)
+From: Scott Garman <scott.a.garman@intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  6 Dec 2012 21:05:33 -0800
+Message-Id: <cover.1354856621.git.scott.a.garman@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+X-MasterFoo-MailScanner-Information: Please contact the ISP for more
+	information
+X-MailScanner-ID: EA16D303EF.2A24C
+X-MasterFoo-MailScanner: Found to be clean
+X-MasterFoo-MailScanner-SpamCheck: not spam
+X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
+X-Spam-Status: No
+Subject: [PATCH 00/18] denzil pull request 4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,64 +32,251 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Dec 2012 21:29:49 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 07 Dec 2012 05:06:03 -0000
 
-I have made several changes throughout the YP documentation manual set to a=
-ddress this fix.  You can examine the commit at http://git.yoctoproject.org=
-/cgit.cgi/yocto-docs/commit/?id=3D904b9ec1cd6d823af0e92f6891fc7e434cf2e358.=
-  Basically, I have done the following:
+Hello,
 
-* Updated any bblayer.conf example code used throughout
-* Removed the note warning of the error (bug) situation when someone takes =
-out a core layer from bblayer.conf
-* Added more clarifying information on the BBLAYERS and BBLAYERS_NON_REMOVA=
-BLE variables
-* Created a new glossary entry for the BBLAYERS_NON_REMOVABLE variable
+This is a pull request for denzil, it includes a number of security
+fixes and a few important bugfixes. The poky-based tree has been run
+through the autobuilder as follows:
 
-Manuals affected are the development manual, bsp guide, and reference manua=
-l.  Links for the manuals are here:
+nightly-x86: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-x86/builds/824
 
-http://www.yoctoproject.org/docs/1.4/dev-manual/dev-manual.html
-http://www.yoctoproject.org/docs/1.4/bsp-guide/bsp-guide.html
-http://www.yoctoproject.org/docs/1.4/poky-ref-manual/poky-ref-manual.html.
+nightly-x86-lsb: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-x86-lsb/builds/153
 
-Scott
+nightly-x86-64: Sanity test failure
+http://autobuilder.yoctoproject.org:8010/builders/nightly-x86-64/builds/747
 
->-----Original Message-----
->From: poky-bounces@yoctoproject.org [mailto:poky-
->bounces@yoctoproject.org] On Behalf Of Cristiana Voicu
->Sent: Monday, November 26, 2012 12:00 AM
->To: poky@yoctoproject.org
->Subject: [poky] [PATCH] bblayers.conf: Add a new variable to prevent
->certain layers to be removed
->
->[YOCTO #3372]
->Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
->---
-> meta-yocto/conf/bblayers.conf.sample |    4 ++++
-> 1 file changed, 4 insertions(+)
->
->diff --git a/meta-yocto/conf/bblayers.conf.sample b/meta-
->yocto/conf/bblayers.conf.sample
->index 98bfd70..7fd755d 100644
->--- a/meta-yocto/conf/bblayers.conf.sample
->+++ b/meta-yocto/conf/bblayers.conf.sample
->@@ -10,3 +10,7 @@ BBLAYERS ?=3D " \
->   ##COREBASE##/meta-yocto \
->   ##COREBASE##/meta-yocto-bsp \
->   "
->+BBLAYERS_NON_REMOVABLE ?=3D " \
->+  ##COREBASE##/meta \
->+  ##COREBASE##/meta-yocto \
->+  "
->--
->1.7.9.5
->
->_______________________________________________
->poky mailing list
->poky@yoctoproject.org
->https://lists.yoctoproject.org/listinfo/poky
+Qemu apparently failed to shutdown cleanly. My impression is that this is
+likely a sporadic error and does not appear to be reproducible.
+
+nightly-x86-64-lsb: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-x86-64-lsb/builds/148
+
+nightly-arm: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-arm/builds/753
+
+nightly-arm-lsb: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-arm-lsb/builds/146
+
+nightly-mips: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-mips/builds/724
+
+nightly-mips-lsb: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-mips-lsb/builds/151
+
+nightly-ppc: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-ppc/builds/704
+
+nightly-ppc-lsb: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-ppc-lsb/builds/153
+
+nightly-non-gpl3: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/382
+
+nightly-multilib: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-multilib/builds/375
+
+nightly-tiny: Green
+http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/359
+
+build-appliance: Failed
+http://autobuilder.yoctoproject.org:8010/builders/build-appliance/builds/156
+
+Failure was due to the fact that I didn't set up a special additional commit
+for things to build on the autobuilder.
+
+eclipse-plugin: Green
+http://autobuilder.yoctoproject.org:8010/builders/eclipse-plugin/builds/678
+
+crownbay: Failed
+http://autobuilder.yoctoproject.org:8010/builders/crownbay/builds/246
+
+Failed configuring gst-plugins-good, bug tracked here:
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
+
+crownbay-noemgd: Green
+http://autobuilder.yoctoproject.org:8010/builders/crownbay-noemgd/builds/247
+
+emenlow: Green
+http://autobuilder.yoctoproject.org:8010/builders/emenlow/builds/232
+
+n450: Green
+http://autobuilder.yoctoproject.org:8010/builders/n450/builds/236
+
+jasperforest: Green
+http://autobuilder.yoctoproject.org:8010/builders/jasperforest/builds/231
+
+sugarbay: Failed
+http://autobuilder.yoctoproject.org:8010/builders/sugarbay/builds/242
+
+Failed configuring gst-plugins-good, bug tracked here:
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
+
+fri2-noemgd: Green
+http://autobuilder.yoctoproject.org:8010/builders/fri2-noemgd/builds/244
+
+fri2: Failed
+http://autobuilder.yoctoproject.org:8010/builders/fri2/builds/259
+
+Failed configuring gst-plugins-good, bug tracked here:
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
+
+romley: Green
+http://autobuilder.yoctoproject.org:8010/builders/romley/builds/206
+
+cedartrail: Failed
+http://autobuilder.yoctoproject.org:8010/builders/cedartrail/builds/211
+
+Failed configuring gst-plugins-good, bug tracked here:
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
+
+sys940x: Failed
+http://autobuilder.yoctoproject.org:8010/builders/sys940x/builds/106
+
+Failed configuring gst-plugins-good, bug tracked here:
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
+
+sys940x-noemgd: Green
+http://autobuilder.yoctoproject.org:8010/builders/sys940x-noemgd/builds/105
+
+p1022ds: Failed
+http://autobuilder.yoctoproject.org:8010/builders/p1022ds/builds/156
+
+Failed due to a bbappend version mismatch, bug tracked here:
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=3535
+
+The following changes since commit 846b7c388738f382e83576e77b705aa547c1dd9b:
+
+  bitbake: lib/bb/siggen.py: log when tainting the signature of a task (2012-10-12 08:58:48 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib sgarman/denzil-next-pull4
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-pull4
+
+Andrei Gherzan (1):
+  opkg-utils: Add needed python modules as RDEPENDS
+
+Christopher Larson (1):
+  bitbake: command: add error to return of runCommand
+
+Joe Slater (1):
+  gettext: install libgettextlib.a before removing it
+
+Marcin Juszkiewicz (1):
+  libxml: disable lzma
+
+Martin Jansa (1):
+  opkg-utils: bump SRCREV to latest
+
+Nitin A Kamble (1):
+  libxml2: fix build with automake 1.12
+
+Paul Eggleton (1):
+  classes/qmake_base: support linux-gnuspe/linux-uclibcspe TARGET_OS
+
+Phil Blundell (1):
+  openssl: Use ${CFLAGS} not ${FULL_OPTIMIZATION}
+
+Richard Purdie (1):
+  libxml2/libxslt: Don't depend on ansidecl.h header
+
+Robert Yang (2):
+  package_rpm.bbclass: Fix incremental rpm image generation
+  rootfs_rpm.bbclass: save rpmlib rather than remove it
+
+Ross Burton (1):
+  gst-plugins-good: disable (uninstalled) examples
+
+Roy.Li (1):
+  bitbake: compile tar-replacement firstly
+
+Saul Wold (1):
+  libxml2: Update to 2.8.0
+
+Scott Garman (2):
+  openssl: upgrade to 1.0.0j
+  poky.conf: Add Ubuntu 12.04.1 LTS to SANITY_TESTED_DISTROS
+
+yanjun.zhu (2):
+  libproxy: Fix for CVE-2012-4504
+  squashfs: fix for CVE-2012-4024
+
+ bitbake/lib/bb/command.py                          |   43 +++++++-----
+ bitbake/lib/bb/server/process.py                   |    2 +-
+ bitbake/lib/bb/ui/crumbs/hobeventhandler.py        |    5 +-
+ bitbake/lib/bb/ui/depexp.py                        |   38 +++++++----
+ bitbake/lib/bb/ui/goggle.py                        |   17 +++--
+ bitbake/lib/bb/ui/knotty.py                        |   45 ++++++++----
+ bitbake/lib/bb/ui/ncurses.py                       |   21 ++++--
+ meta-yocto/conf/distro/poky.conf                   |    1 +
+ meta/classes/image.bbclass                         |    6 ++
+ meta/classes/package_rpm.bbclass                   |   20 +++---
+ meta/classes/qmake_base.bbclass                    |    2 +-
+ meta/classes/rootfs_rpm.bbclass                    |    6 +-
+ .../configure-targets.patch                        |    0
+ .../debian/c_rehash-compat.patch                   |    0
+ .../debian/ca.patch                                |    0
+ .../debian/debian-targets.patch                    |    0
+ .../debian/make-targets.patch                      |    0
+ .../debian/man-dir.patch                           |    0
+ .../debian/man-section.patch                       |    0
+ .../debian/no-rpath.patch                          |    0
+ .../debian/no-symbolic.patch                       |    0
+ .../debian/pic.patch                               |    0
+ .../debian/version-script.patch                    |    0
+ .../engines-install-in-libdir-ssl.patch            |    0
+ .../{openssl-1.0.0i => openssl-1.0.0j}/find.pl     |    0
+ .../oe-ldflags.patch                               |    0
+ .../openssl-fix-link.patch                         |    0
+ .../openssl_fix_for_x32.patch                      |    0
+ .../shared-libs.patch                              |    0
+ meta/recipes-connectivity/openssl/openssl.inc      |    2 +-
+ .../{openssl_1.0.0i.bb => openssl_1.0.0j.bb}       |    4 +-
+ .../gettext/gettext-0.18.1.1/parallel.patch        |   34 +++++++++
+ meta/recipes-core/gettext/gettext_0.18.1.1.bb      |    3 +-
+ meta/recipes-core/libxml/libxml2.inc               |   15 ++--
+ .../libxml/libxml2/fix_version_info.patch          |   23 -------
+ meta/recipes-core/libxml/libxml2_2.7.8.bb          |    8 ---
+ meta/recipes-core/libxml/libxml2_2.8.0.bb          |    6 ++
+ meta/recipes-devtools/opkg-utils/opkg-utils_git.bb |    5 +-
+ .../patches/squashfs-4.2-fix-CVE-2012-4024.patch   |   72 ++++++++++++++++++++
+ .../squashfs-tools/squashfs-tools_4.2.bb           |    3 +
+ .../gstreamer/gst-plugins-good_0.10.31.bb          |    6 +-
+ .../libproxy/libproxy-0.4.7-CVE-2012-4504.patch    |   29 ++++++++
+ meta/recipes-support/libproxy/libproxy_0.4.7.bb    |    1 +
+ meta/recipes-support/libxslt/libxslt_1.1.26.bb     |    7 +-
+ scripts/bitbake                                    |    7 +-
+ 45 files changed, 310 insertions(+), 121 deletions(-)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/configure-targets.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/c_rehash-compat.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/ca.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/debian-targets.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/make-targets.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/man-dir.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/man-section.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/no-rpath.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/no-symbolic.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/pic.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/version-script.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/engines-install-in-libdir-ssl.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/find.pl (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/oe-ldflags.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/openssl-fix-link.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/openssl_fix_for_x32.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/shared-libs.patch (100%)
+ rename meta/recipes-connectivity/openssl/{openssl_1.0.0i.bb => openssl_1.0.0j.bb} (90%)
+ create mode 100644 meta/recipes-core/gettext/gettext-0.18.1.1/parallel.patch
+ delete mode 100644 meta/recipes-core/libxml/libxml2/fix_version_info.patch
+ delete mode 100644 meta/recipes-core/libxml/libxml2_2.7.8.bb
+ create mode 100644 meta/recipes-core/libxml/libxml2_2.8.0.bb
+ create mode 100644 meta/recipes-devtools/squashfs-tools/patches/squashfs-4.2-fix-CVE-2012-4024.patch
+ create mode 100644 meta/recipes-support/libproxy/libproxy/libproxy-0.4.7-CVE-2012-4504.patch
+
+-- 
+1.7.9.5
+
 
