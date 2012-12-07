@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5C448E006C0
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C7216E006C0
 	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 21:06:32 -0800 (PST)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 6A16F303EF
-	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:06:24 -0500 (EST)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 88E5830411
+	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:06:26 -0500 (EST)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  6 Dec 2012 21:05:46 -0800
-Message-Id: <6d4a357c65d502a147ef34ec3c65d3099c79efb9.1354856621.git.scott.a.garman@intel.com>
+Date: Thu,  6 Dec 2012 21:05:47 -0800
+Message-Id: <2b1bc176221515896a55d101a8071ec47e0bf1aa.1354856621.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
 References: <cover.1354856621.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
 References: <cover.1354856621.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 6A16F303EF.F0B6F
+X-MailScanner-ID: 88E5830411.AB89F
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 13/18] libxml2: fix build with automake 1.12
+Subject: [PATCH 14/18] libxml2/libxslt: Don't depend on ansidecl.h header
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,60 +38,65 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 07 Dec 2012 05:06:32 -0000
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
+We don't DEPEND on binutils for ansidecl.h so ensure we should never
+use the header. This makes builds determinstic and means something like:
+
+bitbake binutils
+bitbake libxml2 -c configure
+bitbake binutils -c clean
+bitbake libxml2
+
+doen't fail to build.
+
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../libxml2/libxml2_fix_for_automake_1.12.patch    |   23 ++++++++++++++++++++
- meta/recipes-core/libxml/libxml2_2.7.8.bb          |    5 +++--
- 2 files changed, 26 insertions(+), 2 deletions(-)
- create mode 100644 meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch
+ meta/recipes-core/libxml/libxml2.inc           |    5 +++++
+ meta/recipes-support/libxslt/libxslt_1.1.26.bb |    7 ++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch b/meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch
-new file mode 100644
-index 0000000..5c25882
---- /dev/null
-+++ b/meta/recipes-core/libxml/libxml2/libxml2_fix_for_automake_1.12.patch
-@@ -0,0 +1,23 @@
-+Upstream-Status: Pending
-+
-+automake 1.12 has decpricated automatic de-ANSI-fication support
-+
-+this patch fixes this build issue:
-+
-+| configure.in:67: error: automatic de-ANSI-fication support has been removed
-+Signed-Off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
-+2012/05/02
-+
-+Index: libxml2-2.7.8/configure.in
-+===================================================================
-+--- libxml2-2.7.8.orig/configure.in
-++++ libxml2-2.7.8/configure.in
-+@@ -63,8 +63,6 @@ AC_PATH_PROG(WGET, wget, /usr/bin/wget)
-+ AC_PATH_PROG(XMLLINT, xmllint, /usr/bin/xmllint)
-+ AC_PATH_PROG(XSLTPROC, xsltproc, /usr/bin/xsltproc)
-+ 
-+-dnl Make sure we have an ANSI compiler
-+-AM_C_PROTOTYPES
-+ test "x$U" != "x" && AC_MSG_ERROR(Compiler not ANSI compliant)
-+ 
-+ AC_LIBTOOL_WIN32_DLL
-diff --git a/meta/recipes-core/libxml/libxml2_2.7.8.bb b/meta/recipes-core/libxml/libxml2_2.7.8.bb
-index 1de73da..9111120 100644
---- a/meta/recipes-core/libxml/libxml2_2.7.8.bb
-+++ b/meta/recipes-core/libxml/libxml2_2.7.8.bb
-@@ -1,8 +1,9 @@
- require libxml2.inc
+diff --git a/meta/recipes-core/libxml/libxml2.inc b/meta/recipes-core/libxml/libxml2.inc
+index 2eecbd3..32d6e8c 100644
+--- a/meta/recipes-core/libxml/libxml2.inc
++++ b/meta/recipes-core/libxml/libxml2.inc
+@@ -18,6 +18,11 @@ SRC_URI = "ftp://xmlsoft.org/libxml2/libxml2-${PV}.tar.gz \
  
+ inherit autotools pkgconfig binconfig
+ 
++# We don't DEPEND on binutils for ansidecl.h so ensure we don't use the header
++do_configure_prepend () {
++	sed -i -e '/.*ansidecl.h.*/d' ${S}/configure.in
++}
++
+ EXTRA_OECONF = "--without-python --without-debug --without-legacy --without-catalog --without-docbook --with-c14n"
+ EXTRA_OECONF_virtclass-native = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
+ EXTRA_OECONF_virtclass-nativesdk = "--with-python=${STAGING_BINDIR}/python --without-legacy --with-catalog --without-docbook --with-c14n"
+diff --git a/meta/recipes-support/libxslt/libxslt_1.1.26.bb b/meta/recipes-support/libxslt/libxslt_1.1.26.bb
+index 8986e20..e4cc214 100644
+--- a/meta/recipes-support/libxslt/libxslt_1.1.26.bb
++++ b/meta/recipes-support/libxslt/libxslt_1.1.26.bb
+@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://Copyright;md5=0cd9a07afbeb24026c9b03aecfeba458"
+ 
+ SECTION = "libs"
+ DEPENDS = "libxml2"
 -PR = "r7"
 +PR = "r8"
  
--SRC_URI += "file://fix_version_info.patch"
-+SRC_URI += "file://fix_version_info.patch \
-+            file://libxml2_fix_for_automake_1.12.patch"
+ SRC_URI = "ftp://xmlsoft.org/libxslt//libxslt-${PV}.tar.gz \
+            file://pkgconfig_fix.patch"
+@@ -18,6 +18,11 @@ S = "${WORKDIR}/libxslt-${PV}"
  
- SRC_URI[md5sum] = "8127a65e8c3b08856093099b52599c86"
- SRC_URI[sha256sum] = "cda23bc9ebd26474ca8f3d67e7d1c4a1f1e7106364b690d822e009fdc3c417ec"
+ inherit autotools pkgconfig binconfig lib_package
+ 
++# We don't DEPEND on binutils for ansidecl.h so ensure we don't use the header
++do_configure_prepend () {
++	sed -i -e 's/ansidecl.h//' ${S}/configure.in
++}
++
+ EXTRA_OECONF = "--without-python --without-debug --without-mem-debug --without-crypto"
+ # older versions of this recipe had ${PN}-utils
+ RPROVIDES_${PN}-bin += "${PN}-utils"
 -- 
 1.7.9.5
 
