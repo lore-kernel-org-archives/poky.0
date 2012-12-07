@@ -1,25 +1,29 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E77A8E003DA
-	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 21:06:02 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0A1A3E0127A
+	for <poky@yoctoproject.org>; Thu,  6 Dec 2012 21:06:07 -0800 (PST)
 Received: from localhost (c-76-105-137-48.hsd1.or.comcast.net [76.105.137.48])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id EA16D303EF
-	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:05:55 -0500 (EST)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 3165D30410
+	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 00:06:00 -0500 (EST)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Thu,  6 Dec 2012 21:05:33 -0800
-Message-Id: <cover.1354856621.git.scott.a.garman@intel.com>
+Date: Thu,  6 Dec 2012 21:05:35 -0800
+Message-Id: <5757cc82dc13d80b7a47eecfcb1a435d6422a349.1354856621.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
+References: <cover.1354856621.git.scott.a.garman@intel.com>
+In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
+References: <cover.1354856621.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: EA16D303EF.2A24C
+X-MailScanner-ID: 3165D30410.0DCBA
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 00/18] denzil pull request 4
+Subject: [PATCH 02/18] classes/qmake_base: support linux-gnuspe/linux-uclibcspe TARGET_OS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,250 +36,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Dec 2012 05:06:03 -0000
+X-List-Received-Date: Fri, 07 Dec 2012 05:06:07 -0000
 
-Hello,
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-This is a pull request for denzil, it includes a number of security
-fixes and a few important bugfixes. The poky-based tree has been run
-through the autobuilder as follows:
+Fix borrowed from OE-Classic. This should fix build failures during
+do_configure of Qt applications with the p1022ds machine from
+meta-fsl-ppc, for example.
 
-nightly-x86: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-x86/builds/824
+(From OE-Core rev: a19fc8e19a6cc6885a1e0616b1f42cc49c8f2c9f)
 
-nightly-x86-lsb: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-x86-lsb/builds/153
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta/classes/qmake_base.bbclass |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-nightly-x86-64: Sanity test failure
-http://autobuilder.yoctoproject.org:8010/builders/nightly-x86-64/builds/747
-
-Qemu apparently failed to shutdown cleanly. My impression is that this is
-likely a sporadic error and does not appear to be reproducible.
-
-nightly-x86-64-lsb: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-x86-64-lsb/builds/148
-
-nightly-arm: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-arm/builds/753
-
-nightly-arm-lsb: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-arm-lsb/builds/146
-
-nightly-mips: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-mips/builds/724
-
-nightly-mips-lsb: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-mips-lsb/builds/151
-
-nightly-ppc: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-ppc/builds/704
-
-nightly-ppc-lsb: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-ppc-lsb/builds/153
-
-nightly-non-gpl3: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-non-gpl3/builds/382
-
-nightly-multilib: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-multilib/builds/375
-
-nightly-tiny: Green
-http://autobuilder.yoctoproject.org:8010/builders/nightly-tiny/builds/359
-
-build-appliance: Failed
-http://autobuilder.yoctoproject.org:8010/builders/build-appliance/builds/156
-
-Failure was due to the fact that I didn't set up a special additional commit
-for things to build on the autobuilder.
-
-eclipse-plugin: Green
-http://autobuilder.yoctoproject.org:8010/builders/eclipse-plugin/builds/678
-
-crownbay: Failed
-http://autobuilder.yoctoproject.org:8010/builders/crownbay/builds/246
-
-Failed configuring gst-plugins-good, bug tracked here:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
-
-crownbay-noemgd: Green
-http://autobuilder.yoctoproject.org:8010/builders/crownbay-noemgd/builds/247
-
-emenlow: Green
-http://autobuilder.yoctoproject.org:8010/builders/emenlow/builds/232
-
-n450: Green
-http://autobuilder.yoctoproject.org:8010/builders/n450/builds/236
-
-jasperforest: Green
-http://autobuilder.yoctoproject.org:8010/builders/jasperforest/builds/231
-
-sugarbay: Failed
-http://autobuilder.yoctoproject.org:8010/builders/sugarbay/builds/242
-
-Failed configuring gst-plugins-good, bug tracked here:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
-
-fri2-noemgd: Green
-http://autobuilder.yoctoproject.org:8010/builders/fri2-noemgd/builds/244
-
-fri2: Failed
-http://autobuilder.yoctoproject.org:8010/builders/fri2/builds/259
-
-Failed configuring gst-plugins-good, bug tracked here:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
-
-romley: Green
-http://autobuilder.yoctoproject.org:8010/builders/romley/builds/206
-
-cedartrail: Failed
-http://autobuilder.yoctoproject.org:8010/builders/cedartrail/builds/211
-
-Failed configuring gst-plugins-good, bug tracked here:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
-
-sys940x: Failed
-http://autobuilder.yoctoproject.org:8010/builders/sys940x/builds/106
-
-Failed configuring gst-plugins-good, bug tracked here:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=3536
-
-sys940x-noemgd: Green
-http://autobuilder.yoctoproject.org:8010/builders/sys940x-noemgd/builds/105
-
-p1022ds: Failed
-http://autobuilder.yoctoproject.org:8010/builders/p1022ds/builds/156
-
-Failed due to a bbappend version mismatch, bug tracked here:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=3535
-
-The following changes since commit 846b7c388738f382e83576e77b705aa547c1dd9b:
-
-  bitbake: lib/bb/siggen.py: log when tainting the signature of a task (2012-10-12 08:58:48 +0100)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib sgarman/denzil-next-pull4
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-pull4
-
-Andrei Gherzan (1):
-  opkg-utils: Add needed python modules as RDEPENDS
-
-Christopher Larson (1):
-  bitbake: command: add error to return of runCommand
-
-Joe Slater (1):
-  gettext: install libgettextlib.a before removing it
-
-Marcin Juszkiewicz (1):
-  libxml: disable lzma
-
-Martin Jansa (1):
-  opkg-utils: bump SRCREV to latest
-
-Nitin A Kamble (1):
-  libxml2: fix build with automake 1.12
-
-Paul Eggleton (1):
-  classes/qmake_base: support linux-gnuspe/linux-uclibcspe TARGET_OS
-
-Phil Blundell (1):
-  openssl: Use ${CFLAGS} not ${FULL_OPTIMIZATION}
-
-Richard Purdie (1):
-  libxml2/libxslt: Don't depend on ansidecl.h header
-
-Robert Yang (2):
-  package_rpm.bbclass: Fix incremental rpm image generation
-  rootfs_rpm.bbclass: save rpmlib rather than remove it
-
-Ross Burton (1):
-  gst-plugins-good: disable (uninstalled) examples
-
-Roy.Li (1):
-  bitbake: compile tar-replacement firstly
-
-Saul Wold (1):
-  libxml2: Update to 2.8.0
-
-Scott Garman (2):
-  openssl: upgrade to 1.0.0j
-  poky.conf: Add Ubuntu 12.04.1 LTS to SANITY_TESTED_DISTROS
-
-yanjun.zhu (2):
-  libproxy: Fix for CVE-2012-4504
-  squashfs: fix for CVE-2012-4024
-
- bitbake/lib/bb/command.py                          |   43 +++++++-----
- bitbake/lib/bb/server/process.py                   |    2 +-
- bitbake/lib/bb/ui/crumbs/hobeventhandler.py        |    5 +-
- bitbake/lib/bb/ui/depexp.py                        |   38 +++++++----
- bitbake/lib/bb/ui/goggle.py                        |   17 +++--
- bitbake/lib/bb/ui/knotty.py                        |   45 ++++++++----
- bitbake/lib/bb/ui/ncurses.py                       |   21 ++++--
- meta-yocto/conf/distro/poky.conf                   |    1 +
- meta/classes/image.bbclass                         |    6 ++
- meta/classes/package_rpm.bbclass                   |   20 +++---
- meta/classes/qmake_base.bbclass                    |    2 +-
- meta/classes/rootfs_rpm.bbclass                    |    6 +-
- .../configure-targets.patch                        |    0
- .../debian/c_rehash-compat.patch                   |    0
- .../debian/ca.patch                                |    0
- .../debian/debian-targets.patch                    |    0
- .../debian/make-targets.patch                      |    0
- .../debian/man-dir.patch                           |    0
- .../debian/man-section.patch                       |    0
- .../debian/no-rpath.patch                          |    0
- .../debian/no-symbolic.patch                       |    0
- .../debian/pic.patch                               |    0
- .../debian/version-script.patch                    |    0
- .../engines-install-in-libdir-ssl.patch            |    0
- .../{openssl-1.0.0i => openssl-1.0.0j}/find.pl     |    0
- .../oe-ldflags.patch                               |    0
- .../openssl-fix-link.patch                         |    0
- .../openssl_fix_for_x32.patch                      |    0
- .../shared-libs.patch                              |    0
- meta/recipes-connectivity/openssl/openssl.inc      |    2 +-
- .../{openssl_1.0.0i.bb => openssl_1.0.0j.bb}       |    4 +-
- .../gettext/gettext-0.18.1.1/parallel.patch        |   34 +++++++++
- meta/recipes-core/gettext/gettext_0.18.1.1.bb      |    3 +-
- meta/recipes-core/libxml/libxml2.inc               |   15 ++--
- .../libxml/libxml2/fix_version_info.patch          |   23 -------
- meta/recipes-core/libxml/libxml2_2.7.8.bb          |    8 ---
- meta/recipes-core/libxml/libxml2_2.8.0.bb          |    6 ++
- meta/recipes-devtools/opkg-utils/opkg-utils_git.bb |    5 +-
- .../patches/squashfs-4.2-fix-CVE-2012-4024.patch   |   72 ++++++++++++++++++++
- .../squashfs-tools/squashfs-tools_4.2.bb           |    3 +
- .../gstreamer/gst-plugins-good_0.10.31.bb          |    6 +-
- .../libproxy/libproxy-0.4.7-CVE-2012-4504.patch    |   29 ++++++++
- meta/recipes-support/libproxy/libproxy_0.4.7.bb    |    1 +
- meta/recipes-support/libxslt/libxslt_1.1.26.bb     |    7 +-
- scripts/bitbake                                    |    7 +-
- 45 files changed, 310 insertions(+), 121 deletions(-)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/configure-targets.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/c_rehash-compat.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/ca.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/debian-targets.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/make-targets.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/man-dir.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/man-section.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/no-rpath.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/no-symbolic.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/pic.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/debian/version-script.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/engines-install-in-libdir-ssl.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/find.pl (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/oe-ldflags.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/openssl-fix-link.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/openssl_fix_for_x32.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl-1.0.0i => openssl-1.0.0j}/shared-libs.patch (100%)
- rename meta/recipes-connectivity/openssl/{openssl_1.0.0i.bb => openssl_1.0.0j.bb} (90%)
- create mode 100644 meta/recipes-core/gettext/gettext-0.18.1.1/parallel.patch
- delete mode 100644 meta/recipes-core/libxml/libxml2/fix_version_info.patch
- delete mode 100644 meta/recipes-core/libxml/libxml2_2.7.8.bb
- create mode 100644 meta/recipes-core/libxml/libxml2_2.8.0.bb
- create mode 100644 meta/recipes-devtools/squashfs-tools/patches/squashfs-4.2-fix-CVE-2012-4024.patch
- create mode 100644 meta/recipes-support/libproxy/libproxy/libproxy-0.4.7-CVE-2012-4504.patch
-
+diff --git a/meta/classes/qmake_base.bbclass b/meta/classes/qmake_base.bbclass
+index d1008b6..fa1b5f0 100644
+--- a/meta/classes/qmake_base.bbclass
++++ b/meta/classes/qmake_base.bbclass
+@@ -48,7 +48,7 @@ addtask generate_qt_config_file after do_patch before do_configure
+ 
+ qmake_base_do_configure() {
+ 	case ${QMAKESPEC} in
+-	*linux-oe-g++|*linux-uclibc-oe-g++|*linux-gnueabi-oe-g++|*linux-uclibceabi-oe-g++)
++	*linux-oe-g++|*linux-uclibc-oe-g++|*linux-gnueabi-oe-g++|*linux-uclibceabi-oe-g++|*linux-gnuspe-oe-g++|*linux-uclibcspe-oe-g++)
+ 		;;
+ 	*-oe-g++)
+ 		die Unsupported target ${TARGET_OS} for oe-g++ qmake spec
 -- 
 1.7.9.5
 
