@@ -1,30 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C599DE0049F
-	for <poky@yoctoproject.org>; Fri,  7 Dec 2012 08:04:10 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id qB7G46Po006436;
-	Fri, 7 Dec 2012 16:04:06 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 05693-01; Fri,  7 Dec 2012 16:04:02 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id qB7G3vSc006430
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Fri, 7 Dec 2012 16:03:59 GMT
-Message-ID: <1354896228.12928.30.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Garman <scott.a.garman@intel.com>
-Date: Fri, 07 Dec 2012 16:03:48 +0000
-In-Reply-To: <cover.1354856621.git.scott.a.garman@intel.com>
-References: <cover.1354856621.git.scott.a.garman@intel.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 00/18] denzil pull request 4
+Return-Path: <pab@pabigot.com>
+Received: from p3plsmtpa08-02.prod.phx3.secureserver.net
+	(p3plsmtpa08-02.prod.phx3.secureserver.net [173.201.193.103])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E306CE00559
+	for <poky@yoctoproject.org>; Sat,  8 Dec 2012 10:14:53 -0800 (PST)
+Received: from llc.pab ([66.41.60.82])
+	by p3plsmtpa08-02.prod.phx3.secureserver.net with 
+	id Z6Es1k0011mTNtu016Esk0; Sat, 08 Dec 2012 11:14:52 -0700
+Message-ID: <50C3839B.9070001@pabigot.com>
+Date: Sat, 08 Dec 2012 12:14:51 -0600
+From: "Peter A. Bigot" <pab@pabigot.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:15.0) Gecko/20120911 Thunderbird/15.0.1
+MIME-Version: 1.0
+To: poky@yoctoproject.org
+Subject: beagleboard invalid config in 1.3 danny branch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,21 +26,106 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Dec 2012 16:04:11 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Sat, 08 Dec 2012 18:14:54 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2012-12-06 at 21:05 -0800, Scott Garman wrote:
-> Christopher Larson (1):
->   bitbake: command: add error to return of runCommand
+This is mostly informative, unless it's because I'm doing something 
+wrong in which case I'd appreciate a clue.
 
-I've merged this apart from this patch. I have a suspicion there is at
-least one bugfix needed to unbreak hob after this change...
+With this sequence:
 
-http://git.openembedded.org/bitbake/commit/?id=e3619e34d43c3f7725fc83c362d8cbd07e153ebe
+  git clone -b danny git://git.yoctoproject.org/poky
+  cd poky
+  . oe-init-build-env
+  MACHINE=beagleboard bitbake virtual/kernel
 
-Cheers,
+which documents itself as:
 
-Richard
+Build Configuration:
+BB_VERSION        = "1.16.0"
+TARGET_ARCH       = "arm"
+TARGET_OS         = "linux-gnueabi"
+MACHINE           = "beagleboard"
+DISTRO            = "poky"
+DISTRO_VERSION    = "1.3"
+TUNE_FEATURES     = "armv7a vfp neon cortexa8"
+TARGET_FPU        = "vfp-neon"
+meta
+meta-yocto
+meta-yocto-bsp    = "danny:09031ac2fc0f30ec577ee823fc61ff0e5d852e21"
+
+the build produces the following warning (with referenced file contents 
+inserted):
+
+This BSP sets 4 invalid/obsolete kernel options.
+These config options are not offered anywhere within this kernel.
+The full list can be found in your kernel src dir at:
+meta/cfg/standard/beagleboard/invalid.
+
+CONFIG_DISPLAY_SUPPORT
+CONFIG_USB_MUSB_HDRC_HCD
+CONFIG_USB_MUSB_OTG
+CONFIG_WL12XX_HT
+
+This BSP sets 4 kernel options that are possibly non-hardware related.
+The full list can be found in your kernel src dir at:
+meta/cfg/standard/beagleboard/specified_non_hdw.cfg
+
+CONFIG_CC_OPTIMIZE_FOR_SIZE
+CONFIG_NET
+CONFIG_NETDEVICES
+CONFIG_PANEL_DVI
+
+WARNING: There were 8 hardware options requested that do not
+          have a corresponding value present in the final ".config" file.
+          This probably means you aren't getting the config you wanted.
+The full list can be found in your kernel src dir at:
+meta/cfg/standard/beagleboard/mismatch.cfg
+
+Value requested for CONFIG_BACKLIGHT_CLASS_DEVICE not in final ".config"
+Requested value: "CONFIG_BACKLIGHT_CLASS_DEVICE=y"
+Actual value set: ""
+
+Value requested for CONFIG_PANEL_SHARP_LS037V7DW01 not in final ".config"
+Requested value: "CONFIG_PANEL_SHARP_LS037V7DW01=y"
+Actual value set: ""
+
+Value requested for CONFIG_USB_G_NCM not in final ".config"
+Requested value: "CONFIG_USB_G_NCM=y"
+Actual value set: "# CONFIG_USB_G_NCM is not set"
+
+Value requested for CONFIG_USB_MUSB_HDRC_HCD not in final ".config"
+Requested value: "CONFIG_USB_MUSB_HDRC_HCD=y"
+Actual value set: ""
+
+Value requested for CONFIG_USB_MUSB_OTG not in final ".config"
+Requested value: "CONFIG_USB_MUSB_OTG=y"
+Actual value set: ""
+
+Value requested for CONFIG_USB_OMAP not in final ".config"
+Requested value: "CONFIG_USB_OMAP=y"
+Actual value set: "# CONFIG_USB_OMAP is not set"
+
+Value requested for CONFIG_USB_OTG not in final ".config"
+Requested value: "CONFIG_USB_OTG=y"
+Actual value set: ""
+
+Value requested for CONFIG_WL12XX_HT not in final ".config"
+Requested value: "CONFIG_WL12XX_HT=y"
+Actual value set: ""
+
+Since beagleboard is a reference platform I had not expected these 
+warnings.  I see in the archives discussion of a similar issue in the 
+pre-release phases of 1.2.  I didn't try with "real" 1.3 but subsequent 
+changes in danny don't seem relevant.
+
+There's also the following which is suspicious:
+
+find: warning: -path 
+/prj/oe/poky/build/tmp/work/beagleboard-poky-linux-gnueabi/linux-yocto-3.4.11+git1+a201268353c030d9fafe00f2041976f7437d9386_1+449f7f520350700858f21a5554b81cc8ad23267d-r4.3/linux/ 
+will not match anything because it ends with /.
+
+Peter
 
 
