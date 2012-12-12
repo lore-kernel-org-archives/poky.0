@@ -1,25 +1,36 @@
-Return-Path: <constantinx.musca@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 31F58E00777
-	for <poky@yoctoproject.org>; Tue, 11 Dec 2012 06:17:36 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 11 Dec 2012 06:17:35 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,259,1355126400"; d="scan'208";a="232236033"
-Received: from costin-desktop (HELO [10.237.105.152]) ([10.237.105.152])
-	by orsmga001.jf.intel.com with ESMTP; 11 Dec 2012 06:17:34 -0800
-Message-ID: <50C740A2.8060400@intel.com>
-Date: Tue, 11 Dec 2012 16:18:10 +0200
-From: Constantin Musca <constantinx.musca@intel.com>
+Return-Path: <eu@felipetonello.com>
+Received: from mail-yh0-f42.google.com (mail-yh0-f42.google.com
+	[209.85.213.42])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7B7A5E00294
+	for <poky@yoctoproject.org>; Tue, 11 Dec 2012 16:56:21 -0800 (PST)
+Received: by mail-yh0-f42.google.com with SMTP id g71so20934yhg.29
+	for <poky@yoctoproject.org>; Tue, 11 Dec 2012 16:56:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject
+	:content-type:content-transfer-encoding:x-gm-message-state;
+	bh=DzbKhBh6sEuRdH4Wv0I9kH8HcUAyLCzCQUMY6oPBKGg=;
+	b=PPJ2+XDxr/2Qleyjld+XUZlXbFHPoSclX+GDveaE+ko9tkpilLHI2gXz8D+ppzOX8i
+	+QAG+Xl9df0RGB6AaDyooWXuadwYB9K0TQKeQ6vNhkMGGN5hYCbYntbjyJycN5JulZxI
+	vZWrnyU+xQTiJ1uD/br+32egk/5BWLuK3zg/Ok+JdVQZuqAvR2Us6LbBynmNl8dY0Xv2
+	ESVd2IMFi/1H0TXSyuC0iDJ3vmREr7V/bFsHOgaEbmNSfZfXGGaU0p3XzaZvQRcY5XoU
+	uPqO7vLORLg+pw4ldBWFeDRJoTkMYrl2Bygq6RE7dvcdwSiVWTjSZW4nl3WhB17g14Xn
+	CZqQ==
+Received: by 10.236.92.15 with SMTP id i15mr30734166yhf.85.1355273780757;
+	Tue, 11 Dec 2012 16:56:20 -0800 (PST)
+Received: from [192.168.48.44] (wsip-70-183-20-162.oc.oc.cox.net.
+	[70.183.20.162])
+	by mx.google.com with ESMTPS id f15sm32786593yhi.11.2012.12.11.16.56.18
+	(version=SSLv3 cipher=OTHER); Tue, 11 Dec 2012 16:56:19 -0800 (PST)
+Message-ID: <50C7D64A.2090403@felipetonello.com>
+Date: Tue, 11 Dec 2012 16:56:42 -0800
+From: Felipe Ferreri Tonello <eu@felipetonello.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:16.0) Gecko/20121016 Thunderbird/16.0.1
+	rv:17.0) Gecko/17.0 Thunderbird/17.0
 MIME-Version: 1.0
-To: Saul Wold <sgw@linux.intel.com>
-References: <1355130479-17774-1-git-send-email-constantinx.musca@intel.com>
-	<50C63883.3080306@linux.intel.com>
-In-Reply-To: <50C63883.3080306@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH v2] poky-tiny.conf: blacklist inappropriate image options
+To: poky@yoctoproject.org
+X-Gm-Message-State: ALoCoQn3uZYaYZS4q1z0VBr/q3BBz/qaO31m9GT3dE37k1JY1qpusDL+ahpi3wjDaAaoz5oqDgrM
+Subject: Qt commercial support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,90 +43,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Dec 2012 14:17:36 -0000
+X-List-Received-Date: Wed, 12 Dec 2012 00:56:21 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/10/2012 09:31 PM, Saul Wold wrote:
-> On 12/10/2012 01:07 AM, Constantin Musca wrote:
->> Blacklist all images that fail when using poky-tiny
->>
->> poky-tiny image tests:
->> 1. build-appliance-image
->>      * ERROR: Nothing RPROVIDES libx11-dev
->> 2. core-image-minimal-*
->>      * ok
->> 3. core-image-base
->>      * libcap fails at do_compile
->> 4. core-image-basic
->>      * libcap fails at do_compile
->> 5. core-image-clutter
->>      * ERROR: Nothing PROVIDES virtual/libx11
->> 6. core-image-gtk-directfb
->>      * ERROR: Nothing RPROVIDES libxt
->> 7. core-image-lsb, core-image-lsb-dev, core-image-lsb-sdk
->>      * ERROR: Nothing RPROVIDES libxt
->> 8. core-image-rt
->>      * ERROR: Multiple .bb files are due to be built which each 
->> provide virtual/kernel
->> (/home/dev/yocto/poky/meta/recipes-kernel/linux/linux-yocto-rt_3.4.bb
->> /home/dev/yocto/poky/meta/recipes-kernel/linux/linux-yocto-tiny_3.4.bb).
->> 9. core-image-rt-sdk
->>      * ERROR: Nothing PROVIDES xext
->> 10. core-image-sato, core-image-sato-dev, core-image-sato-sdk
->>      * ERROR: Nothing PROVIDES libxft
->> 11. core-image-x11
->>      * ERROR: Nothing PROVIDES virtual/libx11
->> 12. q4te-demo-image
->>      * libcap fails at do_compile
->>
->> [YOCTO #2565]
->>
->> Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
->> ---
->>   meta-yocto/conf/distro/poky-tiny.conf | 17 +++++++++++++++++
->>   1 file changed, 17 insertions(+)
->>
->> diff --git a/meta-yocto/conf/distro/poky-tiny.conf 
->> b/meta-yocto/conf/distro/poky-tiny.conf
->> index d40748e..9197a7c 100644
->> --- a/meta-yocto/conf/distro/poky-tiny.conf
->> +++ b/meta-yocto/conf/distro/poky-tiny.conf
->> @@ -120,3 +120,20 @@ MACHINE_ESSENTIAL_EXTRA_RDEPENDS = ""
->>   # will build perl in case this package is installed. Since we don't 
->> care about
->>   # this script for the purposes of tiny, remove the dependency from 
->> here.
->>   RDEPENDS_${PN}-mtrace_pn-eglibc = ""
->> +
->> +INHERIT += "blacklist"
-> Won't this have the same problem when build from command line as the 
-> last patch? I thought this was changing to an _append instead?
->
-> Thanks
->     Sau!
->
->
->> +PNBLACKLIST[build-appliance-image] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-base] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-basic] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-clutter] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-gtk-directfb] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-lsb] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-lsb-dev] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-lsb-sdk] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-rt] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-rt-sdk] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-sato] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-sato-dev] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-sato-sdk] = "not buildable with poky-tiny"
->> +PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
->> +PNBLACKLIST[qt4e-demo-image] = "not buildable with poky-tiny"
->>
-We will not have the same problem because there are only INHERIT += 
-statements (no ?= INHERIT). The _append method doesn't work because it 
-adds "blacklist" too late.
+Basically there is still no easy way to support commercial Qt versions. 
+Yocto Bug #2505 fixes part of it but not all.
 
-Cheers,
-Constantin
+In my case I have to provide, not just a qt4-x11-commercial recipe, but 
+all others native and sdk recipes basically because the OE-Core ones 
+enforces the download of the opensource version.
+
+It would be perfect if we can provide our own .tar.gz or git repo with 
+our modified Qt version.
+
+I know that we can provide a bbappend to change that but still not a 
+perfect solution.
+
+Is there a better way to fix that? Maybe a patch idea.
+
+Regards
+
+Felipe Tonello
 
