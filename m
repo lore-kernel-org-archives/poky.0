@@ -1,25 +1,19 @@
 Return-Path: <andrei.adrianx.dinu@intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C929E00559
-	for <poky@yoctoproject.org>; Thu, 13 Dec 2012 07:46:57 -0800 (PST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 13 Dec 2012 07:46:02 -0800
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4C336E00559
+	for <poky@yoctoproject.org>; Thu, 13 Dec 2012 08:02:43 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 13 Dec 2012 08:01:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,274,1355126400"; 
-	d="scan'208,217";a="256988075"
-Received: from adinu-vostro-460 (HELO [10.237.105.33]) ([10.237.105.33])
-	by orsmga002.jf.intel.com with ESMTP; 13 Dec 2012 07:46:51 -0800
-Message-ID: <50C9F872.30000@intel.com>
-Date: Thu, 13 Dec 2012 17:46:58 +0200
+X-IronPort-AV: E=Sophos;i="4.84,274,1355126400"; d="scan'208";a="233517465"
+Received: from adinu-vostro-460 (HELO localhost.localdomain) ([10.237.105.33])
+	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2012 08:02:36 -0800
 From: Andrei Dinu <andrei.adrianx.dinu@intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/17.0 Thunderbird/17.0
-MIME-Version: 1.0
 To: poky@yoctoproject.org
-References: <1355413341-8484-1-git-send-email-andrei.adrianx.dinu@intel.com>
-In-Reply-To: <1355413341-8484-1-git-send-email-andrei.adrianx.dinu@intel.com>
-X-Forwarded-Message-Id: <1355413341-8484-1-git-send-email-andrei.adrianx.dinu@intel.com>
-Subject: [PATCH] [Bug1474] SLiRP support in runqemu
+Date: Thu, 13 Dec 2012 18:02:42 +0200
+Message-Id: <1355414562-9335-1-git-send-email-andrei.adrianx.dinu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH v2] SLiRP support in runqemu
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,27 +26,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Dec 2012 15:46:57 -0000
-Content-Type: multipart/alternative;
-	boundary="------------050603090000030104050303"
-
---------------050603090000030104050303
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-Please discard the patch. It contains a change needed for another bug.
-
-Sorry.
-
--------- Original Message --------
-Subject: 	[PATCH] [Bug1474] SLiRP support in runqemu
-Date: 	Thu, 13 Dec 2012 17:42:21 +0200
-From: 	Andrei Dinu <andrei.adrianx.dinu@intel.com>
-To: 	<poky@yoctoproject.org>
-CC: 	Andrei Dinu <andrei.adrianx.dinu@intel.com>
-
-
+X-List-Received-Date: Thu, 13 Dec 2012 16:02:43 -0000
 
 runqemu script now takes argument "slirp" in order to
 run networking on the qemu machine, without root privileges.
@@ -62,384 +36,21 @@ the tap devices if the option is set. Also trimmed the
 cleanup function so that after the image is closed, no
 tap releases warnings showed up.
 
+[YOCTO #1474]
+
 Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
 ---
-  scripts/runqemu          |    5 +-
-  scripts/runqemu-internal |  220 ++++++++++++++++++++++++++--------------------
-  2 files changed, 131 insertions(+), 94 deletions(-)
-
-diff --git a/scripts/runqemu b/scripts/runqemu
-index fb7ac56..70f52fe 100755
---- a/scripts/runqemu
-+++ b/scripts/runqemu
-@@ -149,7 +149,7 @@ while true; do
-              if [ "x$MACHINE" = "xqemux86" -o "x$MACHINE" = "xqemux86-64" ]; then
-                  echo "Enabling audio in qemu."
-                  echo "Please install snd_intel8x0 or snd_ens1370 driver in linux guest."
--                QEMU_AUDIO_DRV="alsa"
-+                export QEMU_AUDIO_DRV="alsa"
-                  SCRIPT_QEMU_OPT="$SCRIPT_QEMU_OPT -soundhw ac97,es1370"
-              fi
-              ;;
-@@ -157,6 +157,9 @@ while true; do
-              KVM_ENABLED="yes"
-              KVM_CAPABLE=`grep -q 'vmx\|smx' /proc/cpuinfo && echo 1`
-              ;;
-+	"slirp")
-+	    SLIRP_ENABLED="yes"
-+	    ;;
-          "") break ;;
-          *)
-              # A directory name is an nfs rootfs
-diff --git a/scripts/runqemu-internal b/scripts/runqemu-internal
-index 7ca00f8..140f5a0 100755
---- a/scripts/runqemu-internal
-+++ b/scripts/runqemu-internal
-@@ -105,98 +105,112 @@ fi
-  
-  NFSRUNNING="false"
-  
--acquire_lock() {
--    lockfile=$1
--    if [ -z "$lockfile" ]; then
--        echo "Error: missing lockfile arg passed to acquire_lock()"
--        return 1
-+if [ "$SLIRP_ENABLED" = "yes" ]; then
-+    KERNEL_NETWORK_CMD=""
-+    QEMU_TAP_CMD=""
-+    if [ "$KVM_ACTIVE" = "yes" ]; then
-+        QEMU_NETWORK_CMD=""
-+        DROOT="/dev/vda"
-+        ROOTFS_OPTIONS="-drive file=$ROOTFS,if=virtio"
-+    else
-+        QEMU_NETWORK_CMD=""
-+        DROOT="/dev/hda"
-+        ROOTFS_OPTIONS="-hda $ROOTFS"
-      fi
-  
--    if [ -e "$lockfile.lock" ]; then
--        # Check that the lockfile is not stale
--        ps=`ps -eo pid | grep $(cat $lockfile.lock)`
--        if [ -z "$ps" ]; then
--            echo "WARNING: Stale lock file detected, deleting $lockfile.lock."
--            rm -f $lockfile.lock
--            echo $$ > $lockfile.lock
--        else
-+else
-+    acquire_lock() {
-+        lockfile=$1
-+        if [ -z "$lockfile" ]; then
-+            echo "Error: missing lockfile arg passed to acquire_lock()"
-              return 1
-          fi
--    else
--        echo $$ > $lockfile.lock
--    fi
-  
--    return 0
--}
-+        if [ -e "$lockfile.lock" ]; then
-+            # Check that the lockfile is not stale
-+            ps=`ps -eo pid | grep $(cat $lockfile.lock)`
-+            if [ -z "$ps" ]; then
-+                echo "WARNING: Stale lock file detected, deleting $lockfile.lock."
-+                rm -f $lockfile.lock
-+                echo $$ > $lockfile.lock
-+            else
-+                return 1
-+            fi
-+        else
-+            echo $$ > $lockfile.lock
-+        fi
-  
--release_lock() {
--    lockfile=$1
--    if [ -z "$lockfile" ]; then
--        echo "Error: missing lockfile arg passed to release_lock()"
--        return 1
--    fi
-+        return 0
-+    }
-  
--    rm -f $lockfile.lock
--}
-+    release_lock() {
-+        lockfile=$1
-+        if [ -z "$lockfile" ]; then
-+            echo "Error: missing lockfile arg passed to release_lock()"
-+            return 1
-+        fi
-  
--LOCKDIR="/tmp/qemu-tap-locks"
--if [ ! -d "$LOCKDIR" ]; then
--    mkdir $LOCKDIR
--    chmod 777 $LOCKDIR
--fi
-+        rm -f $lockfile.lock
-+    }
-  
--IFCONFIG=`which ifconfig 2> /dev/null`
--if [ -z "$IFCONFIG" ]; then
--    IFCONFIG=/sbin/ifconfig
--fi
--if [ ! -x "$IFCONFIG" ]; then
--       echo "$IFCONFIG cannot be executed"
--       exit 1
--fi
-+    LOCKDIR="/tmp/qemu-tap-locks"
-+    if [ ! -d "$LOCKDIR" ]; then
-+        mkdir $LOCKDIR
-+        chmod 777 $LOCKDIR
-+    fi
-  
--POSSIBLE=`$IFCONFIG -a | grep '^tap' | awk '{print $1}' | sed s/://`
--TAP=""
--LOCKFILE=""
--for tap in $POSSIBLE; do
--    LOCKFILE="$LOCKDIR/$tap"
--    echo "Acquiring lockfile for $tap..."
--    acquire_lock $LOCKFILE
--    if [ $? -eq 0 ]; then
--        TAP=$tap
--        break
-+    IFCONFIG=`which ifconfig 2> /dev/null`
-+    if [ -z "$IFCONFIG" ]; then
-+        IFCONFIG=/sbin/ifconfig
-      fi
--done
--
--if [ "$TAP" = "" ]; then
--    if [ -e "$NOSUDO_FLAG" ]; then
--        echo "Error: There are no available tap devices to use for networking,"
--        echo "and I see $NOSUDO_FLAG exists, so I am not going to try creating"
--        echo "a new one with sudo."
--        exit 1
-+    if [ ! -x "$IFCONFIG" ]; then
-+          echo "$IFCONFIG cannot be executed"
-+          exit 1
-      fi
-  
--    GROUPID=`id -g`
--    USERID=`id -u`
--    echo "Setting up tap interface under sudo"
--    # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
--    # but inactive. This looks scary but is harmless
--    tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2> /dev/null`
--    if [ $? -ne 0 ]; then
--        # Re-run standalone to see verbose errors
--        sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT
--        return
--    fi
--    LOCKFILE="$LOCKDIR/$tap"
--    echo "Acquiring lockfile for $tap..."
--    acquire_lock $LOCKFILE
--    if [ $? -eq 0 ]; then
--        TAP=$tap
--    fi
--else
--    echo "Using preconfigured tap device '$TAP'"
--fi
-+    POSSIBLE=`$IFCONFIG -a | grep '^tap' | awk '{print $1}' | sed s/://`
-+    TAP=""
-+    LOCKFILE=""
-+    for tap in $POSSIBLE; do
-+        LOCKFILE="$LOCKDIR/$tap"
-+        echo "Acquiring lockfile for $tap..."
-+        acquire_lock $LOCKFILE
-+        if [ $? -eq 0 ]; then
-+           TAP=$tap
-+           break
-+        fi
-+    done
-+
-+    if [ "$TAP" = "" ]; then
-+        if [ -e "$NOSUDO_FLAG" ]; then
-+            echo "Error: There are no available tap devices to use for networking,"
-+            echo "and I see $NOSUDO_FLAG exists, so I am not going to try creating"
-+            echo "a new one with sudo."
-+            exit 1
-+        fi
-  
--cleanup() {
-+        GROUPID=`id -g`
-+        USERID=`id -u`
-+        echo "Setting up tap interface under sudo"
-+        # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
-+        # but inactive. This looks scary but is harmless
-+        tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2> /dev/null`
-+        if [ $? -ne 0 ]; then
-+            # Re-run standalone to see verbose errors
-+            sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT
-+            return
-+        fi
-+        LOCKFILE="$LOCKDIR/$tap"
-+        echo "Acquiring lockfile for $tap..."
-+        acquire_lock $LOCKFILE
-+        if [ $? -eq 0 ]; then
-+            TAP=$tap
-+        fi
-+    else
-+        echo "Using preconfigured tap device '$TAP'"
-+    fi
-+
-+    cleanup() {
-      if [ ! -e "$NOSUDO_FLAG" ]; then
-          # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
-          # but inactive. This looks scary but is harmless
-@@ -204,7 +218,7 @@ cleanup() {
-      fi
-      echo "Releasing lockfile of preconfigured tap device '$TAP'"
-      release_lock $LOCKFILE
--
-+
-      if [ "$NFSRUNNING" = "true" ]; then
-          echo "Shutting down the userspace NFS server..."
-          echo "runqemu-export-rootfs stop $ROOTFS"
-@@ -215,21 +229,37 @@ cleanup() {
-      stty sane
-  }
-  
--n0=$(echo $TAP | sed 's/tap//')
--n1=$(($n0 * 2 + 1))
--n2=$(($n1 + 1))
-+    n0=$(echo $TAP | sed 's/tap//')
-+    n1=$(($n0 * 2 + 1))
-+    n2=$(($n1 + 1))
-+    KERNEL_NETWORK_CMD="ip=192.168.7.$n2::192.168.7.$n1:255.255.255.0"
-+    QEMU_TAP_CMD="-net tap,vlan=0,ifname=$TAP,script=no,downscript=no"
-  
--KERNEL_NETWORK_CMD="ip=192.168.7.$n2::192.168.7.$n1:255.255.255.0"
--QEMU_TAP_CMD="-net tap,vlan=0,ifname=$TAP,script=no,downscript=no"
--if [ "$KVM_ACTIVE" = "yes" ]; then
--    QEMU_NETWORK_CMD="-net nic,model=virtio $QEMU_TAP_CMD,vhost=on"
--    DROOT="/dev/vda"
--    ROOTFS_OPTIONS="-drive file=$ROOTFS,if=virtio"
--else
--    QEMU_NETWORK_CMD="-net nic,vlan=0 $QEMU_TAP_CMD"
--    DROOT="/dev/hda"
--    ROOTFS_OPTIONS="-hda $ROOTFS"
-+
-+    if [ "$KVM_ACTIVE" = "yes" ]; then
-+        QEMU_NETWORK_CMD="-net nic,model=virtio $QEMU_TAP_CMD,vhost=on"
-+        DROOT="/dev/vda"
-+        ROOTFS_OPTIONS="-drive file=$ROOTFS,if=virtio"
-+    else
-+        QEMU_NETWORK_CMD="-net nic,vlan=0 $QEMU_TAP_CMD"
-+        DROOT="/dev/hda"
-+        ROOTFS_OPTIONS="-hda $ROOTFS"
-+    fi
-  fi
-+
-+cleanup() {
-+
-+    if [ "$NFSRUNNING" = "true" ]; then
-+	echo "Shutting down the userspace NFS server..."
-+	echo "runqemu-export-rootfs stop $ROOTFS"
-+	runqemu-export-rootfs stop $ROOTFS
-+    fi
-+    # If QEMU crashes or somehow tty properties are not restored
-+    # after qemu exits, we need to run stty sane
-+    stty sane
-+}
-+
-+
-  KERNCMDLINE="mem=$QEMU_MEMORY"
-  QEMU_UI_OPTIONS="-show-cursor -usb -usbdevice wacom-tablet"
-  
-@@ -413,7 +443,11 @@ if [ "$MACHINE" = "qemuppc" ]; then
-      MACHINE_SUBTYPE=mac99
-      CPU_SUBTYPE=G4
-      QEMU_UI_OPTIONS="$QEMU_UI_OPTIONS"
--    QEMU_NETWORK_CMD="-net nic,model=pcnet $QEMU_TAP_CMD"
-+    if [ "$SLIRP_ENABLED" = "yes" ]; then
-+        QEMU_NETWORK_CMD=""
-+    else
-+        QEMU_NETWORK_CMD="-net nic,model=pcnet $QEMU_TAP_CMD"
-+    fi
-      if [ "$FSTYPE" = "ext3" -o "$FSTYPE" = "btrfs" ]; then
-          KERNCMDLINE="root=/dev/hda rw console=ttyS0 console=tty $KERNEL_NETWORK_CMD mem=$QEMU_MEMORY"
-          QEMUOPTIONS="$QEMU_NETWORK_CMD -cpu $CPU_SUBTYPE -M $MACHINE_SUBTYPE -hda $ROOTFS -no-reboot $QEMU_UI_OPTIONS"
--- 
-1.7.9.5
-
-
-
-
---------------050603090000030104050303
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <div class="moz-forward-container">Please discard the patch. It
-      contains a change needed for another bug.<br>
-      <br>
-      Sorry.<br>
-      <br>
-      -------- Original Message --------
-      <table class="moz-email-headers-table" border="0" cellpadding="0"
-        cellspacing="0">
-        <tbody>
-          <tr>
-            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Subject:
-            </th>
-            <td>[PATCH] [Bug1474] SLiRP support in runqemu</td>
-          </tr>
-          <tr>
-            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">Date: </th>
-            <td>Thu, 13 Dec 2012 17:42:21 +0200</td>
-          </tr>
-          <tr>
-            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">From: </th>
-            <td>Andrei Dinu <a class="moz-txt-link-rfc2396E" href="mailto:andrei.adrianx.dinu@intel.com">&lt;andrei.adrianx.dinu@intel.com&gt;</a></td>
-          </tr>
-          <tr>
-            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">To: </th>
-            <td><a class="moz-txt-link-rfc2396E" href="mailto:poky@yoctoproject.org">&lt;poky@yoctoproject.org&gt;</a></td>
-          </tr>
-          <tr>
-            <th nowrap="nowrap" valign="BASELINE" align="RIGHT">CC: </th>
-            <td>Andrei Dinu <a class="moz-txt-link-rfc2396E" href="mailto:andrei.adrianx.dinu@intel.com">&lt;andrei.adrianx.dinu@intel.com&gt;</a></td>
-          </tr>
-        </tbody>
-      </table>
-      <br>
-      <br>
-      <pre>runqemu script now takes argument "slirp" in order to
-run networking on the qemu machine, without root privileges.
-
-changed the runqemu-internal script in order not to activate
-the tap devices if the option is set. Also trimmed the
-cleanup function so that after the image is closed, no
-tap releases warnings showed up.
-
-Signed-off-by: Andrei Dinu <a class="moz-txt-link-rfc2396E" href="mailto:andrei.adrianx.dinu@intel.com">&lt;andrei.adrianx.dinu@intel.com&gt;</a>
----
- scripts/runqemu          |    5 +-
+ scripts/runqemu          |    3 +
  scripts/runqemu-internal |  220 ++++++++++++++++++++++++++--------------------
- 2 files changed, 131 insertions(+), 94 deletions(-)
+ 2 files changed, 130 insertions(+), 93 deletions(-)
 
 diff --git a/scripts/runqemu b/scripts/runqemu
-index fb7ac56..70f52fe 100755
+index fb7ac56..b244150 100755
 --- a/scripts/runqemu
 +++ b/scripts/runqemu
-@@ -149,7 +149,7 @@ while true; do
-             if [ "x$MACHINE" = "xqemux86" -o "x$MACHINE" = "xqemux86-64" ]; then
-                 echo "Enabling audio in qemu."
-                 echo "Please install snd_intel8x0 or snd_ens1370 driver in linux guest."
--                QEMU_AUDIO_DRV="alsa"
-+                export QEMU_AUDIO_DRV="alsa"
-                 SCRIPT_QEMU_OPT="$SCRIPT_QEMU_OPT -soundhw ac97,es1370"
-             fi
-             ;;
 @@ -157,6 +157,9 @@ while true; do
              KVM_ENABLED="yes"
-             KVM_CAPABLE=`grep -q 'vmx\|smx' /proc/cpuinfo &amp;&amp; echo 1`
+             KVM_CAPABLE=`grep -q 'vmx\|smx' /proc/cpuinfo && echo 1`
              ;;
 +	"slirp")
 +	    SLIRP_ENABLED="yes"
@@ -479,7 +90,7 @@ index 7ca00f8..140f5a0 100755
 -        if [ -z "$ps" ]; then
 -            echo "WARNING: Stale lock file detected, deleting $lockfile.lock."
 -            rm -f $lockfile.lock
--            echo $$ &gt; $lockfile.lock
+-            echo $$ > $lockfile.lock
 -        else
 +else
 +    acquire_lock() {
@@ -489,7 +100,7 @@ index 7ca00f8..140f5a0 100755
              return 1
          fi
 -    else
--        echo $$ &gt; $lockfile.lock
+-        echo $$ > $lockfile.lock
 -    fi
  
 -    return 0
@@ -500,12 +111,12 @@ index 7ca00f8..140f5a0 100755
 +            if [ -z "$ps" ]; then
 +                echo "WARNING: Stale lock file detected, deleting $lockfile.lock."
 +                rm -f $lockfile.lock
-+                echo $$ &gt; $lockfile.lock
++                echo $$ > $lockfile.lock
 +            else
 +                return 1
 +            fi
 +        else
-+            echo $$ &gt; $lockfile.lock
++            echo $$ > $lockfile.lock
 +        fi
  
 -release_lock() {
@@ -534,7 +145,7 @@ index 7ca00f8..140f5a0 100755
 +        rm -f $lockfile.lock
 +    }
  
--IFCONFIG=`which ifconfig 2&gt; /dev/null`
+-IFCONFIG=`which ifconfig 2> /dev/null`
 -if [ -z "$IFCONFIG" ]; then
 -    IFCONFIG=/sbin/ifconfig
 -fi
@@ -558,7 +169,7 @@ index 7ca00f8..140f5a0 100755
 -    if [ $? -eq 0 ]; then
 -        TAP=$tap
 -        break
-+    IFCONFIG=`which ifconfig 2&gt; /dev/null`
++    IFCONFIG=`which ifconfig 2> /dev/null`
 +    if [ -z "$IFCONFIG" ]; then
 +        IFCONFIG=/sbin/ifconfig
      fi
@@ -580,7 +191,7 @@ index 7ca00f8..140f5a0 100755
 -    echo "Setting up tap interface under sudo"
 -    # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
 -    # but inactive. This looks scary but is harmless
--    tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2&gt; /dev/null`
+-    tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2> /dev/null`
 -    if [ $? -ne 0 ]; then
 -        # Re-run standalone to see verbose errors
 -        sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT
@@ -622,7 +233,7 @@ index 7ca00f8..140f5a0 100755
 +        echo "Setting up tap interface under sudo"
 +        # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
 +        # but inactive. This looks scary but is harmless
-+        tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2&gt; /dev/null`
++        tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2> /dev/null`
 +        if [ $? -ne 0 ]; then
 +            # Re-run standalone to see verbose errors
 +            sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT
@@ -718,11 +329,4 @@ index 7ca00f8..140f5a0 100755
 -- 
 1.7.9.5
 
-</pre>
-      <br>
-    </div>
-    <br>
-  </body>
-</html>
 
---------------050603090000030104050303--
