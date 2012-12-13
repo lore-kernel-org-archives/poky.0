@@ -1,23 +1,23 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4931DE0144D
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 89C2EE0144D
 	for <poky@yoctoproject.org>; Wed, 12 Dec 2012 20:56:56 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 12 Dec 2012 20:56:55 -0800
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 12 Dec 2012 20:56:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,272,1355126400"; d="scan'208";a="261474684"
+X-IronPort-AV: E=Sophos;i="4.84,272,1355126400"; d="scan'208";a="180259336"
 Received: from unknown (HELO localhost) ([10.255.13.197])
-	by fmsmga001.fm.intel.com with ESMTP; 12 Dec 2012 20:56:55 -0800
+	by AZSMGA002.ch.intel.com with ESMTP; 12 Dec 2012 20:56:44 -0800
 From: tom.zanussi@intel.com
 To: poky@yoctoproject.org
-Date: Wed, 12 Dec 2012 22:56:38 -0600
-Message-Id: <5dfe3b0bac3b43a8b4ed3b1100c10bd278643a56.1355373343.git.tom.zanussi@intel.com>
+Date: Wed, 12 Dec 2012 22:56:31 -0600
+Message-Id: <662a87966b0f1382bec8e90d7deae2f0cd5678bd.1355373343.git.tom.zanussi@intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <8884beae4cbc9a06d5bd8876c64fed93fe6eb546.1355373343.git.tom.zanussi@intel.com>
 References: <8884beae4cbc9a06d5bd8876c64fed93fe6eb546.1355373343.git.tom.zanussi@intel.com>
 In-Reply-To: <cover.1355373343.git.tom.zanussi@intel.com>
 References: <cover.1355373343.git.tom.zanussi@intel.com>
-Subject: [PATCH 09/12] yocto-kernel: remove assumption that kernel has a version
+Subject: [PATCH 02/12] yocto-bsp: add 'custom' choice to kernels()
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,8 +34,9 @@ X-List-Received-Date: Thu, 13 Dec 2012 04:56:56 -0000
 
 From: Tom Zanussi <tom.zanussi@intel.com>
 
-Kernels don't need to have a PREFERRED_VERSION, so remove that
-assumption from the code that looks for the kernel definition.
+Add a synthetic choice for linux-yocto-custom to the list of available
+kernels.  Choosing this will lead the user down the path of options
+needed to specify a custom kernel.
 
 Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
@@ -43,18 +44,18 @@ Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
-index 272c3eb..f2ec9fd 100644
+index 128fad0..a953372 100644
 --- a/scripts/lib/bsp/kernel.py
 +++ b/scripts/lib/bsp/kernel.py
-@@ -289,6 +289,8 @@ def find_current_kernel(bsp_layer, machine):
+@@ -623,6 +623,8 @@ def kernels(context):
+             filename = filename[idx + len(CLOSE_TAG):].strip()
+         kernels.append(filename)
  
-     if preferred_kernel and preferred_kernel_version:
-         return preferred_kernel + "_" + preferred_kernel_version
-+    elif preferred_kernel:
-+        return preferred_kernel
++    kernels.append("custom")
++
+     return kernels
  
  
- def find_bsp_kernel_src_uri(scripts_path, machine, start_end_only = False):
 -- 
 1.7.11.4
 
