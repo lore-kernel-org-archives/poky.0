@@ -1,19 +1,36 @@
-Return-Path: <andrei.adrianx.dinu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 384CAE006D5
-	for <poky@yoctoproject.org>; Fri, 14 Dec 2012 01:38:12 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 14 Dec 2012 01:38:11 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,279,1355126400"; d="scan'208";a="180833602"
-Received: from adinu-vostro-460 (HELO localhost.localdomain) ([10.237.105.33])
-	by AZSMGA002.ch.intel.com with ESMTP; 14 Dec 2012 01:38:09 -0800
-From: Andrei Dinu <andrei.adrianx.dinu@intel.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1CF1DE00294
+	for <poky@yoctoproject.org>; Fri, 14 Dec 2012 08:25:00 -0800 (PST)
+Received: from mail-la0-f72.google.com ([209.85.215.72])
+	by mga09.intel.com with ESMTP/TLS/RC4-SHA; 14 Dec 2012 08:24:08 -0800
+Received: by mail-la0-f72.google.com with SMTP id l5so2397925lah.11
+	for <poky@yoctoproject.org>; Fri, 14 Dec 2012 08:24:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
+	bh=xwvfuoZPbUNMyqnkRsC3/WXYPWxcZsZ7faBO2exW0vs=;
+	b=cGzLTEoAnZ/0R2e2GrpA7DoGGrGDmIReXBsN5BbZ+AT77RnBcjX1PMGyTAwT8v0cqH
+	VYDu5hJUaIMpiNAW8DY2Lf1DtMWfy/JOuY96ZoqFjHXnR7DTbrJ2VVd8Dzks5Rk5waXX
+	IvGpFKj6gzQymVunif2piAI/pdh1MN9Be6TL//8QfoxE3pXSNQTYn+DAD1CMaLMDbs/M
+	6GDMLF7dDpDKikIpabHlL9dYoaAMZFxUqupXDMlj6mCjBq+DDhphr6sSYmeBzq5JZ/Xe
+	22SxWylJucnhoo8DgPC522ixWFHJ4t/0uZM/0nLh+qgsBrH0Ayy/erV8zZ4D/uBQWkkN
+	bpxg==
+Received: by 10.181.13.75 with SMTP id ew11mr3630027wid.9.1355502296797;
+	Fri, 14 Dec 2012 08:24:56 -0800 (PST)
+Received: by 10.181.13.75 with SMTP id ew11mr3630015wid.9.1355502296566;
+	Fri, 14 Dec 2012 08:24:56 -0800 (PST)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPS id dm3sm12944551wib.9.2012.12.14.08.24.54
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Fri, 14 Dec 2012 08:24:55 -0800 (PST)
+From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 14 Dec 2012 11:38:15 +0200
-Message-Id: <1355477896-14504-1-git-send-email-andrei.adrianx.dinu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH v3] SLiRP support in runqemu
+Date: Fri, 14 Dec 2012 16:23:15 +0000
+Message-Id: <1355502195-8268-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10
+X-Gm-Message-State: ALoCoQmWf4VC3V+OwIMb/av7WZZmRkb99tT5++R5kKS99W/eYkZg8GTIYCf6y5M+5WKY75r+uXzWpaWeH56+GxSBPyr0I5gMsPODVIt1p8ZJuvfUgoovRFmN3JzlwhNMZkKijMET8dvMJ0qRM/qcMZCSorTlRPfjeQ==
+Subject: [PATCH] beagleboard: use xf86-video-omapfb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,303 +43,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Dec 2012 09:38:12 -0000
+X-List-Received-Date: Fri, 14 Dec 2012 16:25:00 -0000
 
-runqemu script now takes argument "slirp" in order to
-run networking on the qemu machine, without root privileges.
+The newer -omap driver doesn't support the GPU on BeagleBoard.
 
-changed the runqemu-internal script in order not to activate
-the tap devices if the option is set. Also trimmed the
-cleanup function so that after the image is closed, no
-tap releases warnings showed up.
+[ YOCTO #3522 ]
 
-[YOCTO #1474]
-
-Signed-off-by: Andrei Dinu <andrei.adrianx.dinu@intel.com>
+Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- scripts/runqemu          |    3 +
- scripts/runqemu-internal |  217 ++++++++++++++++++++++++++--------------------
- 2 files changed, 126 insertions(+), 94 deletions(-)
+ meta-yocto-bsp/conf/machine/beagleboard.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/runqemu b/scripts/runqemu
-index fb7ac56..b244150 100755
---- a/scripts/runqemu
-+++ b/scripts/runqemu
-@@ -157,6 +157,9 @@ while true; do
-             KVM_ENABLED="yes"
-             KVM_CAPABLE=`grep -q 'vmx\|smx' /proc/cpuinfo && echo 1`
-             ;;
-+	"slirp")
-+	    SLIRP_ENABLED="yes"
-+	    ;;
-         "") break ;;
-         *)
-             # A directory name is an nfs rootfs
-diff --git a/scripts/runqemu-internal b/scripts/runqemu-internal
-index 7ca00f8..c455730 100755
---- a/scripts/runqemu-internal
-+++ b/scripts/runqemu-internal
-@@ -105,106 +105,119 @@ fi
+diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
+index 204be95..6633880 100644
+--- a/meta-yocto-bsp/conf/machine/beagleboard.conf
++++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
+@@ -6,7 +6,7 @@ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+ XSERVER ?= "xserver-xorg \
+            xf86-input-evdev \
+            xf86-input-mouse \
+-           xf86-video-omap \
++           xf86-video-omapfb \
+            xf86-input-keyboard"
  
- NFSRUNNING="false"
- 
--acquire_lock() {
--    lockfile=$1
--    if [ -z "$lockfile" ]; then
--        echo "Error: missing lockfile arg passed to acquire_lock()"
--        return 1
-+if [ "$SLIRP_ENABLED" = "yes" ]; then
-+    KERNEL_NETWORK_CMD=""
-+    QEMU_TAP_CMD=""
-+    if [ "$KVM_ACTIVE" = "yes" ]; then
-+        QEMU_NETWORK_CMD=""
-+        DROOT="/dev/vda"
-+        ROOTFS_OPTIONS="-drive file=$ROOTFS,if=virtio"
-+    else
-+        QEMU_NETWORK_CMD=""
-+        DROOT="/dev/hda"
-+        ROOTFS_OPTIONS="-hda $ROOTFS"
-     fi
- 
--    if [ -e "$lockfile.lock" ]; then
--        # Check that the lockfile is not stale
--        ps=`ps -eo pid | grep $(cat $lockfile.lock)`
--        if [ -z "$ps" ]; then
--            echo "WARNING: Stale lock file detected, deleting $lockfile.lock."
--            rm -f $lockfile.lock
--            echo $$ > $lockfile.lock
--        else
-+else
-+    acquire_lock() {
-+        lockfile=$1
-+        if [ -z "$lockfile" ]; then
-+            echo "Error: missing lockfile arg passed to acquire_lock()"
-             return 1
-         fi
--    else
--        echo $$ > $lockfile.lock
--    fi
- 
--    return 0
--}
-+        if [ -e "$lockfile.lock" ]; then
-+            # Check that the lockfile is not stale
-+            ps=`ps -eo pid | grep $(cat $lockfile.lock)`
-+            if [ -z "$ps" ]; then
-+                echo "WARNING: Stale lock file detected, deleting $lockfile.lock."
-+                rm -f $lockfile.lock
-+                echo $$ > $lockfile.lock
-+            else
-+                return 1
-+            fi
-+        else
-+            echo $$ > $lockfile.lock
-+        fi
- 
--release_lock() {
--    lockfile=$1
--    if [ -z "$lockfile" ]; then
--        echo "Error: missing lockfile arg passed to release_lock()"
--        return 1
--    fi
-+        return 0
-+    }
- 
--    rm -f $lockfile.lock
--}
-+    release_lock() {
-+        lockfile=$1
-+        if [ -z "$lockfile" ]; then
-+            echo "Error: missing lockfile arg passed to release_lock()"
-+            return 1
-+        fi
- 
--LOCKDIR="/tmp/qemu-tap-locks"
--if [ ! -d "$LOCKDIR" ]; then
--    mkdir $LOCKDIR
--    chmod 777 $LOCKDIR
--fi
-+        rm -f $lockfile.lock
-+    }
- 
--IFCONFIG=`which ifconfig 2> /dev/null`
--if [ -z "$IFCONFIG" ]; then
--    IFCONFIG=/sbin/ifconfig
--fi
--if [ ! -x "$IFCONFIG" ]; then
--       echo "$IFCONFIG cannot be executed"
--       exit 1
--fi
-+    LOCKDIR="/tmp/qemu-tap-locks"
-+    if [ ! -d "$LOCKDIR" ]; then
-+        mkdir $LOCKDIR
-+        chmod 777 $LOCKDIR
-+    fi
- 
--POSSIBLE=`$IFCONFIG -a | grep '^tap' | awk '{print $1}' | sed s/://`
--TAP=""
--LOCKFILE=""
--for tap in $POSSIBLE; do
--    LOCKFILE="$LOCKDIR/$tap"
--    echo "Acquiring lockfile for $tap..."
--    acquire_lock $LOCKFILE
--    if [ $? -eq 0 ]; then
--        TAP=$tap
--        break
-+    IFCONFIG=`which ifconfig 2> /dev/null`
-+    if [ -z "$IFCONFIG" ]; then
-+        IFCONFIG=/sbin/ifconfig
-     fi
--done
--
--if [ "$TAP" = "" ]; then
--    if [ -e "$NOSUDO_FLAG" ]; then
--        echo "Error: There are no available tap devices to use for networking,"
--        echo "and I see $NOSUDO_FLAG exists, so I am not going to try creating"
--        echo "a new one with sudo."
--        exit 1
-+    if [ ! -x "$IFCONFIG" ]; then
-+          echo "$IFCONFIG cannot be executed"
-+          exit 1
-     fi
- 
--    GROUPID=`id -g`
--    USERID=`id -u`
--    echo "Setting up tap interface under sudo"
--    # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
--    # but inactive. This looks scary but is harmless
--    tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2> /dev/null`
--    if [ $? -ne 0 ]; then
--        # Re-run standalone to see verbose errors
--        sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT
--        return
--    fi
--    LOCKFILE="$LOCKDIR/$tap"
--    echo "Acquiring lockfile for $tap..."
--    acquire_lock $LOCKFILE
--    if [ $? -eq 0 ]; then
--        TAP=$tap
--    fi 
--else
--    echo "Using preconfigured tap device '$TAP'"
--fi
-+    POSSIBLE=`$IFCONFIG -a | grep '^tap' | awk '{print $1}' | sed s/://`
-+    TAP=""
-+    LOCKFILE=""
-+    for tap in $POSSIBLE; do
-+        LOCKFILE="$LOCKDIR/$tap"
-+        echo "Acquiring lockfile for $tap..."
-+        acquire_lock $LOCKFILE
-+        if [ $? -eq 0 ]; then
-+           TAP=$tap
-+           break
-+        fi
-+    done
-+
-+    if [ "$TAP" = "" ]; then
-+        if [ -e "$NOSUDO_FLAG" ]; then
-+            echo "Error: There are no available tap devices to use for networking,"
-+            echo "and I see $NOSUDO_FLAG exists, so I am not going to try creating"
-+            echo "a new one with sudo."
-+            exit 1
-+        fi
- 
--cleanup() {
-+        GROUPID=`id -g`
-+        USERID=`id -u`
-+        echo "Setting up tap interface under sudo"
-+        # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
-+        # but inactive. This looks scary but is harmless
-+        tap=`sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT 2> /dev/null`
-+        if [ $? -ne 0 ]; then
-+            # Re-run standalone to see verbose errors
-+            sudo $QEMUIFUP $USERID $GROUPID $OECORE_NATIVE_SYSROOT
-+            return
-+        fi
-+        LOCKFILE="$LOCKDIR/$tap"
-+        echo "Acquiring lockfile for $tap..."
-+        acquire_lock $LOCKFILE
-+        if [ $? -eq 0 ]; then
-+            TAP=$tap
-+        fi 
-+    else
-+        echo "Using preconfigured tap device '$TAP'"
-+    fi
-+    
-+    cleanup() {
-     if [ ! -e "$NOSUDO_FLAG" ]; then
-         # Redirect stderr since we could see a LD_PRELOAD warning here if pseudo is loaded
-         # but inactive. This looks scary but is harmless
-         sudo $QEMUIFDOWN $TAP $OECORE_NATIVE_SYSROOT 2> /dev/null
-     fi
-     echo "Releasing lockfile of preconfigured tap device '$TAP'"
--    release_lock $LOCKFILE
--
-+    release_lock $LOCKFILE    
-     if [ "$NFSRUNNING" = "true" ]; then
-         echo "Shutting down the userspace NFS server..."
-         echo "runqemu-export-rootfs stop $ROOTFS"
-@@ -215,21 +228,33 @@ cleanup() {
-     stty sane
- }
- 
--n0=$(echo $TAP | sed 's/tap//')
--n1=$(($n0 * 2 + 1))
--n2=$(($n1 + 1))
-+    n0=$(echo $TAP | sed 's/tap//')
-+    n1=$(($n0 * 2 + 1))
-+    n2=$(($n1 + 1))
-+    KERNEL_NETWORK_CMD="ip=192.168.7.$n2::192.168.7.$n1:255.255.255.0"
-+    QEMU_TAP_CMD="-net tap,vlan=0,ifname=$TAP,script=no,downscript=no"
- 
--KERNEL_NETWORK_CMD="ip=192.168.7.$n2::192.168.7.$n1:255.255.255.0"
--QEMU_TAP_CMD="-net tap,vlan=0,ifname=$TAP,script=no,downscript=no"
--if [ "$KVM_ACTIVE" = "yes" ]; then
--    QEMU_NETWORK_CMD="-net nic,model=virtio $QEMU_TAP_CMD,vhost=on"
--    DROOT="/dev/vda"
--    ROOTFS_OPTIONS="-drive file=$ROOTFS,if=virtio"
--else
--    QEMU_NETWORK_CMD="-net nic,vlan=0 $QEMU_TAP_CMD"
--    DROOT="/dev/hda"
--    ROOTFS_OPTIONS="-hda $ROOTFS"
-+    if [ "$KVM_ACTIVE" = "yes" ]; then
-+        QEMU_NETWORK_CMD="-net nic,model=virtio $QEMU_TAP_CMD,vhost=on"
-+        DROOT="/dev/vda"
-+        ROOTFS_OPTIONS="-drive file=$ROOTFS,if=virtio"
-+    else
-+        QEMU_NETWORK_CMD="-net nic,vlan=0 $QEMU_TAP_CMD"
-+        DROOT="/dev/hda"
-+        ROOTFS_OPTIONS="-hda $ROOTFS"
-+    fi
- fi
-+cleanup() {
-+    
-+    if [ "$NFSRUNNING" = "true" ]; then
-+	echo "Shutting down the userspace NFS server..."
-+	echo "runqemu-export-rootfs stop $ROOTFS"
-+	runqemu-export-rootfs stop $ROOTFS
-+    fi
-+    # If QEMU crashes or somehow tty properties are not restored
-+    # after qemu exits, we need to run stty sane
-+    stty sane
-+}
- KERNCMDLINE="mem=$QEMU_MEMORY"
- QEMU_UI_OPTIONS="-show-cursor -usb -usbdevice wacom-tablet"
- 
-@@ -413,7 +438,11 @@ if [ "$MACHINE" = "qemuppc" ]; then
-     MACHINE_SUBTYPE=mac99
-     CPU_SUBTYPE=G4
-     QEMU_UI_OPTIONS="$QEMU_UI_OPTIONS"
--    QEMU_NETWORK_CMD="-net nic,model=pcnet $QEMU_TAP_CMD"
-+    if [ "$SLIRP_ENABLED" = "yes" ]; then
-+        QEMU_NETWORK_CMD=""
-+    else 
-+        QEMU_NETWORK_CMD="-net nic,model=pcnet $QEMU_TAP_CMD"
-+    fi
-     if [ "$FSTYPE" = "ext3" -o "$FSTYPE" = "btrfs" ]; then
-         KERNCMDLINE="root=/dev/hda rw console=ttyS0 console=tty $KERNEL_NETWORK_CMD mem=$QEMU_MEMORY"
-         QEMUOPTIONS="$QEMU_NETWORK_CMD -cpu $CPU_SUBTYPE -M $MACHINE_SUBTYPE -hda $ROOTFS -no-reboot $QEMU_UI_OPTIONS"
+ # Ship all kernel modules by default
 -- 
-1.7.9.5
+1.7.10
 
 
