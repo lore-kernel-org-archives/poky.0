@@ -1,36 +1,20 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1CF1DE00294
-	for <poky@yoctoproject.org>; Fri, 14 Dec 2012 08:25:00 -0800 (PST)
-Received: from mail-la0-f72.google.com ([209.85.215.72])
-	by mga09.intel.com with ESMTP/TLS/RC4-SHA; 14 Dec 2012 08:24:08 -0800
-Received: by mail-la0-f72.google.com with SMTP id l5so2397925lah.11
-	for <poky@yoctoproject.org>; Fri, 14 Dec 2012 08:24:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
-	bh=xwvfuoZPbUNMyqnkRsC3/WXYPWxcZsZ7faBO2exW0vs=;
-	b=cGzLTEoAnZ/0R2e2GrpA7DoGGrGDmIReXBsN5BbZ+AT77RnBcjX1PMGyTAwT8v0cqH
-	VYDu5hJUaIMpiNAW8DY2Lf1DtMWfy/JOuY96ZoqFjHXnR7DTbrJ2VVd8Dzks5Rk5waXX
-	IvGpFKj6gzQymVunif2piAI/pdh1MN9Be6TL//8QfoxE3pXSNQTYn+DAD1CMaLMDbs/M
-	6GDMLF7dDpDKikIpabHlL9dYoaAMZFxUqupXDMlj6mCjBq+DDhphr6sSYmeBzq5JZ/Xe
-	22SxWylJucnhoo8DgPC522ixWFHJ4t/0uZM/0nLh+qgsBrH0Ayy/erV8zZ4D/uBQWkkN
-	bpxg==
-Received: by 10.181.13.75 with SMTP id ew11mr3630027wid.9.1355502296797;
-	Fri, 14 Dec 2012 08:24:56 -0800 (PST)
-Received: by 10.181.13.75 with SMTP id ew11mr3630015wid.9.1355502296566;
-	Fri, 14 Dec 2012 08:24:56 -0800 (PST)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id dm3sm12944551wib.9.2012.12.14.08.24.54
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Fri, 14 Dec 2012 08:24:55 -0800 (PST)
-From: Ross Burton <ross.burton@intel.com>
+Return-Path: <constantinx.musca@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 860DCE01471
+	for <poky@yoctoproject.org>; Mon, 24 Dec 2012 00:37:51 -0800 (PST)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 24 Dec 2012 00:37:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,346,1355126400"; d="scan'208";a="184280297"
+Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.152])
+	by AZSMGA002.ch.intel.com with ESMTP; 24 Dec 2012 00:37:49 -0800
+From: Constantin Musca <constantinx.musca@intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 14 Dec 2012 16:23:15 +0000
-Message-Id: <1355502195-8268-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10
-X-Gm-Message-State: ALoCoQmWf4VC3V+OwIMb/av7WZZmRkb99tT5++R5kKS99W/eYkZg8GTIYCf6y5M+5WKY75r+uXzWpaWeH56+GxSBPyr0I5gMsPODVIt1p8ZJuvfUgoovRFmN3JzlwhNMZkKijMET8dvMJ0qRM/qcMZCSorTlRPfjeQ==
-Subject: [PATCH] beagleboard: use xf86-video-omapfb
+Date: Mon, 24 Dec 2012 10:38:25 +0200
+Message-Id: <1356338305-17226-1-git-send-email-constantinx.musca@intel.com>
+X-Mailer: git-send-email 1.7.11.7
+Cc: Constantin Musca <constantinx.musca@intel.com>
+Subject: [PATCH 08/20] gthumb: finalize removal
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,31 +27,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Dec 2012 16:25:00 -0000
+X-List-Received-Date: Mon, 24 Dec 2012 08:37:51 -0000
 
-The newer -omap driver doesn't support the GPU on BeagleBoard.
+Part of the sato trimming process
 
-[ YOCTO #3522 ]
-
-Signed-off-by: Ross Burton <ross.burton@intel.com>
+Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
 ---
- meta-yocto-bsp/conf/machine/beagleboard.conf |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-yocto/conf/distro/include/maintainers.inc       | 1 -
+ meta-yocto/conf/distro/include/recipe_color.inc      | 1 -
+ meta-yocto/conf/distro/include/upstream_tracking.inc | 3 ---
+ 3 files changed, 5 deletions(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
-index 204be95..6633880 100644
---- a/meta-yocto-bsp/conf/machine/beagleboard.conf
-+++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
-@@ -6,7 +6,7 @@ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
-            xf86-input-evdev \
-            xf86-input-mouse \
--           xf86-video-omap \
-+           xf86-video-omapfb \
-            xf86-input-keyboard"
- 
- # Ship all kernel modules by default
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index b0246b7..efb5a39 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -251,7 +251,6 @@ RECIPE_MAINTAINER_pn-gst-plugins-base = "Cristian Iorga <cristian.iorga@intel.co
+ RECIPE_MAINTAINER_pn-gst-plugins-good = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-gst-plugins-ugly = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-gstreamer = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-gthumb = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-gtk-doc-stub-native = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-gtk-doc-stub = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-gtk-doc = "Constantin Musca <constantinx.musca@intel.com>"
+diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
+index 894c76a..a8aba62 100644
+--- a/meta-yocto/conf/distro/include/recipe_color.inc
++++ b/meta-yocto/conf/distro/include/recipe_color.inc
+@@ -115,7 +115,6 @@ RECIPE_COLOR_pn-gperf = "yellow"
+ RECIPE_COLOR_pn-gpgme = "yellow"
+ RECIPE_COLOR_pn-grep = "yellow"
+ RECIPE_COLOR_pn-groff = "red"
+-RECIPE_COLOR_pn-gthumb = "red"
+ RECIPE_COLOR_pn-gtk+ = "yellow"
+ RECIPE_COLOR_pn-gtk-doc = "red"
+ RECIPE_COLOR_pn-gtkhtml2 = "red"
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index 1b3ddad..7cff274 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -389,9 +389,6 @@ RECIPE_UPSTREAM_VERSION_pn-gst-plugins-ugly = "0.11.90"
+ RECIPE_UPSTREAM_VERSION_pn-gstreamer="0.11.90"
+ RECIPE_UPSTREAM_DATE_pn-gstreamer="Jan 31, 2011"
+ RECIPE_NO_UPDATE_REASON_pn-gstreamer=" not compatible with gst-fluendo 0.10.x "
+-RECIPE_UPSTREAM_VERSION_pn-gthumb = "3.0.2"
+-RECIPE_UPSTREAM_DATE_pn-gthumb = "Aug 20, 2012"
+-CHECK_DATE_pn-gthumb = "Aug 29, 2012"
+ RECIPE_UPSTREAM_DATE_pn-gtk-sato-engine = "Feb 01, 2008"
+ RECIPE_UPSTREAM_VERSION_pn-gtk+ = "2.24.8"
+ RECIPE_NO_UPDATE_REASON_pn-gtk+ = "Do not upgrade to version: 2.99.2 because prefer stable tree"
 -- 
-1.7.10
+1.7.11.7
 
 
