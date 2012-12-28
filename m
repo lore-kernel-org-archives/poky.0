@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8EDA0E014C4
-	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 13:45:23 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C4243E014CF
+	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 13:45:24 -0800 (PST)
 Received: from localhost (c-50-137-42-92.hsd1.or.comcast.net [50.137.42.92])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 04BCD2FEF3
-	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 16:45:13 -0500 (EST)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 5E57D2FEF1
+	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 16:45:18 -0500 (EST)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 28 Dec 2012 13:44:22 -0800
-Message-Id: <d46dff20360b29faf13f7db1b17e3f8dbc8c892a.1356731004.git.scott.a.garman@intel.com>
+Date: Fri, 28 Dec 2012 13:44:24 -0800
+Message-Id: <6cf008891f6b11bf8a2f0c60fedfbb1a922a81e3.1356731004.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1356731004.git.scott.a.garman@intel.com>
 References: <cover.1356731004.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1356731004.git.scott.a.garman@intel.com>
 References: <cover.1356731004.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 04BCD2FEF3.468C9
+X-MailScanner-ID: 5E57D2FEF1.BC4CC
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 16/23] build-appliance-image: Allow SRCREV to be overriden
+Subject: [PATCH 18/23] gitignore: add generated doc files to ignore list
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,30 +36,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Dec 2012 21:45:23 -0000
+X-List-Received-Date: Fri, 28 Dec 2012 21:45:24 -0000
 
-This will allow use to automagically set the SRCREV for builds on the
-autobuilder. It will still require manual updating for releases.
-
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Scott Garman <scott.a.garman@intel.com>
 ---
- meta/recipes-core/images/build-appliance-image.bb |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .gitignore |   24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/meta/recipes-core/images/build-appliance-image.bb b/meta/recipes-core/images/build-appliance-image.bb
-index 77d3b0d..a82dfdd 100644
---- a/meta/recipes-core/images/build-appliance-image.bb
-+++ b/meta/recipes-core/images/build-appliance-image.bb
-@@ -20,7 +20,7 @@ IMAGE_FSTYPES = "vmdk"
- 
- inherit core-image
- 
--SRCREV = "73cdebf60df225ee10f2eb215935be3b61e1b831"
-+SRCREV ?= "73cdebf60df225ee10f2eb215935be3b61e1b831"
- SRC_URI = "git://git.yoctoproject.org/poky;protocol=git \
-            file://Yocto_Build_Appliance.vmx \
-            file://Yocto_Build_Appliance.vmxf \
+diff --git a/.gitignore b/.gitignore
+index f8db092..32ade34 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -17,5 +17,25 @@ meta-*
+ *.orig
+ *.rej
+ *~
+-
+-
++documentation/adt-manual/adt-manual.html
++documentation/adt-manual/adt-manual.pdf
++documentation/adt-manual/adt-manual.tgz
++documentation/dev-manual/dev-manual.html
++documentation/dev-manual/dev-manual.pdf
++documentation/dev-manual/dev-manual.tgz
++documentation/poky-ref-manual/poky-ref-manual.html
++documentation/poky-ref-manual/poky-ref-manual.pdf
++documentation/poky-ref-manual/poky-ref-manual.tgz
++documentation/poky-ref-manual/bsp-guide.html
++documentation/poky-ref-manual/bsp-guide.pdf
++documentation/bsp-guide/bsp-guide.html
++documentation/bsp-guide/bsp-guide.pdf
++documentation/bsp-guide/bsp-guide.tgz
++documentation/yocto-project-qs/yocto-project-qs.html
++documentation/yocto-project-qs/yocto-project-qs.tgz
++documentation/kernel-manual/kernel-manual.html
++documentation/kernel-manual/kernel-manual.tgz
++documentation/kernel-manual/kernel-manual.pdf
++documentation/mega-manual/mega-manual.html
++documentation/mega-manual/mega-manual.pdf
++documentation/mega-manual/mega-manual.tgz
 -- 
 1.7.9.5
 
