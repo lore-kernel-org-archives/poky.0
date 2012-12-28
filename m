@@ -1,16 +1,16 @@
 Return-Path: <scott.a.garman@intel.com>
 Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3157EE01485
-	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 13:44:59 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D11EE01485
+	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 13:45:01 -0800 (PST)
 Received: from localhost (c-50-137-42-92.hsd1.or.comcast.net [50.137.42.92])
 	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id 5685B2FEF2
-	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 16:44:52 -0500 (EST)
+	by masterfoo.zenlinux.com (Postfix) with ESMTP id 7B3572FEF1
+	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 16:44:54 -0500 (EST)
 From: Scott Garman <scott.a.garman@intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 28 Dec 2012 13:44:12 -0800
-Message-Id: <37e0863db3c613bc9d74f435551072afb500f9c4.1356731004.git.scott.a.garman@intel.com>
+Date: Fri, 28 Dec 2012 13:44:13 -0800
+Message-Id: <440bf94fa4c8adcabafd2182e3b240046ae141df.1356731004.git.scott.a.garman@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <cover.1356731004.git.scott.a.garman@intel.com>
 References: <cover.1356731004.git.scott.a.garman@intel.com>
@@ -18,12 +18,12 @@ In-Reply-To: <cover.1356731004.git.scott.a.garman@intel.com>
 References: <cover.1356731004.git.scott.a.garman@intel.com>
 X-MasterFoo-MailScanner-Information: Please contact the ISP for more
 	information
-X-MailScanner-ID: 5685B2FEF2.DC2BE
+X-MailScanner-ID: 7B3572FEF1.13EF5
 X-MasterFoo-MailScanner: Found to be clean
 X-MasterFoo-MailScanner-SpamCheck: not spam
 X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
 X-Spam-Status: No
-Subject: [PATCH 06/23] sysklogd: removed tabs from syslog.conf
+Subject: [PATCH 07/23] documentation: poky-ref-manual - Fixed grammar typo.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,87 +36,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Dec 2012 21:44:59 -0000
+X-List-Received-Date: Fri, 28 Dec 2012 21:45:01 -0000
 
-From: Mihai Lindner <mihaix.lindner@linux.intel.com>
+From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-Yocto #2926: syslog.conf should not have tabs within the selector field.
-Removed tabs from the selector field of syslog rules. Tabs or spaces
-should be used, in syslog.conf, only when separating selectors from
-actions.
-
-(From OE-Core rev: 1316be4e597332a629842b3f5a7dde8e45dd057d)
-
-Signed-off-by: Mihai Lindner <mihaix.lindner@linux.intel.com>
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-
-Resolved merge conflicts with denzil branch.
-
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
+Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 ---
- meta/recipes-extended/sysklogd/files/syslog.conf |   23 +++++++++++-----------
- meta/recipes-extended/sysklogd/sysklogd_1.5.bb   |    2 +-
- 2 files changed, 13 insertions(+), 12 deletions(-)
+ documentation/poky-ref-manual/ref-variables.xml |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta/recipes-extended/sysklogd/files/syslog.conf b/meta/recipes-extended/sysklogd/files/syslog.conf
-index 7d1858c..0849de1 100644
---- a/meta/recipes-extended/sysklogd/files/syslog.conf
-+++ b/meta/recipes-extended/sysklogd/files/syslog.conf
-@@ -34,12 +34,13 @@ news.notice			-/var/log/news.notice
- # Some `catch-all' logfiles.
- #
- *.=debug;\
--	auth,authpriv.none;\
--	news.none;mail.none	-/var/log/debug
-+auth,authpriv.none;\
-+news.none;mail.none	-/var/log/debug
-+
- *.=info;*.=notice;*.=warn;\
--	auth,authpriv.none;\
--	cron,daemon.none;\
--	mail,news.none		-/var/log/messages
-+auth,authpriv.none;\
-+cron,daemon.none;\
-+mail,news.none		-/var/log/messages
- 
- #
- # Emergencies are sent to everybody logged in.
-@@ -51,9 +52,9 @@ news.notice			-/var/log/news.notice
- # console I usually leave idle.
- #
- #daemon,mail.*;\
--#	news.=crit;news.=err;news.=notice;\
--#	*.=debug;*.=info;\
--#	*.=notice;*.=warn	/dev/tty8
-+#news.=crit;news.=err;news.=notice;\
-+#*.=debug;*.=info;\
-+#*.=notice;*.=warn	/dev/tty8
- 
- # The named pipe /dev/xconsole is for the `xconsole' utility.  To use it,
- # you must invoke `xconsole' with the `-file' option:
-@@ -64,7 +65,7 @@ news.notice			-/var/log/news.notice
- #      busy site..
- #
- daemon.*;mail.*;\
--	news.err;\
--	*.=debug;*.=info;\
--	*.=notice;*.=warn	|/dev/xconsole
-+news.err;\
-+*.=debug;*.=info;\
-+*.=notice;*.=warn	|/dev/xconsole
- 
-diff --git a/meta/recipes-extended/sysklogd/sysklogd_1.5.bb b/meta/recipes-extended/sysklogd/sysklogd_1.5.bb
-index b58094e..471c8c8 100644
---- a/meta/recipes-extended/sysklogd/sysklogd_1.5.bb
-+++ b/meta/recipes-extended/sysklogd/sysklogd_1.5.bb
-@@ -1,5 +1,5 @@
- require sysklogd.inc
--PR = "r5"
-+PR = "r6"
- 
- SRC_URI[md5sum] = "e053094e8103165f98ddafe828f6ae4b"
- SRC_URI[sha256sum] = "6169b8e91d29288e90404f01462b69e7f2afb1161aa419826fe4736c7f9eb773"
+diff --git a/documentation/poky-ref-manual/ref-variables.xml b/documentation/poky-ref-manual/ref-variables.xml
+index 0c19753..64a5220 100644
+--- a/documentation/poky-ref-manual/ref-variables.xml
++++ b/documentation/poky-ref-manual/ref-variables.xml
+@@ -669,7 +669,7 @@
+                     <literallayout class='monospaced'>
+      FILESEXTRAPATHS_prepend := "path_1:path_2:path_3:"
+                     </literallayout>
+-                    Typically, you want your directories search first. 
++                    Typically, you want your directories searched first. 
+                     To make sure that happens, use <filename>_prepend</filename> and 
+                     the immediate expansion (<filename>:=</filename>) operator as shown in the 
+                     previous example.
 -- 
 1.7.9.5
 
