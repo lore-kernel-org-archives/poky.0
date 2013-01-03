@@ -1,29 +1,30 @@
-Return-Path: <scott.a.garman@intel.com>
-Received: from masterfoo.zenlinux.com (masterfoo.zenlinux.com [207.192.74.254])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 33B2DE01462
-	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 13:45:40 -0800 (PST)
-Received: from localhost (c-50-137-42-92.hsd1.or.comcast.net [50.137.42.92])
-	(using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by masterfoo.zenlinux.com (Postfix) with ESMTP id B169C2FEF2
-	for <poky@yoctoproject.org>; Fri, 28 Dec 2012 16:45:31 -0500 (EST)
-From: Scott Garman <scott.a.garman@intel.com>
-To: poky@yoctoproject.org
-Date: Fri, 28 Dec 2012 13:44:29 -0800
-Message-Id: <d77cd634d7557a2fd2d774983f5bc5f7c5f099ed.1356731004.git.scott.a.garman@intel.com>
-X-Mailer: git-send-email 1.7.9.5
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75817E006D2
+	for <poky@yoctoproject.org>; Thu,  3 Jan 2013 04:41:35 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r03CfWhC012742;
+	Thu, 3 Jan 2013 12:41:32 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 32489-03; Thu,  3 Jan 2013 12:41:28 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r03CfNiY012736
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
+	Thu, 3 Jan 2013 12:41:24 GMT
+Message-ID: <1357216885.28649.89.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Scott Garman <scott.a.garman@intel.com>
+Date: Thu, 03 Jan 2013 12:41:25 +0000
 In-Reply-To: <cover.1356731004.git.scott.a.garman@intel.com>
 References: <cover.1356731004.git.scott.a.garman@intel.com>
-In-Reply-To: <cover.1356731004.git.scott.a.garman@intel.com>
-References: <cover.1356731004.git.scott.a.garman@intel.com>
-X-MasterFoo-MailScanner-Information: Please contact the ISP for more
-	information
-X-MailScanner-ID: B169C2FEF2.4C6A1
-X-MasterFoo-MailScanner: Found to be clean
-X-MasterFoo-MailScanner-SpamCheck: not spam
-X-MasterFoo-MailScanner-From: scott.a.garman@intel.com
-X-Spam-Status: No
-Subject: [PATCH 23/23] cups: patch for CVE-2011-2896
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 00/23] denzil pull request 5
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,205 +37,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Dec 2012 21:45:40 -0000
+X-List-Received-Date: Thu, 03 Jan 2013 12:41:36 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Patch from: http://cups.org/strfiles/3867/str3867.patch
+On Fri, 2012-12-28 at 13:44 -0800, Scott Garman wrote:
+> This is a pull request for denzil, it includes a number of security
+> fixes and a few important bugfixes. The poky-based tree has been run
+> through the autobuilder as follows:
+[...]
+> The following changes since commit ef745cb34fe9ff01456b76c3ff361f3a751cbcb7:
+> 
+>   poky.conf: Add Ubuntu 12.04.1 LTS to SANITY_TESTED_DISTROS (2012-12-07 16:02:04 +0000)
+> 
+> are available in the git repository at:
+> 
+>   git://git.yoctoproject.org/poky-contrib sgarman/denzil-next-pull5
+>   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgarman/denzil-next-pull5
+> 
+> Khem Raj (5):
+>   coreutils: Fix build with eglibc 2.16
+>   diffutils: Fix build with eglibc 2.16
+>   gettext,m4,augeas,gnutls: Account for removal of gets in eglibc 2.16
+>   bison: Fix for gets being removed from eglibc 2.16
+>   grub,guile,cpio,tar,wget: Fix gnulib for absense of gets in eglibc
+> 
+> Li Wang (1):
+>   librsvg: CVE-2011-3146
+> 
+> Mihai Lindner (1):
+>   sysklogd: removed tabs from syslog.conf
+> 
+> Richard Purdie (1):
+>   boot-directdisk: Fix kernel location after STAGING_KERNEL_DIR change
+> 
+> Scott Garman (6):
+>   psplash: new patch to fix segfault
+>   build-appliance-image: Allow SRCREV to be overriden
+>   gitignore: add generated doc files to ignore list
+>   libxml2: patch for CVE-2012-2871
+>   freetype: patches for CVE-2012-5668, 5669, and 5670
+>   cups: patch for CVE-2011-2896
+> 
+> Scott Rifenbark (7):
+>   documentation: poky-ref-manual - Fixed grammar typo.
+>   Documentation: ref-manual - Updated LIC_FILES_CHKSUM example.
+>   documentation: Updated Manual History table for 1.2.2 release
+>   poky.ent: Updated to remove "current" and replace with 1.2.2
+>   documentation: Added February 2013 as release date for 1.3.1
+>   documentation: Updated manual history tables for Feb 2013
+>   documentation: Formats. Also, the January 2013 date summary
+> 
+> Tom Zanussi (1):
+>   yocto-bsp: set branches_base for list_property_values()
+> 
+> yanjun.zhu (1):
+>   squashfs: fix CVE-2012-4025
 
-The LZW decompressor in the LWZReadByte function in giftoppm.c in the
-David Koblas GIF decoder in PBMPLUS, as used in the gif_read_lzw
-function in filter/image-gif.c in CUPS before 1.4.7, the LZWReadByte
-function in plug-ins/common/file-gif-load.c in GIMP 2.6.11 and earlier,
-the LZWReadByte function in img/gifread.c in XPCE in SWI-Prolog 5.10.4
-and earlier, and other products, does not properly handle code words
-that are absent from the decompression table when encountered, which
-allows remote attackers to trigger an infinite loop or a heap-based
-buffer overflow, and possibly execute arbitrary code, via a crafted
-compressed stream, a related issue to CVE-2006-1168 and CVE-2011-2895.
+Merged into denzil, thanks.
 
-http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2896
-
-[YOCTO #3582]
-[ CQID: WIND00299595 ]
-
-Signed-off-by: Li Wang <li.wang@windriver.com>
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
-
-Merged with denzil branch, partial fix for denzil bug [YOCTO #3652]
-
-Signed-off-by: Scott Garman <scott.a.garman@intel.com>
----
- .../cups/cups-1.4.6/cups-CVE-2011-2896.patch       |  140 ++++++++++++++++++++
- meta/recipes-extended/cups/cups_1.4.6.bb           |    3 +-
- 2 files changed, 142 insertions(+), 1 deletion(-)
- create mode 100644 meta/recipes-extended/cups/cups-1.4.6/cups-CVE-2011-2896.patch
-
-diff --git a/meta/recipes-extended/cups/cups-1.4.6/cups-CVE-2011-2896.patch b/meta/recipes-extended/cups/cups-1.4.6/cups-CVE-2011-2896.patch
-new file mode 100644
-index 0000000..7c6f75b
---- /dev/null
-+++ b/meta/recipes-extended/cups/cups-1.4.6/cups-CVE-2011-2896.patch
-@@ -0,0 +1,140 @@
-+cups - CVE-2011-2896
-+
-+the patch come from:
-+http://cups.org/strfiles/3867/str3867.patch
-+
-+The LZW decompressor in the LWZReadByte function in giftoppm.c
-+in the David Koblas GIF decoder in PBMPLUS, as used in the
-+gif_read_lzw function in filter/image-gif.c in CUPS before 1.4.7,
-+the LZWReadByte function in plug-ins/common/file-gif-load.c
-+in GIMP 2.6.11 and earlier, the LZWReadByte function in img/gifread.c
-+in XPCE in SWI-Prolog 5.10.4 and earlier, and other products,
-+does not properly handle code words that are absent from the
-+decompression table when encountered, which allows remote attackers to
-+trigger an infinite loop or a heap-based buffer overflow, and possibly
-+execute arbitrary code, via a crafted compressed stream, a related
-+issue to CVE-2006-1168 and CVE-2011-2895.
-+http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2896
-+
-+Integrated-by: Li Wang <li.wang@windriver.com>
-+---
-+ filter/image-gif.c |   46 ++++++++++++++++++++--------------------------
-+ 1 files changed, 20 insertions(+), 26 deletions(-)
-+
-+diff --git a/filter/image-gif.c b/filter/image-gif.c
-+index 3857c21..fa9691e 100644
-+--- a/filter/image-gif.c
-++++ b/filter/image-gif.c
-+@@ -353,7 +353,7 @@ gif_get_code(FILE *fp,			/* I - File to read from */
-+     * Read in another buffer...
-+     */
-+ 
-+-    if ((count = gif_get_block (fp, buf + last_byte)) <= 0)
-++    if ((count = gif_get_block(fp, buf + last_byte)) <= 0)
-+     {
-+      /*
-+       * Whoops, no more data!
-+@@ -582,19 +582,13 @@ gif_read_lzw(FILE *fp,			/* I - File to read from */
-+     gif_get_code(fp, 0, 1);
-+ 
-+    /*
-+-    * Wipe the decompressor table...
-++    * Wipe the decompressor table (already mostly 0 due to the calloc above...)
-+     */
-+ 
-+     fresh = 1;
-+ 
-+-    for (i = 0; i < clear_code; i ++)
-+-    {
-+-      table[0][i] = 0;
-++    for (i = 1; i < clear_code; i ++)
-+       table[1][i] = i;
-+-    }
-+-
-+-    for (; i < 4096; i ++)
-+-      table[0][i] = table[1][0] = 0;
-+ 
-+     sp = stack;
-+ 
-+@@ -605,29 +599,30 @@ gif_read_lzw(FILE *fp,			/* I - File to read from */
-+     fresh = 0;
-+ 
-+     do
-++    {
-+       firstcode = oldcode = gif_get_code(fp, code_size, 0);
-++    }
-+     while (firstcode == clear_code);
-+ 
-+-    return (firstcode);
-++    return (firstcode & 255);
-+   }
-+   else if (!table)
-+     return (0);
-+ 
-+   if (sp > stack)
-+-    return (*--sp);
-++    return ((*--sp) & 255);
-+ 
-+-  while ((code = gif_get_code (fp, code_size, 0)) >= 0)
-++  while ((code = gif_get_code(fp, code_size, 0)) >= 0)
-+   {
-+     if (code == clear_code)
-+     {
-+-      for (i = 0; i < clear_code; i ++)
-+-      {
-+-	table[0][i] = 0;
-+-	table[1][i] = i;
-+-      }
-++     /*
-++      * Clear/reset the compression table...
-++      */
-+ 
-+-      for (; i < 4096; i ++)
-+-	table[0][i] = table[1][i] = 0;
-++      memset(table, 0, 2 * sizeof(gif_table_t));
-++      for (i = 1; i < clear_code; i ++)
-++	table[1][i] = i;
-+ 
-+       code_size     = set_code_size + 1;
-+       max_code_size = 2 * clear_code;
-+@@ -637,12 +632,11 @@ gif_read_lzw(FILE *fp,			/* I - File to read from */
-+ 
-+       firstcode = oldcode = gif_get_code(fp, code_size, 0);
-+ 
-+-      return (firstcode);
-++      return (firstcode & 255);
-+     }
-+-    else if (code == end_code)
-++    else if (code == end_code || code > max_code)
-+     {
-+-      unsigned char	buf[260];
-+-
-++      unsigned char	buf[260];	/* Block buffer */
-+ 
-+       if (!gif_eof)
-+         while (gif_get_block(fp, buf) > 0);
-+@@ -652,7 +646,7 @@ gif_read_lzw(FILE *fp,			/* I - File to read from */
-+ 
-+     incode = code;
-+ 
-+-    if (code >= max_code)
-++    if (code == max_code)
-+     {
-+       if (sp < (stack + 8192))
-+ 	*sp++ = firstcode;
-+@@ -690,10 +684,10 @@ gif_read_lzw(FILE *fp,			/* I - File to read from */
-+     oldcode = incode;
-+ 
-+     if (sp > stack)
-+-      return (*--sp);
-++      return ((*--sp) & 255);
-+   }
-+ 
-+-  return (code);
-++  return (code & 255);
-+ }
-+ 
-+ 
-+-- 
-+1.7.0.5
-+
-diff --git a/meta/recipes-extended/cups/cups_1.4.6.bb b/meta/recipes-extended/cups/cups_1.4.6.bb
-index ec555d7..3e31c08 100644
---- a/meta/recipes-extended/cups/cups_1.4.6.bb
-+++ b/meta/recipes-extended/cups/cups_1.4.6.bb
-@@ -1,6 +1,6 @@
- require cups14.inc
- 
--PR = "r3"
-+PR = "r4"
- DEPENDS += "libusb \
-        ${@base_contains('DISTRO_FEATURES', 'pam', 'libpam', '', d)}"
- 
-@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=956e7600195e6139f12de8c2a5bbefa9"
- SRC_URI += " \
- 	file://use_echo_only_in_init.patch \
-     file://0001-don-t-try-to-run-generated-binaries.patch \
-+    file://cups-CVE-2011-2896.patch \
- 	"
- 
- SRC_URI[md5sum] = "de8fb5a29c36554925c0c6a6e2c0dae1"
--- 
-1.7.9.5
+Richard
 
 
