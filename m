@@ -1,37 +1,20 @@
-Return-Path: <Nasir_Ali@mentor.com>
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 05490E011DB
-	for <poky@yoctoproject.org>; Fri,  4 Jan 2013 06:35:33 -0800 (PST)
-Received: from svr-orw-fem-01.mgc.mentorg.com ([147.34.98.93])
-	by relay1.mentorg.com with esmtp 
-	id 1Tr8Mu-0002Ra-PG from Nasir_Ali@mentor.com ;
-	Fri, 04 Jan 2013 06:35:32 -0800
-Received: from SVR-IES-FEM-05.mgc.mentorg.com ([137.202.0.112]) by
-	svr-orw-fem-01.mgc.mentorg.com over TLS secured channel with
-	Microsoft SMTPSVC(6.0.3790.4675); Fri, 4 Jan 2013 06:35:32 -0800
-Received: from EU-MBX-01.mgc.mentorg.com ([169.254.1.171]) by
-	SVR-IES-FEM-05.mgc.mentorg.com ([137.202.0.112]) with mapi id
-	14.01.0289.001; Fri, 4 Jan 2013 14:35:30 +0000
-From: "Ali, Nasir" <Nasir_Ali@mentor.com>
-To: Anna Dushistova <anna.dushistova@gmail.com>
-Thread-Topic: [poky] Pandaboard booting with Yocto with LTTng support
-Thread-Index: Ac3psyVKAW168FJ+SHiCEzClZ9dy3QAGws6AAB0VNNgACa74gAAH09NC
-Date: Fri, 4 Jan 2013 14:35:30 +0000
-Message-ID: <53B11A2698485743AAA262E995E2C3F1915F0D8B@EU-MBX-01.mgc.mentorg.com>
-References: <53B11A2698485743AAA262E995E2C3F1915F0C3C@EU-MBX-01.mgc.mentorg.com>
-	<CAKL3bWXCnY63a0n5uqwpqrLgBwAwa-jSpHC2WxwdfRvrQc6yBA@mail.gmail.com>
-	<53B11A2698485743AAA262E995E2C3F1915F0CEA@EU-MBX-01.mgc.mentorg.com>,
-	<CAKL3bWWUaTm51omkJqBgT30Pyo1vu2viMTVDrUOc84+8qwPoNw@mail.gmail.com>
-In-Reply-To: <CAKL3bWWUaTm51omkJqBgT30Pyo1vu2viMTVDrUOc84+8qwPoNw@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [137.202.0.69]
-MIME-Version: 1.0
-X-OriginalArrivalTime: 04 Jan 2013 14:35:32.0648 (UTC)
-	FILETIME=[C04F3280:01CDEA88]
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Pandaboard booting with Yocto with LTTng support
+Return-Path: <constantinx.musca@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9BDA0E0047F
+	for <poky@yoctoproject.org>; Mon,  7 Jan 2013 01:19:17 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 07 Jan 2013 01:19:17 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,423,1355126400"; d="scan'208";a="270758166"
+Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.152])
+	by fmsmga001.fm.intel.com with ESMTP; 07 Jan 2013 01:19:13 -0800
+From: Constantin Musca <constantinx.musca@intel.com>
+To: poky@yoctoproject.org
+Date: Mon,  7 Jan 2013 11:19:52 +0200
+Message-Id: <1357550392-8744-1-git-send-email-constantinx.musca@intel.com>
+X-Mailer: git-send-email 1.7.11.7
+Cc: Constantin Musca <constantinx.musca@intel.com>
+Subject: [PATCH] libgdata: finalize recipe removal
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,149 +27,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2013 14:35:33 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 07 Jan 2013 09:19:17 -0000
 
-Hi Anna,=0A=
-=0A=
-Thank you. With your configuration I am able to do kernel tracing.=0A=
-=0A=
-Thanks,=0A=
-Nasir=0A=
-________________________________________=0A=
-From: Anna Dushistova [anna.dushistova@gmail.com]=0A=
-Sent: Friday, January 04, 2013 3:50 PM=0A=
-To: Ali, Nasir=0A=
-Cc: poky@yoctoproject.org=0A=
-Subject: Re: [poky] Pandaboard booting with Yocto with LTTng support=0A=
-=0A=
-Here is what I have in my local.conf(which is a little too much, but=0A=
-seems to be working):=0A=
-KERNEL_CONFIG_TRACEPOINTS=3D"y"=0A=
-KERNEL_CONFIG_HAVE_ARCH_TRACEHOOK=3D"y"=0A=
-KERNEL_CONFIG_TRACE_IRQFLAGS=3D"y"=0A=
-KERNEL_CONFIG_STACKTRACE=3D"y"=0A=
-KERNEL_CONFIG_FRAME_POINTER=3D"y"=0A=
-KERNEL_CONFIG_NOP_TRACER=3D"y"=0A=
-KERNEL_CONFIG_TRACER_MAX_TRACE=3D"y"=0A=
-KERNEL_CONFIG_EVENT_TRACING=3D"y"=0A=
-KERNEL_CONFIG_EVENT_POWER_TRACING_DEPRECATED=3D"y"=0A=
-KERNEL_CONFIG_CONTEXT_SWITCH_TRACER=3D"y"=0A=
-KERNEL_CONFIG_TRACING=3D"y"=0A=
-KERNEL_CONFIG_GENERIC_TRACER=3D"y"=0A=
-KERNEL_CONFIG_FTRACE=3D"y"=0A=
-KERNEL_CONFIG_FUNCTION_TRACER=3D"y"=0A=
-KERNEL_CONFIG_FUNCTION_GRAPH_TRACER=3D"y"=0A=
-KERNEL_CONFIG_IRQSOFF_TRACER=3D"y"=0A=
-KERNEL_CONFIG_PREEMPT_TRACER=3D"y"=0A=
-KERNEL_CONFIG_SCHED_TRACER=3D"y"=0A=
-KERNEL_CONFIG_FTRACE_SYSCALLS=3D"y"=0A=
-KERNEL_CONFIG_BRANCH_PROFILE_NONE=3D"y"=0A=
-KERNEL_CONFIG_STACK_TRACER=3D"y"=0A=
-KERNEL_CONFIG_BLK_DEV_IO_TRACE=3D"y"=0A=
-KERNEL_CONFIG_KPROBES=3D"y"=0A=
-KERNEL_CONFIG_KPROBE_EVENT=3D"y"=0A=
-KERNEL_CONFIG_DYNAMIC_FTRACE=3D"y"=0A=
-KERNEL_CONFIG_FUNCTION_PROFILER=3D"y"=0A=
-KERNEL_CONFIG_FTRACE_MCOUNT_RECORD=3D"y"=0A=
-KERNEL_CONFIG_FTRACE_SELFTEST=3D"y"=0A=
-KERNEL_CONFIG_FTRACE_STARTUP_TEST=3D"y"=0A=
-KERNEL_CONFIG_EVENT_TRACE_TEST_SYSCALLS=3D"y"=0A=
-KERNEL_CONFIG_RING_BUFFER_BENCHMARK=3D"y"=0A=
-=0A=
-Also, see if your lttng modules got into your rootfs. It seems like=0A=
-they are not present.=0A=
-Or located somewhere lttng cannot find them. I would try to install=0A=
-them manually(insmod or modprobe)=0A=
-just to make sure.=0A=
-=0A=
-Anna.=0A=
-=0A=
-On Fri, Jan 4, 2013 at 9:17 AM, Ali, Nasir <Nasir_Ali@mentor.com> wrote:=0A=
-> Hi Anna,=0A=
->=0A=
-> I have enabled the following in defconfig file. Apart from these I don't =
-know what other configuration I need to enable for kernel tracing.=0A=
->=0A=
-> CONFIG_MODULES=3Dy=0A=
-> CONFIG_KALLSYMS=3Dy=0A=
-> CONFIG_HIGH_RES_TIMERS=3Dy=0A=
-> CONFIG_FTRACE=3Dy=0A=
-> CONFIG_TRACEPOINTS=3Dy=0A=
-> CONFIG_HAVE_SYSCALL_TRACEPOINTS=3Dy=0A=
-> CONFIG_HAVE_PERF_EVENTS=3Dy=0A=
-> CONFIG_EVENT_TRACING=3Dy=0A=
-> CONFIG_KPROBES=3Dy=0A=
-> CONFIG_KRETPROBES=3Dy=0A=
->=0A=
-> Best Regards,=0A=
-> Nasir=0A=
-> ________________________________________=0A=
-> From: Anna Dushistova [anna.dushistova@gmail.com]=0A=
-> Sent: Thursday, January 03, 2013 9:20 PM=0A=
-> To: Ali, Nasir=0A=
-> Cc: poky@yoctoproject.org=0A=
-> Subject: Re: [poky] Pandaboard booting with Yocto with LTTng support=0A=
->=0A=
-> Hello,=0A=
->=0A=
-> Does your kernel image have tracing enabled?=0A=
->=0A=
-> Anna.=0A=
->=0A=
-> On Thu, Jan 3, 2013 at 4:06 PM, Ali, Nasir <Nasir_Ali@mentor.com> wrote:=
-=0A=
->> Hi,=0A=
->>=0A=
->> I need to have LTTng kernel tracer support in Panda-board. I have=0A=
->> successfully built Yocto with LTTng support for Pandaboard and also=0A=
->> successfully booted with these images but LTTng kernel tracer doesn't wo=
-rk=0A=
->> for me. I have built with the following steps:=0A=
->>=0A=
->> Pull the Yocto sources from git: git clone --branch <release_name>=0A=
->> git://git.yoctoproject.org/poky=0A=
->> Pull meta-ti layer from git:git clone --branch <release_name>=0A=
->> git://git.yoctoproject.org/meta-ti=0A=
->> Run the environment setup script (oe-init-build-env)=0A=
->> Add the machine name (MACHINE ?=3D "pandaboard") in local.conf file=0A=
->> Add a line (BBMASK =3D "meta-ti/recipes-misc") at the end in local.conf =
-file=0A=
->> for resolving meta-ti dependencies=0A=
->> Add a line (IMAGE_INSTALL_append =3D " dropbear") at the end in local.co=
-nf=0A=
->> file for 'ssh' support if it required.=0A=
->> Add a line (CORE_IMAGE_EXTRA_INSTALL =3D "lttng2-ust lttng-modules=0A=
->> lttng-tools") at the end in local.conf file for LTTng2.=0A=
->> Add meta-ti layer path in 'bblayers.conf' file=0A=
->> Start building with bitbake core-image-minimal=0A=
->>=0A=
->>=0A=
->> Then booted successfully but LTTng kernel tracer doesn't work.=0A=
->>=0A=
->>=0A=
->> root@pandaboard:~# lttng list -k=0A=
->> Spawning a session daemon=0A=
->> FATAL: Module lttng-tracer not found.=0A=
->> Error: Unable to load module lttng-tracer=0A=
->> Error: Unable to remove module lttng-tracer=0A=
->> Warning: No kernel tracer available=0A=
->> FATAL: Module lttng-tracer not found.=0A=
->> Error: Unable to load module lttng-tracer=0A=
->> Error: Unable to remove module lttng-tracer=0A=
->> Warning: No kernel tracer available=0A=
->> Error: Unable to list kernel events=0A=
->>=0A=
->> Could you please anybody guide me about this issue.=0A=
->>=0A=
->> Best Regards,=0A=
->> Nasir=0A=
->>=0A=
->> _______________________________________________=0A=
->> poky mailing list=0A=
->> poky@yoctoproject.org=0A=
->> https://lists.yoctoproject.org/listinfo/poky=0A=
->>=0A=
+Part of the sato trimming process
+
+Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
+---
+ meta-yocto/conf/distro/include/maintainers.inc       | 1 -
+ meta-yocto/conf/distro/include/recipe_color.inc      | 1 -
+ meta-yocto/conf/distro/include/upstream_tracking.inc | 3 ---
+ 3 files changed, 5 deletions(-)
+
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index b0246b7..9af30d2 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -351,7 +351,6 @@ RECIPE_MAINTAINER_pn-libfribidi = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libgalago = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-libgcc = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libgcrypt = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libgdata = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-libgdbus = "Scott Garman <scott.a.garman@intel.com>"
+ RECIPE_MAINTAINER_pn-libglade = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-libglu = "Saul Wold <sgw@linux.intel.com>"
+diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
+index 894c76a..775f375 100644
+--- a/meta-yocto/conf/distro/include/recipe_color.inc
++++ b/meta-yocto/conf/distro/include/recipe_color.inc
+@@ -168,7 +168,6 @@ RECIPE_COLOR_pn-libfontenc = "yellow"
+ RECIPE_COLOR_pn-libfribidi = "red"
+ RECIPE_COLOR_pn-libgalago = "red"
+ RECIPE_COLOR_pn-libgcrypt = "yellow"
+-RECIPE_COLOR_pn-libgdata = "red"
+ RECIPE_COLOR_pn-libgdbus = "yellow"
+ RECIPE_COLOR_pn-libglade = "yellow"
+ RECIPE_COLOR_pn-libgnomecanvas = "red"
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index 1b3ddad..5f7b27d 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -591,9 +591,6 @@ CHECK_DATE_pn-libgcc = "Aug 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-libgcrypt = "1.5.0"
+ RECIPE_UPSTREAM_DATE_pn-libgcrypt = "Jun 6, 2011"
+ CHECK_DATE_pn-libgcrypt = "Aug 30, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-libgdata = "0.12.0"
+-RECIPE_UPSTREAM_DATE_pn-libgdata = "Apr 02, 2012"
+-CHECK_DATE_pn-libgdata = "Aug 30, 2012"
+ RECIPE_UPSTREAM_VERSION_pn-libgdbus = "0.2"
+ CHECK_DATE_pn-libgdbus = "Aug 30, 2012"
+ RECIPE_UPSTREAM_DATE_pn-libgdbus = "Sep 01, 2008"
+-- 
+1.7.11.7
+
 
