@@ -1,20 +1,30 @@
-Return-Path: <constantinx.musca@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9BDA0E0047F
-	for <poky@yoctoproject.org>; Mon,  7 Jan 2013 01:19:17 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 07 Jan 2013 01:19:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,423,1355126400"; d="scan'208";a="270758166"
-Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.152])
-	by fmsmga001.fm.intel.com with ESMTP; 07 Jan 2013 01:19:13 -0800
-From: Constantin Musca <constantinx.musca@intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  7 Jan 2013 11:19:52 +0200
-Message-Id: <1357550392-8744-1-git-send-email-constantinx.musca@intel.com>
-X-Mailer: git-send-email 1.7.11.7
-Cc: Constantin Musca <constantinx.musca@intel.com>
-Subject: [PATCH] libgdata: finalize recipe removal
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63BFDE0047F
+	for <poky@yoctoproject.org>; Mon,  7 Jan 2013 03:43:09 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r07Bh5BP004097;
+	Mon, 7 Jan 2013 11:43:05 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 32489-10; Mon,  7 Jan 2013 11:43:01 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r07BgvhB004090
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
+	Mon, 7 Jan 2013 11:42:58 GMT
+Message-ID: <1357558979.24865.0.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Saul Wold <sgw@linux.intel.com>
+Date: Mon, 07 Jan 2013 11:42:59 +0000
+In-Reply-To: <cover.1356630970.git.sgw@linux.intel.com>
+References: <cover.1356630970.git.sgw@linux.intel.com>
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: poky@yoctoproject.org
+Subject: Re: [POKY CONSOLIDATED PULL 0/4] Distro Specific Updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,56 +37,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Jan 2013 09:19:17 -0000
+X-List-Received-Date: Mon, 07 Jan 2013 11:43:09 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Part of the sato trimming process
+On Thu, 2012-12-27 at 09:57 -0800, Saul Wold wrote:
+> Richard,
+> 
+> Here is the split of the package regex along with some updates
+> to the distro files.
+> 
+> Thanks
+> 	Sau!
+> 
+> The following changes since commit 4a36a32567ecfbc7ce7b967803e6e23314953ef5:
+> 
+>   libpng: fix packaging (2012-12-26 11:34:09 +0000)
+> 
+> are available in the git repository at:
+> 
+>   git://git.yoctoproject.org/poky-contrib sgw/poky
+>   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/poky
+> 
+> Constantin Musca (2):
+>   gthumb: finalize removal
+>   mutter: finalize mutter removal
+> 
+> Emilia Ciobanu (1):
+>   Added regex file in meta-yocto/conf/distro/include.
+> 
+> Otavio Salvador (1):
+>   distro/poky: Add "Debian GNU/Linux 7.0 (wheezy)" as know distribution
 
-Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
----
- meta-yocto/conf/distro/include/maintainers.inc       | 1 -
- meta-yocto/conf/distro/include/recipe_color.inc      | 1 -
- meta-yocto/conf/distro/include/upstream_tracking.inc | 3 ---
- 3 files changed, 5 deletions(-)
+Merged to master, thanks.
 
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index b0246b7..9af30d2 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -351,7 +351,6 @@ RECIPE_MAINTAINER_pn-libfribidi = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libgalago = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-libgcc = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libgcrypt = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-libgdata = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-libgdbus = "Scott Garman <scott.a.garman@intel.com>"
- RECIPE_MAINTAINER_pn-libglade = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-libglu = "Saul Wold <sgw@linux.intel.com>"
-diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
-index 894c76a..775f375 100644
---- a/meta-yocto/conf/distro/include/recipe_color.inc
-+++ b/meta-yocto/conf/distro/include/recipe_color.inc
-@@ -168,7 +168,6 @@ RECIPE_COLOR_pn-libfontenc = "yellow"
- RECIPE_COLOR_pn-libfribidi = "red"
- RECIPE_COLOR_pn-libgalago = "red"
- RECIPE_COLOR_pn-libgcrypt = "yellow"
--RECIPE_COLOR_pn-libgdata = "red"
- RECIPE_COLOR_pn-libgdbus = "yellow"
- RECIPE_COLOR_pn-libglade = "yellow"
- RECIPE_COLOR_pn-libgnomecanvas = "red"
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index 1b3ddad..5f7b27d 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -591,9 +591,6 @@ CHECK_DATE_pn-libgcc = "Aug 30, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libgcrypt = "1.5.0"
- RECIPE_UPSTREAM_DATE_pn-libgcrypt = "Jun 6, 2011"
- CHECK_DATE_pn-libgcrypt = "Aug 30, 2012"
--RECIPE_UPSTREAM_VERSION_pn-libgdata = "0.12.0"
--RECIPE_UPSTREAM_DATE_pn-libgdata = "Apr 02, 2012"
--CHECK_DATE_pn-libgdata = "Aug 30, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libgdbus = "0.2"
- CHECK_DATE_pn-libgdbus = "Aug 30, 2012"
- RECIPE_UPSTREAM_DATE_pn-libgdbus = "Sep 01, 2008"
--- 
-1.7.11.7
+Richard
 
 
