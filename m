@@ -1,32 +1,29 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
 	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DB8DE00724
-	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 05:04:31 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 65EEAE014A5
+	for <poky@lists.yoctoproject.org>; Wed,  9 Jan 2013 07:22:52 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09D3sED031791;
-	Wed, 9 Jan 2013 13:03:54 GMT
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09FMfMM001981;
+	Wed, 9 Jan 2013 15:22:41 GMT
 Received: from tim.rpsys.net ([127.0.0.1])
 	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
 	port 10024) with LMTP
-	id 23407-04; Wed,  9 Jan 2013 13:03:50 +0000 (GMT)
+	id 23373-07; Wed,  9 Jan 2013 15:22:37 +0000 (GMT)
 Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09D3knk031748
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09FMW5P001974
 	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Wed, 9 Jan 2013 13:03:46 GMT
-Message-ID: <1357736629.13022.55.camel@ted>
+	Wed, 9 Jan 2013 15:22:33 GMT
+Message-ID: <1357744955.13022.97.camel@ted>
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Iorga, Cristian" <cristian.iorga@intel.com>
-Date: Wed, 09 Jan 2013 13:03:49 +0000
-In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
-References: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
-	<969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
+To: bitbake-devel <bitbake-devel@lists.openembedded.org>, openembedded-core
+	<openembedded-core@lists.openembedded.org>, poky
+	<poky@lists.yoctoproject.org>, yocto <yocto@yoctoproject.org>
+Date: Wed, 09 Jan 2013 15:22:35 +0000
 X-Mailer: Evolution 3.2.3-0ubuntu6 
 Mime-Version: 1.0
 X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "Felipe F. Tonello" <ftonello@cercacor.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] connman: fixed init script, so it can run with nfs
+Subject: WebHob Mailing List Setup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,27 +36,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2013 13:04:32 -0000
+X-List-Received-Date: Wed, 09 Jan 2013 15:22:52 -0000
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2013-01-09 at 10:12 +0000, Iorga, Cristian wrote:
-> Hello Felipe,
-> 
-> I have some questions regarding this patch:
-> 
-> 1. On which hardware/machine have you tested this patch? (real hardware, qemu machine, etc)
-> 2. In what way is connman affecting nfs? In other words, what is the root cause?
-> 3. Which version of connman are you using?
-> 
-> I am asking these questions because I am working on something somehow related, and I think a more general fix might be needed.
+Various people at various times have expressed an interest in webhob
+which will be a web interface to bitbake's functionality as an evolution
+of the capabilities of the current hob UI. There are some people looking
+at the design of it and who are actively working on figuring out what it
+should look like, what it needs to do, who it needs to serve and some
+other key questions. They will also likely start implementing the
+functionality soon.
 
-I'd also add that:
+In the interests of collaboration, we've setup the mailing list:
 
-a) Patches to this part of the tree need to go to the OE-Core mailing list
-b) Unconditionally running the expression is inefficient, it should move
-inside the if statement as it triggers a number of exec calls. This may
-sound trivial but that all mount up.
+https://lists.yoctoproject.org/listinfo/webhob
+
+which is where the design and initial implementation discussions are
+going to happen. If you are interested please join the list.
+
+I've cross posted this to ensure people know about it. Please take
+discussion and replies up on the webhob list itself.
 
 Cheers,
 
