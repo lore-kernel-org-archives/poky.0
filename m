@@ -1,29 +1,41 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 65EEAE014A5
-	for <poky@lists.yoctoproject.org>; Wed,  9 Jan 2013 07:22:52 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09FMfMM001981;
-	Wed, 9 Jan 2013 15:22:41 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 23373-07; Wed,  9 Jan 2013 15:22:37 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09FMW5P001974
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Wed, 9 Jan 2013 15:22:33 GMT
-Message-ID: <1357744955.13022.97.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: bitbake-devel <bitbake-devel@lists.openembedded.org>, openembedded-core
-	<openembedded-core@lists.openembedded.org>, poky
-	<poky@lists.yoctoproject.org>, yocto <yocto@yoctoproject.org>
-Date: Wed, 09 Jan 2013 15:22:35 +0000
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Subject: WebHob Mailing List Setup
+Return-Path: <eu@felipetonello.com>
+Received: from mail-oa0-f50.google.com (mail-oa0-f50.google.com
+	[209.85.219.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 35327E00559
+	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 09:57:40 -0800 (PST)
+Received: by mail-oa0-f50.google.com with SMTP id n16so1283404oag.23
+	for <poky@yoctoproject.org>; Wed, 09 Jan 2013 09:57:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-received:message-id:date:from:user-agent:mime-version:to:subject
+	:references:in-reply-to:content-type:content-transfer-encoding
+	:x-gm-message-state;
+	bh=xYICOzPNC2lM8IgC2j6lSzau4h5T702LACRdqPfize4=;
+	b=ew1QR5/tltHFPywra2DJL9wdBEGEAObWA9Gfc9AOlXP6zd7ilTKi6fGDrGbIedgk3Y
+	sOa7/3kF8hvlB/giCxinAnu8W+cJoccW5siGWJjZCF7J0j0FXexbVxrriNLtgPooPMZT
+	VcQt8ehmUPAzXo05tDbG5i1dhYncSjOQFABxeOf0jBk2s34DAKUe3Ue/9lJAlr357Pgg
+	siffhH3HFTTTWM051+9Krj7KGioQlPaOc+YRLxeE2R3kLx0WoDGfoqJzsADBozTFgNCL
+	SlybdcBDv+JX73/NPpxnCjKgPMOFq16+1q442VaNd5ZxRUzvu4Z1RLS0M9VpZmivZlEj
+	1S0g==
+X-Received: by 10.60.8.134 with SMTP id r6mr38291228oea.53.1357754259475;
+	Wed, 09 Jan 2013 09:57:39 -0800 (PST)
+Received: from [192.168.48.44] (wsip-70-183-20-162.oc.oc.cox.net.
+	[70.183.20.162])
+	by mx.google.com with ESMTPS id w10sm37355192oeg.2.2013.01.09.09.57.37
+	(version=SSLv3 cipher=OTHER); Wed, 09 Jan 2013 09:57:38 -0800 (PST)
+Message-ID: <50EDAFC3.8090100@felipetonello.com>
+Date: Wed, 09 Jan 2013 09:58:27 -0800
+From: Felipe Ferreri Tonello <eu@felipetonello.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/17.0 Thunderbird/17.0
+MIME-Version: 1.0
+To: poky@yoctoproject.org
+References: <1357690719-3136-1-git-send-email-eu@felipetonello.com>
+	<50ECD310.90504@windriver.com> <50ED01A5.4030402@felipetonello.com>
+	<50ED275C.2030605@windriver.com>
+In-Reply-To: <50ED275C.2030605@windriver.com>
+X-Gm-Message-State: ALoCoQle76+32mLrDxheEYwGrTcAQv7M5MUwf5Uz99A25amHd5+xqyvUQgJU5a7qzWetMAvvG8jv
+Subject: Re: [PATCH] initscripts: added save-rtc to runlevel S
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,30 +48,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2013 15:22:52 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 09 Jan 2013 17:57:40 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Various people at various times have expressed an interest in webhob
-which will be a web interface to bitbake's functionality as an evolution
-of the capabilities of the current hob UI. There are some people looking
-at the design of it and who are actively working on figuring out what it
-should look like, what it needs to do, who it needs to serve and some
-other key questions. They will also likely start implementing the
-functionality soon.
 
-In the interests of collaboration, we've setup the mailing list:
+Hi Chen,
 
-https://lists.yoctoproject.org/listinfo/webhob
+Thank you for your answer.
 
-which is where the design and initial implementation discussions are
-going to happen. If you are interested please join the list.
+On 01/09/2013 12:16 AM, ChenQi wrote:
+ > On 01/09/2013 01:35 PM, Felipe Ferreri Tonello wrote:
+ >> Hi Chen,
+ >>
+ >> On 01/08/2013 06:16 PM, ChenQi wrote:
+ >>> On 01/09/2013 08:18 AM, eu@felipetonello.com wrote:
+ >>>> From: "Felipe F. Tonello" <ftonello@cercacor.com>
+ >>>>
+ >>>> It is necessary to add save-rtc.sh to runlevel S so the system is
+ >>>> updated when
+ >>>> it boots up.
+ >>> Hi ftonello,
+ >>> What do you mean by "system is updated"?
+ >> I meant system clock.
+ >>
+ >> What is happening now is that when you turn off the device, without
+ >> system halt, the next time the device is booted up the system clock is
+ >> not in sync with the rtc.
+ > Hi Felipe,
+ >
+ > I'm sorry, but I really don't see why this patch works.
+ > Below is my understanding for the system clock, hardware clock and
+ > /etc/timestamp.
+ > (The file name 'save-rtc.sh' is somewhat misleading, 'save-timestamp.sh'
+ > would be a more reasonable one.)
+ >
+ > /etc/timestamp is used to provide a reasonable reference for system time.
+ > The initial contents in this file is the building time of the image.
+ >
+ > The system clock should always be in sync with the rtc as long as the
+ > /etc/init.d/hwclock.sh is present, whose main purpose is to sync system
+ > clock and hardware clock.
+ > No matter whether the system is shutdown normally or crashes, the system
+ > clock is according to the hardware clock by hwclock.sh.
 
-I've cross posted this to ensure people know about it. Please take
-discussion and replies up on the webhob list itself.
+Is there anything special to enable hwclock.sh?
 
-Cheers,
+I understand what you say, but here that patch was the only way to have 
+system clock (down to minutes, also, or even seconds, don't recall) sync 
+up with the rtc.
 
-Richard
+Btw, this patch I did few months ago. So I don't remember exactly what 
+was happening.
+
+Do you know by the top of your mind how is this process? Because, as I 
+remember, save-rtc.sh was never been called. I'm not sure.
+
+Felipe
 
 
