@@ -1,41 +1,43 @@
 Return-Path: <eu@felipetonello.com>
-Received: from mail-oa0-f50.google.com (mail-oa0-f50.google.com
-	[209.85.219.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 35327E00559
-	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 09:57:40 -0800 (PST)
-Received: by mail-oa0-f50.google.com with SMTP id n16so1283404oag.23
-	for <poky@yoctoproject.org>; Wed, 09 Jan 2013 09:57:39 -0800 (PST)
+Received: from mail-ob0-f174.google.com (mail-ob0-f174.google.com
+	[209.85.214.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7E7FE002AB
+	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 10:14:01 -0800 (PST)
+Received: by mail-ob0-f174.google.com with SMTP id ta14so2499654obb.5
+	for <poky@yoctoproject.org>; Wed, 09 Jan 2013 10:14:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=x-received:message-id:date:from:user-agent:mime-version:to:subject
-	:references:in-reply-to:content-type:content-transfer-encoding
-	:x-gm-message-state;
-	bh=xYICOzPNC2lM8IgC2j6lSzau4h5T702LACRdqPfize4=;
-	b=ew1QR5/tltHFPywra2DJL9wdBEGEAObWA9Gfc9AOlXP6zd7ilTKi6fGDrGbIedgk3Y
-	sOa7/3kF8hvlB/giCxinAnu8W+cJoccW5siGWJjZCF7J0j0FXexbVxrriNLtgPooPMZT
-	VcQt8ehmUPAzXo05tDbG5i1dhYncSjOQFABxeOf0jBk2s34DAKUe3Ue/9lJAlr357Pgg
-	siffhH3HFTTTWM051+9Krj7KGioQlPaOc+YRLxeE2R3kLx0WoDGfoqJzsADBozTFgNCL
-	SlybdcBDv+JX73/NPpxnCjKgPMOFq16+1q442VaNd5ZxRUzvu4Z1RLS0M9VpZmivZlEj
-	1S0g==
-X-Received: by 10.60.8.134 with SMTP id r6mr38291228oea.53.1357754259475;
-	Wed, 09 Jan 2013 09:57:39 -0800 (PST)
+	h=x-received:message-id:date:from:user-agent:mime-version:to:cc
+	:subject:references:in-reply-to:content-type
+	:content-transfer-encoding:x-gm-message-state;
+	bh=uXTFpNibCDdwsmGgrTSXD+jLcjfmVI/lhIOZvtRFERw=;
+	b=TAa9ExrpRBFA6s9DTXpyeTJTmuP03uysi0AVJOlZSeC3HQv9KPmEo6Fc7OH9wyA8nL
+	5mKu30uZX6qc2rMy3RjuTBUNxzS9nm9m5TzKhmY+5A2suBnIa7pYN586NdHThJk5+ITG
+	Zv7CM6xdtgvhExcvIeXPG1WsunZb/+M3zEPKN89BbE7Q11NhwgHuPjRqYeH3ZTad5O7R
+	cJFysD6znNvghopHf8l/3Qr8CvdVQaIbf2AuHLH8nUvQLTwY8qYVTztig7lEF2H7Irj2
+	XT/C7PdNx9o2gV6q2xv9mMzoDq53fS6/xDs4tGIPyQxolLsq7nXv9CpaDNPTHpkOgERo
+	8AMA==
+X-Received: by 10.182.150.72 with SMTP id ug8mr49146105obb.1.1357755241081;
+	Wed, 09 Jan 2013 10:14:01 -0800 (PST)
 Received: from [192.168.48.44] (wsip-70-183-20-162.oc.oc.cox.net.
 	[70.183.20.162])
-	by mx.google.com with ESMTPS id w10sm37355192oeg.2.2013.01.09.09.57.37
-	(version=SSLv3 cipher=OTHER); Wed, 09 Jan 2013 09:57:38 -0800 (PST)
-Message-ID: <50EDAFC3.8090100@felipetonello.com>
-Date: Wed, 09 Jan 2013 09:58:27 -0800
+	by mx.google.com with ESMTPS id 7sm3047889obu.4.2013.01.09.10.13.59
+	(version=SSLv3 cipher=OTHER); Wed, 09 Jan 2013 10:14:00 -0800 (PST)
+Message-ID: <50EDB399.509@felipetonello.com>
+Date: Wed, 09 Jan 2013 10:14:49 -0800
 From: Felipe Ferreri Tonello <eu@felipetonello.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:17.0) Gecko/17.0 Thunderbird/17.0
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <1357690719-3136-1-git-send-email-eu@felipetonello.com>
-	<50ECD310.90504@windriver.com> <50ED01A5.4030402@felipetonello.com>
-	<50ED275C.2030605@windriver.com>
-In-Reply-To: <50ED275C.2030605@windriver.com>
-X-Gm-Message-State: ALoCoQle76+32mLrDxheEYwGrTcAQv7M5MUwf5Uz99A25amHd5+xqyvUQgJU5a7qzWetMAvvG8jv
-Subject: Re: [PATCH] initscripts: added save-rtc to runlevel S
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
+	<969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
+	<1357736629.13022.55.camel@ted>
+In-Reply-To: <1357736629.13022.55.camel@ted>
+X-Gm-Message-State: ALoCoQmfy09k5emEhHDkYs+bDSWiyMtU4nZCDWemRki0mOilsathxxIiHx1WRD3zV4/klSCUhwoV
+Cc: "Felipe F. Tonello" <ftonello@cercacor.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] connman: fixed init script, so it can run with nfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,62 +50,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2013 17:57:40 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Wed, 09 Jan 2013 18:14:01 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-Hi Chen,
+Hi Richard,
 
-Thank you for your answer.
-
-On 01/09/2013 12:16 AM, ChenQi wrote:
- > On 01/09/2013 01:35 PM, Felipe Ferreri Tonello wrote:
- >> Hi Chen,
+On 01/09/2013 05:03 AM, Richard Purdie wrote:
+ > On Wed, 2013-01-09 at 10:12 +0000, Iorga, Cristian wrote:
+ >> Hello Felipe,
  >>
- >> On 01/08/2013 06:16 PM, ChenQi wrote:
- >>> On 01/09/2013 08:18 AM, eu@felipetonello.com wrote:
- >>>> From: "Felipe F. Tonello" <ftonello@cercacor.com>
- >>>>
- >>>> It is necessary to add save-rtc.sh to runlevel S so the system is
- >>>> updated when
- >>>> it boots up.
- >>> Hi ftonello,
- >>> What do you mean by "system is updated"?
- >> I meant system clock.
+ >> I have some questions regarding this patch:
  >>
- >> What is happening now is that when you turn off the device, without
- >> system halt, the next time the device is booted up the system clock is
- >> not in sync with the rtc.
- > Hi Felipe,
+ >> 1. On which hardware/machine have you tested this patch? (real 
+hardware, qemu machine, etc)
+ >> 2. In what way is connman affecting nfs? In other words, what is the 
+root cause?
+ >> 3. Which version of connman are you using?
+ >>
+ >> I am asking these questions because I am working on something 
+somehow related, and I think a more general fix might be needed.
  >
- > I'm sorry, but I really don't see why this patch works.
- > Below is my understanding for the system clock, hardware clock and
- > /etc/timestamp.
- > (The file name 'save-rtc.sh' is somewhat misleading, 'save-timestamp.sh'
- > would be a more reasonable one.)
+ > I'd also add that:
  >
- > /etc/timestamp is used to provide a reasonable reference for system time.
- > The initial contents in this file is the building time of the image.
- >
- > The system clock should always be in sync with the rtc as long as the
- > /etc/init.d/hwclock.sh is present, whose main purpose is to sync system
- > clock and hardware clock.
- > No matter whether the system is shutdown normally or crashes, the system
- > clock is according to the hardware clock by hwclock.sh.
+ > a) Patches to this part of the tree need to go to the OE-Core mailing 
+list
+Ok.
 
-Is there anything special to enable hwclock.sh?
-
-I understand what you say, but here that patch was the only way to have 
-system clock (down to minutes, also, or even seconds, don't recall) sync 
-up with the rtc.
-
-Btw, this patch I did few months ago. So I don't remember exactly what 
-was happening.
-
-Do you know by the top of your mind how is this process? Because, as I 
-remember, save-rtc.sh was never been called. I'm not sure.
+ > b) Unconditionally running the expression is inefficient, it should move
+ > inside the if statement as it triggers a number of exec calls. This may
+ > sound trivial but that all mount up.
+I agree. I will fix that before sending to OE-Core.
 
 Felipe
-
 
