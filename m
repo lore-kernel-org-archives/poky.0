@@ -1,31 +1,31 @@
-Return-Path: <cristian.iorga@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D6C2E01485
-	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 02:12:33 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 09 Jan 2013 02:12:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,436,1355126400"; d="scan'208";a="243879299"
-Received: from irsmsx101.ger.corp.intel.com ([163.33.3.153])
-	by orsmga001.jf.intel.com with ESMTP; 09 Jan 2013 02:12:31 -0800
-Received: from irsmsx102.ger.corp.intel.com ([169.254.2.95]) by
-	IRSMSX101.ger.corp.intel.com ([169.254.1.13]) with mapi id
-	14.01.0355.002; Wed, 9 Jan 2013 10:12:30 +0000
-From: "Iorga, Cristian" <cristian.iorga@intel.com>
-To: "eu@felipetonello.com" <eu@felipetonello.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Thread-Topic: [poky] [PATCH] connman: fixed init script, so it can run with nfs
-Thread-Index: AQHN7hHj3OlUR3L/Jk2o6u78my7w0ZhAxjog
-Date: Wed, 9 Jan 2013 10:12:29 +0000
-Message-ID: <969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
+	[93.97.173.237])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DB8DE00724
+	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 05:04:31 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09D3sED031791;
+	Wed, 9 Jan 2013 13:03:54 GMT
+Received: from tim.rpsys.net ([127.0.0.1])
+	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP
+	id 23407-04; Wed,  9 Jan 2013 13:03:50 +0000 (GMT)
+Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
+	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r09D3knk031748
+	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
+	Wed, 9 Jan 2013 13:03:46 GMT
+Message-ID: <1357736629.13022.55.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Iorga, Cristian" <cristian.iorga@intel.com>
+Date: Wed, 09 Jan 2013 13:03:49 +0000
+In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
 References: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
-In-Reply-To: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [163.33.239.181]
-MIME-Version: 1.0
-Cc: "Felipe F. Tonello" <ftonello@cercacor.com>
+	<969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
+X-Mailer: Evolution 3.2.3-0ubuntu6 
+Mime-Version: 1.0
+X-Virus-Scanned: amavisd-new at rpsys.net
+Cc: "Felipe F. Tonello" <ftonello@cercacor.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH] connman: fixed init script, so it can run with nfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -39,76 +39,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2013 10:12:33 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 09 Jan 2013 13:04:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hello Felipe,
+On Wed, 2013-01-09 at 10:12 +0000, Iorga, Cristian wrote:
+> Hello Felipe,
+> 
+> I have some questions regarding this patch:
+> 
+> 1. On which hardware/machine have you tested this patch? (real hardware, qemu machine, etc)
+> 2. In what way is connman affecting nfs? In other words, what is the root cause?
+> 3. Which version of connman are you using?
+> 
+> I am asking these questions because I am working on something somehow related, and I think a more general fix might be needed.
 
-I have some questions regarding this patch:
+I'd also add that:
 
-1. On which hardware/machine have you tested this patch? (real hardware, qe=
-mu machine, etc)
-2. In what way is connman affecting nfs? In other words, what is the root c=
-ause?
-3. Which version of connman are you using?
+a) Patches to this part of the tree need to go to the OE-Core mailing list
+b) Unconditionally running the expression is inefficient, it should move
+inside the if statement as it triggers a number of exec calls. This may
+sound trivial but that all mount up.
 
-I am asking these questions because I am working on something somehow relat=
-ed, and I think a more general fix might be needed.
+Cheers,
 
-Regards,
-Cristian Iorga
+Richard
 
-
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of eu@felipetonello.com
-Sent: Wednesday, January 09, 2013 2:37 AM
-To: poky@yoctoproject.org
-Cc: Felipe F. Tonello
-Subject: [poky] [PATCH] connman: fixed init script, so it can run with nfs
-
-From: "Felipe F. Tonello" <ftonello@cercacor.com>
-
-Adding -I to the arguments, connmand will ignore the eth interface, so if y=
-ou are using nfs it will not be disconnected.
-
-FIXME: it might not work if using more than one eth interface. But it's bet=
-ter than not using connman with nfs at all.
-
-Signed-off-by: Felipe F. Tonello <ftonello@cercacor.com>
----
- meta/recipes-connectivity/connman/connman/connman |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/meta/recipes-connectivity/connman/connman/connman b/meta/recip=
-es-connectivity/connman/connman/connman
-index 4a0017f..e90925e 100644
---- a/meta/recipes-connectivity/connman/connman/connman
-+++ b/meta/recipes-connectivity/connman/connman/connman
-@@ -26,11 +26,14 @@ while read dev mtpt fstype rest; do
- 	fi
- done
-=20
-+ethn=3D`ifconfig | grep eth | sed -e "s/\(eth[0-9]\)\(.*\)/\1/"`
-+
- do_start() {
- 	EXTRA_PARAM=3D""
--	if test $nfsroot -eq 0 ; then
--		$DAEMON $EXTRA_PARAM
-+	if test $nfsroot -eq 1 ; then
-+		EXTRA_PARAM=3D"-I $ethn"
- 	fi
-+	$DAEMON $EXTRA_PARAM
- }
-=20
- do_stop() {
---
-1.7.9.5
-
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
 
