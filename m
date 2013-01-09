@@ -1,40 +1,39 @@
 Return-Path: <eu@felipetonello.com>
-Received: from mail-ob0-f174.google.com (mail-ob0-f174.google.com
-	[209.85.214.174])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7E7FE002AB
-	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 10:14:01 -0800 (PST)
-Received: by mail-ob0-f174.google.com with SMTP id ta14so2499654obb.5
-	for <poky@yoctoproject.org>; Wed, 09 Jan 2013 10:14:01 -0800 (PST)
+Received: from mail-ob0-f170.google.com (mail-ob0-f170.google.com
+	[209.85.214.170])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 86922E006C2
+	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 10:14:20 -0800 (PST)
+Received: by mail-ob0-f170.google.com with SMTP id wp18so2525227obc.15
+	for <poky@yoctoproject.org>; Wed, 09 Jan 2013 10:14:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
 	h=x-received:message-id:date:from:user-agent:mime-version:to:cc
 	:subject:references:in-reply-to:content-type
 	:content-transfer-encoding:x-gm-message-state;
-	bh=uXTFpNibCDdwsmGgrTSXD+jLcjfmVI/lhIOZvtRFERw=;
-	b=TAa9ExrpRBFA6s9DTXpyeTJTmuP03uysi0AVJOlZSeC3HQv9KPmEo6Fc7OH9wyA8nL
-	5mKu30uZX6qc2rMy3RjuTBUNxzS9nm9m5TzKhmY+5A2suBnIa7pYN586NdHThJk5+ITG
-	Zv7CM6xdtgvhExcvIeXPG1WsunZb/+M3zEPKN89BbE7Q11NhwgHuPjRqYeH3ZTad5O7R
-	cJFysD6znNvghopHf8l/3Qr8CvdVQaIbf2AuHLH8nUvQLTwY8qYVTztig7lEF2H7Irj2
-	XT/C7PdNx9o2gV6q2xv9mMzoDq53fS6/xDs4tGIPyQxolLsq7nXv9CpaDNPTHpkOgERo
-	8AMA==
-X-Received: by 10.182.150.72 with SMTP id ug8mr49146105obb.1.1357755241081;
-	Wed, 09 Jan 2013 10:14:01 -0800 (PST)
+	bh=rexO2ah2ndN/zLH5pVHIm/gha/oljjJogsA7vlgw1sE=;
+	b=H5kta03N5EpM2t36CjExI6PvwfIx2xBENviKdl8gnFWuyHy0ifZsHGaW5+aI5DLi4q
+	aeuDQ67MkqUcBHfrCXBTtbE0hLpgjBsBzUNGYD2dW/AGJMxP/r+biuUqvjmgdB8xX4ik
+	UQIb9fs7xY4NzD+TRhrHFVViETSKPAPrMpM5pZH+TShVZ74myeYnZTrjcZSO4TLcdp42
+	WBCRjh87hD9EICPIs17NERKk6yWxYI3S4OoR9ydrwcuW6dLXUXuZgq2F1zc2WQHYbyAV
+	Ov2n9ABerz6Th2WnqFPBOD2Po4shDU56Llzf4ALnaLjSt1rcVQqpOJTcOKzxWgKIY/p9
+	MLGQ==
+X-Received: by 10.60.32.33 with SMTP id f1mr40296662oei.122.1357755260009;
+	Wed, 09 Jan 2013 10:14:20 -0800 (PST)
 Received: from [192.168.48.44] (wsip-70-183-20-162.oc.oc.cox.net.
 	[70.183.20.162])
-	by mx.google.com with ESMTPS id 7sm3047889obu.4.2013.01.09.10.13.59
-	(version=SSLv3 cipher=OTHER); Wed, 09 Jan 2013 10:14:00 -0800 (PST)
-Message-ID: <50EDB399.509@felipetonello.com>
-Date: Wed, 09 Jan 2013 10:14:49 -0800
+	by mx.google.com with ESMTPS id y20sm35362499obh.17.2013.01.09.10.14.18
+	(version=SSLv3 cipher=OTHER); Wed, 09 Jan 2013 10:14:19 -0800 (PST)
+Message-ID: <50EDB3AC.9050804@felipetonello.com>
+Date: Wed, 09 Jan 2013 10:15:08 -0800
 From: Felipe Ferreri Tonello <eu@felipetonello.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:17.0) Gecko/17.0 Thunderbird/17.0
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Iorga, Cristian" <cristian.iorga@intel.com>
 References: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
 	<969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
-	<1357736629.13022.55.camel@ted>
-In-Reply-To: <1357736629.13022.55.camel@ted>
-X-Gm-Message-State: ALoCoQmfy09k5emEhHDkYs+bDSWiyMtU4nZCDWemRki0mOilsathxxIiHx1WRD3zV4/klSCUhwoV
+In-Reply-To: <969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
+X-Gm-Message-State: ALoCoQmfGHp+dNND2wqWFZ+QzXJNLX9ckf4tg3tyTxEp7Ci3MKs9cyDgXrKxzdV9WGSppz1Q03a1
 Cc: "Felipe F. Tonello" <ftonello@cercacor.com>,
 	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH] connman: fixed init script, so it can run with nfs
@@ -50,38 +49,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2013 18:14:01 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-List-Received-Date: Wed, 09 Jan 2013 18:14:20 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-Hi Richard,
+Hi Iorga,
 
-On 01/09/2013 05:03 AM, Richard Purdie wrote:
- > On Wed, 2013-01-09 at 10:12 +0000, Iorga, Cristian wrote:
- >> Hello Felipe,
- >>
- >> I have some questions regarding this patch:
- >>
- >> 1. On which hardware/machine have you tested this patch? (real 
+On 01/09/2013 02:12 AM, Iorga, Cristian wrote:
+ > Hello Felipe,
+ >
+ > I have some questions regarding this patch:
+ >
+ > 1. On which hardware/machine have you tested this patch? (real 
 hardware, qemu machine, etc)
- >> 2. In what way is connman affecting nfs? In other words, what is the 
-root cause?
- >> 3. Which version of connman are you using?
- >>
- >> I am asking these questions because I am working on something 
-somehow related, and I think a more general fix might be needed.
- >
- > I'd also add that:
- >
- > a) Patches to this part of the tree need to go to the OE-Core mailing 
-list
-Ok.
+Real hardware.
 
- > b) Unconditionally running the expression is inefficient, it should move
- > inside the if statement as it triggers a number of exec calls. This may
- > sound trivial but that all mount up.
-I agree. I will fix that before sending to OE-Core.
+ > 2. In what way is connman affecting nfs? In other words, what is the 
+root cause?
+When connman tried to take ownership of eth, it crashes the nfs, that is 
+hosting rootfs for instance, connection.
+
+ > 3. Which version of connman are you using?
+I'm using 1.9 but I tested this patch on 1.6 as well.
+
+ >
+ > I am asking these questions because I am working on something somehow 
+related, and I think a more general fix might be needed.
+
+I agree, this is not a generic patch. But it works on most of the times. 
+Also I think it's better then just disabling ConnMan with nfs.
 
 Felipe
 
