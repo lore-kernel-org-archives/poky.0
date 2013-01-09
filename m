@@ -1,27 +1,32 @@
-Return-Path: <Qi.Chen@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 01C52E00724
-	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 00:27:02 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r098R24V006943
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 9 Jan 2013 00:27:02 -0800 (PST)
-Received: from [128.224.163.154] (128.224.163.154) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.2.318.4;
-	Wed, 9 Jan 2013 00:27:02 -0800
-Message-ID: <50ED29EB.8030903@windriver.com>
-Date: Wed, 9 Jan 2013 16:27:23 +0800
-From: ChenQi <Qi.Chen@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/17.0 Thunderbird/17.0
+Return-Path: <cristian.iorga@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D6C2E01485
+	for <poky@yoctoproject.org>; Wed,  9 Jan 2013 02:12:33 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 09 Jan 2013 02:12:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,436,1355126400"; d="scan'208";a="243879299"
+Received: from irsmsx101.ger.corp.intel.com ([163.33.3.153])
+	by orsmga001.jf.intel.com with ESMTP; 09 Jan 2013 02:12:31 -0800
+Received: from irsmsx102.ger.corp.intel.com ([169.254.2.95]) by
+	IRSMSX101.ger.corp.intel.com ([169.254.1.13]) with mapi id
+	14.01.0355.002; Wed, 9 Jan 2013 10:12:30 +0000
+From: "Iorga, Cristian" <cristian.iorga@intel.com>
+To: "eu@felipetonello.com" <eu@felipetonello.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Thread-Topic: [poky] [PATCH] connman: fixed init script, so it can run with nfs
+Thread-Index: AQHN7hHj3OlUR3L/Jk2o6u78my7w0ZhAxjog
+Date: Wed, 9 Jan 2013 10:12:29 +0000
+Message-ID: <969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
+References: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
+In-Reply-To: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [163.33.239.181]
 MIME-Version: 1.0
-To: <poky@yoctoproject.org>
-References: <1357690719-3136-1-git-send-email-eu@felipetonello.com>
-	<50ECD310.90504@windriver.com> <50ED01A5.4030402@felipetonello.com>
-In-Reply-To: <50ED01A5.4030402@felipetonello.com>
-X-Originating-IP: [128.224.163.154]
-Subject: Re: [PATCH] initscripts: added save-rtc to runlevel S
+Cc: "Felipe F. Tonello" <ftonello@cercacor.com>
+Subject: Re: [PATCH] connman: fixed init script, so it can run with nfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,45 +39,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2013 08:27:03 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 09 Jan 2013 10:12:33 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-"the system clock is according to the hardware clock by hwclock.sh. "
+Hello Felipe,
 
-====>
+I have some questions regarding this patch:
 
-"the system clock is set according to the hardware clock by hwclock.sh 
-at system boot time. "
+1. On which hardware/machine have you tested this patch? (real hardware, qe=
+mu machine, etc)
+2. In what way is connman affecting nfs? In other words, what is the root c=
+ause?
+3. Which version of connman are you using?
+
+I am asking these questions because I am working on something somehow relat=
+ed, and I think a more general fix might be needed.
+
+Regards,
+Cristian Iorga
 
 
-On 01/09/2013 01:35 PM, Felipe Ferreri Tonello wrote:
-> Hi Chen,
->
-> On 01/08/2013 06:16 PM, ChenQi wrote:
->> On 01/09/2013 08:18 AM, eu@felipetonello.com wrote:
->>> From: "Felipe F. Tonello" <ftonello@cercacor.com>
->>>
->>> It is necessary to add save-rtc.sh to runlevel S so the system is 
->>> updated when
->>> it boots up.
->> Hi ftonello,
->> What do you mean by "system is updated"?
-> I meant system clock.
->
-> What is happening now is that when you turn off the device, without 
-> system halt, the next time the device is booted up the system clock is 
-> not in sync with the rtc.
->>
->> Besides, this patch should be sent to oe-core.
-> Ok.
->
-> Felipe
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
+-----Original Message-----
+From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
+On Behalf Of eu@felipetonello.com
+Sent: Wednesday, January 09, 2013 2:37 AM
+To: poky@yoctoproject.org
+Cc: Felipe F. Tonello
+Subject: [poky] [PATCH] connman: fixed init script, so it can run with nfs
 
+From: "Felipe F. Tonello" <ftonello@cercacor.com>
+
+Adding -I to the arguments, connmand will ignore the eth interface, so if y=
+ou are using nfs it will not be disconnected.
+
+FIXME: it might not work if using more than one eth interface. But it's bet=
+ter than not using connman with nfs at all.
+
+Signed-off-by: Felipe F. Tonello <ftonello@cercacor.com>
+---
+ meta/recipes-connectivity/connman/connman/connman |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-connectivity/connman/connman/connman b/meta/recip=
+es-connectivity/connman/connman/connman
+index 4a0017f..e90925e 100644
+--- a/meta/recipes-connectivity/connman/connman/connman
++++ b/meta/recipes-connectivity/connman/connman/connman
+@@ -26,11 +26,14 @@ while read dev mtpt fstype rest; do
+ 	fi
+ done
+=20
++ethn=3D`ifconfig | grep eth | sed -e "s/\(eth[0-9]\)\(.*\)/\1/"`
++
+ do_start() {
+ 	EXTRA_PARAM=3D""
+-	if test $nfsroot -eq 0 ; then
+-		$DAEMON $EXTRA_PARAM
++	if test $nfsroot -eq 1 ; then
++		EXTRA_PARAM=3D"-I $ethn"
+ 	fi
++	$DAEMON $EXTRA_PARAM
+ }
+=20
+ do_stop() {
+--
+1.7.9.5
+
+_______________________________________________
+poky mailing list
+poky@yoctoproject.org
+https://lists.yoctoproject.org/listinfo/poky
 
