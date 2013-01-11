@@ -1,33 +1,19 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from tim.rpsys.net (93-97-173-237.zone5.bethere.co.uk
-	[93.97.173.237])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C1E6E006D2
-	for <poky@yoctoproject.org>; Fri, 11 Jan 2013 08:13:09 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r0BGD4a3018661;
-	Fri, 11 Jan 2013 16:13:04 GMT
-Received: from tim.rpsys.net ([127.0.0.1])
-	by localhost (tim.rpsys.net [127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP
-	id 18272-02; Fri, 11 Jan 2013 16:13:00 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by tim.rpsys.net (8.13.6/8.13.8) with ESMTP id r0BGCw1x018653
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=NO);
-	Fri, 11 Jan 2013 16:12:59 GMT
-Message-ID: <1357920781.4072.85.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Felipe Ferreri Tonello <eu@felipetonello.com>
-Date: Fri, 11 Jan 2013 16:13:01 +0000
-In-Reply-To: <50EF6844.1070008@felipetonello.com>
-References: <1357691823-8155-1-git-send-email-eu@felipetonello.com>
-	<969F26A8BAB325438E7EB80D3C3134FB161DBDFD@IRSMSX102.ger.corp.intel.com>
-	<1357736629.13022.55.camel@ted> <50EF1521.60200@felipetonello.com>
-	<1357862268.4072.1.camel@ted> <50EF6844.1070008@felipetonello.com>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
-Mime-Version: 1.0
-X-Virus-Scanned: amavisd-new at rpsys.net
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] connman: fixed init script, so it can run with nfs
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1AA63E004D1
+	for <poky@yoctoproject.org>; Fri, 11 Jan 2013 14:13:16 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 11 Jan 2013 14:13:15 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,455,1355126400"; d="scan'208";a="272883011"
+Received: from unknown (HELO localhost) ([10.255.14.242])
+	by fmsmga001.fm.intel.com with ESMTP; 11 Jan 2013 14:13:15 -0800
+From: tom.zanussi@intel.com
+To: poky@yoctoproject.org
+Date: Fri, 11 Jan 2013 16:13:12 -0600
+Message-Id: <cover.1357930527.git.tom.zanussi@intel.com>
+X-Mailer: git-send-email 1.7.11.4
+Subject: [PATCH 0/2] Remove legacy lttng references
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,57 +26,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2013 16:13:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 11 Jan 2013 22:13:16 -0000
 
-On Thu, 2013-01-10 at 17:17 -0800, Felipe Ferreri Tonello wrote:
-> Hi Richard,
-> 
-> On 01/10/2013 03:57 PM, Richard Purdie wrote:
-> > On Thu, 2013-01-10 at 11:23 -0800, Felipe Ferreri Tonello wrote:
-> >> Richard and Cristian,
-> >>
-> >> On 01/09/2013 05:03 AM, Richard Purdie wrote:
-> >>> On Wed, 2013-01-09 at 10:12 +0000, Iorga, Cristian wrote:
-> >>>> Hello Felipe,
-> >>>>
-> >>>> I have some questions regarding this patch:
-> >>>>
-> >>>> 1. On which hardware/machine have you tested this patch? (real hardware, qemu machine, etc)
-> >>>> 2. In what way is connman affecting nfs? In other words, what is the root cause?
-> >>>> 3. Which version of connman are you using?
-> >>>>
-> >>>> I am asking these questions because I am working on something somehow related, and I think a more general fix might be needed.
-> >>>
-> >>> I'd also add that:
-> >>>
-> >>> a) Patches to this part of the tree need to go to the OE-Core mailing list
-> >>
-> >> I saw on openembedded tree that connman recipes are old. They are not
-> >> the same as in poky.
-> >>
-> >> I'm always confused about this. Where is oe-core that poky and oe share?
-> >
-> > These two repositories should be in sync in terms of file level content
-> > of the meta directory:
-> >
-> > http://cgit.openembedded.org/openembedded-core/log/
-> >
-> > http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/
-> >
-> > Were you looking at openembedded or openembedded-core?
-> 
-> I was looking into openembedded, now I got it.
-> 
-> btw, What's the difference between them? openembedded tree is the 
-> meta-oe? and openembedded-core ie oe-core?
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-openembedded is OE-Classic, i.e. from before it got split into various
-pieces such as oe-core and meta-oe.
+This patchset removes legacy lttng references from meta-yocto to
+correspond with the patchset sent to oe-core that removes legacy
+lttng.
 
-Cheers,
+The following changes since commit 53cc748b93e8af584557d6db5309c3e955182c5c:
 
-Richard
+  linux-libc-headers: fix headers install in long path name environments (2013-01-10 23:53:51 +0000)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/rm-legacy-lttng-v2
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/rm-legacy-lttng-v2
+
+Tom Zanussi (2):
+  lttng: remove references to legacy lttng recipes
+  recipe_color.inc: add lttng recipes
+
+ meta-yocto/conf/distro/include/distro_alias.inc    |  3 --
+ meta-yocto/conf/distro/include/maintainers.inc     |  3 --
+ meta-yocto/conf/distro/include/recipe_color.inc    |  5 +--
+
+-- 
+1.7.11.4
 
 
