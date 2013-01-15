@@ -1,20 +1,19 @@
-Return-Path: <cristiana.voicu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D7349E01454
-	for <poky@yoctoproject.org>; Tue, 15 Jan 2013 04:35:19 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 15 Jan 2013 04:34:14 -0800
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D9D24E002AB
+	for <poky@yoctoproject.org>; Tue, 15 Jan 2013 15:00:00 -0800 (PST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 15 Jan 2013 15:00:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,473,1355126400"; d="scan'208";a="247007405"
-Received: from cvoicu-vostro-460 (HELO localhost.localdomain)
-	([10.237.105.151])
-	by orsmga001.jf.intel.com with ESMTP; 15 Jan 2013 04:35:13 -0800
-From: Cristiana Voicu <cristiana.voicu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.84,475,1355126400"; d="scan'208";a="244343799"
+Received: from unknown (HELO localhost) ([10.255.14.217])
+	by azsmga001.ch.intel.com with ESMTP; 15 Jan 2013 14:59:55 -0800
+From: tom.zanussi@intel.com
 To: poky@yoctoproject.org
-Date: Tue, 15 Jan 2013 14:39:27 +0200
-Message-Id: <1358253567-31741-1-git-send-email-cristiana.voicu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] Added DISTRO var to poky-bleeding conf file
+Date: Tue, 15 Jan 2013 16:59:52 -0600
+Message-Id: <cover.1358290189.git.tom.zanussi@intel.com>
+X-Mailer: git-send-email 1.7.11.4
+Subject: [PATCH 0/1] yocto-bsp: add basic connectivity check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,28 +26,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2013 12:35:20 -0000
+X-List-Received-Date: Tue, 15 Jan 2013 23:00:01 -0000
 
--noticed in Hob that when DISTRO was set to poky-bleeding, it was
-not saved; it was overriten by "poky"
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-[YOCTO #3670]
-Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
----
- meta-yocto/conf/distro/poky-bleeding.conf |    2 ++
- 1 file changed, 2 insertions(+)
+This patchset adds a basic connectivity check meant to detect
+basic connectivity and git configuration issues for yocto-bsp.
 
-diff --git a/meta-yocto/conf/distro/poky-bleeding.conf b/meta-yocto/conf/distro/poky-bleeding.conf
-index 328acfe..43ada90 100644
---- a/meta-yocto/conf/distro/poky-bleeding.conf
-+++ b/meta-yocto/conf/distro/poky-bleeding.conf
-@@ -6,3 +6,5 @@ PREFERRED_VERSION_gtk+ ?= "2.13.3"
- 
- require conf/distro/include/poky-floating-revisions.inc
- require conf/distro/poky.conf
-+
-+DISTRO = "poky-bleeding"
+The check can be skipped by adding the new -s option to the
+yocto-bsp create command-line.
+
+The following changes since commit 5ba0919b5bcadba47f59a3b342aaa27048f0ff18:
+
+  scripts/lib/bsp/engine.py: add handling for JSON strings (2013-01-11 14:18:17 -0600)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/yocto-bsp-git-check
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/yocto-bsp-git-check
+
+Tom Zanussi (1):
+  yocto-bsp: add basic git connectivity check
+
+ scripts/lib/bsp/tags.py |  2 +-
+ scripts/yocto-bsp       | 13 +++++++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
 -- 
-1.7.9.5
+1.7.11.4
 
 
