@@ -1,37 +1,31 @@
-Return-Path: <ross.burton@intel.com>
-Received: from azsmga102.ch.intel.com (mga12.intel.com [143.182.124.36])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 76DFAE006C2
-	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 08:37:18 -0800 (PST)
-Received: from mail-gh0-f197.google.com ([209.85.160.197])
-	by mga14.intel.com with ESMTP/TLS/RC4-SHA; 16 Jan 2013 08:37:05 -0800
-Received: by mail-gh0-f197.google.com with SMTP id f15so2315108ghb.4
-	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 08:37:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:x-received:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:x-gm-message-state;
-	bh=6JTzPBYt+SQ+LakjgI6DzNsLU5bcCRJMGhQENKPo4DE=;
-	b=XBQfCAmZD7MBtZIQrpYy1ttEzeNpPNyd9Nk1gN86MHBwZ8TV8DFc+/z1OSgtHfvER6
-	6sTqnPVEo+FZ+rk58zgJmjNp6Swh7gPpRskG/K6tJV360MDVy1dWudA6NeGfcz0wxu3h
-	/PRSjRG4J+o9M3NL0nJI6gCyAnH0EIWGlKhVvU4RcUzNFrR8eVTwIzuBSHJZM0QlW2yt
-	n2Pcn23YOBFh2L9Hirin1l2gqOifGrnzkf3AbhQaBHH/KUW6hRxTMfbFJkqSA+iyW7tp
-	nOgR8srsiCARbJoGYMeM5XxHSFARvCAvfqvv0ljrzzo0WYg1/b9kTzEcEiMMpCd+L7j3
-	S4mA==
-X-Received: by 10.52.66.71 with SMTP id d7mr1591719vdt.121.1358354219908;
-	Wed, 16 Jan 2013 08:36:59 -0800 (PST)
-X-Received: by 10.52.66.71 with SMTP id d7mr1591710vdt.121.1358354219775; Wed,
-	16 Jan 2013 08:36:59 -0800 (PST)
+Return-Path: <Nasir_Ali@mentor.com>
+Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 40771E006C2
+	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 08:38:21 -0800 (PST)
+Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
+	by relay1.mentorg.com with esmtp 
+	id 1TvW0K-0007Hn-TF from Nasir_Ali@mentor.com 
+	for poky@yoctoproject.org; Wed, 16 Jan 2013 08:38:20 -0800
+Received: from SVR-IES-FEM-02.mgc.mentorg.com ([137.202.0.106]) by
+	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
+	SMTPSVC(6.0.3790.4675); Wed, 16 Jan 2013 08:38:20 -0800
+Received: from EU-MBX-01.mgc.mentorg.com ([169.254.1.171]) by
+	SVR-IES-FEM-02.mgc.mentorg.com ([137.202.0.106]) with mapi id
+	14.01.0289.001; Wed, 16 Jan 2013 16:38:19 +0000
+From: "Ali, Nasir" <Nasir_Ali@mentor.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: pandaboard building with nfs client support
+Thread-Index: AQHN9AfkKfpmB+DypkW8OF1aU3SHIQ==
+Date: Wed, 16 Jan 2013 16:38:19 +0000
+Message-ID: <53B11A2698485743AAA262E995E2C3F1915F154F@EU-MBX-01.mgc.mentorg.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [137.202.0.69]
 MIME-Version: 1.0
-Received: by 10.58.95.103 with HTTP; Wed, 16 Jan 2013 08:36:39 -0800 (PST)
-In-Reply-To: <50F6D326.9000500@mlbassoc.com>
-References: <50F6D326.9000500@mlbassoc.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 16 Jan 2013 16:36:39 +0000
-Message-ID: <CAJTo0LYJtaEAHbsQQ89cwpOJJ3imD3fsp6Gs__WMLr+Xqu+j_A@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-X-Gm-Message-State: ALoCoQk0nY+C/Cdo/9gvqsxSwUgVEkEOrmfAJT/FnTXb70/w+TNiJO45co20EVjt/CzG94J3a+J1Cz9otz7GhhX13eGSO0JjXou53RGhRu2x/L8RGdKoKVW5LE1uhea/r6nGu4HCfWpn4Pmt6uo92S2Ux3TlNXD7YQ==
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Using gnome icons
+X-OriginalArrivalTime: 16 Jan 2013 16:38:20.0476 (UTC)
+	FILETIME=[E4D587C0:01CDF407]
+Subject: pandaboard building with nfs client support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,19 +38,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2013 16:37:18 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 16 Jan 2013 16:38:21 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_53B11A2698485743AAA262E995E2C3F1915F154FEUMBX01mgcmento_"
 
-On 16 January 2013 16:19, Gary Thomas <gary@mlbassoc.com> wrote:
-> I have an image based on core-image-sato.  How can I enable this
-> to use the full gnome icon set?  e.g. I run an application
-> which uses GTK+ directly which has a button using GTK_STOCK_MEDIA_RECORD
-> On my Sato based device, this button just says 'Record' whereas on
-> my desktop it shows with a nice red record icon.
->
-> Is there a way to make this work on my Poky/Yocto based system?
+--_000_53B11A2698485743AAA262E995E2C3F1915F154FEUMBX01mgcmento_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Did your image include the gnome-icon-theme package?
+Hi,
 
-Ross
+I have to boot panaboard from nfs mounted file system. As pandaboard doesn'=
+t have default nfs client support. I set the the following kernel configura=
+tion but my changes get lost in building the images.
 
+
+CONFIG_IP_PNP=3Dy
+CONFIG_IP_PNP_DHCP=3Dy
+CONFIG_IP_PNP_BOOTP=3Dy
+CONFIG_IP_PNP_RARP=3Dy
+CONFIG_USB_USBNET=3Dy
+CONFIG_USB_NET_SMSC95XX=3Dy
+CONFIG_USB=3Dy
+CONFIG_USB_SUPPORT=3Dy
+CONFIG_USB_ARCH_HAS_EHCI=3Dy
+CONFIG_NETWORK_FILESYSTEMS=3Dy
+CONFIG_NFS_FS=3Dy
+CONFIG_NFS_V3=3Dy
+CONFIG_NFS_V3_ACL=3Dy
+CONFIG_ROOT_NFS=3Dy
+
+
+I am using yocto danny branch for pandaboard. Could anyone help me out what=
+ configurations I need to set to have a support for nfs mounted file system=
+.
+
+Thanks,
+Nasir
+
+
+--_000_53B11A2698485743AAA262E995E2C3F1915F154FEUMBX01mgcmento_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style id=3D"owaParaStyle" type=3D"text/css">P {margin-top:0;margin-bottom:=
+0;}</style>
+</head>
+<body ocsi=3D"0" fpstyle=3D"1">
+<div style=3D"direction: ltr;font-family: Tahoma;color: #000000;font-size: =
+10pt;">Hi,<br>
+<br>
+I have to boot panaboard from nfs mounted file system. As pandaboard doesn'=
+t have default nfs client support. I set the the following kernel configura=
+tion but my changes get lost in building the images.<br>
+<br>
+<pre>CONFIG_IP_PNP=3Dy=0A=
+CONFIG_IP_PNP_DHCP=3Dy=0A=
+CONFIG_IP_PNP_BOOTP=3Dy=0A=
+CONFIG_IP_PNP_RARP=3Dy=0A=
+CONFIG_USB_USBNET=3Dy=0A=
+CONFIG_USB_NET_SMSC95XX=3Dy=0A=
+CONFIG_USB=3Dy=0A=
+CONFIG_USB_SUPPORT=3Dy=0A=
+CONFIG_USB_ARCH_HAS_EHCI=3Dy=0A=
+CONFIG_NETWORK_FILESYSTEMS=3Dy=0A=
+CONFIG_NFS_FS=3Dy=0A=
+CONFIG_NFS_V3=3Dy=0A=
+CONFIG_NFS_V3_ACL=3Dy=0A=
+CONFIG_ROOT_NFS=3Dy<br><br><br>I am using yocto danny branch for pandaboard=
+. Could anyone help me out what configurations I need to set to have a supp=
+ort for nfs mounted file system.<br><br>Thanks,<br>Nasir<br></pre>
+<br>
+</div>
+</body>
+</html>
+
+--_000_53B11A2698485743AAA262E995E2C3F1915F154FEUMBX01mgcmento_--
