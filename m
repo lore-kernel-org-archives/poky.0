@@ -1,39 +1,31 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1F686E006C2
-	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 09:46:04 -0800 (PST)
-Received: from mail-yh0-f71.google.com ([209.85.213.71])
-	by mga09.intel.com with ESMTP/TLS/RC4-SHA; 16 Jan 2013 09:44:58 -0800
-Received: by mail-yh0-f71.google.com with SMTP id 22so2498089yhr.10
-	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 09:46:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:x-received:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:x-gm-message-state;
-	bh=GTxmCxguBBSUk8DM1IJLJAdfOAatHrC1j/n3V+1wwE4=;
-	b=J7qxN7j4siEQEuL2f9aHYwjnS+awIjYOh/VBeWJZo13SQw/ImzLL/3cEDl/gpM6AAr
-	JYkiCIIbgpeH9k1DgBv7mjkX0ZC7E7V1PNr8kuDbXzdJ29z7lX41FdIe/q6h3kINJ2BC
-	epA9fhyT1olseWJh5W5yTabnEIhcWH+3XWBRZTTi38j0CLRiq2h6tqkg+X8C26TAphKo
-	A/VP3yAZVsUUMIbBg/6dhiqVN97W8urMR2foONv6ZTuL2nBYlnmN8D5uwT9slfeDgM+5
-	s15waVHIsiYt+k3st8hf4dddDPelJ0oQmVixkaJlZp/e+RFbt9CEk57RQF2b7ff2Cn1G
-	Cz9A==
-X-Received: by 10.52.72.232 with SMTP id g8mr1886528vdv.69.1358358362497;
-	Wed, 16 Jan 2013 09:46:02 -0800 (PST)
-X-Received: by 10.52.72.232 with SMTP id g8mr1886520vdv.69.1358358362343; Wed,
-	16 Jan 2013 09:46:02 -0800 (PST)
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5177FE006C3
+	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 09:58:50 -0800 (PST)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 07CFDF81251; Wed, 16 Jan 2013 10:58:49 -0700 (MST)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=unavailable version=3.3.2
+Received: from [192.168.1.114] (zeus [192.168.1.114])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 50CEAF811F0;
+	Wed, 16 Jan 2013 10:58:49 -0700 (MST)
+Message-ID: <50F6EA62.2010407@mlbassoc.com>
+Date: Wed, 16 Jan 2013 10:58:58 -0700
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130106 Thunderbird/17.0.2
 MIME-Version: 1.0
-Received: by 10.58.95.103 with HTTP; Wed, 16 Jan 2013 09:45:41 -0800 (PST)
-In-Reply-To: <50F6DA02.2010305@mlbassoc.com>
+To: "Burton, Ross" <ross.burton@intel.com>
 References: <50F6D326.9000500@mlbassoc.com>
 	<CAJTo0LYJtaEAHbsQQ89cwpOJJ3imD3fsp6Gs__WMLr+Xqu+j_A@mail.gmail.com>
 	<50F6D82B.4040001@mlbassoc.com>
 	<CAJTo0LY5mLse9jYgG+xa2yHAbQKkp60W8OdUnde1gUDY7M=FZg@mail.gmail.com>
 	<50F6DA02.2010305@mlbassoc.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 16 Jan 2013 17:45:41 +0000
-Message-ID: <CAJTo0LaqQn6NVot_DDfpwxVgVgW0S5GmPRmtfTagu7dJAbu8zA@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-X-Gm-Message-State: ALoCoQlxzTtoQ2BUIaGGXxn5RN+QLbFnm8UpFCaO24yWsMUWxyk8ZJe2TBy+Xavm3NUl4JOIOXEY9v2OFhf8nLTstMhB2lYj+S8O6G6RZA4wqoBiOAKZu9t2R9odpwZeZwWOJkqeER6kOEVqoRvjJ7wGIKc8aUCWRQ==
+	<CAJTo0LaqQn6NVot_DDfpwxVgVgW0S5GmPRmtfTagu7dJAbu8zA@mail.gmail.com>
+In-Reply-To: <CAJTo0LaqQn6NVot_DDfpwxVgVgW0S5GmPRmtfTagu7dJAbu8zA@mail.gmail.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Using gnome icons
 X-BeenThere: poky@yoctoproject.org
@@ -48,20 +40,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2013 17:46:04 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 16 Jan 2013 17:58:50 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 16 January 2013 16:49, Gary Thomas <gary@mlbassoc.com> wrote:
->> Hmph.  Danny or Denzil?
+On 2013-01-16 10:45, Burton, Ross wrote:
+> On 16 January 2013 16:49, Gary Thomas <gary@mlbassoc.com> wrote:
+>>> Hmph.  Danny or Denzil?
+>>
+>> Master :-)
 >
-> Master :-)
+> Good man, I like your style!
+>
+> What application is this?  The core apps in Sato are somewhat tuned
+> for the Sato experience which makes this tricky to replicate easily.
+> I thought there might be a tunable for the button style that we're
+> overriding, but I can't see anything obvious.
 
-Good man, I like your style!
+Home grown using pygtk and gtk.glade.  If you want to try it, I can
+send an example separately.
 
-What application is this?  The core apps in Sato are somewhat tuned
-for the Sato experience which makes this tricky to replicate easily.
-I thought there might be a tunable for the button style that we're
-overriding, but I can't see anything obvious.
-
-Ross
+-- 
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
