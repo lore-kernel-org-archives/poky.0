@@ -1,25 +1,37 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 56FD5E006C2
-	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 08:19:43 -0800 (PST)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 01371F8124F; Wed, 16 Jan 2013 09:19:42 -0700 (MST)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 398F4F8124E;
-	Wed, 16 Jan 2013 09:19:42 -0700 (MST)
-Message-ID: <50F6D326.9000500@mlbassoc.com>
-Date: Wed, 16 Jan 2013 09:19:50 -0700
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130106 Thunderbird/17.0.2
+Return-Path: <ross.burton@intel.com>
+Received: from azsmga102.ch.intel.com (mga12.intel.com [143.182.124.36])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 76DFAE006C2
+	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 08:37:18 -0800 (PST)
+Received: from mail-gh0-f197.google.com ([209.85.160.197])
+	by mga14.intel.com with ESMTP/TLS/RC4-SHA; 16 Jan 2013 08:37:05 -0800
+Received: by mail-gh0-f197.google.com with SMTP id f15so2315108ghb.4
+	for <poky@yoctoproject.org>; Wed, 16 Jan 2013 08:37:00 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-received:x-received:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type:x-gm-message-state;
+	bh=6JTzPBYt+SQ+LakjgI6DzNsLU5bcCRJMGhQENKPo4DE=;
+	b=XBQfCAmZD7MBtZIQrpYy1ttEzeNpPNyd9Nk1gN86MHBwZ8TV8DFc+/z1OSgtHfvER6
+	6sTqnPVEo+FZ+rk58zgJmjNp6Swh7gPpRskG/K6tJV360MDVy1dWudA6NeGfcz0wxu3h
+	/PRSjRG4J+o9M3NL0nJI6gCyAnH0EIWGlKhVvU4RcUzNFrR8eVTwIzuBSHJZM0QlW2yt
+	n2Pcn23YOBFh2L9Hirin1l2gqOifGrnzkf3AbhQaBHH/KUW6hRxTMfbFJkqSA+iyW7tp
+	nOgR8srsiCARbJoGYMeM5XxHSFARvCAvfqvv0ljrzzo0WYg1/b9kTzEcEiMMpCd+L7j3
+	S4mA==
+X-Received: by 10.52.66.71 with SMTP id d7mr1591719vdt.121.1358354219908;
+	Wed, 16 Jan 2013 08:36:59 -0800 (PST)
+X-Received: by 10.52.66.71 with SMTP id d7mr1591710vdt.121.1358354219775; Wed,
+	16 Jan 2013 08:36:59 -0800 (PST)
 MIME-Version: 1.0
-To: Poky Project <poky@yoctoproject.org>
-Subject: Using gnome icons
+Received: by 10.58.95.103 with HTTP; Wed, 16 Jan 2013 08:36:39 -0800 (PST)
+In-Reply-To: <50F6D326.9000500@mlbassoc.com>
+References: <50F6D326.9000500@mlbassoc.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 16 Jan 2013 16:36:39 +0000
+Message-ID: <CAJTo0LYJtaEAHbsQQ89cwpOJJ3imD3fsp6Gs__WMLr+Xqu+j_A@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+X-Gm-Message-State: ALoCoQk0nY+C/Cdo/9gvqsxSwUgVEkEOrmfAJT/FnTXb70/w+TNiJO45co20EVjt/CzG94J3a+J1Cz9otz7GhhX13eGSO0JjXou53RGhRu2x/L8RGdKoKVW5LE1uhea/r6nGu4HCfWpn4Pmt6uo92S2Ux3TlNXD7YQ==
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Using gnome icons
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,21 +44,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2013 16:19:43 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 16 Jan 2013 16:37:18 -0000
+Content-Type: text/plain; charset=UTF-8
 
-I have an image based on core-image-sato.  How can I enable this
-to use the full gnome icon set?  e.g. I run an application
-which uses GTK+ directly which has a button using GTK_STOCK_MEDIA_RECORD
-On my Sato based device, this button just says 'Record' whereas on
-my desktop it shows with a nice red record icon.
+On 16 January 2013 16:19, Gary Thomas <gary@mlbassoc.com> wrote:
+> I have an image based on core-image-sato.  How can I enable this
+> to use the full gnome icon set?  e.g. I run an application
+> which uses GTK+ directly which has a button using GTK_STOCK_MEDIA_RECORD
+> On my Sato based device, this button just says 'Record' whereas on
+> my desktop it shows with a nice red record icon.
+>
+> Is there a way to make this work on my Poky/Yocto based system?
 
-Is there a way to make this work on my Poky/Yocto based system?
+Did your image include the gnome-icon-theme package?
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Ross
 
