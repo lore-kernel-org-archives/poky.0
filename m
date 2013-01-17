@@ -1,13 +1,13 @@
 Return-Path: <wayne.tams@simpleaudio.com>
 Received: from grape.ukhost4u.com (grape.ukhost4u.com [188.64.188.91])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A2A19E00724
-	for <poky@yoctoproject.org>; Thu, 17 Jan 2013 03:48:14 -0800 (PST)
-Received: from [217.43.209.136] (port=39901 helo=[192.168.1.64])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 324F1E006D7
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2013 05:45:48 -0800 (PST)
+Received: from [217.43.209.136] (port=57698 helo=[192.168.1.64])
 	by grape.ukhost4u.com with esmtpsa (TLSv1:DHE-RSA-CAMELLIA256-SHA:256)
 	(Exim 4.80) (envelope-from <wayne.tams@simpleaudio.com>)
-	id 1Tvnx5-0006it-0s; Thu, 17 Jan 2013 11:48:11 +0000
-Message-ID: <50F7E4FA.705@simpleaudio.com>
-Date: Thu, 17 Jan 2013 11:48:10 +0000
+	id 1Tvpmq-0007a9-LD; Thu, 17 Jan 2013 13:45:44 +0000
+Message-ID: <50F80088.4090809@simpleaudio.com>
+Date: Thu, 17 Jan 2013 13:45:44 +0000
 From: Wayne Tams <wayne.tams@simpleaudio.com>
 Organization: Simple Audio
 User-Agent: Mozilla/5.0 (X11; Linux i686;
@@ -43,7 +43,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2013 11:48:14 -0000
+X-List-Received-Date: Thu, 17 Jan 2013 13:45:48 -0000
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -63,19 +63,11 @@ On 17/01/13 11:15, Burton, Ross wrote:
 > error, so build does nothing, and then install actually errors out.
 >
 > Ross
-I did have a recipe but it just wasn't quite right, your branch helped 
-me there.
+Some extra debug information here from insane.bbclass.
 
-You know what the configure was failing, fixed that. Which leads me on to,
-
+NOTE: Checking autotools environment for common misconfiguration
+cc1: warning: include location "/usr/include/python2.6" is unsafe for 
+cross-compilation [-Wpoison-system-directories]
 ERROR: This autoconf log indicates errors, it looked at host include 
 and/or library paths while determining system capabilities.
-Rerun configure task after fixing this. The path was 
-'/home/wayne/source/y/yoctoProject/raspberryPiBuild/tmp/work/armv6-vfp-poky-linux-gnueabi/gst-rtsp/0.10.8-r0/gst-rtsp'
-ERROR: Function failed: do_qa_configure
-
-perhaps linked to gst-common.inc no longer being available?
-
-Wayne
-
 
