@@ -1,23 +1,22 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D34DBE0047F
-	for <poky@yoctoproject.org>; Fri, 18 Jan 2013 10:27:39 -0800 (PST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 18 Jan 2013 10:27:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,494,1355126400"; d="scan'208";a="273889282"
-Received: from unknown (HELO localhost) ([10.255.14.191])
-	by orsmga002.jf.intel.com with ESMTP; 18 Jan 2013 10:27:25 -0800
-From: tom.zanussi@linux.intel.com
-To: poky@yoctoproject.org
-Date: Fri, 18 Jan 2013 12:27:12 -0600
-Message-Id: <ce65749f47398206705a91d6e2eecff0358a3a51.1357935675.git.tom.zanussi@intel.com>
-X-Mailer: git-send-email 1.7.11.4
-In-Reply-To: <1d1bf17bacd100d0ad849607863157e017617754.1357935675.git.tom.zanussi@intel.com>
-References: <1d1bf17bacd100d0ad849607863157e017617754.1357935675.git.tom.zanussi@intel.com>
-In-Reply-To: <cover.1357935675.git.tom.zanussi@intel.com>
-References: <cover.1357935675.git.tom.zanussi@intel.com>
-Subject: [PATCH 6/7] yocto-layer: add optional layer priority param
+Return-Path: <bruce.ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E080CE0148A
+	for <poky@yoctoproject.org>; Sat, 19 Jan 2013 21:35:14 -0800 (PST)
+Received: from yow-bashfiel-d3.wrs.com (yow-bashfiel-d3.wrs.com
+	[128.224.147.67])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r0K5ZCnK025265;
+	Sat, 19 Jan 2013 21:35:12 -0800 (PST)
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Sun, 20 Jan 2013 00:35:04 -0500
+Message-Id: <65b99b1c534d01e6a1365d3cb16b0a1611952b41.1358659970.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
+In-Reply-To: <cover.1358659970.git.bruce.ashfield@windriver.com>
+References: <cover.1358659970.git.bruce.ashfield@windriver.com>
+In-Reply-To: <cover.1358659970.git.bruce.ashfield@windriver.com>
+References: <cover.1358659970.git.bruce.ashfield@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: [PATCH 1/1] linux-yocto/meta-yocto: update hardware reference BSPs to 3.4.26 and LTSI
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,98 +29,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2013 18:27:39 -0000
+X-List-Received-Date: Sun, 20 Jan 2013 05:35:15 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+Bumping the yocto reference BSPs to pickup the latest oe-core 3.4.26, -rt
+and LTSI updates.
 
-If the user specifies a layer priority following the layer name, layer
-creation will proceed without further queries using the specified
-layer priority and the remaining values defaulted.
-
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- scripts/lib/bsp/help.py | 14 ++++++++++++--
- scripts/yocto-layer     |  9 +++++++--
- 2 files changed, 19 insertions(+), 4 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend |    9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
-index eac172a..346bf0f 100644
---- a/scripts/lib/bsp/help.py
-+++ b/scripts/lib/bsp/help.py
-@@ -622,7 +622,8 @@ yocto_layer_create_usage = """
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
+index 5df39b2..3e80bf1 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
+@@ -3,10 +3,11 @@ KBRANCH_routerstationpro = "standard/routerstationpro"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ KBRANCH_beagleboard = "standard/beagleboard"
  
-  Create a new generic Yocto layer
- 
-- usage: yocto-layer create <layer-name> [-o <DIRNAME> | --outdir <DIRNAME>]
-+ usage: yocto-layer create <layer-name> [layer_priority]
-+            [-o <DIRNAME> | --outdir <DIRNAME>]
-             [-i <JSON PROPERTY FILE> | --infile <JSON PROPERTY_FILE>]
- 
-  This command creates a generic Yocto layer based on the specified
-@@ -631,6 +632,10 @@ yocto_layer_create_usage = """
-  'meta-layer-name'.  The -o option can be used to place the layer in a
-  directory with a different name and location.
- 
-+ If layer_priority is specified, a simple layer will be created using
-+ the given layer priority, and the user will not be prompted for
-+ further input.
+-SRCREV_machine_atom-pc ?= "449f7f520350700858f21a5554b81cc8ad23267d"
+-SRCREV_machine_routerstationpro ?= "27e8b8dabfed786aaaafd2f7104c141597830089"
+-SRCREV_machine_mpc8315e-rdb ?= "524ce8107febcfd88717f54d50d36ca7c6e6e437"
+-SRCREV_machine_beagleboard ?= "449f7f520350700858f21a5554b81cc8ad23267d"
++SRCREV_machine_atom-pc ?= "59c2a9eb334c2def405c9d93ed6d8d4e822d1945"
++SRCREV_machine_routerstationpro ?= "85c72b6f0775fb3f4babe266fc00b7e8e5305f01"
++SRCREV_machine_mpc8315e-rdb ?= "dd6f6f7ca0d56fce2942509024647264ff9c9caa"
++SRCREV_machine_beagleboard ?= "59c2a9eb334c2def405c9d93ed6d8d4e822d1945"
 +
-  NOTE: Once created, you should add your new layer to your
-  bblayers.conf file in order for it to be subsequently seen and
-  modified by the yocto-kernel tool.  Instructions for doing this can
-@@ -646,7 +651,8 @@ NAME
-     yocto-layer create - Create a new generic Yocto layer
  
- SYNOPSIS
--    yocto-layer create <layer-name> [-o <DIRNAME> | --outdir <DIRNAME>]
-+    yocto-layer create <layer-name> [layer_priority]
-+        [-o <DIRNAME> | --outdir <DIRNAME>]
-         [-i <JSON PROPERTY FILE> | --infile <JSON PROPERTY_FILE>]
- 
- DESCRIPTION
-@@ -656,6 +662,10 @@ DESCRIPTION
-     'meta-layer-name'.  The -o option can be used to place the layer
-     in a directory with a different name and location.
- 
-+    If layer_priority is specified, a simple layer will be created
-+    using the given layer priority, and the user will not be prompted
-+    for further input.
-+
-     The layer-specific properties that define the values that will be
-     used to generate the layer can be specified on the command-line
-     using the -i option and supplying a JSON object consisting of the
-diff --git a/scripts/yocto-layer b/scripts/yocto-layer
-index f759275..53d2aab 100755
---- a/scripts/yocto-layer
-+++ b/scripts/yocto-layer
-@@ -60,19 +60,24 @@ def yocto_layer_create_subcommand(args, usage_str):
-                       default = False, help = "dump the generated code to layergen.out")
-     (options, args) = parser.parse_args(args)
- 
--    if len(args) != 1:
-+    if len(args) < 1 or len(args) > 2:
-         logging.error("Wrong number of arguments, exiting\n")
-         parser.print_help()
-         sys.exit(1)
- 
-     layer_name = args[0]
-+    properties = ""
-+
-+    if len(args) == 2:
-+        layer_priority = args[1]
-+        properties = '{"layer_priority":"' + layer_priority + '"}'
- 
-     if options.outdir:
-         layer_output_dir = options.outdir
-     else:
-         layer_output_dir = "meta-" + layer_name
- 
--    yocto_layer_create(layer_name, scripts_path, layer_output_dir, options.codedump, options.properties_file)
-+    yocto_layer_create(layer_name, scripts_path, layer_output_dir, options.codedump, options.properties_file, properties)
- 
- 
- def yocto_layer_list_subcommand(args, usage_str):
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
 -- 
-1.7.11.4
+1.7.10.4
 
 
