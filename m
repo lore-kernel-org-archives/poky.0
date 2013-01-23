@@ -1,20 +1,27 @@
-Return-Path: <constantinx.musca@intel.com>
+Return-Path: <dvhart@linux.intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C3838E0034C
-	for <poky@yoctoproject.org>; Wed, 23 Jan 2013 06:54:07 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8ACA1E0034C
+	for <poky@yoctoproject.org>; Wed, 23 Jan 2013 08:22:45 -0800 (PST)
 Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 23 Jan 2013 06:54:07 -0800
+	by azsmga101.ch.intel.com with ESMTP; 23 Jan 2013 08:22:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,523,1355126400"; d="scan'208";a="247483496"
-Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.152])
-	by azsmga001.ch.intel.com with ESMTP; 23 Jan 2013 06:54:05 -0800
-From: Constantin Musca <constantinx.musca@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 23 Jan 2013 16:54:56 +0200
-Message-Id: <1358952896-14702-1-git-send-email-constantinx.musca@intel.com>
-X-Mailer: git-send-email 1.7.11.7
-Cc: Constantin Musca <constantinx.musca@intel.com>
-Subject: [PATCH 3/3] prs: change PRSERV_HOST format
+X-IronPort-AV: E=Sophos;i="4.84,523,1355126400"; d="scan'208";a="247520302"
+Received: from unknown (HELO envy.home) ([10.255.15.29])
+	by azsmga001.ch.intel.com with ESMTP; 23 Jan 2013 08:22:44 -0800
+Message-ID: <51000E54.8010300@linux.intel.com>
+Date: Wed, 23 Jan 2013 08:22:44 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/17.0 Thunderbird/17.0
+MIME-Version: 1.0
+To: Radu Moisan <radu.moisan@intel.com>
+References: <1358868589-2359-1-git-send-email-radu.moisan@intel.com>
+	<1358874090.6356.10.camel@ted>
+	<50FF1B49.5020205@linux.intel.com> <50FF9B6C.4030301@intel.com>
+In-Reply-To: <50FF9B6C.4030301@intel.com>
+X-Enigmail-Version: 1.5
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] local.conf.sample: Add DISTRO_FEATURES_INITMAN
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,35 +34,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Jan 2013 14:54:07 -0000
+X-List-Received-Date: Wed, 23 Jan 2013 16:22:45 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-- the new PRSERV_HOST format is 'host:port'
-- PRSERV_PORT has been removed
 
-Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
----
- meta-yocto/conf/local.conf.sample.extended | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
-index e5dfc89..747636c 100644
---- a/meta-yocto/conf/local.conf.sample.extended
-+++ b/meta-yocto/conf/local.conf.sample.extended
-@@ -116,11 +116,10 @@
- 
- # The network based PR service host and port
- # Uncomment the following lines to enable PRservice.
--# Set PRSERV_HOST to 'localhost' and PRSERV_PORT to '0' to automatically
-+# Set PRSERV_HOST to 'localhost:0' to automatically
- # start local PRService.
- # Set to other values to use remote PRService.
--#PRSERV_HOST = "localhost"
--#PRSERV_PORT = "0"
-+#PRSERV_HOST = "localhost:0"
- 
- # Additional image generation features
- #
+On 01/23/2013 12:12 AM, Radu Moisan wrote:
+> 
+> On 01/23/2013 01:05 AM, Darren Hart wrote:
+>>
+>> On 01/22/2013 09:01 AM, Richard Purdie wrote:
+>>> On Tue, 2013-01-22 at 17:29 +0200, Radu Moisan wrote:
+>>>> Default option is sysvinit
+>>>>
+>>>> Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+>>>> ---
+>>>>   meta-yocto/conf/local.conf.sample |    3 +++
+>>>>   1 file changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
+>>>> index 200b4af..273e0eb 100644
+>>>> --- a/meta-yocto/conf/local.conf.sample
+>>>> +++ b/meta-yocto/conf/local.conf.sample
+>>>> @@ -243,3 +243,6 @@ BB_DISKMON_DIRS = "\
+>>>>   # track the version of this file when it was generated. This can safely be ignored if
+>>>>   # this doesn't mean anything to you.
+>>>>   CONF_VERSION = "1"
+>>>> +
+>>>> +# set default init manager: sysvinit or systemd
+>>>> +DISTRO_FEATURES_INITMAN ?= "sysvinit"
+>> Is tiny-init also an appropriate value here?
+> 
+> No it is not. We could consider it though.
+> 
+>>
+>> How does this differ from VIRTUAL_RUNTIME_init_manager?
+>>
+> 
+> It's just a naming style issue, I used VIRTUAL_RUNTIME_init_manager when 
+> I started and eventually Richard suggested the new variant.
+
+Is VIRTUAL_RUNTIME_init_manager deprecated? Does it need to be replaced
+in all the distro configs?
+
 -- 
-1.7.11.7
-
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Technical Lead - Linux Kernel
 
