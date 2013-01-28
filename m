@@ -1,21 +1,21 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 51223E004FE
-	for <poky@yoctoproject.org>; Mon, 28 Jan 2013 11:10:22 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A1A84E004FE
+	for <poky@yoctoproject.org>; Mon, 28 Jan 2013 11:10:54 -0800 (PST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 28 Jan 2013 11:09:11 -0800
+	by orsmga102.jf.intel.com with ESMTP; 28 Jan 2013 11:09:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,554,1355126400"; d="scan'208";a="277605759"
+X-IronPort-AV: E=Sophos;i="4.84,554,1355126400"; d="scan'208";a="277605932"
 Received: from unknown (HELO [10.255.12.19]) ([10.255.12.19])
-	by orsmga002.jf.intel.com with ESMTP; 28 Jan 2013 11:10:21 -0800
-Message-ID: <5106CD1D.9000807@linux.intel.com>
-Date: Mon, 28 Jan 2013 11:10:21 -0800
+	by orsmga002.jf.intel.com with ESMTP; 28 Jan 2013 11:10:51 -0800
+Message-ID: <5106CD3A.4080208@linux.intel.com>
+Date: Mon, 28 Jan 2013 11:10:50 -0800
 From: Saul Wold <sgw@linux.intel.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:17.0) Gecko/17.0 Thunderbird/17.0
 MIME-Version: 1.0
-To: "poky >> \"poky@yoctoproject.org\"" <poky@yoctoproject.org>, 
-	dvhart@linux.intel.com
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>, 
+ dvhart@linux.intel.com
 Subject: [OE-core] [PATCH v2] poky-tiny: Update for DISTRO_FEATURES_INITMAN
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -29,7 +29,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Jan 2013 19:10:22 -0000
+X-List-Received-Date: Mon, 28 Jan 2013 19:10:54 -0000
 Content-Type: text/plain; charset=ISO-8859-1; format=flowed
 Content-Transfer-Encoding: 7bit
 
