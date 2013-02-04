@@ -1,19 +1,19 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <laurentiu.palcu@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1FB63E006D2
-	for <poky@yoctoproject.org>; Mon,  4 Feb 2013 03:02:29 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 04 Feb 2013 03:02:28 -0800
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 69935E006F5
+	for <poky@yoctoproject.org>; Mon,  4 Feb 2013 03:43:05 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 04 Feb 2013 03:43:04 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,598,1355126400"; d="scan'208";a="282459169"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.120.76])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Feb 2013 03:02:27 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.84,598,1355126400"; d="scan'208";a="286271334"
+Received: from lpalcu-linux (HELO localhost.localdomain) ([10.237.105.165])
+	by fmsmga002.fm.intel.com with ESMTP; 04 Feb 2013 03:43:03 -0800
+From: Laurentiu Palcu <laurentiu.palcu@intel.com>
 To: poky@yoctoproject.org
-Date: Mon,  4 Feb 2013 11:02:24 +0000
-Message-Id: <1359975744-31340-1-git-send-email-paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] Remove zypper from distro tracking files
+Date: Mon,  4 Feb 2013 13:43:02 +0200
+Message-Id: <1359978182-15464-1-git-send-email-laurentiu.palcu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] (distro_alias|maintainers|recipe_color).inc: remove update-modules
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,113 +26,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Feb 2013 11:02:29 -0000
+X-List-Received-Date: Mon, 04 Feb 2013 11:43:05 -0000
 
-We no longer have zypper/libzypp/sat-solver, so remove references to
-them.
+Remove update-modules references since recipe has been removed.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Signed-off-by: Laurentiu Palcu <laurentiu.palcu@intel.com>
 ---
- meta-yocto/conf/distro/include/distro_alias.inc      |    3 ---
- meta-yocto/conf/distro/include/maintainers.inc       |    3 ---
- meta-yocto/conf/distro/include/recipe_color.inc      |    2 --
- meta-yocto/conf/distro/include/upstream_tracking.inc |    4 ----
- 4 files changed, 12 deletions(-)
+ meta-yocto/conf/distro/include/distro_alias.inc |    1 -
+ meta-yocto/conf/distro/include/maintainers.inc  |    1 -
+ meta-yocto/conf/distro/include/recipe_color.inc |    1 -
+ 3 files changed, 3 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-index 2f56d44..c88f15d 100644
+index 2f56d44..a8c4df2 100644
 --- a/meta-yocto/conf/distro/include/distro_alias.inc
 +++ b/meta-yocto/conf/distro/include/distro_alias.inc
-@@ -209,7 +209,6 @@ DISTRO_PN_ALIAS_pn-libxscrnsaver = "Fedora=libXScrnSaver Ubuntu=libxss1 Mandriva
- DISTRO_PN_ALIAS_pn-libxsettings-client = "Debian=libxsettings-client0 Ubuntu=libxsettings-client0 Mandriva=libXsettings-client0"
- DISTRO_PN_ALIAS_pn-libxtrap = "Debian=libxtrap6 Fedora=libXTrap"
- DISTRO_PN_ALIAS_pn-libxxf86misc = "Mandriva=libxxf86misc Fedora=libXxf86misc"
--DISTRO_PN_ALIAS_pn-libzypp = "OpenSuse=libzypp Meego=libzypp"
- DISTRO_PN_ALIAS_pn-linux-dummy = "Intel"
- DISTRO_PN_ALIAS_pn-linux-libc-headers = "Debian=linux-kernel-headers Ubuntu=linux-kernel-headers"
- DISTRO_PN_ALIAS_pn-linux-libc-headers-yocto = "Debian=linux-kernel-headers Ubuntu=linux-kernel-headers"
-@@ -356,7 +355,6 @@ DISTRO_PN_ALIAS_pn-rt-tests = "Debian=rt-tests Ubuntu=rt-tests"
- DISTRO_PN_ALIAS_pn-run-postinsts = "OE-Core"
- DISTRO_PN_ALIAS_pn-sato-icon-theme = "OpenedHand"
- DISTRO_PN_ALIAS_pn-sato-screenshot = "OpenedHand"
--DISTRO_PN_ALIAS_pn-sat-solver = "OSPDT OpenSuSE=satsolver-tools"
- DISTRO_PN_ALIAS_pn-screenshot = "OpenedHand"
- DISTRO_PN_ALIAS_pn-scrnsaverproto = "Meego=xorg-x11-proto-scrnsaverproto Ubuntu=x11proto-scrnsaver-dev Debian=x11proto-scrnsaver-dev"
- DISTRO_PN_ALIAS_pn-settings-daemon = "OpenedHand"
-@@ -452,4 +450,3 @@ DISTRO_PN_ALIAS_pn-xwininfo = "Fedora=xorg-x11-utils Ubuntu=x11-utils"
- DISTRO_PN_ALIAS_pn-yaffs2-utils = "OSPDT upstream=http://www.yaffs.net"
- DISTRO_PN_ALIAS_pn-zaurusd = "OpenedHand"
- DISTRO_PN_ALIAS_pn-zeroconf = "OSPDT upstream=http://www.progsoc.org/~wildfire/zeroconf/"
--DISTRO_PN_ALIAS_pn-zypper = "OpenSuse=zypper Meego=zypper"
+@@ -388,7 +388,6 @@ DISTRO_PN_ALIAS_pn-u-boot-mkimage = "Ubuntu=uboot-mkimage Debian=uboot-mkimage"
+ DISTRO_PN_ALIAS_pn-udev-extraconf = "OE-Core"
+ DISTRO_PN_ALIAS_pn-unfs-server = "OE-Core"
+ DISTRO_PN_ALIAS_pn-update-alternatives-dpkg = "Opensuse=update-alternatives Mandriva=update-alternatives"
+-DISTRO_PN_ALIAS_pn-update-modules = "OE-Core"
+ DISTRO_PN_ALIAS_pn-update-rc.d = "OE-Core"
+ DISTRO_PN_ALIAS_pn-usbinit = "OE-Core"
+ DISTRO_PN_ALIAS_pn-util-macros = "Meego=xorg-x11-util-macros Fedora=xorg-x11-util-macros Mandriva=x11-util-macros"
 diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 83e5202..3069f72 100644
+index 83e5202..dc76445 100644
 --- a/meta-yocto/conf/distro/include/maintainers.inc
 +++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -469,7 +469,6 @@ RECIPE_MAINTAINER_pn-libxxf86dga ="Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libxxf86dga = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-libxxf86misc = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-libxxf86vm = "Constantin Musca <constantinx.musca@intel.com>"
--RECIPE_MAINTAINER_pn-libzypp = "Mark Hatle <mark.hatle@windriver.com>"
- RECIPE_MAINTAINER_pn-lighttpd = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-linuxdoc-tools = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-linux-dummy = "Saul Wold <sgw@linux.intel.com>"
-@@ -718,7 +717,6 @@ RECIPE_MAINTAINER_pn-run-postinsts = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-rxvt-unicode = "Radu Moisan <radu.moisan@intel.com>"
- RECIPE_MAINTAINER_pn-sato-icon-theme = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-sato-screenshot = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-sat-solver = "Mark Hatle <mark.hatle@windriver.com>"
- RECIPE_MAINTAINER_pn-screenshot = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-screen = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-scrnsaverproto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-@@ -878,4 +876,3 @@ RECIPE_MAINTAINER_pn-zaurusd = "Radu Moisan <radu.moisan@intel.com>"
- RECIPE_MAINTAINER_pn-zeroconf = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-zip = "Radu Moisan <radu.moisan@intel.com>"
- RECIPE_MAINTAINER_pn-zlib = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-zypper = "Mark Hatle <mark.hatle@windriver.com>"
+@@ -790,7 +790,6 @@ RECIPE_MAINTAINER_pn-unfs-server-native = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-unifdef = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
+ RECIPE_MAINTAINER_pn-unzip = "Radu Moisan <radu.moisan@intel.com>"
+ RECIPE_MAINTAINER_pn-update-alternatives-dpkg = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-update-modules = "Radu Moisan <radu.moisan@intel.com>"
+ RECIPE_MAINTAINER_pn-update-rc.d = "Radu Moisan <radu.moisan@intel.com>"
+ RECIPE_MAINTAINER_pn-usbinit = "Radu Moisan <radu.moisan@intel.com>"
+ RECIPE_MAINTAINER_pn-usbutils = "Radu Moisan <radu.moisan@intel.com>"
 diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
-index f61250a..757e86f 100644
+index f61250a..d5b6ce9 100644
 --- a/meta-yocto/conf/distro/include/recipe_color.inc
 +++ b/meta-yocto/conf/distro/include/recipe_color.inc
-@@ -244,7 +244,6 @@ RECIPE_COLOR_pn-libxv = "yellow"
- RECIPE_COLOR_pn-libxvmc = "yellow"
- RECIPE_COLOR_pn-libxxf86misc = "yellow"
- RECIPE_COLOR_pn-libxxf86vm = "yellow"
--RECIPE_COLOR_pn-libzypp = "yellow"
- RECIPE_COLOR_pn-lighttpd = "yellow"
- RECIPE_COLOR_pn-linuxdoc-tools = "yellow"
- RECIPE_COLOR_pn-loudmouth = "red"
-@@ -446,4 +445,3 @@ RECIPE_COLOR_pn-yaffs2-utils = "red"
- RECIPE_COLOR_pn-zeroconf = "red"
- RECIPE_COLOR_pn-zip = "yellow"
- RECIPE_COLOR_pn-zlib = "yellow"
--RECIPE_COLOR_pn-zypper = "yellow"
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index 28cb387..06f0cc8 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -885,8 +885,6 @@ CHECK_DATE_pn-libxxf86misc = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-libxxf86vm = "1.1.2"
- RECIPE_UPSTREAM_DATE_pn-libxxf86vm = "Mar 08, 2012"
- CHECK_DATE_pn-libxxf86vm = "Aug 31, 2012"
--RECIPE_UPSTREAM_VERSION_pn-libzypp = "git"
--CHECK_DATE_pn-libzypp = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-lighttpd = "1.4.31"
- RECIPE_UPSTREAM_DATE_pn-lighttpd = "May 31, 2012"
- CHECK_DATE_pn-lighttpd = "Aug 31, 2012"
-@@ -1206,7 +1204,6 @@ RECIPE_UPSTREAM_VERSION_pn-run-postinsts = "check"
- RECIPE_UPSTREAM_DATE_pn-rxvt-unicode = "Jan 21, 2012"
- RECIPE_UPSTREAM_VERSION_pn-rxvt-unicode = "9.15"
- CHECK_DATE_pn-rxvt-unicode = "Sep 03, 2012"
--RECIPE_UPSTREAM_VERSION_pn-sat-solver = "0.0-git1+e74e0bfd23e4e95064d08e13efb5de9caf433f40"
- RECIPE_UPSTREAM_DATE_pn-sato-icon-theme = "Nov 06, 2008"
- RECIPE_UPSTREAM_VERSION_pn-sato-icon-theme = "0.4.1"
- CHECK_DATE_pn-sato-icon-theme = "Sep 03, 2012"
-@@ -1551,4 +1548,3 @@ CHECK_DATE_pn-zip = "Sep 04, 2012"
- RECIPE_UPSTREAM_VERSION_pn-zlib = "1.2.7"
- RECIPE_UPSTREAM_DATE_pn-zlib = "May 02, 2012"
- CHECK_DATE_pn-zlib = "Sep 04, 2012"
--RECIPE_UPSTREAM_VERSION_pn-zypper = "git"
+@@ -399,7 +399,6 @@ RECIPE_COLOR_pn-udev = "yellow"
+ RECIPE_COLOR_pn-udev-extraconf = "yellow"
+ RECIPE_COLOR_pn-unfs-server = "red"
+ RECIPE_COLOR_pn-unzip = "yellow"
+-RECIPE_COLOR_pn-update-modules = "yellow"
+ RECIPE_COLOR_pn-update-rc.d = "yellow"
+ RECIPE_COLOR_pn-usbinit = "red"
+ RECIPE_COLOR_pn-util-macros = "yellow"
 -- 
-1.7.10.4
+1.7.9.5
 
 
