@@ -1,24 +1,25 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 18938E0146B
-	for <poky@yoctoproject.org>; Tue,  5 Feb 2013 01:26:13 -0800 (PST)
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 209F1E0146B
+	for <poky@yoctoproject.org>; Tue,  5 Feb 2013 02:30:31 -0800 (PST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 05 Feb 2013 01:26:12 -0800
+	by orsmga102.jf.intel.com with ESMTP; 05 Feb 2013 02:29:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,602,1355126400"; d="scan'208";a="257860500"
-Received: from unknown (HELO helios.localnet) ([10.252.120.42])
-	by orsmga001.jf.intel.com with ESMTP; 05 Feb 2013 01:26:11 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Erik Sallmann - iNTENCE automotive electronics <e.sallmann@intence.de>
-Date: Tue, 05 Feb 2013 09:26:10 +0000
-Message-ID: <1889845.j5cCAzuNtf@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.9.4 (Linux/3.5.0-23-generic; KDE/4.9.4; i686; ; )
-In-Reply-To: <D53D64A4894117458C79F1D5DC57201A677C7D90@IAS001.intencer.local>
-References: <D53D64A4894117458C79F1D5DC57201A677C7D90@IAS001.intencer.local>
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: ofono in core-image-base
+X-IronPort-AV: E=Sophos;i="4.84,602,1355126400"; d="scan'208";a="257891619"
+Received: from fear.jf.intel.com (HELO rage.local) ([10.7.201.160])
+	by orsmga001.jf.intel.com with ESMTP; 05 Feb 2013 02:30:08 -0800
+From: Darren Hart <dvhart@linux.intel.com>
+To: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org,
+	Richard Purdie <richard.purdie@linuxfoundation.org>
+Date: Tue,  5 Feb 2013 02:31:37 -0800
+Message-Id: <c3eb52b9dbde2bccc9d3b53340712e445c949d2f.1360059615.git.dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.5.4
+In-Reply-To: <cover.1360059615.git.dvhart@linux.intel.com>
+References: <cover.1360059615.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1360059615.git.dvhart@linux.intel.com>
+References: <cover.1360059615.git.dvhart@linux.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>, bitbake-devel@lists.openembedded.org
+Subject: [PATCH 1/8] bitbake: fetch2: Print the complete SRCREV variable name when INVALID
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,23 +32,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Feb 2013 09:26:13 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 05 Feb 2013 10:30:31 -0000
 
-On Tuesday 05 February 2013 09:20:31 Erik Sallmann - iNTENCE automotive 
-electronics wrote:
-> I noticed that ofono is integrated in core-image-base. Is there any reason
-> for that?
+If a particular SRCREV (say for a particular branch) is missing, the
+fetcher will currently just report an obtuse error about the "SRCREV"
+being invalid. If there is more information is to be had (say from name,
+i.e. branch, and pn) then display that as well.
 
-This comes in via packagegroup-base if "3g" or "phone" is in DISTRO_FEATURES 
-(and "3g" is in the default value of DISTRO_FEATURES).
+The new error looks something like this:
 
-Cheers,
-Paul
+ERROR: ExpansionError during parsing /home/dvhart/source/poky/meta/recipes-kernel/linux/linux-yocto_3.4.bb: Failure expanding variable do_patch: ExpansionError: Failure expanding variable SRCPV, expression was ${@bb.fetch2.get_srcrev(d)} which triggered exception FetchError: Fetcher failure for URL: 'git://otcgit.jf.intel.com/dvhart/linux-yocto-minnow-3.4.git;protocol=git;nocheckout=1;branch=standard/minnow,meta,emgd-1.14;name=machine,meta,emgd'. Please set SRCREV_emgd_pn-linux-yocto to a valid value
 
+Note the variable listed as invalid is
+"SRCREV_emgd_pn-linux-yocto", making it explicit what is wrong.
+
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+Cc: bitbake-devel@lists.openembedded.org
+---
+ bitbake/lib/bb/fetch2/__init__.py |    7 +++++--
+ 1 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
+index 4746356..cba45d0 100644
+--- a/bitbake/lib/bb/fetch2/__init__.py
++++ b/bitbake/lib/bb/fetch2/__init__.py
+@@ -650,11 +650,14 @@ def srcrev_internal_helper(ud, d, name):
+         if not rev:
+             rev = d.getVar("SRCREV_%s" % name, True)
+     if not rev:
+-       rev = d.getVar("SRCREV_pn-%s" % pn, True)
++        rev = d.getVar("SRCREV_pn-%s" % pn, True)
+     if not rev:
+         rev = d.getVar("SRCREV", True)
+     if rev == "INVALID":
+-        raise FetchError("Please set SRCREV to a valid value", ud.url)
++        var = "SRCREV_pn-%s" % pn
++        if name != '':
++            var = "SRCREV_%s_pn-%s" % (name, pn)
++        raise FetchError("Please set %s to a valid value" % var, ud.url)
+     if rev == "AUTOINC":
+         rev = ud.method.latest_revision(ud.url, ud, d, name)
+ 
 -- 
+1.7.5.4
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
