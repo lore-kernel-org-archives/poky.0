@@ -1,20 +1,19 @@
 Return-Path: <emilia.maria.silvia.ciobanu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1C44EE002AB
-	for <poky@yoctoproject.org>; Fri,  8 Feb 2013 01:30:52 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 08 Feb 2013 01:30:51 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8BF92E0034C
+	for <poky@yoctoproject.org>; Fri,  8 Feb 2013 01:35:14 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 08 Feb 2013 01:35:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,628,1355126400"; d="scan'208";a="254190815"
+X-IronPort-AV: E=Sophos;i="4.84,628,1355126400"; d="scan'208";a="259532102"
 Received: from ema-vostro-460 (HELO localhost.localdomain) ([10.237.105.41])
-	by azsmga001.ch.intel.com with ESMTP; 08 Feb 2013 01:30:49 -0800
+	by orsmga001.jf.intel.com with ESMTP; 08 Feb 2013 01:35:11 -0800
 From: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
 To: poky@yoctoproject.org
-Date: Fri,  8 Feb 2013 11:35:06 +0200
-Message-Id: <1360316106-3274-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
+Date: Fri,  8 Feb 2013 11:39:30 +0200
+Message-Id: <1360316370-3506-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Cc: "emilia.maria.silvia.ciobanu@intel.com" <eciobanu@yoctoproject.org>
-Subject: [PATCH v2] Cleanup of upstream_tracking.inc file
+Subject: [PATCH] Cleanup of upstream_tracking.inc file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,16 +26,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Feb 2013 09:30:55 -0000
-
-From: "emilia.maria.silvia.ciobanu@intel.com" <eciobanu@yoctoproject.org>
+X-List-Received-Date: Fri, 08 Feb 2013 09:35:14 -0000
 
 The upstream_tracking.inc file should keep only the names of the packages
 that need to be manually checked for upstream versions by the maintainers.
 Removed the packages that were moved into other layers and the ones that
 are currently reported by the PRS.
 
-Signed-off-by: emilia.maria.silvia.ciobanu@intel.com <eciobanu@yoctoproject.org>
+Signed-off-by: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
 ---
  .../conf/distro/include/upstream_tracking.inc      | 1358 +-------------------
  1 file changed, 6 insertions(+), 1352 deletions(-)
