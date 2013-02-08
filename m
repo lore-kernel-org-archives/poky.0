@@ -1,25 +1,25 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 20CE8E00724
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2DE28E00736
 	for <poky@yoctoproject.org>; Fri,  8 Feb 2013 14:26:02 -0800 (PST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 08 Feb 2013 14:26:01 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,632,1355126400"; d="scan'208";a="259980212"
+X-IronPort-AV: E=Sophos;i="4.84,632,1355126400"; d="scan'208";a="259980216"
 Received: from fear.jf.intel.com (HELO rage.local) ([10.7.201.160])
 	by orsmga001.jf.intel.com with ESMTP; 08 Feb 2013 14:26:01 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 To: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org,
 	Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Fri,  8 Feb 2013 14:27:19 -0800
-Message-Id: <5099d39d57d8c14b8cfad5436cae35641f54c48f.1360362264.git.dvhart@linux.intel.com>
+Date: Fri,  8 Feb 2013 14:27:21 -0800
+Message-Id: <3e63afff901540a82ad1f9a42167d36ee0fee6a8.1360362264.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.5.4
 In-Reply-To: <cover.1360362264.git.dvhart@linux.intel.com>
 References: <cover.1360362264.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1360362264.git.dvhart@linux.intel.com>
 References: <cover.1360362264.git.dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 1/7] oe-buildenv-internal: Remove GIT variables from BB_ENV_EXTRAWHITE
+Subject: [PATCH 3/7] base.bbclass: Remove generate_git_config()
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,48 +34,53 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Fri, 08 Feb 2013 22:26:02 -0000
 
-The following variables perform no function outside of bitbake:
-
-    GIT_CONFIG
-    GIT_PROXY_HOST
-    GIT_PROXY_PORT
-    GIT_PROXY_IGNORE
-
-GIT_CONFIG only affects the git-config command which is not relevant to
-the fetcher. This was previously used with the OE GIT_CORE_CONFIG
-variable which would provide a basic git config to use instead of the
-user's config. This usage was deprecated by git for over a year now:
-
-http://git.661346.n2.nabble.com/Overriding-gitconfig-using-GIT-CONFIG-td6680977
-
-GIT_PROXY_HOST and GIT_PROXY_PORT are not used by git.
-
-GIT_PROXY_IGNORE was an OE construct used to create the custom git
-config and had no meaning outside of the OE environment. It is not used
-by git.
-
-Remove these variables from the fetcher environment.
-
-Users wishing to configure git to work with a proxy should define the
-GIT_PROXY_COMMAND environment variable to use an external script.
-NO_PROXY can be used within this script to skip the proxy for certain
-hosts.
+git no longer supports the use of GIT_CONFIG which defeats the purpose of
+GIT_CORE_CONFIG and the generate_git_config() function. Remove it.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 ---
- scripts/oe-buildenv-internal |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ meta/classes/base.bbclass |   21 ---------------------
+ 1 files changed, 0 insertions(+), 21 deletions(-)
 
-diff --git a/scripts/oe-buildenv-internal b/scripts/oe-buildenv-internal
-index c3a30fb..044b6f9 100755
---- a/scripts/oe-buildenv-internal
-+++ b/scripts/oe-buildenv-internal
-@@ -80,4 +80,4 @@ unset BITBAKEDIR
- # Used by the runqemu script
- export BUILDDIR
- export PATH
--export BB_ENV_EXTRAWHITE="MACHINE DISTRO TCMODE TCLIBC http_proxy ftp_proxy https_proxy all_proxy ALL_PROXY no_proxy SSH_AGENT_PID SSH_AUTH_SOCK BB_SRCREV_POLICY SDKMACHINE BB_NUMBER_THREADS BB_NO_NETWORK PARALLEL_MAKE GIT_PROXY_COMMAND GIT_PROXY_IGNORE SOCKS5_PASSWD SOCKS5_USER SCREENDIR"
-+export BB_ENV_EXTRAWHITE="MACHINE DISTRO TCMODE TCLIBC http_proxy ftp_proxy https_proxy all_proxy ALL_PROXY no_proxy NO_PROXY SSH_AGENT_PID SSH_AUTH_SOCK BB_SRCREV_POLICY SDKMACHINE BB_NUMBER_THREADS BB_NO_NETWORK PARALLEL_MAKE GIT_PROXY_COMMAND SOCKS5_PASSWD SOCKS5_USER SCREENDIR"
+diff --git a/meta/classes/base.bbclass b/meta/classes/base.bbclass
+index 1c284b7..4d69caf 100644
+--- a/meta/classes/base.bbclass
++++ b/meta/classes/base.bbclass
+@@ -132,26 +132,6 @@ python base_do_unpack() {
+         raise bb.build.FuncFailed(e)
+ }
+ 
+-GIT_CONFIG_PATH = "${STAGING_DIR_NATIVE}/etc"
+-GIT_CONFIG = "${GIT_CONFIG_PATH}/gitconfig"
+-
+-def generate_git_config(e):
+-    if e.data.getVar('GIT_CORE_CONFIG', True):
+-        gitconfig_path = e.data.getVar('GIT_CONFIG', True)
+-        proxy_command = "    gitProxy = %s\n" % e.data.getVar('OE_GIT_PROXY_COMMAND', True)
+-
+-        bb.mkdirhier(e.data.expand("${GIT_CONFIG_PATH}"))
+-        if (os.path.exists(gitconfig_path)):
+-            os.remove(gitconfig_path)
+-
+-        f = open(gitconfig_path, 'w')
+-        f.write("[core]\n")
+-        ignore_hosts = e.data.getVar('GIT_PROXY_IGNORE', True).split()
+-        for ignore_host in ignore_hosts:
+-            f.write("    gitProxy = none for %s\n" % ignore_host)
+-        f.write(proxy_command)
+-        f.close
+-
+ def pkgarch_mapping(d):
+     # Compatibility mappings of TUNE_PKGARCH (opt in)
+     if d.getVar("PKGARCHCOMPAT_ARMV7A", True):
+@@ -310,7 +290,6 @@ addhandler base_eventhandler
+ python base_eventhandler() {
+     if isinstance(e, bb.event.ConfigParsed):
+         e.data.setVar('BB_VERSION', bb.__version__)
+-        generate_git_config(e)
+         pkgarch_mapping(e.data)
+         preferred_ml_updates(e.data)
+         e.data.appendVar('DISTRO_FEATURES', oe.utils.features_backfill("DISTRO_FEATURES", e.data))
 -- 
 1.7.5.4
 
