@@ -1,30 +1,40 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BED92E00312
-	for <poky@yoctoproject.org>; Sat,  9 Feb 2013 09:00:00 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 09 Feb 2013 09:00:00 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,634,1355126400"; d="scan'208";a="254840198"
-Received: from unknown (HELO envy.home) ([10.255.12.192])
-	by azsmga001.ch.intel.com with ESMTP; 09 Feb 2013 08:59:49 -0800
-Message-ID: <51168084.3080902@linux.intel.com>
-Date: Sat, 09 Feb 2013 08:59:48 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130110 Thunderbird/17.0.2
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-ea0-f181.google.com (mail-ea0-f181.google.com
+	[209.85.215.181]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+	(No client certificate requested)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 97B12E00736
+	for <poky@yoctoproject.org>; Sat,  9 Feb 2013 18:49:01 -0800 (PST)
+Received: by mail-ea0-f181.google.com with SMTP id i13so2151534eaa.12
+	for <poky@yoctoproject.org>; Sat, 09 Feb 2013 18:48:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:x-received:in-reply-to:references:date:message-id
+	:subject:from:to:cc:content-type;
+	bh=V13xSF1MWjXYJESl6F0gm17IbNkNzzjHoxN/LtsYsMs=;
+	b=WBA85ih0lNfjrtd9GSNbkJ6LnwUF0Uk+6vbM8p6ZvO2IEfIgotJbiZIp5IrRduBv0X
+	YgN6J2BEiFDontULAHUV9dJoxFef0gqotAZqxDJGrsN8VFL4MSje/+gcl1zCbUfwJ1aT
+	SXbLTnsyUht9xFMxrZyxJyPF9kK9NhM3pj9k2jQsaT+1G7ML4l8nvltf4tYkGyLHBrpQ
+	azjKWUMo+fFdvHLOvZ+XLepG1f1lYq1twToxGQLB53EOBVTm70jLr45/fVdoc/yJ/PTz
+	F2Cn8cPu4AUL9XM/+whPe8XPY7kYel0TmpSmKQaMMqZ4q+72IJx2dHwKM0XORgEc9Ztc
+	7gSA==
 MIME-Version: 1.0
-To: Otavio Salvador <otavio@ossystems.com.br>
+X-Received: by 10.14.3.133 with SMTP id 5mr519799eeh.43.1360464539035; Sat, 09
+	Feb 2013 18:48:59 -0800 (PST)
+Received: by 10.14.207.72 with HTTP; Sat, 9 Feb 2013 18:48:58 -0800 (PST)
+In-Reply-To: <CAP9ODKq0q-DXgeeehtJE_jJbMcNUuNhn5gzFR3m11e2Lmhp+mw@mail.gmail.com>
 References: <cover.1360362264.git.dvhart@linux.intel.com>
 	<fe2cc60ac93c64b7a6da42f876ff9befd1cf1938.1360362264.git.dvhart@linux.intel.com>
 	<CAP9ODKpCZrabQt1s1=GHHhXm9s-GSMDgjq3965w8XQFka8-8ug@mail.gmail.com>
-In-Reply-To: <CAP9ODKpCZrabQt1s1=GHHhXm9s-GSMDgjq3965w8XQFka8-8ug@mail.gmail.com>
-X-Enigmail-Version: 1.5
+	<51168084.3080902@linux.intel.com>
+	<CAP9ODKq0q-DXgeeehtJE_jJbMcNUuNhn5gzFR3m11e2Lmhp+mw@mail.gmail.com>
+Date: Sat, 9 Feb 2013 21:48:58 -0500
+Message-ID: <CADkTA4PvLPB9C_ornX0EAXVEQVRSX4v0VZbOfz=zTtgHai-O0A@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Otavio Salvador <otavio@ossystems.com.br>
 Cc: Enrico Scholz <enrico.scholz@sigma-chemnitz.de>,
-	Poky <poky@yoctoproject.org>,
+	Darren Hart <dvhart@linux.intel.com>, Poky <poky@yoctoproject.org>,
 	Patches and discussions about the oe-core layer
 	<openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 4/7] oe-git-proxy: Add a new comprehensive git proxy script
+Subject: Re: [OE-core] [PATCH 4/7] oe-git-proxy: Add a new comprehensive git proxy script
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,205 +47,186 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 09 Feb 2013 17:00:01 -0000
+X-List-Received-Date: Sun, 10 Feb 2013 02:49:02 -0000
+Content-Type: multipart/alternative; boundary=047d7b6226a494280c04d555d5bd
+
+--047d7b6226a494280c04d555d5bd
 Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+
+On Sat, Feb 9, 2013 at 12:02 PM, Otavio Salvador <otavio@ossystems.com.br>wrote:
+
+> On Sat, Feb 9, 2013 at 2:59 PM, Darren Hart <dvhart@linux.intel.com>
+> wrote:
+> >
+> >
+> > On 02/08/2013 06:43 PM, Otavio Salvador wrote:
+> >> On Fri, Feb 8, 2013 at 8:27 PM, Darren Hart <dvhart@linux.intel.com>
+> wrote:
+> >>> oe-git-proxy.sh is a simple tool to be used via GIT_PROXY_COMMAND. It
+> >>> uses BSD netcat to make SOCKS5 or HTTPS proxy connections. It uses
+> >>> ALL_PROXY to determine the proxy server, protocol, and port. It uses
+> >>> NO_PROXY to skip using the proxy for a comma delimited list of hosts,
+> >>> host globs (*.example.com), IPs, or CIDR masks (192.168.1.0/24). It is
+> >>> known to work with both bash and dash shells.
+> >>>
+> >>> V2: Implement recommendations by Enrico Scholz:
+> >>>     o Use exec for the nc calls
+> >>>     o Use "$@" instead of $* to avoid quoting issues inherent with $*
+> >>>     o Use bash explicitly and simplify some of the string manipulations
+> >>>     Also:
+> >>>     o Drop the .sh in the name per Otavio Salvador
+> >>>     o Remove a stray debug statement
+> >>>
+> >>> V3: Implement recommendations by Otavio Salvador
+> >>>     o GPL license blurb
+> >>>     o Fix minor typo in comment block
+> >>>
+> >>> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+> >>> Cc: Enrico Scholz <enrico.scholz@sigma-chemnitz.de>
+> >>> Cc: Otavio Salvador <otavio@ossystems.com.br>
+> >>>
+> >>> git-proxy cleanup
+> >>
+> >> All those comments ought to be bellow --- or those will be included in
+> >> commit log.
+> >>
+> >
+> > Which is fine.
+>
+> Well, usually the log of the revisions are not included in the commit
+> logs; any special reason for it to be done different?
+>
+
+Randomly jumping in,
+
+It's not all that uncommon for kernel developers to keep the revision
+history
+in long logs. It's used as a way to track the intermediate history, give
+review credit .. or just "because".
+
+So while not always done, it isn't unheard of. I have no strong opinion one
+way or the other, just thought I'd throw that out!
+
+Cheers,
+
+Bruce
 
 
-
-On 02/08/2013 06:43 PM, Otavio Salvador wrote:
-> On Fri, Feb 8, 2013 at 8:27 PM, Darren Hart <dvhart@linux.intel.com> wrote:
->> oe-git-proxy.sh is a simple tool to be used via GIT_PROXY_COMMAND. It
->> uses BSD netcat to make SOCKS5 or HTTPS proxy connections. It uses
->> ALL_PROXY to determine the proxy server, protocol, and port. It uses
->> NO_PROXY to skip using the proxy for a comma delimited list of hosts,
->> host globs (*.example.com), IPs, or CIDR masks (192.168.1.0/24). It is
->> known to work with both bash and dash shells.
->>
->> V2: Implement recommendations by Enrico Scholz:
->>     o Use exec for the nc calls
->>     o Use "$@" instead of $* to avoid quoting issues inherent with $*
->>     o Use bash explicitly and simplify some of the string manipulations
->>     Also:
->>     o Drop the .sh in the name per Otavio Salvador
->>     o Remove a stray debug statement
->>
->> V3: Implement recommendations by Otavio Salvador
->>     o GPL license blurb
->>     o Fix minor typo in comment block
->>
->> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
->> Cc: Enrico Scholz <enrico.scholz@sigma-chemnitz.de>
->> Cc: Otavio Salvador <otavio@ossystems.com.br>
->>
->> git-proxy cleanup
-> 
-> All those comments ought to be bellow --- or those will be included in
-> commit log.
-> 
-
-Which is fine.
+>
+> --
+> Otavio Salvador                             O.S. Systems
+> E-mail: otavio@ossystems.com.br  http://www.ossystems.com.br
+> Mobile: +55 53 9981-7854              http://projetos.ossystems.com.br
+>
+> _______________________________________________
+> Openembedded-core mailing list
+> Openembedded-core@lists.openembedded.org
+> http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded-core
+>
 
 
->> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
->> ---
->>  scripts/oe-git-proxy |  138 ++++++++++++++++++++++++++++++++++++++++++++++++++
->>  1 files changed, 138 insertions(+), 0 deletions(-)
->>  create mode 100755 scripts/oe-git-proxy
->>
->> diff --git a/scripts/oe-git-proxy b/scripts/oe-git-proxy
->> new file mode 100755
->> index 0000000..4c2f179
->> --- /dev/null
->> +++ b/scripts/oe-git-proxy
->> @@ -0,0 +1,138 @@
->> +#!/bin/bash
->> +
->> +# oe-git-proxy is a simple tool to be via GIT_PROXY_COMMAND. It uses BSD netcat
->> +# to make SOCKS5 or HTTPS proxy connections. It uses ALL_PROXY to determine the
->> +# proxy server, protocol, and port. It uses NO_PROXY to skip using the proxy for
->> +# a comma delimited list of hosts, host globs (*.example.com), IPs, or CIDR
->> +# masks (192.168.1.0/24). It is known to work with both bash and dash shells.
->> +#
->> +# BSD netcat is provided by netcat-openbsd on Ubuntu and nc on Fedora.
->> +#
->> +# Example ALL_PROXY values:
->> +# ALL_PROXY=socks://socks.example.com:1080
->> +# ALL_PROXY=https://proxy.example.com:8080
->> +#
->> +# Copyright (c) 2013, Intel Corporation.
->> +# All rights reserved.
->> +#
->> +# This program is free software; you can redistribute it and/or modify
->> +# it under the terms of the GNU General Public License as published by
->> +# the Free Software Foundation; either version 2 of the License, or
->> +# (at your option) any later version.
->> +#
->> +# This program is distributed in the hope that it will be useful,
->> +# but WITHOUT ANY WARRANTY; without even the implied warranty of
->> +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> +# GNU General Public License for more details.
->> +#
->> +# You should have received a copy of the GNU General Public License
->> +# along with this program; if not, write to the Free Software
->> +# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
->> +#
->> +# AUTHORS
->> +# Darren Hart <dvhart@linux.intel.com>
->> +
->> +# Locate the netcat binary
->> +NC=$(which nc 2>/dev/null)
->> +if [ $? -ne 0 ]; then
->> +       echo "ERROR: nc binary not in PATH"
->> +       exit 1
->> +fi
->> +METHOD=""
->> +
->> +# Test for a valid IPV4 quad with optional bitmask
->> +valid_ipv4() {
->> +       echo $1 | egrep -q "^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}(/(3[0-2]|[1-2]?[0-9]))?$"
->> +       return $?
->> +}
->> +
->> +# Convert an IPV4 address into a 32bit integer
->> +ipv4_val() {
->> +       IP="$1"
->> +       SHIFT=24
->> +       VAL=0
->> +       for B in ${IP//./ }; do
->> +               VAL=$(($VAL+$(($B<<$SHIFT))))
->> +               SHIFT=$(($SHIFT-8))
->> +       done
->> +       echo "$VAL"
->> +}
->> +
->> +# Determine if two IPs are equivalent, or if the CIDR contains the IP
->> +match_ipv4() {
->> +       CIDR=$1
->> +       IP=$2
->> +
->> +       if [ -z "${IP%%$CIDR}" ]; then
->> +               return 0
->> +       fi
->> +
->> +       # Determine the mask bitlength
->> +       BITS=${CIDR##*/}
->> +       if [ -z "$BITS" ]; then
->> +               return 1
->> +       fi
->> +
->> +       IPVAL=$(ipv4_val $IP)
->> +       IP2VAL=$(ipv4_val ${CIDR%%/*})
->> +
->> +       # OR in the unmasked bits
->> +       for i in $(seq 0 $((32-$BITS))); do
->> +               IP2VAL=$(($IP2VAL|$((1<<$i))))
->> +               IPVAL=$(($IPVAL|$((1<<$i))))
->> +       done
->> +
->> +       if [ $IPVAL -eq $IP2VAL ]; then
->> +               return 0
->> +       fi
->> +       return 1
->> +}
->> +
->> +# Test to see if GLOB matches HOST
->> +match_host() {
->> +       HOST=$1
->> +       GLOB=$2
->> +
->> +       if [ -z "${HOST%%$GLOB}" ]; then
->> +               return 0
->> +       fi
->> +
->> +       # Match by netmask
->> +       if valid_ipv4 $GLOB; then
->> +               HOST_IP=$(gethostip -d $HOST)
->> +               if valid_ipv4 $HOST_IP; then
->> +                       match_ipv4 $GLOB $HOST_IP
->> +                       if [ $? -eq 0 ]; then
->> +                               return 0
->> +                       fi
->> +               fi
->> +       fi
->> +
->> +       return 1
->> +}
->> +
->> +# If no proxy is set, just connect directly
->> +if [ -z "$ALL_PROXY" ]; then
->> +       exec $NC -X connect "$@"
->> +fi
->> +
->> +# Connect directly to hosts in NO_PROXY
->> +for H in ${NO_PROXY//,/ }; do
->> +       if match_host $1 $H; then
->> +               METHOD="-X connect"
->> +               break
->> +       fi
->> +done
->> +
->> +if [ -z "$METHOD" ]; then
->> +       # strip the protocol and the trailing slash
->> +       PROTO=$(echo $ALL_PROXY | sed -e 's/\([^:]*\):\/\/.*/\1/')
->> +       PROXY=$(echo $ALL_PROXY | sed -e 's/.*:\/\/\([^:]*:[0-9]*\).*/\1/')
->> +       if [ "$PROTO" = "socks" ]; then
->> +               METHOD="-X 5 -x $PROXY"
->> +       elif [ "$PROTO" = "https" ]; then
->> +               METHOD="-X connect -x $PROXY"
->> +       fi
->> +fi
->> +
->> +exec $NC $METHOD "$@"
->> --
->> 1.7.5.4
->>
-> 
-> 
-> 
 
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Technical Lead - Linux Kernel
+"Thou shalt not follow the NULL pointer, for chaos and madness await thee
+at its end"
 
+--047d7b6226a494280c04d555d5bd
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><br><div class=3D"gmail=
+_quote">On Sat, Feb 9, 2013 at 12:02 PM, Otavio Salvador <span dir=3D"ltr">=
+&lt;<a href=3D"mailto:otavio@ossystems.com.br" target=3D"_blank">otavio@oss=
+ystems.com.br</a>&gt;</span> wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><div class=3D"h5">On S=
+at, Feb 9, 2013 at 2:59 PM, Darren Hart &lt;<a href=3D"mailto:dvhart@linux.=
+intel.com">dvhart@linux.intel.com</a>&gt; wrote:<br>
+
+&gt;<br>
+&gt;<br>
+&gt; On 02/08/2013 06:43 PM, Otavio Salvador wrote:<br>
+&gt;&gt; On Fri, Feb 8, 2013 at 8:27 PM, Darren Hart &lt;<a href=3D"mailto:=
+dvhart@linux.intel.com">dvhart@linux.intel.com</a>&gt; wrote:<br>
+&gt;&gt;&gt; oe-git-proxy.sh is a simple tool to be used via GIT_PROXY_COMM=
+AND. It<br>
+&gt;&gt;&gt; uses BSD netcat to make SOCKS5 or HTTPS proxy connections. It =
+uses<br>
+&gt;&gt;&gt; ALL_PROXY to determine the proxy server, protocol, and port. I=
+t uses<br>
+&gt;&gt;&gt; NO_PROXY to skip using the proxy for a comma delimited list of=
+ hosts,<br>
+&gt;&gt;&gt; host globs (*.<a href=3D"http://example.com" target=3D"_blank"=
+>example.com</a>), IPs, or CIDR masks (<a href=3D"http://192.168.1.0/24" ta=
+rget=3D"_blank">192.168.1.0/24</a>). It is<br>
+&gt;&gt;&gt; known to work with both bash and dash shells.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; V2: Implement recommendations by Enrico Scholz:<br>
+&gt;&gt;&gt; =A0 =A0 o Use exec for the nc calls<br>
+&gt;&gt;&gt; =A0 =A0 o Use &quot;$@&quot; instead of $* to avoid quoting is=
+sues inherent with $*<br>
+&gt;&gt;&gt; =A0 =A0 o Use bash explicitly and simplify some of the string =
+manipulations<br>
+&gt;&gt;&gt; =A0 =A0 Also:<br>
+&gt;&gt;&gt; =A0 =A0 o Drop the .sh in the name per Otavio Salvador<br>
+&gt;&gt;&gt; =A0 =A0 o Remove a stray debug statement<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; V3: Implement recommendations by Otavio Salvador<br>
+&gt;&gt;&gt; =A0 =A0 o GPL license blurb<br>
+&gt;&gt;&gt; =A0 =A0 o Fix minor typo in comment block<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Darren Hart &lt;<a href=3D"mailto:dvhart@linux.=
+intel.com">dvhart@linux.intel.com</a>&gt;<br>
+&gt;&gt;&gt; Cc: Enrico Scholz &lt;<a href=3D"mailto:enrico.scholz@sigma-ch=
+emnitz.de">enrico.scholz@sigma-chemnitz.de</a>&gt;<br>
+&gt;&gt;&gt; Cc: Otavio Salvador &lt;<a href=3D"mailto:otavio@ossystems.com=
+.br">otavio@ossystems.com.br</a>&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; git-proxy cleanup<br>
+&gt;&gt;<br>
+&gt;&gt; All those comments ought to be bellow --- or those will be include=
+d in<br>
+&gt;&gt; commit log.<br>
+&gt;&gt;<br>
+&gt;<br>
+&gt; Which is fine.<br>
+<br>
+</div></div>Well, usually the log of the revisions are not included in the =
+commit<br>
+logs; any special reason for it to be done different?<br></blockquote><div>=
+<br></div><div style>Randomly jumping in,</div><div><br></div><div style>It=
+&#39;s not all that uncommon for kernel developers to keep the revision his=
+tory</div>
+<div style>in long logs. It&#39;s used as a way to track the intermediate h=
+istory, give=A0</div><div style>review credit .. or just &quot;because&quot=
+;.</div><div style><br></div><div style>So while not always done, it isn&#3=
+9;t unheard of. I have no strong opinion one</div>
+<div style>way or the other, just thought I&#39;d throw that out!</div><div=
+ style><br></div><div style>Cheers,</div><div style><br></div><div style>Br=
+uce</div><div>=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 =
+0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+--<br>
+Otavio Salvador =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 =A0 O.S=
+. Systems<br>
+E-mail: <a href=3D"mailto:otavio@ossystems.com.br">otavio@ossystems.com.br<=
+/a> =A0<a href=3D"http://www.ossystems.com.br" target=3D"_blank">http://www=
+.ossystems.com.br</a><br>
+Mobile: <a href=3D"tel:%2B55%2053%209981-7854" value=3D"+555399817854">+55 =
+53 9981-7854</a> =A0 =A0 =A0 =A0 =A0 =A0 =A0<a href=3D"http://projetos.ossy=
+stems.com.br" target=3D"_blank">http://projetos.ossystems.com.br</a><br>
+<br>
+_______________________________________________<br>
+Openembedded-core mailing list<br>
+<a href=3D"mailto:Openembedded-core@lists.openembedded.org">Openembedded-co=
+re@lists.openembedded.org</a><br>
+<a href=3D"http://lists.linuxtogo.org/cgi-bin/mailman/listinfo/openembedded=
+-core" target=3D"_blank">http://lists.linuxtogo.org/cgi-bin/mailman/listinf=
+o/openembedded-core</a><br>
+</div></div></blockquote></div><br><br clear=3D"all"><div><br></div>-- <br>=
+&quot;Thou shalt not follow the NULL pointer, for chaos and madness await t=
+hee at its end&quot;
+</div></div>
+
+--047d7b6226a494280c04d555d5bd--
