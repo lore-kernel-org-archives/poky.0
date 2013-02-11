@@ -1,33 +1,35 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1FC07E00738
-	for <poky@yoctoproject.org>; Sun, 10 Feb 2013 10:25:40 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 10 Feb 2013 10:25:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,639,1355126400"; d="scan'208";a="285490578"
-Received: from unknown (HELO envy.home) ([10.255.12.121])
-	by fmsmga001.fm.intel.com with ESMTP; 10 Feb 2013 10:25:38 -0800
-Message-ID: <5117E622.3080700@linux.intel.com>
-Date: Sun, 10 Feb 2013 10:25:38 -0800
-From: Darren Hart <dvhart@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130110 Thunderbird/17.0.2
-MIME-Version: 1.0
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-References: <cover.1360362264.git.dvhart@linux.intel.com>
-	<fe2cc60ac93c64b7a6da42f876ff9befd1cf1938.1360362264.git.dvhart@linux.intel.com>
-	<CAP9ODKpCZrabQt1s1=GHHhXm9s-GSMDgjq3965w8XQFka8-8ug@mail.gmail.com>
-	<51168084.3080902@linux.intel.com>
-	<CAP9ODKq0q-DXgeeehtJE_jJbMcNUuNhn5gzFR3m11e2Lmhp+mw@mail.gmail.com>
-	<CADkTA4PvLPB9C_ornX0EAXVEQVRSX4v0VZbOfz=zTtgHai-O0A@mail.gmail.com>
-In-Reply-To: <CADkTA4PvLPB9C_ornX0EAXVEQVRSX4v0VZbOfz=zTtgHai-O0A@mail.gmail.com>
-X-Enigmail-Version: 1.5
-Cc: Enrico Scholz <enrico.scholz@sigma-chemnitz.de>,
-	Poky <poky@yoctoproject.org>, Otavio Salvador <otavio@ossystems.com.br>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [PATCH 4/7] oe-git-proxy: Add a new comprehensive git proxy script
+Return-Path: <ross.burton@intel.com>
+Received: from mail-wg0-f54.google.com (mail-wg0-f54.google.com [74.125.82.54])
+	(using TLSv1 with cipher RC4-SHA (128/128 bits))
+	(No client certificate requested)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 63BABE01482
+	for <poky@yoctoproject.org>; Mon, 11 Feb 2013 02:55:32 -0800 (PST)
+Received: by mail-wg0-f54.google.com with SMTP id fm10so4737331wgb.9
+	for <poky@yoctoproject.org>; Mon, 11 Feb 2013 02:55:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-received:from:to:subject:date:message-id:x-mailer
+	:x-gm-message-state;
+	bh=9fAfFPF6LTa02PkDSD3mbtdAyu7ZwLD8INSThqEmXEE=;
+	b=Q1X9SVvGO6qfy+bOyqm2Kpk+2fS2TW9raQnIqrmefcoJUzZ9ELxH6gkiBnXE2/pvCT
+	pqQUh/09ncy5iGaF/NhuhB0jntV9pgakgHklirgZH/KAbgdXYWuO8Z5KMuIU6Q69LBpF
+	AgJj4qsD6MKPzz5Cutoj+mZqo2cg07y2PGNXhkwtQMWBhRKGE3naMOnp4fQ3LGQeTcRd
+	dR/URU4gzWCoUIRTpM1tPrYHULWik7CLp08dgzpQTqkqgk+k/ma81GtkgxE9awoPRIHD
+	oHCFiK3IrgzlYw5G5bTq+ZFRpbjxFSTFam/KaM2TKKdK+f8DgQXS1tNsy/ZXKsOHCWug
+	DhZg==
+X-Received: by 10.194.158.100 with SMTP id wt4mr23153166wjb.37.1360580130426; 
+	Mon, 11 Feb 2013 02:55:30 -0800 (PST)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPS id eo10sm32294641wib.9.2013.02.11.02.55.28
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Mon, 11 Feb 2013 02:55:29 -0800 (PST)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 11 Feb 2013 10:53:15 +0000
+Message-Id: <1360579997-17694-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+X-Gm-Message-State: ALoCoQkavPjGTBN56h9G/5JMPIS4ek9jGom12QG6cewuk4D+0jiNsNTYadNculbIAEgvT9Kk0tYa
+Subject: [PATCH 1/3] distro: remove matchbox-stroke
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,38 +42,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 10 Feb 2013 18:25:40 -0000
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 11 Feb 2013 10:55:32 -0000
 
-On 02/09/2013 06:48 PM, Bruce Ashfield wrote:
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto/conf/distro/include/distro_alias.inc            |    1 -
+ meta-yocto/conf/distro/include/maintainers.inc             |    1 -
+ meta-yocto/conf/distro/include/poky-floating-revisions.inc |    1 -
+ meta-yocto/conf/distro/include/recipe_color.inc            |    1 -
+ 4 files changed, 4 deletions(-)
 
->     >> All those comments ought to be bellow --- or those will be included in
->     >> commit log.
->     >>
->     >
->     > Which is fine.
-> 
->     Well, usually the log of the revisions are not included in the commit
->     logs; any special reason for it to be done different?
-> 
-> 
-> Randomly jumping in,
-> 
-> It's not all that uncommon for kernel developers to keep the revision
-> history
-> in long logs. It's used as a way to track the intermediate history, give 
-> review credit .. or just "because".
-> 
-> So while not always done, it isn't unheard of. I have no strong opinion one
-> way or the other, just thought I'd throw that out!
-
-I'll just leave that to the maintainer. If whoever pushes it objects,
-they can drop it, or ask me to resend.
-
-
+diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
+index b67ea2a..38f6c12 100644
+--- a/meta-yocto/conf/distro/include/distro_alias.inc
++++ b/meta-yocto/conf/distro/include/distro_alias.inc
+@@ -231,7 +231,6 @@ DISTRO_PN_ALIAS_pn-matchbox-keyboard = "Debian=matchbox-keyboard Fedora=matchbox
+ DISTRO_PN_ALIAS_pn-matchbox-panel-2 = "Debian=matchbox-panel Mandriva=matchbox-panel Ubuntu=matchbox-panel"
+ DISTRO_PN_ALIAS_pn-matchbox-session = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-matchbox-session-sato = "OpenedHand"
+-DISTRO_PN_ALIAS_pn-matchbox-stroke = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-matchbox-terminal = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-matchbox-theme-sato-2 = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-matchbox-theme-sato = "OpenedHand"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index 9a63224..afd538e 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -507,7 +507,6 @@ RECIPE_MAINTAINER_pn-matchbox-keyboard = "Constantin Musca <constantinx.musca@in
+ RECIPE_MAINTAINER_pn-matchbox-panel-2 = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-matchbox-session-sato = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-matchbox-session = "Constantin Musca <constantinx.musca@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-stroke = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-matchbox-terminal = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-matchbox-theme-sato-2 = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-matchbox-theme-sato = "Constantin Musca <constantinx.musca@intel.com>"
+diff --git a/meta-yocto/conf/distro/include/poky-floating-revisions.inc b/meta-yocto/conf/distro/include/poky-floating-revisions.inc
+index fafe4a3..f1b3a0e 100644
+--- a/meta-yocto/conf/distro/include/poky-floating-revisions.inc
++++ b/meta-yocto/conf/distro/include/poky-floating-revisions.inc
+@@ -17,7 +17,6 @@ SRCREV_pn-matchbox-desktop ?= "${AUTOREV}"
+ SRCREV_pn-matchbox-keyboard ?= "${AUTOREV}"
+ SRCREV_pn-matchbox-panel ?= "${AUTOREV}"
+ SRCREV_pn-matchbox-panel-2 ?= "${AUTOREV}"
+-SRCREV_pn-matchbox-stroke ?= "${AUTOREV}"
+ SRCREV_pn-matchbox-themes-extra ?= "${AUTOREV}"
+ SRCREV_pn-matchbox-terminal ?= "${AUTOREV}"
+ SRCREV_pn-matchbox-wm ?= "${AUTOREV}"
+diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
+index fe52b72..0326129 100644
+--- a/meta-yocto/conf/distro/include/recipe_color.inc
++++ b/meta-yocto/conf/distro/include/recipe_color.inc
+@@ -262,7 +262,6 @@ RECIPE_COLOR_pn-matchbox-keyboard = "yellow"
+ RECIPE_COLOR_pn-matchbox-panel-2 = "yellow"
+ RECIPE_COLOR_pn-matchbox-session = "yellow"
+ RECIPE_COLOR_pn-matchbox-session-sato = "yellow"
+-RECIPE_COLOR_pn-matchbox-stroke = "yellow"
+ RECIPE_COLOR_pn-matchbox-terminal = "yellow"
+ RECIPE_COLOR_pn-matchbox-theme-sato = "yellow"
+ RECIPE_COLOR_pn-matchbox-theme-sato-2 = "yellow"
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Technical Lead - Linux Kernel
+1.7.10.4
+
 
