@@ -1,20 +1,20 @@
 Return-Path: <cristiana.voicu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 89778E006C9
-	for <poky@yoctoproject.org>; Tue, 12 Feb 2013 02:07:02 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 12 Feb 2013 02:07:01 -0800
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71C00E01439
+	for <poky@yoctoproject.org>; Tue, 12 Feb 2013 05:23:33 -0800 (PST)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 12 Feb 2013 05:23:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,648,1355126400"; d="scan'208";a="255826440"
+X-IronPort-AV: E=Sophos;i="4.84,650,1355126400"; d="scan'208";a="201455655"
 Received: from cvoicu-vostro-460 (HELO localhost.localdomain)
 	([10.237.105.151])
-	by azsmga001.ch.intel.com with ESMTP; 12 Feb 2013 02:06:56 -0800
+	by AZSMGA002.ch.intel.com with ESMTP; 12 Feb 2013 05:23:31 -0800
 From: Cristiana Voicu <cristiana.voicu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 12 Feb 2013 12:10:55 +0200
-Message-Id: <1360663856-9506-1-git-send-email-cristiana.voicu@intel.com>
+Date: Tue, 12 Feb 2013 15:27:32 +0200
+Message-Id: <1360675652-12475-1-git-send-email-cristiana.voicu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] sanity.bbclass: when bblayers.conf is updated, it invokes a reparse
+Subject: [PATCH_V2] sanity.bbclass: when bblayers.conf is updated, it invokes a reparse
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,7 +27,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2013 10:07:02 -0000
+X-List-Received-Date: Tue, 12 Feb 2013 13:23:33 -0000
 
 When bblayers.conf is updated(when sanity check is running), it should
 tell to bitbake to reparse configuration files. I will send a patch to
@@ -40,7 +40,7 @@ Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
  1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
-index e1888ba..ead93a2 100644
+index e1888ba..1599875 100644
 --- a/meta/classes/sanity.bbclass
 +++ b/meta/classes/sanity.bbclass
 @@ -344,6 +344,7 @@ def check_sanity_validmachine(sanity_data):
@@ -89,13 +89,13 @@ index e1888ba..ead93a2 100644
          sanity_data = copy_data(e)
 -        check_sanity(sanity_data)
 +        reparse = check_sanity(sanity_data)
-+        e.data.setVar("REPARSE_NEEDED", reparse)
++        e.data.setVar("BB_INVALIDCONF", reparse)
      elif bb.event.getName(e) == "SanityCheck":
          sanity_data = copy_data(e)
          sanity_data.setVar("SANITY_USE_EVENTS", "1")
 -        check_sanity(sanity_data)
 +        reparse = check_sanity(sanity_data)
-+        e.data.setVar("REPARSE_NEEDED", reparse)
++        e.data.setVar("BB_INVALIDCONF", reparse)
          bb.event.fire(bb.event.SanityCheckPassed(), e.data)
      elif bb.event.getName(e) == "NetworkTest":
          sanity_data = copy_data(e)
