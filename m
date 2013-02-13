@@ -1,32 +1,31 @@
-Return-Path: <erik.boto@pelagicore.com>
-Received: from mail-ob0-f177.google.com (mail-ob0-f177.google.com
-	[209.85.214.177]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 1AF4BE006DE
-	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 01:34:59 -0800 (PST)
-Received: by mail-ob0-f177.google.com with SMTP id wc18so1015095obb.8
-	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 01:34:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:x-received:date:message-id:subject:from:to
-	:content-type:x-gm-message-state;
-	bh=WRNIUD4LO2AAURsJqj+0WnDukq1urUvl/ILF0bbi3KE=;
-	b=SqhWfcUwiq7FSRBLF0+fjXsmfpTiTz3c4QFU7Vbazb/MWpJJcXPaZQAI7tDDgNOhY2
-	gT1LnBaj1gffgk22y1RSMwLljGdKdWfSj3tqDcePqeNdhMyxFXyrbA6CgdiB0uj5rqd2
-	j/J6MLxf/kEsTrfksMrQdT4ekqP8TX82y+LBkaejg2c2xYptdL0JLfCb8epzNfrQYAVq
-	GurxxIVpCOC8q6drHrc+q+D1IcEjFvtirZ49s8LXsKjhqNzYBxL9gvvGn1DFwl5ix0CP
-	4cFWt+sI/uTc+qEg9TnrzE2UcshYLrcVre0B6UMJSey5S5hqNZ1qI7YwXqj7wjPb7ZcQ
-	u8Cw==
-MIME-Version: 1.0
-X-Received: by 10.60.22.198 with SMTP id g6mr16295318oef.45.1360748097701;
-	Wed, 13 Feb 2013 01:34:57 -0800 (PST)
-Received: by 10.76.113.209 with HTTP; Wed, 13 Feb 2013 01:34:57 -0800 (PST)
-Date: Wed, 13 Feb 2013 10:34:57 +0100
-Message-ID: <CA+AhUGwJTH0UjXZe6QpQRSKeCY5pXOYCP7Schr1jOH8MmVqZeQ@mail.gmail.com>
-From: =?ISO-8859-1?Q?Erik_Bot=F6?= <erik.boto@pelagicore.com>
-To: poky@yoctoproject.org
-X-Gm-Message-State: ALoCoQlUjJ1qI1dpuEPataiC6peC1OG+IQCzkcs+pcLbCcGHGY4Uw/UISNGSCPU1JtNbjn3c0ob1
-Subject: Python gobject bindings and gobject-introspection
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 16199E006F0
+	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 01:45:27 -0800 (PST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r1D9pJjI003744; Wed, 13 Feb 2013 09:51:19 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id ioMLqyH19cyf; Wed, 13 Feb 2013 09:51:19 +0000 (GMT)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r1D9pEHk003740
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
+	verify=NOT); Wed, 13 Feb 2013 09:51:17 GMT
+Message-ID: <1360748710.11225.26.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Erik =?ISO-8859-1?Q?Bot=F6?= <erik.boto@pelagicore.com>
+Date: Wed, 13 Feb 2013 09:45:10 +0000
+In-Reply-To: <CA+AhUGwJTH0UjXZe6QpQRSKeCY5pXOYCP7Schr1jOH8MmVqZeQ@mail.gmail.com>
+References: <CA+AhUGwJTH0UjXZe6QpQRSKeCY5pXOYCP7Schr1jOH8MmVqZeQ@mail.gmail.com>
+X-Mailer: Evolution 3.6.3-1 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: Python gobject bindings and gobject-introspection
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,38 +38,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Feb 2013 09:34:59 -0000
-Content-Type: multipart/alternative; boundary=e89a8fb2016efe059104d597daa6
+X-List-Received-Date: Wed, 13 Feb 2013 09:45:28 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
---e89a8fb2016efe059104d597daa6
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+On Wed, 2013-02-13 at 10:34 +0100, Erik Botö wrote:
+> I'm looking at building a newer version of pygobject then what's
+> currently in Poky, and from what I find it seems the new recommended
+> way is to use gobject-introspection and the gi.repository module.
+>
+> I saw that gobject-introspection was available in recipes-gnome/gnome/
+> before but is now removed. So I'm curious about the reasoning for
+> removing it? Was there any particular reason?
 
-Hi,
+You can't cross compile gobject-introspection so the recipe didn't work.
+There is a long standing bug open in the gnome bugzilla about this.
 
-I'm looking at building a newer version of pygobject then what's currently
-in Poky, and from what I find it seems the new recommended way is to use
-gobject-introspection and the gi.repository module.
+Cheers,
 
-I saw that gobject-introspection was available in recipes-gnome/gnome/
-before but is now removed. So I'm curious about the reasoning for removing
-it? Was there any particular reason?
+Richard
 
-Best Regards,
-Erik Bot=F6
 
---e89a8fb2016efe059104d597daa6
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi,=A0<div><br></div><div>I&#39;m looking at building a ne=
-wer version of pygobject then what&#39;s currently in Poky, and from what I=
- find it seems the new recommended way is to use gobject-introspection and =
-the gi.repository module.</div>
-<div><br></div><div>I saw that gobject-introspection was available in recip=
-es-gnome/gnome/ before but is now removed. So I&#39;m curious about the rea=
-soning for removing it? Was there any particular reason?<br clear=3D"all">
-<div><br></div><div style>Best Regards,=A0</div><div style>Erik Bot=F6</div=
-></div></div>
-
---e89a8fb2016efe059104d597daa6--
