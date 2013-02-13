@@ -1,20 +1,32 @@
-Return-Path: <cristiana.voicu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71C00E01439
-	for <poky@yoctoproject.org>; Tue, 12 Feb 2013 05:23:33 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 12 Feb 2013 05:23:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,650,1355126400"; d="scan'208";a="201455655"
-Received: from cvoicu-vostro-460 (HELO localhost.localdomain)
-	([10.237.105.151])
-	by AZSMGA002.ch.intel.com with ESMTP; 12 Feb 2013 05:23:31 -0800
-From: Cristiana Voicu <cristiana.voicu@intel.com>
+Return-Path: <erik.boto@pelagicore.com>
+Received: from mail-ob0-f177.google.com (mail-ob0-f177.google.com
+	[209.85.214.177]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+	(No client certificate requested)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 1AF4BE006DE
+	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 01:34:59 -0800 (PST)
+Received: by mail-ob0-f177.google.com with SMTP id wc18so1015095obb.8
+	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 01:34:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=mime-version:x-received:date:message-id:subject:from:to
+	:content-type:x-gm-message-state;
+	bh=WRNIUD4LO2AAURsJqj+0WnDukq1urUvl/ILF0bbi3KE=;
+	b=SqhWfcUwiq7FSRBLF0+fjXsmfpTiTz3c4QFU7Vbazb/MWpJJcXPaZQAI7tDDgNOhY2
+	gT1LnBaj1gffgk22y1RSMwLljGdKdWfSj3tqDcePqeNdhMyxFXyrbA6CgdiB0uj5rqd2
+	j/J6MLxf/kEsTrfksMrQdT4ekqP8TX82y+LBkaejg2c2xYptdL0JLfCb8epzNfrQYAVq
+	GurxxIVpCOC8q6drHrc+q+D1IcEjFvtirZ49s8LXsKjhqNzYBxL9gvvGn1DFwl5ix0CP
+	4cFWt+sI/uTc+qEg9TnrzE2UcshYLrcVre0B6UMJSey5S5hqNZ1qI7YwXqj7wjPb7ZcQ
+	u8Cw==
+MIME-Version: 1.0
+X-Received: by 10.60.22.198 with SMTP id g6mr16295318oef.45.1360748097701;
+	Wed, 13 Feb 2013 01:34:57 -0800 (PST)
+Received: by 10.76.113.209 with HTTP; Wed, 13 Feb 2013 01:34:57 -0800 (PST)
+Date: Wed, 13 Feb 2013 10:34:57 +0100
+Message-ID: <CA+AhUGwJTH0UjXZe6QpQRSKeCY5pXOYCP7Schr1jOH8MmVqZeQ@mail.gmail.com>
+From: =?ISO-8859-1?Q?Erik_Bot=F6?= <erik.boto@pelagicore.com>
 To: poky@yoctoproject.org
-Date: Tue, 12 Feb 2013 15:27:32 +0200
-Message-Id: <1360675652-12475-1-git-send-email-cristiana.voicu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH_V2] sanity.bbclass: when bblayers.conf is updated, it invokes a reparse
+X-Gm-Message-State: ALoCoQlUjJ1qI1dpuEPataiC6peC1OG+IQCzkcs+pcLbCcGHGY4Uw/UISNGSCPU1JtNbjn3c0ob1
+Subject: Python gobject bindings and gobject-introspection
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,79 +39,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2013 13:23:33 -0000
+X-List-Received-Date: Wed, 13 Feb 2013 09:34:59 -0000
+Content-Type: multipart/alternative; boundary=e89a8fb2016efe059104d597daa6
 
-When bblayers.conf is updated(when sanity check is running), it should
-tell to bitbake to reparse configuration files. I will send a patch to
-bitbake-devel, with the actions needed in bitbake and hob.
+--e89a8fb2016efe059104d597daa6
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-[YOCTO #3213]
-Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
----
- meta/classes/sanity.bbclass |   18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Hi,
 
-diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
-index e1888ba..1599875 100644
---- a/meta/classes/sanity.bbclass
-+++ b/meta/classes/sanity.bbclass
-@@ -344,6 +344,7 @@ def check_sanity_validmachine(sanity_data):
- def check_sanity(sanity_data):
-     import subprocess
- 
-+    reparse = False
-     try:
-         from distutils.version import LooseVersion
-     except ImportError:
-@@ -384,7 +385,7 @@ def check_sanity(sanity_data):
-         messages = messages + 'Please set a MACHINE in your local.conf or environment\n'
-         machinevalid = False
- 
--    # Check we are using a valid lacal.conf
-+    # Check we are using a valid local.conf
-     current_conf  = sanity_data.getVar('CONF_VERSION', True)
-     conf_version =  sanity_data.getVar('LOCALCONF_VERSION', True)
- 
-@@ -397,12 +398,8 @@ def check_sanity(sanity_data):
-     if current_lconf != lconf_version:
-         try:
-             bb.build.exec_func("check_bblayers_conf", sanity_data)
--            if sanity_data.getVar("SANITY_USE_EVENTS", True) == "1":
--                bb.event.fire(bb.event.SanityCheckFailed("Your conf/bblayers.conf has been automatically updated. Please close and re-run."), sanity_data)
--                return
--            else:
--                bb.note("Your conf/bblayers.conf has been automatically updated. Please re-run %s." % os.path.basename(sys.argv[0]))
--                sys.exit(0)
-+            bb.note("Your conf/bblayers.conf has been automatically updated.")
-+            reparse = True
-         except Exception:
-             messages = messages + "Your version of bblayers.conf was generated from an older version of bblayers.conf.sample and there have been updates made to this file. Please compare the two files and merge any changes before continuing.\nMatching the version numbers will remove this message.\n\"meld conf/bblayers.conf ${COREBASE}/meta*/conf/bblayers.conf.sample\" is a good way to visualise the changes.\n"
- 
-@@ -630,6 +627,7 @@ def check_sanity(sanity_data):
- 
-     if messages != "":
-         raise_sanity_error(sanity_data.expand(messages), sanity_data, network_error)
-+    return reparse
- 
- # Create a copy of the datastore and finalise it to ensure appends and 
- # overrides are set - the datastore has yet to be finalised at ConfigParsed
-@@ -642,11 +640,13 @@ addhandler check_sanity_eventhandler
- python check_sanity_eventhandler() {
-     if bb.event.getName(e) == "ConfigParsed" and e.data.getVar("BB_WORKERCONTEXT", True) != "1" and e.data.getVar("DISABLE_SANITY_CHECKS", True) != "1":
-         sanity_data = copy_data(e)
--        check_sanity(sanity_data)
-+        reparse = check_sanity(sanity_data)
-+        e.data.setVar("BB_INVALIDCONF", reparse)
-     elif bb.event.getName(e) == "SanityCheck":
-         sanity_data = copy_data(e)
-         sanity_data.setVar("SANITY_USE_EVENTS", "1")
--        check_sanity(sanity_data)
-+        reparse = check_sanity(sanity_data)
-+        e.data.setVar("BB_INVALIDCONF", reparse)
-         bb.event.fire(bb.event.SanityCheckPassed(), e.data)
-     elif bb.event.getName(e) == "NetworkTest":
-         sanity_data = copy_data(e)
--- 
-1.7.9.5
+I'm looking at building a newer version of pygobject then what's currently
+in Poky, and from what I find it seems the new recommended way is to use
+gobject-introspection and the gi.repository module.
 
+I saw that gobject-introspection was available in recipes-gnome/gnome/
+before but is now removed. So I'm curious about the reasoning for removing
+it? Was there any particular reason?
 
+Best Regards,
+Erik Bot=F6
+
+--e89a8fb2016efe059104d597daa6
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,=A0<div><br></div><div>I&#39;m looking at building a ne=
+wer version of pygobject then what&#39;s currently in Poky, and from what I=
+ find it seems the new recommended way is to use gobject-introspection and =
+the gi.repository module.</div>
+<div><br></div><div>I saw that gobject-introspection was available in recip=
+es-gnome/gnome/ before but is now removed. So I&#39;m curious about the rea=
+soning for removing it? Was there any particular reason?<br clear=3D"all">
+<div><br></div><div style>Best Regards,=A0</div><div style>Erik Bot=F6</div=
+></div></div>
+
+--e89a8fb2016efe059104d597daa6--
