@@ -1,44 +1,19 @@
-Return-Path: <halstead@happypunch.com>
-Received: from mail-pa0-f42.google.com (mail-pa0-f42.google.com
-	[209.85.220.42]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
-	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id D333EE011ED
-	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 08:31:18 -0800 (PST)
-Received: by mail-pa0-f42.google.com with SMTP id kq12so791001pab.1
-	for <poky@yoctoproject.org>; Wed, 13 Feb 2013 08:31:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=happypunch.com; s=google;
-	h=x-received:sender:from:to:cc:subject:date:message-id:x-mailer;
-	bh=1mh/Dum1Ebfy/rAtwJLCAJmRu1UpqzA29Bljs0S9lTk=;
-	b=AzZEG9SfghdW5Julnamg4VYAeoen2c6zKrUKHTw77gFAUyfNdV97y5Eul3PDTcKSeE
-	4o2l8XdUhArjH7pLwN0Ag90tOnLJatdV0cnWdgRWjt24rTUaWhVSX0fLwwFV9LZ8+ckr
-	mEY7yWp9Jupq4+Djg10XPl+0+ZATQxKQgXnBw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:sender:from:to:cc:subject:date:message-id:x-mailer
-	:x-gm-message-state;
-	bh=1mh/Dum1Ebfy/rAtwJLCAJmRu1UpqzA29Bljs0S9lTk=;
-	b=mouU2Sos5b0mU/lEaIkWr4nWvQzj3Z/Vn7QwMWH69utQedkT9bWvi50ZSDLhwynfbV
-	qof2IxCtnytY85fIk7MSXxspI75s8S9HFX3N/VM1dNgzPSYCtMmdm2owCfLV2xWIN410
-	DP4g66b5mYOvoTgjg+CxK7Dz0/iBZkjtEz7f+h+R2TNIRrDmjobLrqSkn4E/vgdCKfwV
-	/KtRNtYaw4vZk4/hrKenx+crigu0pXvfyGssPFgmbM+3cS9fHI6oOykxSNrSwuZ5EydC
-	k2smwrU4vGCKk/TQlOZLYAzT5wXGlew2IsKzb7UKV6hmoF/8tNLjAdlP11oM3OxJEQlC
-	RhMw==
-X-Received: by 10.66.84.202 with SMTP id b10mr65527212paz.71.1360773078094;
-	Wed, 13 Feb 2013 08:31:18 -0800 (PST)
-Received: from localhost.localdomain
-	(static-50-43-37-91.bvtn.or.frontiernet.net. [50.43.37.91])
-	by mx.google.com with ESMTPS id s9sm1453740pav.7.2013.02.13.08.31.16
-	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 13 Feb 2013 08:31:17 -0800 (PST)
-Sender: Michael Halstead <halstead@happypunch.com>
-From: Michael Halstead <michael@yoctoproject.org>
+Return-Path: <emilia.maria.silvia.ciobanu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 13400E0047F
+	for <poky@yoctoproject.org>; Thu, 14 Feb 2013 07:28:58 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 14 Feb 2013 07:28:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,665,1355126400"; d="scan'208";a="287243457"
+Received: from ema-vostro-460 (HELO localhost.localdomain) ([10.237.105.41])
+	by fmsmga001.fm.intel.com with ESMTP; 14 Feb 2013 07:28:56 -0800
+From: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 13 Feb 2013 08:31:03 -0800
-Message-Id: <1360773064-3671-1-git-send-email-michael@yoctoproject.org>
+Date: Thu, 14 Feb 2013 17:33:21 +0200
+Message-Id: <1360856001-16944-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-X-Gm-Message-State: ALoCoQm3TbPoBoxX4ULZJCjX07lmQZBRPrNiIdQ5tO3KGeYDNwim605zHpbjiafRtZlEhCV9J+jR
-Subject: [PATCH] Forcing ps to display unlimited column width allows the qemu IP address to be discovered during sanity testing when the command line is extremely long.
+Subject: [PATCH] Solved package namespace errors in PRS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,58 +26,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Feb 2013 16:31:18 -0000
+X-List-Received-Date: Thu, 14 Feb 2013 15:28:58 -0000
 
+For some packages PRS reported incorrect upstream version
+as it was either the raw string or it mismatched some
+alternative groups. Also removed some beta versioning the
+system reported for the socat package and the development
+version reported by PRS for foomatic-filters.
+
+Signed-off-by: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
 ---
+ meta-yocto/conf/distro/include/package_regex.inc |    5 +++--
+ meta/classes/distrodata.bbclass                  |    6 +++---
+ 2 files changed, 6 insertions(+), 5 deletions(-)
 
-This seems to fix the sanity testing problem on AB05 which was recently updated
-to OpenSUSE 12.2. I'm not sure what about qemu or process listing is different
-on that distribution but this simpile fix seems to work and my help on other
-distro's as well.
-
- scripts/qemuimage-testlib |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/scripts/qemuimage-testlib b/scripts/qemuimage-testlib
-index 7bdaa4f..f8a5299 100755
---- a/scripts/qemuimage-testlib
-+++ b/scripts/qemuimage-testlib
-@@ -220,7 +220,7 @@ Test_Kill_Qemu()
- 	declare local pid
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index 43b5518..c63c2e6 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -56,6 +56,7 @@ REGEX_URI_pn-flac = "http://sourceforge.net/projects/flac/files/flac-linux-i386/
+ REGEX_pn-flac = "[hH][rR][eE][fF]=\"/projects/flac/files/flac-linux-i386/flac\-(?P<pver>((\d+[\.\-_]*)+))\-linux\-i386/\""
+ REGEX_URI_pn-flex = "http://sourceforge.net/projects/flex/files/"
+ REGEX_pn-flex = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/flex/files/flex-(?P<pver>((\d+[\.\-_]*)+)).tar.gz/download\""
++REGEX_pn-foomatic-filters = "[hH][rR][eE][fF]=\"foomatic-filters-(?P<pver>((\d|\d\d)\.*)+)\.tar\.gz\""
+ REGEX_URI_pn-freetype = "http://sourceforge.net/projects/freetype/files/freetype2"
+ REGEX_pn-freetype = "[hH][rR][eE][fF]=\"/projects/freetype/files/freetype\d/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-freetype-native = "http://sourceforge.net/projects/freetype/files/freetype2"
+@@ -65,7 +66,7 @@ REGEX_pn-glew  = " [hH][rR][eE][fF]=\"/projects/glew/files/glew/(?P<pver>((\d+[\
+ REGEX_URI_pn-hdparm = "http://sourceforge.net/projects/hdparm/files/hdparm/"
+ REGEX_pn-hdparm = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/hdparm/files/hdparm/hdparm-(?P<pver>((\d+[\.\-_]*)+)).tar.gz/download\""
+ REGEX_URI_pn-icu = "http://site.icu-project.org/download"
+-REGEX_pn-icu = "[hH][rR][eE][fF]=\"http://site.icu-project.org/download/((\d+[\.\-_]*)+)#(TOC\-)?ICU4J\-Download\" rel=\"nofollow\">(<b>)?(?P<pver>((\d+[\.\-_]*)+))(</b>)?"
++REGEX_pn-icu = "[hH][rR][eE][fF]=\"http://site.icu-project.org/download/((\d+[\.\-_]*)+)#(TOC\-)?ICU4C\-Download\" rel=\"nofollow\">(<b>)?(?P<pver>((\d+[\.\-_]*)+))(</b>)?"
+ REGEX_URI_pn-irda-utils = "http://sourceforge.net/projects/irda/files/irda-utils/"
+ REGEX_pn-irda-utils = "[hH][rR][eE][fF]=\"/projects/irda/files/irda-utils/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-jpeg = "http://www.ijg.org/files/"
+@@ -178,7 +179,7 @@ REGEX_pn-setserial = "[hH][rR][eE][fF]=\"/projects/setserial/files/setserial/(?P
+ REGEX_pn-shared-mime-info = "[hH][rR][eE][fF]=\"shared\-mime\-info\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.(bz2|gz|xz)\""
+ REGEX_pn-shared-mime-info-native = "[hH][rR][eE][fF]=\"shared\-mime\-info\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.(bz2|gz|xz)\""
+ REGEX_URI_pn-socat = "http://www.dest-unreach.org/socat/download/"
+-REGEX_pn-socat = "[hH][rR][eE][fF]=\"socat\-(?P<pver>(([a-zA-Z]?\d+[\.\-]*)+))\.tar\.bz2\""
++REGEX_pn-socat = "[hH][rR][eE][fF]=\"socat\-(?P<pver>((\d+[\.\-]*)+))\.tar\.bz2\""
+ REGEX_URI_pn-speex = "http://downloads.us.xiph.org/releases/speex/"
+ REGEX_pn-speex = "[hH][rR][eE][fF]=\"speex\-(?P<pver>((\d+\.*)+))\.tar\.gz\""
+ REGEX_URI_pn-sqlite3 = "http://www.sqlite.org/download.html"
+diff --git a/meta/classes/distrodata.bbclass b/meta/classes/distrodata.bbclass
+index e25eeab..276ca03 100644
+--- a/meta/classes/distrodata.bbclass
++++ b/meta/classes/distrodata.bbclass
+@@ -291,8 +291,8 @@ python do_checkpkg() {
+         suffix = "(tar\.gz|tgz|tar\.bz2|zip|xz|rpm|bz2|orig\.tar\.gz|tar\.xz|src\.tar\.gz|src\.tgz|svnr\d+\.tar\.bz2|stable\.tar\.gz|src\.rpm)"
  
- 	# Check if $1 pid exists and is a qemu process
--	ps -fp $PID | grep -iq "qemu"
-+	ps -wwfp $PID | grep -iq "qemu"
+         suffixtuple = ("tar.gz", "tgz", "zip", "tar.bz2", "tar.xz", "bz2", "orig.tar.gz", "src.tar.gz", "src.rpm", "src.tgz", "svnr\d+.tar.bz2", "stable.tar.gz", "src.rpm")
+-        sinterstr = "(?P<name>%s?)v?(?P<ver>%s)(source)?" % (prefix, ver_regex)
+-        sdirstr = "(?P<name>%s)\.?v?(?P<ver>%s)(source)?[\.\-](?P<type>%s$)" % (prefix, ver_regex, suffix)
++        sinterstr = "(?P<name>%s?)v?(?P<ver>%s)(\-source)?" % (prefix, ver_regex)
++        sdirstr = "(?P<name>%s)\.?v?(?P<ver>%s)(\-source)?[\.\-](?P<type>%s$)" % (prefix, ver_regex, suffix)
  
- 	# Find all children pid of the pid $1
- 	if [ $? -eq 0 ]; then
-@@ -383,7 +383,7 @@ Test_Fetch_Target_IP()
- 	declare local pid
+         def parse_inter(s):
+                 m = re.search(sinterstr, s)
+@@ -504,7 +504,7 @@ python do_checkpkg() {
+                                 status = "ErrParseDir"
+                         else:
+                                 """newver still contains a full package name string"""
+-                                status = newver[1]
++                                status = re.sub('_', '.', newver[1])
+                 elif not len(fhtml):
+                         status = "ErrHostNoDir"
  
- 	# Check if $1 pid exists and contains ipaddr of target
--	ps -fp $opid | grep -oq "192\.168\.7\.[0-9]*::"
-+	ps -wwfp $opid | grep -oq "192\.168\.7\.[0-9]*::"
- 
- 	# Find all children pid of the pid $1
- 	# and check if they contain ipaddr of target
-@@ -408,14 +408,14 @@ Test_Fetch_Target_IP()
- 		while [ $i -ne 0 ]
- 		do
- 			i=$((i-1))
--			ps -fp ${pid[$i]} | grep -oq "192\.168\.7\.[0-9]*::"
-+			ps -wwfp ${pid[$i]} | grep -oq "192\.168\.7\.[0-9]*::"
- 			if [ $? -eq 0 ]; then
--				ip_addr=`ps -fp ${pid[$i]} | grep -o "192\.168\.7\.[0-9]*::" | awk -F":" '{print $1}'`
-+				ip_addr=`ps -wwfp ${pid[$i]} | grep -o "192\.168\.7\.[0-9]*::" | awk -F":" '{print $1}'`
- 			fi
- 			sleep 1
- 		done
- 	else
--		ip_addr=`ps -fp $opid | grep -o "192\.168\.7\.[0-9]*::" | awk -F":" '{print $1}'`
-+		ip_addr=`ps -wwfp $opid | grep -o "192\.168\.7\.[0-9]*::" | awk -F":" '{print $1}'`
- 	fi
- 
- 	echo $ip_addr
 -- 
 1.7.9.5
 
