@@ -1,19 +1,20 @@
-Return-Path: <cristian.iorga@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7CA2FE01248
-	for <poky@yoctoproject.org>; Wed, 20 Feb 2013 01:47:01 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 20 Feb 2013 01:47:00 -0800
+Return-Path: <constantinx.musca@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75AF5E0070F
+	for <poky@yoctoproject.org>; Thu, 21 Feb 2013 05:48:58 -0800 (PST)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 21 Feb 2013 05:48:57 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,699,1355126400"; d="scan'208";a="289478500"
-Received: from sentry (HELO localhost.localdomain) ([10.237.105.54])
-	by fmsmga001.fm.intel.com with ESMTP; 20 Feb 2013 01:46:49 -0800
-From: Cristian Iorga <cristian.iorga@intel.com>
+X-IronPort-AV: E=Sophos;i="4.84,709,1355126400"; d="scan'208";a="204891026"
+Received: from costin-desktop (HELO localhost.localdomain) ([10.237.105.152])
+	by AZSMGA002.ch.intel.com with ESMTP; 21 Feb 2013 05:48:56 -0800
+From: Constantin Musca <constantinx.musca@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 20 Feb 2013 11:47:12 +0200
-Message-Id: <1361353632-15927-1-git-send-email-cristian.iorga@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] upstream_tracking.inc: Coonectivity and multimedia packages updates
+Date: Thu, 21 Feb 2013 15:50:00 +0200
+Message-Id: <1361454600-13046-1-git-send-email-constantinx.musca@intel.com>
+X-Mailer: git-send-email 1.7.11.7
+Cc: Constantin Musca <constantinx.musca@intel.com>
+Subject: [PATCH] meta-skeleton: Add example multilib usages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,33 +27,79 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Feb 2013 09:47:01 -0000
+X-List-Received-Date: Thu, 21 Feb 2013 13:48:58 -0000
 
-Upstream packages tracking updates
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Constantin Musca <constantinx.musca@intel.com>
 ---
- meta-yocto/conf/distro/include/upstream_tracking.inc |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ meta-skeleton/conf/multilib-example.conf                    | 13 +++++++++++++
+ meta-skeleton/conf/multilib-example2.conf                   | 13 +++++++++++++
+ .../recipes-multilib/images/core-image-multilib-example.bb  | 13 +++++++++++++
+ 3 files changed, 39 insertions(+)
+ create mode 100644 meta-skeleton/conf/multilib-example.conf
+ create mode 100644 meta-skeleton/conf/multilib-example2.conf
+ create mode 100644 meta-skeleton/recipes-multilib/images/core-image-multilib-example.bb
 
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index a984722..52d35dc 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -121,9 +121,9 @@ RECIPE_UPSTREAM_VERSION_pn-makedevs = "1.0.0"
- RECIPE_UPSTREAM_DATE_pn-makedevs = "Feb 11, 2009"
- CHECK_DATE_pn-makedevs = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
--RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.1"
--RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 11, 2012"
--CHECK_DATE_pn-minicom = "Aug 31, 2012"
-+RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.2"
-+RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 06, 2013"
-+CHECK_DATE_pn-minicom = "Feb 20, 2013"
- RECIPE_UPSTREAM_DATE_pn-module-init-tools = "Jun 02, 2011"
- RECIPE_UPSTREAM_VERSION_pn-module-init-tools = "3.15"
- CHECK_DATE_pn-module-init-tools = "Aug 31, 2012"
+diff --git a/meta-skeleton/conf/multilib-example.conf b/meta-skeleton/conf/multilib-example.conf
+new file mode 100644
+index 0000000..da6da7f
+--- /dev/null
++++ b/meta-skeleton/conf/multilib-example.conf
+@@ -0,0 +1,13 @@
++#
++# Sample multilib configuration which the user can either add in local.conf
++# or specific in an configuration file like this, then require it.
++#
++# This configuration specifies an x86 64 bit machine as the main machine
++# type and then adds a multilib in the "lib32" directory where those
++# libraries are compiled with the "x86" tune.
++#
++
++MACHINE = "qemux86-64"
++require conf/multilib.conf
++MULTILIBS = "multilib:lib32"
++DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
+diff --git a/meta-skeleton/conf/multilib-example2.conf b/meta-skeleton/conf/multilib-example2.conf
+new file mode 100644
+index 0000000..2596f61
+--- /dev/null
++++ b/meta-skeleton/conf/multilib-example2.conf
+@@ -0,0 +1,13 @@
++#
++# Sample multilib configuration which the user can either add in local.conf
++# or specific in an configuration file like this, then require it.
++#
++# This configuration specifies an x86 64 bit machine as the main machine
++# type and then adds a multilib in the "libx32" directory where those
++# libraries are compiled with the "x86-64-x32" tune.
++#
++
++MACHINE = "qemux86-64"
++require conf/multilib.conf
++MULTILIBS = "multilib:libx32"
++DEFAULTTUNE_virtclass-multilib-libx32 = "x86-64-x32"
+diff --git a/meta-skeleton/recipes-multilib/images/core-image-multilib-example.bb b/meta-skeleton/recipes-multilib/images/core-image-multilib-example.bb
+new file mode 100644
+index 0000000..7703731
+--- /dev/null
++++ b/meta-skeleton/recipes-multilib/images/core-image-multilib-example.bb
+@@ -0,0 +1,13 @@
++#
++# An example of a multilib image
++#
++# This example includes a lib32 version of bash into an otherwise standard
++# sato image. It assumes a "lib32" multilib has been enabled in the user's
++# configuration (see the example conf files for examples of this.)
++#
++
++# First include a base image to base things off
++require recipes-core/images/core-image-sato.bb
++
++# Now add the multilib packages we want to install
++IMAGE_INSTALL += "lib32-bash"
 -- 
-1.7.10.4
+1.7.11.7
 
 
