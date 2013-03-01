@@ -1,36 +1,31 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-pb0-f45.google.com (mail-pb0-f45.google.com
-	[209.85.160.45]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 87B10E00429
-	for <poky@yoctoproject.org>; Fri,  1 Mar 2013 09:52:23 -0800 (PST)
-Received: by mail-pb0-f45.google.com with SMTP id ro8so1888335pbb.4
-	for <poky@yoctoproject.org>; Fri, 01 Mar 2013 09:52:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=x-received:date:from:to:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=2D51ogmgD+QXfC0LVvZe1SsDWVQVB7kkgLfUTFE+/xg=;
-	b=Hg2iSe8lpTpU62yi+38VGNq3EnONwpOs9EO0LMeamydh7mGsZtrSJ6CXTYdoeAVEcR
-	cZPaVnQuXefEW4yaV8PMy++PEJBFllYJgJGgqSNcJfzlv4KhLTqqANAAuXNpPFrjIF7Z
-	TYZq06UspP/lrdsaKkt8Zxq36cP7A5vRGFVeDGZn7GzbUj8qmnuG184i2zUBoalM4GOd
-	qv2GFTFahM2TQZHeeWTZ/e09+cOc5vCYk6fE2wom/yqV6q0ZHng/baYeyoFLtQJQrO2R
-	CrUHUIIGrn/FM27zQdOMIhUQx+56ULUVymnDFdqPzjUjHmHV0rLsF1+5Yfs1rBRRSBvl
-	FGSA==
-X-Received: by 10.68.195.161 with SMTP id if1mr7509712pbc.207.1362160343285;
-	Fri, 01 Mar 2013 09:52:23 -0800 (PST)
-Received: from localhost (ip-62-24-80-7.net.upcbroadband.cz. [62.24.80.7])
-	by mx.google.com with ESMTPS id hs8sm12721563pbc.27.2013.03.01.09.52.20
-	(version=TLSv1.2 cipher=RC4-SHA bits=128/128);
-	Fri, 01 Mar 2013 09:52:22 -0800 (PST)
-Date: Fri, 1 Mar 2013 18:52:15 +0100
-From: Martin Jansa <martin.jansa@gmail.com>
-To: poky@yoctoproject.org
-Message-ID: <20130301175215.GQ3279@jama>
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 1EF78E0072C
+	for <poky@yoctoproject.org>; Fri,  1 Mar 2013 09:53:05 -0800 (PST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r21I0Ui5003742; Fri, 1 Mar 2013 18:00:30 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 7Nm3S9xC1nKl; Fri,  1 Mar 2013 18:00:30 +0000 (GMT)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r21I0OaK003718
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
+	verify=NOT); Fri, 1 Mar 2013 18:00:28 GMT
+Message-ID: <1362160366.11004.0.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Martin Jansa <martin.jansa@gmail.com>
+Date: Fri, 01 Mar 2013 17:52:46 +0000
+In-Reply-To: <1362154793-10296-1-git-send-email-Martin.Jansa@gmail.com>
 References: <1362135473-20635-1-git-send-email-Martin.Jansa@gmail.com>
 	<1362154793-10296-1-git-send-email-Martin.Jansa@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <1362154793-10296-1-git-send-email-Martin.Jansa@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Mailer: Evolution 3.6.3-1 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
 Subject: Re: [PATCHv2] poky.conf: update SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -44,39 +39,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2013 17:52:23 -0000
-X-Groupsio-MsgNum: 8720
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="6pbY/KU4ayLo+qis"
-Content-Disposition: inline
+X-List-Received-Date: Fri, 01 Mar 2013 17:53:06 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---6pbY/KU4ayLo+qis
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Mar 01, 2013 at 05:19:53PM +0100, Martin Jansa wrote:
+On Fri, 2013-03-01 at 17:19 +0100, Martin Jansa wrote:
 > * use DistributorId-Release
 > * please test values for Yocto, Poky, CentOS and openSUSE
-
-Looks like v1 was already applied to meta-yocto, waiting for Trevor's
-confirmation, but openSUSE entries need to be updated.
-
+> 
 > Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 > ---
->  meta-yocto/conf/distro/poky.conf | 40 +++++++++++++++++++---------------=
-------
+>  meta-yocto/conf/distro/poky.conf | 40 +++++++++++++++++++---------------------
 >  1 file changed, 19 insertions(+), 21 deletions(-)
->=20
-> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/po=
-ky.conf
+> 
+> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
 > index c48b492..48180d7 100644
 > --- a/meta-yocto/conf/distro/poky.conf
 > +++ b/meta-yocto/conf/distro/poky.conf
-> @@ -69,27 +69,25 @@ CONNECTIVITY_CHECK_URIS ?=3D " \
+> @@ -69,27 +69,25 @@ CONNECTIVITY_CHECK_URIS ?= " \
 >               http://bugzilla.yoctoproject.org/report.cgi"
-> =20
->  SANITY_TESTED_DISTROS ?=3D " \
+>  
+>  SANITY_TESTED_DISTROS ?= " \
 > -            Yocto (Built by Poky 7.0) 1.2 \n \
 > -            Poky 7.0 (Yocto Project 1.2 Reference Distro) 1.2 \n \
 > -            Poky 8.0 (Yocto Project 1.3 Reference Distro) 1.3 \n \
@@ -118,25 +101,16 @@ ky.conf
 > +            SUSE-LINUX-12.1 \n \
 > +            SUSE-LINUX-12.2 \n \
 >  	    "
-> =20
+>  
 >  # Default hash policy for distro
-> --=20
-> 1.8.1.4
->=20
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+I thought I'd already merged this?
 
---6pbY/KU4ayLo+qis
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Thanks for taking care of it though. Can you rediff against master
+please?
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.19 (GNU/Linux)
+Thanks,
 
-iEYEARECAAYFAlEw6s8ACgkQN1Ujt2V2gBxK+QCeOHvbfSAtvvCgzhlZY6mwxM+9
-KL0AoKeq1+E16841Sgrgqbun2UU/p3Ie
-=HcqR
------END PGP SIGNATURE-----
+Richard
 
---6pbY/KU4ayLo+qis--
+
