@@ -1,43 +1,39 @@
-Return-Path: <twoerner@gmail.com>
-Received: from mail-we0-f169.google.com (mail-we0-f169.google.com
-	[74.125.82.169]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+Return-Path: <rjohnweber@gmail.com>
+Received: from mail-yh0-f47.google.com (mail-yh0-f47.google.com
+	[209.85.213.47]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
 	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id F3EDEE01482
-	for <poky@yoctoproject.org>; Fri,  1 Mar 2013 13:48:57 -0800 (PST)
-Received: by mail-we0-f169.google.com with SMTP id t11so2974810wey.14
-	for <poky@yoctoproject.org>; Fri, 01 Mar 2013 13:48:56 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 5438CE0123F
+	for <poky@yoctoproject.org>; Sat,  2 Mar 2013 07:44:59 -0800 (PST)
+Received: by mail-yh0-f47.google.com with SMTP id w68so600609yhw.34
+	for <poky@yoctoproject.org>; Sat, 02 Mar 2013 07:44:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:x-received:in-reply-to:references:date:message-id
-	:subject:from:to:cc:content-type;
-	bh=P/nk6MzILpuBK5Ii9/nMtEt13O0HwgoBsbzT4sJyNPY=;
-	b=YXj1ebGa+2oCxdx8Hb5/KDaYlqnZ78OVZZ4F0tGKSQFKE83cCX7/fttZj7sy728Hly
-	ziIIT9Qxm61uQ25Kb4Ccvbt9nq5r/lRfNb2TmgE0h0JWPXJ3DRxUsV7wiqpGzVoPu04x
-	QuRmDZLnSpoUa+dH5p0Ci5RmhW3N44mckBIc2Y0jWK3v6G+IxoGI4iRg0Gari/OBlt8r
-	kvwmudySBk3/LMmDk93CGvsJJXLhuWPPlEHRDzcXxBBYxEbtbqM+iAKOtESsUlZM+aCu
-	1Hdxhx42hAsyv2glJYr+x/xLQSVvZ3FFqZuCTbIyfWr+E2B6xbukAZvy/wSEFFu6rp0K
-	k6Dg==
+	h=x-received:message-id:date:from:user-agent:mime-version:to:subject
+	:references:in-reply-to:x-forwarded-message-id:content-type
+	:content-transfer-encoding;
+	bh=O4sH8wGqwCNV/Tpg28DkkFcSdoWBFi41y7MX0QCqhMg=;
+	b=Yxx556A4CUjxOc1cWCVwGNfVg+AdoKodO1Ek7HNo3wSHJf8EG2su5i40uQodgsMP/t
+	81GsBjvTA6yBgawC7F3T/t1l9JnvJ/UvO8CTHua73Fu4JLIGraitHZ2NGfyQhHH0b9Ao
+	mxyoSKBS+GdJf1DPjYVqOVfMxSPIiwsSr0JN6jCXOcnuqk1sV7dbEU9LnV1bET+2jjzD
+	2VSIZ7RiRTLQYpf4+DxBI2CNX5wlD6D7V3CrWcjCH94s2yVeu9t7Fpie4gpnW1C/xMKo
+	WM6/Oaic59epIC3UZ+4FGTGNNswhXV0So/uUG6mSotcoh13m6UK0HXzaA1lKJADyJYMU
+	XZWw==
+X-Received: by 10.236.146.39 with SMTP id q27mr10134571yhj.203.1362239098309; 
+	Sat, 02 Mar 2013 07:44:58 -0800 (PST)
+Received: from goober.local ([75.76.228.60])
+	by mx.google.com with ESMTPS id k45sm24898673yhd.2.2013.03.02.07.44.57
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Sat, 02 Mar 2013 07:44:57 -0800 (PST)
+Message-ID: <51321E78.7070107@gmail.com>
+Date: Sat, 02 Mar 2013 09:44:56 -0600
+From: John Weber <rjohnweber@gmail.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
+	rv:17.0) Gecko/20130216 Thunderbird/17.0.3
 MIME-Version: 1.0
-X-Received: by 10.180.104.10 with SMTP id ga10mr348150wib.23.1362174536370;
-	Fri, 01 Mar 2013 13:48:56 -0800 (PST)
-Received: by 10.194.45.100 with HTTP; Fri, 1 Mar 2013 13:48:56 -0800 (PST)
-In-Reply-To: <CAHUNapQ_SW4XsdKFNb627Ay=xdm=i+8hDz5WVJj3Qr0Zp9+Paw@mail.gmail.com>
-References: <1362135473-20635-1-git-send-email-Martin.Jansa@gmail.com>
-	<1362154793-10296-1-git-send-email-Martin.Jansa@gmail.com>
-	<CAHUNapTo8kOO+k9aFOnDCyc6LgMtx+tRzm=hJW4q_5rjL+Nd0Q@mail.gmail.com>
-	<20130301173817.GP3279@jama>
-	<CAHUNapTJVB_Opb1pBpMEpWTc8S9gZBz1S+iAJAyg9ybEwao=hQ@mail.gmail.com>
-	<20130301191053.GR3279@jama>
-	<CAHUNapTnV7mCppOBC=-JuXp-7Tc6KquyN2=KJWRh0rPOPY1WaA@mail.gmail.com>
-	<20130301212012.GS3279@jama>
-	<CAHUNapSQW42ShgSNHws0uZ_coJQLi_wzbiCix4cvONSfDCnKRQ@mail.gmail.com>
-	<20130301213842.GT3279@jama>
-	<CAHUNapQ_SW4XsdKFNb627Ay=xdm=i+8hDz5WVJj3Qr0Zp9+Paw@mail.gmail.com>
-Date: Fri, 1 Mar 2013 16:48:56 -0500
-Message-ID: <CAHUNapRs9v9HTgNPfcFa6P8GOm9gkMVj7tOn0OwXJxOOMzWKfg@mail.gmail.com>
-From: Trevor Woerner <twoerner@gmail.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCHv2] poky.conf: update SANITY_TESTED_DISTROS
+To: poky@yoctoproject.org
+References: <5130FC37.5020700@gmail.com>
+In-Reply-To: <5130FC37.5020700@gmail.com>
+X-Forwarded-Message-Id: <5130FC37.5020700@gmail.com>
+Subject: [master] Qt build failing during build of fsl-image-gui
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,15 +46,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2013 21:48:58 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Sat, 02 Mar 2013 15:44:59 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 1, 2013 at 4:42 PM, Trevor Woerner <twoerner@gmail.com> wrote:
-> On Fri, Mar 1, 2013 at 4:38 PM, Martin Jansa <martin.jansa@gmail.com> wrote:
->> Do you also have this one?
->> https://lists.yoctoproject.org/pipermail/poky/2013-March/008824.html
->
-> No I don't, sorry. Retesting...
+I originally sent this to the meta-freescale list, but I thought I might see if 
+someone on the main poky list might have some insight.
 
-...and it works. Sorry for the confusion.
+
+-------- Original Message --------
+Subject: [master] Qt build failing during build of fsl-image-gui
+Date: Fri, 01 Mar 2013 13:06:31 -0600
+From: John Weber <rjohnweber@gmail.com>
+To: meta-freescale@yoctoproject.org
+
+I'm attempting to build fsl-image-gui and I'm using master (synced a couple of
+days ago).  It's failing consistently when compiling Qt:
+
+| ERROR: oe_runmake failed
+| ERROR: Function failed: do_compile (see
+/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/work/wandboard_dual-poky-linux-gnueabi/qt4-x11-free/4.8.4-r51.3/temp/log.do_compile.1605 
+
+for further information)
+ERROR: Task 418
+(/mnt/YOCTOFSL/fsl-community-bsp/sources/poky/meta/recipes-qt/qt4/qt4-x11-free_4.8.4.bb, 
+
+do_compile) failed with exit code '1'
+
+Avoiding posting the entire log here.  ;-)  But, here is the error from a
+snipped of the log:
+
+~~~~~~~~~~
+| arm-poky-linux-gnueabi-g++  -march=armv7-a     -mthumb-interwork
+-mfloat-abi=softfp -mfpu=neon
+--sysroot=/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual -c
+-O2 -pipe -g -feliminate-unused-debug-types -fpermissive
+-fvisibility-inlines-hidden
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/include/mysql 
+
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/include/postgresql 
+
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/src/kernel/include/ 
+
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/include
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/include/freetype2 
+
+-O2 -O2 -Wall -W -Wall -W -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_OPENGL_SUPPORT
+-D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -DQT_NO_DEBUG -DQT_OPENGL_LIB
+-DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I../../mkspecs/linux-g++ -I.
+-I../../include/QtCore -I../../include/QtGui -I../../include/QtOpenGL
+-I../../include -I../shared
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/include/freetype2 
+
+-I.moc/release-shared -o .obj/release-shared/main.o main.cpp
+| In file included from ../../include/QtCore/qtconcurrentmapkernel.h:1:0,
+|                  from
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentfilterkernel.h:50,
+|                  from ../../include/QtCore/qtconcurrentfilterkernel.h:1,
+|                  from
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentfilter.h:49,
+|                  from ../../include/QtCore/qtconcurrentfilter.h:1,
+|                  from ../../include/QtCore/QtCore:53,
+|                  from ../../include/QtGui/QtGui:3,
+|                  from gradients.h:47,
+|                  from main.cpp:42:
+| ../../include/QtCore/../../src/corelib/concurrent/qtconcurrentmapkernel.h: In
+function 'QtConcurrent::ThreadEngineStarter<ResultType>
+QtConcurrent::startMappedReduced(Iterator, Iterator, MapFunctor, ReduceFunctor,
+QtConcurrent::ReduceOptions)':
+|
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentmapkernel.h:262:1:
+error: expected primary-expression before '}' token
+|
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentmapkernel.h:262:1:
+error: expected ';' before '}' token
+| make[2]: *** [.obj/release-shared/main.o] Error 1
+| make[2]: Leaving directory
+`/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/work/wandboard_dual-poky-linux-gnueabi/qt4-x11-free/4.8.4-r51.3/qt-everywhere-opensource-src-4.8.4/demos/gradients'
+| make[1]: *** [sub-gradients-make_default] Error 2
+~~~~~~~~~~
+
+Taking a look at the source, I don't see a problem:
+File:
+fsl-community-bsp/build/tmp/work/wandboard_dual-poky-linux-gnueabi/qt4-x11-free/4.8.4-r51.3/qt-everywhere-opensource-src-4.8.4/src/corelib/concurrent/qtconcurrentmapkernel.h:
+
+~~~~~~~~
+template <typename IntermediateType, typename ResultType, typename Iterator,
+typename MapFunctor, typename ReduceFunctor>
+inline ThreadEngineStarter<ResultType> startMappedReduced(Iterator begin,
+Iterator end,
+                                                            MapFunctor
+mapFunctor, ReduceFunctor reduceFunctor,
+                                                            ReduceOptions options)
+{
+     typedef ReduceKernel<ReduceFunctor, ResultType, IntermediateType> Reducer;
+     typedef MappedReducedKernel<ResultType, Iterator, MapFunctor,
+ReduceFunctor, Reducer> MappedReduceType;
+     return startThreadEngine(new MappedReduceType(begin, end, mapFunctor,
+reduceFunctor, options));   <<<<----- Line in question
+}
+
+} // namespace QtConcurrent
+~~~~~~~~~
+
+Is it possible that the problem is related to the toolchain?
+
+John
+
+
 
