@@ -1,35 +1,22 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-we0-f176.google.com (mail-we0-f176.google.com
-	[74.125.82.176]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
-	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id ECBECE0144A
-	for <poky@yoctoproject.org>; Mon,  4 Mar 2013 03:09:21 -0800 (PST)
-Received: by mail-we0-f176.google.com with SMTP id s43so4270731wey.21
-	for <poky@yoctoproject.org>; Mon, 04 Mar 2013 03:09:19 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:from:to:subject:date:message-id:x-mailer
-	:x-gm-message-state;
-	bh=UnrU8dpwzrDQU9nX4Cs+QlCytnHhsCozS0eW6OtglYM=;
-	b=aJG87nfEWK9lAwpp2q64Cen6uRSNx0kTpj3NwiTUm5/mhjOU5avEHx+uqDn6J/BnTu
-	VzY0iGpOqa1d9M8AySfOy2ZuEkLrTEJ+8pzQr8kr0/yVSNTix1OMwXtKhTWX+rAb04Qz
-	bEddvPesTEAZyQT0Y+3Py96sNvMklHEVOqBRcWJuudDEIJbnMXxs7j80Dn+mVq/x1aqJ
-	/sUgwtyInV+nBM2wfxtrURsg15UQPvMy/LInHASdQAv1742mtS+PqPlOOV4lEWVSZWVU
-	DkEjOEJkpyQHRnk/QHsjtX3WIEhC1Odw491ncoBRuLuWX/HURRn/P0a1YEEbNYQ0SfEU
-	TVLA==
-X-Received: by 10.180.75.177 with SMTP id d17mr10790343wiw.16.1362395359596;
-	Mon, 04 Mar 2013 03:09:19 -0800 (PST)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id du2sm13420373wib.0.2013.03.04.03.09.17
-	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 04 Mar 2013 03:09:18 -0800 (PST)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  4 Mar 2013 11:06:51 +0000
-Message-Id: <1362395211-2069-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-X-Gm-Message-State: ALoCoQlYyUl1kFiOlRVW8zKxfE+Ygna6lDeqj5zS5qty0+QcWLRHTuJwQuqgGgKJaz3KkPFpZYcU
-Subject: [PATCH] xserver-xf86-config: atom-pc doesn't need a xorg.conf
+Return-Path: <prvs=769a27b0a=sgrunza@ctdi.com>
+Received: from smtp.ctdi.com (smtp.ctdi.com [65.213.88.7])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DB7EFE014E2
+	for <poky@yoctoproject.org>; Tue,  5 Mar 2013 06:14:31 -0800 (PST)
+X-SBRS: None
+X-SenderGroup: EXCHANGE_RELAY
+Received: from unknown (HELO WCEXCH3.ctdi.com) ([192.168.173.73])
+	by smtp.ctdi.com with ESMTP; 05 Mar 2013 09:14:30 -0500
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+MIME-Version: 1.0
+Date: Tue, 5 Mar 2013 09:14:25 -0500
+Message-ID: <6A40B310D7EFC840A22CBF165D914E2902BE9264@WCEXCH3.ctdi.com>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Thread-Topic: Is there a guide for adding a board to the yocto system?
+Thread-Index: Ac4Zq73ebsSVOmYxS6KhbP6fP9JWlA==
+From: "Steven Grunza" <sgrunza@ctdi.com>
+To: <poky@yoctoproject.org>
+Subject: Is there a guide for adding a board to the yocto system?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,48 +29,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2013 11:09:22 -0000
+X-List-Received-Date: Tue, 05 Mar 2013 14:14:32 -0000
+Content-class: urn:content-classes:message
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Replace xorg.conf with an empty file so it doesn't get installed, as atom-pc can
-auto-detect the hardware.
+I would like to add a board to the yocto system such that instead of
+having a line in build/conf/local.conf that reads=20
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- .../xserver-xf86-config/atom-pc/xorg.conf          |   26 --------------------
- 1 file changed, 26 deletions(-)
+MACHINE ?=3D "beagleboard"
 
-diff --git a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/atom-pc/xorg.conf b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/atom-pc/xorg.conf
-index e18b911..e69de29 100644
---- a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/atom-pc/xorg.conf
-+++ b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/atom-pc/xorg.conf
-@@ -1,26 +0,0 @@
--Section "Device"
--    Identifier    "Intel Graphics Driver"
--    Driver        "intel"
--EndSection
--
--Section "Monitor"
--    Identifier    "Generic Monitor"
--    Option        "DPMS"
--EndSection
--
--Section "Screen"
--    Identifier    "Default Screen"
--    Device        "Intel Graphics Driver"
--    Monitor        "Generic Monitor"
--    DefaultDepth    24
--EndSection
--
--Section "ServerLayout"
--    Identifier    "Default Layout"
--    Screen        "Default Screen"
--EndSection
--
--Section "ServerFlags"
--    Option        "DontZap"  "0"
--    Option	  "AutoAddDevices" "False"
--EndSection
--- 
-1.7.10.4
+It would be
+
+MACHINE ?=3D "my_board_name"
+
+
+Is there a guide on how to do this?
+
+------------------------------------------------------------------------
+---------------------------
+
+Steven Grunza
 
 
