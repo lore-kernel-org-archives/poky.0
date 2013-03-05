@@ -1,22 +1,19 @@
-Return-Path: <prvs=769a27b0a=sgrunza@ctdi.com>
-Received: from smtp.ctdi.com (smtp.ctdi.com [65.213.88.7])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DB7EFE014E2
-	for <poky@yoctoproject.org>; Tue,  5 Mar 2013 06:14:31 -0800 (PST)
-X-SBRS: None
-X-SenderGroup: EXCHANGE_RELAY
-Received: from unknown (HELO WCEXCH3.ctdi.com) ([192.168.173.73])
-	by smtp.ctdi.com with ESMTP; 05 Mar 2013 09:14:30 -0500
-X-MimeOLE: Produced By Microsoft Exchange V6.5
-MIME-Version: 1.0
-Date: Tue, 5 Mar 2013 09:14:25 -0500
-Message-ID: <6A40B310D7EFC840A22CBF165D914E2902BE9264@WCEXCH3.ctdi.com>
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-Thread-Topic: Is there a guide for adding a board to the yocto system?
-Thread-Index: Ac4Zq73ebsSVOmYxS6KhbP6fP9JWlA==
-From: "Steven Grunza" <sgrunza@ctdi.com>
-To: <poky@yoctoproject.org>
-Subject: Is there a guide for adding a board to the yocto system?
+Return-Path: <laurentiu.palcu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0AC70E014EF
+	for <poky@yoctoproject.org>; Tue,  5 Mar 2013 06:41:27 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 05 Mar 2013 06:41:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,787,1355126400"; d="scan'208";a="299304715"
+Received: from lpalcu-linux (HELO localhost.localdomain) ([10.237.105.165])
+	by fmsmga002.fm.intel.com with ESMTP; 05 Mar 2013 06:41:26 -0800
+From: Laurentiu Palcu <laurentiu.palcu@intel.com>
+To: poky@yoctoproject.org
+Date: Tue,  5 Mar 2013 16:41:24 +0200
+Message-Id: <1362494484-10527-1-git-send-email-laurentiu.palcu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] (distro-alias|maintainers|package-regex).inc: mesa-dri -> mesa
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,27 +26,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2013 14:14:32 -0000
-Content-class: urn:content-classes:message
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 05 Mar 2013 14:41:28 -0000
 
-I would like to add a board to the yocto system such that instead of
-having a line in build/conf/local.conf that reads=20
+Since the mesa-dri recipe has been renamed to mesa, change the mentioned files
+accordingly.
 
-MACHINE ?=3D "beagleboard"
+[YOCTO #3385]
 
-It would be
+Signed-off-by: Laurentiu Palcu <laurentiu.palcu@intel.com>
+---
+ meta-yocto/conf/distro/include/distro_alias.inc  |    4 ++--
+ meta-yocto/conf/distro/include/maintainers.inc   |    4 ++--
+ meta-yocto/conf/distro/include/package_regex.inc |    8 ++++----
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-MACHINE ?=3D "my_board_name"
-
-
-Is there a guide on how to do this?
-
-------------------------------------------------------------------------
----------------------------
-
-Steven Grunza
+diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
+index 2246097..043c262 100644
+--- a/meta-yocto/conf/distro/include/distro_alias.inc
++++ b/meta-yocto/conf/distro/include/distro_alias.inc
+@@ -237,8 +237,8 @@ DISTRO_PN_ALIAS_pn-matchbox-themes-gtk = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-matchbox-wm-2 = "Mandriva=matchbox-window-manager Debian=matchbox-window-manager"
+ DISTRO_PN_ALIAS_pn-matchbox-wm = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-menu-cache = "OSPDT"
+-DISTRO_PN_ALIAS_pn-mesa-dri = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
+-DISTRO_PN_ALIAS_pn-mesa-dri-glsl-native = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
++DISTRO_PN_ALIAS_pn-mesa = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
++DISTRO_PN_ALIAS_pn-mesa-glsl-native = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
+ DISTRO_PN_ALIAS_pn-meta-environment-i586 = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-ide-support = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-toolchain-gmae = "OE-Core"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index 0f7a872..4bef81f 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -516,8 +516,8 @@ RECIPE_MAINTAINER_pn-mc = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-mdadm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-menu-cache = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa-demos = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-mesa-dri-glsl-native = "Constantin Musca <constantinx.musca@intel.com>"
+-RECIPE_MAINTAINER_pn-mesa-dri = "Constantin Musca <constantinx.musca@intel.com>"
++RECIPE_MAINTAINER_pn-mesa-glsl-native = "Constantin Musca <constantinx.musca@intel.com>"
++RECIPE_MAINTAINER_pn-mesa = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-metacity = "Constantin Musca <constantinx.musca@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-environment-i586 = "Jessica Zhang <jessica.zhang@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-ide-support = "Jessica Zhang <jessica.zhang@intel.com>"
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index fb1473d..4025e40 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -263,10 +263,10 @@ REGEX_URI_pn-bind = "ftp://ftp.isc.org/isc/bind9/"
+ REGEX_pn-bind = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/bind9/(?P<pver>((P?\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-dhcp = "ftp://ftp.isc.org/isc/dhcp/"
+ REGEX_pn-dhcp = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/dhcp/(dhcp\-)?(?P<pver>((P?\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-mesa-dri = "ftp://ftp.freedesktop.org/pub/mesa/"
+-REGEX_pn-mesa-dri = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-mesa-dri-glsl-native = "ftp://ftp.freedesktop.org/pub/mesa/"
+-REGEX_pn-mesa-dri-glsl-native = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-mesa = "ftp://ftp.freedesktop.org/pub/mesa/"
++REGEX_pn-mesa = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-mesa-glsl-native = "ftp://ftp.freedesktop.org/pub/mesa/"
++REGEX_pn-mesa-glsl-native = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-nspr = "ftp://ftp.mozilla.org/pub/mozilla.org/nspr/releases/"
+ REGEX_pn-nspr = "[hH][rR][eE][fF]=\"ftp://ftp.mozilla.org:21/pub/mozilla.org/nspr/releases/v(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-createrepo = "http://createrepo.baseurl.org/download/"
+-- 
+1.7.9.5
 
 
