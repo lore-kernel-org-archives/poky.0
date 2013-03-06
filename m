@@ -1,22 +1,38 @@
-Return-Path: <eric@eukrea.com>
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6D95EE0148D;
-	Wed,  6 Mar 2013 13:48:19 -0800 (PST)
-Received: from e6520eb (tal33-3-82-233-81-124.fbx.proxad.net [82.233.81.124])
-	(Authenticated sender: eukrea)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id AB255A623A;
-	Wed,  6 Mar 2013 22:48:10 +0100 (CET)
-Date: Wed, 6 Mar 2013 22:48:08 +0100
-From: Eric =?UTF-8?B?QsOpbmFyZA==?= <eric@eukrea.com>
-To: John Weber <rjohnweber@gmail.com>
-Message-ID: <20130306224808.6efe1351@e6520eb>
-In-Reply-To: <51375B7C.9010106@gmail.com>
+Return-Path: <rjohnweber@gmail.com>
+Received: from mail-vc0-f172.google.com (mail-vc0-f172.google.com
+	[209.85.220.172]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+	(No client certificate requested)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id DDF56E014DD;
+	Wed,  6 Mar 2013 13:50:55 -0800 (PST)
+Received: by mail-vc0-f172.google.com with SMTP id l6so5127993vcl.31
+	for <multiple recipients>; Wed, 06 Mar 2013 13:50:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=x-received:message-id:date:from:user-agent:mime-version:cc:subject
+	:references:in-reply-to:content-type:content-transfer-encoding;
+	bh=evvafLISKJydowwAfHz1MxXLH0/239T9PjI6T04d66o=;
+	b=NoaberrjvwB353ECyHmbbD/X/LsCCa4taCfxZ3Rn/Xcv4qBNPXFeFiXuQ+LxK4vSak
+	75MyqQFA5NoJW6b4qmjZzeB5DT66CDBMs9+2BQExwM5mCbGleyu9wCCaPONNbHcQERO2
+	uMjOxOzIsT41Wmo7FervA04PxW055Lli3vNFg4HwQAIncL7GJM0vqwGMZi23eE/qIeXd
+	4qv0O04jw2j29jCgBDGtHV121f0vQ7YEGzq8MI3FqiI9uWhffQzR01SUjoZ/f/yu5Yb1
+	L5PMymYCK1TXdkvbDFRlGQdG+c2fWMI+LgmGl56u3hOKOclfKwGI+GaN3P1HKyRbd66+
+	+1bA==
+X-Received: by 10.220.153.69 with SMTP id j5mr11802104vcw.35.1362606654921;
+	Wed, 06 Mar 2013 13:50:54 -0800 (PST)
+Received: from goober.local ([75.76.228.60])
+	by mx.google.com with ESMTPS id a19sm6708570vdh.9.2013.03.06.13.50.53
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Wed, 06 Mar 2013 13:50:54 -0800 (PST)
+Message-ID: <5137BA3D.1050008@gmail.com>
+Date: Wed, 06 Mar 2013 15:50:53 -0600
+From: John Weber <rjohnweber@gmail.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
+	rv:17.0) Gecko/20130216 Thunderbird/17.0.3
+MIME-Version: 1.0
 References: <51375B7C.9010106@gmail.com>
-Organization: =?UTF-8?B?RXVrcsOpYQ==?= Electromatique
-X-Mailer: Claws Mail 3.9.0 (GTK+ 2.24.13; x86_64-redhat-linux-gnu)
-Mime-Version: 1.0
+	<CAP9ODKppqgZkcgcmyTQy4WNyXZrwcvdCDBrc06S=k_hbjSBidA@mail.gmail.com>
+In-Reply-To: <CAP9ODKppqgZkcgcmyTQy4WNyXZrwcvdCDBrc06S=k_hbjSBidA@mail.gmail.com>
 Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
-	poky@yoctoproject.org
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [meta-freescale] Firmware loading
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -30,72 +46,80 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2013 21:48:22 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 06 Mar 2013 21:50:56 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi John,
+On 3/6/13 3:18 PM, Otavio Salvador wrote:
+> On Wed, Mar 6, 2013 at 12:06 PM, John Weber <rjohnweber@gmail.com> wrote:
+>> I'm attempting to configure Linux to load firmware for a Broadcom SDIO Wifi
+>> chip (BCM4329) onto an i.MX6-based board.
+>>
+>> Here is my main question - How is firmware supposed to be loaded within the
+>> paradigm of a Yocto/Poky-built system?  Any insight and guidance is
+>> appreciated.
+>>
+>> What I've done so far, and what I've discovered:
+>>
+>> I've incorporated the driver into the kernel (backported from an upstream
+>> kernel rev), and removed the staging drivers present in 3.0.35.  It is
+>> built-in at the moment (not a module) and this is the error that I'm getting
+>> when it times-out loading firmware:
+>>
+>> brcmfmac: brcmf_sdbrcm_download_code_file: Fail to request firmware -2
+>> brcmfmac: _brcmf_sdbrcm_download_firmware: dongle image file download failed
+>> brcmfmac: brcmf_bus_start: brcmf_sdbrcm_bus_init failed -1
+>>
+>> The error code indicates that it cannot load firmware because it can't find
+>> the firmware file.
+>>
+>> I've taken care to put the firmware in /lib/firmware/brcm (2 files).  The
+>> driver hardcodes a relative path filename to the firmware files and I've
+>> made sure that they are the same.
+>>
+>> I've researched the firmware request process for the kernel.  My
+>> understanding is that the process looks like this:
+>> 1) driver requests firmware file
+>> 2) kernel opens up a special set of files in sysfs (/sys/class/firmware/xxx
+>> where xxx is the device name)
+>> 3) kernel signals udev to load firmware, giving it the filename and the
+>> device name
+>> 4) udev, through its rules, locates the firmware file for the device and
+>> writes it to the special file in sysfs
+>>
+>> So, here is where I'm starting to get confused.  The default udev rules that
+>> are created in /lib/udev/rules.d/50-udev-default.rules show the following
+>> rule for firmware:
+>>
+>> SUBSYSTEM=="firmware", ACTION=="add", IMPORT{builtin}="firmware"
+>>
+>> I'm guessing that this is for cases where the firmware file is built-in to
+>> the kernel image.  I can see the necessity for doing this in some cases, but
+>> that is not what I'm doing at the moment, I'm trying to load the firmware
+>> from a file in the filesystem.  That requires udev to run a program or
+>> script that will read the file and write it to the appropriate file in
+>> sysfs.
+>>
+>> The files in the poky udev recipe offers a clue, but for some reason that I
+>> don't understand, this file does not make it into the filesystem:
+>>
+>> poky/meta/recipes-core/udev/udev/udev.rules:
+>>
+>> # Firmware Helper
+>> ACTION=="add", SUBSYSTEM=="firmware", RUN+="/lib/udev/firmware.sh"
+>>
+>> This rule expects that there is a firmware helper script "firmware.sh"
+>> somewhere in the filesystem.  Other than this file, I can't file any
+>> reference to a "firmware.sh" file anywhere in the metadata, which could
+>> explain why this line doesn't make it into the installed filesystem.  I
+>> could only find references to files named this on the net.
+>
+> This is danny or master? For danny, please check the version of udev
+> being included as the udev maintained in meta-oe has some bugs but it
+> is used by default.
+>
 
-Le Wed, 06 Mar 2013 09:06:36 -0600,
-John Weber <rjohnweber@gmail.com> a =C3=A9crit :
+I'm using master at the moment.  The version of udev is 182 in poky.
 
-> I'm attempting to configure Linux to load firmware for a Broadcom SDIO Wi=
-fi chip=20
-> (BCM4329) onto an i.MX6-based board.
->=20
-> Here is my main question - How is firmware supposed to be loaded within t=
-he=20
-> paradigm of a Yocto/Poky-built system?  Any insight and guidance is appre=
-ciated.
->=20
-> What I've done so far, and what I've discovered:
->=20
-> I've incorporated the driver into the kernel (backported from an upstream=
- kernel=20
-> rev), and removed the staging drivers present in 3.0.35.  It is built-in =
-at the=20
-> moment (not a module) and this is the error that I'm getting when it time=
-s-out=20
-> loading firmware:
->=20
-> brcmfmac: brcmf_sdbrcm_download_code_file: Fail to request firmware -2
-> brcmfmac: _brcmf_sdbrcm_download_firmware: dongle image file download fai=
-led
-> brcmfmac: brcmf_bus_start: brcmf_sdbrcm_bus_init failed -1
->=20
-> The error code indicates that it cannot load firmware because it can't fi=
-nd the=20
-> firmware file.
->=20
-> I've taken care to put the firmware in /lib/firmware/brcm (2 files).  The=
- driver=20
-> hardcodes a relative path filename to the firmware files and I've made su=
-re that=20
-> they are the same.
->=20
-> I've researched the firmware request process for the kernel.  My understa=
-nding=20
-> is that the process looks like this:
-> 1) driver requests firmware file
-> 2) kernel opens up a special set of files in sysfs (/sys/class/firmware/x=
-xx=20
-> where xxx is the device name)
-> 3) kernel signals udev to load firmware, giving it the filename and the d=
-evice name
-> 4) udev, through its rules, locates the firmware file for the device and =
-writes=20
-> it to the special file in sysfs
->=20
-if the driver is in the kernel it may not have the ability to require
-the firmware from the file system as the file system may not yet be
-mounted which can explain why you get the timeout.
-You can check if you are in that case if you get the timeout log
-before getting the log saying the filesystem is mounted.
 
-To workaround that, you can integrate the firmware in the kernel image
-by setting CONFIG_EXTRA_FIRMWARE=3D"path/to/your/firmware" in the kernel
-config, so that your driver can get its firmware (or you can compile
-your driver as a module and load it after the file system is mounted).
-
-Eric
 
