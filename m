@@ -1,36 +1,44 @@
-Return-Path: <rjohnweber@gmail.com>
-Received: from mail-ye0-f171.google.com (mail-ye0-f171.google.com
-	[209.85.213.171]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+Return-Path: <rstreif@linuxfoundation.org>
+Received: from mail-ee0-f50.google.com (mail-ee0-f50.google.com [74.125.83.50])
+	(using TLSv1 with cipher RC4-SHA (128/128 bits))
 	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 2FF1DE014E3;
-	Wed,  6 Mar 2013 07:06:40 -0800 (PST)
-Received: by mail-ye0-f171.google.com with SMTP id m13so1194019yen.2
-	for <multiple recipients>; Wed, 06 Mar 2013 07:06:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=x-received:message-id:date:from:user-agent:mime-version:to:subject
-	:content-type:content-transfer-encoding;
-	bh=pG73XnWyuWWuGAKpF/h1ola67YKq3E1pOT4DX768fes=;
-	b=ywhJssX/Wur6WzDBIVgdX/UNXf0niaK1Sf5ZVbn4q7VAhucv8QpUyBwg9rnzZaDfIi
-	azjmfRe0oO97qy29XqnQ6QhBAnP06k+pZV6AQuQlpiYXn+FxN0ZMFSWNp5EMbEhR6cwp
-	NdDy8rrIYtDPnxCobmxClttAwrn7/lDh2+y5juvXpyCTj9W6TAaBmwKxNgTGbr9B+0lJ
-	06Yacr5SkBsIN1a8/wkIcA4qJ2Ta2tEo8FUCUlTOg9/F1cRd5q85Rvg8i455DMeS9u7+
-	kDQQO9HHh1IvbOgLi0Ghv99dQ73xmNVoLdTWG+aiFPk0hp9A3PEJnNBgxRrskYjgl9xn
-	K5Hw==
-X-Received: by 10.236.134.163 with SMTP id s23mr20678084yhi.54.1362582399044; 
-	Wed, 06 Mar 2013 07:06:39 -0800 (PST)
-Received: from goober.local ([75.76.228.60])
-	by mx.google.com with ESMTPS id k2sm12860527yhn.26.2013.03.06.07.06.37
-	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 06 Mar 2013 07:06:37 -0800 (PST)
-Message-ID: <51375B7C.9010106@gmail.com>
-Date: Wed, 06 Mar 2013 09:06:36 -0600
-From: John Weber <rjohnweber@gmail.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
-	rv:17.0) Gecko/20130216 Thunderbird/17.0.3
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 3B5F8E014A7
+	for <poky@lists.yoctoproject.org>; Wed,  6 Mar 2013 08:57:55 -0800 (PST)
+Received: by mail-ee0-f50.google.com with SMTP id e51so6022990eek.23
+	for <poky@lists.yoctoproject.org>; Wed, 06 Mar 2013 08:57:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=mime-version:x-received:in-reply-to:references:date:message-id
+	:subject:from:to:cc:content-type;
+	bh=nzyrtXo5t8V9ePNpwUOJM2XH/ju8axDfRV1p5yVZEts=;
+	b=Y6wou5b9FU2VYTPAtcsLjcC7KzxXOttGniTY2yDTdWMSLl/UF8Ct/pPF/id+5Q+WTD
+	W5Xjn8QWacACaYKUXi2AJIKtcjHaqLTIduUKAbth7Exi8z2Dydvq5JLi2Fid6BBZZjc9
+	Y4h4o8H1A5IN4TIzLejehwYlebtKm/3zN/HfY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=mime-version:x-received:in-reply-to:references:date:message-id
+	:subject:from:to:cc:content-type:x-gm-message-state;
+	bh=nzyrtXo5t8V9ePNpwUOJM2XH/ju8axDfRV1p5yVZEts=;
+	b=MAt2gd5fi/IurTaq+JHht9rYtJte4DigqTDfzFu6wCOpljm7qqIK4/ssRVcYwf/lGT
+	0erepFoJjdQBy8zVt3EaMF9TCuRld1AB07BFpIthwOd6i3DMgQYEbFy+FE8REjhQmab/
+	TFEHYCqpUgIzHsH5+TTg9PyxUyfg6VKziNy0ySXk+kaiodB5BRFaoLegl4Lod1dKi09v
+	gTEcmnsdLHIMnbqmJT/0g0ZoiMdxlTKt1AM67GYaMWJ5z3/brQfuB/lVmamUEl9INorE
+	l+whC6AAjOmSHlXgxRC4l4fUniXvgac/5oz3GzDaHhwZrfZ6edb1C774ifk4VlwlEgp8
+	4EEg==
 MIME-Version: 1.0
-To: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>, 
-	poky@yoctoproject.org
-Subject: Firmware loading
+X-Received: by 10.14.200.137 with SMTP id z9mr83251949een.20.1362589073380;
+	Wed, 06 Mar 2013 08:57:53 -0800 (PST)
+Received: by 10.223.43.200 with HTTP; Wed, 6 Mar 2013 08:57:52 -0800 (PST)
+In-Reply-To: <41DEA4B02DBDEF40A0F3B6D0DDB123796F34862D@ORSMSX101.amr.corp.intel.com>
+References: <41DEA4B02DBDEF40A0F3B6D0DDB123796F34862D@ORSMSX101.amr.corp.intel.com>
+Date: Wed, 6 Mar 2013 08:57:52 -0800
+Message-ID: <CA+gsK-oeJNVDk6rWximRQS5YK7JV5wkNq9eL1eBxCTysEjH=Pw@mail.gmail.com>
+From: Rudolf Streif <rstreif@linuxfoundation.org>
+To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
+X-Gm-Message-State: ALoCoQnZhL7AZ69yBW+Zhl3Xy61q+fAJiY5z2ilqFW45U1Fxj4mE8NNglkZebpmZD7WWDuNsi+mY
+Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
+	poky <poky@lists.yoctoproject.org>
+Subject: Re: FW: Is there a guide for adding a board to the yocto system?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,74 +51,81 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2013 15:06:40 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 06 Mar 2013 16:57:55 -0000
+Content-Type: multipart/alternative; boundary=047d7b343b82b1cac104d7447d0e
 
-I'm attempting to configure Linux to load firmware for a Broadcom SDIO Wifi chip 
-(BCM4329) onto an i.MX6-based board.
+--047d7b343b82b1cac104d7447d0e
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
 
-Here is my main question - How is firmware supposed to be loaded within the 
-paradigm of a Yocto/Poky-built system?  Any insight and guidance is appreciated.
+On Tue, Mar 5, 2013 at 5:19 PM, Rifenbark, Scott M <
+scott.m.rifenbark@intel.com> wrote:
 
-What I've done so far, and what I've discovered:
+>  Isn=92t this a matter of creating a BSP layer for the desired board?  If
+> so, doesn=92t one try to find a similar board from one of the
+> supported/released yocto BSPs and then modify that to create the custom
+> layer?****
+>
+> ** **
+>
+> Scott****
+>
+> **
+>
+Yes, it is. At least IMHO. Technically, you have three ways of creating a
+YP BSP layer:
 
-I've incorporated the driver into the kernel (backported from an upstream kernel 
-rev), and removed the staging drivers present in 3.0.35.  It is built-in at the 
-moment (not a module) and this is the error that I'm getting when it times-out 
-loading firmware:
+   - Build it manually from scratch by creating the directory tree and
+   populate it with the configuration files, recipes, readme files, etc. th=
+at
+   you need.
+   - Copy an existing BSP layer that supports a machine that is similar to
+   the one you are trying to support.
+   - Use the yocto-bsp script to create one and then eventually the
+   yocto-kernel script to modify the kernel configuration if you are
+   leveraging the YP kernel.
 
-brcmfmac: brcmf_sdbrcm_download_code_file: Fail to request firmware -2
-brcmfmac: _brcmf_sdbrcm_download_firmware: dongle image file download failed
-brcmfmac: brcmf_bus_start: brcmf_sdbrcm_bus_init failed -1
+Rudi
 
-The error code indicates that it cannot load firmware because it can't find the 
-firmware file.
+--047d7b343b82b1cac104d7447d0e
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
 
-I've taken care to put the firmware in /lib/firmware/brcm (2 files).  The driver 
-hardcodes a relative path filename to the firmware files and I've made sure that 
-they are the same.
-
-I've researched the firmware request process for the kernel.  My understanding 
-is that the process looks like this:
-1) driver requests firmware file
-2) kernel opens up a special set of files in sysfs (/sys/class/firmware/xxx 
-where xxx is the device name)
-3) kernel signals udev to load firmware, giving it the filename and the device name
-4) udev, through its rules, locates the firmware file for the device and writes 
-it to the special file in sysfs
-
-So, here is where I'm starting to get confused.  The default udev rules that are 
-created in /lib/udev/rules.d/50-udev-default.rules show the following rule for 
-firmware:
-
-SUBSYSTEM=="firmware", ACTION=="add", IMPORT{builtin}="firmware"
-
-I'm guessing that this is for cases where the firmware file is built-in to the 
-kernel image.  I can see the necessity for doing this in some cases, but that is 
-not what I'm doing at the moment, I'm trying to load the firmware from a file in 
-the filesystem.  That requires udev to run a program or script that will read 
-the file and write it to the appropriate file in sysfs.
-
-The files in the poky udev recipe offers a clue, but for some reason that I 
-don't understand, this file does not make it into the filesystem:
-
-poky/meta/recipes-core/udev/udev/udev.rules:
-
-# Firmware Helper
-ACTION=="add", SUBSYSTEM=="firmware", RUN+="/lib/udev/firmware.sh"
-
-This rule expects that there is a firmware helper script "firmware.sh" somewhere 
-in the filesystem.  Other than this file, I can't file any reference to a 
-"firmware.sh" file anywhere in the metadata, which could explain why this line 
-doesn't make it into the installed filesystem.  I could only find references to 
-files named this on the net.
+<div dir=3D"ltr">On Tue, Mar 5, 2013 at 5:19 PM, Rifenbark, Scott M <span d=
+ir=3D"ltr">&lt;<a href=3D"mailto:scott.m.rifenbark@intel.com" target=3D"_bl=
+ank">scott.m.rifenbark@intel.com</a>&gt;</span> wrote:<br><div class=3D"gma=
+il_extra">
+<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204=
+);border-left-style:solid;padding-left:1ex">
 
 
 
 
 
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div>
+<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
+color:rgb(31,73,125)">Isn=92t this a matter of creating a BSP layer for the=
+ desired board?=A0 If so, doesn=92t one try to find a similar board from on=
+e of the supported/released yocto
+ BSPs and then modify that to create the custom layer?<u></u><u></u></span>=
+</p>
+<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
+color:rgb(31,73,125)"><u></u>=A0<u></u></span></p>
+<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
+color:rgb(31,73,125)">Scott<u></u><u></u></span></p>
+<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
+color:rgb(31,73,125)"><u></u>=A0</span></p></div></div></blockquote>Yes, it=
+ is. At least IMHO. Technically, you have three ways of creating a YP BSP l=
+ayer:<div>
+<ul><li>Build it manually from scratch by creating the directory tree and p=
+opulate it with the configuration files, recipes, readme files, etc. that y=
+ou need.</li><li>Copy an existing BSP layer that supports a machine that is=
+ similar to the one you are trying to support.</li>
+<li>Use the yocto-bsp script to create one and then eventually the yocto-ke=
+rnel script to modify the kernel configuration if you are leveraging the YP=
+ kernel.</li></ul></div><div>Rudi=A0</div></div>
+</div></div>
 
-
-
-
+--047d7b343b82b1cac104d7447d0e--
