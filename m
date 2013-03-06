@@ -1,44 +1,23 @@
-Return-Path: <rstreif@linuxfoundation.org>
-Received: from mail-ee0-f50.google.com (mail-ee0-f50.google.com [74.125.83.50])
-	(using TLSv1 with cipher RC4-SHA (128/128 bits))
-	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 3B5F8E014A7
-	for <poky@lists.yoctoproject.org>; Wed,  6 Mar 2013 08:57:55 -0800 (PST)
-Received: by mail-ee0-f50.google.com with SMTP id e51so6022990eek.23
-	for <poky@lists.yoctoproject.org>; Wed, 06 Mar 2013 08:57:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=mime-version:x-received:in-reply-to:references:date:message-id
-	:subject:from:to:cc:content-type;
-	bh=nzyrtXo5t8V9ePNpwUOJM2XH/ju8axDfRV1p5yVZEts=;
-	b=Y6wou5b9FU2VYTPAtcsLjcC7KzxXOttGniTY2yDTdWMSLl/UF8Ct/pPF/id+5Q+WTD
-	W5Xjn8QWacACaYKUXi2AJIKtcjHaqLTIduUKAbth7Exi8z2Dydvq5JLi2Fid6BBZZjc9
-	Y4h4o8H1A5IN4TIzLejehwYlebtKm/3zN/HfY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:x-received:in-reply-to:references:date:message-id
-	:subject:from:to:cc:content-type:x-gm-message-state;
-	bh=nzyrtXo5t8V9ePNpwUOJM2XH/ju8axDfRV1p5yVZEts=;
-	b=MAt2gd5fi/IurTaq+JHht9rYtJte4DigqTDfzFu6wCOpljm7qqIK4/ssRVcYwf/lGT
-	0erepFoJjdQBy8zVt3EaMF9TCuRld1AB07BFpIthwOd6i3DMgQYEbFy+FE8REjhQmab/
-	TFEHYCqpUgIzHsH5+TTg9PyxUyfg6VKziNy0ySXk+kaiodB5BRFaoLegl4Lod1dKi09v
-	gTEcmnsdLHIMnbqmJT/0g0ZoiMdxlTKt1AM67GYaMWJ5z3/brQfuB/lVmamUEl9INorE
-	l+whC6AAjOmSHlXgxRC4l4fUniXvgac/5oz3GzDaHhwZrfZ6edb1C774ifk4VlwlEgp8
-	4EEg==
-MIME-Version: 1.0
-X-Received: by 10.14.200.137 with SMTP id z9mr83251949een.20.1362589073380;
-	Wed, 06 Mar 2013 08:57:53 -0800 (PST)
-Received: by 10.223.43.200 with HTTP; Wed, 6 Mar 2013 08:57:52 -0800 (PST)
-In-Reply-To: <41DEA4B02DBDEF40A0F3B6D0DDB123796F34862D@ORSMSX101.amr.corp.intel.com>
-References: <41DEA4B02DBDEF40A0F3B6D0DDB123796F34862D@ORSMSX101.amr.corp.intel.com>
-Date: Wed, 6 Mar 2013 08:57:52 -0800
-Message-ID: <CA+gsK-oeJNVDk6rWximRQS5YK7JV5wkNq9eL1eBxCTysEjH=Pw@mail.gmail.com>
-From: Rudolf Streif <rstreif@linuxfoundation.org>
-To: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-X-Gm-Message-State: ALoCoQnZhL7AZ69yBW+Zhl3Xy61q+fAJiY5z2ilqFW45U1Fxj4mE8NNglkZebpmZD7WWDuNsi+mY
-Cc: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	poky <poky@lists.yoctoproject.org>
-Subject: Re: FW: Is there a guide for adding a board to the yocto system?
+Return-Path: <eric@eukrea.com>
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6D95EE0148D;
+	Wed,  6 Mar 2013 13:48:19 -0800 (PST)
+Received: from e6520eb (tal33-3-82-233-81-124.fbx.proxad.net [82.233.81.124])
+	(Authenticated sender: eukrea)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id AB255A623A;
+	Wed,  6 Mar 2013 22:48:10 +0100 (CET)
+Date: Wed, 6 Mar 2013 22:48:08 +0100
+From: Eric =?UTF-8?B?QsOpbmFyZA==?= <eric@eukrea.com>
+To: John Weber <rjohnweber@gmail.com>
+Message-ID: <20130306224808.6efe1351@e6520eb>
+In-Reply-To: <51375B7C.9010106@gmail.com>
+References: <51375B7C.9010106@gmail.com>
+Organization: =?UTF-8?B?RXVrcsOpYQ==?= Electromatique
+X-Mailer: Claws Mail 3.9.0 (GTK+ 2.24.13; x86_64-redhat-linux-gnu)
+Mime-Version: 1.0
+Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
+	poky@yoctoproject.org
+Subject: Re: [meta-freescale] Firmware loading
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,81 +30,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2013 16:57:55 -0000
-Content-Type: multipart/alternative; boundary=047d7b343b82b1cac104d7447d0e
-
---047d7b343b82b1cac104d7447d0e
-Content-Type: text/plain; charset=windows-1252
+X-List-Received-Date: Wed, 06 Mar 2013 21:48:22 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 5, 2013 at 5:19 PM, Rifenbark, Scott M <
-scott.m.rifenbark@intel.com> wrote:
+Hi John,
 
->  Isn=92t this a matter of creating a BSP layer for the desired board?  If
-> so, doesn=92t one try to find a similar board from one of the
-> supported/released yocto BSPs and then modify that to create the custom
-> layer?****
->
-> ** **
->
-> Scott****
->
-> **
->
-Yes, it is. At least IMHO. Technically, you have three ways of creating a
-YP BSP layer:
+Le Wed, 06 Mar 2013 09:06:36 -0600,
+John Weber <rjohnweber@gmail.com> a =C3=A9crit :
 
-   - Build it manually from scratch by creating the directory tree and
-   populate it with the configuration files, recipes, readme files, etc. th=
-at
-   you need.
-   - Copy an existing BSP layer that supports a machine that is similar to
-   the one you are trying to support.
-   - Use the yocto-bsp script to create one and then eventually the
-   yocto-kernel script to modify the kernel configuration if you are
-   leveraging the YP kernel.
+> I'm attempting to configure Linux to load firmware for a Broadcom SDIO Wi=
+fi chip=20
+> (BCM4329) onto an i.MX6-based board.
+>=20
+> Here is my main question - How is firmware supposed to be loaded within t=
+he=20
+> paradigm of a Yocto/Poky-built system?  Any insight and guidance is appre=
+ciated.
+>=20
+> What I've done so far, and what I've discovered:
+>=20
+> I've incorporated the driver into the kernel (backported from an upstream=
+ kernel=20
+> rev), and removed the staging drivers present in 3.0.35.  It is built-in =
+at the=20
+> moment (not a module) and this is the error that I'm getting when it time=
+s-out=20
+> loading firmware:
+>=20
+> brcmfmac: brcmf_sdbrcm_download_code_file: Fail to request firmware -2
+> brcmfmac: _brcmf_sdbrcm_download_firmware: dongle image file download fai=
+led
+> brcmfmac: brcmf_bus_start: brcmf_sdbrcm_bus_init failed -1
+>=20
+> The error code indicates that it cannot load firmware because it can't fi=
+nd the=20
+> firmware file.
+>=20
+> I've taken care to put the firmware in /lib/firmware/brcm (2 files).  The=
+ driver=20
+> hardcodes a relative path filename to the firmware files and I've made su=
+re that=20
+> they are the same.
+>=20
+> I've researched the firmware request process for the kernel.  My understa=
+nding=20
+> is that the process looks like this:
+> 1) driver requests firmware file
+> 2) kernel opens up a special set of files in sysfs (/sys/class/firmware/x=
+xx=20
+> where xxx is the device name)
+> 3) kernel signals udev to load firmware, giving it the filename and the d=
+evice name
+> 4) udev, through its rules, locates the firmware file for the device and =
+writes=20
+> it to the special file in sysfs
+>=20
+if the driver is in the kernel it may not have the ability to require
+the firmware from the file system as the file system may not yet be
+mounted which can explain why you get the timeout.
+You can check if you are in that case if you get the timeout log
+before getting the log saying the filesystem is mounted.
 
-Rudi
+To workaround that, you can integrate the firmware in the kernel image
+by setting CONFIG_EXTRA_FIRMWARE=3D"path/to/your/firmware" in the kernel
+config, so that your driver can get its firmware (or you can compile
+your driver as a module and load it after the file system is mounted).
 
---047d7b343b82b1cac104d7447d0e
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: quoted-printable
+Eric
 
-<div dir=3D"ltr">On Tue, Mar 5, 2013 at 5:19 PM, Rifenbark, Scott M <span d=
-ir=3D"ltr">&lt;<a href=3D"mailto:scott.m.rifenbark@intel.com" target=3D"_bl=
-ank">scott.m.rifenbark@intel.com</a>&gt;</span> wrote:<br><div class=3D"gma=
-il_extra">
-<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204=
-);border-left-style:solid;padding-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div>
-<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
-color:rgb(31,73,125)">Isn=92t this a matter of creating a BSP layer for the=
- desired board?=A0 If so, doesn=92t one try to find a similar board from on=
-e of the supported/released yocto
- BSPs and then modify that to create the custom layer?<u></u><u></u></span>=
-</p>
-<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
-color:rgb(31,73,125)"><u></u>=A0<u></u></span></p>
-<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
-color:rgb(31,73,125)">Scott<u></u><u></u></span></p>
-<p class=3D""><span style=3D"font-size:11pt;font-family:Calibri,sans-serif;=
-color:rgb(31,73,125)"><u></u>=A0</span></p></div></div></blockquote>Yes, it=
- is. At least IMHO. Technically, you have three ways of creating a YP BSP l=
-ayer:<div>
-<ul><li>Build it manually from scratch by creating the directory tree and p=
-opulate it with the configuration files, recipes, readme files, etc. that y=
-ou need.</li><li>Copy an existing BSP layer that supports a machine that is=
- similar to the one you are trying to support.</li>
-<li>Use the yocto-bsp script to create one and then eventually the yocto-ke=
-rnel script to modify the kernel configuration if you are leveraging the YP=
- kernel.</li></ul></div><div>Rudi=A0</div></div>
-</div></div>
-
---047d7b343b82b1cac104d7447d0e--
