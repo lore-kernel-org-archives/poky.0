@@ -1,19 +1,42 @@
-Return-Path: <radu.moisan@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9D04EE00740
-	for <poky@yoctoproject.org>; Thu,  7 Mar 2013 08:46:38 -0800 (PST)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 07 Mar 2013 08:46:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,803,1355126400"; d="scan'208";a="210557813"
-Received: from dell-desktop (HELO localhost.localdomain) ([10.237.105.59])
-	by AZSMGA002.ch.intel.com with ESMTP; 07 Mar 2013 08:46:36 -0800
-From: Radu Moisan <radu.moisan@intel.com>
-To: poky@yoctoproject.org
-Date: Thu,  7 Mar 2013 18:46:44 +0200
-Message-Id: <1362674804-1689-1-git-send-email-radu.moisan@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] busybox.bbappend: Upgrade to v1.21.0
+Return-Path: <rjohnweber@gmail.com>
+Received: from mail-vc0-f177.google.com (mail-vc0-f177.google.com
+	[209.85.220.177]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+	(No client certificate requested)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 37866E0154C;
+	Thu,  7 Mar 2013 09:50:28 -0800 (PST)
+Received: by mail-vc0-f177.google.com with SMTP id m18so419803vcm.36
+	for <multiple recipients>; Thu, 07 Mar 2013 09:50:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=x-received:message-id:date:from:user-agent:mime-version:to:cc
+	:subject:references:in-reply-to:content-type
+	:content-transfer-encoding;
+	bh=cRn82Y35wGqFZKx1htUFlBz30fw2rVGNJ411eAwKtvM=;
+	b=t2ajAISaCsnn9rLJFq2l0quAX0T0cieudknKnPTh/LGASLEzKdi3/tvo5I1lLGL4hl
+	iHXIkPsUEAIj0IF2ehWueoPhtJUJK4tXYT0me4FaV+fzdo9SKGRJrNzS02RHK6hLpDLx
+	Yzl9j/241JtiLfcRfCai/lDo94GZsSpRk/fAwPTu7kcFMI3SmzRAD+shmmmlwGenEgXW
+	c6GmD9sbMTW972B2iXW6EZwXOeu32lRebHynzZEO3AAGJ9NFTOEa46dw9zXpOrpaIc25
+	nDtgu07Yucr17M6j86fX8Yr6U3lSaf+aEcH8mOZUI5ouReNdbLYiysclCP1LYbJ34MZ5
+	VooQ==
+X-Received: by 10.58.96.72 with SMTP id dq8mr6324971veb.49.1362678626759;
+	Thu, 07 Mar 2013 09:50:26 -0800 (PST)
+Received: from goober.local ([75.76.228.60])
+	by mx.google.com with ESMTPS id tp10sm462529vec.1.2013.03.07.09.50.24
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Thu, 07 Mar 2013 09:50:25 -0800 (PST)
+Message-ID: <5138D360.2020000@gmail.com>
+Date: Thu, 07 Mar 2013 11:50:24 -0600
+From: John Weber <rjohnweber@gmail.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
+	rv:17.0) Gecko/20130216 Thunderbird/17.0.3
+MIME-Version: 1.0
+To: =?UTF-8?B?RXJpYyBCw6luYXJk?= <eric@eukrea.com>
+References: <51375B7C.9010106@gmail.com> <20130306224808.6efe1351@e6520eb>
+	<5137BB73.2050607@gmail.com> <20130306230451.228caae1@e6520eb>
+	<5138BE79.7060106@gmail.com>
+In-Reply-To: <5138BE79.7060106@gmail.com>
+Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
+	poky@yoctoproject.org
+Subject: Re: [meta-freescale] Firmware loading
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,25 +49,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Mar 2013 16:46:38 -0000
+X-List-Received-Date: Thu, 07 Mar 2013 17:50:28 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Radu Moisan <radu.moisan@intel.com>
----
- .../poky-tiny/defconfig                            |    0
- ...box_1.20.2.bbappend => busybox_1.21.0.bbappend} |    0
- 2 files changed, 0 insertions(+), 0 deletions(-)
- rename meta-yocto/recipes-core/busybox/{busybox-1.20.2 => busybox-1.21.0}/poky-tiny/defconfig (100%)
- rename meta-yocto/recipes-core/busybox/{busybox_1.20.2.bbappend => busybox_1.21.0.bbappend} (100%)
+I incorporated this blobs into the kernel image and it seems to have worked. 
+Not the best option, but it does move me forward.
 
-diff --git a/meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig b/meta-yocto/recipes-core/busybox/busybox-1.21.0/poky-tiny/defconfig
-similarity index 100%
-rename from meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig
-rename to meta-yocto/recipes-core/busybox/busybox-1.21.0/poky-tiny/defconfig
-diff --git a/meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend b/meta-yocto/recipes-core/busybox/busybox_1.21.0.bbappend
-similarity index 100%
-rename from meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend
-rename to meta-yocto/recipes-core/busybox/busybox_1.21.0.bbappend
--- 
-1.7.9.5
+John
 
+On 3/7/13 10:21 AM, John Weber wrote:
+> Not at all - CONFIG_FW_LOADER=y is definitely in the kernel config.
+>
+> I think the issue is tied to some major changes in udev related to firmware
+> loading.  Udev 176 brought all of the firmware loading functionality into a
+> built-in function, rather than launch an external firmware helper script. This
+> could be the reason that Canonical still hasn't moved to udev 176 or later
+> versions.
+>
+> While I haven't been able to do thorough testing, the Broadcom (brcm80211)
+> driver does attempt to request firmware during the probe.  I believe that udev
+> 182 does not permit this until after the module is loaded.  This has caused some
+> consternation amongst the maintainers [1], resulting in Linus adding direct
+> firmware loading from the filesystem into kernel 3.7 and later [2].  This would
+> bypass udev entirely for firmware loading.  I personally like this because in my
+> view, this whole process of going to userspace to load firmware is too complicated.
+>
+> Since, I'm on kernel 3.0.35 (stuck in the dark ages with Freescale), it might
+> mean that I might have a few options, none of which are great.
+>
+> (A) Go back to udev 164 in Danny which supports using a rule to launch an
+> external helper script to load firmware
+> (B) Backport the firmware loader from file functionality from an upstream kernel
+> into 3.0.35
+> (C) Move to a mainline kernel, which isn't really an option because all of
+> Freescale's multimedia functionality gets lost
+>
+> Here is the dump of /var/log/messages related to udevd after I load the module
+> using modprobe:
+>
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: validate module index
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2119 queued, 'remove'
+>   'firmware'
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2119 forked new worke
+> r [501]
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2120 queued, 'add' 'd
+> rivers'
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: seq 2119 running
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2120 forked new worke
+> r [502]
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: no db file to read /var/r
+> un/udev/data/+firmware:mmc1:0001:2: No such file or directory
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: passed -1 bytes to netlin
+> k monitor 0x49c50
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: seq 2119 processed with 0
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2119 done with 0
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: seq 2120 running
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: device 0x36b70 has devpat
+> h '/bus/sdio/drivers/brcmfmac'
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: no db file to read /var/r
+> un/udev/data/+drivers:brcmfmac: No such file or directory
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: passed -1 bytes to netlin
+> k monitor 0x36dc8
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2120 done with 0
+> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: seq 2120 processed with 0
+>
+>
+> [1] http://lwn.net/Articles/518942/
+> [2]
+> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=abb139e75c2cdbb955e840d6331cb5863e409d0e
+>
+>
+>
+> On 3/6/13 4:04 PM, Eric Bénard wrote:
+>> Le Wed, 06 Mar 2013 15:56:03 -0600,
+>> John Weber <rjohnweber@gmail.com> a écrit :
+>>> Thanks for the help.  I've since broken the driver out of the kernel and
+>>> modprobed it with the same results.  This allows me to start udevadm to see some
+>>> debug output from udev, but it still fails.  I've manually created a firmware
+>>> helper script as well, and that's not even being executed at the moment.
+>>>
+>>> It just seems like this kind of thing is already being done as the i.MX6 vpu
+>>> firmware is needed (not being loaded into the filesystem now, but that is a
+>>> different issue), as well as other machines use atheros wifi modules.  This
+>>> seems that I'm missing something.
+>>>
+>> stupid question, but do you have
+>> CONFIG_FW_LOADER=y
+>> in your kernel config ?
+>>
+>> Maybe you can post the udev log also as it may contain some hints.
+>>
+>> Eric
+>>
 
