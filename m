@@ -1,42 +1,38 @@
-Return-Path: <rjohnweber@gmail.com>
-Received: from mail-vc0-f177.google.com (mail-vc0-f177.google.com
-	[209.85.220.177]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pb0-f52.google.com (mail-pb0-f52.google.com
+	[209.85.160.52]) (using TLSv1 with cipher RC4-SHA (128/128 bits))
 	(No client certificate requested)
-	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 37866E0154C;
-	Thu,  7 Mar 2013 09:50:28 -0800 (PST)
-Received: by mail-vc0-f177.google.com with SMTP id m18so419803vcm.36
-	for <multiple recipients>; Thu, 07 Mar 2013 09:50:26 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTPS id 3C40AE01404
+	for <poky@yoctoproject.org>; Fri,  8 Mar 2013 00:50:26 -0800 (PST)
+Received: by mail-pb0-f52.google.com with SMTP id ma3so1048286pbc.11
+	for <poky@yoctoproject.org>; Fri, 08 Mar 2013 00:50:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=x-received:message-id:date:from:user-agent:mime-version:to:cc
-	:subject:references:in-reply-to:content-type
-	:content-transfer-encoding;
-	bh=cRn82Y35wGqFZKx1htUFlBz30fw2rVGNJ411eAwKtvM=;
-	b=t2ajAISaCsnn9rLJFq2l0quAX0T0cieudknKnPTh/LGASLEzKdi3/tvo5I1lLGL4hl
-	iHXIkPsUEAIj0IF2ehWueoPhtJUJK4tXYT0me4FaV+fzdo9SKGRJrNzS02RHK6hLpDLx
-	Yzl9j/241JtiLfcRfCai/lDo94GZsSpRk/fAwPTu7kcFMI3SmzRAD+shmmmlwGenEgXW
-	c6GmD9sbMTW972B2iXW6EZwXOeu32lRebHynzZEO3AAGJ9NFTOEa46dw9zXpOrpaIc25
-	nDtgu07Yucr17M6j86fX8Yr6U3lSaf+aEcH8mOZUI5ouReNdbLYiysclCP1LYbJ34MZ5
-	VooQ==
-X-Received: by 10.58.96.72 with SMTP id dq8mr6324971veb.49.1362678626759;
-	Thu, 07 Mar 2013 09:50:26 -0800 (PST)
-Received: from goober.local ([75.76.228.60])
-	by mx.google.com with ESMTPS id tp10sm462529vec.1.2013.03.07.09.50.24
+	h=x-received:content-type:mime-version:subject:from:in-reply-to:date
+	:cc:content-transfer-encoding:message-id:references:to:x-mailer;
+	bh=r5w/KzDW0suks9AoU4/XSVnzl1S+0I5mCaM+apI5Evg=;
+	b=CP6X9e4rDeDQd4iwN5uZwGFymz48GlmGBxKGFPx1LYuN9qL6klSaA8V94hpeKQf+QB
+	3qelHhJF/2BFprKAKASmjxH4f71HjkfQDUNvVbNNP7muF+A3K/Z4JdOs1ih12am10S6Z
+	vj+kpxXdcIcDMXDK3LkrkUkbl5aLldOs2+Okv67UFcSnyPmuED+5eZRHkoHsYMni+Nra
+	9Cb6bGjms9o+Xc+f3Xsj9e74nRdCVf8aAd08mUwOe0rbVv7RHPr5R0RVbp9dUON/H6bQ
+	onOmF7s5a2PHf9E0AkLfoU/qkqg5aE0RoOnaMw+RMaNJhObrG/x+IJEIB5F8X2eR+3u9
+	m6IQ==
+X-Received: by 10.68.4.97 with SMTP id j1mr2034882pbj.157.1362732625976;
+	Fri, 08 Mar 2013 00:50:25 -0800 (PST)
+Received: from [192.168.1.91] (99-57-140-209.lightspeed.sntcca.sbcglobal.net.
+	[99.57.140.209])
+	by mx.google.com with ESMTPS id td10sm4865001pbb.25.2013.03.08.00.50.24
 	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Thu, 07 Mar 2013 09:50:25 -0800 (PST)
-Message-ID: <5138D360.2020000@gmail.com>
-Date: Thu, 07 Mar 2013 11:50:24 -0600
-From: John Weber <rjohnweber@gmail.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
-	rv:17.0) Gecko/20130216 Thunderbird/17.0.3
-MIME-Version: 1.0
-To: =?UTF-8?B?RXJpYyBCw6luYXJk?= <eric@eukrea.com>
-References: <51375B7C.9010106@gmail.com> <20130306224808.6efe1351@e6520eb>
-	<5137BB73.2050607@gmail.com> <20130306230451.228caae1@e6520eb>
-	<5138BE79.7060106@gmail.com>
-In-Reply-To: <5138BE79.7060106@gmail.com>
-Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
-	poky@yoctoproject.org
-Subject: Re: [meta-freescale] Firmware loading
+	Fri, 08 Mar 2013 00:50:25 -0800 (PST)
+Mime-Version: 1.0 (Mac OS X Mail 6.2 \(1499\))
+From: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <51321E78.7070107@gmail.com>
+Date: Fri, 8 Mar 2013 00:50:23 -0800
+Message-Id: <20E80406-DD99-427F-956B-535EA047FFFB@gmail.com>
+References: <5130FC37.5020700@gmail.com> <51321E78.7070107@gmail.com>
+To: John Weber <rjohnweber@gmail.com>
+X-Mailer: Apple Mail (2.1499)
+Cc: poky@yoctoproject.org
+Subject: Re: [master] Qt build failing during build of fsl-image-gui
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,97 +45,170 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Mar 2013 17:50:28 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Fri, 08 Mar 2013 08:50:26 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-I incorporated this blobs into the kernel image and it seems to have worked. 
-Not the best option, but it does move me forward.
 
-John
+On Mar 2, 2013, at 7:44 AM, John Weber <rjohnweber@gmail.com> wrote:
 
-On 3/7/13 10:21 AM, John Weber wrote:
-> Not at all - CONFIG_FW_LOADER=y is definitely in the kernel config.
->
-> I think the issue is tied to some major changes in udev related to firmware
-> loading.  Udev 176 brought all of the firmware loading functionality into a
-> built-in function, rather than launch an external firmware helper script. This
-> could be the reason that Canonical still hasn't moved to udev 176 or later
-> versions.
->
-> While I haven't been able to do thorough testing, the Broadcom (brcm80211)
-> driver does attempt to request firmware during the probe.  I believe that udev
-> 182 does not permit this until after the module is loaded.  This has caused some
-> consternation amongst the maintainers [1], resulting in Linus adding direct
-> firmware loading from the filesystem into kernel 3.7 and later [2].  This would
-> bypass udev entirely for firmware loading.  I personally like this because in my
-> view, this whole process of going to userspace to load firmware is too complicated.
->
-> Since, I'm on kernel 3.0.35 (stuck in the dark ages with Freescale), it might
-> mean that I might have a few options, none of which are great.
->
-> (A) Go back to udev 164 in Danny which supports using a rule to launch an
-> external helper script to load firmware
-> (B) Backport the firmware loader from file functionality from an upstream kernel
-> into 3.0.35
-> (C) Move to a mainline kernel, which isn't really an option because all of
-> Freescale's multimedia functionality gets lost
->
-> Here is the dump of /var/log/messages related to udevd after I load the module
-> using modprobe:
->
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: validate module index
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2119 queued, 'remove'
->   'firmware'
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2119 forked new worke
-> r [501]
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2120 queued, 'add' 'd
-> rivers'
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: seq 2119 running
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2120 forked new worke
-> r [502]
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: no db file to read /var/r
-> un/udev/data/+firmware:mmc1:0001:2: No such file or directory
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: passed -1 bytes to netlin
-> k monitor 0x49c50
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[501]: seq 2119 processed with 0
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2119 done with 0
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: seq 2120 running
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: device 0x36b70 has devpat
-> h '/bus/sdio/drivers/brcmfmac'
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: no db file to read /var/r
-> un/udev/data/+drivers:brcmfmac: No such file or directory
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: passed -1 bytes to netlin
-> k monitor 0x36dc8
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[234]: seq 2120 done with 0
-> Mar  6 15:21:01 wandboard-dual daemon.info udevd[502]: seq 2120 processed with 0
->
->
-> [1] http://lwn.net/Articles/518942/
-> [2]
-> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=abb139e75c2cdbb955e840d6331cb5863e409d0e
->
->
->
-> On 3/6/13 4:04 PM, Eric Bénard wrote:
->> Le Wed, 06 Mar 2013 15:56:03 -0600,
->> John Weber <rjohnweber@gmail.com> a écrit :
->>> Thanks for the help.  I've since broken the driver out of the kernel and
->>> modprobed it with the same results.  This allows me to start udevadm to see some
->>> debug output from udev, but it still fails.  I've manually created a firmware
->>> helper script as well, and that's not even being executed at the moment.
->>>
->>> It just seems like this kind of thing is already being done as the i.MX6 vpu
->>> firmware is needed (not being loaded into the filesystem now, but that is a
->>> different issue), as well as other machines use atheros wifi modules.  This
->>> seems that I'm missing something.
->>>
->> stupid question, but do you have
->> CONFIG_FW_LOADER=y
->> in your kernel config ?
->>
->> Maybe you can post the udev log also as it may contain some hints.
->>
->> Eric
->>
+> I originally sent this to the meta-freescale list, but I thought I =
+might see if someone on the main poky list might have some insight.
+>=20
+>=20
+> -------- Original Message --------
+> Subject: [master] Qt build failing during build of fsl-image-gui
+> Date: Fri, 01 Mar 2013 13:06:31 -0600
+> From: John Weber <rjohnweber@gmail.com>
+> To: meta-freescale@yoctoproject.org
+>=20
+> I'm attempting to build fsl-image-gui and I'm using master (synced a =
+couple of
+> days ago).  It's failing consistently when compiling Qt:
+>=20
+> | ERROR: oe_runmake failed
+> | ERROR: Function failed: do_compile (see
+> =
+/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/work/wandboard_dual-poky-linux-g=
+nueabi/qt4-x11-free/4.8.4-r51.3/temp/log.do_compile.1605=20
+> for further information)
+> ERROR: Task 418
+> =
+(/mnt/YOCTOFSL/fsl-community-bsp/sources/poky/meta/recipes-qt/qt4/qt4-x11-=
+free_4.8.4.bb,=20
+> do_compile) failed with exit code '1'
+>=20
+> Avoiding posting the entire log here.  ;-)  But, here is the error =
+from a
+> snipped of the log:
+>=20
+
+preprocess this file and pastebin it
+
+> ~~~~~~~~~~
+> | arm-poky-linux-gnueabi-g++  -march=3Darmv7-a     -mthumb-interwork
+> -mfloat-abi=3Dsoftfp -mfpu=3Dneon
+> =
+--sysroot=3D/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-d=
+ual -c
+> -O2 -pipe -g -feliminate-unused-debug-types -fpermissive
+> -fvisibility-inlines-hidden
+> =
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/in=
+clude/mysql=20
+> =
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/in=
+clude/postgresql=20
+> =
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/sr=
+c/kernel/include/=20
+> =
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/in=
+clude
+> =
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/in=
+clude/freetype2=20
+> -O2 -O2 -Wall -W -Wall -W -Wall -W -D_REENTRANT -DQT_WEBKIT =
+-DQT_OPENGL_SUPPORT
+> -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -DQT_NO_DEBUG =
+-DQT_OPENGL_LIB
+> -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I../../mkspecs/linux-g++ -I.
+> -I../../include/QtCore -I../../include/QtGui -I../../include/QtOpenGL
+> -I../../include -I../shared
+> =
+-I/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/sysroots/wandboard-dual/usr/in=
+clude/freetype2=20
+> -I.moc/release-shared -o .obj/release-shared/main.o main.cpp
+> | In file included from =
+../../include/QtCore/qtconcurrentmapkernel.h:1:0,
+> |                  from
+> =
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentfilterkernel=
+.h:50,
+> |                  from =
+../../include/QtCore/qtconcurrentfilterkernel.h:1,
+> |                  from
+> =
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentfilter.h:49,=
+
+> |                  from ../../include/QtCore/qtconcurrentfilter.h:1,
+> |                  from ../../include/QtCore/QtCore:53,
+> |                  from ../../include/QtGui/QtGui:3,
+> |                  from gradients.h:47,
+> |                  from main.cpp:42:
+> | =
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentmapkernel.h:=
+ In
+> function 'QtConcurrent::ThreadEngineStarter<ResultType>
+> QtConcurrent::startMappedReduced(Iterator, Iterator, MapFunctor, =
+ReduceFunctor,
+> QtConcurrent::ReduceOptions)':
+> |
+> =
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentmapkernel.h:=
+262:1:
+> error: expected primary-expression before '}' token
+> |
+> =
+../../include/QtCore/../../src/corelib/concurrent/qtconcurrentmapkernel.h:=
+262:1:
+> error: expected ';' before '}' token
+> | make[2]: *** [.obj/release-shared/main.o] Error 1
+> | make[2]: Leaving directory
+> =
+`/mnt/YOCTOFSL/fsl-community-bsp/build/tmp/work/wandboard_dual-poky-linux-=
+gnueabi/qt4-x11-free/4.8.4-r51.3/qt-everywhere-opensource-src-4.8.4/demos/=
+gradients'
+> | make[1]: *** [sub-gradients-make_default] Error 2
+> ~~~~~~~~~~
+>=20
+> Taking a look at the source, I don't see a problem:
+
+
+sometimes typedefs or defines are missing elsewhere.
+
+> File:
+> =
+fsl-community-bsp/build/tmp/work/wandboard_dual-poky-linux-gnueabi/qt4-x11=
+-free/4.8.4-r51.3/qt-everywhere-opensource-src-4.8.4/src/corelib/concurren=
+t/qtconcurrentmapkernel.h:
+>=20
+> ~~~~~~~~
+> template <typename IntermediateType, typename ResultType, typename =
+Iterator,
+> typename MapFunctor, typename ReduceFunctor>
+> inline ThreadEngineStarter<ResultType> startMappedReduced(Iterator =
+begin,
+> Iterator end,
+>                                                           MapFunctor
+> mapFunctor, ReduceFunctor reduceFunctor,
+>                                                           =
+ReduceOptions options)
+> {
+>    typedef ReduceKernel<ReduceFunctor, ResultType, IntermediateType> =
+Reducer;
+>    typedef MappedReducedKernel<ResultType, Iterator, MapFunctor,
+> ReduceFunctor, Reducer> MappedReduceType;
+>    return startThreadEngine(new MappedReduceType(begin, end, =
+mapFunctor,
+> reduceFunctor, options));   <<<<----- Line in question
+> }
+>=20
+> } // namespace QtConcurrent
+> ~~~~~~~~~
+>=20
+> Is it possible that the problem is related to the toolchain?
+>=20
+
+less likely but could be.
+
+
+> John
+>=20
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+
 
