@@ -1,25 +1,19 @@
-Return-Path: <Wenzong.Fan@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7EEDE006DC
-	for <poky@yoctoproject.org>; Mon, 11 Mar 2013 01:05:12 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r2B85Ct9021956
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Mon, 11 Mar 2013 01:05:12 -0700 (PDT)
-Received: from pek-wfan-d2.corp.ad.wrs.com (128.224.162.243) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.2.342.3; Mon, 11 Mar 2013 01:05:11 -0700
-From: <wenzong.fan@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Mon, 11 Mar 2013 16:04:58 +0800
-Message-ID: <1362989098-9567-2-git-send-email-wenzong.fan@windriver.com>
+Return-Path: <cristian.iorga@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E36BBE004AB
+	for <poky@yoctoproject.org>; Mon, 11 Mar 2013 08:25:33 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 11 Mar 2013 08:25:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,824,1355126400"; d="scan'208";a="212777315"
+Received: from sentry (HELO localhost.localdomain) ([10.237.105.54])
+	by AZSMGA002.ch.intel.com with ESMTP; 11 Mar 2013 08:25:32 -0700
+From: Cristian Iorga <cristian.iorga@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 11 Mar 2013 17:25:57 +0200
+Message-Id: <1363015559-18728-1-git-send-email-cristian.iorga@intel.com>
 X-Mailer: git-send-email 1.7.10.4
-In-Reply-To: <1362989098-9567-1-git-send-email-wenzong.fan@windriver.com>
-References: <1362989098-9567-1-git-send-email-wenzong.fan@windriver.com>
-MIME-Version: 1.0
-Cc: wenzong.fan@windriver.com
-Subject: [PATCH 1/1] layer.conf: Add LAYERVERSION and LAYERDEPENDS
+Subject: [PATCH 1/3] tremor: added no update reason
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,45 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Mar 2013 08:05:12 -0000
-Content-Type: text/plain
+X-List-Received-Date: Mon, 11 Mar 2013 15:25:34 -0000
 
-Add LAYERVERSION and LAYERDEPENDS to following yocto layers:
+it is the same revision, but on
+different SVN modules
 
-    meta-yocto, meta-yocto-bsp
-
-Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
 ---
- meta-yocto-bsp/conf/layer.conf |    5 +++++
- meta-yocto/conf/layer.conf     |    5 +++++
- 2 files changed, 10 insertions(+)
+ meta-yocto/conf/distro/include/upstream_tracking.inc |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
-index 49fb135..f34d7f4 100644
---- a/meta-yocto-bsp/conf/layer.conf
-+++ b/meta-yocto-bsp/conf/layer.conf
-@@ -9,3 +9,8 @@ BBFILE_COLLECTIONS += "yoctobsp"
- BBFILE_PATTERN_yoctobsp := "^${LAYERDIR}/"
- BBFILE_PRIORITY_yoctobsp = "5"
- 
-+# This should only be incremented on significant changes that will
-+# cause compatibility issues with other layers
-+LAYERVERSION_yoctobsp = "1"
-+
-+LAYERDEPENDS_yoctobsp = "core"
-diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
-index 7917962..331ca18 100644
---- a/meta-yocto/conf/layer.conf
-+++ b/meta-yocto/conf/layer.conf
-@@ -9,3 +9,8 @@ BBFILE_COLLECTIONS += "yocto"
- BBFILE_PATTERN_yocto := "^${LAYERDIR}/"
- BBFILE_PRIORITY_yocto = "5"
- 
-+# This should only be incremented on significant changes that will
-+# cause compatibility issues with other layers
-+LAYERVERSION_yocto = "1"
-+
-+LAYERDEPENDS_yocto = "core"
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index d7f13f9..e18dcd1 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -203,7 +203,8 @@ RECIPE_UPSTREAM_DATE_pn-tinylogin = "Jan 03, 2003"
+ RECIPE_NO_UPDATE_REASON_pn-tinylogin = "TinyLogin was merged into BusyBox."
+ RECIPE_UPSTREAM_VERSION_pn-tremor="20120122"
+ RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
+-CHECK_DATE_pn-tremor = "Nov 08, 2012"
++CHECK_DATE_pn-tremor = "Mar 11, 2013"
++RECIPE_NO_UPDATE_REASON_pn-tremor = "Same revision on different SVN modules"
+ RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
+ CHECK_DATE_pn-ubootchart = "Sep 11, 2012"
+ RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
 -- 
 1.7.10.4
 
