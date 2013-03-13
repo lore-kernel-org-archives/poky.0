@@ -1,44 +1,20 @@
-Return-Path: <rjohnweber@gmail.com>
-Received: from mail-yh0-f53.google.com (mail-yh0-f53.google.com
-	[209.85.213.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 79106E0071D;
-	Mon, 11 Mar 2013 20:53:42 -0700 (PDT)
-Received: by mail-yh0-f53.google.com with SMTP id q3so745913yhf.26
-	for <multiple recipients>; Mon, 11 Mar 2013 20:53:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=x-received:message-id:date:from:user-agent:mime-version:to:cc
-	:subject:references:in-reply-to:content-type
-	:content-transfer-encoding;
-	bh=LdJmR909Kv/pGOgWf94LUXqxDCD1zJS0RlkXYxrq9v8=;
-	b=iWJeJqf4s1EyGqAda7p0kpU3XVGwc/OdkxAYG1jESdgLfOQFcQi24TaLmdWyXVfW2P
-	8T2fwFct6PB7eUyteCkoPXtnMJDX9dNG1q+S5aNv8ZOwWsSdMjuZA5lQ7ihAw+WXvGpa
-	PfXlI318iJrkt5tJ707kj3yyhELz10M+YV7LQmExD0OSqaJYdUM5wZiO/jhIxCtt1tbW
-	ugnb/gmkplwNM0b/uEyU0eZh8mDecCsO/cDIyapMn+SzyCj6RGUXjSAJdO9q009iglCC
-	FDk6Zh2YAB9MAPQZefWi94gNIIdZKyNMF0HIDK1N0eHHyoYLl5YQHbMkPIKV/UhwYDcs
-	/sXQ==
-X-Received: by 10.236.80.70 with SMTP id j46mr7460394yhe.152.1363060421687;
-	Mon, 11 Mar 2013 20:53:41 -0700 (PDT)
-Received: from goober.local ([75.76.228.60])
-	by mx.google.com with ESMTPS id w2sm27740639yhh.7.2013.03.11.20.53.40
-	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 11 Mar 2013 20:53:41 -0700 (PDT)
-Message-ID: <513EA6C3.2020609@gmail.com>
-Date: Mon, 11 Mar 2013 22:53:39 -0500
-From: John Weber <rjohnweber@gmail.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7;
-	rv:17.0) Gecko/20130216 Thunderbird/17.0.3
-MIME-Version: 1.0
-To: Otavio Salvador <otavio@ossystems.com.br>
-References: <51375B7C.9010106@gmail.com> <20130306224808.6efe1351@e6520eb>
-	<5137BB73.2050607@gmail.com> <20130306230451.228caae1@e6520eb>
-	<5138BE79.7060106@gmail.com> <5138D360.2020000@gmail.com>
-	<CAP9ODKqaVVqHi9_90kO6bGuf8zk0MWk40a7M8RQ9MQi1tNgKxQ@mail.gmail.com>
-	<513A0558.6020703@gmail.com>
-	<CAP9ODKrZCYXVXGU8cWOyrUVGrrA-LnDMkT4+M8-yddnQVDEj_g@mail.gmail.com>
-In-Reply-To: <CAP9ODKrZCYXVXGU8cWOyrUVGrrA-LnDMkT4+M8-yddnQVDEj_g@mail.gmail.com>
-Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [meta-freescale] Firmware loading
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 37DA1E003DB
+	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:13 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 13 Mar 2013 12:04:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="305764424"
+Received: from unknown (HELO localhost) ([10.255.12.139])
+	by fmsmga002.fm.intel.com with ESMTP; 13 Mar 2013 12:04:11 -0700
+From: tom.zanussi@linux.intel.com
+To: poky@yoctoproject.org
+Date: Wed, 13 Mar 2013 14:04:10 -0500
+Message-Id: <cover.1363198817.git.tom.zanussi@linux.intel.com>
+X-Mailer: git-send-email 1.7.11.4
+Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
+Subject: [PATCH 00/18] Yocto BSP tools updates and support for kernel features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,41 +27,274 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Mar 2013 03:53:42 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 13 Mar 2013 19:04:13 -0000
 
-Bug is reported:
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=4013
+From: Tom Zanussi <tom.zanussi@linux.intel.com>
 
+This patchset updates the Yocto BSP tools to match the new kernel versions
+supported i.e. adds 3.8 and drops 3.2, and also adds support for the new
+linux-yocto-dev kernel recipe.  Additionally, it does a bunch of cleanup,
+removing various fragments that are no longer necessary with recent updates
+of the kernel tools.
 
-On 3/8/13 11:36 AM, Otavio Salvador wrote:
-> On Fri, Mar 8, 2013 at 12:35 PM, John Weber <rjohnweber@gmail.com> wrote:
->> I could, but I think that these issues are probably resolved by using
->> upstream sources, so I'm not sure if this is a bug for greater Yocto or not.
->> Does it make sense to file a bug, even if it is closed just for
->> informational purposes?
->
-> We cannot; due GPU issues. So please report a bug about it.
->
->> I do think that this will be a problem for the following systems:
->> - Using a version of udev > 176 (I suspect this, as that is when udev moved
->> to an internal-only firmware loading capability, but I know it is a problem
->> for 182)
->>
->> - Using a kernel < 3.7 (3.7 incorporated a filesystem firmware loading
->> feature which bypasses udev)
->> - Drivers loading their firmware in the module init stage  (as the brcmfmac
->> does)
->>
->> I'd like to create a recipe to at least get this working in Yocto/Poky
->> master for this and submit it to meta-freescale that would do the following:
->> - Patch the kernel to remove the staging drivers and add the
->> net/wirelesss/brcm80211 backport
->> - Fetch the firmware from a *remote repository* and load it into the
->> kernel's firmware directory
->> - Patch the defconfig to add the extra firmware to load into the kernel
->
-> Read other reply please.
->
+The major addition is new support for kernel features, with a set of new
+yocto-kernel subcommands that deal with features (you can get a full listing
+with details and help by running the yocto-kernel command directly.  As an
+overview, the new commands are:
+
+yocto-kernel features list
+yocto-kernel feature describe
+yocto-kernel feature rm
+yocto-kernel feature list
+yocto-kernel feature add
+
+yocto-kernel feature create
+yocto-kernel feature destroy
+
+The list/add/rm are analogous to the similar commands for patches and raw
+config items.  The create/destroy subcommands allow you to create arbitrary
+new features completely in recipe-space, and which can be used just as
+built-in (repo-based) features can be, via the list/add/rm feature commands.
+
+The 'features list' command can be used to list the complete set of available
+features, including those added using the 'feature create' command.  The
+'feature describe' subcommand can be used to show the description of a
+particular feature.
+
+Below is an example session showing all the commands in use.
+
+Here we have a BSP use an existing feature from the meta branch of the
+linux-yocto repo associated with the BSP:
+
+  [trz@empanada build]$ yocto-kernel feature add feature-test-qemux86 features/amt/mei/mei.scc
+  Added features:
+      features/amt/mei/mei.scc
+
+Using the 'yocto-kernel feature list' subcommand, we can list the features
+currentl in use by the BSP:
+
+  [trz@empanada build]$ yocto-kernel feature list feature-test-qemux86
+  The current set of machine-specific features for feature-test-qemux86 is:
+      1) features/amt/mei/mei.scc
+
+We can use the 'yocto-kernel feature create' command to create a brand-new
+user-defined feature completely in recipe-space.  The create command takes
+a number of parameters, including an open-ended set of patches and bare
+config items that define the feature:
+
+  [trz@empanada build]$ yocto-kernel feature create feature-test-qemux86 newfeature.scc "Yocto testmod" capabilities ~/bsp-tools-tests/test/marlene/yocto-testmod.patch CONFIG_YOCTO_TESTMOD=y
+  Added feature:
+      features/newfeature.scc
+
+The 'yocto-kernel features list' subcommand lists all the features available
+to the BSP, including the one we just created in recipe-space:
+
+  [trz@empanada build]$ yocto-kernel features list feature-test-qemux86
+  The current set of kernel features available to feature-test-qemux86 is:
+
+  cfg/smp.scc: Enable SMP [all]
+  cfg/8250.scc: Enable 8250 serial support [board]
+  cfg/usb-mass-storage.scc: Enable options required for USB mass storage devices [all]
+  cfg/x32.scc: x86 x32 support [arch]
+  cfg/timer/hz_250.scc: Enable 250Hz Timer frequency [all]
+  cfg/timer/hz_1000.scc: Enable 1000Hz Timer frequency [all]
+  cfg/timer/no_hz.scc: Enable CONFIG_NO_HZ [all]
+  cfg/timer/hpet.scc: HPET Timer Support [arch]
+  .
+  .
+  .
+  features/ftrace/ftrace.scc: Enable Function Tracer [all]
+  features/powertop/powertop.scc: Enable powertop + profiling [arch]
+  features/usb/xhci-hcd.scc: Enable options for xhci (USB 3.0) [board]
+  features/usb/ehci-hcd.scc: Enable options for ehci (USB 2.0) [board]
+  features/usb/usb-base.scc: Enable core options for USB support [board]
+  features/usb/uhci-hcd.scc: Enable options for uhci (USB 1.x) [board]
+  features/usb/ohci-hcd.scc: Enable options for ohci (USB 1.x) [board]
+  features/profiling/profiling.scc: Enable profiling and timerstats [board]
+  features/intel-e1xxxx/intel-e100.scc: Enable Intel E100 and E1000 support [board]
+  features/kmemcheck/kmemcheck-enable.scc: Enable kmemcheck [arch]
+  [local]
+  features/newfeature.scc: Yocto testmod [capabilities]
+
+We can make use of the newly-created feature just as we would any other
+feature, using the 'yocyo-kernel feature add' subcommand.
+
+  [trz@empanada build]$ yocto-kernel feature add feature-test-qemux86 features/newfeature.scc
+  Added features:
+      features/newfeature.scc
+
+We can also use the 'yocto-kernel feature destroy' to destroy the feature
+we just created.  Note that this command will only destroy features defined
+by 'yocto-kernel feature create' and that exist in recipe-space, and can't
+be used to destroy features in a linux-yocto repo:
+
+  [trz@empanada build]$ yocto-kernel feature destroy feature-test-qemux86 newfeature.scc
+  Feature newfeature.scc is in use (use 'feature rm' to un-use it first), exiting
+
+In this case, because the BSP is actually using the feature we want to
+destroy (because we added it to the BSP using 'yocto-kernel feature add'),
+'yocto-kernel feature destroy' can't destroy it.  Before we can destroy it
+we need to first have the BSP stop using it.  We can do that using
+'yocto-kernel feature remove', followed by 'yocto-kernel feature destroy'
+to destroy it:
+
+  [trz@empanada build]$ yocto-kernel feature rm feature-test-qemux86
+  Specify the features to remove:
+	1) features/amt/mei/mei.scc
+	2) features/newfeature.scc
+  2
+  Removed features:
+	features/newfeature.scc
+
+  [trz@empanada build]$ yocto-kernel feature destroy feature-test-qemux86 newfeature.scc
+  Removed feature:
+	features/newfeature.scc
+
+One note on the 'yocto-kernel features list' command - this implementation is
+very slow because it's going to the remote kernel repo for each feature in
+order to get the description.  This will be fixed in the near future by having
+the kernel tools provide consolidated list instead.
+
+The following changes since commit 4da406cd50cf02a63ed76810a670aba1eb561c79:
+
+  gst-plugins-gl: allow empty packages (2013-03-12 18:33:30 +0000)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/yocto-bsp-features-update
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/yocto-bsp-features-update
+
+Tom Zanussi (18):
+  yocto-bsp: add 3.8/remove 3.2 kernel from templates
+  yocto-bsp: update default custom kernel
+  scripts/lib/bsp/engine.py: update map_standard_kbranch()
+  yocto-bsp: use map_standard_branch()
+  scripts/lib/bsp/engine.py: add preempt-rt and tiny to
+    map_standard_kbranch()
+  yocto-bsp: update machine-standard.scc
+  yocto-bsp: update 3.4 .bbappends
+  yocto-bsp: update machine-preempt-rt.scc
+  yocto-bsp: update linux-yocto-rt_3.4 .bbappends
+  yocto-bsp: add support for tiny
+  yocto-bsp: add support for linux-yocto-dev
+  yocto-bsp: upgrade i386 template with emgd 1.16
+  yocto-kernel: add support for kernel feature add/rm/list
+  yocto-kernel: add support for listing available kernel features
+  yocto-kernel: add support for printing kernel feature descriptions
+  yocto-kernel: add support for creating recipe-space kernel features
+  yocto-kernel: add support for destroying recipe-space kernel features
+  yocto-bsp: add machine-user-features.scc to templates
+
+ scripts/lib/bsp/engine.py                          |  50 ++-
+ scripts/lib/bsp/help.py                            | 225 +++++++++++
+ scripts/lib/bsp/kernel.py                          | 438 ++++++++++++++++++++-
+ .../target/arch/arm/conf/machine/{{=machine}}.conf |   9 +-
+ .../arm/recipes-kernel/linux/kernel-list.noinstall |   4 +-
+ .../{{=machine}}-preempt-rt.scc"                   |   5 +-
+ .../{{=machine}}-standard.scc"                     |   2 +-
+ .../{{=machine}}-tiny.scc"                         |   9 +
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" |  22 ++
+ ...yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend" |  37 --
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" |  16 +-
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" |  22 +-
+ ...linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" |  16 +-
+ ...linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" |  19 +-
+ .../lib/bsp/substrate/target/arch/common/README    |   4 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |   8 +-
+ .../arch/i386/conf/machine/{{=machine}}.conf       |  20 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |   4 +-
+ .../{{=machine}}-preempt-rt.scc"                   |   5 +-
+ .../{{=machine}}-standard.scc"                     |   3 +-
+ .../{{=machine}}-tiny.scc"                         |   9 +
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" |  22 ++
+ ...yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend" |  37 --
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" |  16 +-
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" |  29 ++
+ ...linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" |  16 +-
+ ...linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" |  19 +-
+ .../arch/mips/conf/machine/{{=machine}}.conf       |   9 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |   4 +-
+ .../{{=machine}}-preempt-rt.scc"                   |   5 +-
+ .../{{=machine}}-standard.scc"                     |   2 +-
+ .../{{=machine}}-tiny.scc"                         |   9 +
+ .../{{=machine}}.scc"                              |   3 -
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" |  22 ++
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" |  16 +-
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" |  29 ++
+ ...linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" |  16 +-
+ ...linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" |  19 +-
+ .../arch/powerpc/conf/machine/{{=machine}}.conf    |   9 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |   4 +-
+ .../{{=machine}}-preempt-rt.scc"                   |   5 +-
+ .../{{=machine}}-standard.scc"                     |   2 +-
+ .../{{=machine}}-tiny.scc"                         |   9 +
+ .../{{=machine}}.scc"                              |   3 -
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" |  22 ++
+ ...yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend" |  37 --
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" |  16 +-
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" |  29 ++
+ ...linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" |  16 +-
+ ...linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" |  19 +-
+ .../arch/qemu/conf/machine/{{=machine}}.conf       |  11 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |   4 +-
+ .../{{=machine}}-preempt-rt.scc"                   |  22 +-
+ .../{{=machine}}-standard.scc"                     |  20 +-
+ .../{{=machine}}-tiny.scc"                         |   9 +
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" |  46 +++
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" |  17 +-
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" |  39 +-
+ ...linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" |  17 +-
+ ...linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" |  39 +-
+ .../arch/x86_64/conf/machine/{{=machine}}.conf     |   9 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |   4 +-
+ .../{{=machine}}-preempt-rt.scc"                   |   5 +-
+ .../{{=machine}}-tiny.scc"                         |   9 +
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" |  22 ++
+ ...yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend" |  37 --
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" |  16 +-
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" |  29 ++
+ ...linux-yocto_3.2\": }} linux-yocto_3.2.bbappend" |  37 --
+ ...linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" |  16 +-
+ ...linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" |  28 ++
+ scripts/yocto-kernel                               | 169 +++++++-
+ 72 files changed, 1409 insertions(+), 567 deletions(-)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-tiny.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-user-features.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" (51%)
+ rename "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.2\": }} linux-yocto_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" (54%)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-tiny.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-user-features.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.2\": }} linux-yocto_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" (54%)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-tiny.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-user-features.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.2\": }} linux-yocto_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" (54%)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-tiny.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-user-features.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.2\": }} linux-yocto_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" (52%)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-tiny.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-user-features.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" (43%)
+ rename "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.2\": }} linux-yocto_3.2.bbappend" => "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.8\": }} linux-yocto_3.8.bbappend" (45%)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-tiny.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-user-features.scc"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.2\": }} linux-yocto-rt_3.2.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.2\": }} linux-yocto_3.2.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.8\": }} linux-yocto_3.8.bbappend"
+
+-- 
+1.7.11.4
+
 
