@@ -1,24 +1,23 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B3C0EE01482
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A3D34E01481
 	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:35 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 Mar 2013 12:04:35 -0700
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 13 Mar 2013 12:04:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="278490231"
+X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="270122608"
 Received: from unknown (HELO localhost) ([10.255.12.139])
-	by orsmga001.jf.intel.com with ESMTP; 13 Mar 2013 12:04:18 -0700
+	by azsmga001.ch.intel.com with ESMTP; 13 Mar 2013 12:04:32 -0700
 From: tom.zanussi@linux.intel.com
 To: poky@yoctoproject.org
-Date: Wed, 13 Mar 2013 14:03:59 -0500
-Message-Id: <fdafd32ab78d8bb0479c949a16540ac216bcfa08.1363198817.git.tom.zanussi@linux.intel.com>
+Date: Wed, 13 Mar 2013 14:04:09 -0500
+Message-Id: <1a12ea5f6cbef51759018ccdb4ef03efa39e7ab8.1363198817.git.tom.zanussi@linux.intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 References: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 In-Reply-To: <cover.1363198817.git.tom.zanussi@linux.intel.com>
 References: <cover.1363198817.git.tom.zanussi@linux.intel.com>
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 05/18] scripts/lib/bsp/engine.py: add preempt-rt and tiny to map_standard_kbranch()
+Subject: [PATCH 15/18] yocto-kernel: add support for printing kernel feature descriptions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,61 +30,172 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2013 19:04:35 -0000
+X-List-Received-Date: Wed, 13 Mar 2013 19:04:36 -0000
 
-From: Tom Zanussi <tom.zanussi@linux.intel.com>
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Update map_standard_kbranch() with preempt-rt and tiny variants.
+Add a yocto-kernel command allowing users to print the description and
+compatibility of a given kernel feature.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- scripts/lib/bsp/engine.py | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ scripts/lib/bsp/help.py   | 29 +++++++++++++++++++++++++++
+ scripts/lib/bsp/kernel.py | 50 +++++++++++++++++++++++++++++++++++++++++++++++
+ scripts/yocto-kernel      | 26 ++++++++++++++++++++++++
+ 3 files changed, 105 insertions(+)
 
-diff --git a/scripts/lib/bsp/engine.py b/scripts/lib/bsp/engine.py
-index 55f1e6b..86cb51c 100644
---- a/scripts/lib/bsp/engine.py
-+++ b/scripts/lib/bsp/engine.py
-@@ -1741,3 +1741,39 @@ def map_standard_kbranch(need_new_kbranch, new_kbranch, existing_kbranch):
-         return "bsp/common-pc/common-pc-standard.scc"
-     else:
-         return "ktypes/standard/standard.scc"
+diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
+index 9ba6a93..91de600 100644
+--- a/scripts/lib/bsp/help.py
++++ b/scripts/lib/bsp/help.py
+@@ -387,6 +387,7 @@ yocto_kernel_usage = """
+    feature add       Have a BSP use a feature
+    feature rm        Have a BSP stop using a feature
+    features list     List the features available to BSPs
++   feature describe  Describe a particular feature
+ 
+  See 'yocto-kernel help COMMAND' for more information on a specific command.
+ 
+@@ -723,6 +724,34 @@ DESCRIPTION
+ """
+ 
+ 
++yocto_kernel_feature_describe_usage = """
++
++ Print the description and compatibility information for a given kernel feature
++
++ usage: yocto-kernel feature describe <bsp-name> [/xxxx/yyyy/feature.scc ...]
++
++ This command prints the description and compatibility of a specific
++ feature in the format 'description [compatibility].
++"""
 +
 +
-+def map_preempt_rt_kbranch(need_new_kbranch, new_kbranch, existing_kbranch):
++yocto_kernel_feature_describe_help = """
++
++NAME
++    yocto-kernel feature describe - print the description and
++    compatibility information for a given kernel feature
++
++SYNOPSIS
++    yocto-kernel feature describe <bsp-name> [/xxxx/yyyy/feature.scc ...]
++
++DESCRIPTION
++    This command prints the description and compatibility of a
++    specific feature in the format 'description [compatibility].  If
++    the feature doesn't define a description or compatibility, a
++    string with generic unknown values will be printed.
++"""
++
++
+ ##
+ # yocto-layer help and usage strings
+ ##
+diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
+index 0308600..ac0b074 100644
+--- a/scripts/lib/bsp/kernel.py
++++ b/scripts/lib/bsp/kernel.py
+@@ -758,6 +758,56 @@ def yocto_kernel_available_features_list(scripts_path, machine):
+     print_feature_descs(layer, "features")
+ 
+ 
++def find_feature_desc_url(git_url, feature):
 +    """
-+    Return the linux-yocto bsp branch to use with the specified
-+    kbranch.  This handles the -preempt-rt variants for 3.4 and 3.8;
-+    the other variants don't need mappings.
++    Find the url of the kernel feature in the kernel repo specified
++    from the BSP's kernel recipe SRC_URI.
 +    """
-+    if need_new_kbranch == "y":
-+        kbranch = new_kbranch
-+    else:
-+        kbranch = existing_kbranch
++    feature_desc_url = ""
++    if git_url.startswith("git://"):
++        git_url = git_url[len("git://"):].strip()
++        s = git_url.split("/")
++        if s[1].endswith(".git"):
++            s[1] = s[1][:len(s[1]) - len(".git")]
++        feature_desc_url = "http://" + s[0] + "/cgit/cgit.cgi/" + s[1] + \
++            "/plain/meta/cfg/kernel-cache/" + feature + "?h=meta"
 +
-+    if kbranch.startswith("standard/preempt-rt/common-pc-64"):
-+        return "bsp/common-pc-64/common-pc-64-preempt-rt.scc"
-+    if kbranch.startswith("standard/preempt-rt/common-pc"):
-+        return "bsp/common-pc/common-pc-preempt-rt.scc"
-+    else:
-+        return "ktypes/preempt-rt/preempt-rt.scc"
++    return feature_desc_url
 +
 +
-+def map_tiny_kbranch(need_new_kbranch, new_kbranch, existing_kbranch):
++def get_feature_desc(git_url, feature):
 +    """
-+    Return the linux-yocto bsp branch to use with the specified
-+    kbranch.  This handles the -tiny variants for 3.4 and 3.8; the
-+    other variants don't need mappings.
++    Return a feature description of the form 'description [compatibility]
++    BSPs, as gathered from the set of feature sources.
 +    """
-+    if need_new_kbranch == "y":
-+        kbranch = new_kbranch
-+    else:
-+        kbranch = existing_kbranch
++    feature_desc_url = find_feature_desc_url(git_url, feature)
++    feature_desc_cmd = "wget -q -O - " + feature_desc_url
++    tmp = subprocess.Popen(feature_desc_cmd, shell=True, stdout=subprocess.PIPE).stdout.read()
 +
-+    if kbranch.startswith("standard/tiny/common-pc"):
-+        return "bsp/common-pc/common-pc-tiny.scc"
-+    else:
-+        return "ktypes/tiny/tiny.scc"
++    return find_feature_desc(tmp.split("\n"))
++
++
++def yocto_kernel_feature_describe(scripts_path, machine, feature):
++    """
++    Display the description of a specific kernel feature available for
++    use in a BSP.
++    """
++    layer = find_bsp_layer(scripts_path, machine)
++
++    kernel = find_current_kernel(layer, machine)
++    if not kernel:
++        print "Couldn't determine the kernel for this BSP, exiting."
++        sys.exit(1)
++
++    context = create_context(machine, "arch", scripts_path)
++    context["name"] = "name"
++    context["filename"] = kernel
++    giturl = find_giturl(context)
++
++    desc = get_feature_desc(giturl, feature)
++
++    print desc
++
+     
+ def base_branches(context):
+     """
+diff --git a/scripts/yocto-kernel b/scripts/yocto-kernel
+index a66a727..1f6ed67 100755
+--- a/scripts/yocto-kernel
++++ b/scripts/yocto-kernel
+@@ -243,6 +243,29 @@ def yocto_kernel_available_features_list_subcommand(args, usage_str):
+     yocto_kernel_available_features_list(scripts_path, args[0])
+ 
+ 
++def yocto_kernel_feature_describe_subcommand(args, usage_str):
++    """
++    Command-line handling for listing the description of a specific
++    kernel feature available for use in a BSP.  This includes the
++    features present in the meta branch(es) of the pointed-to repo(s)
++    as well as the local features added in recipe-space to the current
++    BSP as well.  The real work is done by
++    bsp.kernel.yocto_kernel_feature_describe().
++    """
++    logging.debug("yocto_kernel_feature_describe_subcommand")
++
++    parser = optparse.OptionParser(usage = usage_str)
++
++    (options, args) = parser.parse_args(args)
++
++    if len(args) != 2:
++        logging.error("Wrong number of arguments, exiting\n")
++        parser.print_help()
++        sys.exit(1)
++
++    yocto_kernel_feature_describe(scripts_path, args[0], args[1])
++
++
+ subcommands = {
+     "config-list": [yocto_kernel_config_list_subcommand,
+                     yocto_kernel_config_list_usage,
+@@ -274,6 +297,9 @@ subcommands = {
+     "features-list": [yocto_kernel_available_features_list_subcommand,
+                  yocto_kernel_available_features_list_usage,
+                  yocto_kernel_available_features_list_help],
++    "feature-describe": [yocto_kernel_feature_describe_subcommand,
++                 yocto_kernel_feature_describe_usage,
++                 yocto_kernel_feature_describe_help],
+ }
+ 
+ 
 -- 
 1.7.11.4
 
