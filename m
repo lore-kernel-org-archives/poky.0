@@ -1,23 +1,24 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A3D34E01481
-	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:35 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 13 Mar 2013 12:04:35 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ED7B3E01484
+	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:37 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 13 Mar 2013 12:04:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="270122608"
+X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="278490288"
 Received: from unknown (HELO localhost) ([10.255.12.139])
-	by azsmga001.ch.intel.com with ESMTP; 13 Mar 2013 12:04:32 -0700
+	by orsmga001.jf.intel.com with ESMTP; 13 Mar 2013 12:04:26 -0700
 From: tom.zanussi@linux.intel.com
 To: poky@yoctoproject.org
-Date: Wed, 13 Mar 2013 14:04:09 -0500
-Message-Id: <1a12ea5f6cbef51759018ccdb4ef03efa39e7ab8.1363198817.git.tom.zanussi@linux.intel.com>
+Date: Wed, 13 Mar 2013 14:04:05 -0500
+Message-Id: <5fde301f0640e1e1bd2ef6b7fb8c1dd7f35ec8a7.1363198817.git.tom.zanussi@linux.intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 References: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 In-Reply-To: <cover.1363198817.git.tom.zanussi@linux.intel.com>
 References: <cover.1363198817.git.tom.zanussi@linux.intel.com>
-Subject: [PATCH 15/18] yocto-kernel: add support for printing kernel feature descriptions
+Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
+Subject: [PATCH 11/18] yocto-bsp: add support for linux-yocto-dev
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,172 +31,352 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2013 19:04:36 -0000
+X-List-Received-Date: Wed, 13 Mar 2013 19:04:38 -0000
 
-From: Tom Zanussi <tom.zanussi@intel.com>
+From: Tom Zanussi <tom.zanussi@linux.intel.com>
 
-Add a yocto-kernel command allowing users to print the description and
-compatibility of a given kernel feature.
-
-Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
+Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
 ---
- scripts/lib/bsp/help.py   | 29 +++++++++++++++++++++++++++
- scripts/lib/bsp/kernel.py | 50 +++++++++++++++++++++++++++++++++++++++++++++++
- scripts/yocto-kernel      | 26 ++++++++++++++++++++++++
- 3 files changed, 105 insertions(+)
+ .../target/arch/arm/conf/machine/{{=machine}}.conf |  9 +++--
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" | 21 ++++++++++
+ .../arch/i386/conf/machine/{{=machine}}.conf       |  9 +++--
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" | 21 ++++++++++
+ .../arch/mips/conf/machine/{{=machine}}.conf       |  9 +++--
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" | 21 ++++++++++
+ .../arch/powerpc/conf/machine/{{=machine}}.conf    |  9 +++--
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" | 21 ++++++++++
+ .../arch/qemu/conf/machine/{{=machine}}.conf       | 10 +++--
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" | 45 ++++++++++++++++++++++
+ .../arch/x86_64/conf/machine/{{=machine}}.conf     |  9 +++--
+ ...linux-yocto-dev\": }} linux-yocto-dev.bbappend" | 21 ++++++++++
+ 12 files changed, 181 insertions(+), 24 deletions(-)
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
 
-diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
-index 9ba6a93..91de600 100644
---- a/scripts/lib/bsp/help.py
-+++ b/scripts/lib/bsp/help.py
-@@ -387,6 +387,7 @@ yocto_kernel_usage = """
-    feature add       Have a BSP use a feature
-    feature rm        Have a BSP stop using a feature
-    features list     List the features available to BSPs
-+   feature describe  Describe a particular feature
+diff --git a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
+index d9ac3ff..ce9a58f 100644
+--- a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
+@@ -71,12 +71,13 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
+ SERIAL_CONSOLE = "115200 ttyO2"
  
-  See 'yocto-kernel help COMMAND' for more information on a specific command.
+ {{ if kernel_choice == "custom": preferred_kernel = "linux-yocto-custom" }}
+-{{ if kernel_choice == "custom": }}
++{{ if kernel_choice == "linux-yocto-dev": preferred_kernel = "linux-yocto-dev" }}
++{{ if kernel_choice == "custom" or kernel_choice == "linux-yocto-dev" : }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
  
-@@ -723,6 +724,34 @@ DESCRIPTION
- """
+-{{ if kernel_choice != "custom": preferred_kernel = kernel_choice.split('_')[0] }}
+-{{ if kernel_choice != "custom": preferred_kernel_version = kernel_choice.split('_')[1] }}
+-{{ if kernel_choice != "custom": }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel = kernel_choice.split('_')[0] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel_version = kernel_choice.split('_')[1] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
  
+diff --git "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend" "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+new file mode 100644
+index 0000000..0d81446
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"	
+@@ -0,0 +1,21 @@
++FILESEXTRAPATHS_prepend_{{=machine}} := "${THISDIR}/files:"
++
++PR := "${PR}.1"
++
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
++
++{{ if need_new_kbranch == "y": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
++
++SRC_URI += "file://{{=machine}}-standard.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++           "
+diff --git a/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
+index 6c0ecba..a33cb2e 100644
+--- a/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
+@@ -4,12 +4,13 @@
+ #@DESCRIPTION: Machine configuration for {{=machine}} systems
  
-+yocto_kernel_feature_describe_usage = """
-+
-+ Print the description and compatibility information for a given kernel feature
-+
-+ usage: yocto-kernel feature describe <bsp-name> [/xxxx/yyyy/feature.scc ...]
-+
-+ This command prints the description and compatibility of a specific
-+ feature in the format 'description [compatibility].
-+"""
-+
-+
-+yocto_kernel_feature_describe_help = """
-+
-+NAME
-+    yocto-kernel feature describe - print the description and
-+    compatibility information for a given kernel feature
-+
-+SYNOPSIS
-+    yocto-kernel feature describe <bsp-name> [/xxxx/yyyy/feature.scc ...]
-+
-+DESCRIPTION
-+    This command prints the description and compatibility of a
-+    specific feature in the format 'description [compatibility].  If
-+    the feature doesn't define a description or compatibility, a
-+    string with generic unknown values will be printed.
-+"""
-+
-+
- ##
- # yocto-layer help and usage strings
- ##
-diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
-index 0308600..ac0b074 100644
---- a/scripts/lib/bsp/kernel.py
-+++ b/scripts/lib/bsp/kernel.py
-@@ -758,6 +758,56 @@ def yocto_kernel_available_features_list(scripts_path, machine):
-     print_feature_descs(layer, "features")
+ {{ if kernel_choice == "custom": preferred_kernel = "linux-yocto-custom" }}
+-{{ if kernel_choice == "custom": }}
++{{ if kernel_choice == "linux-yocto-dev": preferred_kernel = "linux-yocto-dev" }}
++{{ if kernel_choice == "custom" or kernel_choice == "linux-yocto-dev" : }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
  
+-{{ if kernel_choice != "custom": preferred_kernel = kernel_choice.split('_')[0] }}
+-{{ if kernel_choice != "custom": preferred_kernel_version = kernel_choice.split('_')[1] }}
+-{{ if kernel_choice != "custom": }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel = kernel_choice.split('_')[0] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel_version = kernel_choice.split('_')[1] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
  
-+def find_feature_desc_url(git_url, feature):
-+    """
-+    Find the url of the kernel feature in the kernel repo specified
-+    from the BSP's kernel recipe SRC_URI.
-+    """
-+    feature_desc_url = ""
-+    if git_url.startswith("git://"):
-+        git_url = git_url[len("git://"):].strip()
-+        s = git_url.split("/")
-+        if s[1].endswith(".git"):
-+            s[1] = s[1][:len(s[1]) - len(".git")]
-+        feature_desc_url = "http://" + s[0] + "/cgit/cgit.cgi/" + s[1] + \
-+            "/plain/meta/cfg/kernel-cache/" + feature + "?h=meta"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend" "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+new file mode 100644
+index 0000000..0d81446
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"	
+@@ -0,0 +1,21 @@
++FILESEXTRAPATHS_prepend_{{=machine}} := "${THISDIR}/files:"
 +
-+    return feature_desc_url
++PR := "${PR}.1"
 +
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
 +
-+def get_feature_desc(git_url, feature):
-+    """
-+    Return a feature description of the form 'description [compatibility]
-+    BSPs, as gathered from the set of feature sources.
-+    """
-+    feature_desc_url = find_feature_desc_url(git_url, feature)
-+    feature_desc_cmd = "wget -q -O - " + feature_desc_url
-+    tmp = subprocess.Popen(feature_desc_cmd, shell=True, stdout=subprocess.PIPE).stdout.read()
++{{ if need_new_kbranch == "y": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
 +
-+    return find_feature_desc(tmp.split("\n"))
++{{ if need_new_kbranch == "n": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
 +
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
 +
-+def yocto_kernel_feature_describe(scripts_path, machine, feature):
-+    """
-+    Display the description of a specific kernel feature available for
-+    use in a BSP.
-+    """
-+    layer = find_bsp_layer(scripts_path, machine)
-+
-+    kernel = find_current_kernel(layer, machine)
-+    if not kernel:
-+        print "Couldn't determine the kernel for this BSP, exiting."
-+        sys.exit(1)
-+
-+    context = create_context(machine, "arch", scripts_path)
-+    context["name"] = "name"
-+    context["filename"] = kernel
-+    giturl = find_giturl(context)
-+
-+    desc = get_feature_desc(giturl, feature)
-+
-+    print desc
-+
-     
- def base_branches(context):
-     """
-diff --git a/scripts/yocto-kernel b/scripts/yocto-kernel
-index a66a727..1f6ed67 100755
---- a/scripts/yocto-kernel
-+++ b/scripts/yocto-kernel
-@@ -243,6 +243,29 @@ def yocto_kernel_available_features_list_subcommand(args, usage_str):
-     yocto_kernel_available_features_list(scripts_path, args[0])
++SRC_URI += "file://{{=machine}}-standard.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++           "
+diff --git a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
+index 4dd5940..08bb9f1 100644
+--- a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
+@@ -11,12 +11,13 @@ KERNEL_IMAGETYPE = "vmlinux"
+ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
  
+ {{ if kernel_choice == "custom": preferred_kernel = "linux-yocto-custom" }}
+-{{ if kernel_choice == "custom": }}
++{{ if kernel_choice == "linux-yocto-dev": preferred_kernel = "linux-yocto-dev" }}
++{{ if kernel_choice == "custom" or kernel_choice == "linux-yocto-dev" : }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
  
-+def yocto_kernel_feature_describe_subcommand(args, usage_str):
-+    """
-+    Command-line handling for listing the description of a specific
-+    kernel feature available for use in a BSP.  This includes the
-+    features present in the meta branch(es) of the pointed-to repo(s)
-+    as well as the local features added in recipe-space to the current
-+    BSP as well.  The real work is done by
-+    bsp.kernel.yocto_kernel_feature_describe().
-+    """
-+    logging.debug("yocto_kernel_feature_describe_subcommand")
-+
-+    parser = optparse.OptionParser(usage = usage_str)
-+
-+    (options, args) = parser.parse_args(args)
-+
-+    if len(args) != 2:
-+        logging.error("Wrong number of arguments, exiting\n")
-+        parser.print_help()
-+        sys.exit(1)
-+
-+    yocto_kernel_feature_describe(scripts_path, args[0], args[1])
-+
-+
- subcommands = {
-     "config-list": [yocto_kernel_config_list_subcommand,
-                     yocto_kernel_config_list_usage,
-@@ -274,6 +297,9 @@ subcommands = {
-     "features-list": [yocto_kernel_available_features_list_subcommand,
-                  yocto_kernel_available_features_list_usage,
-                  yocto_kernel_available_features_list_help],
-+    "feature-describe": [yocto_kernel_feature_describe_subcommand,
-+                 yocto_kernel_feature_describe_usage,
-+                 yocto_kernel_feature_describe_help],
- }
+-{{ if kernel_choice != "custom": preferred_kernel = kernel_choice.split('_')[0] }}
+-{{ if kernel_choice != "custom": preferred_kernel_version = kernel_choice.split('_')[1] }}
+-{{ if kernel_choice != "custom": }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel = kernel_choice.split('_')[0] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel_version = kernel_choice.split('_')[1] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
  
+diff --git "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend" "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+new file mode 100644
+index 0000000..0d81446
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"	
+@@ -0,0 +1,21 @@
++FILESEXTRAPATHS_prepend_{{=machine}} := "${THISDIR}/files:"
++
++PR := "${PR}.1"
++
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
++
++{{ if need_new_kbranch == "y": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
++
++SRC_URI += "file://{{=machine}}-standard.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++           "
+diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/{{=machine}}.conf
+index 52a5a8a..0456dcd 100644
+--- a/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/{{=machine}}.conf
+@@ -35,12 +35,13 @@ SERIAL_CONSOLE = "115200 ttyS0"
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
  
+ {{ if kernel_choice == "custom": preferred_kernel = "linux-yocto-custom" }}
+-{{ if kernel_choice == "custom": }}
++{{ if kernel_choice == "linux-yocto-dev": preferred_kernel = "linux-yocto-dev" }}
++{{ if kernel_choice == "custom" or kernel_choice == "linux-yocto-dev" : }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ 
+-{{ if kernel_choice != "custom": preferred_kernel = kernel_choice.split('_')[0] }}
+-{{ if kernel_choice != "custom": preferred_kernel_version = kernel_choice.split('_')[1] }}
+-{{ if kernel_choice != "custom": }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel = kernel_choice.split('_')[0] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel_version = kernel_choice.split('_')[1] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
+ 
+diff --git "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend" "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+new file mode 100644
+index 0000000..0d81446
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"	
+@@ -0,0 +1,21 @@
++FILESEXTRAPATHS_prepend_{{=machine}} := "${THISDIR}/files:"
++
++PR := "${PR}.1"
++
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
++
++{{ if need_new_kbranch == "y": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
++
++SRC_URI += "file://{{=machine}}-standard.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++           "
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
+index 460f269..dd7b97e 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
+@@ -2,13 +2,15 @@
+ #@NAME: {{=machine}}
+ 
+ #@DESCRIPTION: Machine configuration for {{=machine}} systems
++
+ {{ if kernel_choice == "custom": preferred_kernel = "linux-yocto-custom" }}
+-{{ if kernel_choice == "custom": }}
++{{ if kernel_choice == "linux-yocto-dev": preferred_kernel = "linux-yocto-dev" }}
++{{ if kernel_choice == "custom" or kernel_choice == "linux-yocto-dev" : }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ 
+-{{ if kernel_choice != "custom": preferred_kernel = kernel_choice.split('_')[0] }}
+-{{ if kernel_choice != "custom": preferred_kernel_version = kernel_choice.split('_')[1] }}
+-{{ if kernel_choice != "custom": }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel = kernel_choice.split('_')[0] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel_version = kernel_choice.split('_')[1] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
+ 
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+new file mode 100644
+index 0000000..e6a293f
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"	
+@@ -0,0 +1,45 @@
++FILESEXTRAPATHS_prepend_{{=machine}} := "${THISDIR}/files:"
++
++PR := "${PR}.1"
++
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
++
++{{ if need_new_kbranch == "y" and qemuarch == "arm": }}
++{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base your new BSP branch on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n" and qemuarch == "arm": }}
++{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose an existing machine branch to use for this BSP:" default:"standard/arm-versatile-926ejs" }}
++
++{{ if need_new_kbranch == "y" and qemuarch == "powerpc": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n" and qemuarch == "powerpc": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/qemu-ppc32" }}
++
++{{ if need_new_kbranch == "y" and qemuarch == "i386": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc/base" }}
++
++{{ if need_new_kbranch == "n" and qemuarch == "i386": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc/base" }}
++
++{{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++
++{{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++
++{{ if need_new_kbranch == "y" and qemuarch == "mips": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n" and qemuarch == "mips": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/mti-malta32-be" }}
++
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
++
++SRC_URI += "file://{{=machine}}-standard.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++           "
+diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf
+index 52a96df..f20d161 100644
+--- a/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf
+@@ -4,12 +4,13 @@
+ #@DESCRIPTION: Machine configuration for {{=machine}} systems
+ 
+ {{ if kernel_choice == "custom": preferred_kernel = "linux-yocto-custom" }}
+-{{ if kernel_choice == "custom": }}
++{{ if kernel_choice == "linux-yocto-dev": preferred_kernel = "linux-yocto-dev" }}
++{{ if kernel_choice == "custom" or kernel_choice == "linux-yocto-dev" : }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ 
+-{{ if kernel_choice != "custom": preferred_kernel = kernel_choice.split('_')[0] }}
+-{{ if kernel_choice != "custom": preferred_kernel_version = kernel_choice.split('_')[1] }}
+-{{ if kernel_choice != "custom": }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel = kernel_choice.split('_')[0] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": preferred_kernel_version = kernel_choice.split('_')[1] }}
++{{ if kernel_choice != "custom" and kernel_choice != "linux-yocto-dev": }}
+ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
+ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
+ 
+diff --git "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend" "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"
+new file mode 100644
+index 0000000..0d81446
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-dev\": }} linux-yocto-dev.bbappend"	
+@@ -0,0 +1,21 @@
++FILESEXTRAPATHS_prepend_{{=machine}} := "${THISDIR}/files:"
++
++PR := "${PR}.1"
++
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
++
++{{ if need_new_kbranch == "y": }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ if need_new_kbranch == "n": }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
++
++SRC_URI += "file://{{=machine}}-standard.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++           "
 -- 
 1.7.11.4
 
