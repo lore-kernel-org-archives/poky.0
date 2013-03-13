@@ -1,24 +1,23 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E03EBE01474
-	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:29 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 13 Mar 2013 12:02:57 -0700
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9B268E0147C
+	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:31 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 13 Mar 2013 12:04:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="301204899"
+X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="214167839"
 Received: from unknown (HELO localhost) ([10.255.12.139])
-	by orsmga002.jf.intel.com with ESMTP; 13 Mar 2013 12:04:27 -0700
+	by AZSMGA002.ch.intel.com with ESMTP; 13 Mar 2013 12:04:30 -0700
 From: tom.zanussi@linux.intel.com
 To: poky@yoctoproject.org
-Date: Wed, 13 Mar 2013 14:04:06 -0500
-Message-Id: <41d1f82b097b62b2bb8803864bd3c42bec8ee793.1363198817.git.tom.zanussi@linux.intel.com>
+Date: Wed, 13 Mar 2013 14:04:08 -0500
+Message-Id: <80593d975327e9c35eed9e38d8514fdd4386299c.1363198817.git.tom.zanussi@linux.intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 References: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 In-Reply-To: <cover.1363198817.git.tom.zanussi@linux.intel.com>
 References: <cover.1363198817.git.tom.zanussi@linux.intel.com>
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 12/18] yocto-bsp: upgrade i386 template with emgd 1.16
+Subject: [PATCH 14/18] yocto-kernel: add support for listing available kernel features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,67 +30,248 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2013 19:04:30 -0000
+X-List-Received-Date: Wed, 13 Mar 2013 19:04:32 -0000
 
-From: Tom Zanussi <tom.zanussi@linux.intel.com>
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Along with related changes.
+Add a yocto-kernel command allowing users to list all the kernel
+features available to a BSP.  This includes the features contained in
+linux-yocto meta branches as well as recipe-space features defined
+locally to the BSP.
 
-Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- scripts/lib/bsp/substrate/target/arch/common/README                | 4 ++--
- .../bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf  | 7 ++++---
- .../{{=machine}}-standard.scc"                                     | 3 +--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ scripts/lib/bsp/help.py   |  31 ++++++++++++++
+ scripts/lib/bsp/kernel.py | 107 ++++++++++++++++++++++++++++++++++++++++++++++
+ scripts/yocto-kernel      |  27 +++++++++++-
+ 3 files changed, 164 insertions(+), 1 deletion(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/common/README b/scripts/lib/bsp/substrate/target/arch/common/README
-index 228c0e2..93af973 100644
---- a/scripts/lib/bsp/substrate/target/arch/common/README
-+++ b/scripts/lib/bsp/substrate/target/arch/common/README
-@@ -68,10 +68,10 @@ You should then be able to build a {{=machine}} image as such:
- NOTE: if the '{{=machine}}' machine includes the emgd-driver-bin
- package (i.e. if the emgd version of the xserver is being used), it
- has a proprietary license that must be whitelisted by adding the
--string "license_emgd-driver-bin_1.14" to the LICENSE_FLAGS_WHITELIST
-+string "license_emgd-driver-bin_1.16" to the LICENSE_FLAGS_WHITELIST
- variable in your local.conf.  For example:
+diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
+index 2d7b6fe..9ba6a93 100644
+--- a/scripts/lib/bsp/help.py
++++ b/scripts/lib/bsp/help.py
+@@ -386,6 +386,7 @@ yocto_kernel_usage = """
+    feature list      List the features used by a BSP
+    feature add       Have a BSP use a feature
+    feature rm        Have a BSP stop using a feature
++   features list     List the features available to BSPs
  
--  LICENSE_FLAGS_WHITELIST = "license_emgd-driver-bin_1.14"
-+  LICENSE_FLAGS_WHITELIST = "license_emgd-driver-bin_1.16"
+  See 'yocto-kernel help COMMAND' for more information on a specific command.
  
- At the end of a successful build, you should have a live image that
- you can boot from a USB flash drive (see instructions on how to do
-diff --git a/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
-index a33cb2e..268ddc8 100644
---- a/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
-@@ -58,8 +58,9 @@ XSERVER ?= "${XSERVER_IA32_BASE} \
+@@ -692,6 +693,36 @@ DESCRIPTION
+     remove.
+ """
  
- {{ if xserver == "y" and xserver_choice == "xserver_emgd": }}
- PREFERRED_VERSION_xserver-xorg ?= "1.9.3"
--PREFERRED_VERSION_mesa-dri ?= "7.11"
--PREFERRED_VERSION_emgd-driver-bin ?= "1.14"
-+PREFERRED_VERSION_mesa-dri ?= "9.0.2"
-+PREFERRED_VERSION_xf86-input-evdev ?= "2.6.0"
-+PREFERRED_VERSION_emgd-driver-bin ?= "1.16"
++
++yocto_kernel_available_features_list_usage = """
++
++ List the set of kernel features available to a BSP
++
++ usage: yocto-kernel features list <bsp-name>
++
++ This command lists the complete set of kernel features available to a
++ BSP.  This includes the features contained in linux-yocto meta
++ branches as well as recipe-space features defined locally to the BSP.
++"""
++
++
++yocto_kernel_available_features_list_help = """
++
++NAME
++    yocto-kernel features list - List the set of kernel features
++    available to a BSP
++
++SYNOPSIS
++    yocto-kernel features list <bsp-name>
++
++DESCRIPTION
++     This command lists the complete set of kernel features available
++     to a BSP.  This includes the features contained in linux-yocto
++     meta branches as well as recipe-space features defined locally to
++     the BSP.
++"""
++
++
+ ##
+ # yocto-layer help and usage strings
+ ##
+diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
+index 0fa228a..0308600 100644
+--- a/scripts/lib/bsp/kernel.py
++++ b/scripts/lib/bsp/kernel.py
+@@ -32,6 +32,7 @@ import shutil
+ from tags import *
+ import glob
+ import subprocess
++from engine import create_context
  
- {{ if xserver == "y" and xserver_choice == "xserver_vesa" or xserver_choice == "xserver_emgd": }}
--APPEND += "video=vesafb vga=0x318"
-+APPEND += "video=vesafb vga=0x318 vmalloc=256MB"
-diff --git "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-standard.scc" "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-standard.scc"
-index e34882f..1b22eab 100644
---- "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-standard.scc"	
-+++ "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice != \"custom\": }} files/{{=machine}}-standard.scc"	
-@@ -7,8 +7,7 @@ include {{=map_standard_kbranch(need_new_kbranch, new_kbranch, existing_kbranch)
- branch {{=machine}}
  
- {{ if xserver == "y" and xserver_choice == "xserver_emgd": }}
--include features/emgd/emgd-1.14.scc
--git merge emgd-1.14
-+include features/drm-emgd/emgd-1.16.scc
+ def find_bblayers(scripts_path):
+@@ -651,6 +652,112 @@ def yocto_kernel_feature_add(scripts_path, machine, features):
+     for n in new_items:
+         print "\t%s" % n
  
- include {{=machine}}.scc
++
++def find_feature_url(git_url):
++    """
++    Find the url of the kern-features.rc kernel for the kernel repo
++    specified from the BSP's kernel recipe SRC_URI.
++    """
++    feature_url = ""
++    if git_url.startswith("git://"):
++        git_url = git_url[len("git://"):].strip()
++        s = git_url.split("/")
++        if s[1].endswith(".git"):
++            s[1] = s[1][:len(s[1]) - len(".git")]
++        feature_url = "http://" + s[0] + "/cgit/cgit.cgi/" + s[1] + \
++            "/plain/meta/cfg/kern-features.rc?h=meta"
++
++    return feature_url
++
++
++def find_feature_desc(lines):
++    """
++    Find the feature description and compatibility in the passed-in
++    set of lines.  Returns a string string of the form 'desc
++    [compat]'.
++    """
++    desc = "no description available"
++    compat = "unknown"
++
++    for line in lines:
++        idx = line.find("KFEATURE_DESCRIPTION")
++        if idx != -1:
++            desc = line[idx + len("KFEATURE_DESCRIPTION"):].strip()
++            if desc.startswith("\""):
++                desc = desc[1:]
++                if desc.endswith("\""):
++                    desc = desc[:-1]
++        else:
++            idx = line.find("KFEATURE_COMPATIBILITY")
++            if idx != -1:
++                compat = line[idx + len("KFEATURE_COMPATIBILITY"):].strip()
++
++    return desc + " [" + compat + "]"
++
++
++def print_feature_descs(layer, feature_dir):
++    """
++    Print the feature descriptions for the features in feature_dir.
++    """
++    kernel_files_features = os.path.join(layer, "recipes-kernel/linux/files/" +
++                                         feature_dir)
++    for root, dirs, files in os.walk(kernel_files_features):
++        for file in files:
++            if file.endswith("~") or file.endswith("#"):
++                continue
++            if file.endswith(".scc"):
++                fullpath = os.path.join(layer, "recipes-kernel/linux/files/" +
++                                        feature_dir + "/" + file)
++                f = open(fullpath)
++                feature_desc = find_feature_desc(f.readlines())
++                print feature_dir + "/" + file + ": " + feature_desc
++
++
++def yocto_kernel_available_features_list(scripts_path, machine):
++    """
++    Display the list of all the kernel features available for use in
++    BSPs, as gathered from the set of feature sources.
++    """
++    layer = find_bsp_layer(scripts_path, machine)
++    kernel = find_current_kernel(layer, machine)
++    if not kernel:
++        print "Couldn't determine the kernel for this BSP, exiting."
++        sys.exit(1)
++
++    context = create_context(machine, "arch", scripts_path)
++    context["name"] = "name"
++    context["filename"] = kernel
++    giturl = find_giturl(context)
++    feature_url = find_feature_url(giturl)
++
++    feature_cmd = "wget -q -O - " + feature_url
++    tmp = subprocess.Popen(feature_cmd, shell=True, stdout=subprocess.PIPE).stdout.read()
++
++    print "The current set of kernel features available to %s is:\n" % machine
++
++    if tmp:
++        tmpline = tmp.split("\n")
++        in_kernel_options = False
++        for line in tmpline:
++            if not "=" in line:
++                if in_kernel_options:
++                    break
++                if "kernel-options" in line:
++                    in_kernel_options = True
++                continue
++            if in_kernel_options:
++                feature_def = line.split("=")
++                feature_type = feature_def[0].strip()
++                feature = feature_def[1].strip()
++                desc = get_feature_desc(giturl, feature)
++                print "%s: %s" % (feature, desc)
++
++    print "[local]"
++
++    print_feature_descs(layer, "cfg")
++    print_feature_descs(layer, "features")
++
++
+     
+ def base_branches(context):
+     """
+diff --git a/scripts/yocto-kernel b/scripts/yocto-kernel
+index 72b4071..a66a727 100755
+--- a/scripts/yocto-kernel
++++ b/scripts/yocto-kernel
+@@ -221,6 +221,28 @@ def yocto_kernel_feature_rm_subcommand(args, usage_str):
+     yocto_kernel_feature_rm(scripts_path, args[0])
  
+ 
++def yocto_kernel_available_features_list_subcommand(args, usage_str):
++    """
++    Command-line handling for listing all the kernel features
++    available for use in a BSP.  This includes the features present in
++    the meta branch(es) of the pointed-to repo(s) as well as the local
++    features added in recipe-space to the current BSP as well.  The
++    real work is done by bsp.kernel.yocto_kernel_available_features_list().
++    """
++    logging.debug("yocto_kernel_feature_available_features_list_subcommand")
++
++    parser = optparse.OptionParser(usage = usage_str)
++
++    (options, args) = parser.parse_args(args)
++
++    if len(args) != 1:
++        logging.error("Wrong number of arguments, exiting\n")
++        parser.print_help()
++        sys.exit(1)
++
++    yocto_kernel_available_features_list(scripts_path, args[0])
++
++
+ subcommands = {
+     "config-list": [yocto_kernel_config_list_subcommand,
+                     yocto_kernel_config_list_usage,
+@@ -249,6 +271,9 @@ subcommands = {
+     "feature-rm": [yocto_kernel_feature_rm_subcommand,
+                  yocto_kernel_feature_rm_usage,
+                  yocto_kernel_feature_rm_help],
++    "features-list": [yocto_kernel_available_features_list_subcommand,
++                 yocto_kernel_available_features_list_usage,
++                 yocto_kernel_available_features_list_help],
+ }
+ 
+ 
+@@ -281,7 +306,7 @@ def main():
+             sc = 0
+ 
+         if args[sc] == "config" or args[sc] == "patch" or \
+-                args[sc] == "feature":
++                args[sc] == "feature" or args[sc] == "features":
+             if len(args) < 2 + sc:
+                 parser.print_help()
+                 sys.exit(1)
 -- 
 1.7.11.4
 
