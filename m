@@ -1,24 +1,23 @@
 Return-Path: <tom.zanussi@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1B895E01487
-	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:39 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 Mar 2013 12:04:38 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5EC34E01487
+	for <poky@yoctoproject.org>; Wed, 13 Mar 2013 12:04:41 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 13 Mar 2013 12:04:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="278490326"
+X-IronPort-AV: E=Sophos;i="4.84,838,1355126400"; d="scan'208";a="302016493"
 Received: from unknown (HELO localhost) ([10.255.12.139])
-	by orsmga001.jf.intel.com with ESMTP; 13 Mar 2013 12:04:29 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 13 Mar 2013 12:04:38 -0700
 From: tom.zanussi@linux.intel.com
 To: poky@yoctoproject.org
-Date: Wed, 13 Mar 2013 14:04:07 -0500
-Message-Id: <f14e95cf3d0e52a094d48d43e1c0228bb1212dfd.1363198817.git.tom.zanussi@linux.intel.com>
+Date: Wed, 13 Mar 2013 14:04:10 -0500
+Message-Id: <29f4d7549392dfa46eaa1ee48a55e7715cbcaf47.1363198817.git.tom.zanussi@linux.intel.com>
 X-Mailer: git-send-email 1.7.11.4
 In-Reply-To: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 References: <b76f685ce4d1be7a7f1fa59d2f0d17fd0ddbc7b5.1363198817.git.tom.zanussi@linux.intel.com>
 In-Reply-To: <cover.1363198817.git.tom.zanussi@linux.intel.com>
 References: <cover.1363198817.git.tom.zanussi@linux.intel.com>
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 13/18] yocto-kernel: add support for kernel feature add/rm/list
+Subject: [PATCH 16/18] yocto-kernel: add support for creating recipe-space kernel features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,352 +30,233 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2013 19:04:39 -0000
+X-List-Received-Date: Wed, 13 Mar 2013 19:04:41 -0000
 
-From: Tom Zanussi <tom.zanussi@linux.intel.com>
+From: Tom Zanussi <tom.zanussi@intel.com>
 
-Add yocto-kernel commands allowing users to add, remove, and list
-kernel features with respect to a given BSP.
+Add a yocto-kernel command allowing users to create a recipe-space
+kernel feature local to a particular BSP.  The new feature is
+subsequently available for the normal feature addition and removal
+yocto-kernel commands used with features defined in the meta branch of
+linux-yocto kernel repos.
 
-Features managed by these commands modify a special
-machine-user-features.scc file associated with the kernel recipe
-(.bbappend) of a yocto-bsp-generated BSP.  This is analagous to the
-implementation of similar support for bare config items and patches
-already implemented for yocto-bsp-generated BSPs.
-
-Future patches will add support for providing a list of eligible
-features as defined by linux-yocto kernels and locally-defined
-(recipe-space) kernel features.
-
-Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
+Signed-off-by: Tom Zanussi <tom.zanussi@intel.com>
 ---
- scripts/lib/bsp/help.py   | 98 ++++++++++++++++++++++++++++++++++++++++++++++
- scripts/lib/bsp/kernel.py | 99 +++++++++++++++++++++++++++++++++++++++++++++++
- scripts/yocto-kernel      | 71 ++++++++++++++++++++++++++++++++-
- 3 files changed, 267 insertions(+), 1 deletion(-)
+ scripts/lib/bsp/help.py   |  36 ++++++++++++++++
+ scripts/lib/bsp/kernel.py | 103 +++++++++++++++++++++++++++++++++++++++++++++-
+ scripts/yocto-kernel      |  24 +++++++++++
+ 3 files changed, 162 insertions(+), 1 deletion(-)
 
 diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
-index 346bf0f..2d7b6fe 100644
+index 91de600..d7c0360 100644
 --- a/scripts/lib/bsp/help.py
 +++ b/scripts/lib/bsp/help.py
-@@ -383,6 +383,9 @@ yocto_kernel_usage = """
-    patch list        List the patches associated with a BSP
-    patch add         Patch the Yocto kernel for a BSP
-    patch rm          Remove patches from a BSP
-+   feature list      List the features used by a BSP
-+   feature add       Have a BSP use a feature
-+   feature rm        Have a BSP stop using a feature
+@@ -388,6 +388,7 @@ yocto_kernel_usage = """
+    feature rm        Have a BSP stop using a feature
+    features list     List the features available to BSPs
+    feature describe  Describe a particular feature
++   feature create    Create a new BSP-local feature
  
   See 'yocto-kernel help COMMAND' for more information on a specific command.
  
-@@ -594,6 +597,101 @@ DESCRIPTION
-     remove.
+@@ -752,6 +753,41 @@ DESCRIPTION
  """
  
-+yocto_kernel_feature_list_usage = """
+ 
++yocto_kernel_feature_create_usage = """
 +
-+ List the BSP features that are being used by a BSP
++ Create a recipe-space kernel feature in a BSP
 +
-+ usage: yocto-kernel feature list <bsp-name>
++ usage: yocto-kernel feature create <bsp-name> newfeature.scc \
++        "Feature Description" capabilities [<CONFIG_XXX=x> ...] [<PATCH> ...]
 +
-+ This command lists the features being used by a BSP i.e. the features
-+ which are eligible for modification or removal by other yocto-kernel
-+ commands.
-+
-+ 'modifiable' features are the features listed in a BSP's
-+ user-features.scc file.
++ This command creates a new kernel feature from the bare config
++ options and patches specified on the command-line.
 +"""
 +
 +
-+yocto_kernel_feature_list_help = """
++yocto_kernel_feature_create_help = """
 +
 +NAME
-+    yocto-kernel feature list - List the modifiable set of features
-+    being used by a BSP
++    yocto-kernel feature create - create a recipe-space kernel feature
++    in a BSP
 +
 +SYNOPSIS
-+    yocto-kernel feature list <bsp-name>
++    yocto-kernel feature create <bsp-name> newfeature.scc \
++        "Feature Description" capabilities [<CONFIG_XXX=x> ...] [<PATCH> ...]
 +
 +DESCRIPTION
-+    This command lists the 'modifiable' features being used by a BSP
-+    i.e. the features which are eligible for modification or removal
-+    by other yocto-kernel commands.
-+"""
-+
-+
-+yocto_kernel_feature_add_usage = """
-+
-+ Add to or modify the list of features being used for a BSP
-+
-+ usage: yocto-kernel feature add <bsp-name> [/xxxx/yyyy/feature.scc ...]
-+
-+ This command adds one or more feature items to a BSP's kernel
-+ user-features.scc file, which is the file used to manage features in
-+ a yocto-bsp-generated BSP.  Features to be added must be specified as
-+ fully-qualified feature names.
-+"""
-+
-+
-+yocto_kernel_feature_add_help = """
-+
-+NAME
-+    yocto-kernel feature add - Add to or modify the list of features
-+    being used for a BSP
-+
-+SYNOPSIS
-+    yocto-kernel feature add <bsp-name> [/xxxx/yyyy/feature.scc ...]
-+
-+DESCRIPTION
-+    This command adds one or more feature items to a BSP's
-+    user-features.scc file, which is the file used to manage features
-+    in a yocto-bsp-generated BSP.  Features to be added must be
-+    specified as fully-qualified feature names.
-+"""
-+
-+
-+yocto_kernel_feature_rm_usage = """
-+
-+ Remove a feature from the list of features being used for a BSP
-+
-+ usage: yocto-kernel feature rm <bsp-name>
-+
-+ This command removes (turns off) one or more features from a BSP's
-+ user-features.scc file, which is the file used to manage features in
-+ a yocto-bsp-generated BSP.
-+
-+ The set of features available to be removed by this command for a BSP
-+ is listed and the user prompted for the specific items to remove.
-+"""
-+
-+
-+yocto_kernel_feature_rm_help = """
-+
-+NAME
-+    yocto-kernel feature rm - Remove a feature from the list of
-+    features being used for a BSP
-+
-+SYNOPSIS
-+    yocto-kernel feature rm <bsp-name>
-+
-+DESCRIPTION
-+    This command removes (turns off) one or more features from a BSP's
-+    user-features.scc file, which is the file used to manage features
-+    in a yocto-bsp-generated BSP.
-+
-+    The set of features available to be removed by this command for a
-+    BSP is listed and the user prompted for the specific items to
-+    remove.
++    This command creates a new kernel feature from the bare config
++    options and patches specified on the command-line.  The new
++    feature will be created in recipe-space, specifically in either
++    the kernel .bbappend's /files/cfg or /files/features subdirectory,
++    depending on whether or not the feature contains config items only
++    or config items along with patches.  The named feature must end
++    with .scc and must not contain a feature directory to contain the
++    feature (this will be determined automatically), and a feature
++    decription in double-quotes along with a capabilities string
++    (which for the time being can be one of: 'all' or 'board').
 +"""
 +
  ##
  # yocto-layer help and usage strings
  ##
 diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
-index dabb9cf..0fa228a 100644
+index ac0b074..ac6861e 100644
 --- a/scripts/lib/bsp/kernel.py
 +++ b/scripts/lib/bsp/kernel.py
-@@ -552,6 +552,105 @@ def find_giturl(context):
-     
-     return None
+@@ -808,7 +808,108 @@ def yocto_kernel_feature_describe(scripts_path, machine, feature):
  
-+
-+def read_features(scripts_path, machine):
-+    """
-+    Find and return a list of features in a machine's user-defined
-+    features fragment [${machine}-user-features.scc].
-+    """
-+    features = []
-+
-+    f = open_user_file(scripts_path, machine, machine+"-user-features.scc", "r")
-+    lines = f.readlines()
-+    for line in lines:
-+        s = line.strip()
-+        if s and not s.startswith("#"):
-+            feature_include = s.split()
-+            features.append(feature_include[1].strip())
-+    f.close()
-+
-+    return features
-+
-+
-+def write_features(scripts_path, machine, features):
-+    """
-+    Write (replace) the list of feature items in a
-+    machine's user-defined features fragment [${machine}=user-features.cfg].
-+    """
-+    f = open_user_file(scripts_path, machine, machine+"-user-features.scc", "w")
-+    for item in features:
-+        f.write("include " + item + "\n")
-+    f.close()
-+
-+    kernel_contents_changed(scripts_path, machine)
-+
-+
-+def yocto_kernel_feature_list(scripts_path, machine):
-+    """
-+    Display the list of features used in a machine's user-defined
-+    features fragment [${machine}-user-features.scc].
-+    """
-+    features = read_features(scripts_path, machine)
-+
-+    print "The current set of machine-specific features for %s is:" % machine
-+    print gen_choices_str(features)
-+
-+
-+def yocto_kernel_feature_rm(scripts_path, machine):
-+    """
-+    Display the list of features used in a machine's user-defined
-+    features fragment [${machine}-user-features.scc], prompt the user
-+    for one or more to remove, and remove them.
-+    """
-+    features = read_features(scripts_path, machine)
-+
-+    print "Specify the features to remove:"
-+    input = raw_input(gen_choices_str(features))
-+    rm_choices = input.split()
-+    rm_choices.sort()
-+
-+    removed = []
-+
-+    for choice in reversed(rm_choices):
-+        try:
-+            idx = int(choice) - 1
-+        except ValueError:
-+            print "Invalid choice (%s), exiting" % choice
-+            sys.exit(1)
-+        if idx < 0 or idx >= len(features):
-+            print "Invalid choice (%d), exiting" % (idx + 1)
-+            sys.exit(1)
-+        removed.append(features.pop(idx))
-+
-+    write_features(scripts_path, machine, features)
-+
-+    print "Removed features:"
-+    for r in removed:
-+        print "\t%s" % r
-+
-+
-+def yocto_kernel_feature_add(scripts_path, machine, features):
-+    """
-+    Add one or more features a machine's user-defined features
-+    fragment [${machine}-user-features.scc].
-+    """
-+    new_items = []
-+
-+    for item in features:
-+        if not item.endswith(".scc"):
-+            print "Invalid feature (%s), exiting" % item
-+            sys.exit(1)
-+        new_items.append(item)
-+
-+    cur_items = read_features(scripts_path, machine)
-+    cur_items.extend(new_items)
-+
-+    write_features(scripts_path, machine, cur_items)
-+
-+    print "Added features:"
-+    for n in new_items:
-+        print "\t%s" % n
-+
-     
- def base_branches(context):
-     """
-diff --git a/scripts/yocto-kernel b/scripts/yocto-kernel
-index 2e1789b..72b4071 100755
---- a/scripts/yocto-kernel
-+++ b/scripts/yocto-kernel
-@@ -162,6 +162,65 @@ def yocto_kernel_patch_rm_subcommand(args, usage_str):
-     yocto_kernel_patch_rm(scripts_path, args[0])
+     print desc
  
- 
-+def yocto_kernel_feature_list_subcommand(args, usage_str):
+-    
++
++def check_feature_name(feature_name):
 +    """
-+    Command-line handling for listing the BSP features that are being
-+    used by the BSP.  The real work is done by
-+    bsp.kernel.yocto_kernel_feature_list().
++    Sanity-check the feature name for create/destroy.  Return False if not OK.
 +    """
-+    logging.debug("yocto_kernel_feature_list_subcommand")
++    if not feature_name.endswith(".scc"):
++        print "Invalid feature name (must end with .scc) [%s], exiting" % feature_name
++        return False
 +
-+    parser = optparse.OptionParser(usage = usage_str)
++    if "/" in feature_name:
++        print "Invalid feature name (don't specify directory) [%s], exiting" % feature_name
++        return False
 +
-+    (options, args) = parser.parse_args(args)
++    return True
 +
-+    if len(args) != 1:
-+        logging.error("Wrong number of arguments, exiting\n")
-+        parser.print_help()
++
++def check_create_input(feature_items):
++    """
++    Sanity-check the create input.  Return False if not OK.
++    """
++    if not check_feature_name(feature_items[0]):
++        return False
++
++    if feature_items[1].endswith(".patch") or feature_items[1].startswith("CONFIG_"):
++        print "Missing description and/or compatibilty [%s], exiting" % feature_items[1]
++        return False
++
++    if feature_items[2].endswith(".patch") or feature_items[2].startswith("CONFIG_"):
++        print "Missing description and/or compatibility [%s], exiting" % feature_items[1]
++        return False
++
++    return True
++
++
++def yocto_kernel_feature_create(scripts_path, machine, feature_items):
++    """
++    Create a recipe-space kernel feature in a BSP.
++    """
++    if not check_create_input(feature_items):
 +        sys.exit(1)
 +
-+    yocto_kernel_feature_list(scripts_path, args[0])
++    feature = feature_items[0]
++    feature_basename = feature.split(".")[0]
++    feature_description = feature_items[1]
++    feature_compat = feature_items[2]
++
++    patches = []
++    cfg_items = []
++
++    for item in feature_items[3:]:
++        if item.endswith(".patch"):
++            patches.append(item)
++        elif item.startswith("CONFIG"):
++            if ("=y" in item or "=m" in item):
++                cfg_items.append(item)
++        else:
++            print "Invalid feature item (must be .patch or CONFIG_*) [%s], exiting" % item
++            sys.exit(1)
++
++    feature_dirname = "cfg"
++    if patches:
++        feature_dirname = "features"
++
++    filesdir = find_filesdir(scripts_path, machine)
++    if not filesdir:
++        print "Couldn't add feature (%s), no 'files' dir found" % feature
++        sys.exit(1)
++
++    featdir = os.path.join(filesdir, feature_dirname)
++    if not os.path.exists(featdir):
++        os.mkdir(featdir)
++
++    for patch in patches:
++        if not os.path.isfile(patch):
++            print "Couldn't find patch (%s), exiting" % patch
++            sys.exit(1)
++        basename = os.path.basename(patch)
++        featdir_patch = os.path.join(featdir, basename)
++        shutil.copyfile(patch, featdir_patch)
++
++    new_cfg_filename = os.path.join(featdir, feature_basename + ".cfg")
++    new_cfg_file = open(new_cfg_filename, "w")
++    for cfg_item in cfg_items:
++        new_cfg_file.write(cfg_item + "\n")
++    new_cfg_file.close()
++
++    new_feature_filename = os.path.join(featdir, feature_basename + ".scc")
++    new_feature_file = open(new_feature_filename, "w")
++    new_feature_file.write("define KFEATURE_DESCRIPTION \"" + feature_description + "\"\n")
++    new_feature_file.write("define KFEATURE_COMPATIBILITY " + feature_compat + "\n\n")
++
++    for patch in patches:
++        patch_dir, patch_file = os.path.split(patch)
++        new_feature_file.write("patch " + patch_file + "\n")
++
++    new_feature_file.write("kconf non-hardware " + feature_basename + ".cfg\n")
++    new_feature_file.close()
++
++    print "Added feature:"
++    print "\t%s" % feature_dirname + "/" + feature
 +
 +
-+def yocto_kernel_feature_add_subcommand(args, usage_str):
+ def base_branches(context):
+     """
+     Return a list of the base branches found in the kernel git repo.
+diff --git a/scripts/yocto-kernel b/scripts/yocto-kernel
+index 1f6ed67..69fe344 100755
+--- a/scripts/yocto-kernel
++++ b/scripts/yocto-kernel
+@@ -266,6 +266,27 @@ def yocto_kernel_feature_describe_subcommand(args, usage_str):
+     yocto_kernel_feature_describe(scripts_path, args[0], args[1])
+ 
+ 
++def yocto_kernel_feature_create_subcommand(args, usage_str):
 +    """
-+    Command-line handling for adding the use of kernel features to a
-+    BSP.  The real work is done by bsp.kernel.yocto_kernel_feature_add().
++    Command-line handling for creating a recipe-space kernel feature
++    in a BSP.  The real work is done by
++    bsp.kernel.yocto_kernel_feature_create().
 +    """
-+    logging.debug("yocto_kernel_feature_add_subcommand")
++    logging.debug("yocto_kernel_feature_create_subcommand")
 +
 +    parser = optparse.OptionParser(usage = usage_str)
 +
 +    (options, args) = parser.parse_args(args)
 +
-+    if len(args) < 2:
++    if len(args) < 4:
 +        logging.error("Wrong number of arguments, exiting\n")
 +        parser.print_help()
 +        sys.exit(1)
 +
 +    machine = args.pop(0)
-+    yocto_kernel_feature_add(scripts_path, machine, args)
-+
-+
-+def yocto_kernel_feature_rm_subcommand(args, usage_str):
-+    """
-+    Command-line handling for removing the use of kernel features from
-+    a BSP.  The real work is done by bsp.kernel.yocto_kernel_feature_rm().
-+    """
-+    logging.debug("yocto_kernel_feature_rm_subcommand")
-+
-+    parser = optparse.OptionParser(usage = usage_str)
-+
-+    (options, args) = parser.parse_args(args)
-+
-+    if len(args) != 1:
-+        logging.error("Wrong number of arguments, exiting\n")
-+        parser.print_help()
-+        sys.exit(1)
-+
-+    yocto_kernel_feature_rm(scripts_path, args[0])
++    yocto_kernel_feature_create(scripts_path, machine, args)
 +
 +
  subcommands = {
      "config-list": [yocto_kernel_config_list_subcommand,
                      yocto_kernel_config_list_usage,
-@@ -181,6 +240,15 @@ subcommands = {
-     "patch-rm": [yocto_kernel_patch_rm_subcommand,
-                  yocto_kernel_patch_rm_usage,
-                  yocto_kernel_patch_rm_help],
-+    "feature-list": [yocto_kernel_feature_list_subcommand,
-+                   yocto_kernel_feature_list_usage,
-+                   yocto_kernel_feature_list_help],
-+    "feature-add": [yocto_kernel_feature_add_subcommand,
-+                  yocto_kernel_feature_add_usage,
-+                  yocto_kernel_feature_add_help],
-+    "feature-rm": [yocto_kernel_feature_rm_subcommand,
-+                 yocto_kernel_feature_rm_usage,
-+                 yocto_kernel_feature_rm_help],
+@@ -300,6 +321,9 @@ subcommands = {
+     "feature-describe": [yocto_kernel_feature_describe_subcommand,
+                  yocto_kernel_feature_describe_usage,
+                  yocto_kernel_feature_describe_help],
++    "feature-create": [yocto_kernel_feature_create_subcommand,
++                 yocto_kernel_feature_create_usage,
++                 yocto_kernel_feature_create_help],
  }
  
  
-@@ -212,7 +280,8 @@ def main():
-         else:
-             sc = 0
- 
--        if args[sc] == "config" or args[sc] == "patch":
-+        if args[sc] == "config" or args[sc] == "patch" or \
-+                args[sc] == "feature":
-             if len(args) < 2 + sc:
-                 parser.print_help()
-                 sys.exit(1)
 -- 
 1.7.11.4
 
