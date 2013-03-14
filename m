@@ -1,19 +1,19 @@
 Return-Path: <cristian.iorga@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 124C9E01466
-	for <poky@yoctoproject.org>; Thu, 14 Mar 2013 11:06:54 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 14 Mar 2013 11:06:54 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 531D8E01460
+	for <poky@yoctoproject.org>; Thu, 14 Mar 2013 11:25:15 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 14 Mar 2013 11:25:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,846,1355126400"; d="scan'208";a="214778619"
+X-IronPort-AV: E=Sophos;i="4.84,846,1355126400"; d="scan'208";a="279589035"
 Received: from unknown (HELO sentry.rb.intel.com) ([10.237.105.54])
-	by AZSMGA002.ch.intel.com with ESMTP; 14 Mar 2013 11:06:45 -0700
+	by orsmga001.jf.intel.com with ESMTP; 14 Mar 2013 11:25:13 -0700
 From: Cristian Iorga <cristian.iorga@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 14 Mar 2013 20:07:17 +0200
-Message-Id: <1363284437-23912-1-git-send-email-cristian.iorga@intel.com>
+Date: Thu, 14 Mar 2013 20:25:46 +0200
+Message-Id: <1363285546-24207-1-git-send-email-cristian.iorga@intel.com>
 X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] upstream-tracking: added glib-2.0 no update reason
+Subject: [PATCH] upstream-tracking: added polkit no upgrade reason
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,25 +26,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Mar 2013 18:06:55 -0000
+X-List-Received-Date: Thu, 14 Mar 2013 18:25:15 -0000
 
 Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
 ---
- meta-yocto/conf/distro/include/upstream_tracking.inc |    1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/distro/include/upstream_tracking.inc |    7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index d7f13f9..d212a28 100644
+index d212a28..c844f7c 100644
 --- a/meta-yocto/conf/distro/include/upstream_tracking.inc
 +++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -70,6 +70,7 @@ RECIPE_UPSTREAM_VERSION_pn-gdk-pixbuf = "2.27.2"
- RECIPE_UPSTREAM_DATE_pn-gdk-pixbuf = "Mar 3, 2013"
- CHECK_DATE_pn-gdk-pixbuf = "Mar 5, 2013"
- RECIPE_NO_UPDATE_REASON_pn-gdk-pixbuf = "2.27.2 is unstable"
-+RECIPE_NO_UPDATE_REASON_pn-glib-2.0 = "2.35.8 is unstable"
- RECIPE_UPSTREAM_VERSION_pn-glibc = "2.11.2"
- RECIPE_UPSTREAM_DATE_pn-glibc = "May 01, 2010"
- RECIPE_NO_UPDATE_REASON_pn-glibc = "two glibc plugins are based on 2.10.1"
+@@ -175,9 +175,10 @@ RECIPE_NO_UPDATE_REASON_pn-pkgconfig = "removes glib-conf, adds circular depends
+ RECIPE_UPSTREAM_VERSION_pn-pointercal = "0.0"
+ RECIPE_UPSTREAM_DATE_pn-pointercal = "n/a"
+ RECIPE_UPSTREAM_DATE_pn-poky-feed-config-opkg = "n/a"
+-RECIPE_UPSTREAM_DATE_pn-polkit = "Jul 11, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-polkit = "0.107"
+-CHECK_DATE_pn-polkit = "Aug 31, 2012"
++RECIPE_UPSTREAM_DATE_pn-polkit = "Jan 09, 2013"
++RECIPE_UPSTREAM_VERSION_pn-polkit = "0.110"
++CHECK_DATE_pn-polkit = "Mar 14, 2013"
++RECIPE_NO_UPDATE_REASON_pn-polkit = "requires spidermonkey 1.8.5, not available in poky"
+ RECIPE_UPSTREAM_VERSION_pn-pong-clock = "1.0"
+ RECIPE_NO_UPDATE_REASON_pn-powertop = "Do not upgrade to version 1.97 since it's a beta release of the comming PowerTOP 2.0"
+ RECIPE_UPSTREAM_VERSION_pn-ppp-dialin = "check"
 -- 
 1.7.10.4
 
