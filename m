@@ -1,32 +1,32 @@
 Return-Path: <kergoth@gmail.com>
-Received: from mail-pb0-f51.google.com (mail-pb0-f51.google.com
-	[209.85.160.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F1608E01469
-	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:03:26 -0700 (PDT)
-Received: by mail-pb0-f51.google.com with SMTP id un15so6850540pbc.24
-	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:03:26 -0700 (PDT)
+Received: from mail-ie0-f169.google.com (mail-ie0-f169.google.com
+	[209.85.223.169])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63471E01469
+	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:04:12 -0700 (PDT)
+Received: by mail-ie0-f169.google.com with SMTP id 13so7988592iea.0
+	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:04:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=x-received:from:to:cc:subject:date:message-id:x-mailer;
-	bh=tiu3jsq6E8Nsd9h9Tz6GMwI1BLDFyJSh7B8wU0sWRQM=;
-	b=cmI98lLJawPUFr49UdssKPZ/SjkbCCfsV1yDcHHoImbMpaqb0030YkFPAuZ+GDemKb
-	/pplupsztqHD6CXVBsJPEI8bDd+sK/gMo/hBbeBaOLtxCk70I24UjkptJRLvUZDrE7in
-	CAqFzUzYDRnNw0Rx4nrtv0iJ2MwbTqvKMqsD4ZXZ9qjkMomx+XaQ+snGObVfufj46hFJ
-	f7PE3RZGPyvLKIVvXNGAuOXqX9HBf3g6jTtEAZXisfbqk+SoxphBD+7+IcN4J32ijzZ8
-	I245ehMPoMSDX2D1zRzpnqSad5/GUG1Cc2m33TzH/FG2HL3T767PBQgJzFw220CA2gCm
-	/60w==
-X-Received: by 10.66.84.10 with SMTP id u10mr531523pay.199.1363658606762;
-	Mon, 18 Mar 2013 19:03:26 -0700 (PDT)
+	bh=x4kpAsNijOlt6bKW98vUH0OSHrjVRzKwS3+YHvrKqe0=;
+	b=c5nPl96I/mG6SWviWxS6K7UVKtUTmIzVsS5iKj3ut0nvOJpNfVj06JBvN4byik+y4J
+	xtjiWyEsNyUogjRfxB5wlW9baQ3gwBurmO1QdRGCT0wdK4EIGDqCj+gErCquB1lLfjMD
+	2iKsi70RmTUt9mr+5PQI76wIvHMeBvK1L/uTJU6R+by70v8vE0SufLML5Rut+TNTG4NR
+	j+DjlaUb+lCSQbuyk23PcniwgtIMNzE6CJQ41R7mIka5UCcLCsyExdy/nAmASCdR/Ue9
+	n4BtYGpE2R9nMRb+dOhPXu+2Ibg3sTpRqL+la0IxAhwmChEyAGPaZFhDj/6JFA+eWR+e
+	oGkA==
+X-Received: by 10.50.73.65 with SMTP id j1mr74225igv.49.1363658651958;
+	Mon, 18 Mar 2013 19:04:11 -0700 (PDT)
 Received: from precise64.alm.mentorg.com (nat-lmt.mentorg.com. [139.181.28.34])
-	by mx.google.com with ESMTPS id qd8sm22149399pbc.29.2013.03.18.19.03.24
+	by mx.google.com with ESMTPS id i10sm12024430igz.9.2013.03.18.19.04.10
 	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 18 Mar 2013 19:03:25 -0700 (PDT)
+	Mon, 18 Mar 2013 19:04:11 -0700 (PDT)
 From: Christopher Larson <kergoth@gmail.com>
 To: poky@yoctoproject.org
-Date: Mon, 18 Mar 2013 19:03:20 -0700
-Message-Id: <1363658600-26362-1-git-send-email-kergoth@gmail.com>
+Date: Mon, 18 Mar 2013 19:04:06 -0700
+Message-Id: <1363658646-26585-1-git-send-email-kergoth@gmail.com>
 X-Mailer: git-send-email 1.8.2
 Cc: Christopher Larson <chris_larson@mentor.com>
-Subject: [meta-yocto][PATCH] layer.conf: avoid unnecessary early expansion with :=
+Subject: [meta-yocto][for-danny][PATCH] layer.conf: avoid unnecessary early expansion with :=
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,7 +39,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2013 02:03:27 -0000
+X-List-Received-Date: Tue, 19 Mar 2013 02:04:12 -0000
 
 From: Christopher Larson <chris_larson@mentor.com>
 
@@ -50,8 +50,7 @@ Signed-off-by: Christopher Larson <chris_larson@mentor.com>
  meta-yocto-bsp/conf/layer.conf                               | 6 +++---
  meta-yocto/conf/layer.conf                                   | 6 +++---
  scripts/lib/bsp/substrate/target/arch/common/conf/layer.conf | 6 +++---
- scripts/lib/bsp/substrate/target/arch/layer/conf/layer.conf  | 6 +++---
- 4 files changed, 12 insertions(+), 12 deletions(-)
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
 index 49fb135..18544bd 100644
@@ -109,24 +108,6 @@ index 921d976..97029dd 100644
 -BBFILE_PATTERN_{{=machine}} := "^${LAYERDIR}/"
 +BBFILE_PATTERN_{{=machine}} = "^${LAYERDIR}/"
  BBFILE_PRIORITY_{{=machine}} = "6"
-diff --git a/scripts/lib/bsp/substrate/target/arch/layer/conf/layer.conf b/scripts/lib/bsp/substrate/target/arch/layer/conf/layer.conf
-index 84a9abb..76153f3 100644
---- a/scripts/lib/bsp/substrate/target/arch/layer/conf/layer.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/layer/conf/layer.conf
-@@ -1,10 +1,10 @@
- # We have a conf and classes directory, add to BBPATH
--BBPATH := "${BBPATH}:${LAYERDIR}"
-+BBPATH .= ":${LAYERDIR}"
- 
- # We have a recipes directory, add to BBFILES
--BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
-+BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
- 	${LAYERDIR}/recipes-*/*/*.bbappend"
- 
- BBFILE_COLLECTIONS += "{{=layer_name}}"
--BBFILE_PATTERN_{{=layer_name}} := "^${LAYERDIR}/"
-+BBFILE_PATTERN_{{=layer_name}} = "^${LAYERDIR}/"
- BBFILE_PRIORITY_{{=layer_name}} = "{{=layer_priority}}"
 -- 
 1.8.2
 
