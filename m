@@ -1,32 +1,32 @@
 Return-Path: <kergoth@gmail.com>
-Received: from mail-ie0-f169.google.com (mail-ie0-f169.google.com
-	[209.85.223.169])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63471E01469
-	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:04:12 -0700 (PDT)
-Received: by mail-ie0-f169.google.com with SMTP id 13so7988592iea.0
-	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:04:12 -0700 (PDT)
+Received: from mail-ia0-f177.google.com (mail-ia0-f177.google.com
+	[209.85.210.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 97476E01469
+	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:04:34 -0700 (PDT)
+Received: by mail-ia0-f177.google.com with SMTP id y25so5912037iay.36
+	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 19:04:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=x-received:from:to:cc:subject:date:message-id:x-mailer;
-	bh=x4kpAsNijOlt6bKW98vUH0OSHrjVRzKwS3+YHvrKqe0=;
-	b=c5nPl96I/mG6SWviWxS6K7UVKtUTmIzVsS5iKj3ut0nvOJpNfVj06JBvN4byik+y4J
-	xtjiWyEsNyUogjRfxB5wlW9baQ3gwBurmO1QdRGCT0wdK4EIGDqCj+gErCquB1lLfjMD
-	2iKsi70RmTUt9mr+5PQI76wIvHMeBvK1L/uTJU6R+by70v8vE0SufLML5Rut+TNTG4NR
-	j+DjlaUb+lCSQbuyk23PcniwgtIMNzE6CJQ41R7mIka5UCcLCsyExdy/nAmASCdR/Ue9
-	n4BtYGpE2R9nMRb+dOhPXu+2Ibg3sTpRqL+la0IxAhwmChEyAGPaZFhDj/6JFA+eWR+e
-	oGkA==
-X-Received: by 10.50.73.65 with SMTP id j1mr74225igv.49.1363658651958;
-	Mon, 18 Mar 2013 19:04:11 -0700 (PDT)
+	bh=1sb6z8YFKr2w9BFc8FI37bt3ZmdGEsAj37top+25uRI=;
+	b=cGOaJI9oBX3zHj+iCCSTZdcACO0Sf8MOKJ0XJSa+Wj14pwYy0OUa9Xpq0nDZhCE0V6
+	5KY5WaBiJT+XemfVGr6w4ScWFBAHkU5BqlC2wZbuC2r5N+bIIrCyTnmVIdQLQss2DCY5
+	tkAOZS8s+8wqjZMBYtBePaqdpebfjyOcxhbgEQ6FNIBnby2O1DS8D7bSQ2gKr9ndHE/0
+	Lb5P4IdMlW3CqfGG6pTrmjREYtPiM0aVBwQob8mCy/8vT+DeDZVJU1LC/DSwjuXd/hUw
+	Nvq+rbfVTS+oNHK+NzYgkak5cMuqTLudCAuDoej2GM09lnWsPhpYQpijFN6KVMR7jlvp
+	jJGw==
+X-Received: by 10.50.13.208 with SMTP id j16mr57380igc.73.1363658674272;
+	Mon, 18 Mar 2013 19:04:34 -0700 (PDT)
 Received: from precise64.alm.mentorg.com (nat-lmt.mentorg.com. [139.181.28.34])
-	by mx.google.com with ESMTPS id i10sm12024430igz.9.2013.03.18.19.04.10
+	by mx.google.com with ESMTPS id dy5sm13818360igc.1.2013.03.18.19.04.32
 	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 18 Mar 2013 19:04:11 -0700 (PDT)
+	Mon, 18 Mar 2013 19:04:33 -0700 (PDT)
 From: Christopher Larson <kergoth@gmail.com>
 To: poky@yoctoproject.org
-Date: Mon, 18 Mar 2013 19:04:06 -0700
-Message-Id: <1363658646-26585-1-git-send-email-kergoth@gmail.com>
+Date: Mon, 18 Mar 2013 19:04:29 -0700
+Message-Id: <1363658669-26786-1-git-send-email-kergoth@gmail.com>
 X-Mailer: git-send-email 1.8.2
 Cc: Christopher Larson <chris_larson@mentor.com>
-Subject: [meta-yocto][for-danny][PATCH] layer.conf: avoid unnecessary early expansion with :=
+Subject: [meta-yocto][for-denzil][PATCH] layer.conf: avoid unnecessary early expansion with :=
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,7 +39,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2013 02:04:12 -0000
+X-List-Received-Date: Tue, 19 Mar 2013 02:04:34 -0000
 
 From: Christopher Larson <chris_larson@mentor.com>
 
@@ -47,30 +47,10 @@ bitbake handles immediate expansions of LAYERDIR for us automatically.
 
 Signed-off-by: Christopher Larson <chris_larson@mentor.com>
 ---
- meta-yocto-bsp/conf/layer.conf                               | 6 +++---
  meta-yocto/conf/layer.conf                                   | 6 +++---
  scripts/lib/bsp/substrate/target/arch/common/conf/layer.conf | 6 +++---
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
-index 49fb135..18544bd 100644
---- a/meta-yocto-bsp/conf/layer.conf
-+++ b/meta-yocto-bsp/conf/layer.conf
-@@ -1,11 +1,11 @@
- # We have a conf and classes directory, add to BBPATH
--BBPATH := "${BBPATH}:${LAYERDIR}"
-+BBPATH .= ":${LAYERDIR}"
- 
- # We have a packages directory, add to BBFILES
--BBFILES := "${BBFILES} ${LAYERDIR}/recipes-*/*/*.bb \
-+BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
-             ${LAYERDIR}/recipes-*/*/*.bbappend"
- 
- BBFILE_COLLECTIONS += "yoctobsp"
--BBFILE_PATTERN_yoctobsp := "^${LAYERDIR}/"
-+BBFILE_PATTERN_yoctobsp = "^${LAYERDIR}/"
- BBFILE_PRIORITY_yoctobsp = "5"
- 
 diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
 index 7917962..89ed171 100644
 --- a/meta-yocto/conf/layer.conf
