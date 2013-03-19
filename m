@@ -1,19 +1,32 @@
-Return-Path: <cristian.iorga@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 531D8E01460
-	for <poky@yoctoproject.org>; Thu, 14 Mar 2013 11:25:15 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 14 Mar 2013 11:25:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,846,1355126400"; d="scan'208";a="279589035"
-Received: from unknown (HELO sentry.rb.intel.com) ([10.237.105.54])
-	by orsmga001.jf.intel.com with ESMTP; 14 Mar 2013 11:25:13 -0700
-From: Cristian Iorga <cristian.iorga@intel.com>
+Return-Path: <kergoth@gmail.com>
+Received: from mail-ia0-f179.google.com (mail-ia0-f179.google.com
+	[209.85.210.179])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 60DDCE01469
+	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 18:16:59 -0700 (PDT)
+Received: by mail-ia0-f179.google.com with SMTP id x24so5773816iak.38
+	for <poky@yoctoproject.org>; Mon, 18 Mar 2013 18:16:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=x-received:from:to:cc:subject:date:message-id:x-mailer;
+	bh=Rmp/NZ6b4pITkOnMaod0ExL7u41Va45lbI0A8tA9baI=;
+	b=VKPwU1AnijV5uz56w7YyELEM6H4EPYSIy0N58nosiBcH7/7b40xX6C2jwrb+KlLyNl
+	R/wZocBp3MD5813K/oBsXIP1XCUoAdePE2eN7UXldCNQhaTP5HvwI+WVAlLbayqkunc2
+	YefcJAqmoKKOSTffo7ZmswSNsZTZx8ICDb+vBVoAEfiO9Ev+gjs95ojere/wzczv+k7r
+	0PYH5jW/6Ye1eXuGlUtAMEFi98j+ihF5BTC3rqZGDsI0CyhD7kmRTBwy5pmLNpPvLr6C
+	1LwIbXhyQvhPgW+rnx8p36EsFiGQD97TUu7+Pgs5IHMhFSIcamjir3CchXSnexzFwyFj
+	USIQ==
+X-Received: by 10.50.208.101 with SMTP id md5mr538889igc.60.1363655819090;
+	Mon, 18 Mar 2013 18:16:59 -0700 (PDT)
+Received: from precise64.alm.mentorg.com (nat-lmt.mentorg.com. [139.181.28.34])
+	by mx.google.com with ESMTPS id a3sm13614945igq.5.2013.03.18.18.16.57
+	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Mon, 18 Mar 2013 18:16:58 -0700 (PDT)
+From: Christopher Larson <kergoth@gmail.com>
 To: poky@yoctoproject.org
-Date: Thu, 14 Mar 2013 20:25:46 +0200
-Message-Id: <1363285546-24207-1-git-send-email-cristian.iorga@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] upstream-tracking: added polkit no upgrade reason
+Date: Mon, 18 Mar 2013 18:16:54 -0700
+Message-Id: <1363655814-12889-1-git-send-email-kergoth@gmail.com>
+X-Mailer: git-send-email 1.8.2
+Cc: Christopher Larson <chris_larson@mentor.com>
+Subject: [meta-extras][PATCH] layer.conf: avoid unnecessary early expansion with :=
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,32 +39,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Mar 2013 18:25:15 -0000
+X-List-Received-Date: Tue, 19 Mar 2013 01:16:59 -0000
 
-Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
+From: Christopher Larson <chris_larson@mentor.com>
+
+bitbake handles immediate expansions of LAYERDIR for us automatically.
+
+Signed-off-by: Christopher Larson <chris_larson@mentor.com>
 ---
- meta-yocto/conf/distro/include/upstream_tracking.inc |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ conf/layer.conf | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index d212a28..c844f7c 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -175,9 +175,10 @@ RECIPE_NO_UPDATE_REASON_pn-pkgconfig = "removes glib-conf, adds circular depends
- RECIPE_UPSTREAM_VERSION_pn-pointercal = "0.0"
- RECIPE_UPSTREAM_DATE_pn-pointercal = "n/a"
- RECIPE_UPSTREAM_DATE_pn-poky-feed-config-opkg = "n/a"
--RECIPE_UPSTREAM_DATE_pn-polkit = "Jul 11, 2012"
--RECIPE_UPSTREAM_VERSION_pn-polkit = "0.107"
--CHECK_DATE_pn-polkit = "Aug 31, 2012"
-+RECIPE_UPSTREAM_DATE_pn-polkit = "Jan 09, 2013"
-+RECIPE_UPSTREAM_VERSION_pn-polkit = "0.110"
-+CHECK_DATE_pn-polkit = "Mar 14, 2013"
-+RECIPE_NO_UPDATE_REASON_pn-polkit = "requires spidermonkey 1.8.5, not available in poky"
- RECIPE_UPSTREAM_VERSION_pn-pong-clock = "1.0"
- RECIPE_NO_UPDATE_REASON_pn-powertop = "Do not upgrade to version 1.97 since it's a beta release of the comming PowerTOP 2.0"
- RECIPE_UPSTREAM_VERSION_pn-ppp-dialin = "check"
+diff --git a/conf/layer.conf b/conf/layer.conf
+index 66af06d..ed52705 100644
+--- a/conf/layer.conf
++++ b/conf/layer.conf
+@@ -1,11 +1,11 @@
+ # We have a conf and classes directory, add to BBPATH
+-BBPATH := "${BBPATH}:${LAYERDIR}"
++BBPATH .= ":${LAYERDIR}"
+ 
+ # We have a packages directory, add to BBFILES
+-BBFILES := "${BBFILES} ${LAYERDIR}/recipes*/*/*.bb"
++BBFILES += "${LAYERDIR}/recipes*/*/*.bb"
+ 
+ BBFILE_COLLECTIONS += "extras"
+-BBFILE_PATTERN_extras := "^${LAYERDIR}/"
++BBFILE_PATTERN_extras = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_extras = "5"
+ 
+ require conf/distro/include/poky-extras-src-revisions.inc
 -- 
-1.7.10.4
+1.8.2
 
 
