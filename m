@@ -1,22 +1,23 @@
-Return-Path: <laurentiu.palcu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 839ADE00741
-	for <poky@yoctoproject.org>; Tue, 19 Mar 2013 09:29:58 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 19 Mar 2013 09:29:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,872,1355126400"; d="scan'208";a="308920404"
-Received: from lpalcu-linux.rb.intel.com (HELO localhost.localdomain)
-	([10.237.105.165])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Mar 2013 09:29:55 -0700
-From: Laurentiu Palcu <laurentiu.palcu@intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 19 Mar 2013 18:29:51 +0200
-Message-Id: <1363710591-32021-4-git-send-email-laurentiu.palcu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <1363710591-32021-1-git-send-email-laurentiu.palcu@intel.com>
-References: <1363710591-32021-1-git-send-email-laurentiu.palcu@intel.com>
-Subject: [PATCH 3/3] (distro-alias|maintainers|package-regex).inc: mesa-dri -> mesa
+Return-Path: <Liezhi.Yang@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 22843E01472
+	for <poky@yoctoproject.org>; Tue, 19 Mar 2013 23:46:28 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r2K6kRKB012293
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 19 Mar 2013 23:46:27 -0700 (PDT)
+Received: from pek-usp-9.wrs.com (128.224.162.26) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.2.342.3;
+	Tue, 19 Mar 2013 23:46:27 -0700
+From: Robert Yang <liezhi.yang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 20 Mar 2013 14:31:04 +0800
+Message-ID: <cover.1363746428.git.liezhi.yang@windriver.com>
+X-Mailer: git-send-email 1.7.7
+MIME-Version: 1.0
+Cc: qingtao.cao@windriver.com
+Subject: [PATCH 0/1] local.conf.sample.extended: update for disk monitor
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,67 +30,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2013 16:29:58 -0000
+X-List-Received-Date: Wed, 20 Mar 2013 06:46:28 -0000
+Content-Type: text/plain
 
-[YOCTO #3385]
+The following changes since commit 808967b84cef66e0b59b9a720fa0808f6a546d3a:
 
-Signed-off-by: Laurentiu Palcu <laurentiu.palcu@intel.com>
----
- meta-yocto/conf/distro/include/distro_alias.inc  |    4 ++--
- meta-yocto/conf/distro/include/maintainers.inc   |    4 ++--
- meta-yocto/conf/distro/include/package_regex.inc |    8 ++++----
- 3 files changed, 8 insertions(+), 8 deletions(-)
+  qemuimage-testlib: Fix IP address handling (2013-03-19 23:35:01 +0000)
 
-diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-index 2246097..043c262 100644
---- a/meta-yocto/conf/distro/include/distro_alias.inc
-+++ b/meta-yocto/conf/distro/include/distro_alias.inc
-@@ -237,8 +237,8 @@ DISTRO_PN_ALIAS_pn-matchbox-themes-gtk = "OpenedHand"
- DISTRO_PN_ALIAS_pn-matchbox-wm-2 = "Mandriva=matchbox-window-manager Debian=matchbox-window-manager"
- DISTRO_PN_ALIAS_pn-matchbox-wm = "OpenedHand"
- DISTRO_PN_ALIAS_pn-menu-cache = "OSPDT"
--DISTRO_PN_ALIAS_pn-mesa-dri = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
--DISTRO_PN_ALIAS_pn-mesa-dri-glsl-native = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
-+DISTRO_PN_ALIAS_pn-mesa = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
-+DISTRO_PN_ALIAS_pn-mesa-glsl-native = "Fedora=mesa Ubuntu=libgl1-mesa-dri"
- DISTRO_PN_ALIAS_pn-meta-environment-i586 = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-ide-support = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-toolchain-gmae = "OE-Core"
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 0f7a872..4bef81f 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -516,8 +516,8 @@ RECIPE_MAINTAINER_pn-mc = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mdadm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-menu-cache = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-mesa-demos = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-mesa-dri-glsl-native = "Constantin Musca <constantinx.musca@intel.com>"
--RECIPE_MAINTAINER_pn-mesa-dri = "Constantin Musca <constantinx.musca@intel.com>"
-+RECIPE_MAINTAINER_pn-mesa-glsl-native = "Constantin Musca <constantinx.musca@intel.com>"
-+RECIPE_MAINTAINER_pn-mesa = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-metacity = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-meta-environment-i586 = "Jessica Zhang <jessica.zhang@intel.com>"
- RECIPE_MAINTAINER_pn-meta-ide-support = "Jessica Zhang <jessica.zhang@intel.com>"
-diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
-index fb1473d..4025e40 100644
---- a/meta-yocto/conf/distro/include/package_regex.inc
-+++ b/meta-yocto/conf/distro/include/package_regex.inc
-@@ -263,10 +263,10 @@ REGEX_URI_pn-bind = "ftp://ftp.isc.org/isc/bind9/"
- REGEX_pn-bind = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/bind9/(?P<pver>((P?\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-dhcp = "ftp://ftp.isc.org/isc/dhcp/"
- REGEX_pn-dhcp = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/dhcp/(dhcp\-)?(?P<pver>((P?\d+[\.\-_]*)+))/\""
--REGEX_URI_pn-mesa-dri = "ftp://ftp.freedesktop.org/pub/mesa/"
--REGEX_pn-mesa-dri = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
--REGEX_URI_pn-mesa-dri-glsl-native = "ftp://ftp.freedesktop.org/pub/mesa/"
--REGEX_pn-mesa-dri-glsl-native = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
-+REGEX_URI_pn-mesa = "ftp://ftp.freedesktop.org/pub/mesa/"
-+REGEX_pn-mesa = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
-+REGEX_URI_pn-mesa-glsl-native = "ftp://ftp.freedesktop.org/pub/mesa/"
-+REGEX_pn-mesa-glsl-native = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-nspr = "ftp://ftp.mozilla.org/pub/mozilla.org/nspr/releases/"
- REGEX_pn-nspr = "[hH][rR][eE][fF]=\"ftp://ftp.mozilla.org:21/pub/mozilla.org/nspr/releases/v(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-createrepo = "http://createrepo.baseurl.org/download/"
+are available in the git repository at:
+  git://git.pokylinux.org/poky-contrib robert/conf
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/conf
+
+Robert Yang (1):
+  local.conf.sample.extended: update for disk monitor
+
+ meta-yocto/conf/local.conf.sample.extended |    5 +----
+ 1 files changed, 1 insertions(+), 4 deletions(-)
+
 -- 
-1.7.9.5
+1.7.7
 
 
