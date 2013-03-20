@@ -1,19 +1,23 @@
-Return-Path: <michel.thebeau@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 129A8E0136C
-	for <poky@yoctoproject.org>; Wed, 20 Mar 2013 08:32:11 -0700 (PDT)
-Received: from yow-mthebeau-lx2.wrs.com (yow-mthebeau-lx2.wrs.com
-	[128.224.146.159])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r2KFWApW022837;
-	Wed, 20 Mar 2013 08:32:11 -0700 (PDT)
-From: michel.thebeau@windriver.com
-To: Bruce.Ashfield@windriver.com, poky@yoctoproject.org
-Date: Wed, 20 Mar 2013 11:32:02 -0400
-Message-Id: <1363793522-3452-2-git-send-email-michel.thebeau@windriver.com>
-X-Mailer: git-send-email 1.7.9.7
-In-Reply-To: <1363793522-3452-1-git-send-email-michel.thebeau@windriver.com>
-References: <1363793522-3452-1-git-send-email-michel.thebeau@windriver.com>
-Subject: [PATCH] routerstationpro: use KERNEL_IMAGE_MAXSIZE to test the image
+Return-Path: <bevenson@melinkcorp.com>
+Received: from pluto.melinkcorp.com (rrcs-98-100-91-244.central.biz.rr.com
+	[98.100.91.244])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A610AE012F1
+	for <poky@yoctoproject.org>; Wed, 20 Mar 2013 09:00:36 -0700 (PDT)
+Received: from pluto.melinkcorp.local ([10.0.2.4]) by pluto.melinkcorp.local
+	([10.0.2.4]) with mapi; Wed, 20 Mar 2013 12:00:35 -0400
+From: Bryan Evenson <bevenson@melinkcorp.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Wed, 20 Mar 2013 11:59:00 -0400
+Thread-Topic: Building custom Linux kernel with own layer
+Thread-Index: Ac4lg9XtTCSStnRVQAS6Du6fSCMMqA==
+Message-ID: <91586D499ADFD74FBCFB8425266A5DE40139F932D55A@pluto.melinkcorp.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-vipre-scanned: 00FC30D4003F2C00FC3221
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Building custom Linux kernel with own layer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,44 +30,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2013 15:32:12 -0000
+X-List-Received-Date: Wed, 20 Mar 2013 16:00:36 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-From: Michel Thebeau <michel.thebeau@windriver.com>
+I have an Atmel AT91SAM9G25 based board and have been using the Classic Ope=
+nEmbedded development tree for my device.  I am working on switching to usi=
+ng the Poky distribution.  I found a Yocto layer that someone else had star=
+ted here: https://github.com/baseapp/meta-atmel/tree/yocto.  I would like t=
+o use this layer as a starting point and go from there.  The layer looks to=
+ be setup to build kernel 2.6.39 (as that is the kernel I am currently usin=
+g), but that's not what's happening on my system.  I would like some help i=
+n figuring out what needs to change with the layer or my setup to build the=
+ 2.6.39 kernel.
 
-routerstationpro is limited to 16mb flash size.  Exceeding that size may
-not be noticed immediately, which we don't want.
+I am using the stable poky-danny-8.0 release (downloaded tarball).  Under t=
+he poky-danny-8.0 folder, I cloned the meta-atmel layer that I referred to =
+above.  I changed my bblayers.conf to include the meta-atmel layer.  When I=
+ bitbake linux-yocto, here's what I see for my build configuration:
 
-"The current latest kernel for the routerstationpro machine is far
-beyond the 16MB of it's flash size [0]. I think it would be good to
-[test if the size of the image is above that size]."
+Build Configuration:
+BB_VERSION        =3D "1.16.0"
+TARGET_ARCH       =3D "arm"
+TARGET_OS         =3D "linux-gnueabi"
+MACHINE           =3D "qemuarm"
+DISTRO            =3D "poky"
+DISTRO_VERSION    =3D "1.3"
+TUNE_FEATURES     =3D "armv5 dsp thumb arm926ejs"
+TARGET_FPU        =3D "soft"
+meta             =20
+meta-yocto       =20
+meta-yocto-bsp    =3D "<unknown>:<unknown>"
+meta-atmel        =3D "yocto:80336b72180283bfd5cf5f674e8c1081deede72a"
 
-Setting this variable will enable the do_sizecheck task and produce an
-error when the image is too large:
+and it builds 3.4.11+git1+a201268353c030d9fafe00f2041976f7437d9386_1+8ee53c=
+3b82ada3cdfd7d25f07d3975834ac9a9b2-r4.3.  From looking at the meta-atmel la=
+yer, I think it should be overriding the linux-yocto settings from the othe=
+r layers.   What am I missing?
 
-"ERROR: This kernel (size=90230265 > 16777216) is too big for your
-device. Please reduce the size of the kernel by making more of it
-modular."
-
-[YOCTO #3514]
-
-Signed-off-by: Michel Thebeau <michel.thebeau@windriver.com>
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |    3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-index 3e80bf1..40ebe15 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-@@ -13,3 +13,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
- COMPATIBLE_MACHINE_beagleboard = "beagleboard"
- COMPATIBLE_MACHINE_atom-pc = "atom-pc"
-+
-+# routerstationpro has a flash size of 16mb
-+KERNEL_IMAGE_MAXSIZE_append_routerstationpro = "16777216"
--- 
-1.7.9.7
-
+Thanks,
+Bryan
 
