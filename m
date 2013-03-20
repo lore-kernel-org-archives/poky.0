@@ -1,24 +1,25 @@
 Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8928CE01490
-	for <poky@yoctoproject.org>; Wed, 20 Mar 2013 01:10:04 -0700 (PDT)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
-	[147.11.189.41])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r2K8A40Z011861
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DD195E0148D
+	for <poky@yoctoproject.org>; Wed, 20 Mar 2013 01:30:56 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r2K8UuWP013624
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 20 Mar 2013 01:10:04 -0700 (PDT)
-Received: from pek-usp-9.wrs.com (128.224.162.26) by ALA-HCB.corp.ad.wrs.com
-	(147.11.189.41) with Microsoft SMTP Server id 14.2.342.3;
-	Wed, 20 Mar 2013 01:10:03 -0700
+	for <poky@yoctoproject.org>; Wed, 20 Mar 2013 01:30:56 -0700 (PDT)
+Received: from [128.224.162.186] (128.224.162.186) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.2.342.3;
+	Wed, 20 Mar 2013 01:30:56 -0700
+Message-ID: <514973BD.8080401@windriver.com>
+Date: Wed, 20 Mar 2013 16:30:53 +0800
 From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Wed, 20 Mar 2013 15:54:39 +0800
-Message-ID: <9701917f7ad8119f98186c72a0aac1f1c354cddd.1363765882.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.7.7
-In-Reply-To: <cover.1363765882.git.liezhi.yang@windriver.com>
-References: <cover.1363765882.git.liezhi.yang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:17.0) Gecko/20130308 Thunderbird/17.0.4
 MIME-Version: 1.0
-Subject: [PATCH 2/2] poky-floating-revisions.inc: remove the duplicated SRCREV_pn-exmap-console
+To: <poky@yoctoproject.org>
+References: <cover.1363765882.git.liezhi.yang@windriver.com>
+In-Reply-To: <cover.1363765882.git.liezhi.yang@windriver.com>
+Subject: Re: [PATCH 0/2] meta-yocto: remove several duplicated lines
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,31 +32,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2013 08:10:04 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 20 Mar 2013 08:30:57 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Remove the duplicated SRCREV_pn-exmap-console.
 
-[YOCTO #4064]
 
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
----
- .../distro/include/poky-floating-revisions.inc     |    1 -
- 1 files changed, 0 insertions(+), 1 deletions(-)
+On 03/20/2013 03:54 PM, Robert Yang wrote:
+> The following changes since commit 808967b84cef66e0b59b9a720fa0808f6a546d3a:
+>
+>    qemuimage-testlib: Fix IP address handling (2013-03-19 23:35:01 +0000)
+>
+> are available in the git repository at:
+>    git://git.pokylinux.org/poky-contrib robert/duplicated_yocto
+>    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/duplicated
 
-diff --git a/meta-yocto/conf/distro/include/poky-floating-revisions.inc b/meta-yocto/conf/distro/include/poky-floating-revisions.inc
-index ab55f39..41dd71f 100644
---- a/meta-yocto/conf/distro/include/poky-floating-revisions.inc
-+++ b/meta-yocto/conf/distro/include/poky-floating-revisions.inc
-@@ -2,7 +2,6 @@
- # Package Versions for cutting edge testing:
- #
- 
--SRCREV_pn-exmap-console ?= "${AUTOREV}"
- #SRCREV_pn-opkg-native ?= "${AUTOREV}"
- #SRCREV_pn-opkg-sdk ?= "${AUTOREV}"
- #SRCREV_pn-opkg ?= "${AUTOREV}"
--- 
-1.7.7
+The git url is correct, but the http url isn't, it should be:
 
+http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/duplicated_yocto
+
+I'm sorry for that.
+
+//Robert
+
+>
+> Robert Yang (2):
+>    maintainers.inc: remove several duplicated lines
+>    poky-floating-revisions.inc: remove the duplicated
+>      SRCREV_pn-exmap-console
+>
+>   meta-yocto/conf/distro/include/maintainers.inc     |    7 -------
+>   .../distro/include/poky-floating-revisions.inc     |    1 -
+>   2 files changed, 0 insertions(+), 8 deletions(-)
+>
 
