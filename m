@@ -1,36 +1,35 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-la0-f52.google.com (mail-la0-f52.google.com
-	[209.85.215.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A7FBE013A7
-	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 08:30:03 -0700 (PDT)
-Received: by mail-la0-f52.google.com with SMTP id fs12so11433091lab.25
-	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 08:30:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:mime-version:in-reply-to:references:from:date:message-id
-	:subject:to:cc:content-type:x-gm-message-state;
-	bh=wdtPYPAScpCnmeD/TwCxlQZgLy+yRPau6MKkQhq+cek=;
-	b=bAF+DYQtpJ2EAaGM4bcwe5OLQJW3Gp9eJgVIkEiLrnMyVZSw1dfI3/LA0JtJwWyXKJ
-	ayU7jakAA9L4UiKmsmPc/H6iZGSbO09cWex32/A7iNhIJ6gAoFNsvxViWzPhRdSGN6ZN
-	cnLWOQ24g8buRrZj3nwIhANI1o6TfidnLvSbOQyt0hSD12bxbqKEaY6zhjPwCsT2/+Uo
-	ZbYZgjBljY0kDWkvu9EGaAsjGZ7lcMhfpP+IzggoUCivJQWfz6qJBq0WJlXSdHTUODj7
-	c0FvYzg18VahsKsqrMwJ4sirUb8wg7qyNpJ0A5i29ChV0lHbFAGn27J1JlFYWzxjrnyU
-	G0pw==
-X-Received: by 10.152.115.196 with SMTP id jq4mr5966660lab.53.1364225402692;
-	Mon, 25 Mar 2013 08:30:02 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.114.81.231 with HTTP; Mon, 25 Mar 2013 08:29:42 -0700 (PDT)
-In-Reply-To: <51506C09.9060503@mlbassoc.com>
-References: <51504DF2.3030206@mlbassoc.com> <1364218498.3097.48.camel@ted>
-	<CAJTo0LZ2K0Q4CjrGojjSPwFB+RL6NAkFu5wvZG1s1yr-PD00Lg@mail.gmail.com>
-	<51506C09.9060503@mlbassoc.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Mon, 25 Mar 2013 15:29:42 +0000
-Message-ID: <CAJTo0LYR+H_GPH4Dqm66+NE6=SGFmhzDLhiTWDK9p03YEL3D4g@mail.gmail.com>
-To: Gary Thomas <gary@mlbassoc.com>
-X-Gm-Message-State: ALoCoQm9fjd4C5YH492kkRjI6KFjFsJWB84EUSSH6o+Nditrdq8s0KuKrOX+URu15NEpYZmB2e8+
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Calibrating touch screen
+Return-Path: <marc.ferland@gmail.com>
+Received: from mail-vc0-f180.google.com (mail-vc0-f180.google.com
+	[209.85.220.180])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 654ACE0129D
+	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 13:45:22 -0700 (PDT)
+Received: by mail-vc0-f180.google.com with SMTP id m17so4984430vca.39
+	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 13:45:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=x-received:sender:from:to:subject:date:message-id:x-mailer;
+	bh=A5x2VktjMOga6GPnSYL0x0EmQ5vhwhA+UaJg0nE/hqI=;
+	b=PlR1l5+jWwlfso4vILHEwJrMOtL5LlzAQSmS3u9laaEzHaNVAyO+k720oQI3Exncub
+	L8XgcZtlYvvP3oGz6Cqsw683MBMmPLSar9Q9XL7qIDQMRrUM+q5KAbUVl55cAyBg/z7N
+	GgiYV7fvE8mDB61+qlKusxsclzWOfc6xhEZsE3aGG+/4UF5rEYYncQr6YvK0E2brnRz+
+	YbyYJUsX3bb+/y7uuXJagPRAmvNS4Kck3izNnZxbD5NkjcQ8mE+GrIgjnxyBE6SwysK4
+	uI0V5jbP1+AumxqBJyIKL/EavJIwyAyql6U9cfjjmriSzQ9Dk3G6khVNxlcGJNHLZjmI
+	vM1Q==
+X-Received: by 10.220.156.8 with SMTP id u8mr17521761vcw.24.1364244321729;
+	Mon, 25 Mar 2013 13:45:21 -0700 (PDT)
+Received: from ferlandm@sonatest.com
+	(modemcable066.15-37-24.static.videotron.ca. [24.37.15.66])
+	by mx.google.com with ESMTPS id l18sm22408239vdh.10.2013.03.25.13.45.19
+	(version=TLSv1 cipher=RC4-SHA bits=128/128);
+	Mon, 25 Mar 2013 13:45:20 -0700 (PDT)
+Sender: Marc Ferland <marc.ferland@gmail.com>
+Received: by ferlandm@sonatest.com (sSMTP sendmail emulation);
+	Mon, 25 Mar 2013 16:45:24 -0400
+From: Marc Ferland <ferlandm@sonatest.com>
+To: poky@yoctoproject.org
+Date: Mon, 25 Mar 2013 16:45:24 -0400
+Message-Id: <1364244324-29732-1-git-send-email-ferlandm@sonatest.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH] image_types.bbclass: Replace squashfs-lzma with squashfs-xz
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,27 +42,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2013 15:30:04 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Mon, 25 Mar 2013 20:45:22 -0000
 
-Hi Gary,
+Booting an image generated with squashfs-lzma results in a kernel
+error: "Filesystem uses "lzma" compression. This is not supported".
 
-On 25 March 2013 15:23, Gary Thomas <gary@mlbassoc.com> wrote:
->> What hardware/touchscreen are you using?
->
-> Sadly it's proprietary and not public.
+Currently (well at least in Linux 3.8) the officially supported
+decompressors are:
+* LZO
+* XZ
+* ZLIB
 
-I'm not surprised, but glad that xinput-calibrator worked!
+This change makes sure we use a supported compression algorithm for
+squashed root filesystems.
 
-> The calibration values came from xinput-calibrate which I imported for
-> just this project.  As you say, that should get moved to OE-core.
->
-> The code in /etc/X11/Xsession.d/30xTs_Calibrate.sh seems totally
-> broken (and is how I came to my original question)
+Signed-off-by: Marc Ferland <ferlandm@sonatest.com>
+---
+ meta/classes/image_types.bbclass |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Yes. :(  I'll clean this up once I've sorted out systemd exploding
-into broken bits after I rebased, unless you fancy submitting some
-patches...
+diff --git a/meta/classes/image_types.bbclass b/meta/classes/image_types.bbclass
+index f7b8314..98d31f5 100644
+--- a/meta/classes/image_types.bbclass
++++ b/meta/classes/image_types.bbclass
+@@ -171,7 +171,7 @@ IMAGE_CMD_btrfs () {
+ }
+ 
+ IMAGE_CMD_squashfs = "mksquashfs ${IMAGE_ROOTFS} ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.squashfs ${EXTRA_IMAGECMD} -noappend"
+-IMAGE_CMD_squashfs-lzma = "mksquashfs ${IMAGE_ROOTFS} ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.squashfs-lzma ${EXTRA_IMAGECMD} -noappend -comp lzma"
++IMAGE_CMD_squashfs-xz = "mksquashfs ${IMAGE_ROOTFS} ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.squashfs-xz ${EXTRA_IMAGECMD} -noappend -comp xz"
+ IMAGE_CMD_tar = "cd ${IMAGE_ROOTFS} && tar -cvf ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.tar ."
+ 
+ CPIO_TOUCH_INIT () {
+@@ -230,13 +230,13 @@ IMAGE_DEPENDS_ext3 = "genext2fs-native e2fsprogs-native"
+ IMAGE_DEPENDS_ext4 = "genext2fs-native e2fsprogs-native"
+ IMAGE_DEPENDS_btrfs = "btrfs-tools-native"
+ IMAGE_DEPENDS_squashfs = "squashfs-tools-native"
+-IMAGE_DEPENDS_squashfs-lzma = "squashfs-tools-native"
++IMAGE_DEPENDS_squashfs-xz = "squashfs-tools-native"
+ IMAGE_DEPENDS_elf = "virtual/kernel mkelfimage-native"
+ IMAGE_DEPENDS_ubi = "mtd-utils-native"
+ IMAGE_DEPENDS_ubifs = "mtd-utils-native"
+ 
+ # This variable is available to request which values are suitable for IMAGE_FSTYPES
+-IMAGE_TYPES = "jffs2 sum.jffs2 cramfs ext2 ext2.gz ext2.bz2 ext3 ext3.gz ext2.lzma btrfs live squashfs squashfs-lzma ubi tar tar.gz tar.bz2 tar.xz cpio cpio.gz cpio.xz cpio.lzma vmdk elf"
++IMAGE_TYPES = "jffs2 sum.jffs2 cramfs ext2 ext2.gz ext2.bz2 ext3 ext3.gz ext2.lzma btrfs live squashfs squashfs-xz ubi tar tar.gz tar.bz2 tar.xz cpio cpio.gz cpio.xz cpio.lzma vmdk elf"
+ 
+ COMPRESSIONTYPES = "gz bz2 lzma xz"
+ COMPRESS_CMD_lzma = "lzma -k -f -7 ${IMAGE_NAME}.rootfs.${type}"
+-- 
+1.7.10.4
 
-Ross
 
