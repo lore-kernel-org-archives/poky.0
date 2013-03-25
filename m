@@ -1,19 +1,25 @@
-Return-Path: <emilia.maria.silvia.ciobanu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2EF89E014C2
-	for <poky@yoctoproject.org>; Fri, 22 Mar 2013 07:56:09 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 22 Mar 2013 07:54:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,892,1355126400"; d="scan'208";a="306124371"
-Received: from ema-vostro-460.rb.intel.com ([10.237.105.141])
-	by orsmga002.jf.intel.com with ESMTP; 22 Mar 2013 07:55:48 -0700
-From: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
-To: poky@yoctoproject.org
-Date: Fri, 22 Mar 2013 17:00:56 +0200
-Message-Id: <1363964456-30720-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH v2] package_regex.inc: added new regexes
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 52C8AE014D0
+	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 06:15:32 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id 804B9F81209; Mon, 25 Mar 2013 07:15:31 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from [192.168.1.114] (zeus [192.168.1.114])
+	by mail.chez-thomas.org (Postfix) with ESMTP id 0E078F811E1;
+	Mon, 25 Mar 2013 07:15:31 -0600 (MDT)
+Message-ID: <51504DF2.3030206@mlbassoc.com>
+Date: Mon, 25 Mar 2013 07:15:30 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130308 Thunderbird/17.0.4
+MIME-Version: 1.0
+To: Poky Project <poky@yoctoproject.org>
+Subject: Calibrating touch screen
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,61 +32,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Mar 2013 14:56:09 -0000
+X-List-Received-Date: Mon, 25 Mar 2013 13:15:32 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-	Added/Updated regexes for:
-		* btrfs-tools
-		* xf86-video-omap
-		* remake
-		* sqlite3
+I have a target running Poky/Yocto which has a touch screen.
+When I try to run the 'xtscal' program, I get this error:
+   # xtscal
+   XCALIBRATE extension missing: Resource temporarily unavailable
 
-Signed-off-by: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
----
- meta-yocto/conf/distro/include/package_regex.inc |    9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Any ideas what I need to build/install to make this work?
 
-diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
-index fb1473d..7765580 100644
---- a/meta-yocto/conf/distro/include/package_regex.inc
-+++ b/meta-yocto/conf/distro/include/package_regex.inc
-@@ -27,6 +27,7 @@ REGEX_URI_pn-blktool = "ftp://ftp.debian.org/debian/pool/main/b/blktool/"
- REGEX_pn-blktool = "[hH][rR][eE][fF]=\"ftp://ftp.debian.org:21/debian/pool/main/b/blktool/blktool_(?P<pver>((\d+[\.\-_]*)+))\.(diff|orig\.tar)\.gz\""
- REGEX_URI_pn-boost = "http://sourceforge.net/projects/boost/files/boost/"
- REGEX_pn-boost = "[hH][rR][eE][fF]=\"/projects/boost/files/boost/(?P<pver>((\d+[\.\-_]*)+))/\""
-+REGEX_pn-btrfs-tools = "(\d+(\.\d+)*(\-rc\d+)*)"
- REGEX_URI_pn-chrpath = "http://alioth.debian.org/frs/?group_id=31052"
- REGEX_pn-chrpath = "[hH][rR][eE][fF]=\"/frs/download.php/3661/chrpath-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
- REGEX_URI_pn-console-tools = "http://sourceforge.net/projects/lct/files/console-tools/"
-@@ -185,7 +186,7 @@ REGEX_pn-socat = "[hH][rR][eE][fF]=\"socat\-(?P<pver>((\d+[\.\-]*)+))\.tar\.bz2\
- REGEX_URI_pn-speex = "http://downloads.us.xiph.org/releases/speex/"
- REGEX_pn-speex = "[hH][rR][eE][fF]=\"speex\-(?P<pver>((\d+\.*)+))\.tar\.gz\""
- REGEX_URI_pn-sqlite3 = "http://www.sqlite.org/download.html"
--REGEX_pn-sqlite3 = "[hH][rR][eE][fF]=\"/sqlite-autoconf-(?P<pver>(\d+)).tar.gz\""
-+REGEX_pn-sqlite3 = "[hH][rR][eE][fF]=\"(\d+)?/sqlite-autoconf-(?P<pver>(\d+)).tar.gz\""
- REGEX_URI_pn-sqlite3-native = "http://www.sqlite.org/download.html"
- REGEX_pn-sqlite3-native = "[hH][rR][eE][fF]=\"/sqlite-autoconf-(?P<pver>(\d+)).tar.gz\""
- REGEX_URI_pn-nativesdk-sqlite3 = "http://www.sqlite.org/download.html"
-@@ -225,6 +226,7 @@ REGEX_pn-wireless-tools = "[hH][rR][eE][fF]=\"wireless_tools\.(?P<pver>(\d+))\.t
- REGEX_URI_pn-x11vnc = "http://sourceforge.net/projects/libvncserver/files/x11vnc/"
- REGEX_pn-x11vnc = "[hH][rR][eE][fF]=\"/projects/libvncserver/files/x11vnc/(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_pn-xdg-utils = "[hH][rR][eE][fF]=\"xdg\-utils\-(?P<pver>((\d+[\.\-_]*)+))\.(tar\.gz|tgz)\""
-+REGEX_pn-xf86-video-omap = "\d+\.(\d\.?)*"
- REGEX_URI_pn-zip = "http://sourceforge.net/projects/infozip/files/Zip%203.x%20%28latest%29/3.0/"
- REGEX_pn-zip = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/infozip/files/Zip%203.x%20%28latest%29/3.0/zip(?P<pver>(\d+))\.tar\.gz/download\""
- REGEX_URI_pn-zip-native = "http://sourceforge.net/projects/infozip/files/Zip%203.x%20%28latest%29/3.0/"
-@@ -233,10 +235,7 @@ REGEX_URI_pn-msmtp = "http://sourceforge.net/projects/msmtp/files/msmtp/"
- REGEX_pn-msmtp = "[hH][rR][eE][fF]=\"/projects/msmtp/files/msmtp/(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-docbook-dsssl-stylesheets-native = "http://sourceforge.net/projects/docbook/files/docbook-dsssl/"
- REGEX_pn-docbook-dsssl-stylesheets-native = "[hH][rR][eE][fF]=\"/projects/docbook/files/docbook-dsssl/(?P<pver>((\d+[\.\-_]*)+))/\""
--REGEX_URI_pn-remake = "http://sourceforge.net/projects/bashdb/files/remake/"
--REGEX_pn-remake = "[hH][rR][eE][fF]=\"/projects/bashdb/files/remake/(?P<pver>((\d+[\.\-_]*)+%2Bdbg[\-]*(\d+[\.\-_]*)+))/\""
--REGEX_URI_pn-remake-native = "http://sourceforge.net/projects/bashdb/files/remake/"
--REGEX_pn-remake-native = "[hH][rR][eE][fF]=\"/projects/bashdb/files/remake/(?P<pver>((\d+[\.\-_]*)+%2Bdbg[\-]*(\d+[\.\-_]*)+))/\""
-+REGEX_pn-remake = "(\d+\.(\d+\.)*\d*(\+dbg\-\d+(\.\d+)*)*)"
- REGEX_URI_pn-libical = "http://sourceforge.net/projects/libical/files/libical/"
- REGEX_pn-libical = "[hH][rR][eE][fF]=\"/projects/libical/files/libical/libical-(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-telepathy-mission-control = "http://telepathy.freedesktop.org/releases/telepathy-mission-control/"
+On a related note, my screen is a small LCD which has a native
+layout of 320x240.  However, I need to run it in portrait mode
+of 240x320.  I have this mostly working using xrandr but now
+my old touch screen calibrations no longer work (they were for
+the landscape setup).  This is my main reason for getting xtscal
+to work.
+
+Thanks
+
 -- 
-1.7.9.5
-
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
