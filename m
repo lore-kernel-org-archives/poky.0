@@ -1,27 +1,34 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 117F2E013A7
-	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 08:23:54 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 87F4BF81209; Mon, 25 Mar 2013 09:23:54 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id 913A6F811E1;
-	Mon, 25 Mar 2013 09:23:53 -0600 (MDT)
-Message-ID: <51506C09.9060503@mlbassoc.com>
-Date: Mon, 25 Mar 2013 09:23:53 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130308 Thunderbird/17.0.4
+Return-Path: <ross.burton@intel.com>
+Received: from mail-la0-f52.google.com (mail-la0-f52.google.com
+	[209.85.215.52])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A7FBE013A7
+	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 08:30:03 -0700 (PDT)
+Received: by mail-la0-f52.google.com with SMTP id fs12so11433091lab.25
+	for <poky@yoctoproject.org>; Mon, 25 Mar 2013 08:30:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-received:mime-version:in-reply-to:references:from:date:message-id
+	:subject:to:cc:content-type:x-gm-message-state;
+	bh=wdtPYPAScpCnmeD/TwCxlQZgLy+yRPau6MKkQhq+cek=;
+	b=bAF+DYQtpJ2EAaGM4bcwe5OLQJW3Gp9eJgVIkEiLrnMyVZSw1dfI3/LA0JtJwWyXKJ
+	ayU7jakAA9L4UiKmsmPc/H6iZGSbO09cWex32/A7iNhIJ6gAoFNsvxViWzPhRdSGN6ZN
+	cnLWOQ24g8buRrZj3nwIhANI1o6TfidnLvSbOQyt0hSD12bxbqKEaY6zhjPwCsT2/+Uo
+	ZbYZgjBljY0kDWkvu9EGaAsjGZ7lcMhfpP+IzggoUCivJQWfz6qJBq0WJlXSdHTUODj7
+	c0FvYzg18VahsKsqrMwJ4sirUb8wg7qyNpJ0A5i29ChV0lHbFAGn27J1JlFYWzxjrnyU
+	G0pw==
+X-Received: by 10.152.115.196 with SMTP id jq4mr5966660lab.53.1364225402692;
+	Mon, 25 Mar 2013 08:30:02 -0700 (PDT)
 MIME-Version: 1.0
-To: "Burton, Ross" <ross.burton@intel.com>
+Received: by 10.114.81.231 with HTTP; Mon, 25 Mar 2013 08:29:42 -0700 (PDT)
+In-Reply-To: <51506C09.9060503@mlbassoc.com>
 References: <51504DF2.3030206@mlbassoc.com> <1364218498.3097.48.camel@ted>
 	<CAJTo0LZ2K0Q4CjrGojjSPwFB+RL6NAkFu5wvZG1s1yr-PD00Lg@mail.gmail.com>
-In-Reply-To: <CAJTo0LZ2K0Q4CjrGojjSPwFB+RL6NAkFu5wvZG1s1yr-PD00Lg@mail.gmail.com>
+	<51506C09.9060503@mlbassoc.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Mon, 25 Mar 2013 15:29:42 +0000
+Message-ID: <CAJTo0LYR+H_GPH4Dqm66+NE6=SGFmhzDLhiTWDK9p03YEL3D4g@mail.gmail.com>
+To: Gary Thomas <gary@mlbassoc.com>
+X-Gm-Message-State: ALoCoQm9fjd4C5YH492kkRjI6KFjFsJWB84EUSSH6o+Nditrdq8s0KuKrOX+URu15NEpYZmB2e8+
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Calibrating touch screen
 X-BeenThere: poky@yoctoproject.org
@@ -36,47 +43,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2013 15:23:55 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 25 Mar 2013 15:30:04 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On 2013-03-25 07:54, Burton, Ross wrote:
-> On 25 March 2013 13:34, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
->> Ross: Any thoughts here? This isn't good coming up to release.
+Hi Gary,
+
+On 25 March 2013 15:23, Gary Thomas <gary@mlbassoc.com> wrote:
+>> What hardware/touchscreen are you using?
 >
-> xinput-calibrate is the answer, which is sadly in meta-oe still.  This
-> needs to be merged.  Last time I looked at this there was on-going
-> rewriting of it's startup, I'll see if that's integrated so we can
-> migrate it.
+> Sadly it's proprietary and not public.
+
+I'm not surprised, but glad that xinput-calibrator worked!
+
+> The calibration values came from xinput-calibrate which I imported for
+> just this project.  As you say, that should get moved to OE-core.
 >
-> What hardware/touchscreen are you using?
+> The code in /etc/X11/Xsession.d/30xTs_Calibrate.sh seems totally
+> broken (and is how I came to my original question)
 
-Sadly it's proprietary and not public.
+Yes. :(  I'll clean this up once I've sorted out systemd exploding
+into broken bits after I rebased, unless you fancy submitting some
+patches...
 
-Basically OMAP4 (like a Panda) with LCD+touch.
-
-For my case, I found that I could just adjust these things in
-the Xorg.conf.  I use this file as /etc/X11/xorg.conf.d/11-touchscreen.conf
-   Section "InputClass"
-   Identifier "ADS7846 Touchscreen"
-   MatchProduct "ADS7846 Touchscreen"
-   MatchDevicePath "/dev/input/event*"
-   Driver "evdev"
-   Option "SwapAxes" "false"
-   Option "InvertX" "false"
-   #Option "InvertY" "true"
-   Option "Calibration" "102 3768 3590 275"
-   EndSection
-The calibration values came from xinput-calibrate which I imported for
-just this project.  As you say, that should get moved to OE-core.
-
-The code in /etc/X11/Xsession.d/30xTs_Calibrate.sh seems totally
-broken (and is how I came to my original question)
-
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+Ross
 
