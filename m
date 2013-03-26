@@ -1,19 +1,23 @@
-Return-Path: <emilia.maria.silvia.ciobanu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02E18E013D9
-	for <poky@yoctoproject.org>; Tue, 26 Mar 2013 06:45:09 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 26 Mar 2013 06:45:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.84,911,1355126400"; d="scan'208";a="276125085"
-Received: from ema-vostro-460.rb.intel.com ([10.237.105.141])
-	by azsmga001.ch.intel.com with ESMTP; 26 Mar 2013 06:44:48 -0700
-From: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 26 Mar 2013 15:50:00 +0200
-Message-Id: <1364305800-22384-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] Added regex for gtk-update-icon-cache-native
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27B32E0146B
+	for <poky@yoctoproject.org>; Tue, 26 Mar 2013 07:53:07 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r2QEr4pF016833
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 26 Mar 2013 07:53:04 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.342.3; Tue, 26 Mar 2013 07:53:04 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Tue, 26 Mar 2013 07:52:56 -0700
+Message-ID: <cover.1364309339.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/1] meta-yocto-bsps: update h/w reference boards to 3.4.36
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,26 +30,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2013 13:45:10 -0000
+X-List-Received-Date: Tue, 26 Mar 2013 14:53:07 -0000
+Content-Type: text/plain
 
-Signed-off-by: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
----
- meta-yocto/conf/distro/include/package_regex.inc |    1 +
- 1 file changed, 1 insertion(+)
+Richard,
 
-diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
-index e313729..882c13c 100644
---- a/meta-yocto/conf/distro/include/package_regex.inc
-+++ b/meta-yocto/conf/distro/include/package_regex.inc
-@@ -257,6 +257,7 @@ REGEX_pn-libffi-native = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/
- REGEX_pn-nativesdk-libffi = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
- REGEX_pn-gtk+ = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
- REGEX_pn-gtk+3 = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
-+REGEX_pn-gtk-update-icon-cache-native = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
- REGEX_pn-webkit-gtk = "[hH][rR][eE][fF]=\"webkitgtk\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
- REGEX_URI_pn-bind = "ftp://ftp.isc.org/isc/bind9/"
- REGEX_pn-bind = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/bind9/(?P<pver>((P?\d+[\.\-_]*)+))/\""
+This updates the h/w references boards (which are on the LTSI
+kernel at the moment) to the 3.4.36 -stable update. 
+
+Considering where we are in the relase, the h/w references
+will be staying with LTSI, and I can make 3.8.x optional for
+them post release.
+
+If there's a strong desire to update them to 3.8 before 1.4
+releases, we can look into that in more detail, but I'll need
+to locate resources to help, since LTSI has taken up cycles
+that I would have used for bumping the board support myself.
+
+Cheers,
+
+Bruce
+
+The following changes since commit e8029102e843663c583379b24979a4a390acfe0e:
+
+  linux-yocto/3.8: qemuarm boot fix (2013-03-26 07:31:23 -0700)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (1):
+  linux-yocto/meta-yocto-bsps: update h/w references to v3.4.36
+
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend |    9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
 -- 
-1.7.9.5
+1.7.10.4
 
 
