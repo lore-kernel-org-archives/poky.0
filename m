@@ -1,29 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 85C5AE0136C;
-	Tue, 26 Mar 2013 10:26:28 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r2QHZ0WN030835; Tue, 26 Mar 2013 17:35:59 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id MSXWD+y8XhjB; Tue, 26 Mar 2013 17:35:59 +0000 (GMT)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r2QHZqbf030865
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
-	verify=NOT); Tue, 26 Mar 2013 17:35:55 GMT
-Message-ID: <1364318755.3097.106.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: yocto <yocto@yoctoproject.org>, openembedded-core
-	<openembedded-core@lists.openembedded.org>, bitbake-devel
-	<bitbake-devel@lists.openembedded.org>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Tue, 26 Mar 2013 17:25:55 +0000
-X-Mailer: Evolution 3.6.2-0ubuntu0.1 
-Mime-Version: 1.0
-Subject: Status updates going forward and communication
+Return-Path: <ross.burton@intel.com>
+Received: from mail-we0-f180.google.com (mail-we0-f180.google.com
+	[74.125.82.180])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7018AE01481
+	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 03:49:09 -0700 (PDT)
+Received: by mail-we0-f180.google.com with SMTP id r5so4474462wey.25
+	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 03:49:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-received:from:to:subject:date:message-id:x-mailer
+	:x-gm-message-state;
+	bh=Mqvm4BNc4GYY7fDrGm/JS5KxNy5whzCzi8mFEoevKBA=;
+	b=VOvQ08kunD+I0vBM++tO7dBzwYwX/Qq5yZCUzwVLOV3Kkov++8TDCeT+HeXzCNOAdM
+	RXToNjEyNPCU6BgL879L0bkOZOQ19Y6Nv4B6HwDIy/8dHCPKVGhqSE1WTeclX56Ghzh8
+	4vn+hioAbFUQD4FyI+tbB3r2CL/zZi13TCyYPZewQkQd8x8imvE7sDRD6ap6GJ0ekMed
+	8kM2QptlLQGrFLMPZtHkK2safy6Y5sDuI3uLeQLrxdGy8x15MDkfrjVH3HGLsfgBqM0l
+	/RZjkN7fkUFKGHBWX4Rpcjvwv/YznUygrFlNhfAkPHuI7mhEwgE22ysgtiUDa6xbcK4v
+	dMOA==
+X-Received: by 10.194.242.163 with SMTP id wr3mr30335346wjc.35.1364381347939; 
+	Wed, 27 Mar 2013 03:49:07 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPS id ek4sm7835361wib.11.2013.03.27.03.49.06
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Wed, 27 Mar 2013 03:49:07 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 27 Mar 2013 10:46:28 +0000
+Message-Id: <1364381188-11279-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+X-Gm-Message-State: ALoCoQlxMdtCZ6Ol8IV68WscrYfYs689PHxxn/zGXnq3cIFPYvxhBLNhpNGzFOL4oTKv2BMDLjDN
+Subject: [PATCH] local.conf.sample.extended: remove obsolete DISTRO_FEATURES_INITMAN reference
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,49 +41,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2013 17:26:29 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 27 Mar 2013 10:49:09 -0000
 
-There have been some concerns raised at the TSC recently about how
-transparent the Yocto Project development process is and how and where
-it connects to OpenEmbedded. When you're dealing with companies and
-engineers there does need to be a process with things like schedules and
-in the interests of transparency, all the gory details are out there.
-This is why you see some things being targeted for milestones and hence
-getting more attention than others at certain times. This isn't to say
-community input is any less valuable, there is just a balancing act I
-need to do to keep all the various areas on track. We don't always keep
-the schedules either, I've caused my share of friction by "refusing" to
-merge systemd on time several times over for example as it simply hasn't
-been ready.
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto/conf/local.conf.sample.extended |    4 ----
+ 1 file changed, 4 deletions(-)
 
-Talking with the TSC, its felt we need to better communicate some of the
-issues and what exactly is happening at any given time. I suspect some
-of the tension could be helped with some kind of regular status email
-about what is going on and where things are at. This would attempt to
-explain why patches were slow to merge for example of why certain things
-appear to being "ignored" (e.g. the systemd version upgrade is simply
-being postponed until after Ross' series merges which in turn is pending
-a known bug getting fixed).
-
-From a load perspective, I want to write these summaries like I want a
-hole in the head, its going to eat more time which I simply don't have.
-The alternatives like asking someone else to write it would likely end
-up increasing my workload anyhow though and its certainly true that I
-have some of the key information which needs to go into this. I already
-explain this several times over each week in different forums but sadly
-its not reaching everyone, particularly some of the people it needs to.
-
-I am therefore going to attempt to send out such an email. This is a
-trial for now and probably going to be a lot of work for me so let
-me/TSC/Jefro/the list know your thoughts on it. I'd love to come up with
-a way to get other people involved in the process but I'm simply not
-seeing it at the moment. I may try and cut back in my involvement in
-some of the other meetings as a consequence though.
-
-Cheers,
-
-Richard
+diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
+index 4d9ce56..d0dff80 100644
+--- a/meta-yocto/conf/local.conf.sample.extended
++++ b/meta-yocto/conf/local.conf.sample.extended
+@@ -211,7 +211,3 @@
+ # Put the following two lines in the conf file with intact.
+ #ARCHIVER_CLASS = "${@'archive-${ARCHIVER_MODE}-source' if ARCHIVER_MODE != 'none' else ''}"
+ #INHERIT += "${ARCHIVER_CLASS}"
+-#
+-# set init manager: sysvinit or systemd
+-# sysvinit is the default choice
+-#DISTRO_FEATURES_INITMAN ?= "sysvinit"
+-- 
+1.7.10.4
 
 
