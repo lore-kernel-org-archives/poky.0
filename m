@@ -1,34 +1,19 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-we0-f180.google.com (mail-we0-f180.google.com
-	[74.125.82.180])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7018AE01481
-	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 03:49:09 -0700 (PDT)
-Received: by mail-we0-f180.google.com with SMTP id r5so4474462wey.25
-	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 03:49:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:from:to:subject:date:message-id:x-mailer
-	:x-gm-message-state;
-	bh=Mqvm4BNc4GYY7fDrGm/JS5KxNy5whzCzi8mFEoevKBA=;
-	b=VOvQ08kunD+I0vBM++tO7dBzwYwX/Qq5yZCUzwVLOV3Kkov++8TDCeT+HeXzCNOAdM
-	RXToNjEyNPCU6BgL879L0bkOZOQ19Y6Nv4B6HwDIy/8dHCPKVGhqSE1WTeclX56Ghzh8
-	4vn+hioAbFUQD4FyI+tbB3r2CL/zZi13TCyYPZewQkQd8x8imvE7sDRD6ap6GJ0ekMed
-	8kM2QptlLQGrFLMPZtHkK2safy6Y5sDuI3uLeQLrxdGy8x15MDkfrjVH3HGLsfgBqM0l
-	/RZjkN7fkUFKGHBWX4Rpcjvwv/YznUygrFlNhfAkPHuI7mhEwgE22ysgtiUDa6xbcK4v
-	dMOA==
-X-Received: by 10.194.242.163 with SMTP id wr3mr30335346wjc.35.1364381347939; 
-	Wed, 27 Mar 2013 03:49:07 -0700 (PDT)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPS id ek4sm7835361wib.11.2013.03.27.03.49.06
-	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 27 Mar 2013 03:49:07 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
+Return-Path: <emilia.maria.silvia.ciobanu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DA09EE01481
+	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 06:08:39 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga102.fm.intel.com with ESMTP; 27 Mar 2013 06:08:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.84,919,1355126400"; d="scan'208";a="312622798"
+Received: from ema-vostro-460.rb.intel.com ([10.237.105.32])
+	by fmsmga002.fm.intel.com with ESMTP; 27 Mar 2013 06:08:11 -0700
+From: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 27 Mar 2013 10:46:28 +0000
-Message-Id: <1364381188-11279-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-X-Gm-Message-State: ALoCoQlxMdtCZ6Ol8IV68WscrYfYs689PHxxn/zGXnq3cIFPYvxhBLNhpNGzFOL4oTKv2BMDLjDN
-Subject: [PATCH] local.conf.sample.extended: remove obsolete DISTRO_FEATURES_INITMAN reference
+Date: Wed, 27 Mar 2013 15:13:25 +0200
+Message-Id: <1364390005-6982-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] package_regex.inc: Added regex for elfutils
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,26 +26,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Mar 2013 10:49:09 -0000
+X-List-Received-Date: Wed, 27 Mar 2013 13:08:40 -0000
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
+Signed-off-by: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
 ---
- meta-yocto/conf/local.conf.sample.extended |    4 ----
- 1 file changed, 4 deletions(-)
+ meta-yocto/conf/distro/include/package_regex.inc |    1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
-index 4d9ce56..d0dff80 100644
---- a/meta-yocto/conf/local.conf.sample.extended
-+++ b/meta-yocto/conf/local.conf.sample.extended
-@@ -211,7 +211,3 @@
- # Put the following two lines in the conf file with intact.
- #ARCHIVER_CLASS = "${@'archive-${ARCHIVER_MODE}-source' if ARCHIVER_MODE != 'none' else ''}"
- #INHERIT += "${ARCHIVER_CLASS}"
--#
--# set init manager: sysvinit or systemd
--# sysvinit is the default choice
--#DISTRO_FEATURES_INITMAN ?= "sysvinit"
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index 882c13c..aff4bdd 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -48,6 +48,7 @@ REGEX_URI_pn-nativesdk-db = "http://www.oracle.com/technetwork/products/berkeley
+ REGEX_pn-nativesdk-db = "[hH][rR][eE][fF]=\"http://download.oracle.com/otn/berkeley-db/db-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-e2fsprogs = "http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/"
+ REGEX_pn-e2fsprogs = "[hH][rR][eE][fF]=\"/projects/e2fsprogs/files/e2fsprogs/v(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_pn-elfutils = "[hH][rR][eE][fF]=\"(elfutils\-)?(?P<pver>((\d+[\.\-_]*)+))(/|\.tar\.bz2)\""
+ REGEX_URI_pn-expat = "http://sourceforge.net/projects/expat/files/expat/"
+ REGEX_pn-expat-native = "[hH][rR][eE][fF]=\"/projects/expat/files/expat/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-expat-native = "http://sourceforge.net/projects/expat/files/expat/"
 -- 
-1.7.10.4
+1.7.9.5
 
 
