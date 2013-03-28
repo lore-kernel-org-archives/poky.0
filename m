@@ -1,39 +1,18 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-pa0-f42.google.com (mail-pa0-f42.google.com
-	[209.85.220.42])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E2C4CE0146E
-	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 08:19:25 -0700 (PDT)
-Received: by mail-pa0-f42.google.com with SMTP id kq13so1564944pab.29
-	for <poky@yoctoproject.org>; Wed, 27 Mar 2013 08:19:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=x-received:date:from:to:cc:subject:message-id:references
-	:mime-version:content-type:content-disposition:in-reply-to
-	:user-agent; bh=OtTheYfzULw8upXR/2aOToDyCXG/b4iXJK6HgCrkof8=;
-	b=S6pHrA6LxyCMC337qs7DCswGyBGlRiwLAmMaJ6Toy2Cvgs88MJkshDsFVXoxC6jnyF
-	1fHUwduYlPH3WELeoo8+H+Xjl1qxZDubukssMwMb3bYMCAhaPAVmYQFAvyfNIM3OYDrt
-	Xywpz6BkIKIrJuwSxygHlInLHKaFnSH2bVTq6zTU84fiopVa9F5q36SQeOlWsmg/GNYe
-	DR3ec2UwjTarEFigJdgboxWfq3VggPgAeE3rL7JVDAWiV9dDDYXgvfdcdDBoUrFBKzh8
-	/plYHHVwF6KVGxQ2Ss+wf6RKpi3lGHtvfE+RPgGdnE8p4nU0Z4XmFJAW5FYmLsUDqvUo
-	Ddog==
-X-Received: by 10.68.221.36 with SMTP id qb4mr30140811pbc.66.1364397565737;
-	Wed, 27 Mar 2013 08:19:25 -0700 (PDT)
-Received: from localhost (ip-62-24-80-7.net.upcbroadband.cz. [62.24.80.7])
-	by mx.google.com with ESMTPS id tm1sm21832622pbc.11.2013.03.27.08.19.22
-	(version=TLSv1.2 cipher=RC4-SHA bits=128/128);
-	Wed, 27 Mar 2013 08:19:24 -0700 (PDT)
-Date: Wed, 27 Mar 2013 16:19:15 +0100
-From: Martin Jansa <martin.jansa@gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20130327151915.GA3254@jama>
-References: <1364392789-24104-1-git-send-email-ross.burton@intel.com>
-	<CABcZANn9haGTBdmo1F=vwQw5G6kqGBdPKRaocDhmVc4uFp-ikQ@mail.gmail.com>
-	<1364396712.28471.20.camel@ted>
-MIME-Version: 1.0
-In-Reply-To: <1364396712.28471.20.camel@ted>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: Chris Larson <clarson@kergoth.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] poky.conf: enable Wayland DISTRO_FEATURE
+Return-Path: <michel.thebeau@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E242AE014CD
+	for <poky@yoctoproject.org>; Thu, 28 Mar 2013 12:33:14 -0700 (PDT)
+Received: from yow-mthebeau-lx2.wrs.com (yow-mthebeau-lx2.wrs.com
+	[128.224.146.159])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r2SJX8HR024524;
+	Thu, 28 Mar 2013 12:33:08 -0700 (PDT)
+From: michel.thebeau@windriver.com
+To: richard.purdie@linuxfoundation.org, bruce.ashfield@windriver.com
+Date: Thu, 28 Mar 2013 15:32:50 -0400
+Message-Id: <1364499172-28976-1-git-send-email-michel.thebeau@windriver.com>
+X-Mailer: git-send-email 1.7.9.7
+Cc: poky@yoctoproject.org
+Subject: [OE-core] [PATCH 0/2] Routerstationpro: The size of the kernel image is too big
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,69 +25,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Mar 2013 15:19:26 -0000
-X-Groupsio-MsgNum: 8818
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Kj7319i9nmIyA2yE"
-Content-Disposition: inline
+X-List-Received-Date: Thu, 28 Mar 2013 19:33:15 -0000
 
---Kj7319i9nmIyA2yE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Bruce, et al,
 
-On Wed, Mar 27, 2013 at 03:05:12PM +0000, Richard Purdie wrote:
-> On Wed, 2013-03-27 at 07:58 -0700, Chris Larson wrote:
-> >=20
-> > On Wed, Mar 27, 2013 at 6:59 AM, Ross Burton <ross.burton@intel.com>
-> > wrote:
-> >         Without the Wayland feature you don't get the Wayland EGL
-> >         platform built into
-> >         Mesa, so Poky can't be used to test Wayland or Weston properly
-> >         out of the box.
-> >        =20
-> >         Signed-off-by: Ross Burton <ross.burton@intel.com>
-> >         ---
-> >          meta-yocto/conf/distro/poky.conf |    2 +-
-> >          1 file changed, 1 insertion(+), 1 deletion(-)
-> >        =20
-> >         diff --git a/meta-yocto/conf/distro/poky.conf
-> >         b/meta-yocto/conf/distro/poky.conf
-> >         index f146f5f..afe328b 100644
-> >         --- a/meta-yocto/conf/distro/poky.conf
-> >         +++ b/meta-yocto/conf/distro/poky.conf
-> >         @@ -11,7 +11,7 @@ TARGET_VENDOR =3D "-poky"
-> >          LOCALCONF_VERSION =3D "1"
-> >          LAYER_CONF_VERSION ?=3D "6"
-> >        =20
-> >         -DISTRO_FEATURES_append =3D " largefile opengl multiarch"
-> >         +DISTRO_FEATURES_append =3D " largefile opengl multiarch
-> >         wayland"
-> >=20
-> > This reminds me, could we make this overridable? There are distros
-> > which are based on poky, but might want to tweak the supported
-> > features. Perhaps these features could be shoved into a separate
-> > variable and _append that, or just use +=3D.
->=20
-> Sounds fine, please send a patch. There was some good reason for using
-> _append iirc.
+I'd previously sent a patch to the poky list which Richard Purdie
+has merged, commit 83716e40edacfd20dec8ef41f415ad5828d4643b:
+"routerstationpro: use KERNEL_IMAGE_MAXSIZE to test the image"
 
-I guess it was to use weak assignment from default-distrovars.inc
-instead of replacing it with only these 3.
+The two patches here are for yocto #3515 and #3514.
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+I am sending a fourth patch (second?) to the poky list:
+"routerstationpro: swap KERNEL_IMAGETYPE and KERNEL_ALT_IMAGETYPE"
 
---Kj7319i9nmIyA2yE
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+I recommend that these three patches be applied in this order:
+#3515
+1. [OE-core] [PATCH 1/2] kernel.bbclass: omit vmlinux from rpm file when it is the alternative image
+2. [poky] [PATCH 1/1] routerstationpro: swap KERNEL_IMAGETYPE and  KERNEL_ALT_IMAGETYPE
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.19 (GNU/Linux)
+#3514
+3. [OE-core] [PATCH 2/2] kernel.bbclass: do_sizecheck: update path to build image and do not delete
 
-iEYEARECAAYFAlFTDfMACgkQN1Ujt2V2gBxt0QCfWXtXjQBlLREOl79NaDGlwTPd
-fYQAni/Ts/hWhZsZ7mc2qNh2/fmNWrz9
-=D5iy
------END PGP SIGNATURE-----
+When these three are merged then I would consider #3514 and #3515 closed.
 
---Kj7319i9nmIyA2yE--
+Michel
+
+
