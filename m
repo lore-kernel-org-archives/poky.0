@@ -1,18 +1,27 @@
-Return-Path: <michel.thebeau@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7448E014D5
-	for <poky@yoctoproject.org>; Thu, 28 Mar 2013 12:33:14 -0700 (PDT)
-Received: from yow-mthebeau-lx2.wrs.com (yow-mthebeau-lx2.wrs.com
-	[128.224.146.159])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r2SJX9tj024526;
-	Thu, 28 Mar 2013 12:33:09 -0700 (PDT)
-From: michel.thebeau@windriver.com
-To: richard.purdie@linuxfoundation.org, bruce.ashfield@windriver.com
-Date: Thu, 28 Mar 2013 15:32:54 -0400
-Message-Id: <1364499175-29014-1-git-send-email-michel.thebeau@windriver.com>
-X-Mailer: git-send-email 1.7.9.7
+Return-Path: <Michel.Thebeau@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 743A0E014BD
+	for <poky@yoctoproject.org>; Thu, 28 Mar 2013 14:12:11 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r2SLC8BA027342
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 28 Mar 2013 14:12:08 -0700 (PDT)
+Received: from [128.224.146.59] (128.224.146.59) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.2.342.3;
+	Thu, 28 Mar 2013 14:12:08 -0700
+Message-ID: <5154B227.9090707@windriver.com>
+Date: Thu, 28 Mar 2013 17:12:07 -0400
+From: Michel Thebeau <michel.thebeau@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:16.0) Gecko/20121011 Thunderbird/16.0.1
+MIME-Version: 1.0
+To: <michel.thebeau@windriver.com>
+References: <1364499175-29014-1-git-send-email-michel.thebeau@windriver.com>
+	<1364499175-29014-2-git-send-email-michel.thebeau@windriver.com>
+In-Reply-To: <1364499175-29014-2-git-send-email-michel.thebeau@windriver.com>
 Cc: poky@yoctoproject.org
-Subject: [PATCH 0/1] Routerstationpro: The size of the kernel image is too big
+Subject: Re: [PATCH 1/1] routerstationpro: swap KERNEL_IMAGETYPE and KERNEL_ALT_IMAGETYPE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -25,26 +34,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Mar 2013 19:33:15 -0000
+X-List-Received-Date: Thu, 28 Mar 2013 21:12:11 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-Hi Bruce, Richard,
 
-I'd previously sent a patch to the poky list which Richard
-has merged, commit 83716e40edacfd20dec8ef41f415ad5828d4643b:
-"routerstationpro: use KERNEL_IMAGE_MAXSIZE to test the image"
 
-The patch here is for yocto #3515.  I am sending two more patches
-to the oe-core list:
+On 13-03-28 03:32 PM, michel.thebeau@windriver.com wrote:
+> From: Michel Thebeau <michel.thebeau@windriver.com>
+> 
+> The routerstationpro has a 16mb flash which the kernel image should
+> fit into.  The default build type for vmlinux then should be the
+> stripped arch/mips/boot/vmlinux.bin.
+> 
+> Swapping KERNEL_IMAGETYPE and KERNEL_ALT_IMAGETYPE for rsp causes
+> vmlinux.bin to be linked in tmp/deploy/images instead of vmlinux, and
+> causes vmlinux.bin to appear in the kernel rpm file.
+> 
+> [YOCTO #3515]
+> 
+> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+> Signed-off-by: Michel Thebeau <michel.thebeau@windriver.com>
+> ---
+>  meta-yocto-bsp/conf/machine/routerstationpro.conf |    4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/meta-yocto-bsp/conf/machine/routerstationpro.conf b/meta-yocto-bsp/conf/machine/routerstationpro.conf
+> index e5e4d1a..a727e2a 100644
+> --- a/meta-yocto-bsp/conf/machine/routerstationpro.conf
+> +++ b/meta-yocto-bsp/conf/machine/routerstationpro.conf
+> @@ -6,8 +6,8 @@ require conf/machine/include/tune-mips32.inc
+>  
+>  MACHINE_FEATURES = "screen keyboard pci usbhost ext2 ext3 serial"
+>  
+> -KERNEL_IMAGETYPE = "vmlinux"
+> -KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
+> +KERNEL_ALT_IMAGETYPE = "vmlinux"
+> +KERNEL_IMAGETYPE = "vmlinux.bin"
 
-I recommend that these three patches be applied in this order:
-#3515
-1. [OE-core] [PATCH 1/2] kernel.bbclass: omit vmlinux from rpm file when it is the alternative image
-2. [poky] [PATCH 1/1] routerstationpro: swap KERNEL_IMAGETYPE and  KERNEL_ALT_IMAGETYPE
+I'd noted in email that arch/mips/boot/vmlinux.bin is looks like the
+stripped file we were looking for.  But it doesn't load:
 
-#3514
-3. [OE-core] [PATCH 2/2] kernel.bbclass: do_sizecheck: update path to build image and do not delete
+RedBoot> load -m tftp -h 192.168.1.6 mthebeau/vmlinux.bin
+Unrecognized image type: 0x0
 
-When these three are merged then I would consider #3514 and #3515 closed.
+I was able to load the larger vmlinux and boot it.
 
-Michel
+And as previously noted by ,  using
+tmp/sysroots/x86_64-linux/usr/bin/mips32-poky-linux/mips-poky-linux-strip would
+get a bootable image as well from the vmlinux.
+
+I'll try to figure out what the difference is between that and vmlinux.bin.
+
+M
+
+
+>  
+>  PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+>  PREFERRED_VERSION_linux-yocto ?= "3.4%"
+> 
 
