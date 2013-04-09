@@ -1,23 +1,19 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B06E2E0154F
-	for <poky@yoctoproject.org>; Fri,  5 Apr 2013 12:00:15 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 05 Apr 2013 11:58:33 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9BFD6E01473
+	for <poky@yoctoproject.org>; Tue,  9 Apr 2013 07:22:05 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 09 Apr 2013 07:22:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,416,1363158000"; d="scan'208";a="313019420"
-Received: from fear.jf.intel.com (HELO rage.local) ([10.7.201.160])
-	by orsmga002.jf.intel.com with ESMTP; 05 Apr 2013 12:00:06 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-To: Poky <poky@yoctoproject.org>
-Date: Fri,  5 Apr 2013 12:02:24 -0700
-Message-Id: <a4eb5a8984d8fd6bd463c31481809d8cfd9ce539.1365188372.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.5.4
-In-Reply-To: <cover.1365188372.git.dvhart@linux.intel.com>
-References: <cover.1365188372.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1365188372.git.dvhart@linux.intel.com>
-References: <cover.1365188372.git.dvhart@linux.intel.com>
-Subject: [PATCH 2/2] poky-tiny: Prefer linux-yocto-tiny_3.8
+X-IronPort-AV: E=Sophos;i="4.87,439,1363158000"; d="scan'208";a="225057633"
+Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.13.195])
+	by AZSMGA002.ch.intel.com with ESMTP; 09 Apr 2013 07:22:03 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue,  9 Apr 2013 15:21:57 +0100
+Message-Id: <cover.1365517250.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH 0/3] Minor comment/doc fixes for Poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,32 +26,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Apr 2013 19:00:15 -0000
+X-List-Received-Date: Tue, 09 Apr 2013 14:22:05 -0000
 
-Update the distro config to prefer the 3.8 version of the
-linux-yocto-tiny recipe.
+No functional changes, just fixes for comments and README.hardware.
 
-Build and boot tested on qemux86.
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
----
- meta-yocto/conf/distro/poky-tiny.conf |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+The following changes since commit b49ddeb11c0319b7ece278fd7cef6b0223114ca9:
 
-diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
-index 347280a..755667f 100644
---- a/meta-yocto/conf/distro/poky-tiny.conf
-+++ b/meta-yocto/conf/distro/poky-tiny.conf
-@@ -37,7 +37,7 @@ DISTRO = "poky-tiny"
- # Distro config is evaluated after the machine config, so we have to explicitly
- # set the kernel provider to override a machine config.
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-tiny"
--PREFERRED_VERSION_linux-yocto-tiny = "3.4%"
-+PREFERRED_VERSION_linux-yocto-tiny = "3.8%"
- 
- # We can use packagegroup-core-boot, but in the future we may need a new packagegroup-core-tiny
- #POKY_DEFAULT_EXTRA_RDEPENDS += "packagegroup-core-boot"
+  udev: Move udevd back to /sbin (2013-04-09 13:31:37 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/layer-tweaks
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/layer-tweaks
+
+Paul Eggleton (3):
+  yocto-layer / yocto-bsp: tweak layer.conf comment
+  meta-yocto*/conf/layer.conf: tweak BBFILES comments
+  README.hardware: bring up-to-date
+
+ README.hardware                                    |   51 +++++++++++---------
+ meta-yocto-bsp/conf/layer.conf                     |    2 +-
+ meta-yocto/conf/layer.conf                         |    2 +-
+ .../substrate/target/arch/common/conf/layer.conf   |    2 +-
+ .../substrate/target/arch/layer/conf/layer.conf    |    2 +-
+ 5 files changed, 33 insertions(+), 26 deletions(-)
+
 -- 
-1.7.5.4
+1.7.10.4
 
 
