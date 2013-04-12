@@ -1,30 +1,24 @@
-Return-Path: <twoerner@gmail.com>
-Received: from mail-wi0-f182.google.com (mail-wi0-f182.google.com
-	[209.85.212.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BE345E014DB
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 12:10:33 -0700 (PDT)
-Received: by mail-wi0-f182.google.com with SMTP id hi18so1908600wib.3
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 12:10:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:x-received:in-reply-to:references:date:message-id
-	:subject:from:to:content-type;
-	bh=FSJuUXRIs+M5eHd/jnERNoly9ghbikSvsC75+P4DRdw=;
-	b=vJ3yKnEdD/dGvjC5eyZSjixBwdgjmutKbz8WYb/HPT52+6ZSPVcYAoFLqTW06382s1
-	bho4s4nYSJBR73Fab85zc8EWSpE5lyQn0AVUKnxYfQh8LxpwL3tWAWz524qRqDz+8b/l
-	jVus2sPHpmCgft4aBJfDCSBAOUdBL9U0ymUb+UFQLbio2mF0O+SBnPeKa7Py/QdnS4pA
-	+DtEzCNLGl9LYffAiyebCpz9O4EX9s+U3yR9JiicwT2Sq0yqM0Li4c+ZecgUH6DLU2/N
-	N1k2f1LbB9qLPhUt+dLw+XbFKZ7Fkm3YH7y22PptCaGJVxNuYOSXqL3bC91X+hXgpo9C
-	XMJA==
-MIME-Version: 1.0
-X-Received: by 10.180.92.229 with SMTP id cp5mr6011214wib.20.1365793831802;
-	Fri, 12 Apr 2013 12:10:31 -0700 (PDT)
-Received: by 10.194.167.73 with HTTP; Fri, 12 Apr 2013 12:10:31 -0700 (PDT)
-In-Reply-To: <CAHUNapT4owKXJY_wBmRfwkn_56DTSO6hZsuGemES_YG6aFA2RQ@mail.gmail.com>
+Return-Path: <denis@denix.org>
+Received: from vms173013pub.verizon.net (vms173013pub.verizon.net
+	[206.46.173.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C40ADE014DB
+	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 12:32:08 -0700 (PDT)
+Received: from gandalf.denix.org ([unknown] [108.45.150.102])
+	by vms173013.mailsrvcs.net
+	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
+	2009)) with ESMTPA id <0ML50014SQ86LIJB@vms173013.mailsrvcs.net> for
+	poky@yoctoproject.org; Fri, 12 Apr 2013 14:31:34 -0500 (CDT)
+Received: by gandalf.denix.org (Postfix, from userid 1000)	id 66811201AD; Fri,
+	12 Apr 2013 15:31:16 -0400 (EDT)
+Date: Fri, 12 Apr 2013 15:31:16 -0400
+From: Denys Dmytriyenko <denis@denix.org>
+To: Trevor Woerner <twoerner@gmail.com>
+Message-id: <20130412193116.GA3757@denix.org>
 References: <CAHUNapT4owKXJY_wBmRfwkn_56DTSO6hZsuGemES_YG6aFA2RQ@mail.gmail.com>
-Date: Fri, 12 Apr 2013 15:10:31 -0400
-Message-ID: <CAHUNapS=3jt-VfVdEGMhU181DRp_JuaO15UcHCryT6cr-p5tug@mail.gmail.com>
-From: Trevor Woerner <twoerner@gmail.com>
-To: poky@yoctoproject.org
+MIME-version: 1.0
+In-reply-to: <CAHUNapT4owKXJY_wBmRfwkn_56DTSO6hZsuGemES_YG6aFA2RQ@mail.gmail.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky@yoctoproject.org
 Subject: Re: poky and OpenEmbedded (post-release)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -38,12 +32,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2013 19:10:34 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 12 Apr 2013 19:32:08 -0000
+Content-type: text/plain; charset=us-ascii
+Content-disposition: inline
 
-On Fri, Apr 12, 2013 at 3:07 PM, Trevor Woerner <twoerner@gmail.com> wrote:
-> You won't believe how
-> I've poured over that page
+On Fri, Apr 12, 2013 at 03:07:00PM -0400, Trevor Woerner wrote:
+> Many thanks to Denys for pointing me to
+> http://openembedded.org/wiki/OpenEmbedded-Core. You won't believe how
+> I've poured over that page and how many "lights have gone on" while
+> reading it (over and over).
+> 
+> If poky started as a fork of OE but is now a distribution, wouldn't it
+> make sense to remove the "meta" directory from poky and simply have
+> people add openembedded-core as a layer (as they would any other
+> layer)?
 
-(shoot! s/poured/pored)
+I believe that was suggested few times before (and other distros are doing 
+exactly that - i.e. assembling their distros from layers), but Poky developers 
+prefer their distro to be already pre-assembled for ease of use. Besides 
+openembedded-core layer, there're also bitbake and meta-yocto inside Poky. It 
+maybe confusing at first, but think of it as being pre-assembled from bitbake+
+oe-core + meta-yocto and saved into a single repository.
+
+Well, at least it saves Poky from needing to provide setup tools to download 
+and assemble different layers from different repositories. Otherwise you would 
+need something like our oe-layersetup[1] tool for Arago or setup-scripts for 
+Angstrom etc.
+
+[1] git://arago-project.org/git/projects/oe-layersetup.git
+
+-- 
+Denys
+
+> Or am I going down the wrong path with this thought?
+> 
+> Of course it might be confusing having, potentially, both an
+> openembedded-core and a meta-openembedded layer, but it seems like
+> having the "meta" directory in poky is redundant, given that it is
+> already its own layer in openembedded-core.
+> 
 
