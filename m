@@ -1,34 +1,28 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-vb0-f42.google.com (mail-vb0-f42.google.com
-	[209.85.212.42])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02BDCE014DB
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 10:08:47 -0700 (PDT)
-Received: by mail-vb0-f42.google.com with SMTP id p12so2334331vbe.1
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 10:08:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-received:mime-version:in-reply-to:references:from:date:message-id
-	:subject:to:cc:content-type:x-gm-message-state;
-	bh=7vOYcp4YLmimxSOxqu2DqdREFrhr7oda64Sxo5erJwY=;
-	b=cQfblGoEgCJanZcCYTStmnBKatTaqCV9pNKivxrxgjUpSNWoHt5RL1USMkDpMgyk6i
-	lQupTbc03QqDeiS526AWyn1gB/OJ+AnhP1LsqeVltBbUnTbWiu8TOhxeoAPkJQWcR09Y
-	Ydd0V6ssEEAjsHCe7dj/JD9PFhLTcFc5kcWHOWFXFbNc9KBD0d77GEUeZTfd3A2HGPSU
-	DI4tBC7qSAGPkY0UErudqcr//uYLwei1q+vKf9Gljfiafs7IQ+zEayj56PYImmr+5ilA
-	e2usx9qGAp7/Tod0gSqZaIwWyQfDdI/BHl+oGpfF9DrNcyVg+ficiY6LkgGGZZqJwruU
-	wfNw==
-X-Received: by 10.220.153.2 with SMTP id i2mr9025507vcw.53.1365786527123; Fri,
-	12 Apr 2013 10:08:47 -0700 (PDT)
+Return-Path: <twoerner@gmail.com>
+Received: from mail-wi0-f171.google.com (mail-wi0-f171.google.com
+	[209.85.212.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EC70EE014DB
+	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 12:07:01 -0700 (PDT)
+Received: by mail-wi0-f171.google.com with SMTP id hn17so1910567wib.16
+	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 12:07:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:x-received:date:message-id:subject:from:to
+	:content-type; bh=nfvNqtyONPN+RZiQ8t0hg/3Z4jeE7NEWRUHy3Aw4DZs=;
+	b=YUBevs/ddS8jIyN6c3pR7gOp+FDDk6HldO2DHcNfb3V3dIWb9XjbKKUG/bj9ReMtvV
+	xu4Mm6vmECG1j8MxfhmATsp4fwGfHsgfCwBMVvwmOECINUxhLD9Xa6VZCEK5c+H42DGp
+	uvDtK09zxfbu5GeWrXRYYaWHexySMSBwDXRTFjdVUWlZGYSXbqpUyfjvt3gF+gcm2dJF
+	zyJn5mSKLrrbdFP/+ZQdUNVoQ4/z8nTdG7KnjOXU9rm/KdOOK69fnzgmDkd81+wbuUWg
+	Ou2GjIeBPyYzgl3OK+XOyj1MVzlydyiJmb47ETywA/Db8acuj2lNMOo+DYUPJl/nBcrc
+	kBXg==
 MIME-Version: 1.0
-Received: by 10.220.100.68 with HTTP; Fri, 12 Apr 2013 10:08:26 -0700 (PDT)
-In-Reply-To: <CA+aQ=RMndaWC8Suv2eouL3oNRQYu2yLsTST578+B2hZQ9GsJGg@mail.gmail.com>
-References: <CA+aQ=RMndaWC8Suv2eouL3oNRQYu2yLsTST578+B2hZQ9GsJGg@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Fri, 12 Apr 2013 18:08:26 +0100
-Message-ID: <CAJTo0LYGhwgVZOw+MHYMQd96UrH8PjMCEtcx5AkD3gSKo_gjhw@mail.gmail.com>
-To: Robert Sheffield <rsheffield2011@my.fit.edu>
-X-Gm-Message-State: ALoCoQkLByFunL33CpUZ6MQCMoQtrKIgEZkzjQKzKXLUxr0BbGfd1Z9i+EWqJ3+xxYEEmzbNajyy
-Cc: poky@yoctoproject.org
-Subject: Re: NMEA data reader/parser
+X-Received: by 10.194.10.129 with SMTP id i1mr19778680wjb.21.1365793620424;
+	Fri, 12 Apr 2013 12:07:00 -0700 (PDT)
+Received: by 10.194.167.73 with HTTP; Fri, 12 Apr 2013 12:07:00 -0700 (PDT)
+Date: Fri, 12 Apr 2013 15:07:00 -0400
+Message-ID: <CAHUNapT4owKXJY_wBmRfwkn_56DTSO6hZsuGemES_YG6aFA2RQ@mail.gmail.com>
+From: Trevor Woerner <twoerner@gmail.com>
+To: poky@yoctoproject.org, Denys Dmytriyenko <denis@denix.org>
+Subject: poky and OpenEmbedded (post-release)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,20 +35,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2013 17:08:48 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 12 Apr 2013 19:07:02 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-Hi Robert,
+Many thanks to Denys for pointing me to
+http://openembedded.org/wiki/OpenEmbedded-Core. You won't believe how
+I've poured over that page and how many "lights have gone on" while
+reading it (over and over).
 
-On 12 April 2013 18:05, Robert Sheffield <rsheffield2011@my.fit.edu> wrote:
-> I am working with a new dev board and need to parse and sae the NMEA data
-> from the Linx GPS device that I am using. I am new to the Yocto project and
-> am having trouble with the procedures for usig the information on here. I
-> have read about a gypsy patch that may do what I need, but am not sure
-> because I can't find a lot of information on it.
+If poky started as a fork of OE but is now a distribution, wouldn't it
+make sense to remove the "meta" directory from poky and simply have
+people add openembedded-core as a layer (as they would any other
+layer)?
 
-It should be fairly simple to write a daemon that does that using
-Gypsy, or alternatively gpsd may already support that behaviour.
+Or am I going down the wrong path with this thought?
 
-Ross
+Of course it might be confusing having, potentially, both an
+openembedded-core and a meta-openembedded layer, but it seems like
+having the "meta" directory in poky is redundant, given that it is
+already its own layer in openembedded-core.
 
