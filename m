@@ -1,26 +1,19 @@
-Return-Path: <denis@denix.org>
-Received: from vms173011pub.verizon.net (vms173011pub.verizon.net
-	[206.46.173.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7EE59E014DB
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 12:54:52 -0700 (PDT)
-Received: from gandalf.denix.org ([unknown] [108.45.150.102])
-	by vms173011.mailsrvcs.net
-	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
-	2009)) with ESMTPA id <0ML500JJ6RB26KW8@vms173011.mailsrvcs.net> for
-	poky@yoctoproject.org; Fri, 12 Apr 2013 14:54:38 -0500 (CDT)
-Received: by gandalf.denix.org (Postfix, from userid 1000)	id 28992201AD; Fri,
-	12 Apr 2013 15:54:37 -0400 (EDT)
-Date: Fri, 12 Apr 2013 15:54:37 -0400
-From: Denys Dmytriyenko <denis@denix.org>
-To: Martin Jansa <martin.jansa@gmail.com>
-Message-id: <20130412195437.GB3757@denix.org>
-References: <CAHUNapT4owKXJY_wBmRfwkn_56DTSO6hZsuGemES_YG6aFA2RQ@mail.gmail.com>
-	<20130412193116.GA3757@denix.org> <20130412194229.GU2477@jama>
-MIME-version: 1.0
-In-reply-to: <20130412194229.GU2477@jama>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org
-Subject: Re: poky and OpenEmbedded (post-release)
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 13F2DE014DB
+	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 13:22:54 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 12 Apr 2013 13:22:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.87,465,1363158000"; d="scan'208";a="226602124"
+Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.13.168])
+	by AZSMGA002.ch.intel.com with ESMTP; 12 Apr 2013 13:22:52 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 12 Apr 2013 21:22:48 +0100
+Message-Id: <cover.1365798009.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH 0/1] Fix handling of bblayers.conf updating (poky part)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,64 +26,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2013 19:54:52 -0000
-Content-type: text/plain; charset=us-ascii
-Content-disposition: inline
+X-List-Received-Date: Fri, 12 Apr 2013 20:22:55 -0000
 
-On Fri, Apr 12, 2013 at 09:42:29PM +0200, Martin Jansa wrote:
-> On Fri, Apr 12, 2013 at 03:31:16PM -0400, Denys Dmytriyenko wrote:
-> > On Fri, Apr 12, 2013 at 03:07:00PM -0400, Trevor Woerner wrote:
-> > > Many thanks to Denys for pointing me to
-> > > http://openembedded.org/wiki/OpenEmbedded-Core. You won't believe how
-> > > I've poured over that page and how many "lights have gone on" while
-> > > reading it (over and over).
-> > > 
-> > > If poky started as a fork of OE but is now a distribution, wouldn't it
-> > > make sense to remove the "meta" directory from poky and simply have
-> > > people add openembedded-core as a layer (as they would any other
-> > > layer)?
-> > 
-> > I believe that was suggested few times before (and other distros are doing 
-> > exactly that - i.e. assembling their distros from layers), but Poky developers 
-> > prefer their distro to be already pre-assembled for ease of use. Besides 
-> > openembedded-core layer, there're also bitbake and meta-yocto inside Poky. It 
-> > maybe confusing at first, but think of it as being pre-assembled from bitbake+
-> > oe-core + meta-yocto and saved into a single repository.
-> > 
-> > Well, at least it saves Poky from needing to provide setup tools to download 
-> > and assemble different layers from different repositories. Otherwise you would 
-> > need something like our oe-layersetup[1] tool for Arago or setup-scripts for 
-> > Angstrom etc.
-> 
-> But on the other hand they wouldn't need to send slightly different
-> (path prefix) patchsets for poky and for oe-core/bitbake/meta-yocto.
+Fixes endless looping and other bad behaviour in the code that updates
+bblayers.conf on startup. This is an important fix for the 1.4 release.
 
-Yes, indeed! So, a slightly easier user experience for the price of a slight 
-maintenance overhead. :)
+This change depends upon the corresponding OE-Core change which has just
+been sent.
+
+
+The following changes since commit 2ef72c3174c8c111678ac7e3cf3d866eaf2c8d77:
+
+  wayland: add necessary dependencies to fix build error (2013-04-11 16:41:13 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/bblayers-conf-fix-poky
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/bblayers-conf-fix-poky
+
+Paul Eggleton (1):
+  classes/poky-sanity: fix handling of bblayers.conf updating
+
+ meta-yocto/classes/poky-sanity.bbclass |   26 +++++++++++++++++---------
+ 1 file changed, 17 insertions(+), 9 deletions(-)
 
 -- 
-Denys
-
-
-> > [1] git://arago-project.org/git/projects/oe-layersetup.git
-> > 
-> > -- 
-> > Denys
-> > 
-> > > Or am I going down the wrong path with this thought?
-> > > 
-> > > Of course it might be confusing having, potentially, both an
-> > > openembedded-core and a meta-openembedded layer, but it seems like
-> > > having the "meta" directory in poky is redundant, given that it is
-> > > already its own layer in openembedded-core.
-> > > 
-> > _______________________________________________
-> > poky mailing list
-> > poky@yoctoproject.org
-> > https://lists.yoctoproject.org/listinfo/poky
-> 
-> -- 
-> Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
-
+1.7.10.4
 
 
