@@ -1,30 +1,34 @@
-Return-Path: <rsheffield2011@my.fit.edu>
-Received: from mail-ee0-f51.google.com (mail-ee0-f51.google.com [74.125.83.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3A49FE014D5
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 10:05:04 -0700 (PDT)
-Received: by mail-ee0-f51.google.com with SMTP id c4so1340739eek.38
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 10:05:02 -0700 (PDT)
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vb0-f42.google.com (mail-vb0-f42.google.com
+	[209.85.212.42])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02BDCE014DB
+	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 10:08:47 -0700 (PDT)
+Received: by mail-vb0-f42.google.com with SMTP id p12so2334331vbe.1
+	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 10:08:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=mime-version:x-received:date:message-id:subject:from:to
-	:content-type:x-gm-message-state;
-	bh=wxCy7QnfWRCwKrnpRlF3VuRW3Jjd4u3XqXibU51thCk=;
-	b=HovbrPxPSsYW8SeZKqjtlB+DGXfKls+hLxc3BveWM566HfsPIAFI3ZgAHp7FEYY77H
-	CkqhiBvaQ2HMNeWvHyvmeC3nywa2eo421TEZ5SHsRmNu2zWuZ1A9Jd5sl4orma1seNfM
-	qFL3VM0VUVXbkN2iuBvL5EBz5L2lRsizC8JC6CNgsaxne1gSUPySBCol+2OTW98krUi1
-	bakIlPRoNYh6ygfo6r/aQucAwesImwjIZfNXnBP/LLjIRw/oPezaDPq8fhUZ0YN44dNu
-	NNtD27FsdDQb17LgN3Mz2bE2DqAKX8KS7DjWOGxXCPM5Kx6oj9PcAfW08Zydg/ddvaqJ
-	vMyQ==
+	h=x-received:mime-version:in-reply-to:references:from:date:message-id
+	:subject:to:cc:content-type:x-gm-message-state;
+	bh=7vOYcp4YLmimxSOxqu2DqdREFrhr7oda64Sxo5erJwY=;
+	b=cQfblGoEgCJanZcCYTStmnBKatTaqCV9pNKivxrxgjUpSNWoHt5RL1USMkDpMgyk6i
+	lQupTbc03QqDeiS526AWyn1gB/OJ+AnhP1LsqeVltBbUnTbWiu8TOhxeoAPkJQWcR09Y
+	Ydd0V6ssEEAjsHCe7dj/JD9PFhLTcFc5kcWHOWFXFbNc9KBD0d77GEUeZTfd3A2HGPSU
+	DI4tBC7qSAGPkY0UErudqcr//uYLwei1q+vKf9Gljfiafs7IQ+zEayj56PYImmr+5ilA
+	e2usx9qGAp7/Tod0gSqZaIwWyQfDdI/BHl+oGpfF9DrNcyVg+ficiY6LkgGGZZqJwruU
+	wfNw==
+X-Received: by 10.220.153.2 with SMTP id i2mr9025507vcw.53.1365786527123; Fri,
+	12 Apr 2013 10:08:47 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 10.15.35.193 with SMTP id g41mr30084889eev.45.1365786302221;
-	Fri, 12 Apr 2013 10:05:02 -0700 (PDT)
-Received: by 10.14.3.132 with HTTP; Fri, 12 Apr 2013 10:05:02 -0700 (PDT)
-Date: Fri, 12 Apr 2013 13:05:02 -0400
-Message-ID: <CA+aQ=RMndaWC8Suv2eouL3oNRQYu2yLsTST578+B2hZQ9GsJGg@mail.gmail.com>
-From: Robert Sheffield <rsheffield2011@my.fit.edu>
-To: poky@yoctoproject.org
-X-Gm-Message-State: ALoCoQkdI3qmZ4TVIKONgAc2urBezVuas1cowjmdAVsp13uZquMdwYbhbLK8jXPGRKeCNL1LA417
-Subject: NMEA data reader/parser
+Received: by 10.220.100.68 with HTTP; Fri, 12 Apr 2013 10:08:26 -0700 (PDT)
+In-Reply-To: <CA+aQ=RMndaWC8Suv2eouL3oNRQYu2yLsTST578+B2hZQ9GsJGg@mail.gmail.com>
+References: <CA+aQ=RMndaWC8Suv2eouL3oNRQYu2yLsTST578+B2hZQ9GsJGg@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Fri, 12 Apr 2013 18:08:26 +0100
+Message-ID: <CAJTo0LYGhwgVZOw+MHYMQd96UrH8PjMCEtcx5AkD3gSKo_gjhw@mail.gmail.com>
+To: Robert Sheffield <rsheffield2011@my.fit.edu>
+X-Gm-Message-State: ALoCoQkLByFunL33CpUZ6MQCMoQtrKIgEZkzjQKzKXLUxr0BbGfd1Z9i+EWqJ3+xxYEEmzbNajyy
+Cc: poky@yoctoproject.org
+Subject: Re: NMEA data reader/parser
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,51 +41,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2013 17:05:04 -0000
-Content-Type: multipart/alternative; boundary=089e016813c26245ca04da2ce797
+X-List-Received-Date: Fri, 12 Apr 2013 17:08:48 -0000
+Content-Type: text/plain; charset=UTF-8
 
---089e016813c26245ca04da2ce797
-Content-Type: text/plain; charset=ISO-8859-1
+Hi Robert,
 
-I am working with a new dev board and need to parse and sae the NMEA data
-from the Linx GPS device that I am using. I am new to the Yocto project and
-am having trouble with the procedures for usig the information on here. I
-have read about a gypsy patch that may do what I need, but am not sure
-because I can't find a lot of information on it.
+On 12 April 2013 18:05, Robert Sheffield <rsheffield2011@my.fit.edu> wrote:
+> I am working with a new dev board and need to parse and sae the NMEA data
+> from the Linx GPS device that I am using. I am new to the Yocto project and
+> am having trouble with the procedures for usig the information on here. I
+> have read about a gypsy patch that may do what I need, but am not sure
+> because I can't find a lot of information on it.
 
-Is there a patch that will read NMEA data from a device, parse it and store
-it to a file that can be shared by my apache server.
+It should be fairly simple to write a daemon that does that using
+Gypsy, or alternatively gpsd may already support that behaviour.
 
-Also, I am trying to use a serial to USB adapter but it seems that I would
-need a driver?
+Ross
 
--- 
-Thank You for Your Time,
-Robert Sheffield
-Chair FIT-IEEE 2012-2013
-theycallmerobert@msn.com
-rsheffield2011@my.fit.edu
-
---089e016813c26245ca04da2ce797
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div>I am working with a new dev board and need to pa=
-rse and sae the NMEA data from the Linx GPS device that I am using. I am ne=
-w to the Yocto project and am having trouble with the procedures for usig t=
-he information on here. I have read about a gypsy patch that may do what I =
-need, but am not sure because I can&#39;t find a lot of information on it. =
-<br>
-<br></div>Is there a patch that will read NMEA data from a device, parse it=
- and store it to a file that can be shared by my apache server. <br><br></d=
-iv>Also, I am trying to use a serial to USB adapter but it seems that I wou=
-ld need a driver? <br clear=3D"all">
-<div><div><div><div><div><div><br>-- <br>Thank You for Your Time,<br>Robert=
- Sheffield<br>Chair FIT-IEEE 2012-2013<br><a href=3D"mailto:theycallmerober=
-t@msn.com" target=3D"_blank">theycallmerobert@msn.com</a><br><a href=3D"mai=
-lto:rsheffield2011@my.fit.edu" target=3D"_blank">rsheffield2011@my.fit.edu<=
-/a><br>
-
-</div></div></div></div></div></div></div>
-
---089e016813c26245ca04da2ce797--
