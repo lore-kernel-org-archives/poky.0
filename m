@@ -1,23 +1,19 @@
 Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4ABD3E014DB
-	for <poky@yoctoproject.org>; Fri, 12 Apr 2013 13:22:55 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 12 Apr 2013 13:22:54 -0700
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A5C50E013CA
+	for <poky@yoctoproject.org>; Mon, 15 Apr 2013 08:55:02 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 15 Apr 2013 08:55:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,465,1363158000"; d="scan'208";a="226602128"
-Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.13.168])
-	by AZSMGA002.ch.intel.com with ESMTP; 12 Apr 2013 13:22:53 -0700
+X-IronPort-AV: E=Sophos;i="4.87,476,1363158000"; d="scan'208";a="319356905"
+Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.13.245])
+	by fmsmga001.fm.intel.com with ESMTP; 15 Apr 2013 08:55:01 -0700
 From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 12 Apr 2013 21:22:49 +0100
-Message-Id: <8112080eb202a73ae4540f614d9f02ab91c18a00.1365798009.git.paul.eggleton@linux.intel.com>
+Date: Mon, 15 Apr 2013 16:54:51 +0100
+Message-Id: <1366041291-14617-1-git-send-email-paul.eggleton@linux.intel.com>
 X-Mailer: git-send-email 1.7.10.4
-In-Reply-To: <cover.1365798009.git.paul.eggleton@linux.intel.com>
-References: <cover.1365798009.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1365798009.git.paul.eggleton@linux.intel.com>
-References: <cover.1365798009.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 1/1] classes/poky-sanity: fix handling of bblayers.conf updating
+Subject: [PATCH] poky.conf: add Poky 1.4 and CentOS 6.4 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,58 +26,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2013 20:22:55 -0000
+X-List-Received-Date: Mon, 15 Apr 2013 15:55:02 -0000
 
-* Update for new structure in sanity.bbclass - use a separate function
-  to update bblayers.conf and add it to the list to be executed
-* Additionally, don't add meta-yocto-bsp if it's already in BBLAYERS
-  (this can occur when switching between DISTRO = "" or other distros
-  which use a LAYER_CONF_VERSION = "5" and DISTRO = "poky" which has
-  LAYER_CONF_VERSION = "6")
+* CentOS 6.4 is the latest stable release; users of previous versions
+  get automatically upgraded as part of normal distro updates.
+* Add Poky 1.4 for the build appliance
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta-yocto/classes/poky-sanity.bbclass |   26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ meta-yocto/conf/distro/poky.conf |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/meta-yocto/classes/poky-sanity.bbclass b/meta-yocto/classes/poky-sanity.bbclass
-index 1c7514f..fff08b3 100644
---- a/meta-yocto/classes/poky-sanity.bbclass
-+++ b/meta-yocto/classes/poky-sanity.bbclass
-@@ -1,16 +1,24 @@
--python check_bblayers_conf_append() {
--    if current_lconf != lconf_version:
--        if current_lconf == 5:
--            index, meta_yocto_line = find_line('meta-yocto\s*\\\\\\n', lines)
-+python poky_update_bblayersconf() {
-+    current_version = int(d.getVar('LCONF_VERSION', True) or -1)
-+    latest_version = int(d.getVar('LAYER_CONF_VERSION', True) or -1)
-+
-+    bblayers_fn = bblayers_conf_file(d)
-+    lines = sanity_conf_read(bblayers_fn)
-+
-+    if current_version == 5 and latest_version == 6:
-+        if '/meta-yocto-bsp' not in d.getVar('BBLAYERS', True):
-+            index, meta_yocto_line = sanity_conf_find_line('meta-yocto\s*\\\\\\n', lines)
-             if meta_yocto_line:
-                 lines.insert(index + 1, meta_yocto_line.replace('meta-yocto',
-                                                                 'meta-yocto-bsp'))
-             else:
-                 sys.exit()
- 
--            index, line = find_line('LCONF_VERSION', lines)
--            current_lconf += 1
--            lines[index] = 'LCONF_VERSION = "%d"\n' % current_lconf
--            with open(bblayers_fn, "w") as f:
--                f.write(''.join(lines))
-+        current_version += 1
-+        sanity_conf_update(bblayers_fn, lines, 'LCONF_VERSION', current_version)
-+        return
-+
-+    sys.exit()
- }
-+
-+BBLAYERS_CONF_UPDATE_FUNCS += "poky_update_bblayersconf"
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 02ab400..0e143ee 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -73,6 +73,7 @@ SANITY_TESTED_DISTROS ?= " \
+             Yocto-1.2 \n \
+             Poky-1.2 \n \
+             Poky-1.3 \n \
++            Poky-1.4 \n \
+             Ubuntu-10.04 \n \
+             Ubuntu-11.10 \n \
+             Ubuntu-12.04 \n \
+@@ -84,6 +85,7 @@ SANITY_TESTED_DISTROS ?= " \
+             CentOS-5.7 \n \
+             CentOS-5.8 \n \
+             CentOS-6.3 \n \
++            CentOS-6.4 \n \
+             Debian-6.0 \n \
+             Debian-7.0 \n \
+             SUSE-LINUX-11.4 \n \
 -- 
 1.7.10.4
 
