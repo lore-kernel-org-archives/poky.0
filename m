@@ -1,20 +1,18 @@
 Return-Path: <michel.thebeau@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A7BCE006F9
-	for <poky@yoctoproject.org>; Mon, 22 Apr 2013 14:20:32 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 80665E01498
+	for <poky@yoctoproject.org>; Mon, 22 Apr 2013 14:20:38 -0700 (PDT)
 Received: from yow-mthebeau-lx2.wrs.com (yow-mthebeau-lx2.wrs.com
 	[128.224.146.159])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r3MLKIJS012341;
-	Mon, 22 Apr 2013 14:20:20 -0700 (PDT)
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r3MLKIJR012341;
+	Mon, 22 Apr 2013 14:20:19 -0700 (PDT)
 From: michel.thebeau@windriver.com
 To: poky@yoctoproject.org, richard.purdie@linuxfoundation.org
-Date: Mon, 22 Apr 2013 17:20:15 -0400
-Message-Id: <1366665616-24832-2-git-send-email-michel.thebeau@windriver.com>
+Date: Mon, 22 Apr 2013 17:20:14 -0400
+Message-Id: <1366665616-24832-1-git-send-email-michel.thebeau@windriver.com>
 X-Mailer: git-send-email 1.7.9.7
-In-Reply-To: <1366665616-24832-1-git-send-email-michel.thebeau@windriver.com>
-References: <1366665616-24832-1-git-send-email-michel.thebeau@windriver.com>
 Cc: dvhart@linux.intel.com
-Subject: [PATCH] routerstationpro: move board off 3.4 and onto the 3.8 kernel
+Subject: [PATCH 0/1] routerstationpro: move board off 3.4 and onto the 3.8 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,35 +25,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Apr 2013 21:20:32 -0000
+X-List-Received-Date: Mon, 22 Apr 2013 21:20:38 -0000
 
-From: Michel Thebeau <michel.thebeau@windriver.com>
+Hi,
 
-The updated patch series to support this target is in place on the BSP
-specific branch in the 3.8 kernel tree now[1], so we can move it ahead
-off of the old 3.4 kernel.
+linux-yocto-3.8 kernel is updated for Routerstation Pro, so that the bsp
+can moved to that kernel.
 
-[1] https://lists.yoctoproject.org/pipermail/linux-yocto/2013-April/000542.html
+https://lists.yoctoproject.org/pipermail/linux-yocto/2013-April/000546.html
 
-Signed-off-by: Michel Thebeau <michel.thebeau@windriver.com>
+"Feel free to update the preferred version of the board in
+meta-yocto-bsp." -Bruce
+
+Hope I have the necessary changes here.  I'm cc'ing the people who were
+addressed in the previous uprev for rsp.  Apologies if that's too much.
+
 ---
- meta-yocto-bsp/conf/machine/routerstationpro.conf |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/routerstationpro.conf b/meta-yocto-bsp/conf/machine/routerstationpro.conf
-index 723625b..d9575eb 100644
---- a/meta-yocto-bsp/conf/machine/routerstationpro.conf
-+++ b/meta-yocto-bsp/conf/machine/routerstationpro.conf
-@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
- KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.4%"
-+PREFERRED_VERSION_linux-yocto ?= "3.8%"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--- 
-1.7.9.7
+I also noticed that the fix for 3514 needs to carry forward.  Sending
+along a patch for that as well.  It probably won't happen again since
+people tend to use the previous file version as template.
 
+M
 
