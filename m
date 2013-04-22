@@ -1,19 +1,20 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 508F6E014B5
-	for <poky@yoctoproject.org>; Thu, 18 Apr 2013 09:55:52 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 18 Apr 2013 09:55:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,502,1363158000"; d="scan'208";a="321250737"
-Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.14.2])
-	by fmsmga001.fm.intel.com with ESMTP; 18 Apr 2013 09:55:51 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 18 Apr 2013 09:55:51 -0700
-Message-Id: <1366304151-30926-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 1.8.0.2
-Subject: [PATCH] init-ifupdown: move network interfaces file for the beagleboard
+Return-Path: <michel.thebeau@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0FC24E006F9
+	for <poky@yoctoproject.org>; Mon, 22 Apr 2013 14:20:31 -0700 (PDT)
+Received: from yow-mthebeau-lx2.wrs.com (yow-mthebeau-lx2.wrs.com
+	[128.224.146.159])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r3MLKIJT012341;
+	Mon, 22 Apr 2013 14:20:21 -0700 (PDT)
+From: michel.thebeau@windriver.com
+To: poky@yoctoproject.org, richard.purdie@linuxfoundation.org
+Date: Mon, 22 Apr 2013 17:20:16 -0400
+Message-Id: <1366665616-24832-3-git-send-email-michel.thebeau@windriver.com>
+X-Mailer: git-send-email 1.7.9.7
+In-Reply-To: <1366665616-24832-1-git-send-email-michel.thebeau@windriver.com>
+References: <1366665616-24832-1-git-send-email-michel.thebeau@windriver.com>
+Cc: dvhart@linux.intel.com
+Subject: [PATCH] kernel 3.8: routerstationpro: use KERNEL_IMAGE_MAXSIZE to test the image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,30 +27,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2013 16:55:52 -0000
+X-List-Received-Date: Mon, 22 Apr 2013 21:20:31 -0000
 
-With the splite of netbase and init-ifupdown, the interfaces file needs to get
-moved for the beagleboard
+From: Michel Thebeau <michel.thebeau@windriver.com>
 
-[YOCTO #4334]
+routerstationpro is limited to 16mb flash size.  Exceeding that size may
+not be noticed immediately, which we don't want.
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
+"The current latest kernel for the routerstationpro machine is far
+beyond the 16MB of it's flash size [0]. I think it would be good to
+[test if the size of the image is above that size]."
+
+Setting this variable will enable the do_sizecheck task and produce an
+error when the image is too large:
+
+"ERROR: This kernel (size=90230265 > 16777216) is too big for your
+device. Please reduce the size of the kernel by making more of it
+modular."
+
+Taken from commit 83716e40edacfd20dec8ef41f415ad5828d4643b.
+
+[YOCTO #3514]
+
+Signed-off-by: Michel Thebeau <michel.thebeau@windriver.com>
 ---
- .../init-ifupdown-1.0}/beagleboard/interfaces                          |    0
- .../netbase_5.0.bbappend => init-ifupdown/init-ifupdown_1.0.bbappend}  |    0
- 2 files changed, 0 insertions(+), 0 deletions(-)
- rename meta-yocto-bsp/recipes-core/{netbase/netbase-5.0 => init-ifupdown/init-ifupdown-1.0}/beagleboard/interfaces (100%)
- rename meta-yocto-bsp/recipes-core/{netbase/netbase_5.0.bbappend => init-ifupdown/init-ifupdown_1.0.bbappend} (100%)
+ .../recipes-kernel/linux/linux-yocto_3.8.bbappend  |    3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/meta-yocto-bsp/recipes-core/netbase/netbase-5.0/beagleboard/interfaces b/meta-yocto-bsp/recipes-core/init-ifupdown/init-ifupdown-1.0/beagleboard/interfaces
-similarity index 100%
-rename from meta-yocto-bsp/recipes-core/netbase/netbase-5.0/beagleboard/interfaces
-rename to meta-yocto-bsp/recipes-core/init-ifupdown/init-ifupdown-1.0/beagleboard/interfaces
-diff --git a/meta-yocto-bsp/recipes-core/netbase/netbase_5.0.bbappend b/meta-yocto-bsp/recipes-core/init-ifupdown/init-ifupdown_1.0.bbappend
-similarity index 100%
-rename from meta-yocto-bsp/recipes-core/netbase/netbase_5.0.bbappend
-rename to meta-yocto-bsp/recipes-core/init-ifupdown/init-ifupdown_1.0.bbappend
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.8.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.8.bbappend
+index 479a386..769dcc0 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.8.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.8.bbappend
+@@ -12,3 +12,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
+ COMPATIBLE_MACHINE_beagleboard = "beagleboard"
+ COMPATIBLE_MACHINE_atom-pc = "atom-pc"
++
++# routerstationpro has a flash size of 16mb
++KERNEL_IMAGE_MAXSIZE_append_routerstationpro = "16777216"
 -- 
-1.7.10.4
+1.7.9.7
 
 
