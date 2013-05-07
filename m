@@ -1,19 +1,19 @@
 Return-Path: <cristian.iorga@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D60AAE01472
-	for <poky@yoctoproject.org>; Tue,  7 May 2013 05:35:06 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 07 May 2013 05:35:06 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3997CE0127D
+	for <poky@yoctoproject.org>; Tue,  7 May 2013 06:44:28 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 07 May 2013 06:42:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,628,1363158000"; d="scan'208";a="333839348"
+X-IronPort-AV: E=Sophos;i="4.87,628,1363158000"; d="scan'208";a="309587886"
 Received: from sentry.rb.intel.com ([10.237.105.54])
-	by fmsmga002.fm.intel.com with ESMTP; 07 May 2013 05:34:44 -0700
+	by orsmga001.jf.intel.com with ESMTP; 07 May 2013 06:44:26 -0700
 From: Cristian Iorga <cristian.iorga@intel.com>
 To: poky@yoctoproject.org
-Date: Tue,  7 May 2013 15:35:35 +0300
-Message-Id: <1367930135-26506-1-git-send-email-cristian.iorga@intel.com>
+Date: Tue,  7 May 2013 16:45:17 +0300
+Message-Id: <1367934317-27500-1-git-send-email-cristian.iorga@intel.com>
 X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] maintainers.inc: update sbc pkg maintainer
+Subject: [PATCH] maintainers.inc: update neard pkg maintainer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,9 +26,9 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 May 2013 12:35:07 -0000
+X-List-Received-Date: Tue, 07 May 2013 13:44:28 -0000
 
-sbc package maintainer is Cristian Iorga.
+neard package maintainer is Cristian Iorga.
 
 Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
 ---
@@ -36,17 +36,17 @@ Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index db50531..c51e5f0 100644
+index c51e5f0..e11b9ed 100644
 --- a/meta-yocto/conf/distro/include/maintainers.inc
 +++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -707,6 +707,7 @@ RECIPE_MAINTAINER_pn-run-postinsts = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-rxvt-unicode = "Radu Moisan <radu.moisan@intel.com>"
- RECIPE_MAINTAINER_pn-sato-icon-theme = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-sato-screenshot = "Saul Wold <sgw@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-sbc = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-screenshot = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-screen = "Constantin Musca <constantinx.musca@intel.com>"
- RECIPE_MAINTAINER_pn-scrnsaverproto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+@@ -559,6 +559,7 @@ RECIPE_MAINTAINER_pn-nativesdk-qt4-tools = "Paul Eggleton <paul.eggleton@linux.i
+ RECIPE_MAINTAINER_pn-nativesdk-unfs-server = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-nativesdk-util-macros = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-ncurses = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-neard = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-neon = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-netbase = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-net-tools = "Cristian Iorga <cristian.iorga@intel.com>"
 -- 
 1.7.10.4
 
