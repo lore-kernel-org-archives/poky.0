@@ -1,28 +1,19 @@
-Return-Path: <zaifupb@gmail.com>
-Received: from mail-qa0-f51.google.com (mail-qa0-f51.google.com
-	[209.85.216.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E0A7EE01439
-	for <poky@yoctoproject.org>; Tue,  7 May 2013 14:53:26 -0700 (PDT)
-Received: by mail-qa0-f51.google.com with SMTP id hu16so679915qab.3
-	for <poky@yoctoproject.org>; Tue, 07 May 2013 14:53:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:x-received:date:message-id:subject:from:to
-	:content-type; bh=P14ECk92slxfmyMJyf3YNRreC8ki4VffAur8Dah+rUk=;
-	b=JcBiicVHVBP3WFaBhzX7LeSvST1GLcwSSHXZrg0lw1C5/qLdKe7NWlmj1aNsTJGfKv
-	dkaEsqGmKX4DQf+AcC8BE1QebbYlyfQxKqcRuooWc3K7jkD8AIElNSIf1efgZSCFTT4V
-	561S//iLtvvsXJjJL0otllkdLKTrBgCwwB0xApqymR+GbH5VRUxR9baG8ZaI1WeAxRLH
-	OiYOUBqRoNbKpT8ebd8ycQzqqUXFsJ3ly28oVjII/YIYTm+a2my3v/IvECRGPpat8JxU
-	5hlxj2kfK2FcYZc95zdRPsJCwf2iG/c1djbRsRVd7h9SS/MdLDOTFj/Gedv6PdlvO8/M
-	VUJA==
-MIME-Version: 1.0
-X-Received: by 10.224.178.72 with SMTP id bl8mr3081823qab.14.1367963606385;
-	Tue, 07 May 2013 14:53:26 -0700 (PDT)
-Received: by 10.229.164.76 with HTTP; Tue, 7 May 2013 14:53:26 -0700 (PDT)
-Date: Tue, 7 May 2013 23:53:26 +0200
-Message-ID: <CABx0rKH=CTH9QbS4hEuYNqsMbob5mMkGW_6N+4A_NPOP14s0jg@mail.gmail.com>
-From: Zaif upb <zaifupb@gmail.com>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 828A5E01480
+	for <poky@yoctoproject.org>; Thu,  9 May 2013 03:38:47 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 09 May 2013 03:38:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.87,639,1363158000"; d="scan'208";a="299868564"
+Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.12.169])
+	by azsmga001.ch.intel.com with ESMTP; 09 May 2013 03:38:45 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Subject: Building Custom Images- Need help
+Date: Thu,  9 May 2013 11:38:43 +0100
+Message-Id: <1368095923-15061-1-git-send-email-paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [PATCH] poky.conf: update SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,57 +26,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 May 2013 21:53:27 -0000
-Content-Type: multipart/alternative; boundary=20cf302ef762d354bf04dc27d8d0
+X-List-Received-Date: Thu, 09 May 2013 10:38:47 -0000
 
---20cf302ef762d354bf04dc27d8d0
-Content-Type: text/plain; charset=ISO-8859-1
+In line with our policy of supporting the current and previous
+releases of host distributions (and additionally the latest LTS release
+of Ubuntu):
 
-Hi all,
+* Add Ubuntu 13.04 (released on 25th April)
+* Remove Fedora 16
+* Remove 5.x versions of CentOS
+* Remove OpenSUSE 11.4 and 12.1
+* Remove pre-1.3 versions of Poky
 
-I am newbie for Yocto project, please help me.
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta-yocto/conf/distro/poky.conf | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
- I would like to know the process of making custom image for gumstix. I
-have been through this
-http://www.yoctoproject.org/docs/1.4/dev-manual/dev-manual.html#usingpoky-extend-addpkg
-manual but things are not clear yet.
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 0e143ee..044d051 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -70,26 +70,17 @@ CONNECTIVITY_CHECK_URIS ?= " \
+              http://bugzilla.yoctoproject.org/report.cgi"
+ 
+ SANITY_TESTED_DISTROS ?= " \
+-            Yocto-1.2 \n \
+-            Poky-1.2 \n \
+             Poky-1.3 \n \
+             Poky-1.4 \n \
+-            Ubuntu-10.04 \n \
+-            Ubuntu-11.10 \n \
+             Ubuntu-12.04 \n \
+             Ubuntu-12.10 \n \
+-            Fedora-16 \n \
++            Ubuntu-13.04 \n \
+             Fedora-17 \n \
+             Fedora-18 \n \
+-            CentOS-5.6 \n \
+-            CentOS-5.7 \n \
+-            CentOS-5.8 \n \
+             CentOS-6.3 \n \
+             CentOS-6.4 \n \
+             Debian-6.0 \n \
+             Debian-7.0 \n \
+-            SUSE-LINUX-11.4 \n \
+-            SUSE-LINUX-12.1 \n \
+             SUSE-LINUX-12.2 \n \
+             openSUSE-project-12.3 \n \
+ 	    "
+-- 
+1.8.1.2
 
-I can successfully build *gumstix-console-image. *I need to integrate
-Gstreamer and OpenCV libraries into that image. I do not know how to
-proceed.
 
-I edited *gumstix-console-image*.bb file according to  Streaming video with
-Gumstix<http://www.jumpnowtek.com/?option=com_content&view=article&id=81:gumstix-dsp-gstreamer&catid=35:gumstix&Itemid=67>as
-mentioned here for Gstreamer. It breaks badly.
-
-Any Idea how can I integrate them in my Image?
-
-Thank You for your Help.
-
-Regards,
-Zaifupb
-
---20cf302ef762d354bf04dc27d8d0
-Content-Type: text/html; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div><div><div><div>Hi all,<br><br></div>I =
-am newbie for Yocto project, please help me.<br><br>=A0I would like to know=
- the process of making custom image for gumstix. I have been through this=
-=A0 <a href=3D"http://www.yoctoproject.org/docs/1.4/dev-manual/dev-manual.h=
-tml#usingpoky-extend-addpkg" target=3D"_blank">http://www.yoctoproject.org/=
-docs/1.4/dev-manual/dev-manual.html#usingpoky-extend-addpkg</a>=A0 manual b=
-ut things are not clear yet.<br>
-
-<br></div>I can successfully build <i>gumstix-console-image. </i>I need to =
-integrate Gstreamer and OpenCV libraries into that image. I do not know how=
- to proceed. <br><br></div>I edited <i>gumstix-console-image</i>.bb file ac=
-cording to=A0=A0<a href=3D"http://www.jumpnowtek.com/?option=3Dcom_content&=
-amp;view=3Darticle&amp;id=3D81:gumstix-dsp-gstreamer&amp;catid=3D35:gumstix=
-&amp;Itemid=3D67" target=3D"_blank">Streaming video with Gumstix</a> as men=
-tioned here for Gstreamer. It breaks badly.<br>
-
-<br></div>Any Idea how can I integrate them in my Image?<br><br></div>Thank=
- You for your Help.<br><br></div>Regards,<br></div>Zaifupb</div>
-
---20cf302ef762d354bf04dc27d8d0--
