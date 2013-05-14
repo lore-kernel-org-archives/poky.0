@@ -1,19 +1,33 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 828A5E01480
-	for <poky@yoctoproject.org>; Thu,  9 May 2013 03:38:47 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 09 May 2013 03:38:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,639,1363158000"; d="scan'208";a="299868564"
-Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.12.169])
-	by azsmga001.ch.intel.com with ESMTP; 09 May 2013 03:38:45 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pb0-f46.google.com (mail-pb0-f46.google.com
+	[209.85.160.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7297BE014E7
+	for <poky@yoctoproject.org>; Mon, 13 May 2013 22:42:11 -0700 (PDT)
+Received: by mail-pb0-f46.google.com with SMTP id rq13so119170pbb.19
+	for <poky@yoctoproject.org>; Mon, 13 May 2013 22:42:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=x-received:from:to:cc:subject:date:message-id:x-mailer;
+	bh=c/zpTzD3rqCCwEkH2XRxijauyD3bSrdqQv4zT4DUt38=;
+	b=vrChttXAqn2+BGnjFTC/rvtjd2MFM3HD+8RiJva01pxJLPrg99J8DKgAZXOlnM4ZvP
+	GPwv5+3qbTcaYHIfZVIdOYnXeQrEwmbZmgWlqQhLSgR/OrWFBBGq4qesyTNko1Fv+f1B
+	JG6Wnj7hhANaGZhcPBhfbgU3zk4RnCuzI/Lfs6JpLfT7eChoOJuPIBn4B47OptZHDrC8
+	7DpKme+iBd17HP2NX9GrB7jPda5PIXu7tcy3qCANmqfb2hEfuC0lLwndpij3vx25QK15
+	p463oDMVQqkT+VRSvnMQxjNrjsuIzpvaYfMerCHGDSFWEyrFXfX+5tsERmIKS49Y731N
+	pRvQ==
+X-Received: by 10.68.49.130 with SMTP id u2mr32216174pbn.124.1368510131164;
+	Mon, 13 May 2013 22:42:11 -0700 (PDT)
+Received: from isis.gateway.2wire.net
+	(99-57-140-209.lightspeed.sntcca.sbcglobal.net. [99.57.140.209])
+	by mx.google.com with ESMTPSA id
+	kv2sm16740383pbc.28.2013.05.13.22.42.09 for <multiple recipients>
+	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Mon, 13 May 2013 22:42:10 -0700 (PDT)
+From: Khem Raj <raj.khem@gmail.com>
 To: poky@yoctoproject.org
-Date: Thu,  9 May 2013 11:38:43 +0100
-Message-Id: <1368095923-15061-1-git-send-email-paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCH] poky.conf: update SANITY_TESTED_DISTROS
+Date: Mon, 13 May 2013 22:40:33 -0700
+Message-Id: <1368510033-16174-1-git-send-email-raj.khem@gmail.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [meta-yocto][PATCH] poky.conf: Adjust DISTRO vars post 1.4 release
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,56 +40,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 May 2013 10:38:47 -0000
+X-List-Received-Date: Tue, 14 May 2013 05:42:11 -0000
 
-In line with our policy of supporting the current and previous
-releases of host distributions (and additionally the latest LTS release
-of Ubuntu):
+Use next to denote this will become next stable
 
-* Add Ubuntu 13.04 (released on 25th April)
-* Remove Fedora 16
-* Remove 5.x versions of CentOS
-* Remove OpenSUSE 11.4 and 12.1
-* Remove pre-1.3 versions of Poky
-
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
 ---
- meta-yocto/conf/distro/poky.conf | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+ meta-yocto/conf/distro/poky.conf |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 0e143ee..044d051 100644
+index 044d051..4a2019c 100644
 --- a/meta-yocto/conf/distro/poky.conf
 +++ b/meta-yocto/conf/distro/poky.conf
-@@ -70,26 +70,17 @@ CONNECTIVITY_CHECK_URIS ?= " \
-              http://bugzilla.yoctoproject.org/report.cgi"
+@@ -1,7 +1,7 @@
+ DISTRO = "poky"
+-DISTRO_NAME = "Poky 8.0 (Yocto Project 1.3 Reference Distro)"
+-DISTRO_VERSION = "1.3+snapshot-${DATE}"
+-DISTRO_CODENAME = "dylan"
++DISTRO_NAME = "Poky Next (Yocto Project Reference Distro)"
++DISTRO_VERSION = "1.4+snapshot-${DATE}"
++DISTRO_CODENAME = "next"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
  
- SANITY_TESTED_DISTROS ?= " \
--            Yocto-1.2 \n \
--            Poky-1.2 \n \
-             Poky-1.3 \n \
-             Poky-1.4 \n \
--            Ubuntu-10.04 \n \
--            Ubuntu-11.10 \n \
-             Ubuntu-12.04 \n \
-             Ubuntu-12.10 \n \
--            Fedora-16 \n \
-+            Ubuntu-13.04 \n \
-             Fedora-17 \n \
-             Fedora-18 \n \
--            CentOS-5.6 \n \
--            CentOS-5.7 \n \
--            CentOS-5.8 \n \
-             CentOS-6.3 \n \
-             CentOS-6.4 \n \
-             Debian-6.0 \n \
-             Debian-7.0 \n \
--            SUSE-LINUX-11.4 \n \
--            SUSE-LINUX-12.1 \n \
-             SUSE-LINUX-12.2 \n \
-             openSUSE-project-12.3 \n \
- 	    "
 -- 
-1.8.1.2
+1.7.9.5
 
 
