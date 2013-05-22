@@ -1,33 +1,19 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-pb0-f46.google.com (mail-pb0-f46.google.com
-	[209.85.160.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7297BE014E7
-	for <poky@yoctoproject.org>; Mon, 13 May 2013 22:42:11 -0700 (PDT)
-Received: by mail-pb0-f46.google.com with SMTP id rq13so119170pbb.19
-	for <poky@yoctoproject.org>; Mon, 13 May 2013 22:42:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=x-received:from:to:cc:subject:date:message-id:x-mailer;
-	bh=c/zpTzD3rqCCwEkH2XRxijauyD3bSrdqQv4zT4DUt38=;
-	b=vrChttXAqn2+BGnjFTC/rvtjd2MFM3HD+8RiJva01pxJLPrg99J8DKgAZXOlnM4ZvP
-	GPwv5+3qbTcaYHIfZVIdOYnXeQrEwmbZmgWlqQhLSgR/OrWFBBGq4qesyTNko1Fv+f1B
-	JG6Wnj7hhANaGZhcPBhfbgU3zk4RnCuzI/Lfs6JpLfT7eChoOJuPIBn4B47OptZHDrC8
-	7DpKme+iBd17HP2NX9GrB7jPda5PIXu7tcy3qCANmqfb2hEfuC0lLwndpij3vx25QK15
-	p463oDMVQqkT+VRSvnMQxjNrjsuIzpvaYfMerCHGDSFWEyrFXfX+5tsERmIKS49Y731N
-	pRvQ==
-X-Received: by 10.68.49.130 with SMTP id u2mr32216174pbn.124.1368510131164;
-	Mon, 13 May 2013 22:42:11 -0700 (PDT)
-Received: from isis.gateway.2wire.net
-	(99-57-140-209.lightspeed.sntcca.sbcglobal.net. [99.57.140.209])
-	by mx.google.com with ESMTPSA id
-	kv2sm16740383pbc.28.2013.05.13.22.42.09 for <multiple recipients>
-	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 13 May 2013 22:42:10 -0700 (PDT)
-From: Khem Raj <raj.khem@gmail.com>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F36ACE0129D
+	for <poky@yoctoproject.org>; Wed, 22 May 2013 09:20:29 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 22 May 2013 09:18:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.87,722,1363158000"; d="scan'208";a="317834430"
+Received: from unknown (HELO helios.amr.corp.intel.com) ([10.255.12.181])
+	by orsmga001.jf.intel.com with ESMTP; 22 May 2013 09:20:28 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 13 May 2013 22:40:33 -0700
-Message-Id: <1368510033-16174-1-git-send-email-raj.khem@gmail.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [meta-yocto][PATCH] poky.conf: Adjust DISTRO vars post 1.4 release
+Date: Wed, 22 May 2013 17:20:26 +0100
+Message-Id: <cover.1369239589.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [dylan][PATCH 0/1] Cherry-picks from master for poky dylan branch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,31 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 May 2013 05:42:11 -0000
+X-List-Received-Date: Wed, 22 May 2013 16:20:30 -0000
 
-Use next to denote this will become next stable
+This has been tested on the Yocto Project autobuilder.
 
-Signed-off-by: Khem Raj <raj.khem@gmail.com>
----
- meta-yocto/conf/distro/poky.conf |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 044d051..4a2019c 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
--DISTRO_NAME = "Poky 8.0 (Yocto Project 1.3 Reference Distro)"
--DISTRO_VERSION = "1.3+snapshot-${DATE}"
--DISTRO_CODENAME = "dylan"
-+DISTRO_NAME = "Poky Next (Yocto Project Reference Distro)"
-+DISTRO_VERSION = "1.4+snapshot-${DATE}"
-+DISTRO_CODENAME = "next"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
- 
+The following change since commit 3faa5039c8147d0bf9e352dc5ad1e9e12cf2086a:
+
+  kern-tools: refresh and make dash compliant (2013-05-22 17:14:05 +0100)
+
+is available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/poky-dylan-next
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/poky-dylan-next
+
+Saul Wold (1):
+  poky-lsb: Ensure kernel nfsd module is enabled
+
+ meta-yocto/conf/distro/poky-lsb.conf | 3 +++
+ 1 file changed, 3 insertions(+)
+
 -- 
-1.7.9.5
+1.8.1.2
 
 
