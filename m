@@ -1,23 +1,19 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 67FBDE0129D
-	for <poky@yoctoproject.org>; Wed, 22 May 2013 09:36:11 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 22 May 2013 09:33:51 -0700
+Return-Path: <bogdan.a.marinescu@intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A33FCE014A3
+	for <poky@yoctoproject.org>; Mon, 27 May 2013 05:29:57 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 27 May 2013 05:30:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,722,1363158000"; d="scan'208";a="341491386"
-Received: from unknown (HELO helios.localnet) ([10.255.12.181])
-	by orsmga002.jf.intel.com with ESMTP; 22 May 2013 09:35:54 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.87,751,1363158000"; d="scan'208";a="340805598"
+Received: from bogdanm.rb.intel.com ([10.237.105.166])
+	by fmsmga001.fm.intel.com with ESMTP; 27 May 2013 05:30:06 -0700
+From: Bogdan Marinescu <bogdan.a.marinescu@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 22 May 2013 17:35:52 +0100
-Message-ID: <6088151.tNeL1NyIpG@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.10.2 (Linux/3.8.0-21-generic; KDE/4.10.2; i686; ; )
-In-Reply-To: <cover.1369239589.git.paul.eggleton@linux.intel.com>
-References: <cover.1369239589.git.paul.eggleton@linux.intel.com>
-MIME-Version: 1.0
-Subject: Re: [dylan][PATCH 0/1] Cherry-picks from master for poky dylan branch
+Date: Mon, 27 May 2013 15:29:43 +0300
+Message-Id: <1369657783-8125-1-git-send-email-bogdan.a.marinescu@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH] upstream_tracking.inc: added no upgrade reason for python-pygobject
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,39 +26,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 May 2013 16:36:11 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Mon, 27 May 2013 12:29:57 -0000
 
-On Wednesday 22 May 2013 17:20:26 Paul Eggleton wrote:
-> This has been tested on the Yocto Project autobuilder.
-> 
-> 
-> The following change since commit 3faa5039c8147d0bf9e352dc5ad1e9e12cf2086a:
-> 
->   kern-tools: refresh and make dash compliant (2013-05-22 17:14:05 +0100)
-> 
-> is available in the git repository at:
-> 
->   git://git.yoctoproject.org/poky-contrib paule/poky-dylan-next
->  
-> http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/poky-dylan-n
-> ext
-> 
-> Saul Wold (1):
->   poky-lsb: Ensure kernel nfsd module is enabled
-> 
->  meta-yocto/conf/distro/poky-lsb.conf | 3 +++
->  1 file changed, 3 insertions(+)
+Signed-off-by: Bogdan Marinescu <bogdan.a.marinescu@intel.com>
+---
+ meta-yocto/conf/distro/include/upstream_tracking.inc |    1 +
+ 1 file changed, 1 insertion(+)
 
-I've just pushed an additional commit to the branch that bumps DISTRO_VERSION 
-to 1.4.1 and adds this version to SANITY_TESTED_DISTROS.
-
-Cheers,
-Paul
-
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index a5e3d8c..fe99032 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -185,6 +185,7 @@ RECIPE_UPSTREAM_VERSION_pn-pong-clock = "1.0"
+ RECIPE_NO_UPDATE_REASON_pn-powertop = "Do not upgrade to version 1.97 since it's a beta release of the comming PowerTOP 2.0"
+ RECIPE_UPSTREAM_VERSION_pn-ppp-dialin = "check"
+ RECIPE_UPSTREAM_VERSION_pn-prelink="1.0+git1+9552f214c7faa816fdb55b289a457f0cab034f00"
++RECIPE_NO_UPDATE_REASON_pn-python-pygobject = "Newer versions of python-pygobject depend on gobject-introspection which doesn't cross-compile"
+ CHECK_DATE_pn-prelink = "Aug 31, 2012"
+ RECIPE_UPSTREAM_DATE_pn-qemu-helper-native = "n/a"
+ RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because the upstream is broken in x86_64 build"
 -- 
+1.7.10.4
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
