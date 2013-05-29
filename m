@@ -1,19 +1,19 @@
-Return-Path: <bogdan.a.marinescu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A33FCE014A3
-	for <poky@yoctoproject.org>; Mon, 27 May 2013 05:29:57 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 27 May 2013 05:30:13 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 783C7E004CF
+	for <poky@yoctoproject.org>; Wed, 29 May 2013 08:01:36 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 29 May 2013 08:01:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,751,1363158000"; d="scan'208";a="340805598"
-Received: from bogdanm.rb.intel.com ([10.237.105.166])
-	by fmsmga001.fm.intel.com with ESMTP; 27 May 2013 05:30:06 -0700
-From: Bogdan Marinescu <bogdan.a.marinescu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.87,764,1363158000"; d="scan'208";a="345138371"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.121.189])
+	by fmsmga002.fm.intel.com with ESMTP; 29 May 2013 08:01:15 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 27 May 2013 15:29:43 +0300
-Message-Id: <1369657783-8125-1-git-send-email-bogdan.a.marinescu@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] upstream_tracking.inc: added no upgrade reason for python-pygobject
+Date: Wed, 29 May 2013 16:01:12 +0100
+Message-Id: <1369839672-11420-1-git-send-email-paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [PATCH] xserver-xf86-config: re-enable AutoAddDevices for beagleboard
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,26 +26,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 May 2013 12:29:57 -0000
+X-List-Received-Date: Wed, 29 May 2013 15:01:36 -0000
 
-Signed-off-by: Bogdan Marinescu <bogdan.a.marinescu@intel.com>
+This was added quite a long time ago because of poor interactions
+between HAL and the X server when it came to enabling input devices.
+HAL is long gone and I think it's safe to say we don't need to disable
+this any longer, especially as it gets in the way of being able to plug
+in the keyboard/mouse after boot.
+
+(This has already effectively been removed for the other BSPs in
+meta-yocto-bsp).
+
+Fixes [YOCTO #1823].
+
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta-yocto/conf/distro/include/upstream_tracking.inc |    1 +
- 1 file changed, 1 insertion(+)
+ .../xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf               | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index a5e3d8c..fe99032 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -185,6 +185,7 @@ RECIPE_UPSTREAM_VERSION_pn-pong-clock = "1.0"
- RECIPE_NO_UPDATE_REASON_pn-powertop = "Do not upgrade to version 1.97 since it's a beta release of the comming PowerTOP 2.0"
- RECIPE_UPSTREAM_VERSION_pn-ppp-dialin = "check"
- RECIPE_UPSTREAM_VERSION_pn-prelink="1.0+git1+9552f214c7faa816fdb55b289a457f0cab034f00"
-+RECIPE_NO_UPDATE_REASON_pn-python-pygobject = "Newer versions of python-pygobject depend on gobject-introspection which doesn't cross-compile"
- CHECK_DATE_pn-prelink = "Aug 31, 2012"
- RECIPE_UPSTREAM_DATE_pn-qemu-helper-native = "n/a"
- RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because the upstream is broken in x86_64 build"
+diff --git a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf
+index 0335e6a..264f3c9 100644
+--- a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf
++++ b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf
+@@ -30,5 +30,4 @@ EndSection
+ 
+ Section "ServerFlags"
+ 	Option		"DontZap"  "0"
+-        Option		"AutoAddDevices" "False"
+ EndSection
 -- 
-1.7.10.4
+1.8.1.2
 
 
