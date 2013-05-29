@@ -1,32 +1,35 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-vb0-f49.google.com (mail-vb0-f49.google.com
-	[209.85.212.49])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B43AAE014B4
-	for <poky@yoctoproject.org>; Wed, 29 May 2013 08:06:20 -0700 (PDT)
-Received: by mail-vb0-f49.google.com with SMTP id q13so4045858vbe.22
-	for <poky@yoctoproject.org>; Wed, 29 May 2013 08:06:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:x-gm-message-state;
-	bh=GzPKMAydVbKPeTyKqULATrSbo+YjDFGFmwNVyVljCL0=;
-	b=c5oYOxLCFeIPMCbhO5oJn7uVVWrALxq/lrp1YzT8/t/nolKSjQXzBrqwAfYfELEnkn
-	85uF2vH6z/pPDJNE99zxMGCHLYZ00zcP3AUxMrA7KJz+2/ZlmNtfb6C56zRZvhH78DjP
-	sVJQsr2e9gy32hs74LVF7fLAQOZajLkMX0UzNsoHlI+vPG9/HINhMxpngNuOlmcmiTv6
-	O36H6UxrB6JghQSAUpKvqZXYOIqGNfSDVev7MHuP450o1mDdTHPechmnYBYhQ6yWEeqq
-	iVfjXYQ0xvE0I45fRGWkOFd0zb4luI2lR427k3EMd+6c16wR+86AQx4Z1zsehEx93S+X
-	MF3A==
-X-Received: by 10.52.37.196 with SMTP id a4mr1556849vdk.82.1369839979962; Wed,
-	29 May 2013 08:06:19 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.220.98.7 with HTTP; Wed, 29 May 2013 08:05:59 -0700 (PDT)
-In-Reply-To: <1369839672-11420-1-git-send-email-paul.eggleton@linux.intel.com>
-References: <1369839672-11420-1-git-send-email-paul.eggleton@linux.intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 29 May 2013 16:05:59 +0100
-Message-ID: <CAJTo0LbkeENjAtAwD9=WpUUBEWmZzRGCTxEGt1jtnEJ9GoCLHA@mail.gmail.com>
+Return-Path: <martin.jansa@gmail.com>
+Received: from mail-pd0-f181.google.com (mail-pd0-f181.google.com
+	[209.85.192.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0DA27E01471
+	for <poky@yoctoproject.org>; Wed, 29 May 2013 08:56:24 -0700 (PDT)
+Received: by mail-pd0-f181.google.com with SMTP id bv13so7159790pdb.40
+	for <poky@yoctoproject.org>; Wed, 29 May 2013 08:56:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	bh=C+yk2BoZOhR0kY2AqRkuLUpaw9DQzehl2XEnVhUpQ2E=;
+	b=ZN993F1qq0/wK7QQdA4sQaLk47vn+OBM9n7u5RqFTcBfKih5m9XB2ChoPxrE4YQ+1a
+	swbJ2Y05yMxAuZWB2SUmJGNnyy9Ts15A8c7pZp14GsLnQ5tYHsLOMptKvreKO3xMghAt
+	pI9LoRjCaIGgKaiI+zWmb3fng1TvD3HIeFAwtKlMlc9VwBKba/1SyWO07SUVdJvSU3ps
+	PVixRMqDxmCFh1DZWl1pKrgdwbxrz1QK10tDiKIeV/hAH8wO39tUCV4tIz1z2rMMZjkJ
+	3m8axGlGM7ZbfA8DUcULTCF3nfEuDsnleflYbFYnlZ3ezmqL0N5TSMJAbjYXYHmL/LEw
+	NWHg==
+X-Received: by 10.68.113.165 with SMTP id iz5mr3511572pbb.116.1369842983805;
+	Wed, 29 May 2013 08:56:23 -0700 (PDT)
+Received: from localhost (ip-62-24-80-145.net.upcbroadband.cz. [62.24.80.145])
+	by mx.google.com with ESMTPSA id
+	fm2sm40401203pab.13.2013.05.29.08.56.20 for <multiple recipients>
+	(version=TLSv1.2 cipher=RC4-SHA bits=128/128);
+	Wed, 29 May 2013 08:56:22 -0700 (PDT)
+Date: Wed, 29 May 2013 17:56:24 +0200
+From: Martin Jansa <martin.jansa@gmail.com>
 To: Paul Eggleton <paul.eggleton@linux.intel.com>
-X-Gm-Message-State: ALoCoQl0ZjZMK2q6mY/ZqOB+S2FQKqyzkmOerzKzOxcTrSQJAwvNvLJCbgERBZdHwYBwrjOFO8y3
+Message-ID: <20130529155624.GN3192@jama>
+References: <1369839672-11420-1-git-send-email-paul.eggleton@linux.intel.com>
+MIME-Version: 1.0
+In-Reply-To: <1369839672-11420-1-git-send-email-paul.eggleton@linux.intel.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH] xserver-xf86-config: re-enable AutoAddDevices for beagleboard
 X-BeenThere: poky@yoctoproject.org
@@ -41,38 +44,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 May 2013 15:06:20 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 29 May 2013 15:56:24 -0000
+X-Groupsio-MsgNum: 8890
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="A2x6GFCQWVc4i5ud"
+Content-Disposition: inline
 
-On 29 May 2013 16:01, Paul Eggleton <paul.eggleton@linux.intel.com> wrote:
+--A2x6GFCQWVc4i5ud
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, May 29, 2013 at 04:01:12PM +0100, Paul Eggleton wrote:
 > This was added quite a long time ago because of poor interactions
 > between HAL and the X server when it came to enabling input devices.
 > HAL is long gone and I think it's safe to say we don't need to disable
 > this any longer, especially as it gets in the way of being able to plug
 > in the keyboard/mouse after boot.
->
+>=20
 > (This has already effectively been removed for the other BSPs in
 > meta-yocto-bsp).
->
+>=20
 > Fixes [YOCTO #1823].
->
+
+Doesn't this break touchscreen calibration? At least when I was adding
+it to my BSP it was also solving issues with xinput-calibrator expecting
+input devices with specified names (and autoadded were different)
+
 > Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 > ---
->  .../xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf               | 1 -
+>  .../xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf              =
+ | 1 -
 >  1 file changed, 1 deletion(-)
->
-> diff --git a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf
+>=20
+> diff --git a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-co=
+nfig/beagleboard/xorg.conf b/meta-yocto-bsp/recipes-graphics/xorg-xserver/x=
+server-xf86-config/beagleboard/xorg.conf
 > index 0335e6a..264f3c9 100644
-> --- a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf
-> +++ b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/beagleboard/xorg.conf
+> --- a/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/be=
+agleboard/xorg.conf
+> +++ b/meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/be=
+agleboard/xorg.conf
 > @@ -30,5 +30,4 @@ EndSection
->
+> =20
 >  Section "ServerFlags"
->         Option          "DontZap"  "0"
-> -        Option         "AutoAddDevices" "False"
+>  	Option		"DontZap"  "0"
+> -        Option		"AutoAddDevices" "False"
 >  EndSection
+> --=20
+> 1.8.1.2
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
+--=20
+Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
-Ross
+--A2x6GFCQWVc4i5ud
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.20 (GNU/Linux)
+
+iEYEARECAAYFAlGmJSgACgkQN1Ujt2V2gBzMKgCgtbMVc7t05v9HRzNeXQ8qQH/j
+ZEIAnjBrjbywQfl2lLMpQwN7SYncBg/j
+=/pb6
+-----END PGP SIGNATURE-----
+
+--A2x6GFCQWVc4i5ud--
