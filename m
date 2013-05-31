@@ -1,25 +1,23 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 665CEE01471
-	for <poky@yoctoproject.org>; Wed, 29 May 2013 09:17:23 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 29 May 2013 09:15:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,765,1363158000"; d="scan'208";a="321397736"
-Received: from unknown (HELO helios.localnet) ([10.252.121.189])
-	by orsmga001.jf.intel.com with ESMTP; 29 May 2013 09:17:22 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Date: Wed, 29 May 2013 17:17:21 +0100
-Message-ID: <1776987.hBiQ6suYkR@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.10.2 (Linux/3.8.0-22-generic; KDE/4.10.2; i686; ; )
-In-Reply-To: <20130529155624.GN3192@jama>
-References: <1369839672-11420-1-git-send-email-paul.eggleton@linux.intel.com>
-	<20130529155624.GN3192@jama>
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5A739E004CF
+	for <poky@yoctoproject.org>; Thu, 30 May 2013 20:32:46 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r4V3WiNr023054
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 30 May 2013 20:32:44 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.130.152) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.342.3; Thu, 30 May 2013 20:32:43 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Thu, 30 May 2013 23:32:38 -0400
+Message-ID: <cover.1369971009.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
 MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] xserver-xf86-config: re-enable AutoAddDevices for beagleboard
+Subject: [PATCH 0/2] kernel-yocto/meta-yocto: BSP and feature updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,42 +30,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 May 2013 16:17:23 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Fri, 31 May 2013 03:32:46 -0000
+Content-Type: text/plain
 
-On Wednesday 29 May 2013 17:56:24 Martin Jansa wrote:
-> On Wed, May 29, 2013 at 04:01:12PM +0100, Paul Eggleton wrote:
-> > This was added quite a long time ago because of poor interactions
-> > between HAL and the X server when it came to enabling input devices.
-> > HAL is long gone and I think it's safe to say we don't need to disable
-> > this any longer, especially as it gets in the way of being able to plug
-> > in the keyboard/mouse after boot.
-> > 
-> > (This has already effectively been removed for the other BSPs in
-> > meta-yocto-bsp).
-> > 
-> > Fixes [YOCTO #1823].
-> 
-> Doesn't this break touchscreen calibration? 
+Richard/Saul,
 
-I'd hope not...
+Here are two small changes for meta-yocto related to BSPs. 
 
-> At least when I was adding it to my BSP it was also solving issues with
-> xinput-calibrator expecting input devices with specified names (and autoadded
-> were different)
-
-Surely that's a deficiency in xinput-calibrator that should be fixed there if it 
-is still a problem?
-
-I didn't mention it in the commit message, but FWIW I did look at the meta-ti 
-xorg.conf files and they don't have this line.
+ - Set the preferred kernel version for qemumips64
+ - Just as we do in oe-core, restricted the NFSD kernel feature requirement
+   to linux-yocto* recipes. This fixes linux-yocto-custom usecases.
 
 Cheers,
-Paul
+
+Bruce
+
+The following changes since commit 0c454dd43ac52cbc4fd4e938dae00ea92840bbd5:
+
+  kern-tools: expand kernel features that point to a directory name (2013-05-30 23:24:01 -0400)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (2):
+  poky.conf: add qemumips64 preferred version
+  poky-lsb: make NFS kernel server support specific to linux-yocto
+
+ meta-yocto/conf/distro/poky-lsb.conf |    2 +-
+ meta-yocto/conf/distro/poky.conf     |    1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 -- 
+1.7.10.4
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
