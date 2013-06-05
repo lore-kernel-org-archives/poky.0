@@ -1,23 +1,27 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9926FE014F8
-	for <poky@yoctoproject.org>; Wed,  5 Jun 2013 01:18:11 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 05 Jun 2013 01:18:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,804,1363158000"; d="scan'208";a="348378734"
-Received: from unknown (HELO helios.localnet) ([10.252.121.220])
-	by fmsmga002.fm.intel.com with ESMTP; 05 Jun 2013 01:18:06 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Jesse Zhang <sen.zhang@windriver.com>
-Date: Wed, 05 Jun 2013 09:18:06 +0100
-Message-ID: <6436687.p1tUBSTh7S@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.10.2 (Linux/3.8.0-23-generic; KDE/4.10.2; i686; ; )
-In-Reply-To: <685ca7c686ae03be5a9cc52153c14551098ad13a.1370417284.git.sen.zhang@windriver.com>
+Return-Path: <Sen.Zhang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1D6ABE014F8
+	for <poky@yoctoproject.org>; Wed,  5 Jun 2013 01:26:15 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r558QEo6004365
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 5 Jun 2013 01:26:14 -0700 (PDT)
+Received: from [128.224.162.230] (128.224.162.230) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.2.342.3;
+	Wed, 5 Jun 2013 01:26:13 -0700
+Message-ID: <51AEF6B4.2070405@windriver.com>
+Date: Wed, 5 Jun 2013 16:28:36 +0800
+From: Jesse Zhang <sen.zhang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130311 Thunderbird/17.0.4
+MIME-Version: 1.0
+To: Paul Eggleton <paul.eggleton@linux.intel.com>
 References: <cover.1370417284.git.sen.zhang@windriver.com>
 	<685ca7c686ae03be5a9cc52153c14551098ad13a.1370417284.git.sen.zhang@windriver.com>
-MIME-Version: 1.0
+	<6436687.p1tUBSTh7S@helios>
+In-Reply-To: <6436687.p1tUBSTh7S@helios>
+X-Originating-IP: [128.224.162.230]
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 1/1] dev-manual: fix instructions for enabling ptest
 X-BeenThere: poky@yoctoproject.org
@@ -32,46 +36,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jun 2013 08:18:11 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Wed, 05 Jun 2013 08:26:15 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi Jesse,
+On 06/05/2013 04:18 PM, Paul Eggleton wrote:
+> Good catch! However, patches against the documentation need to be sent to the 
+> yocto@yoctoproject.org mailing list, preferably CCing Scott Rifenbark 
+> <scott.m.rifenbark@intel.com> as well. Would you mind re-sending to there? 
 
-On Wednesday 05 June 2013 15:29:11 Jesse Zhang wrote:
-> The IMAGE_FEATURE and DISTRO_FEATURE are exchanged.
-> 
-> Signed-off-by: Jesse Zhang <sen.zhang@windriver.com>
-> ---
->  documentation/dev-manual/dev-manual-common-tasks.xml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/documentation/dev-manual/dev-manual-common-tasks.xml
-> b/documentation/dev-manual/dev-manual-common-tasks.xml index
-> ebd12d7..1cf6969 100644
-> --- a/documentation/dev-manual/dev-manual-common-tasks.xml
-> +++ b/documentation/dev-manual/dev-manual-common-tasks.xml
-> @@ -3619,8 +3619,8 @@
->                      which is found in the
->                      <link linkend='build-directory'>Build Directory</link>:
-> <literallayout class='monospaced'>
-> -     EXTRA_IMAGE_FEATURES += "ptest"
-> -     DISTRO_FEATURES_append = " ptest-pkgs"
-> +     DISTRO_FEATURES_append = " ptest"
-> +     EXTRA_IMAGE_FEATURES += "ptest-pkgs"
->                      </literallayout>
->                      Once your build is complete, the ptest files are
-> installed into the <filename>/usr/lib/&lt;package&gt;/ptest</filename>
+No problem. Thanks for pointing it out. I'm still learning which list is
+for what ;)
 
-Good catch! However, patches against the documentation need to be sent to the 
-yocto@yoctoproject.org mailing list, preferably CCing Scott Rifenbark 
-<scott.m.rifenbark@intel.com> as well. Would you mind re-sending to there? 
-
-Thanks,
-Paul
-
--- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+jesse
 
