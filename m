@@ -1,37 +1,22 @@
-Return-Path: <marc.ferland@gmail.com>
-Received: from mail-ie0-f180.google.com (mail-ie0-f180.google.com
-	[209.85.223.180])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8BC17E013E4
-	for <poky@yoctoproject.org>; Tue,  4 Jun 2013 09:08:54 -0700 (PDT)
-Received: by mail-ie0-f180.google.com with SMTP id b11so786109iee.25
-	for <poky@yoctoproject.org>; Tue, 04 Jun 2013 09:08:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:from:to:subject:date:message-id:user-agent:mime-version
-	:content-type; bh=JTP9NK3n83ZzGxIjgN2FHnpRFtiydioXE/LtDpdicEU=;
-	b=W5dDXY5rh3YmHqlCqmvHat7qOTxWcj6HdvyNISFV4iyNl2Nv9biJZP66mUAr7k4uMC
-	cqbxQAkMEZFs5SKCEWxuuAAoxxhCxTqsoZEIwBHumCCq41vuj/Z/94apSw1FgSLIvloI
-	OXTUmePdnwsSB+WEW8XAAeJn9eJUCxLEBmLxnKXKuHkJcNGrMkZEma48AhJKQkE0gEOW
-	9m4CxqXYMVVQq1zuw+JlK8tFMAps13Qm2ubHMm/l/SUBT17WK4JAUpBKcoCzMhnpV9mY
-	b02EArGoTYL6IUkvQIzPDKAbwyugdFT3ZpxatK+I2met19sv3oYIQRB+jRHYSbeJSyf+
-	kiyw==
-X-Received: by 10.50.128.101 with SMTP id nn5mr1230722igb.82.1370362134058;
-	Tue, 04 Jun 2013 09:08:54 -0700 (PDT)
-Received: from ferlandm@sonatest.com
-	(modemcable066.15-37-24.static.videotron.ca. [24.37.15.66])
-	by mx.google.com with ESMTPSA id ik6sm2437628igb.3.2013.06.04.09.08.51
-	for <poky@yoctoproject.org>
-	(version=TLSv1 cipher=RC4-SHA bits=128/128);
-	Tue, 04 Jun 2013 09:08:52 -0700 (PDT)
-Sender: Marc Ferland <marc.ferland@gmail.com>
-Received: by ferlandm@sonatest.com (sSMTP sendmail emulation);
-	Tue, 04 Jun 2013 12:08:57 -0400
-From: Marc Ferland <ferlandm@sonatest.com>
-To: poky@yoctoproject.org
-Date: Tue, 04 Jun 2013 12:08:57 -0400
-Message-ID: <87obblamee.fsf@sonatest.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/24.2 (gnu/linux)
+Return-Path: <Sen.Zhang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75F1DE014F8
+	for <poky@yoctoproject.org>; Wed,  5 Jun 2013 00:26:48 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r557QlYY026309
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 5 Jun 2013 00:26:47 -0700 (PDT)
+Received: from jesse-wrs-desktop.corp.ad.wrs.com (128.224.162.230) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.342.3; Wed, 5 Jun 2013 00:26:47 -0700
+From: Jesse Zhang <sen.zhang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 5 Jun 2013 15:29:10 +0800
+Message-ID: <cover.1370417284.git.sen.zhang@windriver.com>
+X-Mailer: git-send-email 1.7.11.7
 MIME-Version: 1.0
-Subject: cherry-pick request from master to dylan stable
+Subject: [PATCH 0/1] dev-manual: fix instructions for enabling ptest
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,17 +29,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jun 2013 16:08:54 -0000
+X-List-Received-Date: Wed, 05 Jun 2013 07:26:48 -0000
 Content-Type: text/plain
 
-Hi,
+The following changes since commit a62aed41f2d8f874f7ae24d0e5be5dbc66ea2199:
 
-I had a build failure with libpoppler (with the qt4 bindings
-activated). The following commit fixes it in dylan stable:
+  lrzsz: check locale.h in configure (2013-06-04 15:55:46 +0100)
 
-http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=b3a745c53291dc417e5e6747929433a6c97933f7
+are available in the git repository at:
 
-Thanks,
+  git://git.yoctoproject.org/poky-contrib szhang/doc
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=szhang/doc
 
-Marc
+Jesse Zhang (1):
+  dev-manual: fix instructions for enabling ptest
+
+ documentation/dev-manual/dev-manual-common-tasks.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+-- 
+1.7.11.7
+
 
