@@ -1,29 +1,27 @@
 Return-Path: <diego.ml@zoho.com>
 Received: from sender1.zohomail.com (sender1.zohomail.com [72.5.230.95])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 841E2E01409
-	for <poky@yoctoproject.org>; Thu, 13 Jun 2013 02:19:43 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6DC1BE01409
+	for <poky@yoctoproject.org>; Thu, 13 Jun 2013 02:29:43 -0700 (PDT)
 DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
-	h=from:to:cc:subject:date:message-id:in-reply-to:references; 
-	b=OhzN9T6sHYvhvLNjZlQgUe+4j0xRDlmTz3kZTQFhLNPtMRSLkbRbN11tvSiUifHmRyauB69SdLGu
-	+TIXHn6pJs/cWMjclHRHwZlJwobPE53PvujU8tWNSw6DV5u/9ZCM  
+	h=from:to:cc:subject:date:message-id:user-agent:in-reply-to:references:mime-version:content-type;
+	b=ttW6rJHEJc8F4VJD0URXG7Utt4egPPwv6vuDgdHuwILfjoDyqoIEnVIdaMyTV0nBSB92T4eb+xi5
+	ZhMM0i+/JTqHqYnltKCVZPvcXTlAFECXmpU2WIALqZ3H0OtLEnwD  
 Received: from localhost.localdomain (static-217-133-170-65.clienti.tiscali.it
 	[217.133.170.65]) by mx.zohomail.com
-	with SMTPS id 1371115182747894.124086333594;
-	Thu, 13 Jun 2013 02:19:42 -0700 (PDT)
-From: Diego Rondini <diego.ml@zoho.com>
+	with SMTPS id 137111578252818.365975179101497;
+	Thu, 13 Jun 2013 02:29:42 -0700 (PDT)
+From: Diego <diego.ml@zoho.com>
 To: poky@yoctoproject.org
-Date: Thu, 13 Jun 2013 10:49:17 +0200
-Message-Id: <1371113357-27437-1-git-send-email-diego.ml@zoho.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <1371112368-27181-1-git-send-email-diego.ml@zoho.com>
+Date: Thu, 13 Jun 2013 11:29:38 +0200
+Message-ID: <2858726.VS1jx75IJG@localhost.localdomain>
+User-Agent: KMail/4.10.3 (Linux/3.8.13-100.fc17.x86_64; KDE/4.10.3; x86_64; ; )
+In-Reply-To: <1371113357-27437-1-git-send-email-diego.ml@zoho.com>
 References: <1371112368-27181-1-git-send-email-diego.ml@zoho.com>
-X-ZohoMail: Ss  SS_10 UW UB UW UB  ZSF-HLOLL_2  SGR3_1_23053_62
-X-ZohoMail-Owner: <1371113357-27437-1-git-send-email-diego.ml@zoho.com>+zmo_0_<diego.ml@zoho.com>
-X-ZohoMail-Sender: 217.133.170.65
-X-Zoho-Virus-Status: 2
+	<1371113357-27437-1-git-send-email-diego.ml@zoho.com>
+MIME-Version: 1.0
 X-ZohoMailClient: External
-Cc: Diego Rondini <diego.ml@zoho.com>
-Subject: [PATCH v2] licences: Add SGI license
+X-Zoho-Virus-Status: 2
+Subject: Re: [PATCH v2] licences: Add SGI license
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,84 +34,15 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Jun 2013 09:19:44 -0000
+X-List-Received-Date: Thu, 13 Jun 2013 09:29:44 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="ISO-8859-1"
 
-Add SGI license used, for example, in glmark2
+Sorry, I've previously sent the wrong patch. This one fixes "Silicon Grafics" to 
+"Silicon Graphics", and has the introductory lines of the SGI-1 file removed, 
+as they're not part of the license.
 
-Signed-off-by: Diego Rondini <diego.ml@zoho.com>
----
- meta/conf/licenses.conf          |    5 ++++-
- meta/files/common-licenses/SGI-1 |   36 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 40 insertions(+), 1 deletion(-)
- create mode 100644 meta/files/common-licenses/SGI-1
-
-diff --git a/meta/conf/licenses.conf b/meta/conf/licenses.conf
-index 3cb143c..922b84c 100644
---- a/meta/conf/licenses.conf
-+++ b/meta/conf/licenses.conf
-@@ -34,7 +34,7 @@ SRC_DISTRIBUTE_LICENSES += "NGPL Nokia NPOSL-3.0 NTP OASIS OCLC-2.0 ODbL-1.0"
- SRC_DISTRIBUTE_LICENSES += "OFL-1.1 OGTSL OLDAP-2.8 OpenSSL OSL-1.0 OSL-2.0"
- SRC_DISTRIBUTE_LICENSES += "OSL-3.0 PD PHP-3.0 PostgreSQL Proprietary"
- SRC_DISTRIBUTE_LICENSES += "Python-2.0 QPL-1.0 RHeCos-1 RHeCos-1.1 RPL-1.5"
--SRC_DISTRIBUTE_LICENSES += "RPSL-1.0 RSCPL Ruby SAX-PD Simple-2.0 Sleepycat"
-+SRC_DISTRIBUTE_LICENSES += "RPSL-1.0 RSCPL Ruby SAX-PD SGI-1 Simple-2.0 Sleepycat"
- SRC_DISTRIBUTE_LICENSES += "SPL-1.0 SugarCRM-1 SugarCRM-1.1.3 UCB VSL-1.0 W3C"
- SRC_DISTRIBUTE_LICENSES += "Watcom-1.0 WXwindows XFree86-1.1 Xnet YPL-1.1"
- SRC_DISTRIBUTE_LICENSES += "Zimbra-1.3 Zlib ZPL-1.1 ZPL-2.0 ZPL-2.1"
-@@ -104,6 +104,9 @@ SPDXLICENSEMAP[AFLv1] = "AFL-1.2"
- #Other variations
- SPDXLICENSEMAP[EPLv1.0] = "EPL-1.0"
- 
-+#Silicon Graphics variations
-+SPDXLICENSEMAP[SGIv1] = "SGI-1"
-+
- # Additional license directories. Add your custom licenses directories this path.
- # LICENSE_PATH += "${COREBASE}/custom-licenses"
- 
-diff --git a/meta/files/common-licenses/SGI-1 b/meta/files/common-licenses/SGI-1
-new file mode 100644
-index 0000000..e399856
---- /dev/null
-+++ b/meta/files/common-licenses/SGI-1
-@@ -0,0 +1,36 @@
-+/*
-+ * (c) Copyright 1993, Silicon Graphics, Inc.
-+ * ALL RIGHTS RESERVED 
-+ * Permission to use, copy, modify, and distribute this software for 
-+ * any purpose and without fee is hereby granted, provided that the above
-+ * copyright notice appear in all copies and that both the copyright notice
-+ * and this permission notice appear in supporting documentation, and that 
-+ * the name of Silicon Graphics, Inc. not be used in advertising
-+ * or publicity pertaining to distribution of the software without specific,
-+ * written prior permission. 
-+ *
-+ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
-+ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
-+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
-+ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
-+ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
-+ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
-+ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
-+ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
-+ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
-+ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
-+ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
-+ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
-+ * 
-+ * US Government Users Restricted Rights 
-+ * Use, duplication, or disclosure by the Government is subject to
-+ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
-+ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
-+ * clause at DFARS 252.227-7013 and/or in similar or successor
-+ * clauses in the FAR or the DOD or NASA FAR Supplement.
-+ * Unpublished-- rights reserved under the copyright laws of the
-+ * United States.  Contractor/manufacturer is Silicon Graphics,
-+ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
-+ *
-+ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
-+ */
--- 
-1.7.9.5
-
+Bests,
+Diego
 
 
