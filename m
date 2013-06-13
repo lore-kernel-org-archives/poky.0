@@ -1,38 +1,27 @@
-Return-Path: <scott.m.rifenbark@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 70706E01505
-	for <poky@yoctoproject.org>; Wed,  5 Jun 2013 01:28:01 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 05 Jun 2013 01:28:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,804,1363158000"; d="scan'208";a="348383004"
-Received: from orsmsx104.amr.corp.intel.com ([10.22.225.131])
-	by fmsmga002.fm.intel.com with ESMTP; 05 Jun 2013 01:28:00 -0700
-Received: from orsmsx153.amr.corp.intel.com (10.22.226.247) by
-	ORSMSX104.amr.corp.intel.com (10.22.225.131) with Microsoft SMTP Server
-	(TLS) id 14.3.123.3; Wed, 5 Jun 2013 01:28:00 -0700
-Received: from orsmsx101.amr.corp.intel.com ([169.254.8.64]) by
-	ORSMSX153.amr.corp.intel.com ([169.254.12.109]) with mapi id
-	14.03.0123.003; Wed, 5 Jun 2013 01:28:00 -0700
-From: "Rifenbark, Scott M" <scott.m.rifenbark@intel.com>
-To: Jesse Zhang <sen.zhang@windriver.com>, Paul Eggleton
-	<paul.eggleton@linux.intel.com>
-Thread-Topic: [poky] [PATCH 1/1] dev-manual: fix instructions for enabling
-	ptest
-Thread-Index: AQHOYcZkC2bgKr2xgkGJCbXtJWg5O5kmyVWw
-Date: Wed, 5 Jun 2013 08:27:59 +0000
-Message-ID: <41DEA4B02DBDEF40A0F3B6D0DDB123797FF47850@ORSMSX101.amr.corp.intel.com>
-References: <cover.1370417284.git.sen.zhang@windriver.com>
-	<685ca7c686ae03be5a9cc52153c14551098ad13a.1370417284.git.sen.zhang@windriver.com>
-	<6436687.p1tUBSTh7S@helios> <51AEF6B4.2070405@windriver.com>
-In-Reply-To: <51AEF6B4.2070405@windriver.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.22.254.139]
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] dev-manual: fix instructions for enabling ptest
+Return-Path: <diego.ml@zoho.com>
+Received: from sender1.zohomail.com (sender1.zohomail.com [72.5.230.95])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 53B04E01482
+	for <poky@yoctoproject.org>; Thu, 13 Jun 2013 02:07:46 -0700 (PDT)
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
+	h=from:to:cc:subject:date:message-id; 
+	b=STtv1riIyKIZU3qbv7W8iYJYWIz7tAHE5EC0NKfSoDwt6aT07igo+ghIyHzFnRGFd/SYfGDzYt6H
+	TaWwWlhmnsDlM4Dd54TBM4quW5UK6rkJMCfciNMm+Sym39xCIKjd  
+Received: from localhost.localdomain (static-217-133-170-65.clienti.tiscali.it
+	[217.133.170.65]) by mx.zohomail.com
+	with SMTPS id 1371114464712758.2127569034302;
+	Thu, 13 Jun 2013 02:07:44 -0700 (PDT)
+From: Diego Rondini <diego.ml@zoho.com>
+To: poky@yoctoproject.org
+Date: Thu, 13 Jun 2013 10:32:48 +0200
+Message-Id: <1371112368-27181-1-git-send-email-diego.ml@zoho.com>
+X-Mailer: git-send-email 1.7.9.5
+X-ZohoMail: Ss  SS_10 UW UB UW UB  ZSF-HLOLL_2  SGR3_1_23053_771
+X-ZohoMail-Owner: <1371112368-27181-1-git-send-email-diego.ml@zoho.com>+zmo_0_<diego.ml@zoho.com>
+X-ZohoMail-Sender: 217.133.170.65
+X-Zoho-Virus-Status: 2
+X-ZohoMailClient: External
+Cc: Diego Rondini <diego.ml@zoho.com>
+Subject: [PATCH] licences: Add SGI license
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,40 +34,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jun 2013 08:28:01 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 13 Jun 2013 09:07:47 -0000
 
-I tried working some steps to apply the patch you sent previously to poky@y=
-octoproject.org but it failed.  Can you resend that one to yocto@yoctoproje=
-ct.org?
+Add SGI license used, for example, in glmark2
 
-Thanks,=20
-Scott
+Signed-off-by: Diego Rondini <diego.ml@zoho.com>
+---
+ meta/conf/licenses.conf          |    5 ++++-
+ meta/files/common-licenses/SGI-1 |   40 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 44 insertions(+), 1 deletion(-)
+ create mode 100644 meta/files/common-licenses/SGI-1
 
->-----Original Message-----
->From: poky-bounces@yoctoproject.org [mailto:poky-
->bounces@yoctoproject.org] On Behalf Of Jesse Zhang
->Sent: Wednesday, June 05, 2013 1:29 AM
->To: Paul Eggleton
->Cc: poky@yoctoproject.org
->Subject: Re: [poky] [PATCH 1/1] dev-manual: fix instructions for
->enabling ptest
->
->On 06/05/2013 04:18 PM, Paul Eggleton wrote:
->> Good catch! However, patches against the documentation need to be sent
->to the
->> yocto@yoctoproject.org mailing list, preferably CCing Scott Rifenbark
->> <scott.m.rifenbark@intel.com> as well. Would you mind re-sending to
->there?
->
->No problem. Thanks for pointing it out. I'm still learning which list is
->for what ;)
->
->jesse
->_______________________________________________
->poky mailing list
->poky@yoctoproject.org
->https://lists.yoctoproject.org/listinfo/poky
+diff --git a/meta/conf/licenses.conf b/meta/conf/licenses.conf
+index 3cb143c..3ccc789 100644
+--- a/meta/conf/licenses.conf
++++ b/meta/conf/licenses.conf
+@@ -34,7 +34,7 @@ SRC_DISTRIBUTE_LICENSES += "NGPL Nokia NPOSL-3.0 NTP OASIS OCLC-2.0 ODbL-1.0"
+ SRC_DISTRIBUTE_LICENSES += "OFL-1.1 OGTSL OLDAP-2.8 OpenSSL OSL-1.0 OSL-2.0"
+ SRC_DISTRIBUTE_LICENSES += "OSL-3.0 PD PHP-3.0 PostgreSQL Proprietary"
+ SRC_DISTRIBUTE_LICENSES += "Python-2.0 QPL-1.0 RHeCos-1 RHeCos-1.1 RPL-1.5"
+-SRC_DISTRIBUTE_LICENSES += "RPSL-1.0 RSCPL Ruby SAX-PD Simple-2.0 Sleepycat"
++SRC_DISTRIBUTE_LICENSES += "RPSL-1.0 RSCPL Ruby SAX-PD SGI-1 Simple-2.0 Sleepycat"
+ SRC_DISTRIBUTE_LICENSES += "SPL-1.0 SugarCRM-1 SugarCRM-1.1.3 UCB VSL-1.0 W3C"
+ SRC_DISTRIBUTE_LICENSES += "Watcom-1.0 WXwindows XFree86-1.1 Xnet YPL-1.1"
+ SRC_DISTRIBUTE_LICENSES += "Zimbra-1.3 Zlib ZPL-1.1 ZPL-2.0 ZPL-2.1"
+@@ -104,6 +104,9 @@ SPDXLICENSEMAP[AFLv1] = "AFL-1.2"
+ #Other variations
+ SPDXLICENSEMAP[EPLv1.0] = "EPL-1.0"
+ 
++#Silicon Grafics variations
++SPDXLICENSEMAP[SGIv1] = "SGI-1"
++
+ # Additional license directories. Add your custom licenses directories this path.
+ # LICENSE_PATH += "${COREBASE}/custom-licenses"
+ 
+diff --git a/meta/files/common-licenses/SGI-1 b/meta/files/common-licenses/SGI-1
+new file mode 100644
+index 0000000..94ab8db
+--- /dev/null
++++ b/meta/files/common-licenses/SGI-1
+@@ -0,0 +1,40 @@
++The data and some of the control logic for the "ideas" scene was adapted from
++the "Ideas in Motion" GLUT demo.  Per the rights granted by the source for that
++demo, the following notice is reproduced here:
++
++/*
++ * (c) Copyright 1993, Silicon Graphics, Inc.
++ * ALL RIGHTS RESERVED 
++ * Permission to use, copy, modify, and distribute this software for 
++ * any purpose and without fee is hereby granted, provided that the above
++ * copyright notice appear in all copies and that both the copyright notice
++ * and this permission notice appear in supporting documentation, and that 
++ * the name of Silicon Graphics, Inc. not be used in advertising
++ * or publicity pertaining to distribution of the software without specific,
++ * written prior permission. 
++ *
++ * THE MATERIAL EMBODIED ON THIS SOFTWARE IS PROVIDED TO YOU "AS-IS"
++ * AND WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR OTHERWISE,
++ * INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR
++ * FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL SILICON
++ * GRAPHICS, INC.  BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT,
++ * SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY
++ * KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION,
++ * LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF
++ * THIRD PARTIES, WHETHER OR NOT SILICON GRAPHICS, INC.  HAS BEEN
++ * ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON
++ * ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE
++ * POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.
++ * 
++ * US Government Users Restricted Rights 
++ * Use, duplication, or disclosure by the Government is subject to
++ * restrictions set forth in FAR 52.227.19(c)(2) or subparagraph
++ * (c)(1)(ii) of the Rights in Technical Data and Computer Software
++ * clause at DFARS 252.227-7013 and/or in similar or successor
++ * clauses in the FAR or the DOD or NASA FAR Supplement.
++ * Unpublished-- rights reserved under the copyright laws of the
++ * United States.  Contractor/manufacturer is Silicon Graphics,
++ * Inc., 2011 N.  Shoreline Blvd., Mountain View, CA 94039-7311.
++ *
++ * OpenGL(TM) is a trademark of Silicon Graphics, Inc.
++ */
+-- 
+1.7.9.5
+
+
 
