@@ -1,21 +1,23 @@
-Return-Path: <tom.zanussi@intel.com>
+Return-Path: <paul.eggleton@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5FA38E0140D
-	for <poky@yoctoproject.org>; Fri, 21 Jun 2013 15:24:07 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 21 Jun 2013 15:24:07 -0700
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D39BCE00348
+	for <poky@yoctoproject.org>; Fri, 28 Jun 2013 08:12:36 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 28 Jun 2013 08:12:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,915,1363158000"; d="scan'208";a="333586298"
-Received: from unknown (HELO localhost) ([10.255.13.131])
-	by orsmga001.jf.intel.com with ESMTP; 21 Jun 2013 15:23:55 -0700
-From: Tom Zanussi <tom.zanussi@linux.intel.com>
-To: paul.eggleton@linux.intel.com, jessica.zhang@intel.com,
-	poky@yoctoproject.org
-Date: Fri, 21 Jun 2013 17:23:51 -0500
-Message-Id: <cover.1371853159.git.tom.zanussi@linux.intel.com>
-X-Mailer: git-send-email 1.7.11.4
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 0/1] master/dylan fix for bogus 'layer' arch in yocto-bsp list
+X-IronPort-AV: E=Sophos;i="4.87,958,1363158000"; d="scan'208";a="361150684"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.122.97])
+	by orsmga002.jf.intel.com with ESMTP; 28 Jun 2013 08:12:24 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 28 Jun 2013 16:12:21 +0100
+Message-Id: <55959ee3f4987d14f48fcffd31b3a08928363a80.1372432284.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.1.2
+In-Reply-To: <cover.1372432284.git.paul.eggleton@linux.intel.com>
+References: <cover.1372432284.git.paul.eggleton@linux.intel.com>
+In-Reply-To: <cover.1372432284.git.paul.eggleton@linux.intel.com>
+References: <cover.1372432284.git.paul.eggleton@linux.intel.com>
+Subject: [PATCH 1/2] poky.conf: remove la2 check which no longer exists from ERROR_QA
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,26 +30,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Jun 2013 22:24:12 -0000
+X-List-Received-Date: Fri, 28 Jun 2013 15:12:37 -0000
 
-This fixes YOCTO bug #4735 and can be pulled into both master and dylan.
+This check was actually removed a very long time ago in
+6656381714c5956f71ca634f5a5f4aa4661bbf7e, before we even changed the QA
+checks to use names instead of numbers - the name was probably added
+ERROR_QA mistakenly because it hadn't also been removed from the comment
+listing the QA checks or the function that determined which ones were
+errors.
 
-The following changes since commit 011608a7b08c7fe5ad065da5179e1946ce250c57:
-
-  bitbake: data_smart: Fix bug with overrides and weak default values (2013-06-21 13:00:57 +0100)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib.git tzanussi/bug-4735-fix
-  http://git.yoctoproject.org/cgit.cgi//log/?h=tzanussi/bug-4735-fix
-
-Tom Zanussi (1):
-  yocto-bsp: filter out 'layer' from arch list
-
- scripts/lib/bsp/engine.py | 2 +-
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta-yocto/conf/distro/poky.conf | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index e2c4790..0968a0c 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -101,6 +101,6 @@ INHERIT += "poky-sanity"
+ 
+ #WARN_QA = "unsafe-references-in-binaries unsafe-references-in-scripts"
+ WARN_QA = "textrel pkgvarcheck"
+-ERROR_QA = "dev-so debug-deps dev-deps debug-files arch la2 pkgconfig la perms useless-rpaths rpaths staticdev ldflags"
++ERROR_QA = "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms useless-rpaths rpaths staticdev ldflags"
+ 
+ include conf/distro/include/seperatebuilddir.inc
 -- 
-1.7.11.4
+1.8.1.2
 
 
