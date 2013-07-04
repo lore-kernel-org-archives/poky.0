@@ -1,19 +1,23 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 258D3E0140D
-	for <poky@yoctoproject.org>; Thu,  4 Jul 2013 06:17:47 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by azsmga101.ch.intel.com with ESMTP; 04 Jul 2013 06:17:46 -0700
+Return-Path: <radu.moisan@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6BF66E01482
+	for <poky@yoctoproject.org>; Thu,  4 Jul 2013 08:14:45 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 04 Jul 2013 08:14:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,995,1363158000"; d="scan'208";a="360496283"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.121.242])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Jul 2013 06:18:41 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.87,995,1363158000"; d="scan'208";a="364830000"
+Received: from ubuntu.rb.intel.com (HELO [10.237.105.59]) ([10.237.105.59])
+	by orsmga002.jf.intel.com with ESMTP; 04 Jul 2013 08:14:33 -0700
+Message-ID: <51D591CA.8070201@intel.com>
+Date: Thu, 04 Jul 2013 18:16:26 +0300
+From: Radu Moisan <radu.moisan@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130623 Thunderbird/17.0.7
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-Date: Thu,  4 Jul 2013 14:17:43 +0100
-Message-Id: <1372943863-15941-1-git-send-email-paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCH] poky.conf: move libdir QA check to WARN_QA
+References: <1362674804-1689-1-git-send-email-radu.moisan@intel.com>
+In-Reply-To: <1362674804-1689-1-git-send-email-radu.moisan@intel.com>
+Subject: Re: [PATCH] busybox.bbappend: Upgrade to v1.21.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,36 +30,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Jul 2013 13:17:48 -0000
+X-List-Received-Date: Thu, 04 Jul 2013 15:14:46 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The libdir check was broken, and having been fixed it is throwing up a
-number of issues, so it seems that we're not yet ready to have this set
-to error. Switch it back to a warning instead.
+Resent upgrade patch on oe-core
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta-yocto/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Radu
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 14919f2..7be7d92 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -100,11 +100,11 @@ OELAYOUT_ABI = "8"
- INHERIT += "poky-sanity"
- 
- # QA check settings - a little stricter than the OE-Core defaults
--WARN_QA = "textrel files-invalid incompatible-license xorg-driver-abi"
-+WARN_QA = "textrel files-invalid incompatible-license xorg-driver-abi libdir"
- ERROR_QA = "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms \
-             useless-rpaths rpaths staticdev ldflags pkgvarcheck already-stripped \
-             compile-host-path dep-cmp installed-vs-shipped install-host-path \
--            libdir packages-list perm-config perm-line perm-link pkgv-undefined \
-+            packages-list perm-config perm-line perm-link pkgv-undefined \
-             pn-overrides split-strip var-undefined"
- 
- include conf/distro/include/seperatebuilddir.inc
--- 
-1.8.1.2
+On 03/07/2013 06:46 PM, Radu Moisan wrote:
+> Signed-off-by: Radu Moisan <radu.moisan@intel.com>
+> ---
+>   .../poky-tiny/defconfig                            |    0
+>   ...box_1.20.2.bbappend => busybox_1.21.0.bbappend} |    0
+>   2 files changed, 0 insertions(+), 0 deletions(-)
+>   rename meta-yocto/recipes-core/busybox/{busybox-1.20.2 => busybox-1.21.0}/poky-tiny/defconfig (100%)
+>   rename meta-yocto/recipes-core/busybox/{busybox_1.20.2.bbappend => busybox_1.21.0.bbappend} (100%)
+>
+> diff --git a/meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig b/meta-yocto/recipes-core/busybox/busybox-1.21.0/poky-tiny/defconfig
+> similarity index 100%
+> rename from meta-yocto/recipes-core/busybox/busybox-1.20.2/poky-tiny/defconfig
+> rename to meta-yocto/recipes-core/busybox/busybox-1.21.0/poky-tiny/defconfig
+> diff --git a/meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend b/meta-yocto/recipes-core/busybox/busybox_1.21.0.bbappend
+> similarity index 100%
+> rename from meta-yocto/recipes-core/busybox/busybox_1.20.2.bbappend
+> rename to meta-yocto/recipes-core/busybox/busybox_1.21.0.bbappend
 
 
