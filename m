@@ -1,25 +1,34 @@
-Return-Path: <Qi.Chen@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9414CE0140D
-	for <poky@yoctoproject.org>; Thu,  4 Jul 2013 23:07:16 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r6567Fsg004517
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 4 Jul 2013 23:07:15 -0700 (PDT)
-Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.233) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.342.3; Thu, 4 Jul 2013 23:07:15 -0700
-From: <Qi.Chen@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 5 Jul 2013 14:07:46 +0800
-Message-ID: <bd875b766e1605608910cedc115051e445f1e58c.1373003928.git.Qi.Chen@windriver.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1373003928.git.Qi.Chen@windriver.com>
-References: <cover.1373003928.git.Qi.Chen@windriver.com>
-MIME-Version: 1.0
-Cc: qingtao.cao@windriver.com
-Subject: [PATCH 1/1] local.conf.sample.extended: add USER_GROUP_SETTINGS
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-ob0-f180.google.com (mail-ob0-f180.google.com
+	[209.85.214.180])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A6C9EE0156B
+	for <poky@yoctoproject.org>; Sat,  6 Jul 2013 19:13:25 -0700 (PDT)
+Received: by mail-ob0-f180.google.com with SMTP id eh20so4191772obb.39
+	for <poky@yoctoproject.org>; Sat, 06 Jul 2013 19:13:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=sender:from:to:cc:subject:date:message-id:x-mailer;
+	bh=bVsp35DaonjYnasIn61Hjq312ISmCjvkKVvUWJSlVi8=;
+	b=noeZjpBqzv5RJvDRF4QBpaFnsV1NWQRn+gXjc1h/JpwyxKqI5OTrYC4O0+VSpqEmh7
+	bpT/JHNqJ40U8MmsYBjvOzxGnxu7jAAlnkIbRXpPaOfCQIsj9II55zK5BO5c5aqDmGsl
+	WygXz8bmhFl2JL6ecMuIYn7oUEOWv+jukZs4druSs2XfW68dC3h5WisvrLQ2lmgFoSVx
+	3UO8D932QqV8P2xTg8Trg+Jk+4lYtn0nD7su8aRPrLg9fZnjIkRhKfkhs/VmS5YPk1MI
+	v3l7ePmD25sn8xJSzkPZF9sVuvyKk48KE23HmRxuC33O3sg+TzBSirXK5bN+aUD47ns5
+	cK3Q==
+X-Received: by 10.60.115.199 with SMTP id jq7mr16223647oeb.19.1373163204349;
+	Sat, 06 Jul 2013 19:13:24 -0700 (PDT)
+Received: from localhost.localdomain ([96.44.77.72])
+	by mx.google.com with ESMTPSA id cp7sm25602779obb.0.2013.07.06.19.13.22
+	for <multiple recipients>
+	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Sat, 06 Jul 2013 19:13:23 -0700 (PDT)
+Sender: Bruce Ashfield <bruce.ashfield@gmail.com>
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: richard.purdie@linuxfoundation.org
+Date: Sat,  6 Jul 2013 22:13:19 -0400
+Message-Id: <cover.1373162883.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
+Cc: simarpreet.singh@windriver.com, poky@yoctoproject.org
+Subject: [PATCH 0/1] meta-yocto-bsp: update 3.4 and 3.8 SRCREVs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,46 +41,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Jul 2013 06:07:17 -0000
-Content-Type: text/plain
+X-List-Received-Date: Sun, 07 Jul 2013 02:13:27 -0000
 
-From: Chen Qi <Qi.Chen@windriver.com>
+Saul,
 
-Add detailed explanation of USER_GROUP_SETTINGS which is used for
-image level user/group configuration.
+Updating the SRCREVs for the reference boards for both the 3.4
+and 3.8 kernels.
 
-[YOCTO #4074]
+The 3.4 change is updating to the 3.4.52 stable version, which
+is the same update that the qemu* machines got for oe-core.
 
-Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
----
- meta-yocto/conf/local.conf.sample.extended |   16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+The 3.8 change addresses our routerstationpro boot issue. We
+somehow managed to update its preferred kernel to 3.8, but not
+update the SRCREVs. Simar managed to track down the missing change,
+and I've gone ahead and updated all the reference boards (even
+if they are not all currently setting their preferred kernel
+to 3.8. I'll take care of that preferred kernel setting shortly
+as well, but there's no reason to hold on this).
 
-diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
-index 07e5cf5..15cbf5e 100644
---- a/meta-yocto/conf/local.conf.sample.extended
-+++ b/meta-yocto/conf/local.conf.sample.extended
-@@ -214,3 +214,19 @@
- 
- # Remove the old image before the new one generated to save disk space
- #RM_OLD_IMAGE = "1"
-+
-+# Image level user/group settings
-+# The settings are sperated by ;
-+# Each setting has three fields.
-+# <USER/GROUP>: this setting applies for user or group, possible values are USER and GROUP.
-+# <ACTION>: possible values are ADD, DELELE and MODIFY
-+# <OPT>: options for useradd/groupadd, userdel/groupdel or usermod/groupmod.
-+# e.g.
-+# USER_GROUP_SETTINGS = "\
-+# USER,ADD,-p '' tester; \
-+# GROUP,ADD,testers; \
-+# USER,DEL,nobody; \
-+# GROUP,DEL,-g video; \
-+# GROUP,MOD,-g 1020 testers; \
-+# USER,MOD,-s /bin/sh tester; \
-+# "
+With this YOCTO #4566, should be addressed.
+
+Cheers,
+
+Bruce
+
+The following changes since commit dd626321f93b7d145b05bedd54eba9d1947a1d6c:
+
+  linux-yocto/3.4: update to v3.4.52 (2013-07-05 20:51:26 -0400)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (1):
+  meta-yocto-bsp: update reference board SRCREVs
+
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend |    8 ++++----
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.8.bbappend |    8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
 -- 
-1.7.9.5
+1.7.10.4
 
 
