@@ -1,25 +1,25 @@
-Return-Path: <Qi.Chen@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A89A8E013CB
-	for <poky@yoctoproject.org>; Tue,  9 Jul 2013 23:39:10 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r6A6dBbq014141
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 9 Jul 2013 23:39:11 -0700 (PDT)
-Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.233) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.342.3; Tue, 9 Jul 2013 23:39:10 -0700
-From: <Qi.Chen@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Wed, 10 Jul 2013 14:39:10 +0800
-Message-ID: <824d003f19043b4737e14158c888a97c73cae934.1373438138.git.Qi.Chen@windriver.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1373438138.git.Qi.Chen@windriver.com>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E0566E013CB
+	for <poky@yoctoproject.org>; Wed, 10 Jul 2013 01:30:38 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 10 Jul 2013 01:28:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.87,1034,1363158000"; d="scan'208";a="343220347"
+Received: from unknown (HELO helios.localnet) ([10.252.122.25])
+	by orsmga001.jf.intel.com with ESMTP; 10 Jul 2013 01:30:36 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: Qi.Chen@windriver.com, "Hart, Darren" <dvhart@linux.intel.com>
+Date: Wed, 10 Jul 2013 09:30:36 +0100
+Message-ID: <5822283.x6sXiXjJIc@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.10.4 (Linux/3.8.0-26-generic; KDE/4.10.4; i686; ; )
+In-Reply-To: <9915990f3fb2466fb2146394f65154e21b35890d.1373438138.git.Qi.Chen@windriver.com>
 References: <cover.1373438138.git.Qi.Chen@windriver.com>
+	<9915990f3fb2466fb2146394f65154e21b35890d.1373438138.git.Qi.Chen@windriver.com>
 MIME-Version: 1.0
-Cc: qingtao.cao@windriver.com
-Subject: [PATCH 2/2] local.conf.sample.extended: add USER_GROUP_SETTINGS
+Cc: qingtao.cao@windriver.com, poky@yoctoproject.org
+Subject: Re: [PATCH 1/2] poky-tiny.conf: add extra libc features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,46 +32,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2013 06:39:10 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 10 Jul 2013 08:30:39 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
-From: Chen Qi <Qi.Chen@windriver.com>
+Hi Qi / Darren,
 
-Add detailed explanation of USER_GROUP_SETTINGS which is used for
-image level user/group configuration.
+On Wednesday 10 July 2013 14:37:12 Qi.Chen@windriver.com wrote:
+> From: Chen Qi <Qi.Chen@windriver.com>
+> 
+> Add two extra libc features, libc-spawn and libc-rcmd, as they are
+> needed to successfully compile the shadow package which is needed
+> if we set USER_GROUP_SETTIGNS in some configuration file.
+> 
+> [YOCTO #4074]
+> 
+> Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+> ---
+>  meta-yocto/conf/distro/poky-tiny.conf |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/meta-yocto/conf/distro/poky-tiny.conf
+> b/meta-yocto/conf/distro/poky-tiny.conf index 755667f..9d9ea3c 100644
+> --- a/meta-yocto/conf/distro/poky-tiny.conf
+> +++ b/meta-yocto/conf/distro/poky-tiny.conf
+> @@ -62,7 +62,7 @@ ASSUME_PROVIDED += "pkgconfig$"
+> 
+>  # Reconfigure eglibc for a smaller installation
+>  # Comment out any of the lines below to disable them in the build
+> -DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt"
+> +DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt libc-spawn libc-rcmd"
+>  DISTRO_FEATURES_LIBC_TINY_append_x86-64 = " libc-libm-big"
+> 
+>  # Required for "who"
 
-[YOCTO #4074]
+Is this really appropriate for poky-tiny? It seems to me it might be 
+orthogonal to the point of poky-tiny which is to be pretty much as light as 
+possible.
 
-Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
----
- meta-yocto/conf/local.conf.sample.extended |   16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Cheers,
+Paul
 
-diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
-index 07e5cf5..15cbf5e 100644
---- a/meta-yocto/conf/local.conf.sample.extended
-+++ b/meta-yocto/conf/local.conf.sample.extended
-@@ -214,3 +214,19 @@
- 
- # Remove the old image before the new one generated to save disk space
- #RM_OLD_IMAGE = "1"
-+
-+# Image level user/group settings
-+# The settings are sperated by ;
-+# Each setting has three fields.
-+# <USER/GROUP>: this setting applies for user or group, possible values are USER and GROUP.
-+# <ACTION>: possible values are ADD, DELELE and MODIFY
-+# <OPT>: options for useradd/groupadd, userdel/groupdel or usermod/groupmod.
-+# e.g.
-+# USER_GROUP_SETTINGS = "\
-+# USER,ADD,-p '' tester; \
-+# GROUP,ADD,testers; \
-+# USER,DEL,nobody; \
-+# GROUP,DEL,-g video; \
-+# GROUP,MOD,-g 1020 testers; \
-+# USER,MOD,-s /bin/sh tester; \
-+# "
 -- 
-1.7.9.5
 
+Paul Eggleton
+Intel Open Source Technology Centre
 
