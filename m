@@ -1,19 +1,30 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5519BE00747
-	for <poky@yoctoproject.org>; Mon,  8 Jul 2013 03:16:01 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 08 Jul 2013 03:13:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,1019,1363158000"; d="scan'208";a="342062462"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.122.28])
-	by orsmga001.jf.intel.com with ESMTP; 08 Jul 2013 03:15:39 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Return-Path: <biannm@cn.fujitsu.com>
+Received: from song.cn.fujitsu.com (unknown [222.73.24.84])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 06C60E01405
+	for <poky@yoctoproject.org>; Tue,  9 Jul 2013 20:13:17 -0700 (PDT)
+X-IronPort-AV: E=Sophos;i="4.87,1032,1363104000"; d="scan'208";a="7843380"
+Received: from unknown (HELO tang.cn.fujitsu.com) ([10.167.250.3])
+	by song.cn.fujitsu.com with ESMTP; 10 Jul 2013 11:10:14 +0800
+Received: from fnstmail02.fnst.cn.fujitsu.com (tang.cn.fujitsu.com [127.0.0.1])
+	by tang.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id r6A30Nic027098
+	for <poky@yoctoproject.org>; Wed, 10 Jul 2013 11:00:27 +0800
+Received: from [127.0.0.1] ([10.167.226.190])
+	by fnstmail02.fnst.cn.fujitsu.com (Lotus Domino Release 8.5.3)
+	with ESMTP id 2013071010584513-2818677 ;
+	Wed, 10 Jul 2013 10:58:45 +0800 
+Message-ID: <51DCCE4C.8040601@cn.fujitsu.com>
+Date: Wed, 10 Jul 2013 11:00:28 +0800
+From: Bian Naimeng <biannm@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN;
+	rv:1.9.2.28) Gecko/20120306 Lightning/1.0b2 Thunderbird/3.1.20
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-Date: Mon,  8 Jul 2013 11:15:35 +0100
-Message-Id: <cover.1373278412.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [dylan][PATCH 0/2] Backports from master (cover letter only)
+X-MIMETrack: Itemize by SMTP Server on mailserver/fnst(Release 8.5.3|September
+	15, 2011) at 2013/07/10 10:58:45,
+	Serialize by Router on mailserver/fnst(Release 8.5.3|September 15,
+	2011) at 2013/07/10 10:58:49,
+	Serialize complete at 2013/07/10 10:58:49
+Subject: [PATCH]package_rpm.bbclass: remove xx.spec before doing rpmbuild xx.src.rpm
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,26 +37,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jul 2013 10:16:02 -0000
+X-List-Received-Date: Wed, 10 Jul 2013 03:13:23 -0000
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 
-The following changes since commit e4a0a4c5e419154a34710a1b6c28d4180c6304c3:
+If the spec file already exist, and has not been stored into pseudo's files.db,
+it maybe cause rpmbuild src.rpm fail, so remove it before doing rpmbuild src.rpm.
 
-  documentation: Updated release month in Manual History tables. (2013-06-14 17:33:37 +0100)
+Signed-off-by: Bian Naimeng <biannm@cn.fujitsu.com>
 
-are available in the git repository at:
+---
+ meta/classes/package_rpm.bbclass |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
 
-  git://git.yoctoproject.org/poky-contrib paule/dylan-next-poky
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/dylan-next-poky
-
-Tom Zanussi (2):
-  yocto-bsp: filter out 'layer' from arch list
-  yocto-kernel: enforce exact match for BBLAYERS
-
- scripts/lib/bsp/engine.py | 2 +-
- scripts/lib/bsp/kernel.py | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
--- 
-1.8.1.2
+diff --git a/meta/classes/package_rpm.bbclass b/meta/classes/package_rpm.bbclass
+index c654cdb..217ddcb 100644
+--- a/meta/classes/package_rpm.bbclass
++++ b/meta/classes/package_rpm.bbclass
+@@ -1069,8 +1069,13 @@ python do_package_rpm () {
+         return
+ 
+     # Construct the spec file...
++    # If the spec file already exist, and has not been stored into 
++    # pseudo's files.db, it maybe cause rpmbuild src.rpm fail,
++    # so remove it before doing rpmbuild src.rpm.
+     srcname    = strip_multilib(d.getVar('PN', True), d)
+     outspecfile = workdir + "/" + srcname + ".spec"
++    if os.path.isfile(outspecfile):
++        os.remove(outspecfile)
+     d.setVar('OUTSPECFILE', outspecfile)
+     bb.build.exec_func('write_specfile', d)
+ 
+-- 1.7.1 
 
 
