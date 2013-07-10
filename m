@@ -1,30 +1,25 @@
-Return-Path: <biannm@cn.fujitsu.com>
-Received: from song.cn.fujitsu.com (unknown [222.73.24.84])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 06C60E01405
-	for <poky@yoctoproject.org>; Tue,  9 Jul 2013 20:13:17 -0700 (PDT)
-X-IronPort-AV: E=Sophos;i="4.87,1032,1363104000"; d="scan'208";a="7843380"
-Received: from unknown (HELO tang.cn.fujitsu.com) ([10.167.250.3])
-	by song.cn.fujitsu.com with ESMTP; 10 Jul 2013 11:10:14 +0800
-Received: from fnstmail02.fnst.cn.fujitsu.com (tang.cn.fujitsu.com [127.0.0.1])
-	by tang.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id r6A30Nic027098
-	for <poky@yoctoproject.org>; Wed, 10 Jul 2013 11:00:27 +0800
-Received: from [127.0.0.1] ([10.167.226.190])
-	by fnstmail02.fnst.cn.fujitsu.com (Lotus Domino Release 8.5.3)
-	with ESMTP id 2013071010584513-2818677 ;
-	Wed, 10 Jul 2013 10:58:45 +0800 
-Message-ID: <51DCCE4C.8040601@cn.fujitsu.com>
-Date: Wed, 10 Jul 2013 11:00:28 +0800
-From: Bian Naimeng <biannm@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN;
-	rv:1.9.2.28) Gecko/20120306 Lightning/1.0b2 Thunderbird/3.1.20
+Return-Path: <Qi.Chen@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B07A2E013CB
+	for <poky@yoctoproject.org>; Tue,  9 Jul 2013 23:37:13 -0700 (PDT)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
+	[147.11.189.41])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r6A6bDG4014133
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 9 Jul 2013 23:37:13 -0700 (PDT)
+Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.233) by
+	ALA-HCB.corp.ad.wrs.com (147.11.189.41) with Microsoft SMTP Server id
+	14.2.342.3; Tue, 9 Jul 2013 23:37:11 -0700
+From: <Qi.Chen@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 10 Jul 2013 14:37:12 +0800
+Message-ID: <9915990f3fb2466fb2146394f65154e21b35890d.1373438138.git.Qi.Chen@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <cover.1373438138.git.Qi.Chen@windriver.com>
+References: <cover.1373438138.git.Qi.Chen@windriver.com>
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-X-MIMETrack: Itemize by SMTP Server on mailserver/fnst(Release 8.5.3|September
-	15, 2011) at 2013/07/10 10:58:45,
-	Serialize by Router on mailserver/fnst(Release 8.5.3|September 15,
-	2011) at 2013/07/10 10:58:49,
-	Serialize complete at 2013/07/10 10:58:49
-Subject: [PATCH]package_rpm.bbclass: remove xx.spec before doing rpmbuild xx.src.rpm
+Cc: qingtao.cao@windriver.com
+Subject: [PATCH 1/2] poky-tiny.conf: add extra libc features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,37 +32,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2013 03:13:23 -0000
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 10 Jul 2013 06:37:15 -0000
+Content-Type: text/plain
 
-If the spec file already exist, and has not been stored into pseudo's files.db,
-it maybe cause rpmbuild src.rpm fail, so remove it before doing rpmbuild src.rpm.
+From: Chen Qi <Qi.Chen@windriver.com>
 
-Signed-off-by: Bian Naimeng <biannm@cn.fujitsu.com>
+Add two extra libc features, libc-spawn and libc-rcmd, as they are
+needed to successfully compile the shadow package which is needed
+if we set USER_GROUP_SETTIGNS in some configuration file.
 
+[YOCTO #4074]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 ---
- meta/classes/package_rpm.bbclass |    5 +++++
- 1 files changed, 5 insertions(+), 0 deletions(-)
+ meta-yocto/conf/distro/poky-tiny.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta/classes/package_rpm.bbclass b/meta/classes/package_rpm.bbclass
-index c654cdb..217ddcb 100644
---- a/meta/classes/package_rpm.bbclass
-+++ b/meta/classes/package_rpm.bbclass
-@@ -1069,8 +1069,13 @@ python do_package_rpm () {
-         return
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+index 755667f..9d9ea3c 100644
+--- a/meta-yocto/conf/distro/poky-tiny.conf
++++ b/meta-yocto/conf/distro/poky-tiny.conf
+@@ -62,7 +62,7 @@ ASSUME_PROVIDED += "pkgconfig$"
  
-     # Construct the spec file...
-+    # If the spec file already exist, and has not been stored into 
-+    # pseudo's files.db, it maybe cause rpmbuild src.rpm fail,
-+    # so remove it before doing rpmbuild src.rpm.
-     srcname    = strip_multilib(d.getVar('PN', True), d)
-     outspecfile = workdir + "/" + srcname + ".spec"
-+    if os.path.isfile(outspecfile):
-+        os.remove(outspecfile)
-     d.setVar('OUTSPECFILE', outspecfile)
-     bb.build.exec_func('write_specfile', d)
+ # Reconfigure eglibc for a smaller installation
+ # Comment out any of the lines below to disable them in the build
+-DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt"
++DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt libc-spawn libc-rcmd"
+ DISTRO_FEATURES_LIBC_TINY_append_x86-64 = " libc-libm-big"
  
--- 1.7.1 
+ # Required for "who"
+-- 
+1.7.9.5
 
 
