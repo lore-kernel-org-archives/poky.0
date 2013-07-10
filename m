@@ -1,22 +1,27 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1231BE01476
-	for <poky@yoctoproject.org>; Wed, 10 Jul 2013 07:11:59 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 10 Jul 2013 07:11:46 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9C2A7E00722
+	for <poky@yoctoproject.org>; Wed, 10 Jul 2013 10:33:31 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 10 Jul 2013 10:31:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.87,1036,1363158000"; d="scan'208";a="329318780"
-Received: from unknown (HELO localhost) ([10.255.13.129])
-	by azsmga001.ch.intel.com with ESMTP; 10 Jul 2013 07:11:45 -0700
-From: Tom Zanussi <tom.zanussi@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 10 Jul 2013 09:11:44 -0500
-Message-Id: <bc310c16cbeb4f0eb4fb5d91269616a77eaf384f.1373464813.git.tom.zanussi@linux.intel.com>
-X-Mailer: git-send-email 1.7.11.4
-In-Reply-To: <cover.1373464813.git.tom.zanussi@linux.intel.com>
-References: <cover.1373464813.git.tom.zanussi@linux.intel.com>
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 1/1] yocto-kernel: make BBLAYERS parsing more robust
+X-IronPort-AV: E=Sophos;i="4.87,1037,1363158000"; d="scan'208";a="367934872"
+Received: from envy.jf.intel.com (HELO [10.7.199.52]) ([10.7.199.52])
+	by orsmga002.jf.intel.com with ESMTP; 10 Jul 2013 10:33:31 -0700
+Message-ID: <1373477607.3028.45.camel@envy.home>
+From: Darren Hart <dvhart@linux.intel.com>
+To: ChenQi <Qi.Chen@windriver.com>
+Date: Wed, 10 Jul 2013 10:33:27 -0700
+In-Reply-To: <51DD2574.7060608@windriver.com>
+References: <cover.1373438138.git.Qi.Chen@windriver.com>
+	<9915990f3fb2466fb2146394f65154e21b35890d.1373438138.git.Qi.Chen@windriver.com>
+	<5822283.x6sXiXjJIc@helios> <51DD2574.7060608@windriver.com>
+Organization: Intel
+X-Mailer: Evolution 3.8.3 (3.8.3-2.fc19) 
+Mime-Version: 1.0
+Cc: qingtao.cao@windriver.com, Paul Eggleton <paul.eggleton@linux.intel.com>,
+	poky@yoctoproject.org
+Subject: Re: [PATCH 1/2] poky-tiny.conf: add extra libc features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,91 +34,103 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2013 14:12:01 -0000
+X-List-Received-Date: Wed, 10 Jul 2013 17:33:34 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-This allows the BBLAYERS parsing code to handle cases where BBLAYERS
-is spread across multiple assignments or all on a single line, within
-double or single quotes.
+On Wed, 2013-07-10 at 17:12 +0800, ChenQi wrote:
+> On 07/10/2013 04:30 PM, Paul Eggleton wrote:
+> > Hi Qi / Darren,
+> >
+> > On Wednesday 10 July 2013 14:37:12 Qi.Chen@windriver.com wrote:
+> >> From: Chen Qi <Qi.Chen@windriver.com>
+> >>
+> >> Add two extra libc features, libc-spawn and libc-rcmd, as they are
+> >> needed to successfully compile the shadow package which is needed
+> >> if we set USER_GROUP_SETTIGNS in some configuration file.
+> >>
+> >> [YOCTO #4074]
+> >>
+> >> Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 
-Fixes [YOCTO #3746].
+I maintain poky-tiny, please Cc me on patches:
 
-Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
----
- scripts/lib/bsp/kernel.py | 38 ++++++++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 14 deletions(-)
+Cc: Darren Hart <dvhart@linux.intel.com>
 
-diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
-index c3592a3..1971e90 100644
---- a/scripts/lib/bsp/kernel.py
-+++ b/scripts/lib/bsp/kernel.py
-@@ -60,14 +60,12 @@ def find_bblayers(scripts_path):
-             in_bblayers = True
-             quotes = line.strip().count('"')
-             if quotes > 1:
--                break
-+                in_bblayers = False
-             continue
-         if in_bblayers:
-             bblayers_lines.append(line)
-             if line.strip().endswith("\""):
--                break
--            else:
--                continue
-+                in_bblayers = False
- 
-     for i, line in enumerate(bblayers_lines):
-         if line.strip().endswith("\\"):
-@@ -75,19 +73,31 @@ def find_bblayers(scripts_path):
- 
-     bblayers_line = " ".join(bblayers_lines)
- 
--    start_quote = bblayers_line.find("\"")
--    if start_quote == -1:
--        print "Invalid BBLAYERS found in %s, exiting" % bblayers_conf
--        sys.exit(1)
-+    openquote = ''
-+    for c in bblayers_line:
-+        if c == '\"' or c == '\'':
-+            if openquote:
-+                if c != openquote:
-+                    print "Invalid BBLAYERS found in %s, exiting" % bblayers_conf
-+                    sys.exit(1)
-+                else:
-+                    openquote = ''
-+            else:
-+                openquote = c
- 
--    start_quote += 1
--    end_quote = bblayers_line.find("\"", start_quote)
--    if end_quote == -1:
-+    if openquote:
-         print "Invalid BBLAYERS found in %s, exiting" % bblayers_conf
-         sys.exit(1)
- 
--    bblayers_line = bblayers_line[start_quote:end_quote]
--    layers = bblayers_line.split()
-+    bblayers_line = bblayers_line.strip().replace('\"', '')
-+    bblayers_line = bblayers_line.strip().replace('\'', '')
-+
-+    raw_layers = bblayers_line.split()
-+
-+    for layer in raw_layers:
-+        if layer == 'BBLAYERS' or '=' in layer:
-+            continue
-+        layers.append(layer)
- 
-     f.close()
- 
-@@ -114,7 +124,7 @@ def find_bsp_layer(scripts_path, machine):
-     layers = find_bblayers(scripts_path)
- 
-     for layer in layers:
--        if machine in layer:
-+        if layer.endswith(machine):
-             return layer
- 
-     print "Unable to find the BSP layer for machine %s." % machine
+> >> ---
+> >>   meta-yocto/conf/distro/poky-tiny.conf |    2 +-
+> >>   1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/meta-yocto/conf/distro/poky-tiny.conf
+> >> b/meta-yocto/conf/distro/poky-tiny.conf index 755667f..9d9ea3c 100644
+> >> --- a/meta-yocto/conf/distro/poky-tiny.conf
+> >> +++ b/meta-yocto/conf/distro/poky-tiny.conf
+> >> @@ -62,7 +62,7 @@ ASSUME_PROVIDED += "pkgconfig$"
+> >>
+> >>   # Reconfigure eglibc for a smaller installation
+> >>   # Comment out any of the lines below to disable them in the build
+> >> -DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt"
+> >> +DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt libc-spawn libc-rcmd"
+> >>   DISTRO_FEATURES_LIBC_TINY_append_x86-64 = " libc-libm-big"
+> >>
+> >>   # Required for "who"
+> > Is this really appropriate for poky-tiny? It seems to me it might be
+> > orthogonal to the point of poky-tiny which is to be pretty much as light as
+> > possible.
+> >
+
+All such changes should include size delta...
+
+> > Cheers,
+> > Paul
+> >
+> I added these two extra libc features because I wanted 
+> USER_GROUP_SETTINGS to have effect for poky-tiny.
+> 
+> For now, because of lack of libc features, adding packages to poky-tiny 
+> is likely to fail.
+> So the question here is, are we deciding that poky-tiny equals to 
+> 'limited-featured libc + tiny init + busybox"? If so, maybe we need to a 
+> mechanism to warn user when they try to add packages to poky-tiny.
+
+poky-tiny is meant to be a starting point, typically the approach is to
+create your own distro either derived from or copied and modified from
+poky-tiny. poky-tiny should remain a bare minimum, in fact, it should
+probably be made smaller, not larger.
+
+> 
+> Besides, removing the libc features doesn't seem to have significant 
+> effects on the size of the image.
+> 
+> chenqi@pek-qchen1-d1:~/poky$ ls -lh 
+> build-tiny/tmp/work/qemux86-poky-linux/core-image-minimal/1.0-r0/rootfs/lib/libc-2.17.so 
+> 
+> -rwxr-xr-x 1 chenqi chenqi 1.1M Jul 10 13:49 
+> build-tiny/tmp/work/qemux86-poky-linux/core-image-minimal/1.0-r0/rootfs/lib/libc-2.17.so
+> chenqi@pek-qchen1-d1:~/poky$ ls -lh 
+> build/tmp/work/qemux86-poky-linux/core-image-minimal/1.0-r0/rootfs/lib/libc-2.17.so 
+> 
+> -rwxr-xr-x 1 chenqi chenqi 1.5M Jul  3 11:23 
+> build/tmp/work/qemux86-poky-linux/core-image-minimal/1.0-r0/rootfs/lib/libc-2.17.so
+> 
+
+Am I reading that right? 400k? That's *very* significant when we're
+building sub 5MB images (including the kernel).
+
+Please use "size" instead of "ls -lh" to get a more accurate
+representation of the space usage. From my Fedora laptop by way of
+example:
+
+$ size libc-2.17.so
+   text	   data	    bss	    dec	    hex	filename
+1788428	  20840	  18944	1828212	 1be574	libc-2.17.so
+
+
+Thanks,
+
 -- 
-1.7.11.4
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Technical Lead - Linux Kernel
 
 
