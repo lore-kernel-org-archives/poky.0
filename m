@@ -1,24 +1,25 @@
-Return-Path: <Hongxu.Jia@windriver.com>
+Return-Path: <Qi.Chen@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E467CE01482
-	for <poky@yoctoproject.org>; Mon, 15 Jul 2013 01:57:24 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 42916E013B0
+	for <poky@yoctoproject.org>; Tue, 16 Jul 2013 23:13:25 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r6F8vOXI028472
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r6H6DOvo026728
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Mon, 15 Jul 2013 01:57:24 -0700 (PDT)
-Received: from pek-hjia-d1.corp.ad.wrs.com (128.224.162.194) by
+	for <poky@yoctoproject.org>; Tue, 16 Jul 2013 23:13:24 -0700 (PDT)
+Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.233) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.342.3; Mon, 15 Jul 2013 01:57:24 -0700
-From: Hongxu Jia <hongxu.jia@windriver.com>
+	14.2.342.3; Tue, 16 Jul 2013 23:13:24 -0700
+From: <Qi.Chen@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Mon, 15 Jul 2013 16:57:17 +0800
-Message-ID: <95ef1d71a85af8f313b6f3f0616c0346e1c25cac.1373877715.git.hongxu.jia@windriver.com>
-X-Mailer: git-send-email 1.8.1.2
-In-Reply-To: <cover.1373877715.git.hongxu.jia@windriver.com>
-References: <cover.1373877715.git.hongxu.jia@windriver.com>
+Date: Wed, 17 Jul 2013 14:13:34 +0800
+Message-ID: <1c701bf1559dbf7ce28ce8b4159b3347dce3b840.1374041559.git.Qi.Chen@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <cover.1374041559.git.Qi.Chen@windriver.com>
+References: <cover.1374041559.git.Qi.Chen@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH 1/1] atom-pc:fix xuser write to usb storage failed
+Cc: qingtao.cao@windriver.com
+Subject: [PATCH V6 1/1] local.conf.sample.extended: add example for EXTRA_USERS_PARAMS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,29 +32,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Jul 2013 08:57:27 -0000
+X-List-Received-Date: Wed, 17 Jul 2013 06:13:30 -0000
 Content-Type: text/plain
 
-Add package pmount to atom-pc, the normal user could invoke pmount to mount
-storage device and would have permissions to access it.
+From: Chen Qi <Qi.Chen@windriver.com>
 
-[YOCTO #4004]
+Add detailed explanation of EXTRA_USERS_PARAMS which is used for
+image level user/group configuration.
 
-Signed-off-by: Hongxu Jia <hongxu.jia@windriver.com>
+[YOCTO #4074]
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 ---
- meta-yocto-bsp/conf/machine/atom-pc.conf | 1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/local.conf.sample.extended |   15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/meta-yocto-bsp/conf/machine/atom-pc.conf b/meta-yocto-bsp/conf/machine/atom-pc.conf
-index 6318d60..127b3ad 100644
---- a/meta-yocto-bsp/conf/machine/atom-pc.conf
-+++ b/meta-yocto-bsp/conf/machine/atom-pc.conf
-@@ -35,3 +35,4 @@ GLIBC_ADDONS = "nptl"
- EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
+index 9717439..cff79e4 100644
+--- a/meta-yocto/conf/local.conf.sample.extended
++++ b/meta-yocto/conf/local.conf.sample.extended
+@@ -218,3 +218,18 @@
+ # Use the following line to enable the security compiler and linker flags to your build
+ #require conf/distro/include/security_flags.inc
  
- ROOTLESS_X = "1"
-+IMAGE_INSTALL_append = " pmount"
++# Image level user/group configuration.
++# Inherit extrausers to make the setting of EXTRA_USERS_PARAMS effective.
++#INHERIT += "extrausers"
++# User / group settings
++# The settings are sperated by the ; character.
++# Each setting is actually a command. The supported commands are useradd,
++# groupadd, userdel, groupdel, usermod and groupmod.
++#EXTRA_USERS_PARAMS = "\
++#useradd -p '' tester; \
++#groupadd developers; \
++#userdel nobody; \
++#groupdel -g video; \
++#groupmod -g 1020 developers; \
++#usermod -s /bin/sh tester; \
++#"
 -- 
-1.8.1.2
+1.7.9.5
 
 
