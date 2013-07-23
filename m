@@ -1,19 +1,38 @@
-Return-Path: <cristiana.voicu@intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5F100E013A2
-	for <poky@yoctoproject.org>; Wed, 17 Jul 2013 06:48:31 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Jul 2013 06:48:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,684,1367996400"; d="scan'208";a="371661693"
-Received: from cvoicu-vostro-460.rb.intel.com ([10.237.105.72])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Jul 2013 06:48:19 -0700
-From: Cristiana Voicu <cristiana.voicu@intel.com>
+Return-Path: <djszapi@archlinux.us>
+Received: from mail-wi0-f177.google.com (mail-wi0-f177.google.com
+	[209.85.212.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1F21E01525
+	for <poky@yoctoproject.org>; Tue, 23 Jul 2013 07:58:26 -0700 (PDT)
+Received: by mail-wi0-f177.google.com with SMTP id ey16so3140232wid.4
+	for <poky@yoctoproject.org>; Tue, 23 Jul 2013 07:58:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=sender:from:to:cc:subject:date:message-id:x-mailer
+	:x-gm-message-state;
+	bh=qK7iLRFTmwJJBTla9hjJqzRRXm4rIDfjr6MWdltom7Q=;
+	b=TU2Zgpa0qtydasZVcU/EhJ6vW7UMa+ZgcHv5gdm3wSPPSOBZ/Ow9y4eU83zx5NKzl4
+	7rvRuJDzuUbFSNsf1nH/UEupF5LDkcKsa/6GMo5HvJLzAsEWB2srSeaBFARjMcgj/1LJ
+	YzraZ8O4AEoGnXuQHPHQcurtcGtpfPK13hDNcbIjCiWc15zxbfveaPyBSBRHYOltsbXv
+	20YUXrpV5fXbbMv24eWon3N2lq1DpqtJJkWLNna2qmrqAUklIS3Hq55OyugV38GYS+2n
+	iqVwbhvF+50He4pflyMDwAd7ebMsvE5w3oEEMce4t1J3/rdROhrnDhYhuN/mun1+0b1c
+	KM4w==
+X-Received: by 10.195.12.202 with SMTP id es10mr23706405wjd.17.1374591505413; 
+	Tue, 23 Jul 2013 07:58:25 -0700 (PDT)
+Received: from djszapi@archlinux.us ([212.44.19.228])
+	by mx.google.com with ESMTPSA id l2sm6456296wif.8.2013.07.23.07.58.22
+	for <multiple recipients>
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Tue, 23 Jul 2013 07:58:24 -0700 (PDT)
+Sender: Laszlo Papp <djszapi@archlinux.us>
+Received: by djszapi@archlinux.us (sSMTP sendmail emulation);
+	Tue, 23 Jul 2013 15:56:44 +0100
+From: Laszlo Papp <lpapp@kde.org>
 To: poky@yoctoproject.org
-Date: Wed, 17 Jul 2013 16:50:32 +0300
-Message-Id: <1374069032-21676-1-git-send-email-cristiana.voicu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] poky-tiny.conf: blacklist core-image-weston option
+Date: Tue, 23 Jul 2013 15:56:43 +0100
+Message-Id: <1374591403-5078-1-git-send-email-lpapp@kde.org>
+X-Mailer: git-send-email 1.8.3.3
+X-Gm-Message-State: ALoCoQmHxyPAlFNHq6ESas/z3mtDxX30iL038/O1MfgkQx85HAUDN4oLZJhHCCLaxDC5rPDldiUP
+Subject: [PATCH] layer.conf: make the yocto layer dependent on oe-core
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,24 +45,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Jul 2013 13:48:31 -0000
+X-List-Received-Date: Tue, 23 Jul 2013 14:58:29 -0000
 
-[YOCTO #4861]
-Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
+Signed-off-by: Laszlo Papp <lpapp@kde.org>
 ---
- meta-yocto/conf/distro/poky-tiny.conf |    1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/layer.conf | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
-index 755667f..83e232a 100644
---- a/meta-yocto/conf/distro/poky-tiny.conf
-+++ b/meta-yocto/conf/distro/poky-tiny.conf
-@@ -137,3 +137,4 @@ PNBLACKLIST[core-image-sato-dev] = "not buildable with poky-tiny"
- PNBLACKLIST[core-image-sato-sdk] = "not buildable with poky-tiny"
- PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
- PNBLACKLIST[qt4e-demo-image] = "not buildable with poky-tiny"
-+PNBLACKLIST[core-image-weston] = "not buildable with poky-tiny"
+diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
+index e012f24..e326aad 100644
+--- a/meta-yocto/conf/layer.conf
++++ b/meta-yocto/conf/layer.conf
+@@ -9,3 +9,8 @@ BBFILE_COLLECTIONS += "yocto"
+ BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yocto = "5"
+ 
++# This should only be incremented on significant changes that will
++# cause compatibility issues with other layers
++LAYERVERSION_yocto = "1"
++
++LAYERDEPENDS_yocto = "core"
 -- 
-1.7.9.5
+1.8.3.3
 
 
