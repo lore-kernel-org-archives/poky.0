@@ -1,32 +1,37 @@
-Return-Path: <biannm@cn.fujitsu.com>
-Received: from song.cn.fujitsu.com (unknown [222.73.24.84])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 78F9CE01525
-	for <poky@yoctoproject.org>; Tue, 23 Jul 2013 23:57:31 -0700 (PDT)
-X-IronPort-AV: E=Sophos;i="4.89,733,1367942400"; 
-   d="scan'208";a="8003163"
-Received: from unknown (HELO tang.cn.fujitsu.com) ([10.167.250.3])
-	by song.cn.fujitsu.com with ESMTP; 24 Jul 2013 14:54:28 +0800
-Received: from fnstmail02.fnst.cn.fujitsu.com (tang.cn.fujitsu.com [127.0.0.1])
-	by tang.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id r6O6vPsJ006611;
-	Wed, 24 Jul 2013 14:57:27 +0800
-Received: from [127.0.0.1] ([10.167.226.190])
-	by fnstmail02.fnst.cn.fujitsu.com (Lotus Domino Release 8.5.3)
-	with ESMTP id 2013072414552426-81749 ;
-	Wed, 24 Jul 2013 14:55:24 +0800 
-Message-ID: <51EF7AD7.7080009@cn.fujitsu.com>
-Date: Wed, 24 Jul 2013 14:57:27 +0800
-From: Bian Naimeng <biannm@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN;
-	rv:1.9.2.28) Gecko/20120306 Lightning/1.0b2 Thunderbird/3.1.20
-MIME-Version: 1.0
-To: richard.purdie@linuxfoundation.org
-X-MIMETrack: Itemize by SMTP Server on mailserver/fnst(Release 8.5.3|September
-	15, 2011) at 2013/07/24 14:55:24,
-	Serialize by Router on mailserver/fnst(Release 8.5.3|September 15,
-	2011) at 2013/07/24 14:55:26,
-	Serialize complete at 2013/07/24 14:55:26
+Return-Path: <raj.khem@gmail.com>
+Received: from mail-pd0-f181.google.com (mail-pd0-f181.google.com
+	[209.85.192.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C12CFE01525
+	for <poky@yoctoproject.org>; Wed, 24 Jul 2013 00:02:14 -0700 (PDT)
+Received: by mail-pd0-f181.google.com with SMTP id 14so44452pdj.26
+	for <poky@yoctoproject.org>; Wed, 24 Jul 2013 00:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=content-type:mime-version:subject:from:in-reply-to:date:cc
+	:content-transfer-encoding:message-id:references:to:x-mailer;
+	bh=KJ3UZYuR2+CTVZDo8xBtXl0rbAx9EZ+CWiylpewQQsQ=;
+	b=jKK0BNmEbHnwCKGHi7EUkQHPWNpH4uoG6cPQvvlzkzKJP5/QVdq4h1mRxGiV1z1PjD
+	06fM1DFLo/Daw8PK4wXs104RxBlTM6vWbH6/F3ksg7OH+5Ne/ur+75tCYVwTwbiMV7rn
+	ya/IROsfDb6pGUZIIiKaOko0AVmojzaANd8VVIk6IigeS8eJI7qBSICjhFGICeLsijLG
+	/rl8iWM70e/0n6Kq+eD3QOtcV0GR69oYoqxBuJxSF/cj04Q5OqLF64HE5vlFdiOQXtC8
+	OeDHVv5yvwgQJ+255GyBTtYMBw4GFj2ZipUYT35TO73kYKWjPeqm5hsXwLAGA4r5Rnui
+	aFJw==
+X-Received: by 10.68.13.132 with SMTP id h4mr3367917pbc.99.1374649334010;
+	Wed, 24 Jul 2013 00:02:14 -0700 (PDT)
+Received: from ddeviny-sslvpn-nc.jnpr.net (natint3.juniper.net.
+	[66.129.224.36]) by mx.google.com with ESMTPSA id
+	ot4sm49637743pac.17.2013.07.24.00.02.12 for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Wed, 24 Jul 2013 00:02:12 -0700 (PDT)
+Mime-Version: 1.0 (Mac OS X Mail 6.5 \(1508\))
+From: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <51EF7AD7.7080009@cn.fujitsu.com>
+Date: Wed, 24 Jul 2013 00:02:11 -0700
+Message-Id: <EDC7964C-6C92-49D1-BA30-4CE95F5578A3@gmail.com>
+References: <51EF7AD7.7080009@cn.fujitsu.com>
+To: Bian Naimeng <biannm@cn.fujitsu.com>
+X-Mailer: Apple Mail (2.1508)
 Cc: poky@yoctoproject.org
-Subject: Why we release yocto on different branch
+Subject: Re: Why we release yocto on different branch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,24 +44,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Jul 2013 06:57:33 -0000
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 24 Jul 2013 07:02:15 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
 
-Why we release yocto on different branch?
- 
- Yocto Project 1.2: denzil
- Yocto Project 1.3: danny
- Yocto Project 1.4: dylan
+On Jul 23, 2013, at 11:57 PM, Bian Naimeng <biannm@cn.fujitsu.com> =
+wrote:
 
-Some questions.
-1. Do we always create a new branch to release the next Yocto Project?
-2. If so, which branch/commit the new branch start from?
-3. What's the relation between these branch?
+> Hi all,
+>=20
+> Why we release yocto on different branch?
 
-Thanks,
- bian
+These branches are from same trunk which we call master in git terms.
+
+>=20
+> Yocto Project 1.2: denzil
+> Yocto Project 1.3: danny
+> Yocto Project 1.4: dylan
+>=20
+
+yes denzil danny and dylan and so on are codenames for branches on which =
+releases are made.
+
+> Some questions.
+> 1. Do we always create a new branch to release the next Yocto Project?
+
+yes
+
+> 2. If so, which branch/commit the new branch start from?
+
+There is master branch and when the time comes the next release branch =
+is spawned from master=20
+
+> 3. What's the relation between these branch?
+
+These are release branches cut from master at some point in time.
+
+>=20
+> Thanks,
+> bian
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
 
