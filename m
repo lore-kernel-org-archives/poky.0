@@ -1,38 +1,32 @@
-Return-Path: <djszapi@archlinux.us>
-Received: from mail-wi0-f177.google.com (mail-wi0-f177.google.com
-	[209.85.212.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1F21E01525
-	for <poky@yoctoproject.org>; Tue, 23 Jul 2013 07:58:26 -0700 (PDT)
-Received: by mail-wi0-f177.google.com with SMTP id ey16so3140232wid.4
-	for <poky@yoctoproject.org>; Tue, 23 Jul 2013 07:58:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=sender:from:to:cc:subject:date:message-id:x-mailer
-	:x-gm-message-state;
-	bh=qK7iLRFTmwJJBTla9hjJqzRRXm4rIDfjr6MWdltom7Q=;
-	b=TU2Zgpa0qtydasZVcU/EhJ6vW7UMa+ZgcHv5gdm3wSPPSOBZ/Ow9y4eU83zx5NKzl4
-	7rvRuJDzuUbFSNsf1nH/UEupF5LDkcKsa/6GMo5HvJLzAsEWB2srSeaBFARjMcgj/1LJ
-	YzraZ8O4AEoGnXuQHPHQcurtcGtpfPK13hDNcbIjCiWc15zxbfveaPyBSBRHYOltsbXv
-	20YUXrpV5fXbbMv24eWon3N2lq1DpqtJJkWLNna2qmrqAUklIS3Hq55OyugV38GYS+2n
-	iqVwbhvF+50He4pflyMDwAd7ebMsvE5w3oEEMce4t1J3/rdROhrnDhYhuN/mun1+0b1c
-	KM4w==
-X-Received: by 10.195.12.202 with SMTP id es10mr23706405wjd.17.1374591505413; 
-	Tue, 23 Jul 2013 07:58:25 -0700 (PDT)
-Received: from djszapi@archlinux.us ([212.44.19.228])
-	by mx.google.com with ESMTPSA id l2sm6456296wif.8.2013.07.23.07.58.22
-	for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Tue, 23 Jul 2013 07:58:24 -0700 (PDT)
-Sender: Laszlo Papp <djszapi@archlinux.us>
-Received: by djszapi@archlinux.us (sSMTP sendmail emulation);
-	Tue, 23 Jul 2013 15:56:44 +0100
-From: Laszlo Papp <lpapp@kde.org>
-To: poky@yoctoproject.org
-Date: Tue, 23 Jul 2013 15:56:43 +0100
-Message-Id: <1374591403-5078-1-git-send-email-lpapp@kde.org>
-X-Mailer: git-send-email 1.8.3.3
-X-Gm-Message-State: ALoCoQmHxyPAlFNHq6ESas/z3mtDxX30iL038/O1MfgkQx85HAUDN4oLZJhHCCLaxDC5rPDldiUP
-Subject: [PATCH] layer.conf: make the yocto layer dependent on oe-core
+Return-Path: <biannm@cn.fujitsu.com>
+Received: from song.cn.fujitsu.com (unknown [222.73.24.84])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 78F9CE01525
+	for <poky@yoctoproject.org>; Tue, 23 Jul 2013 23:57:31 -0700 (PDT)
+X-IronPort-AV: E=Sophos;i="4.89,733,1367942400"; 
+   d="scan'208";a="8003163"
+Received: from unknown (HELO tang.cn.fujitsu.com) ([10.167.250.3])
+	by song.cn.fujitsu.com with ESMTP; 24 Jul 2013 14:54:28 +0800
+Received: from fnstmail02.fnst.cn.fujitsu.com (tang.cn.fujitsu.com [127.0.0.1])
+	by tang.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id r6O6vPsJ006611;
+	Wed, 24 Jul 2013 14:57:27 +0800
+Received: from [127.0.0.1] ([10.167.226.190])
+	by fnstmail02.fnst.cn.fujitsu.com (Lotus Domino Release 8.5.3)
+	with ESMTP id 2013072414552426-81749 ;
+	Wed, 24 Jul 2013 14:55:24 +0800 
+Message-ID: <51EF7AD7.7080009@cn.fujitsu.com>
+Date: Wed, 24 Jul 2013 14:57:27 +0800
+From: Bian Naimeng <biannm@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN;
+	rv:1.9.2.28) Gecko/20120306 Lightning/1.0b2 Thunderbird/3.1.20
+MIME-Version: 1.0
+To: richard.purdie@linuxfoundation.org
+X-MIMETrack: Itemize by SMTP Server on mailserver/fnst(Release 8.5.3|September
+	15, 2011) at 2013/07/24 14:55:24,
+	Serialize by Router on mailserver/fnst(Release 8.5.3|September 15,
+	2011) at 2013/07/24 14:55:26,
+	Serialize complete at 2013/07/24 14:55:26
+Cc: poky@yoctoproject.org
+Subject: Why we release yocto on different branch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,27 +39,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Jul 2013 14:58:29 -0000
+X-List-Received-Date: Wed, 24 Jul 2013 06:57:33 -0000
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Laszlo Papp <lpapp@kde.org>
----
- meta-yocto/conf/layer.conf | 5 +++++
- 1 file changed, 5 insertions(+)
+Hi all,
 
-diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
-index e012f24..e326aad 100644
---- a/meta-yocto/conf/layer.conf
-+++ b/meta-yocto/conf/layer.conf
-@@ -9,3 +9,8 @@ BBFILE_COLLECTIONS += "yocto"
- BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
- BBFILE_PRIORITY_yocto = "5"
+Why we release yocto on different branch?
  
-+# This should only be incremented on significant changes that will
-+# cause compatibility issues with other layers
-+LAYERVERSION_yocto = "1"
-+
-+LAYERDEPENDS_yocto = "core"
--- 
-1.8.3.3
+ Yocto Project 1.2: denzil
+ Yocto Project 1.3: danny
+ Yocto Project 1.4: dylan
+
+Some questions.
+1. Do we always create a new branch to release the next Yocto Project?
+2. If so, which branch/commit the new branch start from?
+3. What's the relation between these branch?
+
+Thanks,
+ bian
 
 
