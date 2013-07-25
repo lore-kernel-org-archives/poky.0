@@ -1,37 +1,36 @@
 Return-Path: <ross.burton@intel.com>
-Received: from mail-wi0-f182.google.com (mail-wi0-f182.google.com
-	[209.85.212.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F1013E014F5
+Received: from mail-wg0-f50.google.com (mail-wg0-f50.google.com [74.125.82.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 53396E0152B
+	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 09:42:04 -0700 (PDT)
+Received: by mail-wg0-f50.google.com with SMTP id m15so1868329wgh.17
 	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 09:42:03 -0700 (PDT)
-Received: by mail-wi0-f182.google.com with SMTP id m6so2037538wiv.3
-	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 09:42:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
 	h=from:to:subject:date:message-id:x-mailer:in-reply-to:references
 	:x-gm-message-state;
-	bh=Qwld36Jde/C+jPjdJc1HU+q35Em82ZPHhtQkQZ31Of0=;
-	b=dFUMTTe8nqb2sd9bqbZNZ24SyQO0MHgTZqlp5F0d/Je6Z00pWiVqthStnlQImuih60
-	6mPBuiuU2IYpXAHe6JEde4iJFHitBgUcRySxamu7qJ1feOV0BCgBtkBHkclcrCjrBHLn
-	D7W8tO0z6rziFB4ty+GIW1I+Pl/Zhx8m4DAXI6Mr68gPCSZ9qGUs+7qPbwCmZ0Yufpzv
-	NtDFc2JjQdMDQqWJvCSWz4V0fUR1OhMhIPFg/oxZM6F3nL8Pff/iFBDyppmKvwUQA/B9
-	2kuAAroZGSi0dN4rdtgbPSnVlyu3P+BQLNmAZDhFC836WHUUHXmxLk7/vsp5ibGD08US
-	LjFQ==
-X-Received: by 10.194.109.104 with SMTP id hr8mr31317292wjb.32.1374770522485; 
-	Thu, 25 Jul 2013 09:42:02 -0700 (PDT)
+	bh=Kn3w64oErr5H9Px9R+dGnlV2uq4jpCFfnh/VyDamzbc=;
+	b=UB5ITMsS2y4rnegPbI6QLa7m3BV73CBGCaTUSVPDyw7hii8s+3LrH2Yn3J5s0YWUWJ
+	zS8LSClivCHqMV7l9rG837KpfZvJN+rtcOPQtT9L1XikjcfVwAW43x33gytIDF3ln4++
+	rRQFPlyR5dri20YwJAd1U7ZytYlgM6cPlrONPXAo06W43X/coiIfn1lwv2qdU8zyBMEQ
+	KrOsQn2SWV7zT6sUSZUIDBF8UFszWo8EB6YguwbLAp445RZWjWDsBgsJIQBVryIAY1vb
+	YkAvzxdJ8JrcfIIsCs1PBvwd48zGHR8d6ET45arEEW15IzzB4OlHH1fWmud/W0GfGBbo
+	fpXQ==
+X-Received: by 10.180.185.84 with SMTP id fa20mr1998477wic.49.1374770523740;
+	Thu, 25 Jul 2013 09:42:03 -0700 (PDT)
 Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id l2sm4909463wif.8.2013.07.25.09.42.00
+	by mx.google.com with ESMTPSA id l2sm4909463wif.8.2013.07.25.09.42.02
 	for <poky@yoctoproject.org>
 	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Thu, 25 Jul 2013 09:42:01 -0700 (PDT)
+	Thu, 25 Jul 2013 09:42:03 -0700 (PDT)
 From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 25 Jul 2013 17:38:01 +0100
-Message-Id: <1374770285-22235-3-git-send-email-ross.burton@intel.com>
+Date: Thu, 25 Jul 2013 17:38:02 +0100
+Message-Id: <1374770285-22235-4-git-send-email-ross.burton@intel.com>
 X-Mailer: git-send-email 1.7.10.4
 In-Reply-To: <1374770285-22235-1-git-send-email-ross.burton@intel.com>
 References: <1374770285-22235-1-git-send-email-ross.burton@intel.com>
-X-Gm-Message-State: ALoCoQmYelQ/l+Pt57Xt3mYRJ7YpPUMjYQzfGZQEEOqP5N4dgj+dfG5GjHP+6++ZbHyBY9zqY9DB
-Subject: [PATCH 2/6] local.conf.sample: add genericx86 reference
+X-Gm-Message-State: ALoCoQm5E+SGb6kGGq3puLjOPB8dJbVv6hXIz5KcajX7T7nIRF0+kPZj2un6kmBRxUtE6qE3mM39
+Subject: [PATCH 3/6] genericx86: add fbdev, modesettings and vesa Xorg drivers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,25 +43,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Jul 2013 16:42:04 -0000
+X-List-Received-Date: Thu, 25 Jul 2013 16:42:05 -0000
+
+This should ensure that X can start on more hardware.  The range of hardware is
+still small as the atom-pc kernel only has limited framebuffer devices currently
+(e.g. no nVidia).
 
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto/conf/local.conf.sample |    1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto-bsp/conf/machine/genericx86.conf |    3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
-index 2d89282..b6c26d5 100644
---- a/meta-yocto/conf/local.conf.sample
-+++ b/meta-yocto/conf/local.conf.sample
-@@ -44,6 +44,7 @@
- #
- #MACHINE ?= "atom-pc"
- #MACHINE ?= "beagleboard"
-+#MACHINE ?= "genericx86"
- #MACHINE ?= "mpc8315e-rdb"
- #MACHINE ?= "routerstationpro"
- #
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index 6318d60..2154943 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -18,6 +18,9 @@ XSERVER ?= "xserver-xorg \
+            xf86-input-keyboard \
+            xf86-input-evdev \
+            xf86-input-synaptics \
++           xf86-video-fbdev \
++           xf86-video-modesetting \
++           xf86-video-vesa \
+            xf86-video-intel \
+            mesa-driver-i915 \
+            mesa-driver-i965"
 -- 
 1.7.10.4
 
