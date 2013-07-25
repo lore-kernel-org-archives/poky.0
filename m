@@ -1,29 +1,19 @@
-Return-Path: <bevenson@melinkcorp.com>
-Received: from pluto.melinkcorp.com (rrcs-98-100-91-244.central.biz.rr.com
-	[98.100.91.244])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 71C86E013A2
-	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 05:28:29 -0700 (PDT)
-Received: from pluto.melinkcorp.local ([10.0.2.4]) by pluto.melinkcorp.local
-	([10.0.2.4]) with mapi; Thu, 25 Jul 2013 08:28:29 -0400
-From: Bryan Evenson <bevenson@melinkcorp.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Date: Thu, 25 Jul 2013 08:28:29 -0400
-Thread-Topic: [poky] Default root password without 'debug-tweaks'?
-Thread-Index: Ac6JLpzP4+J/LefmRk2yrxy7BBCUCgAAJgxg
-Message-ID: <91586D499ADFD74FBCFB8425266A5DE40153AD977600@pluto.melinkcorp.local>
-References: <91586D499ADFD74FBCFB8425266A5DE40153AD9774C7@pluto.melinkcorp.local>
-	<14175503.PQSq1zm65A@helios>
-	<91586D499ADFD74FBCFB8425266A5DE40153AD9775E1@pluto.melinkcorp.local>
-	<1925526.xFDIqGSNAm@helios>
-In-Reply-To: <1925526.xFDIqGSNAm@helios>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-vipre-scanned: 002D4A49004D8A002D4B96
-acceptlanguage: en-US
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Default root password without 'debug-tweaks'?
+Return-Path: <emilia.maria.silvia.ciobanu@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9B977E013A2
+	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 06:15:21 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 25 Jul 2013 06:15:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,743,1367996400"; d="scan'208";a="273118962"
+Received: from ema-vostro-460.rb.intel.com ([10.237.105.147])
+	by AZSMGA002.ch.intel.com with ESMTP; 25 Jul 2013 06:15:20 -0700
+From: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
+To: poky@yoctoproject.org
+Date: Thu, 25 Jul 2013 16:23:07 +0300
+Message-Id: <1374758587-17767-1-git-send-email-emilia.maria.silvia.ciobanu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] maintainers.inc: Update maintainer for lsb recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,70 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Jul 2013 12:28:34 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 25 Jul 2013 13:15:22 -0000
 
-Paul,
+Signed-off-by: Emilia Ciobanu <emilia.maria.silvia.ciobanu@intel.com>
+---
+ meta-yocto/conf/distro/include/maintainers.inc |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-From looking at the patch series Chen Qi recently posted about the
-EXTRA_USER_PARAMS, one could do the following in your local.conf:
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index db50531..9413ed1 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -480,7 +480,7 @@ RECIPE_MAINTAINER_pn-lrzsz = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-lsbinitscripts = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-lsbsetup = "Yi Zhao <yi.zhao@windriver.com>"
+ RECIPE_MAINTAINER_pn-lsbtest = "Yi Zhao <yi.zhao@windriver.com>"
+-RECIPE_MAINTAINER_pn-lsb = "Yi Zhao <yi.zhao@windriver.com>"
++RECIPE_MAINTAINER_pn-lsb = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-lsof = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
+ RECIPE_MAINTAINER_pn-ltp = "Mihai Lindner <mihaix.lindner@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-lttng-modules = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
+-- 
+1.7.9.5
 
-require conf/distro/include/security_flags.inc
-INHERIT +=3D "extrausers"
-EXTRA_USERS_PARAMS =3D "\
-    usermod -p 'encrypted_password' root; \
-"
-
-If I understand correctly, that should change the root password
-to the listed encrypted password.  But that still leaves the problem
-of getting the encrypted root password.  Changing the password on
-the hardware and then viewing the encrypted password under
-/etc/shadow is a little messy, but I'm at a loss for a better
-solution that is guaranteed to work.  You could use crypt or
-mcrypt to encrypt a file containing the password in plaintext on
-the host, but you have to know the encryption algorithm used on
-the target filesystem.
-
-If anyone knows of a better way to create the encrypted password
-that would be used by the target, I'm open to suggestions.
-
-Thanks,
-Bryan
-
-> -----Original Message-----
-> From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]
-> Sent: Thursday, July 25, 2013 8:01 AM
-> To: Bryan Evenson
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] Default root password without 'debug-tweaks'?
->=20
-> On Thursday 25 July 2013 07:53:20 Bryan Evenson wrote:
-> > Thank you for the explanation.  And just earlier this morning, I
-> found
-> > this description of how to change the root password for an image:
-> > http://bec-systems.com/site/967/setting-the-root-password-in-an-
-> openem
-> > bedded
-> > -image.
-> >
-> > If this would be a suggested method of performing the task, I could
-> > write a patch for the documentation to add the details about the root
-> > account being locked and the suggested method for modifying the root
-> > password.  If you could point me to a good place to add this detail,
-> > I'll send out a patch.
->=20
-> Hmm, that method does seem a bit messy though. Ideally there would be a
-> simple method available that didn't require you to boot the target
-> system. Presumably it wouldn't be too hard to do it using tools on the
-> host.
->=20
-> Cheers,
-> Paul
->=20
-> --
->=20
-> Paul Eggleton
-> Intel Open Source Technology Centre
 
