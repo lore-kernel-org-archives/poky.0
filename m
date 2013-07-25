@@ -1,22 +1,33 @@
-Return-Path: <laurentiu.palcu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0EBCE01363
-	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 07:15:12 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 25 Jul 2013 07:15:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,743,1367996400"; d="scan'208";a="273146236"
-Received: from lpalcu-linux.rb.intel.com (HELO lpalcu-linux) ([10.237.105.165])
-	by AZSMGA002.ch.intel.com with ESMTP; 25 Jul 2013 07:14:44 -0700
-Date: Thu, 25 Jul 2013 17:14:43 +0300
-From: Laurentiu Palcu <laurentiu.palcu@intel.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-wg0-f54.google.com (mail-wg0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D5C6E01363
+	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 09:42:00 -0700 (PDT)
+Received: by mail-wg0-f54.google.com with SMTP id n12so1847715wgh.21
+	for <poky@yoctoproject.org>; Thu, 25 Jul 2013 09:41:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=from:to:subject:date:message-id:x-mailer:x-gm-message-state;
+	bh=HJyR9lS0DlpAJxJ60y6UaRK1eRIxMMCADMsw73u1OOw=;
+	b=TQ/QHtDvGXDbLsfWY9unwi6yBSG84WFkrB4GTeUiwr2+BMwKqAjmQyedUEIMFHX6pg
+	+3rgDnY7ihJpDKFv2xAjjVcmDWnxZP8EOreupDv5nMhPFn7D9L8o9cbofRgueTyldKiW
+	SCiY+uEc4xJ8kf1LEH8Q+jHu5nLh3UWFt0o/qX5lwZMUrwLfB19K4LSZ3MCtvRdsLZZg
+	5ciQsS0yWZZ6HyrJMIzFWRg6HwlWmpKGrwnX2M8pc8lXSZpjrQhqugoQ0drG3+XAV14Z
+	DCFgSuJmRTDMlGBCMCSV3LyIEZAhZ49sPsnehnQ4+Mlk2ZjQgnPsRl3X9t3HS1HEIwAh
+	sYaA==
+X-Received: by 10.180.183.180 with SMTP id en20mr2670422wic.58.1374770519228; 
+	Thu, 25 Jul 2013 09:41:59 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPSA id l2sm4909463wif.8.2013.07.25.09.41.57
+	for <poky@yoctoproject.org>
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Thu, 25 Jul 2013 09:41:58 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Message-ID: <20130725141443.GG23828@lpalcu-linux>
-References: <1374760969-12776-1-git-send-email-laurentiu.palcu@intel.com>
-MIME-Version: 1.0
-In-Reply-To: <1374760969-12776-1-git-send-email-laurentiu.palcu@intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Subject: Re: [PATCH] update maintainers.inc
+Date: Thu, 25 Jul 2013 17:37:59 +0100
+Message-Id: <1374770285-22235-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+X-Gm-Message-State: ALoCoQnFCzghFfh8DfshOPKV2qnou7hwkisJJ3ZO62xoZhFbirPEG2wwcBMJ3GU9f0llo1gasa3T
+Subject: [RFC] New x86 Super BSP
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,409 +40,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Jul 2013 14:15:16 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Thu, 25 Jul 2013 16:42:01 -0000
 
-Ignore this patch, I'll send another patch that will include Emilia's
-patch and a few other changes.
+Hi,
 
-Sorry for spam,
-Laurentiu
+This is a RFC and not for merging just yet.  The goal is a BSP in meta-yocto-bsp
+to replace atom-pc that supports "most" comtempory x86 hardware.  It starts off
+as atom-pc but adds more X drivers, more firmware, and more framebuffer kernel
+drivers.  Next up, more network drivers, more open X drivers and [handwaves]
+stuff.  The precise set of hardware that this is expected to mostly work on
+isn't settled on yet so feedback and boot testing is welcome.
 
-On Thu, Jul 25, 2013 at 05:02:49PM +0300, Laurentiu Palcu wrote:
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@intel.com>
-> ---
->  meta-yocto/conf/distro/include/maintainers.inc |  142 ++++++++++++------------
->  1 file changed, 71 insertions(+), 71 deletions(-)
-> 
-> diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-> index 1ecafe7..1d943b8 100644
-> --- a/meta-yocto/conf/distro/include/maintainers.inc
-> +++ b/meta-yocto/conf/distro/include/maintainers.inc
-> @@ -45,9 +45,9 @@ RECIPE_MAINTAINER_pn-atk = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-at = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-attr = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-augeas = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-autoconf = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-autogen = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-automake = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-autoconf = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-autogen = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-automake = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-avahi-ui = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-avahi = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-babeltrace = "Radu Moisan <radu.moisan@intel.com>"
-> @@ -55,12 +55,12 @@ RECIPE_MAINTAINER_pn-base-files = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-base-passwd = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-bash = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-bc = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-bdwgc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-bdwgc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-beecrypt = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-bigreqsproto = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-bind = "Kai Kang <kai.kang@windriver.com>"
-> -RECIPE_MAINTAINER_pn-binutils = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-bison = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-binutils = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-bison = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-blktool = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-blktrace = "Tom Zanussi <tom.zanussi@intel.com>"
->  RECIPE_MAINTAINER_pn-bluez4 = "Cristian Iorga <cristian.iorga@intel.com>"
-> @@ -68,11 +68,11 @@ RECIPE_MAINTAINER_pn-bluez-dtl1-workaround = "Cristian Iorga <cristian.iorga@int
->  RECIPE_MAINTAINER_pn-bluez-hcidump = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-boost-jam-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-boost = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-btrfs-tools = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-btrfs-tools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-build-appliance-image = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-builder = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-busybox = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-byacc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-byacc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-bzip2 = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-cairo = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-calibrateproto = "Constantin Musca <constantinx.musca@intel.com>"
-> @@ -142,11 +142,11 @@ RECIPE_MAINTAINER_pn-dbus-glib = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-dbus-wait = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-dhcp = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-diffstat = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-diffstat = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-diffutils = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-directfb-examples = "Kai Kang <kai.kang@windriver.com>"
->  RECIPE_MAINTAINER_pn-directfb = "Kai Kang <kai.kang@windriver.com>"
-> -RECIPE_MAINTAINER_pn-distcc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-distcc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-distcc-config = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-dmxproto = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-docbook-dsssl-stylesheet = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-> @@ -167,7 +167,7 @@ RECIPE_MAINTAINER_pn-ed = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-eds-tools = "Wenzong Fan <wenzong.fan@windriver.com>"
->  RECIPE_MAINTAINER_pn-eee-acpi-scripts = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-eggdbus = "Cristian Iorga <cristian.iorga@intel.com>"
-> -RECIPE_MAINTAINER_pn-eglibc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-eglibc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-eglibc-locale = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-eglibc-mtrace = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-eglibc-scripts = "Saul Wold <sgw@linux.intel.com>"
-> @@ -184,7 +184,7 @@ RECIPE_MAINTAINER_pn-file = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-findutils = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-fixesproto = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-flac = "Cristian Iorga <cristian.iorga@intel.com>"
-> -RECIPE_MAINTAINER_pn-flex = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-flex = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-font-alias = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-fontcacheproto = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-fontconfig = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> @@ -194,33 +194,33 @@ RECIPE_MAINTAINER_pn-foomatic-filters = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-formfactor = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-fotowall = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-freetype = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-fstests = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-fuse = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-fstests = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-fuse = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-gaku = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-galago-daemon = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gamin = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-gawk = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-gcc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-gccmakedep = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-gcc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-gccmakedep = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-gcc-runtime = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-gconf-dbus = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-gconf-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-gconf = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-gdb = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-gdb = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-gdbm = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-gdk-pixbuf-csource-native = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gdk-pixbuf = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-genext2fs = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-genext2fs = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-gettext-minimal-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-gettext = "Wenzong Fan <wenzong.fan@windriver.com>"
->  RECIPE_MAINTAINER_pn-ghostscript = "Kai Kang <kai.kang@windriver.com>"
-> -RECIPE_MAINTAINER_pn-git = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-git = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-glew = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-glib-2.0 = "Cristian Iorga <cristian.iorga@intel.com>"
-> -RECIPE_MAINTAINER_pn-glibc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-glibc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-glib-networking = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-glproto = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-gmp = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-gmp = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-gnome-common = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gnome-desktop = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gnome-doc-utils = "Constantin Musca <constantinx.musca@intel.com>"
-> @@ -230,7 +230,7 @@ RECIPE_MAINTAINER_pn-gnome-mime-data = "Constantin Musca <constantinx.musca@inte
->  RECIPE_MAINTAINER_pn-gnome-settings-daemon = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gnome-terminal = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gnome-vfs = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-gnu-config = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-gnu-config = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-gnupg = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-gnutls = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gobject-introspection = "Kai Kang <kai.kang@windriver.org>"
-> @@ -268,7 +268,7 @@ RECIPE_MAINTAINER_pn-gtk-theme-torturer = "Constantin Musca <constantinx.musca@i
->  RECIPE_MAINTAINER_pn-gtk-update-icon-cache-native = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gtk+ = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-gtk+3 = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-guile = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-guile = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-guilt-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-gupnp-av = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-gupnp = "Radu Moisan <radu.moisan@intel.com>"
-> @@ -296,7 +296,7 @@ RECIPE_MAINTAINER_pn-initramfs-live-install = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-initscripts = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-inputproto = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-insserv = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-> -RECIPE_MAINTAINER_pn-intltool = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-intltool = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-iproute2 = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-iptables = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-iputils = "Radu Moisan <radu.moisan@intel.com>"
-> @@ -312,12 +312,12 @@ RECIPE_MAINTAINER_pn-kconfig-frontends-native = "Saul Wold <sgw@linux.intel.com>
->  RECIPE_MAINTAINER_pn-kconfig-frontends = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-kernelshark = "Darren Hart <dvhart@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-kern-tools-native = "Bruce Ashfield <bruce.ashfield@windriver.com>"
-> -RECIPE_MAINTAINER_pn-kexec-tools = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-kexec-tools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-keymaps = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-kf = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-kmod = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-lame = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-latencytop = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-latencytop = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-ldconfig-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-leafpad = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-less = "Saul Wold <sgw@linux.intel.com>"
-> @@ -334,7 +334,7 @@ RECIPE_MAINTAINER_pn-libcgroup = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libcheck = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libclass-isa-perl-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libclass-isa-perl = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libcroco = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-libdaemon = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libdmx = "Radu Moisan <radu.moisan@intel.com>"
-> @@ -375,12 +375,12 @@ RECIPE_MAINTAINER_pn-libice = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-libiconv = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libid3tag = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-libidn = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-libjson = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libjson = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libksba = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-liblbxutil = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-libmad = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libmatchbox = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-libmpc = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libmpc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libmusicbrainz = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-libnewt = "Kai Kang <kai.kang@windriver.com>"
->  RECIPE_MAINTAINER_pn-libnfsidmap = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-> @@ -402,7 +402,7 @@ RECIPE_MAINTAINER_pn-libowl = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-libpam = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-libpcap = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-libpciaccess = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> -RECIPE_MAINTAINER_pn-libpcre = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libpcre = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libpng = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-libpng12 = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-libpod-plainer-perl-native = "Saul Wold <sgw@linux.intel.com>"
-> @@ -420,11 +420,11 @@ RECIPE_MAINTAINER_pn-libsyncml = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-libtasn1 = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-libtelepathy = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-libtheora = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-libtimedate-perl = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libtimedate-perl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libtirpc = "Cristian Iorga <cristian.iorga@intel.com>"
-> -RECIPE_MAINTAINER_pn-libtool = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libtool = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libunique = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-libunistring = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libunistring = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-liburcu = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-liburi-perl = "Kai Kang <kai.kang@windriver.com>"
->  RECIPE_MAINTAINER_pn-libusb1 = "Saul Wold <sgw@linux.intel.com>"
-> @@ -456,7 +456,7 @@ RECIPE_MAINTAINER_pn-libxklavier = "Constantin Musca <constantinx.musca@intel.co
->  RECIPE_MAINTAINER_pn-libxml2 = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libxml-namespacesupport-perl-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libxml-namespacesupport-perl = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-libxml-parser-perl = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-libxml-parser-perl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-libxml-perl = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-libxml-sax-perl = "Kai Kang <kai.kang@windriver.com>"
->  RECIPE_MAINTAINER_pn-libxml-simple-perl = "Saul Wold <sgw@linux.intel.com>"
-> @@ -496,18 +496,18 @@ RECIPE_MAINTAINER_pn-lsbinitscripts = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-lsbsetup = "Yi Zhao <yi.zhao@windriver.com>"
->  RECIPE_MAINTAINER_pn-lsbtest = "Yi Zhao <yi.zhao@windriver.com>"
->  RECIPE_MAINTAINER_pn-lsb = "Yi Zhao <yi.zhao@windriver.com>"
-> -RECIPE_MAINTAINER_pn-lsof = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-lsof = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-ltp = "Mihai Lindner <mihaix.lindner@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-lttng-modules = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-lttng-tools = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-lttng-ust = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-lttng-modules = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-lttng-tools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-lttng-ust = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-lzop-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-lzop = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-lzo = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-m4 = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-m4 = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-mailx = "Kai Kang <kai.kang@windriver.com>"
-> -RECIPE_MAINTAINER_pn-make = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-makedepend = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-make = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-makedepend = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-makedevs = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-man-pages = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-man = "Saul Wold <sgw@linux.intel.com>"
-> @@ -553,14 +553,14 @@ RECIPE_MAINTAINER_pn-modutils-collateral = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-modutils-initscripts = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-modutils-initscripts = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-mpeg2dec = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-mpfr = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-mpfr = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-msmtp = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-msynctool = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-mtdev = "Ross Burton <ross.burton@intel.com>"
->  RECIPE_MAINTAINER_pn-mtd-utils = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-mtools = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-mx-1.0 = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-nasm = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-nasm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-nativesdk-cmake = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-nativesdk-dtc = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-nativesdk-eglibc-initial = "Saul Wold <sgw@linux.intel.com>"
-> @@ -597,8 +597,8 @@ RECIPE_MAINTAINER_pn-opkg-config-base = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-opkg_nogpg = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-opkg = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-opkg-utils = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-oprofile = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-oprofileui = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-oprofile = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-oprofileui = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-oprofileui-server = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-ossp-uuid-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-ossp-uuid = "Saul Wold <sgw@linux.intel.com>"
-> @@ -635,14 +635,14 @@ RECIPE_MAINTAINER_pn-packagegroup-self-hosted = "Saul Wold <sgw@linux.intel.com>
->  RECIPE_MAINTAINER_pn-package-index = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-pango = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-parted = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-patch = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-patch = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-pax-utils = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-pax = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-pciutils = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-pcmanfm = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-pcmciautils = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-perf = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-perl = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-perl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-pigz-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-pigz = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-pixman = "Constantin Musca <constantinx.musca@intel.com>"
-> @@ -657,8 +657,8 @@ RECIPE_MAINTAINER_pn-poppler-data = "Constantin Musca <constantinx.musca@intel.c
->  RECIPE_MAINTAINER_pn-poppler = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-popt = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-portmap = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-postinsts = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-powertop = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-postinsts = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-powertop = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-ppp = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-ppp-dialin = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-prelink = "Mark Hatle <mark.hatle@windriver.com>"
-> @@ -670,22 +670,22 @@ RECIPE_MAINTAINER_pn-psplash = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-pth = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-pulseaudio = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-puzzles = "Constantin Musca <constantinx.musca@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-argparse-native = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-argparse = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-dbus = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-gst = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-imaging = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-pycairo = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-pycurl = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-pygobject = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-pygtk = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-pyrex = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-scons = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-setuptools-native = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-setuptools = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-smartpm-native = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-python-smartpm = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-argparse-native = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-argparse = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-dbus = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-gst = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-imaging = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-pycairo = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-pycurl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-pygobject = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-pygtk = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-pyrex = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-scons = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-setuptools-native = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-setuptools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-smartpm-native = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-python-smartpm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-qemu-config = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-qemugl ="Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-qemu-helper-nativesdk = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-> @@ -702,7 +702,7 @@ RECIPE_MAINTAINER_pn-qt-demo-init = "Paul Eggleton <paul.eggleton@linux.intel.co
->  RECIPE_MAINTAINER_pn-qt-mobility-embedded = "Paul Eggleton <paul.eggleton@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-qt-mobility-x11 = "Paul Eggleton <paul.eggleton@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-quicky = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-quilt = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-quilt = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-quota = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-randrproto = "Constantin Musca <constantinx.musca@intel.com>"
->  RECIPE_MAINTAINER_pn-readline = "Saul Wold <sgw@linux.intel.com>"
-> @@ -744,8 +744,8 @@ RECIPE_MAINTAINER_pn-sqlite3 = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-squashfs-tools = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-startup-notification = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-stat = "Radu Moisan <radu.moisan@intel.com>"
-> -RECIPE_MAINTAINER_pn-strace = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-subversion = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-strace = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-subversion = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-sudo = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
->  RECIPE_MAINTAINER_pn-swabber-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-sysfsutils = "Saul Wold <sgw@linux.intel.com>"
-> @@ -760,8 +760,8 @@ RECIPE_MAINTAINER_pn-sysvinit = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-taglib = "Cristian Iorga <cristian.iorga@intel.com>"
->  RECIPE_MAINTAINER_pn-tar-replacement-native = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-tar = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-> -RECIPE_MAINTAINER_pn-tcf-agent = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> -RECIPE_MAINTAINER_pn-tcl = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-tcf-agent = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-> +RECIPE_MAINTAINER_pn-tcl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-tcp-wrappers = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-tcp-wrappers = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-telepathy-farsight = "Cristian Iorga <cristian.iorga@intel.com>"
-> @@ -791,7 +791,7 @@ RECIPE_MAINTAINER_pn-u-boot-mkimage = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-udev-extraconf = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-udev = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-unfs-server-native = "Saul Wold <sgw@linux.intel.com>"
-> -RECIPE_MAINTAINER_pn-unifdef = "Bogdan Marinescu <bogdan.a.marinescu@intel.com>"
-> +RECIPE_MAINTAINER_pn-unifdef = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
->  RECIPE_MAINTAINER_pn-unzip = "Radu Moisan <radu.moisan@intel.com>"
->  RECIPE_MAINTAINER_pn-update-alternatives-dpkg = "Saul Wold <sgw@linux.intel.com>"
->  RECIPE_MAINTAINER_pn-update-rc.d = "Radu Moisan <radu.moisan@intel.com>"
-> -- 
-> 1.7.9.5
-> 
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Ross
+
 
