@@ -1,37 +1,36 @@
 Return-Path: <ross.burton@intel.com>
-Received: from mail-we0-f169.google.com (mail-we0-f169.google.com
-	[74.125.82.169])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0F55DE01564
-	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 09:23:13 -0700 (PDT)
-Received: by mail-we0-f169.google.com with SMTP id n5so3449501wev.28
-	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 09:23:12 -0700 (PDT)
+Received: from mail-wg0-f44.google.com (mail-wg0-f44.google.com [74.125.82.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2D656E0156C
+	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 09:23:14 -0700 (PDT)
+Received: by mail-wg0-f44.google.com with SMTP id l18so5003718wgh.11
+	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 09:23:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
 	h=from:to:subject:date:message-id:x-mailer:in-reply-to:references
 	:x-gm-message-state;
-	bh=t1sKRhac4lXwDSKQL3VPbbtwnUFiLl2AnnaAxG89mMs=;
-	b=GYX9y6F4JaHj4e6uLw6xk0BNUi5xlYz40q3GeOzoLDh/wjgblmTA71G+eAEeHRgTcH
-	Mdt8MMhWTxGWLo+jsErDniU9keDVHQRLZz968lftjE4R9Lbtt7KkbJeB5IM9xhfj45Am
-	QrQqsrt4LbKE341RPxC5haLlFCQYNz9llc77rrKeExV5jwdwxy253zN6Vkqe7xhyR9Z+
-	GCgMpkd3ShNMt8jmZvsDJEfBHrRZM6B9nPLpQSJUx+44eh3x81sKQdHWLH7T6qLbU7xg
-	SFRZWT84NHBhTGhn89QJG7Zz5d2phk3aooYeQPbtywBtQD2bmK2lQidyeB5aezIDqR32
-	Uv2A==
-X-Received: by 10.194.249.231 with SMTP id yx7mr44304983wjc.13.1375114992541; 
-	Mon, 29 Jul 2013 09:23:12 -0700 (PDT)
+	bh=jm4j8yA2c+FlIHq+fNf5FIN1O3l+0I+qHr8761O0eoY=;
+	b=CFx2CzdUyfyCAcQ2xR3Mwq5HbQ1VHPxQvgIuet8xzy4ujax5u62m/OM36brV3pIiZb
+	AgGYQSTlVMyaQAKCGs6xqWXR/tyO7l1OPJ30DWAS58nV7oOgPfPay1AXveaGxsidO3Pg
+	/4wQIyoHo5/1Uld1pSFX6Eguh9v3ervZF3iiEly4rr15ISJ4IRHKiTQ4AbIuIEAMJ2Gu
+	R8SveNiHYHD+sYtp+jIgHa0OndJ7jK5oKEszNPzy11sdBluwiAxn2ZQz/UNoNGVS5ny2
+	XUEO9BjoAw8qPfx8yoQpN6hHl5HwK1fkHfYX7ctlqMjWz1YRk4if+FL4LIADBIQSfn41
+	AW9g==
+X-Received: by 10.180.75.16 with SMTP id y16mr7789553wiv.59.1375114993990;
+	Mon, 29 Jul 2013 09:23:13 -0700 (PDT)
 Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id e7sm3679164wiy.4.2013.07.29.09.23.11
+	by mx.google.com with ESMTPSA id e7sm3679164wiy.4.2013.07.29.09.23.12
 	for <poky@yoctoproject.org>
 	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 29 Jul 2013 09:23:11 -0700 (PDT)
+	Mon, 29 Jul 2013 09:23:13 -0700 (PDT)
 From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 29 Jul 2013 17:22:56 +0100
-Message-Id: <1375114978-28831-4-git-send-email-ross.burton@intel.com>
+Date: Mon, 29 Jul 2013 17:22:57 +0100
+Message-Id: <1375114978-28831-5-git-send-email-ross.burton@intel.com>
 X-Mailer: git-send-email 1.7.10.4
 In-Reply-To: <1375114978-28831-1-git-send-email-ross.burton@intel.com>
 References: <1375114978-28831-1-git-send-email-ross.burton@intel.com>
-X-Gm-Message-State: ALoCoQmvsdM1Ty1WRt3lbtekUxU5WHjmW2ZMQfMNP4ogjO4m1/mRMml+P9ZxowwOgAFlGXpRaiQI
-Subject: [PATCH 3/5] genericx86: add fbdev, modesettings and vesa Xorg drivers
+X-Gm-Message-State: ALoCoQmzak3g7+WcmqV3LDhiqGTDfmomeau3/R+EseuY3iHzXGGKTz7j7uF0kL3MO8x3d7oDq+hl
+Subject: [PATCH 4/5] genericx86: disable rootless X
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,29 +45,24 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 29 Jul 2013 16:23:16 -0000
 
-This should ensure that X can start on more hardware.  The range of hardware is
-still small as the atom-pc kernel only has limited framebuffer devices currently
-(e.g. no nVidia).
+Not all video drivers support rootless X and this BSP aims to have broader
+support than atom-pc.
 
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto-bsp/conf/machine/genericx86.conf |    3 +++
- 1 file changed, 3 insertions(+)
+ meta-yocto-bsp/conf/machine/genericx86.conf |    2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-index 5cb2b5b..19f5f75 100644
+index 19f5f75..e37f3662 100644
 --- a/meta-yocto-bsp/conf/machine/genericx86.conf
 +++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-@@ -18,6 +18,9 @@ XSERVER ?= "xserver-xorg \
-            xf86-input-keyboard \
-            xf86-input-evdev \
-            xf86-input-synaptics \
-+           xf86-video-fbdev \
-+           xf86-video-modesetting \
-+           xf86-video-vesa \
-            xf86-video-intel \
-            mesa-driver-i915 \
-            mesa-driver-i965"
+@@ -36,5 +36,3 @@ APPEND += "usbcore.autosuspend=1"
+ GLIBC_ADDONS = "nptl"
+ 
+ EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+-
+-ROOTLESS_X = "1"
 -- 
 1.7.10.4
 
