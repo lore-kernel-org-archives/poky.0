@@ -1,24 +1,19 @@
-Return-Path: <tf+lists.yocto@r-finger.com>
-Received: from r-finger.com (r-finger.com [178.79.160.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A09FCE013DE
-	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 00:29:22 -0700 (PDT)
-Received: from air.local (host86-137-85-147.range86-137.btcentralplus.com
-	[86.137.85.147])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by r-finger.com (Postfix) with ESMTPSA id D7FF5956F
-	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 08:29:20 +0100 (BST)
-Message-ID: <51F619CF.5010607@r-finger.com>
-Date: Mon, 29 Jul 2013 08:29:19 +0100
-From: Tomas Frydrych <tf+lists.yocto@r-finger.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8;
-	rv:17.0) Gecko/20130620 Thunderbird/17.0.7
-MIME-Version: 1.0
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7C92DE0044E
+	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 01:40:50 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 29 Jul 2013 01:40:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,768,1367996400"; d="scan'208";a="338341258"
+Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.122.206])
+	by azsmga001.ch.intel.com with ESMTP; 29 Jul 2013 01:40:49 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-References: <1374770285-22235-1-git-send-email-ross.burton@intel.com>
-	<1374770285-22235-5-git-send-email-ross.burton@intel.com>
-In-Reply-To: <1374770285-22235-5-git-send-email-ross.burton@intel.com>
-Subject: Re: [PATCH 4/6] genericx86: disable rootless X
+Date: Mon, 29 Jul 2013 09:40:35 +0100
+Message-Id: <cover.1375087195.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [dylan][PATCH 0/1] dylan change for meta-yocto-bsp
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,24 +26,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jul 2013 07:29:22 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 29 Jul 2013 08:40:53 -0000
 
-On 25/07/2013 17:38, Ross Burton wrote:
-> Not all video drivers support rootless X and this BSP aims to have broader
-> support than atom-pc.
-
-Which drivers do you have in mind here? AFAICT this patch set / BSP only
-supports the i9x5 family of drivers out of the box, where this is not an
-issue. In this day and age rootless X should be the norm, not the
-exception, so I think it would be preferable to document the need to
-disable rootless X with any such substandard drivers rather than have a
-suboptimal lowest common denominator for the generic x86 machine.
-
-Tomas
+One change for the dylan branch. This has been acked by Bruce and tested
+on the autobuilder.
 
 
---
-http://sleepfive.com
+The following changes since commit 64273e53f2789d2ea8393fc80909ac7086f168a7:
+
+  bitbake: Allow checksums to be used for files retrieved using SFTP (2013-07-09 10:55:16 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/dylan-next-poky
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/dylan-next-poky
+
+Paul Barker (1):
+  linux-yocto: Fix SRCREVs in linux-yocto_3.2
+
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.2.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+-- 
+1.8.1.2
+
 
