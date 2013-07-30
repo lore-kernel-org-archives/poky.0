@@ -1,20 +1,34 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1721DE0044E
-	for <poky@yoctoproject.org>; Mon, 29 Jul 2013 23:17:27 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 29 Jul 2013 23:17:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,776,1367996400"; d="scan'208";a="338843081"
-Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.14.47])
-	by azsmga001.ch.intel.com with ESMTP; 29 Jul 2013 23:17:12 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: ross.burton@intel.com, paul.eggleton@linux.intel.com,
-	richard.purdie@linuxfoundation.org, poky@yoctoproject.org
-Date: Mon, 29 Jul 2013 23:17:11 -0700
-Message-Id: <cover.1375164937.git.sgw@linux.intel.com>
-X-Mailer: git-send-email 1.8.1.4
-Subject: [CONSOLIDATED PULL (M3 rc1) 0/8] Poky changes
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vb0-f53.google.com (mail-vb0-f53.google.com
+	[209.85.212.53])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1277E01482
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 07:27:01 -0700 (PDT)
+Received: by mail-vb0-f53.google.com with SMTP id i3so1629946vbh.12
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 07:27:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-type:x-gm-message-state;
+	bh=dIEJiD3Q5bA9mYh0Uu7VmzacXxrPQJnKn+CdIAgdPXY=;
+	b=pzi0nMBkrTwd4BbYibFfhv4iIrTX2ZcT0B9xG7fcRFVgt0ZY47QfuKCCRFJaI+yOVG
+	krIq3M35E98jb2YBdi8dGimXiBt1rkAdf4Xzns0eL07MNnOM1Bx2n85ywJ99mWwn3KQa
+	j/9UzzTxkA+rYoQ12lk5BedB0F/eb9y0yV1+jH4bsQhX7UhinJ8M066VEwUZkx2JwFwu
+	YrX08rqk29Yhz5WbGZX+dapTazx08xSLSFjrXh5MG+BbnrH+IRby9LtSsdShBzzFVFqn
+	FdU/pqLIxXILa7HrmUar4fLV5wsxSxH5E9qNAs67xhZtZZ/6ZMphITLIZcX7QS/s8xiG
+	yt7w==
+X-Received: by 10.58.233.8 with SMTP id ts8mr27032564vec.44.1375194420295;
+	Tue, 30 Jul 2013 07:27:00 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Tue, 30 Jul 2013 07:26:40 -0700 (PDT)
+In-Reply-To: <cover.1375164937.git.sgw@linux.intel.com>
+References: <cover.1375164937.git.sgw@linux.intel.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Tue, 30 Jul 2013 15:26:40 +0100
+Message-ID: <CAJTo0LZmK+OMYAFhb52JNAX0s6TPZGWV6DN8xxfzHXxos4UJ9A@mail.gmail.com>
+To: Saul Wold <sgw@linux.intel.com>
+X-Gm-Message-State: ALoCoQkba+EwTX0bIy4hxdprF1gPlGsv29XJtLm+sPMA8avqP95StSnbJUifmiI41uJNxJAinNQr
+Cc: paul.eggleton@linux.intel.com, poky@yoctoproject.org
+Subject: Re: [CONSOLIDATED PULL (M3 rc1) 0/8] Poky changes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,62 +41,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jul 2013 06:17:28 -0000
+X-List-Received-Date: Tue, 30 Jul 2013 14:27:02 -0000
+Content-Type: text/plain; charset=UTF-8
 
-Ross, Paul, Richard:
+On 30 July 2013 07:17, Saul Wold <sgw@linux.intel.com> wrote:
+> Emilia Ciobanu (1):
+>   package_regex.inc: Add/Update REGEX and PRSPV variable
+>
+> Laszlo Papp (1):
+>   layer.conf: make the yocto layer dependent on oe-core
+>
+> Ross Burton (5):
+>   genericx86: add new BSP
+>   local.conf.sample: add genericx86 reference
+>   genericx86: add fbdev, modesettings and vesa Xorg drivers
+>   genericx86: disable rootless X
+>   genericx86: ship all the driver firmware by default
+>
+> Saul Wold (1):
+>   poky-lsb: Enable GCC Security flags by default for LSB builds
 
-This is the set of change for Poky!
+Acked-By: Ross Burton <ross.burton@intel.com>
 
-Please review and ACK
-
-Thanks
-	Sau!
-
-The following changes since commit bd1c441a210cae03fb6006c996227211cc29056b:
-
-  bitbake: bitbake: runqueue: add warning if invalidating invalid task (2013-07-29 15:25:09 +0100)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib sgw/stage
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/stage
-
-Emilia Ciobanu (1):
-  package_regex.inc: Add/Update REGEX and PRSPV variable
-
-Laszlo Papp (1):
-  layer.conf: make the yocto layer dependent on oe-core
-
-Ross Burton (5):
-  genericx86: add new BSP
-  local.conf.sample: add genericx86 reference
-  genericx86: add fbdev, modesettings and vesa Xorg drivers
-  genericx86: disable rootless X
-  genericx86: ship all the driver firmware by default
-
-Saul Wold (1):
-  poky-lsb: Enable GCC Security flags by default for LSB builds
-
- meta-yocto-bsp/conf/machine/genericx86.conf        | 38 ++++++++++++
- .../formfactor/formfactor/genericx86/machconfig    |  6 ++
- .../packagegroup-core-tools-profile.bbappend       |  1 +
- .../uclibc/uclibc/genericx86/uClibc.machine        | 69 ++++++++++++++++++++++
- .../packagegroup-core-sdk-gmae.bbappend            |  1 +
- ...egroup-core-standalone-gmae-sdk-target.bbappend |  1 +
- .../xserver-xf86-config/genericx86/xorg.conf       |  0
- .../recipes-kernel/linux/linux-yocto_3.4.bbappend  |  3 +
- .../recipes-kernel/linux/linux-yocto_3.8.bbappend  |  3 +
- meta-yocto/conf/distro/include/package_regex.inc   | 20 +++++--
- meta-yocto/conf/distro/poky-lsb.conf               |  2 +
- meta-yocto/conf/layer.conf                         |  5 ++
- meta-yocto/conf/local.conf.sample                  |  1 +
- 13 files changed, 144 insertions(+), 6 deletions(-)
- create mode 100644 meta-yocto-bsp/conf/machine/genericx86.conf
- create mode 100644 meta-yocto-bsp/recipes-bsp/formfactor/formfactor/genericx86/machconfig
- create mode 100644 meta-yocto-bsp/recipes-core/uclibc/uclibc/genericx86/uClibc.machine
- create mode 100644 meta-yocto-bsp/recipes-graphics/xorg-xserver/xserver-xf86-config/genericx86/xorg.conf
-
--- 
-1.8.1.4
-
+Ross
 
