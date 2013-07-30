@@ -1,23 +1,38 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B52AEE01482
-	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 07:47:35 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 30 Jul 2013 07:47:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,778,1367996400"; d="scan'208";a="354312770"
-Received: from unknown (HELO helios.localnet) ([10.252.122.217])
-	by orsmga001.jf.intel.com with ESMTP; 30 Jul 2013 07:47:32 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+Return-Path: <djszapi@archlinux.us>
+Received: from mail-wg0-f54.google.com (mail-wg0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6E06CE002E2
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 08:59:33 -0700 (PDT)
+Received: by mail-wg0-f54.google.com with SMTP id n11so3164000wgh.9
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 08:59:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=sender:from:to:cc:subject:date:message-id:x-mailer
+	:x-gm-message-state;
+	bh=xRJHcA7mb+E71QgetaXoCSF9abZ17yPNM9z1BwoPuNg=;
+	b=JYa1jZpNiZvDoBplUk0pBee9RCYUsWGJmzVY7iT6RGVmvqX/Bk3Rf8oygaRSE8bTVk
+	uvA8UPnBv+IjauWWFaGKvWsf2zHRpK96zxrl+KQ8xSghNAdIMwUuy9ruvgFVq4lNLz4X
+	OOR4lWghiqQsfCWplrQ4qaDX97058SpnorZwW3FH0Vr2mR94a/eZPzrMizNhiybASMlP
+	bfqZojSu3sS5VyBvdgINXK1avx6ZRuGjmmB2+o5ghriBBiGPEw3hx7gLXFWjdrcXGWRM
+	h0sQHKz0hC0Jl0QNkbFwu5y9xlYho2d/IpSQdd/MTCoURQbU4kbYz9dD+wA66cG/CI3R
+	t+GQ==
+X-Received: by 10.180.160.165 with SMTP id xl5mr1418571wib.46.1375199971870;
+	Tue, 30 Jul 2013 08:59:31 -0700 (PDT)
+Received: from djszapi@archlinux.us ([212.44.19.228])
+	by mx.google.com with ESMTPSA id li9sm29484864wic.2.2013.07.30.08.59.29
+	for <multiple recipients>
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Tue, 30 Jul 2013 08:59:30 -0700 (PDT)
+Sender: Laszlo Papp <djszapi@archlinux.us>
+Received: by djszapi@archlinux.us (sSMTP sendmail emulation);
+	Tue, 30 Jul 2013 16:57:43 +0100
+From: Laszlo Papp <lpapp@kde.org>
 To: poky@yoctoproject.org
-Date: Tue, 30 Jul 2013 15:47:31 +0100
-Message-ID: <2203027.YREevPRkeF@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.10.5 (Linux/3.8.0-26-generic; KDE/4.10.5; i686; ; )
-In-Reply-To: <cover.1375164937.git.sgw@linux.intel.com>
-References: <cover.1375164937.git.sgw@linux.intel.com>
-MIME-Version: 1.0
-Subject: Re: [CONSOLIDATED PULL (M3 rc1) 0/8] Poky changes
+Date: Tue, 30 Jul 2013 16:57:40 +0100
+Message-Id: <1375199860-3269-1-git-send-email-laszlo.papp@polatis.com>
+X-Mailer: git-send-email 1.8.3.4
+X-Gm-Message-State: ALoCoQk/mt5RrA4Djc5KnNnk005U1dQhFJ2CwGemTV6EwTbUZGyabEkwN4pyWqpPAdnr7STF/h6J
+Cc: Laszlo Papp <laszlo.papp@polatis.com>
+Subject: [PATCH] beagleboard.conf: Remove x-load as it is deprecated
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,53 +45,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jul 2013 14:47:35 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 30 Jul 2013 15:59:34 -0000
 
-On Monday 29 July 2013 23:17:11 Saul Wold wrote:
-> Ross, Paul, Richard:
-> 
-> This is the set of change for Poky!
-> 
-> Please review and ACK
-> 
-> Thanks
-> 	Sau!
-> 
-> The following changes since commit bd1c441a210cae03fb6006c996227211cc29056b:
-> 
->   bitbake: bitbake: runqueue: add warning if invalidating invalid task
-> (2013-07-29 15:25:09 +0100)
-> 
-> are available in the git repository at:
-> 
->   git://git.yoctoproject.org/poky-contrib sgw/stage
->   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/stage
-> 
-> Emilia Ciobanu (1):
->   package_regex.inc: Add/Update REGEX and PRSPV variable
-> 
-> Laszlo Papp (1):
->   layer.conf: make the yocto layer dependent on oe-core
-> 
-> Ross Burton (5):
->   genericx86: add new BSP
->   local.conf.sample: add genericx86 reference
->   genericx86: add fbdev, modesettings and vesa Xorg drivers
->   genericx86: disable rootless X
->   genericx86: ship all the driver firmware by default
-> 
-> Saul Wold (1):
->   poky-lsb: Enable GCC Security flags by default for LSB builds
+SPL is a replacement in the u-boot tree.
 
-Acked-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Signed-off-by: Laszlo Papp <laszlo.papp@polatis.com>
+---
+ meta-yocto-bsp/conf/machine/beagleboard.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-Paul
-
+diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
+index 6633880..49b16fa 100644
+--- a/meta-yocto-bsp/conf/machine/beagleboard.conf
++++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
+@@ -13,7 +13,7 @@ XSERVER ?= "xserver-xorg \
+ MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+ 
+ # Allow for MMC booting (required by the NAND-less Beagleboard XM)
+-EXTRA_IMAGEDEPENDS += "u-boot x-load"
++EXTRA_IMAGEDEPENDS += "u-boot"
+ 
+ # Uncomment the following line to enable the hard floating point abi. Note that
+ # this breaks some binary libraries and 3D (neither of which ship with
 -- 
+1.8.3.4
 
-Paul Eggleton
-Intel Open Source Technology Centre
 
