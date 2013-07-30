@@ -1,22 +1,40 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 78BD1E002E9
-	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 13:39:29 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 30 Jul 2013 13:39:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,781,1367996400"; d="scan'208";a="339206331"
-Received: from unknown (HELO [10.255.14.47]) ([10.255.14.47])
-	by azsmga001.ch.intel.com with ESMTP; 30 Jul 2013 13:39:21 -0700
-Message-ID: <51F82479.6050909@linux.intel.com>
-Date: Tue, 30 Jul 2013 13:39:21 -0700
-From: Saul Wold <sgw@linux.intel.com>
+Return-Path: <eric.nelson@boundarydevices.com>
+Received: from mail-pb0-f42.google.com (mail-pb0-f42.google.com
+	[209.85.160.42])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0C66E002EB
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 13:53:16 -0700 (PDT)
+Received: by mail-pb0-f42.google.com with SMTP id un1so6481855pbc.15
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 13:53:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:cc:subject
+	:references:in-reply-to:content-type:content-transfer-encoding
+	:x-gm-message-state;
+	bh=7FOBzLx4tSgakFPOpObNekrveJsVbrS1OihUyFTZslk=;
+	b=DujgO6ch4YIzoWy+8iGjlMOHyXEvtWmuIw0JirbKZZbwUBKmxv/X8XF40/q4fPoIZF
+	OYqa3EpxSFA38x2R5N6sYQm0jRi9HpEAf/LO67j30UuQGupiystqspyoe4k4C/YhtrPj
+	Y4SrhfnGnZ4FkcySRKK6gwe3AiGsmccwp1uYSj70h2K/hc5Wxqk0goLYpnTN/bVBXO4U
+	IquoMGHlxy660O+gNDQkzcHCi73LwXjleRxv+TTz8fCL3fCbxwDWMqueV6BKm885TgoH
+	7QQnCwNivTsQbO47tSuudDrTU6TaJTxaHzt7aFhSD1BJOTYhECQPihqhdewT5Ecz1KvM
+	GPxw==
+X-Received: by 10.68.33.10 with SMTP id n10mr34791166pbi.3.1375217595794;
+	Tue, 30 Jul 2013 13:53:15 -0700 (PDT)
+Received: from [29.6.1.42] ([70.96.116.236])
+	by mx.google.com with ESMTPSA id ll5sm7272pab.19.2013.07.30.13.53.13
+	for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Tue, 30 Jul 2013 13:53:14 -0700 (PDT)
+Message-ID: <51F827B7.7070201@boundarydevices.com>
+Date: Tue, 30 Jul 2013 13:53:11 -0700
+From: Eric Nelson <eric.nelson@boundarydevices.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130514 Thunderbird/17.0.6
+	rv:17.0) Gecko/20130623 Thunderbird/17.0.7
 MIME-Version: 1.0
-To: Eric Nelson <eric.nelson@boundarydevices.com>
+To: Saul Wold <sgw@linux.intel.com>
 References: <1375216507-11576-1-git-send-email-eric.nelson@boundarydevices.com>
-In-Reply-To: <1375216507-11576-1-git-send-email-eric.nelson@boundarydevices.com>
+	<51F82479.6050909@linux.intel.com>
+In-Reply-To: <51F82479.6050909@linux.intel.com>
+X-Gm-Message-State: ALoCoQmZi3hI5L5L5LX4MrZXrKrac9Oj2LH1INZNxCG/LWruQZgllBrXbiN2iONcUtBIrQYD+fyO
 Cc: poky@yoctoproject.org, otavio@ossystems.com.br
 Subject: Re: [PATCH] gst-plugins-gl: add explicit dependency on libpng
 X-BeenThere: poky@yoctoproject.org
@@ -31,36 +49,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jul 2013 20:39:30 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+X-List-Received-Date: Tue, 30 Jul 2013 20:53:16 -0000
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi Saul,
 
-As this in meta, which is really part of openembedded-core, please send 
-it to openembedded-core@list.openembedded.org.
+On 07/30/2013 01:39 PM, Saul Wold wrote:
+>
+> As this in meta, which is really part of openembedded-core, please send
+> it to openembedded-core@list.openembedded.org.
+>
+> Thanks for the patch
+>
+> Sau!
+>
 
-Thanks for the patch
+:) So many mailing lists, so little stack space!
 
-Sau!
+Is there a different git repository I should base the patch against?
 
-On 07/30/2013 01:35 PM, Eric Nelson wrote:
-> Signed-off-by: Eric Nelson <eric.nelson@boundarydevices.com>
-> ---
->   meta/recipes-multimedia/gstreamer/gst-plugins-gl_0.10.3.bb | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/meta/recipes-multimedia/gstreamer/gst-plugins-gl_0.10.3.bb b/meta/recipes-multimedia/gstreamer/gst-plugins-gl_0.10.3.bb
-> index a6c74fb..213e799 100644
-> --- a/meta/recipes-multimedia/gstreamer/gst-plugins-gl_0.10.3.bb
-> +++ b/meta/recipes-multimedia/gstreamer/gst-plugins-gl_0.10.3.bb
-> @@ -8,7 +8,7 @@ SRC_URI[sha256sum] = "48340b6a4b8abce16344a7bc33e74a94fdcce4f57ef6342cdf2f941c42
->
->   SRC_URI += " file://0001-conditional-gl-framebuffer-undefined-use.patch"
->
-> -DEPENDS += "gst-plugins-base virtual/libgles2 virtual/egl jpeg"
-> +DEPENDS += "gst-plugins-base virtual/libgles2 virtual/egl jpeg libpng"
->
->   inherit gettext gconf
->
->
+Please advise,
+
+
+Eric
+
 
