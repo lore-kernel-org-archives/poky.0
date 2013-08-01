@@ -1,43 +1,31 @@
-Return-Path: <eric.nelson@boundarydevices.com>
-Received: from mail-pd0-f178.google.com (mail-pd0-f178.google.com
-	[209.85.192.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 52BBAE002EB
-	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 14:01:07 -0700 (PDT)
-Received: by mail-pd0-f178.google.com with SMTP id w10so4264928pde.23
-	for <poky@yoctoproject.org>; Tue, 30 Jul 2013 14:01:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:cc:subject
-	:references:in-reply-to:content-type:content-transfer-encoding
-	:x-gm-message-state;
-	bh=J2G0leJFodzZXCJmm43ggVcjARMbnf+kiHANKN3IqkQ=;
-	b=VGMOlYOobmWptJGGTLAlzRIgwHB5AYRqA6ajELdBmHts+8Uu5WBCGChg/kanDBXAwH
-	vjpdHf2w/H3KKFhX8WkE9YbsL01zijPvs8d4A2tycAuPyN52YV7Rzx9ubsOIkBj4JqeW
-	8osyayHTEU7LfUeb10SRBLmkVXTiwK7r7Ufe529ZQde99Al+BDGB2AKTLioZd8JX3bXh
-	DA3RXb2XftrT5FONVoX+hNvE55YstJRmKRT2svfwkiEjO+HUBlYlSWD9teIMXWCaEan1
-	wUyPyMDbCwNztQitOSQejuqSnfMPlHoywfTlQmKaOjfImz++100ye7of4WzXHFII6KsG
-	myiQ==
-X-Received: by 10.68.36.38 with SMTP id n6mr5747082pbj.15.1375218067339;
-	Tue, 30 Jul 2013 14:01:07 -0700 (PDT)
-Received: from [29.6.1.42] ([70.96.116.236]) by mx.google.com with ESMTPSA id
-	bs3sm84858249pbc.42.2013.07.30.14.01.05 for <multiple recipients>
-	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Tue, 30 Jul 2013 14:01:06 -0700 (PDT)
-Message-ID: <51F8298E.8030505@boundarydevices.com>
-Date: Tue, 30 Jul 2013 14:01:02 -0700
-From: Eric Nelson <eric.nelson@boundarydevices.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130623 Thunderbird/17.0.7
+Return-Path: <bevenson@melinkcorp.com>
+Received: from pluto.melinkcorp.com (rrcs-98-100-91-244.central.biz.rr.com
+	[98.100.91.244])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EF7D0E014E4
+	for <poky@yoctoproject.org>; Thu,  1 Aug 2013 08:27:51 -0700 (PDT)
+Received: from pluto.melinkcorp.local ([10.0.2.4]) by pluto.melinkcorp.local
+	([10.0.2.4]) with mapi; Thu, 1 Aug 2013 11:27:50 -0400
+From: Bryan Evenson <bevenson@melinkcorp.com>
+To: ChenQi <Qi.Chen@windriver.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Thu, 1 Aug 2013 11:27:48 -0400
+Thread-Topic: [poky] Default root password without 'debug-tweaks'?
+Thread-Index: Ac6Jw0HyO4v3sv8xSkezTncojzSxTQE9JUgQ
+Message-ID: <91586D499ADFD74FBCFB8425266A5DE40153ADA9D39B@pluto.melinkcorp.local>
+References: <91586D499ADFD74FBCFB8425266A5DE40153AD9774C7@pluto.melinkcorp.local>
+	<14175503.PQSq1zm65A@helios>
+	<91586D499ADFD74FBCFB8425266A5DE40153AD9775E1@pluto.melinkcorp.local>
+	<1925526.xFDIqGSNAm@helios>
+	<91586D499ADFD74FBCFB8425266A5DE40153AD977600@pluto.melinkcorp.local>
+	<51F20CAB.30504@windriver.com>
+In-Reply-To: <51F20CAB.30504@windriver.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-vipre-scanned: 00C8FA59004E5A00C8FBA6
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: Otavio Salvador <otavio@ossystems.com.br>
-References: <1375216507-11576-1-git-send-email-eric.nelson@boundarydevices.com>
-	<51F82479.6050909@linux.intel.com>
-	<51F827B7.7070201@boundarydevices.com>
-	<CAP9ODKpByoHJBRgu91xzNeWYxdO6XSM94Jtt8QZE4OygF2ZGBA@mail.gmail.com>
-In-Reply-To: <CAP9ODKpByoHJBRgu91xzNeWYxdO6XSM94Jtt8QZE4OygF2ZGBA@mail.gmail.com>
-X-Gm-Message-State: ALoCoQkH+kAnTwm0vOKpQYGTYOWBP0yhfPDoy9wCSIsNf/bs/+9L+Py1TikpYXPQ2dWo/v9Uo5H7
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] gst-plugins-gl: add explicit dependency on libpng
+Subject: Re: Default root password without 'debug-tweaks'?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,42 +38,151 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jul 2013 21:01:08 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 01 Aug 2013 15:27:52 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/30/2013 01:57 PM, Otavio Salvador wrote:
-> On Tue, Jul 30, 2013 at 5:53 PM, Eric Nelson
-> <eric.nelson@boundarydevices.com> wrote:
->> Hi Saul,
->>
->>
->> On 07/30/2013 01:39 PM, Saul Wold wrote:
->>>
->>>
->>> As this in meta, which is really part of openembedded-core, please send
->>> it to openembedded-core@list.openembedded.org.
->>>
->>> Thanks for the patch
->>>
->>> Sau!
->>>
->>
->> :) So many mailing lists, so little stack space!
->>
->> Is there a different git repository I should base the patch against?
->>
->> Please advise,
->
-> If you patch 'meta' only it should apply just fine in oe-core. I often
-> do this and I bet most people do not base the patches directly on
-> oe-core when they work on poky.
->
-> In either case, oe-core GIT is at
-> http://cgit.openembedded.org/openembedded-core/
->
-Thanks.
+All,
 
-Patch in flight.
+I'm having some issues with setting the root password.  My image is based o=
+ff of core-image-minimal, which uses TinyLogin for password management.  Fi=
+rst, I tried getting the encrypted password by setting root's password and =
+seeing what it looked like in /etc/shadow.  However, it looks like more inf=
+ormation than what is shown in /etc/shadow is used to encrypt the password,=
+ because the encrypted password is different each time.
 
+For example, I have a new image that created with 'debug-tweaks' on, so roo=
+t has a blank password.  From /etc/shadow:
+
+root::15918:0:99999:7:::
+
+showing root has no password.  If I change root's password to "password", I=
+ get:
+
+root:bZMfmHD5uJ3l6:15918:0:99999:7:::
+
+If I change root's password to "password" again, I get:
+
+root:CiwTL1eJx70ps:15918:0:99999:7:::
+
+So at this time I do not know how to get the encrypted password.  And also =
+related to the password, it looks like TinyLogin limits the password to 8 c=
+haracters.  You can type something more than 8 characters for your password=
+, but it will only use the first 8 characters.  I'd like to be able to use =
+a slightly stronger password.  So my questions are:
+
+* Is there a different password manager package that I can use that doesn't=
+ have the 8 character limit?  I see that Busybox has password management, b=
+ut I don't yet know if it has the same limitation.
+* If there is another one to use, how do I ensure TinyLogin is not installe=
+d?
+* With the other password manager, how do I get the encrypted password to i=
+nsert in the EXTRA_USER_PARAMS feature?
+* The TinyLogin package is using the source code that was last updated in 2=
+003, and the TinyLogin web page as directed from the package script states:=
+ "TinyLogin was merged into BusyBox, current sources can thus be checked ou=
+t via BusyBox."  Should the TinyLogin package be removed from core-image-mi=
+nimal and BusyBox password management turned on to use more recent sources?
+
+Regards,
+Bryan
+
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of ChenQi
+> Sent: Friday, July 26, 2013 1:44 AM
+> To: poky@yoctoproject.org
+> Subject: Re: [poky] Default root password without 'debug-tweaks'?
+>=20
+> On 07/25/2013 08:28 PM, Bryan Evenson wrote:
+> > Paul,
+> >
+> > >From looking at the patch series Chen Qi recently posted about the
+> > EXTRA_USER_PARAMS, one could do the following in your local.conf:
+> >
+> > require conf/distro/include/security_flags.inc
+> The above line is not needed for this feature.
+>=20
+> > INHERIT +=3D "extrausers"
+> > EXTRA_USERS_PARAMS =3D "\
+> >      usermod -p 'encrypted_password' root; \ "
+> >
+> > If I understand correctly, that should change the root password to
+> the
+> > listed encrypted password.  But that still leaves the problem of
+> > getting the encrypted root password.  Changing the password on the
+> > hardware and then viewing the encrypted password under /etc/shadow is
+> > a little messy,
+> That's the way I used when testing this feature. As we're creating an
+> image, this method is acceptable for me.
+>=20
+> >   but I'm at a loss for a better
+> > solution that is guaranteed to work.  You could use crypt or mcrypt
+> to
+> > encrypt a file containing the password in plaintext on the host, but
+> > you have to know the encryption algorithm used on the target
+> > filesystem.
+> If you find one, please let me know. Thanks.
+>=20
+> > If anyone knows of a better way to create the encrypted password that
+> > would be used by the target, I'm open to suggestions.
+> >
+> > Thanks,
+> > Bryan
+> Just to be clear, use the way of copying files is not acceptable, as
+> there are some directories related to user setting such as the user's
+> home directory and mail directory. And these files should also be
+> handled correctly.
+>=20
+> Best Regards,
+> Chen Qi
+>=20
+> >
+> >> -----Original Message-----
+> >> From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]
+> >> Sent: Thursday, July 25, 2013 8:01 AM
+> >> To: Bryan Evenson
+> >> Cc: poky@yoctoproject.org
+> >> Subject: Re: [poky] Default root password without 'debug-tweaks'?
+> >>
+> >> On Thursday 25 July 2013 07:53:20 Bryan Evenson wrote:
+> >>> Thank you for the explanation.  And just earlier this morning, I
+> >> found
+> >>> this description of how to change the root password for an image:
+> >>> http://bec-systems.com/site/967/setting-the-root-password-in-an-
+> >> openem
+> >>> bedded
+> >>> -image.
+> >>>
+> >>> If this would be a suggested method of performing the task, I could
+> >>> write a patch for the documentation to add the details about the
+> >>> root account being locked and the suggested method for modifying
+> the
+> >>> root password.  If you could point me to a good place to add this
+> >>> detail, I'll send out a patch.
+> >> Hmm, that method does seem a bit messy though. Ideally there would
+> be
+> >> a simple method available that didn't require you to boot the target
+> >> system. Presumably it wouldn't be too hard to do it using tools on
+> >> the host.
+> >>
+> >> Cheers,
+> >> Paul
+> >>
+> >> --
+> >>
+> >> Paul Eggleton
+> >> Intel Open Source Technology Centre
+> > _______________________________________________
+> > poky mailing list
+> > poky@yoctoproject.org
+> > https://lists.yoctoproject.org/listinfo/poky
+> >
+> >
+>=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
