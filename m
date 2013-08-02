@@ -1,40 +1,25 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-pd0-f182.google.com (mail-pd0-f182.google.com
-	[209.85.192.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5CEF2E0152B
-	for <poky@yoctoproject.org>; Fri,  2 Aug 2013 00:28:50 -0700 (PDT)
-Received: by mail-pd0-f182.google.com with SMTP id r10so360002pdi.41
-	for <poky@yoctoproject.org>; Fri, 02 Aug 2013 00:28:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=content-type:mime-version:subject:from:in-reply-to:date:cc
-	:content-transfer-encoding:message-id:references:to:x-mailer;
-	bh=rCn0w1OC+hf85NbeVVyiU7jdHW4qiwnxliSto7/BDBg=;
-	b=j2MAM6PCPMNYMxLkB1A/tNV9NzmixNWUn43hOA2Ue3KTLjVom1p7Q/HlRMDGzOdlbU
-	OPMV9z3r5jx4tPEJOksWu/0IMGGiAg4ZVgaLTH3Va64NiVQXuITuzFPACOVFWBzbM/TA
-	zY+TjvqqgmfdRlWJfxbFZQ6xHL0NmQxO4iNnAAB1t2U/RCR99iN4O2UG640p6E0cI/+Z
-	jv23wTx46qd/7QTc1loJTz4L+K5hZOhRd8OkARSzM14ru0LmdFsDQ6JO8qxyrUZvbiLH
-	MqozGxCnmzxlNJifqdj5n9SRSSpr72NIkNuGivOq4DTmjBHOebAwSkyKYiiaWf6wwnO0
-	XHaQ==
-X-Received: by 10.66.224.237 with SMTP id rf13mr9000379pac.26.1375428530427;
-	Fri, 02 Aug 2013 00:28:50 -0700 (PDT)
-Received: from sa-nc-spg-213.static.jnpr.net (natint3.juniper.net.
-	[66.129.224.36])
-	by mx.google.com with ESMTPSA id fk4sm6779461pab.23.2013.08.02.00.28.48
-	for <multiple recipients>
-	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Fri, 02 Aug 2013 00:28:49 -0700 (PDT)
-Mime-Version: 1.0 (Mac OS X Mail 6.5 \(1508\))
-From: Khem Raj <raj.khem@gmail.com>
-In-Reply-To: <51FB52D7.1010507@cn.fujitsu.com>
-Date: Fri, 2 Aug 2013 00:28:47 -0700
-Message-Id: <9301F5F5-31B5-48AD-8038-8065EBEAD303@gmail.com>
-References: <51EF7AD7.7080009@cn.fujitsu.com>
-	<EDC7964C-6C92-49D1-BA30-4CE95F5578A3@gmail.com>
-	<51FB52D7.1010507@cn.fujitsu.com>
-To: Bian Naimeng <biannm@cn.fujitsu.com>
-X-Mailer: Apple Mail (2.1508)
-Cc: poky@yoctoproject.org
-Subject: Re: Why we release yocto on different branch
+Return-Path: <Qi.Chen@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 57077E0152B
+	for <poky@yoctoproject.org>; Fri,  2 Aug 2013 00:56:35 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r727uaRi003427
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 2 Aug 2013 00:56:36 -0700 (PDT)
+Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.233) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.342.3; Fri, 2 Aug 2013 00:56:34 -0700
+From: <Qi.Chen@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Fri, 2 Aug 2013 15:56:48 +0800
+Message-ID: <0ee3aefc08bd6bcddd7132c00ecf3b3ec8ea654b.1375430111.git.Qi.Chen@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <cover.1375430111.git.Qi.Chen@windriver.com>
+References: <cover.1375430111.git.Qi.Chen@windriver.com>
+MIME-Version: 1.0
+Cc: dvhart@linux.intel.com, Zhangle.Yang@windriver.com
+Subject: [PATCH 1/1] tiny-init: fix bashism
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,21 +32,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Aug 2013 07:28:51 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 02 Aug 2013 07:56:36 -0000
+Content-Type: text/plain
 
+From: Chen Qi <Qi.Chen@windriver.com>
 
-On Aug 1, 2013, at 11:33 PM, Bian Naimeng <biannm@cn.fujitsu.com> wrote:
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+---
+ meta-yocto/recipes-core/tiny-init/files/init |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Thanks for your answer.
->=20
-> Do we apply new features into these branches such as =
-denzil/danny/dylan.
-> Only bug fix?
->=20
+diff --git a/meta-yocto/recipes-core/tiny-init/files/init b/meta-yocto/recipes-core/tiny-init/files/init
+index 4b78f01..9140e95 100644
+--- a/meta-yocto/recipes-core/tiny-init/files/init
++++ b/meta-yocto/recipes-core/tiny-init/files/init
+@@ -15,7 +15,7 @@ ifup lo
+ 
+ # Allow for distro or local customizations
+ if [ -f /etc/rc.local ] ; then
+-	source /etc/rc.local
++	. /etc/rc.local
+ fi
+ 
+ # Become session leader and try to find a real tty (e.g. ttyS0)
+-- 
+1.7.9.5
 
-bug fixes only. And the fix has to be done in master branch if its =
-existing there
-and then back ported into the release branch=
 
