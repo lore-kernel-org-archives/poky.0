@@ -1,37 +1,25 @@
-Return-Path: <biannm@cn.fujitsu.com>
-Received: from song.cn.fujitsu.com (unknown [222.73.24.84])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5011E015A1
-	for <poky@yoctoproject.org>; Fri,  2 Aug 2013 01:09:44 -0700 (PDT)
-X-IronPort-AV: E=Sophos;i="4.89,799,1367942400"; 
-   d="scan'208";a="8097346"
-Received: from unknown (HELO tang.cn.fujitsu.com) ([10.167.250.3])
-	by song.cn.fujitsu.com with ESMTP; 02 Aug 2013 16:06:41 +0800
-Received: from fnstmail02.fnst.cn.fujitsu.com (tang.cn.fujitsu.com [127.0.0.1])
-	by tang.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id r7289gkS024820;
-	Fri, 2 Aug 2013 16:09:42 +0800
-Received: from [127.0.0.1] ([10.167.226.190])
-	by fnstmail02.fnst.cn.fujitsu.com (Lotus Domino Release 8.5.3)
-	with ESMTP id 2013080216082655-361046 ;
-	Fri, 2 Aug 2013 16:08:26 +0800 
-Message-ID: <51FB6942.8040002@cn.fujitsu.com>
-Date: Fri, 02 Aug 2013 16:09:38 +0800
-From: Bian Naimeng <biannm@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN;
-	rv:1.9.2.28) Gecko/20120306 Lightning/1.0b2 Thunderbird/3.1.20
-MIME-Version: 1.0
-To: Khem Raj <raj.khem@gmail.com>
-References: <51EF7AD7.7080009@cn.fujitsu.com>
-	<EDC7964C-6C92-49D1-BA30-4CE95F5578A3@gmail.com>
-	<51FB52D7.1010507@cn.fujitsu.com>
-	<9301F5F5-31B5-48AD-8038-8065EBEAD303@gmail.com>
-In-Reply-To: <9301F5F5-31B5-48AD-8038-8065EBEAD303@gmail.com>
-X-MIMETrack: Itemize by SMTP Server on mailserver/fnst(Release 8.5.3|September
-	15, 2011) at 2013/08/02 16:08:26,
-	Serialize by Router on mailserver/fnst(Release 8.5.3|September 15,
-	2011) at 2013/08/02 16:08:27,
-	Serialize complete at 2013/08/02 16:08:27
-Cc: poky@yoctoproject.org
-Subject: Re: Why we release yocto on different branch
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 53540E013EC
+	for <poky@yoctoproject.org>; Fri,  2 Aug 2013 07:05:46 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 02 Aug 2013 07:05:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,801,1367996400"; d="scan'208";a="380211372"
+Received: from unknown (HELO [10.255.14.162]) ([10.255.14.162])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Aug 2013 07:05:45 -0700
+Message-ID: <1375452334.978.2.camel@dvhart-mobl1.amr.corp.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+To: Qi.Chen@windriver.com
+In-Reply-To: <0ee3aefc08bd6bcddd7132c00ecf3b3ec8ea654b.1375430111.git.Qi.Chen@windriver.com>
+References: <cover.1375430111.git.Qi.Chen@windriver.com>
+	<0ee3aefc08bd6bcddd7132c00ecf3b3ec8ea654b.1375430111.git.Qi.Chen@windriver.com>
+Organization: Intel
+Date: Fri, 02 Aug 2013 07:05:34 -0700
+Mime-Version: 1.0
+X-Mailer: Evolution 3.8.4 (3.8.4-1.fc19) 
+Cc: poky@yoctoproject.org, Zhangle.Yang@windriver.com
+Subject: Re: [PATCH 1/1] tiny-init: fix bashism
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,30 +32,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 02 Aug 2013 08:09:46 -0000
+X-List-Received-Date: Fri, 02 Aug 2013 14:05:47 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
+
+On Fri, 2013-08-02 at 15:56 +0800, Qi.Chen@windriver.com wrote:
+> From: Chen Qi <Qi.Chen@windriver.com>
+
+I understand this is a simple fix, but please provide a commit log. In
+this case, something like the following would suffice:
+
+"source" is a bashism, replace it with the posix shell compliant "."
+
+> Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+
+Acked-by: Darren Hart <dvhart@linux.intel.com>
 
 
-
-said the following on 2013-8-2 15:28:, Khem Raj wrote:
+> ---
+>  meta-yocto/recipes-core/tiny-init/files/init |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> On Aug 1, 2013, at 11:33 PM, Bian Naimeng <biannm@cn.fujitsu.com> wrote:
-> 
->> Thanks for your answer.
->>
->> Do we apply new features into these branches such as denzil/danny/dylan.
->> Only bug fix?
->>
-> 
-> bug fixes only. And the fix has to be done in master branch if its existing there
-> and then back ported into the release branch
-> 
+> diff --git a/meta-yocto/recipes-core/tiny-init/files/init b/meta-yocto/recipes-core/tiny-init/files/init
+> index 4b78f01..9140e95 100644
+> --- a/meta-yocto/recipes-core/tiny-init/files/init
+> +++ b/meta-yocto/recipes-core/tiny-init/files/init
+> @@ -15,7 +15,7 @@ ifup lo
+>  
+>  # Allow for distro or local customizations
+>  if [ -f /etc/rc.local ] ; then
+> -	source /etc/rc.local
+> +	. /etc/rc.local
+>  fi
+>  
+>  # Become session leader and try to find a real tty (e.g. ttyS0)
 
-I get it.
-Thank you very much.
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
-Thanks
- Bian
 
 
