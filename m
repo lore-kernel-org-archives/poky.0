@@ -1,19 +1,42 @@
-Return-Path: <cristiana.voicu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 811FDE013E8
-	for <poky@yoctoproject.org>; Mon,  5 Aug 2013 08:08:07 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 05 Aug 2013 08:07:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,819,1367996400"; d="scan'208";a="382137657"
-Received: from cvoicu-vostro-460.rb.intel.com ([10.237.105.72])
-	by orsmga002.jf.intel.com with ESMTP; 05 Aug 2013 08:07:37 -0700
-From: Cristiana Voicu <cristiana.voicu@intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  5 Aug 2013 18:10:23 +0300
-Message-Id: <1375715424-8925-1-git-send-email-cristiana.voicu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] maintainers.inc: Update ownership of recipes
+Return-Path: <John_Mehaffey@mentor.com>
+Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4A24BE013DE
+	for <poky@yoctoproject.org>; Mon,  5 Aug 2013 08:08:55 -0700 (PDT)
+Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
+	by relay1.mentorg.com with esmtp 
+	id 1V6MOz-0003jp-I7 from John_Mehaffey@mentor.com ;
+	Mon, 05 Aug 2013 08:08:53 -0700
+Received: from SVR-ORW-FEM-03.mgc.mentorg.com ([147.34.97.39]) by
+	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
+	SMTPSVC(6.0.3790.4675); Mon, 5 Aug 2013 08:08:53 -0700
+Received: from NA-MBX-03.mgc.mentorg.com ([fe80::9a:1569:df57:45b8]) by
+	SVR-ORW-FEM-03.mgc.mentorg.com ([147.34.97.39]) with mapi id
+	14.02.0247.003; Mon, 5 Aug 2013 08:08:52 -0700
+From: "Mehaffey, John" <John_Mehaffey@mentor.com>
+To: Bryan Evenson <bevenson@melinkcorp.com>, ChenQi <Qi.Chen@windriver.com>
+Thread-Topic: [poky] Default root password without 'debug-tweaks'?
+Thread-Index: Ac6In4XxC1u+BUnoT0i5uanH1yMoJwAx9T0AAAA4BwAAAELCAAAA94KAACQr4YABQiGPAAAXS0yAAK7F7oD//5xx8w==
+Date: Mon, 5 Aug 2013 15:08:52 +0000
+Message-ID: <371E240E6FC1D44DA5E51EE9DCDCB7845E4D6E3E@NA-MBX-03.mgc.mentorg.com>
+References: <91586D499ADFD74FBCFB8425266A5DE40153AD9774C7@pluto.melinkcorp.local>
+	<14175503.PQSq1zm65A@helios>
+	<91586D499ADFD74FBCFB8425266A5DE40153AD9775E1@pluto.melinkcorp.local>
+	<1925526.xFDIqGSNAm@helios>
+	<91586D499ADFD74FBCFB8425266A5DE40153AD977600@pluto.melinkcorp.local>
+	<51F20CAB.30504@windriver.com>
+	<91586D499ADFD74FBCFB8425266A5DE40153ADA9D39B@pluto.melinkcorp.local>
+	<51FB1AC7.50109@windriver.com>,
+	<91586D499ADFD74FBCFB8425266A5DE40153ADB8702F@pluto.melinkcorp.local>
+In-Reply-To: <91586D499ADFD74FBCFB8425266A5DE40153ADB8702F@pluto.melinkcorp.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [147.34.91.1]
+MIME-Version: 1.0
+X-OriginalArrivalTime: 05 Aug 2013 15:08:53.0754 (UTC)
+	FILETIME=[B30C7DA0:01CE91ED]
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Default root password without 'debug-tweaks'?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,466 +49,256 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Aug 2013 15:08:13 -0000
+X-List-Received-Date: Mon, 05 Aug 2013 15:08:56 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Take Radu's recipes because he's not working on the project
-anymore.
-
-Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
----
- meta-yocto/conf/distro/include/maintainers.inc |  164 ++++++++++++------------
- 1 file changed, 82 insertions(+), 82 deletions(-)
-
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 68c8b03..444a02d 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -28,7 +28,7 @@
- # Please keep this list in alphabetical order.
- #
- RECIPE_MAINTAINER_pn-acl = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-acpid = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-acpid = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-adt-installer = "Jessica Zhang <jessica.zhang@intel.com>"
- RECIPE_MAINTAINER_pn-alsa-lib = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-alsa-state = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -37,11 +37,11 @@ RECIPE_MAINTAINER_pn-alsa-utils = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-alsa-utils-alsaconf = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-anjuta-remote-run = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-apmd = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
--RECIPE_MAINTAINER_pn-apr = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-apr-util = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-apr = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-apr-util = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-apt = "Ionut Radu <ionutx.radu@intel.com>"
--RECIPE_MAINTAINER_pn-aspell = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-atk = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-aspell = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-atk = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-at = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-attr = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-augeas = "Ionut Radu <ionutx.radu@intel.com>"
-@@ -50,14 +50,14 @@ RECIPE_MAINTAINER_pn-autogen = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-automake = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-avahi-ui = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-avahi = "Ionut Radu <ionutx.radu@intel.com>"
--RECIPE_MAINTAINER_pn-babeltrace = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-babeltrace = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-base-files = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-base-passwd = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-bash = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-bc = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-bc = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-bdwgc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-beecrypt = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-bigreqsproto = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-beecrypt = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-bigreqsproto = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-bind = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-binutils = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-bison = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-@@ -71,9 +71,9 @@ RECIPE_MAINTAINER_pn-boost = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-btrfs-tools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-build-appliance-image = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-builder = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-busybox = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-busybox = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-byacc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-bzip2 = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-bzip2 = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-cairo = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-calibrateproto = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-ccache = "Wenzong Fan <wenzong.fan@windriver.com>"
-@@ -124,14 +124,14 @@ RECIPE_MAINTAINER_pn-core-image-sato-sdk-directdisk = "Saul Wold <sgw@linux.inte
- RECIPE_MAINTAINER_pn-core-image-sato-sdk-live = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-core-image-sato-sdk = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-core-image-x11 = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-coreutils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-coreutils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-cpio = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-cracklib ="Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-createrepo = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-cronie = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-cronie = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-cross-localedef-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-cups = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-curl = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-curl = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-cwautomacros = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-cyassl = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-damageproto = "Ionut Radu <ionutx.radu@intel.com>"
-@@ -143,7 +143,7 @@ RECIPE_MAINTAINER_pn-dbus-wait = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-dhcp = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-diffstat = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-diffutils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-diffutils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-directfb-examples = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-directfb = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-distcc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-@@ -159,19 +159,19 @@ RECIPE_MAINTAINER_pn-docbook-utils = "Andrei Dinu <andrei.adrianx.dinu@intel.com
- RECIPE_MAINTAINER_pn-dosfstools = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-dpkg = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-dri2proto = "Ionut Radu <ionutx.radu@intel.com>"
--RECIPE_MAINTAINER_pn-dropbear = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-dropbear = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-dtc-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-dtc = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-e2fsprogs = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
--RECIPE_MAINTAINER_pn-ed = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-ed = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-eds-tools = "Wenzong Fan <wenzong.fan@windriver.com>"
--RECIPE_MAINTAINER_pn-eee-acpi-scripts = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-eee-acpi-scripts = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-eggdbus = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-eglibc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-eglibc-locale = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-eglibc-mtrace = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-eglibc-scripts = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-elfutils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-elfutils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-empathy = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-enchant = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-encodings = "Ionut Radu <ionutx.radu@intel.com>"
-@@ -181,7 +181,7 @@ RECIPE_MAINTAINER_pn-evieext ="Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-expat = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-farsight2 = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-file = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-findutils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-findutils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-fixesproto = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-flac = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-flex = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-@@ -192,14 +192,14 @@ RECIPE_MAINTAINER_pn-fontsproto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-font-util = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-foomatic-filters = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-formfactor = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-fotowall = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-fotowall = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-freetype = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-fstests = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-fuse = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-gaku = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-galago-daemon = "Ionut Radu <ionutx.radu@intel.com>"
--RECIPE_MAINTAINER_pn-gamin = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-gawk = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-gamin = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-gawk = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-gcc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-gccmakedep = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-gcc-runtime = "Saul Wold <sgw@linux.intel.com>"
-@@ -240,7 +240,7 @@ RECIPE_MAINTAINER_pn-grep = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-groff-native = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-groff = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-grub-efi-i586-native = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-grub = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-grub = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-gssdp = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-gst-ffmpeg = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-gst-fluendo-mp3 = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -271,14 +271,14 @@ RECIPE_MAINTAINER_pn-gtk+3 = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-guile = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-guilt-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-gupnp-av = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-gupnp = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-gupnp = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-gupnp-tools = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-gypsy = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-gzip = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-hal-info = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-hal = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-harfbuzz = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-hdparm = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-hdparm = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-help2man-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-hicolor-icon-theme = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-hostap-conf = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -287,7 +287,7 @@ RECIPE_MAINTAINER_pn-hwlatdetect = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-icecc-create-env-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-icon-naming-utils-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-icu = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
--RECIPE_MAINTAINER_pn-imake = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-imake = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-initramfs-boot = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-initramfs-framework = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-initramfs-live-boot = "Saul Wold <sgw@linux.intel.com>"
-@@ -299,9 +299,9 @@ RECIPE_MAINTAINER_pn-insserv = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-intltool = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-iproute2 = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-iptables = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-iputils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-iputils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-irda-utils = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-iso-codes = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-iso-codes = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-jpeg = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-json-glib = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-js = "Ionut Radu <ionutx.radu@intel.com>"
-@@ -313,10 +313,10 @@ RECIPE_MAINTAINER_pn-kconfig-frontends = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-kernelshark = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-kern-tools-native = "Bruce Ashfield <bruce.ashfield@windriver.com>"
- RECIPE_MAINTAINER_pn-kexec-tools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-keymaps = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-keymaps = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-kf = "Ionut Radu <ionutx.radu@intel.com>"
--RECIPE_MAINTAINER_pn-kmod = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-lame = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-kmod = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-lame = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-latencytop = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-ldconfig-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-leafpad = "Valentin Popa <valentin.popa@intel.com>"
-@@ -337,9 +337,9 @@ RECIPE_MAINTAINER_pn-libclass-isa-perl = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-libcroco = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-libdaemon = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-libdmx = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-libdmx = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-libdrm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-libdrm-poulsbo = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-libdrm-poulsbo = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-libdrm-poulsbo = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libdumpvalue-perl-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libdumpvalue-perl = "Saul Wold <sgw@linux.intel.com>"
-@@ -423,9 +423,9 @@ RECIPE_MAINTAINER_pn-libtheora = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libtimedate-perl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-libtirpc = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-libtool = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-libunique = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-libunique = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-libunistring = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-liburcu = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-liburcu = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-liburi-perl = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-libusb1 = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libusb-compat = "Saul Wold <sgw@linux.intel.com>"
-@@ -503,12 +503,12 @@ RECIPE_MAINTAINER_pn-lttng-tools = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-lttng-ust = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-lzop-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-lzop = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-lzo = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-lzo = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-m4 = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-mailx = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-make = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-makedepend = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-makedevs = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-makedevs = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-man-pages = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-man = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-matchbox-config-gtk = "Valentin Popa <valentin.popa@intel.com>"
-@@ -542,22 +542,22 @@ RECIPE_MAINTAINER_pn-minicom = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-mini-x-session = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mkelfimage-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mkelfimage = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-mkfontdir = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-mkfontscale = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-mkfontdir = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-mkfontscale = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-mklibs-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mktemp ="Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-module-init-tools = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-modutils-collateral = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-module-init-tools = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-modutils-collateral = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-modutils-collateral = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-modutils-initscripts = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-modutils-initscripts = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-modutils-initscripts = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mpeg2dec = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mpfr = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-msmtp = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-msynctool = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-mtdev = "Ross Burton <ross.burton@intel.com>"
--RECIPE_MAINTAINER_pn-mtd-utils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-mtd-utils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-mtools = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-mx-1.0 = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-nasm = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-@@ -582,7 +582,7 @@ RECIPE_MAINTAINER_pn-nfs-export-root = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-nfs-utils = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-npth = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-nspr = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-ocf-linux = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-ocf-linux = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-ocf-linux = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-ofono = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-oh-puzzles = "Valentin Popa <valentin.popa@intel.com>"
-@@ -590,13 +590,13 @@ RECIPE_MAINTAINER_pn-openjade = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-openobex = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-opensp = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-openssh = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
--RECIPE_MAINTAINER_pn-openssl = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-openssl = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-openswan = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-opkg-collateral = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-opkg-config-base = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-opkg_nogpg = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-opkg = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-opkg-utils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-opkg-collateral = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-opkg-config-base = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-opkg_nogpg = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-opkg = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-opkg-utils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-oprofile = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-oprofileui = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-oprofileui-server = "Saul Wold <sgw@linux.intel.com>"
-@@ -633,7 +633,7 @@ RECIPE_MAINTAINER_pn-packagegroup-qte-toolchain-target = "Paul Eggleton <paul.eg
- RECIPE_MAINTAINER_pn-packagegroup-sdk-host = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-self-hosted = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-package-index = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-pango = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-pango = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-parted = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-patch = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-pax-utils = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-@@ -649,7 +649,7 @@ RECIPE_MAINTAINER_pn-pixman = "Ionut Radu <ionutx.radu@intel.com>"
- RECIPE_MAINTAINER_pn-pkgconfig = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-pm-utils = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-pointercal = "Valentin Popa <valentin.popa@intel.com>"
--RECIPE_MAINTAINER_pn-poky-feed-config-opkg = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-poky-feed-config-opkg = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-polkit = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-polkit-gnome = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-pong-clock = "Valentin Popa <valentin.popa@intel.com>"
-@@ -701,7 +701,7 @@ RECIPE_MAINTAINER_pn-qt4-x11-free = "Paul Eggleton <paul.eggleton@linux.intel.co
- RECIPE_MAINTAINER_pn-qt-demo-init = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-qt-mobility-embedded = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-qt-mobility-x11 = "Paul Eggleton <paul.eggleton@linux.intel.com>"
--RECIPE_MAINTAINER_pn-quicky = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-quicky = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-quilt = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-quota = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-randrproto = "Valentin Popa <valentin.popa@intel.com>"
-@@ -720,7 +720,7 @@ RECIPE_MAINTAINER_pn-rpmresolve = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-rsync = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-rt-tests = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-run-postinsts = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-rxvt-unicode = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-rxvt-unicode = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-sato-icon-theme = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-sato-screenshot = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-sbc = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -728,7 +728,7 @@ RECIPE_MAINTAINER_pn-screenshot = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-screen = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-scrnsaverproto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-sed = "Valentin Popa <valentin.popa@intel.com>"
--RECIPE_MAINTAINER_pn-setserial = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-setserial = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-settings-daemon = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-sgml-common = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-sgmlspl = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-@@ -741,9 +741,9 @@ RECIPE_MAINTAINER_pn-slang = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-socat = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-speex = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-sqlite3 = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-squashfs-tools = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-startup-notification = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-stat = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-squashfs-tools = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-startup-notification = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-stat = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-strace = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-subversion = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-sudo = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
-@@ -753,7 +753,7 @@ RECIPE_MAINTAINER_pn-sysklogd = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-syslinux = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-sysprof = "Tom Zanussi <tom.zanussi@intel.com>"
- RECIPE_MAINTAINER_pn-sysstat = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-systemtap = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-systemtap = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-systemtap-uprobes = "Tom Zanussi <tom.zanussi@intel.com>"
- RECIPE_MAINTAINER_pn-sysvinit-inittab = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-sysvinit = "Saul Wold <sgw@linux.intel.com>"
-@@ -762,7 +762,7 @@ RECIPE_MAINTAINER_pn-tar-replacement-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-tar = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-tcf-agent = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-tcl = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-tcp-wrappers = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-tcp-wrappers = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-tcp-wrappers = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-telepathy-farsight = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-telepathy-gabble = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -772,46 +772,46 @@ RECIPE_MAINTAINER_pn-telepathy-mission-control = "Cristian Iorga <cristian.iorga
- RECIPE_MAINTAINER_pn-telepathy-python = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-texi2html = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-texinfo = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-tidy = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-tidy = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-tiff = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-time = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-tiny-init = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-tinylogin = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-tinylogin = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-trace-cmd = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-transfig = "Andrei Dinu <andrei.adrianx.dinu@intel.com>"
- RECIPE_MAINTAINER_pn-trapproto = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-tremor = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-tslib = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-tslib = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-ttf-bitstream-vera = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-tzcode-native = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-tzdata = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-ubootchart = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-u-boot-mkimage = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-udev-extraconf = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-udev = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-tzdata = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-ubootchart = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-u-boot-mkimage = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-udev-extraconf = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-udev = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-unfs-server-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-unifdef = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-unzip = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-unzip = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-update-alternatives-dpkg = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-update-rc.d = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-usbinit = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-usbutils = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-update-rc.d = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-usbinit = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-usbutils = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-util-linux = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-util-macros-native = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-util-macros = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-v86d = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-valgrind = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-valgrind = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-videoproto = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-vte ="Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-watchdog = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-watchdog = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-wayland = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-wbxml2 = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-webkit-gtk = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-web-webkit = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-weston = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-wget = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-which = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-which = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-wireless-tools = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-wpa-supplicant = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-wv = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -878,8 +878,8 @@ RECIPE_MAINTAINER_pn-xvideo-tests = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-xvinfo = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xwininfo = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xz = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
--RECIPE_MAINTAINER_pn-yaffs2-utils = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-zaurusd = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-yaffs2-utils = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-zaurusd = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-zeroconf = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-zip = "Radu Moisan <radu.moisan@intel.com>"
--RECIPE_MAINTAINER_pn-zlib = "Radu Moisan <radu.moisan@intel.com>"
-+RECIPE_MAINTAINER_pn-zip = "Cristiana Voicu <cristiana.voicu@intel.com>"
-+RECIPE_MAINTAINER_pn-zlib = "Cristiana Voicu <cristiana.voicu@intel.com>"
--- 
-1.7.9.5
-
+> From: poky-bounces@yoctoproject.org [poky-bounces@yoctoproject.org] on be=
+half of Bryan Evenson [bevenson@melinkcorp.com]=0A=
+> Sent: Monday, August 05, 2013 6:59 AM=0A=
+> To: ChenQi=0A=
+> Cc: poky@yoctoproject.org=0A=
+> Subject: Re: [poky] Default root password without 'debug-tweaks'?=0A=
+> =0A=
+> > -----Original Message-----=0A=
+> > From: ChenQi [mailto:Qi.Chen@windriver.com]=0A=
+> > Sent: Thursday, August 01, 2013 10:35 PM=0A=
+> > To: Bryan Evenson=0A=
+> > Cc: poky@yoctoproject.org=0A=
+> > Subject: Re: [poky] Default root password without 'debug-tweaks'?=0A=
+> >=0A=
+> > On 08/01/2013 11:27 PM, Bryan Evenson wrote:=0A=
+> > > All,=0A=
+> > >=0A=
+> > > I'm having some issues with setting the root password.  My image is=
+=0A=
+> > based off of core-image-minimal, which uses TinyLogin for password=0A=
+> > management.  First, I tried getting the encrypted password by setting=
+=0A=
+> > root's password and seeing what it looked like in /etc/shadow.=0A=
+> > However, it looks like more information than what is shown in=0A=
+> > /etc/shadow is used to encrypt the password, because the encrypted=0A=
+> > password is different each time.=0A=
+> > >=0A=
+> > > For example, I have a new image that created with 'debug-tweaks' on,=
+=0A=
+> > so root has a blank password.  From /etc/shadow:=0A=
+> > >=0A=
+> > > root::15918:0:99999:7:::=0A=
+> > >=0A=
+> > > showing root has no password.  If I change root's password to=0A=
+> > "password", I get:=0A=
+> > >=0A=
+> > > root:bZMfmHD5uJ3l6:15918:0:99999:7:::=0A=
+> > >=0A=
+> > > If I change root's password to "password" again, I get:=0A=
+> > >=0A=
+> > > root:CiwTL1eJx70ps:15918:0:99999:7:::=0A=
+> > >=0A=
+> > > So at this time I do not know how to get the encrypted password.  And=
+=0A=
+> > also related to the password, it looks like TinyLogin limits the=0A=
+> > password to 8 characters.  You can type something more than 8=0A=
+> > characters for your password, but it will only use the first 8=0A=
+> > characters.  I'd like to be able to use a slightly stronger password.=
+=0A=
+> > So my questions are:=0A=
+> > >=0A=
+> > > * Is there a different password manager package that I can use that=
+=0A=
+> > doesn't have the 8 character limit?  I see that Busybox has password=0A=
+> > management, but I don't yet know if it has the same limitation.=0A=
+> > Tinylogin has been deprecated and officially removed from Yocto. We now=
+=0A=
+> > use busybox as a replacement. It doesn't have 8-char limitation, as far=
+=0A=
+> > as I know.=0A=
+> > > * If there is another one to use, how do I ensure TinyLogin is not=0A=
+> > installed?=0A=
+> > If you're using Dylan, perhaps you need to backport relevant patches=0A=
+> > ...=0A=
+> >=0A=
+> > http://git.yoctoproject.org/cgit.cgi/poky-=0A=
+> > contrib/log/?h=3DChenQi/busybox-fixes=0A=
+> > (9 patches)=0A=
+> > http://git.yoctoproject.org/cgit.cgi/poky-=0A=
+> > contrib/log/?h=3DChenQi/busybox-on-device-upgrade=0A=
+> > (1 patch)=0A=
+> >=0A=
+> > > * With the other password manager, how do I get the encrypted=0A=
+> > password to insert in the EXTRA_USER_PARAMS feature?=0A=
+> > The user interface remains all the same with tinylogin.=0A=
+> >=0A=
+> > Best Regards,=0A=
+> > Chen Qi=0A=
+> =0A=
+> Chen Qi,=0A=
+> =0A=
+> I think I'm still missing something.  I applied the 10 listed patches to =
+my poky/dylan build environment; I had to make minor tweaks to the patches =
+(adjust the before/after text on some patches) but overall they applied cle=
+anly.  I verified that the Busybox configuration now has a number of option=
+s set under the "Login/Password Management Utilities" section under menucon=
+fig.  I also verified the new image is not using Tinylogin for password man=
+agement.  However, my two original problems remain.  The encrypted password=
+ shown in /etc/shadow uses some extra information that I don't know about, =
+as the same password does not encrypt to the same value on successive attem=
+pts.  Also, only the first 8 characters are used for the password.  For my =
+test, I changed root's password to "password" twice.  On the two occasions,=
+ the encrypted password shown in /etc/shadow for root were different.  I th=
+en changed root's password to "passwordplus" and logged out; I then success=
+fully logged in j=0A=
+>  ust typing "password" for the password.=0A=
+> =0A=
+> Are there some other settings I'm missing to use longer passwords?  And h=
+ow do I get the encrypted password to use for the EXTRA_USER_PARAMS feature=
+?=0A=
+> =0A=
+> Thanks,=0A=
+> Bryan=0A=
+=0A=
+Perhaps the workaround at http://forum.tinycorelinux.net/index.php?topic=3D=
+9215.0 applies here.=0A=
+=0A=
+Also, search for "password salt" for an explanation about why the password =
+does not encrypt to the same value on successive attempts.=0A=
+=0A=
+John Mehaffey=0A=
+Senior System Architect=0A=
+Mentor Graphics Corporation=0A=
+=0A=
+> >=0A=
+> > > * The TinyLogin package is using the source code that was last=0A=
+> > updated in 2003, and the TinyLogin web page as directed from the=0A=
+> > package script states: "TinyLogin was merged into BusyBox, current=0A=
+> > sources can thus be checked out via BusyBox."  Should the TinyLogin=0A=
+> > package be removed from core-image-minimal and BusyBox password=0A=
+> > management turned on to use more recent sources?=0A=
+> > >=0A=
+> > > Regards,=0A=
+> > > Bryan=0A=
+> > >=0A=
+> > >> -----Original Message-----=0A=
+> > >> From: poky-bounces@yoctoproject.org [mailto:poky-=0A=
+> > >> bounces@yoctoproject.org] On Behalf Of ChenQi=0A=
+> > >> Sent: Friday, July 26, 2013 1:44 AM=0A=
+> > >> To: poky@yoctoproject.org=0A=
+> > >> Subject: Re: [poky] Default root password without 'debug-tweaks'?=0A=
+> > >>=0A=
+> > >> On 07/25/2013 08:28 PM, Bryan Evenson wrote:=0A=
+> > >>> Paul,=0A=
+> > >>>=0A=
+> > >>> >From looking at the patch series Chen Qi recently posted about the=
+=0A=
+> > >>> EXTRA_USER_PARAMS, one could do the following in your local.conf:=
+=0A=
+> > >>>=0A=
+> > >>> require conf/distro/include/security_flags.inc=0A=
+> > >> The above line is not needed for this feature.=0A=
+> > >>=0A=
+> > >>> INHERIT +=3D "extrausers"=0A=
+> > >>> EXTRA_USERS_PARAMS =3D "\=0A=
+> > >>>       usermod -p 'encrypted_password' root; \ "=0A=
+> > >>>=0A=
+> > >>> If I understand correctly, that should change the root password to=
+=0A=
+> > >> the=0A=
+> > >>> listed encrypted password.  But that still leaves the problem of=0A=
+> > >>> getting the encrypted root password.  Changing the password on the=
+=0A=
+> > >>> hardware and then viewing the encrypted password under /etc/shadow=
+=0A=
+> > >>> is a little messy,=0A=
+> > >> That's the way I used when testing this feature. As we're creating=
+=0A=
+> > an=0A=
+> > >> image, this method is acceptable for me.=0A=
+> > >>=0A=
+> > >>>    but I'm at a loss for a better=0A=
+> > >>> solution that is guaranteed to work.  You could use crypt or mcrypt=
+=0A=
+> > >> to=0A=
+> > >>> encrypt a file containing the password in plaintext on the host,=0A=
+> > but=0A=
+> > >>> you have to know the encryption algorithm used on the target=0A=
+> > >>> filesystem.=0A=
+> > >> If you find one, please let me know. Thanks.=0A=
+> > >>=0A=
+> > >>> If anyone knows of a better way to create the encrypted password=0A=
+> > >>> that would be used by the target, I'm open to suggestions.=0A=
+> > >>>=0A=
+> > >>> Thanks,=0A=
+> > >>> Bryan=0A=
+> > >> Just to be clear, use the way of copying files is not acceptable, as=
+=0A=
+> > >> there are some directories related to user setting such as the=0A=
+> > user's=0A=
+> > >> home directory and mail directory. And these files should also be=0A=
+> > >> handled correctly.=0A=
+> > >>=0A=
+> > >> Best Regards,=0A=
+> > >> Chen Qi=0A=
+> > >>=0A=
+> > >>>> -----Original Message-----=0A=
+> > >>>> From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]=0A=
+> > >>>> Sent: Thursday, July 25, 2013 8:01 AM=0A=
+> > >>>> To: Bryan Evenson=0A=
+> > >>>> Cc: poky@yoctoproject.org=0A=
+> > >>>> Subject: Re: [poky] Default root password without 'debug-tweaks'?=
+=0A=
+> > >>>>=0A=
+> > >>>> On Thursday 25 July 2013 07:53:20 Bryan Evenson wrote:=0A=
+> > >>>>> Thank you for the explanation.  And just earlier this morning, I=
+=0A=
+> > >>>> found=0A=
+> > >>>>> this description of how to change the root password for an image:=
+=0A=
+> > >>>>> http://bec-systems.com/site/967/setting-the-root-password-in-an-=
+=0A=
+> > >>>> openem=0A=
+> > >>>>> bedded=0A=
+> > >>>>> -image.=0A=
+> > >>>>>=0A=
+> > >>>>> If this would be a suggested method of performing the task, I=0A=
+> > >>>>> could write a patch for the documentation to add the details=0A=
+> > about=0A=
+> > >>>>> the root account being locked and the suggested method for=0A=
+> > >>>>> modifying=0A=
+> > >> the=0A=
+> > >>>>> root password.  If you could point me to a good place to add this=
+=0A=
+> > >>>>> detail, I'll send out a patch.=0A=
+> > >>>> Hmm, that method does seem a bit messy though. Ideally there would=
+=0A=
+> > >> be=0A=
+> > >>>> a simple method available that didn't require you to boot the=0A=
+> > >>>> target system. Presumably it wouldn't be too hard to do it using=
+=0A=
+> > >>>> tools on the host.=0A=
+> > >>>>=0A=
+> > >>>> Cheers,=0A=
+> > >>>> Paul=0A=
+> > >>>>=0A=
+> > >>>> --=0A=
+> > >>>>=0A=
+> > >>>> Paul Eggleton=0A=
+> > >>>> Intel Open Source Technology Centre=0A=
+> > >>> _______________________________________________=0A=
+> > >>> poky mailing list=0A=
+> > >>> poky@yoctoproject.org=0A=
+> > >>> https://lists.yoctoproject.org/listinfo/poky=0A=
+> > >>>=0A=
+> > >>>=0A=
+> > >> _______________________________________________=0A=
+> > >> poky mailing list=0A=
+> > >> poky@yoctoproject.org=0A=
+> > >> https://lists.yoctoproject.org/listinfo/poky=0A=
+> > >=0A=
+> =0A=
+> _______________________________________________=0A=
+> poky mailing list=0A=
+> poky@yoctoproject.org=0A=
+> https://lists.yoctoproject.org/listinfo/poky=0A=
+> =0A=
 
