@@ -1,29 +1,25 @@
-Return-Path: <Qi.Chen@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D51FAE0144E
-	for <poky@yoctoproject.org>; Sun,  4 Aug 2013 18:27:50 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r751RndI023406
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sun, 4 Aug 2013 18:27:50 -0700 (PDT)
-Received: from [128.224.162.233] (128.224.162.233) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.2.342.3;
-	Sun, 4 Aug 2013 18:27:49 -0700
-Message-ID: <51FEFFA6.9000502@windriver.com>
-Date: Mon, 5 Aug 2013 09:28:06 +0800
-From: ChenQi <Qi.Chen@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130623 Thunderbird/17.0.7
-MIME-Version: 1.0
-To: Darren Hart <dvhart@linux.intel.com>
-References: <cover.1375430111.git.Qi.Chen@windriver.com>
-	<0ee3aefc08bd6bcddd7132c00ecf3b3ec8ea654b.1375430111.git.Qi.Chen@windriver.com>
-	<1375452334.978.2.camel@dvhart-mobl1.amr.corp.intel.com>
-In-Reply-To: <1375452334.978.2.camel@dvhart-mobl1.amr.corp.intel.com>
-X-Originating-IP: [128.224.162.233]
-Cc: poky@yoctoproject.org, Zhangle.Yang@windriver.com
-Subject: Re: [PATCH 1/1] tiny-init: fix bashism
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1482CE003D4
+	for <poky@yoctoproject.org>; Mon,  5 Aug 2013 00:10:01 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 05 Aug 2013 00:10:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,816,1367996400"; d="scan'208";a="381313306"
+Received: from unknown (HELO [10.255.13.223]) ([10.255.13.223])
+	by fmsmga002.fm.intel.com with ESMTP; 05 Aug 2013 00:09:59 -0700
+Message-ID: <1375686599.14739.69.camel@dvhart-mobl4.amr.corp.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+To: Qi.Chen@windriver.com
+Date: Mon, 05 Aug 2013 00:09:59 -0700
+In-Reply-To: <a92298098e741dc4b365d124dedfe84a8ee6e92d.1375665987.git.Qi.Chen@windriver.com>
+References: <cover.1375665987.git.Qi.Chen@windriver.com>
+	<a92298098e741dc4b365d124dedfe84a8ee6e92d.1375665987.git.Qi.Chen@windriver.com>
+Organization: Intel
+X-Mailer: Evolution 3.8.4 (3.8.4-1.fc19) 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH V2 1/1] tiny-init: fix bashism
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,43 +32,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Aug 2013 01:27:52 -0000
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-List-Received-Date: Mon, 05 Aug 2013 07:10:07 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 08/02/2013 10:05 PM, Darren Hart wrote:
-> On Fri, 2013-08-02 at 15:56 +0800, Qi.Chen@windriver.com wrote:
->> From: Chen Qi <Qi.Chen@windriver.com>
-> I understand this is a simple fix, but please provide a commit log. In
-> this case, something like the following would suffice:
->
+On Mon, 2013-08-05 at 09:27 +0800, Qi.Chen@windriver.com wrote:
+> From: Chen Qi <Qi.Chen@windriver.com>
+> 
 > "source" is a bashism, replace it with the posix shell compliant "."
-Thanks.
-Comment added and V2 sent.
+> 
+> Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 
-Best Regards,
-Chen Qi
+Acked-by: Darren Hart <dvhart@linux.intel.com>
 
->> Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
-> Acked-by: Darren Hart <dvhart@linux.intel.com>
->
->
->> ---
->>   meta-yocto/recipes-core/tiny-init/files/init |    2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/meta-yocto/recipes-core/tiny-init/files/init b/meta-yocto/recipes-core/tiny-init/files/init
->> index 4b78f01..9140e95 100644
->> --- a/meta-yocto/recipes-core/tiny-init/files/init
->> +++ b/meta-yocto/recipes-core/tiny-init/files/init
->> @@ -15,7 +15,7 @@ ifup lo
->>   
->>   # Allow for distro or local customizations
->>   if [ -f /etc/rc.local ] ; then
->> -	source /etc/rc.local
->> +	. /etc/rc.local
->>   fi
->>   
->>   # Become session leader and try to find a real tty (e.g. ttyS0)
+> ---
+>  meta-yocto/recipes-core/tiny-init/files/init |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/meta-yocto/recipes-core/tiny-init/files/init b/meta-yocto/recipes-core/tiny-init/files/init
+> index 4b78f01..9140e95 100644
+> --- a/meta-yocto/recipes-core/tiny-init/files/init
+> +++ b/meta-yocto/recipes-core/tiny-init/files/init
+> @@ -15,7 +15,7 @@ ifup lo
+>  
+>  # Allow for distro or local customizations
+>  if [ -f /etc/rc.local ] ; then
+> -	source /etc/rc.local
+> +	. /etc/rc.local
+>  fi
+>  
+>  # Become session leader and try to find a real tty (e.g. ttyS0)
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
 
 
