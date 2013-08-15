@@ -1,23 +1,28 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B05FBE01575
-	for <poky@yoctoproject.org>; Thu, 15 Aug 2013 05:06:41 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 15 Aug 2013 05:06:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,885,1367996400"; d="scan'208";a="282362992"
-Received: from timevans-mobl.ger.corp.intel.com (HELO
-	helios.ger.corp.intel.com) ([10.252.122.206])
-	by AZSMGA002.ch.intel.com with ESMTP; 15 Aug 2013 05:06:39 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 15 Aug 2013 13:06:30 +0100
-Message-Id: <1376568390-3866-1-git-send-email-paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCH] maintainers.inc: add entries for libav, x264 and yasm
+Return-Path: <ml@communistcode.co.uk>
+Received: from owm.eumx.net (eumx.net [91.82.101.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 53B0AE015B1
+	for <poky@yoctoproject.org>; Thu, 15 Aug 2013 05:07:13 -0700 (PDT)
+Message-ID: <520CC46F.9020501@communistcode.co.uk>
+Date: Thu, 15 Aug 2013 13:07:11 +0100
+From: Jack Mitchell <ml@communistcode.co.uk>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130806 Thunderbird/17.0.8
+MIME-Version: 1.0
+To: Laszlo Papp <lpapp@kde.org>
+References: <CAOMwXhP1MH7aYWAf7_WPm1_5-GX6ugUOtyzZtC6q_+0Wp9jZBg@mail.gmail.com>
+	<CAJTo0LZH_tEGaom5n9a7Dd2q8bzfVHNm6sFRTFBqD_JKGKe-dA@mail.gmail.com>
+	<CAOMwXhMLBa+qefh1HgDB57EhqU_HJ4Ju9Y-V881PRGU0UYgS4g@mail.gmail.com>
+	<520C9E77.1060201@communistcode.co.uk>
+	<CAOMwXhMxu1tzsXD7srHm9RBFXFbwojoZz9FcZZy7cPiohgOP1g@mail.gmail.com>
+	<520CC328.4020106@communistcode.co.uk>
+	<CAOMwXhOe0dNZW4xwsrdjsGmHF2Jp1A0a48Cui7nhi2wdv1kQPw@mail.gmail.com>
+In-Reply-To: <CAOMwXhOe0dNZW4xwsrdjsGmHF2Jp1A0a48Cui7nhi2wdv1kQPw@mail.gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Stunnel recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: ml@communistcode.co.uk
 List-Id: Poky build system developer discussion & patch submission for
 	meta-yocto <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
@@ -27,45 +32,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Aug 2013 12:06:41 -0000
+X-List-Received-Date: Thu, 15 Aug 2013 12:07:13 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-These were recently added by me and I'm prepared to continue maintaining
-them.
+On 15/08/13 13:03, Laszlo Papp wrote:
+> That was not a real question, more like a hint for you to think a bit
+> more ... ;-)
+> 
+> But since you seem to be not getting the point, should stunnel go to
+> recipes-support inside meta-working layer?
+> 
+> 
+> On Thu, Aug 15, 2013 at 1:01 PM, Jack Mitchell <ml@communistcode.co.uk
+> <mailto:ml@communistcode.co.uk>> wrote:
+> 
+>     On 15/08/13 10:29, Laszlo Papp wrote:
+>     > You have to put a recipe inside a recipes-foo, right?
+>     >
+>     >
+>     > On Thu, Aug 15, 2013 at 10:25 AM, Jack Mitchell
+>     <ml@communistcode.co.uk <mailto:ml@communistcode.co.uk>
+>     > <mailto:ml@communistcode.co.uk <mailto:ml@communistcode.co.uk>>>
+>     wrote:
+>     >
+>     >     On 14/08/13 10:37, Laszlo Papp wrote:
+>     >     > On Wed, Aug 14, 2013 at 9:34 AM, Burton, Ross
+>     >     <ross.burton@intel.com <mailto:ross.burton@intel.com>
+>     <mailto:ross.burton@intel.com <mailto:ross.burton@intel.com>>
+>     >     > <mailto:ross.burton@intel.com <mailto:ross.burton@intel.com>
+>     <mailto:ross.burton@intel.com <mailto:ross.burton@intel.com>>>> wrote:
+>     >     >
+>     >     >     There's a meta-networking layer in the meta-oe
+>     repository which is
+>     >     >     probably a good place to start.
+>     >     >
+>     >     >
+>     >     > recipes-support?
+>     >     >
+>     >     >
+>     >
+>     >    
+>     https://github.com/openembedded/meta-oe/tree/master/meta-networking
+>     >
+>     >
+>     >     --
+>     >       Jack Mitchell (jack@embed.me.uk <mailto:jack@embed.me.uk>
+>     <mailto:jack@embed.me.uk <mailto:jack@embed.me.uk>>)
+>     >       Embedded Systems Engineer
+>     >       Cambrideshire, UK
+>     >       http://www.embed.me.uk
+>     >     --
+>     >     _______________________________________________
+>     >     poky mailing list
+>     >     poky@yoctoproject.org <mailto:poky@yoctoproject.org>
+>     <mailto:poky@yoctoproject.org <mailto:poky@yoctoproject.org>>
+>     >     https://lists.yoctoproject.org/listinfo/poky
+>     >
+>     >
+> 
+>     Correct, you don't want to put it in the root directory.
+> 
+>     --
+>       Jack Mitchell (jack@embed.me.uk <mailto:jack@embed.me.uk>)
+>       Embedded Systems Engineer
+>       Cambrideshire, UK
+>       http://www.embed.me.uk
+>     --
+> 
+> 
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta-yocto/conf/distro/include/maintainers.inc | 3 +++
- 1 file changed, 3 insertions(+)
+I've no idea what stunnel does, I imagine you're more qualified to
+decide on it's sub category.
 
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index d51ece9..ebd4d7a 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -277,6 +277,7 @@ RECIPE_MAINTAINER_pn-libarchive = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-libart-lgpl = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-libassuan = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-libatomics-ops = "Cristian Iorga <cristian.iorga@intel.com>"
-+RECIPE_MAINTAINER_pn-libav = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libcap = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libcgroup = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libcheck = "Saul Wold <sgw@linux.intel.com>"
-@@ -669,6 +670,7 @@ RECIPE_MAINTAINER_pn-wpa-supplicant = "Cristian Iorga <cristian.iorga@intel.com>
- RECIPE_MAINTAINER_pn-x11-common = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-x11perf = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-x11vnc = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-+RECIPE_MAINTAINER_pn-x264 = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-xauth = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xcb-proto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xcb-util-image = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-@@ -722,6 +724,7 @@ RECIPE_MAINTAINER_pn-xvideo-tests = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-xvinfo = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xwininfo = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
- RECIPE_MAINTAINER_pn-xz = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
-+RECIPE_MAINTAINER_pn-yasm = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-zaurusd = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-zip = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-zlib = "Cristiana Voicu <cristiana.voicu@intel.com>"
 -- 
-1.8.1.2
-
+  Jack Mitchell (jack@embed.me.uk)
+  Embedded Systems Engineer
+  Cambrideshire, UK
+  http://www.embed.me.uk
+--
 
