@@ -1,19 +1,20 @@
-Return-Path: <cristiana.voicu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DAF53E01575
-	for <poky@yoctoproject.org>; Thu, 15 Aug 2013 05:40:43 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 15 Aug 2013 05:40:42 -0700
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D3985E0073F
+	for <poky@yoctoproject.org>; Fri, 16 Aug 2013 04:22:30 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 16 Aug 2013 04:19:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,885,1367996400"; d="scan'208";a="346774512"
-Received: from cvoicu-vostro-460.rb.intel.com ([10.237.105.72])
-	by azsmga001.ch.intel.com with ESMTP; 15 Aug 2013 05:40:38 -0700
-From: Cristiana Voicu <cristiana.voicu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.89,894,1367996400"; d="scan'208";a="363590205"
+Received: from timevans-mobl.ger.corp.intel.com (HELO
+	helios.ger.corp.intel.com) ([10.252.122.223])
+	by orsmga001.jf.intel.com with ESMTP; 16 Aug 2013 04:22:29 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 15 Aug 2013 15:43:41 +0300
-Message-Id: <1376570621-31102-1-git-send-email-cristiana.voicu@intel.com>
-X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] package_regex.inc: Add regex for atk
+Date: Fri, 16 Aug 2013 12:22:25 +0100
+Message-Id: <1376652145-6169-1-git-send-email-paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [PATCH] poky.conf: update version for 1.4.2 release
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,28 +27,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Aug 2013 12:40:44 -0000
+X-List-Received-Date: Fri, 16 Aug 2013 11:22:31 -0000
 
-This is GNOME, 2.[odd] are development releases.
+Update DISTRO_VERSION to 1.4.2 prior to the release and add this version
+to the list of tested distributions. DISTRO_NAME also needed to be
+updated to refer to Poky 9.0.2 specifically.
 
-Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 ---
- meta-yocto/conf/distro/include/package_regex.inc |    1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/distro/poky.conf | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
-index b03601d..e271cd8 100644
---- a/meta-yocto/conf/distro/include/package_regex.inc
-+++ b/meta-yocto/conf/distro/include/package_regex.inc
-@@ -18,6 +18,7 @@ COMMON_REGEX = "((\d+[\.\-_]*)+)"
- #This will need to be changed a little bit when versions are bigger than 9.
- REGEX_URI_pn-acpid = "http://sourceforge.net/projects/acpid/files/acpid/"
- REGEX_pn-acpid = "[hH][rR][eE][fF]=\"/projects/acpid/files/acpid/(acpid\-)?(?P<pver>(\d\.(\d+[\.\-_]*)+))/\""
-+REGEX_pn-atk = "[hH][rR][eE][fF]=\"atk\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
- REGEX_URI_pn-beecrypt = "http://sourceforge.net/projects/beecrypt/files/beecrypt/"
- REGEX_pn-beecrypt = "[hH][rR][eE][fF]=\"/projects/beecrypt/files/beecrypt/(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-beecrypt-native = "http://sourceforge.net/projects/beecrypt/files/beecrypt/"
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 2d3f9f4..a16522d 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+-DISTRO_NAME = "Poky 9.0 (Yocto Project 1.4 Reference Distro)"
+-DISTRO_VERSION = "1.4.1"
++DISTRO_NAME = "Poky 9.0.2 (Yocto Project 1.4 Reference Distro)"
++DISTRO_VERSION = "1.4.2"
+ DISTRO_CODENAME = "dylan"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION := "${@'${DISTRO_VERSION}'}"
+@@ -76,6 +76,7 @@ SANITY_TESTED_DISTROS ?= " \
+             Poky-1.3 \n \
+             Poky-1.4 \n \
+             Poky-1.4.1 \n \
++            Poky-1.4.2 \n \
+             Ubuntu-10.04 \n \
+             Ubuntu-11.10 \n \
+             Ubuntu-12.04 \n \
 -- 
-1.7.9.5
+1.8.1.2
 
 
