@@ -1,28 +1,28 @@
 Return-Path: <andreas2025@gmail.com>
-Received: from mail-wi0-f182.google.com (mail-wi0-f182.google.com
-	[209.85.212.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 81F2DE01524
-	for <poky@yoctoproject.org>; Sun, 18 Aug 2013 03:37:40 -0700 (PDT)
-Received: by mail-wi0-f182.google.com with SMTP id hi8so2100962wib.9
-	for <poky@yoctoproject.org>; Sun, 18 Aug 2013 03:37:39 -0700 (PDT)
+Received: from mail-we0-f193.google.com (mail-we0-f193.google.com
+	[74.125.82.193])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1F979E01524
+	for <poky@yoctoproject.org>; Sun, 18 Aug 2013 03:40:17 -0700 (PDT)
+Received: by mail-we0-f193.google.com with SMTP id q54so1138048wes.0
+	for <poky@yoctoproject.org>; Sun, 18 Aug 2013 03:40:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=4YDIaRGuIjGLhc+BWTASG3FLezHCtmHvP+M39m+8LiQ=;
-	b=sLprXrAeASIqCxzEGL0wpVkE5i5lnoePAxTkN/g7/xJiQ8wunyGF4yfNoFOZy62HCC
-	qli2PXO0o/OiAehKMX9qCsA5q/32qnwLeSqhW0I0sxfQpCWmGGN0KZzUqoEw6a3Y9uOt
-	pl0OoNx2X5BvY6iL414BcK0pCVx+oCFlfWecaVdBdaVYgDzQ5V6jmjVC8WGiLjUoaOOe
-	90bJ/45nByQynaCkPeZRNqhzrL8ozyq5St4JEGLugKXve8sn7uiYZHTPdOF5CmHfGCL9
-	pyRT4RqqzBhlCLGaB1q9nv2NA/uao8jE9UyDGtT49/hH0JEVDXh4/aRDme02Z55HLpp8
-	C6eA==
+	bh=58L2Dn9Eiay6sSAE04lpcO1LR979qWn/yBqePHWtqVo=;
+	b=FVChuKbNgop4gSAckYt3wWftvU7gmn8spvM+98lsjzSIbZ3kn4PJPijtR6b+En48/u
+	/mttQQPCYPb+4gqwqC4Cs1tnD0q9LaJ2AElFbVhQMpjXQ0YmHb8NkqMY4k9KBDEvgH9f
+	E8o0ysXuEQspWFYHVNd0ojhhBvIKBSfrbnR9glzr70i34U0t1JFJhCzlL75suudi8jJT
+	FKKqzYnX609mtXtdKfNdXnkZb5nZEVsq9PI7wuvMmfSTN2+ud9WZfHgrsZhSKMKzP/vk
+	IDt19wBHlNZrTePbO5CYHLGI7arR0CUPEqJ+z3HWBI3zSXUPXet9cLblEmC7lnSz6h3c
+	dOkw==
 MIME-Version: 1.0
-X-Received: by 10.180.84.225 with SMTP id c1mr4274861wiz.53.1376822258938;
-	Sun, 18 Aug 2013 03:37:38 -0700 (PDT)
-Received: by 10.217.38.193 with HTTP; Sun, 18 Aug 2013 03:37:38 -0700 (PDT)
-Date: Sun, 18 Aug 2013 11:37:38 +0100
-Message-ID: <CAAVaN8wf16RFYBx-FpZpsNPoch4eSrKSHhOicYMQghh_B8cW9Q@mail.gmail.com>
+X-Received: by 10.180.208.3 with SMTP id ma3mr802970wic.12.1376822416027; Sun,
+	18 Aug 2013 03:40:16 -0700 (PDT)
+Received: by 10.217.38.193 with HTTP; Sun, 18 Aug 2013 03:40:16 -0700 (PDT)
+Date: Sun, 18 Aug 2013 11:40:16 +0100
+Message-ID: <CAAVaN8zhLszZ_zN3O0E69ZqD+kFnEVUR48rkNy833jXm5PE42A@mail.gmail.com>
 From: Andy Ng <andreas2025@gmail.com>
 To: poky@yoctoproject.org
-Subject: (No subject)
+Subject: file permissions in the rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,16 +35,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 18 Aug 2013 10:37:42 -0000
-Content-Type: multipart/alternative; boundary=f46d0418282ea9b8e504e436697d
+X-List-Received-Date: Sun, 18 Aug 2013 10:40:18 -0000
+Content-Type: multipart/alternative; boundary=001a11c388b206b3b904e43673d1
 
---f46d0418282ea9b8e504e436697d
+--001a11c388b206b3b904e43673d1
 Content-Type: text/plain; charset=ISO-8859-1
 
 Dear List,
 
-I try to build Poky and the final rootfs image doesn't not mount with the
-following problem:
+I try to build Poky 7.0.1  and the final rootfs image doesn't not mount
+with the following problem:
 
 ----------------------8<-------------------------8<------------------------------
 BIFS: mounted UBI device 0, volume 0, name "polatisnic-rootfs"
@@ -82,42 +82,48 @@ Any guidance would be very helpful.
 Thank you
 Andreas
 
---f46d0418282ea9b8e504e436697d
+--001a11c388b206b3b904e43673d1
 Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div>Dear List,<br><br></div>I try to build Poky and =
-the final rootfs image doesn&#39;t not mount with the following problem:<br=
-><br>----------------------8&lt;-------------------------8&lt;-------------=
------------------<br>
+<div dir=3D"ltr"><div><div>Dear List,<br><br></div>I try to build Poky 7.0.=
+1=A0 and the final rootfs image doesn&#39;t not mount with the following pr=
+oblem:<br><br>----------------------8&lt;-------------------------8&lt;----=
+--------------------------<br>
+
 
 BIFS: mounted UBI device 0, volume 0, name &quot;polatisnic-rootfs&quot;<br=
 >UBIFS: mounted read-only<br>UBIFS: file system size:=A0=A0 10737408 bytes =
 (10485 KiB, 10 MiB, 82 LEBs)<br>UBIFS: journal size:=A0=A0=A0=A0=A0=A0 1964=
 160 bytes (1918 KiB, 1 MiB, 15 LEBs)<br>
 
+
 UBIFS: media format:=A0=A0=A0=A0=A0=A0 w4/r0 (latest is w4/r0)<br>UBIFS: de=
 fault compressor: lzo<br>UBIFS: reserved for root:=A0 0 bytes (0 KiB)<br>VF=
 S: Mounted root (ubifs filesystem) readonly on device 0:14.<br>devtmpfs: mo=
 unted<br>
+
 Freeing init memory: 208K<br>
 INIT: version 2.88 booting<br>mount: permission denied (are you root?)<br>m=
 ount: permission denied (are you root?)<br>grep: /proc/filesystems: No such=
  file or directory<br>mount: permission denied (are you root?)<br>grep: /pr=
 oc/mounts: No such file or directory<br>
 
+
 grep: /proc/mounts: No such file or directory<br>Remounting root file syste=
 m...<br>mount: can&#39;t read &#39;/etc/mtab&#39;: No such file or director=
 y<br>------------------------8&lt;-----------------------------------8&lt;-=
 -----------------<br>
 
+
 <br></div><div>After a bit of research, I have found out that the busybox w=
 as populated in the rootfs <br></div><div>under ownership of &quot;andreas:=
 andreas&quot; instead of &quot;root:root&quot;, and its symbolic links unde=
 r &quot;root:root&quot;<br>
+
 <br></div><div>I fixed manually the ownership and it booted=A0 up.<br>
 <br></div><div>Does anyone knows what might be going wrong in my build proc=
 ess?<br><br></div><div>Any guidance would be very helpful.<br><br></div>Tha=
 nk you<br>Andreas</div>
 
---f46d0418282ea9b8e504e436697d--
+--001a11c388b206b3b904e43673d1--
