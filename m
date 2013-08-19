@@ -1,27 +1,22 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 700EBE013DA
-	for <poky@yoctoproject.org>; Sun, 18 Aug 2013 12:51:30 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id DA7CCF811E5; Sun, 18 Aug 2013 13:51:26 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id A6007F811E2;
-	Sun, 18 Aug 2013 13:51:25 -0600 (MDT)
-Message-ID: <521125C4.1060504@mlbassoc.com>
-Date: Sun, 18 Aug 2013 13:51:32 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130804 Thunderbird/17.0.8
-MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <CAAVaN8zhLszZ_zN3O0E69ZqD+kFnEVUR48rkNy833jXm5PE42A@mail.gmail.com>
-In-Reply-To: <CAAVaN8zhLszZ_zN3O0E69ZqD+kFnEVUR48rkNy833jXm5PE42A@mail.gmail.com>
-Subject: Re: file permissions in the rootfs
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 996A6E003E2
+	for <poky@yoctoproject.org>; Mon, 19 Aug 2013 14:47:22 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 19 Aug 2013 14:47:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,915,1367996400"; d="scan'208";a="365128157"
+Received: from qana.jf.intel.com ([10.7.201.146])
+	by orsmga001.jf.intel.com with ESMTP; 19 Aug 2013 14:47:21 -0700
+Received: by qana.jf.intel.com (Postfix, from userid 1000)
+	id 5919F5F825CD; Mon, 19 Aug 2013 14:45:22 -0700 (PDT)
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+To: elizabeth.flanagan@intel.com,
+	poky@yoctoproject.org
+Date: Mon, 19 Aug 2013 14:45:17 -0700
+Message-Id: <1376948717-8206-1-git-send-email-elizabeth.flanagan@intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [PATCH] SDK_NAME: Change to include image name and machine.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,50 +29,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 18 Aug 2013 19:51:37 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 19 Aug 2013 21:47:26 -0000
 
-On 2013-08-18 04:40, Andy Ng wrote:
-> Dear List,
->
-> I try to build Poky 7.0.1  and the final rootfs image doesn't not mount with the following problem:
->
-> ----------------------8<-------------------------8<------------------------------
-> BIFS: mounted UBI device 0, volume 0, name "polatisnic-rootfs"
-> UBIFS: mounted read-only
-> UBIFS: file system size:   10737408 bytes (10485 KiB, 10 MiB, 82 LEBs)
-> UBIFS: journal size:       1964160 bytes (1918 KiB, 1 MiB, 15 LEBs)
-> UBIFS: media format:       w4/r0 (latest is w4/r0)
-> UBIFS: default compressor: lzo
-> UBIFS: reserved for root:  0 bytes (0 KiB)
-> VFS: Mounted root (ubifs filesystem) readonly on device 0:14.
-> devtmpfs: mounted
-> Freeing init memory: 208K
-> INIT: version 2.88 booting
-> mount: permission denied (are you root?)
-> mount: permission denied (are you root?)
-> grep: /proc/filesystems: No such file or directory
-> mount: permission denied (are you root?)
-> grep: /proc/mounts: No such file or directory
-> grep: /proc/mounts: No such file or directory
-> Remounting root file system...
-> mount: can't read '/etc/mtab': No such file or directory
-> ------------------------8<-----------------------------------8<------------------
->
-> After a bit of research, I have found out that the busybox was populated in the rootfs
-> under ownership of "andreas:andreas" instead of "root:root", and its symbolic links under "root:root"
->
-> I fixed manually the ownership and it booted  up.
->
-> Does anyone knows what might be going wrong in my build process?
+[YOCTO #4618]
 
-Explain your build process in detail (UBIFS is not a very common deployment)
-in order to get help.
+When building out multiple toolchains with the same target arch
+you can end up having toolchains with the same name. Making
+the naming a bit more granular by adding IMAGE_BASENAME and
+MACHINE to SDK_NAME
 
+Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+---
+ meta-yocto/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 7be7d92..f0da032 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -22,7 +22,7 @@ PREFERRED_VERSION_linux-yocto_qemumips ?= "3.8%"
+ PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.8%"
+ PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.8%"
+ 
+-SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${TARGET_ARCH}"
++SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${MACHINE}-${TARGET_ARCH}"
+ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
+ 
+ EXTRAOPKGCONFIG = "poky-feed-config-opkg"
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+1.8.1.2
+
 
