@@ -1,26 +1,26 @@
 Return-Path: <corneliux.stoicescu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 90CDCE01528
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:05 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Aug 2013 01:40:05 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B8003E0157B
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:04 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 20 Aug 2013 01:40:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="388942017"
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="348814716"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Aug 2013 01:40:05 -0700
+	by azsmga001.ch.intel.com with ESMTP; 20 Aug 2013 01:39:58 -0700
 Received: from localhost.localdomain (unknown [10.237.112.161])
-	by linux.intel.com (Postfix) with ESMTP id 5F4766A4007;
-	Tue, 20 Aug 2013 01:40:02 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id 2ED7C6A4007;
+	Tue, 20 Aug 2013 01:39:54 -0700 (PDT)
 From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Aug 2013 11:44:49 +0200
-Message-Id: <3ca5ffaf80d848a65cf5869b7ee6120a7da46672.1376923556.git.corneliux.stoicescu@intel.com>
+Date: Tue, 20 Aug 2013 11:44:45 +0200
+Message-Id: <5c7b8fc342b19080ec02012156eb53c038794d69.1376923556.git.corneliux.stoicescu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 References: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
 References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
-Subject: [PATCH 007/186] gst-fluendo-mpegdemux: upgrade to v0.10.72
+Subject: [PATCH 003/186] buildhistory: use bb.utils.mkdirhier instead of os.makedirs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,37 +33,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Aug 2013 08:40:05 -0000
+X-List-Received-Date: Tue, 20 Aug 2013 08:40:06 -0000
 
-From: Cristian Iorga <cristian.iorga@intel.com>
+From: Martin Jansa <martin.jansa@gmail.com>
 
-(From OE-Core rev: b7b114c507166625356645cf719daddd4fac2fea)
+* Multiple do_fetch[prefunc] can happen at the same time and
+  if not os.path.exists(pkghistdir):
+    os.makedirs(pkghistdir)
+  isn't safe
+* Use bb.utils.mkdirhier which doesn't raise error when directory exists
 
-Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
+(From OE-Core rev: 9aac194d7db79129dcbed29cfb89c57dccf33729)
+
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- ...0.10.71.bb => gst-fluendo-mpegdemux_0.10.72.bb} |    6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
- rename meta/recipes-multimedia/gstreamer/{gst-fluendo-mpegdemux_0.10.71.bb => gst-fluendo-mpegdemux_0.10.72.bb} (70%)
+ meta/classes/buildhistory.bbclass |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.71.bb b/meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.72.bb
-similarity index 70%
-rename from meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.71.bb
-rename to meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.72.bb
-index 580b9e8..f4bdce1 100644
---- a/meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.71.bb
-+++ b/meta/recipes-multimedia/gstreamer/gst-fluendo-mpegdemux_0.10.72.bb
-@@ -8,7 +8,5 @@ LICENSE_FLAGS = "commercial"
+diff --git a/meta/classes/buildhistory.bbclass b/meta/classes/buildhistory.bbclass
+index 55b6bbf..c32c7aa 100644
+--- a/meta/classes/buildhistory.bbclass
++++ b/meta/classes/buildhistory.bbclass
+@@ -169,7 +169,7 @@ python buildhistory_emit_pkghistory() {
  
- acpaths = "-I ${S}/common/m4 -I ${S}/m4"
+     packagelist = packages.split()
+     if not os.path.exists(pkghistdir):
+-        os.makedirs(pkghistdir)
++        bb.utils.mkdirhier(pkghistdir)
+     else:
+         # Remove files for packages that no longer exist
+         for item in os.listdir(pkghistdir):
+@@ -268,7 +268,7 @@ def write_pkghistory(pkginfo, d):
  
--PR = "r0"
--
--SRC_URI[md5sum] = "a7b5152cd73fd0f9fa653fca93c82bd7"
--SRC_URI[sha256sum] = "3be3907e860bce4cc8bee0c70e4b28e91d97f4037e611473b8c9bb954b4de4f9"
-+SRC_URI[md5sum] = "df726579404af65b9536428661ab4322"
-+SRC_URI[sha256sum] = "a9784bc16352d0fb73de81b9c17142609e8bede46f6d9b881fc3d19673954abf"
+     pkgpath = os.path.join(pkghistdir, pkginfo.name)
+     if not os.path.exists(pkgpath):
+-        os.makedirs(pkgpath)
++        bb.utils.mkdirhier(pkgpath)
+ 
+     infofile = os.path.join(pkgpath, "latest")
+     with open(infofile, "w") as f:
+@@ -579,7 +579,7 @@ python write_srcrev() {
+     srcrevs, tag_srcrevs = _get_srcrev_values(d)
+     if srcrevs:
+         if not os.path.exists(pkghistdir):
+-            os.makedirs(pkghistdir)
++            bb.utils.mkdirhier(pkghistdir)
+         old_tag_srcrevs = {}
+         if os.path.exists(srcrevfile):
+             with open(srcrevfile) as f:
 -- 
 1.7.9.5
 
