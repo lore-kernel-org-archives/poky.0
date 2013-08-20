@@ -1,34 +1,24 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mail-vc0-f175.google.com (mail-vc0-f175.google.com
-	[209.85.220.175])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7A419E003E2
-	for <poky@yoctoproject.org>; Mon, 19 Aug 2013 16:10:35 -0700 (PDT)
-Received: by mail-vc0-f175.google.com with SMTP id ia10so3466282vcb.34
-	for <poky@yoctoproject.org>; Mon, 19 Aug 2013 16:10:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-gm-message-state:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=uzRr4Rad0ibqwl2ml9B9jZHnmLCi9ACH/EARjlqt9IY=;
-	b=cL5A5QrZvryFFtpfITU4L3DFlxOfeCD9dYznkKELKOIHpssQSooUQ1rA47TVxEe+fZ
-	YyuCbNmcL69kgv3v2NM0+ToyAODwoc+Q0FuFJTBZBN0Tl2DWJlVGPWavGk+HnS0FdwMW
-	tm4TM5yyRevC7WiMaAkxNvEU0JmVaLraehA0DBpybcu499YvB19A76CbmfkRYzVv8inq
-	kNmWEEdHCP9cIvfOU/dIwgFFSe6U76pPrwqCjDsAShZNz7+zWuY/ypZ105Qh1y5tIuXm
-	kA/QNP0c79zWOdUtF8WexTeMeRa7i96ek9WKjTJgUfhTF30JCMyWdHG3Pggmvip5IJL6
-	zucg==
-X-Gm-Message-State: ALoCoQlNjW5p7mNrNkV/8SUiqCVk9sdNQmdiqaY6IuGW3OsvV0oLilyfpMRc1Nc93Eacpdv1MOtk
-MIME-Version: 1.0
-X-Received: by 10.220.164.70 with SMTP id d6mr8109131vcy.19.1376953834969;
-	Mon, 19 Aug 2013 16:10:34 -0700 (PDT)
-Received: by 10.52.28.109 with HTTP; Mon, 19 Aug 2013 16:10:34 -0700 (PDT)
-In-Reply-To: <1376949519.25999.65.camel@ted>
-References: <1376948717-8206-1-git-send-email-elizabeth.flanagan@intel.com>
-	<1376949519.25999.65.camel@ted>
-Date: Mon, 19 Aug 2013 16:10:34 -0700
-Message-ID: <CAPhnLPDbAFt8EPdBPE86Jrg14wXkFuupwj=GXNT_G6k=PMAUtQ@mail.gmail.com>
-From: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] SDK_NAME: Change to include image name and machine.
+Return-Path: <corneliux.stoicescu@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C7A83E00441
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:39:39 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by orsmga102.jf.intel.com with ESMTP; 20 Aug 2013 01:36:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="383551692"
+Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
+	by fmsmga001.fm.intel.com with ESMTP; 20 Aug 2013 01:39:37 -0700
+Received: from localhost.localdomain (unknown [10.237.112.161])
+	by linux.intel.com (Postfix) with ESMTP id 68ABE6A4007;
+	Tue, 20 Aug 2013 01:39:35 -0700 (PDT)
+From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 20 Aug 2013 11:44:43 +0200
+Message-Id: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
+References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
+Subject: [PATCH 001/186] bitbake: hob: Add missing file from previous commit
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,75 +31,78 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Aug 2013 23:10:39 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 20 Aug 2013 08:39:39 -0000
 
-There apparently are differences caused by each machines tunings (for
-example, meta-fsl-arm's imx53qsb is armv7a-vfp-neon, whereas qemuarm
-is armv5te). With SDK_NAME as it is, you'd end up with two files that
-have the exact same name and toolchains builds that are different.
-Example. qemuarm's toolchain env setup should be named
-'environment-setup-armv5te-poky-linux-gnueabi' but the toolchain I
-just downloaded from the last master build is
-'environment-setup-armv7a-vfp-neon-poky-linux-gnueabi' because it's
-the toolchain from the meta-fsl-arm build. I'm not sure how deep the
-issues go outside of these relatively small naming issues. ccing: Yi
-Zhao as I'm sure he can tell us more.
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-I agree that TUNE_PKGARCH is probably a better solution than
-TARGET_ARCH but with how I'm generating toolchains now (bitbake
-core-image-sato  -c populate_sdk) I can see a day when having the
-IMAGE_BASENAME included would be a very useful thing.
+This should have been part of 'hob: implement the "retrieve image dialog" +
+changes to image combo box' but got lost in the merge process. This adds
+the missing file.
 
-So, would anyone be opposed to:
+(Bitbake rev: 0eadcc073f270c0b323955cf7719b77195cf4890)
 
-SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ .../lib/bb/ui/crumbs/hig/retrieveimagedialog.py    |   49 ++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+ create mode 100644 bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py
 
--b
-
-On Mon, Aug 19, 2013 at 2:58 PM, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> On Mon, 2013-08-19 at 14:45 -0700, Elizabeth Flanagan wrote:
->> [YOCTO #4618]
->>
->> When building out multiple toolchains with the same target arch
->> you can end up having toolchains with the same name. Making
->> the naming a bit more granular by adding IMAGE_BASENAME and
->> MACHINE to SDK_NAME
->>
->> Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
->> ---
->>  meta-yocto/conf/distro/poky.conf | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
->> index 7be7d92..f0da032 100644
->> --- a/meta-yocto/conf/distro/poky.conf
->> +++ b/meta-yocto/conf/distro/poky.conf
->> @@ -22,7 +22,7 @@ PREFERRED_VERSION_linux-yocto_qemumips ?= "3.8%"
->>  PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.8%"
->>  PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.8%"
->>
->> -SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${TARGET_ARCH}"
->> +SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${MACHINE}-${TARGET_ARCH}"
->>  SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
->>
->>  EXTRAOPKGCONFIG = "poky-feed-config-opkg"
->
-> Are there differences in the SDK/ADT tarball between machines?
->
-> I appreciate its theoretically possible but in reality, they should be
-> the same and if they're not we have various problems.
->
-> Cheers,
->
-> Richard
->
-
-
-
+diff --git a/bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py b/bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py
+new file mode 100644
+index 0000000..060b4fd
+--- /dev/null
++++ b/bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py
+@@ -0,0 +1,49 @@
++#
++# BitBake Graphical GTK User Interface
++#
++# Copyright (C) 2013   Intel Corporation
++#
++# Authored by Cristiana Voicu <cristiana.voicu@intel.com>
++#
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License version 2 as
++# published by the Free Software Foundation.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License along
++# with this program; if not, write to the Free Software Foundation, Inc.,
++# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++
++import gtk
++
++class RetrieveImageDialog (gtk.FileChooserDialog):
++    """
++    This class is used to create a dialog that permits to retrieve
++    a custom image saved previously from Hob.
++    """
++    def __init__(self, directory,title, parent, flags, buttons=None):
++        super(RetrieveImageDialog, self).__init__(title, None, gtk.FILE_CHOOSER_ACTION_OPEN,
++            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN, gtk.RESPONSE_OK))
++        self.directory = directory
++
++        # create visual elements on the dialog
++        self.create_visual_elements()
++
++    def create_visual_elements(self):
++        self.set_show_hidden(True)
++        self.set_default_response(gtk.RESPONSE_OK)
++        self.set_current_folder(self.directory)
++
++        vbox = self.get_children()[0].get_children()[0].get_children()[0]
++        for child in vbox.get_children()[0].get_children()[0].get_children()[0].get_children():
++            vbox.get_children()[0].get_children()[0].get_children()[0].remove(child)
++
++        label1 = gtk.Label()
++        label1.set_text("File system:  " + self.directory)
++        label1.show()
++        vbox.get_children()[0].get_children()[0].get_children()[0].pack_start(label1, expand=False, fill=False, padding=0)
++        vbox.get_children()[0].get_children()[1].get_children()[0].hide()
 -- 
-Elizabeth Flanagan
-Yocto Project
-Build and Release
+1.7.9.5
+
 
