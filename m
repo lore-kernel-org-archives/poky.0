@@ -1,26 +1,26 @@
 Return-Path: <corneliux.stoicescu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7AE56E0158A
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:07 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 20 Aug 2013 01:40:07 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BACE5E013DE
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:04 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 20 Aug 2013 01:40:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="388942030"
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="365374562"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by fmsmga002.fm.intel.com with ESMTP; 20 Aug 2013 01:40:06 -0700
+	by orsmga001.jf.intel.com with ESMTP; 20 Aug 2013 01:40:03 -0700
 Received: from localhost.localdomain (unknown [10.237.112.161])
-	by linux.intel.com (Postfix) with ESMTP id 228736A4007;
-	Tue, 20 Aug 2013 01:40:03 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id 971756A4007;
+	Tue, 20 Aug 2013 01:40:00 -0700 (PDT)
 From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Aug 2013 11:44:50 +0200
-Message-Id: <6305e6a0ad21c04b75bc4e4216ec55f44fe9f458.1376923556.git.corneliux.stoicescu@intel.com>
+Date: Tue, 20 Aug 2013 11:44:48 +0200
+Message-Id: <3a8f3b88813c79e18a8b03c9fad959a406cbf19d.1376923556.git.corneliux.stoicescu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 References: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
 References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
-Subject: [PATCH 008/186] tzdata: upgrade to 2013d
+Subject: [PATCH 006/186] net-tools: upgrade to v1.60-25
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,56 +35,55 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Tue, 20 Aug 2013 08:40:07 -0000
 
-From: Cristiana Voicu <cristiana.voicu@intel.com>
+From: Cristian Iorga <cristian.iorga@intel.com>
 
-(From OE-Core rev: 1e055f184e7ac62118fe04dfa9860cd7819eaddb)
+(From OE-Core rev: 2277b106b947248b06a257a90420d8d69fe522f9)
 
-Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
-
-[sgw: Fix up tzdata to 2013d]
+Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../recipes-extended/tzcode/tzcode-native_2013d.bb |    6 +++---
- .../tzdata/{tzdata_2013b.bb => tzdata_2013d.bb}    |    4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
- rename meta/recipes-extended/tzdata/{tzdata_2013b.bb => tzdata_2013d.bb} (98%)
+ .../net-tools-config.h                             |    0
+ .../net-tools-config.make                          |    0
+ ...net-tools_1.60-24.2.bb => net-tools_1.60-25.bb} |    5 ++---
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+ rename meta/recipes-extended/net-tools/{net-tools-1.60-24.2 => net-tools}/net-tools-config.h (100%)
+ rename meta/recipes-extended/net-tools/{net-tools-1.60-24.2 => net-tools}/net-tools-config.make (100%)
+ rename meta/recipes-extended/net-tools/{net-tools_1.60-24.2.bb => net-tools_1.60-25.bb} (94%)
 
-diff --git a/meta/recipes-extended/tzcode/tzcode-native_2013d.bb b/meta/recipes-extended/tzcode/tzcode-native_2013d.bb
-index 52aa9c2..af21151 100644
---- a/meta/recipes-extended/tzcode/tzcode-native_2013d.bb
-+++ b/meta/recipes-extended/tzcode/tzcode-native_2013d.bb
-@@ -6,10 +6,10 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/README;md5=d7a19b8c6d8a28785c4cd04ff2e46d2
- # note that we allow for us to use data later than our code version
- #
- SRC_URI =" ftp://ftp.iana.org/tz/releases/tzcode${PV}.tar.gz;name=tzcode \
--           ftp://ftp.iana.org/tz/releases/tzdata2013b.tar.gz;name=tzdata"
-+           ftp://ftp.iana.org/tz/releases/tzdata2013d.tar.gz;name=tzdata"
+diff --git a/meta/recipes-extended/net-tools/net-tools-1.60-24.2/net-tools-config.h b/meta/recipes-extended/net-tools/net-tools/net-tools-config.h
+similarity index 100%
+rename from meta/recipes-extended/net-tools/net-tools-1.60-24.2/net-tools-config.h
+rename to meta/recipes-extended/net-tools/net-tools/net-tools-config.h
+diff --git a/meta/recipes-extended/net-tools/net-tools-1.60-24.2/net-tools-config.make b/meta/recipes-extended/net-tools/net-tools/net-tools-config.make
+similarity index 100%
+rename from meta/recipes-extended/net-tools/net-tools-1.60-24.2/net-tools-config.make
+rename to meta/recipes-extended/net-tools/net-tools/net-tools-config.make
+diff --git a/meta/recipes-extended/net-tools/net-tools_1.60-24.2.bb b/meta/recipes-extended/net-tools/net-tools_1.60-25.bb
+similarity index 94%
+rename from meta/recipes-extended/net-tools/net-tools_1.60-24.2.bb
+rename to meta/recipes-extended/net-tools/net-tools_1.60-25.bb
+index 4040e1a..bd72acc 100644
+--- a/meta/recipes-extended/net-tools/net-tools_1.60-24.2.bb
++++ b/meta/recipes-extended/net-tools/net-tools_1.60-25.bb
+@@ -5,7 +5,6 @@ BUGTRACKER = "http://bugs.debian.org/net-tools"
+ LICENSE = "GPLv2+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=8ca43cbc842c2336e835926c2166c28b \
+                     file://ifconfig.c;beginline=11;endline=15;md5=d1ca372080ad5401e23ca0afc35cf9ba"
+-PR = "r0"
  
--SRC_URI[tzdata.md5sum] = "489dbca77d1f2e287a3987ca047bb246"
--SRC_URI[tzdata.sha256sum] = "70d589d0e76a3749403d2bb404e9214c2520dda4c13e4b07b1b945ed2c64edb2"
-+SRC_URI[tzdata.md5sum] = "65b6818162230fc02f86f293376c73df"
-+SRC_URI[tzdata.sha256sum] = "cd1c96f0676e0edceebc6a418a2222ffb05becb41180dd9f847b9c7cef303b04"
+ SRC_URI = "${DEBIAN_MIRROR}/main/n/net-tools/net-tools_1.60.orig.tar.gz;name=tarball \
+            ${DEBIAN_MIRROR}/main/n/net-tools/${BPN}_${PV}.diff.gz;apply=no;name=patch \
+@@ -17,8 +16,8 @@ S = "${WORKDIR}/net-tools-1.60"
+ SRC_URI[tarball.md5sum] = "ecaf37acb5b5daff4bdda77785fd916d"
+ SRC_URI[tarball.sha256sum] = "ec67967cf7b1a3a3828a84762fbc013ac50ee5dc9aa3095d5c591f302c2de0f5"
  
- SRC_URI[tzcode.md5sum] = "4616a9560270f180eeb9a08540636890"
- SRC_URI[tzcode.sha256sum] = "2d9eb90c94644cddb74a490d1184ef9f88efcaa7a2b1bf88be0ee9eeeab707b6"
-diff --git a/meta/recipes-extended/tzdata/tzdata_2013b.bb b/meta/recipes-extended/tzdata/tzdata_2013d.bb
-similarity index 98%
-rename from meta/recipes-extended/tzdata/tzdata_2013b.bb
-rename to meta/recipes-extended/tzdata/tzdata_2013d.bb
-index 0b34e85..c0f1506 100644
---- a/meta/recipes-extended/tzdata/tzdata_2013b.bb
-+++ b/meta/recipes-extended/tzdata/tzdata_2013d.bb
-@@ -14,8 +14,8 @@ RCONFLICTS_${PN} = "timezones timezone-africa timezone-america timezone-antarcti
+-SRC_URI[patch.md5sum] = "524658bb8df5ff92c4a991f5edcaf240"
+-SRC_URI[patch.sha256sum] = "170cc024fcb34329f4c25fd88b5f160a06be5d6d3eaf0bc976650fd1b1a6235d"
++SRC_URI[patch.md5sum] = "5ab1e2184d0fa6518031291138f2fc51"
++SRC_URI[patch.sha256sum] = "1bddcd96ac60e794978cb20fb7ea4c2e77258c56c042c9ac8b6ec2b2033bc56f"
  
- SRC_URI = "ftp://ftp.iana.org/tz/releases/tzdata${PV}.tar.gz;name=tzdata"
- 
--SRC_URI[tzdata.md5sum] = "489dbca77d1f2e287a3987ca047bb246"
--SRC_URI[tzdata.sha256sum] = "70d589d0e76a3749403d2bb404e9214c2520dda4c13e4b07b1b945ed2c64edb2"
-+SRC_URI[tzdata.md5sum] = "65b6818162230fc02f86f293376c73df"
-+SRC_URI[tzdata.sha256sum] = "cd1c96f0676e0edceebc6a418a2222ffb05becb41180dd9f847b9c7cef303b04"
- 
- S = "${WORKDIR}"
+ inherit gettext
  
 -- 
 1.7.9.5
