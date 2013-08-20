@@ -1,32 +1,31 @@
-Return-Path: <corneliux.stoicescu@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 43754E01565
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:52:11 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga101.jf.intel.com with ESMTP; 20 Aug 2013 01:52:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; 
-	d="scan'208,217";a="383554857"
-Received: from irsmsx102.ger.corp.intel.com ([163.33.3.155])
-	by fmsmga001.fm.intel.com with ESMTP; 20 Aug 2013 01:52:10 -0700
-Received: from irsmsx152.ger.corp.intel.com (163.33.192.66) by
-	IRSMSX102.ger.corp.intel.com (163.33.3.155) with Microsoft SMTP Server
-	(TLS) id 14.3.123.3; Tue, 20 Aug 2013 09:52:09 +0100
-Received: from irsmsx103.ger.corp.intel.com ([169.254.3.49]) by
-	IRSMSX152.ger.corp.intel.com ([169.254.6.33]) with mapi id
-	14.03.0123.003; Tue, 20 Aug 2013 09:52:09 +0100
-From: "Stoicescu, CorneliuX" <corneliux.stoicescu@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Apologies for spam
-Thread-Index: Ac6dgkKzzzqd2HJbQz27oqWozuPqgQ==
-Date: Tue, 20 Aug 2013 08:52:08 +0000
-Message-ID: <33115ABC4887814E8A92A08FBC93416B0A16417F@IRSMSX103.ger.corp.intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [163.33.239.180]
-MIME-Version: 1.0
-Subject: Apologies for spam
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5137E00747
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 07:46:08 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r7KEvTAa020202; Tue, 20 Aug 2013 15:57:29 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id Wlv1JtWNVq2Y; Tue, 20 Aug 2013 15:57:29 +0100 (BST)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r7KEvLHA020182
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
+	verify=NOT); Tue, 20 Aug 2013 15:57:24 +0100
+Message-ID: <1377009931.25999.97.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
+Date: Tue, 20 Aug 2013 15:45:31 +0100
+In-Reply-To: <CAPhnLPDbAFt8EPdBPE86Jrg14wXkFuupwj=GXNT_G6k=PMAUtQ@mail.gmail.com>
+References: <1376948717-8206-1-git-send-email-elizabeth.flanagan@intel.com>
+	<1376949519.25999.65.camel@ted>
+	<CAPhnLPDbAFt8EPdBPE86Jrg14wXkFuupwj=GXNT_G6k=PMAUtQ@mail.gmail.com>
+X-Mailer: Evolution 3.6.4-0ubuntu1 
+Mime-Version: 1.0
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH] SDK_NAME: Change to include image name and machine.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,78 +38,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Aug 2013 08:52:15 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_33115ABC4887814E8A92A08FBC93416B0A16417FIRSMSX103gercor_"
+X-List-Received-Date: Tue, 20 Aug 2013 14:46:09 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---_000_33115ABC4887814E8A92A08FBC93416B0A16417FIRSMSX103gercor_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Mon, 2013-08-19 at 16:10 -0700, Flanagan, Elizabeth wrote:
+> There apparently are differences caused by each machines tunings (for
+> example, meta-fsl-arm's imx53qsb is armv7a-vfp-neon, whereas qemuarm
+> is armv5te). With SDK_NAME as it is, you'd end up with two files that
+> have the exact same name and toolchains builds that are different.
+> Example. qemuarm's toolchain env setup should be named
+> 'environment-setup-armv5te-poky-linux-gnueabi' but the toolchain I
+> just downloaded from the last master build is
+> 'environment-setup-armv7a-vfp-neon-poky-linux-gnueabi' because it's
+> the toolchain from the meta-fsl-arm build. I'm not sure how deep the
+> issues go outside of these relatively small naming issues. ccing: Yi
+> Zhao as I'm sure he can tell us more.
+> 
+> I agree that TUNE_PKGARCH is probably a better solution than
+> TARGET_ARCH but with how I'm generating toolchains now (bitbake
+> core-image-sato  -c populate_sdk) I can see a day when having the
+> IMAGE_BASENAME included would be a very useful thing.
+> 
+> So, would anyone be opposed to:
+> 
+> SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
 
-I accidentally used the poky-contrib master as a reference for my patch. It=
- will not happen again.
+Looks good to me, it was ${MACHINE} which worried me, TUNE_PKGARCH is
+the right thing.
 
-Corneliu
+We should also remove [nostamp] from any SDK/ADT bits where it remains.
 
---_000_33115ABC4887814E8A92A08FBC93416B0A16417FIRSMSX103gercor_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Cheers,
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri","sans-serif";}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">I accidentally used the poky-contrib master as a ref=
-erence for my patch. It will not happen again.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Corneliu<o:p></o:p></p>
-</div>
-</body>
-</html>
+Richard
 
---_000_33115ABC4887814E8A92A08FBC93416B0A16417FIRSMSX103gercor_--
+
