@@ -1,26 +1,26 @@
 Return-Path: <corneliux.stoicescu@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D2515E015A7
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:54 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C410E015F4
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:57 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 20 Aug 2013 01:40:54 -0700
+	by orsmga101.jf.intel.com with ESMTP; 20 Aug 2013 01:40:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="365375007"
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="365375022"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by orsmga001.jf.intel.com with ESMTP; 20 Aug 2013 01:40:35 -0700
+	by orsmga001.jf.intel.com with ESMTP; 20 Aug 2013 01:40:38 -0700
 Received: from localhost.localdomain (unknown [10.237.112.161])
-	by linux.intel.com (Postfix) with ESMTP id 2BA856A4007;
-	Tue, 20 Aug 2013 01:40:32 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id 3B9E86A4007;
+	Tue, 20 Aug 2013 01:40:36 -0700 (PDT)
 From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Aug 2013 11:45:07 +0200
-Message-Id: <e5dae1b9809aef993c6e2abd3769ae1337de7bc2.1376923556.git.corneliux.stoicescu@intel.com>
+Date: Tue, 20 Aug 2013 11:45:09 +0200
+Message-Id: <68752d79e485868cdfaca4c2038602e586032ba9.1376923556.git.corneliux.stoicescu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 References: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
 References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
-Subject: [PATCH 025/186] kernel-dev: Fixed link in title page to point to new manual.
+Subject: [PATCH 027/186] mega-manual.sed: Removed the processing for kernel-manual
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,35 +33,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Aug 2013 08:40:57 -0000
+X-List-Received-Date: Tue, 20 Aug 2013 08:40:58 -0000
 
 From: Scott Rifenbark <scott.m.rifenbark@intel.com>
 
-The stock Note indicating that the user should consult the website
-for the latest version of the released manual had a link to the old
-kernel-manual.  I have replaced it with a link to kernel-dev.
+The kernel-manual folder is depricated post 1.4 release.  I commented
+out the line that processes links for that folder.
 
-(From yocto-docs rev: 804e672e42a66aecdbe83ce239433216af10ef8c)
+(From yocto-docs rev: 1b84448020f75fa2d3c9c12d8ae72ba2a7e7db99)
 
 Signed-off-by: Scott Rifenbark <scott.m.rifenbark@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- documentation/kernel-dev/kernel-dev.xml |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ documentation/tools/mega-manual.sed |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/documentation/kernel-dev/kernel-dev.xml b/documentation/kernel-dev/kernel-dev.xml
-index f005495..ab69eef 100644
---- a/documentation/kernel-dev/kernel-dev.xml
-+++ b/documentation/kernel-dev/kernel-dev.xml
-@@ -56,7 +56,7 @@
-       <note>
-           Due to production processes, there could be differences between the Yocto Project
-           documentation bundled in the release tarball and the
--          <ulink url='&YOCTO_DOCS_KERNEL_URL;'>Yocto Project Linux Kernel Development Manual</ulink> on
-+          <ulink url='&YOCTO_DOCS_KERNEL_DEV_URL;'>Yocto Project Linux Kernel Development Manual</ulink> on
-           the <ulink url='&YOCTO_HOME_URL;'>Yocto Project</ulink> website.
-           For the latest version of this manual, see the manual on the website.
-       </note>
+diff --git a/documentation/tools/mega-manual.sed b/documentation/tools/mega-manual.sed
+index 90ac596..a76b5d4 100644
+--- a/documentation/tools/mega-manual.sed
++++ b/documentation/tools/mega-manual.sed
+@@ -9,6 +9,6 @@ s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/yocto-proj
+ s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/dev-manual\/dev-manual.html\" target=\"_top\">Yocto Project Development Manual<\/a>/Yocto Project Development Manual/g
+ s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/adt-manual\/adt-manual.html\" target=\"_top\">Yocto Project Application Developer's Guide<\/a>/Yocto Project Application Developer's Guide/g
+ s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/bsp-guide\/bsp-guide.html\" target=\"_top\">Yocto Project Board Support Package (BSP) Developer's Guide<\/a>/Yocto Project Board Support Package (BSP) Developer's Guide/g
+-s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/kernel-manual\/kernel-manual.html\" target=\"_top\">Yocto Project Kernel Architecture and Use Manual<\/a>/Yocto Project Kernel Architecture and Use Manual/g
+-s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/kernel-ref\/kernel-ref.html\" target=\"_top\">Yocto Project Kernel Development Manual<\/a>/Yocto Project Kernel Development Manual/g
++# s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/kernel-manual\/kernel-manual.html\" target=\"_top\">Yocto Project Kernel Architecture and Use Manual<\/a>/Yocto Project Kernel Architecture and Use Manual/g
++s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/kernel-dev\/kernel-dev.html\" target=\"_top\">Yocto Project Linux Kernel Development Manual<\/a>/Yocto Project Linux Kernel Development Manual/g
+ s/<a class=\"ulink\" href=\"http:\/\/www.yoctoproject.org\/docs\/1.5\/ref-manual\/ref-manual.html\" target=\"_top\">Yocto Project Reference Manual<\/a>/Yocto Project Reference Manual/g
 -- 
 1.7.9.5
 
