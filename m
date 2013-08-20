@@ -1,26 +1,26 @@
 Return-Path: <corneliux.stoicescu@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1DC4E014E4
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:14 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga101.ch.intel.com with ESMTP; 20 Aug 2013 01:40:12 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9C76CE015BC
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:17 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 20 Aug 2013 01:40:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="284227717"
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="390032345"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by AZSMGA002.ch.intel.com with ESMTP; 20 Aug 2013 01:40:11 -0700
+	by orsmga002.jf.intel.com with ESMTP; 20 Aug 2013 01:40:15 -0700
 Received: from localhost.localdomain (unknown [10.237.112.161])
-	by linux.intel.com (Postfix) with ESMTP id 5F0096A4007;
-	Tue, 20 Aug 2013 01:40:09 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id DC1ED6A4093;
+	Tue, 20 Aug 2013 01:40:12 -0700 (PDT)
 From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Aug 2013 11:44:53 +0200
-Message-Id: <86d8d89c2101a9f6903949583751f95e75593105.1376923556.git.corneliux.stoicescu@intel.com>
+Date: Tue, 20 Aug 2013 11:44:55 +0200
+Message-Id: <8429370887c3a166ff1f3f531107ac07381e6d50.1376923556.git.corneliux.stoicescu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 References: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
 References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
-Subject: [PATCH 011/186] busybox: remove syslog-startup.conf if sysvinit not in DISTRO_FEATURES
+Subject: [PATCH 013/186] ed: upgrade to 1.9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,67 +33,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Aug 2013 08:40:14 -0000
+X-List-Received-Date: Tue, 20 Aug 2013 08:40:17 -0000
 
-From: Chen Qi <Qi.Chen@windriver.com>
+From: Cristiana Voicu <cristiana.voicu@intel.com>
 
-sysvinit and systemd have different ideas about configuration files (or
-environment files in systemd), so basically we can't use the same one in
-both cases.
+LIC_FILES_CHKSUM changed because some lines were
+in addition in main.c file. Those lines are related to exit
+status.
 
-To avoid confusion, this patch removes syslog-startup.conf if 'sysvinit'
-is not in DISTRO_FEATURES.
+(From OE-Core rev: bbd59e73f576a7e89bea6480c81116cee7d8d2e8)
 
-[YOCTO #4837]
-[YOCTO #4860]
-
-(From OE-Core rev: 89f62147a61108b4be40001e1fbe3be33bacf00b)
-
-Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta/recipes-core/busybox/busybox.inc |   13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ meta/recipes-extended/ed/{ed_1.8.bb => ed_1.9.bb} |    7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+ rename meta/recipes-extended/ed/{ed_1.8.bb => ed_1.9.bb} (68%)
 
-diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busybox/busybox.inc
-index 2f26953..8b38c1a 100644
---- a/meta/recipes-core/busybox/busybox.inc
-+++ b/meta/recipes-core/busybox/busybox.inc
-@@ -274,25 +274,28 @@ do_install () {
+diff --git a/meta/recipes-extended/ed/ed_1.8.bb b/meta/recipes-extended/ed/ed_1.9.bb
+similarity index 68%
+rename from meta/recipes-extended/ed/ed_1.8.bb
+rename to meta/recipes-extended/ed/ed_1.9.bb
+index c6b5075..bd00c52 100644
+--- a/meta/recipes-extended/ed/ed_1.8.bb
++++ b/meta/recipes-extended/ed/ed_1.9.bb
+@@ -5,18 +5,17 @@ BUGTRACKER = ""
+ LICENSE = "GPLv3+"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=f27defe1e96c2e1ecd4e0c9be8967949 \
+                     file://ed.h;endline=20;md5=375a20cc2545ac1115eeb7b323c60ae3 \
+-                    file://main.c;endline=24;md5=1b31246da5e3864d7b30094ff76bf7ed"
++                    file://main.c;endline=17;md5=14dbb325c1f2d4daf50e0aa5c5038e96"
  
-         ln -sf /dev/null ${D}${systemd_unitdir}/system/syslog.service
-     fi
-+
-+    # Remove the sysvinit specific configuration file for systemd systems to avoid confusion
-+    if ${@base_contains('DISTRO_FEATURES', 'sysvinit', 'false', 'true', d)}; then
-+	rm ${D}${sysconfdir}/syslog-startup.conf.${BPN}
-+    fi
- }
+ SECTION = "base"
+-PR = "r0"
  
- inherit update-alternatives
+ # LSB states that ed should be in /bin/
+ bindir = "${base_bindir}"
  
- ALTERNATIVE_PRIORITY = "50"
+ SRC_URI = "${GNU_MIRROR}/ed/ed-${PV}.tar.gz"
  
--ALTERNATIVE_${PN}-syslog = "syslog-startup-conf"
--
- python () {
-     if 'sysvinit' in d.getVar("DISTRO_FEATURES", True).split():
-         pn = d.getVar('PN', True)
-         d.appendVar('ALTERNATIVE_%s-syslog' % (pn), ' syslog-init')
-         d.setVarFlag('ALTERNATIVE_LINK_NAME', 'syslog-init', '%s/init.d/syslog' % (d.getVar('sysconfdir', True)))
-         d.setVarFlag('ALTERNATIVE_TARGET', 'syslog-init', '%s/init.d/syslog.%s' % (d.getVar('sysconfdir', True), d.getVar('BPN', True)))
-+        d.appendVar('ALTERNATIVE_%s-syslog' % (pn), ' syslog-startup-conf')
-+        d.setVarFlag('ALTERNATIVE_LINK_NAME', 'syslog-startup-conf', '%s/syslog-startup.conf' % (d.getVar('sysconfdir', True)))
-+        d.setVarFlag('ALTERNATIVE_TARGET', 'syslog-startup-conf', '%s/syslog-startup.conf.%s' % (d.getVar('sysconfdir', True), d.getVar('BPN', True)))
- }
+-SRC_URI[md5sum] = "2268d2344b3c52d23730acb2e3c942fe"
+-SRC_URI[sha256sum] = "64c138d33b1ea4b9daa88e045da0619e2a43cb99a9d378417d20163f410a7273"
++SRC_URI[md5sum] = "565b6d1d5a9a8816b9b304fc4ed9405d"
++SRC_URI[sha256sum] = "d5b372cfadf073001823772272fceac2cfa87552c5cd5a8efc1c8aae61f45a88"
  
--ALTERNATIVE_LINK_NAME[syslog-startup-conf] = "${sysconfdir}/syslog-startup.conf"
--ALTERNATIVE_TARGET[syslog-startup-conf] = "${sysconfdir}/syslog-startup.conf.${BPN}"
--
- python do_package_prepend () {
-     # We need to load the full set of busybox provides from the /etc/busybox.links
-     # Use this to see the update-alternatives with the right information
+ do_configure() {
+ 	${S}/configure
 -- 
 1.7.9.5
 
