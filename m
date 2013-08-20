@@ -1,24 +1,26 @@
 Return-Path: <corneliux.stoicescu@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C7A83E00441
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:39:39 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga102.jf.intel.com with ESMTP; 20 Aug 2013 01:36:49 -0700
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E8B25E013DE
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:39:45 -0700 (PDT)
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga102.ch.intel.com with ESMTP; 20 Aug 2013 01:39:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="383551692"
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="284227595"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by fmsmga001.fm.intel.com with ESMTP; 20 Aug 2013 01:39:37 -0700
+	by AZSMGA002.ch.intel.com with ESMTP; 20 Aug 2013 01:39:45 -0700
 Received: from localhost.localdomain (unknown [10.237.112.161])
-	by linux.intel.com (Postfix) with ESMTP id 68ABE6A4007;
-	Tue, 20 Aug 2013 01:39:35 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id 5221C6A4007;
+	Tue, 20 Aug 2013 01:39:42 -0700 (PDT)
 From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Aug 2013 11:44:43 +0200
-Message-Id: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
+Date: Tue, 20 Aug 2013 11:44:44 +0200
+Message-Id: <560dac6e7db76f533f98eda969f585e4eb416e6e.1376923556.git.corneliux.stoicescu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
+References: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
 References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
-Subject: [PATCH 001/186] bitbake: hob: Add missing file from previous commit
+Subject: [PATCH 002/186] buildhistory: use package_qa_handle_error for version-going-backwards
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,77 +33,64 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Aug 2013 08:39:39 -0000
+X-List-Received-Date: Tue, 20 Aug 2013 08:39:46 -0000
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: Martin Jansa <martin.jansa@gmail.com>
 
-This should have been part of 'hob: implement the "retrieve image dialog" +
-changes to image combo box' but got lost in the merge process. This adds
-the missing file.
+* this way it's easier for distro to select if such issue should be
+  error, warning or ignored and also it gets recorded in qa.log
 
-(Bitbake rev: 0eadcc073f270c0b323955cf7719b77195cf4890)
+(From OE-Core rev: 44624853de8c88abdcae2ccd0902b390ff546d4c)
 
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../lib/bb/ui/crumbs/hig/retrieveimagedialog.py    |   49 ++++++++++++++++++++
- 1 file changed, 49 insertions(+)
- create mode 100644 bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py
+ meta/classes/buildhistory.bbclass |   18 +++++++++---------
+ meta/classes/insane.bbclass       |    1 +
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py b/bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py
-new file mode 100644
-index 0000000..060b4fd
---- /dev/null
-+++ b/bitbake/lib/bb/ui/crumbs/hig/retrieveimagedialog.py
-@@ -0,0 +1,49 @@
-+#
-+# BitBake Graphical GTK User Interface
-+#
-+# Copyright (C) 2013   Intel Corporation
-+#
-+# Authored by Cristiana Voicu <cristiana.voicu@intel.com>
-+#
-+# This program is free software; you can redistribute it and/or modify
-+# it under the terms of the GNU General Public License version 2 as
-+# published by the Free Software Foundation.
-+#
-+# This program is distributed in the hope that it will be useful,
-+# but WITHOUT ANY WARRANTY; without even the implied warranty of
-+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+# GNU General Public License for more details.
-+#
-+# You should have received a copy of the GNU General Public License along
-+# with this program; if not, write to the Free Software Foundation, Inc.,
-+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-+
-+import gtk
-+
-+class RetrieveImageDialog (gtk.FileChooserDialog):
-+    """
-+    This class is used to create a dialog that permits to retrieve
-+    a custom image saved previously from Hob.
-+    """
-+    def __init__(self, directory,title, parent, flags, buttons=None):
-+        super(RetrieveImageDialog, self).__init__(title, None, gtk.FILE_CHOOSER_ACTION_OPEN,
-+            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-+        self.directory = directory
-+
-+        # create visual elements on the dialog
-+        self.create_visual_elements()
-+
-+    def create_visual_elements(self):
-+        self.set_show_hidden(True)
-+        self.set_default_response(gtk.RESPONSE_OK)
-+        self.set_current_folder(self.directory)
-+
-+        vbox = self.get_children()[0].get_children()[0].get_children()[0]
-+        for child in vbox.get_children()[0].get_children()[0].get_children()[0].get_children():
-+            vbox.get_children()[0].get_children()[0].get_children()[0].remove(child)
-+
-+        label1 = gtk.Label()
-+        label1.set_text("File system:  " + self.directory)
-+        label1.show()
-+        vbox.get_children()[0].get_children()[0].get_children()[0].pack_start(label1, expand=False, fill=False, padding=0)
-+        vbox.get_children()[0].get_children()[1].get_children()[0].hide()
+diff --git a/meta/classes/buildhistory.bbclass b/meta/classes/buildhistory.bbclass
+index c5bba25..55b6bbf 100644
+--- a/meta/classes/buildhistory.bbclass
++++ b/meta/classes/buildhistory.bbclass
+@@ -201,15 +201,15 @@ python buildhistory_emit_pkghistory() {
+         # Find out what the last version was
+         # Make sure the version did not decrease
+         #
+-        if d.getVar("BUILDHISTORY_CHECKVERBACKWARDS", True) == "1":
+-            lastversion = getlastpkgversion(pkg)
+-            if lastversion:
+-                last_pkge = lastversion.pkge
+-                last_pkgv = lastversion.pkgv
+-                last_pkgr = lastversion.pkgr
+-                r = bb.utils.vercmp((pkge, pkgv, pkgr), (last_pkge, last_pkgv, last_pkgr))
+-                if r < 0:
+-                    bb.error("Package version for package %s went backwards which would break package feeds from (%s:%s-%s to %s:%s-%s)" % (pkg, last_pkge, last_pkgv, last_pkgr, pkge, pkgv, pkgr))
++        lastversion = getlastpkgversion(pkg)
++        if lastversion:
++            last_pkge = lastversion.pkge
++            last_pkgv = lastversion.pkgv
++            last_pkgr = lastversion.pkgr
++            r = bb.utils.vercmp((pkge, pkgv, pkgr), (last_pkge, last_pkgv, last_pkgr))
++            if r < 0:
++                msg = "Package version for package %s went backwards which would break package feeds from (%s:%s-%s to %s:%s-%s)" % (pkg, last_pkge, last_pkgv, last_pkgr, pkge, pkgv, pkgr)
++                package_qa_handle_error("version-going-backwards", msg, d)
+ 
+         pkginfo = PackageInfo(pkg)
+         # Apparently the version can be different on a per-package basis (see Python)
+diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass
+index 75bd2e2..aa02985 100644
+--- a/meta/classes/insane.bbclass
++++ b/meta/classes/insane.bbclass
+@@ -37,6 +37,7 @@ WARN_QA ?= "ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi \
+ ERROR_QA ?= "dev-so debug-deps dev-deps debug-files arch pkgconfig la \
+             perms dep-cmp pkgvarcheck perm-config perm-line perm-link \
+             split-strip packages-list pkgv-undefined var-undefined \
++            version-going-backwards \
+             "
+ 
+ ALL_QA = "${WARN_QA} ${ERROR_QA}"
 -- 
 1.7.9.5
 
