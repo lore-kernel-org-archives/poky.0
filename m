@@ -1,27 +1,26 @@
 Return-Path: <corneliux.stoicescu@intel.com>
 Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1E4EE01584
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1DC4E014E4
 	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 01:40:14 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 20 Aug 2013 01:40:14 -0700
+Received: from azsmga002.ch.intel.com ([10.2.17.35])
+	by azsmga101.ch.intel.com with ESMTP; 20 Aug 2013 01:40:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="348814819"
+X-IronPort-AV: E=Sophos;i="4.89,918,1367996400"; d="scan'208";a="284227717"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by azsmga001.ch.intel.com with ESMTP; 20 Aug 2013 01:40:10 -0700
+	by AZSMGA002.ch.intel.com with ESMTP; 20 Aug 2013 01:40:11 -0700
 Received: from localhost.localdomain (unknown [10.237.112.161])
-	by linux.intel.com (Postfix) with ESMTP id A09CD6A4093;
-	Tue, 20 Aug 2013 01:40:07 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id 5F0096A4007;
+	Tue, 20 Aug 2013 01:40:09 -0700 (PDT)
 From: Stoicescu Cornel <corneliux.stoicescu@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Aug 2013 11:44:52 +0200
-Message-Id: <290a5aef1f1de389d2c6432e659627f229cc44fb.1376923556.git.corneliux.stoicescu@intel.com>
+Date: Tue, 20 Aug 2013 11:44:53 +0200
+Message-Id: <86d8d89c2101a9f6903949583751f95e75593105.1376923556.git.corneliux.stoicescu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 References: <712622e2dbfa2559b873730bd1d4d23cc827b295.1376923556.git.corneliux.stoicescu@intel.com>
 In-Reply-To: <cover.1376923556.git.corneliux.stoicescu@intel.com>
 References: <cover.1376923556.git.corneliux.stoicescu@intel.com>
-Cc: Riku Voipio <riku.voipio@linaro.org>
-Subject: [PATCH 010/186] qemu: pass CFLAGS via ./configure instead of a patch
+Subject: [PATCH 011/186] busybox: remove syslog-startup.conf if sysvinit not in DISTRO_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,79 +35,65 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Tue, 20 Aug 2013 08:40:14 -0000
 
-From: Riku Voipio <riku.voipio@linaro.org>
+From: Chen Qi <Qi.Chen@windriver.com>
 
-OE carries a patch to pass CFLAGS to qemu. However, we can avoid
-patching by passing CFLAGS with qemu's --extra-cflags option.
+sysvinit and systemd have different ideas about configuration files (or
+environment files in systemd), so basically we can't use the same one in
+both cases.
 
-Tested that building qemu-native still works without zlib-dev
-on host, and that qemu builds.
+To avoid confusion, this patch removes syslog-startup.conf if 'sysvinit'
+is not in DISTRO_FEATURES.
 
-(From OE-Core rev: 67b6d8d9f987a59090a9a8af61cf740207703dff)
+[YOCTO #4837]
+[YOCTO #4860]
 
-Signed-off-by: Riku Voipio <riku.voipio@linaro.org>
+(From OE-Core rev: 89f62147a61108b4be40001e1fbe3be33bacf00b)
+
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- .../qemu/files/fix-configure-checks.patch          |   22 --------------------
- meta/recipes-devtools/qemu/qemu.inc                |    4 +---
- 2 files changed, 1 insertion(+), 25 deletions(-)
- delete mode 100644 meta/recipes-devtools/qemu/files/fix-configure-checks.patch
+ meta/recipes-core/busybox/busybox.inc |   13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/meta/recipes-devtools/qemu/files/fix-configure-checks.patch b/meta/recipes-devtools/qemu/files/fix-configure-checks.patch
-deleted file mode 100644
-index 294c220..0000000
---- a/meta/recipes-devtools/qemu/files/fix-configure-checks.patch
-+++ /dev/null
-@@ -1,22 +0,0 @@
--In native builds, qemu can fail to find zlib development files in the native 
--sysroot and the build machine might not have zlib-dev packages installed.
--
--Add CFLAGS to qemu's CFLAGS which in the native case means BUILD_CFLAGS are
--added and files in the sysroot can be found.
--
--Patch from Paul Eggleton, Comments by RP 28/11/10
--
--Upstream-Status: Inappropriate [embedded specific]
--
--Index: qemu-1.4.0/configure
--===================================================================
----- qemu-1.4.0.orig/configure	2013-02-15 15:05:35.000000000 -0800
--+++ qemu-1.4.0/configure	2013-02-25 13:44:17.915273181 -0800
--@@ -286,6 +286,7 @@
-- QEMU_CFLAGS="-Wstrict-prototypes -Wredundant-decls $QEMU_CFLAGS"
-- QEMU_CFLAGS="-D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE $QEMU_CFLAGS"
-- QEMU_INCLUDES="-I. -I\$(SRC_PATH) -I\$(SRC_PATH)/include"
--+QEMU_CFLAGS="$QEMU_CFLAGS $CFLAGS"
-- if test "$debug_info" = "yes"; then
--     CFLAGS="-g $CFLAGS"
--     LDFLAGS="-g $LDFLAGS"
-diff --git a/meta/recipes-devtools/qemu/qemu.inc b/meta/recipes-devtools/qemu/qemu.inc
-index c43f1ef..72988f5 100644
---- a/meta/recipes-devtools/qemu/qemu.inc
-+++ b/meta/recipes-devtools/qemu/qemu.inc
-@@ -16,7 +16,6 @@ QEMU_TARGETS ?= "arm i386 mips mipsel mips64 mips64el ppc sh4 x86_64"
- SRC_URI = "\
-     file://powerpc_rom.bin \
-     file://no-strip.patch \
--    file://fix-configure-checks.patch \
-     file://larger_default_ram_size.patch \
-     "
+diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busybox/busybox.inc
+index 2f26953..8b38c1a 100644
+--- a/meta/recipes-core/busybox/busybox.inc
++++ b/meta/recipes-core/busybox/busybox.inc
+@@ -274,25 +274,28 @@ do_install () {
  
-@@ -28,12 +27,11 @@ SRC_URI_append_class-native = "\
-     file://fix-libcap-header-issue-on-some-distro.patch \
-     "
+         ln -sf /dev/null ${D}${systemd_unitdir}/system/syslog.service
+     fi
++
++    # Remove the sysvinit specific configuration file for systemd systems to avoid confusion
++    if ${@base_contains('DISTRO_FEATURES', 'sysvinit', 'false', 'true', d)}; then
++	rm ${D}${sysconfdir}/syslog-startup.conf.${BPN}
++    fi
+ }
  
--EXTRA_OECONF += "--target-list=${@get_qemu_target_list(d)} --disable-werror --disable-vnc-tls --audio-drv-list=oss,alsa --disable-curl --disable-vnc-jpeg --disable-bluez --with-system-pixman"
-+EXTRA_OECONF += "--target-list=${@get_qemu_target_list(d)} --disable-werror --disable-vnc-tls --audio-drv-list=oss,alsa --disable-curl --disable-vnc-jpeg --disable-bluez --with-system-pixman --extra-cflags='${CFLAGS}'"
+ inherit update-alternatives
  
- EXTRA_OECONF_class-nativesdk = "--target-list=${@get_qemu_target_list(d)} --disable-werror --disable-vnc-tls \
- 				--disable-curl \
- 				"
+ ALTERNATIVE_PRIORITY = "50"
+ 
+-ALTERNATIVE_${PN}-syslog = "syslog-startup-conf"
 -
- export LIBTOOL="${HOST_SYS}-libtool"
+ python () {
+     if 'sysvinit' in d.getVar("DISTRO_FEATURES", True).split():
+         pn = d.getVar('PN', True)
+         d.appendVar('ALTERNATIVE_%s-syslog' % (pn), ' syslog-init')
+         d.setVarFlag('ALTERNATIVE_LINK_NAME', 'syslog-init', '%s/init.d/syslog' % (d.getVar('sysconfdir', True)))
+         d.setVarFlag('ALTERNATIVE_TARGET', 'syslog-init', '%s/init.d/syslog.%s' % (d.getVar('sysconfdir', True), d.getVar('BPN', True)))
++        d.appendVar('ALTERNATIVE_%s-syslog' % (pn), ' syslog-startup-conf')
++        d.setVarFlag('ALTERNATIVE_LINK_NAME', 'syslog-startup-conf', '%s/syslog-startup.conf' % (d.getVar('sysconfdir', True)))
++        d.setVarFlag('ALTERNATIVE_TARGET', 'syslog-startup-conf', '%s/syslog-startup.conf.%s' % (d.getVar('sysconfdir', True), d.getVar('BPN', True)))
+ }
  
- do_configure_prepend_class-native() {
+-ALTERNATIVE_LINK_NAME[syslog-startup-conf] = "${sysconfdir}/syslog-startup.conf"
+-ALTERNATIVE_TARGET[syslog-startup-conf] = "${sysconfdir}/syslog-startup.conf.${BPN}"
+-
+ python do_package_prepend () {
+     # We need to load the full set of busybox provides from the /etc/busybox.links
+     # Use this to see the update-alternatives with the right information
 -- 
 1.7.9.5
 
