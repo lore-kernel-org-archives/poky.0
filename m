@@ -1,36 +1,21 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-we0-f181.google.com (mail-we0-f181.google.com
-	[74.125.82.181])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 78B7EE00747
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 10:15:29 -0700 (PDT)
-Received: by mail-we0-f181.google.com with SMTP id q57so668147wes.40
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 10:15:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=google.com; s=20120113;
-	h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-	:references;
-	bh=DH0xhNyrCUqNfLAh96HBNcaDVcMX9lqet109tW1aVaw=;
-	b=SNsQ4eJpmzSDJUGWBE+n5mPu60JWGd899KClZjczpfeDHs8R3Mvj0mpmAcP2VA3fqG
-	+zSbv5y2fDwmuZXwRQRNNi9lKKC6wPYZ+K+WqKcykklJz8DxlsdR9rG1NgNdCGzqTF8u
-	x2CzD5z6PmZjibrsBuUEwmRCfSlOzcZ6ujR6Jz9RoLmCRi54Ycfh8Y++FUYd8T5aRtub
-	BdCY9GyJ9NmNcmzhVusVuwfy8SETYSsSe16dhveUqXgr5WcT3WnRwcP/nhGGQEbk40Q4
-	uOcTwn/1UTW+wokfG/UfVT9myqe5Vv6bi8JUGrzWDVRbHA0s6CYwWHnzlHThPyWP+oz2
-	C1KQ==
-X-Gm-Message-State: ALoCoQl94YO7lK02lG2nq7ZwDr1jP22sNJ7bJzMmpCfOKd4I2awpkqZnWX8mpiZ2SAScFhEnOQDg
-X-Received: by 10.180.185.97 with SMTP id fb1mr6288746wic.61.1377105328292;
-	Wed, 21 Aug 2013 10:15:28 -0700 (PDT)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id a8sm32447959wie.6.1969.12.31.16.00.00
-	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 21 Aug 2013 10:15:27 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23BB4E00747
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 14:06:45 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 21 Aug 2013 14:06:45 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.89,930,1367996400"; d="scan'208";a="349809970"
+Received: from qana.jf.intel.com ([10.7.201.146])
+	by azsmga001.ch.intel.com with ESMTP; 21 Aug 2013 14:06:25 -0700
+Received: by qana.jf.intel.com (Postfix, from userid 1000)
+	id CEF1D5F823C1; Wed, 21 Aug 2013 14:04:24 -0700 (PDT)
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 21 Aug 2013 18:15:20 +0100
-Message-Id: <1377105320-17292-2-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-In-Reply-To: <1377105320-17292-1-git-send-email-ross.burton@intel.com>
-References: <1377105320-17292-1-git-send-email-ross.burton@intel.com>
-Subject: [PATCH 2/2] genericx86: disable USB autosuspend
+Date: Wed, 21 Aug 2013 14:04:16 -0700
+Message-Id: <1377119056-32017-1-git-send-email-elizabeth.flanagan@intel.com>
+X-Mailer: git-send-email 1.8.1.2
+Subject: [PATCHv2] SDK_NAME: Change to include image name and tune arch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,30 +28,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2013 17:15:31 -0000
+X-List-Received-Date: Wed, 21 Aug 2013 21:06:48 -0000
 
-USB autosuspend doesn't reliably work with arbitrary hardware, so don't enable
-it.
+[YOCTO #4618]
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
+When building out multiple toolchains with the same target arch
+you can end up having toolchains with the same name. Making
+the naming a bit more granular by adding IMAGE_BASENAME and
+TUNE_PKGARCH to SDK_NAME and removing TARGET_ARCH from SDK_NAME
+
+Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 ---
- meta-yocto-bsp/conf/machine/genericx86.conf |    2 --
- 1 file changed, 2 deletions(-)
+ meta-yocto/conf/distro/poky.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-index e144754..042f206 100644
---- a/meta-yocto-bsp/conf/machine/genericx86.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-@@ -31,8 +31,6 @@ MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware v86d
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 7be7d92..de85a68 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -22,7 +22,7 @@ PREFERRED_VERSION_linux-yocto_qemumips ?= "3.8%"
+ PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.8%"
+ PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.8%"
  
- IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+-SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${TARGET_ARCH}"
++SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
+ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
  
--APPEND += "usbcore.autosuspend=1"
--
- GLIBC_ADDONS = "nptl"
- 
- EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+ EXTRAOPKGCONFIG = "poky-feed-config-opkg"
 -- 
-1.7.10.4
+1.7.9.5
 
 
