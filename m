@@ -1,32 +1,34 @@
 Return-Path: <ross.burton@intel.com>
-Received: from mail-wg0-f50.google.com (mail-wg0-f50.google.com [74.125.82.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D421CE00747
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 02:33:00 -0700 (PDT)
-Received: by mail-wg0-f50.google.com with SMTP id m15so172809wgh.5
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 02:33:00 -0700 (PDT)
+Received: from mail-vc0-f176.google.com (mail-vc0-f176.google.com
+	[209.85.220.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AFBC3E013DF
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 02:34:00 -0700 (PDT)
+Received: by mail-vc0-f176.google.com with SMTP id ha11so112205vcb.35
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 02:34:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=4o1L5TPMxNJhby3u01NAaYy518W0keZp8Kx+mkN4E7c=;
-	b=VgbOcVtrjwCSTUxMTpUNcFOQg37PtAQiAAIA1hql4KY1cYHHCrvWgIHCfDWeWR7aF3
-	LMCDITWRGk9YYpjKv2/lgVag2y4VqON2JZ0eESkubaLvqW+ZgpC5vayyMHBhZWPY2/R5
-	Y18pENxMhVjgFzbs2Q9EUKqdeRJq6cQd+LvGQPOuBb0VelywEiypxIIAXeirU/LweS7M
-	vPn8v8hU2F+GnU/oEh9AT3lllvdG7aVNy6cA3xtbzGbX2PW8zYaI8co8/7T+kXqlq3iQ
-	C8au58T9OtRcP8DIO5KIEZY5lct7mXAnNtg7KuDOtil4ZRfsTmHaknZC4OlnJGX6Q7+3
-	Bb/Q==
-X-Gm-Message-State: ALoCoQmz/Rlb0jygvPzDivoxsfex20BHiGcOATck+7yAWX9WwMpAOCjd9x6We+Q7mrEok9TN1kOY
-X-Received: by 10.180.208.45 with SMTP id mb13mr4724610wic.27.1377077580032;
-	Wed, 21 Aug 2013 02:33:00 -0700 (PDT)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id gg10sm8391463wib.1.1969.12.31.16.00.00
-	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 21 Aug 2013 02:32:59 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 21 Aug 2013 10:32:54 +0100
-Message-Id: <1377077574-1401-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] poky.conf: add Debian 7.1 to SANITY_TESTED_DISTROS
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=Fi3g+B22uOe6LvgNaLcninIpa4WMJ8Rzy4I0awYw5S4=;
+	b=WW5HJdiha98D3+cP9xhemORnzpxueJDitXb5uyZDwYhtFR0vii0U0bcodQ2rz0LtLe
+	0WUF+a87XVy8bcUGH8CAoxNtnk7XhJFtul7BEbkM21b7HgYQL4wREQXLIOb6OE3pm4BU
+	YTZoxjA7y8B18U2bVM9fZ39feI7QUGvdp/s83LlmrtksNw0BKCEYgnndpNaCGj10AZ4h
+	D4FY95xTHvMJLD1FZLQ1bdGROLhYJvZHRKznu/47D/hG5lXvVEfQaBDWBg+FL7BGvxW+
+	lnrI6nBjQc+SU1K4B/CN54yEUc+hKDWtW8u/BCnFfCRtWH1O3iTe4dDD+yf5HvMlnKJa
+	/1vQ==
+X-Gm-Message-State: ALoCoQkdMCOjMyQqpdawzkod2mJ4OswwP7zmMAXC/GdMByyKcV/hsu/CJfNuNDGrYviXgP1JYZxq
+X-Received: by 10.52.164.16 with SMTP id ym16mr404045vdb.32.1377077640389;
+	Wed, 21 Aug 2013 02:34:00 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Wed, 21 Aug 2013 02:33:40 -0700 (PDT)
+In-Reply-To: <F7680723A1CA6840825A59020FA77064FAAC7E@sdexmbx1srv.skidata.net>
+References: <F7680723A1CA6840825A59020FA77064FAAC7E@sdexmbx1srv.skidata.net>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 21 Aug 2013 10:33:40 +0100
+Message-ID: <CAJTo0LZLMuxj7uQ0q6TGK9Z9N5UqL+nLvm57pyTqSZKvvDtG6w@mail.gmail.com>
+To: Richard Leitner - SKIDATA <Richard.Leitner@skidata.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Add Debian 7.1 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,29 +41,53 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2013 09:33:02 -0000
+X-List-Received-Date: Wed, 21 Aug 2013 09:34:02 -0000
+Content-Type: multipart/alternative; boundary=001a11c22e58957afa04e471df57
 
-7.1 is a point release with security and bug fixes only, and I can confirm that
-it works.
+--001a11c22e58957afa04e471df57
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-yocto/conf/distro/poky.conf |    1 +
- 1 file changed, 1 insertion(+)
+On 21 August 2013 08:06, Richard Leitner - SKIDATA <
+Richard.Leitner@skidata.com> wrote:
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 89abffd..233aa81 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -83,6 +83,7 @@ SANITY_TESTED_DISTROS ?= " \
-             CentOS-6.4 \n \
-             Debian-6.0 \n \
-             Debian-7.0 \n \
-+            Debian-7.1 \n \
-             SUSE-LINUX-12.2 \n \
-             openSUSE-project-12.3 \n \
- 	    "
--- 
-1.7.10.4
+> Hi everybody,
+> I'm working with Poky on the current stable Debian 7.1 and I'd like to
+> know if there are any reasons why Debian 7.1 is not in the
+> SANITY_TESTED_DISTROS in poky.conf?
+> Due to the fact Debian 7.0 is listed there and I haven't seen any problems
+> I think 7.1 can be added without any doubt.
+> Or are there any test procedures which need to be (and haven't been) done
+> with Debian 7.1?
+>
 
+Probably due to nobody noticing that 7.1 was released.  I'm also running
+7.1 on my build machine and can confirm it works for me too, so I've just
+sent a patch to get this added.
 
+Ross
+
+--001a11c22e58957afa04e471df57
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On 21 August 2013 08:06, Richard Leitner - SKIDATA <span d=
+ir=3D"ltr">&lt;<a href=3D"mailto:Richard.Leitner@skidata.com" target=3D"_bl=
+ank">Richard.Leitner@skidata.com</a>&gt;</span> wrote:<br><div class=3D"gma=
+il_extra">
+
+<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Hi everybody,<br>
+I&#39;m working with Poky on the current stable Debian 7.1 and I&#39;d like=
+ to know if there are any reasons why Debian 7.1 is not in the SANITY_TESTE=
+D_DISTROS in poky.conf?<br>
+Due to the fact Debian 7.0 is listed there and I haven&#39;t seen any probl=
+ems I think 7.1 can be added without any doubt.<br>
+Or are there any test procedures which need to be (and haven&#39;t been) do=
+ne with Debian 7.1?<br></blockquote><div><br></div><div>Probably due to nob=
+ody noticing that 7.1 was released. =C2=A0I&#39;m also running 7.1 on my bu=
+ild machine and can confirm it works for me too, so I&#39;ve just sent a pa=
+tch to get this added.</div>
+
+<div><br></div><div>Ross=C2=A0</div></div></div></div>
+
+--001a11c22e58957afa04e471df57--
