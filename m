@@ -1,33 +1,34 @@
-Return-Path: <lpapp@archlinux.us>
-Received: from mail-pb0-f44.google.com (mail-pb0-f44.google.com
-	[209.85.160.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 24701E00747
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 02:48:20 -0700 (PDT)
-Received: by mail-pb0-f44.google.com with SMTP id xa7so217292pbc.17
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 02:48:19 -0700 (PDT)
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vc0-f173.google.com (mail-vc0-f173.google.com
+	[209.85.220.173])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0315DE00747
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 03:07:06 -0700 (PDT)
+Received: by mail-vc0-f173.google.com with SMTP id id13so134605vcb.32
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 03:07:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=x-gm-message-state:mime-version:sender:date:message-id:subject:from
-	:to:content-type;
-	bh=kIY1G6qyqEY8Ki3X4OeL/uuzPUQxW3GNmIHG4Fej6B8=;
-	b=N+eJ68Z08luNyDZPt3znyarH0wXYdRynys8bHuLMpcXfpUo6l+q0iOy5I75xCjFHh4
-	1WNX0RcQi4baRV+NkJObwf9Xugke2NRZ1HJ5FNQ+xx5Ax1GBiEiRNw7kfFgRuQCIhLlx
-	ydX6qkwIzEh3MHOUh2kcZ0kZ6saKL1k4X5C97re3ZQYed5R+o8lLJN6pNO+V2Pm33XbX
-	iWlDaxprh8KNvxtYE1EeGTOxcML+Pii9vzoXSCWxLyE0NENuNGXFZooTPZSqhifgdiEa
-	AoqcAYQTYHLXedimxnDudcFGsd9HnxCj/H/aCa5Lo6qtqBQub00CwmZHx7PKrPJ1kYTS
-	7YJg==
-X-Gm-Message-State: ALoCoQm8w8vsR34JC1lE8Z6iu6zCzzBe3h5dz+KKvY1EJL6VCAu6Nw1AT106rsF1hxFPc5blbFfN
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=ZJ9WdqdsTF+ArzhOu0j0TJ9CdgiFv+eOXDZNkgxh0E8=;
+	b=BbrMVn8UGiHnUY6ozsrleDQPb9ZnwmePOXbi8Cd6nTmonFt+0522ZFmu5VCGTxZyd5
+	/aOn86MRTQheFKu+P+/fBMVi4Xa+fbKcoc2jCu/tO/VB1sOSCG5xne6IPZ3pE1HlC5AW
+	zSWaVXtj/yM22AdSX0fay5Zy7qDCGBVZaMFOynh47bE0uku0odUvwT5trtSoqe3ZVF8S
+	4MiwcT9Q9Wrwj6w+xa1grAzzIawg5pw3fehDzJxyIrdogsXqxKJvtpouj4E6mVm3NKBO
+	Ov/LhQkCSEiBxQlSt6sYUrZk4UEk6Ys47G1C7QACtxkLAHyH3H2joz8bvUYgYFxlV9f+
+	/2xA==
+X-Gm-Message-State: ALoCoQmVDSnyNBUkejLLOEYJuz7EY14V5GX3iuiRqmQusS0KHqFnshUiG7DL42VXPY8rxqYelbLO
+X-Received: by 10.52.34.40 with SMTP id w8mr4867993vdi.7.1377079626496; Wed,
+	21 Aug 2013 03:07:06 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 10.68.59.98 with SMTP id y2mr6716145pbq.135.1377078499866; Wed,
-	21 Aug 2013 02:48:19 -0700 (PDT)
-Sender: lpapp@archlinux.us
-Received: by 10.70.57.234 with HTTP; Wed, 21 Aug 2013 02:48:19 -0700 (PDT)
-Date: Wed, 21 Aug 2013 10:48:19 +0100
-X-Google-Sender-Auth: kNmgCH5ytWB5gSEb8oULfkodrSA
-Message-ID: <CAOMwXhNzKFZNdbRrfc67_5swmjz_0gqJoG-=YJg0hkFpor5RMQ@mail.gmail.com>
-From: Laszlo Papp <lpapp@kde.org>
-To: poky@yoctoproject.org
-Subject: Help with regression from denzil to dylan
+Received: by 10.220.71.201 with HTTP; Wed, 21 Aug 2013 03:06:46 -0700 (PDT)
+In-Reply-To: <CAOMwXhNzKFZNdbRrfc67_5swmjz_0gqJoG-=YJg0hkFpor5RMQ@mail.gmail.com>
+References: <CAOMwXhNzKFZNdbRrfc67_5swmjz_0gqJoG-=YJg0hkFpor5RMQ@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 21 Aug 2013 11:06:46 +0100
+Message-ID: <CAJTo0LZ-hGHQY5tQrpFDzW_z_YFmmRDd9YtHR0B1AiYeHY+xfg@mail.gmail.com>
+To: Laszlo Papp <lpapp@kde.org>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Help with regression from denzil to dylan
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,53 +41,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2013 09:48:24 -0000
-Content-Type: multipart/alternative; boundary=bcaec5304f81d00c7c04e4721261
+X-List-Received-Date: Wed, 21 Aug 2013 10:07:07 -0000
+Content-Type: multipart/alternative; boundary=20cf307cfec0f725e904e4725590
 
---bcaec5304f81d00c7c04e4721261
-Content-Type: text/plain; charset=ISO-8859-1
+--20cf307cfec0f725e904e4725590
+Content-Type: text/plain; charset=UTF-8
 
-Hi,
+On 21 August 2013 10:48, Laszlo Papp <lpapp@kde.org> wrote:
 
-I have had a working downloads folder checked in for denzil, but having
-upgraded and built locally fine with dylan, it is not working remotely.
+> Fwiw, the branches and refs folders are empty and hence I canot commit
+> those with git add. That might be a reason, but then it is a silly git bug?
+> If not, something else?
+>
 
-All I did was basically updating the packages in the downloads folder
-respectively.
+git doesn't allow empty directories in checkouts, and if git needs them
+then this means that you can't put a git repo inside a git repo.
 
-Any idea why it has worked with denzil, but not dylan? Not sure if it is
-the only instance where it would go wrong, but at least the gtk doc stub
-stuff is continuously failing with git fetch issues.
+I suspect that in Denzil with core-image-minimal you were not actually
+doing any git fetches, but now that gtk-doc-stub is used you're doing git
+fetches.
 
-Oh, and we use git for the VCS under which the several poky variants can be
-found. Is it a git tree inside the downloads folder supposed to work with
-the main git repository even if the internal is just a bare clone?
+Ross
 
-Fwiw, the branches and refs folders are empty and hence I canot commit
-those with git add. That might be a reason, but then it is a silly git bug?
-If not, something else?
-
-Cheers, L.
-
---bcaec5304f81d00c7c04e4721261
-Content-Type: text/html; charset=ISO-8859-1
+--20cf307cfec0f725e904e4725590
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi,<div><br></div><div>I have had a working downloads fold=
-er checked in for denzil, but having upgraded and built locally fine with d=
-ylan, it is not working remotely.</div><div><br></div><div>All I did was ba=
-sically updating the packages in the downloads folder respectively.</div>
-<div><br></div><div>Any idea why it has worked with denzil, but not dylan? =
-Not sure if it is the only instance where it would go wrong, but at least t=
-he gtk doc stub stuff is continuously failing with git fetch issues.</div>
-<div><br></div><div>Oh, and we use git for the VCS under which the several =
-poky variants can be found. Is it a git tree inside the downloads folder su=
-pposed to work with the main git repository even if the internal is just a =
-bare clone?</div>
-<div><br></div><div>Fwiw, the branches and refs folders are empty and hence=
- I canot commit those with git add. That might be a reason, but then it is =
-a silly git bug? If not, something else?</div><div><br></div><div>Cheers, L=
-.</div>
-</div>
+<div dir=3D"ltr"><div class=3D"gmail_extra">On 21 August 2013 10:48, Laszlo=
+ Papp <span dir=3D"ltr">&lt;<a href=3D"mailto:lpapp@kde.org" target=3D"_bla=
+nk">lpapp@kde.org</a>&gt;</span> wrote:<br><div class=3D"gmail_quote"><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
+c solid;padding-left:1ex">
 
---bcaec5304f81d00c7c04e4721261--
+<div>Fwiw, the branches and refs folders are empty and hence I canot commit=
+ those with git add. That might be a reason, but then it is a silly git bug=
+? If not, something else?<br></div></blockquote></div><br>git doesn&#39;t a=
+llow empty directories in checkouts, and if git needs them then this means =
+that you can&#39;t put a git repo inside a git repo.</div>
+
+<div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">I suspect t=
+hat in Denzil with core-image-minimal you were not actually doing any git f=
+etches, but now that gtk-doc-stub is used you&#39;re doing git fetches.</di=
+v>
+
+<div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Ross</div><=
+/div>
+
+--20cf307cfec0f725e904e4725590--
