@@ -1,32 +1,32 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E9A98E00747
-	for <poky@lists.yoctoproject.org>; Wed, 21 Aug 2013 09:19:46 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r7LGVNsu003344; Wed, 21 Aug 2013 17:31:24 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id EjEyw8s2H__5; Wed, 21 Aug 2013 17:31:23 +0100 (BST)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r7LGVIdi003340
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
-	verify=NOT); Wed, 21 Aug 2013 17:31:19 +0100
-Message-ID: <1377101961.25999.121.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Chris Larson <clarson@kergoth.com>
-Date: Wed, 21 Aug 2013 17:19:21 +0100
-In-Reply-To: <CABcZANnt4v4LoM+HnK_=6VMDgSCFR7qGfciMdpXxSQ+Gc4HBEA@mail.gmail.com>
-References: <1377095185.25999.116.camel@ted>
-	<CABcZANnt4v4LoM+HnK_=6VMDgSCFR7qGfciMdpXxSQ+Gc4HBEA@mail.gmail.com>
-X-Mailer: Evolution 3.6.4-0ubuntu1 
-Mime-Version: 1.0
-Cc: bitbake-devel <bitbake-devel@lists.openembedded.org>,
-	poky <poky@lists.yoctoproject.org>,
-	openembedded-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [bitbake-devel] Bitbake in server mode
+Return-Path: <ross.burton@intel.com>
+Received: from mail-wg0-f52.google.com (mail-wg0-f52.google.com [74.125.82.52])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02698E00747
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 10:15:28 -0700 (PDT)
+Received: by mail-wg0-f52.google.com with SMTP id b13so643155wgh.7
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 10:15:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=K+OuBBE/K6U2hmQdn/SFnK9b3WBa1poKRVF/n/XaMPE=;
+	b=F/2ugjX5/IsYbFVXJf/4LDg7t3QQeXKymGrgQmGP/7Ae/DMwRmMxlj4a4J8jvTqM9V
+	00oGYn8AHTvOQqs2gHjRw7yssUSlHnWQVxDw/pBxJPskT4IApNFM9XLgz7XiRs+ISQ08
+	wQcouLON9kGDXJYktoqRedC189XjD1EsapwxWXLcFrlZ5zt6WL4xZqCDTyH/EVMyMoei
+	ofhTPjOQtkw4ze6zOHJTkcki9f7nSZRmYqrEc9CAcGgalbYMgMFU/Sy8B5oMZyj6i3BR
+	d8TXJl9ndZ7pbjaTmkbp6x/o5hZfsUmgVWYVS/jcw4H224KLmadAwswX+iCaVPCWw38g
+	Mdyw==
+X-Gm-Message-State: ALoCoQnXiYOMd974lra2jfE59qz696VGuahkqZK4xlspoi1HwQbsB+3lQuQUvuGlcXQ4PKv9zH8o
+X-Received: by 10.194.219.38 with SMTP id pl6mr2646139wjc.47.1377105326754;
+	Wed, 21 Aug 2013 10:15:26 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPSA id a8sm32447959wie.6.1969.12.31.16.00.00
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Wed, 21 Aug 2013 10:15:26 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 21 Aug 2013 18:15:19 +0100
+Message-Id: <1377105320-17292-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH 1/2] genericx86: add v86d to machine recommends so Vesa framebuffer works
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,50 +39,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2013 16:19:47 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 21 Aug 2013 17:15:31 -0000
 
-On Wed, 2013-08-21 at 08:56 -0700, Chris Larson wrote:
-> 
-> On Wed, Aug 21, 2013 at 7:26 AM, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
->         Known issues:
->         
->         a) Parsing is slower. Probably due to all the debug messages
->         going over
->         the IPC/xmlrpc. UI event filtering should fix it.
->         b) Something is causing a cache reparse initially. Need to
->         figure out
->         what. Maybe the BBSERVER variable itself?
->         
->         This is still development so I'd not recommend everyone use
->         this for
->         production just yet but it gives some nice insight into what
->         the future
->         holds!
->         
->         We should be able to make bitbake in this mode much more
->         responsive to
->         commands since there is no cache overhead.
-> 
-> I expect the obvious question to be, what happens if a recipe is
-> altered between starting the server and running a command :)
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto-bsp/conf/machine/genericx86.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I should have been clearer, it will reparse, the normal cache checks
-take effect, it just doesn't have to unpickle cache bits from disk which
-is where the time is taken.
-
-What happens if you edit recipes whilst bitbake is running a command? Do
-not do that, just like today!
-
-Cheers,
-
-Richard
-
-
-
-
-
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index 88464fa..e144754 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -27,7 +27,7 @@ XSERVER ?= "xserver-xorg \
+ 
+ #MACHINE_EXTRA_RDEPENDS = "rt2860"
+ 
+-MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware"
++MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware v86d"
+ 
+ IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+ 
+-- 
+1.7.10.4
 
 
