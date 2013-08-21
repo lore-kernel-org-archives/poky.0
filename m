@@ -1,32 +1,35 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-vc0-f173.google.com (mail-vc0-f173.google.com
-	[209.85.220.173])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0315DE00747
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 03:07:06 -0700 (PDT)
-Received: by mail-vc0-f173.google.com with SMTP id id13so134605vcb.32
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 03:07:06 -0700 (PDT)
+Return-Path: <lpapp@archlinux.us>
+Received: from mail-pb0-f50.google.com (mail-pb0-f50.google.com
+	[209.85.160.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C05C0E00747
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 03:13:10 -0700 (PDT)
+Received: by mail-pb0-f50.google.com with SMTP id uo5so238364pbc.37
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 03:13:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=ZJ9WdqdsTF+ArzhOu0j0TJ9CdgiFv+eOXDZNkgxh0E8=;
-	b=BbrMVn8UGiHnUY6ozsrleDQPb9ZnwmePOXbi8Cd6nTmonFt+0522ZFmu5VCGTxZyd5
-	/aOn86MRTQheFKu+P+/fBMVi4Xa+fbKcoc2jCu/tO/VB1sOSCG5xne6IPZ3pE1HlC5AW
-	zSWaVXtj/yM22AdSX0fay5Zy7qDCGBVZaMFOynh47bE0uku0odUvwT5trtSoqe3ZVF8S
-	4MiwcT9Q9Wrwj6w+xa1grAzzIawg5pw3fehDzJxyIrdogsXqxKJvtpouj4E6mVm3NKBO
-	Ov/LhQkCSEiBxQlSt6sYUrZk4UEk6Ys47G1C7QACtxkLAHyH3H2joz8bvUYgYFxlV9f+
-	/2xA==
-X-Gm-Message-State: ALoCoQmVDSnyNBUkejLLOEYJuz7EY14V5GX3iuiRqmQusS0KHqFnshUiG7DL42VXPY8rxqYelbLO
-X-Received: by 10.52.34.40 with SMTP id w8mr4867993vdi.7.1377079626496; Wed,
-	21 Aug 2013 03:07:06 -0700 (PDT)
+	h=x-gm-message-state:mime-version:sender:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=yJKjP7uG5g0cYPTt9mn0kUh4t9O5kCbaXI6R9SSJruc=;
+	b=PJyavT8J0fadMVvxFYjmnu0NvCCSbbRdHv5cleXQrkR4bfccs+Gn8CVPGbeNft9JO1
+	UU/6aEOJQmHNDBvurF+kclEznSY3jTGyNoMPs4nFAhavnASRaIS6dxFcAK01IpQtR/0S
+	5votzvMUMiab0Ws9wJfObgzI63rGXSJ+acfMPR4L/5uBtAbOqf2jeKmqZjYdlD9/ejRz
+	QncZmt+S0Zh84mNMN9TWs9wJvHaSRZ67/ys5DIv7HXaC3AtfMvPw0b6VHLSBydcQb6kW
+	u2OkDDmLWRpVPTGAw847CNMBIvqiQ1k/CYTdFXqKa39jCk62aIa3RB4SedlVCH5cq2VR
+	LwwQ==
+X-Gm-Message-State: ALoCoQnHN8X1h6A7svdj/oP/DBqNcp7ULmKggcl/Tch+mVz+rOvohH4RRZJfzy92LfzEHMfysvLd
 MIME-Version: 1.0
-Received: by 10.220.71.201 with HTTP; Wed, 21 Aug 2013 03:06:46 -0700 (PDT)
-In-Reply-To: <CAOMwXhNzKFZNdbRrfc67_5swmjz_0gqJoG-=YJg0hkFpor5RMQ@mail.gmail.com>
+X-Received: by 10.68.224.161 with SMTP id rd1mr6922500pbc.121.1377079989706;
+	Wed, 21 Aug 2013 03:13:09 -0700 (PDT)
+Sender: lpapp@archlinux.us
+Received: by 10.70.57.234 with HTTP; Wed, 21 Aug 2013 03:13:09 -0700 (PDT)
+In-Reply-To: <CAJTo0LZ-hGHQY5tQrpFDzW_z_YFmmRDd9YtHR0B1AiYeHY+xfg@mail.gmail.com>
 References: <CAOMwXhNzKFZNdbRrfc67_5swmjz_0gqJoG-=YJg0hkFpor5RMQ@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 21 Aug 2013 11:06:46 +0100
-Message-ID: <CAJTo0LZ-hGHQY5tQrpFDzW_z_YFmmRDd9YtHR0B1AiYeHY+xfg@mail.gmail.com>
-To: Laszlo Papp <lpapp@kde.org>
+	<CAJTo0LZ-hGHQY5tQrpFDzW_z_YFmmRDd9YtHR0B1AiYeHY+xfg@mail.gmail.com>
+Date: Wed, 21 Aug 2013 11:13:09 +0100
+X-Google-Sender-Auth: VLUhWShOa8ayFz-Gqp_V7it_43o
+Message-ID: <CAOMwXhMj++wFF8Z24j3pXa7evtnFXbmOxj+6TWH8hhwYpVrsRQ@mail.gmail.com>
+From: Laszlo Papp <lpapp@kde.org>
+To: "Burton, Ross" <ross.burton@intel.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Help with regression from denzil to dylan
 X-BeenThere: poky@yoctoproject.org
@@ -41,50 +44,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2013 10:07:07 -0000
-Content-Type: multipart/alternative; boundary=20cf307cfec0f725e904e4725590
+X-List-Received-Date: Wed, 21 Aug 2013 10:13:10 -0000
+Content-Type: multipart/alternative; boundary=e89a8ff24ff69d377904e4726b10
 
---20cf307cfec0f725e904e4725590
-Content-Type: text/plain; charset=UTF-8
+--e89a8ff24ff69d377904e4726b10
+Content-Type: text/plain; charset=ISO-8859-1
 
-On 21 August 2013 10:48, Laszlo Papp <lpapp@kde.org> wrote:
+Yeah, I was discussing this feature request in #git on IRC.
 
-> Fwiw, the branches and refs folders are empty and hence I canot commit
-> those with git add. That might be a reason, but then it is a silly git bug?
-> If not, something else?
+Anyway, can we get rid of this gtk doc stub stuff? It is just causing havoc.
+
+
+On Wed, Aug 21, 2013 at 11:06 AM, Burton, Ross <ross.burton@intel.com>wrote:
+
+> On 21 August 2013 10:48, Laszlo Papp <lpapp@kde.org> wrote:
+>
+>> Fwiw, the branches and refs folders are empty and hence I canot commit
+>> those with git add. That might be a reason, but then it is a silly git bug?
+>> If not, something else?
+>>
+>
+> git doesn't allow empty directories in checkouts, and if git needs them
+> then this means that you can't put a git repo inside a git repo.
+>
+> I suspect that in Denzil with core-image-minimal you were not actually
+> doing any git fetches, but now that gtk-doc-stub is used you're doing git
+> fetches.
+>
+> Ross
 >
 
-git doesn't allow empty directories in checkouts, and if git needs them
-then this means that you can't put a git repo inside a git repo.
-
-I suspect that in Denzil with core-image-minimal you were not actually
-doing any git fetches, but now that gtk-doc-stub is used you're doing git
-fetches.
-
-Ross
-
---20cf307cfec0f725e904e4725590
-Content-Type: text/html; charset=UTF-8
+--e89a8ff24ff69d377904e4726b10
+Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra">On 21 August 2013 10:48, Laszlo=
- Papp <span dir=3D"ltr">&lt;<a href=3D"mailto:lpapp@kde.org" target=3D"_bla=
-nk">lpapp@kde.org</a>&gt;</span> wrote:<br><div class=3D"gmail_quote"><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
-c solid;padding-left:1ex">
+<div dir=3D"ltr">Yeah, I was discussing this feature request in #git on IRC=
+.<div><br></div><div>Anyway, can we get rid of this gtk doc stub stuff? It =
+is just causing havoc.</div></div><div class=3D"gmail_extra"><br><br><div c=
+lass=3D"gmail_quote">
+On Wed, Aug 21, 2013 at 11:06 AM, Burton, Ross <span dir=3D"ltr">&lt;<a hre=
+f=3D"mailto:ross.burton@intel.com" target=3D"_blank">ross.burton@intel.com<=
+/a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"im">On 21 August =
+2013 10:48, Laszlo Papp <span dir=3D"ltr">&lt;<a href=3D"mailto:lpapp@kde.o=
+rg" target=3D"_blank">lpapp@kde.org</a>&gt;</span> wrote:<br><div class=3D"=
+gmail_quote">
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
 
 <div>Fwiw, the branches and refs folders are empty and hence I canot commit=
  those with git add. That might be a reason, but then it is a silly git bug=
-? If not, something else?<br></div></blockquote></div><br>git doesn&#39;t a=
-llow empty directories in checkouts, and if git needs them then this means =
-that you can&#39;t put a git repo inside a git repo.</div>
+? If not, something else?<br></div></blockquote></div><br></div>git doesn&#=
+39;t allow empty directories in checkouts, and if git needs them then this =
+means that you can&#39;t put a git repo inside a git repo.</div>
+
 
 <div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">I suspect t=
 hat in Denzil with core-image-minimal you were not actually doing any git f=
 etches, but now that gtk-doc-stub is used you&#39;re doing git fetches.</di=
 v>
+<span class=3D"HOEnZb"><font color=3D"#888888">
 
 <div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Ross</div><=
-/div>
+/font></span></div>
+</blockquote></div><br></div>
 
---20cf307cfec0f725e904e4725590--
+--e89a8ff24ff69d377904e4726b10--
