@@ -1,31 +1,28 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5137E00747
-	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 07:46:08 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r7KEvTAa020202; Tue, 20 Aug 2013 15:57:29 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Wlv1JtWNVq2Y; Tue, 20 Aug 2013 15:57:29 +0100 (BST)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r7KEvLHA020182
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
-	verify=NOT); Tue, 20 Aug 2013 15:57:24 +0100
-Message-ID: <1377009931.25999.97.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
-Date: Tue, 20 Aug 2013 15:45:31 +0100
-In-Reply-To: <CAPhnLPDbAFt8EPdBPE86Jrg14wXkFuupwj=GXNT_G6k=PMAUtQ@mail.gmail.com>
-References: <1376948717-8206-1-git-send-email-elizabeth.flanagan@intel.com>
-	<1376949519.25999.65.camel@ted>
-	<CAPhnLPDbAFt8EPdBPE86Jrg14wXkFuupwj=GXNT_G6k=PMAUtQ@mail.gmail.com>
-X-Mailer: Evolution 3.6.4-0ubuntu1 
-Mime-Version: 1.0
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] SDK_NAME: Change to include image name and machine.
+Return-Path: <kiran.bobbu@gmail.com>
+Received: from mail-ob0-f178.google.com (mail-ob0-f178.google.com
+	[209.85.214.178])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 927E4E00406
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 23:36:36 -0700 (PDT)
+Received: by mail-ob0-f178.google.com with SMTP id ef5so37406obb.9
+	for <poky@yoctoproject.org>; Tue, 20 Aug 2013 23:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=w7Ke5ipNXcfMIoOLTYfjoLqxqBxsVzgMHk1fynYuU/8=;
+	b=x3Xna3sHW0ygkW4EQkVua7wiXzHSh+Wo8S1VNwPXvrfWxeCNv65/D2gRmkYTD31BlV
+	uBkMxdch0QQWy/j+cQf7ilmTmAsPvPC9Z4k8BfenbgA3sCI1TzRtYZSVKnvfYb3D4gkw
+	QxBNdLDI+DY+53c8g77Qw3V/BdTOVXsi73eoyHLi7Ro5uBA7S6TGxn3ELiiLok8s1yDg
+	/3s9TVQBxGOQaph0bZU757e2CSznrEgDSdvy+JH3Ev1lqO3AWVY7O/OZ0RtdhAjNnBGW
+	9U9OSHZ00/5UBebjD61pjLbduSVSo5dmUiabo/TRWfayZWOPPvS/sFtC18OTFAHZShLa
+	zAjA==
+MIME-Version: 1.0
+X-Received: by 10.60.16.104 with SMTP id f8mr6099821oed.71.1377066995895; Tue,
+	20 Aug 2013 23:36:35 -0700 (PDT)
+Received: by 10.182.183.99 with HTTP; Tue, 20 Aug 2013 23:36:35 -0700 (PDT)
+Date: Wed, 21 Aug 2013 12:06:35 +0530
+Message-ID: <CAO7jpqdyR8nX_Ku3P3nX2Nw+V0MgL-HD2pmViZU99sNh7wRajw@mail.gmail.com>
+From: kiran bobbu <kiran.bobbu@gmail.com>
+To: poky@yoctoproject.org
+Subject: how to replace gcc-cross with custom prebuilt toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,39 +35,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Aug 2013 14:46:09 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 21 Aug 2013 06:36:38 -0000
+Content-Type: multipart/alternative; boundary=089e014946401f872b04e46f65b2
 
-On Mon, 2013-08-19 at 16:10 -0700, Flanagan, Elizabeth wrote:
-> There apparently are differences caused by each machines tunings (for
-> example, meta-fsl-arm's imx53qsb is armv7a-vfp-neon, whereas qemuarm
-> is armv5te). With SDK_NAME as it is, you'd end up with two files that
-> have the exact same name and toolchains builds that are different.
-> Example. qemuarm's toolchain env setup should be named
-> 'environment-setup-armv5te-poky-linux-gnueabi' but the toolchain I
-> just downloaded from the last master build is
-> 'environment-setup-armv7a-vfp-neon-poky-linux-gnueabi' because it's
-> the toolchain from the meta-fsl-arm build. I'm not sure how deep the
-> issues go outside of these relatively small naming issues. ccing: Yi
-> Zhao as I'm sure he can tell us more.
-> 
-> I agree that TUNE_PKGARCH is probably a better solution than
-> TARGET_ARCH but with how I'm generating toolchains now (bitbake
-> core-image-sato  -c populate_sdk) I can see a day when having the
-> IMAGE_BASENAME included would be a very useful thing.
-> 
-> So, would anyone be opposed to:
-> 
-> SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
+--089e014946401f872b04e46f65b2
+Content-Type: text/plain; charset=ISO-8859-1
 
-Looks good to me, it was ${MACHINE} which worried me, TUNE_PKGARCH is
-the right thing.
+Hi,
 
-We should also remove [nostamp] from any SDK/ADT bits where it remains.
+i want to replace gcc-cross compiler that comes from poky project with my
+prebuilt binaries to build the target rootfs with bitbake.
+bitbake must use my prebuilt gcc toolchain rather than default.
+how to do this.
+-- 
 
-Cheers,
+-Kiran
 
-Richard
+--089e014946401f872b04e46f65b2
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div><div><div><div><br clear=3D"all"></div>Hi,<br><br></d=
+iv>i want to replace gcc-cross compiler that comes from poky project with m=
+y prebuilt binaries to build the target rootfs with bitbake.<br></div>bitba=
+ke must use my prebuilt gcc toolchain rather than default.<br>
+</div>how to do this.<br><div><div><div><div>-- <br><br>-Kiran<br>
+</div></div></div></div></div>
 
+--089e014946401f872b04e46f65b2--
