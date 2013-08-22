@@ -1,24 +1,36 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A2D7CE00747;
-	Thu, 22 Aug 2013 11:18:40 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 22 Aug 2013 11:18:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,935,1367996400"; d="scan'208";a="350291961"
-Received: from unknown (HELO [10.255.14.105]) ([10.255.14.105])
-	by azsmga001.ch.intel.com with ESMTP; 22 Aug 2013 11:18:39 -0700
-Message-ID: <521655FF.8090307@linux.intel.com>
-Date: Thu, 22 Aug 2013 11:18:39 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130805 Thunderbird/17.0.8
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vb0-f47.google.com (mail-vb0-f47.google.com
+	[209.85.212.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E57CEE00747
+	for <poky@yoctoproject.org>; Thu, 22 Aug 2013 11:21:31 -0700 (PDT)
+Received: by mail-vb0-f47.google.com with SMTP id h10so1526524vbh.6
+	for <poky@yoctoproject.org>; Thu, 22 Aug 2013 11:21:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=google.com; s=20120113;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=r1uXGq7QT46sqT5XB+RAwfrO5PEsI/CMMwdaIa6SWNo=;
+	b=MNtdb4QWQjZ1XqTZWN6/zICYNDvUOUDtDED+RDqs1ASkA0N7vRpQvEyfAOhm+5Ps/B
+	Hg3eC9iE0BrzOCmxh1r6DXB+emErRxAwiMDMd+dO28zKF1ieQ11zslWDsi741I7beXkX
+	/oZNEO0Y7cGOaeFhye38qtZqUeVB/jPLujgt710buCPLa8fdojCG1svUoQy14/1DDxGS
+	ojYEY2/cBSuifpMSFpskm5G6Nz5Ad2+h8MrfXnPNlkHEIBYxa7i1NUyej5jOHLrimvla
+	hCENEZLBR3HehQSPSpbBjYeH7Mhqe8qaB0SNTwI2wqG4hYbAAn0fB6O7JEjdONvUC/pO
+	bezQ==
+X-Gm-Message-State: ALoCoQk2tM64A0Lg1HpYc2Ui/mJ+goxaKT8SVCMzuaArC/dQuSjQVl9NqjOaXyJa8zdfC5ucaRit
+X-Received: by 10.52.120.78 with SMTP id la14mr4064430vdb.9.1377195690779;
+	Thu, 22 Aug 2013 11:21:30 -0700 (PDT)
 MIME-Version: 1.0
-To: 'Patches and discussions about the oe-core layer'
-	<openembedded-core@lists.openembedded.org>, 
-	"poky@yoctoproject.org" <poky@yoctoproject.org>, 
-	Yocto Project Discussion <yocto@yoctoproject.org>
-Subject: Days away from Feature Freeze for 1.5!!
+Received: by 10.220.71.201 with HTTP; Thu, 22 Aug 2013 11:21:10 -0700 (PDT)
+In-Reply-To: <1377193460.5259.17.camel@dvhart-mobl4.amr.corp.intel.com>
+References: <2eacc0a56e45f8210ff25844cee1fd31014cbb64.1377186905.git.ross.burton@intel.com>
+	<c6e699b18e2e78f9e44de5c49482afe0d46f8f95.1377186905.git.ross.burton@intel.com>
+	<1377193460.5259.17.camel@dvhart-mobl4.amr.corp.intel.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 22 Aug 2013 19:21:10 +0100
+Message-ID: <CAJTo0LZ0_YEGW_Qz-sab=su2vu2wEB4Z6y6+MjjuC6u5eeKdxg@mail.gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH 2/4] genericx86: add v86d to machine recommends for uvesafb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,39 +43,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Aug 2013 18:18:43 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 22 Aug 2013 18:21:33 -0000
+Content-Type: text/plain; charset=UTF-8
 
+On 22 August 2013 18:44, Darren Hart <dvhart@linux.intel.com> wrote:
+> This is added to MACHINE_ESSENTIAL_EXTRA_RDEPENDS for qemux86.
+>
+> MACHINE_EXTRA_RRECOMMENDS does not impact packagegroup-core-boot, and
+> therefor not core-image-minimal. Perhaps that is the intention?
 
-Folks,
+It's not essential, no v86d means no uvesafb driver which isn't the
+end of the world, and possibly what you want for a minimal image.
 
-We have all been busy working on our respective projects and I want to 
-point out that we are days away from the 1.5 Feature Freeze of August 
-25th, at midnight PST.
-
-What this means is that in the coming weeks we will be slowing the 
-uptake of patches as we get closer to the 1.5 release date of 10/18. 
-This also means we will be doing more full pass testing and focusing on 
-getting any bugs discovered there fixed and generally well understood 
-patches that help with stabilization.
-
-We will not take any more recipe updates or major changes after the 
-25th, please set those aside for when we open up master again for 1.6, 
-which will likely happen in 3 - 5 weeks once master settles enough so 
-that we can create the release branch.
-
-We will start the planning for 1.6 in the mid-late September timeframe, 
-so put your idea cap on and file 1.6 enhancements.
-
-Thanks to everyone work on these projects.
-
-
--- 
-     Sau!
-
-Saul Wold
-Yocto Component Wrangler @ Intel
-Yocto Project / Poky Build System
-
+Ross
 
