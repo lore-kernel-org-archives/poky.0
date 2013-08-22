@@ -1,36 +1,39 @@
 Return-Path: <ross.burton@intel.com>
-Received: from mail-wg0-f53.google.com (mail-wg0-f53.google.com [74.125.82.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A8764E00747
-	for <poky@yoctoproject.org>; Thu, 22 Aug 2013 08:59:14 -0700 (PDT)
-Received: by mail-wg0-f53.google.com with SMTP id c11so1837826wgh.32
-	for <poky@yoctoproject.org>; Thu, 22 Aug 2013 08:59:14 -0700 (PDT)
+Received: from mail-wi0-f182.google.com (mail-wi0-f182.google.com
+	[209.85.212.182])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7DB8E01405
+	for <poky@yoctoproject.org>; Thu, 22 Aug 2013 08:59:17 -0700 (PDT)
+Received: by mail-wi0-f182.google.com with SMTP id hi8so867105wib.3
+	for <poky@yoctoproject.org>; Thu, 22 Aug 2013 08:59:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=google.com; s=20120113;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references;
-	bh=tWJmNs6BHAf/jB+1dx6VX4ykwT0+KQ9RcevvHjDLpAM=;
-	b=UZQ8IvU7DjiNgUlxlYf9a+MUvteFqycmulbWgyAu58gFAAFMelTRu+vWJdZLM6a9yn
-	7SvpE74XQrmweP0lgxI9T1sj8m0lZ99l8ybMpCehIHNPHfZgksLjYXkg+jGWlcIPqxzF
-	UgYFv8pLovydqq6iwcEmfKrVRbzgtXY5LhNmmkabl0xvY7Jpr3WqKV6CInBTHbdHoPKS
-	m5klOlv5EjVzFl0RKk9HEi2+UGf1VUBAz0/QETx3bj8V7Qq1PTroJvE7JInfhgqMtiE1
-	RzFrbf76QPwKSAK0QNIpvntRMLmkzQnwtno7bYqEMv5aBxAieruXgtEx8hGyWfFK5Gu5
-	cRyQ==
-X-Gm-Message-State: ALoCoQl3sWmHgx2sbixWsGrF1kL9SxzC32VBZBUzVsuVr0h7qbzRVQwKfOGuKR2B39+gSNoMj+ml
-X-Received: by 10.194.175.133 with SMTP id ca5mr10973407wjc.19.1377187154086; 
-	Thu, 22 Aug 2013 08:59:14 -0700 (PDT)
+	:references:in-reply-to:references;
+	bh=PpXt6XyIZgql7bkfEo4vOyJa5VPiN7bhcskLWPzwFDM=;
+	b=AI/L6TP9zuPWxriFH4PPaJKfXp6FcxLAi91V4i6JnWT53EwI+zlXIpZLVLvhEm9BJi
+	a2wvs+KhqvzbewYgk1/bzBIQfAfP5JWuBSmNQVajET4VGvfVVrsaZlTGbTDBu+Hy9hQl
+	+n1reOIRrKMbc4w+hSX7+g6Rt1kzhWISl9oc274tbyjBEb70uQ/aRWBxiSc3JfMONK8D
+	Ks4F8mMSZselcb5DbxhYKntJis0ZY/YQ4QVjjsUawdNm/Enu7Tn3vczs/REIJHAYFkTK
+	TwbfRP5o1ckSCyK59OH9CGhSTfsFKqQ6QPMZlxZBkZvjU140usJxKxevmon8PQ5BrchU
+	0yug==
+X-Gm-Message-State: ALoCoQn+0GoX57lTMGH/t3se4Hs9PtPR7VtWPXgRd77aS4fmTgbQye4UR6K0iuG+EYwYX1J7QLmv
+X-Received: by 10.180.13.83 with SMTP id f19mr10365825wic.54.1377187156130;
+	Thu, 22 Aug 2013 08:59:16 -0700 (PDT)
 Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
 	by mx.google.com with ESMTPSA id a4sm39519248wik.11.1969.12.31.16.00.00
 	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Thu, 22 Aug 2013 08:59:13 -0700 (PDT)
+	Thu, 22 Aug 2013 08:59:15 -0700 (PDT)
 From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 22 Aug 2013 16:59:07 +0100
-Message-Id: <2eacc0a56e45f8210ff25844cee1fd31014cbb64.1377186905.git.ross.burton@intel.com>
+Date: Thu, 22 Aug 2013 16:59:08 +0100
+Message-Id: <c6e699b18e2e78f9e44de5c49482afe0d46f8f95.1377186905.git.ross.burton@intel.com>
 X-Mailer: git-send-email 1.7.10.4
+In-Reply-To: <2eacc0a56e45f8210ff25844cee1fd31014cbb64.1377186905.git.ross.burton@intel.com>
+References: <2eacc0a56e45f8210ff25844cee1fd31014cbb64.1377186905.git.ross.burton@intel.com>
 In-Reply-To: <cover.1377186905.git.ross.burton@intel.com>
 References: <cover.1377186905.git.ross.burton@intel.com>
 Cc: dvhart@linux.intel.com
-Subject: [PATCH 1/4] linux-yocto: remove genericx86 support from 3.4
+Subject: [PATCH 2/4] genericx86: add v86d to machine recommends for uvesafb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,33 +46,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Aug 2013 15:59:16 -0000
+X-List-Received-Date: Thu, 22 Aug 2013 15:59:19 -0000
 
-3.4 doesn't actually support genericx86, so remove any mention of it.
+The uvesafb framebuffer driver needs a userspace helper.
 
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend |    2 --
- 1 file changed, 2 deletions(-)
+ meta-yocto-bsp/conf/machine/genericx86.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-index c3d1290..160bcbb 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-@@ -1,5 +1,4 @@
- KBRANCH_atom-pc  = "standard/common-pc/atom-pc"
--KBRANCH_genericx86  = "standard/common-pc/atom-pc"
- KBRANCH_routerstationpro = "standard/routerstationpro"
- KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KBRANCH_beagleboard = "standard/beagleboard"
-@@ -14,7 +13,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- COMPATIBLE_MACHINE_routerstationpro = "routerstationpro"
- COMPATIBLE_MACHINE_beagleboard = "beagleboard"
- COMPATIBLE_MACHINE_atom-pc = "atom-pc"
--COMPATIBLE_MACHINE_genericx86 = "genericx86"
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index 88464fa..e144754 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -27,7 +27,7 @@ XSERVER ?= "xserver-xorg \
  
- # routerstationpro has a flash size of 16mb
- KERNEL_IMAGE_MAXSIZE_append_routerstationpro = "16777216"
+ #MACHINE_EXTRA_RDEPENDS = "rt2860"
+ 
+-MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware"
++MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware v86d"
+ 
+ IMAGE_FSTYPES ?= "ext3 cpio.gz live"
+ 
 -- 
 1.7.10.4
 
