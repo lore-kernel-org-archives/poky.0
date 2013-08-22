@@ -1,21 +1,19 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23BB4E00747
-	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 14:06:45 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 21 Aug 2013 14:06:45 -0700
+Return-Path: <sgw@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE431E00747
+	for <poky@yoctoproject.org>; Wed, 21 Aug 2013 22:52:58 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by orsmga101.jf.intel.com with ESMTP; 21 Aug 2013 22:52:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,930,1367996400"; d="scan'208";a="349809970"
-Received: from qana.jf.intel.com ([10.7.201.146])
-	by azsmga001.ch.intel.com with ESMTP; 21 Aug 2013 14:06:25 -0700
-Received: by qana.jf.intel.com (Postfix, from userid 1000)
-	id CEF1D5F823C1; Wed, 21 Aug 2013 14:04:24 -0700 (PDT)
-From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+X-IronPort-AV: E=Sophos;i="4.89,932,1367996400"; d="scan'208";a="384730494"
+Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.14.105])
+	by fmsmga001.fm.intel.com with ESMTP; 21 Aug 2013 22:52:54 -0700
+From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 21 Aug 2013 14:04:16 -0700
-Message-Id: <1377119056-32017-1-git-send-email-elizabeth.flanagan@intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCHv2] SDK_NAME: Change to include image name and tune arch
+Date: Wed, 21 Aug 2013 22:52:53 -0700
+Message-Id: <1377150774-3285-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.8.3.1
+Subject: [PATCH 1/2] maintainers: give guilt-native to Bruce
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,34 +26,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2013 21:06:48 -0000
+X-List-Received-Date: Thu, 22 Aug 2013 05:53:01 -0000
 
-[YOCTO #4618]
-
-When building out multiple toolchains with the same target arch
-you can end up having toolchains with the same name. Making
-the naming a bit more granular by adding IMAGE_BASENAME and
-TUNE_PKGARCH to SDK_NAME and removing TARGET_ARCH from SDK_NAME
-
-Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- meta-yocto/conf/distro/poky.conf |    2 +-
+ meta-yocto/conf/distro/include/maintainers.inc | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 7be7d92..de85a68 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -22,7 +22,7 @@ PREFERRED_VERSION_linux-yocto_qemumips ?= "3.8%"
- PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.8%"
- PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.8%"
- 
--SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${TARGET_ARCH}"
-+SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
- SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
- 
- EXTRAOPKGCONFIG = "poky-feed-config-opkg"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index ebd4d7a..87e7eaf 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -228,7 +228,7 @@ RECIPE_MAINTAINER_pn-gtk-update-icon-cache-native = "Valentin Popa <valentin.pop
+ RECIPE_MAINTAINER_pn-gtk+ = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-gtk+3 = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-guile = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+-RECIPE_MAINTAINER_pn-guilt-native = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-guilt-native = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-gzip = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+ RECIPE_MAINTAINER_pn-hal = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-harfbuzz = "Cristian Iorga <cristian.iorga@intel.com>"
 -- 
-1.7.9.5
+1.8.3.1
 
 
