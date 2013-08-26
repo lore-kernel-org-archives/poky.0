@@ -1,22 +1,24 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A334AE01358
-	for <poky@yoctoproject.org>; Mon, 26 Aug 2013 15:14:06 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B45F0E0155F
+	for <poky@yoctoproject.org>; Mon, 26 Aug 2013 15:14:07 -0700 (PDT)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga102.jf.intel.com with ESMTP; 26 Aug 2013 15:11:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,962,1367996400"; d="scan'208";a="368819951"
+X-IronPort-AV: E=Sophos;i="4.89,962,1367996400"; d="scan'208";a="368819957"
 Received: from fear.jf.intel.com (HELO rage.local) ([10.7.196.147])
 	by orsmga001.jf.intel.com with ESMTP; 26 Aug 2013 15:14:05 -0700
 From: Darren Hart <dvhart@linux.intel.com>
 To: Poky <poky@yoctoproject.org>
-Date: Mon, 26 Aug 2013 15:18:07 -0700
-Message-Id: <c8d44d43e68a20099bdecb7277f3771fbcd300c0.1377555271.git.dvhart@linux.intel.com>
+Date: Mon, 26 Aug 2013 15:18:09 -0700
+Message-Id: <cec55f943762e7de120e332711f8663e7142c8d7.1377555271.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <c8d44d43e68a20099bdecb7277f3771fbcd300c0.1377555271.git.dvhart@linux.intel.com>
+References: <c8d44d43e68a20099bdecb7277f3771fbcd300c0.1377555271.git.dvhart@linux.intel.com>
 In-Reply-To: <cover.1377555271.git.dvhart@linux.intel.com>
 References: <cover.1377555271.git.dvhart@linux.intel.com>
 Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 1/6] meta-yocto-bsp/genericx86: Update kernel, branch, KMACHINE, and SRCREV
+Subject: [PATCH 3/6] layer.conf: Bumping LAYERVERSION_yoctobsp to account for atom-pc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,52 +33,32 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Mon, 26 Aug 2013 22:14:07 -0000
 
-For the genericx86 machine:
-o Update the PREFERRED_VERSION for linux-yocto to 3.10
-o Change the KBRANCH to common-pc/base
-o Change the SRCREV to the HEAD
-o Change the KMACHINE to a valid linux-yocto BSP name
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+In order to maintain autobuilder compatibility with prior releases
+we'll need to decide on if we should build atom-pc or genericx86
+based on LAYERVERSION_yoctobsp.
+
+if LAYERVERSION_yoctobsp < 2 we build out atom-pc else
+we build out genericx86
+
+Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 Cc: Ross Burton <ross.burton@intel.com>
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 ---
- meta-yocto-bsp/conf/machine/genericx86.conf        |    2 +-
- .../recipes-kernel/linux/linux-yocto_3.10.bbappend |    6 ++++--
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ meta-yocto-bsp/conf/layer.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-index 042f206..ff5cbc9 100644
---- a/meta-yocto-bsp/conf/machine/genericx86.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-@@ -10,7 +10,7 @@ MACHINE_FEATURES = "screen keyboard pci usbhost ext2 ext3 x86 wifi acpi alsa"
- KERNEL_IMAGETYPE = "bzImage"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.8%"
-+PREFERRED_VERSION_linux-yocto ?= "3.10%"
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
-            xserver-xorg-extension-glx \
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-index 1ac014e..9639a56 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-@@ -1,11 +1,13 @@
- KBRANCH_atom-pc  = "standard/common-pc/atom-pc"
--KBRANCH_genericx86  = "standard/common-pc/atom-pc"
-+KBRANCH_genericx86  = "standard/common-pc/base"
- KBRANCH_routerstationpro = "standard/routerstationpro"
- KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KBRANCH_beagleboard = "standard/beagleboard"
- 
-+KMACHINE_genericx86 ?= "common-pc"
-+
- SRCREV_machine_atom-pc ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
--SRCREV_machine_genericx86 ?= "f20047520a57322f05d95a18a5fbd082fb15cb87"
-+SRCREV_machine_genericx86 ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
- SRCREV_machine_routerstationpro ?= "3991d03bd450e9363d5b6e97ede0628ba073db79"
- SRCREV_machine_mpc8315e-rdb ?= "8d8339af518104db03f9c36b82f4372569e55b0a"
- SRCREV_machine_beagleboard ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
+diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
+index 2be7cc3..9e416fe 100644
+--- a/meta-yocto-bsp/conf/layer.conf
++++ b/meta-yocto-bsp/conf/layer.conf
+@@ -8,4 +8,4 @@ BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
+ BBFILE_COLLECTIONS += "yoctobsp"
+ BBFILE_PATTERN_yoctobsp = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yoctobsp = "5"
+-
++LAYERVERSION_yoctobsp = "2"
 -- 
 1.7.9.5
 
