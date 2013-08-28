@@ -1,25 +1,28 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8179DE0158A
-	for <poky@yoctoproject.org>; Tue, 27 Aug 2013 13:16:35 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 27 Aug 2013 13:13:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,970,1367996400"; d="scan'208";a="394318736"
-Received: from dvhart-mobl4.jf.intel.com (HELO localhost) ([10.7.201.55])
-	by orsmga002.jf.intel.com with ESMTP; 27 Aug 2013 13:16:32 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-To: Poky <poky@yoctoproject.org>, Tom Zanussi <tom.zanussi@intel.com>,
-	Ross Burton <ross.burton@intel.com>,
-	Bruce Ashfield <bruce.ashfield@windriver.com>
-Date: Tue, 27 Aug 2013 13:16:14 -0700
-Message-Id: <cae988ac3343b32e4db87453c37af6561e2f95c5.1377634165.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <cover.1377634165.git.dvhart@linux.intel.com>
-References: <cover.1377634165.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1377634165.git.dvhart@linux.intel.com>
-References: <cover.1377634165.git.dvhart@linux.intel.com>
-Subject: [PATCH 2/3] local.conf.sample: Add genericx86-64 machine to machine list
+Return-Path: <kiran.bobbu@gmail.com>
+Received: from mail-ob0-f182.google.com (mail-ob0-f182.google.com
+	[209.85.214.182])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B57DCE01570
+	for <poky@yoctoproject.org>; Wed, 28 Aug 2013 01:23:44 -0700 (PDT)
+Received: by mail-ob0-f182.google.com with SMTP id wo10so6325615obc.41
+	for <poky@yoctoproject.org>; Wed, 28 Aug 2013 01:23:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=72lXXlrjHmJhjHfME62vjsET1nxHfqMBvw+igqSD7q8=;
+	b=UWi7FhioJt/ZRJhWjLK8W18jldM4kxZChhwvfFR7QsocBRREZDHsm/DRgrxa5lDojk
+	smS7IfYxh3UbsBaaChIikMeG3QEIMEfrRHEk7LJnk+FZQifC592fJ11RnX83bH0Ul5Kg
+	nT9v6z5P/TCuIS7E6NxqIXg4WFgkaSpdAvn+g4KnyowyqGYkAHGJX8NR6SNzMHxtS5u0
+	9VBfHRQOlBJ2EIzUZl8CijcCqjSG0nBW9jvAX23A++TePwo1N9DvkM0Fi+D+mIp7aQ/W
+	kBV/2LXQFaGtodul6Lk4ARmPOY2kbNlwAVHwsx7/xlhn67Twz5Y+V4WNRbIABp+BPPNJ
+	4ReA==
+MIME-Version: 1.0
+X-Received: by 10.60.40.67 with SMTP id v3mr22745362oek.16.1377678223501; Wed,
+	28 Aug 2013 01:23:43 -0700 (PDT)
+Received: by 10.182.183.99 with HTTP; Wed, 28 Aug 2013 01:23:43 -0700 (PDT)
+Date: Wed, 28 Aug 2013 13:53:43 +0530
+Message-ID: <CAO7jpqeaH9S6aXxCkzsu_B99fNnJvQbvKsGZrH4KWszFuPkbOg@mail.gmail.com>
+From: kiran bobbu <kiran.bobbu@gmail.com>
+To: poky@yoctoproject.org
+Subject: how to modify compilation flags for hardfp compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,32 +35,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Aug 2013 20:16:37 -0000
+X-List-Received-Date: Wed, 28 Aug 2013 08:23:45 -0000
+Content-Type: multipart/alternative; boundary=089e0149ce4c206edd04e4fdb5b6
 
-local.conf.sample lists all core BSPs. Add the new genericx86-64
-machine, removing the duplicate entry of the genericx86 machine.
+--089e0149ce4c206edd04e4fdb5b6
+Content-Type: text/plain; charset=ISO-8859-1
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
----
- meta-yocto/conf/local.conf.sample | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi,
 
-diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
-index 6f71a9f..81fc121 100644
---- a/meta-yocto/conf/local.conf.sample
-+++ b/meta-yocto/conf/local.conf.sample
-@@ -42,9 +42,9 @@
- # There are also the following hardware board target machines included for 
- # demonstration purposes:
- #
--#MACHINE ?= "genericx86"
- #MACHINE ?= "beagleboard"
- #MACHINE ?= "genericx86"
-+#MACHINE ?= "genericx86-64"
- #MACHINE ?= "mpc8315e-rdb"
- #MACHINE ?= "routerstationpro"
- #
+By default  poky project builds with softfp compiler option.
+how to modify this flag   to build poky filesystem   with compiler flag as
+hardfp?
+
 -- 
-1.8.3.1
 
+-Kiran
 
+--089e0149ce4c206edd04e4fdb5b6
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div><div><br clear=3D"all"></div>Hi,<br><br></div>By=
+ default=A0 poky project builds with softfp compiler option.<br></div>how t=
+o modify this flag=A0=A0 to build poky filesystem=A0=A0 with compiler flag =
+as hardfp?<br>
+<br><div><div><div><div>-- <br><br>-Kiran<br>
+</div></div></div></div></div>
+
+--089e0149ce4c206edd04e4fdb5b6--
