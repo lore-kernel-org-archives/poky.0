@@ -1,28 +1,37 @@
-Return-Path: <kiran.bobbu@gmail.com>
-Received: from mail-ob0-f182.google.com (mail-ob0-f182.google.com
-	[209.85.214.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B57DCE01570
-	for <poky@yoctoproject.org>; Wed, 28 Aug 2013 01:23:44 -0700 (PDT)
-Received: by mail-ob0-f182.google.com with SMTP id wo10so6325615obc.41
-	for <poky@yoctoproject.org>; Wed, 28 Aug 2013 01:23:43 -0700 (PDT)
+Return-Path: <martin.jansa@gmail.com>
+Received: from mail-ea0-f171.google.com (mail-ea0-f171.google.com
+	[209.85.215.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DF725E01570
+	for <poky@yoctoproject.org>; Wed, 28 Aug 2013 01:53:19 -0700 (PDT)
+Received: by mail-ea0-f171.google.com with SMTP id n15so2805890ead.30
+	for <poky@yoctoproject.org>; Wed, 28 Aug 2013 01:53:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=72lXXlrjHmJhjHfME62vjsET1nxHfqMBvw+igqSD7q8=;
-	b=UWi7FhioJt/ZRJhWjLK8W18jldM4kxZChhwvfFR7QsocBRREZDHsm/DRgrxa5lDojk
-	smS7IfYxh3UbsBaaChIikMeG3QEIMEfrRHEk7LJnk+FZQifC592fJ11RnX83bH0Ul5Kg
-	nT9v6z5P/TCuIS7E6NxqIXg4WFgkaSpdAvn+g4KnyowyqGYkAHGJX8NR6SNzMHxtS5u0
-	9VBfHRQOlBJ2EIzUZl8CijcCqjSG0nBW9jvAX23A++TePwo1N9DvkM0Fi+D+mIp7aQ/W
-	kBV/2LXQFaGtodul6Lk4ARmPOY2kbNlwAVHwsx7/xlhn67Twz5Y+V4WNRbIABp+BPPNJ
-	4ReA==
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:content-disposition:in-reply-to:user-agent;
+	bh=k8QNT6f/F+tsCWqhlSkBdOwcTpDhuSPL7/BWvJNeCPY=;
+	b=SY7U2v/ATGxhflVGss+OvWt2m4TM4NZa0EELu2Ef/Vex7l0xuxCKW6vG7SUcKJ+nKZ
+	R761I7cr/uo1nH1EbiGq4AZJ2lQ3lyjhmgcOfheiwqkso5JAUjppz7ONBjatB5EUSvuH
+	ImOZ8hn/j0vCRMsa5JwGrqnQ6hYr5r9DBcHwZpRDkPlgkXZR8hSMugfhYyy060sOgaaW
+	+ei/05UTVo28n7YrcxfdvJRD++Np5ZEM2TSkcTA5EWixGwCkRT7g/2SELEGyMWb7++43
+	k0cnUt1WqJhIneDxgXROxkWtPlQ0aFoKjI9gXwQfRKRKcm2pdY5CII0mbHURCDhRWlwf
+	GCUQ==
+X-Received: by 10.14.115.133 with SMTP id e5mr42090774eeh.27.1377679998614;
+	Wed, 28 Aug 2013 01:53:18 -0700 (PDT)
+Received: from localhost (ip-62-24-80-145.net.upcbroadband.cz. [62.24.80.145])
+	by mx.google.com with ESMTPSA id
+	b45sm35470780eef.4.1969.12.31.16.00.00
+	(version=TLSv1.2 cipher=RC4-SHA bits=128/128);
+	Wed, 28 Aug 2013 01:53:18 -0700 (PDT)
+Date: Wed, 28 Aug 2013 10:54:29 +0200
+From: Martin Jansa <martin.jansa@gmail.com>
+To: kiran bobbu <kiran.bobbu@gmail.com>
+Message-ID: <20130828085429.GJ3544@jama>
+References: <CAO7jpqeaH9S6aXxCkzsu_B99fNnJvQbvKsGZrH4KWszFuPkbOg@mail.gmail.com>
 MIME-Version: 1.0
-X-Received: by 10.60.40.67 with SMTP id v3mr22745362oek.16.1377678223501; Wed,
-	28 Aug 2013 01:23:43 -0700 (PDT)
-Received: by 10.182.183.99 with HTTP; Wed, 28 Aug 2013 01:23:43 -0700 (PDT)
-Date: Wed, 28 Aug 2013 13:53:43 +0530
-Message-ID: <CAO7jpqeaH9S6aXxCkzsu_B99fNnJvQbvKsGZrH4KWszFuPkbOg@mail.gmail.com>
-From: kiran bobbu <kiran.bobbu@gmail.com>
-To: poky@yoctoproject.org
-Subject: how to modify compilation flags for hardfp compilation
+In-Reply-To: <CAO7jpqeaH9S6aXxCkzsu_B99fNnJvQbvKsGZrH4KWszFuPkbOg@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: poky@yoctoproject.org
+Subject: Re: how to modify compilation flags for hardfp compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,31 +44,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Aug 2013 08:23:45 -0000
-Content-Type: multipart/alternative; boundary=089e0149ce4c206edd04e4fdb5b6
+X-List-Received-Date: Wed, 28 Aug 2013 08:53:21 -0000
+X-Groupsio-MsgNum: 9140
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="fo1QyUNofDrBKNDB"
+Content-Disposition: inline
 
---089e0149ce4c206edd04e4fdb5b6
-Content-Type: text/plain; charset=ISO-8859-1
-
-Hi,
-
-By default  poky project builds with softfp compiler option.
-how to modify this flag   to build poky filesystem   with compiler flag as
-hardfp?
-
--- 
-
--Kiran
-
---089e0149ce4c206edd04e4fdb5b6
-Content-Type: text/html; charset=ISO-8859-1
+--fo1QyUNofDrBKNDB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div><div><br clear=3D"all"></div>Hi,<br><br></div>By=
- default=A0 poky project builds with softfp compiler option.<br></div>how t=
-o modify this flag=A0=A0 to build poky filesystem=A0=A0 with compiler flag =
-as hardfp?<br>
-<br><div><div><div><div>-- <br><br>-Kiran<br>
-</div></div></div></div></div>
+On Wed, Aug 28, 2013 at 01:53:43PM +0530, kiran bobbu wrote:
+> Hi,
+>=20
+> By default  poky project builds with softfp compiler option.
+> how to modify this flag   to build poky filesystem   with compiler flag as
+> hardfp?
 
---089e0149ce4c206edd04e4fdb5b6--
+See DEFAULTTUNE values in conf/machine/
+
+--=20
+Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+
+--fo1QyUNofDrBKNDB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.21 (GNU/Linux)
+
+iEYEARECAAYFAlIdusUACgkQN1Ujt2V2gBysWQCdHCJl3OvNwTayx/zW+IkbQM3q
+DjwAnAi7rbyRR8qS6OBsV5hJleZwAF5a
+=rRqf
+-----END PGP SIGNATURE-----
+
+--fo1QyUNofDrBKNDB--
