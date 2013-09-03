@@ -1,19 +1,23 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D83CBE0147D
-	for <poky@yoctoproject.org>; Tue,  3 Sep 2013 03:10:51 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 03 Sep 2013 03:10:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.89,1013,1367996400"; d="scan'208";a="372653562"
-Received: from unknown (HELO helios.ger.corp.intel.com) ([10.252.123.86])
-	by orsmga001.jf.intel.com with ESMTP; 03 Sep 2013 03:10:50 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue,  3 Sep 2013 11:10:44 +0100
-Message-Id: <1378203044-16230-1-git-send-email-paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCH] poky.conf: add version-going-backwards to ERROR_QA
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CEA5BE013D1
+	for <poky@yoctoproject.org>; Tue,  3 Sep 2013 08:25:28 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r83FPROR025153
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 3 Sep 2013 08:25:27 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.347.0; Tue, 3 Sep 2013 08:25:26 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Tue, 3 Sep 2013 11:25:22 -0400
+Message-ID: <cover.1378221496.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/2] meta-yocto-bsp: 3.10 updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,32 +30,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Sep 2013 10:10:52 -0000
+X-List-Received-Date: Tue, 03 Sep 2013 15:25:28 -0000
+Content-Type: text/plain
 
-This restores this check after it was disabled by recent poky rev
-560dac6e7db76f533f98eda969f585e4eb416e6e. This check is already in
-ERROR_QA in the default value set in OE-Core.
+Richard/Saul,
 
-Fixes [YOCTO #5088].
+I realize this would have been ideal with my first M4
+submission, but the fsl refernce board full works with
+3.10, and the team has finished testing the update, so
+I'm following up with changing its preferred version and
+bumping all the meta-yocto-bsp SRCREVs.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta-yocto/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This just leaves the beagleboard to be updated, and it 
+does work from 3.10 without significant changes, so I'd
+expect to have the testing confirmation of that soon, but
+in the meantime, there's no reason to wait on these updates.
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 8ea4e4f..779d5e3 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -107,6 +107,6 @@ ERROR_QA = "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms \
-             useless-rpaths rpaths staticdev ldflags pkgvarcheck already-stripped \
-             compile-host-path dep-cmp installed-vs-shipped install-host-path \
-             packages-list perm-config perm-line perm-link pkgv-undefined \
--            pn-overrides split-strip var-undefined"
-+            pn-overrides split-strip var-undefined version-going-backwards"
- 
- include conf/distro/include/seperatebuilddir.inc
+Bruce
+
+The following changes since commit 54544711d68cd001d57a458aa70183614b9d6e1f:
+
+  linux-yocto/3.10: update to v3.10.10 (2013-09-03 11:13:43 -0400)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (1):
+  meta-yocto-bsp: update h/w reference boards SRCREVs
+
+Kevin Hao (1):
+  mpc8315e-rdb: update to the 3.10 kernel
+
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                |    2 +-
+ .../recipes-kernel/linux/linux-yocto_3.10.bbappend           |   10 +++++-----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
 -- 
-1.8.1.2
+1.7.10.4
 
 
