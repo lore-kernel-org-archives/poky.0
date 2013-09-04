@@ -1,25 +1,33 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 32BA9E01493
-	for <poky@yoctoproject.org>; Tue,  3 Sep 2013 08:25:28 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r83FPTfX025156
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 3 Sep 2013 08:25:29 -0700 (PDT)
-Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.347.0; Tue, 3 Sep 2013 08:25:27 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Tue, 3 Sep 2013 11:25:24 -0400
-Message-ID: <e60bbed43d0dc97544d099b7c5745f801a364a1e.1378221496.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.10.4
-In-Reply-To: <cover.1378221496.git.bruce.ashfield@windriver.com>
-References: <cover.1378221496.git.bruce.ashfield@windriver.com>
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 2/2] meta-yocto-bsp: update h/w reference boards SRCREVs
+Return-Path: <net147@gmail.com>
+Received: from mail-pb0-f43.google.com (mail-pb0-f43.google.com
+	[209.85.160.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 96453E01358
+	for <poky@yoctoproject.org>; Tue,  3 Sep 2013 18:47:07 -0700 (PDT)
+Received: by mail-pb0-f43.google.com with SMTP id md4so6765345pbc.16
+	for <poky@yoctoproject.org>; Tue, 03 Sep 2013 18:47:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id;
+	bh=ebOC5AAgm6sjPRr4/VEIIiq7sfbYDQuEHsY7MiIWl4E=;
+	b=DR8/yprOM5naUH7cJE5S9Mb6Smg5OF1Q+bG5J9R2L9r0tupm73023eBDAdc8nFA32m
+	QlNHSluOc0tdjisQaqjuKnU77tDvo7yolGDOADZIWgdcIl1uuNNFa/EP0GtgSm21KOs+
+	GvNffL5qHJtO4WWZk6A+FJp9HNQLp7qbQWEHG0bQp7DqYfVWS3zteYOcw4NYQepIAo+d
+	NkCA8SGAwh2exa48O01h3jfpLkB2nhVSrzDnTADhfudebyL8kIOLeDw3m9q+0lPMcku3
+	6f4bR3DaJqnSYkGjfIr+uYwsFBHdQ411njRs2GCwvqzdNX8BZ73qCI5C4YKEvbHWXQFX
+	Lgeg==
+X-Received: by 10.66.178.143 with SMTP id cy15mr462963pac.105.1378259227685;
+	Tue, 03 Sep 2013 18:47:07 -0700 (PDT)
+Received: from 60-242-179-244.static.tpgi.com.au
+	(60-242-179-244.static.tpgi.com.au. [60.242.179.244])
+	by mx.google.com with ESMTPSA id
+	iu7sm25494408pbc.45.1969.12.31.16.00.00
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Tue, 03 Sep 2013 18:47:07 -0700 (PDT)
+From: Jonathan Liu <net147@gmail.com>
+To: poky@yoctoproject.org
+Date: Wed,  4 Sep 2013 11:43:35 +1000
+Message-Id: <1378259015-25126-1-git-send-email-net147@gmail.com>
+X-Mailer: git-send-email 1.8.4
+Subject: [PATCH] genericx86: tune for i586 instead of atom
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,39 +40,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Sep 2013 15:25:31 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 04 Sep 2013 01:47:08 -0000
 
-Updating the machine SRCREVs for the hardware reference boards to the
-latest 3.10.10 and ssh fixes.
+Tuning for Intel Atom CPU can in result instructions being used that are
+not compatible with older x86 CPUs such as Intel Pentium Dual-Core
+E2200. This can result in Linux 3.10 failing to boot with:
+"This kernel requires the following features not present on the CPU:
+movbe
+Unable to boot - please use a kernel appropriate for your CPU.".
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+Signed-off-by: Jonathan Liu <net147@gmail.com>
 ---
- .../recipes-kernel/linux/linux-yocto_3.10.bbappend           |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ meta-yocto-bsp/conf/machine/genericx86.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-index c3968ef..4391c0f 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-@@ -7,11 +7,11 @@ KBRANCH_beagleboard = "standard/beagleboard"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index ff5cbc9..f5d9cd5 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -3,7 +3,7 @@
  
--SRCREV_machine_genericx86 ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
--SRCREV_machine_genericx86-64 ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
--SRCREV_machine_routerstationpro ?= "3991d03bd450e9363d5b6e97ede0628ba073db79"
--SRCREV_machine_mpc8315e-rdb ?= "8d8339af518104db03f9c36b82f4372569e55b0a"
--SRCREV_machine_beagleboard ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
-+SRCREV_machine_genericx86 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
-+SRCREV_machine_genericx86-64 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
-+SRCREV_machine_routerstationpro ?= "80d9c863208fba7d8af6afe7b9167808635a56c0"
-+SRCREV_machine_mpc8315e-rdb ?= "b9b4bf71249ac7a24420913aa90f7ba75578d5a5"
-+SRCREV_machine_beagleboard ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
+ #@DESCRIPTION: Machine configuration for generic X86 (32-bit) PCs. Supports a moderately wide range of drivers that should boot and be usable on "typical" hardware.
  
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-include conf/machine/include/tune-atom.inc
++include conf/machine/include/tune-i586.inc
+ 
+ MACHINE_FEATURES = "screen keyboard pci usbhost ext2 ext3 x86 wifi acpi alsa"
+ 
 -- 
-1.7.10.4
+1.8.4
 
 
