@@ -1,31 +1,23 @@
-Return-Path: <net147@gmail.com>
-Received: from mail-pd0-f169.google.com (mail-pd0-f169.google.com
-	[209.85.192.169])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 076B1E013AB
-	for <poky@yoctoproject.org>; Tue,  3 Sep 2013 21:20:58 -0700 (PDT)
-Received: by mail-pd0-f169.google.com with SMTP id r10so6963648pdi.14
-	for <poky@yoctoproject.org>; Tue, 03 Sep 2013 21:20:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=3j67bxAEN+9DRTw15+qOb35u5SG/K+DIBbJX02rJkiU=;
-	b=ktb5TIKax198FoWdlvtQVsfzp13mksjZ4uMltwKSvEarZ7QBKHYoZrEKYbQtx0vmyj
-	zXL6rbmDCpZeVh/KSvv9bdilMW2BLa+9xyQH5N6ajTaKQehDVvl2+YwGb/s2hiPfeCCQ
-	q+7e5qYaQOw+Uc3C5BxZ67zINXNKWuiTHFh03mg25DXPlSyhiNcPCFsXmIWkPEERm8Z7
-	G9vAxVSWrgQWrpgGtzelgjO5cuJVeDZWD8vVb7ZMyF0Yu+tbcPv5W+guQOHe0Zjl1yHw
-	CifAJh2gSc+Flqjs9bILNcZriu0Yr9M2T+XBGRjItnSfXNATBVFTJRSER/ZvXEdv3QQ4
-	nusQ==
+Return-Path: <liming.wang@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA0AFE01206
+	for <poky@yoctoproject.org>; Wed,  4 Sep 2013 00:22:07 -0700 (PDT)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
+	[147.11.189.41])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r847M4Ue007578
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 4 Sep 2013 00:22:04 -0700 (PDT)
+Received: from pek-lwang0-d1.corp.ad.wrs.com (128.224.162.222) by
+	ALA-HCB.corp.ad.wrs.com (147.11.189.41) with Microsoft SMTP Server id
+	14.2.342.3; Wed, 4 Sep 2013 00:22:03 -0700
+From: Liming Wang <liming.wang@windriver.com>
+To: <saul.wold@intel.com>, <richard.purdie@linuxfoundation.org>
+Date: Wed, 4 Sep 2013 15:08:28 +0800
+Message-ID: <1378278510-19727-1-git-send-email-liming.wang@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
 MIME-Version: 1.0
-X-Received: by 10.66.175.133 with SMTP id ca5mr1126452pac.40.1378268457818;
-	Tue, 03 Sep 2013 21:20:57 -0700 (PDT)
-Received: by 10.70.35.235 with HTTP; Tue, 3 Sep 2013 21:20:57 -0700 (PDT)
-In-Reply-To: <1378259015-25126-1-git-send-email-net147@gmail.com>
-References: <1378259015-25126-1-git-send-email-net147@gmail.com>
-Date: Wed, 4 Sep 2013 14:20:57 +1000
-Message-ID: <CANwerB3RHxic-w_7yx7+y=SC4EQgXd3=m7m9gZLP55ptHdgGLQ@mail.gmail.com>
-From: Jonathan Liu <net147@gmail.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] genericx86: tune for i586 instead of atom
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/2] beagleboard/mpc8315e-rdb: upgrade u-boot to the latest version
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,43 +30,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Sep 2013 04:21:10 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 04 Sep 2013 07:22:08 -0000
+Content-Type: text/plain
 
-On 4 September 2013 11:43, Jonathan Liu <net147@gmail.com> wrote:
-> Tuning for Intel Atom CPU can in result instructions being used that are
-> not compatible with older x86 CPUs such as Intel Pentium Dual-Core
-> E2200. This can result in Linux 3.10 failing to boot with:
-> "This kernel requires the following features not present on the CPU:
-> movbe
-> Unable to boot - please use a kernel appropriate for your CPU.".
->
-> Signed-off-by: Jonathan Liu <net147@gmail.com>
+Richard/Saul,
 
-Please disregard this patch. It doesn't actually fix the kernel boot
-issue mentioned.
+The following patches are to upgrade u-boot to the latest version, 2013.07.
+We have tested the u-boot on both boards and it works well.
+These two patches are to fix bug of bugzilla 5077.
 
-Regards,
-Jonathan
-
-> ---
->  meta-yocto-bsp/conf/machine/genericx86.conf | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-> index ff5cbc9..f5d9cd5 100644
-> --- a/meta-yocto-bsp/conf/machine/genericx86.conf
-> +++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-> @@ -3,7 +3,7 @@
->
->  #@DESCRIPTION: Machine configuration for generic X86 (32-bit) PCs. Supports a moderately wide range of drivers that should boot and be usable on "typical" hardware.
->
-> -include conf/machine/include/tune-atom.inc
-> +include conf/machine/include/tune-i586.inc
->
->  MACHINE_FEATURES = "screen keyboard pci usbhost ext2 ext3 x86 wifi acpi alsa"
->
-> --
-> 1.8.4
->
+Liming Wang
 
