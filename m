@@ -1,28 +1,42 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B9871E01554
-	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 06:04:23 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by azsmga101.ch.intel.com with ESMTP; 05 Sep 2013 06:04:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,847,1371106800"; d="scan'208";a="391471121"
-Received: from unknown (HELO [10.255.14.130]) ([10.255.14.130])
-	by fmsmga001.fm.intel.com with ESMTP; 05 Sep 2013 06:04:22 -0700
-Message-ID: <1378386260.13564.8.camel@empanada>
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 05 Sep 2013 08:04:20 -0500
-In-Reply-To: <CAJTo0LY-oi+tQy7rs84axy4R71Y4j=HtEgXALN20aVdATwzVdg@mail.gmail.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-ve0-f178.google.com (mail-ve0-f178.google.com
+	[209.85.128.178])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B170AE00747
+	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 06:48:35 -0700 (PDT)
+Received: by mail-ve0-f178.google.com with SMTP id jw12so521748veb.23
+	for <poky@yoctoproject.org>; Thu, 05 Sep 2013 06:48:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=Yh0O5dYRvl9Ff1EF+DyyrSCe7nYEfbJQSZJ824OKLA8=;
+	b=DU42sejnccGSDu2fKWV5osf56n1aBk18ipmpEaGkInW7tTjij6VNz28EVIAi+kIKZC
+	kfrB5LUHeIE6Pdov1FdLukKeSs/ybEkpzFnBaysCbFXbYIj0XoWX/MZMqBuq1dge8PX0
+	zTWlMYdZg9Irs/0Ysoa94MXIo/OFWTUh4FI/NBv4G1EqPqg6lPoxjoH0qIiekWHzaomf
+	hHWItFMifMH1ctkGAw49MYtEZ/ZG4kngRTx402Xrob1Fw4s7yw0JE5sU3uXrJewGZKHX
+	2G2p68MyDSDd6Dgjj3PCOnAp035RrkxNDT2tQn9i/R+Ghn0s7geiye+KaZIZiJjlENf1
+	FP5w==
+X-Gm-Message-State: ALoCoQmufWiLd8V2KMXuKkSjALf79/LKcE/tH89v3aTGenWlRqKkn+zwgAfrh7JM6j4ycXjKLdDf
+X-Received: by 10.220.11.7 with SMTP id r7mr6036281vcr.12.1378388915302; Thu,
+	05 Sep 2013 06:48:35 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Thu, 5 Sep 2013 06:48:15 -0700 (PDT)
+In-Reply-To: <1378383839.6940.83.camel@phil-desktop.brightsign>
 References: <cover.1378339881.git.dvhart@linux.intel.com>
-	<4562a00806c5a6573b5aa650764ad12bc93edda7.1378339881.git.dvhart@linux.intel.com>
-	<CAJTo0LY-oi+tQy7rs84axy4R71Y4j=HtEgXALN20aVdATwzVdg@mail.gmail.com>
-X-Mailer: Evolution 3.4.1 (3.4.1-2.fc17) 
-Mime-Version: 1.0
-Cc: Darren Hart <dvhart@linux.intel.com>, "Bodke,
-	Kishore K" <kishore.k.bodke@intel.com>,
-	OE-core <openembedded-core@lists.openembedded.org>, "Seow,
-	Chen Yong" <chen.yong.seow@intel.com>, Poky <poky@yoctoproject.org>
-Subject: Re: [PATCH 3/4] xf86-video-mga: Pull in Matrox MGA support from meta-intel
+	<7e9270b1c56aeeb6ed22210cab98d2675b092d5d.1378339881.git.dvhart@linux.intel.com>
+	<CAJTo0La0W7PXkuBsvqD2XqPMMbbLtmJef5T97sikSJogZ1XCiQ@mail.gmail.com>
+	<CAP9ODKqVU+ka+VzjPj6p0iVsirrOSqLtDFWNzfBcKutwj1Fo3Q@mail.gmail.com>
+	<CAJTo0Labk000SpLOiM8gtuSu2pwK0jsgU9osO60GEFntThxSeA@mail.gmail.com>
+	<1378383289.32427.63.camel@ted>
+	<1378383839.6940.83.camel@phil-desktop.brightsign>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 5 Sep 2013 14:48:15 +0100
+Message-ID: <CAJTo0Lap0090_U49tN=aBZ_imJRT0JB0eoAu8e4CTgfouDQHfQ@mail.gmail.com>
+To: Phil Blundell <pb@pbcl.net>
+Cc: Darren Hart <dvhart@linux.intel.com>,
+	Otavio Salvador <otavio@ossystems.com.br>, Poky <poky@yoctoproject.org>,
+	OE-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 2/4] xorg-driver-common: Add configure and install appends from meta-intel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,40 +49,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Sep 2013 13:04:26 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 05 Sep 2013 13:48:39 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Thu, 2013-09-05 at 10:57 +0100, Burton, Ross wrote:
-> On 5 September 2013 01:18, Darren Hart <dvhart@linux.intel.com> wrote:
-> > In support of the more generic x86 BSPs, pull in the Matrox driver
-> > recipe from meta-intel.
-> 
-> What machine is this for in particular?  In discussion with Nitin
-> about MGA a few weeks back the conclusion was that the vesa driver
-> should be sufficient.  As far as I'm aware the reference platforms
-> don't ship with MGA hardware so it's up to the owner of the platform
-> to install whatever they have to hand (mga, nvidia, ATI, etc), or am I
-> wrong about that?
-> 
+On 5 September 2013 13:23, Phil Blundell <pb@pbcl.net> wrote:
+> On Thu, 2013-09-05 at 13:14 +0100, Richard Purdie wrote:
+>> * Figuring out any runtime issues with dlopen is the hardest part and we
+>> don't actually have real data on whether there are issues there or not.
+>
+> Do we have any particular reason to believe that there would be issues
+> (and if so, what they might be)?  I guess it should be easy enough to
+> gather data if we know what we're looking for.
 
-It's my understanding that some of these server-type systems like Romley
-and Crystal Forest have on-chip graphics disabled and ship with ancient
-MGA graphics, which apparently we have a cheap source of chips for...
+There won't be any problems with dlopen() because that only looks at
+.so files.  Any issues will be at build time, I wouldn't be surprised
+if some dependencies changed due to a difference in eg pkgconfig vs
+.la linkage.  Then again some other distros blanket-delete .la files
+by default so I don't expect any critical problems.
 
-Probably vesa would work for these systems, cc'ing those in the know...
+>> * They are used in places, for example the darwin shlibs code currently
+>> uses them. It could be updated to use otool these days mind but I'd
+>> probably make the current code a fallback for unknown arches since it is
+>> guaranteed to work everywhere.
+>
+> There's no reason in principle that folks on darwin (and/or
+> hitherto-undiscovered architectures) couldn't retain the .la files if
+> they wanted.  The original patch that I sent used a DISTRO_FEATURE to
+> control this and those people building for darwin could simply refrain
+> from setting it.  Alternatively we could make it explicitly conditional
+> on TARGET_OS or some such if there are reasons to believe that some
+> targets do genuinely require this stuff.
 
-Tom
+I don't think a distro feature is the right approach, but however it's
+set can easily be forced using a machine override for Darwin.
 
-> > Remove the checkfile patch from Ross as this is now handled adequately
-> > with the configure prepend hack which assumes success for any checkfile
-> > calls.
-> 
-> Assuming success in an distro where opengl isn't enabled will result
-> in the driver believing that DRI is enabled when it isn't, so expect
-> to see build failures from this.
-> 
-> Ross
-
-
+Ross
 
