@@ -1,32 +1,25 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mail-vb0-f50.google.com (mail-vb0-f50.google.com
-	[209.85.212.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5716DE00405
-	for <poky@yoctoproject.org>; Wed,  4 Sep 2013 11:26:03 -0700 (PDT)
-Received: by mail-vb0-f50.google.com with SMTP id x14so424429vbb.23
-	for <poky@yoctoproject.org>; Wed, 04 Sep 2013 11:26:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:date:message-id:subject:from:to
-	:content-type;
-	bh=Rc28OlxtT0y81jA0HJzX7ZVabSYtMvdJSRNtMk7qshc=;
-	b=IlwjZhWsNGbDOQ2+ZYYugxEXQjxGH9YnZTcihxdkWrOl/V+V+ZH59vgq30wljpFY+d
-	Wn8GU5UFyAzKzpgqUsD4Oq2QGJwYamtvyKgkU7MILJ8XK3YEM8l93KbxPC2RMM/12qdL
-	3azQ7b9hnQNFNSW6zpTZH1+wAAmj/Ff+iyHQ+6sTBBCRozwfRNcAsxlKhXOZ2o/5h8HX
-	IsZ4k9rZGotRht4BZuyLxuinPoFiggm1bv04mdQ8DcamaNv7bGf3KC8tF1dUJ4yg0u43
-	NJsnnaa25SIb4nMbGtmn77vvQ9DsQ8HVS1RC95/wJXxffU9bPIzIbIfZMuftzfrFjJHG
-	6IyA==
-X-Gm-Message-State: ALoCoQkrkL8f24LYHMtbpVKqWOkELPsUYenRkk5WGOncGWQfMY1WD9Ka5jyAFs4c/JNugNC6d4Wy
-MIME-Version: 1.0
-X-Received: by 10.220.16.73 with SMTP id n9mr106861vca.24.1378319162671; Wed,
-	04 Sep 2013 11:26:02 -0700 (PDT)
-Received: by 10.52.147.201 with HTTP; Wed, 4 Sep 2013 11:26:02 -0700 (PDT)
-Date: Wed, 4 Sep 2013 11:26:02 -0700
-Message-ID: <CAPhnLPCxGCiFSNv3Ek_4rj3_oZh=A3dUPynN5p2BNNBzSt+9Qg@mail.gmail.com>
-From: "Flanagan, Elizabeth" <elizabeth.flanagan@intel.com>
-To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
-	Poky Project <poky@yoctoproject.org>
-Subject: Poky 10.0.0 release name.
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 658D9E01415
+	for <poky@yoctoproject.org>; Wed,  4 Sep 2013 17:14:29 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 04 Sep 2013 17:11:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.90,843,1371106800"; d="scan'208";a="398408127"
+Received: from fear.jf.intel.com (HELO rage.local) ([10.7.196.147])
+	by orsmga002.jf.intel.com with ESMTP; 04 Sep 2013 17:14:27 -0700
+From: Darren Hart <dvhart@linux.intel.com>
+To: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org,
+	Tom Zanussi <tom.zanussi@intel.com>
+Date: Wed,  4 Sep 2013 17:18:38 -0700
+Message-Id: <7e9270b1c56aeeb6ed22210cab98d2675b092d5d.1378339881.git.dvhart@linux.intel.com>
+X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <b2e7d64bcfed785d28da77202d46157f4ce7dfd6.1378339881.git.dvhart@linux.intel.com>
+References: <b2e7d64bcfed785d28da77202d46157f4ce7dfd6.1378339881.git.dvhart@linux.intel.com>
+In-Reply-To: <cover.1378339881.git.dvhart@linux.intel.com>
+References: <cover.1378339881.git.dvhart@linux.intel.com>
+Cc: Darren Hart <dvhart@linux.intel.com>
+Subject: [PATCH 2/4] xorg-driver-common: Add configure and install appends from meta-intel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,17 +32,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Sep 2013 18:26:06 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 05 Sep 2013 00:14:32 -0000
 
-Just to keep folks in the loop, we have a release name!
+As part of pulling in the more generic components of the meta-intel
+xserver infrastructure, include the configure and install appends from
+the meta-intel version of xorg-driver-common.
 
-Poky 10.0.0 will be codenamed "dora"
+Modify the configure prepend to use ${S} in the paths explicitly as
+without this the script appears to be running in a build/ directory
+instead of the source directory, and cannot find the configure.ac.
+This prepend is required for at least the -intel and -mga drivers.
 
--b
+Signed-off-by: Darren Hart <dvhart@linux.intel.com>
+Cc: Ross Burton <ross.burton@intel.com>
+Cc: Nitin A Kamble <nitin.a.kamble@intel.com>
+---
+ .../xorg-driver/xorg-driver-common.inc             |   17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
+diff --git a/meta/recipes-graphics/xorg-driver/xorg-driver-common.inc b/meta/recipes-graphics/xorg-driver/xorg-driver-common.inc
+index 5f5d282..2d4f2ce 100644
+--- a/meta/recipes-graphics/xorg-driver/xorg-driver-common.inc
++++ b/meta/recipes-graphics/xorg-driver/xorg-driver-common.inc
+@@ -5,7 +5,7 @@ SECTION = "x11/drivers"
+ LICENSE = "MIT-X"
+ 
+ PE = "2"
+-INC_PR = "r21"
++INC_PR = "r22"
+ 
+ DEPENDS = "virtual/xserver xproto randrproto util-macros"
+ 
+@@ -39,3 +39,18 @@ def add_abi_depends(d, name):
+ 
+     pn = d.getVar("PN", True)
+     d.appendVar('RDEPENDS_' + pn, ' ' + abi)
++
++# AC_CHECK_FILE doesn't work when cross compiling, so we create a replacement
++# macro that simply assumes the test succeeds. This is required for at least
++# the -intel and -mga drivers.
++do_configure_prepend () {
++	echo 'AC_DEFUN(CC_AC_CHECK_FILE, $2)' > ${S}/configure.ac.new
++	sed 's/AC_CHECK_FILE/CC_AC_CHECK_FILE/g' ${S}/configure.ac >> ${S}/configure.ac.new
++	mv ${S}/configure.ac.new ${S}/configure.ac
++}
++
++# FIXME: We don't want to include the libtool archives (*.la) from modules
++# directory, as they serve no useful purpose. Upstream should fix Makefile.am
++do_install_append() {
++	find ${D}${libdir}/xorg/modules -regex ".*\.la$" | xargs rm -f --
++}
 -- 
-Elizabeth Flanagan
-Yocto Project
-Build and Release
+1.7.9.5
+
 
