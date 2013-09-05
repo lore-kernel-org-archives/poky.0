@@ -1,36 +1,39 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 69F92E01415
-	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 01:51:33 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r85949dW032017; Thu, 5 Sep 2013 10:04:09 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id AqwvkfFZl2xY; Thu,  5 Sep 2013 10:04:09 +0100 (BST)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r85941hF032013
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
-	verify=NOT); Thu, 5 Sep 2013 10:04:02 +0100
-Message-ID: <1378371047.32427.29.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Saul Wold <sgw@linux.intel.com>
-Date: Thu, 05 Sep 2013 09:50:47 +0100
-In-Reply-To: <52282B4E.9050204@linux.intel.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vb0-f48.google.com (mail-vb0-f48.google.com
+	[209.85.212.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6AB57E0154F
+	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 02:47:54 -0700 (PDT)
+Received: by mail-vb0-f48.google.com with SMTP id w16so949957vbf.35
+	for <poky@yoctoproject.org>; Thu, 05 Sep 2013 02:47:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=IkMeoOxxg6waM6UuSz146yVAkAXFgoXJ90Jw5hVEQlY=;
+	b=l43lfC4dIt3zyB+Zr7VFebCM9kjzJ6sont7xfzIyTH4/u/vKjwZO4fdob+PDTE28Vc
+	NU0FYSjmvqwp5PlLsBYtY3W8CShunrxyLTRxcT4xhsXy+A6lw6IUSxLeYQ7CEYAcnJTV
+	18cz9SaN5tWWptbHwheG53EaRpUfobtmF/LFlY+tKWkzz6Tw6EytaxvXQTkXcgE50HJg
+	Q9prD0kyy4pWHxx5cjJOQo9HRYAQw7FssA8v27cqphKw31U2A5VDw9kQqOJsuw75qE+o
+	RWeCB/pzvQaJhfPPSiPAO1EwlFe/ERDxgknlrM4nyW7ueOKoP0Cqhudr0f8el15OZ96O
+	yQIQ==
+X-Gm-Message-State: ALoCoQmOL0vshcCwoi53y1usFbMXB7FtyQBqg0JJAMzu51RFiQ2rf8tfuC5C1UTX5eqJyPSgylSr
+X-Received: by 10.52.244.116 with SMTP id xf20mr1911626vdc.16.1378374474454;
+	Thu, 05 Sep 2013 02:47:54 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Thu, 5 Sep 2013 02:47:33 -0700 (PDT)
+In-Reply-To: <1378352101.14029.52.camel@dvhart-mobl4.amr.corp.intel.com>
 References: <cover.1378339881.git.dvhart@linux.intel.com>
-	<b2e7d64bcfed785d28da77202d46157f4ce7dfd6.1378339881.git.dvhart@linux.intel.com>
-	<CAP9ODKqGdoGoaNh9e_3gZ5A+HhCDq-_wCVygYKHcShajCNXyvg@mail.gmail.com>
-	<1378352047.14029.51.camel@dvhart-mobl4.amr.corp.intel.com>
-	<52282B4E.9050204@linux.intel.com>
-X-Mailer: Evolution 3.6.4-0ubuntu1 
-Mime-Version: 1.0
-Cc: yunguo.wei@windriver.com, Darren Hart <dvhart@linux.intel.com>,
-	Poky <poky@yoctoproject.org>, Otavio Salvador <otavio@ossystems.com.br>,
+	<CAP9ODKou8KFNUVjjMq7wcY8wJ5m-rh4YGpuFTA_JugiSis7dEQ@mail.gmail.com>
+	<1378352101.14029.52.camel@dvhart-mobl4.amr.corp.intel.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 5 Sep 2013 10:47:33 +0100
+Message-ID: <CAJTo0LZb5hTNAjTJvL2ueRWqe1PWPUv3yU-fbobwjcAis-7JCg@mail.gmail.com>
+To: Darren Hart <dvhart@linux.intel.com>
+Cc: yunguo.wei@windriver.com, Poky <poky@yoctoproject.org>,
+	Otavio Salvador <otavio@ossystems.com.br>,
 	Patches and discussions about the oe-core layer
 	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [PATCH 1/4] linux-firmware: Update SRCREV, pull in iwlwifi-7260 support
+Subject: Re: [OE-core] [PATCH 0/4] Updates in support of genericx86*
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,77 +46,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Sep 2013 08:51:37 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 05 Sep 2013 09:47:57 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Wed, 2013-09-04 at 23:57 -0700, Saul Wold wrote:
-> On 09/04/2013 08:34 PM, Darren Hart wrote:
-> > On Wed, 2013-09-04 at 22:04 -0300, Otavio Salvador wrote:
-> >> On Wed, Sep 4, 2013 at 9:18 PM, Darren Hart <dvhart@linux.intel.com> wrote:
-> >>> Fixes [YOCTO #5110]
-> >>>
-> >>> Add support for the iwlwifi 7260 adapters. This creates a new package
-> >>> and includes support in the default linux-firmware (everything) package.
-> >>>
-> >>> Update the iwlwifi and radeon license checksums. Extensions to the
-> >>> copyright date ranges were the only change to the LICENSE files.
-> >>>
-> >>> Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> >>> Cc: yunguo.wei@windriver.com
-> >>> ---
-> >>>   .../linux-firmware/linux-firmware_git.bb           |   10 ++++++----
-> >>>   1 file changed, 6 insertions(+), 4 deletions(-)
-> >>>
-> >>> diff --git a/meta/recipes-kernel/linux-firmware/linux-firmware_git.bb b/meta/recipes-kernel/linux-firmware/linux-firmware_git.bb
-> >>> index 3825889..1b7db08 100644
-> >>> --- a/meta/recipes-kernel/linux-firmware/linux-firmware_git.bb
-> >>> +++ b/meta/recipes-kernel/linux-firmware/linux-firmware_git.bb
-> >>> @@ -7,12 +7,12 @@ SECTION = "kernel"
-> >>>
-> >>>   LICENSE = "Proprietary"
-> >>>
-> >>> -LIC_FILES_CHKSUM = "file://LICENSE.radeon;md5=e56b405656593a0c97e478513051ea0e \
-> >>> +LIC_FILES_CHKSUM = "file://LICENSE.radeon;md5=9c2faab1bfca55e1510d6bde67206f9c \
-> >>>                       file://LICENSE.dib0700;md5=f7411825c8a555a1a3e5eab9ca773431 \
-> >>>                       file://LICENCE.xc5000;md5=1e170c13175323c32c7f4d0998d53f66 \
-> >>>                       file://LICENCE.ralink-firmware.txt;md5=ab2c269277c45476fb449673911a2dfd \
-> >>>                       file://LICENCE.qla2xxx;md5=4005328a134054f0fa077bdc37aa64f2 \
-> >>> -                    file://LICENCE.iwlwifi_firmware;md5=11545778abf78c43d7644d4f171ea1c7 \
-> >>> +                    file://LICENCE.iwlwifi_firmware;md5=8b938534f77ffd453690eb34ed84ae8b \
-> >>>                       file://LICENCE.i2400m;md5=14b901969e23c41881327c0d9e4b7d36 \
-> >>>                       file://LICENCE.atheros_firmware;md5=30a14c7823beedac9fa39c64fdd01a13 \
-> >>>                       file://LICENCE.agere;md5=af0133de6b4a9b2522defd5f188afd31 \
-> >>> @@ -23,10 +23,10 @@ LIC_FILES_CHKSUM = "file://LICENSE.radeon;md5=e56b405656593a0c97e478513051ea0e \
-> >>>                       file://LICENCE.via_vt6656;md5=e4159694cba42d4377a912e78a6e850f \
-> >>>                      "
-> >>>
-> >>> -SRCREV = "c530a75c1e6a472b0eb9558310b518f0dfcd8860"
-> >>> +SRCREV = "600caefd83a406540b2a789be6415e44c9b87add"
-> >>>   PE = "1"
-> >>>   PV = "0.0+git${SRCPV}"
-> >>> -PR = "r1"
-> >>> +PR = "r0"
-> >>
-> >> I know this is OK but I'd prefer to omit the PR when it is r0;
-> >> specially now we use PRServer.
-> >
-> > Well, what is the official policy here? I'm happy to respin if
-> > necessary, but I'd rather not burn cycles if the policy is hazy on the
-> > subject.
-> >
-> Darren, sorry to say it is removal when possible.
+On 5 September 2013 04:35, Darren Hart <dvhart@linux.intel.com> wrote:
+>> > Some of the oe-core changes could be contained in the meta-yocto-bsp layer, but
+>> > as these changes come from meta-intel, they are needed by multiple layers, and I
+>> > felt it might make more sense in oe-core. If people object to the mga or intel
+>> > xserver video drivers, I can respin those for meta-yocto-bsp.
+>>
+>> QEMU does not need them so they should be in meta-yocto-bsp.
+>
+> I'm fine with that if that is the consensus. Does anyone else care to
+> weigh in?
 
-Policy was hazy, however to me at least its now clear. 
+By that logic nearly all the X drivers in oe-core should be in
+meta-yocto-bsp (synaptics, intel, modesetting, omap, omapfb, keyboard,
+mouse), but then we'd be forcing people using anything other than qemu
+to use meta-yocto-bsp (or duplicate the recipes).  A more nuanced
+rationale for keeping modesettings/intel/etc is that whilst the driver
+isn't used on QEMU it is in use on a large number of machines so it
+can be centrally maintained in oe-core.  I'm not convinced this holds
+for -mga (unless you're reading this from the late 90s) so it should
+be in meta-yocto-bsp.
 
-PR values are to be handled by the PR server and therefore we're
-clearing them out of recipes as and when we can (same applies to
-INC_PR). Ultimately they should disappear, the sooner the better as far
-as I'm concerned.
-
-Cheers,
-
-Richard
-
-
+Ross
 
