@@ -1,24 +1,27 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F147FE0122C
-	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 08:32:57 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r85FjQv9019103; Thu, 5 Sep 2013 16:45:26 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 8tYQtcD3kPg5; Thu,  5 Sep 2013 16:45:26 +0100 (BST)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r85FjKFY019094
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
-	verify=NOT); Thu, 5 Sep 2013 16:45:21 +0100
-Message-ID: <1378395125.32427.78.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Phil Blundell <pb@pbcl.net>
-Date: Thu, 05 Sep 2013 16:32:05 +0100
-In-Reply-To: <1378383839.6940.83.camel@phil-desktop.brightsign>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vc0-f174.google.com (mail-vc0-f174.google.com
+	[209.85.220.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EDC01E00747
+	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 09:24:14 -0700 (PDT)
+Received: by mail-vc0-f174.google.com with SMTP id gd11so1314362vcb.33
+	for <poky@yoctoproject.org>; Thu, 05 Sep 2013 09:24:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=+JywKFgmEGPWNPgz6yS2N3emWDWgfiRto4Vd4GizZ6E=;
+	b=VMMgBYYj99GG4tGcfZwir6Oq9PHcv1n0JZVEnCm3W2vckEA6oGfwObGlB058bIJHa5
+	LAAEF0PJ0f+RfO4VFePZgoStYeUrN0x4/qEgk2feQGp5Vs9u4EbIaxc9UzfmM5B3xkVI
+	SalTi92up7sMrb5jEVkgs3TgyYk3Vn0PbpD9arkFcZzeFvsX04HqNr+aFc2T71YUIYfF
+	r3iehHWtS7C0bpCGPDe2c1FZqb5HEUZQvdVQVDyZJ0Cg2Q/ymJCvybNVFPHEEULAhYi/
+	mUocp0UrR595XJtt7/592GT4EHs3uRXA3wtKJSKSAaTiCZEZes2d3OPSSERHkitnArgR
+	MGMg==
+X-Gm-Message-State: ALoCoQn5ZHsKUaNE5HSOItFHWbDiKWwcgUkCJ3EoKpCSVgQrPKOrhCJOcjCE4EMw53nAxI6jaJ5z
+X-Received: by 10.52.119.139 with SMTP id ku11mr650659vdb.42.1378398253481;
+	Thu, 05 Sep 2013 09:24:13 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Thu, 5 Sep 2013 09:23:53 -0700 (PDT)
+In-Reply-To: <1378395125.32427.78.camel@ted>
 References: <cover.1378339881.git.dvhart@linux.intel.com>
 	<7e9270b1c56aeeb6ed22210cab98d2675b092d5d.1378339881.git.dvhart@linux.intel.com>
 	<CAJTo0La0W7PXkuBsvqD2XqPMMbbLtmJef5T97sikSJogZ1XCiQ@mail.gmail.com>
@@ -26,10 +29,13 @@ References: <cover.1378339881.git.dvhart@linux.intel.com>
 	<CAJTo0Labk000SpLOiM8gtuSu2pwK0jsgU9osO60GEFntThxSeA@mail.gmail.com>
 	<1378383289.32427.63.camel@ted>
 	<1378383839.6940.83.camel@phil-desktop.brightsign>
-X-Mailer: Evolution 3.6.4-0ubuntu1 
-Mime-Version: 1.0
+	<1378395125.32427.78.camel@ted>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 5 Sep 2013 17:23:53 +0100
+Message-ID: <CAJTo0LZozjJdqonXNqv1L1yL58YzsK11Z6xbio0YYo-gfTAEvw@mail.gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
 Cc: Darren Hart <dvhart@linux.intel.com>, Poky <poky@yoctoproject.org>,
-	Otavio Salvador <otavio@ossystems.com.br>,
+	Phil Blundell <pb@pbcl.net>, Otavio Salvador <otavio@ossystems.com.br>,
 	OE-core <openembedded-core@lists.openembedded.org>
 Subject: Re: [OE-core] [PATCH 2/4] xorg-driver-common: Add configure and install appends from meta-intel
 X-BeenThere: poky@yoctoproject.org
@@ -44,71 +50,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Sep 2013 15:33:00 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 05 Sep 2013 16:24:15 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Thu, 2013-09-05 at 13:23 +0100, Phil Blundell wrote:
-> On Thu, 2013-09-05 at 13:14 +0100, Richard Purdie wrote:
-> > * Figuring out any runtime issues with dlopen is the hardest part and we
-> > don't actually have real data on whether there are issues there or not.
-> 
-> Do we have any particular reason to believe that there would be issues
-> (and if so, what they might be)?  I guess it should be easy enough to
-> gather data if we know what we're looking for.
-> 
-> Right now the .la files go into the -dev packages anyway and hence
-> aren't usually going to be available at runtime for anything calling
-> dlopen() on the target.  Is it native packages you're concerned about?
+On 5 September 2013 16:32, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+> I guess the .la files just don't seem to be a big issue that some people
+> seem to paint them as. Why do we need to remove them and deviate from
+> the upstream?
 
-The -dev package argument is a good one, we seem to be surviving without
-those and that probably addresses the concern I was thinking of. I'm
-also thinking of ltdl and its dlopen wrapping, not dlopen itself which
-is a much smaller subset of recipes.
+You appear to be defending choices made by libtool upstream here.  Are
+you unwell? :)
 
-> > * We'd be deviating from the way the libtool authors suggest their tool
-> > should operate. This makes filing bug reports and interacting with
-> > upstream harder. 
-> 
-> This is true, though interacting with libtool upstream already seems to
-> be hard enough that I'm not sure this would make a material difference.
+> Anyhow, if someone can show some world builds with and without the .la
+> files and see what build history shows we'd be closer to taking a patch
+> to turning them off. If we do it, we'll have to do it everywhere for
+> everything since the remaining code will bitrot badly IMO otherwise.
 
-It does seem somewhat tricky, agreed.
+I'll try and hack something up this week as a proof of concept.
 
-> > * They are used in places, for example the darwin shlibs code currently
-> > uses them. It could be updated to use otool these days mind but I'd
-> > probably make the current code a fallback for unknown arches since it is
-> > guaranteed to work everywhere.
-> 
-> There's no reason in principle that folks on darwin (and/or
-> hitherto-undiscovered architectures) couldn't retain the .la files if
-> they wanted.  The original patch that I sent used a DISTRO_FEATURE to
-> control this and those people building for darwin could simply refrain
-> from setting it.  Alternatively we could make it explicitly conditional
-> on TARGET_OS or some such if there are reasons to believe that some
-> targets do genuinely require this stuff.
-
-There are ways to avoid problems for darwin. Using otool instead of
-the .la files would be nice, equally mangling DISTRO_FEATURES based on
-an SDK override is possible, albeit ugly. The la handling code will
-likely bitrot as soon as its disabled by default and metadata starts
-getting dropped which is probably a bigger concern. The number of SDK
-darwin builds is currently a tiny portion of the usercase and codebase.
-
-I guess the .la files just don't seem to be a big issue that some people
-seem to paint them as. Why do we need to remove them and deviate from
-the upstream?
-
-Anyhow, if someone can show some world builds with and without the .la
-files and see what build history shows we'd be closer to taking a patch
-to turning them off. If we do it, we'll have to do it everywhere for
-everything since the remaining code will bitrot badly IMO otherwise.
-
-Cheers,
-
-Richard
-
-
-
-
+Ross
 
