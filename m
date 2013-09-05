@@ -1,35 +1,38 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D7D39E01415
-	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 04:07:26 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r85BIdCh004965; Thu, 5 Sep 2013 12:19:54 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id hM7BMQt0rw3J; Thu,  5 Sep 2013 12:19:53 +0100 (BST)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	r85BJmwR004978
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
-	verify=NOT); Thu, 5 Sep 2013 12:19:49 +0100
-Message-ID: <1378379194.32427.33.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 05 Sep 2013 12:06:34 +0100
-In-Reply-To: <CAJTo0LZb5hTNAjTJvL2ueRWqe1PWPUv3yU-fbobwjcAis-7JCg@mail.gmail.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-ve0-f174.google.com (mail-ve0-f174.google.com
+	[209.85.128.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A2F3AE0154F
+	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 04:41:04 -0700 (PDT)
+Received: by mail-ve0-f174.google.com with SMTP id jy13so393524veb.5
+	for <poky@yoctoproject.org>; Thu, 05 Sep 2013 04:41:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=TghqoEJwJeCNd8WBOqL6dh+Q+UZF0ntE2ZBZ1f7n0wM=;
+	b=RA8mgV1JfoeSzyAjdABhVxvR/wC7QOeTOpgXce6Akp9An5yueDPzMJCINY3auDdRKT
+	7vOstHD4Ay3LXEP2dVkGLfHfo1tmKE2n3PkxnmWQE9XpUnn5nxulube5kCNNbLBTzR7a
+	JBqbWv8fTb4+neCq4sOAotH0G+xejowAkJJ2X5rX3lbS8lXTYoZ14S9XAMH+y0e1glfm
+	5ULeJ04BzOQmskI0k7L+Ale+6NZR27slE3kJ2QwPr9bnr/uIol5LgiXyDgpGzJOVXT0D
+	bfUu/XnwysZxRn26dMR1E/JdTIg9xD6VRKyHkNSLozKfj2kaiSy8B5D7/dATshxjxdOz
+	eCxg==
+X-Gm-Message-State: ALoCoQlU1MaBo2nGOCMbLr26fouUbeMjPPSHbnRJemKe/jWaM9nAKuHlslGNXXwcwbyqjrTGiqsg
+X-Received: by 10.220.11.7 with SMTP id r7mr5531584vcr.12.1378381264159; Thu,
+	05 Sep 2013 04:41:04 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Thu, 5 Sep 2013 04:40:44 -0700 (PDT)
+In-Reply-To: <CAP9ODKqVU+ka+VzjPj6p0iVsirrOSqLtDFWNzfBcKutwj1Fo3Q@mail.gmail.com>
 References: <cover.1378339881.git.dvhart@linux.intel.com>
-	<CAP9ODKou8KFNUVjjMq7wcY8wJ5m-rh4YGpuFTA_JugiSis7dEQ@mail.gmail.com>
-	<1378352101.14029.52.camel@dvhart-mobl4.amr.corp.intel.com>
-	<CAJTo0LZb5hTNAjTJvL2ueRWqe1PWPUv3yU-fbobwjcAis-7JCg@mail.gmail.com>
-X-Mailer: Evolution 3.6.4-0ubuntu1 
-Mime-Version: 1.0
-Cc: yunguo.wei@windriver.com, Darren Hart <dvhart@linux.intel.com>,
-	Poky <poky@yoctoproject.org>, Otavio Salvador <otavio@ossystems.com.br>,
-	Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [PATCH 0/4] Updates in support of genericx86*
+	<7e9270b1c56aeeb6ed22210cab98d2675b092d5d.1378339881.git.dvhart@linux.intel.com>
+	<CAJTo0La0W7PXkuBsvqD2XqPMMbbLtmJef5T97sikSJogZ1XCiQ@mail.gmail.com>
+	<CAP9ODKqVU+ka+VzjPj6p0iVsirrOSqLtDFWNzfBcKutwj1Fo3Q@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 5 Sep 2013 12:40:44 +0100
+Message-ID: <CAJTo0Labk000SpLOiM8gtuSu2pwK0jsgU9osO60GEFntThxSeA@mail.gmail.com>
+To: Otavio Salvador <otavio@ossystems.com.br>
+Cc: Darren Hart <dvhart@linux.intel.com>, Poky <poky@yoctoproject.org>,
+	OE-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 2/4] xorg-driver-common: Add configure and install appends from meta-intel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,42 +45,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Sep 2013 11:07:28 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 05 Sep 2013 11:41:06 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Thu, 2013-09-05 at 10:47 +0100, Burton, Ross wrote:
-> On 5 September 2013 04:35, Darren Hart <dvhart@linux.intel.com> wrote:
-> >> > Some of the oe-core changes could be contained in the meta-yocto-bsp layer, but
-> >> > as these changes come from meta-intel, they are needed by multiple layers, and I
-> >> > felt it might make more sense in oe-core. If people object to the mga or intel
-> >> > xserver video drivers, I can respin those for meta-yocto-bsp.
-> >>
-> >> QEMU does not need them so they should be in meta-yocto-bsp.
-> >
-> > I'm fine with that if that is the consensus. Does anyone else care to
-> > weigh in?
-> 
-> By that logic nearly all the X drivers in oe-core should be in
-> meta-yocto-bsp (synaptics, intel, modesetting, omap, omapfb, keyboard,
-> mouse), but then we'd be forcing people using anything other than qemu
-> to use meta-yocto-bsp (or duplicate the recipes).  A more nuanced
-> rationale for keeping modesettings/intel/etc is that whilst the driver
-> isn't used on QEMU it is in use on a large number of machines so it
-> can be centrally maintained in oe-core.  I'm not convinced this holds
-> for -mga (unless you're reading this from the late 90s) so it should
-> be in meta-yocto-bsp.
+On 5 September 2013 12:37, Otavio Salvador <otavio@ossystems.com.br> wrote:
+>> Sadly when using libtool you can't "opt-out" of installing .la files
+>> unless you delete the files that just got installed.  In my opinion
+>> this is something that needs to be done globally instead of
+>> per-recipe.
+>
+> So autotools.bbclass?
 
-There is some thinking going on at the moment about merging genericx86
-and qemux86 since the two machines are converging and any differences
-could be dealt with at runtime. To me, this is a key detail.
+Exactly.  Phil sent patches to do this previously, and I've a
+branch... somewhere that has another unfinished version.
 
-I agree that -mga is a push for OE-Core but the other drivers are useful
-and I can see a case for moving them towards the core rather than having
-several layers needing them.
-
-Cheers,
-
-Richard
-
+Ross
 
