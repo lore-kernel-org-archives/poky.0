@@ -1,36 +1,35 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-vb0-f46.google.com (mail-vb0-f46.google.com
-	[209.85.212.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 813B6E01542
-	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 02:58:06 -0700 (PDT)
-Received: by mail-vb0-f46.google.com with SMTP id p13so952148vbe.19
-	for <poky@yoctoproject.org>; Thu, 05 Sep 2013 02:58:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=e3wnXq+SwrIqOjp6gffkuk+IAUrT2y84U2yM5EGH0Vg=;
-	b=TGzaBd291KB7NsyF+tnE464ezzXIbAO0fEbkDBwnyzQM2U7PHZd48BkEp8GX3JrXRz
-	+jvXjuhMk1V+x6ImwQylb2YINveDJfUAh3KoBYlakbS90OoXVh87NsJrX4YVY0DCqbAj
-	gL8RmibVwbPIFk6ckfup1Q04eNVu2+LTaWE5Z8kzggR/SSnHxG8PhWP36rRc0BmU9z30
-	r1nv31vJWjtm+tqbe0o6D5pbkaSOebPLcvDkDpVs/fChuwa4s3/iSOhI5AdzbWJyOpzI
-	r9Sb6cefaaUxBrEGHhMePy2OjnR4Jt9t0ZC7gkHp01y1/dgQAQ4AZBchDtTcmhYXU5kW
-	AW2Q==
-X-Gm-Message-State: ALoCoQkK3GjJ64l7Q63wvsFMC4+LJ/CNG62pD/BOXCVVkZ0Zz4p+OJ4XWW7sXzVH+dIFzDYI3jIW
-X-Received: by 10.220.43.19 with SMTP id u19mr4892094vce.3.1378375086102; Thu,
-	05 Sep 2013 02:58:06 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.220.71.201 with HTTP; Thu, 5 Sep 2013 02:57:46 -0700 (PDT)
-In-Reply-To: <4562a00806c5a6573b5aa650764ad12bc93edda7.1378339881.git.dvhart@linux.intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D7D39E01415
+	for <poky@yoctoproject.org>; Thu,  5 Sep 2013 04:07:26 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r85BIdCh004965; Thu, 5 Sep 2013 12:19:54 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id hM7BMQt0rw3J; Thu,  5 Sep 2013 12:19:53 +0100 (BST)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	r85BJmwR004978
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-CAMELLIA256-SHA bits=256
+	verify=NOT); Thu, 5 Sep 2013 12:19:49 +0100
+Message-ID: <1378379194.32427.33.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 05 Sep 2013 12:06:34 +0100
+In-Reply-To: <CAJTo0LZb5hTNAjTJvL2ueRWqe1PWPUv3yU-fbobwjcAis-7JCg@mail.gmail.com>
 References: <cover.1378339881.git.dvhart@linux.intel.com>
-	<4562a00806c5a6573b5aa650764ad12bc93edda7.1378339881.git.dvhart@linux.intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 5 Sep 2013 10:57:46 +0100
-Message-ID: <CAJTo0LY-oi+tQy7rs84axy4R71Y4j=HtEgXALN20aVdATwzVdg@mail.gmail.com>
-To: Darren Hart <dvhart@linux.intel.com>
-Cc: Poky <poky@yoctoproject.org>,
-	OE-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 3/4] xf86-video-mga: Pull in Matrox MGA support from meta-intel
+	<CAP9ODKou8KFNUVjjMq7wcY8wJ5m-rh4YGpuFTA_JugiSis7dEQ@mail.gmail.com>
+	<1378352101.14029.52.camel@dvhart-mobl4.amr.corp.intel.com>
+	<CAJTo0LZb5hTNAjTJvL2ueRWqe1PWPUv3yU-fbobwjcAis-7JCg@mail.gmail.com>
+X-Mailer: Evolution 3.6.4-0ubuntu1 
+Mime-Version: 1.0
+Cc: yunguo.wei@windriver.com, Darren Hart <dvhart@linux.intel.com>,
+	Poky <poky@yoctoproject.org>, Otavio Salvador <otavio@ossystems.com.br>,
+	Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [PATCH 0/4] Updates in support of genericx86*
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,27 +42,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Sep 2013 09:58:07 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 05 Sep 2013 11:07:28 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On 5 September 2013 01:18, Darren Hart <dvhart@linux.intel.com> wrote:
-> In support of the more generic x86 BSPs, pull in the Matrox driver
-> recipe from meta-intel.
+On Thu, 2013-09-05 at 10:47 +0100, Burton, Ross wrote:
+> On 5 September 2013 04:35, Darren Hart <dvhart@linux.intel.com> wrote:
+> >> > Some of the oe-core changes could be contained in the meta-yocto-bsp layer, but
+> >> > as these changes come from meta-intel, they are needed by multiple layers, and I
+> >> > felt it might make more sense in oe-core. If people object to the mga or intel
+> >> > xserver video drivers, I can respin those for meta-yocto-bsp.
+> >>
+> >> QEMU does not need them so they should be in meta-yocto-bsp.
+> >
+> > I'm fine with that if that is the consensus. Does anyone else care to
+> > weigh in?
+> 
+> By that logic nearly all the X drivers in oe-core should be in
+> meta-yocto-bsp (synaptics, intel, modesetting, omap, omapfb, keyboard,
+> mouse), but then we'd be forcing people using anything other than qemu
+> to use meta-yocto-bsp (or duplicate the recipes).  A more nuanced
+> rationale for keeping modesettings/intel/etc is that whilst the driver
+> isn't used on QEMU it is in use on a large number of machines so it
+> can be centrally maintained in oe-core.  I'm not convinced this holds
+> for -mga (unless you're reading this from the late 90s) so it should
+> be in meta-yocto-bsp.
 
-What machine is this for in particular?  In discussion with Nitin
-about MGA a few weeks back the conclusion was that the vesa driver
-should be sufficient.  As far as I'm aware the reference platforms
-don't ship with MGA hardware so it's up to the owner of the platform
-to install whatever they have to hand (mga, nvidia, ATI, etc), or am I
-wrong about that?
+There is some thinking going on at the moment about merging genericx86
+and qemux86 since the two machines are converging and any differences
+could be dealt with at runtime. To me, this is a key detail.
 
-> Remove the checkfile patch from Ross as this is now handled adequately
-> with the configure prepend hack which assumes success for any checkfile
-> calls.
+I agree that -mga is a push for OE-Core but the other drivers are useful
+and I can see a case for moving them towards the core rather than having
+several layers needing them.
 
-Assuming success in an distro where opengl isn't enabled will result
-in the driver believing that DRI is enabled when it isn't, so expect
-to see build failures from this.
+Cheers,
 
-Ross
+Richard
+
 
