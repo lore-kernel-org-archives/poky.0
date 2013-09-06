@@ -1,25 +1,25 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1C9F1E00408
-	for <poky@yoctoproject.org>; Fri,  6 Sep 2013 13:58:44 -0700 (PDT)
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3A998E00282
+	for <poky@yoctoproject.org>; Fri,  6 Sep 2013 13:58:45 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r86KwglQ010040
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r86KwhOw005758
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 6 Sep 2013 13:58:42 -0700 (PDT)
+	Fri, 6 Sep 2013 13:58:43 -0700 (PDT)
 Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
 	14.2.347.0; Fri, 6 Sep 2013 13:58:42 -0700
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: <richard.purdie@linuxfoundation.org>
-Date: Fri, 6 Sep 2013 16:58:35 -0400
-Message-ID: <73db191c6a40347695c63674f133afb795d289ed.1378500902.git.bruce.ashfield@windriver.com>
+Date: Fri, 6 Sep 2013 16:58:36 -0400
+Message-ID: <373355466ed7a2c31efd16f1b07c0d089c9d38d5.1378500902.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.7.10.4
 In-Reply-To: <cover.1378500902.git.bruce.ashfield@windriver.com>
 References: <cover.1378500902.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: [PATCH 2/4] meta-yocto-bsp: update h/w reference boards SRCREVs
+Subject: [PATCH 3/4] beagleboard: upgrade the kernel to 3.10.x
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,35 +35,37 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 X-List-Received-Date: Fri, 06 Sep 2013 20:58:45 -0000
 Content-Type: text/plain
 
-Updating the machine SRCREVs for the hardware reference boards to the
-latest 3.10.10 and ssh fixes.
+From: Liming Wang <liming.wang@windriver.com>
 
+In 3.10.x linux kernel, uImage can't be compiled by default. But zImage
+has been supported by the latest u-boot, so use zImage as the default kernel
+image file. In u-boot command, use "bootz", instead of "bootm", to boot the kernel.
+
+And add device tree files to support dtb in latest kernel.
+
+Signed-off-by: Liming Wang <liming.wang@windriver.com>
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- .../recipes-kernel/linux/linux-yocto_3.10.bbappend           |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ meta-yocto-bsp/conf/machine/beagleboard.conf |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-index c3968ef..4391c0f 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-@@ -7,11 +7,11 @@ KBRANCH_beagleboard = "standard/beagleboard"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
+diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
+index 5f4c55a..dd0c222 100644
+--- a/meta-yocto-bsp/conf/machine/beagleboard.conf
++++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
+@@ -29,9 +29,10 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
+ SERIAL_CONSOLE = "115200 ttyO2"
  
--SRCREV_machine_genericx86 ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
--SRCREV_machine_genericx86-64 ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
--SRCREV_machine_routerstationpro ?= "3991d03bd450e9363d5b6e97ede0628ba073db79"
--SRCREV_machine_mpc8315e-rdb ?= "8d8339af518104db03f9c36b82f4372569e55b0a"
--SRCREV_machine_beagleboard ?= "6c1528b2b78d1ec7e75bb7a9880074ec35aa1aa0"
-+SRCREV_machine_genericx86 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
-+SRCREV_machine_genericx86-64 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
-+SRCREV_machine_routerstationpro ?= "80d9c863208fba7d8af6afe7b9167808635a56c0"
-+SRCREV_machine_mpc8315e-rdb ?= "b9b4bf71249ac7a24420913aa90f7ba75578d5a5"
-+SRCREV_machine_beagleboard ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "3.4%"
++PREFERRED_VERSION_linux-yocto ?= "3.10%"
  
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-KERNEL_IMAGETYPE = "uImage"
++KERNEL_IMAGETYPE = "zImage"
++KERNEL_DEVICETREE = "${S}/arch/powerpc/boot/dts/omap3-beagle.dts ${S}/arch/powerpc/boot/dts/omap3-beagle-xm.dts"
+ 
+ SPL_BINARY = "MLO"
+ UBOOT_SUFFIX = "img"
 -- 
 1.7.10.4
 
