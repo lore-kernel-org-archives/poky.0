@@ -1,25 +1,25 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5AB18E0047F
-	for <poky@yoctoproject.org>; Fri,  6 Sep 2013 13:26:18 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 06 Sep 2013 13:26:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,856,1371106800"; d="scan'208";a="399572794"
-Received: from fear.jf.intel.com (HELO rage.local) ([10.7.196.147])
-	by orsmga002.jf.intel.com with ESMTP; 06 Sep 2013 13:26:15 -0700
-From: Darren Hart <dvhart@linux.intel.com>
-To: Poky <poky@yoctoproject.org>, openembedded-core@lists.openembedded.org,
-	Tom Zanussi <tom.zanussi@intel.com>
-Date: Fri,  6 Sep 2013 13:30:28 -0700
-Message-Id: <6fbcf0525455de69c3ca8eab73a36fbaa0305cf8.1378498892.git.dvhart@linux.intel.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <e5bd7a223ff269bbd33766b5e6bd866cc2fa4dbb.1378498892.git.dvhart@linux.intel.com>
-References: <e5bd7a223ff269bbd33766b5e6bd866cc2fa4dbb.1378498892.git.dvhart@linux.intel.com>
-In-Reply-To: <cover.1378498892.git.dvhart@linux.intel.com>
-References: <cover.1378498892.git.dvhart@linux.intel.com>
-Cc: yunguo.wei@windriver.com, Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH 2/2] genericx86: Create a genericx86-common.inc base for the x86 BSPs
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 05F82E00282
+	for <poky@yoctoproject.org>; Fri,  6 Sep 2013 13:58:44 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r86KwgLQ005755
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 6 Sep 2013 13:58:42 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.347.0; Fri, 6 Sep 2013 13:58:41 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Fri, 6 Sep 2013 16:58:34 -0400
+Message-ID: <ba0ff46dcdcb617c4f2e11f7bb2c760f61addc19.1378500902.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
+In-Reply-To: <cover.1378500902.git.bruce.ashfield@windriver.com>
+References: <cover.1378500902.git.bruce.ashfield@windriver.com>
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 1/4] mpc8315e-rdb: update to the 3.10 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,133 +32,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Sep 2013 20:26:18 -0000
+X-List-Received-Date: Fri, 06 Sep 2013 20:58:45 -0000
+Content-Type: text/plain
 
-The genericx86 and genericx86-64 machines share a great deal in common
-in terms of machine features, required packages, etc. Use a common
-include file to simplify changes to both machine definitions and avoid
-accidental omissions.
+From: Kevin Hao <kexin.hao@windriver.com>
 
-Replace the hard-coded XSERVER assignment with the XSERVER_IA32*
-defines from ia32-base.inc.
+Update the mpc8315e-rdb to the latest available yocto kernel.
+Build and boot test on mpc8315e-rdb board with core-image-sato.
 
-Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-Cc: Ross Burton <ross.burton@intel.com>
-Cc: yunguo.wei@windriver.com
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
-Changes since v1:
-* Remove mga from XSERVER
-* Remove duplication with ia32-base.inc
----
- meta-yocto-bsp/conf/machine/genericx86-64.conf     |   29 +-----------------
- meta-yocto-bsp/conf/machine/genericx86.conf        |   31 +-------------------
- .../conf/machine/include/genericx86-common.inc     |   20 +++++++++++++
- 3 files changed, 22 insertions(+), 58 deletions(-)
- create mode 100644 meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-index 7825bae..56e9bb6 100644
---- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-@@ -4,31 +4,4 @@
- #@DESCRIPTION: Machine configuration for generic X86_64 (64-bit) PCs and servers. Supports a moderately wide range of drivers that should boot and be usable on "typical" hardware.
+diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+index 3e984a7..ab1eaa9 100644
+--- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
++++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
  
- include conf/machine/include/tune-x86_64.inc
--
--MACHINE_FEATURES = "screen keyboard pci usbhost ext2 ext3 x86 wifi acpi alsa efi pcbios"
--
--KERNEL_IMAGETYPE = "bzImage"
--
--PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.10%"
--PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
--XSERVER ?= "xserver-xorg \
--           xserver-xorg-extension-glx \
--           xf86-input-mouse \
--           xf86-input-keyboard \
--           xf86-input-evdev \
--           xf86-input-synaptics \
--           xf86-video-fbdev \
--           xf86-video-modesetting \
--           xf86-video-vesa \
--           xf86-video-intel \
--           mesa-driver-i915 \
--           mesa-driver-i965"
--
--MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware v86d"
--
--IMAGE_FSTYPES ?= "ext3 cpio.gz live"
--
--GLIBC_ADDONS = "nptl"
--
--EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
-+include conf/machine/include/genericx86-common.inc
-diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-index ff5cbc9..9d29f62 100644
---- a/meta-yocto-bsp/conf/machine/genericx86.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-@@ -4,33 +4,4 @@
- #@DESCRIPTION: Machine configuration for generic X86 (32-bit) PCs. Supports a moderately wide range of drivers that should boot and be usable on "typical" hardware.
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
  
- include conf/machine/include/tune-atom.inc
--
--MACHINE_FEATURES = "screen keyboard pci usbhost ext2 ext3 x86 wifi acpi alsa"
--
--KERNEL_IMAGETYPE = "bzImage"
--
--PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.10%"
--PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
--XSERVER ?= "xserver-xorg \
--           xserver-xorg-extension-glx \
--           xf86-input-mouse \
--           xf86-input-keyboard \
--           xf86-input-evdev \
--           xf86-input-synaptics \
--           xf86-video-fbdev \
--           xf86-video-modesetting \
--           xf86-video-vesa \
--           xf86-video-intel \
--           mesa-driver-i915 \
--           mesa-driver-i965"
--
--#MACHINE_EXTRA_RDEPENDS = "rt2860"
--
--MACHINE_EXTRA_RRECOMMENDS = "kernel-modules eee-acpi-scripts linux-firmware v86d"
--
--IMAGE_FSTYPES ?= "ext3 cpio.gz live"
--
--GLIBC_ADDONS = "nptl"
--
--EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
-+include conf/machine/include/genericx86-common.inc
-diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-new file mode 100644
-index 0000000..67a880f
---- /dev/null
-+++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-@@ -0,0 +1,20 @@
-+include conf/machine/include/ia32-base.inc
-+MACHINE_FEATURES += "wifi efi pcbios"
-+
-+PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "3.4%"
 +PREFERRED_VERSION_linux-yocto ?= "3.10%"
-+PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-+XSERVER ?= "${XSERVER_IA32_BASE} \
-+            ${XSERVER_IA32_EXT} \
-+            ${XSERVER_IA32_I915} \
-+            ${XSERVER_IA32_I965} \
-+            ${XSERVER_IA32_FBDEV} \
-+            ${XSERVER_IA32_VESA} \
-+            ${XSERVER_IA32_MODESETTING} \
-+           "
-+
-+MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d"
-+
-+GLIBC_ADDONS = "nptl"
-+
-+EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+ 
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
 -- 
-1.7.9.5
+1.7.10.4
 
 
