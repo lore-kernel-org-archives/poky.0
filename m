@@ -1,25 +1,32 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DC30EE0047F
-	for <poky@yoctoproject.org>; Fri,  6 Sep 2013 13:58:45 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r86Kwh7u010048
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 6 Sep 2013 13:58:43 -0700 (PDT)
-Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.347.0; Fri, 6 Sep 2013 13:58:43 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Fri, 6 Sep 2013 16:58:37 -0400
-Message-ID: <5534ffd54e7e491aa9871c0a7e7ec862f323479c.1378500902.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.7.10.4
-In-Reply-To: <cover.1378500902.git.bruce.ashfield@windriver.com>
-References: <cover.1378500902.git.bruce.ashfield@windriver.com>
+Return-Path: <biannm@cn.fujitsu.com>
+Received: from song.cn.fujitsu.com (unknown [222.73.24.84])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4B79AE014C1
+	for <poky@yoctoproject.org>; Sun,  8 Sep 2013 23:58:38 -0700 (PDT)
+X-IronPort-AV: E=Sophos;i="4.90,866,1371052800"; 
+   d="scan'208";a="8457568"
+Received: from unknown (HELO tang.cn.fujitsu.com) ([10.167.250.3])
+	by song.cn.fujitsu.com with ESMTP; 09 Sep 2013 14:55:25 +0800
+Received: from fnstmail02.fnst.cn.fujitsu.com (tang.cn.fujitsu.com [127.0.0.1])
+	by tang.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id r896wSRE010772;
+	Mon, 9 Sep 2013 14:58:29 +0800
+Received: from [127.0.0.1] ([10.167.226.190])
+	by fnstmail02.fnst.cn.fujitsu.com (Lotus Domino Release 8.5.3)
+	with ESMTP id 2013090914561248-1333088 ;
+	Mon, 9 Sep 2013 14:56:12 +0800 
+Message-ID: <522D7190.2010106@cn.fujitsu.com>
+Date: Mon, 09 Sep 2013 14:58:24 +0800
+From: Bian Naimeng <biannm@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN;
+	rv:1.9.2.28) Gecko/20120306 Lightning/1.0b2 Thunderbird/3.1.20
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 4/4] linux-yocto/3.10: update meta SRCREV for beagleboard config changes
+To: poky@yoctoproject.org
+X-MIMETrack: Itemize by SMTP Server on mailserver/fnst(Release 8.5.3|September
+	15, 2011) at 2013/09/09 14:56:12,
+	Serialize by Router on mailserver/fnst(Release 8.5.3|September 15,
+	2011) at 2013/09/09 14:56:17,
+	Serialize complete at 2013/09/09 14:56:17
+Cc: openembedded-core@lists.openembedded.org
+Subject: [Question]cross build error.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,62 +39,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Sep 2013 20:58:46 -0000
-Content-Type: text/plain
+X-List-Received-Date: Mon, 09 Sep 2013 06:58:41 -0000
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 
-Updating the beagleboard configuration to match the 3.10 kernel changes.
-With this, the beagle* boards boot out of the box, with no additional
-changes required.
+Hi all,
 
-Simarpreet Singh <simar@linux.com>
-Signed-off-by: Liming Wang <liming.wang@windriver.com>
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta/recipes-kernel/linux/linux-yocto-rt_3.10.bb   |    2 +-
- meta/recipes-kernel/linux/linux-yocto-tiny_3.10.bb |    2 +-
- meta/recipes-kernel/linux/linux-yocto_3.10.bb      |    2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+If link library of distribution which built by Yocto-1.4.x,
+the following error will be caught.
 
-diff --git a/meta/recipes-kernel/linux/linux-yocto-rt_3.10.bb b/meta/recipes-kernel/linux/linux-yocto-rt_3.10.bb
-index a2e0310..a4366d0 100644
---- a/meta/recipes-kernel/linux/linux-yocto-rt_3.10.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-rt_3.10.bb
-@@ -5,7 +5,7 @@ KBRANCH_qemuppc = "standard/preempt-rt/qemuppc"
- 
- SRCREV_machine ?= "38793e629654f6b3e3f371a6b1f1745df26450f4"
- SRCREV_machine_qemuppc ?= "d4c836c55fce6f1a7f299bba2104f457b201c63d"
--SRCREV_meta ?= "cd502a88148ab214b54860f97a96f41858fd6446"
-+SRCREV_meta ?= "ea900d1db60ba48962227f0976ac55f9e25bfa24"
- 
- SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.10.git;bareclone=1;branch=${KBRANCH},meta;name=machine,meta"
- 
-diff --git a/meta/recipes-kernel/linux/linux-yocto-tiny_3.10.bb b/meta/recipes-kernel/linux/linux-yocto-tiny_3.10.bb
-index 8b3dbe0..b3457b3 100644
---- a/meta/recipes-kernel/linux/linux-yocto-tiny_3.10.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto-tiny_3.10.bb
-@@ -10,7 +10,7 @@ LINUX_VERSION ?= "3.10.10"
- KMETA = "meta"
- 
- SRCREV_machine ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
--SRCREV_meta ?= "cd502a88148ab214b54860f97a96f41858fd6446"
-+SRCREV_meta ?= "ea900d1db60ba48962227f0976ac55f9e25bfa24"
- 
- PV = "${LINUX_VERSION}+git${SRCPV}"
- 
-diff --git a/meta/recipes-kernel/linux/linux-yocto_3.10.bb b/meta/recipes-kernel/linux/linux-yocto_3.10.bb
-index 2de1798..e570cd6 100644
---- a/meta/recipes-kernel/linux/linux-yocto_3.10.bb
-+++ b/meta/recipes-kernel/linux/linux-yocto_3.10.bb
-@@ -10,7 +10,7 @@ SRCREV_machine_qemux86 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
- SRCREV_machine_qemux86-64 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
- SRCREV_machine_qemumips64 ?= "ebc55bed9558a0e2f390e9cef03161b299138326"
- SRCREV_machine ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
--SRCREV_meta ?= "cd502a88148ab214b54860f97a96f41858fd6446"
-+SRCREV_meta ?= "ea900d1db60ba48962227f0976ac55f9e25bfa24"
- 
- SRC_URI = "git://git.yoctoproject.org/linux-yocto-3.10.git;bareclone=1;branch=${KBRANCH},${KMETA};name=machine,meta"
- 
--- 
-1.7.10.4
+ # /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/x86_64-poky-linux-gcc \
+   -o helloworld helloworld.c -L /opt/mydistro/usr/lib -l xxx
+   /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: 
+     skipping incompatible /lib/libc.so.6 when searching for /lib/libc.so.6
+   /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: 
+     cannot find /lib/libc.so.6
+   /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: 
+     skipping incompatible /usr/lib/libc_nonshared.a when searching for /usr/lib/libc_nonshared.a
+   /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld:
+     cannot find /usr/lib/libc_nonshared.a
+   /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld:
+     cannot find /lib/ld-linux-x86-64.so.2
+   collect2: error: ld returned 1 exit status
+
+It can be avoid by changing the sysroot to "/opt/mydistro".
+
+ # /opt/poky-lsb/1.4.1/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/x86_64-poky-linux-gcc \
+   -o helloworld helloworld.c -L /usr/lib -l xxx --sysroot /opt/mydistro
+
+The default sysroot is "/opt/poky-lsb/1.4.1/sysroots/x86_64-poky-linux",
+but why cross gcc finds libc.so.6 from /opt/mydistro/
+ # cat /opt/poky-lsb/1.4.1/environment-setup-x86_64-poky-linux  | grep sysroot
+   ... ...
+   CC="x86_64-poky-linux-gcc  -m64 --sysroot=/opt/poky-lsb/1.4.1/sysroots/x86_64-poky-linux"
+   ... ...
+
+Any suggestion?
+
+Thanks
+ Bian
 
 
