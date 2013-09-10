@@ -1,30 +1,25 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 03E6FE0043B
-	for <poky@yoctoproject.org>; Tue, 10 Sep 2013 08:18:43 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 17AD6E0043B
+	for <poky@yoctoproject.org>; Tue, 10 Sep 2013 08:54:52 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r8AFIerX004156
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r8AFsoEv009604
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 10 Sep 2013 08:18:40 -0700 (PDT)
-Received: from [128.224.22.41] (128.224.22.41) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.2.347.0;
-	Tue, 10 Sep 2013 08:18:39 -0700
-Message-ID: <522F384A.4070702@windriver.com>
-Date: Tue, 10 Sep 2013 11:18:34 -0400
+	Tue, 10 Sep 2013 08:54:50 -0700 (PDT)
+Received: from yow-bashfiel-d3.corp.ad.wrs.com (128.224.22.41) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.347.0; Tue, 10 Sep 2013 08:54:49 -0700
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:17.0) Gecko/20130510 Thunderbird/17.0.6
+To: <richard.purdie@linuxfoundation.org>
+Date: Tue, 10 Sep 2013 11:54:44 -0400
+Message-ID: <58f2eb754c07a501c7102c1f1886c1564f04a102.1378828354.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.7.10.4
+In-Reply-To: <cover.1378828354.git.bruce.ashfield@windriver.com>
+References: <cover.1378828354.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
-To: "richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>, 
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <cover.1378500902.git.bruce.ashfield@windriver.com>
-	<373355466ed7a2c31efd16f1b07c0d089c9d38d5.1378500902.git.bruce.ashfield@windriver.com>
-	<20130910080836.GA5871@ad.chargestorm.se>
-	<522ED553.1080202@windriver.com>
-	<20130910083634.GB5871@ad.chargestorm.se>
-In-Reply-To: <20130910083634.GB5871@ad.chargestorm.se>
-Subject: Re: [PATCH 3/4] beagleboard: upgrade the kernel to 3.10.x
+Cc: poky@yoctoproject.org
+Subject: [PATCH 1/1] meta-yocto-bsp: bump reference BSPs to v3.10.11
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,59 +32,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Sep 2013 15:18:46 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 10 Sep 2013 15:54:53 -0000
+Content-Type: text/plain
 
-On 13-09-10 04:36 AM, Anders Darander wrote:
-> * Bruce Ashfield <bruce.ashfield@windriver.com> [130910 10:16]:
->
->> On 13-09-10 04:08 AM, Anders Darander wrote:
->>> * Bruce Ashfield <bruce.ashfield@windriver.com> [130906 22:59]:
->>>> From: Liming Wang <liming.wang@windriver.com>
->
->>>> In 3.10.x linux kernel, uImage can't be compiled by default. But zImage
->>>> has been supported by the latest u-boot, so use zImage as the default kernel
->>>> image file. In u-boot command, use "bootz", instead of "bootm", to boot the kernel.
->
->>> NAK. (At least based on the info given above regarding the uImage to
->>> zImage transfer).
->
->>> I missed this patch earlier...
->
->>> What's the issue with uImage on 3.10.x?
->>> I'm running a kernel.org 3.10.x using linux-yocto-custom just fine here
->>> (although for another board).
->
->>> I suspect the issue (that I guess Liming had), is due to the powerpc
->>> being mixed into his build. (Bruce replied on the oe-core list to a
->>> path which corrected the path to the DTS).
->
->> No, that wasn't the issue. uImage requires a LOADADDR in many cases and
->> that isn't currently encoded in the machine configs.
->
-> Ah, ok. Then I'll obviously redraw my NAK-wishes for this patch.
->
-> I think the reason that uImage can't be compiled should have been stated
-> in the commit log, though. If for nothing else, just to make it clear to
-> everyone that there's no general uImage issue; rather an issue with the
-> specific board setup.
+Bumping to the 3.10.11 -stable release. Of note in this update is
+the timer_list fix, which broke ssh access in the previous 3.10
+series of updates:
 
-We can do that. I also re-opened the bugzilla so it can be used for making
-sure this is clear.
+    timer_list: correct the iterator for timer_list
 
-Bruce
+    commit 84a78a6504f5c5394a8e558702e5b54131f01d14 upstream.
 
->
-> Cheers,
-> Anders
->
->> zImage works fine, want to expand our coverage with the reference boards,
->> so no, there's no NAK of this. It's fine as is.
->
->> Other layers and BSPs are free to use uImage, just as this reference
->> is free to use the zImage.
->
->
+With this, we can revert the two temporary fixes for timer lists.
+ssh access has been directly tested after this update.
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_3.10.bbappend           |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
+index 4391c0f..aa43b15 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
+@@ -7,11 +7,11 @@ KBRANCH_beagleboard = "standard/beagleboard"
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+-SRCREV_machine_genericx86 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
+-SRCREV_machine_genericx86-64 ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
+-SRCREV_machine_routerstationpro ?= "80d9c863208fba7d8af6afe7b9167808635a56c0"
+-SRCREV_machine_mpc8315e-rdb ?= "b9b4bf71249ac7a24420913aa90f7ba75578d5a5"
+-SRCREV_machine_beagleboard ?= "ebc8428fdd938cfdfcdcadd77c3308ece6a57de1"
++SRCREV_machine_genericx86 ?= "702040ac7c7ec66a29b4d147665ccdd0ff015577"
++SRCREV_machine_genericx86-64 ?= "702040ac7c7ec66a29b4d147665ccdd0ff015577"
++SRCREV_machine_routerstationpro ?= "d4e6adefaf92a1e7b6539d371ba49b78bd194a84"
++SRCREV_machine_mpc8315e-rdb ?= "12dc46ba4efb80e135fec4dce913eeb87ee671b3"
++SRCREV_machine_beagleboard ?= "702040ac7c7ec66a29b4d147665ccdd0ff015577"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-- 
+1.7.10.4
 
 
