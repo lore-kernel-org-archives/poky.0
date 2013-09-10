@@ -1,31 +1,27 @@
-Return-Path: <anders@chargestorm.se>
-Received: from stoexhubfe02.domain01.net (STOEXHUBFE02.domain01.net
-	[83.145.59.141])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75FE1E0153B
-	for <poky@yoctoproject.org>; Tue, 10 Sep 2013 01:08:42 -0700 (PDT)
-Received: from ad.chargestorm.se (83.252.255.124) by stoexhubfe02.domain01.net
-	(10.12.10.7) with Microsoft SMTP Server (TLS) id 8.3.279.1;
-	Tue, 10 Sep 2013 10:06:54 +0200
-Date: Tue, 10 Sep 2013 10:08:36 +0200
-From: Anders Darander <anders@chargestorm.se>
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-Message-ID: <20130910080836.GA5871@ad.chargestorm.se>
-Mail-Followup-To: Bruce Ashfield <bruce.ashfield@windriver.com>,
-	"richard.purdie@linuxfoundation.org"
-	<richard.purdie@linuxfoundation.org>, 
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7197EE01579
+	for <poky@yoctoproject.org>; Tue, 10 Sep 2013 01:16:27 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id r8A8GPJe025772
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 10 Sep 2013 01:16:25 -0700 (PDT)
+Received: from [128.224.22.41] (128.224.22.41) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.2.347.0;
+	Tue, 10 Sep 2013 01:16:24 -0700
+Message-ID: <522ED553.1080202@windriver.com>
+Date: Tue, 10 Sep 2013 04:16:19 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130510 Thunderbird/17.0.6
+MIME-Version: 1.0
+To: "richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>, 
 	"poky@yoctoproject.org" <poky@yoctoproject.org>
 References: <cover.1378500902.git.bruce.ashfield@windriver.com>
 	<373355466ed7a2c31efd16f1b07c0d089c9d38d5.1378500902.git.bruce.ashfield@windriver.com>
-MIME-Version: 1.0
-In-Reply-To: <373355466ed7a2c31efd16f1b07c0d089c9d38d5.1378500902.git.bruce.ashfield@windriver.com>
-X-Accept-Language: sv, en, de
-X-GPG-Fingerprint: 5AF0 B2E9 78FE 9D75 D110  6F8F 3E31 84D7 920E 938C
-X-GPG-Key-Id: 0x920E938C
-X-GPG-Keyserver: hkp://keys.gnupg.net
-Organization: ChargeStorm AB
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-GFI-SMTP-Submission: 1
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+	<20130910080836.GA5871@ad.chargestorm.se>
+In-Reply-To: <20130910080836.GA5871@ad.chargestorm.se>
 Subject: Re: [PATCH 3/4] beagleboard: upgrade the kernel to 3.10.x
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -39,59 +35,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Sep 2013 08:08:44 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
+X-List-Received-Date: Tue, 10 Sep 2013 08:16:28 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-* Bruce Ashfield <bruce.ashfield@windriver.com> [130906 22:59]:
-> From: Liming Wang <liming.wang@windriver.com>
+On 13-09-10 04:08 AM, Anders Darander wrote:
+> * Bruce Ashfield <bruce.ashfield@windriver.com> [130906 22:59]:
+>> From: Liming Wang <liming.wang@windriver.com>
+>
+>> In 3.10.x linux kernel, uImage can't be compiled by default. But zImage
+>> has been supported by the latest u-boot, so use zImage as the default kernel
+>> image file. In u-boot command, use "bootz", instead of "bootm", to boot the kernel.
+>
+> NAK. (At least based on the info given above regarding the uImage to
+> zImage transfer).
+>
+> I missed this patch earlier...
+>
+> What's the issue with uImage on 3.10.x?
+> I'm running a kernel.org 3.10.x using linux-yocto-custom just fine here
+> (although for another board).
+>
+> I suspect the issue (that I guess Liming had), is due to the powerpc
+> being mixed into his build. (Bruce replied on the oe-core list to a
+> path which corrected the path to the DTS).
 
-> In 3.10.x linux kernel, uImage can't be compiled by default. But zImage
-> has been supported by the latest u-boot, so use zImage as the default kernel
-> image file. In u-boot command, use "bootz", instead of "bootm", to boot the kernel.
+No, that wasn't the issue. uImage requires a LOADADDR in many cases and
+that isn't currently encoded in the machine configs.
 
-NAK. (At least based on the info given above regarding the uImage to
-zImage transfer).
+zImage works fine, want to expand our coverage with the reference boards,
+so no, there's no NAK of this. It's fine as is.
 
-I missed this patch earlier... 
+Other layers and BSPs are free to use uImage, just as this reference
+is free to use the zImage.
 
-What's the issue with uImage on 3.10.x?
-I'm running a kernel.org 3.10.x using linux-yocto-custom just fine here
-(although for another board).
+Bruce
 
-I suspect the issue (that I guess Liming had), is due to the powerpc
-being mixed into his build. (Bruce replied on the oe-core list to a
-path which corrected the path to the DTS).
+>
+> Cheers,
+> Anders
+>
+>> And add device tree files to support dtb in latest kernel.
+>
+>> Signed-off-by: Liming Wang <liming.wang@windriver.com>
+>> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+>> ---
+>>   meta-yocto-bsp/conf/machine/beagleboard.conf |    5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>
+>> diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
+>> index 5f4c55a..dd0c222 100644
+>> --- a/meta-yocto-bsp/conf/machine/beagleboard.conf
+>> +++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
+>> @@ -29,9 +29,10 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
+>>   SERIAL_CONSOLE = "115200 ttyO2"
+>
+>>   PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+>> -PREFERRED_VERSION_linux-yocto ?= "3.4%"
+>> +PREFERRED_VERSION_linux-yocto ?= "3.10%"
+>
+>> -KERNEL_IMAGETYPE = "uImage"
+>> +KERNEL_IMAGETYPE = "zImage"
+>> +KERNEL_DEVICETREE = "${S}/arch/powerpc/boot/dts/omap3-beagle.dts ${S}/arch/powerpc/boot/dts/omap3-beagle-xm.dts"
+>
+>>   SPL_BINARY = "MLO"
+>>   UBOOT_SUFFIX = "img"
 
-Cheers,
-Anders
-
-> And add device tree files to support dtb in latest kernel.
-
-> Signed-off-by: Liming Wang <liming.wang@windriver.com>
-> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-> ---
->  meta-yocto-bsp/conf/machine/beagleboard.conf |    5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-
-> diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
-> index 5f4c55a..dd0c222 100644
-> --- a/meta-yocto-bsp/conf/machine/beagleboard.conf
-> +++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
-> @@ -29,9 +29,10 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
->  SERIAL_CONSOLE = "115200 ttyO2"
-
->  PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
-> -PREFERRED_VERSION_linux-yocto ?= "3.4%"
-> +PREFERRED_VERSION_linux-yocto ?= "3.10%"
-
-> -KERNEL_IMAGETYPE = "uImage"
-> +KERNEL_IMAGETYPE = "zImage"
-> +KERNEL_DEVICETREE = "${S}/arch/powerpc/boot/dts/omap3-beagle.dts ${S}/arch/powerpc/boot/dts/omap3-beagle-xm.dts"
-
->  SPL_BINARY = "MLO"
->  UBOOT_SUFFIX = "img"
--- 
-Anders Darander
-ChargeStorm AB / eStorm AB
 
