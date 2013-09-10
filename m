@@ -1,29 +1,32 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 98836E0156C
-	for <poky@yoctoproject.org>; Mon,  9 Sep 2013 19:37:36 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 09 Sep 2013 19:37:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,875,1371106800"; d="scan'208";a="375820685"
-Received: from unknown (HELO [10.255.14.91]) ([10.255.14.91])
-	by orsmga001.jf.intel.com with ESMTP; 09 Sep 2013 19:37:20 -0700
-Message-ID: <1378780640.19978.69.camel@dvhart-mobl4.amr.corp.intel.com>
-From: Darren Hart <dvhart@linux.intel.com>
-To: Yunguo Wei <yunguo.wei@windriver.com>
-Date: Mon, 09 Sep 2013 19:37:20 -0700
-In-Reply-To: <5229303F.1090209@windriver.com>
-References: <cover.1378339881.git.dvhart@linux.intel.com>
-	<4562a00806c5a6573b5aa650764ad12bc93edda7.1378339881.git.dvhart@linux.intel.com>
-	<CAJTo0LY-oi+tQy7rs84axy4R71Y4j=HtEgXALN20aVdATwzVdg@mail.gmail.com>
-	<1378392729.14029.73.camel@dvhart-mobl4.amr.corp.intel.com>
-	<5229303F.1090209@windriver.com>
-Organization: Intel
-X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
-Mime-Version: 1.0
-Cc: Poky <poky@yoctoproject.org>,
-	OE-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 3/4] xf86-video-mga: Pull in Matrox MGA support from meta-intel
+Return-Path: <anders@chargestorm.se>
+Received: from stoexhubfe02.domain01.net (STOEXHUBFE02.domain01.net
+	[83.145.59.141])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75FE1E0153B
+	for <poky@yoctoproject.org>; Tue, 10 Sep 2013 01:08:42 -0700 (PDT)
+Received: from ad.chargestorm.se (83.252.255.124) by stoexhubfe02.domain01.net
+	(10.12.10.7) with Microsoft SMTP Server (TLS) id 8.3.279.1;
+	Tue, 10 Sep 2013 10:06:54 +0200
+Date: Tue, 10 Sep 2013 10:08:36 +0200
+From: Anders Darander <anders@chargestorm.se>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+Message-ID: <20130910080836.GA5871@ad.chargestorm.se>
+Mail-Followup-To: Bruce Ashfield <bruce.ashfield@windriver.com>,
+	"richard.purdie@linuxfoundation.org"
+	<richard.purdie@linuxfoundation.org>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+References: <cover.1378500902.git.bruce.ashfield@windriver.com>
+	<373355466ed7a2c31efd16f1b07c0d089c9d38d5.1378500902.git.bruce.ashfield@windriver.com>
+MIME-Version: 1.0
+In-Reply-To: <373355466ed7a2c31efd16f1b07c0d089c9d38d5.1378500902.git.bruce.ashfield@windriver.com>
+X-Accept-Language: sv, en, de
+X-GPG-Fingerprint: 5AF0 B2E9 78FE 9D75 D110  6F8F 3E31 84D7 920E 938C
+X-GPG-Key-Id: 0x920E938C
+X-GPG-Keyserver: hkp://keys.gnupg.net
+Organization: ChargeStorm AB
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-GFI-SMTP-Submission: 1
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH 3/4] beagleboard: upgrade the kernel to 3.10.x
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,67 +39,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Sep 2013 02:37:37 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 10 Sep 2013 08:08:44 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-On Fri, 2013-09-06 at 09:30 +0800, Yunguo Wei wrote:
-> On 09/05/2013 10:52 PM, Darren Hart wrote:
-> > On Thu, 2013-09-05 at 10:57 +0100, Burton, Ross wrote:
-> >> On 5 September 2013 01:18, Darren Hart <dvhart@linux.intel.com> wrote:
-> >>> In support of the more generic x86 BSPs, pull in the Matrox driver
-> >>> recipe from meta-intel.
-> >> What machine is this for in particular?
-> > This was reported when someone was testing on a Romley machine.
-> 
-> Yes, it is Intel SDP S2R3, Romley-EP IVY refresh.
-> >
-> >>    In discussion with Nitin
-> >> about MGA a few weeks back the conclusion was that the vesa driver
-> >> should be sufficient.  As far as I'm aware the reference platforms
-> >> don't ship with MGA hardware so it's up to the owner of the platform
-> >> to install whatever they have to hand (mga, nvidia, ATI, etc), or am I
-> >> wrong about that?
-> > Nitin?
-> >
-> > Yunguo?
-> 
-> We thought vesa is supposed to work.
-> 
-> Intel OSVe team reported this problem against WRLinux 5.0.1, and I fixed 
-> it by adding mga package.
-> Note that, mga kernel driver was not built-in or as a module.
+* Bruce Ashfield <bruce.ashfield@windriver.com> [130906 22:59]:
+> From: Liming Wang <liming.wang@windriver.com>
 
-I missed that the kernel module was missing. Oops. That's easy enough to
-add to the common-pc graphics fragment. But what we need to know is if
-we should try to get MGA into oe-core or not. I honestly don't
-understand why we shouldn't, with intel and omap in there already. It
-seems silly to have a special layer for the xorg driver when mesa and
-the kernel already build their part for the same hardware....
+> In 3.10.x linux kernel, uImage can't be compiled by default. But zImage
+> has been supported by the latest u-boot, so use zImage as the default kernel
+> image file. In u-boot command, use "bootz", instead of "bootm", to boot the kernel.
 
-Are there any compelling arguments for not including the mga driver in
-oe-core?
+NAK. (At least based on the info given above regarding the uImage to
+zImage transfer).
 
-> 
-> 
-> Regards,
-> Yunguo
-> >
-> >>> Remove the checkfile patch from Ross as this is now handled adequately
-> >>> with the configure prepend hack which assumes success for any checkfile
-> >>> calls.
-> >> Assuming success in an distro where opengl isn't enabled will result
-> >> in the driver believing that DRI is enabled when it isn't, so expect
-> >> to see build failures from this.
-> > Should we be adding a distro depends on opengl for this driver as is
-> > being done for others currently?
-> >
-> 
+I missed this patch earlier... 
 
+What's the issue with uImage on 3.10.x?
+I'm running a kernel.org 3.10.x using linux-yocto-custom just fine here
+(although for another board).
+
+I suspect the issue (that I guess Liming had), is due to the powerpc
+being mixed into his build. (Bruce replied on the oe-core list to a
+path which corrected the path to the DTS).
+
+Cheers,
+Anders
+
+> And add device tree files to support dtb in latest kernel.
+
+> Signed-off-by: Liming Wang <liming.wang@windriver.com>
+> Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+> ---
+>  meta-yocto-bsp/conf/machine/beagleboard.conf |    5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+
+> diff --git a/meta-yocto-bsp/conf/machine/beagleboard.conf b/meta-yocto-bsp/conf/machine/beagleboard.conf
+> index 5f4c55a..dd0c222 100644
+> --- a/meta-yocto-bsp/conf/machine/beagleboard.conf
+> +++ b/meta-yocto-bsp/conf/machine/beagleboard.conf
+> @@ -29,9 +29,10 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
+>  SERIAL_CONSOLE = "115200 ttyO2"
+
+>  PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+> -PREFERRED_VERSION_linux-yocto ?= "3.4%"
+> +PREFERRED_VERSION_linux-yocto ?= "3.10%"
+
+> -KERNEL_IMAGETYPE = "uImage"
+> +KERNEL_IMAGETYPE = "zImage"
+> +KERNEL_DEVICETREE = "${S}/arch/powerpc/boot/dts/omap3-beagle.dts ${S}/arch/powerpc/boot/dts/omap3-beagle-xm.dts"
+
+>  SPL_BINARY = "MLO"
+>  UBOOT_SUFFIX = "img"
 -- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
-
-
+Anders Darander
+ChargeStorm AB / eStorm AB
 
