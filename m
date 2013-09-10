@@ -1,24 +1,29 @@
-Return-Path: <sgw@linux.intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B2FF1E013E8
-	for <poky@yoctoproject.org>; Mon,  9 Sep 2013 07:58:51 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga102.ch.intel.com with ESMTP; 09 Sep 2013 07:58:43 -0700
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 98836E0156C
+	for <poky@yoctoproject.org>; Mon,  9 Sep 2013 19:37:36 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 09 Sep 2013 19:37:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,866,1371106800"; d="scan'208";a="357896268"
-Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.15.38])
-	by azsmga001.ch.intel.com with ESMTP; 09 Sep 2013 07:58:42 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: openembedded-core@lists.openembedded.org,
-	poky@yoctoproject.org
-Date: Mon,  9 Sep 2013 07:58:39 -0700
-Message-Id: <b565e6a583265fb63e66d3572af44551df7ac505.1378738373.git.sgw@linux.intel.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <c5ef7706ea79bf327809ef89d054ed439ba36256.1378738373.git.sgw@linux.intel.com>
-References: <c5ef7706ea79bf327809ef89d054ed439ba36256.1378738373.git.sgw@linux.intel.com>
-In-Reply-To: <cover.1378738373.git.sgw@linux.intel.com>
-References: <cover.1378738373.git.sgw@linux.intel.com>
-Subject: [PATCH 3/3] yocto-bsp: remove apm as a default MACHINE_FEATURE
+X-IronPort-AV: E=Sophos;i="4.90,875,1371106800"; d="scan'208";a="375820685"
+Received: from unknown (HELO [10.255.14.91]) ([10.255.14.91])
+	by orsmga001.jf.intel.com with ESMTP; 09 Sep 2013 19:37:20 -0700
+Message-ID: <1378780640.19978.69.camel@dvhart-mobl4.amr.corp.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+To: Yunguo Wei <yunguo.wei@windriver.com>
+Date: Mon, 09 Sep 2013 19:37:20 -0700
+In-Reply-To: <5229303F.1090209@windriver.com>
+References: <cover.1378339881.git.dvhart@linux.intel.com>
+	<4562a00806c5a6573b5aa650764ad12bc93edda7.1378339881.git.dvhart@linux.intel.com>
+	<CAJTo0LY-oi+tQy7rs84axy4R71Y4j=HtEgXALN20aVdATwzVdg@mail.gmail.com>
+	<1378392729.14029.73.camel@dvhart-mobl4.amr.corp.intel.com>
+	<5229303F.1090209@windriver.com>
+Organization: Intel
+X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
+Mime-Version: 1.0
+Cc: Poky <poky@yoctoproject.org>,
+	OE-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [PATCH 3/4] xf86-video-mga: Pull in Matrox MGA support from meta-intel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,28 +36,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Sep 2013 14:58:51 -0000
+X-List-Received-Date: Tue, 10 Sep 2013 02:37:37 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-APM is not only obsolete, but also requires a kernel config enabled, which is not enabled by default
+On Fri, 2013-09-06 at 09:30 +0800, Yunguo Wei wrote:
+> On 09/05/2013 10:52 PM, Darren Hart wrote:
+> > On Thu, 2013-09-05 at 10:57 +0100, Burton, Ross wrote:
+> >> On 5 September 2013 01:18, Darren Hart <dvhart@linux.intel.com> wrote:
+> >>> In support of the more generic x86 BSPs, pull in the Matrox driver
+> >>> recipe from meta-intel.
+> >> What machine is this for in particular?
+> > This was reported when someone was testing on a Romley machine.
+> 
+> Yes, it is Intel SDP S2R3, Romley-EP IVY refresh.
+> >
+> >>    In discussion with Nitin
+> >> about MGA a few weeks back the conclusion was that the vesa driver
+> >> should be sufficient.  As far as I'm aware the reference platforms
+> >> don't ship with MGA hardware so it's up to the owner of the platform
+> >> to install whatever they have to hand (mga, nvidia, ATI, etc), or am I
+> >> wrong about that?
+> > Nitin?
+> >
+> > Yunguo?
+> 
+> We thought vesa is supposed to work.
+> 
+> Intel OSVe team reported this problem against WRLinux 5.0.1, and I fixed 
+> it by adding mga package.
+> Note that, mga kernel driver was not built-in or as a module.
 
-[YOCTO #5121]
+I missed that the kernel module was missing. Oops. That's easy enough to
+add to the common-pc graphics fragment. But what we need to know is if
+we should try to get MGA into oe-core or not. I honestly don't
+understand why we shouldn't, with intel and omap in there already. It
+seems silly to have a special layer for the xorg driver when mesa and
+the kernel already build their part for the same hardware....
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- .../lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf    | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Are there any compelling arguments for not including the mga driver in
+oe-core?
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
-index ce9a58f..744486e 100644
---- a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/{{=machine}}.conf
-@@ -90,4 +90,4 @@ UBOOT_ENTRYPOINT = "{{=uboot_entrypoint}}"
- {{ input type:"edit" name:"uboot_loadaddress" prio:"40" msg:"Please specify a value for UBOOT_LOADADDRESS:" default:"0x80008000" }}
- UBOOT_LOADADDRESS = "{{=uboot_loadaddress}}"
- 
--MACHINE_FEATURES = "apm usbgadget usbhost vfat alsa"
-+MACHINE_FEATURES = "usbgadget usbhost vfat alsa"
+> 
+> 
+> Regards,
+> Yunguo
+> >
+> >>> Remove the checkfile patch from Ross as this is now handled adequately
+> >>> with the configure prepend hack which assumes success for any checkfile
+> >>> calls.
+> >> Assuming success in an distro where opengl isn't enabled will result
+> >> in the driver believing that DRI is enabled when it isn't, so expect
+> >> to see build failures from this.
+> > Should we be adding a distro depends on opengl for this driver as is
+> > being done for others currently?
+> >
+> 
+
 -- 
-1.8.3.1
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
+
 
 
