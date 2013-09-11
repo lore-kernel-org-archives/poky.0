@@ -1,33 +1,33 @@
 Return-Path: <ross.burton@intel.com>
-Received: from mail-wi0-f172.google.com (mail-wi0-f172.google.com
-	[209.85.212.172])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2AA4CE01562
-	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 04:07:29 -0700 (PDT)
-Received: by mail-wi0-f172.google.com with SMTP id c10so1985902wiw.11
-	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 04:07:28 -0700 (PDT)
+Received: from mail-we0-f171.google.com (mail-we0-f171.google.com
+	[74.125.82.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6C404E015B6
+	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 06:43:15 -0700 (PDT)
+Received: by mail-we0-f171.google.com with SMTP id t61so7040837wes.30
+	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 06:43:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
 	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=SaqJharX8tYS4tSCwAHOPjAVOfxhv1JEjPUoFn1nPNk=;
-	b=BN145ciAg7ZQFn2BV6ogChS/11jxKy3gB+bzgDClewZlsZ7MqESqXqdeAuu38CfTbs
-	NaF+1q3hxlk9DsoPwp+PttkClcIuIQ4BWGV7kY7yhlsjwdQm3bb0lV2amTFJfatP+t4K
-	Sv001liQhyc3Q33ilQAuurLTAjBLQSIkt9H9HGdPP8LWTYkbSZnSSPFSh8F5LNgBTu9y
-	vtXpo1vA2oy0YcQj6UJEt/cd9C6zWpUj+fc79iWjfwwIm0JWMbkEbWGmVTvz2UN++VWu
-	J+OuNjKVR2X6zN4gZcu8r/+95KPzQ/ma+XkFkVIRPtQJGn/tidSiiiy/CUc6ubmLcKwR
-	unGw==
-X-Gm-Message-State: ALoCoQm9mGc4wwJdngUCvAA+wqeguxa8V55+W4O5shsfsXjj0cJfBw2T6CYIxtKFLEHE25sZA/Q4
-X-Received: by 10.180.90.19 with SMTP id bs19mr885678wib.15.1378897647869;
-	Wed, 11 Sep 2013 04:07:27 -0700 (PDT)
+	bh=ZRSkh0qxJ2UQictQBiG9nCPeqfZ3MUe4/QlY+X6vlIQ=;
+	b=jRmUkKGZKxn/XEQB23aCHcQQLtk2EjNmPPFJw585pghl+6iRGPrvIeDe3btwDTFTcs
+	1sWM5RL9pcy0c0XiI72OcNRt+DFg4qFS9JHm+KwCO/27CH/pRE+ZW8iSq8/M0N6doOX3
+	2m228EXortop2gujes7h4fkbjSA7N7QZ4K/s9Gkn2GXbqISdMzg15frg6xSMUvqeO2p/
+	tKhpQdnCBkSB3o20R1nhiw1+AzFtcP5WhBnH0kzy0noewe7Dtxi7AccpFsxIvnblopid
+	J4h2vHw9jUsUxEcVZ0uiXpK41he69N7LLkJeIdPkJs09yVpq65GFP01xjWq2w5UqT7dR
+	Nq3w==
+X-Gm-Message-State: ALoCoQk8KRNx8u3eRxFGyd8LI46S2pMKwSD3NOonoBBEFra0cCSxmqY3fFWjjPq1N5HqZ0M/24CP
+X-Received: by 10.180.189.17 with SMTP id ge17mr15099511wic.53.1378906994091; 
+	Wed, 11 Sep 2013 06:43:14 -0700 (PDT)
 Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id i8sm9829540wib.1.1969.12.31.16.00.00
+	by mx.google.com with ESMTPSA id e5sm10755927wiy.2.1969.12.31.16.00.00
 	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 11 Sep 2013 04:07:27 -0700 (PDT)
+	Wed, 11 Sep 2013 06:43:13 -0700 (PDT)
 From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 11 Sep 2013 12:07:21 +0100
-Message-Id: <1378897641-22802-1-git-send-email-ross.burton@intel.com>
+Date: Wed, 11 Sep 2013 14:43:08 +0100
+Message-Id: <1378906988-15025-1-git-send-email-ross.burton@intel.com>
 X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] yocto-bsp: conditionalise mesa-swrast on opengl in templates
+Subject: [PATCH] bblayers.conf.sample: use ##OEROOT## instead of ##COREBASE##
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,30 +40,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Sep 2013 11:07:30 -0000
+X-List-Received-Date: Wed, 11 Sep 2013 13:43:16 -0000
 
-As per the similar commit in oe-core on the qemu machines, the templates should
-respect the opengl DISTRO_FEATURE when adding mesa-driver-swrast to new qemu
-machines.
+The variable ##COREBASE## has been deprecated, so use ##OEROOT## instead.
 
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- .../bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf    |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-yocto/conf/bblayers.conf.sample |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-index d66d28f..782ac21 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-@@ -47,7 +47,7 @@ MACHINE_FEATURES += "x86"
- KERNEL_IMAGETYPE = "bzImage"
- SERIAL_CONSOLE = "115200 ttyS0"
- XSERVER = "xserver-xorg \
--           mesa-driver-swrast \
-+           ${@base_contains('DISTRO_FEATURES', 'opengl', 'mesa-driver-swrast', '', d)} \
-            xf86-input-vmmouse \
-            xf86-input-keyboard \
-            xf86-input-evdev \
+diff --git a/meta-yocto/conf/bblayers.conf.sample b/meta-yocto/conf/bblayers.conf.sample
+index 7fd755d..0eda565 100644
+--- a/meta-yocto/conf/bblayers.conf.sample
++++ b/meta-yocto/conf/bblayers.conf.sample
+@@ -6,11 +6,11 @@ BBPATH = "${TOPDIR}"
+ BBFILES ?= ""
+ 
+ BBLAYERS ?= " \
+-  ##COREBASE##/meta \
+-  ##COREBASE##/meta-yocto \
+-  ##COREBASE##/meta-yocto-bsp \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-yocto-bsp \
+   "
+ BBLAYERS_NON_REMOVABLE ?= " \
+-  ##COREBASE##/meta \
+-  ##COREBASE##/meta-yocto \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
+   "
 -- 
 1.7.10.4
 
