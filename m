@@ -1,31 +1,33 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E9947E013B0
-	for <poky@yoctoproject.org>; Tue, 10 Sep 2013 10:55:19 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 10 Sep 2013 10:52:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,879,1371106800"; d="scan'208";a="401335105"
-Received: from dvhart-mobl4.jf.intel.com (HELO [10.7.201.62]) ([10.7.201.62])
-	by orsmga002.jf.intel.com with ESMTP; 10 Sep 2013 10:54:54 -0700
-Message-ID: <1378835694.19978.128.camel@dvhart-mobl4.amr.corp.intel.com>
-From: Darren Hart <dvhart@linux.intel.com>
-To: Yunguo Wei <yunguo.wei@windriver.com>
-Date: Tue, 10 Sep 2013 10:54:54 -0700
-In-Reply-To: <522E9996.8000107@windriver.com>
-References: <cover.1378339881.git.dvhart@linux.intel.com>
-	<4562a00806c5a6573b5aa650764ad12bc93edda7.1378339881.git.dvhart@linux.intel.com>
-	<CAJTo0LY-oi+tQy7rs84axy4R71Y4j=HtEgXALN20aVdATwzVdg@mail.gmail.com>
-	<1378392729.14029.73.camel@dvhart-mobl4.amr.corp.intel.com>
-	<5229303F.1090209@windriver.com>
-	<1378780640.19978.69.camel@dvhart-mobl4.amr.corp.intel.com>
-	<522E9996.8000107@windriver.com>
-Organization: Intel
-X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
-Mime-Version: 1.0
-Cc: Poky <poky@yoctoproject.org>,
-	OE-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 3/4] xf86-video-mga: Pull in Matrox MGA support from meta-intel
+Return-Path: <trevor.woerner@linaro.org>
+Received: from mail-ee0-f54.google.com (mail-ee0-f54.google.com [74.125.83.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 232CFE013AE
+	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 00:01:31 -0700 (PDT)
+Received: by mail-ee0-f54.google.com with SMTP id e53so4469447eek.27
+	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 00:01:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:content-type;
+	bh=6tKI4k6ebjqdKh0HD0Ihksg4P1kGyc6UTTzoxl7J2vg=;
+	b=cuVl9YePtFNOM7wegawIPHXDJLdgC8ebaur93xLl0Mg7aseLXC6dkg2gXB/VsjiSQw
+	1E9ogtE/0Ts9PsYNrcZgLbwdqjkHMl62eWR7ux5HmH8rWpUCuyc6EOV7aOK0+RES44Pd
+	mopq/XZtnhx1e0awNoB05OrHopwddIKSPJGwDFPuL+p/xXCXaaAlPbTuIw/PAVasefdb
+	+S8z1GI3V7e6YqH0pkxGuHt0tAAj3muGQUc+3+sF0IazcXp8bHsxRMl27ExszVEPv+05
+	V6KlMvehzfcsh3L+4bd4LC0zddgSjFnIeiBzcyexsjY3jwtbMkiGMcz5GIIDPfbV+fke
+	f3og==
+X-Gm-Message-State: ALoCoQnWhhh4JosE/JLSS2RDVKRqrEvlF0lo67vc4Uyw/KGnA21iKmr5fUy+g7SouIJOAkKLWwfQ
+MIME-Version: 1.0
+X-Received: by 10.15.36.9 with SMTP id h9mr206471eev.30.1378882890088; Wed, 11
+	Sep 2013 00:01:30 -0700 (PDT)
+Received: by 10.14.117.67 with HTTP; Wed, 11 Sep 2013 00:01:29 -0700 (PDT)
+In-Reply-To: <CAPhnLPCxGCiFSNv3Ek_4rj3_oZh=A3dUPynN5p2BNNBzSt+9Qg@mail.gmail.com>
+References: <CAPhnLPCxGCiFSNv3Ek_4rj3_oZh=A3dUPynN5p2BNNBzSt+9Qg@mail.gmail.com>
+Date: Wed, 11 Sep 2013 03:01:29 -0400
+Message-ID: <CALmOhgkmp0vab6_HEWBsARq0ueg=KNvUsc1S004z6jXZ1-XbTg@mail.gmail.com>
+From: Trevor Woerner <trevor.woerner@linaro.org>
+To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
+	Poky Project <poky@yoctoproject.org>
+Subject: Re: Poky 10.0.0 release name.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,79 +40,12 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 Sep 2013 17:55:21 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 11 Sep 2013 07:01:32 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-On Tue, 2013-09-10 at 12:01 +0800, Yunguo Wei wrote:
-> On 09/10/2013 10:37 AM, Darren Hart wrote:
-> > On Fri, 2013-09-06 at 09:30 +0800, Yunguo Wei wrote:
-> >> On 09/05/2013 10:52 PM, Darren Hart wrote:
-> >>> On Thu, 2013-09-05 at 10:57 +0100, Burton, Ross wrote:
-> >>>> On 5 September 2013 01:18, Darren Hart <dvhart@linux.intel.com> wrote:
-> >>>>> In support of the more generic x86 BSPs, pull in the Matrox driver
-> >>>>> recipe from meta-intel.
-> >>>> What machine is this for in particular?
-> >>> This was reported when someone was testing on a Romley machine.
-> >> Yes, it is Intel SDP S2R3, Romley-EP IVY refresh.
-> >>>>     In discussion with Nitin
-> >>>> about MGA a few weeks back the conclusion was that the vesa driver
-> >>>> should be sufficient.  As far as I'm aware the reference platforms
-> >>>> don't ship with MGA hardware so it's up to the owner of the platform
-> >>>> to install whatever they have to hand (mga, nvidia, ATI, etc), or am I
-> >>>> wrong about that?
-> >>> Nitin?
-> >>>
-> >>> Yunguo?
-> >> We thought vesa is supposed to work.
-> >>
-> >> Intel OSVe team reported this problem against WRLinux 5.0.1, and I fixed
-> >> it by adding mga package.
-> >> Note that, mga kernel driver was not built-in or as a module.
-> > I missed that the kernel module was missing. Oops. That's easy enough to
-> > add to the common-pc graphics fragment. But what we need to know is if
-> > we should try to get MGA into oe-core or not. I honestly don't
-> > understand why we shouldn't, with intel and omap in there already. It
-> > seems silly to have a special layer for the xorg driver when mesa and
-> > the kernel already build their part for the same hardware....
-> Not sure if adding MGA to config fragment could fix this issue, but in 
-> my memory it was not working.
-> That's why I added MGA user space package.
-> 
-> But you can try, any Romley-EP machine could reproduce it.
+On 4 September 2013 14:26, Flanagan, Elizabeth
+<elizabeth.flanagan@intel.com> wrote:
+> Poky 10.0.0 will be codenamed "dora"
 
-I don't have one personally. Nitin, could you forward this information
-along to someone who does? Can they test with Vesa?
-
---
-Darren
-
-> 
-> Regards,
-> Yunguo
-> 
-> >
-> > Are there any compelling arguments for not including the mga driver in
-> > oe-core?
-> >
-> >>
-> >> Regards,
-> >> Yunguo
-> >>>>> Remove the checkfile patch from Ross as this is now handled adequately
-> >>>>> with the configure prepend hack which assumes success for any checkfile
-> >>>>> calls.
-> >>>> Assuming success in an distro where opengl isn't enabled will result
-> >>>> in the driver believing that DRI is enabled when it isn't, so expect
-> >>>> to see build failures from this.
-> >>> Should we be adding a distro depends on opengl for this driver as is
-> >>> being done for others currently?
-> >>>
-> 
-
--- 
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
-
-
+The Yolkfolk?
 
