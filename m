@@ -1,34 +1,45 @@
-Return-Path: <srifenbark@gmail.com>
-Received: from mail-ob0-f178.google.com (mail-ob0-f178.google.com
-	[209.85.214.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1CE59E015AD
-	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 07:39:18 -0700 (PDT)
-Received: by mail-ob0-f178.google.com with SMTP id ef5so8542460obb.37
-	for <poky@yoctoproject.org>; Wed, 11 Sep 2013 07:39:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=XGEBqr764vHAim1YOK+U9Ty4LShRCeOJ2eBVYC0CwYY=;
-	b=IPkUgIbgJWzFnmqFqGV+NtOxDOXwZIjyvD55poqJiOYBvZtKBzq/F3QrdUYp9NR2v6
-	2gkpM5ZUfMLQu0JH0A+BjJtKZ3SjO4exM+4doIo/Bm0TLRxEdWI60mvOBQlv5sYJmZY9
-	6Oz7S4CJcJsSAMEDwh7PFf55Yq9usIlRO2DsfGQqNPN1TxNIMlpwoDszadm5087DfQcn
-	3yLjEfij7LPCMVJk4fiS+jcy5MwV0pZrHCPJf73mHuxcxtxIhw3Nu/wYzmQ7RwOzrZ1M
-	Oj5hGx5VC8KQRpVXpvQeZiFAUjIosYDTLkmYTnd1SGagM5aYsRr1IF1+7ShvP1FXYjrA
-	alZg==
+Return-Path: <B38611@freescale.com>
+Received: from db9outboundpool.messaging.microsoft.com
+	(mail-db9lp0251.outbound.messaging.microsoft.com [213.199.154.251])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D9077E0154E
+	for <poky@yoctoproject.org>; Fri, 13 Sep 2013 01:03:44 -0700 (PDT)
+Received: from mail214-db9-R.bigfish.com (10.174.16.243) by
+	DB9EHSOBE031.bigfish.com (10.174.14.94) with Microsoft SMTP Server id
+	14.1.225.22; Fri, 13 Sep 2013 08:03:44 +0000
+Received: from mail214-db9 (localhost [127.0.0.1])	by
+	mail214-db9-R.bigfish.com (Postfix) with ESMTP id E13511E014F	for
+	<poky@yoctoproject.org>; Fri, 13 Sep 2013 08:03:43 +0000 (UTC)
+X-Forefront-Antispam-Report: CIP:70.37.183.190; KIP:(null); UIP:(null); IPV:NLI;
+	H:mail.freescale.net; RD:none; EFVD:NLI
+X-SpamScore: 0
+X-BigFish: VS0(zzc85fh4015Izz1f42h208ch1ee6h1de0h1fdah2073h1202h1e76h1d1ah1d2ah1fc6hzz1d7338h1de098h17326ah18c673h1c8fb4h1de097h186068h8275bh8275dhz2dh2a8h839h8e2h8e3hd25hf0ah1288h12a5h12bdh137ah1441h1504h1537h153bh15d0h162dh1631h1758h18e1h1946h19b5h1ad9h1b0ah1b2fh1bceh1fb3h1d0ch1d2eh1d3fh1dc1h1dfeh1dffh1e1dh1fe8h1ff5h20f0hbe9i1155h)
+Received: from mail214-db9 (localhost.localdomain [127.0.0.1]) by mail214-db9
+	(MessageSwitch) id 1379059421709523_11623;
+	Fri, 13 Sep 2013 08:03:41 +0000 (UTC)
+Received: from DB9EHSMHS003.bigfish.com (unknown [10.174.16.241])	by
+	mail214-db9.bigfish.com (Postfix) with ESMTP id A9AB420005E	for
+	<poky@yoctoproject.org>; Fri, 13 Sep 2013 08:03:41 +0000 (UTC)
+Received: from mail.freescale.net (70.37.183.190) by DB9EHSMHS003.bigfish.com
+	(10.174.14.13) with Microsoft SMTP Server (TLS) id 14.16.227.3;
+	Fri, 13 Sep 2013 08:03:41 +0000
+Received: from 039-SN2MPN1-022.039d.mgd.msft.net ([169.254.2.191]) by
+	039-SN1MMR1-001.039d.mgd.msft.net ([10.84.1.13]) with mapi id
+	14.03.0158.002; Fri, 13 Sep 2013 08:03:39 +0000
+From: Duan Fugang-B38611 <B38611@freescale.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: Yacto rootfs: multi-touch message cannot handled by "close"
+	button
+Thread-Index: AQHOsFfBDMqqo7MiNUqlBGvGEi2H2g==
+Date: Fri, 13 Sep 2013 08:03:39 +0000
+Message-ID: <9848F2DB572E5649BA045B288BE08FBE016E14A7@039-SN2MPN1-022.039d.mgd.msft.net>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.192.242.233]
 MIME-Version: 1.0
-X-Received: by 10.182.29.198 with SMTP id m6mr636692obh.105.1378910357689;
-	Wed, 11 Sep 2013 07:39:17 -0700 (PDT)
-Received: by 10.182.129.51 with HTTP; Wed, 11 Sep 2013 07:39:17 -0700 (PDT)
-In-Reply-To: <CAJTo0LYcMKuFsw+GKFPfdt6dbgbpRjiOgLPARJGEvV5eJaUhmg@mail.gmail.com>
-References: <1378906988-15025-1-git-send-email-ross.burton@intel.com>
-	<CAOMwXhMuBKMnWXej2VJux7ev-5cZS1hwviOs+a-ra2mq+_a0mg@mail.gmail.com>
-	<CAJTo0LYcMKuFsw+GKFPfdt6dbgbpRjiOgLPARJGEvV5eJaUhmg@mail.gmail.com>
-Date: Wed, 11 Sep 2013 07:39:17 -0700
-Message-ID: <CAFNP8OssYdzwZF3oHaMD594HZPWDukLphBaspo9B4sjpEYNvMw@mail.gmail.com>
-From: Scott Rifenbark <srifenbark@gmail.com>
-To: "Burton, Ross" <ross.burton@intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] bblayers.conf.sample: use ##OEROOT## instead of ##COREBASE##
+X-OriginatorOrg: freescale.com
+X-FOPE-CONNECTOR: Id%0$Dn%*$RO%0$TLS%0$FQDN%$TlsDn%
+Subject: Yacto rootfs: multi-touch message cannot handled by "close" button
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,47 +52,213 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Sep 2013 14:39:19 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 13 Sep 2013 08:03:45 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_9848F2DB572E5649BA045B288BE08FBE016E14A7039SN2MPN102203_"
 
-Patch applied and pushed to yocto-docs/master branch.
+--_000_9848F2DB572E5649BA045B288BE08FBE016E14A7039SN2MPN102203_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi, all,
+
+We use the X.Org X Server 1.14.0 + QT4.8.5 to do one demo, but I  catch one=
+ issue: multi-touch message is not handled by "close" button.
+
+I use egalax touchscreen for the multi-touch test.
+After kernel up, evtest test the multi-touch message, all pass. Use xinput =
+to do the test, also pass.
+
+Open one QT app, all multi-touch message can be processed, but the window o=
+f the app cannot be closed by click the "X" button in the right-up region.
+I test GNOME destop with the same kernel,  any apps' window can be closed.
+
+So, It is strange, maybe it is KDE issue for multi-touch ?
+Current KDE is matchbox-window-manager.
+Current multi-touch support messages:
+root@imx6qsabresd:/# mtdev-test /dev/input/event0
+supported mt events:
+                                 ABS_MT_TOUCH_MAJOR
+                                ABS_MT_WIDTH_MAJOR
+                                ABS_MT_POSITION_X
+                                ABS_MT_POSITION_Y
+                                ABS_MT_TRACKING_ID
+
+
+
+Any response is appreciative.
 
 Thanks,
-Scott
+Andy
 
-On Wed, Sep 11, 2013 at 7:06 AM, Burton, Ross <ross.burton@intel.com> wrote:
-> On 11 September 2013 14:56, Laszlo Papp <lpapp@kde.org> wrote:
->> Do you have an url where this change is explained?
->
-> commit 70a16efaa662a95646e82c88d3295986e1db416f
-> Author: Ross Burton <ross.burton@intel.com>
-> Date:   Mon Aug 12 11:41:49 2013 +0100
->
->     oe-setup-builddir: substitute ##OEROOT## when using templates
->
->     oe-setup-builddir substitutes ##COREBASE## which seems like it
-> should have the
->     same value as the variable ${COREBASE}.  In reality it doesn't as
-> ##COREBASE##
->     is substituted with the value of $OEROOT (the location of the
-> oe-init-build-env
->     script), whereas ${COREBASE} is set by oe-core to the parent
-> directory of meta/.
->     If oe-core's meta/ isn't a top-level directory then ##COREBASE##
-> and ${COREBASE}
->     have different values, which can lead to confusion.
->
->     To resolve this, deprecate (but still substitute) ##COREBASE## and
-> substitute
->      ##OEROOT# for $OEROOT.
->
->     (From OE-Core rev: 1890783928dd1c73105fae32fb6c588afc287ff6)
->
->     Signed-off-by: Ross Burton <ross.burton@intel.com>
->     Signed-off-by: Saul Wold <sgw@linux.intel.com>
->     Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
 
+
+
+
+
+--_000_9848F2DB572E5649BA045B288BE08FBE016E14A7039SN2MPN102203_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle21
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle22
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle23
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle24
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle25
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi, all,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">We use the X.Org X Server 1.14.0 &#43; QT4.8.5 to do=
+ one demo, but I &nbsp;catch one issue:
+<span style=3D"color:#1F497D">multi-touch message is not handled by &#8220;=
+close&#8221; button.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal">I use egalax touchscreen for the multi-touch test.<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">After kernel up, evtest test the multi-touch message=
+, all pass. Use xinput to do the test, also pass.<span style=3D"color:#1F49=
+7D"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Open one QT app, all multi-touch message can be proc=
+essed, but the window of the app cannot be closed by click the &#8220;X&#82=
+21;
+<span style=3D"color:#1F497D">button </span>in the right-up region.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">I test GNOME destop with the same kernel,&nbsp; any =
+apps&#8217; window can be closed.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">So, It is strange, maybe it is KDE issue for multi-t=
+ouch ?<o:p></o:p></p>
+<p class=3D"MsoNormal">Current KDE is matchbox-window-manager.<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">Current multi-touch support messages:<o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"text-indent:.5in"><span style=3D"color:#1F4=
+97D">root@imx6qsabresd:/# mtdev-test /dev/input/event0<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal" style=3D"margin-left:.5in;text-indent:.5in"><span st=
+yle=3D"color:#1F497D">supported mt events:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">&nbsp; &nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; &nbsp;ABS_MT_TOUCH_MAJOR<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">&nbsp;&nbsp; &nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; ABS_MT_WIDTH_MAJOR<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">&nbsp;&nbsp; &nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; ABS_MT_POSITION_X<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">&nbsp;&nbsp; &nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; ABS_MT_POSITION_Y<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">&nbsp; &nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; ABS_MT_TRACKING_ID<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal">Any response is appreciative.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Andy <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_9848F2DB572E5649BA045B288BE08FBE016E14A7039SN2MPN102203_--
