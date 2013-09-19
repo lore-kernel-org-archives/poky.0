@@ -1,32 +1,31 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-wg0-f45.google.com (mail-wg0-f45.google.com [74.125.82.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB67EE015EA
-	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:40 -0700 (PDT)
-Received: by mail-wg0-f45.google.com with SMTP id y10so7890933wgg.24
-	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=ZRSkh0qxJ2UQictQBiG9nCPeqfZ3MUe4/QlY+X6vlIQ=;
-	b=PLLflmkre78WjWqGfOjpfLwUbEhY39Kwh0zD63eJyju+TRAX1zeCLhR2JKIi4Q+h3F
-	SNzRGEuwAJXH+rhk4YZYnTlFifIUTQpfDQFrcw9KFxhg0bapB57wUqgrtQo2JA9zCVk7
-	tRWXJkf1uGcATVem8pNdgHf6u9r97mMjJBg9GtMgOEdFkoK8yUXl4DLVQSbQfxMP9q6d
-	3CZFBCvIEomnIbwKSggkzFJTTMrNmn81mGGpvzkBHpQJjcL6Hrhl1Mat+7kENOO/EbJo
-	F/t288+PGMLhQu3jwlYHTZb+eAEWnK3lUI917Gi+5bW6p1C3dyiZwF+RB/LAFBYb0Mhm
-	II+A==
-X-Gm-Message-State: ALoCoQnhA3ksXn5xHktKA8sEaGD0tf/CQYlymx9QZtYLbyawTYgubiLerAgNGsmRP3rbbYhqocHZ
-X-Received: by 10.180.206.5 with SMTP id lk5mr692703wic.10.1379585079213;
-	Thu, 19 Sep 2013 03:04:39 -0700 (PDT)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id u15sm17592096wib.5.1969.12.31.16.00.00
-	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Thu, 19 Sep 2013 03:04:38 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 19 Sep 2013 11:04:35 +0100
-Message-Id: <1379585075-26548-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] bblayers.conf.sample: use ##OEROOT## instead of ##COREBASE##
+Return-Path: <Ewan.LEBIDEAU-CANEVET@eurogiciel.fr>
+Received: from mailhost.eurogiciel.fr (mailhost.eurogiciel.fr [86.64.47.76])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2A1E9E00715;
+	Thu, 19 Sep 2013 07:48:58 -0700 (PDT)
+Received: from (31l-syracuse.eurogiciel.fr [172.16.88.4]) by
+	mailhost.eurogiciel.fr with smtp
+	id 1c2b_efdb_73810ace_213b_11e3_a82b_a4badbe01a3a;
+	Thu, 19 Sep 2013 16:54:57 +0200
+Received: from 06s-venera.eurogiciel.fr ([172.16.92.15]) by
+	31l-syracuse.eurogiciel.fr with Microsoft SMTPSVC(6.0.3790.3959); 
+	Thu, 19 Sep 2013 16:48:44 +0200
+Received: from 44c-mariner.eurogiciel.fr ([172.16.96.15]) by
+	06s-venera.eurogiciel.fr with Microsoft SMTPSVC(6.0.3790.3959); 
+	Thu, 19 Sep 2013 16:48:43 +0200
+X-MimeOLE: Produced By Microsoft Exchange V6.5
+MIME-Version: 1.0
+Date: Thu, 19 Sep 2013 16:48:42 +0200
+Message-ID: <552A140193B5B04F9B5027CA06300D85C47CD6@44c-mariner.eurogiciel.fr>
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Thread-Topic: Building a Poky distribution based on Wayland/Weston 1.2
+Thread-Index: Ac61R1Ul+DcQipWkSii9MMvSi89kDQ==
+From: "Ewan LE BIDEAU-CANEVET" <Ewan.LEBIDEAU-CANEVET@eurogiciel.fr>
+To: <openembedded-core@lists.openembedded.org>, <yocto@yoctoproject.org>,
+	<poky@yoctoproject.org>
+X-OriginalArrivalTime: 19 Sep 2013 14:48:43.0922 (UTC)
+	FILETIME=[56858720:01CEB547]
+Subject: Building a Poky distribution based on Wayland/Weston 1.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,37 +38,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Sep 2013 10:04:41 -0000
+X-List-Received-Date: Thu, 19 Sep 2013 14:49:00 -0000
+Content-class: urn:content-classes:message
+Content-Type: multipart/alternative;
+	boundary="----_=_NextPart_001_01CEB547.559AA6B0"
 
-The variable ##COREBASE## has been deprecated, so use ##OEROOT## instead.
+------_=_NextPart_001_01CEB547.559AA6B0
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-yocto/conf/bblayers.conf.sample |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/meta-yocto/conf/bblayers.conf.sample b/meta-yocto/conf/bblayers.conf.sample
-index 7fd755d..0eda565 100644
---- a/meta-yocto/conf/bblayers.conf.sample
-+++ b/meta-yocto/conf/bblayers.conf.sample
-@@ -6,11 +6,11 @@ BBPATH = "${TOPDIR}"
- BBFILES ?= ""
- 
- BBLAYERS ?= " \
--  ##COREBASE##/meta \
--  ##COREBASE##/meta-yocto \
--  ##COREBASE##/meta-yocto-bsp \
-+  ##OEROOT##/meta \
-+  ##OEROOT##/meta-yocto \
-+  ##OEROOT##/meta-yocto-bsp \
-   "
- BBLAYERS_NON_REMOVABLE ?= " \
--  ##COREBASE##/meta \
--  ##COREBASE##/meta-yocto \
-+  ##OEROOT##/meta \
-+  ##OEROOT##/meta-yocto \
-   "
--- 
-1.7.10.4
+Hello,
 
 
+I'm currently trying to have a poky distribution with Wayland/Weston 1.2 =
+and no X server at all. I think I have successfully ported =
+Wayland/Weston to 1.2 version and disabled the X server, so here is my =
+questions :
+
+
+1) Does this project interest you ?
+
+2) How can I test if Wayland  has been correctly built ?
+
+Currently, the Weston shell is up and running.
+
+3) Knowing I started my project from Poky and Open-Embedded =
+repositories, on which upstream repository can I deliver my work ?
+
+I added a poky distro configuration that seems to be delivered into =
+Yocto git , is it correct?
+
+About the changes around Weston & Wayland, the new bb files should be =
+delivered in YOCTO or OpenEmbedded project?
+
+Thank you for your attention.
+
+Ewan Le Bideau-Can=E9vet=20
+
+------_=_NextPart_001_01CEB547.559AA6B0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Diso-8859-1">
+<META NAME=3D"Generator" CONTENT=3D"MS Exchange Server version =
+6.5.7638.1">
+<TITLE>Building a Poky distribution based on Wayland/Weston 1.2</TITLE>
+</HEAD>
+<BODY>
+<!-- Converted from text/plain format -->
+
+<P><FONT SIZE=3D2>Hello,<BR>
+<BR>
+<BR>
+I'm currently trying to have a poky distribution with Wayland/Weston 1.2 =
+and no X server at all. I think I have successfully ported =
+Wayland/Weston to 1.2 version and disabled the X server, so here is my =
+questions :<BR>
+<BR>
+<BR>
+1) Does this project interest you ?<BR>
+<BR>
+2) How can I test if Wayland&nbsp; has been correctly built ?<BR>
+<BR>
+Currently, the Weston shell is up and running.<BR>
+<BR>
+3) Knowing I started my project from Poky and Open-Embedded =
+repositories, on which upstream repository can I deliver my work ?<BR>
+<BR>
+I added a poky distro configuration that seems to be delivered into =
+Yocto git , is it correct?<BR>
+<BR>
+About the changes around Weston &amp; Wayland, the new bb files should =
+be delivered in YOCTO or OpenEmbedded project?<BR>
+<BR>
+Thank you for your attention.<BR>
+<BR>
+Ewan Le Bideau-Can=E9vet<BR>
+</FONT>
+</P>
+
+</BODY>
+</HTML>
+
+------_=_NextPart_001_01CEB547.559AA6B0--
