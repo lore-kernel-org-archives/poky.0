@@ -1,21 +1,33 @@
-Return-Path: <elizabeth.flanagan@intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CD53BE015A4
-	for <poky@yoctoproject.org>; Mon, 16 Sep 2013 17:04:20 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga101.jf.intel.com with ESMTP; 16 Sep 2013 17:04:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,919,1371106800"; d="scan'208";a="396676522"
-Received: from qana.jf.intel.com ([10.7.201.146])
-	by fmsmga001.fm.intel.com with ESMTP; 16 Sep 2013 17:04:19 -0700
-Received: by qana.jf.intel.com (Postfix, from userid 1000)
-	id 99B705F82A7F; Mon, 16 Sep 2013 17:02:31 -0700 (PDT)
-From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-wi0-f175.google.com (mail-wi0-f175.google.com
+	[209.85.212.175])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE829E01479
+	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:18 -0700 (PDT)
+Received: by mail-wi0-f175.google.com with SMTP id ez12so7684790wid.14
+	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=LGBffcteIye3ABwatZy5+uA2N8ePj7zn0JLqG4YRIEM=;
+	b=inK1fxuD69p0fHdzDsBQRPYO8q26ZFigz1/+3sbKfdtxkA/C6c/fKLn7nhT7kKCKNg
+	nsyOZ61xdSAHl35TwfP4GlfXI042IiaWvFraXi6SDlcc5D9gjAinUY1Fi8c6aHTlQOFT
+	VTXxRSw5bV4dW5d0DrjZ2eC3qZb0wUhvOTWC0bN8QQz4vTDdFeYh7wQIOt6fYnfBTU5i
+	uhcLKNDz0CwYlNtXSnUUF4JbaYM7NioHPtkt8AENy6VogIXm8DLRlLsMy842Zzb74S08
+	1mhEMXljprPoOgitPf+KrWAeZRKyfE7ZwYhV8pWQciQcz9UPwNNY+73S+w6uzT+A8x4j
+	HI6g==
+X-Gm-Message-State: ALoCoQlLx2U+xLipSe6Tj47N+Uv3Pl4/S0vmtRcXQiR50muMVDoHWFTr7YFSULASX1JBfShgCkOl
+X-Received: by 10.180.108.199 with SMTP id hm7mr7479054wib.31.1379585057573;
+	Thu, 19 Sep 2013 03:04:17 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPSA id z13sm8479434wib.0.1969.12.31.16.00.00
+	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Thu, 19 Sep 2013 03:04:17 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 16 Sep 2013 17:02:27 -0700
-Message-Id: <1379376147-5116-1-git-send-email-elizabeth.flanagan@intel.com>
-X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCH] meta-yocto/layer.conf: Bump LAYERVERSION_yocto
+Date: Thu, 19 Sep 2013 11:04:12 +0100
+Message-Id: <1379585052-26418-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH] distro: remove anjuta-remote-run from distro_alias and maintainers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -28,30 +40,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Sep 2013 00:04:21 -0000
+X-List-Received-Date: Thu, 19 Sep 2013 10:04:20 -0000
 
-Commit 5992830145c fixes the autobuilder needing to rename
-qemux86-64 to qemux86_64 however in order to maintain autobuilder
-compatibility with prior releases we need to bump LAYERVERSION.
-
-Signed-off-by: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
+Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto/conf/layer.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-yocto/conf/distro/include/distro_alias.inc |    1 -
+ meta-yocto/conf/distro/include/maintainers.inc  |    1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
-index e326aad..9942b51 100644
---- a/meta-yocto/conf/layer.conf
-+++ b/meta-yocto/conf/layer.conf
-@@ -11,6 +11,6 @@ BBFILE_PRIORITY_yocto = "5"
- 
- # This should only be incremented on significant changes that will
- # cause compatibility issues with other layers
--LAYERVERSION_yocto = "1"
-+LAYERVERSION_yocto = "2"
- 
- LAYERDEPENDS_yocto = "core"
+diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
+index 1526ff7..bd3362a 100644
+--- a/meta-yocto/conf/distro/include/distro_alias.inc
++++ b/meta-yocto/conf/distro/include/distro_alias.inc
+@@ -13,7 +13,6 @@ DISTRO_PN_ALIAS_pn-aaina = "Intel"
+ DISTRO_PN_ALIAS_pn-abiword-embedded = "Fedora=abiword Ubuntu=abiword"
+ DISTRO_PN_ALIAS_pn-adt-installer = "Intel"
+ DISTRO_PN_ALIAS_pn-alsa-state = "OE-Core"
+-DISTRO_PN_ALIAS_pn-anjuta-remote-run = "OpenedHand"
+ DISTRO_PN_ALIAS_pn-augeas = "Ubuntu=libaugeas0 Debian=libaugeas0"
+ DISTRO_PN_ALIAS_pn-avahi-ui = "Ubuntu=avahi-discover Debian=avahi-discover"
+ DISTRO_PN_ALIAS_pn-babeltrace = "OSPDT"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index 87e7eaf..570593a 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -35,7 +35,6 @@ RECIPE_MAINTAINER_pn-alsa-state = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-alsa-tools = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-alsa-utils = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-alsa-utils-alsaconf = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-anjuta-remote-run = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-apmd = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-apr = "Cristiana Voicu <cristiana.voicu@intel.com>"
+ RECIPE_MAINTAINER_pn-apr-util = "Cristiana Voicu <cristiana.voicu@intel.com>"
 -- 
-1.8.1.2
+1.7.10.4
 
 
