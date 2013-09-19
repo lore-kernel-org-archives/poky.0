@@ -1,33 +1,32 @@
 Return-Path: <ross.burton@intel.com>
-Received: from mail-wi0-f175.google.com (mail-wi0-f175.google.com
-	[209.85.212.175])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE829E01479
-	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:18 -0700 (PDT)
-Received: by mail-wi0-f175.google.com with SMTP id ez12so7684790wid.14
-	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:17 -0700 (PDT)
+Received: from mail-wg0-f45.google.com (mail-wg0-f45.google.com [74.125.82.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB67EE015EA
+	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:40 -0700 (PDT)
+Received: by mail-wg0-f45.google.com with SMTP id y10so7890933wgg.24
+	for <poky@yoctoproject.org>; Thu, 19 Sep 2013 03:04:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
 	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=LGBffcteIye3ABwatZy5+uA2N8ePj7zn0JLqG4YRIEM=;
-	b=inK1fxuD69p0fHdzDsBQRPYO8q26ZFigz1/+3sbKfdtxkA/C6c/fKLn7nhT7kKCKNg
-	nsyOZ61xdSAHl35TwfP4GlfXI042IiaWvFraXi6SDlcc5D9gjAinUY1Fi8c6aHTlQOFT
-	VTXxRSw5bV4dW5d0DrjZ2eC3qZb0wUhvOTWC0bN8QQz4vTDdFeYh7wQIOt6fYnfBTU5i
-	uhcLKNDz0CwYlNtXSnUUF4JbaYM7NioHPtkt8AENy6VogIXm8DLRlLsMy842Zzb74S08
-	1mhEMXljprPoOgitPf+KrWAeZRKyfE7ZwYhV8pWQciQcz9UPwNNY+73S+w6uzT+A8x4j
-	HI6g==
-X-Gm-Message-State: ALoCoQlLx2U+xLipSe6Tj47N+Uv3Pl4/S0vmtRcXQiR50muMVDoHWFTr7YFSULASX1JBfShgCkOl
-X-Received: by 10.180.108.199 with SMTP id hm7mr7479054wib.31.1379585057573;
-	Thu, 19 Sep 2013 03:04:17 -0700 (PDT)
+	bh=ZRSkh0qxJ2UQictQBiG9nCPeqfZ3MUe4/QlY+X6vlIQ=;
+	b=PLLflmkre78WjWqGfOjpfLwUbEhY39Kwh0zD63eJyju+TRAX1zeCLhR2JKIi4Q+h3F
+	SNzRGEuwAJXH+rhk4YZYnTlFifIUTQpfDQFrcw9KFxhg0bapB57wUqgrtQo2JA9zCVk7
+	tRWXJkf1uGcATVem8pNdgHf6u9r97mMjJBg9GtMgOEdFkoK8yUXl4DLVQSbQfxMP9q6d
+	3CZFBCvIEomnIbwKSggkzFJTTMrNmn81mGGpvzkBHpQJjcL6Hrhl1Mat+7kENOO/EbJo
+	F/t288+PGMLhQu3jwlYHTZb+eAEWnK3lUI917Gi+5bW6p1C3dyiZwF+RB/LAFBYb0Mhm
+	II+A==
+X-Gm-Message-State: ALoCoQnhA3ksXn5xHktKA8sEaGD0tf/CQYlymx9QZtYLbyawTYgubiLerAgNGsmRP3rbbYhqocHZ
+X-Received: by 10.180.206.5 with SMTP id lk5mr692703wic.10.1379585079213;
+	Thu, 19 Sep 2013 03:04:39 -0700 (PDT)
 Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id z13sm8479434wib.0.1969.12.31.16.00.00
+	by mx.google.com with ESMTPSA id u15sm17592096wib.5.1969.12.31.16.00.00
 	(version=TLSv1.2 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Thu, 19 Sep 2013 03:04:17 -0700 (PDT)
+	Thu, 19 Sep 2013 03:04:38 -0700 (PDT)
 From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 19 Sep 2013 11:04:12 +0100
-Message-Id: <1379585052-26418-1-git-send-email-ross.burton@intel.com>
+Date: Thu, 19 Sep 2013 11:04:35 +0100
+Message-Id: <1379585075-26548-1-git-send-email-ross.burton@intel.com>
 X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] distro: remove anjuta-remote-run from distro_alias and maintainers
+Subject: [PATCH] bblayers.conf.sample: use ##OEROOT## instead of ##COREBASE##
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,38 +39,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Sep 2013 10:04:20 -0000
+X-List-Received-Date: Thu, 19 Sep 2013 10:04:41 -0000
+
+The variable ##COREBASE## has been deprecated, so use ##OEROOT## instead.
 
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto/conf/distro/include/distro_alias.inc |    1 -
- meta-yocto/conf/distro/include/maintainers.inc  |    1 -
- 2 files changed, 2 deletions(-)
+ meta-yocto/conf/bblayers.conf.sample |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-index 1526ff7..bd3362a 100644
---- a/meta-yocto/conf/distro/include/distro_alias.inc
-+++ b/meta-yocto/conf/distro/include/distro_alias.inc
-@@ -13,7 +13,6 @@ DISTRO_PN_ALIAS_pn-aaina = "Intel"
- DISTRO_PN_ALIAS_pn-abiword-embedded = "Fedora=abiword Ubuntu=abiword"
- DISTRO_PN_ALIAS_pn-adt-installer = "Intel"
- DISTRO_PN_ALIAS_pn-alsa-state = "OE-Core"
--DISTRO_PN_ALIAS_pn-anjuta-remote-run = "OpenedHand"
- DISTRO_PN_ALIAS_pn-augeas = "Ubuntu=libaugeas0 Debian=libaugeas0"
- DISTRO_PN_ALIAS_pn-avahi-ui = "Ubuntu=avahi-discover Debian=avahi-discover"
- DISTRO_PN_ALIAS_pn-babeltrace = "OSPDT"
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 87e7eaf..570593a 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -35,7 +35,6 @@ RECIPE_MAINTAINER_pn-alsa-state = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-alsa-tools = "Kai Kang <kai.kang@windriver.com>"
- RECIPE_MAINTAINER_pn-alsa-utils = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-alsa-utils-alsaconf = "Cristian Iorga <cristian.iorga@intel.com>"
--RECIPE_MAINTAINER_pn-anjuta-remote-run = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-apmd = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-apr = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-apr-util = "Cristiana Voicu <cristiana.voicu@intel.com>"
+diff --git a/meta-yocto/conf/bblayers.conf.sample b/meta-yocto/conf/bblayers.conf.sample
+index 7fd755d..0eda565 100644
+--- a/meta-yocto/conf/bblayers.conf.sample
++++ b/meta-yocto/conf/bblayers.conf.sample
+@@ -6,11 +6,11 @@ BBPATH = "${TOPDIR}"
+ BBFILES ?= ""
+ 
+ BBLAYERS ?= " \
+-  ##COREBASE##/meta \
+-  ##COREBASE##/meta-yocto \
+-  ##COREBASE##/meta-yocto-bsp \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-yocto-bsp \
+   "
+ BBLAYERS_NON_REMOVABLE ?= " \
+-  ##COREBASE##/meta \
+-  ##COREBASE##/meta-yocto \
++  ##OEROOT##/meta \
++  ##OEROOT##/meta-yocto \
+   "
 -- 
 1.7.10.4
 
