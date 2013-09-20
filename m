@@ -1,31 +1,23 @@
-Return-Path: <Ewan.LEBIDEAU-CANEVET@eurogiciel.fr>
-Received: from mailhost.eurogiciel.fr (mailhost.eurogiciel.fr [86.64.47.76])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2A1E9E00715;
-	Thu, 19 Sep 2013 07:48:58 -0700 (PDT)
-Received: from (31l-syracuse.eurogiciel.fr [172.16.88.4]) by
-	mailhost.eurogiciel.fr with smtp
-	id 1c2b_efdb_73810ace_213b_11e3_a82b_a4badbe01a3a;
-	Thu, 19 Sep 2013 16:54:57 +0200
-Received: from 06s-venera.eurogiciel.fr ([172.16.92.15]) by
-	31l-syracuse.eurogiciel.fr with Microsoft SMTPSVC(6.0.3790.3959); 
-	Thu, 19 Sep 2013 16:48:44 +0200
-Received: from 44c-mariner.eurogiciel.fr ([172.16.96.15]) by
-	06s-venera.eurogiciel.fr with Microsoft SMTPSVC(6.0.3790.3959); 
-	Thu, 19 Sep 2013 16:48:43 +0200
-X-MimeOLE: Produced By Microsoft Exchange V6.5
+Return-Path: <laurentiu.palcu@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7AC77E01561;
+	Fri, 20 Sep 2013 01:43:34 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 20 Sep 2013 01:43:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.90,941,1371106800"; d="scan'208";a="406313128"
+Received: from lpalcu-linux.rb.intel.com (HELO lpalcu-linux) ([10.237.105.165])
+	by orsmga002.jf.intel.com with ESMTP; 20 Sep 2013 01:43:31 -0700
+Date: Fri, 20 Sep 2013 11:43:31 +0300
+From: Laurentiu Palcu <laurentiu.palcu@intel.com>
+To: Li Zhijian <lizhijian@cn.fujitsu.com>
+Message-ID: <20130920084330.GA14107@lpalcu-linux>
+References: <523BEF04.5070308@cn.fujitsu.com>
 MIME-Version: 1.0
-Date: Thu, 19 Sep 2013 16:48:42 +0200
-Message-ID: <552A140193B5B04F9B5027CA06300D85C47CD6@44c-mariner.eurogiciel.fr>
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-Thread-Topic: Building a Poky distribution based on Wayland/Weston 1.2
-Thread-Index: Ac61R1Ul+DcQipWkSii9MMvSi89kDQ==
-From: "Ewan LE BIDEAU-CANEVET" <Ewan.LEBIDEAU-CANEVET@eurogiciel.fr>
-To: <openembedded-core@lists.openembedded.org>, <yocto@yoctoproject.org>,
-	<poky@yoctoproject.org>
-X-OriginalArrivalTime: 19 Sep 2013 14:48:43.0922 (UTC)
-	FILETIME=[56858720:01CEB547]
-Subject: Building a Poky distribution based on Wayland/Weston 1.2
+In-Reply-To: <523BEF04.5070308@cn.fujitsu.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: Yocto list discussion <yocto@yoctoproject.org>, poky@yoctoproject.org
+Subject: Re: [yocto] Is this a bug of binutils
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,92 +30,125 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Sep 2013 14:49:00 -0000
-Content-class: urn:content-classes:message
-Content-Type: multipart/alternative;
-	boundary="----_=_NextPart_001_01CEB547.559AA6B0"
+X-List-Received-Date: Fri, 20 Sep 2013 08:43:37 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-------_=_NextPart_001_01CEB547.559AA6B0
-Content-Type: text/plain;
-	charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Hello,
+On Fri, Sep 20, 2013 at 02:45:24PM +0800, Li Zhijian wrote:
+> Hi，all
+> 
+> I got a big problem when using the cross-toolchain to compile a simple C program.
+> This problem since 3ae71c74c71f13a390b21b4c3ead04e51aaa82b8
+> which is to upgrade the binutils from 2.22 to 2.23.1
+> 
+> what I do is as follows, any help or ideas ?
+> 
+> I) Build my cross-toolchain
+> # git clone http://git.yoctoproject.org/git/poky/.git
+> # cd poky
+> # git checkout 3ae71c74c71f13a390b21b4c3ead04e51aaa82b8 -b tcmode-default
+> ...skip some steps...
+> # bitbake meta-toolchain
+> Loading cache: 100% |############################################################################################| ETA: 00:00:00
+> Loaded 1122 entries from dependency cache.
+> 
+> Build Configuration:
+> BB_VERSION = "1.17.0"
+> BUILD_SYS = "x86_64-linux"
+> NATIVELSBSTRING = "CentOS-6.3"
+> TARGET_SYS = "x86_64-poky-linux"
+> MACHINE = "qemux86-64"
+> DISTRO = "poky"
+> DISTRO_VERSION = "1.3+snapshot-20130912"
+> TUNE_FEATURES = "m64"
+> TARGET_FPU = ""
+> meta
+> meta-yocto
+> meta-yocto-bsp = "tcmode-default:3ae71c74c71f13a390b21b4c3ead04e51aaa82b8"
+> 
+> ..cost a long time..
+> all of the build work successfully
+> 
+> II) Install my cross-toolchain
+> # ./poky-eglibc-x86_64-x86_64-toolchain-1.3+snapshot-20130912.sh
+> Enter target directory for SDK (default: /opt/poky/1.3+snapshot): toolchain-1.3-tcmode-default
+> 
+> III） compile a simple C program
+> # cat test.c
+> int main ()
+> {
+> printf("hello world\n");
+> return 0;
+> }
+> # source toolchain-1.3-tcmode-default/environment-setup-x86_64-poky-linux
+> # $CC -o test test.c -L tmp/sysroots/qemux86-64/usr/lib/ -lm
+Technically, for this simple program, it's enough to do:
 
+$CC -o test test.c
 
-I'm currently trying to have a poky distribution with Wayland/Weston 1.2 =
-and no X server at all. I think I have successfully ported =
-Wayland/Weston to 1.2 version and disabled the X server, so here is my =
-questions :
+The $CC contains the sysroot option and the linker will automatically
+prefix /lib and /usr/lib with the target sysroot. So, it should be able
+to compile just fine.
 
+The -L option just adds another search path for libraries which will be
+searched before the default ones. So, it shouldn't be a problem.
 
-1) Does this project interest you ?
+Somehow, it looks like it tries to link against the host's libraries.
 
-2) How can I test if Wayland  has been correctly built ?
+Before compiling, do a 'echo $CC' and make sure the --sysroot points to
+the correct directory.
 
-Currently, the Weston shell is up and running.
+Laurentiu
 
-3) Knowing I started my project from Poky and Open-Embedded =
-repositories, on which upstream repository can I deliver my work ?
+> test.c: In function 'main':
+> test.c:3:9: warning: incompatible implicit declaration of built-in function 'printf' [enabled by default]
+> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: skipping incompatible /lib/libc.so.6 when searching for /lib/libc.so.6
+> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: cannot find /lib/libc.so.6
+> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: skipping incompatible /usr/lib/libc_nonshared.a when searching for /usr/lib/libc_nonshared.a
+> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: cannot find /usr/lib/libc_nonshared.a
+> collect2: error: ld returned 1 exit status
+> 
+> 
+> #cat toolchain-1.3-tcmode-default/environment-setup-x86_64-poky-linux
+> export PATH=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin:/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux:$PATH
+> export PKG_CONFIG_SYSROOT_DIR=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux
+> export PKG_CONFIG_PATH=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux/usr/lib/pkgconfig
+> export CONFIG_SITE=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/site-config-x86_64-poky-linux
+> export CC="x86_64-poky-linux-gcc -m64 --sysroot=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux"
+> export CXX="x86_64-poky-linux-g++ -m64 --sysroot=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux"
+> export CPP="x86_64-poky-linux-gcc -E -m64 --sysroot=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux"
+> export AS="x86_64-poky-linux-as "
+> export LD="x86_64-poky-linux-ld --sysroot=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux"
+> export GDB=x86_64-poky-linux-gdb
+> export STRIP=x86_64-poky-linux-strip
+> export RANLIB=x86_64-poky-linux-ranlib
+> export OBJCOPY=x86_64-poky-linux-objcopy
+> export OBJDUMP=x86_64-poky-linux-objdump
+> export AR=x86_64-poky-linux-ar
+> export NM=x86_64-poky-linux-nm
+> export M4=m4
+> export TARGET_PREFIX=x86_64-poky-linux-
+> export CONFIGURE_FLAGS="--target=x86_64-poky-linux --host=x86_64-poky-linux --build=x86_64-linux --with-libtool-sysroot=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux"
+> export CFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types"
+> export CXXFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types -fpermissive"
+> export LDFLAGS="-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed"
+> export CPPFLAGS=""
+> export OECORE_NATIVE_SYSROOT="/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux"
+> export OECORE_TARGET_SYSROOT="/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux"
+> export OECORE_ACLOCAL_OPTS="-I /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/share/aclocal"
+> export OECORE_DISTRO_VERSION="1.3+snapshot-20130912"
+> export OECORE_SDK_VERSION="1.3+snapshot"
+> 
+> -- 
+> Best regards.
+> Li Zhijian (8555)
+> 
+> 
+> _______________________________________________
+> yocto mailing list
+> yocto@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/yocto
 
-I added a poky distro configuration that seems to be delivered into =
-Yocto git , is it correct?
-
-About the changes around Weston & Wayland, the new bb files should be =
-delivered in YOCTO or OpenEmbedded project?
-
-Thank you for your attention.
-
-Ewan Le Bideau-Can=E9vet=20
-
-------_=_NextPart_001_01CEB547.559AA6B0
-Content-Type: text/html;
-	charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<HTML>
-<HEAD>
-<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
-charset=3Diso-8859-1">
-<META NAME=3D"Generator" CONTENT=3D"MS Exchange Server version =
-6.5.7638.1">
-<TITLE>Building a Poky distribution based on Wayland/Weston 1.2</TITLE>
-</HEAD>
-<BODY>
-<!-- Converted from text/plain format -->
-
-<P><FONT SIZE=3D2>Hello,<BR>
-<BR>
-<BR>
-I'm currently trying to have a poky distribution with Wayland/Weston 1.2 =
-and no X server at all. I think I have successfully ported =
-Wayland/Weston to 1.2 version and disabled the X server, so here is my =
-questions :<BR>
-<BR>
-<BR>
-1) Does this project interest you ?<BR>
-<BR>
-2) How can I test if Wayland&nbsp; has been correctly built ?<BR>
-<BR>
-Currently, the Weston shell is up and running.<BR>
-<BR>
-3) Knowing I started my project from Poky and Open-Embedded =
-repositories, on which upstream repository can I deliver my work ?<BR>
-<BR>
-I added a poky distro configuration that seems to be delivered into =
-Yocto git , is it correct?<BR>
-<BR>
-About the changes around Weston &amp; Wayland, the new bb files should =
-be delivered in YOCTO or OpenEmbedded project?<BR>
-<BR>
-Thank you for your attention.<BR>
-<BR>
-Ewan Le Bideau-Can=E9vet<BR>
-</FONT>
-</P>
-
-</BODY>
-</HTML>
-
-------_=_NextPart_001_01CEB547.559AA6B0--
