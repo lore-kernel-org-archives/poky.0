@@ -1,30 +1,37 @@
-Return-Path: <laurentiu.palcu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A3C82E01637;
-	Thu, 26 Sep 2013 00:36:44 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 26 Sep 2013 00:36:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,983,1371106800"; d="scan'208";a="299536574"
-Received: from lpalcu-linux.rb.intel.com (HELO lpalcu-linux) ([10.237.105.165])
-	by AZSMGA002.ch.intel.com with ESMTP; 26 Sep 2013 00:36:42 -0700
-Date: Thu, 26 Sep 2013 10:36:41 +0300
-From: Laurentiu Palcu <laurentiu.palcu@intel.com>
-To: Li Zhijian <lizhijian@cn.fujitsu.com>
-Message-ID: <20130926073641.GA8711@lpalcu-linux>
-References: <523BEF04.5070308@cn.fujitsu.com>
-	<20130920084330.GA14107@lpalcu-linux>
-	<20130920085039.GB14107@lpalcu-linux>
-	<523C1BC9.5070303@cn.fujitsu.com>
-	<20130920100227.GC14107@lpalcu-linux>
-	<523C228F.7060700@cn.fujitsu.com>
-	<20130920110021.GD14107@lpalcu-linux>
-	<5243B0A2.2060001@cn.fujitsu.com>
+Return-Path: <Teemu.Keskinarkaus@Maximatecc.com>
+Received: from mail1.bemta8.messagelabs.com (mail1.bemta8.messagelabs.com
+	[216.82.243.195])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1E492E01626
+	for <poky@yoctoproject.org>; Tue,  1 Oct 2013 02:39:27 -0700 (PDT)
+Received: from [216.82.241.132:16345] by server-3.bemta-8.messagelabs.com id
+	70/D4-05770-B489A425; Tue, 01 Oct 2013 09:39:23 +0000
+X-Env-Sender: Teemu.Keskinarkaus@Maximatecc.com
+X-Msg-Ref: server-8.tower-45.messagelabs.com!1380620363!33488973!1
+X-Originating-IP: [207.250.73.121]
+X-StarScan-Received: 
+X-StarScan-Version: 6.9.12; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 8778 invoked from network); 1 Oct 2013 09:39:23 -0000
+Received: from unknown (HELO ammail.actuant.com) (207.250.73.121)
+	by server-8.tower-45.messagelabs.com with AES128-SHA encrypted SMTP;
+	1 Oct 2013 09:39:23 -0000
+Received: from AMDTCEX12.actuant.pri ([fe80::1ff:ff4d:9ac5:22e8]) by
+	AMDTCEX10.actuant.pri ([fe80::40f6:8682:1d1f:3805%17]) with mapi id
+	14.02.0342.003; Tue, 1 Oct 2013 04:39:20 -0500
+From: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@Maximatecc.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: Sudo binary missing suid - bit
+Thread-Index: Ac6+iha8UingTYm6TAqUUCqFhvnGkA==
+Date: Tue, 1 Oct 2013 09:39:18 +0000
+Message-ID: <83DB4EC8FADD45428E3CC4E3664761FD09AAA0F4@AMDTCEX12.actuant.pri>
+Accept-Language: fi-FI, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.10.100]
+x-ems-proccessed: 52bwn4SPvyFdxH+yW9O0UA==
+x-ems-stamp: f4sFzltdR7nML8c37VlVFw==
 MIME-Version: 1.0
-In-Reply-To: <5243B0A2.2060001@cn.fujitsu.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: Yocto list discussion <yocto@yoctoproject.org>, poky@yoctoproject.org
-Subject: Re: [yocto] Is this a bug of binutils
+Subject: Sudo binary missing suid - bit
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,105 +44,134 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Sep 2013 07:36:44 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 01 Oct 2013 09:39:28 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_83DB4EC8FADD45428E3CC4E3664761FD09AAA0F4AMDTCEX12actuan_"
 
-Hi Li Zhijian,
+--_000_83DB4EC8FADD45428E3CC4E3664761FD09AAA0F4AMDTCEX12actuan_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 26, 2013 at 11:57:22AM +0800, Li Zhijian wrote:
-> Hi，Laurentiu
-> 
-> I think it could be something wrong with binutils(2.23.1 or later)
-> there is different behavior at binutils-2.23.1/ld/ldfile.c（ldfile_open_file_search) from binutils-2.22
-> 
-> If both --sysroot directory and -L directory include libc.so , ld don't work
-> In my case， there are double libc.so(/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux/usr/lib/libc.so and tmp/sysroots/qemux86-64/usr/lib/libc.so)
-> 
-> ld will link tmp/sysroots/qemux86-64/usr/lib/libc.so（ld always searchs -L directory at first)
-> then link /lib/libc.so.6 specified at tmp/sysroots/qemux86-64/usr/lib/libc.so instead of
-> append sysroot directory path before /lib/libc.so.6
-> 
-> here is a sample method reproduce it
-> 
-> lizj@suika x86-64-yocto-1.3]$ source toolchain-1.3-tcmode-default/environment-setup-x86_64-poky-linux
-> [lizj@suika x86-64-yocto-1.3]$ echo $CC
-> x86_64-poky-linux-gcc -m64 --sysroot=/yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux
-> [lizj@suika x86-64-yocto-1.3]$ $LD --version
-> GNU ld (GNU Binutils) 2.23.1.20121113
-> [lizj@suika x86-64-yocto-1.3]$ mkdir -p fake_rootfs/usr/lib
-> [lizj@suika x86-64-yocto-1.3]$ cp /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-poky-linux/usr/lib/libc.so fake_rootfs/usr/lib/
-This libc.so is actually a linker script with the following contents:
+Hi,
 
-/* GNU ld script
-   Use the shared library, but some functions are only in
-   the static library, so try that secondarily.  */
-OUTPUT_FORMAT(elf64-x86-64)
-GROUP ( /lib/libc.so.6 /usr/lib/libc_nonshared.a  AS_NEEDED (/lib/ld-linux-x86-64.so.2 ) )
+I'm trying to get sudo - binary working in Yocto/Poky - based project. The =
+binary is already on image, but for some reason it lacks the suid - bit and=
+ thus does not work. If I add the suid - bit with root user the sudo starts=
+ working as expected.
 
-So, the /lib/libc.so.6 and /usr/lib/libc_nonshared.a will be searched until no
-undefined references are created. So, it looks like this linker script
-overrides the --sysroot behavior. To be honest (even though I'm not an expert in
-binutils), I think this is right behavior. I don't know why this works with the
-previous binutils...
+There is in sudo - recipe this line:  chmod 411 ${D}${bindir}/sudo
 
-Thanks,
-Laurentiu
+And the sudo - binary in sudo/1.8.6p7-r2/image/usr/bin has the right modes =
+for binary, but when it gets installed to actual image the suid - bit is lo=
+st.
 
-> [lizj@suika x86-64-yocto-1.3]$ ls fake_rootfs/usr/lib/
-> libc.so
-> [lizj@suika x86-64-yocto-1.3]$ $CC -o test test.c -L ./fake_rootfs/usr/lib/
-> test.c: In function 'main':
-> test.c:3:9: warning: incompatible implicit declaration of built-in function 'printf' [enabled by default]
-> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: skipping incompatible /lib/libc.so.6 when searching for /lib/libc.so.6
-> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: cannot find /lib/libc.so.6
-> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: skipping incompatible /usr/lib/libc_nonshared.a when searching for /usr/lib/libc_nonshared.a
-> /yocto/fnst/lizj/build_yocto/x86-64-yocto-1.3/toolchain-1.3-tcmode-default/sysroots/x86_64-pokysdk-linux/usr/bin/x86_64-poky-linux/../../libexec/x86_64-poky-linux/gcc/x86_64-poky-linux/4.7.2/ld: cannot find /usr/lib/libc_nonshared.a
-> collect2: error: ld returned 1 exit status
-> -------------------------------------------------------------------------
-> 
-> It seems that ld don‘t  really reasonable to do like that，which binutils-2.22 can handle correctly
-> Does poky mind this behavior
-> 
-> 
-> 以上
-> 
-> -- 
-> Best regards.
-> Li Zhijian
-> 
-> 
-> 
-> at 2013-9-20 19:00, Laurentiu Palcu wrote:
-> >Hi,
-> >
-> >On Fri, Sep 20, 2013 at 06:25:19PM +0800, Li Zhijian wrote:
-> >>>>>>>III） compile a simple C program
-> >>>>>>># cat test.c
-> >>>>>>>int main ()
-> >>>>>>>{
-> >>>>>>>printf("hello world\n");
-> >>>>>>>return 0;
-> >>>>>>>}
-> >>>>>>># source toolchain-1.3-tcmode-default/environment-setup-x86_64-poky-linux
-> >>>>>>># $CC -o test test.c -L tmp/sysroots/qemux86-64/usr/lib/ -lm
-> >OK, it looks like something strange happens in your setup.
-> >
-> >To debug it, let's add '-Wl,--verbose' at the end of your command and you
-> >should be able to see where the linker is looking for libraries. Also,
-> >the linker script will be printed.
-> >
-> >You should see it try your directory first
-> >tmp/sysroots/qemux86-64/usr/lib/, and then fall through the default ones
-> >with the sysroot prefix added and, at the end, the system ones:
-> >/lib:/usr/lib.
-> >
-> >Thanks,
-> >Laurentiu
-> >
-> >
-> 
-> 
-> 
+Any idea how to fix that? Since the sudo is part of the poky I would though=
+t it would work without too much of a hassle.
 
+Teemu Keskinarkaus
+
+
+
+________________________________
+
+Actuant Corporation Email Notice
+
+This message is intended only for the use of the Addressee and may contain =
+information that is PRIVILEGED and/or CONFIDENTIAL.
+This email is intended only for the personal and confidential use of the re=
+cipient(s) named above. If the reader of this email is not an intended reci=
+pient, you have received this email in error and any review, dissemination,=
+ distribution or copying is strictly prohibited.
+If you have received this email in error, please notify the sender immediat=
+ely by return mail and permanently delete the copy you received.
+
+Thank you.
+
+--_000_83DB4EC8FADD45428E3CC4E3664761FD09AAA0F4AMDTCEX12actuan_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style>
+<!--
+@font-face
+	{font-family:Calibri}
+@font-face
+	{font-family:"Century Gothic"}
+@font-face
+	{font-family:Georgia}
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif"}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline}
+span.EmailStyle17
+	{font-family:"Calibri","sans-serif";
+	color:windowtext}
+.MsoChpDefault
+	{font-family:"Calibri","sans-serif"}
+@page WordSection1
+	{margin:70.85pt 2.0cm 70.85pt 2.0cm}
+div.WordSection1
+	{}
+-->
+</style>
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi,</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">I&#8217;m trying to get sudo &#8211; binary working =
+in Yocto/Poky &#8211; based project. The binary is already on image, but fo=
+r some reason it lacks the suid &#8211; bit and thus does not work. If I ad=
+d the suid &#8211; bit with root user the sudo starts working as
+ expected.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">There is in sudo &#8211; recipe this line:&nbsp; chm=
+od 411 ${D}${bindir}/sudo</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">And the sudo &#8211; binary in sudo/1.8.6p7-r2/image=
+/usr/bin has the right modes for binary, but when it gets installed to actu=
+al image the suid &#8211; bit is lost.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">Any idea how to fix that? Since the sudo is part of =
+the poky I would thought it would work without too much of a hassle.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal" style=3D"line-height:9.0pt"><b><span style=3D"font-s=
+ize:10.0pt; font-family:&quot;Century Gothic&quot;,&quot;sans-serif&quot;">=
+Teemu Keskinarkaus<br>
+<br>
+</span></b></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+</div>
+<br>
+<hr>
+<font face=3D"Arial" color=3D"Black" size=3D"1"><br>
+Actuant Corporation Email Notice<br>
+<br>
+This message is intended only for the use of the Addressee and may contain =
+information that is PRIVILEGED and/or CONFIDENTIAL.<br>
+This email is intended only for the personal and confidential use of the re=
+cipient(s) named above. If the reader of this email is not an intended reci=
+pient, you have received this email in error and any review, dissemination,=
+ distribution or copying is strictly
+ prohibited.<br>
+If you have received this email in error, please notify the sender immediat=
+ely by return mail and permanently delete the copy you received.<br>
+<br>
+Thank you.<br>
+</font>
+</body>
+</html>
+
+--_000_83DB4EC8FADD45428E3CC4E3664761FD09AAA0F4AMDTCEX12actuan_--
