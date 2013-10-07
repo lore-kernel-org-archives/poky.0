@@ -1,19 +1,19 @@
 Return-Path: <cristiana.voicu@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8DDE3E016BE
-	for <poky@yoctoproject.org>; Mon,  7 Oct 2013 06:14:18 -0700 (PDT)
-Received: from azsmga002.ch.intel.com ([10.2.17.35])
-	by azsmga102.ch.intel.com with ESMTP; 07 Oct 2013 06:14:17 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88898E016BE
+	for <poky@yoctoproject.org>; Mon,  7 Oct 2013 06:36:54 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 07 Oct 2013 06:33:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.90,1050,1371106800"; d="scan'208";a="304191310"
+X-IronPort-AV: E=Sophos;i="4.90,1050,1371106800"; d="scan'208";a="415173539"
 Received: from cvoicu-vostro-460.rb.intel.com ([10.237.105.65])
-	by AZSMGA002.ch.intel.com with ESMTP; 07 Oct 2013 06:14:16 -0700
+	by orsmga002.jf.intel.com with ESMTP; 07 Oct 2013 06:36:42 -0700
 From: Cristiana Voicu <cristiana.voicu@intel.com>
 To: poky@yoctoproject.org
-Date: Mon,  7 Oct 2013 16:18:48 +0300
-Message-Id: <1381151928-15956-1-git-send-email-cristiana.voicu@intel.com>
+Date: Mon,  7 Oct 2013 16:41:13 +0300
+Message-Id: <1381153273-16725-1-git-send-email-cristiana.voicu@intel.com>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [PATCH] maintainers.inc: remove obsolete recipes
+Subject: [PATCH_V2] maintainers.inc: remove obsolete recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,19 +26,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Oct 2013 13:14:21 -0000
+X-List-Received-Date: Mon, 07 Oct 2013 13:36:54 -0000
 
-This patch removes some references on imake and xorg-cf-files
-from maintainers, distro_alias, recipe_color and seperatebuilddir
-files. Imake and the the associated xorg-cf-files were removed.
+This patch removes some references on imake, xorg-cf-files and transfig
+from maintainers, distro_alias, recipe_color, package_regex and seperatebuilddir
+files. Transfig, imake and the associated xorg-cf-files were removed.
 
 Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
 ---
- meta-yocto/conf/distro/include/distro_alias.inc |    2 --
- meta-yocto/conf/distro/include/maintainers.inc  |    2 --
- meta-yocto/conf/distro/include/recipe_color.inc |    1 -
- meta/conf/distro/include/seperatebuilddir.inc   |    4 ----
- 4 files changed, 9 deletions(-)
+ meta-yocto/conf/distro/include/distro_alias.inc  |    2 --
+ meta-yocto/conf/distro/include/maintainers.inc   |    3 ---
+ meta-yocto/conf/distro/include/package_regex.inc |    2 --
+ meta-yocto/conf/distro/include/recipe_color.inc  |    2 --
+ meta/conf/distro/include/seperatebuilddir.inc    |    4 ----
+ 5 files changed, 13 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
 index 731380f..d27f3f2 100644
@@ -61,7 +62,7 @@ index 731380f..d27f3f2 100644
  DISTRO_PN_ALIAS_pn-xprop = "Meego=xorg-x11-utils-xprop Fedora=xorg-x11-utils Ubuntu=x11-utils"
  DISTRO_PN_ALIAS_pn-xproto = "Meego=xorg-x11-proto-xproto Fedora=xorg-x11-proto-devel Ubuntu=x11proto-core-dev Debian=x11proto-core-dev Opensuse=xorg-x11-proto-devel Mandriva=x11-proto-devel"
 diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 9aefca8..e1eb6e9 100644
+index 9aefca8..b6de775 100644
 --- a/meta-yocto/conf/distro/include/maintainers.inc
 +++ b/meta-yocto/conf/distro/include/maintainers.inc
 @@ -245,7 +245,6 @@ RECIPE_MAINTAINER_pn-hostap-utils = "Cristian Iorga <cristian.iorga@intel.com>"
@@ -72,7 +73,15 @@ index 9aefca8..e1eb6e9 100644
  RECIPE_MAINTAINER_pn-initramfs-boot = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-initramfs-framework = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-initramfs-live-boot = "Saul Wold <sgw@linux.intel.com>"
-@@ -719,7 +718,6 @@ RECIPE_MAINTAINER_pn-xinput-calibrator = "Laurentiu Palcu <laurentiu.palcu@intel
+@@ -645,7 +644,6 @@ RECIPE_MAINTAINER_pn-tiff = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-time = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-tiny-init = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-trace-cmd = "Darren Hart <dvhart@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-transfig = "Cristiana Voicu <cristiana.voicu@intel.com>"
+ RECIPE_MAINTAINER_pn-tremor = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-tslib = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-ttf-bitstream-vera = "Valentin Popa <valentin.popa@intel.com>"
+@@ -719,7 +717,6 @@ RECIPE_MAINTAINER_pn-xinput-calibrator = "Laurentiu Palcu <laurentiu.palcu@intel
  RECIPE_MAINTAINER_pn-xkbcomp = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
  RECIPE_MAINTAINER_pn-xkeyboard-config = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
  RECIPE_MAINTAINER_pn-xmodmap = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
@@ -80,8 +89,21 @@ index 9aefca8..e1eb6e9 100644
  RECIPE_MAINTAINER_pn-xorg-minimal-fonts = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
  RECIPE_MAINTAINER_pn-xprop = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
  RECIPE_MAINTAINER_pn-xproto = "Laurentiu Palcu <laurentiu.palcu@intel.com>"
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index 2f080dd..89cd366 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -259,8 +259,6 @@ REGEX_URI_pn-tiff = "ftp://ftp.remotesensing.org/pub/libtiff/"
+ REGEX_pn-tiff = "[hH][rR][eE][fF]=\"ftp://ftp.remotesensing.org:21/pub/libtiff/tiff-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-tiff-native = "ftp://ftp.remotesensing.org/pub/libtiff/"
+ REGEX_pn-tiff-native = "[hH][rR][eE][fF]=\"ftp://ftp.remotesensing.org:21/pub/libtiff/tiff-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-transfig-native = "http://sourceforge.net/projects/mcj/files/mcj-source/"
+-REGEX_pn-transfig-native = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/mcj/files/mcj-source/transfig.(?P<pver>((\d+[\.\-_]*)+[a-z]?)).tar.gz/download\""
+ REGEX_URI_pn-tslib = "http://sourceforge.net/projects/tslib.berlios/files/"
+ REGEX_pn-tslib = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/tslib.berlios/files/tslib\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.bz2/download\""
+ REGEX_URI_pn-tzdata = "ftp://ftp.iana.org/tz/releases/"
 diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
-index 70871f1..295f3dd 100644
+index 70871f1..6fd4966 100644
 --- a/meta-yocto/conf/distro/include/recipe_color.inc
 +++ b/meta-yocto/conf/distro/include/recipe_color.inc
 @@ -127,7 +127,6 @@ RECIPE_COLOR_pn-hostap-conf = "red"
@@ -92,6 +114,14 @@ index 70871f1..295f3dd 100644
  RECIPE_COLOR_pn-initramfs-boot = "yellow"
  RECIPE_COLOR_pn-initramfs-live-boot = "yellow"
  RECIPE_COLOR_pn-initramfs-live-install = "yellow"
+@@ -383,7 +382,6 @@ RECIPE_COLOR_pn-telepathy-gabble = "red"
+ RECIPE_COLOR_pn-tidy = "red"
+ RECIPE_COLOR_pn-time = "yellow"
+ RECIPE_COLOR_pn-tinylogin = "yellow"
+-RECIPE_COLOR_pn-transfig = "yellow"
+ RECIPE_COLOR_pn-trapproto = "yellow"
+ RECIPE_COLOR_pn-tslib = "yellow"
+ RECIPE_COLOR_pn-ttf-bitstream-vera = "yellow"
 diff --git a/meta/conf/distro/include/seperatebuilddir.inc b/meta/conf/distro/include/seperatebuilddir.inc
 index 8f2ebfa..c067183 100644
 --- a/meta/conf/distro/include/seperatebuilddir.inc
