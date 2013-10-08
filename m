@@ -1,33 +1,41 @@
-Return-Path: <mdavis@planetaryresources.com>
-Received: from smtp99.iad3a.emailsrvr.com (smtp99.iad3a.emailsrvr.com
-	[173.203.187.99])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36A1EE016C7
-	for <poky@yoctoproject.org>; Tue,  8 Oct 2013 09:55:53 -0700 (PDT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by smtp13.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
-	C36CF128070
-	for <poky@yoctoproject.org>; Tue,  8 Oct 2013 12:55:52 -0400 (EDT)
-X-Virus-Scanned: OK
-Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
-	[204.232.137.43])
-	by smtp13.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
-	A921E1280A8
-	for <poky@yoctoproject.org>; Tue,  8 Oct 2013 12:55:52 -0400 (EDT)
-Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
-	iad2hub12.mex02.mlsrvr.com ([172.23.10.76]) with mapi; Tue, 8 Oct 2013
-	12:55:52 -0400
-From: Michael Davis <mdavis@planetaryresources.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Tue, 8 Oct 2013 12:55:53 -0400
-Thread-Topic: Best supported package manager?
-Thread-Index: Ac7ERojKGR7j1xolS3OfvNtnE2RtKA==
-Message-ID: <7BDD69127112414F90CF3FED4711BF150D15A47B39@IAD2MBX05.mex02.mlsrvr.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <rstreif@linuxfoundation.org>
+Received: from mail-ee0-f49.google.com (mail-ee0-f49.google.com [74.125.83.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1E45EE016A3
+	for <poky@yoctoproject.org>; Tue,  8 Oct 2013 13:09:41 -0700 (PDT)
+Received: by mail-ee0-f49.google.com with SMTP id d41so4259504eek.36
+	for <poky@yoctoproject.org>; Tue, 08 Oct 2013 13:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	bh=5ZS0xtC/pPNJg6m7T1xrn8Lls4qpgmPEL1eYLOJ3LDg=;
+	b=F5bB2zIlKragNDxWbSRg3/w7k23jglTY8EwKjrzkZSFwpOGC9PMqvQVuJJityu3Za/
+	U7ffk/TEE/pypc3j11KkbeiivuOK4mazrMfAZ6yKmiPp00JrTFNhF0TSRACGdBQEvXxM
+	HDAL9tCkSpWP4M9RmMvz6N80BRcJDQEEaiGO0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=5ZS0xtC/pPNJg6m7T1xrn8Lls4qpgmPEL1eYLOJ3LDg=;
+	b=bhvl4LTkF4Akn8cZbXR2oMyq2xTt376z1vnQu5P8mHZQj3y+jj/tcdph2uQRVehiWo
+	CcfXqhxksec6y0lsvQxRiLyD5gMhE6aCq0SoqGSufCVmXzj6v5CnV/DbM2mTTaBvdVhU
+	RzjXIbjNCZHqcIErjpGVILne8sEZ6EhQFAYihToQmKD7g54auITPFFRQtvj+55VljiOz
+	NThtMvalFqoxzCexZQgwuMOtCdCCECHV7ny8n4bFmtCfjUBXYq4FbJfChj/Kl3wnUqVA
+	WkdA5JrxU8yDJdRjmU6CJX3F10p52ntsZ9Af5uF8ZyuV37E+eAhdXQ3p/GPTLgOE7LtO
+	/XPw==
+X-Gm-Message-State: ALoCoQkN4v+lSsnq5d2tEdXbM4iaXWUbOq+s7tWqpDT1TL9f41o6BbXxlKmSmLkW+oZLPqdWNPnO
 MIME-Version: 1.0
-Subject: Best supported package manager?
+X-Received: by 10.15.51.74 with SMTP id m50mr5171979eew.58.1381262979906; Tue,
+	08 Oct 2013 13:09:39 -0700 (PDT)
+Received: by 10.223.131.3 with HTTP; Tue, 8 Oct 2013 13:09:39 -0700 (PDT)
+In-Reply-To: <7BDD69127112414F90CF3FED4711BF150D15A47B39@IAD2MBX05.mex02.mlsrvr.com>
+References: <7BDD69127112414F90CF3FED4711BF150D15A47B39@IAD2MBX05.mex02.mlsrvr.com>
+Date: Tue, 8 Oct 2013 13:09:39 -0700
+Message-ID: <CA+gsK-qiBVcDiin3q0fSbGJRYScr4XRnv4BX7X9Nc2JyhuAN9A@mail.gmail.com>
+From: Rudolf Streif <rstreif@linuxfoundation.org>
+To: Michael Davis <mdavis@planetaryresources.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Best supported package manager?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,70 +48,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Oct 2013 16:55:54 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_7BDD69127112414F90CF3FED4711BF150D15A47B39IAD2MBX05mex0_"
+X-List-Received-Date: Tue, 08 Oct 2013 20:09:42 -0000
+Content-Type: multipart/alternative; boundary=001a1132f142426d8604e8405933
 
---_000_7BDD69127112414F90CF3FED4711BF150D15A47B39IAD2MBX05mex0_
-Content-Type: text/plain; charset="us-ascii"
+--001a1132f142426d8604e8405933
+Content-Type: text/plain; charset=ISO-8859-1
+
+> Which package manager (ipk, rpm, deb) is best supported currently in
+poky?  I am wondering which manager is the most tested and stable?
+
+RPM is the default package manager. I would expect that it has gotten the
+most mileage so far because of that. All of them are tested with
+autobuilder. IPK is probably the next commonly used one since popular for
+embedded systems for its leightweight and smaller footprint design. You can
+have YP build for any combination of the package managers at the same time.
+The builds just take longer. I recommend starting with RPM and when your
+system boots try out the other ones if you need to.
+
+Rudi
+
+--001a1132f142426d8604e8405933
+Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-Which package manager (ipk, rpm, deb) is best supported currently in poky? =
- I am wondering which manager is the most tested and stable?  I am building=
- for the Zynq ZX3.  Thanks
--Mike
+<div dir=3D"ltr"><br><div class=3D"gmail_extra">&gt;=A0<span style=3D"font-=
+family:arial,sans-serif;font-size:13.333333969116211px">Which package manag=
+er (ipk, rpm, deb) is best supported currently in poky?=A0 I am wondering w=
+hich manager is the most tested and stable?</span></div>
+<div class=3D"gmail_extra"><span style=3D"font-family:arial,sans-serif;font=
+-size:13.333333969116211px"><br></span></div><div class=3D"gmail_extra"><fo=
+nt face=3D"arial, sans-serif">RPM is the default package manager. I would e=
+xpect that it has gotten the most mileage so far because of that. All of th=
+em are tested with autobuilder. IPK is probably the next commonly used one =
+since popular for embedded systems for its leightweight and smaller footpri=
+nt design. You can have YP build for any combination of the package manager=
+s at the same time. The builds just take longer. I recommend starting with =
+RPM and when your system boots try out the other ones if you need to.</font=
+></div>
+<div class=3D"gmail_extra"><font face=3D"arial, sans-serif"><br></font></di=
+v><div class=3D"gmail_extra"><font face=3D"arial, sans-serif">Rudi</font></=
+div></div>
 
---_000_7BDD69127112414F90CF3FED4711BF150D15A47B39IAD2MBX05mex0_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
-=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
-oft Word 14 (filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri","sans-serif";}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
-nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>Which package ma=
-nager (ipk, rpm, deb) is best supported currently in poky?&nbsp; I am wonde=
-ring which manager is the most tested and stable?&nbsp; I am building for t=
-he Zynq ZX3.&nbsp; Thanks<o:p></o:p></p><p class=3DMsoNormal>-Mike<o:p></o:=
-p></p></div></body></html>=
-
---_000_7BDD69127112414F90CF3FED4711BF150D15A47B39IAD2MBX05mex0_--
+--001a1132f142426d8604e8405933--
