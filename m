@@ -1,33 +1,33 @@
-Return-Path: <kaishos@gmail.com>
-Received: from mail-we0-f176.google.com (mail-we0-f176.google.com
-	[74.125.82.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DE99E00718
-	for <poky@yoctoproject.org>; Wed,  9 Oct 2013 07:16:53 -0700 (PDT)
-Received: by mail-we0-f176.google.com with SMTP id w62so1010485wes.21
-	for <poky@yoctoproject.org>; Wed, 09 Oct 2013 07:16:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=DUM9t0dgQYm41i590ZbJwpM4Hq564ouqmPiuROALOXs=;
-	b=ybCn9ty2ZUbcoOsvs/GebMNQxDo7j2q9i2f0uRu+LGyRHali3tr/LqmuKYPdGMkWRf
-	nNICpMAOsXt4w1wUB1kGhA3bBDZZmCNVtt5KhansE8RTvVTCFDWs4Pt5SE8vLByos1mS
-	1OK7dQWaeGPyPHfxKTMzP50Y8apWcx1lVXW3yzZoNurvpVkZg3/nMx4u8zvLgeGvT2oy
-	WThTeNh0M8l0dmYLNDywV7vadF3QFl1lk0atWmCGmZnv13EqhoULUimva+2D/WUhG1rR
-	h4ERzC4GXA59oWd0MsAddSLyA8UHBYPebC0sqHJCufvo9/j/ySmfZXZuYXFo9e35u3TV
-	kv3Q==
+Return-Path: <mdavis@planetaryresources.com>
+Received: from smtp91.iad3a.emailsrvr.com (smtp91.iad3a.emailsrvr.com
+	[173.203.187.91])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 74174E011C5
+	for <poky@yoctoproject.org>; Wed,  9 Oct 2013 13:20:46 -0700 (PDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp12.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
+	0D979F0132
+	for <poky@yoctoproject.org>; Wed,  9 Oct 2013 16:20:46 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
+	[204.232.137.43])
+	by smtp12.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
+	EE888F0118
+	for <poky@yoctoproject.org>; Wed,  9 Oct 2013 16:20:45 -0400 (EDT)
+Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
+	iad2hub12.mex02.mlsrvr.com ([172.23.10.76]) with mapi; Wed, 9 Oct 2013
+	16:20:45 -0400
+From: Michael Davis <mdavis@planetaryresources.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Wed, 9 Oct 2013 16:20:46 -0400
+Thread-Topic: Zeromq recipe
+Thread-Index: Ac7FK/3QKyhZZ4LFRr2dpNOdYIu4Dg==
+Message-ID: <7BDD69127112414F90CF3FED4711BF150D15A47D1C@IAD2MBX05.mex02.mlsrvr.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-X-Received: by 10.181.12.75 with SMTP id eo11mr3017255wid.24.1381328212966;
-	Wed, 09 Oct 2013 07:16:52 -0700 (PDT)
-Received: by 10.217.11.9 with HTTP; Wed, 9 Oct 2013 07:16:52 -0700 (PDT)
-In-Reply-To: <CA+gsK-pLwneEFPazPxZCpS0oHgbL++hFrurt3hVDNNb4bZLmOw@mail.gmail.com>
-References: <CAJfvnsA2GJ62JiUMhh7v1NLa+_VXjx0gBL+Fv3SCGk=1rK6hWQ@mail.gmail.com>
-	<CA+gsK-pLwneEFPazPxZCpS0oHgbL++hFrurt3hVDNNb4bZLmOw@mail.gmail.com>
-Date: Wed, 9 Oct 2013 16:16:52 +0200
-Message-ID: <CAJfvnsAgNnT4vLXoPLbW2b4BdeRv++oB69Wb3B7Nmi3o=WSQhA@mail.gmail.com>
-From: Pablo <kaishos@gmail.com>
-To: Rudolf Streif <rstreif@linuxfoundation.org>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Build failure for 0001-Add-linux-support-for-congatec-evaluation-board-qmx6q.patch
+Subject: Zeromq recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,57 +40,98 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Oct 2013 14:16:54 -0000
-Content-Type: multipart/alternative; boundary=f46d043c7c5673d09704e84f891e
+X-List-Received-Date: Wed, 09 Oct 2013 20:20:48 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_7BDD69127112414F90CF3FED4711BF150D15A47D1CIAD2MBX05mex0_"
 
---f46d043c7c5673d09704e84f891e
-Content-Type: text/plain; charset=ISO-8859-1
-
-Ok, then I know, I will then take a look at this with congatec and see if
-they have any instructions.
-
-Thanks for the quick answer.
-
-
-/Pablo
-
-
-On Wed, Oct 9, 2013 at 4:02 PM, Rudolf Streif
-<rstreif@linuxfoundation.org>wrote:
-
-> Hi Pablo,
->
-> Your error message has nothing to do with the Yocto Project build system.
-> The patch that you are trying to apply to the kernel source does not apply
-> to that source revision. To fix it you will have to match the patch with
-> the right kernel version.
->
-> :rjs
->
->
->
-
---f46d043c7c5673d09704e84f891e
-Content-Type: text/html; charset=ISO-8859-1
+--_000_7BDD69127112414F90CF3FED4711BF150D15A47D1CIAD2MBX05mex0_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Ok, then I know, I will then take a look at this with cong=
-atec and see if they have any instructions.<br><br>Thanks for the quick ans=
-wer.<br></div><div class=3D"gmail_extra"><br clear=3D"all"><div><br>/Pablo<=
-br>
-</div>
-<br><br><div class=3D"gmail_quote">On Wed, Oct 9, 2013 at 4:02 PM, Rudolf S=
-treif <span dir=3D"ltr">&lt;<a href=3D"mailto:rstreif@linuxfoundation.org" =
-target=3D"_blank">rstreif@linuxfoundation.org</a>&gt;</span> wrote:<br><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #c=
-cc solid;padding-left:1ex">
-<div dir=3D"ltr">Hi Pablo,<div><br></div><div>Your error message has nothin=
-g to do with the Yocto Project build system. The patch that you are trying =
-to apply to the kernel source does not apply to that source revision. To fi=
-x it you will have to match the patch with the right kernel version.</div>
+Hi there,  I would like to cross-compile zeromq-3.2.3 source (http://downlo=
+ad.zeromq.org/) into my poky build for zynq zx3.  I figured that the best w=
+ay would be to create a new layer with a bb recipe that can find the source=
+.  I am trying to use something like this recipe: https://github.com/openem=
+bedded/openembedded/blob/b8e90091aca8777092aa410fbfbb5c5d8cc7cbcb/recipes/z=
+eromq/zeromq_2.1.6.bb
 
-<div><br></div><div>:rjs</div><div class=3D"gmail_extra"><br><br>
-</div></div>
-</blockquote></div><br></div>
+I've created a new layer with a .bb file like this and a simple layer.conf =
+to find it.  I've also added the layer to bblayers.conf.  Poky doesn't seem=
+ to want to build the source though.  It recognizes the layer and parses th=
+e bb file but never builds the package or integrates it to my ramdisk image=
+.  This is my first try at making a bb recipe, so perhaps I am just missing=
+ something important.  Should I be specifying compile and install steps oth=
+er than the default steps?  Any info on creating layers and recipes would b=
+e greatly appreciated.  Thank you!
 
---f46d043c7c5673d09704e84f891e--
+-Mike
+
+--_000_7BDD69127112414F90CF3FED4711BF150D15A47D1CIAD2MBX05mex0_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
+=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
+oft Word 14 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
+nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>Hi there,&nbsp; =
+I would like to cross-compile zeromq-3.2.3 source (<a href=3D"http://downlo=
+ad.zeromq.org/">http://download.zeromq.org/</a>) into my poky build for zyn=
+q zx3.&nbsp; I figured that the best way would be to create a new layer wit=
+h a bb recipe that can find the source.&nbsp; I am trying to use something =
+like this recipe: <a href=3D"https://github.com/openembedded/openembedded/b=
+lob/b8e90091aca8777092aa410fbfbb5c5d8cc7cbcb/recipes/zeromq/zeromq_2.1.6.bb=
+">https://github.com/openembedded/openembedded/blob/b8e90091aca8777092aa410=
+fbfbb5c5d8cc7cbcb/recipes/zeromq/zeromq_2.1.6.bb</a><o:p></o:p></p><p class=
+=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I&#8217;ve created a=
+ new layer with a .bb file like this and a simple layer.conf to find it.&nb=
+sp; I&#8217;ve also added the layer to bblayers.conf.&nbsp; Poky doesn&#821=
+7;t seem to want to build the source though.&nbsp; It recognizes the layer =
+and parses the bb file but never builds the package or integrates it to my =
+ramdisk image.&nbsp; This is my first try at making a bb recipe, so perhaps=
+ I am just missing something important.&nbsp; Should I be specifying compil=
+e and install steps other than the default steps?&nbsp; Any info on creatin=
+g layers and recipes would be greatly appreciated.&nbsp; Thank you!<o:p></o=
+:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>-Mike=
+<o:p></o:p></p></div></body></html>=
+
+--_000_7BDD69127112414F90CF3FED4711BF150D15A47D1CIAD2MBX05mex0_--
