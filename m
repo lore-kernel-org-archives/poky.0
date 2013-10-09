@@ -1,27 +1,42 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EC1D9E016C5
-	for <poky@yoctoproject.org>; Tue,  8 Oct 2013 14:04:17 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id 39D46F811E4; Tue,  8 Oct 2013 15:04:16 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id CADF4F811E0;
-	Tue,  8 Oct 2013 15:04:14 -0600 (MDT)
-Message-ID: <52547357.7080503@mlbassoc.com>
-Date: Tue, 08 Oct 2013 15:04:23 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.0
+Return-Path: <rstreif@linuxfoundation.org>
+Received: from mail-ee0-f51.google.com (mail-ee0-f51.google.com [74.125.83.51])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23BB2E016A7
+	for <poky@yoctoproject.org>; Tue,  8 Oct 2013 18:59:36 -0700 (PDT)
+Received: by mail-ee0-f51.google.com with SMTP id c1so52839eek.38
+	for <poky@yoctoproject.org>; Tue, 08 Oct 2013 18:59:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	bh=r03NvT4Vas+rhPz5jOQSxdKaGjuaNEGqhXaEWGIyq0Y=;
+	b=BCg1BHDqyysQkUwQvEXTNOi3BkPvMJTz8pQ30M3Yv3VPE+cZjAI+3QvLjkHQcPFTNF
+	mVY7ZXFFzUHfLRU9wQUlYvpyFid3M9Nke79XFoc8pdBNbjVvd1Ms2qb8lTnzD02Mxksd
+	AQc3u4b+aWndLsdLwRS/SNCq/Tf8h06BcJL6U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=r03NvT4Vas+rhPz5jOQSxdKaGjuaNEGqhXaEWGIyq0Y=;
+	b=jRDRbdCzcxGHFRnp0SLgT8nHo0Wf+DwYxoxRhmjKCgi/r7WnoFKFwLB6hXrqJHmkJ5
+	ALXJ8zLCPkmGJOWHWcDDX1zNydHdJhhTwG2jyrf4iH7Y8qULXLfKgJ7kNGSa2+YRqhuk
+	CgXMGmPeBCSA6srtjgrsKT/UwxoO4G67rEXcs2B5b2af3ar5UJXsJQbUIdJNT5zyE7yG
+	byMqunmNRu4jeuZ7DpLq/ox2Rz5hnzAALu0g9FvPiIayE7y27YtJyZU0iVvgZSw9m8uh
+	rBcmdiF8MTUMQOojR+qASZteuHm0ZNLlYOTlC5TcuewiKEf96aWWhzlLWN2Qoa8E0kAx
+	nVdw==
+X-Gm-Message-State: ALoCoQms24Z4MAIvf7IbGQ/Bls7jFr0ipxgL15gkSVtKu/Src2tb12jgBcWLpLM1lEjJ+WPxcfLH
 MIME-Version: 1.0
-To: poky@yoctoproject.org
+X-Received: by 10.14.8.72 with SMTP id 48mr7205225eeq.25.1381283974999; Tue,
+	08 Oct 2013 18:59:34 -0700 (PDT)
+Received: by 10.223.131.3 with HTTP; Tue, 8 Oct 2013 18:59:34 -0700 (PDT)
+In-Reply-To: <7BDD69127112414F90CF3FED4711BF150D15A47BC5@IAD2MBX05.mex02.mlsrvr.com>
 References: <7BDD69127112414F90CF3FED4711BF150D15A47B39@IAD2MBX05.mex02.mlsrvr.com>
 	<CA+gsK-qiBVcDiin3q0fSbGJRYScr4XRnv4BX7X9Nc2JyhuAN9A@mail.gmail.com>
-In-Reply-To: <CA+gsK-qiBVcDiin3q0fSbGJRYScr4XRnv4BX7X9Nc2JyhuAN9A@mail.gmail.com>
+	<7BDD69127112414F90CF3FED4711BF150D15A47BC5@IAD2MBX05.mex02.mlsrvr.com>
+Date: Tue, 8 Oct 2013 18:59:34 -0700
+Message-ID: <CA+gsK-qX_ByA++AGSZ2kS7+HbT0TS1HpqSn=jN+wh_SamzYg9A@mail.gmail.com>
+From: Rudolf Streif <rstreif@linuxfoundation.org>
+To: Michael Davis <mdavis@planetaryresources.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Best supported package manager?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -35,32 +50,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Oct 2013 21:04:22 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 09 Oct 2013 01:59:37 -0000
+Content-Type: multipart/alternative; boundary=001a11c1b974a9ff1604e8453cd2
 
-On 2013-10-08 14:09, Rudolf Streif wrote:
->
->>Which package manager (ipk, rpm, deb) is best supported currently in poky?  I am wondering which manager is the most tested and stable?
->
-> RPM is the default package manager. I would expect that it has gotten the most mileage so far because of that. All of them are tested with autobuilder. IPK is probably the next
-> commonly used one since popular for embedded systems for its leightweight and smaller footprint design. You can have YP build for any combination of the package managers at the
-> same time. The builds just take longer. I recommend starting with RPM and when your system boots try out the other ones if you need to.
+--001a11c1b974a9ff1604e8453cd2
+Content-Type: text/plain; charset=ISO-8859-1
 
-Actually, the package manager is a distribution choice and while
-Poky might use RPM, many others use IPK.  Of course this is just
-the default and depending on your distribution you may be able
-to override that choice.
+If you set
 
-Each style of packaging has it's pros and cons (see the mailing
-list archives) but for embedded systems IPK is a winner due to its
-much lighter footprint (at least that's my experience).  Also note
-that Poky (and OE in general) used IPK for much longer than they
-have been using RPM which has only been in the past couple of years :-)
+PACKAGE_CLASSES ?= "package_rpm"
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+that means that it will build RPM packages and will use them to build the
+root file system.
 
+If you set something like
+
+PACKAGE_CLASSES ?= "package_rpm package_ipk"
+
+it will build RPM and IPK packages and it will use RPM packages to build
+the root file system. The first item listed in PACKAGE_CLASSES will be used
+to build the root file system. If you want IPK to be used instead to build
+your root file system:
+
+PACKAGE_CLASSES ?= "package_ipk package_rpm"
+
+Just setting PACKAGE_CLASSES does not include the package management system
+into your root file system. You will have to add it via the
+package-management feature:
+
+EXTRA_IMAGE_FEATURES += "package-management"
+
+:rjs
+
+--001a11c1b974a9ff1604e8453cd2
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">If you set=A0<div><br></div><div><div>PACKAGE_CLASSES ?=3D=
+ &quot;package_rpm&quot;</div></div><div><br></div><div>that means that it =
+will build RPM packages and will use them to build the root file system.</d=
+iv>
+<div><br></div><div>If you set something like=A0</div><div><br></div><div><=
+div>PACKAGE_CLASSES ?=3D &quot;package_rpm package_ipk&quot;</div></div><di=
+v><br></div><div>it will build RPM and IPK packages and it will use RPM pac=
+kages to build the root file system. The first item listed in PACKAGE_CLASS=
+ES will be used to build the root file system. If you want IPK to be used i=
+nstead to build your root file system:</div>
+<div><br></div><div>PACKAGE_CLASSES ?=3D &quot;package_ipk package_rpm&quot=
+;<br></div><div><br></div><div>Just setting PACKAGE_CLASSES does not includ=
+e the package management system into your root file system. You will have t=
+o add it via the package-management feature:</div>
+<div><br></div><div>EXTRA_IMAGE_FEATURES +=3D &quot;package-management&quot=
+;</div><div><br></div><div>:rjs</div><div><br></div><div class=3D"gmail_ext=
+ra"><br>
+</div></div>
+
+--001a11c1b974a9ff1604e8453cd2--
