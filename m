@@ -1,27 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
-Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6F974E015BA
-	for <poky@yoctoproject.org>; Wed,  9 Oct 2013 15:15:47 -0700 (PDT)
-Received: by mail.chez-thomas.org (Postfix, from userid 1998)
-	id C5DCFF811FE; Wed,  9 Oct 2013 16:15:45 -0600 (MDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	hermes.chez-thomas.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=unavailable version=3.3.2
-Received: from [192.168.1.114] (zeus [192.168.1.114])
-	by mail.chez-thomas.org (Postfix) with ESMTP id A2A93F811EA;
-	Wed,  9 Oct 2013 16:15:42 -0600 (MDT)
-Message-ID: <5255D598.7040007@mlbassoc.com>
-Date: Wed, 09 Oct 2013 16:15:52 -0600
-From: Gary Thomas <gary@mlbassoc.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.0
+Return-Path: <mdavis@planetaryresources.com>
+Received: from smtp75.iad3a.emailsrvr.com (smtp75.iad3a.emailsrvr.com
+	[173.203.187.75])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 62C7DE01652
+	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 15:06:53 -0700 (PDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp2.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
+	E59DB3019D
+	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 18:06:52 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
+	[204.232.137.43])
+	by smtp2.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
+	D4A4730188
+	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 18:06:52 -0400 (EDT)
+Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
+	IAD2HUB02.mex02.mlsrvr.com ([172.23.10.66]) with mapi; Thu, 10 Oct 2013
+	18:06:52 -0400
+From: Michael Davis <mdavis@planetaryresources.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Thu, 10 Oct 2013 18:06:52 -0400
+Thread-Topic: Add single user
+Thread-Index: Ac7GA8ZinVFmb61ISUWPZDDEdSKlMw==
+Message-ID: <7BDD69127112414F90CF3FED4711BF150D15A47EB5@IAD2MBX05.mex02.mlsrvr.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-References: <7BDD69127112414F90CF3FED4711BF150D15A47D1C@IAD2MBX05.mex02.mlsrvr.com>
-In-Reply-To: <7BDD69127112414F90CF3FED4711BF150D15A47D1C@IAD2MBX05.mex02.mlsrvr.com>
-Subject: Re: Zeromq recipe
+Subject: Add single user
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,52 +40,128 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Oct 2013 22:15:48 -0000
-X-Groupsio-MsgNum: 9256
-Content-Type: multipart/mixed; boundary="------------000809070705030507080809"
+X-List-Received-Date: Thu, 10 Oct 2013 22:06:55 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_"
 
---------------000809070705030507080809
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 2013-10-09 14:20, Michael Davis wrote:
-> Hi there,  I would like to cross-compile zeromq-3.2.3 source (http://download.zeromq.org/) into my poky build for zynq zx3.  I figured that the best way would be to create a new
-> layer with a bb recipe that can find the source.  I am trying to use something like this recipe:
-> https://github.com/openembedded/openembedded/blob/b8e90091aca8777092aa410fbfbb5c5d8cc7cbcb/recipes/zeromq/zeromq_2.1.6.bb
->
-> I’ve created a new layer with a .bb file like this and a simple layer.conf to find it.  I’ve also added the layer to bblayers.conf.  Poky doesn’t seem to want to build the source
-> though.  It recognizes the layer and parses the bb file but never builds the package or integrates it to my ramdisk image.  This is my first try at making a bb recipe, so perhaps I
-> am just missing something important.  Should I be specifying compile and install steps other than the default steps?  Any info on creating layers and recipes would be greatly
-> appreciated.  Thank you!
+I am attempting to add a single user to my poky build.  I am trying to foll=
+ow the useradd-example.bb layout but I cannot get bitbake to like it.  My b=
+b file looks like so:
 
-I'm not sure why your recipe doesn't work, but the attached
-one builds fine (a slightly older package rev).  You might try it.
+SUMMARY =3D "Add a user"
+DESCRIPTION =3D "This recipe will add a new user"
 
--- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+PR =3D "r0"
+LICENSE =3D "MIT"
+LIC_FILES_CHKSUM =3D "file://${COREBASE}/LICENSE;md5=3D3f40d7994397109285ec=
+7b81fdeb3b58"
 
---------------000809070705030507080809
-Content-Type: text/plain; charset=UTF-8;
- name="zeromq_3.2.0.bb"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="zeromq_3.2.0.bb"
+S =3D "${WORKDIR}"
 
-DESCRIPTION = "Zeromq - The Intelligent Transport Layer"
-LICENSE = "GPLv3 | LGPLv3"
-LIC_FILES_CHKSUM = " \
-		 file://COPYING;md5=f7b40df666d41e6508d03e1c207d498f \
-		 file://COPYING.LESSER;md5=8edeb3c8f93fd8487fefa07fcb5567d3 \
-"
+inherit useradd
 
-SRC_URI = "http://download.zeromq.org/zeromq-${PV}-rc1.tar.gz"
-SRC_URI[md5sum] = "e700b4d447ca6c159ae5c12e357f7d72"
-SRC_URI[sha256sum] = "6418523f281f618b9da677b8b640c158049a4f7e6f9f391909101b242e4cc991"
+USERADD_PACKAGES =3D "${PN}"
 
-inherit autotools gettext
+USERADD_PARAM_${PN} =3D "--disabled-password hal"
 
 
---------------000809070705030507080809--
+do_install () {
+
+           chown -R hal ${D}${datadir}/hal
+}
+
+FILES_${PN} =3D "${datadir}/hal/*"
+
+I have the useradd package specified as a dependency for a package group wh=
+ich I am installing for my image.  When I bake, it attempts do_rootfs but f=
+ails and spits out a huge log after which it simple states that it couldn't=
+ satisfy dependencies for my package group and and points the the useradd p=
+ackage.  Is there any obvious reason why such a simple recipe like this wou=
+ld not work?  Thanks
+
+-Mike
+
+--_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
+=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
+oft Word 14 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
+nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>I am attempting =
+to add a single user to my poky build.&nbsp; I am trying to follow the user=
+add-example.bb layout but I cannot get bitbake to like it.&nbsp; My bb file=
+ looks like so:<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>SUMMARY =3D &quot;Add a user&quot;<o:p></o:p></p><p class=
+=3DMsoNormal>DESCRIPTION =3D &quot;This recipe will add a new user&quot;<o:=
+p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>=
+PR =3D &quot;r0&quot;<o:p></o:p></p><p class=3DMsoNormal>LICENSE =3D &quot;=
+MIT&quot;<o:p></o:p></p><p class=3DMsoNormal>LIC_FILES_CHKSUM =3D &quot;fil=
+e://${COREBASE}/LICENSE;md5=3D3f40d7994397109285ec7b81fdeb3b58&quot;<o:p></=
+o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>S =
+=3D &quot;${WORKDIR}&quot;<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</=
+o:p></p><p class=3DMsoNormal>inherit useradd<o:p></o:p></p><p class=3DMsoNo=
+rmal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>USERADD_PACKAGES =3D &quot;$=
+{PN}&quot;<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=
+=3DMsoNormal>USERADD_PARAM_${PN} =3D &quot;--disabled-password hal&quot;<o:=
+p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>=
+<o:p>&nbsp;</o:p></p><p class=3DMsoNormal>do_install () {<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chown -R hal ${D}${datadir}/h=
+al<o:p></o:p></p><p class=3DMsoNormal> }<o:p></o:p></p><p class=3DMsoNormal=
+><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>FILES_${PN} =3D &quot;${datadir}=
+/hal/*&quot;<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p cla=
+ss=3DMsoNormal>I have the useradd package specified as a dependency for a p=
+ackage group which I am installing for my image.&nbsp; When I bake, it atte=
+mpts do_rootfs but fails and spits out a huge log after which it simple sta=
+tes that it couldn&#8217;t satisfy dependencies for my package group and an=
+d points the the useradd package.&nbsp; Is there any obvious reason why suc=
+h a simple recipe like this would not work?&nbsp; Thanks<o:p></o:p></p><p c=
+lass=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>-Mike<o:p></o:p>=
+</p></div></body></html>=
+
+--_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_--
