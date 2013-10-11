@@ -1,33 +1,26 @@
-Return-Path: <mdavis@planetaryresources.com>
-Received: from smtp75.iad3a.emailsrvr.com (smtp75.iad3a.emailsrvr.com
-	[173.203.187.75])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 62C7DE01652
-	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 15:06:53 -0700 (PDT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by smtp2.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
-	E59DB3019D
-	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 18:06:52 -0400 (EDT)
-X-Virus-Scanned: OK
-Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
-	[204.232.137.43])
-	by smtp2.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
-	D4A4730188
-	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 18:06:52 -0400 (EDT)
-Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
-	IAD2HUB02.mex02.mlsrvr.com ([172.23.10.66]) with mapi; Thu, 10 Oct 2013
-	18:06:52 -0400
-From: Michael Davis <mdavis@planetaryresources.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Thu, 10 Oct 2013 18:06:52 -0400
-Thread-Topic: Add single user
-Thread-Index: Ac7GA8ZinVFmb61ISUWPZDDEdSKlMw==
-Message-ID: <7BDD69127112414F90CF3FED4711BF150D15A47EB5@IAD2MBX05.mex02.mlsrvr.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+Return-Path: <Qi.Chen@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 37BE8E01653
+	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 20:06:52 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id r9B36pim022869
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 10 Oct 2013 20:06:51 -0700 (PDT)
+Received: from [128.224.162.213] (128.224.162.213) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.2.347.0;
+	Thu, 10 Oct 2013 20:06:51 -0700
+Message-ID: <52576B65.3080704@windriver.com>
+Date: Fri, 11 Oct 2013 11:07:17 +0800
+From: ChenQi <Qi.Chen@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130804 Thunderbird/17.0.8
 MIME-Version: 1.0
-Subject: Add single user
+To: <poky@yoctoproject.org>
+References: <7BDD69127112414F90CF3FED4711BF150D15A47EB5@IAD2MBX05.mex02.mlsrvr.com>
+In-Reply-To: <7BDD69127112414F90CF3FED4711BF150D15A47EB5@IAD2MBX05.mex02.mlsrvr.com>
+X-Originating-IP: [128.224.162.213]
+Subject: Re: Add single user
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,62 +33,97 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Oct 2013 22:06:55 -0000
-Content-Language: en-US
+X-List-Received-Date: Fri, 11 Oct 2013 03:06:53 -0000
 Content-Type: multipart/alternative;
-	boundary="_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_"
+	boundary="------------040103070801010304050107"
 
---_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--------------040103070801010304050107
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I am attempting to add a single user to my poky build.  I am trying to foll=
-ow the useradd-example.bb layout but I cannot get bitbake to like it.  My b=
-b file looks like so:
+On 10/11/2013 06:06 AM, Michael Davis wrote:
+>
+> I am attempting to add a single user to my poky build.  I am trying to 
+> follow the useradd-example.bb layout but I cannot get bitbake to like 
+> it.  My bb file looks like so:
+>
+> SUMMARY = "Add a user"
+>
+> DESCRIPTION = "This recipe will add a new user"
+>
+> PR = "r0"
+>
+> LICENSE = "MIT"
+>
+> LIC_FILES_CHKSUM = 
+> "file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58"
+>
+> S = "${WORKDIR}"
+>
+> inherit useradd
+>
+> USERADD_PACKAGES = "${PN}"
+>
+> USERADD_PARAM_${PN} = "--disabled-password hal"
+>
+> do_install () {
+>
+>            chown -R hal ${D}${datadir}/hal
+>
+> }
+>
+> FILES_${PN} = "${datadir}/hal/*"
+>
+> I have the useradd package specified as a dependency for a package 
+> group which I am installing for my image.  When I bake, it attempts 
+> do_rootfs but fails and spits out a huge log after which it simple 
+> states that it couldn't satisfy dependencies for my package group and 
+> and points the the useradd package.  Is there any obvious reason why 
+> such a simple recipe like this would not work?  Thanks
+>
 
-SUMMARY =3D "Add a user"
-DESCRIPTION =3D "This recipe will add a new user"
+Are you sure your package is not empty?
+Maybe you want this in your recipe.
+ALLOW_EMPTY_${PN} = "1"
 
-PR =3D "r0"
-LICENSE =3D "MIT"
-LIC_FILES_CHKSUM =3D "file://${COREBASE}/LICENSE;md5=3D3f40d7994397109285ec=
-7b81fdeb3b58"
+Also, if you're only trying to add a user, use EXTRA_USERS_PARAMS in 
+your conf file (assume you're using poky/master, i'm not sure whether 
+dylan has this feature).
 
-S =3D "${WORKDIR}"
+Best Regards,
+Chen Qi
 
-inherit useradd
+> -Mike
+>
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-USERADD_PACKAGES =3D "${PN}"
 
-USERADD_PARAM_${PN} =3D "--disabled-password hal"
+--------------040103070801010304050107
+Content-Type: text/html; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-
-do_install () {
-
-           chown -R hal ${D}${datadir}/hal
-}
-
-FILES_${PN} =3D "${datadir}/hal/*"
-
-I have the useradd package specified as a dependency for a package group wh=
-ich I am installing for my image.  When I bake, it attempts do_rootfs but f=
-ails and spits out a huge log after which it simple states that it couldn't=
- satisfy dependencies for my package group and and points the the useradd p=
-ackage.  Is there any obvious reason why such a simple recipe like this wou=
-ld not work?  Thanks
-
--Mike
-
---_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
-=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
-oft Word 14 (filtered medium)"><style><!--
+<html>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 10/11/2013 06:06 AM, Michael Davis
+      wrote:<br>
+    </div>
+    <blockquote
+cite="mid:7BDD69127112414F90CF3FED4711BF150D15A47EB5@IAD2MBX05.mex02.mlsrvr.com"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=ISO-8859-1">
+      <meta name="Generator" content="Microsoft Word 14 (filtered
+        medium)">
+      <style><!--
 /* Font Definitions */
 @font-face
 	{font-family:Calibri;
@@ -127,41 +155,82 @@ span.EmailStyle17
 div.WordSection1
 	{page:WordSection1;}
 --></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+<o:shapedefaults v:ext="edit" spidmax="1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
-nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>I am attempting =
-to add a single user to my poky build.&nbsp; I am trying to follow the user=
-add-example.bb layout but I cannot get bitbake to like it.&nbsp; My bb file=
- looks like so:<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>SUMMARY =3D &quot;Add a user&quot;<o:p></o:p></p><p class=
-=3DMsoNormal>DESCRIPTION =3D &quot;This recipe will add a new user&quot;<o:=
-p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>=
-PR =3D &quot;r0&quot;<o:p></o:p></p><p class=3DMsoNormal>LICENSE =3D &quot;=
-MIT&quot;<o:p></o:p></p><p class=3DMsoNormal>LIC_FILES_CHKSUM =3D &quot;fil=
-e://${COREBASE}/LICENSE;md5=3D3f40d7994397109285ec7b81fdeb3b58&quot;<o:p></=
-o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>S =
-=3D &quot;${WORKDIR}&quot;<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</=
-o:p></p><p class=3DMsoNormal>inherit useradd<o:p></o:p></p><p class=3DMsoNo=
-rmal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>USERADD_PACKAGES =3D &quot;$=
-{PN}&quot;<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=
-=3DMsoNormal>USERADD_PARAM_${PN} =3D &quot;--disabled-password hal&quot;<o:=
-p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>=
-<o:p>&nbsp;</o:p></p><p class=3DMsoNormal>do_install () {<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chown -R hal ${D}${datadir}/h=
-al<o:p></o:p></p><p class=3DMsoNormal> }<o:p></o:p></p><p class=3DMsoNormal=
-><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>FILES_${PN} =3D &quot;${datadir}=
-/hal/*&quot;<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p cla=
-ss=3DMsoNormal>I have the useradd package specified as a dependency for a p=
-ackage group which I am installing for my image.&nbsp; When I bake, it atte=
-mpts do_rootfs but fails and spits out a huge log after which it simple sta=
-tes that it couldn&#8217;t satisfy dependencies for my package group and an=
-d points the the useradd package.&nbsp; Is there any obvious reason why suc=
-h a simple recipe like this would not work?&nbsp; Thanks<o:p></o:p></p><p c=
-lass=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>-Mike<o:p></o:p>=
-</p></div></body></html>=
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal">I am attempting to add a single user to my
+          poky build.&nbsp; I am trying to follow the useradd-example.bb
+          layout but I cannot get bitbake to like it.&nbsp; My bb file looks
+          like so:<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">SUMMARY = "Add a user"<o:p></o:p></p>
+        <p class="MsoNormal">DESCRIPTION = "This recipe will add a new
+          user"<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">PR = "r0"<o:p></o:p></p>
+        <p class="MsoNormal">LICENSE = "MIT"<o:p></o:p></p>
+        <p class="MsoNormal">LIC_FILES_CHKSUM =
+          <a class="moz-txt-link-rfc2396E" href="file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58">"file://${COREBASE}/LICENSE;md5=3f40d7994397109285ec7b81fdeb3b58"</a><o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">S = "${WORKDIR}"<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">inherit useradd<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">USERADD_PACKAGES = "${PN}"<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">USERADD_PARAM_${PN} = "--disabled-password
+          hal"<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">do_install () {<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chown -R hal ${D}${datadir}/hal<o:p></o:p></p>
+        <p class="MsoNormal"> }<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">FILES_${PN} = "${datadir}/hal/*"<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        <p class="MsoNormal">I have the useradd package specified as a
+          dependency for a package group which I am installing for my
+          image.&nbsp; When I bake, it attempts do_rootfs but fails and spits
+          out a huge log after which it simple states that it couldn&#8217;t
+          satisfy dependencies for my package group and and points the
+          the useradd package.&nbsp; Is there any obvious reason why such a
+          simple recipe like this would not work?&nbsp; Thanks<o:p></o:p></p>
+        <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+      </div>
+    </blockquote>
+    <br>
+    Are you sure your package is not empty?<br>
+    Maybe you want this in your recipe.<br>
+    ALLOW_EMPTY_${PN} = "1"<br>
+    <br>
+    Also, if you're only trying to add a user, use EXTRA_USERS_PARAMS in
+    your conf file (assume you're using poky/master, i'm not sure
+    whether dylan has this feature).<br>
+    <br>
+    Best Regards,<br>
+    Chen Qi<br>
+    <br>
+    <blockquote
+cite="mid:7BDD69127112414F90CF3FED4711BF150D15A47EB5@IAD2MBX05.mex02.mlsrvr.com"
+      type="cite">
+      <div class="WordSection1">
+        <p class="MsoNormal">-Mike<o:p></o:p></p>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+poky mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:poky@yoctoproject.org">poky@yoctoproject.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.yoctoproject.org/listinfo/poky">https://lists.yoctoproject.org/listinfo/poky</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
---_000_7BDD69127112414F90CF3FED4711BF150D15A47EB5IAD2MBX05mex0_--
+--------------040103070801010304050107--
