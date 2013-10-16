@@ -1,23 +1,23 @@
 Return-Path: <sgw@linux.intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88132E016B1
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AAE9BE016A0
 	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 09:33:07 -0700 (PDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
 	by fmsmga101.fm.intel.com with ESMTP; 16 Oct 2013 09:33:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.93,508,1378882800"; d="scan'208";a="417825993"
+X-IronPort-AV: E=Sophos;i="4.93,508,1378882800"; d="scan'208";a="417825994"
 Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.15.253])
 	by fmsmga002.fm.intel.com with ESMTP; 16 Oct 2013 09:33:06 -0700
 From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 16 Oct 2013 09:33:05 -0700
-Message-Id: <3d098ca114a671295fef0f3e6e9c00f8aac0a06d.1381941120.git.sgw@linux.intel.com>
+Date: Wed, 16 Oct 2013 09:33:06 -0700
+Message-Id: <b997f4e74e2475af7834d234861aa482412a3ff8.1381941120.git.sgw@linux.intel.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <cover.1381941120.git.sgw@linux.intel.com>
 References: <cover.1381941120.git.sgw@linux.intel.com>
 In-Reply-To: <cover.1381941120.git.sgw@linux.intel.com>
 References: <cover.1381941120.git.sgw@linux.intel.com>
-Subject: [PATCH 1/2] local.conf.sample.extended: Add some additional comments for security flags
+Subject: [PATCH 2/2] package-regex: Tweak python-docutils so it works correctly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,33 +34,22 @@ X-List-Received-Date: Wed, 16 Oct 2013 16:33:07 -0000
 
 Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- meta-yocto/conf/local.conf.sample.extended | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ meta-yocto/conf/distro/include/package_regex.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
-index a2cb81b..f85310e 100644
---- a/meta-yocto/conf/local.conf.sample.extended
-+++ b/meta-yocto/conf/local.conf.sample.extended
-@@ -215,6 +215,14 @@
- # Remove the old image before the new one generated to save disk space
- #RM_OLD_IMAGE = "1"
- 
-+#
-+# GCC/LD FLAGS to enable more secure code generation
-+# 
-+# By including the security_flags include file you enable flags
-+# to the compiler and linker that cause them to generate more secure
-+# code, this is enabled by default in the poky-lsb distro.
-+# This does affect compile speed slightly.
-+#
- # Use the following line to enable the security compiler and linker flags to your build
- #require conf/distro/include/security_flags.inc
- 
-@@ -262,4 +270,3 @@ export FC = "${CCACHE}${HOST_PREFIX}gfortran ${HOST_CC_ARCH}"
- #INITRAMFS_IMAGE = "core-image-minimal-initramfs"
- #INITRAMFS_IMAGE_BUNDLE = "1"
- 
--
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index 89cd366..da6e738 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -216,7 +216,7 @@ REGEX_URI_pn-psmisc = "http://sourceforge.net/projects/psmisc/files/psmisc/"
+ REGEX_pn-psmisc = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/psmisc/files/psmisc/psmisc\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz/download\""
+ REGEX_URI_pn-python-argparse = "https://code.google.com/p/argparse/downloads/list"
+ REGEX_URI_pn-python-docutils = "http://sourceforge.net/projects/docutils/files/docutils/"
+-REGEX_pn-python-docutils = "[hH][rR][eE][fF]=\"/projects/docutils/files/docutils/docutils\-(?P<pver>((\d+[\.\-_]*)+)).*/\""
++REGEX_pn-python-docutils = "[hH][rR][eE][fF]=\"/projects/docutils/files/docutils/(?P<pver>((\d+[\.\-_]*)+)).*/\""
+ REGEX_URI_pn-python-pycurl = "http://pycurl.sourceforge.net/download/"
+ REGEX_pn-python-pycurl = "[hH][rR][eE][fF]=\"pycurl-(?P<pver>((\d+[\.\-_]*)+)).tar.gz\""
+ REGEX_URI_pn-python-scons = "http://sourceforge.net/projects/scons/files/scons/"
 -- 
 1.8.3.1
 
