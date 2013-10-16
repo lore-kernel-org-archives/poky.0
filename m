@@ -1,39 +1,19 @@
-Return-Path: <olof.johansson@axis.com>
-Received: from ra.se.axis.com (ra.se.axis.com [195.60.68.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39114E01684
-	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 02:51:32 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by ra.se.axis.com (Postfix) with ESMTP id 1FCC011EA4
-	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 11:51:29 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at ra.se.axis.com
-Received: from ra.se.axis.com ([127.0.0.1])
-	by localhost (ra.se.axis.com [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id HgxjKVK3jIhC for <poky@yoctoproject.org>;
-	Wed, 16 Oct 2013 11:51:26 +0200 (CEST)
-Received: from boulder.se.axis.com (boulder.se.axis.com [10.0.2.104])
-	by ra.se.axis.com (Postfix) with ESMTP id 6BF4711EB0
-	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 11:51:26 +0200 (CEST)
-Received: from boulder.se.axis.com (localhost [127.0.0.1])
-	by postfix.imss71 (Postfix) with ESMTP id 555FFABC
-	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 11:51:26 +0200 (CEST)
-Received: from thoth.se.axis.com (thoth.se.axis.com [10.0.2.173])
-	by boulder.se.axis.com (Postfix) with ESMTP id 2EE83AB3
-	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 11:51:26 +0200 (CEST)
-Received: from xmail2.se.axis.com (xmail2.se.axis.com [10.0.5.74])
-	by thoth.se.axis.com (Postfix) with ESMTP id 29B803404E
-	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 11:51:26 +0200 (CEST)
-Received: from lnxolofjn.se.axis.com (10.92.17.1) by xmail2.se.axis.com
-	(10.0.5.74) with Microsoft SMTP Server id 8.2.255.0; Wed, 16 Oct 2013
-	11:51:25 +0200
-Received: by lnxolofjn.se.axis.com (Postfix, from userid 20466)	id E03A79C078; 
-	Wed, 16 Oct 2013 11:51:25 +0200 (CEST)
-From: Olof Johansson <olof.johansson@axis.com>
-To: <poky@yoctoproject.org>
-Date: Wed, 16 Oct 2013 11:51:25 +0200
-Message-ID: <1381917085-11735-1-git-send-email-olof.johansson@axis.com>
-X-Mailer: git-send-email 1.7.10.4
-MIME-Version: 1.0
-Subject: [PATCH] poky.conf: add Debian 7.2 to SANITY_TESTED_DISTROS
+Return-Path: <sgw@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68B9BE016A0
+	for <poky@yoctoproject.org>; Wed, 16 Oct 2013 09:33:07 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 16 Oct 2013 09:33:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.93,508,1378882800"; d="scan'208";a="417825990"
+Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.15.253])
+	by fmsmga002.fm.intel.com with ESMTP; 16 Oct 2013 09:33:06 -0700
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 16 Oct 2013 09:33:04 -0700
+Message-Id: <cover.1381941120.git.sgw@linux.intel.com>
+X-Mailer: git-send-email 1.8.3.1
+Subject: [PATCH 0/2] Poky Distro specific Updates
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,35 +26,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Oct 2013 09:51:35 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 16 Oct 2013 16:33:07 -0000
 
-7.2 is a point release with security and bug fixes only, and I can
-confirm that it works.
+Richard,
 
-Signed-off-by: Olof Johansson <olof.johansson@axis.com>
----
+A package_regex tweak and some better comments for the security flags
 
-I tried to send this earlier, but the mail didn't seem to get through.
-I applogize if you end up receiving duplicates.
 
----
- meta-yocto/conf/distro/poky.conf |    1 +
- 1 file changed, 1 insertion(+)
+Sau!
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 44bc4c6..bac20bd 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -83,6 +83,7 @@ SANITY_TESTED_DISTROS ?= " \
-             Debian-6.0.7 \n \
-             Debian-7.0 \n \
-             Debian-7.1 \n \
-+            Debian-7.2 \n \
-             SUSE-LINUX-12.2 \n \
-             openSUSE-project-12.3 \n \
-             "
+
+The following changes since commit 529bf977e956175bd8405ebffc88194192e44740:
+
+  update-rcd.bbclass: fix host/target test (2013-10-16 14:51:07 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib sgw/stage
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=sgw/stage
+
+Saul Wold (2):
+  local.conf.sample.extended: Add some additional comments for security
+    flags
+  package-regex: Tweak python-docutils so it works correctly
+
+ meta-yocto/conf/distro/include/package_regex.inc | 2 +-
+ meta-yocto/conf/local.conf.sample.extended       | 9 ++++++++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
+
 -- 
-1.7.10.4
+1.8.3.1
 
 
