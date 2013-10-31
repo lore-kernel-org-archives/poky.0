@@ -1,28 +1,33 @@
-Return-Path: <bobadeshrikant@gmail.com>
-Received: from mail-la0-f65.google.com (mail-la0-f65.google.com
-	[209.85.215.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6B8E3E01768
-	for <poky@yoctoproject.org>; Thu, 24 Oct 2013 07:47:42 -0700 (PDT)
-Received: by mail-la0-f65.google.com with SMTP id ea20so400031lab.0
-	for <poky@yoctoproject.org>; Thu, 24 Oct 2013 07:47:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=6LHBKrd/4KtuSt/ycwS1RJUbOYPKjwQhCVTr2SwXrwI=;
-	b=yoDCjSpkFH/MMqm7T0eeWcI3sf3Sojzn2OaYmB9GBZ/b354yDDaNqe/Due9SGdR+kq
-	oZ7ARnVgBy0MDJKj91+gzKvNzlflNyRwZ0iyNBQx6i0qFmrWM2HamH5ENUNT2T2r3pSe
-	Mj02w5dChG8iWg3QRzM1NEHOslwgEnIK7k+w8odTtt+YP9O3QGwgshyR8iIMWSL+Ctwk
-	8rRyUgnUEykNO4LELscJ2toawJRa2vMmdOIbHYlh0PbZWsG8iOMOBoHpkyU+gEcxXmgb
-	bEzRjc00Waozrsak6iPUq8XIxNZmYPgCh3x9V1l44zP4XqB39kr9bbpYJ7NriHmI2WKg
-	tH5A==
+Return-Path: <mdavis@planetaryresources.com>
+Received: from smtp107.iad3a.emailsrvr.com (smtp107.iad3a.emailsrvr.com
+	[173.203.187.107])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9260BE017BC
+	for <poky@yoctoproject.org>; Wed, 30 Oct 2013 19:17:57 -0700 (PDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp6.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
+	2699E1A80B0
+	for <poky@yoctoproject.org>; Wed, 30 Oct 2013 22:17:56 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
+	[204.232.137.43])
+	by smtp6.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
+	12FAC1A8094
+	for <poky@yoctoproject.org>; Wed, 30 Oct 2013 22:17:56 -0400 (EDT)
+Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
+	IAD2HUB04.mex02.mlsrvr.com ([172.23.10.68]) with mapi; Wed, 30 Oct 2013
+	22:17:55 -0400
+From: Michael Davis <mdavis@planetaryresources.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Wed, 30 Oct 2013 22:17:56 -0400
+Thread-Topic: Defconfig mods, Zynq-zx3 netmodule
+Thread-Index: Ac7V3vciPHL1ZTMRT4iOowqDsowKtw==
+Message-ID: <7BDD69127112414F90CF3FED4711BF150D15B25C51@IAD2MBX05.mex02.mlsrvr.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
 MIME-Version: 1.0
-X-Received: by 10.152.9.36 with SMTP id w4mr2095028laa.34.1382626060695; Thu,
-	24 Oct 2013 07:47:40 -0700 (PDT)
-Received: by 10.114.161.226 with HTTP; Thu, 24 Oct 2013 07:47:40 -0700 (PDT)
-Date: Thu, 24 Oct 2013 20:17:40 +0530
-Message-ID: <CALwQErqri9gpTyJoBcMK19EmhaMr0vBRsWHvORYjA=h1Go=73g@mail.gmail.com>
-From: Shrikant Bobade <bobadeshrikant@gmail.com>
-To: poky@yoctoproject.org
-Subject: dbus-ptest 1.6.10: bus-test fails @ assertion failed.. in function process_ok of dbus-auth.c
+Subject: Defconfig mods, Zynq-zx3 netmodule
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,244 +40,103 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Oct 2013 14:47:43 -0000
-Content-Type: multipart/alternative; boundary=089e0158b7e8347b3604e97db77d
+X-List-Received-Date: Thu, 31 Oct 2013 02:17:57 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_7BDD69127112414F90CF3FED4711BF150D15B25C51IAD2MBX05mex0_"
 
---089e0158b7e8347b3604e97db77d
-Content-Type: text/plain; charset=ISO-8859-1
-
-Hi,
-
-I am using dbus ver: 1.6.10 , prepared the dbus-ptest support(
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-core/dbus/dbus-ptest_1.6.10.bb).
-while executing the test suite of dbus-ptest, getting bus-test failure @
-assertion failed in function process_ok  of dbus-auth.c as soon as
-org.freedesktop.DBus.TestSuiteEchoService got activated, while remaining
-all other test cases from test suite executed successfully.
-
-Does any one faced similar issue?
-
-
-error log:
-> *Successfully activated service
-'org.freedesktop.DBus.TestSuiteEchoService'
-> 352: assertion failed "_dbus_string_get_length (& DBUS_AUTH_CLIENT
-> (auth)->guid_from_server) == 0" file
-"/dbus-ptest/1.6.10-r0/dbus-1.6.10/dbus/dbus-auth.c" line
-> 1545 function process_ok
-*
-Any pointers or references will be a great help.
-
-Thanks in Adv.
-
-
-Below is the detail log for bus-test execution:
-==============================
-===
-
-*# /usr/lib/dbus-ptest/ptest/bus/bus-test
-/usr/lib/dbus-ptest/ptest/test/data/
-/usr/lib/dbus-ptest/ptest/bus/bus-test: Running expire list test
-/usr/lib/dbus-ptest/ptest/bus/bus-test: checking for memleaks
-/usr/lib/dbus-ptest/ptest/bus/bus-test: Running config file parser test
-Testing retrieving the default session service directories
-    default service dir: /home/root/.local/share/dbus-1/services
-    default service dir: /usr/local/share/dbus-1/services
-    default service dir: /usr/share/dbus-1/services
-    default service dir: /usr/share/dbus-1/services
-    test service dir: /testhome/foo/.testlocal/testshare/dbus-1/services
-    test service dir: /testusr/testlocal/testshare/dbus-1/services
-    test service dir: /testusr/testshare/dbus-1/services
-    test service dir: /usr/share/dbus-1/services
-Testing retrieving the default system service directories
-    default service dir: /usr/local/share/dbus-1/system-services
-    default service dir: /usr/share/dbus-1/system-services
-    default service dir: /usr/share/dbus-1/system-services
-    default service dir: /lib/dbus-1/system-services
-    test service dir: /usr/local/share/dbus-1/system-services
-    test service dir: /usr/share/dbus-1/system-services
-    test service dir: /usr/share/dbus-1/system-services
-    test service dir: /lib/dbus-1/system-services
-Testing valid files:
-    debug-allow-all.conf
-    system.conf
-    many-rules.conf
-    session.conf
-    incoming-limit.conf
-    debug-allow-all-sha1.conf
-    entities.conf
-    basic.conf
-Testing invalid files:
-    circular-2.conf
-    badselinux-2.conf
-    truncated-file.conf
-    badselinux-1.conf
-    not-well-formed.conf
-    circular-3.conf
-    circular-1.conf
-Comparing equivalent files:
-    basic-2.conf
-    basic-1.conf
-Comparing equivalent files:
-    entities-1.conf
-    entities-2.conf
-/usr/lib/dbus-ptest/ptest/bus/bus-test: checking for memleaks
-/usr/lib/dbus-ptest/ptest/bus/bus-test: Running signals test
-/usr/lib/dbus-ptest/ptest/bus/bus-test: checking for memleaks
-/usr/lib/dbus-ptest/ptest/bus/bus-test: Running SHA1 connection test
-/usr/lib/dbus-ptest/ptest/bus/bus-test: checking for memleaks
-/usr/lib/dbus-ptest/ptest/bus/bus-test: Running message dispatch test
-Activating service name='org.freedesktop.DBus.TestSuiteEchoService'
-Successfully activated service 'org.freedesktop.DBus.TestSuiteEchoService'
-352: assertion failed "_dbus_string_get_length (& DBUS_AUTH_CLIENT
-(auth)->guid_from_server) == 0" file "/dbus-1.6.10/dbus/dbus-auth.c" line
-1545 function process_ok
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_print_backtrace+0x1c)
-[0x8394c]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_abort+0x8) [0x87560]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_real_assert+0x48) [0x6e938]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x98a78]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_auth_do_work+0x360) [0x99c3c]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x683f8]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x6987c]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_transport_handle_watch+0xa8)
-[0x67438]
-
-/usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_connection_handle_watch+0xdc)
-[0x43bdc]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(dbus_watch_handle+0xd0) [0x6ae44]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_loop_iterate+0x1bc) [0x88c28]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(bus_test_run_clients_loop+0x54)
-[0x3be7c]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x2a854]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x2bcd8]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x2b71c]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_test_oom_handling+0x158)
-[0x6f290]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x2d180]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(bus_dispatch_test+0x3c) [0x2f0f8]
-  /usr/lib/dbus-ptest/ptest/bus/bus-test(main+0x1ac) [0x1a87c]
-  /lib/libc.so.6(__libc_start_main+0x114) [0x4bfc142c]
-Aborted*
-
-
-Thanks
-Shrikant
-
---089e0158b7e8347b3604e97db77d
-Content-Type: text/html; charset=ISO-8859-1
+--_000_7BDD69127112414F90CF3FED4711BF150D15B25C51IAD2MBX05mex0_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div>Hi, <br><br></div>I am using dbus ver: 1.6.10 , =
-prepared the=20
-dbus-ptest support(<a href=3D"http://git.yoctoproject.org/cgit/cgit.cgi/pok=
-y/tree/meta/recipes-core/dbus/dbus-ptest_1.6.10.bb">http://git.yoctoproject=
-.org/cgit/cgit.cgi/poky/tree/meta/recipes-core/dbus/dbus-ptest_1.6.10.bb</a=
->).=A0 while executing the test suite of dbus-ptest,=20
-getting bus-test failure @ assertion failed in function process_ok=A0 of=20
-dbus-auth.c as soon as org.freedesktop.DBus.TestSuiteEchoService got activa=
-ted, while remaining all other test cases from test suite=20
-executed successfully. <br>
-<br></div><div>Does any one faced similar issue? <br></div><div><br><br>err=
-or log:<br><font size=3D"1">&gt; <i>Successfully activated service &#39;org=
-.freedesktop.DBus.TestSuiteEchoService&#39;<br>&gt; 352:
- assertion failed &quot;_dbus_string_get_length (&amp; DBUS_AUTH_CLIENT=20
-<br>&gt; (auth)-&gt;guid_from_server) =3D=3D 0&quot; file=20
-&quot;/dbus-ptest/1.6.10-r0/dbus-1.6.10/dbus/dbus-auth.c&quot; line<br>&gt;=
- 1545 function=20
-process_ok<br></i></font><br></div><div>Any pointers or references will be =
-a great help. <br><br></div><div>Thanks in Adv. <br></div><div><br></div><d=
-iv><br></div>Below is the detail log for bus-test execution:<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D<div dir=3D"ltr">=3D=3D=3D<br><div><div><br><font size=3D"1"=
-><i># /usr/lib/dbus-ptest/ptest/bus/bus-test /usr/lib/dbus-ptest/ptest/test=
-/data/=A0=A0 <br>/usr/lib/dbus-ptest/ptest/bus/bus-test: Running expire lis=
-t test<br>
+Hi David,
 
-/usr/lib/dbus-ptest/ptest/bus/bus-test: checking for memleaks<br>/usr/lib/d=
-bus-ptest/ptest/bus/bus-test: Running config file parser test<br>Testing re=
-trieving the default session service directories<br>=A0=A0=A0 default servi=
-ce dir: /home/root/.local/share/dbus-1/services<br>
+I am currently using the netmodule meta layer in yocto to build a kernel an=
+d ramdisk for my zynq zx3 on a starter board.  I need to enable kernel func=
+tion tracing and a few other configurations in my build.  I need help on th=
+e correct way to enable kernel configurations (specifically I need CONFIG_F=
+TRACE and CONFIG_PROFILING) using the meta layer.
 
-=A0=A0=A0 default service dir: /usr/local/share/dbus-1/services<br>=A0=A0=
-=A0 default service dir: /usr/share/dbus-1/services<br>=A0=A0=A0 default se=
-rvice dir: /usr/share/dbus-1/services<br>=A0=A0=A0 test service dir: /testh=
-ome/foo/.testlocal/testshare/dbus-1/services<br>
+ My attempts have been based on the KERNEL_DEFCONFIG_zynq_zx3_starter varia=
+ble in recipes-kernel/linux/linux-zynq-git.bb.  I have tried specifying my =
+own patch to create this file as well as pointing it to my own modified cop=
+y of the defconfig created by the patches in meta-netmodule.  After buildin=
+g, the modified defconfig file with the flags shows up in my work directory=
+ as .config but no changes ever appear in /proc/config.gz after booting my =
+image.  I am able to verify that the 'make zynq_zx3_defconfig' step was run=
+.  I wonder if the steps to do this are different here using the linux-zynq=
+ recipe as opposed to linux-yocto.  Any input on the correct way to do this=
+ would be greatly appreciated.
 
-=A0=A0=A0 test service dir: /testusr/testlocal/testshare/dbus-1/services<br=
->=A0=A0=A0 test service dir: /testusr/testshare/dbus-1/services<br>=A0=A0=
-=A0 test service dir: /usr/share/dbus-1/services<br>Testing retrieving the =
-default system service directories<br>
+Thanks for the help in advance.
 
-=A0=A0=A0 default service dir: /usr/local/share/dbus-1/system-services<br>=
-=A0=A0=A0 default service dir: /usr/share/dbus-1/system-services<br>=A0=A0=
-=A0 default service dir: /usr/share/dbus-1/system-services<br>=A0=A0=A0 def=
-ault service dir: /lib/dbus-1/system-services<br>
+-Mike
 
-=A0=A0=A0 test service dir: /usr/local/share/dbus-1/system-services<br>=A0=
-=A0=A0 test service dir: /usr/share/dbus-1/system-services<br>=A0=A0=A0 tes=
-t service dir: /usr/share/dbus-1/system-services<br>=A0=A0=A0 test service =
-dir: /lib/dbus-1/system-services<br>
+--_000_7BDD69127112414F90CF3FED4711BF150D15B25C51IAD2MBX05mex0_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Testing valid files:<br>=A0=A0=A0 debug-allow-all.conf<br>=A0=A0=A0 system.=
-conf<br>=A0=A0=A0 many-rules.conf<br>=A0=A0=A0 session.conf<br>=A0=A0=A0 in=
-coming-limit.conf<br>=A0=A0=A0 debug-allow-all-sha1.conf<br>=A0=A0=A0 entit=
-ies.conf<br>=A0=A0=A0 basic.conf<br>Testing invalid files:<br>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head><meta http-equiv=3DContent-Type content=
+=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
+oft Word 14 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue vli=
+nk=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>Hi David,<o:p></=
+o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>I am=
+ currently using the netmodule meta layer in yocto to build a kernel and ra=
+mdisk for my zynq zx3 on a starter board.&nbsp; I need to enable kernel fun=
+ction tracing and a few other configurations in my build.&nbsp; I need help=
+ on the correct way to enable kernel configurations (specifically I need CO=
+NFIG_FTRACE and CONFIG_PROFILING) using the meta layer.&nbsp; <br><br>&nbsp=
+;My attempts have been based on the KERNEL_DEFCONFIG_zynq_zx3_starter varia=
+ble in recipes-kernel/linux/linux-zynq-git.bb.&nbsp; I have tried specifyin=
+g my own patch to create this file as well as pointing it to my own modifie=
+d copy of the defconfig created by the patches in meta-netmodule.&nbsp; Aft=
+er building, the modified defconfig file with the flags shows up in my work=
+ directory as .config but no changes ever appear in /proc/config.gz after b=
+ooting my image.&nbsp; I am able to verify that the &#8216;make zynq_zx3_de=
+fconfig&#8217; step was run.&nbsp; I wonder if the steps to do this are dif=
+ferent here using the linux-zynq recipe as opposed to linux-yocto.&nbsp; An=
+y input on the correct way to do this would be greatly appreciated.&nbsp; <=
+br><br>Thanks for the help in advance.<o:p></o:p></p><p class=3DMsoNormal><=
+o:p>&nbsp;</o:p></p><p class=3DMsoNormal>-Mike <o:p></o:p></p></div></body>=
+</html>=
 
-=A0=A0=A0 circular-2.conf<br>=A0=A0=A0 badselinux-2.conf<br>=A0=A0=A0 trunc=
-ated-file.conf<br>=A0=A0=A0 badselinux-1.conf<br>=A0=A0=A0 not-well-formed.=
-conf<br>=A0=A0=A0 circular-3.conf<br>=A0=A0=A0 circular-1.conf<br>Comparing=
- equivalent files:<br>=A0=A0=A0 basic-2.conf<br>
-
-=A0=A0=A0 basic-1.conf<br>Comparing equivalent files:<br>=A0=A0=A0 entities=
--1.conf<br>=A0=A0=A0 entities-2.conf<br>/usr/lib/dbus-ptest/ptest/bus/bus-t=
-est: checking for memleaks<br>/usr/lib/dbus-ptest/ptest/bus/bus-test: Runni=
-ng signals test<br>
-
-/usr/lib/dbus-ptest/ptest/bus/bus-test: checking for memleaks<br>/usr/lib/d=
-bus-ptest/ptest/bus/bus-test: Running SHA1 connection test<br>/usr/lib/dbus=
--ptest/ptest/bus/bus-test: checking for memleaks<br>/usr/lib/dbus-ptest/pte=
-st/bus/bus-test: Running message dispatch test<br>
-
-Activating service name=3D&#39;org.freedesktop.DBus.TestSuiteEchoService&#3=
-9;<br>Successfully activated service &#39;org.freedesktop.DBus.TestSuiteEch=
-oService&#39;<br>352:
- assertion failed &quot;_dbus_string_get_length (&amp; DBUS_AUTH_CLIENT=20
-(auth)-&gt;guid_from_server) =3D=3D 0&quot; file &quot;/dbus-1.6.10/dbus/db=
-us-auth.c&quot; line 1545 function process_ok<br>
-=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_print_backtrace+0x1c) [0x8=
-394c]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_abort+0x8) [0x875=
-60]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_real_assert+0x48) [=
-0x6e938]<br>
-
-=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x98a78]<br>=A0 /usr/lib/dbus=
--ptest/ptest/bus/bus-test(_dbus_auth_do_work+0x360) [0x99c3c]<br>=A0 /usr/l=
-ib/dbus-ptest/ptest/bus/bus-test() [0x683f8]<br>=A0 /usr/lib/dbus-ptest/pte=
-st/bus/bus-test() [0x6987c]<br>
-
-=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_transport_handle_watch+0xa=
-8) [0x67438]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_connection=
-_handle_watch+0xdc) [0x43bdc]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test=
-(dbus_watch_handle+0xd0) [0x6ae44]<br>
-
-=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(_dbus_loop_iterate+0x1bc) [0x88c=
-28]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(bus_test_run_clients_loop=
-+0x54) [0x3be7c]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x2a854]<=
-br>
-
-=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test() [0x2bcd8]<br>=A0 /usr/lib/dbus=
--ptest/ptest/bus/bus-test() [0x2b71c]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/=
-bus-test(_dbus_test_oom_handling+0x158) [0x6f290]<br>=A0 /usr/lib/dbus-ptes=
-t/ptest/bus/bus-test() [0x2d180]<br>
-
-=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(bus_dispatch_test+0x3c) [0x2f0f8=
-]<br>=A0 /usr/lib/dbus-ptest/ptest/bus/bus-test(main+0x1ac) [0x1a87c]<br>=
-=A0 /lib/libc.so.6(__libc_start_main+0x114) [0x4bfc142c]<br>Aborted</i></fo=
-nt><br>
-
-<br><br></div><div>Thanks<br></div><div>Shrikant<br></div><div><div class=
-=3D""><div id=3D":u6" class=3D"" tabindex=3D"0"><img class=3D"" src=3D"http=
-s://mail.google.com/mail/u/0/images/cleardot.gif"></div></div></div></div><=
-/div></div>
-
---089e0158b7e8347b3604e97db77d--
+--_000_7BDD69127112414F90CF3FED4711BF150D15B25C51IAD2MBX05mex0_--
