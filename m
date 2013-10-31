@@ -1,30 +1,33 @@
-Return-Path: <raj.khem@gmail.com>
-Received: from mail-ie0-f178.google.com (mail-ie0-f178.google.com
-	[209.85.223.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 77D4CE017BC
-	for <poky@yoctoproject.org>; Wed, 30 Oct 2013 20:08:01 -0700 (PDT)
-Received: by mail-ie0-f178.google.com with SMTP id x13so3981163ief.9
-	for <poky@yoctoproject.org>; Wed, 30 Oct 2013 20:08:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type:content-transfer-encoding;
-	bh=tsMm46vuJsAcVYxfDeo65tNovxZTAu8KZamINi5ygvQ=;
-	b=SDf3oPvmeUBDJFfYGSDpO84lRHg0K6hq98fI+bQ6LtIGbJZAfTjGe2SlY5jbCiSU+U
-	Vn20azoD759sEzOTtFEdL2nuel9KoPeYAI3ppcAqPak8oOkkdPhHB4RX7BYTdEhzRYQ0
-	x5BnaXaG8rNqJqp4ElDxYaAB5vNOa77lnoNI1ZGVHBu5mbqWsuLvA9Rk2Jn6NDnLSgSy
-	fS59Rm/l7qmBIIF+DI7ga+1v/BNH2vG2joEdH0VGdLaZnjlce2fXTFmQTzH7AZMSRR2X
-	lK4wETEJ7q7m4UYs6aYLv5Sd3FBXeywdbdFriOIMwcHpM4S4zMrYCVfKX9bV+GAREhkM
-	cnAA==
-X-Received: by 10.43.172.4 with SMTP id nw4mr493705icc.25.1383188881014; Wed,
-	30 Oct 2013 20:08:01 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.50.219.195 with HTTP; Wed, 30 Oct 2013 20:07:30 -0700 (PDT)
-In-Reply-To: <7BDD69127112414F90CF3FED4711BF150D15B25C51@IAD2MBX05.mex02.mlsrvr.com>
+Return-Path: <mdavis@planetaryresources.com>
+Received: from smtp123.iad3a.emailsrvr.com (smtp123.iad3a.emailsrvr.com
+	[173.203.187.123])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0DC01E017D3
+	for <poky@yoctoproject.org>; Thu, 31 Oct 2013 10:33:31 -0700 (PDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp24.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
+	96168150278; Thu, 31 Oct 2013 13:33:30 -0400 (EDT)
+X-Virus-Scanned: OK
+Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
+	[204.232.137.43])
+	by smtp24.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
+	812EF150268; Thu, 31 Oct 2013 13:33:30 -0400 (EDT)
+Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
+	IAD2HUB06.mex02.mlsrvr.com ([172.23.10.70]) with mapi; Thu, 31 Oct 2013
+	13:33:30 -0400
+From: Michael Davis <mdavis@planetaryresources.com>
+To: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 31 Oct 2013 13:33:29 -0400
+Thread-Topic: [poky] Defconfig mods, Zynq-zx3 netmodule
+Thread-Index: Ac7V5mlRMsAvycpfQjeiiVgWze4YUgAdye2g
+Message-ID: <7BDD69127112414F90CF3FED4711BF150D15B25D0D@IAD2MBX05.mex02.mlsrvr.com>
 References: <7BDD69127112414F90CF3FED4711BF150D15B25C51@IAD2MBX05.mex02.mlsrvr.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 30 Oct 2013 20:07:30 -0700
-Message-ID: <CAMKF1sr5S+_zD2D=t6q-Bvud61r8q4pZ=cV3sKoEEmVYybbeKA@mail.gmail.com>
-To: Michael Davis <mdavis@planetaryresources.com>
+	<CAMKF1sr5S+_zD2D=t6q-Bvud61r8q4pZ=cV3sKoEEmVYybbeKA@mail.gmail.com>
+In-Reply-To: <CAMKF1sr5S+_zD2D=t6q-Bvud61r8q4pZ=cV3sKoEEmVYybbeKA@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: en-US
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Defconfig mods, Zynq-zx3 netmodule
 X-BeenThere: poky@yoctoproject.org
@@ -39,60 +42,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Oct 2013 03:08:02 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 31 Oct 2013 17:33:33 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Wed, Oct 30, 2013 at 7:17 PM, Michael Davis
-<mdavis@planetaryresources.com> wrote:
-> Hi David,
->
->
->
-> I am currently using the netmodule meta layer in yocto to build a kernel =
-and
-> ramdisk for my zynq zx3 on a starter board.  I need to enable kernel
-> function tracing and a few other configurations in my build.  I need help=
- on
-> the correct way to enable kernel configurations (specifically I need
-> CONFIG_FTRACE and CONFIG_PROFILING) using the meta layer.
->
->  My attempts have been based on the KERNEL_DEFCONFIG_zynq_zx3_starter
-> variable in recipes-kernel/linux/linux-zynq-git.bb.  I have tried specify=
-ing
-> my own patch to create this file as well as pointing it to my own modifie=
-d
-> copy of the defconfig created by the patches in meta-netmodule.  After
-> building, the modified defconfig file with the flags shows up in my work
-> directory as .config but no changes ever appear in /proc/config.gz after
-> booting my image.  I am able to verify that the =E2=80=98make zynq_zx3_de=
-fconfig=E2=80=99
-> step was run.  I wonder if the steps to do this are different here using =
-the
-> linux-zynq recipe as opposed to linux-yocto.  Any input on the correct wa=
-y
-> to do this would be greatly appreciated.
-
-looking at the layer it seems that you have to store it in defconfig
-for the machine you are interested in. There are few ways to go about
-it. So go to the configured kernel tree and use make menuconfig to add
-options you need to add and then do 'make savedefconfig' which should
-create a new defconfig with your changes in it which then you can save
-along side other machine defconfigs in kernel tree via a patch or may
-be keep it in metadata
-and add changes to recipe to use it for your machine.
-
->
-> Thanks for the help in advance.
->
->
->
-> -Mike
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+SGkgS2hlbSwNCg0KVGhpcyBpcyBnZW5lcmFsbHkgdGhlIG1ldGhvZCBJIGhhdmUgYmVlbiBoYXZp
+bmcgdHJvdWJsZSB3aXRoLiAgUnVubmluZyBtZW51Y29uZmlnIGFuZCBzYXZlZGVmY29uZmlnIEkg
+YW0gYWJsZSB0byBnZW5lcmF0ZSBhIC5jb25maWcgZmlsZSB3aXRoIHRoZSBkZXNpcmVkIGNvbmZp
+Z3VyYXRpb25zLiAgSSB0aGVuIHNhdmUgdGhhdCBmaWxlIGFzIHp4M19zdGFydGVyX2RlZmNvbmZp
+ZyBvdmVyIHRoZSBzYW1lIGZpbGUgdW5kZXIgYXJjaC9hcm0vY29uZmlncyBpbiBteSB3b3JrIGRp
+cmVjdG9yeS4gIFRoZW4gSSB1c2UgZ2l0IHRvIGNyZWF0ZSBhIHBhdGNoLiAgVGhpcyBwYXRjaCBJ
+IHB1dCBpbiB0aGUgbmV0bW9kdWxlIGxpbnV4LXp5bnFfZ2l0LmJiIFNSQ19VUklfYXBwZW5kIGxp
+bmUgYW5kIHJlbW92ZSB0aGUgcGF0Y2hlcyB0aGF0IHdlcmUgdGhlcmUgZm9yIHp4M19zdGFydGVy
+X2RlZmNvbmZpZyBvcmlnaW5hbGx5LiAgV2hlbiBJIGJ1aWxkLCB0aGUgbmV3IHp4M19zdGFydGVy
+X2RlZmNvbmZpZyBzaG93cyB1cCB1bmRlciBhcmNoL2FybS9jb25maWdzIGFuZCBpbiBmYWN0IHRo
+ZSBvcHRpb25zIEkgd2FudCBzaG93IHVwIGluIHRoZSB0b3AgbGV2ZWwgLmNvbmZpZywgdGhvdWdo
+IHRoaXMgZmlsZSBpcyBub3QgaWRlbnRpY2FsIHRvIHRoZSBmaWxlIG1hZGUgYnkgbXkgcGF0Y2gu
+ICBJbiB0aGUgbG9nLmRvX2NvbmZpZ3VyZSwgdGhlIGxpbmUgIm1ha2UgengzX3N0YXJ0ZXJfZGVm
+Y29uZmlnIiBzaG93cyB1cCBhbmQgaXQgbG9va3MgbGlrZSBpdCBpcyBwYXJzaW5nIG91dCBhbGwg
+b2YgbXkgb3B0aW9ucy4gIFdoZW4gSSBib290IHVwLCBubyBkaWNlLiANCg0KRG9lcyB0aGlzIHNv
+dW5kIGxpa2UgdGhlIG1ldGhvZCB5b3UgYXJlIGRlc2NyaWJpbmc/ICBXb3VsZCBpdCBiZSBiZXR0
+ZXIgdG8gc29tZWhvdyBzcGVjaWZ5IGEgcmVhbCB2ZXJzaW9uIG9mIHRoaXMgZmlsZSBmb3IgeW9j
+dG8gdG8gY29weSBvdmVyPyAgSXMgaXQgcG9zc2libGUgdGhhdCB0aGUgY29uZmlndXJhdGlvbnMg
+d291bGQgbm90IHNob3cgdXAgaW4gbXkgL3Byb2MvY29uZmlnLmd6IGZpbGU/DQoNClRoYW5rcyBm
+b3IgYWxsIHlvdXIgaGVscA0KDQotTWlrZQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
+RnJvbTogS2hlbSBSYWogW21haWx0bzpyYWoua2hlbUBnbWFpbC5jb21dIA0KU2VudDogV2VkbmVz
+ZGF5LCBPY3RvYmVyIDMwLCAyMDEzIDg6MDggUE0NClRvOiBNaWNoYWVsIERhdmlzDQpDYzogcG9r
+eUB5b2N0b3Byb2plY3Qub3JnDQpTdWJqZWN0OiBSZTogW3Bva3ldIERlZmNvbmZpZyBtb2RzLCBa
+eW5xLXp4MyBuZXRtb2R1bGUNCg0KT24gV2VkLCBPY3QgMzAsIDIwMTMgYXQgNzoxNyBQTSwgTWlj
+aGFlbCBEYXZpcyA8bWRhdmlzQHBsYW5ldGFyeXJlc291cmNlcy5jb20+IHdyb3RlOg0KPiBIaSBE
+YXZpZCwNCj4NCj4NCj4NCj4gSSBhbSBjdXJyZW50bHkgdXNpbmcgdGhlIG5ldG1vZHVsZSBtZXRh
+IGxheWVyIGluIHlvY3RvIHRvIGJ1aWxkIGEgDQo+IGtlcm5lbCBhbmQgcmFtZGlzayBmb3IgbXkg
+enlucSB6eDMgb24gYSBzdGFydGVyIGJvYXJkLiAgSSBuZWVkIHRvIA0KPiBlbmFibGUga2VybmVs
+IGZ1bmN0aW9uIHRyYWNpbmcgYW5kIGEgZmV3IG90aGVyIGNvbmZpZ3VyYXRpb25zIGluIG15IA0K
+PiBidWlsZC4gIEkgbmVlZCBoZWxwIG9uIHRoZSBjb3JyZWN0IHdheSB0byBlbmFibGUga2VybmVs
+IGNvbmZpZ3VyYXRpb25zIA0KPiAoc3BlY2lmaWNhbGx5IEkgbmVlZCBDT05GSUdfRlRSQUNFIGFu
+ZCBDT05GSUdfUFJPRklMSU5HKSB1c2luZyB0aGUgbWV0YSBsYXllci4NCj4NCj4gIE15IGF0dGVt
+cHRzIGhhdmUgYmVlbiBiYXNlZCBvbiB0aGUgS0VSTkVMX0RFRkNPTkZJR196eW5xX3p4M19zdGFy
+dGVyIA0KPiB2YXJpYWJsZSBpbiByZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC16eW5xLWdpdC5i
+Yi4gIEkgaGF2ZSB0cmllZCANCj4gc3BlY2lmeWluZyBteSBvd24gcGF0Y2ggdG8gY3JlYXRlIHRo
+aXMgZmlsZSBhcyB3ZWxsIGFzIHBvaW50aW5nIGl0IHRvIA0KPiBteSBvd24gbW9kaWZpZWQgY29w
+eSBvZiB0aGUgZGVmY29uZmlnIGNyZWF0ZWQgYnkgdGhlIHBhdGNoZXMgaW4gDQo+IG1ldGEtbmV0
+bW9kdWxlLiAgQWZ0ZXIgYnVpbGRpbmcsIHRoZSBtb2RpZmllZCBkZWZjb25maWcgZmlsZSB3aXRo
+IHRoZSANCj4gZmxhZ3Mgc2hvd3MgdXAgaW4gbXkgd29yayBkaXJlY3RvcnkgYXMgLmNvbmZpZyBi
+dXQgbm8gY2hhbmdlcyBldmVyIA0KPiBhcHBlYXIgaW4gL3Byb2MvY29uZmlnLmd6IGFmdGVyIGJv
+b3RpbmcgbXkgaW1hZ2UuICBJIGFtIGFibGUgdG8gdmVyaWZ5IHRoYXQgdGhlIOKAmG1ha2Ugenlu
+cV96eDNfZGVmY29uZmln4oCZDQo+IHN0ZXAgd2FzIHJ1bi4gIEkgd29uZGVyIGlmIHRoZSBzdGVw
+cyB0byBkbyB0aGlzIGFyZSBkaWZmZXJlbnQgaGVyZSANCj4gdXNpbmcgdGhlIGxpbnV4LXp5bnEg
+cmVjaXBlIGFzIG9wcG9zZWQgdG8gbGludXgteW9jdG8uICBBbnkgaW5wdXQgb24gDQo+IHRoZSBj
+b3JyZWN0IHdheSB0byBkbyB0aGlzIHdvdWxkIGJlIGdyZWF0bHkgYXBwcmVjaWF0ZWQuDQoNCmxv
+b2tpbmcgYXQgdGhlIGxheWVyIGl0IHNlZW1zIHRoYXQgeW91IGhhdmUgdG8gc3RvcmUgaXQgaW4g
+ZGVmY29uZmlnIGZvciB0aGUgbWFjaGluZSB5b3UgYXJlIGludGVyZXN0ZWQgaW4uIFRoZXJlIGFy
+ZSBmZXcgd2F5cyB0byBnbyBhYm91dCBpdC4gU28gZ28gdG8gdGhlIGNvbmZpZ3VyZWQga2VybmVs
+IHRyZWUgYW5kIHVzZSBtYWtlIG1lbnVjb25maWcgdG8gYWRkIG9wdGlvbnMgeW91IG5lZWQgdG8g
+YWRkIGFuZCB0aGVuIGRvICdtYWtlIHNhdmVkZWZjb25maWcnIHdoaWNoIHNob3VsZCBjcmVhdGUg
+YSBuZXcgZGVmY29uZmlnIHdpdGggeW91ciBjaGFuZ2VzIGluIGl0IHdoaWNoIHRoZW4geW91IGNh
+biBzYXZlIGFsb25nIHNpZGUgb3RoZXIgbWFjaGluZSBkZWZjb25maWdzIGluIGtlcm5lbCB0cmVl
+IHZpYSBhIHBhdGNoIG9yIG1heSBiZSBrZWVwIGl0IGluIG1ldGFkYXRhIGFuZCBhZGQgY2hhbmdl
+cyB0byByZWNpcGUgdG8gdXNlIGl0IGZvciB5b3VyIG1hY2hpbmUuDQoNCj4NCj4gVGhhbmtzIGZv
+ciB0aGUgaGVscCBpbiBhZHZhbmNlLg0KPg0KPg0KPg0KPiAtTWlrZQ0KPg0KPg0KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBwb2t5IG1haWxpbmcg
+bGlzdA0KPiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCj4gaHR0cHM6Ly9saXN0cy55b2N0b3Byb2pl
+Y3Qub3JnL2xpc3RpbmZvL3Bva3kNCj4NCg==
 
