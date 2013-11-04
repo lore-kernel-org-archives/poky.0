@@ -1,35 +1,37 @@
-Return-Path: <mdavis@planetaryresources.com>
-Received: from smtp123.iad3a.emailsrvr.com (smtp123.iad3a.emailsrvr.com
-	[173.203.187.123])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0DC01E017D3
-	for <poky@yoctoproject.org>; Thu, 31 Oct 2013 10:33:31 -0700 (PDT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by smtp24.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTP id
-	96168150278; Thu, 31 Oct 2013 13:33:30 -0400 (EDT)
-X-Virus-Scanned: OK
-Received: from smtp192.mex02.mlsrvr.com (smtp192.mex02.mlsrvr.com
-	[204.232.137.43])
-	by smtp24.relay.iad3a.emailsrvr.com (SMTP Server) with ESMTPS id
-	812EF150268; Thu, 31 Oct 2013 13:33:30 -0400 (EDT)
-Received: from IAD2MBX05.mex02.mlsrvr.com ([172.23.11.33]) by
-	IAD2HUB06.mex02.mlsrvr.com ([172.23.10.70]) with mapi; Thu, 31 Oct 2013
-	13:33:30 -0400
-From: Michael Davis <mdavis@planetaryresources.com>
-To: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 31 Oct 2013 13:33:29 -0400
-Thread-Topic: [poky] Defconfig mods, Zynq-zx3 netmodule
-Thread-Index: Ac7V5mlRMsAvycpfQjeiiVgWze4YUgAdye2g
-Message-ID: <7BDD69127112414F90CF3FED4711BF150D15B25D0D@IAD2MBX05.mex02.mlsrvr.com>
-References: <7BDD69127112414F90CF3FED4711BF150D15B25C51@IAD2MBX05.mex02.mlsrvr.com>
-	<CAMKF1sr5S+_zD2D=t6q-Bvud61r8q4pZ=cV3sKoEEmVYybbeKA@mail.gmail.com>
-In-Reply-To: <CAMKF1sr5S+_zD2D=t6q-Bvud61r8q4pZ=cV3sKoEEmVYybbeKA@mail.gmail.com>
-Accept-Language: en-US
+Return-Path: <Teemu.Keskinarkaus@Maximatecc.com>
+Received: from mail1.bemta12.messagelabs.com (mail1.bemta12.messagelabs.com
+	[216.82.251.6])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C8BEE0178A
+	for <poky@yoctoproject.org>; Sun,  3 Nov 2013 23:31:32 -0800 (PST)
+Received: from [216.82.249.131:10157] by server-6.bemta-12.messagelabs.com id
+	37/C3-09064-35D47725; Mon, 04 Nov 2013 07:31:31 +0000
+X-Env-Sender: Teemu.Keskinarkaus@Maximatecc.com
+X-Msg-Ref: server-15.tower-28.messagelabs.com!1383550290!23822961!1
+X-Originating-IP: [207.250.73.122]
+X-StarScan-Received: 
+X-StarScan-Version: 6.9.12; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 8107 invoked from network); 4 Nov 2013 07:31:30 -0000
+Received: from unknown (HELO ammail.actuant.com) (207.250.73.122)
+	by server-15.tower-28.messagelabs.com with AES128-SHA encrypted SMTP;
+	4 Nov 2013 07:31:30 -0000
+Received: from AMDTCEX12.actuant.pri ([fe80::1ff:ff4d:9ac5:22e8]) by
+	AMDTCEX11.actuant.pri ([fe80::f86b:7a40:d71b:bb92%21]) with mapi id
+	14.02.0342.003; Mon, 4 Nov 2013 01:31:28 -0600
+From: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@Maximatecc.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: RT-patch for Yocto-kernel
+Thread-Index: Ac7ZJ+9ZI9obZ9SHTMOKYyEEofiHyQ==
+Date: Mon, 4 Nov 2013 07:31:27 +0000
+Message-ID: <83DB4EC8FADD45428E3CC4E3664761FD09C38EAD@AMDTCEX12.actuant.pri>
+Accept-Language: fi-FI, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
+x-originating-ip: [10.0.10.100]
+x-ems-proccessed: 52bwn4SPvyFdxH+yW9O0UA==
+x-ems-stamp: vgdikqz4APrn+HV5/o0Cpg==
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Defconfig mods, Zynq-zx3 netmodule
+Subject: RT-patch for Yocto-kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,67 +44,196 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Oct 2013 17:33:33 -0000
+X-List-Received-Date: Mon, 04 Nov 2013 07:31:36 -0000
 Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/alternative;
+	boundary="_000_83DB4EC8FADD45428E3CC4E3664761FD09C38EADAMDTCEX12actuan_"
 
-SGkgS2hlbSwNCg0KVGhpcyBpcyBnZW5lcmFsbHkgdGhlIG1ldGhvZCBJIGhhdmUgYmVlbiBoYXZp
-bmcgdHJvdWJsZSB3aXRoLiAgUnVubmluZyBtZW51Y29uZmlnIGFuZCBzYXZlZGVmY29uZmlnIEkg
-YW0gYWJsZSB0byBnZW5lcmF0ZSBhIC5jb25maWcgZmlsZSB3aXRoIHRoZSBkZXNpcmVkIGNvbmZp
-Z3VyYXRpb25zLiAgSSB0aGVuIHNhdmUgdGhhdCBmaWxlIGFzIHp4M19zdGFydGVyX2RlZmNvbmZp
-ZyBvdmVyIHRoZSBzYW1lIGZpbGUgdW5kZXIgYXJjaC9hcm0vY29uZmlncyBpbiBteSB3b3JrIGRp
-cmVjdG9yeS4gIFRoZW4gSSB1c2UgZ2l0IHRvIGNyZWF0ZSBhIHBhdGNoLiAgVGhpcyBwYXRjaCBJ
-IHB1dCBpbiB0aGUgbmV0bW9kdWxlIGxpbnV4LXp5bnFfZ2l0LmJiIFNSQ19VUklfYXBwZW5kIGxp
-bmUgYW5kIHJlbW92ZSB0aGUgcGF0Y2hlcyB0aGF0IHdlcmUgdGhlcmUgZm9yIHp4M19zdGFydGVy
-X2RlZmNvbmZpZyBvcmlnaW5hbGx5LiAgV2hlbiBJIGJ1aWxkLCB0aGUgbmV3IHp4M19zdGFydGVy
-X2RlZmNvbmZpZyBzaG93cyB1cCB1bmRlciBhcmNoL2FybS9jb25maWdzIGFuZCBpbiBmYWN0IHRo
-ZSBvcHRpb25zIEkgd2FudCBzaG93IHVwIGluIHRoZSB0b3AgbGV2ZWwgLmNvbmZpZywgdGhvdWdo
-IHRoaXMgZmlsZSBpcyBub3QgaWRlbnRpY2FsIHRvIHRoZSBmaWxlIG1hZGUgYnkgbXkgcGF0Y2gu
-ICBJbiB0aGUgbG9nLmRvX2NvbmZpZ3VyZSwgdGhlIGxpbmUgIm1ha2UgengzX3N0YXJ0ZXJfZGVm
-Y29uZmlnIiBzaG93cyB1cCBhbmQgaXQgbG9va3MgbGlrZSBpdCBpcyBwYXJzaW5nIG91dCBhbGwg
-b2YgbXkgb3B0aW9ucy4gIFdoZW4gSSBib290IHVwLCBubyBkaWNlLiANCg0KRG9lcyB0aGlzIHNv
-dW5kIGxpa2UgdGhlIG1ldGhvZCB5b3UgYXJlIGRlc2NyaWJpbmc/ICBXb3VsZCBpdCBiZSBiZXR0
-ZXIgdG8gc29tZWhvdyBzcGVjaWZ5IGEgcmVhbCB2ZXJzaW9uIG9mIHRoaXMgZmlsZSBmb3IgeW9j
-dG8gdG8gY29weSBvdmVyPyAgSXMgaXQgcG9zc2libGUgdGhhdCB0aGUgY29uZmlndXJhdGlvbnMg
-d291bGQgbm90IHNob3cgdXAgaW4gbXkgL3Byb2MvY29uZmlnLmd6IGZpbGU/DQoNClRoYW5rcyBm
-b3IgYWxsIHlvdXIgaGVscA0KDQotTWlrZQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
-RnJvbTogS2hlbSBSYWogW21haWx0bzpyYWoua2hlbUBnbWFpbC5jb21dIA0KU2VudDogV2VkbmVz
-ZGF5LCBPY3RvYmVyIDMwLCAyMDEzIDg6MDggUE0NClRvOiBNaWNoYWVsIERhdmlzDQpDYzogcG9r
-eUB5b2N0b3Byb2plY3Qub3JnDQpTdWJqZWN0OiBSZTogW3Bva3ldIERlZmNvbmZpZyBtb2RzLCBa
-eW5xLXp4MyBuZXRtb2R1bGUNCg0KT24gV2VkLCBPY3QgMzAsIDIwMTMgYXQgNzoxNyBQTSwgTWlj
-aGFlbCBEYXZpcyA8bWRhdmlzQHBsYW5ldGFyeXJlc291cmNlcy5jb20+IHdyb3RlOg0KPiBIaSBE
-YXZpZCwNCj4NCj4NCj4NCj4gSSBhbSBjdXJyZW50bHkgdXNpbmcgdGhlIG5ldG1vZHVsZSBtZXRh
-IGxheWVyIGluIHlvY3RvIHRvIGJ1aWxkIGEgDQo+IGtlcm5lbCBhbmQgcmFtZGlzayBmb3IgbXkg
-enlucSB6eDMgb24gYSBzdGFydGVyIGJvYXJkLiAgSSBuZWVkIHRvIA0KPiBlbmFibGUga2VybmVs
-IGZ1bmN0aW9uIHRyYWNpbmcgYW5kIGEgZmV3IG90aGVyIGNvbmZpZ3VyYXRpb25zIGluIG15IA0K
-PiBidWlsZC4gIEkgbmVlZCBoZWxwIG9uIHRoZSBjb3JyZWN0IHdheSB0byBlbmFibGUga2VybmVs
-IGNvbmZpZ3VyYXRpb25zIA0KPiAoc3BlY2lmaWNhbGx5IEkgbmVlZCBDT05GSUdfRlRSQUNFIGFu
-ZCBDT05GSUdfUFJPRklMSU5HKSB1c2luZyB0aGUgbWV0YSBsYXllci4NCj4NCj4gIE15IGF0dGVt
-cHRzIGhhdmUgYmVlbiBiYXNlZCBvbiB0aGUgS0VSTkVMX0RFRkNPTkZJR196eW5xX3p4M19zdGFy
-dGVyIA0KPiB2YXJpYWJsZSBpbiByZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC16eW5xLWdpdC5i
-Yi4gIEkgaGF2ZSB0cmllZCANCj4gc3BlY2lmeWluZyBteSBvd24gcGF0Y2ggdG8gY3JlYXRlIHRo
-aXMgZmlsZSBhcyB3ZWxsIGFzIHBvaW50aW5nIGl0IHRvIA0KPiBteSBvd24gbW9kaWZpZWQgY29w
-eSBvZiB0aGUgZGVmY29uZmlnIGNyZWF0ZWQgYnkgdGhlIHBhdGNoZXMgaW4gDQo+IG1ldGEtbmV0
-bW9kdWxlLiAgQWZ0ZXIgYnVpbGRpbmcsIHRoZSBtb2RpZmllZCBkZWZjb25maWcgZmlsZSB3aXRo
-IHRoZSANCj4gZmxhZ3Mgc2hvd3MgdXAgaW4gbXkgd29yayBkaXJlY3RvcnkgYXMgLmNvbmZpZyBi
-dXQgbm8gY2hhbmdlcyBldmVyIA0KPiBhcHBlYXIgaW4gL3Byb2MvY29uZmlnLmd6IGFmdGVyIGJv
-b3RpbmcgbXkgaW1hZ2UuICBJIGFtIGFibGUgdG8gdmVyaWZ5IHRoYXQgdGhlIOKAmG1ha2Ugenlu
-cV96eDNfZGVmY29uZmln4oCZDQo+IHN0ZXAgd2FzIHJ1bi4gIEkgd29uZGVyIGlmIHRoZSBzdGVw
-cyB0byBkbyB0aGlzIGFyZSBkaWZmZXJlbnQgaGVyZSANCj4gdXNpbmcgdGhlIGxpbnV4LXp5bnEg
-cmVjaXBlIGFzIG9wcG9zZWQgdG8gbGludXgteW9jdG8uICBBbnkgaW5wdXQgb24gDQo+IHRoZSBj
-b3JyZWN0IHdheSB0byBkbyB0aGlzIHdvdWxkIGJlIGdyZWF0bHkgYXBwcmVjaWF0ZWQuDQoNCmxv
-b2tpbmcgYXQgdGhlIGxheWVyIGl0IHNlZW1zIHRoYXQgeW91IGhhdmUgdG8gc3RvcmUgaXQgaW4g
-ZGVmY29uZmlnIGZvciB0aGUgbWFjaGluZSB5b3UgYXJlIGludGVyZXN0ZWQgaW4uIFRoZXJlIGFy
-ZSBmZXcgd2F5cyB0byBnbyBhYm91dCBpdC4gU28gZ28gdG8gdGhlIGNvbmZpZ3VyZWQga2VybmVs
-IHRyZWUgYW5kIHVzZSBtYWtlIG1lbnVjb25maWcgdG8gYWRkIG9wdGlvbnMgeW91IG5lZWQgdG8g
-YWRkIGFuZCB0aGVuIGRvICdtYWtlIHNhdmVkZWZjb25maWcnIHdoaWNoIHNob3VsZCBjcmVhdGUg
-YSBuZXcgZGVmY29uZmlnIHdpdGggeW91ciBjaGFuZ2VzIGluIGl0IHdoaWNoIHRoZW4geW91IGNh
-biBzYXZlIGFsb25nIHNpZGUgb3RoZXIgbWFjaGluZSBkZWZjb25maWdzIGluIGtlcm5lbCB0cmVl
-IHZpYSBhIHBhdGNoIG9yIG1heSBiZSBrZWVwIGl0IGluIG1ldGFkYXRhIGFuZCBhZGQgY2hhbmdl
-cyB0byByZWNpcGUgdG8gdXNlIGl0IGZvciB5b3VyIG1hY2hpbmUuDQoNCj4NCj4gVGhhbmtzIGZv
-ciB0aGUgaGVscCBpbiBhZHZhbmNlLg0KPg0KPg0KPg0KPiAtTWlrZQ0KPg0KPg0KPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBwb2t5IG1haWxpbmcg
-bGlzdA0KPiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCj4gaHR0cHM6Ly9saXN0cy55b2N0b3Byb2pl
-Y3Qub3JnL2xpc3RpbmZvL3Bva3kNCj4NCg==
+--_000_83DB4EC8FADD45428E3CC4E3664761FD09C38EADAMDTCEX12actuan_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
+
+In our system we want to use Full RT - kernel configuration. I learned that=
+ Yocto/Poky Preempt - rt is actually just low latency configuration and not=
+ the real Full RT as the name falsely suggests. Anyway, that's not the prob=
+lem after I found it.
+
+There is a patch in the kernel.org that adds the Full RT support for the ke=
+rnel. Unfortunately it doesn't work right away in Yocto kernel. We use emen=
+low variant of the kernel.
+
+So I compiled the system and then fixed the patch by applying it to kernel =
+sources in build-directory. Then added the  patch to kernel .bbappend file =
+so that it would be applied during compilation time.  Or so I thought.
+
+Now when I try to compile the system do_patch - state for linux-yocto-rt - =
+fails.
+
+Log data follows:
+| DEBUG: Executing shell function do_patch
+| Deleted branch meta-temp (was 37fdb0c).
+| [INFO] validating against known patches  (emenlow-preempt-rt-meta)
+Context reduced to (2/2) to apply fragment at 385    ] (\)(88 %))
+error: patch failed: drivers/net/ethernet/ti/cpsw.c:374(/)(92 %)%)
+| error: drivers/net/ethernet/ti/cpsw.c: patch does not apply
+| Context reduced to (1/1) to apply fragment at 1050
+| error: patch failed: include/linux/preempt.h:107
+| error: include/linux/preempt.h: patch does not apply
+| error: patch failed: kernel/sched/core.c:1477
+| error: kernel/sched/core.c: patch does not apply
+| ERROR. could not update git tree
+| ERROR. Could not apply patches for emenlow.
+|        Patch failures can be resolved in the devshell (bitbake -c devshel=
+l linux-yocto-rt)
+
+If I'm understanding that right it actually applied my patch before the eme=
+nlow-patch and that's why it fails.
+
+What's the proper way to make kernel patch that big or is there already Ful=
+l RT - patch for emenlow kernel for yocto? We have smaller patches that don=
+'t collide with emmenlow patches and they work just fine.
+
+Teemu Keskinarkaus
+
+
+
+________________________________
+
+Actuant Corporation Email Notice
+
+This message is intended only for the use of the Addressee and may contain =
+information that is PRIVILEGED and/or CONFIDENTIAL.
+This email is intended only for the personal and confidential use of the re=
+cipient(s) named above. If the reader of this email is not an intended reci=
+pient, you have received this email in error and any review, dissemination,=
+ distribution or copying is strictly prohibited.
+If you have received this email in error, please notify the sender immediat=
+ely by return mail and permanently delete the copy you received.
+
+Thank you.
+
+--_000_83DB4EC8FADD45428E3CC4E3664761FD09C38EADAMDTCEX12actuan_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style>
+<!--
+@font-face
+	{font-family:Calibri}
+@font-face
+	{font-family:"Century Gothic"}
+@font-face
+	{font-family:Georgia}
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif"}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline}
+span.EmailStyle17
+	{font-family:"Calibri","sans-serif";
+	color:windowtext}
+.MsoChpDefault
+	{font-family:"Calibri","sans-serif"}
+@page WordSection1
+	{margin:70.85pt 2.0cm 70.85pt 2.0cm}
+div.WordSection1
+	{}
+-->
+</style>
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi,</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">In our system we want to use Full RT &#8211; kernel =
+configuration. I learned that Yocto/Poky Preempt &#8211; rt is actually jus=
+t low latency configuration and not the real Full RT as the name falsely su=
+ggests. Anyway, that&#8217;s not the problem after I
+ found it.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">There is a patch in the kernel.org that adds the Ful=
+l RT support for the kernel. Unfortunately it doesn&#8217;t work right away=
+ in Yocto kernel. We use emenlow variant of the kernel.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">So I compiled the system and then fixed the patch by=
+ applying it to kernel sources in build-directory. Then added the&nbsp; pat=
+ch to kernel .bbappend file so that it would be applied during compilation =
+time.&nbsp; Or so I thought.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">Now when I try to compile the system do_patch &#8211=
+; state for linux-yocto-rt &#8211; fails.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">Log data follows:</p>
+<p class=3D"MsoNormal">| DEBUG: Executing shell function do_patch</p>
+<p class=3D"MsoNormal">| Deleted branch meta-temp (was 37fdb0c).</p>
+<p class=3D"MsoNormal">| [INFO] validating against known patches&nbsp; (eme=
+nlow-preempt-rt-meta)</p>
+<p class=3D"MsoNormal">Context reduced to (2/2) to apply fragment at 385&nb=
+sp;&nbsp;&nbsp; ] (\)(88 %))</p>
+<p class=3D"MsoNormal">error: patch failed: drivers/net/ethernet/ti/cpsw.c:=
+374(/)(92 %)%)</p>
+<p class=3D"MsoNormal">| error: drivers/net/ethernet/ti/cpsw.c: patch does =
+not apply</p>
+<p class=3D"MsoNormal">| Context reduced to (1/1) to apply fragment at 1050=
+</p>
+<p class=3D"MsoNormal">| error: patch failed: include/linux/preempt.h:107</=
+p>
+<p class=3D"MsoNormal">| error: include/linux/preempt.h: patch does not app=
+ly</p>
+<p class=3D"MsoNormal">| error: patch failed: kernel/sched/core.c:1477</p>
+<p class=3D"MsoNormal">| error: kernel/sched/core.c: patch does not apply</=
+p>
+<p class=3D"MsoNormal">| ERROR. could not update git tree</p>
+<p class=3D"MsoNormal">| ERROR. Could not apply patches for emenlow.</p>
+<p class=3D"MsoNormal">|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patch fa=
+ilures can be resolved in the devshell (bitbake -c devshell linux-yocto-rt)=
+</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">If I&#8217;m understanding that right it actually ap=
+plied my patch before the emenlow-patch and that&#8217;s why it fails.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">What&#8217;s the proper way to make kernel patch tha=
+t big or is there already Full RT &#8211; patch for emenlow kernel for yoct=
+o? We have smaller patches that don&#8217;t collide with emmenlow patches a=
+nd they work just fine.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal" style=3D"line-height:9.0pt"><b><span style=3D"font-s=
+ize:10.0pt; font-family:&quot;Century Gothic&quot;,&quot;sans-serif&quot;">=
+Teemu Keskinarkaus<br>
+<br>
+</span></b></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+</div>
+<br>
+<hr>
+<font face=3D"Arial" color=3D"Black" size=3D"1"><br>
+Actuant Corporation Email Notice<br>
+<br>
+This message is intended only for the use of the Addressee and may contain =
+information that is PRIVILEGED and/or CONFIDENTIAL.<br>
+This email is intended only for the personal and confidential use of the re=
+cipient(s) named above. If the reader of this email is not an intended reci=
+pient, you have received this email in error and any review, dissemination,=
+ distribution or copying is strictly
+ prohibited.<br>
+If you have received this email in error, please notify the sender immediat=
+ely by return mail and permanently delete the copy you received.<br>
+<br>
+Thank you.<br>
+</font>
+</body>
+</html>
+
+--_000_83DB4EC8FADD45428E3CC4E3664761FD09C38EADAMDTCEX12actuan_--
