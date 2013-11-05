@@ -1,28 +1,28 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 74250E0178C
-	for <poky@yoctoproject.org>; Tue,  5 Nov 2013 05:52:15 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id rA5Dq6Mb000730
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 5 Nov 2013 05:52:07 -0800 (PST)
-Received: from [128.224.146.67] (128.224.146.67) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.2.347.0;
-	Tue, 5 Nov 2013 05:52:07 -0800
-Message-ID: <5278F806.6020501@windriver.com>
-Date: Tue, 5 Nov 2013 08:52:06 -0500
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.1.0
+Return-Path: <keller.eric@gmail.com>
+Received: from mail-ie0-f180.google.com (mail-ie0-f180.google.com
+	[209.85.223.180])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 18CE5E0174E
+	for <poky@yoctoproject.org>; Tue,  5 Nov 2013 15:06:27 -0800 (PST)
+Received: by mail-ie0-f180.google.com with SMTP id e14so15793479iej.39
+	for <poky@yoctoproject.org>; Tue, 05 Nov 2013 15:06:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:from:date:message-id:subject:to:content-type;
+	bh=izorbjRuoScc00xgCD1mfR3Gdb/ihFSG8F2ca3a1s1U=;
+	b=sm3haZl16dBx1qkx4cPZ1IoT024Is3Ass+zdnYFVUV+NKH1UuImwhX+JgPkBZ+0HIl
+	HCNg5OnvpIrOO+xwuBA2MSkWHEdlFDS+v9eHQ6cR4P0dQ97dgs9gjuRG73H1ws/RyCiD
+	23tvkqk++dCM5hQWtzVOZ0VowJi0pbxs14ZadAbKqH0IHN67WeikWKDeEuyz5BThU4Vc
+	EtLk9QICePo0u+Yqr0A1+TXWdC/8Udfmeo/QNz8S0vfTD2fOq02RK0HzdZBKuB1Wvdmy
+	OC8kZ712r0xBjs4sBqW/lKt8FC4Dsguri3joPdlT+vvjUAN7kCCWpeMntwS4850B+R6I
+	qHmQ==
+X-Received: by 10.50.164.165 with SMTP id yr5mr52815igb.38.1383692786401; Tue,
+	05 Nov 2013 15:06:26 -0800 (PST)
 MIME-Version: 1.0
-To: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@Maximatecc.com>, Bruce Ashfield
-	<bruce.ashfield@gmail.com>
-References: <83DB4EC8FADD45428E3CC4E3664761FD09C38EAD@AMDTCEX12.actuant.pri>	<CADkTA4P48xR1T82tnePHH4dQ9ZK-=XFpwkY=gvpMRdU-ozwb+A@mail.gmail.com>
-	<83DB4EC8FADD45428E3CC4E3664761FD09C398E3@AMDTCEX12.actuant.pri>
-In-Reply-To: <83DB4EC8FADD45428E3CC4E3664761FD09C398E3@AMDTCEX12.actuant.pri>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: RT-patch for Yocto-kernel
+Received: by 10.64.87.201 with HTTP; Tue, 5 Nov 2013 15:06:06 -0800 (PST)
+From: Eric Keller <keller.eric@gmail.com>
+Date: Wed, 6 Nov 2013 00:06:06 +0100
+Message-ID: <CAF8s8J-NfHh=vhDk9937cJcxO8aBTFb3ZP+3J5=A2c+PG443QA@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: [patch] linux-yocto-rt_3.10.bbappend recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,212 +35,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Nov 2013 13:52:18 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 05 Nov 2013 23:06:30 -0000
+X-Groupsio-MsgNum: 9286
+Content-Type: multipart/mixed; boundary=089e01229ed40407d604ea76156b
 
-On 13-11-05 02:36 AM, Keskinarkaus, Teemu wrote:
-> Sorry for top post.
->
-> I did some test. I compiled our project with linux-yocto-rt and linux-yocto - kernels.  Then checked from menuconfig that both of those kernels same options in:
-> Processor type and features ->  Preemption Model.
-> -> No Forced Preemption
-> -> Voluntary Kernel Preemption
-> -> Preemptible kernel
->
-> When added rt-patch from: https://www.kernel.org/pub/linux/kernel/projects/rt/3.8/ I got two more options:
->
-> -> Preemtible Kernel (Basic RT)
-> -> Fully Preememptible Kernel (RT)
->
-> The fact that the rt-patch applied just fine to linux-yocto-rt - kernel sources got me thinking that the linux-yocto-rt does NOT contain the kernel.org rt-patch I mentioned earlier.  If that's the case then what's the point on whole rt-kernel branch? Or how do I get the rt-patched version of the kernel? When I compile the kernel I see that it uses linux-yocto-rt-3.8.13+gitAUTOINC+2a6d36e75c_47aed0c17c-r4.1 so it's not using the normal version of the kernel.
+--089e01229ed40407d604ea76156b
+Content-Type: multipart/alternative; boundary=089e01229ed40407d104ea761569
 
-I assure you .. it is applied. We've been applying and testing with
-the patch since Yocto 0.9, and longer pre-yocto.
+--089e01229ed40407d104ea761569
+Content-Type: text/plain; charset=ISO-8859-1
 
-You aren't looking at the the right branches:
+Hi everyone,
 
- > git branch | grep \*
-* standard/preempt-rt/base
+could you consider applying this patch so that we are able to build rt
+kernel for genericx86(-64)?
 
- > grep PREEMPT_RT_FULL kernel/Kconfig.preempt
-         def_bool y if HAVE_PREEMPT_LAZY && PREEMPT_RT_FULL
-config PREEMPT_RT_FULL
+Best regards
+-- 
+Eric Keller
 
- > git whatchanged kernel/Kconfig.preempt
+--089e01229ed40407d104ea761569
+Content-Type: text/html; charset=ISO-8859-1
 
-commit abd0728b164f651292374e96251ee197b50e3c02
-Author: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date:   Sun Mar 31 18:21:42 2013 -0700
-
-     preempt-rt: integrate patch-3.8.4-rt2
-
-     Merging patch-3.8.4-rt2 from: 
-https://www.kernel.org/pub/linux/kernel/projects/rt/3.8/
-
-     From the release Notes:
-
-     changes since v3.8.4-rt1:
-        - build fix for i915 (reported by "Luis Claudio R. Goncalves")
-        - build fix for fscache (reported by tglx)
-        - build fix for !RT (kernel/softirq.c did not compile)
-        - per-cpu rwsem fixed for RT (required only by uprobes so far)
-        - slub: delay the execution of the ->ctor() hook for newly created
-          objects. This lowers the worst case latencies.
-
-     Known issues:
-
-           - SLxB is broken on PowerPC.
-
-     Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-
-:100644 100644 3f9c974... 38cecfe... M  kernel/Kconfig.preempt
-
-Cheers,
-
-Bruce
-
->
-> Teemu Keskinarkaus
->
-> -----Original Message-----
-> From: Bruce Ashfield [mailto:bruce.ashfield@gmail.com]
-> Sent: 4. marraskuuta 2013 15:17
-> To: Keskinarkaus, Teemu
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] RT-patch for Yocto-kernel
->
-> On Mon, Nov 4, 2013 at 2:31 AM, Keskinarkaus, Teemu <Teemu.Keskinarkaus@maximatecc.com> wrote:
->> Hi,
->>
->>
->>
->> In our system we want to use Full RT - kernel configuration. I learned
->> that Yocto/Poky Preempt - rt is actually just low latency
->> configuration and not the real Full RT as the name falsely suggests.
->> Anyway, that's not the problem after I found it.
->>
->
-> Hmm. No. The standard/preempt-rt/* branches in the Yocto kernel are the full -rt patch.
->
->>
->>
->> There is a patch in the kernel.org that adds the Full RT support for
->> the kernel. Unfortunately it doesn't work right away in Yocto kernel.
->> We use emenlow variant of the kernel.
->>
->>
->>
->> So I compiled the system and then fixed the patch by applying it to
->> kernel sources in build-directory. Then added the  patch to kernel
->> .bbappend file so that it would be applied during compilation time.  Or so I thought.
->>
->>
->>
->> Now when I try to compile the system do_patch - state for
->> linux-yocto-rt - fails.
->>
->>
->>
->> Log data follows:
->>
->> | DEBUG: Executing shell function do_patch
->>
->> | Deleted branch meta-temp (was 37fdb0c).
->>
->> | [INFO] validating against known patches  (emenlow-preempt-rt-meta)
->>
->> Context reduced to (2/2) to apply fragment at 385    ] (\)(88 %))
->>
->> error: patch failed: drivers/net/ethernet/ti/cpsw.c:374(/)(92 %)%)
->>
->> | error: drivers/net/ethernet/ti/cpsw.c: patch does not apply
->>
->> | Context reduced to (1/1) to apply fragment at 1050
->>
->> | error: patch failed: include/linux/preempt.h:107
->>
->> | error: include/linux/preempt.h: patch does not apply
->>
->> | error: patch failed: kernel/sched/core.c:1477
->>
->> | error: kernel/sched/core.c: patch does not apply
->>
->> | ERROR. could not update git tree
->>
->> | ERROR. Could not apply patches for emenlow.
->>
->> |        Patch failures can be resolved in the devshell (bitbake -c
->> | devshell
->> linux-yocto-rt)
->>
->>
->>
->> If I'm understanding that right it actually applied my patch before
->> the emenlow-patch and that's why it fails.
->>
->>
->>
->> What's the proper way to make kernel patch that big or is there
->> already Full RT - patch for emenlow kernel for yocto? We have smaller
->> patches that don't collide with emmenlow patches and they work just fine.
->
-> You simply need to make the emenlow BSP compatible with linux-yocto-rt and use KBRANCH="standard/preempt-rt/base"
->
-> And you have the full -rt patch available.
->
-> Cheers,
->
-> Bruce
->
->>
->>
->>
->> Teemu Keskinarkaus
->>
->>
->>
->>
->> ________________________________
->>
->> Actuant Corporation Email Notice
->>
->> This message is intended only for the use of the Addressee and may
->> contain information that is PRIVILEGED and/or CONFIDENTIAL.
->> This email is intended only for the personal and confidential use of
->> the
->> recipient(s) named above. If the reader of this email is not an
->> intended recipient, you have received this email in error and any
->> review, dissemination, distribution or copying is strictly prohibited.
->> If you have received this email in error, please notify the sender
->> immediately by return mail and permanently delete the copy you received.
->>
->> Thank you.
->>
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->
->
->
-> --
-> "Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end"
->
-> ________________________________
->
-> Actuant Corporation Email Notice
->
-> This message is intended only for the use of the Addressee and may contain information that is PRIVILEGED and/or CONFIDENTIAL.
-> This email is intended only for the personal and confidential use of the recipient(s) named above. If the reader of this email is not an intended recipient, you have received this email in error and any review, dissemination, distribution or copying is strictly prohibited.
-> If you have received this email in error, please notify the sender immediately by return mail and permanently delete the copy you received.
->
-> Thank you.
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+<div dir="ltr"><div>Hi everyone,<br><br>could you consider applying this patch so that we are able to build rt kernel for genericx86(-64)?<br><br></div>Best regards<br><div><div>-- <br clear="all"><div>Eric Keller<br><br></div>
 
 
+</div></div></div>
+
+--089e01229ed40407d104ea761569--
+
+--089e01229ed40407d604ea76156b
+Content-Type: text/x-patch; charset=US-ASCII; 
+	name="0001-add-linux-yocto-rt_3.10.bbappend-recipe-for-genericx.patch"
+Content-Disposition: attachment; 
+	filename="0001-add-linux-yocto-rt_3.10.bbappend-recipe-for-genericx.patch"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_hnnqi8ju0
+
+RnJvbSA4ODcxNzhhNThhYjRkMGI1Y2VhNzNmNmJiYzFiNjhiMzI1Yzg3YTBkIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBFcmljIEtlbGxlciA8ZXJpYy5rZWxsZXIuZWsxQHJvY2hlLmNv
+bT4KRGF0ZTogVHVlLCA1IE5vdiAyMDEzIDIzOjQ0OjA3ICswMTAwClN1YmplY3Q6IFtQQVRDSF0g
+YWRkIGxpbnV4LXlvY3RvLXJ0XzMuMTAuYmJhcHBlbmQgcmVjaXBlIGZvciBnZW5lcmljeDg2IGFu
+ZAogZ2VuZXJpY3g4Ni02NAoKU2lnbmVkLW9mZi1ieTogRXJpYyBLZWxsZXIgPGVyaWMua2VsbGVy
+LmVrMUByb2NoZS5jb20+Ci0tLQogLi4uL2xpbnV4L2xpbnV4LXlvY3RvLXJ0XzMuMTAuYmJhcHBl
+bmQgICAgICAgICAgICAgfCAgIDIzICsrKysrKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdl
+ZCwgMjMgaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IG1ldGEteW9jdG8tYnNwL3Jl
+Y2lwZXMta2VybmVsL2xpbnV4L2xpbnV4LXlvY3RvLXJ0XzMuMTAuYmJhcHBlbmQKCmRpZmYgLS1n
+aXQgYS9tZXRhLXlvY3RvLWJzcC9yZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC15b2N0by1ydF8z
+LjEwLmJiYXBwZW5kIGIvbWV0YS15b2N0by1ic3AvcmVjaXBlcy1rZXJuZWwvbGludXgvbGludXgt
+eW9jdG8tcnRfMy4xMC5iYmFwcGVuZApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAw
+Li43OTc4Zjc5Ci0tLSAvZGV2L251bGwKKysrIGIvbWV0YS15b2N0by1ic3AvcmVjaXBlcy1rZXJu
+ZWwvbGludXgvbGludXgteW9jdG8tcnRfMy4xMC5iYmFwcGVuZApAQCAtMCwwICsxLDIzIEBACitL
+QlJBTkNIX2dlbmVyaWN4ODYgID0gInN0YW5kYXJkL2NvbW1vbi1wYy9iYXNlIgorS0JSQU5DSF9n
+ZW5lcmljeDg2LTY0ICA9ICJzdGFuZGFyZC9jb21tb24tcGMtNjQvYmFzZSIKKyNLQlJBTkNIX3Jv
+dXRlcnN0YXRpb25wcm8gPSAic3RhbmRhcmQvcm91dGVyc3RhdGlvbnBybyIKKyNLQlJBTkNIX21w
+YzgzMTVlLXJkYiA9ICJzdGFuZGFyZC9mc2wtbXBjODMxNWUtcmRiIgorI0tCUkFOQ0hfYmVhZ2xl
+Ym9hcmQgPSAic3RhbmRhcmQvYmVhZ2xlYm9hcmQiCisKK0tNQUNISU5FX2dlbmVyaWN4ODYgPz0g
+ImNvbW1vbi1wYyIKK0tNQUNISU5FX2dlbmVyaWN4ODYtNjQgPz0gImNvbW1vbi1wYy02NCIKKwor
+U1JDUkVWX21hY2hpbmVfZ2VuZXJpY3g4NiA/PSAiNzAyMDQwYWM3YzdlYzY2YTI5YjRkMTQ3NjY1
+Y2NkZDBmZjAxNTU3NyIKK1NSQ1JFVl9tYWNoaW5lX2dlbmVyaWN4ODYtNjQgPz0gIjcwMjA0MGFj
+N2M3ZWM2NmEyOWI0ZDE0NzY2NWNjZGQwZmYwMTU1NzciCisjU1JDUkVWX21hY2hpbmVfcm91dGVy
+c3RhdGlvbnBybyA/PSAiZDRlNmFkZWZhZjkyYTFlN2I2NTM5ZDM3MWJhNDliNzhiZDE5NGE4NCIK
+KyNTUkNSRVZfbWFjaGluZV9tcGM4MzE1ZS1yZGIgPz0gIjEyZGM0NmJhNGVmYjgwZTEzNWZlYzRk
+Y2U5MTNlZWI4N2VlNjcxYjMiCisjU1JDUkVWX21hY2hpbmVfYmVhZ2xlYm9hcmQgPz0gIjcwMjA0
+MGFjN2M3ZWM2NmEyOWI0ZDE0NzY2NWNjZGQwZmYwMTU1NzciCisKK0NPTVBBVElCTEVfTUFDSElO
+RV9nZW5lcmljeDg2ID0gImdlbmVyaWN4ODYiCitDT01QQVRJQkxFX01BQ0hJTkVfZ2VuZXJpY3g4
+Ni02NCA9ICJnZW5lcmljeDg2LTY0IgorI0NPTVBBVElCTEVfTUFDSElORV9tcGM4MzE1ZS1yZGIg
+PSAibXBjODMxNWUtcmRiIgorI0NPTVBBVElCTEVfTUFDSElORV9yb3V0ZXJzdGF0aW9ucHJvID0g
+InJvdXRlcnN0YXRpb25wcm8iCisjQ09NUEFUSUJMRV9NQUNISU5FX2JlYWdsZWJvYXJkID0gImJl
+YWdsZWJvYXJkIgorCisjIHJvdXRlcnN0YXRpb25wcm8gaGFzIGEgZmxhc2ggc2l6ZSBvZiAxNm1i
+CitLRVJORUxfSU1BR0VfTUFYU0laRV9yb3V0ZXJzdGF0aW9ucHJvID0gIjE2Nzc3MjE2IgotLSAK
+MS43LjEwLjQKCg==
+
+--089e01229ed40407d604ea76156b--
