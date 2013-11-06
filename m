@@ -1,24 +1,32 @@
-Return-Path: <Qi.Chen@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D3A7E017BF
-	for <poky@yoctoproject.org>; Tue,  5 Nov 2013 19:12:02 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.3) with ESMTP id rA63C13l014688
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 5 Nov 2013 19:12:01 -0800 (PST)
-Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.213) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.347.0; Tue, 5 Nov 2013 19:12:01 -0800
-From: <Qi.Chen@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Wed, 6 Nov 2013 11:13:10 +0800
-Message-ID: <923963c295c4c3513a4752f51bd94e3c5c1fcb8f.1383707515.git.Qi.Chen@windriver.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1383707515.git.Qi.Chen@windriver.com>
-References: <cover.1383707515.git.Qi.Chen@windriver.com>
+Return-Path: <bruce.ashfield@gmail.com>
+Received: from mail-lb0-f176.google.com (mail-lb0-f176.google.com
+	[209.85.217.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 353E3E017BF
+	for <poky@yoctoproject.org>; Tue,  5 Nov 2013 19:25:28 -0800 (PST)
+Received: by mail-lb0-f176.google.com with SMTP id z5so7122703lbh.7
+	for <poky@yoctoproject.org>; Tue, 05 Nov 2013 19:25:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	bh=hZy3D0KU0hS0VEoHQ7ahSlc6xHY3Kt9g52w47dUg5Y8=;
+	b=ILysdkmd5grtL49NEIgOti5D69ktdxcG7CPDMTacDS0klNTpwUuybJeVcuW6bDNEB1
+	gtJDh8ygHggB4jpvun4kV+BhPW8V+cNaEXR37ChXgYr8ci4l555UBmluZ/6FoCeNNn2F
+	/xZuTw2CD0zDW4mMlwQ3bnOwJXV85SupTOM2Wzj8pUpSEva5cTqV8shisxVz+kabj9XQ
+	pOLgnVq9OtklMo4yxZH3TBJEzHM0GGyCWQXQSEo2b6VD4vnwNBiScrYadz0vjDHy5Yj2
+	0zFLqTwW59eyHLTgkfryP3mcy04yjsVSLddJjdqVUr892hZYtIi1tz9KL49nEs/w3OY+
+	T1NQ==
 MIME-Version: 1.0
-Subject: [PATCH 1/1] poky.conf: use weak assignment for WARN_QA and ERROR_QA
+X-Received: by 10.112.143.3 with SMTP id sa3mr1069997lbb.12.1383708326715;
+	Tue, 05 Nov 2013 19:25:26 -0800 (PST)
+Received: by 10.112.14.200 with HTTP; Tue, 5 Nov 2013 19:25:26 -0800 (PST)
+In-Reply-To: <CAF8s8J-NfHh=vhDk9937cJcxO8aBTFb3ZP+3J5=A2c+PG443QA@mail.gmail.com>
+References: <CAF8s8J-NfHh=vhDk9937cJcxO8aBTFb3ZP+3J5=A2c+PG443QA@mail.gmail.com>
+Date: Tue, 5 Nov 2013 22:25:26 -0500
+Message-ID: <CADkTA4OqyjQqqCsKcfoa14XW4BWQRAmwSQMB8rtypFc4M3mxeA@mail.gmail.com>
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
+To: Eric Keller <keller.eric@gmail.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [patch] linux-yocto-rt_3.10.bbappend recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,39 +39,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2013 03:12:03 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 06 Nov 2013 03:25:29 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-From: Chen Qi <qi.chen@windriver.com>
+On Tue, Nov 5, 2013 at 6:06 PM, Eric Keller <keller.eric@gmail.com> wrote:
+> Hi everyone,
+>
+> could you consider applying this patch so that we are able to build rt
+> kernel for genericx86(-64)?
 
-Use weak assignment for WARN_QA and ERROR_QA in the ditro configuration
-file (poky.conf) to allow for override in local.conf.
+Send a patch against the main linux-yocto-rt recipe (not via this
+attached bbappend
+patch), and we can have a look.
 
-As local.conf is included before the distro configuration file, we cannot
-easily set custom WARN_QA and ERROR_QA in local.conf if we don't use
-weak assignment in poky.conf.
+But adding the support is something that you can easily carry in your
+own layer,
+since by adding the support to the main recipe, we are implicitly agreeing that
+I'll build and boot test it with each update. And I don't have a large
+objection to that,
+but I add new supported boards with caution, in particular genericx86, since it
+doesn't have a tightly controlled platform or set of drivers.
 
-Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
----
- meta-yocto/conf/distro/poky.conf |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Cheers,
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 44bc4c6..c4643d2 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -101,8 +101,8 @@ OELAYOUT_ABI = "8"
- INHERIT += "poky-sanity"
- 
- # QA check settings - a little stricter than the OE-Core defaults
--WARN_QA = "textrel files-invalid incompatible-license xorg-driver-abi libdir"
--ERROR_QA = "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms \
-+WARN_QA ?= "textrel files-invalid incompatible-license xorg-driver-abi libdir"
-+ERROR_QA ?= "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms \
-             useless-rpaths rpaths staticdev ldflags pkgvarcheck already-stripped \
-             compile-host-path dep-cmp installed-vs-shipped install-host-path \
-             packages-list perm-config perm-line perm-link pkgv-undefined \
+Bruce
+
+>
+> Best regards
+> --
+> Eric Keller
+>
+>
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+
+
 -- 
-1.7.9.5
-
+"Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end"
 
