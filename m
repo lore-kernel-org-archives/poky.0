@@ -1,39 +1,35 @@
-Return-Path: <ajlennon@gmail.com>
-Received: from mail-wi0-f181.google.com (mail-wi0-f181.google.com
-	[209.85.212.181])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B4C2CE017E8
-	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 07:33:14 -0800 (PST)
-Received: by mail-wi0-f181.google.com with SMTP id ex4so3875829wid.8
-	for <poky@yoctoproject.org>; Wed, 06 Nov 2013 07:33:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:from:to:subject:date:message-id:in-reply-to:references
-	:in-reply-to:references;
-	bh=t1sYY9hqnRdK4ci8PO66UCa2Cblo+rZ8iYIQIsJl9Tw=;
-	b=qJ7hssSsStyCh8E6GU28he+19MtSgkDbNCRwITwLRwEpGJWeWdYg0r6pTIXInvWLXE
-	QiVfdBg2jpSME5FxZIAiXKgiuhkHdyH+Mmbf0i1USaOMZfeDqx8qxu+q9LNyGUQ7F5ca
-	zNcQxeGHC98p4Hva/mUEaOFSJWtJpT4PyKitf/P1hzVyt8OcKf5bsq52bO5DetncRU9L
-	tWMvkyvdPH744DRBTV/J09Qp6c2a7z/2PtcOxSvKqZ/+bUvuvHBfWn/nFQf9F/R4MUf4
-	2IjTKvaKAFSePKrGdV9Z7LWndkRs8LfAjSWbDvxYtLS/6mFWKzmDUREKRKipq0JaQH+O
-	o10A==
-X-Received: by 10.180.109.75 with SMTP id hq11mr3004516wib.30.1383751993138;
-	Wed, 06 Nov 2013 07:33:13 -0800 (PST)
-Received: from localhost.localdomain
-	(cpc16-live22-2-0-cust180.know.cable.virginm.net. [82.42.220.181])
-	by mx.google.com with ESMTPSA id
-	qc10sm25496697wic.9.2013.11.06.07.33.12 for <poky@yoctoproject.org>
-	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 06 Nov 2013 07:33:12 -0800 (PST)
-Sender: Alex Lennon <ajlennon@gmail.com>
-From: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
-To: poky@yoctoproject.org
-Date: Wed,  6 Nov 2013 15:32:59 +0000
-Message-Id: <3ab777991480aa4bff79130bd889ed25eba72fdc.1383743152.git.ajlennon@dynamicdevices.co.uk>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-vc0-f170.google.com (mail-vc0-f170.google.com
+	[209.85.220.170])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2A0EEE017A4
+	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 07:46:47 -0800 (PST)
+Received: by mail-vc0-f170.google.com with SMTP id hv10so6877191vcb.29
+	for <poky@yoctoproject.org>; Wed, 06 Nov 2013 07:46:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=6qVHf71OdGA9wUQs02IIC8vfzWiL5ygS62phs+wd7t4=;
+	b=mWE/KMrNzb/GdmBHsIzDFzPm+oSC1gaPRZFti/4q6aipCrRCl7tc3VxNzMZwBveZqo
+	MV8hJ1eA4sgm8pU86WyfWJvG0OCgr4kw2zLjt9KYek748T1a/ho9nDxOzuE12wJxrueU
+	o7X57MMBrOqyrserTyQf4oW/WKh5rsZuyV9UKQG2iXFMzxyGg06s3EfIrOGxgQ3VIJHu
+	cEt9fShxgsU6osCzufwZcpag8UULA6X2hBnmBNjWLxH79AZv9Wjv0H0NbW4RLx/C3KHp
+	TchvVe6Nuzb6LLY8wrzNAnPFJcW2DsFOfO1POWgW/1D6+tTJPTmpdIsvue9pOvAXbmeS
+	eKXQ==
+X-Gm-Message-State: ALoCoQl0WUWnRf7zDgsmp80tZcf6lG9hoUpLYXqR0oQIJwdQFdYJg//cC5BumUbo8thCqeJwvYW6
+X-Received: by 10.58.186.173 with SMTP id fl13mr2914133vec.31.1383752806298;
+	Wed, 06 Nov 2013 07:46:46 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.220.71.201 with HTTP; Wed, 6 Nov 2013 07:46:26 -0800 (PST)
+In-Reply-To: <3ab777991480aa4bff79130bd889ed25eba72fdc.1383743152.git.ajlennon@dynamicdevices.co.uk>
 References: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
-In-Reply-To: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
-References: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
-Subject: [PATCH 1/1] sqlite3: Add support for column metadata API, bumped PR
+	<3ab777991480aa4bff79130bd889ed25eba72fdc.1383743152.git.ajlennon@dynamicdevices.co.uk>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 6 Nov 2013 15:46:26 +0000
+Message-ID: <CAJTo0LbA64DxS2dp0h3LHTxkm709CiO73Nv3mYtxP3iQwnjF-w@mail.gmail.com>
+To: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] sqlite3: Add support for column metadata API, bumped PR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,35 +42,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2013 15:33:17 -0000
+X-List-Received-Date: Wed, 06 Nov 2013 15:46:48 -0000
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
----
- meta/recipes-support/sqlite/sqlite3_3080002.bb |    7 +++++++
- 1 file changed, 7 insertions(+)
+On 6 November 2013 15:32, Alex J Lennon <ajlennon@dynamicdevices.co.uk> wrote:
+> +PR = "r1"
 
-diff --git a/meta/recipes-support/sqlite/sqlite3_3080002.bb b/meta/recipes-support/sqlite/sqlite3_3080002.bb
-index 91dc6dd..e54f108 100644
---- a/meta/recipes-support/sqlite/sqlite3_3080002.bb
-+++ b/meta/recipes-support/sqlite/sqlite3_3080002.bb
-@@ -2,9 +2,16 @@ require sqlite3.inc
- 
- LIC_FILES_CHKSUM = "file://sqlite3.h;endline=11;md5=65f0a57ca6928710b418c094b3570bb0"
- 
-+PR = "r1"
-+
- SRC_URI = "http://www.sqlite.org/2013/sqlite-autoconf-${PV}.tar.gz"
- 
- SRC_URI[md5sum] = "6d6cc639a4da04fbbdda7b1a1a01b386"
- SRC_URI[sha256sum] = "fca3a0a12f94dc92a6d9e700c3f6cab6cd4e79214bd7b6f13717a10f4bcfddb2"
- 
- S = "${WORKDIR}/sqlite-autoconf-${PV}"
-+
-+# Provide column meta-data API
-+BUILD_CFLAGS += "-DSQLITE_ENABLE_COLUMN_METADATA"
-+TARGET_CFLAGS += "-DSQLITE_ENABLE_COLUMN_METADATA"
-+
--- 
-1.7.9.5
+No need to bump PR in oe-core, and please explain why enabling column
+metadata is good and what the tradeoffs are.
 
+Ross
 
