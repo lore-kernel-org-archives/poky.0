@@ -1,39 +1,23 @@
-Return-Path: <ajlennon@gmail.com>
-Received: from mail-we0-f171.google.com (mail-we0-f171.google.com
-	[74.125.82.171])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1264FE017A2
-	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 09:12:16 -0800 (PST)
-Received: by mail-we0-f171.google.com with SMTP id t60so5162591wes.2
-	for <poky@yoctoproject.org>; Wed, 06 Nov 2013 09:12:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:from:to:subject:date:message-id:in-reply-to:references
-	:in-reply-to:references;
-	bh=FrpV7gKL8u8MgHT8v+OdBlzznoT3hZTZ1h+X+DFCkRY=;
-	b=fXoN5QX/ClZ41h/lHfCoe/vl7P9u+9AsRjUailQIBJkSgteIHRIJjdbwLGjbTRbb1O
-	1Ltvln0iPkNU1oMeZMeBMUAesybpLVStIhYg5xC34+EXwl/aTmDL68Dhl9y9NXqkqFn7
-	GRCIy++RXq2xJEPabI4Cj+ok/H3Tg9Vbll3EvE8tLovw5So3JZWPsqIFNNjyqZHA1QFG
-	cJaiannTR+sRe8XJ4gJWMkidudg8VtkXnbZ7xT7lbFK5XryTRe3V9xGmaMFieWA1lMOc
-	AvCbyaYhV3h5HOzIRoISa80cF83OZzn5c58y1bte/w5dxCHMAOFNqSDt+wNGzS575fUB
-	T1FQ==
-X-Received: by 10.180.219.33 with SMTP id pl1mr3322339wic.49.1383757935010;
-	Wed, 06 Nov 2013 09:12:15 -0800 (PST)
-Received: from localhost.localdomain
-	(cpc16-live22-2-0-cust180.know.cable.virginm.net. [82.42.220.181])
-	by mx.google.com with ESMTPSA id b7sm26251043wiz.8.2013.11.06.09.12.14
-	for <poky@yoctoproject.org>
-	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 06 Nov 2013 09:12:14 -0800 (PST)
-Sender: Alex Lennon <ajlennon@gmail.com>
-From: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
-To: poky@yoctoproject.org
-Date: Wed,  6 Nov 2013 17:10:07 +0000
-Message-Id: <a6737b61ff0e7962417c6c44f5c982ccfd6adc48.1383757684.git.ajlennon@dynamicdevices.co.uk>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1383757684.git.ajlennon@dynamicdevices.co.uk>
+Return-Path: <sgw@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 41348E017A2
+	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 09:46:31 -0800 (PST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga102.ch.intel.com with ESMTP; 06 Nov 2013 09:46:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.93,535,1378882800"; d="scan'208";a="385560447"
+Received: from unknown (HELO [10.255.14.249]) ([10.255.14.249])
+	by azsmga001.ch.intel.com with ESMTP; 06 Nov 2013 09:46:26 -0800
+Message-ID: <527A8072.8030101@linux.intel.com>
+Date: Wed, 06 Nov 2013 09:46:26 -0800
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.0
+MIME-Version: 1.0
+To: Alex J Lennon <ajlennon@dynamicdevices.co.uk>, poky@yoctoproject.org
 References: <cover.1383757684.git.ajlennon@dynamicdevices.co.uk>
 In-Reply-To: <cover.1383757684.git.ajlennon@dynamicdevices.co.uk>
-References: <cover.1383757684.git.ajlennon@dynamicdevices.co.uk>
-Subject: [PATCH 2/2] sqlite3: Add support for column metadata API
+Subject: Re: [PULL] [PATCH 0/2] sqlite3: Add support for column metadata API,
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,27 +30,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2013 17:12:17 -0000
+X-List-Received-Date: Wed, 06 Nov 2013 17:46:32 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
----
- meta/recipes-support/sqlite/sqlite3_3080002.bb |    2 --
- 1 file changed, 2 deletions(-)
+On 11/06/2013 09:10 AM, Alex J Lennon wrote:
+> I found that Mono.Data.SQlite has a dependency on the column meta-data API, thus enabling this API enables use of Hibernate / Mono with SQLite and no doubt enables other ORMs / utility libraries.
+>
+> ref: https://bugzilla.xamarin.com/show_bug.cgi?id=6333
+>
+> The API is present in the used SQLite3 sqlite-autoconf-3080002 source-base. Thus we are enabling pre-existing SQLite support rather than introducing new code.
+>
+> I am not aware of any issues that enabling this SQLite functionality introduces, other than a slightly increased library size of circa 1.5KB , i.e. coretexa9_vfp_neon i.MX6
+>
+> - with column meta-data API        610360 libsqlite3.so.0.8.6
+> - without column meta-data API  608880 libsqlite3.so.0.8.6
+>
+this message should realy be part of the commit not in the cover letter, 
+  also please send this to the openembedded-core@lists.openembedded.org list
 
-diff --git a/meta/recipes-support/sqlite/sqlite3_3080002.bb b/meta/recipes-support/sqlite/sqlite3_3080002.bb
-index e54f108..18ff292 100644
---- a/meta/recipes-support/sqlite/sqlite3_3080002.bb
-+++ b/meta/recipes-support/sqlite/sqlite3_3080002.bb
-@@ -2,8 +2,6 @@ require sqlite3.inc
- 
- LIC_FILES_CHKSUM = "file://sqlite3.h;endline=11;md5=65f0a57ca6928710b418c094b3570bb0"
- 
--PR = "r1"
--
- SRC_URI = "http://www.sqlite.org/2013/sqlite-autoconf-${PV}.tar.gz"
- 
- SRC_URI[md5sum] = "6d6cc639a4da04fbbdda7b1a1a01b386"
--- 
-1.7.9.5
+> The following changes since commit 9f7f7afaa47bc3a058234269bffa55e15558df16:
+>
+>    irda-utils: restart irda daemon correctly (2013-11-01 11:09:03 +0000)
+>
+> are available in the git repository at:
+>
+>    git://git.yoctoproject.org/poky-contrib ajlennon/sqlite
+>    http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=ajlennon/sqlite
+>
+> Alex J Lennon (2):
+>    sqlite3: Add support for column metadata API, bumped PR
+>    sqlite3: Add support for column metadata API
+>
 
+you can sqash these two together please
+
+thanks
+
+Sau!
+
+>   meta/recipes-support/sqlite/sqlite3_3080002.bb |    5 +++++
+>   1 file changed, 5 insertions(+)
+>
 
