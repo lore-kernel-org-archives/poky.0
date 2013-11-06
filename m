@@ -1,32 +1,33 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-lb0-f176.google.com (mail-lb0-f176.google.com
-	[209.85.217.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 353E3E017BF
-	for <poky@yoctoproject.org>; Tue,  5 Nov 2013 19:25:28 -0800 (PST)
-Received: by mail-lb0-f176.google.com with SMTP id z5so7122703lbh.7
-	for <poky@yoctoproject.org>; Tue, 05 Nov 2013 19:25:26 -0800 (PST)
+Return-Path: <ajlennon@gmail.com>
+Received: from mail-wg0-f51.google.com (mail-wg0-f51.google.com [74.125.82.51])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D031E01770
+	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 07:33:07 -0800 (PST)
+Received: by mail-wg0-f51.google.com with SMTP id l18so5125069wgh.30
+	for <poky@yoctoproject.org>; Wed, 06 Nov 2013 07:33:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=hZy3D0KU0hS0VEoHQ7ahSlc6xHY3Kt9g52w47dUg5Y8=;
-	b=ILysdkmd5grtL49NEIgOti5D69ktdxcG7CPDMTacDS0klNTpwUuybJeVcuW6bDNEB1
-	gtJDh8ygHggB4jpvun4kV+BhPW8V+cNaEXR37ChXgYr8ci4l555UBmluZ/6FoCeNNn2F
-	/xZuTw2CD0zDW4mMlwQ3bnOwJXV85SupTOM2Wzj8pUpSEva5cTqV8shisxVz+kabj9XQ
-	pOLgnVq9OtklMo4yxZH3TBJEzHM0GGyCWQXQSEo2b6VD4vnwNBiScrYadz0vjDHy5Yj2
-	0zFLqTwW59eyHLTgkfryP3mcy04yjsVSLddJjdqVUr892hZYtIi1tz9KL49nEs/w3OY+
-	T1NQ==
-MIME-Version: 1.0
-X-Received: by 10.112.143.3 with SMTP id sa3mr1069997lbb.12.1383708326715;
-	Tue, 05 Nov 2013 19:25:26 -0800 (PST)
-Received: by 10.112.14.200 with HTTP; Tue, 5 Nov 2013 19:25:26 -0800 (PST)
-In-Reply-To: <CAF8s8J-NfHh=vhDk9937cJcxO8aBTFb3ZP+3J5=A2c+PG443QA@mail.gmail.com>
-References: <CAF8s8J-NfHh=vhDk9937cJcxO8aBTFb3ZP+3J5=A2c+PG443QA@mail.gmail.com>
-Date: Tue, 5 Nov 2013 22:25:26 -0500
-Message-ID: <CADkTA4OqyjQqqCsKcfoa14XW4BWQRAmwSQMB8rtypFc4M3mxeA@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Eric Keller <keller.eric@gmail.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [patch] linux-yocto-rt_3.10.bbappend recipe
+	h=sender:from:to:subject:date:message-id;
+	bh=C9XoCr/7EsFVZgbH/gUjFM+0XsA4WTSKoA9EJ/gyOiM=;
+	b=yLmeVZ6tEgSaFlq/f7SXGHqs/MArRIb2BGm1e1S55rvZK+lvAG4Y8oy6r00CUZ4znb
+	z+ku1ffepkJOpW2hJAZ/8cwX3PCO11yb9Ni65XpYcL68Rm0w04Tq2V5+QSrW7uSQQAY/
+	sTleLSL7eSpGoLkZC36q0EHDcsE/gSTTIap+NIGMoqAgebT25ZbXs8TGX50M1VMKYeoV
+	gq3o6vPlTLeMPICqD3W3pp7UNKleE8Fz/q2/n5lRc95fhWzg9oeAVV/iB8Z3HMfdxsEC
+	8/APDPvQ5ZBY/86LzGhhgvQALLJUUs4KYKln32mhwOpPM8DoPZbdBis72KJn/MepirOS
+	OhOg==
+X-Received: by 10.194.3.78 with SMTP id a14mr558887wja.77.1383751986078;
+	Wed, 06 Nov 2013 07:33:06 -0800 (PST)
+Received: from localhost.localdomain
+	(cpc16-live22-2-0-cust180.know.cable.virginm.net. [82.42.220.181])
+	by mx.google.com with ESMTPSA id
+	qc10sm25496697wic.9.2013.11.06.07.33.04 for <poky@yoctoproject.org>
+	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Wed, 06 Nov 2013 07:33:05 -0800 (PST)
+Sender: Alex Lennon <ajlennon@gmail.com>
+From: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
+To: poky@yoctoproject.org
+Date: Wed,  6 Nov 2013 15:32:58 +0000
+Message-Id: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PULL] [PATCH 0/1] sqlite3: Add support for column metadata API
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,46 +40,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2013 03:25:29 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Wed, 06 Nov 2013 15:33:09 -0000
 
-On Tue, Nov 5, 2013 at 6:06 PM, Eric Keller <keller.eric@gmail.com> wrote:
-> Hi everyone,
->
-> could you consider applying this patch so that we are able to build rt
-> kernel for genericx86(-64)?
+The following changes since commit 9f7f7afaa47bc3a058234269bffa55e15558df16:
 
-Send a patch against the main linux-yocto-rt recipe (not via this
-attached bbappend
-patch), and we can have a look.
+  irda-utils: restart irda daemon correctly (2013-11-01 11:09:03 +0000)
 
-But adding the support is something that you can easily carry in your
-own layer,
-since by adding the support to the main recipe, we are implicitly agreeing that
-I'll build and boot test it with each update. And I don't have a large
-objection to that,
-but I add new supported boards with caution, in particular genericx86, since it
-doesn't have a tightly controlled platform or set of drivers.
+are available in the git repository at:
 
-Cheers,
+  git://git.yoctoproject.org/poky-contrib ajlennon/sqlite
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=ajlennon/sqlite
 
-Bruce
+Alex J Lennon (1):
+  sqlite3: Add support for column metadata API, bumped PR
 
->
-> Best regards
-> --
-> Eric Keller
->
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
-
+ meta/recipes-support/sqlite/sqlite3_3080002.bb |    7 +++++++
+ 1 file changed, 7 insertions(+)
 
 -- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+1.7.9.5
+
 
