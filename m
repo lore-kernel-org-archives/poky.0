@@ -1,33 +1,39 @@
 Return-Path: <ajlennon@gmail.com>
-Received: from mail-wg0-f51.google.com (mail-wg0-f51.google.com [74.125.82.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D031E01770
-	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 07:33:07 -0800 (PST)
-Received: by mail-wg0-f51.google.com with SMTP id l18so5125069wgh.30
-	for <poky@yoctoproject.org>; Wed, 06 Nov 2013 07:33:06 -0800 (PST)
+Received: from mail-wi0-f181.google.com (mail-wi0-f181.google.com
+	[209.85.212.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B4C2CE017E8
+	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 07:33:14 -0800 (PST)
+Received: by mail-wi0-f181.google.com with SMTP id ex4so3875829wid.8
+	for <poky@yoctoproject.org>; Wed, 06 Nov 2013 07:33:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:from:to:subject:date:message-id;
-	bh=C9XoCr/7EsFVZgbH/gUjFM+0XsA4WTSKoA9EJ/gyOiM=;
-	b=yLmeVZ6tEgSaFlq/f7SXGHqs/MArRIb2BGm1e1S55rvZK+lvAG4Y8oy6r00CUZ4znb
-	z+ku1ffepkJOpW2hJAZ/8cwX3PCO11yb9Ni65XpYcL68Rm0w04Tq2V5+QSrW7uSQQAY/
-	sTleLSL7eSpGoLkZC36q0EHDcsE/gSTTIap+NIGMoqAgebT25ZbXs8TGX50M1VMKYeoV
-	gq3o6vPlTLeMPICqD3W3pp7UNKleE8Fz/q2/n5lRc95fhWzg9oeAVV/iB8Z3HMfdxsEC
-	8/APDPvQ5ZBY/86LzGhhgvQALLJUUs4KYKln32mhwOpPM8DoPZbdBis72KJn/MepirOS
-	OhOg==
-X-Received: by 10.194.3.78 with SMTP id a14mr558887wja.77.1383751986078;
-	Wed, 06 Nov 2013 07:33:06 -0800 (PST)
+	h=sender:from:to:subject:date:message-id:in-reply-to:references
+	:in-reply-to:references;
+	bh=t1sYY9hqnRdK4ci8PO66UCa2Cblo+rZ8iYIQIsJl9Tw=;
+	b=qJ7hssSsStyCh8E6GU28he+19MtSgkDbNCRwITwLRwEpGJWeWdYg0r6pTIXInvWLXE
+	QiVfdBg2jpSME5FxZIAiXKgiuhkHdyH+Mmbf0i1USaOMZfeDqx8qxu+q9LNyGUQ7F5ca
+	zNcQxeGHC98p4Hva/mUEaOFSJWtJpT4PyKitf/P1hzVyt8OcKf5bsq52bO5DetncRU9L
+	tWMvkyvdPH744DRBTV/J09Qp6c2a7z/2PtcOxSvKqZ/+bUvuvHBfWn/nFQf9F/R4MUf4
+	2IjTKvaKAFSePKrGdV9Z7LWndkRs8LfAjSWbDvxYtLS/6mFWKzmDUREKRKipq0JaQH+O
+	o10A==
+X-Received: by 10.180.109.75 with SMTP id hq11mr3004516wib.30.1383751993138;
+	Wed, 06 Nov 2013 07:33:13 -0800 (PST)
 Received: from localhost.localdomain
 	(cpc16-live22-2-0-cust180.know.cable.virginm.net. [82.42.220.181])
 	by mx.google.com with ESMTPSA id
-	qc10sm25496697wic.9.2013.11.06.07.33.04 for <poky@yoctoproject.org>
+	qc10sm25496697wic.9.2013.11.06.07.33.12 for <poky@yoctoproject.org>
 	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Wed, 06 Nov 2013 07:33:05 -0800 (PST)
+	Wed, 06 Nov 2013 07:33:12 -0800 (PST)
 Sender: Alex Lennon <ajlennon@gmail.com>
 From: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
 To: poky@yoctoproject.org
-Date: Wed,  6 Nov 2013 15:32:58 +0000
-Message-Id: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+Date: Wed,  6 Nov 2013 15:32:59 +0000
+Message-Id: <3ab777991480aa4bff79130bd889ed25eba72fdc.1383743152.git.ajlennon@dynamicdevices.co.uk>
 X-Mailer: git-send-email 1.7.9.5
-Subject: [PULL] [PATCH 0/1] sqlite3: Add support for column metadata API
+In-Reply-To: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+References: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+In-Reply-To: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+References: <cover.1383743152.git.ajlennon@dynamicdevices.co.uk>
+Subject: [PATCH 1/1] sqlite3: Add support for column metadata API, bumped PR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,23 +46,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2013 15:33:09 -0000
+X-List-Received-Date: Wed, 06 Nov 2013 15:33:17 -0000
 
-The following changes since commit 9f7f7afaa47bc3a058234269bffa55e15558df16:
-
-  irda-utils: restart irda daemon correctly (2013-11-01 11:09:03 +0000)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib ajlennon/sqlite
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=ajlennon/sqlite
-
-Alex J Lennon (1):
-  sqlite3: Add support for column metadata API, bumped PR
-
+Signed-off-by: Alex J Lennon <ajlennon@dynamicdevices.co.uk>
+---
  meta/recipes-support/sqlite/sqlite3_3080002.bb |    7 +++++++
  1 file changed, 7 insertions(+)
 
+diff --git a/meta/recipes-support/sqlite/sqlite3_3080002.bb b/meta/recipes-support/sqlite/sqlite3_3080002.bb
+index 91dc6dd..e54f108 100644
+--- a/meta/recipes-support/sqlite/sqlite3_3080002.bb
++++ b/meta/recipes-support/sqlite/sqlite3_3080002.bb
+@@ -2,9 +2,16 @@ require sqlite3.inc
+ 
+ LIC_FILES_CHKSUM = "file://sqlite3.h;endline=11;md5=65f0a57ca6928710b418c094b3570bb0"
+ 
++PR = "r1"
++
+ SRC_URI = "http://www.sqlite.org/2013/sqlite-autoconf-${PV}.tar.gz"
+ 
+ SRC_URI[md5sum] = "6d6cc639a4da04fbbdda7b1a1a01b386"
+ SRC_URI[sha256sum] = "fca3a0a12f94dc92a6d9e700c3f6cab6cd4e79214bd7b6f13717a10f4bcfddb2"
+ 
+ S = "${WORKDIR}/sqlite-autoconf-${PV}"
++
++# Provide column meta-data API
++BUILD_CFLAGS += "-DSQLITE_ENABLE_COLUMN_METADATA"
++TARGET_CFLAGS += "-DSQLITE_ENABLE_COLUMN_METADATA"
++
 -- 
 1.7.9.5
 
