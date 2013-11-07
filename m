@@ -1,30 +1,25 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 262BFE017F9
-	for <poky@yoctoproject.org>; Wed,  6 Nov 2013 21:16:13 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.3) with ESMTP id rA75G78N025798
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 6 Nov 2013 21:16:07 -0800 (PST)
-Received: from server.local (128.224.21.34) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.40) with Microsoft SMTP Server id 14.2.347.0;
-	Wed, 6 Nov 2013 21:16:06 -0800
-Message-ID: <527B2215.6040001@windriver.com>
-Date: Thu, 7 Nov 2013 00:16:05 -0500
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9;
-	rv:24.0) Gecko/20100101 Thunderbird/24.1.0
-MIME-Version: 1.0
-To: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@maximatecc.com>, Bruce Ashfield
-	<bruce.ashfield@gmail.com>
-References: <83DB4EC8FADD45428E3CC4E3664761FD09C38EAD@AMDTCEX12.actuant.pri>	<CADkTA4P48xR1T82tnePHH4dQ9ZK-=XFpwkY=gvpMRdU-ozwb+A@mail.gmail.com>
-	<83DB4EC8FADD45428E3CC4E3664761FD09C398E3@AMDTCEX12.actuant.pri>
-	<5278F806.6020501@windriver.com>
-	<83DB4EC8FADD45428E3CC4E3664761FD09C49AF6@AMDTCEX12.actuant.pri>
-In-Reply-To: <83DB4EC8FADD45428E3CC4E3664761FD09C49AF6@AMDTCEX12.actuant.pri>
+Return-Path: <dvhart@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A39B3E017B2
+	for <poky@yoctoproject.org>; Thu,  7 Nov 2013 10:36:01 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 07 Nov 2013 10:36:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.93,535,1378882800"; d="scan'208";a="405194020"
+Received: from dvhart-mobl4.jf.intel.com (HELO [10.7.196.57]) ([10.7.196.57])
+	by orsmga001.jf.intel.com with ESMTP; 07 Nov 2013 10:35:57 -0800
+Message-ID: <1383849357.5378.43.camel@dvhart-mobl4.amr.corp.intel.com>
+From: Darren Hart <dvhart@linux.intel.com>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Thu, 07 Nov 2013 10:35:57 -0800
+In-Reply-To: <CADkTA4OqyjQqqCsKcfoa14XW4BWQRAmwSQMB8rtypFc4M3mxeA@mail.gmail.com>
+References: <CAF8s8J-NfHh=vhDk9937cJcxO8aBTFb3ZP+3J5=A2c+PG443QA@mail.gmail.com>
+	<CADkTA4OqyjQqqCsKcfoa14XW4BWQRAmwSQMB8rtypFc4M3mxeA@mail.gmail.com>
+Organization: Intel
+X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
+Mime-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: RT-patch for Yocto-kernel
+Subject: Re: [patch] linux-yocto-rt_3.10.bbappend recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,257 +32,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Nov 2013 05:16:14 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+X-List-Received-Date: Thu, 07 Nov 2013 18:36:01 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
-On 11/6/2013, 11:47 PM, Keskinarkaus, Teemu wrote:
-> Okay, this gets interesting. Here is what I get:
->
-> $ git branch | grep \*
-> * standard/preempt-rt/base
-> $ grep PREEMPT_RT_FULL kernel/Kconfig.preempt
-> $
->
-> And confirmed that also with menuconfig and the last two rt-options were missing from Preemption Model - selection.
->
-> We are using emenlow KMACHINE if that has anything to do with it. Is it possible to use standard/preempt-rt/base and still not get those rt-patches for some reason? Sounds stupid, but something is keeping them from getting to the kernel.
->
+On Tue, 2013-11-05 at 22:25 -0500, Bruce Ashfield wrote:
+> On Tue, Nov 5, 2013 at 6:06 PM, Eric Keller <keller.eric@gmail.com> wrote:
+> > Hi everyone,
+> >
+> > could you consider applying this patch so that we are able to build rt
+> > kernel for genericx86(-64)?
+> 
+> Send a patch against the main linux-yocto-rt recipe (not via this
+> attached bbappend
+> patch), and we can have a look.
 
-Nope. These patches are not applied at build time, they are integrated
-and applied to the tree at all times. Checking out the branch gets you
-the changes. BUT, if you've set the SRCREV in your recipe to a value
-that is before the patches are applied, then of course, the build system
-will reset the tree and you won't see the changes.
+Bruce, the genericx86 BSPs are not in oe-core, they are in
+meta-yocto-bsp, so the bbappend is the right place to do this.
 
-If you can post all your recipes and layers, it would be easier to spot
-what is wrong.
+> 
+> But adding the support is something that you can easily carry in your
+> own layer,
+> since by adding the support to the main recipe, we are implicitly agreeing that
+> I'll build and boot test it with each update. And I don't have a large
+> objection to that,
+> but I add new supported boards with caution, in particular genericx86, since it
+> doesn't have a tightly controlled platform or set of drivers.
 
-Bruce
+For context, I met with Eric and suggested he send this patch. I would
+be adding it myself if he didn't as genericx86* absolutely must support
+PREEMPT_RT IMNSHO.
 
+-- 
+Darren Hart
+Intel Open Source Technology Center
+Yocto Project - Linux Kernel
 
-
-> Teemu Keskinarkaus
->
-> -----Original Message-----
-> From: Bruce Ashfield [mailto:bruce.ashfield@windriver.com]
-> Sent: 5. marraskuuta 2013 15:52
-> To: Keskinarkaus, Teemu; Bruce Ashfield
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] RT-patch for Yocto-kernel
->
-> On 13-11-05 02:36 AM, Keskinarkaus, Teemu wrote:
->> Sorry for top post.
->>
->> I did some test. I compiled our project with linux-yocto-rt and linux-yocto - kernels.  Then checked from menuconfig that both of those kernels same options in:
->> Processor type and features ->  Preemption Model.
->> -> No Forced Preemption
->> -> Voluntary Kernel Preemption
->> -> Preemptible kernel
->>
->> When added rt-patch from: https://www.kernel.org/pub/linux/kernel/projects/rt/3.8/ I got two more options:
->>
->> -> Preemtible Kernel (Basic RT)
->> -> Fully Preememptible Kernel (RT)
->>
->> The fact that the rt-patch applied just fine to linux-yocto-rt - kernel sources got me thinking that the linux-yocto-rt does NOT contain the kernel.org rt-patch I mentioned earlier.  If that's the case then what's the point on whole rt-kernel branch? Or how do I get the rt-patched version of the kernel? When I compile the kernel I see that it uses linux-yocto-rt-3.8.13+gitAUTOINC+2a6d36e75c_47aed0c17c-r4.1 so it's not using the normal version of the kernel.
->
-> I assure you .. it is applied. We've been applying and testing with the patch since Yocto 0.9, and longer pre-yocto.
->
-> You aren't looking at the the right branches:
->
->   > git branch | grep \*
-> * standard/preempt-rt/base
->
->   > grep PREEMPT_RT_FULL kernel/Kconfig.preempt
->           def_bool y if HAVE_PREEMPT_LAZY && PREEMPT_RT_FULL config PREEMPT_RT_FULL
->
->   > git whatchanged kernel/Kconfig.preempt
->
-> commit abd0728b164f651292374e96251ee197b50e3c02
-> Author: Bruce Ashfield <bruce.ashfield@windriver.com>
-> Date:   Sun Mar 31 18:21:42 2013 -0700
->
->       preempt-rt: integrate patch-3.8.4-rt2
->
->       Merging patch-3.8.4-rt2 from:
-> https://www.kernel.org/pub/linux/kernel/projects/rt/3.8/
->
->       From the release Notes:
->
->       changes since v3.8.4-rt1:
->          - build fix for i915 (reported by "Luis Claudio R. Goncalves")
->          - build fix for fscache (reported by tglx)
->          - build fix for !RT (kernel/softirq.c did not compile)
->          - per-cpu rwsem fixed for RT (required only by uprobes so far)
->          - slub: delay the execution of the ->ctor() hook for newly created
->            objects. This lowers the worst case latencies.
->
->       Known issues:
->
->             - SLxB is broken on PowerPC.
->
->       Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
->
-> :100644 100644 3f9c974... 38cecfe... M  kernel/Kconfig.preempt
->
-> Cheers,
->
-> Bruce
->
->>
->> Teemu Keskinarkaus
->>
->> -----Original Message-----
->> From: Bruce Ashfield [mailto:bruce.ashfield@gmail.com]
->> Sent: 4. marraskuuta 2013 15:17
->> To: Keskinarkaus, Teemu
->> Cc: poky@yoctoproject.org
->> Subject: Re: [poky] RT-patch for Yocto-kernel
->>
->> On Mon, Nov 4, 2013 at 2:31 AM, Keskinarkaus, Teemu <Teemu.Keskinarkaus@maximatecc.com> wrote:
->>> Hi,
->>>
->>>
->>>
->>> In our system we want to use Full RT - kernel configuration. I
->>> learned that Yocto/Poky Preempt - rt is actually just low latency
->>> configuration and not the real Full RT as the name falsely suggests.
->>> Anyway, that's not the problem after I found it.
->>>
->>
->> Hmm. No. The standard/preempt-rt/* branches in the Yocto kernel are the full -rt patch.
->>
->>>
->>>
->>> There is a patch in the kernel.org that adds the Full RT support for
->>> the kernel. Unfortunately it doesn't work right away in Yocto kernel.
->>> We use emenlow variant of the kernel.
->>>
->>>
->>>
->>> So I compiled the system and then fixed the patch by applying it to
->>> kernel sources in build-directory. Then added the  patch to kernel
->>> .bbappend file so that it would be applied during compilation time.  Or so I thought.
->>>
->>>
->>>
->>> Now when I try to compile the system do_patch - state for
->>> linux-yocto-rt - fails.
->>>
->>>
->>>
->>> Log data follows:
->>>
->>> | DEBUG: Executing shell function do_patch
->>>
->>> | Deleted branch meta-temp (was 37fdb0c).
->>>
->>> | [INFO] validating against known patches  (emenlow-preempt-rt-meta)
->>>
->>> Context reduced to (2/2) to apply fragment at 385    ] (\)(88 %))
->>>
->>> error: patch failed: drivers/net/ethernet/ti/cpsw.c:374(/)(92 %)%)
->>>
->>> | error: drivers/net/ethernet/ti/cpsw.c: patch does not apply
->>>
->>> | Context reduced to (1/1) to apply fragment at 1050
->>>
->>> | error: patch failed: include/linux/preempt.h:107
->>>
->>> | error: include/linux/preempt.h: patch does not apply
->>>
->>> | error: patch failed: kernel/sched/core.c:1477
->>>
->>> | error: kernel/sched/core.c: patch does not apply
->>>
->>> | ERROR. could not update git tree
->>>
->>> | ERROR. Could not apply patches for emenlow.
->>>
->>> |        Patch failures can be resolved in the devshell (bitbake -c
->>> | devshell
->>> linux-yocto-rt)
->>>
->>>
->>>
->>> If I'm understanding that right it actually applied my patch before
->>> the emenlow-patch and that's why it fails.
->>>
->>>
->>>
->>> What's the proper way to make kernel patch that big or is there
->>> already Full RT - patch for emenlow kernel for yocto? We have smaller
->>> patches that don't collide with emmenlow patches and they work just fine.
->>
->> You simply need to make the emenlow BSP compatible with linux-yocto-rt and use KBRANCH="standard/preempt-rt/base"
->>
->> And you have the full -rt patch available.
->>
->> Cheers,
->>
->> Bruce
->>
->>>
->>>
->>>
->>> Teemu Keskinarkaus
->>>
->>>
->>>
->>>
->>> ________________________________
->>>
->>> Actuant Corporation Email Notice
->>>
->>> This message is intended only for the use of the Addressee and may
->>> contain information that is PRIVILEGED and/or CONFIDENTIAL.
->>> This email is intended only for the personal and confidential use of
->>> the
->>> recipient(s) named above. If the reader of this email is not an
->>> intended recipient, you have received this email in error and any
->>> review, dissemination, distribution or copying is strictly prohibited.
->>> If you have received this email in error, please notify the sender
->>> immediately by return mail and permanently delete the copy you received.
->>>
->>> Thank you.
->>>
->>> _______________________________________________
->>> poky mailing list
->>> poky@yoctoproject.org
->>> https://lists.yoctoproject.org/listinfo/poky
->>>
->>
->>
->>
->> --
->> "Thou shalt not follow the NULL pointer, for chaos and madness await thee at its end"
->>
->> ________________________________
->>
->> Actuant Corporation Email Notice
->>
->> This message is intended only for the use of the Addressee and may contain information that is PRIVILEGED and/or CONFIDENTIAL.
->> This email is intended only for the personal and confidential use of the recipient(s) named above. If the reader of this email is not an intended recipient, you have received this email in error and any review, dissemination, distribution or copying is strictly prohibited.
->> If you have received this email in error, please notify the sender immediately by return mail and permanently delete the copy you received.
->>
->> Thank you.
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>
->
->
-> ________________________________
->
-> Actuant Corporation Email Notice
->
-> This message is intended only for the use of the Addressee and may contain information that is PRIVILEGED and/or CONFIDENTIAL.
-> This email is intended only for the personal and confidential use of the recipient(s) named above. If the reader of this email is not an intended recipient, you have received this email in error and any review, dissemination, distribution or copying is strictly prohibited.
-> If you have received this email in error, please notify the sender immediately by return mail and permanently delete the copy you received.
->
-> Thank you.
->
 
 
