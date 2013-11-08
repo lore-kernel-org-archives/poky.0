@@ -1,35 +1,33 @@
-Return-Path: <bruce.ashfield@gmail.com>
-Received: from mail-la0-f41.google.com (mail-la0-f41.google.com
-	[209.85.215.41])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 716DFE01846
-	for <poky@yoctoproject.org>; Fri,  8 Nov 2013 06:57:52 -0800 (PST)
-Received: by mail-la0-f41.google.com with SMTP id ea20so1817452lab.14
-	for <poky@yoctoproject.org>; Fri, 08 Nov 2013 06:57:51 -0800 (PST)
+Return-Path: <keller.eric@gmail.com>
+Received: from mail-ee0-f52.google.com (mail-ee0-f52.google.com [74.125.83.52])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A5B23E01846
+	for <poky@yoctoproject.org>; Fri,  8 Nov 2013 07:07:34 -0800 (PST)
+Received: by mail-ee0-f52.google.com with SMTP id e49so1095210eek.11
+	for <poky@yoctoproject.org>; Fri, 08 Nov 2013 07:07:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=XNkJBg3p7SKNXURGERTKDxzaY+ksdCnWAHbjCz8ozYI=;
-	b=aOjc6dZvdvKa3MnUD1Xzi6zSBiyC0gbDrLbUT3rKFbL8k4qqSItesA6QyLYO4eUJTl
-	gQoHoO1kGKuTQrgu2yw/OYab/WsdRDOCplBHeuqXoM8jzQk/eslfCD7uMzaK7/mQ7GPz
-	t57R1ro5CcimVAhoqWnvwBNYtUPIJgP5KgB9t5GNsWHRgGJhjdeRWe5yQDuppOzYMTt7
-	4etxA0jPeYjamGQl/1mhMFN+4TzMeqUAvacy5K35MkhSrOz4WYytFlBLntEPdw1tP7VM
-	1cAYpA7ACXwo+bhD0EeE1PB/6q+8zmpFdQ5X48/Tfwk0Q6n8QAqdjuyNzdImZ38qs1+J
-	cvvw==
-MIME-Version: 1.0
-X-Received: by 10.152.243.11 with SMTP id wu11mr1156885lac.42.1383922671322;
-	Fri, 08 Nov 2013 06:57:51 -0800 (PST)
-Received: by 10.112.14.200 with HTTP; Fri, 8 Nov 2013 06:57:51 -0800 (PST)
-In-Reply-To: <CAN-Ho=GD76zwcKWj5kWsBx-Qs=0V0Z1mWBtT1vbsO_goP9HFQw@mail.gmail.com>
-References: <1383861844-26405-1-git-send-email-eric.keller.ek1@roche.com>
-	<1383861844-26405-2-git-send-email-eric.keller.ek1@roche.com>
-	<CADkTA4P8HA9oOmWCVOHVvcG=wKaZwbqS9pe6reFy-Ep6ktDy2g@mail.gmail.com>
-	<CAN-Ho=GD76zwcKWj5kWsBx-Qs=0V0Z1mWBtT1vbsO_goP9HFQw@mail.gmail.com>
-Date: Fri, 8 Nov 2013 09:57:51 -0500
-Message-ID: <CADkTA4NoTormTsYh3K3AzNn9bxCJfHUJXZjadnJt6=kMq_i9YA@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: "Keller, Eric" <eric.keller.ek1@roche.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] meta-yocto-bsp/recipes-kernel/linux/: add genericx86(-64) support for linux-yocto-rt_3.10
+	h=from:to:cc:subject:date:message-id;
+	bh=xQdgNatjDmLmwSC6Kj09Xmwl6ZznZcoWMMXyjyi1b6M=;
+	b=o6IZNlY5udiaMCJePxL4hdtaXJh8OJQhTV+jGk8JMeTHMdgOj5/SbPV8SoeNWQjXLC
+	YAVqWX1W47uJAKFrEn4Zl09mtiypURFBkEwAPtGFGC2uO593q1w5yV+4PHbBhAEjJ0h8
+	eHqMZp2xr8YHnAhqgrP1GxQk973moqjdBiTbbLvVfvetbqnq43dUDbqC4SdIq05phWkL
+	uewwAofi4N0M1k1P22Xiu1eJv022QzHB5By/e3sXs0Pe2O5KG/N9DpbRP5IQsWq9u3z1
+	aLWub7fJ2mtx6j7QSlK9ScfM7kSnXbmSYuFcTRgb6TQyHclVXg19BpZ/O8sdtyjVDxlo
+	vhqg==
+X-Received: by 10.15.94.201 with SMTP id bb49mr17331228eeb.23.1383923253841;
+	Fri, 08 Nov 2013 07:07:33 -0800 (PST)
+Received: from localhost.localdomain (77-57-96-182.dclient.hispeed.ch.
+	[77.57.96.182])
+	by mx.google.com with ESMTPSA id 8sm23799362eem.15.2013.11.08.07.07.32
+	for <multiple recipients>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 08 Nov 2013 07:07:33 -0800 (PST)
+From: Eric Keller <keller.eric@gmail.com>
+To: poky@yoctoproject.org
+Date: Fri,  8 Nov 2013 16:07:22 +0100
+Message-Id: <1383923243-6328-1-git-send-email-eric.keller.ek1@roche.com>
+X-Mailer: git-send-email 1.7.10.4
+Cc: Eric Keller <eric.keller.ek1@roche.com>
+Subject: [PATCH] meta-yocto-bsp/recipes-kernel/linux/: add genericx86(-64) support for linux-yocto-rt_3.10
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,40 +40,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Nov 2013 14:57:53 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Fri, 08 Nov 2013 15:07:36 -0000
 
-On Fri, Nov 8, 2013 at 1:58 AM, Keller, Eric <eric.keller.ek1@roche.com> wrote:
-> On Fri, Nov 8, 2013 at 5:44 AM, Bruce Ashfield <bruce.ashfield@gmail.com> wrote:
->> On Thu, Nov 7, 2013 at 5:04 PM, Eric Keller <keller.eric@gmail.com> wrote:
->>
->> There's no sense carrying along the commented out board support. I didn't get
->> around to testing all the reference boards with -rt in the 1.5 release
->> cycle, but
->> will in 1.6.
->>
->> At that point, we can add the lines back in. But for now, it is
->> cleaner to just remove
->> anything that hasn't been tested.
->>
->
-> Hi Bruce,
->
-> I ll remove the commented board support this afternoon.
+create linux-yocto-rt_3.10.bbappend in order to support genericx86(-64) rt kernel
 
-Great. And thanks for taking care of this!
+Eric Keller (1):
+  add linux-yocto-rt_3.10.bbappend recipe for genericx86 and
+    genericx86-64
 
-Bruce
-
->
-> Best regads
->
-> --
-> Eric Keller
-
-
+ .../recipes-kernel/linux/linux-yocto-rt_3.10.bbappend    |   14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto-rt_3.10.bbappend
 
 -- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
+1.7.10.4
+
 
