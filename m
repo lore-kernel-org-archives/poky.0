@@ -1,23 +1,25 @@
-Return-Path: <tom.zanussi@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D93B9E0178C
-	for <poky@yoctoproject.org>; Wed, 13 Nov 2013 11:34:05 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 13 Nov 2013 11:30:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.93,535,1378882800"; d="scan'208";a="408318636"
-Received: from unknown (HELO [10.255.15.60]) ([10.255.15.60])
-	by orsmga001.jf.intel.com with ESMTP; 13 Nov 2013 11:34:04 -0800
-Message-ID: <1384371244.24747.41.camel@empanada>
-From: Tom Zanussi <tom.zanussi@intel.com>
-To: Bastien JAUNY <bastien.jauny@gmail.com>
-Date: Wed, 13 Nov 2013 13:34:04 -0600
-In-Reply-To: <1384370474.4683.8.camel@rivendell>
-References: <1384370474.4683.8.camel@rivendell>
-X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
-Mime-Version: 1.0
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 98641E0161C
+	for <poky@yoctoproject.org>; Thu, 14 Nov 2013 08:58:42 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id rAEGweqW003057
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 14 Nov 2013 08:58:41 -0800 (PST)
+Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.2.347.0; Thu, 14 Nov 2013 08:58:39 -0800
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Thu, 14 Nov 2013 11:58:36 -0500
+Message-ID: <3c76a70281d35070ef97e93ba6dee1cb0c0d7e2a.1384448213.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.8.1.2
+In-Reply-To: <cover.1384448213.git.bruce.ashfield@windriver.com>
+References: <cover.1384448213.git.bruce.ashfield@windriver.com>
+MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: Re: [patch] yocto-bsp: Add missing format specifier in bblayers error message
+Subject: [PATCH 1/1] meta-yocto-bsp: update SRCREVs for 3.10.17 and beagleboard fixes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,38 +32,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Nov 2013 19:34:07 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 14 Nov 2013 16:58:43 -0000
+Content-Type: text/plain
 
-On Wed, 2013-11-13 at 20:21 +0100, Bastien JAUNY wrote:
-> If the build environment is misconfigured (e.g. a bad path
-> for a layer in bblayers.conf) the yocto-bsp script crashes with a
-> standard python error, not very explicit.  This fixes the problem.
-> 
->  Signed-off-by: Bastien JAUNY <bastien.jauny@gmail.com>
-> 
+Updating the BSP SRCREVs to pull in the 3.10.17 core update and fix
+USB powerup issues on the beagleboard.
 
-Acked-by: Tom Zanussi <tom.zanussi@linux.intel.com>
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-> ---
->  scripts/lib/bsp/kernel.py |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/scripts/lib/bsp/kernel.py b/scripts/lib/bsp/kernel.py
-> index 5696ca7..ba68b60 100644
-> --- a/scripts/lib/bsp/kernel.py
-> +++ b/scripts/lib/bsp/kernel.py
-> @@ -62,7 +62,7 @@ def find_bblayers():
->              break
->  
->      if not bblayers:
-> -        print "Couldn't find BBLAYERS in 'bitbake -e' output, exiting."
-> % \
-> +        print "Couldn't find BBLAYERS in %s output, exiting." % \
->              bitbake_env_cmd
->          sys.exit(1)
->  
-
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
+index aa43b15..2f529c0 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
+@@ -7,11 +7,11 @@ KBRANCH_beagleboard = "standard/beagleboard"
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+-SRCREV_machine_genericx86 ?= "702040ac7c7ec66a29b4d147665ccdd0ff015577"
+-SRCREV_machine_genericx86-64 ?= "702040ac7c7ec66a29b4d147665ccdd0ff015577"
+-SRCREV_machine_routerstationpro ?= "d4e6adefaf92a1e7b6539d371ba49b78bd194a84"
+-SRCREV_machine_mpc8315e-rdb ?= "12dc46ba4efb80e135fec4dce913eeb87ee671b3"
+-SRCREV_machine_beagleboard ?= "702040ac7c7ec66a29b4d147665ccdd0ff015577"
++SRCREV_machine_genericx86 ?= "c03195ed6e3066494e3fb4be69154a57066e845b"
++SRCREV_machine_genericx86-64 ?= "c03195ed6e3066494e3fb4be69154a57066e845b"
++SRCREV_machine_routerstationpro ?= "2d91e201018c15e24fb83336dcb4029b8569eb9d"
++SRCREV_machine_mpc8315e-rdb ?= "ac071526ffac37c907532933b628e4f64070f155"
++SRCREV_machine_beagleboard ?= "3d9b0d130a00dd32e6061ac708eaaaed69e35c3d"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-- 
+1.8.1.2
 
 
