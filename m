@@ -1,23 +1,20 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1F49BE0162B
-	for <poky@yoctoproject.org>; Thu, 14 Nov 2013 08:58:41 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id rAEGwdjq013843
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 14 Nov 2013 08:58:39 -0800 (PST)
-Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.347.0; Thu, 14 Nov 2013 08:58:39 -0800
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Thu, 14 Nov 2013 11:58:35 -0500
-Message-ID: <cover.1384448213.git.bruce.ashfield@windriver.com>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7C00CE015D3
+	for <poky@yoctoproject.org>; Fri, 15 Nov 2013 04:00:01 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 15 Nov 2013 04:00:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.93,707,1378882800"; d="scan'208";a="434001632"
+Received: from paulonei-mobl.ger.corp.intel.com (HELO
+	helios.ger.corp.intel.com) ([10.252.121.149])
+	by fmsmga002.fm.intel.com with ESMTP; 15 Nov 2013 03:59:59 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 15 Nov 2013 11:59:34 +0000
+Message-Id: <1384516774-17980-1-git-send-email-paul.eggleton@linux.intel.com>
 X-Mailer: git-send-email 1.8.1.2
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 0/1] meta-yocto-bsps: update reference board SRCREVs
+Subject: [PATCH] genericx86-common.inc: add eee-acpi-scripts to MACHINE_EXTRA_RRECOMMENDS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,35 +27,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Nov 2013 16:58:44 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 15 Nov 2013 12:00:07 -0000
 
-Richard/Saul,
+Add this back here after removing it from ia32-base.inc in OE-Core.
 
-Here's the promised bump of the reference BSPs to 3.10.17. With
-this change, we can now safely update the lttng kernel modules
-to the latest (But of course other people with older kernels ..
-cannot).
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-
-Bruce
-
-The following changes since commit 468e4174c0fd56edc6e37ef744d93fe712a9a983:
-
-  kernel.bbclass: test for hardlinks before installing (2013-11-14 11:46:55 -0500)
-
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
-
-Bruce Ashfield (1):
-  meta-yocto-bsp: update SRCREVs for 3.10.17 and beagleboard fixes
-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index 67a880f..c5ef358 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -13,7 +13,7 @@ XSERVER ?= "${XSERVER_IA32_BASE} \
+             ${XSERVER_IA32_MODESETTING} \
+            "
+ 
+-MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d"
++MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d eee-acpi-scripts"
+ 
+ GLIBC_ADDONS = "nptl"
+ 
 -- 
 1.8.1.2
 
