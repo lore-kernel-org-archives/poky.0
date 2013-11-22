@@ -1,33 +1,27 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-vb0-f51.google.com (mail-vb0-f51.google.com
-	[209.85.212.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C833CE0059E
-	for <poky@yoctoproject.org>; Thu, 21 Nov 2013 11:58:39 -0800 (PST)
-Received: by mail-vb0-f51.google.com with SMTP id m10so172765vbh.38
-	for <poky@yoctoproject.org>; Thu, 21 Nov 2013 11:58:38 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:content-type;
-	bh=WTSAG0h57AMGb34jZZTHtMMaCBOvxH2K2KUyWEjhNvI=;
-	b=UBsdLVvXCH0i/Jx4QU8LkT8vw/ADPnFBU2Vh17+mDu7qHeORPLuYiwC8gngK92wy5x
-	HSzN0omLIOHwXS8NudRjo62J05NbRmRNJMj682TgVeaN4zlokkd1VOt77i25WiT9QT/2
-	TjEqZd2hHRAIcd0ERWPVT6mpqmoSvpnbV8b151LBUSeIEIu8s5JPr5sdKz3DWBuowccM
-	KlbHL1QU0UBl05euEfNLkRmX824JHxmy1FcV8vIfUEggxEjX8HpYm/eSyTMCv03qlC5N
-	RMgkpENvJk9Dvast0Hi37S8PspKmoFfJtUbkAIsPw6i1tB3O8yP0F3PYHntV8Qxbw61a
-	REwA==
-X-Gm-Message-State: ALoCoQmST4C5WYs2XugvfpZQ+16v3zy+bKFnGsF/ZqUyc6RMRCEmKOeskeDC+pUOUv2AFbCZVDFu
-X-Received: by 10.58.39.97 with SMTP id o1mr7382126vek.15.1385063918136; Thu,
-	21 Nov 2013 11:58:38 -0800 (PST)
+Return-Path: <Qi.Chen@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9B350E006B7
+	for <poky@yoctoproject.org>; Thu, 21 Nov 2013 21:06:12 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id rAM56Ce3008253
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 21 Nov 2013 21:06:12 -0800 (PST)
+Received: from [128.224.162.213] (128.224.162.213) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.2.347.0;
+	Thu, 21 Nov 2013 21:06:12 -0800
+Message-ID: <528EE659.4010804@windriver.com>
+Date: Fri, 22 Nov 2013 13:06:33 +0800
+From: ChenQi <Qi.Chen@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:17.0) Gecko/20130804 Thunderbird/17.0.8
 MIME-Version: 1.0
-Received: by 10.220.71.201 with HTTP; Thu, 21 Nov 2013 11:58:17 -0800 (PST)
-In-Reply-To: <1385057342-17210-1-git-send-email-ross.burton@intel.com>
-References: <1385057342-17210-1-git-send-email-ross.burton@intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 21 Nov 2013 19:58:17 +0000
-Message-ID: <CAJTo0LZhUcUFEtz3ZA=wt2UhU_9we_74FD1tJW=6SvRMF5Rx8w@mail.gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] poky: enable unknown-configure-option QA test as a warning
+To: <poky@yoctoproject.org>
+References: <cover.1383707515.git.Qi.Chen@windriver.com>
+	<923963c295c4c3513a4752f51bd94e3c5c1fcb8f.1383707515.git.Qi.Chen@windriver.com>
+In-Reply-To: <923963c295c4c3513a4752f51bd94e3c5c1fcb8f.1383707515.git.Qi.Chen@windriver.com>
+X-Originating-IP: [128.224.162.213]
+Subject: Re: [PATCH 1/1] poky.conf: use weak assignment for WARN_QA and ERROR_QA
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,16 +34,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Nov 2013 19:58:40 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 22 Nov 2013 05:06:13 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 21 November 2013 18:09, Ross Burton <ross.burton@intel.com> wrote:
-> This QA test will warn if configure is passed options that it doesn't recongise.
+ping
 
-Note that this will cause warnings to appear in builds, about 25 in a
-core-image-sato.    Each one should take someone -- ideally the
-maintainer when they do an upgrade -- about a minute to verify and
-either remove or whitelist.
+On 11/06/2013 11:13 AM, Qi.Chen@windriver.com wrote:
+> From: Chen Qi <qi.chen@windriver.com>
+>
+> Use weak assignment for WARN_QA and ERROR_QA in the ditro configuration
+> file (poky.conf) to allow for override in local.conf.
+>
+> As local.conf is included before the distro configuration file, we cannot
+> easily set custom WARN_QA and ERROR_QA in local.conf if we don't use
+> weak assignment in poky.conf.
+>
+> Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
+> ---
+>   meta-yocto/conf/distro/poky.conf |    4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+> index 44bc4c6..c4643d2 100644
+> --- a/meta-yocto/conf/distro/poky.conf
+> +++ b/meta-yocto/conf/distro/poky.conf
+> @@ -101,8 +101,8 @@ OELAYOUT_ABI = "8"
+>   INHERIT += "poky-sanity"
+>   
+>   # QA check settings - a little stricter than the OE-Core defaults
+> -WARN_QA = "textrel files-invalid incompatible-license xorg-driver-abi libdir"
+> -ERROR_QA = "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms \
+> +WARN_QA ?= "textrel files-invalid incompatible-license xorg-driver-abi libdir"
+> +ERROR_QA ?= "dev-so debug-deps dev-deps debug-files arch pkgconfig la perms \
+>               useless-rpaths rpaths staticdev ldflags pkgvarcheck already-stripped \
+>               compile-host-path dep-cmp installed-vs-shipped install-host-path \
+>               packages-list perm-config perm-line perm-link pkgv-undefined \
 
-Ross
 
