@@ -1,23 +1,33 @@
-Return-Path: <laurentiu.palcu@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4FCD7E0078C
-	for <poky@yoctoproject.org>; Tue,  3 Dec 2013 23:42:36 -0800 (PST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 03 Dec 2013 23:42:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.93,822,1378882800"; d="scan'208";a="444310440"
-Received: from lpalcu-linux.rb.intel.com (HELO lpalcu-linux) ([10.237.105.41])
-	by fmsmga002.fm.intel.com with ESMTP; 03 Dec 2013 23:42:33 -0800
-Date: Wed, 4 Dec 2013 09:42:33 +0200
-From: Laurentiu Palcu <laurentiu.palcu@intel.com>
-To: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@Maximatecc.com>
-Message-ID: <20131204074233.GJ6099@lpalcu-linux>
-References: <83DB4EC8FADD45428E3CC4E3664761FD129FEFC2@AMDTCEX12.actuant.pri>
-MIME-Version: 1.0
-In-Reply-To: <83DB4EC8FADD45428E3CC4E3664761FD129FEFC2@AMDTCEX12.actuant.pri>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Source package with wrong directory in it
+Return-Path: <ross.burton@intel.com>
+Received: from mail-wg0-f43.google.com (mail-wg0-f43.google.com [74.125.82.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7BCA0E0077E
+	for <poky@yoctoproject.org>; Thu,  5 Dec 2013 09:42:10 -0800 (PST)
+Received: by mail-wg0-f43.google.com with SMTP id k14so14490022wgh.22
+	for <poky@yoctoproject.org>; Thu, 05 Dec 2013 09:42:09 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=s2Dc3lrGUuy0quFdmmOgFHTmiwrlOwmH/spaVkaC2VA=;
+	b=ZCVSsULiy8rTtbm1CCwacRD+Egh2RLfbov4Qi86eS/Bq0JSy7PSoL7ugkuqVNzaytq
+	vd6yV3NHYx+4YsEJqCh0eK3s/xt0G04zgpWaaWBjnFHJiVdwtXOJ1ARGY3yew5Uk5XU4
+	jZaczkbS3vinHFqM29LE2EZcJWWBZ5VrBv91u0Yf37fyuVoPo3AeQMb+TxVSnRwxJ0i+
+	uAp5BRxmywwZuxJw8mAFndxdOuFyuwQXZHA5bZpGj8uxOhxnYCYHhzmwRgBkWcIuJ/ot
+	446WQ41L7pfXySWN5TaaVobYbmDfgeYEnn+TIVVTalLypzg3Rx0L7TyGQT1Qkiz9+WgT
+	A4Sw==
+X-Gm-Message-State: ALoCoQkZGdPNkQ6eZyy3+rxDNcx9hS9lBqOQOEBM/ab30EnaZPhU+u9GlaX539tUSItUT3WJ0uf1
+X-Received: by 10.180.19.201 with SMTP id h9mr12691687wie.36.1386265329635;
+	Thu, 05 Dec 2013 09:42:09 -0800 (PST)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPSA id e10sm8266042wiy.7.2013.12.05.09.42.08
+	for <poky@yoctoproject.org>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 05 Dec 2013 09:42:08 -0800 (PST)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  5 Dec 2013 17:42:02 +0000
+Message-Id: <1386265322-29062-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH] distro-tracking: remove GMAE package groups
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,73 +40,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Dec 2013 07:42:37 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 05 Dec 2013 17:42:11 -0000
 
-On Wed, Dec 04, 2013 at 06:34:49AM +0000, Keskinarkaus, Teemu wrote:
-> Hi,
-> 
->  
-> 
-> This might be another user issue and not poky issue itself, but hopefully
-> someone could help me here.
-> 
->  
-> 
-> Usually when I download source package and unpack it will unpack itself to in
-> directory name-version (eg. program-1.2.3) and yocto also assumes so. Well, I
-> have managed to find one program that doesn’t have the version part of the
-> directory name and haven’t been able to redirect the yocto/poky to use that
-> program-directory without version to build the program.
-> 
->  
-> 
-> Is there a way to do that within the recipe and not needing to touch the
-> class-files? And this is program that’s not originally in yocto so it’s .bb and
-> not .bbappend – file.
-Did you try to set S = ${WORKDIR}/program-blah-blah in the recipe?
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto/conf/distro/include/distro_alias.inc |    3 ---
+ meta-yocto/conf/distro/include/maintainers.inc  |    3 ---
+ meta-yocto/conf/distro/include/recipe_color.inc |    2 --
+ 3 files changed, 8 deletions(-)
 
-Here's an example:
-meta/recipes-extended/zip/zip_3.0.bb
-
-I hope this helps,
-Laurentiu
-
-> 
->  
-> 
-> And I don’t want to start repacking the software or trying to convince the
-> author to rename the package since there might be other similar sources as
-> well.
-> 
->  
-> 
-> Teemu Keskinarkaus
-> 
-> 
->  
-> 
-> 
-> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-> 
-> Actuant Corporation Email Notice
-> 
-> This message is intended only for the use of the Addressee and may contain
-> information that is PRIVILEGED and/or CONFIDENTIAL.
-> This email is intended only for the personal and confidential use of the
-> recipient(s) named above. If the reader of this email is not an intended
-> recipient, you have received this email in error and any review, dissemination,
-> distribution or copying is strictly prohibited.
-> If you have received this email in error, please notify the sender immediately
-> by return mail and permanently delete the copy you received.
-> 
-> Thank you.
-
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
+index cdf0bc4..4c838c8b 100644
+--- a/meta-yocto/conf/distro/include/distro_alias.inc
++++ b/meta-yocto/conf/distro/include/distro_alias.inc
+@@ -282,7 +282,6 @@ DISTRO_PN_ALIAS_pn-meta-environment-qemux86 = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-environment-qemux86-64 = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-ide-support = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-toolchain = "OE-Core"
+-DISTRO_PN_ALIAS_pn-meta-toolchain-gmae = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-toolchain-qt = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-toolchain-qte = "OE-Core"
+ DISTRO_PN_ALIAS_pn-meta-toolchain-sdk = "OE-Core"
+@@ -334,10 +333,8 @@ DISTRO_PN_ALIAS_pn-packagegroup-core-nfs = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-qt = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-qt4e = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-sdk = "OE-Core"
+-DISTRO_PN_ALIAS_pn-packagegroup-core-sdk-gmae = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-ssh-dropbear = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-ssh-openssh = "OE-Core"
+-DISTRO_PN_ALIAS_pn-packagegroup-core-standalone-gmae-sdk-target = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-standalone-sdk-target = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-tools = "OE-Core"
+ DISTRO_PN_ALIAS_pn-packagegroup-core-tools-debug = "OE-Core"
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index b6de775d..ca3789a 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -440,7 +440,6 @@ RECIPE_MAINTAINER_pn-menu-cache = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa-demos = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-mesa = "Valentin Popa <valentin.popa@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-ide-support = "Jessica Zhang <jessica.zhang@intel.com>"
+-RECIPE_MAINTAINER_pn-meta-toolchain-gmae = "Jessica Zhang <jessica.zhang@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-toolchain-qte = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-meta-toolchain = "Jessica Zhang <jessica.zhang@intel.com>"
+ RECIPE_MAINTAINER_pn-midori = "Ross Burton <ross.burton@intel.com>"
+@@ -503,11 +502,9 @@ RECIPE_MAINTAINER_pn-packagegroup-core-lsb = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-nfs = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-qt4e = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-qt = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-packagegroup-core-sdk-gmae = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-sdk = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-ssh-dropbear = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-ssh-openssh = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-packagegroup-core-standalone-gmae-sdk-target = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-standalone-sdk-target = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-tools-debug = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-tools-profile = "Saul Wold <sgw@linux.intel.com>"
+diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
+index 6fd4966..8e36ea3 100644
+--- a/meta-yocto/conf/distro/include/recipe_color.inc
++++ b/meta-yocto/conf/distro/include/recipe_color.inc
+@@ -371,8 +371,6 @@ RECIPE_COLOR_pn-table = "red"
+ RECIPE_COLOR_pn-tar = "yellow"
+ RECIPE_COLOR_pn-packagegroup-base = "red"
+ RECIPE_COLOR_pn-packagegroup-core-sdk = "red"
+-RECIPE_COLOR_pn-packagegroup-core-sdk-gmae = "red"
+-RECIPE_COLOR_pn-packagegroup-core-standalone-gmae-sdk-target = "red"
+ RECIPE_COLOR_pn-packagegroup-core-standalone-sdk-target = "red"
+ RECIPE_COLOR_pn-packagegroup-sdk-host = "red"
+ RECIPE_COLOR_pn-tcf-agent = "yellow"
+-- 
+1.7.10.4
 
 
