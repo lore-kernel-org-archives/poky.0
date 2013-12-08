@@ -1,33 +1,37 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-wg0-f43.google.com (mail-wg0-f43.google.com [74.125.82.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7BCA0E0077E
-	for <poky@yoctoproject.org>; Thu,  5 Dec 2013 09:42:10 -0800 (PST)
-Received: by mail-wg0-f43.google.com with SMTP id k14so14490022wgh.22
-	for <poky@yoctoproject.org>; Thu, 05 Dec 2013 09:42:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=s2Dc3lrGUuy0quFdmmOgFHTmiwrlOwmH/spaVkaC2VA=;
-	b=ZCVSsULiy8rTtbm1CCwacRD+Egh2RLfbov4Qi86eS/Bq0JSy7PSoL7ugkuqVNzaytq
-	vd6yV3NHYx+4YsEJqCh0eK3s/xt0G04zgpWaaWBjnFHJiVdwtXOJ1ARGY3yew5Uk5XU4
-	jZaczkbS3vinHFqM29LE2EZcJWWBZ5VrBv91u0Yf37fyuVoPo3AeQMb+TxVSnRwxJ0i+
-	uAp5BRxmywwZuxJw8mAFndxdOuFyuwQXZHA5bZpGj8uxOhxnYCYHhzmwRgBkWcIuJ/ot
-	446WQ41L7pfXySWN5TaaVobYbmDfgeYEnn+TIVVTalLypzg3Rx0L7TyGQT1Qkiz9+WgT
-	A4Sw==
-X-Gm-Message-State: ALoCoQkZGdPNkQ6eZyy3+rxDNcx9hS9lBqOQOEBM/ab30EnaZPhU+u9GlaX539tUSItUT3WJ0uf1
-X-Received: by 10.180.19.201 with SMTP id h9mr12691687wie.36.1386265329635;
-	Thu, 05 Dec 2013 09:42:09 -0800 (PST)
-Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
-	by mx.google.com with ESMTPSA id e10sm8266042wiy.7.2013.12.05.09.42.08
+Return-Path: <stefan.seyfried@googlemail.com>
+Received: from mail-bk0-f49.google.com (mail-bk0-f49.google.com
+	[209.85.214.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA611E00782
+	for <poky@yoctoproject.org>; Sun,  8 Dec 2013 04:42:32 -0800 (PST)
+Received: by mail-bk0-f49.google.com with SMTP id my13so932842bkb.8
+	for <poky@yoctoproject.org>; Sun, 08 Dec 2013 04:42:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=googlemail.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject
+	:content-type:content-transfer-encoding;
+	bh=9RDgUHQ3p9Pn01BIYXE+kLYVqv0eI5G1qwmJhO+zkAQ=;
+	b=W4yxwo/UPobuUKrvi3ILBj4UxRqNUWaN2cSY06GEo4OWs9rifkyBmkh6z5JPR2rbfo
+	UUfxtEV4CUQqoG7ZVNbOLmEYA1EWRCto6dD+d+m6S2QVBOT++EdwcObrHj7gI1RLsvvL
+	swZaM956HfnXDP/J4WtrRWUanWjyu173aB/XmkIslIuF5gJUcah3rBNjakkTTsU5pGVW
+	pilihGV9sPTEIvc3tdYBucwqYMZlUTzvJCFLn67hqvEf61A4Lygki5Di8NDn8So9gJTu
+	4BEf/GCi2veu9i2QTxLLW3PmWg5yEEmodpC+n9ipUNjVPn9sOSUKak/uNad+iYPfezTb
+	jaLQ==
+X-Received: by 10.205.5.194 with SMTP id oh2mr704408bkb.114.1386506551349;
+	Sun, 08 Dec 2013 04:42:31 -0800 (PST)
+Received: from susi.home.s3e.de (p54B53326.dip0.t-ipconnect.de. [84.181.51.38])
+	by mx.google.com with ESMTPSA id a4sm5182409bko.11.2013.12.08.04.42.30
 	for <poky@yoctoproject.org>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 05 Dec 2013 09:42:08 -0800 (PST)
-From: Ross Burton <ross.burton@intel.com>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Sun, 08 Dec 2013 04:42:30 -0800 (PST)
+Message-ID: <52A46935.8090803@message-id.googlemail.com>
+Date: Sun, 08 Dec 2013 13:42:29 +0100
+From: Stefan Seyfried <stefan.seyfried@googlemail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.1.0
+MIME-Version: 1.0
 To: poky@yoctoproject.org
-Date: Thu,  5 Dec 2013 17:42:02 +0000
-Message-Id: <1386265322-29062-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 1.7.10.4
-Subject: [PATCH] distro-tracking: remove GMAE package groups
+X-Enigmail-Version: 1.6
+Subject: ac_cv_sizeof_off_t breaks curl compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,76 +44,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Dec 2013 17:42:11 -0000
+X-List-Received-Date: Sun, 08 Dec 2013 12:42:34 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-yocto/conf/distro/include/distro_alias.inc |    3 ---
- meta-yocto/conf/distro/include/maintainers.inc  |    3 ---
- meta-yocto/conf/distro/include/recipe_color.inc |    2 --
- 3 files changed, 8 deletions(-)
+Hi all,
 
-diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-index cdf0bc4..4c838c8b 100644
---- a/meta-yocto/conf/distro/include/distro_alias.inc
-+++ b/meta-yocto/conf/distro/include/distro_alias.inc
-@@ -282,7 +282,6 @@ DISTRO_PN_ALIAS_pn-meta-environment-qemux86 = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-environment-qemux86-64 = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-ide-support = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-toolchain = "OE-Core"
--DISTRO_PN_ALIAS_pn-meta-toolchain-gmae = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-toolchain-qt = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-toolchain-qte = "OE-Core"
- DISTRO_PN_ALIAS_pn-meta-toolchain-sdk = "OE-Core"
-@@ -334,10 +333,8 @@ DISTRO_PN_ALIAS_pn-packagegroup-core-nfs = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-qt = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-qt4e = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-sdk = "OE-Core"
--DISTRO_PN_ALIAS_pn-packagegroup-core-sdk-gmae = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-ssh-dropbear = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-ssh-openssh = "OE-Core"
--DISTRO_PN_ALIAS_pn-packagegroup-core-standalone-gmae-sdk-target = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-standalone-sdk-target = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-tools = "OE-Core"
- DISTRO_PN_ALIAS_pn-packagegroup-core-tools-debug = "OE-Core"
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index b6de775d..ca3789a 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -440,7 +440,6 @@ RECIPE_MAINTAINER_pn-menu-cache = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-mesa-demos = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-mesa = "Valentin Popa <valentin.popa@intel.com>"
- RECIPE_MAINTAINER_pn-meta-ide-support = "Jessica Zhang <jessica.zhang@intel.com>"
--RECIPE_MAINTAINER_pn-meta-toolchain-gmae = "Jessica Zhang <jessica.zhang@intel.com>"
- RECIPE_MAINTAINER_pn-meta-toolchain-qte = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-meta-toolchain = "Jessica Zhang <jessica.zhang@intel.com>"
- RECIPE_MAINTAINER_pn-midori = "Ross Burton <ross.burton@intel.com>"
-@@ -503,11 +502,9 @@ RECIPE_MAINTAINER_pn-packagegroup-core-lsb = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-nfs = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-qt4e = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-qt = "Paul Eggleton <paul.eggleton@linux.intel.com>"
--RECIPE_MAINTAINER_pn-packagegroup-core-sdk-gmae = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-sdk = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-ssh-dropbear = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-ssh-openssh = "Saul Wold <sgw@linux.intel.com>"
--RECIPE_MAINTAINER_pn-packagegroup-core-standalone-gmae-sdk-target = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-standalone-sdk-target = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-tools-debug = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-packagegroup-core-tools-profile = "Saul Wold <sgw@linux.intel.com>"
-diff --git a/meta-yocto/conf/distro/include/recipe_color.inc b/meta-yocto/conf/distro/include/recipe_color.inc
-index 6fd4966..8e36ea3 100644
---- a/meta-yocto/conf/distro/include/recipe_color.inc
-+++ b/meta-yocto/conf/distro/include/recipe_color.inc
-@@ -371,8 +371,6 @@ RECIPE_COLOR_pn-table = "red"
- RECIPE_COLOR_pn-tar = "yellow"
- RECIPE_COLOR_pn-packagegroup-base = "red"
- RECIPE_COLOR_pn-packagegroup-core-sdk = "red"
--RECIPE_COLOR_pn-packagegroup-core-sdk-gmae = "red"
--RECIPE_COLOR_pn-packagegroup-core-standalone-gmae-sdk-target = "red"
- RECIPE_COLOR_pn-packagegroup-core-standalone-sdk-target = "red"
- RECIPE_COLOR_pn-packagegroup-sdk-host = "red"
- RECIPE_COLOR_pn-tcf-agent = "yellow"
+I investigated why I get a libcurl5 package (libcurl.so.5) out of curl
+with poky (branch dora, building for ARM and powerpc32).
+Basically, libcurl.so.5 (instead of libcurl.so.4) means "you are doing
+it wrong". curl configure detects that the ABI is broken (because off_t
+is not 64bits) and bumps the SONAME, see lib/README.curl_off_t in the
+curl source.
+
+After a long and hard debugging session, I found out that the following
+files set ac_cv_sizeof_off_t to 4:
+
+    meta/site/arm-linux:ac_cv_sizeof_off_t=${ac_cv_sizeof_off_t=4}
+    meta/site/ix86-common:ac_cv_sizeof_off_t=${ac_cv_sizeof_off_t=4}
+    meta/site/powerpc32-linux:ac_cv_sizeof_off_t=${ac_cv_sizeof_off_t=4}
+
+Now this is true for some cases, but only if e.g. _FILE_OFFSET_BITS is
+not set to 64 (which curl does).
+
+Curl does use AC_CHECK_SIZEOF(off_t) which works correctly, but only if
+ac_cv_sizeof_off_t is not preset to the wrong value.
+
+I'm now wondering how many other packages silently compile with wrong
+features etc because of this. Curl is just very vocal about this issue,
+so that it was easy to notify.
+
+If this is not the right list to report such issues, please point me
+into the right direction.
+
+Thanks,
+
+	Stefan
 -- 
-1.7.10.4
+Stefan Seyfried
+Linux Consultant & Developer -- GPG Key: 0x731B665B
 
+B1 Systems GmbH
+Osterfeldstraße 7 / 85088 Vohburg / http://www.b1-systems.de
+GF: Ralph Dehner / Unternehmenssitz: Vohburg / AG: Ingolstadt,HRB 3537
 
