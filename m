@@ -1,24 +1,22 @@
 Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E3796E00785
-	for <poky@yoctoproject.org>; Tue, 10 Dec 2013 07:11:40 -0800 (PST)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 20EE8E00785
+	for <poky@yoctoproject.org>; Tue, 10 Dec 2013 07:11:38 -0800 (PST)
 Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
 	[147.11.189.41])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id rBAFBclC006967
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id rBAFBbqr011334
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
 	for <poky@yoctoproject.org>; Tue, 10 Dec 2013 07:11:38 -0800 (PST)
 Received: from pek-hostel-vm02.wrs.com (128.224.153.172) by
 	ALA-HCB.corp.ad.wrs.com (147.11.189.41) with Microsoft SMTP Server id
-	14.2.347.0; Tue, 10 Dec 2013 07:11:38 -0800
+	14.2.347.0; Tue, 10 Dec 2013 07:11:37 -0800
 From: Robert Yang <liezhi.yang@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Tue, 10 Dec 2013 10:11:32 -0500
-Message-ID: <7b2d12afb62b725bd696d6994e5f1fa9c354b936.1386686531.git.liezhi.yang@windriver.com>
+Date: Tue, 10 Dec 2013 10:11:31 -0500
+Message-ID: <cover.1386686531.git.liezhi.yang@windriver.com>
 X-Mailer: git-send-email 1.7.10.4
-In-Reply-To: <cover.1386686531.git.liezhi.yang@windriver.com>
-References: <cover.1386686531.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH 1/3] [dora] package-regex: Tweak python-docutils so it works correctly
+Subject: [PATCH 0/3] [dora] fixes for dora
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,30 +32,29 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 X-List-Received-Date: Tue, 10 Dec 2013 15:11:41 -0000
 Content-Type: text/plain
 
-From: Saul Wold <sgw@linux.intel.com>
+The following changes since commit 53d2563ff13fcec74d4250bef5419e36169e55cc:
 
-(From meta-yocto master rev: 8bd33820b4d1944a9f7730f8e2676d0d45e1cd0b)
+  bitbake: perforce: Fix path subdirectory issues (2013-12-03 17:51:31 +0000)
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
----
- meta-yocto/conf/distro/include/package_regex.inc |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+are available in the git repository at:
 
-diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
-index 89cd366..da6e738 100644
---- a/meta-yocto/conf/distro/include/package_regex.inc
-+++ b/meta-yocto/conf/distro/include/package_regex.inc
-@@ -216,7 +216,7 @@ REGEX_URI_pn-psmisc = "http://sourceforge.net/projects/psmisc/files/psmisc/"
- REGEX_pn-psmisc = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/psmisc/files/psmisc/psmisc\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz/download\""
- REGEX_URI_pn-python-argparse = "https://code.google.com/p/argparse/downloads/list"
- REGEX_URI_pn-python-docutils = "http://sourceforge.net/projects/docutils/files/docutils/"
--REGEX_pn-python-docutils = "[hH][rR][eE][fF]=\"/projects/docutils/files/docutils/docutils\-(?P<pver>((\d+[\.\-_]*)+)).*/\""
-+REGEX_pn-python-docutils = "[hH][rR][eE][fF]=\"/projects/docutils/files/docutils/(?P<pver>((\d+[\.\-_]*)+)).*/\""
- REGEX_URI_pn-python-pycurl = "http://pycurl.sourceforge.net/download/"
- REGEX_pn-python-pycurl = "[hH][rR][eE][fF]=\"pycurl-(?P<pver>((\d+[\.\-_]*)+)).tar.gz\""
- REGEX_URI_pn-python-scons = "http://sourceforge.net/projects/scons/files/scons/"
+  git://git.pokylinux.org/poky-contrib robert/dora-next-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/dora-next-yocto
+
+Bastien JAUNY (1):
+  yocto-bsp: Add missing format specifier in bblayers error message
+
+Bruce Ashfield (1):
+  meta-yocto-bsp: update SRCREVs for 3.10.17 and beagleboard fixes
+
+Saul Wold (1):
+  package-regex: Tweak python-docutils so it works correctly
+
+ .../recipes-kernel/linux/linux-yocto_3.10.bbappend           |   10 +++++-----
+ meta-yocto/conf/distro/include/package_regex.inc             |    2 +-
+ scripts/lib/bsp/kernel.py                                    |    2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
 -- 
 1.7.10.4
 
