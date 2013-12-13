@@ -1,20 +1,21 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7CAF6E007D9
-	for <poky@yoctoproject.org>; Fri, 13 Dec 2013 04:59:43 -0800 (PST)
+Return-Path: <elizabeth.flanagan@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D4F9EE005B1
+	for <poky@yoctoproject.org>; Fri, 13 Dec 2013 08:19:06 -0800 (PST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 13 Dec 2013 04:59:18 -0800
+	by orsmga102.jf.intel.com with ESMTP; 13 Dec 2013 08:15:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,478,1384329600"; d="scan'208";a="424179612"
-Received: from junemccl-mobl.ger.corp.intel.com (HELO
-	helios.ger.corp.intel.com) ([10.252.122.17])
-	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2013 04:59:17 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.95,479,1384329600"; d="scan'208";a="424291094"
+Received: from qana.jf.intel.com ([10.7.201.146])
+	by orsmga001.jf.intel.com with ESMTP; 13 Dec 2013 08:19:04 -0800
+Received: by qana.jf.intel.com (Postfix, from userid 1000)
+	id A53015F82859; Fri, 13 Dec 2013 08:16:28 -0800 (PST)
+From: Elizabeth Flanagan <elizabeth.flanagan@intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 13 Dec 2013 12:59:14 +0000
-Message-Id: <1386939554-22012-1-git-send-email-paul.eggleton@linux.intel.com>
+Date: Fri, 13 Dec 2013 08:16:24 -0800
+Message-Id: <1386951384-27909-1-git-send-email-elizabeth.flanagan@intel.com>
 X-Mailer: git-send-email 1.8.1.2
-Subject: [PATCH] distro_alias.inc: drop external-*
+Subject: [PATCH] [dora] poky.conf: Flip distro to 1.5.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,29 +28,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Dec 2013 12:59:44 -0000
+X-List-Received-Date: Fri, 13 Dec 2013 16:19:06 -0000
 
-These are all obsolete now.
+From: Beth Flanagan <elizabeth.flanagan@intel.com>
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+DISTRO needs to be flipped for pending point release
+
+Signed-off-by: Beth Flanagan <elizabeth.flanagan@intel.com>
 ---
- meta-yocto/conf/distro/include/distro_alias.inc | 3 ---
- 1 file changed, 3 deletions(-)
+ meta-yocto/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto/conf/distro/include/distro_alias.inc b/meta-yocto/conf/distro/include/distro_alias.inc
-index 4c838c8b..a115d9b 100644
---- a/meta-yocto/conf/distro/include/distro_alias.inc
-+++ b/meta-yocto/conf/distro/include/distro_alias.inc
-@@ -109,9 +109,6 @@ DISTRO_PN_ALIAS_pn-eglinfo-x11 = "OE-Core"
- DISTRO_PN_ALIAS_pn-emgd-driver-bin = "Intel"
- DISTRO_PN_ALIAS_pn-encodings = "Ubuntu=xfonts-encodings Mandriva=x11-font-encodings Debian=xfonts-encodings"
- DISTRO_PN_ALIAS_pn-evieext = "Meego=xorg-x11-proto-evieext Debian=x11proto-evie"
--DISTRO_PN_ALIAS_pn-external-csl-toolchain = "OE-Core"
--DISTRO_PN_ALIAS_pn-external-poky-toolchain = "OE-Core"
--DISTRO_PN_ALIAS_pn-external-python-tarball = "OE-Core"
- DISTRO_PN_ALIAS_pn-fixesproto = "Meego=xorg-x11-proto-fixesproto"
- DISTRO_PN_ALIAS_pn-font-alias = "Fedora=xorg-x11-fonts-base Mandriva=x11-font-alias Meego=xorg-x11-fonts"
- DISTRO_PN_ALIAS_pn-fontcacheproto = "Meego=xorg-x11-proto-fontcacheproto"
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 465dbb9..53c3818 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "1.5"
++DISTRO_VERSION = "1.5.1"
+ DISTRO_CODENAME = "next"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
 -- 
 1.8.1.2
 
