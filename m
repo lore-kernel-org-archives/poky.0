@@ -1,24 +1,29 @@
-Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27F6DE00827
-	for <poky@yoctoproject.org>; Thu, 26 Dec 2013 23:03:07 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id rBR737io025843
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 26 Dec 2013 23:03:07 -0800 (PST)
-Received: from pek-blade16.wrs.com (128.224.153.44) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.40) with Microsoft SMTP Server id 14.2.347.0;
-	Thu, 26 Dec 2013 23:03:07 -0800
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 27 Dec 2013 23:04:58 +0800
-Message-ID: <b9eb9f811418810ed909124394f9979698d38d3a.1388156619.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <cover.1388156619.git.liezhi.yang@windriver.com>
-References: <cover.1388156619.git.liezhi.yang@windriver.com>
+Return-Path: <alexandre.belloni@free-electrons.com>
+Received: from mail.free-electrons.com (top.free-electrons.com [176.31.233.9])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 250D2E00824;
+	Fri, 27 Dec 2013 13:22:48 -0800 (PST)
+Received: by mail.free-electrons.com (Postfix, from userid 106)
+	id AFEF18A1; Fri, 27 Dec 2013 22:22:58 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	mail.free-electrons.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT
+	shortcircuit=ham autolearn=disabled version=3.3.2
+Received: from [192.168.1.28] (AReims-652-1-238-43.w83-198.abo.wanadoo.fr
+	[83.198.181.43])
+	by mail.free-electrons.com (Postfix) with ESMTPSA id 0AEAC845;
+	Fri, 27 Dec 2013 22:22:57 +0100 (CET)
+Message-ID: <52BDEFA3.2090106@free-electrons.com>
+Date: Fri, 27 Dec 2013 22:22:43 +0100
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+Organization: Free Electrons
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 MIME-Version: 1.0
-Subject: [PATCH 2/2] maintainers.inc: reassign tzcode-native
+To: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>, 
+	poky@yoctoproject.org
+X-Enigmail-Version: 1.5.2
+Subject: X11 incompatibilities using meta-oe with poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,28 +36,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Dec 2013 07:03:08 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 27 Dec 2013 21:22:49 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
----
- meta-yocto/conf/distro/include/maintainers.inc | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi,
 
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 56489a8..133857f 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -644,7 +644,7 @@ RECIPE_MAINTAINER_pn-trace-cmd = "Darren Hart <dvhart@linux.intel.com>"
- RECIPE_MAINTAINER_pn-tremor = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-tslib = "Paul Eggleton <paul.eggleton@linux.intel.com>"
- RECIPE_MAINTAINER_pn-ttf-bitstream-vera = "Valentin Popa <valentin.popa@intel.com>"
--RECIPE_MAINTAINER_pn-tzcode-native = "Saul Wold <sgw@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-tzcode-native = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-tzdata = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-ubootchart = "Cristiana Voicu <cristiana.voicu@intel.com>"
- RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Cristiana Voicu <cristiana.voicu@intel.com>"
+When using core-image-sato (latest dora), I encountered again an issue
+that I once solved by hacking around it. It has the following symptoms:
+ - touchscreen calibration doesn't start the first time the board is booted
+ - matchbox-keyboard doesn't come up when touching the keyboard icon in
+the panel
+ - matchbox-panel is ugly (compare
+http://www.ossystems.com.br/images/blog/boards/boundarydevices-nitrogen6x-hdmi-screenshot-fsl-image-gui.jpg
+with http://free-electrons.com/~alexandre/matchbox-panel.jpg)
+
+This time, I decided to investigate that issue a bit more. Here is what
+I found:
+The cause is the /etc/X11/Xsession script which at some point does:
+==
+
+What is really happening is that xserver-nodm-init is provided both by
+poky/meta/recipes-graphics/x11-common/xserver-nodm-init.bb and
+meta-openembedded/meta-oe/recipes-graphics/xserver-nodm-init/xserver-nodm-init_2.0.bb
+
+layer                 path                                      priority
+==========================================================================
+meta                  /home/alex/fsl/sources/poky/meta  5
+meta-yocto            /home/alex/fsl/sources/poky/meta-yocto  5
+meta-oe               /home/alex/fsl/sources/meta-openembedded/meta-oe  6
+
+The meta-oe one is selected ! That one can't actually work with the
+current
+poky/meta/recipes-sato/matchbox-keyboard/matchbox-keyboard_git.bb recipe
+because of the "ls -X" sorting and it doesn't know how to handle shbg
+files this will hang trying to use 80matchboxkeyboard.shbg
+
+So my next step was to remove the meta-oe layer (or simply mask
+/meta-openembedded/meta-oe/recipes-graphics/). The final result is
+better but touch screen calibration (xtscal instead of
+xinput-calibrator) fails with:
+XCALIBRATE extension missing: Resource temporarily unavailable
+XCALIBRATE extension missing: Resource temporarily unavailable
+XCALIBRATE extension missing: Resource temporarily unavailable
+
+
+So, questions:
+ - How do we solve that cleanly ?
+ - Why doesn't xserver-common conflicts with x11-common despite
+RCONFLICTS_${PN} = "xserver-kdrive-common x11-common" ?
+ - Shouldn't we stop using xtscal and use xinput-calibrator instead ?
+ - Should we update the Xsession script from the poky recipes and stop
+using x11-common ?
+
+On my side, what I do is masking
+/meta-openembedded/meta-oe/recipes-graphics/ and replacing xtscal by
+xinput-calibrator as a dependency of x11-common but I believe we can do
+better.
+
 -- 
-1.8.3.1
+Alexandre Belloni, Free Electrons
+Embedded Linux, Kernel and Android engineering
+http://free-electrons.com
 
 
