@@ -1,40 +1,28 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-ea0-f180.google.com (mail-ea0-f180.google.com
-	[209.85.215.180])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 60C3FE006CA;
-	Sat, 28 Dec 2013 03:27:59 -0800 (PST)
-Received: by mail-ea0-f180.google.com with SMTP id f15so4379912eak.11
-	for <multiple recipients>; Sat, 28 Dec 2013 03:27:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=KylniaTtq0UGW+PJ8ddAfSp3rE1zycTNdFU+poCBkks=;
-	b=GBPmAcW2IRlWQxpyjFMDMRTcN5jyJZ3u1k+ROLzlaWMVjVLaI3LIV6PPrSxqpZWkgW
-	qBteQUueMOEVWnC86c006VZcLmx6jPjuxamkiZ+YCakFfi8n7S4QbH8dyKAb3niTjrlw
-	joTMGjAWVeNCdVcCZnMDDat6w7i7ll38mhGkBGHrcAsD60oPzujmQMnCcQjNQ43s8tgA
-	7dCSKjGOytXVA45Q8tekN2KDi7lKj+rNJFP7JxpnrWxHkGC6wtdIMO3lD2KWM8ve/j2m
-	qxSWhJRV4aCwzScA7Y9rV3uOpK9AK8VWXR1MXuDfcSHN+8CDTSrzFZnGtTPfQiWTJkUC
-	6XUw==
-X-Received: by 10.15.82.8 with SMTP id z8mr46878255eey.25.1388230078247;
-	Sat, 28 Dec 2013 03:27:58 -0800 (PST)
-Received: from localhost (ip-89-176-104-107.net.upcbroadband.cz.
-	[89.176.104.107])
-	by mx.google.com with ESMTPSA id l4sm89870655een.13.2013.12.28.03.27.56
-	for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Sat, 28 Dec 2013 03:27:57 -0800 (PST)
-Date: Sat, 28 Dec 2013 12:28:39 +0100
-From: Martin Jansa <martin.jansa@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-Message-ID: <20131228112839.GZ3706@jama>
-References: <52BDEFA3.2090106@free-electrons.com> <20131228083238.GY3706@jama>
-	<52BEA5BE.2020107@free-electrons.com>
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 92E37E00746
+	for <poky@yoctoproject.org>; Sat, 28 Dec 2013 03:41:41 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 28 Dec 2013 03:41:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.95,566,1384329600"; d="scan'208";a="430996765"
+Received: from acdivito-mobl.gar.corp.intel.com (HELO helios.localnet)
+	([10.252.122.61])
+	by orsmga001.jf.intel.com with ESMTP; 28 Dec 2013 03:41:39 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: openembedded-core@lists.openembedded.org,
+	Philip Balister <philip@balister.org>
+Date: Sat, 28 Dec 2013 11:41:37 +0000
+Message-ID: <1566199.MAIPYk4j6n@helios>
+Organization: Intel Corporation
+User-Agent: KMail/4.10.5 (Linux/3.8.0-34-generic; KDE/4.10.5; i686; ; )
+In-Reply-To: <52B8DECA.6060704@balister.org>
+References: <CAJTo0LZsBfxGm=OJPa++egDjL6L0ZABMebTtTr_Bmw_TdQrohg@mail.gmail.com>
+	<52B8DECA.6060704@balister.org>
 MIME-Version: 1.0
-In-Reply-To: <52BEA5BE.2020107@free-electrons.com>
-User-Agent: Mutt/1.5.22 (2013-10-16)
-Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
-	poky@yoctoproject.org
-Subject: Re: X11 incompatibilities using meta-oe with poky
+Cc: Poky Project <poky@yoctoproject.org>,
+	OE-devel <openembedded-devel@lists.openembedded.org>
+Subject: Re: [OE-core] Piglit in Poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,178 +35,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 28 Dec 2013 11:28:00 -0000
-X-Groupsio-MsgNum: 9368
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="mfP1iJBimQeSOP+4"
-Content-Disposition: inline
+X-List-Received-Date: Sat, 28 Dec 2013 11:41:42 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
---mfP1iJBimQeSOP+4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Monday 23 December 2013 20:09:30 Philip Balister wrote:
+> On 12/23/2013 01:01 PM, Burton, Ross wrote:
+> > We'd like to integrate Piglit (an OpenGL test suite) into Poky so that
+> > we can run automated QA on the GL stack.  Piglit is currently residing
+> > in meta-oe, but as Poky is a self-contained project we can't just add
+> > meta-oe to it:  apart from the size of meta-oe, we can't ensure
+> > stability if meta-oe makes incompatible changes that affect Poky.
+> > 
+> > Piglit isn't a stand-alone package, there are the dependencies of
+> > waffle, python-mako and python-numpy to consider too.  There are two
+> > possibilities I can see:
+> > 
+> > 1) Move piglit and deps to oe-core.  Piglit is for QA purposes only
+> > and pushes the boundaries of "core platform".  In a sense this is a
+> > repeat of the discussion we had with Midori...  does oe-core contain
+> > everything needed to sufficiently exercise the core components it
+> > ships or not?
+> 
+> I expect Richard will push back on this, and I would support him here.
 
-On Sat, Dec 28, 2013 at 11:19:42AM +0100, Alexandre Belloni wrote:
->=20
-> -----BEGIN PGP SIGNED MESSAGE-----
-> Hash: SHA256
->=20
-> Hi Martin,
->=20
-> On 28/12/2013 09:32, Martin Jansa wrote:
-> > On Fri, Dec 27, 2013 at 10:22:43PM +0100, Alexandre Belloni wrote:
-> >> Hi,
-> >>
-> >> When using core-image-sato (latest dora), I encountered again an issu=
-e
-> >> that I once solved by hacking around it. It has the following symptom=
-s:
-> >>  - touchscreen calibration doesn't start the first time the board is
-> booted
-> >
-> > see
-> >
-> http://git.openembedded.org/meta-openembedded/commit/?id=3D98bfe33760acb=
-74b67eba9d58ea7cac8cad6d810
-> >
-> > I'll backport it to dora
->=20
-> That won't be enough, if you backport that to dora, the target will
-> simply hang when executing 80matchboxkeyboard.shbg as it will wait
-> forever. The file extensions have a special meaning in the Xsession
-> script coming from x11-common.
+This all depends on the scope of these tools. If the scope is only the Yocto 
+Project QA team, adding them to the core would be a difficult sell. However, if 
+the target audience were a larger number of BSP maintainers (and to be honest, 
+I would expect maintainers of BSPs for hardware supporting GL acceleration to 
+want to be able to run these tests) then adding these components to the core 
+starts to make sense, to me at least.
 
-I'm not using matchbox and I'm using only xserver-common, this fix is to
-start xinput-calibrator in correct location.
+> > 2) Add piglit and deps to meta-yocto.  Probably a new layer called
+> > meta-yocto-qa (or similar) because the Yocto Compatible guidelines
+> > forbid mixing distribution policy and recipes.  We'd need to sync
+> > meta-yocto-qa with the pieces of meta-oe that we want somehow, but
+> > that's our problem.
+> 
+> So meta-yocto is right out. I'm a user of numpy, and I certainly do not
+> want to include something called meta-yocto-qa just to pick up numpy.
+> 
+> So this presents a quandry. Moving numpy to a special layer to support a
+> specific recipe is just not the right thing to do. Conceivably, we could
+> create a layer for the bits of meta-oe that are python related, but I am
+> not sure that solves your entire problem.
+> 
+> I certainly do not want to see one recipe appear in two layers. That is
+> a recipe for trouble.
 
-You can get rid of x11-common by setting:
-VIRTUAL-RUNTIME_xserver_common =3D "xserver-common"
+There is a "third" way - use combo-layer to keep a maintained copy of the 
+recipe in the "meta-yocto-qa" layer, just as we do with OE-Core within the 
+poky repository. It has worked well enough there, although here we would be 
+being more selective about the recipes we were pulling; it could be 
+problematic if for example a dependency were added from a recipe that is part 
+of the filter on a recipe that is not part of the filter.
 
-> That's why I'm suggesting migrating all the poky recipes to the
-> xserver-common style and use xserver-common instead of x11-common. I
-> don't have the history but it seems that x11-common is quite outdated
-> ( I'm getting that feeling from the xtscal dependency). Do we still want
-> to support kdrive ? Also, something is clearly wrong as
-> xserver-common_1.34.bb has:
-> RCONFLICTS_${PN} =3D "xserver-kdrive-common x11-common"
-> And both x11-common and xserver-common get installed.
->=20
-> >
-> >
-> >>  - matchbox-keyboard doesn't come up when touching the keyboard icon =
-in
-> >> the panel
-> >>  - matchbox-panel is ugly (compare
-> >>
-> http://www.ossystems.com.br/images/blog/boards/boundarydevices-nitrogen6=
-x-hdmi-screenshot-fsl-image-gui.jpg
-> >> with http://free-electrons.com/~alexandre/matchbox-panel.jpg)
-> >>
-> >> This time, I decided to investigate that issue a bit more. Here is wh=
-at
-> >> I found:
-> >> The cause is the /etc/X11/Xsession script which at some point does:
-> >> =3D=3D
-> >>
-> >> What is really happening is that xserver-nodm-init is provided both b=
-y
-> >> poky/meta/recipes-graphics/x11-common/xserver-nodm-init.bb and
-> >>
-> meta-openembedded/meta-oe/recipes-graphics/xserver-nodm-init/xserver-nod=
-m-init_2.0.bb
-> >>
-> >> layer                 path                                      prior=
-ity
-> >>
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> >> meta                  /home/alex/fsl/sources/poky/meta  5
-> >> meta-yocto            /home/alex/fsl/sources/poky/meta-yocto  5
-> >> meta-oe               /home/alex/fsl/sources/meta-openembedded/meta-o=
-e  6
-> >>
-> >> The meta-oe one is selected ! That one can't actually work with the
-> >> current
-> >> poky/meta/recipes-sato/matchbox-keyboard/matchbox-keyboard_git.bb rec=
-ipe
-> >> because of the "ls -X" sorting and it doesn't know how to handle shbg
-> >> files this will hang trying to use 80matchboxkeyboard.shbg
-> >>
-> >> So my next step was to remove the meta-oe layer (or simply mask
-> >> /meta-openembedded/meta-oe/recipes-graphics/). The final result is
-> >> better but touch screen calibration (xtscal instead of
-> >> xinput-calibrator) fails with:
-> >> XCALIBRATE extension missing: Resource temporarily unavailable
-> >> XCALIBRATE extension missing: Resource temporarily unavailable
-> >> XCALIBRATE extension missing: Resource temporarily unavailable
-> >>
-> >>
-> >> So, questions:
-> >>  - How do we solve that cleanly ?
-> >>  - Why doesn't xserver-common conflicts with x11-common despite
-> >> RCONFLICTS_${PN} =3D "xserver-kdrive-common x11-common" ?
-> >>  - Shouldn't we stop using xtscal and use xinput-calibrator instead ?
-> >>  - Should we update the Xsession script from the poky recipes and sto=
-p
-> >> using x11-common ?
-> >>
-> >> On my side, what I do is masking
-> >> /meta-openembedded/meta-oe/recipes-graphics/ and replacing xtscal by
-> >> xinput-calibrator as a dependency of x11-common but I believe we can =
-do
-> >> better.
-> >>
-> >> --
-> >> Alexandre Belloni, Free Electrons
-> >> Embedded Linux, Kernel and Android engineering
-> >> http://free-electrons.com
-> >>
-> >> _______________________________________________
-> >> poky mailing list
-> >> poky@yoctoproject.org
-> >> https://lists.yoctoproject.org/listinfo/poky
-> >
->=20
->=20
-> - --=20
-> Alexandre Belloni, Free Electrons
-> Embedded Linux, Kernel and Android engineering
-> http://free-electrons.com
-> -----BEGIN PGP SIGNATURE-----
-> Version: GnuPG v1.4.14 (GNU/Linux)
->=20
-> iQIcBAEBCAAGBQJSvqW9AAoJEKbNnwlvZCyzPHIQAMoQfqBZbk8xW5V+craTyEAR
-> ViIXkcxjk5P5g8lKsiy9ZqHlimwvIAx3QBZCXXAIagXy5O75oHH7NriGyqVOI9UO
-> 17s1n3w/JesP3zaF2dedGrTj6AX+tvI3P6LNElulQ7DlDoZJJ1RXTqhMNJI8SR2B
-> BH35DJ9e7S+0yby5AIrCxnf4UGGDBzhngRfSwL6iVOPQR+WEWoEwgooo+TwDIhCl
-> adE+zCTMOuw8eGZvW82TQLcxI/qjaWy7KhmVwdDdMw9O/KoSF2HeVpmYT8j2CbbL
-> mTPjZYYYZMtja0crq9DsbtojEu4iNtXGg38ff9qx3Wp6sOD9WAYy+3SVquwzB6Nw
-> f25BNkOoLQBuyibsg0yCdNInahWZn3W4GQe9PS0qj9bx0DReI7yXvyONsSBksJWK
-> rQV43bKiOPKTUVck1Axi5k0MeTiZGr0MoJOByLq8MPTF7zeXT7/nBhKgnrznq5Ar
-> PcfMjye3hD4jDdG4z1bLbWzoVTlTuxQ0QNMdx1uk4Ss1mcjLSgufRcSKr1JLv7i/
-> DepCVg4ea9Ic5tANoSIkUGOFgAnEWGgb0Mr4sunkdY20t7JaoHdaRD7zRpUjqEXm
-> zPMpZd+7pkuPK9w9lW+qOP656ubu75B/MhCXuAKQQFh8DV//WA9wFE8eIqDK/kbd
-> keJtxwKqBib8i29JXZyR
-> =3DgcbW
-> -----END PGP SIGNATURE-----
->=20
+> Long term, we need to make the layer model work for the entire project
+> and get over the reluctance to use other peoples layers.
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+This is a tricky thing. If we start relying heavily on layers for our builds 
+that we don't currently have an active role in maintaining, there will be a 
+natural assumption that we'll step up and help maintain those layers; it will 
+be made more difficult if those layers contain a large number of recipes.
 
---mfP1iJBimQeSOP+4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Specifically regarding meta-oe, as you may be aware our reluctance to use this 
+layer directly up to now was because of its use of bbappends and overlayed 
+recipes that change the apparent behaviour of core recipes. Most of this has 
+been tidied up, however one last such issue still exists [1] and is apparently 
+still leading to problems for users [2], so there is still work needing to be 
+done here.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+Cheers,
+Paul
 
-iEYEARECAAYFAlK+tecACgkQN1Ujt2V2gBy2tQCgp6OQKLzhFs08xLtkI3Y979Hl
-4IYAni93XhSFWe4ZxeW4A1uZfpzQpOyQ
-=Kbwr
------END PGP SIGNATURE-----
+[1] https://bugzilla.yoctoproject.org/show_bug.cgi?id=5546
+[2] https://lists.yoctoproject.org/pipermail/poky/2013-December/009463.html
 
---mfP1iJBimQeSOP+4--
+-- 
+
+Paul Eggleton
+Intel Open Source Technology Centre
+
