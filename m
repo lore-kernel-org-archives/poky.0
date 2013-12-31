@@ -1,22 +1,24 @@
 Return-Path: <Liezhi.Yang@windriver.com>
 Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E38CAE0080C
-	for <poky@yoctoproject.org>; Mon, 30 Dec 2013 19:04:55 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C3036E0081B
+	for <poky@yoctoproject.org>; Mon, 30 Dec 2013 19:04:57 -0800 (PST)
 Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
 	[147.11.189.41])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id rBV34tKL003621
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id rBV34vPE003624
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Mon, 30 Dec 2013 19:04:55 -0800 (PST)
+	for <poky@yoctoproject.org>; Mon, 30 Dec 2013 19:04:57 -0800 (PST)
 Received: from pek-blade16.wrs.com (128.224.153.44) by ALA-HCB.corp.ad.wrs.com
 	(147.11.189.41) with Microsoft SMTP Server id 14.2.347.0;
-	Mon, 30 Dec 2013 19:04:54 -0800
+	Mon, 30 Dec 2013 19:04:57 -0800
 From: Robert Yang <liezhi.yang@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Tue, 31 Dec 2013 19:07:07 +0800
-Message-ID: <cover.1388487789.git.liezhi.yang@windriver.com>
+Date: Tue, 31 Dec 2013 19:07:09 +0800
+Message-ID: <e3cca0772a822282c2311396a6591bdbfa2a341a.1388487789.git.liezhi.yang@windriver.com>
 X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <cover.1388487789.git.liezhi.yang@windriver.com>
+References: <cover.1388487789.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH V2 0/2] update upstream_tracking.inc and maintainers.inc
+Subject: [PATCH V2 2/2] maintainers.inc: reassign tzcode-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,28 +34,24 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 X-List-Received-Date: Tue, 31 Dec 2013 03:04:57 -0000
 Content-Type: text/plain
 
-V2:
-Update RECIPE_NO_UPDATE_REASON_pn-glib-2.0 rather than remove it.
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
+ meta-yocto/conf/distro/include/maintainers.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-// Robert
-
-The following changes since commit 005af45191ded6185c618c708181b31281e43092:
-
-  bitbake: fetch2: avoid printing "no checksum" error message twice (2013-12-22 14:29:13 +0000)
-
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib robert/tracking
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/tracking
-
-Robert Yang (2):
-  upstream_tracking.inc: update entries
-  maintainers.inc: reassign tzcode-native
-
- meta-yocto/conf/distro/include/maintainers.inc       |  2 +-
- meta-yocto/conf/distro/include/upstream_tracking.inc | 14 +-------------
- 2 files changed, 2 insertions(+), 14 deletions(-)
-
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index 56489a8..133857f 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -644,7 +644,7 @@ RECIPE_MAINTAINER_pn-trace-cmd = "Darren Hart <dvhart@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-tremor = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-tslib = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-ttf-bitstream-vera = "Valentin Popa <valentin.popa@intel.com>"
+-RECIPE_MAINTAINER_pn-tzcode-native = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-tzcode-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-tzdata = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-ubootchart = "Cristiana Voicu <cristiana.voicu@intel.com>"
+ RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Cristiana Voicu <cristiana.voicu@intel.com>"
 -- 
 1.8.3.1
 
