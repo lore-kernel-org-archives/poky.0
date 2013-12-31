@@ -1,24 +1,33 @@
-Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE98AE00822
-	for <poky@yoctoproject.org>; Mon, 30 Dec 2013 19:04:57 -0800 (PST)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
-	[147.11.189.41])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id rBV34ujd023669
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Mon, 30 Dec 2013 19:04:56 -0800 (PST)
-Received: from pek-blade16.wrs.com (128.224.153.44) by ALA-HCB.corp.ad.wrs.com
-	(147.11.189.41) with Microsoft SMTP Server id 14.2.347.0;
-	Mon, 30 Dec 2013 19:04:55 -0800
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Tue, 31 Dec 2013 19:07:08 +0800
-Message-ID: <b0a412ab15e9ad7bd6e7bab0ff72f5beee017413.1388487789.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <cover.1388487789.git.liezhi.yang@windriver.com>
-References: <cover.1388487789.git.liezhi.yang@windriver.com>
+Return-Path: <alexandre.belloni@free-electrons.com>
+Received: from mail.free-electrons.com (top.free-electrons.com [176.31.233.9])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BD440E007EC;
+	Tue, 31 Dec 2013 02:42:08 -0800 (PST)
+Received: by mail.free-electrons.com (Postfix, from userid 106)
+	id 7852689C; Tue, 31 Dec 2013 11:42:24 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	mail.free-electrons.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT,
+	URIBL_BLOCKED shortcircuit=ham autolearn=disabled version=3.3.2
+Received: from [192.168.0.36] (col31-4-88-188-83-94.fbx.proxad.net
+	[88.188.83.94])
+	by mail.free-electrons.com (Postfix) with ESMTPSA id 1FCFC7C1;
+	Tue, 31 Dec 2013 11:42:24 +0100 (CET)
+Message-ID: <52C29F7E.4060307@free-electrons.com>
+Date: Tue, 31 Dec 2013 11:42:06 +0100
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+Organization: Free Electrons
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 MIME-Version: 1.0
-Subject: [PATCH V2 1/2] upstream_tracking.inc: update entries
+To: Otavio Salvador <otavio@ossystems.com.br>
+References: <52BDEFA3.2090106@free-electrons.com>	<20131228083238.GY3706@jama>	<52BEA5BE.2020107@free-electrons.com>	<20131228112839.GZ3706@jama>	<52BEB963.2030901@free-electrons.com>	<20131228120750.GA3706@jama>	<52BECB61.9010401@free-electrons.com>
+	<CAP9ODKqjuQxGDowZ_pj=H8i9-DA-DVsuoPP_tpVpvsCUm0VmWA@mail.gmail.com>
+In-Reply-To: <CAP9ODKqjuQxGDowZ_pj=H8i9-DA-DVsuoPP_tpVpvsCUm0VmWA@mail.gmail.com>
+X-Enigmail-Version: 1.5.2
+Cc: "meta-freescale@yoctoproject.org" <meta-freescale@yoctoproject.org>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [meta-freescale] X11 incompatibilities using meta-oe with poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,66 +40,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 31 Dec 2013 03:04:57 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 31 Dec 2013 10:42:11 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-Remove/update the following entries:
+On 30/12/2013 06:09, Otavio Salvador wrote:
+>> Right, thanks for those pointers !
+> 
+> Martin already backported the fix to Dora so please give it a new try
+> and see if it fixes your previous issues.
+> 
 
-autoconf: out of date, it was added before/when 2.68, now we use 2.69
-autogen: out of date, it was added before/when 5.12, now we use 5.17.4
-automake: out of date, it was added before/when 1.12, now we use 1.14
-pn-gmp: out of date, it was added before/when 5.0.5, now we use 5.1.1
-makedevs: out of date, it was added before/when 1.0.0, now we use 1.0.1
-glib-2.0: update it.
+As said, it indeed fixes the issue with touchscreen calibration but
+matchbox-keyboard is still broken as the script has a .shbg extension.
+I'll try to rework that script and send a patch.
 
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
----
- meta-yocto/conf/distro/include/upstream_tracking.inc | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+Martin, I'm not sure what is preferred: having a .sh extension or no
+extension at all ?
 
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index ae1ae49..d2ed2be 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -24,12 +24,6 @@
- #
- RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
- CHECK_DATE_pn-adt-installer = "Sep 11, 2012"
--RECIPE_NO_UPDATE_REASON_pn-autoconf="seeing rpm issue with the 2.68 version, a bug is open"
--RECIPE_UPSTREAM_VERSION_pn-autogen = "5.12"
--CHECK_DATE_pn-autogen = "Jan 17, 2012"
--RECIPE_NO_UPDATE_REASON_pn-autogen = "newer versions are dumping core while building, and no distro has picked up the newer versions yet"
--RECIPE_UPSTREAM_VERSION_pn-automake="1.12"
--CHECK_DATE_pn-automake = "Aug 27, 2012"
- RECIPE_UPSTREAM_DATE_pn-avahi-ui = "Oct 01, 2010"
- RECIPE_UPSTREAM_VERSION_pn-avahi = "0.6.31"
- RECIPE_UPSTREAM_DATE_pn-avahi = "Oct 01, 2010"
-@@ -71,13 +65,10 @@ RECIPE_UPSTREAM_VERSION_pn-gdk-pixbuf = "2.27.2"
- RECIPE_UPSTREAM_DATE_pn-gdk-pixbuf = "Mar 3, 2013"
- CHECK_DATE_pn-gdk-pixbuf = "Mar 5, 2013"
- RECIPE_NO_UPDATE_REASON_pn-gdk-pixbuf = "2.27.2 is unstable"
--RECIPE_NO_UPDATE_REASON_pn-glib-2.0 = "2.35.8 is unstable"
-+RECIPE_NO_UPDATE_REASON_pn-glib-2.0 = "2.39.2 is unstable"
- RECIPE_UPSTREAM_VERSION_pn-glibc = "2.11.2"
- RECIPE_UPSTREAM_DATE_pn-glibc = "May 01, 2010"
- RECIPE_NO_UPDATE_REASON_pn-glibc = "two glibc plugins are based on 2.10.1"
--RECIPE_UPSTREAM_VERSION_pn-gmp="5.0.5"
--RECIPE_UPSTREAM_DATE_pn-gmp = "Jul 05, 2012"
--CHECK_DATE_pn-gmp = "Aug 28, 2012"
- RECIPE_NO_UPDATE_REASON_pn-glib-networking = "Pending Glib-2.0 Update"
- RECIPE_UPSTREAM_VERSION_pn-gnome-desktop = "3.7.90"
- RECIPE_UPSTREAM_DATE_pn-gnome-desktop = "Feb 19, 2013"
-@@ -160,9 +151,6 @@ RECIPE_UPSTREAM_VERSION_pn-linuxdoc-tools-native = "0.9.66"
- CHECK_DATE_pn-linuxdoc-tools-native = "Aug 31, 2012"
- RECIPE_NO_UPDATE_REASON-libxml2 = "only release candidates available "
- RECIPE_UPSTREAM_VERSION_pn-lsbtest = "1.0"
--RECIPE_UPSTREAM_VERSION_pn-makedevs = "1.0.0"
--RECIPE_UPSTREAM_DATE_pn-makedevs = "Feb 11, 2009"
--CHECK_DATE_pn-makedevs = "Aug 31, 2012"
- RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
- RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.2"
- RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 06, 2013"
 -- 
-1.8.3.1
-
+Alexandre Belloni, Free Electrons
+Embedded Linux, Kernel and Android engineering
+http://free-electrons.com
 
