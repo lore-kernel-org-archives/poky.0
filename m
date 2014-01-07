@@ -1,25 +1,31 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
-Received: from mail.free-electrons.com (top.free-electrons.com [176.31.233.9])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A6A1BE0084B
-	for <poky@yoctoproject.org>; Tue,  7 Jan 2014 05:48:52 -0800 (PST)
-Received: by mail.free-electrons.com (Postfix, from userid 106)
-	id E3FD77FA; Tue,  7 Jan 2014 14:48:55 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
-	mail.free-electrons.com
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT
-	shortcircuit=ham autolearn=disabled version=3.3.2
-Received: from localhost (128-79-216-6.hfc.dyn.abo.bbox.fr [128.79.216.6])
-	by mail.free-electrons.com (Postfix) with ESMTPSA id 9D0157BE;
-	Tue,  7 Jan 2014 14:48:55 +0100 (CET)
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: poky@yoctoproject.org
-Date: Tue,  7 Jan 2014 14:48:32 +0100
-Message-Id: <1389102512-15615-1-git-send-email-alexandre.belloni@free-electrons.com>
-X-Mailer: git-send-email 1.8.3.2
-MIME-Version: 1.0
-Cc: Darren Hart <dvhart@linux.intel.com>
-Subject: [PATCH] kernel: use oldnoconfig instead of yes '' | make oldconfig
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AB191E0084B
+	for <poky@yoctoproject.org>; Tue,  7 Jan 2014 06:04:03 -0800 (PST)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	s07E3RBw003424; Tue, 7 Jan 2014 14:03:27 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id uKQacmxpSJRn; Tue,  7 Jan 2014 14:03:27 +0000 (GMT)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	s07E3Llf003421
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 7 Jan 2014 14:03:22 GMT
+Message-ID: <1389103396.6899.29.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+Date: Tue, 07 Jan 2014 14:03:16 +0000
+In-Reply-To: <1389102512-15615-1-git-send-email-alexandre.belloni@free-electrons.com>
+References: <1389102512-15615-1-git-send-email-alexandre.belloni@free-electrons.com>
+X-Mailer: Evolution 3.8.4-0ubuntu1 
+Mime-Version: 1.0
+Cc: "Hart,
+	Darren" <darren.hart@intel.com>, Darren Hart <dvhart@linux.intel.com>,
+	poky@yoctoproject.org
+Subject: Re: [PATCH] kernel: use oldnoconfig instead of yes '' | make oldconfig
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,68 +38,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 07 Jan 2014 13:48:52 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 07 Jan 2014 14:04:06 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-When using a defconfig, using yes '' | make oldconfig may not result in
-the correct configuration being set. For example:
+On Tue, 2014-01-07 at 14:48 +0100, Alexandre Belloni wrote:
+> When using a defconfig, using yes '' | make oldconfig may not result in
+> the correct configuration being set. For example:
+> 
+>  $ grep USB_ETH .config
+>  CONFIG_USB_ETH=y
+>  CONFIG_USB_ETH_RNDIS=y
+>  CONFIG_USB_ETH_EEM=y
+>  $ make savedefconfig
+>  scripts/kconfig/conf --savedefconfig=defconfig Kconfig
+>  $ cp defconfig .config
+>  ‘defconfig’ -> ‘.config’
+>  $ yes '' | make oldconfig
+>  [...]
+>  #
+>  # configuration written to .config
+>  #
+>  $ grep USB_ETH .config
+>  CONFIG_USB_ETH=m
+>  CONFIG_USB_ETH_RNDIS=y
+>  CONFIG_USB_ETH_EEM=y
+> 
+> Using make olddefconfig solves that but we'll use oldnoconfig for
+> backward compatibility with older kernels.
+> 
+>  $ cp defconfig .config
+>  ‘defconfig’ -> ‘.config’
+>  $ make oldnoconfig
+>  scripts/kconfig/conf --olddefconfig Kconfig
+>  #
+>  # configuration written to .config
+>  #
+>  $ grep USB_ETH .config
+>  CONFIG_USB_ETH=y
+>  CONFIG_USB_ETH_RNDIS=y
+>  CONFIG_USB_ETH_EEM=y
+> 
+> For more information, please refer to:
+> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=fbe98bb9ed3dae23e320c6b113e35f129538d14a
 
- $ grep USB_ETH .config
- CONFIG_USB_ETH=y
- CONFIG_USB_ETH_RNDIS=y
- CONFIG_USB_ETH_EEM=y
- $ make savedefconfig
- scripts/kconfig/conf --savedefconfig=defconfig Kconfig
- $ cp defconfig .config
- ‘defconfig’ -> ‘.config’
- $ yes '' | make oldconfig
- [...]
- #
- # configuration written to .config
- #
- $ grep USB_ETH .config
- CONFIG_USB_ETH=m
- CONFIG_USB_ETH_RNDIS=y
- CONFIG_USB_ETH_EEM=y
+Could you post this to the openembedded-core list please. I've cc'd a
+couple of people who should review this to.
 
-Using make olddefconfig solves that but we'll use oldnoconfig for
-backward compatibility with older kernels.
+Thanks,
 
- $ cp defconfig .config
- ‘defconfig’ -> ‘.config’
- $ make oldnoconfig
- scripts/kconfig/conf --olddefconfig Kconfig
- #
- # configuration written to .config
- #
- $ grep USB_ETH .config
- CONFIG_USB_ETH=y
- CONFIG_USB_ETH_RNDIS=y
- CONFIG_USB_ETH_EEM=y
+Richard
 
-For more information, please refer to:
-http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=fbe98bb9ed3dae23e320c6b113e35f129538d14a
+> Signed-off-by: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+> ---
+>  meta/classes/kernel.bbclass | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
+> index 61a6d102d7a8..644d7937923d 100644
+> --- a/meta/classes/kernel.bbclass
+> +++ b/meta/classes/kernel.bbclass
+> @@ -313,7 +313,7 @@ kernel_do_configure() {
+>  	if [ -f "${WORKDIR}/defconfig" ] && [ ! -f "${B}/.config" ]; then
+>  		cp "${WORKDIR}/defconfig" "${B}/.config"
+>  	fi
+> -	yes '' | oe_runmake oldconfig
+> +	oe_runmake oldnoconfig
+>  }
+>  
+>  do_savedefconfig() {
 
-Signed-off-by: Alexandre Belloni <alexandre.belloni@free-electrons.com>
----
- meta/classes/kernel.bbclass | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index 61a6d102d7a8..644d7937923d 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -313,7 +313,7 @@ kernel_do_configure() {
- 	if [ -f "${WORKDIR}/defconfig" ] && [ ! -f "${B}/.config" ]; then
- 		cp "${WORKDIR}/defconfig" "${B}/.config"
- 	fi
--	yes '' | oe_runmake oldconfig
-+	oe_runmake oldnoconfig
- }
- 
- do_savedefconfig() {
--- 
-1.8.3.2
 
 
