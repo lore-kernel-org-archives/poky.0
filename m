@@ -1,37 +1,39 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-qc0-f182.google.com (mail-qc0-f182.google.com
-	[209.85.216.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E47D8E0082D
-	for <poky@yoctoproject.org>; Wed,  8 Jan 2014 08:09:32 -0800 (PST)
-Received: by mail-qc0-f182.google.com with SMTP id c9so56935qcz.41
-	for <poky@yoctoproject.org>; Wed, 08 Jan 2014 08:09:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=Zx1oUm5E8XqxMiuaalxYNdvHck+oUSaXQ03AGrfT8UU=;
-	b=gyIMY8umKjISl7jlip532FxfhfGlg5cOZlnJPS2khxgrBFqfa+6ISifMDO6Zwy8NZa
-	QdsZe8NSlYhNwKrwVQypIv93sDVAWPRuQEyBDCE9sFfxyWku2K/pYydjdMTHJi739Pt7
-	75LyuO8JG5QJMbBEDQa6oFkEMNHpwl7IavFQLbd2XlkdSwZ5Y9xGoed/qOfpcjuylTGP
-	DAdGdfTq3ilwVPC2sGLRQV26U3ysLWVVt6Z+TNvkZ2EdRMcdtyayVeTQwEuHo4yvXM3S
-	c0KdHz0eGBSmZb/M0NBgmQF66gegnb4PlgA1Fk4SyGeCpcPnbt1N/GGFiffx9W05RMrR
-	Ibug==
-X-Gm-Message-State: ALoCoQkHhXTsi33Y+g7CtUZdrTXV+rb8OYZJ3HNnvkfVy+51qPYIL1nRMcSF5FNtbvgMSAff2ffq
-X-Received: by 10.229.122.195 with SMTP id m3mr201502894qcr.7.1389197371300;
-	Wed, 08 Jan 2014 08:09:31 -0800 (PST)
+Return-Path: <stefan.seyfried@googlemail.com>
+Received: from mail-ea0-f170.google.com (mail-ea0-f170.google.com
+	[209.85.215.170])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7C7AAE0082D
+	for <poky@yoctoproject.org>; Wed,  8 Jan 2014 08:11:18 -0800 (PST)
+Received: by mail-ea0-f170.google.com with SMTP id k10so929838eaj.1
+	for <poky@yoctoproject.org>; Wed, 08 Jan 2014 08:11:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=googlemail.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject:references
+	:in-reply-to:content-type:content-transfer-encoding;
+	bh=XiCVwbaHv/JgTkZAtMNqv2VhcHbYZXBIRqQJMUZsVFs=;
+	b=gPFuuzIgba/B4BxEXU08ioTS4N5iLl1M1cXQAVvoFMrwb0IZ27ACpqW8jLIxK8HSNY
+	jusUMTHpY69rZMSg7wvmFwemHpP5toV16UqkNCrifB+bw/93yew/YpTmWSa6pNjeHsU7
+	R6niuiREWLCFaedKRq4dM5sxX21g3RcDTFmMYn1y2m8HaSPZslF08Ynrk8hWhbJ7NkuH
+	bNqNpLaryeWRgcHb2Cq5m0Ye7ICJivhaC30XgqQo87qrn/AuM4YGxX1aEoCM9kV8jyfa
+	U+DcVV2Yk0FottciGmLS5Rc5pX/fQPVfhCatcaro7KmJjDTAriuRmQZuiTzoZntqWm02
+	a3/g==
+X-Received: by 10.15.45.135 with SMTP id b7mr27824927eew.88.1389197474034;
+	Wed, 08 Jan 2014 08:11:14 -0800 (PST)
+Received: from susi.home.s3e.de ([155.56.40.91])
+	by mx.google.com with ESMTPSA id o13sm9635698eex.19.2014.01.08.08.11.12
+	for <poky@yoctoproject.org>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Wed, 08 Jan 2014 08:11:13 -0800 (PST)
+Message-ID: <52CD789E.7090201@message-id.googlemail.com>
+Date: Wed, 08 Jan 2014 17:11:10 +0100
+From: Stefan Seyfried <stefan.seyfried@googlemail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 MIME-Version: 1.0
-Received: by 10.96.179.105 with HTTP; Wed, 8 Jan 2014 08:09:10 -0800 (PST)
-In-Reply-To: <52B8DECA.6060704@balister.org>
-References: <CAJTo0LZsBfxGm=OJPa++egDjL6L0ZABMebTtTr_Bmw_TdQrohg@mail.gmail.com>
-	<52B8DECA.6060704@balister.org>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 8 Jan 2014 16:09:10 +0000
-Message-ID: <CAJTo0LaEgLWZHk34e-_-+z69Zw3J+S1zGFFJAONjfYBDQ1TehQ@mail.gmail.com>
-To: Philip Balister <philip@balister.org>
-Cc: Poky Project <poky@yoctoproject.org>,
-	OE-devel <openembedded-devel@lists.openembedded.org>,
-	OE-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] Piglit in Poky
+To: poky@yoctoproject.org
+References: <CAL-qi526ua3G0iyPqE+awLKNgiobftcswofZ2qHXMgCsX1-WRQ@mail.gmail.com>
+In-Reply-To: <CAL-qi526ua3G0iyPqE+awLKNgiobftcswofZ2qHXMgCsX1-WRQ@mail.gmail.com>
+X-Enigmail-Version: 1.6
+Subject: Re: Problem populating rootfs with a binary only recipe
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,53 +46,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jan 2014 16:09:35 -0000
+X-List-Received-Date: Wed, 08 Jan 2014 16:11:19 -0000
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Scott,
 
-Despite a good start this thread got rapidly hijacked, so let's try again!
+Am 07.01.2014 20:17, schrieb Kroll, Scott:
+> I have a recipe for NVIDIA display drivers written that simply fetches
+> the drivers, compiles a kernel module, and populates some
+> (unfortunately) binary only libraries. The RPMs created work just
+> fine, but when generating the root filesystem, an issue crops up due
+> to a "missing" dependency.
+> 
+> The drivers provide a libGL.so.325.15, which eventually becomes the
+> symlinked libGL.so (at least in the -dev package). However, one of the
+> required libraries in the NVIDIA package depends directly on libGL.so
+> instead of libGL.so.325.15, so when the root filesystem population is
+> to occur, the RPM refuses to install because no package provides
+> libGL.so.
 
-On 24 December 2013 01:09, Philip Balister <philip@balister.org> wrote:
->> 1) Move piglit and deps to oe-core.  Piglit is for QA purposes only
->> and pushes the boundaries of "core platform".  In a sense this is a
->> repeat of the discussion we had with Midori...  does oe-core contain
->> everything needed to sufficiently exercise the core components it
->> ships or not?
->
-> I expect Richard will push back on this, and I would support him here.
+Maybe putting the libGL.so into the main package might already be enough?
 
-Probably best to let Richard speak for himself here. :)
+You can achieve that by using
 
->> 2) Add piglit and deps to meta-yocto.  Probably a new layer called
->> meta-yocto-qa (or similar) because the Yocto Compatible guidelines
->> forbid mixing distribution policy and recipes.  We'd need to sync
->> meta-yocto-qa with the pieces of meta-oe that we want somehow, but
->> that's our problem.
->
-> So meta-yocto is right out. I'm a user of numpy, and I certainly do not
-> want to include something called meta-yocto-qa just to pick up numpy.
+FILES_${PN}-dev = ""
 
-Right, so my point with the syncing was that this meta-yocto-qa layer
-would be a copy of recipes from other places through combo-layer, and
-would be clearly marked as such.
+(but then -dev is completely empty).
 
-Reviewing the options:
+Another thing worth trying might be
 
-1) Add python-mako, python-numpy, waffle and piglit to oe-core, for
-all BSPs to use.
-2) Add python-mako, python-numpy, waffle and piglit to meta-yocto
-(effectively read-only clones with combo-layer, maintained in meta-oe
-still) for Poky to use.
-3) Add meta-python layer to Poky, and waffle/piglit to meta-yocto
-(read-only clones) for Poky to use.
+PROVIDES += "libGL.so"
 
-Paul raises a good point about other BSPs potentially using Piglit to
-test their GL stacks.  Do any other BSPs test their GL integration,
-and if so what tooling to they use?  I'm only pushing for Piglit
-because it's what the Intel driver team use to test Mesa, but if
-nobody else wants to use it then that's an argument for keeping it in
-Poky (or even cloning it into meta-intel?).
+Good luck :-)
 
-Ross
+	Stefan
+-- 
+Stefan Seyfried
+Linux Consultant & Developer -- GPG Key: 0x731B665B
+
+B1 Systems GmbH
+Osterfeldstraße 7 / 85088 Vohburg / http://www.b1-systems.de
+GF: Ralph Dehner / Unternehmenssitz: Vohburg / AG: Ingolstadt,HRB 3537
 
