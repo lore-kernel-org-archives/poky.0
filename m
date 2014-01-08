@@ -1,24 +1,39 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A60D0E0082D
-	for <poky@yoctoproject.org>; Wed,  8 Jan 2014 09:59:14 -0800 (PST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 08 Jan 2014 09:59:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,625,1384329600"; d="scan'208";a="462132659"
-Received: from unknown (HELO helios.localnet) ([10.252.122.128])
-	by fmsmga002.fm.intel.com with ESMTP; 08 Jan 2014 09:59:12 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Bryan Evenson <bevenson@melinkcorp.com>
-Date: Wed, 08 Jan 2014 17:59:11 +0000
-Message-ID: <1722093.hAzLJV7n3A@helios>
-Organization: Intel Corporation
-User-Agent: KMail/4.10.5 (Linux/3.8.0-35-generic; KDE/4.10.5; i686; ; )
-In-Reply-To: <220e746572d0453599619d54d19d21aa@BLUPR05MB037.namprd05.prod.outlook.com>
-References: <220e746572d0453599619d54d19d21aa@BLUPR05MB037.namprd05.prod.outlook.com>
+Return-Path: <ross.burton@intel.com>
+Received: from mail-qa0-f41.google.com (mail-qa0-f41.google.com
+	[209.85.216.41])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3EADFE007D2
+	for <poky@yoctoproject.org>; Wed,  8 Jan 2014 11:47:07 -0800 (PST)
+Received: by mail-qa0-f41.google.com with SMTP id w5so2192632qac.14
+	for <poky@yoctoproject.org>; Wed, 08 Jan 2014 11:47:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=rlDFxMLR2Z+7//COa8skB+vKEL4wEA8WKj2fVvldMYo=;
+	b=KW+pE1AL4Yq3lqZTgN+Fb92WGo6Xg2xkXxlRWvK75MFwi7fnl0ZfFtHo5DmNMis6+1
+	eoCoAJvS9O9AMih+l2jj9v8vzt9v29mH8yEcJUzjB7hOAaMCjku55+KG/lJCgh8/y6C9
+	7fvSc7xV1xr8LN9BA38x0IyKtvLalcLnOPA65bmEfgH/SGfYWbtrBp2ZyCRYI0saXnUd
+	qP7/c1CQLOB9bkx3h0YEbIaayAoddOg5UcfMlfu+BPBiQa2vli2aUnZK/Dxsu0c7K6d7
+	PjwctvnD1SXr19aFbPtJSu7GYPZFQ3pXCMhSND5NG/CrKR8Rd0IUlvoDguV6AKwUUeXz
+	ObhA==
+X-Gm-Message-State: ALoCoQniDW/rzpgg2n794guOPntxXubgxzFw5qjD4u3pXOq4tAFut88/eOF8BGO4vVAR+g1+4eha
+X-Received: by 10.229.65.130 with SMTP id j2mr203597622qci.6.1389210427210;
+	Wed, 08 Jan 2014 11:47:07 -0800 (PST)
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: Tag for yocto-1.4.3/dylan-9.0.3?
+Received: by 10.96.179.105 with HTTP; Wed, 8 Jan 2014 11:46:47 -0800 (PST)
+In-Reply-To: <52CD9C72.20309@balister.org>
+References: <CAJTo0LZsBfxGm=OJPa++egDjL6L0ZABMebTtTr_Bmw_TdQrohg@mail.gmail.com>
+	<52B8DECA.6060704@balister.org>
+	<CAJTo0LaEgLWZHk34e-_-+z69Zw3J+S1zGFFJAONjfYBDQ1TehQ@mail.gmail.com>
+	<1389200502.6899.112.camel@ted> <52CD9C72.20309@balister.org>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 8 Jan 2014 19:46:47 +0000
+Message-ID: <CAJTo0La6b=X6=D9y0StTCxgE=4rJ+FR9bhiBL4TUyKi2By1YVg@mail.gmail.com>
+To: Philip Balister <philip@balister.org>
+Cc: OE-devel <openembedded-devel@lists.openembedded.org>,
+	Poky Project <poky@yoctoproject.org>,
+	OE-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] Piglit in Poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,30 +46,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jan 2014 17:59:16 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Wed, 08 Jan 2014 19:47:10 -0000
+Content-Type: text/plain; charset=UTF-8
 
-Hi Bryan,
+On 8 January 2014 18:44, Philip Balister <philip@balister.org> wrote:
+> On 01/08/2014 12:01 PM, Richard Purdie wrote:
+>> On Wed, 2014-01-08 at 16:09 +0000, Burton, Ross wrote:
+>>> Hi,
+>>>
+>>> Despite a good start this thread got rapidly hijacked, so let's try again!
+>>>
+>>> On 24 December 2013 01:09, Philip Balister <philip@balister.org> wrote:
+>>>>> 1) Move piglit and deps to oe-core.  Piglit is for QA purposes only
+>>>>> and pushes the boundaries of "core platform".  In a sense this is a
+>>>>> repeat of the discussion we had with Midori...  does oe-core contain
+>>>>> everything needed to sufficiently exercise the core components it
+>>>>> ships or not?
+>>>>
+>>>> I expect Richard will push back on this, and I would support him here.
+>>>
+>>> Probably best to let Richard speak for himself here. :)
+>>
+>> :)
+>>
+>> I have to admit I'm leaning towards pulling in the 4 recipes we need
+>> since the win is we get to test the GL stacks.
+>>
+>> We do support graphics in the core, we also do particularly badly at
+>> testing it. That is something I think we need to change. piglit lets us
+>> do that and its not like it has a significant number of dependencies.
+>> Having a couple more python modules to test the python stack probably
+>> isn't a bad idea ether. We pruned quite a number of recipes out, this is
+>> a case where we can add a small number for a significant win.
+>
+> Does this mean you will fix the host contamination that occurs when
+> machines have atals and/or blas devel packages installed :)
+>
+> We should probably look carefully at the numpy recipe if we go this route,
 
-On Wednesday 08 January 2014 13:36:24 Bryan Evenson wrote:
-> I was just browsing the poky git repository, and I see that the latest
-> commits to the dylan branch were made a few weeks ago and were in relation
-> to preparing for yocto-1.4.3.  However, there are no tags on this branch
-> for yocto-1.4.3 or dylan-9.0.3.  Is there some feature/milestone holding up
-> the release, or did the tag just get missed?
+I've looked at it enough to know I don't want to look at it anymore. ;)
 
-The release hasn't happened yet, hence there are no tags. I've now sent the 
-remaining patches that I'm aware of and they have been applied on the dylan 
-branch, but QA resource scheduling probably means the 1.4.3 release won't 
-happen until the end of the month as far as I'm aware (due to the 1.6 M2 
-milestone release as well as other testing activities that QA is busy with).
-
-Cheers,
-Paul
-
--- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+Ross
 
