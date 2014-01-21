@@ -1,29 +1,25 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08258E00886
-	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 15:19:16 -0800 (PST)
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A753CE00886
+	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 15:55:55 -0800 (PST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 21 Jan 2014 15:19:16 -0800
+	by azsmga102.ch.intel.com with ESMTP; 21 Jan 2014 15:55:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; 
-	d="asc'?scan'208";a="462527669"
+X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="462540967"
 Received: from dvhart-mobl4.jf.intel.com (HELO [10.24.1.180]) ([10.24.1.180])
-	by fmsmga001.fm.intel.com with ESMTP; 21 Jan 2014 15:19:14 -0800
-Message-ID: <1390346352.13672.18.camel@dvhart-mobl4.amr.corp.intel.com>
+	by fmsmga001.fm.intel.com with ESMTP; 21 Jan 2014 15:55:54 -0800
+Message-ID: <1390348553.13672.22.camel@dvhart-mobl4.amr.corp.intel.com>
 From: Darren Hart <dvhart@linux.intel.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Date: Tue, 21 Jan 2014 15:19:12 -0800
-In-Reply-To: <20140121225520.GL4100@jama>
+To: openembedded-core@lists.openembedded.org
+Date: Tue, 21 Jan 2014 15:55:53 -0800
+In-Reply-To: <cover.1390342768.git.dvhart@linux.intel.com>
 References: <cover.1390342768.git.dvhart@linux.intel.com>
-	<67cb4be16feef75539c802c61a71e99278220841.1390342768.git.dvhart@linux.intel.com>
-	<20140121225520.GL4100@jama>
 Organization: Intel
 X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
 Mime-Version: 1.0
 Cc: Richard Purdie <richard.purdie@intel.com>, Poky <poky@yoctoproject.org>,
-	Paul Eggleton <paul.eggleton@intel.com>,
-	openembedded-core@lists.openembedded.org
-Subject: Re: [OE-core] [PATCH 01/15] x86: Replace ia32 with x86 when referring to the generic architecture
+	Paul Eggleton <paul.eggleton@intel.com>
+Subject: Re: [PATCH 00/15] Update x86 tune files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,125 +32,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jan 2014 23:19:17 -0000
-X-Groupsio-MsgNum: 9434
-Content-Type: multipart/signed; micalg="pgp-sha1";
-	protocol="application/pgp-signature"; 
-	boundary="=-eoNrDzCFRYk0F/7XbfRo"
-
---=-eoNrDzCFRYk0F/7XbfRo
+X-List-Received-Date: Tue, 21 Jan 2014 23:55:58 -0000
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2014-01-21 at 23:55 +0100, Martin Jansa wrote:
-> On Tue, Jan 21, 2014 at 02:39:47PM -0800, Darren Hart wrote:
-> > ia32 implies 32bit, while these files provide descriptions for IA32,
-> > X86_64, and X32 architectures. The term "x86" fits this used better
-> > without resorting to using the term "Intel" which isn't quite right as
-> > it excludes things like the tune-c3 file describing a Via CPU.
-> >=20
-> > Signed-off-by: Darren Hart <dvhart@linux.intel.com>
-> > Cc: Richard Purdie <richard.purdie@intel.com>
-> > Cc: Paul Eggleton <paul.eggleton@intel.com>
-> > Cc: Tom Zanussi <tom.zanussi@intel.com>
-> > Cc: Nitin Kamble <nitin.a.kamble@intel.com>
-> > Cc: Mark Hatle <mark.hatle@windriver.com>
-> > Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
-> > ---
-> >  meta/conf/machine/include/tune-c3.inc              |    2 +-
-> >  meta/conf/machine/include/tune-i586.inc            |    2 +-
-> >  meta/conf/machine/include/tune-x86_64.inc          |    2 +-
-> >  .../include/{ia32-base.inc =3D> x86-base.inc}        |   16 ++++++++--=
-------
-> >  meta/conf/machine/include/{ia32 =3D> x86}/README     |    6 +++---
-> >  .../{ia32/arch-ia32.inc =3D> x86/arch-x86.inc}       |    2 +-
-> >  6 files changed, 15 insertions(+), 15 deletions(-)
-> >  rename meta/conf/machine/include/{ia32-base.inc =3D> x86-base.inc} (75=
-%)
-> >  rename meta/conf/machine/include/{ia32 =3D> x86}/README (81%)
-> >  rename meta/conf/machine/include/{ia32/arch-ia32.inc =3D> x86/arch-x86=
-.inc} (97%)
-> >=20
-> > diff --git a/meta/conf/machine/include/tune-c3.inc b/meta/conf/machine/=
-include/tune-c3.inc
-> > index 18865b7..fafc28a 100644
-> > --- a/meta/conf/machine/include/tune-c3.inc
-> > +++ b/meta/conf/machine/include/tune-c3.inc
-> > @@ -1,4 +1,4 @@
-> > -require conf/machine/include/ia32/arch-ia32.inc
-> > +require conf/machine/include/x86/arch-x86.inc
-> > =20
-> >  TUNEVALID[c3] =3D "VIA Cyrix III or VIA C3 specific optimizations"
-> >  TUNECONFLICTS[c3] =3D "m64 mx32"
-> > diff --git a/meta/conf/machine/include/tune-i586.inc b/meta/conf/machin=
-e/include/tune-i586.inc
-> > index 4542b9b..a315b35 100644
-> > --- a/meta/conf/machine/include/tune-i586.inc
-> > +++ b/meta/conf/machine/include/tune-i586.inc
-> > @@ -1,6 +1,6 @@
-> >  DEFAULTTUNE ?=3D "i586"
-> > =20
-> > -require conf/machine/include/ia32/arch-ia32.inc
-> > +require conf/machine/include/x86/arch-x86.inc
-> > =20
-> >  # Extra tune features
-> >  TUNEVALID[i586] =3D "Enable i586 specific processor optimizations"
-> > diff --git a/meta/conf/machine/include/tune-x86_64.inc b/meta/conf/mach=
-ine/include/tune-x86_64.inc
-> > index 31e06da..ae48124 100644
-> > --- a/meta/conf/machine/include/tune-x86_64.inc
-> > +++ b/meta/conf/machine/include/tune-x86_64.inc
-> > @@ -1,4 +1,4 @@
-> >  DEFAULTTUNE ?=3D "x86-64"
-> > =20
-> > -require conf/machine/include/ia32/arch-ia32.inc
-> > +require conf/machine/include/x86/arch-x86.inc
-> > =20
-> > diff --git a/meta/conf/machine/include/ia32-base.inc b/meta/conf/machin=
-e/include/x86-base.inc
-> > similarity index 75%
-> > rename from meta/conf/machine/include/ia32-base.inc
-> > rename to meta/conf/machine/include/x86-base.inc
-> > index e15f927..421bdee 100644
-> > --- a/meta/conf/machine/include/ia32-base.inc
-> > +++ b/meta/conf/machine/include/x86-base.inc
-> > @@ -1,5 +1,5 @@
-> >  #
-> > -# base machine settings for ia32-architecture BSPs
-> > +# Base machine settings for Intel architecture BSPs
->=20
-> does it apply for AMD, Cyrix as well?
+On Tue, 2014-01-21 at 14:40 -0800, Darren Hart wrote:
+> All,
+> 
+> The following lays the groundwork for some rethinking of support for x86
+> platforms. In particular, the meta-intel layer will undergo some major
+> refactoring once this is merged. We believe it is of value to keep as much
+> of the tune files available in oe-core as possible, rather than isolating
+> them all in meta-intel.
+> 
+> This series renames the x86-related tune files, documents best practices,
+> updates the core2 tune file, adds a corei7 tune file, and updates the dependent
+> machine configs. This spans oe-core and poky and I feel is best viewed as a
+> whole. Please forgive the cross-post.
+> 
+> The new corei7 tune file applies to Nehalem and Silvermont (Bay Trail) CPUs
+> which support up to SSE4.2. This provides an appropriate demarcation line while
+> maximizing compatibility as well as including optimal support for the current
+> generation of the embedded CPUs (Bay Trail) by including it in the new tune. AVX
+> (Sandy Bridge and beyond) is not included as that would not apply to Bay Trail,
+> although it can easily be added in a corei7-avx tune file as an additional
+> patch for users who care more about the last few percent of performance over
+> compatibility and consolidation.
+> 
+> An important note and likely a point of contention: The core2 update changes the
+> core2 arch to core2-32, making the 32 bit explicit rather than implied in order
+> to provide a consistent naming scheme going forward with newer tunes where
+> 64 bit would be logical assumption if not explicitly stated. See patch 5/15 for
+> details on this bit.
+> 
+> Finally, update the machines dependent on these tune files to use the new names.
+> As we remove x86_64, the 64b x86 machines now build as core2-64 for maximum
+> compatibility.
 
-Blarg, yes it does. Apologies. I had originally done some of this in
-meta-intel and was persuaded it was better to do this in oe-core. I
-missed removing some of the intel-isms. Thanks for catching this.
 
-Replacing INTEL with X86 for everything that isn't a specific recipe
-name (xf86-video-intel). Thanks Martin.
+I missed a couple things I'm getting to now:
 
-Will include in the inevitable v2.
+* the yocto-bsp substrates
+* the inclusion of XSERVER_IA32_* in the genericx86 BSPs
+* the eglibc-ld.inc file .... I need some help here, but am 
+  updating the core2 references and adding corei7... do we 
+  really have to do this for every tune file!?!?
+* profile-manual core2 references
 
---=20
+Coming in v2
+
+-- 
 Darren Hart
 Intel Open Source Technology Center
 Yocto Project - Linux Kernel
 
 
---=-eoNrDzCFRYk0F/7XbfRo
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQEcBAABAgAGBQJS3wBwAAoJEKbMaAwKp364AXQH/A98Fe2nzwPt+QF9lwcQ99lr
-APwIhQW1ZZ7uFwOaNMqFa8WNnwbtFGOmhB0g0kjD5LdqczE6gi0PoAJC7GnuUEdX
-JiJcGxNAl/9mum/PG+Mms3RFzxAMBJ/m9Vr3J7y6r3YKEaKWqlzvK7kwSSFBbPut
-HDn+vR5vHnWPQHuljevlKYT5DgYqIwuLQSALdZCYHPfGJtkxu/A+5JozHzZJbJ4l
-SziHp/1B2VgipDskxvvmYrDeWO/FoEPafCL5KpfnkumwM2bKH+JGnB+YvQguK/wg
-GFt5nuEl/IhAqHaj+lTpyq/OwSYCOKsjmsJdHESVQnx5Oc19+6JNiZo/XIAAddU=
-=8Nb4
------END PGP SIGNATURE-----
-
---=-eoNrDzCFRYk0F/7XbfRo--
