@@ -1,18 +1,18 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3E297E008AA
-	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 14:34:36 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A15CAE008AE
+	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 14:34:37 -0800 (PST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga102.jf.intel.com with ESMTP; 21 Jan 2014 14:30:17 -0800
+	by orsmga102.jf.intel.com with ESMTP; 21 Jan 2014 14:30:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="470375697"
+X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="470375695"
 Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.149])
 	by orsmga002.jf.intel.com with ESMTP; 21 Jan 2014 14:34:06 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 To: openembedded-core@lists.openembedded.org,
 	Poky <poky@yoctoproject.org>
-Date: Tue, 21 Jan 2014 14:39:50 -0800
-Message-Id: <19791a9b04d002ce5b913e346dcd45dc2222dcf0.1390342768.git.dvhart@linux.intel.com>
+Date: Tue, 21 Jan 2014 14:39:49 -0800
+Message-Id: <b96c4734535acec1a108c4b2d8b7fb14716f46f8.1390342768.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <67cb4be16feef75539c802c61a71e99278220841.1390342768.git.dvhart@linux.intel.com>
 References: <67cb4be16feef75539c802c61a71e99278220841.1390342768.git.dvhart@linux.intel.com>
@@ -21,7 +21,7 @@ References: <cover.1390342768.git.dvhart@linux.intel.com>
 Cc: Richard Purdie <richard.purdie@intel.com>,
 	Darren Hart <dvhart@linux.intel.com>,
 	Paul Eggleton <paul.eggleton@intel.com>
-Subject: [PATCH 04/15] tune-core2: Only add the current ARCH to PACKAGE_EXTRA_ARCHS
+Subject: [PATCH 03/15] tune-core2: Replace -mtune=generic with -mtune=core2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,10 +34,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jan 2014 22:34:36 -0000
+X-List-Received-Date: Tue, 21 Jan 2014 22:34:37 -0000
 
-Inherit the PACKAGE_EXTRA_ARCHS from i586 and only explicitly add core2
-here.
+-march specifies which ISA to use. -mtune specifies which cpu-type to
+optimize instruction ordering for, but not which ISA to use. There are
+times when it may make sense to specify mtune=generic and use a more
+specific march, such as core2, but the opposite makes little sense at
+all: use cpu-type specific ISA, but order the instructions
+generically. While the -mtune is implied by -march, gcc does not verify
+it is using -mtune=core2 with:
+
+    gcc -Q -march=core2 --help=target
+
+Explicitly specify -mtune=core2 to be sure.
+
+Add a comment header describing the CPUs targeted by this tune file.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Cc: Richard Purdie <richard.purdie@intel.com>
@@ -47,30 +58,33 @@ Cc: Nitin Kamble <nitin.a.kamble@intel.com>
 Cc: Mark Hatle <mark.hatle@windriver.com>
 Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta/conf/machine/include/tune-core2.inc |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ meta/conf/machine/include/tune-core2.inc |   10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/meta/conf/machine/include/tune-core2.inc b/meta/conf/machine/include/tune-core2.inc
-index 3b25197..2500a74 100644
+index 85b6924..3b25197 100644
 --- a/meta/conf/machine/include/tune-core2.inc
 +++ b/meta/conf/machine/include/tune-core2.inc
-@@ -8,6 +8,7 @@
- #
+@@ -1,10 +1,18 @@
++# Settings for the GCC(1) cpu-type "core2":
++#
++#      Intel Core2 CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3 and SSSE3
++#      instruction set support.
++#
++# This tune is recommended for the Intel Core 2 CPU family, including Conroe,
++# Merom and beyond, as well as the first Atom CPUs, Diamondville, and beyond.
++#
  DEFAULTTUNE ?= "core2"
  
-+# Include the previous tune to pull in PACKAGE_EXTRA_ARCHS
  require conf/machine/include/tune-i586.inc
  
  # Extra tune features
-@@ -19,7 +20,7 @@ AVAILTUNES += "core2"
- TUNE_FEATURES_tune-core2 = "${TUNE_FEATURES_tune-x86} core2"
- BASE_LIB_tune-core2 = "lib"
- TUNE_PKGARCH_tune-core2 = "core2"
--PACKAGE_EXTRA_ARCHS_tune-core2 = "${PACKAGE_EXTRA_ARCHS_tune-x86} i386 i486 i586 i686 core2"
-+PACKAGE_EXTRA_ARCHS_tune-core2 = "${PACKAGE_EXTRA_ARCHS_tune-i586} core2"
+ TUNEVALID[core2] = "Enable core2 specific processor optimizations"
+-TUNE_CCARGS .= "${@bb.utils.contains("TUNE_FEATURES", "core2", " -march=core2 -msse3 -mtune=generic -mfpmath=sse", "", d)}"
++TUNE_CCARGS .= "${@bb.utils.contains("TUNE_FEATURES", "core2", " -march=core2 -mtune=core2 -msse3 -mfpmath=sse", "", d)}"
  
- AVAILTUNES += "core2-64"
- TUNE_FEATURES_tune-core2-64 = "${TUNE_FEATURES_tune-x86-64} core2"
+ # Extra tune selections
+ AVAILTUNES += "core2"
 -- 
 1.7.9.5
 
