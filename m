@@ -1,18 +1,18 @@
 Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E5196E008A1
-	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 14:34:13 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 21 Jan 2014 14:30:01 -0800
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 70417E008A3
+	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 14:34:27 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 21 Jan 2014 14:34:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="442541266"
+X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="470375704"
 Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.149])
-	by orsmga001.jf.intel.com with ESMTP; 21 Jan 2014 14:34:06 -0800
+	by orsmga002.jf.intel.com with ESMTP; 21 Jan 2014 14:34:06 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 To: openembedded-core@lists.openembedded.org,
 	Poky <poky@yoctoproject.org>
-Date: Tue, 21 Jan 2014 14:39:52 -0800
-Message-Id: <14a5c56500119dd0f3d920d9ae79e1fa9c25af82.1390342768.git.dvhart@linux.intel.com>
+Date: Tue, 21 Jan 2014 14:39:55 -0800
+Message-Id: <8f6d2e5d7cc239480e3831082739c27ba92ead53.1390342768.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <67cb4be16feef75539c802c61a71e99278220841.1390342768.git.dvhart@linux.intel.com>
 References: <67cb4be16feef75539c802c61a71e99278220841.1390342768.git.dvhart@linux.intel.com>
@@ -21,7 +21,7 @@ References: <cover.1390342768.git.dvhart@linux.intel.com>
 Cc: Richard Purdie <richard.purdie@intel.com>,
 	Darren Hart <dvhart@linux.intel.com>,
 	Paul Eggleton <paul.eggleton@intel.com>
-Subject: [PATCH 06/15] tune-corei7: Add support for cpu-type corei7
+Subject: [PATCH 09/15] tune: README: Document best practice
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -34,17 +34,10 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jan 2014 22:34:14 -0000
+X-List-Received-Date: Tue, 21 Jan 2014 22:34:28 -0000
 
-corei7 offers a significant advancement since the previous core2
-cpu-type described in the tune-core2 file.
-
-From the GCC(1):
-Intel Core i7 CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3,
-               SSSE3, SSE4.1 and SSE4.2 instruction set support.
-
-This offers optimizations for Nehalem and Silvermont (e.g. Bay Trail)
-CPUs (and beyond).
+Describe the expected usage of base architecture tune files and
+arch-specific files, specifically the stacking of generations.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Cc: Richard Purdie <richard.purdie@intel.com>
@@ -54,51 +47,43 @@ Cc: Nitin Kamble <nitin.a.kamble@intel.com>
 Cc: Mark Hatle <mark.hatle@windriver.com>
 Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta/conf/machine/include/tune-corei7.inc |   35 +++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
- create mode 100644 meta/conf/machine/include/tune-corei7.inc
+ meta/conf/machine/include/README |   19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/meta/conf/machine/include/tune-corei7.inc b/meta/conf/machine/include/tune-corei7.inc
-new file mode 100644
-index 0000000..5464fed
---- /dev/null
-+++ b/meta/conf/machine/include/tune-corei7.inc
-@@ -0,0 +1,35 @@
-+# Settings for the GCC(1) cpu-type "corei7":
-+#
-+#     Intel Core i7 CPU with 64-bit extensions, MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1
-+#     and SSE4.2 instruction set support.
-+#
-+# This tune is recommended for Intel Nehalem and Silvermont (e.g. Bay Trail) CPUs
-+# (and beyond).
-+#
-+DEFAULTTUNE ?= "corei7-64"
+diff --git a/meta/conf/machine/include/README b/meta/conf/machine/include/README
+index 65d0942..6c390ad 100644
+--- a/meta/conf/machine/include/README
++++ b/meta/conf/machine/include/README
+@@ -1,6 +1,9 @@
+ 2012/03/30 - Mark Hatle <mark.hatle@windriver.com>
+  - Initial Revision
+ 
 +
-+# Pull in the previous tune in to pull in PACKAGE_EXTRA_ARCHS
-+require conf/machine/include/tune-core2.inc
++Introduction
++============
+ The individual CPU, and ABI tunings are contained in this directory.  A
+ number of local and global variables are used to control the way the
+ tunings are setup and how they work together to specify an optimized
+@@ -79,3 +82,19 @@ configured in the same way that TUNE_CCARGS is.
+ BASE_LIB_tune-<tune> - The "/lib" location for a specific ABI.  This is
+ used in a multilib configuration to place the libraries in the correct,
+ non-conflicting locations.
 +
-+# Extra tune features
-+TUNEVALID[corei7] = "Enable corei7 specific processor optimizations"
-+TUNE_CCARGS .= "${@bb.utils.contains("TUNE_FEATURES", "corei7", " -march=corei7 -mtune=corei7 -mfpmath=sse -msse4.2", "", d)}"
 +
-+# Extra tune selections
-+AVAILTUNES += "corei7-32"
-+TUNE_FEATURES_tune-corei7-32 = "${TUNE_FEATURES_tune-x86} corei7"
-+BASE_LIB_tune-corei7-32 = "lib"
-+TUNE_PKGARCH_tune-corei7-32 = "corei7_32"
-+PACKAGE_EXTRA_ARCHS_tune-corei7-32 = "${PACKAGE_EXTRA_ARCHS_tune-core2} corei7_32"
++Best Practice
++=============
++The tune infrastructure is designed to be hierarchical. When writing a
++new tune file for a "fast-forward" CPU architecture (one that supports
++everything from a previous generation), it is recommended to require the
++previous generation tune file and specify PACKAGE_EXTRA_ARCHS using the
++previous generation's override and appending the new tune. Note that
++only one previous tune file should be included to avoid mutiple includes
++of the base arch which could lead to a broken configuration due to
++multiple prepend and append assignments.
 +
-+AVAILTUNES += "corei7-64"
-+TUNE_FEATURES_tune-corei7-64 = "${TUNE_FEATURES_tune-x86-64} corei7"
-+BASE_LIB_tune-corei7-64 = "lib64"
-+TUNE_PKGARCH_tune-corei7-64 = "corei7_64"
-+PACKAGE_EXTRA_ARCHS_tune-corei7-64 = "${PACKAGE_EXTRA_ARCHS_tune-core2-64} corei7_64"
-+
-+AVAILTUNES += "corei7-64-x32"
-+TUNE_FEATURES_tune-corei7-64-x32 = "${TUNE_FEATURES_tune-x86-64-x32} corei7"
-+BASE_LIB_tune-corei7-64-x32 = "libx32"
-+TUNE_PKGARCH_tune-corei7-64-x32 = "corei7_64_x32"
-+PACKAGE_EXTRA_ARCHS_tune-corei7-64-x32 = "${PACKAGE_EXTRA_ARCHS_tune-core2-64-x32} corei7_64_x32"
++For example, for x86, there is a common x86/arch-x86.inc which is
++included in the base i586 tune file. The core2 tune builds
++on that, and corei7 builds on core2.
 -- 
 1.7.9.5
 
