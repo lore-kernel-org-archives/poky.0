@@ -1,18 +1,18 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F1F6E00897
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9FAECE008A1
 	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 16:53:13 -0800 (PST)
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
 	by orsmga101.jf.intel.com with ESMTP; 21 Jan 2014 16:53:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="442600464"
+X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="442600459"
 Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.149])
 	by orsmga001.jf.intel.com with ESMTP; 21 Jan 2014 16:53:10 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 To: openembedded-core@lists.openembedded.org,
 	Poky <poky@yoctoproject.org>
-Date: Tue, 21 Jan 2014 16:59:00 -0800
-Message-Id: <625edeccbfc33133e9d3910f510313d9fc1713d2.1390351667.git.dvhart@linux.intel.com>
+Date: Tue, 21 Jan 2014 16:58:59 -0800
+Message-Id: <f99804649506c107b644bfa54ba0c30c7c03f89a.1390351667.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <e6c72bf867006ab15d62d0beb1cd8aafe19db72a.1390351667.git.dvhart@linux.intel.com>
 References: <e6c72bf867006ab15d62d0beb1cd8aafe19db72a.1390351667.git.dvhart@linux.intel.com>
@@ -21,7 +21,7 @@ References: <cover.1390351667.git.dvhart@linux.intel.com>
 X-Mailman-Approved-At: Tue, 21 Jan 2014 19:06:28 -0800
 Cc: Darren Hart <dvhart@linux.intel.com>,
 	Paul Eggleton <paul.eggleton@intel.com>
-Subject: [PATCH 15/19] genericx86: Use require instead of include
+Subject: [PATCH 14/19] genericx86: Use new x86 tune files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,9 +36,7 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Wed, 22 Jan 2014 00:53:13 -0000
 
-Use require instead of include to avoid silent errors when the required
-tune files change name or are moved. It's going to fail anyway, it might
-as well fail with an error message that is immediately helpful.
+Use the new names for the x86 tunes files (x86 instead of ia32).
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Cc: Richard Purdie <richard.purdie@linuxfoundation.org>
@@ -50,34 +48,38 @@ Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 Cc: Martin Jansa <martin.jansa@gmail.com>
 Cc: Ross Burton <ross.burton@intel.com>
 ---
- meta-yocto-bsp/conf/machine/genericx86-64.conf |    4 ++--
- meta-yocto-bsp/conf/machine/genericx86.conf    |    4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ .../conf/machine/include/genericx86-common.inc     |   16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-index a6154cd..f76e35a 100644
---- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-@@ -4,5 +4,5 @@
- #@DESCRIPTION: Machine configuration for generic X86_64 (64-bit) PCs and servers. Supports a moderately wide range of drivers that should boot and be usable on "typical" hardware.
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index c5ef358..66bfd19 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -1,16 +1,16 @@
+-include conf/machine/include/ia32-base.inc
++include conf/machine/include/x86-base.inc
+ MACHINE_FEATURES += "wifi efi pcbios"
  
- DEFAULTTUNE ?= "core2-64"
--include conf/machine/include/tune-core2.inc
--include conf/machine/include/genericx86-common.inc
-+require conf/machine/include/tune-core2.inc
-+require conf/machine/include/genericx86-common.inc
-diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-index 549fc8e..2642cab 100644
---- a/meta-yocto-bsp/conf/machine/genericx86.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-@@ -4,5 +4,5 @@
- #@DESCRIPTION: Machine configuration for generic X86 (32-bit) PCs. Supports a moderately wide range of drivers that should boot and be usable on "typical" hardware.
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+ PREFERRED_VERSION_linux-yocto ?= "3.10%"
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+-XSERVER ?= "${XSERVER_IA32_BASE} \
+-            ${XSERVER_IA32_EXT} \
+-            ${XSERVER_IA32_I915} \
+-            ${XSERVER_IA32_I965} \
+-            ${XSERVER_IA32_FBDEV} \
+-            ${XSERVER_IA32_VESA} \
+-            ${XSERVER_IA32_MODESETTING} \
++XSERVER ?= "${XSERVER_X86_BASE} \
++            ${XSERVER_X86_EXT} \
++            ${XSERVER_X86_I915} \
++            ${XSERVER_X86_I965} \
++            ${XSERVER_X86_FBDEV} \
++            ${XSERVER_X86_VESA} \
++            ${XSERVER_X86_MODESETTING} \
+            "
  
- DEFAULTTUNE ?= "core2-32"
--include conf/machine/include/tune-core2.inc
--include conf/machine/include/genericx86-common.inc
-+require conf/machine/include/tune-core2.inc
-+require conf/machine/include/genericx86-common.inc
+ MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d eee-acpi-scripts"
 -- 
 1.7.9.5
 
