@@ -1,18 +1,18 @@
 Return-Path: <dvhart@linux.intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2DC64E00895
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 40B54E00893
 	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 16:53:31 -0800 (PST)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
 	by orsmga101.jf.intel.com with ESMTP; 21 Jan 2014 16:53:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="470435623"
+X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; d="scan'208";a="470435611"
 Received: from fear.jf.intel.com (HELO localhost) ([10.7.201.149])
-	by orsmga002.jf.intel.com with ESMTP; 21 Jan 2014 16:53:10 -0800
+	by orsmga002.jf.intel.com with ESMTP; 21 Jan 2014 16:53:09 -0800
 From: Darren Hart <dvhart@linux.intel.com>
 To: openembedded-core@lists.openembedded.org,
 	Poky <poky@yoctoproject.org>
-Date: Tue, 21 Jan 2014 16:59:04 -0800
-Message-Id: <f7b4f04f12d918130f5253c5b5008387efdfede8.1390351667.git.dvhart@linux.intel.com>
+Date: Tue, 21 Jan 2014 16:58:53 -0800
+Message-Id: <52e9f44f6277cf913fbe414c534a849c05c9292f.1390351667.git.dvhart@linux.intel.com>
 X-Mailer: git-send-email 1.7.9.5
 In-Reply-To: <e6c72bf867006ab15d62d0beb1cd8aafe19db72a.1390351667.git.dvhart@linux.intel.com>
 References: <e6c72bf867006ab15d62d0beb1cd8aafe19db72a.1390351667.git.dvhart@linux.intel.com>
@@ -21,7 +21,7 @@ References: <cover.1390351667.git.dvhart@linux.intel.com>
 X-Mailman-Approved-At: Tue, 21 Jan 2014 19:06:28 -0800
 Cc: Darren Hart <dvhart@linux.intel.com>,
 	Paul Eggleton <paul.eggleton@intel.com>
-Subject: [PATCH 19/19] yocto-bsp: Add core2 and corei7 tune choice to x86_64
+Subject: [PATCH 08/19] tune: README: Whitespace cleanup
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,8 +36,8 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Wed, 22 Jan 2014 00:53:31 -0000
 
-Update the x86_64 architecture bsp creator to include choices for core2
-and corei7 tune files.
+Before making content changes, cleanup the various whitespace errors in
+this file. Mostly end-of-line whitepsace.
 
 Signed-off-by: Darren Hart <dvhart@linux.intel.com>
 Cc: Richard Purdie <richard.purdie@linuxfoundation.org>
@@ -48,30 +48,137 @@ Cc: Mark Hatle <mark.hatle@windriver.com>
 Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
 Cc: Martin Jansa <martin.jansa@gmail.com>
 ---
- .../arch/x86_64/conf/machine/{{=machine}}.conf     |    8 ++++++++
- 1 file changed, 8 insertions(+)
+ meta/conf/machine/include/README |   88 +++++++++++++++++++-------------------
+ 1 file changed, 44 insertions(+), 44 deletions(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf
-index 6685d07..53e8e92 100644
---- a/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/conf/machine/{{=machine}}.conf
-@@ -14,8 +14,16 @@ PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
- PREFERRED_PROVIDER_virtual/kernel ?= "{{=preferred_kernel}}"
- PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
+diff --git a/meta/conf/machine/include/README b/meta/conf/machine/include/README
+index e4b59c9..65d0942 100644
+--- a/meta/conf/machine/include/README
++++ b/meta/conf/machine/include/README
+@@ -1,27 +1,27 @@
+ 2012/03/30 - Mark Hatle <mark.hatle@windriver.com>
+  - Initial Revision
  
-+{{ input type:"choicelist" name:"tunefile" prio:"40" msg:"Which machine tuning would you like to use?" default:"tune_core2" }}
-+{{ input type:"choice" val:"tune_core2" msg:"Core2 tuning optimizations" }}
-+{{ input type:"choice" val:"tune_corei7" msg:"Corei7 tuning optimizations" }}
-+{{ if tunefile == "tune_core2": }}
- DEFAULTTUNE ?= "core2-64"
- require conf/machine/include/tune-core2.inc
-+{{ if tunefile == "tune_corei7": }}
-+DEFAULTTUNE ?= "corei7-64"
-+require conf/machine/include/tune-corei7.inc
-+
- require conf/machine/include/x86-base.inc
+-The individual CPU, and ABI tunings are contained in this directory.  A 
+-number of local and global variables are used to control the way the 
+-tunings are setup and how they work together to specify an optimized 
++The individual CPU, and ABI tunings are contained in this directory.  A
++number of local and global variables are used to control the way the
++tunings are setup and how they work together to specify an optimized
+ configuration.
  
- MACHINE_FEATURES += "wifi efi pcbios"
+-The following is brief summary of the generic components that are used 
++The following is brief summary of the generic components that are used
+ in these tunings.
+ 
+-AVAILTUNES - This is a list of all of the tuning definitions currently 
+-available in the system.  Not all tunes in this list may be compatible 
+-with the machine configuration, or each other in a multilib 
+-configuration.  Each tuning file can add to this list using "+=", but 
++AVAILTUNES - This is a list of all of the tuning definitions currently
++available in the system.  Not all tunes in this list may be compatible
++with the machine configuration, or each other in a multilib
++configuration.  Each tuning file can add to this list using "+=", but
+ should never replace the list using "=".
+ 
+-DEFAULTTUNE - This specifies the tune to use for a particular build.  
+-Each tune should specify a reasonable default, which can be overriden by 
+-a machine or multilib configuration.  The specified tune must be listed 
++DEFAULTTUNE - This specifies the tune to use for a particular build.
++Each tune should specify a reasonable default, which can be overriden by
++a machine or multilib configuration.  The specified tune must be listed
+ in the AVAILTUNES.
+ 
+-TUNEVALID[feature] - The <feature> is defined with a human readable 
+-explanation for what it does.  All architectural, cpu, abi, etc tuning 
++TUNEVALID[feature] - The <feature> is defined with a human readable
++explanation for what it does.  All architectural, cpu, abi, etc tuning
+ features must be defined using TUNEVALID.
+ 
+ TUNECONFLICTS[feature] - A list of features which conflict with <feature>.
+@@ -31,51 +31,51 @@ tuning ends up with features which conflict with each other.
+ TUNE_FEATURES - This is automatically defined as TUNE_FEATURES_tune-<tune>.
+ See TUNE_FEATURES_tune-<tune> for more information.
+ 
+-TUNE_FEATURES_tune-<tune> - Specify the features used to describe a 
+-specific tune.  This is a list of features that a tune support, each 
+-feature must be in the TUNEVALID list.  Note: the tune and a given 
+-feature name may be the same, but they have different purposes.  Only 
+-features may be used to change behavior, while tunes are used to 
++TUNE_FEATURES_tune-<tune> - Specify the features used to describe a
++specific tune.  This is a list of features that a tune support, each
++feature must be in the TUNEVALID list.  Note: the tune and a given
++feature name may be the same, but they have different purposes.  Only
++features may be used to change behavior, while tunes are used to
+ describe an overall set of features.
+ 
+-ABIEXTENSION - An ABI extension may be specified by a specific feature 
+-or other tuning setting, such as TARGET_FPU.  Any ABI extensions either 
+-need to be defined in the architectures base arch file, i.e.  
+-ABIEXTENSION = "eabi" in the arm case, or appended to in specific tune 
++ABIEXTENSION - An ABI extension may be specified by a specific feature
++or other tuning setting, such as TARGET_FPU.  Any ABI extensions either
++need to be defined in the architectures base arch file, i.e.
++ABIEXTENSION = "eabi" in the arm case, or appended to in specific tune
+ files with a ".=".  Spaces are not allowed in this variable.
+ 
+-TUNE_CCARGS - Setup the cflags based on the TUNE_FEATURES settings.  
+-These should be additive when defined using "+=".  All items in this 
+-list should be dynamic! i.e. 
++TUNE_CCARGS - Setup the cflags based on the TUNE_FEATURES settings.
++These should be additive when defined using "+=".  All items in this
++list should be dynamic! i.e.
+ ${@bb.utils.contains("TUNE_FEATURES", "feature", "cflag", "!cflag", d)}
+ 
+-TUNE_ARCH - The GNU canonical arch for a specific architecture.  i.e. 
+-arm, armeb, mips, mips64, etc.  This value is by bitbake to setup 
+-configure. TUNE_ARCH definitions are specific to a given architecture.  
+-They may be a single static definitions, or may be dynamically adjusted.  
++TUNE_ARCH - The GNU canonical arch for a specific architecture.  i.e.
++arm, armeb, mips, mips64, etc.  This value is by bitbake to setup
++configure. TUNE_ARCH definitions are specific to a given architecture.
++They may be a single static definitions, or may be dynamically adjusted.
+ See each architectures README for details for that CPU family.
+ 
+-TUNE_PKGARCH - The package architecture used by the packaging systems to 
+-define the architecture, abi and tuning of a particular package.  
+-Similarly to TUNE_ARCH, the definition of TUNE_PKGARCH is specific to 
+-each architecture. See each architectures README for details for that 
++TUNE_PKGARCH - The package architecture used by the packaging systems to
++define the architecture, abi and tuning of a particular package.
++Similarly to TUNE_ARCH, the definition of TUNE_PKGARCH is specific to
++each architecture. See each architectures README for details for that
+ CPU family.
+ 
+-PACKAGE_EXTRA_ARCHS - Lists all runtime compatible package 
+-architectures.  By default this is equal to 
+-PACKAGE_EXTRA_ARCHS_tune-<tune>.  If an architecture deviates from the 
++PACKAGE_EXTRA_ARCHS - Lists all runtime compatible package
++architectures.  By default this is equal to
++PACKAGE_EXTRA_ARCHS_tune-<tune>.  If an architecture deviates from the
+ default it will be listed in the architecture README.
+ 
+-PACKAGE_EXTRA_ARCHS_tune-<tune> - List all of the package architectures 
+-that are compatible with this specific tune.  The package arch of this 
++PACKAGE_EXTRA_ARCHS_tune-<tune> - List all of the package architectures
++that are compatible with this specific tune.  The package arch of this
+ tune must be in the list.
+ 
+-TARGET_FPU - The FPU setting for a given tune, hard (generate floating 
+-point instructions), soft (generate internal gcc calls), "other" 
+-architecture specific floating point.  This is synchronized with the 
+-compiler and other toolchain items.  This should be dynamically 
++TARGET_FPU - The FPU setting for a given tune, hard (generate floating
++point instructions), soft (generate internal gcc calls), "other"
++architecture specific floating point.  This is synchronized with the
++compiler and other toolchain items.  This should be dynamically
+ configured in the same way that TUNE_CCARGS is.
+ 
+-BASE_LIB_tune-<tune> - The "/lib" location for a specific ABI.  This is 
+-used in a multilib configuration to place the libraries in the correct, 
++BASE_LIB_tune-<tune> - The "/lib" location for a specific ABI.  This is
++used in a multilib configuration to place the libraries in the correct,
+ non-conflicting locations.
 -- 
 1.7.9.5
 
