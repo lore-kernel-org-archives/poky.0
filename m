@@ -1,28 +1,22 @@
-Return-Path: <dvhart@linux.intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27655E00891
-	for <poky@yoctoproject.org>; Tue, 21 Jan 2014 20:07:31 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 21 Jan 2014 20:03:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,697,1384329600"; 
-	d="asc'?scan'208";a="442666134"
-Received: from unknown (HELO [10.255.13.10]) ([10.255.13.10])
-	by orsmga001.jf.intel.com with ESMTP; 21 Jan 2014 20:07:29 -0800
-Message-ID: <1390363648.13672.33.camel@dvhart-mobl4.amr.corp.intel.com>
-From: Darren Hart <dvhart@linux.intel.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Date: Tue, 21 Jan 2014 20:07:28 -0800
-In-Reply-To: <20140122010255.GP4100@jama>
-References: <cover.1390351667.git.dvhart@linux.intel.com>
-	<e6c72bf867006ab15d62d0beb1cd8aafe19db72a.1390351667.git.dvhart@linux.intel.com>
-	<20140122010255.GP4100@jama>
-Organization: Intel
-X-Mailer: Evolution 3.8.5 (3.8.5-2.fc19) 
-Mime-Version: 1.0
-Cc: openembedded-core@lists.openembedded.org, Poky <poky@yoctoproject.org>,
-	Paul Eggleton <paul.eggleton@intel.com>
-Subject: Re: [PATCH 01/19] x86: Replace ia32 with x86 when referring to the generic architecture
+Return-Path: <Liezhi.Yang@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 03A8FE004F5
+	for <poky@yoctoproject.org>; Sat, 25 Jan 2014 22:21:53 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s0Q6LqYs011412
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Sat, 25 Jan 2014 22:21:52 -0800 (PST)
+Received: from pek-blade16.wrs.com (128.224.153.44) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.2.347.0;
+	Sat, 25 Jan 2014 22:21:51 -0800
+From: Robert Yang <liezhi.yang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Sun, 26 Jan 2014 14:22:30 +0800
+Message-ID: <cover.1390717255.git.liezhi.yang@windriver.com>
+X-Mailer: git-send-email 1.8.3.1
+MIME-Version: 1.0
+Subject: [PATCH 0/2] [dora-next] Add Ubuntu-13.10 and Fedora-20 to supported distros list
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,92 +29,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jan 2014 04:07:34 -0000
-X-Groupsio-MsgNum: 9458
-Content-Type: multipart/signed; micalg="pgp-sha1";
-	protocol="application/pgp-signature"; 
-	boundary="=-TBmo3iIHEsOSeHXm7HZ/"
+X-List-Received-Date: Sun, 26 Jan 2014 06:21:54 -0000
+Content-Type: text/plain
 
---=-TBmo3iIHEsOSeHXm7HZ/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The following changes since commit 2464d57ecf445985f6ad059f47f626b58bf34370:
 
-On Wed, 2014-01-22 at 02:02 +0100, Martin Jansa wrote:
-> > --- a/meta/conf/machine/include/ia32/README
-> > +++ b/meta/conf/machine/include/x86/README
-> > @@ -1,12 +1,12 @@
-> >  2012/03/30 - Mark Hatle <mark.hatle@windriver.com>
-> >   - Initial version
-> > =20
-> > -Most of the items for the IA architecture are defined in the
-> single=20
-> > -arch-ia32 file.
-> > +Most of the items for the Intel architectures are defined in the
-> single=20
-> > +arch-x86 file.
->=20
-> still few intel-isms left
+  x11vnc: fix CAPS_LOCK issues (2014-01-26 14:18:48 +0800)
 
-Right you are - at least this time it wasn't made any worse ;-) Fixed
-though.
+are available in the git repository at:
 
->=20
-> >  Three ABIs are define, m32, mx32 and m64.
-> > =20
-> > -The following is the list of ia32 specific variables:
-> > +The following is the list of intel specific variables:
->=20
-> still few intel-isms left
+  git://git.pokylinux.org/poky-contrib robert/hosts
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=robert/hosts
 
-Oi, thanks Martin - I appreciate the careful review.
+Richard Purdie (1):
+  poky: Add Ubuntu-13.10 to supported distros list
+
+Robert Yang (1):
+  poky: Add Fedora-20 to supported distros list
+
+ meta-yocto/conf/distro/poky.conf | 2 ++
+ 1 file changed, 2 insertions(+)
+
+-- 
+1.8.3.1
 
 
-I've pushed the following to the same contrib branch.
-
-$ git diff origin/dvhart/x86-tune-ng-v2
-diff --git a/meta/conf/machine/include/x86/README b/meta/conf/machine/inclu=
-de/x86/READ
-index d8b6793..2b6c46c 100644
---- a/meta/conf/machine/include/x86/README
-+++ b/meta/conf/machine/include/x86/README
-@@ -1,12 +1,12 @@
- 2012/03/30 - Mark Hatle <mark.hatle@windriver.com>
-  - Initial version
-=20
--Most of the items for the Intel architectures are defined in the single=
-=20
-+Most of the items for the X86 architectures are defined in the single
- arch-x86 file.
-=20
- Three ABIs are define, m32, mx32 and m64.
-=20
--The following is the list of intel specific variables:
-+The following is the list of X86 specific variables:
-=20
- X86ARCH32 - This is the 32-bit architecture GNU canonical arch, TUNE_ARCH.
-
-
---=20
-Darren Hart
-Intel Open Source Technology Center
-Yocto Project - Linux Kernel
-
-
---=-TBmo3iIHEsOSeHXm7HZ/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQEcBAABAgAGBQJS30QAAAoJEKbMaAwKp364hnwH/38K5tHsuJH5mE6I8N0x1wnL
-DjBGX6LpFNlTF2pk8nx2GPcA3HMpUjVh+GDEfqjtbuofeXgQ2Il8zeOR2XiyAxnU
-yUJbDecIa7AQUGmA3BBx3LikkHq3z7Gxwo1Ui0lc/jQVWMXnqqkEpHC6MC8jLVwd
-AVrk6gS+QQYqDjCgRHidTidnhGK4u7oDFoQPahaqsisTqj0MlYTxUugp5m2WmiKH
-tdvSQZO5avQsbqeiFRT8ylFYzUNhnQILVb/ibzf3kf3gik81uLViRC6dAcHkaKby
-Qyx9+lSSKmYPTKH0/rTEfL+i0R5CskULfUpt4e0kHas/Z7F6pUCM60xGbIGYf20=
-=/fni
------END PGP SIGNATURE-----
-
---=-TBmo3iIHEsOSeHXm7HZ/--
