@@ -1,24 +1,29 @@
-Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0174EE00519
-	for <poky@yoctoproject.org>; Sat, 25 Jan 2014 22:21:55 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s0Q6Ltad011415
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Sat, 25 Jan 2014 22:21:55 -0800 (PST)
-Received: from pek-blade16.wrs.com (128.224.153.44) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.40) with Microsoft SMTP Server id 14.2.347.0;
-	Sat, 25 Jan 2014 22:21:54 -0800
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Sun, 26 Jan 2014 14:22:32 +0800
-Message-ID: <77f4452524c0104052a198989e5e78bc8f2ea7c5.1390717255.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <cover.1390717255.git.liezhi.yang@windriver.com>
-References: <cover.1390717255.git.liezhi.yang@windriver.com>
-MIME-Version: 1.0
-Subject: [PATCH 2/2] poky: Add Fedora-20 to supported distros list
+Return-Path: <kmsywula@ecsmtp.ir.intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE2EEE0074F
+	for <poky@yoctoproject.org>; Tue, 28 Jan 2014 09:23:52 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 28 Jan 2014 09:23:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.95,737,1384329600"; d="scan'208";a="472127249"
+Received: from irvmail001.ir.intel.com ([163.33.26.43])
+	by fmsmga002.fm.intel.com with ESMTP; 28 Jan 2014 09:23:50 -0800
+Received: from irsswdev001.ir.intel.com (irsswdev001.ir.intel.com
+	[163.33.195.157])
+	by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
+	s0SHNo7g013155; Tue, 28 Jan 2014 17:23:50 GMT
+Received: from irsswdev001.ir.intel.com (localhost [127.0.0.1])
+	by irsswdev001.ir.intel.com with ESMTP id s0SHNovd009503;
+	Tue, 28 Jan 2014 17:23:50 GMT
+Received: (from kmsywula@localhost)
+	by irsswdev001.ir.intel.com with œ id s0SHNo7A009498;
+	Tue, 28 Jan 2014 17:23:50 GMT
+From: krzysztof.m.sywula@intel.com
+To: poky@yoctoproject.org
+Date: Tue, 28 Jan 2014 17:23:13 +0000
+Message-Id: <1390929793-9170-1-git-send-email-krzysztof.m.sywula@intel.com>
+X-Mailer: git-send-email 1.7.12.2
+Subject: [PATCH] Revert "poky-tiny: Assume pkgconfig is provided"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,31 +36,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 26 Jan 2014 06:21:58 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 28 Jan 2014 17:23:52 -0000
 
-(From meta-yocto rev: cf42610ac26307f28d5b3fea6be8bde223c0ed40)
+From: Krzysztof Sywula <krzysztof.m.sywula@intel.com>
 
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+This reverts commit a54932dc373ec130f7a166d144f4d5744ec52097.
+pkgconfig does not pull in glib->dbus anymore
+
+Signed-off-by: Krzysztof Sywula <krzysztof.m.sywula@intel.com>
 ---
- meta-yocto/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/distro/poky-tiny.conf | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index e19a3a6..15f327e 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -80,6 +80,7 @@ SANITY_TESTED_DISTROS ?= " \
-             Ubuntu-13.10 \n \
-             Fedora-18 \n \
-             Fedora-19 \n \
-+            Fedora-20 \n \
-             CentOS-6.4 \n \
-             Debian-6.0.7 \n \
-             Debian-7.0 \n \
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+index 3196fa0..95ef6c0 100644
+--- a/meta-yocto/conf/distro/poky-tiny.conf
++++ b/meta-yocto/conf/distro/poky-tiny.conf
+@@ -55,11 +55,6 @@ ENABLE_WIDEC="false"
+ # eglibc->bash->gettext->libc-posix-clang-wchar dependency.
+ USE_NLS="no"
+ 
+-# -dev packages require pkgconfig, but it pulls in glib->dbus->shadow
+-# which breaks with tiny's minimal libc.
+-# -dev packages are not currently supported on poky-tiny.
+-ASSUME_PROVIDED += "pkgconfig$"
+-
+ # Reconfigure eglibc for a smaller installation
+ # Comment out any of the lines below to disable them in the build
+ DISTRO_FEATURES_LIBC_TINY = "libc-libm libc-crypt"
 -- 
-1.8.3.1
+1.7.12.2
 
 
