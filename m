@@ -1,34 +1,20 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-ve0-f170.google.com (mail-ve0-f170.google.com
-	[209.85.128.170])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CDA7EE00764
-	for <poky@yoctoproject.org>; Tue, 28 Jan 2014 09:30:53 -0800 (PST)
-Received: by mail-ve0-f170.google.com with SMTP id cz12so476927veb.1
-	for <poky@yoctoproject.org>; Tue, 28 Jan 2014 09:30:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=U1S4oNdA7E2ekTm/ZyvAzARV6tHqDL3D708Bfcyg5Rc=;
-	b=ZTR+//HjLCBmAJmG3UJdiIc9dERPFPQHaO4qFFFHxSKzVfqOLTe/oV4xKstHAdpjUB
-	/3/kg8uAsdFMKJy1z84PkzH6X/7gpM0f3aYgzPlYbp5Z9R+/2fhVff6rsE2K4lp0/6oO
-	gGHnLs4fUM2Z/30CLt7yMADujtlM/BU1lZZU+llQhRBfNDWPWGNrV8PpQhbofdxVjG+x
-	CBVmK7hkUJL83I6Lw79G83GYC00HPlvdIcolk3eldrBSUjiPWTZYrUBgRiavAztSKoMJ
-	iK3z63XRwip6xEXi2H5Rmdf2d1ujZrdOxxc5bdIUavgMzjnmgEzpCzOIcga7YAjnP0Jq
-	Cm1w==
-X-Gm-Message-State: ALoCoQlJE/ceYJmbdChAHW8JFaNLutPmigpgPi1tr5nmmrTyLGO5cVOwKFD+PdTXiUPTLUfs+lUt
-X-Received: by 10.220.161.132 with SMTP id r4mr805141vcx.29.1390930252397;
-	Tue, 28 Jan 2014 09:30:52 -0800 (PST)
+Return-Path: <jori@enea.com>
+Received: from mx-3.enea.com (sestofw01.enea.se [192.36.1.252])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id 6E153E006C6
+	for <poky@yoctoproject.org>; Wed, 29 Jan 2014 01:47:16 -0800 (PST)
+Received: from sestows930 (172.16.140.35) by smtp.enea.com (172.21.1.208) with
+	Microsoft SMTP Server id 14.3.158.1; Wed, 29 Jan 2014 10:47:11 +0100
+Received: from jori by sestows930 with local (Exim 4.80)	(envelope-from
+	<jori@sestows930>)	id 1W8Rjj-00044W-Tx; Wed, 29 Jan 2014 10:47:11 +0100
+From: Jonas Eriksson <jonas.eriksson@enea.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 29 Jan 2014 10:46:57 +0100
+Message-ID: <1390988817-15610-1-git-send-email-jonas.eriksson@enea.com>
+X-Mailer: git-send-email 1.9.rc1
 MIME-Version: 1.0
-Received: by 10.220.96.84 with HTTP; Tue, 28 Jan 2014 09:30:32 -0800 (PST)
-In-Reply-To: <1390929793-9170-1-git-send-email-krzysztof.m.sywula@intel.com>
-References: <1390929793-9170-1-git-send-email-krzysztof.m.sywula@intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 28 Jan 2014 17:30:32 +0000
-Message-ID: <CAJTo0LaXSPqP083r4qO_b4BfF=ys+QWgctuiVXiziwUROrF9xA@mail.gmail.com>
-To: Krzysztof M Sywula <krzysztof.m.sywula@intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] Revert "poky-tiny: Assume pkgconfig is provided"
+Received-SPF: None (SESTOEX08.enea.se: jonas.eriksson@enea.com does not
+	designate permitted sender hosts)
+Subject: [PATCH] Docs: Add x11 to supported DISTRO_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,26 +27,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Jan 2014 17:30:58 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 29 Jan 2014 09:47:24 -0000
+Content-Type: text/plain
 
-On 28 January 2014 17:23,  <krzysztof.m.sywula@intel.com> wrote:
-> This reverts commit a54932dc373ec130f7a166d144f4d5744ec52097.
-> pkgconfig does not pull in glib->dbus anymore
+Before this change, x11 was only documented as an IMAGE_FEATURE.
+However, it is heavily relied upon as a DISTRO_FEATURE by packages that
+have an optional X dependency determined during build time. Examples
+include libsdl, dbus, alsa and pulseaudio.
+---
+ documentation/ref-manual/ref-features.xml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Context for Darren as he should vet this. :)
+diff --git a/documentation/ref-manual/ref-features.xml b/documentation/ref-manual/ref-features.xml
+index f5641c6..d788530 100644
+--- a/documentation/ref-manual/ref-features.xml
++++ b/documentation/ref-manual/ref-features.xml
+@@ -177,6 +177,9 @@
+                     supports it.</para></listitem>
+                 <listitem><para><emphasis>wifi:</emphasis> Include WiFi support
+                     (integrated only).</para></listitem>
++                <listitem><para><emphasis>x11:</emphasis> Include the X server
++                    and libraries.
++                    </para></listitem>
+             </itemizedlist>
+         </para>
+     </section>
+-- 
+1.9.rc1
 
-The code that causes -dev packages to RDEPEND on pkgconfig was removed
-in bcc73d26ddff01f0e4bb38eab23c57ef9bf76b04 (so in Dylan).
-
-In the general case of pkg-config, target pkg-config builds depend on
-glib, but glib doesn't depend on dbus.  GLib appears to have removed
-the dependency on dbus (which was only for unit tests we didn't run
-until ptest) in Danny onwards.
-
-I think we're good to go but backing this up with actual built images
-would be good.  Krzysztof has confirmed that pkgconfig at least builds
-on tiny.
-
-Ross
 
