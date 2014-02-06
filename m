@@ -1,35 +1,37 @@
 Return-Path: <lpapp@archlinux.us>
-Received: from mail-pd0-f177.google.com (mail-pd0-f177.google.com
-	[209.85.192.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 15E48E007BA
-	for <poky@yoctoproject.org>; Thu, 30 Jan 2014 03:32:18 -0800 (PST)
-Received: by mail-pd0-f177.google.com with SMTP id x10so2896549pdj.36
-	for <poky@yoctoproject.org>; Thu, 30 Jan 2014 03:32:18 -0800 (PST)
+Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
+	[209.85.212.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C747BE00475
+	for <poky@yoctoproject.org>; Thu,  6 Feb 2014 07:11:00 -0800 (PST)
+Received: by mail-wi0-f176.google.com with SMTP id hi5so1705316wib.9
+	for <poky@yoctoproject.org>; Thu, 06 Feb 2014 07:10:58 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:sender:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=fN5ZxTYKb9cdEPpvXfVzuR/FDyDlRNysC8n8g76Ivg8=;
-	b=bahS5gpOVJgt88DBuYm7BE8tFYkyHkEAN+5ePgp3aFLGAwl8idU61eysh7Wt5m73DT
-	Hfi6Clt3m/nr4NnIO2Qj0CfJ06yDwKXhspTJThyFNlLX6AnwsJLNVK9Mvzk7OyBd0ffq
-	t4L9HM1RBEvJM+9psHe31CNazHDN9TTZRqtk2Ee4wZabJPrZYVapKIfhavy5xZBX7U2U
-	UJ0wG/8/iQBuOEHee7RZD3GlAwlcFgDPugvv6+5vWZyHhUXH21F2f4yuo/WvDhShOuRu
-	H9xDULVejSa3vFwS8VfscLnpBGyWk7VmVOyu2rPyNTzrYeWQfTZV0sJ8SK5cgKmWq0xu
-	0eHw==
-X-Gm-Message-State: ALoCoQljdOG9GJsUEoVZSP18j/PUjMonWvvXGnL8Fb/bIX4g+c1S+pJXkhfdJfhPLvrbo2/EtZ1z
-MIME-Version: 1.0
-X-Received: by 10.66.16.162 with SMTP id h2mr13666503pad.129.1391081538289;
-	Thu, 30 Jan 2014 03:32:18 -0800 (PST)
-Sender: lpapp@archlinux.us
-Received: by 10.70.21.228 with HTTP; Thu, 30 Jan 2014 03:32:18 -0800 (PST)
-In-Reply-To: <CAOMwXhN08V=6GU7Nfb6mdYhAnWmfBT-YxDV64YQQ6cYk8=bJVA@mail.gmail.com>
-References: <CAOMwXhN08V=6GU7Nfb6mdYhAnWmfBT-YxDV64YQQ6cYk8=bJVA@mail.gmail.com>
-Date: Thu, 30 Jan 2014 11:32:18 +0000
-X-Google-Sender-Auth: fMBwKP9VQzFIAk1PJ7yPYN_Uj4c
-Message-ID: <CAOMwXhNYZNdzuwGLXNHTFb-8_bqh3EZ9pZ0rGMMYf7ZB3V-=vQ@mail.gmail.com>
+	h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
+	bh=UJw160+dt/Km/5BK7C9+2HsfWV0rTOisnvsEBlKtTsc=;
+	b=PGPK5iy88Ai2ofE3aiDr4V3/acsA1O1w3/B3mJoxzOIzfMfOk5sg5xs+tttWQPlzsQ
+	jehW6a8+yRplj7zgcFxl5W3lXZ8RZmb+UdlTUIrOEwA06KgC9BJ49rBs8bIBj8X3nnlj
+	RzIXVySV+5noiredbzHcJfBPp3EWnffH62RbnBUfiBsXjlkDgs50kiGTS0uKCFC98ZUt
+	h0jm9ZhrlWezJjXTrStmM6T6zjwgGA8mCQcMP01m2D4z7FEPAXvQiaFAoXEiDARaCufM
+	ZJH4HbKQ/zxzsi6AvRn0MiiOBkS9KdnRV49LeH7ql7CVd0Onko95YsBlNp1bBr/KRyeD
+	tfiQ==
+X-Gm-Message-State: ALoCoQk6h/mQssvFFtdllBoBHtRluwCgCaj3Ebw5hlC+MT5AYXscQESwCP49LB8Uqm2QhBNPcOn3
+X-Received: by 10.180.211.50 with SMTP id mz18mr14379588wic.43.1391699458562; 
+	Thu, 06 Feb 2014 07:10:58 -0800 (PST)
+Received: from lpapp@archlinux.us (mail.polatis.com. [212.44.19.228])
+	by mx.google.com with ESMTPSA id j9sm3083132wjz.13.2014.02.06.07.10.56
+	for <multiple recipients>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 06 Feb 2014 07:10:57 -0800 (PST)
+Sender: Laszlo Papp <lpapp@archlinux.us>
+Received: by lpapp@archlinux.us (sSMTP sendmail emulation);
+	Thu, 06 Feb 2014 15:05:24 +0000
 From: Laszlo Papp <lpapp@kde.org>
-To: Poky Project <poky@yoctoproject.org>
-Subject: Re: DISTRO specification within distro files?
+To: poky@yoctoproject.org
+Date: Thu,  6 Feb 2014 15:05:21 +0000
+Message-Id: <1391699121-535-1-git-send-email-lpapp@kde.org>
+X-Mailer: git-send-email 1.8.5.3
+Subject: [PATCH] package_regex.inc: fix a minor typo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,29 +44,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jan 2014 11:32:19 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Thu, 06 Feb 2014 15:11:04 -0000
 
-After a quick discussion with Richard on IRC, it seems to be
-historical for me, probably kept for compatibility.
+---
+ meta-yocto/conf/distro/include/package_regex.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-That I can understand as a reason. Thanks Richard, again, for explaining it.
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index da6e738..23a25c6 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -1,7 +1,7 @@
+ # package_regex.inc - This file contains data that tracks
+ # upstream project associated with a given recipe. This list is needed
+ # for recipes that version information can not be automagically discovered.
+-# As we automate this checking, this file will slowed be reduced.
++# As we automate this checking, this file will slowly be reduced.
+ #"
+ # This data is used by the package reporting system (packages.yoctoproject.org)
+ #"
+-- 
+1.8.5.3
 
-On Thu, Jan 30, 2014 at 10:44 AM, Laszlo Papp <lpapp@kde.org> wrote:
-> Hi,
->
-> The poky and poky-tiny distribution configuration files are having the
-> DISTRO variable specified. I would have thought it is only supposed to
-> be used by the distro users, not for distro definition.
->
-> This was changed in 2005 by Richard ("CC"'d).
->
-> http://git.yoctoproject.org/cgit.cgi/poky/commit/build?h=clyde&id=f8f6ddf146ae0b63089d9dfd7aa4e1426935ac02
->
-> Having asked it on IRC, it seems that no one has any idea so far why
-> it is there.
->
-> Can someone please comment on it with the required knowledge?
->
-> Cheers, L.
 
