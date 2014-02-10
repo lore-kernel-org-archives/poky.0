@@ -1,32 +1,38 @@
-Return-Path: <cristian.iorga@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02BBAE006F6
-	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 07:06:41 -0800 (PST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga102.fm.intel.com with ESMTP; 10 Feb 2014 07:06:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,818,1384329600"; d="scan'208";a="479047366"
-Received: from irsmsx104.ger.corp.intel.com ([163.33.3.159])
-	by fmsmga002.fm.intel.com with ESMTP; 10 Feb 2014 07:05:32 -0800
-Received: from irsmsx105.ger.corp.intel.com ([169.254.7.202]) by
-	IRSMSX104.ger.corp.intel.com ([169.254.5.244]) with mapi id
-	14.03.0123.003; Mon, 10 Feb 2014 15:05:31 +0000
-From: "Iorga, Cristian" <cristian.iorga@intel.com>
-To: =?utf-8?B?U8OpYmFzdGllbiBNZW5uZXRyaWVy?= <s.mennetrier@innotis.org>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] [PATCH][for-dora] Fix issue to build pulseaudio without
-	x11
-Thread-Index: AQHPJmx4MbX+k7AcikOmkUUDWq3mgJquli1g
-Date: Mon, 10 Feb 2014 15:05:31 +0000
-Message-ID: <969F26A8BAB325438E7EB80D3C3134FB16CFE1CE@IRSMSX105.ger.corp.intel.com>
-References: <1392042495-13533-1-git-send-email-s.mennetrier@innotis.org>
-In-Reply-To: <1392042495-13533-1-git-send-email-s.mennetrier@innotis.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [163.33.239.181]
+Return-Path: <lpapp@archlinux.us>
+Received: from mail-pd0-f174.google.com (mail-pd0-f174.google.com
+	[209.85.192.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D1F11E006F6
+	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 07:07:31 -0800 (PST)
+Received: by mail-pd0-f174.google.com with SMTP id z10so6169236pdj.19
+	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 07:07:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:sender:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=rc4IaoCNHHTlqAbzA1WKkwR6t+mvXZFRFUv704NZdfY=;
+	b=UmLbg5HPnrWVpTC9sRt4/MboxQjjWmDvebKyhAhKwPKNhWllVTG9qWUQZFrVeCqzMe
+	VeVOZmPZQGs+isA0150CiIWLAIM9ZHhO+Va89zdUynhq6IkWTYyfYKiLHgtSWNhpWN5W
+	fYwkQJUuq2t2f/4YRM/+Rrm7EKdFmavAW1MkIqMRS8bOumYAEH6lJ3jTT9lJHAXngHIf
+	/d/22lRajsTiQpczCj5XaejftbM9b2Us2hdgwxw1PvUlIytEkSsLKJGXTNMn6XAWGpkM
+	ee9RQETg9rXdb/XtQsqjfUJ3okpawd1L0cFl60RHc+GLQeTBk3NG2f+qUuHD4ybOx70j
+	a3iA==
+X-Gm-Message-State: ALoCoQkCVha++CDQsNkVl9sp//oLRLfixMUF8XSdu8+Ub+QkgOQerGQ4oTgbbhq5co7IEnZLb1Li
 MIME-Version: 1.0
-Subject: Re: [PATCH][for-dora] Fix issue to build pulseaudio without x11
+X-Received: by 10.68.189.5 with SMTP id ge5mr37955942pbc.42.1392044851241;
+	Mon, 10 Feb 2014 07:07:31 -0800 (PST)
+Sender: lpapp@archlinux.us
+Received: by 10.70.21.228 with HTTP; Mon, 10 Feb 2014 07:07:31 -0800 (PST)
+In-Reply-To: <20140210145748.GM23583@axis.com>
+References: <1392025053-22406-1-git-send-email-olof.johansson@axis.com>
+	<20140210094605.GI23583@axis.com> <20140210095533.GB3194@piout.net>
+	<20140210145748.GM23583@axis.com>
+Date: Mon, 10 Feb 2014 15:07:31 +0000
+X-Google-Sender-Auth: Pn9Xnp3ihbl3ktVYFOl7wZ5NPvo
+Message-ID: <CAOMwXhOKYK=yxvrEE7q7KY3jC5Ec6ZEc2g29s0HuVAvorU0gBg@mail.gmail.com>
+From: Laszlo Papp <lpapp@kde.org>
+To: Olof Johansson <olof.johansson@axis.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] poky.conf: Add Debian-7.4 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,37 +45,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2014 15:06:51 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 10 Feb 2014 15:07:31 -0000
+Content-Type: text/plain; charset=ISO-8859-1
 
-T0suDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBwb2t5LWJvdW5jZXNAeW9j
-dG9wcm9qZWN0Lm9yZyBbbWFpbHRvOnBva3ktYm91bmNlc0B5b2N0b3Byb2plY3Qub3JnXSBPbiBC
-ZWhhbGYgT2YgU8OpYmFzdGllbiBNZW5uZXRyaWVyDQpTZW50OiBNb25kYXksIEZlYnJ1YXJ5IDEw
-LCAyMDE0IDQ6MjggUE0NClRvOiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNClN1YmplY3Q6IFtwb2t5
-XSBbUEFUQ0hdW2Zvci1kb3JhXSBGaXggaXNzdWUgdG8gYnVpbGQgcHVsc2VhdWRpbyB3aXRob3V0
-IHgxMQ0KDQpUaGlzIG1vZGlmaWNhdGlvbiBjb21lIGZyb20gbWFzdGVyIGJyYW5jaGUNCg0KSWYg
-eDExIGlzIG5vdCBlbmFibGVkLCB0aGUgcHVsc2VhdWRpby1tb2R1bGUtY29uc29sZS1raXQgY291
-bGRuJ3QgYmUgYnVpbHQuDQoNClNpZ25lZC1vZmYtYnk6IFPDqWJhc3RpZW4gTWVubmV0cmllciA8
-cy5tZW5uZXRyaWVyQGlubm90aXMub3JnPg0KLS0tDQogbWV0YS9yZWNpcGVzLW11bHRpbWVkaWEv
-cHVsc2VhdWRpby9wdWxzZWF1ZGlvLmluYyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNl
-cnRpb24oKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL21ldGEvcmVjaXBlcy1tdWx0
-aW1lZGlhL3B1bHNlYXVkaW8vcHVsc2VhdWRpby5pbmMgYi9tZXRhL3JlY2lwZXMtbXVsdGltZWRp
-YS9wdWxzZWF1ZGlvL3B1bHNlYXVkaW8uaW5jDQppbmRleCBiN2E2ZWJhLi4yNzg3OWNlIDEwMDY0
-NA0KLS0tIGEvbWV0YS9yZWNpcGVzLW11bHRpbWVkaWEvcHVsc2VhdWRpby9wdWxzZWF1ZGlvLmlu
-Yw0KKysrIGIvbWV0YS9yZWNpcGVzLW11bHRpbWVkaWEvcHVsc2VhdWRpby9wdWxzZWF1ZGlvLmlu
-Yw0KQEAgLTc0LDcgKzc0LDcgQEAgVVNFUkFERF9QQVJBTV9wdWxzZWF1ZGlvLXNlcnZlciA9ICIt
-LXN5c3RlbSAtLWhvbWUgL3Zhci9ydW4vcHVsc2UgXCAgIyBhZGRpbmcgdGhlIGNvbnNvbGUta2l0
-IG1vZHVsZSB0byBhbiBpbWFnZSwgd2UgYWxzbyBnZXQgdGhlIG5lY2Vzc2FyeSAgIyBjb25zb2xl
-a2l0IHBhY2thZ2UgcHJvZHVjZWQuDQogUEFDS0FHRVMgPSsgImxpYnB1bHNlY29yZSBsaWJwdWxz
-ZWNvbW1vbiBsaWJwdWxzZSBsaWJwdWxzZS1zaW1wbGUgbGlicHVsc2UtbWFpbmxvb3AtZ2xpYiBc
-DQotICAgICAgICAgICAgIHB1bHNlYXVkaW8tc2VydmVyIHB1bHNlYXVkaW8tbWlzYyBwdWxzZWF1
-ZGlvLW1vZHVsZS1jb25zb2xlLWtpdCINCisgICAgICAgICAgICAgcHVsc2VhdWRpby1zZXJ2ZXIg
-cHVsc2VhdWRpby1taXNjICR7QGJhc2VfY29udGFpbnMoJ1BBQ0tBR0VDT05GSUcnLCAneDExJywg
-J3B1bHNlYXVkaW8tbW9kdWxlLWNvbnNvbGUta2l0JywgJycsIGQpfSINCiANCiAjdXBncmFkZSBw
-YXRoOg0KIFJSRVBMQUNFU19wdWxzZWF1ZGlvLXNlcnZlciA9ICJsaWJwdWxzZS1iaW4gbGlicHVs
-c2UtY29uZiINCi0tDQoxLjguMS4yDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fDQpwb2t5IG1haWxpbmcgbGlzdA0KcG9reUB5b2N0b3Byb2plY3Qub3Jn
-DQpodHRwczovL2xpc3RzLnlvY3RvcHJvamVjdC5vcmcvbGlzdGluZm8vcG9reQ0K
+On Mon, Feb 10, 2014 at 2:57 PM, Olof Johansson <olof.johansson@axis.com> wrote:
+> On 14-02-10 10:55 +0100, Alexandre Belloni wrote:
+>> What if a minor distro actually breaks ? :)
+>
+> Debian have policies that limit the type of changes entering a
+> stable point release, and it is my opinion that we can assume
+> that a new point release doesn't break anything (to the level of
+> insanity --- this is SANITY_TESTED_DISTROS we are talking about
+> here), and then react to this not being the case instead of the
+> other way around.
+>
+> It's quite unfortunate that we have to update it ~every other
+> month. These changes are usually not backported to the stable
+> branch of poky, and as such, people using it will have warnings
+> about using a non-supported host distribution, even though this
+> isn't the case.
+
+How is a software distribution supported if untested?
 
