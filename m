@@ -1,38 +1,27 @@
-Return-Path: <lpapp@archlinux.us>
-Received: from mail-pa0-f51.google.com (mail-pa0-f51.google.com
-	[209.85.220.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4FDDBE00575
-	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 08:23:01 -0800 (PST)
-Received: by mail-pa0-f51.google.com with SMTP id ld10so6411254pab.10
-	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 08:23:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:sender:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=/cEIxeZ92txm8Ii1vWiHtHKNqcKwpdYsL/3Mvu7wKG8=;
-	b=RR9HqW+WLq6q2KPqcSnW7l2A8ipjb+vRI8Hj2IPFrufqMIf+GCscQ10YGgVz9q0/7o
-	8TGMbJfZLMBmVd6J3ydrzV1WboRjGukSjmjHKw22GfccDGvbMsN3QZzxgAw2nlC4KQ9B
-	aasJ8+vR24Fib/UIeuPYqK2q5WFaFaKZYMiia+OlrplpDrOcbKV27V0KVQc8XsIo0N5V
-	NpzcBWDaAopvWEpEVi6+H8Z4reBH8HwNf0zSwCncAhOqmCYyOTUWw8icp0KDHmg7+MB+
-	9o9HMZ11WnOgjAi/mi5O1uHznXUVBBNz/QHUkvj3g3/Hqu8LtoT0sZLLrhcEB4YTNpdk
-	HD+w==
-X-Gm-Message-State: ALoCoQmzbNXwZWdF3K+/6EX+WBnzc6tRDmZv7ya+QsYb77auQ/F/UMPusFW6stnIxd4dv1iB1Lz8
-MIME-Version: 1.0
-X-Received: by 10.66.121.164 with SMTP id ll4mr17465931pab.129.1392049370550; 
-	Mon, 10 Feb 2014 08:22:50 -0800 (PST)
-Sender: lpapp@archlinux.us
-Received: by 10.70.21.228 with HTTP; Mon, 10 Feb 2014 08:22:50 -0800 (PST)
-In-Reply-To: <20140210161935.GP23583@axis.com>
+Return-Path: <alexandre.belloni@free-electrons.com>
+Received: from mail.free-electrons.com (top.free-electrons.com [176.31.233.9])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 91C5EE006F6
+	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 11:15:35 -0800 (PST)
+Received: by mail.free-electrons.com (Postfix, from userid 106)
+	id F10FD7DB; Mon, 10 Feb 2014 20:15:40 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	mail.free-electrons.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=5.0 tests=ALL_TRUSTED,SHORTCIRCUIT
+	shortcircuit=ham autolearn=disabled version=3.3.2
+Received: from localhost (128-79-216-6.hfc.dyn.abo.bbox.fr [128.79.216.6])
+	by mail.free-electrons.com (Postfix) with ESMTPSA id B1D3F7BE;
+	Mon, 10 Feb 2014 20:15:40 +0100 (CET)
+Date: Mon, 10 Feb 2014 20:15:33 +0100
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: Olof Johansson <olof.johansson@axis.com>
+Message-ID: <20140210191533.GC3194@piout.net>
 References: <1392025053-22406-1-git-send-email-olof.johansson@axis.com>
 	<20140210094605.GI23583@axis.com> <20140210095533.GB3194@piout.net>
 	<20140210145748.GM23583@axis.com>
-	<CAOMwXhOKYK=yxvrEE7q7KY3jC5Ec6ZEc2g29s0HuVAvorU0gBg@mail.gmail.com>
-	<20140210161935.GP23583@axis.com>
-Date: Mon, 10 Feb 2014 16:22:50 +0000
-X-Google-Sender-Auth: ooiJmM8SnQIZey8TRKAIevhzUMI
-Message-ID: <CAOMwXhNjDXaRZDyzTivkmNLfs5pJtwGVaLH0UZQs7q5t_Re+YA@mail.gmail.com>
-From: Laszlo Papp <lpapp@kde.org>
-To: Olof Johansson <olof.johansson@axis.com>
+MIME-Version: 1.0
+In-Reply-To: <20140210145748.GM23583@axis.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH] poky.conf: Add Debian-7.4 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
@@ -47,26 +36,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2014 16:23:02 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Mon, 10 Feb 2014 19:15:38 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Feb 10, 2014 at 4:19 PM, Olof Johansson <olof.johansson@axis.com> wrote:
-> On 14-02-10 16:07 +0100, Laszlo Papp wrote:
->> How is a software distribution supported if untested?
->
-> I've made my argument that Debian 7.* is tested. I welcome input
-> and opinions as long as we don't get caught in futile discussions
-> on semantics.
->
-> It all boils down to whether or not we can trust Debian to only
-> make reasonably backwards compatible point releases (which I am
-> of the opinion that we can). Of course, those that disagree have
-> valid points, but the cost of not trusting Debian has been
-> described in my previous mail.
+On 10/02/2014 at 15:57:49 +0100, Olof Johansson wrote :
+> On 14-02-10 10:55 +0100, Alexandre Belloni wrote:
+> > What if a minor distro actually breaks ? :)
+> 
+> Debian have policies that limit the type of changes entering a
+> stable point release, and it is my opinion that we can assume
+> that a new point release doesn't break anything (to the level of
+> insanity --- this is SANITY_TESTED_DISTROS we are talking about
+> here), and then react to this not being the case instead of the
+> other way around.
+> 
 
-I do not see much cost. If you are sure it should work, just ignore the warning.
+I completely agree with you that a point release is unlikely to break
+anything and continuing to update SANITY_TESTED_DISTROS is probably more
+costly (that was the point of my smiley).
 
-As a user, I would be unhappy if it turns out that a distribution has
-some issues with Yocto, and that distribution version has not even
-been tested!
+> It's quite unfortunate that we have to update it ~every other
+> month. These changes are usually not backported to the stable
+> branch of poky, and as such, people using it will have warnings
+> about using a non-supported host distribution, even though this
+> isn't the case.
+> 
+
+Anyway, I was under the feeling that people using poky to generate
+production systems would even want to restrict what was in
+SANITY_TESTED_DISTROS to make sure their developers are all using their
+locally tested distribution.
+
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux, Kernel and Android engineering
+http://free-electrons.com
 
