@@ -1,35 +1,40 @@
-Return-Path: <sebmennetrier@gmail.com>
-Received: from mail-wg0-f45.google.com (mail-wg0-f45.google.com [74.125.82.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6D0DAE00746
-	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 06:28:36 -0800 (PST)
-Received: by mail-wg0-f45.google.com with SMTP id n12so4169222wgh.0
-	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 06:28:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=sender:from:to:cc:subject:date:message-id:mime-version:content-type
-	:content-transfer-encoding;
-	bh=p+FHwe27buUlnOGFw/DgP1WdlsBSSVc9om9h3noDWo8=;
-	b=YF+OHzFeNkSL+yInoG/5Ueujbgbn8EUHLwE2Wth84aX/b3R2Xsr7WvCSQ8VvOCZGY9
-	ATSTKN8hs34OtxVuVJ/yocyIlN2PCwKfkS7lXwRppzRyXc3la8id3e8k32sBs/LB20xL
-	68wDy2GIuzWMrMSpJoJmrFnAlv3bv2vbZSC1yNseiF33ecrflDOb3dAVoZtvHnYv8ffv
-	W4H4mkGu9w8K5BDBflLcgid+JCQ6BYIH1pS+KgYKxhGTMElUnPaw7SEgpwzhOJz53ZnF
-	I252KufucB7AU5yMJ/EkfOsLGXvZdba8H6RyQ00C7rdAzTnvWdUItSySTHQ8RSwPx6cr
-	SdHg==
-X-Received: by 10.194.142.170 with SMTP id rx10mr22258108wjb.13.1392042514567; 
-	Mon, 10 Feb 2014 06:28:34 -0800 (PST)
-Received: from smennetrier-desktop.mpl.mstarsemi.fr
-	(connected-labs-gw1.ter2.neodc.mpl.cust.as8218.eu. [94.103.137.126])
-	by mx.google.com with ESMTPSA id
-	xt1sm35823259wjb.17.2014.02.10.06.28.33 for <multiple recipients>
-	(version=TLSv1.1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Mon, 10 Feb 2014 06:28:33 -0800 (PST)
-Sender: Sebastien MENNETRIER <sebmennetrier@gmail.com>
-From: =?UTF-8?q?S=C3=A9bastien=20Mennetrier?= <s.mennetrier@innotis.org>
-To: poky@yoctoproject.org
-Date: Mon, 10 Feb 2014 15:28:15 +0100
-Message-Id: <1392042495-13533-1-git-send-email-s.mennetrier@innotis.org>
-X-Mailer: git-send-email 1.8.1.2
+Return-Path: <olof.johansson@axis.com>
+Received: from ra.se.axis.com (ra.se.axis.com [195.60.68.10])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 65289E006F6
+	for <poky@yoctoproject.org>; Mon, 10 Feb 2014 06:57:56 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by ra.se.axis.com (Postfix) with ESMTP id 65ACC3F20D7;
+	Mon, 10 Feb 2014 15:57:51 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at ra.se.axis.com
+Received: from ra.se.axis.com ([127.0.0.1])
+	by localhost (ra.se.axis.com [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id m7b5GioKR3WK; Mon, 10 Feb 2014 15:57:50 +0100 (CET)
+Received: from boulder.se.axis.com (boulder.se.axis.com [10.0.2.104])
+	by ra.se.axis.com (Postfix) with ESMTP id AFCEC11EA1;
+	Mon, 10 Feb 2014 15:57:50 +0100 (CET)
+Received: from boulder.se.axis.com (localhost [127.0.0.1])
+	by postfix.imss71 (Postfix) with ESMTP id 999EFA57;
+	Mon, 10 Feb 2014 15:57:50 +0100 (CET)
+Received: from thoth.se.axis.com (thoth.se.axis.com [10.0.2.173])
+	by boulder.se.axis.com (Postfix) with ESMTP id 8EA6C9B2;
+	Mon, 10 Feb 2014 15:57:50 +0100 (CET)
+Received: from xmail2.se.axis.com (xmail2.se.axis.com [10.0.5.74])
+	by thoth.se.axis.com (Postfix) with ESMTP id 8C8B734005;
+	Mon, 10 Feb 2014 15:57:50 +0100 (CET)
+Received: from axis.com (10.92.17.1) by xmail2.se.axis.com (10.0.5.74) with
+	Microsoft SMTP Server (TLS) id 8.2.255.0;
+	Mon, 10 Feb 2014 15:57:50 +0100
+Date: Mon, 10 Feb 2014 15:57:49 +0100
+From: Olof Johansson <olof.johansson@axis.com>
+To: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+Message-ID: <20140210145748.GM23583@axis.com>
+References: <1392025053-22406-1-git-send-email-olof.johansson@axis.com>
+	<20140210094605.GI23583@axis.com> <20140210095533.GB3194@piout.net>
 MIME-Version: 1.0
-Subject: [PATCH][for-dora] Fix issue to build pulseaudio without x11
+In-Reply-To: <20140210095533.GB3194@piout.net>
+User-Agent: Mutt/1.5.22 (2013-10-16)
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] poky.conf: Add Debian-7.4 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,34 +47,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2014 14:28:38 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 10 Feb 2014 14:57:57 -0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-This modification come from master branche
+On 14-02-10 10:55 +0100, Alexandre Belloni wrote:
+> What if a minor distro actually breaks ? :)
 
-If x11 is not enabled, the pulseaudio-module-console-kit
-couldn't be built.
+Debian have policies that limit the type of changes entering a
+stable point release, and it is my opinion that we can assume
+that a new point release doesn't break anything (to the level of
+insanity --- this is SANITY_TESTED_DISTROS we are talking about
+here), and then react to this not being the case instead of the
+other way around.
 
-Signed-off-by: Sébastien Mennetrier <s.mennetrier@innotis.org>
----
- meta/recipes-multimedia/pulseaudio/pulseaudio.inc | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It's quite unfortunate that we have to update it ~every other
+month. These changes are usually not backported to the stable
+branch of poky, and as such, people using it will have warnings
+about using a non-supported host distribution, even though this
+isn't the case.
 
-diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc b/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
-index b7a6eba..27879ce 100644
---- a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
-+++ b/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
-@@ -74,7 +74,7 @@ USERADD_PARAM_pulseaudio-server = "--system --home /var/run/pulse \
- # adding the console-kit module to an image, we also get the necessary
- # consolekit package produced.
- PACKAGES =+ "libpulsecore libpulsecommon libpulse libpulse-simple libpulse-mainloop-glib \
--             pulseaudio-server pulseaudio-misc pulseaudio-module-console-kit"
-+             pulseaudio-server pulseaudio-misc ${@base_contains('PACKAGECONFIG', 'x11', 'pulseaudio-module-console-kit', '', d)}"
- 
- #upgrade path:
- RREPLACES_pulseaudio-server = "libpulse-bin libpulse-conf"
 -- 
-1.8.1.2
-
+olofjn
 
