@@ -1,35 +1,33 @@
-Return-Path: <martin.jansa@gmail.com>
-Received: from mail-ea0-f172.google.com (mail-ea0-f172.google.com
-	[209.85.215.172])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 07D47E00764
-	for <poky@yoctoproject.org>; Tue, 11 Feb 2014 07:58:31 -0800 (PST)
-Received: by mail-ea0-f172.google.com with SMTP id l9so3227646eaj.3
-	for <poky@yoctoproject.org>; Tue, 11 Feb 2014 07:58:30 -0800 (PST)
+Return-Path: <sebmennetrier@gmail.com>
+Received: from mail-ie0-f175.google.com (mail-ie0-f175.google.com
+	[209.85.223.175])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7E5FE00764
+	for <poky@yoctoproject.org>; Tue, 11 Feb 2014 08:06:23 -0800 (PST)
+Received: by mail-ie0-f175.google.com with SMTP id ar20so4623520iec.34
+	for <poky@yoctoproject.org>; Tue, 11 Feb 2014 08:06:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=4fnYyMSncraPa94oTZUCRhEzZYw/Oa4mEOO80R2yIuE=;
-	b=LHPKeVOMYe3Wv93ezYIGKPpApmmCCqeIccoPVwigoKGVhJrsLrBR5zos3tAbKTSCTL
-	XbdRj8kcrSUQaUWlpe2N5aap1ccAbKnrs1oBwwQ0VKgolC5mgtCo7+aoZ38yF8kNSKSV
-	41f+EZ0ibimtU/9jDC5+EVLSsPAhYvLEh+RqZzf9aQCfMyKCzgvf7lGxPF5ucud1PvUx
-	LWpryv3ZT8rC13i0UpOA71DDGS5h1/pbAeOJYPDT+dg6U8IkeziAVhfuQ44ZmUqwwwl1
-	I1FWm7rk976DtIzS5byDQLlZp8KxH0MZ0NaRVg1bdORSejjo76gUyNex+8Ti5apLHqgT
-	PEIA==
-X-Received: by 10.15.42.72 with SMTP id t48mr45223970eev.45.1392134310292;
-	Tue, 11 Feb 2014 07:58:30 -0800 (PST)
-Received: from localhost (ip-89-176-104-107.net.upcbroadband.cz.
-	[89.176.104.107]) by mx.google.com with ESMTPSA id
-	o43sm68863295eef.12.2014.02.11.07.58.28 for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 11 Feb 2014 07:58:28 -0800 (PST)
-Date: Tue, 11 Feb 2014 16:58:48 +0100
-From: Martin Jansa <martin.jansa@gmail.com>
-To: =?iso-8859-1?Q?S=E9bastien?= Mennetrier <s.mennetrier@innotis.org>
-Message-ID: <20140211155848.GC3485@jama>
-References: <1392042495-13533-1-git-send-email-s.mennetrier@innotis.org>
+	h=mime-version:sender:in-reply-to:references:date:message-id:subject
+	:from:to:cc:content-type;
+	bh=oiJcZq/kGsu9yxQyBKspZkw/PWinerGGGbbsGMZPQWY=;
+	b=lZO66Jz//SXbGLNEDhbb39aeXAAqtNdVnA1Pcmkevg5BnQysBarb9rxufr/2N8wp0k
+	r0mN41hHB197usexHHCDCNm180aFPIalmH5lFnaB2cQDbFTzgZaojazmjqqFBCpCt4WD
+	bwlahyoCmuQ7gyjia5yJuknwPY3dMNPplUNbsJWioc+PG8V0NbMU78YnCqquAy6b0+g9
+	B8egVPOAV26LRlYb642jWmfKOKDW5UQ7zDKO/bYYVaHRUuxv86YZDIZ/AB7r81DOmLrP
+	CJaLpzEjd6omtPpP2Wnw7g9MyPwcADn6rFfWrlnx5ExihogJeF2ybPDfg3eg7hPZnjtF
+	7lCg==
 MIME-Version: 1.0
-In-Reply-To: <1392042495-13533-1-git-send-email-s.mennetrier@innotis.org>
-User-Agent: Mutt/1.5.22 (2013-10-16)
+X-Received: by 10.42.81.7 with SMTP id x7mr819790ick.84.1392134783032; Tue, 11
+	Feb 2014 08:06:23 -0800 (PST)
+Sender: sebmennetrier@gmail.com
+Received: by 10.43.141.70 with HTTP; Tue, 11 Feb 2014 08:06:22 -0800 (PST)
+In-Reply-To: <20140211155848.GC3485@jama>
+References: <1392042495-13533-1-git-send-email-s.mennetrier@innotis.org>
+	<20140211155848.GC3485@jama>
+Date: Tue, 11 Feb 2014 17:06:22 +0100
+X-Google-Sender-Auth: 888D01ugS_V2WBvqBaVuJ9shNrM
+Message-ID: <CABgO3_PSpdQ-_03sKAiKv=wpJQoRrq6X0CZuEkHvKMFyKyNLSg@mail.gmail.com>
+From: Sebastien MENNETRIER <s.mennetrier@innotis.org>
+To: Martin Jansa <martin.jansa@gmail.com>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH][for-dora] Fix issue to build pulseaudio without x11
 X-BeenThere: poky@yoctoproject.org
@@ -44,73 +42,140 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Feb 2014 15:58:32 -0000
-X-Groupsio-MsgNum: 9481
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="7gGkHNMELEOhSGF6"
-Content-Disposition: inline
+X-List-Received-Date: Tue, 11 Feb 2014 16:06:24 -0000
+Content-Type: multipart/alternative; boundary=20cf303347c138e69604f223a31b
 
---7gGkHNMELEOhSGF6
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+--20cf303347c138e69604f223a31b
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Feb 10, 2014 at 03:28:15PM +0100, S=E9bastien Mennetrier wrote:
-> This modification come from master branche
+I think that the original commit to cherry-pick is :
+e230b4498790a3dfdc36ea5761807459fc96368e
 
-It should be cherry-pick of original commit (with original author and
-SOB).
 
-But thanks for sending it, I've requested the same change as well.
+2014-02-11 16:58 GMT+01:00 Martin Jansa <martin.jansa@gmail.com>:
 
->=20
-> If x11 is not enabled, the pulseaudio-module-console-kit
-> couldn't be built.
->=20
-> Signed-off-by: S=E9bastien Mennetrier <s.mennetrier@innotis.org>
-> ---
->  meta/recipes-multimedia/pulseaudio/pulseaudio.inc | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc b/meta/rec=
-ipes-multimedia/pulseaudio/pulseaudio.inc
-> index b7a6eba..27879ce 100644
-> --- a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
-> +++ b/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
-> @@ -74,7 +74,7 @@ USERADD_PARAM_pulseaudio-server =3D "--system --home /v=
-ar/run/pulse \
->  # adding the console-kit module to an image, we also get the necessary
->  # consolekit package produced.
->  PACKAGES =3D+ "libpulsecore libpulsecommon libpulse libpulse-simple libp=
-ulse-mainloop-glib \
-> -             pulseaudio-server pulseaudio-misc pulseaudio-module-console=
--kit"
-> +             pulseaudio-server pulseaudio-misc ${@base_contains('PACKAGE=
-CONFIG', 'x11', 'pulseaudio-module-console-kit', '', d)}"
-> =20
->  #upgrade path:
->  RREPLACES_pulseaudio-server =3D "libpulse-bin libpulse-conf"
-> --=20
-> 1.8.1.2
->=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> On Mon, Feb 10, 2014 at 03:28:15PM +0100, S=E9bastien Mennetrier wrote:
+> > This modification come from master branche
+>
+> It should be cherry-pick of original commit (with original author and
+> SOB).
+>
+> But thanks for sending it, I've requested the same change as well.
+>
+> >
+> > If x11 is not enabled, the pulseaudio-module-console-kit
+> > couldn't be built.
+> >
+> > Signed-off-by: S=E9bastien Mennetrier <s.mennetrier@innotis.org>
+> > ---
+> >  meta/recipes-multimedia/pulseaudio/pulseaudio.inc | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
+> b/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
+> > index b7a6eba..27879ce 100644
+> > --- a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
+> > +++ b/meta/recipes-multimedia/pulseaudio/pulseaudio.inc
+> > @@ -74,7 +74,7 @@ USERADD_PARAM_pulseaudio-server =3D "--system --home
+> /var/run/pulse \
+> >  # adding the console-kit module to an image, we also get the necessary
+> >  # consolekit package produced.
+> >  PACKAGES =3D+ "libpulsecore libpulsecommon libpulse libpulse-simple
+> libpulse-mainloop-glib \
+> > -             pulseaudio-server pulseaudio-misc
+> pulseaudio-module-console-kit"
+> > +             pulseaudio-server pulseaudio-misc
+> ${@base_contains('PACKAGECONFIG', 'x11', 'pulseaudio-module-console-kit',
+> '', d)}"
+> >
+> >  #upgrade path:
+> >  RREPLACES_pulseaudio-server =3D "libpulse-bin libpulse-conf"
+> > --
+> > 1.8.1.2
+> >
+> > _______________________________________________
+> > poky mailing list
+> > poky@yoctoproject.org
+> > https://lists.yoctoproject.org/listinfo/poky
+>
+> --
+> Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+>
+
+
 
 --=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
---7gGkHNMELEOhSGF6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Regards,
+S=E9bastien
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+--20cf303347c138e69604f223a31b
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-iEYEARECAAYFAlL6SLgACgkQN1Ujt2V2gByzagCdGSFQPjN3bJz2rKH96i3ktLYh
-QrkAn0BrOLESlJOtD4E8SYYOX2oPJwuK
-=OeEf
------END PGP SIGNATURE-----
+<div dir=3D"ltr">I think that the original commit to cherry-pick is : e230b=
+4498790a3dfdc36ea5761807459fc96368e<br></div><div class=3D"gmail_extra"><br=
+><br><div class=3D"gmail_quote">2014-02-11 16:58 GMT+01:00 Martin Jansa <sp=
+an dir=3D"ltr">&lt;<a href=3D"mailto:martin.jansa@gmail.com" target=3D"_bla=
+nk">martin.jansa@gmail.com</a>&gt;</span>:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex"><div class=3D"">On Mon, Feb 10, 2014 at 03:2=
+8:15PM +0100, S=E9bastien Mennetrier wrote:<br>
+&gt; This modification come from master branche<br>
+<br>
+</div>It should be cherry-pick of original commit (with original author and=
+<br>
+SOB).<br>
+<br>
+But thanks for sending it, I&#39;ve requested the same change as well.<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+&gt;<br>
+&gt; If x11 is not enabled, the pulseaudio-module-console-kit<br>
+&gt; couldn&#39;t be built.<br>
+&gt;<br>
+&gt; Signed-off-by: S=E9bastien Mennetrier &lt;<a href=3D"mailto:s.mennetri=
+er@innotis.org">s.mennetrier@innotis.org</a>&gt;<br>
+&gt; ---<br>
+&gt; =A0meta/recipes-multimedia/pulseaudio/pulseaudio.inc | 2 +-<br>
+&gt; =A01 file changed, 1 insertion(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc b/meta/=
+recipes-multimedia/pulseaudio/pulseaudio.inc<br>
+&gt; index b7a6eba..27879ce 100644<br>
+&gt; --- a/meta/recipes-multimedia/pulseaudio/pulseaudio.inc<br>
+&gt; +++ b/meta/recipes-multimedia/pulseaudio/pulseaudio.inc<br>
+&gt; @@ -74,7 +74,7 @@ USERADD_PARAM_pulseaudio-server =3D &quot;--system -=
+-home /var/run/pulse \<br>
+&gt; =A0# adding the console-kit module to an image, we also get the necess=
+ary<br>
+&gt; =A0# consolekit package produced.<br>
+&gt; =A0PACKAGES =3D+ &quot;libpulsecore libpulsecommon libpulse libpulse-s=
+imple libpulse-mainloop-glib \<br>
+&gt; - =A0 =A0 =A0 =A0 =A0 =A0 pulseaudio-server pulseaudio-misc pulseaudio=
+-module-console-kit&quot;<br>
+&gt; + =A0 =A0 =A0 =A0 =A0 =A0 pulseaudio-server pulseaudio-misc ${@base_co=
+ntains(&#39;PACKAGECONFIG&#39;, &#39;x11&#39;, &#39;pulseaudio-module-conso=
+le-kit&#39;, &#39;&#39;, d)}&quot;<br>
+&gt;<br>
+&gt; =A0#upgrade path:<br>
+&gt; =A0RREPLACES_pulseaudio-server =3D &quot;libpulse-bin libpulse-conf&qu=
+ot;<br>
+&gt; --<br>
+&gt; 1.8.1.2<br>
+&gt;<br>
+</div></div><div class=3D"HOEnZb"><div class=3D"h5">&gt; __________________=
+_____________________________<br>
+&gt; poky mailing list<br>
+&gt; <a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
+&gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_bl=
+ank">https://lists.yoctoproject.org/listinfo/poky</a><br>
+<br>
+</div></div><span class=3D"HOEnZb"><font color=3D"#888888">--<br>
+Martin &#39;JaMa&#39; Jansa =A0 =A0 jabber: <a href=3D"mailto:Martin.Jansa@=
+gmail.com">Martin.Jansa@gmail.com</a><br>
+</font></span></blockquote></div><br><br clear=3D"all"><br>-- <br><div dir=
+=3D"ltr"><div><br>Regards,<br></div>S=E9bastien<br></div>
+</div>
 
---7gGkHNMELEOhSGF6--
+--20cf303347c138e69604f223a31b--
