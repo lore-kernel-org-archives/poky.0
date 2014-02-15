@@ -1,22 +1,34 @@
-Return-Path: <nitin.a.kamble@intel.com>
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0062E007CE
-	for <poky@yoctoproject.org>; Fri, 14 Feb 2014 10:21:37 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 14 Feb 2014 10:21:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.95,846,1384329600"; d="scan'208";a="475375837"
-Received: from yocto-hm1.jf.intel.com ([10.23.232.34])
-	by fmsmga001.fm.intel.com with ESMTP; 14 Feb 2014 10:21:21 -0800
-From: nitin.a.kamble@intel.com
-To: tom.zanussi@intel.com, poky@yoctoproject.org,
-	richard.purdie@linuxfoundation.org, saul.wold@intel.com
-Date: Fri, 14 Feb 2014 10:18:08 -0800
-Message-Id: <f46dad0dd114cf36db773cc20d6782dff6849db8.1392401757.git.nitin.a.kamble@intel.com>
-X-Mailer: git-send-email 1.8.1.4
-In-Reply-To: <cover.1392401757.git.nitin.a.kamble@intel.com>
-References: <cover.1392401757.git.nitin.a.kamble@intel.com>
-Subject: [PATCH 1/1] systemtap_git: update to newer version to fix a build issue
+Return-Path: <ross.burton@intel.com>
+Received: from mail-qc0-f174.google.com (mail-qc0-f174.google.com
+	[209.85.216.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F2AE5E0044C
+	for <poky@yoctoproject.org>; Fri, 14 Feb 2014 17:22:01 -0800 (PST)
+Received: by mail-qc0-f174.google.com with SMTP id x13so21277085qcv.33
+	for <poky@yoctoproject.org>; Fri, 14 Feb 2014 17:22:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=PJUXKgdHZ4LTfFX4Ff0IcdBMwHs/mQIpVLuOGxMnPd4=;
+	b=HIIho5pkdDR6CIpXpvGkxZiaTUzTD91xp8VlHx5pKCT6109dk4AKtN7TF3v8V+1gRP
+	cWl9xCj+BPqmamS5BOJTD+mhNSRERCbzsFDSVd/AZGMd05XOL0045f7wewi99j+JSJ2y
+	+PMfKaxN/x2VWIjHX20HPGUuIZFsrrGwIguYVTYwvhuu5iKbZed9q8CMWNhZiPsEsiIY
+	2EtTp2AQd8lol+vJlJbPE8lvKX8CHvcq7kJ0jVIw0pGlpzhIS2NgIHjHRPerM9BHx0gx
+	qMlM2EYwVA7dLBS4yN18+a0WJhZ4GcQGGKsETBbhHufnlYDH4VI7cq+aL7b49qcJ8NWG
+	3d+Q==
+X-Gm-Message-State: ALoCoQno4DuosXsFRqtTSyil6toY4HIlGVqnfvJqxD4nyctvyJaxlcW6c0ZQtkJov24cy/mbIvjK
+X-Received: by 10.224.98.139 with SMTP id q11mr18898528qan.64.1392427321226;
+	Fri, 14 Feb 2014 17:22:01 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.140.48.79 with HTTP; Fri, 14 Feb 2014 17:21:41 -0800 (PST)
+In-Reply-To: <1389067342-25262-1-git-send-email-alexandre.belloni@free-electrons.com>
+References: <1389067342-25262-1-git-send-email-alexandre.belloni@free-electrons.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Sat, 15 Feb 2014 01:21:41 +0000
+Message-ID: <CAJTo0LZb-LEWRa_zEgSe7wFGkogpiyT0X-_pUSf6iEmZOQnuaQ@mail.gmail.com>
+To: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+Cc: Poky Project <poky@yoctoproject.org>, jimwall@q.com, brian@crystalfontz.com
+Subject: Re: [for-dora][PATCH] matchbox-keyboard: daemonize launch
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,41 +41,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Feb 2014 18:21:38 -0000
+X-List-Received-Date: Sat, 15 Feb 2014 01:22:04 -0000
+Content-Type: text/plain; charset=UTF-8
 
-From: Nitin A Kamble <nitin.a.kamble@intel.com>
+Hi,
 
-This build issue was observed with the 2.4+git version of the systemtap.
+I know this has been sitting unmerged because I said I'd review it and
+didn't, sorry about that.
 
-.../x86_64-linux/systemtap-native/2.4+gitAUTOINC+9190b3acfe-r0/git/tapsets.cxx: In function 'void validate_module_elf(Dwfl_Module*, const char*, base_query*)':
-.../x86_64-linux/systemtap-native/2.4+gitAUTOINC+9190b3acfe-r0/git/tapsets.cxx:1998:10: error: 'EM_AARCH64' was not declared in this scope
-.../x86_64-linux/systemtap-native/2.4+gitAUTOINC+9190b3acfe-r0/git/tapsets.cxx: In constructor 'sdt_uprobe_var_expanding_visitor::sdt_uprobe_var_expanding_visitor(systemtap_session&, int, const string&, const string&, const string&, stap_sdt_probe_type, const string&, int)':
-.../x86_64-linux/systemtap-native/2.4+gitAUTOINC+9190b3acfe-r0/git/tapsets.cxx:5613:31: error: 'EM_AARCH64' was not declared in this scope
+On 7 January 2014 04:02, Alexandre Belloni
+<alexandre.belloni@free-electrons.com> wrote:
+> -if [ "$CMD" ]; then
+> -    # Delay to make sure the window manager is active
+> -    # by waiting for the desktop to say its finished loading
+> -    dbus-wait org.matchbox_project.desktop Loaded
+> -    exec $CMD
+> -fi
 
-This is a known issue, and it is already fixed in the upstream tree.
+Whilst I agree that using .shbg is unwise I'm not sure this is the
+best approach.  Why not just rename the script to .sh (gaining a small
+optimisation by not forking when running it) and simply have this
+block to be:
 
-Updating the recipe to get the commit which fixes the issue.
+if [ "$CMD" ]; then
+    # Delay to make sure the window manager is active
+    # by waiting for the desktop to say its finished loading
+    ( dbus-wait org.matchbox_project.desktop Loaded && $CMD ) &
+fi
 
-Signed-off-by: Nitin A Kamble <nitin.a.kamble@intel.com>
----
- meta/recipes-kernel/systemtap/systemtap_git.inc | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/meta/recipes-kernel/systemtap/systemtap_git.inc b/meta/recipes-kernel/systemtap/systemtap_git.inc
-index b87aa1a..56db7b2 100644
---- a/meta/recipes-kernel/systemtap/systemtap_git.inc
-+++ b/meta/recipes-kernel/systemtap/systemtap_git.inc
-@@ -1,7 +1,7 @@
- LICENSE = "GPLv2"
- LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
--SRCREV = "9190b3acfe706d3bfd66dec18133d28f98443321"
--PV = "2.4+git${SRCPV}"
-+SRCREV = "508059f04842ed85d10bfbec8a9c688d57368860"
-+PV = "2.5+git${SRCPV}"
- 
- SRC_URI = "git://sourceware.org/git/systemtap.git \
-            file://docproc-build-fix.patch \
--- 
-1.8.1.4
-
+Ross
 
