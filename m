@@ -1,34 +1,22 @@
-Return-Path: <ross.burton@intel.com>
-Received: from mail-qa0-f53.google.com (mail-qa0-f53.google.com
-	[209.85.216.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 17944E0087B
-	for <poky@yoctoproject.org>; Fri, 21 Feb 2014 12:27:59 -0800 (PST)
-Received: by mail-qa0-f53.google.com with SMTP id cm18so3120351qab.12
-	for <poky@yoctoproject.org>; Fri, 21 Feb 2014 12:27:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type:content-transfer-encoding;
-	bh=+3LimYjegpMhM/Z1vIF1NXopyHGA5nmhHzg8bvWr4lY=;
-	b=VnFa200SgC86hsCWi1zrU0uQ6yykZkEqz21zlp/YF6b27rsxseersVf2kBv1Rl3g7h
-	TWIVOkZp2cfTEEWMcxsMdz/kSEJqbiR36wPDkYkQ/P42c8J48MvSNvQb/N3RZBauqCIy
-	74PIwsjMXHlvouPeU0fPEEK9uPTVCoRQYNmd6C2b80XJ0ms7EtFfycn0Q5AuXKloMqVI
-	434ZRg4QOwDzSAmVgGtGQZp32U+AdJjH3uqzT4kzPTSypZ0Pnk+DT3zwfe3GqWalscpu
-	h1fESKe/hAqkN5SzPSaRY0yAgSWEK0Xv/GEbrcBFHhSKjvShcIYhgZj9C3q1R/9Sg239
-	oSOg==
-X-Gm-Message-State: ALoCoQlDon+3LWWpuIB0BKNGo28dim+8UmOctxkZLVShfhX+TZEOvyIuOK8kYcAABR7JKjrboBeW
-X-Received: by 10.140.42.138 with SMTP id c10mr12359624qga.24.1393014478475;
-	Fri, 21 Feb 2014 12:27:58 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.140.48.79 with HTTP; Fri, 21 Feb 2014 12:27:38 -0800 (PST)
-In-Reply-To: <54eef9b1596a474c8b0817db566f492d@BLUPR05MB037.namprd05.prod.outlook.com>
-References: <54eef9b1596a474c8b0817db566f492d@BLUPR05MB037.namprd05.prod.outlook.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Fri, 21 Feb 2014 20:27:38 +0000
-Message-ID: <CAJTo0LZm5RVV2CNN7w9OyC0=Hk8vVrGL515p4H3sNN_r9iQ9zA@mail.gmail.com>
-To: Bryan Evenson <bevenson@melinkcorp.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Setup for hot plugging Ethernet
+Return-Path: <stefanx.stanacar@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8846AE008CC
+	for <poky@yoctoproject.org>; Mon, 24 Feb 2014 08:57:12 -0800 (PST)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 24 Feb 2014 08:57:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.97,535,1389772800"; d="scan'208";a="413213872"
+Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
+	by azsmga001.ch.intel.com with ESMTP; 24 Feb 2014 08:57:11 -0800
+Received: from firebird.rb.intel.com (firebird.rb.intel.com [10.237.105.156])
+	by linux.intel.com (Postfix) with ESMTP id 4D5446A4083;
+	Mon, 24 Feb 2014 08:57:01 -0800 (PST)
+From: Stefan Stanacar <stefanx.stanacar@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 24 Feb 2014 18:57:08 +0200
+Message-Id: <1393261028-14015-1-git-send-email-stefanx.stanacar@intel.com>
+X-Mailer: git-send-email 1.8.5.3
+Subject: [PATCH] poky-lsb.conf: fix the include path for security_flags
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,22 +29,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Feb 2014 20:28:00 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 24 Feb 2014 16:57:13 -0000
 
-On 21 February 2014 19:14, Bryan Evenson <bevenson@melinkcorp.com> wrote:
-> I am on poky dylan-9.0.1 and I am using a custom image based upon core-im=
-age-minimal (core-image-minimal with a few added packages).  I'm using sysv=
-init and init-ifupdown for network intialization.  With this setup, network=
-ing works just fine as long as the wired Ethernet is plugged in when my sys=
-tem boots up.  However, hotplugging the Ethernet cable doesn't work; if the=
- cable wasn't plugged in on bootup, I need to reboot to get  a network conn=
-ection.  I'm looking for a simple way to fix that.
+The correct file is security_flags.inc not .conf and it's probably
+a good idea to make it a require so it's a hard fail.
 
+Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
+---
+ meta-yocto/conf/distro/poky-lsb.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Instead of using init-ifupdown, install connman.  That will do
-ethernet hotplug (and a lot more) for you.
+diff --git a/meta-yocto/conf/distro/poky-lsb.conf b/meta-yocto/conf/distro/poky-lsb.conf
+index 0b4d14f..b0c2cf8 100644
+--- a/meta-yocto/conf/distro/poky-lsb.conf
++++ b/meta-yocto/conf/distro/poky-lsb.conf
+@@ -1,6 +1,6 @@
+ 
+ require conf/distro/poky.conf
+-include conf/distro/include/security_flags.conf
++require conf/distro/include/security_flags.inc
+ 
+ DISTRO = "poky-lsb"
+ DISTROOVERRIDES = "poky:linuxstdbase"
+-- 
+1.8.5.3
 
-Ross
 
