@@ -1,22 +1,19 @@
-Return-Path: <stefanx.stanacar@intel.com>
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8846AE008CC
-	for <poky@yoctoproject.org>; Mon, 24 Feb 2014 08:57:12 -0800 (PST)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 24 Feb 2014 08:57:11 -0800
+Return-Path: <cristiana.voicu@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C5D26E008C3
+	for <poky@yoctoproject.org>; Mon, 24 Feb 2014 23:13:13 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 24 Feb 2014 23:13:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,535,1389772800"; d="scan'208";a="413213872"
-Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by azsmga001.ch.intel.com with ESMTP; 24 Feb 2014 08:57:11 -0800
-Received: from firebird.rb.intel.com (firebird.rb.intel.com [10.237.105.156])
-	by linux.intel.com (Postfix) with ESMTP id 4D5446A4083;
-	Mon, 24 Feb 2014 08:57:01 -0800 (PST)
-From: Stefan Stanacar <stefanx.stanacar@intel.com>
+X-IronPort-AV: E=Sophos;i="4.97,538,1389772800"; d="scan'208";a="487586215"
+Received: from cvoicu-vostro-460.rb.intel.com ([10.237.105.62])
+	by fmsmga002.fm.intel.com with ESMTP; 24 Feb 2014 23:13:12 -0800
+From: Cristiana Voicu <cristiana.voicu@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 24 Feb 2014 18:57:08 +0200
-Message-Id: <1393261028-14015-1-git-send-email-stefanx.stanacar@intel.com>
-X-Mailer: git-send-email 1.8.5.3
-Subject: [PATCH] poky-lsb.conf: fix the include path for security_flags
+Date: Tue, 25 Feb 2014 09:21:09 +0200
+Message-Id: <1393312869-812-1-git-send-email-cristiana.voicu@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] meta-hob: remove hob-toolchain since this is not needed anymore
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,29 +26,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Feb 2014 16:57:13 -0000
+X-List-Received-Date: Tue, 25 Feb 2014 07:13:16 -0000
 
-The correct file is security_flags.inc not .conf and it's probably
-a good idea to make it a require so it's a hard fail.
+A patch to replace the use of hob-toolchain with bitbake api
+was sent to bitbake-devel list and it is needed for this one.
 
-Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
+Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
 ---
- meta-yocto/conf/distro/poky-lsb.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-hob/recipes-core/meta/hob-toolchain.bb |    9 ---------
+ 1 file changed, 9 deletions(-)
+ delete mode 100644 meta-hob/recipes-core/meta/hob-toolchain.bb
 
-diff --git a/meta-yocto/conf/distro/poky-lsb.conf b/meta-yocto/conf/distro/poky-lsb.conf
-index 0b4d14f..b0c2cf8 100644
---- a/meta-yocto/conf/distro/poky-lsb.conf
-+++ b/meta-yocto/conf/distro/poky-lsb.conf
-@@ -1,6 +1,6 @@
- 
- require conf/distro/poky.conf
--include conf/distro/include/security_flags.conf
-+require conf/distro/include/security_flags.inc
- 
- DISTRO = "poky-lsb"
- DISTROOVERRIDES = "poky:linuxstdbase"
+diff --git a/meta-hob/recipes-core/meta/hob-toolchain.bb b/meta-hob/recipes-core/meta/hob-toolchain.bb
+deleted file mode 100644
+index 5565273..0000000
+--- a/meta-hob/recipes-core/meta/hob-toolchain.bb
++++ /dev/null
+@@ -1,9 +0,0 @@
+-SUMMARY = "dummy toolchain"
+-LICENSE = "MIT"
+-
+-PR = "r0"
+-
+-LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
+-                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+-
+-inherit populate_sdk
 -- 
-1.8.5.3
+1.7.9.5
 
 
