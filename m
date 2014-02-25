@@ -1,36 +1,39 @@
-Return-Path: <lpapp@archlinux.us>
-Received: from mail-pb0-f47.google.com (mail-pb0-f47.google.com
-	[209.85.160.47])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 94BBDE008DF
-	for <poky@yoctoproject.org>; Tue, 25 Feb 2014 05:29:23 -0800 (PST)
-Received: by mail-pb0-f47.google.com with SMTP id up15so1581057pbc.34
-	for <poky@yoctoproject.org>; Tue, 25 Feb 2014 05:29:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:sender:in-reply-to:references:date
-	:message-id:subject:from:to:cc:content-type;
-	bh=3fuuq20i3btbu0rOBCG/PBQkL5xuYeObiMtRhrmZlJk=;
-	b=dQNvTrEBhs6/kKPKQYl79syW60CxD0qRGEStvnzS2f53ESLBiarzf59PDaq/Yudmli
-	YPZHIOjG6yHSxFSZNmsxpqnptbMSOpSv237pXTsEjgerW4xRW42DG8yvMenSX8kbrld/
-	uNABWK8MKso8vxAjBZ3i4b7O/4ZyMKIEWfzp1zNJEVBeYQJZVbPbDjbraEGyCVpND2Lt
-	4LYgvIgDwrEnaEswC5TA0ewY1PGrU/0j+Og6zICqUbgvWoedK2+QHDJTy03Uz/Hdtpmk
-	Gox2keNiUHuIs9VH5m1bjve/U/SoWMQ3pYLsqwowqh5Nh9UBrAsWbKYhfxtcnpfNlzwe
-	1v4g==
-X-Gm-Message-State: ALoCoQnbsNM/OOcreH79inoYlQuCabp2w7sWXl/qaIkQK4SeGRxGQ/EzQvRz83A5a5SI/REC7vZv
+Return-Path: <bevenson@melinkcorp.com>
+Received: from na01-bn1-obe.outbound.protection.outlook.com
+	(mail-bn1lp0152.outbound.protection.outlook.com [207.46.163.152])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2A0D9E0084D
+	for <poky@yoctoproject.org>; Tue, 25 Feb 2014 08:28:42 -0800 (PST)
+Received: from BLUPR05MB037.namprd05.prod.outlook.com (10.255.210.145) by
+	BLUPR05MB257.namprd05.prod.outlook.com (10.141.22.15) with Microsoft
+	SMTP Server (TLS) id 15.0.883.10; Tue, 25 Feb 2014 16:28:38 +0000
+Received: from BLUPR05MB037.namprd05.prod.outlook.com ([169.254.15.92]) by
+	BLUPR05MB037.namprd05.prod.outlook.com ([169.254.15.92]) with mapi id
+	15.00.0883.010; Tue, 25 Feb 2014 16:28:38 +0000
+From: Bryan Evenson <bevenson@melinkcorp.com>
+To: "Burton, Ross" <ross.burton@intel.com>
+Thread-Topic: [poky] Setup for hot plugging Ethernet
+Thread-Index: Ac8vORk8KK7YruPHTpW/QlQUMhOYyAACkNcAAMA14uA=
+Date: Tue, 25 Feb 2014 16:28:38 +0000
+Message-ID: <ba11cffc684b4f0588b819270e6539b2@BLUPR05MB037.namprd05.prod.outlook.com>
+References: <54eef9b1596a474c8b0817db566f492d@BLUPR05MB037.namprd05.prod.outlook.com>
+	<CAJTo0LZm5RVV2CNN7w9OyC0=Hk8vVrGL515p4H3sNN_r9iQ9zA@mail.gmail.com>
+In-Reply-To: <CAJTo0LZm5RVV2CNN7w9OyC0=Hk8vVrGL515p4H3sNN_r9iQ9zA@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-vipre-scanned: 00C220DC0068CC00C22229
+x-originating-ip: [98.100.91.242]
+x-forefront-prvs: 01334458E5
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10009001)(6009001)(199002)(24454002)(51704005)(189002)(13464003)(377454003)(164054003)(77096001)(94946001)(93136001)(47736001)(47976001)(2656002)(50986001)(80976001)(87936001)(49866001)(4396001)(76796001)(66066001)(69226001)(95416001)(74706001)(94316002)(65816001)(76576001)(74876001)(81342001)(54316002)(93516002)(87266001)(51856001)(54356001)(53806001)(63696002)(83322001)(19580395003)(76482001)(56816005)(90146001)(19580405001)(76786001)(46102001)(74662001)(47446002)(79102001)(74502001)(81816001)(59766001)(77982001)(92566001)(74316001)(85306002)(81542001)(85852003)(83072002)(33646001)(31966008)(80022001)(56776001)(74366001)(86362001)(81686001)(95666003)(24736002);
+	DIR:OUT; SFP:1101; SCL:1; SRVR:BLUPR05MB257;
+	H:BLUPR05MB037.namprd05.prod.outlook.com; CLIP:98.100.91.242;
+	FPR:AC1DF6A5.4D25F5A.31509343.CAE0627C.20243; PTR:InfoNoRecords;
+	A:1; MX:1; LANG:en; 
 MIME-Version: 1.0
-X-Received: by 10.69.31.97 with SMTP id kl1mr6671976pbd.62.1393334961821; Tue,
-	25 Feb 2014 05:29:21 -0800 (PST)
-Sender: lpapp@archlinux.us
-Received: by 10.70.26.195 with HTTP; Tue, 25 Feb 2014 05:29:21 -0800 (PST)
-In-Reply-To: <1393335301-26357-1-git-send-email-cristiana.voicu@intel.com>
-References: <1393335301-26357-1-git-send-email-cristiana.voicu@intel.com>
-Date: Tue, 25 Feb 2014 13:29:21 +0000
-X-Google-Sender-Auth: G8KmE-Yjj31GF0hY9oXVGbBahaQ
-Message-ID: <CAOMwXhM+CWeYqgXiFxWFwFeDU7zK08q4c3_tOYFPuJMeVrL7dQ@mail.gmail.com>
-From: Laszlo Papp <lpapp@kde.org>
-To: Cristiana Voicu <cristiana.voicu@intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] meta-hob: this layer is not necessary
+X-OriginatorOrg: melinkcorp.com
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Setup for hot plugging Ethernet
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,76 +46,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Feb 2014 13:29:26 -0000
-Content-Type: text/plain; charset=ISO-8859-1
+X-List-Received-Date: Tue, 25 Feb 2014 16:28:43 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I personally support this. I have never understood the existence of
-this layer. It was always a stable removal material at updates for me.
-
-On Tue, Feb 25, 2014 at 1:35 PM, Cristiana Voicu
-<cristiana.voicu@intel.com> wrote:
-> Meta-hob layer is not necessary, because the images can be
-> placed in the build directory. Patches for this are on the
-> bitbake-devel list.
->
-> [YOCTO #5118]
-> Signed-off-by: Cristiana Voicu <cristiana.voicu@intel.com>
-> ---
->  meta-hob/COPYING.MIT     |   17 -----------------
->  meta-hob/conf/layer.conf |   15 ---------------
->  2 files changed, 32 deletions(-)
->  delete mode 100644 meta-hob/COPYING.MIT
->  delete mode 100644 meta-hob/conf/layer.conf
->
-> diff --git a/meta-hob/COPYING.MIT b/meta-hob/COPYING.MIT
-> deleted file mode 100644
-> index fb950dc..0000000
-> --- a/meta-hob/COPYING.MIT
-> +++ /dev/null
-> @@ -1,17 +0,0 @@
-> -Permission is hereby granted, free of charge, to any person obtaining a copy
-> -of this software and associated documentation files (the "Software"), to deal
-> -in the Software without restriction, including without limitation the rights
-> -to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> -copies of the Software, and to permit persons to whom the Software is
-> -furnished to do so, subject to the following conditions:
-> -
-> -The above copyright notice and this permission notice shall be included in
-> -all copies or substantial portions of the Software.
-> -
-> -THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> -IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> -FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> -AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> -LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> -OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-> -THE SOFTWARE.
-> diff --git a/meta-hob/conf/layer.conf b/meta-hob/conf/layer.conf
-> deleted file mode 100644
-> index 1785e65..0000000
-> --- a/meta-hob/conf/layer.conf
-> +++ /dev/null
-> @@ -1,15 +0,0 @@
-> -# We have a conf and classes directory, add to BBPATH
-> -BBPATH .= ":${LAYERDIR}"
-> -
-> -# We have recipes-* directories, add to BBFILES
-> -BBFILES += "${LAYERDIR}/recipes-*/*/*.bb"
-> -
-> -BBFILE_COLLECTIONS += "hob"
-> -BBFILE_PATTERN_hob = "^${LAYERDIR}/"
-> -BBFILE_PRIORITY_hob = "1"
-> -
-> -# This should only be incremented on significant changes that will
-> -# cause compatibility issues with other layers
-> -LAYERVERSION_hob = "1"
-> -
-> -LAYERDEPENDS_hob = "core"
-> --
-> 1.7.9.5
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Um9zcywNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBCdXJ0b24sIFJv
+c3MgW21haWx0bzpyb3NzLmJ1cnRvbkBpbnRlbC5jb21dDQo+IFNlbnQ6IEZyaWRheSwgRmVicnVh
+cnkgMjEsIDIwMTQgMzoyOCBQTQ0KPiBUbzogQnJ5YW4gRXZlbnNvbg0KPiBDYzogcG9reUB5b2N0
+b3Byb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbcG9reV0gU2V0dXAgZm9yIGhvdCBwbHVnZ2lu
+ZyBFdGhlcm5ldA0KPiANCj4gT24gMjEgRmVicnVhcnkgMjAxNCAxOToxNCwgQnJ5YW4gRXZlbnNv
+biA8YmV2ZW5zb25AbWVsaW5rY29ycC5jb20+DQo+IHdyb3RlOg0KPiA+IEkgYW0gb24gcG9reSBk
+eWxhbi05LjAuMSBhbmQgSSBhbSB1c2luZyBhIGN1c3RvbSBpbWFnZSBiYXNlZCB1cG9uIGNvcmUt
+DQo+IGltYWdlLW1pbmltYWwgKGNvcmUtaW1hZ2UtbWluaW1hbCB3aXRoIGEgZmV3IGFkZGVkIHBh
+Y2thZ2VzKS4gIEknbSB1c2luZw0KPiBzeXN2aW5pdCBhbmQgaW5pdC1pZnVwZG93biBmb3IgbmV0
+d29yayBpbnRpYWxpemF0aW9uLiAgV2l0aCB0aGlzIHNldHVwLA0KPiBuZXR3b3JraW5nIHdvcmtz
+IGp1c3QgZmluZSBhcyBsb25nIGFzIHRoZSB3aXJlZCBFdGhlcm5ldCBpcyBwbHVnZ2VkIGluIHdo
+ZW4NCj4gbXkgc3lzdGVtIGJvb3RzIHVwLiAgSG93ZXZlciwgaG90cGx1Z2dpbmcgdGhlIEV0aGVy
+bmV0IGNhYmxlIGRvZXNuJ3QNCj4gd29yazsgaWYgdGhlIGNhYmxlIHdhc24ndCBwbHVnZ2VkIGlu
+IG9uIGJvb3R1cCwgSSBuZWVkIHRvIHJlYm9vdCB0byBnZXQgIGENCj4gbmV0d29yayBjb25uZWN0
+aW9uLiAgSSdtIGxvb2tpbmcgZm9yIGEgc2ltcGxlIHdheSB0byBmaXggdGhhdC4NCj4gDQo+IA0K
+PiBJbnN0ZWFkIG9mIHVzaW5nIGluaXQtaWZ1cGRvd24sIGluc3RhbGwgY29ubm1hbi4gIFRoYXQg
+d2lsbCBkbyBldGhlcm5ldA0KPiBob3RwbHVnIChhbmQgYSBsb3QgbW9yZSkgZm9yIHlvdS4NCg0K
+SW4gbG9va2luZyB0aHJvdWdoIHRoZSBkb2N1bWVudGF0aW9uIGZvciBjb25ubWFuLCBhbGwgdGhl
+IGV4YW1wbGVzIGFwcGVhciB0byBhc3N1bWUgc3lzdGVtZCBpcyB1c2VkIGZvciBpbml0LiAgSSBh
+bSBwbGFubmluZyBpbiB0aGUgZnV0dXJlIHRvIG1vdmUgZnJvbSBzeXN2aW5pdCB0byBzeXN0ZW1k
+LiAgSW4geW91ciBvcGluaW9uLCB3b3VsZCBpdCBiZSBiZXR0ZXIgdG8gZG8gdGhhdCBiZWZvcmUg
+YXR0ZW1wdGluZyB0byB1c2UgY29ubm1hbiwgb3IgaXMgY29ubm1hbiBzZXR1cCByZWxhdGl2ZWx5
+IGVhc3kgdW5kZXIgc3lzdmluaXQ/DQoNClRoYW5rcywNCkJyeWFuDQo+IA0KPiBSb3NzDQo=
 
