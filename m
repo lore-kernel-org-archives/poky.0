@@ -1,25 +1,41 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 33BD2E008EE
-	for <poky@yoctoproject.org>; Thu, 27 Feb 2014 13:15:17 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s1RLFFxM000295
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 27 Feb 2014 13:15:15 -0800 (PST)
-Received: from yow-bashfiel-d3.wrs.com (128.224.147.67) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.2.347.0; Thu, 27 Feb 2014 13:15:15 -0800
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Thu, 27 Feb 2014 16:15:04 -0500
-Message-ID: <a7ee94c6d77cc11a6e7af763e7d2bc6deb6cd6bf.1393535621.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.8.1.2
-In-Reply-To: <cover.1393535621.git.bruce.ashfield@windriver.com>
-References: <cover.1393535621.git.bruce.ashfield@windriver.com>
+Return-Path: <Javier.Viguera@digi.com>
+Received: from mail1.bemta7.messagelabs.com (mail1.bemta7.messagelabs.com
+	[216.82.254.108])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6B7BE007E2
+	for <poky@yoctoproject.org>; Fri, 28 Feb 2014 03:07:46 -0800 (PST)
+Received: from [216.82.254.211:43388] by server-12.bemta-7.messagelabs.com id
+	4B/00-24038-FFD60135; Fri, 28 Feb 2014 11:07:43 +0000
+X-Env-Sender: Javier.Viguera@digi.com
+X-Msg-Ref: server-10.tower-201.messagelabs.com!1393585661!9810714!1
+X-Originating-IP: [66.77.174.13]
+X-StarScan-Received: 
+X-StarScan-Version: 6.9.16; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 1873 invoked from network); 28 Feb 2014 11:07:42 -0000
+Received: from mail.mx1.digi.com (HELO mcl-sms-ns1.digi.com) (66.77.174.13)
+	by server-10.tower-201.messagelabs.com with RC4-SHA encrypted SMTP;
+	28 Feb 2014 11:07:42 -0000
+Received: from MTK-SMS-XCH03.digi.com (10.10.8.197) by mail.mx1.digi.com
+	(172.16.1.13) with Microsoft SMTP Server (TLS) id 8.3.342.0;
+	Fri, 28 Feb 2014 05:07:34 -0600
+Received: from dor-sms-exch01.digi.com (10.49.8.100) by MTK-SMS-XCH03.digi.com
+	(10.10.8.197) with Microsoft SMTP Server (TLS) id 14.3.174.1;
+	Fri, 28 Feb 2014 05:07:40 -0600
+Received: from [10.101.2.54] (10.101.2.54) by dor-sms-exch01.digi.com
+	(10.49.8.100) with Microsoft SMTP Server (TLS) id 8.3.342.0;
+	Fri, 28 Feb 2014 12:07:39 +0100
+Message-ID: <53106DFA.6030308@digi.com>
+Date: Fri, 28 Feb 2014 12:07:38 +0100
+From: Javier Viguera <javier.viguera@digi.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.3.0
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 2/2] bsps: update H/W reference boards to v3.10.32
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+References: <991B6481567A894BA8E18E29D118D85801558DEB1EF4@dor-sms-exch01.digi.com>
+In-Reply-To: <991B6481567A894BA8E18E29D118D85801558DEB1EF4@dor-sms-exch01.digi.com>
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean
+Subject: Re: [for-dora] backport bitbake git fetcher fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,39 +48,56 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Feb 2014 21:15:17 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 28 Feb 2014 11:07:46 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Updating the hardware reference boards to match the oe-core update to
-the latest 3.10-stable.
+Hi all,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Seems that this didn't catch much attention. Maybe because this is not 
+the correct list for bitbake fixes.
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-index ae48498ec134..56f566de4fc8 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-@@ -7,11 +7,11 @@ KBRANCH_beagleboard = "standard/beagleboard"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- 
--SRCREV_machine_genericx86 ?= "3e0a296fae952d8d93eb0f96566bf6d4a978c8ee"
--SRCREV_machine_genericx86-64 ?= "3e0a296fae952d8d93eb0f96566bf6d4a978c8ee"
--SRCREV_machine_routerstationpro ?= "c951f46b196f287d90d016d2441c91a3b86669f1"
--SRCREV_machine_mpc8315e-rdb ?= "74ed53110138055ff6b87e2af28a2fd31a8bf9c6"
--SRCREV_machine_beagleboard ?= "97c2adb38b76e0b1d6319986818d4b536e244dd6"
-+SRCREV_machine_genericx86 ?= "a86e2b1eadd1f607d0d6ac5c4ab20a902714ddb1"
-+SRCREV_machine_genericx86-64 ?= "a86e2b1eadd1f607d0d6ac5c4ab20a902714ddb1"
-+SRCREV_machine_routerstationpro ?= "e2c76467906116a42a020ed0c76a06af720e5cf1"
-+SRCREV_machine_mpc8315e-rdb ?= "1ac2906d6d672f33e36c5add9b7d0e6277e34aaf"
-+SRCREV_machine_beagleboard ?= "e231c6220163d3c2a41cb380e1f759e8b222303c"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
--- 
-1.8.1.2
+I had a look at bitbake git repo and they did not follow the branching 
+scheme in openembedded/poky. So where do i need to send a fix for 
+bitbake that i need to be included in already-released poky Dora?
+
+-
+Javier Viguera
+Software Engineer
+Digi International® Spain S.A.U.
+
+
+
+On 21/02/14 17:54, Viguera, Javier wrote:
+> Hi all,
+>
+> I'm using Dora with a customer kernel that happens to have two very
+> similar branch names:
+>
+> af186b498eb8e39ffa419d356010d67d7fa6dee3 refs/heads/android/v3.10/master
+> a094f655dc2ba623742a01dcb744ed0e8ebde3ed refs/heads/v3.10/master
+>
+> My custom linux recipe does the following to get 'v3.10/master' branch:
+>
+> KBRANCH_DEFAULT = "v3.10/master"
+> KBRANCH = "${KBRANCH_DEFAULT}"
+> SRC_URI = "${GIT_URL}linux-2.6.git;protocol=git;branch=${KBRANCH}"
+>
+> But it always fetchs the 'android/v3.10/master' branch.
+>
+> This seems to be already fixed in master:
+>
+> d21c1537b7052aa24ec56434b821fee67de33a83
+>
+> So could that fix be cherry-picked to Dora?
+>
+> Directly cherry-picking the commit does not apply cleanly so i attach
+> here a reworked patch that applies to Dora.
+>
+> -
+> Javier Viguera
+> Software Engineer
+> Digi International® Spain S.A.U.
+>
 
 
