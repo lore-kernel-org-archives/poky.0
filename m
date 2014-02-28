@@ -1,41 +1,21 @@
-Return-Path: <Javier.Viguera@digi.com>
-Received: from mail1.bemta7.messagelabs.com (mail1.bemta7.messagelabs.com
-	[216.82.254.108])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6B7BE007E2
-	for <poky@yoctoproject.org>; Fri, 28 Feb 2014 03:07:46 -0800 (PST)
-Received: from [216.82.254.211:43388] by server-12.bemta-7.messagelabs.com id
-	4B/00-24038-FFD60135; Fri, 28 Feb 2014 11:07:43 +0000
-X-Env-Sender: Javier.Viguera@digi.com
-X-Msg-Ref: server-10.tower-201.messagelabs.com!1393585661!9810714!1
-X-Originating-IP: [66.77.174.13]
-X-StarScan-Received: 
-X-StarScan-Version: 6.9.16; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 1873 invoked from network); 28 Feb 2014 11:07:42 -0000
-Received: from mail.mx1.digi.com (HELO mcl-sms-ns1.digi.com) (66.77.174.13)
-	by server-10.tower-201.messagelabs.com with RC4-SHA encrypted SMTP;
-	28 Feb 2014 11:07:42 -0000
-Received: from MTK-SMS-XCH03.digi.com (10.10.8.197) by mail.mx1.digi.com
-	(172.16.1.13) with Microsoft SMTP Server (TLS) id 8.3.342.0;
-	Fri, 28 Feb 2014 05:07:34 -0600
-Received: from dor-sms-exch01.digi.com (10.49.8.100) by MTK-SMS-XCH03.digi.com
-	(10.10.8.197) with Microsoft SMTP Server (TLS) id 14.3.174.1;
-	Fri, 28 Feb 2014 05:07:40 -0600
-Received: from [10.101.2.54] (10.101.2.54) by dor-sms-exch01.digi.com
-	(10.49.8.100) with Microsoft SMTP Server (TLS) id 8.3.342.0;
-	Fri, 28 Feb 2014 12:07:39 +0100
-Message-ID: <53106DFA.6030308@digi.com>
-Date: Fri, 28 Feb 2014 12:07:38 +0100
-From: Javier Viguera <javier.viguera@digi.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.3.0
-MIME-Version: 1.0
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <991B6481567A894BA8E18E29D118D85801558DEB1EF4@dor-sms-exch01.digi.com>
-In-Reply-To: <991B6481567A894BA8E18E29D118D85801558DEB1EF4@dor-sms-exch01.digi.com>
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean
-Subject: Re: [for-dora] backport bitbake git fetcher fix
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C0729E0096C
+	for <poky@yoctoproject.org>; Fri, 28 Feb 2014 08:42:19 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 28 Feb 2014 08:42:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.97,562,1389772800"; d="scan'208";a="483695893"
+Received: from davidllo-mobl.ger.corp.intel.com (HELO
+	peggleto-mobl5.ger.corp.intel.com) ([10.252.123.227])
+	by fmsmga001.fm.intel.com with ESMTP; 28 Feb 2014 08:42:16 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 28 Feb 2014 16:42:04 +0000
+Message-Id: <1393605724-26098-1-git-send-email-paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.5.3
+Cc: Alexandru Palalau <alexandrux.palalau@intel.com>
+Subject: [PATCH] poky.conf: add CentOS 6.5 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,56 +28,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Feb 2014 11:07:46 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Fri, 28 Feb 2014 16:42:23 -0000
 
-Hi all,
+This is a point release and is an automatic upgrade for users of 6.4.
 
-Seems that this didn't catch much attention. Maybe because this is not 
-the correct list for bitbake fixes.
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta-yocto/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
-I had a look at bitbake git repo and they did not follow the branching 
-scheme in openembedded/poky. So where do i need to send a fix for 
-bitbake that i need to be included in already-released poky Dora?
-
--
-Javier Viguera
-Software Engineer
-Digi International® Spain S.A.U.
-
-
-
-On 21/02/14 17:54, Viguera, Javier wrote:
-> Hi all,
->
-> I'm using Dora with a customer kernel that happens to have two very
-> similar branch names:
->
-> af186b498eb8e39ffa419d356010d67d7fa6dee3 refs/heads/android/v3.10/master
-> a094f655dc2ba623742a01dcb744ed0e8ebde3ed refs/heads/v3.10/master
->
-> My custom linux recipe does the following to get 'v3.10/master' branch:
->
-> KBRANCH_DEFAULT = "v3.10/master"
-> KBRANCH = "${KBRANCH_DEFAULT}"
-> SRC_URI = "${GIT_URL}linux-2.6.git;protocol=git;branch=${KBRANCH}"
->
-> But it always fetchs the 'android/v3.10/master' branch.
->
-> This seems to be already fixed in master:
->
-> d21c1537b7052aa24ec56434b821fee67de33a83
->
-> So could that fix be cherry-picked to Dora?
->
-> Directly cherry-picking the commit does not apply cleanly so i attach
-> here a reworked patch that applies to Dora.
->
-> -
-> Javier Viguera
-> Software Engineer
-> Digi International® Spain S.A.U.
->
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 812d652..a68a6a1 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -82,6 +82,7 @@ SANITY_TESTED_DISTROS ?= " \
+             Fedora-19 \n \
+             Fedora-20 \n \
+             CentOS-6.4 \n \
++            CentOS-6.5 \n \
+             Debian-7.0 \n \
+             Debian-7.1 \n \
+             Debian-7.2 \n \
+-- 
+1.8.5.3
 
 
