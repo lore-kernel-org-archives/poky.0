@@ -1,20 +1,19 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 21B01E00A36
-	for <poky@yoctoproject.org>; Wed,  5 Mar 2014 01:52:59 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 05 Mar 2014 01:52:58 -0800
+Return-Path: <valentin.popa@intel.com>
+Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7158CE0078E
+	for <poky@yoctoproject.org>; Wed,  5 Mar 2014 06:46:46 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by azsmga102.ch.intel.com with ESMTP; 05 Mar 2014 06:46:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,591,1389772800"; d="scan'208";a="466946346"
-Received: from maurorob-mobl.ger.corp.intel.com (HELO
-	peggleto-mobl5.ger.corp.intel.com) ([10.252.120.80])
-	by orsmga001.jf.intel.com with ESMTP; 05 Mar 2014 01:52:56 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.97,593,1389772800"; d="scan'208";a="486483822"
+Received: from vpopa-desktop.rb.intel.com ([10.237.105.47])
+	by fmsmga001.fm.intel.com with ESMTP; 05 Mar 2014 06:46:44 -0800
+From: Valentin Popa <valentin.popa@intel.com>
 To: poky@yoctoproject.org
-Date: Wed,  5 Mar 2014 09:52:46 +0000
-Message-Id: <1394013166-14301-1-git-send-email-paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.8.5.3
-Subject: [dylan][PATCH] poky.conf: add Poky-1.4.3 to SANITY_TESTED_DISTROS for Build Appliance
+Date: Wed,  5 Mar 2014 16:46:33 +0200
+Message-Id: <1394030793-14474-1-git-send-email-valentin.popa@intel.com>
+X-Mailer: git-send-email 1.8.3.2
+Subject: [PATCH] gnutls: update regex
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -27,26 +26,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Mar 2014 09:53:00 -0000
+X-List-Received-Date: Wed, 05 Mar 2014 14:46:46 -0000
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+update regex for gnutls
+
+Signed-off-by: Valentin Popa <valentin.popa@intel.com>
 ---
- meta-yocto/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/distro/include/package_regex.inc | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index d90ec5b..a4d2e24 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -77,6 +77,7 @@ SANITY_TESTED_DISTROS ?= " \
-             Poky-1.4 \n \
-             Poky-1.4.1 \n \
-             Poky-1.4.2 \n \
-+            Poky-1.4.3 \n \
-             Ubuntu-10.04 \n \
-             Ubuntu-11.10 \n \
-             Ubuntu-12.04 \n \
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index 23a25c6..b360f8f 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -81,7 +81,8 @@ REGEX_URI_pn-gcc-crosssdk = "ftp://ftp.gnu.org/gnu/gcc/"
+ REGEX_pn-gcc-crosssdk = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-glew = "http://sourceforge.net/projects/glew/files/glew"
+ REGEX_pn-glew  = " [hH][rR][eE][fF]=\"/projects/glew/files/glew/(?P<pver>((\d+[\.\-_]*)+))/\""
+-#REGEX_pn-gnutls = "ftp://ftp.gnutls.org/gcrypt/gnutls/"
++REGEX_URI_pn-gnutls = "ftp://ftp.gnutls.org/gcrypt/gnutls/stable"
++REGEX_pn-gnutls = "[hH][rR][eE][fF]=\"gnutls\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.(xz|lz)\""
+ REGEX_pn-gstreamer = "[hH][rR][eE][fF]=\"gstreamer\-(?P<pver>(0\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+ REGEX_pn-gstreamer1.0 = "[hH][rR][eE][fF]=\"gstreamer\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+ REGEX_pn-gst-ffmpeg = "[hH][rR][eE][fF]=\"gst-ffmpeg\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
 -- 
-1.8.5.3
+1.8.3.2
 
 
