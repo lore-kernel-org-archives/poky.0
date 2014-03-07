@@ -1,19 +1,20 @@
-Return-Path: <valentin.popa@intel.com>
-Received: from mga14.intel.com (mga14.intel.com [143.182.124.37])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7158CE0078E
-	for <poky@yoctoproject.org>; Wed,  5 Mar 2014 06:46:46 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by azsmga102.ch.intel.com with ESMTP; 05 Mar 2014 06:46:45 -0800
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ED5BFE00A1C
+	for <poky@yoctoproject.org>; Fri,  7 Mar 2014 02:20:52 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga101.jf.intel.com with ESMTP; 07 Mar 2014 02:20:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,593,1389772800"; d="scan'208";a="486483822"
-Received: from vpopa-desktop.rb.intel.com ([10.237.105.47])
-	by fmsmga001.fm.intel.com with ESMTP; 05 Mar 2014 06:46:44 -0800
-From: Valentin Popa <valentin.popa@intel.com>
+X-IronPort-AV: E=Sophos;i="4.97,607,1389772800"; d="scan'208";a="468311504"
+Received: from lbhoopat-mobl1.ger.corp.intel.com (HELO
+	peggleto-mobl5.ger.corp.intel.com) ([10.252.120.98])
+	by orsmga001.jf.intel.com with ESMTP; 07 Mar 2014 02:20:49 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Wed,  5 Mar 2014 16:46:33 +0200
-Message-Id: <1394030793-14474-1-git-send-email-valentin.popa@intel.com>
-X-Mailer: git-send-email 1.8.3.2
-Subject: [PATCH] gnutls: update regex
+Date: Fri,  7 Mar 2014 10:20:43 +0000
+Message-Id: <cover.1394187600.git.paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.8.5.3
+Subject: [PATCH 0/2] meta-yocto updates for core-image-full-cmdline
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,30 +27,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Mar 2014 14:46:46 -0000
+X-List-Received-Date: Fri, 07 Mar 2014 10:20:53 -0000
 
-update regex for gnutls
+The following changes since commit 003d3170edaa9472ee46111caa901ac7ddf9321c:
 
-Signed-off-by: Valentin Popa <valentin.popa@intel.com>
----
- meta-yocto/conf/distro/include/package_regex.inc | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+  bitbake: data: add vardepvalueexclude varflag (2014-03-06 17:31:11 +0000)
 
-diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
-index 23a25c6..b360f8f 100644
---- a/meta-yocto/conf/distro/include/package_regex.inc
-+++ b/meta-yocto/conf/distro/include/package_regex.inc
-@@ -81,7 +81,8 @@ REGEX_URI_pn-gcc-crosssdk = "ftp://ftp.gnu.org/gnu/gcc/"
- REGEX_pn-gcc-crosssdk = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
- REGEX_URI_pn-glew = "http://sourceforge.net/projects/glew/files/glew"
- REGEX_pn-glew  = " [hH][rR][eE][fF]=\"/projects/glew/files/glew/(?P<pver>((\d+[\.\-_]*)+))/\""
--#REGEX_pn-gnutls = "ftp://ftp.gnutls.org/gcrypt/gnutls/"
-+REGEX_URI_pn-gnutls = "ftp://ftp.gnutls.org/gcrypt/gnutls/stable"
-+REGEX_pn-gnutls = "[hH][rR][eE][fF]=\"gnutls\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.(xz|lz)\""
- REGEX_pn-gstreamer = "[hH][rR][eE][fF]=\"gstreamer\-(?P<pver>(0\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
- REGEX_pn-gstreamer1.0 = "[hH][rR][eE][fF]=\"gstreamer\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
- REGEX_pn-gst-ffmpeg = "[hH][rR][eE][fF]=\"gst-ffmpeg\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib paule/meta-yocto-full-cmdline
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=paule/meta-yocto-full-cmdline
+
+Paul Eggleton (2):
+  poky-tiny.conf: update for rename of core-image-basic
+  meta-yocto/conf/distro/include/*: update image/packagegroup entries
+
+ meta-yocto/conf/distro/include/distro_alias.inc | 15 +++------------
+ meta-yocto/conf/distro/include/maintainers.inc  |  5 +++--
+ meta-yocto/conf/distro/poky-tiny.conf           |  2 +-
+ 3 files changed, 7 insertions(+), 15 deletions(-)
+
 -- 
-1.8.3.2
+1.8.5.3
 
 
