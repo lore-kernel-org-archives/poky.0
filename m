@@ -1,22 +1,26 @@
 Return-Path: <stefanx.stanacar@intel.com>
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C8ED5E00726
-	for <poky@yoctoproject.org>; Sun,  9 Mar 2014 11:49:19 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2BA7BE00726
+	for <poky@yoctoproject.org>; Sun,  9 Mar 2014 11:49:22 -0700 (PDT)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 09 Mar 2014 11:49:18 -0700
+	by orsmga101.jf.intel.com with ESMTP; 09 Mar 2014 11:49:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,619,1389772800"; d="scan'208";a="496685848"
+X-IronPort-AV: E=Sophos;i="4.97,619,1389772800"; d="scan'208";a="496685855"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by orsmga002.jf.intel.com with ESMTP; 09 Mar 2014 11:49:18 -0700
+	by orsmga002.jf.intel.com with ESMTP; 09 Mar 2014 11:49:21 -0700
 Received: from firebird.rb.intel.com (firebird.rb.intel.com [10.237.105.156])
-	by linux.intel.com (Postfix) with ESMTP id 7A85A6A4083
-	for <poky@yoctoproject.org>; Sun,  9 Mar 2014 11:49:06 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id AA8996A4087
+	for <poky@yoctoproject.org>; Sun,  9 Mar 2014 11:49:09 -0700 (PDT)
 From: Stefan Stanacar <stefanx.stanacar@intel.com>
 To: poky@yoctoproject.org
-Date: Sun,  9 Mar 2014 20:49:15 +0200
-Message-Id: <cover.1394390131.git.stefanx.stanacar@intel.com>
+Date: Sun,  9 Mar 2014 20:49:18 +0200
+Message-Id: <2b66b7ebdd03c4d200d5b7b373e4a45614949784.1394390131.git.stefanx.stanacar@intel.com>
 X-Mailer: git-send-email 1.8.5.3
-Subject: [RFC PATCH 0/4] Master image generation and testing
+In-Reply-To: <cover.1394390131.git.stefanx.stanacar@intel.com>
+References: <cover.1394390131.git.stefanx.stanacar@intel.com>
+In-Reply-To: <cover.1394390131.git.stefanx.stanacar@intel.com>
+References: <cover.1394390131.git.stefanx.stanacar@intel.com>
+Subject: [RFC PATCH 3/4] meta-yocto-bsp: add master image for testing purposes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,73 +33,338 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 09 Mar 2014 18:49:21 -0000
+X-List-Received-Date: Sun, 09 Mar 2014 18:49:22 -0000
 
-Hello,
+Custom recipe with custom initramfs and installers.
+We need a master image running on the target hardware, that should be a
+known good build, with a set of utilities installed so that we use it
+to deploy the images under test.
+This core-image-testmaster recipe isn't a requirement per se, any image can
+be used as long as the required conditions are met. The test code assumes:
+ - that the device has a second rootfs labeled as testrootfs
+ - it has a properly configured bootloader entry for the second kernel and rootfs
+ - the master image has a /etc/masterimage file so it can differentiate between master
+and test images
+ - the master image has tar, mount, bash (basically the normal linux utilities not the busybox
+ones)
+This recipes adds much more (python and parted aren't actually required, it's just
+future proof stuff)
 
-This is what I currently use for doing completely automated testing
-on a genericx86-64 image installed on NUC. More details on the commit
-messages.
+The install scripts are similar to the default ones, but:
+ - custom partitioning, replaces the swap partiton with a second root filesystem
+ - adds labels to the partitions
+ - preconfigures a boot loader entry for the second
+Other arches not using installers would simply deploy the image as they do,
+they just need to follow the same schema (certain labels for partitons, etc)
 
-This series is sent against stefans/gummiboot branch from poky-contrib (
-as gummiboot is required as it obeys the LoadEntryOneShot EFI variable).
-The first patch is just for build convenience here, not to get merged 
-(or one has to configure his kernel manually or with the
-various ways available). It's my opinion that those EFI options should
-go into the default cfg/efi fragment. (CONFIG_EFI_STUB is at least
-required by gummiboot to actually boot).
-The second patch is for review/diff convenience of the install-efi.sh script
+[YOCTO #5614]
 
-Also see YB#1596 and it's sub-bug #5614 for a bit of background.
-
-Any comments, questions, most welcome.
-
-Cheers,
-Stefan
-
-
-Please review the following changes for suitability for inclusion. If you have
-any objections or suggestions for improvement, please respond to the patches. If
-you agree with the changes, please provide your Acked-by.
-
-The following changes since commit 1444a02c93e9e64a82f4a9ba80dc693e2b5e56db:
-
-  classes: Add gummiboot class (2014-03-09 17:11:28 +0200)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib stefans/masterimage
-  http://git.yoctoproject.org/cgit.cgi//log/?h=stefans/masterimage
-
-Stefan Stanacar (4):
-  linux-yocto_3.10.bbappend: EFI kernel config for easier building
-  meta-yocto-bsp: copy install scripts from meta (dummy commit)
-  meta-yocto-bsp: add master image for testing purposes
-  meta-yocto-bsp: add a controller for EFI targets where a master image
-    is running
-
- meta-yocto-bsp/lib/oeqa/controllers/__init__.py    |   0
- meta-yocto-bsp/lib/oeqa/controllers/masterimage.py |  88 +++++++++
- .../images/core-image-testmaster-initramfs.bb      |  20 ++
- .../recipes-core/images/core-image-testmaster.bb   |  16 ++
- .../initrdscripts/files/init-install-efi-testfs.sh | 199 +++++++++++++++++++
- .../initrdscripts/files/init-install-testfs.sh     | 211 +++++++++++++++++++++
- .../initramfs-live-install-efi-testfs_1.0.bb       |  20 ++
- .../initramfs-live-install-testfs_1.0.bb           |  20 ++
- .../recipes-kernel/linux/files/efioptions.cfg      |   4 +
- .../recipes-kernel/linux/linux-yocto_3.10.bbappend |   5 +
- meta/lib/oeqa/runtime/ssh.py                       |   2 +
- 11 files changed, 585 insertions(+)
- create mode 100644 meta-yocto-bsp/lib/oeqa/controllers/__init__.py
- create mode 100644 meta-yocto-bsp/lib/oeqa/controllers/masterimage.py
+Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
+---
+ .../images/core-image-testmaster-initramfs.bb      | 20 ++++++++++++
+ .../recipes-core/images/core-image-testmaster.bb   | 16 ++++++++++
+ .../initrdscripts/files/init-install-efi-testfs.sh | 36 ++++++++++++----------
+ .../initrdscripts/files/init-install-testfs.sh     | 33 +++++++++++---------
+ .../initramfs-live-install-efi-testfs_1.0.bb       | 20 ++++++++++++
+ .../initramfs-live-install-testfs_1.0.bb           | 20 ++++++++++++
+ 6 files changed, 113 insertions(+), 32 deletions(-)
  create mode 100644 meta-yocto-bsp/recipes-core/images/core-image-testmaster-initramfs.bb
  create mode 100644 meta-yocto-bsp/recipes-core/images/core-image-testmaster.bb
- create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
- create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
  create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-efi-testfs_1.0.bb
  create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-testfs_1.0.bb
- create mode 100644 meta-yocto-bsp/recipes-kernel/linux/files/efioptions.cfg
 
+diff --git a/meta-yocto-bsp/recipes-core/images/core-image-testmaster-initramfs.bb b/meta-yocto-bsp/recipes-core/images/core-image-testmaster-initramfs.bb
+new file mode 100644
+index 0000000..f4de80a
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/images/core-image-testmaster-initramfs.bb
+@@ -0,0 +1,20 @@
++DESCRIPTION = "Small image capable of booting a device. The kernel includes \
++the Minimal RAM-based Initial Root Filesystem (initramfs), which finds the \
++first 'init' program more efficiently."
++
++PACKAGE_INSTALL = "initramfs-live-boot initramfs-live-install-testfs initramfs-live-install-efi-testfs busybox udev base-passwd ${ROOTFS_BOOTSTRAP_INSTALL}"
++
++# Do not pollute the initrd image with rootfs features
++IMAGE_FEATURES = ""
++
++export IMAGE_BASENAME = "core-image-testmaster-initramfs"
++IMAGE_LINGUAS = ""
++
++LICENSE = "MIT"
++
++IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
++inherit core-image
++
++IMAGE_ROOTFS_SIZE = "8192"
++
++BAD_RECOMMENDATIONS += "busybox-syslog"
+diff --git a/meta-yocto-bsp/recipes-core/images/core-image-testmaster.bb b/meta-yocto-bsp/recipes-core/images/core-image-testmaster.bb
+new file mode 100644
+index 0000000..8ab2047
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/images/core-image-testmaster.bb
+@@ -0,0 +1,16 @@
++DESCRIPTION = "A master image to be deployed on a target useful for testing other images"
++
++IMAGE_FEATURES += "splash ssh-server-openssh package-management"
++
++IMAGE_INSTALL = "\
++    packagegroup-core-boot \
++    packagegroup-core-full-cmdline \
++    python-modules \
++    python-misc \
++    e2fsprogs-mke2fs \
++    parted \
++    ${CORE_IMAGE_EXTRA_INSTALL} \
++    "
++INITRD_IMAGE = "core-image-testmaster-initramfs"
++
++inherit core-image
+diff --git a/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
+index ed3221b..2fea761 100644
+--- a/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
++++ b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
+@@ -8,11 +8,11 @@
+ 
+ PATH=/sbin:/bin:/usr/sbin:/usr/bin
+ 
+-# We need 20 Mb for the boot partition
+-boot_size=20
++# We need 200 Mb for the boot partition
++boot_size=200
+ 
+-# 5% for swap
+-swap_ratio=5
++# 50% for the second rootfs
++testfs_ratio=50
+ 
+ found="no"
+ 
+@@ -71,12 +71,12 @@ cat /proc/mounts > /etc/mtab
+ 
+ disk_size=$(parted /dev/${device} unit mb print | grep Disk | cut -d" " -f 3 | sed -e "s/MB//")
+ 
+-swap_size=$((disk_size*swap_ratio/100))
+-rootfs_size=$((disk_size-boot_size-swap_size))
++testfs_size=$((disk_size*testfs_ratio/100))
++rootfs_size=$((disk_size-boot_size-testfs_size))
+ 
+ rootfs_start=$((boot_size))
+ rootfs_end=$((rootfs_start+rootfs_size))
+-swap_start=$((rootfs_end))
++testfs_start=$((rootfs_end))
+ 
+ # MMC devices are special in a couple of ways
+ # 1) they use a partition prefix character 'p'
+@@ -89,12 +89,12 @@ if [ ! "${device#mmcblk}" = "${device}" ]; then
+ fi
+ bootfs=/dev/${device}${part_prefix}1
+ rootfs=/dev/${device}${part_prefix}2
+-swap=/dev/${device}${part_prefix}3
++testfs=/dev/${device}${part_prefix}3
+ 
+ echo "*****************"
+ echo "Boot partition size:   $boot_size MB ($bootfs)"
+ echo "Rootfs partition size: $rootfs_size MB ($rootfs)"
+-echo "Swap partition size:   $swap_size MB ($swap)"
++echo "Testfs partition size:   $testfs_size MB ($testfs)"
+ echo "*****************"
+ echo "Deleting partition table on /dev/${device} ..."
+ dd if=/dev/zero of=/dev/${device} bs=512 count=2
+@@ -109,19 +109,19 @@ parted /dev/${device} set 1 boot on
+ echo "Creating rootfs partition on $rootfs"
+ parted /dev/${device} mkpart primary $rootfs_start $rootfs_end
+ 
+-echo "Creating swap partition on $swap"
+-parted /dev/${device} mkpart primary $swap_start 100%
++echo "Creating testfs partition on $testfs"
++parted /dev/${device} mkpart primary $testfs_start 100%
+ 
+ parted /dev/${device} print
+ 
+ echo "Formatting $bootfs to vfat..."
+-mkfs.vfat $bootfs
++mkfs.vfat -n "boot" $bootfs
+ 
+ echo "Formatting $rootfs to ext3..."
+-mkfs.ext3 $rootfs
++mkfs.ext3 -L "platform" $rootfs
+ 
+-echo "Formatting swap partition...($swap)"
+-mkswap $swap
++echo "Formatting $testfs to ext3..."
++mkfs.ext3 -L "testrootfs" $testfs
+ 
+ mkdir /ssd
+ mkdir /rootmnt
+@@ -133,9 +133,9 @@ mount -o rw,loop,noatime,nodiratime /media/$1/$2 /rootmnt
+ echo "Copying rootfs files..."
+ cp -a /rootmnt/* /ssd
+ 
+-if [ -d /ssd/etc/ ] ; then
+-    echo "$swap                swap             swap       defaults              0  0" >> /ssd/etc/fstab
++touch /ssd/etc/masterimage
+ 
++if [ -d /ssd/etc/ ] ; then
+     # We dont want udev to mount our root device while we're booting...
+     if [ -d /ssd/etc/udev/ ] ; then
+         echo "/dev/${device}" >> /ssd/etc/udev/mount.blacklist
+@@ -184,6 +184,8 @@ if [ -d /media/$1/loader ]; then
+     sed -i "s/ root=[^ ]*/ /" $GUMMIBOOT_CFGS
+     # add the root= and other standard boot options
+     sed -i "s@options *@options root=$rootfs rw $rootwait quiet @" $GUMMIBOOT_CFGS
++    # Add the test label
++    echo -ne "title test\nlinux /test-kernel\noptions root=$testfs rw $rootwait quiet\n" > /ssd/loader/entries/test.conf
+ fi
+ 
+ umount /ssd
+diff --git a/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
+index 8e433d5..c35fd2a 100644
+--- a/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
++++ b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
+@@ -8,10 +8,10 @@
+ PATH=/sbin:/bin:/usr/sbin:/usr/bin
+ 
+ # We need 20 Mb for the boot partition
+-boot_size=20
++boot_size=200
+ 
+-# 5% for the swap
+-swap_ratio=5
++# 50% for the the test partition
++testfs_ratio=50
+ 
+ # Get a list of hard drives
+ hdnamelist=""
+@@ -94,12 +94,12 @@ cat /proc/mounts > /etc/mtab
+ 
+ disk_size=$(parted /dev/${device} unit mb print | grep Disk | cut -d" " -f 3 | sed -e "s/MB//")
+ 
+-swap_size=$((disk_size*swap_ratio/100))
+-rootfs_size=$((disk_size-boot_size-swap_size))
++testfs_size=$((disk_size*testfs_ratio/100))
++rootfs_size=$((disk_size-boot_size-testfs_size))
+ 
+ rootfs_start=$((boot_size))
+ rootfs_end=$((rootfs_start+rootfs_size))
+-swap_start=$((rootfs_end))
++testfs_start=$((rootfs_end))
+ 
+ # MMC devices are special in a couple of ways
+ # 1) they use a partition prefix character 'p'
+@@ -112,12 +112,12 @@ if [ ! "${device#mmcblk}" = "${device}" ]; then
+ fi
+ bootfs=/dev/${device}${part_prefix}1
+ rootfs=/dev/${device}${part_prefix}2
+-swap=/dev/${device}${part_prefix}3
++testfs=/dev/${device}${part_prefix}3
+ 
+ echo "*****************"
+ echo "Boot partition size:   $boot_size MB ($bootfs)"
+ echo "Rootfs partition size: $rootfs_size MB ($rootfs)"
+-echo "Swap partition size:   $swap_size MB ($swap)"
++echo "Testfs partition size: $testfs_size MB ($testfs)"
+ echo "*****************"
+ echo "Deleting partition table on /dev/${device} ..."
+ dd if=/dev/zero of=/dev/${device} bs=512 count=2
+@@ -131,19 +131,19 @@ parted /dev/${device} mkpart primary 0% $boot_size
+ echo "Creating rootfs partition on $rootfs"
+ parted /dev/${device} mkpart primary $rootfs_start $rootfs_end
+ 
+-echo "Creating swap partition on $swap"
+-parted /dev/${device} mkpart primary $swap_start 100%
++echo "Creating testfs partition on $testfs"
++parted /dev/${device} mkpart primary $testfs_start 100%
+ 
+ parted /dev/${device} print
+ 
+ echo "Formatting $bootfs to ext3..."
+-mkfs.ext3 $bootfs
++mkfs.ext3 -L "boot" $bootfs
+ 
+ echo "Formatting $rootfs to ext3..."
+-mkfs.ext3 $rootfs
++mkfs.ext3 -L "platform" $rootfs
+ 
+-echo "Formatting swap partition...($swap)"
+-mkswap $swap
++echo "Formatting testfs partition...($testfs)"
++mkfs.ext3 -L "testrootfs" $testfs
+ 
+ mkdir /tgt_root
+ mkdir /src_root
+@@ -155,7 +155,6 @@ mount -o rw,loop,noatime,nodiratime /media/$1/$2 /src_root
+ echo "Copying rootfs files..."
+ cp -a /src_root/* /tgt_root
+ if [ -d /tgt_root/etc/ ] ; then
+-    echo "$swap                swap             swap       defaults              0  0" >> /tgt_root/etc/fstab
+     echo "$bootfs              /boot            ext3       defaults              1  2" >> /tgt_root/etc/fstab
+     # We dont want udev to mount our root device while we're booting...
+     if [ -d /tgt_root/etc/udev/ ] ; then
+@@ -179,6 +178,10 @@ if [ -f /etc/grub.d/40_custom ] ; then
+     sed -i "s/__CONSOLE__/$5/g" $GRUBCFG
+     sed -i "/#/d" $GRUBCFG
+     sed -i "/exec tail/d" $GRUBCFG
++
++    # Add the test label
++    echo -ne "\nmenuentry 'test' {\nlinux /test-kernel root=$testfs rw $rootwait quiet\n}\n" >> $GRUBCFG
++
+     chmod 0444 $GRUBCFG
+ fi
+ grub-install /dev/${device}
+diff --git a/meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-efi-testfs_1.0.bb b/meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-efi-testfs_1.0.bb
+new file mode 100644
+index 0000000..2fb56f4
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-efi-testfs_1.0.bb
+@@ -0,0 +1,20 @@
++SUMMARY = "Live image install script for grub-efi with a second rootfs/kernel option"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
++SRC_URI = "file://init-install-efi-testfs.sh"
++
++RDEPENDS_${PN} = "parted e2fsprogs-mke2fs dosfstools"
++
++do_install() {
++        install -m 0755 ${WORKDIR}/init-install-efi-testfs.sh ${D}/install-efi.sh
++}
++
++# While this package maybe an allarch due to it being a
++# simple script, reality is that it is Host specific based
++# on the COMPATIBLE_HOST below, which needs to take precedence
++#inherit allarch
++INHIBIT_DEFAULT_DEPS = "1"
++
++FILES_${PN} = " /install-efi.sh "
++
++COMPATIBLE_HOST = "(i.86|x86_64).*-linux"
+diff --git a/meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-testfs_1.0.bb b/meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-testfs_1.0.bb
+new file mode 100644
+index 0000000..3e47c56
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-testfs_1.0.bb
+@@ -0,0 +1,20 @@
++SUMMARY = "Live image install script for grub with a second rootfs"
++LICENSE = "MIT"
++LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
++SRC_URI = "file://init-install-testfs.sh"
++
++RDEPENDS_${PN} = "grub parted e2fsprogs-mke2fs"
++
++do_install() {
++        install -m 0755 ${WORKDIR}/init-install-testfs.sh ${D}/install.sh
++}
++
++# While this package maybe an allarch due to it being a 
++# simple script, reality is that it is Host specific based
++# on the COMPATIBLE_HOST below, which needs to take precedence
++#inherit allarch
++INHIBIT_DEFAULT_DEPS = "1"
++
++FILES_${PN} = " /install.sh "
++
++COMPATIBLE_HOST = "(i.86|x86_64).*-linux"
 -- 
 1.8.5.3
 
