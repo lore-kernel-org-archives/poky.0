@@ -1,29 +1,26 @@
-Return-Path: <Liezhi.Yang@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BA4ECE008D6
-	for <poky@yoctoproject.org>; Tue, 11 Mar 2014 01:22:42 -0700 (PDT)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
-	[147.11.189.41])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s2B8MZjW003789
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 11 Mar 2014 01:22:35 -0700 (PDT)
-Received: from [128.224.162.226] (128.224.162.226) by ALA-HCB.corp.ad.wrs.com
-	(147.11.189.41) with Microsoft SMTP Server id 14.3.169.1;
-	Tue, 11 Mar 2014 01:22:34 -0700
-Message-ID: <531EC7C9.7040209@windriver.com>
-Date: Tue, 11 Mar 2014 16:22:33 +0800
-From: Robert Yang <liezhi.yang@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+Return-Path: <paul.eggleton@linux.intel.com>
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AC5F2E008D6
+	for <poky@yoctoproject.org>; Tue, 11 Mar 2014 03:04:43 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 11 Mar 2014 03:04:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.97,629,1389772800"; d="scan'208";a="489669686"
+Received: from sleopold-mobl.ger.corp.intel.com (HELO
+	peggleto-mobl5.ger.corp.intel.com) ([10.252.120.85])
+	by fmsmga001.fm.intel.com with ESMTP; 11 Mar 2014 03:04:41 -0700
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
+Date: Tue, 11 Mar 2014 10:04:40 +0000
+Message-ID: <2159614.mXa5WyPX4F@peggleto-mobl5.ger.corp.intel.com>
+Organization: Intel Corporation
+User-Agent: KMail/4.12.3 (Linux/3.13.6-200.fc20.x86_64; KDE/4.12.3; x86_64; ; )
+In-Reply-To: <CAPybu_3CWLmXnexkgfbMgwmB1aMZGb8qwbbz0NqMQn5fy2ADow@mail.gmail.com>
+References: <1394462648-29953-1-git-send-email-ricardo.ribalda@gmail.com>
+	<CAPybu_3CWLmXnexkgfbMgwmB1aMZGb8qwbbz0NqMQn5fy2ADow@mail.gmail.com>
 MIME-Version: 1.0
-To: Javier Viguera <javier.viguera@digi.com>
-References: <991B6481567A894BA8E18E29D118D85801558DEB1EF4@dor-sms-exch01.digi.com>
-	<53106DFA.6030308@digi.com>
-In-Reply-To: <53106DFA.6030308@digi.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"bitbake-devel@lists.openembedded.org"
-	<bitbake-devel@lists.openembedded.org>
-Subject: Re: [for-dora] backport bitbake git fetcher fix
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] package_deb: Map TARGET_ARCH x86_64 to DPKG_ARCH amd64
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,73 +33,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Mar 2014 08:22:44 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 11 Mar 2014 10:04:43 -0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
+Hi Ricardo,
 
-Hi Javier,
+On Tuesday 11 March 2014 07:59:13 Ricardo Ribalda Delgado wrote:
+> Without this patch packages are generated as x86_64. Which cannot be
+> installed by default.
 
-Thanks for reporting this, I will backport it to dora, sorry for
-the late reponse.
+Thanks for this, however as per the "Where to Send Patches" section of the 
+README file in the Poky repository, this needs to be sent to the OE-Core 
+mailing list: 
 
-Btw. this email should go into bitbake-devel@lists.openembedded.org
+http://lists.openembedded.org/mailman/listinfo/openembedded-core
 
-// Robert
+Could you please re-send it there?
 
-On 02/28/2014 07:07 PM, Javier Viguera wrote:
-> Hi all,
->
-> Seems that this didn't catch much attention. Maybe because this is not the
-> correct list for bitbake fixes.
->
-> I had a look at bitbake git repo and they did not follow the branching scheme in
-> openembedded/poky. So where do i need to send a fix for bitbake that i need to
-> be included in already-released poky Dora?
->
-> -
-> Javier Viguera
-> Software Engineer
-> Digi International® Spain S.A.U.
->
->
->
-> On 21/02/14 17:54, Viguera, Javier wrote:
->> Hi all,
->>
->> I'm using Dora with a customer kernel that happens to have two very
->> similar branch names:
->>
->> af186b498eb8e39ffa419d356010d67d7fa6dee3 refs/heads/android/v3.10/master
->> a094f655dc2ba623742a01dcb744ed0e8ebde3ed refs/heads/v3.10/master
->>
->> My custom linux recipe does the following to get 'v3.10/master' branch:
->>
->> KBRANCH_DEFAULT = "v3.10/master"
->> KBRANCH = "${KBRANCH_DEFAULT}"
->> SRC_URI = "${GIT_URL}linux-2.6.git;protocol=git;branch=${KBRANCH}"
->>
->> But it always fetchs the 'android/v3.10/master' branch.
->>
->> This seems to be already fixed in master:
->>
->> d21c1537b7052aa24ec56434b821fee67de33a83
->>
->> So could that fix be cherry-picked to Dora?
->>
->> Directly cherry-picking the commit does not apply cleanly so i attach
->> here a reworked patch that applies to Dora.
->>
->> -
->> Javier Viguera
->> Software Engineer
->> Digi International® Spain S.A.U.
->>
->
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
+Thanks,
+Paul
+
+-- 
+
+Paul Eggleton
+Intel Open Source Technology Centre
 
