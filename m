@@ -1,26 +1,22 @@
 Return-Path: <stefanx.stanacar@intel.com>
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 000CEE00B28
-	for <poky@yoctoproject.org>; Mon, 17 Mar 2014 08:42:33 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2014 08:42:32 -0700
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68718E00B32
+	for <poky@yoctoproject.org>; Mon, 17 Mar 2014 08:42:45 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Mar 2014 08:42:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,670,1389772800"; d="scan'208";a="500429485"
+X-IronPort-AV: E=Sophos;i="4.97,670,1389772800"; d="scan'208";a="493674184"
 Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Mar 2014 08:42:09 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 17 Mar 2014 08:42:06 -0700
 Received: from firebird.rb.intel.com (firebird.rb.intel.com [10.237.105.60])
-	by linux.intel.com (Postfix) with ESMTP id D5C1F6A4087
-	for <poky@yoctoproject.org>; Mon, 17 Mar 2014 08:41:56 -0700 (PDT)
+	by linux.intel.com (Postfix) with ESMTP id 529A06A4007
+	for <poky@yoctoproject.org>; Mon, 17 Mar 2014 08:41:53 -0700 (PDT)
 From: Stefan Stanacar <stefanx.stanacar@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 17 Mar 2014 17:42:16 +0200
-Message-Id: <ed203918d69e83401e17c56bde2d3c9f678a8701.1395069742.git.stefanx.stanacar@intel.com>
+Date: Mon, 17 Mar 2014 17:42:13 +0200
+Message-Id: <cover.1395069742.git.stefanx.stanacar@intel.com>
 X-Mailer: git-send-email 1.8.5.3
-In-Reply-To: <cover.1395069742.git.stefanx.stanacar@intel.com>
-References: <cover.1395069742.git.stefanx.stanacar@intel.com>
-In-Reply-To: <cover.1395069742.git.stefanx.stanacar@intel.com>
-References: <cover.1395069742.git.stefanx.stanacar@intel.com>
-Subject: [RFC PATCH v2 3/3] meta-yocto-bsp: add a controller for EFI targets
+Subject: [RFC PATCH v2 0/3] Master image generation and testing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,201 +29,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Mar 2014 15:42:37 -0000
+X-List-Received-Date: Mon, 17 Mar 2014 15:42:45 -0000
 
-A bit of background:
-- testimage.bbclass has the ability to allow a layer to provide
-it's own TEST_TARGET. OE-core has a QemuTarget and a SimpleRemoteTarget
-(ssh into an already up and running machine and run tests)
-- basically testimage does something like:
-  - target.deploy()
-  - target.start()
-  - runTests()
-  - target.stop()
+Hello,
 
-This module assumes a running EFI (and gummiboot as bootloader) machine with
-core-image-testmaster installed (or similar).
+This is what I currently use for doing automated deployment
+for a genericx86-64 image. More details on the commit
+messages. There is nothing particular to genericx86-64,
+it should work on any EFI-enabled device with gummiboot as bootloader.
 
-In order to use this Master Image mechanism there are some hard requirements:
- - it only works for EFI-enabled hardware with EFI_PROVIDER = "gummiboot"
- - your hardware under test has to be in DHCP-enabled network that gives it the same IP for each reboot
+Changes since v2:
+  - droped the kernel options patch, the required options are now in the default
+config fragments. You still neeed to build with an updated SRCREV though, as the kernel
+recipes haven't picked up the changes yet.
+(SRCREV_meta_pn-linux-yocto = "${AUTOREV}" in local.conf)
+  - impove a bit the master image recipe (inherit core-image and add to IMAGE_INSTALL instead
+of overwriting IMAGE_INSTALL, that ensures we pick up the correct modules, as core-image
+brings in packagegroup-base-extended)
+  - tweaks and fixes for GenericEfi - I did a complete test run for a NUC device connected
+to a web power strip. The powercontrol command is an expect script that does ssh on a device
+which controls the power strip (this is particular to a network setup that
+I can't control). It still works for the no power command available case.
 
-One time setup (master image):
-- build core-image-testmaster with EFI_PROVIDER = "gummiboot"
-- (for now you'll need SRCREV_meta_pn-linux-yocto = "${AUTOREV}"
-in local.conf so that some kernel configs required by gummiboot get enabled)
-- install the image on the target
+Also see YB#1596 and it's sub-bug #5614 for a bit of background.
+Any comments, questions, most welcome.
 
-Test image setup:
- - build your test image, e.g core-image-sato as you usually do, but with these in local.conf:
-    IMAGE_FSTYPES += "tar.gz"
-    (similar to above you need SRCREV_meta_pn-linux-yocto = "${AUTOREV}")
- - Now run the tests:
-    INHERIT += "testimage"
-    TEST_TARGET = "GenericEfi"
-    TEST_TARGET_IP = "192.168.2.3"
-    bitbake core-image-sato -c testimage
+Cheers,
+Stefan
 
-Other notes:
- - TEST_POWERCONTROL_CMD can be a command that runs on the host and does power cycling.
-The test code passes one argument to that command: off, on or cycle (off then on). In my case I use something like
-TEST_POWERCONTROL_CMD="/home/stefans/powercontrol.exp test 192.168.2.1 nuc1" in local.conf.
-Basically my expect script does: 'ssh test@192.168.2.1 and run some script there that controls power for a label called nuc1'.
-  - if no command is defined it would use classic reboot. This is fine as long as the machine
-actually reboots (as in the ssh test hasn't failed), but it's useful for "simple-setup-with-one-board-on-the-desk" scenario, where
-some manual interaction is okay from time to time.
 
-[YOCTO #5614]
+Please review the following changes for suitability for inclusion. If you have
+any objections or suggestions for improvement, please respond to the patches. If
+you agree with the changes, please provide your Acked-by.
 
-Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
----
+The following changes since commit 92155fde2079251739f455bca599a52cd21ef12b:
+
+  bitbake: runqueue: Don't error if we never setup workers (2014-03-17 15:04:46 +0000)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib stefans/masterimage
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=stefans/masterimage
+
+Stefan Stanacar (3):
+  meta-yocto-bsp: copy install scripts from core (meta)
+  meta-yocto-bsp: add master image for testing purposes
+  meta-yocto-bsp: add a controller for EFI targets
+
  meta-yocto-bsp/lib/oeqa/controllers/__init__.py    |   0
- meta-yocto-bsp/lib/oeqa/controllers/masterimage.py | 121 +++++++++++++++++++++
+ meta-yocto-bsp/lib/oeqa/controllers/masterimage.py | 121 ++++++++++++
+ .../images/core-image-testmaster-initramfs.bb      |  20 ++
+ .../recipes-core/images/core-image-testmaster.bb   |  15 ++
+ .../initrdscripts/files/init-install-efi-testfs.sh | 199 +++++++++++++++++++
+ .../initrdscripts/files/init-install-testfs.sh     | 211 +++++++++++++++++++++
+ .../initramfs-live-install-efi-testfs_1.0.bb       |  20 ++
+ .../initramfs-live-install-testfs_1.0.bb           |  20 ++
  meta/lib/oeqa/runtime/ssh.py                       |   2 +
- 3 files changed, 123 insertions(+)
+ 9 files changed, 608 insertions(+)
  create mode 100644 meta-yocto-bsp/lib/oeqa/controllers/__init__.py
  create mode 100644 meta-yocto-bsp/lib/oeqa/controllers/masterimage.py
+ create mode 100644 meta-yocto-bsp/recipes-core/images/core-image-testmaster-initramfs.bb
+ create mode 100644 meta-yocto-bsp/recipes-core/images/core-image-testmaster.bb
+ create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
+ create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
+ create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-efi-testfs_1.0.bb
+ create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/initramfs-live-install-testfs_1.0.bb
 
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/__init__.py b/meta-yocto-bsp/lib/oeqa/controllers/__init__.py
-new file mode 100644
-index 0000000..e69de29
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/masterimage.py b/meta-yocto-bsp/lib/oeqa/controllers/masterimage.py
-new file mode 100644
-index 0000000..daa67bd
---- /dev/null
-+++ b/meta-yocto-bsp/lib/oeqa/controllers/masterimage.py
-@@ -0,0 +1,121 @@
-+import os
-+import bb
-+import traceback
-+import time
-+
-+import oeqa.targetcontrol
-+import oeqa.utils.sshcontrol as sshcontrol
-+import oeqa.utils.commands as commands
-+
-+class GenericEfi(oeqa.targetcontrol.SimpleRemoteTarget):
-+
-+    def __init__(self, d):
-+        # let our base class do the ip thing
-+        super(GenericEfi, self).__init__(d)
-+
-+        # test rootfs + kernel
-+        self.rootfs = os.path.join(d.getVar("DEPLOY_DIR_IMAGE", True), d.getVar("IMAGE_LINK_NAME", True) + '.tar.gz')
-+        self.kernel = os.path.join(d.getVar("DEPLOY_DIR_IMAGE", True), d.getVar("KERNEL_IMAGETYPE"))
-+        if not os.path.isfile(self.rootfs):
-+            # we could've checked that IMAGE_FSTYPES contains tar.gz but the config for running testimage might not be
-+            # the same as the config with which the image was build, ie
-+            # you bitbake core-image-sato with IMAGE_FSTYPES += "tar.gz"
-+            # and your autobuilder overwrites the config, adds the test bits and runs bitbake core-image-sato -c testimage
-+            bb.fatal("No rootfs found. Did you build the image ?\nIf yes, did you build it with IMAGE_FSTYPES += \"tar.gz\" ? \
-+                      \nExpected path: %s" % self.rootfs)
-+        if not os.path.isfile(self.kernel):
-+            bb.fatal("No kernel found. Expected path: %s" % self.kernel)
-+
-+        # if the user knows what he's doing, then by all means...
-+        # test-rootfs.tar.gz and test-kernel are hardcoded names in other places
-+        # they really have to be used like that in commands though
-+        cmds = d.getVar("TEST_DEPLOY_CMDS", True)
-+        if cmds:
-+            self.deploy_cmds = cmds.split(",")
-+        else:
-+            self.deploy_cmds = [
-+                'mount -L boot /boot',
-+                'mkdir -p /mnt/testrootfs',
-+                'mount -L testrootfs /mnt/testrootfs',
-+                'modprobe efivarfs',
-+                'mount -t efivarfs efivarfs /sys/firmware/efi/efivars',
-+                'cp ~/test-kernel /boot',
-+                'rm -rf /mnt/testrootfs/*',
-+                'tar xzvf ~/test-rootfs.tar.gz -C /mnt/testrootfs',
-+                r'printf "\x07\x00\x00\x00\x74\x00\x65\x00\x73\x00\x74\x00\x00\x00" > /sys/firmware/efi/efivars/LoaderEntryOneShot-4a67b082-0a4c-41cf-b6c7-440b29bb8c4f'
-+                ]
-+
-+        # master ssh connection
-+        self.master = None
-+
-+        # this is the name of the command that controls the power for a board
-+        # e.g: TEST_POWERCONTROL_CMD = "/home/user/myscripts/powercontrol.py ${MACHINE} what-ever-other-args-the-script-wants"
-+        # the command should take as the last argument "off" and "on" and "cycle" (off, on)
-+        self.powercontrol_cmd = d.getVar("TEST_POWERCONTROL_CMD", True) or None
-+        self.origenv = os.environ
-+        # the external script for controlling power might use ssh
-+        # ssh + keys means we need the original user env
-+        if self.powercontrol_cmd:
-+            bborigenv = d.getVar("BB_ORIGENV", False) or {}
-+            for key in bborigenv:
-+                val = bborigenv.getVar(key, True)
-+                if val is not None:
-+                    self.origenv[key] = str(val)
-+            self.power_ctl("on")
-+
-+    def power_ctl(self, msg):
-+        if self.powercontrol_cmd:
-+            cmd = "%s %s" % (self.powercontrol_cmd, msg)
-+            commands.runCmd(cmd, preexec_fn=os.setsid, env=self.origenv)
-+
-+    def power_cycle(self, conn):
-+        if self.powercontrol_cmd:
-+            # be nice, don't just cut power
-+            conn.run("shutdown -h now")
-+            time.sleep(10)
-+            self.power_ctl("cycle")
-+        else:
-+            status, output = conn.run("reboot")
-+            if status != 0:
-+                bb.error("Failed rebooting target and no power control command defined. You need to manually reset the device.\n%s" % output)
-+
-+    def deploy(self):
-+        bb.plain("%s - deploying image on target" % self.pn)
-+        # base class just sets the ssh log file for us
-+        super(GenericEfi, self).deploy()
-+        self.master = sshcontrol.SSHControl(ip=self.ip, logfile=self.sshlog, timeout=600, port=self.port)
-+        try:
-+            self._deploy()
-+        except Exception as e:
-+            bb.fatal("Failed deploying test image: %s" % e)
-+
-+    def _deploy(self):
-+        # make sure we are in the right image
-+        status, output = self.master.run("cat /etc/masterimage")
-+        if status != 0:
-+            raise Exception("No ssh connectivity or target isn't running a master image.\n%s" % output)
-+
-+        # make sure these aren't mounted
-+        self.master.run("umount /boot; umount /mnt/testrootfs; umount /sys/firmware/efi/efivars;")
-+
-+        # from now on, every deploy cmd should return 0
-+        self.master.ignore_status = False
-+        self.master.copy_to(self.rootfs, "~/test-rootfs.tar.gz")
-+        self.master.copy_to(self.kernel, "~/test-kernel")
-+        for cmd in self.deploy_cmds:
-+            self.master.run(cmd)
-+
-+
-+    def start(self, params=None):
-+        bb.plain("%s - boot test image on target" % self.pn)
-+        self.power_cycle(self.master)
-+        # assuming the reboot worked, we need to wait a bit
-+        # there are better ways than a timeout but this should work for my purpose for now
-+        time.sleep(120)
-+        # we are live, set the ssh object for the target/test image
-+        self.connection = sshcontrol.SSHControl(self.ip, logfile=self.sshlog, port=self.port)
-+        bb.plain("%s - start running tests" % self.pn)
-+
-+    def stop(self):
-+        bb.plain("%s - reboot/powercycle target" % self.pn)
-+        self.power_cycle(self.connection)
-diff --git a/meta/lib/oeqa/runtime/ssh.py b/meta/lib/oeqa/runtime/ssh.py
-index 8c96020..e648660 100644
---- a/meta/lib/oeqa/runtime/ssh.py
-+++ b/meta/lib/oeqa/runtime/ssh.py
-@@ -14,3 +14,5 @@ class SshTest(oeRuntimeTest):
-     def test_ssh(self):
-         (status, output) = self.target.run('uname -a')
-         self.assertEqual(status, 0, msg="SSH Test failed: %s" % output)
-+        (status, output) = self.target.run('cat /etc/masterimage')
-+        self.assertEqual(status, 1, msg="This isn't the right image  - /etc/masterimage shouldn't be here %s" % output)
 -- 
 1.8.5.3
 
