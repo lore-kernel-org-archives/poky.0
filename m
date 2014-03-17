@@ -1,31 +1,26 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 226E7E009D3
-	for <poky@yoctoproject.org>; Wed, 12 Mar 2014 06:09:11 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu4) with ESMTP id
-	s2CD8wl0013663; Wed, 12 Mar 2014 13:08:59 GMT
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id BD2UfNyVxnd9; Wed, 12 Mar 2014 13:08:58 +0000 (GMT)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	s2CD8oYn013658
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-SHA bits=128 verify=NOT);
-	Wed, 12 Mar 2014 13:08:55 GMT
-Message-ID: <1394629724.19455.61.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Mats =?ISO-8859-1?Q?K=E4rrman?= <Mats.Karrman@tritech.se>
-Date: Wed, 12 Mar 2014 06:08:44 -0700
-In-Reply-To: <ED3E0BCACD909541BA94A34C4A164D4C5B18123B@post.tritech.se>
-References: <ED3E0BCACD909541BA94A34C4A164D4C5B180D0A@post.tritech.se>
-	,<1394596414.19455.57.camel@ted>
-	<ED3E0BCACD909541BA94A34C4A164D4C5B18123B@post.tritech.se>
-X-Mailer: Evolution 3.8.4-0ubuntu1 
-Mime-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Schedule for Poky Dora point release
+Return-Path: <stefanx.stanacar@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BA81CE00B20
+	for <poky@yoctoproject.org>; Mon, 17 Mar 2014 08:42:08 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 17 Mar 2014 08:37:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.97,670,1389772800"; d="scan'208";a="474198619"
+Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
+	by orsmga001.jf.intel.com with ESMTP; 17 Mar 2014 08:42:07 -0700
+Received: from firebird.rb.intel.com (firebird.rb.intel.com [10.237.105.60])
+	by linux.intel.com (Postfix) with ESMTP id 800936A4087
+	for <poky@yoctoproject.org>; Mon, 17 Mar 2014 08:41:54 -0700 (PDT)
+From: Stefan Stanacar <stefanx.stanacar@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 17 Mar 2014 17:42:14 +0200
+Message-Id: <5543b06f0244d7c37f1592b69ec7a7b3bc5076f3.1395069742.git.stefanx.stanacar@intel.com>
+X-Mailer: git-send-email 1.8.5.3
+In-Reply-To: <cover.1395069742.git.stefanx.stanacar@intel.com>
+References: <cover.1395069742.git.stefanx.stanacar@intel.com>
+In-Reply-To: <cover.1395069742.git.stefanx.stanacar@intel.com>
+References: <cover.1395069742.git.stefanx.stanacar@intel.com>
+Subject: [RFC PATCH v2 1/3] meta-yocto-bsp: copy install scripts from core (meta)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,31 +33,439 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Mar 2014 13:09:14 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 17 Mar 2014 15:42:09 -0000
 
-On Wed, 2014-03-12 at 08:00 +0000, Mats Kärrman wrote:
-> on Wednesday, March 12, 2014 4:53 AM, Richard Purdie wrote:
-> > On Tue, 2014-03-11 at 10:14 +0000, Mats Kärrman wrote:
-> >> Considering the recent discovery and fix of a serious bug in the compiler for ARM:
-> >> commit        97c9163d97911dad0afcd0dae39e5c426e27e921
-> >> "gcc: Include patch scheduled for GCC 4.8.3 to fix epilogue on ARM"
-> >> is there a new point-release scheduled for Dora?
-> >> If so, when it is expected to be released?
-> >
-> > Firstly we need to get this backported to dora. Is there a version of
-> > this change backported and tested there? If not, someone needs to sort
-> > out that patch.
-> 
-> Looking at http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=dora
-> it is there since 2014-02-14.
+These are the install files for a live image, an exact copy of init-install.sh
+and init-install-efi.sh from core. There are renamed here with -testfs.
+This is just a dummy commit, just to make it easier to see the diff
+in the next commit.
 
-Sorry, I think I've confused two different gcc arm patches, we're good
-on that part then! :)
+Signed-off-by: Stefan Stanacar <stefanx.stanacar@intel.com>
+---
+ .../initrdscripts/files/init-install-efi-testfs.sh | 197 +++++++++++++++++++
+ .../initrdscripts/files/init-install-testfs.sh     | 208 +++++++++++++++++++++
+ 2 files changed, 405 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
+ create mode 100644 meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
 
-Cheers,
-
-Richard
+diff --git a/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
+new file mode 100644
+index 0000000..ed3221b
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-efi-testfs.sh
+@@ -0,0 +1,197 @@
++#!/bin/sh -e
++#
++# Copyright (c) 2012, Intel Corporation.
++# All rights reserved.
++#
++# install.sh [device_name] [rootfs_name]
++#
++
++PATH=/sbin:/bin:/usr/sbin:/usr/bin
++
++# We need 20 Mb for the boot partition
++boot_size=20
++
++# 5% for swap
++swap_ratio=5
++
++found="no"
++
++echo "Searching for a hard drive..."
++for device in 'hda' 'hdb' 'sda' 'sdb' 'mmcblk0' 'mmcblk1'
++do
++    if [ -e /sys/block/${device}/removable ]; then
++        if [ "$(cat /sys/block/${device}/removable)" = "0" ]; then
++            found="yes"
++
++            while true; do
++                # Try sleeping here to avoid getting kernel messages
++                # obscuring/confusing user
++                sleep 5
++                echo "Found drive at /dev/${device}. Do you want to install this image there ? [y/n]"
++                read answer
++                if [ "$answer" = "y" ] ; then
++                    break
++                fi
++
++                if [ "$answer" = "n" ] ; then
++                    found=no
++                    break
++                fi
++
++                echo "Please answer y or n"
++            done
++        fi
++    fi
++
++    if [ "$found" = "yes" ]; then
++        break;
++    fi
++
++done
++
++if [ "$found" = "no" ]; then
++    exit 1
++fi
++
++echo "Installing image on /dev/${device}"
++
++#
++# The udev automounter can cause pain here, kill it
++#
++rm -f /etc/udev/rules.d/automount.rules
++rm -f /etc/udev/scripts/mount*
++
++#
++# Unmount anything the automounter had mounted
++#
++umount /dev/${device}* 2> /dev/null || /bin/true
++
++mkdir -p /tmp
++cat /proc/mounts > /etc/mtab
++
++disk_size=$(parted /dev/${device} unit mb print | grep Disk | cut -d" " -f 3 | sed -e "s/MB//")
++
++swap_size=$((disk_size*swap_ratio/100))
++rootfs_size=$((disk_size-boot_size-swap_size))
++
++rootfs_start=$((boot_size))
++rootfs_end=$((rootfs_start+rootfs_size))
++swap_start=$((rootfs_end))
++
++# MMC devices are special in a couple of ways
++# 1) they use a partition prefix character 'p'
++# 2) they are detected asynchronously (need rootwait)
++rootwait=""
++part_prefix=""
++if [ ! "${device#mmcblk}" = "${device}" ]; then
++    part_prefix="p"
++    rootwait="rootwait"
++fi
++bootfs=/dev/${device}${part_prefix}1
++rootfs=/dev/${device}${part_prefix}2
++swap=/dev/${device}${part_prefix}3
++
++echo "*****************"
++echo "Boot partition size:   $boot_size MB ($bootfs)"
++echo "Rootfs partition size: $rootfs_size MB ($rootfs)"
++echo "Swap partition size:   $swap_size MB ($swap)"
++echo "*****************"
++echo "Deleting partition table on /dev/${device} ..."
++dd if=/dev/zero of=/dev/${device} bs=512 count=2
++
++echo "Creating new partition table on /dev/${device} ..."
++parted /dev/${device} mklabel gpt
++
++echo "Creating boot partition on $bootfs"
++parted /dev/${device} mkpart primary 0% $boot_size
++parted /dev/${device} set 1 boot on
++
++echo "Creating rootfs partition on $rootfs"
++parted /dev/${device} mkpart primary $rootfs_start $rootfs_end
++
++echo "Creating swap partition on $swap"
++parted /dev/${device} mkpart primary $swap_start 100%
++
++parted /dev/${device} print
++
++echo "Formatting $bootfs to vfat..."
++mkfs.vfat $bootfs
++
++echo "Formatting $rootfs to ext3..."
++mkfs.ext3 $rootfs
++
++echo "Formatting swap partition...($swap)"
++mkswap $swap
++
++mkdir /ssd
++mkdir /rootmnt
++mkdir /bootmnt
++
++mount $rootfs /ssd
++mount -o rw,loop,noatime,nodiratime /media/$1/$2 /rootmnt
++
++echo "Copying rootfs files..."
++cp -a /rootmnt/* /ssd
++
++if [ -d /ssd/etc/ ] ; then
++    echo "$swap                swap             swap       defaults              0  0" >> /ssd/etc/fstab
++
++    # We dont want udev to mount our root device while we're booting...
++    if [ -d /ssd/etc/udev/ ] ; then
++        echo "/dev/${device}" >> /ssd/etc/udev/mount.blacklist
++    fi
++fi
++
++umount /ssd
++umount /rootmnt
++
++echo "Preparing boot partition..."
++mount $bootfs /ssd
++
++EFIDIR="/ssd/EFI/BOOT"
++mkdir -p $EFIDIR
++cp /media/$1/vmlinuz /ssd
++# Copy the efi loader
++cp /media/$1/EFI/BOOT/*.efi $EFIDIR
++
++if [ -f /media/$1/EFI/BOOT/grub.cfg ]; then
++    GRUBCFG="$EFIDIR/grub.cfg"
++    cp /media/$1/EFI/BOOT/grub.cfg $GRUBCFG
++    # Update grub config for the installed image
++    # Delete the install entry
++    sed -i "/menuentry 'install'/,/^}/d" $GRUBCFG
++    # Delete the initrd lines
++    sed -i "/initrd /d" $GRUBCFG
++    # Delete any LABEL= strings
++    sed -i "s/ LABEL=[^ ]*/ /" $GRUBCFG
++    # Delete any root= strings
++    sed -i "s/ root=[^ ]*/ /" $GRUBCFG
++    # Add the root= and other standard boot options
++    sed -i "s@linux /vmlinuz *@linux /vmlinuz root=$rootfs rw $rootwait quiet @" $GRUBCFG
++fi
++
++if [ -d /media/$1/loader ]; then
++    GUMMIBOOT_CFGS="/ssd/loader/entries/*.conf"
++    # copy config files for gummiboot
++    cp -dr /media/$1/loader /ssd
++    # delete the install entry
++    rm -f /ssd/loader/entries/install.conf
++    # delete the initrd lines
++    sed -i "/initrd /d" $GUMMIBOOT_CFGS
++    # delete any LABEL= strings
++    sed -i "s/ LABEL=[^ ]*/ /" $GUMMIBOOT_CFGS
++    # delete any root= strings
++    sed -i "s/ root=[^ ]*/ /" $GUMMIBOOT_CFGS
++    # add the root= and other standard boot options
++    sed -i "s@options *@options root=$rootfs rw $rootwait quiet @" $GUMMIBOOT_CFGS
++fi
++
++umount /ssd
++sync
++
++echo "Remove your installation media, and press ENTER"
++
++read enter
++
++echo "Rebooting..."
++reboot -f
+diff --git a/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
+new file mode 100644
+index 0000000..8e433d5
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/initrdscripts/files/init-install-testfs.sh
+@@ -0,0 +1,208 @@
++#!/bin/sh -e
++#
++# Copyright (C) 2008-2011 Intel
++#
++# install.sh [device_name] [rootfs_name] [video_mode] [vga_mode]
++#
++
++PATH=/sbin:/bin:/usr/sbin:/usr/bin
++
++# We need 20 Mb for the boot partition
++boot_size=20
++
++# 5% for the swap
++swap_ratio=5
++
++# Get a list of hard drives
++hdnamelist=""
++live_dev_name=${1%%/*}
++
++echo "Searching for hard drives ..."
++
++for device in `ls /sys/block/`; do
++    case $device in
++	loop*)
++            # skip loop device
++	    ;;
++	ram*)
++            # skip ram device
++	    ;;
++	*)
++	    # skip the device LiveOS is on
++	    # Add valid hard drive name to the list
++	    if [ $device != $live_dev_name -a -e /dev/$device ]; then
++		hdnamelist="$hdnamelist $device"
++	    fi
++	    ;;
++    esac
++done
++
++TARGET_DEVICE_NAME=""
++for hdname in $hdnamelist; do
++    # Display found hard drives and their basic info
++    echo "-------------------------------"
++    echo /dev/$hdname
++    if [ -r /sys/block/$hdname/device/vendor ]; then
++	echo -n "VENDOR="
++	cat /sys/block/$hdname/device/vendor
++    fi
++    echo -n "MODEL="
++    cat /sys/block/$hdname/device/model
++    cat /sys/block/$hdname/device/uevent
++    echo
++    # Get user choice
++    while true; do
++	echo -n "Do you want to install this image there? [y/n] "
++	read answer
++	if [ "$answer" = "y" -o "$answer" = "n" ]; then
++	    break
++	fi
++	echo "Please answer y or n"
++    done
++    if [ "$answer" = "y" ]; then
++	TARGET_DEVICE_NAME=$hdname
++	break
++    fi
++done
++
++if [ -n "$TARGET_DEVICE_NAME" ]; then
++    echo "Installing image on /dev/$TARGET_DEVICE_NAME ..."
++else
++    echo "No hard drive selected. Installation aborted."
++    exit 1
++fi
++
++device=$TARGET_DEVICE_NAME
++
++#
++# The udev automounter can cause pain here, kill it
++#
++rm -f /etc/udev/rules.d/automount.rules
++rm -f /etc/udev/scripts/mount*
++
++#
++# Unmount anything the automounter had mounted
++#
++umount /dev/${device}* 2> /dev/null || /bin/true
++
++if [ ! -b /dev/loop0 ] ; then
++    mknod /dev/loop0 b 7 0
++fi
++
++mkdir -p /tmp
++cat /proc/mounts > /etc/mtab
++
++disk_size=$(parted /dev/${device} unit mb print | grep Disk | cut -d" " -f 3 | sed -e "s/MB//")
++
++swap_size=$((disk_size*swap_ratio/100))
++rootfs_size=$((disk_size-boot_size-swap_size))
++
++rootfs_start=$((boot_size))
++rootfs_end=$((rootfs_start+rootfs_size))
++swap_start=$((rootfs_end))
++
++# MMC devices are special in a couple of ways
++# 1) they use a partition prefix character 'p'
++# 2) they are detected asynchronously (need rootwait)
++rootwait=""
++part_prefix=""
++if [ ! "${device#mmcblk}" = "${device}" ]; then
++	part_prefix="p"
++	rootwait="rootwait"
++fi
++bootfs=/dev/${device}${part_prefix}1
++rootfs=/dev/${device}${part_prefix}2
++swap=/dev/${device}${part_prefix}3
++
++echo "*****************"
++echo "Boot partition size:   $boot_size MB ($bootfs)"
++echo "Rootfs partition size: $rootfs_size MB ($rootfs)"
++echo "Swap partition size:   $swap_size MB ($swap)"
++echo "*****************"
++echo "Deleting partition table on /dev/${device} ..."
++dd if=/dev/zero of=/dev/${device} bs=512 count=2
++
++echo "Creating new partition table on /dev/${device} ..."
++parted /dev/${device} mklabel msdos
++
++echo "Creating boot partition on $bootfs"
++parted /dev/${device} mkpart primary 0% $boot_size
++
++echo "Creating rootfs partition on $rootfs"
++parted /dev/${device} mkpart primary $rootfs_start $rootfs_end
++
++echo "Creating swap partition on $swap"
++parted /dev/${device} mkpart primary $swap_start 100%
++
++parted /dev/${device} print
++
++echo "Formatting $bootfs to ext3..."
++mkfs.ext3 $bootfs
++
++echo "Formatting $rootfs to ext3..."
++mkfs.ext3 $rootfs
++
++echo "Formatting swap partition...($swap)"
++mkswap $swap
++
++mkdir /tgt_root
++mkdir /src_root
++mkdir -p /boot
++
++# Handling of the target root partition
++mount $rootfs /tgt_root
++mount -o rw,loop,noatime,nodiratime /media/$1/$2 /src_root
++echo "Copying rootfs files..."
++cp -a /src_root/* /tgt_root
++if [ -d /tgt_root/etc/ ] ; then
++    echo "$swap                swap             swap       defaults              0  0" >> /tgt_root/etc/fstab
++    echo "$bootfs              /boot            ext3       defaults              1  2" >> /tgt_root/etc/fstab
++    # We dont want udev to mount our root device while we're booting...
++    if [ -d /tgt_root/etc/udev/ ] ; then
++	echo "/dev/${device}" >> /tgt_root/etc/udev/mount.blacklist
++    fi
++fi
++umount /tgt_root
++umount /src_root
++
++# Handling of the target boot partition
++mount $bootfs /boot
++echo "Preparing boot partition..."
++if [ -f /etc/grub.d/40_custom ] ; then
++    echo "Preparing custom grub2 menu..."
++    GRUBCFG="/boot/grub/grub.cfg"
++    mkdir -p $(dirname $GRUBCFG)
++    cp /etc/grub.d/40_custom $GRUBCFG
++    sed -i "s@__ROOTFS__@$rootfs $rootwait@g" $GRUBCFG
++    sed -i "s/__VIDEO_MODE__/$3/g" $GRUBCFG
++    sed -i "s/__VGA_MODE__/$4/g" $GRUBCFG
++    sed -i "s/__CONSOLE__/$5/g" $GRUBCFG
++    sed -i "/#/d" $GRUBCFG
++    sed -i "/exec tail/d" $GRUBCFG
++    chmod 0444 $GRUBCFG
++fi
++grub-install /dev/${device}
++echo "(hd0) /dev/${device}" > /boot/grub/device.map
++
++# If grub.cfg doesn't exist, assume GRUB 0.97 and create a menu.lst
++if [ ! -f /boot/grub/grub.cfg ] ; then
++    echo "Preparing custom grub menu..."
++    echo "default 0" > /boot/grub/menu.lst
++    echo "timeout 30" >> /boot/grub/menu.lst
++    echo "title Live Boot/Install-Image" >> /boot/grub/menu.lst
++    echo "root  (hd0,0)" >> /boot/grub/menu.lst
++    echo "kernel /vmlinuz root=$rootfs rw $3 $4 quiet" >> /boot/grub/menu.lst
++fi
++
++cp /media/$1/vmlinuz /boot/
++
++umount /boot
++
++sync
++
++echo "Remove your installation media, and press ENTER"
++
++read enter
++
++echo "Rebooting..."
++reboot -f
+-- 
+1.8.5.3
 
 
