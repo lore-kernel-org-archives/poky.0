@@ -1,21 +1,34 @@
-Return-Path: <jeremy@visionaid.com>
-Received: from n1plsmtpa01-01.prod.ams1.secureserver.net
-	(n1plsmtpa01-01.prod.ams1.secureserver.net [188.121.53.6])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 135C5E00A44
-	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 03:52:27 -0700 (PDT)
-Received: from [10.31.15.100] ([135.196.109.35])
-	by n1plsmtpa01-01.prod.ams1.secureserver.net with 
-	id iAsR1n00W0lrq4v01AsRSG; Wed, 26 Mar 2014 03:52:26 -0700
-Message-ID: <5332B167.4060707@visionaid.com>
-Date: Wed, 26 Mar 2014 10:52:23 +0000
-From: Jeremy Powell <jeremy@visionaid.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+Return-Path: <ross.burton@intel.com>
+Received: from mail-qa0-f49.google.com (mail-qa0-f49.google.com
+	[209.85.216.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8F870E00A44
+	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 04:07:02 -0700 (PDT)
+Received: by mail-qa0-f49.google.com with SMTP id j7so1971687qaq.8
+	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 04:07:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=TOzE0i6mwIu4oTGGdkjIPsD4U3ryCimzuDqgc5NzHpE=;
+	b=cD5LKQunZsNNUbVIBLGzcxU2PBLti+XmP06q57QMvgi02urXzGm9E8xDNCxCehtTIE
+	dL30oV4DXMD0tcIGYuaCe5z9xPnUzo6KJ246JBE7Y1b7rt+3nj7tQuwI3w1H08fpFNIc
+	4ZHkuLjPUs5wwVh6xuqbh+63Z6p7AUSp1yGO/ENjPPBDWcn3WMlnZi1MrriXBpH1s07t
+	wU21kWqfAEnPL10OmsRFkXyCIOm7wzxArw6bfc4+Slm768n16yXI7u4KexNE7UUzgg+E
+	IETGDvVN03ChVMuuOOhAPpuNPRaDbKy7jPpyyRen8nMbrrInbQQG63sb2A2eEaI9HQTp
+	rUag==
+X-Gm-Message-State: ALoCoQlgtBC62GjhLkqBJC5moEv7CF+lAJXn71DzfwEZketS85IgQ1+WiO5HxcD6IipnPfcWtSo/
+X-Received: by 10.140.106.195 with SMTP id e61mr83479648qgf.66.1395832021503; 
+	Wed, 26 Mar 2014 04:07:01 -0700 (PDT)
 MIME-Version: 1.0
-To: "Burton, Ross" <ross.burton@intel.com>
+Received: by 10.140.27.167 with HTTP; Wed, 26 Mar 2014 04:06:41 -0700 (PDT)
+In-Reply-To: <5332B167.4060707@visionaid.com>
 References: <53329F23.8020307@visionaid.com>
 	<CAJTo0LZUE-QAmPGysmwxCfxSajms8-VhWTXcunjMgW8bMAYNqw@mail.gmail.com>
-In-Reply-To: <CAJTo0LZUE-QAmPGysmwxCfxSajms8-VhWTXcunjMgW8bMAYNqw@mail.gmail.com>
+	<5332B167.4060707@visionaid.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 26 Mar 2014 11:06:41 +0000
+Message-ID: <CAJTo0LYDjA0+R1LnkyXi7013uYwjZtoGWzbxE-+FJXuGpgLoaA@mail.gmail.com>
+To: Jeremy Powell <jeremy@visionaid.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Poky core-image-minimal fails to build with package_deb
 X-BeenThere: poky@yoctoproject.org
@@ -30,20 +43,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Mar 2014 10:52:30 -0000
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 26 Mar 2014 11:07:02 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On 26/03/14 10:14, Burton, Ross wrote:
-> On 26 March 2014 09:34, Jeremy Powell <jeremy@visionaid.com> wrote:
->> I'm trying to build poky from the git master head, but there are several
->> problems in the DpkgIndexer class in ./meta/lib/oe/package_manager.py
-> Can you file a bug for these issues please (reply here with the number
-> so it doesn't get lost).
+On 26 March 2014 10:52, Jeremy Powell <jeremy@visionaid.com> wrote:
+> On 26/03/14 10:14, Burton, Ross wrote:
+>>
+>> On 26 March 2014 09:34, Jeremy Powell <jeremy@visionaid.com> wrote:
+>>>
+>>> I'm trying to build poky from the git master head, but there are several
+>>> problems in the DpkgIndexer class in ./meta/lib/oe/package_manager.py
+>>
+>> Can you file a bug for these issues please (reply here with the number
+>> so it doesn't get lost).
+>>
+>> Ross
 >
-> Ross
+>
+> Hi Ross - thanks for your reply. I've created an account on
+> bugzilla.yoctoproject.org, but its not clear to me which product this bug
+> would refer to. Meta-yocto or  OE-Core perhaps?
 
-Hi Ross - thanks for your reply. I've created an account on 
-bugzilla.yoctoproject.org, but its not clear to me which product this 
-bug would refer to. Meta-yocto or  OE-Core perhaps?
+oe-core, component deployment.
+
+Ross
 
