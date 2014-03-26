@@ -1,19 +1,34 @@
-Return-Path: <jeremy@visionaid.com>
-Received: from n1plsmtpa01-01.prod.ams1.secureserver.net
-	(n1plsmtpa01-01.prod.ams1.secureserver.net [188.121.53.6])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C574E00A44
-	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 02:34:40 -0700 (PDT)
-Received: from [10.31.15.100] ([135.196.109.35])
-	by n1plsmtpa01-01.prod.ams1.secureserver.net with 
-	id i9aV1n0080lrq4v019aV39; Wed, 26 Mar 2014 02:34:36 -0700
-Message-ID: <53329F23.8020307@visionaid.com>
-Date: Wed, 26 Mar 2014 09:34:27 +0000
-From: Jeremy Powell <jeremy@visionaid.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+Return-Path: <ross.burton@intel.com>
+Received: from mail-qc0-f175.google.com (mail-qc0-f175.google.com
+	[209.85.216.175])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0EF9E00A44
+	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 03:14:26 -0700 (PDT)
+Received: by mail-qc0-f175.google.com with SMTP id e16so2213893qcx.6
+	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 03:14:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=gu+2iuRfw2vmbq8oo6qVrjSxOVL4+dTH042myi44das=;
+	b=kXnMSzC4VX2r1j0PsxmPYI7wSsCHUeNzxnKd/pNQYDy6vRLQEOesumvISWCLak75GP
+	3HqZwOXX5v1oE88X085Gs2AejHt3NWqhbLXSMNjXxOm7Nt3gU0UTIP4NAK3WfbUB9/2h
+	FJAbfSbi2ZGGi2SMXt/pI2d4NRaCHSVjRFiJm8jSbqe24ryB9EQSelSwyNDls2+0DlkJ
+	LHwFX/AKOwA0nqZNIyC6oO1POHctpxvNRkvLeTiHpgTVZ1fwM4WYLBq4y6nnygm2Rl06
+	wFveZ4DN4h3eY5qjArFZxxWtNlDK7EruY2BRxLiSJOs/CiErjzUjhjn8UzLkcDtglOQ/
+	q3zQ==
+X-Gm-Message-State: ALoCoQn/ukOi9JAvdZfCRK/7Cd45SSh9frOTGSXTi6IA+xvosEqoBPVbquMsWv/rLhWrr2tpgkqi
+X-Received: by 10.224.75.5 with SMTP id w5mr28343637qaj.52.1395828865246; Wed,
+	26 Mar 2014 03:14:25 -0700 (PDT)
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-Subject: Poky core-image-minimal fails to build with package_deb
+Received: by 10.140.27.167 with HTTP; Wed, 26 Mar 2014 03:14:05 -0700 (PDT)
+In-Reply-To: <53329F23.8020307@visionaid.com>
+References: <53329F23.8020307@visionaid.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 26 Mar 2014 10:14:05 +0000
+Message-ID: <CAJTo0LZUE-QAmPGysmwxCfxSajms8-VhWTXcunjMgW8bMAYNqw@mail.gmail.com>
+To: Jeremy Powell <jeremy@visionaid.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: Poky core-image-minimal fails to build with package_deb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -26,42 +41,15 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Mar 2014 09:34:42 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 26 Mar 2014 10:14:26 -0000
+Content-Type: text/plain; charset=UTF-8
 
-Hi All,
+On 26 March 2014 09:34, Jeremy Powell <jeremy@visionaid.com> wrote:
+> I'm trying to build poky from the git master head, but there are several
+> problems in the DpkgIndexer class in ./meta/lib/oe/package_manager.py
 
-I'm trying to build poky from the git master head, but there are several 
-problems in the DpkgIndexer class in ./meta/lib/oe/package_manager.py
+Can you file a bug for these issues please (reply here with the number
+so it doesn't get lost).
 
-For instance:
-cd %s; PSEUDO_UNLOAD=1 %s packages > Packages
-should be
-cd %s; PSEUDO_UNLOAD=1 %s packages . > Packages
-
-The generation of the "Release" file also appears to be incorrect (maybe 
-it is also missing a trailing period?).
-
-Finally, the creation of the Packages.gz file causes an error, but I'm 
-not currently familiar enough with Yocto to fix it, but perhaps someone 
-else might be able to help? (Seems to me that this part of the build is 
-running the commands in parallel but needs to performed be serially)
-
-Kind regards,
-Jeremy
-
--- 
-Jeremy Powell
-Senior Software Engineer
-
-VisionAid International Ltd
-Unit 9
-Crawley Business Centre
-Stephenson Way
-Three Bridges
-Crawley
-West Sussex
-RH10 1TN
-
+Ross
 
