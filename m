@@ -1,26 +1,21 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 62885E00B90
-	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 12:46:40 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s2QJkbxY018181
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 26 Mar 2014 12:46:37 -0700 (PDT)
-Received: from [128.224.56.48] (128.224.56.48) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.169.1;
-	Wed, 26 Mar 2014 12:46:36 -0700
-Message-ID: <53332E97.7010002@windriver.com>
-Date: Wed, 26 Mar 2014 15:46:31 -0400
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+Return-Path: <holger@freyther.de>
+Received: from mail.sysmocom.de (mail.sysmocom.de [144.76.43.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4B8F5E00B93
+	for <poky@yoctoproject.org>; Wed, 26 Mar 2014 23:02:10 -0700 (PDT)
+Received: from sangmingze-mail.local (91-65-86-185-dynip.superkabel.de
+	[91.65.86.185])
+	by mail.sysmocom.de (Postfix) with ESMTPSA id 634614DFEC
+	for <poky@yoctoproject.org>; Thu, 27 Mar 2014 06:02:05 +0000 (UTC)
+Received: from ich by sangmingze-mail.local with local (Exim 4.82)
+	(envelope-from <holger@freyther.de>) id 1WT3O8-0003tI-QE
+	for poky@yoctoproject.org; Thu, 27 Mar 2014 07:02:04 +0100
+Date: Thu, 27 Mar 2014 07:02:04 +0100
+From: Holger Hans Peter Freyther <holger@freyther.de>
+To: poky@yoctoproject.org
+Message-ID: <20140327060204.GA14885@xiaoyu.lan>
 MIME-Version: 1.0
-To: Denys Dmytriyenko <denis@denix.org>, <poky@yoctoproject.org>
-References: <1395861670-20330-1-git-send-email-denis@denix.org>
-In-Reply-To: <1395861670-20330-1-git-send-email-denis@denix.org>
-Cc: Denys Dmytriyenko <denys@ti.com>
-Subject: Re: [PATCH] beaglebone: add OE machine definition for use with linux-yocto kernels
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Subject: PRserver support broken in Dora?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,85 +28,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Mar 2014 19:46:41 -0000
-Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 27 Mar 2014 06:02:11 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 14-03-26 03:21 PM, Denys Dmytriyenko wrote:
-> From: Denys Dmytriyenko <denys@ti.com>
->
-> Kernel support is now in linux-yocto-dev and will be moved to a versioned
-> recipe once 3.14 is released.
+Good Morning,
 
-I've tested this locally as we prep 3.14, so I can ack and add
-my tested-by:
+I am sorry to be a bit vagued. I have an in-house application, I modified
+the CONFFILES_${PN} line of app-name_git.bb and then issued bitbake app-name.
+My expectation was that somehow the signature will be different app-name
+will be re-built and the resulting PKGR will be r1.X+1.
 
-Cheers,
+In practice nothing is being re-built. JaMa pointed out I can use the
+"bitbake -S" option to display the signature but when doing "bitbake -S
+app-name" nothing relevant will be printed on the screen. I tried to use
+strace to see if it writes to a file but the trace is way too long to
+find something relevant.
 
-Bruce
+My local.conf is added below. Could it be that the AUTOPR handling in
+Dora is broken? Any idea of where I can look at to see why the revisions
+are never incremented?
 
->
-> Signed-off-by: Denys Dmytriyenko <denys@ti.com>
-> Cc: Bruce Ashfield <bruce.ashfield@windriver.com>
-> ---
->   meta-yocto-bsp/conf/machine/beaglebone.conf        | 37 ++++++++++++++++++++++
->   .../recipes-kernel/linux/linux-yocto-dev.bbappend  |  3 ++
->   2 files changed, 40 insertions(+)
->   create mode 100644 meta-yocto-bsp/conf/machine/beaglebone.conf
->   create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
->
-> diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-> new file mode 100644
-> index 0000000..0765b33
-> --- /dev/null
-> +++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-> @@ -0,0 +1,37 @@
-> +#@TYPE: Machine
-> +#@NAME: Beaglebone machine
-> +#@DESCRIPTION: Machine configuration for http://beagleboard.org/bone and http://beagleboard.org/black boards
-> +
-> +PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-> +XSERVER ?= "xserver-xorg \
-> +           xf86-input-evdev \
-> +           xf86-input-mouse \
-> +           xf86-video-omapfb \
-> +           xf86-input-keyboard"
-> +
-> +# Ship all kernel modules by default
-> +MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
-> +
-> +EXTRA_IMAGEDEPENDS += "u-boot"
-> +
-> +DEFAULTTUNE ?= "cortexa8hf-neon"
-> +include conf/machine/include/tune-cortexa8.inc
-> +
-> +IMAGE_FSTYPES += "tar.bz2 jffs2"
-> +EXTRA_IMAGECMD_jffs2 = "-lnp "
-> +
-> +SERIAL_CONSOLE = "115200 ttyO2"
-> +
-> +PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto-dev"
-> +PREFERRED_VERSION_linux-yocto-dev ?= "3.14%"
-> +
-> +KERNEL_IMAGETYPE = "zImage"
-> +KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
-> +
-> +SPL_BINARY = "MLO"
-> +UBOOT_SUFFIX = "img"
-> +UBOOT_MACHINE = "am335_evm_config"
-> +UBOOT_ENTRYPOINT = "0x80008000"
-> +UBOOT_LOADADDRESS = "0x80008000"
-> +
-> +MACHINE_FEATURES = "usbgadget usbhost vfat alsa"
-> diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-> new file mode 100644
-> index 0000000..6cb7e55
-> --- /dev/null
-> +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-> @@ -0,0 +1,3 @@
-> +KBRANCH_beaglebone = "standard/beaglebone"
-> +
-> +COMPATIBLE_MACHINE_beaglebone = "beaglebone"
->
+holger
 
+change to the recipe:
+@@ -13,7 +13,7 @@ DEPENDS = "qtbase libsystemd-qt tufao1"
+ inherit qmake5
+ 
+ FILES_${PN} += "${systemd_unitdir}"
+
+-CONFFILES_${PN} = "${sysconfdir}/sysctl.d/99-sysmocom-forwarding.conf"
++CONFFILES_${PN} = "${sysconfdir}/sysctl.d/99-sysmocom-forwarding.conf ${sysconfdir}/somedir"
+ 
+ do_install() {
+     # Install the main application
+
+
+local.conf:
+MACHINE ??= "sysmobts-v2"
+DISTRO ?= "poky"
+PACKAGE_CLASSES ?= "package_ipk"
+EXTRA_IMAGE_FEATURES = "debug-tweaks"
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+PATCHRESOLVE = "noop"
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K" 
+CONF_VERSION = "1"
+
+DISTRO_FEATURES_append = " systemd "
+VIRTUAL-RUNTIME_init_manager = "systemd"
+
+MACHINE_FEATURES_BACKFILL_CONSIDERED = "rtc"
+
+FULL_OPTIMIZATION="-O2 -pipe ${DEBUG_FLAGS} -fno-omit-frame-pointer"
+DEBUGFILEDIRECTORY-dbg = "/usr/lib/debug"
+PACKAGE_DEBUG_SPLIT_STYLE = "debug-without-src"
+PRSERV_HOST = "localhost:0"
+
+INHERIT += "rm_work"
 
