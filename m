@@ -1,29 +1,29 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A866E00BC7;
-	Fri, 28 Mar 2014 11:29:08 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AB90BE00BCA;
+	Fri, 28 Mar 2014 11:32:15 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s2SISxD5014092
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s2SIWA4M014119
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 28 Mar 2014 11:29:00 -0700 (PDT)
+	Fri, 28 Mar 2014 11:32:10 -0700 (PDT)
 Received: from [128.224.56.48] (128.224.56.48) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server id 14.3.169.1;
-	Fri, 28 Mar 2014 11:28:59 -0700
-Message-ID: <5335BF6A.8080404@windriver.com>
-Date: Fri, 28 Mar 2014 14:28:58 -0400
+	Fri, 28 Mar 2014 11:32:10 -0700
+Message-ID: <5335C028.5070702@windriver.com>
+Date: Fri, 28 Mar 2014 14:32:08 -0400
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, "Flanagan, Elizabeth"
-	<elizabeth.flanagan@intel.com>,
-	yocto-builds <yocto-builds@yoctoproject.org>,
-	"saul.wold" <saul.wold@intel.com>, Denys Dmytriyenko <denys@ti.com>, "Hart,
-	Darren" <darren.hart@intel.com>
-References: <1396031047.14790.24.camel@ted> <5335BF1C.9030902@windriver.com>
-In-Reply-To: <5335BF1C.9030902@windriver.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+To: Denys Dmytriyenko <denys@ti.com>, Richard Purdie
+	<richard.purdie@linuxfoundation.org>
+References: <1396031047.14790.24.camel@ted> <20140328183036.GG12929@edge>
+In-Reply-To: <20140328183036.GG12929@edge>
+Cc: yocto-builds <yocto-builds@yoctoproject.org>, "Hart,
+	Darren" <darren.hart@intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	"saul.wold" <saul.wold@intel.com>
 Subject: Re: meta-yocto-bsp changes and 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,45 +37,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Mar 2014 18:29:08 -0000
+X-List-Received-Date: Fri, 28 Mar 2014 18:32:15 -0000
 Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 14-03-28 02:27 PM, Bruce Ashfield wrote:
-> On 14-03-28 02:24 PM, Richard Purdie wrote:
+On 14-03-28 02:30 PM, Denys Dmytriyenko wrote:
+> On Fri, Mar 28, 2014 at 06:24:07PM +0000, Richard Purdie wrote:
 >> I've merged Bruce's 3.14 patches into master-next. With the yocto-bsp
 >> parts that I could pull together, there seemed to be some pieces
 >> missing, specifically:
 >>
 >> * the yocto-linux-dev.bbappend was underpopulated
 >> * the yocto-linux-3.14.bbappend was missing
->
-> I have one of these, I was hoping the BSP developers would submit
-> it, but I can commit and send mine.
->
 >> * no removal of beagleboard
->
-> I was keeping this around, for the 3.10 and older trees.
->
 >> * no addition to the README for beaglebone
->
-> Denys and I talked about this, one should be pending.
->
 >> * local.conf.sample needs updates
 >> * missing edgerouter configuration in linux-yocto*
->
-> Hmm. no, it's definitely there, so I'm not sure
-
-I forgot to finish this. This is all here for me, what exactly are you
-seeing that is missing ?
-
-Bruce
-
->
 >> * should we be removing a mips BSP?
->
-> Nope. Same as for the beagle, this was on purpose.
->
 >> * need a layer version bump so beth can handle this on the autobuilder
 >>
 >> I added commits for some of these, the 3.14 kernel bbappend is missing
@@ -93,17 +71,22 @@ Bruce
 >> Bruce: can you look at the linux-yocto-* changes, particularly the 3.14
 >> SRCREVs and that linux-yocto-dev looks right?
 >
-> I'll send you my commits, I have them here already. Want them on the
-> branch, or email ?
+> Richard,
 >
-> Bruce
+> Thanks for the update!
 >
->>
->> Cheers,
->>
->> Richard
->>
->>
+> I'll take a look at updating README with relevant Beaglebone pieces.
+>
+> As of the linux-yocto-dev.bbappend - I made that change before Bruce had the
+> versioned linux-yocto recipe for 3.14, with plans to update it later. If you
+> are merging all the changes together, that part needs to be fixed, indeed.
+
+Yep. I'll dust off the version I tested with here, and send it along.
+
+Cheers,
+
+Bruce
+
 >
 
 
