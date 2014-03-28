@@ -1,23 +1,32 @@
-Return-Path: <denis@denix.org>
-Received: from vms173025pub.verizon.net (vms173025pub.verizon.net
-	[206.46.173.25])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 886E2E00BCA
-	for <poky@yoctoproject.org>; Fri, 28 Mar 2014 11:39:21 -0700 (PDT)
-Received: from gandalf.denix.org ([unknown] [71.191.205.189])
-	by vms173025.mailsrvcs.net
-	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
-	2009)) with ESMTPA id <0N3500LH5T4P0YK0@vms173025.mailsrvcs.net> for
-	poky@yoctoproject.org; Fri, 28 Mar 2014 13:39:05 -0500 (CDT)
-Received: by gandalf.denix.org (Postfix, from userid 1000)	id 4DE3620210; Fri,
-	28 Mar 2014 14:38:49 -0400 (EDT)
-Date: Fri, 28 Mar 2014 14:38:49 -0400
-From: Denys Dmytriyenko <denis@denix.org>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Message-id: <20140328183849.GN3370@denix.org>
-References: <1396031047.14790.24.camel@ted>
-MIME-version: 1.0
-In-reply-to: <1396031047.14790.24.camel@ted>
-User-Agent: Mutt/1.5.20 (2009-06-14)
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1D366E00BCA;
+	Fri, 28 Mar 2014 12:00:03 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s2SIxupj025612
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 28 Mar 2014 11:59:56 -0700 (PDT)
+Received: from [128.224.56.48] (128.224.56.48) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.169.1;
+	Fri, 28 Mar 2014 11:59:56 -0700
+Message-ID: <5335C6AA.6020308@windriver.com>
+Date: Fri, 28 Mar 2014 14:59:54 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: "Hart, Darren" <darren.hart@intel.com>, Richard Purdie
+	<richard.purdie@linuxfoundation.org>
+References: <1396031047.14790.24.camel@ted> <5335BF1C.9030902@windriver.com>
+	<5335BF6A.8080404@windriver.com> <1396031644.14790.26.camel@ted>
+	<5335C1AF.5080904@windriver.com>
+	<CF5B1473.7DC1D%darren.hart@intel.com>
+In-Reply-To: <CF5B1473.7DC1D%darren.hart@intel.com>
+Cc: yocto-builds <yocto-builds@yoctoproject.org>,
+	Denys Dmytriyenko <denys@ti.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>, "WOLD,
+	SAUL" <saul.wold@intel.com>
 Subject: Re: meta-yocto-bsp changes and 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -31,51 +40,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Mar 2014 18:39:21 -0000
-Content-type: text/plain; charset=us-ascii
-Content-disposition: inline
+X-List-Received-Date: Fri, 28 Mar 2014 19:00:07 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-[Sorry for duplication, my reply didn't make it to the list, resending]
-
-On Fri, Mar 28, 2014 at 06:24:07PM +0000, Richard Purdie wrote:
-> I've merged Bruce's 3.14 patches into master-next. With the yocto-bsp
-> parts that I could pull together, there seemed to be some pieces
-> missing, specifically:
+On 14-03-28 02:57 PM, Hart, Darren wrote:
+> On 3/28/14, 11:38, "Bruce Ashfield" <bruce.ashfield@windriver.com> wrote:
 >
-> * the yocto-linux-dev.bbappend was underpopulated
-> * the yocto-linux-3.14.bbappend was missing
-> * no removal of beagleboard
-> * no addition to the README for beaglebone
-> * local.conf.sample needs updates
-> * missing edgerouter configuration in linux-yocto*
-> * should we be removing a mips BSP?
-> * need a layer version bump so beth can handle this on the autobuilder
+>> On 14-03-28 02:34 PM, Richard Purdie wrote:
+>>>
+>>>
+>>> With regard to beagleboard, whilst the kernel may have support for it,
+>>> I'd like to remove it from meta-yocto-bsp.
+>>
+>> ok. I had planned to just leave the compatible machine as 3.10 and leave
+>> the support there, since there are a few people who contact me regularly
+>> and poke with the support.
+>>
+>> Is there a place we can put them as a "retirement" home ? versus asking
+>> people to locally restore the support.
 >
-> I added commits for some of these, the 3.14 kernel bbappend is missing
-> SRCREVs though for example. The state of where I got to is:
+> The retirement home would be the 1.5 stable releases. Yes?
+
+Nope. That's my point, I have 3.10 changes for the Xm in linux-yocto
+3.10 that lives in 1.6. We can make it less visible, but I'd like the
+configs to follow the latest versions of the tree.
+
+Bruce
+
 >
-> http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=master-next
+> --
+> Darren Hart
+> Yocto Project - Linux Kernel
+> Intel Open Source Technology Center
 >
-> Beth: Your AR is to figure out the autobuilder side of this and build
-> the two new replacement BSPs (beaglebone and edgerouter) instead of the
-> old ones. When that and the current build on the AB is done, can we run
-> a build of master-next please?
 >
-> Denys: I'm hoping you can help out with the README
 >
-> Bruce: can you look at the linux-yocto-* changes, particularly the 3.14
-> SRCREVs and that linux-yocto-dev looks right?
 
-Richard,
-
-Thanks for the update!
-
-I'll take a look at updating README with relevant Beaglebone pieces.
-
-As of the linux-yocto-dev.bbappend - I made that change before Bruce had the
-versioned linux-yocto recipe for 3.14, with plans to update it later. If you
-are merging all the changes together, that part needs to be fixed, indeed.
-
--- 
-Denys
 
