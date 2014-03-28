@@ -1,25 +1,30 @@
-Return-Path: <denis@denix.org>
-Received: from vms173017pub.verizon.net (vms173017pub.verizon.net
-	[206.46.173.17])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3CA05E00BC2
-	for <poky@yoctoproject.org>; Fri, 28 Mar 2014 09:42:28 -0700 (PDT)
-Received: from gandalf.denix.org ([unknown] [71.191.205.189])
-	by vms173017.mailsrvcs.net
-	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
-	2009)) with ESMTPA id <0N3500ADWNQJ7540@vms173017.mailsrvcs.net> for
-	poky@yoctoproject.org; Fri, 28 Mar 2014 11:42:19 -0500 (CDT)
-Received: by gandalf.denix.org (Postfix, from userid 1000)	id 0FC5F20357; Fri,
-	28 Mar 2014 12:42:19 -0400 (EDT)
-Date: Fri, 28 Mar 2014 12:42:19 -0400
-From: Denys Dmytriyenko <denis@denix.org>
-To: Anjandeep Sahni <x0212391@ti.com>
-Message-id: <20140328164219.GG3370@denix.org>
-References: <53354CED.4090700@ti.com>
-MIME-version: 1.0
-In-reply-to: <53354CED.4090700@ti.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky, mailing-list" <poky@yoctoproject.org>
-Subject: Re: External Toolchain
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from dan.rpsys.net (dan.rpsys.net [93.97.175.187])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D981E00BC6
+	for <poky@yoctoproject.org>; Fri, 28 Mar 2014 10:47:52 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu4) with ESMTP id
+	s2SHlSAZ030762; Fri, 28 Mar 2014 17:47:28 GMT
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 86FNCmVQ9IZB; Fri, 28 Mar 2014 17:47:28 +0000 (GMT)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	s2SHlOJE030747
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-SHA bits=128 verify=NOT);
+	Fri, 28 Mar 2014 17:47:26 GMT
+Message-ID: <1396028839.14790.16.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Denys Dmytriyenko <denis@denix.org>
+Date: Fri, 28 Mar 2014 17:47:19 +0000
+In-Reply-To: <20140328162614.GF3370@denix.org>
+References: <1395861670-20330-1-git-send-email-denis@denix.org>
+	<53332E97.7010002@windriver.com> <20140328162614.GF3370@denix.org>
+X-Mailer: Evolution 3.8.4-0ubuntu1 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org, Denys Dmytriyenko <denys@ti.com>
+Subject: Re: [PATCH] beaglebone: add OE machine definition for use with linux-yocto kernels
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,33 +37,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Mar 2014 16:42:31 -0000
-Content-type: text/plain; charset=us-ascii
-Content-disposition: inline
+X-List-Received-Date: Fri, 28 Mar 2014 17:47:53 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 28, 2014 at 03:50:29PM +0530, Anjandeep Sahni wrote:
-> Hi all,
+On Fri, 2014-03-28 at 12:26 -0400, Denys Dmytriyenko wrote:
+> On Wed, Mar 26, 2014 at 03:46:31PM -0400, Bruce Ashfield wrote:
+> > On 14-03-26 03:21 PM, Denys Dmytriyenko wrote:
+> > >From: Denys Dmytriyenko <denys@ti.com>
+> > >
+> > >Kernel support is now in linux-yocto-dev and will be moved to a versioned
+> > >recipe once 3.14 is released.
+> > 
+> > I've tested this locally as we prep 3.14, so I can ack and add
+> > my tested-by:
 > 
-> I am fairly new to poky. Just had a few queries.
-> 
-> I wanted to know where exactly in the build directory does poky
-> build the default toolchain.
-> And also if I have to use an external linaro toolchain, how would I
-> go about it? Should I just include the meta-linaro layer, and add
-> the TCMODE variable to local.conf?
-> I downloaded and extracted the prebuilt binaries for linaro
-> toolchain. How do I point my build system to use these instead of
-> the default toolchain?
+> Ping?
 
-Anjandeep,
+Just queuing this up. Could you send a patch to add something suitable
+to README.hardware please for the board?
 
-Please take a look at the presentation I gave at the last year ELC:
+Cheers,
 
-http://elinux.org/images/c/c8/ExternalToolchainsInYocto.pdf
+Richard
 
-Also, feel free to ping me directly at denys@ti.com if you are working on a 
-project for TI - there's a lot of re-use potential...
-
--- 
-Denys
 
