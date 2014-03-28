@@ -1,29 +1,38 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 58582E00BD2;
-	Fri, 28 Mar 2014 12:58:19 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C2832E00BD9;
+	Fri, 28 Mar 2014 13:41:54 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s2SJwAvY014960
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s2SKfjHo015419
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 28 Mar 2014 12:58:10 -0700 (PDT)
+	Fri, 28 Mar 2014 13:41:45 -0700 (PDT)
 Received: from [128.224.56.48] (128.224.56.48) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server id 14.3.169.1;
-	Fri, 28 Mar 2014 12:58:10 -0700
-Message-ID: <5335D450.1030007@windriver.com>
-Date: Fri, 28 Mar 2014 15:58:08 -0400
+	Fri, 28 Mar 2014 13:41:45 -0700
+Message-ID: <5335DE88.8040603@windriver.com>
+Date: Fri, 28 Mar 2014 16:41:44 -0400
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 User-Agent: Mozilla/5.0 (X11; Linux x86_64;
 	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
 MIME-Version: 1.0
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, "Flanagan, Elizabeth"
-	<elizabeth.flanagan@intel.com>,
-	yocto-builds <yocto-builds@yoctoproject.org>,
-	"saul.wold" <saul.wold@intel.com>, Denys Dmytriyenko <denys@ti.com>, "Hart,
-	Darren" <darren.hart@intel.com>
-References: <1396031047.14790.24.camel@ted>
-In-Reply-To: <1396031047.14790.24.camel@ted>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+To: "Hart, Darren" <darren.hart@intel.com>, Denys Dmytriyenko <denis@denix.org>
+References: <1396031047.14790.24.camel@ted> <5335BF1C.9030902@windriver.com>
+	<5335BF6A.8080404@windriver.com> <1396031644.14790.26.camel@ted>
+	<5335C1AF.5080904@windriver.com>
+	<CF5B1473.7DC1D%darren.hart@intel.com>
+	<5335C6AA.6020308@windriver.com>
+	<CF5B160D.7DC33%darren.hart@intel.com>
+	<5335C8C6.20604@windriver.com> <20140328191218.GO3370@denix.org>
+	<5335CA00.8070207@windriver.com>
+	<CF5B18D7.7DC4F%darren.hart@intel.com>
+	<5335CD0C.8000801@windriver.com>
+	<CF5B2B7A.7DCA2%darren.hart@intel.com>
+In-Reply-To: <CF5B2B7A.7DCA2%darren.hart@intel.com>
+Cc: yocto-builds <yocto-builds@yoctoproject.org>, "WOLD,
+	SAUL" <saul.wold@intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	Denys Dmytriyenko <denys@ti.com>
 Subject: Re: meta-yocto-bsp changes and 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -37,123 +46,131 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Mar 2014 19:58:22 -0000
-X-Groupsio-MsgNum: 9579
-Content-Type: multipart/mixed; boundary="------------010300070309070900060100"
-
---------------010300070309070900060100
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-List-Received-Date: Fri, 28 Mar 2014 20:41:56 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 14-03-28 02:24 PM, Richard Purdie wrote:
-> I've merged Bruce's 3.14 patches into master-next. With the yocto-bsp
-> parts that I could pull together, there seemed to be some pieces
-> missing, specifically:
+On 14-03-28 04:37 PM, Hart, Darren wrote:
+> On 3/28/14, 12:27, "Bruce Ashfield" <bruce.ashfield@windriver.com> wrote:
 >
-> * the yocto-linux-dev.bbappend was underpopulated
-> * the yocto-linux-3.14.bbappend was missing
-> * no removal of beagleboard
-> * no addition to the README for beaglebone
-> * local.conf.sample needs updates
-> * missing edgerouter configuration in linux-yocto*
-> * should we be removing a mips BSP?
-> * need a layer version bump so beth can handle this on the autobuilder
+>> On 14-03-28 03:22 PM, Hart, Darren wrote:
+>>> On 3/28/14, 12:14, "Bruce Ashfield" <bruce.ashfield@windriver.com>
+>>> wrote:
+>>>
+>>>> On 14-03-28 03:12 PM, Denys Dmytriyenko wrote:
+>>>>> On Fri, Mar 28, 2014 at 03:08:54PM -0400, Bruce Ashfield wrote:
+>>>>>> On 14-03-28 03:05 PM, Hart, Darren wrote:
+>>>>>>> On 3/28/14, 11:59, "Bruce Ashfield" <bruce.ashfield@windriver.com>
+>>>>>>> wrote:
+>>>>>>>
+>>>>>>>> On 14-03-28 02:57 PM, Hart, Darren wrote:
+>>>>>>>>> On 3/28/14, 11:38, "Bruce Ashfield" <bruce.ashfield@windriver.com>
+>>>>>>>>> wrote:
+>>>>>>>>>
+>>>>>>>>>> On 14-03-28 02:34 PM, Richard Purdie wrote:
+>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> With regard to beagleboard, whilst the kernel may have support
+>>>>>>>>>>> for it,
+>>>>>>>>>>> I'd like to remove it from meta-yocto-bsp.
+>>>>>>>>>>
+>>>>>>>>>> ok. I had planned to just leave the compatible machine as 3.10
+>>>>>>>>>> and
+>>>>>>>>>> leave
+>>>>>>>>>> the support there, since there are a few people who contact me
+>>>>>>>>>> regularly
+>>>>>>>>>> and poke with the support.
+>>>>>>>>>>
+>>>>>>>>>> Is there a place we can put them as a "retirement" home ? versus
+>>>>>>>>>> asking
+>>>>>>>>>> people to locally restore the support.
+>>>>>>>>>
+>>>>>>>>> The retirement home would be the 1.5 stable releases. Yes?
+>>>>>>>>
+>>>>>>>> Nope. That's my point, I have 3.10 changes for the Xm in
+>>>>>>>> linux-yocto
+>>>>>>>> 3.10 that lives in 1.6. We can make it less visible, but I'd like
+>>>>>>>> the
+>>>>>>>> configs to follow the latest versions of the tree.
+>>>>>>>
+>>>>>>> Isn't it just the SRCREV that matters here? Those can always just be
+>>>>>>> applied to 1.5. RP is only asking to remove the beagle board as a
+>>>>>>> reference BSP from the meta-yocto-bsp layer, he doesn't care if the
+>>>>>>> linux-yocto/meta data remains in place.
+>>>>>>
+>>>>>> We are talking past each other. I'm asking for the meta-yocto-bsp and
+>>>>>> machine conf file to be around .. somewhere .. I don't want people
+>>>>>> to have to scrounge them up and revive them from old releases, or
+>>>>>> revert commits to make them available.
+>>>>>>
+>>>>>> So this is outside of linux-yocto, I'd like a single layer than when
+>>>>>> added, gives access to the BSPs "as they were" in the 3.10 tree, and
+>>>>>> I'd like that layer to not be on people's local drives only.
+>>>>>
+>>>>> 3.10 EOL is projected as Sep, 2015 - do you plan to keep
+>>>>> linux-yocto-3.10
+>>>>> until then?
+>>>>
+>>>> That's the plan. I tried to kill 3.4 before it official died and was
+>>>> reminded that we'd keep LTSI support around a bit longer. I'm sure we
+>>>> can bend a bit on the dates, but the general feel is correct .. the
+>>>> tree
+>>>> will be around for a while yet.
+>>>
+>>>
+>>> Ah, but here's the thing. If someone wants to use an older kernel
+>>> because
+>>> they can't risk the change from the newer kernel, then they shouldn't be
+>>> changing the release either. Dropping support in the next release is not
+>>> the same as dropping support. The 1.5 series is still getting stable
+>>> updates, and 3.10 lives on there for that BSP. This is the direction I
+>>> drive internally as well.
+>>
+>> That's not what I said, and not what I meant. I want to keep the support
+>> in 3.10 AND 1.6 .. you'll note that I've never said 1.5 at any point.
+>> I just don't want it to be the official "reference" BSP.
+>>
+>>>
+>>> I'm still not clear on which changes you are getting at that are
+>>> relevant
+>>> to beagle board in 1.6 that are not portable to 1.5. For example:
+>>
+>> As I've said before, I'm not going to support 3.10 updates that I'm
+>> testing
+>> on master on 1.5, since I'll have to prepare commits for multiple
+>> release branches and test there.
+>>
+>> If a -stable maintainer wants those commits, they are welcome, but
+>> I have no bandwidth to backport and test.
+>>
+>> I'm saying that it works in 3.10, and it works against 1.6, and that
+>> is what I want to be available.
+>
+>
+> Yes, the 1.5 suggestion was mine in response to working with RP on
+> reducing the BSPs in meta-yocto-bsp to 1 per architecture per the stated
+> intent of that layer.
+>
+> However - that's really all the time I can spend on it :-) Not the hill I
+> want to die on and all that.
 
-After suffering through two rounds of the entire kernel being fetched,
-I've confirmed that the bbappend I've been using works for the reference
-BSPs on 3.14.
+Me either. Responding to the thread was more time than it took me
+to test the bbappend and send it out. As you saw in my email there,
+I won't fight to keep them either .. I'm just on the record saying
+that I won't be testing them on 1.5 either!
 
-As I mentioned before, my plan was to leave the untested reference BSPs
-on 3.10 (particularly the FSL board) and update them once I get confirmation
-that they work with 3.14.
-
-I hadn't planned on adding the linux-yocto-dev.bbappend to meta-yocto-bsps,
-since the hardware reference boards (unlike qemu) have a greater carrying
-cost in terms of testing. So I keep that bbappend slightly out of
-sight. At this point, it shouldn't be needed since all the boards
-that support 3.14, set that explicitly in their config files.
-
-As we rambled on in the thread, I was looking for a parking lot for
-the retiring BSPs that work in 1.6, with the 3.10 kernel, but are not
-the first choice. I won't fight to hard from it, and we can simply
-pull them out of the 3.10 bbappend if there's no better option.
-
-Attached is the bbappend that I used for testing. If it matches yours
-we are good to go.
+I'd think a meta-yocto-old-bsps layer somewhere is all that is
+needed.
 
 Bruce
 
 >
-> I added commits for some of these, the 3.14 kernel bbappend is missing
-> SRCREVs though for example. The state of where I got to is:
+> --
+> Darren Hart
+> Yocto Project - Linux Kernel
+> Intel Open Source Technology Center
 >
-> http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=master-next
->
-> Beth: Your AR is to figure out the autobuilder side of this and build
-> the two new replacement BSPs (beaglebone and edgerouter) instead of the
-> old ones. When that and the current build on the AB is done, can we run
-> a build of master-next please?
->
-> Denys: I'm hoping you can help out with the README
->
-> Bruce: can you look at the linux-yocto-* changes, particularly the 3.14
-> SRCREVs and that linux-yocto-dev looks right?
->
-> Cheers,
->
-> Richard
 >
 >
 
 
---------------010300070309070900060100
-Content-Type: text/x-patch;
-	name="0001-meta-yocto-bsp-populate-3.14-bbappend.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0001-meta-yocto-bsp-populate-3.14-bbappend.patch"
-
-From 9648840031b6dc441137b7c8e9d03e5f466821ac Mon Sep 17 00:00:00 2001
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-Date: Fri, 28 Mar 2014 15:49:47 -0400
-Subject: [PATCH] meta-yocto-bsp: populate 3.14 bbappend
-
-The 3.14 kernel supports the generic-x86, edgerouter and beaglebone black.
-
-All other reference BSPs stay in the 3.10 kernel until boot and regression
-testing can be performed.
-
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_3.14.bbappend      | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-new file mode 100644
-index 000000000000..a1ed1210681f
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-@@ -0,0 +1,17 @@
-+KBRANCH_genericx86  = "standard/common-pc/base"
-+KBRANCH_genericx86-64  = "standard/common-pc-64/base"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone = "standard/beaglebone"
-+
-+KMACHINE_genericx86 ?= "common-pc"
-+KMACHINE_genericx86-64 ?= "common-pc-64"
-+
-+SRCREV_machine_genericx86 ?= "fecc3fd7d31bd93766ff4f0431fecdbbfa4c3a7c"
-+SRCREV_machine_genericx86-64 ?= "fecc3fd7d31bd93766ff4f0431fecdbbfa4c3a7c"
-+SRCREV_machine_edgerouter ?= "fecc3fd7d31bd93766ff4f0431fecdbbfa4c3a7c"
-+SRCREV_machine_beaglebone ?= "58b6d33dd898f901afbed10cfdec96b9d3148a00"
-+
-+COMPATIBLE_MACHINE_genericx86 = "genericx86"
-+COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
--- 
-1.8.1.2
-
-
---------------010300070309070900060100--
