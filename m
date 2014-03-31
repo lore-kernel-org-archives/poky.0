@@ -1,24 +1,31 @@
 Return-Path: <denis@denix.org>
-Received: from vms173021pub.verizon.net (vms173021pub.verizon.net
-	[206.46.173.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25CC1E00C0B;
-	Mon, 31 Mar 2014 08:04:56 -0700 (PDT)
+Received: from vms173025pub.verizon.net (vms173025pub.verizon.net
+	[206.46.173.25])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08E89E00C0C;
+	Mon, 31 Mar 2014 08:08:39 -0700 (PDT)
 Received: from gandalf.denix.org ([unknown] [71.191.205.189])
-	by vms173021.mailsrvcs.net
+	by vms173025.mailsrvcs.net
 	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
 	2009))
-	with ESMTPA id <0N3B00I3E37FL7G0@vms173021.mailsrvcs.net>; Mon,
-	31 Mar 2014 10:04:38 -0500 (CDT)
-Received: from localhost.localdomain (elrond [192.168.0.7])
-	by gandalf.denix.org (Postfix) with ESMTP id 5047E200BA; Mon,
-	31 Mar 2014 11:04:27 -0400 (EDT)
+	with ESMTPA id <0N3B007MO3CFQZ10@vms173025.mailsrvcs.net>; Mon,
+	31 Mar 2014 10:07:38 -0500 (CDT)
+Received: by gandalf.denix.org (Postfix, from userid 1000)	id 933B720182; Mon,
+	31 Mar 2014 11:07:27 -0400 (EDT)
+Date: Mon, 31 Mar 2014 11:07:27 -0400
 From: Denys Dmytriyenko <denis@denix.org>
-To: yocto@yoctoproject.org,	poky@yoctoproject.org
-Date: Mon, 31 Mar 2014 11:04:25 -0400
-Message-id: <1396278265-1705-1-git-send-email-denis@denix.org>
-X-Mailer: git-send-email 1.9.1
-Cc: Denys Dmytriyenko <denys@ti.com>
-Subject: [PATCH] beaglebone: fix typo in the U-Boot config name
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-id: <20140331150727.GV3370@denix.org>
+References: <1396031047.14790.24.camel@ted> <5335D450.1030007@windriver.com>
+	<1396134758.14790.32.camel@ted> <1396183076.14790.47.camel@ted>
+	<20140331145510.GU3370@denix.org>
+MIME-version: 1.0
+In-reply-to: <20140331145510.GU3370@denix.org>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: yocto-builds <yocto-builds@yoctoproject.org>, "Hart,
+	Darren" <darren.hart@intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	"saul.wold" <saul.wold@intel.com>, Denys Dmytriyenko <denys@ti.com>
+Subject: Re: meta-yocto-bsp changes and 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,29 +38,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Mar 2014 15:04:57 -0000
+X-List-Received-Date: Mon, 31 Mar 2014 15:08:40 -0000
+Content-type: text/plain; charset=us-ascii
+Content-disposition: inline
 
-From: Denys Dmytriyenko <denys@ti.com>
+On Mon, Mar 31, 2014 at 10:55:10AM -0400, Denys Dmytriyenko wrote:
+> On Sun, Mar 30, 2014 at 01:37:56PM +0100, Richard Purdie wrote:
+> > On Sat, 2014-03-29 at 23:12 +0000, Richard Purdie wrote:
+> > > One remaining issue is that u-boot may be breaking for beaglebone. I'm
+> > > hoping Denys can help there.
+> > 
+> > http://autobuilder.yoctoproject.org/main/builders/nightly-arm/builds/21/steps/BuildImages_1/logs/stdio
+> > http://autobuilder.yoctoproject.org/main/builders/nightly-arm-lsb/builds/21/steps/BuildImages_1/logs/stdio
+> 
+> Sorry, there appears to be a typo - I'm sending a fix shortly.
 
-Signed-off-by: Denys Dmytriyenko <denys@ti.com>
----
- meta-yocto-bsp/conf/machine/beaglebone.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Ok, the patch is out. I'm still working on README - will try to finish it 
+shortly.
+BTW, 3.14 is finally out this morning.
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index 1dcf351..8b474a5 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -30,7 +30,7 @@ KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
- 
- SPL_BINARY = "MLO"
- UBOOT_SUFFIX = "img"
--UBOOT_MACHINE = "am335_evm_config"
-+UBOOT_MACHINE = "am335x_evm_config"
- UBOOT_ENTRYPOINT = "0x80008000"
- UBOOT_LOADADDRESS = "0x80008000"
- 
 -- 
-1.9.1
-
+Denys
 
