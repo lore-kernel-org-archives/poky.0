@@ -1,25 +1,25 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E4BA1E00C24
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E60F3E00C25
 	for <poky@yoctoproject.org>; Mon, 31 Mar 2014 11:02:11 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s2VI28vo016809
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s2VI29d5016812
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 31 Mar 2014 11:02:08 -0700 (PDT)
+	Mon, 31 Mar 2014 11:02:09 -0700 (PDT)
 Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.169.1; Mon, 31 Mar 2014 11:02:07 -0700
+	14.3.169.1; Mon, 31 Mar 2014 11:02:09 -0700
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
 To: <richard.purdie@linuxfoundation.org>
-Date: Mon, 31 Mar 2014 14:01:55 -0400
-Message-ID: <2942f83bebde4f492fec37c06c98a43a95d6f6f3.1396288654.git.bruce.ashfield@windriver.com>
+Date: Mon, 31 Mar 2014 14:01:57 -0400
+Message-ID: <5583c6c507586a4e6bf57df179ad3fc7e4a4de41.1396288654.git.bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 1.8.1.2
 In-Reply-To: <cover.1396288654.git.bruce.ashfield@windriver.com>
 References: <cover.1396288654.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: [PATCH 2/7] yocto-bsps: update reference BSPs to v3.10.34
+Subject: [PATCH 4/7] yocto-bsps: Add a new BSP to support edgerouter
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,32 +35,57 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 X-List-Received-Date: Mon, 31 Mar 2014 18:02:15 -0000
 Content-Type: text/plain
 
+From: Yang Wei <Wei.Yang@windriver.com>
+
+  The EdgeRouter Lite is part of the EdgeMax series. It is an MIPS64 router(Cavium Octeon)
+  with 512MB of RAM, which uses a USB pendrive for storage.
+
+  Setup instructions
+  ------------------
+
+  You will need the following:
+  * NFS root setup on your workstation
+  * TFTP server installed on your workstation
+  * Straight-thru 9-conductor serial cable (DB9, M/F) connected from your
+    PC to UART1
+  * Ethernet connected to the first ethernet port on the board
+
+The rest of the details can be found in the BSP kernel config, and README.hardware.
+
+Signed-off-by: Yang Wei <Wei.Yang@windriver.com>
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ meta-yocto-bsp/conf/machine/edgerouter.conf | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+ create mode 100644 meta-yocto-bsp/conf/machine/edgerouter.conf
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-index 56f566de4fc8..5ff899e1ca6e 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-@@ -7,11 +7,11 @@ KBRANCH_beagleboard = "standard/beagleboard"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- 
--SRCREV_machine_genericx86 ?= "a86e2b1eadd1f607d0d6ac5c4ab20a902714ddb1"
--SRCREV_machine_genericx86-64 ?= "a86e2b1eadd1f607d0d6ac5c4ab20a902714ddb1"
--SRCREV_machine_routerstationpro ?= "e2c76467906116a42a020ed0c76a06af720e5cf1"
--SRCREV_machine_mpc8315e-rdb ?= "1ac2906d6d672f33e36c5add9b7d0e6277e34aaf"
--SRCREV_machine_beagleboard ?= "e231c6220163d3c2a41cb380e1f759e8b222303c"
-+SRCREV_machine_genericx86 ?= "2ee37bfe732c73f7d39af55875ce8d30b282471c"
-+SRCREV_machine_genericx86-64 ?= "2ee37bfe732c73f7d39af55875ce8d30b282471c"
-+SRCREV_machine_routerstationpro ?= "628fb65e665a4179b6df049563f47f521f9dfb4e"
-+SRCREV_machine_mpc8315e-rdb ?= "2688f74bf2bb01ec355bbdd4b6fa00a0d39302de"
-+SRCREV_machine_beagleboard ?= "dbd7d0033e92dcec6682760982228e88df9982e2"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
+new file mode 100644
+index 000000000000..f3ea33bb0d6b
+--- /dev/null
++++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
+@@ -0,0 +1,21 @@
++#@TYPE: Machine
++#@NAME: Edgerouter
++#@DESCRIPTION: Edgerouter
++
++require conf/machine/include/tune-mips64.inc
++
++MACHINE_FEATURES = "pci ext2 ext3 serial"
++
++KERNEL_IMAGETYPE = "vmlinux"
++KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
++KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
++
++PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto-dev"
++
++SERIAL_CONSOLE = "115200 ttyS0"
++USE_VT ?= "0"
++
++MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
++
++IMAGE_FSTYPES ?= "jffs2 tar.bz2"
++JFFS2_ERASEBLOCK = "0x10000"
 -- 
 1.8.1.2
 
