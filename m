@@ -1,31 +1,25 @@
-Return-Path: <denis@denix.org>
-Received: from vms173025pub.verizon.net (vms173025pub.verizon.net
-	[206.46.173.25])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08E89E00C0C;
-	Mon, 31 Mar 2014 08:08:39 -0700 (PDT)
-Received: from gandalf.denix.org ([unknown] [71.191.205.189])
-	by vms173025.mailsrvcs.net
-	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
-	2009))
-	with ESMTPA id <0N3B007MO3CFQZ10@vms173025.mailsrvcs.net>; Mon,
-	31 Mar 2014 10:07:38 -0500 (CDT)
-Received: by gandalf.denix.org (Postfix, from userid 1000)	id 933B720182; Mon,
-	31 Mar 2014 11:07:27 -0400 (EDT)
-Date: Mon, 31 Mar 2014 11:07:27 -0400
-From: Denys Dmytriyenko <denis@denix.org>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-id: <20140331150727.GV3370@denix.org>
-References: <1396031047.14790.24.camel@ted> <5335D450.1030007@windriver.com>
-	<1396134758.14790.32.camel@ted> <1396183076.14790.47.camel@ted>
-	<20140331145510.GU3370@denix.org>
-MIME-version: 1.0
-In-reply-to: <20140331145510.GU3370@denix.org>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: yocto-builds <yocto-builds@yoctoproject.org>, "Hart,
-	Darren" <darren.hart@intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"saul.wold" <saul.wold@intel.com>, Denys Dmytriyenko <denys@ti.com>
-Subject: Re: meta-yocto-bsp changes and 3.14
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F40F2E00C1D
+	for <poky@yoctoproject.org>; Mon, 31 Mar 2014 11:02:09 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s2VI277w018268
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Mon, 31 Mar 2014 11:02:07 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.169.1; Mon, 31 Mar 2014 11:02:06 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Mon, 31 Mar 2014 14:01:54 -0400
+Message-ID: <36e13d1f3c7cd2dc3644fb8e43f95930dafa52a3.1396288654.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.8.1.2
+In-Reply-To: <cover.1396288654.git.bruce.ashfield@windriver.com>
+References: <cover.1396288654.git.bruce.ashfield@windriver.com>
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 1/7] poky: set qemu BSPs preferred version to 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,25 +32,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Mar 2014 15:08:40 -0000
-Content-type: text/plain; charset=us-ascii
-Content-disposition: inline
+X-List-Received-Date: Mon, 31 Mar 2014 18:02:12 -0000
+Content-Type: text/plain
 
-On Mon, Mar 31, 2014 at 10:55:10AM -0400, Denys Dmytriyenko wrote:
-> On Sun, Mar 30, 2014 at 01:37:56PM +0100, Richard Purdie wrote:
-> > On Sat, 2014-03-29 at 23:12 +0000, Richard Purdie wrote:
-> > > One remaining issue is that u-boot may be breaking for beaglebone. I'm
-> > > hoping Denys can help there.
-> > 
-> > http://autobuilder.yoctoproject.org/main/builders/nightly-arm/builds/21/steps/BuildImages_1/logs/stdio
-> > http://autobuilder.yoctoproject.org/main/builders/nightly-arm-lsb/builds/21/steps/BuildImages_1/logs/stdio
-> 
-> Sorry, there appears to be a typo - I'm sending a fix shortly.
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ meta-yocto/conf/distro/poky.conf | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Ok, the patch is out. I'm still working on README - will try to finish it 
-shortly.
-BTW, 3.14 is finally out this morning.
-
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index a68a6a1416b8..c5767250d324 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -19,13 +19,13 @@ POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+ 
+ DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DEFAULT_DISTRO_FEATURES}"
+ 
+-PREFERRED_VERSION_linux-yocto ?= "3.10%"
+-PREFERRED_VERSION_linux-yocto_qemux86 ?= "3.10%"
+-PREFERRED_VERSION_linux-yocto_qemux86-64 ?= "3.10%"
+-PREFERRED_VERSION_linux-yocto_qemuarm ?= "3.10%"
+-PREFERRED_VERSION_linux-yocto_qemumips ?= "3.10%"
+-PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.10%"
+-PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.10%"
++PREFERRED_VERSION_linux-yocto ?= "3.14%"
++PREFERRED_VERSION_linux-yocto_qemux86 ?= "3.14%"
++PREFERRED_VERSION_linux-yocto_qemux86-64 ?= "3.14%"
++PREFERRED_VERSION_linux-yocto_qemuarm ?= "3.14%"
++PREFERRED_VERSION_linux-yocto_qemumips ?= "3.14%"
++PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.14%"
++PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.14%"
+ 
+ SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
+ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
 -- 
-Denys
+1.8.1.2
+
 
