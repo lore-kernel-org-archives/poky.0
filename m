@@ -1,25 +1,21 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE510E00C28
-	for <poky@yoctoproject.org>; Mon, 31 Mar 2014 11:02:16 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s2VI2E15018290
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 31 Mar 2014 11:02:14 -0700 (PDT)
-Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.169.1; Mon, 31 Mar 2014 11:02:14 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Mon, 31 Mar 2014 14:02:00 -0400
-Message-ID: <90a1e07717b91d1ef30fbc195ea0bc05c339d9d1.1396288654.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.8.1.2
-In-Reply-To: <cover.1396288654.git.bruce.ashfield@windriver.com>
-References: <cover.1396288654.git.bruce.ashfield@windriver.com>
+Return-Path: <holger@freyther.de>
+Received: from mail.sysmocom.de (mail.sysmocom.de [144.76.43.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 530B3E00C29
+	for <poky@yoctoproject.org>; Mon, 31 Mar 2014 13:58:22 -0700 (PDT)
+Received: from sangmingze-mail.local (91-65-86-185-dynip.superkabel.de
+	[91.65.86.185])
+	by mail.sysmocom.de (Postfix) with ESMTPSA id 4A7644EEBD
+	for <poky@yoctoproject.org>; Mon, 31 Mar 2014 20:58:18 +0000 (UTC)
+Received: from ich by sangmingze-mail.local with local (Exim 4.82)
+	(envelope-from <holger@freyther.de>) id 1WUjHd-0005c8-Bv
+	for poky@yoctoproject.org; Mon, 31 Mar 2014 22:58:17 +0200
+Date: Mon, 31 Mar 2014 22:58:17 +0200
+From: Holger Hans Peter Freyther <holger@freyther.de>
+To: poky@yoctoproject.org
+Message-ID: <20140331205817.GA4987@xiaoyu.lan>
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 7/7] meta-yocto-bsp: populate 3.14 bbappend
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Subject: ARM /proc/cpu/alignment with systemd images in dora
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,44 +28,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Mar 2014 18:02:17 -0000
-Content-Type: text/plain
+X-List-Received-Date: Mon, 31 Mar 2014 20:58:24 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The 3.14 kernel supports the generic-x86, edgerouter and beaglebone black.
+Good Evening,
 
-All other reference BSPs stay in the 3.10 kernel until boot and regression
-testing can be performed.
+I noticed that the "alignment.sh" is not ran on my systemd images. I
+think I opened a bug about systemd ignoring ".sh" scripts but that was
+fixed and also not the main issue here. After looking at src/core/service.c
+of systemd the rcS.d is not looked at.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_3.14.bbappend      | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+Can something like the below be included? This will start the alignment
+in runlevel2 too and will then be executed by systemd. Alternatively one
+could add a proper symlink for the alignment target inside the systemd
+recipe?
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-new file mode 100644
-index 000000000000..e0964eb40a47
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-@@ -0,0 +1,17 @@
-+KBRANCH_genericx86  = "standard/common-pc/base"
-+KBRANCH_genericx86-64  = "standard/common-pc-64/base"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone = "standard/beaglebone"
-+
-+KMACHINE_genericx86 ?= "common-pc"
-+KMACHINE_genericx86-64 ?= "common-pc-64"
-+
-+SRCREV_machine_genericx86 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
-+SRCREV_machine_genericx86-64 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
-+SRCREV_machine_edgerouter ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
-+SRCREV_machine_beaglebone ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
-+
-+COMPATIBLE_MACHINE_genericx86 = "genericx86"
-+COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
--- 
-1.8.1.2
+Comments?
+
+diff --git a/meta/recipes-core/initscripts/initscripts_1.0.bb b/meta/recipes-core/initscripts/initscripts_1.0.bb
+index 50ebb1c..08539a2 100644
+--- a/meta/recipes-core/initscripts/initscripts_1.0.bb
++++ b/meta/recipes-core/initscripts/initscripts_1.0.bb
+@@ -124,7 +124,7 @@ do_install () {
+        update-rc.d -r ${D} read-only-rootfs-hook.sh start 29 S .
+        update-rc.d -r ${D} devpts.sh start 38 S .
+        if [ "${TARGET_ARCH}" = "arm" ]; then
+-               update-rc.d -r ${D} alignment.sh start 06 S .
++               update-rc.d -r ${D} alignment.sh start 06 S 2 .
+        fi
+        # We wish to have /var/log ready at this stage so execute this after
+        # populate-volatile.sh
+
 
 
