@@ -1,23 +1,19 @@
-Return-Path: <cristian.iorga@intel.com>
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C2578E00BD3
-	for <poky@yoctoproject.org>; Wed,  2 Apr 2014 06:37:58 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga102.jf.intel.com with ESMTP; 02 Apr 2014 06:31:41 -0700
+Return-Path: <valentin.popa@intel.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BC97DE00BE0
+	for <poky@yoctoproject.org>; Fri,  4 Apr 2014 03:31:10 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 04 Apr 2014 03:31:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,780,1389772800"; d="scan'208";a="485711187"
-Received: from sentry.rb.intel.com ([10.237.105.54])
-	by orsmga001.jf.intel.com with ESMTP; 02 Apr 2014 06:36:20 -0700
-From: Cristian Iorga <cristian.iorga@intel.com>
+X-IronPort-AV: E=Sophos;i="4.97,794,1389772800"; d="scan'208";a="514386514"
+Received: from vpopa-desktop.rb.intel.com ([10.237.105.76])
+	by fmsmga002.fm.intel.com with ESMTP; 04 Apr 2014 03:31:08 -0700
+From: Valentin Popa <valentin.popa@intel.com>
 To: poky@yoctoproject.org
-Date: Wed,  2 Apr 2014 16:39:35 +0300
-Message-Id: <38f022e53145f7c8c896cf5f16685e5641699ed3.1396445845.git.cristian.iorga@intel.com>
+Date: Fri,  4 Apr 2014 13:31:20 +0300
+Message-Id: <1396607480-30717-1-git-send-email-valentin.popa@intel.com>
 X-Mailer: git-send-email 1.8.3.2
-In-Reply-To: <cover.1396445845.git.cristian.iorga@intel.com>
-References: <cover.1396445845.git.cristian.iorga@intel.com>
-In-Reply-To: <cover.1396445845.git.cristian.iorga@intel.com>
-References: <cover.1396445845.git.cristian.iorga@intel.com>
-Subject: [PATCH 1/1] poky.conf: added Poky 1.6 as tested distro
+Subject: [PATCH] poky-tiny: enable LFS for uclibc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -30,27 +26,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Apr 2014 13:37:58 -0000
+X-List-Received-Date: Fri, 04 Apr 2014 10:31:12 -0000
 
-Build Appliance will not complain about distro.
+Enable large file support for uclibc.
+This patch also solves the build issue
+reported for uclibc (poky-tiny).
 
-Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
+[YOCTO #5865]
+
+Signed-off-by: Valentin Popa <valentin.popa@intel.com>
 ---
- meta-yocto/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+ meta-yocto/conf/distro/poky-tiny.conf | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index c576725..7cf35d0 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -74,6 +74,7 @@ CONNECTIVITY_CHECK_URIS ?= " \
- SANITY_TESTED_DISTROS ?= " \
-             Poky-1.4 \n \
-             Poky-1.5 \n \
-+            Poky-1.6 \n \
-             Ubuntu-12.04 \n \
-             Ubuntu-12.10 \n \
-             Ubuntu-13.04 \n \
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+index 5322b7d..2548d79 100644
+--- a/meta-yocto/conf/distro/poky-tiny.conf
++++ b/meta-yocto/conf/distro/poky-tiny.conf
+@@ -88,6 +88,9 @@ DISTRO_FEATURES = "${DISTRO_FEATURES_TINY} \
+                    ${DISTRO_FEATURES_LIBC} \
+                   "
+ 
++# Enable LFS - see bug YOCTO #5865
++DISTRO_FEATURES_append_libc-uclibc = " largefile"
++
+ # Use tmpdevfs and the busybox runtime services
+ VIRTUAL-RUNTIME_dev_manager = ""
+ VIRTUAL-RUNTIME_login_manager = ""
 -- 
 1.8.3.2
 
