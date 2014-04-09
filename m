@@ -1,24 +1,22 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7068FE00BF4
-	for <poky@yoctoproject.org>; Fri,  4 Apr 2014 07:26:49 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 04 Apr 2014 07:26:42 -0700
+Return-Path: <tom.zanussi@intel.com>
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8C8A5E00B8B
+	for <poky@yoctoproject.org>; Tue,  8 Apr 2014 21:28:01 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 08 Apr 2014 21:23:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,795,1389772800"; d="scan'208";a="514498826"
-Received: from davidllo-mobl.ger.corp.intel.com (HELO
-	peggleto-mobl5.ger.corp.intel.com) ([10.252.120.87])
-	by fmsmga002.fm.intel.com with ESMTP; 04 Apr 2014 07:26:36 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="4.97,823,1389772800"; d="scan'208";a="517322347"
+Received: from unknown (HELO localhost) ([10.255.12.73])
+	by orsmga002.jf.intel.com with ESMTP; 08 Apr 2014 21:27:57 -0700
+From: Tom Zanussi <tom.zanussi@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri,  4 Apr 2014 15:26:25 +0100
-Message-Id: <b9e1cbab4581811bc637d65b1f264b7d8f45128f.1396621532.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.9.0
-In-Reply-To: <cover.1396621532.git.paul.eggleton@linux.intel.com>
-References: <cover.1396621532.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1396621532.git.paul.eggleton@linux.intel.com>
-References: <cover.1396621532.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 3/4] README.hardware: drop routerstationpro in favour of edgerouter
+Date: Tue,  8 Apr 2014 23:27:57 -0500
+Message-Id: <4d281a1cda0024427e96e4f78fae7203d980b5cb.1397016854.git.tom.zanussi@linux.intel.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <cover.1397016854.git.tom.zanussi@linux.intel.com>
+References: <cover.1397016854.git.tom.zanussi@linux.intel.com>
+Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
+Subject: [PATCH 1/1] yocto-bsp: Update templates to 3.14 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -31,202 +29,712 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Apr 2014 14:26:49 -0000
+X-List-Received-Date: Wed, 09 Apr 2014 04:28:03 -0000
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Add 3.14 kernel support, and remove support for 3.4.
+
+Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
 ---
- README.hardware | 163 +-------------------------------------------------------
- 1 file changed, 1 insertion(+), 162 deletions(-)
+ .../arm/recipes-kernel/linux/kernel-list.noinstall |  4 +-
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" | 32 -------------
+ ...tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" |  2 +-
+ ...nux-yocto_3.14\": }} linux-yocto_3.14.bbappend" |  2 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |  8 ++--
+ .../arch/i386/conf/machine/{{=machine}}.conf       |  4 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" | 32 -------------
+ ...tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" |  2 +-
+ ...nux-yocto_3.14\": }} linux-yocto_3.14.bbappend" |  2 +-
+ .../arch/mips/conf/machine/{{=machine}}.conf       |  1 +
+ .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" | 32 -------------
+ ...tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" |  2 +-
+ ...nux-yocto_3.14\": }} linux-yocto_3.14.bbappend" |  2 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" | 32 -------------
+ ...tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" |  2 +-
+ ...nux-yocto_3.14\": }} linux-yocto_3.14.bbappend" |  2 +-
+ .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
+ ...cto-rt_3.10\": }} linux-yocto-rt_3.10.bbappend" |  2 +-
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" | 55 ----------------------
+ ...tiny_3.10\": }} linux-yocto-tiny_3.10.bbappend" |  2 +-
+ ...-tiny_3.14\": }} linux-yocto-tiny_3.4.bbappend" |  6 +--
+ ...nux-yocto_3.10\": }} linux-yocto_3.10.bbappend" |  2 +-
+ ...nux-yocto_3.14\": }} linux-yocto_3.14.bbappend" |  6 +--
+ .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
+ ...yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" | 32 -------------
+ ...tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" | 32 +++++++++++++
+ ...o-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" | 32 -------------
+ ...nux-yocto_3.14\": }} linux-yocto_3.14.bbappend" |  2 +-
+ 31 files changed, 69 insertions(+), 283 deletions(-)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" (98%)
+ rename "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend" (98%)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" (98%)
+ rename "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend" (98%)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" (98%)
+ rename "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend" (98%)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" (98%)
+ rename "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend" (98%)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.4.bbappend" (94%)
+ rename "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend" (94%)
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+ create mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+ delete mode 100644 "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+ rename "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" => "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend" (98%)
 
-diff --git a/README.hardware b/README.hardware
-index 85f0330..3cdb7a2 100644
---- a/README.hardware
-+++ b/README.hardware
-@@ -47,7 +47,6 @@ Hardware Reference Boards
- The following boards are supported by the meta-yocto-bsp layer:
+diff --git a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall
+index 88a5d18..a04e6c7 100644
+--- a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.10) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.14) kernel? (y/n)" default:"y"}}
  
-   * Freescale MPC8315E-RDB (mpc8315e-rdb)
--  * Ubiquiti Networks RouterStation Pro (routerstationpro)
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+-{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.10"}}
++{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.14"}}
+diff --git "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+deleted file mode 100644
+index 198544f..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "c3fa9782d3c6caabbca85d56fc4ace0ba97b9d9e"
+-#SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+index 2f06647..d221d5f 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-tiny.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+index 12ce782..ca7f8c5 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+\ No newline at end of file
+diff --git a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/kernel-list.noinstall
+index 426cadd..03b7d84 100644
+--- a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/kernel-list.noinstall
+@@ -2,22 +2,22 @@
+ {{ input type:"boolean" name:"custom_kernel_remote" prio:"20" msg:"Is the custom kernel you'd like to use in a remote git repo? (y/n)" default:"y"}}
  
- For more information see the board's section below. The appropriate MACHINE
- variable value corresponding to the board is given in brackets.
-@@ -59,6 +58,7 @@ Consumer Devices
- The following consumer devices are supported by the meta-yocto-bsp layer:
+ {{ if kernel_choice == "custom" and custom_kernel_remote == "y": }}
+-{{ input type:"edit-git-repo" name:"custom_kernel_remote_path" prio:"20" msg:"Please enter the full URI to the remote git repo (the default corresponds to linux-stable v3.10.9)" default:"git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git"}}
++{{ input type:"edit-git-repo" name:"custom_kernel_remote_path" prio:"20" msg:"Please enter the full URI to the remote git repo (the default corresponds to linux-stable v3.13.9)" default:"git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git"}}
  
-   * Intel x86 based PCs and devices (genericx86)
-+  * Ubiquiti Networks EdgeRouter Lite (edgerouter)
+ {{ if kernel_choice == "custom" and custom_kernel_remote == "n": }}
+-{{ input type:"edit-git-repo" name:"custom_kernel_local_path" prio:"20" msg:"You've indicated that you're not using a remote git repo.  Please enter the full path to the local git repo you want to use (the default assumes a local linux-stable v3.10.9)" default:"/home/trz/yocto/kernels/linux-stable.git"}}
++{{ input type:"edit-git-repo" name:"custom_kernel_local_path" prio:"20" msg:"You've indicated that you're not using a remote git repo.  Please enter the full path to the local git repo you want to use (the default assumes a local linux-stable v3.13.9)" default:"/home/trz/yocto/kernels/linux-stable.git"}}
  
- For more information see the device's section below. The appropriate MACHINE
- variable value corresponding to the device is given in brackets.
-@@ -240,167 +240,6 @@ Load the kernel and dtb (device tree blob), and boot the system as follows:
-  => bootm 1000000 - 2000000
+ {{ if kernel_choice == "custom": }}
+ {{ input type:"boolean" name:"custom_kernel_need_kbranch" prio:"20" msg:"Do you need to use a specific (non-master) branch? (y/n)" default:"n"}}
  
+ {{ if kernel_choice == "custom" and custom_kernel_need_kbranch == "y": }}
+-{{ input type:"edit" name:"custom_kernel_kbranch" prio:"20" msg:"Please enter the branch you want to use (the default branch corresponds to the linux-stable 'linux-3.10.y' branch):" default:"linux-3.10.y"}}
++{{ input type:"edit" name:"custom_kernel_kbranch" prio:"20" msg:"Please enter the branch you want to use (the default branch corresponds to the linux-stable 'linux-3.13.y' branch):" default:"linux-3.13.y"}}
  
--Ubiquiti Networks RouterStation Pro (routerstationpro)
--======================================================
--
--The RouterStation Pro is an Atheros AR7161 MIPS-based board. Geared towards
--networking applications, it has all of the usual features as well as three
--type IIIA mini-PCI slots and an on-board 3-port 10/100/1000 Ethernet switch,
--in addition to the 10/100/1000 Ethernet WAN port which supports
--Power-over-Ethernet.
--
--Setup instructions
--------------------
--
--You will need the following:
--* A serial cable - female to female (or female to male + gender changer)
--  NOTE: cable must be straight through, *not* a null modem cable.
--* USB flash drive or hard disk that is able to be powered from the
--  board's USB port.
--* tftp server installed on your workstation
--
--NOTE: in the following instructions it is assumed that /dev/sdb corresponds
--to the USB disk when it is plugged into your workstation. If this is not the
--case in your setup then please be careful to substitute the correct device
--name in all commands where appropriate.
--
----- Preparation ---
--
--1) Build an image (e.g. core-image-minimal) using "routerstationpro" as the
--MACHINE
--
--2) Partition the USB drive so that primary partition 1 is type Linux (83).
--Minimum size depends on your root image size - core-image-minimal probably
--only needs 8-16MB, other images will need more.
--
--  # fdisk /dev/sdb
--  Command (m for help): p
--
--  Disk /dev/sdb: 4011 MB, 4011491328 bytes
--  124 heads, 62 sectors/track, 1019 cylinders, total 7834944 sectors
--  Units = sectors of 1 * 512 = 512 bytes
--  Sector size (logical/physical): 512 bytes / 512 bytes
--  I/O size (minimum/optimal): 512 bytes / 512 bytes
--  Disk identifier: 0x0009e87d
--
--     Device Boot      Start         End      Blocks   Id  System
--  /dev/sdb1              62     1952751      976345   83  Linux
--
--3) Format partition 1 on the USB as ext3
--
--  # mke2fs -j /dev/sdb1
--
--4) Mount partition 1 and then extract the contents of
--tmp/deploy/images/core-image-XXXX.tar.bz2 into it (preserving permissions).
--
--  # mount /dev/sdb1 /media/sdb1
--  # cd /media/sdb1
--  # tar -xvjpf tmp/deploy/images/core-image-XXXX.tar.bz2
--
--5) Unmount the USB drive and then plug it into the board's USB port
--
--6) Connect the board's serial port to your workstation and then start up
--your favourite serial terminal so that you will be able to interact with
--the serial console. If you don't have a favourite, picocom is suggested:
--
--  $ picocom /dev/ttyUSB0 -b 115200
--
--7) Connect the network into eth0 (the one that is NOT the 3 port switch). If
--you are using power-over-ethernet then the board will power up at this point.
--
--8) Start up the board, watch the serial console. Hit Ctrl+C to abort the
--autostart if the board is configured that way (it is by default). The
--bootloader's fconfig command can be used to disable autostart and configure
--the IP settings if you need to change them (default IP is 192.168.1.20).
--
--9) Make the kernel (tmp/deploy/images/vmlinux-routerstationpro.bin) available
--on the tftp server.
--
--10) If you are going to write the kernel to flash (optional - see "Booting a
--kernel directly" below for the alternative), remove the current kernel and
--rootfs flash partitions. You can list the partitions using the following
--bootloader command:
--
--  RedBoot> fis list
--
--You can delete the existing kernel and rootfs with these commands:
--
--  RedBoot> fis delete kernel
--  RedBoot> fis delete rootfs
--
----- Booting a kernel directly ---
--
--1) Load the kernel using the following bootloader command:
--
--  RedBoot> load -m tftp -h <ip of tftp server> vmlinux-routerstationpro.bin
--
--You should see a message on it being successfully loaded.
--
--2) Execute the kernel:
--
--  RedBoot> exec -c "console=ttyS0,115200 root=/dev/sda1 rw rootdelay=2 board=UBNT-RSPRO"
--
--Note that specifying the command line with -c is important as linux-yocto does
--not provide a default command line.
--
----- Writing a kernel to flash ---
--
--1) Go to your tftp server and gzip the kernel you want in flash. It should
--halve the size.
--
--2) Load the kernel using the following bootloader command:
--
--  RedBoot> load -r -b 0x80600000 -m tftp -h <ip of tftp server> vmlinux-routerstationpro.bin.gz
--
--This should output something similar to the following:
--
--  Raw file loaded 0x80600000-0x8087c537, assumed entry at 0x80600000
--
--Calculate the length by subtracting the first number from the second number
--and then rounding the result up to the nearest 0x1000.
--
--3) Using the length calculated above, create a flash partition for the kernel:
--
--  RedBoot> fis create -b 0x80600000 -l 0x240000 kernel
--
--(change 0x240000 to your rounded length -- change "kernel" to whatever
--you want to name your kernel)
--
----- Booting a kernel from flash ---
--
--To boot the flashed kernel perform the following steps.
--
--1) At the bootloader prompt, load the kernel:
--
--  RedBoot> fis load -d -e kernel
--
--(Change the name "kernel" above if you chose something different earlier)
--
--(-e means 'elf', -d 'decompress')
--
--2) Execute the kernel using the exec command as above.
--
----- Automating the boot process ---
--
--After writing the kernel to flash and testing the load and exec commands
--manually, you can automate the boot process with a boot script.
--
--1) RedBoot> fconfig
--   (Answer the questions not specified here as they pertain to your environment)
--2) Run script at boot: true
--  Boot script: 
--  .. fis load -d -e kernel
--  .. exec
--  Enter script, terminate with empty line
--  >> fis load -d -e kernel
--  >> exec -c "console=ttyS0,115200 root=/dev/sda1 rw rootdelay=2 board=UBNT-RSPRO"
--  >> 
--3) Answer the remaining questions and write the changes to flash:
--  Update RedBoot non-volatile configuration - continue (y/n)? y
--  ... Erase from 0xbfff0000-0xc0000000: .
--  ... Program from 0x87ff0000-0x88000000 at 0xbfff0000: .
--4) Power cycle the board.
--
- EdgeRouter Lite(edgerouter)
- =====================================
+ {{ if kernel_choice == "custom": }}
+ {{ input type:"edit" name:"custom_kernel_srcrev" prio:"20" msg:"Please enter the SRCREV (commit id) you'd like to use (use '${AUTOREV}' to track the current HEAD):" default:"${AUTOREV}"}}
  
+ {{ if kernel_choice == "custom": }}
+-{{ input type:"edit" name:"custom_kernel_linux_version" prio:"20" msg:"Please enter the Linux version of the kernel you've specified:" default:"3.10.9"}}
++{{ input type:"edit" name:"custom_kernel_linux_version" prio:"20" msg:"Please enter the Linux version of the kernel you've specified:" default:"3.13.9"}}
+ 
+ {{ if kernel_choice == "custom": }}
+ {{ input type:"edit" name:"custom_kernel_linux_version_extension" prio:"20" msg:"Please enter a Linux version extension if you want (it will show up at the end of the kernel name shown by uname):" default:"-custom"}}
+diff --git a/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
+index 2fff9b7..932fd79 100644
+--- a/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/i386/conf/machine/{{=machine}}.conf
+@@ -32,7 +32,7 @@ MACHINE_FEATURES += "wifi efi pcbios"
+ 
+ {{ input type:"boolean" name:"xserver" prio:"50" msg:"Do you need support for X? (y/n)" default:"y" }}
+ 
+-{{ if xserver == "y" and (kernel_choice == "linux-yocto_3.4" or kernel_choice == "linux-yocto_3.10"): }}
++{{ if xserver == "y" and (kernel_choice == "linux-yocto_3.14" or kernel_choice == "linux-yocto_3.10"): }}
+ {{ input type:"choicelist" name:"xserver_choice" prio:"50" msg:"Please select an xserver for this machine:" default:"xserver_i915" }}
+ {{ input type:"choice" val:"xserver_vesa" msg:"VESA xserver support" }}
+ {{ input type:"choice" val:"xserver_i915" msg:"i915 xserver support" }}
+@@ -44,7 +44,7 @@ MACHINE_FEATURES += "wifi efi pcbios"
+ {{ input type:"choice" val:"xserver_i915" msg:"i915 xserver support" }}
+ {{ input type:"choice" val:"xserver_i965" msg:"i965 xserver support" }}
+ 
+-{{ if xserver == "y" and kernel_choice != "linux-yocto_3.4" and kernel_choice != "linux-yocto_3.10" and kernel_choice != "custom": xserver_choice = "xserver_i915" }}
++{{ if xserver == "y" and kernel_choice != "linux-yocto_3.14" and kernel_choice != "linux-yocto_3.10" and kernel_choice != "custom": xserver_choice = "xserver_i915" }}
+ 
+ {{ if xserver == "y": }}
+ XSERVER ?= "${XSERVER_X86_BASE} \
+diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall
+index 88a5d18..a04e6c7 100644
+--- a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.10) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.14) kernel? (y/n)" default:"y"}}
+ 
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+-{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.10"}}
++{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.14"}}
+diff --git "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+deleted file mode 100644
+index 198544f..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "c3fa9782d3c6caabbca85d56fc4ace0ba97b9d9e"
+-#SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+index 2f06647..d221d5f 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-tiny.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+index c39fd51..948d568 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+\ No newline at end of file
+diff --git a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
+index 3856b38..2e70426 100644
+--- a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
+@@ -35,3 +35,4 @@ USE_VT ?= "0"
+ MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+ 
+ IMAGE_FSTYPES ?= "jffs2 tar.bz2"
++JFFS2_ERASEBLOCK = "0x10000"
+\ No newline at end of file
+diff --git a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall
+index 88a5d18..a04e6c7 100644
+--- a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.10) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.14) kernel? (y/n)" default:"y"}}
+ 
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+-{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.10"}}
++{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.14"}}
+diff --git "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+deleted file mode 100644
+index 198544f..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "c3fa9782d3c6caabbca85d56fc4ace0ba97b9d9e"
+-#SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+index 2f06647..85544e8 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-tiny.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+\ No newline at end of file
+diff --git "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+index 12ce782..ca7f8c5 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+\ No newline at end of file
+diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall
+index 88a5d18..a04e6c7 100644
+--- a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.10) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.14) kernel? (y/n)" default:"y"}}
+ 
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+-{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.10"}}
++{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.14"}}
+diff --git "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+deleted file mode 100644
+index 198544f..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "c3fa9782d3c6caabbca85d56fc4ace0ba97b9d9e"
+-#SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+index 2f06647..d221d5f 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-tiny.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+index 12ce782..aebda9b 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall
+index 88a5d18..a04e6c7 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.10) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.14) kernel? (y/n)" default:"y"}}
+ 
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+-{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.10"}}
++{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.14"}}
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.10\": }} linux-yocto-rt_3.10.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.10\": }} linux-yocto-rt_3.10.bbappend"
+index 1f46fdb..73b6e34 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.10\": }} linux-yocto-rt_3.10.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.10\": }} linux-yocto-rt_3.10.bbappend"	
+@@ -52,4 +52,4 @@ SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "f35992f80c81dc5fa1a97165dfd5cbb84661f7cb"
+ #SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "1b534b2f8bbe9b8a773268cfa30a4850346f6f5f"
+-#LINUX_VERSION = "3.10.9"
++#LINUX_VERSION = "3.10.35"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+deleted file mode 100644
+index 256c5c2..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"	
++++ /dev/null
+@@ -1,55 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y" and qemuarch == "arm": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"arm" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n" and qemuarch == "arm": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"arm" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "y" and qemuarch == "powerpc": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n" and qemuarch == "powerpc": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/qemuppc" }}
+-
+-{{ if need_new_kbranch == "y" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "y" and qemuarch == "mips": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n" and qemuarch == "mips": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "c3fa9782d3c6caabbca85d56fc4ace0ba97b9d9e"
+-#SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.10\": }} linux-yocto-tiny_3.10.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.10\": }} linux-yocto-tiny_3.10.bbappend"
+index 760eddd..da4e61e 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.10\": }} linux-yocto-tiny_3.10.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.10\": }} linux-yocto-tiny_3.10.bbappend"	
+@@ -52,4 +52,4 @@ SRC_URI += "file://{{=machine}}-tiny.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.10.9"
++#LINUX_VERSION = "3.10.35"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.4.bbappend"
+similarity index 94%
+rename from "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.4.bbappend"
+index b42837a..013883f 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.4.bbappend"	
+@@ -50,6 +50,6 @@ SRC_URI += "file://{{=machine}}-tiny.scc \
+ 
+ # uncomment and replace these SRCREVs with the real commit ids once you've had
+ # the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+-#SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
++#SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "8f55bee2403176a50cc0dd41811aa60fcf07243c"
++#LINUX_VERSION = "3.14"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.10\": }} linux-yocto_3.10.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.10\": }} linux-yocto_3.10.bbappend"
+index 7b7ca90..392ace6 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.10\": }} linux-yocto_3.10.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.10\": }} linux-yocto_3.10.bbappend"	
+@@ -52,4 +52,4 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "b170394a475b96ecc92cbc9e4b002bed0a9f69c5"
+ #SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "c2ed0f16fdec628242a682897d5d86df4547cf24"
+-#LINUX_VERSION = "3.10.9"
++#LINUX_VERSION = "3.10.35"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+similarity index 94%
+rename from "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+index 7790deb..2cc9b87 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"	
+@@ -50,6 +50,6 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ 
+ # uncomment and replace these SRCREVs with the real commit ids once you've had
+ # the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+-#SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
++#SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "8f55bee2403176a50cc0dd41811aa60fcf07243c"
++#LINUX_VERSION = "3.14"
+diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
+index 88a5d18..a04e6c7 100644
+--- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.10) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.14) kernel? (y/n)" default:"y"}}
+ 
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+-{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.10"}}
++{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.14"}}
+diff --git "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"
+deleted file mode 100644
+index 198544f..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-rt_3.4\": }} linux-yocto-rt_3.4.bbappend"	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/preempt-rt" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/preempt-rt/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-preempt-rt.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-rt_{{=machine}} ?= "c3fa9782d3c6caabbca85d56fc4ace0ba97b9d9e"
+-#SRCREV_meta_pn-linux-yocto-rt_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend" "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"
+new file mode 100644
+index 0000000..d221d5f
+--- /dev/null
++++ "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.14\": }} linux-yocto-tiny_3.14.bbappend"	
+@@ -0,0 +1,32 @@
++FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
++
++PR := "${PR}.1"
++
++COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
++
++{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
++
++{{ if need_new_kbranch == "y": }}
++{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
++
++{{ if need_new_kbranch == "n": }}
++{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
++
++{{ if need_new_kbranch == "n": }}
++KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
++
++{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
++{{ if smp == "y": }}
++KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
++
++SRC_URI += "file://{{=machine}}-tiny.scc \
++            file://{{=machine}}-user-config.cfg \
++            file://{{=machine}}-user-patches.scc \
++            file://{{=machine}}-user-features.scc \
++           "
++
++# uncomment and replace these SRCREVs with the real commit ids once you've had
++# the appropriate changes committed to the upstream linux-yocto repo
++#SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
++#SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
++#LINUX_VERSION = "3.14"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"
+deleted file mode 100644
+index 2f06647..0000000
+--- "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto-tiny_3.4\": }} linux-yocto-tiny_3.4.bbappend"	
++++ /dev/null
+@@ -1,32 +0,0 @@
+-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+-
+-PR := "${PR}.1"
+-
+-COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+-
+-{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+-
+-{{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
+-
+-{{ if need_new_kbranch == "n": }}
+-KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+-
+-{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
+-{{ if smp == "y": }}
+-KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
+-
+-SRC_URI += "file://{{=machine}}-tiny.scc \
+-            file://{{=machine}}-user-config.cfg \
+-            file://{{=machine}}-user-patches.scc \
+-            file://{{=machine}}-user-features.scc \
+-           "
+-
+-# uncomment and replace these SRCREVs with the real commit ids once you've had
+-# the appropriate changes committed to the upstream linux-yocto repo
+-#SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+-#SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
+diff --git "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend" "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+similarity index 98%
+rename from "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"
+rename to "scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"
+index 7053775..81e528b 100644
+--- "a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.4\": }} linux-yocto_3.4.bbappend"	
++++ "b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/{{ if kernel_choice == \"linux-yocto_3.14\": }} linux-yocto_3.14.bbappend"	
+@@ -29,4 +29,4 @@ SRC_URI += "file://{{=machine}}-standard.scc \
+ # the appropriate changes committed to the upstream linux-yocto repo
+ #SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "840bb8c059418c4753415df56c9aff1c0d5354c8"
+ #SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "4fd76cc4f33e0afd8f906b1e8f231b6d13b6c993"
+-#LINUX_VERSION = "3.4.34"
++#LINUX_VERSION = "3.14"
 -- 
-1.9.0
+1.8.3.1
 
 
