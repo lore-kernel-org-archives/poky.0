@@ -1,39 +1,32 @@
-Return-Path: <bevenson@melinkcorp.com>
-Received: from na01-bn1-obe.outbound.protection.outlook.com
-	(mail-bn1blp0182.outbound.protection.outlook.com [207.46.163.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 48763E00C76
-	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 13:20:49 -0700 (PDT)
-Received: from BLUPR05MB040.namprd05.prod.outlook.com (10.255.210.156) by
-	BLUPR05MB069.namprd05.prod.outlook.com (10.255.214.14) with Microsoft
-	SMTP Server (TLS) id 15.0.918.8; Thu, 10 Apr 2014 20:20:46 +0000
-Received: from BLUPR05MB037.namprd05.prod.outlook.com (10.255.210.145) by
-	BLUPR05MB040.namprd05.prod.outlook.com (10.255.210.156) with Microsoft
-	SMTP Server (TLS) id 15.0.913.9; Thu, 10 Apr 2014 20:20:44 +0000
-Received: from BLUPR05MB037.namprd05.prod.outlook.com ([169.254.15.209]) by
-	BLUPR05MB037.namprd05.prod.outlook.com ([169.254.15.209]) with mapi id
-	15.00.0918.000; Thu, 10 Apr 2014 20:20:44 +0000
-From: Bryan Evenson <bevenson@melinkcorp.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: openssl: Need PRINC+1 in recipe?
-Thread-Index: Ac9U+SZni8TJrmcKSoKhwSOGSV0iHg==
-Date: Thu, 10 Apr 2014 20:20:43 +0000
-Message-ID: <72fd694877e24e5a95574a18a2e31d09@BLUPR05MB037.namprd05.prod.outlook.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-vipre-scanned: 01D756B0006E2201D757FD
-x-originating-ip: [98.100.91.242]
-x-forefront-prvs: 0177904E6B
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10009001)(6009001)(428001)(199002)(189002)(164054003)(87936001)(79102001)(80022001)(66066001)(33646001)(46102001)(2656002)(4396001)(76482001)(50986999)(54356999)(77982001)(76576001)(92566001)(74662001)(31966008)(99396002)(81342001)(83322001)(83072002)(81542001)(85852003)(86362001)(74316001)(80976001)(74502001)(20776003)(99286001)(24736002);
-	DIR:OUT; SFP:1101; SCL:1; SRVR:BLUPR05MB040;
-	H:BLUPR05MB037.namprd05.prod.outlook.com;
-	FPR:B0AAF072.1D3367C8.35F194F6.4868F1FB.200F1; PTR:InfoNoRecords;
-	A:1; MX:1; LANG:en; 
-received-spf: None (: melinkcorp.com does not designate permitted sender hosts)
+Return-Path: <vaduva.jan.alexandru@gmail.com>
+Received: from mail-pd0-f176.google.com (mail-pd0-f176.google.com
+	[209.85.192.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AC16EE00C84
+	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 14:30:31 -0700 (PDT)
+Received: by mail-pd0-f176.google.com with SMTP id r10so4372199pdi.21
+	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 14:30:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	bh=CqCf1aULHEW161yvhblAZRCSz5qTZ6Mng3VttnvtlDc=;
+	b=HkhM5YigKqbTHOV7QzB6+kXidjR/jSESxgZqRWBvVnzM5nlzc5Lbgz0LdD6rm3Vfl7
+	fwPTp+MtsL5W3Q0KWDdbHF6AP1057VuJckb+WVv/7YFcWqSzzqEo6NY/0wn6oBt3Ah5D
+	NpTTpx1Qvs2dUQ8EvxkeT7hkopqf5VfSaB5S9aJo/Mmw+xtnpXb5pNk4KcSnG8s8ls0k
+	fN3YejDY8LF/2UzWdIK24iZpKEq8byhnHp5/3hL6yGw1CcNxa2xkUB+Ph5GBOcN66Kpa
+	5HU5ZRwEgDFJ1SlEIbMfZ/z8Ff0q3/m2HCjOcwKzQJk0GkSYtdUTucBPgo8aRE+ydbqq
+	+gWA==
 MIME-Version: 1.0
-X-OriginatorOrg: melinkcorp.com
-Subject: openssl: Need PRINC+1 in recipe?
+X-Received: by 10.66.122.101 with SMTP id lr5mr22531048pab.130.1397165431491; 
+	Thu, 10 Apr 2014 14:30:31 -0700 (PDT)
+Received: by 10.70.23.164 with HTTP; Thu, 10 Apr 2014 14:30:31 -0700 (PDT)
+In-Reply-To: <72fd694877e24e5a95574a18a2e31d09@BLUPR05MB037.namprd05.prod.outlook.com>
+References: <72fd694877e24e5a95574a18a2e31d09@BLUPR05MB037.namprd05.prod.outlook.com>
+Date: Fri, 11 Apr 2014 00:30:31 +0300
+Message-ID: <CABwVrCq7Z_0NgYv2H7JfW1O+w+Ld5pGy3OsBC6L9wmeOwOKgsg@mail.gmail.com>
+From: Alexandru Vaduva <vaduva.jan.alexandru@gmail.com>
+To: Bryan Evenson <bevenson@melinkcorp.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: openssl: Need PRINC+1 in recipe?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,25 +39,89 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Apr 2014 20:20:50 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Thu, 10 Apr 2014 21:30:35 -0000
+Content-Type: multipart/alternative; boundary=047d7b2e0ddf3c929304f6b6ed66
+
+--047d7b2e0ddf3c929304f6b6ed66
+Content-Type: text/plain; charset=ISO-8859-1
+
+Sorry to hijack this conversation but I believe in the next version of poky
+the package openssl should be updated and and for the rest of the version a
+patch should be applied to solve the newly appeared exploit.
+More info here:
+http://thehackernews.com/2014/04/heartbleed-openssl-zero-day-bug-leaves.html
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0160
+
+Alex
+
+
+On Thu, Apr 10, 2014 at 11:20 PM, Bryan Evenson <bevenson@melinkcorp.com>wrote:
+
+> All,
+>
+> I was previously on dylan-1.4.1 and today I upgraded to poky/dylan HEAD to
+> take in the openssl security patches.  Things are rebuilding, but I noticed
+> that the built package version is openssl-1.0.1e-r15.0, which is the same
+> version currently installed on my system.  Shouldn't the PR line change to:
+>
+> PR = "${INC_PR+1}.0"
+>
+> For the packaging systems to take in the update?
+>
+> Thanks,
+> Bryan
+>
+>
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
+
+--047d7b2e0ddf3c929304f6b6ed66
+Content-Type: text/html; charset=ISO-8859-1
 Content-Transfer-Encoding: quoted-printable
 
-All,
-
+<div dir=3D"ltr"><div><div>Sorry to hijack this conversation but I believe =
+in the next version of poky the package openssl should be updated and and f=
+or the rest of the version a patch should be applied to solve the newly app=
+eared exploit. <br>
+</div>More info here: <br><a href=3D"http://thehackernews.com/2014/04/heart=
+bleed-openssl-zero-day-bug-leaves.html">http://thehackernews.com/2014/04/he=
+artbleed-openssl-zero-day-bug-leaves.html</a><br><a href=3D"https://cve.mit=
+re.org/cgi-bin/cvename.cgi?name=3DCVE-2014-0160">https://cve.mitre.org/cgi-=
+bin/cvename.cgi?name=3DCVE-2014-0160</a><br>
+<br></div>Alex <br></div><div class=3D"gmail_extra"><br><br><div class=3D"g=
+mail_quote">On Thu, Apr 10, 2014 at 11:20 PM, Bryan Evenson <span dir=3D"lt=
+r">&lt;<a href=3D"mailto:bevenson@melinkcorp.com" target=3D"_blank">bevenso=
+n@melinkcorp.com</a>&gt;</span> wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">All,<br>
+<br>
 I was previously on dylan-1.4.1 and today I upgraded to poky/dylan HEAD to =
-take in the openssl security patches.  Things are rebuilding, but I noticed=
- that the built package version is openssl-1.0.1e-r15.0, which is the same =
-version currently installed on my system.  Shouldn't the PR line change to:
+take in the openssl security patches. =A0Things are rebuilding, but I notic=
+ed that the built package version is openssl-1.0.1e-r15.0, which is the sam=
+e version currently installed on my system. =A0Shouldn&#39;t the PR line ch=
+ange to:<br>
 
-PR =3D "${INC_PR+1}.0"
+<br>
+PR =3D &quot;${INC_PR+1}.0&quot;<br>
+<br>
+For the packaging systems to take in the update?<br>
+<br>
+Thanks,<br>
+Bryan<br>
+<span class=3D"HOEnZb"><font color=3D"#888888"><br>
+<br>
+<br>
+--<br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
+https://lists.yoctoproject.org/listinfo/poky</a><br>
+</font></span></blockquote></div><br></div>
 
-For the packaging systems to take in the update?
-
-Thanks,
-Bryan
-
-
-
-
+--047d7b2e0ddf3c929304f6b6ed66--
