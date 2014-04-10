@@ -1,22 +1,23 @@
-Return-Path: <alexandrux.palalau@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4CCCAE00BBF
-	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 01:09:02 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga101.jf.intel.com with ESMTP; 10 Apr 2014 01:09:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,833,1389772800"; d="scan'208";a="510756671"
-Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by fmsmga001.fm.intel.com with ESMTP; 10 Apr 2014 01:09:01 -0700
-Received: from localhost.localdomain (unknown [10.237.112.121])
-	by linux.intel.com (Postfix) with ESMTP id B718D6A4007;
-	Thu, 10 Apr 2014 01:08:44 -0700 (PDT)
-From: Alexandru Palalau <alexandrux.palalau@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu, 10 Apr 2014 11:14:09 +0300
-Message-Id: <1397117649-30487-1-git-send-email-alexandrux.palalau@linux.intel.com>
-X-Mailer: git-send-email 1.8.3.1
-Subject: [PATCH] poky.conf: Update SANITY_TESTED_DISTROS
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 518D4E00BE0
+	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 08:33:54 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s3AFXqYK003088
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 10 Apr 2014 08:33:52 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.169.1; Thu, 10 Apr 2014 08:33:51 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Thu, 10 Apr 2014 11:33:37 -0400
+Message-ID: <cover.1397142829.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.8.1.2
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/2] meta-yocto/BSPs: update to korg -stable
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -29,28 +30,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Apr 2014 08:09:03 -0000
+X-List-Received-Date: Thu, 10 Apr 2014 15:33:54 -0000
+Content-Type: text/plain
 
-Added openSUSE-project-13.1 to SANITY_TESTED_DISTROS
+Richard,
 
-Signed-off-by: Alexandru Palalau <alexandrux.palalau@linux.intel.com>
----
- meta-yocto/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+Here are the meta-yocto-bsp SRCREV tweaks to match the ones I just
+sent to oe-core.
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 2eb6045..786a6b0 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -89,6 +89,7 @@ SANITY_TESTED_DISTROS ?= " \
-             Debian-7.4 \n \
-             SUSE-LINUX-12.2 \n \
-             openSUSE-project-12.3 \n \
-+            openSUSE-project-13.1 \n \
-             "
- 
- # Default hash policy for distro
+Cheers,
+
+Bruce
+
+The following changes since commit 75064e67f651c00dfc4dc97ec6544aea7a43af98:
+
+  linux-yocto/3.10: intel BSP configuration updates (2014-04-10 10:51:28 -0400)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (2):
+  yocto-bsps: update references to v3.4.85
+  meta-bsps: update to v3.10.35
+
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend | 6 +++---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend  | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
 -- 
-1.8.3.1
+1.8.1.2
 
 
