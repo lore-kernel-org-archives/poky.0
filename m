@@ -1,25 +1,39 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 94138E00C23
-	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 08:33:55 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s3AFXrho003091
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 10 Apr 2014 08:33:53 -0700 (PDT)
-Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.169.1; Thu, 10 Apr 2014 08:33:53 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Thu, 10 Apr 2014 11:33:39 -0400
-Message-ID: <b068f93b2b63330a6676546a1b08404a76a460bd.1397142829.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.8.1.2
-In-Reply-To: <cover.1397142829.git.bruce.ashfield@windriver.com>
-References: <cover.1397142829.git.bruce.ashfield@windriver.com>
+Return-Path: <bevenson@melinkcorp.com>
+Received: from na01-bn1-obe.outbound.protection.outlook.com
+	(mail-bn1blp0182.outbound.protection.outlook.com [207.46.163.182])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 48763E00C76
+	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 13:20:49 -0700 (PDT)
+Received: from BLUPR05MB040.namprd05.prod.outlook.com (10.255.210.156) by
+	BLUPR05MB069.namprd05.prod.outlook.com (10.255.214.14) with Microsoft
+	SMTP Server (TLS) id 15.0.918.8; Thu, 10 Apr 2014 20:20:46 +0000
+Received: from BLUPR05MB037.namprd05.prod.outlook.com (10.255.210.145) by
+	BLUPR05MB040.namprd05.prod.outlook.com (10.255.210.156) with Microsoft
+	SMTP Server (TLS) id 15.0.913.9; Thu, 10 Apr 2014 20:20:44 +0000
+Received: from BLUPR05MB037.namprd05.prod.outlook.com ([169.254.15.209]) by
+	BLUPR05MB037.namprd05.prod.outlook.com ([169.254.15.209]) with mapi id
+	15.00.0918.000; Thu, 10 Apr 2014 20:20:44 +0000
+From: Bryan Evenson <bevenson@melinkcorp.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: openssl: Need PRINC+1 in recipe?
+Thread-Index: Ac9U+SZni8TJrmcKSoKhwSOGSV0iHg==
+Date: Thu, 10 Apr 2014 20:20:43 +0000
+Message-ID: <72fd694877e24e5a95574a18a2e31d09@BLUPR05MB037.namprd05.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-vipre-scanned: 01D756B0006E2201D757FD
+x-originating-ip: [98.100.91.242]
+x-forefront-prvs: 0177904E6B
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10009001)(6009001)(428001)(199002)(189002)(164054003)(87936001)(79102001)(80022001)(66066001)(33646001)(46102001)(2656002)(4396001)(76482001)(50986999)(54356999)(77982001)(76576001)(92566001)(74662001)(31966008)(99396002)(81342001)(83322001)(83072002)(81542001)(85852003)(86362001)(74316001)(80976001)(74502001)(20776003)(99286001)(24736002);
+	DIR:OUT; SFP:1101; SCL:1; SRVR:BLUPR05MB040;
+	H:BLUPR05MB037.namprd05.prod.outlook.com;
+	FPR:B0AAF072.1D3367C8.35F194F6.4868F1FB.200F1; PTR:InfoNoRecords;
+	A:1; MX:1; LANG:en; 
+received-spf: None (: melinkcorp.com does not designate permitted sender hosts)
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 2/2] meta-bsps: update to v3.10.35
+X-OriginatorOrg: melinkcorp.com
+Subject: openssl: Need PRINC+1 in recipe?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -32,35 +46,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Apr 2014 15:33:55 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 10 Apr 2014 20:20:50 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Updating the remaining 3.10 reference BSPs to the oe-core 3.10 -stable
-version.
+All,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I was previously on dylan-1.4.1 and today I upgraded to poky/dylan HEAD to =
+take in the openssl security patches.  Things are rebuilding, but I noticed=
+ that the built package version is openssl-1.0.1e-r15.0, which is the same =
+version currently installed on my system.  Shouldn't the PR line change to:
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-index 41fd57511bbe..30fcf8eb0a6d 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
-@@ -5,9 +5,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- 
--SRCREV_machine_genericx86 ?= "2ee37bfe732c73f7d39af55875ce8d30b282471c"
--SRCREV_machine_genericx86-64 ?= "2ee37bfe732c73f7d39af55875ce8d30b282471c"
--SRCREV_machine_mpc8315e-rdb ?= "2688f74bf2bb01ec355bbdd4b6fa00a0d39302de"
-+SRCREV_machine_genericx86 ?= "cee957655fe67826b2e827e2db41f156fa8f0cc4"
-+SRCREV_machine_genericx86-64 ?= "cee957655fe67826b2e827e2db41f156fa8f0cc4"
-+SRCREV_machine_mpc8315e-rdb ?= "b37c130db5ae6800e06800315f5be5fca659a625"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
--- 
-1.8.1.2
+PR =3D "${INC_PR+1}.0"
+
+For the packaging systems to take in the update?
+
+Thanks,
+Bryan
+
+
 
 
