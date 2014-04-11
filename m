@@ -1,26 +1,26 @@
-Return-Path: <denis@denix.org>
-Received: from vms173023pub.verizon.net (vms173023pub.verizon.net
-	[206.46.173.23])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6A4C1E00CAA
-	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 15:43:51 -0700 (PDT)
-Received: from gandalf.denix.org ([unknown] [71.191.205.189])
-	by vms173023.mailsrvcs.net
-	(Sun Java(tm) System Messaging Server 7u2-7.02 32bit (built Apr 16
-	2009)) with ESMTPA id <0N3U00AOQ4C7ZZA0@vms173023.mailsrvcs.net> for
-	poky@yoctoproject.org; Thu, 10 Apr 2014 16:43:34 -0500 (CDT)
-Received: by gandalf.denix.org (Postfix, from userid 1000)	id DE78C2016D; Thu,
-	10 Apr 2014 17:43:18 -0400 (EDT)
-Date: Thu, 10 Apr 2014 17:43:18 -0400
-From: Denys Dmytriyenko <denis@denix.org>
-To: Alexandru Vaduva <vaduva.jan.alexandru@gmail.com>
-Message-id: <20140410214318.GV3370@denix.org>
-References: <72fd694877e24e5a95574a18a2e31d09@BLUPR05MB037.namprd05.prod.outlook.com>
-	<CABwVrCq7Z_0NgYv2H7JfW1O+w+Ld5pGy3OsBC6L9wmeOwOKgsg@mail.gmail.com>
-MIME-version: 1.0
-In-reply-to: <CABwVrCq7Z_0NgYv2H7JfW1O+w+Ld5pGy3OsBC6L9wmeOwOKgsg@mail.gmail.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: openssl: Need PRINC+1 in recipe?
+Return-Path: <Bruce.Ashfield@windriver.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C4618E00C38
+	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 21:22:12 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s3B4MBHP024254
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 10 Apr 2014 21:22:11 -0700 (PDT)
+Received: from server.local (128.224.20.58) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.3.169.1;
+	Thu, 10 Apr 2014 21:22:11 -0700
+Message-ID: <53476EC1.50307@windriver.com>
+Date: Fri, 11 Apr 2014 00:25:37 -0400
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: <bin.jiang@windriver.com>
+References: <1397186283-3796-1-git-send-email-bin.jiang@windriver.com>
+In-Reply-To: <1397186283-3796-1-git-send-email-bin.jiang@windriver.com>
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/1] edgerouter: remove RTC kernel option
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -33,37 +33,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 10 Apr 2014 22:43:54 -0000
-Content-type: text/plain; charset=us-ascii
-Content-disposition: inline
+X-List-Received-Date: Fri, 11 Apr 2014 04:22:15 -0000
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 11, 2014 at 12:30:31AM +0300, Alexandru Vaduva wrote:
-> Sorry to hijack this conversation but I believe in the next version of poky
-> the package openssl should be updated and and for the rest of the version a
-> patch should be applied to solve the newly appeared exploit.
-> More info here:
-> http://thehackernews.com/2014/04/heartbleed-openssl-zero-day-bug-leaves.html
-> https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0160
+On 2014-04-10, 11:18 PM, bin.jiang@windriver.com wrote:
+> From: Bin Jiang <bin.jiang@windriver.com>
+>
+> Fix YOCTO #6111.
 
-Yes, that's what he was referring to...
+I pulled this into the kernel tree. Thanks for the quick turn around.
 
+Bruce
 
-> On Thu, Apr 10, 2014 at 11:20 PM, Bryan Evenson <bevenson@melinkcorp.com>wrote:
-> 
-> > All,
-> >
-> > I was previously on dylan-1.4.1 and today I upgraded to poky/dylan HEAD to
-> > take in the openssl security patches.  Things are rebuilding, but I noticed
-> > that the built package version is openssl-1.0.1e-r15.0, which is the same
-> > version currently installed on my system.  Shouldn't the PR line change to:
-> >
-> > PR = "${INC_PR+1}.0"
-> >
-> > For the packaging systems to take in the update?
+>
+> Bin Jiang (1):
+>    meta: Remove RTC kernel options in edgerouter
+>
+>   meta/cfg/kernel-cache/bsp/edgerouter/edgerouter.cfg |    3 ---
+>   1 file changed, 3 deletions(-)
+>
 
-Well, I guess people are so used to not caring about tracking PRs anymore, 
-they forget to bump them when backporting fixes to older branches. Paul?
-
--- 
-Denys
 
