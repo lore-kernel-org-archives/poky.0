@@ -1,28 +1,26 @@
-Return-Path: <paul.eggleton@linux.intel.com>
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C53FAE00CE9
-	for <poky@yoctoproject.org>; Fri, 11 Apr 2014 05:52:44 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 11 Apr 2014 05:52:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,842,1389772800"; d="scan'208";a="491338756"
-Received: from pmeel-ivm.ger.corp.intel.com (HELO
-	peggleto-mobl5.ger.corp.intel.com) ([10.252.120.171])
-	by orsmga001.jf.intel.com with ESMTP; 11 Apr 2014 05:52:42 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Denys Dmytriyenko <denis@denix.org>,
-	Bryan Evenson <bevenson@melinkcorp.com>
-Date: Fri, 11 Apr 2014 13:52:41 +0100
-Message-ID: <2067390.pztT6oOuCA@peggleto-mobl5.ger.corp.intel.com>
-Organization: Intel Corporation
-User-Agent: KMail/4.12.4 (Linux/3.13.9-200.fc20.x86_64; KDE/4.12.4; x86_64; ; )
-In-Reply-To: <3193549.HUX5aTZCbJ@peggleto-mobl5.ger.corp.intel.com>
-References: <72fd694877e24e5a95574a18a2e31d09@BLUPR05MB037.namprd05.prod.outlook.com>
-	<20140410214318.GV3370@denix.org>
-	<3193549.HUX5aTZCbJ@peggleto-mobl5.ger.corp.intel.com>
+Return-Path: <gary@mlbassoc.com>
+Received: from mail.chez-thomas.org (mail.mlbassoc.com [65.100.170.105])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D64D3E009C5
+	for <poky@lists.pokylinux.org>; Sun, 13 Apr 2014 06:59:29 -0700 (PDT)
+Received: by mail.chez-thomas.org (Postfix, from userid 1998)
+	id E0609F811DE; Sun, 13 Apr 2014 07:59:25 -0600 (MDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.2 (2011-06-06) on
+	hermes.chez-thomas.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.9 required=4.0 tests=ALL_TRUSTED,BAYES_00
+	autolearn=ham version=3.3.2
+Received: from [192.168.1.114] (zeus [192.168.1.114])
+	by mail.chez-thomas.org (Postfix) with ESMTP id EE590F811DB;
+	Sun, 13 Apr 2014 07:59:24 -0600 (MDT)
+Message-ID: <534A9840.60606@mlbassoc.com>
+Date: Sun, 13 Apr 2014 07:59:28 -0600
+From: Gary Thomas <gary@mlbassoc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: openssl: Need PRINC+1 in recipe?
+To: Poky <poky@lists.pokylinux.org>
+X-Enigmail-Version: 1.5.2
+Subject: Strange build error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -35,68 +33,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Apr 2014 12:52:44 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Sun, 13 Apr 2014 13:59:37 -0000
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 
-On Friday 11 April 2014 13:46:50 Paul Eggleton wrote:
-> On Thursday 10 April 2014 17:43:18 Denys Dmytriyenko wrote:
-> > On Fri, Apr 11, 2014 at 12:30:31AM +0300, Alexandru Vaduva wrote:
-> > > Sorry to hijack this conversation but I believe in the next version of
-> > > poky
-> > > the package openssl should be updated and and for the rest of the
-> > > version
-> > > a
-> > > patch should be applied to solve the newly appeared exploit.
-> > > More info here:
-> > > http://thehackernews.com/2014/04/heartbleed-openssl-zero-day-bug-leaves.
-> > > ht
-> > > ml https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0160
-> 
-> Just for reference this bug has been fixed in master (by an upgrade to
-> 1.0.1g) and both dora and dylan. For dora and dylan only the patch to fix
-> the bug was backported rather than the full upgrade (along with three other
-> OpenSSL CVEs).
-> > > On Thu, Apr 10, 2014 at 11:20 PM, Bryan Evenson
-> 
-> <bevenson@melinkcorp.com>wrote:
-> > > > All,
-> > > > 
-> > > > I was previously on dylan-1.4.1 and today I upgraded to poky/dylan
-> > > > HEAD
-> > > > to
-> > > > take in the openssl security patches.  Things are rebuilding, but I
-> > > > noticed
-> > > > that the built package version is openssl-1.0.1e-r15.0, which is the
-> > > > same
-> > > > version currently installed on my system.  Shouldn't the PR line
-> > > > change
-> > > > to:
-> > > > 
-> > > > PR = "${INC_PR+1}.0"
-> > > > 
-> > > > For the packaging systems to take in the update?
-> > 
-> > Well, I guess people are so used to not caring about tracking PRs anymore,
-> > they forget to bump them when backporting fixes to older branches. Paul?
-> 
-> It seems to me that we already decided for dylan not to bump PR values as
-> part of standard procedure on changes - I am struggling to find a citation
-> for this though. However, given the severity of this bug, for people's
-> peace of mind I have sent out a PR bump patch for openssl for both dylan
-> and dora, so it's a little easier to tell you have the patch applied.
+I'm getting a strange build error when developing with some new packages:
+| arm-amltd-linux-gnueabi-gcc  -march=armv6 -mthumb-interwork -mfloat-abi=softfp  -mfpu=vfp --sysroot=/local/rpi_2014-04-10/tmp/sysroots/raspberrypi  -O2 -pipe -g
+-feliminate-unused-debug-types -I3rdparty/sparsehash -I3rdparty/utfcpp  -O2 -pipe -g -feliminate-unused-debug-types -fvisibility-inlines-hidden   -Wl,-O1 -Wl,--hash-style=gnu
+-Wl,--as-needed Arpa2Fst.o util.o phonetisaurus-arpa2fst.cpp -o ../phonetisaurus-arpa2fst -lfst -ldl -lm -lrt
+| /local/rpi_2014-04-10/tmp/sysroots/x86_64-linux/usr/libexec/armv6-vfp-amltd-linux-gnueabi/gcc/arm-amltd-linux-gnueabi/4.8.2/ld: util.o: undefined reference to symbol
+'_ZSt20__throw_out_of_rangePKc@@GLIBCXX_3.4'
+| /local/rpi_2014-04-10/tmp/sysroots/raspberrypi/usr/lib/libstdc++.so.6: error adding symbols: DSO missing from command line
 
-I perhaps neglected to mention, if you are maintaining a package feed 
-and therefore need PR values to increment automatically on changes, 
-you should enable the PR service:
+I tried building the same package(s) on my desktop but I don't
+get this error.  It also doesn't seem to be target specific - I
+tried building (using Yocto) for ARM and PowerPC - same thing.
 
-http://www.yoctoproject.org/docs/current/dev-manual/dev-manual.html#incrementing-a-package-revision-number
+Since the error seems to be coming from the stdc++ library,
+I'm at a loss of where to look for it or how to fix this.
 
-Cheers,
-Paul
+Any ideas?
 
 -- 
-
-Paul Eggleton
-Intel Open Source Technology Centre
+------------------------------------------------------------
+Gary Thomas                 |  Consulting for the
+MLB Associates              |    Embedded world
+------------------------------------------------------------
 
