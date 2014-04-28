@@ -1,30 +1,19 @@
-Return-Path: <jigar.chokshi89@gmail.com>
-Received: from mail-oa0-f48.google.com (mail-oa0-f48.google.com
-	[209.85.219.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A682EE00BD5
-	for <poky@yoctoproject.org>; Mon, 28 Apr 2014 00:57:02 -0700 (PDT)
-Received: by mail-oa0-f48.google.com with SMTP id m1so6727886oag.7
-	for <poky@yoctoproject.org>; Mon, 28 Apr 2014 00:57:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type; bh=lnUOS1MDEnNPVF7xeCHJvomZSmPqQx/487ERNZIA61Y=;
-	b=KAIIp2YexuBMnVuTJS1tGS6yxaW6MKumSxDfeemsZVVhL0XY1J6efqiR1yDa0f8Mo2
-	IePIRX9gc4fBrb6RBNBaZ0M9plMhPSlTXTwrUtz9YScf4OUtxAGkOpGfszdRMcLTr7dj
-	1q4YvJfFvCSnG8fb22BnY+i8zrsCq8KHRJ03KztUq+9q7isqtxT7l1yyOteLzaYbtWEZ
-	ujL49mg8tRoKhSutgWP5ZR0sUaE8M1hyWWdnxGcx9H7vfHg1HV/SeXheqUTTXsCnQzSw
-	iXTfg5toE1JUwRUVuHEVpBqmseyKEbeKns5KMnHzvNkt+KfZyblVH9Al0EwlUf273VDs
-	0mkQ==
-MIME-Version: 1.0
-X-Received: by 10.60.115.129 with SMTP id jo1mr21279193oeb.0.1398671821558;
-	Mon, 28 Apr 2014 00:57:01 -0700 (PDT)
-Received: by 10.182.126.130 with HTTP; Mon, 28 Apr 2014 00:57:01 -0700 (PDT)
-In-Reply-To: <CAAEo+ZrTKqkFUxcaP4BU+hcg-9RZsFHnZs3PLA54zwdeh99W-w@mail.gmail.com>
-References: <CAAEo+ZrTKqkFUxcaP4BU+hcg-9RZsFHnZs3PLA54zwdeh99W-w@mail.gmail.com>
-Date: Mon, 28 Apr 2014 09:57:01 +0200
-Message-ID: <CAAEo+ZoJ8wXt8y=XPVdA6bdpCYmUk1uYUMz4T+2NoFQakPAdfg@mail.gmail.com>
-From: jigar chokshi <jigar.chokshi89@gmail.com>
+Return-Path: <irina.patru@intel.com>
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0BB8EE00BE9
+	for <poky@yoctoproject.org>; Mon, 28 Apr 2014 04:10:49 -0700 (PDT)
+Received: from azsmga001.ch.intel.com ([10.2.17.19])
+	by azsmga101.ch.intel.com with ESMTP; 28 Apr 2014 04:10:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="4.97,943,1389772800"; d="scan'208";a="424823453"
+Received: from irina-vostro-460.rb.intel.com ([10.237.105.58])
+	by azsmga001.ch.intel.com with ESMTP; 28 Apr 2014 04:10:15 -0700
+From: Irina Patru <irina.patru@intel.com>
 To: poky@yoctoproject.org
-Subject: oe_runconf failed
+Date: Mon, 28 Apr 2014 14:15:17 +0300
+Message-Id: <1398683717-28132-1-git-send-email-irina.patru@intel.com>
+X-Mailer: git-send-email 1.7.9.5
+Subject: [PATCH] package_regex.inc: Changed, removed and added regexes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,150 +26,393 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Apr 2014 07:57:02 -0000
-Content-Type: multipart/alternative; boundary=089e011619b614d95104f815a976
+X-List-Received-Date: Mon, 28 Apr 2014 11:10:50 -0000
 
---089e011619b614d95104f815a976
-Content-Type: text/plain; charset=UTF-8
+Signed-off-by: Irina Patru <irina.patru@intel.com>
+---
+ meta-yocto/conf/distro/include/package_regex.inc |  194 ++++++++++++----------
+ 1 file changed, 104 insertions(+), 90 deletions(-)
 
-Hello,
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index b360f8f..92202fd 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -18,29 +18,41 @@ COMMON_REGEX = "((\d+[\.\-_]*)+)"
+ #This will need to be changed a little bit when versions are bigger than 9.
+ REGEX_URI_pn-acpid = "http://sourceforge.net/projects/acpid/files/acpid/"
+ REGEX_pn-acpid = "[hH][rR][eE][fF]=\"/projects/acpid/files/acpid/(acpid\-)?(?P<pver>(\d\.(\d+[\.\-_]*)+))/\""
+-REGEX_pn-atk = "[hH][rR][eE][fF]=\"atk\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
++REGEX_URI_pn-adt-installer = "http://code.google.com/p/opkg/downloads/list"
++REGEX_URI_pn-arptables = "http://sourceforge.net/projects/ebtables/files/arptables/"
++REGEX_pn-arptables = "[hH][rR][eE][fF]=\"/projects/ebtables/files/arptables/arptables-v(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-beecrypt = "http://sourceforge.net/projects/beecrypt/files/beecrypt/"
+ REGEX_pn-beecrypt = "[hH][rR][eE][fF]=\"/projects/beecrypt/files/beecrypt/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-beecrypt-native = "http://sourceforge.net/projects/beecrypt/files/beecrypt/"
+ REGEX_pn-beecrypt-native = "[hH][rR][eE][fF]=\"/projects/beecrypt/files/beecrypt/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_pn-bdwgc = "[hH][rR][eE][fF]=\"gc\-(?P<pver>((\d+[a-z]?[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-bind = "ftp://ftp.isc.org/isc/bind9/"
++REGEX_pn-bind = "[hH][rR][eE][fF]=\"(?P<pver>((P?\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-bjam-native = "http://sourceforge.net/projects/boost/files/boost/"
+ REGEX_pn-bjam-native = "[hH][rR][eE][fF]=\"/projects/boost/files/boost/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-blktool = "ftp://ftp.debian.org/debian/pool/main/b/blktool/"
+-REGEX_pn-blktool = "[hH][rR][eE][fF]=\"ftp://ftp.debian.org:21/debian/pool/main/b/blktool/blktool_(?P<pver>((\d+[\.\-_]*)+))\.(diff|orig\.tar)\.gz\""
++REGEX_pn-blktool = "[hH][rR][eE][fF]=\"blktool_(?P<pver>((\d+[\.\-_]*)+))\.(diff|orig\.tar)\.gz\""
+ REGEX_URI_pn-boost = "http://sourceforge.net/projects/boost/files/boost/"
+ REGEX_pn-boost = "[hH][rR][eE][fF]=\"/projects/boost/files/boost/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_pn-btrfs-tools = "(?P<pver>(\d+(\.\d+)*(\-rc\d+)*))"
+ REGEX_pn-build-appliance-image = "(?P<pver>([0-9][\.|_]?)+)$"
++REGEX_URI_pn-bzip2 = "http://www.bzip.org/downloads.html"
+ REGEX_pn-chkconfig-alternatives-native = "chkconfig\-(?P<pver>((\d+[\.\-_]*)+))"
+ REGEX_URI_pn-chrpath = "http://alioth.debian.org/frs/?group_id=31052"
+ REGEX_pn-chrpath = "[hH][rR][eE][fF]=\"/frs/download.php/file/\d+/chrpath-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_pn-cmake = "[hH][rR][eE][fF]=\"cmake\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_pn-cmake-native = "[hH][rR][eE][fF]=\"cmake\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_pn-nativeesdk-cmake = "[hH][rR][eE][fF]=\"cmake\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-console-tools = "http://sourceforge.net/projects/lct/files/console-tools/"
+ REGEX_pn-console-tools = "[hH][rR][eE][fF]=\"/projects/lct/files/console-tools/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-cracklib = "http://sourceforge.net/projects/cracklib/files/cracklib/"
+ REGEX_pn-cracklib = "[hH][rR][eE][fF]=\"/projects/cracklib/files/cracklib/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-createrepo = "http://createrepo.baseurl.org/download/"
++REGEX_pn-createrepo = "[hH][rR][eE][fF]=\"createrepo\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-createrepo-native = "http://createrepo.baseurl.org/download/"
++REGEX_pn-createrepo-native = "[hH][rR][eE][fF]=\"createrepo\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-cups = "http://www.cups.org/software.php"
+ REGEX_pn-cups = "<tt>cups\-(?P<pver>((\d+[\.\-_]*)+))\-source\.tar\.gz<\/tt>"
++REGEX_URI_pn-curlpp = "http://code.google.com/p/curlpp/downloads/list"
+ REGEX_URI_pn-cwautomacros = "http://sourceforge.net/projects/cwautomacros.berlios/files/"
+ REGEX_pn-cwautomacros = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/cwautomacros.berlios/files/cwautomacros\-(?P<pver>(\d+))\.tar\.bz2\/download""
+ REGEX_URI_pn-cwautomacros-native = "http://sourceforge.net/projects/cwautomacros.berlios/files/"
+@@ -51,6 +63,15 @@ REGEX_URI_pn-db-native = "http://www.oracle.com/technetwork/products/berkeleydb/
+ REGEX_pn-db-native = "[hH][rR][eE][fF]=\"http://download.oracle.com/otn/berkeley-db/db-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-nativesdk-db = "http://www.oracle.com/technetwork/products/berkeleydb/downloads/index-082944.html"
+ REGEX_pn-nativesdk-db = "[hH][rR][eE][fF]=\"http://download.oracle.com/otn/berkeley-db/db-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-distcc = "http://code.google.com/p/distcc/downloads/list"
++REGEX_pn-distcc = "[hH][rR][eE][fF]=\"//distcc.googlecode.com/files/distcc-(?P<pver>((\d+[\.\-_]*)+))\.tar\.bz2\""
++REGEX_URI_pn-docbook-dsssl-stylesheets-native = "http://sourceforge.net/projects/docbook/files/docbook-dsssl/"
++REGEX_pn-docbook-dsssl-stylesheets-native = "[hH][rR][eE][fF]=\"/projects/docbook/files/docbook-dsssl/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-docbook-sgml-dtd-3.1-native = "http://docbook.org/sgml/3.1/"
++PRSPV_pn-docbook-sgml-dtd-3.1-native = "${@d.getVar('PV',1).replace('.','')}"
++REGEX_URI_pn-docbook-sgml-dtd-4.1-native = "http://docbook.org/sgml/4.1/"
++PRSPV_pn-docbook-sgml-dtd-4.1-native = "${@d.getVar('PV',1).replace('.','')}"
++REGEX_URI_pn-docbook-sgml-dtd-4.5-native = "http://docbook.org/sgml/4.5/"
+ REGEX_URI_pn-e2fsprogs = "http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/"
+ REGEX_pn-e2fsprogs = "[hH][rR][eE][fF]=\"/projects/e2fsprogs/files/e2fsprogs/v(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_pn-elfutils = "[hH][rR][eE][fF]=\"(elfutils\-)?(?P<pver>((\d+[\.\-_]*)+))(/|\.tar\.bz2)\""
+@@ -60,6 +81,7 @@ REGEX_URI_pn-expat-native = "http://sourceforge.net/projects/expat/files/expat/"
+ REGEX_pn-expat = "[hH][rR][eE][fF]=\"/projects/expat/files/expat/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-nativesdk-expat = "http://sourceforge.net/projects/expat/files/expat/"
+ REGEX_pn-nativesdk-expat = "[hH][rR][eE][fF]=\"/projects/expat/files/expat/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-fetchmail = "http://sourceforge.net/projects/fetchmail.berlios/files/"
+ REGEX_URI_pn-flac = "http://sourceforge.net/projects/flac/files/flac-linux-i386/"
+ REGEX_pn-flac = "[hH][rR][eE][fF]=\"/projects/flac/files/flac-linux-i386/flac\-(?P<pver>((\d+[\.\-_]*)+))\-linux\-i386/\""
+ REGEX_URI_pn-flex = "http://sourceforge.net/projects/flex/files/"
+@@ -71,18 +93,11 @@ REGEX_URI_pn-freetype = "http://sourceforge.net/projects/freetype/files/freetype
+ REGEX_pn-freetype = "[hH][rR][eE][fF]=\"/projects/freetype/files/freetype\d/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-freetype-native = "http://sourceforge.net/projects/freetype/files/freetype2"
+ REGEX_pn-freetype-native = "[hH][rR][eE][fF]=\"/projects/freetype/files/freetype\d/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-gcc-cross-canadian-i586 = "ftp://ftp.gnu.org/gnu/gcc/"
+-REGEX_pn-gcc-cross-canadian-i586 = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-gcc-cross-initial = "ftp://ftp.gnu.org/gnu/gcc/"
+-REGEX_pn-gcc-cross-initial = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-gcc-runtime = "ftp://ftp.gnu.org/gnu/gcc/"
+-REGEX_pn-gcc-runtime = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-gcc-crosssdk = "ftp://ftp.gnu.org/gnu/gcc/"
+-REGEX_pn-gcc-crosssdk = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-git = "http://code.google.com/p/git-core/downloads/list"
++REGEX_pn-git = "[hH][rR][eE][fF]=\"//git-core.googlecode.com/files/git-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-glew = "http://sourceforge.net/projects/glew/files/glew"
+ REGEX_pn-glew  = " [hH][rR][eE][fF]=\"/projects/glew/files/glew/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-gnutls = "ftp://ftp.gnutls.org/gcrypt/gnutls/stable"
+-REGEX_pn-gnutls = "[hH][rR][eE][fF]=\"gnutls\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.(xz|lz)\""
++#REGEX_pn-gnutls = "ftp://ftp.gnutls.org/gcrypt/gnutls/"
+ REGEX_pn-gstreamer = "[hH][rR][eE][fF]=\"gstreamer\-(?P<pver>(0\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+ REGEX_pn-gstreamer1.0 = "[hH][rR][eE][fF]=\"gstreamer\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+ REGEX_pn-gst-ffmpeg = "[hH][rR][eE][fF]=\"gst-ffmpeg\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+@@ -100,17 +115,27 @@ REGEX_pn-gstreamer1.0-omx = "[hH][rR][eE][fF]=\"gst\-omx\-(?P<pver>(\d+\.\d*[0|2
+ REGEX_pn-gst-openmax = "[hH][rR][eE][fF]=\"gst\-openmax\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+ REGEX_pn-gstreamer1.0-plugins-ugly = "[hH][rR][eE][fF]=\"gst\-plugins\-ugly\-(?P<pver>(\d+\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+ REGEX_pn-gst-plugins-ugly = "[hH][rR][eE][fF]=\"gst\-plugins\-ugly\-(?P<pver>(0\.\d*[0|2|4|6|8]\.\d+))\.tar\.(gz|xz|bz2)\""
+-
++REGEX_pn-gtk+ = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
++REGEX_pn-gtk+3 = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
++REGEX_pn-gtk-update-icon-cache-native = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
++REGEX_pn-webkit-gtk = "[hH][rR][eE][fF]=\"webkitgtk\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
+ REGEX_URI_pn-hdparm = "http://sourceforge.net/projects/hdparm/files/hdparm/"
+ REGEX_pn-hdparm = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/hdparm/files/hdparm/hdparm-(?P<pver>((\d+[\.\-_]*)+)).tar.gz/download\""
+ REGEX_URI_pn-icu = "http://site.icu-project.org/download"
+ REGEX_pn-icu = "[hH][rR][eE][fF]=\"http://site.icu-project.org/download/((\d+[\.\-_]*)+)#(TOC\-)?ICU4J\-Download\" rel=\"nofollow\">(<b>)?(?P<pver>((\d+[\.\-_]*)+))(</b>)?"
++REGEX_URI_pn-intltool = "https://launchpad.net/intltool/+download"
++REGEX_pn-intltool = "[hH][rR][eE][fF]=\"https://launchpad.net/intltool/trunk/(?P<pver>((\d+[\.\-_]*)+))/\+download/intltool\-(\d+[\.\-_]*)+\.tar\.gz\""
++REGEX_URI_pn-intltool-native = "https://launchpad.net/intltool/+download"
++REGEX_pn-intltool-native = "[hH][rR][eE][fF]=\"https://launchpad.net/intltool/trunk/(?P<pver>((\d+[\.\-_]*)+))/\+download/intltool\-(\d+[\.\-_]*)+\.tar\.gz\""
+ REGEX_URI_pn-irda-utils = "http://sourceforge.net/projects/irda/files/irda-utils/"
+ REGEX_pn-irda-utils = "[hH][rR][eE][fF]=\"/projects/irda/files/irda-utils/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_pn-iputils = "[Hh][Rr][Ee][Ff]=\"iputils\-(?P<pver>(s\d+))\.tar\.bz2\""
+ REGEX_URI_pn-jpeg = "http://www.ijg.org/files/"
+ REGEX_pn-jpeg = "[hH][rR][eE][fF]=\"jpegsrc.v(?P<pver>((\d+[a-z]*\d*)+))\.tar\.gz""
+ REGEX_URI_pn-js = "http://ftp.mozilla.org/pub/mozilla.org/js/"
+ REGEX_pn-js = "[hH][rR][eE][fF]=\"js-?(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-json-c = "http://s3.amazonaws.com/json-c_releases/"
++REGEX_pn-json-c = "releases/json-c-(?P<pver>(\d+[\.\-_]*)+).tar.gz"
+ REGEX_URI_pn-kconfig-frontends = "http://ymorin.is-a-geek.org/download/kconfig-frontends/"
+ REGEX_pn-kconfig-frontends = "[hH][rR][eE][fF]=\'kconfig\-frontends\-(?P<pver>((\d+[\.\-]*)+))\.tar\.xz\'"
+ GIT_REGEX_pn-kern-tools-native = "HEEEAD"
+@@ -130,16 +155,20 @@ REGEX_URI_pn-libcgroup = "http://sourceforge.net/projects/libcg/files/libcgroup/
+ REGEX_pn-libcgroup = "[hH][rR][eE][fF]=\"/projects/libcg/files/libcgroup/v?(?P<pver>((\.?\d+[\.\-_]*))+)/\""
+ REGEX_URI_pn-libcheck = "http://sourceforge.net/projects/check/files/check/"
+ REGEX_pn-libcheck = "[hH][rR][eE][fF]=\"/projects/check/files/check/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-libgcc = "ftp://ftp.gnu.org/gnu/gcc/"
+-REGEX_pn-libgcc = "[hH][rR][eE][fF]=\"ftp://ftp.gnu.org:21/gnu/gcc/gcc\-(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-libdnet = "http://code.google.com/p/libdnet/downloads/list"
+ #REGEX_URI_pn-libevent = "http://sourceforge.net/projects/levent/files/libevent/libevent-2.0/"
+ REGEX_URI_pn-libevent = "http://libevent.org/"
+ #REGEX_pn-libevent = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/levent/files/libevent/libevent-2.0/libevent-(?P<pver>((\d+[\.\-_]*)+))\-stable\.tar\.gz/download\""
+ REGEX_pn-libevent = "[hH][rR][eE][fF]=\"https://github.com/downloads/libevent/libevent/libevent-(?P<pver>((\d+[\.\-_]*)+))\-stable\.tar\.gz\""
+ REGEX_URI_pn-libexif = "http://sourceforge.net/projects/libexif/files/libexif/"
+ REGEX_pn-libexif = "[hH][rR][eE][fF]=\"/projects/libexif/files/libexif/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_pn-libffi = "[hH][rR][eE][fF]=\"libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_pn-libffi-native = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_pn-nativesdk-libffi = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-libfm = "http://sourceforge.net/projects/pcmanfm/files/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/"
+ REGEX_pn-libfm = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/pcmanfm/files/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/pcmanfm-(?P<pver>((\d+[\.\-_]*)+)).tar.gz/download\""
++REGEX_URI_pn-libical = "http://sourceforge.net/projects/libical/files/libical/"
++REGEX_pn-libical = "[hH][rR][eE][fF]=\"/projects/libical/files/libical/libical-(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-libid3tag = "http://sourceforge.net/projects/mad/files/libid3tag/"
+ REGEX_pn-libid3tag = "[hH][rR][eE][fF]=\"/projects/mad/files/libid3tag/(?P<pver>((\d+[\.\-_]*)+([a-z]?)))/\""
+ REGEX_URI_pn-libmad = "http://sourceforge.net/projects/mad/files/libmad/"
+@@ -157,9 +186,13 @@ REGEX_URI_pn-libpcre-native = "http://sourceforge.net/projects/pcre/files/pcre/"
+ REGEX_pn-libpcre-native = "[hH][rR][eE][fF]=\"/projects/pcre/files/pcre/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-libpfm4 = "http://sourceforge.net/projects/perfmon2/files/libpfm4/"
+ REGEX_URI_pn-libpng = "http://sourceforge.net/projects/libpng/files/"
+-REGEX_pn-libpng = "[hH][rR][eE][fF]=\"/projects/libpng/files/latest/download\?source=files\" title=\"/libpng\d+(/(\d+\.?)+/)?libpng-(?P<pver>((\d+[\.\-_]*)+)).tar.xz"
++REGEX_pn-libpng = "[hH][rR][eE][fF]=\"/projects/libpng/files/latest/download\?source=files\" title=\"/libpng\d+(/(\d+\.?)+/)?libpng-(?P<pver>((\d+[\.\-_]*)+)).tar.gz"
+ REGEX_URI_pn-libpng-native = "ftp://ftp.simplesystems.org/pub/libpng/png/src/"
+ REGEX_pn-libpng-native = "[hH][rR][eE][fF]=\"ftp://ftp.simplesystems.org:21/pub/libpng/png/src/libpng-(?P<pver>((\d+[\.\-_]*)+)).tar.gz""
++REGEX_URI_pn-libpng12 = "http://sourceforge.net/projects/libpng/files/libpng12/"
++REGEX_pn-libpng12 = "[hH][rR][eE][fF]=\"/projects/libpng/files/libpng12/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-libproxy = "http://code.google.com/p/libproxy/downloads/list"
++REGEX_pn-libtheora = "[Hh][Rr][Ee][Ff]=\"libtheora\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-libsamplerate0 = "http://www.mega-nerd.com/SRC/download.html"
+ REGEX_pn-libsamplerate0 = "[hH][rR][eE][fF]=\"libsamplerate\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-libtirpc = "http://sourceforge.net/projects/libtirpc/files/libtirpc/"
+@@ -170,18 +203,29 @@ REGEX_URI_pn-libusb1 = "http://sourceforge.net/projects/libusb/files/libusb-1.0/
+ REGEX_pn-libusb1 = "[hH][rR][eE][fF]=\"/projects/libusb/files/libusb-1.0/libusb-(?P<pver>((\d+[\.\-_]*)+))/""
+ REGEX_URI_pn-libvorbis = "http://downloads.xiph.org/releases/vorbis/"
+ REGEX_pn-libvorbis = "[hH][rR][eE][fF]=\"libvorbis-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_pn-libxslt = "[Hh][Rr][Ee][Ff]=\"libxslt\-(?P<pver>((\d+\.*)+))\.tar\.gz\""
+ REGEX_pn-linux-libc-headers-yocto = "v((?P<pver>((\d+[\.\-_]*)+)))"
+ REGEX_URI_pn-lrzsz = "http://ohse.de/uwe/software/lrzsz.html"
+ REGEX_URI_pn-lsb = "http://sourceforge.net/projects/lsb/files/lsb_release/"
+ REGEX_pn-lsb = "[hH][rR][eE][fF]=\"/projects/lsb/files/lsb_release/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-lsbinitscripts = "http://pkgs.fedoraproject.org/repo/pkgs/initscripts/"
++REGEX_pn-lsbinitscripts = "[hH][rR][eE][fF]=\"initscripts\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.bz2/\""
+ REGEX_URI_pn-ltp = "http://sourceforge.net/projects/ltp/files/LTP%20Source"
+ REGEX_pn-ltp = "[hH][rR][eE][fF]=\"/projects/ltp/files/LTP%20Source/ltp\-(?P<pver>(\d+))/\""
++REGEX_URI_pn-lzop = "http://www.lzop.org/download/"
++REGEX_pn-lzop = "[hH][rR][eE][fF]=\"lzop\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-lzop-native = "http://www.lzop.org/download/"
++REGEX_pn-lzop-native = "[hH][rR][eE][fF]=\"lzop\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-nativesdk-lzop = "http://www.lzop.org/download/"
++REGEX_pn-nativesdk-lzop = "[hH][rR][eE][fF]=\"lzop\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-mailx = "http://sourceforge.net/projects/heirloom/files/heirloom-mailx/"
+ REGEX_pn-mailx = "[hH][rR][eE][fF]=\"/projects/heirloom/files/heirloom-mailx/(?P<pver>((\d+[\.]*)+))/\""
++REGEX_URI_pn-memcached = "http://code.google.com/p/memcached/downloads/list"
+ REGEX_URI_pn-menu-cache = "http://sourceforge.net/projects/lxde/files/menu-cache/"
+ REGEX_pn-menu-cache = "[hH][rR][eE][fF]=\"/projects/lxde/files/menu\-cache/menu-cache%20(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-mesa-demos = "ftp://ftp.freedesktop.org/pub/mesa/demos/"
+-REGEX_pn-mesa-demos = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/demos/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_pn-mesa = "[hH][rR][eE][fF]=\"MesaLib-(?P<pver>((\d+[\.\-_]*)+))(\-rc\d+)*.tar.gz\""
++REGEX_URI_pn-mesa-glsl-native = "ftp://ftp.freedesktop.org/pub/mesa/"
++REGEX_pn-mesa-glsl-native = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-minicom = "https://alioth.debian.org/frs/?group_id=30018"
+ REGEX_pn-minicom = "[hH][rR][eE][fF]=\"/frs/download.php/file/\d+/minicom\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-mingetty = "http://sourceforge.net/projects/mingetty/files/mingetty"
+@@ -192,8 +236,14 @@ REGEX_URI_pn-mpfr = "http://ftp.gnu.org/gnu/mpfr/"
+ REGEX_pn-mpfr = "[hH][rR][eE][fF]=\"mpfr-(?P<pver>((\d+[\.\-_]*)+)).tar.gz""
+ REGEX_URI_pn-mpfr-native = "http://ftp.gnu.org/gnu/mpfr/"
+ REGEX_pn-mpfr-native = "[hH][rR][eE][fF]=\"mpfr-(?P<pver>((\d+[\.\-_]*)+)).tar.gz\""
++REGEX_URI_pn-msmtp = "http://sourceforge.net/projects/msmtp/files/msmtp/"
++REGEX_pn-msmtp = "[hH][rR][eE][fF]=\"/projects/msmtp/files/msmtp/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-nativesdk-mpfr = "http://ftp.gnu.org/gnu/mpfr/"
+ REGEX_pn-nativesdk-mpfr = "[hH][rR][eE][fF]=\"mpfr-(?P<pver>((\d+[\.\-_]*)+)).tar.gz\""
++REGEX_URI_pn-net-snmp = "http://sourceforge.net/projects/net-snmp/files/net-snmp/"
++REGEX_pn-net-snmp = "[hH][rR][eE][fF]=\"/projects/net-snmp/files/net-snmp/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-netcat = "http://sourceforge.net/projects/netcat/files/netcat/"
++REGEX_pn-netcat = "[hH][rR][eE][fF]=\"/projects/netcat/files/netcat/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-nfs-utils = "http://sourceforge.net/projects/nfs/files/nfs-utils/"
+ REGEX_pn-nfs-utils = "[hH][rR][eE][fF]=\"/projects/nfs/files/nfs-utils/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-ocf-linux = "http://sourceforge.net/projects/ocf-linux/files/ocf-linux/"
+@@ -204,28 +254,38 @@ REGEX_URI_pn-opensp = "http://sourceforge.net/projects/openjade/files/opensp/"
+ REGEX_pn-opensp = "[hH][rR][eE][fF]=\"/projects/openjade/files/opensp/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-opensp-native = "http://sourceforge.net/projects/openjade/files/opensp/"
+ REGEX_pn-opensp-native = "[hH][rR][eE][fF]=\"/projects/openjade/files/opensp/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-opkg = "http://code.google.com/p/opkg/downloads/list"
+ REGEX_URI_pn-oprofile = "http://sourceforge.net/projects/oprofile/files/oprofile/"
+ REGEX_pn-oprofile = "[hH][rR][eE][fF]=\"/projects/oprofile/files/oprofile/oprofile-(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-ossp-uuid = "http://code.google.com/p/gnome-build-stage-1/downloads/list"
+ REGEX_URI_pn-pcmanfm = "http://sourceforge.net/projects/pcmanfm/files/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/"
+ REGEX_pn-pcmanfm = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/pcmanfm/files/PCManFM.20.2B.20Libfm.20.28tarball.20release.29/PCManFM/pcmanfm-(?P<pver>((\d+[\.\-_]*)+)).tar.gz/download\""
+ REGEX_URI_pn-procps = "http://procps.sourceforge.net/download.html"
+ REGEX_pn-procps = "[hH][rR][eE][fF]=\"procps\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-powertop = "https://01.org/powertop/downloads"
++REGEX_URI_pn-pptp-linux = "http://sourceforge.net/projects/pptpclient/files/pptp/"
++REGEX_pn-pptp-linux = "[hH][rR][eE][fF]=\"/projects/pptpclient/files/pptp/pptp-(?P<pver>((\d+[\.\-_]*)+))/\""
+ GIT_REGEX_pn-prelink = "cross_prelink"
+ REGEX_pn-prelink = "(?P<pver>cross_prelink)"
+ REGEX_URI_pn-psmisc = "http://sourceforge.net/projects/psmisc/files/psmisc/"
+ REGEX_pn-psmisc = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/psmisc/files/psmisc/psmisc\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz/download\""
++REGEX_URI_pn-ptpd = "http://sourceforge.net/projects/ptpd/files/ptpd/"
++REGEX_pn-ptpd = "[hH][rR][eE][fF]=\"/projects/ptpd/files/ptpd/(?P<pver>((\d+[\.\-_]*)+))/stats/timeline\""
+ REGEX_URI_pn-python-argparse = "https://code.google.com/p/argparse/downloads/list"
+ REGEX_URI_pn-python-docutils = "http://sourceforge.net/projects/docutils/files/docutils/"
+ REGEX_pn-python-docutils = "[hH][rR][eE][fF]=\"/projects/docutils/files/docutils/(?P<pver>((\d+[\.\-_]*)+)).*/\""
++REGEX_URI_pn-python-numpy = "http://sourceforge.net/projects/numpy/files/NumPy/"
++REGEX_pn-python-numpy = "[hH][rR][eE][fF]=\"/projects/numpy/files/latest/download\?source=files\" title=\"/NumPy/(\d+\.?)+/numpy-(?P<pver>((\d+[\.\-_]*)+)).tar.gz"
+ REGEX_URI_pn-python-pycurl = "http://pycurl.sourceforge.net/download/"
+ REGEX_pn-python-pycurl = "[hH][rR][eE][fF]=\"pycurl-(?P<pver>((\d+[\.\-_]*)+)).tar.gz\""
+ REGEX_URI_pn-python-scons = "http://sourceforge.net/projects/scons/files/scons/"
+ REGEX_pn-python-scons = "[hH][rR][eE][fF]=\"/projects/scons/files/scons/(?P<pver>((\d+[\.\-_]*)+)).*/\""
+ REGEX_URI_pn-python-scons-native = "http://sourceforge.net/projects/scons/files/scons/"
+ REGEX_pn-python-scons-native = "[hH][rR][eE][fF]=\"/projects/scons/files/scons/(?P<pver>((\d+[\.\-_]*)+)).*/\""
++REGEX_pn-python-setuptools = "[hH][rR][eE][fF]=\"setuptools\-(?P<pver>((\d+([a-z]\d+)?[\.\-_]*)+))\.(tar\.gz|\.zip)\""
+ REGEX_URI_pn-quota = "http://sourceforge.net/projects/linuxquota/files/quota-tools/"
+ REGEX_pn-quota = "[hH][rR][eE][fF]=\"/projects/linuxquota/files/quota-tools/(?P<pver>((\d+[\.\-_]*)+([-\w\d]+)))/\""
++REGEX_pn-remake = "(?P<pver>(\d+\.(\d+\.)*\d*(\+dbg\-\d+(\.\d+)*)*))"
+ REGEX_URI_pn-rpcbind = "http://sourceforge.net/projects/rpcbind/files/rpcbind/"
+ REGEX_pn-rpcbind = "[hH][rR][eE][fF]=\"/projects/rpcbind/files/rpcbind/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_pn-rpm = "[hH][rR][eE][fF]=\"rpm\-(?P<pver>((\d+[\.\-_]*)+)\-(\d+[\.]*)+)\.src\.rpm\""
+@@ -239,7 +299,7 @@ REGEX_pn-socat = "[hH][rR][eE][fF]=\"socat\-(?P<pver>((\d+[\.\-]*)+))\.tar\.bz2\
+ REGEX_URI_pn-speex = "http://downloads.us.xiph.org/releases/speex/"
+ REGEX_pn-speex = "[hH][rR][eE][fF]=\"speex\-(?P<pver>((\d+\.*)+))\.tar\.gz\""
+ REGEX_URI_pn-sqlite3 = "http://www.sqlite.org/download.html"
+-REGEX_pn-sqlite3 = "[hH][rR][eE][fF]=\"(\d+)?/sqlite-autoconf-(?P<pver>(\d+)).tar.gz\""
++REGEX_pn-sqlite3 = "sqlite-autoconf-(?P<pver>(\d+)).tar.gz"
+ REGEX_URI_pn-sqlite3-native = "http://www.sqlite.org/download.html"
+ REGEX_pn-sqlite3-native = "[hH][rR][eE][fF]=\"/sqlite-autoconf-(?P<pver>(\d+)).tar.gz\""
+ REGEX_URI_pn-nativesdk-sqlite3 = "http://www.sqlite.org/download.html"
+@@ -250,28 +310,40 @@ REGEX_URI_pn-strace = "http://sourceforge.net/projects/strace/files/strace/"
+ REGEX_pn-strace = "[hH][rR][eE][fF]=\"/projects/strace/files/strace/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-strace-native = "http://sourceforge.net/projects/strace/files/strace/"
+ REGEX_pn-strace-native = "[hH][rR][eE][fF]=\"/projects/strace/files/strace/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-stunnel = "http://www.stunnel.org/downloads.html"
++REGEX_pn-stunnel = "[hH][rR][eE][fF]=\"downloads/stunnel-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-sysfsutils = "http://sourceforge.net/projects/linux-diag/files/sysfsutils/"
+ REGEX_pn-sysfsutils = "[hH][rR][eE][fF]=\"/projects/linux-diag/files/sysfsutils/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_URI_pn-sysstat = "http://sebastien.godard.pagesperso-orange.fr/download.html"
++REGEX_pn-sysstat = "[hH][rR][eE][fF]=\"http://pagesperso-orange.fr/sebastien.godard/sysstat\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-taglib = "http://github.com/taglib/taglib/releases/"
+ REGEX_URI_pn-tcl = "http://sourceforge.net/projects/tcl/files/Tcl/"
+ REGEX_pn-tcl = "[hH][rR][eE][fF]=\"/projects/tcl/files/Tcl/(?P<pver>((\d+(b\d+)?[\.\-_]*)+))/\""
+ REGEX_URI_pn-tcl-native = "http://sourceforge.net/projects/tcl/files/Tcl/"
+ REGEX_pn-tcl-native = "[hH][rR][eE][fF]=\"/projects/tcl/files/Tcl/(?P<pver>((\d+(b\d+)?[\.\-_]*)+))/\""
+-REGEX_URI_pn-tiff = "ftp://ftp.remotesensing.org/pub/libtiff/"
+-REGEX_pn-tiff = "[hH][rR][eE][fF]=\"ftp://ftp.remotesensing.org:21/pub/libtiff/tiff-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
++REGEX_URI_pn-tcpreplay = "http://sourceforge.net/projects/tcpreplay/files/tcpreplay/"
++REGEX_pn-tcpreplay = "[hH][rR][eE][fF]=\"/projects/tcpreplay/files/tcpreplay/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-tiff-native = "ftp://ftp.remotesensing.org/pub/libtiff/"
+ REGEX_pn-tiff-native = "[hH][rR][eE][fF]=\"ftp://ftp.remotesensing.org:21/pub/libtiff/tiff-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-tslib = "http://sourceforge.net/projects/tslib.berlios/files/"
++REGEX_URI_pn-traceroute = "http://sourceforge.net/projects/traceroute/files/traceroute/"
++REGEX_pn-traceroute = "[hH][rR][eE][fF]=\"/projects/traceroute/files/traceroute/traceroute-(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_pn-tslib = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/tslib.berlios/files/tslib\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.bz2/download\""
+-REGEX_URI_pn-tzdata = "ftp://ftp.iana.org/tz/releases/"
+-REGEX_pn-tzdata = "[hH][rR][eE][fF]=\"ftp://ftp.iana.org:21/tz/releases/tzdata(?P<pver>((\d+[a-z])+))\.tar\.gz\""
++REGEX_URI_pn-tunctl = "http://sourceforge.net/projects/tunctl/files/tunctl/"
++REGEX_pn-tunctl = "[hH][rR][eE][fF]=\"/projects/tunctl/files/tunctl/(?P<pver>((\d+[\.\-_]*)+))/\""
++REGEX_pn-tzdata = "[hH][rR][eE][fF]=\"tzdata(?P<pver>((\d+[a-z])+))\.tar\.gz\""
+ REGEX_URI_pn-unzip = "http://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/"
+ REGEX_pn-unzip = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/unzip(?P<pver>(\d+))\.tar\.gz/download\""
+ PRSPV_pn-unzip = "${@d.getVar('PV',1).replace('.','')}"
+ REGEX_URI_pn-unzip-native = "http://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/"
+ REGEX_pn-unzip-native = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/unzip(?P<pver>(\d+))\.tar\.gz/download\""
+ PRSPV_pn-unzip-native = "${@d.getVar('PV',1).replace('.','')}"
+-REGEX_URI_pn-v86d = "http://dev.gentoo.org/~spock/projects/uvesafb/archive/"
++#REGEX_URI_pn-v86d = "http://dev.gentoo.org/~spock/projects/uvesafb/archive/"
+ REGEX_pn-v86d = "[hH][rR][eE][fF]=\"v86d\-(?P<pver>((\d+[\.]*)+))\.tar\.bz2\""
++REGEX_URI_pn-vblade = "http://sourceforge.net/projects/aoetools/files/vblade/"
++REGEX_pn-vblade = "[hH][rR][eE][fF]=\"/projects/aoetools/files/vblade/vblade-(?P<pver>((\d+[\.\-_]*)+))\.tgz/stats/timeline\""
++REGEX_URI_pn-vsftpd = "https://security.appspot.com/vsftpd.html"
++REGEX_pn-vsftpd = "[hH][rR][eE][fF]=\"https://security.appspot.com/downloads/vsftpd-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+ REGEX_URI_pn-watchdog = "http://sourceforge.net/projects/watchdog/files/watchdog/"
+ REGEX_pn-watchdog = "[hH][rR][eE][fF]=\"/projects/watchdog/files/watchdog/(?P<pver>((\d+[\.\-_]*)+))/\""
+ REGEX_URI_pn-wireless-tools = "http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Tools.html"
+@@ -286,68 +358,10 @@ PRSPV_pn-zip = "${@d.getVar('PV',1).replace('.','')}"
+ REGEX_URI_pn-zip-native = "http://sourceforge.net/projects/infozip/files/Zip%203.x%20%28latest%29/3.0/"
+ REGEX_pn-zip-native = "[hH][rR][eE][fF]=\"http://sourceforge.net/projects/infozip/files/Zip%203.x%20%28latest%29/3.0/zip(?P<pver>(\d+))\.tar\.gz/download\""
+ PRSPV_pn-zip-native = "${@d.getVar('PV',1).replace('.','')}"
+-REGEX_URI_pn-msmtp = "http://sourceforge.net/projects/msmtp/files/msmtp/"
+-REGEX_pn-msmtp = "[hH][rR][eE][fF]=\"/projects/msmtp/files/msmtp/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-docbook-dsssl-stylesheets-native = "http://sourceforge.net/projects/docbook/files/docbook-dsssl/"
+-REGEX_pn-docbook-dsssl-stylesheets-native = "[hH][rR][eE][fF]=\"/projects/docbook/files/docbook-dsssl/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_pn-remake = "(?P<pver>(\d+\.(\d+\.)*\d*(\+dbg\-\d+(\.\d+)*)*))"
+-REGEX_URI_pn-libical = "http://sourceforge.net/projects/libical/files/libical/"
+-REGEX_pn-libical = "[hH][rR][eE][fF]=\"/projects/libical/files/libical/libical-(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-telepathy-mission-control = "http://telepathy.freedesktop.org/releases/telepathy-mission-control/"
+-REGEX_pn-telepathy-mission-control = "[hH][rR][eE][fF]=\"telepathy-mission-control-(?P<pver>((\d+[\.\-_]*)+))\.tar.gz\""
+-REGEX_URI_pn-sysstat = "http://sebastien.godard.pagesperso-orange.fr/download.html"
+-REGEX_pn-sysstat = "[hH][rR][eE][fF]=\"http://pagesperso-orange.fr/sebastien.godard/sysstat\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-lzop = "http://www.lzop.org/download/"
+-REGEX_pn-lzop = "[hH][rR][eE][fF]=\"lzop\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-lzop-native = "http://www.lzop.org/download/"
+-REGEX_pn-lzop-native = "[hH][rR][eE][fF]=\"lzop\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-nativesdk-lzop = "http://www.lzop.org/download/"
+-REGEX_pn-nativesdk-lzop = "[hH][rR][eE][fF]=\"lzop\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-net-tools = "[hH][rR][eE][fF]=\"ftp://ftp.debian.org:21/debian/pool/main/n/net-tools/net\-tools_(?P<pver>((\d+[\.\-_]*)+))\.(orig\.tar|diff)\.gz\""
+-REGEX_URI_pn-lsbinitscripts = "http://pkgs.fedoraproject.org/repo/pkgs/initscripts/"
+-REGEX_pn-lsbinitscripts = "[hH][rR][eE][fF]=\"initscripts\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.bz2/\""
+-REGEX_pn-tzcode-native = "[hH][rR][eE][fF]=\"ftp://ftp.iana.org:21/tz/releases/tzcode(?P<pver>((\d+[a-z])+))\.tar\.gz\""
+-REGEX_pn-libffi = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-libffi-native = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-nativesdk-libffi = "[hH][rR][eE][fF]=\"ftp://sourceware.org:21/pub/libffi/libffi\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-gtk+ = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
+-REGEX_pn-gtk+3 = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
+-REGEX_pn-gtk-update-icon-cache-native = "[hH][rR][eE][fF]=\"gtk\+\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
+-REGEX_pn-webkit-gtk = "[hH][rR][eE][fF]=\"webkitgtk\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.xz\""
+-REGEX_URI_pn-bind = "ftp://ftp.isc.org/isc/bind9/"
+-REGEX_pn-bind = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/bind9/(?P<pver>((P?\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-dhcp = "ftp://ftp.isc.org/isc/dhcp/"
+-REGEX_pn-dhcp = "[hH][rR][eE][fF]=\"ftp://ftp.isc.org:21/isc/dhcp/(dhcp\-)?(?P<pver>((P?\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-mesa = "ftp://ftp.freedesktop.org/pub/mesa/"
+-REGEX_pn-mesa = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-mesa-glsl-native = "ftp://ftp.freedesktop.org/pub/mesa/"
+-REGEX_pn-mesa-glsl-native = "[hH][rR][eE][fF]=\"ftp://ftp.freedesktop.org:21/pub/mesa/(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-nspr = "ftp://ftp.mozilla.org/pub/mozilla.org/nspr/releases/"
+-REGEX_pn-nspr = "[hH][rR][eE][fF]=\"ftp://ftp.mozilla.org:21/pub/mozilla.org/nspr/releases/v(?P<pver>((\d+[\.\-_]*)+))/\""
+-REGEX_URI_pn-createrepo = "http://createrepo.baseurl.org/download/"
+-REGEX_pn-createrepo = "[hH][rR][eE][fF]=\"createrepo\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-createrepo-native = "http://createrepo.baseurl.org/download/"
+-REGEX_pn-createrepo-native = "[hH][rR][eE][fF]=\"createrepo\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-apmd = "ftp://ftp.debian.org/debian/pool/main/a/apmd/"
+-REGEX_pn-apmd = "[hH][rR][eE][fF]=\"ftp://ftp.debian.org:21/debian/pool/main/a/apmd/apmd_(?P<pver>((\d+[\.\-_]*)+))\.(orig\.tar|diff)\.gz\""
+-REGEX_URI_pn-intltool = "https://launchpad.net/intltool/+download"
+-REGEX_pn-intltool = "[hH][rR][eE][fF]=\"https://launchpad.net/intltool/trunk/(?P<pver>((\d+[\.\-_]*)+))/\+download/intltool\-(\d+[\.\-_]*)+\.tar\.gz\""
+-REGEX_URI_pn-intltool-native = "https://launchpad.net/intltool/+download"
+-REGEX_pn-intltool-native = "[hH][rR][eE][fF]=\"https://launchpad.net/intltool/trunk/(?P<pver>((\d+[\.\-_]*)+))/\+download/intltool\-(\d+[\.\-_]*)+\.tar\.gz\""
+-REGEX_URI_pn-distcc = "http://code.google.com/p/distcc/downloads/list"
+-REGEX_pn-distcc = "[hH][rR][eE][fF]=\"//distcc.googlecode.com/files/distcc-(?P<pver>((\d+[\.\-_]*)+))\.tar\.bz2\""
+-REGEX_URI_pn-git = "http://code.google.com/p/git-core/downloads/list"
+-REGEX_pn-git = "[hH][rR][eE][fF]=\"//git-core.googlecode.com/files/git-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-cmake = "[hH][rR][eE][fF]=\"cmake\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-cmake-native = "[hH][rR][eE][fF]=\"cmake\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-nativeesdk-cmake = "[hH][rR][eE][fF]=\"cmake\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_URI_pn-docbook-sgml-dtd-3.1-native = "http://docbook.org/sgml/3.1/"
+-PRSPV_pn-docbook-sgml-dtd-3.1-native = "${@d.getVar('PV',1).replace('.','')}"
+-REGEX_URI_pn-docbook-sgml-dtd-4.1-native = "http://docbook.org/sgml/4.1/"
+-PRSPV_pn-docbook-sgml-dtd-4.1-native = "${@d.getVar('PV',1).replace('.','')}"
+-REGEX_URI_pn-docbook-sgml-dtd-4.5-native = "http://docbook.org/sgml/4.5/"
+-REGEX_pn-libxml2 = "[hH][rR][eE][fF]=\"ftp://xmlsoft.org:21/libxml2/libxml2\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-python-setuptools = "[hH][rR][eE][fF]=\"setuptools\-(?P<pver>((\d+([a-z]\d+)?[\.\-_]*)+))\.(tar\.gz|\.zip)\""
+-REGEX_pn-libtheora = "[Hh][Rr][Ee][Ff]=\"libtheora\-(?P<pver>((\d+[\.\-_]*)+))\.tar\.gz\""
+-REGEX_pn-libxslt = "[Hh][Rr][Ee][Ff]=\"ftp://xmlsoft.org:21/libxslt/libxslt\-(?P<pver>((\d+\.*)+))\.tar\.gz\""
+-REGEX_pn-iputils = "[Hh][Rr][Ee][Ff]=\"iputils\-(?P<pver>(s\d+))\.tar\.bz2\""
++REGEX_URI_pn-zisofs-tools-native ="http://pkgs.fedoraproject.org/repo/pkgs/zisofs-tools/"
++
++# Regex used to parse tags and extract version
++GITTAGREGEX_pn-build-appliance-image = "(?P<pver>(([0-9][\.|_]?)+[0-9]))"
++GITTAGREGEX_pn-chkconfig-alternatives-native = "chkconfig\-(?P<pver>((\d+[\.\-_]*)+))"
++GITTAGREGEX_pn-remake = "(?P<pver>(\d+\.(\d+\.)*\d*(\+dbg\d+(\.\d+)*)*))"
++GITTAGREGEX_pn-xf86-video-omap = "(?P<pver>(\d+\.(\d\.?)*))"
+-- 
+1.7.9.5
 
-Here i attached important parameter of my local.conf file of
-core-image-minimal.
 
-MACHINE ??= 'imx6qsabreauto'
-DISTRO ?= 'poky'
-PACKAGE_CLASSES ?= "package_rpm"
-EXTRA_IMAGE_FEATURES = "debug-tweaks ssh-server-openssh"
-IMAGE_INSTALL_append = " gcc g++ binutils libgcc libgcc-dev libstdc++
-libstdc++-dev glib-2.0 libsigc++-2.0-dev libstdc++-staticdev tslib-conf
-tslib-tests tslib-calibrate openssh-sftp-server alsa-lib alsa-tools
-alsa-state alsa-utils-alsaconf tslib evtest dbus nano qtbase qtbase-fonts
-qtbase-plugins qtbase-examples cinematicexperience gstreamer cairo pango
-fontconfig freetype pulseaudio "
-DISTRO_FEATURES_remove = "x11 wayland"
-
-
-I am trying to cross compile a library of an application but i am getting
-error.
-The .bb file of libraray is following:
-
-DESCRIPTION = "Library"
-HOMEPAGE = "www.xyz.de"
-SECTION = "libs"
-DEPENDS = "libsigc++-2.0 libxml2 libxslt"
-PRIORITY = "optional"
-LICENSE = "GPLv3"
-LIC_FILES_CHKSUM = "file://COPYING;md5=0cd9a07afbeb24026c9b03aecfeba458"
-PR = "r0"
-
-
-SRC_URI = "file://library/"
-
-S = "${WORKDIR}/library"
-
-inherit autotools pkgconfig
-
-EXTRA_OECONF = "--enable-shared --disable-static"
-
-INSANE_SKIP_${PN} = "installed-vs-shipped"
-
-#do_configure () {
-#    sudo make clean
-#    sudo ./autogen.sh -host=arm-poky-linux-gnueabi --enable-shared
---disable-static
-#}
-#
-#
-#do_compile () {
-#    sudo make
-#}
-#
-#do_install (){
-#    sudo make install
-#}
-
-i am getting following error when i tried to bitbake core-image-minimal
- configure: exit 1
-ERROR: oe_runconf failed
-WARNING: run.do_configure.9057:1 exit 1 from
-exit 1
-ERROR: Function failed: do_configure (log file is located at
-log.do_configure.9057)
-
-so, i checked log file in that file i can found following details:
-
-arm-poky-linux-gnueabi-gcc: error: unrecognized command line option '-V'
-arm-poky-linux-gnueabi-gcc: fatal error: no input files
-compilation terminated.
-
-arm-poky-linux-gnueabi-gcc: error: unrecognized command line option
-'-qversion'
-arm-poky-linux-gnueabi-gcc: fatal error: no input files
-compilation terminated.
-
-I don't know where am i wrong?
-
-Thank you,
-Jigar Chokshi
-
---089e011619b614d95104f815a976
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello,<br><div class=3D"gmail_quote"><div dir=3D"ltr"><div=
-><div><div><div><div><div><div><div><div><div><div><br></div>Here i attache=
-d important parameter of my local.conf file of core-image-minimal.<br><br>M=
-ACHINE ??=3D &#39;imx6qsabreauto&#39;<br>
-DISTRO ?=3D &#39;poky&#39;<br>
-
-PACKAGE_CLASSES ?=3D &quot;package_rpm&quot;<br>EXTRA_IMAGE_FEATURES =3D &q=
-uot;debug-tweaks ssh-server-openssh&quot;<br>IMAGE_INSTALL_append
- =3D &quot; gcc g++ binutils libgcc libgcc-dev libstdc++ libstdc++-dev glib=
--2.0
- libsigc++-2.0-dev libstdc++-staticdev tslib-conf tslib-tests=20
-tslib-calibrate openssh-sftp-server alsa-lib alsa-tools alsa-state=20
-alsa-utils-alsaconf tslib evtest dbus nano qtbase qtbase-fonts=20
-qtbase-plugins qtbase-examples cinematicexperience gstreamer cairo pango
- fontconfig freetype pulseaudio &quot; <br>
-DISTRO_FEATURES_remove =3D &quot;x11 wayland&quot;<br><br><br></div></div>I=
- am trying to cross compile a library of an application but i am getting er=
-ror. <br>The .bb file of libraray is following:<br><br>DESCRIPTION =3D &quo=
-t;Library&quot;<br>
-
-HOMEPAGE =3D &quot;<a href=3D"http://www.xyz.de" target=3D"_blank">www.xyz.=
-de</a>&quot;<br>SECTION =3D &quot;libs&quot;<br>DEPENDS =3D &quot;libsigc++=
--2.0 libxml2 libxslt&quot;<br>PRIORITY =3D &quot;optional&quot;<br>LICENSE =
-=3D &quot;GPLv3&quot;<br>
-LIC_FILES_CHKSUM =3D &quot;file://COPYING;md5=3D0cd9a07afbeb24026c9b03aecfe=
-ba458&quot;<br>
-PR =3D &quot;r0&quot;<br><br><br>SRC_URI =3D &quot;file://library/&quot;<br=
-><br>S =3D &quot;${WORKDIR}/library&quot;<br><br>inherit autotools pkgconfi=
-g<br><br>EXTRA_OECONF =3D &quot;--enable-shared --disable-static&quot;<br><=
-br>
-INSANE_SKIP_${PN} =3D &quot;installed-vs-shipped&quot;<br>
-<br>#do_configure () {<br>#=C2=A0=C2=A0=C2=A0 sudo make clean<br>#=C2=A0=C2=
-=A0=C2=A0 sudo ./autogen.sh -host=3Darm-poky-linux-gnueabi --enable-shared =
---disable-static<br>#}<br>#<br>#<br>#do_compile () {<br>#=C2=A0=C2=A0=C2=A0=
- sudo make<br>#}<br>#<br>#do_install (){<br>
-
-#=C2=A0=C2=A0=C2=A0 sudo make install<br>#}<br><br></div></div>i am getting=
- following error when i tried to bitbake core-image-minimal<br></div></div>=
-=C2=A0configure: exit 1<br>ERROR: oe_runconf failed<br>WARNING: run.do_conf=
-igure.9057:1 exit 1 from<br>
-
-exit 1<br>ERROR: Function failed: do_configure (log file is located at log.=
-do_configure.9057)<br><br></div><div>so, i checked log file in that file i =
-can found following details:<br><br></div><div>arm-poky-linux-gnueabi-gcc: =
-error: unrecognized command line option &#39;-V&#39;<br>
-
-arm-poky-linux-gnueabi-gcc: fatal error: no input files<br>compilation term=
-inated.<br><br>arm-poky-linux-gnueabi-gcc: error: unrecognized command line=
- option &#39;-qversion&#39;<br>arm-poky-linux-gnueabi-gcc: fatal error: no =
-input files<br>
-
-compilation terminated.<br><br></div></div>I don&#39;t know where am i wron=
-g?<br><br></div>Thank you,<br></div>Jigar Chokshi</div>
-</div></div>
-
---089e011619b614d95104f815a976--
