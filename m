@@ -1,34 +1,52 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <saul.wold@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 31342E004EB; Wed, 30 Apr 2014 05:40:16 -0700 (PDT)
+	id 06A06E00B30; Tue,  6 May 2014 09:48:44 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7D91DE004EB
-	for <poky@yoctoproject.org>; Wed, 30 Apr 2014 05:40:13 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 30 Apr 2014 05:39:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,958,1389772800"; d="scan'208";a="532407971"
-Received: from cgwithan-mobl.gar.corp.intel.com (HELO
-	peggleto-mobl5.ger.corp.intel.com) ([10.252.122.50])
-	by orsmga002.jf.intel.com with ESMTP; 30 Apr 2014 05:39:09 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 30 Apr 2014 13:38:59 +0100
-Message-Id: <89cd8e868caf9a9b4f973e44eca12a6a552123af.1398861412.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.9.0
-In-Reply-To: <cover.1398861412.git.paul.eggleton@linux.intel.com>
-References: <cover.1398861412.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1398861412.git.paul.eggleton@linux.intel.com>
-References: <cover.1398861412.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 2/2] meta-yocto-bsp: oeqa/controllers: add EdgeRouterTarget
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [209.85.220.49 listed in list.dnswl.org]
+Received: from mail-pa0-f49.google.com (mail-pa0-f49.google.com
+	[209.85.220.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1F38BE00A44
+	for <poky@yoctoproject.org>; Tue,  6 May 2014 09:48:40 -0700 (PDT)
+Received: by mail-pa0-f49.google.com with SMTP id lj1so6061343pab.22
+	for <poky@yoctoproject.org>; Tue, 06 May 2014 09:48:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:message-id:date:from:organization:user-agent
+	:mime-version:to:subject:content-type:content-transfer-encoding;
+	bh=uqKhxAsMjJUYEvmYel2XFHyLSS4BIlBP6qjD3gV/aCE=;
+	b=nEUI6mZcrqcD/H2LgTrgIHM+UNIG51sD2J1FvMklLWD3pF7CIvXV3o5xlBJbplUYX7
+	O2ijFtc6GCVSi6mcy5PqONEM5akp1BtfMLD5K7i+w6v3ZovL3IIVnClba7ljBMdJlJ7v
+	hXhKYFW6yUhEM96DNW6f1sGBzmTVPEwl0t1FxHwTG4xkpD6lRsIv360GUWExae+z5EXz
+	ez3q2f/DUAFuu+PtdtSD6HfKDRZ8FvlYUwrucwoYB7Q6aHbi9VrQ6El85PcznbMJk9eB
+	tm678XkSpcD89sGrq83GhNfnXFk/utzU1YNH0YPXg5dbqhSshRtQB+drutXLkJAZZOh2
+	HATw==
+X-Gm-Message-State: ALoCoQnmT+dNo6GBiMluRK+t/ExRY4/yxv+r8tHUINF2Y+HpbxxPqZZ5PC6zwoA/jtQH66S/heDr
+X-Received: by 10.66.136.103 with SMTP id pz7mr8220553pab.140.1399394919765;
+	Tue, 06 May 2014 09:48:39 -0700 (PDT)
+Received: from [10.6.18.24] (c-50-186-0-160.hsd1.or.comcast.net.
+	[50.186.0.160]) by mx.google.com with ESMTPSA id
+	iq10sm1393660pbc.14.2014.05.06.09.48.38 for <multiple recipients>
+	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+	Tue, 06 May 2014 09:48:39 -0700 (PDT)
+Message-ID: <53691266.2090107@intel.com>
+Date: Tue, 06 May 2014 09:48:38 -0700
+From: Saul Wold <saul.wold@intel.com>
+Organization: Intel
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.4.0
+MIME-Version: 1.0
+To: 'Patches and discussions about the oe-core layer'
+	<openembedded-core@lists.openembedded.org>, 
+	Yocto Project Discussion <yocto@yoctoproject.org>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	bitbake-devel <bitbake-devel@lists.openembedded.org>
+Subject: Daisy Stable Branch - open for patch suggestions
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,117 +59,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Apr 2014 12:40:16 -0000
+X-List-Received-Date: Tue, 06 May 2014 16:48:44 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Based on BeagleBoneTarget, this provides support for deploying images
-and running tests on an EdgeRouter Lite (edgerouter). The device must
-be set up to boot into the master image already - see the instructions
-in the file.
 
-Implements [YOCTO #6253].
+[Sorry for the overlap, want to make sure I hit a broad audience]
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- .../lib/oeqa/controllers/edgeroutertarget.py       | 89 ++++++++++++++++++++++
- 1 file changed, 89 insertions(+)
- create mode 100644 meta-yocto-bsp/lib/oeqa/controllers/edgeroutertarget.py
+Hi Everyone!
 
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/edgeroutertarget.py b/meta-yocto-bsp/lib/oeqa/controllers/edgeroutertarget.py
-new file mode 100644
-index 0000000..5df9fda
---- /dev/null
-+++ b/meta-yocto-bsp/lib/oeqa/controllers/edgeroutertarget.py
-@@ -0,0 +1,89 @@
-+# Copyright (C) 2014 Intel Corporation
-+#
-+# Released under the MIT license (see COPYING.MIT)
-+
-+# This module adds support to testimage.bbclass to deploy images and run
-+# tests on a Ubiquiti Networks EdgeRouter Lite. The device must be set up
-+# to boot into the master image already - the easiest way to do that is as
-+# follows:
-+#
-+# 1. Take out the internal USB drive and plug it into your PC
-+# 2. Repartition the USB drive so that you have three partitions in this
-+#    order:
-+#      1: vfat, labelled "boot" (it will need to be formatted with mkfs.vfat
-+#         for this to be possible, since FAT partitions formatted under
-+#         DOS/Windows will only support uppercase labels)
-+#      2: ext3 (for master image) labelled "testmaster"
-+#      3: ext3 (for image under test) labelled "testrootfs"
-+# 3. Copy the kernel to be used by the master image to the FAT partition
-+#    (it should be named "vmlinux.64" with the factory u-boot configuration)
-+# 4. Install the master image onto the "testmaster" ext3 partition. If
-+#    you do this by just extracting the contents of an image onto the
-+#    partition, you will also likely need to create the master image marker
-+#    file /etc/masterimage within this partition so that we can tell when
-+#    we're booted into it that it is the master image.
-+# 5. Put the USB drive back into the device, and ensure the console port
-+#    and first ethernet port are connected before powering on
-+#
-+# TEST_SERIALCONTROL_CMD will need to be set in local.conf so that we can
-+# interact with u-boot over the serial console port.
-+
-+import os
-+import bb
-+import time
-+import subprocess
-+import sys
-+import pexpect
-+
-+import oeqa.utils.sshcontrol as sshcontrol
-+from oeqa.controllers.masterimage import MasterImageHardwareTarget
-+
-+
-+class EdgeRouterTarget(MasterImageHardwareTarget):
-+
-+    def __init__(self, d):
-+        super(EdgeRouterTarget, self).__init__(d)
-+
-+        self.deploy_cmds = [
-+                'mount -L boot /boot',
-+                'mkdir -p /mnt/testrootfs',
-+                'mount -L testrootfs /mnt/testrootfs',
-+                'cp ~/test-kernel /boot',
-+                'rm -rf /mnt/testrootfs/*',
-+                'tar xzvf ~/test-rootfs.tar.gz -C /mnt/testrootfs'
-+                ]
-+        if not self.serialcontrol_cmd:
-+            bb.fatal("This TEST_TARGET needs a TEST_SERIALCONTROL_CMD defined in local.conf.")
-+
-+
-+    def _deploy(self):
-+        self.master.run("umount /mnt/testrootfs;")
-+        self.master.ignore_status = False
-+        self.master.copy_to(self.kernel, "~/test-kernel")
-+        self.master.copy_to(self.rootfs, "~/test-rootfs.tar.gz")
-+        for cmd in self.deploy_cmds:
-+            self.master.run(cmd)
-+
-+    def _start(self, params=None):
-+        self.power_cycle(self.master)
-+        try:
-+            serialconn = pexpect.spawn(self.serialcontrol_cmd, env=self.origenv, logfile=sys.stdout)
-+            serialconn.expect("U-Boot")
-+            serialconn.sendline("a")
-+            serialconn.expect("Octeon ubnt_e100#")
-+            serialconn.sendline("fatload usb 0:1 $loadaddr test-kernel")
-+            serialconn.expect(" bytes read")
-+            serialconn.expect("Octeon ubnt_e100#")
-+            serialconn.sendline("bootoctlinux $loadaddr coremask=0x3 root=/dev/sda3 rw rootwait mtdparts=phys_mapped_flash:512k(boot0),512k(boot1),64k@3072k(eeprom)")
-+            serialconn.expect("login:", timeout=120)
-+            serialconn.close()
-+        except pexpect.ExceptionPexpect as e:
-+            bb.fatal('Serial interaction failed: %s' % str(e))
-+
-+    def _wait_until_booted(self):
-+        try:
-+            serialconn = pexpect.spawn(self.serialcontrol_cmd, env=self.origenv, logfile=sys.stdout)
-+            serialconn.expect("login:", timeout=120)
-+            serialconn.close()
-+        except pexpect.ExceptionPexpect as e:
-+            bb.fatal('Serial interaction failed: %s' % str(e))
--- 
-1.9.0
+I will be the stable maintainer for the Daisy branch, and it is now open 
+for suggestions of backport patches.  I am starting to generate a list 
+of patches that are already in master.
 
+The following wiki page has the Policies and process for requesting a 
+fix in a stable branch, please review that before sending a patch.
+
+https://wiki.yoctoproject.org/wiki/Stable_branch_maintenance
+
+Please remember to include [daisy] in any request (backport or commit).
+
+We do not have a hard date for this yet, but likely be in late May - 
+early June time frame for the 1.6.1 release.
+
+Thanks to all for your efforts.
+
+Sau!
 
