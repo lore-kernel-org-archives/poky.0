@@ -1,6 +1,6 @@
-Return-Path: <holger@freyther.de>
+Return-Path: <Sean_Hudson@mentor.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C022EE00AE8; Mon, 12 May 2014 06:58:03 -0700 (PDT)
+	id A2F52E00B5D; Mon, 12 May 2014 11:30:14 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: *
@@ -8,27 +8,36 @@ X-Spam-Status: No, score=1.3 required=5.0 tests=RDNS_NONE autolearn=no
 	version=3.3.1
 X-Spam-HAM-Report: * 1.3 RDNS_NONE Delivered to internal network by a host
 	with no rDNS
-Received: from mail.sysmocom.de (unknown [144.76.43.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47347E00AE8
-	for <poky@yoctoproject.org>; Mon, 12 May 2014 06:58:00 -0700 (PDT)
-Received: from sangmingze-mail.local (220-133-152-71.HINET-IP.hinet.net
-	[220.133.152.71])
-	by mail.sysmocom.de (Postfix) with ESMTPSA id 183465737B;
-	Mon, 12 May 2014 13:50:07 +0000 (UTC)
-Received: from ich by sangmingze-mail.local with local (Exim 4.82)
-	(envelope-from <holger@freyther.de>)
-	id 1WjqcJ-0007LW-Iu; Mon, 12 May 2014 15:50:07 +0200
-Date: Mon, 12 May 2014 15:50:07 +0200
-From: Holger Hans Peter Freyther <holger@freyther.de>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20140512135007.GX26057@xiaoyu.lan>
-References: <20140327060204.GA14885@xiaoyu.lan>
-	<1395908929.24890.119.camel@ted>
+X-Greylist: delayed 1875 seconds by postgrey-1.32 at yocto-www;
+	Mon, 12 May 2014 11:30:08 PDT
+Received: from relay1.mentorg.com (unknown [192.94.38.131])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9121AE00AE8;
+	Mon, 12 May 2014 11:30:08 -0700 (PDT)
+Received: from svr-orw-exc-10.mgc.mentorg.com ([147.34.98.58])
+	by relay1.mentorg.com with esmtp 
+	id 1WjuV2-0003e2-TM from Sean_Hudson@mentor.com ;
+	Mon, 12 May 2014 10:58:52 -0700
+Received: from SVR-ORW-FEM-04.mgc.mentorg.com ([147.34.97.41]) by
+	SVR-ORW-EXC-10.mgc.mentorg.com with Microsoft
+	SMTPSVC(6.0.3790.4675); Mon, 12 May 2014 10:58:52 -0700
+Received: from [172.30.2.218] (147.34.91.1) by svr-orw-fem-04.mgc.mentorg.com
+	(147.34.97.41) with Microsoft SMTP Server id 14.2.247.3;
+	Mon, 12 May 2014 10:58:51 -0700
+Message-ID: <53710BDA.10306@mentor.com>
+Date: Mon, 12 May 2014 12:58:50 -0500
+From: Sean Hudson <sean_hudson@mentor.com>
+Organization: Mentor Graphics - Embedded Software Division
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.5.0
 MIME-Version: 1.0
-In-Reply-To: <1395908929.24890.119.camel@ted>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: poky@yoctoproject.org
-Subject: Re: PRserver support broken in Dora?
+To: <yocto@yoctoproject.org>, <yocto-announce@yoctoproject.org>,
+	<poky@yoctoproject.org>, <openembedded-core@lists.openembedded.org>,
+	<yocto-bsp@yoctoproject.org>
+X-Enigmail-Version: 1.5.2
+X-OriginalArrivalTime: 12 May 2014 17:58:52.0709 (UTC)
+	FILETIME=[D5C38550:01CF6E0B]
+Cc: meta-amd@yoctoproject.org
+Subject: New meta-amd mailing list announcement
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,19 +50,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 May 2014 13:58:03 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Mon, 12 May 2014 18:30:14 -0000
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 27, 2014 at 08:28:49AM +0000, Richard Purdie wrote:
+There is a new mailing list for AMD platform/board related patches and
+discussion.
+You can sign up here: https://lists.yoctoproject.org/listinfo/meta-amd
 
-Hi,
+The meta-amd layer git repository is publicly available here:
+git://git.yoctoproject.org/meta-amd
+(cgit web interface here:
+http://git.yoctoproject.org/cgit/cgit.cgi/meta-amd/)
 
-> Can you see if that helps?
-
-sorry. I never got around to test it. I notice that you added a
-commit to poky on the 7th of April. I assume the issue is resolved?
-
-holger
-
+Please checkout the README at the top level for details on submitting
+patches.
 
