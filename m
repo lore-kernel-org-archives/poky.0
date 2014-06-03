@@ -1,6 +1,6 @@
-Return-Path: <corneliux.stoicescu@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 12C69E00B0B; Sun,  1 Jun 2014 23:33:32 -0700 (PDT)
+	id 2A2BBE00AFD; Mon,  2 Jun 2014 17:11:41 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,25 +8,23 @@ X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7411E009C1
-	for <poky@yoctoproject.org>; Sun,  1 Jun 2014 23:33:29 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 01 Jun 2014 23:33:28 -0700
+	*      [192.55.52.88 listed in list.dnswl.org]
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 26C8AE00985
+	for <poky@yoctoproject.org>; Mon,  2 Jun 2014 17:11:35 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 02 Jun 2014 17:11:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.98,955,1392192000"; d="scan'208";a="521281015"
-Received: from linux.jf.intel.com (HELO linux.intel.com) ([10.23.219.25])
-	by orsmga001.jf.intel.com with ESMTP; 01 Jun 2014 23:33:28 -0700
-Received: from localhost.localdomain (unknown [10.237.112.162])
-	by linux.intel.com (Postfix) with ESMTP id 7A3336A4007;
-	Sun,  1 Jun 2014 23:33:01 -0700 (PDT)
-From: Corneliu Stoicescu <corneliux.stoicescu@intel.com>
+X-IronPort-AV: E=Sophos;i="4.98,961,1392192000"; d="scan'208";a="548764496"
+Received: from kmaligas-mobl1.gar.corp.intel.com (HELO swold-linux.bigsur.com)
+	([10.255.12.167])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Jun 2014 17:11:34 -0700
+From: Saul Wold <sgw@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Mon,  2 Jun 2014 11:37:33 +0300
-Message-Id: <1401698253-24927-1-git-send-email-corneliux.stoicescu@intel.com>
-X-Mailer: git-send-email 1.8.3.2
-Subject: [PATCH V4] oeqa/controllers/beaglebonetarget.py: fix conditions for files copied to /boot
+Date: Mon,  2 Jun 2014 17:11:33 -0700
+Message-Id: <1401754294-20661-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.8.3.1
+Subject: [PATCH 1/2] poky-tiny: Update kernel version to 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,38 +37,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Jun 2014 06:33:32 -0000
+X-List-Received-Date: Tue, 03 Jun 2014 00:11:41 -0000
 
-Using '[ ! -e /mnt/testrootfs/boot/uImage ] && cp ~/test-kernel /mnt/testrootfs/boot/uImage' would result in exit code 1 if the first condition is not met.
-Changing the code to return exit status 0 if /mnt/testrootfs/boot/uImage exists.
-
-Also adding this change to dtb files check.
-
-Signed-off-by: Corneliu Stoicescu <corneliux.stoicescu@intel.com>
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta-yocto/conf/distro/poky-tiny.conf              | 2 +-
+ meta-yocto/recipes-core/busybox/busybox_%.bbappend | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py b/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
-index 53f454b..0d148d7 100644
---- a/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
-+++ b/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
-@@ -41,12 +41,12 @@ class BeagleBoneTarget(MasterImageHardwareTarget):
-                 'mount -L testrootfs /mnt/testrootfs',
-                 'rm -rf /mnt/testrootfs/*',
-                 'tar xzvf ~/test-rootfs.tar.gz -C /mnt/testrootfs',
--                '[ ! -e /mnt/testrootfs/boot/uImage ] && cp ~/test-kernel /mnt/testrootfs/boot/uImage',
-+                '[ -e /mnt/testrootfs/boot/uImage ] || cp ~/test-kernel /mnt/testrootfs/boot/uImage',
-                 ]
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+index 2548d79..3350491 100644
+--- a/meta-yocto/conf/distro/poky-tiny.conf
++++ b/meta-yocto/conf/distro/poky-tiny.conf
+@@ -37,7 +37,7 @@ DISTRO = "poky-tiny"
+ # Distro config is evaluated after the machine config, so we have to explicitly
+ # set the kernel provider to override a machine config.
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-tiny"
+-PREFERRED_VERSION_linux-yocto-tiny = "3.8%"
++PREFERRED_VERSION_linux-yocto-tiny = "3.14%"
  
-         for _, dtbfn in self.dtbs:
-             # Kernel and dtb files may not be in the image, so copy them if not
--            self.deploy_cmds.append('[ ! -e /mnt/testrootfs/boot/{0} ] && cp ~/{0} /mnt/testrootfs/boot/'.format(dtbfn))
-+            self.deploy_cmds.append('[ -e /mnt/testrootfs/boot/{0} ] || cp ~/{0} /mnt/testrootfs/boot/'.format(dtbfn))
+ # We can use packagegroup-core-boot, but in the future we may need a new packagegroup-core-tiny
+ #POKY_DEFAULT_EXTRA_RDEPENDS += "packagegroup-core-boot"
+diff --git a/meta-yocto/recipes-core/busybox/busybox_%.bbappend b/meta-yocto/recipes-core/busybox/busybox_%.bbappend
+index ffe8631..0005787 100644
+--- a/meta-yocto/recipes-core/busybox/busybox_%.bbappend
++++ b/meta-yocto/recipes-core/busybox/busybox_%.bbappend
+@@ -1,2 +1,2 @@
+-FILESEXTRAPATHS_prepend_poky := "${THISDIR}/${P}:"
++FILESEXTRAPATHS_prepend := "${THISDIR}/${BPN}:"
  
-         if not self.serialcontrol_cmd:
-             bb.fatal("This TEST_TARGET needs a TEST_SERIALCONTROL_CMD defined in local.conf.")
 -- 
-1.8.3.2
+1.8.3.1
 
 
