@@ -1,34 +1,37 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 77F9EE00BEA; Thu, 12 Jun 2014 21:40:27 -0700 (PDT)
+	id 5AD0FE00BE0; Fri, 13 Jun 2014 00:04:32 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08041E00BE0
-	for <poky@yoctoproject.org>; Thu, 12 Jun 2014 21:40:24 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s5D4eKux019299
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 12 Jun 2014 21:40:20 -0700 (PDT)
-Received: from pek-khao-d1.corp.ad.wrs.com (128.224.162.196) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.169.1; Thu, 12 Jun 2014 21:40:19 -0700
-From: Kevin Hao <kexin.hao@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 13 Jun 2014 12:39:22 +0800
-Message-ID: <1402634363-31407-2-git-send-email-kexin.hao@windriver.com>
-X-Mailer: git-send-email 1.9.3
+X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: 
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BDD92E00BB3
+	for <poky@yoctoproject.org>; Fri, 13 Jun 2014 00:04:30 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu4) with ESMTP id
+	s5D74FKC001221; Fri, 13 Jun 2014 08:04:15 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id vNgtav_mrL0T; Fri, 13 Jun 2014 08:04:15 +0100 (BST)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	s5D74B7H001217
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-SHA bits=128 verify=NOT);
+	Fri, 13 Jun 2014 08:04:13 +0100
+Message-ID: <1402643046.12440.468.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Kevin Hao <kexin.hao@windriver.com>
+Date: Fri, 13 Jun 2014 08:04:06 +0100
 In-Reply-To: <1402634363-31407-1-git-send-email-kexin.hao@windriver.com>
 References: <1402634363-31407-1-git-send-email-kexin.hao@windriver.com>
-MIME-Version: 1.0
-Subject: [PATCH 1/2] mpc8315e-rdb: bump to linux-yocto 3.14
+X-Mailer: Evolution 3.8.4-0ubuntu1 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 0/2] meta-yocto-bsp: enable the jffs2 for mpc8315e-rdb board
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,52 +44,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Jun 2014 04:40:27 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 13 Jun 2014 07:04:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
----
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                 | 2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+On Fri, 2014-06-13 at 12:39 +0800, Kevin Hao wrote:
+> Hi,
+> 
+> This tries to enable the jffs2 support for the mpc8315e-rdb board. I have
+> tested the jffs2 with the following steps and it worked perfectly.
+> 
+> 1. root@mpc8315e-rdb:~# cat /proc/mtd
+> dev:    size   erasesize  name
+> mtd0: 00800000 00010000 "fe000000.flash"
+> mtd1: 00100000 00004000 "u-boot"
+> mtd2: 00300000 00004000 "kernel"
+> mtd3: 01c00000 00004000 "fs"
+> 
+> 2. root@mpc8315e-rdb:~# flash_eraseall  /dev/mtd3
+> flash_eraseall has been replaced by `flash_erase <mtddev> 0 0`; please use it
+> Erasing 16 Kibyte @ 1bec000 -- 99 % complete flash_erase: Skipping bad block at 01bf0000
+> flash_erase: Skipping bad block at 01bf4000
+> flash_erase: Skipping bad block at 01bf8000
+> flash_erase: Skipping bad block at 01bfc000
+> Erasing 16 Kibyte @ 1bfc000 -- 100 % complete 
+> 
+> 3. root@mpc8315e-rdb:~# flashcp core-image-minimal-mpc8315e-rdb.jffs2 /dev/mtd3
+> 
+> 4. Then boot with a jffs2 rootfs
+> 
+> 5. root@mpc8315e-rdb:~# cat /proc/cmdline
+> root=/dev/mtdblock3 rootfstype=jffs2 console=ttyS0,115200
+> root@mpc8315e-rdb:~# 
+> root@mpc8315e-rdb:~# mount
+> rootfs on / type rootfs (rw)
+> /dev/root on / type jffs2 (rw,relatime)
+> devtmpfs on /dev type devtmpfs (rw,relatime,size=59136k,nr_inodes=14784,mode=755)
+> proc on /proc type proc (rw,relatime)
+> sysfs on /sys type sysfs (rw,relatime)
+> debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+> tmpfs on /run type tmpfs (rw,nosuid,nodev,mode=755)
+> tmpfs on /var/volatile type tmpfs (rw,relatime)
+> devpts on /dev/pts type devpts (rw,relatime,gid=5,mode=620)
 
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index ab1eaa910143..ef76f2a755c0 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
- 
- MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
- 
--PREFERRED_VERSION_linux-yocto ?= "3.10%"
-+PREFERRED_VERSION_linux-yocto ?= "3.14%"
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-index e0964eb40a47..f218bb15276d 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-@@ -2,6 +2,7 @@ KBRANCH_genericx86  = "standard/common-pc/base"
- KBRANCH_genericx86-64  = "standard/common-pc-64/base"
- KBRANCH_edgerouter = "standard/edgerouter"
- KBRANCH_beaglebone = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
-@@ -10,8 +11,10 @@ SRCREV_machine_genericx86 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- SRCREV_machine_genericx86-64 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- SRCREV_machine_edgerouter ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- SRCREV_machine_beaglebone ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
-+SRCREV_machine_mpc8315e-rdb ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone = "beaglebone"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
--- 
-1.9.3
+Can you please put this information into the README.hardware in
+meta-yocto-bsp so that others can find it, its useful to know how to use
+jffs2 on the default...
+
+Cheers,
+
+Richard
 
 
