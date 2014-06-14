@@ -1,6 +1,6 @@
 Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7C49FE00BFE; Fri, 13 Jun 2014 18:48:03 -0700 (PDT)
+	id 89BC0E00BFD; Fri, 13 Jun 2014 18:48:03 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -10,25 +10,25 @@ X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	http://www.dnswl.org/, *      medium trust
 	*      [147.11.1.11 listed in list.dnswl.org]
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1621CE00BEA
-	for <poky@yoctoproject.org>; Fri, 13 Jun 2014 18:48:00 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 14F08E00BB3
+	for <poky@yoctoproject.org>; Fri, 13 Jun 2014 18:47:55 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s5E1lxiS000887
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s5E1lqud000881
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 13 Jun 2014 18:47:59 -0700 (PDT)
+	Fri, 13 Jun 2014 18:47:53 -0700 (PDT)
 Received: from pek-khao-d1.corp.ad.wrs.com (128.224.162.196) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.169.1; Fri, 13 Jun 2014 18:47:58 -0700
+	14.3.169.1; Fri, 13 Jun 2014 18:47:52 -0700
 From: Kevin Hao <kexin.hao@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Sat, 14 Jun 2014 09:47:24 +0800
-Message-ID: <1402710444-2334-4-git-send-email-kexin.hao@windriver.com>
+Date: Sat, 14 Jun 2014 09:47:22 +0800
+Message-ID: <1402710444-2334-2-git-send-email-kexin.hao@windriver.com>
 X-Mailer: git-send-email 1.9.3
 In-Reply-To: <1402710444-2334-1-git-send-email-kexin.hao@windriver.com>
 References: <1402710444-2334-1-git-send-email-kexin.hao@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH v2 3/3] mpc8315e-rdb: add the example about booting from jffs2 root
+Subject: [PATCH v2 1/3] mpc8315e-rdb: bump to linux-yocto 3.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,38 +46,48 @@ Content-Type: text/plain
 
 Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
 ---
-v2: A new patch introduced in v2.
+v2: No change.
 
- README.hardware | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                 | 2 +-
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/README.hardware b/README.hardware
-index f11fdd7794ae..d8faaa3bdb9d 100644
---- a/README.hardware
-+++ b/README.hardware
-@@ -324,6 +324,22 @@ Load the kernel and dtb (device tree blob), and boot the system as follows:
-  => tftp 2000000 uImage-mpc8315e-rdb.dtb
-  => bootm 1000000 - 2000000
+diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+index ab1eaa910143..ef76f2a755c0 100644
+--- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
++++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
  
-+--- Booting from JFFS2 root ---
-+
-+ 1. First boot the board with NFS root.
-+
-+ 2. Erase the MTD partition which will be used as root:
-+
-+    $ flash_eraseall  /dev/mtd3
-+
-+ 3. Copy the JFFS2 image to the MTD partition:
-+
-+    $ flashcp core-image-minimal-mpc8315e-rdb.jffs2 /dev/mtd3
-+
-+ 4. Then reboot the board and set up the environment in U-Boot:
-+
-+    => setenv bootargs root=/dev/mtdblock3 rootfstype=jffs2 console=ttyS0,115200
-+
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
  
- Ubiquiti Networks EdgeRouter Lite (edgerouter)
- ==============================================
+-PREFERRED_VERSION_linux-yocto ?= "3.10%"
++PREFERRED_VERSION_linux-yocto ?= "3.14%"
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+ 
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+index e0964eb40a47..f218bb15276d 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+@@ -2,6 +2,7 @@ KBRANCH_genericx86  = "standard/common-pc/base"
+ KBRANCH_genericx86-64  = "standard/common-pc-64/base"
+ KBRANCH_edgerouter = "standard/edgerouter"
+ KBRANCH_beaglebone = "standard/beaglebone"
++KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+@@ -10,8 +11,10 @@ SRCREV_machine_genericx86 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+ SRCREV_machine_genericx86-64 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+ SRCREV_machine_edgerouter ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+ SRCREV_machine_beaglebone ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
++SRCREV_machine_mpc8315e-rdb ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
++COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
 -- 
 1.9.3
 
