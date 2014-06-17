@@ -1,48 +1,35 @@
-Return-Path: <bewithsathish@gmail.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8917AE00BFD; Tue, 17 Jun 2014 02:49:43 -0700 (PDT)
+	id AD9B2E00C64; Tue, 17 Jun 2014 09:13:43 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (bewithsathish[at]gmail.com)
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.219.54 listed in list.dnswl.org]
-Received: from mail-oa0-f54.google.com (mail-oa0-f54.google.com
-	[209.85.219.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DAA5E00B71
-	for <poky@yoctoproject.org>; Tue, 17 Jun 2014 02:49:29 -0700 (PDT)
-Received: by mail-oa0-f54.google.com with SMTP id eb12so7781269oac.13
-	for <poky@yoctoproject.org>; Tue, 17 Jun 2014 02:49:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=gd9MqVlGPva1P6a3QTAFe6BUaTMEZUeO2POkMVkiFvw=;
-	b=LMV550YOjorwKQm5pIdAoXc7OAvaiCj8Zwv/9vyBPMxhl+jV1nHlnopUgXb5F8CnSy
-	jeZIC8LJy28//bZwq68F6i55W3wCziY/gSUDxaGXG1etzTaD7Yys1EdblM2rjWjwBleY
-	IgsXaXrI0bJJ5F7EUHx3mX+TwFtgpuCH1I0FtjKDSZqb1fGZSi+vNS/uTjeUPwyTvsE8
-	R2PgZQI8u4ZDk/pFwT+SGHkO2x/LZnCsEDsihd3U7siSrJXBZ31GPXxN8mBpDLCNDVRM
-	A0lBfKzU8Lv4CnI2s4xtlxbdEBy4Pwzyc2Io7vBUqKn2Zaw7r9bS8P6mtATBCpoumDaz
-	1Kcw==
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 80643E00B5C
+	for <poky@yoctoproject.org>; Tue, 17 Jun 2014 09:13:34 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s5HGDW5q003762
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 17 Jun 2014 09:13:32 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.169.1; Tue, 17 Jun 2014 09:13:32 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Tue, 17 Jun 2014 12:13:21 -0400
+Message-ID: <62dedeb900a7d5721f4d798c94d096fbc13220b5.1403021468.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.8.1.2
+In-Reply-To: <cover.1403021468.git.bruce.ashfield@windriver.com>
+References: <cover.1403021468.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
-X-Received: by 10.60.35.104 with SMTP id g8mr2832083oej.41.1402998568549; Tue,
-	17 Jun 2014 02:49:28 -0700 (PDT)
-Received: by 10.202.178.198 with HTTP; Tue, 17 Jun 2014 02:49:28 -0700 (PDT)
-Received: by 10.202.178.198 with HTTP; Tue, 17 Jun 2014 02:49:28 -0700 (PDT)
-Date: Tue, 17 Jun 2014 15:19:28 +0530
-Message-ID: <CANJvwR_eNhKGcppjbduDhoSq-fva0ns5VVZFND9NCDrTCYd73g@mail.gmail.com>
-From: Sathishkumar Duraisamy <bewithsathish@gmail.com>
-To: poky@yoctoproject.org
-Subject: Enabling lcd7 with beaglebone black
+Cc: poky@yoctoproject.org
+Subject: [PATCH 4/4] meta-yocto-bsps: update 3.14 SRCREVs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,30 +42,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jun 2014 09:49:43 -0000
-Content-Type: multipart/alternative; boundary=089e013a1cfe4c80e004fc050f88
+X-List-Received-Date: Tue, 17 Jun 2014 16:13:43 -0000
+Content-Type: text/plain
 
---089e013a1cfe4c80e004fc050f88
-Content-Type: text/plain; charset=UTF-8
+Updating the h/w reference BSPs to the latest 3.14 content.
 
-Hi,
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-I have trying to use LCD cape 7 inch with beaglebone black with poky daisy.
-I followed bb-bone-lcd7-01-00a4.DTS. I could not able to enable LCD. Could
-any help to bring LCD.
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+index f218bb15276d..2305c333ee28 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+@@ -7,11 +7,11 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+-SRCREV_machine_genericx86 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+-SRCREV_machine_genericx86-64 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+-SRCREV_machine_edgerouter ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+-SRCREV_machine_beaglebone ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
+-SRCREV_machine_mpc8315e-rdb ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
++SRCREV_machine_genericx86 ?= "41d5fe27dc3d3e769cb6af01770cac3d75a91e1a"
++SRCREV_machine_genericx86-64 ?= "96930820e0cb6d4b31d5e0c8f3174805f4a868b3"
++SRCREV_machine_edgerouter ?= "96930820e0cb6d4b31d5e0c8f3174805f4a868b3"
++SRCREV_machine_beaglebone ?= "96930820e0cb6d4b31d5e0c8f3174805f4a868b3"
++SRCREV_machine_mpc8315e-rdb ?= "824683a5531beffbfc0537f55ff477ad28e761fa"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-- 
+1.8.1.2
 
-Thanks and regards,
-Sathishkumar D
 
---089e013a1cfe4c80e004fc050f88
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<p dir=3D"ltr">Hi,=C2=A0 </p>
-<p dir=3D"ltr">I have trying to use LCD cape 7 inch with beaglebone black w=
-ith poky daisy. I followed bb-bone-lcd7-01-00a4.DTS. I could not able to en=
-able LCD. Could any help to bring LCD. </p>
-<p dir=3D"ltr">Thanks and regards,<br>
-Sathishkumar D</p>
-
---089e013a1cfe4c80e004fc050f88--
