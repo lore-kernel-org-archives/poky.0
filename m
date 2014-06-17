@@ -1,34 +1,48 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <bewithsathish@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4F466E00BFD; Mon, 16 Jun 2014 09:03:44 -0700 (PDT)
+	id 8917AE00BFD; Tue, 17 Jun 2014 02:49:43 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [143.182.124.21 listed in list.dnswl.org]
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E5061E00B71
-	for <poky@yoctoproject.org>; Mon, 16 Jun 2014 09:03:37 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 16 Jun 2014 09:03:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.01,487,1400050800"; d="scan'208";a="446087899"
-Received: from lakaruna-mobl.gar.corp.intel.com (HELO
-	peggleto-mobl5.ger.corp.intel.com) ([10.252.121.8])
-	by azsmga001.ch.intel.com with ESMTP; 16 Jun 2014 09:03:26 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Mon, 16 Jun 2014 17:03:25 +0100
-Message-ID: <1688476.ALLmfS1QqV@peggleto-mobl5.ger.corp.intel.com>
-Organization: Intel Corporation
-User-Agent: KMail/4.12.5 (Linux/3.14.6-200.fc20.x86_64; KDE/4.12.5; x86_64; ; )
-In-Reply-To: <1402079083-10096-1-git-send-email-corneliux.stoicescu@intel.com>
-References: <1402079083-10096-1-git-send-email-corneliux.stoicescu@intel.com>
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (bewithsathish[at]gmail.com)
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.219.54 listed in list.dnswl.org]
+Received: from mail-oa0-f54.google.com (mail-oa0-f54.google.com
+	[209.85.219.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DAA5E00B71
+	for <poky@yoctoproject.org>; Tue, 17 Jun 2014 02:49:29 -0700 (PDT)
+Received: by mail-oa0-f54.google.com with SMTP id eb12so7781269oac.13
+	for <poky@yoctoproject.org>; Tue, 17 Jun 2014 02:49:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=gd9MqVlGPva1P6a3QTAFe6BUaTMEZUeO2POkMVkiFvw=;
+	b=LMV550YOjorwKQm5pIdAoXc7OAvaiCj8Zwv/9vyBPMxhl+jV1nHlnopUgXb5F8CnSy
+	jeZIC8LJy28//bZwq68F6i55W3wCziY/gSUDxaGXG1etzTaD7Yys1EdblM2rjWjwBleY
+	IgsXaXrI0bJJ5F7EUHx3mX+TwFtgpuCH1I0FtjKDSZqb1fGZSi+vNS/uTjeUPwyTvsE8
+	R2PgZQI8u4ZDk/pFwT+SGHkO2x/LZnCsEDsihd3U7siSrJXBZ31GPXxN8mBpDLCNDVRM
+	A0lBfKzU8Lv4CnI2s4xtlxbdEBy4Pwzyc2Io7vBUqKn2Zaw7r9bS8P6mtATBCpoumDaz
+	1Kcw==
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/3] YB #6375 #6254
+X-Received: by 10.60.35.104 with SMTP id g8mr2832083oej.41.1402998568549; Tue,
+	17 Jun 2014 02:49:28 -0700 (PDT)
+Received: by 10.202.178.198 with HTTP; Tue, 17 Jun 2014 02:49:28 -0700 (PDT)
+Received: by 10.202.178.198 with HTTP; Tue, 17 Jun 2014 02:49:28 -0700 (PDT)
+Date: Tue, 17 Jun 2014 15:19:28 +0530
+Message-ID: <CANJvwR_eNhKGcppjbduDhoSq-fva0ns5VVZFND9NCDrTCYd73g@mail.gmail.com>
+From: Sathishkumar Duraisamy <bewithsathish@gmail.com>
+To: poky@yoctoproject.org
+Subject: Enabling lcd7 with beaglebone black
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,37 +55,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jun 2014 16:03:44 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 17 Jun 2014 09:49:43 -0000
+Content-Type: multipart/alternative; boundary=089e013a1cfe4c80e004fc050f88
 
-On Friday 06 June 2014 21:24:40 Corneliu Stoicescu wrote:
-> This patch requires the merge of the "[PATCH 0/6] YB #6375 #6254" set of
-> patches on the openembedded-core@lists.openembedded.org mailing list and
-> enables YB #6375 and #6254 for edgerouter and beaglebone BSPs.
-> 
-> This will:
-> - enable the target controllers to dynamically determine what image fstype
-> to use for the rootfs files - enable external scripts to get information
-> like rootfs image fstype and extra files needed from the taregt
-> controllers.
-> 
-> Corneliu Stoicescu (3):
->   beaglebonetarget.py: Add support for get_extra_files() classmethod
->   controllers/beaglebonetarget.py: enable dynamical determination of
->     rootfs type
->   controllers/edgeroutertarget.py: enable dynamical determination of
->     rootfs type
-> 
->  .../lib/oeqa/controllers/beaglebonetarget.py           | 18
-> +++++++++++------- .../lib/oeqa/controllers/edgeroutertarget.py           |
->  5 +++-- 2 files changed, 14 insertions(+), 9 deletions(-)
+--089e013a1cfe4c80e004fc050f88
+Content-Type: text/plain; charset=UTF-8
 
-Acked-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+Hi,
 
+I have trying to use LCD cape 7 inch with beaglebone black with poky daisy.
+I followed bb-bone-lcd7-01-00a4.DTS. I could not able to enable LCD. Could
+any help to bring LCD.
 
--- 
+Thanks and regards,
+Sathishkumar D
 
-Paul Eggleton
-Intel Open Source Technology Centre
+--089e013a1cfe4c80e004fc050f88
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+<p dir=3D"ltr">Hi,=C2=A0 </p>
+<p dir=3D"ltr">I have trying to use LCD cape 7 inch with beaglebone black w=
+ith poky daisy. I followed bb-bone-lcd7-01-00a4.DTS. I could not able to en=
+able LCD. Could any help to bring LCD. </p>
+<p dir=3D"ltr">Thanks and regards,<br>
+Sathishkumar D</p>
+
+--089e013a1cfe4c80e004fc050f88--
