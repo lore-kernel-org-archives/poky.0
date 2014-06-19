@@ -1,35 +1,29 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <sgw@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E7A39E00C4C; Tue, 17 Jun 2014 09:13:46 -0700 (PDT)
+	id EA9DEE00A2F; Wed, 18 Jun 2014 17:39:36 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA13EE00C44
-	for <poky@yoctoproject.org>; Tue, 17 Jun 2014 09:13:32 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.14.5/8.14.5) with ESMTP id s5HGDUEr000439
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 17 Jun 2014 09:13:30 -0700 (PDT)
-Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.169.1; Tue, 17 Jun 2014 09:13:30 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Tue, 17 Jun 2014 12:13:18 -0400
-Message-ID: <1b9bb6e224d7b9d568d9d03a8df1359d18c7a90b.1403021468.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.8.1.2
-In-Reply-To: <cover.1403021468.git.bruce.ashfield@windriver.com>
-References: <cover.1403021468.git.bruce.ashfield@windriver.com>
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 1/4] mpc8315e-rdb: bump to linux-yocto 3.14
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A45B8E00A2F
+	for <poky@yoctoproject.org>; Wed, 18 Jun 2014 17:39:32 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 18 Jun 2014 17:39:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.01,503,1400050800"; d="scan'208";a="550099128"
+Received: from unknown (HELO swold-linux.bigsur.com) ([10.255.12.166])
+	by fmsmga001.fm.intel.com with ESMTP; 18 Jun 2014 17:39:10 -0700
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 18 Jun 2014 17:39:09 -0700
+Message-Id: <1403138349-12368-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 1.8.3.1
+Subject: [PATCH] local.conf.sample: Add sdl to nativesdk qemu PACKAGECONFIG
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,55 +36,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jun 2014 16:13:47 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 19 Jun 2014 00:39:37 -0000
 
-From: Kevin Hao <kexin.hao@windriver.com>
+Enable SDL by default for nativesdk as we do with natve, this will
+allow qemu with ADT to use graphics no vnc by default.
 
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+[YOCTO #6446]
+
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
 ---
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                 | 2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ meta-yocto/conf/local.conf.sample | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index ab1eaa910143..ef76f2a755c0 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
+diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
+index 0111801..bcb0864 100644
+--- a/meta-yocto/conf/local.conf.sample
++++ b/meta-yocto/conf/local.conf.sample
+@@ -243,6 +243,7 @@ BB_DISKMON_DIRS = "\
+ # seen. The two lines below enable the SDL backend too. This assumes there is a
+ # libsdl library available on your build system.
+ PACKAGECONFIG_pn-qemu-native = "sdl"
++PACKAGECONFIG_pn-nativesdk-qemu = "sdl"
+ ASSUME_PROVIDED += "libsdl-native"
  
- MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
  
--PREFERRED_VERSION_linux-yocto ?= "3.10%"
-+PREFERRED_VERSION_linux-yocto ?= "3.14%"
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-index e0964eb40a47..f218bb15276d 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
-@@ -2,6 +2,7 @@ KBRANCH_genericx86  = "standard/common-pc/base"
- KBRANCH_genericx86-64  = "standard/common-pc-64/base"
- KBRANCH_edgerouter = "standard/edgerouter"
- KBRANCH_beaglebone = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
-@@ -10,8 +11,10 @@ SRCREV_machine_genericx86 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- SRCREV_machine_genericx86-64 ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- SRCREV_machine_edgerouter ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- SRCREV_machine_beaglebone ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
-+SRCREV_machine_mpc8315e-rdb ?= "0143c6ebb4a2d63b241df5f608b19f483f7eb9e0"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone = "beaglebone"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
 -- 
-1.8.1.2
+1.8.3.1
 
 
