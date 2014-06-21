@@ -1,29 +1,63 @@
-Return-Path: <cristian.iorga@intel.com>
+Return-Path: <pandey_himanshu80@rediffmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 0F913E00BC1; Fri, 20 Jun 2014 08:41:10 -0700 (PDT)
+	id 13659E002AC; Sat, 21 Jun 2014 05:32:06 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [143.182.124.21 listed in list.dnswl.org]
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1FCFE00B7B
-	for <poky@yoctoproject.org>; Fri, 20 Jun 2014 08:41:07 -0700 (PDT)
-Received: from azsmga001.ch.intel.com ([10.2.17.19])
-	by azsmga101.ch.intel.com with ESMTP; 20 Jun 2014 08:41:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.01,514,1400050800"; d="scan'208";a="447998386"
-Received: from sentry.rb.intel.com ([10.237.105.54])
-	by azsmga001.ch.intel.com with ESMTP; 20 Jun 2014 08:40:32 -0700
-From: Cristian Iorga <cristian.iorga@intel.com>
-To: poky@yoctoproject.org
-Date: Fri, 20 Jun 2014 18:44:17 +0300
-Message-Id: <1403279057-22212-1-git-send-email-cristian.iorga@intel.com>
-X-Mailer: git-send-email 1.9.1
-Subject: [PATCH] meta-yocto-bsp: oeqa/controllers: add GrubTarget
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,FREEMAIL_FROM,HTML_IMAGE_ONLY_24,HTML_MESSAGE,
+	MSGID_FROM_MTA_HEADER, RCVD_IN_BRBL_LASTEXT, RCVD_IN_DNSWL_NONE,
+	RDNS_NONE, 
+	T_REMOTE_IMAGE,UNPARSEABLE_RELAY autolearn=no version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (pandey_himanshu80[at]rediffmail.com)
+	*  1.6 RCVD_IN_BRBL_LASTEXT RBL: RCVD_IN_BRBL_LASTEXT
+	*      [203.199.83.122 listed in bb.barracudacentral.org]
+	* 1.3 HTML_IMAGE_ONLY_24 BODY: HTML: images with 2000-2400 bytes of
+	words *  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [203.199.83.122 listed in list.dnswl.org]
+	*  1.3 RDNS_NONE Delivered to internal network by a host with no rDNS
+	*  0.0 MSGID_FROM_MTA_HEADER Message-Id was added by a relay
+	* 0.0 UNPARSEABLE_RELAY Informational: message has unparseable relay
+	lines
+	*  0.0 T_REMOTE_IMAGE Message contains an external image
+X-Greylist: delayed 570 seconds by postgrey-1.32 at yocto-www;
+	Sat, 21 Jun 2014 05:32:00 PDT
+Received: from f4mail-83-122.rediffmail.com (unknown [203.199.83.122])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 420DEE00288
+	for <poky@yoctoproject.org>; Sat, 21 Jun 2014 05:32:00 -0700 (PDT)
+Received: from rediffmail.com (unknown [10.50.250.70])
+	by f4mail-83-121.rediffmail.com (Postfix) with SMTP id 1795A30826D7
+	for <poky@yoctoproject.org>; Sat, 21 Jun 2014 17:44:12 +0530 (IST)
+Received: (qmail 22337 invoked by uid 510); 21 Jun 2014 12:22:09 -0000
+Comment: DomainKeys? See http://antispam.yahoo.com/domainkeys
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=redf; d=rediffmail.com;
+	b=dtikzvCmm7Z+Q4sx3HPlZninc3x32NkhG4QXzwoy/487x4SFAT/aa7JBoWbLfIbKxHFlD/UjkewCN6n2bXbqfVvsANRUAYtea77E3Sa1eoHWls53ucJD6pjbFDHeahwOx9uk3vTtYeoGPZaIMLaaqmPs7Eu5eP1TMjhXL/4HCGA=
+	; 
+x-m-msg: asd54ad564ad7aa6sd5as6d5; a6da7d6asas6dasd77; 5dad65ad5sd;
+X-CTCH-Spam: Unknown
+X-CTCH-VOD: Unknown
+X-CTCH-Flags: : 0
+X-CTCH-RefID: str=0001.0A160201.53A578F1.00C3, ss=1, re=0.000, recu=0.000,
+	reip=0.000, cl=1, cld=1, fgs=0
+X-REDF-OSEN: pandey_himanshu80@rediffmail.com
+Date: 21 Jun 2014 12:22:09 -0000
+Message-ID: <20140621122209.22322.qmail@f4mail-235-146.rediffmail.com>
+MIME-Version: 1.0
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	"yocto@yoctoproject.org" <yocto@yoctoproject.org>
+Received: from unknown 122.177.232.157 by rediffmail.com via HTTP;
+	21 Jun 2014 12:22:09 -0000
+Sender: pandey_himanshu80@rediffmail.com
+From: "Himanshu  Pandey" <pandey_himanshu80@rediffmail.com>
+Subject: Hi
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,96 +70,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 20 Jun 2014 15:41:10 -0000
+X-List-Received-Date: Sat, 21 Jun 2014 12:32:06 -0000
+Content-Type: multipart/alternative;
+	boundary="=_d9b24a4d3de03b34c5fde5261a0830a1"
 
-add control for generic grub pc via serial line
+--=_d9b24a4d3de03b34c5fde5261a0830a1
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
 
-Implementation [YOCTO #5615].
+Hi,
+I have a requirement that once the .tar.bz2 is created I want my shell script to be executed finally.&nbsp;
+So what I have to do in order to achieve this. &nbsp;
+Where do I have to add my shell script?
+Regards,Himanshu Pandey
 
-Signed-off-by: Cristian Iorga <cristian.iorga@intel.com>
----
- meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py | 71 +++++++++++++++++++++++
- 1 file changed, 71 insertions(+)
- create mode 100644 meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
+--=_d9b24a4d3de03b34c5fde5261a0830a1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
 
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py b/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
-new file mode 100644
-index 0000000..02ada65
---- /dev/null
-+++ b/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
-@@ -0,0 +1,71 @@
-+# Copyright (C) 2014 Intel Corporation
-+#
-+# Released under the MIT license (see COPYING.MIT)
-+
-+# This module adds support to testimage.bbclass to deploy images and run
-+# tests on a Generic PC that boots using grub bootloader. The device must
-+# be set up as per README.hardware and the master image should be deployed
-+# onto the harddisk so that it boots into it by default.For booting into the
-+# image under test we interact with grub over serial, so for the
-+# Generic PC you will need an additional serial cable and device under test
-+# needs to have a serial interface. The separate ext3
-+# partition that will contain the image to be tested must be labelled
-+# "testrootfs" so that the deployment code below can find it.
-+
-+import os
-+import bb
-+import time
-+import subprocess
-+import sys
-+import pexpect
-+
-+import oeqa.utils.sshcontrol as sshcontrol
-+from oeqa.controllers.masterimage import MasterImageHardwareTarget
-+
-+class GrubTarget(MasterImageHardwareTarget):
-+
-+    def __init__(self, d):
-+        super(GrubTarget, self).__init__(d)
-+        self.deploy_cmds = [
-+                'mount -L boot /boot',
-+                'mkdir -p /mnt/testrootfs',
-+                'mount -L testrootfs /mnt/testrootfs',
-+                'cp ~/test-kernel /boot',
-+                'rm -rf /mnt/testrootfs/*',
-+                'tar xvf ~/test-rootfs.%s -C /mnt/testrootfs' % self.image_fstype,
-+                ]
-+
-+        if not self.serialcontrol_cmd:
-+            bb.fatal("This TEST_TARGET needs a TEST_SERIALCONTROL_CMD defined in local.conf.")
-+
-+
-+    def _deploy(self):
-+        # make sure these aren't mounted
-+        self.master.run("umount /boot; umount /mnt/testrootfs;")
-+        self.master.ignore_status = False
-+        # Kernel files may not be in the image, so copy them just in case
-+        self.master.copy_to(self.rootfs, "~/test-rootfs." + self.image_fstype)
-+        self.master.copy_to(self.kernel, "~/test-kernel")
-+        for cmd in self.deploy_cmds:
-+            self.master.run(cmd)
-+
-+    def _start(self, params=None):
-+        self.power_cycle(self.master)
-+        try:
-+            serialconn = pexpect.spawn(self.serialcontrol_cmd, env=self.origenv, logfile=sys.stdout)
-+            serialconn.expect("GNU GRUB  version 2.00")
-+            serialconn.expect("Linux")
-+            serialconn.sendline("OB\r")
-+            serialconn.expect("login:", timeout=120)
-+            serialconn.close()
-+        except pexpect.ExceptionPexpect as e:
-+            bb.fatal('Serial interaction failed: %s' % str(e))
-+
-+    def _wait_until_booted(self):
-+        try:
-+            serialconn = pexpect.spawn(self.serialcontrol_cmd, env=self.origenv, logfile=sys.stdout)
-+            serialconn.expect("login:", timeout=120)
-+            serialconn.close()
-+        except pexpect.ExceptionPexpect as e:
-+            bb.fatal('Serial interaction failed: %s' % str(e))
-+
--- 
-1.9.1
+<div>Hi,</div><div><br></div><div>I have a requirement that once the .tar.b=
+z2 is created I want my shell script to be executed finally.&nbsp;</div><di=
+v><br></div><div>So what I have to do in order to achieve this. &nbsp;</div=
+><div><br></div><div>Where do I have to add my shell script?</div><div><br>=
+</div><div>Regards,</div><div>Himanshu Pandey</div><br><A HREF=3D"http://si=
+gads.rediff.com/RealMedia/ads/click_nx.ads/www.rediffmail.com/signatureline=
+.htm@Middle?" target=3D"_blank"><IMG SRC=3D"http://sigads.rediff.com/RealMe=
+dia/ads/adstream_nx.ads/www.rediffmail.com/signatureline.htm@Middle"></A><t=
+able cellpadding=3D"0" cellspacing=3D"0"><tbody><tr><td><div style=3D"font-=
+family: Arial, Helvetica, sans-serif; font-size:14px">Get your own <span st=
+yle=3D"padding-bottom: 0px; background-color: #cc0000; padding-left: 3px; p=
+adding-RIGHT: 3px; font-family: Arial, Helvetica, sans-serif; color: #fffff=
+f; font-size: 12px; padding-top: 0px"><b>FREE</b></span> website,  <span st=
+yle=3D"padding-bottom: 0px; background-color: #c00; padding-left: 3px; padd=
+ing-RIGHT: 3px; font-family: Arial, Helvetica, sans-serif; color: #ffffff; =
+font-size: 12px; padding-top: 0px"><b>FREE</b></span> domain &amp; <span st=
+yle=3D"padding-bottom: 0px; background-color: #c00; padding-left: 3px; padd=
+ing-RIGHT: 3px; font-family: Arial, Helvetica, sans-serif; color: #ffffff; =
+font-size: 12px; padding-top: 0px"><b>FREE</b></span> mobile app with Compa=
+ny email. &nbsp;</div></td><td><a href=3D"http://track.rediff.com/click?url=
+=3D___http://businessemail.rediff.com/email-ids-for-companies-with-less-tha=
+n-50-employees?sc_cid=3Dsign-1-10-13___&cmp=3Dhost&lnk=3Dsign-1-10-13&nsrv1=
+=3Dhost" style=3D"font-family: Arial, Helvetica, sans-serif; color: #fff; f=
+ont-size: 14px; color:#0000cc" target=3D"_blank"><b>Know More ></b></a><!--=
+ <in-put type=3D"button" cl-ass=3D"button" on-click=3D"parent.location=3D&#=
+39;http://track.rediff.com/click?url=3D___http://businessemail.rediff.com/c=
+ompany-email-hosting-services?sc_cid=3Dsignature-23-9-13___&amp;cmp=3Dsigna=
+ture-23-9-13&amp;lnk=3Dmypagelogout&amp;nsrv1=3Dhost&#39;" value=3D"Know mo=
+re &gt;"> </input> --></td></tr></tbody></table>
 
-
+--=_d9b24a4d3de03b34c5fde5261a0830a1--
