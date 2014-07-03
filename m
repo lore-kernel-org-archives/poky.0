@@ -1,6 +1,6 @@
 Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2A548E006F1; Wed,  2 Jul 2014 23:43:45 -0700 (PDT)
+	id 33189E006EF; Wed,  2 Jul 2014 23:43:45 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,23 +12,25 @@ X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6789E0043F
-	for <poky@yoctoproject.org>; Wed,  2 Jul 2014 23:43:33 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B7BD4E006C4
+	for <poky@yoctoproject.org>; Wed,  2 Jul 2014 23:43:35 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s636hXgE017718
+	by mail.windriver.com (8.14.5/8.14.5) with ESMTP id s636hZwB017724
 	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 2 Jul 2014 23:43:33 -0700 (PDT)
+	for <poky@yoctoproject.org>; Wed, 2 Jul 2014 23:43:35 -0700 (PDT)
 Received: from pek-blade16.wrs.com (128.224.153.44) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server id 14.3.169.1;
-	Wed, 2 Jul 2014 23:43:32 -0700
+	Wed, 2 Jul 2014 23:43:35 -0700
 From: Robert Yang <liezhi.yang@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Thu, 3 Jul 2014 14:58:15 +0800
-Message-ID: <cover.1404370591.git.liezhi.yang@windriver.com>
+Date: Thu, 3 Jul 2014 14:58:17 +0800
+Message-ID: <f25714a31dd92764668d6d9a2a2081be417324bd.1404370591.git.liezhi.yang@windriver.com>
 X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <cover.1404370591.git.liezhi.yang@windriver.com>
+References: <cover.1404370591.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH 0/2] fix no newline at end of file
+Subject: [PATCH 2/2] scripts: fix no newline at end of file
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,24 +46,26 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 X-List-Received-Date: Thu, 03 Jul 2014 06:43:45 -0000
 Content-Type: text/plain
 
-The following changes since commit 0ed5a13f5f9478e2c22f517fb3504b738422f85c:
+Add a '\n' to the last line of the file to fix:
 
-  python3: fix builtins imports (2014-06-30 16:36:44 +0100)
+No newline at end of file
 
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib rbt/poky_noeol
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=rbt/poky_noeol
-
-Robert Yang (2):
-  documentation: fix no newline at end of file
-  scripts: fix no newline at end of file
-
- documentation/template/division.title.xsl                               | 2 +-
- documentation/template/formal.object.heading.xsl                        | 2 +-
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
  .../lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf   | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
+index 2e70426..9ea4119 100644
+--- a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
++++ b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/{{=machine}}.conf
+@@ -35,4 +35,4 @@ USE_VT ?= "0"
+ MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
+ 
+ IMAGE_FSTYPES ?= "jffs2 tar.bz2"
+-JFFS2_ERASEBLOCK = "0x10000"
+\ No newline at end of file
++JFFS2_ERASEBLOCK = "0x10000"
 -- 
 1.8.3.1
 
