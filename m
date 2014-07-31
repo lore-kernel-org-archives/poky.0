@@ -1,35 +1,37 @@
-Return-Path: <Paul.Gortmaker@windriver.com>
+Return-Path: <sgw@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 68341E00572; Thu, 31 Jul 2014 12:19:47 -0700 (PDT)
+	id 48C9EE0056A; Thu, 31 Jul 2014 16:37:59 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8498CE004E0
-	for <poky@yoctoproject.org>; Thu, 31 Jul 2014 12:19:44 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id s6VJJfPM011266
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 31 Jul 2014 12:19:41 -0700 (PDT)
-Received: from yow-pgortmak-d4.wrs.com (128.224.56.60) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.174.1; Thu, 31 Jul 2014 12:19:41 -0700
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Date: Thu, 31 Jul 2014 15:19:26 -0400
-Message-ID: <1406834366-48632-1-git-send-email-paul.gortmaker@windriver.com>
-X-Mailer: git-send-email 1.9.1
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 48BA2E004E0
+	for <poky@yoctoproject.org>; Thu, 31 Jul 2014 16:37:51 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 31 Jul 2014 16:37:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.01,775,1400050800"; d="scan'208";a="578502753"
+Received: from mmckenna-mobl2.ger.corp.intel.com (HELO [10.255.12.249])
+	([10.255.12.249])
+	by fmsmga002.fm.intel.com with ESMTP; 31 Jul 2014 16:37:50 -0700
+Message-ID: <53DAD34E.4070200@linux.intel.com>
+Date: Thu, 31 Jul 2014 16:37:50 -0700
+From: Saul Wold <sgw@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:24.0) Gecko/20100101 Thunderbird/24.5.0
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH] bitbake.conf: make ROOT_HOME default match the rest of the world
+To: Zheng Junling <zhengjunling@huawei.com>, poky@yoctoproject.org
+References: <1406771307-8548-1-git-send-email-zhengjunling@huawei.com>
+In-Reply-To: <1406771307-8548-1-git-send-email-zhengjunling@huawei.com>
+Cc: zhengjunling0206@163.com, peifeiyue@huawei.com
+Subject: Re: [PATCH] slang 2.2.4: fix the iconv existence checking
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,43 +44,171 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Jul 2014 19:19:47 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 31 Jul 2014 23:37:59 -0000
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+Content-Transfer-Encoding: 7bit
 
-All distros that I've ever used have /root as the home dir for
-UID=0 (root) and even the Filesystem Hierarchy Standard lists
-it as /root [1].  So if you've never come across the /home/root
-thing before, it can violate the principle of least surprise.
 
-In addition, using /home/root does suck if /home happens to be
-on NFS, and you are trying to login as root to rescue something.
+This should really go to the openembedded-core@lists.openembedded.org list.
 
-Change the default to be "/root" so we are consistent with the
-rest of the world and the standards.  If someone wants /home/root
-to be back compatible with earlier oe-core/yocto builds, they
-can simply set ROOT_HOME themselves in their local.conf file.
+But it seems that this is already fixed in the fix-check-pcre.patch, 
+unless it's not getting installed correctly.
 
-[1] http://www.pathname.com/fhs/pub/fhs-2.3.html#ROOTHOMEDIRECTORYFORTHEROOTUSER
+We already have this patch since july 2012!
 
-Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
+Sau!
 
-diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
-index 5872d1d12cff..fecb45d173dd 100644
---- a/meta/conf/bitbake.conf
-+++ b/meta/conf/bitbake.conf
-@@ -74,8 +74,9 @@ USRBINPATH = "${bindir}"
- USRBINPATH_class-native = "/usr/bin"
- USRBINPATH_class-nativesdk = "/usr/bin"
- 
--# Root home directory
--ROOT_HOME ??= "/home/root"
-+# Root home directory, typically /root but optionally sometimes
-+# /home/root if and only if /home is local and != NFS
-+ROOT_HOME ??= "/root"
- 
- ##################################################################
- # Architecture-dependent build variables.
--- 
-1.9.1
 
+
+On 07/30/2014 06:48 PM, Zheng Junling wrote:
+> When checking whether there is iconv, the configure file always check
+> the host env.
+>
+> Now we make it working properly by adding correct prefix for cross-
+> compiling environment.
+>
+> Signed-off-by: Zheng Junling <zhengjunling@huawei.com>
+> ---
+>   .../slang-fix-the-iconv-existence-checking.patch   | 116 +++++++++++++++++++++
+>   meta/recipes-extended/slang/slang_2.2.4.bb         |   1 +
+>   2 files changed, 117 insertions(+)
+>   create mode 100644 meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch
+>
+> diff --git a/meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch b/meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch
+> new file mode 100644
+> index 0000000..958fe98
+> --- /dev/null
+> +++ b/meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch
+> @@ -0,0 +1,116 @@
+> +From 4588f4a0287787788eb86fb16f326cbaa7454e1d Mon Sep 17 00:00:00 2001
+> +From: Zheng Junling <zhengjunling@huawei.com>
+> +Date: Mon, 16 Jun 2014 12:51:25 +0000
+> +Subject: [PATCH] slang: fix the iconv existence checking
+> +
+> +When checking whether there is iconv, the configure file always check
+> +the host env.
+> +
+> +Now we make it working properly by adding correct prefix for cross-
+> +compiling environment.
+> +
+> +When enabling iconv-module, we see a QA warning because rpaths hardcoded
+> +into the build. And rpaths are not needed, so let's turn this off.
+> +
+> +This patch is generated by referencing the existing "fix-check-pcre"
+> +patch.
+> +
+> +Upstream-Status: Inappropriate
+> +
+
+
+> +Signed-off-by: Zheng Junling <zhengjunling@huawei.com>
+> +---
+> + configure | 60 ++++++------------------------------------------------------
+> + 1 file changed, 6 insertions(+), 54 deletions(-)
+> +
+> +diff --git a/configure b/configure
+> +index 7a96256..91632f3 100755
+> +--- a/configure
+> ++++ b/configure
+> +@@ -7909,6 +7909,7 @@ $as_echo_n "checking for the iconv library and header files ... " >&6; }
+> + 	 /usr/include/iconv,/usr/lib \
+> + 	 /usr/iconv/include,/usr/iconv/lib \
+> + 	 /usr/include,/usr/lib \
+> ++	 /usr/include,/usr/lib64 \
+> + 	 /opt/include/iconv,/opt/lib \
+> + 	 /opt/iconv/include,/opt/iconv/lib \
+> + 	 /opt/include,/opt/lib"
+> +@@ -7939,14 +7940,14 @@ $as_echo_n "checking for the iconv library and header files ... " >&6; }
+> +         xincdir=`echo $include_and_lib | tr ',' ' ' | awk '{print $1}'`
+> + 	xlibdir=`echo $include_and_lib | tr ',' ' ' | awk '{print $2}'`
+> + 	found=0
+> +-	if test -r $xincdir/$xincfile
+> ++	if test -r $PKG_CONFIG_SYSROOT_DIR/$xincdir/$xincfile
+> + 	then
+> + 	  for E in $exts
+> + 	  do
+> +-	    if test -r "$xlibdir/$xlibfile.$E"
+> ++	    if test -r "$PKG_CONFIG_SYSROOT_DIR/$xlibdir/$xlibfile.$E"
+> + 	    then
+> +-	      jd_iconv_include_dir="$xincdir"
+> +-	      jd_iconv_library_dir="$xlibdir"
+> ++	      jd_iconv_include_dir="$PKG_CONFIG_SYSROOT_DIR/$xincdir"
+> ++	      jd_iconv_library_dir="$PKG_CONFIG_SYSROOT_DIR/$xlibdir"
+> + 	      jd_with_iconv_library="yes"
+> + 	      found=1
+> + 	      break
+> +@@ -7972,56 +7973,7 @@ $as_echo "yes: $jd_iconv_library_dir and $jd_iconv_include_dir" >&6; }
+> +     then
+> +       ICONV_LIB=""
+> +     else
+> +-
+> +-if test "X$jd_iconv_library_dir" != "X"
+> +-then
+> +-  if test "X$RPATH" = "X"
+> +-  then
+> +-
+> +-case "$host_os" in
+> +-  *linux*|*solaris* )
+> +-    if test "X$GCC" = Xyes
+> +-    then
+> +-      if test "X$ac_R_nospace" = "Xno"
+> +-      then
+> +-        RPATH="-Wl,-R,"
+> +-      else
+> +-        RPATH="-Wl,-R"
+> +-      fi
+> +-    else
+> +-      if test "X$ac_R_nospace" = "Xno"
+> +-      then
+> +-        RPATH="-R "
+> +-      else
+> +-	RPATH="-R"
+> +-      fi
+> +-    fi
+> +-  ;;
+> +-  *osf*|*openbsd*)
+> +-    if test "X$GCC" = Xyes
+> +-    then
+> +-      RPATH="-Wl,-rpath,"
+> +-    else
+> +-      RPATH="-rpath "
+> +-    fi
+> +-  ;;
+> +-  *netbsd*)
+> +-    if test "X$GCC" = Xyes
+> +-    then
+> +-      RPATH="-Wl,-R"
+> +-    fi
+> +-  ;;
+> +-esac
+> +-
+> +-    if test "X$RPATH" != "X"
+> +-    then
+> +-      RPATH="$RPATH$jd_iconv_library_dir"
+> +-    fi
+> +-  else
+> +-    RPATH="$RPATH:$jd_iconv_library_dir"
+> +-  fi
+> +-fi
+> +-
+> ++      RPATH=""
+> +     fi
+> +
+> +     ICONV_INC=-I$jd_iconv_include_dir
+> +--
+> +1.8.3.4
+> +
+> diff --git a/meta/recipes-extended/slang/slang_2.2.4.bb b/meta/recipes-extended/slang/slang_2.2.4.bb
+> index 90ed2d0..f3003c9 100644
+> --- a/meta/recipes-extended/slang/slang_2.2.4.bb
+> +++ b/meta/recipes-extended/slang/slang_2.2.4.bb
+> @@ -21,6 +21,7 @@ SRC_URI = "ftp://space.mit.edu/pub/davis/slang/v2.2/slang-${PV}.tar.bz2 \
+>              file://fix-check-pcre.patch \
+>              file://change-char-type-to-signed-char-in-macros.patch \
+>              file://sprintf-bug-concerning-8-bit-characters.patch \
+> +           file://slang-fix-the-iconv-existence-checking.patch \
+>             "
+>
+>   inherit autotools-brokensep
+>
 
