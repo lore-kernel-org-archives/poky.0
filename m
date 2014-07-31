@@ -1,38 +1,34 @@
-Return-Path: <zhengjunling@huawei.com>
+Return-Path: <Qi.Chen@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 14B74E0054C; Wed, 30 Jul 2014 19:02:29 -0700 (PDT)
+	id 6CF3CE0054C; Thu, 31 Jul 2014 01:40:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [119.145.14.65 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 64 seconds by postgrey-1.32 at yocto-www;
-	Wed, 30 Jul 2014 19:02:25 PDT
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [119.145.14.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 326ECE004D1
-	for <poky@yoctoproject.org>; Wed, 30 Jul 2014 19:02:24 -0700 (PDT)
-Received: from 172.24.2.119 (EHLO szxeml411-hub.china.huawei.com)
-	([172.24.2.119])
-	by szxrg02-dlp.huawei.com (MOS 4.3.7-GA FastPath queued)
-	with ESMTP id BXJ54475; Thu, 31 Jul 2014 10:01:18 +0800 (CST)
-Received: from Patch-Test.huawei (10.107.197.245) by
-	szxeml411-hub.china.huawei.com (10.82.67.138) with Microsoft SMTP
-	Server id 14.3.158.1; Thu, 31 Jul 2014 10:01:07 +0800
-From: Zheng Junling <zhengjunling@huawei.com>
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1F408E004D1
+	for <poky@yoctoproject.org>; Thu, 31 Jul 2014 01:40:42 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id s6V8efMc002663
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 31 Jul 2014 01:40:42 -0700 (PDT)
+Received: from pek-qchen1-d1.corp.ad.wrs.com (128.224.162.187) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.174.1; Thu, 31 Jul 2014 01:40:41 -0700
+From: Chen Qi <Qi.Chen@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Thu, 31 Jul 2014 01:48:27 +0000
-Message-ID: <1406771307-8548-1-git-send-email-zhengjunling@huawei.com>
-X-Mailer: git-send-email 1.8.3.4
+Date: Thu, 31 Jul 2014 16:41:06 +0800
+Message-ID: <1406796066-25004-1-git-send-email-Qi.Chen@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
 MIME-Version: 1.0
-X-Originating-IP: [10.107.197.245]
-X-CFilter-Loop: Reflected
-Cc: zhengjunling0206@163.com, peifeiyue@huawei.com
-Subject: [PATCH] slang 2.2.4: fix the iconv existence checking
+Subject: [PATCH] local.conf.sample.extended: fix example for EXTRA_USERS_PARAMS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,157 +41,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Jul 2014 02:02:29 -0000
+X-List-Received-Date: Thu, 31 Jul 2014 08:40:51 -0000
 Content-Type: text/plain
 
-When checking whether there is iconv, the configure file always check
-the host env.
+The `groupdel' command doesn't support '-g' option, so remove it.
 
-Now we make it working properly by adding correct prefix for cross-
-compiling environment.
+[YOCTO #6575]
 
-Signed-off-by: Zheng Junling <zhengjunling@huawei.com>
+Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
 ---
- .../slang-fix-the-iconv-existence-checking.patch   | 116 +++++++++++++++++++++
- meta/recipes-extended/slang/slang_2.2.4.bb         |   1 +
- 2 files changed, 117 insertions(+)
- create mode 100644 meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch
+ meta-yocto/conf/local.conf.sample.extended |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch b/meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch
-new file mode 100644
-index 0000000..958fe98
---- /dev/null
-+++ b/meta/recipes-extended/slang/slang/slang-fix-the-iconv-existence-checking.patch
-@@ -0,0 +1,116 @@
-+From 4588f4a0287787788eb86fb16f326cbaa7454e1d Mon Sep 17 00:00:00 2001
-+From: Zheng Junling <zhengjunling@huawei.com>
-+Date: Mon, 16 Jun 2014 12:51:25 +0000
-+Subject: [PATCH] slang: fix the iconv existence checking
-+
-+When checking whether there is iconv, the configure file always check 
-+the host env.
-+
-+Now we make it working properly by adding correct prefix for cross-
-+compiling environment.
-+
-+When enabling iconv-module, we see a QA warning because rpaths hardcoded
-+into the build. And rpaths are not needed, so let's turn this off.
-+
-+This patch is generated by referencing the existing "fix-check-pcre"
-+patch.
-+
-+Upstream-Status: Inappropriate
-+
-+Signed-off-by: Zheng Junling <zhengjunling@huawei.com>
-+---
-+ configure | 60 ++++++------------------------------------------------------
-+ 1 file changed, 6 insertions(+), 54 deletions(-)
-+
-+diff --git a/configure b/configure
-+index 7a96256..91632f3 100755
-+--- a/configure
-++++ b/configure
-+@@ -7909,6 +7909,7 @@ $as_echo_n "checking for the iconv library and header files ... " >&6; }
-+ 	 /usr/include/iconv,/usr/lib \
-+ 	 /usr/iconv/include,/usr/iconv/lib \
-+ 	 /usr/include,/usr/lib \
-++	 /usr/include,/usr/lib64 \
-+ 	 /opt/include/iconv,/opt/lib \
-+ 	 /opt/iconv/include,/opt/iconv/lib \
-+ 	 /opt/include,/opt/lib"
-+@@ -7939,14 +7940,14 @@ $as_echo_n "checking for the iconv library and header files ... " >&6; }
-+         xincdir=`echo $include_and_lib | tr ',' ' ' | awk '{print $1}'`
-+ 	xlibdir=`echo $include_and_lib | tr ',' ' ' | awk '{print $2}'`
-+ 	found=0
-+-	if test -r $xincdir/$xincfile
-++	if test -r $PKG_CONFIG_SYSROOT_DIR/$xincdir/$xincfile
-+ 	then
-+ 	  for E in $exts
-+ 	  do
-+-	    if test -r "$xlibdir/$xlibfile.$E"
-++	    if test -r "$PKG_CONFIG_SYSROOT_DIR/$xlibdir/$xlibfile.$E"
-+ 	    then
-+-	      jd_iconv_include_dir="$xincdir"
-+-	      jd_iconv_library_dir="$xlibdir"
-++	      jd_iconv_include_dir="$PKG_CONFIG_SYSROOT_DIR/$xincdir"
-++	      jd_iconv_library_dir="$PKG_CONFIG_SYSROOT_DIR/$xlibdir"
-+ 	      jd_with_iconv_library="yes"
-+ 	      found=1
-+ 	      break
-+@@ -7972,56 +7973,7 @@ $as_echo "yes: $jd_iconv_library_dir and $jd_iconv_include_dir" >&6; }
-+     then
-+       ICONV_LIB=""
-+     else
-+-
-+-if test "X$jd_iconv_library_dir" != "X"
-+-then
-+-  if test "X$RPATH" = "X"
-+-  then
-+-
-+-case "$host_os" in
-+-  *linux*|*solaris* )
-+-    if test "X$GCC" = Xyes
-+-    then
-+-      if test "X$ac_R_nospace" = "Xno"
-+-      then
-+-        RPATH="-Wl,-R,"
-+-      else
-+-        RPATH="-Wl,-R"
-+-      fi
-+-    else
-+-      if test "X$ac_R_nospace" = "Xno"
-+-      then
-+-        RPATH="-R "
-+-      else
-+-	RPATH="-R"
-+-      fi
-+-    fi
-+-  ;;
-+-  *osf*|*openbsd*)
-+-    if test "X$GCC" = Xyes
-+-    then
-+-      RPATH="-Wl,-rpath,"
-+-    else
-+-      RPATH="-rpath "
-+-    fi
-+-  ;;
-+-  *netbsd*)
-+-    if test "X$GCC" = Xyes
-+-    then
-+-      RPATH="-Wl,-R"
-+-    fi
-+-  ;;
-+-esac
-+-
-+-    if test "X$RPATH" != "X"
-+-    then
-+-      RPATH="$RPATH$jd_iconv_library_dir"
-+-    fi
-+-  else
-+-    RPATH="$RPATH:$jd_iconv_library_dir"
-+-  fi
-+-fi
-+-
-++      RPATH=""
-+     fi
-+ 
-+     ICONV_INC=-I$jd_iconv_include_dir
-+-- 
-+1.8.3.4
-+
-diff --git a/meta/recipes-extended/slang/slang_2.2.4.bb b/meta/recipes-extended/slang/slang_2.2.4.bb
-index 90ed2d0..f3003c9 100644
---- a/meta/recipes-extended/slang/slang_2.2.4.bb
-+++ b/meta/recipes-extended/slang/slang_2.2.4.bb
-@@ -21,6 +21,7 @@ SRC_URI = "ftp://space.mit.edu/pub/davis/slang/v2.2/slang-${PV}.tar.bz2 \
-            file://fix-check-pcre.patch \
-            file://change-char-type-to-signed-char-in-macros.patch \
-            file://sprintf-bug-concerning-8-bit-characters.patch \
-+           file://slang-fix-the-iconv-existence-checking.patch \
-           "
- 
- inherit autotools-brokensep
+diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-yocto/conf/local.conf.sample.extended
+index 89b80a6..f26d612 100644
+--- a/meta-yocto/conf/local.conf.sample.extended
++++ b/meta-yocto/conf/local.conf.sample.extended
+@@ -275,7 +275,7 @@
+ #useradd -p '' tester; \
+ #groupadd developers; \
+ #userdel nobody; \
+-#groupdel -g video; \
++#groupdel video; \
+ #groupmod -g 1020 developers; \
+ #usermod -s /bin/sh tester; \
+ #"
 -- 
-1.8.3.4
+1.7.9.5
 
 
