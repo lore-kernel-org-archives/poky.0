@@ -1,58 +1,37 @@
-Return-Path: <martin.jansa@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D5BE6E006EE; Fri,  1 Aug 2014 05:58:56 -0700 (PDT)
+	id DEADCE0056A; Sat,  2 Aug 2014 01:44:54 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (martin.jansa[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.212.176 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
-	[209.85.212.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36D90E005BB
-	for <poky@yoctoproject.org>; Fri,  1 Aug 2014 05:58:55 -0700 (PDT)
-Received: by mail-wi0-f176.google.com with SMTP id bs8so1329570wib.3
-	for <poky@yoctoproject.org>; Fri, 01 Aug 2014 05:58:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=from:date:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=Js5Ig0+Q6F0ecd/kCBqJZ4F6VExkeHUq2h1BibbsxNU=;
-	b=wToYGJz/dM94vchSBOFUtw0PcOxDNBRw1fV4BZRM1MzY1sO3ctLMML8i1HZh9221lf
-	EHjN5PRddqFmC0YQQjD6Fy84BDElSYBz0DgyXunlBtmugLZ6IFYmkQYN6SmMPtq6qPDx
-	VE/Q+YiOVL4Ah6OAooyc/CqqDJojXK7d+kW0l1b5SuiROrbcTRpE/M6SRbcLqAe4l7RN
-	sx2rLkTE7SARobM2S0JZLD98MyuY6J+WLF+vrJ/KRWVWt3Pt9jw9R5DQJKA4YcHL5Jvm
-	L7dadSzWN6GnfDhQCeL8ts+opxjdituJn+w3578FmllHGhR6wqKvFL2d8DnK5SNKSLM3
-	PPHw==
-X-Received: by 10.180.10.98 with SMTP id h2mr6644693wib.29.1406897932584;
-	Fri, 01 Aug 2014 05:58:52 -0700 (PDT)
-Received: from localhost (ip-89-176-104-3.net.upcbroadband.cz. [89.176.104.3])
-	by mx.google.com with ESMTPSA id
-	ej10sm8516129wib.12.2014.08.01.05.58.51 for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 01 Aug 2014 05:58:51 -0700 (PDT)
-From: Martin Jansa <martin.jansa@gmail.com>
-X-Google-Original-From: Martin Jansa <Martin.Jansa@gmail.com>
-Date: Fri, 1 Aug 2014 14:59:16 +0200
-To: Bart Jansseune <Bart.Jansseune@prodatamobility.com>
-Message-ID: <20140801125916.GD16445@jama>
-References: <A5CAA1824448514280B127CC52AD68A103073E4635BE@PSBEMAIL.psbe.site>
-MIME-Version: 1.0
-In-Reply-To: <A5CAA1824448514280B127CC52AD68A103073E4635BE@PSBEMAIL.psbe.site>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: examine SSTATE_MIRRORS differences
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 889CFE004DD
+	for <poky@yoctoproject.org>; Sat,  2 Aug 2014 01:44:52 -0700 (PDT)
+Received: from localhost (dan.rpsys.net [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu4) with ESMTP id
+	s728ioFW027176
+	for <poky@yoctoproject.org>; Sat, 2 Aug 2014 09:44:51 +0100
+X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id qluxuRox_que for <poky@yoctoproject.org>;
+	Sat,  2 Aug 2014 09:44:50 +0100 (BST)
+Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
+	s728imiQ027042
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-SHA bits=128 verify=NOT)
+	for <poky@yoctoproject.org>; Sat, 2 Aug 2014 09:44:50 +0100
+Message-ID: <1406969088.6981.11.camel@ted>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Sat, 02 Aug 2014 09:44:48 +0100
+X-Mailer: Evolution 3.8.4-0ubuntu1 
+Mime-Version: 1.0
+Subject: [PATCH] upstream-tracking: Add various CHECK_DATE and UPDATE_REASONs for my recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,55 +44,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Aug 2014 12:58:56 -0000
-X-Groupsio-MsgNum: 9727
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="awxGVdTeoOKEHxWQ"
-Content-Disposition: inline
+X-List-Received-Date: Sat, 02 Aug 2014 08:44:54 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---awxGVdTeoOKEHxWQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Update the CHECK_DATE and various UPDATE_REASON/UPDATE_VERSION fields
+for various recipes I maintain.
 
-On Fri, Aug 01, 2014 at 01:46:40PM +0200, Bart Jansseune wrote:
-> Hello,
->=20
-> I'm trying to setup a SSTATE_MIRROR using a fast build server so that a s=
-low virtual machine doesn't have to rebuild everything.
-> Both are Ubuntu 14.04 64 bit machines and use the same poky release (dais=
-y).
-> What I notice is that for some components the cache is used eg perl-nativ=
-e but not for others.
-> I understand that once there is a delta between both machines, all depend=
-ent packages also mismatch and need to be rebuilt.
->=20
-> How do you figure out where things start diverging?
->=20
-> Are there requirements on the tools of the build to ensure that SSTATE_MI=
-RROR can be used effectively? E.g. the gcc version on both machines might n=
-eed to be the same.
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 
-Run openembedded-core/scripts/sstate-diff-machines.sh on both machines
-and compare list.M files in generated folders.
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index d80ede4..a018803 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -118,6 +118,7 @@ RECIPE_UPSTREAM_DATE_pn-keymaps = "n/a"
+ RECIPE_UPSTREAM_VERSION_pn-kmod = "9"
+ RECIPE_UPSTREAM_DATE_pn-kmod = "Jun 19, 2012"
+ CHECK_DATE_pn-kmod = "Jul 27, 2012"
++CHECK_DATE_pn-latencytop = "Jul 30, 2014"
+ RECIPE_NO_UPDATE_REASON_pn-liberation-fonts = "2.00.0 - fontforge package required "
+ RECIPE_UPSTREAM_VERSION_pn-libgnome-keyring = "3.7.91"
+ RECIPE_UPSTREAM_DATE_pn-libgnome-keyring = "Mar 4, 2013"
+@@ -150,6 +151,7 @@ RECIPE_UPSTREAM_VERSION_pn-linuxdoc-tools-native = "0.9.66"
+ CHECK_DATE_pn-linuxdoc-tools-native = "Aug 31, 2012"
+ RECIPE_NO_UPDATE_REASON-libxml2 = "only release candidates available "
+ RECIPE_UPSTREAM_VERSION_pn-lsbtest = "1.0"
++CHECK_DATE_pn-lsof = "Jul 30, 2014"
+ RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
+ RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.2"
+ RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 06, 2013"
+@@ -181,7 +183,10 @@ RECIPE_UPSTREAM_VERSION_pn-pong-clock = "1.0"
+ RECIPE_NO_UPDATE_REASON_pn-powertop = "Do not upgrade to version 1.97 since it's a beta release of the comming PowerTOP 2.0"
+ RECIPE_UPSTREAM_VERSION_pn-ppp-dialin = "check"
+ RECIPE_UPSTREAM_VERSION_pn-prelink="1.0+git1+9552f214c7faa816fdb55b289a457f0cab034f00"
++RECIPE_NO_UPDATE_REASON_pn-python-distribute = "0.7.3 only upgrades 0.6.32, can't install on its own, also obsolete"
++RECIPE_UPSTREAM_VERSION_pn-python-distribute = "0.7.3"
+ RECIPE_NO_UPDATE_REASON_pn-python-pygobject = "Newer versions of python-pygobject depend on gobject-introspection which doesn't cross-compile"
++RECIPE_UPSTREAM_VERSION_pn-python-pygobject = "3.13.3"
+ CHECK_DATE_pn-prelink = "Aug 31, 2012"
+ RECIPE_UPSTREAM_DATE_pn-qemu-helper-native = "n/a"
+ RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because the upstream is broken in x86_64 build"
+@@ -232,6 +237,7 @@ RECIPE_NO_UPDATE_REASON_pn-xdg-utils = "only release candidates available "
+ RECIPE_UPSTREAM_VERSION_pn-xev = "1.0.4"
+ RECIPE_UPSTREAM_DATE_pn-xev = "Oct 13, 2009"
+ CHECK_DATE_pn-xev = "Sep 04, 2012"
++CHECK_DATE_pn-xinetd = "Jul 30, 2014"
+ RECIPE_UPSTREAM_DATE_pn-xorg-minimal-fonts = "n/a"
+ RECIPE_UPSTREAM_DATE_pn-xserver-nodm-init=""
+ RECIPE_UPSTREAM_VERSION_pn-xz = "5.0.4"
 
-That will give you pointers to interesting .sigdata files, which you can
-compare with bitbake-diffsigs - which will reveal more .sigdata files
-and so on until you find root cause.
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
---awxGVdTeoOKEHxWQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iEYEARECAAYFAlPbjyQACgkQN1Ujt2V2gBxJywCgnfnqmFnPcBVb0W+rBRqs3f4Q
-Me0AoJV6/TMv4pV9mtJhValSxxivkIKC
-=dDGc
------END PGP SIGNATURE-----
-
---awxGVdTeoOKEHxWQ--
