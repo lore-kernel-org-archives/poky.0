@@ -1,37 +1,42 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <biannm@cn.fujitsu.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DEADCE0056A; Sat,  2 Aug 2014 01:44:54 -0700 (PDT)
+	id 5275CE007DD; Mon,  4 Aug 2014 03:03:00 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,RDNS_NONE
+	autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 889CFE004DD
-	for <poky@yoctoproject.org>; Sat,  2 Aug 2014 01:44:52 -0700 (PDT)
-Received: from localhost (dan.rpsys.net [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu4) with ESMTP id
-	s728ioFW027176
-	for <poky@yoctoproject.org>; Sat, 2 Aug 2014 09:44:51 +0100
-X-Virus-Scanned: Debian amavisd-new at dan.rpsys.net
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id qluxuRox_que for <poky@yoctoproject.org>;
-	Sat,  2 Aug 2014 09:44:50 +0100 (BST)
-Received: from [192.168.3.10] (rpvlan0 [192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-2.1ubuntu1) with ESMTP id
-	s728imiQ027042
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-SHA bits=128 verify=NOT)
-	for <poky@yoctoproject.org>; Sat, 2 Aug 2014 09:44:50 +0100
-Message-ID: <1406969088.6981.11.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+	*  0.8 RDNS_NONE Delivered to internal network by a host with no rDNS
+X-Greylist: delayed 69 seconds by postgrey-1.32 at yocto-www;
+	Mon, 04 Aug 2014 03:02:57 PDT
+Received: from heian.cn.fujitsu.com (unknown [59.151.112.132])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2165FE007D3
+	for <poky@yoctoproject.org>; Mon,  4 Aug 2014 03:02:56 -0700 (PDT)
+X-IronPort-AV: E=Sophos;i="5.04,260,1406563200"; d="scan'208";a="34145309"
+Received: from unknown (HELO edo.cn.fujitsu.com) ([10.167.33.5])
+	by heian.cn.fujitsu.com with ESMTP; 04 Aug 2014 17:58:56 +0800
+Received: from G08CNEXCHPEKD03.g08.fujitsu.local (localhost.localdomain
+	[127.0.0.1])
+	by edo.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id s74A1hen004475
+	for <poky@yoctoproject.org>; Mon, 4 Aug 2014 18:01:43 +0800
+Received: from G08CNEXMBPEKD02.g08.fujitsu.local ([10.167.33.84]) by
+	G08CNEXCHPEKD03.g08.fujitsu.local ([10.167.33.85]) with mapi id
+	14.03.0181.006; Mon, 4 Aug 2014 18:01:46 +0800
+From: "biannm@cn.fujitsu.com" <biannm@cn.fujitsu.com>
 To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Sat, 02 Aug 2014 09:44:48 +0100
-X-Mailer: Evolution 3.8.4-0ubuntu1 
-Mime-Version: 1.0
-Subject: [PATCH] upstream-tracking: Add various CHECK_DATE and UPDATE_REASONs for my recipes
+Thread-Topic: [poky][Question]Does poky rebuild source when only makefile
+	was modified
+Thread-Index: Ac+vyH89ONDV1fjPSfaLSPJT1TYY8A==
+Date: Mon, 4 Aug 2014 10:01:48 +0000
+Message-ID: <30DC4EDFD798C94083F3E083754532CCC9AAA9@G08CNEXMBPEKD02.g08.fujitsu.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.167.226.31]
+MIME-Version: 1.0
+Subject: [Question]Does poky rebuild source when only makefile was modified
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,54 +49,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 02 Aug 2014 08:44:54 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 04 Aug 2014 10:03:00 -0000
+Content-Language: zh-CN
+Content-Type: text/plain; charset="shift_jis"
+Content-Transfer-Encoding: base64
 
-Update the CHECK_DATE and various UPDATE_REASON/UPDATE_VERSION fields
-for various recipes I maintain.
-
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-
-diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
-index d80ede4..a018803 100644
---- a/meta-yocto/conf/distro/include/upstream_tracking.inc
-+++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
-@@ -118,6 +118,7 @@ RECIPE_UPSTREAM_DATE_pn-keymaps = "n/a"
- RECIPE_UPSTREAM_VERSION_pn-kmod = "9"
- RECIPE_UPSTREAM_DATE_pn-kmod = "Jun 19, 2012"
- CHECK_DATE_pn-kmod = "Jul 27, 2012"
-+CHECK_DATE_pn-latencytop = "Jul 30, 2014"
- RECIPE_NO_UPDATE_REASON_pn-liberation-fonts = "2.00.0 - fontforge package required "
- RECIPE_UPSTREAM_VERSION_pn-libgnome-keyring = "3.7.91"
- RECIPE_UPSTREAM_DATE_pn-libgnome-keyring = "Mar 4, 2013"
-@@ -150,6 +151,7 @@ RECIPE_UPSTREAM_VERSION_pn-linuxdoc-tools-native = "0.9.66"
- CHECK_DATE_pn-linuxdoc-tools-native = "Aug 31, 2012"
- RECIPE_NO_UPDATE_REASON-libxml2 = "only release candidates available "
- RECIPE_UPSTREAM_VERSION_pn-lsbtest = "1.0"
-+CHECK_DATE_pn-lsof = "Jul 30, 2014"
- RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
- RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.2"
- RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 06, 2013"
-@@ -181,7 +183,10 @@ RECIPE_UPSTREAM_VERSION_pn-pong-clock = "1.0"
- RECIPE_NO_UPDATE_REASON_pn-powertop = "Do not upgrade to version 1.97 since it's a beta release of the comming PowerTOP 2.0"
- RECIPE_UPSTREAM_VERSION_pn-ppp-dialin = "check"
- RECIPE_UPSTREAM_VERSION_pn-prelink="1.0+git1+9552f214c7faa816fdb55b289a457f0cab034f00"
-+RECIPE_NO_UPDATE_REASON_pn-python-distribute = "0.7.3 only upgrades 0.6.32, can't install on its own, also obsolete"
-+RECIPE_UPSTREAM_VERSION_pn-python-distribute = "0.7.3"
- RECIPE_NO_UPDATE_REASON_pn-python-pygobject = "Newer versions of python-pygobject depend on gobject-introspection which doesn't cross-compile"
-+RECIPE_UPSTREAM_VERSION_pn-python-pygobject = "3.13.3"
- CHECK_DATE_pn-prelink = "Aug 31, 2012"
- RECIPE_UPSTREAM_DATE_pn-qemu-helper-native = "n/a"
- RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because the upstream is broken in x86_64 build"
-@@ -232,6 +237,7 @@ RECIPE_NO_UPDATE_REASON_pn-xdg-utils = "only release candidates available "
- RECIPE_UPSTREAM_VERSION_pn-xev = "1.0.4"
- RECIPE_UPSTREAM_DATE_pn-xev = "Oct 13, 2009"
- CHECK_DATE_pn-xev = "Sep 04, 2012"
-+CHECK_DATE_pn-xinetd = "Jul 30, 2014"
- RECIPE_UPSTREAM_DATE_pn-xorg-minimal-fonts = "n/a"
- RECIPE_UPSTREAM_DATE_pn-xserver-nodm-init=""
- RECIPE_UPSTREAM_VERSION_pn-xz = "5.0.4"
-
-
+SGksDQoNCiBVc3VhbGx5LCBpZiBvbmx5IG1ha2VmaWxlIGlzIG1vZGlmaWVkLCAibWFrZSIgd2ls
+bCBub3QgcmVidWlsZCBzb3VyY2UuDQogRG9lcyBwb2t5IHJlYnVpbGQgc291cmNlIGluIHRoZSBm
+b2xsb3dpbmcgY2FzZS4NCg0KIDEuIGJ1aWxkIGEgcmVjaXBlDQogMi4gbW9kaWZ5IHRoZSBiYiBm
+aWxlIG9mIHRoaXMgcmVjaXBlLCB3aGljaCB3aWxsIGNhdXNlIG9ubHkgbWFrZWZpbGUgdG8gYmUg
+bW9kaWZpZWQuDQogICAgRXguIHNldCBhIG5ldyBwYXRoIHRvIGxpYmRpcg0KIDMuIHJlYnVpbGQg
+dGhpcyByZWNpcGUgd2l0aG91dCBkb2luZyBjbGVhbnNzdGF0ZSBiZWZvcmUNCg0KDQpSZWdhcmRz
+DQogQmlhbg0K
 
