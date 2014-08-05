@@ -1,58 +1,44 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <biannm@cn.fujitsu.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F1239E004F1; Mon,  4 Aug 2014 15:09:39 -0700 (PDT)
+	id 57FE9E0078E; Mon,  4 Aug 2014 18:35:39 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.192.170 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,RDNS_NONE
+	autolearn=no version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pd0-f170.google.com (mail-pd0-f170.google.com
-	[209.85.192.170])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 513C3E003D8
-	for <poky@yoctoproject.org>; Mon,  4 Aug 2014 15:09:28 -0700 (PDT)
-Received: by mail-pd0-f170.google.com with SMTP id g10so90705pdj.1
-	for <poky@yoctoproject.org>; Mon, 04 Aug 2014 15:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=Mgz4n0MnMfD20+YI1BmezqOBCFJ/so6DD4tjIY/pF6E=;
-	b=TN+QuBRqLamP/jiAg8WdVQE+rpsPPUBx3BgWLxcwYCV2yx4oycunJtKIWsne5ZvG1C
-	BjjrIqBLfnobaBQ0wX9OOPp4Amd6+3WJmdyNEM/GlsolRdCtHgHJ2AKtuLYyyHc4DaCf
-	68vtUpG4OV03R/dLZqPXKzj0CaKPm11POf0teDq2iZCc7ALecdzQHYOZwE/IDNDipUDM
-	5j0SDt9PY8Cvz82zczdez3YWl52dKLWYmxLo6GxN5Tl8rLG2j31GlA3Wpedap66Z335g
-	m3wVLoDSWggfl1PTxVt0ok1M7kWk4/GFlEXxnzS4lBvH/o4zwfVNHabNu4MCVQpJL222
-	R4dg==
-X-Received: by 10.70.95.233 with SMTP id dn9mr4858373pdb.160.1407190167788;
-	Mon, 04 Aug 2014 15:09:27 -0700 (PDT)
-Received: from haswell ([2601:9:3580:7a5:baca:3aff:fe80:aa8f])
-	by mx.google.com with ESMTPSA id n8sm28372141pdm.22.2014.08.04.15.09.26
-	for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 04 Aug 2014 15:09:27 -0700 (PDT)
-Date: Mon, 4 Aug 2014 15:12:41 -0700
-From: Khem Raj <raj.khem@gmail.com>
+	*  0.8 RDNS_NONE Delivered to internal network by a host with no rDNS
+Received: from heian.cn.fujitsu.com (unknown [59.151.112.132])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75F3EE004DD
+	for <poky@yoctoproject.org>; Mon,  4 Aug 2014 18:35:34 -0700 (PDT)
+X-IronPort-AV: E=Sophos;i="5.04,266,1406563200"; d="scan'208";a="34180719"
+Received: from unknown (HELO edo.cn.fujitsu.com) ([10.167.33.5])
+	by heian.cn.fujitsu.com with ESMTP; 05 Aug 2014 09:32:41 +0800
+Received: from G08CNEXCHPEKD02.g08.fujitsu.local (localhost.localdomain
+	[127.0.0.1])
+	by edo.cn.fujitsu.com (8.14.3/8.13.1) with ESMTP id s751ZSBl004413;
+	Tue, 5 Aug 2014 09:35:28 +0800
+Received: from G08CNEXMBPEKD02.g08.fujitsu.local ([10.167.33.84]) by
+	G08CNEXCHPEKD02.g08.fujitsu.local ([10.167.33.83]) with mapi id
+	14.03.0181.006; Tue, 5 Aug 2014 09:35:33 +0800
+From: "biannm@cn.fujitsu.com" <biannm@cn.fujitsu.com>
 To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20140804221241.GA11951@haswell>
-References: <1406834366-48632-1-git-send-email-paul.gortmaker@windriver.com>
-	<1407170371.6981.68.camel@ted>
+Thread-Topic: [poky] [Question]Does poky rebuild source when only makefile
+	was modified
+Thread-Index: AQHPr85GnKTVwWZo7Ee+nKpWm7EOAZvBMl/A
+Date: Tue, 5 Aug 2014 01:35:32 +0000
+Message-ID: <30DC4EDFD798C94083F3E083754532CCC9ADE9@G08CNEXMBPEKD02.g08.fujitsu.local>
+References: <30DC4EDFD798C94083F3E083754532CCC9AAA9@G08CNEXMBPEKD02.g08.fujitsu.local>
+	<1407147842.6981.52.camel@ted>
+In-Reply-To: <1407147842.6981.52.camel@ted>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.167.226.31]
 MIME-Version: 1.0
-In-Reply-To: <1407170371.6981.68.camel@ted>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] bitbake.conf: make ROOT_HOME default match the rest of the world
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [Question]Does poky rebuild source when only makefile was modified
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,31 +51,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Aug 2014 22:09:40 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-List-Received-Date: Tue, 05 Aug 2014 01:35:39 -0000
+Content-Language: zh-CN
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 14-08-04 17:39:31, Richard Purdie wrote:
-> On Thu, 2014-07-31 at 15:19 -0400, Paul Gortmaker wrote:
-> > All distros that I've ever used have /root as the home dir for
-> > UID=0 (root) and even the Filesystem Hierarchy Standard lists
-> > it as /root [1].  So if you've never come across the /home/root
-> > thing before, it can violate the principle of least surprise.
-> > 
-> > In addition, using /home/root does suck if /home happens to be
-> > on NFS, and you are trying to login as root to rescue something.
-> > 
-> > Change the default to be "/root" so we are consistent with the
-> > rest of the world and the standards.  If someone wants /home/root
-> > to be back compatible with earlier oe-core/yocto builds, they
-> > can simply set ROOT_HOME themselves in their local.conf file.
-> > 
-> > [1] http://www.pathname.com/fhs/pub/fhs-2.3.html#ROOTHOMEDIRECTORYFORTHEROOTUSER
-> > 
-> > Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
-> 
-> This is a key decision for OE so it needs to go to the OE-Core list.
-
-I think it is a good improvement if it doesnt hamper upgrade paths, I
-personally do not have a usecase of upgade.
+VGhhbmtzIGZvciB5b3VyIGFuc3dlci4NCkkgaGFkIGNvbmZpcm1lZCB0aGF0IHRhc2tzIGZyb20g
+dGhlIGNvbmZpZ3VyZSB3aWxsIGJlIHJlYnVpbGQuDQpCdXQgdGhlIHRpbWVzdGFtcCBvZiBzb3Vy
+Y2UgZmlsZXMgZG9lc24ndCBoYXZlIGFueSBjaGFuZ2UsIA0KYWx0aG91Z2ggZG9fY29tcGlsZSB0
+YXNrIHdpbGwgYmUgcmVidWlsZCwgdGhlIHNvdXJjZSBmaWxlcyB3aWxsIG5vdCBiZSByZWJ1aWxk
+Lg0KDQpXaGVuIHdlIHJlYnVpbGQgb3VyIHByb2plY3QgYnkgbWFrZSwgd2UgYWx3YXlzIGRvICJt
+YWtlIGNsZWFuIiBmaXJzdGx5IHRvIG1ha2Ugc3VyZSBzb3VyY2UgZmlsZXMgdG8gYmUgcmVidWls
+ZCBpZiBvbmx5IG1ha2VmaWxlIGhhdmUgYmVlbiBjaGFuZ2VkLg0KRG9lcyBpdCBtZWFucyB3ZSBt
+dXN0IGRvICJiaXRiYWtlIHh4eCAtYyBjbGVhbnNzdGF0ZSIgZmlyc3RseSBpZiB3ZSBqdXN0IG1v
+ZGlmeSBiYiBmaWxlDQp0aGF0IGNoYW5nZXMgbGliZGlyIG9ubHkuDQoNClJlZ2FyZHMNCiBCaWFu
+DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBSaWNoYXJkIFB1cmRpZSBbbWFp
+bHRvOnJpY2hhcmQucHVyZGllQGxpbnV4Zm91bmRhdGlvbi5vcmddIA0KU2VudDogTW9uZGF5LCBB
+dWd1c3QgMDQsIDIwMTQgNjoyNCBQTQ0KVG86IEJpYW4sIE5haW1lbmcNCkNjOiBwb2t5QHlvY3Rv
+cHJvamVjdC5vcmcNClN1YmplY3Q6IFJlOiBbcG9reV0gW1F1ZXN0aW9uXURvZXMgcG9reSByZWJ1
+aWxkIHNvdXJjZSB3aGVuIG9ubHkgbWFrZWZpbGUgd2FzIG1vZGlmaWVkDQoNCk9uIE1vbiwgMjAx
+NC0wOC0wNCBhdCAxMDowMSArMDAwMCwgYmlhbm5tQGNuLmZ1aml0c3UuY29tIHdyb3RlOg0KPiBI
+aSwNCj4gDQo+ICBVc3VhbGx5LCBpZiBvbmx5IG1ha2VmaWxlIGlzIG1vZGlmaWVkLCAibWFrZSIg
+d2lsbCBub3QgcmVidWlsZCBzb3VyY2UuDQo+ICBEb2VzIHBva3kgcmVidWlsZCBzb3VyY2UgaW4g
+dGhlIGZvbGxvd2luZyBjYXNlLg0KPiANCj4gIDEuIGJ1aWxkIGEgcmVjaXBlDQo+ICAyLiBtb2Rp
+ZnkgdGhlIGJiIGZpbGUgb2YgdGhpcyByZWNpcGUsIHdoaWNoIHdpbGwgY2F1c2Ugb25seSBtYWtl
+ZmlsZSB0byBiZSBtb2RpZmllZC4NCj4gICAgIEV4LiBzZXQgYSBuZXcgcGF0aCB0byBsaWJkaXIN
+Cj4gIDMuIHJlYnVpbGQgdGhpcyByZWNpcGUgd2l0aG91dCBkb2luZyBjbGVhbnNzdGF0ZSBiZWZv
+cmUNCg0KVGhpcyBjaGFuZ2UgdG8gbGliZGlyIHdvdWxkIGNoYW5nZSB0aGUgY2hlY2tzdW0gb2Yg
+dGhlIGNvbmZpZ3VyZSB0YXNrIGFuZCB0aGUgY29uZmlndXJlIHRhc2sgd291bGQgZXhlY3V0ZS4g
+QXNzdW1pbmcgdGhpcyBpcyBhbiBhdXRvdG9vbHMgcmVjaXBlICh3aGVyZSBCICE9IFMgaXMgc3Vw
+cG9ydGVkKSwgaXQgd291bGQgd2lwZSBvdXQgJHtCfSBkdWUgdG8gdGhlIGNoYW5nZSBhbmQgcmVi
+dWlsZCBldmVyeXRoaW5nIGZyb20gdGhlIGNvbmZpZ3VyZSBzdGVwIG9ud2FyZHMuDQoNCkNoZWVy
+cywNCg0KUmljaGFyZA0KDQo=
 
