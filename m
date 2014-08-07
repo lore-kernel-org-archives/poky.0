@@ -1,37 +1,31 @@
-Return-Path: <Bart.Jansseune@prodatamobility.com>
+Return-Path: <max.eliaser@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8DC45E007F9; Wed,  6 Aug 2014 05:34:06 -0700 (PDT)
+	id CBBCCE00809; Thu,  7 Aug 2014 14:22:58 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.24 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.fortiscorp.eu (mail.fortiscorp.eu [213.246.247.62])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5BD1E007F1
-	for <poky@yoctoproject.org>; Wed,  6 Aug 2014 05:34:02 -0700 (PDT)
-Received: from psbemail.psbe.site [172.16.2.55] by mail.fortiscorp.eu -
-	Websense Email Security (7.3.0); Wed, 06 Aug 2014 14:34:01 +0200
-Received: from PSBEMAIL.psbe.site ([172.16.2.55]) by PSBEMAIL.psbe.site
-	([172.16.2.55]) with mapi; Wed, 6 Aug 2014 14:34:00 +0200
-From: Bart Jansseune <Bart.Jansseune@prodatamobility.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Date: Wed, 6 Aug 2014 14:34:00 +0200
-Thread-Topic: [poky] examine SSTATE_MIRRORS differences
-Thread-Index: Ac+tiFqrD3P16q9fQaCPlhtHIVtcggD6S5GA
-Message-ID: <A5CAA1824448514280B127CC52AD68A103073ED10408@PSBEMAIL.psbe.site>
-References: <A5CAA1824448514280B127CC52AD68A103073E4635BE@PSBEMAIL.psbe.site>
-	<20140801125916.GD16445@jama>
-In-Reply-To: <20140801125916.GD16445@jama>
-Accept-Language: en-US, fr-BE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US, fr-BE
-MIME-Version: 1.0
-X-SEF-Processed: 7_3_0_01192__2014_08_06_14_34_01
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: examine SSTATE_MIRRORS differences
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AD3A3E0034B
+	for <poky@yoctoproject.org>; Thu,  7 Aug 2014 14:22:47 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga102.jf.intel.com with ESMTP; 07 Aug 2014 14:16:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.01,820,1400050800"; d="scan'208";a="584990808"
+Received: from maxtothemax-studio-xps-8000.jf.intel.com ([10.7.196.63])
+	by orsmga002.jf.intel.com with ESMTP; 07 Aug 2014 14:22:46 -0700
+From: Max Eliaser <max.eliaser@intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  7 Aug 2014 14:20:36 -0700
+Message-Id: <cover.1407446390.git.max.eliaser@intel.com>
+X-Mailer: git-send-email 1.8.3.2
+Subject: [PATCH 0/1] Remove references to ubootchart recipe from meta-yocto
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,61 +38,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Aug 2014 12:34:06 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 07 Aug 2014 21:22:58 -0000
 
-I was having so much differences that comparing the list.M files is still n=
-ot really feasible to figure out where the diverging starts. Luckily I foun=
-d when comparing siginfo files that the delta in RDEPENDS was package_qa_ch=
-eck_rdepends.
-This made me realize that this cannot be cause by a MACHINE config or the b=
-uild machine property but instead by the poky revision used. And indeed aft=
-er a git pull at both sides the SSTATES were in sync.
+Hello list,
 
-Nonetheless it could be a useful feature to have an option to the bitbake c=
-ommand to stop when it can't use the SSTATE_MIRROR and would need to fetch/=
-build/install  locally.
+This is a quick patch to remove all references to ubootchart from meta-yocto.
+It accompanies a patch series I just sent to openembedded-core, removing the
+ubootchart recipe from oe-core, as it is being superseded by bootchart2. See
+bug 5893. [1]
 
-Regards,=20
-Bart
+Regards,
+-Max Eliaser
 
-Bart Jansseune
+[1] https://bugzilla.yoctoproject.org/show_bug.cgi?id=5893
+The following changes since commit 86afd7eb7c679eb065706137f28f44248f3fbc5a:
 
------Original Message-----
-From: Martin Jansa [mailto:martin.jansa@gmail.com]=20
-Sent: vrijdag 1 augustus 2014 14:59
-To: Bart Jansseune
-Cc: poky@yoctoproject.org
-Subject: Re: [poky] examine SSTATE_MIRRORS differences
+  ghostscript: Remove bogus gsfonts reference from DESCRIPTION (2014-08-06 11:14:40 +0100)
 
-On Fri, Aug 01, 2014 at 01:46:40PM +0200, Bart Jansseune wrote:
-> Hello,
->=20
-> I'm trying to setup a SSTATE_MIRROR using a fast build server so that a s=
-low virtual machine doesn't have to rebuild everything.
-> Both are Ubuntu 14.04 64 bit machines and use the same poky release (dais=
-y).
-> What I notice is that for some components the cache is used eg perl-nativ=
-e but not for others.
-> I understand that once there is a delta between both machines, all depend=
-ent packages also mismatch and need to be rebuilt.
->=20
-> How do you figure out where things start diverging?
->=20
-> Are there requirements on the tools of the build to ensure that SSTATE_MI=
-RROR can be used effectively? E.g. the gcc version on both machines might n=
-eed to be the same.
+are available in the git repository at:
 
-Run openembedded-core/scripts/sstate-diff-machines.sh on both machines and =
-compare list.M files in generated folders.
+  git://git.yoctoproject.org/poky-contrib meliaser/poky-ubootchart-removal
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=meliaser/poky-ubootchart-removal
 
-That will give you pointers to interesting .sigdata files, which you can co=
-mpare with bitbake-diffsigs - which will reveal more .sigdata files and so =
-on until you find root cause.
+Max Eliaser (1):
+  meta-yocto: delete references to ubootchart recipe
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+ meta-yocto/conf/distro/include/distro_alias.inc      | 1 -
+ meta-yocto/conf/distro/include/maintainers.inc       | 1 -
+ meta-yocto/conf/distro/include/recipe_color.inc      | 1 -
+ meta-yocto/conf/distro/include/upstream_tracking.inc | 2 --
+ 4 files changed, 5 deletions(-)
+
+-- 
+1.8.3.2
 
 
