@@ -1,37 +1,37 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8159DE00798; Thu, 28 Aug 2014 15:00:10 -0700 (PDT)
+	id B0B9FE007B9; Fri, 29 Aug 2014 21:46:13 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0696BE00507
-	for <poky@yoctoproject.org>; Thu, 28 Aug 2014 14:59:59 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 28 Aug 2014 14:59:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.04,420,1406617200"; d="scan'208";a="565027196"
-Received: from mmckenna-mobl2.ger.corp.intel.com (HELO [10.255.12.242])
-	([10.255.12.242])
-	by orsmga001.jf.intel.com with ESMTP; 28 Aug 2014 14:59:58 -0700
-Message-ID: <53FFA65E.70700@linux.intel.com>
-Date: Thu, 28 Aug 2014 14:59:58 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.7.0
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0A5CDE0078E
+	for <poky@yoctoproject.org>; Fri, 29 Aug 2014 21:46:12 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id s7U4kBOA008200
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 29 Aug 2014 21:46:11 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.174.1; Fri, 29 Aug 2014 21:46:11 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Sat, 30 Aug 2014 00:46:05 -0400
+Message-ID: <fb73ca54a1c2058ace807217886aabed7b792405.1409373783.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.8.1.2
+In-Reply-To: <cover.1409373783.git.bruce.ashfield@windriver.com>
+References: <cover.1409373783.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
-To: "poky >> \"poky@yoctoproject.org\"" <poky@yoctoproject.org>
-References: <1408449451-8566-1-git-send-email-otavio@ossystems.com.br>
-In-Reply-To: <1408449451-8566-1-git-send-email-otavio@ossystems.com.br>
-X-Forwarded-Message-Id: <1408449451-8566-1-git-send-email-otavio@ossystems.com.br>
-Subject: [yocto] [PATCH] distro/poky: Add Debian 7.5 and 7.6 version as validated
+Cc: poky@yoctoproject.org
+Subject: [PATCH 2/2] yocto-bsps: update SRCREVs to linux-yocto latest
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,51 +44,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Aug 2014 22:00:10 -0000
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sat, 30 Aug 2014 04:46:13 -0000
+Content-Type: text/plain
 
+Bumping the reference boards to the linux-yocto 3.14 latest SRCREVs.
 
-
-
--------- Original Message --------
-Subject: [yocto] [PATCH] distro/poky: Add Debian 7.5 and 7.6 version as 
-validated
-Date: Tue, 19 Aug 2014 08:57:31 -0300
-From: Otavio Salvador <otavio@ossystems.com.br>
-Organization: O.S. Systems Software LTDA.
-To: yocto@lists.yoctoproject.org
-CC: Otavio Salvador <otavio@ossystems.com.br>
-
-Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
-  meta-yocto/conf/distro/poky.conf | 2 ++
-  1 file changed, 2 insertions(+)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/poky.conf 
-b/meta-yocto/conf/distro/poky.conf
-index ec251f9..34ce8ec 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -88,6 +88,8 @@ SANITY_TESTED_DISTROS ?= " \
-              Debian-7.2 \n \
-              Debian-7.3 \n \
-              Debian-7.4 \n \
-+            Debian-7.5 \n \
-+            Debian-7.6 \n \
-              SUSE-LINUX-12.2 \n \
-              openSUSE-project-12.3 \n \
-              openSUSE-project-13.1 \n \
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+index 2305c333ee28..551aebd27143 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+@@ -7,11 +7,11 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+-SRCREV_machine_genericx86 ?= "41d5fe27dc3d3e769cb6af01770cac3d75a91e1a"
+-SRCREV_machine_genericx86-64 ?= "96930820e0cb6d4b31d5e0c8f3174805f4a868b3"
+-SRCREV_machine_edgerouter ?= "96930820e0cb6d4b31d5e0c8f3174805f4a868b3"
+-SRCREV_machine_beaglebone ?= "96930820e0cb6d4b31d5e0c8f3174805f4a868b3"
+-SRCREV_machine_mpc8315e-rdb ?= "824683a5531beffbfc0537f55ff477ad28e761fa"
++SRCREV_machine_genericx86 ?= "cc12b028076c0a7de042195fb73998aec351f4f2"
++SRCREV_machine_genericx86-64 ?= "47956b735bf67acca4f36af8c3dc18bef3e7c12e"
++SRCREV_machine_edgerouter ?= "47956b735bf67acca4f36af8c3dc18bef3e7c12e"
++SRCREV_machine_beaglebone ?= "47956b735bf67acca4f36af8c3dc18bef3e7c12e"
++SRCREV_machine_mpc8315e-rdb ?= "a6b4507afe330d589193bb50d7d961cd21ee3dd2"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
 -- 
-2.1.0.rc1
-
--- 
-_______________________________________________
-yocto mailing list
-yocto@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/yocto
-
-
-
+1.8.1.2
 
 
