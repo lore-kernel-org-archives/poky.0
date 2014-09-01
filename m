@@ -1,35 +1,55 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id CDEA8E007A2; Fri, 29 Aug 2014 21:46:14 -0700 (PDT)
+	id 9B71DE0082D; Sun, 31 Aug 2014 21:07:09 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (akuster808[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.192.177 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 09976E00781
-	for <poky@yoctoproject.org>; Fri, 29 Aug 2014 21:46:12 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id s7U4k9lh008191
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 29 Aug 2014 21:46:10 -0700 (PDT)
-Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.174.1; Fri, 29 Aug 2014 21:46:09 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Sat, 30 Aug 2014 00:46:03 -0400
-Message-ID: <cover.1409373783.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 1.8.1.2
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 0/2] meta-yocto-bsps: SRCREV updates and 3.4 removal
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-pd0-f177.google.com (mail-pd0-f177.google.com
+	[209.85.192.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D8990E00824
+	for <poky@yoctoproject.org>; Sun, 31 Aug 2014 21:07:06 -0700 (PDT)
+Received: by mail-pd0-f177.google.com with SMTP id r10so5077767pdi.36
+	for <poky@yoctoproject.org>; Sun, 31 Aug 2014 21:07:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:subject:date:message-id:in-reply-to:references;
+	bh=DhRRTjtiivhzb0Ne0e8pi0SaLgoHknVkE7Sz7i0/4x8=;
+	b=awPeFobl8coRXHrdRspC+dhSfGd5MVizS41sBQEM0kdlu1uspzs7qEsUbMv3Om09Mp
+	pLTFphUWwMFvrORqk9Tllp0WYmRr8g1esoyd1jZK7zlxKGY/aRxYKCxtF81iwEgO2a9X
+	oiG9iJ26P2KRSq/ZIxiNMjGmyh1Tf8w5EuhEAdghjZrIDRv6B2y47btJR0DDIbl2YOI6
+	uK/AnckuHPMLWO31ls8CIwPRzd5Al1AxEFWkux9SP7bLTrfBgi0cVxRW3CzUJ2kDvrZd
+	FC6H5bammqJ/WV2GS9yGLoZ75HR8beB1hw/VfBJNoYubkOddRUK8EXNdMqYADO/bpkf/
+	RQCg==
+X-Received: by 10.68.175.99 with SMTP id bz3mr35873549pbc.112.1409544425803;
+	Sun, 31 Aug 2014 21:07:05 -0700 (PDT)
+Received: from Pahoa2.hsd1.ca.comcast.net (c-76-20-92-207.hsd1.ca.comcast.net.
+	[76.20.92.207])
+	by mx.google.com with ESMTPSA id aq1sm6556805pbc.96.2014.08.31.21.07.03
+	for <poky@yoctoproject.org>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Sun, 31 Aug 2014 21:07:04 -0700 (PDT)
+From: Armin Kuster <akuster808@gmail.com>
+To: poky@yoctoproject.org
+Date: Sun, 31 Aug 2014 21:06:56 -0700
+Message-Id: <1409544416-14993-3-git-send-email-akuster808@gmail.com>
+X-Mailer: git-send-email 1.9.1
+In-Reply-To: <1409544416-14993-1-git-send-email-akuster808@gmail.com>
+References: <1409544416-14993-1-git-send-email-akuster808@gmail.com>
+Subject: [PATCH 2/2] upstream_tracking: add lz4 version and date info for package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,40 +62,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 30 Aug 2014 04:46:14 -0000
-Content-Type: text/plain
+X-List-Received-Date: Mon, 01 Sep 2014 04:07:09 -0000
 
-Richard,
+Signed-off-by: Armin Kuster <akuster808@gmail.com>
+---
+ meta-yocto/conf/distro/include/upstream_tracking.inc | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Here are the associated SRCREV updates for the reference BSPs to bring them
-up to the latest linux-yocto 3.14 updates.
-
-I've also removed the 3.4 bbapend, since that kernel gets voted off the
-island for the 1.7 release.
-
-Cheers,
-
-Bruce
-
-The following changes since commit f0245f9130b06ad98c2e2d1472b90bb4ac9d994a:
-
-  linux-libc-headers: update to 3.16 (2014-08-29 16:32:26 -0400)
-
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel
-
-Bruce Ashfield (2):
-  yocto-bsps: remove 3.4 bbappend
-  yocto-bsps: update SRCREVs to linux-yocto latest
-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 10 +++++-----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend  |  7 -------
- 2 files changed, 5 insertions(+), 12 deletions(-)
- delete mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.4.bbappend
-
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index c75d258..350326b 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -152,6 +152,9 @@ CHECK_DATE_pn-linuxdoc-tools-native = "Aug 31, 2012"
+ RECIPE_NO_UPDATE_REASON-libxml2 = "only release candidates available "
+ RECIPE_UPSTREAM_VERSION_pn-lsbtest = "1.0"
+ CHECK_DATE_pn-lsof = "Jul 30, 2014"
++RECIPE_UPSTREAM_VERSION_pn-lz4 = "122"
++RECIPE_UPSTREAM_DATE_pn-lz4 = "Aug 28, 2014"
++CHECK_DATE_pn-lz4 = "Aug 30, 2014"
+ RECIPE_UPSTREAM_VERSION_pn-meta-ide-support = "check"
+ RECIPE_UPSTREAM_VERSION_pn-minicom = "2.6.2"
+ RECIPE_UPSTREAM_DATE_pn-minicom = "Feb 06, 2013"
 -- 
-1.8.1.2
+1.9.1
 
 
