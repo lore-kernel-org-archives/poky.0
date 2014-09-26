@@ -1,61 +1,42 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <f.suligoi@asem.it>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F25A9E007A2; Thu, 25 Sep 2014 20:29:14 -0700 (PDT)
+	id EC533E007A2; Thu, 25 Sep 2014 23:48:30 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.213.169 listed in list.dnswl.org]
-Received: from mail-ig0-f169.google.com (mail-ig0-f169.google.com
-	[209.85.213.169])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6301DE00790
-	for <poky@yoctoproject.org>; Thu, 25 Sep 2014 20:29:06 -0700 (PDT)
-Received: by mail-ig0-f169.google.com with SMTP id l13so282089iga.4
-	for <poky@yoctoproject.org>; Thu, 25 Sep 2014 20:29:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:subject:references
-	:in-reply-to:content-type:content-transfer-encoding;
-	bh=GRXxSrJVsfJLdoVHtkN2B7K/kI1dCrMaNyMkd63iZ5s=;
-	b=XOdqKAnfL72OqjY1YeXXY/AI8EGIcb7c3aI5nFBSr6ZfC/JHIi3NF8/CZVTWc4iFsB
-	nLdrnpGDnZSuiYJct9LoIipuMhroAozbmNOdh4CNEBJWXa/JCbIKFqQn8HsvIMyTd12u
-	Cv1kkSBbPS9qQzHKQgeK3FrZqPPNSgW3lzytWteKrijCzReEZQBAr0SbpEZstIhNJ4L5
-	dhKuNuQjMNFWQXVRS2J0F3qei0kdXIFvUq+tt4qSFM2HSanlc0Wre3PZF0EOcodLGsFa
-	r4t4lNCnmMSlggU20i3KmDhaa1jnbeeV4T/vim8i+vwIeMvolp+/0j4EZESmop0zej4S
-	zFYg==
-X-Received: by 10.50.79.132 with SMTP id j4mr9953085igx.9.1411702146017;
-	Thu, 25 Sep 2014 20:29:06 -0700 (PDT)
-Received: from 10.168.191.211-ra01.englewood.co.denver.comcast.net
-	(fw01.aurora.co.denver.comcast.net. [198.178.8.81])
-	by mx.google.com with ESMTPSA id z5sm853622igl.21.2014.09.25.20.29.05
-	for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 25 Sep 2014 20:29:05 -0700 (PDT)
-Message-ID: <5424DD80.9070405@gmail.com>
-Date: Thu, 25 Sep 2014 20:29:04 -0700
-From: Khem Raj <raj.khem@gmail.com>
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9;
-	rv:31.0) Gecko/20100101 Thunderbird/31.1.1
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 311 seconds by postgrey-1.32 at yocto-www;
+	Thu, 25 Sep 2014 23:48:27 PDT
+Received: from smtp.asem.it (smtp.asem.it [151.22.69.122])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 116CBE00769
+	for <poky@yoctoproject.org>; Thu, 25 Sep 2014 23:48:27 -0700 (PDT)
+Received: from webmail.asem.it by asem.it (smtp.asem.it)
+	(SecurityGateway 3.0.2) with ESMTP id SG001404614.MSG 
+	for <poky@yoctoproject.org>; Fri, 26 Sep 2014 08:51:39 +0200AS
+Received: from ASAS013.asem.intra ([172.16.16.50]) by ASAS014.asem.intra
+	([172.16.16.51]) with mapi id 14.02.0387.000;
+	Fri, 26 Sep 2014 08:42:27 +0200
+From: Flavio Suligoi <f.suligoi@asem.it>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: Daisy 1.6.1 - matchbox-keyboard doesn't "pop up" automatically
+	any more
+Thread-Index: Ac/ZVQiv2bGB7sG6Rtqj6D+7gorRnA==
+Date: Fri, 26 Sep 2014 06:42:25 +0000
+Message-ID: <3A8890C59B0943428C1CECF15A6881A70113E579@ASAS013.asem.intra>
+Accept-Language: it-IT, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.16.17.135]
 MIME-Version: 1.0
-To: "Bian, Naimeng" <biannm@cn.fujitsu.com>, 
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <30DC4EDFD798C94083F3E083754532CCCA4509@G08CNEXMBPEKD02.g08.fujitsu.local>	<1410852082.14624.54.camel@ted>	<30DC4EDFD798C94083F3E083754532CCCA4803@G08CNEXMBPEKD02.g08.fujitsu.local>
-	<541A8A89.6030403@gmail.com>
-	<30DC4EDFD798C94083F3E083754532CCCA5E8D@G08CNEXMBPEKD02.g08.fujitsu.local>
-In-Reply-To: <30DC4EDFD798C94083F3E083754532CCCA5E8D@G08CNEXMBPEKD02.g08.fujitsu.local>
-Subject: Re: [Question]Remove $BUILDDIR from gcc -v
+X-SGHeloLookup-Result: hardfail smtp.helo=webmail.asem.it (does not match
+	172.16.16.51)
+X-SGOP-RefID: str=0001.0A0C0204.54250AFF.0155, ss=1, re=0.000,
+	fgs=0 (_st=1 _vt=0 _iwf=0)
+Subject: Daisy 1.6.1 - matchbox-keyboard doesn't "pop up" automatically any more
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,30 +49,173 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Sep 2014 03:29:15 -0000
-Content-Type: text/plain; charset=shift_jis
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 26 Sep 2014 06:48:31 -0000
+Content-Language: it-IT
+Content-Type: multipart/alternative;
+	boundary="_000_3A8890C59B0943428C1CECF15A6881A70113E579ASAS013asemintr_"
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
+--_000_3A8890C59B0943428C1CECF15A6881A70113E579ASAS013asemintr_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+with the old Dylan 1.4 the matchbox-keyboard works perfectly and pops up au=
+tomatically when I open a terminal window, or a web browser, or the notes a=
+pplication, etc.
+
+But now, with Daisy 1.6.1 I can start the matchbox-keyboard __ONLY__ if I c=
+lick manually on the keyboard icon on the matchbox-panel title-bar. It is a=
+ big problem in full screen applications (as a web browser in a "kiosk mode=
+", for example).
+
+Any idea to solve this issue?
+
+Regards,
+
+Flavio
 
 
 
-On 9/18/14 2:46 AM, Bian, Naimeng wrote:
-> but setting BUILDDIR to a secret path caused by a miss operation
-> will make a leakage of secret.
 
-Thats quite interesting. Why cant you then build in a directory thats
-not so _secret_
+Flavio Suligoi
+Software Engineer - Firmware
 
-- -- 
-- -Khem
------BEGIN PGP SIGNATURE-----
-Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
-Comment: GPGTools - https://gpgtools.org
+ASEM S.p.A.
+Via Buia, 4, 33011 Artegna (UD) Italia
+Tel +39 0432 967 477
+Fax +39 0432 967 467
+Email: f.suligoi@asem.it<mailto:f.suligoi@asem.it>
+Internet: www.asem.it<http://www.asem.it/>
 
-iEYEARECAAYFAlQk3YAACgkQuwUzVZGdMxR+eACcCST0l8lYw4+bnoPkEgRKTEgb
-OasAnj7GEE/uccQODtkt+NJC2jfUGSmh
-=GZkA
------END PGP SIGNATURE-----
+Questo messaggio =E8 equiparato a corrispondenza in busta chiusa. E' vietat=
+a la sua diffusione, distribuzione, riproduzione e l'uso delle informazioni=
+ contenute a chi non =E8 destinatario; il responsabile =E8 soggetto a conse=
+guenze legali.Se avete ricevuto questo messaggio per errore, siete pregati =
+di segnalarlo immediatamente al mittente e di distruggerlo (compresi i file=
+ eventualmente allegati) senza farne copia.
+This e-mail is confidential. If you are not the addressee or an authorized =
+recipient of this message, any distribution, copying, publication or use of=
+ this information for any purpose is strictly prohibited.Please, notify the=
+ sender immediately by e-mail and then delete this message.
 
+--_000_3A8890C59B0943428C1CECF15A6881A70113E579ASAS013asemintr_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style id=3D"owaParaStyle" type=3D"text/css">P {margin-top:0;margin-bottom:=
+0;}</style>
+</head>
+<body ocsi=3D"0" fpstyle=3D"1">
+<div style=3D"direction: ltr;font-family: Arial;color: #000000;font-size: 1=
+0pt;">Hi all,<br>
+<br>
+with the old Dylan 1.4 the matchbox-keyboard works perfectly and pops up au=
+tomatically when I open a terminal window, or a web browser, or the notes a=
+pplication, etc.<br>
+<br>
+But now, with Daisy 1.6.1 I can start the matchbox-keyboard __ONLY__ if I c=
+lick manually on the keyboard icon on the matchbox-panel title-bar. It is a=
+ big problem in full screen applications (as a web browser in a &quot;kiosk=
+ mode&quot;, for example).<br>
+<br>
+Any idea to solve this issue?<br>
+<br>
+Regards,<br>
+<br>
+Flavio<br>
+<br>
+<div><br>
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div style=3D"font-family:Tahoma; font-size:13px">
+<p class=3D"MsoNormal"><br>
+</p>
+<p class=3D"MsoNormal"><br>
+</p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt; font-family:&quo=
+t;Arial&quot;,&quot;sans-serif&quot;; color:#0089CD">Flavio Suligoi</span><=
+/b><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&quot;san=
+s-serif&quot;; color:#7F7F7F"><br>
+</span><i><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&q=
+uot;sans-serif&quot;; color:#576169">Software Engineer - Firmware</span></i=
+></p>
+<p class=3D"MsoNormal"><br>
+</p>
+<b><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&quot;san=
+s-serif&quot;; color:#0089CD">ASEM S.p.A.</span></b><br>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt; font-family:&quo=
+t;Arial&quot;,&quot;sans-serif&quot;; color:#7F7F7F"></span></b><span style=
+=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;=
+ color:#576169" lang=3D"EN-US">Via Buia, 4, 33011 Artegna (UD) Italia<br>
+Tel &#43;39 0432 967 477</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot;A=
+rial&quot;,&quot;sans-serif&quot;; color:#576169" lang=3D"EN-US">Fax &#43;3=
+9 0432 967 467
+</span></p>
+<span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&quot;sans-s=
+erif&quot;; color:#576169" lang=3D"EN-US">Email:
+<a href=3D"mailto:f.suligoi@asem.it" tabindex=3D"0">f.suligoi@asem.it</a></=
+span><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&quot;s=
+ans-serif&quot;; color:#576169" lang=3D"EN-US"></span><span style=3D"font-s=
+ize:10.0pt; font-family:&quot;Arial&quot;,&quot;sans-serif&quot;; color:#57=
+6169">
+<span lang=3D"EN-US"></span></span>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot;A=
+rial&quot;,&quot;sans-serif&quot;; color:#576169">Internet:
+</span><a target=3D"_blank" href=3D"http://www.asem.it/" tabindex=3D"0"><sp=
+an style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,&quot;sans-seri=
+f&quot;; color:#576169">www.asem.it</span></a><span style=3D"font-size:10.0=
+pt; font-family:&quot;Arial&quot;,&quot;sans-serif&quot;; color:#576169">&n=
+bsp;<br>
+<br>
+</span><span style=3D"font-size:7.0pt; font-family:&quot;Arial&quot;,&quot;=
+sans-serif&quot;; color:#576169">Questo messaggio =E8 equiparato a corrispo=
+ndenza in busta chiusa. E' vietata la sua diffusione, distribuzione, riprod=
+uzione e l'uso delle informazioni contenute a chi non =E8
+ destinatario; il responsabile =E8 soggetto a conseguenze legali.Se avete r=
+icevuto questo messaggio per errore, siete pregati di segnalarlo immediatam=
+ente al mittente e di distruggerlo (compresi i file eventualmente allegati)=
+ senza farne copia.</span></p>
+<p class=3D"MsoNormal"><i><span style=3D"font-size:7.0pt; font-family:&quot=
+;Arial&quot;,&quot;sans-serif&quot;; color:#576169" lang=3D"EN-GB">This e-m=
+ail is confidential. If you are not the addressee or an authorized recipien=
+t of this message, any distribution, copying, publication
+ or use of this information for any purpose is strictly prohibited.</span><=
+/i><i><span style=3D"font-size:7.0pt; font-family:&quot;Arial&quot;,&quot;s=
+ans-serif&quot;; color:#576169" lang=3D"EN-GB">Please, notify the sender im=
+mediately by e-mail and then delete this message.</span></i>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_3A8890C59B0943428C1CECF15A6881A70113E579ASAS013asemintr_--
