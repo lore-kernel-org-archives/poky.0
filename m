@@ -1,51 +1,54 @@
-Return-Path: <aschultz@tpip.net>
+Return-Path: <jdfalabrac@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3D669E00869; Mon, 29 Sep 2014 07:37:33 -0700 (PDT)
+	id CF2DEE0079E; Mon, 29 Sep 2014 10:08:32 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_05 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -0.5 BAYES_05 BODY: Bayes spam probability is 1 to 5%
-	*      [score: 0.0285]
-X-Greylist: delayed 547 seconds by postgrey-1.32 at yocto-www;
-	Mon, 29 Sep 2014 07:37:29 PDT
-Received: from mail.tpip.net (mail.tpip.net [92.43.49.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 667C4E0080A
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 07:37:29 -0700 (PDT)
-Received: from office.tpip.net (office.tpip.net [92.43.51.2])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mail.tpip.net (Postfix) with ESMTPS id 057944F417
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:28:19 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by office.tpip.net (Postfix) with ESMTP id DD2BE38356E
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:29:49 +0000 (UTC)
-Received: from office.tpip.net ([127.0.0.1])
-	by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10032)
-	with ESMTP id hAo9z2z_PLDt for <poky@yoctoproject.org>;
-	Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by office.tpip.net (Postfix) with ESMTP id 4338C38356F
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at tpip.net
-Received: from office.tpip.net ([127.0.0.1])
-	by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id YV0z_wubao07 for <poky@yoctoproject.org>;
-	Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
-Received: from office.tpip.net (office.tpip.net [92.43.51.2])
-	by office.tpip.net (Postfix) with ESMTP id 1E41438356E
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
-Date: Mon, 29 Sep 2014 14:29:46 +0000 (UTC)
-From: Andreas Schultz <aschultz@tpip.net>
-To: poky@yoctoproject.org
-Message-ID: <126742226.547.1412000986930.JavaMail.zimbra@tpip.net>
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (jdfalabrac[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.68 listed in list.dnswl.org]
+Received: from mail-wg0-f68.google.com (mail-wg0-f68.google.com [74.125.82.68])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E93F3E006DB
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 10:08:27 -0700 (PDT)
+Received: by mail-wg0-f68.google.com with SMTP id a1so180907wgh.7
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 10:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=message-id:date:from:user-agent:mime-version:to:subject
+	:content-type:content-transfer-encoding;
+	bh=PGb0/8C5fyJviMhZL1UN+q8nXHF/knI4RX2qat1P9tg=;
+	b=d3vWXsKJi7h+Po5K1rXpGa+WKQX2kkX0MSGlIlia2egZcegIyWRTZ5mCJRrGTVC0V4
+	A4cZx0lxmd5DCIDYbVpRBt8F8CszqwNfoUQauDGv2lrnsNwg9l3sihQ6ejSBxBrdLUZg
+	VXCNFZWlk8C3H4prpUDl+dqBQqI3Ho5eAAGgTvWyLJrA6ouNhTJddMMbeoQ777nw2JiR
+	h8npqAZl+ApSANqFcONVULt2AcFwiURsjXarKdqodvvK+HjBXiQGaVAIyTdqXuZbrozx
+	fRbg7l5n7lKvzf/G7niB+IGrwGvdZjG9CgHaSRXheOZvqYrWmqHY63EN899EAtx9GR3v
+	ajhw==
+X-Received: by 10.194.95.234 with SMTP id dn10mr47015060wjb.73.1412010506083; 
+	Mon, 29 Sep 2014 10:08:26 -0700 (PDT)
+Received: from [192.168.43.88] ([94.35.106.130])
+	by mx.google.com with ESMTPSA id
+	ll20sm12307270wic.14.2014.09.29.10.08.22 for <poky@yoctoproject.org>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 29 Sep 2014 10:08:25 -0700 (PDT)
+Message-ID: <54299205.1060603@gmail.com>
+Date: Mon, 29 Sep 2014 19:08:21 +0200
+From: JD <jdfalabrac@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:31.0) Gecko/20100101 Thunderbird/31.1.1
 MIME-Version: 1.0
-X-Originating-IP: [217.92.147.146]
-X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - GC39 (Linux)/8.5.0_GA_3042)
-Thread-Topic: bogus dependency from systemd to systemd-binfmt
-Thread-Index: 6gQMR/zWHyauCSgTACOEHPi54affyg==
-Subject: bogus dependency from systemd to systemd-binfmt
+To: poky@yoctoproject.org
+Subject: Automounting WLAN0 and auto launching hostapd
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -58,38 +61,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Sep 2014 14:37:33 -0000
-Content-Type: text/plain; charset=utf-8
+X-List-Received-Date: Mon, 29 Sep 2014 17:08:32 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hello, I apologize for the dumb question but I would like to turn ON 
+wlan0 when my USB dongle is inserted and, after that, launch hostapd and 
+dnsmasq as well. This on my core-image-minimal derived image.
 
-With the current recipes a dependency from systemd to systemd-binfmt is
-generated. systemd does work fine without systemd-binfmt and binfmt is
-not required for a working system. So, this dependency should not be there.
+Could someone please advise just what is the best way to do it on such a 
+small footprint image for my embedded board?
+I just need a pointer to start from (ifplugd? network manager? udev?)  
+to make sure I make the best initial choice...
 
-The dependency is generated by systemd.bbclass because systemd-binfmt.service
-has a 'Conflicts=shutdown.target' statement and systemd.bbclass does include
-conflicting units into the package.
-
-The cruel print are these lines in systemd.bbclass:
-
-        if has_exactly_one_service:
-            has_exactly_one_service = len(get_package_var(d, 'SYSTEMD_SERVICE', systemd_packages).split()) == 1
-
-        keys = 'Also' # Conflicts??
-        if has_exactly_one_service:
-            # single service gets also the /dev/null dummies
-            keys = 'Also Conflicts'
-
-This might be correct for other systemd packages, but for systemd itself
-this seems to be wrong....
-
-Regards
-Andreas
-
--- 
--- 
-Dipl. Inform.
-Andreas Schultz
+Thanks
+jd
 
