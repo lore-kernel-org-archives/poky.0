@@ -1,41 +1,51 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <aschultz@tpip.net>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B4068E00749; Fri, 26 Sep 2014 04:06:48 -0700 (PDT)
+	id 3D669E00869; Mon, 29 Sep 2014 07:37:33 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_05 autolearn=ham
 	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5DB7DE00749
-	for <poky@yoctoproject.org>; Fri, 26 Sep 2014 04:06:42 -0700 (PDT)
+X-Spam-HAM-Report: * -0.5 BAYES_05 BODY: Bayes spam probability is 1 to 5%
+	*      [score: 0.0285]
+X-Greylist: delayed 547 seconds by postgrey-1.32 at yocto-www;
+	Mon, 29 Sep 2014 07:37:29 PDT
+Received: from mail.tpip.net (mail.tpip.net [92.43.49.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 667C4E0080A
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 07:37:29 -0700 (PDT)
+Received: from office.tpip.net (office.tpip.net [92.43.51.2])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.tpip.net (Postfix) with ESMTPS id 057944F417
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:28:19 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	s8QB6VpF004907; Fri, 26 Sep 2014 12:06:31 +0100
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 4jk2uTfwZ4Bp; Fri, 26 Sep 2014 12:06:31 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	s8QB6Qvt004903
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-SHA bits=128 verify=NOT);
-	Fri, 26 Sep 2014 12:06:28 +0100
-Message-ID: <1411729589.4189.110.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Bian, Naimeng" <biannm@cn.fujitsu.com>
-Date: Fri, 26 Sep 2014 12:06:29 +0100
-In-Reply-To: <30DC4EDFD798C94083F3E083754532CCCA5E8D@G08CNEXMBPEKD02.g08.fujitsu.local>
-References: <30DC4EDFD798C94083F3E083754532CCCA4509@G08CNEXMBPEKD02.g08.fujitsu.local>
-	<1410852082.14624.54.camel@ted>
-	<30DC4EDFD798C94083F3E083754532CCCA4803@G08CNEXMBPEKD02.g08.fujitsu.local>
-	<541A8A89.6030403@gmail.com>
-	<30DC4EDFD798C94083F3E083754532CCCA5E8D@G08CNEXMBPEKD02.g08.fujitsu.local>
-X-Mailer: Evolution 3.10.4-0ubuntu2 
-Mime-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [Question]Remove $BUILDDIR from gcc -v
+	by office.tpip.net (Postfix) with ESMTP id DD2BE38356E
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:29:49 +0000 (UTC)
+Received: from office.tpip.net ([127.0.0.1])
+	by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id hAo9z2z_PLDt for <poky@yoctoproject.org>;
+	Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by office.tpip.net (Postfix) with ESMTP id 4338C38356F
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at tpip.net
+Received: from office.tpip.net ([127.0.0.1])
+	by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id YV0z_wubao07 for <poky@yoctoproject.org>;
+	Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
+Received: from office.tpip.net (office.tpip.net [92.43.51.2])
+	by office.tpip.net (Postfix) with ESMTP id 1E41438356E
+	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 14:29:47 +0000 (UTC)
+Date: Mon, 29 Sep 2014 14:29:46 +0000 (UTC)
+From: Andreas Schultz <aschultz@tpip.net>
+To: poky@yoctoproject.org
+Message-ID: <126742226.547.1412000986930.JavaMail.zimbra@tpip.net>
+MIME-Version: 1.0
+X-Originating-IP: [217.92.147.146]
+X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - GC39 (Linux)/8.5.0_GA_3042)
+Thread-Topic: bogus dependency from systemd to systemd-binfmt
+Thread-Index: 6gQMR/zWHyauCSgTACOEHPi54affyg==
+Subject: bogus dependency from systemd to systemd-binfmt
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,34 +58,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Sep 2014 11:06:48 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 29 Sep 2014 14:37:33 -0000
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2014-09-18 at 09:46 +0000, Bian, Naimeng wrote:
-> > > Removing these options is not my purpose, i just want to hide the $BUILDDIR
-> > 
-> > whats there in BUILDDIR to hide ?
-> 
-> Thanks for your answer.
-> 
-> Well, maybe it's a strange case,  but any suggestion it's helpful to me. ^_^
-> (I don't think there are some bugs of upstream's poky)
-> 
-> Of course, we can set BUILDDIR to a safe path such as /workspace,
-> but setting BUILDDIR to a secret path caused by a miss operation
-> will make a leakage of secret.
-> 
-> So, is there a method to change BUILDDIR to a relative path not a absolute path.
-> Looks like it's not easy. ^_^
+Hi,
 
-I hate to break it to you but there are plenty of other ways the build
-path can end up in the resulting binaries, even through things like
-debug symbols/information. I'd suggest not putting "secret" information
-in the build paths.
+With the current recipes a dependency from systemd to systemd-binfmt is
+generated. systemd does work fine without systemd-binfmt and binfmt is
+not required for a working system. So, this dependency should not be there.
 
-Cheers,
+The dependency is generated by systemd.bbclass because systemd-binfmt.service
+has a 'Conflicts=shutdown.target' statement and systemd.bbclass does include
+conflicting units into the package.
 
-Richard
+The cruel print are these lines in systemd.bbclass:
 
+        if has_exactly_one_service:
+            has_exactly_one_service = len(get_package_var(d, 'SYSTEMD_SERVICE', systemd_packages).split()) == 1
+
+        keys = 'Also' # Conflicts??
+        if has_exactly_one_service:
+            # single service gets also the /dev/null dummies
+            keys = 'Also Conflicts'
+
+This might be correct for other systemd packages, but for systemd itself
+this seems to be wrong....
+
+Regards
+Andreas
+
+-- 
+-- 
+Dipl. Inform.
+Andreas Schultz
 
