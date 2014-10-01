@@ -1,54 +1,37 @@
-Return-Path: <jdfalabrac@gmail.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id CF2DEE0079E; Mon, 29 Sep 2014 10:08:32 -0700 (PDT)
+	id C65E7E00876; Tue, 30 Sep 2014 21:53:34 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (jdfalabrac[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [74.125.82.68 listed in list.dnswl.org]
-Received: from mail-wg0-f68.google.com (mail-wg0-f68.google.com [74.125.82.68])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E93F3E006DB
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 10:08:27 -0700 (PDT)
-Received: by mail-wg0-f68.google.com with SMTP id a1so180907wgh.7
-	for <poky@yoctoproject.org>; Mon, 29 Sep 2014 10:08:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=message-id:date:from:user-agent:mime-version:to:subject
-	:content-type:content-transfer-encoding;
-	bh=PGb0/8C5fyJviMhZL1UN+q8nXHF/knI4RX2qat1P9tg=;
-	b=d3vWXsKJi7h+Po5K1rXpGa+WKQX2kkX0MSGlIlia2egZcegIyWRTZ5mCJRrGTVC0V4
-	A4cZx0lxmd5DCIDYbVpRBt8F8CszqwNfoUQauDGv2lrnsNwg9l3sihQ6ejSBxBrdLUZg
-	VXCNFZWlk8C3H4prpUDl+dqBQqI3Ho5eAAGgTvWyLJrA6ouNhTJddMMbeoQ777nw2JiR
-	h8npqAZl+ApSANqFcONVULt2AcFwiURsjXarKdqodvvK+HjBXiQGaVAIyTdqXuZbrozx
-	fRbg7l5n7lKvzf/G7niB+IGrwGvdZjG9CgHaSRXheOZvqYrWmqHY63EN899EAtx9GR3v
-	ajhw==
-X-Received: by 10.194.95.234 with SMTP id dn10mr47015060wjb.73.1412010506083; 
-	Mon, 29 Sep 2014 10:08:26 -0700 (PDT)
-Received: from [192.168.43.88] ([94.35.106.130])
-	by mx.google.com with ESMTPSA id
-	ll20sm12307270wic.14.2014.09.29.10.08.22 for <poky@yoctoproject.org>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 29 Sep 2014 10:08:25 -0700 (PDT)
-Message-ID: <54299205.1060603@gmail.com>
-Date: Mon, 29 Sep 2014 19:08:21 +0200
-From: JD <jdfalabrac@gmail.com>
-User-Agent: Mozilla/5.0 (X11; Linux i686;
-	rv:31.0) Gecko/20100101 Thunderbird/31.1.1
+	*      [147.11.146.13 listed in list.dnswl.org]
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE53AE0087C
+	for <poky@yoctoproject.org>; Tue, 30 Sep 2014 21:53:33 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.14.9/8.14.5) with ESMTP id s914rWo1008030
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 30 Sep 2014 21:53:32 -0700 (PDT)
+Received: from yow-bashfiel-d3.wrs.com (128.224.56.46) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.174.1; Tue, 30 Sep 2014 21:53:32 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Wed, 1 Oct 2014 00:53:23 -0400
+Message-ID: <e36510e657c298aa76af071d9f538783e23a2970.1412138833.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 1.8.1.2
+In-Reply-To: <cover.1412138833.git.bruce.ashfield@windriver.com>
+References: <cover.1412138833.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
-To: poky@yoctoproject.org
-Subject: Automounting WLAN0 and auto launching hostapd
+Cc: poky@yoctoproject.org
+Subject: [PATCH 2/2] meta-yocto: make 3.17 the preferred qemu kernel version
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -61,19 +44,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Sep 2014 17:08:32 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 01 Oct 2014 04:53:34 -0000
+Content-Type: text/plain
 
-Hello, I apologize for the dumb question but I would like to turn ON 
-wlan0 when my USB dongle is inserted and, after that, launch hostapd and 
-dnsmasq as well. This on my core-image-minimal derived image.
+3.17 is ready and stable to be used as the default for the qemu* BSPs,
+so we update their preferred version to reflect this.
 
-Could someone please advise just what is the best way to do it on such a 
-small footprint image for my embedded board?
-I just need a pointer to start from (ifplugd? network manager? udev?)  
-to make sure I make the best initial choice...
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
+---
+ meta-yocto/conf/distro/poky.conf | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Thanks
-jd
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index eaf06d3092cf..b94469146bbd 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -19,13 +19,13 @@ POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+ 
+ DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DEFAULT_DISTRO_FEATURES}"
+ 
+-PREFERRED_VERSION_linux-yocto ?= "3.14%"
+-PREFERRED_VERSION_linux-yocto_qemux86 ?= "3.14%"
+-PREFERRED_VERSION_linux-yocto_qemux86-64 ?= "3.14%"
+-PREFERRED_VERSION_linux-yocto_qemuarm ?= "3.14%"
+-PREFERRED_VERSION_linux-yocto_qemumips ?= "3.14%"
+-PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.14%"
+-PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.14%"
++PREFERRED_VERSION_linux-yocto ?= "3.17%"
++PREFERRED_VERSION_linux-yocto_qemux86 ?= "3.17%"
++PREFERRED_VERSION_linux-yocto_qemux86-64 ?= "3.17%"
++PREFERRED_VERSION_linux-yocto_qemuarm ?= "3.17%"
++PREFERRED_VERSION_linux-yocto_qemumips ?= "3.17%"
++PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.17%"
++PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.17%"
+ 
+ SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
+ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
+-- 
+1.8.1.2
+
 
