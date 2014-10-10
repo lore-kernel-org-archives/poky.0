@@ -1,62 +1,49 @@
-Return-Path: <kevin.thierry@open.eurogiciel.org>
+Return-Path: <galbicka.tomas@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8C4F8E0077F; Fri, 10 Oct 2014 01:34:05 -0700 (PDT)
+	id 65995E0077F; Fri, 10 Oct 2014 06:22:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (galbicka.tomas[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.212.169 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.212.171 listed in list.dnswl.org]
-Received: from mail-wi0-f171.google.com (mail-wi0-f171.google.com
-	[209.85.212.171])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 21936E00744
-	for <poky@yoctoproject.org.>; Fri, 10 Oct 2014 01:34:00 -0700 (PDT)
-Received: by mail-wi0-f171.google.com with SMTP id em10so1291885wid.4
-	for <poky@yoctoproject.org.>; Fri, 10 Oct 2014 01:33:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=open.eurogiciel.org; s=google;
-	h=message-id:date:from:user-agent:mime-version:to:subject
-	:content-type; bh=fRuM7bshd0bvf5ByzNdwahEZmWOaAPspPQIbQeGMWXc=;
-	b=SSkemDctkgKd5MKaHSsCqgC2wLRouc4WCwjN1ip5YaIDx95CdmSObs9Y5AzHTDerOe
-	srLxNt2MsqjpntfNtPQi63Fjd7jCHjg1lcb9a1QiYQfzpSm07TbZyz4qQnkTXb9ESKS2
-	Rp9sOQcksxuox9iGsvH43J9rfLvDNSy8PQbOU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:message-id:date:from:user-agent:mime-version:to
-	:subject:content-type;
-	bh=fRuM7bshd0bvf5ByzNdwahEZmWOaAPspPQIbQeGMWXc=;
-	b=ez+rmvitaETaVw3tRn/Bw5LKRF8BdEx4pZ++Iv05Mjmcmn4K1U64Z3/OW/UOOhbbK5
-	iJGPoPhI0et8HXmQgpwcPtOtEPk8wm32ghng+XpWJvm5Laia8pZHpbKF7UBSzkzBduD0
-	HpxdTBSr7the+pYW1qEPecS+/MwzfIz5JxWiCpsNztWtv+DL6HOUzoeLUeo7DKTWJuE3
-	SirDD4zb57AOucAbueALc0anMUAAG8GOyQOZL8DIyflfPJS+M9wzFLqJVvyWn7QeTDO9
-	036o3ladrZeEfVPpl2cnV5b6pHVw7nsBz0gllShWe4ohxi7emdWpLrQs6L1VUG983Vr1
-	1n+g==
-X-Gm-Message-State: ALoCoQkBTrYLtUHc1SE3KRZyDCSrj5rHRloEaKQ05u5Rsg7WWXg+NqFfvxZ89j3Wa6YF4CfitjbK
-X-Received: by 10.194.243.230 with SMTP id xb6mr1342770wjc.100.1412930039002; 
-	Fri, 10 Oct 2014 01:33:59 -0700 (PDT)
-Received: from [10.19.3.25] ([46.18.96.46])
-	by mx.google.com with ESMTPSA id q5sm1816584wiy.16.2014.10.10.01.33.58
-	for <poky@yoctoproject.org.>
-	(version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
-	Fri, 10 Oct 2014 01:33:58 -0700 (PDT)
-Message-ID: <543799F5.5010605@open.eurogiciel.org>
-Date: Fri, 10 Oct 2014 10:33:57 +0200
-From: =?ISO-8859-1?Q?K=E9vin_THIERRY?=
- <kevin.thierry@open.eurogiciel.org>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:24.0) Gecko/20100101 Thunderbird/24.5.0
+Received: from mail-wi0-f169.google.com (mail-wi0-f169.google.com
+	[209.85.212.169])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B8D70E00744
+	for <poky@yoctoproject.org>; Fri, 10 Oct 2014 06:22:43 -0700 (PDT)
+Received: by mail-wi0-f169.google.com with SMTP id cc10so4295088wib.2
+	for <poky@yoctoproject.org>; Fri, 10 Oct 2014 06:22:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=OCrkFlPYuSdrXSntyIFFckJ45Y2VB1N8HE9Esln4PF4=;
+	b=0K7e0ku2cT+TA0jy7NyR1yHtsndQLxJ9cVvIOrrNKIVytyLsNi/6nTihvFNZfRlYl3
+	SL17ZvehQcq9PZHwNYs6S1gREqDjx+yK0ZNLli5nWKK9eJG7lUZeQO5Db6L9MWLYXrVl
+	xTiIytSkbswdacCY1fmATNZQgT5VKpx/dRsV5vVS24ZUD65BO4cbkq1AUXP+kUGNmLX7
+	aS229khD7TEzRz6QH3g7d2p99Ucg9hOvrv3jyaA5ypf3MUAZtqKUjxvifSlyl7wk2VMG
+	qX1cvMcawrj84cHSoYtOl/D+Q/2ajUuACV3AnnlcOaxJDKQwIozObjur7Wc1SjcE8BbY
+	9Vmw==
 MIME-Version: 1.0
+X-Received: by 10.180.87.161 with SMTP id az1mr4800248wib.13.1412947362165;
+	Fri, 10 Oct 2014 06:22:42 -0700 (PDT)
+Received: by 10.217.49.70 with HTTP; Fri, 10 Oct 2014 06:22:42 -0700 (PDT)
+Date: Fri, 10 Oct 2014 15:22:42 +0200
+Message-ID: <CADWA4U-Syayu9DAm1EqcSEhRTHsbcC0M4aWyQM90iOA-hJpLxA@mail.gmail.com>
+From: =?UTF-8?B?VG9tw6HFoSBHYWxiacSNa2E=?= <galbicka.tomas@gmail.com>
 To: poky@yoctoproject.org
-Subject: Patch: package_rpm.bbclass: set algorithm and level of compression
+Subject: Own .bb recipe with Makefile help
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,167 +56,423 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 10 Oct 2014 08:34:05 -0000
-X-Groupsio-MsgNum: 9778
-Content-Type: multipart/mixed; boundary="------------060301070001080002020409"
+X-List-Received-Date: Fri, 10 Oct 2014 13:22:50 -0000
+Content-Type: multipart/alternative; boundary=14dae9cc9c689bb8fb0505117186
 
---------------060301070001080002020409
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi,
-
-I made a small patch to globally modify algorithm and level of 
-compression for rpm packaging. Being able to modify those parameters 
-allows to either reduce the rpm packages creation time or reduce the rpm 
-packages size 
-(0001-package_rpm.bbclass-set-algorithm-and-level-of-compr.patch).
-
-I also made a patchfor yocto-docs to document the two new variables 
-(0001-ref-manual-Add-RPM_BIN_PAYLOAD-RPM_SRC_PAYLOAD-varia.patch).
-
-If something is wrong/missing, I'll be happy to make the necessary changes.
-
-Best regards,
-Kevin THIERRY
-
-
---------------060301070001080002020409
-Content-Type: text/x-patch;
- name="0001-package_rpm.bbclass-set-algorithm-and-level-of-compr.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename*0="0001-package_rpm.bbclass-set-algorithm-and-level-of-compr.pa";
- filename*1="tch"
-
-From 8e32ab1a381e3a31c81369c226cce40d37b119c6 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?K=C3=A9vin=20THIERRY?= <kevin.thierry@open.eurogiciel.org>
-Date: Thu, 9 Oct 2014 17:17:20 +0200
-Subject: [PATCH] package_rpm.bbclass: set algorithm and level of compression
-MIME-Version: 1.0
+--14dae9cc9c689bb8fb0505117186
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Add the possibility to chose the algorithm and level of compression to
-be used by rpmbuid to create the RPM packages. Such an option is useful
-to either reduce RPM packages creation time or reduce RPM packages
-size.
+Hello,
 
-Usage:
-  RPM_BIN_PAYLOAD = "w9.gzdio"
+I got a problem with creating my own custom recipe for bitbake.
 
-Signed-off-by: Kévin THIERRY <kevin.thierry@open.eurogiciel.org>
----
- meta/classes/package_rpm.bbclass | 6 ++++++
- 1 file changed, 6 insertions(+)
+I've got a folder where I store bb file lets call it tests_2.3.bb.
+In this folder I have few bash scripts.sh and C sources and their
+executable.
+and I need this files Just executable, to get to my embedded linux file
+system.
 
-diff --git a/meta/classes/package_rpm.bbclass b/meta/classes/package_rpm.bbclass
-index 92ddf7a..18fd979 100644
---- a/meta/classes/package_rpm.bbclass
-+++ b/meta/classes/package_rpm.bbclass
-@@ -676,6 +676,8 @@ python do_package_rpm () {
-     targetvendor = d.getVar('HOST_VENDOR', True)
-     package_arch = (d.getVar('PACKAGE_ARCH', True) or "").replace("-", "_")
-     sdkpkgsuffix = (d.getVar('SDKPKGSUFFIX', True) or "nativesdk").replace("-", "_")
-+    src_payload = d.getVar('RPM_SRC_PAYLOAD', True)
-+    bin_payload = d.getVar('RPM_BIN_PAYLOAD', True)
-     if package_arch not in "all any noarch".split() and not package_arch.endswith(sdkpkgsuffix):
-         ml_prefix = (d.getVar('MLPREFIX', True) or "").replace("-", "_")
-         d.setVar('PACKAGE_ARCH_EXTEND', ml_prefix + package_arch)
-@@ -703,6 +705,10 @@ python do_package_rpm () {
-     cmd = cmd + " --define 'debug_package %{nil}'"
-     cmd = cmd + " --define '_rpmfc_magic_path " + magicfile + "'"
-     cmd = cmd + " --define '_tmppath " + workdir + "'"
-+    if src_payload:
-+        cmd = cmd + " --define '_source_payload " + src_payload + "'"
-+    if bin_payload:
-+        cmd = cmd + " --define '_binary_payload " + bin_payload + "'"
-     if d.getVarFlag('ARCHIVER_MODE', 'srpm', True) == '1' and bb.data.inherits_class('archiver', d):
-         cmd = cmd + " --define '_sourcedir " + d.getVar('ARCHIVER_OUTDIR', True) + "'"
-         cmdsrpm = cmd + " --define '_srcrpmdir " + d.getVar('ARCHIVER_OUTDIR', True) + "'"
--- 
-1.8.1.4
+Below Are example bb file which I use.
+The first wont work. But the second is working fine( I get all files.sh to
+my linux file system.)
 
 
---------------060301070001080002020409
-Content-Type: text/x-patch;
- name="0001-ref-manual-Add-RPM_BIN_PAYLOAD-RPM_SRC_PAYLOAD-varia.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename*0="0001-ref-manual-Add-RPM_BIN_PAYLOAD-RPM_SRC_PAYLOAD-varia.pa";
- filename*1="tch"
+So what I need, is to write this bb file to copy even these C code
+executable to my embedded linux file system. Any help please?
 
-From c28a483a3ca30ed0d1ab0b702908137806318558 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?K=C3=A9vin=20THIERRY?= <kevin.thierry@open.eurogiciel.org>
-Date: Thu, 9 Oct 2014 17:09:09 +0200
-Subject: [PATCH] ref-manual: Add RPM_BIN_PAYLOAD, RPM_SRC_PAYLOAD variables
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Signed-off-by: Kévin THIERRY <kevin.thierry@open.eurogiciel.org>
----
- documentation/ref-manual/ref-variables.xml | 45 ++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
-
-diff --git a/documentation/ref-manual/ref-variables.xml b/documentation/ref-manual/ref-variables.xml
-index 22b8f2e..1a8051f 100644
---- a/documentation/ref-manual/ref-variables.xml
-+++ b/documentation/ref-manual/ref-variables.xml
-@@ -7100,6 +7100,51 @@ recipes-graphics/xorg-font/font-alias_1.0.3.bb:PR = "${INC_PR}.3"
-             </glossdef>
-         </glossentry>
- 
-+    <glossentry id='var-RPM_BIN_PAYLOAD'><glossterm>RPM_BIN_PAYLOAD</glossterm>
-+        <glossdef>
-+            <para>
-+                Globally set the algorithm and level of compression to use when
-+                creating binary RPM packages. This option is particularly useful
-+                to either reduce RPM packages creation time or reduce RPM
-+                packages size.
-+            </para>
-+            <para>
-+                For gzip:
-+                <literallayout class='monospaced'>
-+     RPM_BIN_PAYLOAD = "w9.gzdio"
-+                </literallayout>
-+                For bzip2:
-+                <literallayout class='monospaced'>
-+     RPM_BIN_PAYLOAD = "w9.bzdio"
-+                </literallayout>
-+                For lzma:
-+                <literallayout class='monospaced'>
-+     RPM_BIN_PAYLOAD = "w9.lzdio"
-+                </literallayout>
-+                For xz:
-+                <literallayout class='monospaced'>
-+     RPM_BIN_PAYLOAD = "w7.xzdio"
-+                </literallayout>
-+            </para>
-+            <para>
-+                The compression level is set by replacing the '?' in "w?.gzdio"
-+                with the desired value. A higher level means a better compression
-+                (but more processing time).
-+            </para>
-+        </glossdef>
-+    </glossentry>
-+
-+    <glossentry id='var-RPM_SRC_PAYLOAD'><glossterm>RPM_SRC_PAYLOAD</glossterm>
-+        <glossdef>
-+            <para>
-+                Globally set the algorithm and level of compression to use when
-+                creating source RPM packages. For more information about RPM
-+                algorithm and level of compression, please see
-+                <filename><link linkend='var-RPM_BIN_PAYLOAD'>RPM_BIN_PAYLOAD</link></filename>.
-+            </para>
-+        </glossdef>
-+    </glossentry>
-+
-         <glossentry id='var-RPROVIDES'><glossterm>RPROVIDES</glossterm>
-             <glossdef>
-                 <para>
--- 
-1.8.1.4
+One Makefile is compiling all C sources. And for every source is creating
+its executable.
 
 
---------------060301070001080002020409--
+
+
+First code below is printing this Error:  Second code works ok.
+Unable to resolve package 'tests'
+| ERROR: some packages were missing.
+
+My example:
+
+DESCRIPTION = "Description"
+>
+> SECTION = "section"
+>
+> LICENSE = "BSD"
+>
+> LIC_FILES_CHKSUM =
+>> "file://${COMMON_LICENSE_DIR}/BSD;md5=3775480a712fc46a69647678acb234cb"
+>
+>
+>> PV = "1.0"
+>
+> PR = "r0"
+>
+>
+>> SRC_URI =  "file://file1.sh \
+>
+>             file://file2.sh \
+>
+>             file://file3.sh \
+>
+>             file://testFile1.c \
+>
+>             file://testfile2.c \
+>
+>             file://testFile3.c \
+>
+>             file://includes/include1.c \
+>
+>             file://includes/include1.h \
+>
+>             file://includes/include2.c \
+>
+>             file://includes/include2.h \
+>
+>             file://includes/include3.h \
+>
+>             file://Makefile \
+>
+>             "
+>
+>
+>> S = "${WORKDIR}"
+>
+>
+>> FILES_${PN} += "/home/root/tests/testFile1 \
+>
+>                 /home/root/tests/testFile2 \
+>
+>                 /home/root/tests/testFile3 \
+>
+>                 "
+>
+>
+>> do_install () {
+>
+>      oe_runmake
+>
+>
+>
+>     install -d ${D}/home/root/tests
+>
+>     install -m 0777 ${S}/file1.sh      ${D}/home/root/tests
+>
+>     install -m 0777 ${S}/file2.sh      ${D}/home/root/tests
+>
+>     install -m 0777 ${S}/file3.sh      ${D}/home/root/tests
+>
+>     install -m 0755 testFile1          ${D}/home/root/tests
+>
+>     install -m 0755 testFile2          ${D}/home/root/tests
+>
+>     install -m 0755 testFile3          ${D}/home/root/tests
+>
+>      }
+>
+>
+>>      PARALLEL_MAKE = ""
+>
+>
+>>      BBCLASSEXTEND = "native"
+>
+>
+>>
+And this bb file does not Work.
+
+AND THIS WORKS FINE:
+
+> DESCRIPTION = "description"
+>
+> SECTION = "section"
+>
+> LICENSE = "BSD"
+>
+> LIC_FILES_CHKSUM =
+>> "file://${COMMON_LICENSE_DIR}/BSD;md5=3775480a712fc46a69647678acb234cb"
+>
+>
+>> PV = "1.0"
+>
+> PR = "r0"
+>
+> SRC_URI =  "file://file1.sh \
+>
+>             file://file2.sh \
+>
+>             file://file3.sh"
+>
+>
+>>
+>> S = "${WORKDIR}"
+>
+>
+>> FILES_${PN} += "/home/root/tests"
+>
+>
+>>
+>> do_configure() {
+>
+> }
+>
+>
+>> do_install() {
+>
+> install -d ${D}/home/root/tests
+>
+> install -m 0777 ${S}/file1.sh    ${D}/home/root/tests
+>
+> install -m 0777 ${S}/file2.sh    ${D}/home/root/tests
+>
+> install -m 0777 ${S}/file3.sh    ${D}/home/root/tests
+>
+> }
+>
+>
+>
+
+Do you have any idea How could be writen this bb file.
+
+Thanks.
+
+--14dae9cc9c689bb8fb0505117186
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,=C2=A0<div><br></div><div>I got a problem with creat=
+ing my own custom recipe for bitbake.</div><div><br></div><div>I&#39;ve got=
+ a folder where I store bb file lets call it <a href=3D"http://tests_2.3.bb=
+">tests_2.3.bb</a>.</div><div>In this folder I have few bash scripts.sh and=
+ C sources and their executable.=C2=A0</div><div>and I need this files Just=
+ executable, to get to my embedded linux file system.</div><div><br></div><=
+div>Below Are example bb file which I use.</div><div>The first wont work. B=
+ut the second is working fine( I get all files.sh to my linux file system.)=
+</div><div><br></div><div><br></div><div>So what I need, is to write this b=
+b file to copy even these C code executable to my embedded linux file syste=
+m. Any help please?</div><div><br></div><div>One Makefile is compiling all =
+C sources. And for every source is creating its executable.</div><div><br><=
+/div><div><br></div><div><br></div><div><br></div><div>First code below is =
+printing this Error: =C2=A0Second code works ok.</div><div><div>Unable to r=
+esolve package &#39;tests&#39;</div><div>| ERROR: some packages were missin=
+g.</div></div><div><br></div><div>My example:</div><div><br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-widt=
+h:1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-le=
+ft:1ex"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left-width:1px;border-left-color:rgb(204,204,204);border-left-style=
+:solid;padding-left:1ex">DESCRIPTION =3D &quot;Description&quot;</blockquot=
+e><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
+r-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid=
+;padding-left:1ex">SECTION =3D &quot;section&quot;</blockquote><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1=
+px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:=
+1ex">LICENSE =3D &quot;BSD&quot;</blockquote><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-col=
+or:rgb(204,204,204);border-left-style:solid;padding-left:1ex">LIC_FILES_CHK=
+SUM =3D &quot;file://${COMMON_LICENSE_DIR}/BSD;md5=3D3775480a712fc46a696476=
+78acb234cb&quot;</blockquote><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,2=
+04);border-left-style:solid;padding-left:1ex"><br></blockquote><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1=
+px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:=
+1ex">PV =3D &quot;1.0&quot;</blockquote><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rg=
+b(204,204,204);border-left-style:solid;padding-left:1ex">PR =3D &quot;r0&qu=
+ot;</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-le=
+ft-style:solid;padding-left:1ex"><br></blockquote><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-lef=
+t-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex">SRC_URI =
+=3D =C2=A0&quot;file://file1.sh \</blockquote><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-co=
+lor:rgb(204,204,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://file2.sh \</blockquote><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1p=
+x;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1=
+ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://file3.sh \</blockquote=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;=
+padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://testFile=
+1.c \</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-=
+left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 file://testfile2.c \</blockquote><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(2=
+04,204,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 file://testFile3.c \</blockquote><blockquote class=3D"=
+gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border=
+-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex">=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://includes/include1.c \</blockq=
+uote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:so=
+lid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://incl=
+udes/include1.h \</blockquote><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,=
+204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 file://includes/include2.c \</blockquote><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;borde=
+r-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex">=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://includes/include2.h \</blockq=
+uote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:so=
+lid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://incl=
+udes/include3.h \</blockquote><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,=
+204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 file://Makefile \</blockquote><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-colo=
+r:rgb(204,204,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;</blockquote><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-c=
+olor:rgb(204,204,204);border-left-style:solid;padding-left:1ex"><br></block=
+quote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:s=
+olid;padding-left:1ex">S =3D &quot;${WORKDIR}&quot;</blockquote><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:=
+1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left=
+:1ex"><br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);bo=
+rder-left-style:solid;padding-left:1ex">FILES_${PN} +=3D &quot;/home/root/t=
+ests/testFile1 \</blockquote><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,2=
+04);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /home/root/tests/testFile2 \</blockquote><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-w=
+idth:1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding=
+-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /home/ro=
+ot/tests/testFile3 \</blockquote><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,2=
+04,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;</blockquote><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-le=
+ft-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex"><br></b=
+lockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-left-sty=
+le:solid;padding-left:1ex">do_install () {</blockquote><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;borde=
+r-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex">=C2=
+=A0 =C2=A0 =C2=A0oe_runmake=C2=A0</blockquote><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-co=
+lor:rgb(204,204,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=
+=A0=C2=A0</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);bor=
+der-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 install -d ${D}/home/r=
+oot/tests</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);bor=
+der-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 install -m 0777 ${S}/f=
+ile1.sh =C2=A0 =C2=A0 =C2=A0${D}/home/root/tests</blockquote><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px=
+;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1e=
+x">=C2=A0 =C2=A0 install -m 0777 ${S}/file2.sh =C2=A0 =C2=A0 =C2=A0${D}/hom=
+e/root/tests</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);=
+border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 install -m 0777 ${S=
+}/file3.sh =C2=A0 =C2=A0 =C2=A0${D}/home/root/tests</blockquote><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:=
+1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left=
+:1ex">=C2=A0 =C2=A0 install -m 0755 testFile1 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0${D}/home/root/tests</blockquote><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb=
+(204,204,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 insta=
+ll -m 0755 testFile2 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0${D}/home/root/tests=
+</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-left-=
+style:solid;padding-left:1ex">=C2=A0 =C2=A0 install -m 0755 testFile3 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0${D}/home/root/tests</blockquote><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:=
+1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left=
+:1ex">=C2=A0 =C2=A0 =C2=A0}</blockquote><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rg=
+b(204,204,204);border-left-style:solid;padding-left:1ex"><br></blockquote><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;pa=
+dding-left:1ex">=C2=A0 =C2=A0 =C2=A0PARALLEL_MAKE =3D &quot;&quot;</blockqu=
+ote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:sol=
+id;padding-left:1ex"><br></blockquote><blockquote class=3D"gmail_quote" sty=
+le=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(=
+204,204,204);border-left-style:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0=
+BBCLASSEXTEND =3D &quot;native&quot;</blockquote><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left=
+-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex"><br></blo=
+ckquote></blockquote><div><br></div><div>And this bb file does not Work.</d=
+iv><div><br></div><div>AND THIS WORKS FINE:</div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left=
+-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex"><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-widt=
+h:1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-le=
+ft:1ex">DESCRIPTION =3D &quot;description&quot;</blockquote><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;=
+border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex=
+">SECTION =3D &quot;section&quot;</blockquote><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-co=
+lor:rgb(204,204,204);border-left-style:solid;padding-left:1ex">LICENSE =3D =
+&quot;BSD&quot;</blockquote><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,20=
+4);border-left-style:solid;padding-left:1ex">LIC_FILES_CHKSUM =3D &quot;fil=
+e://${COMMON_LICENSE_DIR}/BSD;md5=3D3775480a712fc46a69647678acb234cb&quot;<=
+/blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-left-s=
+tyle:solid;padding-left:1ex"><br></blockquote><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-co=
+lor:rgb(204,204,204);border-left-style:solid;padding-left:1ex">PV =3D &quot=
+;1.0&quot;</blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);bo=
+rder-left-style:solid;padding-left:1ex">PR =3D &quot;r0&quot;</blockquote><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;pa=
+dding-left:1ex">SRC_URI =3D =C2=A0&quot;file://file1.sh \</blockquote><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-=
+width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;paddin=
+g-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://file2.sh \</bl=
+ockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left-width:1px;border-left-color:rgb(204,204,204);border-left-styl=
+e:solid;padding-left:1ex">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 file://=
+file3.sh&quot;</blockquote><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204=
+);border-left-style:solid;padding-left:1ex"><br></blockquote><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px=
+;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1e=
+x"><br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);borde=
+r-left-style:solid;padding-left:1ex">S =3D &quot;${WORKDIR}&quot;</blockquo=
+te><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:soli=
+d;padding-left:1ex"><br></blockquote><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(2=
+04,204,204);border-left-style:solid;padding-left:1ex">FILES_${PN} +=3D &quo=
+t;/home/root/tests&quot;</blockquote><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(2=
+04,204,204);border-left-style:solid;padding-left:1ex"><br></blockquote><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;paddi=
+ng-left:1ex"><br></blockquote><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,=
+204);border-left-style:solid;padding-left:1ex">do_configure() {</blockquote=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;=
+padding-left:1ex">}</blockquote><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,20=
+4,204);border-left-style:solid;padding-left:1ex"><br></blockquote><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-widt=
+h:1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-le=
+ft:1ex">do_install() {</blockquote><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(20=
+4,204,204);border-left-style:solid;padding-left:1ex"><span class=3D"" style=
+=3D"white-space:pre">	</span>install -d ${D}/home/root/tests</blockquote><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft-width:1px;border-left-color:rgb(204,204,204);border-left-style:solid;pad=
+ding-left:1ex"><span class=3D"" style=3D"white-space:pre">	</span>install -=
+m 0777 ${S}/file1.sh =C2=A0 =C2=A0${D}/home/root/tests</blockquote><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-wid=
+th:1px;border-left-color:rgb(204,204,204);border-left-style:solid;padding-l=
+eft:1ex"><span class=3D"" style=3D"white-space:pre">	</span>install -m 0777=
+ ${S}/file2.sh =C2=A0 =C2=A0${D}/home/root/tests</blockquote><blockquote cl=
+ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px=
+;border-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1e=
+x"><span class=3D"" style=3D"white-space:pre">	</span>install -m 0777 ${S}/=
+file3.sh =C2=A0 =C2=A0${D}/home/root/tests</blockquote><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;borde=
+r-left-color:rgb(204,204,204);border-left-style:solid;padding-left:1ex">}</=
+blockquote><div><br></div></blockquote><div><br></div><div><br></div><div>D=
+o you have any idea How could be writen this bb file.</div><div><br></div><=
+div>Thanks.=C2=A0</div><div>=C2=A0</div></div>
+
+--14dae9cc9c689bb8fb0505117186--
