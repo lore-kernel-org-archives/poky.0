@@ -1,55 +1,47 @@
-Return-Path: <btv1==3669040a9bc==Matt.Schuckmann@planar.com>
+Return-Path: <jkv@unixcluster.dk>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 04A59E00790; Thu, 16 Oct 2014 11:01:38 -0700 (PDT)
+	id 7CBB1E007DC; Fri, 17 Oct 2014 08:36:03 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [74.125.82.46 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 1148 seconds by postgrey-1.32 at yocto-www;
-	Thu, 16 Oct 2014 11:01:26 PDT
-Received: from barbvt10.planar.com (mail.planar.com [199.244.172.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A8FEEE00744
-	for <poky@yoctoproject.org>; Thu, 16 Oct 2014 11:01:26 -0700 (PDT)
-X-ASG-Debug-ID: 1413481334-04b02b6fa61348d0001-6z8X8j
-Received: from msxbvt03.planar.net ([172.16.0.147]) by barbvt10.planar.com
-	with ESMTP id 3Zwhf8zjqhNf5kGQ for <poky@yoctoproject.org>;
-	Thu, 16 Oct 2014 10:42:14 -0700 (PDT)
-X-Barracuda-Envelope-From: Matt.Schuckmann@planar.com
-Received: from MSXBEBVT12.planar.net ([::1]) by msxbvt03.planar.net ([::1])
-	with mapi; Thu, 16 Oct 2014 10:42:14 -0700
-From: Matt Schuckmann <Matt.Schuckmann@planar.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Thu, 16 Oct 2014 10:42:13 -0700
-Thread-Topic: [poky] read-only rootfs and additional fs
-X-ASG-Orig-Subj: RE: [poky] read-only rootfs and additional fs
-Thread-Index: Ac/pKYid1Aq+ufwkQwqmtQLi+A6V8AAPoqNg
-Message-ID: <4B07ADD556F70043925DA2E9C5D4346D2FD8799A57@MSXBEBVT12.planar.net>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+Received: from mail-wg0-f46.google.com (mail-wg0-f46.google.com [74.125.82.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C733BE00796
+	for <poky@yoctoproject.org>; Fri, 17 Oct 2014 08:35:58 -0700 (PDT)
+Received: by mail-wg0-f46.google.com with SMTP id l18so1190803wgh.17
+	for <poky@yoctoproject.org>; Fri, 17 Oct 2014 08:35:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:cc:content-type;
+	bh=TDe/oRyzTNIi/i3U9Q63EqD2601sq4t+GqvtXwrymTE=;
+	b=UVWT29QT9QqnzSkmR+DNUbcdCPYm5CqmDvVTCHrhZJKOFrjvcNlihdwffhdf5nIkGE
+	fw1VqSDAO8zY0tBW1lTwmLHBC+ZhlEZkLMk8CqB7elfd8O2NBFXXybw26ZcY22pn6+jl
+	wOYt8ZF5X5Z167EnouwODZ56Q+8NODp0bZBCLL/LP5/oaf8cDecKEOtCDKXXoRjcfolX
+	iDDUK1lPHnXUjC6Vb/1MAqHq3hahy0IgzUCjU8VaxBTlYoPRH8aM/ytp1FyvQ2uucZnL
+	MYp7px0eyaYva4ToU5Wnxn/lc9vVTtS0B5DTe6j1E1s0y/eZYZIp6HmGsrqbyhgf+sbp
+	0Ayg==
+X-Gm-Message-State: ALoCoQloAwISZE//txx7Awx/RZXXFC2Fss07CyP0epse6dVgymjEoXP5puoOFL53+2pNSqJdCuZ+
+MIME-Version: 1.0
+X-Received: by 10.180.93.37 with SMTP id cr5mr15100508wib.76.1413560155982;
+	Fri, 17 Oct 2014 08:35:55 -0700 (PDT)
+Received: by 10.217.93.197 with HTTP; Fri, 17 Oct 2014 08:35:55 -0700 (PDT)
+X-Originating-IP: [217.130.241.93]
+In-Reply-To: <9C1C9AD1-9813-419B-A268-BBF0432E9159@gmail.com>
 References: <CAO+iiFydzxEy6qkW15eD2R036T=DYhL7J+G5yzGem9cSP9AFqA@mail.gmail.com>
 	<9C1C9AD1-9813-419B-A268-BBF0432E9159@gmail.com>
-In-Reply-To: <9C1C9AD1-9813-419B-A268-BBF0432E9159@gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: en-US
-MIME-Version: 1.0
-X-Barracuda-Connect: UNKNOWN[172.16.0.147]
-X-Barracuda-Start-Time: 1413481334
-X-Barracuda-URL: http://10.10.111.112:8000/cgi-mod/mark.cgi
-X-Virus-Scanned: by bsmtpd at planar.com
-X-Barracuda-BRTS-Status: 1
-X-Barracuda-Bayes: INNOCENT GLOBAL 0.0000 1.0000 -2.0210
-X-Barracuda-Spam-Score: -2.02
-X-Barracuda-Spam-Status: No,
-	SCORE=-2.02 using per-user scores of TAG_LEVEL=1000.0
-	QUARANTINE_LEVEL=1000.0 KILL_LEVEL=1000.0 tests=
-X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.10640
-	Rule breakdown below
-	pts rule name              description
-	---- ----------------------
-	--------------------------------------------------
+Date: Fri, 17 Oct 2014 16:35:55 +0100
+Message-ID: <CAO+iiFw5ddVrYV+x4D6TDmt-3y7m4ocEy=16YWvG=dJF=YLBkA@mail.gmail.com>
+From: Johnny Vestergaard <jkv@unixcluster.dk>
+To: Jens Rehsack <rehsack@gmail.com>
+Cc: poky@yoctoproject.org
 Subject: Re: read-only rootfs and additional fs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -63,70 +55,116 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 Oct 2014 18:01:38 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 17 Oct 2014 15:36:03 -0000
+Content-Type: multipart/alternative; boundary=f46d043c8050f781600505a01e66
 
-Jens,=20
+--f46d043c8050f781600505a01e66
+Content-Type: text/plain; charset=UTF-8
 
-I've got to ask what about Johnny's approach don't you recommend? And why? =
-I ask because I was planning to do something similar, i.e. read only root f=
-ile system with a separate writeable partition for configuration data, prob=
-ably using soft links in the read only root FS to point at writeable config=
- files where needed.=20
+Hi Jens,
 
-Thanks,
-Matt S.=20
+Thanks for the advise. At least that would get me started.
+Btw, as Matt asks - why would you not recommend such an approach?
 
-> -----Original Message-----
-> From: poky-bounces@yoctoproject.org [mailto:poky-
-> bounces@yoctoproject.org] On Behalf Of Jens Rehsack
-> Sent: Thursday, October 16, 2014 3:11 AM
-> To: Johnny Vestergaard
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] read-only rootfs and additional fs
->=20
->=20
+regards,
+Johnny
+
+On Thu, Oct 16, 2014 at 11:10 AM, Jens Rehsack <rehsack@gmail.com> wrote:
+
+>
 > Am 16.10.2014 um 11:14 schrieb Johnny Vestergaard <jkv@unixcluster.dk>:
->=20
+>
 > > Hi,
 > >
-> > I have used "root-only-rootfs" for my build of the poky reference
-> image - but i would like to mount an additional fs with write
-> permission to enable saving a few config files that is configurable by
-> the end-user. How would i do that with poky?
+> > I have used "root-only-rootfs" for my build of the poky reference image
+> - but i would like to mount an additional fs with write permission to
+> enable saving a few config files that is configurable by the end-user. How
+> would i do that with poky?
 > >
 > > In essence my question can be boiled down to:
 > > How do i create and add a additional filesystem to the image?
->=20
+>
 > Even if I cannot recommend that for anybody's use, this can give you a
 > starter:
->=20
-> * extend fstab to our needs: https://github.com/rdm-dev/meta-
-> jens/tree/master/recipes-core/base-files
-> * add mount as we want: https://github.com/rdm-dev/meta-
-> jens/blob/master/recipes-core/initscripts/initscripts/mountunion.sh
+>
+> * extend fstab to our needs:
+> https://github.com/rdm-dev/meta-jens/tree/master/recipes-core/base-files
+> * add mount as we want:
+> https://github.com/rdm-dev/meta-jens/blob/master/recipes-core/initscripts/initscripts/mountunion.sh
 > * use mount-bind instead of links where applicable:
-> https://github.com/rdm-dev/meta-jens/blob/master/recipes-
-> core/initscripts/initscripts/populate-volatile.sh
-> * create image/rootfs bundles we need: https://github.com/rdm-dev/meta-
-> jens/blob/master/scripts/mkimgs
-> * put stuff on a flash-device: https://github.com/rdm-dev/meta-
-> jens/tree/master/recipes-rdm/prd/prd-flash
->=20
+> https://github.com/rdm-dev/meta-jens/blob/master/recipes-core/initscripts/initscripts/populate-volatile.sh
+> * create image/rootfs bundles we need:
+> https://github.com/rdm-dev/meta-jens/blob/master/scripts/mkimgs
+> * put stuff on a flash-device:
+> https://github.com/rdm-dev/meta-jens/tree/master/recipes-rdm/prd/prd-flash
+>
 > Cheers
 > --
 > Jens Rehsack
 > rehsack@gmail.com
->=20
->=20
->=20
->=20
->=20
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>
+>
+>
+>
+>
+>
 
+--f46d043c8050f781600505a01e66
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Jens,<div><br></div><div>Thanks for the advise. At leas=
+t that would get me started.=C2=A0</div><div>Btw, as Matt asks - why would =
+you not recommend such an approach?</div><div><br></div><div>regards,</div>=
+<div>Johnny</div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_q=
+uote">On Thu, Oct 16, 2014 at 11:10 AM, Jens Rehsack <span dir=3D"ltr">&lt;=
+<a href=3D"mailto:rehsack@gmail.com" target=3D"_blank">rehsack@gmail.com</a=
+>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 =
+0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
+Am 16.10.2014 um 11:14 schrieb Johnny Vestergaard &lt;<a href=3D"mailto:jkv=
+@unixcluster.dk">jkv@unixcluster.dk</a>&gt;:<br>
+<div><div class=3D"h5"><br>
+&gt; Hi,<br>
+&gt;<br>
+&gt; I have used &quot;root-only-rootfs&quot; for my build of the poky refe=
+rence image - but i would like to mount an additional fs with write permiss=
+ion to enable saving a few config files that is configurable by the end-use=
+r. How would i do that with poky?<br>
+&gt;<br>
+&gt; In essence my question can be boiled down to:<br>
+&gt; How do i create and add a additional filesystem to the image?<br>
+<br>
+</div></div>Even if I cannot recommend that for anybody&#39;s use, this can=
+ give you a starter:<br>
+<br>
+* extend fstab to our needs: <a href=3D"https://github.com/rdm-dev/meta-jen=
+s/tree/master/recipes-core/base-files" target=3D"_blank">https://github.com=
+/rdm-dev/meta-jens/tree/master/recipes-core/base-files</a><br>
+* add mount as we want: <a href=3D"https://github.com/rdm-dev/meta-jens/blo=
+b/master/recipes-core/initscripts/initscripts/mountunion.sh" target=3D"_bla=
+nk">https://github.com/rdm-dev/meta-jens/blob/master/recipes-core/initscrip=
+ts/initscripts/mountunion.sh</a><br>
+* use mount-bind instead of links where applicable: <a href=3D"https://gith=
+ub.com/rdm-dev/meta-jens/blob/master/recipes-core/initscripts/initscripts/p=
+opulate-volatile.sh" target=3D"_blank">https://github.com/rdm-dev/meta-jens=
+/blob/master/recipes-core/initscripts/initscripts/populate-volatile.sh</a><=
+br>
+* create image/rootfs bundles we need: <a href=3D"https://github.com/rdm-de=
+v/meta-jens/blob/master/scripts/mkimgs" target=3D"_blank">https://github.co=
+m/rdm-dev/meta-jens/blob/master/scripts/mkimgs</a><br>
+* put stuff on a flash-device: <a href=3D"https://github.com/rdm-dev/meta-j=
+ens/tree/master/recipes-rdm/prd/prd-flash" target=3D"_blank">https://github=
+.com/rdm-dev/meta-jens/tree/master/recipes-rdm/prd/prd-flash</a><br>
+<br>
+Cheers<br>
+<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
+Jens Rehsack<br>
+<a href=3D"mailto:rehsack@gmail.com">rehsack@gmail.com</a><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</font></span></blockquote></div><br></div>
+
+--f46d043c8050f781600505a01e66--
