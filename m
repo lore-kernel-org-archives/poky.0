@@ -1,34 +1,45 @@
-Return-Path: <Liezhi.Yang@windriver.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D69A8E008C3; Sun, 19 Oct 2014 20:35:47 -0700 (PDT)
+	id F108EE00885; Mon, 20 Oct 2014 09:29:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 42FF7E008B0
-	for <poky@yoctoproject.org>; Sun, 19 Oct 2014 20:35:42 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id s9K3Zgq3027620
-	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Sun, 19 Oct 2014 20:35:42 -0700 (PDT)
-Received: from ala-blade47.wrs.com (147.11.105.67) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.174.1;
-	Sun, 19 Oct 2014 20:35:41 -0700
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Sun, 19 Oct 2014 20:35:40 -0700
-Message-ID: <cover.1413776077.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.7.9.5
-MIME-Version: 1.0
-Subject: [PATCH 0/1] local.conf.sample.extended: update for RPM_PREFER_ELF_ARCH
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.48 listed in list.dnswl.org]
+Received: from mail-wg0-f48.google.com (mail-wg0-f48.google.com [74.125.82.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 87988E008B0
+	for <poky@yoctoproject.org>; Mon, 20 Oct 2014 09:28:52 -0700 (PDT)
+Received: by mail-wg0-f48.google.com with SMTP id k14so5881574wgh.7
+	for <poky@yoctoproject.org>; Mon, 20 Oct 2014 09:28:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=hHwrpidOgsm04gBejRc1wPzl47juexQac9u9UAbaU2M=;
+	b=AD/91UaMVF6BPFJAt3/9NqHkavh9VtbI/fhNDpv/kgKxd0u7XlemTO8VGhEiwPyKIC
+	b1sofIoKl8xb4rFiAVd3WxrGGvZzeSnlAuW9yvBkw6zTVD2oBv1zV3Rk5olq7W6PW1FW
+	eiI5xj6VQhS/i2MaymH0GnVzjXOJCfydPXeMxWwcBTPlb8NwK4Dmld/NFdYEV0xD+HZa
+	3qkVjBgNUKCgY2LPTA0FlBCqv9i1Q0BzJLRaIX3k/oNfUn53yIzxdJt4qDgAn136525r
+	56uhYCXygs0nSAp3ZPGDkC4/u9ACNTXaFixn5ER6aZZeBGd5Quo8Hp9IQaxNNgWTc3LM
+	Qcrw==
+X-Gm-Message-State: ALoCoQmU9hbhRmhAaXRn07h/bzz8Sl0NtQLrrnHp7ME3AJeUYqebeXjd96qJomvEJ+at3SFhVDnp
+X-Received: by 10.194.60.230 with SMTP id k6mr4721956wjr.135.1413822531849;
+	Mon, 20 Oct 2014 09:28:51 -0700 (PDT)
+Received: from melchett.burtonini.com (35.106.2.81.in-addr.arpa. [81.2.106.35])
+	by mx.google.com with ESMTPSA id
+	pc8sm12398813wjb.36.2014.10.20.09.28.50 for <poky@yoctoproject.org>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 20 Oct 2014 09:28:50 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 20 Oct 2014 17:28:41 +0100
+Message-Id: <1413822521-14606-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 1.7.10.4
+Subject: [PATCH] poky.conf: add Debian 7.7 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,25 +52,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Oct 2014 03:35:47 -0000
-Content-Type: text/plain
+X-List-Received-Date: Mon, 20 Oct 2014 16:29:03 -0000
 
-The following changes since commit 924da20c6f2f183fa7e930e4c3c6b14c090acbe5:
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto/conf/distro/poky.conf |    1 +
+ 1 file changed, 1 insertion(+)
 
-  build-appliance-image: Update to dizzy head revision (2014-10-18 16:16:38 +0200)
-
-are available in the git repository at:
-
-  git://git.pokylinux.org/poky-contrib rbt/rpm_elf
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=rbt/rpm_elf
-
-Robert Yang (1):
-  local.conf.sample.extended: update for RPM_PREFER_ELF_ARCH
-
- meta-yocto/conf/local.conf.sample.extended |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index eaf06d3..e1dfea4 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -91,6 +91,7 @@ SANITY_TESTED_DISTROS ?= " \
+             Debian-7.4 \n \
+             Debian-7.5 \n \
+             Debian-7.6 \n \
++            Debian-7.7 \n \
+             SUSE-LINUX-12.2 \n \
+             openSUSE-project-12.3 \n \
+             openSUSE-project-13.1 \n \
 -- 
-1.7.9.5
+1.7.10.4
 
 
