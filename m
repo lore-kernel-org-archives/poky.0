@@ -1,39 +1,48 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <am.devel@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8FCE1E0087C; Mon,  3 Nov 2014 07:42:51 -0800 (PST)
+	id 6DC82E008ED; Tue,  4 Nov 2014 01:50:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (am.devel[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 90898E00874
-	for <poky@yoctoproject.org>; Mon,  3 Nov 2014 07:42:41 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	sA3FaaOt020066; Mon, 3 Nov 2014 15:36:36 GMT
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id ijnd4ssqDw_A; Mon,  3 Nov 2014 15:36:36 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	sA3FaYfm020063
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Mon, 3 Nov 2014 15:36:35 GMT
-Message-ID: <1415029029.5111.21.camel@ted>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Holger Hans Peter Freyther <holger@freyther.de>
-Date: Mon, 03 Nov 2014 15:37:09 +0000
-In-Reply-To: <20141103151218.GD6154@xiaoyu.lan>
-References: <20141102200530.GE6886@xiaoyu.lan> <1414965815.5111.1.camel@ted>
-	<20141103072256.GB6154@xiaoyu.lan> <1415001899.5111.3.camel@ted>
-	<20141103151218.GD6154@xiaoyu.lan>
-X-Mailer: Evolution 3.10.4-0ubuntu2 
-Mime-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: gcc 4.9.1 and stdint.h
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.53 listed in list.dnswl.org]
+Received: from mail-wg0-f53.google.com (mail-wg0-f53.google.com [74.125.82.53])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB0B5E00874;
+	Tue,  4 Nov 2014 01:50:32 -0800 (PST)
+Received: by mail-wg0-f53.google.com with SMTP id b13so12847242wgh.26
+	for <multiple recipients>; Tue, 04 Nov 2014 01:50:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=ZZqsKgkRYrFFvxF8uX9P6h79u/Jd3oprpO6ZF2mzgyM=;
+	b=S/AiuryUCnglxjoesEyMHzY9JkR9RCGUAh9iGqaSp9O8AEnWlpkFogl1ZrSrk9YzjW
+	FTYCySHqFpOK1yBcS4bhrWhK4jnt2t/gw0VQ1M/N5rar5eqaKiELDTNVlh3SkxwcVTw/
+	FHJsnFlTZiDPiWnAkOpT0EDBn/jsPIidPnxs2muiJ4xy4XbOKCAJAYxWeFcKk70594zM
+	s8DUcMol0Q8wuEE+vz5R4eIQBjQ0VYuDmP/3N1ttswnZIgFEFgYmCg92776PTBEPAcaP
+	KXvqBlBRCT8NirZh1ZYXUEg3bf2iyvXhycaREVveaxyvS1nkAWgGl61e7acFXJM/8ba5
+	2pwg==
+MIME-Version: 1.0
+X-Received: by 10.194.171.201 with SMTP id aw9mr14328441wjc.67.1415094632074; 
+	Tue, 04 Nov 2014 01:50:32 -0800 (PST)
+Received: by 10.217.116.199 with HTTP; Tue, 4 Nov 2014 01:50:31 -0800 (PST)
+Date: Tue, 4 Nov 2014 15:20:31 +0530
+Message-ID: <CAGRzuVyL9dkmqu28kP2Qk2289Ga+KDUs2BAkDute-YCV6qJXNQ@mail.gmail.com>
+From: Anuj Mittal <am.devel@gmail.com>
+To: poky@yoctoproject.org, meta-intel@yoctoproject.org
+Subject: Poky and meta-intel window manager
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,31 +55,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Nov 2014 15:42:51 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 04 Nov 2014 09:50:41 -0000
+Content-Type: multipart/alternative; boundary=089e013c6692de53ab05070564ae
 
-On Mon, 2014-11-03 at 16:12 +0100, Holger Hans Peter Freyther wrote:
-> On Mon, Nov 03, 2014 at 08:04:59AM +0000, Richard Purdie wrote:
-> 
-> Dear Richard,
-> 
-> > http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=678e8798ebe0f4fd1bd347db136f1499b8fe00c9
-> 
-> thanks a lot for explaining. I see how using the default sysroot
-> with external toolchains is going to cause issues. What is the
-> reasoning to have it for the canadian cross (hence meta-toolchain)?
+--089e013c6692de53ab05070564ae
+Content-Type: text/plain; charset=UTF-8
 
-The reasoning is that we have one canadian-cross compiler targeting
-multiple sysroots (one arm compiler targets all arm machines). The
-compiled in sysroot may not be the final installation path anyway,
-depending on where you install meta-toolchain.
+I'm trying to build core-image-sato-sdk with meta-intel for Intel
+valleyview.
 
-We prefer deterministic builds rather than some toolchain installations
-that work and some that don't.
+Is there a way I can have a different interface than sato? I've an
+application that displays in tiles which, it looks like, won't work with
+the sato & matchbox available in poky.
 
-Cheers,
+Thank you.
 
-Richard
+Anuj
 
+--089e013c6692de53ab05070564ae
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>I&#39;m trying to build core-image-sato-sdk with meta=
+-intel for Intel valleyview.</div><div><br></div><div>Is there=C2=A0a way I=
+ can have a different interface than sato? I&#39;ve an application that dis=
+plays in tiles which, it looks like, won&#39;t work with the sato &amp; mat=
+chbox available in poky.</div><div><br></div><div>Thank you.</div><div><br>=
+</div><div>Anuj</div></div>
+
+--089e013c6692de53ab05070564ae--
