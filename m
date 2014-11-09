@@ -1,6 +1,6 @@
 Return-Path: <holger@freyther.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B294BE0079E; Fri,  7 Nov 2014 08:59:38 -0800 (PST)
+	id 1CCA2E008D0; Sun,  9 Nov 2014 06:14:13 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -9,27 +9,22 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mail.sysmocom.de (mail.sysmocom.de [144.76.43.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7B741E002A8
-	for <poky@yoctoproject.org>; Fri,  7 Nov 2014 08:59:25 -0800 (PST)
-Received: from sangmingze-mail.local (ip5b41c286.dynamic.kabel-deutschland.de
-	[91.65.194.134])
-	by mail.sysmocom.de (Postfix) with ESMTPSA id 2B61B862FB;
-	Fri,  7 Nov 2014 16:59:20 +0000 (UTC)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A8B56E00832
+	for <poky@yoctoproject.org>; Sun,  9 Nov 2014 06:14:02 -0800 (PST)
+Received: from sangmingze-mail.local (ip5b42f21c.dynamic.kabel-deutschland.de
+	[91.66.242.28])
+	by mail.sysmocom.de (Postfix) with ESMTPSA id 05D7C8703F
+	for <poky@yoctoproject.org>; Sun,  9 Nov 2014 14:13:56 +0000 (UTC)
 Received: from ich by sangmingze-mail.local with local (Exim 4.84)
-	(envelope-from <holger@freyther.de>)
-	id 1Xmmrf-0008OF-FO; Fri, 07 Nov 2014 17:58:23 +0100
-Date: Fri, 7 Nov 2014 17:58:23 +0100
+	(envelope-from <holger@freyther.de>) id 1XnTFB-0003GQ-Q5
+	for poky@yoctoproject.org; Sun, 09 Nov 2014 15:13:29 +0100
+Date: Sun, 9 Nov 2014 15:13:29 +0100
 From: Holger Hans Peter Freyther <holger@freyther.de>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20141107165823.GV15403@xiaoyu.lan>
-References: <20141102200530.GE6886@xiaoyu.lan> <1414965815.5111.1.camel@ted>
-	<20141103072256.GB6154@xiaoyu.lan> <1415001899.5111.3.camel@ted>
-	<20141103151218.GD6154@xiaoyu.lan> <1415029029.5111.21.camel@ted>
+To: poky@yoctoproject.org
+Message-ID: <20141109141329.GH27444@xiaoyu.lan>
 MIME-Version: 1.0
-In-Reply-To: <1415029029.5111.21.camel@ted>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: poky@yoctoproject.org
-Subject: Re: gcc 4.9.1 and stdint.h
+Subject: Error on PRINC
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,18 +37,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Nov 2014 16:59:38 -0000
+X-List-Received-Date: Sun, 09 Nov 2014 14:14:13 -0000
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Nov 03, 2014 at 03:37:09PM +0000, Richard Purdie wrote:
+Dear Richard,
 
-> We prefer deterministic builds rather than some toolchain installations
-> that work and some that don't.
+I went through the diff and show your commit to turn having a
+PRINC into an error. For our GSM BTS we are using Poky for the
+base-system. We are currently shipping edison and dora based
+images and I am working on tracking master because our internal
+stabilisation period was always too long (e.g. the gcc compiler
+issue, systemd journald performance, issues with creating source
+tarballs for GPL compliance).
 
-Do you intend to create a script like the current environment that
-could work with "bare" apps (like u-boot, linux kernel, initial
-bootloaders, etc.)?
+On top of OE-Core/Poky we have two layers, one is a BSP layer
+and the other is all the opensource GSM bits we use and offer
+to the customers. We do not use different release branches as
+our software is portable enough to work across different versions
+of gcc and such.
 
-holger
+Even supporting a BSP for Edison, Dora and master is not so
+much of an issue. And now back to the point. So we still need
+to use PRINC for providing updates to edison, we want to use
+PRINC on dora as things like CONFFILES_${PN} were not correctly
+tracked but at the same time I want to track master to not end
+up with the situation of spending 6 months in integration and
+then be on an old version of Poky. The way I track master is
+having a jenkins job that will take */master of everything and
+build. Now when you turn the warning in an error the build will
+be considered broken.
+
+a.) Can you undo the change and give us enough time to cease
+out our edison users?
+
+b.) Would you accept a patch with something like "known" usage
+of deprecated features? KNOWN_DEPRECATED="princ bla"? This way
+I know about PRINC and decide to postpone but can will not see
+other deprecated things?
+
+kind regards
+	holger
 
