@@ -1,36 +1,51 @@
-Return-Path: <Liezhi.Yang@windriver.com>
+Return-Path: <aschultz@tpip.net>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D463EE008C6; Thu, 20 Nov 2014 17:58:08 -0800 (PST)
+	id 1E6ECE0092D; Tue, 25 Nov 2014 06:17:31 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A29FAE0086F
-	for <poky@yoctoproject.org>; Thu, 20 Nov 2014 17:58:05 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id sAL1w3U4023222
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 20 Nov 2014 17:58:04 -0800 (PST)
-Received: from ala-blade48.wrs.com (147.11.105.68) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.174.1;
-	Thu, 20 Nov 2014 17:58:03 -0800
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Thu, 20 Nov 2014 17:58:02 -0800
-Message-ID: <c75e757a21365c3f4a433800f25817e46efefb4c.1416534913.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.7.9.5
-In-Reply-To: <cover.1416534913.git.liezhi.yang@windriver.com>
-References: <cover.1416534913.git.liezhi.yang@windriver.com>
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0011]
+X-Greylist: delayed 594 seconds by postgrey-1.32 at yocto-www;
+	Tue, 25 Nov 2014 06:17:28 PST
+Received: from mail.tpip.net (mail.tpip.net [92.43.49.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5E4EE008FC
+	for <poky@yoctoproject.org>; Tue, 25 Nov 2014 06:17:28 -0800 (PST)
+Received: from office.tpip.net (office.tpip.net [92.43.51.2])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mail.tpip.net (Postfix) with ESMTPS id 2912B4F404
+	for <poky@yoctoproject.org>; Tue, 25 Nov 2014 14:07:31 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by office.tpip.net (Postfix) with ESMTP id 404D234A9B3
+	for <poky@yoctoproject.org>; Tue, 25 Nov 2014 14:12:53 +0000 (UTC)
+Received: from office.tpip.net ([127.0.0.1])
+	by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id uVn1UxUyI1Wu for <poky@yoctoproject.org>;
+	Tue, 25 Nov 2014 14:12:51 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by office.tpip.net (Postfix) with ESMTP id 7E5BE34A9C4
+	for <poky@yoctoproject.org>; Tue, 25 Nov 2014 14:12:51 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at tpip.net
+Received: from office.tpip.net ([127.0.0.1])
+	by localhost (office.tpip.net [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id WXUnIZ1Jjevj for <poky@yoctoproject.org>;
+	Tue, 25 Nov 2014 14:12:51 +0000 (UTC)
+Received: from office.tpip.net (office.tpip.net [92.43.51.2])
+	by office.tpip.net (Postfix) with ESMTP id 6638234A9C3
+	for <poky@yoctoproject.org>; Tue, 25 Nov 2014 14:12:51 +0000 (UTC)
+Date: Tue, 25 Nov 2014 14:12:51 +0000 (UTC)
+From: Andreas Schultz <aschultz@tpip.net>
+To: poky@yoctoproject.org
+Message-ID: <2146448574.1066343.1416924771263.JavaMail.zimbra@tpip.net>
 MIME-Version: 1.0
-Subject: [dora] [PATCH 1/1] yocto-bsp: Update qemu inclusion lists
+X-Originating-IP: [217.92.147.146]
+X-Mailer: Zimbra 8.5.0_GA_3042 (ZimbraWebClient - GC41 (Linux)/8.5.0_GA_3042)
+Thread-Topic: building poky git HEAD with icecc
+Thread-Index: yGERFNCHHsKJSHAPE9wGibCfe3uPyw==
+Subject: building poky git HEAD with icecc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,45 +58,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Nov 2014 01:58:08 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 25 Nov 2014 14:17:31 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+Hi,
 
-Update qemu tune definitions to match changes in main qemu machines.
+I'm trying to build poky git HEAD with icecc (1.0.1) under Ubuntu 14.10 64bit.
+My local.conf has:
 
-[YOCTO #6527]
+INHERIT += "icecc"
+ICECC_PARALLEL_MAKE = "-j 48"
 
-(From meta-yocto rev: 0d78ffd509c6caba6c74c6e75c485fb8d923cd31)
+I'm not complete through with it, but I already had to blacklist these
+package from icecc:
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
----
- .../arch/qemu/conf/machine/{{=machine}}.conf       |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ICECC_USER_PACKAGE_BL = "ncurses perl libcap libgpg-error libgcrypt gmp"
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-index 782ac21..77695ae 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/{{=machine}}.conf
-@@ -31,13 +31,14 @@ require conf/machine/include/qemu.inc
- require conf/machine/include/tune-i586.inc
- {{ if qemuarch == "x86_64": }}
- require conf/machine/include/qemu.inc
--require conf/machine/include/tune-x86_64.inc
-+DEFAULTTUNE ?= "core2-64"
-+require conf/machine/include/tune-core2.inc
- {{ if qemuarch == "arm": }}
- require conf/machine/include/qemu.inc
- require conf/machine/include/tune-arm926ejs.inc
- {{ if qemuarch == "powerpc": }}
- require conf/machine/include/qemu.inc
--require conf/machine/include/tune-ppc603e.inc
-+require conf/machine/include/tune-ppc7400.inc
- {{ if qemuarch == "mips": }}
- require conf/machine/include/qemu.inc
- require conf/machine/include/tune-mips32.inc
+Most of them fail with 'fatal error: stdio.h: No such file or directory'.
+I have already checked all my builder do have this file.
+
+For example the concrete error from libgcrypt is:
+
+| gcc  -o yat2m ./yat2m.c
+| ./yat2m.c:92:19: fatal error: stdio.h: No such file or directory
+|  #include <stdio.h>
+
+It seems that the CC_FOR_BUILD is somehow not working.
+
+Any ideas what might be wrong or are those error expected?
+
+Andreas
 -- 
-1.7.9.5
-
+-- 
+Dipl. Inform.
+Andreas Schultz
 
