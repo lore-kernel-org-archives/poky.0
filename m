@@ -1,48 +1,32 @@
-Return-Path: <alexandru.damian@intel.com>
+Return-Path: <anibal.limon@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 47CC7E008EC; Thu, 27 Nov 2014 08:50:21 -0800 (PST)
+	id 3725FE008CC; Thu, 27 Nov 2014 17:10:52 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [74.125.82.42 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail-wg0-f42.google.com (mail-wg0-f42.google.com [74.125.82.42])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7C434E008CC
-	for <poky@yoctoproject.org>; Thu, 27 Nov 2014 08:50:11 -0800 (PST)
-Received: by mail-wg0-f42.google.com with SMTP id z12so6976701wgg.29
-	for <poky@yoctoproject.org>; Thu, 27 Nov 2014 08:50:10 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=n2ozTl4GdI+nHRGsXgLH2/pKpVQsqkw8oWT/F9uc/nQ=;
-	b=C/TcNCe+sMkVcaQFXxLCg6j6kH/i4Dp4aSQDtKUaaC7IdQvSFnwvcokvMHyV/lx5F8
-	FJfR7ElkENM5XNDB9LfkOAxVW7XmT6g1OPrwPQXJ8fjzl9Sqiam91ypQ9u8Q5KIyy/g/
-	NwvVKMlRgD2efllbu3oO8K7/2LWgj+LAKZQBWNNpwkBWymJn4WQ0W359vp4F9Zhq2YKu
-	QvNbjra85iLXwgRy1V7iEh3r+tVtx42U9zrJqGKKijAnPafQzExEkPSFMIC/PV6ktRrw
-	YnKjwIG/uwpXlnHdvvaK6pSFNTSsA2qEJZPVhId/AXpYSGW7Z6a7/NOIlhswaD4Mg+yv
-	Nmxw==
-X-Gm-Message-State: ALoCoQlIdRChmxyYVncJJIaH3gg5u/kvuZRHUZc5g7PG0vAP+BzKk1Y1lidPnpD9D9GLTMwrOJVf
-X-Received: by 10.180.99.1 with SMTP id em1mr53518019wib.29.1417107010207;
-	Thu, 27 Nov 2014 08:50:10 -0800 (PST)
-Received: from adamian-desk.local ([83.217.123.106])
-	by mx.google.com with ESMTPSA id
-	hz9sm11454713wjb.17.2014.11.27.08.50.08 for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 27 Nov 2014 08:50:09 -0800 (PST)
-Received: by adamian-desk.local (Postfix, from userid 1000)
-	id 80474563B9C; Thu, 27 Nov 2014 16:50:08 +0000 (GMT)
-From: Alex DAMIAN <alexandru.damian@intel.com>
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7889E006EF
+	for <poky@yoctoproject.org>; Thu, 27 Nov 2014 17:10:50 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Nov 2014 17:10:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.07,473,1413270000"; d="scan'208";a="639316225"
+Received: from alimon-thinkpad-w540.zpn.intel.com ([10.219.4.148])
+	by fmsmga002.fm.intel.com with ESMTP; 27 Nov 2014 17:10:49 -0800
+From: =?UTF-8?q?An=C3=ADbal=20Lim=C3=B3n?= <anibal.limon@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 27 Nov 2014 16:50:04 +0000
-Message-Id: <1417107004-28421-1-git-send-email-alexandru.damian@intel.com>
+Date: Thu, 27 Nov 2014 19:10:46 -0600
+Message-Id: <cover.1417134564.git.anibal.limon@linux.intel.com>
 X-Mailer: git-send-email 1.9.1
-Cc: Belen Barros Pena <belen.barros.pena@linux.intel.com>
-Subject: [PATCH 1/1] toaster: naming and description changes
+MIME-Version: 1.0
+Subject: [PATCH 00/12] Usage bitbake fetcher latest_versionstring in distrodata_class
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,76 +39,65 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Nov 2014 16:50:21 -0000
+X-List-Received-Date: Fri, 28 Nov 2014 01:10:52 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Belen Barros Pena <belen.barros.pena@linux.intel.com>
+Since Bitbake fetcher has latest_versionstring method that support search last version
+of package in upstream sites, distrodata class should use it instead of do itself,
 
-Some minor changes to the names and descriptions
-used in the Toaster configuration file:
+Summary of changes,
 
-* Change the local layer source name from Local Poky to Local
-Yocto Project to match release naming, which makes no reference
-to Poky
+distrodata_class: Re-implement upstream version detection using Bitbake fetcher methods.
+package_regex.inc: Update regex because Bitbake fetcher already provides support for search
+in HTML href's tags instead of RAW lines.
+bitbake: Improvements in fetcher wget latest_versionstring method based on [1] and clean code.
 
-* Change Imported Layer Source to just Imported layers. It is
-shorter, which helps table display
+Compatibility testing was made running distrodata class and the result files can be found at [1].
 
-* Change the helptext of the dizzy release to remove the
-"latest" reference, since might make maintenance hard
+The code has DEPENDENCIES the Bitbake changes should be MERGE first then package_regex.inc
+and finally distrodata_class.
 
-Signed-off-by: Belen Barros Pena <belen.barros.pena@linux.intel.com>
+[1] https://bugzilla.yoctoproject.org/show_bug.cgi?id=1813
 
-diff --git a/meta-yocto/conf/toasterconf.json b/meta-yocto/conf/toasterconf.json
-index e0a07b9..14d62b1 100644
---- a/meta-yocto/conf/toasterconf.json
-+++ b/meta-yocto/conf/toasterconf.json
-@@ -2,7 +2,7 @@
-     "config": {"MACHINE": "qemux86", "DISTRO": "poky"},
-     "layersources": [
-         {
--            "name": "Local Poky",
-+            "name": "Local Yocto Project",
-             "sourcetype": "local",
-             "apiurl": "../../",
-             "branches": ["HEAD", "master", "dizzy"],
-@@ -35,7 +35,7 @@
-             "branches": ["master", "dizzy"]
-         },
-         {
--            "name": "User Imported Layers",
-+            "name": "Imported layers",
-             "sourcetype": "imported",
-             "apiurl": "",
-             "branches": ["master", "dizzy", "HEAD"]
-@@ -72,7 +72,7 @@
-             "bitbake": "master",
-             "branch": "master",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "User Imported Layers": 99, "Local Poky" : 10, "OpenEmbedded" :  0 },
-+	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds using the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project master branch</a>, where active development takes place. This is not a stable branch, so your builds might not work as expected."
-         },
-         {
-@@ -81,8 +81,8 @@
-             "bitbake": "dizzy",
-             "branch": "dizzy",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "User Imported Layers": 99, "Local Poky" : 10, "OpenEmbedded" :  0 },
--            "helptext": "Toaster will run your builds with the latest Yocto Project release, <a href=\"https://www.yoctoproject.org/downloads/core/dizzy17\">1.7 \"Dizzy\"</a>"
-+	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-+            "helptext": "Toaster will run your builds with the <a href=\"https://www.yoctoproject.org/downloads/core/dizzy1\">Yocto Project 1.7 \"Dizzy\"</a> release"
-         },
-         {
-             "name": "local",
-@@ -90,7 +90,7 @@
-             "bitbake": "HEAD",
-             "branch": "HEAD",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "User Imported Layers": 99, "Local Poky" : 10, "OpenEmbedded" :  0 },
-+	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds with the version of the Yocto Project you have cloned or downloaded to your computer."
-         }
-     ]
+The following changes since commit 0bc03af7ee6112fa0af0608b02f715ec8495e4ff:
+
+  maintainers.inc: update maintainers (2014-11-26 17:06:10 +0000)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib alimon/fetcher-distrodata
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=alimon/fetcher-distrodata
+
+Aníbal Limón (12):
+  distrodata_class: checkpkg make usage of latest_versionstring methods
+    in bitbake fetcher
+  package_regex.inc: Update REGEX'es in order to find upstream versions
+    correctly
+  fetch2/wget.py: latest_versionstring create _init_regex method for
+    have one place when regex'es are defined
+  fetch2/wget.py: _init_regexes rename variables to be more consistent
+    and move dirver_regex into it
+  fetch/wget.php: latest version string only try to find latest
+    directory when REGEX_URI isn't specified to avoid unnecessary
+    processing and makes code easier
+  fetch2/wget.py: latest_versionstring add package_custom_regex_comp
+  fetch2/wget.py: latest_versionstring improvments in searching
+  fetch/wget.py: latest_versionstring remove unnecessary usage for name
+    in version comparision
+  fetch2/wget: latest_versionstring add support for search in RAW html
+    lines
+  fetch/wget.py: latest_versionstring remove newuri set because is
+    previous set
+  tests/fetch.py: Update wget latest_versionstring cups case
+  fetch2/wget.py: latest_versionstring clean improvments minor
+
+ bitbake/lib/bb/fetch2/wget.py                    | 146 ++++---
+ bitbake/lib/bb/tests/fetch.py                    |   2 +-
+ meta-yocto/conf/distro/include/package_regex.inc | 400 +++++++++---------
+ meta/classes/distrodata.bbclass                  | 492 ++---------------------
+ 4 files changed, 337 insertions(+), 703 deletions(-)
+
 -- 
 1.9.1
 
