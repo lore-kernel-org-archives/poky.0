@@ -1,50 +1,30 @@
-Return-Path: <alexandru.damian@intel.com>
+Return-Path: <Liviu.Gheorghisan@enea.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A469FE00952; Wed, 10 Dec 2014 07:01:16 -0800 (PST)
+	id 7EB12E0080C; Thu, 11 Dec 2014 04:22:56 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.212.175 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail-wi0-f175.google.com (mail-wi0-f175.google.com
-	[209.85.212.175])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0CA42E00945
-	for <poky@yoctoproject.org>; Wed, 10 Dec 2014 07:01:06 -0800 (PST)
-Received: by mail-wi0-f175.google.com with SMTP id l15so11496742wiw.14
-	for <poky@yoctoproject.org>; Wed, 10 Dec 2014 07:01:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=mswRmxo59+ZjOO1pFGdIpab0MrmDIFdwv+Sr7fb4Yjg=;
-	b=BNI6C4qBjCcft+u6cJWlN7KOp9mPPVKpuP78F936K88n70fnZc/jZTZ1VG09oQZpZx
-	+/C1Y2naONi3piP8o08p3vYr0Kz0ZIvIjtQEMXBsXCHnZt4LKafYHgV7v9OxALfkhqo8
-	Sxk1872AMubvfNLE1zi/F2iRpCwr0GT4B6oFGJyS+fN4Hyl8ZQCsytQQdYfX3yQeYiWz
-	S5jDUA3Ss4Ck6dv79fHw4I4ggiN+KYe0ryj5+M8rrbXCxozoMBmrB3M+FKLJEmv3ETbG
-	KkKAvTX6GT1nX76+Mo7MZNSbn5/m1Udlh7vaPleFqWvPy1hVL8fx0SGmOUlMb9Nz5lpC
-	Xv5w==
-X-Gm-Message-State: ALoCoQniRKl2MTsUPG5GgAdUgvEOj3ORcik2NovajAXtVB0doAr8KglyjDXNRN7GkqkdZgmwFGI2
-X-Received: by 10.180.228.72 with SMTP id sg8mr7232403wic.48.1418223663936;
-	Wed, 10 Dec 2014 07:01:03 -0800 (PST)
-Received: from adamian-desk.local ([83.217.123.106])
-	by mx.google.com with ESMTPSA id h14sm6660622wic.8.2014.12.10.07.01.02
-	for <multiple recipients>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 10 Dec 2014 07:01:03 -0800 (PST)
-Received: by adamian-desk.local (Postfix, from userid 1000)
-	id 81DBE561166; Wed, 10 Dec 2014 15:01:02 +0000 (GMT)
-From: Alex DAMIAN <alexandru.damian@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 10 Dec 2014 15:01:00 +0000
-Message-Id: <1418223660-22353-1-git-send-email-alexandru.damian@intel.com>
+Received: from mx-3.enea.com (sestofw01.enea.se [192.36.1.252])
+	by yocto-www.yoctoproject.org (Postfix) with SMTP id C31EFE002F9
+	for <poky@yoctoproject.org>; Thu, 11 Dec 2014 04:22:43 -0800 (PST)
+Received: from sestofb10.enea.se (172.21.3.145) by smtp.enea.com
+	(172.21.1.208) with Microsoft SMTP Server id 14.3.158.1;
+	Thu, 11 Dec 2014 13:22:36 +0100
+Received: by sestofb10.enea.se (Postfix, from userid 4496)	id 3546B2800CB;
+	Thu, 11 Dec 2014 13:22:36 +0100 (CET)
+From: Liviu Gheorghisan <liviu.gheorghisan@enea.com>
+To: <poky@yoctoproject.org>
+Date: Thu, 11 Dec 2014 13:22:36 +0100
+Message-ID: <1418300556-44714-1-git-send-email-liviu.gheorghisan@enea.com>
 X-Mailer: git-send-email 1.9.1
-Cc: Alexandru DAMIAN <alexandru.damian@intel.com>,
-	Belen Barros Pena <belen.barros.pena@linux.intel.com>
-Subject: [PATCH] toasterconf: naming and description changes
+MIME-Version: 1.0
+Received-SPF: None (SESTOEX08.enea.se: liviu.gheorghisan@enea.com does not
+	designate permitted sender hosts)
+Subject: [dizzy][PATCH] Fixed openssh ptest
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -57,80 +37,140 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Dec 2014 15:01:16 -0000
+X-List-Received-Date: Thu, 11 Dec 2014 12:22:56 -0000
+Content-Type: text/plain
 
-From: Belen Barros Pena <belen.barros.pena@linux.intel.com>
+ptests for openssh, apart from a lot of .sh scripts, also
+require 2 executables to be cross-compiled for the target
+and deployed there, that will be called from the test
+scripts.
 
-Some minor changes to the names and descriptions
-used in the Toaster configuration file:
+Those 2 files were not built when cross-compiling
+(Makefile target all:), so I added them to the build,
+under the target all_test.
 
-* Change the local layer source name from Local Poky to Local
-Yocto Project to match release naming, which makes no reference
-to Poky
+This new make target is intended to be run from
+do_compile_ptest(), that builds everything needed for
+performing the ptests.
 
-* Change Imported Layer Source to just Imported layers. It is
-shorter, which helps table display
+Because both these 2 executables required for ptest
+are linked with libssh (LDFLAGS += -lssh), I also
+added it as dependency for each of them.
 
-* Change the helptext of the dizzy release to remove the
-"latest" reference, since might make maintenance hard
+Now we have 2 separate make targets:
+all: builds all openssh, except for the ptest related files,
+    that is invoked from do_compile().
 
-Signed-off-by: Belen Barros Pena <belen.barros.pena@linux.intel.com>
-Signed-off-by: Alexandru DAMIAN <alexandru.damian@intel.com>
+all_test: builds only the files required for ptests, that is
+    invoked from do_compile_ptest().
+
+All this stuff fixes the following openssh ptest error:
+
+/bin/sh: /usr/lib/openssh/ptest/regress/modpipe: No such file or directory
+unexpected error mac chacha20-poly1305@openssh.com at 2909
+test integrity: 10 errors: mac 0 padding 0 length 0
+chacha20-poly1305@openssh.com: no mac errors
+chacha20-poly1305@openssh.com: expected 10 mac errors, got 0
+FAIL:  integrity
+make: *** [t-exec] Error 1
+Makefile:168: recipe for target 't-exec' failed
+make: Target 'tests' not remade because of errors.
+
+Signed-off-by: Liviu Gheorghisan <liviu.gheorghisan@enea.com>
 ---
- meta-yocto/conf/toasterconf.json | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ .../openssh/openssh-ptest-fix-sshconnect.patch     | 57 ++++++++++++++++++++++
+ meta/recipes-connectivity/openssh/openssh_6.6p1.bb |  7 ++-
+ 2 files changed, 63 insertions(+), 1 deletion(-)
+ create mode 100644 meta/recipes-connectivity/openssh/openssh/openssh-ptest-fix-sshconnect.patch
 
-diff --git a/meta-yocto/conf/toasterconf.json b/meta-yocto/conf/toasterconf.json
-index e0a07b9..14d62b1 100644
---- a/meta-yocto/conf/toasterconf.json
-+++ b/meta-yocto/conf/toasterconf.json
-@@ -2,7 +2,7 @@
-     "config": {"MACHINE": "qemux86", "DISTRO": "poky"},
-     "layersources": [
-         {
--            "name": "Local Poky",
-+            "name": "Local Yocto Project",
-             "sourcetype": "local",
-             "apiurl": "../../",
-             "branches": ["HEAD", "master", "dizzy"],
-@@ -35,7 +35,7 @@
-             "branches": ["master", "dizzy"]
-         },
-         {
--            "name": "User Imported Layers",
-+            "name": "Imported layers",
-             "sourcetype": "imported",
-             "apiurl": "",
-             "branches": ["master", "dizzy", "HEAD"]
-@@ -72,7 +72,7 @@
-             "bitbake": "master",
-             "branch": "master",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "User Imported Layers": 99, "Local Poky" : 10, "OpenEmbedded" :  0 },
-+	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds using the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project master branch</a>, where active development takes place. This is not a stable branch, so your builds might not work as expected."
-         },
-         {
-@@ -81,8 +81,8 @@
-             "bitbake": "dizzy",
-             "branch": "dizzy",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "User Imported Layers": 99, "Local Poky" : 10, "OpenEmbedded" :  0 },
--            "helptext": "Toaster will run your builds with the latest Yocto Project release, <a href=\"https://www.yoctoproject.org/downloads/core/dizzy17\">1.7 \"Dizzy\"</a>"
-+	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-+            "helptext": "Toaster will run your builds with the <a href=\"https://www.yoctoproject.org/downloads/core/dizzy1\">Yocto Project 1.7 \"Dizzy\"</a> release"
-         },
-         {
-             "name": "local",
-@@ -90,7 +90,7 @@
-             "bitbake": "HEAD",
-             "branch": "HEAD",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "User Imported Layers": 99, "Local Poky" : 10, "OpenEmbedded" :  0 },
-+	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds with the version of the Yocto Project you have cloned or downloaded to your computer."
-         }
-     ]
+diff --git a/meta/recipes-connectivity/openssh/openssh/openssh-ptest-fix-sshconnect.patch b/meta/recipes-connectivity/openssh/openssh/openssh-ptest-fix-sshconnect.patch
+new file mode 100644
+index 0000000..0913701
+--- /dev/null
++++ b/meta/recipes-connectivity/openssh/openssh/openssh-ptest-fix-sshconnect.patch
+@@ -0,0 +1,57 @@
++Fixed openssh ptest
++
++ptests for openssh, apart from a lot of .sh scripts, also
++require 2 executables to be cross-compiled for the target
++and deployed there, that will be called from the test
++scripts.
++
++Those 2 files were not built when cross-compiling
++(Makefile target all:), so I added them to the build,
++under the target all_test.
++
++This new make target is intended to be run from
++do_compile_ptest(), that builds everything needed for
++performing the ptests.
++
++Because both these 2 executables required for ptest
++are linked with libssh (LDFLAGS += -lssh), I also
++added it as dependency for each of them.
++
++Upstream-status: Inappropriate
++
++Signed-off-by: Liviu Gheorghisan <liviu.gheorghisan@enea.com>
++---
++--- a/Makefile.in	2014-12-10 16:19:37.513373454 +0100
+++++ b/Makefile.in	2014-12-10 16:25:23.262764227 +0100
++@@ -130,6 +130,8 @@ FIXALGORITHMSCMD= $(SHELL) $(srcdir)/fix
++ 
++ all: $(CONFIGFILES) $(MANPAGES) $(TARGETS)
++ 
+++all_test: regress/modpipe$(EXEEXT) regress/setuid-allowed$(EXEEXT)
+++
++ $(LIBSSH_OBJS): Makefile.in config.h
++ $(SSHOBJS): Makefile.in config.h
++ $(SSHDOBJS): Makefile.in config.h
++@@ -394,18 +396,18 @@ uninstall:
++ 	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
++ 	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/slogin.1
++ 
++-regress/modpipe$(EXEEXT): $(srcdir)/regress/modpipe.c
+++regress/modpipe$(EXEEXT): libssh.a
++ 	[ -d `pwd`/regress ]  ||  mkdir -p `pwd`/regress
++ 	[ -f `pwd`/regress/Makefile ]  || \
++ 	    ln -s `cd $(srcdir) && pwd`/regress/Makefile `pwd`/regress/Makefile
++-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $? \
+++	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $(srcdir)/regress/modpipe.c \
++ 	$(LDFLAGS) -lssh -lopenbsd-compat -lssh -lopenbsd-compat $(LIBS)
++ 
++-regress/setuid-allowed$(EXEEXT): $(srcdir)/regress/setuid-allowed.c
+++regress/setuid-allowed$(EXEEXT): libssh.a
++ 	[ -d `pwd`/regress ]  ||  mkdir -p `pwd`/regress
++ 	[ -f `pwd`/regress/Makefile ]  || \
++ 	    ln -s `cd $(srcdir) && pwd`/regress/Makefile `pwd`/regress/Makefile
++-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $? \
+++	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $(srcdir)/regress/setuid-allowed.c \
++ 	$(LDFLAGS) -lssh -lopenbsd-compat -lssh -lopenbsd-compat $(LIBS)
++ 
++ tests interop-tests:	$(TARGETS) regress/modpipe$(EXEEXT) regress/setuid-allowed$(EXEEXT)
+diff --git a/meta/recipes-connectivity/openssh/openssh_6.6p1.bb b/meta/recipes-connectivity/openssh/openssh_6.6p1.bb
+index 047a895..fe9ee02 100644
+--- a/meta/recipes-connectivity/openssh/openssh_6.6p1.bb
++++ b/meta/recipes-connectivity/openssh/openssh_6.6p1.bb
+@@ -25,7 +25,8 @@ SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.
+            file://run-ptest \
+            file://openssh-CVE-2014-2532.patch \
+            file://openssh-CVE-2014-2653.patch \
+-           file://auth2-none.c-avoid-authenticate-empty-passwords-to-m.patch"
++           file://auth2-none.c-avoid-authenticate-empty-passwords-to-m.patch \
++           file://openssh-ptest-fix-sshconnect.patch"
+ 
+ PAM_SRC_URI = "file://sshd"
+ 
+@@ -85,6 +86,10 @@ do_compile_append () {
+ 	install -m 0644 ${WORKDIR}/ssh_config ${S}/
+ }
+ 
++do_compile_ptest() {
++    oe_runmake all_test
++}
++
+ do_install_append () {
+ 	if [ "${@bb.utils.contains('DISTRO_FEATURES', 'pam', 'pam', '', d)}" = "pam" ]; then
+ 		install -D -m 0755 ${WORKDIR}/sshd ${D}${sysconfdir}/pam.d/sshd
 -- 
 1.9.1
 
