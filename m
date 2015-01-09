@@ -1,34 +1,32 @@
-Return-Path: <Liezhi.Yang@windriver.com>
+Return-Path: <paul.eggleton@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A5A83E0070B; Thu,  8 Jan 2015 17:51:37 -0800 (PST)
+	id 35479E0086E; Fri,  9 Jan 2015 02:29:06 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C894E004D6
-	for <poky@yoctoproject.org>; Thu,  8 Jan 2015 17:51:35 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id t091pXFH007288
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 8 Jan 2015 17:51:33 -0800 (PST)
-Received: from ala-blade47.wrs.com (147.11.105.67) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.174.1;
-	Thu, 8 Jan 2015 17:51:33 -0800
-From: Robert Yang <liezhi.yang@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Thu, 8 Jan 2015 17:51:31 -0800
-Message-ID: <cover.1420768234.git.liezhi.yang@windriver.com>
-X-Mailer: git-send-email 1.7.9.5
-MIME-Version: 1.0
-Subject: [PATCH 0/1] maintainers.inc: update it
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [134.134.136.24 listed in list.dnswl.org]
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B78D2E004D6
+	for <poky@yoctoproject.org>; Fri,  9 Jan 2015 02:28:57 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP; 09 Jan 2015 02:26:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.07,729,1413270000"; d="scan'208";a="634813606"
+Received: from unknown (HELO peggleto-mobl5.ger.corp.intel.com)
+	([10.252.3.186])
+	by orsmga001.jf.intel.com with ESMTP; 09 Jan 2015 02:28:55 -0800
+From: Paul Eggleton <paul.eggleton@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri,  9 Jan 2015 10:28:47 +0000
+Message-Id: <1420799327-30178-1-git-send-email-paul.eggleton@linux.intel.com>
+X-Mailer: git-send-email 1.9.3
+Subject: [PATCH v2] poky.conf: mark all CentOS 6/7 versions as compatible
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,25 +39,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 09 Jan 2015 01:51:37 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 09 Jan 2015 10:29:06 -0000
 
-The following changes since commit 876370419a50264a28feb4278f8c465b0019e709:
+It's rather unlikely with a distribution such as CentOS that they would
+introduce changes that would cause us issues that we would not be
+prepared to fix; therefore use a wildcard to suppress the warning (in
+any case, CentOS 6.6 is now the current 6.x version.)
 
-  bitbake: toaster: implementation of project page (2015-01-08 22:34:38 +0000)
+Also add CentOS 7 as we are running regular builds on CentOS 7 machines
+as part of the autobuilder infrastructure.
 
-are available in the git repository at:
+Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
+---
+ meta-yocto/conf/distro/poky.conf | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-  git://git.pokylinux.org/poky-contrib rbt/maintain
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=rbt/maintain
-
-Robert Yang (1):
-  maintainers.inc: update it
-
- meta-yocto/conf/distro/include/maintainers.inc |    4 ++++
- 1 file changed, 4 insertions(+)
-
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index 71b3b14..80dc853 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -80,7 +80,8 @@ SANITY_TESTED_DISTROS ?= " \
+             Ubuntu-14.04 \n \
+             Ubuntu-14.10 \n \
+             Fedora-20 \n \
+-            CentOS-6.5 \n \
++            CentOS-6.* \n \
++            CentOS-7.* \n \
+             Debian-7.* \n \
+             Debian-8.* \n \
+             openSUSE-project-12.3 \n \
 -- 
-1.7.9.5
+1.9.3
 
 
