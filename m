@@ -1,52 +1,48 @@
-Return-Path: <bruce.ashfield@gmail.com>
+Return-Path: <krzysztof.m.sywula@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4E898E00894; Thu, 15 Jan 2015 13:13:48 -0800 (PST)
+	id DAF64E00894; Thu, 15 Jan 2015 18:05:05 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (bruce.ashfield[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.217.173 listed in list.dnswl.org]
-Received: from mail-lb0-f173.google.com (mail-lb0-f173.google.com
-	[209.85.217.173])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D4843E00757
-	for <poky@yoctoproject.org>; Thu, 15 Jan 2015 13:13:44 -0800 (PST)
-Received: by mail-lb0-f173.google.com with SMTP id b6so2627580lbj.4
-	for <poky@yoctoproject.org>; Thu, 15 Jan 2015 13:13:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=lrPj20gdCgmd2KUn1HRZ/Bob215Jt0W5LlVImDs+sQw=;
-	b=isrfdsnW1+eF47pZxGbG7P4pXo59pC0OvDgsWhV5ua2lgtpJJNfxXK8u9tvuSWSzog
-	YyjuUEJf36Z71nwco0wePrYQj+wAhjwWRkhNOc1dmgqyrxneNE9VCo6A3uJFcIq6amw5
-	J0ZEqqTAxErG6WzxX5ZezpD6Q393lX46473TXsu/1j0fjdXDZn0IuB66AToaUFKn1jVk
-	MNUiYI+8fSn/uSnZ3hwA9A6G2ER+J6niOMxBlOt5q5EGq8syxDpbCFqxrW/AP3+ukGnG
-	Bd66h0KL2EDgloP+ypzdKWBb+ktes7KE7a8V7+JhQOlnFhA5uxc9LW4pfEy+BNLkGoYI
-	creQ==
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [192.55.52.115 listed in list.dnswl.org]
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 836BBE00757
+	for <poky@yoctoproject.org>; Thu, 15 Jan 2015 18:04:53 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga103.fm.intel.com with ESMTP; 15 Jan 2015 17:59:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.09,407,1418112000"; 
+	d="scan'208,217";a="651902857"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+	by fmsmga001.fm.intel.com with ESMTP; 15 Jan 2015 18:04:53 -0800
+Received: from orsmsx157.amr.corp.intel.com (10.22.240.23) by
+	ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server
+	(TLS) id 14.3.195.1; Thu, 15 Jan 2015 18:04:52 -0800
+Received: from fmsmsx115.amr.corp.intel.com (10.18.116.19) by
+	ORSMSX157.amr.corp.intel.com (10.22.240.23) with Microsoft SMTP Server
+	(TLS) id 14.3.195.1; Thu, 15 Jan 2015 18:04:52 -0800
+Received: from fmsmsx116.amr.corp.intel.com ([169.254.2.131]) by
+	fmsmsx115.amr.corp.intel.com ([169.254.4.170]) with mapi id
+	14.03.0195.001; Thu, 15 Jan 2015 18:04:51 -0800
+From: "Sywula, Krzysztof M" <krzysztof.m.sywula@intel.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: toolchain build without dbg pkgs
+Thread-Index: AdAxMMvPXV0zILyATxaIzMo4ofcg9A==
+Date: Fri, 16 Jan 2015 02:04:51 +0000
+Message-ID: <6741EAAB26B57F4995668065CB62D86B490B2B69@fmsmsx116.amr.corp.intel.com>
+Accept-Language: en-GB, pl-PL, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.200.108]
 MIME-Version: 1.0
-X-Received: by 10.152.6.132 with SMTP id b4mr12236469laa.59.1421356422520;
-	Thu, 15 Jan 2015 13:13:42 -0800 (PST)
-Received: by 10.112.48.41 with HTTP; Thu, 15 Jan 2015 13:13:42 -0800 (PST)
-In-Reply-To: <CABORvUjkiZHvX5FO2cTjCxfTpgv-1W+G31Ox2VsmUk7tvf1nRA@mail.gmail.com>
-References: <CABORvUjkiZHvX5FO2cTjCxfTpgv-1W+G31Ox2VsmUk7tvf1nRA@mail.gmail.com>
-Date: Thu, 15 Jan 2015 16:13:42 -0500
-Message-ID: <CADkTA4OPPOhQTZ9WYF660bYCv9XU=ELPX6xuogOZLsFviaA+kg@mail.gmail.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-To: Theodor Gherzan <theodor@resin.io>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] kernel-yocto.bbclass: Bug Fix inside do_kernel_checkout()
+Subject: toolchain build without dbg pkgs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -59,55 +55,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 15 Jan 2015 21:13:48 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 16 Jan 2015 02:05:05 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_6741EAAB26B57F4995668065CB62D86B490B2B69fmsmsx116amrcor_"
 
-This change should go to the oe-core devel list
-(openembedded-core@lists.openembedded.org)
+--_000_6741EAAB26B57F4995668065CB62D86B490B2B69fmsmsx116amrcor_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jan 15, 2015 at 12:47 PM, Theodor Gherzan <theodor@resin.io> wrote:
->  After we check the existence of 'machine_branch' with 'git show-ref'
->  the following if statement should change the 'machine_branch'
->  to the default (i.e. master) if the 'git show-ref' has returned an
->  exit code that is not 0, not the other way around.
+Hi guys, we are considering getting rid of debug packages in toolchain due =
+to size constrains. What's the trick to remove them?
 
-I was actually looking to remove the block completely .. in the end, this code
-doesn't care about the branch anymore (it used to), it is the git checkout -f
-that is the important operation.
+Thanks,
+Krzysztof Sywula
 
-.. but indeed, the condition is inverted .. good catch!
+--_000_6741EAAB26B57F4995668065CB62D86B490B2B69fmsmsx116amrcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Bruce
-
-
-
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->  Signed-off-by: Theodor Gherzan <theodor@resin.io>
->
-> diff --git a/meta/classes/kernel-yocto.bbclass
-> b/meta/classes/kernel-yocto.bbclass
-> index 3b59d85..44aa1b8 100644
-> --- a/meta/classes/kernel-yocto.bbclass
-> +++ b/meta/classes/kernel-yocto.bbclass
-> @@ -211,7 +211,7 @@ do_kernel_checkout() {
->         # Create a working tree copy of the kernel by checking out a branch
->         machine_branch="${@ get_machine_branch(d, "${KBRANCH}" )}"
->         git show-ref --quiet --verify -- "refs/heads/${machine_branch}"
-> -       if [ $? -eq 0 ]; then
-> +       if [ $? -ne 0 ]; then
->                 machine_branch="master"
->         fi
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-IE" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi guys, we are considering getting rid of debug pac=
+kages in toolchain due to size constrains. What&#8217;s the trick to remove=
+ them?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<br>
+Krzysztof Sywula<o:p></o:p></p>
+</div>
+</body>
+</html>
 
-
-
--- 
-"Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end"
-
+--_000_6741EAAB26B57F4995668065CB62D86B490B2B69fmsmsx116amrcor_--
