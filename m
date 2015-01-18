@@ -1,49 +1,57 @@
-Return-Path: <alexandru.damian@intel.com>
+Return-Path: <Alex.Gonzalez@digi.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 35D89E008D7; Fri, 16 Jan 2015 08:26:22 -0800 (PST)
+	id B4101E00953; Sun, 18 Jan 2015 03:50:26 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00, RCVD_IN_DNSWL_NONE, 
+	SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [216.82.251.8 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.212.169 listed in list.dnswl.org]
-Received: from mail-wi0-f169.google.com (mail-wi0-f169.google.com
-	[209.85.212.169])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CF066E0083A
-	for <poky@yoctoproject.org>; Fri, 16 Jan 2015 08:26:17 -0800 (PST)
-Received: by mail-wi0-f169.google.com with SMTP id bs8so5453569wib.0
-	for <poky@yoctoproject.org>; Fri, 16 Jan 2015 08:26:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=HdRiVcGTeSb04W+hmvz9DSiaPQjpt4ep+Y7U4Nu06Oo=;
-	b=F0v9ghcBOVkwsXguLSxBDaJzCuzMsIPnvIwssxk2iOFW/ZVW/aOKGVI9JU4g5j5+vw
-	DIcdv8re2cH+C80SmmaZOoGGrSNylwQELJKYw5WTq2T1V8CtvO3I89vKkvBlt54PAgk2
-	KjDS5jokSgk3ZEO5NbUd1enNiDlWEpbiY03/eNfd/wZi7EDKW7jguLnuHhXGmCFVbsuD
-	DU/f6EC/TLuyK7qdmzlM71mLzk2N6yOw479C3mJvIpLpnoeca+eBhYBLr/G3+jfKbJuP
-	FeS1akk10Es5YtyhPb+I9oUtBF/OYWFQ16L2OhGws+m8BGxpZOr93YbtwOJtsYMx/397
-	JCCg==
-X-Gm-Message-State: ALoCoQlSnxhGr1CEsgXgQTBJ85cR0b6JB8c/gKT/6SqiyNDQZ7sasVTibGWBZl9cBtE5bCBu7ta8
-X-Received: by 10.180.84.134 with SMTP id z6mr7911695wiy.50.1421425576196;
-	Fri, 16 Jan 2015 08:26:16 -0800 (PST)
-Received: from adamian-desk.local ([83.217.123.106])
-	by mx.google.com with ESMTPSA id jr4sm6672421wjc.20.2015.01.16.08.26.14
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 16 Jan 2015 08:26:15 -0800 (PST)
-Received: by adamian-desk.local (Postfix, from userid 1000)
-	id 15B40560DB7; Fri, 16 Jan 2015 16:26:16 +0000 (GMT)
-From: Alex DAMIAN <alexandru.damian@intel.com>
-To: poky@yoctoproject.org
-Date: Fri, 16 Jan 2015 16:26:14 +0000
-Message-Id: <1421425574-1438-1-git-send-email-alexandru.damian@intel.com>
+X-Greylist: delayed 406 seconds by postgrey-1.32 at yocto-www;
+	Sun, 18 Jan 2015 03:50:18 PST
+Received: from mail1.bemta12.messagelabs.com (mail1.bemta12.messagelabs.com
+	[216.82.251.8])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 566F3E00837
+	for <poky@yoctoproject.org>; Sun, 18 Jan 2015 03:50:18 -0800 (PST)
+Received: from [216.82.249.131] by server-8.bemta-12.messagelabs.com id
+	53/9F-03124-36C9BB45; Sun, 18 Jan 2015 11:43:31 +0000
+X-Env-Sender: Alex.Gonzalez@digi.com
+X-Msg-Ref: server-8.tower-28.messagelabs.com!1421581410!33118137!1
+X-Originating-IP: [66.77.174.14]
+X-StarScan-Received: 
+X-StarScan-Version: 6.12.5; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 8210 invoked from network); 18 Jan 2015 11:43:31 -0000
+Received: from mail.mx4.digi.com (HELO mcl-sms-ns2.DIGI.COM) (66.77.174.14)
+	by server-8.tower-28.messagelabs.com with RC4-SHA encrypted SMTP;
+	18 Jan 2015 11:43:31 -0000
+Received: from MCL-VMS-XCH01.digi.com (10.5.8.49) by mail.mx2.digi.com
+	(172.16.1.14) with Microsoft SMTP Server (TLS) id 8.3.389.2;
+	Sun, 18 Jan 2015 05:43:25 -0600
+Received: from DOR-SMS-XCH01.digi.com (10.49.8.99) by MCL-VMS-XCH01.digi.com
+	(10.5.8.49) with Microsoft SMTP Server (TLS) id 14.3.210.2;
+	Sun, 18 Jan 2015 05:43:29 -0600
+Received: from log-linux-hp-agonzal.digi.com (10.101.2.169) by
+	dor-sms-xch01.digi.com (10.49.8.99) with Microsoft SMTP Server (TLS) id
+	14.3.210.2; Sun, 18 Jan 2015 12:43:28 +0100
+From: Alex Gonzalez <alex.gonzalez@digi.com>
+To: <poky@yoctoproject.org>
+Date: Sun, 18 Jan 2015 12:42:35 +0100
+Message-ID: <1421581355-6557-2-git-send-email-alex.gonzalez@digi.com>
 X-Mailer: git-send-email 1.9.1
-Cc: Alexandru DAMIAN <alexandru.damian@intel.com>,
-	David Reyna <David.Reyna@windriver.com>
-Subject: [PATCH 1/1] toasterconf.json update
+In-Reply-To: <1421581355-6557-1-git-send-email-alex.gonzalez@digi.com>
+References: <1421581355-6557-1-git-send-email-alex.gonzalez@digi.com>
+MIME-Version: 1.0
+X-Originating-IP: [10.101.2.169]
+X-KSE-AntiSpam-Interceptor-Info: protection disabled
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean
+Subject: [PATCH] Revert "lttng-modules: Exclude arm"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -56,68 +64,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jan 2015 16:26:22 -0000
+X-List-Received-Date: Sun, 18 Jan 2015 11:50:26 -0000
+Content-Type: text/plain
 
-From: David Reyna <David.Reyna@windriver.com>
+This reverts commit 7a974407379b43e40664cad4696b427ee8c18df0.
 
-The toaster layer configuration file is updated to specify
-sane default for more build configuration variables.
+lttng-modules was excluded from building for ARM using gcc-4.8.x. With
+the update to lttng-modules_2.5.0 and gcc-4.9, the lttng-modules recipe
+once again builds for ARM, but lttng-modules is still not being included
+in the tools-profile packagegroup.
 
-Minor whitespace changes to beautify the file.
+This commit adds lttng-modules to the tools-profile packagegroup again.
 
-Rebased by Alex from a patch written by David Reyna.
-
-Signed-off-by: Alexandru DAMIAN <alexandru.damian@intel.com>
+Conflicts:
+	meta/recipes-kernel/lttng/lttng-modules_2.5.0.bb
 ---
- meta-yocto/conf/toasterconf.json | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/meta-yocto/conf/toasterconf.json b/meta-yocto/conf/toasterconf.json
-index 14d62b1..51dbc8c 100644
---- a/meta-yocto/conf/toasterconf.json
-+++ b/meta-yocto/conf/toasterconf.json
-@@ -1,5 +1,12 @@
- {
--    "config": {"MACHINE": "qemux86", "DISTRO": "poky"},
-+    "config": {
-+        "MACHINE"      : "qemux86",
-+        "DISTRO"       : "poky",
-+        "IMAGE_FSTYPES": "ext3 jffs2 tar.bz2",
-+        "IMAGE_INSTALL_append": "",
-+        "PACKAGE_CLASSES": "package_rpm",
-+        "SDKMACHINE"   : "x86_64"
-+    },
-     "layersources": [
-         {
-             "name": "Local Yocto Project",
-@@ -72,7 +79,7 @@
-             "bitbake": "master",
-             "branch": "master",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-+            "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds using the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project master branch</a>, where active development takes place. This is not a stable branch, so your builds might not work as expected."
-         },
-         {
-@@ -81,7 +88,7 @@
-             "bitbake": "dizzy",
-             "branch": "dizzy",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-+            "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds with the <a href=\"https://www.yoctoproject.org/downloads/core/dizzy1\">Yocto Project 1.7 \"Dizzy\"</a> release"
-         },
-         {
-@@ -90,7 +97,7 @@
-             "bitbake": "HEAD",
-             "branch": "HEAD",
-             "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
--	    "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-+            "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
-             "helptext": "Toaster will run your builds with the version of the Yocto Project you have cloned or downloaded to your computer."
-         }
-     ]
--- 
-1.9.1
-
+diff --git a/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb b/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
+index 41d2548b70ee..39a88134a316 100644
+--- a/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
++++ b/meta/recipes-core/packagegroups/packagegroup-core-tools-profile.bb
+@@ -53,7 +53,6 @@ LTTNGTOOLS_aarch64 = ""
+ 
+ LTTNGMODULES = "lttng-modules"
+ LTTNGMODULES_aarch64 = ""
+-LTTNGMODULES_arm = ""
+ 
+ BABELTRACE = "babeltrace"
+ BABELTRACE_aarch64 = ""
 
