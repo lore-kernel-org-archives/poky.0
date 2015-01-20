@@ -1,47 +1,32 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7B5C2E006EF; Tue, 20 Jan 2015 09:03:25 -0800 (PST)
+	id 45DEBE00873; Tue, 20 Jan 2015 11:38:50 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.216.48 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-Received: from mail-qa0-f48.google.com (mail-qa0-f48.google.com
-	[209.85.216.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E9CABE006EF
-	for <poky@yoctoproject.org>; Tue, 20 Jan 2015 09:03:16 -0800 (PST)
-Received: by mail-qa0-f48.google.com with SMTP id v8so29020047qal.7
-	for <poky@yoctoproject.org>; Tue, 20 Jan 2015 09:03:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=QusvvGCs4CYi5Qa/9185DAsWU4Qpflx6Iak2KFPNgzo=;
-	b=Dg8CDOH3gMFU++1e0nDnYksYRO3FxTpxbdyBeE78sCd9PEf/01VekbqpewuxsGCpLO
-	KPHgC99/H7kI3B/7VT2OblbUoNNGUrcbU8hsJcTGzmSWrCXMaemfa+ti/g7NUwhEWR1W
-	7SYNK79oxJ+yzqYBMgALgm55z7ODcio+Gb+0nctpMLB4Mb+JaAJ5bBNB4KP4I1lFOLUu
-	V4VRN+s8PGd3FwBYX4qn15C8OqRsi83M7t5DhVBfCK0rK9VhNVJNTG/t9q2ELNTRq4Gi
-	xarllHsWEmEDP+1ot5niXZQ8HBTeFXJ6BFKzcx0YC62R1R/VvH7Oqo+oLrtEpbiB8TnC
-	MszA==
-X-Gm-Message-State: ALoCoQmRK/o+b7my//cUSv/NbfK60gg+3HtU/8Bvw2Rs4fy82f1RFtlKYXNHbcc4362YHXeTj9yI
-X-Received: by 10.140.92.138 with SMTP id b10mr56004194qge.59.1421773394422;
-	Tue, 20 Jan 2015 09:03:14 -0800 (PST)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DFDA1E00860
+	for <poky@yoctoproject.org>; Tue, 20 Jan 2015 11:38:46 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 20 Jan 2015 11:38:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.09,436,1418112000"; d="scan'208";a="653878657"
+Received: from unknown (HELO swold-mobl5.amr.corp.intel.com) ([10.252.252.118])
+	by fmsmga001.fm.intel.com with ESMTP; 20 Jan 2015 11:38:43 -0800
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 20 Jan 2015 11:38:35 -0800
+Message-Id: <1421782715-30045-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 2.1.0
 MIME-Version: 1.0
-Received: by 10.140.96.166 with HTTP; Tue, 20 Jan 2015 09:02:54 -0800 (PST)
-In-Reply-To: <CADnUhn3xm92ocTKELRH6-WeYmm5eXPOz2Te+_r3Zz1FDGEGWrw@mail.gmail.com>
-References: <CADnUhn3xm92ocTKELRH6-WeYmm5eXPOz2Te+_r3Zz1FDGEGWrw@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 20 Jan 2015 17:02:54 +0000
-Message-ID: <CAJTo0LZEFMprRsOworZ8soVNbRyHQZDaPGk+cm2ThJyyfhMqpg@mail.gmail.com>
-To: matti kaasinen <matti.kaasinen@gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: klibc_2.0.2.bb do_package crashes
+Subject: [PATCH] maintainers: Update for non-maintained recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,101 +39,158 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Jan 2015 17:03:25 -0000
-Content-Type: multipart/alternative; boundary=001a113a5d5e20832e050d186ac8
+X-List-Received-Date: Tue, 20 Jan 2015 19:38:50 -0000
+Content-Type: text/plain; charset=y
+Content-Transfer-Encoding: 8bit
 
---001a113a5d5e20832e050d186ac8
-Content-Type: text/plain; charset=UTF-8
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ meta-yocto/conf/distro/include/maintainers.inc | 31 ++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 7 deletions(-)
 
-You should probably ask this on the appropriate mailing list for meta-oe: <
-openembedded-devel@lists.openembedded.org>.
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index 84797c3..49e6f06 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -74,6 +74,7 @@ RECIPE_MAINTAINER_pn-builder = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-busybox = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-byacc = "Chong Lu <Chong.Lu@windriver.com>"
+ RECIPE_MAINTAINER_pn-bzip2 = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-ca-certificates = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-cairo = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-calibrateproto = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-ccache = "Wenzong Fan <wenzong.fan@windriver.com>"
+@@ -123,8 +124,9 @@ RECIPE_MAINTAINER_pn-cwautomacros = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-damageproto = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-db = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-dbus = "Chong Lu <Chong.Lu@windriver.com>"
+-RECIPE_MAINTAINER_pn-dbus-ptest = "Chong Lu <Chong.Lu@windriver.com>"
+ RECIPE_MAINTAINER_pn-dbus-glib = "Chong Lu <Chong.Lu@windriver.com>"
++RECIPE_MAINTAINER_pn-dbus-ptest = "Chong Lu <Chong.Lu@windriver.com>"
++RECIPE_MAINTAINER_pn-dbus-test = "Chong Lu <Chong.Lu@windriver.com>"
+ RECIPE_MAINTAINER_pn-dbus-wait = "Chong Lu <Chong.Lu@windriver.com>"
+ RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-dhcp = "Hongxu Jia <hongxu.jia@windriver.com>"
+@@ -177,8 +179,9 @@ RECIPE_MAINTAINER_pn-gaku = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-gamin = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-gawk = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-gcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gcc-source = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gccmakedep = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-gcc-runtime = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-gcc-runtime = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gconf = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-gdb = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gdbm = "Saul Wold <sgw@linux.intel.com>"
+@@ -305,8 +308,9 @@ RECIPE_MAINTAINER_pn-libffi  = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libfile-checktree-perl = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libfm = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libfontenc = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-libgcc = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libgcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-libgcrypt = "Hongxu Jia <hongxu.jia@windriver.com>"
++RECIPE_MAINTAINER_pn-libgfortran = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-libglade = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libglu = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libgpg-error = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+@@ -316,6 +320,7 @@ RECIPE_MAINTAINER_pn-libice = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libiconv = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libid3tag = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-libidn = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libinput = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libjson = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-libksba = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libmad = "Saul Wold <sgw@linux.intel.com>"
+@@ -336,6 +341,7 @@ RECIPE_MAINTAINER_pn-libpam = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libpcap = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-libpciaccess = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-libpcre = "Chong Lu <Chong.Lu@windriver.com>"
++RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com>"
+ RECIPE_MAINTAINER_pn-libpng = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libpng12 = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libpod-plainer-perl = "Saul Wold <sgw@linux.intel.com>"
+@@ -393,6 +399,7 @@ RECIPE_MAINTAINER_pn-libxrender = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libxres = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libxscrnsaver = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libxsettings-client = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-libxshmfence = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libxslt = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libxt = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libxtst = "Ross Burton <ross.burton@intel.com>"
+@@ -408,8 +415,9 @@ RECIPE_MAINTAINER_pn-linux-firmware = "Cristian Iorga <cristian.iorga@intel.com>
+ RECIPE_MAINTAINER_pn-linux-libc-headers = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-linux-libc-headers-yocto = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-linux-yocto = "Darren Hart <dvhart@linux.intel.com>"
++RECIPE_MAINTAINER_pn-linux-yocto-dev = "Darren Hart <dvhart@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-linux-yocto-rt = "Darren Hart <dvhart@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-linux-yocto-tiny = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-linux-yocto-tiny = "Darren Hart <dvhart@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-logrotate = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-lrzsz = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-lsbinitscripts = "Saul Wold <sgw@linux.intel.com>"
+@@ -443,8 +451,9 @@ RECIPE_MAINTAINER_pn-matchbox-wm = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-mc = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-mdadm = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-menu-cache = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-mesa-demos = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-mesa = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-mesa-demos = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-mesa-gl = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-ide-support = "Jessica Zhang <jessica.zhang@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-toolchain-qte = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-meta-toolchain = "Jessica Zhang <jessica.zhang@intel.com>"
+@@ -556,9 +565,12 @@ RECIPE_MAINTAINER_pn-pulseaudio = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-puzzles = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-python-argparse = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-python-async = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-dbus = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python-distribute = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python-docutils = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-python-git = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python-gitdb = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-gst = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python-imaging = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python-mako = "Khem Raj <raj.khem@gmail.com>"
+@@ -572,6 +584,7 @@ RECIPE_MAINTAINER_pn-python-pyrex = "Richard Purdie <richard.purdie@linuxfoundat
+ RECIPE_MAINTAINER_pn-python-scons = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python-setuptools = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python-smartpm = "Paul Eggleton <paul.eggleton@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python-smmap = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3 = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-python3-distribute = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-qemu-helper-native = "Cristian Iorga <cristian.iorga@intel.com>"
+@@ -634,6 +647,7 @@ RECIPE_MAINTAINER_pn-sysklogd = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-syslinux = "Darren Hart <dvhart@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-sysprof = "Tom Zanussi <tom.zanussi@intel.com>"
+ RECIPE_MAINTAINER_pn-sysstat = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-systemd = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-systemtap = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-systemtap-uprobes = "Tom Zanussi <tom.zanussi@intel.com>"
+ RECIPE_MAINTAINER_pn-sysvinit-inittab = "Saul Wold <sgw@linux.intel.com>"
+@@ -660,9 +674,11 @@ RECIPE_MAINTAINER_pn-tslib = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-ttf-bitstream-vera = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-tzcode-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-tzdata = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-u-boot = "Denys Dmytriyenko <denis@denix.org>"
++RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Denys Dmytriyenko <denis@denix.org>"
++RECIPE_MAINTAINER_pn-u-boot-mkimage = "Denys Dmytriyenko <denis@denix.org>"
+ RECIPE_MAINTAINER_pn-ubootchart = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-u-boot-mkimage = "Saul Wold <sgw@linux.intel.com>"
++RECIPE_MAINTAINER_pn-uclibc = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-udev-extraconf = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-udev = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-unifdef = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+@@ -678,6 +694,7 @@ RECIPE_MAINTAINER_pn-vala = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-valgrind = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-videoproto = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-vte = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-waffle = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-watchdog = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-wayland = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-webkit-gtk = "Ross Burton <ross.burton@intel.com>"
+-- 
+2.1.0
 
-Ross
 
-On 19 January 2015 at 07:54, matti kaasinen <matti.kaasinen@gmail.com>
-wrote:
-
-> Hi!
->
-> I tried to build core-image-minimal with some packages added for
-> poky/daisy.
->
-> I got following error log:
-> ERROR: QA Issue: File '/usr/lib/klibc-JmwOsNdzWCnU2MZ15xBYh4DCl3s.so' from
-> klibc was already stripped, this will prevent future debugging!
-> ERROR: QA Issue: File
-> '/usr/lib/klibc/lib/klibc-JmwOsNdzWCnU2MZ15xBYh4DCl3s.so' from klibc was
-> already stripped, this will prevent future debugging!
-> ERROR: QA run found fatal errors. Please consider fixing them.
-> ERROR: Function failed: do_package_qa
-> ERROR: Logfile of failure stored in:
-> /TMPDIR/work/armv7a-vfp-neon-poky-linux-gnueabi/klibc/2.0.2-r1.0/temp/log.do_package.15991
-> ERROR: Task 1786
-> (/yocto/meta-openembedded/meta-initramfs/recipes-devtools/klibc/
-> klibc_2.0.2.bb, do_package) failed with exit code '1'
-> NOTE: Tasks Summary: Attempted 1418 tasks of which 16 didn't need to be
-> rerun and 1 failed.
-> Waiting for 0 running tasks to finish:
->
-> Summary: 1 task failed:
->   /yocto/meta-openembedded/meta-initramfs/recipes-devtools/klibc/
-> klibc_2.0.2.bb, do_package
-> Summary: There were 29 WARNING messages shown.
-> Summary: There were 4 ERROR messages shown, returning a non-zero exit code.
->
->
-> Any suggestions to work this around?
->
-> -Matti
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
->
-
---001a113a5d5e20832e050d186ac8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">You should probably ask this on the appropriate mailing li=
-st for meta-oe: &lt;<a href=3D"mailto:openembedded-devel@lists.openembedded=
-.org">openembedded-devel@lists.openembedded.org</a>&gt;.<div><br></div><div=
->Ross</div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 19 January 2015 at 07:54, matti kaasinen <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:matti.kaasinen@gmail.com" target=3D"_blank">matti.kaasinen@gmail=
-.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"lt=
-r"><div><div>Hi!<br><br></div>I tried to build core-image-minimal with some=
- packages added for poky/daisy.<br><br></div>I got following error log:<br>=
-<div>ERROR: QA Issue: File &#39;/usr/lib/klibc-JmwOsNdzWCnU2MZ15xBYh4DCl3s.=
-so&#39; from klibc was already stripped, this will prevent future debugging=
-!<br>ERROR: QA Issue: File &#39;/usr/lib/klibc/lib/klibc-JmwOsNdzWCnU2MZ15x=
-BYh4DCl3s.so&#39; from klibc was already stripped, this will prevent future=
- debugging!<br>ERROR: QA run found fatal errors. Please consider fixing the=
-m.<br>ERROR: Function failed: do_package_qa<br>ERROR: Logfile of failure st=
-ored in: /TMPDIR/work/armv7a-vfp-neon-poky-linux-gnueabi/klibc/2.0.2-r1.0/t=
-emp/log.do_package.15991<br>ERROR: Task 1786 (/yocto/meta-openembedded/meta=
--initramfs/recipes-devtools/klibc/<a href=3D"http://klibc_2.0.2.bb" target=
-=3D"_blank">klibc_2.0.2.bb</a>, do_package) failed with exit code &#39;1&#3=
-9;<br>NOTE: Tasks Summary: Attempted 1418 tasks of which 16 didn&#39;t need=
- to be rerun and 1 failed.<br>Waiting for 0 running tasks to finish:<br><br=
->Summary: 1 task failed:<br>=C2=A0 /yocto/meta-openembedded/meta-initramfs/=
-recipes-devtools/klibc/<a href=3D"http://klibc_2.0.2.bb" target=3D"_blank">=
-klibc_2.0.2.bb</a>, do_package<br>Summary: There were 29 WARNING messages s=
-hown.<br>Summary: There were 4 ERROR messages shown, returning a non-zero e=
-xit code.<br><br><br></div><div>Any suggestions to work this around?<span c=
-lass=3D"HOEnZb"><font color=3D"#888888"><br><br></font></span></div><span c=
-lass=3D"HOEnZb"><font color=3D"#888888"><div>-Matti<br></div></font></span>=
-</div>
-<br>--<br>
-_______________________________________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.org/listinfo/poky</a><br>
-<br></blockquote></div><br></div>
-
---001a113a5d5e20832e050d186ac8--
