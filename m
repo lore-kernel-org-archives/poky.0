@@ -1,6 +1,6 @@
 Return-Path: <tom.zanussi@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2853AE008BC; Tue, 27 Jan 2015 05:38:02 -0800 (PST)
+	id 17E03E008A6; Tue, 27 Jan 2015 05:38:05 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,29 +8,27 @@ X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
+	*      [192.55.52.88 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0A6BEE00894
-	for <poky@yoctoproject.org>; Tue, 27 Jan 2015 05:37:51 -0800 (PST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 27 Jan 2015 05:37:51 -0800
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5CCAEE008A6
+	for <poky@yoctoproject.org>; Tue, 27 Jan 2015 05:37:49 -0800 (PST)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+	by fmsmga101.fm.intel.com with ESMTP; 27 Jan 2015 05:37:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.09,474,1418112000"; d="scan'208";a="676732919"
+X-IronPort-AV: E=Sophos;i="5.09,474,1418112000"; d="scan'208";a="518325721"
 Received: from ssandhu3-mobl1.amr.corp.intel.com (HELO localhost)
 	([10.254.48.171])
-	by orsmga002.jf.intel.com with ESMTP; 27 Jan 2015 05:37:50 -0800
+	by orsmga003.jf.intel.com with ESMTP; 27 Jan 2015 05:30:42 -0800
 From: Tom Zanussi <tom.zanussi@linux.intel.com>
 To: akuster808@gmail.com,
 	poky@yoctoproject.org
-Date: Tue, 27 Jan 2015 07:37:49 -0600
-Message-Id: <1cdf161857393965869f0984a6bdf4b2592ca7e4.1422365169.git.tom.zanussi@linux.intel.com>
+Date: Tue, 27 Jan 2015 07:37:46 -0600
+Message-Id: <cover.1422365169.git.tom.zanussi@linux.intel.com>
 X-Mailer: git-send-email 1.9.3
-In-Reply-To: <cover.1422365169.git.tom.zanussi@linux.intel.com>
-References: <cover.1422365169.git.tom.zanussi@linux.intel.com>
 Cc: Tom Zanussi <tom.zanussi@linux.intel.com>
-Subject: [PATCH 1/1] yocto-bsp: Add branch to SRC_URI for custom kernels
+Subject: [PATCH 0/1][dizzy] yocto-bsp fix
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,36 +41,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Jan 2015 13:38:02 -0000
+X-List-Received-Date: Tue, 27 Jan 2015 13:38:05 -0000
 
-Without 'branch' in the SRC_URI, a SRCREV specified for a non-master
-KBRANCH will result in a fetch failure since the branch tested by the
-fetcher will default to master, which doesn't contain the SRCREV.
-This fixes the problem by adding branch=KBRANCH to the SRC_URI.
+This patchset contains a fix for Yocto Bug 6518 (yocto-bsp create
+creates faulty SRC_URI).  Please apply to dizzy-next.
 
-Fixes [Yocto #6518].
+The following changes since commit b1dfbe192ee5d8f5595504017bdcbb530264597c:
 
-Signed-off-by: Tom Zanussi <tom.zanussi@linux.intel.com>
----
+  yocto-bsp: Add missing conf dir to arm template (2015-01-21 10:40:38 -0600)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib.git tzanussi/custom-kbranch-master
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/custom-kbranch-dizzy
+
+Tom Zanussi (1):
+  yocto-bsp: Add branch to SRC_URI for custom kernels
+
  .../target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb     | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb
-index 69f598e..80a52e7c 100644
---- a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb
-+++ b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb
-@@ -32,9 +32,9 @@ inherit kernel
- require recipes-kernel/linux/linux-yocto.inc
- 
- {{ if kernel_choice == "custom" and custom_kernel_remote == "y": }}
--SRC_URI = "{{=custom_kernel_remote_path}};protocol=git;bareclone=1"
-+SRC_URI = "{{=custom_kernel_remote_path}};protocol=git;bareclone=1;branch=${KBRANCH}"
- {{ if kernel_choice == "custom" and custom_kernel_remote == "n": }}
--SRC_URI = "git://{{=custom_kernel_local_path}};protocol=file;bareclone=1"
-+SRC_URI = "git://{{=custom_kernel_local_path}};protocol=file;bareclone=1;branch=${KBRANCH}"
- 
- SRC_URI += "file://defconfig"
- 
 -- 
 1.9.3
 
