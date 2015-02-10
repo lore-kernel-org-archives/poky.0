@@ -1,36 +1,31 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <holger@freyther.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 27817E0098D; Thu,  5 Feb 2015 04:06:03 -0800 (PST)
+	id 4E101E00815; Tue, 10 Feb 2015 10:50:29 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 54128E00948
-	for <poky@yoctoproject.org>; Thu,  5 Feb 2015 04:06:00 -0800 (PST)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-	by fmsmga101.fm.intel.com with ESMTP; 05 Feb 2015 04:05:59 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="4.97,862,1389772800"; d="scan'208";a="450204873"
-Received: from mhgreen-mobl5.ger.corp.intel.com (HELO
-	peggleto-mobl5.ger.corp.intel.com) ([10.252.19.49])
-	by FMSMGA003.fm.intel.com with ESMTP; 05 Feb 2015 03:51:43 -0800
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
+X-Greylist: delayed 402 seconds by postgrey-1.32 at yocto-www;
+	Tue, 10 Feb 2015 10:50:18 PST
+Received: from mail.sysmocom.de (mail.sysmocom.de [144.76.43.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CCE90E005A9
+	for <poky@yoctoproject.org>; Tue, 10 Feb 2015 10:50:18 -0800 (PST)
+Received: from sangmingze-mail.local (unknown [IPv6:2001:5c0:1400:a::369])
+	by mail.sysmocom.de (Postfix) with ESMTPSA id 8C358A6C79
+	for <poky@yoctoproject.org>; Tue, 10 Feb 2015 18:43:28 +0000 (UTC)
+Received: from ich by sangmingze-mail.local with local (Exim 4.84)
+	(envelope-from <holger@freyther.de>) id 1YLFm9-0003XY-9I
+	for poky@yoctoproject.org; Tue, 10 Feb 2015 19:43:09 +0100
+Date: Tue, 10 Feb 2015 19:43:09 +0100
+From: Holger Hans Peter Freyther <holger@freyther.de>
 To: poky@yoctoproject.org
-Date: Thu,  5 Feb 2015 12:05:54 +0000
-Message-Id: <99dc3ee3e123a04d1dc7cde4fc53bcb61e8520eb.1423137176.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 1.9.3
-In-Reply-To: <cover.1423137176.git.paul.eggleton@linux.intel.com>
-References: <cover.1423137176.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1423137176.git.paul.eggleton@linux.intel.com>
-References: <cover.1423137176.git.paul.eggleton@linux.intel.com>
-Subject: [PATCH 1/1] poky.conf: resolve mismatch between poky bblayers version and OE-Core
+Message-ID: <20150210184309.GB19902@xiaoyu.lan>
+MIME-Version: 1.0
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Subject: kernel.release being regenerated
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,66 +38,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 05 Feb 2015 12:06:03 -0000
+X-List-Received-Date: Tue, 10 Feb 2015 18:50:29 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Drop our custom LAYER_CONF_VERSION (since the OE-Core version is now the
-same) and ensure that poky-sanity's update function runs first so that
-anyone still using version 5 with poky gets the meta-yocto /
-meta-yocto-bsp split handled instead of OE-Core's no-op upgrade. Also
-fix the version check so that the poky 5->6 upgrade is still performed
-if the latest version is greater than 6.
+Hi,
 
-NOTE: this of course relies on the corresponding version bump patch in
-OE-Core.
+I have an integration build that at least builds our sysmocom
+BTS layers against master of Yocto. Our nightly build started
+to be flaky and fail most of the time building the Linux kernel.
 
-Fixes [YOCTO #6139].
+We are using a 3.10 LTS kernel for the product and it looks
+like the kernel.release will be (re)created in the build directory
+when the uImage is generated but also when "make modules" is
+called.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta-yocto/classes/poky-sanity.bbclass | 8 ++++++--
- meta-yocto/conf/distro/poky.conf       | 1 -
- 2 files changed, 6 insertions(+), 3 deletions(-)
+This means that shared_workdir in my case should be called at
+a later stage, e.g. after do_compilekernelmodules.
 
-diff --git a/meta-yocto/classes/poky-sanity.bbclass b/meta-yocto/classes/poky-sanity.bbclass
-index fff08b3..77c266e 100644
---- a/meta-yocto/classes/poky-sanity.bbclass
-+++ b/meta-yocto/classes/poky-sanity.bbclass
-@@ -1,3 +1,5 @@
-+# Provide some extensions to sanity.bbclass to handle poky-specific conf file upgrades
-+
- python poky_update_bblayersconf() {
-     current_version = int(d.getVar('LCONF_VERSION', True) or -1)
-     latest_version = int(d.getVar('LAYER_CONF_VERSION', True) or -1)
-@@ -5,7 +7,8 @@ python poky_update_bblayersconf() {
-     bblayers_fn = bblayers_conf_file(d)
-     lines = sanity_conf_read(bblayers_fn)
- 
--    if current_version == 5 and latest_version == 6:
-+    if current_version == 5 and latest_version > 5:
-+        # Handle split out of meta-yocto-bsp from meta-yocto
-         if '/meta-yocto-bsp' not in d.getVar('BBLAYERS', True):
-             index, meta_yocto_line = sanity_conf_find_line('meta-yocto\s*\\\\\\n', lines)
-             if meta_yocto_line:
-@@ -21,4 +24,5 @@ python poky_update_bblayersconf() {
-     sys.exit()
- }
- 
--BBLAYERS_CONF_UPDATE_FUNCS += "poky_update_bblayersconf"
-+# Prepend to ensure our function runs before the OE-Core one
-+BBLAYERS_CONF_UPDATE_FUNCS =+ "poky_update_bblayersconf"
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 479182f..1e00598 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -10,7 +10,6 @@ MAINTAINER = "Poky <poky@yoctoproject.org>"
- TARGET_VENDOR = "-poky"
- 
- LOCALCONF_VERSION = "1"
--LAYER_CONF_VERSION ?= "6"
- 
- # Override these in poky based distros
- POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland"
--- 
-1.9.3
+Did anyone else see flaky builds?
 
+holger
 
