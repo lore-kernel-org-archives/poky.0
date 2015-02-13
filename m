@@ -1,36 +1,33 @@
-Return-Path: <holger@freyther.de>
+Return-Path: <anibal.limon@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 19DA7E00815; Wed, 11 Feb 2015 11:35:49 -0800 (PST)
+	id 6451EE002F9; Fri, 13 Feb 2015 15:18:13 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.sysmocom.de (mail.sysmocom.de [144.76.43.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 258EAE003D4
-	for <poky@yoctoproject.org>; Wed, 11 Feb 2015 11:35:39 -0800 (PST)
-Received: from sangmingze-mail.local (unknown [IPv6:2001:5c0:1400:a::517])
-	by mail.sysmocom.de (Postfix) with ESMTPSA id 182CEA6C44;
-	Wed, 11 Feb 2015 19:35:30 +0000 (UTC)
-Received: from ich by sangmingze-mail.local with local (Exim 4.84)
-	(envelope-from <holger@freyther.de>)
-	id 1YLd41-0001ef-7y; Wed, 11 Feb 2015 20:35:09 +0100
-Date: Wed, 11 Feb 2015 20:35:09 +0100
-From: Holger Hans Peter Freyther <holger@freyther.de>
-To: Bruce Ashfield <bruce.ashfield@windriver.com>
-Message-ID: <20150211193509.GG3213@xiaoyu.lan>
-References: <20150210184309.GB19902@xiaoyu.lan>
-	<1423608686.20217.54.camel@linuxfoundation.org>
-	<20150211082703.GA3213@xiaoyu.lan>
-	<1423645857.20217.56.camel@linuxfoundation.org>
-	<54DB921F.4090802@windriver.com>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 21204E00288
+	for <poky@yoctoproject.org>; Fri, 13 Feb 2015 15:18:09 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by fmsmga101.fm.intel.com with ESMTP; 13 Feb 2015 15:18:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.09,573,1418112000"; d="scan'208";a="685534305"
+Received: from unknown (HELO alimon-ThinkPad-W540.zpn.intel.com)
+	([10.219.4.49])
+	by orsmga002.jf.intel.com with ESMTP; 13 Feb 2015 15:18:07 -0800
+From: =?UTF-8?q?An=C3=ADbal=20Lim=C3=B3n?= <anibal.limon@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 13 Feb 2015 17:18:06 -0600
+Message-Id: <1423869487-5694-1-git-send-email-anibal.limon@linux.intel.com>
+X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-In-Reply-To: <54DB921F.4090802@windriver.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: poky@yoctoproject.org
-Subject: Re: kernel.release being regenerated
+Subject: [PATCH 1/2] upstream_tracking.inc: Remove entries that now isn\'t needed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,17 +40,209 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Feb 2015 19:35:49 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 13 Feb 2015 23:18:13 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Feb 11, 2015 at 12:32:15PM -0500, Bruce Ashfield wrote:
+Remove manual upstream tracking entries that isn't needed because
+now there are supported by latest_versionstring method.
 
-> It looks like bad luck that this is popping up now.
+Signed-off-by: Aníbal Limón <anibal.limon@linux.intel.com>
+---
+ .../conf/distro/include/upstream_tracking.inc      | 138 +++++----------------
+ 1 file changed, 31 insertions(+), 107 deletions(-)
 
-yes, it looks like bad luck. What is the window for echo
-"content" > file and another task reading file not being
-able to find. I couple of nano seconds? It is a bit frightening
-that my build regulariy break due to this.
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index 7032067..15f6a18 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -18,154 +18,78 @@
+ #
+ # These entries will slowly be removed as we can automatically determine
+ # the information in this file.  So for existing recipes that we can get 
+-# from the package reporting system, the entries here can be removed.
++# from the Recipe reporting system, the entries here can be removed.
+ #
+-# Please keep this list in alphabetical order.
+-#
+-RECIPE_UPSTREAM_VERSION_pn-adt-installer = "1.1"
+-CHECK_DATE_pn-adt-installer = "Sep 11, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-bdwgc = "gc-7.2d"
+-CHECK_DATE_pn-bdwgc = "Aug 27, 2012"
++
++# SVN support isn't implemented
++RECIPE_UPSTREAM_VERSION_pn-tremor="20120314"
++RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
++CHECK_DATE_pn-tremor = "Mar 11, 2013"
++RECIPE_NO_UPDATE_REASON_pn-tremor = "Same revision on different SVN modules"
++
++RECIPE_UPSTREAM_VERSION_pn-puzzles="r10286"
++RECIPE_UPSTREAM_DATE_pn-puzzles="Oct 20, 2014"
++CHECK_DATE_pn-puzzles = "Dec 18, 2014"
++
++RECIPE_UPSTREAM_VERSION_pn-unfs3="0.9.22.r494"
++RECIPE_UPSTREAM_DATE_pn-unfs3="Mar 14, 2014"
++CHECK_DATE_pn-unfs3 = "Dec 18, 2014"
++
++RECIPE_UPSTREAM_VERSION_pn-lz4 = "r123"
++RECIPE_UPSTREAM_DATE_pn-lz4 = "Aug 28, 2014"
++CHECK_DATE_pn-lz4 = "Aug 30, 2014"
++
++# GIT don't have tag
++RECIPE_UPSTREAM_VERSION_pn-x264 = "r2491"
++RECIPE_UPSTREAM_DATE_pn-x264 = "Nov 13, 2014"
++CHECK_DATE_pn-x264 = "Dec 17, 2014"
++
++# Yocto project software
++RECIPE_UPSTREAM_VERSION_pn-pseudo = "1.6.4"
++RECIPE_UPSTREAM_DATE_pn-pseudo = "Jan 23, 2015"
++CHECK_DATE_pseudo = "Feb 12, 2015"
++
++# NO UPDATE REASONS
+ RECIPE_NO_UPDATE_REASON_pn-bluez4 = "BlueZ 5.x is not backward-compatible; components that interact with bluez not updated"
+ RECIPE_NO_UPDATE_REASON_pn-build-appliance = "Always reports behind"
+ RECIPE_NO_UPDATE_REASON_pn-cdrtools = "v3.x uses incompatible CDDL license"
+-RECIPE_UPSTREAM_VERSION_pn-clutter = "1.10.0"
+-RECIPE_UPSTREAM_DATE_pn-clutter = "Mar 22, 2012"
+-CHECK_DATE_pn-clutter = "Aug 28, 2012"
+ RECIPE_NO_UPDATE_REASON_pn-createrepo = "Versions after 0.9.* use YUM, so we hold at 0.4.11"
+ RECIPE_NO_UPDATE_REASON_pn-db= "API compatibility issue"
+ RECIPE_NO_UPDATE_REASON_pn-dbus = "D-BUS 1.9.x is the development version, not stable."
+ RECIPE_NO_UPDATE_REASON_pn-gawk = "Version 4.1.0 requires Automake 1.13, but have 1.12.6"
+ RECIPE_NO_UPDATE_REASON_pn-glib-networking = "Pending Glib-2.0 Update"
+-RECIPE_UPSTREAM_VERSION_pn-gnome-desktop = "3.7.90"
+-RECIPE_UPSTREAM_DATE_pn-gnome-desktop = "Feb 19, 2013"
+-CHECK_DATE_pn-gnome-desktop = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-gnome-desktop = "waiting for the sato gtk3 port"
+-RECIPE_UPSTREAM_VERSION_pn-gnome-icon-theme = "3.7.4"
+-RECIPE_UPSTREAM_DATE_pn-gnome-icon-theme = "Jan 17, 2013"
+-CHECK_DATE_pn-gnome-icon-theme = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-gnome-icon-theme = "waiting for the sato gtk3 port"
+-RECIPE_UPSTREAM_VERSION_pn-gnome-keyring = "3.7.91"
+-RECIPE_UPSTREAM_DATE_pn-gnome-keyring = "Mar 4, 2013"
+-CHECK_DATE_pn-gnome-keyring = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-gnome-keyring = "waiting for the sato gtk3 port"
+ RECIPE_NO_UPDATE_REASON_pn-gobject_introspection = "Does not cross-compile"
+ RECIPE_NO_UPDATE_REASON_pn-groff = "1.18.1.4 is latest GPLv2 Version no 1.21"
+ RECIPE_NO_UPDATE_REASON_pn-bash = "The latest version in yocto is 4.3.30"
+-RECIPE_UPSTREAM_DATE_pn-gst-meta-base="n/a"
+ RECIPE_NO_UPDATE_REASON_pn-gst-plugins-base = "not compatible with gst-fluendo 0.10.x"
+ RECIPE_NO_UPDATE_REASON_pn-gst-plugins-bad = "not compatible with gst-fluendo 0.10.x"
+ RECIPE_NO_UPDATE_REASON_pn-gst-plugins-good = "not compatible with gst-fluendo 0.10.x"
+ RECIPE_NO_UPDATE_REASON_pn-gstreamer=" not compatible with gst-fluendo 0.10.x "
+ RECIPE_NO_UPDATE_REASON_pn-gtk+ = "Do not upgrade to version: 2.99.2 because prefer stable tree"
+-RECIPE_UPSTREAM_VERSION_pn-gtk-engines = "2.91.1"
+-RECIPE_UPSTREAM_DATE_pn-gtk-engines = "Oct 9, 2010"
+-CHECK_DATE_pn-gtk-engines = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-gtk-engines = "2.91.1 is a 3.0 beta release"
+-RECIPE_UPSTREAM_VERSION_pn-initscripts = "9.40"
+-RECIPE_UPSTREAM_DATE_pn-initscripts = "Aug 06, 2012"
+-CHECK_DATE_pn-initscripts = "Aug 29, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-jpeg = "9"
+-RECIPE_UPSTREAM_DATE_pn-jpeg = "Jan 13, 2013"
+-CHECK_DATE_pn-jpeg = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-jpeg = "webkit-gtk 1.8.3 doesn't work with jpeg 9"
+ RECIPE_NO_UPDATE_REASON_pn-kernelshark = "0.2 is the latest version."
+ RECIPE_NO_UPDATE_REASON_pn-liberation-fonts = "2.00.0 - fontforge package required "
+-RECIPE_UPSTREAM_VERSION_pn-libgnome-keyring = "3.7.91"
+-RECIPE_UPSTREAM_DATE_pn-libgnome-keyring = "Mar 4, 2013"
+-CHECK_DATE_pn-libgnome-keyring = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-libgnome-keyring = "waiting for the sato gtk3 port"
+ RECIPE_NO_UPDATE_REASON_pn-libnl = "libnl-3.2.2 is incompatible with libnl2, so no Upgrade"
+-RECIPE_UPSTREAM_VERSION_pn-libsoup = "2.41.90"
+-RECIPE_UPSTREAM_DATE_pn-libsoup = "Feb 19, 2013"
+-CHECK_DATE_pn-libsoup = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-libsoup = "2.41.90 is unstable"
+ RECIPE_NO_UPDATE_REASON_pn-libunique = "Do not upgrade to version: 2.91.4 because it requires gtk+ >= 2.90.0 and the stable version of gtk+ used by poky is 2.20.1"
+-RECIPE_UPSTREAM_VERSION_pn-libusb = "1.0.9"
+-RECIPE_UPSTREAM_DATE_pn-libusb = "Apr 20, 2012"
+-CHECK_DATE_pn-libusb = "Aug 30, 2012"
+-RECIPE_UPSTREAM_DATE_pn-linuxdoc-tools-native = "Nov 22, 2009"
+-RECIPE_UPSTREAM_VERSION_pn-linuxdoc-tools-native = "0.9.66"
+-CHECK_DATE_pn-linuxdoc-tools-native = "Aug 31, 2012"
+ RECIPE_NO_UPDATE_REASON-libxml2 = "only release candidates available "
+-CHECK_DATE_pn-lsof = "Dec 16, 2014"
+-RECIPE_UPSTREAM_VERSION_pn-lz4 = "r123"
+-RECIPE_UPSTREAM_DATE_pn-lz4 = "Aug 28, 2014"
+-CHECK_DATE_pn-lz4 = "Aug 30, 2014"
+-RECIPE_UPSTREAM_DATE_pn-module-init-tools = "Jun 02, 2011"
+-RECIPE_UPSTREAM_VERSION_pn-module-init-tools = "3.15"
+-CHECK_DATE_pn-module-init-tools = "Aug 31, 2012"
+ RECIPE_NO_UPDATE_REASON_pn-mx-1.0 = "PRS 1.99 is dev version"
+-CHECK_DATE_pn-nettle = "Aug 21, 2014"
+ RECIPE_NO_UPDATE_REASON_pn-nettle = "3.0.0 breaks gnutls, api changes"
+ RECIPE_NO_UPDATE_REASON_pn-pkgconfig = "removes glib-conf, adds circular depends"
+-RECIPE_UPSTREAM_DATE_pn-poky-feed-config-opkg = "n/a"
+-RECIPE_UPSTREAM_DATE_pn-polkit = "Jan 09, 2013"
+-RECIPE_UPSTREAM_VERSION_pn-polkit = "0.110"
+-CHECK_DATE_pn-polkit = "Mar 14, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-polkit = "requires spidermonkey 1.8.5, not available in poky"
+ RECIPE_NO_UPDATE_REASON_pn-python-distribute = "0.7.3 only upgrades 0.6.32, can't install on its own, also obsolete"
+-RECIPE_UPSTREAM_VERSION_pn-python-distribute = "0.7.3"
+ RECIPE_NO_UPDATE_REASON_pn-python-pygobject = "Newer versions of python-pygobject depend on gobject-introspection which doesn't cross-compile"
+-RECIPE_UPSTREAM_VERSION_pn-python-pygobject = "3.13.3"
+-RECIPE_UPSTREAM_DATE_pn-qemu-helper-native = "n/a"
+ RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because the upstream is broken in x86_64 build"
+ RECIPE_NO_UPDATE_REASON_pn-syslinux="Waiting for 4.06 for 3.3 kernel headers support"
+ RECIPE_NO_UPDATE_REASON_pn-texinfo = "Checking script parses directory wrong"
+-RECIPE_UPSTREAM_VERSION_pn-tinylogin = "1.4"
+-CHECK_DATE_pn-tinylogin = "Sep 03, 2012"
+-RECIPE_UPSTREAM_DATE_pn-tinylogin = "Jan 03, 2003"
+ RECIPE_NO_UPDATE_REASON_pn-tinylogin = "TinyLogin was merged into BusyBox."
+-
+-RECIPE_UPSTREAM_VERSION_pn-ubootchart = "0.0+r12"
+-CHECK_DATE_pn-ubootchart = "Sep 11, 2012"
+-RECIPE_UPSTREAM_DATE_pn-udev-extraconf = "n/a"
+-RECIPE_UPSTREAM_VERSION_pn-unifdef-native="2.6.18+git"
+-RECIPE_UPSTREAM_DATE_pn-unifdef-native = "Feb 05, 2011"
+-CHECK_DATE_pn-unifdef-native = "Sep 03, 2012"
+-RECIPE_UPSTREAM_VERSION_pn-unzip = "6.0"
+-RECIPE_UPSTREAM_DATE_pn-unzip = "Apr 25, 2009"
+-CHECK_DATE_pn-unzip = "Sep 03, 2012"
+ RECIPE_NO_UPDATE_REASON_pn-vte = "Pending Glib-2.0 Update"
+-RECIPE_UPSTREAM_VERSION_pn-webkit-gtk = "1.10.2"
+-RECIPE_UPSTREAM_DATE_pn-webkit-gtk = "Dec 12, 2012"
+-CHECK_DATE_pn-webkit-gtk = "Mar 5, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-webkit-gtk = ">= 1.10.2 needs ruby"
+-RECIPE_UPSTREAM_DATE_pn-x11-common="Sep 22, 2008"
+-RECIPE_UPSTREAM_VERSION_pn-x11-common = "1:7.6"
+-CHECK_DATE_pn-x11-common = "Sep 03, 2012"
+ RECIPE_NO_UPDATE_REASON_pn-xdg-utils = "only release candidates available "
+-RECIPE_UPSTREAM_DATE_pn-xorg-minimal-fonts = "n/a"
+-RECIPE_UPSTREAM_DATE_pn-xserver-nodm-init=""
+ RECIPE_NO_UPDATE_REASON_pn-zaurusd = "SVN rev 426 is last Stable release"
+-RECIPE_UPSTREAM_VERSION_pn-zip = "3.0"
+-RECIPE_UPSTREAM_DATE_pn-zip = "Sep 01, 2009"
+-CHECK_DATE_pn-zip = "Sep 04, 2012"
+-
+-# GIT don't have tag
+-RECIPE_UPSTREAM_VERSION_pn-x264 = "r2491"
+-RECIPE_UPSTREAM_DATE_pn-x264 = "Nov 13, 2014"
+-CHECK_DATE_pn-x264 = "Dec 17, 2014"
+-
+-RECIPE_UPSTREAM_VERSION_pn-mobile-broadband-provider-info = "20140618"
+-RECIPE_UPSTREAM_DATE_pn-mobile-broadband-provider-info = "Jun 18, 2014"
+-CHECK_DATE_pn-mobile-broadband-provider-info = "Dec 17, 2014"
+-
+-# SVN support isn't implemented
+-RECIPE_UPSTREAM_VERSION_pn-tremor="20120314"
+-RECIPE_UPSTREAM_DATE_pn-tremor="Jan 22, 2012"
+-CHECK_DATE_pn-tremor = "Mar 11, 2013"
+ RECIPE_NO_UPDATE_REASON_pn-tremor = "Same revision on different SVN modules"
+-
+-RECIPE_UPSTREAM_VERSION_pn-puzzles="r10286"
+-RECIPE_UPSTREAM_DATE_pn-puzzles="Oct 20, 2014"
+-CHECK_DATE_pn-puzzles = "Dec 18, 2014"
+-
+-RECIPE_UPSTREAM_VERSION_pn-unfs3="0.9.22.r494"
+-RECIPE_UPSTREAM_DATE_pn-unfs3="Mar 14, 2014"
+-CHECK_DATE_pn-unfs3 = "Dec 18, 2014"
+-
+-# Incompatible version format
+-RECIPE_UPSTREAM_VERSION_pn-sqlite3="3.8.7.4"
+-RECIPE_UPSTREAM_DATE_pn-sqlite3="Jan 22, 2012"
+-CHECK_DATE_pn-sqlite3 = "Mar 11, 2013"
+-- 
+1.9.1
 
 
