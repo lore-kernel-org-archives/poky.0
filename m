@@ -1,39 +1,35 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2B3E0E0082D; Thu, 19 Feb 2015 07:02:57 -0800 (PST)
+	id 8F30FE00873; Fri, 20 Feb 2015 10:44:35 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF0DCE00827
-	for <poky@yoctoproject.org>; Thu, 19 Feb 2015 07:02:49 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	t1JF2kE7032729; Thu, 19 Feb 2015 15:02:46 GMT
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id n7BPLjkdTOQn; Thu, 19 Feb 2015 15:02:46 +0000 (GMT)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	t1JF2VDb032725
-	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 19 Feb 2015 15:02:42 GMT
-Message-ID: <1424358151.11836.29.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: suneet saini <suneet.saini@gmail.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Thu, 19 Feb 2015 15:02:31 +0000
-In-Reply-To: <CAAxKdCigngVSOexCWYpwA3yAdEFKcmLnseMQxiyyW1eak+i4pw@mail.gmail.com>
-References: <CAAxKdCh6p+9nxGmayUjcLLsDF-Ka98AMZZtXEUMusSCaXvM=Cw@mail.gmail.com>
-	<1424337714.11836.26.camel@linuxfoundation.org>
-	<CAAxKdCigngVSOexCWYpwA3yAdEFKcmLnseMQxiyyW1eak+i4pw@mail.gmail.com>
-X-Mailer: Evolution 3.12.7-0ubuntu1 
-Mime-Version: 1.0
-Subject: Re: Kernel Panic : Not Syncing : Exit code 0x00000004
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 57D97E002F9
+	for <poky@yoctoproject.org>; Fri, 20 Feb 2015 10:44:31 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.9/8.14.5) with ESMTP id t1KIiTmo008200
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 20 Feb 2015 10:44:29 -0800 (PST)
+Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.174.1; Fri, 20 Feb 2015 10:44:29 -0800
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Fri, 20 Feb 2015 13:44:26 -0500
+Message-ID: <cover.1424457539.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 2.1.0
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/2] yocto-bsp: update BSPs to match 3.19 kernel addition
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,26 +42,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Feb 2015 15:02:57 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 20 Feb 2015 18:44:35 -0000
+Content-Type: text/plain
 
-On Thu, 2015-02-19 at 15:51 +0530, suneet saini wrote:
->         I you more elaborate to locate this default location in whole
-> build then it'll be better for me. As I am totally a newbie to
-> Yoctoproject.
-> 
-Firstly, please don't take this offlist, its impolite.
+These are the updates to meta-yocto, and meta-yocto-bsps to match the 
+3.19 kernel introduction (and 3.10/3.17 removal) in oe-core.
 
-I appreciate you may be new to the project but I simply don't have time
-to solve the problem for you. You need to find the qemuarm cpu options
-in the runqemu script and change it to match the architecture you're
-trying to build.
+This changes the default for the qemu BSPs to 3.19 (sato has been tested
+for them all), and remove the now dangling bbappend.
 
 Cheers,
 
-Richard
+Bruce
 
+The following changes since commit a9038233862667971dc193ad0e160a7b28ef252a:
 
+  linux-yocto: warn when a generated BSP description is used (2015-02-20 13:17:43 -0500)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (2):
+  meta-yocto: update qemu default kernel version to 3.19
+  meta-yocto-bsps: remove 3.10 bbappend
+
+ .../recipes-kernel/linux/linux-yocto_3.10.bbappend         | 14 --------------
+ meta-yocto/conf/distro/poky.conf                           | 14 +++++++-------
+ 2 files changed, 7 insertions(+), 21 deletions(-)
+ delete mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.10.bbappend
+
+-- 
+2.1.0
 
 
