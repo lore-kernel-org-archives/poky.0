@@ -1,17 +1,18 @@
-Return-Path: <srifenbark@gmail.com>
+Return-Path: <praveen.vatt@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 13487E008EC; Wed, 25 Mar 2015 08:17:28 -0700 (PDT)
+	id A839BE00963; Wed, 25 Mar 2015 22:42:55 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW, WEIRD_PORT autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (srifenbark[at]gmail.com)
+	mail provider *      (praveen.vatt[at]gmail.com)
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [209.85.218.53 listed in list.dnswl.org]
+	*      [209.85.220.47 listed in list.dnswl.org]
+	*  0.0 WEIRD_PORT URI: Uses non-standard port number for HTTP
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -20,35 +21,30 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-oi0-f53.google.com (mail-oi0-f53.google.com
-	[209.85.218.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BCA18E008CE
-	for <poky@yoctoproject.org>; Wed, 25 Mar 2015 08:17:25 -0700 (PDT)
-Received: by oier21 with SMTP id r21so24130372oie.1
-	for <poky@yoctoproject.org>; Wed, 25 Mar 2015 08:17:25 -0700 (PDT)
+Received: from mail-pa0-f47.google.com (mail-pa0-f47.google.com
+	[209.85.220.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5E00BE00960
+	for <poky@yoctoproject.org>; Wed, 25 Mar 2015 22:42:51 -0700 (PDT)
+Received: by padcy3 with SMTP id cy3so52617411pad.3
+	for <poky@yoctoproject.org>; Wed, 25 Mar 2015 22:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=XwGKsziUA9TgsdpQDIaLj2rImJADKhZ0V1+xUY0dvvo=;
-	b=C6cqRK8ntZ4+EZAR6rC8lSzkiYyy/3imIa8d9pGdwDY4/LcHcR4M/nZ2AAtYoT4Bn/
-	stSXE2uWIb9Ic13GaSN4MW8pBgy1x5LXMSnwZM+qjwIwOPXCtVdSu5eDUNgSvH/UOWJ2
-	ZmCQwTdq6l8SVVZClaimybgdiYVyUa6bUB4gPDTkmdk7M32M2CPZPXXFtLlpDDDCeVLU
-	bfC4dtwWM9LYrldgubWqcqTzB8e57Qih2Yc8J8PKqltyuWG060tWvwtjf2Dx0ZZfTYCG
-	vypa+DuYBU3Xv+5Z4H+rTLno9mELa1Yhp+oRZdR+BzT9pbxjcPY87bxpHQFhGWRVGorX
-	DeNA==
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=R0cSAc5xpSFIWUqpDeUzM4613hhdUu2VHfBLWhXIqGU=;
+	b=kds5Mw140A4Gfob8rCtVmp3U75wSTdLN6xIT/olmMOVQvL67Xaw/9loipeLC8lAKPt
+	JaV8VIKnNOKIdteACGKt05/pPRX1bDSz31hKx/dHplqxSYl9+K4XHqV7cawFQnCW+ml4
+	E3+bcKd9ccDZeQmSWCvtEHzY0431qU7W/lzW0d1zlI30g1z70wPNbWXt3NzyxflJ4OeB
+	OzPq+NCpvk/hO3f5yD3+nbFQq58jsgnKuVgDdstcme5qbAV4MHmaO3fMxGFY9TTxWihg
+	Tcu7qTO7r4Y+8x5qUDvzsOZ0+kI0JmKx5159Hyif+Q/4vyTWIbRLeXiKU7WRFwB80IrI
+	8l9g==
 MIME-Version: 1.0
-X-Received: by 10.60.124.42 with SMTP id mf10mr7870186oeb.81.1427296645303;
-	Wed, 25 Mar 2015 08:17:25 -0700 (PDT)
-Received: by 10.60.124.201 with HTTP; Wed, 25 Mar 2015 08:17:25 -0700 (PDT)
-In-Reply-To: <1427293279-15261-1-git-send-email-alexandru.damian@intel.com>
-References: <1427293279-15261-1-git-send-email-alexandru.damian@intel.com>
-Date: Wed, 25 Mar 2015 08:17:25 -0700
-Message-ID: <CAFNP8OsWu7vYiWJPtB5nnwpb6VneQLPDOXHMOg7P2HwKZ0yYXg@mail.gmail.com>
-From: Scott Rifenbark <srifenbark@gmail.com>
-To: Alex DAMIAN <alexandru.damian@intel.com>
-Cc: poky@yoctoproject.org,
-	Belen Barros Pena <belen.barros.pena@linux.intel.com>
-Subject: Re: [FIDO] toaster: updating toasterconf.json for fido release
+X-Received: by 10.68.198.65 with SMTP id ja1mr23266168pbc.143.1427348571435;
+	Wed, 25 Mar 2015 22:42:51 -0700 (PDT)
+Received: by 10.70.135.134 with HTTP; Wed, 25 Mar 2015 22:42:51 -0700 (PDT)
+Date: Thu, 26 Mar 2015 11:12:51 +0530
+Message-ID: <CA+pXca3qH6Ly0nb_M67PUhSyubt3BWiWLubh4mo9V=x=YZ_xtw@mail.gmail.com>
+From: praveen vattipalli <praveen.vatt@gmail.com>
+To: poky@yoctoproject.org
+Subject: error while compiling fuse for beaglebone
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -61,316 +57,240 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Mar 2015 15:17:28 -0000
-Content-Type: multipart/alternative; boundary=047d7b5d483c88545a05121e65c0
+X-List-Received-Date: Thu, 26 Mar 2015 05:42:55 -0000
+Content-Type: multipart/alternative; boundary=047d7bd74daa923a4205122a7c37
 
---047d7b5d483c88545a05121e65c0
+--047d7bd74daa923a4205122a7c37
 Content-Type: text/plain; charset=UTF-8
 
-Sample listing in the manual has been updated to reflect this patch.  See
-file:///home/scottrif/yocto-docs/documentation/toaster-manual/toaster-manual.html#json-structure
-for the changes.
+Hi,
+I am trying to build fuse_2.8.6.bb  recipe for beaglebone using
+*poky-dizzy-12.0.1*
+I am using Ubuntu-12.04 32 bit machine. Target: Beagle bone. Before this I
+have successfully build core-image-minimal image for Beaglebone
 
-Scott
 
-On Wed, Mar 25, 2015 at 7:21 AM, Alex DAMIAN <alexandru.damian@intel.com>
-wrote:
+I even tried to create a patch
 
-> From: Belen Barros Pena <belen.barros.pena@linux.intel.com>
->
-> We update the toasterconf.json file for the fido release.
->
-> A small update to the release help text in the
-> toasterconf.json file shipped with the meta-yocto layer.
->
-> We now make explicit that Toaster will build with the
-> tip of the selected branch. We also link the
-> Yocto Project Dizzy release to the git repository,
-> and not to the release page on the website.
->
-> Signed-off-by: Belen Barros Pena <belen.barros.pena@linux.intel.com>
-> Signed-off-by: Alexandru DAMIAN <alexandru.damian@intel.com>
-> ---
->  meta-yocto/conf/toasterconf.json | 25 ++++++++++++++++++++-----
->  1 file changed, 20 insertions(+), 5 deletions(-)
->
-> diff --git a/meta-yocto/conf/toasterconf.json
-> b/meta-yocto/conf/toasterconf.json
-> index 51dbc8c..c455276 100644
-> --- a/meta-yocto/conf/toasterconf.json
-> +++ b/meta-yocto/conf/toasterconf.json
-> @@ -12,7 +12,7 @@
->              "name": "Local Yocto Project",
->              "sourcetype": "local",
->              "apiurl": "../../",
-> -            "branches": ["HEAD", "master", "dizzy"],
-> +            "branches": ["HEAD", "master", "fido", "dizzy"],
->              "layers": [
->                  {
->                      "name": "openembedded-core",
-> @@ -39,13 +39,13 @@
->              "name": "OpenEmbedded",
->              "sourcetype": "layerindex",
->              "apiurl": "http://layers.openembedded.org/layerindex/api/",
-> -            "branches": ["master", "dizzy"]
-> +            "branches": ["master", "fido", "dizzy"]
->          },
->          {
->              "name": "Imported layers",
->              "sourcetype": "imported",
->              "apiurl": "",
-> -            "branches": ["master", "dizzy", "HEAD"]
-> +            "branches": ["master", "fido", "dizzy", "HEAD"]
->
->          }
->      ],
-> @@ -57,6 +57,12 @@
->              "dirpath": "bitbake"
->          },
->          {
-> +            "name": "fido",
-> +            "giturl": "remote:origin",
-> +            "branch": "fido",
-> +            "dirpath": "bitbake"
-> +        },
-> +        {
->              "name": "dizzy",
->              "giturl": "remote:origin",
->              "branch": "dizzy",
-> @@ -80,7 +86,16 @@
->              "branch": "master",
->              "defaultlayers": [ "openembedded-core", "meta-yocto",
-> "meta-yocto-bsp"],
->              "layersourcepriority": { "Imported layers": 99, "Local Yocto
-> Project" : 10, "OpenEmbedded" :  0 },
-> -            "helptext": "Toaster will run your builds using the <a href=\"
-> http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project
-> master branch</a>, where active development takes place. This is not a
-> stable branch, so your builds might not work as expected."
-> +            "helptext": "Toaster will run your builds using the tip of
-> the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto
-> Project master branch</a>, where active development takes place. This is
-> not a stable branch, so your builds might not work as expected."
-> +        },
-> +        {
-> +            "name": "fido",
-> +            "description": "Yocto Project 1.8 Fido",
-> +            "bitbake": "fido",
-> +            "branch": "fido",
-> +            "defaultlayers": [ "openembedded-core", "meta-yocto",
-> "meta-yocto-bsp"],
-> +            "layersourcepriority": { "Imported layers": 99, "Local Yocto
-> Project" : 10, "OpenEmbedded" :  0 },
-> +            "helptext": "Toaster will run your builds with the tip of the
-> <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=fido\">Yocto
-> Project 1.8 \"Fido\"</a> branch."
->          },
->          {
->              "name": "dizzy",
-> @@ -89,7 +104,7 @@
->              "branch": "dizzy",
->              "defaultlayers": [ "openembedded-core", "meta-yocto",
-> "meta-yocto-bsp"],
->              "layersourcepriority": { "Imported layers": 99, "Local Yocto
-> Project" : 10, "OpenEmbedded" :  0 },
-> -            "helptext": "Toaster will run your builds with the <a href=\"
-> https://www.yoctoproject.org/downloads/core/dizzy1\">Yocto Project 1.7
-> \"Dizzy\"</a> release"
-> +            "helptext": "Toaster will run your builds with the tip of the
-> <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=dizzy\">Yocto
-> Project 1.7 \"Dizzy\"</a> branch."
->          },
->          {
->              "name": "local",
-> --
-> 1.9.1
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+diff --git a/configure.in b/configure.in
+index 9604d5e..f1dacd5 100644
+--- a/configure.in
++++ b/configure.in
+@@ -1,7 +1,8 @@
+ AC_INIT(fuse, 2.8.6)
+ AC_CONFIG_MACRO_DIR([m4])
+ AC_CANONICAL_TARGET
+-AM_INIT_AUTOMAKE
++AM_INIT_AUTOMAKE([foreign])
+ AM_CONFIG_HEADER(include/config.h)
+ AC_PROG_LIBTOOL
+--
+1.9.1
 
---047d7b5d483c88545a05121e65c0
+as mentioned in
+
+http://www.yoctoproject.org/docs/1.7/ref-manual/ref-
+manual.html#migration-1.7-autotools-class-changes  but for no use.
+
+I even tried latest version fuse_2.9.2.bb
+
+I am facing below error
+
+praveenk@phytec:~/work/beaglebone/poky/build$ bitbake fuse
+
+Log data follows:
+| DEBUG: Executing python function sysroot_cleansstate
+| DEBUG: Python function sysroot_cleansstate finished
+| DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common', 'arm-32',
+'common-linux', 'common-glibc', 'arm-linux', 'arm-linux-gnueabi', 'common']
+| DEBUG: Executing shell function autotools_preconfigure
+| DEBUG: Shell function autotools_preconfigure finished
+| DEBUG: Executing python function autotools_copy_aclocals
+| DEBUG: SITE files ['endian-little', 'bit-32', 'arm-common', 'arm-32',
+'common-linux', 'common-glibc', 'arm-linux', 'arm-linux-gnueabi', 'common']
+| DEBUG: Python function autotools_copy_aclocals finished
+| DEBUG: Executing shell function do_configure
+| automake (GNU automake) 1.15
+| Copyright (C) 2014 Free Software Foundation, Inc.
+| License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl-
+2.0.html>
+| This is free software: you are free to change and redistribute it.
+| There is NO WARRANTY, to the extent permitted by law.
+|
+| Written by Tom Tromey <tromey@redhat.com>
+| and Alexandre Duret-Lutz <adl@gnu.org>.
+| AUTOV is 1
+| NOTE: Executing ACLOCAL="aclocal
+--system-acdir=/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/build/aclocal-copy/"
+autoreconf --verbose --install --force --exclude=autopoint -I
+/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/fuse-2.9.2/m4/
+| autoreconf: Entering directory `.'
+| autoreconf: configure.in: not using Gettext
+| autoreconf: running: aclocal
+--system-acdir=/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/build/aclocal-copy/
+-I
+/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/fuse-2.9.2/m4/
+-I
+/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/fuse-2.9.2/m4/
+--force -I m4
+| aclocal: warning: autoconf input should be named 'configure.ac', not '
+configure.in'
+| configure.in:72: warning: macro 'AM_ICONV' not found in library
+| autoreconf: configure.in: tracing
+| autoreconf: running: libtoolize --copy --force
+| libtoolize: putting auxiliary files in '.'.
+| libtoolize: copying file './ltmain.sh'
+| libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
+| libtoolize: copying file 'm4/libtool.m4'
+| libtoolize: copying file 'm4/ltoptions.m4'
+| libtoolize: copying file 'm4/ltsugar.m4'
+| libtoolize: copying file 'm4/ltversion.m4'
+| libtoolize: copying file 'm4/lt~obsolete.m4'
+| aclocal: warning: autoconf input should be named 'configure.ac', not '
+configure.in'
+| configure.in:72: warning: macro 'AM_ICONV' not found in library
+| autoreconf: running:
+/home/praveenk/work/beaglebone/poky/build/tmp/sysroots/i686-linux/usr/bin/autoconf
+--include=/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/fuse-2.9.2/m4/
+--force
+| configure.in:72: error: possibly undefined macro: AM_ICONV
+| If this token and others are legitimate, please use m4_pattern_allow.
+| See the Autoconf documentation.
+| autoreconf:
+/home/praveenk/work/beaglebone/poky/build/tmp/sysroots/i686-linux/usr/bin/autoconf
+failed with exit status: 1
+| ERROR: autoreconf execution failed.
+| WARNING: exit code 1 from a shell command.
+| ERROR: Function failed: do_configure (log file is located at
+/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/temp/log.do_configure.26343)
+ERROR: Task 5
+(/home/praveenk/work/beaglebone/poky/meta/recipes-support/fuse/fuse_2.9.2.bb,
+do_configure) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 434 tasks of which 429 didn't need to be
+rerun and 1 failed.
+No currently running tasks (434 of 442)
+
+Summary: 1 task failed:
+/home/praveenk/work/beaglebone/poky/meta/recipes-support/fuse/fuse_2.9.2.bb,
+do_configure
+Summary: There was 1 WARNING message shown.
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+praveenk@phytec:~/work/beaglebone/poky/build$
+
+
+
+Please any one help me  to resolve this.
+
+Thanks
+Praveen
+
+--047d7bd74daa923a4205122a7c37
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Sample listing in the manual has been updated to refl=
-ect this patch.=C2=A0 See file:///home/scottrif/yocto-docs/documentation/to=
-aster-manual/toaster-manual.html#json-structure for the changes.<br><br></d=
-iv>Scott<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote"=
->On Wed, Mar 25, 2015 at 7:21 AM, Alex DAMIAN <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:alexandru.damian@intel.com" target=3D"_blank">alexandru.damian@i=
-ntel.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">From: Be=
-len Barros Pena &lt;<a href=3D"mailto:belen.barros.pena@linux.intel.com">be=
-len.barros.pena@linux.intel.com</a>&gt;<br>
-<br>
-We update the toasterconf.json file for the fido release.<br>
-<br>
-A small update to the release help text in the<br>
-toasterconf.json file shipped with the meta-yocto layer.<br>
-<br>
-We now make explicit that Toaster will build with the<br>
-tip of the selected branch. We also link the<br>
-Yocto Project Dizzy release to the git repository,<br>
-and not to the release page on the website.<br>
-<br>
-Signed-off-by: Belen Barros Pena &lt;<a href=3D"mailto:belen.barros.pena@li=
-nux.intel.com">belen.barros.pena@linux.intel.com</a>&gt;<br>
-Signed-off-by: Alexandru DAMIAN &lt;<a href=3D"mailto:alexandru.damian@inte=
-l.com">alexandru.damian@intel.com</a>&gt;<br>
----<br>
-=C2=A0meta-yocto/conf/toasterconf.json | 25 ++++++++++++++++++++-----<br>
-=C2=A01 file changed, 20 insertions(+), 5 deletions(-)<br>
-<br>
-diff --git a/meta-yocto/conf/toasterconf.json b/meta-yocto/conf/toasterconf=
-.json<br>
-index 51dbc8c..c455276 100644<br>
---- a/meta-yocto/conf/toasterconf.json<br>
-+++ b/meta-yocto/conf/toasterconf.json<br>
-@@ -12,7 +12,7 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;name&quot;: &quot;Loc=
-al Yocto Project&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;sourcetype&quot;: &qu=
-ot;local&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;apiurl&quot;: &quot;.=
-./../&quot;,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branches&quot;: [&quot;HEA=
-D&quot;, &quot;master&quot;, &quot;dizzy&quot;],<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branches&quot;: [&quot;HEA=
-D&quot;, &quot;master&quot;, &quot;fido&quot;, &quot;dizzy&quot;],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;layers&quot;: [<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0&quot;name&quot;: &quot;openembedded-core&quot;,<br>
-@@ -39,13 +39,13 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;name&quot;: &quot;Ope=
-nEmbedded&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;sourcetype&quot;: &qu=
-ot;layerindex&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;apiurl&quot;: &quot;<=
-a href=3D"http://layers.openembedded.org/layerindex/api/" target=3D"_blank"=
->http://layers.openembedded.org/layerindex/api/</a>&quot;,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branches&quot;: [&quot;mas=
-ter&quot;, &quot;dizzy&quot;]<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branches&quot;: [&quot;mas=
-ter&quot;, &quot;fido&quot;, &quot;dizzy&quot;]<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;name&quot;: &quot;Imp=
-orted layers&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;sourcetype&quot;: &qu=
-ot;imported&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;apiurl&quot;: &quot;&=
-quot;,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branches&quot;: [&quot;mas=
-ter&quot;, &quot;dizzy&quot;, &quot;HEAD&quot;]<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branches&quot;: [&quot;mas=
-ter&quot;, &quot;fido&quot;, &quot;dizzy&quot;, &quot;HEAD&quot;]<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0],<br>
-@@ -57,6 +57,12 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;dirpath&quot;: &quot;=
-bitbake&quot;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;name&quot;: &quot;fido&quo=
-t;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;giturl&quot;: &quot;remote=
-:origin&quot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branch&quot;: &quot;fido&q=
-uot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;dirpath&quot;: &quot;bitba=
-ke&quot;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;name&quot;: &quot;diz=
-zy&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;giturl&quot;: &quot;r=
-emote:origin&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;branch&quot;: &quot;d=
-izzy&quot;,<br>
-@@ -80,7 +86,16 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;branch&quot;: &quot;m=
-aster&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;defaultlayers&quot;: =
-[ &quot;openembedded-core&quot;, &quot;meta-yocto&quot;, &quot;meta-yocto-b=
-sp&quot;],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;layersourcepriority&q=
-uot;: { &quot;Imported layers&quot;: 99, &quot;Local Yocto Project&quot; : =
-10, &quot;OpenEmbedded&quot; :=C2=A0 0 },<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;helptext&quot;: &quot;Toas=
-ter will run your builds using the &lt;a href=3D\&quot;<a href=3D"http://gi=
-t.yoctoproject.org/cgit/cgit.cgi/poky/log/\" target=3D"_blank">http://git.y=
-octoproject.org/cgit/cgit.cgi/poky/log/\</a>&quot;&gt;Yocto Project master =
-branch&lt;/a&gt;, where active development takes place. This is not a stabl=
-e branch, so your builds might not work as expected.&quot;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;helptext&quot;: &quot;Toas=
-ter will run your builds using the tip of the &lt;a href=3D\&quot;<a href=
-=3D"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\" target=3D"_blank"=
->http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\</a>&quot;&gt;Yocto Pr=
-oject master branch&lt;/a&gt;, where active development takes place. This i=
-s not a stable branch, so your builds might not work as expected.&quot;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;name&quot;: &quot;fido&quo=
-t;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;description&quot;: &quot;Y=
-octo Project 1.8 Fido&quot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;bitbake&quot;: &quot;fido&=
-quot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;branch&quot;: &quot;fido&q=
-uot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;defaultlayers&quot;: [ &qu=
-ot;openembedded-core&quot;, &quot;meta-yocto&quot;, &quot;meta-yocto-bsp&qu=
-ot;],<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;layersourcepriority&quot;:=
- { &quot;Imported layers&quot;: 99, &quot;Local Yocto Project&quot; : 10, &=
-quot;OpenEmbedded&quot; :=C2=A0 0 },<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;helptext&quot;: &quot;Toas=
-ter will run your builds with the tip of the &lt;a href=3D\&quot;<a href=3D=
-"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=3Dfido\" target=3D"_=
-blank">http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=3Dfido\</a>&qu=
-ot;&gt;Yocto Project 1.8 \&quot;Fido\&quot;&lt;/a&gt; branch.&quot;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;name&quot;: &quot;diz=
-zy&quot;,<br>
-@@ -89,7 +104,7 @@<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;branch&quot;: &quot;d=
-izzy&quot;,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;defaultlayers&quot;: =
-[ &quot;openembedded-core&quot;, &quot;meta-yocto&quot;, &quot;meta-yocto-b=
-sp&quot;],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;layersourcepriority&q=
-uot;: { &quot;Imported layers&quot;: 99, &quot;Local Yocto Project&quot; : =
-10, &quot;OpenEmbedded&quot; :=C2=A0 0 },<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;helptext&quot;: &quot;Toas=
-ter will run your builds with the &lt;a href=3D\&quot;<a href=3D"https://ww=
-w.yoctoproject.org/downloads/core/dizzy1\" target=3D"_blank">https://www.yo=
-ctoproject.org/downloads/core/dizzy1\</a>&quot;&gt;Yocto Project 1.7 \&quot=
-;Dizzy\&quot;&lt;/a&gt; release&quot;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;helptext&quot;: &quot;Toas=
-ter will run your builds with the tip of the &lt;a href=3D\&quot;<a href=3D=
-"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=3Ddizzy\" target=3D"=
-_blank">http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=3Ddizzy\</a>&=
-quot;&gt;Yocto Project 1.7 \&quot;Dizzy\&quot;&lt;/a&gt; branch.&quot;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;name&quot;: &quot;loc=
-al&quot;,<br>
-<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
-1.9.1<br>
-<br>
---<br>
-_______________________________________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.org/listinfo/poky</a><br>
-</font></span></blockquote></div><br></div>
+<div dir=3D"ltr"><div>Hi,</div><div>I am trying to build=C2=A0<a href=3D"ht=
+tp://fuse_2.8.6.bb">fuse_2.8.6.bb</a> =C2=A0recipe for beaglebone using <st=
+rong>poky-dizzy-12.0.1</strong> </div><div>I am using Ubuntu-12.04 32 bit m=
+achine. Target: Beagle bone. Before this=C2=A0I have successfully build cor=
+e-image-minimal image for Beaglebone </div><div>=C2=A0</div><div>=C2=A0</di=
+v><div>I even tried to create a patch </div><div>=C2=A0</div><div>diff --gi=
+t a/<a href=3D"http://configure.in">configure.in</a> b/<a href=3D"http://co=
+nfigure.in">configure.in</a><br>index 9604d5e..f1dacd5 100644<br>--- a/<a h=
+ref=3D"http://configure.in">configure.in</a><br>+++ b/<a href=3D"http://con=
+figure.in">configure.in</a><br>@@ -1,7 +1,8 @@<br>=C2=A0AC_INIT(fuse, 2.8.6=
+)<br>=C2=A0AC_CONFIG_MACRO_DIR([m4])<br>=C2=A0AC_CANONICAL_TARGET<br>-AM_IN=
+IT_AUTOMAKE<br>+AM_INIT_AUTOMAKE([foreign])<br>=C2=A0AM_CONFIG_HEADER(inclu=
+de/config.h)</div><div>=C2=A0AC_PROG_LIBTOOL<br>--<br>1.9.1<br></div><div>=
+=C2=A0</div><div>as mentioned in </div><div>=C2=A0</div><div><a href=3D"htt=
+p://www.yoctoproject.org/docs/1.7/ref-manual/ref-manual.html#migration-1.7-=
+autotools-class-changes" target=3D"_blank"><font color=3D"#0066cc">http://w=
+ww.yoctoproject.org/</font><font color=3D"#0066cc">docs/1.7/ref-manual/ref-=
+</font><font color=3D"#0066cc">manual.html#migration-1.7-</font><font color=
+=3D"#0066cc">autotools-class-changes</font></a>=C2=A0 but for no use.</div>=
+<div>=C2=A0</div><div><div>I even tried latest version <a href=3D"http://fu=
+se_2.9.2.bb">fuse_2.9.2.bb</a></div></div><div>=C2=A0</div><div>I am facing=
+ below error </div><div>=C2=A0</div><div>praveenk@phytec:~/work/beaglebone/=
+poky/build$ bitbake fuse</div><div>=C2=A0</div><div>Log data follows:<br>| =
+DEBUG: Executing python function sysroot_cleansstate<br>| DEBUG: Python fun=
+ction sysroot_cleansstate finished<br>| DEBUG: SITE files [&#39;endian-litt=
+le&#39;, &#39;bit-32&#39;, &#39;arm-common&#39;, &#39;arm-32&#39;, &#39;com=
+mon-linux&#39;, &#39;common-glibc&#39;, &#39;arm-linux&#39;, &#39;arm-linux=
+-gnueabi&#39;, &#39;common&#39;]<br>| DEBUG: Executing shell function autot=
+ools_preconfigure<br>| DEBUG: Shell function autotools_preconfigure finishe=
+d<br>| DEBUG: Executing python function autotools_copy_aclocals<br>| DEBUG:=
+ SITE files [&#39;endian-little&#39;, &#39;bit-32&#39;, &#39;arm-common&#39=
+;, &#39;arm-32&#39;, &#39;common-linux&#39;, &#39;common-glibc&#39;, &#39;a=
+rm-linux&#39;, &#39;arm-linux-gnueabi&#39;, &#39;common&#39;]<br>| DEBUG: P=
+ython function autotools_copy_aclocals finished<br>| DEBUG: Executing shell=
+ function do_configure<br>| automake (GNU automake) 1.15<br>| Copyright (C)=
+ 2014 Free Software Foundation, Inc.<br>| License GPLv2+: GNU GPL version 2=
+ or later &lt;<a href=3D"http://gnu.org/licenses/gpl-2.0.html" target=3D"_b=
+lank"><font color=3D"#0066cc">http://gnu.org/licenses/gpl-</font><font colo=
+r=3D"#0066cc">2.0.html</font></a>&gt;<br>| This is free software: you are f=
+ree to change and redistribute it.<br>| There is NO WARRANTY, to the extent=
+ permitted by law.<br>| <br>| Written by Tom Tromey &lt;<a href=3D"mailto:t=
+romey@redhat.com" target=3D"_blank"><font color=3D"#0066cc">tromey@redhat.c=
+om</font></a>&gt;<br>|        and Alexandre Duret-Lutz &lt;<a href=3D"mailt=
+o:adl@gnu.org" target=3D"_blank"><font color=3D"#0066cc">adl@gnu.org</font>=
+</a>&gt;.<br>| AUTOV is 1<br>| NOTE: Executing ACLOCAL=3D&quot;aclocal --sy=
+stem-acdir=3D/home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-=
+vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/build/aclocal-copy/&quot; autorec=
+onf --verbose --install --force --exclude=3Dautopoint -I /home/praveenk/wor=
+k/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fus=
+e/2.9.2-r1/fuse-2.9.2/m4/<br>| autoreconf: Entering directory `.&#39;<br>| =
+autoreconf: <a href=3D"http://configure.in/" target=3D"_blank"><font color=
+=3D"#0066cc">configure.in</font></a>: not using Gettext<br>| autoreconf: ru=
+nning: aclocal --system-acdir=3D/home/praveenk/work/beaglebone/poky/build/t=
+mp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/build/aclocal-=
+copy/ -I /home/praveenk/work/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-=
+neon-poky-linux-gnueabi/fuse/2.9.2-r1/fuse-2.9.2/m4/ -I /home/praveenk/work=
+/beaglebone/poky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse=
+/2.9.2-r1/fuse-2.9.2/m4/ --force -I m4<br>| aclocal: warning: autoconf inpu=
+t should be named &#39;<a href=3D"http://configure.ac/" target=3D"_blank"><=
+font color=3D"#0066cc">configure.ac</font></a>&#39;, not &#39;<a href=3D"ht=
+tp://configure.in/" target=3D"_blank"><font color=3D"#0066cc">configure.in<=
+/font></a>&#39;<br>| <a href=3D"http://configure.in:72/" target=3D"_blank">=
+<font color=3D"#0066cc">configure.in:72</font></a>: warning: macro &#39;AM_=
+ICONV&#39; not found in library<br>| autoreconf: <a href=3D"http://configur=
+e.in/" target=3D"_blank"><font color=3D"#0066cc">configure.in</font></a>: t=
+racing<br>| autoreconf: running: libtoolize --copy --force<br>| libtoolize:=
+ putting auxiliary files in &#39;.&#39;.<br>| libtoolize: copying file &#39=
+;./ltmain.sh&#39;<br>| libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, =
+&#39;m4&#39;.<br>| libtoolize: copying file &#39;m4/libtool.m4&#39;<br>| li=
+btoolize: copying file &#39;m4/ltoptions.m4&#39;<br>| libtoolize: copying f=
+ile &#39;m4/ltsugar.m4&#39;<br>| libtoolize: copying file &#39;m4/ltversion=
+.m4&#39;<br>| libtoolize: copying file &#39;m4/lt~obsolete.m4&#39;<br>| acl=
+ocal: warning: autoconf input should be named &#39;<a href=3D"http://config=
+ure.ac/" target=3D"_blank"><font color=3D"#0066cc">configure.ac</font></a>&=
+#39;, not &#39;<a href=3D"http://configure.in/" target=3D"_blank"><font col=
+or=3D"#0066cc">configure.in</font></a>&#39;<br>| <a href=3D"http://configur=
+e.in:72/" target=3D"_blank"><font color=3D"#0066cc">configure.in:72</font><=
+/a>: warning: macro &#39;AM_ICONV&#39; not found in library<br>| autoreconf=
+: running: /home/praveenk/work/beaglebone/poky/build/tmp/sysroots/i686-linu=
+x/usr/bin/autoconf --include=3D/home/praveenk/work/beaglebone/poky/build/tm=
+p/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/fuse-2.9.2/m4/ =
+--force<br>| <a href=3D"http://configure.in:72/" target=3D"_blank"><font co=
+lor=3D"#0066cc">configure.in:72</font></a>: error: possibly undefined macro=
+: AM_ICONV<br>|       If this token and others are legitimate, please use m=
+4_pattern_allow.<br>|       See the Autoconf documentation.<br>| autoreconf=
+: /home/praveenk/work/beaglebone/poky/build/tmp/sysroots/i686-linux/usr/bin=
+/autoconf failed with exit status: 1<br>| ERROR: autoreconf execution faile=
+d.<br>| WARNING: exit code 1 from a shell command.<br>| ERROR: Function fai=
+led: do_configure (log file is located at /home/praveenk/work/beaglebone/po=
+ky/build/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/fuse/2.9.2-r1/temp=
+/log.do_configure.26343)<br>ERROR: Task 5 (/home/praveenk/work/beaglebone/p=
+oky/meta/recipes-support/fuse/<a href=3D"http://fuse_2.9.2.bb/" target=3D"_=
+blank"><font color=3D"#0066cc">fuse_2.9.2.bb</font></a>, do_configure) fail=
+ed with exit code &#39;1&#39;<br>NOTE: Tasks Summary: Attempted 434 tasks o=
+f which 429 didn&#39;t need to be rerun and 1 failed.<br>No currently runni=
+ng tasks (434 of 442)<br><br>Summary: 1 task failed:<br>  /home/praveenk/wo=
+rk/beaglebone/poky/meta/recipes-support/fuse/<a href=3D"http://fuse_2.9.2.b=
+b/" target=3D"_blank"><font color=3D"#0066cc">fuse_2.9.2.bb</font></a>, do_=
+configure<br>Summary: There was 1 WARNING message shown.<br>Summary: There =
+was 1 ERROR message shown, returning a non-zero exit code.<br>praveenk@phyt=
+ec:~/work/beaglebone/poky/build$ </div><div>=C2=A0</div><div>=C2=A0</div><d=
+iv>=C2=A0</div><div>Please any one help me =C2=A0to resolve this.</div><div=
+>=C2=A0</div><div>Thanks </div><div>Praveen</div><div>=C2=A0</div><div>=C2=
+=A0</div><div>=C2=A0</div><div>=C2=A0</div><div>=C2=A0</div></div>
 
---047d7b5d483c88545a05121e65c0--
+--047d7bd74daa923a4205122a7c37--
