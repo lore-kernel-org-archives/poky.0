@@ -1,14 +1,17 @@
-Return-Path: <s-2nxlet1oxx5of0dso1as9qc5lwixashd8f79gwl38adp5oe8o54eomzo@bounce.linkedin.com>
+Return-Path: <praveen.vatt@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 1FEE8E00932; Thu,  2 Apr 2015 06:39:09 -0700 (PDT)
+	id B033BE007A0; Mon,  6 Apr 2015 23:43:47 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
-	RCVD_IN_RP_CERTIFIED, 
-	RCVD_IN_RP_SAFE,SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (praveen.vatt[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.220.54 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -17,44 +20,33 @@ X-Spam-HAM-Report: * -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [108.174.3.146 listed in list.dnswl.org]
-	* -2.0 RCVD_IN_RP_SAFE RBL: Sender in ReturnPath Safe - Contact
-	*      safe-sa@returnpath.net
-	*      [Return Path SenderScore Safe List (formerly]
-	[Habeas Safelist) - <http://www.senderscorecertified.com>]
-	* -3.0 RCVD_IN_RP_CERTIFIED RBL: Sender in ReturnPath Certified -
-	Contact *      cert-sa@returnpath.net
-	*      [Return Path SenderScore Certified {formerly]
-	[Bonded Sender} - <http://www.senderscorecertified.com>]
-X-Greylist: delayed 63 seconds by postgrey-1.32 at yocto-www;
-	Thu, 02 Apr 2015 06:39:06 PDT
-Received: from mailb-ab.linkedin.com (mailb-ab.linkedin.com [108.174.3.146])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 84351E008EC
-	for <poky@yoctoproject.org>; Thu,  2 Apr 2015 06:39:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linkedin.com;
-	s=proddkim1024; t=1427981869;
-	bh=XP1Pcs7KeGv+Km0PY+KJ2bSoMfm3kyYLW5rG3wU9umY=;
-	h=From:Subject:MIME-Version:Content-Type:To:Date:X-LinkedIn-Class:
-	X-LinkedIn-Template:X-LinkedIn-fbl;
-	b=VBfJfapYGR8FNiv0DNQ5fdSFffD9FCCE7pH3in6HGj3PMxpmpJEJ1Ll4v9inmds++
-	47hRqQ0FFnO/JVVas2wHuuNmnwGs71xaGHRwKd3TqPD4LLKNmxB1+vZVdoZidQ376f
-	UQi4JUWhAnkpecfS7EPVlh0m0vH4mMfLlIXH3re4=
-From: vinod kumar <member@linkedin.com>
-Message-ID: <741414530.1633740.1427981869056.JavaMail.app@lva1-app3794.prod>
+Received: from mail-pa0-f54.google.com (mail-pa0-f54.google.com
+	[209.85.220.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C8AF6E006E5
+	for <poky@yoctoproject.org>; Mon,  6 Apr 2015 23:43:44 -0700 (PDT)
+Received: by paboj16 with SMTP id oj16so68931626pab.0
+	for <poky@yoctoproject.org>; Mon, 06 Apr 2015 23:43:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=AYC/xHiE/C8lQKrPFWvWKtRxMqGw+CQ9afLdGgMZPPM=;
+	b=l4nlnW7/7TKlo6haLfUUVOH4O6ijiOUeie0xD9Lu+4FDQk6S6uQ5s2AButh23ItycW
+	4RBStP2W+KCHYkILvaRZakuiOChhsED3TJ/b08NtPpZENXLfz+zW9dzJDnjILY9dvbHa
+	tOcm5ZgziN9eaUxwsfZDrkSRYSiqO29e3jC/VEjGYkYpQG0rm6ssjwlEmCA0Pw9MKJz/
+	8CYRIEC0121vVqdOL2W9NrhnFwhmEtHpWSGXvPhSqP6vMbDZX3OoDUZ8KT/lKe/R0vAT
+	rvPWMr42qIEUbouL7hEcj0LrjziQnXXDnc9zeCOY2B6Yk9BGYh0jJLv9Q9NNdvWq/frJ
+	BmQQ==
 MIME-Version: 1.0
-To: Ni Qingliang <poky@yoctoproject.org>
-Date: Thu, 2 Apr 2015 13:37:49 +0000 (UTC)
-X-LinkedIn-Class: INVITE-MBR
-X-LinkedIn-Template: invite_member_28
-X-LinkedIn-fbl: s-2nxlet1oxx5of0dso1as9qc5lwixashd8f79gwl38adp5oe8o54eomzo
-X-LinkedIn-Id: 2304hz-i807iyhs-6o
-Subject: Ni, please add me to your LinkedIn network
+X-Received: by 10.66.193.72 with SMTP id hm8mr33497478pac.24.1428389023819;
+	Mon, 06 Apr 2015 23:43:43 -0700 (PDT)
+Received: by 10.70.135.134 with HTTP; Mon, 6 Apr 2015 23:43:43 -0700 (PDT)
+Date: Tue, 7 Apr 2015 12:13:43 +0530
+Message-ID: <CA+pXca2451pmub6K3mm-q20b0D-OUQ1beBk=ovA8sn57n7t5nA@mail.gmail.com>
+From: praveen vattipalli <praveen.vatt@gmail.com>
+To: poky@yoctoproject.org
+Subject: do_compile_ptest_base error (valgrind) in dizzy
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
-Reply-To: vinodmaverickr007@gmail.com
 List-Id: Poky build system developer discussion & patch submission for
 	meta-yocto <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
@@ -64,702 +56,119 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Apr 2015 13:39:09 -0000
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1633738_2004759394.1427981869054"
+X-List-Received-Date: Tue, 07 Apr 2015 06:43:47 -0000
+Content-Type: multipart/alternative; boundary=047d7bdca6a45dac3705131cbc8b
 
-------=_Part_1633738_2004759394.1427981869054
-Content-Type: text/plain;charset=UTF-8
+--047d7bdca6a45dac3705131cbc8b
+Content-Type: text/plain; charset=UTF-8
+
+hi
+I am using 64 bit ubuntu12.04 and compiling coertexa9 arch arm  board. I
+could able to build core-image-minimal successfully. But when I am trying
+to build valgrind. I am getting do_compile_ptest_base error. If i remove
+ptest in valgrind_3.9.0.bb it is building without errors.
+
+I am using poky-dizzy.
+
+ERROR LOG:
+
+/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/valgrind-3.9.0/none/tests/arm/vcvt_fixed_float_VFP.c:
+In function 's32_to_f32_imm1':
+|
+/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/valgrind-3.9.0/none/tests/arm/vcvt_fixed_float_VFP.c:12:1:
+internal compiler error: Max. number of generated reload insns per insn is
+achieved (90)
+|
+|  }
+|  ^
+| Please submit a full bug report,
+| with preprocessed source if appropriate.
+| See <http://gcc.gnu.org/bugs.html> for instructions.
+| make[5]: *** [vcvt_fixed_float_VFP.o] Error 1
+| make[5]: Leaving directory
+`/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build/none/tests/arm'
+| make[4]: *** [check-am] Error 2
+| make[4]: Leaving directory
+`/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build/none/tests/arm'
+| make[3]: *** [check-recursive] Error 1
+| make[3]: Leaving directory
+`/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build/none/tests'
+| make[2]: *** [check-recursive] Error 1
+| make[2]: Leaving directory
+`/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build/none'
+| make[1]: *** [check-recursive] Error 1
+| make[1]: Leaving directory
+`/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build'
+| make: *** [check] Error 2
+| make: Leaving directory
+`/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build'
+| ERROR: oe_runmake failed
+| WARNING: exit code 1 from a shell command.
+| ERROR: Function failed: do_compile_ptest_base (log file is located at
+/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/temp/log.do_compile_ptest_base.11152)
+ERROR: Task 9 (/home/praveenk/work/platform/meta/recipes-devtools/valgrind/
+valgrind_3.9.0.bb, do_compile_ptest_base) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 776 tasks of which 769 didn't need to be
+rerun and 1 failed.
+No currently running tasks (776 of 784)
+
+Summary: 1 task failed:
+  /home/praveenk/work/platform/meta/recipes-devtools/valgrind/
+valgrind_3.9.0.bb, do_compile_ptest_base
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+
+how can i solve this.
+
+Thanks
+Praveen
+
+--047d7bdca6a45dac3705131cbc8b
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Content-ID: text-body
 
-Hi Ni,
-I'd like to connect with you on LinkedIn.
+<div dir=3D"ltr"><div><div>hi <br></div>I am using 64 bit ubuntu12.04 and c=
+ompiling coertexa9 arch arm=C2=A0 board. I could able to build core-image-m=
+inimal successfully. But when I am trying to build valgrind. I am getting d=
+o_compile_ptest_base error. If i remove ptest in <a href=3D"http://valgrind=
+_3.9.0.bb">valgrind_3.9.0.bb</a> it is building without errors. <br><br></d=
+iv><div>I am using poky-dizzy. <br></div><div><br></div><div>ERROR LOG:<br>=
+<br>/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-li=
+nux-gnueabi/valgrind/3.9.0-r8/valgrind-3.9.0/none/tests/arm/vcvt_fixed_floa=
+t_VFP.c: In function &#39;s32_to_f32_imm1&#39;:<br>| /home/praveenk/work/pl=
+atform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0=
+-r8/valgrind-3.9.0/none/tests/arm/vcvt_fixed_float_VFP.c:12:1: internal com=
+piler error: Max. number of generated reload insns per insn is achieved (90=
+)<br>| <br>|=C2=A0 }<br>|=C2=A0 ^<br>| Please submit a full bug report,<br>=
+| with preprocessed source if appropriate.<br>| See &lt;<a href=3D"http://g=
+cc.gnu.org/bugs.html">http://gcc.gnu.org/bugs.html</a>&gt; for instructions=
+.<br>| make[5]: *** [vcvt_fixed_float_VFP.o] Error 1<br>| make[5]: Leaving =
+directory `/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-=
+poky-linux-gnueabi/valgrind/3.9.0-r8/build/none/tests/arm&#39;<br>| make[4]=
+: *** [check-am] Error 2<br>| make[4]: Leaving directory `/home/praveenk/wo=
+rk/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/=
+3.9.0-r8/build/none/tests/arm&#39;<br>| make[3]: *** [check-recursive] Erro=
+r 1<br>| make[3]: Leaving directory `/home/praveenk/work/platform/build/tmp=
+/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/build/none/t=
+ests&#39;<br>| make[2]: *** [check-recursive] Error 1<br>| make[2]: Leaving=
+ directory `/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon=
+-poky-linux-gnueabi/valgrind/3.9.0-r8/build/none&#39;<br>| make[1]: *** [ch=
+eck-recursive] Error 1<br>| make[1]: Leaving directory `/home/praveenk/work=
+/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.=
+9.0-r8/build&#39;<br>| make: *** [check] Error 2<br>| make: Leaving directo=
+ry `/home/praveenk/work/platform/build/tmp/work/cortexa9hf-vfp-neon-poky-li=
+nux-gnueabi/valgrind/3.9.0-r8/build&#39;<br>| ERROR: oe_runmake failed<br>|=
+ WARNING: exit code 1 from a shell command.<br>| ERROR: Function failed: do=
+_compile_ptest_base (log file is located at /home/praveenk/work/platform/bu=
+ild/tmp/work/cortexa9hf-vfp-neon-poky-linux-gnueabi/valgrind/3.9.0-r8/temp/=
+log.do_compile_ptest_base.11152)<br>ERROR: Task 9 (/home/praveenk/work/plat=
+form/meta/recipes-devtools/valgrind/<a href=3D"http://valgrind_3.9.0.bb">va=
+lgrind_3.9.0.bb</a>, do_compile_ptest_base) failed with exit code &#39;1&#3=
+9;<br>NOTE: Tasks Summary: Attempted 776 tasks of which 769 didn&#39;t need=
+ to be rerun and 1 failed.<br>No currently running tasks (776 of 784)<br><b=
+r>Summary: 1 task failed:<br>=C2=A0 /home/praveenk/work/platform/meta/recip=
+es-devtools/valgrind/<a href=3D"http://valgrind_3.9.0.bb">valgrind_3.9.0.bb=
+</a>, do_compile_ptest_base<br>Summary: There was 1 ERROR message shown, re=
+turning a non-zero exit code.<br><br></div><div>how can i solve this.<br><b=
+r></div><div>Thanks <br></div><div>Praveen<br></div><div><br></div></div>
 
-vinod kumar
-Embedded software engineer at VVDN Technologies
-
-Accept: https://www.linkedin.com/blink?simpleRedirect=3D0Md3oQc3kPc3gPdPAVe=
-3cVe3ARfkh9rCZFt65QqnpKqioMc3lve3oTczARc3kMcz0Mc3APejwVdkAZh4BJpnhF9AFnsQsP=
-hmYMfnBBiShBsC5EsOoUcBZOpm9JpmRvpnhFtCVFfmJB9ClQqnpKqntBryRQs6lzoS4JoyRJtCV=
-FnSRJrScJr6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9ClQqnpKinhMpmdzgm=
-ZBr3Rx9CYSbndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&=
-msgID=3DI5989390002050592768_500&markAsRead=3D
-
-View vinod kumar's profile: https://www.linkedin.com/blink?simpleRedirect=
-=3Dc3cVdjgPd34Pfkh9sClyrmlJ9DlbsBoZrClHrRhEt7lx9ClJomUZpn1Vl6xQtm4Cc30RnPwS=
-dP8Vdj0Rc38Mc30VcPAUejl9nP4Pc3sTejkOcjRQs6lzoQ5KrSBQonhFtCVF9zwOnT9BoCRBrlZ=
-Bt6BSrCAZqSkCpnhFtCVFtSlKbmlJomUJoyRJtCVFnSRJrScJr6RBfmtKqmJzon9Q9DsOuAVeoQ=
-dCcCdGi551fmVBqSZkp6BJ9DpMrzRQ9CYSbndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp=
-6lHrCBIbDtTtOYLeDdMt7hE&msgID=3DI5989390002050592768_500&markAsRead=3D
-
-You are receiving Invitation emails. Unsubscribe here: https://www.linkedin=
-.com/blink?simpleRedirect=3DrPoJsSxVqjsMe6AJuCwQc3cOfmhFpiphk7lQpBwSrABbjDF=
-FnRpmrlF5oD1Cq3t8jnBnhnwPsmpPjkZOmB9DjSFkej1AqTxSk3B9m4Z8tChoqBZElPpUlk51gn=
-tTqkUMjmxqrQFBi551fmhFrSMCe39vsClyrmlJnSlQqnpKqjRHpipBt6BSrCBTpmUJoDlPrDkJp=
-yRJtCVFnSRJrScJr6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9CVRr3RQ9CYS=
-bndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&msgID=3DI5=
-989390002050592768_500&markAsRead=3D
-
-This email was intended for Ni Qingliang (Software Engineer at Insigma). Le=
-arn why we included this at the following link: https://www.linkedin.com/bl=
-ink?simpleRedirect=3D0Ue3sQfmh9pmNzqnhOoioUcBZOpm9JpmRvpnhFtCVFfmJB9DsOuAVe=
-oQdCcCdGi551fmVBqSZkp6BJ9CNOlmlzqnpOpldOpmRLt7dRoPRx9CYSbndEumATc3xFbnFEd30=
-PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&msgID=3DI5989390002050592768_=
-500&markAsRead=3D
-&copy; 2015 LinkedIn Ireland Limited. LinkedIn, the LinkedIn logo, and InMa=
-il are registered trademarks of LinkedIn Corporation in the United States a=
-nd/or other countries. All rights reserved.
-LinkedIn is a registered business name of LinkedIn Ireland Limited.
-Registered in Ireland as a private limited company, Company Number 477441
-Registered Office: 70 Sir John Roberson's Quay, Dublin 2
-
-------=_Part_1633738_2004759394.1427981869054
-Content-Type: text/html;charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Content-ID: html-body
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
-w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns=3D"http://www.w3.org/1999/xhtml" style=3D"-webkit-text-size-adj=
-ust:none;">
- <head>
-  <meta http-equiv=3D"Content-Type" content=3D"text/html;charset=3Dutf-8" /=
->
-  <meta name=3D"HandheldFriendly" content=3D"true" />
-  <meta name=3D"viewport" content=3D"width=3Ddevice-width; initial-scale=3D=
-0.666667; maximum-scale=3D0.666667; user-scalable=3D0" />
-  <meta name=3D"viewport" content=3D"width=3Ddevice-width" />
-  <title></title>
-  <style type=3D"text/css">@media all and (max-width:590px) { *[class].resp=
-onsive { width:290px !important; } *[id]#center { width:50%; margin:0 auto;=
- display:table; } *[class].responsive-spacer table { width:20px !important;=
- } *[class].vspacer { margin-top:10px !important; margin-bottom:15px !impor=
-tant; margin-left:0 !important; } *[class].res-font14 { font-size:14px !imp=
-ortant; } *[class].res-font16 { font-size:16px !important; } *[class].res-f=
-ont13 { font-size:13px !important; } *[class].res-font12 { font-size:12px !=
-important; } *[class].res-font10 { font-size:10px !important; } *[class].re=
-s-font18 { font-size:18px !important; } *[class].res-font18 span { font-siz=
-e:18px !important; } *[class].responsive-50per { width:100% !important; } *=
-[class].responsive-spacer70 { width:70px !important; } *[class].hideIMG { h=
-eight:0px !important; width:0px !important; } *[class].res-height30 { heigh=
-t:30px !important; } *[class].res-height20 { height:20px !important; } *[cl=
-ass].res-height20 div { height:20px !important; } *[class].res-height10 { h=
-eight:10px !important; } *[class].res-height10 div { height:10px !important=
-; } *[class].res-height10.email-spacer div { height:10px !important; min-he=
-ight:10px !important; line-height:10px !important; font-size:10px !importan=
-t; } *[class].res-height0 { height:0px !important; } *[class].res-height0 d=
-iv { height:0px !important; } *[class].res-width280 { width:280px !importan=
-t; } *[class].res-width25 { width:25px !important; } *[class].res-width10 {=
- width:10px !important; } *[class].res-width10 table { width:10px !importan=
-t; } *[class].res-width120 { width:120px !important; } *[class].res-padding=
- { width:0 !important; } *[class].res-padding table { width:0 !important; }=
- *[class].cellpadding-none { width:0px !important; } *[class].cellpadding-n=
-one table { border:collapse !important; } *[class].cellpadding-none table t=
-d { padding:0 !important; } *[class].display-none { display:none !important=
-; } *[class].display-block { display:block !important; } *[class].remove-ma=
-rgin { margin:0 !important; } *[class].remove-border { border:none !importa=
-nt; } *[class].res-img60 { width:60px !important; height:60px !important; }=
- *[class].res-img75 { width:75px !important; height:75px !important; } *[cl=
-ass].res-img100 { width:100px !important; height:100px !important; } *[clas=
-s].res-img320 { width:320px !important; height:auto !important; position:re=
-lative; } *[class].res-img90x63 { width:90px !important; height:63px !impor=
-tant; } *[class].res-border { border-top:1px solid #E1E1E1 !important; } *[=
-class].responsive2col { width:100% !important; } *[class].center-content { =
-text-align:center !important; } *[class].hide-for-mobile { display:none !im=
-portant; } *[class].show-for-mobile { width:100% !important; max-height:non=
-e !important; visibility:visible !important; overflow:visible !important; f=
-loat:none !important; height:auto !important; display:block !important; } *=
-[class].responsive-table { display:table !important; } *[class].responsive-=
-row { display:table-row !important; } *[class].responsive-cell { display:ta=
-ble-cell !important; } *[class].fix-table-content { table-layout:fixed; } *=
-[class].res-padding08 { padding-top:8px; } *[class].header-spacer { table-l=
-ayout:auto !important; width:250px !important; } *[class].header-spacer td,=
- *[class].header-spacer div { width:250px !important; } } @media all and (-=
-webkit-min-device-pixel-ratio:1.5) { *[id]#base-header-logo { background-im=
-age:url(https://static.licdn.com/scds/common/u/images/email/logos/logo_link=
-edin_tm_email_197x48_v1.png) !important; background-size:95px; background-r=
-epeat:no-repeat; width:95px !important; height:21px !important; } *[id]#bas=
-e-header-logo img { opacity:0; } *[id]#base-header-logo a { height:21px !im=
-portant; } *[id]#base-header-logo-china { background-image:url(https://stat=
-ic.licdn.com/scds/common/u/images/email/logos/logo_linkedin_tm_china_email_=
-266x42_v1.png) !important; background-size:133px; background-repeat:no-repe=
-at; width:133px !important; height:21px !important; } *[id]#base-header-log=
-o-china img { display:none; } *[id]#base-header-logo-china a { height:21px =
-!important; } } </style>
- </head>
- <body style=3D"background-color:#DFDFDF;padding:0;margin:0 auto;width:100%=
-;">
-  <span style=3D"display: none !important;font-size: 1px;visibility: hidden=
-;opacity: 0;color: transparent;height: 0;width: 0;mso-hide: all;"></span>
-  <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"font-fam=
-ily:Helvetica,Arial,sans-serif; border-collapse:collapse; width:100% !impor=
-tant; font-family:Helvetica,Arial,sans-serif; margin:0; padding:0;" width=
-=3D"100%" bgcolor=3D"#DFDFDF">
-   <tbody>
-    <tr>
-     <td colspan=3D"3">
-      <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"font=
--family:Helvetica,Arial,sans-serif; " width=3D"1">
-       <tbody>
-        <tr>
-         <td>
-          <div style=3D"height:5px;font-size:5px;line-height:5px;">
-           &nbsp;
-          </div></td>
-        </tr>
-       </tbody>
-      </table></td>
-    </tr>
-    <tr>
-     <td>
-      <table cellspacing=3D"0" cellpadding=3D"0" border=3D"0" align=3D"cent=
-er" width=3D"100%" style=3D"table-layout: fixed;">
-       <tbody>
-        <tr>
-         <td align=3D"center">
-          <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"=
-font-family:Helvetica,Arial,sans-serif; min-width:290px;" width=3D"600" cla=
-ss=3D"responsive">
-           <tbody>
-            <tr>
-             <td style=3D"font-family:Helvetica,Arial,sans-serif;">
-              <table width=3D"1" border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"1" class=3D"email-spacer">
-               <tbody>
-                <tr>
-                 <td>
-                  <div style=3D"height:8px;font-size:8px;line-height:8px">
-                   &nbsp;
-                  </div></td>
-                </tr>
-               </tbody>
-              </table>
-              <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
-=3D"font-family:Helvetica,Arial,sans-serif;" width=3D"100%" bgcolor=3D"#DDD=
-DDD">
-               <tbody>
-                <tr>
-                 <td align=3D"left" valign=3D"middle" width=3D"95" height=
-=3D"21" id=3D"base-header-logo"><a style=3D"text-decoration:none;cursor:poi=
-nter;border:none;display:block;height:21px;width:100%;" href=3D"https://www=
-.linkedin.com/blink?simpleRedirect=3D3wOnT9BoCRBrlZBt6BSrCAZqSkCpnhFtCVFtSl=
-KbmZDrSMJoyRJtCVFnSRJrScJr6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9D=
-1JrzRQ9CYSbndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&=
-amp;msgID=3DI5989390002050592768_500&amp;markAsRead=3D"><img src=3D"https:/=
-/static.licdn.com/scds/common/u/images/email/logos/logo_linkedin_tm_email_9=
-5x21_v1.png" width=3D"95" height=3D"21" alt=3D"LinkedIn" style=3D"border:no=
-ne;text-decoration:none;" /></a></td>
-                </tr>
-               </tbody>
-              </table>
-              <table width=3D"1" border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"1" class=3D"email-spacer">
-               <tbody>
-                <tr>
-                 <td>
-                  <div style=3D"height:8px;font-size:8px;line-height:8px">
-                   &nbsp;
-                  </div></td>
-                </tr>
-               </tbody>
-              </table>
-              <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
-=3D"font-family:Helvetica,Arial,sans-serif;" width=3D"100%" bgcolor=3D"#333=
-333">
-               <tbody>
-                <tr>
-                 <td width=3D"20" class=3D"responsive-spacer">
-                  <table width=3D"20" border=3D"0" cellspacing=3D"0" cellpa=
-dding=3D"1" class=3D"email-spacer">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:0px;font-size:0px;line-height:0p=
-x">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                 <td width=3D"100%">
-                  <table width=3D"560" cellspacing=3D"0" cellpadding=3D"1" =
-border=3D"0" class=3D"header-spacer" style=3D"table-layout: fixed;">
-                   <tbody>
-                    <tr>
-                     <td width=3D"560">
-                      <div style=3D"height:12px;font-size:12px;line-height:=
-12px;width:560px;">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                 <td width=3D"20" class=3D"responsive-spacer">
-                  <table width=3D"20" border=3D"0" cellspacing=3D"0" cellpa=
-dding=3D"1" class=3D"email-spacer">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:0px;font-size:0px;line-height:0p=
-x">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                </tr>
-               </tbody>
-              </table>
-              <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
-=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"100%" bgcolor=3D"#FF=
-FFFF">
-               <tbody>
-                <tr>
-                 <td width=3D"20" class=3D"res-width10">
-                  <table width=3D"20px" border=3D"0" cellspacing=3D"0" cell=
-padding=3D"1" class=3D"email-spacer res-width10">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:0px;font-size:0px;line-height:0p=
-x">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                 <td style=3D"color: #333333; font-family: Helvetica,Arial,=
-sans-serif; font-size: 15px; line-height: 18px;" align=3D"left">
-                  <table width=3D"1" border=3D"0" cellspacing=3D"0" cellpad=
-ding=3D"1" class=3D"email-spacer res-height10">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:20px;font-size:20px;line-height:=
-20px">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table>
-                  <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" s=
-tyle=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"100%">
-                   <tbody>
-                    <tr>
-                     <td width=3D"80px" valign=3D"top" style=3D"vertical-al=
-ign: top;"><a href=3D"https://www.linkedin.com/blink?simpleRedirect=3D0McPA=
-Rd3cQcjcZh4BOpm9JpmQCtkJOlzRKpmJLl6xQtm4CpmRxrzRBs7Bkq7hRoioMc3lve3oTczARc3=
-kMcz0Mc3APejwVdkBvcjcMdPsVdj8NfnhMpmdzgmVLqnhxt6BSrCACe39vsClyrmlJnSlQqnpKq=
-jRHpipBt6BSrCBTpmUJrThLq70JoyRJtCVFnSRJrScJr6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdG=
-i551fmVBqSZkp6BJ9DpMrzRQ9CYSbndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp6lHrCB=
-IbDtTtOYLeDdMt7hE&amp;msgID=3DI5989390002050592768_500&amp;markAsRead=3D" s=
-tyle=3D"text-decoration:none;cursor:pointer;"><img alt=3D"vinod kumar" src=
-=3D"https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/8/005/03a/1a2/02afc0=
-3.jpg" width=3D"80px" height=3D"80px" border=3D"0" class=3D"res-img60" styl=
-e=3D"border:none;text-decoration:none;outline:hidden;display:block;" /></a>=
-</td>
-                     <td width=3D"20">
-                      <table width=3D"20" border=3D"0" cellspacing=3D"0" ce=
-llpadding=3D"1" class=3D"email-spacer">
-                       <tbody>
-                        <tr>
-                         <td>
-                          <div style=3D"height:0px;font-size:0px;line-heigh=
-t:0px">
-                           &nbsp;
-                          </div></td>
-                        </tr>
-                       </tbody>
-                      </table></td>
-                     <td width=3D"100%">
-                      <table border=3D"0" cellspacing=3D"0" cellpadding=3D"=
-0" style=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"100%">
-                       <tbody>
-                        <tr>
-                         <td>Hi Ni,</td>
-                        </tr>
-                        <tr>
-                         <td>
-                          <table width=3D"1" border=3D"0" cellspacing=3D"0"=
- cellpadding=3D"1" class=3D"email-spacer res-height10">
-                           <tbody>
-                            <tr>
-                             <td>
-                              <div style=3D"height:20px;font-size:20px;line=
--height:20px">
-                               &nbsp;
-                              </div></td>
-                            </tr>
-                           </tbody>
-                          </table></td>
-                        </tr>
-                        <tr>
-                         <td>I'd like to connect with you on LinkedIn.</td>
-                        </tr>
-                        <tr>
-                         <td>
-                          <table width=3D"1" border=3D"0" cellspacing=3D"0"=
- cellpadding=3D"1" class=3D"email-spacer res-height20">
-                           <tbody>
-                            <tr>
-                             <td>
-                              <div style=3D"height:20px;font-size:20px;line=
--height:20px">
-                               &nbsp;
-                              </div></td>
-                            </tr>
-                           </tbody>
-                          </table></td>
-                        </tr>
-                        <tr>
-                         <td>
-                          <table border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"0" style=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"100%">
-                           <tbody>
-                            <tr>
-                             <td valign=3D"top"><a href=3D"https://www.link=
-edin.com/blink?simpleRedirect=3Dc3cVdjgPd34Pfkh9sClyrmlJ9DlbsBoZrClHrRhEt7l=
-x9ClJomUZpn1Vl6xQtm4Cc30RnPwSdP8Vdj0Rc38Mc30VcPAUejl9nP4Pc3sTejkOcjRQs6lzoQ=
-5KrSBQonhFtCVF9zwOnT9BoCRBrlZBt6BSrCAZqSkCpnhFtCVFtSlKbmlJomUJoyRJtCVFnSRJr=
-ScJr6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9DpMrzRQ9CYSbndEumATc3xF=
-bnFEd30PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&amp;msgID=3DI598939000=
-2050592768_500&amp;markAsRead=3D" style=3D"font-size: 14px; font-weight: bo=
-ld; color:#000000;text-decoration:none;">vinod kumar</a></td>
-                            </tr>
-                            <tr>
-                             <td style=3D"color: #666666; font-size: 14px;"=
- class=3D"res-font16">Embedded software engineer at VVDN Technologies</td>
-                            </tr>
-                           </tbody>
-                          </table></td>
-                        </tr>
-                        <tr>
-                         <td>
-                          <table width=3D"1" border=3D"0" cellspacing=3D"0"=
- cellpadding=3D"1" class=3D"email-spacer res-height20">
-                           <tbody>
-                            <tr>
-                             <td>
-                              <div style=3D"height:20px;font-size:20px;line=
--height:20px">
-                               &nbsp;
-                              </div></td>
-                            </tr>
-                           </tbody>
-                          </table></td>
-                        </tr>
-                        <tr>
-                         <td>
-                          <table border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"0" style=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"0">
-                           <tbody>
-                            <tr>
-                             <td>
-                              <table border=3D"0" cellpadding=3D"0" cellspa=
-cing=3D"0" align=3D"left">
-                               <tbody>
-                                <tr>
-                                 <td align=3D"center" height=3D"30" valign=
-=3D"middle" bgcolor=3D"#287BBC" background=3D"https://static.licdn.com/scds=
-/common/u/img/email/bg_btn_katy_blue_medium.png" style=3D"background:url(ht=
-tps://static.licdn.com/scds/common/u/img/email/bg_btn_katy_blue_medium.png)=
- repeat-x scroll bottom #287BBC;background-color:#287BBC;border:1px solid #=
-1B5480;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px; =
-cursor: pointer;">
-                                  <table border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"0" style=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"=
-100%" bgcolor=3D"transparent">
-                                   <tbody>
-                                    <tr>
-                                     <td width=3D"13">
-                                      <table width=3D"13px" border=3D"0" ce=
-llspacing=3D"0" cellpadding=3D"1" class=3D"email-spacer">
-                                       <tbody>
-                                        <tr>
-                                         <td>
-                                          <div style=3D"height:0px;font-siz=
-e:0px;line-height:0px">
-                                           &nbsp;
-                                          </div></td>
-                                        </tr>
-                                       </tbody>
-                                      </table></td>
-                                     <td><a href=3D"https://www.linkedin.co=
-m/blink?simpleRedirect=3D0Md3oQc3kPc3gPdPAVe3cVe3ARfkh9rCZFt65QqnpKqioMc3lv=
-e3oTczARc3kMcz0Mc3APejwVdkAZh4BJpnhF9AFnsQsPhmYMfnBBiShBsC5EsOoUcBZOpm9JpmR=
-vpnhFtCVFfmJB9ClQqnpKqntBryRQs6lzoS4JoyRJtCVFnSRJrScJr6RBfmtKqmJzon9Q9DsOuA=
-VeoQdCcCdGi551fmVBqSZkp6BJ9ClQqnpKinhMpmdzgmZBr3Rx9CYSbndEumATc3xFbnFEd30Pc=
-zRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&amp;msgID=3DI598939000205059276=
-8_500&amp;markAsRead=3D" style=3D"text-decoration:none; font-size: 13px;fon=
-t-weight: bold;color: white;white-space: nowrap;display: block;" target=3D"=
-_blank"><span style=3D"font-size: 13px;font-weight: bold;color: white;white=
--space: nowrap;display: block;">Accept</span></a></td>
-                                     <td width=3D"13">
-                                      <table width=3D"13px" border=3D"0" ce=
-llspacing=3D"0" cellpadding=3D"1" class=3D"email-spacer">
-                                       <tbody>
-                                        <tr>
-                                         <td>
-                                          <div style=3D"height:0px;font-siz=
-e:0px;line-height:0px">
-                                           &nbsp;
-                                          </div></td>
-                                        </tr>
-                                       </tbody>
-                                      </table></td>
-                                    </tr>
-                                   </tbody>
-                                  </table></td>
-                                </tr>
-                               </tbody>
-                              </table></td>
-                             <td width=3D"10px">
-                              <table width=3D"10" border=3D"0" cellspacing=
-=3D"0" cellpadding=3D"1" class=3D"email-spacer">
-                               <tbody>
-                                <tr>
-                                 <td>
-                                  <div style=3D"height:0px;font-size:0px;li=
-ne-height:0px">
-                                   &nbsp;
-                                  </div></td>
-                                </tr>
-                               </tbody>
-                              </table></td>
-                             <td>
-                              <table border=3D"0" cellpadding=3D"0" cellspa=
-cing=3D"0" align=3D"left">
-                               <tbody>
-                                <tr>
-                                 <td align=3D"center" height=3D"30" valign=
-=3D"middle" bgcolor=3D"#E0E0E0" background=3D"https://static.licdn.com/scds=
-/common/u/images/email/textures/texture_button_secondary_v1.png" style=3D"b=
-ackground:url(https://static.licdn.com/scds/common/u/images/email/textures/=
-texture_button_secondary_v1.png) repeat-x scroll bottom #E0E0E0;background-=
-color:#E0E0E0;border:1px solid #A7A7A7;-moz-border-radius:3px;-webkit-borde=
-r-radius:3px;border-radius:3px; cursor: pointer;">
-                                  <table border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"0" style=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"=
-100%" bgcolor=3D"transparent">
-                                   <tbody>
-                                    <tr>
-                                     <td width=3D"13">
-                                      <table width=3D"13px" border=3D"0" ce=
-llspacing=3D"0" cellpadding=3D"1" class=3D"email-spacer">
-                                       <tbody>
-                                        <tr>
-                                         <td>
-                                          <div style=3D"height:0px;font-siz=
-e:0px;line-height:0px">
-                                           &nbsp;
-                                          </div></td>
-                                        </tr>
-                                       </tbody>
-                                      </table></td>
-                                     <td><a href=3D"https://www.linkedin.co=
-m/blink?simpleRedirect=3Dc3cVdjgPd34Pfkh9sClyrmlJ9DlbsBoZrClHrRhEt7lx9ClJom=
-UZpn1Vl6xQtm4Cc30RnPwSdP8Vdj0Rc38Mc30VcPAUejl9nP4Pc3sTejkOcjRQs6lzoQ5KrSBQo=
-nhFtCVF9zwOnT9BoCRBrlZBt6BSrCAZqSkCpnhFtCVFtSlKbmlIqmpLsD0JoyRJtCVFnSRJrScJ=
-r6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9DpMrzRQ9CYSbndEumATc3xFbnF=
-Ed30PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&amp;msgID=3DI598939000205=
-0592768_500&amp;markAsRead=3D" style=3D"text-decoration:none; font-size: 13=
-px;font-weight: bold;color: #444444;white-space: nowrap;display: block;" ta=
-rget=3D"_blank"><span style=3D"font-size: 13px;font-weight: bold;color: #44=
-4444;white-space: nowrap;display: block;">View Profile</span></a></td>
-                                     <td width=3D"13">
-                                      <table width=3D"13px" border=3D"0" ce=
-llspacing=3D"0" cellpadding=3D"1" class=3D"email-spacer">
-                                       <tbody>
-                                        <tr>
-                                         <td>
-                                          <div style=3D"height:0px;font-siz=
-e:0px;line-height:0px">
-                                           &nbsp;
-                                          </div></td>
-                                        </tr>
-                                       </tbody>
-                                      </table></td>
-                                    </tr>
-                                   </tbody>
-                                  </table></td>
-                                </tr>
-                               </tbody>
-                              </table></td>
-                            </tr>
-                           </tbody>
-                          </table></td>
-                        </tr>
-                       </tbody>
-                      </table></td>
-                    </tr>
-                    <tr>
-                     <td colspan=3D"3">
-                      <table width=3D"1" border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"1" class=3D"email-spacer res-height20">
-                       <tbody>
-                        <tr>
-                         <td>
-                          <div style=3D"height:40px;font-size:40px;line-hei=
-ght:40px">
-                           &nbsp;
-                          </div></td>
-                        </tr>
-                       </tbody>
-                      </table></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                 <td width=3D"20" class=3D"res-width10">
-                  <table width=3D"20px" border=3D"0" cellspacing=3D"0" cell=
-padding=3D"1" class=3D"email-spacer res-width10">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:0px;font-size:0px;line-height:0p=
-x">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                </tr>
-               </tbody>
-              </table></td>
-            </tr>
-           </tbody>
-          </table>
-          <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"=
-font-family:Helvetica,Arial,sans-serif; " width=3D"600" class=3D"responsive=
-">
-           <tbody>
-            <tr>
-             <td align=3D"left">
-              <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
-=3D"font-family:Helvetica,Arial,sans-serif; " width=3D"100%" class=3D"respo=
-nsive">
-               <tbody>
-                <tr>
-                 <td>
-                  <table width=3D"1" border=3D"0" cellspacing=3D"0" cellpad=
-ding=3D"1" class=3D"email-spacer">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:10px;font-size:10px;line-height:=
-10px">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                </tr>
-                <tr>
-                 <td align=3D"left">
-                  <table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" s=
-tyle=3D"font-family:Helvetica,Arial,sans-serif; font-size:11px; font-family=
-:Helvetica,Arial,sans-serif; color:#999999;" width=3D"100%" class=3D"respon=
-sive res-font10">
-                   <tbody>
-                    <tr>
-                     <td align=3D"center" dir=3D"ltr">&copy; 2015 LinkedIn =
-Ireland Limited. LinkedIn, the LinkedIn logo, and InMail are registered tra=
-demarks of LinkedIn Corporation in the United States and/or other countries=
-. All rights reserved.</td>
-                    </tr>
-                    <tr>
-                     <td>
-                      <table width=3D"1" border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"0" class=3D"email-spacer">
-                       <tbody>
-                        <tr>
-                         <td>
-                          <div style=3D"height:10px;font-size:10px;line-hei=
-ght:10px">
-                           &nbsp;
-                          </div></td>
-                        </tr>
-                       </tbody>
-                      </table></td>
-                    </tr>
-                    <tr>
-                     <td align=3D"center">You are receiving Invitation emai=
-ls. <a style=3D"text-decoration:none;color:#0077B5;" href=3D"https://www.li=
-nkedin.com/blink?simpleRedirect=3DrPoJsSxVqjsMe6AJuCwQc3cOfmhFpiphukUUgCkSp=
-Tlcmn5FsSVSjSxeuBFMh6xGi7djplllpCR9oBtIcQRbqAxFcANHcDpbd7xQiCtktCpArRZElPpU=
-lk51gntWul91t6VVslZchB51fmhFrSMCe39vsClyrmlJnSlQqnpKqjRHpipBt6BSrCBTpmUJoDl=
-PrDkJpyRJtCVFnSRJrScJr6RBfmtKqmJzon9Q9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9CVRr3=
-RQ9CYSbndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp6lHrCBIbDtTtOYLeDdMt7hE&amp;=
-msgID=3DI5989390002050592768_500&amp;markAsRead=3D">Unsubscribe</a></td>
-                    </tr>
-                    <tr>
-                     <td align=3D"center">This email was intended for Ni Qi=
-ngliang (Software Engineer at Insigma). <a style=3D"text-decoration:none;co=
-lor:#0077B5;" href=3D"https://www.linkedin.com/blink?simpleRedirect=3D0Ue3s=
-Qfmh9pmNzqnhOoioUcBZOpm9JpmRvpnhFtCVFfmJB9DsOuAVeoQdCcCdGi551fmVBqSZkp6BJ9C=
-NOlmlzqnpOpldOpmRLt7dRoPRx9CYSbndEumATc3xFbnFEd30PczRBfP9SbSkLrmZzbCVFp6lHr=
-CBIbDtTtOYLeDdMt7hE&amp;msgID=3DI5989390002050592768_500&amp;markAsRead=3D"=
->Learn why we included this.</a></td>
-                    </tr>
-                    <tr>
-                     <td>
-                      <table width=3D"1" border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"1" class=3D"email-spacer">
-                       <tbody>
-                        <tr>
-                         <td>
-                          <div style=3D"height:10px;font-size:10px;line-hei=
-ght:10px">
-                           &nbsp;
-                          </div></td>
-                        </tr>
-                       </tbody>
-                      </table></td>
-                    </tr>
-                    <tr>
-                     <td align=3D"center" dir=3D"ltr">LinkedIn is a registe=
-red business name of LinkedIn Ireland Limited.</td>
-                    </tr>
-                    <tr>
-                     <td align=3D"center" dir=3D"ltr">Registered in Ireland=
- as a private limited company, Company Number 477441</td>
-                    </tr>
-                    <tr>
-                     <td align=3D"center" dir=3D"ltr">Registered Office: 70=
- Sir John Roberson's Quay, Dublin 2</td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                </tr>
-                <tr>
-                 <td>
-                  <table width=3D"1" border=3D"0" cellspacing=3D"0" cellpad=
-ding=3D"1" class=3D"email-spacer">
-                   <tbody>
-                    <tr>
-                     <td>
-                      <div style=3D"height:20px;font-size:20px;line-height:=
-20px">
-                       &nbsp;
-                      </div></td>
-                    </tr>
-                   </tbody>
-                  </table></td>
-                </tr>
-               </tbody>
-              </table></td>
-            </tr>
-           </tbody>
-          </table></td>
-        </tr>
-       </tbody>
-      </table></td>
-    </tr>
-   </tbody>
-  </table>
-  <img src=3D"http://www.linkedin.com/emimp/2304hz-i807iyhs-6o.gif" style=
-=3D"width:1px; height:1px;" />
- </body>
-</html>
-
-------=_Part_1633738_2004759394.1427981869054--
+--047d7bdca6a45dac3705131cbc8b--
