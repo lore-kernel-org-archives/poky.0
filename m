@@ -1,49 +1,59 @@
-Return-Path: <praveen.vatt@gmail.com>
+Return-Path: <anders@chargestorm.se>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D45C4E008EC; Wed,  8 Apr 2015 06:47:58 -0700 (PDT)
+	id 92285E0086E; Wed,  8 Apr 2015 06:53:40 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (praveen.vatt[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.192.174 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [209.85.217.174 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pd0-f174.google.com (mail-pd0-f174.google.com
-	[209.85.192.174])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8594EE0086E;
-	Wed,  8 Apr 2015 06:47:56 -0700 (PDT)
-Received: by pdbqa5 with SMTP id qa5so58970343pdb.1;
-	Wed, 08 Apr 2015 06:47:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=I+1T31jzPqhWDPZuBFk9LNqyPm+xp8MDZai8KIeA5oU=;
-	b=hfE5EIX6N1MXCiVzBVhT1Ko0CSGcD4HvZD0K0tT4j2wEXMMRamBr/xnaMQpeFo1xcS
-	U0PR04rRORg/pWDvz+Y8g66J3ifcGqURuUAf9Uu5JGauJCKaRDlPFSrlAEvmGnjvOFKu
-	xXhFUG3gx5DH9Ab6LfL25yTFqosJPJxisrstK8tvZQeJTWYdD4gRqTZtnaUSAaaO1o19
-	QdmV18OblwpMWC7ackyeb9T4UlTtg+9tzvpRFjcEBAq5hRpY49/hioB3VofQuGy7q0LQ
-	AugJr6MOdtxztlPhBoVsXS6CLtcmGl4aci3e66iJFKBeSWW8n2tYm2XcxDmHE1ADrCwd
-	VgSg==
+Received: from mail-lb0-f174.google.com (mail-lb0-f174.google.com
+	[209.85.217.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE7DCE0086E
+	for <poky@yoctoproject.org>; Wed,  8 Apr 2015 06:53:36 -0700 (PDT)
+Received: by lbbuc2 with SMTP id uc2so64035374lbb.2
+	for <poky@yoctoproject.org>; Wed, 08 Apr 2015 06:53:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id
+	:mail-followup-to:references:mime-version:content-type
+	:content-disposition:in-reply-to:organization:user-agent;
+	bh=b2RN8WOt+DQ7tgwnLe6d/4KH4c7L7QJYEsEFedG5/rE=;
+	b=S0yYkzVW7OVUTYNAG11yIOmtGCUStmcLfNmTZ1bdkYGTfdAJ50c58/f6g+UoU4z6zk
+	op7v4JsGsVT4mgdesaDhq9sPlgWsTPwmwPPX/Afm3aCLFS7dAl7sslD77UthxdACuGUw
+	YG+aY8Y505cpKuqyHLwyXEFSoLDcnBnBrbn29aT9+2LoS8ZD9JjCQ4PsGvrw+DbjIihq
+	kutWA3y5/r8UheTEcHqFHpPygmleJMAQ1JEOHX5jvr5nl0UAZoYcryRmfmtusl8TB/nt
+	YsfEWW8dgntT1TxY2eyLjOkUjxRWbPYNpK5CT4QOEWw0UIqIUhdXlUwmB9UmFL1IpPKq
+	qCrA==
+X-Gm-Message-State: ALoCoQnu1Xr7NhezU/QPrJDJXT5r4kC0Se6whpA3i1YYw5jZT1A3mYk0hoqXXtG2tH+KB2K/wnP+
+X-Received: by 10.152.10.180 with SMTP id j20mr23700674lab.54.1428501214277;
+	Wed, 08 Apr 2015 06:53:34 -0700 (PDT)
+Received: from ad.chargestorm.se (213-64-219-84-no126.business.telia.com.
+	[213.64.219.84])
+	by mx.google.com with ESMTPSA id e3sm2511247lag.26.2015.04.08.06.53.33
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 08 Apr 2015 06:53:33 -0700 (PDT)
+Date: Wed, 8 Apr 2015 15:53:31 +0200
+From: Anders Darander <anders@chargestorm.se>
+To: praveen vattipalli <praveen.vatt@gmail.com>
+Message-ID: <20150408135331.GC8848@ad.chargestorm.se>
+Mail-Followup-To: praveen vattipalli <praveen.vatt@gmail.com>,
+	yocto <yocto@yoctoproject.org>, poky@yoctoproject.org
+References: <CA+pXca1Wjea0jtPUH5mMcqA13E3_E_o6am4yjn28w-cJq3nYuQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Received: by 10.68.168.225 with SMTP id zz1mr45736756pbb.3.1428500876575;
-	Wed, 08 Apr 2015 06:47:56 -0700 (PDT)
-Received: by 10.70.135.134 with HTTP; Wed, 8 Apr 2015 06:47:56 -0700 (PDT)
-Date: Wed, 8 Apr 2015 19:17:56 +0530
-Message-ID: <CA+pXca1Wjea0jtPUH5mMcqA13E3_E_o6am4yjn28w-cJq3nYuQ@mail.gmail.com>
-From: praveen vattipalli <praveen.vatt@gmail.com>
-To: yocto <yocto@yoctoproject.org>, poky@yoctoproject.org
-Subject: error in xerces-c in yocto-dizzy-1.7.1
+In-Reply-To: <CA+pXca1Wjea0jtPUH5mMcqA13E3_E_o6am4yjn28w-cJq3nYuQ@mail.gmail.com>
+X-Accept-Language: sv, en, de
+X-GPG-Fingerprint: 5AF0 B2E9 78FE 9D75 D110  6F8F 3E31 84D7 920E 938C
+X-GPG-Key-Id: 0x920E938C
+X-GPG-Keyserver: hkp://keys.gnupg.net
+Organization: ChargeStorm AB
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Cc: yocto <yocto@yoctoproject.org>, poky@yoctoproject.org
+Subject: Re: error in xerces-c in yocto-dizzy-1.7.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -56,177 +66,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Apr 2015 13:47:58 -0000
-Content-Type: multipart/alternative; boundary=047d7ba984904f4bcd051336c70f
+X-List-Received-Date: Wed, 08 Apr 2015 13:53:40 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---047d7ba984904f4bcd051336c70f
-Content-Type: text/plain; charset=UTF-8
+* praveen vattipalli <praveen.vatt@gmail.com> [150408 15:48]:
+> +PACKAGES = "libxerces-c \
+> + libxerces-c-dbg \
+> + libxerces-c-dev \
+> + xerces-c-samples \
+> + xerces-c-samples-dbg \
+> +"
+> +
+> +FILES_libxerces-c = "${libdir}/libxerces-c-3.1.so"
+> +FILES_libxerces-c-dbg = "${libdir}/.debug/"
+> +FILES_libxerces-c-dev = "${libdir}/lib*.la \
+> + ${libdir}/lib*.a \
+> + ${libdir}/libxerces-c.so \
+> + ${libdir}/pkgconfig/xerces-c.pc \
+> + ${includedir}/xercesc \
+> +"
+> +FILES_xerces-c-samples = "${bindir}/*"
+> +FILES_xerces-c-samples-dbg = "${bindir}/.debug/"
 
-hi,
-I am building xerces-c in yocto-1.7.1(dizzy) on ubuntu12.04 64bit for
-cortexa9 board.
+> I am getting below error
 
-I am referring below link
+> ERROR: QA Issue: xerces-c: Files/directories were installed but not shipped
+> /usr/src
+> /usr/src/debug
+> /usr/src/debug/xerces-c
+> /usr/src/debug/xerces-c/3.1.1-r0
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1
+> /usr/src/debug/xerces-c/3.1.1-r0/build
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/samples
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/strnicmp.h
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/strnicmp.c
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/stricmp.c
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/stricmp.h
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/util
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/sax
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/framework
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/internal
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/xinclude
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/sax2
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/parsers
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/dom
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/datatype
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/schema
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/DTD
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CMBinaryOp.cpp
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/GrammarResolver.hpp
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CMNode.hpp
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/Grammar.cpp
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/Grammar.hpp
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CMLeaf.hpp
+> /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xe
 
-http://lists.openembedded.org/pipermail/openembedded-devel/
-2012-January/082676.html
-xerces-c_3.1.1.bb
+> and so on........
 
-+DESCRIPTION = "Xerces-c is a validating xml parser written in C++"
-+HOMEPAGE = "http://xerces.apache.org/xerces-c/"
-+SECTION = "libs"
-+PRIORITY = "optional"
-+LICENSE = "Apache-2.0"
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57
-+
-+PR = "r1"
-+
-+SRC_URI = "http://apache.lauf-forum.at/xerces/c/3/sources/${BP}.tar.
-gz"
-+
-+inherit autotools pkgconfig
-+
-+PACKAGES = "libxerces-c \
-+ libxerces-c-dbg \
-+ libxerces-c-dev \
-+ xerces-c-samples \
-+ xerces-c-samples-dbg \
-+"
-+
-+FILES_libxerces-c = "${libdir}/libxerces-c-3.1.so"
-+FILES_libxerces-c-dbg = "${libdir}/.debug/"
-+FILES_libxerces-c-dev = "${libdir}/lib*.la \
-+ ${libdir}/lib*.a \
-+ ${libdir}/libxerces-c.so \
-+ ${libdir}/pkgconfig/xerces-c.pc \
-+ ${includedir}/xercesc \
-+"
-+FILES_xerces-c-samples = "${bindir}/*"
-+FILES_xerces-c-samples-dbg = "${bindir}/.debug/"
-+
-+SRC_URI[md5sum] = "6a8ec45d83c8cfb1584c5a5345cb51ae"
-+SRC_URI[sha256sum] =
-"a42785f71e0b91d5fd273831c87410ce60a73ccfdd207de1b805d26d44968736"
-+
-+BBCLASSEXTEND += "native"
+Well, xervces is installing lots of files to /usr/src/debug... So you
+have to choices:
 
+1) Remove those files. Add a do_install_append where you're running 
+`rm -rf ${D}/usr/src`
 
-I am getting below error
+2) Package those file in either one of the current packages, or in a new
+package.
 
-ERROR: QA Issue: xerces-c: Files/directories were installed but not shipped
-/usr/src
-/usr/src/debug
-/usr/src/debug/xerces-c
-/usr/src/debug/xerces-c/3.1.1-r0
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1
-/usr/src/debug/xerces-c/3.1.1-r0/build
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/samples
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/strnicmp.h
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/strnicmp.c
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/stricmp.c
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/stricmp.h
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/util
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/sax
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/framework
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/internal
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/xinclude
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/sax2
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/parsers
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/dom
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/datatype
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/schema
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/DTD
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CMBinaryOp.cpp
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/GrammarResolver.hpp
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CMNode.hpp
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/Grammar.cpp
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/Grammar.hpp
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CMLeaf.hpp
-/usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xe
-
-and so on........
+Cheers,
+Anders
 
 
-Could i get any help..
+-- 
+Anders Darander
+ChargeStorm AB / eStorm AB
 
-Thanks
-
-Praveen
-
---047d7ba984904f4bcd051336c70f
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div>hi,<br>I am building xerces-c in yocto-1.7.1(diz=
-zy) on ubuntu12.04 64bit for cortexa9 board.</div><div>=C2=A0</div></div> I=
- am referring below link<br><div><div><br><a href=3D"http://lists.openembed=
-ded.org/pipermail/openembedded-devel/2012-January/082676.html" target=3D"_b=
-lank"><font color=3D"#0066cc">http://lists.openembedded.org/</font><font co=
-lor=3D"#0066cc">pipermail/openembedded-devel/</font><font color=3D"#0066cc"=
->2012-January/082676.html</font></a><br></div><div><a href=3D"http://xerces=
--c_3.1.1.bb">xerces-c_3.1.1.bb</a> </div><div><br>+DESCRIPTION =3D &quot;<s=
-pan>Xerces</span>-c is a validating xml parser written in C++&quot;<br>+HOM=
-EPAGE =3D &quot;<a href=3D"http://xerces.apache.org/xerces-c/" target=3D"_b=
-lank"><font color=3D"#0066cc">http://<span>xerces</span>.apache.org/<span>x=
-erces</span>-c/</font></a>&quot;<br>+SECTION =3D  &quot;libs&quot;<br>+PRIO=
-RITY =3D &quot;optional&quot;<br>+LICENSE =3D &quot;Apache-2.0&quot;<br>+LI=
-C_FILES_CHKSUM =3D &quot;<a><font color=3D"#0066cc">file://LICENSE;md5=3D3b=
-83ef96387f14655fc854ddc3c6bd57</font></a><br>+<br>+PR =3D &quot;r1&quot;<br=
->+<br>+SRC_URI =3D &quot;<a href=3D"http://apache.lauf-forum.at/xerces/c/3/=
-sources/$%7BBP" target=3D"_blank"><font color=3D"#0066cc">http://apache.lau=
-f-forum.at/<span>xerces</span>/c/3/sources/${BP</font></a>}.tar.</div><div =
-dir=3D"ltr">gz&quot;<br>+<br>+inherit autotools pkgconfig<br>+<br>+PACKAGES=
- =3D &quot;libxerces-c \<br>+    libxerces-c-dbg \<br>+    libxerces-c-dev =
-\<br>+    <span>xerces</span>-c-samples \<br>+    <span>xerces</span>-c-sam=
-ples-dbg \<br>+&quot; <br>+<br>+FILES_libxerces-c =3D &quot;${libdir}/<a hr=
-ef=3D"http://libxerces-c-3.1.so/" target=3D"_blank"><font color=3D"#0066cc"=
->libxerces-c-3.1.so</font></a>&quot;<br>+FILES_libxerces-c-dbg =3D &quot;${=
-libdir}/.debug/&quot;<br>+FILES_libxerces-c-dev =3D &quot;${libdir}/lib*.la=
- \<br>+    ${libdir}/lib*.a \<br>+    ${libdir}/libxerces-c.so \<br>+    ${=
-libdir}/pkgconfig/<span>xerces</span>-c.pc \<br>+    ${includedir}/xercesc =
-\<br>+&quot;<br>+FILES_xerces-c-samples =3D &quot;${bindir}/*&quot;<br>+FIL=
-ES_xerces-c-samples-dbg =3D &quot;${bindir}/.debug/&quot;<br>+<br>+SRC_URI[=
-md5sum] =3D &quot;6a8ec45d83c8cfb1584c5a5345cb51ae&quot;<br>+SRC_URI[sha256=
-sum] =3D &quot;a42785f71e0b91d5fd273831c87410ce60a73ccfdd207de1b805d26d4496=
-8736&quot;<br>+<br>+BBCLASSEXTEND +=3D &quot;native&quot;</div><div><br>=C2=
-=A0</div><div>I am getting below error<br><br>ERROR: QA Issue: xerces-c: Fi=
-les/directories were installed but not shipped<br>  /usr/src<br>  /usr/src/=
-debug<br>  /usr/src/debug/xerces-c<br>  /usr/src/debug/xerces-c/3.1.1-r0<br=
->  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1<br>  /usr/src/debug/xerc=
-es-c/3.1.1-r0/build<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/sr=
-c<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/samples<br>  /usr/sr=
-c/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/strnicmp.h<br>  /usr/src/debug=
-/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/strnicmp.c<br>  /usr/src/debug/xerces=
--c/3.1.1-r0/xerces-c-3.1.1/src/stricmp.c<br>  /usr/src/debug/xerces-c/3.1.1=
--r0/xerces-c-3.1.1/src/stricmp.h<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerc=
-es-c-3.1.1/src/xercesc<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1=
-/src/xercesc/validators<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.=
-1/src/xercesc/util<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src=
-/xercesc/sax<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xerce=
-sc/framework<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xerce=
-sc/internal<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xerces=
-c/xinclude<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc=
-/sax2<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/pars=
-ers<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/dom<br=
->  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/c=
-ommon<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/vali=
-dators/datatype<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xe=
-rcesc/validators/schema<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.=
-1/src/xercesc/validators/DTD<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c=
--3.1.1/src/xercesc/validators/common/CMBinaryOp.cpp<br>  /usr/src/debug/xer=
-ces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/GrammarResolver=
-.hpp<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/valid=
-ators/common/CMNode.hpp<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.=
-1/src/xercesc/validators/common/Grammar.cpp<br>  /usr/src/debug/xerces-c/3.=
-1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/Grammar.hpp<br>  /usr/s=
-rc/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xercesc/validators/common/CML=
-eaf.hpp<br>  /usr/src/debug/xerces-c/3.1.1-r0/xerces-c-3.1.1/src/xe<br><br>=
-</div><div>and so on........<br><br><br></div><div>Could i get any help..<b=
-r><br></div><div>Thanks </div><div>=C2=A0</div><div>Praveen</div></div></di=
-v>
-
---047d7ba984904f4bcd051336c70f--
