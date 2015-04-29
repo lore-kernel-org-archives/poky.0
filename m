@@ -1,47 +1,38 @@
-Return-Path: <simon.chen@lmco.com>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4AA9DE0076B; Tue, 14 Apr 2015 09:20:59 -0700 (PDT)
+	id 588B1E009A5; Tue, 28 Apr 2015 22:43:10 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_HI,SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.31.106.12 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 8776 seconds by postgrey-1.32 at yocto-www;
-	Tue, 14 Apr 2015 09:20:57 PDT
-Received: from mailfo01.lmco.com (mailfo01.lmco.com [192.31.106.12])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BD375E003A8
-	for <poky@yoctoproject.org>; Tue, 14 Apr 2015 09:20:57 -0700 (PDT)
-Received: from HVXHTPN8.us.lmco.com (hvxhtpn8.ems.lmco.com [158.186.149.26])
-	by mailfo01.lmco.com (8.14.5/8.14.5) with ESMTP id t3EDsZtj013779
-	for <poky@yoctoproject.org>; Tue, 14 Apr 2015 14:54:39 +0100
-Received: from HVXDSP45.us.lmco.com ([fe80::e5e8:eada:5adc:d92a]) by
-	HVXHTPN8.us.lmco.com ([fe80::10bd:9768:f118:60b1%15]) with mapi id
-	14.03.0174.001; Tue, 14 Apr 2015 09:54:03 -0400
-From: "Chen, Simon (N-DCR SYSTEM HOUSE)" <simon.chen@lmco.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Configuring Yocto's GRUB with Custom Boot Parameters 
-Thread-Index: AdB2unYbP8O03mvtSFmOOUaL0L6nbQ==
-Date: Tue, 14 Apr 2015 13:54:03 +0000
-Message-ID: <D3EFC6D8DB6B2D48A91E6F02D0DB338FA737A2@HVXDSP45.us.lmco.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [158.186.156.90]
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A552E00932
+	for <poky@yoctoproject.org>; Tue, 28 Apr 2015 22:43:07 -0700 (PDT)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
+	[147.11.189.41])
+	by mail1.windriver.com (8.14.9/8.14.9) with ESMTP id t3T5h6IU010046
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 28 Apr 2015 22:43:06 -0700 (PDT)
+Received: from [128.224.162.200] (128.224.162.200) by ALA-HCB.corp.ad.wrs.com
+	(147.11.189.41) with Microsoft SMTP Server id 14.3.224.2;
+	Tue, 28 Apr 2015 22:43:06 -0700
+Message-ID: <55406F69.6000800@windriver.com>
+Date: Wed, 29 Apr 2015 13:43:05 +0800
+From: Robert Yang <liezhi.yang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:31.0) Gecko/20100101 Thunderbird/31.6.0
 MIME-Version: 1.0
-X-LM-Outbound: External 158.186.149.26 cntry=us
-	g=870a8075d59882489ca56c2f2e192215 q=t3EDsZtj013779 m=6
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:5.13.68, 1.0.33,
-	0.0.0000
-	definitions=2015-04-14_04:2015-04-14, 2015-04-14,
-	1970-01-01 signatures=0
-Subject: Configuring Yocto's GRUB with Custom Boot Parameters
+To: <poky@yoctoproject.org>
+References: <cover.1427771410.git.liezhi.yang@windriver.com>
+	<a1983ae884075e94cecc258a33304a0da5b2cbe5.1427771410.git.liezhi.yang@windriver.com>
+In-Reply-To: <a1983ae884075e94cecc258a33304a0da5b2cbe5.1427771410.git.liezhi.yang@windriver.com>
+Subject: Re: [PATCH 1/1] maintainers.inc: update MAINTAINERS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,122 +45,223 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Apr 2015 16:20:59 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_D3EFC6D8DB6B2D48A91E6F02D0DB338FA737A2HVXDSP45uslmcocom_"
+X-List-Received-Date: Wed, 29 Apr 2015 05:43:10 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
---_000_D3EFC6D8DB6B2D48A91E6F02D0DB338FA737A2HVXDSP45uslmcocom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ping.
 
-Hello,
+// Robert
 
-I am trying to configure my YOCTO OS, built from poky-dizzy-12.0.1, to use =
-the uvesafb driver upon booting. I am trying to add a few boot parameters t=
-o GRUB by appending the following into GRUB: "vesafb:mtrr,ywrap vga=3D0x31A=
-," but nothing seems to be implemented. I've also tried entering "setparams=
- vesafb:mtrr,ywrap vga=3D0x31A" into the GRUB command line which doesn't wo=
-rk either. I understand that adding boot parameters in a GRUB menu is only =
-for temporary implementations, which could be the source of my problem. For=
- a permanent implementation, I've also tried looking for the file etc/defau=
-lt/grub, and the update-grub command that creates it. Both of these do not =
-exist for Yocto. I thought about brute forcing my changes to the EFI/BOOT/g=
-rub.cfg file in my boot drive, which is probably not recommended. My main q=
-uestion is, how would I permanently add custom boot parameters into GRUB?
-
-Curiously enough, I was able to get the OS to boot with the Vesa driver onl=
-y when I append my boot parameters in GRUB, select boot in the GRUB menu, a=
-nd quickly do a force restart mid-way during booting, and then do another r=
-eboot after that. When booting, the CPU also skips the GRUB menu page. This=
- is extremely hackish, and most likely not a good implementation. I hope I =
-can find a better method.
-
-Thanks,
-Simon
-
---_000_D3EFC6D8DB6B2D48A91E6F02D0DB338FA737A2HVXDSP45uslmcocom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 03/31/2015 11:13 AM, Robert Yang wrote:
+> Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+> ---
+>   meta-yocto/conf/distro/include/maintainers.inc |   58 ++++++++++++------------
+>   1 file changed, 29 insertions(+), 29 deletions(-)
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri","sans-serif";}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I am trying to configure my YOCTO OS, built from pok=
-y-dizzy-12.0.1, to use the uvesafb driver upon booting. I am trying to add =
-a few boot parameters to GRUB by appending the following into GRUB: &#8220;=
-vesafb:mtrr,ywrap vga=3D0x31A,&#8221; but nothing
- seems to be implemented. I&#8217;ve also tried entering &#8220;setparams v=
-esafb:mtrr,ywrap vga=3D0x31A&#8221; into the GRUB command line which doesn&=
-#8217;t work either. I understand that adding boot parameters in a GRUB men=
-u is only for temporary implementations, which could be the
- source of my problem. For a permanent implementation, I&#8217;ve also trie=
-d looking for the file etc/default/grub, and the update-grub command that c=
-reates it. Both of these do not exist for Yocto. I thought about brute forc=
-ing my changes to the EFI/BOOT/grub.cfg
- file in my boot drive, which is probably not recommended. My main question=
- is, how would I permanently add custom boot parameters into GRUB?<o:p></o:=
-p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Curiously enough, I was able to get the OS to boot w=
-ith the Vesa driver only when I append my boot parameters in GRUB, select b=
-oot in the GRUB menu, and quickly do a force restart mid-way during booting=
-, and then do another reboot after
- that. When booting, the CPU also skips the GRUB menu page. This is extreme=
-ly hackish, and most likely not a good implementation. I hope I can find a =
-better method.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal">Simon<o:p></o:p></p>
-</div>
-</body>
-</html>
+> diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+> index c4e281e..ad1a9d9 100644
+> --- a/meta-yocto/conf/distro/include/maintainers.inc
+> +++ b/meta-yocto/conf/distro/include/maintainers.inc
+> @@ -27,7 +27,7 @@
+>   #
+>   # Please keep this list in alphabetical order.
+>   #
+> -RECIPE_MAINTAINER_pn-acl = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-acl = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-acpid = "Aníbal Limón <anibal.limon@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-adt-installer = "Jessica Zhang <jessica.zhang@intel.com>"
+>   RECIPE_MAINTAINER_pn-alsa-lib = "Cristian Iorga <cristian.iorga@intel.com>"
+> @@ -41,10 +41,10 @@ RECIPE_MAINTAINER_pn-apr-util = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-apt = "Aníbal Limón <anibal.limon@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-aspell = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-atk = "Ross Burton <ross.burton@intel.com>"
+> -RECIPE_MAINTAINER_pn-at = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-at = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-at-spi2-atk = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-at-spi2-core = "Ross Burton <ross.burton@intel.com>"
+> -RECIPE_MAINTAINER_pn-attr = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-attr = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-augeas = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-autoconf = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-autogen = "Robert Yang <liezhi.yang@windriver.com>"
+> @@ -57,11 +57,11 @@ RECIPE_MAINTAINER_pn-base-passwd = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-bash = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-bc = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-bdwgc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+> -RECIPE_MAINTAINER_pn-beecrypt = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-beecrypt = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-bigreqsproto = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-bind = "Kai Kang <kai.kang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-binutils = "Robert Yang <liezhi.yang@windriver.com>"
+> -RECIPE_MAINTAINER_pn-bison = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-bison = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-blktool = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-blktrace = "Tom Zanussi <tom.zanussi@intel.com>"
+>   RECIPE_MAINTAINER_pn-bluez4 = "Cristian Iorga <cristian.iorga@intel.com>"
+> @@ -72,7 +72,7 @@ RECIPE_MAINTAINER_pn-btrfs-tools = "Richard Purdie <richard.purdie@linuxfoundati
+>   RECIPE_MAINTAINER_pn-build-appliance-image = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-builder = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-busybox = "Chen Qi <Qi.Chen@windriver.com>"
+> -RECIPE_MAINTAINER_pn-byacc = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-byacc = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-bzip2 = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-ca-certificates = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-cairo = "Ross Burton <ross.burton@intel.com>"
+> @@ -118,19 +118,19 @@ RECIPE_MAINTAINER_pn-cracklib = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-createrepo = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-cronie = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-cross-localedef-native = "Saul Wold <sgw@linux.intel.com>"
+> -RECIPE_MAINTAINER_pn-cups = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-cups = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-curl = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-cwautomacros = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-damageproto = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-db = "Cristian Iorga <cristian.iorga@intel.com>"
+> -RECIPE_MAINTAINER_pn-dbus = "Chong Lu <Chong.Lu@windriver.com>"
+> -RECIPE_MAINTAINER_pn-dbus-glib = "Chong Lu <Chong.Lu@windriver.com>"
+> -RECIPE_MAINTAINER_pn-dbus-test = "Chong Lu <Chong.Lu@windriver.com>"
+> -RECIPE_MAINTAINER_pn-dbus-wait = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-dbus = "Chen Qi <Qi.Chen@windriver.com>"
+> +RECIPE_MAINTAINER_pn-dbus-glib = "Chen Qi <Qi.Chen@windriver.com>"
+> +RECIPE_MAINTAINER_pn-dbus-test = "Chen Qi <Qi.Chen@windriver.com>"
+> +RECIPE_MAINTAINER_pn-dbus-wait = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-dhcp = "Hongxu Jia <hongxu.jia@windriver.com>"
+> -RECIPE_MAINTAINER_pn-diffstat = "Chong Lu <Chong.Lu@windriver.com>"
+> -RECIPE_MAINTAINER_pn-diffutils = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-diffstat = "Chen Qi <Qi.Chen@windriver.com>"
+> +RECIPE_MAINTAINER_pn-diffutils = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-directfb-examples = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-directfb = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-distcc = "Hongxu Jia <hongxu.jia@windriver.com>"
+> @@ -164,12 +164,12 @@ RECIPE_MAINTAINER_pn-file = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-findutils = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-fixesproto = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-flac = "Cristian Iorga <cristian.iorga@intel.com>"
+> -RECIPE_MAINTAINER_pn-flex = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-flex = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-font-alias = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-fontconfig = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-fontsproto = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-font-util = "Ross Burton <ross.burton@intel.com>"
+> -RECIPE_MAINTAINER_pn-foomatic-filters = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-foomatic-filters = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-formfactor = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-fotowall = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-freetype = "Ross Burton <ross.burton@intel.com>"
+> @@ -237,13 +237,13 @@ RECIPE_MAINTAINER_pn-gtk-theme-torturer = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-gtk-update-icon-cache-native = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-gtk+ = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-gtk+3 = "Ross Burton <ross.burton@intel.com>"
+> -RECIPE_MAINTAINER_pn-guile = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-guile = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-guilt-native = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+>   RECIPE_MAINTAINER_pn-gummiboot = "Darren Hart <dvhart@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-gzip = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-hal = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-harfbuzz = "Cristian Iorga <cristian.iorga@intel.com>"
+> -RECIPE_MAINTAINER_pn-hdparm = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-hdparm = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-help2man-native = "Hongxu Jia <hongxu.jia@windriver.com>"
+>   RECIPE_MAINTAINER_pn-hicolor-icon-theme = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-hostap-conf = "Cristian Iorga <cristian.iorga@intel.com>"
+> @@ -258,11 +258,11 @@ RECIPE_MAINTAINER_pn-initramfs-live-install-efi = "Saul Wold <sgw@linux.intel.co
+>   RECIPE_MAINTAINER_pn-initramfs-live-install = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-initscripts = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-inputproto = "Ross Burton <ross.burton@intel.com>"
+> -RECIPE_MAINTAINER_pn-insserv = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-insserv = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-intltool = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+>   RECIPE_MAINTAINER_pn-iproute2 = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-iptables = "Cristian Iorga <cristian.iorga@intel.com>"
+> -RECIPE_MAINTAINER_pn-iputils = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-iputils = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-irda-utils = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-jpeg = "Aníbal Limón <anibal.limon@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-json-glib = "Ross Burton <ross.burton@intel.com>"
+> @@ -278,7 +278,7 @@ RECIPE_MAINTAINER_pn-lame = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-latencytop = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+>   RECIPE_MAINTAINER_pn-ldconfig-native = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-leafpad = "Ross Burton <ross.burton@intel.com>"
+> -RECIPE_MAINTAINER_pn-less = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-less = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-liba52 = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-libacpi = "Aníbal Limón <anibal.limon@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-libaio = "Saul Wold <sgw@linux.intel.com>"
+> @@ -287,8 +287,8 @@ RECIPE_MAINTAINER_pn-libart-lgpl = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-libassuan = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-libatomics-ops = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-libav = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+> -RECIPE_MAINTAINER_pn-libbsd = "Chong Lu <Chong.Lu@windriver.com>"
+> -RECIPE_MAINTAINER_pn-libcap = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-libbsd = "Robert Yang <liezhi.yang@windriver.com>"
+> +RECIPE_MAINTAINER_pn-libcap = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-libcgroup = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-libcheck = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-libclass-isa-perl = "Saul Wold <sgw@linux.intel.com>"
+> @@ -340,7 +340,7 @@ RECIPE_MAINTAINER_pn-libowl = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-libpam = "Randy Witt <randy.e.witt@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-libpcap = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-libpciaccess = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+> -RECIPE_MAINTAINER_pn-libpcre = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-libpcre = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com>"
+>   RECIPE_MAINTAINER_pn-libpng = "Randy Witt <randy.e.witt@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-libpng12 = "Randy Witt <randy.e.witt@linux.intel.com>"
+> @@ -366,7 +366,7 @@ RECIPE_MAINTAINER_pn-liburcu = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-liburi-perl = "Kai Kang <kai.kang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-libusb1 = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-libusb-compat = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+> -RECIPE_MAINTAINER_pn-libuser = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-libuser = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-libvorbis = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-libx11-diet = "Kai Kang <kai.kang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-libx11 = "Ross Burton <ross.burton@intel.com>"
+> @@ -465,7 +465,7 @@ RECIPE_MAINTAINER_pn-mkelfimage = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-mkfontdir = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-mkfontscale = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-mklibs-native = "Robert Yang <liezhi.yang@windriver.com>"
+> -RECIPE_MAINTAINER_pn-mktemp = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-mktemp = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-modutils-initscripts = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-mpeg2dec = "Saul Wold <sgw@linux.intel.com>"
+> @@ -485,7 +485,7 @@ RECIPE_MAINTAINER_pn-neon = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-netbase = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-nettle = "Armin Kuster <akuster808@gmail.com>"
+>   RECIPE_MAINTAINER_pn-net-tools = "Cristian Iorga <cristian.iorga@intel.com>"
+> -RECIPE_MAINTAINER_pn-nfs-export-root = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-nfs-export-root = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-nfs-utils = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-npth = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-nspr = "Saul Wold <sgw@linux.intel.com>"
+> @@ -598,7 +598,7 @@ RECIPE_MAINTAINER_pn-qt-demo-init = "Paul Eggleton <paul.eggleton@linux.intel.co
+>   RECIPE_MAINTAINER_pn-qt-mobility-embedded = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-qt-mobility-x11 = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-quicky = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+> -RECIPE_MAINTAINER_pn-quilt = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-quilt = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-quota = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-randrproto = "Ross Burton <ross.burton@intel.com>"
+>   RECIPE_MAINTAINER_pn-readline = "Hongxu Jia <hongxu.jia@windriver.com>"
+> @@ -637,7 +637,7 @@ RECIPE_MAINTAINER_pn-sqlite3 = "Aníbal Limón <anibal.limon@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-squashfs-tools = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-startup-notification = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-stat = "Chen Qi <Qi.Chen@windriver.com>"
+> -RECIPE_MAINTAINER_pn-strace = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-strace = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-subversion = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+>   RECIPE_MAINTAINER_pn-sudo = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-swabber-native = "Saul Wold <sgw@linux.intel.com>"
+> @@ -655,7 +655,7 @@ RECIPE_MAINTAINER_pn-taglib = "Cristian Iorga <cristian.iorga@intel.com>"
+>   RECIPE_MAINTAINER_pn-tar-replacement-native = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-tar = "Chen Qi <Qi.Chen@windriver.com>"
+>   RECIPE_MAINTAINER_pn-tcf-agent = "Randy Witt <randy.e.witt@linux.intel.com>"
+> -RECIPE_MAINTAINER_pn-tcl = "Chong Lu <Chong.Lu@windriver.com>"
+> +RECIPE_MAINTAINER_pn-tcl = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-tcp-wrappers = "Robert Yang <liezhi.yang@windriver.com>"
+>   RECIPE_MAINTAINER_pn-tcp-wrappers = "Saul Wold <sgw@linux.intel.com>"
+>   RECIPE_MAINTAINER_pn-telepathy-glib = "Cristian Iorga <cristian.iorga@intel.com>"
+>
 
---_000_D3EFC6D8DB6B2D48A91E6F02D0DB338FA737A2HVXDSP45uslmcocom_--
