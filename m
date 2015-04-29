@@ -1,59 +1,41 @@
-Return-Path: <philippe.coval@open.eurogiciel.org>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A20C9E009A5; Wed, 29 Apr 2015 02:08:45 -0700 (PDT)
+	id 45A9BE009A5; Wed, 29 Apr 2015 02:15:20 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [74.125.82.43 listed in list.dnswl.org]
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wg0-f43.google.com (mail-wg0-f43.google.com [74.125.82.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D9E4AE00932
-	for <poky@yoctoproject.org>; Wed, 29 Apr 2015 02:08:44 -0700 (PDT)
-Received: by wgso17 with SMTP id o17so20963891wgs.1
-	for <poky@yoctoproject.org>; Wed, 29 Apr 2015 02:08:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=open.eurogiciel.org; s=google;
-	h=from:to:cc:subject:date:message-id;
-	bh=KZeh+mS7eEwWM7ZRUxPfwx1vdm4r+QkeS7VWt/0k6ik=;
-	b=u0dZB2gs6JMlV++c/fytacTMJbYMpbEa/z0kcqEXncq3KekpffJObGqY/3v9iSpBBn
-	Gvq+x9Y+euJVxlgLh9lNa266MS3+m7DWGLpWo9cUCeErSHhMuw0Be5yoZb1esJmRlDIB
-	3NIIlkcd3OkARB0qyWSacr4GoebJ2ZG0+xoHc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=KZeh+mS7eEwWM7ZRUxPfwx1vdm4r+QkeS7VWt/0k6ik=;
-	b=cFwELrnbgh3dBqS+FWAnsNxhXFARKIK9AipuK+TZeeLDI1E27DrpgR92fAtbTNUln/
-	k7rLlPgQGK/icC5kejot3UZ6g5CvqfzaTOA2BSmq3+wVzqxr+GLOCbAuWjJvN/3abZry
-	N9I6yJmUwfypmXzTsYVWNku2nznUH0VxNh5lg9+QrnjKozR4bikeJQjsd4EGydbVljGX
-	I4vVEPsKTUO7dO+cZg/uU1Pa1d8C0BYEU3/EwXjPW0OFqGbbX2QaaItb94bleyRcgu8x
-	EIeA4B0jGTTfuKbwbYAAifjIC9AcgihlmBNvoGOPXZ4ltMFe98Ce5lYPnHfLFyJzLM0U
-	IFrA==
-X-Gm-Message-State: ALoCoQknHJ9r2VRiAQ++7TvMsO3TQzy4lWZdPROlJ1c+drCUBolC0Iu+bZ/5A6iSczcLUZHog+Dk
-X-Received: by 10.194.77.7 with SMTP id o7mr39529035wjw.95.1430298523462;
-	Wed, 29 Apr 2015 02:08:43 -0700 (PDT)
-Received: from pcl (130.167.26.109.rev.sfr.net. [109.26.167.130])
-	by mx.google.com with ESMTPSA id hu1sm20244047wib.6.2015.04.29.02.08.42
-	(version=TLSv1.2 cipher=RC4-SHA bits=128/128);
-	Wed, 29 Apr 2015 02:08:42 -0700 (PDT)
-Received: from pcoval by pcl with local (Exim 4.82)
-	(envelope-from <philippe.coval@open.eurogiciel.org>)
-	id 1YnNyz-0006Sb-W1; Wed, 29 Apr 2015 11:08:41 +0200
-From: Philippe Coval <philippe.coval@open.eurogiciel.org>
-To: poky@yoctoproject.org
-Date: Wed, 29 Apr 2015 11:08:36 +0200
-Message-Id: <1430298516-16502-1-git-send-email-philippe.coval@open.eurogiciel.org>
-X-Mailer: git-send-email 1.9.1
-Subject: [PATCH] weston-init: support system's configuration file
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 75795E00932
+	for <poky@yoctoproject.org>; Wed, 29 Apr 2015 02:15:16 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.14.9/8.14.9) with ESMTP id t3T9FELv016116
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 29 Apr 2015 02:15:14 -0700 (PDT)
+Received: from [128.224.162.200] (128.224.162.200) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.3.224.2;
+	Wed, 29 Apr 2015 02:15:14 -0700
+Message-ID: <5540A120.3040206@windriver.com>
+Date: Wed, 29 Apr 2015 17:15:12 +0800
+From: Robert Yang <liezhi.yang@windriver.com>
+User-Agent: Mozilla/5.0 (X11; Linux i686;
+	rv:31.0) Gecko/20100101 Thunderbird/31.6.0
+MIME-Version: 1.0
+To: "Burton, Ross" <ross.burton@intel.com>
+References: <cover.1427771410.git.liezhi.yang@windriver.com>
+	<a1983ae884075e94cecc258a33304a0da5b2cbe5.1427771410.git.liezhi.yang@windriver.com>
+	<55406F69.6000800@windriver.com>
+	<CAJTo0LYBuj_tyx_vHE6haAPGt0=RZ1UWzuDu--8fijqwRBE1Eg@mail.gmail.com>
+In-Reply-To: <CAJTo0LYBuj_tyx_vHE6haAPGt0=RZ1UWzuDu--8fijqwRBE1Eg@mail.gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] maintainers.inc: update MAINTAINERS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -66,44 +48,474 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Apr 2015 09:08:45 -0000
+X-List-Received-Date: Wed, 29 Apr 2015 09:15:20 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Look for OPTARGS variable in /etc/default/weston
-and set it as weston's service default options.
 
-This can be used to force system's supported backend.
 
-Change-Id: I0562c9326df5b46226093199873ef58d77aeae75
-Signed-off-by: Philippe Coval <philippe.coval@open.eurogiciel.org>
----
- meta/recipes-graphics/wayland/weston-init/init | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+On 04/29/2015 05:06 PM, Burton, Ross wrote:
+> This doesn't apply to master anymore, can you refresh it?
 
-diff --git a/meta/recipes-graphics/wayland/weston-init/init b/meta/recipes-graphics/wayland/weston-init/init
-index 8e662e0..2e938f4 100644
---- a/meta/recipes-graphics/wayland/weston-init/init
-+++ b/meta/recipes-graphics/wayland/weston-init/init
-@@ -8,6 +8,10 @@
- # Default-Stop:      0 1 6
- ### END INIT INFO
- 
-+if test -e /etc/default/weston ; then
-+        . /etc/default/weston
-+fi
-+
- killproc() {
-         pid=`/bin/pidof $1`
-         [ "$pid" != "" ] && kill $pid
-@@ -34,7 +38,7 @@ case "$1" in
-                 chmod 0700 $XDG_RUNTIME_DIR
-         fi
- 
--        openvt -s weston
-+        openvt -s weston -- $OPTARGS
-   ;;
- 
-   stop)
--- 
-1.9.1
+Sorry, but it works well on my side:
 
+$ git co -b test_m origin/master
+Branch test_m set up to track remote branch master from origin.
+
+$ git fetch git://git.pokylinux.org/poky-contrib rbt/maintainers
+ From git://git.pokylinux.org/poky-contrib
+  * branch            rbt/maintainers -> FETCH_HEAD
+
+$ git cp FETCH_HEAD
+[test_m d937621] maintainers.inc: update MAINTAINERS
+  1 file changed, 29 insertions(+), 29 deletions(-)
+
+
+My master rev is:
+commit 515a8b790e08a48aaf64a6b7237e2b39390e35f6
+Author: Scott Rifenbark <scott.m.rifenbark@intel.com>
+Date:   Mon Apr 27 10:10:40 2015 -0700
+
+// Robert
+
+>
+> Ross
+>
+> 2015-04-29 6:43 GMT+01:00 Robert Yang <liezhi.yang@windriver.com
+> <mailto:liezhi.yang@windriver.com>>:
+>
+>     ping.
+>
+>     // Robert
+>
+>
+>     On 03/31/2015 11:13 AM, Robert Yang wrote:
+>
+>         Signed-off-by: Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>
+>         ---
+>            meta-yocto/conf/distro/include/maintainers.inc |   58
+>         ++++++++++++------------
+>            1 file changed, 29 insertions(+), 29 deletions(-)
+>
+>         diff --git a/meta-yocto/conf/distro/include/maintainers.inc
+>         b/meta-yocto/conf/distro/include/maintainers.inc
+>         index c4e281e..ad1a9d9 100644
+>         --- a/meta-yocto/conf/distro/include/maintainers.inc
+>         +++ b/meta-yocto/conf/distro/include/maintainers.inc
+>         @@ -27,7 +27,7 @@
+>            #
+>            # Please keep this list in alphabetical order.
+>            #
+>         -RECIPE_MAINTAINER_pn-acl = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-acl = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-acpid = "Aníbal Limón
+>         <anibal.limon@linux.intel.com <mailto:anibal.limon@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-adt-installer = "Jessica Zhang
+>         <jessica.zhang@intel.com <mailto:jessica.zhang@intel.com>>"
+>            RECIPE_MAINTAINER_pn-alsa-lib = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>         @@ -41,10 +41,10 @@ RECIPE_MAINTAINER_pn-apr-util = "Hongxu Jia
+>         <hongxu.jia@windriver.com <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-apt = "Aníbal Limón
+>         <anibal.limon@linux.intel.com <mailto:anibal.limon@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-aspell = "Alejandro Hernandez
+>         <alejandro.hernandez@linux.intel.com
+>         <mailto:alejandro.hernandez@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-atk = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-at = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-at = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-at-spi2-atk = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-at-spi2-core = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-attr = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-attr = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-augeas = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-autoconf = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-autogen = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>         @@ -57,11 +57,11 @@ RECIPE_MAINTAINER_pn-base-passwd = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-bash = "Hongxu Jia <hongxu.jia@windriver.com
+>         <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-bc = "Alejandro Hernandez
+>         <alejandro.hernandez@linux.intel.com
+>         <mailto:alejandro.hernandez@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-bdwgc = "Richard Purdie
+>         <richard.purdie@linuxfoundation.org
+>         <mailto:richard.purdie@linuxfoundation.org>>"
+>         -RECIPE_MAINTAINER_pn-beecrypt = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-beecrypt = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-bigreqsproto = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-bind = "Kai Kang <kai.kang@windriver.com
+>         <mailto:kai.kang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-binutils = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-bison = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-bison = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-blktool = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-blktrace = "Tom Zanussi <tom.zanussi@intel.com
+>         <mailto:tom.zanussi@intel.com>>"
+>            RECIPE_MAINTAINER_pn-bluez4 = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>         @@ -72,7 +72,7 @@ RECIPE_MAINTAINER_pn-btrfs-tools = "Richard Purdie
+>         <richard.purdie@linuxfoundati
+>            RECIPE_MAINTAINER_pn-build-appliance-image = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-builder = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-busybox = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-byacc = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-byacc = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-bzip2 = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-ca-certificates = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-cairo = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         @@ -118,19 +118,19 @@ RECIPE_MAINTAINER_pn-cracklib = "Hongxu Jia
+>         <hongxu.jia@windriver.com <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-createrepo = "Hongxu Jia
+>         <hongxu.jia@windriver.com <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-cronie = "Alejandro Hernandez
+>         <alejandro.hernandez@linux.intel.com
+>         <mailto:alejandro.hernandez@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-cross-localedef-native = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>         -RECIPE_MAINTAINER_pn-cups = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-cups = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-curl = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-cwautomacros = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-damageproto = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-db = "Cristian Iorga <cristian.iorga@intel.com
+>         <mailto:cristian.iorga@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-dbus = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-dbus-glib = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-dbus-test = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-dbus-wait = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-dbus = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-dbus-glib = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-dbus-test = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-dbus-wait = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-dhcp = "Hongxu Jia <hongxu.jia@windriver.com
+>         <mailto:hongxu.jia@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-diffstat = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-diffutils = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-diffstat = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-diffutils = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-directfb-examples = "Hongxu Jia
+>         <hongxu.jia@windriver.com <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-directfb = "Hongxu Jia <hongxu.jia@windriver.com
+>         <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-distcc = "Hongxu Jia <hongxu.jia@windriver.com
+>         <mailto:hongxu.jia@windriver.com>>"
+>         @@ -164,12 +164,12 @@ RECIPE_MAINTAINER_pn-file = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-findutils = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-fixesproto = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-flac = "Cristian Iorga <cristian.iorga@intel.com
+>         <mailto:cristian.iorga@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-flex = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-flex = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-font-alias = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-fontconfig = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-fontsproto = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-font-util = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-foomatic-filters = "Chong Lu
+>         <Chong.Lu@windriver.com <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-foomatic-filters = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-formfactor = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-fotowall = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-freetype = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         @@ -237,13 +237,13 @@ RECIPE_MAINTAINER_pn-gtk-theme-torturer = "Ross
+>         Burton <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-gtk-update-icon-cache-native = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-gtk+ = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-gtk+3 = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-guile = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-guile = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-guilt-native = "Bruce Ashfield
+>         <bruce.ashfield@windriver.com <mailto:bruce.ashfield@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-gummiboot = "Darren Hart <dvhart@linux.intel.com
+>         <mailto:dvhart@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-gzip = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-hal = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-harfbuzz = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-hdparm = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-hdparm = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-help2man-native = "Hongxu Jia
+>         <hongxu.jia@windriver.com <mailto:hongxu.jia@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-hicolor-icon-theme = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-hostap-conf = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>         @@ -258,11 +258,11 @@ RECIPE_MAINTAINER_pn-initramfs-live-install-efi =
+>         "Saul Wold <sgw@linux.intel.co <mailto:sgw@linux.intel.co>
+>            RECIPE_MAINTAINER_pn-initramfs-live-install = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-initscripts = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-inputproto = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-insserv = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-insserv = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-intltool = "Richard Purdie
+>         <richard.purdie@linuxfoundation.org
+>         <mailto:richard.purdie@linuxfoundation.org>>"
+>            RECIPE_MAINTAINER_pn-iproute2 = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-iptables = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-iputils = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-iputils = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-irda-utils = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-jpeg = "Aníbal Limón
+>         <anibal.limon@linux.intel.com <mailto:anibal.limon@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-json-glib = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         @@ -278,7 +278,7 @@ RECIPE_MAINTAINER_pn-lame = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-latencytop = "Richard Purdie
+>         <richard.purdie@linuxfoundation.org
+>         <mailto:richard.purdie@linuxfoundation.org>>"
+>            RECIPE_MAINTAINER_pn-ldconfig-native = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-leafpad = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-less = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-less = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-liba52 = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-libacpi = "Aníbal Limón
+>         <anibal.limon@linux.intel.com <mailto:anibal.limon@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-libaio = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>         @@ -287,8 +287,8 @@ RECIPE_MAINTAINER_pn-libart-lgpl = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-libassuan = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-libatomics-ops = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-libav = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>         -RECIPE_MAINTAINER_pn-libbsd = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-libcap = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-libbsd = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-libcap = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-libcgroup = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-libcheck = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-libclass-isa-perl = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>         @@ -340,7 +340,7 @@ RECIPE_MAINTAINER_pn-libowl = "Ross Burton
+>         <ross.burton@intel.com <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-libpam = "Randy Witt
+>         <randy.e.witt@linux.intel.com <mailto:randy.e.witt@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-libpcap = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-libpciaccess = "Richard Purdie
+>         <richard.purdie@linuxfoundation.org
+>         <mailto:richard.purdie@linuxfoundation.org>>"
+>         -RECIPE_MAINTAINER_pn-libpcre = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-libpcre = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com
+>         <mailto:msm@freescale.com>>"
+>            RECIPE_MAINTAINER_pn-libpng = "Randy Witt
+>         <randy.e.witt@linux.intel.com <mailto:randy.e.witt@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-libpng12 = "Randy Witt
+>         <randy.e.witt@linux.intel.com <mailto:randy.e.witt@linux.intel.com>>"
+>         @@ -366,7 +366,7 @@ RECIPE_MAINTAINER_pn-liburcu = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-liburi-perl = "Kai Kang <kai.kang@windriver.com
+>         <mailto:kai.kang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-libusb1 = "Alejandro Hernandez
+>         <alejandro.hernandez@linux.intel.com
+>         <mailto:alejandro.hernandez@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-libusb-compat = "Alejandro Hernandez
+>         <alejandro.hernandez@linux.intel.com
+>         <mailto:alejandro.hernandez@linux.intel.com>>"
+>         -RECIPE_MAINTAINER_pn-libuser = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-libuser = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-libvorbis = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-libx11-diet = "Kai Kang <kai.kang@windriver.com
+>         <mailto:kai.kang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-libx11 = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>         @@ -465,7 +465,7 @@ RECIPE_MAINTAINER_pn-mkelfimage = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-mkfontdir = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-mkfontscale = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-mklibs-native = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-mktemp = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-mktemp = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-modutils-initscripts = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-mpeg2dec = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>         @@ -485,7 +485,7 @@ RECIPE_MAINTAINER_pn-neon = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-netbase = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-nettle = "Armin Kuster <akuster808@gmail.com
+>         <mailto:akuster808@gmail.com>>"
+>            RECIPE_MAINTAINER_pn-net-tools = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>         -RECIPE_MAINTAINER_pn-nfs-export-root = "Chong Lu
+>         <Chong.Lu@windriver.com <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-nfs-export-root = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-nfs-utils = "Alejandro Hernandez
+>         <alejandro.hernandez@linux.intel.com
+>         <mailto:alejandro.hernandez@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-npth = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-nspr = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>         @@ -598,7 +598,7 @@ RECIPE_MAINTAINER_pn-qt-demo-init = "Paul Eggleton
+>         <paul.eggleton@linux.intel.co <mailto:paul.eggleton@linux.intel.co>
+>            RECIPE_MAINTAINER_pn-qt-mobility-embedded = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-qt-mobility-x11 = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-quicky = "Paul Eggleton
+>         <paul.eggleton@linux.intel.com <mailto:paul.eggleton@linux.intel.com>>"
+>         -RECIPE_MAINTAINER_pn-quilt = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-quilt = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-quota = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-randrproto = "Ross Burton <ross.burton@intel.com
+>         <mailto:ross.burton@intel.com>>"
+>            RECIPE_MAINTAINER_pn-readline = "Hongxu Jia <hongxu.jia@windriver.com
+>         <mailto:hongxu.jia@windriver.com>>"
+>         @@ -637,7 +637,7 @@ RECIPE_MAINTAINER_pn-sqlite3 = "Aníbal Limón
+>         <anibal.limon@linux.intel.com <mailto:anibal.limon@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-squashfs-tools = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-startup-notification = "Saul Wold
+>         <sgw@linux.intel.com <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-stat = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>         -RECIPE_MAINTAINER_pn-strace = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-strace = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-subversion = "Richard Purdie
+>         <richard.purdie@linuxfoundation.org
+>         <mailto:richard.purdie@linuxfoundation.org>>"
+>            RECIPE_MAINTAINER_pn-sudo = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-swabber-native = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>         @@ -655,7 +655,7 @@ RECIPE_MAINTAINER_pn-taglib = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>            RECIPE_MAINTAINER_pn-tar-replacement-native = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-tar = "Chen Qi <Qi.Chen@windriver.com
+>         <mailto:Qi.Chen@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-tcf-agent = "Randy Witt
+>         <randy.e.witt@linux.intel.com <mailto:randy.e.witt@linux.intel.com>>"
+>         -RECIPE_MAINTAINER_pn-tcl = "Chong Lu <Chong.Lu@windriver.com
+>         <mailto:Chong.Lu@windriver.com>>"
+>         +RECIPE_MAINTAINER_pn-tcl = "Robert Yang <liezhi.yang@windriver.com
+>         <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-tcp-wrappers = "Robert Yang
+>         <liezhi.yang@windriver.com <mailto:liezhi.yang@windriver.com>>"
+>            RECIPE_MAINTAINER_pn-tcp-wrappers = "Saul Wold <sgw@linux.intel.com
+>         <mailto:sgw@linux.intel.com>>"
+>            RECIPE_MAINTAINER_pn-telepathy-glib = "Cristian Iorga
+>         <cristian.iorga@intel.com <mailto:cristian.iorga@intel.com>>"
+>
+>     --
+>     _______________________________________________
+>     poky mailing list
+>     poky@yoctoproject.org <mailto:poky@yoctoproject.org>
+>     https://lists.yoctoproject.org/listinfo/poky
+>
+>
 
