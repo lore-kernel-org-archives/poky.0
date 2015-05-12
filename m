@@ -1,45 +1,45 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <george.l.musat@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 81E0DE00998; Tue, 12 May 2015 07:27:49 -0700 (PDT)
+	id B8923E0098D; Tue, 12 May 2015 08:13:34 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.216.175 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.20 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-Received: from mail-qc0-f175.google.com (mail-qc0-f175.google.com
-	[209.85.216.175])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F5FAE00982
-	for <poky@yoctoproject.org>; Tue, 12 May 2015 07:27:44 -0700 (PDT)
-Received: by qcbgu10 with SMTP id gu10so5091426qcb.2
-	for <poky@yoctoproject.org>; Tue, 12 May 2015 07:27:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=SFD3N6+B9i+a2cKdpgj28PZHaE3yormWgheR/Y3L64Y=;
-	b=HAYAVatihCeizUWWlUdEZ2H4/HWlJgcZlUDrnnWRIbKxH5zC42XQ9YGTpWm7rP7EA+
-	eXloiR+NCQBcZ+/8NB3Hfr4zAM36KzQCMtFHSK6yOu3/66+OwZeudIKRPKpwbdTIH0br
-	EwysrAagauaAzYHhgzRiz+Fcf0VPVVRU9iUgyFDzv0hG5giWjK7mIEbo33O2kjUtk4Ee
-	v3bQXlaiWUmnMvKtP37PbsyGyvD2gIqmVhGaWrnteY54Wd0lh7YbZ/zTm7epb1coOEwC
-	SMWcUCEv9Oiul/QiN/W1gaD21O/yj7GjfOfLXqzUtVLX8NnGp+upU5BkkjyXqaS/kWfq
-	opSA==
-X-Gm-Message-State: ALoCoQkiB0ARSwF8N8osBVxZiq+g1FC4MLBCwLSsJFgPORoxRY6xqC+7kq3C974wemNd64PFfnks
-X-Received: by 10.55.50.20 with SMTP id y20mr33491283qky.58.1431440864387;
-	Tue, 12 May 2015 07:27:44 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.140.102.231 with HTTP; Tue, 12 May 2015 07:27:24 -0700 (PDT)
-In-Reply-To: <1431340642-1538-1-git-send-email-george.l.musat@intel.com>
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1608DE007B6
+	for <poky@yoctoproject.org>; Tue, 12 May 2015 08:13:32 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga101.jf.intel.com with ESMTP; 12 May 2015 08:13:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.13,415,1427785200"; 
+	d="scan'208,217";a="727932612"
+Received: from irsmsx104.ger.corp.intel.com ([163.33.3.159])
+	by orsmga002.jf.intel.com with ESMTP; 12 May 2015 08:13:32 -0700
+Received: from irsmsx108.ger.corp.intel.com ([169.254.11.59]) by
+	IRSMSX104.ger.corp.intel.com ([169.254.3.49]) with mapi id
+	14.03.0224.002; Tue, 12 May 2015 16:12:39 +0100
+From: "Musat, George L" <george.l.musat@intel.com>
+To: "Burton, Ross" <ross.burton@intel.com>
+Thread-Topic: [poky] [PATCH] meta-yocto/distro: Added Ubuntu 15.04 to
+	SANITY_TESTED_DISTROS
+Thread-Index: AQHQi9alEn3hJd+vfEOdrZkcwdppmp14VxYAgAAWiHA=
+Date: Tue, 12 May 2015 15:12:38 +0000
+Message-ID: <042E875E1B5D414CA9BB78B7D4FA691C26701BA1@IRSMSX108.ger.corp.intel.com>
 References: <1431340642-1538-1-git-send-email-george.l.musat@intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 12 May 2015 15:27:24 +0100
-Message-ID: <CAJTo0Lb_94aXvkvzqnYSTgyV08eXh9yXLvKfvWFKry2U4=HHCA@mail.gmail.com>
-To: Lucian Musat <george.l.musat@intel.com>
+	<CAJTo0Lb_94aXvkvzqnYSTgyV08eXh9yXLvKfvWFKry2U4=HHCA@mail.gmail.com>
+In-Reply-To: <CAJTo0Lb_94aXvkvzqnYSTgyV08eXh9yXLvKfvWFKry2U4=HHCA@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [163.33.239.180]
+MIME-Version: 1.0
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: [PATCH] meta-yocto/distro: Added Ubuntu 15.04 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
@@ -54,84 +54,128 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 May 2015 14:27:49 -0000
-Content-Type: multipart/alternative; boundary=001a114713923d3b500515e34cd9
+X-List-Received-Date: Tue, 12 May 2015 15:13:34 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_042E875E1B5D414CA9BB78B7D4FA691C26701BA1IRSMSX108gercor_"
 
---001a114713923d3b500515e34cd9
-Content-Type: text/plain; charset=UTF-8
+--_000_042E875E1B5D414CA9BB78B7D4FA691C26701BA1IRSMSX108gercor_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Is this actually tested by QA yet, and if not should we wait until it is?
+WWVzLCB3ZSB1cGdyYWRlZCB0byAxNS4wNCBhbmQgYXJlIHdvcmtpbmcgb24gdXBkYXRpbmcgb3Vy
+IGF1dG9idWlsZGVycyBhcyB3ZWxsLg0KDQpGcm9tOiBCdXJ0b24sIFJvc3MgW21haWx0bzpyb3Nz
+LmJ1cnRvbkBpbnRlbC5jb21dDQpTZW50OiBUdWVzZGF5LCBNYXkgMTIsIDIwMTUgNToyNyBQTQ0K
+VG86IE11c2F0LCBHZW9yZ2UgTA0KQ2M6IFBva3kgUHJvamVjdA0KU3ViamVjdDogUmU6IFtwb2t5
+XSBbUEFUQ0hdIG1ldGEteW9jdG8vZGlzdHJvOiBBZGRlZCBVYnVudHUgMTUuMDQgdG8gU0FOSVRZ
+X1RFU1RFRF9ESVNUUk9TDQoNCklzIHRoaXMgYWN0dWFsbHkgdGVzdGVkIGJ5IFFBIHlldCwgYW5k
+IGlmIG5vdCBzaG91bGQgd2Ugd2FpdCB1bnRpbCBpdCBpcz8NCg0KUm9zcw0KDQpPbiAxMSBNYXkg
+MjAxNSBhdCAxMTozNywgTHVjaWFuIE11c2F0IDxnZW9yZ2UubC5tdXNhdEBpbnRlbC5jb208bWFp
+bHRvOmdlb3JnZS5sLm11c2F0QGludGVsLmNvbT4+IHdyb3RlOg0KU2lnbmVkLW9mZi1ieTogTHVj
+aWFuIE11c2F0IDxnZW9yZ2UubC5tdXNhdEBpbnRlbC5jb208bWFpbHRvOmdlb3JnZS5sLm11c2F0
+QGludGVsLmNvbT4+DQotLS0NCiBtZXRhLXlvY3RvL2NvbmYvZGlzdHJvL3Bva3kuY29uZiB8IDEg
+Kw0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQ0KDQpkaWZmIC0tZ2l0IGEvbWV0YS15
+b2N0by9jb25mL2Rpc3Ryby9wb2t5LmNvbmYgYi9tZXRhLXlvY3RvL2NvbmYvZGlzdHJvL3Bva3ku
+Y29uZg0KaW5kZXggYWE2ZjAxZS4uZWM3NmFlMSAxMDA2NDQNCi0tLSBhL21ldGEteW9jdG8vY29u
+Zi9kaXN0cm8vcG9reS5jb25mDQorKysgYi9tZXRhLXlvY3RvL2NvbmYvZGlzdHJvL3Bva3kuY29u
+Zg0KQEAgLTc0LDYgKzc0LDcgQEAgU0FOSVRZX1RFU1RFRF9ESVNUUk9TID89ICIgXA0KICAgICAg
+ICAgICAgIHBva3ktMS44IFxuIFwNCiAgICAgICAgICAgICBVYnVudHUtMTQuMDQgXG4gXA0KICAg
+ICAgICAgICAgIFVidW50dS0xNC4xMCBcbiBcDQorICAgICAgICAgICAgVWJ1bnR1LTE1LjA0IFxu
+IFwNCiAgICAgICAgICAgICBGZWRvcmEtMjEgXG4gXA0KICAgICAgICAgICAgIENlbnRPUy02Liog
+XG4gXA0KICAgICAgICAgICAgIENlbnRPUy03LiogXG4gXA0KLS0NCjIuMS40DQoNCi0tDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KcG9reSBtYWlsaW5n
+IGxpc3QNCnBva3lAeW9jdG9wcm9qZWN0Lm9yZzxtYWlsdG86cG9reUB5b2N0b3Byb2plY3Qub3Jn
+Pg0KaHR0cHM6Ly9saXN0cy55b2N0b3Byb2plY3Qub3JnL2xpc3RpbmZvL3Bva3kNCg0K
 
-Ross
+--_000_042E875E1B5D414CA9BB78B7D4FA691C26701BA1IRSMSX108gercor_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 11 May 2015 at 11:37, Lucian Musat <george.l.musat@intel.com> wrote:
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
+DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
+b2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpw
+dXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpzcGFuLmhvZW56Yg0KCXttc28t
+c3R5bGUtbmFtZTpob2VuemI7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTgNCgl7bXNvLXN0eWxlLXR5cGU6
+cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29s
+b3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25s
+eTsNCglmb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlm
+O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4w
+aW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0
+aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZh
+dWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwh
+LS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86
+aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFb
+ZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIgdmxpbms9
+InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJy
+aSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPlllcywgd2UgdXBncmFkZWQgdG8gMTUu
+MDQgYW5kIGFyZSB3b3JraW5nIG9uIHVwZGF0aW5nIG91ciBhdXRvYnVpbGRlcnMgYXMgd2VsbC48
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48YSBuYW1lPSJfTWFp
+bEVuZENvbXBvc2UiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZx
+dW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwv
+bzpwPjwvc3Bhbj48L2E+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+PHNwYW4gc3R5bGU9
+ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
+cmlmIj5Gcm9tOjwvc3Bhbj48L2I+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1m
+YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmIj4gQnVydG9uLCBSb3NzIFttYWls
+dG86cm9zcy5idXJ0b25AaW50ZWwuY29tXQ0KPGJyPg0KPGI+U2VudDo8L2I+IFR1ZXNkYXksIE1h
+eSAxMiwgMjAxNSA1OjI3IFBNPGJyPg0KPGI+VG86PC9iPiBNdXNhdCwgR2VvcmdlIEw8YnI+DQo8
+Yj5DYzo8L2I+IFBva3kgUHJvamVjdDxicj4NCjxiPlN1YmplY3Q6PC9iPiBSZTogW3Bva3ldIFtQ
+QVRDSF0gbWV0YS15b2N0by9kaXN0cm86IEFkZGVkIFVidW50dSAxNS4wNCB0byBTQU5JVFlfVEVT
+VEVEX0RJU1RST1M8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5JcyB0aGlz
+IGFjdHVhbGx5IHRlc3RlZCBieSBRQSB5ZXQsIGFuZCBpZiBub3Qgc2hvdWxkIHdlIHdhaXQgdW50
+aWwgaXQgaXM/PG86cD48L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86
+cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5S
+b3NzPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+Pk9uIDExIE1heSAyMDE1IGF0IDExOjM3LCBMdWNpYW4gTXVzYXQgJmx0OzxhIGhyZWY9Im1haWx0
+bzpnZW9yZ2UubC5tdXNhdEBpbnRlbC5jb20iIHRhcmdldD0iX2JsYW5rIj5nZW9yZ2UubC5tdXNh
+dEBpbnRlbC5jb208L2E+Jmd0OyB3cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0
+eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6
+MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXRvcDo1LjBwdDttYXJn
+aW4tcmlnaHQ6MGluO21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+U2lnbmVkLW9mZi1ieTogTHVjaWFuIE11c2F0ICZsdDs8YSBocmVmPSJtYWlsdG86Z2VvcmdlLmwu
+bXVzYXRAaW50ZWwuY29tIj5nZW9yZ2UubC5tdXNhdEBpbnRlbC5jb208L2E+Jmd0Ozxicj4NCi0t
+LTxicj4NCiZuYnNwO21ldGEteW9jdG8vY29uZi9kaXN0cm8vcG9reS5jb25mIHwgMSAmIzQzOzxi
+cj4NCiZuYnNwOzEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigmIzQzOyk8YnI+DQo8YnI+DQpk
+aWZmIC0tZ2l0IGEvbWV0YS15b2N0by9jb25mL2Rpc3Ryby9wb2t5LmNvbmYgYi9tZXRhLXlvY3Rv
+L2NvbmYvZGlzdHJvL3Bva3kuY29uZjxicj4NCmluZGV4IGFhNmYwMWUuLmVjNzZhZTEgMTAwNjQ0
+PGJyPg0KLS0tIGEvbWV0YS15b2N0by9jb25mL2Rpc3Ryby9wb2t5LmNvbmY8YnI+DQomIzQzOyYj
+NDM7JiM0MzsgYi9tZXRhLXlvY3RvL2NvbmYvZGlzdHJvL3Bva3kuY29uZjxicj4NCkBAIC03NCw2
+ICYjNDM7NzQsNyBAQCBTQU5JVFlfVEVTVEVEX0RJU1RST1MgPz0gJnF1b3Q7IFw8YnI+DQombmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtwb2t5LTEuOCBcbiBc
+PGJyPg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7VWJ1
+bnR1LTE0LjA0IFxuIFw8YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDtVYnVudHUtMTQuMTAgXG4gXDxicj4NCiYjNDM7Jm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgVWJ1bnR1LTE1LjA0IFxuIFw8YnI+DQombmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtGZWRvcmEtMjEgXG4gXDxicj4N
+CiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO0NlbnRPUy02
+LiogXG4gXDxicj4NCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwO0NlbnRPUy03LiogXG4gXDxicj4NCjxzcGFuIGNsYXNzPSJob2VuemIiPjxzcGFuIHN0eWxl
+PSJjb2xvcjojODg4ODg4Ij4tLTwvc3Bhbj48L3NwYW4+PHNwYW4gc3R5bGU9ImNvbG9yOiM4ODg4
+ODgiPjxicj4NCjxzcGFuIGNsYXNzPSJob2VuemIiPjIuMS40PC9zcGFuPjxicj4NCjxicj4NCjxz
+cGFuIGNsYXNzPSJob2VuemIiPi0tPC9zcGFuPjxicj4NCjxzcGFuIGNsYXNzPSJob2VuemIiPl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fPC9zcGFuPjxicj4N
+CjxzcGFuIGNsYXNzPSJob2VuemIiPnBva3kgbWFpbGluZyBsaXN0PC9zcGFuPjxicj4NCjwvc3Bh
+bj48YSBocmVmPSJtYWlsdG86cG9reUB5b2N0b3Byb2plY3Qub3JnIj5wb2t5QHlvY3RvcHJvamVj
+dC5vcmc8L2E+PHNwYW4gc3R5bGU9ImNvbG9yOiM4ODg4ODgiPjxicj4NCjwvc3Bhbj48YSBocmVm
+PSJodHRwczovL2xpc3RzLnlvY3RvcHJvamVjdC5vcmcvbGlzdGluZm8vcG9reSIgdGFyZ2V0PSJf
+YmxhbmsiPmh0dHBzOi8vbGlzdHMueW9jdG9wcm9qZWN0Lm9yZy9saXN0aW5mby9wb2t5PC9hPjxv
+OnA+PC9vOnA+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+
+DQo=
 
-> Signed-off-by: Lucian Musat <george.l.musat@intel.com>
-> ---
->  meta-yocto/conf/distro/poky.conf | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/meta-yocto/conf/distro/poky.conf
-> b/meta-yocto/conf/distro/poky.conf
-> index aa6f01e..ec76ae1 100644
-> --- a/meta-yocto/conf/distro/poky.conf
-> +++ b/meta-yocto/conf/distro/poky.conf
-> @@ -74,6 +74,7 @@ SANITY_TESTED_DISTROS ?= " \
->              poky-1.8 \n \
->              Ubuntu-14.04 \n \
->              Ubuntu-14.10 \n \
-> +            Ubuntu-15.04 \n \
->              Fedora-21 \n \
->              CentOS-6.* \n \
->              CentOS-7.* \n \
-> --
-> 2.1.4
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-
---001a114713923d3b500515e34cd9
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Is this actually tested by QA yet, and if not should we wa=
-it until it is?<div><br></div><div>Ross</div></div><div class=3D"gmail_extr=
-a"><br><div class=3D"gmail_quote">On 11 May 2015 at 11:37, Lucian Musat <sp=
-an dir=3D"ltr">&lt;<a href=3D"mailto:george.l.musat@intel.com" target=3D"_b=
-lank">george.l.musat@intel.com</a>&gt;</span> wrote:<br><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">Signed-off-by: Lucian Musat &lt;<a href=3D"mailto:george.l.mu=
-sat@intel.com">george.l.musat@intel.com</a>&gt;<br>
----<br>
-=C2=A0meta-yocto/conf/distro/poky.conf | 1 +<br>
-=C2=A01 file changed, 1 insertion(+)<br>
-<br>
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky=
-.conf<br>
-index aa6f01e..ec76ae1 100644<br>
---- a/meta-yocto/conf/distro/poky.conf<br>
-+++ b/meta-yocto/conf/distro/poky.conf<br>
-@@ -74,6 +74,7 @@ SANITY_TESTED_DISTROS ?=3D &quot; \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0poky-1.8 \n \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Ubuntu-14.04 \n \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Ubuntu-14.10 \n \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Ubuntu-15.04 \n \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Fedora-21 \n \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CentOS-6.* \n \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0CentOS-7.* \n \<br>
-<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
-2.1.4<br>
-<br>
---<br>
-_______________________________________________<br>
-poky mailing list<br>
-<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
-<a href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blank">=
-https://lists.yoctoproject.org/listinfo/poky</a><br>
-</font></span></blockquote></div><br></div>
-
---001a114713923d3b500515e34cd9--
+--_000_042E875E1B5D414CA9BB78B7D4FA691C26701BA1IRSMSX108gercor_--
