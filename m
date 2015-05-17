@@ -1,6 +1,6 @@
 Return-Path: <nithisai@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 19398E009A6; Wed, 13 May 2015 23:54:26 -0700 (PDT)
+	id 6B884E00988; Sun, 17 May 2015 13:23:36 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -9,6 +9,9 @@ X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	mail provider *      (nithisai[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.214.173 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -17,40 +20,30 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.218.43 listed in list.dnswl.org]
-Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
-	[209.85.218.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88534E00985
-	for <poky@yoctoproject.org>; Wed, 13 May 2015 23:54:20 -0700 (PDT)
-Received: by oiko83 with SMTP id o83so49313283oik.1
-	for <poky@yoctoproject.org>; Wed, 13 May 2015 23:54:19 -0700 (PDT)
+Received: from mail-ob0-f173.google.com (mail-ob0-f173.google.com
+	[209.85.214.173])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DBD8CE007B6
+	for <poky@yoctoproject.org>; Sun, 17 May 2015 13:23:30 -0700 (PDT)
+Received: by obcus9 with SMTP id us9so109530263obc.2
+	for <poky@yoctoproject.org>; Sun, 17 May 2015 13:23:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:cc:content-type;
-	bh=hNgEVvZSJzDTDe9/w3kIDFU2vutZWebAu4GVu3FEE04=;
-	b=CNYV8DQJZUpUGSIr1xM/ZO7PKR6o99/rHnQ/sPOm4tcjH9GQDGoTT0pzzFsh+n+PuN
-	BIgVduB+alusKK1SDBtH52fgOS9ZL84c/bPd75ROhNbPUACjGvDA3wSEi9VopHDryGyn
-	Px3gC0YuDFKenUTzFNuMfoNFKEpLVPgUmSmN/z00ozyYHhIJECXEzMzVg8NR+Z998t/Y
-	tRKP1CccmyXEhREmfDg7LOVVNlylmUb6M0TQjLQd3j0XIqbItW/UtCu2cCN4zZf31b62
-	9ZwxTjpJr/EXpCBtALzSpAkVIUf1hGZeFSfHfATRytn35mmiHW+kOOm8NIF4l5wKoY2M
-	H/rw==
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=ZU6g8KKcWmNHNHErRh11YPhK+44kIb4R0XMmowqz5qE=;
+	b=OFpZxIcn1lxbUVidCs4gb/dprjKTaBPvSlHTwVfJxLQNL22FjnvNqTOU21+Ezf3v14
+	s1bKIwhh1ZkQYxv5m3oUFbvuLnC+5mA31UYf2g6CUuLSvYV7ph12N2xmqcuA73eo32Tr
+	5wt4Z0kwMKL0GyyRfTRillqh8D+5g24CmpiXTkU5R36NDlfxqktIxjPkJeHaJt3U8Cnf
+	hy6+3dT0oULOdkqyvWFXktD6H7mA6Nyq8PDhWTtTiecny7BFLeAFgbEevU7phlRXHGeK
+	wOFikfBH6pPeTdPihU0dWBCVVzb0+a9E2sG9yX4KsQOGgFKFpLDTWxjaDLKt055IwBL2
+	Ca7A==
 MIME-Version: 1.0
-X-Received: by 10.60.15.133 with SMTP id x5mr2248161oec.80.1431586459459; Wed,
-	13 May 2015 23:54:19 -0700 (PDT)
-Received: by 10.202.76.7 with HTTP; Wed, 13 May 2015 23:54:19 -0700 (PDT)
-In-Reply-To: <7657553.W1F7CTlKPl@peggleto-mobl.ger.corp.intel.com>
-References: <CACj2azstX2gWPHTh54mE-FD_BVvNWk-Y0+Gmt1g3fN_gvtod7w@mail.gmail.com>
-	<3121103.EhpPnjp5rp@peggleto-mobl.ger.corp.intel.com>
-	<41DEA4B02DBDEF40A0F3B6D0DDB1237988EF45AB@ORSMSX101.amr.corp.intel.com>
-	<7657553.W1F7CTlKPl@peggleto-mobl.ger.corp.intel.com>
-Date: Thu, 14 May 2015 12:24:19 +0530
-Message-ID: <CACj2azv3BFcpSA3_GdT1R+9Yiz_QBJG=nmKWXFduQJyWSE5hVQ@mail.gmail.com>
+X-Received: by 10.182.128.6 with SMTP id nk6mr17234107obb.70.1431894209925;
+	Sun, 17 May 2015 13:23:29 -0700 (PDT)
+Received: by 10.202.128.9 with HTTP; Sun, 17 May 2015 13:23:29 -0700 (PDT)
+Date: Mon, 18 May 2015 01:53:29 +0530
+Message-ID: <CACj2azs1yrQ0fVuJhrgkDTj_kk5G=z4pqmNLjiLeNZFpQv-Lxg@mail.gmail.com>
 From: Nithyakala Sainath <nithisai@gmail.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: UNKNOWN_CONFIGURE_WHITELIST
+To: poky@yoctoproject.org
+Subject: Multiple versions of libx11 are due to be built
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -63,65 +56,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 May 2015 06:54:26 -0000
-Content-Type: multipart/alternative; boundary=089e014945c061a73005160532e1
+X-List-Received-Date: Sun, 17 May 2015 20:23:36 -0000
+Content-Type: multipart/alternative; boundary=047d7b675af6bd174d05164cd9c1
 
---089e014945c061a73005160532e1
+--047d7b675af6bd174d05164cd9c1
 Content-Type: text/plain; charset=UTF-8
 
-Thanks all :-)
+Hello,
 
-Nithya.
+I want to understand the process of choosing a recipe by bitbake
 
-On Wed, May 13, 2015 at 8:48 PM, Paul Eggleton <
-paul.eggleton@linux.intel.com> wrote:
+There is a libx11_1.3.2.bb in a layer called A with higher priority of 6.
 
-> (note: CC fixed)
->
-> On Wednesday 13 May 2015 14:22:05 Rifenbark, Scott M wrote:
-> > Can a bug be filed for this against the docs?
->
-> Done:
->
-> https://bugzilla.yoctoproject.org/show_bug.cgi?id=7755
->
-> Cheers,
-> Paul
->
-> --
->
-> Paul Eggleton
-> Intel Open Source Technology Centre
->
+There is another libx11_1.4.0.bb in a layer called B with priority of 5.
 
---089e014945c061a73005160532e1
+So bitbake sshould automatically pick up libx11  from A right ? Why is it
+giving me error like:
+
+" Multiple versions of libx11 are due to be built. Only one version of a
+given PN should be built in any given build. You likely need to set
+PREFERRED_VERSION_libx11 to select the correct version or don't depend on
+multiple versions."
+
+Why should i even prefer a version? This happens when I build an image. But
+when I directly call
+
+bitbake libx11
+
+the one from layer A is getting picked up.
+
+I am confused. Can you please tell me ?
+
+Thanks,
+Nithyakala.
+
+--047d7b675af6bd174d05164cd9c1
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Thanks all :-)<div><br></div><div>Nithya.</div></div><div =
-class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Wed, May 13, 2015 a=
-t 8:48 PM, Paul Eggleton <span dir=3D"ltr">&lt;<a href=3D"mailto:paul.eggle=
-ton@linux.intel.com" target=3D"_blank">paul.eggleton@linux.intel.com</a>&gt=
-;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
-.8ex;border-left:1px #ccc solid;padding-left:1ex">(note: CC fixed)<br>
-<span class=3D""><br>
-On Wednesday 13 May 2015 14:22:05 Rifenbark, Scott M wrote:<br>
-</span><span class=3D"">&gt; Can a bug be filed for this against the docs?<=
-br>
-<br>
-</span>Done:<br>
-<br>
-<a href=3D"https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D7755" target=
-=3D"_blank">https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D7755</a><br=
->
-<div class=3D"HOEnZb"><div class=3D"h5"><br>
-Cheers,<br>
-Paul<br>
-<br>
---<br>
-<br>
-Paul Eggleton<br>
-Intel Open Source Technology Centre<br>
-</div></div></blockquote></div><br></div>
+<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>I want to understand =
+the process of choosing a recipe by bitbake</div><div><br></div>There is a =
+<a href=3D"http://libx11_1.3.2.bb">libx11_1.3.2.bb</a> in a layer called A =
+with higher priority of 6.<div><br></div><div>There is another <a href=3D"h=
+ttp://libx11_1.4.0.bb">libx11_1.4.0.bb</a> in a layer called B with priorit=
+y of 5.</div><div><br></div><div>So bitbake sshould automatically pick up l=
+ibx11 =C2=A0from A right ? Why is it giving me error like:</div><div><br></=
+div><div>&quot; Multiple versions of libx11 are due to be built. Only one v=
+ersion of a given PN should be built in any given build. You likely need to=
+ set PREFERRED_VERSION_libx11 to select the correct version or don&#39;t de=
+pend on multiple versions.&quot;<br></div><div><br></div><div>Why should i =
+even prefer a version? This happens when I build an image. But when I direc=
+tly call</div><div><br></div><div>bitbake libx11</div><div><br></div><div>t=
+he one from layer A is getting picked up.</div><div><br></div><div>I am con=
+fused. Can you please tell me ?</div><div><br></div><div>Thanks,</div><div>=
+Nithyakala.</div></div>
 
---089e014945c061a73005160532e1--
+--047d7b675af6bd174d05164cd9c1--
