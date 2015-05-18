@@ -1,6 +1,6 @@
-Return-Path: <randy.e.witt@linux.intel.com>
+Return-Path: <sgw@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A7CE0E009D8; Mon, 18 May 2015 10:53:04 -0700 (PDT)
+	id BDABAE009E1; Mon, 18 May 2015 16:32:06 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,28 +8,26 @@ X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
+	*      [134.134.136.20 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 241D3E0094C
-	for <poky@yoctoproject.org>; Mon, 18 May 2015 10:53:01 -0700 (PDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga101.fm.intel.com with ESMTP; 18 May 2015 10:53:00 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E41A8E009D8
+	for <poky@yoctoproject.org>; Mon, 18 May 2015 16:32:05 -0700 (PDT)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+	by orsmga101.jf.intel.com with ESMTP; 18 May 2015 16:32:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.13,454,1427785200"; d="scan'208";a="573205189"
-Received: from bitbang.jf.intel.com ([10.7.201.37])
-	by orsmga003.jf.intel.com with ESMTP; 18 May 2015 10:53:00 -0700
-Message-ID: <555A26FC.3030304@linux.intel.com>
-Date: Mon, 18 May 2015 10:53:00 -0700
-From: Randy Witt <randy.e.witt@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:31.0) Gecko/20100101 Thunderbird/31.6.0
-MIME-Version: 1.0
-To: Nithyakala Sainath <nithisai@gmail.com>, poky@yoctoproject.org
-References: <CACj2azs1yrQ0fVuJhrgkDTj_kk5G=z4pqmNLjiLeNZFpQv-Lxg@mail.gmail.com>
-In-Reply-To: <CACj2azs1yrQ0fVuJhrgkDTj_kk5G=z4pqmNLjiLeNZFpQv-Lxg@mail.gmail.com>
-Subject: Re: Multiple versions of libx11 are due to be built
+X-IronPort-AV: E=Sophos;i="5.13,455,1427785200"; d="scan'208";a="495274454"
+Received: from ihoshino-mobl.amr.corp.intel.com (HELO
+	swold-mobl.amr.corp.intel.com) ([10.255.86.199])
+	by FMSMGA003.fm.intel.com with ESMTP; 18 May 2015 16:32:04 -0700
+From: Saul Wold <sgw@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 18 May 2015 16:32:03 -0700
+Message-Id: <1431991923-20314-1-git-send-email-sgw@linux.intel.com>
+X-Mailer: git-send-email 2.1.0
+Cc: dvhart@linux.intel.com
+Subject: [PATCH] meta-yocto-bsp: Add genericx86* BSP to use 3.19
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,52 +40,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 May 2015 17:53:04 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 18 May 2015 23:32:06 -0000
 
-On 05/17/2015 01:23 PM, Nithyakala Sainath wrote:
-> Hello,
->
-> I want to understand the process of choosing a recipe by bitbake
->
-> There is a libx11_1.3.2.bb in a layer called A with higher priority of 6.
->
-> There is another libx11_1.4.0.bb in a layer called B with priority of 5.
->
-> So bitbake sshould automatically pick up libx11  from A right ? Why is it
-> giving me error like:
+Add the linux-yocto_3.19.bbappend to support the genericx86 BSP
 
-" The precedence established through this variable stands regardless of a 
-recipe's version (PV variable). For example, a layer that has a recipe with a 
-higher PV value but for which the BBFILE_PRIORITY is set to have a lower 
-precedence still has a lower precedence."
+Tested on a variety of machines both 32 bit and 64 bit
 
-The documentation definitely makes it sound like this is the case. However, it 
-sounds like the layer priority is most likely only taking effect when the 
-recipes are the same version.
+Signed-off-by: Saul Wold <sgw@linux.intel.com>
+---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
 
-Richard, does this sound like the documentation needs to be clarified or is this 
-a bug?
-
-> " Multiple versions of libx11 are due to be built. Only one version of a
-> given PN should be built in any given build. You likely need to set
-> PREFERRED_VERSION_libx11 to select the correct version or don't depend on
-> multiple versions."
->
-> Why should i even prefer a version? This happens when I build an image. But
-> when I directly call
->
-> bitbake libx11
->
-> the one from layer A is getting picked up.
->
-> I am confused. Can you please tell me ?
->
-> Thanks,
-> Nithyakala.
->
->
->
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
+new file mode 100644
+index 0000000..cd3e242
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
+@@ -0,0 +1,11 @@
++KBRANCH_genericx86  = "standard/common-pc"
++KBRANCH_genericx86-64  = "standard/common-pc-64/base"
++
++KMACHINE_genericx86 ?= "common-pc"
++KMACHINE_genericx86-64 ?= "common-pc-64"
++
++SRCREV_machine_genericx86 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
++SRCREV_machine_genericx86-64 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
++
++COMPATIBLE_MACHINE_genericx86 = "genericx86"
++COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-- 
+2.1.0
 
 
