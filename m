@@ -1,38 +1,31 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <jussi.kukkonen@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 22E58E0098D; Tue, 19 May 2015 07:14:03 -0700 (PDT)
+	id 08218E00956; Thu, 21 May 2015 06:29:39 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
-	high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 188F2E0027F
-	for <poky@yoctoproject.org>; Tue, 19 May 2015 07:13:15 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga101.jf.intel.com with ESMTP; 19 May 2015 07:13:15 -0700
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CC24BE004F6
+	for <poky@yoctoproject.org>; Thu, 21 May 2015 06:29:35 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by fmsmga101.fm.intel.com with ESMTP; 21 May 2015 06:29:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.13,458,1427785200"; d="scan'208";a="697163505"
-Received: from ihoshino-mobl.amr.corp.intel.com (HELO
-	swold-mobl.amr.corp.intel.com) ([10.255.86.199])
-	by orsmga001.jf.intel.com with ESMTP; 19 May 2015 07:13:14 -0700
-Message-ID: <555B44F9.3080707@linux.intel.com>
-Date: Tue, 19 May 2015 07:13:13 -0700
-From: Saul Wold <sgw@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:31.0) Gecko/20100101 Thunderbird/31.6.0
-MIME-Version: 1.0
-To: "Burton, Ross" <ross.burton@intel.com>
-References: <1431991923-20314-1-git-send-email-sgw@linux.intel.com>
-	<CAJTo0LZ=1V4EUxKUpomnqWb1jdeE+nvdO+dmrfFkYzY_CkQMOA@mail.gmail.com>
-In-Reply-To: <CAJTo0LZ=1V4EUxKUpomnqWb1jdeE+nvdO+dmrfFkYzY_CkQMOA@mail.gmail.com>
-Cc: Darren Hart <dvhart@linux.intel.com>, Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] meta-yocto-bsp: Add genericx86* BSP to use 3.19
+X-IronPort-AV: E=Sophos;i="5.13,469,1427785200"; d="scan'208";a="733075003"
+Received: from theory.fi.intel.com ([10.237.72.51])
+	by orsmga002.jf.intel.com with ESMTP; 21 May 2015 06:29:32 -0700
+From: Jussi Kukkonen <jussi.kukkonen@intel.com>
+To: poky@yoctoproject.org
+Date: Thu, 21 May 2015 16:29:36 +0300
+Message-Id: <1432214976-32392-1-git-send-email-jussi.kukkonen@intel.com>
+X-Mailer: git-send-email 2.1.4
+Subject: [PATCH] upstream_tracking.inc: Remove obsolete reasons
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,23 +38,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 May 2015 14:14:03 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Thu, 21 May 2015 13:29:39 -0000
 
-On 05/19/2015 03:27 AM, Burton, Ross wrote:
-> On 19 May 2015 at 00:32, Saul Wold <sgw@linux.intel.com> wrote:
->
->> Add the linux-yocto_3.19.bbappend to support the genericx86 BSP
->>
->
-> Is there a corresponding patch to use 3.19 instead of 3.14?
->
-Yes, sent!  I have been testing with a local.conf change that set the 
-PREFERRED_VERSION, I validated that this builds the right kernel.
+Remove no-update reasons where the mentioned blocking
+dependency has already been upgraded or removed.
 
-Sau!
+Signed-off-by: Jussi Kukkonen <jussi.kukkonen@intel.com>
+---
+ meta-yocto/conf/distro/include/upstream_tracking.inc | 5 -----
+ 1 file changed, 5 deletions(-)
 
-> Ross
->
+diff --git a/meta-yocto/conf/distro/include/upstream_tracking.inc b/meta-yocto/conf/distro/include/upstream_tracking.inc
+index 1fd04a2..8fb258e 100644
+--- a/meta-yocto/conf/distro/include/upstream_tracking.inc
++++ b/meta-yocto/conf/distro/include/upstream_tracking.inc
+@@ -55,8 +55,6 @@ RECIPE_NO_UPDATE_REASON_pn-cdrtools = "v3.x uses incompatible CDDL license"
+ RECIPE_NO_UPDATE_REASON_pn-createrepo = "Versions after 0.9.* use YUM, so we hold at 0.4.11"
+ RECIPE_NO_UPDATE_REASON_pn-db= "API compatibility issue"
+ RECIPE_NO_UPDATE_REASON_pn-dbus = "D-BUS 1.9.x is the development version, not stable."
+-RECIPE_NO_UPDATE_REASON_pn-gawk = "Version 4.1.0 requires Automake 1.13, but have 1.12.6"
+-RECIPE_NO_UPDATE_REASON_pn-glib-networking = "Pending Glib-2.0 Update"
+ RECIPE_NO_UPDATE_REASON_pn-gnome-desktop = "waiting for the sato gtk3 port"
+ RECIPE_NO_UPDATE_REASON_pn-gnome-icon-theme = "waiting for the sato gtk3 port"
+ RECIPE_NO_UPDATE_REASON_pn-gnome-keyring = "waiting for the sato gtk3 port"
+@@ -73,8 +71,6 @@ RECIPE_NO_UPDATE_REASON_pn-jpeg = "webkit-gtk 1.8.3 doesn't work with jpeg 9"
+ RECIPE_NO_UPDATE_REASON_pn-kernelshark = "0.2 is the latest version."
+ RECIPE_NO_UPDATE_REASON_pn-liberation-fonts = "2.00.0 - fontforge package required "
+ RECIPE_NO_UPDATE_REASON_pn-libgnome-keyring = "waiting for the sato gtk3 port"
+-RECIPE_NO_UPDATE_REASON_pn-libnl = "libnl-3.2.2 is incompatible with libnl2, so no Upgrade"
+-RECIPE_NO_UPDATE_REASON_pn-libsoup = "2.41.90 is unstable"
+ RECIPE_NO_UPDATE_REASON_pn-libunique = "Do not upgrade to version: 2.91.4 because it requires gtk+ >= 2.90.0 and the stable version of gtk+ used by poky is 2.20.1"
+ RECIPE_NO_UPDATE_REASON-libxml2 = "only release candidates available "
+ RECIPE_NO_UPDATE_REASON_pn-mx-1.0 = "PRS 1.99 is dev version"
+@@ -87,7 +83,6 @@ RECIPE_NO_UPDATE_REASON_pn-qemugl = "Do not upgrade to version: 33466cd8 because
+ RECIPE_NO_UPDATE_REASON_pn-syslinux="Waiting for 4.06 for 3.3 kernel headers support"
+ RECIPE_NO_UPDATE_REASON_pn-texinfo = "Checking script parses directory wrong"
+ RECIPE_NO_UPDATE_REASON_pn-tinylogin = "TinyLogin was merged into BusyBox."
+-RECIPE_NO_UPDATE_REASON_pn-vte = "Pending Glib-2.0 Update"
+ RECIPE_NO_UPDATE_REASON_pn-webkit-gtk = ">= 1.10.2 needs ruby"
+ RECIPE_NO_UPDATE_REASON_pn-xdg-utils = "only release candidates available "
+ RECIPE_NO_UPDATE_REASON_pn-zaurusd = "SVN rev 426 is last Stable release"
+-- 
+2.1.4
+
 
