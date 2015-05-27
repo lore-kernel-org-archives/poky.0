@@ -1,6 +1,6 @@
 Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9FDFCE00A1C; Wed, 27 May 2015 05:19:37 -0700 (PDT)
+	id 4032EE00A25; Wed, 27 May 2015 05:19:38 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,29 +8,29 @@ X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
+	*      [147.11.1.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E632FE0095D;
-	Wed, 27 May 2015 05:19:34 -0700 (PDT)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7539FE0098D;
+	Wed, 27 May 2015 05:19:33 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail1.windriver.com (8.15.1/8.15.1) with ESMTPS id t4RCJYIM004710
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 27 May 2015 05:19:34 -0700 (PDT)
+	by mail.windriver.com (8.14.9/8.14.9) with ESMTP id t4RCJXq7006111
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 27 May 2015 05:19:33 -0700 (PDT)
 Received: from pek-khao-d1.corp.ad.wrs.com (128.224.162.156) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.224.2; Wed, 27 May 2015 05:19:34 -0700
+	14.3.224.2; Wed, 27 May 2015 05:19:32 -0700
 From: Kevin Hao <kexin.hao@windriver.com>
 To: <poky@yoctoproject.org>, <linux-yocto@yoctoproject.org>
-Date: Wed, 27 May 2015 20:19:15 +0800
-Message-ID: <1432729155-28307-5-git-send-email-kexin.hao@windriver.com>
+Date: Wed, 27 May 2015 20:19:14 +0800
+Message-ID: <1432729155-28307-4-git-send-email-kexin.hao@windriver.com>
 X-Mailer: git-send-email 2.1.0
 In-Reply-To: <1432729155-28307-1-git-send-email-kexin.hao@windriver.com>
 References: <1432729155-28307-1-git-send-email-kexin.hao@windriver.com>
 MIME-Version: 1.0
-Subject: [PATCH] meta-yocto-bsp: bump to linux-yocto 3.19 for the non-x86 BSPs
+Subject: [PATCH 2/2] fs: yaffs2: kill f_dentry uses
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,83 +43,131 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 May 2015 12:19:37 -0000
+X-List-Received-Date: Wed, 27 May 2015 12:19:38 -0000
 Content-Type: text/plain
 
-Boot test for all these boards.
+The macro f_dentry was already killed by commit 78d28e651f97 ("kill
+f_dentry macro"). So we should kill all the uses of this macro.
 
 Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
 ---
- meta-yocto-bsp/conf/machine/beaglebone.conf                   | 2 +-
- meta-yocto-bsp/conf/machine/edgerouter.conf                   | 2 +-
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                 | 2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend | 9 +++++++++
- 4 files changed, 12 insertions(+), 3 deletions(-)
+ fs/yaffs2/yaffs_vfs.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index fb0189d5d70d..0daebf35ceb9 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -22,7 +22,7 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
- SERIAL_CONSOLE = "115200 ttyO0"
+diff --git a/fs/yaffs2/yaffs_vfs.c b/fs/yaffs2/yaffs_vfs.c
+index 0038cc17fbff..5230496230cd 100644
+--- a/fs/yaffs2/yaffs_vfs.c
++++ b/fs/yaffs2/yaffs_vfs.c
+@@ -274,7 +274,7 @@ static int yaffs_readpage_nolock(struct file *f, struct page *pg)
+ 		(long long)pos,
+ 		(unsigned)PAGE_CACHE_SIZE);
  
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.14%"
-+PREFERRED_VERSION_linux-yocto ?= "3.19%"
+-	obj = yaffs_dentry_to_obj(f->f_dentry);
++	obj = yaffs_dentry_to_obj(f->f_path.dentry);
  
- KERNEL_IMAGETYPE = "zImage"
- KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
-diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
-index 9cb84bc03780..45ef23745ccb 100644
---- a/meta-yocto-bsp/conf/machine/edgerouter.conf
-+++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
-@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
- KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
+ 	dev = obj->my_dev;
  
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.14%"
-+PREFERRED_VERSION_linux-yocto ?= "3.19%"
+@@ -472,7 +472,7 @@ static ssize_t yaffs_hold_space(struct file *f)
  
- SERIAL_CONSOLE = "115200 ttyS0"
- USE_VT ?= "0"
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index 43bdce4b1c5b..f372f32ba6ec 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
+ 	int n_free_chunks;
  
- MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
+-	obj = yaffs_dentry_to_obj(f->f_dentry);
++	obj = yaffs_dentry_to_obj(f->f_path.dentry);
  
--PREFERRED_VERSION_linux-yocto ?= "3.14%"
-+PREFERRED_VERSION_linux-yocto ?= "3.19%"
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+ 	dev = obj->my_dev;
  
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
-index cd3e242e149b..e6aea1c4058b 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
-@@ -1,11 +1,20 @@
- KBRANCH_genericx86  = "standard/common-pc"
- KBRANCH_genericx86-64  = "standard/common-pc-64/base"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+@@ -490,7 +490,7 @@ static void yaffs_release_space(struct file *f)
+ 	struct yaffs_obj *obj;
+ 	struct yaffs_dev *dev;
  
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
+-	obj = yaffs_dentry_to_obj(f->f_dentry);
++	obj = yaffs_dentry_to_obj(f->f_path.dentry);
  
- SRCREV_machine_genericx86 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
- SRCREV_machine_genericx86-64 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
-+SRCREV_machine_edgerouter ?= "2a5e3b16afa1e599df55aa4c3341c66f317172c9"
-+SRCREV_machine_beaglebone ?= "2a5e3b16afa1e599df55aa4c3341c66f317172c9"
-+SRCREV_machine_mpc8315e-rdb ?= "2d5ac895707436a0d9afcbb96cd3b68a6e443771"
+ 	dev = obj->my_dev;
  
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+@@ -582,7 +582,7 @@ static ssize_t yaffs_file_write(struct file *f, const char *buf, size_t n,
+ 	struct inode *inode;
+ 	struct yaffs_dev *dev;
+ 
+-	obj = yaffs_dentry_to_obj(f->f_dentry);
++	obj = yaffs_dentry_to_obj(f->f_path.dentry);
+ 
+ 	if (!obj) {
+ 		yaffs_trace(YAFFS_TRACE_OS,
+@@ -594,7 +594,7 @@ static ssize_t yaffs_file_write(struct file *f, const char *buf, size_t n,
+ 
+ 	yaffs_gross_lock(dev);
+ 
+-	inode = f->f_dentry->d_inode;
++	inode = f->f_path.dentry->d_inode;
+ 
+ 	if (!S_ISBLK(inode->i_mode) && f->f_flags & O_APPEND)
+ 		ipos = inode->i_size;
+@@ -745,7 +745,7 @@ static int yaffs_file_flush(struct file *file, fl_owner_t id)
+ static int yaffs_file_flush(struct file *file)
+ #endif
+ {
+-	struct yaffs_obj *obj = yaffs_dentry_to_obj(file->f_dentry);
++	struct yaffs_obj *obj = yaffs_dentry_to_obj(file->f_path.dentry);
+ 
+ 	struct yaffs_dev *dev = obj->my_dev;
+ 
+@@ -1712,14 +1712,14 @@ static int yaffs_readdir(struct file *file, struct dir_context *ctx)
+ 	struct yaffs_obj *obj;
+ 	struct yaffs_dev *dev;
+ 	struct yaffs_search_context *sc;
+-	struct inode *inode = file->f_dentry->d_inode;
++	struct inode *inode = file->f_path.dentry->d_inode;
+ 	unsigned long offset, curoffs;
+ 	struct yaffs_obj *l;
+ 	int ret_val = 0;
+ 
+ 	char name[YAFFS_MAX_NAME_LENGTH + 1];
+ 
+-	obj = yaffs_dentry_to_obj(file->f_dentry);
++	obj = yaffs_dentry_to_obj(file->f_path.dentry);
+ 	dev = obj->my_dev;
+ 
+ 	yaffs_gross_lock(dev);
+@@ -1753,7 +1753,7 @@ static int yaffs_readdir(struct file *file, struct dir_context *ctx)
+ 	if (offset == 1) {
+ 		yaffs_trace(YAFFS_TRACE_OS,
+ 			"yaffs_readdir: entry .. ino %d",
+-			(int)file->f_dentry->d_parent->d_inode->i_ino);
++			(int)file->f_path.dentry->d_parent->d_inode->i_ino);
+ 		yaffs_gross_unlock(dev);
+ 		if (!dir_emit_dotdot(file, ctx)) {
+ 			yaffs_gross_lock(dev);
+@@ -1815,14 +1815,14 @@ static int yaffs_readdir(struct file *f, void *dirent, filldir_t filldir)
+ 	struct yaffs_obj *obj;
+ 	struct yaffs_dev *dev;
+ 	struct yaffs_search_context *sc;
+-	struct inode *inode = f->f_dentry->d_inode;
++	struct inode *inode = f->f_path.dentry->d_inode;
+ 	unsigned long offset, curoffs;
+ 	struct yaffs_obj *l;
+ 	int ret_val = 0;
+ 
+ 	char name[YAFFS_MAX_NAME_LENGTH + 1];
+ 
+-	obj = yaffs_dentry_to_obj(f->f_dentry);
++	obj = yaffs_dentry_to_obj(f->f_path.dentry);
+ 	dev = obj->my_dev;
+ 
+ 	yaffs_gross_lock(dev);
+@@ -1856,10 +1856,10 @@ static int yaffs_readdir(struct file *f, void *dirent, filldir_t filldir)
+ 	if (offset == 1) {
+ 		yaffs_trace(YAFFS_TRACE_OS,
+ 			"yaffs_readdir: entry .. ino %d",
+-			(int)f->f_dentry->d_parent->d_inode->i_ino);
++			(int)f->f_path.dentry->d_parent->d_inode->i_ino);
+ 		yaffs_gross_unlock(dev);
+ 		if (filldir(dirent, "..", 2, offset,
+-			    f->f_dentry->d_parent->d_inode->i_ino,
++			    f->f_path.dentry->d_parent->d_inode->i_ino,
+ 			    DT_DIR) < 0) {
+ 			yaffs_gross_lock(dev);
+ 			goto out;
 -- 
 2.1.0
 
