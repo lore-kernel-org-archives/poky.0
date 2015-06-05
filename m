@@ -1,31 +1,35 @@
-Return-Path: <elizabeth.flanagan@intel.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4C0D0E00992; Mon,  1 Jun 2015 09:01:10 -0700 (PDT)
+	id EFE6CE009DF; Thu,  4 Jun 2015 21:17:54 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D70BCE00945
-	for <poky@yoctoproject.org>; Mon,  1 Jun 2015 09:01:08 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga101.jf.intel.com with ESMTP; 01 Jun 2015 09:01:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.13,533,1427785200"; d="scan'208";a="718756715"
-Received: from fuath.isw.intel.com ([10.237.224.85])
-	by fmsmga001.fm.intel.com with ESMTP; 01 Jun 2015 09:01:02 -0700
-From: Beth Flanagan <elizabeth.flanagan@intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  1 Jun 2015 17:01:00 +0100
-Message-Id: <1433174460-7940-1-git-send-email-elizabeth.flanagan@intel.com>
-X-Mailer: git-send-email 1.9.1
-Subject: [PATCH] poky.conf: DISTRO_VERSION bump
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5A58BE009B8
+	for <poky@yoctoproject.org>; Thu,  4 Jun 2015 21:17:52 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.15.1/8.15.1) with ESMTPS id t554HnqC021444
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 4 Jun 2015 21:17:50 -0700 (PDT)
+Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.224.2; Thu, 4 Jun 2015 21:17:49 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Fri, 5 Jun 2015 00:17:48 -0400
+Message-ID: <cover.1433477676.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 2.1.0
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH 0/1] yocto-bsps: set preferred version to 3.19
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,40 +42,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Jun 2015 16:01:10 -0000
+X-List-Received-Date: Fri, 05 Jun 2015 04:17:55 -0000
+Content-Type: text/plain
 
-We missed the DISTRO_VERSION bump for the 1.6.3 release. I've opened
-https://bugzilla.yoctoproject.org/show_bug.cgi?id=7836 to
-ensure that this doesn't happen again.
+Kevin Hao has updated and boot tested the yocto reference BSPs on the
+3.19 kernel. So we can now bump the preferred version, and start to 
+migrate everything towards the 4.1 kernel (which will be the next
+LTSI), but getting off of 3.14 is key, since it solves many of our
+gcc5 issues as a side effect.
 
-Signed-off-by: Beth Flanagan <elizabeth.flanagan@intel.com>
----
- meta-yocto/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cheers,
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index b62de4b..9c10031 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -1,6 +1,6 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "1.6.2"
-+DISTRO_VERSION = "1.6.3"
- DISTRO_CODENAME = "daisy"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION := "${@'${DISTRO_VERSION}'}"
+Bruce
+
+The following changes since commit c954cdeeaf11fb5bd8f4fbf63ddf0904998f2ca4:
+
+  linux-yocto: update beaglebone, mpc8315e and edgerouter to 3.19 (2015-06-04 23:58:17 -0400)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Kevin Hao (1):
+  meta-yocto-bsp: bump to linux-yocto 3.19 for the non-x86 BSPs
+
+ meta-yocto-bsp/conf/machine/beaglebone.conf                   | 2 +-
+ meta-yocto-bsp/conf/machine/edgerouter.conf                   | 2 +-
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                 | 2 +-
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend | 9 +++++++++
+ 4 files changed, 12 insertions(+), 3 deletions(-)
+
 -- 
-1.9.1
-
--------------------------------------------------------------
-Intel Ireland Limited (Branch)
-Collinstown Industrial Park, Leixlip, County Kildare, Ireland
-Registered Number: E902934
-
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
+2.1.0
 
 
