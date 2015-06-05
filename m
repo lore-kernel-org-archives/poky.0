@@ -1,6 +1,6 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DA1A1E009E4; Thu,  4 Jun 2015 21:17:54 -0700 (PDT)
+	id 17E58E009EB; Fri,  5 Jun 2015 08:26:00 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,26 +12,24 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      medium trust
 	*      [147.11.146.13 listed in list.dnswl.org]
 Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0CE23E0098D
-	for <poky@yoctoproject.org>; Thu,  4 Jun 2015 21:17:53 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E3769E009E7
+	for <poky@yoctoproject.org>; Fri,  5 Jun 2015 08:25:56 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail1.windriver.com (8.15.1/8.15.1) with ESMTPS id t554Ho8d019495
+	by mail1.windriver.com (8.15.1/8.15.1) with ESMTPS id t55FPtcT027604
 	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 4 Jun 2015 21:17:50 -0700 (PDT)
+	Fri, 5 Jun 2015 08:25:55 -0700 (PDT)
 Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.224.2; Thu, 4 Jun 2015 21:17:50 -0700
+	14.3.224.2; Fri, 5 Jun 2015 08:25:54 -0700
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Fri, 5 Jun 2015 00:17:49 -0400
-Message-ID: <a478509f99c879bf90bac3766c5234666f4ec587.1433477676.git.bruce.ashfield@windriver.com>
+To: <ross.burton@intel.com>
+Date: Fri, 5 Jun 2015 11:25:54 -0400
+Message-ID: <1433517954-17143-1-git-send-email-bruce.ashfield@windriver.com>
 X-Mailer: git-send-email 2.1.0
-In-Reply-To: <cover.1433477676.git.bruce.ashfield@windriver.com>
-References: <cover.1433477676.git.bruce.ashfield@windriver.com>
 MIME-Version: 1.0
 Cc: poky@yoctoproject.org
-Subject: [PATCH 1/1] meta-yocto-bsp: bump to linux-yocto 3.19 for the non-x86 BSPs
+Subject: [PATCH] bsps: update SRCREVs to the 3.19 latest
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,86 +42,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Jun 2015 04:17:55 -0000
+X-List-Received-Date: Fri, 05 Jun 2015 15:26:00 -0000
 Content-Type: text/plain
 
-From: Kevin Hao <kexin.hao@windriver.com>
+Updating the reference BSP's SRCREVs to pick up the latest 3.19 changes.
 
-Boot test for all these boards.
-
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
 Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-yocto-bsp/conf/machine/beaglebone.conf                   | 2 +-
- meta-yocto-bsp/conf/machine/edgerouter.conf                   | 2 +-
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                 | 2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend | 9 +++++++++
- 4 files changed, 12 insertions(+), 3 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index fb0189d5d70d..0daebf35ceb9 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -22,7 +22,7 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
- SERIAL_CONSOLE = "115200 ttyO0"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.14%"
-+PREFERRED_VERSION_linux-yocto ?= "3.19%"
- 
- KERNEL_IMAGETYPE = "zImage"
- KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
-diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
-index 9cb84bc03780..45ef23745ccb 100644
---- a/meta-yocto-bsp/conf/machine/edgerouter.conf
-+++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
-@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
- KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.14%"
-+PREFERRED_VERSION_linux-yocto ?= "3.19%"
- 
- SERIAL_CONSOLE = "115200 ttyS0"
- USE_VT ?= "0"
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index 43bdce4b1c5b..f372f32ba6ec 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
- 
- MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
- 
--PREFERRED_VERSION_linux-yocto ?= "3.14%"
-+PREFERRED_VERSION_linux-yocto ?= "3.19%"
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
 diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
-index cd3e242e149b..e6aea1c4058b 100644
+index e6aea1c4058b..c87f840ef43b 100644
 --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
 +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.19.bbappend
-@@ -1,11 +1,20 @@
- KBRANCH_genericx86  = "standard/common-pc"
- KBRANCH_genericx86-64  = "standard/common-pc-64/base"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
+@@ -7,11 +7,11 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
  KMACHINE_genericx86 ?= "common-pc"
  KMACHINE_genericx86-64 ?= "common-pc-64"
  
- SRCREV_machine_genericx86 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
- SRCREV_machine_genericx86-64 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
-+SRCREV_machine_edgerouter ?= "2a5e3b16afa1e599df55aa4c3341c66f317172c9"
-+SRCREV_machine_beaglebone ?= "2a5e3b16afa1e599df55aa4c3341c66f317172c9"
-+SRCREV_machine_mpc8315e-rdb ?= "2d5ac895707436a0d9afcbb96cd3b68a6e443771"
+-SRCREV_machine_genericx86 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
+-SRCREV_machine_genericx86-64 ?= "0befa35f40997c90936047e57fbbdd7edbf7e525"
+-SRCREV_machine_edgerouter ?= "2a5e3b16afa1e599df55aa4c3341c66f317172c9"
+-SRCREV_machine_beaglebone ?= "2a5e3b16afa1e599df55aa4c3341c66f317172c9"
+-SRCREV_machine_mpc8315e-rdb ?= "2d5ac895707436a0d9afcbb96cd3b68a6e443771"
++SRCREV_machine_genericx86 ?= "e152349de59b43b2a75f2c332b44171df461d5a0"
++SRCREV_machine_genericx86-64 ?= "e152349de59b43b2a75f2c332b44171df461d5a0"
++SRCREV_machine_edgerouter ?= "e152349de59b43b2a75f2c332b44171df461d5a0"
++SRCREV_machine_beaglebone ?= "e152349de59b43b2a75f2c332b44171df461d5a0"
++SRCREV_machine_mpc8315e-rdb ?= "2893f3e8ece72f6f47329714d6afe4c9c545bbf9"
  
  COMPATIBLE_MACHINE_genericx86 = "genericx86"
  COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
 -- 
 2.1.0
 
