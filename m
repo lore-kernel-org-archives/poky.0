@@ -1,6 +1,6 @@
 Return-Path: <jussi.kukkonen@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2752DE009E7; Tue, 23 Jun 2015 05:29:55 -0700 (PDT)
+	id 00E59E009E4; Tue, 23 Jun 2015 07:59:58 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,21 +12,23 @@ X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 87F42E009D9
-	for <poky@yoctoproject.org>; Tue, 23 Jun 2015 05:29:51 -0700 (PDT)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-	by fmsmga103.fm.intel.com with ESMTP; 23 Jun 2015 05:29:50 -0700
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A5F4E00974
+	for <poky@yoctoproject.org>; Tue, 23 Jun 2015 07:59:55 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga103.fm.intel.com with ESMTP; 23 Jun 2015 07:59:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.13,665,1427785200"; d="scan'208";a="512909114"
+X-IronPort-AV: E=Sophos;i="5.13,666,1427785200"; d="scan'208";a="733039826"
 Received: from theory.fi.intel.com ([10.237.72.51])
-	by FMSMGA003.fm.intel.com with ESMTP; 23 Jun 2015 05:29:48 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 23 Jun 2015 07:59:38 -0700
 From: Jussi Kukkonen <jussi.kukkonen@intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 23 Jun 2015 15:29:31 +0300
-Message-Id: <1435062571-16309-1-git-send-email-jussi.kukkonen@intel.com>
+Date: Tue, 23 Jun 2015 18:00:06 +0300
+Message-Id: <1435071606-22987-1-git-send-email-jussi.kukkonen@intel.com>
 X-Mailer: git-send-email 2.1.4
+In-Reply-To: <1435062571-16309-1-git-send-email-jussi.kukkonen@intel.com>
+References: <1435062571-16309-1-git-send-email-jussi.kukkonen@intel.com>
 MIME-Version: 1.0
-Subject: [PATCH] maintainers.inc: reassign GTK+ and X maintainership
+Subject: [PATCH v2] maintainers.inc: reassign GTK+ and X maintainership
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,7 +41,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Jun 2015 12:29:55 -0000
+X-List-Received-Date: Tue, 23 Jun 2015 14:59:59 -0000
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -49,19 +51,14 @@ that refer to non-existing recipes.
 Signed-off-by: Jussi Kukkonen <jussi.kukkonen@intel.com>
 ---
 
-Ross: please let me know (or just prune the list) if I went beyond
-what we discussed about this transfer -- especially the list of X
-recipes just seems to never end...
+Changes since v1: Also take several more X recipes, pango, freetype
+and glib-2.0 based on feedback from Ross.
 
-Cheers,
-  Jussi
-
-
- meta-yocto/conf/distro/include/maintainers.inc | 315 ++++++++++++-------------
- 1 file changed, 156 insertions(+), 159 deletions(-)
+ meta-yocto/conf/distro/include/maintainers.inc | 331 ++++++++++++-------------
+ 1 file changed, 164 insertions(+), 167 deletions(-)
 
 diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index fdeb7f7..00528ad 100644
+index fdeb7f7..b80f0c9 100644
 --- a/meta-yocto/conf/distro/include/maintainers.inc
 +++ b/meta-yocto/conf/distro/include/maintainers.inc
 @@ -40,10 +40,10 @@ RECIPE_MAINTAINER_pn-apr = "Hongxu Jia <hongxu.jia@windriver.com>"
@@ -135,7 +132,13 @@ index fdeb7f7..00528ad 100644
  RECIPE_MAINTAINER_pn-dropbear = "Paul Eggleton <paul.eggleton@linux.intel.com>"
  RECIPE_MAINTAINER_pn-dtc = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-e2fsprogs = "Robert Yang <liezhi.yang@windriver.com>"
-@@ -160,12 +158,12 @@ RECIPE_MAINTAINER_pn-ethtool = "Randy Witt <randy.e.witt@linux.intel.com>"
+@@ -155,22 +153,22 @@ RECIPE_MAINTAINER_pn-eglibc-mtrace = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-eglibc-scripts = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-elfutils = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-enchant = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-encodings = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-encodings = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-ethtool = "Randy Witt <randy.e.witt@linux.intel.com>"
  RECIPE_MAINTAINER_pn-expat = "Paul Eggleton <paul.eggleton@linux.intel.com>"
  RECIPE_MAINTAINER_pn-file = "Robert Yang <liezhi.yang@windriver.com>"
  RECIPE_MAINTAINER_pn-findutils = "Chen Qi <Qi.Chen@windriver.com>"
@@ -143,15 +146,23 @@ index fdeb7f7..00528ad 100644
 +RECIPE_MAINTAINER_pn-fixesproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
  RECIPE_MAINTAINER_pn-flac = "Cristian Iorga <cristian.iorga@intel.com>"
  RECIPE_MAINTAINER_pn-flex = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-font-alias = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-font-alias = "Ross Burton <ross.burton@intel.com>"
 -RECIPE_MAINTAINER_pn-fontconfig = "Ross Burton <ross.burton@intel.com>"
 -RECIPE_MAINTAINER_pn-fontsproto = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-font-util = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-font-alias = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
 +RECIPE_MAINTAINER_pn-fontconfig = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
 +RECIPE_MAINTAINER_pn-fontsproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-font-util = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-font-util = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
  RECIPE_MAINTAINER_pn-foomatic-filters = "Chen Qi <Qi.Chen@windriver.com>"
  RECIPE_MAINTAINER_pn-formfactor = "Cristian Iorga <cristian.iorga@intel.com>"
-@@ -182,7 +180,7 @@ RECIPE_MAINTAINER_pn-gcc-runtime = "Richard Purdie <richard.purdie@linuxfoundati
+ RECIPE_MAINTAINER_pn-fotowall = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-freetype = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-freetype = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-fstests = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gaku = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-gamin = "Saul Wold <sgw@linux.intel.com>"
+@@ -182,17 +180,17 @@ RECIPE_MAINTAINER_pn-gcc-runtime = "Richard Purdie <richard.purdie@linuxfoundati
  RECIPE_MAINTAINER_pn-gconf = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-gdb = "Richard Purdie <richard.purdie@linuxfoundation.org>"
  RECIPE_MAINTAINER_pn-gdbm = "Saul Wold <sgw@linux.intel.com>"
@@ -160,9 +171,11 @@ index fdeb7f7..00528ad 100644
  RECIPE_MAINTAINER_pn-genext2fs = "Robert Yang <liezhi.yang@windriver.com>"
  RECIPE_MAINTAINER_pn-gettext-minimal-native = "Hongxu Jia <hongxu.jia@windriver.com>"
  RECIPE_MAINTAINER_pn-gettext = "Wenzong Fan <wenzong.fan@windriver.com>"
-@@ -191,8 +189,8 @@ RECIPE_MAINTAINER_pn-git = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-ghostscript = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-git = "Robert Yang <liezhi.yang@windriver.com>"
  RECIPE_MAINTAINER_pn-glew = "Saul Wold <sgw@linux.intel.com>"
- RECIPE_MAINTAINER_pn-glib-2.0 = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-glib-2.0 = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-glib-2.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
  RECIPE_MAINTAINER_pn-glibc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
 -RECIPE_MAINTAINER_pn-glib-networking = "Ross Burton <ross.burton@intel.com>"
 -RECIPE_MAINTAINER_pn-glproto = "Ross Burton <ross.burton@intel.com>"
@@ -240,7 +253,12 @@ index fdeb7f7..00528ad 100644
  RECIPE_MAINTAINER_pn-libdaemon = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-libdmx = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-libdrm = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-@@ -298,7 +296,7 @@ RECIPE_MAINTAINER_pn-libfontenc = "Ross Burton <ross.burton@intel.com>"
+@@ -294,36 +292,36 @@ RECIPE_MAINTAINER_pn-libfakekey = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libffi  = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libfile-checktree-perl = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libfm = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-libfontenc = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-libfontenc = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
  RECIPE_MAINTAINER_pn-libgcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
  RECIPE_MAINTAINER_pn-libgcrypt = "Hongxu Jia <hongxu.jia@windriver.com>"
  RECIPE_MAINTAINER_pn-libgfortran = "Richard Purdie <richard.purdie@linuxfoundation.org>"
@@ -249,7 +267,9 @@ index fdeb7f7..00528ad 100644
  RECIPE_MAINTAINER_pn-libglu = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-libgpg-error = "Paul Eggleton <paul.eggleton@linux.intel.com>"
  RECIPE_MAINTAINER_pn-libi18n-collate-perl = "Saul Wold <sgw@linux.intel.com>"
-@@ -307,23 +305,23 @@ RECIPE_MAINTAINER_pn-libice = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-libical = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-libice = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-libice = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
  RECIPE_MAINTAINER_pn-libiconv = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-libid3tag = "Cristian Iorga <cristian.iorga@intel.com>"
  RECIPE_MAINTAINER_pn-libidn = "Saul Wold <sgw@linux.intel.com>"
@@ -436,6 +456,15 @@ index fdeb7f7..00528ad 100644
  RECIPE_MAINTAINER_pn-packagegroup-base = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-packagegroup-core-boot = "Saul Wold <sgw@linux.intel.com>"
  RECIPE_MAINTAINER_pn-packagegroup-core-buildessential = "Saul Wold <sgw@linux.intel.com>"
+@@ -517,7 +514,7 @@ RECIPE_MAINTAINER_pn-packagegroup-core-x11-xserver = "Saul Wold <sgw@linux.intel
+ RECIPE_MAINTAINER_pn-packagegroup-qte-toolchain-target = "Paul Eggleton <paul.eggleton@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-self-hosted = "Saul Wold <sgw@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-package-index = "Saul Wold <sgw@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-pango = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-pango = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-parted = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-patch = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-pax-utils = "Hongxu Jia <hongxu.jia@windriver.com>"
 @@ -530,26 +527,26 @@ RECIPE_MAINTAINER_pn-perl = "Hongxu Jia <hongxu.jia@windriver.com>"
  RECIPE_MAINTAINER_pn-piglit = "Ross Burton <ross.burton@intel.com>"
  RECIPE_MAINTAINER_pn-pigz = "Hongxu Jia <hongxu.jia@windriver.com>"
