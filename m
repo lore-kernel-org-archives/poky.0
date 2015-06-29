@@ -1,38 +1,32 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <jussi.kukkonen@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 964E1E00A45; Fri, 26 Jun 2015 08:13:35 -0700 (PDT)
+	id 6F250E009B8; Mon, 29 Jun 2015 03:57:24 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI,
+	SUBJ_OBFU_PUNCT_MANY autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
 	high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B135CE00A2C;
-	Fri, 26 Jun 2015 08:13:33 -0700 (PDT)
+	*      [134.134.136.24 listed in list.dnswl.org]
+	*  1.7 SUBJ_OBFU_PUNCT_MANY Punctuation-obfuscated Subject: header
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D44E5E009B8
+	for <poky@yoctoproject.org>; Mon, 29 Jun 2015 03:57:22 -0700 (PDT)
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP; 26 Jun 2015 08:13:10 -0700
+	by orsmga102.jf.intel.com with ESMTP; 29 Jun 2015 03:57:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.13,685,1427785200"; d="scan'208";a="753756602"
-Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.143])
-	([10.237.68.143])
-	by orsmga002.jf.intel.com with ESMTP; 26 Jun 2015 08:13:10 -0700
-Message-ID: <558D6C19.5030409@linux.intel.com>
-Date: Fri, 26 Jun 2015 18:13:29 +0300
-From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64;
-	rv:31.0) Gecko/20100101 Icedove/31.7.0
-MIME-Version: 1.0
-To: =?windows-1252?Q?An=EDbal_Lim=F3n?= <anibal.limon@linux.intel.com>, 
-	openembedded-core@lists.openembedded.org, 
-	"yocto@yoctoproject.org" <yocto@yoctoproject.org>, poky@yoctoproject.org
-References: <558C5E43.6010709@linux.intel.com>
-In-Reply-To: <558C5E43.6010709@linux.intel.com>
-Subject: Re: Automatic Upgrade Helper Announcement
+X-IronPort-AV: E=Sophos;i="5.13,698,1427785200"; d="scan'208";a="755044586"
+Received: from theory.fi.intel.com ([10.237.72.51])
+	by orsmga002.jf.intel.com with ESMTP; 29 Jun 2015 03:57:21 -0700
+From: Jussi Kukkonen <jussi.kukkonen@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 29 Jun 2015 13:57:55 +0300
+Message-Id: <1435575475-25299-1-git-send-email-jussi.kukkonen@intel.com>
+X-Mailer: git-send-email 2.1.4
+Subject: [PATCH] distro/package_regex.inc: Use GNOME_STABLE rule for vala
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,31 +39,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Jun 2015 15:13:35 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Mon, 29 Jun 2015 10:57:24 -0000
 
-On 06/25/2015 11:02 PM, Aníbal Limón wrote:
-> I'm glad to announce the enabling of Automatic Upgrade Helper (a.k.a.
-> AUH), the AUH is a service
-> that provides recipe upgrades and will be run on weekly basis.
->
-> If you are a maintainer (listed in [1]) you will receive AUH emails with
-> Recipe upgrades when AUH
-> detects that upgrade is needed.
+Signed-off-by: Jussi Kukkonen <jussi.kukkonen@intel.com>
+---
+ meta-yocto/conf/distro/include/package_regex.inc | 1 +
+ 1 file changed, 1 insertion(+)
 
-I'm currently doing a related activity - going through oe-core recipes 
-in alphabetical order, and making sure that upstream version information 
-for them is correct.
+diff --git a/meta-yocto/conf/distro/include/package_regex.inc b/meta-yocto/conf/distro/include/package_regex.inc
+index f26bc13..d2542b2 100644
+--- a/meta-yocto/conf/distro/include/package_regex.inc
++++ b/meta-yocto/conf/distro/include/package_regex.inc
+@@ -157,6 +157,7 @@ REGEX_pn-gtk-engines = "${GNOME2_STABLE}"
+ REGEX_pn-glib-networking = "${GNOME_STABLE}"
+ REGEX_pn-librsvg = "${GNOME_STABLE}"
+ REGEX_pn-libsoup-2.4 = "${GNOME_STABLE}"
++REGEX_pn-vala = "${GNOME_STABLE}"
+ 
+ # not GNOME related but uses same even-minor-release-is-stable logic
+ REGEX_pn-dbus = "${GNOME_STABLE}"
+-- 
+2.1.4
 
-I've found a few cases where the upstream check is performed on a stale 
-directory (so the recipe is reported 'up to date' even though it's not), 
-or the reported upstream version is totally bogus [1], or the upstream 
-version is 'unknown' even though it can be retrieved with a correct 
-entry in package_regex.inc. Expect patches to come this way soon.
-
-[1] http://recipes.yoctoproject.org/rrs/recipedetail/155/
-
-
-Alex
 
