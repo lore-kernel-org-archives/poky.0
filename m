@@ -1,45 +1,52 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <nithisai@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 21BBEE009CC; Thu,  9 Jul 2015 06:40:28 -0700 (PDT)
+	id 2FB2EE00A54; Thu,  9 Jul 2015 22:21:20 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.192.48 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (nithisai[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.218.43 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-Received: from mail-qg0-f48.google.com (mail-qg0-f48.google.com
-	[209.85.192.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA573E00978
-	for <poky@yoctoproject.org>; Thu,  9 Jul 2015 06:40:27 -0700 (PDT)
-Received: by qgef3 with SMTP id f3so65348123qge.0
-	for <poky@yoctoproject.org>; Thu, 09 Jul 2015 06:40:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=RHySPlbsiaP+xRiYurjeqYyAafVGb+vHH53ETLIvdsw=;
-	b=SpQAhm3Xan9uYfmsjOgRUofC4/wegtKt3UjlDbyT9ykY6X4jtwpmov2lQ5hC/MeZ8d
-	w8P2uMEUtIWTaPgLSOmBuEiLQmgJTqh8FoaUkgN7SC40A52KUY4Y7t38kmPvG9blI/1E
-	aIPdwjFlAITPJG6DZTrncGHxSob9LD+6Hnh4jFytAVmwH/O5YEAgb3DSRA7hHqPoWC/O
-	MhNj0yn4/ycB3/S3gIYM7M6fnx0ZJyHjcCSgGGPydjfpACxP9visS+UOscL7wb45uMCq
-	JXQ0pR4GIhXeLJw5ZTjo0tEShMrF9HCiLn4wgBzQK+W6SqJXFBVnmpwcigBInKaaGdh/
-	Dl3w==
-X-Gm-Message-State: ALoCoQmRjhOkBkq72NLast0c6Afcl9lcYqxiutxS2VKvOxQaNZR6niSuxLZGQbcjKX1Ia6ZdawDt
-X-Received: by 10.140.43.100 with SMTP id d91mr24940633qga.77.1436449226364;
-	Thu, 09 Jul 2015 06:40:26 -0700 (PDT)
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
+	[209.85.218.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 05332E00A49
+	for <poky@yoctoproject.org>; Thu,  9 Jul 2015 22:21:15 -0700 (PDT)
+Received: by oiab3 with SMTP id b3so86103813oia.1
+	for <poky@yoctoproject.org>; Thu, 09 Jul 2015 22:21:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:cc:content-type;
+	bh=f/UkYjvLDerY2MoDWZ8QDQhYgcyX9NVvuYnBa1kzWLc=;
+	b=ze2ouOX8ip0t+W2f6tTmroUcRa7cuGMVaIfZ2d/NnWDdEq5EAifN2hSsNEGg9CrQrN
+	r/7eHIXIfP27Zq78leziSWX5hAZrucwg1FjiUuz88Mpqc6wZHqQVzx3VGKGsBr448LTR
+	AAEVoovwhRz6WkGseQL/vEbYm6qmq31V5Qy14NxuLkjQxoLdYnGa4XEpeFRGbVoNRlTM
+	RdgTL1it1tctnWkVLlL+w5m2bnWYAM5rMK8c9DHcCXxbqKNKcEO/kktuTniD4Rldjz3L
+	iDDQ5Fk7Nv6E6HjLlXzOa7u5aeQNEVUFBNiadJiN7T8MDFNVBvW+krIDCY9Wi5+0t3dE
+	aDJw==
 MIME-Version: 1.0
-Received: by 10.140.102.231 with HTTP; Thu, 9 Jul 2015 06:40:06 -0700 (PDT)
-In-Reply-To: <CACj2azvy9HZUsaoJO8jPHzMMrck1t_2O-1ctAffWOT3x9F3oFw@mail.gmail.com>
+X-Received: by 10.202.9.11 with SMTP id 11mr8179525oij.123.1436505674908; Thu,
+	09 Jul 2015 22:21:14 -0700 (PDT)
+Received: by 10.202.173.137 with HTTP; Thu, 9 Jul 2015 22:21:14 -0700 (PDT)
+In-Reply-To: <CAJTo0LarovLG7ytbrfv_L8TtZ3bAYbR8RZPzmVfChZQHH=0J1g@mail.gmail.com>
 References: <CACj2azvy9HZUsaoJO8jPHzMMrck1t_2O-1ctAffWOT3x9F3oFw@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 9 Jul 2015 14:40:06 +0100
-Message-ID: <CAJTo0LarovLG7ytbrfv_L8TtZ3bAYbR8RZPzmVfChZQHH=0J1g@mail.gmail.com>
-To: Nithyakala Sainath <nithisai@gmail.com>
+	<CAJTo0LarovLG7ytbrfv_L8TtZ3bAYbR8RZPzmVfChZQHH=0J1g@mail.gmail.com>
+Date: Fri, 10 Jul 2015 10:51:14 +0530
+Message-ID: <CACj2aztKzy565rxNoTRLwoQPPiCVm=pXwHst2zq0nFqL3HszTg@mail.gmail.com>
+From: Nithyakala Sainath <nithisai@gmail.com>
+To: "Burton, Ross" <ross.burton@intel.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Not able to set env var from anon function
 X-BeenThere: poky@yoctoproject.org
@@ -54,36 +61,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jul 2015 13:40:28 -0000
-Content-Type: multipart/alternative; boundary=001a113a989ce04a2b051a71655b
+X-List-Received-Date: Fri, 10 Jul 2015 05:21:20 -0000
+Content-Type: multipart/alternative; boundary=001a113d1800788d79051a7e8ab9
 
---001a113a989ce04a2b051a71655b
+--001a113d1800788d79051a7e8ab9
 Content-Type: text/plain; charset=UTF-8
 
-On 9 July 2015 at 13:12, Nithyakala Sainath <nithisai@gmail.com> wrote:
+Thanks for your answer Ross.
 
-> But d.setVar("TEMPDIR", "randomvalue") in place of os.environ does the
-> mgic. Why can't we manipulate the environmental variable using os.environ ?
+But no, I already did that and tried again. The "randomvalue" is not
+getting reflected. The variable still has "temp" in it.
 
+Nithya.
 
-Because in "echo ${TEMPDIR}" the variable is expanded by bitbake, not the
-shell.  Use $TEMPDIR.
+On Thu, Jul 9, 2015 at 7:10 PM, Burton, Ross <ross.burton@intel.com> wrote:
 
-Ross
+>
+> On 9 July 2015 at 13:12, Nithyakala Sainath <nithisai@gmail.com> wrote:
+>
+>> But d.setVar("TEMPDIR", "randomvalue") in place of os.environ does the
+>> mgic. Why can't we manipulate the environmental variable using os.environ ?
+>
+>
+> Because in "echo ${TEMPDIR}" the variable is expanded by bitbake, not the
+> shell.  Use $TEMPDIR.
+>
+> Ross
+>
 
---001a113a989ce04a2b051a71655b
+--001a113d1800788d79051a7e8ab9
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 9 July 2015 at 13:12, Nithyakala Sainath <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:nithisai@gmail.com" target=3D"_blank">nithisai@gmail.com</a>&gt;=
-</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">But d.setVar(&quot;TEMPDIR=
-&quot;, &quot;randomvalue&quot;) in place of os.environ does the mgic. Why =
-can&#39;t we manipulate the environmental variable using os.environ ?</bloc=
-kquote></div><br>Because in &quot;echo ${TEMPDIR}&quot; the variable is exp=
-anded by bitbake, not the shell.=C2=A0 Use $TEMPDIR.</div><div class=3D"gma=
-il_extra"><br></div><div class=3D"gmail_extra">Ross</div></div>
+<div dir=3D"ltr"><div><div>Thanks for your answer Ross.<br><br></div>But no=
+, I already did that and tried again. The &quot;randomvalue&quot; is not ge=
+tting reflected. The variable still has &quot;temp&quot; in it. <br><br></d=
+iv>Nithya.<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quot=
+e">On Thu, Jul 9, 2015 at 7:10 PM, Burton, Ross <span dir=3D"ltr">&lt;<a hr=
+ef=3D"mailto:ross.burton@intel.com" target=3D"_blank">ross.burton@intel.com=
+</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin=
+:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><=
+div class=3D"gmail_extra"><span class=3D""><br><div class=3D"gmail_quote">O=
+n 9 July 2015 at 13:12, Nithyakala Sainath <span dir=3D"ltr">&lt;<a href=3D=
+"mailto:nithisai@gmail.com" target=3D"_blank">nithisai@gmail.com</a>&gt;</s=
+pan> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex=
+;border-left:1px #ccc solid;padding-left:1ex">But d.setVar(&quot;TEMPDIR&qu=
+ot;, &quot;randomvalue&quot;) in place of os.environ does the mgic. Why can=
+&#39;t we manipulate the environmental variable using os.environ ?</blockqu=
+ote></div><br></span>Because in &quot;echo ${TEMPDIR}&quot; the variable is=
+ expanded by bitbake, not the shell.=C2=A0 Use $TEMPDIR.</div><span class=
+=3D"HOEnZb"><font color=3D"#888888"><div class=3D"gmail_extra"><br></div><d=
+iv class=3D"gmail_extra">Ross</div></font></span></div>
+</blockquote></div><br></div>
 
---001a113a989ce04a2b051a71655b--
+--001a113d1800788d79051a7e8ab9--
