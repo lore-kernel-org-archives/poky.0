@@ -1,37 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7D002E009E6; Mon, 20 Jul 2015 01:58:12 -0700 (PDT)
+	id 10EBDE009BE; Tue, 21 Jul 2015 08:24:27 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C964E00A26
-	for <poky@yoctoproject.org>; Mon, 20 Jul 2015 01:58:05 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	t6K8vxbF026871; Mon, 20 Jul 2015 09:57:59 +0100
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Gdy_wCrRnOdN; Mon, 20 Jul 2015 09:57:59 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	t6K8viLw026865
-	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 20 Jul 2015 09:57:55 +0100
-Message-ID: <1437382664.27687.1.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Clay D. Montgomery" <clay@montgomery1.com>
-Date: Mon, 20 Jul 2015 09:57:44 +0100
-In-Reply-To: <55AAB89C.20601@montgomery1.com>
-References: <55AAB89C.20601@montgomery1.com>
-X-Mailer: Evolution 3.12.10-0ubuntu1~14.10.1 
-Mime-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: What happened to update-rc.d?
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BA463E00837
+	for <poky@yoctoproject.org>; Tue, 21 Jul 2015 08:24:25 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.15.1/8.15.1) with ESMTPS id t6LFOOf3001341
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 21 Jul 2015 08:24:25 -0700 (PDT)
+Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.235.1; Tue, 21 Jul 2015 08:24:18 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Tue, 21 Jul 2015 11:24:22 -0400
+Message-ID: <cover.1437492124.git.bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 2.1.0
+MIME-Version: 1.0
+Subject: [PATCH 0/2] yocto-bsps: update preferred version to 4.1 and introduce 3.14-rt
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,33 +41,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 20 Jul 2015 08:58:12 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 21 Jul 2015 15:24:27 -0000
+Content-Type: text/plain
 
-On Sat, 2015-07-18 at 15:35 -0500, Clay D. Montgomery wrote:
-> Hello,
-> 
->      I just updated to the Dizzy release 1.7.2 (from Daisy 1.6.3) and I 
-> am surprised to find that update-rc.d is missing from the file system. 
-> Can someone please tell me if it was removed intentionally and if so, 
-> what am I supposed to use instead?
+Hi all,
 
-update-rc.d is still very much part of the system so no, it wasn't
-intentionally removed. Its hard to say why your image wouldn't contain
-it unless nothing in the image needed it (e.g. with systemd?).
+The 4.1 version switch on this change obviously depends on the 4.1 series
+that I've sent to oe-core, but I wanted to send this out as well .. to show
+that I didn't forget to update the default version to be 4.1.
+
+Once 4.1 is in the core, we are good to go with this change.
 
 Cheers,
 
-Richard
+Bruce
 
->     Perhaps I caused this problem by making changes to my kernel 
-> configuration with menuconfig, but I don't think so.
-> 
-> I build Poky for the Freescale Wandboard-quad platform detailed here:  
-> http://freescale.github.io/doc/release-notes/1.7/
-> 
-> Thanks, Clay Montgomery
+The following changes since commit a888ca8e0a3739cc603c0d286076ad926a88bacc:
 
+  linux-yocto: introduce 4.1 versioned recipes (2015-07-21 10:41:12 -0400)
+
+are available in the git repository at:
+
+  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
+  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+
+Bruce Ashfield (2):
+  yocto-bsps: add 3.14-rt configuration
+  qemu: change default version to 4.1
+
+ .../recipes-kernel/linux/linux-yocto-rt_3.14.bbappend      | 11 +++++++++++
+ meta-yocto/conf/distro/poky.conf                           | 14 +++++++-------
+ 2 files changed, 18 insertions(+), 7 deletions(-)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto-rt_3.14.bbappend
+
+-- 
+2.1.0
 
 
