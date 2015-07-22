@@ -1,36 +1,66 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <Jack_Fewx@dell.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5CCA6E00A25; Tue, 21 Jul 2015 08:24:28 -0700 (PDT)
+	id 212B5E00927; Wed, 22 Jul 2015 07:51:24 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
+	*      [143.166.148.206 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6EFC7E0096A
-	for <poky@yoctoproject.org>; Tue, 21 Jul 2015 08:24:26 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.15.1/8.15.1) with ESMTPS id t6LFOQWv001347
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Tue, 21 Jul 2015 08:24:26 -0700 (PDT)
-Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.235.1; Tue, 21 Jul 2015 08:24:19 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Tue, 21 Jul 2015 11:24:24 -0400
-Message-ID: <3b0db15618afc5bbf6caf2ae6ee9ca2bf4fe9e57.1437492124.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 2.1.0
-In-Reply-To: <cover.1437492124.git.bruce.ashfield@windriver.com>
-References: <cover.1437492124.git.bruce.ashfield@windriver.com>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+X-Greylist: delayed 64 seconds by postgrey-1.32 at yocto-www;
+	Wed, 22 Jul 2015 07:51:21 PDT
+Received: from ausc60ps301.us.dell.com (ausc60ps301.us.dell.com
+	[143.166.148.206])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 97A04E008EC;
+	Wed, 22 Jul 2015 07:51:21 -0700 (PDT)
+DomainKey-Signature: s=smtpout; d=dell.com; c=nofws; q=dns;
+	h=X-LoopCount0:X-IronPort-AV:From:To:Date:Subject:
+	Thread-Topic:Thread-Index:Message-ID:Accept-Language:
+	Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	x-titus-version:x-tituslabs-classifications-30:
+	x-tituslabs-classificationhash-30:x-titusconfig:
+	acceptlanguage:Content-Type:Content-Transfer-Encoding:
+	MIME-Version;
+	b=A/ISzhuamr4qA7UfCfGElB2auya31nboYBWhC6P4vIZqAHJNsNLlpjbA
+	H5OuBIRERSCcFOCmatIe9J2R86o12chktJ7o3S2dbJrTH7XTNF9K06cKP
+	pvOu8syYM9DRp/FdvLZRjGmjEliYjmz6Tfb8uOrq3Yg8cBEKGXrxKgF2v
+	k=;
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+	t=1437576682; x=1469112682; h=from:to:date:subject:message-id:
+	content-transfer-encoding:mime-version;
+	bh=c5ZY5iKCbI4Hm400RtHN/4+KNA3A4qsKF2Gub6a7Lqs=;
+	b=z+2WTeSMGeNZia5Jw+n7a5f5hTHbKaCaYSAjKAzPL6JHYWLpfXdOgayV
+	efK9GvmkT3kUVmp8k+WX+ASZQo4JE+zHtQQrxpLRvf9Y743qnjATSPeM2
+	6Mp/MsFwd7VGj47tBFc9j8Or0nyTEZDMFFv5skdlkPLrLy5R2eo+JUKSy g=;
+X-LoopCount0: from 10.175.216.251
+X-IronPort-AV: E=Sophos;i="5.15,523,1432616400"; d="scan'208";a="709316499"
+From: <Jack_Fewx@Dell.com>
+To: <poky@yoctoproject.org>, <yocto@yoctoproject.org>
+Date: Wed, 22 Jul 2015 09:50:04 -0500
+Thread-Topic: Missing dependencies after setscene, postinst fails
+Thread-Index: AdDEh7zdmHfhIRw2Tx+asoTJ0o4bgA==
+Message-ID: <DBEC4AD184C3D34D8E5AF7DE018CA85C1C62DCC663@AUSX7MCPS305.AMER.DELL.COM>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-version: 3.5.29.3
+x-tituslabs-classifications-30: TLPropertyRoot=Dell;Classification=No
+	Restrictions;Sublabels=;
+x-tituslabs-classificationhash-30: aZMi/WbTZrlATXhBcdW5gZbc7KdRWPMNqVURt28QiqDnLiAkEUJqYTPGAAbovQVBuq3RALLamgASmDFbZr2E7UYB6TYTH/UEJhP+1UnFDpgBHl/e4GuVp4hBM2/cZcc3L3Z/RTnH+p9CKaWOaPEEM1QRE6LgNS+R48L+GKAzPHxITDr68qZ/LnnvyAPCnICrP1SWbRDZNzfOFhshcPObxR4is3zovvWuxt9I6OLEqHMJLLfKSx/RJEJPG4LlFBof
+x-titusconfig: 1.4AMER
+acceptlanguage: en-US
 MIME-Version: 1.0
-Subject: [PATCH 2/2] qemu: change default version to 4.1
+Subject: Missing dependencies after setscene, postinst fails
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,43 +73,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 Jul 2015 15:24:28 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 22 Jul 2015 14:51:24 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The 4.1 LTSI kernel is now availble, so we update the qemu reference
-platforms to have it as the default.
+Hello,
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta-yocto/conf/distro/poky.conf | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+I need some help figuring out a build problem I'm seeing.  I know why the b=
+uild is failing, I just don't know the best way to fix it.  I have figured =
+out a workaround, but it seems very hack-ish to me, and I'd really like to =
+know if there is a more elegant solution?  Is this a defect or something I'=
+m doing wrong?  Has anyone else seen this?
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index e3d3c783c5d5..014a944f081b 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -18,13 +18,13 @@ POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
- 
- DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DEFAULT_DISTRO_FEATURES}"
- 
--PREFERRED_VERSION_linux-yocto ?= "3.19%"
--PREFERRED_VERSION_linux-yocto_qemux86 ?= "3.19%"
--PREFERRED_VERSION_linux-yocto_qemux86-64 ?= "3.19%"
--PREFERRED_VERSION_linux-yocto_qemuarm ?= "3.19%"
--PREFERRED_VERSION_linux-yocto_qemumips ?= "3.19%"
--PREFERRED_VERSION_linux-yocto_qemumips64 ?= "3.19%"
--PREFERRED_VERSION_linux-yocto_qemuppc ?= "3.19%"
-+PREFERRED_VERSION_linux-yocto ?= "4.1%"
-+PREFERRED_VERSION_linux-yocto_qemux86 ?= "4.1%"
-+PREFERRED_VERSION_linux-yocto_qemux86-64 ?= "4.1%"
-+PREFERRED_VERSION_linux-yocto_qemuarm ?= "4.1%"
-+PREFERRED_VERSION_linux-yocto_qemumips ?= "4.1%"
-+PREFERRED_VERSION_linux-yocto_qemumips64 ?= "4.1%"
-+PREFERRED_VERSION_linux-yocto_qemuppc ?= "4.1%"
- 
- SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}"
- SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
--- 
-2.1.0
+- Setup:=20
+Poky version is 1.7.1.  Working directories have been removed, forcing all =
+packages to be restored through the setscene process. The rootfs is read-on=
+ly, so postinst causes build failure instead of being postponed to first bo=
+ot.
+
+- Problem:
+In this scenario I am consistently seeing 3 Poky recipes fail at postinst. =
+ I have triaged the problem to be missing native-class dependencies for eac=
+h of the 3 packages. =20
+
+The problem packages are: ca-certificates, nss, and gdk-pixbuf-native.  ca-=
+certificates and nss both depend on their own native-class builds, so ca-ce=
+rtificates-native and nss-native respectively, and they fail after doing do=
+_package_write_ipk_setscene.  gdk-pixbuf-native needs jpeg-native in order =
+to complete do_populate_sysroot_setscene, but fails due to its absence.
+
+Each of these recipes has a DEPENDS or PACKAGECONFIG appropriate to pull in=
+ the needed package during the normal build process, but these dependencies=
+ don't seem to carry over to the setscene process.
+
+- My attempt at a solution:
+My workaround is to write a bbappend for each of the 3 recipes that looks s=
+omething like below, that explicitly add the missing dependencies:
+
+--- /dev/null
++++ b/nss/nss_%.bbappend
++do_package_write_ipk_setscene[depends] +=3D "nss-native:do_populate_sysroo=
+t"
+
 
 
