@@ -1,14 +1,17 @@
-Return-Path: <Jack_Fewx@dell.com>
+Return-Path: <twoerner@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 212B5E00927; Wed, 22 Jul 2015 07:51:24 -0700 (PDT)
+	id C4BA3E00A4D; Sat, 25 Jul 2015 06:03:42 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [143.166.148.206 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (twoerner[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.213.182 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
@@ -16,51 +19,36 @@ X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 64 seconds by postgrey-1.32 at yocto-www;
-	Wed, 22 Jul 2015 07:51:21 PDT
-Received: from ausc60ps301.us.dell.com (ausc60ps301.us.dell.com
-	[143.166.148.206])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 97A04E008EC;
-	Wed, 22 Jul 2015 07:51:21 -0700 (PDT)
-DomainKey-Signature: s=smtpout; d=dell.com; c=nofws; q=dns;
-	h=X-LoopCount0:X-IronPort-AV:From:To:Date:Subject:
-	Thread-Topic:Thread-Index:Message-ID:Accept-Language:
-	Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	x-titus-version:x-tituslabs-classifications-30:
-	x-tituslabs-classificationhash-30:x-titusconfig:
-	acceptlanguage:Content-Type:Content-Transfer-Encoding:
-	MIME-Version;
-	b=A/ISzhuamr4qA7UfCfGElB2auya31nboYBWhC6P4vIZqAHJNsNLlpjbA
-	H5OuBIRERSCcFOCmatIe9J2R86o12chktJ7o3S2dbJrTH7XTNF9K06cKP
-	pvOu8syYM9DRp/FdvLZRjGmjEliYjmz6Tfb8uOrq3Yg8cBEKGXrxKgF2v
-	k=;
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-	d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
-	t=1437576682; x=1469112682; h=from:to:date:subject:message-id:
-	content-transfer-encoding:mime-version;
-	bh=c5ZY5iKCbI4Hm400RtHN/4+KNA3A4qsKF2Gub6a7Lqs=;
-	b=z+2WTeSMGeNZia5Jw+n7a5f5hTHbKaCaYSAjKAzPL6JHYWLpfXdOgayV
-	efK9GvmkT3kUVmp8k+WX+ASZQo4JE+zHtQQrxpLRvf9Y743qnjATSPeM2
-	6Mp/MsFwd7VGj47tBFc9j8Or0nyTEZDMFFv5skdlkPLrLy5R2eo+JUKSy g=;
-X-LoopCount0: from 10.175.216.251
-X-IronPort-AV: E=Sophos;i="5.15,523,1432616400"; d="scan'208";a="709316499"
-From: <Jack_Fewx@Dell.com>
-To: <poky@yoctoproject.org>, <yocto@yoctoproject.org>
-Date: Wed, 22 Jul 2015 09:50:04 -0500
-Thread-Topic: Missing dependencies after setscene, postinst fails
-Thread-Index: AdDEh7zdmHfhIRw2Tx+asoTJ0o4bgA==
-Message-ID: <DBEC4AD184C3D34D8E5AF7DE018CA85C1C62DCC663@AUSX7MCPS305.AMER.DELL.COM>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-version: 3.5.29.3
-x-tituslabs-classifications-30: TLPropertyRoot=Dell;Classification=No
-	Restrictions;Sublabels=;
-x-tituslabs-classificationhash-30: aZMi/WbTZrlATXhBcdW5gZbc7KdRWPMNqVURt28QiqDnLiAkEUJqYTPGAAbovQVBuq3RALLamgASmDFbZr2E7UYB6TYTH/UEJhP+1UnFDpgBHl/e4GuVp4hBM2/cZcc3L3Z/RTnH+p9CKaWOaPEEM1QRE6LgNS+R48L+GKAzPHxITDr68qZ/LnnvyAPCnICrP1SWbRDZNzfOFhshcPObxR4is3zovvWuxt9I6OLEqHMJLLfKSx/RJEJPG4LlFBof
-x-titusconfig: 1.4AMER
-acceptlanguage: en-US
-MIME-Version: 1.0
-Subject: Missing dependencies after setscene, postinst fails
+Received: from mail-ig0-f182.google.com (mail-ig0-f182.google.com
+	[209.85.213.182])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 855D7E009F8
+	for <poky@yoctoproject.org>; Sat, 25 Jul 2015 06:03:38 -0700 (PDT)
+Received: by igbpg9 with SMTP id pg9so52629723igb.0
+	for <poky@yoctoproject.org>; Sat, 25 Jul 2015 06:03:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id;
+	bh=CPZgJXgi3mcV46Xmc917BtiF6n3WAeLNbKQrGN8+2AI=;
+	b=uIKY9qHGwbWPE/MGRxohNcVLf5y4TJsAgE7kMiazYeblYN3pC546xFuNwueYZvVjhG
+	umQIo6e2MQbJMjpTkkJwNAjlSSTrIh7NPKz9NTfxY4QhTmmifj6YgdiKLCAtmpIfJLV5
+	yguBD9IsJ6+Qc6ibPPjX3GXVHj7tUeGI7dr1avwb3qFB4ikbbOgYx7xEvqa+SNrzNn+A
+	P0jCijWNfIXYjjj8552TH8U2Na/rx/PwQPHH9aDd5nusKjIm1uUJEEstr2WSDGY6GUBq
+	UiMA29UXdP98QuF9SfN0GcYRYe3zZJhTSxtEUtwt6r7ChIVwTAJGdPJImhwNov5Aph21
+	ASAw==
+X-Received: by 10.107.9.41 with SMTP id j41mr32310270ioi.37.1437829418383;
+	Sat, 25 Jul 2015 06:03:38 -0700 (PDT)
+Received: from openSUSE-i7.site (dsl-67-55-28-109.acanac.net. [67.55.28.109])
+	by smtp.gmail.com with ESMTPSA id
+	ot6sm1421801igb.11.2015.07.25.06.03.36
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Sat, 25 Jul 2015 06:03:37 -0700 (PDT)
+From: Trevor Woerner <twoerner@gmail.com>
+To: poky@yoctoproject.org
+Date: Sat, 25 Jul 2015 09:03:18 -0400
+Message-Id: <1437829398-8585-1-git-send-email-twoerner@gmail.com>
+X-Mailer: git-send-email 2.5.0.rc2.13.g961abca
+Cc: Paul Eggleton <paul.eggleton@linux.intel.com>,
+	Otavio Salvador <otavio@ossystems.com.br>
+Subject: [PATCH] SANITY_TESTED_DISTROS: fix lsb name for openSUSE 13.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,48 +61,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Jul 2015 14:51:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Sat, 25 Jul 2015 13:03:42 -0000
 
-Hello,
+Signed-off-by: Trevor Woerner <twoerner@gmail.com>
+---
+ meta-yocto/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I need some help figuring out a build problem I'm seeing.  I know why the b=
-uild is failing, I just don't know the best way to fix it.  I have figured =
-out a workaround, but it seems very hack-ish to me, and I'd really like to =
-know if there is a more elegant solution?  Is this a defect or something I'=
-m doing wrong?  Has anyone else seen this?
-
-- Setup:=20
-Poky version is 1.7.1.  Working directories have been removed, forcing all =
-packages to be restored through the setscene process. The rootfs is read-on=
-ly, so postinst causes build failure instead of being postponed to first bo=
-ot.
-
-- Problem:
-In this scenario I am consistently seeing 3 Poky recipes fail at postinst. =
- I have triaged the problem to be missing native-class dependencies for eac=
-h of the 3 packages. =20
-
-The problem packages are: ca-certificates, nss, and gdk-pixbuf-native.  ca-=
-certificates and nss both depend on their own native-class builds, so ca-ce=
-rtificates-native and nss-native respectively, and they fail after doing do=
-_package_write_ipk_setscene.  gdk-pixbuf-native needs jpeg-native in order =
-to complete do_populate_sysroot_setscene, but fails due to its absence.
-
-Each of these recipes has a DEPENDS or PACKAGECONFIG appropriate to pull in=
- the needed package during the normal build process, but these dependencies=
- don't seem to carry over to the setscene process.
-
-- My attempt at a solution:
-My workaround is to write a bbappend for each of the 3 recipes that looks s=
-omething like below, that explicitly add the missing dependencies:
-
---- /dev/null
-+++ b/nss/nss_%.bbappend
-+do_package_write_ipk_setscene[depends] +=3D "nss-native:do_populate_sysroo=
-t"
-
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
+index e3d3c78..80861f6 100644
+--- a/meta-yocto/conf/distro/poky.conf
++++ b/meta-yocto/conf/distro/poky.conf
+@@ -80,7 +80,7 @@ SANITY_TESTED_DISTROS ?= " \
+             CentOS-7.* \n \
+             Debian-7.* \n \
+             Debian-8.* \n \
+-            openSUSE-13.2 \n \
++            openSUSE-project-13.2 \n \
+             "
+ 
+ # Default hash policy for distro
+-- 
+2.5.0.rc2.13.g961abca
 
 
