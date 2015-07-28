@@ -1,35 +1,64 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <Jack_Fewx@dell.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8B2BCE00A3B; Tue, 28 Jul 2015 03:19:33 -0700 (PDT)
+	id 910FAE00A53; Tue, 28 Jul 2015 07:12:21 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-7.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.93 listed in list.dnswl.org]
+	*      [143.166.148.223 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 10EEBE00902
-	for <poky@yoctoproject.org>; Tue, 28 Jul 2015 03:19:29 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by fmsmga102.fm.intel.com with ESMTP; 28 Jul 2015 03:19:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.15,562,1432623600"; d="scan'208";a="737021896"
-Received: from unknown (HELO peggleto-mobl.ger.corp.intel.com) ([10.252.9.210])
-	by orsmga001.jf.intel.com with ESMTP; 28 Jul 2015 03:19:19 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 28 Jul 2015 11:19:02 +0100
-Message-Id: <078cc6b847f08aa1dcda61b70246ddd99867b6f1.1438078723.git.paul.eggleton@linux.intel.com>
-X-Mailer: git-send-email 2.1.0
-In-Reply-To: <cover.1438078723.git.paul.eggleton@linux.intel.com>
-References: <cover.1438078723.git.paul.eggleton@linux.intel.com>
-In-Reply-To: <cover.1438078723.git.paul.eggleton@linux.intel.com>
-References: <cover.1438078723.git.paul.eggleton@linux.intel.com>
-Subject: [meta-yocto-bsp][PATCH 1/1] oe-selftest: restore gummiboot tests
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from ausxipps301.us.dell.com (ausxipps301.us.dell.com
+	[143.166.148.223])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B5A21E00992
+	for <poky@yoctoproject.org>; Tue, 28 Jul 2015 07:12:19 -0700 (PDT)
+DomainKey-Signature: s=smtpout; d=dell.com; c=nofws; q=dns;
+	h=X-LoopCount0:X-IronPort-AV:From:To:Date:Subject:
+	Thread-Topic:Thread-Index:Message-ID:Accept-Language:
+	Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	x-titus-version:x-tituslabs-classifications-30:
+	x-tituslabs-classificationhash-30:x-titusconfig:
+	acceptlanguage:Content-Type:Content-Transfer-Encoding:
+	MIME-Version;
+	b=K4wU8E715zHsQyzTrsedItj9NHcArh4qPJSUn9sz5sOFE84vufWquwnY
+	h0z+btVYHiAC2T8kOeIEJEx3Yk8ZkXITjbbaEK/r1ptc0cMXGNvyPGHyc
+	9RpWEuJPF8Wm9CvporP0sDRkxPfHVrznxBOqgDr1ErLj0/bgbA2/vyRnB
+	E=;
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+	t=1438092740; x=1469628740; h=from:to:date:subject:message-id:
+	content-transfer-encoding:mime-version;
+	bh=XrMyv2aXGjF7Qob4oPlDpVplmBCkthKEd3O1qXG+DZ4=;
+	b=U/3BIfBmYL1YwfDwyWQIbEs/OJ2mGdEhZvo3GJSbf6D6nVq6fu7DvYVL
+	t6hjRVEW1im+gnSs/nPAIi6mT29oBIy3Ezh9u6q2/NaDItZNgXjcDO0YY
+	rauy32fatgkW62RA6/dmPhpeyGdVfhDdeiBtHo9Rs4qK7T9hutY+At1AR w=;
+X-LoopCount0: from 10.170.28.41
+X-IronPort-AV: E=Sophos;i="5.15,563,1432616400"; d="scan'208";a="683242482"
+From: <Jack_Fewx@Dell.com>
+To: <poky@yoctoproject.org>
+Date: Tue, 28 Jul 2015 09:12:07 -0500
+Thread-Topic: Missing dependencies after setscene, postinst fails
+Thread-Index: AdDEh7zdmHfhIRw2Tx+asoTJ0o4bgA==
+Message-ID: <DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E54E@AUSX7MCPS305.AMER.DELL.COM>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-version: 3.5.29.3
+x-tituslabs-classifications-30: TLPropertyRoot=Dell;Classification=No
+	Restrictions;Sublabels=;
+x-tituslabs-classificationhash-30: aZMi/WbTZrlATXhBcdW5gZbc7KdRWPMNqVURt28QiqDnLiAkEUJqYTPGAAbovQVBuq3RALLamgASmDFbZr2E7UYB6TYTH/UEJhP+1UnFDpgBHl/e4GuVp4hBM2/cZcc3L3Z/RTnH+p9CKaWOaPEEM1QRE6LgNS+R48L+GKAzPHxITDr68qZ/LnnvyAPCnICrP1SWbRDZNzfOFhshcPObxR4is3zovvWuxt9I6OLEqHMJLLfKSx/RJEJPG4LlFBof
+x-titusconfig: 1.4AMER
+acceptlanguage: en-US
+MIME-Version: 1.0
+Subject: Missing dependencies after setscene, postinst fails
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,128 +71,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Jul 2015 10:19:33 -0000
+X-List-Received-Date: Tue, 28 Jul 2015 14:12:21 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-These are the gummiboot tests recently removed from OE-Core, with the
-following changes:
+Hello,
 
-* Make them use MACHINE = "genericx86-64" instead of "nuc" and remove
-  all usage of meta-intel
+I am seeing build problems with a number of poky packages.  I know why the =
+build is failing, but these should work "out of the box".  I have figured o=
+ut a workaround, but it seems very hack-ish to me, and I'd really like to k=
+now if there is a more elegant solution or if this is a bug?  Has anyone el=
+se seen this?
 
-* Use DEPLOY_DIR instead of assuming build directory will be in the
-  default path relative to COREBASE
+- Setup:=20
+Poky version is 1.7.1.  Working directories have been removed, forcing all =
+packages to be restored through the setscene process. The rootfs is read-on=
+ly, so postinst causes build failure instead of being postponed to first bo=
+ot.
 
-* Fix build test to actually check if the file was created as part of
-  the test instead of possibly being around from a previous build
+- Problem:
+In this scenario I am consistently seeing 3 Poky recipes fail at postinst. =
+ I have triaged the problem to be missing native-class dependencies for eac=
+h of the 3 packages. =20
 
-* Fix wic test to actually check the output to find the name of the
-  .direct file that wic has created, instead of passing if any .direct
-  file happens to exist in /var/tmp/wic
+The problem packages are: ca-certificates, nss, and gdk-pixbuf-native.  ca-=
+certificates and nss both depend on their own native-class builds, so ca-ce=
+rtificates-native and nss-native respectively, and they fail after doing do=
+_package_write_ipk_setscene.  gdk-pixbuf-native needs jpeg-native in order =
+to complete do_populate_sysroot_setscene, but fails due to its absence.
 
-(We can now add these in this layer courtesy of Chris Larson's OE-Core
-commit 182b8ed9f26ed8b6a8eb6dcaec82db9aca14b010).
+Each of these recipes has a DEPENDS or PACKAGECONFIG appropriate to pull in=
+ the needed package during the normal build process, but these dependencies=
+ don't seem to carry over to the setscene process.
 
-Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
----
- meta-yocto-bsp/lib/oeqa/selftest/__init__.py  |  0
- meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py | 83 +++++++++++++++++++++++++++
- 2 files changed, 83 insertions(+)
- create mode 100644 meta-yocto-bsp/lib/oeqa/selftest/__init__.py
- create mode 100644 meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py
+- My attempt at a solution:
+My workaround is to write a bbappend for each of the 3 recipes that looks s=
+omething like below, that explicitly add the missing dependencies:
 
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/__init__.py b/meta-yocto-bsp/lib/oeqa/selftest/__init__.py
-new file mode 100644
-index 0000000..e69de29
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py b/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py
-new file mode 100644
-index 0000000..00aa36f
 --- /dev/null
-+++ b/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py
-@@ -0,0 +1,83 @@
-+from oeqa.selftest.base import oeSelfTest
-+from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
-+from oeqa.utils.decorators import testcase
-+import re
-+import os
-+import sys
-+import logging
-+
-+
-+class Gummiboot(oeSelfTest):
-+
-+    def _common_setup(self):
-+        """
-+        Common setup for test cases: 1101, 1103
-+        """
-+
-+        # Set EFI_PROVIDER = "gummiboot" and MACHINE = "genericx86-64" in conf/local.conf
-+        features = 'EFI_PROVIDER = "gummiboot"\n'
-+        features += 'MACHINE = "genericx86-64"'
-+        self.append_config(features)
-+
-+    def _common_build(self):
-+        """
-+        Common build for test cases: 1101, 1103
-+        """
-+
-+        # Build a genericx86-64/efi gummiboot image
-+        bitbake('syslinux syslinux-native parted-native dosfstools-native mtools-native core-image-minimal')
-+
-+
-+    @testcase(1101)
-+    def test_efi_gummiboot_images_can_be_built(self):
-+        """
-+        Summary:     Check if efi/gummiboot images can be built
-+        Expected:    1. File gummibootx64.efi should be available in build/tmp/deploy/images/genericx86-64
-+                     2. Efi/gummiboot images can be built
-+        Product:     oe-core
-+        Author:      Ionut Chisanovici <ionutx.chisanovici@intel.com>
-+        AutomatedBy: Daniel Istrate <daniel.alexandrux.istrate@intel.com>
-+        """
-+
-+        # We'd use DEPLOY_DIR_IMAGE here, except that we need its value for
-+        # MACHINE="genericx86-64 which is probably not the one configured
-+        gummibootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64', 'gummibootx64.efi')
-+
-+        self._common_setup()
-+
-+        # Ensure we're actually testing that this gets built and not that
-+        # it was around from an earlier build
-+        bitbake('-c cleansstate gummiboot')
-+        runCmd('rm -f %s' % gummibootfile)
-+
-+        self._common_build()
-+
-+        found = os.path.isfile(gummibootfile)
-+        self.assertTrue(found, 'Gummiboot file %s not found' % gummibootfile)
-+
-+    @testcase(1103)
-+    def test_wic_command_can_create_efi_gummiboot_installation_images(self):
-+        """
-+        Summary:     Check that wic command can create efi/gummiboot installation images
-+        Expected:    A .direct file in folder /var/tmp/wic/ must be created.
-+        Product:     oe-core
-+        Author:      Ionut Chisanovici <ionutx.chisanovici@intel.com>
-+        AutomatedBy: Daniel Istrate <daniel.alexandrux.istrate@intel.com>
-+        """
-+
-+        self._common_setup()
-+        self._common_build()
-+
-+        # Create efi/gummiboot installation images
-+        wic_create_cmd = 'wic create mkgummidisk -e core-image-minimal'
-+        result = runCmd(wic_create_cmd)
-+
-+        # Find file written by wic from output
-+        res = re.search('(/var/tmp/wic/.*\.direct)', result.output)
-+        if res:
-+            direct_file = res.group(1)
-+            # Check it actually exists
-+            if not os.path.exists(direct_file):
-+                self.fail('wic reported direct file "%s" does not exist; wic output:\n%s' % (direct_file, result.output))
-+        else:
-+            self.fail('No .direct file reported in wic output:\n%s' % result.output)
--- 
-2.1.0
++++ b/nss/nss_%.bbappend
++do_package_write_ipk_setscene[depends] +=3D "nss-native:do_populate_sysroo=
+t"
+
 
 
