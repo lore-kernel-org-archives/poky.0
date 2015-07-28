@@ -1,46 +1,73 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <Jack_Fewx@dell.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AF5D8E0099A; Tue, 28 Jul 2015 08:22:25 -0700 (PDT)
+	id 2A054E0099A; Tue, 28 Jul 2015 08:47:57 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-7.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE,RCVD_IN_DNSWL_HI autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [143.166.85.206 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.192.54 listed in list.dnswl.org]
-Received: from mail-qg0-f54.google.com (mail-qg0-f54.google.com
-	[209.85.192.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C62C9E00985
-	for <poky@yoctoproject.org>; Tue, 28 Jul 2015 08:22:22 -0700 (PDT)
-Received: by qgeu79 with SMTP id u79so77382542qge.1
-	for <poky@yoctoproject.org>; Tue, 28 Jul 2015 08:22:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=g66ngviL8HkVNnqWGHoCiRwRy0MGtYJ777wyuwJKqEY=;
-	b=k1cT+xBsE6vnsPRw4cnq+rVN6DRL9WAqCg88mZ0WSMTATIG9fZNZcGFJRePM2kb8Ma
-	Wmx5pWOg0z98YCW+HRm9zikof/AsWGaMR6eHnZZ6ZDKKNXMi178kdy+2gVgXwaAy0ue7
-	YhFzX4+XqxyUKDDuqNEvTJxgUbxe8KnwcbxNJo4cHyWObfUeWOc987x9ooyughJ8t1a8
-	aqqVW0ILbf61xV4XIaxzz2t9N9N//UNbW/LSPs0KgT9il4Wwk+0R8+79kY44utgV9Ou9
-	fmu8t6tLVq94Q8TB+8NOUm1NpkaYumkiV8J5ncciq35JUpa9ApXQUbS6sNqCducl9BeN
-	svGQ==
-X-Gm-Message-State: ALoCoQlz2v4WEol9zUmkosWJ2aGLpbfw3hbDV1W3mXZ0oDbV3yC4KHWFk+O4UEYAknd5gZKQBrWF
-X-Received: by 10.140.89.100 with SMTP id u91mr49360681qgd.15.1438096942361;
-	Tue, 28 Jul 2015 08:22:22 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.140.102.195 with HTTP; Tue, 28 Jul 2015 08:22:03 -0700 (PDT)
-In-Reply-To: <DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E54E@AUSX7MCPS305.AMER.DELL.COM>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+X-Greylist: delayed 63 seconds by postgrey-1.32 at yocto-www;
+	Tue, 28 Jul 2015 08:47:56 PDT
+Received: from ausc60pc101.us.dell.com (ausc60pc101.us.dell.com
+	[143.166.85.206])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2E178E00985
+	for <poky@yoctoproject.org>; Tue, 28 Jul 2015 08:47:56 -0700 (PDT)
+DomainKey-Signature: s=smtpout; d=dell.com; c=nofws; q=dns;
+	h=X-LoopCount0:X-IronPort-AV:From:To:CC:Date:Subject:
+	Thread-Topic:Thread-Index:Message-ID:References:
+	In-Reply-To:Accept-Language:Content-Language:
+	X-MS-Has-Attach:X-MS-TNEF-Correlator:x-titus-version:
+	x-tituslabs-classifications-30:
+	x-tituslabs-classificationhash-30:x-titusconfig:
+	acceptlanguage:Content-Type:MIME-Version;
+	b=l6talaxk9sjeBbQWUvyMDiPkZhYzpgddAjRzLI7X4+nmPNyW4ulfDaq4
+	qh4joCB6DESUVQAsfrFAKdLVuUHwxSSI4ByJLR5kYuq9zF7Z6qZ6AIMlX
+	4XU/ZwCmP68LmA3AD3u3QWcYrlQ6twjpuU8toqfmBprxdYrkTODyTk6f7
+	Y=;
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=dell.com; i=@dell.com; q=dns/txt; s=smtpout;
+	t=1438098476; x=1469634476;
+	h=from:to:cc:date:subject:message-id:references:
+	in-reply-to:mime-version:content-transfer-encoding;
+	bh=D4IDDn7yM93wa+YxbZbUjf0lxuMwKxf/fXVCMDsa/9s=;
+	b=niJB4zmdnzoBmHyXUILeghFjPQOGHZZ5buFUaACTHP9jOPxjVM9hrqZ6
+	OSsAL6janko2q3ifJV0QIGqdC8eisGLhUntiYowVUlcQ4r1RrzpWnzjDo
+	9WTOL6Hshuep3FsQ6PDjPkWYNDf8YPOD9xGlYKl/INfGySk5GlORizgjA M=;
+X-LoopCount0: from 10.175.216.250
+X-IronPort-AV: E=Sophos;i="5.15,564,1432616400"; 
+	d="scan'208,217";a="818706960"
+From: <Jack_Fewx@Dell.com>
+To: <ross.burton@intel.com>
+Date: Tue, 28 Jul 2015 10:46:50 -0500
+Thread-Topic: [poky] Missing dependencies after setscene, postinst fails
+Thread-Index: AdDJSTPNhYIV4VdGTpubAlAWKCGdsQAAX+tw
+Message-ID: <DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E6A4@AUSX7MCPS305.AMER.DELL.COM>
 References: <DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E54E@AUSX7MCPS305.AMER.DELL.COM>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 28 Jul 2015 16:22:03 +0100
-Message-ID: <CAJTo0LZmK0XBUX6NGaut5boub7s7tGPVCVLwtuy6bcvNYfvx3w@mail.gmail.com>
-To: Jack_Fewx@dell.com
-Cc: Poky Project <poky@yoctoproject.org>
+	<CAJTo0LZmK0XBUX6NGaut5boub7s7tGPVCVLwtuy6bcvNYfvx3w@mail.gmail.com>
+In-Reply-To: <CAJTo0LZmK0XBUX6NGaut5boub7s7tGPVCVLwtuy6bcvNYfvx3w@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-version: 3.5.29.3
+x-tituslabs-classifications-30: TLPropertyRoot=Dell;Classification=No
+	Restrictions;Sublabels=;
+x-tituslabs-classificationhash-30: VgNFIFU9Hx+/nZJb9Kg7Ihjub/qtOGbMgQpLgtjvznCueDD+T+FOxH+gpCSVtDifr/L1msNLJZUp6egPsgR2RF307YF8SOKT1GcRz8wEfIz3qRfZUdh+frIfPW4dvBDhbSocXcfMs7/kN8Bd3Wg6yzCA6Ttlb5yggiOCIrJdExJEn3ttdT24h5vgrK+nj9BN1YKSOvz/Kp4Mg4g61AUc2KSb1lUA8GbY51F3qFMkpL8q2NQX+LRtkRiAUYXXquz3AlmbonDQbzQoMfqjlbKiCw==
+x-titusconfig: 1.4AMER
+acceptlanguage: en-US
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
 Subject: Re: Missing dependencies after setscene, postinst fails
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -54,43 +81,170 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Jul 2015 15:22:25 -0000
-Content-Type: multipart/alternative; boundary=001a11c1334e671547051bf109ae
+X-List-Received-Date: Tue, 28 Jul 2015 15:47:57 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E6A4AUSX7MCPS305A_"
 
---001a11c1334e671547051bf109ae
-Content-Type: text/plain; charset=UTF-8
+--_000_DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E6A4AUSX7MCPS305A_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 28 July 2015 at 15:12, <Jack_Fewx@dell.com> wrote:
+RG8geW91IGhhdmUgdGhlIHJlYWQtb25seSBSb290ZnMgZmxhZyBzZXQ/ICBBbmQgZGlkIHlvdSBy
+ZW1vdmUgYWxsIG9mIHRoZSAvdG1wIGRpcmVjdG9yeSAoaW5jbHVkaW5nIC93b3JrIGFuZCAvc3lz
+cm9vdHMpPyBUaG9zZSBhcmUgdGhlIGtleXMgdG8gc2VlaW5nIHRoZSBmYWlsdXJlOg0KDQpsb2cu
+ZG9fcm9vdGZzIChyZWxldmFudCBsaW5lcyk6DQoNCkluc3RhbGxpbmcgY2EtY2VydGlmaWNhdGVz
+ICgyMDE0MDMyNS1yMCkgb24gcm9vdC4NClBhY2thZ2UgY2EtY2VydGlmaWNhdGVzICgyMDE0MDMy
+NS1yMCkgaW5zdGFsbGVkIGluIHJvb3QgaXMgdXAgdG8gZGF0ZS4NCuKApuKApi4vcm9vdGZzLy92
+YXIvbGliL29wa2cvaW5mby9jYS1jZXJ0aWZpY2F0ZXMucG9zdGluc3Q6IGxpbmUgMTogdXBkYXRl
+LWNhLWNlcnRpZmljYXRlczogY29tbWFuZCBub3QgZm91bmQNCkNvbmZpZ3VyaW5nIGNhLWNlcnRp
+ZmljYXRlcy4NCmNhLWNlcnRpZmljYXRlcy5wb3N0aW5zdCByZXR1cm5lZCAxMjcsIG1hcmtpbmcg
+YXMgdW5wYWNrZWQgb25seSwgY29uZmlndXJhdGlvbiByZXF1aXJlZCBvbiB0YXJnZXQuDQpFUlJP
+UjogVGhlIGZvbGxvd2luZyBwYWNrYWdlcyBjb3VsZCBub3QgYmUgY29uZmlndXJlZCBvZmZsaW5l
+IGFuZCByb290ZnMgaXMgcmVhZC1vbmx5OiBbJ2NhLWNlcnRpZmljYXRlcyddDQpERUJVRzogUHl0
+aG9uIGZ1bmN0aW9uIGRvX3Jvb3RmcyBmaW5pc2hlZA0KRVJST1I6IEZ1bmN0aW9uIGZhaWxlZDog
+ZG9fcm9vdGZzDQoNCmNhLWNlcnRpZmljYXRlcy5wb3N0aW5zdDoNClNZU1JPT1Q9IiREIiB1cGRh
+dGUtY2EtY2VydGlmaWNhdGVzDQoNCg0KVGhlIGNvbW1hbmQgaXQgaXMgY2hva2luZyBvbiBpcyDi
+gJx1cGRhdGUtY2EtY2VydGlmaWNhdGVz4oCdLCB3aGljaCBpcyBpbnN0YWxsZWQgaW4gdGhlIHJv
+b3RmcywgYnV0IHdoYXTigJlzIG1pc3NpbmcgaXMgdGhlIG5hdGl2ZSB2ZXJzaW9uIHVuZGVyIHN5
+c3Jvb3RzIHRoYXQgY2FuIHJ1biBvbiB0aGUgYnVpbGQgbWFjaGluZSBkdXJpbmcgYnVpbGQgdGlt
+ZS4gIOKAnGNhLWNlcnRpZmljYXRlcy1uYXRpdmXigJ0gaXMgbm90IHJlLXBvcHVsYXRlZCBpbiBz
+eXNyb290cyBkdXJpbmcgc2V0c2NlbmUuDQoNCkphY2sgRmV3eA0KDQotLS0tLS0tLS0NCg0KT24g
+MjggSnVseSAyMDE1IGF0IDE1OjEyLCA8SmFja19GZXd4QGRlbGwuY29tPG1haWx0bzpKYWNrX0Zl
+d3hAZGVsbC5jb20+PiB3cm90ZToNClRoZSBwcm9ibGVtIHBhY2thZ2VzIGFyZTogY2EtY2VydGlm
+aWNhdGVzLCBuc3MsIGFuZCBnZGstcGl4YnVmLW5hdGl2ZS4gIGNhLWNlcnRpZmljYXRlcyBhbmQg
+bnNzIGJvdGggZGVwZW5kIG9uIHRoZWlyIG93biBuYXRpdmUtY2xhc3MgYnVpbGRzLCBzbyBjYS1j
+ZXJ0aWZpY2F0ZXMtbmF0aXZlIGFuZCBuc3MtbmF0aXZlIHJlc3BlY3RpdmVseSwgYW5kIHRoZXkg
+ZmFpbCBhZnRlciBkb2luZyBkb19wYWNrYWdlX3dyaXRlX2lwa19zZXRzY2VuZS4gIGdkay1waXhi
+dWYtbmF0aXZlIG5lZWRzIGpwZWctbmF0aXZlIGluIG9yZGVyIHRvIGNvbXBsZXRlIGRvX3BvcHVs
+YXRlX3N5c3Jvb3Rfc2V0c2NlbmUsIGJ1dCBmYWlscyBkdWUgdG8gaXRzIGFic2VuY2UuDQoNClNv
+IEkgY2FuJ3QgcmVwbGljYXRlIGFueSBwcm9ibGVtIHdpdGggY2EtY2VydGlmaWNhdGVzLCBjYW4g
+eW91IHByb3ZpZGUgYSBsb2cgb2Ygd2hhdCBmYWlscyBmb3IgeW91Pw0KDQpSb3NzDQo=
 
-> The problem packages are: ca-certificates, nss, and gdk-pixbuf-native.
-> ca-certificates and nss both depend on their own native-class builds, so
-> ca-certificates-native and nss-native respectively, and they fail after
-> doing do_package_write_ipk_setscene.  gdk-pixbuf-native needs jpeg-native
-> in order to complete do_populate_sysroot_setscene, but fails due to its
-> absence.
+--_000_DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E6A4AUSX7MCPS305A_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6eD0idXJuOnNjaGVtYXMtbWljcm9z
+b2Z0LWNvbTpvZmZpY2U6ZXhjZWwiIHhtbG5zOm09Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5j
+b20vb2ZmaWNlLzIwMDQvMTIvb21tbCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1JFQy1o
+dG1sNDAiPjxoZWFkPjxtZXRhIGh0dHAtZXF1aXY9Q29udGVudC1UeXBlIGNvbnRlbnQ9InRleHQv
+aHRtbDsgY2hhcnNldD11dGYtOCI+PG1ldGEgbmFtZT1HZW5lcmF0b3IgY29udGVudD0iTWljcm9z
+b2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPjxzdHlsZT48IS0tDQovKiBGb250IERlZmlu
+aXRpb25zICovDQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OlNpbVN1bjsNCglwYW5vc2UtMToy
+IDEgNiAwIDMgMSAxIDEgMSAxO30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6IkNhbWJyaWEg
+TWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2Zv
+bnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAyIDQ7fQ0KQGZv
+bnQtZmFjZQ0KCXtmb250LWZhbWlseToiVHJlYnVjaGV0IE1TIjsNCglwYW5vc2UtMToyIDExIDYg
+MyAyIDIgMiAyIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJcQFNpbVN1biI7DQoJ
+cGFub3NlLTE6MiAxIDYgMCAzIDEgMSAxIDEgMTt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0K
+cC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0K
+CW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5
+OiJUaW1lcyBOZXcgUm9tYW4iLHNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7
+bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVu
+ZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0
+eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJs
+aW5lO30NCnANCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1tYXJnaW4tdG9wLWFsdDph
+dXRvOw0KCW1hcmdpbi1yaWdodDowaW47DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJ
+bWFyZ2luLWxlZnQ6MGluOw0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1mYW1pbHk6IlRpbWVz
+IE5ldyBSb21hbiIsc2VyaWY7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTcNCgl7bXNvLXN0eWxlLXR5cGU6
+cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29s
+b3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25s
+eTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpAcGFnZSBXb3JkU2VjdGlv
+bjENCgl7c2l6ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEuMGlu
+O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48
+IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNw
+aWRtYXg9IjEwMjYiIC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHht
+bD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBk
+YXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPjwvaGVhZD48Ym9k
+eSBsYW5nPUVOLVVTIGxpbms9Ymx1ZSB2bGluaz1wdXJwbGU+PGRpdiBjbGFzcz1Xb3JkU2VjdGlv
+bjE+PHAgY2xhc3M9TXNvTm9ybWFsPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2ZvbnQt
+ZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmJz5EbyB5b3UgaGF2ZSB0aGUgcmVhZC1vbmx5IFJv
+b3RmcyBmbGFnIHNldD/CoCBBbmQgZGlkIHlvdSByZW1vdmUgYWxsIG9mIHRoZSAvdG1wIGRpcmVj
+dG9yeSAoaW5jbHVkaW5nIC93b3JrIGFuZCAvc3lzcm9vdHMpPyBUaG9zZSBhcmUgdGhlIGtleXMg
+dG8gc2VlaW5nIHRoZSBmYWlsdXJlOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD48cCBjbGFzcz1Nc29O
+b3JtYWw+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmki
+LHNhbnMtc2VyaWYnPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD48cCBjbGFzcz1Nc29Ob3Jt
+YWw+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNh
+bnMtc2VyaWYnPmxvZy5kb19yb290ZnMgKHJlbGV2YW50IGxpbmVzKTo8bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+PHAgY2xhc3M9TXNvTm9ybWFsPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2Zv
+bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmJz48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
+L3A+PHAgY2xhc3M9TXNvTm9ybWFsIHN0eWxlPSdtYXJnaW4tbGVmdDouNWluJz48c3BhbiBzdHls
+ZT0nZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZic+SW5z
+dGFsbGluZyBjYS1jZXJ0aWZpY2F0ZXMgKDIwMTQwMzI1LXIwKSBvbiByb290LjxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD48cCBjbGFzcz1Nc29Ob3JtYWwgc3R5bGU9J21hcmdpbi1sZWZ0Oi41aW4nPjxz
+cGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNl
+cmlmJz5QYWNrYWdlIGNhLWNlcnRpZmljYXRlcyAoMjAxNDAzMjUtcjApIGluc3RhbGxlZCBpbiBy
+b290IGlzIHVwIHRvIGRhdGUuPG86cD48L286cD48L3NwYW4+PC9wPjxwIGNsYXNzPU1zb05vcm1h
+bCBzdHlsZT0nbWFyZ2luLWxlZnQ6LjVpbic+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZToxMS4wcHQ7
+Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPuKApuKApi4vcm9vdGZzLy92YXIvbGli
+L29wa2cvaW5mby9jYS1jZXJ0aWZpY2F0ZXMucG9zdGluc3Q6IGxpbmUgMTogdXBkYXRlLWNhLWNl
+cnRpZmljYXRlczogY29tbWFuZCBub3QgZm91bmQ8bzpwPjwvbzpwPjwvc3Bhbj48L3A+PHAgY2xh
+c3M9TXNvTm9ybWFsIHN0eWxlPSdtYXJnaW4tbGVmdDouNWluJz48c3BhbiBzdHlsZT0nZm9udC1z
+aXplOjExLjBwdDtmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZic+Q29uZmlndXJpbmcg
+Y2EtY2VydGlmaWNhdGVzLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD48cCBjbGFzcz1Nc29Ob3JtYWwg
+c3R5bGU9J21hcmdpbi1sZWZ0Oi41aW4nPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2Zv
+bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmJz5jYS1jZXJ0aWZpY2F0ZXMucG9zdGluc3Qg
+cmV0dXJuZWQgMTI3LCBtYXJraW5nIGFzIHVucGFja2VkIG9ubHksIGNvbmZpZ3VyYXRpb24gcmVx
+dWlyZWQgb24gdGFyZ2V0LjxvOnA+PC9vOnA+PC9zcGFuPjwvcD48cCBjbGFzcz1Nc29Ob3JtYWwg
+c3R5bGU9J21hcmdpbi1sZWZ0Oi41aW4nPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2Zv
+bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmJz5FUlJPUjogVGhlIGZvbGxvd2luZyBwYWNr
+YWdlcyBjb3VsZCBub3QgYmUgY29uZmlndXJlZCBvZmZsaW5lIGFuZCByb290ZnMgaXMgcmVhZC1v
+bmx5OiBbJ2NhLWNlcnRpZmljYXRlcyddPG86cD48L286cD48L3NwYW4+PC9wPjxwIGNsYXNzPU1z
+b05vcm1hbCBzdHlsZT0nbWFyZ2luLWxlZnQ6LjVpbic+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZTox
+MS4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPkRFQlVHOiBQeXRob24gZnVu
+Y3Rpb24gZG9fcm9vdGZzIGZpbmlzaGVkPG86cD48L286cD48L3NwYW4+PC9wPjxwIGNsYXNzPU1z
+b05vcm1hbCBzdHlsZT0nbWFyZ2luLWxlZnQ6LjVpbic+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZTox
+MS4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPkVSUk9SOiBGdW5jdGlvbiBm
+YWlsZWQ6IGRvX3Jvb3RmczxvOnA+PC9vOnA+PC9zcGFuPjwvcD48cCBjbGFzcz1Nc29Ob3JtYWw+
+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMt
+c2VyaWY7Y29sb3I6IzFGNDk3RCc+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPjxwIGNsYXNz
+PU1zb05vcm1hbD48c3BhbiBzdHlsZT0nZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseToiQ2Fs
+aWJyaSIsc2Fucy1zZXJpZic+Y2EtY2VydGlmaWNhdGVzLnBvc3RpbnN0OjxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD48cCBjbGFzcz1Nc29Ob3JtYWwgc3R5bGU9J3RleHQtaW5kZW50Oi41aW4nPjxzcGFu
+IHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlm
+Jz5TWVNST09UPSZxdW90OyREJnF1b3Q7IHVwZGF0ZS1jYS1jZXJ0aWZpY2F0ZXM8bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+PHAgY2xhc3M9TXNvTm9ybWFsIHN0eWxlPSd0ZXh0LWluZGVudDouNWluJz48
+c3BhbiBzdHlsZT0nZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1z
+ZXJpZic+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPjxwIGNsYXNzPU1zb05vcm1hbCBzdHls
+ZT0ndGV4dC1pbmRlbnQ6LjVpbic+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1m
+YW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD48
+cCBjbGFzcz1Nc29Ob3JtYWw+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1p
+bHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPlRoZSBjb21tYW5kIGl0IGlzIGNob2tpbmcgb24gaXMg
+4oCcdXBkYXRlLWNhLWNlcnRpZmljYXRlc+KAnSwgd2hpY2ggaXMgaW5zdGFsbGVkIGluIHRoZSBy
+b290ZnMsIGJ1dCB3aGF04oCZcyBtaXNzaW5nIGlzIHRoZSBuYXRpdmUgdmVyc2lvbiB1bmRlciBz
+eXNyb290cyB0aGF0IGNhbiBydW4gb24gdGhlIGJ1aWxkIG1hY2hpbmUgZHVyaW5nIGJ1aWxkIHRp
+bWUuwqAg4oCcY2EtY2VydGlmaWNhdGVzLW5hdGl2ZeKAnSBpcyBub3QgcmUtcG9wdWxhdGVkIGlu
+IHN5c3Jvb3RzIGR1cmluZyBzZXRzY2VuZS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+PHAgY2xhc3M9
+TXNvTm9ybWFsPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiJDYWxp
+YnJpIixzYW5zLXNlcmlmJz48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+PHAgY2xhc3M9TXNv
+Tm9ybWFsPjxiPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTAuMHB0O2ZvbnQtZmFtaWx5OiJUcmVi
+dWNoZXQgTVMiLHNhbnMtc2VyaWY7Y29sb3I6IzQ0NDQ0NCc+SmFjayBGZXd4PG86cD48L286cD48
+L3NwYW4+PC9iPjwvcD48cCBjbGFzcz1Nc29Ob3JtYWw+PHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZTox
+MS4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCc+PG86
+cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPjxkaXY+PGRpdj48cCBjbGFzcz1Nc29Ob3JtYWw+PGEg
+bmFtZT0iX19fX19yZXBseXNlcGFyYXRvciI+PC9hPjxiPjxzcGFuIHN0eWxlPSdmb250LXNpemU6
+MTEuMHB0O2ZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmJz4tLS0tLS0tLS08L3NwYW4+
+PC9iPjxzcGFuIHN0eWxlPSdmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiJDYWxpYnJpIixz
+YW5zLXNlcmlmJz4gPGJyPjxicj48L3NwYW4+PG86cD48L286cD48L3A+PGRpdj48cCBjbGFzcz1N
+c29Ob3JtYWw+T24gMjggSnVseSAyMDE1IGF0IDE1OjEyLCAmbHQ7PGEgaHJlZj0ibWFpbHRvOkph
+Y2tfRmV3eEBkZWxsLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPkphY2tfRmV3eEBkZWxsLmNvbTwvYT4m
+Z3Q7IHdyb3RlOjxvOnA+PC9vOnA+PC9wPjxibG9ja3F1b3RlIHN0eWxlPSdib3JkZXI6bm9uZTti
+b3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7
+bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXJpZ2h0OjBpbic+PHAgY2xhc3M9TXNvTm9ybWFsPlRo
+ZSBwcm9ibGVtIHBhY2thZ2VzIGFyZTogY2EtY2VydGlmaWNhdGVzLCBuc3MsIGFuZCBnZGstcGl4
+YnVmLW5hdGl2ZS4mbmJzcDsgY2EtY2VydGlmaWNhdGVzIGFuZCBuc3MgYm90aCBkZXBlbmQgb24g
+dGhlaXIgb3duIG5hdGl2ZS1jbGFzcyBidWlsZHMsIHNvIGNhLWNlcnRpZmljYXRlcy1uYXRpdmUg
+YW5kIG5zcy1uYXRpdmUgcmVzcGVjdGl2ZWx5LCBhbmQgdGhleSBmYWlsIGFmdGVyIGRvaW5nIGRv
+X3BhY2thZ2Vfd3JpdGVfaXBrX3NldHNjZW5lLiZuYnNwOyBnZGstcGl4YnVmLW5hdGl2ZSBuZWVk
+cyBqcGVnLW5hdGl2ZSBpbiBvcmRlciB0byBjb21wbGV0ZSBkb19wb3B1bGF0ZV9zeXNyb290X3Nl
+dHNjZW5lLCBidXQgZmFpbHMgZHVlIHRvIGl0cyBhYnNlbmNlLjxvOnA+PC9vOnA+PC9wPjwvYmxv
+Y2txdW90ZT48L2Rpdj48cCBjbGFzcz1Nc29Ob3JtYWw+PGJyPlNvIEkgY2FuJ3QgcmVwbGljYXRl
+IGFueSBwcm9ibGVtIHdpdGggY2EtY2VydGlmaWNhdGVzLCBjYW4geW91IHByb3ZpZGUgYSBsb2cg
+b2Ygd2hhdCBmYWlscyBmb3IgeW91PzxvOnA+PC9vOnA+PC9wPjwvZGl2PjxkaXY+PHAgY2xhc3M9
+TXNvTm9ybWFsPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPjwvZGl2PjxkaXY+PHAgY2xhc3M9TXNvTm9y
+bWFsPlJvc3M8bzpwPjwvbzpwPjwvcD48L2Rpdj48L2Rpdj48L2Rpdj48L2JvZHk+PC9odG1sPg==
 
-So I can't replicate any problem with ca-certificates, can you provide a
-log of what fails for you?
-
-Ross
-
---001a11c1334e671547051bf109ae
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 28 July 2015 at 15:12,  <span dir=3D"ltr">&lt;<a href=3D"mailto:Jack_Few=
-x@dell.com" target=3D"_blank">Jack_Fewx@dell.com</a>&gt;</span> wrote:<br><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex">The problem packages are: ca-certificates, ns=
-s, and gdk-pixbuf-native.=C2=A0 ca-certificates and nss both depend on thei=
-r own native-class builds, so ca-certificates-native and nss-native respect=
-ively, and they fail after doing do_package_write_ipk_setscene.=C2=A0 gdk-p=
-ixbuf-native needs jpeg-native in order to complete do_populate_sysroot_set=
-scene, but fails due to its absence.</blockquote></div><br>So I can&#39;t r=
-eplicate any problem with ca-certificates, can you provide a log of what fa=
-ils for you?</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_=
-extra">Ross</div></div>
-
---001a11c1334e671547051bf109ae--
+--_000_DBEC4AD184C3D34D8E5AF7DE018CA85C1C62E6E6A4AUSX7MCPS305A_--
