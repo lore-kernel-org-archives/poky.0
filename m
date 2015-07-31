@@ -1,58 +1,48 @@
-Return-Path: <twoerner@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 96A2FE00B43; Thu, 30 Jul 2015 20:35:07 -0700 (PDT)
+	id 20CBDE00B48; Fri, 31 Jul 2015 03:09:24 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
 	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (twoerner[at]gmail.com)
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [209.85.220.171 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.213.177 listed in list.dnswl.org]
-Received: from mail-ig0-f177.google.com (mail-ig0-f177.google.com
-	[209.85.213.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 92990E00B1A
-	for <poky@yoctoproject.org>; Thu, 30 Jul 2015 20:35:05 -0700 (PDT)
-Received: by igbpg9 with SMTP id pg9so9028926igb.0
-	for <poky@yoctoproject.org>; Thu, 30 Jul 2015 20:35:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=subject:to:references:cc:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-type:content-transfer-encoding;
-	bh=1dn7n+UEH+2slYMF0TwlG3NzQdKISFye+bu+9Jbc+Pg=;
-	b=Ekncbg1wVrkJUP8SwJ+nVMEPIbG+r6cGcRWdSt4RqA0V/dhViNLYQkb1GdEDsT3I7o
-	cW0RBUbppjh1q0hFtlTAhYUuKuL/PDMoOT4X0AnKSn87Bip/Qho8KOj5/Gh+3HwyaLE7
-	A7JJEejFMXOcAQ962TBhAS2zOUstudxsluiuGUpv6sOX9t19cK/KV3hHzv1yBpDbCAR1
-	JdBkuF6vJhTVI4cwLO62B4yO8U6SUQVL+zJSS79D/H02oFbW/am9coZui5S6Gts1XD1i
-	HXIyd8S1YrtyzrKvfqmW6STdbHznBiiMNeS+08qMfXCx7WaVx3u0lVZclQhIfwXyzsmj
-	8zuA==
-X-Received: by 10.50.138.76 with SMTP id qo12mr1560787igb.38.1438313703197;
-	Thu, 30 Jul 2015 20:35:03 -0700 (PDT)
-Received: from [192.168.141.85] (dsl-67-55-28-109.acanac.net. [67.55.28.109])
-	by smtp.gmail.com with ESMTPSA id
-	w4sm1229995igl.22.2015.07.30.20.35.00
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 30 Jul 2015 20:35:02 -0700 (PDT)
-To: "Burton, Ross" <ross.burton@intel.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+Received: from mail-qk0-f171.google.com (mail-qk0-f171.google.com
+	[209.85.220.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EB27CE00B1A
+	for <poky@yoctoproject.org>; Fri, 31 Jul 2015 03:09:18 -0700 (PDT)
+Received: by qkdg63 with SMTP id g63so27229001qkd.0
+	for <poky@yoctoproject.org>; Fri, 31 Jul 2015 03:09:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=rkr3Yyg+HTPf9lRI/X/zDEMloTwkpGFLkv4b1iNrmx4=;
+	b=YYuZ4ARC5nu7wAD2dDtl17F0XorEYcBsCPLe92SFJQXwi2ToxhKT86e5rNnf5sG6Bq
+	egUiVd7GI4KlNJJMqFCDW0mM3xUtls8rpvdWBkRwWvwh+w/GiI732B378dsw6JcOoTbl
+	ygzDwZoN4PeHbRk8XN7pCtxPnJSBtAF4VCfuxlUGWn+hKV07jdRk5h0w9WhSKB7zSbI9
+	/hfNrj5ZhOYEUMbfgBIlOwBFCBS3q/nQKAtiB17LgcYOOrjsdoxfSK7h1LzcdqUQhbjM
+	dXdDEXDwDHIxx7r1+AKWxI2F6dKxbfnJdkz62NwGJSlDich9GoDkJHmhppxgQuxrE4zm
+	cv3Q==
+X-Gm-Message-State: ALoCoQnOFh5Ve48MPpN5n+h45gPukfpHHCT2mdNS3DtJ7Uq47tB664wMT0SIBBED15pNT2cmbXCf
+X-Received: by 10.55.43.95 with SMTP id r92mr2705426qkh.67.1438337358260; Fri,
+	31 Jul 2015 03:09:18 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.140.102.195 with HTTP; Fri, 31 Jul 2015 03:08:58 -0700 (PDT)
+In-Reply-To: <55BAECDE.6010602@gmail.com>
 References: <1437829398-8585-1-git-send-email-twoerner@gmail.com>
 	<55BA184A.8010207@gmail.com>
 	<CAJTo0La2XTdTVNHGURH-78LA7ESr6CS+oZSqRtAwBBPRSuNJPw@mail.gmail.com>
-From: Trevor Woerner <twoerner@gmail.com>
-Message-ID: <55BAECDE.6010602@gmail.com>
-Date: Thu, 30 Jul 2015 23:34:54 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
-	Thunderbird/38.1.0
-MIME-Version: 1.0
-In-Reply-To: <CAJTo0La2XTdTVNHGURH-78LA7ESr6CS+oZSqRtAwBBPRSuNJPw@mail.gmail.com>
+	<55BAECDE.6010602@gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Fri, 31 Jul 2015 11:08:58 +0100
+Message-ID: <CAJTo0LZ=6ZGyPHSk-GWw6ysN750v2L5tNKtQEOfmmG_dpebgtw@mail.gmail.com>
+To: Trevor Woerner <twoerner@gmail.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: [PATCH] SANITY_TESTED_DISTROS: fix lsb name for openSUSE 13.2
 X-BeenThere: poky@yoctoproject.org
@@ -67,28 +57,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 Jul 2015 03:35:07 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 31 Jul 2015 10:09:24 -0000
+Content-Type: multipart/alternative; boundary=001a1147b8dc4e82d1051c29038b
 
-Hi Ross,
+--001a1147b8dc4e82d1051c29038b
+Content-Type: text/plain; charset=UTF-8
 
-On 07/30/15 08:47, Burton, Ross wrote:
->
-> On 30 July 2015 at 13:27, Trevor Woerner <twoerner@gmail.com
-> <mailto:twoerner@gmail.com>> wrote:
->
->     ping
->
->
-> Merged to mut (and so master soon) now, sorry for the delay but I
-> wanted to verify this on another machine.
+On 31 July 2015 at 04:34, Trevor Woerner <twoerner@gmail.com> wrote:
+
+> It's like being at a restaurant and seeing people who arrive and order
+> after you get served and leave before your food arrives ;-D
 >
 
-No problem, and thanks for the explanation. I noticed other patches
-submitted after mine had already hit the repository and thought mine
-might have been missed.
+Patch review and merging is not at all FIFO.  EIFO? Easiest to review In,
+First Out. :)
 
-It's like being at a restaurant and seeing people who arrive and order
-after you get served and leave before your food arrives ;-D
+Ross
 
+--001a1147b8dc4e82d1051c29038b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 31 July 2015 at 04:34, Trevor Woerner <span dir=3D"ltr">&lt;<a href=3D"m=
+ailto:twoerner@gmail.com" target=3D"_blank">twoerner@gmail.com</a>&gt;</spa=
+n> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;b=
+order-left:1px #ccc solid;padding-left:1ex"><div id=3D":1t1" class=3D"a3s" =
+style=3D"overflow:hidden">It&#39;s like being at a restaurant and seeing pe=
+ople who arrive and order<br>
+after you get served and leave before your food arrives ;-D</div></blockquo=
+te></div><br>Patch review and merging is not at all FIFO.=C2=A0 EIFO? Easie=
+st to review In, First Out. :)</div><div class=3D"gmail_extra"><br></div><d=
+iv class=3D"gmail_extra">Ross</div></div>
+
+--001a1147b8dc4e82d1051c29038b--
