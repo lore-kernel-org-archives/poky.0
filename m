@@ -1,36 +1,37 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <alexander.kanavin@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AB628E00A31; Mon,  3 Aug 2015 16:10:12 -0700 (PDT)
+	id 905AFE0086D; Wed,  5 Aug 2015 03:26:05 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.115 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DEA3BE009D6
-	for <poky@yoctoproject.org>; Mon,  3 Aug 2015 16:10:09 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	t73NA4J2016643; Tue, 4 Aug 2015 00:10:04 +0100
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id ybW4Co__x_3J; Tue,  4 Aug 2015 00:10:04 +0100 (BST)
-Received: from [192.168.3.10] ([192.168.3.10]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	t73N9kG3016527
-	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 4 Aug 2015 00:10:00 +0100
-Message-ID: <1438643386.4796.69.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-Date: Tue, 04 Aug 2015 00:09:46 +0100
-In-Reply-To: <df96a0988d4664a3569e78ca40bef7886de8d39e.1438619357.git.alexander.kanavin@linux.intel.com>
-References: <cover.1438619357.git.alexander.kanavin@linux.intel.com>
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CFD8AE005A2
+	for <poky@yoctoproject.org>; Wed,  5 Aug 2015 03:26:03 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by fmsmga103.fm.intel.com with ESMTP; 05 Aug 2015 03:26:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.15,615,1432623600"; d="scan'208";a="742582525"
+Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.143])
+	([10.237.68.143])
+	by orsmga001.jf.intel.com with ESMTP; 05 Aug 2015 03:26:03 -0700
+Message-ID: <55C1E4FE.1030600@linux.intel.com>
+Date: Wed, 05 Aug 2015 13:27:10 +0300
+From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64;
+	rv:31.0) Gecko/20100101 Icedove/31.7.0
+MIME-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <cover.1438619357.git.alexander.kanavin@linux.intel.com>	
 	<df96a0988d4664a3569e78ca40bef7886de8d39e.1438619357.git.alexander.kanavin@linux.intel.com>
-X-Mailer: Evolution 3.12.10-0ubuntu1~14.10.1 
-Mime-Version: 1.0
+	<1438643386.4796.69.camel@linuxfoundation.org>
+In-Reply-To: <1438643386.4796.69.camel@linuxfoundation.org>
 Cc: poky@yoctoproject.org
 Subject: Re: [PATCH 1/1] package_regex.inc: fix upstream version check for -native and -initial packages
 X-BeenThere: poky@yoctoproject.org
@@ -45,21 +46,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Aug 2015 23:10:12 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 05 Aug 2015 10:26:05 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2015-08-03 at 19:30 +0300, Alexander Kanavin wrote:
-> Signed-off-by: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-> ---
->  meta-yocto/conf/distro/include/package_regex.inc | 34 ++++++++++++++----------
->  1 file changed, 20 insertions(+), 14 deletions(-)
+On 08/04/2015 02:09 AM, Richard Purdie wrote:
 
-Rather than duplicate these, can we teach the code in question how to
-map variables back to the original one (e.g. strip the -native suffix)?
+>>   meta-yocto/conf/distro/include/package_regex.inc | 34 ++++++++++++++----------
+>>   1 file changed, 20 insertions(+), 14 deletions(-)
+>
+> Rather than duplicate these, can we teach the code in question how to
+> map variables back to the original one (e.g. strip the -native suffix)?
 
-Cheers,
+That's right. Also it needs to be done because otherwise upstream check 
+won't find the correct tarballs. Distrodata.bbclass already does it 
+right at the start of checkpkg task, but RRS apparently does not.
 
-Richard
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=8102
 
+Alex
 
