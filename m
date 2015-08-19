@@ -1,49 +1,47 @@
-Return-Path: <matti.kaasinen@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id EE383E00474; Wed, 19 Aug 2015 05:48:25 -0700 (PDT)
+	id CD71BE0049B; Wed, 19 Aug 2015 06:01:08 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (matti.kaasinen[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
 	*      [209.85.192.45 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 Received: from mail-qg0-f45.google.com (mail-qg0-f45.google.com
 	[209.85.192.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 69A96E003D9
-	for <poky@yoctoproject.org>; Wed, 19 Aug 2015 05:48:22 -0700 (PDT)
-Received: by qgeb6 with SMTP id b6so2706564qge.3
-	for <poky@yoctoproject.org>; Wed, 19 Aug 2015 05:48:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=bE2Ct+7n/xZ1VDeSyttcBpT6qYS7NQgub4iYxAMsxwU=;
-	b=kU3EY0uXjVyxZPNbgW3/1UbCTcl7BuoCVXOrTwWwcdp1SVKhsUBZ1wvVGJ28FFOLU9
-	IFCy1HfDBRigeBPraStKn3wH3pHsXpEb9egXX4gtwx8xuEd2eDrDPyZtZ31e64ixJkYh
-	hX1PabgT0yACPlJu8cD+qyYxGeX9e4sKFJa18kd0ZM0DPsIfE9hesfD4T0IpRo6TJNee
-	gDJ/GioDfr0msV/Cwui/BfE2rPQfXmsC3H+vRa2vUSzfkuPYe751aVN9Kpf5HrcTwBma
-	vAe5R32gxp9OwTE/rRQ4eCzkq2hFqrA2paVLYaXoV8+sbLXW1a/of44I/J9psumBkgWx
-	RZvQ==
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9CDBAE003D9
+	for <poky@yoctoproject.org>; Wed, 19 Aug 2015 06:01:04 -0700 (PDT)
+Received: by qgj62 with SMTP id 62so3027975qgj.2
+	for <poky@yoctoproject.org>; Wed, 19 Aug 2015 06:01:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=xQo5xbbvWr2AZtPUuyhDNfxdyjQYUbRblSGGJm9/rts=;
+	b=Sv3CePpPXJy9gFqnvY7Yl7qsVzcH3zXOQjIn1YzUE9/9jr+5Ng6eXCJzUlW/XsQFv4
+	4lUI+K9qbARip070WpY1vsZvM/KKbPQhNBqLc5WgPax463yXfQOPQyl92UDr3S8bhs7Q
+	RLrnMds2fta7kCj+Jp5ybC2PUC1suz3W/DW+8ky9oc3mtfwJWVnpWM60uH73KxHh8kVC
+	BRwjnGn9QBkBvkm31joNhKF+h2CXrYR9PlMWcE7vcvjxWfmejHdlVWo8MV5+/xpXfPXQ
+	KTCHkHZIwhuOkwSMZofnip3dkiizTaHoXH0oXLtAbjqo6TKauM/kQGWwcxLkY4KeRVwc
+	0NdQ==
+X-Gm-Message-State: ALoCoQmd+D5YlpvXEC7ABIK1EGV9923b8AAkKHDWeNy/3iHZFE9pxXlwCefO9BCw+cj3gViiF685
+X-Received: by 10.140.43.199 with SMTP id e65mr22695620qga.80.1439989263720;
+	Wed, 19 Aug 2015 06:01:03 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 10.140.148.136 with SMTP id 130mr23868999qhu.82.1439988501794; 
-	Wed, 19 Aug 2015 05:48:21 -0700 (PDT)
-Received: by 10.55.149.133 with HTTP; Wed, 19 Aug 2015 05:48:21 -0700 (PDT)
-Date: Wed, 19 Aug 2015 15:48:21 +0300
-Message-ID: <CADnUhn3V5iB4g1gb+2btHTK5pWU=j0LfOJpHj+EJHeoU1ERKew@mail.gmail.com>
-From: matti kaasinen <matti.kaasinen@gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: [Errno 18] Invalid cross-device link warning coming from license file copy
+Received: by 10.140.98.67 with HTTP; Wed, 19 Aug 2015 06:00:44 -0700 (PDT)
+In-Reply-To: <CADnUhn3V5iB4g1gb+2btHTK5pWU=j0LfOJpHj+EJHeoU1ERKew@mail.gmail.com>
+References: <CADnUhn3V5iB4g1gb+2btHTK5pWU=j0LfOJpHj+EJHeoU1ERKew@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 19 Aug 2015 14:00:44 +0100
+Message-ID: <CAJTo0LaFdeqnNnSMKxuy9h8GjSN4gRfF2LcCoPEnqaomWs67yw@mail.gmail.com>
+To: matti kaasinen <matti.kaasinen@gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [Errno 18] Invalid cross-device link warning coming from license file copy
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -56,59 +54,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Aug 2015 12:48:26 -0000
-Content-Type: multipart/alternative; boundary=001a11354f8a21542b051da973b8
+X-List-Received-Date: Wed, 19 Aug 2015 13:01:08 -0000
+Content-Type: multipart/alternative; boundary=001a113a9baa8bcc85051da9a011
 
---001a11354f8a21542b051da973b8
+--001a113a9baa8bcc85051da9a011
 Content-Type: text/plain; charset=UTF-8
 
-Is there any way of getting rid of warnings of following type:
+On 19 August 2015 at 13:48, matti kaasinen <matti.kaasinen@gmail.com> wrote:
 
-WARNING: Could not copy license file /YOCTO/poky/LICENSE to
-/XXX/work/am335x_evm-poky-linux-gnueabi/xxxx-image/1.0-r0/license-destdir/xxx-image/LICENSE:
-[Errno 18] Invalid cross-device link
+> WARNING: Could not copy license file /YOCTO/poky/LICENSE to
+> /XXX/work/am335x_evm-poky-linux-gnueabi/xxxx-image/1.0-r0/license-destdir/xxx-image/LICENSE:
+> [Errno 18] Invalid cross-device link
+>
+> Yes, sources and results are located on different logical drives, but
+> should it still be possible to copy files between them. Everything else
+> works fine in bitbaking.
 
-Yes, sources and results are located on different logical drives, but
-should it still be possible to copy files between them. Everything else
-works fine in bitbaking.
 
-MAIN-
-Build Configuration:
-BB_VERSION        = "1.26.0"
-BUILD_SYS         = "x86_64-linux"
-NATIVELSBSTRING   = "Ubuntu-14.04"
-TARGET_SYS        = "arm-poky-linux-gnueabi"
-MACHINE           = "am335x-evm"
-DISTRO            = "poky"
-DISTRO_VERSION    = "1.8"
-TUNE_FEATURES     = "arm armv7a vfp thumb neon callconvention-hard cortexa8"
-TARGET_FPU        = "vfp-neon"
+What release?  I have my build and checkouts on different disks and I don't
+get this warning.
 
-Thanks,
-Matti
+Ross
 
---001a11354f8a21542b051da973b8
+--001a113a9baa8bcc85051da9a011
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div>Is there any way of getting rid of warnings of f=
-ollowing type:<br><br>WARNING: Could not copy license file /YOCTO/poky/LICE=
-NSE to /XXX/work/am335x_evm-poky-linux-gnueabi/xxxx-image/1.0-r0/license-de=
-stdir/xxx-image/LICENSE: [Errno 18] Invalid cross-device link<br><br></div>=
-Yes, sources and results are located on different logical drives, but shoul=
-d it still be possible to copy files between them. Everything else works fi=
-ne in bitbaking.<br><br></div><div>MAIN-<br></div>Build Configuration:<br><=
-div><div>BB_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;1.2=
-6.0&quot;<br>BUILD_SYS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D =
-&quot;x86_64-linux&quot;<br>NATIVELSBSTRING=C2=A0=C2=A0 =3D &quot;Ubuntu-14=
-.04&quot;<br>TARGET_SYS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot=
-;arm-poky-linux-gnueabi&quot;<br>MACHINE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;am335x-evm&quot;<br>DISTRO=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;poky&qu=
-ot;<br>DISTRO_VERSION=C2=A0=C2=A0=C2=A0 =3D &quot;1.8&quot;<br>TUNE_FEATURE=
-S=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;arm armv7a vfp thumb neon callconventio=
-n-hard cortexa8&quot;<br>TARGET_FPU=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 =3D &quot;vfp-neon&quot;<br><br></div><div>Thanks,<br></div><div>Matti<=
-br></div><div><br></div></div></div>
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 19 August 2015 at 13:48, matti kaasinen <span dir=3D"ltr">&lt;<a href=3D=
+"mailto:matti.kaasinen@gmail.com" target=3D"_blank">matti.kaasinen@gmail.co=
+m</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>WARNING: Cou=
+ld not copy license file /YOCTO/poky/LICENSE to /XXX/work/am335x_evm-poky-l=
+inux-gnueabi/xxxx-image/1.0-r0/license-destdir/xxx-image/LICENSE: [Errno 18=
+] Invalid cross-device link<br><br></div>Yes, sources and results are locat=
+ed on different logical drives, but should it still be possible to copy fil=
+es between them. Everything else works fine in bitbaking.</blockquote></div=
+><br>What release?=C2=A0 I have my build and checkouts on different disks a=
+nd I don&#39;t get this warning.</div><div class=3D"gmail_extra"><br></div>=
+<div class=3D"gmail_extra">Ross</div></div>
 
---001a11354f8a21542b051da973b8--
+--001a113a9baa8bcc85051da9a011--
