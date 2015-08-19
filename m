@@ -1,32 +1,49 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <matti.kaasinen@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7B950E00A94; Mon, 17 Aug 2015 08:53:28 -0700 (PDT)
+	id EE383E00474; Wed, 19 Aug 2015 05:48:25 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.115 listed in list.dnswl.org]
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (matti.kaasinen[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.192.45 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 51CF3E0097F
-	for <poky@yoctoproject.org>; Mon, 17 Aug 2015 08:53:24 -0700 (PDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga103.fm.intel.com with ESMTP; 17 Aug 2015 08:53:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.15,695,1432623600"; d="scan'208";a="627075279"
-Received: from unknown (HELO swold-mobl.amr.corp.intel.com) ([10.254.181.93])
-	by orsmga003.jf.intel.com with ESMTP; 17 Aug 2015 08:53:23 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Mon, 17 Aug 2015 08:53:22 -0700
-Message-Id: <1439826802-10019-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 2.1.0
-Cc: dvhart@linux.intel.com
-Subject: [PATCH] genericx86*: Update BSPs to use 4.1 Kernel
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-qg0-f45.google.com (mail-qg0-f45.google.com
+	[209.85.192.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 69A96E003D9
+	for <poky@yoctoproject.org>; Wed, 19 Aug 2015 05:48:22 -0700 (PDT)
+Received: by qgeb6 with SMTP id b6so2706564qge.3
+	for <poky@yoctoproject.org>; Wed, 19 Aug 2015 05:48:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=bE2Ct+7n/xZ1VDeSyttcBpT6qYS7NQgub4iYxAMsxwU=;
+	b=kU3EY0uXjVyxZPNbgW3/1UbCTcl7BuoCVXOrTwWwcdp1SVKhsUBZ1wvVGJ28FFOLU9
+	IFCy1HfDBRigeBPraStKn3wH3pHsXpEb9egXX4gtwx8xuEd2eDrDPyZtZ31e64ixJkYh
+	hX1PabgT0yACPlJu8cD+qyYxGeX9e4sKFJa18kd0ZM0DPsIfE9hesfD4T0IpRo6TJNee
+	gDJ/GioDfr0msV/Cwui/BfE2rPQfXmsC3H+vRa2vUSzfkuPYe751aVN9Kpf5HrcTwBma
+	vAe5R32gxp9OwTE/rRQ4eCzkq2hFqrA2paVLYaXoV8+sbLXW1a/of44I/J9psumBkgWx
+	RZvQ==
+MIME-Version: 1.0
+X-Received: by 10.140.148.136 with SMTP id 130mr23868999qhu.82.1439988501794; 
+	Wed, 19 Aug 2015 05:48:21 -0700 (PDT)
+Received: by 10.55.149.133 with HTTP; Wed, 19 Aug 2015 05:48:21 -0700 (PDT)
+Date: Wed, 19 Aug 2015 15:48:21 +0300
+Message-ID: <CADnUhn3V5iB4g1gb+2btHTK5pWU=j0LfOJpHj+EJHeoU1ERKew@mail.gmail.com>
+From: matti kaasinen <matti.kaasinen@gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: [Errno 18] Invalid cross-device link warning coming from license file copy
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,53 +56,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Aug 2015 15:53:28 -0000
+X-List-Received-Date: Wed, 19 Aug 2015 12:48:26 -0000
+Content-Type: multipart/alternative; boundary=001a11354f8a21542b051da973b8
 
-This adds the initial bbappend to meta-yocto-bsp for the 4.1 kernel
-It also sets up the PREFERRED_VERSION for the X86 and X86-64 Generic
-BSPs to the 4.1 kernel.
+--001a11354f8a21542b051da973b8
+Content-Type: text/plain; charset=UTF-8
 
-This has been tested on MinnowBoard (32bit) MinnowBoard Max (64bit)
-along with both 32 and 64 bit versions of the NUC.
+Is there any way of getting rid of warnings of following type:
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- meta-yocto-bsp/conf/machine/include/genericx86-common.inc    |  2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 11 +++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
- create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+WARNING: Could not copy license file /YOCTO/poky/LICENSE to
+/XXX/work/am335x_evm-poky-linux-gnueabi/xxxx-image/1.0-r0/license-destdir/xxx-image/LICENSE:
+[Errno 18] Invalid cross-device link
 
-diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-index 840cc10..7c10b56 100644
---- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-+++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-@@ -2,7 +2,7 @@ include conf/machine/include/x86-base.inc
- MACHINE_FEATURES += "wifi efi pcbios"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.19%"
-+PREFERRED_VERSION_linux-yocto ?= "4.1%"
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "${XSERVER_X86_BASE} \
-             ${XSERVER_X86_EXT} \
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-new file mode 100644
-index 0000000..a5fe0e6
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-@@ -0,0 +1,11 @@
-+KBRANCH_genericx86  = "standard/base"
-+KBRANCH_genericx86-64  = "standard/base"
-+
-+KMACHINE_genericx86 ?= "common-pc"
-+KMACHINE_genericx86-64 ?= "common-pc-64"
-+
-+SRCREV_machine_genericx86 ?= "4e30e64c44df9e59bd13239951bb8d2b5b276e6f"
-+SRCREV_machine_genericx86-64 ?= "4e30e64c44df9e59bd13239951bb8d2b5b276e6f"
-+
-+COMPATIBLE_MACHINE_genericx86 = "genericx86"
-+COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
--- 
-2.1.0
+Yes, sources and results are located on different logical drives, but
+should it still be possible to copy files between them. Everything else
+works fine in bitbaking.
 
+MAIN-
+Build Configuration:
+BB_VERSION        = "1.26.0"
+BUILD_SYS         = "x86_64-linux"
+NATIVELSBSTRING   = "Ubuntu-14.04"
+TARGET_SYS        = "arm-poky-linux-gnueabi"
+MACHINE           = "am335x-evm"
+DISTRO            = "poky"
+DISTRO_VERSION    = "1.8"
+TUNE_FEATURES     = "arm armv7a vfp thumb neon callconvention-hard cortexa8"
+TARGET_FPU        = "vfp-neon"
 
+Thanks,
+Matti
+
+--001a11354f8a21542b051da973b8
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>Is there any way of getting rid of warnings of f=
+ollowing type:<br><br>WARNING: Could not copy license file /YOCTO/poky/LICE=
+NSE to /XXX/work/am335x_evm-poky-linux-gnueabi/xxxx-image/1.0-r0/license-de=
+stdir/xxx-image/LICENSE: [Errno 18] Invalid cross-device link<br><br></div>=
+Yes, sources and results are located on different logical drives, but shoul=
+d it still be possible to copy files between them. Everything else works fi=
+ne in bitbaking.<br><br></div><div>MAIN-<br></div>Build Configuration:<br><=
+div><div>BB_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;1.2=
+6.0&quot;<br>BUILD_SYS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D =
+&quot;x86_64-linux&quot;<br>NATIVELSBSTRING=C2=A0=C2=A0 =3D &quot;Ubuntu-14=
+.04&quot;<br>TARGET_SYS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot=
+;arm-poky-linux-gnueabi&quot;<br>MACHINE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;am335x-evm&quot;<br>DISTRO=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;poky&qu=
+ot;<br>DISTRO_VERSION=C2=A0=C2=A0=C2=A0 =3D &quot;1.8&quot;<br>TUNE_FEATURE=
+S=C2=A0=C2=A0=C2=A0=C2=A0 =3D &quot;arm armv7a vfp thumb neon callconventio=
+n-hard cortexa8&quot;<br>TARGET_FPU=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 =3D &quot;vfp-neon&quot;<br><br></div><div>Thanks,<br></div><div>Matti<=
+br></div><div><br></div></div></div>
+
+--001a11354f8a21542b051da973b8--
