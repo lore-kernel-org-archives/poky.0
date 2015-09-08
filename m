@@ -1,33 +1,35 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E207BE00AD5; Thu,  3 Sep 2015 08:37:08 -0700 (PDT)
+	id 5B0DEE00CAE; Tue,  8 Sep 2015 06:45:39 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.93 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8AAB8E009B3
-	for <poky@yoctoproject.org>; Thu,  3 Sep 2015 08:37:04 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga102.fm.intel.com with ESMTP; 03 Sep 2015 08:37:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.17,462,1437462000"; d="scan'208";a="782007106"
-Received: from kanavin-desktop.fi.intel.com ([10.237.68.161])
-	by fmsmga001.fm.intel.com with ESMTP; 03 Sep 2015 08:37:03 -0700
-From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Thu,  3 Sep 2015 18:38:42 +0300
-Message-Id: <d66efca9bdc72083cceee63d9b5f81ae38adfb2c.1441294558.git.alexander.kanavin@linux.intel.com>
-X-Mailer: git-send-email 2.1.4
-In-Reply-To: <cover.1441294558.git.alexander.kanavin@linux.intel.com>
-References: <cover.1441294558.git.alexander.kanavin@linux.intel.com>
-Subject: [PATCH 1/1] maintainers.inc: remove packages that are no longer in oe-core
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7BAC4E00AF0
+	for <poky@yoctoproject.org>; Tue,  8 Sep 2015 06:45:38 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id t88Djadu012990
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 8 Sep 2015 06:45:36 -0700 (PDT)
+Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.235.1; Tue, 8 Sep 2015 06:45:36 -0700
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+To: <richard.purdie@linuxfoundation.org>
+Date: Tue, 8 Sep 2015 09:45:35 -0400
+Message-ID: <1441719935-22898-1-git-send-email-bruce.ashfield@windriver.com>
+X-Mailer: git-send-email 2.1.0
+MIME-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: [PATCH] bsps: update 3.14 SRCREVs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,34 +42,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Sep 2015 15:37:09 -0000
+X-List-Received-Date: Tue, 08 Sep 2015 13:45:39 -0000
+Content-Type: text/plain
 
-Signed-off-by: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+Updating the 3.14 SRCREVs to ensure that both gcc 4.9.x and gcc 5.x
+produce working images for all reference BSPs.
+
+Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
 ---
- meta-yocto/conf/distro/include/maintainers.inc | 2 --
- 1 file changed, 2 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
-index 3e95dbb..e5df73d 100644
---- a/meta-yocto/conf/distro/include/maintainers.inc
-+++ b/meta-yocto/conf/distro/include/maintainers.inc
-@@ -195,7 +195,6 @@ RECIPE_MAINTAINER_pn-gnome-common = "Alejandro Hernandez <alejandro.hernandez@li
- RECIPE_MAINTAINER_pn-gnome-desktop = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
- RECIPE_MAINTAINER_pn-gnome-desktop-testing = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-gnome-doc-utils = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
--RECIPE_MAINTAINER_pn-gnome-icon-theme = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
- RECIPE_MAINTAINER_pn-gnome-mime-data = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
- RECIPE_MAINTAINER_pn-gnu-config = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-gnu-efi = "Robert Yang <liezhi.yang@windriver.com>"
-@@ -346,7 +345,6 @@ RECIPE_MAINTAINER_pn-libtheora = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-libtimedate-perl = "Randy Witt <randy.e.witt@linux.intel.com>"
- RECIPE_MAINTAINER_pn-libtirpc = "Cristian Iorga <cristian.iorga@intel.com>"
- RECIPE_MAINTAINER_pn-libtool = "Robert Yang <liezhi.yang@windriver.com>"
--RECIPE_MAINTAINER_pn-libunique = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-libunistring = "Randy Witt <randy.e.witt@linux.intel.com>"
- RECIPE_MAINTAINER_pn-liburcu = "Ross Burton <ross.burton@intel.com>"
- RECIPE_MAINTAINER_pn-liburi-perl = "Kai Kang <kai.kang@windriver.com>"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+index d1497a8038a4..589ece73c25d 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_3.14.bbappend
+@@ -7,11 +7,11 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+-SRCREV_machine_genericx86 ?= "550f5379bc4b001f656e7c98165606e543d0858c"
+-SRCREV_machine_genericx86-64 ?= "302ca233332fd364ecd028a0cf21b4cdc045e056"
+-SRCREV_machine_edgerouter ?= "302ca233332fd364ecd028a0cf21b4cdc045e056"
+-SRCREV_machine_beaglebone ?= "302ca233332fd364ecd028a0cf21b4cdc045e056"
+-SRCREV_machine_mpc8315e-rdb ?= "fdf979958c000ff805cd17be17310167becd6bb9"
++SRCREV_machine_genericx86 ?= "af1f7f586bd32d39c057f17606991b887eadb389"
++SRCREV_machine_genericx86-64 ?= "578602a722dbfb260801f3b37c6eafd2abb2340d"
++SRCREV_machine_edgerouter ?= "578602a722dbfb260801f3b37c6eafd2abb2340d"
++SRCREV_machine_beaglebone ?= "578602a722dbfb260801f3b37c6eafd2abb2340d"
++SRCREV_machine_mpc8315e-rdb ?= "1cb1bbaf63cecc918cf36c89819a7464af4c4b13"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
 -- 
-2.1.4
+2.1.0
 
 
