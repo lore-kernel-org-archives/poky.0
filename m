@@ -1,58 +1,34 @@
-Return-Path: <anders@chargestorm.se>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B888BE00EAB; Tue, 29 Sep 2015 00:18:38 -0700 (PDT)
+	id B683AE00D3E; Tue, 29 Sep 2015 02:42:12 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.215.53 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail-la0-f53.google.com (mail-la0-f53.google.com
-	[209.85.215.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EF2D1E00349
-	for <poky@yoctoproject.org>; Tue, 29 Sep 2015 00:18:36 -0700 (PDT)
-Received: by lahh2 with SMTP id h2so185952065lah.0
-	for <poky@yoctoproject.org>; Tue, 29 Sep 2015 00:18:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:date:from:to:subject:message-id:mail-followup-to
-	:references:mime-version:content-type:content-disposition
-	:in-reply-to:organization:user-agent;
-	bh=aiQKWfzvUqSd1ndYyD9HjnXBlYT/VWr+B3BEU2pVqvM=;
-	b=bxEdODqaBqbg5RLmSHvkr/42skO0F03ka7HHl+X4tK6qxOJ1szhudZPah6svnadmCM
-	KgIkc0+AC1jxUgqebdGqNC+0mMwoRYNLFVT99PjVvYUH2BIhGwge0AdvbIgbm5p7rzrZ
-	nJfjsrxspZhdfIcNW3W8Ak4GZ9WB8HwHojhjGpi1r9rO7yH9S/UtDy5XHMhowRzhQTVh
-	d2IBij7v97Bs3v0qdJzTHHbl91RmTfoWZRCJZKBR4JI7R84i6TVyBYoB1cGy9hr/+6D7
-	pkg1bxjzkHisYBELUW1Dwd4qzX/rCeUsd2C69sqeJFhwreZJ5vKgcCXfIpCW1bkm/563
-	FiKQ==
-X-Gm-Message-State: ALoCoQlibN4GMXIEBeUTLFLkvYXl4WpP/1Ku10Bu8xasNa22ad0y/3yehMLwWdpqgM9jjDULDFG/
-X-Received: by 10.25.153.147 with SMTP id b141mr4579444lfe.59.1443511114544;
-	Tue, 29 Sep 2015 00:18:34 -0700 (PDT)
-Received: from ad.chargestorm.se (h83-209-191-235.dynamic.se.alltele.net.
-	[83.209.191.235])
-	by smtp.gmail.com with ESMTPSA id k19sm2635606lfg.8.2015.09.29.00.18.33
-	for <poky@yoctoproject.org>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 29 Sep 2015 00:18:33 -0700 (PDT)
-Date: Tue, 29 Sep 2015 09:18:32 +0200
-From: Anders Darander <anders@chargestorm.se>
-To: poky@yoctoproject.org
-Message-ID: <20150929071832.GE9861@ad.chargestorm.se>
-Mail-Followup-To: poky@yoctoproject.org
-References: <56098ABB.4060104@webthatworks.it>
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C73CE009C3;
+	Tue, 29 Sep 2015 02:42:11 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id t8T9gAUJ020297
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 29 Sep 2015 02:42:10 -0700 (PDT)
+Received: from pek-khao-d1.corp.ad.wrs.com (147.11.178.22) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.3.235.1; Tue, 29 Sep 2015 02:42:10 -0700
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>, <linux-yocto@yoctoproject.org>
+Date: Tue, 29 Sep 2015 17:42:03 +0800
+Message-ID: <1443519723-30931-1-git-send-email-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.4.3
 MIME-Version: 1.0
-In-Reply-To: <56098ABB.4060104@webthatworks.it>
-X-Accept-Language: sv, en, de
-X-GPG-Fingerprint: 5AF0 B2E9 78FE 9D75 D110  6F8F 3E31 84D7 920E 938C
-X-GPG-Key-Id: 0x920E938C
-X-GPG-Keyserver: hkp://keys.gnupg.net
-Organization: ChargeStorm AB
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Subject: Re: disabling configure features in qt5
+Subject: [PATCH] meta-yocto-bsp: bump to linux-yocto 4.1 for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,73 +41,84 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Sep 2015 07:18:38 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Tue, 29 Sep 2015 09:42:12 -0000
+Content-Type: text/plain
 
-Hi,
+Boot test for all these boards.
 
-* Ivan Sergio Borgonovo <mail@webthatworks.it> [150928 20:51]:
-> I'm trying to compile qt5 for an imx28 board without X, wayland, opengl,
-> opengles, egl.
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ meta-yocto-bsp/conf/machine/beaglebone.conf                  | 2 +-
+ meta-yocto-bsp/conf/machine/edgerouter.conf                  | 2 +-
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                | 2 +-
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 9 +++++++++
+ 4 files changed, 12 insertions(+), 3 deletions(-)
 
-Ok. I'm building qt5 without all of that as well. I don't have any GUI
-at all, so I'm only interested in the core part of qt5.
-
-> Now I'm stuck on trying to really disable opengl since no matter if I have
-
-> DISTRO_FEATURES_remove = "x11 wayland opengl pulseaudio opengles egl"
-
-> when I'm baking meta-toolchain-qt5
-
-> packagegroup-qt5-toolchain-target.bb
-
-> requires qt3d-dev, qt3d-mkspecs, qt3d-qmlplugins that end up in generating
-> this error.
-
-> | Project ERROR: Unknown module(s) in QT: openglextensions
-> | Makefile:76: recipe for target 'sub-render-make_first' failed
-> | make[1]: *** [sub-render-make_first] Error 3
-
-> Ideally I'd prefer to keep qt3d enabled and just pass to configure
-> -no-opengl and a bunch of other options (-tslib, -no-pch, -no-xcb,
-> -no-opengl -no-openssl -no-libudev -no-fontconfig) but I really don't know
-> where to start.
-
-If you're building meta-toolchain-qt5, I think you'll be forced to
-remove e.g. qt3d-* from packagegroup-qt5-toolchain-target.bb. You can do
-this from a bbappend using the _remove operator.
-
-I'm not using meta-toolchain-qt5 to build the SDK for my application
-developers, rather I'm using bitbake image-name -c populate_sdk.
-
-> Even a pointer to a related section of the FM will be appreciated.
-
-Apart from using the populate_sdk task to create my SDK, I'm also using
-the following in my qtbase_%.bbappend:
-
-===========
-PACKAGECONFIG_SYSTEM = "zlib"
-PACKAGECONFIG_DEFAULT = "dbus udev libs"
-
-PACKAGECONFIG += "sql-sqlite nofreetype noqpa"
-
-PACKAGECONFIG[gui] = "-gui,-no-gui"
-PACKAGECONFIG[eglfs] = "-eglfs,-no-eglfs"
-PACKAGECONFIG[gif] = ",-no-gif"
-PACKAGECONFIG[nofreetype] = "-no-freetype"
-PACKAGECONFIG[noqpa] = "-no-qpa-platform-guard"
-==========
-
-And in my qttools_%.bbappend:
-DEPENDS_remove = "qtdeclarative"
-
-This allows me to avoid building any of the GUI parts of Qt5.
-
-Cheers,
-Anders
-
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
+index 0daebf3..ff46fb2 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
+@@ -22,7 +22,7 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
+ SERIAL_CONSOLE = "115200 ttyO0"
+ 
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "3.19%"
++PREFERRED_VERSION_linux-yocto ?= "4.1%"
+ 
+ KERNEL_IMAGETYPE = "zImage"
+ KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
+diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
+index 45ef237..476e690 100644
+--- a/meta-yocto-bsp/conf/machine/edgerouter.conf
++++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
+@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
+ KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
+ 
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "3.19%"
++PREFERRED_VERSION_linux-yocto ?= "4.1%"
+ 
+ SERIAL_CONSOLE = "115200 ttyS0"
+ USE_VT ?= "0"
+diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+index 2beef48..036b05f 100644
+--- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
++++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
+ 
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
+ 
+-PREFERRED_VERSION_linux-yocto ?= "3.19%"
++PREFERRED_VERSION_linux-yocto ?= "4.1%"
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
+ 
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+index a5fe0e6..104d250 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+@@ -1,11 +1,20 @@
+ KBRANCH_genericx86  = "standard/base"
+ KBRANCH_genericx86-64  = "standard/base"
++KBRANCH_edgerouter = "standard/edgerouter"
++KBRANCH_beaglebone = "standard/beaglebone"
++KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+ SRCREV_machine_genericx86 ?= "4e30e64c44df9e59bd13239951bb8d2b5b276e6f"
+ SRCREV_machine_genericx86-64 ?= "4e30e64c44df9e59bd13239951bb8d2b5b276e6f"
++SRCREV_machine_edgerouter ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
++SRCREV_machine_beaglebone ?= "efb6ffb2ca96a364f916c9890ad023fc595e0e6e"
++SRCREV_machine_mpc8315e-rdb ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++COMPATIBLE_MACHINE_edgerouter = "edgerouter"
++COMPATIBLE_MACHINE_beaglebone = "beaglebone"
++COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
 -- 
-Anders Darander
-ChargeStorm AB / eStorm AB
+2.0.1
+
 
