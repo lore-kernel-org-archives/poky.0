@@ -1,34 +1,50 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B683AE00D3E; Tue, 29 Sep 2015 02:42:12 -0700 (PDT)
+	id 15892E00EEC; Tue, 29 Sep 2015 03:02:01 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=unavailable version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C73CE009C3;
-	Tue, 29 Sep 2015 02:42:11 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id t8T9gAUJ020297
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 29 Sep 2015 02:42:10 -0700 (PDT)
-Received: from pek-khao-d1.corp.ad.wrs.com (147.11.178.22) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.235.1; Tue, 29 Sep 2015 02:42:10 -0700
-From: Kevin Hao <kexin.hao@windriver.com>
-To: <poky@yoctoproject.org>, <linux-yocto@yoctoproject.org>
-Date: Tue, 29 Sep 2015 17:42:03 +0800
-Message-ID: <1443519723-30931-1-git-send-email-kexin.hao@windriver.com>
-X-Mailer: git-send-email 2.4.3
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.220.181 listed in list.dnswl.org]
+Received: from mail-qk0-f181.google.com (mail-qk0-f181.google.com
+	[209.85.220.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5A66E00A81
+	for <poky@yoctoproject.org>; Tue, 29 Sep 2015 03:01:58 -0700 (PDT)
+Received: by qkfq186 with SMTP id q186so622501qkf.1
+	for <poky@yoctoproject.org>; Tue, 29 Sep 2015 03:01:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=jmMpqqJTYKb880Xpv4CkRwI15YEraTwS9MjRpoh8eUw=;
+	b=hYrmAeTdDK7uK6QmLG/Yjjo1fyiFjympoVf1RFyNPwsATlJVWcPTgdhQ/n/AxAlroh
+	K5H6lVsQvg8NJHyeUhfUFZdWgD3URrexX6f0UVzGA5WjA6cJFIS5nZDrA1SgRJmGXWbt
+	bzFWkV/Lg3ITZuSOQWZA6TsxvgrCQDUOP573JV8sp6MKuIQ84+QJyP1Ff/ePTlMX377w
+	2MtFvuoyDDMAPKRyyzs34KK8rjDdDLLnXPwEzEiIbO2VzcPyoxn92IcA98H/ON6NhXfr
+	LVse1hElLUXIbc6FZbZCLOtNkrTpzoWwYDIczoXBCiU42d0VWMXRZu7BfKqcIltbXBlY
+	ayyg==
+X-Gm-Message-State: ALoCoQn/PG5BmB1Twz3FYgh9biS9a/uFjlsqpreK6t1P1KFEynBU7O4kvGnmxxzff6ZnGnQPcCLW
+X-Received: by 10.55.43.132 with SMTP id r4mr26018338qkr.104.1443520917583;
+	Tue, 29 Sep 2015 03:01:57 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [PATCH] meta-yocto-bsp: bump to linux-yocto 4.1 for the non-x86 BSPs
+Received: by 10.140.94.86 with HTTP; Tue, 29 Sep 2015 03:01:38 -0700 (PDT)
+In-Reply-To: <1443519723-30931-1-git-send-email-kexin.hao@windriver.com>
+References: <1443519723-30931-1-git-send-email-kexin.hao@windriver.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Tue, 29 Sep 2015 11:01:38 +0100
+Message-ID: <CAJTo0LaV3Bp_PPKcxNmooADC8XPza5A2Pt8rFpY5GZw5sgUEEg@mail.gmail.com>
+To: Kevin Hao <kexin.hao@windriver.com>,
+	Bruce Ashfield <bruce.ashfield@gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>,
+	"Development list for the linux-yocto*.git Linux kernel repositories"
+	<linux-yocto@yoctoproject.org>
+Subject: Re: [linux-yocto] [PATCH] meta-yocto-bsp: bump to linux-yocto 4.1 for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,84 +57,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Sep 2015 09:42:12 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 29 Sep 2015 10:02:01 -0000
+Content-Type: multipart/alternative; boundary=001a1147af6a84d2370520dfe788
 
-Boot test for all these boards.
+--001a1147af6a84d2370520dfe788
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
----
- meta-yocto-bsp/conf/machine/beaglebone.conf                  | 2 +-
- meta-yocto-bsp/conf/machine/edgerouter.conf                  | 2 +-
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                | 2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 9 +++++++++
- 4 files changed, 12 insertions(+), 3 deletions(-)
+On 29 September 2015 at 10:42, Kevin Hao <kexin.hao@windriver.com> wrote:
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index 0daebf3..ff46fb2 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -22,7 +22,7 @@ EXTRA_IMAGECMD_jffs2 = "-lnp "
- SERIAL_CONSOLE = "115200 ttyO0"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.19%"
-+PREFERRED_VERSION_linux-yocto ?= "4.1%"
- 
- KERNEL_IMAGETYPE = "zImage"
- KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
-diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
-index 45ef237..476e690 100644
---- a/meta-yocto-bsp/conf/machine/edgerouter.conf
-+++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
-@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
- KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "3.19%"
-+PREFERRED_VERSION_linux-yocto ?= "4.1%"
- 
- SERIAL_CONSOLE = "115200 ttyS0"
- USE_VT ?= "0"
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index 2beef48..036b05f 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
- 
- MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
- 
--PREFERRED_VERSION_linux-yocto ?= "3.19%"
-+PREFERRED_VERSION_linux-yocto ?= "4.1%"
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-index a5fe0e6..104d250 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-@@ -1,11 +1,20 @@
- KBRANCH_genericx86  = "standard/base"
- KBRANCH_genericx86-64  = "standard/base"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- 
- SRCREV_machine_genericx86 ?= "4e30e64c44df9e59bd13239951bb8d2b5b276e6f"
- SRCREV_machine_genericx86-64 ?= "4e30e64c44df9e59bd13239951bb8d2b5b276e6f"
-+SRCREV_machine_edgerouter ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
-+SRCREV_machine_beaglebone ?= "efb6ffb2ca96a364f916c9890ad023fc595e0e6e"
-+SRCREV_machine_mpc8315e-rdb ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
--- 
-2.0.1
+> Boot test for all these boards.
+>
 
+If I build the edgerouter kernel I get this warning:
 
+WARNING: Section not found: .comment
+
+I've no idea if this is bad or not...
+
+Ross
+
+--001a1147af6a84d2370520dfe788
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 29 September 2015 at 10:42, Kevin Hao <span dir=3D"ltr">&lt;<a href=3D"m=
+ailto:kexin.hao@windriver.com" target=3D"_blank">kexin.hao@windriver.com</a=
+>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);bo=
+rder-left-style:solid;padding-left:1ex"><div id=3D":4sr" class=3D"" style=
+=3D"overflow:hidden">Boot test for all these boards.<br></div></blockquote>=
+</div><br>If I build the edgerouter kernel I get this warning:</div><div cl=
+ass=3D"gmail_extra"><br></div><div class=3D"gmail_extra">WARNING: Section n=
+ot found: .comment<br></div><div class=3D"gmail_extra"><br></div><div class=
+=3D"gmail_extra">I&#39;ve no idea if this is bad or not...</div><div class=
+=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Ross</div></div>
+
+--001a1147af6a84d2370520dfe788--
