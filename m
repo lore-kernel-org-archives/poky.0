@@ -1,57 +1,34 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 04B92E00D60; Tue, 29 Sep 2015 19:14:36 -0700 (PDT)
+	id 4BDDDE00CFC; Tue, 29 Sep 2015 19:29:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.223.172 listed in list.dnswl.org]
-Received: from mail-io0-f172.google.com (mail-io0-f172.google.com
-	[209.85.223.172])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DAB01E00BE0;
-	Tue, 29 Sep 2015 19:14:32 -0700 (PDT)
-Received: by ioii196 with SMTP id i196so32143447ioi.3;
-	Tue, 29 Sep 2015 19:14:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=dLJyqjmHNa1i6TOcCFKPUej91YH70lqyp4xFQY/3IX4=;
-	b=lBZLUbz1PpGuiMY1V1floLmoiMBOkvCeULqnT602VKRXCv1PWGb8Bfvkm81SmtvqcQ
-	jZT85FAdvoi20A9qry4qBj2vhvq8rZGMnk4xtCzXheI7le3ng/aVDmincI0mwDnbA3FI
-	GAL7X9a7NDpf3/jwP0KgNd5JcEGOl36iQM633oK0N9Dg7oZUDf5VUbLsdALqdQCxVy/1
-	vQ5zRy8vTeb+I9lM1zOJC7eolR4eAQilXzN5VzOMJpdZlFmkTVI3kcXTPzYz4EB7SSuY
-	DWr7pEQ+xIuoaTZPZBJaxtw67U6oOzN8bwtj6cO2qP5A/ux27uF3w4+ZEtHwuw2TFrmx
-	nPiw==
-X-Received: by 10.107.34.149 with SMTP id i143mr2168541ioi.195.1443579271710; 
-	Tue, 29 Sep 2015 19:14:31 -0700 (PDT)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 267A5E00A3C
+	for <poky@yoctoproject.org>; Tue, 29 Sep 2015 19:29:44 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id t8U2Th84003147
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 29 Sep 2015 19:29:43 -0700 (PDT)
+Received: from pek-khao-d1.corp.ad.wrs.com (147.11.178.22) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.3.235.1; Tue, 29 Sep 2015 19:29:42 -0700
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 30 Sep 2015 10:29:33 +0800
+Message-ID: <1443580173-15179-1-git-send-email-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.4.3
 MIME-Version: 1.0
-Received: by 10.107.142.130 with HTTP; Tue, 29 Sep 2015 19:14:02 -0700 (PDT)
-In-Reply-To: <20150930014449.GA2568@pek-khao-d1.corp.ad.wrs.com>
-References: <1443519723-30931-1-git-send-email-kexin.hao@windriver.com>
-	<CAJTo0LaV3Bp_PPKcxNmooADC8XPza5A2Pt8rFpY5GZw5sgUEEg@mail.gmail.com>
-	<4867265E-255E-4F6A-9657-BD390A127625@gmail.com>
-	<20150930014449.GA2568@pek-khao-d1.corp.ad.wrs.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 29 Sep 2015 19:14:02 -0700
-Message-ID: <CAMKF1sqPd+zVAvosgA85QuePutTtOOcWH5CtGzG40dmr7cPy3g@mail.gmail.com>
-To: Kevin Hao <kexin.hao@windriver.com>
-Cc: Poky Project <poky@yoctoproject.org>,
-	"Development list for the linux-yocto*.git Linux kernel repositories"
-	<linux-yocto@yoctoproject.org>
-Subject: Re: [linux-yocto] [PATCH] meta-yocto-bsp: bump to linux-yocto 4.1 for the non-x86 BSPs
+Subject: [PATCH] kernel.bbclass: fix the bug of checking the existing sections in do_strip()
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -64,11 +41,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Sep 2015 02:14:36 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 30 Sep 2015 02:29:51 -0000
+Content-Type: text/plain
 
-On Tue, Sep 29, 2015 at 6:44 PM, Kevin Hao <kexin.hao@windriver.com> wrote:
->                         if ! (echo "$headers" | grep -q "^$str$"); then
+Ross reported the following waring when building edgerouter BSP:
+    WARNING: Section not found: .comment
 
-I think that would be ok
+The reason is that the testing of the existing sections in do_strip()
+returned the wrong value. Please see the following code in do_strip():
+                for str in ${KERNEL_IMAGE_STRIP_EXTRA_SECTIONS}; do {
+                        if [ "$headers" != *"$str"* ]; then
+                                bbwarn "Section not found: $str";
+                        fi
+
+                        "$CROSS_COMPILE"strip -s -R $str ${KERNEL_OUTPUT}
+                }; done
+
+The "*" doesn't have special meaning in the if string test, so it will
+return true even the $str is a substring of $headers. Fix this issue
+by replacing it with "! (echo "$headers" | grep -q "^$str$")".
+
+Reported-by: Ross Burton <ross.burton@intel.com>
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ meta/classes/kernel.bbclass | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
+index dfbdfd2..5e8b6cf 100644
+--- a/meta/classes/kernel.bbclass
++++ b/meta/classes/kernel.bbclass
+@@ -413,7 +413,7 @@ do_strip() {
+ 			  gawk '{print $1}'`
+ 
+ 		for str in ${KERNEL_IMAGE_STRIP_EXTRA_SECTIONS}; do {
+-			if [ "$headers" != *"$str"* ]; then
++			if ! (echo "$headers" | grep -q "^$str$"); then
+ 				bbwarn "Section not found: $str";
+ 			fi
+ 
+-- 
+2.0.1
+
 
