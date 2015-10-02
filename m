@@ -1,58 +1,47 @@
-Return-Path: <martin.jansa@gmail.com>
+Return-Path: <jussi.kukkonen@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D6E2CE01066; Thu,  1 Oct 2015 11:17:46 -0700 (PDT)
+	id 8D40EE00AD5; Fri,  2 Oct 2015 04:34:34 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
 	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.212.177 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (martin.jansa[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wi0-f177.google.com (mail-wi0-f177.google.com
-	[209.85.212.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C30FE01066
-	for <poky@yoctoproject.org>; Thu,  1 Oct 2015 11:17:31 -0700 (PDT)
-Received: by wicfx3 with SMTP id fx3so2662303wic.1
-	for <poky@yoctoproject.org>; Thu, 01 Oct 2015 11:17:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=from:date:to:cc:subject:message-id:references:mime-version
-	:content-type:content-disposition:in-reply-to:user-agent;
-	bh=qe8s9avKJJy4eVxYo2C4FFL43lGLMUMz6LBWNIRnpbE=;
-	b=MMu41L8ctDM2UcQtWdcAeMmdxz2jN2s2jao7Jw9f0lC3aw1a8WiI4KPUQapGnP7cLQ
-	pkDTcmCwTPUzAuDsHdHV/N3TDW1IBfGdaX+pJsmeWalBmqiH7KUJ7HArgcoIMjaD2YlN
-	drAMK8iwNMWpXzLorlb0jdMa707u3qEG2giXMvW7I1TG5olMo1jEyNHtLmlVnyA55p/i
-	qPgBQO2CibTS0zv8wDlaaY83IvcgY4Rk+jPrhNeqidc5FUQBaHZnkZZjQH2IC8tpSBWZ
-	IhBpNpaBfowhEmpa5dD36Z3mwj2SqA+kwPk0KKh9o/QDZBrMHKqLKDFyI034NmqjyP4i
-	asiw==
-X-Received: by 10.180.211.177 with SMTP id nd17mr173504wic.69.1443723450749;
-	Thu, 01 Oct 2015 11:17:30 -0700 (PDT)
-Received: from localhost (ip-86-49-34-37.net.upcbroadband.cz. [86.49.34.37])
-	by smtp.gmail.com with ESMTPSA id
-	he3sm7330603wjc.48.2015.10.01.11.17.29
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 01 Oct 2015 11:17:29 -0700 (PDT)
-From: Martin Jansa <martin.jansa@gmail.com>
-X-Google-Original-From: Martin Jansa <Martin.Jansa@gmail.com>
-Date: Thu, 1 Oct 2015 20:18:28 +0200
-To: Jens Rehsack <rehsack@gmail.com>
-Message-ID: <20151001181828.GG2403@jama>
-References: <9A2A9F0F-9060-44E4-A59D-3749BF52C6A5@gmail.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.212.171 listed in list.dnswl.org]
+Received: from mail-wi0-f171.google.com (mail-wi0-f171.google.com
+	[209.85.212.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2C0E1E0095C
+	for <poky@yoctoproject.org>; Fri,  2 Oct 2015 04:34:32 -0700 (PDT)
+Received: by wicge5 with SMTP id ge5so29030442wic.0
+	for <poky@yoctoproject.org>; Fri, 02 Oct 2015 04:34:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-type;
+	bh=bDkAZMUTBbzQ4dTpbuByRluu+ptBNovPrIV+zaAak1k=;
+	b=FnoHZ/7bozC+e80Xnbj/pzAx6EFTe4ko5RxlIV3cbkWyttRRDDilFW/Gj1m1qJpJYQ
+	7ceLEurDbC0oojaxFIWUR64P5cPHe61JxpMgUZfEVBQ+6NllD4Y9/+DoI+n1uQLTtNJx
+	+/IpORBmB6k/OJgqbtPct+JjbwX/N3QTrQKPj/uPOvJ3QDpYE8k9rOss0r7GcEA7DvdM
+	TW3BV7+rEstDDsz3YvNcXSTnWQf3BcKp8VfKR2YsGG1UVf/OOhUGTzSQAvmEU8CeH2pm
+	DlUzJujLh6aBllEwM47GX20sBhkBo4Tgb3kF04WkdDExqF6rycfOKYHH7Tl4uzTlREYu
+	2c5Q==
+X-Gm-Message-State: ALoCoQkQ4aRN4geUIjo/wpJglqnViP6GeMdcZMbbOcKoDRy0O8Zhq56URhSURh3LTNYwyEIv6hUp
+X-Received: by 10.194.116.197 with SMTP id jy5mr1521769wjb.86.1443785672130;
+	Fri, 02 Oct 2015 04:34:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <9A2A9F0F-9060-44E4-A59D-3749BF52C6A5@gmail.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+Received: by 10.27.77.212 with HTTP; Fri, 2 Oct 2015 04:34:02 -0700 (PDT)
+In-Reply-To: <BAB71D4B-3CEA-44E3-83ED-A10DF8CEAF52@gmail.com>
+References: <BAB71D4B-3CEA-44E3-83ED-A10DF8CEAF52@gmail.com>
+From: Jussi Kukkonen <jussi.kukkonen@intel.com>
+Date: Fri, 2 Oct 2015 14:34:02 +0300
+Message-ID: <CAHiDW_HpMK5QfCO44TPjZSefTU8abfkm4N-udHhx-9MUnoTSxA@mail.gmail.com>
+To: Jens Rehsack <rehsack@gmail.com>
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 9/9] Update libusb1 from 1.0.19 to 1.0.20
+Subject: Re: [PATCH 1/9] Fix "configure: error: gbm requires --enable-dri"
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,176 +54,127 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Oct 2015 18:17:46 -0000
-X-Groupsio-MsgNum: 10142
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="NY6JkbSqL3W9mApi"
-Content-Disposition: inline
+X-List-Received-Date: Fri, 02 Oct 2015 11:34:34 -0000
+Content-Type: multipart/alternative; boundary=001a1130cf261ea2e705211d8c1c
 
---NY6JkbSqL3W9mApi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--001a1130cf261ea2e705211d8c1c
+Content-Type: text/plain; charset=UTF-8
 
-On Thu, Oct 01, 2015 at 08:07:40PM +0200, Jens Rehsack wrote:
->=20
-> 2015-09-13: v1.0.20
-> * Add Haiku support
-> * Fix multiple memory and resource leaks (#16, #52, #76, #81)
-> * Fix possible deadlock when executing transfer callback
-> * New libusb_free_pollfds() API
-> * Darwin: Fix devices not being detected on OS X 10.8 (#48)
-> * Linux: Allow larger isochronous transfer submission (#23)
-> * Windows: Fix broken builds Cygwin/MinGW builds and compiler warnings
-> * Windows: Fix broken bus number lookup
-> * Windows: Improve submission of control requests for composite devices
-> * Examples: Add two-stage load support to fxload (#12)
-> * Correctly report cancellations due to timeouts
-> * Improve efficiency of event handling
-> * Improve speed of transfer submission in multi-threaded environments
-> * Various other bug fixes and improvements
-> The (#xx) numbers are libusb issue numbers, see ie:
-> https://github.com/libusb/libusb/issues/16
+On 1 October 2015 at 21:01, Jens Rehsack <rehsack@gmail.com> wrote:
 
-This does apply for all 9 commits you sent
-
-1) commit summary should start with changed component (usually recipe
-name), see
-http://www.openembedded.org/wiki/Commit_Patch_Message_Guidelines
-
-2) commits changing oe-core should go to
-openembedded-core@lists.openembedded.org
-commits changing bitbake should go to
-bitbake-devel@lists.openembedded.org
-not to poky.
-
-3) you should use -M in git send-email or git format-patch so that
-changes like this last one are easier to review.
-
-Regards,
-
->=20
+>
 > Signed-off-by: Jens Rehsack <sno@netbsd.org>
 > ---
->  meta/recipes-support/libusb/libusb1_1.0.19.bb | 34 ---------------------=
-------
->  meta/recipes-support/libusb/libusb1_1.0.20.bb | 34 +++++++++++++++++++++=
-++++++
->  2 files changed, 34 insertions(+), 34 deletions(-)
->  delete mode 100644 meta/recipes-support/libusb/libusb1_1.0.19.bb
->  create mode 100644 meta/recipes-support/libusb/libusb1_1.0.20.bb
->=20
-> diff --git a/meta/recipes-support/libusb/libusb1_1.0.19.bb b/meta/recipes=
--support/libusb/libusb1_1.0.19.bb
-> deleted file mode 100644
-> index a20e1fc..0000000
-> --- a/meta/recipes-support/libusb/libusb1_1.0.19.bb
-> +++ /dev/null
-> @@ -1,34 +0,0 @@
-> -SUMMARY =3D "Userspace library to access USB (version 1.0)"
-> -HOMEPAGE =3D "http://libusb.sf.net"
-> -BUGTRACKER =3D "http://www.libusb.org/report"
-> -SECTION =3D "libs"
+>  meta/recipes-graphics/mesa/mesa.inc | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/meta/recipes-graphics/mesa/mesa.inc
+> b/meta/recipes-graphics/mesa/mesa.inc
+> index af7a2c4..13a8b9d 100644
+> --- a/meta/recipes-graphics/mesa/mesa.inc
+> +++ b/meta/recipes-graphics/mesa/mesa.inc
+> @@ -37,11 +37,9 @@ PACKAGECONFIG[wayland] = ",,wayland"
+>  DRIDRIVERS = "swrast"
+>  DRIDRIVERS_append_x86 = ",radeon,r200,nouveau,i965,i915"
+>  DRIDRIVERS_append_x86-64 = ",radeon,r200,nouveau,i965,i915"
+> -PACKAGECONFIG[dri] = "--enable-dri --with-dri-drivers=${DRIDRIVERS},
+> --disable-dri, dri2proto libdrm"
+> +PACKAGECONFIG[dri] = "--enable-dri --with-dri-drivers=${DRIDRIVERS}
+> --enable-gbm, --disable-dri, dri2proto libdrm"
+>  PACKAGECONFIG[dri3] = "--enable-dri3, --disable-dri3, dri3proto
+> presentproto libxshmfence"
+>
+> -EXTRA_OECONF += "--enable-gbm"
 > -
-> -LICENSE =3D "LGPLv2.1+"
-> -LIC_FILES_CHKSUM =3D "file://COPYING;md5=3Dfbc093901857fcd118f065f900982=
-c24"
-> -
-> -BBCLASSEXTEND =3D "native nativesdk"
-> -
-> -SRC_URI =3D "${SOURCEFORGE_MIRROR}/libusb/libusb-${PV}.tar.bz2 \
-> -          "
-> -
-> -SRC_URI[md5sum] =3D "f9e2bb5879968467e5ca756cb4e1fa7e"
-> -SRC_URI[sha256sum] =3D "6c502c816002f90d4f76050a6429c3a7e0d84204222cbff2=
-dce95dd773ba6840"
-> -
-> -S =3D "${WORKDIR}/libusb-${PV}"
-> -
-> -inherit autotools pkgconfig
-> -
-> -# Don't configure udev by default since it will cause a circular
-> -# dependecy with udev package, which depends on libusb
-> -EXTRA_OECONF =3D "--libdir=3D${base_libdir} --disable-udev"
-> -
-> -do_install_append() {
-> -	install -d ${D}${libdir}
-> -	if [ ! ${D}${libdir} -ef ${D}${base_libdir} ]; then
-> -		mv ${D}${base_libdir}/pkgconfig ${D}${libdir}
-> -	fi
-> -}
-> -
-> -FILES_${PN} +=3D "${base_libdir}/*.so.*"
-> -
-> -FILES_${PN}-dev +=3D "${base_libdir}/*.so ${base_libdir}/*.la"
-> diff --git a/meta/recipes-support/libusb/libusb1_1.0.20.bb b/meta/recipes=
--support/libusb/libusb1_1.0.20.bb
-> new file mode 100644
-> index 0000000..21b8b45
-> --- /dev/null
-> +++ b/meta/recipes-support/libusb/libusb1_1.0.20.bb
-> @@ -0,0 +1,34 @@
-> +SUMMARY =3D "Userspace library to access USB (version 1.0)"
-> +HOMEPAGE =3D "http://libusb.sf.net"
-> +BUGTRACKER =3D "http://www.libusb.org/report"
-> +SECTION =3D "libs"
-> +
-> +LICENSE =3D "LGPLv2.1+"
-> +LIC_FILES_CHKSUM =3D "file://COPYING;md5=3Dfbc093901857fcd118f065f900982=
-c24"
-> +
-> +BBCLASSEXTEND =3D "native nativesdk"
-> +
-> +SRC_URI =3D "${SOURCEFORGE_MIRROR}/libusb/libusb-${PV}.tar.bz2 \
-> +          "
-> +
-> +SRC_URI[md5sum] =3D "1d4eb194eaaa2bcfbba28102768c7dbf"
-> +SRC_URI[sha256sum] =3D "cb057190ba0a961768224e4dc6883104c6f945b2bf2ef90d=
-7da39e7c1834f7ff"
-> +
-> +S =3D "${WORKDIR}/libusb-${PV}"
-> +
-> +inherit autotools pkgconfig
-> +
-> +# Don't configure udev by default since it will cause a circular
-> +# dependecy with udev package, which depends on libusb
-> +EXTRA_OECONF =3D "--libdir=3D${base_libdir} --disable-udev"
-> +
-> +do_install_append() {
-> +	install -d ${D}${libdir}
-> +	if [ ! ${D}${libdir} -ef ${D}${base_libdir} ]; then
-> +		mv ${D}${base_libdir}/pkgconfig ${D}${libdir}
-> +	fi
-> +}
-> +
-> +FILES_${PN} +=3D "${base_libdir}/*.so.*"
-> +
-> +FILES_${PN}-dev +=3D "${base_libdir}/*.so ${base_libdir}/*.la"
-> --=20
+>
+
+Martins generic comments apply but on top of that: Please add a short
+explanation. I would have expected gbm to get enabled from
+PACKAGECONFIG[egl] but possibly I don't understand the whole context: are
+there EGL users who do not want GBM?. Also, if you use --enable-gdm
+conditionally, you should --disable-gbm in the other case: otherwise mesa
+autodetects and that might be non-deterministic (now or in future).
+
+Jussi
+
+
+>  PACKAGECONFIG[gles] = "--enable-gles1 --enable-gles2, --disable-gles1
+> --disable-gles2"
+>
+>  EGL_PLATFORMS  = "drm"
+> --
 > 1.9.1
->=20
-> --=20
+>
+> --
 > Jens Rehsack - rehsack@gmail.com
->=20
-> --=20
+>
+> --
 > _______________________________________________
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
+>
 
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+--001a1130cf261ea2e705211d8c1c
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
---NY6JkbSqL3W9mApi
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On 1 October 2015 at 21:01, Jens Rehsack <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:rehsack@gmail.com" target=3D"_blank">rehsack@gmail.com</a>&gt;</=
+span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8e=
+x;border-left:1px #ccc solid;padding-left:1ex"><br>
+Signed-off-by: Jens Rehsack &lt;<a href=3D"mailto:sno@netbsd.org">sno@netbs=
+d.org</a>&gt;<br>
+---<br>
+=C2=A0meta/recipes-graphics/mesa/mesa.inc | 4 +---<br>
+=C2=A01 file changed, 1 insertion(+), 3 deletions(-)<br>
+<br>
+diff --git a/meta/recipes-graphics/mesa/mesa.inc b/meta/recipes-graphics/me=
+sa/mesa.inc<br>
+index af7a2c4..13a8b9d 100644<br>
+--- a/meta/recipes-graphics/mesa/mesa.inc<br>
++++ b/meta/recipes-graphics/mesa/mesa.inc<br>
+@@ -37,11 +37,9 @@ PACKAGECONFIG[wayland] =3D &quot;,,wayland&quot;<br>
+=C2=A0DRIDRIVERS =3D &quot;swrast&quot;<br>
+=C2=A0DRIDRIVERS_append_x86 =3D &quot;,radeon,r200,nouveau,i965,i915&quot;<=
+br>
+=C2=A0DRIDRIVERS_append_x86-64 =3D &quot;,radeon,r200,nouveau,i965,i915&quo=
+t;<br>
+-PACKAGECONFIG[dri] =3D &quot;--enable-dri --with-dri-drivers=3D${DRIDRIVER=
+S}, --disable-dri, dri2proto libdrm&quot;<br>
++PACKAGECONFIG[dri] =3D &quot;--enable-dri --with-dri-drivers=3D${DRIDRIVER=
+S} --enable-gbm, --disable-dri, dri2proto libdrm&quot;<br>
+=C2=A0PACKAGECONFIG[dri3] =3D &quot;--enable-dri3, --disable-dri3, dri3prot=
+o presentproto libxshmfence&quot;<br>
+<br>
+-EXTRA_OECONF +=3D &quot;--enable-gbm&quot;<br>
+-<br>
+</blockquote><div><br></div><div>Martins generic comments apply but on top =
+of that: Please add a short explanation. I would have expected gbm to get e=
+nabled from PACKAGECONFIG[egl] but possibly I don&#39;t understand the whol=
+e context: are there EGL users who do not want GBM?. Also, if you use --ena=
+ble-gdm conditionally, you should --disable-gbm in the other case: otherwis=
+e mesa autodetects and that might be non-deterministic (now or in future).<=
+/div><div><br></div><div>Jussi</div><div>=C2=A0</div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
+eft:1ex">=C2=A0PACKAGECONFIG[gles] =3D &quot;--enable-gles1 --enable-gles2,=
+ --disable-gles1 --disable-gles2&quot;<br>
+<br>
+=C2=A0EGL_PLATFORMS=C2=A0 =3D &quot;drm&quot;<br>
+--<br>
+1.9.1<br>
+<span class=3D"HOEnZb"><font color=3D"#888888"><br>
+--<br>
+Jens Rehsack - <a href=3D"mailto:rehsack@gmail.com">rehsack@gmail.com</a><b=
+r>
+<br>
+--<br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" rel=3D"noreferrer"=
+ target=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
+</font></span></blockquote></div><br></div></div>
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iEYEARECAAYFAlYNePQACgkQN1Ujt2V2gBxssACeOTaVVekb5C+TWVxE4MollDEJ
-QN4AoJbhpvi6zoOOcWBMbhJJdTDLgQt1
-=0qt4
------END PGP SIGNATURE-----
-
---NY6JkbSqL3W9mApi--
+--001a1130cf261ea2e705211d8c1c--
