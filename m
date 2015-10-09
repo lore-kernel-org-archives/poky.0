@@ -1,38 +1,34 @@
-Return-Path: <mail@webthatworks.it>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 70C2CE00E25; Thu,  8 Oct 2015 14:28:41 -0700 (PDT)
+	id 76D7EE01085; Thu,  8 Oct 2015 19:19:11 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from smtp206.alice.it (smtp206.alice.it [82.57.200.102])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 51128E006F1
-	for <poky@yoctoproject.org>; Thu,  8 Oct 2015 14:28:36 -0700 (PDT)
-Received: from caronte.home.webthatworks.it (79.25.128.165) by
-	smtp206.alice.it (8.6.060.28)
-	id 56139B8300860CB0 for poky@yoctoproject.org;
-	Thu, 8 Oct 2015 23:28:34 +0200
-Received: from gloom.home.webthatworks.it (gloom.home.webthatworks.it
-	[192.168.1.14])
-	by caronte.home.webthatworks.it (Postfix) with ESMTP id 3AD186FE039D
-	for <poky@yoctoproject.org>; Thu,  8 Oct 2015 23:28:34 +0200 (CEST)
-Received: from [IPv6:::1] (localhost [IPv6:::1])
-	by gloom.home.webthatworks.it (Postfix) with ESMTP id 1080A5E01C3
-	for <poky@yoctoproject.org>; Thu,  8 Oct 2015 23:27:41 +0200 (CEST)
-To: poky@yoctoproject.org
-References: <5616CE9C.2040001@webthatworks.it> <5616D645.2030308@mlbassoc.com>
-From: Ivan Sergio Borgonovo <mail@webthatworks.it>
-Organization: http://www.WebThatWorks.it
-Message-ID: <5616DFCC.2050107@webthatworks.it>
-Date: Thu, 8 Oct 2015 23:27:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
-	Icedove/38.2.0
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 55AABE00AA6
+	for <poky@yoctoproject.org>; Thu,  8 Oct 2015 19:19:07 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id t992J617021602
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 8 Oct 2015 19:19:06 -0700 (PDT)
+Received: from ala-blade48.wrs.com (147.11.105.68) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.248.2;
+	Thu, 8 Oct 2015 19:19:06 -0700
+From: Robert Yang <liezhi.yang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Thu, 8 Oct 2015 19:19:06 -0700
+Message-ID: <1444357146-7070-1-git-send-email-liezhi.yang@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
 MIME-Version: 1.0
-In-Reply-To: <5616D645.2030308@mlbassoc.com>
-Subject: Re: check gcc parameters without recompiling
+Subject: [PATCH] libsepol: DEPENDS on flex-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,22 +41,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Oct 2015 21:28:41 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 09 Oct 2015 02:19:11 -0000
+Content-Type: text/plain
 
-On 10/08/2015 10:47 PM, Gary Thomas wrote:
+Fixed when build libsepol-native:
+/bin/sh: 1: flex: not found
 
-> Have you looked at the logs?  Complete build logs are found
-> in ${TMPDIR}/work/*/<package>/<version>/temp/, where '*' is
-> your target architecture or platform name.  In this directory
-> you'll find a file 'log.do_compile' which should show you the
-> output generated from the compile step.
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
+ recipes-security/selinux/libsepol.inc | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks
-
+diff --git a/recipes-security/selinux/libsepol.inc b/recipes-security/selinux/libsepol.inc
+index b24ed28..a8ee749 100644
+--- a/recipes-security/selinux/libsepol.inc
++++ b/recipes-security/selinux/libsepol.inc
+@@ -12,4 +12,6 @@ inherit lib_package
+ # local ranlib.
+ EXTRA_OEMAKE += "RANLIB='$(AR) s'"
+ 
++DEPENDS += "flex-native"
++
+ BBCLASSEXTEND = "native"
 -- 
-Ivan Sergio Borgonovo
-http://www.webthatworks.it
+2.0.1
 
 
