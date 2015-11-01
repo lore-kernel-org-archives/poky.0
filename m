@@ -1,32 +1,53 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <avery.brian@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id CEBCDE007E1; Thu, 29 Oct 2015 09:30:42 -0700 (PDT)
+	id 7E6C2E00BC4; Sun,  1 Nov 2015 13:36:13 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.65 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (avery.brian[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B50CCE0071C
-	for <poky@yoctoproject.org>; Thu, 29 Oct 2015 09:30:39 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga103.jf.intel.com with ESMTP; 29 Oct 2015 09:30:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.20,215,1444719600"; d="scan'208";a="806671362"
-Received: from jsreeram-duo.amr.corp.intel.com (HELO swold-mobl.jf.intel.com)
-	([10.254.115.26])
-	by orsmga001.jf.intel.com with ESMTP; 29 Oct 2015 09:30:39 -0700
-From: Saul Wold <sgw@linux.intel.com>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.220.45 listed in list.dnswl.org]
+Received: from mail-pa0-f45.google.com (mail-pa0-f45.google.com
+	[209.85.220.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F11D5E00BA1
+	for <poky@yoctoproject.org>; Sun,  1 Nov 2015 13:36:12 -0800 (PST)
+Received: by pabfh17 with SMTP id fh17so2429054pab.0
+	for <poky@yoctoproject.org>; Sun, 01 Nov 2015 13:36:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=from:to:cc:subject:date:message-id;
+	bh=TIoftwGu5aERv369QY9rigyiZ/RMVLlwpRSSb+Gdu7w=;
+	b=fWmuR+c7Vs1+OD0CI2R3+9La0FsAEFxEYBe2yajrLVvzhMidccFkAxKsccl19MqMs5
+	8ysuPZchBDmaGAF6K4HeNfZflGCQxQ63mBFi6JCtUQk+hCiWEllVRN4fEJqVQk+Nxz6X
+	lQ4qHWFiGANKqwxzREXIvOsEzxiqkPWworAWVgA63JttiprWdQOeOWyQ2qQk7Mo5BxZd
+	woVfuAPwtASBcd7TQNXZvWRnA7vCdQUzIBNZrTP2EfeYa6z15ygeRiXUU0QOBgi+Oirh
+	hWVra6xuuxYm7ER/FF7HEEaRVdUO1MROJs/h/DwDB6ATFleaEg1NeSqXDU+Dp7c/LjvK
+	EG7w==
+X-Received: by 10.66.153.166 with SMTP id vh6mr23070741pab.83.1446413771751;
+	Sun, 01 Nov 2015 13:36:11 -0800 (PST)
+Received: from whisper.hsd1.or.comcast.net
+	(c-98-232-142-195.hsd1.or.comcast.net. [98.232.142.195])
+	by smtp.gmail.com with ESMTPSA id
+	qf2sm17221497pbb.3.2015.11.01.13.36.10
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Sun, 01 Nov 2015 13:36:11 -0800 (PST)
+From: brian avery <avery.brian@gmail.com>
 To: poky@yoctoproject.org
-Date: Thu, 29 Oct 2015 09:30:37 -0700
-Message-Id: <1446136237-19779-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 2.1.0
-Subject: [PATCH] linux-yocto_4.1: Update SRCREV for genericx86*
+Date: Sun,  1 Nov 2015 13:38:46 -0800
+Message-Id: <cover.1446413841.git.avery.brian@gmail.com>
+X-Mailer: git-send-email 1.9.1
+Subject: [PATCH 0/1] [FIDO] : remove master branch from toasterconf for fido
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,33 +60,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Oct 2015 16:30:42 -0000
+X-List-Received-Date: Sun, 01 Nov 2015 21:36:13 -0000
 
-This update matches the kernel update made to oe-core linux-yocto
-and address some graphics issues.
+This is the second part required to fix bug 8154. The fix for meta/conf/toasterconf.json
+went in a while ago. This fixes meta-yocto/conf/toasterconf.json.
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
+This is a backport to fido.
 
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+-b
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-index c70e559..5fdff25 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-@@ -7,8 +7,8 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- 
--SRCREV_machine_genericx86 ?= "a8abc111a96dd07a2884ebbba668ef8dec15f264"
--SRCREV_machine_genericx86-64 ?= "a8abc111a96dd07a2884ebbba668ef8dec15f264"
-+SRCREV_machine_genericx86 ?= "dbe692d91c8e55d1430f2c45fd578c8e4e71e482"
-+SRCREV_machine_genericx86-64 ?= "dbe692d91c8e55d1430f2c45fd578c8e4e71e482"
- SRCREV_machine_edgerouter ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
- SRCREV_machine_beaglebone ?= "efb6ffb2ca96a364f916c9890ad023fc595e0e6e"
- SRCREV_machine_mpc8315e-rdb ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
--- 
-2.1.4
+The following changes since commit fa55b8e5050c6d7a47ef8e9bc213d0cc9471b43a:
 
+  bitbake: toaster: buildinfohelper Skip packages we have no build info about (2015-10-24 12:01:07 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib bavery/toaster/fido-8154
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=bavery/toaster/fido-8154
+
+brian avery (1):
+  toasterconf: remove master as a branch option from fido release
+
+ meta-yocto/conf/toasterconf.json | 23 ++++-------------------
+ 1 file changed, 4 insertions(+), 19 deletions(-)
+
+--
+1.9.1
 
