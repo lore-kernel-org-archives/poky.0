@@ -1,36 +1,35 @@
-Return-Path: <george.l.musat@intel.com>
+Return-Path: <mail@webthatworks.it>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D6B93E00BE1; Tue,  3 Nov 2015 01:11:54 -0800 (PST)
+	id 93753E0088C; Wed,  4 Nov 2015 07:54:25 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
-	high *      trust
-	*      [134.134.136.65 listed in list.dnswl.org]
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E5C76E00BA1
-	for <poky@yoctoproject.org>; Tue,  3 Nov 2015 01:11:47 -0800 (PST)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-	by orsmga103.jf.intel.com with ESMTP; 03 Nov 2015 01:11:46 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.20,238,1444719600"; d="scan'208";a="593068576"
-Received: from linux.intel.com ([10.23.219.25])
-	by FMSMGA003.fm.intel.com with ESMTP; 03 Nov 2015 01:11:45 -0800
-Received: from localhost.localdomain (unknown [10.237.112.174])
-	by linux.intel.com (Postfix) with ESMTP id BD0A36A4083;
-	Tue,  3 Nov 2015 01:10:38 -0800 (PST)
-From: Lucian Musat <george.l.musat@intel.com>
+Received: from smtp207.alice.it (smtp207.alice.it [82.57.200.103])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 55BBEE00343
+	for <poky@yoctoproject.org>; Wed,  4 Nov 2015 07:54:22 -0800 (PST)
+Received: from caronte.home.webthatworks.it (87.9.4.118) by smtp207.alice.it
+	(8.6.060.28) id 562CAA6901982A99 for poky@yoctoproject.org;
+	Wed, 4 Nov 2015 16:54:13 +0100
+Received: from gloom.home.webthatworks.it (gloom.home.webthatworks.it
+	[192.168.1.14])
+	by caronte.home.webthatworks.it (Postfix) with ESMTP id 655F06FE24C7
+	for <poky@yoctoproject.org>; Wed,  4 Nov 2015 16:54:16 +0100 (CET)
+Received: from [IPv6:::1] (localhost [IPv6:::1])
+	by gloom.home.webthatworks.it (Postfix) with ESMTP id 314295E03C0
+	for <poky@yoctoproject.org>; Wed,  4 Nov 2015 16:54:10 +0100 (CET)
 To: poky@yoctoproject.org
-Date: Tue,  3 Nov 2015 11:12:59 +0200
-Message-Id: <1446541979-4321-2-git-send-email-george.l.musat@intel.com>
-X-Mailer: git-send-email 2.1.4
-In-Reply-To: <1446541979-4321-1-git-send-email-george.l.musat@intel.com>
-References: <1446541979-4321-1-git-send-email-george.l.musat@intel.com>
-Subject: [PATCH 2/2] meta-yocto/distro: Updated SANITY_TESTED_DISTROS.
+From: Ivan Sergio Borgonovo <mail@webthatworks.it>
+Organization: http://www.WebThatWorks.it
+Message-ID: <563A2A22.7010202@webthatworks.it>
+Date: Wed, 4 Nov 2015 16:54:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Icedove/38.3.0
+MIME-Version: 1.0
+Subject: avoid to download kernel when bitbake -c configure virtual/kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,28 +42,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Nov 2015 09:11:54 -0000
+X-List-Received-Date: Wed, 04 Nov 2015 15:54:25 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Added Ubuntu 15.10.
+I've learnt that to develop kernel patches I should
 
-Signed-off-by: Lucian Musat <george.l.musat@intel.com>
----
- meta-yocto/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+bitbake -c cleanall virtual/kernel
+bitbake -c configure virtual/kernel
+...
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index bea9a3a..0dc698b 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -76,6 +76,7 @@ SANITY_TESTED_DISTROS ?= " \
-             Ubuntu-14.04 \n \
-             Ubuntu-14.10 \n \
-             Ubuntu-15.04 \n \
-+            Ubuntu-15.10 \n \
-             Fedora-21 \n \
-             Fedora-22 \n \
-             Fedora-23 \n \
+bitbake -c configure virtual/kernel
+wants to download the kernel once more
+
+Did I do something wrong or is there a way to avoid to download the 
+kernel over and over other than setting up a proxy?
+
+thanks
+
 -- 
-2.1.4
+Ivan Sergio Borgonovo
+http://www.webthatworks.it
 
 
