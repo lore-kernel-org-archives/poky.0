@@ -1,33 +1,38 @@
-Return-Path: <elizabeth.flanagan@intel.com>
+Return-Path: <Cristian.Bercaru@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6F40CE00BA4; Wed,  9 Dec 2015 06:43:10 -0800 (PST)
+	id 75A0DE00B76; Wed,  9 Dec 2015 07:31:48 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.65 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 50192E0079A;
-	Wed,  9 Dec 2015 06:43:06 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga103.jf.intel.com with ESMTP; 09 Dec 2015 06:43:05 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.20,403,1444719600"; d="scan'208";a="837661845"
-Received: from mkotarsk-mobl.ger.corp.intel.com (HELO
-	fuath.ger.corp.intel.com) ([10.252.29.212])
-	by orsmga001.jf.intel.com with ESMTP; 09 Dec 2015 06:43:04 -0800
-From: Beth Flanagan <elizabeth.flanagan@intel.com>
-To: yocto@yoctoproject.org,
-	poky@yoctoproject.org
-Date: Wed,  9 Dec 2015 14:43:02 +0000
-Message-Id: <1449672182-12023-1-git-send-email-elizabeth.flanagan@intel.com>
-X-Mailer: git-send-email 1.9.1
-Subject: [PATCH] poky.conf: Bump for 2.1 development
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B7F49E0033E
+	for <poky@yoctoproject.org>; Wed,  9 Dec 2015 07:31:45 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id tB9FVec2003083
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 9 Dec 2015 07:31:41 -0800 (PST)
+Received: from [128.224.14.61] (128.224.14.61) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.248.2;
+	Wed, 9 Dec 2015 07:31:40 -0800
+To: <poky@yoctoproject.org>
+References: <cover.1449248342.git.cristian.bercaru@windriver.com>
+From: Cristian Bercaru <cristian.bercaru@windriver.com>
+Message-ID: <5668495A.5050909@windriver.com>
+Date: Wed, 9 Dec 2015 17:31:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Thunderbird/38.4.0
+MIME-Version: 1.0
+In-Reply-To: <cover.1449248342.git.cristian.bercaru@windriver.com>
+Cc: Daniel Dragomir <daniel.dragomir@windriver.com>
+Subject: Re: [PATCH] ARMv8 32-bit compiler tunings
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,38 +45,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Dec 2015 14:43:10 -0000
+X-List-Received-Date: Wed, 09 Dec 2015 15:31:48 -0000
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Beth Flanagan <elizabeth.flanagan@intel.com>
----
- meta-yocto/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+So, what do you guys think about my patch? Is the armv8a support a 
+valuable addition to poky?
 
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 2c99da8..e62ad4d 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "2.0"
--DISTRO_CODENAME = "jethro"
-+DISTRO_VERSION = "2.0+snapshot-${DATE}"
-+DISTRO_CODENAME = "master"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
- 
--- 
-1.9.1
+Cristian
 
--------------------------------------------------------------
-Intel Ireland Limited (Branch)
-Collinstown Industrial Park, Leixlip, County Kildare, Ireland
-Registered Number: E902934
-
-This e-mail and any attachments may contain confidential material for
-the sole use of the intended recipient(s). Any review or distribution
-by others is strictly prohibited. If you are not the intended
-recipient, please contact the sender and delete all copies.
-
+On 12/04/2015 07:20 PM, Cristian Bercaru wrote:
+> Hello!
+>
+> Starting with linux-yocto-4.1, Intel provides kernel support for its
+> ARM v8 Axxia platforms, both on 32-bit and 64-bit.
+> Poky already contains arm 64-bit compiler tunings, so I added 32-bit
+> tunings based on those for armv7.
+>
+> The patch that I send you is a draft. Please review it and if it's ok
+> I will return with thumb and big-endian tunings.
+>
+> Thank you,
+> Cristian Bercaru (1):
+>    add tunings for 32-bit ARMv8-a
+>
+>   meta/conf/machine/include/arm/arch-armv7a.inc      |    1 -
+>   meta/conf/machine/include/arm/arch-armv8a.inc      |   65 ++++++++++++++++++++
+>   meta/conf/machine/include/arm/feature-arm-neon.inc |    3 -
+>   meta/conf/machine/include/arm/feature-arm-vfp.inc  |   59 ++++++++++++++----
+>   4 files changed, 112 insertions(+), 16 deletions(-)
+>   create mode 100644 meta/conf/machine/include/arm/arch-armv8a.inc
+>   delete mode 100644 meta/conf/machine/include/arm/feature-arm-neon.inc
+>
 
