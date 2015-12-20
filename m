@@ -1,6 +1,6 @@
 Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6B15FE00BDF; Sun, 20 Dec 2015 07:53:27 -0800 (PST)
+	id 9AECAE00B9E; Sun, 20 Dec 2015 07:57:43 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,37 +12,37 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.49 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [74.125.82.48 listed in list.dnswl.org]
-Received: from mail-wm0-f48.google.com (mail-wm0-f48.google.com [74.125.82.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B213EE0083E
-	for <poky@yoctoproject.org>; Sun, 20 Dec 2015 07:53:24 -0800 (PST)
-Received: by mail-wm0-f48.google.com with SMTP id p187so41084628wmp.0
-	for <poky@yoctoproject.org>; Sun, 20 Dec 2015 07:53:24 -0800 (PST)
+Received: from mail-wm0-f49.google.com (mail-wm0-f49.google.com [74.125.82.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CFC40E0083E
+	for <poky@yoctoproject.org>; Sun, 20 Dec 2015 07:57:42 -0800 (PST)
+Received: by mail-wm0-f49.google.com with SMTP id p187so41155348wmp.0
+	for <poky@yoctoproject.org>; Sun, 20 Dec 2015 07:57:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=VsNL+bxyPKCGSRWmjS1SEchmOTMraUudoPqFs0egaPc=;
-	b=uYUIznyPseBxOn7S37ZVQBzIqVJaYrnm0HwRCLOqjcvsA3OY4PO90mbbkkSSuhhwJh
-	V6vM2Wot9EW1Y5lK47iaBW7mS1dUpDxfvISLGf8GL0jTDXLmeLrk12XMMcACb/Tb5f+M
-	ejS/NCFluZBd2zsnXqr3fJCOHcNXXJHTu9FZX6jvcNUIGHKN/JrW7Zwz9Mc1R7uez/Hb
-	NAtcvbgj60h7QRkJF5+Ox7KMkb0hSblhopPUrK2PT5nMGJVfLROnfJnM9IaMw/PuhyB7
-	V3wne3kAOsCK2fFJutuWnlcqakklQ8cDSLU6om0PQO3GA52M03ryQSgbbTdet0YSZWnq
-	UQ6g==
+	bh=dq/UI11TDSoaFrJDrqZC2vTJjbOqfYzbLvBIE0mXh2o=;
+	b=WLchbyrmaUX498THO4i1ptpSjb6xWwNkreWlyyVtO1mtshvIpuhYY2pxs+I/WTt5kk
+	WLZbgzdZxY2fGvB+vuQ1M8RG8pp2MPIAVgLqryjcfkKW2QGnxp+ZhiKD3RyPzixQYq46
+	VB1Rj2QtvhG6veYvC5t7xI60D45JlQVmDKGcsKT9/iNxAki7DxrUyorAxE2TVobr07Vp
+	sI+T4qM41hSSckfZ1IVx0RZrBwZIiBMFKHgQ+dWetQBFM8AqAiU3dq6KcU60hXU5pl0f
+	LhRFbxgcbO457x2X31m173/Ux5kpA95lekrVeej6GbV/n3VnuIALGCOdK7+k1DKQC3x/
+	VjCg==
 MIME-Version: 1.0
-X-Received: by 10.28.136.149 with SMTP id k143mr14426242wmd.57.1450626803179; 
-	Sun, 20 Dec 2015 07:53:23 -0800 (PST)
-Received: by 10.28.215.132 with HTTP; Sun, 20 Dec 2015 07:53:23 -0800 (PST)
-Date: Sun, 20 Dec 2015 21:23:23 +0530
-Message-ID: <CAA2DH4t7mWaM71LZGUqQ2xrqqdFEoKmVv3L+5FAQKBuF1DtdzQ@mail.gmail.com>
+X-Received: by 10.194.87.39 with SMTP id u7mr15437275wjz.11.1450627061786;
+	Sun, 20 Dec 2015 07:57:41 -0800 (PST)
+Received: by 10.28.215.132 with HTTP; Sun, 20 Dec 2015 07:57:41 -0800 (PST)
+Date: Sun, 20 Dec 2015 21:27:41 +0530
+Message-ID: <CAA2DH4sBZQmca7x4rD8gWnqpuX8toj5iec5XADNUWP=wamvh1A@mail.gmail.com>
 From: Prasant J <pj0585@gmail.com>
 To: poky@yoctoproject.org
-Subject: Bitbake recipe for prebuilt binaries
+Subject: SRC_URI: password protected ftp access
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,36 +55,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 20 Dec 2015 15:53:27 -0000
-Content-Type: multipart/alternative; boundary=001a11443ed84e28390527565f05
+X-List-Received-Date: Sun, 20 Dec 2015 15:57:43 -0000
+Content-Type: multipart/alternative; boundary=089e0102def4b82ea70527566e5b
 
---001a11443ed84e28390527565f05
+--089e0102def4b82ea70527566e5b
 Content-Type: text/plain; charset=UTF-8
 
 Hi,
 
 
-I'm building a custom layer for my board and I would like to include some
-pre-built binaries in my final image.
+I'm writing a bitbake recipe that will download the source tarball from a
+ftp/http server that is password protected. How can I avoid putting the
+username & password in the bitbake file? (the recipe will be version
+controlled and the username & password will not be secure anymore)
 
-The package is built outside the yocto build and is available as a binary
-tarball from an http/ftp location.
+
+Is there a way to put the username & password in the
+build/conf/local.conf?? or any other alternatives?
 
 
-Can someone please point to me a bit-bake recipe that handles such a case?
+Any inputs will be of help to me.
 
 
 Regards, PJ
 
---001a11443ed84e28390527565f05
+--089e0102def4b82ea70527566e5b
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div><div>Hi,<br><br><br></div>I&#39;m building a cus=
-tom layer for my board and I would like to include some pre-built binaries =
-in my final image.<br><br></div><div>The package is built outside the yocto=
- build and is available as a binary tarball from an http/ftp location.<br><=
-/div><div><br><br></div>Can someone please point to me a bit-bake recipe th=
-at handles such a case? <br><br><br></div>Regards, PJ<br></div>
+<div dir=3D"ltr"><div><div><div><div>Hi,<br><br><br></div>I&#39;m writing a=
+ bitbake recipe that will download the source tarball from a ftp/http serve=
+r that is password protected. How can I avoid putting the username &amp; pa=
+ssword in the bitbake file? (the recipe will be version controlled and the =
+username &amp; password will not be secure anymore)<br><br><br></div>Is the=
+re a way to put the username &amp; password in the build/conf/local.conf?? =
+or any other alternatives?<br><br><br></div>Any inputs will be of help to m=
+e.<br><br><br></div>Regards, PJ<br></div>
 
---001a11443ed84e28390527565f05--
+--089e0102def4b82ea70527566e5b--
