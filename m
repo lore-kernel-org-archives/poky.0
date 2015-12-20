@@ -1,6 +1,6 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <holger@freyther.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 75387E00BA0; Sat, 19 Dec 2015 15:06:13 -0800 (PST)
+	id 3C949E00BAA; Sat, 19 Dec 2015 23:42:33 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,29 +8,23 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
 	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E8602E0086B
-	for <poky@yoctoproject.org>; Sat, 19 Dec 2015 15:06:10 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	tBJN698b006978; Sat, 19 Dec 2015 23:06:09 GMT
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id sRFmq2BdohlY; Sat, 19 Dec 2015 23:06:09 +0000 (GMT)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	tBJN66pq006967
-	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
-	Sat, 19 Dec 2015 23:06:07 GMT
-Message-ID: <1450566366.8461.89.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Holger Freyther <holger@freyther.de>, poky@yoctoproject.org
-Date: Sat, 19 Dec 2015 23:06:06 +0000
+Received: from gandharva.secretlabs.de (gandharva.secretlabs.de [5.9.72.18])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 01C97E0044F
+	for <poky@yoctoproject.org>; Sat, 19 Dec 2015 23:42:29 -0800 (PST)
+Received: from [10.0.1.2] (ip5b41fb99.dynamic.kabel-deutschland.de
+	[91.65.251.153])
+	by gandharva.secretlabs.de (Postfix) with ESMTPSA id EDB106389A;
+	Sun, 20 Dec 2015 07:42:27 +0000 (UTC)
+Mime-Version: 1.0 (Mac OS X Mail 9.2 \(3112\))
+From: Holger Freyther <holger@freyther.de>
 In-Reply-To: <1450566176.8461.87.camel@linuxfoundation.org>
+Date: Sun, 20 Dec 2015 08:42:27 +0100
+Message-Id: <2A239212-32AC-47BC-846D-F646F489FE52@freyther.de>
 References: <014C7722-0747-4CF8-B2D1-AA7021E2B011@freyther.de>
 	<1450566176.8461.87.camel@linuxfoundation.org>
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+X-Mailer: Apple Mail (2.3112)
+Cc: poky@yoctoproject.org
 Subject: Re: Weird python/OE issue on parsing
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -44,44 +38,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 19 Dec 2015 23:06:13 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 20 Dec 2015 07:42:33 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2015-12-19 at 23:02 +0000, Richard Purdie wrote:
-> On Sat, 2015-12-19 at 13:15 +0100, Holger Freyther wrote:
-> > Hi,
-> > 
-> > my build to track master of Poky has started to fail in a very odd
-> > way. I can't reproduce it in a
-> > local build but something is severely wrong:
-> > 
-> > ERROR: Error in compiling python function in
-> > /home/oebuilds/jenkins/workspace/Yocto
-> > -Master/label/OE/poky/meta/conf/distro/include/tclibc-glibc.inc,
-> > line
-> > -10000000000005:
-> > ..
-> > OverflowError: Python int too large to convert to C long
-> > 
-> > 
-> > So somehow IN_PYTHON_EOF starts ending up in linenumber and then a
-> > bit is subtracted from
-> > it. Any idea how I can run into this?
-> 
+
+> On 20 Dec 2015, at 00:02, Richard Purdie =
+<richard.purdie@linuxfoundation.org> wrote:
+>=20
+>=20
 > It certainly seems related to the line numbering changes maybe
-> interacting badly with EOF somehow. Is this on a 32 bit system? 
+> interacting badly with EOF somehow. Is this on a 32 bit system?=20
 
-Putting:
+Yes, that is a 32bit userspace. debootstrap --arch=3Di386 wheezy wheezy =
+and then
+installing the deps and a plain git.yoctoproject,org/poky checkout is =
+enough to see
+the issue.
 
-+        if "tclibc-glibc" in realfile:
-+            bb.warn(str(lineno))
-
-into better_compile() shows up some nasty looking line numbers. I think
-we need to better bounds checks on the line numbers and fix some of the
-data that is being passed in for functions at EOF.
-
-Cheers,
-
-Richard
+holger=
 
