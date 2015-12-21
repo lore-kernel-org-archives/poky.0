@@ -1,53 +1,53 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 72E48E00825; Sun, 20 Dec 2015 13:59:47 -0800 (PST)
+	id 85F0EE00BF7; Mon, 21 Dec 2015 02:23:43 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
+	mail provider *      (pj0585[at]gmail.com)
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [209.85.223.178 listed in list.dnswl.org]
+	*      [74.125.82.54 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-io0-f178.google.com (mail-io0-f178.google.com
-	[209.85.223.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C4971E00825
-	for <poky@yoctoproject.org>; Sun, 20 Dec 2015 13:59:46 -0800 (PST)
-Received: by mail-io0-f178.google.com with SMTP id q126so137918361iof.2
-	for <poky@yoctoproject.org>; Sun, 20 Dec 2015 13:59:46 -0800 (PST)
+Received: from mail-wm0-f54.google.com (mail-wm0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D9DA3E0083E
+	for <poky@yoctoproject.org>; Mon, 21 Dec 2015 02:23:40 -0800 (PST)
+Received: by mail-wm0-f54.google.com with SMTP id l126so62152505wml.1
+	for <poky@yoctoproject.org>; Mon, 21 Dec 2015 02:23:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type;
-	bh=hLrtwAYLN2ax+VKVs8zc7BOsx3YhM6oHQOEmeot7SXY=;
-	b=SgCSCYdYcJ3HsLtYA3uyGC/D0V88Yrl8hQt5fKwwJjUSY0ya7rfbQ7K2mQP0ZBMl3g
-	tNYNTrRPNypDYQ65eBl+F9cg59m5Dctg6Ay4AIvfnVz2XInUkjpcK6Rk0S5ZUiBLsb3O
-	LPdDcs0oSwx4ObrQH/gDLoMj+n2T90P/jnhlqy6I4mkoU4AWlERWhv+NIb4TcyJUSquT
-	uUvSCnIrooR5p4NQ4a8s08huWloen89HuY++SBiq4b2cC+yd7iPeYqsti0ygjS6rJa/E
-	cmsMiLcErLj7EzcLvKxQjxIseBPkWhU+bwXxpXTgE32qYxvWg1HUFl9B3CX3csyIZ+xQ
-	MUBA==
-X-Received: by 10.107.9.224 with SMTP id 93mr15297537ioj.112.1450648785730;
-	Sun, 20 Dec 2015 13:59:45 -0800 (PST)
+	bh=znym8dlY/byVlOCwO43VGXyEHPkEhYhDjdst63tyQAA=;
+	b=iobBzbh3f7dG32JX5yLQBEnq+70hZgEBSfM7PmIP33dPI8DVNVF0GuBuBZpzKZpKvU
+	wwgxV4aVh0SC9VxXJdUL3Q+kHa73iLQfLD7upUXE0qyMInANoWu2h8Ass6DBVebAuuOi
+	FvLn1GfMRb1DMPMq98aNtVvw4j+wOUPo5CxSqRiuOedsZU0J8iSzEQSMnPkvJAHqzvPq
+	OHDaDk/SU6EdpJwDTq/o52hVOLh6/i5+lkvkCdi7IonrtbQuE22ohJ0RP4H45O1ZHME2
+	9EMwu9P6GNlDw+LzdR5Jyah/eLoyqugkMM8qdkhtZimSzqk0WMCDTvjpzcIWaVtJ3egv
+	ly6A==
 MIME-Version: 1.0
-Received: by 10.107.16.74 with HTTP; Sun, 20 Dec 2015 13:59:16 -0800 (PST)
-In-Reply-To: <570D83C9-C437-43C6-AE0A-F5A0C0794C52@freyther.de>
-References: <07C4FC01-05D3-4413-8CF7-EC51DC4493CA@freyther.de>
-	<570D83C9-C437-43C6-AE0A-F5A0C0794C52@freyther.de>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Sun, 20 Dec 2015 13:59:16 -0800
-Message-ID: <CAMKF1sqguLafzRoV5bNKEDnNTwqYJCaB_xX4unuvsVKTFV9LPQ@mail.gmail.com>
-To: Holger Freyther <holger@freyther.de>
+X-Received: by 10.28.136.149 with SMTP id k143mr18854652wmd.57.1450693419629; 
+	Mon, 21 Dec 2015 02:23:39 -0800 (PST)
+Received: by 10.28.215.132 with HTTP; Mon, 21 Dec 2015 02:23:39 -0800 (PST)
+In-Reply-To: <CAMKF1srTgyObrUFSdjg-PDNxz2pj8RV6zZXf39VvNbB2hvuwZg@mail.gmail.com>
+References: <CAA2DH4sBZQmca7x4rD8gWnqpuX8toj5iec5XADNUWP=wamvh1A@mail.gmail.com>
+	<CAMKF1srTgyObrUFSdjg-PDNxz2pj8RV6zZXf39VvNbB2hvuwZg@mail.gmail.com>
+Date: Mon, 21 Dec 2015 15:53:39 +0530
+Message-ID: <CAA2DH4s6V7BoXii7_wX0zmeTcHxrUWSJx4HiPNhK6qMtn2xPZA@mail.gmail.com>
+From: Prasant J <pj0585@gmail.com>
+To: Khem Raj <raj.khem@gmail.com>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: rootfs growth from dora to master
+Subject: Re: SRC_URI: password protected ftp access
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -60,96 +60,76 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 20 Dec 2015 21:59:47 -0000
+X-List-Received-Date: Mon, 21 Dec 2015 10:23:43 -0000
+Content-Type: multipart/alternative; boundary=001a11443ed8f484ae052765e125
+
+--001a11443ed8f484ae052765e125
 Content-Type: text/plain; charset=UTF-8
 
-On Sun, Dec 20, 2015 at 9:13 AM, Holger Freyther <holger@freyther.de> wrote:
->
->> On 20 Dec 2015, at 14:49, Holger Freyther <holger@freyther.de> wrote:
->>
->> Good Afternoon
->>
->> What is the standard approach here? Review PACKAGECONFIG and disable features, manually
->> increase the packagesplit to remove items (e.g. udev PCI id db when there are no PCI ids)?
->
-> Using PACKAGECONFIG and removing x11 from DISTROFEATURES I get the image down to 8.2MB
-> and by passing some more --disable to systemd itself the image is 7.6MB. This is currently enough to fi
-> in our rescue partition but still a significant increase compared to Dora.
->
-> Is there interest in maintaining older versions of systemd or having a size requirement that certain images
-> need to stay below XYZ MB for a given architecture?
+On Mon, Dec 21, 2015 at 3:18 AM, Khem Raj <raj.khem@gmail.com> wrote:
 
-In my view, its better to find more PACKAGECONFIGs and reduce the size
-than to stick to older version
-I think we can convince systemd upstream on configure options if new
-are needed. I have done something like
-
-something like below is what I have with systemd 216 and the size came
-down for ipk from ~10M to 5M
-
-EXTRA_OECONF += "--enable-introspection=no \
-                 --enable-gtk-doc=no \
-                 --enable-gtk-doc-html=no \
-                 --enable-gtk-doc-pdf=no \
-                 --enable-address-sanitizer=no \
-                 --disable-seccomp \
-                 --disable-selinux \
-                 --disable-apparmor \
-                 --disable-xz \
-                 --disable-pam \
-                 --disable-acl \
-                 --disable-smack \
-                 --disable-gcrypt \
-                 --disable-audit \
-                 --disable-libcryptsetup \
-                 --disable-qrencode \
-                 --disable-microhttpd  \
-                 --disable-quotacheck \
-                 --disable-vconsole \
-                 --disable-logind \
-                 --disable-machined \
-                 --disable-hostnamed \
-                 --disable-timedated \
-                 --disable-localed \
-                 --disable-polkit \
-                 --disable-networkd \
-                 --disable-efi \
-                 --disable-manpages \
-                 --disable-tests  \
-                 --disable-backlight \
-                 --disable-rfkill \
-                 --disable-multi-seat-x \
-                 --disable-ima \
-                 --disable-xattr \
-                 --disable-maintainer-mode \
-                 --disable-nls \
-                 --disable-binfmt \
-                 --disable-gudev \
-                 --disable-python-devel \
-                 --disable-kmod \
-                 --disable-blkid \
-                 --disable-chkconfig \
-                 --disable-tcpwrap \
-                 --disable-readahead \
-                 --disable-bootchart \
-                 --disable-randomseed \
-                 --disable-coredump \
-                 --disable-myhostname \
-                 --without-python \
-                 --disable-dependency-tracking \
-                 --enable-silent-rules \
-                 --enable-shared \
-                 --disable-dbus \
-                 --enable-compat-libs=no \
-                 --enable-coverage=no \
-"
-
+> On Sun, Dec 20, 2015 at 7:57 AM, Prasant J <pj0585@gmail.com> wrote:
+> > Hi,
+> >
+> >
+> > I'm writing a bitbake recipe that will download the source tarball from a
+> > ftp/http server that is password protected. How can I avoid putting the
+> > username & password in the bitbake file? (the recipe will be version
+> > controlled and the username & password will not be secure anymore)
+> >
+> >
+> > Is there a way to put the username & password in the
+> build/conf/local.conf??
+> > or any other alternatives?
 >
-> holger
+> You can use ~/.netrc do man netrc for how to configure it.
 >
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>
+>
 
+That helped! Thanks a lot Khem.
+
+
+I added the following line to .netrc:
+machine <server addr> login <username> password <pwd>
+
+
+Regards, PJ
+
+--001a11443ed8f484ae052765e125
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Mon, Dec 21, 2015 at 3:18 AM, Khem Raj <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:raj.khem@gmail.com" target=3D"_blank">raj.khem@gmail.com</a>&gt;=
+</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Sun, D=
+ec 20, 2015 at 7:57 AM, Prasant J &lt;<a href=3D"mailto:pj0585@gmail.com">p=
+j0585@gmail.com</a>&gt; wrote:<br>
+&gt; Hi,<br>
+&gt;<br>
+&gt;<br>
+&gt; I&#39;m writing a bitbake recipe that will download the source tarball=
+ from a<br>
+&gt; ftp/http server that is password protected. How can I avoid putting th=
+e<br>
+&gt; username &amp; password in the bitbake file? (the recipe will be versi=
+on<br>
+&gt; controlled and the username &amp; password will not be secure anymore)=
+<br>
+&gt;<br>
+&gt;<br>
+&gt; Is there a way to put the username &amp; password in the build/conf/lo=
+cal.conf??<br>
+&gt; or any other alternatives?<br>
+<br>
+</span>You can use ~/.netrc do man netrc for how to configure it.<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+<br></div></div></blockquote><div><br><br></div><div>That helped! Thanks a =
+lot Khem.<br><br><br></div><div>I added the following line to .netrc:<br></=
+div><div>machine &lt;server addr&gt; login &lt;username&gt; password &lt;pw=
+d&gt;<br><br><br></div><div>Regards, PJ<br></div><div>=C2=A0<br></div></div=
+></div></div>
+
+--001a11443ed8f484ae052765e125--
