@@ -1,48 +1,33 @@
-Return-Path: <pj0585@gmail.com>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DE3CCE00CC9; Wed, 23 Dec 2015 07:21:30 -0800 (PST)
+	id A30EAE00C1A; Sun, 27 Dec 2015 23:12:06 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (pj0585[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [74.125.82.43 listed in list.dnswl.org]
-Received: from mail-wm0-f43.google.com (mail-wm0-f43.google.com [74.125.82.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4ECCDE006F3
-	for <poky@yoctoproject.org>; Wed, 23 Dec 2015 07:21:27 -0800 (PST)
-Received: by mail-wm0-f43.google.com with SMTP id p187so152596403wmp.0
-	for <poky@yoctoproject.org>; Wed, 23 Dec 2015 07:21:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=y2P0opucvezu0J3w5wFfDcLkZsf8lwIsGQrz2Ood/CY=;
-	b=1KSrBMVnJ0YMwBJRcRn/NuL2rFMze3BB6nzdHpjZRuLNHYRvk36bcPeUxiLrcbSogw
-	6P6/mx2CmZTEUGjvVVtt/lpQfbDWueP9A9mA0ImZEeYx2wPuyT8J8pH5ANR0216seLgK
-	0novIoIXL1p+RlJhdduoa2IN0p5WFVfzTpgpFZGot0HsR1m1W72WoQ6TtFtqD0etYS7V
-	HxQcotTrt6Htxc0N/w5s5z4yThkGS8wo5/8SSa468szGtEtCvRqkGq2JOlbJQR1DPTUc
-	9BXVHeklY/lkKIuvH3kw0V9dtHIjxCDmhmU4+Nr2dr75n4pdkbWKgQ8b+Dtq8q9G4boO
-	p5zQ==
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C2C38E009AD
+	for <poky@yoctoproject.org>; Sun, 27 Dec 2015 23:12:05 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id tBS7C4XT013757
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
+	for <poky@yoctoproject.org>; Sun, 27 Dec 2015 23:12:04 -0800
+Received: from ala-blade47.wrs.com (147.11.105.67) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.248.2;
+	Sun, 27 Dec 2015 23:12:03 -0800
+From: Robert Yang <liezhi.yang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Sun, 27 Dec 2015 23:12:02 -0800
+Message-ID: <957690343fcb64c6a1ff62af29de145a0fa474fd.1451286587.git.liezhi.yang@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
+In-Reply-To: <cover.1451286587.git.liezhi.yang@windriver.com>
+References: <cover.1451286587.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
-X-Received: by 10.194.79.227 with SMTP id m3mr33806602wjx.5.1450884087082;
-	Wed, 23 Dec 2015 07:21:27 -0800 (PST)
-Received: by 10.28.215.132 with HTTP; Wed, 23 Dec 2015 07:21:27 -0800 (PST)
-Date: Wed, 23 Dec 2015 20:51:27 +0530
-Message-ID: <CAA2DH4twfBS9UKcD+c15W7YQPD=yKyN83uTpaV31Zgohs9ivzQ@mail.gmail.com>
-From: Prasant J <pj0585@gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: PACKAGE_EXCLUDE not working (Custom layer)
+Subject: [PATCH 1/1] yocto-bsp: Typo on the file extension
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,49 +40,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Dec 2015 15:21:30 -0000
-Content-Type: multipart/alternative; boundary=047d7bf0c6b69efa75052792468e
+X-List-Received-Date: Mon, 28 Dec 2015 07:12:06 -0000
+Content-Type: text/plain
 
---047d7bf0c6b69efa75052792468e
-Content-Type: text/plain; charset=UTF-8
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
 
-Hi,
+By mistake, the file initially had a wrong extension name, so changing to the
+correct one.
+
+(From meta-yocto master rev: 32c2278b8fe93429d4cfa097eefccd20157cd3b8)
+
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
+ ...-yocto_4.1.bbapend => linux-yocto_4.1.bbappend} |    0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/{linux-yocto_4.1.bbapend => linux-yocto_4.1.bbappend} (100%)
+
+diff --git a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.1.bbapend b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.1.bbappend
+similarity index 100%
+rename from scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.1.bbapend
+rename to scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.1.bbappend
+-- 
+1.7.9.5
 
 
-I'm creating a custom layer for my imx6 based setup.
-
-In build/conf/local.conf I have added: PACKAGE_EXCLUDE = "imx-lib imx-test"
-but my custom image still tries to build these packages.
-
-
-Can someone please point out the helpful debug commands/steps to figure out
-why these packages are being included?
-
-Can PACKAGE_EXCLUDE be overridden if some other package depends on the
-excluded packages and is included?
-
-
-In my package exclude list I added other package groups that bring imx-lib
-& imx-test but still its being build. Any inputs will be of help!
-
-
-
-Regards, PJ
-
---047d7bf0c6b69efa75052792468e
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div><div><div><div>Hi,<br><br><br></div>I&=
-#39;m creating a custom layer for my imx6 based setup.<br><br></div>In buil=
-d/conf/local.conf I have added: PACKAGE_EXCLUDE =3D &quot;imx-lib imx-test&=
-quot; but my custom image still tries to build these packages.<br><br></div=
-><br></div>Can someone please point out the helpful debug commands/steps to=
- figure out why these packages are being included?<br><br></div>Can PACKAGE=
-_EXCLUDE be overridden if some other package depends on the excluded packag=
-es and is included?<br><br><br></div>In my package exclude list I added oth=
-er package groups that bring imx-lib &amp; imx-test but still its being bui=
-ld. Any inputs will be of help!<br><br><br><br></div>Regards, PJ<br><div><d=
-iv><br><br><br></div></div></div>
-
---047d7bf0c6b69efa75052792468e--
