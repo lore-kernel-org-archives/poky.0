@@ -1,37 +1,47 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A2F8DE00D14; Mon, 28 Dec 2015 05:28:48 -0800 (PST)
+	id E4229E00D0E; Mon, 28 Dec 2015 05:42:40 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,KHOP_DYNAMIC
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (pj0585[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 KHOP_DYNAMIC Relay looks like a dynamic address
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA783E00A9C
-	for <poky@yoctoproject.org>; Mon, 28 Dec 2015 05:28:45 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	tBSDShcE017723; Mon, 28 Dec 2015 13:28:43 GMT
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id KmK5dJe4qoaP; Mon, 28 Dec 2015 13:28:43 +0000 (GMT)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	tBSDSeIQ017720
-	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 28 Dec 2015 13:28:41 GMT
-Message-ID: <1451309320.4129.25.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Prasant J <pj0585@gmail.com>, Poky Project <poky@yoctoproject.org>
-Date: Mon, 28 Dec 2015 13:28:40 +0000
-In-Reply-To: <CAA2DH4uy0UjfP81=wJi-w-Dik7rtk+5Hhtes-Ao1TKavUmRP1g@mail.gmail.com>
-References: <CAA2DH4uy0UjfP81=wJi-w-Dik7rtk+5Hhtes-Ao1TKavUmRP1g@mail.gmail.com>
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
-Subject: Re: bitbake variable override (virtual/kernel)
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.52 listed in list.dnswl.org]
+Received: from mail-wm0-f52.google.com (mail-wm0-f52.google.com [74.125.82.52])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EB4F1E008F5
+	for <poky@yoctoproject.org>; Mon, 28 Dec 2015 05:42:39 -0800 (PST)
+Received: by mail-wm0-f52.google.com with SMTP id l126so264272313wml.0
+	for <poky@yoctoproject.org>; Mon, 28 Dec 2015 05:42:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=pZK4yAIEP6GkTRKFa92XrsJYaFoOGM/fGxvrZsunFRg=;
+	b=o626xIdWbemGPf8wirzadQzuAUGTvnLd2rd4tGgS3sRHs7LeYO1H+36mB4erk4HNRM
+	XQbX2WgfNhQXX65n/P1YY1DMDRycnXCqMeOoa4OwWgr3R5tEwC0Bq5stvziLgSveWgym
+	xcL/rxadiN6bpp+scNgLahftyMN8S+nD0qaN7jOwph3R6/WpPcfOm5cvMZK0uuJuxUFi
+	CGDChZqsMtij81XnKW6EzB6PHdvGGmMAm7UBvap+SFxsUuFxHYfeluZaXunCq2QIho5O
+	QHmc/UuRsWPYD4X0uIK2O7OQdyGqhNPp5K+msfaa7Q4wXw14rCGNMRu2Jm2DpLfn2AyI
+	xuYw==
+MIME-Version: 1.0
+X-Received: by 10.194.79.227 with SMTP id m3mr57764537wjx.5.1451310159027;
+	Mon, 28 Dec 2015 05:42:39 -0800 (PST)
+Received: by 10.28.215.132 with HTTP; Mon, 28 Dec 2015 05:42:38 -0800 (PST)
+Date: Mon, 28 Dec 2015 19:12:38 +0530
+Message-ID: <CAA2DH4u1-4wpo=thV4eo=6_5ayGX42wQVjGzOTxoSJg7hwfC4w@mail.gmail.com>
+From: Prasant J <pj0585@gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: Prevent auto start of services
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,63 +54,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Dec 2015 13:28:48 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 28 Dec 2015 13:42:41 -0000
+Content-Type: text/plain; charset=UTF-8
 
-On Mon, 2015-12-28 at 18:52 +0530, Prasant J wrote:
-> Hi,
-> 
-> I'm putting together my custom layer with my machine configuration. I
-> have set PREFERRED_PROVIDER_virtual/kernel to build my kernel but it
-> is always overridden by distro configuration. Below is the output of
-> bitbake environment:
-> 
-> 
-> # $PREFERRED_PROVIDER_virtual/kernel [6 operations]
-> #   set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/sources/meta
-> -fsl-arm/conf/machine/include/imx-base.inc:117
-> #     [_defaultval] "linux-imx"
-> #   finalize ast.py:325 [finalize]
-> #     "was: linux-imx"
-> #   override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release
-> -bsp/build-fb/conf/local.conf:26
-> #     "linux-myboard-imx6"
-> #   override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release
-> -bsp/sources/mylayer/meta-newlayer/conf/machine/mymachine.conf:17
-> #     "linux-myboard-imx6"
-> #   override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release
-> -bsp/sources/meta-fsl-bsp-release/imx/meta
-> -sdk/conf/distro/include/fsl-imx-preferred-env.inc:7
-> #     "linux-imx"
-> #   finalize override[mx6]:
-> #     "linux-imx"
-> # pre-expansion value:
-> #   "linux-imx"
-> PREFERRED_PROVIDER_virtual/kernel="linux-imx"
-> 
-> From the above it seems that distro configuration overrides my custom
-> machine + glocal conf/local.conf configuration.
-> 
-> 
-> Is it expected? So should I also create a custom DISTRO?
-> Is there a way to extend the DISTRO configuration and only override
-> virtual/kernel value?
-> 
-> 
-> Any input will be of help to me. Thanks!
+Hi,
 
-Distro overrides are more powerful so yes, this isn't surprising. You
-could disable the mx6 override (which is probably added to
-MACHINEOVERRIDES or DISTROOVERRIDES)?
+I'm putting together a custom layer. I would like to prevent certain
+services to auto start, like avahi & ntp and few others.
 
-Something like:
+I want to install these applications but I do not want them to be
+added to /etc/init.t/rc5.d/
 
-MACHINEOVERRIDES_remove = ":mx6"
+How can I append the recipes of these packages such that the auto
+start is not added?
 
-might even work.
 
-Cheers,
 
-Richard
+Regards, PJ
 
