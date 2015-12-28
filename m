@@ -1,48 +1,37 @@
-Return-Path: <pj0585@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 184E0E00D0F; Mon, 28 Dec 2015 05:22:07 -0800 (PST)
+	id A2F8DE00D14; Mon, 28 Dec 2015 05:28:48 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,KHOP_DYNAMIC
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (pj0585[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [74.125.82.50 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f50.google.com (mail-wm0-f50.google.com [74.125.82.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3299BE00A9C
-	for <poky@yoctoproject.org>; Mon, 28 Dec 2015 05:22:05 -0800 (PST)
-Received: by mail-wm0-f50.google.com with SMTP id l126so263810846wml.0
-	for <poky@yoctoproject.org>; Mon, 28 Dec 2015 05:22:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=YRLkTWiKfbsMy+yEjexk4CDwswLELQgikJ7AuTbCMrs=;
-	b=Iq+C84nJPFRF9xqvUXzU1L5je0U5BNGbmPOjkM1n1piA9Y+7EUgmUw4tkEqgubSYX5
-	eh7RfejRL5cr0pk8Pef6rGcF1HNH701PVvQtC4L3z7e9BzwoiKQ7R7LJDTX/sBGi4CjR
-	mrmqQhYpAdTtztBMOURZ05oE0goGodyFnC71bbszGjExaKXegBjf6KlZtAxruT/HtoDA
-	e6jl9N+TMTONg3Cu71MTHlsMUeoePzEU70qWtZ/WBzbwA0+vO8Y7NIquppVRRFjYzNeO
-	81ireFKjgEbTHYE97jRqL+089O4XXEUi8BvzAsj3PuFteUUuOZViYB1ilcO0tHsiHbor
-	KkIg==
-MIME-Version: 1.0
-X-Received: by 10.194.87.39 with SMTP id u7mr58118607wjz.11.1451308924676;
-	Mon, 28 Dec 2015 05:22:04 -0800 (PST)
-Received: by 10.28.215.132 with HTTP; Mon, 28 Dec 2015 05:22:04 -0800 (PST)
-Date: Mon, 28 Dec 2015 18:52:04 +0530
-Message-ID: <CAA2DH4uy0UjfP81=wJi-w-Dik7rtk+5Hhtes-Ao1TKavUmRP1g@mail.gmail.com>
-From: Prasant J <pj0585@gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: bitbake variable override (virtual/kernel)
+	*  0.0 KHOP_DYNAMIC Relay looks like a dynamic address
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA783E00A9C
+	for <poky@yoctoproject.org>; Mon, 28 Dec 2015 05:28:45 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	tBSDShcE017723; Mon, 28 Dec 2015 13:28:43 GMT
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id KmK5dJe4qoaP; Mon, 28 Dec 2015 13:28:43 +0000 (GMT)
+Received: from hex ([192.168.3.34]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	tBSDSeIQ017720
+	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 28 Dec 2015 13:28:41 GMT
+Message-ID: <1451309320.4129.25.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Prasant J <pj0585@gmail.com>, Poky Project <poky@yoctoproject.org>
+Date: Mon, 28 Dec 2015 13:28:40 +0000
+In-Reply-To: <CAA2DH4uy0UjfP81=wJi-w-Dik7rtk+5Hhtes-Ao1TKavUmRP1g@mail.gmail.com>
+References: <CAA2DH4uy0UjfP81=wJi-w-Dik7rtk+5Hhtes-Ao1TKavUmRP1g@mail.gmail.com>
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
+Subject: Re: bitbake variable override (virtual/kernel)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,87 +44,63 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Dec 2015 13:22:07 -0000
-Content-Type: multipart/alternative; boundary=089e0102def4ea34190527f530ee
+X-List-Received-Date: Mon, 28 Dec 2015 13:28:48 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---089e0102def4ea34190527f530ee
-Content-Type: text/plain; charset=UTF-8
+On Mon, 2015-12-28 at 18:52 +0530, Prasant J wrote:
+> Hi,
+> 
+> I'm putting together my custom layer with my machine configuration. I
+> have set PREFERRED_PROVIDER_virtual/kernel to build my kernel but it
+> is always overridden by distro configuration. Below is the output of
+> bitbake environment:
+> 
+> 
+> # $PREFERRED_PROVIDER_virtual/kernel [6 operations]
+> #   set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/sources/meta
+> -fsl-arm/conf/machine/include/imx-base.inc:117
+> #     [_defaultval] "linux-imx"
+> #   finalize ast.py:325 [finalize]
+> #     "was: linux-imx"
+> #   override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release
+> -bsp/build-fb/conf/local.conf:26
+> #     "linux-myboard-imx6"
+> #   override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release
+> -bsp/sources/mylayer/meta-newlayer/conf/machine/mymachine.conf:17
+> #     "linux-myboard-imx6"
+> #   override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release
+> -bsp/sources/meta-fsl-bsp-release/imx/meta
+> -sdk/conf/distro/include/fsl-imx-preferred-env.inc:7
+> #     "linux-imx"
+> #   finalize override[mx6]:
+> #     "linux-imx"
+> # pre-expansion value:
+> #   "linux-imx"
+> PREFERRED_PROVIDER_virtual/kernel="linux-imx"
+> 
+> From the above it seems that distro configuration overrides my custom
+> machine + glocal conf/local.conf configuration.
+> 
+> 
+> Is it expected? So should I also create a custom DISTRO?
+> Is there a way to extend the DISTRO configuration and only override
+> virtual/kernel value?
+> 
+> 
+> Any input will be of help to me. Thanks!
 
-Hi,
+Distro overrides are more powerful so yes, this isn't surprising. You
+could disable the mx6 override (which is probably added to
+MACHINEOVERRIDES or DISTROOVERRIDES)?
 
-I'm putting together my custom layer with my machine configuration. I have
-set PREFERRED_PROVIDER_virtual/kernel to build my kernel but it is always
-overridden by distro configuration. Below is the output of bitbake
-environment:
+Something like:
 
+MACHINEOVERRIDES_remove = ":mx6"
 
-# $PREFERRED_PROVIDER_virtual/kernel [6 operations]
-#   set
-/home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/sources/meta-fsl-arm/conf/machine/include/imx-base.inc:117
-#     [_defaultval] "linux-imx"
-#   finalize ast.py:325 [finalize]
-#     "was: linux-imx"
-#   override[mx6]:set
-/home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/build-fb/conf/local.conf:26
-#     "linux-myboard-imx6"
-#   override[mx6]:set
-/home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/sources/mylayer/meta-newlayer/conf/machine/mymachine.conf:17
-#     "linux-myboard-imx6"
-#   override[mx6]:set
-/home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/sources/meta-fsl-bsp-release/imx/meta-sdk/conf/distro/include/fsl-imx-preferred-env.inc:7
-#     "linux-imx"
-#   finalize override[mx6]:
-#     "linux-imx"
-# pre-expansion value:
-#   "linux-imx"
-PREFERRED_PROVIDER_virtual/kernel="linux-imx"
+might even work.
 
+Cheers,
 
+Richard
 
-From the above it seems that distro configuration overrides my custom
-machine + glocal conf/local.conf configuration.
-
-
-Is it expected? So should I also create a custom DISTRO?
-Is there a way to extend the DISTRO configuration and only override
-virtual/kernel value?
-
-
-Any input will be of help to me. Thanks!
-
-
-Regards
-
---089e0102def4ea34190527f530ee
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<div><br></div><div>I&#39;m putting together my custom =
-layer with my machine configuration. I have set PREFERRED_PROVIDER_virtual/=
-kernel to build my kernel but it is always overridden by distro configurati=
-on. Below is the output of bitbake environment:</div><div><br></div><div><b=
-r></div><div><div># $PREFERRED_PROVIDER_virtual/kernel [6 operations]</div>=
-<div># =C2=A0 set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-bsp/sources/=
-meta-fsl-arm/conf/machine/include/imx-base.inc:117</div><div># =C2=A0 =C2=
-=A0 [_defaultval] &quot;linux-imx&quot;</div><div># =C2=A0 finalize ast.py:=
-325 [finalize]</div><div># =C2=A0 =C2=A0 &quot;was: linux-imx&quot;</div><d=
-iv># =C2=A0 override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-=
-bsp/build-fb/conf/local.conf:26</div><div># =C2=A0 =C2=A0 &quot;linux-myboa=
-rd-imx6&quot;</div><div># =C2=A0 override[mx6]:set /home/user/fsl-L3.14.52_=
-1.1.0_ga/fsl-release-bsp/sources/mylayer/meta-newlayer/conf/machine/mymachi=
-ne.conf:17</div><div># =C2=A0 =C2=A0 &quot;linux-myboard-imx6&quot;</div><d=
-iv># =C2=A0 override[mx6]:set /home/user/fsl-L3.14.52_1.1.0_ga/fsl-release-=
-bsp/sources/meta-fsl-bsp-release/imx/meta-sdk/conf/distro/include/fsl-imx-p=
-referred-env.inc:7</div><div># =C2=A0 =C2=A0 &quot;linux-imx&quot;</div><di=
-v># =C2=A0 finalize override[mx6]:</div><div># =C2=A0 =C2=A0 &quot;linux-im=
-x&quot;</div><div># pre-expansion value:</div><div># =C2=A0 &quot;linux-imx=
-&quot;</div><div>PREFERRED_PROVIDER_virtual/kernel=3D&quot;linux-imx&quot;<=
-/div></div><div><br></div><div><br></div><div><br></div><div>From the above=
- it seems that distro configuration overrides my custom machine + glocal co=
-nf/local.conf configuration.</div><div><br></div><div><br></div><div>Is it =
-expected? So should I also create a custom DISTRO?</div><div>Is there a way=
- to extend the DISTRO configuration and only override virtual/kernel value?=
-</div><div><br></div><div><br></div><div>Any input will be of help to me. T=
-hanks!</div><div><br></div><div><br></div><div>Regards</div></div>
-
---089e0102def4ea34190527f530ee--
