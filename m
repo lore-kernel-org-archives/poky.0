@@ -1,47 +1,34 @@
-Return-Path: <pj0585@gmail.com>
+Return-Path: <anibal.limon@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2AAE8E00D03; Wed, 30 Dec 2015 05:44:49 -0800 (PST)
+	id 8ACEFE00BEF; Mon,  4 Jan 2016 10:27:45 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (pj0585[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [74.125.82.53 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.93 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f53.google.com (mail-wm0-f53.google.com [74.125.82.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 724B0E00B44
-	for <poky@yoctoproject.org>; Wed, 30 Dec 2015 05:44:46 -0800 (PST)
-Received: by mail-wm0-f53.google.com with SMTP id f206so66772777wmf.0
-	for <poky@yoctoproject.org>; Wed, 30 Dec 2015 05:44:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=Olsrk/JjoiqZfkqF7D6SnhrrIiyqqtqOcnil9eh76PI=;
-	b=KZ+oKlkCmXIQZJHv9FRTA+/CcJKYYfW3aeRJMRblAlqHbBNW6IecbMCeK34iLcCaX8
-	tWaYI9zNRHF+aE5ygpRFtqLjKUMRVk9uY+jZOsUSMYksxdCLvsvYD7BcLuEoP6JxfL6y
-	R2yX6y7x/23OrpmSLc24VSB2HLDn772qf2SQk/oRNmA/8XkCxmP98N1ROxFpXq7NullU
-	UxPBVp5ohunn8GnqAzQzRi2tdXRCpGWkc/iHMPdJafx4SpXQp2m17OAFq0QwCXMTjIq+
-	ucF7SFntiwmTyvVS7laJ7QOkCyFsdD1Iv5tS4DkTVYK91Aj7EWxDw/gidmYfmz/PzcFQ
-	bZoQ==
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0D4DFE00908
+	for <poky@yoctoproject.org>; Mon,  4 Jan 2016 10:27:43 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga102.fm.intel.com with ESMTP; 04 Jan 2016 10:27:43 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.20,521,1444719600"; d="scan'208";a="874414276"
+Received: from alimonb-mobl1.zpn.intel.com ([10.219.5.151])
+	by fmsmga001.fm.intel.com with ESMTP; 04 Jan 2016 10:27:42 -0800
+From: =?UTF-8?q?An=C3=ADbal=20Lim=C3=B3n?= <anibal.limon@linux.intel.com>
+To: openembedded-core@lists.openembedded.org
+Date: Mon,  4 Jan 2016 12:29:14 -0600
+Message-Id: <1451932157-3190-1-git-send-email-anibal.limon@linux.intel.com>
+X-Mailer: git-send-email 2.1.4
 MIME-Version: 1.0
-X-Received: by 10.194.87.39 with SMTP id u7mr69852687wjz.11.1451483086079;
-	Wed, 30 Dec 2015 05:44:46 -0800 (PST)
-Received: by 10.28.215.132 with HTTP; Wed, 30 Dec 2015 05:44:46 -0800 (PST)
-Date: Wed, 30 Dec 2015 19:14:46 +0530
-Message-ID: <CAA2DH4sENeiyWBkm1ccXN2uQ0YOfu89skL6iAVTLkX3JvN84Uw@mail.gmail.com>
-From: Prasant J <pj0585@gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: System Service not being installed
+Cc: paul.eggleton@linux.intel.com, georgex.l.musat@intel.com,
+	poky@yoctoproject.org, benjamin.esquivel@intel.com
+Subject: [PATCH v3 0/3] ptest-runner 2.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,33 +41,43 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Dec 2015 13:44:49 -0000
+X-List-Received-Date: Mon, 04 Jan 2016 18:27:45 -0000
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The whole set is sent to two ML for reviewing purposes the first two patches are for
+oe-core and the last one for poky.
 
-I'm creating a custom bitbake recipe to install a system service.
+The first two commits (oe-core) adds a new ptest-runner written in python the sh one is conserved
+to use in tiny systems.
 
-I have defined the following variables:
-INITSCRIPT_PACKAGES
-INITSCRIPT_NAME
-INITSCRIPT_PARAMS
+What's new in ptest runner:
 
-I have also inherited update-rc.d class. (I have not added systemd
-related information as I am not planning to use that.. I hope that is
-fine?)
+	- Monitor/timeout stdout, stderr of the test suite to avoid block indefinetly.
+	- Add option for change ptest root directory.
+	- Add option for list available tests.
+	- Add option for only run certain tests.
 
+The last commit (meta-yocto) sets ptest-runner to 1.0 in poky-tiny systems due to python dependency.
 
-My init script is seen in the final image: /etc/init.d/myservice
-but the startup links are not installed in /etc/rc?.d/
+The changes are available in the git repository at:
 
+  git://git.yoctoproject.org/poky-contrib alimon/ptest-runner
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=alimon/ptest-runner
 
-I have checked sample service recipes of dropbear & avahi, but cannot
-find out what I'm doing wrong in my script.
+Aníbal Limón (3):
+  ptest-runner: Add version 2.0 re-implementation in python.
+  ptest-runner: Add a recipe for install ptest-runner 2.0.
+  conf/distro/poky-tiny.conf: Add default install of ptest-runner 1.0
 
-How can I debug system service recipe ?
-Any extra step to be perfromed?
+ meta-yocto/conf/distro/poky-tiny.conf              |   4 +
+ .../ptest-runner/files/ptest-runner_2.0.py         | 162 +++++++++++++++++++++
+ .../ptest-runner/ptest-runner_2.0.bb               |  27 ++++
+ 3 files changed, 193 insertions(+)
+ create mode 100755 meta/recipes-support/ptest-runner/files/ptest-runner_2.0.py
+ create mode 100644 meta/recipes-support/ptest-runner/ptest-runner_2.0.bb
 
+-- 
+2.1.4
 
-Regards, PJ
 
