@@ -1,47 +1,49 @@
-Return-Path: <pj0585@gmail.com>
+Return-Path: <star@gmx.li>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6C399E00C3A; Wed,  6 Jan 2016 23:15:59 -0800 (PST)
+	id 43783E00B3D; Wed,  6 Jan 2016 23:29:26 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Level: **
+X-Spam-Status: No, score=2.1 required=5.0 tests=BAYES_50,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW,XPRIO autolearn=no version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (pj0585[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	mail provider *      (star[at]gmx.li)
+	*  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.4831]
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [74.125.82.52 listed in list.dnswl.org]
-Received: from mail-wm0-f52.google.com (mail-wm0-f52.google.com [74.125.82.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 09D0BE00BB9
-	for <poky@yoctoproject.org>; Wed,  6 Jan 2016 23:15:55 -0800 (PST)
-Received: by mail-wm0-f52.google.com with SMTP id f206so108556227wmf.0
-	for <poky@yoctoproject.org>; Wed, 06 Jan 2016 23:15:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=9avePZtmxGC92BN677HNIOEWHBA2EdZU3uHI2gn6nHY=;
-	b=qkbgZ7s/ckvTOL6+sI79yVXakMtdJDcnSI8lPvi4r/Qsvh+aIMTyY5Ga8vXB3c6Cff
-	Da4E1uZjMzIaRoRIjRM51bGqDShagIKQ7oKDi6ifUL6/9EsGLbdzaaVJK6SItpmixuKW
-	gb0OB9gU1YNvenQUnpAahSBqjw68Xc6awZvnWRhJEqZzuFuB7BF0bQPQ0SFGzbz6cggj
-	AxKMCtzQkWtNmIBUDZ7qSPaKFfEKjQLZLgXmkKhfLBNxU+qAEEPgarQJfVDLwPi3a6QW
-	O91z52Akzvu8O/XVgPbKK8pyN60uwuaYGJ7ugLj/WaSBEb12XhfUzJ+RISlimZ44aMZ3
-	rSmQ==
+	*      [212.227.17.22 listed in list.dnswl.org]
+	*  2.0 XPRIO Has X-Priority header
+X-Greylist: delayed 305 seconds by postgrey-1.32 at yocto-www;
+	Wed, 06 Jan 2016 23:29:22 PST
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E388EE00803
+	for <poky@yoctoproject.org>; Wed,  6 Jan 2016 23:29:22 -0800 (PST)
+Received: from [62.225.157.198] by 3capp-gmx-bs07.server.lan (via HTTP);
+	Thu, 7 Jan 2016 08:24:16 +0100
 MIME-Version: 1.0
-X-Received: by 10.28.101.213 with SMTP id z204mr14223340wmb.57.1452150955203; 
-	Wed, 06 Jan 2016 23:15:55 -0800 (PST)
-Received: by 10.28.215.132 with HTTP; Wed, 6 Jan 2016 23:15:55 -0800 (PST)
-Date: Thu, 7 Jan 2016 12:45:55 +0530
-Message-ID: <CAA2DH4uwne3WO4h7JpGpr=_M=A_yZeTQuZqdq0Bo0w2w7gZUsw@mail.gmail.com>
-From: Prasant J <pj0585@gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: Custom recipe not able to create init script symlinks
+Message-ID: <trinity-8e3e6815-e458-4eed-926e-96325a4e39bb-1452151456046@3capp-gmx-bs07>
+From: Arno <star@gmx.li>
+To: poky@yoctoproject.org
+Date: Thu, 7 Jan 2016 08:24:16 +0100
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K0:oVosWHaiUS8M5XWqTQu7kDAEcB8P4nAgf/SUpzCYTV9
+	qgK613Zu9QhzSeewE4EfWvMaOYjtvj4SUh/6BAH3vQzDX6X3vJ
+	xdeO5NyOylQ5PKuKo7tflF17Hj/HOS4xefDlCSWxgAtvXjCtZT
+	HXLv2Fu8Ymp/566e+NGWyQ2pDb8m7HAWwxeLEYDieCEsxP9CtA
+	F8dmfc0D8W+tq5IcJnYEzMg9l7gUz4X27JUqVcS836IgKaBguc
+	WVMJG/C6jatjSd1i8LjyMO8t2s+CdJ0fr0tsyLr7Zu6auwPyZo QsgR7E=
+X-UI-Out-Filterresults: notjunk:1;V01:K0:XF3fV2qMjMY=:mfh+FSIe6t5p8S7BubrOAn
+	QVUpAw1kXCwt8l+JM4xrHem7T2I60kYCrV0RucXDs2GcF/P7+HvDkBjvFfJzdOd/WILD+By9B
+	aR4ZDAul7rHlnzDnrekD8U8Vani450FKK+7hVLPUR77UQI2xs5vlKsP5y5aC51l9aRXct3+eQ
+	rNDPrtZPd7u7JL6Rg2ShkQbiY8YgwWopfNmlepkSOqljoQVYXtByETSKRI3i1h2osJKrbk2+P
+	780iHrlL4ZyCkfY+t1kYqAWCvFwBcANauf9nGRGY/GfMxbbtDJkGPGEnpyOHuedjSmjcBR0WO
+	v5/SDdCdAPNNN09EU/G6L/BeXRkNvU1imVkd/GbbozpkwvPmRAh+BO0UM2ecytA23m+/PfXdP
+	tKQnndZCBH1uFsRi+U3aOEhs5b7iDxvpufQmkpz4zfKNaA9WBG0VZDAlmWIGjP3H/pfD8Zoij
+	ii4AptdYFg==
+Subject: TCF agent doesn't support run control service
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,34 +56,12 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jan 2016 07:15:59 -0000
+X-List-Received-Date: Thu, 07 Jan 2016 07:29:26 -0000
 Content-Type: text/plain; charset=UTF-8
 
-Hi,
-
-I'm trying to create a system service recipe that will install
-SysVInit initscripts.
-
-I have 2 recipes:
-
-Recipe 1: compiles a source code and also installs SysVInit (Works as expected)
-Recipe 2: only installs a initscript
-
-
-Recipe 2 is only installing as a postinst task (I see an entry in
-/etc/rpm-postinst/) but SysVinit symlinks are not created in
-/etc/rc?.d/ directories.
-
-Any idea on how I can force it to create symlinks during image creation?
-
-
-There is no difference in Recipe 1 & Recipe 2 (update-rc.d wise) but
-still one installs during image creation and the other one is deferred
-post installation. I do not understand this behavior.
-
-
-Any inputs will be of help!
-
-
-Regards, PJ
+While my tests with TCF I found that I can't debug with it (remote exploring works).
+In eclispe I get in the Tab Debugger Configuration/download the message:
+"peer does not support run control service".
+As I am new to both Yocto and TCF I kindly ask, is this an issue of me (wrong handling), TCF in general, TCF in Yocto or is an issue with my target ARM-CortexA9 system?
+Does it mean, I should keep going for GDB?
 
