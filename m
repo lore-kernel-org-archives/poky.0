@@ -1,49 +1,49 @@
-Return-Path: <star@gmx.li>
+Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 43783E00B3D; Wed,  6 Jan 2016 23:29:26 -0800 (PST)
+	id 48341E00CBF; Thu,  7 Jan 2016 00:56:42 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=BAYES_50,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW,XPRIO autolearn=no version=3.3.1
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	*  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.4831]
+	mail provider *      (pj0585[at]gmail.com)
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [212.227.17.22 listed in list.dnswl.org]
-	*  2.0 XPRIO Has X-Priority header
-X-Greylist: delayed 305 seconds by postgrey-1.32 at yocto-www;
-	Wed, 06 Jan 2016 23:29:22 PST
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E388EE00803
-	for <poky@yoctoproject.org>; Wed,  6 Jan 2016 23:29:22 -0800 (PST)
-Received: from [62.225.157.198] by 3capp-gmx-bs07.server.lan (via HTTP);
-	Thu, 7 Jan 2016 08:24:16 +0100
+	*      [74.125.82.45 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F47FE00C9E
+	for <poky@yoctoproject.org>; Thu,  7 Jan 2016 00:56:41 -0800 (PST)
+Received: by mail-wm0-f45.google.com with SMTP id f206so88348145wmf.0
+	for <poky@yoctoproject.org>; Thu, 07 Jan 2016 00:56:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type; bh=rDy9QI1MzYgMSmM/1Ojc10H8afKhfnjKWxoBropBWGs=;
+	b=KYua4sr1RcJUXzYJc7BWDoEcZljHJK8sqBFG8oi+vLqLPdIkL2dV/yBpC87zAthj+e
+	z87jJCUXeO4BzWaddj9sCJrW9EVeQVp7A0euZ6cNEWadPdARckxw6j9bdeQ6F5frWinA
+	dqBVkgR+Z4UuudoqhjDhDWcSCTTIyEBfH5IVdoAk+qN2aDaFO8DdCOY4LQhCNpYIQwsy
+	w0d0kB7Qor/MHwfU3KwGHIMaGyzDbz3+ZEIUASXEHysXC8l6MGjpee5S2X7QVqARH+qD
+	0FPkFGmSCuSDs2CLKPg+yEzJ4UCoEDv0hsNCu0kYNUQPzgfdSOLUd9z4jIWsxApMW2Mu
+	DtRQ==
 MIME-Version: 1.0
-Message-ID: <trinity-8e3e6815-e458-4eed-926e-96325a4e39bb-1452151456046@3capp-gmx-bs07>
-From: Arno <star@gmx.li>
-To: poky@yoctoproject.org
-Date: Thu, 7 Jan 2016 08:24:16 +0100
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K0:oVosWHaiUS8M5XWqTQu7kDAEcB8P4nAgf/SUpzCYTV9
-	qgK613Zu9QhzSeewE4EfWvMaOYjtvj4SUh/6BAH3vQzDX6X3vJ
-	xdeO5NyOylQ5PKuKo7tflF17Hj/HOS4xefDlCSWxgAtvXjCtZT
-	HXLv2Fu8Ymp/566e+NGWyQ2pDb8m7HAWwxeLEYDieCEsxP9CtA
-	F8dmfc0D8W+tq5IcJnYEzMg9l7gUz4X27JUqVcS836IgKaBguc
-	WVMJG/C6jatjSd1i8LjyMO8t2s+CdJ0fr0tsyLr7Zu6auwPyZo QsgR7E=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:XF3fV2qMjMY=:mfh+FSIe6t5p8S7BubrOAn
-	QVUpAw1kXCwt8l+JM4xrHem7T2I60kYCrV0RucXDs2GcF/P7+HvDkBjvFfJzdOd/WILD+By9B
-	aR4ZDAul7rHlnzDnrekD8U8Vani450FKK+7hVLPUR77UQI2xs5vlKsP5y5aC51l9aRXct3+eQ
-	rNDPrtZPd7u7JL6Rg2ShkQbiY8YgwWopfNmlepkSOqljoQVYXtByETSKRI3i1h2osJKrbk2+P
-	780iHrlL4ZyCkfY+t1kYqAWCvFwBcANauf9nGRGY/GfMxbbtDJkGPGEnpyOHuedjSmjcBR0WO
-	v5/SDdCdAPNNN09EU/G6L/BeXRkNvU1imVkd/GbbozpkwvPmRAh+BO0UM2ecytA23m+/PfXdP
-	tKQnndZCBH1uFsRi+U3aOEhs5b7iDxvpufQmkpz4zfKNaA9WBG0VZDAlmWIGjP3H/pfD8Zoij
-	ii4AptdYFg==
-Subject: TCF agent doesn't support run control service
+X-Received: by 10.194.87.39 with SMTP id u7mr112590721wjz.11.1452157000703;
+	Thu, 07 Jan 2016 00:56:40 -0800 (PST)
+Received: by 10.28.215.132 with HTTP; Thu, 7 Jan 2016 00:56:40 -0800 (PST)
+In-Reply-To: <CAA2DH4uwne3WO4h7JpGpr=_M=A_yZeTQuZqdq0Bo0w2w7gZUsw@mail.gmail.com>
+References: <CAA2DH4uwne3WO4h7JpGpr=_M=A_yZeTQuZqdq0Bo0w2w7gZUsw@mail.gmail.com>
+Date: Thu, 7 Jan 2016 14:26:40 +0530
+Message-ID: <CAA2DH4s1sF22ihWNxF1KP-JgY84adt78wWO0xNrmPpxuO1A8UQ@mail.gmail.com>
+From: Prasant J <pj0585@gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: Re: Custom recipe not able to create init script symlinks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -56,12 +56,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jan 2016 07:29:26 -0000
+X-List-Received-Date: Thu, 07 Jan 2016 08:56:42 -0000
 Content-Type: text/plain; charset=UTF-8
 
-While my tests with TCF I found that I can't debug with it (remote exploring works).
-In eclispe I get in the Tab Debugger Configuration/download the message:
-"peer does not support run control service".
-As I am new to both Yocto and TCF I kindly ask, is this an issue of me (wrong handling), TCF in general, TCF in Yocto or is an issue with my target ARM-CortexA9 system?
-Does it mean, I should keep going for GDB?
+On Thu, Jan 7, 2016 at 12:45 PM, Prasant J <pj0585@gmail.com> wrote:
+> Hi,
+>
+> I'm trying to create a system service recipe that will install
+> SysVInit initscripts.
+>
+> I have 2 recipes:
+>
+> Recipe 1: compiles a source code and also installs SysVInit (Works as expected)
+> Recipe 2: only installs a initscript
+>
+>
+> Recipe 2 is only installing as a postinst task (I see an entry in
+> /etc/rpm-postinst/) but SysVinit symlinks are not created in
+> /etc/rc?.d/ directories.
+>
+> Any idea on how I can force it to create symlinks during image creation?
+>
+>
+> There is no difference in Recipe 1 & Recipe 2 (update-rc.d wise) but
+> still one installs during image creation and the other one is deferred
+> post installation. I do not understand this behavior.
+>
+>
+> Any inputs will be of help!
+>
+
+Found it. Typo in INITSCRIPT_PARAMS
+Recipe works now.
+
+Back to school for me!
+
+
+Regards,, PJ
 
