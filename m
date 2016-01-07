@@ -1,39 +1,58 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D3494E00CB1; Thu,  7 Jan 2016 05:12:43 -0800 (PST)
+	id 811EDE00C7B; Thu,  7 Jan 2016 15:34:20 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ADC46E0090E
-	for <poky@yoctoproject.org>; Thu,  7 Jan 2016 05:12:40 -0800 (PST)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga104.fm.intel.com with ESMTP; 07 Jan 2016 05:12:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.20,533,1444719600"; d="scan'208";a="722014573"
-Received: from linux.intel.com ([10.23.219.25])
-	by orsmga003.jf.intel.com with ESMTP; 07 Jan 2016 05:12:39 -0800
-Received: by linux.intel.com (Postfix, from userid 48)
-	id DDC9D6A4006; Thu,  7 Jan 2016 06:00:37 -0800 (PST)
-Received: from 10.252.19.48 (SquirrelMail authenticated user alexander.kanavin)
-	by linux.intel.com with HTTP; Thu, 7 Jan 2016 16:00:37 +0200 (EET)
-Message-ID: <51910.10.252.19.48.1452175237.squirrel@linux.intel.com>
-In-Reply-To: <CAFNP8Ovaqt-L6Re6M4dz3O5qaj83-BNrXcfR+yH6bXwyB-0C4A@mail.gmail.com>
-References: <cover.1449152326.git.alexander.kanavin@linux.intel.com>
-	<CAFNP8Ovaqt-L6Re6M4dz3O5qaj83-BNrXcfR+yH6bXwyB-0C4A@mail.gmail.com>
-Date: Thu, 7 Jan 2016 16:00:37 +0200 (EET)
-From: alexander.kanavin@linux.intel.com
-To: "Scott Rifenbark" <srifenbark@gmail.com>
-User-Agent: SquirrelMail/1.4.8-5.el4.centos.8
-MIME-Version: 1.0
-X-Priority: 3 (Normal)
-Importance: Normal
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] Remove qt4 references from poky
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.45 listed in list.dnswl.org]
+Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1B20CE00AEA
+	for <poky@yoctoproject.org>; Thu,  7 Jan 2016 15:34:14 -0800 (PST)
+Received: by mail-wm0-f45.google.com with SMTP id f206so147592642wmf.0
+	for <poky@yoctoproject.org>; Thu, 07 Jan 2016 15:34:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=from:to:subject:date:message-id;
+	bh=CoEvEuvMAI8rBCUiLO//yhCaFcsBcXf/bkEJXswgBKs=;
+	b=PY+ViM8QrjRdh5PZCL+HVwj/aEt1n9eBFmnuRA1ZYmhBd0WwpZ/XWlvq0y9i0I1gIe
+	QMZGVyMsmirjvzgvc5WI+i5dlaq7Jo4AlPxgNmyCv6yFCOdx9uhObHEprLYeHmowWWaw
+	JjwrFBnvIQeydDNCK0FOzqP75EQCgd7BXC/oqhCv3v/DyORAfj4M388iZm0wj2XGSQkZ
+	aRaVy2ZZJwbGeNYLNgePMOAIuDQof1O+ZPgjrAuuG5M2iKLmrZ1lkqt4qGopYHW0gWqi
+	2Wop+r9k2AUhsUkERClyig0C1kIHHA02w4BrDZV4u26LVZDqVvGnn54qGJEduk8ubgiY
+	hZvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=CoEvEuvMAI8rBCUiLO//yhCaFcsBcXf/bkEJXswgBKs=;
+	b=DNwG1AGAxhF7c200uGFHnIAqYqunoI1usXbsLqCWHWpQTFPzQb8cfigWYcgaJlqMed
+	9nqOk8DkgdAXztbDJKnD8plwk2f37L4h0Ma347EeY1HRf6p3fSHgj8NHRidJLuiraAT1
+	dNk9gxVxkH+qTiC0oAcql0EkHcZjJjYYPA1iY0vGNn/w6my2fZyuYjxnXNKuykoZjNbJ
+	xds4VlQ8gUcpDJMwwbc/ntVUVrtMlirffwuzAKrJ+SZX2loCdlwQzdyv4i/QiNiv8GPP
+	AF/XRbwMmqTp0/Z4MqOVeKH5SEDIpwSzoj9C0BIvUV7+1To+eS4Xnmpe7zFyNQhTpXIl
+	YBUg==
+X-Gm-Message-State: ALoCoQk/ZR76xaDxLOcnJeLQGcg5o9qDLIU3+DDmqJjxs7DK3dASx8XKdOC7ZCBBIgLNdftlL4ws9MqeXcJU6GPHXYEKwXKlRw==
+X-Received: by 10.194.223.39 with SMTP id qr7mr114161300wjc.63.1452209653440; 
+	Thu, 07 Jan 2016 15:34:13 -0800 (PST)
+Received: from flashheart.burtonini.com (35.106.2.81.in-addr.arpa.
+	[81.2.106.35]) by smtp.gmail.com with ESMTPSA id
+	g3sm102979501wjw.31.2016.01.07.15.34.12 for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Thu, 07 Jan 2016 15:34:12 -0800 (PST)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  7 Jan 2016 23:34:06 +0000
+Message-Id: <1452209646-23210-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 2.6.4
+Subject: [PATCH] conf/distro/poky-tiny: correctly disable python in opkg-utils
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,47 +65,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jan 2016 13:12:43 -0000
-Content-Type: text/plain;charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 07 Jan 2016 23:34:20 -0000
 
-> There are some references to qt4 in the YP Reference Manual.  Can you tell
-> me if these simply need removed from the documentation?  Or, if some
-> modification is necessary for each.  Here they are:
->
-> http://www.yoctoproject.org/docs/2.1/ref-manual/ref-manual.html#migration-2.0-Gstreamer-0.10-removed
+opkg-utils has more than one PACKAGECONFIG option enabled by default so wiping
+out PACKAGECONFIG entirely breaks poky-tiny as then opkg-utils doesn't build an
+update-alternatives binary.
 
-This is in a section about updating to YP2.0. That version is not
-affected, and will continue to carry Qt4 packages.
+Instead, use the _remove override to selectively disable Python in opkg-utils,
+leaving update-alternatives present.
 
-But you probably do want to add a note to a similar section about moving
-to YP2.1. Something along these lines:
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-yocto/conf/distro/poky-tiny.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-"Qt4 recipes and classes have been removed in YP 2.1 because Qt4.x has
-reached end of life upstream. For legacy applications and LSB compliancy
-purposes Qt4 can be found in meta-qt4 repository, and for any new
-development Qt5 is available at meta-qt5 repository(provide links to
-both)."
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
+index eb0e88b..0ac46ac 100644
+--- a/meta-yocto/conf/distro/poky-tiny.conf
++++ b/meta-yocto/conf/distro/poky-tiny.conf
+@@ -125,4 +125,4 @@ PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-weston] = "not buildable with poky-tiny"
+ 
+ # Disable python usage in opkg-utils since it won't build with tiny config
+-PACKAGECONFIG_pn-opkg-utils = ""
++PACKAGECONFIG_remove_pn-opkg-utils = "python"
+-- 
+2.6.4
 
-> http://www.yoctoproject.org/docs/2.1/ref-manual/ref-manual.html#ref-classes-qt4*
-
-Should be removed, also remove the preceding qmake* section.
-
-> http://www.yoctoproject.org/docs/2.1/ref-manual/ref-manual.html#ref-images
-> - Last item in that list.
-
-Should be removed.
-
-> http://www.yoctoproject.org/docs/2.1/ref-manual/ref-manual.html#ref-features-image
-> - There is a "qt4-pkgs" item in the second list of this section.
-
-Should be removed.
-
-There are also a few references to Qt in general in the same manual (e.g.
-recipes-qt, COMMERCIAL_QT, do_generate_qt_config), those should be removed
-as well. Let me know if you need specific guidance for them, or I can
-review your documentation patch.
-
-Thanks,
-Alex
 
