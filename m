@@ -1,58 +1,32 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <Yi.Zhao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 811EDE00C7B; Thu,  7 Jan 2016 15:34:20 -0800 (PST)
+	id 3B83FE00C89; Fri,  8 Jan 2016 00:55:49 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [74.125.82.45 listed in list.dnswl.org]
-Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1B20CE00AEA
-	for <poky@yoctoproject.org>; Thu,  7 Jan 2016 15:34:14 -0800 (PST)
-Received: by mail-wm0-f45.google.com with SMTP id f206so147592642wmf.0
-	for <poky@yoctoproject.org>; Thu, 07 Jan 2016 15:34:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=from:to:subject:date:message-id;
-	bh=CoEvEuvMAI8rBCUiLO//yhCaFcsBcXf/bkEJXswgBKs=;
-	b=PY+ViM8QrjRdh5PZCL+HVwj/aEt1n9eBFmnuRA1ZYmhBd0WwpZ/XWlvq0y9i0I1gIe
-	QMZGVyMsmirjvzgvc5WI+i5dlaq7Jo4AlPxgNmyCv6yFCOdx9uhObHEprLYeHmowWWaw
-	JjwrFBnvIQeydDNCK0FOzqP75EQCgd7BXC/oqhCv3v/DyORAfj4M388iZm0wj2XGSQkZ
-	aRaVy2ZZJwbGeNYLNgePMOAIuDQof1O+ZPgjrAuuG5M2iKLmrZ1lkqt4qGopYHW0gWqi
-	2Wop+r9k2AUhsUkERClyig0C1kIHHA02w4BrDZV4u26LVZDqVvGnn54qGJEduk8ubgiY
-	hZvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=CoEvEuvMAI8rBCUiLO//yhCaFcsBcXf/bkEJXswgBKs=;
-	b=DNwG1AGAxhF7c200uGFHnIAqYqunoI1usXbsLqCWHWpQTFPzQb8cfigWYcgaJlqMed
-	9nqOk8DkgdAXztbDJKnD8plwk2f37L4h0Ma347EeY1HRf6p3fSHgj8NHRidJLuiraAT1
-	dNk9gxVxkH+qTiC0oAcql0EkHcZjJjYYPA1iY0vGNn/w6my2fZyuYjxnXNKuykoZjNbJ
-	xds4VlQ8gUcpDJMwwbc/ntVUVrtMlirffwuzAKrJ+SZX2loCdlwQzdyv4i/QiNiv8GPP
-	AF/XRbwMmqTp0/Z4MqOVeKH5SEDIpwSzoj9C0BIvUV7+1To+eS4Xnmpe7zFyNQhTpXIl
-	YBUg==
-X-Gm-Message-State: ALoCoQk/ZR76xaDxLOcnJeLQGcg5o9qDLIU3+DDmqJjxs7DK3dASx8XKdOC7ZCBBIgLNdftlL4ws9MqeXcJU6GPHXYEKwXKlRw==
-X-Received: by 10.194.223.39 with SMTP id qr7mr114161300wjc.63.1452209653440; 
-	Thu, 07 Jan 2016 15:34:13 -0800 (PST)
-Received: from flashheart.burtonini.com (35.106.2.81.in-addr.arpa.
-	[81.2.106.35]) by smtp.gmail.com with ESMTPSA id
-	g3sm102979501wjw.31.2016.01.07.15.34.12 for <poky@yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-	Thu, 07 Jan 2016 15:34:12 -0800 (PST)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Thu,  7 Jan 2016 23:34:06 +0000
-Message-Id: <1452209646-23210-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 2.6.4
-Subject: [PATCH] conf/distro/poky-tiny: correctly disable python in opkg-utils
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A3ED8E0079A
+	for <poky@yoctoproject.org>; Fri,  8 Jan 2016 00:55:46 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id u088tisA029283
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
+	for <poky@yoctoproject.org>; Fri, 8 Jan 2016 00:55:45 -0800
+Received: from localhost (128.224.162.175) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.248.2;
+	Fri, 8 Jan 2016 00:55:43 -0800
+From: Yi Zhao <yi.zhao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Fri, 8 Jan 2016 16:55:41 +0800
+Message-ID: <1452243341-16174-1-git-send-email-yi.zhao@windriver.com>
+X-Mailer: git-send-email 1.7.9.5
+MIME-Version: 1.0
+X-Originating-IP: [128.224.162.175]
+Subject: [PATCH] local.conf.sample: add qemumips64
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,31 +39,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jan 2016 23:34:20 -0000
+X-List-Received-Date: Fri, 08 Jan 2016 08:55:49 -0000
+Content-Type: text/plain
 
-opkg-utils has more than one PACKAGECONFIG option enabled by default so wiping
-out PACKAGECONFIG entirely breaks poky-tiny as then opkg-utils doesn't build an
-update-alternatives binary.
+Add the missing example machine configuration for qemumips64
 
-Instead, use the _remove override to selectively disable Python in opkg-utils,
-leaving update-alternatives present.
-
-Signed-off-by: Ross Burton <ross.burton@intel.com>
+Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
 ---
- meta-yocto/conf/distro/poky-tiny.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-yocto/conf/local.conf.sample |    1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-yocto/conf/distro/poky-tiny.conf
-index eb0e88b..0ac46ac 100644
---- a/meta-yocto/conf/distro/poky-tiny.conf
-+++ b/meta-yocto/conf/distro/poky-tiny.conf
-@@ -125,4 +125,4 @@ PNBLACKLIST[core-image-x11] = "not buildable with poky-tiny"
- PNBLACKLIST[core-image-weston] = "not buildable with poky-tiny"
- 
- # Disable python usage in opkg-utils since it won't build with tiny config
--PACKAGECONFIG_pn-opkg-utils = ""
-+PACKAGECONFIG_remove_pn-opkg-utils = "python"
+diff --git a/meta-yocto/conf/local.conf.sample b/meta-yocto/conf/local.conf.sample
+index 7a0dde5..8297a2d 100644
+--- a/meta-yocto/conf/local.conf.sample
++++ b/meta-yocto/conf/local.conf.sample
+@@ -20,6 +20,7 @@
+ #MACHINE ?= "qemuarm"
+ #MACHINE ?= "qemuarm64"
+ #MACHINE ?= "qemumips"
++#MACHINE ?= "qemumips64"
+ #MACHINE ?= "qemuppc"
+ #MACHINE ?= "qemux86"
+ #MACHINE ?= "qemux86-64"
 -- 
-2.6.4
+1.7.9.5
 
 
