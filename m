@@ -1,6 +1,6 @@
 Return-Path: <anibal.limon@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5246DE00803; Thu, 14 Jan 2016 14:25:29 -0800 (PST)
+	id 61D8CE007EA; Thu, 14 Jan 2016 14:25:29 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,28 +12,24 @@ X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 34541E0070F
-	for <poky@yoctoproject.org>; Thu, 14 Jan 2016 14:25:26 -0800 (PST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 14B8EE00444
+	for <poky@yoctoproject.org>; Thu, 14 Jan 2016 14:25:23 -0800 (PST)
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 14 Jan 2016 14:25:25 -0800
+	by fmsmga101.fm.intel.com with ESMTP; 14 Jan 2016 14:25:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.22,296,1449561600"; d="scan'208";a="881619263"
+X-IronPort-AV: E=Sophos;i="5.22,296,1449561600"; d="scan'208";a="881619226"
 Received: from alimonb-mobl1.zpn.intel.com ([10.219.5.151])
-	by fmsmga001.fm.intel.com with ESMTP; 14 Jan 2016 14:25:24 -0800
+	by fmsmga001.fm.intel.com with ESMTP; 14 Jan 2016 14:25:22 -0800
 From: =?UTF-8?q?An=C3=ADbal=20Lim=C3=B3n?= <anibal.limon@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 14 Jan 2016 16:27:03 -0600
-Message-Id: <a0064e7a8877fa00724ac15263fd51ee04545bb2.1452808373.git.anibal.limon@linux.intel.com>
+Date: Thu, 14 Jan 2016 16:27:01 -0600
+Message-Id: <cover.1452808370.git.anibal.limon@linux.intel.com>
 X-Mailer: git-send-email 2.1.4
-In-Reply-To: <cover.1452808370.git.anibal.limon@linux.intel.com>
-References: <cover.1452808370.git.anibal.limon@linux.intel.com>
-In-Reply-To: <cover.1452808370.git.anibal.limon@linux.intel.com>
-References: <cover.1452808370.git.anibal.limon@linux.intel.com>
 MIME-Version: 1.0
 Cc: paul.eggleton@linux.intel.com, openembedded-core@lists.openembedded.org,
 	georgex.l.musat@intel.com, tudor.florea@enea.com,
 	benjamin.esquivel@intel.com
-Subject: [PATCH 2/3] ptests: Update references to new ptest-runner2.
+Subject: [PATCH 0/3] ptest-runner2 C implementation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,46 +46,40 @@ X-List-Received-Date: Thu, 14 Jan 2016 22:25:29 -0000
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-classes/ptest.bbclass: Now recommends ptest-runner2 instead of
-			ptest-runner.
-oeqa/runtime/_ptest.py: Now validate if ptest-runner2 is installed.
+This is the changes that adds new ptest-runner2 C implementation a detail
+description exists in the recipe adding.
 
-Signed-off-by: Aníbal Limón <anibal.limon@linux.intel.com>
----
- meta/classes/ptest.bbclass      | 2 +-
- meta/lib/oeqa/runtime/_ptest.py | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+You can review the ptest-runner2 code on [1], i wrote unit tests for all
+the code using check framework also i used mtrace for found possible memory leaks.
 
-diff --git a/meta/classes/ptest.bbclass b/meta/classes/ptest.bbclass
-index fa3561e..c84ca97 100644
---- a/meta/classes/ptest.bbclass
-+++ b/meta/classes/ptest.bbclass
-@@ -12,7 +12,7 @@ PTEST_ENABLED_class-nativesdk = ""
- PTEST_ENABLED_class-cross-canadian = ""
- RDEPENDS_${PN}-ptest_class-native = ""
- RDEPENDS_${PN}-ptest_class-nativesdk = ""
--RRECOMMENDS_${PN}-ptest += "ptest-runner"
-+RRECOMMENDS_${PN}-ptest += "ptest-runner2"
- 
- PACKAGES =+ "${@bb.utils.contains('PTEST_ENABLED', '1', '${PN}-ptest', '', d)}"
- 
-diff --git a/meta/lib/oeqa/runtime/_ptest.py b/meta/lib/oeqa/runtime/_ptest.py
-index 0621028..d1e51a4 100644
---- a/meta/lib/oeqa/runtime/_ptest.py
-+++ b/meta/lib/oeqa/runtime/_ptest.py
-@@ -105,10 +105,10 @@ class PtestRunnerTest(oeRuntimeTest):
-     def test_ptestrunner(self):
-         self.add_smart_channel()
-         (runnerstatus, result) = self.target.run('which ptest-runner', 0)
--        cond = oeRuntimeTest.hasPackage("ptest-runner") and oeRuntimeTest.hasFeature("ptest") and oeRuntimeTest.hasPackage("-ptest") and (runnerstatus != 0)
-+        cond = oeRuntimeTest.hasPackage("ptest-runner2") and oeRuntimeTest.hasFeature("ptest") and oeRuntimeTest.hasPackage("-ptest") and (runnerstatus != 0)
-         if cond:
-             self.install_packages(self.install_complementary("*-ptest"))
--            self.install_packages(['ptest-runner'])
-+            self.install_packages(['ptest-runner2'])
- 
-         (runnerstatus, result) = self.target.run('/usr/bin/ptest-runner > /tmp/ptest.log 2>&1', 0)
-         #exit code is !=0 even if ptest-runner executes because some ptest tests fail.
+Finally i tested the new runner on qemux86, qemuarm, qemumips, qemuppc using
+core-image-minimal and qemux86/poky-tiny/core-image-minimal.
+
+[YOCTO #8021]
+
+[1] https://github.com/alimon/ptest-runner2
+
+The following changes since commit 92cc02fe517bad0af4e493fda3331738cbcc9a26:
+
+  linux-yocto: Update Genericx86* BSPs to 4.1.15 (2016-01-14 15:18:46 +0000)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib alimon/ptest-runner2
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=alimon/ptest-runner2
+
+Aníbal Limón (3):
+  ptest-runner2: Add new ptest-runner2 recipe.
+  ptests: Update references to new ptest-runner2.
+  Update dev-manual to point to the new ptest-runner2.
+
+ .../dev-manual/dev-manual-common-tasks.xml         |  4 ++--
+ meta/classes/ptest.bbclass                         |  2 +-
+ meta/lib/oeqa/runtime/_ptest.py                    |  4 ++--
+ .../ptest-runner2/ptest-runner2_0.1.bb             | 24 ++++++++++++++++++++++
+ 4 files changed, 29 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-support/ptest-runner2/ptest-runner2_0.1.bb
+
 -- 
 2.1.4
 
