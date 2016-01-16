@@ -1,6 +1,6 @@
 Return-Path: <florin@resin.io>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 17D34E00AB7; Sat, 16 Jan 2016 04:29:28 -0800 (PST)
+	id BF229E00B2E; Sat, 16 Jan 2016 04:29:49 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,7 +8,7 @@ X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	http://www.dnswl.org/, low *      trust
-	*      [74.125.82.65 listed in list.dnswl.org]
+	*      [74.125.82.66 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
@@ -16,41 +16,44 @@ X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f65.google.com (mail-wm0-f65.google.com [74.125.82.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82D84E0090C
-	for <poky@yoctoproject.org>; Sat, 16 Jan 2016 04:29:25 -0800 (PST)
-Received: by mail-wm0-f65.google.com with SMTP id u188so7516515wmu.0
-	for <poky@yoctoproject.org>; Sat, 16 Jan 2016 04:29:25 -0800 (PST)
+Received: from mail-wm0-f66.google.com (mail-wm0-f66.google.com [74.125.82.66])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A68FE00AB7
+	for <poky@yoctoproject.org>; Sat, 16 Jan 2016 04:29:45 -0800 (PST)
+Received: by mail-wm0-f66.google.com with SMTP id u188so7517503wmu.0
+	for <poky@yoctoproject.org>; Sat, 16 Jan 2016 04:29:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=resin.io; s=googledkim;
-	h=from:to:cc:subject:date:message-id;
+	h=from:to:cc:subject:date:message-id:in-reply-to:references;
 	bh=mezeKcsiblDpQWbGl7gp9V0deF9Lqu3wsoNRt3VI44M=;
-	b=lAgsgjvXT0LgiQWz0GKzOvs9LoC/2WGrl6NL9zUSooi8SxTVWhlPdeU5hmDb3lIu+6
-	MoKghhyLKbtnWP20XpwkUy9hEruhUJX/RijxMhUzaHOEA2s3awfql7IbaHj4rdmEgiia
-	CQO7CcHLxsNNzTZ39tWC60cgjP7zNec8f0pJg=
+	b=g9rRW0igTG0c9L8noorMqEgPUYHYpdJBo4mFMYPtqDKULdqp/vBu8oOlkUMntMkSz6
+	USRW0K59YbKeXdxMAb0DsPZEr8TEl7OIog4CnFg9PMrm6caPc9v98HmWAW5CzuwScyVz
+	v2NKfPh9Anbge7RHakMVVf0LXmDqagYLAXw0c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references;
 	bh=mezeKcsiblDpQWbGl7gp9V0deF9Lqu3wsoNRt3VI44M=;
-	b=d8Ko1xY3BvGz5tfEePcBIpLTQ/aoHVUSPPFdfpa0DunHJCGsu555y6K81elVswEv7N
-	LHDh+quMkJ99ngUbC9XkRcHLngn62PhVKWe12QcsGeFG3Y33TG2amRl0Mo64E29Lcl1m
-	BVaBRCdoh1UhCg+DspJwBUnco7BLSuJABZ0ap1yZLt8Fw7cyJmvv0MEx06kAnwCZY8N6
-	29+WQGwGRHZcdw/QfU6/TtWErOd58WE58s9lamI6dzFYsDwDH5dxRDAkjUiAfsanp6kF
-	DHoPgX5hMsRvs0g826+Yo/Y+ojCz+SPkYW4Cg3fyBefFuS6vK6Z1GpqzlAPZ4WdLtxku
-	o0lA==
-X-Gm-Message-State: ALoCoQkNrL9PPHWQvzQte7AgHR+6AeCPQ+0PACZDOy0Baf3eJ4Y65WIchMNlsNarnh+ADXAXLxM3o0bQXpOoLi9cXa6cwq7Y6A==
-X-Received: by 10.194.250.39 with SMTP id yz7mr16800491wjc.92.1452947364839;
-	Sat, 16 Jan 2016 04:29:24 -0800 (PST)
+	b=Kucsds+3DeqdBXAglB6tQBhnrCxesin0DCPtP6cS6+o9x7y8cbdRcqoIysTu9qdUr0
+	ghVJHrOfxXPDmSaBpGjxzNfiRbvzUw1E6iP4JxIxHbmJY8xsDWpJ0riV/iFV5tiyLkQD
+	L7TAIEWZAOukUXYwgxQ167aalI4KPwOqUV3HYOnrrahqD4H8eA+SLifo9E2QSbiIoPtb
+	OHKsN2eKNoLyw5Rf92O5VzzhVx6q7fgxbzWrUnkta9hLO5yWzTehT1udr/2ioqXVyqG7
+	UFS2MrHGq5U6In7D8dwRGlzkBJkKq+HgJQiPuA3EnhtnR7X9rdO8mEsbXhdZfIB+HAYg
+	kWOw==
+X-Gm-Message-State: AG10YOTP5LarYG7xWO1cHINAcWUjaWwXQEwCxSJHp40NqLOg5p7girzm+mu/+DaLnxuCRw==
+X-Received: by 10.28.214.76 with SMTP id n73mr3914589wmg.52.1452947384765;
+	Sat, 16 Jan 2016 04:29:44 -0800 (PST)
 Received: from localhost.localdomain (5-13-166-210.residential.rdsnet.ro.
 	[5.13.166.210]) by smtp.gmail.com with ESMTPSA id
-	a126sm6750104wmh.0.2016.01.16.04.29.21
+	a126sm6750104wmh.0.2016.01.16.04.29.34
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-	Sat, 16 Jan 2016 04:29:23 -0800 (PST)
+	Sat, 16 Jan 2016 04:29:43 -0800 (PST)
 From: Florin Sarbu <florin@resin.io>
 To: poky@yoctoproject.org
-Date: Sat, 16 Jan 2016 14:28:04 +0200
-Message-Id: <1452947285-13155-1-git-send-email-florin@resin.io>
+Date: Sat, 16 Jan 2016 14:28:05 +0200
+Message-Id: <1452947285-13155-2-git-send-email-florin@resin.io>
 X-Mailer: git-send-email 2.7.0.rc3
-Subject: [PATCH] backport 3cb87724a5b21550e99c18e97b665d6604bb2fa9 from git://git.yoctoproject.org/poky
+In-Reply-To: <1452947285-13155-1-git-send-email-florin@resin.io>
+References: <1452947285-13155-1-git-send-email-florin@resin.io>
+Subject: [DAISY backport] backport 3cb87724a5b21550e99c18e97b665d6604bb2fa9 from git://git.yoctoproject.org/poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -63,7 +66,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Jan 2016 12:29:28 -0000
+X-List-Received-Date: Sat, 16 Jan 2016 12:29:49 -0000
 
 bitbake: cooker: Ensure bbappend files are processed in a
 determistic order
