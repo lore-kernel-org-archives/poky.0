@@ -1,38 +1,31 @@
-Return-Path: <anibal.limon@linux.intel.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 30E89E00A7D; Mon, 18 Jan 2016 07:50:47 -0800 (PST)
+	id 69D9EE00BB9; Thu, 21 Jan 2016 08:39:52 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=0.8 required=5.0 tests=BAYES_00,TVD_SPACE_RATIO,
+	TVD_SPACE_RATIO_MINFP autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
-	high *      trust
-	*      [134.134.136.65 listed in list.dnswl.org]
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C587AE008A5
-	for <poky@yoctoproject.org>; Mon, 18 Jan 2016 07:50:45 -0800 (PST)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by orsmga103.jf.intel.com with ESMTP; 18 Jan 2016 07:50:45 -0800
+	*  0.0 TVD_SPACE_RATIO TVD_SPACE_RATIO
+	*  2.7 TVD_SPACE_RATIO_MINFP TVD_SPACE_RATIO_MINFP
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 49E95E0085A
+	for <poky@yoctoproject.org>; Thu, 21 Jan 2016 08:39:47 -0800 (PST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by fmsmga104.fm.intel.com with ESMTP; 21 Jan 2016 08:39:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.22,312,1449561600"; d="scan'208";a="729560699"
-Received: from alimonb-mobl1.zpn.intel.com (HELO [10.219.5.154])
-	([10.219.5.154])
-	by orsmga003.jf.intel.com with ESMTP; 18 Jan 2016 07:50:44 -0800
+X-IronPort-AV: E=Sophos;i="5.22,326,1449561600"; d="scan'208";a="865541359"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.intel.com)
+	([10.23.219.47])
+	by orsmga001.jf.intel.com with ESMTP; 21 Jan 2016 08:39:47 -0800
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-References: <cover.1452808370.git.anibal.limon@linux.intel.com>
-From: =?UTF-8?B?QW7DrWJhbCBMaW3Ds24=?= <anibal.limon@linux.intel.com>
-Message-ID: <569D0A3D.2030102@linux.intel.com>
-Date: Mon, 18 Jan 2016 09:52:29 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
-	Thunderbird/38.3.0
-MIME-Version: 1.0
-In-Reply-To: <cover.1452808370.git.anibal.limon@linux.intel.com>
-Cc: tudor.florea@enea.com, paul.eggleton@linux.intel.com,
-	benjamin.esquivel@intel.com, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 0/3] ptest-runner2 C implementation
+Date: Thu, 21 Jan 2016 16:40:35 +0000
+Message-Id: <1453394435-3847-1-git-send-email-alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 1.8.4.5
+Subject: [PATCH] maintainers.inc: Correct maintainership for several packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,46 +38,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Jan 2016 15:50:47 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 21 Jan 2016 16:39:52 -0000
 
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta-yocto/conf/distro/include/maintainers.inc | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-ping...
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-yocto/conf/distro/include/maintainers.inc
+index fc9788d..63a9a6e 100644
+--- a/meta-yocto/conf/distro/include/maintainers.inc
++++ b/meta-yocto/conf/distro/include/maintainers.inc
+@@ -530,6 +530,7 @@ RECIPE_MAINTAINER_pn-pcmanfm = "Alejandro Hernandez <alejandro.hernandez@linux.i
+ RECIPE_MAINTAINER_pn-pcmciautils = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-perf = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-perl-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-piglit = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pigz = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-pinentry = "Armin Kuster <akuster808@gmail.com>"
+@@ -554,6 +555,7 @@ RECIPE_MAINTAINER_pn-pulseaudio = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-pulseaudio-client-conf-sato = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-python = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-async = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-dbus = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-distribute = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+@@ -562,19 +564,24 @@ RECIPE_MAINTAINER_pn-python-git = "Alejandro Hernandez <alejandro.hernandez@linu
+ RECIPE_MAINTAINER_pn-python-gitdb = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-imaging = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-mako = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-nose = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-numpy = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python-pexpect = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-pycairo = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-pycurl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-pygobject = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-pygtk = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-pyrex = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-scons = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python-scons-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-setuptools = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-smartpm = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-smmap = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3 = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-distribute = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-pip = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-setuptools = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-qemu = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-qemu-helper-native = "Cristian Iorga <cristian.iorga@intel.com>"
+-- 
+1.8.4.5
 
-On 01/14/2016 04:27 PM, Aníbal Limón wrote:
-> This is the changes that adds new ptest-runner2 C implementation a detail
-> description exists in the recipe adding.
-> 
-> You can review the ptest-runner2 code on [1], i wrote unit tests for all
-> the code using check framework also i used mtrace for found possible memory leaks.
-> 
-> Finally i tested the new runner on qemux86, qemuarm, qemumips, qemuppc using
-> core-image-minimal and qemux86/poky-tiny/core-image-minimal.
-> 
-> [YOCTO #8021]
-> 
-> [1] https://github.com/alimon/ptest-runner2
-> 
-> The following changes since commit 92cc02fe517bad0af4e493fda3331738cbcc9a26:
-> 
->   linux-yocto: Update Genericx86* BSPs to 4.1.15 (2016-01-14 15:18:46 +0000)
-> 
-> are available in the git repository at:
-> 
->   git://git.yoctoproject.org/poky-contrib alimon/ptest-runner2
->   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=alimon/ptest-runner2
-> 
-> Aníbal Limón (3):
->   ptest-runner2: Add new ptest-runner2 recipe.
->   ptests: Update references to new ptest-runner2.
->   Update dev-manual to point to the new ptest-runner2.
-> 
->  .../dev-manual/dev-manual-common-tasks.xml         |  4 ++--
->  meta/classes/ptest.bbclass                         |  2 +-
->  meta/lib/oeqa/runtime/_ptest.py                    |  4 ++--
->  .../ptest-runner2/ptest-runner2_0.1.bb             | 24 ++++++++++++++++++++++
->  4 files changed, 29 insertions(+), 5 deletions(-)
->  create mode 100644 meta/recipes-support/ptest-runner2/ptest-runner2_0.1.bb
-> 
 
