@@ -1,67 +1,43 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A06D8E009C3; Thu, 28 Jan 2016 13:43:58 -0800 (PST)
+	id EBB7BE00A92; Thu, 28 Jan 2016 17:41:32 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.223.173 listed in list.dnswl.org]
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-io0-f173.google.com (mail-io0-f173.google.com
-	[209.85.223.173])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 69E5BE00803
-	for <poky@yoctoproject.org>; Thu, 28 Jan 2016 13:43:54 -0800 (PST)
-Received: by mail-io0-f173.google.com with SMTP id 1so69350868ion.1
-	for <poky@yoctoproject.org>; Thu, 28 Jan 2016 13:43:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-type;
-	bh=QC41/1wdRKuRapE5IlvvLet1XNwDD+Oox5Ge+UvnVo0=;
-	b=r+e81dR8H6DBFoKkzIBktQfZYdueGUI2DzsDwVnu6it5uLZKLIIH+4/ODOg7J7mmKG
-	xFXf2BfKqKJbWSgZ3nqjI88lItndTexM9Q7MWJ3kW2J6XganISS+gKnfbPnINs/wPoLJ
-	mWCuaWVicr7Ez3vuQsa+h6CPSTtsPGURzZosJNvux77+uzVkNDt2T+TX6Ptt8FPblSvq
-	wn26U2WQ/HPxabUvFyRVlomqTeSi0Gb/m73FvQzkpd4DyHoE7ceuFer6OKnIbhhsLwC3
-	aRS0bLxXX0faRegOdQj0dakR3nQ0ghxP8k1hCLngqkypsI7Dy60wkj7eL546DJt9mzUX
-	Iugw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-type;
-	bh=QC41/1wdRKuRapE5IlvvLet1XNwDD+Oox5Ge+UvnVo0=;
-	b=e6D4WQmER2ujTTmAE6mgueQ5T/URb33PiBaYiRZfdOym/ZD0tWbHzgBzBoyO09VjRC
-	E4DurNIDcLxkqsgtU3eWMm2B3SwMZ5kcU7W2MDBwsGXQWmAaL5B9KgQMHhnpVxRBKnDY
-	SNDOKCx6SgRrUQuc6A2mGqrLNVjU7q4wiFap9SGshosaax3wL4jwVNIzaN9vsncaRK6S
-	3njQPvkSjK4U3cLtfmye0iX07o4aBUvTfqTVWdJD7r11DM02WfDH4Oa9YFwHFQLTd9Ro
-	hCYFCtBOCxEhAXWsdHNOYKGq1+Z+Aw3dT5fnu6SLkzfATs2h+4pvc4/7ehhNWCfjNU/Y
-	bZkQ==
-X-Gm-Message-State: AG10YOQZR/oEiXLtQZjPBCGguHZgvKglzrlb4HUBUozVvOCxdVDLuSVtJxscckhb4Nhg9tNOffTBFtA538NRruJd
-X-Received: by 10.107.135.104 with SMTP id j101mr7174361iod.133.1454017434312; 
-	Thu, 28 Jan 2016 13:43:54 -0800 (PST)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D957E008F5
+	for <poky@yoctoproject.org>; Thu, 28 Jan 2016 17:41:31 -0800 (PST)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
+	[147.11.189.41])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id u0T1fUd7025082
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 28 Jan 2016 17:41:30 -0800 (PST)
+Received: from [128.224.162.155] (128.224.162.155) by ALA-HCB.corp.ad.wrs.com
+	(147.11.189.41) with Microsoft SMTP Server id 14.3.248.2;
+	Thu, 28 Jan 2016 17:41:29 -0800
+To: "Burton, Ross" <ross.burton@intel.com>, Richard Purdie
+	<richard.purdie@linuxfoundation.org>
+References: <1453818056-6498-1-git-send-email-ross.burton@intel.com>
+	<56A9CA3B.4000704@windriver.com>
+	<CAJTo0LZZga-97iUfP3MNtP=5fn4whhpB-0eLgedJTGEG4Ry8wA@mail.gmail.com>
+	<1453976171.10340.44.camel@linuxfoundation.org>
+	<CAJTo0LbKX8kDQkPnfaUO4W=AbB8F0FE1cMjxtdM8=iUChroSzg@mail.gmail.com>
+From: Robert Yang <liezhi.yang@windriver.com>
+Message-ID: <56AAC347.6080809@windriver.com>
+Date: Fri, 29 Jan 2016 09:41:27 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Thunderbird/38.5.1
 MIME-Version: 1.0
-Received: by 10.107.162.70 with HTTP; Thu, 28 Jan 2016 13:43:34 -0800 (PST)
-In-Reply-To: <CAD2C2VRqrrOKLixFBBXq-Vxu-nb5DzSXqV8Xrr2yuwb6auds5w@mail.gmail.com>
-References: <CAD2C2VRqrrOKLixFBBXq-Vxu-nb5DzSXqV8Xrr2yuwb6auds5w@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 28 Jan 2016 21:43:34 +0000
-Message-ID: <CAJTo0LbUkpF3Oq5FDXgizhUW6ANbwcyiTrrzZATBsZ_7ABsHEg@mail.gmail.com>
-To: Bryan <just4tech83@gmail.com>
-Cc: "Development list for the linux-yocto*.git Linux kernel repositories"
-	<linux-yocto@yoctoproject.org>,
-	OE-core <openembedded-core@lists.openembedded.org>,
-	Chander.kashyap@gmail.com,
-	OpenEmbedded Devel List <openembedded-devel@lists.openembedded.org>,
-	Poky Project <poky@yoctoproject.org>,
-	bitbake-devel <bitbake-devel@lists.openembedded.org>
-Subject: Re: [linux-yocto] Plymouth support in yocto
+In-Reply-To: <CAJTo0LbKX8kDQkPnfaUO4W=AbB8F0FE1cMjxtdM8=iUChroSzg@mail.gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH] conf/distro/poky.conf: use google.com for connectivity check
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,37 +50,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jan 2016 21:43:58 -0000
-Content-Type: multipart/alternative; boundary=001a113ebe92ab7b55052a6bd023
+X-List-Received-Date: Fri, 29 Jan 2016 01:41:33 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
---001a113ebe92ab7b55052a6bd023
-Content-Type: text/plain; charset=UTF-8
 
-On 28 January 2016 at 18:01, Bryan <just4tech83@gmail.com> wrote:
 
->    Can  we integrate plymouth package in yocto  so that we can properly
-> display splash screen on different resolution monitors.
+On 01/28/2016 06:50 PM, Burton, Ross wrote:
+>
+> On 28 January 2016 at 10:16, Richard Purdie <richard.purdie@linuxfoundation.org
+> <mailto:richard.purdie@linuxfoundation.org>> wrote:
+>
+>     Note that we specifically put an https:// test in here too as we've had
+>     issues with that before :(
 >
 >
-http://layers.openembedded.org/layerindex/recipe/39966/
+> How about https://www.iana.org/?
 
-Ross
+This fine, but I prefer:
 
---001a113ebe92ab7b55052a6bd023
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+http://www.example.org/
+https://www.example.org/
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 28 January 2016 at 18:01, Bryan <span dir=3D"ltr">&lt;<a href=3D"mailto:=
-just4tech83@gmail.com" target=3D"_blank">just4tech83@gmail.com</a>&gt;</spa=
-n> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-left-=
-style:solid;padding-left:1ex"><p dir=3D"ltr">=C2=A0=C2=A0 Can=C2=A0 we inte=
-grate plymouth package in yocto=C2=A0 so that we can properly display splas=
-h screen on different resolution monitors. </p>
-<p dir=3D"ltr"></p></blockquote></div><br><a href=3D"http://layers.openembe=
-dded.org/layerindex/recipe/39966/">http://layers.openembedded.org/layerinde=
-x/recipe/39966/</a><br></div><div class=3D"gmail_extra"><br></div><div clas=
-s=3D"gmail_extra">Ross</div></div>
+They are faster and smaller than www.iana.org in both the USA and China.
+I'm not sure about the U.K. since I don't have a server there.
 
---001a113ebe92ab7b55052a6bd023--
+// Robert
+
+>
+> Ross
+
