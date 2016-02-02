@@ -1,37 +1,35 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2BAFAE00BB5; Sun, 31 Jan 2016 05:26:10 -0800 (PST)
+	id D041EE00C27; Tue,  2 Feb 2016 10:53:09 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,KHOP_DYNAMIC
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-5.4 required=5.0 tests=BAYES_00, DATE_IN_PAST_06_12, 
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.65 listed in list.dnswl.org]
+	* 1.5 DATE_IN_PAST_06_12 Date: is 6 to 12 hours before Received: date
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 KHOP_DYNAMIC Relay looks like a dynamic address
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 887BEE00B89
-	for <poky@yoctoproject.org>; Sun, 31 Jan 2016 05:26:08 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	u0VDQ7ZG015903
-	for <poky@yoctoproject.org>; Sun, 31 Jan 2016 13:26:07 GMT
-Received: from dan.rpsys.net ([127.0.0.1])
-	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 59y2ZyepEGtV for <poky@yoctoproject.org>;
-	Sun, 31 Jan 2016 13:26:07 +0000 (GMT)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
-	u0VDQ1t4015900
-	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <poky@yoctoproject.org>; Sun, 31 Jan 2016 13:26:02 GMT
-Message-ID: <1454246761.27087.17.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Sun, 31 Jan 2016 13:26:01 +0000
-X-Mailer: Evolution 3.16.5-1ubuntu3.1 
-Mime-Version: 1.0
-Subject: [PATCH] poky: Add poky-world-exclude.inc and add qwt
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DED63E00908
+	for <poky@yoctoproject.org>; Tue,  2 Feb 2016 10:53:08 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by orsmga103.jf.intel.com with ESMTP; 02 Feb 2016 10:53:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.22,385,1449561600"; d="scan'208";a="907021108"
+Received: from yctb05.ostc.intel.com ([10.54.69.59])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Feb 2016 10:53:08 -0800
+From: leonardo.sandoval.gonzalez@linux.intel.com
+To: poky@yoctoproject.org
+Date: Tue,  2 Feb 2016 10:50:49 +0000
+Message-Id: <1454410252-32098-2-git-send-email-leonardo.sandoval.gonzalez@linux.intel.com>
+X-Mailer: git-send-email 2.6.2
+In-Reply-To: <1454410252-32098-1-git-send-email-leonardo.sandoval.gonzalez@linux.intel.com>
+References: <1454410252-32098-1-git-send-email-leonardo.sandoval.gonzalez@linux.intel.com>
+Cc: saul.wold@intel.com
+Subject: [PATCH 1/4][jethro] yocto-bsp: Default kernel version to 4.1 on x86_64
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,42 +42,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 31 Jan 2016 13:26:10 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 02 Feb 2016 18:53:09 -0000
 
-In an ideal world we'd test everything in every combination. Reality
-is we can't. This file contains things which we don't intend to test
-within our world builds.
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
 
-Add qwt since it has QA warnings which we don't intend to fix and
-we don't really want to build this either, its out of scope of our
-general qt4 requirements (which is for LSB).
+On the 3.19 to 4.1 migration, the target x86_64 was not taken into account
+(no reason, just missing the correspoding update on the kernel-list.noinstall
+file), so moving it to 4.1 to be align with the rest.
 
+(From meta-yocto rev: 283665d9295c3c10f964496dc0110137e358daa6)
+
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Signed-off-by: Ross Burton <ross.burton@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+(cherry picked from commit 9cc221dcb6af71ae8a4faa3297269ae80c7e35dd)
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+---
+ .../target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall       | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto/conf/distro/include/poky-world-exclude.inc b/meta-yocto/conf/distro/include/poky-world-exclude.inc
-new file mode 100644
-index 0000000..6b32fb3
---- /dev/null
-+++ b/meta-yocto/conf/distro/include/poky-world-exclude.inc
-@@ -0,0 +1,6 @@
-+#
-+# Things we exlude fromw world testing within the reference distro
-+#
-+
-+# qwt from meta-qt4, has poky-lsb QA warnings, qt4 for lsb only
-+EXCLUDE_FROM_WORLD_pn-qwt = "1"
-diff --git a/meta-yocto/conf/distro/poky.conf b/meta-yocto/conf/distro/poky.conf
-index 76520fb..dec3644 100644
---- a/meta-yocto/conf/distro/poky.conf
-+++ b/meta-yocto/conf/distro/poky.conf
-@@ -99,3 +99,5 @@ WARN_TO_ERROR_QA = "already-stripped compile-host-path install-host-path \
-                     useless-rpaths"
- WARN_QA_remove = "${WARN_TO_ERROR_QA}"
- ERROR_QA_append = " ${WARN_TO_ERROR_QA}"
-+
-+require conf/distro/include/poky-world-exclude.inc
-
+diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
+index 811d695..dbbe934 100644
+--- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
++++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
+@@ -1,5 +1,5 @@
+ {{ if kernel_choice != "custom": }}
+-{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (3.19) kernel? (y/n)" default:"y"}}
++{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.1) kernel? (y/n)" default:"y"}}
+ 
+ {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
+ {{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.19"}}
+-- 
+2.6.2
 
 
