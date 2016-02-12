@@ -1,35 +1,59 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 98AE5E00C29; Thu, 11 Feb 2016 07:15:07 -0800 (PST)
+	id 3700FE00C7D; Fri, 12 Feb 2016 04:27:39 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (pj0585[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D71C7E00C18
-	for <poky@yoctoproject.org>; Thu, 11 Feb 2016 07:15:06 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u1BFF42f010808
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 11 Feb 2016 07:15:04 -0800 (PST)
-Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.248.2; Thu, 11 Feb 2016 07:15:03 -0800
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Thu, 11 Feb 2016 10:15:01 -0500
-Message-ID: <cover.1455203562.git.bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 2.1.0
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.54 listed in list.dnswl.org]
+Received: from mail-wm0-f54.google.com (mail-wm0-f54.google.com [74.125.82.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29702E00C6F
+	for <poky@yoctoproject.org>; Fri, 12 Feb 2016 04:27:35 -0800 (PST)
+Received: by mail-wm0-f54.google.com with SMTP id p63so17319318wmp.1
+	for <poky@yoctoproject.org>; Fri, 12 Feb 2016 04:27:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=xh2nxFf4jttAEXghONQ5fLToB0cQIjUSbPym0ggiMe0=;
+	b=AaD2KrgcCYplgvB/KZ9Kavtmnzl4Tl4fgluQqAko9QQmKfp2d/GYUZ8/eVaq+mjMSd
+	jBK+H0tsAk8TLzWR28C6nP+TKfhTxjTyvy9uEzhqs7DfrtSEkPXCj2BdUe4WHEBQLfnf
+	K0TIogFHfn90dOJCAt+zO/h2YbG4Vquc6DlrA8wXzMSoZZMM3qkxsvCqiYY/R6l2U1rb
+	k7KhXqIxU35ttUY/fYucLNT9MtkgEbvkKSDaoR4Vh5mrvAdc/YQIP4Mh8XqADIrsMvxm
+	4iZL+rwaKPbddO/D0XhOWiwHZspGpRzjKLuzvPsr9qynCUSabYfJM0RrhYo2akMBdjWh
+	MS8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:date:message-id:subject:from:to
+	:content-type;
+	bh=xh2nxFf4jttAEXghONQ5fLToB0cQIjUSbPym0ggiMe0=;
+	b=Z2P8GU3ZzdV1R/aWqwzBmitz0LGZE6cRu/6SA+MFOgbOb9MCXCfycjCOfNeAlUeRW4
+	NIZ8Rfh4jtibnmGSVxAglYc9WIOTyHe6BhE5/S31xu5KvynSaS/MkdSmFs60yTHHjsdD
+	hjZv7WC+hBTsMGzCDrfvvOMj4iWEzmkpox9NdZ8e4zuYgguAuDFlBiKuNd3W8aGDNAKH
+	yq3WvwpWIT1AaTvVdCeyAKoWOT9XP0zwWNmQjsJgAzKl9tplx7vQawfKZ9PGwOL3YoQ6
+	v/yaInqNY6nL3Wrb1541hfOvjRQO/sp+RuPq56w2wlvX2AlHCxK967/Ofr4kJJxUzvuo
+	Z7aw==
+X-Gm-Message-State: AG10YOQ7I4YC1IUp+o4GJSvuf3Dv0ta3EbvSRcqTmvzIwwnWzJG41xWTI5LxYGkKXLlJJ7MjEzmPpBqq+BOizA==
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH 0/1] meta-yocto: bump qemu preferred version to 4.4
+X-Received: by 10.194.78.83 with SMTP id z19mr1426756wjw.5.1455280054883; Fri,
+	12 Feb 2016 04:27:34 -0800 (PST)
+Received: by 10.28.94.133 with HTTP; Fri, 12 Feb 2016 04:27:34 -0800 (PST)
+Date: Fri, 12 Feb 2016 17:57:34 +0530
+Message-ID: <CAA2DH4svD59du6J6SPLoqnLK8rO50wgKxp-EB09coeebis1Syg@mail.gmail.com>
+From: Prasant J <pj0585@gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: Modify core-image-minimal-initramfs image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,40 +66,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Feb 2016 15:15:07 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 12 Feb 2016 12:27:39 -0000
+Content-Type: text/plain; charset=UTF-8
 
-Hi all,
-
-4.4 has been in test in various forms for over a month now, without major 
-issues on any of the image types I've tried.  Now that we have -stable
-updates to 4.4 (as well as -rt updates), things are looking good to make
-it the default for the qemu machines.
-
-I'm also at the limit of the combos I can build and test, so this needs to
-go out for wider testing.
-
-Cheers,
-
-Bruce
+Hi,
 
 
-The following changes since commit 4e7320cc81178fe17c870e987a526d3f29caf906:
+I have built my own layer for my yocto root file system modifications.
+I was able to build custom image as per my requirements.
 
-  linux-yocto/4.1: galileo backports and support (2016-02-11 10:01:55 -0500)
+However, I'm unable to understand core-image-minimal-initramfs image.
 
-are available in the git repository at:
 
-  git://git.pokylinux.org/poky-contrib zedd/kernel-yocto
-  http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=zedd/kernel-yocto
+- How can I add packages to core-image-minimal-initramfs image?
 
-Bruce Ashfield (1):
-  poky: update qemu* to prefer 4.4 kernel
+Any inputs will be of help!
 
- meta-yocto/conf/distro/poky.conf | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
--- 
-2.1.0
-
+Regards, Pj
 
