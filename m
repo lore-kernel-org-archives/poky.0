@@ -1,59 +1,38 @@
-Return-Path: <pj0585@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3700FE00C7D; Fri, 12 Feb 2016 04:27:39 -0800 (PST)
+	id AFA41E00C75; Fri, 12 Feb 2016 06:36:24 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (pj0585[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [74.125.82.54 listed in list.dnswl.org]
-Received: from mail-wm0-f54.google.com (mail-wm0-f54.google.com [74.125.82.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29702E00C6F
-	for <poky@yoctoproject.org>; Fri, 12 Feb 2016 04:27:35 -0800 (PST)
-Received: by mail-wm0-f54.google.com with SMTP id p63so17319318wmp.1
-	for <poky@yoctoproject.org>; Fri, 12 Feb 2016 04:27:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:date:message-id:subject:from:to:content-type;
-	bh=xh2nxFf4jttAEXghONQ5fLToB0cQIjUSbPym0ggiMe0=;
-	b=AaD2KrgcCYplgvB/KZ9Kavtmnzl4Tl4fgluQqAko9QQmKfp2d/GYUZ8/eVaq+mjMSd
-	jBK+H0tsAk8TLzWR28C6nP+TKfhTxjTyvy9uEzhqs7DfrtSEkPXCj2BdUe4WHEBQLfnf
-	K0TIogFHfn90dOJCAt+zO/h2YbG4Vquc6DlrA8wXzMSoZZMM3qkxsvCqiYY/R6l2U1rb
-	k7KhXqIxU35ttUY/fYucLNT9MtkgEbvkKSDaoR4Vh5mrvAdc/YQIP4Mh8XqADIrsMvxm
-	4iZL+rwaKPbddO/D0XhOWiwHZspGpRzjKLuzvPsr9qynCUSabYfJM0RrhYo2akMBdjWh
-	MS8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:date:message-id:subject:from:to
-	:content-type;
-	bh=xh2nxFf4jttAEXghONQ5fLToB0cQIjUSbPym0ggiMe0=;
-	b=Z2P8GU3ZzdV1R/aWqwzBmitz0LGZE6cRu/6SA+MFOgbOb9MCXCfycjCOfNeAlUeRW4
-	NIZ8Rfh4jtibnmGSVxAglYc9WIOTyHe6BhE5/S31xu5KvynSaS/MkdSmFs60yTHHjsdD
-	hjZv7WC+hBTsMGzCDrfvvOMj4iWEzmkpox9NdZ8e4zuYgguAuDFlBiKuNd3W8aGDNAKH
-	yq3WvwpWIT1AaTvVdCeyAKoWOT9XP0zwWNmQjsJgAzKl9tplx7vQawfKZ9PGwOL3YoQ6
-	v/yaInqNY6nL3Wrb1541hfOvjRQO/sp+RuPq56w2wlvX2AlHCxK967/Ofr4kJJxUzvuo
-	Z7aw==
-X-Gm-Message-State: AG10YOQ7I4YC1IUp+o4GJSvuf3Dv0ta3EbvSRcqTmvzIwwnWzJG41xWTI5LxYGkKXLlJJ7MjEzmPpBqq+BOizA==
-MIME-Version: 1.0
-X-Received: by 10.194.78.83 with SMTP id z19mr1426756wjw.5.1455280054883; Fri,
-	12 Feb 2016 04:27:34 -0800 (PST)
-Received: by 10.28.94.133 with HTTP; Fri, 12 Feb 2016 04:27:34 -0800 (PST)
-Date: Fri, 12 Feb 2016 17:57:34 +0530
-Message-ID: <CAA2DH4svD59du6J6SPLoqnLK8rO50wgKxp-EB09coeebis1Syg@mail.gmail.com>
-From: Prasant J <pj0585@gmail.com>
-To: Poky Project <poky@yoctoproject.org>
-Subject: Modify core-image-minimal-initramfs image
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 04C69E00C66
+	for <poky@yoctoproject.org>; Fri, 12 Feb 2016 06:36:19 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u1CEa9kV025692; Fri, 12 Feb 2016 14:36:09 GMT
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id qMQd5mF76JKU; Fri, 12 Feb 2016 14:36:09 +0000 (GMT)
+Received: from hex ([192.168.3.34]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u1CEa5Wf025688
+	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
+	Fri, 12 Feb 2016 14:36:08 GMT
+Message-ID: <1455287765.16142.321.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+Date: Fri, 12 Feb 2016 14:36:05 +0000
+In-Reply-To: <2e6d2b75837731be983d888eaa82a9cfcf660e85.1455203562.git.bruce.ashfield@windriver.com>
+References: <cover.1455203562.git.bruce.ashfield@windriver.com>
+	<2e6d2b75837731be983d888eaa82a9cfcf660e85.1455203562.git.bruce.ashfield@windriver.com>
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH 1/1] poky: update qemu* to prefer 4.4 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -66,21 +45,82 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Feb 2016 12:27:39 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 12 Feb 2016 14:36:24 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Thu, 2016-02-11 at 10:15 -0500, Bruce Ashfield wrote:
+> 4.4 is out and has had enough mileage to be the default for the
+> qemu machines. Tested with sato, minimal and kernel dev image
+> types.
 
+This mostly worked except for qemux86 which is showing X failing on all
+builds. Its quite reproducible, "MACHINE=qemux86 bitbake core-image
+-sato -c testimage" shows it.
 
-I have built my own layer for my yocto root file system modifications.
-I was able to build custom image as per my requirements.
+https://autobuilder.yoctoproject.org/main/builders/nightly-x86/builds/6
+48/steps/Running%20Sanity%20Tests/logs/stdio
+is one example from the autobuilder.
 
-However, I'm unable to understand core-image-minimal-initramfs image.
+Poking at the image manually, it appears Xorg fails due to:
 
+[3587706.730] (EE) XKB: Could not invoke xkbcomp
+[3587706.730] (EE) XKB: Couldn't compile keymap
+[3587706.731] (EE) XKB: Failed to load keymap. Loading default keymap
+instead.
+[3587706.765] (EE) XKB: Could not invoke xkbcomp
+[3587706.765] (EE) XKB: Couldn't compile keymap
 
-- How can I add packages to core-image-minimal-initramfs image?
+which prompted me to look at dmesg:
 
-Any inputs will be of help!
+EXT4-fs (vda): re-mounted. Opts: data=ordered
+random: dd urandom read with 51 bits of entropy available
+x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xfd000000-0xfdffffff], got write-combining
+------------[ cut here ]------------
+WARNING: CPU: 0 PID: 705 at /media/build1/poky/build/tmp/work-shared/qemux86/kernel-source/arch/x86/mm/pat.c:985 untrack_pfn+0xaf/0xc0()
+Modules linked in: uvesafb
+CPU: 0 PID: 705 Comm: Xorg Not tainted 4.4.1-yocto-standard #1
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.8.2-0-g33fbe13 by qemu-project.org 04/01/2014
+ 00000000 00000000 cf14dd78 c1397ab2 00000000 cf14dda8 c1051477 c1aa4f6c
+ 00000000 000002c1 c1a9fa4c 000003d9 c104b98f c104b98f cf244000 b6355000
+ 00000000 cf14ddb8 c1051552 00000009 00000000 cf14dde0 c104b98f cf14ddd0
+Call Trace:
+ [<c1397ab2>] dump_stack+0x4b/0x79
+ [<c1051477>] warn_slowpath_common+0x87/0xc0
+ [<c104b98f>] ? untrack_pfn+0xaf/0xc0
+ [<c104b98f>] ? untrack_pfn+0xaf/0xc0
+ [<c1051552>] warn_slowpath_null+0x22/0x30
+ [<c104b98f>] untrack_pfn+0xaf/0xc0
+ [<c104d54c>] ? kmap_atomic_prot+0x3c/0xf0
+ [<c114e17f>] unmap_single_vma+0x4ef/0x500
+ [<c114f007>] unmap_vmas+0x37/0x50
+ [<c1154f8f>] exit_mmap+0x5f/0xf0
+ [<c104eedd>] mmput+0x2d/0xb0
+ [<c105009c>] copy_process+0xd2c/0x13c0
+ [<c1050892>] _do_fork+0x82/0x340
+ [<c105f2d1>] ? SyS_rt_sigaction+0x51/0xa0
+ [<c1050c3c>] SyS_clone+0x2c/0x30
+ [<c1001a03>] do_syscall_32_irqs_on+0x53/0xb0
+ [<c189a94a>] entry_INT80_32+0x2a/0x2a
+---[ end trace be3e0a61097feddc ]---
+x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xfd000000-0xfdffffff], got write-combining
+Installing knfsd (copyright (C) 1996 okir@monad.swb.de).
+NFSD: Using /var/lib/nfs/v4recovery as the NFSv4 state recovery directory
+NFSD: starting 90-second grace period (net c1c271c0)
 
-Regards, Pj
+which fits since do_fork() is probably failing and would cause this
+error. It looks like the above is only a warning but could be fatal
+later I guess.
+
+A quick look at upstream makes me wonder about:
+
+https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=d9fe4fab11976e56b2e992980bf6ce948bdf02ac
+
+which changes the code in this area.
+
+Any idea what is going on here?
+
+Cheers,
+
+Richard
 
