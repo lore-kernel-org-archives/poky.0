@@ -1,6 +1,6 @@
 Return-Path: <bruce.ashfield@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E49A1E00CFD; Sat, 13 Feb 2016 10:16:27 -0800 (PST)
+	id 3C5FBE00CFD; Sat, 13 Feb 2016 10:19:46 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -9,6 +9,9 @@ X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	mail provider *      (bruce.ashfield[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.213.66 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -17,52 +20,52 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.213.65 listed in list.dnswl.org]
-Received: from mail-vk0-f65.google.com (mail-vk0-f65.google.com
-	[209.85.213.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8E370E00CF8
-	for <poky@yoctoproject.org>; Sat, 13 Feb 2016 10:16:23 -0800 (PST)
-Received: by mail-vk0-f65.google.com with SMTP id k196so6049537vka.3
-	for <poky@yoctoproject.org>; Sat, 13 Feb 2016 10:16:23 -0800 (PST)
+Received: from mail-vk0-f66.google.com (mail-vk0-f66.google.com
+	[209.85.213.66])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9EEB6E00CF8
+	for <poky@yoctoproject.org>; Sat, 13 Feb 2016 10:19:43 -0800 (PST)
+Received: by mail-vk0-f66.google.com with SMTP id k196so6051927vka.3
+	for <poky@yoctoproject.org>; Sat, 13 Feb 2016 10:19:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
 	:cc:content-type;
-	bh=dU2s+Cchsx8nd0zzmkkvIBNcNg0hgrkO8DkLBZmqUfw=;
-	b=zr3sUOxU2ur+yITXggDGaBEwJGyzhQitr+3DThwpq9HHoL4bf29oa0jX+cxcyqq/lJ
-	fwkVtTGxr/gmEbihwoELLOEvGoE+MRSNKPv/R3ebyiT5zpNl+i+Mgd/FN4eUPCEfQ9lu
-	CsR0v8bWhiShBRrOcPgLh3a83sOlBlHMw0izP40lwX2IsfEuDTUVOx31ubbswNug+xzi
-	74bV1iqSGz0QGYWcLRpPS4V3nC+DqcptditDY77MVsqU1fxUHdhJWUquM4LtuTF/H8Y1
-	wXvUFbck1zptd82P1BSXX/BEwuIOIXcXLC9Zza80E5lufOPpLnG4VwhktGOzmqeUef0W
-	XOpw==
+	bh=OwEzDuhqea3eqb8hzNF/WnxNyGGzx74B3njMI+Sjh38=;
+	b=bcpyPg37P/XnPanh/TgPryjnJwaan6seY+3o07ekQjJ4oz2sTaVb251aDIHyZBecHT
+	jeuwFTSmhkB7xhrajIz06bhJUnmTq+jgis+5DhClQbKnEJX/lKaX/vx4HUfaC1MbqFiM
+	lE6VceuFieRe9fZdgdM6oF10FFq0WX98i+2gYBLwK3WdRJJLrJepGiCjk9/AhpnrgB/S
+	+Cn9eRa48pLzn/SX/aETdb1cHb71m70eKQuqCi7hvR38f4HgnvvJkU1hvnXpII4J2Ury
+	SfKvYHtvb6qArXYgPf7SneTo8gNbZLvVmlaWiU4n3yL6SNs5BCTZBew5NbICa/lpVEhH
+	hiwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
 	h=x-gm-message-state:mime-version:in-reply-to:references:date
 	:message-id:subject:from:to:cc:content-type;
-	bh=dU2s+Cchsx8nd0zzmkkvIBNcNg0hgrkO8DkLBZmqUfw=;
-	b=jgGMO8xxOGp3kc5aEvDae3Y8LjwwvlfmhoyCWI3gOpnOd8UI5UPFV72XnzpT5wDeOH
-	RsOLRBUsN7U1BlVDIwzgFhpbYrpTYG4dSvwHyn3JskFQ8UlVKWZnHKaSMyYrTNWKOYL9
-	jZ6liPC8k0NUvpnHDUDuFEq1TwdW2ew97rJro7PW8yGBYExjL6GoLSBM2LUoLgS0n2wl
-	Pw5r8XE4exVii6gVvV6BPIRscl6W9SRoMyCh1nw68pOmrt+Sx83Mv6isM+Wwo4/thI3X
-	gH3URVl+rK1Nvrj7y2pOirhrYLrTkAXMxlspH9wwS4ADjBwRryEhBKSkP43lqoECe9Bk
-	vH1g==
-X-Gm-Message-State: AG10YOQvQojzZh3GA5NA0WSw9ndpwGrxpj/HB8uCZmGJB/IqRI4rkPundWsCIUwJTFXk5HX+wb2R6PKWWhgfgA==
+	bh=OwEzDuhqea3eqb8hzNF/WnxNyGGzx74B3njMI+Sjh38=;
+	b=WAn6LSAfmklKEwSzE1gYRq/H1z6KiZYoDrDAjecopdOuSVC+v6w8bN2HIQtIxi5JtD
+	bLJE4ztHeF/TZT88kannisU9dJQxholGsflDchqGIANDUGrW5DZIRH+FHN211unpl7qU
+	f+pk6mItgtjlSc+HbhGciwtKm7dni9IYi3YIbV9jfom74nSUaMwgUhC+ajL32q+7FOP4
+	I466Wh3a72qgNdevumtGWQPE+wuuaR4W/+ANjcajrqGy0P6w3Y0DrbzGBRvx9kRL/Mf7
+	CkUYAgcvAKirV7nlWB0N0QoP3j3yo2/enJBNs9X/+aEa+J2Tdi+aK4Hw8p6GKiEre8j7
+	HTdg==
+X-Gm-Message-State: AG10YOSsmaVuPb/lDkYxu9Hl9Hy22t3IbS/RGq816CPlluU1txyWb5pSFis3CY4RcKhD3fPIYBommNpk/OXTuQ==
 MIME-Version: 1.0
-X-Received: by 10.31.49.207 with SMTP id x198mr6596859vkx.1.1455387382633;
-	Sat, 13 Feb 2016 10:16:22 -0800 (PST)
-Received: by 10.176.0.50 with HTTP; Sat, 13 Feb 2016 10:16:22 -0800 (PST)
-In-Reply-To: <1455352317.16142.344.camel@linuxfoundation.org>
+X-Received: by 10.31.141.194 with SMTP id p185mr5892682vkd.57.1455387582738;
+	Sat, 13 Feb 2016 10:19:42 -0800 (PST)
+Received: by 10.176.0.50 with HTTP; Sat, 13 Feb 2016 10:19:42 -0800 (PST)
+In-Reply-To: <1455383832.16142.365.camel@linuxfoundation.org>
 References: <cover.1455203562.git.bruce.ashfield@windriver.com>
 	<2e6d2b75837731be983d888eaa82a9cfcf660e85.1455203562.git.bruce.ashfield@windriver.com>
 	<1455287765.16142.321.camel@linuxfoundation.org>
 	<1455291157.16142.323.camel@linuxfoundation.org>
 	<1455352317.16142.344.camel@linuxfoundation.org>
-Date: Sat, 13 Feb 2016 13:16:22 -0500
-Message-ID: <CADkTA4NQLqEVc8L=T=HAYoG4JWpgbhW_+uCWuafR+L1cAxN_Vw@mail.gmail.com>
+	<1455383832.16142.365.camel@linuxfoundation.org>
+Date: Sat, 13 Feb 2016 13:19:42 -0500
+Message-ID: <CADkTA4NoFv8LvOrANvMWrg_6h9Js5GqFbS6QBDBioNbeKHcEig@mail.gmail.com>
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
 To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Cc: "Hart, Darren" <darren.hart@intel.com>, "saul.wold" <saul.wold@intel.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>,
+	openembedded-core <openembedded-core@lists.openembedded.org>
 Subject: Re: [PATCH 1/1] poky: update qemu* to prefer 4.4 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -76,46 +79,131 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 13 Feb 2016 18:16:28 -0000
-Content-Type: multipart/alternative; boundary=001a11430efef3dac2052baac79e
+X-List-Received-Date: Sat, 13 Feb 2016 18:19:46 -0000
+Content-Type: multipart/alternative; boundary=001a11426214e13884052baad340
 
---001a11430efef3dac2052baac79e
+--001a11426214e13884052baad340
 Content-Type: text/plain; charset=UTF-8
 
-On Sat, Feb 13, 2016 at 3:31 AM, Richard Purdie <
+On Sat, Feb 13, 2016 at 12:17 PM, Richard Purdie <
 richard.purdie@linuxfoundation.org> wrote:
 
-> On Fri, 2016-02-12 at 15:32 +0000, Richard Purdie wrote:
-> > On Fri, 2016-02-12 at 14:36 +0000, Richard Purdie wrote:
-> > > A quick look at upstream makes me wonder about:
-> > >
-> > > https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/com
-> > > mi
-> > > t/?id=d9fe4fab11976e56b2e992980bf6ce948bdf02ac
-> > >
-> > > which changes the code in this area.
-> >
-> > FWIW this doesn't help, the problem still exists after applying it.
-> >
-> > Setting CONFIG_X86_PAT to is not set in the defconfig did "fix" it,
-> > unsurprisingly.
+> I'm moving the discussion to OE-Core and pulling in some kernel people.
+> I think I understand what is wrong and how to fix it but I could use
+> someone who actually knows this code.
 >
-> Also, in the last set of builds, despite booting with "nopat", we see:
+> To summarise the story so far, on qemux86, X doesn't start and there is
+> a backtrace in the logs:
 >
-> https://autobuilder.yoctoproject.org/main/builders/nightly-x86-lsb/buil
-> ds/637/steps/Running%20Sanity%20Tests/logs/stdio
+> x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem
+> 0xfd000000-0xfdffffff], got write-combining
+> ------------[ cut here ]------------
+> WARNING: CPU: 0 PID: 705 at
+> /media/build1/poky/build/tmp/work-shared/qemux86/kernel-source/arch/x86/mm/pat.c:985
+> untrack_pfn+0xaf/0xc0()
+> Modules linked in: uvesafb
+> CPU: 0 PID: 705 Comm: Xorg Not tainted 4.4.1-yocto-standard #1
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS
+> rel-1.8.2-0-g33fbe13 by qemu-project.org 04/01/2014
+>  00000000 00000000 cf14dd78 c1397ab2 00000000 cf14dda8 c1051477 c1aa4f6c
+>  00000000 000002c1 c1a9fa4c 000003d9 c104b98f c104b98f cf244000 b6355000
+>  00000000 cf14ddb8 c1051552 00000009 00000000 cf14dde0 c104b98f cf14ddd0
+> Call Trace:
+>  [<c1397ab2>] dump_stack+0x4b/0x79
+>  [<c1051477>] warn_slowpath_common+0x87/0xc0
+>  [<c104b98f>] ? untrack_pfn+0xaf/0xc0
+>  [<c104b98f>] ? untrack_pfn+0xaf/0xc0
+>  [<c1051552>] warn_slowpath_null+0x22/0x30
+>  [<c104b98f>] untrack_pfn+0xaf/0xc0
+>  [<c104d54c>] ? kmap_atomic_prot+0x3c/0xf0
+>  [<c114e17f>] unmap_single_vma+0x4ef/0x500
+>  [<c114f007>] unmap_vmas+0x37/0x50
+>  [<c1154f8f>] exit_mmap+0x5f/0xf0
+>  [<c104eedd>] mmput+0x2d/0xb0
+>  [<c105009c>] copy_process+0xd2c/0x13c0
+>  [<c1050892>] _do_fork+0x82/0x340
+>  [<c105f2d1>] ? SyS_rt_sigaction+0x51/0xa0
+>  [<c1050c3c>] SyS_clone+0x2c/0x30
+>  [<c1001a03>] do_syscall_32_irqs_on+0x53/0xb0
+>  [<c189a94a>] entry_INT80_32+0x2a/0x2a
+> ---[ end trace be3e0a61097feddc ]---
+> x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem
+> 0xfd000000-0xfdffffff], got write-combining
 >
-> Central error: [    9.298049] Failed to add WC MTRR for
-> [fd000000-fdffffff]; performance may suffer.
+> The entry in question is setup by uvesafb which in its
+> uvesafb_ioremap() function calls ioremap_wc().
 >
-> Why we only see this on the lsb run I don't know but that address looks
-> like the one causing problems elsewhere with PAT. It could therefore
-> look like this is related to uvesafb.
+> It appears that Xorg mmaps this from userspace, then later does a
+> fork() to execute a utility. At this point, when creating the vmas for
+> the new process, the pat code says "eeek!" as the protection mode for
+> the new vmas don't match the old one, returns -EINVAL, the process dies
+> and X goes with it.
+>
+> There are a few hammers we can hit this with, we can boot with "nopat"
+> option which makes the problem go away, or turn off CONFIG_X86_PAT. No
+> surprises there. Changing uvesafb to use mtrr=0 doesn't help since the
+> ioremap_wc call still happens.
+>
+> The real issue is the "expected mapping type uncached-minus for got
+> write-combining" message, it all goes wrong from there.
+>
+> Upon looking at the code and scratching my head for a long while, I
+> notice that there are two ways of representing the protection mode
+> data, "enum page_cache_mode" and "pgprot_t & _PAGE_CACHE_MASK".
+>
+> The exact meaning of pgprot_t depends on which CPU you're running,
+> older CPUs have errata meaning only a small number of bits can be used.
+> The exact mapping table is determined by __cachemode2pte_tbl and is
+> updated at boot by calls from update_cache_mode_entry().
+>
+> The result of this if you map enum -> pgprot_t, then try to do pgprot_t
+> -> enum, you can get different values since its not a 1:1 mapping.
+>
+> This means the comparison in reserve_pfn_range() where it does "pcm !=
+> want_pcm" isn't correct and can trigger even in cases where there isn't
+> a problem.
+>
+> This can be "fixed" by doing cachemode2protval(pcm) !=
+> cachemode2protval(want_pcm) and checking whether the protection bits
+> match, rather than the enum values, since in reality this is what we
+> really care about.
+>
+> I can confirm that if I make that change, X boots up just fine.
+>
+> The problem is I really have no idea what I'm doing :).
+>
+> Could someone who understands this code have a look and see whether the
+> above makes sense and if it does, perhaps open a discussion with
+> upstream about how to fix this properly (assuming my change isn't
+> actually the correct fix)?
 >
 
-Interesting. And of course as I was mentioning in my update discussion, that
-I ran out of cycles to test the 3x kernel types with LSB .. murphy's law I
-suppose.
+I'm not familiar with this code either, but I'll start doing some bisects
+to see if
+we can isolate the commit that introduced the behaviour change. This is the
+sort of thing that is very rare, and really isn't supposed to happen. So
+until
+I read the commit log where the change was triggered, I'd lean to it being
+a bug
+and something to report and fix upstream.
+
+I know that I booted sato with the 4.4 update, do we have any other
+confirmations
+that this worked, or was I the only one doing 4.4 boot tests until I sent
+the
+patch to bump the preferred version ?
+
+
+>
+> We don't see this on qemux86-64 since that has more PAT bits working
+> and hence the values map correctly.
+>
+> Bruce: Would you accept a patch doing the above for now?
+>
+
+I would. I'd rather not paper over this by changing the config fragments,
+since
+once we throw that switch, it'll most likely sit there .. covered up.
 
 Bruce
 
@@ -124,6 +212,8 @@ Bruce
 > Cheers,
 >
 > Richard
+>
+>
 > --
 > _______________________________________________
 > poky mailing list
@@ -137,61 +227,145 @@ Bruce
 "Thou shalt not follow the NULL pointer, for chaos and madness await thee
 at its end"
 
---001a11430efef3dac2052baac79e
+--001a11426214e13884052baad340
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
-te">On Sat, Feb 13, 2016 at 3:31 AM, Richard Purdie <span dir=3D"ltr">&lt;<=
-a href=3D"mailto:richard.purdie@linuxfoundation.org" target=3D"_blank">rich=
-ard.purdie@linuxfoundation.org</a>&gt;</span> wrote:<br><blockquote class=
+te">On Sat, Feb 13, 2016 at 12:17 PM, Richard Purdie <span dir=3D"ltr">&lt;=
+<a href=3D"mailto:richard.purdie@linuxfoundation.org" target=3D"_blank">ric=
+hard.purdie@linuxfoundation.org</a>&gt;</span> wrote:<br><blockquote class=
 =3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex"><span class=3D"">On Fri, 2016-02-12 at 15:32 +0000, Richard P=
-urdie wrote:<br>
-&gt; On Fri, 2016-02-12 at 14:36 +0000, Richard Purdie wrote:<br>
-&gt; &gt; A quick look at upstream makes me wonder about:<br>
-&gt; &gt;<br>
-&gt; &gt; <a href=3D"https://git.kernel.org/cgit/linux/kernel/git/torvalds/=
-linux.git/com" rel=3D"noreferrer" target=3D"_blank">https://git.kernel.org/=
-cgit/linux/kernel/git/torvalds/linux.git/com</a><br>
-&gt; &gt; mi<br>
-&gt; &gt; t/?id=3Dd9fe4fab11976e56b2e992980bf6ce948bdf02ac<br>
-&gt; &gt;<br>
-&gt; &gt; which changes the code in this area.<br>
-&gt;<br>
-&gt; FWIW this doesn&#39;t help, the problem still exists after applying it=
-.<br>
-&gt;<br>
-&gt; Setting CONFIG_X86_PAT to is not set in the defconfig did &quot;fix&qu=
-ot; it,<br>
-&gt; unsurprisingly.<br>
+ing-left:1ex">I&#39;m moving the discussion to OE-Core and pulling in some =
+kernel people.<br>
+I think I understand what is wrong and how to fix it but I could use<br>
+someone who actually knows this code.<br>
 <br>
-</span>Also, in the last set of builds, despite booting with &quot;nopat&qu=
-ot;, we see:<br>
+To summarise the story so far, on qemux86, X doesn&#39;t start and there is=
 <br>
-<a href=3D"https://autobuilder.yoctoproject.org/main/builders/nightly-x86-l=
-sb/buil
-ds/637/steps/Running%20Sanity%20Tests/logs/stdio" rel=3D"noreferrer" target=
-=3D"_blank">https://autobuilder.yoctoproject.org/main/builders/nightly-x86-=
-lsb/buil<br>
-ds/637/steps/Running%20Sanity%20Tests/logs/stdio</a><br>
+a backtrace in the logs:<br>
+<div><div class=3D"h5"><br>
+x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xf=
+d000000-0xfdffffff], got write-combining<br>
+------------[ cut here ]------------<br>
+WARNING: CPU: 0 PID: 705 at /media/build1/poky/build/tmp/work-shared/qemux8=
+6/kernel-source/arch/x86/mm/pat.c:985 untrack_pfn+0xaf/0xc0()<br>
+Modules linked in: uvesafb<br>
+CPU: 0 PID: 705 Comm: Xorg Not tainted 4.4.1-yocto-standard #1<br>
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.8.2-0-g33=
+fbe13 by <a href=3D"http://qemu-project.org" rel=3D"noreferrer" target=3D"_=
+blank">qemu-project.org</a> 04/01/2014<br>
+=C2=A000000000 00000000 cf14dd78 c1397ab2 00000000 cf14dda8 c1051477 c1aa4f=
+6c<br>
+=C2=A000000000 000002c1 c1a9fa4c 000003d9 c104b98f c104b98f cf244000 b63550=
+00<br>
+=C2=A000000000 cf14ddb8 c1051552 00000009 00000000 cf14dde0 c104b98f cf14dd=
+d0<br>
+Call Trace:<br>
+=C2=A0[&lt;c1397ab2&gt;] dump_stack+0x4b/0x79<br>
+=C2=A0[&lt;c1051477&gt;] warn_slowpath_common+0x87/0xc0<br>
+=C2=A0[&lt;c104b98f&gt;] ? untrack_pfn+0xaf/0xc0<br>
+=C2=A0[&lt;c104b98f&gt;] ? untrack_pfn+0xaf/0xc0<br>
+=C2=A0[&lt;c1051552&gt;] warn_slowpath_null+0x22/0x30<br>
+=C2=A0[&lt;c104b98f&gt;] untrack_pfn+0xaf/0xc0<br>
+=C2=A0[&lt;c104d54c&gt;] ? kmap_atomic_prot+0x3c/0xf0<br>
+=C2=A0[&lt;c114e17f&gt;] unmap_single_vma+0x4ef/0x500<br>
+=C2=A0[&lt;c114f007&gt;] unmap_vmas+0x37/0x50<br>
+=C2=A0[&lt;c1154f8f&gt;] exit_mmap+0x5f/0xf0<br>
+=C2=A0[&lt;c104eedd&gt;] mmput+0x2d/0xb0<br>
+=C2=A0[&lt;c105009c&gt;] copy_process+0xd2c/0x13c0<br>
+=C2=A0[&lt;c1050892&gt;] _do_fork+0x82/0x340<br>
+=C2=A0[&lt;c105f2d1&gt;] ? SyS_rt_sigaction+0x51/0xa0<br>
+=C2=A0[&lt;c1050c3c&gt;] SyS_clone+0x2c/0x30<br>
+=C2=A0[&lt;c1001a03&gt;] do_syscall_32_irqs_on+0x53/0xb0<br>
+=C2=A0[&lt;c189a94a&gt;] entry_INT80_32+0x2a/0x2a<br>
+---[ end trace be3e0a61097feddc ]---<br>
+x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xf=
+d000000-0xfdffffff], got write-combining<br>
 <br>
-Central error: [=C2=A0 =C2=A0 9.298049] Failed to add WC MTRR for [fd000000=
--fdffffff]; performance may suffer.<br>
+</div></div>The entry in question is setup by uvesafb which in its<br>
+uvesafb_ioremap() function calls ioremap_wc().<br>
 <br>
-Why we only see this on the lsb run I don&#39;t know but that address looks=
+It appears that Xorg mmaps this from userspace, then later does a<br>
+fork() to execute a utility. At this point, when creating the vmas for<br>
+the new process, the pat code says &quot;eeek!&quot; as the protection mode=
+ for<br>
+the new vmas don&#39;t match the old one, returns -EINVAL, the process dies=
 <br>
-like the one causing problems elsewhere with PAT. It could therefore<br>
-look like this is related to uvesafb.<br></blockquote><div><br></div><div>I=
-nteresting. And of course as I was mentioning in my update discussion, that=
-</div><div>I ran out of cycles to test the 3x kernel types with LSB .. murp=
-hy&#39;s law I=C2=A0</div><div>suppose.</div><div><br></div><div>Bruce</div=
-><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">
+and X goes with it.<br>
+<br>
+There are a few hammers we can hit this with, we can boot with &quot;nopat&=
+quot;<br>
+option which makes the problem go away, or turn off CONFIG_X86_PAT. No<br>
+surprises there. Changing uvesafb to use mtrr=3D0 doesn&#39;t help since th=
+e<br>
+ioremap_wc call still happens.<br>
+<br>
+The real issue is the &quot;expected mapping type uncached-minus for got<br=
+>
+write-combining&quot; message, it all goes wrong from there.<br>
+<br>
+Upon looking at the code and scratching my head for a long while, I<br>
+notice that there are two ways of representing the protection mode<br>
+data, &quot;enum page_cache_mode&quot; and &quot;pgprot_t &amp; _PAGE_CACHE=
+_MASK&quot;.<br>
+<br>
+The exact meaning of pgprot_t depends on which CPU you&#39;re running,<br>
+older CPUs have errata meaning only a small number of bits can be used.<br>
+The exact mapping table is determined by __cachemode2pte_tbl and is<br>
+updated at boot by calls from update_cache_mode_entry().<br>
+<br>
+The result of this if you map enum -&gt; pgprot_t, then try to do pgprot_t<=
+br>
+-&gt; enum, you can get different values since its not a 1:1 mapping.<br>
+<br>
+This means the comparison in reserve_pfn_range() where it does &quot;pcm !=
+=3D<br>
+want_pcm&quot; isn&#39;t correct and can trigger even in cases where there =
+isn&#39;t<br>
+a problem.<br>
+<br>
+This can be &quot;fixed&quot; by doing cachemode2protval(pcm) !=3D<br>
+cachemode2protval(want_pcm) and checking whether the protection bits<br>
+match, rather than the enum values, since in reality this is what we<br>
+really care about.<br>
+<br>
+I can confirm that if I make that change, X boots up just fine.<br>
+<br>
+The problem is I really have no idea what I&#39;m doing :).<br>
+<br>
+Could someone who understands this code have a look and see whether the<br>
+above makes sense and if it does, perhaps open a discussion with<br>
+upstream about how to fix this properly (assuming my change isn&#39;t<br>
+actually the correct fix)?<br></blockquote><div><br></div><div>I&#39;m not =
+familiar with this code either, but I&#39;ll start doing some bisects to se=
+e if</div><div>we can isolate the commit that introduced the behaviour chan=
+ge. This is the</div><div>sort of thing that is very rare, and really isn&#=
+39;t supposed to happen. So until</div><div>I read the commit log where the=
+ change was triggered, I&#39;d lean to it being a bug</div><div>and somethi=
+ng to report and fix upstream.</div><div><br></div><div>I know that I boote=
+d sato with the 4.4 update, do we have any other confirmations</div><div>th=
+at this worked, or was I the only one doing 4.4 boot tests until I sent the=
+</div><div>patch to bump the preferred version ?</div><div>=C2=A0<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+<br>
+We don&#39;t see this on qemux86-64 since that has more PAT bits working<br=
+>
+and hence the values map correctly.<br>
+<br>
+Bruce: Would you accept a patch doing the above for now?<br></blockquote><d=
+iv><br></div><div>I would. I&#39;d rather not paper over this by changing t=
+he config fragments, since</div><div>once we throw that switch, it&#39;ll m=
+ost likely sit there .. covered up.</div><div><br></div><div>Bruce</div><di=
+v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
+border-left:1px #ccc solid;padding-left:1ex">
 <div class=3D"HOEnZb"><div class=3D"h5"><br>
 Cheers,<br>
 <br>
 Richard<br>
+<br>
+<br>
 --<br>
 _______________________________________________<br>
 poky mailing list<br>
@@ -203,4 +377,4 @@ poky mailing list<br>
 , for chaos and madness await thee at its end&quot;</div>
 </div></div>
 
---001a11430efef3dac2052baac79e--
+--001a11426214e13884052baad340--
