@@ -1,43 +1,61 @@
-Return-Path: <Paul.Gortmaker@windriver.com>
+Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 79493E00D0A; Sun, 14 Feb 2016 08:29:45 -0800 (PST)
+	id 66756E00D2B; Mon, 15 Feb 2016 04:35:07 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (pj0585[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E0743E00D03
-	for <poky@yoctoproject.org>; Sun, 14 Feb 2016 08:29:41 -0800 (PST)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
-	[147.11.189.41])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id u1EGTYNd006213
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK);
-	Sun, 14 Feb 2016 08:29:34 -0800
-Received: from yow-pgortmak-d1 (128.224.56.57) by ALA-HCB.corp.ad.wrs.com
-	(147.11.189.41) with Microsoft SMTP Server id 14.3.248.2;
-	Sun, 14 Feb 2016 08:29:33 -0800
-Received: by yow-pgortmak-d1 (Postfix, from userid 1000)	id 03B852811E4; Sun,
-	14 Feb 2016 11:29:32 -0500 (EST)
-Date: Sun, 14 Feb 2016 11:29:32 -0500
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20160214162932.GL31661@windriver.com>
-References: <cover.1455203562.git.bruce.ashfield@windriver.com>
-	<2e6d2b75837731be983d888eaa82a9cfcf660e85.1455203562.git.bruce.ashfield@windriver.com>
-	<1455287765.16142.321.camel@linuxfoundation.org>
-	<1455291157.16142.323.camel@linuxfoundation.org>
-	<1455352317.16142.344.camel@linuxfoundation.org>
-	<1455383832.16142.365.camel@linuxfoundation.org>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.47 listed in list.dnswl.org]
+Received: from mail-wm0-f47.google.com (mail-wm0-f47.google.com [74.125.82.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB6A2E00D26
+	for <poky@yoctoproject.org>; Mon, 15 Feb 2016 04:35:06 -0800 (PST)
+Received: by mail-wm0-f47.google.com with SMTP id g62so106920530wme.0
+	for <poky@yoctoproject.org>; Mon, 15 Feb 2016 04:35:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+	:content-type; bh=OpHjueKzNlPlLhLbw/F0fH6YOS87uJ65xUdMHlxoY1A=;
+	b=U75MSHDE/Jz99eZQ2IoTlF3SspLv3whUXr10KEbty8bOvcKF599XpUrPJo1zqfeEuo
+	U64q4K4BDvi6rsJ4eT/Tajxc6CyOmClCetoUkJDyzhhWJdguIjXENEWtCLXhe8VEXyYy
+	Ym6B+GWmFuLd85b8gG3oKXqiArsnDU2UxlQigOjYxvY1Yi2K9G8oOdM/uzI/P4gg5lft
+	RqYtIko6ifmJmPS9/p+K3xXFad/Gui/1/7CpWou0Y+Dz5xXK8DPkAYoqGJPu7Nb9sJVR
+	rXwxFjjq5OAMBmnOIEGc+N+q7+buykpS+J7woBX1ObOzIb8h9qOfnfYzzPM0CIxS+I4t
+	nOTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:date
+	:message-id:subject:from:to:content-type;
+	bh=OpHjueKzNlPlLhLbw/F0fH6YOS87uJ65xUdMHlxoY1A=;
+	b=VjSoVnjdopZvk5zEdbrSEKFztofeUb+NF1MTc0iIhfMx3IhfE+RfNRE5CVBFkVCTzy
+	hxs6YH1sWyokiiCFtXrXy8bT9lhPM8nbg5cIbK8en3kOlbdrXXrUxqTuIiYHVLzvWpK7
+	yDMZjMtFw6kzN5rXReQEzTyGe5EiQpGYjBsWZoRDHIqsN5lKgQSmXDW9WRdrq16LCwhj
+	LBVOCunUAGV6olGBtwpUfmMSTHZwzqSxP9GTgBmrKR4/Ss+3SXMxP03ezHNpqO4t7Au4
+	9yRaTzQbQYc1J2n5SWT8hG3nziLCIXZHLosNJgpzXS98MeMk0brC8unoyC7/u5rxT5Mg
+	PExw==
+X-Gm-Message-State: AG10YOTDp1tLYCtSOB4hH2sFkGrDKmzink0kR1oOlmqvjAWguuIamK+Ptgi5PSZLlzGbvcNSgqkHLUzQ56jbTQ==
 MIME-Version: 1.0
-In-Reply-To: <1455383832.16142.365.camel@linuxfoundation.org>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: "Hart, Darren" <darren.hart@intel.com>, "saul.wold" <saul.wold@intel.com>,
-	poky@yoctoproject.org,
-	openembedded-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [PATCH 1/1] poky: update qemu* to prefer 4.4 kernel
+X-Received: by 10.28.5.77 with SMTP id 74mr13378503wmf.62.1455539705552; Mon,
+	15 Feb 2016 04:35:05 -0800 (PST)
+Received: by 10.28.94.133 with HTTP; Mon, 15 Feb 2016 04:35:05 -0800 (PST)
+In-Reply-To: <CAA2DH4svD59du6J6SPLoqnLK8rO50wgKxp-EB09coeebis1Syg@mail.gmail.com>
+References: <CAA2DH4svD59du6J6SPLoqnLK8rO50wgKxp-EB09coeebis1Syg@mail.gmail.com>
+Date: Mon, 15 Feb 2016 18:05:05 +0530
+Message-ID: <CAA2DH4sANAd__35JCjPNbQQcyxDzppr1zAtz1+Qg0HVoQrMD6Q@mail.gmail.com>
+From: Prasant J <pj0585@gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: Re: Modify core-image-minimal-initramfs image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,162 +68,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 14 Feb 2016 16:29:45 -0000
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
+X-List-Received-Date: Mon, 15 Feb 2016 12:35:07 -0000
+Content-Type: text/plain; charset=UTF-8
 
-[Re: [poky] [PATCH 1/1] poky: update qemu* to prefer 4.4 kernel] On 13/02/2016 (Sat 17:17) Richard Purdie wrote:
+On Fri, Feb 12, 2016 at 5:57 PM, Prasant J <pj0585@gmail.com> wrote:
+> Hi,
+>
+>
+> I have built my own layer for my yocto root file system modifications.
+> I was able to build custom image as per my requirements.
+>
+> However, I'm unable to understand core-image-minimal-initramfs image.
+>
+>
+> - How can I add packages to core-image-minimal-initramfs image?
+>
 
-> I'm moving the discussion to OE-Core and pulling in some kernel people.
-> I think I understand what is wrong and how to fix it but I could use
-> someone who actually knows this code.
-> 
-> To summarise the story so far, on qemux86, X doesn't start and there is
-> a backtrace in the logs:
-> 
-> x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xfd000000-0xfdffffff], got write-combining
-> ------------[ cut here ]------------
-> WARNING: CPU: 0 PID: 705 at /media/build1/poky/build/tmp/work-shared/qemux86/kernel-source/arch/x86/mm/pat.c:985 untrack_pfn+0xaf/0xc0()
-> Modules linked in: uvesafb
-> CPU: 0 PID: 705 Comm: Xorg Not tainted 4.4.1-yocto-standard #1
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.8.2-0-g33fbe13 by qemu-project.org 04/01/2014
->  00000000 00000000 cf14dd78 c1397ab2 00000000 cf14dda8 c1051477 c1aa4f6c
->  00000000 000002c1 c1a9fa4c 000003d9 c104b98f c104b98f cf244000 b6355000
->  00000000 cf14ddb8 c1051552 00000009 00000000 cf14dde0 c104b98f cf14ddd0
-> Call Trace:
->  [<c1397ab2>] dump_stack+0x4b/0x79
->  [<c1051477>] warn_slowpath_common+0x87/0xc0
->  [<c104b98f>] ? untrack_pfn+0xaf/0xc0
->  [<c104b98f>] ? untrack_pfn+0xaf/0xc0
->  [<c1051552>] warn_slowpath_null+0x22/0x30
->  [<c104b98f>] untrack_pfn+0xaf/0xc0
->  [<c104d54c>] ? kmap_atomic_prot+0x3c/0xf0
->  [<c114e17f>] unmap_single_vma+0x4ef/0x500
->  [<c114f007>] unmap_vmas+0x37/0x50
->  [<c1154f8f>] exit_mmap+0x5f/0xf0
->  [<c104eedd>] mmput+0x2d/0xb0
->  [<c105009c>] copy_process+0xd2c/0x13c0
->  [<c1050892>] _do_fork+0x82/0x340
->  [<c105f2d1>] ? SyS_rt_sigaction+0x51/0xa0
->  [<c1050c3c>] SyS_clone+0x2c/0x30
->  [<c1001a03>] do_syscall_32_irqs_on+0x53/0xb0
->  [<c189a94a>] entry_INT80_32+0x2a/0x2a
-> ---[ end trace be3e0a61097feddc ]---
-> x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xfd000000-0xfdffffff], got write-combining
-> 
-> The entry in question is setup by uvesafb which in its
-> uvesafb_ioremap() function calls ioremap_wc().
-> 
-> It appears that Xorg mmaps this from userspace, then later does a
-> fork() to execute a utility. At this point, when creating the vmas for
-> the new process, the pat code says "eeek!" as the protection mode for
-> the new vmas don't match the old one, returns -EINVAL, the process dies
-> and X goes with it.
-> 
-> There are a few hammers we can hit this with, we can boot with "nopat"
-> option which makes the problem go away, or turn off CONFIG_X86_PAT. No
-> surprises there. Changing uvesafb to use mtrr=0 doesn't help since the
-> ioremap_wc call still happens.
+This was a very simple one. I just added
+core-image-minimal-initramfs_%.bbappend and it works for me.
 
-Disabling PAT for qemu wouldn't be some horrible crime in the end; the
-help text for the Kconfig option itself says:
-
-     Say N here if you see bootup problems (boot crash, boot hang,
-     spontaneous reboots) or a non-working video driver.
-
-...and in theory PAT and the older MTRR are supposed to be performance
-enhancements but not critical to have present.  I find it hard to get
-excited about qemu video performance through the vesa driver.  :)
-That said, it would be nice to fully understand what went pear shaped.
-
-> 
-> The real issue is the "expected mapping type uncached-minus for got
-> write-combining" message, it all goes wrong from there.
-> 
-> Upon looking at the code and scratching my head for a long while, I
-> notice that there are two ways of representing the protection mode
-> data, "enum page_cache_mode" and "pgprot_t & _PAGE_CACHE_MASK".
-> 
-> The exact meaning of pgprot_t depends on which CPU you're running,
-> older CPUs have errata meaning only a small number of bits can be used.
-> The exact mapping table is determined by __cachemode2pte_tbl and is
-> updated at boot by calls from update_cache_mode_entry().
-> 
-> The result of this if you map enum -> pgprot_t, then try to do pgprot_t
-> -> enum, you can get different values since its not a 1:1 mapping.
-> 
-> This means the comparison in reserve_pfn_range() where it does "pcm !=
-> want_pcm" isn't correct and can trigger even in cases where there isn't
-> a problem.
-> 
-> This can be "fixed" by doing cachemode2protval(pcm) !=
-> cachemode2protval(want_pcm) and checking whether the protection bits
-> match, rather than the enum values, since in reality this is what we
-> really care about.
-> 
-> I can confirm that if I make that change, X boots up just fine.
-> 
-> The problem is I really have no idea what I'm doing :).
-
-I know the feeling.  :)   Usually I find that being able to pinpoint the
-exact commit where things failed adds that final bit of information
-needed to get to the bottom of things.  Bruce and I fought with disks
-disappearing on qemu versatile a while back and with a bisect traced it
-down to some cryptic PCI swizzle mess.  But without the bisect pointing
-us at where it went wrong, I'm not sure what we'd have done.  This case
-is probably not that bad; it sounds like you've got 95% of it figured
-out already.
-
-Anyway to that end, I'm assuming here if we insert the 4.1 kernel
-(presumably which also has PAT enabled) and leave X11 and qemu alone,
-things work.  If so, we can use "debugpat" bootarg or debugfs to compare
-the 4.1 and 4.4 PAT entries (as per Documentation/x86/pat.txt) to see
-where things differ between the two kernels.
-
-And/or we can look at some of the relevant changes between the two
-versions (see below) and spot test reverts of any that look suspect.
-Or, just jump to a brute force bisect, while keeping an eye on the
-.config file along the way to ensure it remains consistent as we go.
-
-If this is still unresolved Tues when I'm back in the office and
-more easily able to test gfx issues, I'll look at doing bisection.
-
-P.
---
-
-Note: below listing does not account for gregKH stable or yocto changes!
-
-paul@acer:~/git/linux-head$ git log --oneline ^v4.1 v4.4 arch/x86/mm/pat.c 
-35a5a10 x86/mm/pat: Extend set_page_memtype() to support Write-Through type
-d1b4bfb x86/mm/pat: Add pgprot_writethrough()
-0d69bdf x86/mm/pat: Change reserve_memtype() for Write-Through type
-d79a40c x86/mm/pat: Use 7th PAT MSR slot for Write-Through PAT type
-7202fdb x86/mm/pat: Remove pat_enabled() checks
-9cd25aa x86/mm/pat: Emulate PAT when it is disabled
-9dac629 x86/mm/pat: Untangle pat_init()
-fbe7193 x86/mm/pat: Export pat_enabled()
-cb32edf x86/mm/pat: Wrap pat_enabled into a function API
-9e76561 x86/mm/pat: Convert to pr_*() usage
-b73522e x86/mm/mtrr: Enhance MTRR checks in kernel mapping helpers
-
-paul@acer:~/git/linux-head$ git log --oneline ^v4.1 v4.4 arch/x86/include/asm/pgtable_types.h
-70f15287 x86/mm: Fix regression with huge pages on PAE
-f70abb0 x86/asm: Fix pud/pmd interfaces to handle large PAT bit
-4be4c1f x86/asm: Add pud/pmd mask interfaces to handle large PAT bit
-d1b4bfb x86/mm/pat: Add pgprot_writethrough()
-
-paul@acer:~/git/linux-head$ git log --oneline ^v4.1 v4.4 drivers/video/fbdev/uvesafb.c
-9c27847 kernel/params: constify struct kernel_param_ops uses
-
-paul@acer:~/git/linux-head$ git log --no-merges --oneline ^v4.1 v4.4 arch/x86/mm/ioremap*
-8a0a5da x86/mm: Fix newly introduced printk format warnings
-9a58eeb x86/mm: Remove region_is_ram() call from ioremap
-1c9cf9b x86/mm: Move warning from __ioremap_check_ram() to the call site
-623dffb x86/mm/pat: Add set_memory_wt() for Write-Through type
-d838270 x86/mm, asm-generic: Add ioremap_wt() for creating Write-Through mappings
-7202fdb x86/mm/pat: Remove pat_enabled() checks
-1e6277d x86/mm: Mark arch_ioremap_p{m,u}d_supported() __init
-cb32edf x86/mm/pat: Wrap pat_enabled into a function API
-e4b6be3 x86/mm: Add ioremap_uc() helper to map memory uncacheable (not UC-)
-562bfca x86/mm: Clean up types in xlate_dev_mem_ptr() some more
+Regards, Pj
 
