@@ -1,6 +1,6 @@
 Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 66756E00D2B; Mon, 15 Feb 2016 04:35:07 -0800 (PST)
+	id DD3D1E00D2B; Mon, 15 Feb 2016 04:38:53 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -18,44 +18,42 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [74.125.82.47 listed in list.dnswl.org]
-Received: from mail-wm0-f47.google.com (mail-wm0-f47.google.com [74.125.82.47])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BB6A2E00D26
-	for <poky@yoctoproject.org>; Mon, 15 Feb 2016 04:35:06 -0800 (PST)
-Received: by mail-wm0-f47.google.com with SMTP id g62so106920530wme.0
-	for <poky@yoctoproject.org>; Mon, 15 Feb 2016 04:35:06 -0800 (PST)
+	*      [74.125.82.44 listed in list.dnswl.org]
+Received: from mail-wm0-f44.google.com (mail-wm0-f44.google.com [74.125.82.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 49C43E00D26
+	for <poky@yoctoproject.org>; Mon, 15 Feb 2016 04:38:52 -0800 (PST)
+Received: by mail-wm0-f44.google.com with SMTP id g62so56817749wme.1
+	for <poky@yoctoproject.org>; Mon, 15 Feb 2016 04:38:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:date:message-id:subject:from:to
-	:content-type; bh=OpHjueKzNlPlLhLbw/F0fH6YOS87uJ65xUdMHlxoY1A=;
-	b=U75MSHDE/Jz99eZQ2IoTlF3SspLv3whUXr10KEbty8bOvcKF599XpUrPJo1zqfeEuo
-	U64q4K4BDvi6rsJ4eT/Tajxc6CyOmClCetoUkJDyzhhWJdguIjXENEWtCLXhe8VEXyYy
-	Ym6B+GWmFuLd85b8gG3oKXqiArsnDU2UxlQigOjYxvY1Yi2K9G8oOdM/uzI/P4gg5lft
-	RqYtIko6ifmJmPS9/p+K3xXFad/Gui/1/7CpWou0Y+Dz5xXK8DPkAYoqGJPu7Nb9sJVR
-	rXwxFjjq5OAMBmnOIEGc+N+q7+buykpS+J7woBX1ObOzIb8h9qOfnfYzzPM0CIxS+I4t
-	nOTw==
+	h=mime-version:date:message-id:subject:from:to:content-type;
+	bh=eJ/mnCD5WVtncjLFThgclm5AzMQl5aHJ8bUlsp8dQe4=;
+	b=Ge5KxpZjfcuRIAchdu3VcOI8hhcXHxyWdNH1OE6OchGGxllCjvsn7cSSn5lvHeCtrQ
+	jpf9uD8c0Uee4cys4d9eK7A4s8d8w/7B9eQOAqdpmISrjfExmtL2GGxeM9cXowXFGQiK
+	S0pa4OOg06jUn9cmRz16COOBuXOyVvGlemyfZkbKjxpqJbcspC43UaPxoYJ1qy11fzJd
+	ek4EuyQYzZSUXY2ya0OyJuDbUf9Vx1vADNzMhAhYKVwRAE3x/oPXMjyEIg1Yb3d3CoDE
+	hekY1mqbJxGehHi74cb2cQQCfvfK6Dk2U2ftED7Kfmm+ILJkPiJTRiKwGmU5N7eKFUPg
+	4PtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:date
-	:message-id:subject:from:to:content-type;
-	bh=OpHjueKzNlPlLhLbw/F0fH6YOS87uJ65xUdMHlxoY1A=;
-	b=VjSoVnjdopZvk5zEdbrSEKFztofeUb+NF1MTc0iIhfMx3IhfE+RfNRE5CVBFkVCTzy
-	hxs6YH1sWyokiiCFtXrXy8bT9lhPM8nbg5cIbK8en3kOlbdrXXrUxqTuIiYHVLzvWpK7
-	yDMZjMtFw6kzN5rXReQEzTyGe5EiQpGYjBsWZoRDHIqsN5lKgQSmXDW9WRdrq16LCwhj
-	LBVOCunUAGV6olGBtwpUfmMSTHZwzqSxP9GTgBmrKR4/Ss+3SXMxP03ezHNpqO4t7Au4
-	9yRaTzQbQYc1J2n5SWT8hG3nziLCIXZHLosNJgpzXS98MeMk0brC8unoyC7/u5rxT5Mg
-	PExw==
-X-Gm-Message-State: AG10YOTDp1tLYCtSOB4hH2sFkGrDKmzink0kR1oOlmqvjAWguuIamK+Ptgi5PSZLlzGbvcNSgqkHLUzQ56jbTQ==
+	h=x-gm-message-state:mime-version:date:message-id:subject:from:to
+	:content-type;
+	bh=eJ/mnCD5WVtncjLFThgclm5AzMQl5aHJ8bUlsp8dQe4=;
+	b=UHsFsDKws1d62Hosq/ukeDZIk0kNzkWgUNvvvnH+Ma48KX1ieHwxxUw54yaFyB7YrO
+	ZzaV9MCX5g/BDcpAwszxYnXnBzQc76UegGVACMuXSUog3A9cVDQrn6CUDhJ3cjyIv17O
+	DzTF9hCua6QeI9w6RicsjJNH+MEqLA0fBwTipNtqhnxrkiB6JB4CyFi+2vrUg5HS2e35
+	GXyUnbhukHC797Q1qsl6o1+t/jd4xLGmR0QJy6yumJc2RRDJj1kusMSqog5UEcP1O16V
+	DtjFsdXr1ivyfF0odrarHpIdCiu990OfnwOv8+Gd7xOfYoSmoND6EOMA8R+6K3mUPI9s
+	AeuQ==
+X-Gm-Message-State: AG10YOQhDQNrCRHV4p3odQOkUDZkPMcpKD4Ot9r80Ag8bxCW2ho+cOVXHBqZguE4R8uZB1KQLMb7s+9Aq9Plhw==
 MIME-Version: 1.0
-X-Received: by 10.28.5.77 with SMTP id 74mr13378503wmf.62.1455539705552; Mon,
-	15 Feb 2016 04:35:05 -0800 (PST)
-Received: by 10.28.94.133 with HTTP; Mon, 15 Feb 2016 04:35:05 -0800 (PST)
-In-Reply-To: <CAA2DH4svD59du6J6SPLoqnLK8rO50wgKxp-EB09coeebis1Syg@mail.gmail.com>
-References: <CAA2DH4svD59du6J6SPLoqnLK8rO50wgKxp-EB09coeebis1Syg@mail.gmail.com>
-Date: Mon, 15 Feb 2016 18:05:05 +0530
-Message-ID: <CAA2DH4sANAd__35JCjPNbQQcyxDzppr1zAtz1+Qg0HVoQrMD6Q@mail.gmail.com>
+X-Received: by 10.194.90.100 with SMTP id bv4mr16092662wjb.11.1455539932345;
+	Mon, 15 Feb 2016 04:38:52 -0800 (PST)
+Received: by 10.28.94.133 with HTTP; Mon, 15 Feb 2016 04:38:52 -0800 (PST)
+Date: Mon, 15 Feb 2016 18:08:52 +0530
+Message-ID: <CAA2DH4ujkrDqo3RYsm7RCQQsV_Nb6LmvT=1Xns4zaXO0t-PE8w@mail.gmail.com>
 From: Prasant J <pj0585@gmail.com>
 To: Poky Project <poky@yoctoproject.org>
-Subject: Re: Modify core-image-minimal-initramfs image
+Subject: Can I force a particular recipe to rebuild every time?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,24 +66,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Feb 2016 12:35:07 -0000
+X-List-Received-Date: Mon, 15 Feb 2016 12:38:53 -0000
 Content-Type: text/plain; charset=UTF-8
 
-On Fri, Feb 12, 2016 at 5:57 PM, Prasant J <pj0585@gmail.com> wrote:
-> Hi,
->
->
-> I have built my own layer for my yocto root file system modifications.
-> I was able to build custom image as per my requirements.
->
-> However, I'm unable to understand core-image-minimal-initramfs image.
->
->
-> - How can I add packages to core-image-minimal-initramfs image?
->
+Hi,
 
-This was a very simple one. I just added
-core-image-minimal-initramfs_%.bbappend and it works for me.
+
+I'm writing my own layer for the Intel Atom Board.
+
+
+- Is there a way to force a recipe to be rebuild every time
+core-image-minimal-initramfs is built?
+
+- Is there a ROOTFS_POSTPROCESS equivalent for
+core-image-minimal-initramfs image?
+
+
 
 Regards, Pj
 
