@@ -1,59 +1,36 @@
-Return-Path: <jonathan.richardson@broadcom.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5C5F7E00D12; Thu, 25 Feb 2016 13:12:13 -0800 (PST)
+	id 220A3E00CBD; Sun, 28 Feb 2016 02:50:17 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: *  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-oi0-f50.google.com (mail-oi0-f50.google.com
-	[209.85.218.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 56705E00D05
-	for <poky@yoctoproject.org>; Thu, 25 Feb 2016 13:12:08 -0800 (PST)
-Received: by mail-oi0-f50.google.com with SMTP id w5so48735664oie.3
-	for <poky@yoctoproject.org>; Thu, 25 Feb 2016 13:12:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
-	h=from:references:in-reply-to:mime-version:thread-index:date
-	:message-id:subject:to:content-type;
-	bh=SAmbijYiDKbkYIQ2JI+nZEc3d5SY+rg12Bw/OopL2Gs=;
-	b=Sf/GlZN3ykhmt1bpwTdC4Bg4PEVhE+VFsfFG+wFGNRuiG2EwcSa7xQgmwLjVvjgOcY
-	Mht3v06wpd0ZeUC1B3oM3174gsJne0BwtT3wloIG76TB0/tJbvnVhXro9ugSxM8BxalF
-	UIebjZNmTgZgR6uNS+No8sQm1RIE7USNzBIWg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:references:in-reply-to:mime-version
-	:thread-index:date:message-id:subject:to:content-type;
-	bh=SAmbijYiDKbkYIQ2JI+nZEc3d5SY+rg12Bw/OopL2Gs=;
-	b=dkEAnS29RVg7IKqucwU0ZquCGq4C48eLrBYec3VEtFps4lqFH6A6sU6LF38u1O8z9c
-	tofmzmW3y9wurZrU5HECb780qKn+wLipwbyu+PWHhPAWCOsvwVJZcdMhbaOnLyup0Ydj
-	s5xBuX/nuBi6h9SvhDGFZ7zxxlwuLsXLrwuNRE5KKhsMOMbJOVPbNf/gP+cC5IVLVkJJ
-	gNqRIw/PuKeWICVfhY/QJmS8KnbNhB+RgH3T6XsTEaUbmfHPjFHFcCwrfoA4wO8/DF0n
-	5rOQ3vaFX0LuVD81pocbf/zWScZHDTVl1ZKG//jvumz/TIN3G+F2OEPauAZSDCQV5aeT
-	Dg5A==
-X-Gm-Message-State: AG10YOT8nEuJlPAyBVl/xmzmF4SJaYLskoIcCpwPpOlXLYAI2W13O6pNB3JUZG3zGcg11rOZlvn06MKvDjXTZE8D
-X-Received: by 10.202.81.147 with SMTP id f141mr33663535oib.85.1456434727887; 
-	Thu, 25 Feb 2016 13:12:07 -0800 (PST)
-From: Jonathan Richardson <jonathan.richardson@broadcom.com>
-References: <782f4c4196c1be19342a12a8b784662b@mail.gmail.com>
-	<1455830371.28376.97.camel@linuxfoundation.org>
-	<CAHrpVsXD-FhB1pNkZqwLwWzY9L1R29LPvzUuWpz-U36hrmsZVQ@mail.gmail.com>
-	46c98c026028a83af6db08652c8890b9@mail.gmail.com
-In-Reply-To: 46c98c026028a83af6db08652c8890b9@mail.gmail.com
-MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 14.0
-Thread-Index: AQJRE0S6mY5oUxX8mID6WepOcWwa0ADZG76lAfqheDCeHKlcwIAKsSzw
-Date: Thu, 25 Feb 2016 13:12:07 -0800
-Message-ID: <7661cdecdca15a89489fdea84c4b0f63@mail.gmail.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@yoctoproject.org
-Subject: Re: gcc multilib
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 32924E00DBB
+	for <poky@yoctoproject.org>; Sun, 28 Feb 2016 02:50:06 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u1SAo5bK032245
+	for <poky@yoctoproject.org>; Sun, 28 Feb 2016 10:50:05 GMT
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id alBbBpqgQNub for <poky@yoctoproject.org>;
+	Sun, 28 Feb 2016 10:50:05 +0000 (GMT)
+Received: from hex ([192.168.3.34]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u1SAo3Lw032242
+	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <poky@yoctoproject.org>; Sun, 28 Feb 2016 10:50:04 GMT
+Message-ID: <1456656603.11498.156.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Sun, 28 Feb 2016 10:50:03 +0000
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
+Subject: [PATCH] meta-yocto: Rename to meta-poky to better match its purpose
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -66,225 +43,360 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Feb 2016 21:12:13 -0000
-Content-Type: multipart/alternative; boundary=001a113d739a98ca80052c9ea2bb
+X-List-Received-Date: Sun, 28 Feb 2016 10:50:17 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---001a113d739a98ca80052c9ea2bb
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+"poky" is the reference distribution for the Yocto Project. This renames
+the layer within the meta-yocto repository to meta-poky, better matching
+what that layer contains.
 
-Hi,
+A layer.conf file is left behind as this is the only way which allows 
+existing builds to migrate safely to the new name. It will be removed
+at some future point.
+
+This change requires the corresponding OE-Core change to handle the 
+migration and the changes to the infrastructure to support this.
+
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ .templateconf                                      |  2 +-
+ README                                             |  2 +-
+ meta-poky/classes/poky-sanity.bbclass              | 12 ++++++++++
+ .../conf/bblayers.conf.sample                      |  8 +++----
+ {meta-yocto => meta-poky}/conf/conf-notes.txt      |  0
+ .../conf/distro/include/maintainers.inc            |  0
+ .../distro/include/poky-floating-revisions.inc     |  0
+ .../conf/distro/include/poky-world-exclude.inc     |  0
+ .../conf/distro/poky-bleeding.conf                 |  0
+ .../conf/distro/poky-lsb.conf                      |  0
+ .../conf/distro/poky-tiny.conf                     |  0
+ {meta-yocto => meta-poky}/conf/distro/poky.conf    |  0
+ meta-poky/conf/layer.conf                          | 18 ++++++++++++++
+ {meta-yocto => meta-poky}/conf/local.conf.sample   |  0
+ .../conf/local.conf.sample.extended                |  0
+ {meta-yocto => meta-poky}/conf/site.conf.sample    |  0
+ {meta-yocto => meta-poky}/conf/toasterconf.json    | 10 ++++----
+ .../busybox/busybox/poky-tiny/defconfig            |  0
+ .../recipes-core/busybox/busybox_%.bbappend        |  0
+ .../recipes-core/psplash/files/psplash-poky-img.h  |  0
+ .../recipes-core/psplash/psplash_git.bbappend      |  0
+ .../recipes-core/tiny-init/files/init              |  0
+ .../recipes-core/tiny-init/files/rc.local.sample   |  0
+ .../recipes-core/tiny-init/tiny-init.bb            |  0
+ meta-yocto/classes/poky-sanity.bbclass             | 28 ----------------------
+ meta-yocto/conf/layer.conf                         | 18 ++------------
+ scripts/lib/bsp/help.py                            |  2 +-
+ scripts/lib/bsp/substrate/target/arch/layer/README |  2 +-
+ 28 files changed, 45 insertions(+), 57 deletions(-)
+ create mode 100644 meta-poky/classes/poky-sanity.bbclass
+ rename {meta-yocto => meta-poky}/conf/bblayers.conf.sample (53%)
+ rename {meta-yocto => meta-poky}/conf/conf-notes.txt (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/include/maintainers.inc (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/include/poky-floating-revisions.inc (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/include/poky-world-exclude.inc (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/poky-bleeding.conf (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/poky-lsb.conf (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/poky-tiny.conf (100%)
+ rename {meta-yocto => meta-poky}/conf/distro/poky.conf (100%)
+ create mode 100644 meta-poky/conf/layer.conf
+ rename {meta-yocto => meta-poky}/conf/local.conf.sample (100%)
+ rename {meta-yocto => meta-poky}/conf/local.conf.sample.extended (100%)
+ rename {meta-yocto => meta-poky}/conf/site.conf.sample (100%)
+ rename {meta-yocto => meta-poky}/conf/toasterconf.json (93%)
+ rename {meta-yocto => meta-poky}/recipes-core/busybox/busybox/poky-tiny/defconfig (100%)
+ rename {meta-yocto => meta-poky}/recipes-core/busybox/busybox_%.bbappend (100%)
+ rename {meta-yocto => meta-poky}/recipes-core/psplash/files/psplash-poky-img.h (100%)
+ rename {meta-yocto => meta-poky}/recipes-core/psplash/psplash_git.bbappend (100%)
+ rename {meta-yocto => meta-poky}/recipes-core/tiny-init/files/init (100%)
+ rename {meta-yocto => meta-poky}/recipes-core/tiny-init/files/rc.local.sample (100%)
+ rename {meta-yocto => meta-poky}/recipes-core/tiny-init/tiny-init.bb (100%)
+ delete mode 100644 meta-yocto/classes/poky-sanity.bbclass
+
+diff --git a/.templateconf b/.templateconf
+index 0650a46..0fe6f82 100644
+--- a/.templateconf
++++ b/.templateconf
+@@ -1,2 +1,2 @@
+ # Template settings
+-TEMPLATECONF=${TEMPLATECONF:-meta-yocto/conf}
++TEMPLATECONF=${TEMPLATECONF:-meta-poky/conf}
+diff --git a/README b/README
+index 4e295c4..9ee0078 100644
+--- a/README
++++ b/README
+@@ -42,7 +42,7 @@ documentation:
+     Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/
+     Mailing list: yocto@yoctoproject.org
+ 
+-meta-yocto(-bsp):
++meta-poky, meta-yocto-bsp:
+     Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/meta-yocto(-bsp)
+     Mailing list: poky@yoctoproject.org
+ 
+diff --git a/meta-poky/classes/poky-sanity.bbclass b/meta-poky/classes/poky-sanity.bbclass
+new file mode 100644
+index 0000000..287a9e3
+--- /dev/null
++++ b/meta-poky/classes/poky-sanity.bbclass
+@@ -0,0 +1,12 @@
++# Provide some extensions to sanity.bbclass to handle poky-specific conf file upgrades
++
++python poky_update_bblayersconf() {
++    current_version = int(d.getVar('POKY_BBLAYERS_CONF_VERSION', True) or -1)
++    latest_version = int(d.getVar('REQUIRED_POKY_BBLAYERS_CONF_VERSION', True) or -1)
++
++    # No version transitions here yet
++    raise NotImplementedError("You need to update bblayers.conf manually for this version transision")
++}
++
++# Prepend to ensure our function runs before the OE-Core one
++BBLAYERS_CONF_UPDATE_FUNCS =+ "conf/bblayers.conf:POKY_BBLAYERS_CONF_VERSION:REQUIRED_POKY_BBLAYERS_CONF_VERSION:poky_update_bblayersconf"
+diff --git a/meta-yocto/conf/bblayers.conf.sample b/meta-poky/conf/bblayers.conf.sample
+similarity index 53%
+rename from meta-yocto/conf/bblayers.conf.sample
+rename to meta-poky/conf/bblayers.conf.sample
+index 0eda565..b948df2 100644
+--- a/meta-yocto/conf/bblayers.conf.sample
++++ b/meta-poky/conf/bblayers.conf.sample
+@@ -1,16 +1,16 @@
+-# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
++# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+ # changes incompatibly
+-LCONF_VERSION = "6"
++POKY_BBLAYERS_CONF_VERSION = "1"
+ 
+ BBPATH = "${TOPDIR}"
+ BBFILES ?= ""
+ 
+ BBLAYERS ?= " \
+   ##OEROOT##/meta \
+-  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-poky \
+   ##OEROOT##/meta-yocto-bsp \
+   "
+ BBLAYERS_NON_REMOVABLE ?= " \
+   ##OEROOT##/meta \
+-  ##OEROOT##/meta-yocto \
++  ##OEROOT##/meta-poky \
+   "
+diff --git a/meta-yocto/conf/conf-notes.txt b/meta-poky/conf/conf-notes.txt
+similarity index 100%
+rename from meta-yocto/conf/conf-notes.txt
+rename to meta-poky/conf/conf-notes.txt
+diff --git a/meta-yocto/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+similarity index 100%
+rename from meta-yocto/conf/distro/include/maintainers.inc
+rename to meta-poky/conf/distro/include/maintainers.inc
+diff --git a/meta-yocto/conf/distro/include/poky-floating-revisions.inc b/meta-poky/conf/distro/include/poky-floating-revisions.inc
+similarity index 100%
+rename from meta-yocto/conf/distro/include/poky-floating-revisions.inc
+rename to meta-poky/conf/distro/include/poky-floating-revisions.inc
+diff --git a/meta-yocto/conf/distro/include/poky-world-exclude.inc b/meta-poky/conf/distro/include/poky-world-exclude.inc
+similarity index 100%
+rename from meta-yocto/conf/distro/include/poky-world-exclude.inc
+rename to meta-poky/conf/distro/include/poky-world-exclude.inc
+diff --git a/meta-yocto/conf/distro/poky-bleeding.conf b/meta-poky/conf/distro/poky-bleeding.conf
+similarity index 100%
+rename from meta-yocto/conf/distro/poky-bleeding.conf
+rename to meta-poky/conf/distro/poky-bleeding.conf
+diff --git a/meta-yocto/conf/distro/poky-lsb.conf b/meta-poky/conf/distro/poky-lsb.conf
+similarity index 100%
+rename from meta-yocto/conf/distro/poky-lsb.conf
+rename to meta-poky/conf/distro/poky-lsb.conf
+diff --git a/meta-yocto/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+similarity index 100%
+rename from meta-yocto/conf/distro/poky-tiny.conf
+rename to meta-poky/conf/distro/poky-tiny.conf
+diff --git a/meta-yocto/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+similarity index 100%
+rename from meta-yocto/conf/distro/poky.conf
+rename to meta-poky/conf/distro/poky.conf
+diff --git a/meta-poky/conf/layer.conf b/meta-poky/conf/layer.conf
+new file mode 100644
+index 0000000..b5ffd9e
+--- /dev/null
++++ b/meta-poky/conf/layer.conf
+@@ -0,0 +1,18 @@
++# We have a conf and classes directory, add to BBPATH
++BBPATH =. "${LAYERDIR}:"
++
++# We have recipes-* directories, add to BBFILES
++BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
++            ${LAYERDIR}/recipes-*/*/*.bbappend"
++
++BBFILE_COLLECTIONS += "yocto"
++BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
++BBFILE_PRIORITY_yocto = "5"
++
++# This should only be incremented on significant changes that will
++# cause compatibility issues with other layers
++LAYERVERSION_yocto = "3"
++
++LAYERDEPENDS_yocto = "core"
++
++REQUIRED_POKY_BBLAYERS_CONF_VERSION = "1"
+diff --git a/meta-yocto/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+similarity index 100%
+rename from meta-yocto/conf/local.conf.sample
+rename to meta-poky/conf/local.conf.sample
+diff --git a/meta-yocto/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+similarity index 100%
+rename from meta-yocto/conf/local.conf.sample.extended
+rename to meta-poky/conf/local.conf.sample.extended
+diff --git a/meta-yocto/conf/site.conf.sample b/meta-poky/conf/site.conf.sample
+similarity index 100%
+rename from meta-yocto/conf/site.conf.sample
+rename to meta-poky/conf/site.conf.sample
+diff --git a/meta-yocto/conf/toasterconf.json b/meta-poky/conf/toasterconf.json
+similarity index 93%
+rename from meta-yocto/conf/toasterconf.json
+rename to meta-poky/conf/toasterconf.json
+index 3f79f42..dc592ab 100644
+--- a/meta-yocto/conf/toasterconf.json
++++ b/meta-poky/conf/toasterconf.json
+@@ -20,10 +20,10 @@
+                     "dirpath": "meta"
+                 },
+                 {
+-                    "name": "meta-yocto",
+-                    "local_path": "meta-yocto",
++                    "name": "meta-poky",
++                    "local_path": "meta-poky",
+                     "vcs_url": "remote:origin",
+-                    "dirpath": "meta-yocto"
++                    "dirpath": "meta-poky"
+                 },
+                 {
+                     "name": "meta-yocto-bsp",
+@@ -83,7 +83,7 @@
+             "description": "Yocto Project master",
+             "bitbake": "master",
+             "branch": "master",
+-            "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
++            "defaultlayers": [ "openembedded-core", "meta-poky", "meta-yocto-bsp"],
+             "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
+             "helptext": "Toaster will run your builds using the tip of the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project master branch</a>, where active development takes place. This is not a stable branch, so your builds might not work as expected."
+         },
+@@ -110,7 +110,7 @@
+             "description": "Local Yocto Project",
+             "bitbake": "HEAD",
+             "branch": "HEAD",
+-            "defaultlayers": [ "openembedded-core", "meta-yocto", "meta-yocto-bsp"],
++            "defaultlayers": [ "openembedded-core", "meta-poky", "meta-yocto-bsp"],
+             "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
+             "helptext": "Toaster will run your builds with the version of the Yocto Project you have cloned or downloaded to your computer."
+         }
+diff --git a/meta-yocto/recipes-core/busybox/busybox/poky-tiny/defconfig b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
+similarity index 100%
+rename from meta-yocto/recipes-core/busybox/busybox/poky-tiny/defconfig
+rename to meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
+diff --git a/meta-yocto/recipes-core/busybox/busybox_%.bbappend b/meta-poky/recipes-core/busybox/busybox_%.bbappend
+similarity index 100%
+rename from meta-yocto/recipes-core/busybox/busybox_%.bbappend
+rename to meta-poky/recipes-core/busybox/busybox_%.bbappend
+diff --git a/meta-yocto/recipes-core/psplash/files/psplash-poky-img.h b/meta-poky/recipes-core/psplash/files/psplash-poky-img.h
+similarity index 100%
+rename from meta-yocto/recipes-core/psplash/files/psplash-poky-img.h
+rename to meta-poky/recipes-core/psplash/files/psplash-poky-img.h
+diff --git a/meta-yocto/recipes-core/psplash/psplash_git.bbappend b/meta-poky/recipes-core/psplash/psplash_git.bbappend
+similarity index 100%
+rename from meta-yocto/recipes-core/psplash/psplash_git.bbappend
+rename to meta-poky/recipes-core/psplash/psplash_git.bbappend
+diff --git a/meta-yocto/recipes-core/tiny-init/files/init b/meta-poky/recipes-core/tiny-init/files/init
+similarity index 100%
+rename from meta-yocto/recipes-core/tiny-init/files/init
+rename to meta-poky/recipes-core/tiny-init/files/init
+diff --git a/meta-yocto/recipes-core/tiny-init/files/rc.local.sample b/meta-poky/recipes-core/tiny-init/files/rc.local.sample
+similarity index 100%
+rename from meta-yocto/recipes-core/tiny-init/files/rc.local.sample
+rename to meta-poky/recipes-core/tiny-init/files/rc.local.sample
+diff --git a/meta-yocto/recipes-core/tiny-init/tiny-init.bb b/meta-poky/recipes-core/tiny-init/tiny-init.bb
+similarity index 100%
+rename from meta-yocto/recipes-core/tiny-init/tiny-init.bb
+rename to meta-poky/recipes-core/tiny-init/tiny-init.bb
+diff --git a/meta-yocto/classes/poky-sanity.bbclass b/meta-yocto/classes/poky-sanity.bbclass
+deleted file mode 100644
+index 77c266e..0000000
+--- a/meta-yocto/classes/poky-sanity.bbclass
++++ /dev/null
+@@ -1,28 +0,0 @@
+-# Provide some extensions to sanity.bbclass to handle poky-specific conf file upgrades
+-
+-python poky_update_bblayersconf() {
+-    current_version = int(d.getVar('LCONF_VERSION', True) or -1)
+-    latest_version = int(d.getVar('LAYER_CONF_VERSION', True) or -1)
+-
+-    bblayers_fn = bblayers_conf_file(d)
+-    lines = sanity_conf_read(bblayers_fn)
+-
+-    if current_version == 5 and latest_version > 5:
+-        # Handle split out of meta-yocto-bsp from meta-yocto
+-        if '/meta-yocto-bsp' not in d.getVar('BBLAYERS', True):
+-            index, meta_yocto_line = sanity_conf_find_line('meta-yocto\s*\\\\\\n', lines)
+-            if meta_yocto_line:
+-                lines.insert(index + 1, meta_yocto_line.replace('meta-yocto',
+-                                                                'meta-yocto-bsp'))
+-            else:
+-                sys.exit()
+-
+-        current_version += 1
+-        sanity_conf_update(bblayers_fn, lines, 'LCONF_VERSION', current_version)
+-        return
+-
+-    sys.exit()
+-}
+-
+-# Prepend to ensure our function runs before the OE-Core one
+-BBLAYERS_CONF_UPDATE_FUNCS =+ "poky_update_bblayersconf"
+diff --git a/meta-yocto/conf/layer.conf b/meta-yocto/conf/layer.conf
+index 9942b51..9ed30ed 100644
+--- a/meta-yocto/conf/layer.conf
++++ b/meta-yocto/conf/layer.conf
+@@ -1,16 +1,2 @@
+-# We have a conf and classes directory, add to BBPATH
+-BBPATH =. "${LAYERDIR}:"
+-
+-# We have recipes-* directories, add to BBFILES
+-BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
+-            ${LAYERDIR}/recipes-*/*/*.bbappend"
+-
+-BBFILE_COLLECTIONS += "yocto"
+-BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
+-BBFILE_PRIORITY_yocto = "5"
+-
+-# This should only be incremented on significant changes that will
+-# cause compatibility issues with other layers
+-LAYERVERSION_yocto = "2"
+-
+-LAYERDEPENDS_yocto = "core"
++# Dummy file to allow for meta-yocto -> meta-poky transition
++BBPATH =. "${LAYERDIR}/../meta-poky:"
+diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
+index 4cce100..bbb7b31 100644
+--- a/scripts/lib/bsp/help.py
++++ b/scripts/lib/bsp/help.py
+@@ -173,7 +173,7 @@ DESCRIPTION
+ 
+     BBLAYERS ?= " \\
+       /path/to/poky/meta \\
+-      /path/to/poky/meta-yocto \\
++      /path/to/poky/meta-poky \\
+       /path/to/poky/meta-mybsp \\
+       "
+ """
+diff --git a/scripts/lib/bsp/substrate/target/arch/layer/README b/scripts/lib/bsp/substrate/target/arch/layer/README
+index 943dfc4..ca6527c 100644
+--- a/scripts/lib/bsp/substrate/target/arch/layer/README
++++ b/scripts/lib/bsp/substrate/target/arch/layer/README
+@@ -52,7 +52,7 @@ other layers needed. e.g.:
+ 
+   BBLAYERS ?= " \
+     /path/to/yocto/meta \
+-    /path/to/yocto/meta-yocto \
++    /path/to/yocto/meta-poky \
+     /path/to/yocto/meta-yocto-bsp \
+     /path/to/yocto/meta-{{=layer_name}} \
+     "
 
 
-
-I enabled multilib like below in my conf file and named it =E2=80=98softfp=
-=E2=80=99. I
-didn=E2=80=99t realize it was going to create a separate sysroot for it and=
- also
-that I could just enable it with a  different tuning, which makes it much
-easier.
-
-
-
-require conf/multilib.conf
-
-MULTILIB_GLOBAL_VARIANTS =3D "lib32 lib64 libx32 softfp"
-
-MULTILIBS =3D "multilib:softfp"
-
-DEFAULTTUNE_virtclass-multilib-softfp =3D "cortexa9"
-
-
-
-It works fine if I run my recipe as =E2=80=98bitbake softp-recipe=E2=80=99.=
- I added
-BBCLASSEXTEND_append =3D " multilib:softfp" to the recipe but when I run it
-as =E2=80=98bitbake recipe=E2=80=99 it doesn=E2=80=99t pick up multilib. It=
- looks like the
-BBCLASSEXTEND is doing nothing. Is there anything else I need to add to the
-recipe so that I don=E2=80=99t have to prefix the recipe name with softfp t=
-o get
-multilib? Or can I only get multilib by prefixing it?
-
-
-
-Thanks.
-
-
-
-*From:* Jonathan Richardson [mailto:jonathan.richardson@broadcom.com]
-*Sent:* Thursday, February 18, 2016 5:58 PM
-*To:* 'Richard Purdie'; 'poky@yoctoproject.org'
-*Subject:* RE: [poky] gcc multilib
-
-
-
-Resending to include mailing list.
-
-
-
-I can change the binaries makefiles/recipes easily enough to take an
-alternate path to the soft fp libs (ie- /lib-softfp) or whatever it turns
-out to be, as long as it's some oddball location that isn't included in the
-standard CFLAGS search path. I'd want the regular machine configuration to
-have /lib/libgcc.so with hard fp and then some other location can have the
-soft fp versions, I don't really care where that is as long as it exists
-and I can point to it. I assume it would be under the same sysroot. Are
-there any examples of this?
-
-
-
-Thanks.
-
-
-
-On Thu, Feb 18, 2016 at 1:19 PM, Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
-
-On Thu, 2016-02-18 at 12:01 -0800, Jonathan Richardson wrote:
-> We have a machine configured for hard floating point. This builds a
-> hard fp version of libgcc. We also have some bootloaders and other
-> code that require libgcc but use soft fp. I would prefer to keep the
-> bootloaders using soft fp. Is there a way to configure libgcc to
-> produce both hard and soft fp versions of libraries? There are
-> multilib examples for 32 and 64 versions of libs but it=E2=80=99s not cle=
-ar
-> to me how to specify other compiler options to produce multiple
-> versions of the libraries.
-
-The bigger question you face is where these binaries expect your libgcc
-and perhaps dynamic loader to reside. Its straight forward enough to
-configure the system to build two versions with different tunes but one
-would need to live in /lib and the other in /lib32 or some other /libXX
-location. The way the multilib setup works, it doesn't really care
-which configuration you use for a given location.
-
-Cheers,
-
-Richard
-
---001a113d739a98ca80052c9ea2bb
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
-=3Dutf-8"><meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered m=
-edium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style></head><body lang=3D"EN-US" link=3D"blue" vlink=3D"purple"><div =
-class=3D"WordSection1"><p class=3D"MsoNormal"><span style=3D"font-size:11.0=
-pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">Hi=
-,</span></p><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-fam=
-ily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span>=
-</p><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quo=
-t;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">I enabled multilib li=
-ke below in my conf file and named it =E2=80=98softfp=E2=80=99. I didn=E2=
-=80=99t realize it was going to create a separate sysroot for it and also t=
-hat I could just enable it with a =C2=A0different tuning, which makes it mu=
-ch easier. </span></p><p class=3D"MsoNormal"><span style=3D"font-size:11.0p=
-t;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=
-=A0</span></p><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-f=
-amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">require con=
-f/multilib.conf</span></p><p class=3D"MsoNormal"><span style=3D"font-size:1=
-1.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"=
->MULTILIB_GLOBAL_VARIANTS =3D &quot;lib32 lib64 libx32 softfp&quot;</span><=
-/p><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">MULTILIBS =3D &quot;mu=
-ltilib:softfp&quot;</span></p><p class=3D"MsoNormal"><span style=3D"font-si=
-ze:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f4=
-97d">DEFAULTTUNE_virtclass-multilib-softfp =3D &quot;cortexa9&quot;</span><=
-/p><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span></p><p cl=
-ass=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Calibri=
-&quot;,&quot;sans-serif&quot;;color:#1f497d">It works fine if I run my reci=
-pe as =E2=80=98bitbake softp-recipe=E2=80=99. I added BBCLASSEXTEND_append =
-=3D &quot; multilib:softfp&quot; to the recipe but when I run it as =E2=80=
-=98bitbake recipe=E2=80=99 it doesn=E2=80=99t pick up multilib. It looks li=
-ke the BBCLASSEXTEND is doing nothing. Is there anything else I need to add=
- to the recipe so that I don=E2=80=99t have to prefix the recipe name with =
-softfp to get multilib? Or can I only get multilib by prefixing it?</span><=
-/p><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span></p><p cl=
-ass=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Calibri=
-&quot;,&quot;sans-serif&quot;;color:#1f497d">Thanks.</span></p><p class=3D"=
-MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,=
-&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span></p><div><div style=3D"b=
-order:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in 0in 0in"><p cla=
-ss=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot;Tahom=
-a&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-size:10=
-.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Jonathan Richa=
-rdson [mailto:<a href=3D"mailto:jonathan.richardson@broadcom.com">jonathan.=
-richardson@broadcom.com</a>] <br><b>Sent:</b> Thursday, February 18, 2016 5=
-:58 PM<br><b>To:</b> &#39;Richard Purdie&#39;; &#39;<a href=3D"mailto:poky@=
-yoctoproject.org">poky@yoctoproject.org</a>&#39;<br><b>Subject:</b> RE: [po=
-ky] gcc multilib</span></p></div></div><p class=3D"MsoNormal">=C2=A0</p><p =
-class=3D"MsoNormal">Resending to include mailing list.</p><p class=3D"MsoNo=
-rmal">=C2=A0</p><p class=3D"MsoNormal">I can change the binaries makefiles/=
-recipes easily enough to take an alternate path to the soft fp libs (ie- /l=
-ib-softfp) or whatever it turns out to be, as long as it&#39;s some oddball=
- location that isn&#39;t included in the standard CFLAGS search path. I&#39=
-;d want the regular machine configuration to have /lib/libgcc.so with hard =
-fp and then some other location can have the soft fp versions, I don&#39;t =
-really care where that is as long as it exists and I can point to it. I ass=
-ume it would be under the same sysroot. Are there any examples of this?</p>=
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span></p><p class=
-=3D"MsoNormal">Thanks.<span style=3D"font-size:11.0pt;font-family:&quot;Cal=
-ibri&quot;,&quot;sans-serif&quot;;color:#1f497d"></span></p><div><p class=
-=3D"MsoNormal">=C2=A0</p><div><p class=3D"MsoNormal">On Thu, Feb 18, 2016 a=
-t 1:19 PM, Richard Purdie &lt;<a href=3D"mailto:richard.purdie@linuxfoundat=
-ion.org" target=3D"_blank">richard.purdie@linuxfoundation.org</a>&gt; wrote=
-:</p><p class=3D"MsoNormal">On Thu, 2016-02-18 at 12:01 -0800, Jonathan Ric=
-hardson wrote:<br>&gt; We have a machine configured for hard floating point=
-. This builds a<br>&gt; hard fp version of libgcc. We also have some bootlo=
-aders and other<br>&gt; code that require libgcc but use soft fp. I would p=
-refer to keep the<br>&gt; bootloaders using soft fp. Is there a way to conf=
-igure libgcc to<br>&gt; produce both hard and soft fp versions of libraries=
-? There are<br>&gt; multilib examples for 32 and 64 versions of libs but it=
-=E2=80=99s not clear<br>&gt; to me how to specify other compiler options to=
- produce multiple<br>&gt; versions of the libraries.<br><br>The bigger ques=
-tion you face is where these binaries expect your libgcc<br>and perhaps dyn=
-amic loader to reside. Its straight forward enough to<br>configure the syst=
-em to build two versions with different tunes but one<br>would need to live=
- in /lib and the other in /lib32 or some other /libXX<br>location. The way =
-the multilib setup works, it doesn&#39;t really care<br>which configuration=
- you use for a given location.<br><br>Cheers,<br><br>Richard</p></div><p cl=
-ass=3D"MsoNormal">=C2=A0</p></div></div></body></html>
-
---001a113d739a98ca80052c9ea2bb--
