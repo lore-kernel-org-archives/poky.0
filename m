@@ -1,72 +1,37 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <jussi.laako@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 77921E00CCF; Sun, 28 Feb 2016 17:51:20 -0800 (PST)
+	id 7BBFCE00B3A; Tue,  1 Mar 2016 01:02:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.192.176 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.20 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pf0-f176.google.com (mail-pf0-f176.google.com
-	[209.85.192.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4C46EE00C90
-	for <poky@yoctoproject.org>; Sun, 28 Feb 2016 17:51:15 -0800 (PST)
-Received: by mail-pf0-f176.google.com with SMTP id 124so21280325pfg.0
-	for <poky@yoctoproject.org>; Sun, 28 Feb 2016 17:51:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=subject:mime-version:from:in-reply-to:date:cc:message-id:references
-	:to; bh=MPi9MBsC/38UgNUbZ+Tj9jsC/uqnXocoeIZ3YZSk7+o=;
-	b=DX65IRZMDPtDah6r8AoVRalpdyFkQhT+OzidOxh/+FDyDmc5xKakU4SW0Z9ELGKyOv
-	nbA7B4k2TObbpERIbLvlo1CUrpX6kr5S3uT7Ai4uZm1Wa6uTQahwaQ8cxJJWUdx968is
-	ciyKKalsRaa5jkklxiAcchiAKHQBqtwBTQbD5jL6hFcuPbcMjIxAtJ+81qCUYX4nmlkk
-	q8aQSl0hzG+B19iAy0kaWdNpKeHUg6Be6v3MjRwNkddsGzKzDmBQI4crq5JVrpJpX6cn
-	INGGjsWVBvPPBwnNb1XEAcHlS42RN0ZVi0JHRRPIP8H/3ztBX+NJomcl7ELdQrsecLE0
-	wL/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:subject:mime-version:from:in-reply-to:date:cc
-	:message-id:references:to;
-	bh=MPi9MBsC/38UgNUbZ+Tj9jsC/uqnXocoeIZ3YZSk7+o=;
-	b=AUj0FLxZ5Boz6UyPCFx+5PM9kIitscnTw6ktkqOEMUj+4AtDkFLwIJ6tDsuhE0UGra
-	4fdjTTJwbJHTLbccFT+IoLgFD3OTDKZWnzJstGbVYyyL4a4lBPLbL6C/7mW1cEJ8l889
-	pVKASTB/PJPvM01ZKAtHI3QpLiSTSKL4UF9M4G9J5xyIiKsuKTwbmBfdzGqhF90ic0Dw
-	mz2avmzcAsEY6lmlo551wiCj9K2o1hYSjRoqq0fH3VANAEYePvFiv8QynhekHomx1SNn
-	mAK/xodWW59Z2Qcchb/Biuvv2LXvfdBNw2hCmSuuLlwMyZEoIxl5U0xugy3+tIL+f+tA
-	GQew==
-X-Gm-Message-State: AD7BkJKdfdiDBKTYafavGvopjV0ku0pugueFqxVpz4mtUW+Q4xFnkrJ0x5P5klBuy9/Y0g==
-X-Received: by 10.98.66.75 with SMTP id p72mr18955963pfa.50.1456710675323;
-	Sun, 28 Feb 2016 17:51:15 -0800 (PST)
-Received: from ?IPv6:2601:646:8800:5a9a:84d:892b:d60c:cf63?
-	([2601:646:8800:5a9a:84d:892b:d60c:cf63])
-	by smtp.gmail.com with ESMTPSA id
-	s197sm33555447pfs.62.2016.02.28.17.51.14
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Sun, 28 Feb 2016 17:51:14 -0800 (PST)
-Mime-Version: 1.0 (Mac OS X Mail 9.2 \(3112\))
-X-Pgp-Agent: GPGMail 2.6b2
-From: Khem Raj <raj.khem@gmail.com>
-In-Reply-To: <1456701104.11498.173.camel@linuxfoundation.org>
-Date: Sun, 28 Feb 2016 17:50:09 -0800
-Message-Id: <9181490C-0A74-45A0-841B-1BAE20BA6C58@gmail.com>
-References: <1456656603.11498.156.camel@linuxfoundation.org>
-	<CAMKF1srow_MbndaELxsBHQoJsBe23Tf2uXHFgD=9j1WsUk7R=w@mail.gmail.com>
-	<1456701104.11498.173.camel@linuxfoundation.org>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-X-Mailer: Apple Mail (2.3112)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] meta-yocto: Rename to meta-poky to better match its purpose
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 513B5E00A27
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2016 01:02:36 -0800 (PST)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+	by orsmga101.jf.intel.com with ESMTP; 01 Mar 2016 01:02:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.22,522,1449561600"; d="scan'208";a="661698869"
+Received: from jlaako-mobl2.ger.corp.intel.com (HELO [10.252.43.135])
+	([10.252.43.135])
+	by FMSMGA003.fm.intel.com with ESMTP; 01 Mar 2016 01:02:35 -0800
+References: <56D4547D.70803@linux.intel.com>
+To: poky@yoctoproject.org
+From: Jussi Laako <jussi.laako@linux.intel.com>
+X-Forwarded-Message-Id: <56D4547D.70803@linux.intel.com>
+Message-ID: <56D55AA9.8060605@linux.intel.com>
+Date: Tue, 1 Mar 2016 11:02:33 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:38.0) Gecko/20100101
+	Thunderbird/38.6.0
+MIME-Version: 1.0
+In-Reply-To: <56D4547D.70803@linux.intel.com>
+Subject: [PATCH] Fix booting from eMMC on BeagleBone Black
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -79,79 +44,115 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Feb 2016 01:51:20 -0000
-X-Groupsio-MsgNum: 10315
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_5623A8CD-3236-43F9-B647-51D3997DEA8D";
-	protocol="application/pgp-signature"; micalg=pgp-sha1
+X-List-Received-Date: Tue, 01 Mar 2016 09:02:41 -0000
+X-Groupsio-MsgNum: 10316
+Content-Type: multipart/mixed; boundary="------------060209030004080307090908"
 
---Apple-Mail=_5623A8CD-3236-43F9-B647-51D3997DEA8D
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+--------------060209030004080307090908
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hello,
+
+By default, on BeagleBone, u-boot only looks for rootfs UUID from first
+mmc device and thus only from microSD. Thus booting from eMMC fails in
+kernel panic because command line has empty root partition UUID
+"root=PARTUUID=".
+
+This patch makes it first look in the same place as before and if the
+lookup fails (no microSD inserted) it next looks up for the rootfs UUID
+on the second mmc device which is the on-board eMMC. I placed the
+bbappend and patch on meta-yocto-bsp layer because the BeagleBone
+support in general is located there.
 
 
-> On Feb 28, 2016, at 3:11 PM, Richard Purdie =
-<richard.purdie@linuxfoundation.org> wrote:
->=20
-> On Sun, 2016-02-28 at 11:57 -0800, Khem Raj wrote:
->> On Sun, Feb 28, 2016 at 2:50 AM, Richard Purdie
->> <richard.purdie@linuxfoundation.org> wrote:
->>> "poky" is the reference distribution for the Yocto Project. This
->>> renames
->>> the layer within the meta-yocto repository to meta-poky, better
->>> matching
->>> what that layer contains.
->>>=20
->>> A layer.conf file is left behind as this is the only way which
->>> allows
->>> existing builds to migrate safely to the new name. It will be
->>> removed
->>> at some future point.
->>>=20
->>> This change requires the corresponding OE-Core change to handle the
->>> migration and the changes to the infrastructure to support this.
->>>=20
->>=20
->> This is a welcome change. Do we rename meta-yocto-bsp to something as
->> well ?
->=20
-> I thought about that. These truly are the Yocto Project reference/test
-> BSPs, they're not really poky so I think the name is right as it is.
->=20
->> may people confuse which layers to use with poky for some machines
->> which exist in both places e.g. beaglebone may be renaming the
->> machine name could solve this issue as well.
->=20
-> That is the first time that has been proposed. I'm not entirely sure =
-it
-> would help, it might be something improving the documentation might
-> help more.
+Best regards,
 
-I have seen people ask should they use meta-ti or Yocto provided BSP for =
-beaglebone
-which is official supported BSP, documentation can help surely. however, =
-avoiding
-namespace conflicts could be better. Having said that it does not =
-preclude
-the wider problem which might happen involving other BSP layers =
-providing same
-machine configurations.
+	- Jussi Laako
 
---Apple-Mail=_5623A8CD-3236-43F9-B647-51D3997DEA8D
+
+
+--------------060209030004080307090908
+Content-Type: text/x-patch;
+ name="0001-Search-for-rootfs-partitions-on-both-SD-and-eMMC.patch"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP using GPGMail
+ filename*0="0001-Search-for-rootfs-partitions-on-both-SD-and-eMMC.patch"
 
------BEGIN PGP SIGNATURE-----
-Comment: GPGTools - https://gpgtools.org
+From f54171b120b1fa47a592bdb8f3fbac2350e1757e Mon Sep 17 00:00:00 2001
+From: Jussi Laako <jussi.laako@linux.intel.com>
+Date: Mon, 29 Feb 2016 16:12:11 +0200
+Subject: [PATCH] Search for rootfs partitions on both SD and eMMC
 
-iEYEARECAAYFAlbTo9EACgkQuwUzVZGdMxTrpwCeLsndrmeZxqOFOh/41FK8t5PA
-H6AAoJIdGY0zRONNCmo8JvH5KN00Z+F2
-=kBnX
------END PGP SIGNATURE-----
+On BeagleBone Black, first attempt to find rootfs from microSD
+and then from eMMC if not available.
 
---Apple-Mail=_5623A8CD-3236-43F9-B647-51D3997DEA8D--
+Fixes: #9176
+
+Signed-off-by: Jussi Laako <jussi.laako@linux.intel.com>
+---
+ ...r-bootable-partitions-on-both-SD-and-eMMC.patch | 38 ++++++++++++++++++++++
+ .../recipes-bsp/u-boot/u-boot_2016.01.bbappend     |  3 ++
+ 2 files changed, 41 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch
+ create mode 100644 meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend
+
+diff --git a/meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch
+new file mode 100644
+index 0000000..729dddf
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch
+@@ -0,0 +1,38 @@
++From 86cc560ff9a6578326532e277d987e24661e5f04 Mon Sep 17 00:00:00 2001
++From: Jussi Laako <jussi.laako@linux.intel.com>
++Date: Fri, 26 Feb 2016 14:58:32 +0200
++Subject: [PATCH] Search for bootable partitions on both SD and eMMC
++
++On BeagleBone Black, first attempt to boot from microSD and then from
++eMMC if not available.
++
++Signed-off-by: Jussi Laako <jussi.laako@linux.intel.com>
++---
++ include/configs/ti_armv7_common.h | 11 ++++++++++-
++ 1 file changed, 10 insertions(+), 1 deletion(-)
++
++diff --git a/include/configs/ti_armv7_common.h b/include/configs/ti_armv7_common.h
++index 199612b..ece87ab 100644
++--- a/include/configs/ti_armv7_common.h
+++++ b/include/configs/ti_armv7_common.h
++@@ -60,7 +60,16 @@
++ #define DEFAULT_MMC_TI_ARGS \
++ 	"mmcdev=0\0" \
++ 	"mmcrootfstype=ext4 rootwait\0" \
++-	"finduuid=part uuid mmc 0:2 uuid\0" \
+++	"findsduuid=part uuid mmc 0:2 sduuid\0" \
+++	"findemmcuuid=part uuid mmc 1:2 emmcuuid\0" \
+++	"finduuid=if run findsduuid; then "\
+++		"echo \"Boot from microSD\"; "\
+++		"setenv uuid ${sduuid}; " \
+++	"else " \
+++		"run findemmcuuid; " \
+++		"echo \"Boot from eMMC\"; " \
+++		"setenv uuid ${emmcuuid}; " \
+++	"fi;\0" \
++ 	"args_mmc=run finduuid;setenv bootargs console=${console} " \
++ 		"${optargs} " \
++ 		"root=PARTUUID=${uuid} rw " \
++-- 
++2.7.0
++
+diff --git a/meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend
+new file mode 100644
+index 0000000..01c8e68
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend
+@@ -0,0 +1,3 @@
++FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
++
++SRC_URI_append = " file://0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch"
+-- 
+2.7.0
+
+
+
+--------------060209030004080307090908--
