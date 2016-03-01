@@ -1,37 +1,36 @@
-Return-Path: <jussi.laako@linux.intel.com>
+Return-Path: <telos@ideale.ind.br>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7BBFCE00B3A; Tue,  1 Mar 2016 01:02:41 -0800 (PST)
+	id 32694E00CB5; Tue,  1 Mar 2016 13:03:06 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 513B5E00A27
-	for <poky@yoctoproject.org>; Tue,  1 Mar 2016 01:02:36 -0800 (PST)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-	by orsmga101.jf.intel.com with ESMTP; 01 Mar 2016 01:02:37 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.22,522,1449561600"; d="scan'208";a="661698869"
-Received: from jlaako-mobl2.ger.corp.intel.com (HELO [10.252.43.135])
-	([10.252.43.135])
-	by FMSMGA003.fm.intel.com with ESMTP; 01 Mar 2016 01:02:35 -0800
-References: <56D4547D.70803@linux.intel.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 328 seconds by postgrey-1.32 at yocto-www;
+	Tue, 01 Mar 2016 13:03:02 PST
+Received: from dc2.ideale.ind.br (dc2.ideale.ind.br [74.207.246.147])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 828B6E00C9C
+	for <poky@yoctoproject.org>; Tue,  1 Mar 2016 13:03:02 -0800 (PST)
+Received: from [191.189.96.21] (helo=[192.168.120.205])
+	by dc2.ideale.ind.br with esmtpsa (TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128)
+	(Exim 4.80) (envelope-from <telos@ideale.ind.br>) id 1aarMJ-0004s8-Re
+	for poky@yoctoproject.org; Tue, 01 Mar 2016 20:57:33 +0000
 To: poky@yoctoproject.org
-From: Jussi Laako <jussi.laako@linux.intel.com>
-X-Forwarded-Message-Id: <56D4547D.70803@linux.intel.com>
-Message-ID: <56D55AA9.8060605@linux.intel.com>
-Date: Tue, 1 Mar 2016 11:02:33 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:38.0) Gecko/20100101
-	Thunderbird/38.6.0
+From: Telos <telos@ideale.ind.br>
+Message-ID: <56D60238.5040703@ideale.ind.br>
+Date: Tue, 1 Mar 2016 17:57:28 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Thunderbird/38.5.1
 MIME-Version: 1.0
-In-Reply-To: <56D4547D.70803@linux.intel.com>
-Subject: [PATCH] Fix booting from eMMC on BeagleBone Black
+X-SA-Exim-Connect-IP: 191.189.96.21
+X-SA-Exim-Rcpt-To: poky@yoctoproject.org
+X-SA-Exim-Mail-From: telos@ideale.ind.br
+X-SA-Exim-Version: 4.2.1 (built Mon, 26 Dec 2011 16:57:07 +0000)
+X-SA-Exim-Scanned: Yes (on dc2.ideale.ind.br)
+Subject: Building a poky distribution with openjdk-7 and jamvm
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,115 +43,221 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Mar 2016 09:02:41 -0000
-X-Groupsio-MsgNum: 10316
-Content-Type: multipart/mixed; boundary="------------060209030004080307090908"
+X-List-Received-Date: Tue, 01 Mar 2016 21:03:06 -0000
+Content-Type: multipart/alternative;
+	boundary="------------070409090801060000090703"
 
---------------060209030004080307090908
+--------------070409090801060000090703
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi everyone.
 
-By default, on BeagleBone, u-boot only looks for rootfs UUID from first
-mmc device and thus only from microSD. Thus booting from eMMC fails in
-kernel panic because command line has empty root partition UUID
-"root=PARTUUID=".
+I am trying to build a poky distribution to a Beaglebone Black that 
+contains "openjdk-7-jre". Also, I am trying to build a openjdk-7-jre 
+that supports the JamVM.But I am having some problems with that. Or I 
+get problems on distribution building, or when I run the command "java 
+-jamvm -version" on beagle I receive the message:
 
-This patch makes it first look in the same place as before and if the
-lookup fails (no microSD inserted) it next looks up for the rootfs UUID
-on the second mmc device which is the on-board eMMC. I placed the
-bbappend and patch on meta-yocto-bsp layer because the BeagleBone
-support in general is located there.
+/Error: jamvm VM not supported
+/
+By default, the openjdk-7-jreuses the Zero VM, and I want to use the 
+JamVM. I've searched on internet about that I've tried some things, like:
 
+     -> on beagle, in the file 
+"/usr/lib/jvm/java-7-openjdk/jre/lib/arm/jvm.cfg", I've changed the line 
+"-jamvm ERROR" to "-jamvm KNOWN". With that, I've tried again the 
+command "java -jamvm -version" and the this message has showed:
 
-Best regards,
+/Error: missing `jamvm' JVM at 
+`/usr/lib/jvm/java-7-openjdk/jre/lib/arm/jamvm/libjvm.so'.//
+//        Please install or use the JRE or JDK that contains these 
+missing components./
 
-	- Jussi Laako
+     -> on my machine, in the file 
+"poky/meta-java/recipes-core/icedtea/icedtea7-native.inc", I've added 
+the line "--with-additional-vms=jamvm \" at line 89 (in the field 
+EXTRA_OECONF). In this case, the error was:
 
+/ERROR: Task 1110 
+(/home/telos/VZ_TECH/pmv/poky/meta-java/recipes-core/icedtea/icedtea7-native_2.1.3.bb, 
+do_configure) failed with exit code '1'/
 
+     -> I've tried the same thing above but in the file 
+"/home/telos/VZ_TECH/pmv/poky/meta-java/recipes-core/openjdk/openjdk-7-common.inc", 
+at line 96. I got the error:
 
---------------060209030004080307090908
-Content-Type: text/x-patch;
- name="0001-Search-for-rootfs-partitions-on-both-SD-and-eMMC.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-Search-for-rootfs-partitions-on-both-SD-and-eMMC.patch"
+/ERROR: QA Issue: non debug package contains .debug directory: 
+openjdk-7-common path 
+/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/openjdk-7-jre/91b01-2.6.2-r6.1/packages-split/openjdk-7-common/usr/lib/jvm/java-7-openjdk/jre/lib/arm/jamvm/.debug/libjvm.so 
+[debug-files]//
+//        ERROR: QA run found fatal errors. Please consider fixing them.//
+//        ERROR: Function failed: do_package_qa//
+//        ERROR: Logfile of failure stored in: 
+/home/telos/VZ_TECH/pmv/poky/projeto/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/openjdk-7-jre/91b01-2.6.2-r6.1/temp/log.do_package_qa.20088//
+//        ERROR: Task 429 
+(/home/telos/VZ_TECH/pmv/poky/meta-java/recipes-core/openjdk/openjdk-7_91b01-2.6.2.bb, 
+do_package_qa) failed with exit code '1'/
 
-From f54171b120b1fa47a592bdb8f3fbac2350e1757e Mon Sep 17 00:00:00 2001
-From: Jussi Laako <jussi.laako@linux.intel.com>
-Date: Mon, 29 Feb 2016 16:12:11 +0200
-Subject: [PATCH] Search for rootfs partitions on both SD and eMMC
+My image recipe (core-image-pmv.bb) is showed below:
+/
+////IMAGE_INSTALL = "packagegroup-core-boot 
+${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL} \//
+//        sqlite3 \//
+//        git \//
+//        i2c-tools \//
+//        powertop \//
+//        minicom \//
+//        devmem2 \//
+//        cronie \//
+//        htop \//
+//        bash \//
+//        openjdk-7-jre \//
+//        jamvm \//
+//        kernel-modules \//
+//        valgrind \//
+//        "//
+//
+//    PREFERRED_PROVIDER_virtual/java-initial = "jamvm-initial"//
+//    PREFERRED_PROVIDER_virtual/java-initial-native = 
+"jamvm-initial-native"//
+//    PREFERRED_PROVIDER_virtual/java-native = "jamvm-native"//
+//    PREFERRED_PROVIDER_virtual/javac-native = "ecj-bootstrap-native"//
+//    PREFERRED_VERSION_icedtea7-native = "2.1.3"//
+//
+//    EXTRA_IMAGE_FEATURES = "debug-tweaks \//
+//          dev-pkgs \//
+//          ssh-server-openssh \//
+//                tools-sdk \//
+//          "//
+//    DISTRO_FEATURES += " "//
+//
+//    IMAGE_FSTYPES += "ext4 "//
+//
+//    IMAGE_LINGUAS = " "//
+//
+//    LICENSE = "MIT"//
+//
+//    inherit core-image/
 
-On BeagleBone Black, first attempt to find rootfs from microSD
-and then from eMMC if not available.
+So, can some help me? Thanks for reading and sorry my english.
 
-Fixes: #9176
+Regards,
 
-Signed-off-by: Jussi Laako <jussi.laako@linux.intel.com>
----
- ...r-bootable-partitions-on-both-SD-and-eMMC.patch | 38 ++++++++++++++++++++++
- .../recipes-bsp/u-boot/u-boot_2016.01.bbappend     |  3 ++
- 2 files changed, 41 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch
- create mode 100644 meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend
+Telos
 
-diff --git a/meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch
-new file mode 100644
-index 0000000..729dddf
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot/0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch
-@@ -0,0 +1,38 @@
-+From 86cc560ff9a6578326532e277d987e24661e5f04 Mon Sep 17 00:00:00 2001
-+From: Jussi Laako <jussi.laako@linux.intel.com>
-+Date: Fri, 26 Feb 2016 14:58:32 +0200
-+Subject: [PATCH] Search for bootable partitions on both SD and eMMC
-+
-+On BeagleBone Black, first attempt to boot from microSD and then from
-+eMMC if not available.
-+
-+Signed-off-by: Jussi Laako <jussi.laako@linux.intel.com>
-+---
-+ include/configs/ti_armv7_common.h | 11 ++++++++++-
-+ 1 file changed, 10 insertions(+), 1 deletion(-)
-+
-+diff --git a/include/configs/ti_armv7_common.h b/include/configs/ti_armv7_common.h
-+index 199612b..ece87ab 100644
-+--- a/include/configs/ti_armv7_common.h
-++++ b/include/configs/ti_armv7_common.h
-+@@ -60,7 +60,16 @@
-+ #define DEFAULT_MMC_TI_ARGS \
-+ 	"mmcdev=0\0" \
-+ 	"mmcrootfstype=ext4 rootwait\0" \
-+-	"finduuid=part uuid mmc 0:2 uuid\0" \
-++	"findsduuid=part uuid mmc 0:2 sduuid\0" \
-++	"findemmcuuid=part uuid mmc 1:2 emmcuuid\0" \
-++	"finduuid=if run findsduuid; then "\
-++		"echo \"Boot from microSD\"; "\
-++		"setenv uuid ${sduuid}; " \
-++	"else " \
-++		"run findemmcuuid; " \
-++		"echo \"Boot from eMMC\"; " \
-++		"setenv uuid ${emmcuuid}; " \
-++	"fi;\0" \
-+ 	"args_mmc=run finduuid;setenv bootargs console=${console} " \
-+ 		"${optargs} " \
-+ 		"root=PARTUUID=${uuid} rw " \
-+-- 
-+2.7.0
-+
-diff --git a/meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend
-new file mode 100644
-index 0000000..01c8e68
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-bsp/u-boot/u-boot_2016.01.bbappend
-@@ -0,0 +1,3 @@
-+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
-+
-+SRC_URI_append = " file://0001-Search-for-bootable-partitions-on-both-SD-and-eMMC.patch"
--- 
-2.7.0
+--------------070409090801060000090703
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
+<html>
+  <head>
 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <font face="Ubuntu Mono">Hi everyone.<br>
+      <br>
+      I am trying to build a poky distribution to a Beaglebone Black
+      that contains "openjdk-7-jre". Also, I am trying to build a
+      openjdk-7-jre that supports the JamVM.But I am having some
+      problems with that. Or I get problems on distribution building, or
+      when I run the command "java -jamvm -version" on beagle I receive
+      the message: <br>
+      <br>
+          <i>Error: jamvm VM not supported<br>
+      </i><br>
+      By default, the </font><font face="Ubuntu Mono">openjdk-7-jre</font><font
+      face="Ubuntu Mono"> uses the Zero VM, and I want to use the JamVM.
+      I've searched on internet about that I've tried some things, like:<br>
+      <br>
+          -&gt; on beagle, in the file
+      "/usr/lib/jvm/java-7-openjdk/jre/lib/arm/jvm.cfg", I've changed
+      the line "-jamvm ERROR" to "-jamvm KNOWN". With that, I've tried
+      again the command "java -jamvm -version" and the this message has
+      showed: <br>
+      <br>
+              <i>Error: missing `jamvm' JVM at
+        `/usr/lib/jvm/java-7-openjdk/jre/lib/arm/jamvm/libjvm.so'.</i><i><br>
+      </i><i>        Please install or use the JRE or JDK that contains
+        these missing components.</i><br>
+      <br>
+          -&gt; on my machine, in the file
+      "poky/meta-java/recipes-core/icedtea/icedtea7-native.inc", I've
+      added the line "--with-additional-vms=jamvm \" at line 89 (in the
+      field EXTRA_OECONF). In this case, the error was:<br>
+      <br>
+              <i>ERROR: Task 1110
+        (/home/telos/VZ_TECH/pmv/poky/meta-java/recipes-core/icedtea/icedtea7-native_2.1.3.bb,
+        do_configure) failed with exit code '1'</i><br>
+      <br>
+          -&gt; I've tried the same thing above but in the file
+      "/home/telos/VZ_TECH/pmv/poky/meta-java/recipes-core/openjdk/openjdk-7-common.inc",
+      at line 96. I got the error:<br>
+      <br>
+             <i> ERROR: QA Issue: non debug package contains .debug
+        directory: openjdk-7-common path
+        /work/cortexa8hf-vfp-neon-poky-linux-gnueabi/openjdk-7-jre/91b01-2.6.2-r6.1/packages-split/openjdk-7-common/usr/lib/jvm/java-7-openjdk/jre/lib/arm/jamvm/.debug/libjvm.so
+        [debug-files]</i><i><br>
+      </i><i>        ERROR: QA run found fatal errors. Please consider
+        fixing them.</i><i><br>
+      </i><i>        ERROR: Function failed: do_package_qa</i><i><br>
+      </i><i>        ERROR: Logfile of failure stored in:
+/home/telos/VZ_TECH/pmv/poky/projeto/tmp/work/cortexa8hf-vfp-neon-poky-linux-gnueabi/openjdk-7-jre/91b01-2.6.2-r6.1/temp/log.do_package_qa.20088</i><i><br>
+      </i><i>        ERROR: Task 429
+        (/home/telos/VZ_TECH/pmv/poky/meta-java/recipes-core/openjdk/openjdk-7_91b01-2.6.2.bb,
+        do_package_qa) failed with exit code '1'</i><br>
+      <br>
+      My image recipe (core-image-pmv.bb) is showed below:<br>
+      <i><br>
+      </i><i>    </i><i>IMAGE_INSTALL = "packagegroup-core-boot
+        ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL} \</i><i><br>
+      </i><i>        sqlite3 \</i><i><br>
+      </i><i>        git \</i><i><br>
+      </i><i>        i2c-tools \</i><i><br>
+      </i><i>        powertop \</i><i><br>
+      </i><i>        minicom \</i><i><br>
+      </i><i>        devmem2 \</i><i><br>
+      </i><i>        cronie \</i><i><br>
+      </i><i>        htop \</i><i><br>
+      </i><i>        bash \</i><i><br>
+      </i><i>        openjdk-7-jre \</i><i><br>
+      </i><i>        jamvm \</i><i><br>
+      </i><i>        kernel-modules \</i><i><br>
+      </i><i>        valgrind \</i><i><br>
+      </i><i>        "</i><i><br>
+      </i><i><br>
+      </i><i>    PREFERRED_PROVIDER_virtual/java-initial =
+        "jamvm-initial"</i><i><br>
+      </i><i>    PREFERRED_PROVIDER_virtual/java-initial-native =
+        "jamvm-initial-native"</i><i><br>
+      </i><i>    PREFERRED_PROVIDER_virtual/java-native = "jamvm-native"</i><i><br>
+      </i><i>    PREFERRED_PROVIDER_virtual/javac-native =
+        "ecj-bootstrap-native"</i><i><br>
+      </i><i>    PREFERRED_VERSION_icedtea7-native = "2.1.3"</i><i><br>
+      </i><i><br>
+      </i><i>    EXTRA_IMAGE_FEATURES = "debug-tweaks \</i><i><br>
+      </i><i>          dev-pkgs \</i><i><br>
+      </i><i>          ssh-server-openssh \</i><i><br>
+      </i><i>                tools-sdk \</i><i><br>
+      </i><i>          "</i><i><br>
+      </i><i>    DISTRO_FEATURES += " "</i><i><br>
+      </i><i><br>
+      </i><i>    IMAGE_FSTYPES += "ext4 "</i><i><br>
+      </i><i><br>
+      </i><i>    IMAGE_LINGUAS = " "</i><i><br>
+      </i><i><br>
+      </i><i>    LICENSE = "MIT"</i><i><br>
+      </i><i><br>
+      </i><i>    inherit core-image</i><br>
+      <br>
+      So, can some help me? Thanks for reading and sorry my english.<br>
+      <br>
+      Regards,<br>
+      <br>
+      Telos<br>
+    </font>
+  </body>
+</html>
 
---------------060209030004080307090908--
+--------------070409090801060000090703--
