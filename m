@@ -1,62 +1,82 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <tarcuri@androcs.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C84F8E008B4; Mon,  7 Mar 2016 13:30:28 -0800 (PST)
+	id E26D5E0083D; Mon,  7 Mar 2016 14:02:13 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
+	SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [207.46.100.141 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.223.173 listed in list.dnswl.org]
-Received: from mail-io0-f173.google.com (mail-io0-f173.google.com
-	[209.85.223.173])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4BDE8E0077F
-	for <poky@yoctoproject.org>; Mon,  7 Mar 2016 13:30:25 -0800 (PST)
-Received: by mail-io0-f173.google.com with SMTP id m184so3167118iof.1
-	for <poky@yoctoproject.org>; Mon, 07 Mar 2016 13:30:25 -0800 (PST)
+Received: from na01-by2-obe.outbound.protection.outlook.com
+	(mail-by2on0141.outbound.protection.outlook.com [207.46.100.141])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CA9E1E0077F
+	for <poky@yoctoproject.org>; Mon,  7 Mar 2016 14:02:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=v8G9jl78jtzAks0/chRwmnouCwij7XkUTajEp8vXqe4=;
-	b=X+afCLiJ54+mP16BLAm4vVPB52x6hcfKQ5UabCNoAxjgCNp1TrBp2tg6Ff1xXNZqft
-	FV8OI5o+WsVh24tLxi0ovHrdW7n/Hs5HoGvmImwlNGtgoqgzy03TnjuaBJW8LIOPMORd
-	Mm8TuxePWunmzVmGxSP2a9CTv965DklKrWAND5j4opkhX/nk9APCaiATp/zvLSSrKa6J
-	WZAhTiKDUVSbfz5sxwxS6yS8S1TxV4R3As4XJmABdgruagbNKj1JAtEM+R4OnAymCe7p
-	cdWL0xqjcdttbTGZCXBldBHVtnUjeZCllSu8ZTJWE2fPtiF+dHWwzIY4o4LHiXs4RNrB
-	92jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=v8G9jl78jtzAks0/chRwmnouCwij7XkUTajEp8vXqe4=;
-	b=kxl8jaGz2Xo6f6zsGy9owH+YMvbsqpNgm584m5Yv1hc3Nt5krZbV6ZOpVWgC2oHIL1
-	Em6t9+shlwyyLcVWcO8wzzL8Xx6hrWyuM1ckL0RXYDSAorT+oZ+CiAqF8lgnN61urWNw
-	0roqpFKjgkhk602mT+iiVUHxelx+Mn/YSsu0htJmBtQ8h+ruxd4ViVI644QpXD4F+zi2
-	c4zBdCBGiIcKug1LQZMbFyZSrnGaESAFFmDbubEIAYP+ueNOGdh9QF8R+8ZqtxIUTFwz
-	MqwQCPDgbZ3BfV/wJMZsVWPR9trS15GnGBH9bDGEqtnFa5G30h2nm84LliU8fjn8nnqB
-	UWxw==
-X-Gm-Message-State: AD7BkJKRC7qQfRzF+QYwWdHE9zn3P9XGp+wLVxTD+l/0eVnP+imVXm4MOCkR4sbWwQRW9G0PMc6kRz5FAY4EgxO7
-X-Received: by 10.107.16.19 with SMTP id y19mr9544212ioi.148.1457386224972;
-	Mon, 07 Mar 2016 13:30:24 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.107.128.234 with HTTP; Mon, 7 Mar 2016 13:30:05 -0800 (PST)
-In-Reply-To: <BLUPR20MB0020EA93BE0EF0850FA85F5AB9B10@BLUPR20MB0020.namprd20.prod.outlook.com>
+	d=androcs.onmicrosoft.com; s=selector1-androcs-com;
+	h=From:To:Date:Subject:Message-ID:Content-Type:MIME-Version;
+	bh=XQRdZYvRaAF1CU2veGaso/1wnlIHIJrKgZUowoctRZc=;
+	b=FgXWMJU6Yl3x+ElV7sLy8eSa98zzoOMi/vBuk3X+ztui3VZEoknkZEJ6eV2rZkLz3ujviEtHE4Tb0/5LLNG6Ng0WgDWq1QhjDzXSG8GieVxUYxZtHa5vZ8R6iEgP5IUqmXkjAVNiB1J+yVICai00kdXbuD6MQy4RRfSNjgLJgQE=
+Received: from BLUPR20MB0020.namprd20.prod.outlook.com (10.160.186.142) by
+	BLUPR20MB0020.namprd20.prod.outlook.com (10.160.186.142) with Microsoft
+	SMTP Server (TLS) id 15.1.415.20; Mon, 7 Mar 2016 21:47:00 +0000
+Received: from BLUPR20MB0020.namprd20.prod.outlook.com ([10.160.186.142]) by
+	BLUPR20MB0020.namprd20.prod.outlook.com ([10.160.186.142]) with mapi id
+	15.01.0415.024; Mon, 7 Mar 2016 21:47:00 +0000
+From: Thomas Arcuri <tarcuri@androcs.com>
+To: "Burton, Ross" <ross.burton@intel.com>
+Thread-Topic: [poky] fresh poky clone build fails when recipe chown's files
+	during do_install (tzdata_2016a.bb)
+Thread-Index: AQHReHgAV5fWRC1q7k6BgRUHx84Dup9OLN8AgAAgtPaAABtLAIAAFGdtgAAC0oCAAAPWhQ==
+Date: Mon, 7 Mar 2016 21:47:00 +0000
+Message-ID: <BLUPR20MB002015533438C4236ADED307B9B10@BLUPR20MB0020.namprd20.prod.outlook.com>
 References: <BLUPR20MB0020FE972AE2DAC1FFE967B2B9B10@BLUPR20MB0020.namprd20.prod.outlook.com>
 	<CAJTo0LaiG5RD14Cvv=sS=8sPnoF2HzqduTk1avY-t1hO32RBEA@mail.gmail.com>
 	<BLUPR20MB00209235147FEF3DE7D88756B9B10@BLUPR20MB0020.namprd20.prod.outlook.com>
 	<CAJTo0La89VVOk6vvky880rh5Q45KO2DnRnXy0QsZ290Ag=z+5w@mail.gmail.com>
-	<BLUPR20MB0020EA93BE0EF0850FA85F5AB9B10@BLUPR20MB0020.namprd20.prod.outlook.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Mon, 7 Mar 2016 21:30:05 +0000
-Message-ID: <CAJTo0LYOZr+rvuGFVz-_ZNziEwsCwmupjnzjMyO9i5Q-SAjV9w@mail.gmail.com>
-To: Thomas Arcuri <tarcuri@androcs.com>
+	<BLUPR20MB0020EA93BE0EF0850FA85F5AB9B10@BLUPR20MB0020.namprd20.prod.outlook.com>,
+	<CAJTo0LYOZr+rvuGFVz-_ZNziEwsCwmupjnzjMyO9i5Q-SAjV9w@mail.gmail.com>
+In-Reply-To: <CAJTo0LYOZr+rvuGFVz-_ZNziEwsCwmupjnzjMyO9i5Q-SAjV9w@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: yoctoproject.org; dkim=none (message not signed)
+	header.d=none;yoctoproject.org; dmarc=none action=none
+	header.from=androcs.com;
+x-originating-ip: [50.75.127.202]
+x-microsoft-exchange-diagnostics: 1; BLUPR20MB0020;
+	5:X/+Cc1Mjrpi8sFIEH1mP/GttFmnWyzsIcw29U6PZ1kvIf4d76Cfxh2+p9ITBIOwKB/PqWhRzCEwHwxTIMxhg1J/CjinEarOT7mp9gevGD4qBbBCD7Cv47vl2qHdX6HwSfsF/kBVpxwKA0U6mFvb3fQ==;
+	24:dMPmpCA4QU7Sdt7pOR5XsddNYysjgQURPwHhvNPc1LocLgq2kzUrBlQjgLjL1TuNPBmLUNptYk/gQ04ZiJNXYYnE9++qU2aqVnGgGKnH0+0=
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:BLUPR20MB0020;
+x-ms-office365-filtering-correlation-id: 65234b83-e009-4518-444b-08d346d20378
+x-microsoft-antispam-prvs: <BLUPR20MB0020D5026279CFCC9546FD10B9B10@BLUPR20MB0020.namprd20.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:;
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+	RULEID:(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046);
+	SRVR:BLUPR20MB0020; BCL:0; PCL:0; RULEID:; SRVR:BLUPR20MB0020; 
+x-forefront-prvs: 087474FBFA
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10019020)(377454003)(164054003)(24454002)(40100003)(19580395003)(19580405001)(2906002)(87936001)(5008740100001)(50986999)(122556002)(99286002)(77096005)(66066001)(4326007)(74316001)(76176999)(76576001)(33656002)(19625215002)(11100500001)(54356999)(106116001)(19627405001)(5890100001)(86362001)(586003)(10400500002)(5004730100002)(5002640100001)(189998001)(3900700001)(2950100001)(1220700001)(1096002)(81166005)(5003600100002)(16236675004)(6116002)(3660700001)(110136002)(92566002)(93886004)(3846002)(102836003)(3280700002)(2900100001);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:BLUPR20MB0020;
+	H:BLUPR20MB0020.namprd20.prod.outlook.com; FPR:; SPF:None;
+	MLV:sfv; LANG:en; 
+spamdiagnosticoutput: 1:23
+spamdiagnosticmetadata: NSPM
+MIME-Version: 1.0
+X-OriginatorOrg: androcs.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2016 21:47:00.2161 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4c39a0d3-7bcb-44c4-80ca-b25159279de7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLUPR20MB0020
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: fresh poky clone build fails when recipe chown's files during do_install (tzdata_2016a.bb)
 X-BeenThere: poky@yoctoproject.org
@@ -71,44 +91,129 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Mar 2016 21:30:28 -0000
-Content-Type: multipart/alternative; boundary=001a113fd1ea3d7987052d7c2c72
+X-List-Received-Date: Mon, 07 Mar 2016 22:02:14 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BLUPR20MB002015533438C4236ADED307B9B10BLUPR20MB0020namp_"
 
---001a113fd1ea3d7987052d7c2c72
-Content-Type: text/plain; charset=UTF-8
+--_000_BLUPR20MB002015533438C4236ADED307B9B10BLUPR20MB0020namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On 7 March 2016 at 21:21, Thomas Arcuri <tarcuri@androcs.com> wrote:
+I talked to my IT guy and he said that it is a standard ext4 mount, but tha=
+t the disk is encrypted. I have no idea on how that would impact a build, b=
+ut I am asking him to look into it further. When I run mount I get this in =
+the output:
 
-> I ran bitbake -DDD tzdata, attached is the complete log. I noticed some
-> lines referencing fakeroot and pseudo, but again not sure how to interpret
-> this. I was able to build this on a fresh Debian virtual machine, but this
-> is failing on my lubuntu setup.
->
->
-Oh, can you verify that the disk you're building on (/storage/home) is a
-standard filesystem and not something fun like a samba mount, FAT
-partition, or something.
+/dev/mapper/main-storage on /storage type ext4 (rw)
+
+
+Still waiting on an answer from the IT guy, but it looks like a normal ext4=
+ filesystem, except mounted from an encrypted drive.
+
+
+Thanks,
+
+Tom
+
+
+________________________________
+From: Burton, Ross <ross.burton@intel.com>
+Sent: Monday, March 7, 2016 4:30 PM
+To: Thomas Arcuri
+Cc: poky@yoctoproject.org
+Subject: Re: [poky] fresh poky clone build fails when recipe chown's files =
+during do_install (tzdata_2016a.bb)
+
+
+On 7 March 2016 at 21:21, Thomas Arcuri <tarcuri@androcs.com<mailto:tarcuri=
+@androcs.com>> wrote:
+
+I ran bitbake -DDD tzdata, attached is the complete log. I noticed some lin=
+es referencing fakeroot and pseudo, but again not sure how to interpret thi=
+s. I was able to build this on a fresh Debian virtual machine, but this is =
+failing on my lubuntu setup.
+
+Oh, can you verify that the disk you're building on (/storage/home) is a st=
+andard filesystem and not something fun like a samba mount, FAT partition, =
+or something.
 
 Cheers
 Ross
 
---001a113fd1ea3d7987052d7c2c72
-Content-Type: text/html; charset=UTF-8
+--_000_BLUPR20MB002015533438C4236ADED307B9B10BLUPR20MB0020namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 7 March 2016 at 21:21, Thomas Arcuri <span dir=3D"ltr">&lt;<a href=3D"ma=
-ilto:tarcuri@androcs.com" target=3D"_blank">tarcuri@androcs.com</a>&gt;</sp=
-an> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex"><p>I ran bitbake -DDD tzdata, =
-attached is the complete log. I noticed some lines referencing fakeroot and=
- pseudo, but again not sure how to interpret this. I was able to build this=
- on a fresh Debian virtual machine, but this is failing on my lubuntu setup=
-.</p>
-<p></p></blockquote></div><br>Oh, can you verify that the disk you&#39;re b=
-uilding on (/storage/home) is a standard filesystem and not something fun l=
-ike a samba mount, FAT partition, or something.</div><div class=3D"gmail_ex=
-tra"><br></div><div class=3D"gmail_extra">Cheers</div><div class=3D"gmail_e=
-xtra">Ross</div></div>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>I talked to my IT guy and he said that it is a standard ext4 mount, but =
+that the disk is encrypted. I have no idea on how that would impact a build=
+, but I am asking him to look into it further. When I run mount I get this =
+in the output:<br>
+<br>
+/dev/mapper/main-storage on /storage type ext4 (rw)</p>
+<p><br>
+</p>
+<p>Still waiting on an answer from the IT guy, but it looks like a normal e=
+xt4 filesystem, except mounted from an encrypted drive.</p>
+<p><br>
+</p>
+<p>Thanks,</p>
+<p>Tom<br>
+</p>
+<p><br>
+</p>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Burton, Ross &lt;ros=
+s.burton@intel.com&gt;<br>
+<b>Sent:</b> Monday, March 7, 2016 4:30 PM<br>
+<b>To:</b> Thomas Arcuri<br>
+<b>Cc:</b> poky@yoctoproject.org<br>
+<b>Subject:</b> Re: [poky] fresh poky clone build fails when recipe chown's=
+ files during do_install (tzdata_2016a.bb)</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">On 7 March 2016 at 21:21, Thomas Arcuri <span di=
+r=3D"ltr">
+&lt;<a href=3D"mailto:tarcuri@androcs.com" target=3D"_blank">tarcuri@androc=
+s.com</a>&gt;</span> wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex; border-left:1=
+px #ccc solid; padding-left:1ex">
+<p>I ran bitbake -DDD tzdata, attached is the complete log. I noticed some =
+lines referencing fakeroot and pseudo, but again not sure how to interpret =
+this. I was able to build this on a fresh Debian virtual machine, but this =
+is failing on my lubuntu setup.</p>
+<p></p>
+</blockquote>
+</div>
+<br>
+Oh, can you verify that the disk you're building on (/storage/home) is a st=
+andard filesystem and not something fun like a samba mount, FAT partition, =
+or something.</div>
+<div class=3D"gmail_extra"><br>
+</div>
+<div class=3D"gmail_extra">Cheers</div>
+<div class=3D"gmail_extra">Ross</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
 
---001a113fd1ea3d7987052d7c2c72--
+--_000_BLUPR20MB002015533438C4236ADED307B9B10BLUPR20MB0020namp_--
