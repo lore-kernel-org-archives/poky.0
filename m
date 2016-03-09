@@ -1,60 +1,47 @@
-Return-Path: <krzysztof.zawadzki@nokia.com>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9F74BE00833; Tue,  8 Mar 2016 11:56:21 -0800 (PST)
+	id 46CD3E0090E; Wed,  9 Mar 2016 10:53:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [93.183.12.31 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from demumfd002.nsn-inter.net (demumfd002.nsn-inter.net
-	[93.183.12.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4F352E00720
-	for <poky@yoctoproject.org>; Tue,  8 Mar 2016 11:56:16 -0800 (PST)
-Received: from muimrel002.emea.nsn-intra.net ([10.159.32.133])
-	by demumfd002.nsn-inter.net (8.15.2/8.15.2) with ESMTPS id
-	u28JuE54019875
-	(version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK);
-	Tue, 8 Mar 2016 19:56:14 GMT
-Received: from DEMUHTC002.nsn-intra.net ([10.159.42.33])
-	by muimrel002.emea.nsn-intra.net (8.14.3/8.14.3) with ESMTP id
-	u28JuEQb020584
-	(version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
-	Tue, 8 Mar 2016 19:56:14 GMT
-Received: from DEMUHTC006.nsn-intra.net (10.159.42.37) by
-	DEMUHTC002.nsn-intra.net (10.159.42.33) with Microsoft SMTP Server
-	(TLS) id 14.3.279.2; Tue, 8 Mar 2016 20:56:13 +0100
-Received: from DEMUMBX003.nsn-intra.net ([169.254.2.99]) by
-	DEMUHTC006.nsn-intra.net ([10.159.42.37]) with mapi id 14.03.0279.002;
-	Tue, 8 Mar 2016 20:56:13 +0100
-From: "Zawadzki, Krzysztof (Nokia - PL/Wroclaw)" <krzysztof.zawadzki@nokia.com>
-To: EXT Martin Jansa <martin.jansa@gmail.com>
-Thread-Topic: [poky] [PATCH V2] meta: toolchain-shar-relocate.sh: Fix for
-	extracting SDK in
-Thread-Index: AdF5VhV3hdXaBDaQSJaZRrJA0rjGEQABIjQAAAZsudA=
-Date: Tue, 8 Mar 2016 19:56:12 +0000
-Message-ID: <4655585E9D8F3143B62277AB38CCEC0C2FFEB16D@DEMUMBX003.nsn-intra.net>
-References: <4655585E9D8F3143B62277AB38CCEC0C2FFEB0AB@DEMUMBX003.nsn-intra.net>
-	<20160308175027.GD2551@jama>
-In-Reply-To: <20160308175027.GD2551@jama>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.159.42.107]
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C8421E007F2
+	for <poky@yoctoproject.org>; Wed,  9 Mar 2016 10:53:37 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u29IrU0r009499
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 9 Mar 2016 10:53:30 -0800 (PST)
+Received: from server.local (128.224.20.145) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.3.248.2;
+	Wed, 9 Mar 2016 10:53:29 -0800
+To: Paul Gortmaker <paul.gortmaker@windriver.com>, Richard Purdie
+	<richard.purdie@linuxfoundation.org>
+References: <cover.1455203562.git.bruce.ashfield@windriver.com>
+	<2e6d2b75837731be983d888eaa82a9cfcf660e85.1455203562.git.bruce.ashfield@windriver.com>
+	<1455287765.16142.321.camel@linuxfoundation.org>
+	<1455291157.16142.323.camel@linuxfoundation.org>
+	<1455352317.16142.344.camel@linuxfoundation.org>
+	<1455383832.16142.365.camel@linuxfoundation.org>
+	<20160302014146.GE20979@windriver.com>
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+Message-ID: <56E07128.2060401@windriver.com>
+Date: Wed, 9 Mar 2016 13:53:28 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:38.0)
+	Gecko/20100101 Thunderbird/38.6.0
 MIME-Version: 1.0
-X-purgate-type: clean
-X-purgate-Ad: Categorized by eleven eXpurgate (R) http://www.eleven.de
-X-purgate: clean
-X-purgate: This mail is considered clean (visit http://www.eleven.de for
-	further information)
-X-purgate-size: 2032
-X-purgate-ID: 151667::1457466974-000079EB-9E939651/0/0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH V2] meta: toolchain-shar-relocate.sh: Fix for extracting SDK in
+In-Reply-To: <20160302014146.GE20979@windriver.com>
+Cc: "Hart, Darren" <darren.hart@intel.com>, "saul.wold" <saul.wold@intel.com>,
+	poky@yoctoproject.org,
+	openembedded-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [PATCH 1/1] poky: update qemu* to prefer 4.4 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -67,64 +54,146 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Mar 2016 19:56:21 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 09 Mar 2016 18:53:41 -0000
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Yes :/ my bad. Such simple correction, 3 attempts
+On 2016-03-01 8:41 PM, Paul Gortmaker wrote:
+> [Re: [poky] [PATCH 1/1] poky: update qemu* to prefer 4.4 kernel] On 13/02/2016 (Sat 17:17) Richard Purdie wrote:
+>
+>> I'm moving the discussion to OE-Core and pulling in some kernel people.
+>> I think I understand what is wrong and how to fix it but I could use
+>> someone who actually knows this code.
+>>
+>> To summarise the story so far, on qemux86, X doesn't start and there is
+>> a backtrace in the logs:
+>>
+>> x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xfd000000-0xfdffffff], got write-combining
+>
+> So Bruce helped me set up a reproducer locally today since he'd already
+> invested the time on that, and then I boiled that down to divorce it
+> from the slower steps of build-deploy-boot to make the bisect something
+> that mortal humans could tolerate.
+>
+> Amusingly enough that led to:
+>
+> commit 9cd25aac1f44f269de5ecea11f7d927f37f1d01c
+> Author: Borislav Petkov <bp@suse.de>
+> Date:   Thu Jun 4 18:55:10 2015 +0200
+>
+>      x86/mm/pat: Emulate PAT when it is disabled
+>
+> So while some of us were joking on IRC about the validity of forcibly
+> disabling PAT (via cmdline or Kconfig) as a workaround, the one line
+> shortlog above tells us that it wasn't so off the mark after all.
+>
+> Bruce and I will decide what to do with this tomorrow, but since Richard
+> spent so much time on it, I thought he'd like to know this in the
+> interim.  Good times.   :-/
 
-Best regards,
-Krzysztof Zawadzki
+As another follow up. The thread can be summarized as "It doesn't
+look like it should have worked before, and qemu's pat emulation
+may be the issue'.
 
+The suggestion is to run with 'nopat', which is what Richard originally
+did.
 
------Original Message-----
-From: EXT Martin Jansa [mailto:martin.jansa@gmail.com]=20
-Sent: Tuesday, March 08, 2016 6:50 PM
-To: Zawadzki, Krzysztof (Nokia - PL/Wroclaw) <krzysztof.zawadzki@nokia.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [poky] [PATCH V2] meta: toolchain-shar-relocate.sh: Fix for ex=
-tracting SDK in
+So I'm going to prep a patch that drops the kernel patch, and leaves
+nopat enabled on the qemu command line. That should get us put back
+together in a semi-permanent way.
 
-On Tue, Mar 08, 2016 at 04:23:23PM +0000, Zawadzki, Krzysztof (Nokia - PL/W=
-roclaw) wrote:
-> If SDK will be extracted in the same folder as sdk shar script.
->  The shar_relocate will substitute SDK.sh script SDKPATH  with extract de=
-stination path.
->  After that operation no one will be able use this sdk script as paths in=
- it will be different.
->  To fix this we need to filter out sdk script and relocate_sdk scripts fr=
-om  SDKPATH substitution
+Bruce
 
-The subject line seems to be missing something.
+>
+> Paul.
+> --
+>
+>>
+>> ------------[ cut here ]------------
+>> WARNING: CPU: 0 PID: 705 at /media/build1/poky/build/tmp/work-shared/qemux86/kernel-source/arch/x86/mm/pat.c:985 untrack_pfn+0xaf/0xc0()
+>> Modules linked in: uvesafb
+>> CPU: 0 PID: 705 Comm: Xorg Not tainted 4.4.1-yocto-standard #1
+>> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.8.2-0-g33fbe13 by qemu-project.org 04/01/2014
+>>   00000000 00000000 cf14dd78 c1397ab2 00000000 cf14dda8 c1051477 c1aa4f6c
+>>   00000000 000002c1 c1a9fa4c 000003d9 c104b98f c104b98f cf244000 b6355000
+>>   00000000 cf14ddb8 c1051552 00000009 00000000 cf14dde0 c104b98f cf14ddd0
+>> Call Trace:
+>>   [<c1397ab2>] dump_stack+0x4b/0x79
+>>   [<c1051477>] warn_slowpath_common+0x87/0xc0
+>>   [<c104b98f>] ? untrack_pfn+0xaf/0xc0
+>>   [<c104b98f>] ? untrack_pfn+0xaf/0xc0
+>>   [<c1051552>] warn_slowpath_null+0x22/0x30
+>>   [<c104b98f>] untrack_pfn+0xaf/0xc0
+>>   [<c104d54c>] ? kmap_atomic_prot+0x3c/0xf0
+>>   [<c114e17f>] unmap_single_vma+0x4ef/0x500
+>>   [<c114f007>] unmap_vmas+0x37/0x50
+>>   [<c1154f8f>] exit_mmap+0x5f/0xf0
+>>   [<c104eedd>] mmput+0x2d/0xb0
+>>   [<c105009c>] copy_process+0xd2c/0x13c0
+>>   [<c1050892>] _do_fork+0x82/0x340
+>>   [<c105f2d1>] ? SyS_rt_sigaction+0x51/0xa0
+>>   [<c1050c3c>] SyS_clone+0x2c/0x30
+>>   [<c1001a03>] do_syscall_32_irqs_on+0x53/0xb0
+>>   [<c189a94a>] entry_INT80_32+0x2a/0x2a
+>> ---[ end trace be3e0a61097feddc ]---
+>> x86/PAT: Xorg:705 map pfn expected mapping type uncached-minus for [mem 0xfd000000-0xfdffffff], got write-combining
+>>
+>> The entry in question is setup by uvesafb which in its
+>> uvesafb_ioremap() function calls ioremap_wc().
+>>
+>> It appears that Xorg mmaps this from userspace, then later does a
+>> fork() to execute a utility. At this point, when creating the vmas for
+>> the new process, the pat code says "eeek!" as the protection mode for
+>> the new vmas don't match the old one, returns -EINVAL, the process dies
+>> and X goes with it.
+>>
+>> There are a few hammers we can hit this with, we can boot with "nopat"
+>> option which makes the problem go away, or turn off CONFIG_X86_PAT. No
+>> surprises there. Changing uvesafb to use mtrr=0 doesn't help since the
+>> ioremap_wc call still happens.
+>>
+>> The real issue is the "expected mapping type uncached-minus for got
+>> write-combining" message, it all goes wrong from there.
+>>
+>> Upon looking at the code and scratching my head for a long while, I
+>> notice that there are two ways of representing the protection mode
+>> data, "enum page_cache_mode" and "pgprot_t & _PAGE_CACHE_MASK".
+>>
+>> The exact meaning of pgprot_t depends on which CPU you're running,
+>> older CPUs have errata meaning only a small number of bits can be used.
+>> The exact mapping table is determined by __cachemode2pte_tbl and is
+>> updated at boot by calls from update_cache_mode_entry().
+>>
+>> The result of this if you map enum -> pgprot_t, then try to do pgprot_t
+>> -> enum, you can get different values since its not a 1:1 mapping.
+>>
+>> This means the comparison in reserve_pfn_range() where it does "pcm !=
+>> want_pcm" isn't correct and can trigger even in cases where there isn't
+>> a problem.
+>>
+>> This can be "fixed" by doing cachemode2protval(pcm) !=
+>> cachemode2protval(want_pcm) and checking whether the protection bits
+>> match, rather than the enum values, since in reality this is what we
+>> really care about.
+>>
+>> I can confirm that if I make that change, X boots up just fine.
+>>
+>> The problem is I really have no idea what I'm doing :).
+>>
+>> Could someone who understands this code have a look and see whether the
+>> above makes sense and if it does, perhaps open a discussion with
+>> upstream about how to fix this properly (assuming my change isn't
+>> actually the correct fix)?
+>>
+>> We don't see this on qemux86-64 since that has more PAT bits working
+>> and hence the values map correctly.
+>>
+>> Bruce: Would you accept a patch doing the above for now?
+>>
+>> Cheers,
+>>
+>> Richard
+>>
+>>
 
-> Signed-off-by: Krzysztof Zawadzki <krzysztof.zawadzki@nokia.com>
->=20
->=20
-> diff --git a/meta/files/toolchain-shar-relocate.sh b/meta/files/toolchain=
--shar-relocate.sh
-> index 4f34fb4..d4bcf0e 100644
-> --- a/meta/files/toolchain-shar-relocate.sh
-> +++ b/meta/files/toolchain-shar-relocate.sh
-> @@ -47,7 +47,7 @@ for replace in "$target_sdk_dir -maxdepth 1" "$native_s=
-ysroot"; do
->  	$SUDO_EXEC find $replace -type f
->  done | xargs -n100 file | grep ":.*\(ASCII\|script\|source\).*text" | \
->      awk -F':' '{printf "\"%s\"\n", $1}' | \
-> -    grep -v "$target_sdk_dir/environment-setup-*" | \
-> +    grep -Ev "$target_sdk_dir/(environment-setup-*|relocate_sdk*|${0##*/=
-})" | \
->      xargs -n100 $SUDO_EXEC sed -i \
->          -e "s:$DEFAULT_INSTALL_DIR:$target_sdk_dir:g" \
->          -e "s:^#! */usr/bin/perl.*:#! /usr/bin/env perl:g" \
->=20
->=20
-> --=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
---=20
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
 
