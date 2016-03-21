@@ -1,55 +1,34 @@
-Return-Path: <jpetri@izotope.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B4AE1E00C3C; Mon, 21 Mar 2016 09:42:40 -0700 (PDT)
+	id E6578E00BB9; Mon, 21 Mar 2016 11:23:47 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.214.174 listed in list.dnswl.org]
-Received: from mail-ob0-f174.google.com (mail-ob0-f174.google.com
-	[209.85.214.174])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 73F58E00951
-	for <poky@yoctoproject.org>; Mon, 21 Mar 2016 09:42:36 -0700 (PDT)
-Received: by mail-ob0-f174.google.com with SMTP id ts10so179351583obc.1
-	for <poky@yoctoproject.org>; Mon, 21 Mar 2016 09:42:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=izotope-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:date:message-id:subject:from:to;
-	bh=gudLoN52C9b/+g7SG2wtIu+Xrvuohc1DybXhkZZdzS4=;
-	b=02GxUdVOEU6vwGXfo0skACMQ2PcrE1Q4aO+HTtSyxp7qwgt0z55YuGfCZUzoe6CZgx
-	cL4nszZ0om7Z+AlRcRlbPrk6CHAxoAe5/KByYHFKt/j+PHt3czdfgf28AObVi81bD+r+
-	qwo6krTafgtdqKTDy5+4SszgpLsqbbjOVKnOAYSjAJoxtWNvlp6vm9+ft0vhiLOJ2Rdu
-	DviUMvj6wjQWQc4nPws1ppYXnD+O5xeQPIPhUK4e7cIX6fSK1JsWl5tQ9yQ+WeNugMTT
-	M1mJYHwZ3bFYUHJ9JbpGG1Dx+BgC/REmURb7BpvFE6Ey/LsGmSV8Kke+n6iPdZqAbFjS
-	mC/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
-	bh=gudLoN52C9b/+g7SG2wtIu+Xrvuohc1DybXhkZZdzS4=;
-	b=myvpR25yFZJBrDMpoKTbGILo8j5piYpZOtvSR9pqiUsFnr+Zxb/4rYDEfZfz2Trmdb
-	CxPA5F2bTh9zpPj2nyyCk4j8KY9m0BLM7BGN8oe0TkibAu9dCHhRuRZ/kO6sArACaeDe
-	ghS5JGByT3fOubqEHbFnBxDRRX9xYoAIT3cvSZHXhqvvp3N+QVHkrnPCje7W1jMnUsXo
-	WaifkV2pZfRjkwcEUkDQ1INmbc3ZVHhx4ctDUOKXLmrzGRO0yVytedi0UeYWRtwMr8cR
-	7AIUhC7FjN9EOS1VtHDySeptHknhyL9YjB0bayJLH+BUkWLe7gexDVnqVN75DKWyMlIE
-	RlLA==
-X-Gm-Message-State: AD7BkJKObtsecnOEUxmzNW1vOfA82T+R4EoN+FfDShWhzpxrkGgb6pAjDruenFiUvEbssxl1oLNht/bkOzXibdUJ
-MIME-Version: 1.0
-X-Received: by 10.182.230.136 with SMTP id sy8mr17449402obc.76.1458578556064; 
-	Mon, 21 Mar 2016 09:42:36 -0700 (PDT)
-Received: by 10.157.54.206 with HTTP; Mon, 21 Mar 2016 09:42:36 -0700 (PDT)
-Date: Mon, 21 Mar 2016 12:42:36 -0400
-Message-ID: <CAJOrw7wBdySvGnuNdu7=wekVEp6n1=1RYGem3UVJrapMXfHCsQ@mail.gmail.com>
-From: Jonah Petri <jpetri@izotope.com>
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [134.134.136.20 listed in list.dnswl.org]
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C0B5CE00973
+	for <poky@yoctoproject.org>; Mon, 21 Mar 2016 11:23:44 -0700 (PDT)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+	by orsmga101.jf.intel.com with ESMTP; 21 Mar 2016 11:23:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.24,373,1455004800"; d="scan'208";a="673327418"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by FMSMGA003.fm.intel.com with ESMTP; 21 Mar 2016 11:23:43 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-Subject: gdb readline problems (1.8 and 2.0.1)
+Date: Mon, 21 Mar 2016 18:23:03 +0000
+Message-Id: <d1c020e1cc4fc5eb661e9b99059029cdfd32de48.1458584500.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.6.2
+In-Reply-To: <cover.1458584500.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1458584500.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 1/2] linux-yocto: Update SRCREV for genericx86* for 4.1
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -62,37 +41,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Mar 2016 16:42:40 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Mon, 21 Mar 2016 18:23:48 -0000
 
-Hello!
-Does anyone know why some gdbs (in this case 7.8.1 and 7.9.1, as built
-into a jethro or fido sdk) might not have working tab completion?
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta-yocto-bsp/conf/machine/genericx86-64.conf               | 2 --
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 4 ++--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-If I type "break wr" and then press <tab>, it does nothing.  However
-gdb does know about the symbols!  To wit, if I type:
-(gdb) complete b wr<return>
-b write
-b write@got.plt
-b write@plt
-b writer.h
+diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
+index 3a4ef2c..f76e35a 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
+@@ -6,5 +6,3 @@
+ DEFAULTTUNE ?= "core2-64"
+ require conf/machine/include/tune-core2.inc
+ require conf/machine/include/genericx86-common.inc
+-
+-APPEND_genericx86-64 += "i915.preliminary_hw_support=1"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+index 344dbca..b20a18b 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+@@ -7,8 +7,8 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ 
+-SRCREV_machine_genericx86    ?= "dd6492b44151164242718855d6c9eebbf0018eac"
+-SRCREV_machine_genericx86-64 ?= "dd6492b44151164242718855d6c9eebbf0018eac"
++SRCREV_machine_genericx86    ?= "304caa9480f19875e717faf3cad8cb7ecd758733"
++SRCREV_machine_genericx86-64 ?= "304caa9480f19875e717faf3cad8cb7ecd758733"
+ SRCREV_machine_edgerouter ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
+ SRCREV_machine_beaglebone ?= "efb6ffb2ca96a364f916c9890ad023fc595e0e6e"
+ SRCREV_machine_mpc8315e-rdb ?= "79a31b9d23db126f8a6be3eb88fd683056a213f1"
+-- 
+2.6.2
 
-So, the completions are there, but something is not hooked up
-properly... Strangely, it seems that the tab key is hooked up to
-something, as when I press <tab> from an empty gdb prompt, I get lots
-of good completions, like "actions", "add-auto-load-safe-path", etc.
-However, completion on symbols, like "write" above, seems to not work.
-
-I have one possible solution for this, which is a bbappend file like so:
-EXTRA_OECONF_append = " --without-system-readline"
-...but I'm not sure why I would be the only one to notice this problem!
-
-FWIW I'm building Jethro on top of Ubuntu 15.10.
-
-Do others experience completion issues with GDB?  Or maybe everyone
-else is using a GUI layer on top?  I never realized how much I depend
-on tab completion for productivity while debugging, so any help would
-be much appreciated!
-
-Thanks!
 
