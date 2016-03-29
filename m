@@ -1,6 +1,6 @@
-Return-Path: <sgw@linux.intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 84D4BE00C72; Mon, 28 Mar 2016 11:08:07 -0700 (PDT)
+	id EC4DDE008EE; Tue, 29 Mar 2016 15:05:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,22 +8,29 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
 	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1B44DE00863
-	for <poky@yoctoproject.org>; Mon, 28 Mar 2016 11:07:59 -0700 (PDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga104.fm.intel.com with ESMTP; 28 Mar 2016 11:07:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.24,407,1455004800"; d="scan'208";a="773270548"
-Received: from spareek-mobl6.amr.corp.intel.com (HELO swold-mobl.jf.intel.com)
-	([10.254.108.99])
-	by orsmga003.jf.intel.com with ESMTP; 28 Mar 2016 11:07:59 -0700
-From: Saul Wold <sgw@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Mon, 28 Mar 2016 11:07:57 -0700
-Message-Id: <1459188477-13472-1-git-send-email-sgw@linux.intel.com>
-X-Mailer: git-send-email 2.5.0
-Subject: [PATCH] genericx86-64: add uxa to PACKAGECONFIG
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47AA2E00566
+	for <poky@yoctoproject.org>; Tue, 29 Mar 2016 15:05:46 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u2TM5iAY025812; Tue, 29 Mar 2016 23:05:44 +0100
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id onywsm95TYG9; Tue, 29 Mar 2016 23:05:43 +0100 (BST)
+Received: from hex ([192.168.3.34]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u2TM5fxB025808
+	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 29 Mar 2016 23:05:42 +0100
+Message-ID: <1459289141.21672.41.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Holger Freyther <holger@freyther.de>, poky@yoctoproject.org
+Date: Tue, 29 Mar 2016 23:05:41 +0100
+In-Reply-To: <541E63F7-405C-4FB4-A264-074F8BB31E62@freyther.de>
+References: <541E63F7-405C-4FB4-A264-074F8BB31E62@freyther.de>
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
+Subject: Re: uninnative and md5 checksum?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -36,30 +43,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Mar 2016 18:08:07 -0000
+X-List-Received-Date: Tue, 29 Mar 2016 22:05:51 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-This adds the uxa to PACKAGECONFIG to enable the UXA AccelMethod
-in the xf86-video-intel X11 graphics driver.  This address bad
-graphics output with older NUC5i5 devices with Intel Graphics HD6000
+On Wed, 2016-03-23 at 12:23 +0100, Holger Freyther wrote:
+> Hi,
+> 
+> our jenkins started to fail with yocto-master and I started to take a
+> look. I noticed that uninative binaries are being downloaded from the
+> network. It is not great to download binaries from the network and
+> execute but fair enough there is a checksum.
+> 
+> But the choice of md5 as checksum is a bit odd (md5 and sha1 are
+> effectively broken), can this be moved to sha3 or sha256sum?
 
-[YOCTO #8312]
+We use the fetcher's checksuming support so I guess sha256 would be the
+better choice. It can be changed, at the expense of a bit of pain
+making sure all the changes work smoothly.
 
-Signed-off-by: Saul Wold <sgw@linux.intel.com>
----
- meta-yocto-bsp/conf/machine/genericx86-64.conf | 2 ++
- 1 file changed, 2 insertions(+)
+Cheers,
 
-diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-index f76e35a..7d98450 100644
---- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-@@ -6,3 +6,5 @@
- DEFAULTTUNE ?= "core2-64"
- require conf/machine/include/tune-core2.inc
- require conf/machine/include/genericx86-common.inc
-+
-+PACKAGECONFIG_append_pn-xf86-video-intel = " uxa"
--- 
-2.5.0
-
+Richard
 
