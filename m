@@ -1,60 +1,32 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <humberto.ibarra.lopez@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D1168E00CA1; Fri, 25 Mar 2016 13:19:05 -0700 (PDT)
+	id 3F5F6E008E0; Mon, 28 Mar 2016 09:23:37 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.223.178 listed in list.dnswl.org]
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00, DATE_IN_FUTURE_06_12,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.115 listed in list.dnswl.org]
+	* 1.9 DATE_IN_FUTURE_06_12 Date: is 6 to 12 hours after Received: date
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-io0-f178.google.com (mail-io0-f178.google.com
-	[209.85.223.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 99A56E00C6E
-	for <poky@yoctoproject.org>; Fri, 25 Mar 2016 13:18:50 -0700 (PDT)
-Received: by mail-io0-f178.google.com with SMTP id v187so93036754ioe.2
-	for <poky@yoctoproject.org>; Fri, 25 Mar 2016 13:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=NoM7cPPLk95gfMkBntSIEiScN1TCmdDwwyTW/2DA3T4=;
-	b=uozrIoyu6TOvqMcDJHAGQ3e3zmHhA2BRw2fhmJD+lBY7Ms3q9Q1WBdc8aD1r86E/f3
-	weQFCexdXrkCp3yXABpYPmOWCvzRFQalDxc8qQp8H+iY1STeOfSL1/gNUXD1tl9D7Qpr
-	DVIGAZ6mIrGspHppekzwlUF/9jZj4uV603/DFY3KvOCfjGruCE6dTlipCEHh2aG6cqv4
-	7Idp8oXd1eO/ybqnncvHcDDJnt0xD2ZTpM4I/5gny1/5H5omM9RhaIzNVj27QrInWXr5
-	QVbZ6S0Id9RYQxm7Ii5F5mtHHBldEQVAXWwb8rVxTF98D4kS+ckH8pn2LAIn3/MTzS04
-	pULQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=NoM7cPPLk95gfMkBntSIEiScN1TCmdDwwyTW/2DA3T4=;
-	b=ObZkhn0L5WxhcM/eZux6Kv4v/EnPRqoPlTerbSxpPBZqVnWCs4/nDaxPnO7MfYdCj4
-	NWIPSRRdZazJhZyfHux91Vb9v8wHqmHWldpVpl13+gxb7LD/K+9EbRIvO5UqU1pGm17d
-	dzsGRevHprm0vFwq0FJ0KSeHQzoHpw1BZlXGpBz4oH+JVFSdw9ErgX/9MPyuzpoglGTt
-	q8cdMi8BW+fZs7mAcEvtO4JraaIlx2L+8IFw0Sf6mER3Z4vI4rCUWM8n0d/pgKT9GUg1
-	bzAsZQgJZ/rivKKNmts49uyTJbL3or26B12ZRGSUaeaWnuUwkkSIxqdSnv37michGyDL
-	aL/Q==
-X-Gm-Message-State: AD7BkJL04QhUmY1ZDSZumCqD7M6ldxCQYl8kQUaPN30g3pvTUDzbxzYuDgs66kxhZ6nQeYH5HJRqwYqfvor2OnWA
-X-Received: by 10.107.134.153 with SMTP id q25mr2720824ioi.99.1458937130460;
-	Fri, 25 Mar 2016 13:18:50 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.162.70 with HTTP; Fri, 25 Mar 2016 13:18:30 -0700 (PDT)
-In-Reply-To: <CAA2DH4sMcG46HmMX2+2bx9s03SmVAza0yoX=aYsGkHsyw5sBHw@mail.gmail.com>
-References: <CAA2DH4sMcG46HmMX2+2bx9s03SmVAza0yoX=aYsGkHsyw5sBHw@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Fri, 25 Mar 2016 20:18:30 +0000
-Message-ID: <CAJTo0LagkLzEnyQ0AFR2ww9gYvfUtrmV115V+emTEe+Byisa=w@mail.gmail.com>
-To: Prasant J <pj0585@gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Zeroconf for embedded linux devices
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C6A30E006AE
+	for <poky@yoctoproject.org>; Mon, 28 Mar 2016 09:23:34 -0700 (PDT)
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+	by fmsmga103.fm.intel.com with ESMTP; 28 Mar 2016 09:23:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.24,407,1455004800"; d="scan'208";a="74603261"
+Received: from jhibarra-desk.zpn.intel.com ([10.219.16.242])
+	by fmsmga004.fm.intel.com with ESMTP; 28 Mar 2016 09:23:33 -0700
+From: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 28 Mar 2016 18:30:44 -0600
+Message-Id: <1459211444-2258-1-git-send-email-humberto.ibarra.lopez@intel.com>
+X-Mailer: git-send-email 2.1.4
+Subject: [PATCH] scripts/lib/bsp/help.py: Typo in help for yocto-bsp create
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -67,39 +39,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Mar 2016 20:19:05 -0000
-Content-Type: multipart/alternative; boundary=001a113f9212695483052ee54522
+X-List-Received-Date: Mon, 28 Mar 2016 16:23:37 -0000
 
---001a113f9212695483052ee54522
-Content-Type: text/plain; charset=UTF-8
+Fix typo of the word "parameter" in for 'yocto-bsp create'.
+Typo appears in both, usage and help.
 
-On 25 March 2016 at 10:09, Prasant J <pj0585@gmail.com> wrote:
+Also, the word "description" is mispelled.
 
-> I would like to know the following:
-> - Which all zeroconf implementations are available in poky ?
-> (avahi-autoipd, any other?)
-> - Which is the recommended one by yocto community?
->
+[Yocto #9282]
 
-Avahi is part of oe-core, so this is exactly what you're after.
+Signed-off-by: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
+---
+ scripts/lib/bsp/help.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Ross
+diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
+index 2b4ed06..85a09dd 100644
+--- a/scripts/lib/bsp/help.py
++++ b/scripts/lib/bsp/help.py
+@@ -114,7 +114,7 @@ yocto_bsp_create_usage = """
+  The value of the 'karch' parameter determines the set of files that
+  will be generated for the BSP, along with the specific set of
+  'properties' that will be used to fill out the BSP-specific portions
+- of the BSP.  The possible values for the 'karch' paramter can be
++ of the BSP.  The possible values for the 'karch' parameter can be
+  listed via 'yocto-bsp list karch'.
+ 
+  NOTE: Once created, you should add your new layer to your
+@@ -144,7 +144,7 @@ DESCRIPTION
+     The value of the 'karch' parameter determines the set of files
+     that will be generated for the BSP, along with the specific set of
+     'properties' that will be used to fill out the BSP-specific
+-    portions of the BSP.  The possible values for the 'karch' paramter
++    portions of the BSP.  The possible values for the 'karch' parameter
+     can be listed via 'yocto-bsp list karch'.
+ 
+     The BSP-specific properties that define the values that will be
+@@ -758,7 +758,7 @@ DESCRIPTION
+     or config items along with patches.  The named feature must end
+     with .scc and must not contain a feature directory to contain the
+     feature (this will be determined automatically), and a feature
+-    decription in double-quotes along with a capabilities string
++    description in double-quotes along with a capabilities string
+     (which for the time being can be one of: 'all' or 'board').
+ """
+ 
+-- 
+2.1.4
 
---001a113f9212695483052ee54522
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 25 March 2016 at 10:09, Prasant J <span dir=3D"ltr">&lt;<a href=3D"mailt=
-o:pj0585@gmail.com" target=3D"_blank">pj0585@gmail.com</a>&gt;</span> wrote=
-:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex"><div id=3D":ilm" class=3D"a3s" style=3D=
-"overflow:hidden">I would like to know the following:<br>
-- Which all zeroconf implementations are available in poky ?<br>
-(avahi-autoipd, any other?)<br>
-- Which is the recommended one by yocto community?<br></div></blockquote></=
-div><br>Avahi is part of oe-core, so this is exactly what you&#39;re after.=
-</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Ross<=
-/div></div>
-
---001a113f9212695483052ee54522--
