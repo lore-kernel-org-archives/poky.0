@@ -1,37 +1,33 @@
-Return-Path: <gary@mlbassoc.com>
+Return-Path: <humberto.ibarra.lopez@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DB7C8E00C4C; Wed, 30 Mar 2016 06:03:41 -0700 (PDT)
+	id 507CCE00C73; Wed, 30 Mar 2016 14:35:28 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00, DATE_IN_FUTURE_06_12,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.93 listed in list.dnswl.org]
+	* 1.9 DATE_IN_FUTURE_06_12 Date: is 6 to 12 hours after Received: date
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 541 seconds by postgrey-1.32 at yocto-www;
-	Wed, 30 Mar 2016 06:03:39 PDT
-Received: from mail.analogue-micro.com (mail.analogue-micro.com
-	[217.144.149.242])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0B40DE00C27
-	for <poky@yoctoproject.org>; Wed, 30 Mar 2016 06:03:39 -0700 (PDT)
-Received: by mail.analogue-micro.com (Postfix, from userid 999)
-	id 7CCF168A01C; Wed, 30 Mar 2016 13:54:37 +0100 (BST)
-Received: from zeus.mlbassoc.com (unknown [10.8.0.2])
-	by mail.analogue-micro.com (Postfix) with ESMTP id 1111468A019;
-	Wed, 30 Mar 2016 13:54:36 +0100 (BST)
-Received: from [127.0.0.1] (localhost.localdomain [127.0.0.1])
-	by zeus.mlbassoc.com (Postfix) with ESMTP id 0F9AA6740C50;
-	Wed, 30 Mar 2016 14:54:35 +0200 (CEST)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A5D04E00C6E
+	for <poky@yoctoproject.org>; Wed, 30 Mar 2016 14:35:26 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by fmsmga102.fm.intel.com with ESMTP; 30 Mar 2016 14:35:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.24,418,1455004800"; d="scan'208";a="922109966"
+Received: from jhibarra-desk.zpn.intel.com ([10.219.17.32])
+	by orsmga001.jf.intel.com with ESMTP; 30 Mar 2016 14:35:23 -0700
+From: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
 To: poky@yoctoproject.org
-References: <56FBC74C.4070204@astro-kom.de>
-From: Gary Thomas <gary@mlbassoc.com>
-Message-ID: <56FBCC89.6020201@mlbassoc.com>
-Date: Wed, 30 Mar 2016 14:54:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
-	Thunderbird/38.6.0
-MIME-Version: 1.0
-In-Reply-To: <56FBC74C.4070204@astro-kom.de>
-Subject: Re: poky: added overlay file
+Date: Wed, 30 Mar 2016 23:42:07 -0600
+Message-Id: <1459402927-1466-1-git-send-email-humberto.ibarra.lopez@intel.com>
+X-Mailer: git-send-email 2.1.4
+Cc: tom.zanussi@linux.intel.com
+Subject: [PATCH] yocto-bsp: Set correct default branches and branches base for i386, qemu and x86_64 archs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,28 +40,183 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Mar 2016 13:03:41 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 30 Mar 2016 21:35:28 -0000
 
-On 2016-03-30 14:32, Dr. Arno Baumfalk wrote:
-> Hello,
->
-> I have found, that the init-live.sh script does not consider, that the overlay filesystem in the linux kernel has been
-> renamed from "overlayfs" to "overlay" (and the mount API has changed, too).
-> Currently the script will not detect "overlay" and use "aufs" as a fallback, if present.
+Kernel recipes for linux-yocto_4.* and greater have outdated branches as default,
+making it impossible to find the right branch if the user picks the default value.
+The branches_base property uses these outdated branches also.
 
-Patches for this have already been sent to the OE-core mailing list.
-Please check there to see how yours intersect/overlap.
+This updates standard/common-pc and standard/common-pc-64 branches to standard/base.
 
->
-> In order not to break anything for users of elder kernel versions I have simply added the "overlay" case to the script,
-> see attached patch.
->
+The fix was tested using 'yocto-bsp create' with each one of the following
+archs:
 
+-i386 with kernels 4.1 and 4.4
+-x86_64 with kernels 4.1 and 4.4
+-qemu (i386 and x86_64) with kernels 4.1 and 4.4
+
+After the layer was created, it was added to local.conf and the MACHINE was set
+accordingly.
+
+'bitbake linux-yocto' ran successfully with each configuration tested.
+
+[YOCTO #9160]
+
+Signed-off-by: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
+---
+ .../arch/i386/recipes-kernel/linux/linux-yocto_4.1.bbappend       | 4 ++--
+ .../arch/i386/recipes-kernel/linux/linux-yocto_4.4.bbappend       | 4 ++--
+ .../arch/qemu/recipes-kernel/linux/linux-yocto-dev.bbappend       | 8 ++++----
+ .../arch/qemu/recipes-kernel/linux/linux-yocto_4.1.bbappend       | 8 ++++----
+ .../arch/qemu/recipes-kernel/linux/linux-yocto_4.4.bbappend       | 8 ++++----
+ .../arch/x86_64/recipes-kernel/linux/linux-yocto_4.1.bbappend     | 4 ++--
+ .../arch/x86_64/recipes-kernel/linux/linux-yocto_4.4.bbappend     | 4 ++--
+ 7 files changed, 20 insertions(+), 20 deletions(-)
+
+diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.1.bbappend b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.1.bbappend
+index 761b9c6..aecdff0 100644
+--- a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.1.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.1.bbappend
+@@ -8,10 +8,10 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+ 
+ {{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+ KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.4.bbappend b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index e541c6a..dd4de31 100644
+--- a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -8,10 +8,10 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+ 
+ {{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+ KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-dev.bbappend b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-dev.bbappend
+index 3555285..7e3ce5b 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-dev.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-dev.bbappend
+@@ -19,16 +19,16 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/qemuppc" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc" }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc" }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "mips": }}
+ {{ input type:"choicelist" name:"new_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.1.bbappend b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.1.bbappend
+index 82bb970..fce67b4 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.1.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.1.bbappend
+@@ -19,16 +19,16 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/qemuppc" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc" }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc" }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "mips": }}
+ {{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/mti-malta32" }}
+diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.4.bbappend b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 7be0fe9..4097932 100644
+--- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -19,16 +19,16 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/qemuppc" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc" }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "i386": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc" }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
+-{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n" and qemuarch == "mips": }}
+ {{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/mti-malta32" }}
+diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.1.bbappend b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.1.bbappend
+index 8d0bc97..1e99a04 100644
+--- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.1.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.1.bbappend
+@@ -8,10 +8,10 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+ 
+ {{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+ KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
+diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.4.bbappend b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 41b3759..b88a06c 100644
+--- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -8,10 +8,10 @@ COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
+ {{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
+ 
+ {{ if need_new_kbranch == "y": }}
+-{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+-{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard/common-pc-64" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/common-pc-64/base" }}
++{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
+ 
+ {{ if need_new_kbranch == "n": }}
+ KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
 -- 
-------------------------------------------------------------
-Gary Thomas                 |  Consulting for the
-MLB Associates              |    Embedded world
-------------------------------------------------------------
+2.1.4
+
 
