@@ -1,30 +1,51 @@
-Return-Path: <humberto.ibarra.lopez@intel.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 1A035E00BFD; Tue,  5 Apr 2016 09:11:14 -0700 (PDT)
+	id D6882E00C62; Wed,  6 Apr 2016 03:56:09 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_00, DATE_IN_FUTURE_06_12
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 1.9 DATE_IN_FUTURE_06_12 Date: is 6 to 12 hours after
-	Received: date
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [195.60.68.10 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B624BE00B8C
-	for <poky@yoctoproject.org>; Tue,  5 Apr 2016 09:11:11 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga104.fm.intel.com with ESMTP; 05 Apr 2016 09:11:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.24,444,1455004800"; d="scan'208";a="938805780"
-Received: from unknown (HELO jhibarra-DESK.zpn.intel.com) ([10.219.17.169])
-	by fmsmga001.fm.intel.com with ESMTP; 05 Apr 2016 09:11:10 -0700
-From: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
+Received: from bes.se.axis.com (bes.se.axis.com [195.60.68.10])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9D438E00C43
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2016 03:56:07 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by bes.se.axis.com (Postfix) with ESMTP id A43E62E143
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2016 12:56:06 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at bes.se.axis.com
+Received: from bes.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bes.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id oWk0mY5-ejAt for <poky@yoctoproject.org>;
+	Wed,  6 Apr 2016 12:56:03 +0200 (CEST)
+Received: from boulder.se.axis.com (boulder.se.axis.com [10.0.2.104])
+	by bes.se.axis.com (Postfix) with ESMTP id 35A062E119
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2016 12:56:03 +0200 (CEST)
+Received: from boulder.se.axis.com (localhost [127.0.0.1])
+	by postfix.imss71 (Postfix) with ESMTP id 2024C1731
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2016 12:56:03 +0200 (CEST)
+Received: from seth.se.axis.com (seth.se.axis.com [10.0.2.172])
+	by boulder.se.axis.com (Postfix) with ESMTP id 1597714F8
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2016 12:56:03 +0200 (CEST)
+Received: from saur-2.se.axis.com (saur-2.se.axis.com [10.92.3.2])
+	by seth.se.axis.com (Postfix) with ESMTP id 0AACE1057
+	for <poky@yoctoproject.org>; Wed,  6 Apr 2016 12:56:03 +0200 (CEST)
+Received: from saur-2.se.axis.com (localhost [127.0.0.1])
+	by saur-2.se.axis.com (8.14.5/8.14.5) with ESMTP id u36Au28j004141
+	for <poky@yoctoproject.org>; Wed, 6 Apr 2016 12:56:02 +0200
+Received: (from pkj@localhost)
+	by saur-2.se.axis.com (8.14.5/8.14.5/Submit) id u36Au2bN004140
+	for poky@yoctoproject.org; Wed, 6 Apr 2016 12:56:02 +0200
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
 To: poky@yoctoproject.org
-Date: Tue,  5 Apr 2016 19:18:18 -0500
-Message-Id: <1459901898-1272-1-git-send-email-humberto.ibarra.lopez@intel.com>
-X-Mailer: git-send-email 2.1.4
-Subject: [PATCH] [jethro] yocto-bsp: fix default kernel for x86_64 arch
+Date: Wed,  6 Apr 2016 12:56:00 +0200
+Message-Id: <cover.1459940000.git.pkj@axis.com>
+X-Mailer: git-send-email 2.1.0
+Subject: [PATCH 0/1] Make it possible to overrride EXTRA_IMAGE_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -37,34 +58,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Apr 2016 16:11:14 -0000
+X-List-Received-Date: Wed, 06 Apr 2016 10:56:09 -0000
 
-When using x86_64 arch in yocto-bsp the script suggests
-4.1 as the default kernel version; however, as soon as the
-default is picked the script continues processing with
-3.19 kernel.
+This makes it possible to specify EXTRA_IMAGE_FEATURES in auto.conf.
 
-This changes the default kernel version to 4.1, which is the
-right value and matches the script's message.
+//Peter
 
-[Yocto #9353]
+The following changes since commit c1157400ab6f5cb0f057bd07e55c4790499107ed:
 
-Signed-off-by: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
----
- .../target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall       | 2 +-
+  bitbake: fetch2/git.py: remove .indirectiondir workaround (2016-04-06 10:29:47 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib pkj/extra_image_features
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=pkj/extra_image_features
+
+Peter Kjellerstedt (1):
+  local.conf.sample: Make it possible to override EXTRA_IMAGE_FEATURES
+
+ meta-poky/conf/local.conf.sample | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-index dbbe934..7676ca8 100644
---- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-@@ -2,4 +2,4 @@
- {{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.1) kernel? (y/n)" default:"y"}}
- 
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_3.19"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.1"}}
 -- 
-2.1.4
+2.1.0
 
 
