@@ -1,33 +1,37 @@
-Return-Path: <martyn.welch@collabora.co.uk>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B95DEE00D8D; Wed, 27 Apr 2016 04:12:19 -0700 (PDT)
+	id 42930E00D1F; Sat,  7 May 2016 01:41:05 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,UNPARSEABLE_RELAY
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 UNPARSEABLE_RELAY Informational: message has unparseable relay
-	lines
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B157CE00D84
-	for <poky@yoctoproject.org>; Wed, 27 Apr 2016 04:12:18 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	(Authenticated sender: martyn) with ESMTPSA id 05377260E81
-To: "Burton, Ross" <ross.burton@intel.com>
-References: <1461750017-14514-1-git-send-email-martyn.welch@collabora.co.uk>
-	<CAJTo0LYLc2Yt03c7fkeLd9z+NaFDEKszEhEXyjPpF2up6AY25A@mail.gmail.com>
-From: Martyn Welch <martyn.welch@collabora.co.uk>
-Message-ID: <57209E8E.7020001@collabora.co.uk>
-Date: Wed, 27 Apr 2016 12:12:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
-	Icedove/38.7.0
-MIME-Version: 1.0
-In-Reply-To: <CAJTo0LYLc2Yt03c7fkeLd9z+NaFDEKszEhEXyjPpF2up6AY25A@mail.gmail.com>
-Cc: Jussi Kukkonen <jussi.jukkonen@intel.com>,
-	Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] [jethro] glew: Correct version in autotooling patches
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BECFAE00D19
+	for <poky@yoctoproject.org>; Sat,  7 May 2016 01:41:00 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u478eu2V003893; Sat, 7 May 2016 09:40:56 +0100
+Received: from dan.rpsys.net ([127.0.0.1])
+	by localhost (dan.rpsys.net [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id xVPYCW1jCBYV; Sat,  7 May 2016 09:40:56 +0100 (BST)
+Received: from hex ([192.168.3.34]) (authenticated bits=0)
+	by dan.rpsys.net (8.14.4/8.14.4/Debian-4.1ubuntu1) with ESMTP id
+	u478esfW003890
+	(version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sat, 7 May 2016 09:40:56 +0100
+Message-ID: <1462610454.21674.149.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Ruslan Babayev <ruslan@babayev.com>
+Date: Sat, 07 May 2016 09:40:54 +0100
+In-Reply-To: <8760uq4yok.fsf@babayev.com>
+References: <8760uq4yok.fsf@babayev.com>
+X-Mailer: Evolution 3.16.5-1ubuntu3.1 
+Mime-Version: 1.0
+Cc: poky@yoctoproject.org
+Subject: Re: gcc cross-compiler hangs with musl libc
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,94 +44,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Apr 2016 11:12:19 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-List-Received-Date: Sat, 07 May 2016 08:41:05 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 
+On Fri, 2016-05-06 at 15:19 -0700, Ruslan Babayev wrote:
+> Hi Richard,
+> 
+> I recently noticed GCC in meta-toolchain misteriously hangs when
+> trying to build
+> anything. This is my config (with meta-intel layers added):
+> 
+> MACHINE = "crystalforest"
+> TCLIBC = "musl"
+> 
+> I narrowed it down to gcc not liking '-m64' flag followed by '
+> -mmusl'.
+> 
+> $ x86_64-poky-linux-musl-gcc --sysroot=/opt/poky/2.1/sysroots/corei7
+> -64-poky-linux-musl hello.c -o hello -m64 #works
+> $ x86_64-poky-linux-musl-gcc --sysroot=/opt/poky/2.1/sysroots/corei7
+> -64-poky-linux-musl hello.c -o hello -mmusl #works                   
+>                                 
+> $ x86_64-poky-linux-musl-gcc --sysroot=/opt/poky/2.1/sysroots/corei7
+> -64-poky-linux-musl hello.c -o hello -mmusl -m64 #works
+> $ x86_64-poky-linux-musl-gcc --sysroot=/opt/poky/2.1/sysroots/corei7
+> -64-poky-linux-musl hello.c -o hello -m64 -mmusl #hangs
+> ^C
+> 
+> So it seems passing -mmusl is not required. Just to try this out I
+> commented out TARGET_CC_ARCH_append_libc-musl line in
+> meta/classes/toolchain-scripts.bbclass and rebuilt my meta-toolchain
+> to
+> make GCC happy.
+> 
+> I have seen this with musl and x86_64 with -m64 but I am guessing the
+> issue might also affect other architechtures and tunes as well x86(
+> -m64,
+> -m32, -mx32), powerpc (-m64, -m32) etc.
+> 
+> While this looks like a bug in GCC, is there a reason we need to pass
+> -mmusl flag?
+
+I'd imagine its telling gcc to link against the musl libc rather than
+the glibc one. Certainly, the order of the options shouldn't hang gcc,
+in fact gcc shouldn't ever hang due to the options passed so this
+sounds like a gcc bug.
+
+I've cc'd Khem who knows more about the musl patches.
+
+Cheers,
+
+Richard
 
 
-On 27/04/16 11:50, Burton, Ross wrote:
-> Hi Martyn,
->
-> Patches for oe-core should go to
-> openembedded-core@lists.openembedded.org
-> <mailto:openembedded-core@lists.openembedded.org>, not poky@.
->
-
-Thanks Ross, sorry for the confusion,
-
-Martyn
-
-> Cheers,
-> Ross
->
->
-> On 27 April 2016 at 10:40, Martyn Welch <martyn.welch@collabora.co.uk
-> <mailto:martyn.welch@collabora.co.uk>> wrote:
->
->     The additional autotooling patched into glew claims the version is 1.9.0
->     whilst we are building 1.12.0. The version in the autotooling is used to
->     set the version number in the pkgconfig file, this results in the
->     configuration of packages which depend on glew > 1.9.0 failing.
->
->     This patch updates the version number used in the patches to match
->     that of
->     the version being built.
->
->     Signed-off-by: Martyn Welch <martyn.welch@collabora.co.uk
->     <mailto:martyn.welch@collabora.co.uk>>
->     ---
->       meta/recipes-graphics/glew/glew/autotools.patch           | 4 ++--
->       meta/recipes-graphics/glew/glew/fix-glew.pc-install.patch | 2 +-
->       2 files changed, 3 insertions(+), 3 deletions(-)
->
->     diff --git a/meta/recipes-graphics/glew/glew/autotools.patch
->     b/meta/recipes-graphics/glew/glew/autotools.patch
->     index 7dfe087..81a1343 100644
->     --- a/meta/recipes-graphics/glew/glew/autotools.patch
->     +++ b/meta/recipes-graphics/glew/glew/autotools.patch
->     @@ -20,7 +20,7 @@ Index: glew/configure.ac <http://configure.ac>
->       +# Process this file with autoconf to produce a configure script.
->       +
->       +AC_PREREQ([2.62])
->     -+AC_INIT([glew], [1.9.0], [BUG-REPORT-ADDRESS])
->     ++AC_INIT([glew], [1.12.0], [BUG-REPORT-ADDRESS])
->       +AC_CONFIG_SRCDIR([src/glew.c])
->       +AC_CONFIG_HEADERS([config.h])
->       +AM_INIT_AUTOMAKE([-Wall -Werror foreign])
->     @@ -77,7 +77,7 @@ Index: glew/configure.ac <http://configure.ac>
->       +# for now we use the same version as the package, but that should
->     be avoided
->       +# in the future
->       +
->     -+AC_SUBST([LIBGLEW_SO_VERSION], [1:9:0])
->     ++AC_SUBST([LIBGLEW_SO_VERSION], [1:12:0])
->       +
->       +AC_CONFIG_FILES([Makefile
->       +                 include/Makefile
->     diff --git
->     a/meta/recipes-graphics/glew/glew/fix-glew.pc-install.patch
->     b/meta/recipes-graphics/glew/glew/fix-glew.pc-install.patch
->     index 70a99ae..baab9ff 100644
->     --- a/meta/recipes-graphics/glew/glew/fix-glew.pc-install.patch
->     +++ b/meta/recipes-graphics/glew/glew/fix-glew.pc-install.patch
->     @@ -20,7 +20,7 @@ Index: glew-1.11.0/configure.ac <http://configure.ac>
->       ===================================================================
->       --- glew-1.11.0.orig/configure.ac <http://configure.ac>
->       +++ glew-1.11.0/configure.ac <http://configure.ac>
->     -@@ -66,5 +66,6 @@ AC_SUBST([LIBGLEW_SO_VERSION], [1:9:0])
->     +@@ -66,5 +66,6 @@ AC_SUBST([LIBGLEW_SO_VERSION], [1:12:0])
->
->        AC_CONFIG_FILES([Makefile
->                         include/Makefile
->     --
->     1.8.3.1
->
->     --
->     _______________________________________________
->     poky mailing list
->     poky@yoctoproject.org <mailto:poky@yoctoproject.org>
->     https://lists.yoctoproject.org/listinfo/poky
->
->
 
