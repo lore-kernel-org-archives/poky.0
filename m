@@ -1,35 +1,74 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 477E6E00CBA; Mon,  9 May 2016 20:37:46 -0700 (PDT)
+	id 646B2E00CC8; Mon,  9 May 2016 20:55:12 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.192.181 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 153DFE00CB4
-	for <poky@yoctoproject.org>; Mon,  9 May 2016 20:37:40 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id u4A3bbN8028217
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK);
-	Mon, 9 May 2016 20:37:37 -0700
-Received: from pek-khao-d1.corp.ad.wrs.com (147.11.178.22) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.3.248.2; Mon, 9 May 2016 20:37:36 -0700
-Date: Tue, 10 May 2016 11:37:33 +0800
-From: Kevin Hao <kexin.hao@windriver.com>
-To: Ruslan Babayev <ruslan@babayev.com>
-Message-ID: <20160510033733.GB5960@pek-khao-d1.corp.ad.wrs.com>
-References: <1462839281-6229-1-git-send-email-ruslan@babayev.com>
-	<1462839281-6229-3-git-send-email-ruslan@babayev.com>
-MIME-Version: 1.0
-In-Reply-To: <1462839281-6229-3-git-send-email-ruslan@babayev.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 2/2] edgerouter: libffi: fix build with soft-float tune
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-pf0-f181.google.com (mail-pf0-f181.google.com
+	[209.85.192.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B4E55E00CBC
+	for <poky@yoctoproject.org>; Mon,  9 May 2016 20:55:10 -0700 (PDT)
+Received: by mail-pf0-f181.google.com with SMTP id y69so502210pfb.1
+	for <poky@yoctoproject.org>; Mon, 09 May 2016 20:55:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=subject:mime-version:from:in-reply-to:date:cc:message-id:references
+	:to; bh=HhQNeZQxDb0996abXDHfFgf65bFG6l12+fBn3hGcCV4=;
+	b=Ls5oN71MiqGt8gznIBqw569wAvzsBFEkNsHyMBoqvgMdroHhOnMvPNkQTv+UuxrDOz
+	LsLRpgnhSQRviutYYtdgzF+cac8qXMA/NZMFKG7twV5rMVNExgxfSkSvHSO2Qb32m4cz
+	V8xqdz4H4Tyka/0S/0KNmbRgZCP0qVx2DS04Od1WE09YosJMQl6r62hDImqGQMktqTQG
+	tyRNirOE0qV0Bi3rnqSlpbp8MnvaeMr1ght6ZesZ9/8bf7e6FXhE8kDWD/7A02yVkr+D
+	VpQuOnPRDl6IZMoLc6jxPItj163d7jPYqNzTFXmhIg2dYeHsl/mx+9gm/495f/C1Tm1f
+	2abw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:subject:mime-version:from:in-reply-to:date:cc
+	:message-id:references:to;
+	bh=HhQNeZQxDb0996abXDHfFgf65bFG6l12+fBn3hGcCV4=;
+	b=R0j7LH96s9Q55/RiskU2V9wxKB+mEB2RrXf9YLplHcKHEb++GSCwvCY74PwnzPXfGQ
+	Wwg2E2QUDgjbu0ldObT7o9HVN7JR1KmmPFpkbZmJZ6698O32gbsjIcDapYFCc1O2z8Qo
+	9L4mV7J5CRY48QQ3JG28nF/GL46LH9f8VbPThE0oJzFv8bu7TW7cQWQgrLLipo++NeJ4
+	51kRFFtjCR74a9p3sjegN7MDCb0RwSnhHTaRE3Kxh/4HxYuYgezJ826L2L4jKWOCCiiI
+	diBDoEYtMcJflfIvJ0MVaW4NX7lch/wGJBVaT2d2LH7pz4sZyrM/WgmMhxw223Y+7qmM
+	OThA==
+X-Gm-Message-State: AOPr4FWCEw/FImd1qFxZzQUCpz9bvlP2ktcKzm/uDAChwhnbKIMdKtw3IGCG18FiKycLqQ==
+X-Received: by 10.98.96.130 with SMTP id u124mr28312117pfb.28.1462852509798;
+	Mon, 09 May 2016 20:55:09 -0700 (PDT)
+Received: from ?IPv6:2601:646:8800:5a9a:1462:b3e2:90da:dbff?
+	([2601:646:8800:5a9a:1462:b3e2:90da:dbff])
+	by smtp.gmail.com with ESMTPSA id u65sm192649pfa.9.2016.05.09.20.55.08
+	(version=TLSv1/SSLv3 cipher=OTHER);
+	Mon, 09 May 2016 20:55:08 -0700 (PDT)
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+X-Pgp-Agent: GPGMail 2.6b2
+From: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <20160510033311.GA5960@pek-khao-d1.corp.ad.wrs.com>
+Date: Mon, 9 May 2016 20:55:18 -0700
+Message-Id: <47741541-04A6-43DA-8E27-281781BD5022@gmail.com>
+References: <877ff73zh2.fsf@babayev.com>
+	<20160508130617.GA14034@pek-khao-d1.corp.ad.wrs.com>
+	<87zis0ifrw.fsf@babayev.com>
+	<20160509123822.GA13739@pek-khao-d1.corp.ad.wrs.com>
+	<87eg9bdqju.fsf@babayev.com>
+	<20160510033311.GA5960@pek-khao-d1.corp.ad.wrs.com>
+To: Kevin Hao <kexin.hao@windriver.com>
+X-Mailer: Apple Mail (2.3124)
+Cc: Ruslan Babayev <ruslan@babayev.com>, poky@yoctoproject.org
+Subject: Re: [PATCH] edgerouter: fix machine tune
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,91 +81,60 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2016 03:37:46 -0000
-X-Groupsio-MsgNum: 10418
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="KFztAG8eRSV9hGtP"
-Content-Disposition: inline
+X-List-Received-Date: Tue, 10 May 2016 03:55:12 -0000
+X-Groupsio-MsgNum: 10419
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_EA66CEE3-3B7D-4586-8E04-58F2FFD3C55C";
+	protocol="application/pgp-signature"; micalg=pgp-sha1
 
---KFztAG8eRSV9hGtP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--Apple-Mail=_EA66CEE3-3B7D-4586-8E04-58F2FFD3C55C
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
-On Mon, May 09, 2016 at 05:14:41PM -0700, Ruslan Babayev wrote:
-> Signed-off-by: Ruslan Babayev <ruslan@babayev.com>
-> ---
->  .../recipes-support/libffi/libffi/mips-n32-soft-float.patch | 13 +++++++=
-++++++
->  meta/recipes-support/libffi/libffi_3.2.1.bb                 |  1 +
->  2 files changed, 14 insertions(+)
->  create mode 100644 meta/recipes-support/libffi/libffi/mips-n32-soft-floa=
-t.patch
 
-I am still getting the following build errors with or without musl after
-applying this patch. Did I miss something?
-   /buildarea/raid0/khao/build-yocto-musl/tmp/sysroots/edgerouter/usr/lib/l=
-ibffi.so: undefined reference to `ffi_closure_N32'
-   /buildarea/raid0/khao/build-yocto-musl/tmp/sysroots/edgerouter/usr/lib/l=
-ibffi.so: undefined reference to `ffi_call_N32'
-
-Thanks,
-Kevin
-
+> On May 9, 2016, at 8:33 PM, Kevin Hao <kexin.hao@windriver.com> wrote:
 >=20
-> diff --git a/meta/recipes-support/libffi/libffi/mips-n32-soft-float.patch=
- b/meta/recipes-support/libffi/libffi/mips-n32-soft-float.patch
-> new file mode 100644
-> index 0000000..c901614
-> --- /dev/null
-> +++ b/meta/recipes-support/libffi/libffi/mips-n32-soft-float.patch
-> @@ -0,0 +1,13 @@
-> +Index: libffi-3.2.1/src/mips/n32.S
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +--- libffi-3.2.1.orig/src/mips/n32.S
-> ++++ libffi-3.2.1/src/mips/n32.S
-> +@@ -30,7 +30,7 @@
-> +=20
-> + /* Only build this code if we are compiling for n32 */=09
-> +=20
-> +-#if defined(FFI_MIPS_N32)
-> ++#if defined(FFI_MIPS_N32) && !defined(__mips_soft_float)
-> +=20
-> + #define callback a0
-> + #define bytes	 a2
-> diff --git a/meta/recipes-support/libffi/libffi_3.2.1.bb b/meta/recipes-s=
-upport/libffi/libffi_3.2.1.bb
-> index 72e25fb..5b57e79 100644
-> --- a/meta/recipes-support/libffi/libffi_3.2.1.bb
-> +++ b/meta/recipes-support/libffi/libffi_3.2.1.bb
-> @@ -12,6 +12,7 @@ LIC_FILES_CHKSUM =3D "file://LICENSE;md5=3D3610bb17683a=
-0089ed64055416b2ae1b"
->  SRC_URI =3D "ftp://sourceware.org/pub/libffi/${BP}.tar.gz \
->             file://not-win32.patch \
->  	   file://0001-mips-Use-compiler-internal-define-for-linux.patch \
-> +           file://mips-n32-soft-float.patch \
->  	   "
-> =20
->  SRC_URI[md5sum] =3D "83b89587607e3eb65c70d361f13bab43"
-> --=20
-> 2.7.4
+> On Mon, May 09, 2016 at 11:39:17AM -0700, Ruslan Babayev wrote:
+>>=20
+>> Kevin Hao writes:
+>>=20
+>>>>=20
+>>>> Without this change OpenSSH (ssh-keygen) dies with SIGILL at
+>>>> runtime.
+>>>=20
+>>> The ssh-keygen works pretty well for me. Could you show the steps to
+>>> reproduce this issue?
+>>>=20
+>>=20
+>> Sorry, I should have mentioned I have seen the crash with TCLIBC =3D
+>> "musl" only. Not sure what's going on. Perhaps glibc by default falls
+>> back to soft-float at run-time.
 >=20
+> Since the kernel has FPU emulation, we should not run into this crash =
+even if
+> musl use the hard float instructions. That is also why the edgerouter =
+BSP
+> can works previously. It seems a bug in musl.
 
---KFztAG8eRSV9hGtP
-Content-Type: application/pgp-signature; name="signature.asc"
+it would be good if you can narrow it down. musl supports both hf and sf =
+variants for mips64
+
+
+--Apple-Mail=_EA66CEE3-3B7D-4586-8E04-58F2FFD3C55C
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP using GPGMail
 
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Comment: GPGTools - https://gpgtools.org
 
-iQEcBAEBCAAGBQJXMVd7AAoJEJNY7TDerrFxDWcH/jxbz9+LW2T3NyC015klaqT+
-K/RSzs3KtjtMM4o59dNPpCm02pmvUORdq9HVfQZAE/IXy5N1xQOfuOPDlfD7VWAG
-VJ+/OPi+ez+vTCfEf20MoyuH2DFb0ovXKUiiUYbmx/It0+NJO7kVNNruaGHcaPZC
-TRXha2JxrSZy0DsIgB5akcLegzfZHmb/M2uClMuBzbtRjienmy1eoRRBJERWViEh
-C3afPmujTPoUz1e9dXMrlCs+m/lNzxHtxPZJdQ8q9CbkXHcldjNWqr5Yu/sUlEtY
-fc+Dg0ZJ1666l043WXTn6NcmFQImNucUJ931m5JmubTFJsQWwLaKsWbSDJM9A2Y=
-=upqL
+iEYEARECAAYFAlcxW6oACgkQuwUzVZGdMxTtIQCbBOINjcGstlqykfSgRwyVLLwH
+4QwAmwZutQj9jpmCwHxezjvVAil5AxNB
+=rKOi
 -----END PGP SIGNATURE-----
 
---KFztAG8eRSV9hGtP--
+--Apple-Mail=_EA66CEE3-3B7D-4586-8E04-58F2FFD3C55C--
