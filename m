@@ -1,41 +1,35 @@
 Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A128BE00CBA; Mon,  9 May 2016 20:33:21 -0700 (PDT)
+	id 477E6E00CBA; Mon,  9 May 2016 20:37:46 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4570BE00CB4
-	for <poky@yoctoproject.org>; Mon,  9 May 2016 20:33:17 -0700 (PDT)
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 153DFE00CB4
+	for <poky@yoctoproject.org>; Mon,  9 May 2016 20:37:40 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u4A3XF1L021019
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 9 May 2016 20:33:16 -0700 (PDT)
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id u4A3bbN8028217
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK);
+	Mon, 9 May 2016 20:37:37 -0700
 Received: from pek-khao-d1.corp.ad.wrs.com (147.11.178.22) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server
-	(TLS) id 14.3.248.2; Mon, 9 May 2016 20:33:14 -0700
-Date: Tue, 10 May 2016 11:33:11 +0800
+	(TLS) id 14.3.248.2; Mon, 9 May 2016 20:37:36 -0700
+Date: Tue, 10 May 2016 11:37:33 +0800
 From: Kevin Hao <kexin.hao@windriver.com>
 To: Ruslan Babayev <ruslan@babayev.com>
-Message-ID: <20160510033311.GA5960@pek-khao-d1.corp.ad.wrs.com>
-References: <877ff73zh2.fsf@babayev.com>
-	<20160508130617.GA14034@pek-khao-d1.corp.ad.wrs.com>
-	<87zis0ifrw.fsf@babayev.com>
-	<20160509123822.GA13739@pek-khao-d1.corp.ad.wrs.com>
-	<87eg9bdqju.fsf@babayev.com>
+Message-ID: <20160510033733.GB5960@pek-khao-d1.corp.ad.wrs.com>
+References: <1462839281-6229-1-git-send-email-ruslan@babayev.com>
+	<1462839281-6229-3-git-send-email-ruslan@babayev.com>
 MIME-Version: 1.0
-In-Reply-To: <87eg9bdqju.fsf@babayev.com>
+In-Reply-To: <1462839281-6229-3-git-send-email-ruslan@babayev.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] edgerouter: fix machine tune
+Subject: Re: [PATCH 2/2] edgerouter: libffi: fix build with soft-float tune
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,76 +42,91 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 10 May 2016 03:33:21 -0000
-X-Groupsio-MsgNum: 10417
+X-List-Received-Date: Tue, 10 May 2016 03:37:46 -0000
+X-Groupsio-MsgNum: 10418
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="UlVJffcvxoiEqYs2"
+	protocol="application/pgp-signature"; boundary="KFztAG8eRSV9hGtP"
 Content-Disposition: inline
 
---UlVJffcvxoiEqYs2
+--KFztAG8eRSV9hGtP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 09, 2016 at 11:39:17AM -0700, Ruslan Babayev wrote:
->=20
-> Kevin Hao writes:
->=20
-> >>=20
-> >> Without this change OpenSSH (ssh-keygen) dies with SIGILL at
-> >> runtime.=20
-> >
-> > The ssh-keygen works pretty well for me. Could you show the steps to
-> > reproduce this issue?
-> >
->=20
-> Sorry, I should have mentioned I have seen the crash with TCLIBC =3D
-> "musl" only. Not sure what's going on. Perhaps glibc by default falls
-> back to soft-float at run-time.
+On Mon, May 09, 2016 at 05:14:41PM -0700, Ruslan Babayev wrote:
+> Signed-off-by: Ruslan Babayev <ruslan@babayev.com>
+> ---
+>  .../recipes-support/libffi/libffi/mips-n32-soft-float.patch | 13 +++++++=
+++++++
+>  meta/recipes-support/libffi/libffi_3.2.1.bb                 |  1 +
+>  2 files changed, 14 insertions(+)
+>  create mode 100644 meta/recipes-support/libffi/libffi/mips-n32-soft-floa=
+t.patch
 
-Since the kernel has FPU emulation, we should not run into this crash even =
-if
-musl use the hard float instructions. That is also why the edgerouter BSP
-can works previously. It seems a bug in musl.
-
->=20
-> With "musl" I also saw a mips related compilation failure in libffi which=
- I
-> have fixed.
->=20
-> Just to verify I have rebuilt core-image-minimal with glibc and I ssh-key=
-gen
-> works. Regarding core-image-sato, is it even officially supported for
-> edgerouter? The release notes [1] only mention core-image-minimal.
-
-We don't have an officially image type supported list for each BSP.
-The core-image-minimal is only referred as an example in release note, but
-that doesn't mean we only support this image type. A patch should not break
-the build of an image type which is buildable currently at least.
+I am still getting the following build errors with or without musl after
+applying this patch. Did I miss something?
+   /buildarea/raid0/khao/build-yocto-musl/tmp/sysroots/edgerouter/usr/lib/l=
+ibffi.so: undefined reference to `ffi_closure_N32'
+   /buildarea/raid0/khao/build-yocto-musl/tmp/sysroots/edgerouter/usr/lib/l=
+ibffi.so: undefined reference to `ffi_call_N32'
 
 Thanks,
 Kevin
 
 >=20
+> diff --git a/meta/recipes-support/libffi/libffi/mips-n32-soft-float.patch=
+ b/meta/recipes-support/libffi/libffi/mips-n32-soft-float.patch
+> new file mode 100644
+> index 0000000..c901614
+> --- /dev/null
+> +++ b/meta/recipes-support/libffi/libffi/mips-n32-soft-float.patch
+> @@ -0,0 +1,13 @@
+> +Index: libffi-3.2.1/src/mips/n32.S
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +--- libffi-3.2.1.orig/src/mips/n32.S
+> ++++ libffi-3.2.1/src/mips/n32.S
+> +@@ -30,7 +30,7 @@
+> +=20
+> + /* Only build this code if we are compiling for n32 */=09
+> +=20
+> +-#if defined(FFI_MIPS_N32)
+> ++#if defined(FFI_MIPS_N32) && !defined(__mips_soft_float)
+> +=20
+> + #define callback a0
+> + #define bytes	 a2
+> diff --git a/meta/recipes-support/libffi/libffi_3.2.1.bb b/meta/recipes-s=
+upport/libffi/libffi_3.2.1.bb
+> index 72e25fb..5b57e79 100644
+> --- a/meta/recipes-support/libffi/libffi_3.2.1.bb
+> +++ b/meta/recipes-support/libffi/libffi_3.2.1.bb
+> @@ -12,6 +12,7 @@ LIC_FILES_CHKSUM =3D "file://LICENSE;md5=3D3610bb17683a=
+0089ed64055416b2ae1b"
+>  SRC_URI =3D "ftp://sourceware.org/pub/libffi/${BP}.tar.gz \
+>             file://not-win32.patch \
+>  	   file://0001-mips-Use-compiler-internal-define-for-linux.patch \
+> +           file://mips-n32-soft-float.patch \
+>  	   "
+> =20
+>  SRC_URI[md5sum] =3D "83b89587607e3eb65c70d361f13bab43"
+> --=20
+> 2.7.4
 >=20
-> Regards,
-> Ruslan
->=20
-> [1] https://www.yoctoproject.org/downloads/bsps/krogoth21/edgerouter
 
---UlVJffcvxoiEqYs2
+--KFztAG8eRSV9hGtP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJXMVZvAAoJEJNY7TDerrFxQ8gH/1HGKM9VgmbrViREGXJwhthX
-JWDBfLMcmvW0YSsP2woom+hUnZQJNu+SWKIsAmlJyQyEkxujnXdxDEei/G0D2uGs
-IruRtTaz9X3I3RhJacfqQSog8xnspHQqpI4TSF1gEgstiqZfsLRJEexME4/2mwIN
-MC1LEikW94FFmbQgF8ufJ1XudI6jWIJ/XOPGIfOxDXZwi+mR8dsUvphLswIPjkxL
-WZIOb8IqauV52XMw2Fri52gthTsG6ZoU3oGdLaBIuc3z4sCFFVk7dptSWNysFBfz
-7GgvGravQizwCUkbiYK5AbnjB8HEvUV4N2ZpQicGywiY6Mbe8i6hMHqU6lxDGUw=
-=ZwNB
+iQEcBAEBCAAGBQJXMVd7AAoJEJNY7TDerrFxDWcH/jxbz9+LW2T3NyC015klaqT+
+K/RSzs3KtjtMM4o59dNPpCm02pmvUORdq9HVfQZAE/IXy5N1xQOfuOPDlfD7VWAG
+VJ+/OPi+ez+vTCfEf20MoyuH2DFb0ovXKUiiUYbmx/It0+NJO7kVNNruaGHcaPZC
+TRXha2JxrSZy0DsIgB5akcLegzfZHmb/M2uClMuBzbtRjienmy1eoRRBJERWViEh
+C3afPmujTPoUz1e9dXMrlCs+m/lNzxHtxPZJdQ8q9CbkXHcldjNWqr5Yu/sUlEtY
+fc+Dg0ZJ1666l043WXTn6NcmFQImNucUJ931m5JmubTFJsQWwLaKsWbSDJM9A2Y=
+=upqL
 -----END PGP SIGNATURE-----
 
---UlVJffcvxoiEqYs2--
+--KFztAG8eRSV9hGtP--
