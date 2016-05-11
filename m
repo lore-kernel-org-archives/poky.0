@@ -1,39 +1,41 @@
-Return-Path: <Liezhi.Yang@windriver.com>
+Return-Path: <edwin.plauchu.camacho@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 90B97E00E9E; Tue, 10 May 2016 20:27:37 -0700 (PDT)
+	id 67152E00F03; Wed, 11 May 2016 11:25:15 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.115 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E5237E00E92
-	for <poky@yoctoproject.org>; Tue, 10 May 2016 20:27:36 -0700 (PDT)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
-	[147.11.189.41])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u4B3RYHq004263
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 10 May 2016 20:27:34 -0700 (PDT)
-Received: from [128.224.163.137] (128.224.163.137) by ALA-HCB.corp.ad.wrs.com
-	(147.11.189.41) with Microsoft SMTP Server id 14.3.248.2;
-	Tue, 10 May 2016 20:27:34 -0700
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, "Burton, Ross"
-	<ross.burton@intel.com>
-References: <cover.1461653189.git.liezhi.yang@windriver.com>
-From: Robert Yang <liezhi.yang@windriver.com>
-Message-ID: <5732A6A4.6060707@windriver.com>
-Date: Wed, 11 May 2016 11:27:32 +0800
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E14A1E00E6C
+	for <poky@yoctoproject.org>; Wed, 11 May 2016 11:25:14 -0700 (PDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+	by fmsmga103.fm.intel.com with ESMTP; 11 May 2016 11:25:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.24,608,1455004800"; 
+	d="scan'208,217";a="804140708"
+Received: from pianodaemon-contraption.zpn.intel.com (HELO [10.219.128.59])
+	([10.219.128.59])
+	by orsmga003.jf.intel.com with ESMTP; 11 May 2016 11:25:14 -0700
+To: "Burton, Ross" <ross.burton@intel.com>
+References: <1462817910-15459-1-git-send-email-edwin.plauchu.camacho@linux.intel.com>
+	<CAJTo0Lb3Ua9OtsT=XbCHhY4mS6_b2q0BiNp--4rMKXQcRnYQVw@mail.gmail.com>
+From: Plauchu Edwin <edwin.plauchu.camacho@linux.intel.com>
+Message-ID: <57337913.4090305@linux.intel.com>
+Date: Wed, 11 May 2016 13:25:23 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
 	Thunderbird/38.7.2
 MIME-Version: 1.0
-In-Reply-To: <cover.1461653189.git.liezhi.yang@windriver.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 0/3] [jethro] Consolidated pull
+In-Reply-To: <CAJTo0Lb3Ua9OtsT=XbCHhY4mS6_b2q0BiNp--4rMKXQcRnYQVw@mail.gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>,
+	Edwin Plauchu <edwin.plauchu.camacho@intel.com>
+Subject: Re: [PATCH] meta-yocto-bsp: Enable xf86 modeset for beaglebone
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,39 +48,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 May 2016 03:27:37 -0000
-Content-Type: text/plain; charset="windows-1252"; format=flowed
+X-List-Received-Date: Wed, 11 May 2016 18:25:15 -0000
+Content-Type: multipart/alternative;
+	boundary="------------080906060009010903060106"
+
+--------------080906060009010903060106
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+It was tested upon BeagleBone Black Rev C.
 
-Ping.
+About your question ... Yes it depends of a kernel patch ( */[PATCH] 
+/**/meta-yocto-bsp: beaglebone: Enable drm for omap/* ) that was sent to 
+linux-yocto@yoctoproject.org. Bruce Ashfield just confirmed this patch 
+as merged.
 
-// Robert
+On 10/05/16 10:22, Burton, Ross wrote:
+>
+> On 9 May 2016 at 19:18, <edwin.plauchu.camacho@linux.intel.com 
+> <mailto:edwin.plauchu.camacho@linux.intel.com>> wrote:
+>
+>     The modesetting driver is better than fbdev driver. This patch is
+>     enabling so for beaglebone BSP (Without 3D accelaration).
+>
+>
+> Can you confirm that you've tested this on real hardware, and what 
+> boards in particular you tested it on?
+>
+> Also presumably this depends on the kernel patch?
+>
+> Cheers,
+> Ross
 
-On 04/26/2016 02:47 PM, Robert Yang wrote:
-> The following changes since commit 6dba9abd43f7584178de52b623c603a5d4fcec5c:
->
->    tzcode: update to 2016c (2016-04-11 22:03:08 +0100)
->
-> are available in the git repository at:
->
->    git://git.pokylinux.org/poky-contrib rbt/jethro
->    http://git.pokylinux.org/cgit.cgi/poky-contrib/log/?h=rbt/jethro
->
-> Humberto Ibarra (2):
->    yocto-bsp: fix default kernel for x86_64 arch
->    yocto-bsp: Set correct default branches and branches base for i386,
->      qemu and x86_64 archs
->
-> Ross Burton (1):
->    conf/distro/poky.conf: use example.com for connectivity check
->
->   meta-yocto/conf/distro/poky.conf                                  | 5 +----
->   .../arch/i386/recipes-kernel/linux/linux-yocto_4.1.bbappend       | 4 ++--
->   .../arch/qemu/recipes-kernel/linux/linux-yocto-dev.bbappend       | 8 ++++----
->   .../arch/qemu/recipes-kernel/linux/linux-yocto_4.1.bbappend       | 8 ++++----
->   .../target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall | 2 +-
->   .../arch/x86_64/recipes-kernel/linux/linux-yocto_4.1.bbappend     | 4 ++--
->   6 files changed, 14 insertions(+), 17 deletions(-)
->
 
+--------------080906060009010903060106
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    It was tested upon BeagleBone Black Rev C.<br>
+    <br>
+    About your question ... Yes it depends of a kernel patch ( <b><i><font
+          color="#009900">[PATCH] </font></i></b><b><i><font
+          face="Helvetica, Arial, sans-serif" color="#009900">meta-yocto-bsp:
+          beaglebone: Enable drm for omap</font></i></b> ) that was sent
+    to <a class="moz-txt-link-abbreviated" href="mailto:linux-yocto@yoctoproject.org">linux-yocto@yoctoproject.org</a>. Bruce Ashfield just confirmed this
+    patch as merged.<br>
+    <br>
+    <div class="moz-cite-prefix">On 10/05/16 10:22, Burton, Ross wrote:<br>
+    </div>
+    <blockquote
+cite="mid:CAJTo0Lb3Ua9OtsT=XbCHhY4mS6_b2q0BiNp--4rMKXQcRnYQVw@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">
+        <div class="gmail_extra"><br>
+          <div class="gmail_quote">On 9 May 2016 at 19:18, <span
+              dir="ltr">&lt;<a moz-do-not-send="true"
+                href="mailto:edwin.plauchu.camacho@linux.intel.com"
+                target="_blank">edwin.plauchu.camacho@linux.intel.com</a>&gt;</span>
+            wrote:<br>
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex">
+              <div id=":3o" class="a3s aXjCH">The modesetting driver is
+                better than fbdev driver. This patch is enabling so for
+                beaglebone BSP (Without 3D accelaration).<br>
+              </div>
+            </blockquote>
+          </div>
+          <br>
+          Can you confirm that you've tested this on real hardware, and
+          what boards in particular you tested it on?</div>
+        <div class="gmail_extra"><br>
+        </div>
+        <div class="gmail_extra">Also presumably this depends on the
+          kernel patch?</div>
+        <div class="gmail_extra"><br>
+        </div>
+        <div class="gmail_extra">Cheers,</div>
+        <div class="gmail_extra">Ross</div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------080906060009010903060106--
