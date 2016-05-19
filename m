@@ -1,69 +1,59 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 38956E00D9A; Thu, 19 May 2016 10:05:42 -0700 (PDT)
+	id 1BCB5E00E93; Thu, 19 May 2016 12:22:39 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [209.85.213.169 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.220.44 listed in list.dnswl.org]
-Received: from mail-pa0-f44.google.com (mail-pa0-f44.google.com
-	[209.85.220.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DB6BBE00D91
-	for <poky@yoctoproject.org>; Thu, 19 May 2016 10:05:39 -0700 (PDT)
-Received: by mail-pa0-f44.google.com with SMTP id bt5so30625814pac.3
-	for <poky@yoctoproject.org>; Thu, 19 May 2016 10:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=subject:mime-version:from:in-reply-to:date:cc:message-id:references
-	:to; bh=usflGjzySQMe+rU0qbSzANyIwoBTKYcVnIok9PPcC+k=;
-	b=PP3tqdgH7Zcga0b+fbVljakoNUCQl+qjgiFzwP71srZoJCOnskrZWfiSWHpcr2zV/d
-	KOB6VWSZDu+bntR3uOv+/DOZNCKRb8LTl5T1GksomEm9Dq7f5WwBU2Wme5uAOQUN7/Cg
-	1tHX3MunLfCKsfrl93pd/Ag9Hl/t7SJsJ5MbFCYDfSVu/WQyc5CsInpYYKFHbn6zZ5d9
-	B7hjkJaIk95gmTJ8HAx0zrNOEzTTy0WdnMOdoBM5+m1raT4CWTSAOuMElPykMCi4sOQ/
-	7C4QYfcy7KzZZF1VzK+/m46rqM5Bp/AoUd3hCSs0fS9RZ3wJrF1mrMt9yBRQ+BogpyKk
-	qJuA==
+Received: from mail-ig0-f169.google.com (mail-ig0-f169.google.com
+	[209.85.213.169])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EB453E00E8D
+	for <poky@yoctoproject.org>; Thu, 19 May 2016 12:22:35 -0700 (PDT)
+Received: by mail-ig0-f169.google.com with SMTP id qe5so118166416igc.1
+	for <poky@yoctoproject.org>; Thu, 19 May 2016 12:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=iEQxsSFRlvzg40SAKugWIKrAg4SaGwMyiXzaXioqN/Q=;
+	b=oYeHS9Iy+BANPaoTXIb/xe8Tf337Xo4/NCUOl5r7VQtBvQ36oKPbqGmINDk4YCo2A3
+	5Np+NZdlKJPN6R+49+Jidrgl/XUTosuAcXKKo73IrnE8BRaKwKNmIUWgGEx15dGGDNI6
+	+X2P9fRYqf0V4/LPljLoRR+DJqVOyICyAVjql7HhbzFF6z6QgX0feZXdmAjycYfwANpJ
+	KU0aftOL9Gw0AtgOVYqLe1hXNlfCg0sPxK+bdvwyJ/1F68iZ2m5pXhsJIH7HtID9HxG9
+	utHV7UlRq0HnSBf9vmvV859i/4UPfPLfFUBd0ORjOWPhgdXusD4lBlU4MQi98JntJN/A
+	Eeog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:subject:mime-version:from:in-reply-to:date:cc
-	:message-id:references:to;
-	bh=usflGjzySQMe+rU0qbSzANyIwoBTKYcVnIok9PPcC+k=;
-	b=HS+n9S4AvZJf1JzsBvpuwB+hZ8xsVmtThs/Rv2PxVFWNZJpYxc3ltROYmTNkFri608
-	D+qP+KUax3lcMWPkNghTPcCjv/uSZGNH0TkZm5N5UtrzttXJhVAQXZUiRphzzpCNCBsO
-	+DsN7zt851fGv2qSyCqejFRQex3ah3vr9w0y/0W2PssR/Wvp4GF6AIbi49AGB1FHUg5x
-	9nRid75LgbXUtU/jVQwqRek8E0H0aBOzqcHMkNm7PXddY1UtElkeXEVrpanSgJqO86T0
-	YBY6/2o0ynvKKXUVnBWWq9he9uFsGgPrBXh2H9/a5oK37V3rdrF0QuDbmIvgUtrDpcx7
-	Cisw==
-X-Gm-Message-State: AOPr4FU1oTGLvnL5ym2p1A5M1EQr5Sbxxc2jw6BYoiwJSR3EwbZHGM7roE4CDIPkhUTg4A==
-X-Received: by 10.66.83.163 with SMTP id r3mr21068691pay.54.1463677538862;
-	Thu, 19 May 2016 10:05:38 -0700 (PDT)
-Received: from ?IPv6:2601:646:9b80:c0a8:4dc:d7b8:6757:e35f?
-	([2601:646:9b80:c0a8:4dc:d7b8:6757:e35f])
-	by smtp.gmail.com with ESMTPSA id
-	tn7sm18979104pac.29.2016.05.19.10.05.37
-	(version=TLSv1/SSLv3 cipher=OTHER);
-	Thu, 19 May 2016 10:05:38 -0700 (PDT)
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-X-Pgp-Agent: GPGMail 2.6b2
-From: Khem Raj <raj.khem@gmail.com>
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=iEQxsSFRlvzg40SAKugWIKrAg4SaGwMyiXzaXioqN/Q=;
+	b=ZFlR/6psQfyHdf8/JgvsDLiWzE1v37Z7pWWiqeWRFFCsXBPowRt5ZlaPlQ20oaYrc+
+	zvymfrPL39fNBn0DrjMrxS6ZNG5I6WkHCVhjdLb10GydzSAZJbm+K3r+WCOdC7S6Nyim
+	Qi73nG6iaYXGj7AhAvx46EWQEDX/c0+iC0OfGdexQ7245KxVlTkcalUJeEnghpXN0Ks/
+	+Ja9hLNSTPYuFuDOMuwIZfzXPjplO6gbnOSA2eqJcsIHZ0v3/9Sd3iZaInd1UlQR4fUG
+	jItell7JWWgvZB0bR1wsJr/fgkLViaHlENHUe4i1YwOoTe4hifAviCMuMeiChA3DmXyM
+	uTpw==
+X-Gm-Message-State: AOPr4FWExO8HCOVu/D/EJkoiWZnZB2VOiKYaSArRDS2qry+kLclKxkbJuSbyStUtjSowMSDaZeDr5c2YPgZRNFqk
+X-Received: by 10.50.160.10 with SMTP id xg10mr4002141igb.52.1463685755119;
+	Thu, 19 May 2016 12:22:35 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.162.6 with HTTP; Thu, 19 May 2016 12:22:15 -0700 (PDT)
 In-Reply-To: <CAO7m3AmuueFfYGJZ4YBvz-cuMTAYqThUQnWVTm+iEc1a0ka0pA@mail.gmail.com>
-Date: Thu, 19 May 2016 10:05:33 -0700
-Message-Id: <149BAA46-BBAE-40A1-9564-F8F1272EA903@gmail.com>
 References: <CAO7m3AmuueFfYGJZ4YBvz-cuMTAYqThUQnWVTm+iEc1a0ka0pA@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 19 May 2016 20:22:15 +0100
+Message-ID: <CAJTo0LYvpynQ6cF8QLL_NuTSZDHf34tx=Vt6TBnQZqUaQv7pCg@mail.gmail.com>
 To: Thomas Besemer <thomas.besemer@gmail.com>
-X-Mailer: Apple Mail (2.3124)
-Cc: poky@yoctoproject.org
+Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: yasm as host tool with populate_sdk
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -77,74 +67,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 May 2016 17:05:42 -0000
-X-Groupsio-MsgNum: 10429
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_DAED44A1-5AB4-493C-B09E-5BB46AC14D11";
-	protocol="application/pgp-signature"; micalg=pgp-sha1
+X-List-Received-Date: Thu, 19 May 2016 19:22:39 -0000
+Content-Type: multipart/alternative; boundary=001a1136a2f27f6ce6053336e570
 
---Apple-Mail=_DAED44A1-5AB4-493C-B09E-5BB46AC14D11
+--001a1136a2f27f6ce6053336e570
+Content-Type: text/plain; charset=UTF-8
+
+On 19 May 2016 at 17:59, Thomas Besemer <thomas.besemer@gmail.com> wrote:
+
+> TOOLCHAIN_HOST_TASK_append = " yasm"
+>
+
+This needs to be nativesdk-yasm, and as Khem says the BBCLASSEXTEND needs
+to include nativesdk for yasm.  If that works then please submit the patch
+to add nativesdk to yasm.bb back to oe-core.
+
+Ross
+
+--001a1136a2f27f6ce6053336e570
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
 
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 19 May 2016 at 17:59, Thomas Besemer <span dir=3D"ltr">&lt;<a href=3D"ma=
+ilto:thomas.besemer@gmail.com" target=3D"_blank">thomas.besemer@gmail.com</=
+a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>TOOLCHAIN_HOST_=
+TASK_append =3D &quot; yasm&quot;<br></div></blockquote></div><br>This need=
+s to be nativesdk-yasm, and as Khem says the BBCLASSEXTEND needs to include=
+ nativesdk for yasm.=C2=A0 If that works then please submit the patch to ad=
+d nativesdk to <a href=3D"http://yasm.bb">yasm.bb</a> back to oe-core.</div=
+><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Ross</div>=
+</div>
 
-> On May 19, 2016, at 9:59 AM, Thomas Besemer <thomas.besemer@gmail.com> =
-wrote:
->=20
-> I'm trying to get yasm into the SDK, but have only been able to get it =
-into build through IMAGE_INSTALL_append (I don't want it on target).
->=20
-> Have tried:
->=20
-> TOOLCHAIN_HOST_TASK_append =3D " yasm"
->=20
-> Error is:
->=20
-> NOTE: Not found yasm by name, searching provides ...
-> NOTE: cmd: =
-/home/tbesemer/src/yocto-full-0411a/poky/build/tmp/sysroots/x86_64-linux/u=
-sr/bin/smart --log-level=3Dwarning =
---data-dir=3D/home/tbesemer/src/yocto-full-0411a/poky/build/tmp/work/sps-p=
-oky-linux/core-image-minimal/1.0-r0/sdk/image/var/lib/smart query =
---provides yasm --show-format=3D'$name-$version' | sed -ne 's/ =
-*Provides://p'
-> ERROR: yasm not found in the base feeds (x86_64-nativesdk noarch any =
-all)
->=20
->=20
-> Error happens during 'bitbake core-image-minimal -c populate_sdk=E2=80=99=
-
-
-in  yasm recipe in meta/recipes-devtools/yasm/
-add
-BBCLASSEXTEND =3D "nativesdk"
->=20
-> Release is Jethro 2.0.1
->=20
->=20
->=20
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
-
---Apple-Mail=_DAED44A1-5AB4-493C-B09E-5BB46AC14D11
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP using GPGMail
-
------BEGIN PGP SIGNATURE-----
-Comment: GPGTools - https://gpgtools.org
-
-iEYEARECAAYFAlc98mEACgkQuwUzVZGdMxQL7ACfU1GPsCNR+3glsgznbaAkCHL9
-gkIAn1gO4+R61hmsI6lqdQBun8gp9xgf
-=c0tH
------END PGP SIGNATURE-----
-
---Apple-Mail=_DAED44A1-5AB4-493C-B09E-5BB46AC14D11--
+--001a1136a2f27f6ce6053336e570--
