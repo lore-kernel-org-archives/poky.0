@@ -1,35 +1,33 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <tom.zanussi@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B4A6DE00D26; Wed, 25 May 2016 08:16:37 -0700 (PDT)
+	id 2813BE00D33; Wed, 25 May 2016 11:32:53 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5C963E00D1F
-	for <poky@yoctoproject.org>; Wed, 25 May 2016 08:16:34 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id u4PFGX3I007708
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 25 May 2016 08:16:33 -0700 (PDT)
-Received: from yow-bashfiel-d4.wrs.com (128.224.56.94) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
-	14.3.248.2; Wed, 25 May 2016 08:16:32 -0700
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-To: <richard.purdie@linuxfoundation.org>
-Date: Wed, 25 May 2016 11:16:32 -0400
-Message-ID: <1464189392-4070-1-git-send-email-bruce.ashfield@windriver.com>
-X-Mailer: git-send-email 2.5.0
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: [PATCH] yocto-bsps: update to 4.4.11
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [134.134.136.20 listed in list.dnswl.org]
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E62E5E00D08
+	for <poky@yoctoproject.org>; Wed, 25 May 2016 11:32:49 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by orsmga101.jf.intel.com with ESMTP; 25 May 2016 11:32:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.26,364,1459839600"; d="scan'208";a="974465639"
+Received: from spmorimo-mobl3.amr.corp.intel.com (HELO localhost)
+	([10.254.125.102])
+	by fmsmga001.fm.intel.com with ESMTP; 25 May 2016 11:32:48 -0700
+From: Tom Zanussi <tom.zanussi@linux.intel.com>
+To: poky@yoctoproject.org,
+	alejandro.hernandez@intel.com
+Date: Wed, 25 May 2016 13:32:46 -0500
+Message-Id: <cover.1464119315.git.tom.zanussi@linux.intel.com>
+X-Mailer: git-send-email 1.9.3
+Subject: [PATCH 0/4] Use */intel branches in genericX86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,35 +40,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 May 2016 15:16:37 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 25 May 2016 18:32:53 -0000
 
-Updating the h/w reference BSPs to the korg stable 4.4.11, and
-for gcc6 compilation fixes.
+In order to provide more timely support for Intel platforms, this
+patchset switches the genericX86 BSPs over to using a set of dedicated
+*/intel branches created for linux-yocto 4.1 and 4.4 kernels.
 
-Signed-off-by: Bruce Ashfield <bruce.ashfield@windriver.com>
----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+These branches and the corresponding kernel metadata branches provide
+a place to add Intel-specific features and updates which aren't yet
+upstream or may never go upstream but nevertheless are useful for
+various users.
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-index a7e351a96345..c87a3e0d217e 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "fe7ff38448d530db27ac31cbb086cb6fdf94bb7f"
- SRCREV_machine_genericx86-64 ?= "fe7ff38448d530db27ac31cbb086cb6fdf94bb7f"
--SRCREV_machine_edgerouter ?= "ff4c4ef15b51f45b9106d71bf1f62fe7c02e63c2"
--SRCREV_machine_beaglebone ?= "ff4c4ef15b51f45b9106d71bf1f62fe7c02e63c2"
--SRCREV_machine_mpc8315e-rdb ?= "df00877ef9387b38b9601c82db57de2a1b23ce53"
-+SRCREV_machine_edgerouter ?= "628bf627561c6285d99fb978e11d4c15fc29324b"
-+SRCREV_machine_beaglebone ?= "628bf627561c6285d99fb978e11d4c15fc29324b"
-+SRCREV_machine_mpc8315e-rdb ?= "94ac8da44990afd2d43c0ccd713420fb1cfa0792"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+In order to have all Intel-related BSPs derive from a common source,
+the genericX86 BSPs (in addition to the meta-intel BSPs) are being
+switched over to these branches - there should be no loss in
+functionality by doing so.
+
+The following changes since commit 28433319ad8299aa23b1fcfdddbe100b29e86517:
+
+  bitbake: toaster: tests browser Add test for creating a project (2016-05-11 11:32:58 +0100)
+
+are available in the git repository at:
+
+  git://git.yoctoproject.org/poky-contrib tzanussi/intel-branches
+  http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=tzanussi/intel-branches
+
+Tom Zanussi (4):
+  meta-yocto-bsp: Switch linux-yocto 4.4 genericx86* BSPs to
+    standard/intel
+  meta-yocto-bsp: Switch linux-yocto 4.1 genericx86* BSPs to
+    standard/intel
+  linux-yocto/4.1: Make standard/intel branches available
+  linux-yocto/4.4: Make standard/intel branches available
+
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 8 ++++----
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 8 ++++----
+ meta/recipes-kernel/linux/linux-yocto_4.1.bb                 | 2 +-
+ meta/recipes-kernel/linux/linux-yocto_4.4.bb                 | 2 +-
+ 4 files changed, 10 insertions(+), 10 deletions(-)
+
 -- 
-2.5.0
+1.9.3
 
 
