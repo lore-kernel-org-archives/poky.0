@@ -1,52 +1,61 @@
-Return-Path: <star@gmx.li>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 73BBEE00E29; Fri, 27 May 2016 02:07:29 -0700 (PDT)
+	id 09462E00E29; Fri, 27 May 2016 02:15:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [212.227.17.20 listed in list.dnswl.org]
-X-Greylist: delayed 307 seconds by postgrey-1.32 at yocto-www;
-	Fri, 27 May 2016 02:07:23 PDT
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 09BB2E00DEE
-	for <poky@yoctoproject.org>; Fri, 27 May 2016 02:07:23 -0700 (PDT)
-Received: from [62.225.157.196] by 3capp-gmx-bs48.server.lan (via HTTP);
-	Fri, 27 May 2016 11:02:11 +0200
+	*      [209.85.223.178 listed in list.dnswl.org]
+Received: from mail-io0-f178.google.com (mail-io0-f178.google.com
+	[209.85.223.178])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0C4EE00DEE
+	for <poky@yoctoproject.org>; Fri, 27 May 2016 02:14:59 -0700 (PDT)
+Received: by mail-io0-f178.google.com with SMTP id p64so27732514ioi.2
+	for <poky@yoctoproject.org>; Fri, 27 May 2016 02:14:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=k5gjKhUWUyX541J2AWthf44BDGQ9b65FrXs+b7Oo2RM=;
+	b=p+hFjlU0Rp/lnkG+Y5SE+mWmUb9tvP+0pyUKSVR7Luk/X6xKqbhC2LZdpTgc0K9beJ
+	HHV21JwSoLH3tevqkU7Rxk57zSTFEMVa6/WjWUOzVgp9T3pxC8XX6X4PPDpL+Pyn06aG
+	CIJPFlZesZ0wA+YqMwQG5K+5xpjrFK3EhxcTVC47rBN3adyTpJraunaszZveJUvhn4UH
+	pf26/TeSE5vYSSarfqnC6TG7ppVowwrs1rrhsN3qB+t5CgqMgrS0D19Oeak6op1ugKD1
+	g4YtNdaQvn43CCouEavWg+vDGLLoe5rjLLMXiDfi+m8tKtnaNqRaMc+RTcGKJy0MWxck
+	SrzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=k5gjKhUWUyX541J2AWthf44BDGQ9b65FrXs+b7Oo2RM=;
+	b=PpqjoGSjROLkYBVp7UdDR6U0pytC2rPJOOGG1RPXjs4GCh/S6QudMtnW6HDG+UFp/q
+	lt3K59LEH9Tc52mfZiWYkgaqB2ojERbZy9wJzf/h7t9ZlRdB15Ny71dmjNdhX7jBkfeU
+	VyKN/Dgxkjz0ODxDDuHgQ7eZ/h/XSpOIp8EsbpmdFcWw2xtb4HFq0DcZoksHDjc/L3TZ
+	qagmzvy4nncq/AovlkMiu+wdbvYjbCIXjfgU/+lejGqF9Cipa5x5d3uVebH9dCjf5Vjc
+	AMhNMC/MwvroszHES+gJb2aGsMK+Gci4hyYpIvdk9A3jk2UXZhY6L7LQPJW6chqL/egI
+	WVpw==
+X-Gm-Message-State: ALyK8tKRgJwDFHyEUiX+ha84TyS2k/RYwN0a+m36tG+0VKWVesTrZDPDijwiqjoypUIiQJs2SUph6lKxGux6A2zn
+X-Received: by 10.107.135.234 with SMTP id r103mr13363406ioi.133.1464340498820;
+	Fri, 27 May 2016 02:14:58 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <trinity-439db5cd-2a82-47c4-8184-dd5e03d49e5d-1464339731287@3capp-gmx-bs48>
-From: star@gmx.li
-To: "Joshua G Lock" <joshua.g.lock@linux.intel.com>
-Date: Fri, 27 May 2016 11:02:11 +0200
-Importance: normal
-Sensitivity: Normal
-In-Reply-To: <1464338437.3484.3.camel@linux.intel.com>
-References: <trinity-c97069ff-4043-4992-a7b5-01692cfa5eac-1464326605415@3capp-gmx-bs48>,
+Received: by 10.107.162.6 with HTTP; Fri, 27 May 2016 02:14:39 -0700 (PDT)
+In-Reply-To: <trinity-439db5cd-2a82-47c4-8184-dd5e03d49e5d-1464339731287@3capp-gmx-bs48>
+References: <trinity-c97069ff-4043-4992-a7b5-01692cfa5eac-1464326605415@3capp-gmx-bs48>
 	<1464338437.3484.3.camel@linux.intel.com>
-X-UI-Message-Type: mail
-X-Priority: 3
-X-Provags-ID: V03:K0:lEHHFs4Np81D8Ji8G/6gNaBDYj/S4igfBAmCd8qgDIh
-	SVDGEsDXqXxktIAlYTOMxXwtCNx5y3XjN/vQISG+KcFmFNdFQX
-	fUREZwV1rv2tGWWOopqwQC4GK1zR+pQrjibYoq83WFktutG9gV
-	A6IXJNUg//FO4p6wHNAJ8nI3FoocQc6A4D/Sz5PZSytIYkcs+1
-	fqp/EnyYmHGrXjTYm+MVcsPKzE47wD78h7wt0OlruuVk4/PAdJ
-	6Tffc7YEoMGJThDZaMWdajGUnppzFOWLAxE6O9wGOZ/ipgD4k7 T9q3uE=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:ejjRl2Torms=:hIIxOo2dncaVaRMqC7m2QV
-	OsmaRi1ClVfITKjeKKm6OMzyrJXGKo94ilu+/iWogAtivd5PxZIw/lK8Tic0yCKmPn0ymGo2Y
-	B3fN1YWKCuw4/RDMx8f88HVei8djySh25da/FBCXhiXf7/tzQsUqMc83KtP+cpb+sz4i3LZJ+
-	xTEP5Ppy83fGemhDdRFCrgQmAhMz0XfgoEp+ye7gqVJ1OcJoTZzafzRul/RWqQs7bwMeMyVeS
-	vLzolg+7s/kCSyQZeMo2IAGi1AG3M5WTHvPxnt5fmqLgxpgmXtC77dTFCH9kuUt7zyULegeK8
-	fvGQetuUoFY7eJzPehgp3fW9VQWQJ2Wot75329TRV8qNWVOmS2TuZ7bNMvVEmMcOLypKohyQ6
-	i5XTWy31oxuppFko+6QsLqsr0mY5cifmT//WfOU7NwWqQWd6r/YO8nVWgvsW9iPXiPQn/3dbR
-	feVTGkO1oQ==
-Cc: poky@yoctoproject.org
+	<trinity-439db5cd-2a82-47c4-8184-dd5e03d49e5d-1464339731287@3capp-gmx-bs48>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Fri, 27 May 2016 10:14:39 +0100
+Message-ID: <CAJTo0LZSG=2zZZ4REnZS5WU+6cPJ-7TAraWLdZy+u_RB1iOUPw@mail.gmail.com>
+To: star@gmx.li
+Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: lib-sdl issue with qemu
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -60,69 +69,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2016 09:07:29 -0000
+X-List-Received-Date: Fri, 27 May 2016 09:15:02 -0000
+Content-Type: multipart/alternative; boundary=001a113fc2b64345b20533cf5730
+
+--001a113fc2b64345b20533cf5730
 Content-Type: text/plain; charset=UTF-8
+
+On 27 May 2016 at 10:02, <star@gmx.li> wrote:
+
+> So am I right, I have to do both: update to 2.0.2 and remove the
+> ASSUME_PROVIDED (which is indeed included in my local.conf)?
+>
+
+Yes, that should solve the problem.
+
+Ross
+
+--001a113fc2b64345b20533cf5730
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 27 May 2016 at 10:02,  <span dir=3D"ltr">&lt;<a href=3D"mailto:star@gmx.=
+li" target=3D"_blank">star@gmx.li</a>&gt;</span> wrote:<br><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex"><div id=3D":30e" class=3D"a3s aXjCH m154f178b0f1695ff">So am=
+ I right, I have to do both: update to 2.0.2 and remove the ASSUME_PROVIDED=
+ (which is indeed included in my local.conf)?<br></div></blockquote></div><=
+br>Yes, that should solve the problem.</div><div class=3D"gmail_extra"><br>=
+</div><div class=3D"gmail_extra">Ross</div></div>
 
-
-> Gesendet: Freitag, 27=2E Mai 2016 um 10:40 Uhr
-> Von: "Joshua G Lock" <joshua=2Eg=2Elock@linux=2Eintel=2Ecom>
-> An: star@gmx=2Eli, poky@yoctoproject=2Eorg
-> Betreff: Re: [poky] [POKY] lib-sdl issue with qemu
->
-> On Fri, 2016-05-27 at 07:23 +0200, star@gmx=2Eli wrote:
-> > Tried a "bitbake core-image-minimal" with included xilinx meta-layer
-> > and machine "qemuzynq"=2E
-> > I get the above mentioned error on an Ubuntu 1604, but with already
-> > installed libsdl=2E
-> >=20
-> > See below:=C2=A0
-> >=20
-> > =2E=2E=2E
-> > >=20
-> > > ERROR: User requested feature sdl
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0configure was not able to =
-find it=2E
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Install SDL devel
-> > >=20
-> > > WARNING: exit code 1 from a shell command=2E
-> > > ERROR: Function failed: do_configure (log file is located at
-> > > /home/user/yocto_qemu/tmp/work/x86_64-linux/qemu-native/2=2E4=2E0-
-> > > r1/temp/log=2Edo_configure=2E3236)
-> > ERROR: Task 72 (virtual:native:/home/user/yocto/poky/meta/recipes-
-> > devtools/qemu/qemu_2=2E4=2E0=2Ebb, do_configure) failed with exit code=
- '1'
-> >=20
->=20
-> Which version of the poky are you using?
->=20
-> There was a change to stop relying on the host to provide an SDL
-> implementation and instead we build sdl-native, this change is
-> available in the krogoth release (2=2E1) and has been backported to
-> jethro (available in 2=2E0=2E2) and fido (available in 1=2E8=2E2)=2E
->=20
-> However if you have an old local=2Econf you'll need to remove the
-> ASSUME_PROVIDED entry for sdl-native=2E
->=20
-> Regards,
->=20
-> Joshua
->=20
-
-Thanks Joshua and Zhenhua
-I am on Jethro, I assume 2=2E0=2E1=2E How can I check this?=20
-I cloned Jethro a couple of weeks ago=2E No hint in the poky folder=2E
-
-user@VB:~/yocto/poky$ git status
-On branch jethro
-Your branch is up-to-date with 'origin/jethro'=2E
-
-But this is obviously referring to my clone, not to the original repo?!?
-
-
-So am I right, I have to do both: update to 2=2E0=2E2 and remove the ASSUM=
-E_PROVIDED (which is indeed included in my local=2Econf)?
-Regards
-Arno
-
+--001a113fc2b64345b20533cf5730--
