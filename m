@@ -1,51 +1,46 @@
 Return-Path: <star@gmx.li>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 73F19E00E3A; Fri, 27 May 2016 06:34:44 -0700 (PDT)
+	id 39D86E00E3A; Fri, 27 May 2016 06:48:14 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
 	*      [212.227.15.18 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (star[at]gmx.li)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02F15E00D04
-	for <poky@yoctoproject.org>; Fri, 27 May 2016 06:34:39 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9BE2BE00D04
+	for <poky@yoctoproject.org>; Fri, 27 May 2016 06:48:12 -0700 (PDT)
 Received: from [62.225.157.196] by 3capp-gmx-bs01.server.lan (via HTTP);
-	Fri, 27 May 2016 15:34:38 +0200
+	Fri, 27 May 2016 15:48:11 +0200
 MIME-Version: 1.0
-Message-ID: <trinity-b58460ba-fdde-4100-9f24-d517f3e44645-1464356078063@3capp-gmx-bs01>
-From: star@gmx.li
-To: "Andrei Gherzan" <andrei@gherzan.ro>
-Date: Fri, 27 May 2016 15:34:38 +0200
+Message-ID: <trinity-200ddab3-0fb2-41ea-8c38-37f5f1195f5e-1464356891340@3capp-gmx-bs01>
+From: Arno <star@gmx.li>
+To: poky@yoctoproject.org
+Date: Fri, 27 May 2016 15:48:11 +0200
 Importance: normal
 Sensitivity: Normal
-In-Reply-To: <20160527082625.GP9848@resin.home>
-References: <trinity-c97069ff-4043-4992-a7b5-01692cfa5eac-1464326605415@3capp-gmx-bs48>,
-	<20160527082625.GP9848@resin.home>
-X-UI-Message-Type: mail
 X-Priority: 3
-X-Provags-ID: V03:K0:LaUnW2acqEpxHtYLuGo4vYhpFDE6yNnDnTnq+8OmQz2
-	9vRNc3jnzXXedGpGFGxnVuV/7l5qOtfZrxLpTYjbyNGr7a/G6I
-	LbKRPwneYzJaT70pG2mdJ4n3WpjsTphsONhtkzmcW5F08ZQ5hh
-	S0cv96c269Qw2D4MJ2AwckPln7PaLFIilmQHK0SN803LwEj1LQ
-	FUJL0a1DiJdlFqa6wCJPYg5ceWqbDWHq0LPJsnPnW0k5puzhuQ
-	HOZU4skSmdcjlDi5FHnRLUUn/FPr7alTM/fJGsv/GpbrylLfDB nvNNvg=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:mb8HWggrt/U=:5nATb+zxob5BdgdUS2Ucfj
-	s4zz0pfV8ifh/Cw0yMjA924/oiFTxdN5Xeq6y80zrcrkKPVrTEFcWZYfP9ElH7x5lqTRu+wum
-	CNJ2eCkQvY4r11Xr0QC+HcZy87k+mMESWTwiOsk7nV6jyCSkx1iq/1b+Maw8KKT9phxe2kgZt
-	2o42DZLh9BhtDmE9KnB0SxIDNpJKxlCMXNdP5xwYVRMWa1cbC/p8zOjbnXGvALJ2aptZuLhRU
-	vP2teV2Cq0bsmp8/gxSMwK6h0bsMaBQWQu0fweV28RedD2uDpn+Hhw50ZJcY2CjDs+LEs56cm
-	sCVVrRuioAn5EJvKiqvZgsA28jQEQAfNcofiDPpHSMgWQn7zRrx/9EC+Gi5580mXG86doTvjH
-	BQ/2p8qFGsaOAi1ik82U6/41aH8ZELjBmPy2FuDaW8Ote+mQJv2I7Ftlz/ymV2LNXPAUwx4pl
-	qpNpq6zCeg==
-Cc: poky@yoctoproject.org
-Subject: Re: lib-sdl issue with qemu
+X-Provags-ID: V03:K0:POEP9b8MMV/FV9F0uZmpcSdzRvHEcBjkRXtOwJ4waof
+	ewgZmEZEpIh0OxG7zBJcNzrRFtm6N0q8vmzD8y37xhLdsDSQ0b
+	MXcQgNnvqZGP47yPn6jn3waR3mA+NWF02UjdK9Wedyp/TzIico
+	tEh7T5YjS4sbrO4g9jkapyubmELO0FU/jNBdccl2JhFpe7qZnL
+	D995kNTXw+cjjpfAlnGd+R+lCPxh6+mmi23w94qMhot+a32XmN
+	7r66VPKSzIBvzSOsgG5YsorIllc3FJ14QJ+E1IF2uzzYfOkUDV wfJ1Jo=
+X-UI-Out-Filterresults: notjunk:1;V01:K0:pe/tjJbA9fA=:YF44L/rMh4wacI6oNBqF66
+	4MJUfggXrpcBzOGqgnkUkbOlWBmh/kpuTAchvi2sMltrOcFqxgOpHN143lfGGE27+pev3z5r2
+	yCaXv/amSWV7Zbr5jmRqjRvpkLiVHnuZVyGwQpq9tpl+kUi5Jxb+FhDgvT5MBoJxcekjqs4O4
+	EUaWj+B+Z2Bzs+YuBwucgvDH1kIdraCtqa1Df+cnxfZfau09luEFD11o4S1mZaYMACF5MBY21
+	0VPQwPv8WKIlEfAaCYZN2qdvlcPYs2f24TQV1n8EA2+OPL0KFUsqX0WIuLEJpT3GZXhnDz4tF
+	9Ryw4rUQIvzmBQRYTPhSD3A5qrMegbFFoyv31Nz1WiNmGejga31MdxbBQUOr1Od5pQ/Behe+J
+	NcndqquRO+YxV3ZI3OxwMjsI13hdf79c7Bv1KFviEhlWnRCInEBU8i3D4vZLtf7A978oAfWpi
+	pEQ79agDog==
+Subject: Workaround for fetching files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -58,46 +53,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 May 2016 13:34:44 -0000
+X-List-Received-Date: Fri, 27 May 2016 13:48:14 -0000
 Content-Type: text/plain; charset=UTF-8
 
+My question: Can I download some files that gives errors fetching during the build process and a new bitbake will recognise it? Probably it is not so simple, due to all this fancy stuff with timestamps .....
+But - is there a way?
+
+I am in a company network, due to strict rules I am often faced with problems fetching file.
+So I am not able to use git protocol, most http(s) is the workaround.
+
+Sometimes I can access files by browser (sources.openembedded.org/git2_git.yoctoproject.org.yocto-kernel-tools.git.tar.gz)
+but the yocto build process can't and gives errors.
+
+Either there is a problem with certificates (and even "export GIT_SSL_NO_VERIFY=1" before calling bitbake doesn't help") or there is "No route to host"
+
+ERROR: Fetcher failure: Fetch command failed with exit code 128, output:
+fatal: unable to access 'https://github.com/Xilinx/linux-xlnx.git/': server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none
 
 
-> Gesendet: Freitag, 27. Mai 2016 um 10:26 Uhr
-> Von: "Andrei Gherzan" <andrei@gherzan.ro>
-> An: star@gmx.li
-> Cc: poky@yoctoproject.org
-> Betreff: Re: [poky] [POKY] lib-sdl issue with qemu
->
-> On Fri, May 27, 2016 at 07:23:25AM +0200, star@gmx.li wrote:
-> > Tried a "bitbake core-image-minimal" with included xilinx meta-layer and machine "qemuzynq".
-> > I get the above mentioned error on an Ubuntu 1604, but with already installed libsdl.
-> >
-> > See below:
-> >
-> > ...
-> > | ERROR: User requested feature sdl
-> > |        configure was not able to find it.
-> > |        Install SDL devel
-> > |
-> > | WARNING: exit code 1 from a shell command.
-> > | ERROR: Function failed: do_configure (log file is located at /home/user/yocto_qemu/tmp/work/x86_64-linux/qemu-native/2.4.0-r1/temp/log.do_configure.3236)
-> > ERROR: Task 72 (virtual:native:/home/user/yocto/poky/meta/recipes-devtools/qemu/qemu_2.4.0.bb, do_configure) failed with exit code '1'
-> >
-> >
-> > sudo apt-get install libsdl1.2-dev
-> > ...
-> > libsdl1.2-dev is already the newest version (1.2.15+dfsg1-3).
-> > 0 upgraded, 0 newly installed, 0 to remove and 95 not upgraded.
-> >
-> 
-> I hit this issue last week too. What is your host operating system?
-> 
-> --
-> Andrei Gherzan
-> 
+DEBUG: Fetcher failure: Fetch command failed with exit code 128, output:
+fatal: unable to connect to git.yoctoproject.org:
+git.yoctoproject.org[0: 140.211.169.56]: errno=No route to host
 
-As mentioned: host is an Ubuntu 1604, more exactly the mate edition running in VBOX on Win7.
-
+Best regards
 Arno
+
+
 
