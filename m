@@ -1,49 +1,37 @@
-Return-Path: <star@gmx.li>
+Return-Path: <colin.helliwell@ln-systems.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7584AE00C8F; Thu,  2 Jun 2016 03:24:05 -0700 (PDT)
+	id 25B59E00CCF; Thu,  2 Jun 2016 05:27:37 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [212.227.15.19 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 05767E00C81
-	for <poky@yoctoproject.org>; Thu,  2 Jun 2016 03:24:01 -0700 (PDT)
-Received: from [62.225.157.196] by 3capp-gmx-bs48.server.lan (via HTTP);
-	Thu, 2 Jun 2016 12:24:00 +0200
+X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_40,HTML_MESSAGE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 BAYES_40 BODY: Bayes spam probability is 20 to 40%
+	*      [score: 0.2804]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 1421 seconds by postgrey-1.32 at yocto-www;
+	Thu, 02 Jun 2016 05:27:33 PDT
+Received: from intranet.lincoln.ln-systems.com (post.ln-systems.com
+	[62.49.123.66])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 99271E00CAF
+	for <poky@yoctoproject.org>; Thu,  2 Jun 2016 05:27:32 -0700 (PDT)
+Received: from LNSYSCH3 (firewall-ext.lincoln.ln-systems.com [62.49.123.65])
+	by intranet.lincoln.ln-systems.com (8.13.1/8.13.1) with ESMTP id
+	u52C2t85013515
+	for <poky@yoctoproject.org>; Thu, 2 Jun 2016 13:03:00 +0100
+From: "Colin Helliwell" <colin.helliwell@ln-systems.com>
+To: <poky@yoctoproject.org>
+Date: Thu, 2 Jun 2016 13:03:35 +0100
+Organization: LN Systems Limited
+Message-ID: <29e601d1bcc6$ce4b1a70$6ae14f50$@ln-systems.com>
 MIME-Version: 1.0
-Message-ID: <trinity-73631430-ded2-47fb-b228-9630677ca200-1464863040175@3capp-gmx-bs48>
-From: Arno <star@gmx.li>
-To: poky@yoctoproject.org
-Date: Thu, 2 Jun 2016 12:24:00 +0200
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K0:7PsrzDxnx0gUiatNTJoao3NZ12qCuGp61H4hdtQLB+F
-	r2nFNp5kCKLDeXUIAZpEYXA8gahcjvO+Ex/wT8+rvu1+uYPObn
-	xfC7uvrVIwsqzyQ0Jo80eepAteXhFmksCRG+ZdBnI1OitwAAt9
-	msZz4zT7ghJlUEnixxeO+IEl6ymBTlpr9X4axxbGuefgHO6ld/
-	PCfg8aMHDbQuUdINmXqWDE0ai2/AaBOuBEKJb5KsrfX/1mdvi+
-	5n+g+7m4REifLbtv4A0fJUbfo9LLbDS8BmEvKnY2orJd1fzE3e yiUnFk=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:25fi6ZI2Rx8=:ncYwBtr4KUpjK1RM5q80nc
-	o9rWA2tr33p9bPMiGlR08TMuEJComkdKzEB4TDdSr4t1gUnRbGg6Gb2NV9g9KCrLbhSBH0c5p
-	Ioor8v2loWzd3/HFLvLunkkxHStAP8CXiO9Y88j9eZl9hnXZZWRiJAEUbaKaS7ErQCKYkqV4O
-	okfiytps62TTQyTWqIqBNDHHyrnQh+MhB71Uj4svtgojVfo1qgF+rPk2aW8/3rJjycZHT+pWN
-	o2FWw3h2sz01oI8Gr7Ems2CUvPmAfgrq0W0aLO34ou9yYq2oi78WDz0x9dM7gW6Vzds1iGopP
-	KO8zL1tzV9dsbFBnlQO4SF2SpC8Y9ViH7HvyvMNu4nzG9MPyO0S9KmeVTnc9q9FOVVYOaWSEG
-	T1SkHJqEy7sphAWNtPm5BXJB2hueb713XhM8m06yQLiStStv96Do0fFaPokPGVRUaA9btjFH5
-	NlIQuTUbYA==
-Subject: QEMU bug in scripts (maybe just XILINX zynq)
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AdG8xneVD92SS5XhSEiOX86MG4GQJQ==
+Subject: Mismatch (armel/armhf) between debs and dpkg
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: colin.helliwell@ln-systems.com
 List-Id: Poky build system developer discussion & patch submission for
 	meta-yocto <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
@@ -53,54 +41,94 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Jun 2016 10:24:05 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Thu, 02 Jun 2016 12:27:37 -0000
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_29E7_01D1BCCF.3011F370"
+Content-Language: en-gb
 
-Not sure whether this is a bug in xilinx or in poky layer.
+------=_NextPart_000_29E7_01D1BCCF.3011F370
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-"runqemu qemuzynq" out of the yocto build directory failed.
-Reason is, that it calls qemu with params:  "-net nic,model=virtio", which is not present.
-Instead of this, the available nic for zynq is "candence_gem".
+I'm trying to understand where/why/how [the target] dpkg is setting it's
+default architecture. I'm building for BeagleBoneBlack, which is compiling
+for hardware floating point. The .deb packages created are suffixed armhf
+(correctly picked up through package_deb.class), yet the dpkg binary itself
+reports the architecture as armel.
 
-I searched a while and found this hardcoded it poky/scripts/qemurun-internal.
-A change there, and it works.
+Hence, other than forcing/overriding this, dpkg complains about the
+architecture mismatch.
 
-The second issue is with qemu and NFS.
+Is there something in there somewhere which will correct dpkg's behaviour?
 
-According to manual I call
-
-yocto_qemu$ runqemu qemuzynq ~/.y/nfs_qemu
-
-The output is below:
-
------------
-Assuming /home/user/.y/nfs_qemu is an nfs rootfs
-
-Continuing with the following parameters:
-KERNEL: [/home/user/.y/yocto_qemu/tmp/deploy/images/qemuzynq/uImage]
-ROOTFS: [/home/user/.y/nfs_qemu]
-FSTYPE: [nfs]
-Acquiring lockfile for tap0...
-Using preconfigured tap device 'tap0'
-If this is not intended, touch /tmp/qemu-tap-locks/tap0.skip to make runqemu skip tap0.
-runqemu-export-rootfs restart /home/user/.y/nfs_qemu
-No PID file, not stopping rpc.nfsd
-Creating exports file...
-Starting User Mode nfsd
-  /home/user/.y/yocto_qemu/tmp/sysroots/x86_64-linux/usr/bin/pseudo -P /home/user/.y/yocto_qemu/tmp/sysroots/x86_64-linux/usr /home/user/.y/yocto_qemu/tmp/sysroots/x86_64-linux/usr/bin/unfsd -p -N -i /home/user/.runqemu-sdk/nfs0.pid -e /home/user/.runqemu-sdk/exports0 -x 11111 -n 3049 -y 21111 -m 3048
  
-On your target please remember to add the following options for NFS
-nfsroot=IP_ADDRESS:/home/user/.y/nfs_qemu,nfsvers=3,port=,mountprog=,nfsprog=,udp,mountport=
-Error: Unable to support this combination of options
-Releasing lockfile of preconfigured tap device 'tap0'
-Shutting down the userspace NFS server...
-runqemu-export-rootfs stop /home/user/.y/nfs_qemu
-Stopping rpc.nfsd
-Removing exports file
----------
 
-The "Error: Unable to support this combination of options" is issued by runqemu-internal.
 
-best regards
-Arno
+------=_NextPart_000_29E7_01D1BCCF.3011F370
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-GB =
+link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
+class=3DMsoNormal>I&#8217;m trying to understand where/why/how [the =
+target] dpkg is setting it&#8217;s default architecture. I&#8217;m =
+building for BeagleBoneBlack, which is compiling for hardware floating =
+point. The .deb packages created are suffixed armhf (correctly picked up =
+through package_deb.class), yet the dpkg binary itself reports the =
+architecture as armel.<o:p></o:p></p><p class=3DMsoNormal>Hence, other =
+than forcing/overriding this, dpkg complains about the architecture =
+mismatch.<o:p></o:p></p><p class=3DMsoNormal>Is there something in there =
+somewhere which will correct dpkg&#8217;s behaviour?<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></body></html>
+
+------=_NextPart_000_29E7_01D1BCCF.3011F370--
