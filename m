@@ -1,58 +1,81 @@
-Return-Path: <Teemu.Keskinarkaus@Maximatecc.com>
+Return-Path: <jean-fabien.arnaud@src-solution.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8DAF9E00CDE; Tue,  7 Jun 2016 22:06:37 -0700 (PDT)
+	id AE82AE00CE9; Wed,  8 Jun 2016 09:02:27 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
+	SPF_HELO_PASS autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [148.163.159.126 listed in list.dnswl.org]
+	*      [157.56.112.103 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 358 seconds by postgrey-1.32 at yocto-www;
-	Tue, 07 Jun 2016 22:06:31 PDT
-Received: from mx0b-001ea001.pphosted.com (mx0b-001ea001.pphosted.com
-	[148.163.159.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4B07FE00CBE
-	for <poky@yoctoproject.org>; Tue,  7 Jun 2016 22:06:31 -0700 (PDT)
-Received: from pps.filterd (m0088396.ppops.net [127.0.0.1])
-	by mx0b-001ea001.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
-	u5850CEQ005250; Wed, 8 Jun 2016 00:00:28 -0500
-Received: from ammail.actuant.com ([207.250.73.121])
-	by mx0b-001ea001.pphosted.com with ESMTP id 23e382gxd6-1
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Wed, 08 Jun 2016 00:00:28 -0500
-Received: from AMDTCEX15.actuant.pri ([169.254.7.160]) by
-	AMDTCEX13.actuant.pri ([169.254.5.12]) with mapi id 14.03.0174.001;
-	Wed, 8 Jun 2016 00:00:27 -0500
-From: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@Maximatecc.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Thread-Topic: [poky] Recompiles in Yocto/Poky
-Thread-Index: AdG8hSPPyTeG7pUNTe+AardJiC/kYAA3u6FAAPuMOoAABFW/cAACFzEAAApk+IA=
-Date: Wed, 8 Jun 2016 05:00:27 +0000
-Message-ID: <83DB4EC8FADD45428E3CC4E3664761FD400438CF@AMDTCEX15.actuant.pri>
-References: <83DB4EC8FADD45428E3CC4E3664761FD4004044C@AMDTCEX15.actuant.pri>
-	<488452498.gBbhXqb4nk@peggleto-mobl.ger.corp.intel.com>
-	<83DB4EC8FADD45428E3CC4E3664761FD400438B4@AMDTCEX15.actuant.pri>
-	<2358144.WdaeRfuoQP@peggleto-mobl.ger.corp.intel.com>
-In-Reply-To: <2358144.WdaeRfuoQP@peggleto-mobl.ger.corp.intel.com>
-Accept-Language: fi-FI, en-US
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+X-Greylist: delayed 5529 seconds by postgrey-1.32 at yocto-www;
+	Wed, 08 Jun 2016 09:02:22 PDT
+Received: from emea01-am1-obe.outbound.protection.outlook.com
+	(mail-am1on0103.outbound.protection.outlook.com [157.56.112.103])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 58EFEE00CCA
+	for <poky@yoctoproject.org>; Wed,  8 Jun 2016 09:02:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=SRCSOLUTION1.onmicrosoft.com; s=selector1-srcsolution-com0i;
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+	bh=ktihaqm6CJFjnjMlqJ1TfyJk8yc22aF/LIq9uzC4tKc=;
+	b=Ef4U33sJ8qXKLA6In5iJQ8Wj0MN+GaF10VkFf2uUs8WtmR4aUA0Qqr/MjV7YnEpJS7wB13oF9dtnMia4UGX+7JXFa5BUUAPWn/HtpitEtWwvglEihGl2fCLVMzgqSesRYXcnp+y4hYXY4m4WjC0WAbz/E+Su25rmr0iBdTdtYmw=
+Received: from AM4PR05MB1537.eurprd05.prod.outlook.com (10.164.79.155) by
+	AM4PR05MB1537.eurprd05.prod.outlook.com (10.164.79.155) with Microsoft
+	SMTP Server (TLS) id 15.1.511.8; Wed, 8 Jun 2016 14:30:11 +0000
+Received: from AM4PR05MB1537.eurprd05.prod.outlook.com ([10.164.79.155]) by
+	AM4PR05MB1537.eurprd05.prod.outlook.com ([10.164.79.155]) with mapi id
+	15.01.0511.010; Wed, 8 Jun 2016 14:30:11 +0000
+From: Jean-Fabien Arnaud <jean-fabien.arnaud@src-solution.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: Cross compilation - Could not find lua libs 
+Thread-Index: AQHRwZJD92mmd5hTVUKJPt7dGrI/Jg==
+Date: Wed, 8 Jun 2016 14:30:11 +0000
+Message-ID: <4B09C702-BFE0-4848-8F40-D0AA14FCB5E1@src-solution.com>
+Accept-Language: fr-FR, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.10.116]
+user-agent: Microsoft-MacOutlook/f.16.0.160506
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=jean-fabien.arnaud@src-solution.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [193.248.45.86]
+x-ms-office365-filtering-correlation-id: 4286c23f-ed98-448f-77cd-08d38fa965fd
+x-microsoft-exchange-diagnostics: 1; AM4PR05MB1537;
+	5:+fyn2nMmxZlHX7aKuneo7WJuLDNovLYfpYmOX44MdJWzisgElEWMoXdmUPn6LwjkWHm2npG1rv0vXJyHBv39Jh2S6jY2oUzFhd35nj4tfe1jpQuM6PDpkJnqOQ0Ps4aUwz9cjYDBgqrt+XSCUNg4Zg==;
+	24:9I4gcPvR3VeyDyweL07I9OhUzk4+uVLxcbAy2nh8s0gR1ahlwqLt1t2Sg8ZJOZB9eGqeSEZqqRzoxpB4loCW1xSmlM3yV2lysOq8FavvQ+0=;
+	7:sWENFTJGWVkDznvxjtbAbhL+zAkicp3BHJsLTwKiGqSuhQACaQF+ueZ2m5xW+rModxguuPzeSkZ75JURZnzSr8Z11pq5x9dhfYIluh5/UpaBVLDzEoLoOoTrUVieYcW3huSHe+mYjxWAaJCqwdSIuRRxo8dwBvljK0RL8mT8/mB4kipftfT4xLNHjqcubE6FJ2IbAHBCe7zm+1FsZrjjfnoLs/krBISqR9g50JvqkiA=
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:AM4PR05MB1537;
+x-microsoft-antispam-prvs: <AM4PR05MB1537E005F988BF9B00B2A6D5EA5E0@AM4PR05MB1537.eurprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:(166708455590820)(21748063052155);
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+	RULEID:(6040130)(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046)(6041072)(6043046);
+	SRVR:AM4PR05MB1537; BCL:0; PCL:0; RULEID:; SRVR:AM4PR05MB1537; 
+x-forefront-prvs: 0967749BC1
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10019020)(189002)(199003)(83506001)(50986999)(19580395003)(54356999)(101416001)(450100001)(5640700001)(11100500001)(82746002)(3280700002)(106116001)(106356001)(2906002)(19625215002)(87936001)(19617315012)(105586002)(2351001)(5008740100001)(66066001)(36756003)(3660700001)(229853001)(122556002)(8676002)(68736007)(33656002)(8936002)(6116002)(86362001)(189998001)(2900100001)(83716003)(586003)(16236675004)(81156014)(77096005)(102836003)(97736004)(10400500002)(3846002)(4001350100001)(92566002)(110136002)(19300405004)(15975445007)(5002640100001)(1730700003)(107886002)(2501003)(81166006)(5004730100002)(104396002);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:AM4PR05MB1537;
+	H:AM4PR05MB1537.eurprd05.prod.outlook.com; FPR:; SPF:None;
+	PTR:InfoNoRecords; MX:1; A:1; LANG:en; 
+received-spf: None (protection.outlook.com: src-solution.com does not
+	designate permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
-	definitions=2016-06-08_01:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	suspectscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
-	clxscore=1011 impostorscore=0 lowpriorityscore=0 adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1604210000
-	definitions=main-1606080060
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Recompiles in Yocto/Poky
+X-OriginatorOrg: src-solution.com
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2016 14:30:11.1320 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e01bc331-72cf-4e6c-a0f8-07266be1ce22
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR05MB1537
+Subject: Cross compilation - Could not find lua libs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,131 +88,164 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2016 05:06:37 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 08 Jun 2016 16:02:27 -0000
+Content-Language: fr-FR
+Content-Type: multipart/alternative;
+	boundary="_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_"
 
-Unfortunately we are not using git but svn as version control.
+--_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-So as it stands at the moment there isn't way to prevent the recompilation(=
-in my case) expect modifying Yocto sources which I rather not do.
+SGVsbG8NCkkgd291bGQgbGlrZSB0byBjb21waWxlIGh0dHBzOi8vZ2l0aHViLmNvbS9zYmVybmFy
+ZDMxL2x1YWx3bTJtIHdpdGggYSBwb2t5IHRvb2xjaGFpbiwgYnV0IGl0IGNhbiBub3QgZmluZCBs
+dWEgbGlicmFyeSBhbmQgaSBkbyBub3Qga25vdyB3aHkuDQpMdWEgNS4xIGlzIGluc3RhbGxlZCwg
+YW5kIEkgaGF2ZSBubyBwcm9ibGVtIHRvIGNvbXBpbGUgd2l0aCB0aGUgwqsgZGVmYXVsdCDCuyBn
+Y2MuDQoNCiQ6fi9idWlsZF9hcm0kIGNtYWtlIC1EQ01BS0VfQ19DT01QSUxFUj0vb3B0L3Bva3kv
+MS42LjEvc3lzcm9vdHMveDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51
+eC1nbnVlYWJpL2FybS1wb2t5LWxpbnV4LWdudWVhYmktZ2NjIC4uL2x1YWx3bTJtLw0KLS0gVGhl
+IEMgY29tcGlsZXIgaWRlbnRpZmljYXRpb24gaXMgR05VIDQuOC4yDQotLSBDaGVjayBmb3Igd29y
+a2luZyBDIGNvbXBpbGVyOiAvb3B0L3Bva3kvMS42LjEvc3lzcm9vdHMveDg2XzY0LXBva3lzZGst
+bGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVlYWJpL2FybS1wb2t5LWxpbnV4LWdudWVh
+YmktZ2NjDQotLSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvb3B0L3Bva3kvMS42LjEv
+c3lzcm9vdHMveDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVl
+YWJpL2FybS1wb2t5LWxpbnV4LWdudWVhYmktZ2NjIC0tIHdvcmtzDQotLSBEZXRlY3RpbmcgQyBj
+b21waWxlciBBQkkgaW5mbw0KLS0gRGV0ZWN0aW5nIEMgY29tcGlsZXIgQUJJIGluZm8gLSBkb25l
+DQpDTWFrZSBFcnJvciBhdCAvdXNyL3NoYXJlL2NtYWtlLTIuOC9Nb2R1bGVzL0ZpbmRQYWNrYWdl
+SGFuZGxlU3RhbmRhcmRBcmdzLmNtYWtlOjEwOCAobWVzc2FnZSk6DQogIENvdWxkIE5PVCBmaW5k
+IEx1YTUxIChtaXNzaW5nOiBMVUFfTElCUkFSSUVTKSAoZm91bmQgdmVyc2lvbiAiNS4xLjUiKQ0K
+Q2FsbCBTdGFjayAobW9zdCByZWNlbnQgY2FsbCBmaXJzdCk6DQogIC91c3Ivc2hhcmUvY21ha2Ut
+Mi44L01vZHVsZXMvRmluZFBhY2thZ2VIYW5kbGVTdGFuZGFyZEFyZ3MuY21ha2U6MzE1IChfRlBI
+U0FfRkFJTFVSRV9NRVNTQUdFKQ0KICAvdXNyL3NoYXJlL2NtYWtlLTIuOC9Nb2R1bGVzL0ZpbmRM
+dWE1MS5jbWFrZTo3NiAoRklORF9QQUNLQUdFX0hBTkRMRV9TVEFOREFSRF9BUkdTKQ0KICBDTWFr
+ZUxpc3RzLnR4dDozIChmaW5kX3BhY2thZ2UpDQoNCiQ6fi9idWlsZF9hcm0kIGNtYWtlIC4uL2x1
+YWx3bTJtLw0KLS0gVGhlIEMgY29tcGlsZXIgaWRlbnRpZmljYXRpb24gaXMgR05VIDQuOC40DQot
+LSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvdXNyL2Jpbi9jYw0KLS0gQ2hlY2sgZm9y
+IHdvcmtpbmcgQyBjb21waWxlcjogL3Vzci9iaW4vY2MgLS0gd29ya3MNCi0tIERldGVjdGluZyBD
+IGNvbXBpbGVyIEFCSSBpbmZvDQotLSBEZXRlY3RpbmcgQyBjb21waWxlciBBQkkgaW5mbyAtIGRv
+bmUNCi0tIEZvdW5kIEx1YTUxOiAvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L2xpYmx1YTUuMS5z
+bzsvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L2xpYm0uc28gKGZvdW5kIHZlcnNpb24gIjUuMS41
+IikNCi0tIENvbmZpZ3VyaW5nIGRvbmUNCi0tIEdlbmVyYXRpbmcgZG9uZQ0KLS0gQnVpbGQgZmls
+ZXMgaGF2ZSBiZWVuIHdyaXR0ZW4gdG86IC9ob21lL2pmL2J1aWxkX2FybQ0KDQpJIGhvcGUgaSBh
+bSBwdWJsaXNoaW5nIG9uIHRoZSBnb29kIE1MLCBpZiBhbnlib2R5IGNhbiB0ZWxsIG1lIHdoYXQg
+YW0gSSBkb2luZyB3cm9uZyA/DQoNClRoYW5rIHlvdQ0KSmVhbiBGYWJpZW4NCg==
 
-Teemu Keskinarkaus
-Software system engineer
-maximatecc
-making machines smart, safe and productive
+--_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <97058D97D730FA4589FB35C86FBE531A@eurprd05.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iVGl0cmUiIGNvbnRlbnQ9IiI+DQo8bWV0YSBuYW1lPSJNb3RzIGNsw6lzIiBjb250
+ZW50PSIiPg0KPG1ldGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAx
+NSAoZmlsdGVyZWQgbWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAq
+Lw0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToy
+IDQgNSAzIDUgNCA2IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsN
+CglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAq
+Lw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGNt
+Ow0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFt
+aWx5OkNhbGlicmk7DQoJbXNvLWZhcmVhc3QtbGFuZ3VhZ2U6RU4tVVM7fQ0KYTpsaW5rLCBzcGFu
+Lk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6IzA1NjNDMTsN
+Cgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxp
+bmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Izk1NEY3MjsNCgl0
+ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHls
+ZS10eXBlOnBlcnNvbmFsLWNvbXBvc2U7DQoJZm9udC1mYW1pbHk6Q2FsaWJyaTsNCgljb2xvcjp3
+aW5kb3d0ZXh0O30NCnNwYW4ubXNvSW5zDQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0K
+CW1zby1zdHlsZS1uYW1lOiIiOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7DQoJY29sb3I6
+dGVhbDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsNCglm
+b250LWZhbWlseTpDYWxpYnJpOw0KCW1zby1mYXJlYXN0LWxhbmd1YWdlOkVOLVVTO30NCkBwYWdl
+IFdvcmRTZWN0aW9uMQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBwdDsNCgltYXJnaW46NzAuODVwdCA3
+MC44NXB0IDcwLjg1cHQgNzAuODVwdDt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNl
+Y3Rpb24xO30NCi0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBiZ2NvbG9yPSJ3aGl0ZSIgbGFu
+Zz0iRlIiIGxpbms9IiMwNTYzQzEiIHZsaW5rPSIjOTU0RjcyIj4NCjxkaXYgY2xhc3M9IldvcmRT
+ZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdCI+SGVsbG88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SSB3b3VsZCBsaWtlIHRvIGNvbXBpbGUgPGEg
+aHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL3NiZXJuYXJkMzEvbHVhbHdtMm0iPg0KaHR0cHM6Ly9n
+aXRodWIuY29tL3NiZXJuYXJkMzEvbHVhbHdtMm08L2E+IHdpdGggYSBwb2t5IHRvb2xjaGFpbiwg
+YnV0IGl0IGNhbiBub3QgZmluZCBsdWEgbGlicmFyeSBhbmQgaSBkbyBub3Qga25vdyB3aHkuPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQiPkx1YSA1LjEgaXMgaW5zdGFsbGVkLCBhbmQgSSBoYXZlIG5vIHByb2Js
+ZW0gdG8gY29tcGlsZSB3aXRoIHRoZSDCqyZuYnNwO2RlZmF1bHQmbmJzcDvCuyBnY2MuPG86cD48
+L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQt
+c2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIi
+PiQ6fi9idWlsZF9hcm0kIGNtYWtlIC1EQ01BS0VfQ19DT01QSUxFUj0vb3B0L3Bva3kvMS42LjEv
+c3lzcm9vdHMveDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVl
+YWJpL2FybS1wb2t5LWxpbnV4LWdudWVhYmktZ2NjIC4uL2x1YWx3bTJtLzxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIFRoZSBDIGNvbXBpbGVyIGlkZW50aWZpY2F0aW9u
+IGlzIEdOVSA0LjguMjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIENo
+ZWNrIGZvciB3b3JraW5nIEMgY29tcGlsZXI6IC9vcHQvcG9reS8xLjYuMS9zeXNyb290cy94ODZf
+NjQtcG9reXNkay1saW51eC91c3IvYmluL2FybS1wb2t5LWxpbnV4LWdudWVhYmkvYXJtLXBva3kt
+bGludXgtZ251ZWFiaS1nY2M8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4t
+LSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvb3B0L3Bva3kvMS42LjEvc3lzcm9vdHMv
+eDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVlYWJpL2FybS1w
+b2t5LWxpbnV4LWdudWVhYmktZ2NjIC0tIHdvcmtzPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1p
+bHk6Q291cmllciI+LS0gRGV0ZWN0aW5nIEMgY29tcGlsZXIgQUJJIGluZm88bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBEZXRlY3RpbmcgQyBjb21waWxlciBBQkkgaW5m
+byAtIGRvbmU8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
+biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj5DTWFrZSBFcnJv
+ciBhdCAvdXNyL3NoYXJlL2NtYWtlLTIuOC9Nb2R1bGVzL0ZpbmRQYWNrYWdlSGFuZGxlU3RhbmRh
+cmRBcmdzLmNtYWtlOjEwOCAobWVzc2FnZSk6PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
+Q291cmllciI+Jm5ic3A7IENvdWxkIE5PVCBmaW5kIEx1YTUxIChtaXNzaW5nOiBMVUFfTElCUkFS
+SUVTKSAoZm91bmQgdmVyc2lvbiAmcXVvdDs1LjEuNSZxdW90Oyk8bzpwPjwvbzpwPjwvc3Bhbj48
+L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
+b250LWZhbWlseTpDb3VyaWVyIj5DYWxsIFN0YWNrIChtb3N0IHJlY2VudCBjYWxsIGZpcnN0KTo8
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0i
+Zm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4mbmJzcDsgL3Vzci9zaGFyZS9j
+bWFrZS0yLjgvTW9kdWxlcy9GaW5kUGFja2FnZUhhbmRsZVN0YW5kYXJkQXJncy5jbWFrZTozMTUg
+KF9GUEhTQV9GQUlMVVJFX01FU1NBR0UpPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6Q291
+cmllciI+Jm5ic3A7IC91c3Ivc2hhcmUvY21ha2UtMi44L01vZHVsZXMvRmluZEx1YTUxLmNtYWtl
+Ojc2IChGSU5EX1BBQ0tBR0VfSEFORExFX1NUQU5EQVJEX0FSR1MpPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7
+Zm9udC1mYW1pbHk6Q291cmllciI+Jm5ic3A7IENNYWtlTGlzdHMudHh0OjMgKGZpbmRfcGFja2Fn
+ZSk8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHls
+ZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj48bzpwPiZuYnNwOzwvbzpw
+Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
+OjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4kOn4vYnVpbGRfYXJtJCBjbWFrZSAuLi9sdWFs
+d20ybS88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBz
+dHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBUaGUgQyBjb21w
+aWxlciBpZGVudGlmaWNhdGlvbiBpcyBHTlUgNC44LjQ8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZh
+bWlseTpDb3VyaWVyIj4tLSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvdXNyL2Jpbi9j
+YzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxl
+PSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIENoZWNrIGZvciB3b3Jr
+aW5nIEMgY29tcGlsZXI6IC91c3IvYmluL2NjIC0tIHdvcmtzPG86cD48L286cD48L3NwYW4+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9u
+dC1mYW1pbHk6Q291cmllciI+LS0gRGV0ZWN0aW5nIEMgY29tcGlsZXIgQUJJIGluZm88bzpwPjwv
+bzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1z
+aXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBEZXRlY3RpbmcgQyBjb21waWxlciBB
+QkkgaW5mbyAtIGRvbmU8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBG
+b3VuZCBMdWE1MTogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9saWJsdWE1LjEuc287L3Vzci9s
+aWIveDg2XzY0LWxpbnV4LWdudS9saWJtLnNvIChmb3VuZCB2ZXJzaW9uICZxdW90OzUuMS41JnF1
+b3Q7KQ0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
+c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6Q291cmllciI+LS0gQ29uZmlndXJp
+bmcgZG9uZTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIEdlbmVyYXRp
+bmcgZG9uZTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIEJ1aWxkIGZp
+bGVzIGhhdmUgYmVlbiB3cml0dGVuIHRvOiAvaG9tZS9qZi9idWlsZF9hcm08bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SSBob3Bl
+IGkgYW0gcHVibGlzaGluZyBvbiB0aGUgZ29vZCBNTCwgaWYgYW55Ym9keSBjYW4gdGVsbCBtZSB3
+aGF0IGFtIEkgZG9pbmcgd3JvbmcmbmJzcDs/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7
+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250
+LXNpemU6MTEuMHB0Ij5UaGFuayB5b3U8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SmVhbiBGYWJpZW48bzpw
+PjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
------Original Message-----
-From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]
-Sent: 8. kes=E4kuuta 2016 7:56
-To: Keskinarkaus, Teemu
-Cc: Peter Kjellerstedt; poky@yoctoproject.org; Markus Lehtonen
-Subject: Re: [poky] Recompiles in Yocto/Poky
-
-There's no mechanism to exclude files at present, but it sounds like we sho=
-uld add one. One workaround right now would be to track your source tree in=
- a git repository and have .gitignore cover the generated files; I apprecia=
-te though that if you aren't using git for version control this is hardly i=
-deal so it's not a substitute for a proper fix.
-
-Cheers,
-Paul
-
-On Wed, 08 Jun 2016 04:50:15 Keskinarkaus, Teemu wrote:
-> I think there are some files that are being generated at compilation
-> time so most likely those triggers the recompilation every time.
->
-> The next question is that how to I 'hide' files so that they don't
-> trigger the recompilation? Is that something that I need to do on my
-> application side or can I list files in Yocto to ignore when hashing
-> files? This is most likely the proper way to deal with this issue
-> rather than disabling whole feature.
->
-> Teemu Keskinarkaus
-> Software system engineer
-> maximatecc
-> making machines smart, safe and productive
->
->
-> -----Original Message-----
-> From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]
-> Sent: 8. kes=E4kuuta 2016 4:52
-> To: Peter Kjellerstedt; Keskinarkaus, Teemu
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] Recompiles in Yocto/Poky
->
-> On Fri, 03 Jun 2016 07:00:14 Peter Kjellerstedt wrote:
-> > This is a feature introduced to complement the main use of
-> > externalsrc, which is together with devtool. When you use "devtool
-> > modify -x <recipe>", it fetches the sources as specified in the
-> > recipe and makes them available locally. At the same time it sets up
-> > a bbappend in the workspace layer which uses externalsrc to use
-> > those sources when building the recipe. This is intended to make it
-> > easy to use BitBake to actually work on and develop the sources.
-> > However, for this to work in practice, BitBake must rebuild the
-> > package if there are any changes in the sources, but since BitBake
-> > normally only looks at the meta data to determine if a recipe task
-> > needs to run, there is nothing telling it that the sources have
-> > changed. Therefore changes were made so that code specified using exter=
-nalsrc is always rebuilt.
->
-> In 2.0 that's how it behaved - what it's supposed to do in 2.1 is
-> determine if the sources have changed by either relying on the git
-> metadata (if the source tree is tracked in git) or by hashing all
-> files in the source tree if it isn't. It could be false triggering if
-> you have files in the source tree that get regenerated as part of the
-> compilation process that aren't hidden. Teemu, is that the case for your =
-source tree?
->
-> Unfortunately there is no way at present to turn off this
-> functionality; we could add one, however before doing that I would be
-> more interested in looking at making the code more intelligent so it
-> did automatically rebuild in response to source changes for this case
-> and not when there were no changes, assuming that's practical.
->
-> Cheers,
-> Paul
->
-> --
->
-> Paul Eggleton
-> Intel Open Source Technology Centre
->
-> ________________________________
->
-> Actuant Corporation Email Notice
->
-> This message is intended only for the use of the Addressee and may
-> contain information that is PRIVILEGED and/or CONFIDENTIAL. This email
-> is intended only for the personal and confidential use of the recipient(s=
-) named above.
-> If the reader of this email is not an intended recipient, you have
-> received this email in error and any review, dissemination,
-> distribution or copying is strictly prohibited. If you have received
-> this email in error, please notify the sender immediately by return
-> mail and permanently delete the copy you received.
->
-> Thank you.
-
---
-
-Paul Eggleton
-Intel Open Source Technology Centre
-
-________________________________
-
-Actuant Corporation Email Notice
-
-This message is intended only for the use of the Addressee and may contain =
-information that is PRIVILEGED and/or CONFIDENTIAL.
-This email is intended only for the personal and confidential use of the re=
-cipient(s) named above. If the reader of this email is not an intended reci=
-pient, you have received this email in error and any review, dissemination,=
- distribution or copying is strictly prohibited.
-If you have received this email in error, please notify the sender immediat=
-ely by return mail and permanently delete the copy you received.
-
-Thank you.
-
+--_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_--
