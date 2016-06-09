@@ -1,81 +1,65 @@
-Return-Path: <jean-fabien.arnaud@src-solution.com>
+Return-Path: <Daniel.Klauer@gin.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AE82AE00CE9; Wed,  8 Jun 2016 09:02:27 -0700 (PDT)
+	id B80A1E00D20; Thu,  9 Jun 2016 00:36:40 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [157.56.112.103 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [212.223.36.25 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 5529 seconds by postgrey-1.32 at yocto-www;
-	Wed, 08 Jun 2016 09:02:22 PDT
-Received: from emea01-am1-obe.outbound.protection.outlook.com
-	(mail-am1on0103.outbound.protection.outlook.com [157.56.112.103])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 58EFEE00CCA
-	for <poky@yoctoproject.org>; Wed,  8 Jun 2016 09:02:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=SRCSOLUTION1.onmicrosoft.com; s=selector1-srcsolution-com0i;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
-	bh=ktihaqm6CJFjnjMlqJ1TfyJk8yc22aF/LIq9uzC4tKc=;
-	b=Ef4U33sJ8qXKLA6In5iJQ8Wj0MN+GaF10VkFf2uUs8WtmR4aUA0Qqr/MjV7YnEpJS7wB13oF9dtnMia4UGX+7JXFa5BUUAPWn/HtpitEtWwvglEihGl2fCLVMzgqSesRYXcnp+y4hYXY4m4WjC0WAbz/E+Su25rmr0iBdTdtYmw=
-Received: from AM4PR05MB1537.eurprd05.prod.outlook.com (10.164.79.155) by
-	AM4PR05MB1537.eurprd05.prod.outlook.com (10.164.79.155) with Microsoft
-	SMTP Server (TLS) id 15.1.511.8; Wed, 8 Jun 2016 14:30:11 +0000
-Received: from AM4PR05MB1537.eurprd05.prod.outlook.com ([10.164.79.155]) by
-	AM4PR05MB1537.eurprd05.prod.outlook.com ([10.164.79.155]) with mapi id
-	15.01.0511.010; Wed, 8 Jun 2016 14:30:11 +0000
-From: Jean-Fabien Arnaud <jean-fabien.arnaud@src-solution.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Cross compilation - Could not find lua libs 
-Thread-Index: AQHRwZJD92mmd5hTVUKJPt7dGrI/Jg==
-Date: Wed, 8 Jun 2016 14:30:11 +0000
-Message-ID: <4B09C702-BFE0-4848-8F40-D0AA14FCB5E1@src-solution.com>
-Accept-Language: fr-FR, en-US
+Received: from good-out-16.clustermail.de (good-out-16.clustermail.de
+	[212.223.36.25])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5ACAAE00C1F
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2016 00:36:36 -0700 (PDT)
+Received: from frontend-04 ([10.0.0.4] helo=frontend.clustermail.de)
+	by smtpout-04.clustermail.de with esmtps
+	(TLSv1.2:DHE-RSA-AES256-GCM-SHA384:256) (Exim 4.84_2)
+	(envelope-from <Daniel.Klauer@gin.de>)
+	id 1bAuVx-0004y1-Ay; Thu, 09 Jun 2016 09:36:34 +0200
+Received: from [217.6.33.234] (helo=Win2012-02.gin-domain.local)
+	by frontend.clustermail.de with esmtpa (Exim 4.84_2)
+	(envelope-from <Daniel.Klauer@gin.de>)
+	id 1bAuVx-0000RN-06; Thu, 09 Jun 2016 09:36:29 +0200
+Received: from Win2012-02.gin-domain.local (192.168.1.12) by
+	Win2012-02.gin-domain.local (192.168.1.12) with Microsoft SMTP Server
+	(TLS) id 15.0.1130.7; Thu, 9 Jun 2016 09:36:27 +0200
+Received: from Win2012-02.gin-domain.local ([fe80::3db4:55fd:d76e:9d90]) by
+	Win2012-02.gin-domain.local ([fe80::3db4:55fd:d76e:9d90%12]) with mapi
+	id 15.00.1130.005; Thu, 9 Jun 2016 09:36:27 +0200
+From: "Klauer, Daniel" <Daniel.Klauer@gin.de>
+To: Jean-Fabien Arnaud <jean-fabien.arnaud@src-solution.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky] Cross compilation - Could not find lua libs
+Thread-Index: AQHRwZJD92mmd5hTVUKJPt7dGrI/Jp/gvW+C
+Date: Thu, 9 Jun 2016 07:36:27 +0000
+Message-ID: <1465457787001.74413@gin.de>
+References: <4B09C702-BFE0-4848-8F40-D0AA14FCB5E1@src-solution.com>
+In-Reply-To: <4B09C702-BFE0-4848-8F40-D0AA14FCB5E1@src-solution.com>
+Accept-Language: en-US, de-DE
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/f.16.0.160506
-authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=jean-fabien.arnaud@src-solution.com; 
 x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [193.248.45.86]
-x-ms-office365-filtering-correlation-id: 4286c23f-ed98-448f-77cd-08d38fa965fd
-x-microsoft-exchange-diagnostics: 1; AM4PR05MB1537;
-	5:+fyn2nMmxZlHX7aKuneo7WJuLDNovLYfpYmOX44MdJWzisgElEWMoXdmUPn6LwjkWHm2npG1rv0vXJyHBv39Jh2S6jY2oUzFhd35nj4tfe1jpQuM6PDpkJnqOQ0Ps4aUwz9cjYDBgqrt+XSCUNg4Zg==;
-	24:9I4gcPvR3VeyDyweL07I9OhUzk4+uVLxcbAy2nh8s0gR1ahlwqLt1t2Sg8ZJOZB9eGqeSEZqqRzoxpB4loCW1xSmlM3yV2lysOq8FavvQ+0=;
-	7:sWENFTJGWVkDznvxjtbAbhL+zAkicp3BHJsLTwKiGqSuhQACaQF+ueZ2m5xW+rModxguuPzeSkZ75JURZnzSr8Z11pq5x9dhfYIluh5/UpaBVLDzEoLoOoTrUVieYcW3huSHe+mYjxWAaJCqwdSIuRRxo8dwBvljK0RL8mT8/mB4kipftfT4xLNHjqcubE6FJ2IbAHBCe7zm+1FsZrjjfnoLs/krBISqR9g50JvqkiA=
-x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:AM4PR05MB1537;
-x-microsoft-antispam-prvs: <AM4PR05MB1537E005F988BF9B00B2A6D5EA5E0@AM4PR05MB1537.eurprd05.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(166708455590820)(21748063052155);
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
-	RULEID:(6040130)(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046)(6041072)(6043046);
-	SRVR:AM4PR05MB1537; BCL:0; PCL:0; RULEID:; SRVR:AM4PR05MB1537; 
-x-forefront-prvs: 0967749BC1
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(189002)(199003)(83506001)(50986999)(19580395003)(54356999)(101416001)(450100001)(5640700001)(11100500001)(82746002)(3280700002)(106116001)(106356001)(2906002)(19625215002)(87936001)(19617315012)(105586002)(2351001)(5008740100001)(66066001)(36756003)(3660700001)(229853001)(122556002)(8676002)(68736007)(33656002)(8936002)(6116002)(86362001)(189998001)(2900100001)(83716003)(586003)(16236675004)(81156014)(77096005)(102836003)(97736004)(10400500002)(3846002)(4001350100001)(92566002)(110136002)(19300405004)(15975445007)(5002640100001)(1730700003)(107886002)(2501003)(81166006)(5004730100002)(104396002);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:AM4PR05MB1537;
-	H:AM4PR05MB1537.eurprd05.prod.outlook.com; FPR:; SPF:None;
-	PTR:InfoNoRecords; MX:1; A:1; LANG:en; 
-received-spf: None (protection.outlook.com: src-solution.com does not
-	designate permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [192.168.1.219]
+x-brightmail-tracker: H4sIAAAAAAAAC+NgFvrIqsTGxXJgBSOPbrVMZLjBw4Z3b/gtJn27wWjR09/H4sAUwBDFmpmXlF+RwJpx7c9y9oLnRhWtJxcwNzAuMOhi5OIQEtjNKDFr3xlGCOcEo8SZt3dZuhg5OZgFTCWufG2EshUlLtxrALPZBHQlzrW/ZwWxRQTyJW5NucYMYgsL2EucuTyLDSLuIPHz+Hl2CNtI4tP2u2BxCQEdib+LGsF6WQRUJPavWQw2k1dAQ+LhnF9g9UICzhK/Vr9k6mLk4OAUcJHYcScKJMwoICvR2fCOCeIccYlbT+YzQYwUkFiy5zwzhK0k0Xv7HVTcSGLJvUnMEOMFJU7OfMICETeT2PtgCVSNrsTVf1ugTguUWLxlFivIWgmg16++D4YIG0i8W/sZqtVYYuXG/4wQtq3EnhkTmSDKnSXm3aiHCDtJvOl4ywpha0tsf7WPFebxTddWQY2Rl/h/7z7LBEaNWUjhPAspnGcheXIWkgcWMLKsYpQOz8wzMjA00jUw0kvPzNNNyc9NzMzTy8lPTszZxAhNDjsYH312PcQoycGkJMp7RyoyXIgvKT+lMiOxOCO+qDQntfgQowQHj5IIL5c0UI63uCAxtzgzHSYlw8GhJMHrA9ImWJSanlqRlplTkloEkT7FKCklzmsOkhQA6csozYPLXWIUlRLmTZMEyvEUpBblZpZAxG8xCnM8ZBJiycvPS5UCOpEBCDQYXzGKczAqCfMeBbmBJzOvBO6EV0DXMQFdt/xIOMh1JYkIKakGRlFFvYVpjDZLr9m9qVxtb3Bm1uV5z3RVZH9Ey689NOFlgr6V87Gq4su7/540W9utOnfx7HPZffwXU1wkfXtYRO2/71kvuF15ca8Va07hoSM97odLOP59afV2EVxa4xqclX+u7sTjkiNpNz8/0Kv5se5+RQqDdUbo7iPcF//JTMgq6p31T4OfSYmlOCPRUIu5qDgRAAHtb7OEAwAA
 MIME-Version: 1.0
-X-OriginatorOrg: src-solution.com
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2016 14:30:11.1320 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: e01bc331-72cf-4e6c-a0f8-07266be1ce22
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR05MB1537
-Subject: Cross compilation - Could not find lua libs
+X-Cyberoam-smtpxy-version: 1.0.6.3
+X-Cyberoam-AV-Policy: default
+X-CTCH-PVer: 0000001
+X-CTCH-Spam: Unknown
+X-CTCH-VOD: Unknown
+X-CTCH-Flags: 0
+X-CTCH-RefID: str=0001.0A0C0201.57591C7C.01FB, ss=1, re=0.000, recu=0.000,
+	reip=0.000, cl=1, cld=1, fgs=0
+X-CTCH-Score: 0.000
+X-CTCH-ScoreCust: 0.000
+X-CTCH-Rules: 
+Subject: Re: Cross compilation - Could not find lua libs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -88,164 +72,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Jun 2016 16:02:27 -0000
-Content-Language: fr-FR
-Content-Type: multipart/alternative;
-	boundary="_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_"
+X-List-Received-Date: Thu, 09 Jun 2016 07:36:40 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative; boundary="_000_146545778700174413ginde_"
 
---_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_146545778700174413ginde_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-SGVsbG8NCkkgd291bGQgbGlrZSB0byBjb21waWxlIGh0dHBzOi8vZ2l0aHViLmNvbS9zYmVybmFy
-ZDMxL2x1YWx3bTJtIHdpdGggYSBwb2t5IHRvb2xjaGFpbiwgYnV0IGl0IGNhbiBub3QgZmluZCBs
-dWEgbGlicmFyeSBhbmQgaSBkbyBub3Qga25vdyB3aHkuDQpMdWEgNS4xIGlzIGluc3RhbGxlZCwg
-YW5kIEkgaGF2ZSBubyBwcm9ibGVtIHRvIGNvbXBpbGUgd2l0aCB0aGUgwqsgZGVmYXVsdCDCuyBn
-Y2MuDQoNCiQ6fi9idWlsZF9hcm0kIGNtYWtlIC1EQ01BS0VfQ19DT01QSUxFUj0vb3B0L3Bva3kv
-MS42LjEvc3lzcm9vdHMveDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51
-eC1nbnVlYWJpL2FybS1wb2t5LWxpbnV4LWdudWVhYmktZ2NjIC4uL2x1YWx3bTJtLw0KLS0gVGhl
-IEMgY29tcGlsZXIgaWRlbnRpZmljYXRpb24gaXMgR05VIDQuOC4yDQotLSBDaGVjayBmb3Igd29y
-a2luZyBDIGNvbXBpbGVyOiAvb3B0L3Bva3kvMS42LjEvc3lzcm9vdHMveDg2XzY0LXBva3lzZGst
-bGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVlYWJpL2FybS1wb2t5LWxpbnV4LWdudWVh
-YmktZ2NjDQotLSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvb3B0L3Bva3kvMS42LjEv
-c3lzcm9vdHMveDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVl
-YWJpL2FybS1wb2t5LWxpbnV4LWdudWVhYmktZ2NjIC0tIHdvcmtzDQotLSBEZXRlY3RpbmcgQyBj
-b21waWxlciBBQkkgaW5mbw0KLS0gRGV0ZWN0aW5nIEMgY29tcGlsZXIgQUJJIGluZm8gLSBkb25l
-DQpDTWFrZSBFcnJvciBhdCAvdXNyL3NoYXJlL2NtYWtlLTIuOC9Nb2R1bGVzL0ZpbmRQYWNrYWdl
-SGFuZGxlU3RhbmRhcmRBcmdzLmNtYWtlOjEwOCAobWVzc2FnZSk6DQogIENvdWxkIE5PVCBmaW5k
-IEx1YTUxIChtaXNzaW5nOiBMVUFfTElCUkFSSUVTKSAoZm91bmQgdmVyc2lvbiAiNS4xLjUiKQ0K
-Q2FsbCBTdGFjayAobW9zdCByZWNlbnQgY2FsbCBmaXJzdCk6DQogIC91c3Ivc2hhcmUvY21ha2Ut
-Mi44L01vZHVsZXMvRmluZFBhY2thZ2VIYW5kbGVTdGFuZGFyZEFyZ3MuY21ha2U6MzE1IChfRlBI
-U0FfRkFJTFVSRV9NRVNTQUdFKQ0KICAvdXNyL3NoYXJlL2NtYWtlLTIuOC9Nb2R1bGVzL0ZpbmRM
-dWE1MS5jbWFrZTo3NiAoRklORF9QQUNLQUdFX0hBTkRMRV9TVEFOREFSRF9BUkdTKQ0KICBDTWFr
-ZUxpc3RzLnR4dDozIChmaW5kX3BhY2thZ2UpDQoNCiQ6fi9idWlsZF9hcm0kIGNtYWtlIC4uL2x1
-YWx3bTJtLw0KLS0gVGhlIEMgY29tcGlsZXIgaWRlbnRpZmljYXRpb24gaXMgR05VIDQuOC40DQot
-LSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvdXNyL2Jpbi9jYw0KLS0gQ2hlY2sgZm9y
-IHdvcmtpbmcgQyBjb21waWxlcjogL3Vzci9iaW4vY2MgLS0gd29ya3MNCi0tIERldGVjdGluZyBD
-IGNvbXBpbGVyIEFCSSBpbmZvDQotLSBEZXRlY3RpbmcgQyBjb21waWxlciBBQkkgaW5mbyAtIGRv
-bmUNCi0tIEZvdW5kIEx1YTUxOiAvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L2xpYmx1YTUuMS5z
-bzsvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L2xpYm0uc28gKGZvdW5kIHZlcnNpb24gIjUuMS41
-IikNCi0tIENvbmZpZ3VyaW5nIGRvbmUNCi0tIEdlbmVyYXRpbmcgZG9uZQ0KLS0gQnVpbGQgZmls
-ZXMgaGF2ZSBiZWVuIHdyaXR0ZW4gdG86IC9ob21lL2pmL2J1aWxkX2FybQ0KDQpJIGhvcGUgaSBh
-bSBwdWJsaXNoaW5nIG9uIHRoZSBnb29kIE1MLCBpZiBhbnlib2R5IGNhbiB0ZWxsIG1lIHdoYXQg
-YW0gSSBkb2luZyB3cm9uZyA/DQoNClRoYW5rIHlvdQ0KSmVhbiBGYWJpZW4NCg==
+Hello,
 
---_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <97058D97D730FA4589FB35C86FBE531A@eurprd05.prod.outlook.com>
-Content-Transfer-Encoding: base64
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iVGl0cmUiIGNvbnRlbnQ9IiI+DQo8bWV0YSBuYW1lPSJNb3RzIGNsw6lzIiBjb250
-ZW50PSIiPg0KPG1ldGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAx
-NSAoZmlsdGVyZWQgbWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAq
-Lw0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToy
-IDQgNSAzIDUgNCA2IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsN
-CglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAq
-Lw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGNt
-Ow0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFt
-aWx5OkNhbGlicmk7DQoJbXNvLWZhcmVhc3QtbGFuZ3VhZ2U6RU4tVVM7fQ0KYTpsaW5rLCBzcGFu
-Lk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6IzA1NjNDMTsN
-Cgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxp
-bmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Izk1NEY3MjsNCgl0
-ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHls
-ZS10eXBlOnBlcnNvbmFsLWNvbXBvc2U7DQoJZm9udC1mYW1pbHk6Q2FsaWJyaTsNCgljb2xvcjp3
-aW5kb3d0ZXh0O30NCnNwYW4ubXNvSW5zDQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0K
-CW1zby1zdHlsZS1uYW1lOiIiOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7DQoJY29sb3I6
-dGVhbDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsNCglm
-b250LWZhbWlseTpDYWxpYnJpOw0KCW1zby1mYXJlYXN0LWxhbmd1YWdlOkVOLVVTO30NCkBwYWdl
-IFdvcmRTZWN0aW9uMQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBwdDsNCgltYXJnaW46NzAuODVwdCA3
-MC44NXB0IDcwLjg1cHQgNzAuODVwdDt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNl
-Y3Rpb24xO30NCi0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBiZ2NvbG9yPSJ3aGl0ZSIgbGFu
-Zz0iRlIiIGxpbms9IiMwNTYzQzEiIHZsaW5rPSIjOTU0RjcyIj4NCjxkaXYgY2xhc3M9IldvcmRT
-ZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
-LjBwdCI+SGVsbG88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SSB3b3VsZCBsaWtlIHRvIGNvbXBpbGUgPGEg
-aHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL3NiZXJuYXJkMzEvbHVhbHdtMm0iPg0KaHR0cHM6Ly9n
-aXRodWIuY29tL3NiZXJuYXJkMzEvbHVhbHdtMm08L2E+IHdpdGggYSBwb2t5IHRvb2xjaGFpbiwg
-YnV0IGl0IGNhbiBub3QgZmluZCBsdWEgbGlicmFyeSBhbmQgaSBkbyBub3Qga25vdyB3aHkuPG86
-cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
-bnQtc2l6ZToxMS4wcHQiPkx1YSA1LjEgaXMgaW5zdGFsbGVkLCBhbmQgSSBoYXZlIG5vIHByb2Js
-ZW0gdG8gY29tcGlsZSB3aXRoIHRoZSDCqyZuYnNwO2RlZmF1bHQmbmJzcDvCuyBnY2MuPG86cD48
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIi
-PiQ6fi9idWlsZF9hcm0kIGNtYWtlIC1EQ01BS0VfQ19DT01QSUxFUj0vb3B0L3Bva3kvMS42LjEv
-c3lzcm9vdHMveDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVl
-YWJpL2FybS1wb2t5LWxpbnV4LWdudWVhYmktZ2NjIC4uL2x1YWx3bTJtLzxvOnA+PC9vOnA+PC9z
-cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
-MHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIFRoZSBDIGNvbXBpbGVyIGlkZW50aWZpY2F0aW9u
-IGlzIEdOVSA0LjguMjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIENo
-ZWNrIGZvciB3b3JraW5nIEMgY29tcGlsZXI6IC9vcHQvcG9reS8xLjYuMS9zeXNyb290cy94ODZf
-NjQtcG9reXNkay1saW51eC91c3IvYmluL2FybS1wb2t5LWxpbnV4LWdudWVhYmkvYXJtLXBva3kt
-bGludXgtZ251ZWFiaS1nY2M8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4t
-LSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvb3B0L3Bva3kvMS42LjEvc3lzcm9vdHMv
-eDg2XzY0LXBva3lzZGstbGludXgvdXNyL2Jpbi9hcm0tcG9reS1saW51eC1nbnVlYWJpL2FybS1w
-b2t5LWxpbnV4LWdudWVhYmktZ2NjIC0tIHdvcmtzPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1p
-bHk6Q291cmllciI+LS0gRGV0ZWN0aW5nIEMgY29tcGlsZXIgQUJJIGluZm88bzpwPjwvbzpwPjwv
-c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
-LjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBEZXRlY3RpbmcgQyBjb21waWxlciBBQkkgaW5m
-byAtIGRvbmU8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
-biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj5DTWFrZSBFcnJv
-ciBhdCAvdXNyL3NoYXJlL2NtYWtlLTIuOC9Nb2R1bGVzL0ZpbmRQYWNrYWdlSGFuZGxlU3RhbmRh
-cmRBcmdzLmNtYWtlOjEwOCAobWVzc2FnZSk6PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6
-Q291cmllciI+Jm5ic3A7IENvdWxkIE5PVCBmaW5kIEx1YTUxIChtaXNzaW5nOiBMVUFfTElCUkFS
-SUVTKSAoZm91bmQgdmVyc2lvbiAmcXVvdDs1LjEuNSZxdW90Oyk8bzpwPjwvbzpwPjwvc3Bhbj48
-L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
-b250LWZhbWlseTpDb3VyaWVyIj5DYWxsIFN0YWNrIChtb3N0IHJlY2VudCBjYWxsIGZpcnN0KTo8
-bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0i
-Zm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4mbmJzcDsgL3Vzci9zaGFyZS9j
-bWFrZS0yLjgvTW9kdWxlcy9GaW5kUGFja2FnZUhhbmRsZVN0YW5kYXJkQXJncy5jbWFrZTozMTUg
-KF9GUEhTQV9GQUlMVVJFX01FU1NBR0UpPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6Q291
-cmllciI+Jm5ic3A7IC91c3Ivc2hhcmUvY21ha2UtMi44L01vZHVsZXMvRmluZEx1YTUxLmNtYWtl
-Ojc2IChGSU5EX1BBQ0tBR0VfSEFORExFX1NUQU5EQVJEX0FSR1MpPG86cD48L286cD48L3NwYW4+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7
-Zm9udC1mYW1pbHk6Q291cmllciI+Jm5ic3A7IENNYWtlTGlzdHMudHh0OjMgKGZpbmRfcGFja2Fn
-ZSk8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHls
-ZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj48bzpwPiZuYnNwOzwvbzpw
-Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXpl
-OjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4kOn4vYnVpbGRfYXJtJCBjbWFrZSAuLi9sdWFs
-d20ybS88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBUaGUgQyBjb21w
-aWxlciBpZGVudGlmaWNhdGlvbiBpcyBHTlUgNC44LjQ8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZh
-bWlseTpDb3VyaWVyIj4tLSBDaGVjayBmb3Igd29ya2luZyBDIGNvbXBpbGVyOiAvdXNyL2Jpbi9j
-YzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIENoZWNrIGZvciB3b3Jr
-aW5nIEMgY29tcGlsZXI6IC91c3IvYmluL2NjIC0tIHdvcmtzPG86cD48L286cD48L3NwYW4+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9u
-dC1mYW1pbHk6Q291cmllciI+LS0gRGV0ZWN0aW5nIEMgY29tcGlsZXIgQUJJIGluZm88bzpwPjwv
-bzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1z
-aXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBEZXRlY3RpbmcgQyBjb21waWxlciBB
-QkkgaW5mbyAtIGRvbmU8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj4tLSBG
-b3VuZCBMdWE1MTogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9saWJsdWE1LjEuc287L3Vzci9s
-aWIveDg2XzY0LWxpbnV4LWdudS9saWJtLnNvIChmb3VuZCB2ZXJzaW9uICZxdW90OzUuMS41JnF1
-b3Q7KQ0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
-c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6Q291cmllciI+LS0gQ29uZmlndXJp
-bmcgZG9uZTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIEdlbmVyYXRp
-bmcgZG9uZTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OkNvdXJpZXIiPi0tIEJ1aWxkIGZp
-bGVzIGhhdmUgYmVlbiB3cml0dGVuIHRvOiAvaG9tZS9qZi9idWlsZF9hcm08bzpwPjwvbzpwPjwv
-c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
-LjBwdDtmb250LWZhbWlseTpDb3VyaWVyIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SSBob3Bl
-IGkgYW0gcHVibGlzaGluZyBvbiB0aGUgZ29vZCBNTCwgaWYgYW55Ym9keSBjYW4gdGVsbCBtZSB3
-aGF0IGFtIEkgZG9pbmcgd3JvbmcmbmJzcDs/PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7
-PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250
-LXNpemU6MTEuMHB0Ij5UaGFuayB5b3U8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SmVhbiBGYWJpZW48bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+in my experience it was also necessary to specify things like CMAKE_FIND_RO=
+OT_PATH, otherwise cmake didn't find libraries in the poky SDK sysroot (als=
+o see cmake cross-compiling documentation). Here's what I've been using for=
+ cross-compiling with a poky SDK installed to /opt/poky/<version>:
 
---_000_4B09C702BFE048488F40D0AA14FCB5E1srcsolutioncom_--
+
+source /opt/poky/<version>/environment-setup-*
+
+cmake <srcdir> \
+  -DCMAKE_SYSTEM_NAME=3DLinux \
+  -DCMAKE_SYSTEM_VERSION=3D1 \
+  -DCMAKE_FIND_ROOT_PATH=3D/opt/poky/<version>/sysroots/<target> \
+  -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=3DNEVER \
+  -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=3DONLY \
+  -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=3DONLY
+
+
+Another important detail is that the poky SDK must include all the *-dev pa=
+ckages needed.
+
+
+Regards,
+
+Daniel
+
+--_000_146545778700174413ginde_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none"><!--P{margin-top:0;margin-b=
+ottom:0;} @font-face=0A=
+	{font-family:"Cambria Math"}=0A=
+@font-face=0A=
+	{font-family:Calibri}=0A=
+p.MsoNormal, li.MsoNormal, div.MsoNormal=0A=
+	{margin:0cm;=0A=
+	margin-bottom:.0001pt;=0A=
+	font-size:12.0pt;=0A=
+	font-family:Calibri}=0A=
+a:link, span.MsoHyperlink=0A=
+	{color:#0563C1;=0A=
+	text-decoration:underline}=0A=
+a:visited, span.MsoHyperlinkFollowed=0A=
+	{color:#954F72;=0A=
+	text-decoration:underline}=0A=
+span.EmailStyle17=0A=
+	{font-family:Calibri;=0A=
+	color:windowtext}=0A=
+span.msoIns=0A=
+	{text-decoration:underline;=0A=
+	color:teal}=0A=
+.MsoChpDefault=0A=
+	{font-family:Calibri}=0A=
+@page WordSection1=0A=
+	{margin:70.85pt 70.85pt 70.85pt 70.85pt}=0A=
+div.WordSection1=0A=
+	{}--></style>
+</head>
+<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
+FFFFF;font-family:Consolas,monospace;">
+<p>Hello,</p>
+<p><br>
+</p>
+<p>in my experience it was also necessary to specify things like CMAKE_FIND=
+_ROOT_PATH, otherwise cmake didn't find libraries in the poky SDK sysroot (=
+also see cmake cross-compiling documentation). Here's what I've been using =
+for cross-compiling with a poky
+ SDK installed to /opt/poky/&lt;version&gt;:</p>
+<p><br>
+</p>
+<p>source /opt/poky/&lt;version&gt;/environment-setup-*</p>
+<p>cmake &lt;srcdir&gt; \<br>
+&nbsp; -DCMAKE_SYSTEM_NAME=3DLinux \<br>
+&nbsp; -DCMAKE_SYSTEM_VERSION=3D1 \<br>
+&nbsp; -DCMAKE_FIND_ROOT_PATH=3D/opt/poky/&lt;version&gt;/sysroots/&lt;targ=
+et&gt; \<br>
+&nbsp; -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=3DNEVER \<br>
+&nbsp; -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=3DONLY \<br>
+&nbsp; -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=3DONLY<br>
+</p>
+<p><br>
+</p>
+<p>Another important detail is that the&nbsp;poky SDK must include all the =
+*-dev packages needed.<br>
+</p>
+<p><br>
+</p>
+<p>Regards,<br>
+</p>
+<p>Daniel<br>
+</p>
+</body>
+</html>
+
+--_000_146545778700174413ginde_--
