@@ -1,65 +1,32 @@
-Return-Path: <Daniel.Klauer@gin.de>
+Return-Path: <alexander.kanavin@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B80A1E00D20; Thu,  9 Jun 2016 00:36:40 -0700 (PDT)
+	id 39B10E00D34; Thu,  9 Jun 2016 02:51:27 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [212.223.36.25 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.24 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-Received: from good-out-16.clustermail.de (good-out-16.clustermail.de
-	[212.223.36.25])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5ACAAE00C1F
-	for <poky@yoctoproject.org>; Thu,  9 Jun 2016 00:36:36 -0700 (PDT)
-Received: from frontend-04 ([10.0.0.4] helo=frontend.clustermail.de)
-	by smtpout-04.clustermail.de with esmtps
-	(TLSv1.2:DHE-RSA-AES256-GCM-SHA384:256) (Exim 4.84_2)
-	(envelope-from <Daniel.Klauer@gin.de>)
-	id 1bAuVx-0004y1-Ay; Thu, 09 Jun 2016 09:36:34 +0200
-Received: from [217.6.33.234] (helo=Win2012-02.gin-domain.local)
-	by frontend.clustermail.de with esmtpa (Exim 4.84_2)
-	(envelope-from <Daniel.Klauer@gin.de>)
-	id 1bAuVx-0000RN-06; Thu, 09 Jun 2016 09:36:29 +0200
-Received: from Win2012-02.gin-domain.local (192.168.1.12) by
-	Win2012-02.gin-domain.local (192.168.1.12) with Microsoft SMTP Server
-	(TLS) id 15.0.1130.7; Thu, 9 Jun 2016 09:36:27 +0200
-Received: from Win2012-02.gin-domain.local ([fe80::3db4:55fd:d76e:9d90]) by
-	Win2012-02.gin-domain.local ([fe80::3db4:55fd:d76e:9d90%12]) with mapi
-	id 15.00.1130.005; Thu, 9 Jun 2016 09:36:27 +0200
-From: "Klauer, Daniel" <Daniel.Klauer@gin.de>
-To: Jean-Fabien Arnaud <jean-fabien.arnaud@src-solution.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] Cross compilation - Could not find lua libs
-Thread-Index: AQHRwZJD92mmd5hTVUKJPt7dGrI/Jp/gvW+C
-Date: Thu, 9 Jun 2016 07:36:27 +0000
-Message-ID: <1465457787001.74413@gin.de>
-References: <4B09C702-BFE0-4848-8F40-D0AA14FCB5E1@src-solution.com>
-In-Reply-To: <4B09C702-BFE0-4848-8F40-D0AA14FCB5E1@src-solution.com>
-Accept-Language: en-US, de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [192.168.1.219]
-x-brightmail-tracker: H4sIAAAAAAAAC+NgFvrIqsTGxXJgBSOPbrVMZLjBw4Z3b/gtJn27wWjR09/H4sAUwBDFmpmXlF+RwJpx7c9y9oLnRhWtJxcwNzAuMOhi5OIQEtjNKDFr3xlGCOcEo8SZt3dZuhg5OZgFTCWufG2EshUlLtxrALPZBHQlzrW/ZwWxRQTyJW5NucYMYgsL2EucuTyLDSLuIPHz+Hl2CNtI4tP2u2BxCQEdib+LGsF6WQRUJPavWQw2k1dAQ+LhnF9g9UICzhK/Vr9k6mLk4OAUcJHYcScKJMwoICvR2fCOCeIccYlbT+YzQYwUkFiy5zwzhK0k0Xv7HVTcSGLJvUnMEOMFJU7OfMICETeT2PtgCVSNrsTVf1ugTguUWLxlFivIWgmg16++D4YIG0i8W/sZqtVYYuXG/4wQtq3EnhkTmSDKnSXm3aiHCDtJvOl4ywpha0tsf7WPFebxTddWQY2Rl/h/7z7LBEaNWUjhPAspnGcheXIWkgcWMLKsYpQOz8wzMjA00jUw0kvPzNNNyc9NzMzTy8lPTszZxAhNDjsYH312PcQoycGkJMp7RyoyXIgvKT+lMiOxOCO+qDQntfgQowQHj5IIL5c0UI63uCAxtzgzHSYlw8GhJMHrA9ImWJSanlqRlplTkloEkT7FKCklzmsOkhQA6csozYPLXWIUlRLmTZMEyvEUpBblZpZAxG8xCnM8ZBJiycvPS5UCOpEBCDQYXzGKczAqCfMeBbmBJzOvBO6EV0DXMQFdt/xIOMh1JYkIKakGRlFFvYVpjDZLr9m9qVxtb3Bm1uV5z3RVZH9Ey689NOFlgr6V87Gq4su7/540W9utOnfx7HPZffwXU1wkfXtYRO2/71kvuF15ca8Va07hoSM97odLOP59afV2EVxa4xqclX+u7sTjkiNpNz8/0Kv5se5+RQqDdUbo7iPcF//JTMgq6p31T4OfSYmlOCPRUIu5qDgRAAHtb7OEAwAA
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB83EE00C1F
+	for <poky@yoctoproject.org>; Thu,  9 Jun 2016 02:51:23 -0700 (PDT)
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+	by orsmga102.jf.intel.com with ESMTP; 09 Jun 2016 02:51:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.26,444,1459839600"; d="scan'208";a="118845156"
+Received: from kanavin-desktop.fi.intel.com ([10.237.68.161])
+	by fmsmga004.fm.intel.com with ESMTP; 09 Jun 2016 02:51:22 -0700
+From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Thu,  9 Jun 2016 12:51:24 +0300
+Message-Id: <1465465884-26334-1-git-send-email-alexander.kanavin@linux.intel.com>
+X-Mailer: git-send-email 2.8.1
 MIME-Version: 1.0
-X-Cyberoam-smtpxy-version: 1.0.6.3
-X-Cyberoam-AV-Policy: default
-X-CTCH-PVer: 0000001
-X-CTCH-Spam: Unknown
-X-CTCH-VOD: Unknown
-X-CTCH-Flags: 0
-X-CTCH-RefID: str=0001.0A0C0201.57591C7C.01FB, ss=1, re=0.000, recu=0.000,
-	reip=0.000, cl=1, cld=1, fgs=0
-X-CTCH-Score: 0.000
-X-CTCH-ScoreCust: 0.000
-X-CTCH-Rules: 
-Subject: Re: Cross compilation - Could not find lua libs
+Subject: [PATCH] maintainers.inc: add missing recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -72,113 +39,480 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Jun 2016 07:36:40 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative; boundary="_000_146545778700174413ginde_"
+X-List-Received-Date: Thu, 09 Jun 2016 09:51:27 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---_000_146545778700174413ginde_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Most of the additions are these:
+1) Missing variants for a recipe (-native, -cross, etc.)
+2) Recently added recipes; the maintainer is typically the person
+who submitted the addition
 
-Hello,
+If you disagree with the assignments, speak up!
+
+Signed-off-by: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+---
+ meta-poky/conf/distro/include/maintainers.inc | 100 +++++++++++++++++++++++++-
+ 1 file changed, 97 insertions(+), 3 deletions(-)
+
+diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+index 125613b..6497212 100644
+--- a/meta-poky/conf/distro/include/maintainers.inc
++++ b/meta-poky/conf/distro/include/maintainers.inc
+@@ -40,6 +40,8 @@ RECIPE_MAINTAINER_pn-apmd = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-apr = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-apr-util = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-apt = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-apt-native = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-argp-standalone = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-aspell = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-at = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-at-spi2-atk = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -56,18 +58,25 @@ RECIPE_MAINTAINER_pn-babeltrace = "Alexander Kanavin <alexander.kanavin@intel.co
+ RECIPE_MAINTAINER_pn-base-files = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-base-passwd = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-bash = "Hongxu Jia <hongxu.jia@windriver.com>"
++RECIPE_MAINTAINER_pn-bash-completion = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-bc = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-bdwgc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-beecrypt = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-bigreqsproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-bind = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-binutils = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-binutils-cross = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-binutils-cross-canadian = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-binutils-crosssdk = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-bison = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-bjam-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-blktool = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-blktrace = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-bluez5 = "Maxin B. John <maxin.john@intel.com>"
++RECIPE_MAINTAINER_pn-bmap-tools = "Ed Bartosh <ed.bartosh@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-boost = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-bootchart2 = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-bsd-headers = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-btrfs-tools = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-build-appliance-image = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-build-compare = "Randy Witt <randy.e.witt@linux.intel.com>"
+@@ -79,6 +88,7 @@ RECIPE_MAINTAINER_pn-bzip2 = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-ca-certificates = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-cairo = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-calibrateproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-cantarell-fonts = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-ccache = "Wenzong Fan <wenzong.fan@windriver.com>"
+ RECIPE_MAINTAINER_pn-cdrtools-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-chkconfig = "Wenzong Fan <wenzong.fan@windriver.com>"
+@@ -87,7 +97,8 @@ RECIPE_MAINTAINER_pn-chrpath = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-clutter-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-clutter-gst-3.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-clutter-gtk-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-cmake = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-cmake = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-cmake-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-cogl-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-compositeproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-connman = "Maxin B. John <maxin.john@intel.com>"
+@@ -112,6 +123,10 @@ RECIPE_MAINTAINER_pn-core-image-rt-sdk = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-core-image-sato = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-core-image-sato-dev = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-core-image-sato-sdk = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-core-image-sato-sdk-ptest = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-core-image-testmaster = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-core-image-testmaster-initramfs = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-core-image-weston = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-core-image-x11 = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-coreutils = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-cpio = "Chen Qi <Qi.Chen@windriver.com>"
+@@ -119,6 +134,9 @@ RECIPE_MAINTAINER_pn-cracklib = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-createrepo = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-cronie = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-cross-localedef-native = "Khem Raj <raj.khem@gmail.com>"
++RECIPE_MAINTAINER_pn-cryptodev-linux = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-cryptodev-module = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-cryptodev-tests = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-cups = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-curl = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-cwautomacros = "Maxin B. John <maxin.john@intel.com>"
+@@ -128,6 +146,8 @@ RECIPE_MAINTAINER_pn-dbus = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-dbus-glib = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-dbus-test = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-dbus-wait = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-debianutils = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-depmodwrapper-cross = "Mark Hatle <mark.hatle@windriver.com>"
+ RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-dhcp = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-diffstat = "Chen Qi <Qi.Chen@windriver.com>"
+@@ -136,6 +156,7 @@ RECIPE_MAINTAINER_pn-directfb = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-directfb-examples = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-distcc = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-distcc-config = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-dmidecode = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-dmxproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-docbook-dsssl-stylesheets-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-docbook-sgml-dtd-3.1-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -154,6 +175,9 @@ RECIPE_MAINTAINER_pn-e2fsprogs = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-ed = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-eee-acpi-scripts = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-efilinux = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-eglinfo-fb = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-eglinfo-x11 = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-efilinux = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-elfutils = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-enchant = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-encodings = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -161,6 +185,8 @@ RECIPE_MAINTAINER_pn-epiphany = "Alexander Kanavin <alexander.kanavin@intel.com>
+ RECIPE_MAINTAINER_pn-ethtool = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-eudev = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-expat = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-expect = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-ffmpeg = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-file = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-findutils = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-fixesproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -174,8 +200,14 @@ RECIPE_MAINTAINER_pn-foomatic-filters = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-formfactor = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-freetype = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-fstests = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-fts = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-gawk = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-gcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gcc-cross = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gcc-cross-canadian = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gcc-cross-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gcc-crosssdk = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gcc-crosssdk-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gcc-runtime = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gcc-sanitizers = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gcc-source = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+@@ -183,6 +215,8 @@ RECIPE_MAINTAINER_pn-gccmakedep = "Richard Purdie <richard.purdie@linuxfoundatio
+ RECIPE_MAINTAINER_pn-gconf = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-gcr = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-gdb = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gdb-cross = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-gdb-cross-canadian = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-gdbm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-gdk-pixbuf = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-gettext = "Wenzong Fan <wenzong.fan@windriver.com>"
+@@ -194,6 +228,9 @@ RECIPE_MAINTAINER_pn-glib-2.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-glib-networking = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-glibc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-glibc-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-glibc-locale = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-glibc-mrace = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-glibc-scripts = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-glproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-gmp = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-gnome-common = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -204,11 +241,14 @@ RECIPE_MAINTAINER_pn-gnu-config = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-gnu-efi = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-gnupg = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-gnutls = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-gobject-introspection = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-gperf = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-gpgme = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-gptfdisk = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-grep = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-groff = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-grub = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-grub-efi = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-gsettings-desktop-schemas = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-gst-player = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-gstreamer1.0 = "Maxin B. John <maxin.john@intel.com>"
+@@ -237,13 +277,19 @@ RECIPE_MAINTAINER_pn-hicolor-icon-theme = "Jussi Kukkonen <jussi.kukkonen@intel.
+ RECIPE_MAINTAINER_pn-hostap-conf = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-hostap-utils = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-hwlatdetect = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-i2ctools = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-icecc-create-env-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-icon-naming-utils = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-icu = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-ifupdown = "Maxin B. John <maxin.john@intel.com>"
++RECIPE_MAINTAINER_pn-init-ifupdown = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-initramfs-boot = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-initramfs-framework = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-initramfs-live-boot = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-initramfs-live-install = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-initramfs-live-install-efi = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-initramfs-live-install-efi-tests = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-initramfs-live-install-tests = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-initscripts = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-inputproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-intltool = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -265,6 +311,7 @@ RECIPE_MAINTAINER_pn-kernel-devsrc = "Bruce Ashfield <bruce.ashfield@windriver.c
+ RECIPE_MAINTAINER_pn-kexec-tools = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-keymaps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-kmod = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-kmod-native = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-lame = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-latencytop = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-ldconfig-native = "Khem Raj <raj.khem@gmail.com>"
+@@ -280,6 +327,7 @@ RECIPE_MAINTAINER_pn-libatomic-ops = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libav = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libbsd = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libcap = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-libcap-ng = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libcgroup = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libcheck = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libclass-isa-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+@@ -292,6 +340,7 @@ RECIPE_MAINTAINER_pn-libdumpvalue-perl = "Alejandro Hernandez <alejandro.hernand
+ RECIPE_MAINTAINER_pn-libenv-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libepoxy = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-liberation-fonts = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-liberror-perl = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libevdev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libevent = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libexif = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -302,11 +351,13 @@ RECIPE_MAINTAINER_pn-libfm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libfm-extra = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libfontenc = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libgcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-libgcc-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-libgcrypt = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-libgfortran = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-libglade = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libglu = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libgpg-error = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-libgudev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libi18n-collate-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libical = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libice = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -345,13 +396,17 @@ RECIPE_MAINTAINER_pn-libsdl2 = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libsecret = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libsm = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libsndfile1 = "Tanu Kaskinen <tanuk@iki.fi>"
++RECIPE_MAINTAINER_pn-libsolv = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libsoup-2.4 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libtasn1 = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libtheora = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libtimedate-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libtirpc = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libtool = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-libtool-cross = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-libtool-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libunistring = "Maxin B. John <maxin.john@intel.com>"
++RECIPE_MAINTAINER_pn-libunwind = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-liburcu = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-liburi-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libusb-compat = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+@@ -380,6 +435,7 @@ RECIPE_MAINTAINER_pn-libxkbfile = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libxml-namespacesupport-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libxml-parser-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libxml-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-sax-base-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libxml-sax-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libxml-simple-perl = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libxml2 = "Hongxu Jia <hongxu.jia@windriver.com>"
+@@ -423,6 +479,7 @@ RECIPE_MAINTAINER_pn-lz4 = "Armin Kuster <akuster808@gmail.com>"
+ RECIPE_MAINTAINER_pn-lzo = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-lzop = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-m4 = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-m4-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-mailx = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-make = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-makedepend = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -445,8 +502,11 @@ RECIPE_MAINTAINER_pn-menu-cache = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa-demos = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-mesa-gl = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-meta-environment = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-meta-environment-extsdk = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-meta-ide-support = "Cristian Iorga <cristian.iorga@intel.com>"
+ RECIPE_MAINTAINER_pn-meta-toolchain = "Cristian Iorga <cristian.iorga@intel.com>"
++RECIPE_MAINTAINER_pn-meta-world-pkgdata = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-mingetty = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-mini-x-session = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-minicom = "Maxin B. John <maxin.john@intel.com>"
+@@ -455,6 +515,7 @@ RECIPE_MAINTAINER_pn-mkfontdir = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-mkfontscale = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-mklibs-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-mktemp = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-mmc-utils = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-modutils-initscripts = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-mpeg2dec = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -463,9 +524,14 @@ RECIPE_MAINTAINER_pn-msmtp = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-mtd-utils = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-mtdev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-mtools = "Maxin B. John <maxin.john@intel.com>"
++RECIPE_MAINTAINER_pn-musl = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-mx-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-nasm = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-nativesdk-buildtools-perl-dummy = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-nativesdk-libtool = "Richard Purdie <richard.purdie@linuxfoundation.org>"
++RECIPE_MAINTAINER_pn-nativesdk-packagegroup-sdk-host = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-nativesdk-qemu-helper = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-nativesdk-postinst-intercept = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-ncurses = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-neard = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-neon = "Maxin B. John <maxin.john@intel.com>"
+@@ -477,6 +543,7 @@ RECIPE_MAINTAINER_pn-nfs-utils = "Alejandro Hernandez <alejandro.hernandez@linux
+ RECIPE_MAINTAINER_pn-npth = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-nspr = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-nss = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-nss-myhostname = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-ofono = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-oh-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-openjade-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -491,6 +558,7 @@ RECIPE_MAINTAINER_pn-oprofile = "Alexander Kanavin <alexander.kanavin@intel.com>
+ RECIPE_MAINTAINER_pn-oprofileui = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-oprofileui-server = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-orc = "Maxin B. John <maxin.john@intel.com>"
++RECIPE_MAINTAINER_pn-os-release = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-ossp-uuid = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-p11-kit = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-package-index = "Ross Burton <ross.burton@intel.com>"
+@@ -500,6 +568,7 @@ RECIPE_MAINTAINER_pn-packagegroup-core-buildessential = "Ross Burton <ross.burto
+ RECIPE_MAINTAINER_pn-packagegroup-core-clutter = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-device-devel = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-directfb = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-packagegroup-core-eclipse-debug = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-full-cmdline = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-lsb = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-nfs = "Ross Burton <ross.burton@intel.com>"
+@@ -514,12 +583,15 @@ RECIPE_MAINTAINER_pn-packagegroup-core-x11 = "Ross Burton <ross.burton@intel.com
+ RECIPE_MAINTAINER_pn-packagegroup-core-x11-base = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-x11-sato = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-core-x11-xserver = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-packagegroup-cross-canadian = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-packagegroup-self-hosted = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-pango = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-parted = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-patch = "Hongxu Jia <hongxu.jia@windriver.com>"
++RECIPE_MAINTAINER_pn-patchelf = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-pax = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-pax-utils = "Hongxu Jia <hongxu.jia@windriver.com>"
++RECIPE_MAINTAINER_pn-pbzip2 = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pciutils = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-pcmanfm = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-pcmciautils = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -530,9 +602,11 @@ RECIPE_MAINTAINER_pn-piglit = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pigz = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-pinentry = "Armin Kuster <akuster808@gmail.com>"
+ RECIPE_MAINTAINER_pn-pixman = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-pixz = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-pkgconfig = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-pm-utils = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-pointercal = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-pointercal-xinput = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pong-clock = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-popt = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-portmap = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -545,6 +619,7 @@ RECIPE_MAINTAINER_pn-procps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pseudo = "Mark Hatle <mark.hatle@windriver.com>"
+ RECIPE_MAINTAINER_pn-psmisc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-psplash = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-ptest-runner = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-pulseaudio = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-pulseaudio-client-conf-sato = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -573,13 +648,21 @@ RECIPE_MAINTAINER_pn-python-setuptools = "Alejandro Hernandez <alejandro.hernand
+ RECIPE_MAINTAINER_pn-python-smartpm = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python-smmap = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3 = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-async = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-distribute = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-git = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-gitdb = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-mako = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-nose = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-pip = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-setuptools = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-python3-smmap = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-qemu = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-qemu-helper-native = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-qemuwrapper-cross = "Aníbal Limón <anibal.limon@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-quilt = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-quilt-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-quota = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-randrproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-readline = "Hongxu Jia <hongxu.jia@windriver.com>"
+@@ -590,6 +673,7 @@ RECIPE_MAINTAINER_pn-resolvconf = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-resourceproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-rgb = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-rpcbind = "Hongxu Jia <hongxu.jia@windriver.com>"
++RECIPE_MAINTAINER_pn-rng-tools = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-rpm = "Mark Hatle <mark.hatle@windriver.com>"
+ RECIPE_MAINTAINER_pn-rpmresolve = "Mark Hatle <mark.hatle@windriver.com>"
+ RECIPE_MAINTAINER_pn-rsync = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -603,15 +687,19 @@ RECIPE_MAINTAINER_pn-sbc = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-screen = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-scrnsaverproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-sed = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-serf = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-setserial = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-settings-daemon = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-sgml-common = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-sgml-common-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-sgmlspl = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-sgmlspl-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-shadow = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-shadow-securetty = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-shadow-sysroot = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-shared-mime-info = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-shutdown-desktop = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-signing-keys = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-slang = "Kai Kang <kai.kang@windriver.com>"
+ RECIPE_MAINTAINER_pn-socat = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-speex = "Tanu Kaskinen <tanuk@iki.fi>"
+@@ -621,6 +709,7 @@ RECIPE_MAINTAINER_pn-squashfs-tools = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-startup-notification = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-stat = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-strace = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-stress = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-subversion = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-sudo = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-swabber-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -645,6 +734,7 @@ RECIPE_MAINTAINER_pn-tcl = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-tcp-wrappers = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-texi2html = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-texinfo = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-texinfo-dummy-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-tiff = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-time = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-tiny-init = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -659,9 +749,11 @@ RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Denys Dmytriyenko <denis@denix.org>"
+ RECIPE_MAINTAINER_pn-u-boot-mkimage = "Denys Dmytriyenko <denis@denix.org>"
+ RECIPE_MAINTAINER_pn-ubootchart = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-uclibc = "Khem Raj <raj.khem@gmail.com>"
++RECIPE_MAINTAINER_pn-uclibc-initial = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-udev-extraconf = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-unfs3 = "Randy Witt <randy.e.witt@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-unifdef = "Ross Burton <ross.burton@intel.com>"
++RECIPE_MAINTAINER_pn-uninative-tarball = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-unzip = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-update-rc.d = "Ross Burton <ross.burton@intel.com>"
+ RECIPE_MAINTAINER_pn-usbinit = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -672,10 +764,12 @@ RECIPE_MAINTAINER_pn-v86d = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-vala = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-valgrind = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-videoproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-volatile-binds = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-vte = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-waffle = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-watchdog = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-wayland = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-wayland-protocols = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-webkitgtk = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-weston = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-weston-init = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -702,6 +796,7 @@ RECIPE_MAINTAINER_pn-xextproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xeyes = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xf86-input-evdev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xf86-input-keyboard = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
++RECIPE_MAINTAINER_pn-xf86-input-libinput = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xf86-input-mouse = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xf86-input-synaptics = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xf86-input-vmmouse = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -744,6 +839,5 @@ RECIPE_MAINTAINER_pn-xwininfo = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-xz = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-yasm = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-zip = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-zisofs-tools-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-zlib = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-stress = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-mmc-utils = "Maxin B. John <maxin.john@intel.com>"
+-- 
+2.8.1
 
 
-in my experience it was also necessary to specify things like CMAKE_FIND_RO=
-OT_PATH, otherwise cmake didn't find libraries in the poky SDK sysroot (als=
-o see cmake cross-compiling documentation). Here's what I've been using for=
- cross-compiling with a poky SDK installed to /opt/poky/<version>:
-
-
-source /opt/poky/<version>/environment-setup-*
-
-cmake <srcdir> \
-  -DCMAKE_SYSTEM_NAME=3DLinux \
-  -DCMAKE_SYSTEM_VERSION=3D1 \
-  -DCMAKE_FIND_ROOT_PATH=3D/opt/poky/<version>/sysroots/<target> \
-  -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=3DNEVER \
-  -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=3DONLY \
-  -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=3DONLY
-
-
-Another important detail is that the poky SDK must include all the *-dev pa=
-ckages needed.
-
-
-Regards,
-
-Daniel
-
---_000_146545778700174413ginde_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none"><!--P{margin-top:0;margin-b=
-ottom:0;} @font-face=0A=
-	{font-family:"Cambria Math"}=0A=
-@font-face=0A=
-	{font-family:Calibri}=0A=
-p.MsoNormal, li.MsoNormal, div.MsoNormal=0A=
-	{margin:0cm;=0A=
-	margin-bottom:.0001pt;=0A=
-	font-size:12.0pt;=0A=
-	font-family:Calibri}=0A=
-a:link, span.MsoHyperlink=0A=
-	{color:#0563C1;=0A=
-	text-decoration:underline}=0A=
-a:visited, span.MsoHyperlinkFollowed=0A=
-	{color:#954F72;=0A=
-	text-decoration:underline}=0A=
-span.EmailStyle17=0A=
-	{font-family:Calibri;=0A=
-	color:windowtext}=0A=
-span.msoIns=0A=
-	{text-decoration:underline;=0A=
-	color:teal}=0A=
-.MsoChpDefault=0A=
-	{font-family:Calibri}=0A=
-@page WordSection1=0A=
-	{margin:70.85pt 70.85pt 70.85pt 70.85pt}=0A=
-div.WordSection1=0A=
-	{}--></style>
-</head>
-<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
-FFFFF;font-family:Consolas,monospace;">
-<p>Hello,</p>
-<p><br>
-</p>
-<p>in my experience it was also necessary to specify things like CMAKE_FIND=
-_ROOT_PATH, otherwise cmake didn't find libraries in the poky SDK sysroot (=
-also see cmake cross-compiling documentation). Here's what I've been using =
-for cross-compiling with a poky
- SDK installed to /opt/poky/&lt;version&gt;:</p>
-<p><br>
-</p>
-<p>source /opt/poky/&lt;version&gt;/environment-setup-*</p>
-<p>cmake &lt;srcdir&gt; \<br>
-&nbsp; -DCMAKE_SYSTEM_NAME=3DLinux \<br>
-&nbsp; -DCMAKE_SYSTEM_VERSION=3D1 \<br>
-&nbsp; -DCMAKE_FIND_ROOT_PATH=3D/opt/poky/&lt;version&gt;/sysroots/&lt;targ=
-et&gt; \<br>
-&nbsp; -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=3DNEVER \<br>
-&nbsp; -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=3DONLY \<br>
-&nbsp; -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=3DONLY<br>
-</p>
-<p><br>
-</p>
-<p>Another important detail is that the&nbsp;poky SDK must include all the =
-*-dev packages needed.<br>
-</p>
-<p><br>
-</p>
-<p>Regards,<br>
-</p>
-<p>Daniel<br>
-</p>
-</body>
-</html>
-
---_000_146545778700174413ginde_--
