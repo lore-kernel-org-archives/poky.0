@@ -1,40 +1,44 @@
-Return-Path: <markus.lehtonen@linux.intel.com>
+Return-Path: <tab.liu@lemaker.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 228D6E00EC8; Mon, 27 Jun 2016 04:00:24 -0700 (PDT)
+	id C1EF2E00C1E; Tue, 28 Jun 2016 02:56:49 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.115 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [14.17.43.228 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0212FE00EB6
-	for <poky@yoctoproject.org>; Mon, 27 Jun 2016 04:00:20 -0700 (PDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga103.fm.intel.com with ESMTP; 27 Jun 2016 04:00:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.26,536,1459839600"; d="scan'208";a="835867340"
-Received: from marquiz.fi.intel.com ([10.237.72.155])
-	by orsmga003.jf.intel.com with ESMTP; 27 Jun 2016 04:00:18 -0700
-Message-ID: <1467025217.6738.14.camel@linux.intel.com>
-From: Markus Lehtonen <markus.lehtonen@linux.intel.com>
-To: "Keskinarkaus, Teemu" <Teemu.Keskinarkaus@Maximatecc.com>, Paul Eggleton
-	<paul.eggleton@linux.intel.com>, Peter Kjellerstedt
-	<peter.kjellerstedt@axis.com>
-Date: Mon, 27 Jun 2016 14:00:17 +0300
-In-Reply-To: <83DB4EC8FADD45428E3CC4E3664761FD400438B4@AMDTCEX15.actuant.pri>
-References: <83DB4EC8FADD45428E3CC4E3664761FD4004044C@AMDTCEX15.actuant.pri>
-	<fff4b7c1c35245379ab4cc09fd9fff08@XBOX02.axis.com>
-	<488452498.gBbhXqb4nk@peggleto-mobl.ger.corp.intel.com>
-	<83DB4EC8FADD45428E3CC4E3664761FD400438B4@AMDTCEX15.actuant.pri>
-X-Mailer: Evolution 3.16.5 
-Mime-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Recompiles in Yocto/Poky
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 64 seconds by postgrey-1.32 at yocto-www;
+	Tue, 28 Jun 2016 02:56:43 PDT
+Received: from smtpbg333.qq.com (smtpbg333.qq.com [14.17.43.228])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88C19E00B5F
+	for <poky@yoctoproject.org>; Tue, 28 Jun 2016 02:56:43 -0700 (PDT)
+X-QQ-mid: Yesmtp31t1467107709t596t1524
+Received: from [10.1.1.33] (unknown [180.178.34.12])
+	by esmtp4.qq.com (ESMTP) with SMTP id 0
+	for <poky@yoctoproject.org>; Tue, 28 Jun 2016 17:55:08 +0800 (CST)
+X-QQ-SSF: 01400000008000F0F321B00A0000000
+X-QQ-FEAT: s2GiS5gUmyJ8tbwJlQ+5eTM5tfbqvXQruFdefqe2U4wXJBo/p6sydMGCP/Fqx
+	h7gJlaE/LOErA8D3SiLTq3iZULD68SGlw8Lqvk/E5I6t3smhpFYa9n3axIUYJe0KHGVmcL/
+	iTgVfQtwzgFYDjww8ojnRF5stdV+f/Bty72I7RuAypmULt0nMNXcY/OHQAzC3hmGoPv3Bpq
+	b0dAl1+YO6QsRdVC0rS6K7OsTYf4CBqG/C0zTZnNbKCs3LBE7j9ReOdhdfFUj/bP7kbcSjQ
+	YRAJBG5vz0YroOHqioN8eXDYBy1lmGOBWVng==
+X-QQ-GoodBg: 0
+To: poky@yoctoproject.org
+From: tab <tab.liu@lemaker.org>
+Organization: LeMaker
+Message-ID: <5772497B.3080701@lemaker.org>
+Date: Tue, 28 Jun 2016 17:55:07 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Thunderbird/38.3.0
+MIME-Version: 1.0
+X-QQ-Bgrelay: 1
+Subject: how to set u-boot in meta-machine
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,103 +51,177 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Jun 2016 11:00:24 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 28 Jun 2016 09:56:49 -0000
+Content-Type: multipart/alternative;
+	boundary="------------050304020309010806030805"
+
+--------------050304020309010806030805
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 Hi,
+I'm going to build a linux distro for LeMaker Guitar with yocto project 
+and I've meet some problems, hope you can help me:
+  I refer this 
+page(http://www.yoctoproject.org/docs/2.1/bsp-guide/bsp-guide.html) to 
+build a layer named 'meta-guitar' with a custom
+kernel source (https://github.com/LeMaker/linux-actions).
+It seems nothing wrong during the building time and i get a 
+'meta-guitar' successfuly.
+But when i try to build a image with `bitbake core-image-minimal` i get 
+a error:
 
-There would be at least two options,that I can think of to "hide" the
-files. First, if possible, make the recipe build in a separate
-directory so that the build-time generated files won't pollute your
-source tree. Second, make your external source tree a Git tree and add
-the files in question to .gitignore. 
+ERROR: u-boot-v2016.03+gitAUTOINC+df61a74e68-r0 do_compile: oe_runmake 
+failed
+ERROR: u-boot-v2016.03+gitAUTOINC+df61a74e68-r0 do_compile: Function 
+failed: do_compile (log file is located at 
+/home/tab/work/yocto/build/guitar/tmp/work/guitar-poky-linux-gnueabi/u-boot/v2016.03+gitAUTOINC+df61a74e68-r0/temp/log.do_compi
+le.16108)
 
-Thanks,
-  Markus
+and the logfile says: Configuration file ".config" not found.
 
-On Wed, 2016-06-08 at 04:50 +0000, Keskinarkaus, Teemu wrote:
-> Hi,
-> 
-> I think there are some files that are being generated at compilation
-> time so most likely those triggers the recompilation every time.
-> 
-> The next question is that how to I 'hide' files so that they don't
-> trigger the recompilation? Is that something that I need to do on my
-> application side or can I list files in Yocto to ignore when hashing
-> files? This is most likely the proper way to deal with this issue
-> rather than disabling whole feature.
-> 
-> Teemu Keskinarkaus
-> Software system engineer
-> maximatecc
-> making machines smart, safe and productive
-> 
-> 
-> -----Original Message-----
-> From: Paul Eggleton [mailto:paul.eggleton@linux.intel.com]
-> Sent: 8. kesäkuuta 2016 4:52
-> To: Peter Kjellerstedt; Keskinarkaus, Teemu
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] Recompiles in Yocto/Poky
-> 
-> On Fri, 03 Jun 2016 07:00:14 Peter Kjellerstedt wrote:
-> > This is a feature introduced to complement the main use of
-> > externalsrc, which is together with devtool. When you use "devtool
-> > modify -x <recipe>", it fetches the sources as specified in the
-> > recipe
-> > and makes them available locally. At the same time it sets up a
-> > bbappend in the workspace layer which uses externalsrc to use those
-> > sources when building the recipe. This is intended to make it easy
-> > to
-> > use BitBake to actually work on and develop the sources. However,
-> > for
-> > this to work in practice, BitBake must rebuild the package if there
-> > are any changes in the sources, but since BitBake normally only
-> > looks
-> > at the meta data to determine if a recipe task needs to run, there
-> > is
-> > nothing telling it that the sources have changed. Therefore changes
-> > were made so that code specified using externalsrc is always
-> > rebuilt.
-> 
-> In 2.0 that's how it behaved - what it's supposed to do in 2.1 is
-> determine if the sources have changed by either relying on the git
-> metadata (if the source tree is tracked in git) or by hashing all
-> files in the source tree if it isn't. It could be false triggering if
-> you have files in the source tree that get regenerated as part of the
-> compilation process that aren't hidden. Teemu, is that the case for
-> your source tree?
-> 
-> Unfortunately there is no way at present to turn off this
-> functionality; we could add one, however before doing that I would be
-> more interested in looking at making the code more intelligent so it
-> did automatically rebuild in response to source changes for this case
-> and not when there were no changes, assuming that's practical.
-> 
-> Cheers,
-> Paul
-> 
-> --
-> 
-> Paul Eggleton
-> Intel Open Source Technology Centre
-> 
-> ________________________________
-> 
-> Actuant Corporation Email Notice
-> 
-> This message is intended only for the use of the Addressee and may
-> contain information that is PRIVILEGED and/or CONFIDENTIAL.
-> This email is intended only for the personal and confidential use of
-> the recipient(s) named above. If the reader of this email is not an
-> intended recipient, you have received this email in error and any
-> review, dissemination, distribution or copying is strictly
-> prohibited.
-> If you have received this email in error, please notify the sender
-> immediately by return mail and permanently delete the copy you
-> received.
-> 
-> Thank you.
+It seems that I need to do something with the u-boot while building the 
+meta-guitar?
+But there's no more info about the u-boot while I'm building 
+meta-guitar, such as the path of the u-boot source file?
+  How can i solve this problem?
+  Hope for your help.
+
+Tab Liu
+-- 
 
 
+  **
+
+  *
+  *
+
+  *Tab Liu
+  *
+
+
+  *LeMaker ****Support * *Team *
+
+  **Making Innovation Easy *.
+  *
+
+  Email:
+  support@lemaker.org <mailto:support@lemaker.org> (Technical Support)
+  product@lemaker.org <mailto:product@lemaker.org> (Product Distribution)
+
+  Website: http://www.lemaker.org/ <http://www.lemaker.org/>
+
+
+
+--------------050304020309010806030805
+Content-Type: multipart/related;
+ boundary="------------070704090902020707050008"
+
+--------------070704090902020707050008
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    Hi, <br>
+    I'm going to build a linux distro for LeMaker Guitar with yocto
+    project and I've meet some problems, hope you can help me:<br>
+     I refer this page(<a class="moz-txt-link-freetext"
+      href="http://www.yoctoproject.org/docs/2.1/bsp-guide/bsp-guide.html">http://www.yoctoproject.org/docs/2.1/bsp-guide/bsp-guide.html</a>)
+    to build a layer named 'meta-guitar' with a custom<br>
+    kernel source (<a class="moz-txt-link-freetext"
+      href="https://github.com/LeMaker/linux-actions">https://github.com/LeMaker/linux-actions</a>).
+    <br>
+    It seems nothing wrong during the building time and i get a
+    'meta-guitar' successfuly. <br>
+    But when i try to build a image with `bitbake core-image-minimal` i
+    get a error:<br>
+    <br>
+    ERROR: u-boot-v2016.03+gitAUTOINC+df61a74e68-r0 do_compile:
+    oe_runmake failed<br>
+    ERROR: u-boot-v2016.03+gitAUTOINC+df61a74e68-r0 do_compile: Function
+    failed: do_compile (log file is located at
+/home/tab/work/yocto/build/guitar/tmp/work/guitar-poky-linux-gnueabi/u-boot/v2016.03+gitAUTOINC+df61a74e68-r0/temp/log.do_compi<br>
+    le.16108)<br>
+    <br>
+    and the logfile says: Configuration file ".config" not found. <br>
+    <br>
+    It seems that I need to do something with the u-boot while building
+    the meta-guitar? <br>
+    But there's no more info about the u-boot while I'm building
+    meta-guitar, such as the path of the u-boot source file? <br>
+     How can i solve this problem?<br>
+     Hope for your help.<br>
+    <br>
+    Tab Liu
+    <div class="moz-signature">-- <br>
+      <span>
+        <h1 style="margin: 17pt 0cm 16.5pt; text-align: justify;
+          line-height: 240%; page-break-after: avoid; font-size: 22pt;
+          font-family: Calibri, sans-serif;">
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;" align="left"><b>
+              <span style="font-size: 16pt; font-family: Verdana,
+                sans-serif;" lang="EN-US"></span></b></p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;" align="left"><b><span
+                style="font-size: 16pt; font-family: Verdana,
+                sans-serif;" lang="EN-US"><br>
+              </span></b></p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;" align="left"><b><span
+                style="font-size: 16pt; font-family: Verdana,
+                sans-serif;" lang="EN-US">Tab Liu<br>
+              </span> </b> <span style="font-size: 10pt; font-family:
+              Verdana, sans-serif;" lang="EN-US"></span> </p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 14.25pt;" align="left"><br>
+          </p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 14.25pt;" align="left"><b>
+              <span style="font-size: 12pt;" lang="EN-US">LeMaker </span>
+            </b><b> <span style="font-size: 12pt;" lang="EN-US"><b> <span
+                    style="font-size: 12pt;" lang="EN-US"><b> <span
+                        style="font-size: 12pt;" lang="EN-US">Support </span>
+                    </b> </span> </b>Team </span> </b></p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;"><b> <span
+                style="font-size: 12pt;" lang="EN-US"><b> <span
+                    style="font-size: 12pt;" lang="EN-US">Making
+                    Innovation Easy</span> </b>. <br>
+              </span> </b></p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;"> <span
+              style="font-size: 10pt;" lang="EN-US">Email:</span> <span
+              style="font-size: 10pt; font-family: Verdana, sans-serif;"
+              lang="EN-US"><br>
+              <a href="mailto:support@lemaker.org" target="_blank"
+                style="text-decoration: none !important;">support@lema<wbr>ker.org</a> (Technical
+              Support) <br>
+              <a href="mailto:product@lemaker.org" target="_blank"
+                style="text-decoration: none !important;">product@lema<wbr>ker.org</a> (Product
+              Distribution) <br>
+            </span> </p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;">Website:  <span
+              style="font-size: 10pt; font-family: Verdana, sans-serif;"
+              lang="EN-US"><a href="http://www.lemaker.org/"
+                target="_blank" style="text-decoration: none
+                !important;">http://www.l<wbr>emaker.org/</a></span> </p>
+          <p class="MsoNormal" style="font-weight: normal; margin: 0px
+            0cm; font-size: 10.5pt; line-height: 21px;"> <span
+              lang="EN-US"><img
+                src="cid:part6.08000604.02090804@lemaker.org"
+                style="max-width: 100%; height: auto !important;"> <br>
+            </span> </p>
+        </h1>
+      </span></div>
+  </body>
+</html>
+
+--------------070704090902020707050008--
+
+--------------050304020309010806030805--
