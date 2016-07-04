@@ -1,33 +1,31 @@
-Return-Path: <humberto.ibarra.lopez@intel.com>
+Return-Path: <jose.perez.carranza@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E960FE00D7C; Mon,  4 Jul 2016 13:31:46 -0700 (PDT)
+	id D8548E00D5E; Mon,  4 Jul 2016 14:08:53 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 31D0EE00D7A
-	for <poky@yoctoproject.org>; Mon,  4 Jul 2016 13:31:45 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 04 Jul 2016 13:31:45 -0700
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [134.134.136.65 listed in list.dnswl.org]
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82C55E00D55
+	for <poky@yoctoproject.org>; Mon,  4 Jul 2016 14:08:50 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga103.jf.intel.com with ESMTP; 04 Jul 2016 14:08:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.26,576,1459839600"; d="scan'208";a="1000866438"
-Received: from jhibarra-mobl1.zpn.intel.com ([10.219.16.231])
-	by fmsmga001.fm.intel.com with ESMTP; 04 Jul 2016 13:31:44 -0700
-From: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
+X-IronPort-AV: E=Sophos;i="5.26,576,1459839600"; d="scan'208";a="989088390"
+Received: from jgperezc-mobl1.zpn.intel.com ([10.219.5.37])
+	by orsmga001.jf.intel.com with ESMTP; 04 Jul 2016 14:08:50 -0700
+From: Jose Perez Carranza <jose.perez.carranza@intel.com>
 To: poky@yoctoproject.org
-Date: Mon,  4 Jul 2016 15:33:34 -0500
-Message-Id: <1467664414-8042-4-git-send-email-humberto.ibarra.lopez@intel.com>
-X-Mailer: git-send-email 2.4.11
-In-Reply-To: <1467664414-8042-1-git-send-email-humberto.ibarra.lopez@intel.com>
-References: <1467664414-8042-1-git-send-email-humberto.ibarra.lopez@intel.com>
-Subject: [PATCH 3/3] scripts/lib/bsp/help.py: Changed help of yocto-bsp to match latest syntax
+Date: Mon,  4 Jul 2016 16:15:07 -0500
+Message-Id: <1467666907-21677-1-git-send-email-jose.perez.carranza@intel.com>
+X-Mailer: git-send-email 1.9.1
+Subject: [PATCH] systemd_boot: Enable module to test systemd bootloader
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,72 +38,83 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Jul 2016 20:31:47 -0000
+X-List-Received-Date: Mon, 04 Jul 2016 21:08:53 -0000
 
-With the changes to migrate from optparse to argparse there was a syntax change that needs an update in the help. This is basically just the change of 'properties' and 'property' from positional arguments to options. This patch makes the required changes.
+ Module systemd_boot created wtih a class "Systemdboot"
+ and a test case "test_efi_systemdboot_images_can_be_built"
+ to test new systemd bootloader.
 
-[YOCTO #8321]
+ [YOCTO #9706]
 
-Signed-off-by: Humberto Ibarra <humberto.ibarra.lopez@intel.com>
+Signed-off-by: Jose Perez Carranza <jose.perez.carranza@intel.com>
 ---
- scripts/lib/bsp/help.py | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 56 ++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+ create mode 100644 meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
 
-diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
-index 85a09dd..36d09db 100644
---- a/scripts/lib/bsp/help.py
-+++ b/scripts/lib/bsp/help.py
-@@ -183,9 +183,9 @@ DESCRIPTION
- yocto_bsp_list_usage = """
- 
-  usage: yocto-bsp list karch
--        yocto-bsp list <karch> properties
-+        yocto-bsp list <karch> --properties
-                 [-o <JSON PROPERTY FILE> | --outfile <JSON PROPERTY_FILE>]
--        yocto-bsp list <karch> property <xxx>
-+        yocto-bsp list <karch> --property <xxx>
-                 [-o <JSON PROPERTY FILE> | --outfile <JSON PROPERTY_FILE>]
- 
-  This command enumerates the complete set of possible values for a
-@@ -213,9 +213,9 @@ NAME
- 
- SYNOPSIS
-     yocto-bsp list karch
--    yocto-bsp list <karch> properties
-+    yocto-bsp list <karch> --properties
-             [--o <JSON PROPERTY FILE> | -outfile <JSON PROPERTY_FILE>]
--    yocto-bsp list <karch> property <xxx>
-+    yocto-bsp list <karch> --property <xxx>
-             [--o <JSON PROPERTY FILE> | -outfile <JSON PROPERTY_FILE>]
- 
- DESCRIPTION
-@@ -246,9 +246,9 @@ DESCRIPTION
-     object will consist of the set of name:value pairs corresponding
-     to the (possibly nested) dictionary of properties defined by the
-     input statements used by the BSP.  Some example output for the
--    'list properties' command:
-+    'list --properties' command:
- 
--    $ yocto-bsp list arm properties
-+    $ yocto-bsp list arm --properties
-     "touchscreen" : {
-         "msg" : Does your BSP have a touchscreen? (y/N)
-         "default" : n
-@@ -310,11 +310,11 @@ DESCRIPTION
-     name:value pairs corresponding to the array of property values
-     associated with the property.
- 
--    $ yocto-bsp list i386 property xserver_choice
-+    $ yocto-bsp list i386 --property xserver_choice
-         ["xserver_vesa", "VESA xserver support"]
-         ["xserver_i915", "i915 xserver support"]
- 
--    $ yocto-bsp list arm property base_kbranch_linux_yocto_3_0
-+    $ yocto-bsp list arm --property base_kbranch_linux_yocto_3_0
-         Getting branches from remote repo git://git.yoctoproject.org/linux-yocto-3.0...
-         ["yocto/base", "yocto/base"]
-         ["yocto/eg20t", "yocto/eg20t"]
--- 
-2.4.11
+diff --git a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+new file mode 100644
+index 0000000..f7f74db
+--- /dev/null
++++ b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+@@ -0,0 +1,56 @@
++from oeqa.selftest.base import oeSelfTest
++from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
++from oeqa.utils.decorators import testcase
++import re
++import os
++import sys
++import logging
++
++
++class Systemdboot(oeSelfTest):
++
++    def _common_setup(self):
++        """
++        Common setup for test cases: 1445, XXXX
++        """
++
++        # Set EFI_PROVIDER = "gummiboot" and MACHINE = "genericx86-64" in conf/local.conf
++        features = 'EFI_PROVIDER = "systemd-boot"\n'
++        features += 'MACHINE = "genericx86-64"'
++        self.append_config(features)
++
++    def _common_build(self):
++        """
++        Common build for test cases: 1445 , XXXX
++        """
++
++        # Build a genericx86-64/efi gummiboot image
++        bitbake('mtools-native core-image-minimal')
++
++
++    @testcase(1445)
++    def test_efi_systemdboot_images_can_be_built(self):
++        """
++        Summary:     Check if systemd-boot images can be built correctly
++        Expected:    1. File systemd-boot.efi should be available in $poky/build/tmp/deploy/images/genericx86-64
++                     2. 'systemd-boot" can be built correctly
++        Product:     oe-core
++        Author:      Jose Perez Carranza <jose.perez.carranza@intel.com>
++        AutomatedBy: Jose Perez Carranza <jose.perez.carranza@intel.com>
++        """
++
++        # We'd use DEPLOY_DIR_IMAGE here, except that we need its value for
++        # MACHINE="genericx86-64 which is probably not the one configured
++        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64', 'systemd-bootx64.efi')
++
++        self._common_setup()
++
++        # Ensure we're actually testing that this gets built and not that
++        # it was around from an earlier build
++        bitbake('-c cleansstate systemd-boot')
++        runCmd('rm -f %s' % systemdbootfile)
++
++        self._common_build()
++
++        found = os.path.isfile(systemdbootfile)
++        self.assertTrue(found, 'Systemd-Boot file %s not found' % systemdbootfile)
+--
+1.9.1
 
 
