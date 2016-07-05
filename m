@@ -1,31 +1,41 @@
-Return-Path: <jose.perez.carranza@intel.com>
+Return-Path: <rpjday@crashcourse.ca>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D8548E00D5E; Mon,  4 Jul 2016 14:08:53 -0700 (PDT)
+	id 5935AE00DA0; Tue,  5 Jul 2016 03:19:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [208.80.204.84 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
-	high *      trust
-	*      [134.134.136.65 listed in list.dnswl.org]
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82C55E00D55
-	for <poky@yoctoproject.org>; Mon,  4 Jul 2016 14:08:50 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga103.jf.intel.com with ESMTP; 04 Jul 2016 14:08:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.26,576,1459839600"; d="scan'208";a="989088390"
-Received: from jgperezc-mobl1.zpn.intel.com ([10.219.5.37])
-	by orsmga001.jf.intel.com with ESMTP; 04 Jul 2016 14:08:50 -0700
-From: Jose Perez Carranza <jose.perez.carranza@intel.com>
-To: poky@yoctoproject.org
-Date: Mon,  4 Jul 2016 16:15:07 -0500
-Message-Id: <1467666907-21677-1-git-send-email-jose.perez.carranza@intel.com>
-X-Mailer: git-send-email 1.9.1
-Subject: [PATCH] systemd_boot: Enable module to test systemd bootloader
+Received: from smtp484.redcondor.net (smtp484.redcondor.net [208.80.204.84])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2DFE8E00D8D
+	for <poky@yoctoproject.org>; Tue,  5 Jul 2016 03:18:58 -0700 (PDT)
+Received: from astoria.ccjclearline.com ([64.235.106.9])
+	by smtp484.redcondor.net ({c48374e7-08df-40d9-a0de-96cc9883a037})
+	via TCP (outbound) with ESMTPS id 20160705101855400_0484;
+	Tue, 05 Jul 2016 10:18:55 +0000
+X-RC-FROM: <rpjday@crashcourse.ca>
+Received: from [216.191.234.70] (port=24340 helo=crashcourse.ca)
+	by astoria.ccjclearline.com with esmtpsa (TLSv1:AES256-SHA:256)
+	(Exim 4.80) (envelope-from <rpjday@crashcourse.ca>)
+	id 1bKNT5-0007Xl-1o; Tue, 05 Jul 2016 06:20:39 -0400
+Date: Tue, 5 Jul 2016 06:17:55 -0400 (EDT)
+From: "Robert P. J. Day" <rpjday@crashcourse.ca>
+X-X-Sender: rpjday@localhost.localdomain
+To: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <CAMKF1soWb4UKJ6_5MZrxyRgu0miuAFeDC=QZ6xDsPeNpPuM24A@mail.gmail.com>
+Message-ID: <alpine.LFD.2.20.1607050616200.21917@localhost.localdomain>
+References: <alpine.LFD.2.20.1607040639330.6324@localhost.localdomain>
+	<CAMKF1soWb4UKJ6_5MZrxyRgu0miuAFeDC=QZ6xDsPeNpPuM24A@mail.gmail.com>
+User-Agent: Alpine 2.20 (LFD 67 2015-01-07)
+MIME-Version: 1.0
+X-MAG-OUTBOUND: ccj.redcondor.net@64.235.106.9/32
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [PATCH] meta-yocto: Delete PREFERRED_VERSION for obsolete version of U-Boot.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,83 +48,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Jul 2016 21:08:53 -0000
+X-List-Received-Date: Tue, 05 Jul 2016 10:19:02 -0000
+Content-Type: text/plain; charset=US-ASCII
 
- Module systemd_boot created wtih a class "Systemdboot"
- and a test case "test_efi_systemdboot_images_can_be_built"
- to test new systemd bootloader.
+On Mon, 4 Jul 2016, Khem Raj wrote:
 
- [YOCTO #9706]
+> On Mon, Jul 4, 2016 at 3:47 AM, Robert P. J. Day <rpjday@crashcourse.ca> wrote:
+> >
+> > The OE recipe for U-Boot v2013.07 was deleted in 2014, so remove this
+> > reference to it.
+> >
+> > Signed-off-by: Robert P. J. Day <rpjday@crashcourse.ca>
+> >
+> > ---
+> >
+> > diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+> > index f3ad12d..1e7de09 100644
+> > --- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+> > +++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+> > @@ -22,7 +22,6 @@ XSERVER ?= "xserver-xorg \
+> >              xf86-input-evdev \
+> >              xf86-video-fbdev"
+> >
+> > -PREFERRED_VERSION_u-boot ?= "v2013.07%"
+>
+> while this is ok, I wonder if the new defaults work for this board ?
 
-Signed-off-by: Jose Perez Carranza <jose.perez.carranza@intel.com>
----
- meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 56 ++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
- create mode 100644 meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+  still haven't tried to boot this yet, but given that the v2013.07
+version of u-boot was removed back in (it seems) 2014, are you
+suggesting no one has tried to build for this YP reference board for
+two years? that would seem a bit ... odd.
 
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-new file mode 100644
-index 0000000..f7f74db
---- /dev/null
-+++ b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-@@ -0,0 +1,56 @@
-+from oeqa.selftest.base import oeSelfTest
-+from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
-+from oeqa.utils.decorators import testcase
-+import re
-+import os
-+import sys
-+import logging
-+
-+
-+class Systemdboot(oeSelfTest):
-+
-+    def _common_setup(self):
-+        """
-+        Common setup for test cases: 1445, XXXX
-+        """
-+
-+        # Set EFI_PROVIDER = "gummiboot" and MACHINE = "genericx86-64" in conf/local.conf
-+        features = 'EFI_PROVIDER = "systemd-boot"\n'
-+        features += 'MACHINE = "genericx86-64"'
-+        self.append_config(features)
-+
-+    def _common_build(self):
-+        """
-+        Common build for test cases: 1445 , XXXX
-+        """
-+
-+        # Build a genericx86-64/efi gummiboot image
-+        bitbake('mtools-native core-image-minimal')
-+
-+
-+    @testcase(1445)
-+    def test_efi_systemdboot_images_can_be_built(self):
-+        """
-+        Summary:     Check if systemd-boot images can be built correctly
-+        Expected:    1. File systemd-boot.efi should be available in $poky/build/tmp/deploy/images/genericx86-64
-+                     2. 'systemd-boot" can be built correctly
-+        Product:     oe-core
-+        Author:      Jose Perez Carranza <jose.perez.carranza@intel.com>
-+        AutomatedBy: Jose Perez Carranza <jose.perez.carranza@intel.com>
-+        """
-+
-+        # We'd use DEPLOY_DIR_IMAGE here, except that we need its value for
-+        # MACHINE="genericx86-64 which is probably not the one configured
-+        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64', 'systemd-bootx64.efi')
-+
-+        self._common_setup()
-+
-+        # Ensure we're actually testing that this gets built and not that
-+        # it was around from an earlier build
-+        bitbake('-c cleansstate systemd-boot')
-+        runCmd('rm -f %s' % systemdbootfile)
-+
-+        self._common_build()
-+
-+        found = os.path.isfile(systemdbootfile)
-+        self.assertTrue(found, 'Systemd-Boot file %s not found' % systemdbootfile)
---
-1.9.1
+rday
+
+-- 
+
+========================================================================
+Robert P. J. Day                                 Ottawa, Ontario, CANADA
+                        http://crashcourse.ca
+
+Twitter:                                       http://twitter.com/rpjday
+LinkedIn:                               http://ca.linkedin.com/in/rpjday
+========================================================================
 
 
