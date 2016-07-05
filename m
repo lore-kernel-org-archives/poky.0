@@ -1,61 +1,64 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9AE86E00D8F; Tue,  5 Jul 2016 09:47:02 -0700 (PDT)
+	id 833CAE006D2; Tue,  5 Jul 2016 10:23:44 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
 	low *      trust
-	*      [209.85.214.53 listed in list.dnswl.org]
-Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
-	[209.85.214.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 717C1E00D8F
-	for <poky@yoctoproject.org>; Tue,  5 Jul 2016 09:46:58 -0700 (PDT)
-Received: by mail-it0-f53.google.com with SMTP id g4so46001574ith.1
-	for <poky@yoctoproject.org>; Tue, 05 Jul 2016 09:46:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	*      [209.85.220.196 listed in list.dnswl.org]
+Received: from mail-qk0-f196.google.com (mail-qk0-f196.google.com
+	[209.85.220.196])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 352F5E0045E
+	for <poky@yoctoproject.org>; Tue,  5 Jul 2016 10:23:40 -0700 (PDT)
+Received: by mail-qk0-f196.google.com with SMTP id l185so2321178qkd.2
+	for <poky@yoctoproject.org>; Tue, 05 Jul 2016 10:23:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=yUWKgU7EZfyXB6NZtkDZx4YFOC8BM9uE8svnXYaxCZQ=;
-	b=fsQGvgYLq4TVpW5uC+IoNyztolCdDU6HHOxWYzxKebC7xh78uwuESS+6bs9WMUmf+Y
-	pBjBNZ7AkC0a0XTZatIJ7jK0ezG/hKjf0Gq1P+s8niqrVW1gm9CabaCA/IzOjKRNPvIV
-	xKnXY/FEIE2IVItAMchQv9CrQrJK6Rx609ixVowQR6yU7RxyelhlXVZmD/EOBjsrEE5U
-	pUb9SHUaEL1iqAxmFFAA55/ral8Wo12dl3brJlUoitWGzAOBt0qwMFsU0X5eBD0YYH7i
-	wkIPVofReq3RurCWJx1waftW4H5eAjbv8CYZ4RAEQNUDIXGETs2ndldi5CnZ5CC4b1xX
-	TTTQ==
+	:cc; bh=7GMYk5PxwsOJwxk/1Q6kWj4D/GJMQhQGI6VZV0UyKGE=;
+	b=sHiww/dpdIDVNhw2ZbdeoxRZifeQl3xSca1s96kCiAZUxTpTAhqyyIK7OtOC6u6M1Y
+	z75xtvJmkz2erKHkllMch2T7PqEsIQ009Mwo8tOd/S1bOZiLbqw9+6r4kL/JjoL2e3IF
+	Gl/5VqTEcGW9nLMpAMnIwrxxxRRcHvYSJX4m1QYWrmtA0l9eAi+AQx+EjfGte/52Rd7Y
+	RbhauxI8Nrf564maTeIew29rhSICCAzcPvU5ocviJsN2h3BC+pig0WPukxTmprKKj8gH
+	lGtFxlhN+xR66F3Pho1rC6tzdTd2nYVb4jtbM0U8X+JX9dwaGsV23W15/2nCR1Xg7a3r
+	IeRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
 	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
 	:message-id:subject:to:cc;
-	bh=yUWKgU7EZfyXB6NZtkDZx4YFOC8BM9uE8svnXYaxCZQ=;
-	b=LdtofJl2gfAjw9oXBd27ZW1m73a3BiYBquHNKu9uLgdJxUY7e+Ncg+SZlpq5FpM2um
-	znBIkdXn6WKqUbaWlhB2KLe/8tUtcfwO4DqUwzJD7GEELnckM1p/K+m/LK8vtMkQf1ZB
-	9lINR3Pu9OLq5V7e5hbA7aNVNFdUSZoMbLZy1id6cp4jAFLpHAdpuwgkSTAkQcSkhNdW
-	NC0EanFrbhDOgu7162Yju1gLZpb5TGKNcOcTA/tanzgGgITSRov0Y28pbaU3GF4Z8rsn
-	Nfi2ESd5+mj7snIbHM11byjw7qJgKzNilQT2FijdksE8JcHlRwqPy10HFXo8o6cmfojG
-	VL9A==
-X-Gm-Message-State: ALyK8tIk11eMa62deT2GKG+53j2sPAenmZlwly6ZJbvDepmEkuO6a/ZfGn6CihzWTzExpOpzDQ5k816kUuPxmg3a
-X-Received: by 10.36.57.70 with SMTP id l67mr15091155ita.22.1467737218089;
-	Tue, 05 Jul 2016 09:46:58 -0700 (PDT)
+	bh=7GMYk5PxwsOJwxk/1Q6kWj4D/GJMQhQGI6VZV0UyKGE=;
+	b=kqCOXC1L3vY9IB2QLiGnhDqP+Hd3jLRDefB5rhi8Sv73cqttliCWUDcPunnaGO+dqB
+	wSyZBPEklrKzskDlgAI2E2i9op6/ID0VJFj+M9tKxuKfqR5wgzEpZ3m1mf6uWc6jTshA
+	696izwWRffn5rzTeZuzCP6IYQ58GVKtv/GePfyFSoDNZ40IjQ6ejmZtEaIhAz0G6FP1S
+	aRv/eMCUzZyQhjsbvtPlzq474YgOeTzOiZrvSItagQwD6qm7+Eeia5PDBgrNasuJZ3yP
+	G4cz2jS4t/J9qDr3/FGMEUeL+a5xAr06Uy30vK8+x1V94IF6B1F1F91nrxXpHm54xegH
+	WhIw==
+X-Gm-Message-State: ALyK8tI+3GJhIDQjYc6PeG9G8d40yeMAMvb7aksyxwNYJltnrPgkdKRMLe0rg/JLp5SB/MVOT+XYqd+4JDaOMg==
+X-Received: by 10.55.187.4 with SMTP id l4mr25166713qkf.152.1467739420153;
+	Tue, 05 Jul 2016 10:23:40 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.107.142.151 with HTTP; Tue, 5 Jul 2016 09:46:38 -0700 (PDT)
+Received: by 10.55.214.83 with HTTP; Tue, 5 Jul 2016 10:23:10 -0700 (PDT)
 In-Reply-To: <alpine.LFD.2.20.1607051239420.6050@localhost.localdomain>
 References: <alpine.LFD.2.20.1607040639330.6324@localhost.localdomain>
 	<CAMKF1soWb4UKJ6_5MZrxyRgu0miuAFeDC=QZ6xDsPeNpPuM24A@mail.gmail.com>
 	<alpine.LFD.2.20.1607050616200.21917@localhost.localdomain>
 	<CAMKF1spr5ieFwHXJL_SnUNJDUk7hmQTDM1c5xxJ20A12pABikQ@mail.gmail.com>
 	<alpine.LFD.2.20.1607051239420.6050@localhost.localdomain>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 5 Jul 2016 17:46:38 +0100
-Message-ID: <CAJTo0Lb14NoX5ADXXhn6EzBXJW=e3ctu9kOD=OD4sNiXPg+tZA@mail.gmail.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 5 Jul 2016 10:23:10 -0700
+Message-ID: <CAMKF1sqZXuZXPLC22RLSFsmBF8g5LkrtjGRZs+7xCM71LJxyWw@mail.gmail.com>
 To: "Robert P. J. Day" <rpjday@crashcourse.ca>
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH] meta-yocto: Delete PREFERRED_VERSION for obsolete version of U-Boot.
@@ -71,41 +74,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Jul 2016 16:47:02 -0000
-Content-Type: multipart/alternative; boundary=001a114a9c668265500536e6334c
-
---001a114a9c668265500536e6334c
+X-List-Received-Date: Tue, 05 Jul 2016 17:23:44 -0000
 Content-Type: text/plain; charset=UTF-8
 
-On 5 July 2016 at 17:40, Robert P. J. Day <rpjday@crashcourse.ca> wrote:
-
-> > there is meta-fsl-ppc and folks may have used that.
+On Tue, Jul 5, 2016 at 9:40 AM, Robert P. J. Day <rpjday@crashcourse.ca> wrote:
+> On Tue, 5 Jul 2016, Khem Raj wrote:
+>
+>> On Tue, Jul 5, 2016 at 3:17 AM, Robert P. J. Day <rpjday@crashcourse.ca> wrote:
+>> > On Mon, 4 Jul 2016, Khem Raj wrote:
+>> >
+>> >> On Mon, Jul 4, 2016 at 3:47 AM, Robert P. J. Day <rpjday@crashcourse.ca> wrote:
+>> >> >
+>> >> > The OE recipe for U-Boot v2013.07 was deleted in 2014, so remove this
+>> >> > reference to it.
+>> >> >
+>> >> > Signed-off-by: Robert P. J. Day <rpjday@crashcourse.ca>
+>> >> >
+>> >> > ---
+>> >> >
+>> >> > diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+>> >> > index f3ad12d..1e7de09 100644
+>> >> > --- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+>> >> > +++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+>> >> > @@ -22,7 +22,6 @@ XSERVER ?= "xserver-xorg \
+>> >> >              xf86-input-evdev \
+>> >> >              xf86-video-fbdev"
+>> >> >
+>> >> > -PREFERRED_VERSION_u-boot ?= "v2013.07%"
+>> >>
+>> >> while this is ok, I wonder if the new defaults work for this board ?
+>> >
+>> >   still haven't tried to boot this yet, but given that the v2013.07
+>> > version of u-boot was removed back in (it seems) 2014, are you
+>> > suggesting no one has tried to build for this YP reference board for
+>> > two years? that would seem a bit ... odd.
+>> >
+>>
+>> there is meta-fsl-ppc and folks may have used that.
 >
 >   that may be, but since the mpc8315e-rdb is the powerpc yocto
 > reference board, should it not build with only meta-yocto* layers?
 
+it should but I am not sure if we test bootloader, so it just gets ignored.
 
-Yep, and QA tend to use images built by the autobuilder, so nobody noticed
-the warnings.
-
-Ross
-
---001a114a9c668265500536e6334c
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 5 July 2016 at 17:40, Robert P. J. Day <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:rpjday@crashcourse.ca" target=3D"_blank">rpjday@crashcourse.ca</a>&g=
-t;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
- .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">&gt; th=
-ere is meta-fsl-ppc and folks may have used that.<br>
-<br>
-</span>=C2=A0 that may be, but since the mpc8315e-rdb is the powerpc yocto<=
-br>
-reference board, should it not build with only meta-yocto* layers?</blockqu=
-ote></div><br>Yep, and QA tend to use images built by the autobuilder, so n=
-obody noticed the warnings.</div><div class=3D"gmail_extra"><br></div><div =
-class=3D"gmail_extra">Ross</div></div>
-
---001a114a9c668265500536e6334c--
