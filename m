@@ -1,73 +1,61 @@
-Return-Path: <anders@chargestorm.se>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D404CE00DE1; Wed,  6 Jul 2016 03:52:12 -0700 (PDT)
+	id 99C35E00DE1; Wed,  6 Jul 2016 03:55:48 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	http://www.dnswl.org/, low *      trust
-	*      [209.85.215.46 listed in list.dnswl.org]
+	*      [209.85.214.46 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-lf0-f46.google.com (mail-lf0-f46.google.com
-	[209.85.215.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3C796E00DDE
-	for <poky@yoctoproject.org>; Wed,  6 Jul 2016 03:52:06 -0700 (PDT)
-Received: by mail-lf0-f46.google.com with SMTP id l188so151917947lfe.2
-	for <poky@yoctoproject.org>; Wed, 06 Jul 2016 03:52:06 -0700 (PDT)
+Received: from mail-it0-f46.google.com (mail-it0-f46.google.com
+	[209.85.214.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D8881E00DDE
+	for <poky@yoctoproject.org>; Wed,  6 Jul 2016 03:55:47 -0700 (PDT)
+Received: by mail-it0-f46.google.com with SMTP id f6so103029691ith.0
+	for <poky@yoctoproject.org>; Wed, 06 Jul 2016 03:55:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=chargestorm-se.20150623.gappssmtp.com; s=20150623;
-	h=date:from:to:cc:subject:message-id:mail-followup-to:references
-	:mime-version:content-disposition:in-reply-to:organization
-	:user-agent; bh=zausPv+HIkoMXr5gmweHnWu45igNwZnVeC3oWg1hOuM=;
-	b=d4FjQqY4D8LdBvzxX4xb0APJyxX5okSUQrvq2ePLjH15/4sJYwwdDNTLq0nLqF1SYH
-	3SXqimHn4tQdNcrvwQGtUllKeSwwMi46PJ/23lqqY2VK8Nre7MQ4xcPaIyp+rmBRAdb4
-	Bnnj9msiClz5rdN4YYn8cKng5VHpGYXQUQch38XkTnTK/FtBkR0F3n/uy/EjMqRyKMmM
-	hq85+YQxQJRZnVj69ACwS1ofcqlXbr02E13bX6PJH/tnMEB2VdhHlVyq9i6ri02dKWgJ
-	KpjyL0IahnEVcD9Hcb+w1croJn18mpt09cM8CylXBzZH9jDTAqPBraQ2ApsJ+BzhxuPD
-	zeOg==
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to; 
+	bh=gb0xzpql2sxRfvnEltbNLnD1taNFGQ89MlfuaMBICU8=;
+	b=QRa2zR8wJp2KV1Vesdii4dxtyBID7D0OO1LUE9kbc9v9T50jCw0JFbs3oRsp/l0d+p
+	2335wdeqndTpplFcTfS8Nkf8ZHsoML1CCfGPW48i5nK8bciEObJKsTX/QGKiwjfmIGdZ
+	mT1x/NrgH2KsIj1IDKcbLu9U84on4V7HCr4MKEWhswDnQ4YC5q5NCEMprRQo6OTBRTqb
+	teBE3kmJLRXRBqF056bh36Ysnaqih1upSz/eo+n/u+sxnFCJC7tUhTuQBy7fIOCCikSn
+	eaQLF32PNblSHfGI0JAiq1GRGycaY9Xgm5DLTB1NL43QOC312R5YzyMmExQTWfD0UBZu
+	BvSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id
-	:mail-followup-to:references:mime-version:content-disposition
-	:in-reply-to:organization:user-agent;
-	bh=zausPv+HIkoMXr5gmweHnWu45igNwZnVeC3oWg1hOuM=;
-	b=OJFJ38aJu2HH2o3u+HXy9R6MSJREz1WUrfBqTM/276eY2eiMXGEAxENlHum9gi7ZxV
-	x7yOUfDvb+fJr987RUFlMOX8jPpQYPASAMcz4rx6DfLbMmj6KpJ+vRdnOe3lpsV2HdaV
-	6+5r8GyvTUZaaNZ/zkupoKhJigj4XMOD3OLHdmhs0UGNZvaL1S5DjZUL/GObKqetKYYk
-	Z9uqSG/iFOWRb3mnwJiby4RZ4hfx5zUtQO5UhwiVNWR56Skq+pdLggEwmPpDfWGzBwZT
-	08ckHaHXDXaTpU0D+6BNU5r6dRcP4NUs5Sv8KIFqglDQ/KUrBl5KTCFCuKkBAzQX9Zdy
-	8Wsg==
-X-Gm-Message-State: ALyK8tKNe8LKsnxoXuVR6lx8cIOciX1nkDcRrP1DI15+JaVGEC1WWyyBH+bCbsHWpD+MQw==
-X-Received: by 10.25.15.213 with SMTP id 82mr4668534lfp.126.1467802325062;
-	Wed, 06 Jul 2016 03:52:05 -0700 (PDT)
-Received: from ad.chargestorm.se (213-64-218-130-no126.business.telia.com.
-	[213.64.218.130])
-	by smtp.gmail.com with ESMTPSA id 70sm6286231lfp.34.2016.07.06.03.52.03
-	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Wed, 06 Jul 2016 03:52:03 -0700 (PDT)
-Date: Wed, 6 Jul 2016 12:52:02 +0200
-From: Anders Darander <anders@chargestorm.se>
-To: "Burton, Ross" <ross.burton@intel.com>
-Message-ID: <20160706105202.GC23993@ad.chargestorm.se>
-Mail-Followup-To: "Burton, Ross" <ross.burton@intel.com>,
-	Poky Project <poky@yoctoproject.org>
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to;
+	bh=gb0xzpql2sxRfvnEltbNLnD1taNFGQ89MlfuaMBICU8=;
+	b=dZ1NnawcEQ4oFXmOTJgt7tPGJ/MNrnKBzNVbSHr335gombXpqIKdBlV4hR998S6uFy
+	PtW/zAZKyBB/x7oph28viJ9LbFjJv1txKBXFgYLr+iZ3+Oy8QGBs48YYr9+f41m2KpIJ
+	yVcPsGA7ua8zUg1qQ/TLuNg4/tSM8Okh4pxEJKTtEAikztGYs1/SV4jdfSfKTZxyP3XO
+	7jHFjwQGrnn6TC5vOfDauCBL/NYHmDimnRRFuQCTKK872Yts4E+gLzeE+aL4EAW10CXH
+	qbXonM/mUNtJNzbryXG5TTsouMkyz4LOqzEz8vPhttf2d8eZ5w2qc7fapp65HhrJTjNF
+	bPIQ==
+X-Gm-Message-State: ALyK8tKU+Bo0oBMyo33MmqPDYzcWiGcH1sv7ysJ7dvnPCfyPPIPVMR9wqsO/YnnEQxaKk2H/rOk+feujnyv8tYr3
+X-Received: by 10.36.147.198 with SMTP id y189mr16410911itd.83.1467802547142; 
+	Wed, 06 Jul 2016 03:55:47 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.107.142.151 with HTTP; Wed, 6 Jul 2016 03:55:27 -0700 (PDT)
+In-Reply-To: <20160706105202.GC23993@ad.chargestorm.se>
 References: <1464718260-8333-1-git-send-email-anders@chargestorm.se>
 	<CAJTo0LZiqq2kqrzGs-9_9d5Oi0D9q4FAmOCV7=YA9YWCzPeNQA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAJTo0LZiqq2kqrzGs-9_9d5Oi0D9q4FAmOCV7=YA9YWCzPeNQA@mail.gmail.com>
-X-Accept-Language: sv, en, de
-X-GPG-Fingerprint: 5AF0 B2E9 78FE 9D75 D110  6F8F 3E31 84D7 920E 938C
-X-GPG-Key-Id: 0x920E938C
-X-GPG-Keyserver: hkp://keys.gnupg.net
-Organization: ChargeStorm AB
-User-Agent: Mutt/1.6.0 (2016-04-01)
-Cc: Poky Project <poky@yoctoproject.org>
+	<20160706105202.GC23993@ad.chargestorm.se>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 6 Jul 2016 11:55:27 +0100
+Message-ID: <CAJTo0LawQHOkYEOidj=qyRxah-+oXWyd5otCQmKF9OFpZZVKhQ@mail.gmail.com>
+To: "Burton, Ross" <ross.burton@intel.com>,
+	Poky Project <poky@yoctoproject.org>
 Subject: Re: [PATCH] yocto-bsp: add BBG dtb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -81,32 +69,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Jul 2016 10:52:12 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Wed, 06 Jul 2016 10:55:48 -0000
+Content-Type: multipart/alternative; boundary=94eb2c089e146c55980536f56902
 
-* Burton, Ross <ross.burton@intel.com> [160706 12:13]:
+--94eb2c089e146c55980536f56902
+Content-Type: text/plain; charset=UTF-8
 
-> On 31 May 2016 at 19:11, Anders Darander <anders@chargestorm.se> wrote:
+On 6 July 2016 at 11:52, Anders Darander <anders@chargestorm.se> wrote:
 
-> > As 4.4 is the default kernel version, we can add the dtb for the beaglebon
-> > green
-> > to the list of dtb's to generate.
+> How does the autobuilder select the 4.1-kernel? I guess it wouldn't be
+> possible to remove the BBG at the same time...
+>
 
-> Default but not only: this breaks builds with the 4.1 kernel:
+The AB just selected the poky-lsb distribution, which in turn sets
+PREFERRED_VERSION.
 
-Ok, then I guess this one has to wait until we drop 4.1 (probably after
-2.2 releases).
+Ross
 
-How does the autobuilder select the 4.1-kernel? I guess it wouldn't be
-possible to remove the BBG at the same time...
+--94eb2c089e146c55980536f56902
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the feedback!
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 6 July 2016 at 11:52, Anders Darander <span dir=3D"ltr">&lt;<a href=3D"m=
+ailto:anders@chargestorm.se" target=3D"_blank">anders@chargestorm.se</a>&gt=
+;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 =
+.8ex;border-left:1px #ccc solid;padding-left:1ex"><div id=3D":2fo" class=3D=
+"a3s aXjCH m155bfd66cbc2a306">How does the autobuilder select the 4.1-kerne=
+l? I guess it wouldn&#39;t be<br>
+possible to remove the BBG at the same time...<br></div></blockquote></div>=
+<br>The AB just selected the poky-lsb distribution, which in turn sets PREF=
+ERRED_VERSION.</div><div class=3D"gmail_extra"><br></div><div class=3D"gmai=
+l_extra">Ross</div></div>
 
-Cheers,
-Anders
-
--- 
-Anders Darander, Senior System Architect
-ChargeStorm AB / eStorm AB
-
+--94eb2c089e146c55980536f56902--
