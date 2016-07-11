@@ -1,43 +1,58 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <pj0585@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A21EBE00C5B; Thu,  7 Jul 2016 01:43:01 -0700 (PDT)
+	id 8E55FE00E83; Mon, 11 Jul 2016 06:03:19 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (pj0585[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [74.125.82.45 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 79E9FE00C1D
-	for <poky@yoctoproject.org>; Thu,  7 Jul 2016 01:42:58 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u678gqE9022461
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 7 Jul 2016 01:42:53 -0700 (PDT)
-Received: from pek-khao-d1 (147.11.178.22) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.248.2;
-	Thu, 7 Jul 2016 01:42:51 -0700
-Date: Thu, 7 Jul 2016 16:42:47 +0800
-From: Kevin Hao <kexin.hao@windriver.com>
-To: "Robert P. J. Day" <rpjday@crashcourse.ca>
-Message-ID: <20160707084247.GE23595@pek-khao-d1>
-References: <alpine.LFD.2.20.1607040639330.6324@localhost.localdomain>
-	<CAMKF1soWb4UKJ6_5MZrxyRgu0miuAFeDC=QZ6xDsPeNpPuM24A@mail.gmail.com>
-	<alpine.LFD.2.20.1607050616200.21917@localhost.localdomain>
-	<CAMKF1spr5ieFwHXJL_SnUNJDUk7hmQTDM1c5xxJ20A12pABikQ@mail.gmail.com>
-	<alpine.LFD.2.20.1607051239420.6050@localhost.localdomain>
-	<CAMKF1sqZXuZXPLC22RLSFsmBF8g5LkrtjGRZs+7xCM71LJxyWw@mail.gmail.com>
-	<alpine.LFD.2.20.1607061423410.2536@localhost.localdomain>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 27922E00E78
+	for <poky@yoctoproject.org>; Mon, 11 Jul 2016 06:03:13 -0700 (PDT)
+Received: by mail-wm0-f45.google.com with SMTP id f65so61912696wmi.0
+	for <poky@yoctoproject.org>; Mon, 11 Jul 2016 06:03:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=NDyq2EtUjEXfO/bAwzOh5nQt3qqxPAHD/VkepcsikHE=;
+	b=U/R9Us9tY3BekEj6AzAmeNQJ6JePGJUzQhwyRpbDR0qnWLBSGpd1jr6Vuq4R7tWWpv
+	dte0mIzW4QZrExL8AC21OE/SIn4jWlt82+nZRDbURKjIV5Go7lylzK/C8u4FfRLWk3I9
+	X1F9YJQ7Ov6O8pN4RpxzBlcB7WrBfD3fQ/VXlVgTTQz0lToab+yHV3Fp+tquw/h5AgVw
+	14gbr4ciTAcRPPgbeBvc2IWJOnSzNv8Y0v2wgZqV8C+3OqQIuy0drKOCBbAtGMsnBNPn
+	5qUDVDxcQ3TJQtxI4LbNwni2m0mvArPPMU/Q9+aJ3pNcxC8noVG2EOboa3FA/hkGwoMP
+	tJkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=NDyq2EtUjEXfO/bAwzOh5nQt3qqxPAHD/VkepcsikHE=;
+	b=XYJb/U//eM5iQU7K7XeK1EazWiQenV+ai5dhry63Tyt4aRu28PX6MYwZVSqMqkFHoJ
+	qEoTqNwTC4/VQuKYcqKtIdwBJGafKK7e3VbcNnynZJhxwzJFzQXV/h5QM77OWQAJMAIv
+	2IijkFGayqHWQHWb9q1AopBF9YqA1SbNzBWw3RUy/j4+btKWA4aK9NxicSdUVWaqDOLT
+	dm5jvyK1nuoqWXwai/3jRNZPxlFZ3gi8wwxCIk7zJbwedouoLgMh8pn+eHAM7TnswtQy
+	seY05uomsAQmgXE9RroIyqXHWKVEdp7ubJWmv8MMgP52s4gm+mvGse063lp2JS1vxpLn
+	7Nxw==
+X-Gm-Message-State: ALyK8tLBYMm+m6tGZjwGqhgQzj4gsKTDh7fg1o10DoyKmPwJbIMBV9pPaa2bioojooMLvX/UusqK4jvmcUkPqQ==
+X-Received: by 10.28.166.150 with SMTP id p144mr14042099wme.57.1468242192043; 
+	Mon, 11 Jul 2016 06:03:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <alpine.LFD.2.20.1607061423410.2536@localhost.localdomain>
-User-Agent: Mutt/1.6.1 (2016-04-27)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] meta-yocto: Delete PREFERRED_VERSION for obsolete version of U-Boot.
+Received: by 10.28.143.79 with HTTP; Mon, 11 Jul 2016 06:03:11 -0700 (PDT)
+From: Prasant J <pj0585@gmail.com>
+Date: Mon, 11 Jul 2016 18:33:11 +0530
+Message-ID: <CAA2DH4uUeV6jTXp+ntpssyCFMt=AsYfu2ttbyZ_kexZOqLNtqg@mail.gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: Force exclude a package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,48 +65,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Jul 2016 08:43:01 -0000
-X-Groupsio-MsgNum: 10522
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="GxcwvYAGnODwn7V8"
-Content-Disposition: inline
+X-List-Received-Date: Mon, 11 Jul 2016 13:03:19 -0000
+Content-Type: text/plain; charset=UTF-8
 
---GxcwvYAGnODwn7V8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Wed, Jul 06, 2016 at 02:24:33PM -0400, Robert P. J. Day wrote:
-> On Tue, 5 Jul 2016, Khem Raj wrote:
->=20
-> > it should but I am not sure if we test bootloader, so it just gets
-> > ignored.
->=20
->   i guess we just found out if the newer version of u-boot works on
-> the mpc8315e-rdb ... the answer would seem to be, no.
+I'm building for the intel board (against jethro branch) and I have
+created my own custom layer. I have a generic query.
 
-We haven't updated the bootloader for the mpc8315erdb boards in our test fa=
-rm
-for a long time. So yes, the latest u-boot may be broken on this board. If =
-so,
-please file a bug. I will fix it.
+My build is failing because 2 packages (that I did not include
+intentionally - speex & taglib) is failing to build. I have tried
+IMAGE_INSTALL_remove but does not help.
 
-Thanks,
-Kevin
 
---GxcwvYAGnODwn7V8
-Content-Type: application/pgp-signature; name="signature.asc"
+How do I find out: what package or image feature forces a package to
+be included in the first place?
+Is there a way by which I can force exclude a package?
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
 
-iQEcBAEBCAAGBQJXfhYHAAoJEJNY7TDerrFxs9gH/iwR7O/AqXXFDwLyresuFNKg
-gdLJZ2gWq7xzpNuYaqcVpvae/Ou7teqknWQCY5D478ViqZvOvgDuey/HotnZmv/q
-YkfJB4pMLxnfNYwm1uhYvYe2oa/uO3fV73KvN+Xi/EuFLfWhSbNDnbGAo4PnZhDU
-Po9JmFTYwAyojnL7d8PtJv2qIlazKJUBeCyjD9v2h+61C31TN8R+L2riIuEt0b2j
-hTRKFlLF5Le6/eOeFfOCCatRuTpSxQ39lkfK1/YoZoiMniH/L49GPJMGsS1ttmH/
-CFfmNgrRVhYhcFqHx2vawBF4ouESYZgdehZsYWx53Nso7aLGAcKKkDjl6/aELUw=
-=2htj
------END PGP SIGNATURE-----
+Regards, Pj
 
---GxcwvYAGnODwn7V8--
