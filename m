@@ -1,63 +1,50 @@
-Return-Path: <pj0585@gmail.com>
+Return-Path: <elliot.smith@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 95879E00C45; Thu, 14 Jul 2016 07:06:36 -0700 (PDT)
+	id A500CE00F39; Fri, 15 Jul 2016 06:08:29 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [74.125.82.45 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (pj0585[at]gmail.com)
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [46.232.183.161 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C3E8EE00951
-	for <poky@yoctoproject.org>; Thu, 14 Jul 2016 07:06:31 -0700 (PDT)
-Received: by mail-wm0-f45.google.com with SMTP id i5so114673516wmg.0
-	for <poky@yoctoproject.org>; Thu, 14 Jul 2016 07:06:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=rD/kWgjuGCMNw2LGROMwyHqATpnFn2RtTye6TGJ4Blk=;
-	b=F2rYEAm2FUH1kpRp53g4P8OQvIOruDRovCDH8hGSVLHLj+6SOINvUB4q0fUF9EQ+Z0
-	k0qy0PNCcXUmWfCHZL4n2D5JvyBgPGKIR76d6pIgBqjX+732c/nWz+YocDzKgbl+3uVu
-	c4pG8xOG02GVpqtipZUdMEMFviUcolL3jn9GriXGBWhuj6VN1Wte8LAWOLHMXbVVVhkc
-	hy9OuJMKWJ7J5X2iAK6NBr/Hqg/nnK9F+6fpG5pDlHvjTBaQf4WOk5zI+ZIE5D1YIEh8
-	meFb4z6rzaCuyKhKf3ew0WATJS4xp0Uug3fhEifTqVmnr3Ei28KeCYRvI85yAJrzRTRw
-	L9rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=rD/kWgjuGCMNw2LGROMwyHqATpnFn2RtTye6TGJ4Blk=;
-	b=C4b14pGrEoaDvcnHLXRJPYpTS0oWl49eUftoEEbTpIunILhbQAqPsqO0+EhzwvojDA
-	zH8e541xZ+QIIo8Kga7Qe16tm9H1Mov0IdRcBvaYo0C9hAhQ9bUbPtUwqWrIlF+HD/6M
-	C10IurSIXcio5NmZwp6N9CuPcEAqsERbP3Y/hKuZgVrXCuiBILgOl2rYmadblA0883Yq
-	1GGxUoly+rTf+9gPmsLSoep+bwxvyRJS0FQ6Zp2oUHKkmNy8s4Oh9DoPV4b9QlA7x71R
-	IEswxOJ7m4Brjh1fawksFBmUjUxREyf4sF239a/kw4BmHwO96J9j9khpKplDR+S5eoFR
-	gnOg==
-X-Gm-Message-State: ALyK8tKjFQFdWY1y8nRm+8l76T7Ptg143uWe1IwL1kzFRJ1JrBr9k+JH03ialqSGTi61o8Uxgdvdpu6cF2+71w==
-X-Received: by 10.28.152.5 with SMTP id a5mr17156268wme.76.1468505189790; Thu,
-	14 Jul 2016 07:06:29 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.143.79 with HTTP; Thu, 14 Jul 2016 07:06:29 -0700 (PDT)
-In-Reply-To: <CAJTo0LYeQTGao7nW93MQVMfj3HLc+X4pPXa0TVU58VkPfjt4cg@mail.gmail.com>
-References: <CAA2DH4uUeV6jTXp+ntpssyCFMt=AsYfu2ttbyZ_kexZOqLNtqg@mail.gmail.com>
-	<CAJTo0LYeQTGao7nW93MQVMfj3HLc+X4pPXa0TVU58VkPfjt4cg@mail.gmail.com>
-From: Prasant J <pj0585@gmail.com>
-Date: Thu, 14 Jul 2016 19:36:29 +0530
-Message-ID: <CAA2DH4uMyVWETkOfPhBgccUiaARGdavfp-S7HypnjC_-EVjk+w@mail.gmail.com>
-To: "Burton, Ross" <ross.burton@intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Force exclude a package
+Received: from nov-007-i607.relay.mailchannels.net
+	(nov-007-i607.relay.mailchannels.net [46.232.183.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A52B5E0073D
+	for <poky@yoctoproject.org>; Fri, 15 Jul 2016 06:08:23 -0700 (PDT)
+X-Sender-Id: wwwh|x-authuser|elliot@townx.org
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id C2419E07FD;
+	Fri, 15 Jul 2016 12:59:02 +0000 (UTC)
+Received: from uscentral428.accountservergroup.com
+	(ip-10-229-10-199.us-west-2.compute.internal [10.229.10.199])
+	by relay.mailchannels.net (Postfix) with ESMTPA id 197CCE0A18;
+	Fri, 15 Jul 2016 12:58:59 +0000 (UTC)
+X-Sender-Id: wwwh|x-authuser|elliot@townx.org
+Received: from uscentral428.accountservergroup.com
+	(uscentral428.accountservergroup.com [10.92.147.53])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384)
+	by 0.0.0.0:2500 (trex/5.6.16); Fri, 15 Jul 2016 12:59:02 +0000
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: wwwh|x-authuser|elliot@townx.org
+X-MailChannels-Auth-Id: wwwh
+X-MC-Loop-Signature: 1468587542317:3138150346
+X-MC-Ingress-Time: 1468587542317
+Received: from [176.253.151.47] (port=52004 helo=localhost.localdomain)
+	by uscentral428.accountservergroup.com with esmtpa (Exim 4.87)
+	(envelope-from <elliot.smith@intel.com>)
+	id 1bO2hi-0008U2-8A; Fri, 15 Jul 2016 08:58:54 -0400
+From: Elliot Smith <elliot.smith@intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 15 Jul 2016 13:58:44 +0100
+Message-Id: <1468587524-23241-1-git-send-email-elliot.smith@intel.com>
+X-Mailer: git-send-email 2.7.4
+X-AuthUser: elliot@townx.org
+Cc: Belen Barros Pena <belen.barros.pena@linux.intel.com>
+Subject: [PATCH][krogoth] toaster: toasterconf.json Remove master release
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,47 +57,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Jul 2016 14:06:36 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Fri, 15 Jul 2016 13:08:29 -0000
 
-On Thu, Jul 14, 2016 at 12:42 AM, Burton, Ross <ross.burton@intel.com> wrote:
->
-> On 11 July 2016 at 14:03, Prasant J <pj0585@gmail.com> wrote:
->>
->> My build is failing because 2 packages (that I did not include
->> intentionally - speex & taglib) is failing to build. I have tried
->> IMAGE_INSTALL_remove but does not help.
->>
->>
->> How do I find out: what package or image feature forces a package to
->> be included in the first place?
->> Is there a way by which I can force exclude a package?
->
->
-> You can use "bitbake <myimage> -g" and read the resulting dot files (ideally
-> with a tool that can display dot files) to identify what is pulling in the
-> recipes.  Then use that knowledge to identify how to stop the package
-> appearing: maybe remove an image feature from your image, or stop using or
-> redefine a package group.  At the end of the day the images and
-> packagegroups in oe-core are examples and if they're not doing what you
-> want, you can write your own.
->
-> The only thing in oe-core that depends on taglib is GStreamer, so that is
-> being pulled into your image some how - likely though some package group or
-> image feature.
->
+From: Belen Barros Pena <belen.barros.pena@linux.intel.com>
 
-@Ross: Thanks for the response. I was having difficulty in following
-the .dot files, anyway I found the dependency chain by a hack. I
-removed the speex & taglib recipes. While building it complained of
-the missing recipes with the dependency chain. So thats how I got it.
+With the move to python3 completed in master, Toaster 2.1 no longer
+builds the master branch. This patch removes the master release from the
+Yocto Project toaster configuration file so that the master branch is
+not listed as an option to select when creating a project.
 
-Anyway thanks for responding.
+Signed-off-by: Belen Barros Pena <belen.barros.pena@linux.intel.com>
+Signed-off-by: Elliot Smith <elliot.smith@intel.com>
+---
+ meta-poky/conf/toasterconf.json | 21 +++------------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
-@Leonardo: Sorry, I will remember this next time. I thought when I was
-asking a generic question recipe specific logs may not be of help. So
-I did not put it. But anyway, its good to have more information.
+diff --git a/meta-poky/conf/toasterconf.json b/meta-poky/conf/toasterconf.json
+index 606aac7..79f801b 100644
+--- a/meta-poky/conf/toasterconf.json
++++ b/meta-poky/conf/toasterconf.json
+@@ -40,24 +40,18 @@
+             "name": "OpenEmbedded",
+             "sourcetype": "layerindex",
+             "apiurl": "http://layers.openembedded.org/layerindex/api/",
+-            "branches": ["master", "jethro", "krogoth"]
++            "branches": ["jethro", "krogoth"]
+         },
+         {
+             "name": "Imported layers",
+             "sourcetype": "imported",
+             "apiurl": "",
+-            "branches": ["master", "jethro", "krogoth", "HEAD"]
++            "branches": ["jethro", "krogoth", "HEAD"]
+ 
+         }
+     ],
+     "bitbake" : [
+         {
+-            "name": "master",
+-            "giturl": "remote:origin",
+-            "branch": "master",
+-            "dirpath": "bitbake"
+-        },
+-        {
+             "name": "jethro",
+             "giturl": "remote:origin",
+             "branch": "jethro",
+@@ -77,19 +71,10 @@
+         }
+     ],
+ 
+-    "defaultrelease": "master",
++    "defaultrelease": "krogoth",
+ 
+     "releases": [
+         {
+-            "name": "master",
+-            "description": "Yocto Project master",
+-            "bitbake": "master",
+-            "branch": "master",
+-            "defaultlayers": [ "openembedded-core", "meta-poky", "meta-yocto-bsp"],
+-            "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
+-            "helptext": "Toaster will run your builds using the tip of the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project master branch</a>, where active development takes place. This is not a stable branch, so your builds might not work as expected."
+-        },
+-        {
+             "name": "jethro",
+             "description": "Yocto Project 2.0 Jethro",
+             "bitbake": "jethro",
+-- 
+2.7.4
 
-
-Regards, Pj
 
