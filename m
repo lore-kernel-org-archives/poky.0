@@ -1,6 +1,6 @@
-Return-Path: <elliot.smith@intel.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A500CE00F39; Fri, 15 Jul 2016 06:08:29 -0700 (PDT)
+	id 7B3F5E00855; Tue, 19 Jul 2016 09:48:53 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,43 +8,29 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [46.232.183.161 listed in list.dnswl.org]
+	*      [192.55.52.120 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from nov-007-i607.relay.mailchannels.net
-	(nov-007-i607.relay.mailchannels.net [46.232.183.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A52B5E0073D
-	for <poky@yoctoproject.org>; Fri, 15 Jul 2016 06:08:23 -0700 (PDT)
-X-Sender-Id: wwwh|x-authuser|elliot@townx.org
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id C2419E07FD;
-	Fri, 15 Jul 2016 12:59:02 +0000 (UTC)
-Received: from uscentral428.accountservergroup.com
-	(ip-10-229-10-199.us-west-2.compute.internal [10.229.10.199])
-	by relay.mailchannels.net (Postfix) with ESMTPA id 197CCE0A18;
-	Fri, 15 Jul 2016 12:58:59 +0000 (UTC)
-X-Sender-Id: wwwh|x-authuser|elliot@townx.org
-Received: from uscentral428.accountservergroup.com
-	(uscentral428.accountservergroup.com [10.92.147.53])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384)
-	by 0.0.0.0:2500 (trex/5.6.16); Fri, 15 Jul 2016 12:59:02 +0000
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: wwwh|x-authuser|elliot@townx.org
-X-MailChannels-Auth-Id: wwwh
-X-MC-Loop-Signature: 1468587542317:3138150346
-X-MC-Ingress-Time: 1468587542317
-Received: from [176.253.151.47] (port=52004 helo=localhost.localdomain)
-	by uscentral428.accountservergroup.com with esmtpa (Exim 4.87)
-	(envelope-from <elliot.smith@intel.com>)
-	id 1bO2hi-0008U2-8A; Fri, 15 Jul 2016 08:58:54 -0400
-From: Elliot Smith <elliot.smith@intel.com>
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F2CD9E007DA
+	for <poky@yoctoproject.org>; Tue, 19 Jul 2016 09:48:52 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga104.fm.intel.com with ESMTP; 19 Jul 2016 09:48:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.28,390,1464678000"; d="scan'208";a="1024916318"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by fmsmga002.fm.intel.com with ESMTP; 19 Jul 2016 09:48:51 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 15 Jul 2016 13:58:44 +0100
-Message-Id: <1468587524-23241-1-git-send-email-elliot.smith@intel.com>
-X-Mailer: git-send-email 2.7.4
-X-AuthUser: elliot@townx.org
-Cc: Belen Barros Pena <belen.barros.pena@linux.intel.com>
-Subject: [PATCH][krogoth] toaster: toasterconf.json Remove master release
+Date: Tue, 19 Jul 2016 16:46:25 +0000
+Message-Id: <8a45e7128dbfb4a55f78eccc18fef69f1360d48c.1468946763.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.6.6
+In-Reply-To: <d69467e0b41c192ce1f44feb7547cea56521c4c9.1468946763.git.alejandro.hernandez@linux.intel.com>
+References: <d69467e0b41c192ce1f44feb7547cea56521c4c9.1468946763.git.alejandro.hernandez@linux.intel.com>
+In-Reply-To: <cover.1468946763.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1468946763.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 2/2] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -57,74 +43,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Jul 2016 13:08:29 -0000
+X-List-Received-Date: Tue, 19 Jul 2016 16:48:53 -0000
 
-From: Belen Barros Pena <belen.barros.pena@linux.intel.com>
-
-With the move to python3 completed in master, Toaster 2.1 no longer
-builds the master branch. This patch removes the master release from the
-Yocto Project toaster configuration file so that the master branch is
-not listed as an option to select when creating a project.
-
-Signed-off-by: Belen Barros Pena <belen.barros.pena@linux.intel.com>
-Signed-off-by: Elliot Smith <elliot.smith@intel.com>
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 ---
- meta-poky/conf/toasterconf.json | 21 +++------------------
- 1 file changed, 3 insertions(+), 18 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-poky/conf/toasterconf.json b/meta-poky/conf/toasterconf.json
-index 606aac7..79f801b 100644
---- a/meta-poky/conf/toasterconf.json
-+++ b/meta-poky/conf/toasterconf.json
-@@ -40,24 +40,18 @@
-             "name": "OpenEmbedded",
-             "sourcetype": "layerindex",
-             "apiurl": "http://layers.openembedded.org/layerindex/api/",
--            "branches": ["master", "jethro", "krogoth"]
-+            "branches": ["jethro", "krogoth"]
-         },
-         {
-             "name": "Imported layers",
-             "sourcetype": "imported",
-             "apiurl": "",
--            "branches": ["master", "jethro", "krogoth", "HEAD"]
-+            "branches": ["jethro", "krogoth", "HEAD"]
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 6f0757d..381463f 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -7,8 +7,8 @@ KBRANCH_edgerouter = "standard/edgerouter"
+ KBRANCH_beaglebone = "standard/beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
  
-         }
-     ],
-     "bitbake" : [
-         {
--            "name": "master",
--            "giturl": "remote:origin",
--            "branch": "master",
--            "dirpath": "bitbake"
--        },
--        {
-             "name": "jethro",
-             "giturl": "remote:origin",
-             "branch": "jethro",
-@@ -77,19 +71,10 @@
-         }
-     ],
- 
--    "defaultrelease": "master",
-+    "defaultrelease": "krogoth",
- 
-     "releases": [
-         {
--            "name": "master",
--            "description": "Yocto Project master",
--            "bitbake": "master",
--            "branch": "master",
--            "defaultlayers": [ "openembedded-core", "meta-poky", "meta-yocto-bsp"],
--            "layersourcepriority": { "Imported layers": 99, "Local Yocto Project" : 10, "OpenEmbedded" :  0 },
--            "helptext": "Toaster will run your builds using the tip of the <a href=\"http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/\">Yocto Project master branch</a>, where active development takes place. This is not a stable branch, so your builds might not work as expected."
--        },
--        {
-             "name": "jethro",
-             "description": "Yocto Project 2.0 Jethro",
-             "bitbake": "jethro",
+-SRCREV_machine_genericx86    ?= "bc64c8124504681545cb97a22b69a4e4bfeb55e2"
+-SRCREV_machine_genericx86-64 ?= "bc64c8124504681545cb97a22b69a4e4bfeb55e2"
++SRCREV_machine_genericx86    ?= "0e30a74f2cbbab0c7014561fe4eab1c9d8bfe560"
++SRCREV_machine_genericx86-64 ?= "0e30a74f2cbbab0c7014561fe4eab1c9d8bfe560"
+ SRCREV_machine_edgerouter ?= "628bf627561c6285d99fb978e11d4c15fc29324b"
+ SRCREV_machine_beaglebone ?= "628bf627561c6285d99fb978e11d4c15fc29324b"
+ SRCREV_machine_mpc8315e-rdb ?= "94ac8da44990afd2d43c0ccd713420fb1cfa0792"
 -- 
-2.7.4
+2.6.6
 
 
