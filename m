@@ -1,60 +1,58 @@
 Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 77555E00E6E; Mon,  1 Aug 2016 06:58:49 -0700 (PDT)
+	id 26D87E00F6A; Tue,  2 Aug 2016 06:06:23 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	http://www.dnswl.org/, low *      trust
-	*      [209.85.214.50 listed in list.dnswl.org]
+	*      [74.125.82.49 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-it0-f50.google.com (mail-it0-f50.google.com
-	[209.85.214.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D9DE1E00E67
-	for <poky@yoctoproject.org>; Mon,  1 Aug 2016 06:58:46 -0700 (PDT)
-Received: by mail-it0-f50.google.com with SMTP id f6so171200578ith.0
-	for <poky@yoctoproject.org>; Mon, 01 Aug 2016 06:58:46 -0700 (PDT)
+Received: from mail-wm0-f49.google.com (mail-wm0-f49.google.com [74.125.82.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AB2AAE00F61
+	for <poky@yoctoproject.org>; Tue,  2 Aug 2016 06:06:19 -0700 (PDT)
+Received: by mail-wm0-f49.google.com with SMTP id q128so408690971wma.1
+	for <poky@yoctoproject.org>; Tue, 02 Aug 2016 06:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=zw0p5g5Ka7Mpn2PKWsO90JMLUQjdRxOESWuUUjjDKoM=;
-	b=AVgM+CwcYn+YIY004+azsCaW068/mo0ZT+NkEn/UWGWck2kbJR/sKgpMpQdwYOaRiM
-	w93Pm6sVPWnkRuDbfK+LRopB0gO1/jwGT/xTKgFl+XGjHXKuTVBvvjC/Y8bGV8k7N0y1
-	mv9+0aOzOnWP0bUXxeoqmDuzeNIZZ9YmyaauB0HEacWhSyKJgR25c8aGmOAMeSioxzSL
-	euj5NiavkNcnK1IcwdAtHm0MJ93BDdcrwhJTP6Rvd0tMmMPgPsxLAsV+1jptNRbTyfyp
-	1vxisBto+j/sfAtp9XbK0FPkpbNg8iXRY1HOIv/CxUT4BPLqbGELCLtyP3POzdl9nb1g
-	okRQ==
+	h=from:to:subject:date:message-id;
+	bh=f1Ix22SuN75OiLu3obROk3Emuhtx6qPmewMFyFQ82A0=;
+	b=s/TDT2TOEDbmJ3Ua6nXEaQx8WSBbsGkAevXV5MKB6CWeqL3JGXCIEVzNkhF9qKV/F6
+	0I0YUwiaFELcvX+YoB8t2deliEU/nO1mm2Vw/+JDfiah/4IxT07T8BixEmtCx6+u6hpF
+	vg5UhQkPH8b09gYPoTbV5M3ir+authVlGH9aqQmISiMePbuUAC/7ZB4ecrWoA7zfAgBq
+	phDyLqWregtRP59QbOoduQoiCYjQnzxSWPLFGYBlpNPZ1plaF2YA7HGP9H/+cqGkfiKE
+	dUxCkKQNaUpYslaB6epad+BulrJNq7UsKfqk1nIWdU9gQrGRpTXONbIea4PykCGeb6uK
+	gCtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=zw0p5g5Ka7Mpn2PKWsO90JMLUQjdRxOESWuUUjjDKoM=;
-	b=bwA0JTYX40O+lIUxzMcIzBMlvybQmKoqRoQHf0eSg56BpucBLdaCUPYJ0OgLRHzu/D
-	/EXbQTQX0zrBSKodYPWmYwWL39kO7By8Iv5/1Wv3SCSFzryKDZimYgZCb0zd8GdaqxQ6
-	2P6BKJ1HEhJsfSu3MFVdqa3z5nOArfPyrf9XLvm32+2/7VwSDC3DEhksGaFzPATDYPcX
-	BAbkOagR4uT5h/XQoaRi4WmJE46p2oTN9VKX0VWkCgz8mcwgzBO3ofwpka14gfLW9fvT
-	e/DXONDYhj09rj7zWHUIpR9eOjaaB0EXSobi4qrWyVpokkVIwE1o88wDTC+e7uZD1nt+
-	HVhw==
-X-Gm-Message-State: AEkoousBceKfpDFZGx28nmHbqOW5iGLAX2bv2bqSSaWmM7M5pwXdJdhTkzYp9IN7b75JU9ND5dZGOq9nUKGpp+ng
-X-Received: by 10.36.131.194 with SMTP id d185mr14318972ite.38.1470059925880; 
-	Mon, 01 Aug 2016 06:58:45 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.18.17 with HTTP; Mon, 1 Aug 2016 06:58:26 -0700 (PDT)
-In-Reply-To: <BLUPR0201MB1553A0AEA355EAAC33EABD5CF7010@BLUPR0201MB1553.namprd02.prod.outlook.com>
-References: <BLUPR0201MB1553A0AEA355EAAC33EABD5CF7010@BLUPR0201MB1553.namprd02.prod.outlook.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Mon, 1 Aug 2016 14:58:26 +0100
-Message-ID: <CAJTo0LaZvdRm9TLcnSarNhLtXZiCXdtMcW90-BZyq-Dv-urMFQ@mail.gmail.com>
-To: Edson Seabra <Edson.Seabra@zpesystems.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: metadata_scm - get branch/revision from svn repository
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=f1Ix22SuN75OiLu3obROk3Emuhtx6qPmewMFyFQ82A0=;
+	b=kymu6JbsX4Ht9Yy74Zy2cD83YIR71pjm1got806o7az/+OWhD8bVWTk6HJLBEj6xQ6
+	WEUTPtjZ1v7gZRSkpitKwhjckij/7f0QB9x4VTLmONFITF2TSu1lTQ80OdbYiDJkZZN8
+	23E2Fi5bjr0hokWYTFV2MPBsLv2oTrlgAd4X8nnAxzGummFbTmICwCNYLIMhe/z2YUJ8
+	aBuWuRfXzEVGQVkBKUTDvu1BkU76OeGLiDhxEtqJ9WZK/mCt+Lat+muGCX4radGgnl2W
+	LPGr4rRSvPW6uBKkodf4x8Zqal/M7Wbv5hlOV7e4uR1AEkNnr6iGtE6d05F7dZwgAW+C
+	B8pQ==
+X-Gm-Message-State: AEkoousVeRIkRGLKldnu9xQXhkUu3gHtBxdKfmJdFLwIL03e6SeWVH7tXp3QX26v98YOPKHx
+X-Received: by 10.28.156.213 with SMTP id f204mr18147712wme.86.1470143178273; 
+	Tue, 02 Aug 2016 06:06:18 -0700 (PDT)
+Received: from flashheart.burtonini.com (home.burtonini.com. [81.2.106.35])
+	by smtp.gmail.com with ESMTPSA id
+	r67sm2969468wmb.14.2016.08.02.06.06.17 for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Tue, 02 Aug 2016 06:06:17 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Tue,  2 Aug 2016 14:06:15 +0100
+Message-Id: <1470143175-16752-1-git-send-email-ross.burton@intel.com>
+X-Mailer: git-send-email 2.8.1
+Subject: [PATCH] maintainers.inc: remove augeas
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -67,69 +65,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Aug 2016 13:58:49 -0000
-Content-Type: multipart/alternative; boundary=94eb2c049652ae72fa053902ff1a
+X-List-Received-Date: Tue, 02 Aug 2016 13:06:23 -0000
 
---94eb2c049652ae72fa053902ff1a
-Content-Type: text/plain; charset=UTF-8
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-poky/conf/distro/include/maintainers.inc | 1 -
+ 1 file changed, 1 deletion(-)
 
-On 29 July 2016 at 19:56, Edson Seabra <Edson.Seabra@zpesystems.com> wrote:
-
-> With this patch bitbake commands can display the branch/revision of layers
-> under svn control.
->
-> meta-java         = "trunk:4360-4037"
->
-> meta
->
-> meta-yocto
->
-> meta-yocto-bsp    = "jethro:dd0ba9ea4a11ab15348d4fe3574e4b28784db82f"
->
-
-openembedded-core@lists.openembedded.org please, and no HTML in the
-message.  Ideally, sent the patch with git send-email so it can be
-trivially reviewed and applied.  As it is you're asking me to manually
-apply the patch and then copy/de-HTML/paste a commit message, override the
-attribution so that you're the owner, and fake a signed-off-by tag.
+diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+index ac11501..f264440 100644
+--- a/meta-poky/conf/distro/include/maintainers.inc
++++ b/meta-poky/conf/distro/include/maintainers.inc
+@@ -48,7 +48,6 @@ RECIPE_MAINTAINER_pn-at-spi2-atk = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-at-spi2-core = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-atk = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-attr = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-augeas = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-autoconf = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-autogen-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-automake = "Robert Yang <liezhi.yang@windriver.com>"
+-- 
+2.8.1
 
 
-Ross
-
---94eb2c049652ae72fa053902ff1a
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 29 July 2016 at 19:56, Edson Seabra <span dir=3D"ltr">&lt;<a href=3D"mai=
-lto:Edson.Seabra@zpesystems.com" target=3D"_blank">Edson.Seabra@zpesystems.=
-com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"=
-"><div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size:16=
-px;margin-top:0px;margin-bottom:0px">With this patch bitbake commands can d=
-isplay the branch/revision of layers under svn control.</div>
-<div><br>
-</div>
-</span><p><span style=3D"font-family:&quot;Courier New&quot;,monospace">met=
-a-java =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;trunk:4360-4037&quot;</span></=
-p>
-<span style=3D"font-family:&quot;Courier New&quot;,monospace"></span>
-<p><span style=3D"font-family:&quot;Courier New&quot;,monospace">meta =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0</span></p>
-<span style=3D"font-family:&quot;Courier New&quot;,monospace"></span>
-<p><span style=3D"font-family:&quot;Courier New&quot;,monospace">meta-yocto=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0</span></p>
-<span style=3D"font-family:&quot;Courier New&quot;,monospace"></span>
-<p><span style=3D"font-family:&quot;Courier New&quot;,monospace">meta-yocto=
--bsp=C2=A0 =C2=A0 =3D &quot;jethro:dd0ba9ea4a11ab15348d4fe3574e4b28784db82f=
-&quot;</span></p>
-</blockquote></div><br><a href=3D"mailto:openembedded-core@lists.openembedd=
-ed.org">openembedded-core@lists.openembedded.org</a> please, and no HTML in=
- the message.=C2=A0 Ideally, sent the patch with git send-email so it can b=
-e trivially reviewed and applied.=C2=A0 As it is you&#39;re asking me to ma=
-nually apply the patch and then copy/de-HTML/paste a commit message, overri=
-de the attribution so that you&#39;re the owner, and fake a signed-off-by t=
-ag.</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra"><b=
-r></div><div class=3D"gmail_extra">Ross</div></div>
-
---94eb2c049652ae72fa053902ff1a--
