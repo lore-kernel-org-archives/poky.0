@@ -1,61 +1,36 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AB385E009CE; Tue,  2 Aug 2016 13:04:13 -0700 (PDT)
+	id 7EF3FE00D85; Wed,  3 Aug 2016 13:32:37 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.214.44 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.20 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-it0-f44.google.com (mail-it0-f44.google.com
-	[209.85.214.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25709E0099B
-	for <poky@yoctoproject.org>; Tue,  2 Aug 2016 13:04:10 -0700 (PDT)
-Received: by mail-it0-f44.google.com with SMTP id f6so43403397ith.0
-	for <poky@yoctoproject.org>; Tue, 02 Aug 2016 13:04:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=Arhxvpma9c+zWi2S2NEKbIv2QLbVzGL0AefJuDTIjMA=;
-	b=j6zY7Yb9g4zae0PqdYQeGQQ91kI0qp9prZUDt+qkL0N6uEu23k9D9M6c+o9bQ6NhHK
-	OyHUMoFDIyy787DzBMexOzzM+SsoBqlw199iSIWbwCuk8JQyAcfixm30/Cl/El3scskn
-	aXOGpTw1nKaI0H40gBLOQOGMPp7X220qn+Zm5ANSlkClknkBnyoSYoipgvckCBEkiNqV
-	DdcyBwcBaJOLrM2goeW/rxHD+sCgQgfCmsRxdcR1IkqcPVaoLTxX23tLNd4STc3o1L2N
-	dY8vrrPM6YXY5W8mc6qg0SG0SeSzRAjARQPcgFF4zejahPGLhcFQHFyH/XQ8qn3wr2Ys
-	en2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=Arhxvpma9c+zWi2S2NEKbIv2QLbVzGL0AefJuDTIjMA=;
-	b=TKZtvSE9CkQqkhrjA5DKRqah13RdxfJYHy6suEKxf+L4vlg7mAOlRRyrbfgSaNDU1z
-	AS3wkupPj9CEJVZ881ToQm4T+ii6A+iAWsqYvArSOXVkiDlaFHU18yAuw5vL3lK+6ZLt
-	Mz/c5n02uEdzU3SigzjQORyS1N3WUXZL1ogkj+VO3QP6895bORq2PaajORHo3g7zlpYR
-	RSZkPueo5Drg/QW2DauRa5X7fXJ4OHxLLb/2FPJAiWTkEi/2MAUDpDJXHi4rUsoxw6Zu
-	wE8E614dZYco2QqJRtqgRyWiwoqP9eR2CpFVrEig4QUuxjSNOFTpKSbmMG9T99ksqUWt
-	hz4g==
-X-Gm-Message-State: AEkoousbUzH+Gbb3kB2ld2/BIkWF8PFbIR+qezoY4cQUwzIUIxRjEX+oQ1K9nBhaQl1UjXXXsWA1qmKpYkjLz/6p
-X-Received: by 10.36.131.194 with SMTP id d185mr21984850ite.38.1470168249854; 
-	Tue, 02 Aug 2016 13:04:09 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.18.17 with HTTP; Tue, 2 Aug 2016 13:03:49 -0700 (PDT)
-In-Reply-To: <2802570.EZ4bYpm4Up@peggleto-mobl.ger.corp.intel.com>
-References: <1470143175-16752-1-git-send-email-ross.burton@intel.com>
-	<2802570.EZ4bYpm4Up@peggleto-mobl.ger.corp.intel.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 2 Aug 2016 21:03:49 +0100
-Message-ID: <CAJTo0Lb3KZUy2ZQrF=JosPtv1oBtHFj9q3sPxzZpanpJ2WuKaQ@mail.gmail.com>
-To: Paul Eggleton <paul.eggleton@linux.intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] maintainers.inc: remove augeas
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6579BE00D54
+	for <poky@yoctoproject.org>; Wed,  3 Aug 2016 13:32:34 -0700 (PDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+	by orsmga101.jf.intel.com with ESMTP; 03 Aug 2016 13:32:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.28,467,1464678000"; d="scan'208";a="859233092"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by orsmga003.jf.intel.com with ESMTP; 03 Aug 2016 13:32:32 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed,  3 Aug 2016 20:29:33 +0000
+Message-Id: <b0bcf2d648d8083b35853b74b904858fbf2c7140.1470256124.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.6.6
+In-Reply-To: <49ce54e9e97e99028fc9385c0b8ad2418d1c394b.1470256124.git.alejandro.hernandez@linux.intel.com>
+References: <49ce54e9e97e99028fc9385c0b8ad2418d1c394b.1470256124.git.alejandro.hernandez@linux.intel.com>
+In-Reply-To: <cover.1470256124.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1470256124.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 2/2] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,36 +43,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 02 Aug 2016 20:04:13 -0000
-Content-Type: multipart/alternative; boundary=94eb2c0496524b28e805391c3899
+X-List-Received-Date: Wed, 03 Aug 2016 20:32:37 -0000
 
---94eb2c0496524b28e805391c3899
-Content-Type: text/plain; charset=UTF-8
+Upgrades to linux version 4.4.15
 
-On 2 August 2016 at 20:59, Paul Eggleton <paul.eggleton@linux.intel.com>
-wrote:
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> Missing commit message - every commit needs an explanation, even if it's a
-> short one.
->
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 381463f..2c351c3 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -7,8 +7,8 @@ KBRANCH_edgerouter = "standard/edgerouter"
+ KBRANCH_beaglebone = "standard/beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+-SRCREV_machine_genericx86    ?= "0e30a74f2cbbab0c7014561fe4eab1c9d8bfe560"
+-SRCREV_machine_genericx86-64 ?= "0e30a74f2cbbab0c7014561fe4eab1c9d8bfe560"
++SRCREV_machine_genericx86    ?= "ddab242999407fadae68e7ee5381b0ec6679d443"
++SRCREV_machine_genericx86-64 ?= "ddab242999407fadae68e7ee5381b0ec6679d443"
+ SRCREV_machine_edgerouter ?= "628bf627561c6285d99fb978e11d4c15fc29324b"
+ SRCREV_machine_beaglebone ?= "628bf627561c6285d99fb978e11d4c15fc29324b"
+ SRCREV_machine_mpc8315e-rdb ?= "94ac8da44990afd2d43c0ccd713420fb1cfa0792"
+@@ -19,5 +19,5 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.4.13"
+-LINUX_VERSION_genericx86-64 = "4.4.13"
++LINUX_VERSION_genericx86 = "4.4.15"
++LINUX_VERSION_genericx86-64 = "4.4.15"
+-- 
+2.6.6
 
-Indeed it does, will update.
 
-Ross
-
---94eb2c0496524b28e805391c3899
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 2 August 2016 at 20:59, Paul Eggleton <span dir=3D"ltr">&lt;<a href=3D"m=
-ailto:paul.eggleton@linux.intel.com" target=3D"_blank">paul.eggleton@linux.=
-intel.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div id=
-=3D":sq" class=3D"a3s aXjCH m1564cd8466b57f01">Missing commit message - eve=
-ry commit needs an explanation, even if it&#39;s a<br>
-short one.<br></div></blockquote></div><br>Indeed it does, will update.</di=
-v><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Ross</div=
-></div>
-
---94eb2c0496524b28e805391c3899--
