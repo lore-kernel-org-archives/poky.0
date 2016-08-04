@@ -1,6 +1,6 @@
-Return-Path: <alejandro.hernandez@linux.intel.com>
+Return-Path: <jose.perez.carranza@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8B665E00D71; Wed,  3 Aug 2016 13:32:37 -0700 (PDT)
+	id 61E03E00C80; Thu,  4 Aug 2016 13:20:44 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,23 +12,20 @@ X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5969AE00D04
-	for <poky@yoctoproject.org>; Wed,  3 Aug 2016 13:32:33 -0700 (PDT)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by orsmga101.jf.intel.com with ESMTP; 03 Aug 2016 13:32:32 -0700
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 40E07E00B45
+	for <poky@yoctoproject.org>; Thu,  4 Aug 2016 13:20:40 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by orsmga101.jf.intel.com with ESMTP; 04 Aug 2016 13:19:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.28,467,1464678000"; d="scan'208";a="859233091"
-Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
-	([10.54.69.56])
-	by orsmga003.jf.intel.com with ESMTP; 03 Aug 2016 13:32:32 -0700
-From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.28,471,1464678000"; d="scan'208";a="1035275676"
+Received: from jgperezc-mobl1.zpn.intel.com ([10.219.5.37])
+	by fmsmga002.fm.intel.com with ESMTP; 04 Aug 2016 13:19:14 -0700
+From: Jose Perez Carranza <jose.perez.carranza@intel.com>
 To: poky@yoctoproject.org
-Date: Wed,  3 Aug 2016 20:29:32 +0000
-Message-Id: <49ce54e9e97e99028fc9385c0b8ad2418d1c394b.1470256124.git.alejandro.hernandez@linux.intel.com>
-X-Mailer: git-send-email 2.6.6
-In-Reply-To: <cover.1470256124.git.alejandro.hernandez@linux.intel.com>
-References: <cover.1470256124.git.alejandro.hernandez@linux.intel.com>
-Subject: [PATCH 1/2] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.1
+Date: Thu,  4 Aug 2016 15:26:32 -0500
+Message-Id: <1470342392-20924-1-git-send-email-jose.perez.carranza@intel.com>
+X-Mailer: git-send-email 1.9.1
+Subject: [PATCH] poky: update supported distros
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,39 +38,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Aug 2016 20:32:37 -0000
+X-List-Received-Date: Thu, 04 Aug 2016 20:20:44 -0000
 
-Upgrades to linux version 4.1.28
+Update existing supported distros CentOS and OpenSuse to avoid
+unsupported distro warning, Add SUSELINUX for leap version.
+For Yocto Project releases 1.7 was dropped and 2.1,2.2 added.
 
-Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+[Yocto #10067]
+
+Signed-off-by: Jose Perez Carranza <jose.perez.carranza@intel.com>
 ---
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ meta-poky/conf/distro/poky.conf | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-index c575853..e0d3245 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-@@ -7,8 +7,8 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 8390ab4..2e18e3d 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -70,9 +70,10 @@ https://.*/.*    http://downloads.yoctoproject.org/mirror/sources/ \n"
+ CONNECTIVITY_CHECK_URIS ?= "https://www.example.com/"
  
--SRCREV_machine_genericx86    ?= "75d56a13f86fc48002e4a3f9ed60546db30432b7"
--SRCREV_machine_genericx86-64 ?= "75d56a13f86fc48002e4a3f9ed60546db30432b7"
-+SRCREV_machine_genericx86    ?= "44af900716206d4cae283aa74e92f4118720724a"
-+SRCREV_machine_genericx86-64 ?= "44af900716206d4cae283aa74e92f4118720724a"
- SRCREV_machine_edgerouter ?= "403eda4633e9037fb715d0d1e8ae847b2bd0651a"
- SRCREV_machine_beaglebone ?= "859aecf685fcd9d30490a6da459fb76b48947075"
- SRCREV_machine_mpc8315e-rdb ?= "403eda4633e9037fb715d0d1e8ae847b2bd0651a"
-@@ -19,5 +19,5 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone = "beaglebone"
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
--LINUX_VERSION_genericx86 = "4.1.26"
--LINUX_VERSION_genericx86-64 = "4.1.26"
-+LINUX_VERSION_genericx86 = "4.1.28"
-+LINUX_VERSION_genericx86-64 = "4.1.28"
+ SANITY_TESTED_DISTROS ?= " \
+-            poky-1.7 \n \
+             poky-1.8 \n \
+             poky-2.0 \n \
++            poky-2.1 \n \
++            poky-2.2 \n \
+             Ubuntu-14.04 \n \
+             Ubuntu-14.10 \n \
+             Ubuntu-15.04 \n \
+@@ -80,9 +81,10 @@ SANITY_TESTED_DISTROS ?= " \
+             Ubuntu-16.04 \n \
+             Fedora-22 \n \
+             Fedora-23 \n \
+-            CentOS-7.* \n \
++            CentOSLinux-7.* \n \
+             Debian-8.* \n \
+-            openSUSE-project-13.2 \n \
++            openSUSE-13.2 \n \
++            SUSELINUX-42.1 \n \
+             "
+ #
+ # OELAYOUT_ABI allows us to notify users when the format of TMPDIR changes in 
 -- 
-2.6.6
+1.9.1
 
 
