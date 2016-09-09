@@ -1,35 +1,29 @@
-Return-Path: <alejandro.hernandez@linux.intel.com>
+Return-Path: <joshua.g.lock@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A5B29E00D44; Tue,  6 Sep 2016 09:30:32 -0700 (PDT)
+	id 6F6B7E00CC0; Fri,  9 Sep 2016 05:05:01 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6AC70E00D35
-	for <poky@yoctoproject.org>; Tue,  6 Sep 2016 09:30:27 -0700 (PDT)
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-	by fmsmga101.fm.intel.com with ESMTP; 06 Sep 2016 09:30:27 -0700
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 43434E00CAF
+	for <poky@yoctoproject.org>; Fri,  9 Sep 2016 05:04:57 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by fmsmga105.fm.intel.com with ESMTP; 09 Sep 2016 05:04:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.30,292,1470726000"; 
-   d="scan'208";a="5597858"
-Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
-	([10.54.69.56])
-	by orsmga004.jf.intel.com with ESMTP; 06 Sep 2016 09:30:27 -0700
-From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.30,304,1470726000"; d="scan'208";a="1027378399"
+Received: from jlock-mobl1.ger.corp.intel.com ([10.252.28.224])
+	by orsmga001.jf.intel.com with ESMTP; 09 Sep 2016 05:04:56 -0700
+From: Joshua Lock <joshua.g.lock@intel.com>
 To: poky@yoctoproject.org
-Date: Tue,  6 Sep 2016 16:26:13 +0000
-Message-Id: <5a2b13336e94c9635377b1736640f1bad46bb909.1473179138.git.alejandro.hernandez@linux.intel.com>
-X-Mailer: git-send-email 2.6.6
-In-Reply-To: <cover.1473179138.git.alejandro.hernandez@linux.intel.com>
-References: <cover.1473179138.git.alejandro.hernandez@linux.intel.com>
-Subject: [PATCH 1/1] linux-yocto: Adds new bbappend for genericx86 and genericx86-64 BSPs to support kernel 4.8
+Date: Fri,  9 Sep 2016 13:04:48 +0100
+Message-Id: <1473422688-17845-1-git-send-email-joshua.g.lock@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Joshua Lock <joshua.g.lock@intel.com>
+Subject: [PATCH] poky: add Fedora-24 to SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,57 +36,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Sep 2016 16:30:32 -0000
+X-List-Received-Date: Fri, 09 Sep 2016 12:05:01 -0000
 
-Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+We've had a builder in the Yocto Project Autobuilder cluster
+using Fedora 24 for some time now, I think it's safe to say it's
+tested.
+
+Signed-off-by: Joshua Lock <joshua.g.lock@intel.com>
 ---
- meta-yocto-bsp/conf/machine/genericx86-64.conf             |  2 ++
- meta-yocto-bsp/conf/machine/genericx86.conf                |  2 ++
- .../recipes-kernel/linux/linux-yocto_4.8.bbappend          | 14 ++++++++++++++
- 3 files changed, 18 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-index f76e35a..ceee247 100644
---- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-@@ -6,3 +6,5 @@
- DEFAULTTUNE ?= "core2-64"
- require conf/machine/include/tune-core2.inc
- require conf/machine/include/genericx86-common.inc
-+
-+PREFERRED_VERSION_linux-yocto_genericx86-64 ?= "4.8%"
-diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-index 798b62ec..04a7e0b 100644
---- a/meta-yocto-bsp/conf/machine/genericx86.conf
-+++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-@@ -8,3 +8,5 @@ require conf/machine/include/tune-core2.inc
- require conf/machine/include/genericx86-common.inc
- 
- MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += "gma500-gfx-check"
-+
-+PREFERRED_VERSION_linux-yocto_genericx86 ?= "4.8%"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend
-new file mode 100644
-index 0000000..efa11cb
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend
-@@ -0,0 +1,14 @@
-+KBRANCH_genericx86  = "standard/base"
-+KBRANCH_genericx86-64  = "standard/base"
-+
-+KMACHINE_genericx86 ?= "common-pc"
-+KMACHINE_genericx86-64 ?= "common-pc-64"
-+
-+SRCREV_machine_genericx86    ?= "a7d71794e4e38d2f861c1b1dbff761ae0b0836b3"
-+SRCREV_machine_genericx86-64 ?= "a7d71794e4e38d2f861c1b1dbff761ae0b0836b3"
-+
-+COMPATIBLE_MACHINE_genericx86 = "genericx86"
-+COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+
-+LINUX_VERSION_genericx86 = "4.8-rc4"
-+LINUX_VERSION_genericx86-64 = "4.8-rc4"
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 558df62..9585540 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -81,6 +81,7 @@ SANITY_TESTED_DISTROS ?= " \
+             Ubuntu-16.04 \n \
+             Fedora-22 \n \
+             Fedora-23 \n \
++            Fedora-24 \n \
+             CentOSLinux-7.* \n \
+             Debian-8.* \n \
+             openSUSE-13.2 \n \
 -- 
-2.6.6
+2.7.4
 
 
