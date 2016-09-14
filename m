@@ -1,40 +1,63 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <tobias.andersson@multiq.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 1EA6EE00D3D; Tue, 13 Sep 2016 07:04:01 -0700 (PDT)
+	id 801A7E009DF; Wed, 14 Sep 2016 06:01:11 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [195.245.230.163 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E85AEE00D34
-	for <poky@yoctoproject.org>; Tue, 13 Sep 2016 07:03:57 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id u8DE3tkb009372
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK);
-	Tue, 13 Sep 2016 07:03:55 -0700
-Received: from server.local (147.11.118.112) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.40) with Microsoft SMTP Server id 14.3.294.0;
-	Tue, 13 Sep 2016 07:03:54 -0700
-To: Robert Yang <liezhi.yang@windriver.com>, "Burton, Ross"
-	<ross.burton@intel.com>
-References: <cover.1473668648.git.liezhi.yang@windriver.com>
-	<52b278723167707e032353daded2d1ccf0f44b59.1473668648.git.liezhi.yang@windriver.com>
-	<CAJTo0LYvLLvjJHNaA-JfZCGKGWDWNfdR5E9+rwHDXTMYuYPgow@mail.gmail.com>
-	<620f9e8e-3cf0-445a-f79d-b4b48a017fb1@windriver.com>
-	<607d954c-6cab-870a-f298-5ff8c1470c31@windriver.com>
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-Message-ID: <0c346db0-600c-a374-bec1-7453dff3091a@windriver.com>
-Date: Tue, 13 Sep 2016 10:03:53 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:45.0)
-	Gecko/20100101 Thunderbird/45.2.0
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 384 seconds by postgrey-1.32 at yocto-www;
+	Wed, 14 Sep 2016 06:01:06 PDT
+Received: from mail1.bemta3.messagelabs.com (mail1.bemta3.messagelabs.com
+	[195.245.230.163])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 16FD4E009CD
+	for <poky@yoctoproject.org>; Wed, 14 Sep 2016 06:01:06 -0700 (PDT)
+Received: from [85.158.137.19] by server-3.bemta-3.messagelabs.com id
+	F6/E6-23620-09849D75; Wed, 14 Sep 2016 12:54:40 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrJIsWRWlGSWpSXmKPExsVy2HCNuW6vx81
+	wg8+9lhbT/61hd2D0aD/RxxbAGMWamZeUX5HAmnGvoY+l4JRExbnLx1kaGBvEuhi5OIQEZjBK
+	vHzdx9TFyMHBJmAisWq9VRcjJ4eIgLHEzE9LWEFsYQEZiUP7rrNBxBUl9rZ/Zoew9SQmzDsPF
+	mcRUJWYfXcuM4jNKxAk8ffeOzCbUUBW4v73eywgNrOAuMTnuQ+YQGwJAQGJJXvOM0PYohIvH/
+	9jhbDlJabNb2GDqM+T6G85zQIxU1Di5MwnLBMY+WchGTULSdksJGUQcT2JG1OnsEHY2hLLFr5
+	mhrB1JWb8O8SCLL6AkX0Vo0ZxalFZapGukYFeUlFmekZJbmJmjq6hgbFebmpxcWJ6ak5iUrFe
+	cn7uJkZgkNczMDDuYGw+4XeIUZKDSUmUV0rvZrgQX1J+SmVGYnFGfFFpTmrxIUYZDg4lCd6J7
+	kA5waLU9NSKtMwcYLzBpCU4eJREeHtA0rzFBYm5xZnpEKlTjIpS4rzJIAkBkERGaR5cGyzGLz
+	HKSgnzMjIwMAjxFKQW5WaWoMq/YhTnYFQS5t0AMoUnM68EbvoroMVMQIu3rLkOsrgkESEl1cA
+	Ytnpf3xJG+70nBd69vTGT3ZTxrEeGjm+t0JyFdjYT0/8yebm9T1w5eUGnlbgP+9Nd1Yy+ce7T
+	buryLztiuoFR6GzgyUbrhBoR/e4Im2XnmJbYzDPM9dH1zrjYc2CbCsu/Y3vT1CJ++qszdqz8t
+	MR7uesSneW6S7zvrYpqy25M4IkP/vzss5ASS3FGoqEWc1FxIgAuTe567AIAAA==
+X-Env-Sender: tobias.andersson@multiq.com
+X-Msg-Ref: server-11.tower-39.messagelabs.com!1473857677!62429962!1
+X-Originating-IP: [195.49.172.55]
+X-StarScan-Received: 
+X-StarScan-Version: 8.84; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10457 invoked from network); 14 Sep 2016 12:54:37 -0000
+Received: from unknown (HELO exch02-esl-se.Multiq2.local) (195.49.172.55)
+	by server-11.tower-39.messagelabs.com with AES256-SHA encrypted SMTP;
+	14 Sep 2016 12:54:37 -0000
+Received: from exch02-esl-se.Multiq2.local ([::1]) by
+	exch02-esl-se.Multiq2.local ([::1]) with mapi id 14.03.0224.002;
+	Wed, 14 Sep 2016 14:54:37 +0200
+From: Tobias Andersson <tobias.andersson@multiq.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky][autobuilder]
+Thread-Index: AdIOhRp+qw12snZ4Qw2gE1p29aT3ug==
+Date: Wed, 14 Sep 2016 12:54:36 +0000
+Message-ID: <A126740DBD3CFF4C92C08C03B00BC6C8013D4C6B@exch02-esl-se.Multiq2.local>
+Accept-Language: sv-SE, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [85.235.1.83]
 MIME-Version: 1.0
-In-Reply-To: <607d954c-6cab-870a-f298-5ff8c1470c31@windriver.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] poky-lsb.conf: use kernel 4.8
+Subject: [autobuilder]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,50 +70,102 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Sep 2016 14:04:01 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 14 Sep 2016 13:01:11 -0000
+Content-Language: sv-SE
+Content-Type: multipart/alternative;
+	boundary="_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4C6Bexch02eslseMult_"
 
-On 2016-09-12 9:44 PM, Robert Yang wrote:
+--_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4C6Bexch02eslseMult_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+I have an issue with useradd command not succeeding. The issue is appearing=
+ when building the image with autobuilder.
+
+error msg:
+"do_populate_sysroot_setscene: mqclient-base-files: useradd command did not=
+ succeed."
+
+The user being added in the recipe depends on another group that i add from=
+ another recipe, which the logs states that the group does not exits, even =
+though i check in the sysroot that it does.
+I even had to apply the --force flag to the recipe adding the group because=
+ it generated an error stating it already existed.
+
+What could be the problem ?
+
+---------------------------------------------------------
+Med v=E4nlig h=E4lsning/ Kind Regards
+
+Tobias Andersson
+
+Software Developer
+
+Direct: +46 (0)10 211 66 05
+Office: +46 (0)10 211 66 00
+
+tobias.andersson@multiq.com
+
+www.multiq.com
+
+--_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4C6Bexch02eslseMult_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style id=3D"owaParaStyle" type=3D"text/css">P {margin-top:0;margin-bottom:=
+0;}</style>
+</head>
+<body ocsi=3D"0" fpstyle=3D"1">
+<div style=3D"direction: ltr;font-family: Tahoma;color: #000000;font-size: =
+10pt;">I have an issue with useradd command not succeeding. The issue is ap=
+pearing when building the image with autobuilder.<br>
+<br>
+error msg:<span class=3D"stderr"><br>
+&quot;do_populate_sysroot_setscene: mqclient-base-files: useradd command di=
+d not succeed.&quot;<br>
+<br>
+The user being added in the recipe depends on another group that i add from=
+ another recipe, which the logs states that the group does not exits, even =
+though i check in the sysroot that it does.<br>
+I even had to apply the --force flag to the recipe adding the group because=
+ it generated an error stating it already existed.<br>
+<br>
+What could be the problem ?<br>
+</span>
+<div><br>
+<div style=3D"font-family:Tahoma; font-size:13px">
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:10pt"=
 >
->
-> On 09/12/2016 08:48 PM, Bruce Ashfield wrote:
->> On 2016-09-12 04:39 AM, Burton, Ross wrote:
->>>
->>> On 12 September 2016 at 09:25, Robert Yang <liezhi.yang@windriver.com
->>> <mailto:liezhi.yang@windriver.com>> wrote:
->>>
->>>      # Use the LTSI Kernel for LSB Testing
->>>     -PREFERRED_VERSION_linux-yocto_linuxstdbase ?= "4.1%"
->>>     +PREFERRED_VERSION_linux-yocto_linuxstdbase ?= "4.8%"
->>>
->>>
->>> As the comment says, poky-lsb uses the currently LTSI kernel, which is
->>> 4.1.17.   If this isn't booting for you then this needs to be fixed
->>> without upgrading to 4.8, unless there's a new LTSI kernel on the
->>> horizon (Bruce?).
->>
->> I see Robert already replied, but I can comment here that the next
->> LTSI looks to be 4.9. We stretched to make 4.8 for this release, so
->> it will be spring before we have a new LTSI kernel to use.
->
-> Thanks for the reply, will we fix "qemuarm64 + poky-lsb + 4.1 kernel"
-> can't be boot issue in Yocto 2.2, please ?
+<div class=3D"PlainText">--------------------------------------------------=
+-------<br>
+Med v=E4nlig h=E4lsning/ Kind Regards<br>
+<br>
+Tobias Andersson<br>
+<br>
+Software Developer<br>
+<br>
+Direct: &#43;46 (0)10 211 66 05<br>
+Office: &#43;46 (0)10 211 66 00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+tobias.andersson@multiq.com<br>
+<br>
+www.multiq.com </div>
+</span></font></div>
+</div>
+</div>
+</div>
+</body>
+</html>
 
-I'm sure someone will :D I haven't looked at it myself, but will have
-my hands full with 4.8 for the next while.
-
-Bruce
-
->
-> // Robert
->
->>
->> Bruce
->>
->>>
->>> Ross
->>
->>
-
-
+--_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4C6Bexch02eslseMult_--
