@@ -1,66 +1,67 @@
-Return-Path: <tobias.andersson@multiq.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A4D3AE00C59; Fri, 16 Sep 2016 02:04:09 -0700 (PDT)
+	id 73D57E00C55; Fri, 16 Sep 2016 02:54:09 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [193.109.254.110 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [195.60.68.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 382 seconds by postgrey-1.32 at yocto-www;
-	Fri, 16 Sep 2016 02:04:05 PDT
-Received: from mail1.bemta6.messagelabs.com (mail1.bemta6.messagelabs.com
-	[193.109.254.110])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EF8FCE00A21
-	for <poky@yoctoproject.org>; Fri, 16 Sep 2016 02:04:05 -0700 (PDT)
-Received: from [85.158.140.211] by server-6.bemta-6.messagelabs.com id
-	DF/49-11175-604BBD75; Fri, 16 Sep 2016 08:57:42 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrNIsWRWlGSWpSXmKPExsVy2HCNuS7Lltv
-	hBl1bhC3Ov1jIZjH93xp2ByaP6+sCPNpP9LEFMEWxZuYl5VcksGasntfKXPA9pOL6gS0sDYzz
-	/LoYuTiEBGYwSuzp7mDrYuTgYBMwkVi13qqLkZNDRCBN4tPnblYQW1hAUWL5399sEHElicP9z
-	9khbCOJR3MOM4PYLAKqEifudoLFeQWCJH5c6WWBmN/KKPGw+SwTSIJTwF7i8Kf3LCA2o4CsxP
-	3v98BsZgFxic9zH4DVSAgISCzZc54ZwhaVePn4HyuELS8xbX4LG0R9nsSG5xAH8QoISpyc+YR
-	lAqPgLCSjZiEpm4WkDCKuJ3Fj6hQ2CFtbYtnC18wQtq7EjH+HWJDFFzCyr2LUKE4tKkst0jU0
-	1EsqykzPKMlNzMzRNTQw08tNLS5OTE/NSUwq1kvOz93ECIwUBiDYwfhpWcAhRkkOJiVR3uLC2
-	+FCfEn5KZUZicUZ8UWlOanFhxhlODiUJHjZNwPlBItS01Mr0jJzgDELk5bg4FES4TUCSfMWFy
-	TmFmemQ6ROMSpKifM6giQEQBIZpXlwbbA0cYlRVkqYlxHoECGegtSi3MwSVPlXjOIcjErCvG4
-	gU3gy80rgpr8CWswEtHj1LLDFJYkIKakGRs+jNQLr9t/MCrntFnnsTJ3O79tuOUcF3K2E1xqH
-	sjcF1PSVzeRfHJCfW7n87bnSyi1HuEL+7Y+SXnHSRa2LI23B5VKFbI3lf5pN7vX8uPj2vXZ6n
-	NKFCQtmXWK/ksZSq24e9Lj5y+zdcp9DJs2LPycU1XpIVESsbP8VR4+ybw867IxMwu6zKrEUZy
-	QaajEXFScCAAA6w38OAwAA
-X-Env-Sender: tobias.andersson@multiq.com
-X-Msg-Ref: server-5.tower-194.messagelabs.com!1474016259!56140375!1
-X-Originating-IP: [195.49.172.55]
-X-StarScan-Received: 
-X-StarScan-Version: 8.84; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 31580 invoked from network); 16 Sep 2016 08:57:40 -0000
-Received: from unknown (HELO exch02-esl-se.Multiq2.local) (195.49.172.55)
-	by server-5.tower-194.messagelabs.com with AES256-SHA encrypted SMTP;
-	16 Sep 2016 08:57:40 -0000
-Received: from exch02-esl-se.Multiq2.local ([::1]) by
-	exch02-esl-se.Multiq2.local ([::1]) with mapi id 14.03.0224.002;
-	Fri, 16 Sep 2016 10:57:39 +0200
-From: Tobias Andersson <tobias.andersson@multiq.com>
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B1441E00A21
+	for <poky@yoctoproject.org>; Fri, 16 Sep 2016 02:54:04 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id 79542181F2;
+	Fri, 16 Sep 2016 11:54:03 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024)
+	with LMTP id L9Vhe7wpUZK1; Fri, 16 Sep 2016 11:54:01 +0200 (CEST)
+Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
+	by bastet.se.axis.com (Postfix) with ESMTPS id D7969180DF;
+	Fri, 16 Sep 2016 11:54:01 +0200 (CEST)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AABF01E07C;
+	Fri, 16 Sep 2016 11:54:01 +0200 (CEST)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9E7D51E07B;
+	Fri, 16 Sep 2016 11:54:01 +0200 (CEST)
+Received: from seth.se.axis.com (unknown [10.0.2.172])
+	by boulder03.se.axis.com (Postfix) with ESMTP;
+	Fri, 16 Sep 2016 11:54:01 +0200 (CEST)
+Received: from XBOX01.axis.com (xbox01.axis.com [10.0.5.15])
+	by seth.se.axis.com (Postfix) with ESMTP id 928A22D5;
+	Fri, 16 Sep 2016 11:54:01 +0200 (CEST)
+Received: from XBOX02.axis.com (10.0.5.16) by XBOX01.axis.com (10.0.5.15) with
+	Microsoft SMTP Server (TLS) id 15.0.1210.3;
+	Fri, 16 Sep 2016 11:54:01 +0200
+Received: from XBOX02.axis.com ([fe80::d00f:cb52:1b56:20d]) by XBOX02.axis.com
+	([fe80::d00f:cb52:1b56:20d%21]) with mapi id 15.00.1156.000;
+	Fri, 16 Sep 2016 11:54:01 +0200
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: Tobias Andersson <tobias.andersson@multiq.com>
 Thread-Topic: [poky] [autobuilder]
-Thread-Index: AQHSD/bLYlnGGnXsjEGpjxe8lOm2LaB7z7hj
-Date: Fri, 16 Sep 2016 08:57:39 +0000
-Message-ID: <A126740DBD3CFF4C92C08C03B00BC6C8013D4F6F@exch02-esl-se.Multiq2.local>
+Thread-Index: AdIOhRp+qw12snZ4Qw2gE1p29aT3ugBcMyTQ///ja4D//9JdkA==
+Date: Fri, 16 Sep 2016 09:54:01 +0000
+Message-ID: <356ca5a435624320888a8f32478b38a6@XBOX02.axis.com>
 References: <A126740DBD3CFF4C92C08C03B00BC6C8013D4C6B@exch02-esl-se.Multiq2.local>,
 	<269dfdeb1a15404d9a8eee5c4972bc5c@XBOX02.axis.com>
-In-Reply-To: <269dfdeb1a15404d9a8eee5c4972bc5c@XBOX02.axis.com>
-Accept-Language: sv-SE, en-US
+	<A126740DBD3CFF4C92C08C03B00BC6C8013D4F6F@exch02-esl-se.Multiq2.local>
+In-Reply-To: <A126740DBD3CFF4C92C08C03B00BC6C8013D4F6F@exch02-esl-se.Multiq2.local>
+Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [85.235.1.83]
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [autobuilder]
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -74,14 +75,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Sep 2016 09:04:09 -0000
-Content-Language: sv-SE
+X-List-Received-Date: Fri, 16 Sep 2016 09:54:09 -0000
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4F6Fexch02eslseMult_"
+	boundary="_000_356ca5a435624320888a8f32478b38a6XBOX02axiscom_"
 
---_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4F6Fexch02eslseMult_
+--_000_356ca5a435624320888a8f32478b38a6XBOX02axiscom_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Well, the problem we have seen and which is fixed by my patch, is that if o=
+ne recipe uses GROUPMEMS_PARAM, any other recipe that creates users or grou=
+ps can fail if the two recipes happen to be built at the same time. Obvious=
+ly, if you do not have any recipe which use GROUPMEMS_PARAM, then my patch =
+will not help you.
+
+Another source of problems like this is if you have multiple recipes that c=
+reate the same user or group. We have a lot of recipes that do this, so we =
+have had to add the following temporary solution to our configuration to av=
+oid this problem:
+
+SSTATECLEANFUNCS_remove =3D "userdel_sysroot_sstate"
+
+I have promised that I will develop a proper solution that allows users and=
+ groups to be removed from the sysroot in a safe way even when multiple rec=
+ipes install the same user/group, but unfortunately I have not had time to =
+do that yet.
+
+//Peter
+
+From: Tobias Andersson [mailto:tobias.andersson@multiq.com]
+Sent: den 16 september 2016 10:58
+To: Peter Kjellerstedt; poky@yoctoproject.org
+Subject: SV: [poky] [autobuilder]
 
 The parameters in the recipe i use to add the group
 
@@ -91,7 +117,6 @@ GROUPADD_PARAM_${PN} =3D " --system --force networker"
 
 I basically looked at the other recipes in the meta layer adding groups and=
  did the same. And they obviously work.
-
 ---------------------------------------------------------
 Med v=E4nlig h=E4lsning/ Kind Regards
 
@@ -102,15 +127,14 @@ Software Developer
 Direct: +46 (0)10 211 66 05
 Office: +46 (0)10 211 66 00
 
-tobias.andersson@multiq.com
+tobias.andersson@multiq.com<mailto:tobias.andersson@multiq.com>
 
-www.multiq.com
+www.multiq.com<http://www.multiq.com>
 ________________________________
 Fr=E5n: Peter Kjellerstedt [peter.kjellerstedt@axis.com]
 Skickat: den 16 september 2016 10:46
-Till: Tobias Andersson; poky@yoctoproject.org
+Till: Tobias Andersson; poky@yoctoproject.org<mailto:poky@yoctoproject.org>
 =C4mne: RE: [poky] [autobuilder]
-
 Assuming at least one recipe that you build use GROUPMEMS_PARAMS_${PN}, a p=
 atch I sent to openembedded-core@lists.openembedded.org<mailto:openembedded=
 -core@lists.openembedded.org> yesterday will most likely fix this:
@@ -119,10 +143,10 @@ http://lists.openembedded.org/pipermail/openembedded-core/2016-September/12=
 6552.html
 //Peter
 
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Tobias Andersson
+From: poky-bounces@yoctoproject.org<mailto:poky-bounces@yoctoproject.org> [=
+mailto:poky-bounces@yoctoproject.org] On Behalf Of Tobias Andersson
 Sent: den 14 september 2016 14:55
-To: poky@yoctoproject.org
+To: poky@yoctoproject.org<mailto:poky@yoctoproject.org>
 Subject: [poky] [autobuilder]
 
 I have an issue with useradd command not succeeding. The issue is appearing=
@@ -154,56 +178,149 @@ tobias.andersson@multiq.com<mailto:tobias.andersson@multiq.com>
 
 www.multiq.com<http://www.multiq.com>
 
---_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4F6Fexch02eslseMult_
+--_000_356ca5a435624320888a8f32478b38a6XBOX02axiscom_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html dir=3D"ltr">
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
-<style>=0A=
-<!--=0A=
-@font-face=0A=
-	{font-family:"Cambria Math"}=0A=
-@font-face=0A=
-	{font-family:Calibri}=0A=
-@font-face=0A=
-	{font-family:Tahoma}=0A=
-p.MsoNormal, li.MsoNormal, div.MsoNormal=0A=
-	{margin:0cm;=0A=
-	margin-bottom:.0001pt;=0A=
-	font-size:12.0pt;=0A=
-	font-family:"Times New Roman",serif}=0A=
-a:link, span.MsoHyperlink=0A=
-	{color:#0563C1;=0A=
-	text-decoration:underline}=0A=
-a:visited, span.MsoHyperlinkFollowed=0A=
-	{color:#954F72;=0A=
-	text-decoration:underline}=0A=
-p=0A=
-	{margin:0cm;=0A=
-	margin-bottom:.0001pt;=0A=
-	font-size:12.0pt;=0A=
-	font-family:"Times New Roman",serif}=0A=
-span.EmailStyle19=0A=
-	{font-family:"Calibri",sans-serif;=0A=
-	color:#943634;=0A=
-	font-weight:normal;=0A=
-	font-style:normal;=0A=
-	text-decoration:none none}=0A=
-.MsoChpDefault=0A=
-	{font-size:10.0pt}=0A=
-@page WordSection1=0A=
-	{margin:72.0pt 72.0pt 72.0pt 72.0pt}=0A=
--->=0A=
-</style><style id=3D"owaParaStyle" type=3D"text/css">P {margin-top:0;margin=
--bottom:0;}</style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+p.msochpdefault, li.msochpdefault, div.msochpdefault
+	{mso-style-name:msochpdefault;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+span.emailstyle19
+	{mso-style-name:emailstyle19;
+	font-family:"Calibri",sans-serif;
+	color:#943634;
+	font-weight:normal;
+	font-style:normal;
+	text-decoration:none none;}
+span.stderr
+	{mso-style-name:stderr;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#943634;
+	font-weight:normal;
+	font-style:normal;
+	text-decoration:none none;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body ocsi=3D"0" fpstyle=3D"1" lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#95=
-4F72">
-<div style=3D"direction: ltr;font-family: Tahoma;color: #000000;font-size: =
-10pt;">The parameters in the recipe i use to add the group<br>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">Well, the problem we have seen and wh=
+ich is fixed by my patch, is that if one recipe uses GROUPMEMS_PARAM,
+<i>any</i> other recipe that creates users or groups can fail if the two re=
+cipes happen to be built at the same time. Obviously, if you do not have an=
+y recipe which use GROUPMEMS_PARAM, then my patch will not help you.<o:p></=
+o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">Another source of problems like this =
+is if you have multiple recipes that create the same user or group. We have=
+ a lot of recipes that do this, so we have had
+ to add the following temporary solution to our configuration to avoid this=
+ problem:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:Consolas=
+;color:#943634">SSTATECLEANFUNCS_remove =3D &quot;userdel_sysroot_sstate&qu=
+ot;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">I have promised that I will develop a=
+ proper solution that allows users and groups to be removed from the sysroo=
+t in a safe way even when multiple recipes install
+ the same user/group, but unfortunately I have not had time to do that yet.=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">//Peter<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Tobias Andersson [mailto:tobia=
+s.andersson@multiq.com]
+<br>
+<b>Sent:</b> den 16 september 2016 10:58<br>
+<b>To:</b> Peter Kjellerstedt; poky@yoctoproject.org<br>
+<b>Subject:</b> SV: [poky] [autobuilder]<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ta=
+homa&quot;,sans-serif;color:black">The parameters in the recipe i use to ad=
+d the group<br>
 <br>
 inherit useradd<br>
 USERADD_PACKAGES =3D &quot;${PN}&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
@@ -225,16 +342,19 @@ nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
-GROUPADD_PARAM_${PN} =3D &quot; --system --force networker&quot;<br>
-<div><br>
+GROUPADD_PARAM_${PN} =3D &quot; --system --force networker&quot;<o:p></o:p>=
+</span></p>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,sans-serif;color:black"><br>
 I basically looked at the other recipes in the meta layer adding groups and=
- did the same. And they obviously work.<br>
-<br>
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:10pt"=
->
-<div class=3D"PlainText">--------------------------------------------------=
--------<br>
+ did the same. And they obviously work.<o:p></o:p></span></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ta=
+homa&quot;,sans-serif;color:black">----------------------------------------=
+-----------------<br>
 Med v=E4nlig h=E4lsning/ Kind Regards<br>
 <br>
 Tobias Andersson<br>
@@ -251,66 +371,79 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;
 <br>
 <br>
-tobias.andersson@multiq.com<br>
+<a href=3D"mailto:tobias.andersson@multiq.com">tobias.andersson@multiq.com<=
+/a><br>
 <br>
-www.multiq.com </div>
-</span></font></div>
+<a href=3D"http://www.multiq.com">www.multiq.com</a> <o:p></o:p></span></p>
 </div>
 </div>
-<div style=3D"font-family: Times New Roman; color: #000000; font-size: 16px=
-">
-<hr tabindex=3D"-1">
-<div style=3D"direction: ltr;" id=3D"divRpF591823"><font color=3D"#000000" =
-face=3D"Tahoma" size=3D"2"><b>Fr=E5n:</b> Peter Kjellerstedt [peter.kjeller=
-stedt@axis.com]<br>
-<b>Skickat:</b> den 16 september 2016 10:46<br>
-<b>Till:</b> Tobias Andersson; poky@yoctoproject.org<br>
-<b>=C4mne:</b> RE: [poky] [autobuilder]<br>
-</font><br>
 </div>
-<div></div>
+</div>
 <div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot;C=
-alibri&quot;,sans-serif; color:#943634">Assuming at least one recipe that y=
-ou build use GROUPMEMS_PARAMS_${PN}, a patch I sent to
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
+ style=3D"color:black">
+<hr size=3D"2" width=3D"100%" align=3D"center">
+</span></div>
+<div id=3D"divRpF591823">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
+t-size:10.0pt;font-family:&quot;Tahoma&quot;,sans-serif;color:black">Fr=E5n=
+:</span></b><span style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,=
+sans-serif;color:black"> Peter Kjellerstedt [peter.kjellerstedt@axis.com]<b=
+r>
+<b>Skickat:</b> den 16 september 2016 10:46<br>
+<b>Till:</b> Tobias Andersson; <a href=3D"mailto:poky@yoctoproject.org">pok=
+y@yoctoproject.org</a><br>
+<b>=C4mne:</b> RE: [poky] [autobuilder]</span><span style=3D"color:black"><=
+o:p></o:p></span></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">Assuming at least one recipe that you=
+ build use GROUPMEMS_PARAMS_${PN}, a patch I sent to
 <a href=3D"mailto:openembedded-core@lists.openembedded.org" target=3D"_blan=
 k">openembedded-core@lists.openembedded.org</a> yesterday will most likely =
-fix this:</span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot;C=
-alibri&quot;,sans-serif; color:#943634">&nbsp;</span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot;C=
-alibri&quot;,sans-serif; color:#943634"><a href=3D"http://lists.openembedde=
-d.org/pipermail/openembedded-core/2016-September/126552.html" target=3D"_bl=
-ank">http://lists.openembedded.org/pipermail/openembedded-core/2016-Septemb=
-er/126552.html</a></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot;C=
-alibri&quot;,sans-serif; color:#943634"></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot;C=
-alibri&quot;,sans-serif; color:#943634">//Peter</span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot;C=
-alibri&quot;,sans-serif; color:#943634">&nbsp;</span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0cm 0cm 0c=
-m 4.0pt">
+fix this:</span><span style=3D"color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">&nbsp;</span><span style=3D"color:bla=
+ck"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634"><a href=3D"http://lists.openembedded.=
+org/pipermail/openembedded-core/2016-September/126552.html" target=3D"_blan=
+k">http://lists.openembedded.org/pipermail/openembedded-core/2016-September=
+/126552.html</a></span><span style=3D"color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">//Peter</span><span style=3D"color:bl=
+ack"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#943634">&nbsp;</span><span style=3D"color:bla=
+ck"><o:p></o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
+4.0pt">
 <div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0c=
-m 0cm 0cm">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&quo=
-t;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt=
-; font-family:&quot;Calibri&quot;,sans-serif"> poky-bounces@yoctoproject.or=
-g [mailto:poky-bounces@yoctoproject.org]
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+<a href=3D"mailto:poky-bounces@yoctoproject.org">poky-bounces@yoctoproject.=
+org</a> [<a href=3D"mailto:poky-bounces@yoctoproject.org">mailto:poky-bounc=
+es@yoctoproject.org</a>]
 <b>On Behalf Of </b>Tobias Andersson<br>
 <b>Sent:</b> den 14 september 2016 14:55<br>
-<b>To:</b> poky@yoctoproject.org<br>
-<b>Subject:</b> [poky] [autobuilder]</span></p>
+<b>To:</b> <a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</=
+a><br>
+<b>Subject:</b> [poky] [autobuilder]</span><span style=3D"color:black"><o:p=
+></o:p></span></p>
 </div>
 </div>
-<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal"><span style=3D"color:black">&nbsp;<o:p></o:p></span>=
+</p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot;T=
-ahoma&quot;,sans-serif; color:black">I have an issue with useradd command n=
-ot succeeding. The issue is appearing when building the image with autobuil=
-der.<br>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ta=
+homa&quot;,sans-serif;color:black">I have an issue with useradd command not=
+ succeeding. The issue is appearing when building the image with autobuilde=
+r.<br>
 <br>
 error msg:<br>
 <span class=3D"stderr">&quot;do_populate_sysroot_setscene: mqclient-base-fi=
@@ -324,16 +457,18 @@ r>
 dding the group because it generated an error stating it already existed.</=
 span><br>
 <br>
-<span class=3D"stderr">What could be the problem ?</span></span></p>
+<span class=3D"stderr">What could be the problem ?</span></span><span style=
+=3D"color:black"><o:p></o:p></span></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot;T=
-ahoma&quot;,sans-serif; color:black">&nbsp;</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ta=
+homa&quot;,sans-serif;color:black">&nbsp;</span><span style=3D"color:black"=
+><o:p></o:p></span></p>
 <div>
 <div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt; font-family:&quot;T=
-ahoma&quot;,sans-serif; color:black">--------------------------------------=
--------------------<br>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ta=
+homa&quot;,sans-serif;color:black">----------------------------------------=
+-----------------<br>
 Med v=E4nlig h=E4lsning/ Kind Regards<br>
 <br>
 Tobias Andersson<br>
@@ -354,7 +489,9 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ersson@multiq.com</a><br>
 <br>
 <a href=3D"http://www.multiq.com" target=3D"_blank">www.multiq.com</a> </sp=
-an></p>
+an><span style=3D"color:black"><o:p></o:p></span></p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -368,4 +505,4 @@ an></p>
 </body>
 </html>
 
---_000_A126740DBD3CFF4C92C08C03B00BC6C8013D4F6Fexch02eslseMult_--
+--_000_356ca5a435624320888a8f32478b38a6XBOX02axiscom_--
