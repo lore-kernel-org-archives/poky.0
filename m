@@ -1,6 +1,6 @@
 Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7F721E00B48; Tue, 20 Sep 2016 07:13:27 -0700 (PDT)
+	id B14D8E00B78; Tue, 20 Sep 2016 07:58:08 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,31 +8,31 @@ X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D4AC7E009E7;
-	Tue, 20 Sep 2016 07:13:22 -0700 (PDT)
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2812CE00B48;
+	Tue, 20 Sep 2016 07:58:05 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id u8KEDLJu028349
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u8KEw4Z7026993
 	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 20 Sep 2016 07:13:21 -0700 (PDT)
+	Tue, 20 Sep 2016 07:58:04 -0700 (PDT)
 Received: from [128.224.56.48] (128.224.56.48) by ALA-HCA.corp.ad.wrs.com
 	(147.11.189.50) with Microsoft SMTP Server id 14.3.294.0;
-	Tue, 20 Sep 2016 07:13:20 -0700
+	Tue, 20 Sep 2016 07:58:03 -0700
 To: Kevin Hao <kexin.hao@windriver.com>, <linux-yocto@yoctoproject.org>,
 	<poky@yoctoproject.org>
-References: <20160920115445.157131-1-kexin.hao@windriver.com>
+References: <20160920120143.159649-1-kexin.hao@windriver.com>
 From: Bruce Ashfield <bruce.ashfield@windriver.com>
-Message-ID: <e22503d9-0bd8-05d5-ee6f-aea9a6f94fe0@windriver.com>
-Date: Tue, 20 Sep 2016 10:13:19 -0400
+Message-ID: <14a32764-66bf-dfac-e1ad-0d50ba882035@windriver.com>
+Date: Tue, 20 Sep 2016 10:58:03 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
 	Thunderbird/45.2.0
 MIME-Version: 1.0
-In-Reply-To: <20160920115445.157131-1-kexin.hao@windriver.com>
-Subject: Re: [linux-yocto] bump to linux-yocto 4.8 for the non-x86 BSPs
+In-Reply-To: <20160920120143.159649-1-kexin.hao@windriver.com>
+Subject: Re: [linux-yocto] [meta-yocto-bsp] meta-yocto-bsp: linux 4.1: bump to the latest stable version for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,23 +45,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Sep 2016 14:13:27 -0000
+X-List-Received-Date: Tue, 20 Sep 2016 14:58:08 -0000
 Content-Type: text/plain; charset="windows-1252"; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2016-09-20 07:54 AM, Kevin Hao wrote:
-> Hi,
+On 2016-09-20 08:01 AM, Kevin Hao wrote:
+> Boot test for all these boards.
 >
-> This patch series fixes some build errors in linux-yocto 4.8 and bump
-> to 4.8 for all the non-x86 BSPs.
 
-Thanks Kevin,
-
-I'm queuing these in my tree and will send them out with my 4.8-rc7
-series.
+I've grabbed all the meta-yocto-bsp commits, and tweaked them for some
+additional changes I have queued.
 
 Bruce
 
+> Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+> ---
+>  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+> index 6dd173bf423f..08ee6b1aedbe 100644
+> --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+> +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
+> @@ -9,9 +9,9 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
+>
+>  SRCREV_machine_genericx86    ?= "0847ed67f89b5a8bbaaa0a7b6cfa2a99ef34834f"
+>  SRCREV_machine_genericx86-64 ?= "0847ed67f89b5a8bbaaa0a7b6cfa2a99ef34834f"
+> -SRCREV_machine_edgerouter ?= "403eda4633e9037fb715d0d1e8ae847b2bd0651a"
+> -SRCREV_machine_beaglebone ?= "859aecf685fcd9d30490a6da459fb76b48947075"
+> -SRCREV_machine_mpc8315e-rdb ?= "403eda4633e9037fb715d0d1e8ae847b2bd0651a"
+> +SRCREV_machine_edgerouter ?= "0ef90071ef474c4140824cfb3680321526998319"
+> +SRCREV_machine_beaglebone ?= "36435f6cbd7423a612127700e3ded252d3f60804"
+> +SRCREV_machine_mpc8315e-rdb ?= "0ef90071ef474c4140824cfb3680321526998319"
+>
+>  COMPATIBLE_MACHINE_genericx86 = "genericx86"
+>  COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+> @@ -21,3 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+>
+>  LINUX_VERSION_genericx86 = "4.1.30"
+>  LINUX_VERSION_genericx86-64 = "4.1.30"
+> +LINUX_VERSION_edgerouter = "4.1.32"
+> +LINUX_VERSION_beaglebone = "4.1.32"
+> +LINUX_VERSION_mpc8315e-rdb = "4.1.32"
 >
 
 
