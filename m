@@ -1,38 +1,34 @@
-Return-Path: <Liezhi.Yang@windriver.com>
+Return-Path: <ed.bartosh@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A4968E00A7D; Tue, 20 Sep 2016 02:01:44 -0700 (PDT)
+	id 4EAC5E00A7D; Tue, 20 Sep 2016 02:26:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F3CA9E00A61
-	for <poky@yoctoproject.org>; Tue, 20 Sep 2016 02:01:43 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u8K91gf6021716
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 20 Sep 2016 02:01:42 -0700 (PDT)
-Received: from [128.224.162.240] (128.224.162.240) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.40) with Microsoft SMTP Server id 14.3.294.0;
-	Tue, 20 Sep 2016 02:01:41 -0700
-To: "Tan, Raymond" <raymond.tan@intel.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-References: <F0CA9E243F4F424B836EAC30E41BF4CF5DF3C973@PGSMSX104.gar.corp.intel.com>
-From: Robert Yang <liezhi.yang@windriver.com>
-Message-ID: <b23bead8-7a49-60d4-aaab-3fb2e7c23856@windriver.com>
-Date: Tue, 20 Sep 2016 17:01:40 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.2.0
-MIME-Version: 1.0
-In-Reply-To: <F0CA9E243F4F424B836EAC30E41BF4CF5DF3C973@PGSMSX104.gar.corp.intel.com>
-Subject: Re: [meta] live image booting pauses with 'waiting for removable media' on Krogoth
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [192.55.52.120 listed in list.dnswl.org]
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7679BE00A61
+	for <poky@yoctoproject.org>; Tue, 20 Sep 2016 02:26:49 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by fmsmga104.fm.intel.com with ESMTP; 20 Sep 2016 02:26:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.30,367,1470726000"; d="scan'208";a="1053735684"
+Received: from linux.intel.com ([10.54.29.200])
+	by orsmga002.jf.intel.com with ESMTP; 20 Sep 2016 02:26:49 -0700
+Received: from vmed.fi.intel.com (vmed.fi.intel.com [10.237.72.68])
+	by linux.intel.com (Postfix) with ESMTP id D2E706A4006;
+	Tue, 20 Sep 2016 02:26:23 -0700 (PDT)
+From: Ed Bartosh <ed.bartosh@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 20 Sep 2016 12:15:59 +0300
+Message-Id: <1474362959-2247-1-git-send-email-ed.bartosh@linux.intel.com>
+X-Mailer: git-send-email 2.1.4
+Subject: [PATCH] genericx86-common.inc: produce wic images
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,36 +41,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Sep 2016 09:01:44 -0000
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 20 Sep 2016 09:26:51 -0000
 
+Added wic images to the list of default image types for genericx86
+and genericx86-64 machines. This is a first step of using wic as a
+recommended way of creating images for reference BSPs.
 
+[YOCTO #8719]
 
-On 09/19/2016 09:52 PM, Tan, Raymond wrote:
-> Dear All,
->
-> While booting live image with core-image-sato.hddimg, the boot stalls with the message "waiting for removable media".
-> If I set "debugshell" in the kernel boot parameter, after the default 30 seconds sleep to wait for mounted device, I will get the error "Cannot find rootfs.img file in /run/media/*, dropping to shell".
->
-> If I edit the init-live.sh to manually mount the /dev/hda drive, the boot will complete successfully. It seems that the udev isn't mounting the /dev/hda.
+Signed-off-by: Ed Bartosh <ed.bartosh@linux.intel.com>
+---
+ meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Try to edit the boot menu when starting boot, for grub, press "e", for
-syslinux, press "tab", IIRC. Then change root=/dev/foo to root=/dev/hdaX,
-It is root=/dev/sda2 by default ? If you can't boot it, does your kernel
-support scsi drive ? Or you can set ROOT_VM = "root=/dev/hdaX" in local.conf
-and rebuild the image.
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index 16b689d..dda7d20 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -18,3 +18,7 @@ MACHINE_EXTRA_RRECOMMENDS += "linux-firmware eee-acpi-scripts"
+ GLIBC_ADDONS = "nptl"
+ 
+ EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
++
++IMAGE_FSTYPES += "wic"
++WKS_FILE = "directdisk.wks"
++do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot syslinux-native:do_populate_sysroot syslinux:do_build"
+-- 
+2.1.4
 
-// Robert
-
->
-> This issue is only seen in Krogoth branch, but not on Jethro.
->
-> What could possibly be the problem?
->
-> Warm Regards,
->
->  Raymond Tan
->
->
 
