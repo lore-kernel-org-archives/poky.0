@@ -1,34 +1,42 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <raymond.tan@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 960EAE00C39; Tue, 20 Sep 2016 05:03:01 -0700 (PDT)
+	id B2D42E00AD7; Tue, 20 Sep 2016 05:59:49 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 57133E00AB6;
-	Tue, 20 Sep 2016 05:02:28 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id u8KC2RrQ025562
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 20 Sep 2016 05:02:28 -0700 (PDT)
-Received: from pek-lpggp4.wrs.com (128.224.153.77) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.294.0;
-	Tue, 20 Sep 2016 05:02:27 -0700
-From: Kevin Hao <kexin.hao@windriver.com>
-To: <linux-yocto@yoctoproject.org>, <poky@yoctoproject.org>
-Date: Tue, 20 Sep 2016 20:01:42 +0800
-Message-ID: <20160920120143.159649-1-kexin.hao@windriver.com>
-X-Mailer: git-send-email 2.9.3
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 77BE4E00AB6
+	for <poky@yoctoproject.org>; Tue, 20 Sep 2016 05:59:41 -0700 (PDT)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by orsmga105.jf.intel.com with ESMTP; 20 Sep 2016 05:59:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.30,368,1470726000"; d="scan'208";a="1053807079"
+Received: from kmsmsx154.gar.corp.intel.com ([172.21.73.14])
+	by orsmga002.jf.intel.com with ESMTP; 20 Sep 2016 05:59:41 -0700
+Received: from pgsmsx104.gar.corp.intel.com ([169.254.3.75]) by
+	KMSMSX154.gar.corp.intel.com ([169.254.12.140]) with mapi id
+	14.03.0248.002; Tue, 20 Sep 2016 20:59:39 +0800
+From: "Tan, Raymond" <raymond.tan@intel.com>
+To: "Yang, Liezhi (Wind River)" <liezhi.yang@windriver.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky] [meta] live image booting pauses with 'waiting for
+	removable media' on Krogoth
+Thread-Index: AQHSEx2hPXAqlOcZrEqEvM44UFukmaCCT9jQ
+Date: Tue, 20 Sep 2016 12:59:38 +0000
+Message-ID: <F0CA9E243F4F424B836EAC30E41BF4CF5DF4347C@PGSMSX104.gar.corp.intel.com>
+References: <F0CA9E243F4F424B836EAC30E41BF4CF5DF3C973@PGSMSX104.gar.corp.intel.com>
+	<b23bead8-7a49-60d4-aaab-3fb2e7c23856@windriver.com>
+In-Reply-To: <b23bead8-7a49-60d4-aaab-3fb2e7c23856@windriver.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.30.20.206]
 MIME-Version: 1.0
-Subject: [meta-yocto-bsp] meta-yocto-bsp: linux 4.1: bump to the latest stable version for the non-x86 BSPs
+Subject: Re: [meta] live image booting pauses with 'waiting for removable media' on Krogoth
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,41 +49,87 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Sep 2016 12:03:01 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 20 Sep 2016 12:59:49 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Boot test for all these boards.
+Hi Robert,
 
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Thanks for the suggestion. However, I'm running with initrd, thus I'm using=
+ root=3D/dev/ram0.=20
+After some debugging today, I found out that the mount.sh script was indeed=
+ called with the add event fired from "udevadm trigger --action=3Dadd",=20
+but the failure happened due to the condition [ -n "$ID_FS_TYPE" -o "$media=
+_type" =3D "cdrom" ]  is not satisfied.=20
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-index 6dd173bf423f..08ee6b1aedbe 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.1.bbappend
-@@ -9,9 +9,9 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
- 
- SRCREV_machine_genericx86    ?= "0847ed67f89b5a8bbaaa0a7b6cfa2a99ef34834f"
- SRCREV_machine_genericx86-64 ?= "0847ed67f89b5a8bbaaa0a7b6cfa2a99ef34834f"
--SRCREV_machine_edgerouter ?= "403eda4633e9037fb715d0d1e8ae847b2bd0651a"
--SRCREV_machine_beaglebone ?= "859aecf685fcd9d30490a6da459fb76b48947075"
--SRCREV_machine_mpc8315e-rdb ?= "403eda4633e9037fb715d0d1e8ae847b2bd0651a"
-+SRCREV_machine_edgerouter ?= "0ef90071ef474c4140824cfb3680321526998319"
-+SRCREV_machine_beaglebone ?= "36435f6cbd7423a612127700e3ded252d3f60804"
-+SRCREV_machine_mpc8315e-rdb ?= "0ef90071ef474c4140824cfb3680321526998319"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,3 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.1.30"
- LINUX_VERSION_genericx86-64 = "4.1.30"
-+LINUX_VERSION_edgerouter = "4.1.32"
-+LINUX_VERSION_beaglebone = "4.1.32"
-+LINUX_VERSION_mpc8315e-rdb = "4.1.32"
--- 
-2.9.3
+I'm getting blank for $ID_FS_TYPE udev property on /dev/hda. I tested by ch=
+anging the overall IF logic to the following:
 
+            if [ "$ACTION" =3D "add" ] && [ -n "$DEVNAME" ]; then
+
+And the rebuilt live image is booting up fine. With the image booted, I rec=
+hecked the ID_FS_TYPE property of the drive in both Krogoth and Jethro imag=
+e,=20
+I'm getting different results. In Krogoth, there's no property with ID_FS_T=
+YPE at all with " udevadm info -q all -n /dev/hda ". But if I'm using blkid=
+ to get=20
+fs type, I'm able to get the vfat type from it.
+
+I checked the changes on udev from Jethro to Krogoth, I noticed that udev w=
+as replaced with eudev, could this be the implementation varies between the=
+m?=20
+
+Warm Regards,=20
+
+=A0Raymond Tan
+
+
+> -----Original Message-----
+> From: Robert Yang [mailto:liezhi.yang@windriver.com]
+> Sent: Tuesday, September 20, 2016 5:02 PM
+> To: Tan, Raymond <raymond.tan@intel.com>; poky@yoctoproject.org
+> Subject: Re: [poky] [meta] live image booting pauses with 'waiting for
+> removable media' on Krogoth
+>=20
+>=20
+>=20
+> On 09/19/2016 09:52 PM, Tan, Raymond wrote:
+> > Dear All,
+> >
+> > While booting live image with core-image-sato.hddimg, the boot stalls w=
+ith
+> the message "waiting for removable media".
+> > If I set "debugshell" in the kernel boot parameter, after the default 3=
+0
+> seconds sleep to wait for mounted device, I will get the error "Cannot fi=
+nd
+> rootfs.img file in /run/media/*, dropping to shell".
+> >
+> > If I edit the init-live.sh to manually mount the /dev/hda drive, the bo=
+ot will
+> complete successfully. It seems that the udev isn't mounting the /dev/hda=
+.
+>=20
+> Try to edit the boot menu when starting boot, for grub, press "e", for
+> syslinux, press "tab", IIRC. Then change root=3D/dev/foo to root=3D/dev/h=
+daX, It
+> is root=3D/dev/sda2 by default ? If you can't boot it, does your kernel s=
+upport
+> scsi drive ? Or you can set ROOT_VM =3D "root=3D/dev/hdaX" in local.conf =
+and
+> rebuild the image.
+>=20
+> // Robert
+>=20
+> >
+> > This issue is only seen in Krogoth branch, but not on Jethro.
+> >
+> > What could possibly be the problem?
+> >
+> > Warm Regards,
+> >
+> >  Raymond Tan
+> >
+> >
 
