@@ -1,35 +1,47 @@
-Return-Path: <jianxun.zhang@linux.intel.com>
+Return-Path: <jose.perez.carranza@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 71162E00924; Mon, 26 Sep 2016 13:56:50 -0700 (PDT)
+	id 79A1CE00924; Mon, 26 Sep 2016 14:01:12 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.115 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 22210E00905
-	for <poky@yoctoproject.org>; Mon, 26 Sep 2016 13:56:46 -0700 (PDT)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-	by fmsmga103.fm.intel.com with ESMTP; 26 Sep 2016 13:56:46 -0700
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39CC0E00924
+	for <poky@yoctoproject.org>; Mon, 26 Sep 2016 14:01:08 -0700 (PDT)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+	by fmsmga105.fm.intel.com with ESMTP; 26 Sep 2016 14:01:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.30,401,1470726000"; d="scan'208";a="766180774"
-Received: from jzhang80-mac02.jf.intel.com ([10.24.3.112])
-	by FMSMGA003.fm.intel.com with ESMTP; 26 Sep 2016 13:56:46 -0700
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-From: Jianxun Zhang <jianxun.zhang@linux.intel.com>
-In-Reply-To: <1472588254-24319-1-git-send-email-jose.perez.carranza@intel.com>
-Date: Mon, 26 Sep 2016 13:56:45 -0700
-Message-Id: <27A5025F-04CB-415C-9F8A-9FEF7D74580E@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.30,401,1470726000"; d="scan'208";a="13439427"
+Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
+	by fmsmga006.fm.intel.com with ESMTP; 26 Sep 2016 14:01:08 -0700
+Received: from fmsmsx119.amr.corp.intel.com (10.18.124.207) by
+	fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server
+	(TLS) id 14.3.248.2; Mon, 26 Sep 2016 14:01:08 -0700
+Received: from fmsmsx101.amr.corp.intel.com ([169.254.1.28]) by
+	FMSMSX119.amr.corp.intel.com ([169.254.14.3]) with mapi id
+	14.03.0248.002; Mon, 26 Sep 2016 14:01:08 -0700
+From: "Perez Carranza, Jose" <jose.perez.carranza@intel.com>
+To: Jianxun Zhang <jianxun.zhang@linux.intel.com>
+Thread-Topic: [PATCH v3] systemdboot: Add Test to check boot file is created
+	correctly
+Thread-Index: AQHSAvptlomvx7eJuEmFe38fCSBRYqCM4F6A//+LRAA=
+Date: Mon, 26 Sep 2016 21:01:08 +0000
+Message-ID: <0A5D9A624DF90343892F8F3FE7DE525A020394DE@fmsmsx101.amr.corp.intel.com>
 References: <1472586734.4293.2.camel@linux.intel.com>
 	<1472588254-24319-1-git-send-email-jose.perez.carranza@intel.com>
-To: Jose Perez Carranza <jose.perez.carranza@intel.com>
-X-Mailer: Apple Mail (2.3124)
-Cc: poky@yoctoproject.org
+	<27A5025F-04CB-415C-9F8A-9FEF7D74580E@linux.intel.com>
+In-Reply-To: <27A5025F-04CB-415C-9F8A-9FEF7D74580E@linux.intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_IC
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNmFhYWY2YzEtMGM4Mi00Y2I3LThmZGQtYzhlMjNhNDc4OGRkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX0lDIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE1LjkuNi42IiwiVHJ1c3RlZExhYmVsSGFzaCI6IkdYM0d2QmlLbkEzQnBONXlNb2c0b3hFaVpvREZRYjVVQVlUVHA1ZDNhYlU9In0=
+x-originating-ip: [10.1.200.108]
+MIME-Version: 1.0
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PATCH v3] systemdboot: Add Test to check boot file is created correctly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -43,165 +55,120 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Sep 2016 20:56:50 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 26 Sep 2016 21:01:12 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Jose,
-Could you confirm this is merged in poky? I don=E2=80=99t see it today.
-
-Thanks
-
-> On Aug 30, 2016, at 1:17 PM, Jose Perez Carranza =
-<jose.perez.carranza@intel.com> wrote:
->=20
->   Add Test case to verify if EFI bootloader for
->   systemd boot is correctly build inside of image.
->=20
-> [YOCTO #9903]
->=20
-> Signed-off-by: Jose Perez Carranza <jose.perez.carranza@intel.com>
-> ---
-> meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 64 =
-++++++++++++++++++++----
-> 1 file changed, 55 insertions(+), 9 deletions(-)
->=20
-> diff --git a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py =
-b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-> index f7f74db..9660c87 100644
-> --- a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-> +++ b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-> @@ -1,20 +1,19 @@
-> from oeqa.selftest.base import oeSelfTest
-> from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
-> -from oeqa.utils.decorators import testcase
-> +from oeqa.utils.decorators import testcase, skipUnlessPassed
-> import re
-> import os
-> import sys
-> import logging
->=20
-> -
-> class Systemdboot(oeSelfTest):
->=20
->     def _common_setup(self):
->         """
-> -        Common setup for test cases: 1445, XXXX
-> +        Common setup for test cases: 1445, 1528
->         """
->=20
-> -        # Set EFI_PROVIDER =3D "gummiboot" and MACHINE =3D =
-"genericx86-64" in conf/local.conf
-> +        # Set EFI_PROVIDER =3D "systemdboot" and MACHINE =3D =
-"genericx86-64" in conf/local.conf
->         features =3D 'EFI_PROVIDER =3D "systemd-boot"\n'
->         features +=3D 'MACHINE =3D "genericx86-64"'
->         self.append_config(features)
-> @@ -24,15 +23,15 @@ class Systemdboot(oeSelfTest):
->         Common build for test cases: 1445 , XXXX
->         """
->=20
-> -        # Build a genericx86-64/efi gummiboot image
-> +        # Build a genericx86-64/efi systemdboot image
->         bitbake('mtools-native core-image-minimal')
->=20
-> -
->     @testcase(1445)
-> -    def test_efi_systemdboot_images_can_be_built(self):
-> +    def test_efi_image_build(self):
->         """
->         Summary:     Check if systemd-boot images can be built =
-correctly
-> -        Expected:    1. File systemd-boot.efi should be available in =
-$poky/build/tmp/deploy/images/genericx86-64
-> +        Expected:    1. File systemd-boot.efi should be available in:
-> +                         $poky/build/tmp/deploy/images/genericx86-64
->                      2. 'systemd-boot" can be built correctly
->         Product:     oe-core
->         Author:      Jose Perez Carranza =
-<jose.perez.carranza@intel.com>
-> @@ -41,7 +40,8 @@ class Systemdboot(oeSelfTest):
->=20
->         # We'd use DEPLOY_DIR_IMAGE here, except that we need its =
-value for
->         # MACHINE=3D"genericx86-64 which is probably not the one =
-configured
-> -        systemdbootfile =3D os.path.join(get_bb_var('DEPLOY_DIR'), =
-'images', 'genericx86-64', 'systemd-bootx64.efi')
-> +        systemdbootfile =3D os.path.join(get_bb_var('DEPLOY_DIR'), =
-'images', 'genericx86-64',
-> +                                       'systemd-bootx64.efi')
->=20
->         self._common_setup()
->=20
-> @@ -54,3 +54,49 @@ class Systemdboot(oeSelfTest):
->=20
->         found =3D os.path.isfile(systemdbootfile)
->         self.assertTrue(found, 'Systemd-Boot file %s not found' % =
-systemdbootfile)
-> +
-> +
-> +    @testcase(1528)
-> +    @skipUnlessPassed('test_efi_image_build')
-> +    def test_image_efi_file(self):
-> +        """
-> +        Summary:      Check if EFI bootloader for systemd is =
-correctly build
-> +        Dependencies: Image was built correctly on test case 1445
-> +        Steps:        1. Copy bootx64.efi file from the hddimg =
-created
-> +                         under build/tmp/deploy/images/genericx86-64
-> +                      2. Check bootx64.efi was copied form hddimg
-> +                      3. Verify the checksums from the copied and =
-previously
-> +                         created file are equal.
-> +        Expected :    Systemd-bootx64.efi and bootx64.efi should be =
-the same
-> +                      hence checksums should be equal.
-> +        Product:      oe-core
-> +        Author:       Jose Perez Carranza =
-<jose.perez.carranza@intel.com>
-> +        AutomatedBy:  Jose Perez Carranza =
-<jose.perez.carranza@intel.com>
-> +        """
-> +
-> +        systemdbootfile =3D os.path.join(get_bb_var('DEPLOY_DIR'), =
-'images', 'genericx86-64',
-> +                                       'systemd-bootx64.efi')
-> +        systemdbootimage =3D os.path.join(get_bb_var('DEPLOY_DIR'), =
-'images', 'genericx86-64',
-> +                                        =
-'core-image-minimal-genericx86-64.hddimg')
-> +        imagebootfile =3D os.path.join(get_bb_var('DEPLOY_DIR'), =
-'images', 'genericx86-64',
-> +                                                'bootx64.efi')
-> +        mcopynative =3D =
-os.path.join(get_bb_var('STAGING_BINDIR_NATIVE'), 'mcopy')
-> +
-> +        #Clean environment before start the test
-> +        if os.path.isfile(imagebootfile):
-> +            runCmd('rm -f %s' % imagebootfile)
-> +
-> +        #Step 1
-> +        runCmd('%s -i %s ::EFI/BOOT/bootx64.efi %s' % (mcopynative =
-,systemdbootimage,
-> +               imagebootfile))
-> +
-> +        #Step 2
-> +        found =3D os.path.isfile(imagebootfile)
-> +        self.assertTrue(found, 'bootx64.efi file %s was not copied =
-from image'
-> +                        % imagebootfile)
-> +
-> +        #Step 3
-> +        result =3D runCmd('md5sum %s %s' % (systemdbootfile, =
-imagebootfile))
-> +        self.assertEqual(result.output.split()[0], =
-result.output.split()[2],
-> +                         'checksums from %s and %s are different'
-> +                         % (imagebootfile, systemdbootfile))
-> --=20
-> 1.9.1
->=20
-
+WmhhbmcNCg0KSXMgbm90IHlldCBtZXJnZWQgaW4gcG9reSBiZWNhdXNlIGlzIGFuIGVuaGFuY2Vt
+ZW50IGFuZCB3YXMgbm90IHJlYWR5IGZvciBNMywgaGVuY2UgdGhpcyB3aWxsIGJlIG1lcmdlZCB1
+bnRpbCAyLjMgTTEgIA0KDQpSZWdhcmRzLA0KSm9zw6kNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KRnJvbTogSmlhbnh1biBaaGFuZyBbbWFpbHRvOmppYW54dW4uemhhbmdAbGludXgu
+aW50ZWwuY29tXSANClNlbnQ6IE1vbmRheSwgU2VwdGVtYmVyIDI2LCAyMDE2IDM6NTcgUE0NClRv
+OiBQZXJleiBDYXJyYW56YSwgSm9zZSA8am9zZS5wZXJlei5jYXJyYW56YUBpbnRlbC5jb20+DQpD
+YzogcG9reUB5b2N0b3Byb2plY3Qub3JnOyBiZW5qYW1pbi5lc3F1aXZlbEBsaW51eC5pbnRlbC5j
+b20NClN1YmplY3Q6IFJlOiBbUEFUQ0ggdjNdIHN5c3RlbWRib290OiBBZGQgVGVzdCB0byBjaGVj
+ayBib290IGZpbGUgaXMgY3JlYXRlZCBjb3JyZWN0bHkNCg0KSm9zZSwNCkNvdWxkIHlvdSBjb25m
+aXJtIHRoaXMgaXMgbWVyZ2VkIGluIHBva3k/IEkgZG9u4oCZdCBzZWUgaXQgdG9kYXkuDQoNClRo
+YW5rcw0KDQo+IE9uIEF1ZyAzMCwgMjAxNiwgYXQgMToxNyBQTSwgSm9zZSBQZXJleiBDYXJyYW56
+YSA8am9zZS5wZXJlei5jYXJyYW56YUBpbnRlbC5jb20+IHdyb3RlOg0KPiANCj4gICBBZGQgVGVz
+dCBjYXNlIHRvIHZlcmlmeSBpZiBFRkkgYm9vdGxvYWRlciBmb3INCj4gICBzeXN0ZW1kIGJvb3Qg
+aXMgY29ycmVjdGx5IGJ1aWxkIGluc2lkZSBvZiBpbWFnZS4NCj4gDQo+IFtZT0NUTyAjOTkwM10N
+Cj4gDQo+IFNpZ25lZC1vZmYtYnk6IEpvc2UgUGVyZXogQ2FycmFuemEgPGpvc2UucGVyZXouY2Fy
+cmFuemFAaW50ZWwuY29tPg0KPiAtLS0NCj4gbWV0YS15b2N0by1ic3AvbGliL29lcWEvc2VsZnRl
+c3Qvc3lzdGVtZF9ib290LnB5IHwgNjQgDQo+ICsrKysrKysrKysrKysrKysrKysrLS0tLQ0KPiAx
+IGZpbGUgY2hhbmdlZCwgNTUgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkNCj4gDQo+IGRp
+ZmYgLS1naXQgYS9tZXRhLXlvY3RvLWJzcC9saWIvb2VxYS9zZWxmdGVzdC9zeXN0ZW1kX2Jvb3Qu
+cHkgDQo+IGIvbWV0YS15b2N0by1ic3AvbGliL29lcWEvc2VsZnRlc3Qvc3lzdGVtZF9ib290LnB5
+DQo+IGluZGV4IGY3Zjc0ZGIuLjk2NjBjODcgMTAwNjQ0DQo+IC0tLSBhL21ldGEteW9jdG8tYnNw
+L2xpYi9vZXFhL3NlbGZ0ZXN0L3N5c3RlbWRfYm9vdC5weQ0KPiArKysgYi9tZXRhLXlvY3RvLWJz
+cC9saWIvb2VxYS9zZWxmdGVzdC9zeXN0ZW1kX2Jvb3QucHkNCj4gQEAgLTEsMjAgKzEsMTkgQEAN
+Cj4gZnJvbSBvZXFhLnNlbGZ0ZXN0LmJhc2UgaW1wb3J0IG9lU2VsZlRlc3QgZnJvbSBvZXFhLnV0
+aWxzLmNvbW1hbmRzIA0KPiBpbXBvcnQgcnVuQ21kLCBiaXRiYWtlLCBnZXRfYmJfdmFyLCBydW5x
+ZW11IC1mcm9tIA0KPiBvZXFhLnV0aWxzLmRlY29yYXRvcnMgaW1wb3J0IHRlc3RjYXNlDQo+ICtm
+cm9tIG9lcWEudXRpbHMuZGVjb3JhdG9ycyBpbXBvcnQgdGVzdGNhc2UsIHNraXBVbmxlc3NQYXNz
+ZWQNCj4gaW1wb3J0IHJlDQo+IGltcG9ydCBvcw0KPiBpbXBvcnQgc3lzDQo+IGltcG9ydCBsb2dn
+aW5nDQo+IA0KPiAtDQo+IGNsYXNzIFN5c3RlbWRib290KG9lU2VsZlRlc3QpOg0KPiANCj4gICAg
+IGRlZiBfY29tbW9uX3NldHVwKHNlbGYpOg0KPiAgICAgICAgICIiIg0KPiAtICAgICAgICBDb21t
+b24gc2V0dXAgZm9yIHRlc3QgY2FzZXM6IDE0NDUsIFhYWFgNCj4gKyAgICAgICAgQ29tbW9uIHNl
+dHVwIGZvciB0ZXN0IGNhc2VzOiAxNDQ1LCAxNTI4DQo+ICAgICAgICAgIiIiDQo+IA0KPiAtICAg
+ICAgICAjIFNldCBFRklfUFJPVklERVIgPSAiZ3VtbWlib290IiBhbmQgTUFDSElORSA9ICJnZW5l
+cmljeDg2LTY0IiBpbiBjb25mL2xvY2FsLmNvbmYNCj4gKyAgICAgICAgIyBTZXQgRUZJX1BST1ZJ
+REVSID0gInN5c3RlbWRib290IiBhbmQgTUFDSElORSA9IA0KPiArICJnZW5lcmljeDg2LTY0IiBp
+biBjb25mL2xvY2FsLmNvbmYNCj4gICAgICAgICBmZWF0dXJlcyA9ICdFRklfUFJPVklERVIgPSAi
+c3lzdGVtZC1ib290IlxuJw0KPiAgICAgICAgIGZlYXR1cmVzICs9ICdNQUNISU5FID0gImdlbmVy
+aWN4ODYtNjQiJw0KPiAgICAgICAgIHNlbGYuYXBwZW5kX2NvbmZpZyhmZWF0dXJlcykNCj4gQEAg
+LTI0LDE1ICsyMywxNSBAQCBjbGFzcyBTeXN0ZW1kYm9vdChvZVNlbGZUZXN0KToNCj4gICAgICAg
+ICBDb21tb24gYnVpbGQgZm9yIHRlc3QgY2FzZXM6IDE0NDUgLCBYWFhYDQo+ICAgICAgICAgIiIi
+DQo+IA0KPiAtICAgICAgICAjIEJ1aWxkIGEgZ2VuZXJpY3g4Ni02NC9lZmkgZ3VtbWlib290IGlt
+YWdlDQo+ICsgICAgICAgICMgQnVpbGQgYSBnZW5lcmljeDg2LTY0L2VmaSBzeXN0ZW1kYm9vdCBp
+bWFnZQ0KPiAgICAgICAgIGJpdGJha2UoJ210b29scy1uYXRpdmUgY29yZS1pbWFnZS1taW5pbWFs
+JykNCj4gDQo+IC0NCj4gICAgIEB0ZXN0Y2FzZSgxNDQ1KQ0KPiAtICAgIGRlZiB0ZXN0X2VmaV9z
+eXN0ZW1kYm9vdF9pbWFnZXNfY2FuX2JlX2J1aWx0KHNlbGYpOg0KPiArICAgIGRlZiB0ZXN0X2Vm
+aV9pbWFnZV9idWlsZChzZWxmKToNCj4gICAgICAgICAiIiINCj4gICAgICAgICBTdW1tYXJ5OiAg
+ICAgQ2hlY2sgaWYgc3lzdGVtZC1ib290IGltYWdlcyBjYW4gYmUgYnVpbHQgY29ycmVjdGx5DQo+
+IC0gICAgICAgIEV4cGVjdGVkOiAgICAxLiBGaWxlIHN5c3RlbWQtYm9vdC5lZmkgc2hvdWxkIGJl
+IGF2YWlsYWJsZSBpbiAkcG9reS9idWlsZC90bXAvZGVwbG95L2ltYWdlcy9nZW5lcmljeDg2LTY0
+DQo+ICsgICAgICAgIEV4cGVjdGVkOiAgICAxLiBGaWxlIHN5c3RlbWQtYm9vdC5lZmkgc2hvdWxk
+IGJlIGF2YWlsYWJsZSBpbjoNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAkcG9reS9idWls
+ZC90bXAvZGVwbG95L2ltYWdlcy9nZW5lcmljeDg2LTY0DQo+ICAgICAgICAgICAgICAgICAgICAg
+IDIuICdzeXN0ZW1kLWJvb3QiIGNhbiBiZSBidWlsdCBjb3JyZWN0bHkNCj4gICAgICAgICBQcm9k
+dWN0OiAgICAgb2UtY29yZQ0KPiAgICAgICAgIEF1dGhvcjogICAgICBKb3NlIFBlcmV6IENhcnJh
+bnphIDxqb3NlLnBlcmV6LmNhcnJhbnphQGludGVsLmNvbT4NCj4gQEAgLTQxLDcgKzQwLDggQEAg
+Y2xhc3MgU3lzdGVtZGJvb3Qob2VTZWxmVGVzdCk6DQo+IA0KPiAgICAgICAgICMgV2UnZCB1c2Ug
+REVQTE9ZX0RJUl9JTUFHRSBoZXJlLCBleGNlcHQgdGhhdCB3ZSBuZWVkIGl0cyB2YWx1ZSBmb3IN
+Cj4gICAgICAgICAjIE1BQ0hJTkU9ImdlbmVyaWN4ODYtNjQgd2hpY2ggaXMgcHJvYmFibHkgbm90
+IHRoZSBvbmUgY29uZmlndXJlZA0KPiAtICAgICAgICBzeXN0ZW1kYm9vdGZpbGUgPSBvcy5wYXRo
+LmpvaW4oZ2V0X2JiX3ZhcignREVQTE9ZX0RJUicpLCAnaW1hZ2VzJywgJ2dlbmVyaWN4ODYtNjQn
+LCAnc3lzdGVtZC1ib290eDY0LmVmaScpDQo+ICsgICAgICAgIHN5c3RlbWRib290ZmlsZSA9IG9z
+LnBhdGguam9pbihnZXRfYmJfdmFyKCdERVBMT1lfRElSJyksICdpbWFnZXMnLCAnZ2VuZXJpY3g4
+Ni02NCcsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnc3lzdGVt
+ZC1ib290eDY0LmVmaScpDQo+IA0KPiAgICAgICAgIHNlbGYuX2NvbW1vbl9zZXR1cCgpDQo+IA0K
+PiBAQCAtNTQsMyArNTQsNDkgQEAgY2xhc3MgU3lzdGVtZGJvb3Qob2VTZWxmVGVzdCk6DQo+IA0K
+PiAgICAgICAgIGZvdW5kID0gb3MucGF0aC5pc2ZpbGUoc3lzdGVtZGJvb3RmaWxlKQ0KPiAgICAg
+ICAgIHNlbGYuYXNzZXJ0VHJ1ZShmb3VuZCwgJ1N5c3RlbWQtQm9vdCBmaWxlICVzIG5vdCBmb3Vu
+ZCcgJSANCj4gc3lzdGVtZGJvb3RmaWxlKQ0KPiArDQo+ICsNCj4gKyAgICBAdGVzdGNhc2UoMTUy
+OCkNCj4gKyAgICBAc2tpcFVubGVzc1Bhc3NlZCgndGVzdF9lZmlfaW1hZ2VfYnVpbGQnKQ0KPiAr
+ICAgIGRlZiB0ZXN0X2ltYWdlX2VmaV9maWxlKHNlbGYpOg0KPiArICAgICAgICAiIiINCj4gKyAg
+ICAgICAgU3VtbWFyeTogICAgICBDaGVjayBpZiBFRkkgYm9vdGxvYWRlciBmb3Igc3lzdGVtZCBp
+cyBjb3JyZWN0bHkgYnVpbGQNCj4gKyAgICAgICAgRGVwZW5kZW5jaWVzOiBJbWFnZSB3YXMgYnVp
+bHQgY29ycmVjdGx5IG9uIHRlc3QgY2FzZSAxNDQ1DQo+ICsgICAgICAgIFN0ZXBzOiAgICAgICAg
+MS4gQ29weSBib290eDY0LmVmaSBmaWxlIGZyb20gdGhlIGhkZGltZyBjcmVhdGVkDQo+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgdW5kZXIgYnVpbGQvdG1wL2RlcGxveS9pbWFnZXMvZ2VuZXJp
+Y3g4Ni02NA0KPiArICAgICAgICAgICAgICAgICAgICAgIDIuIENoZWNrIGJvb3R4NjQuZWZpIHdh
+cyBjb3BpZWQgZm9ybSBoZGRpbWcNCj4gKyAgICAgICAgICAgICAgICAgICAgICAzLiBWZXJpZnkg
+dGhlIGNoZWNrc3VtcyBmcm9tIHRoZSBjb3BpZWQgYW5kIHByZXZpb3VzbHkNCj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICBjcmVhdGVkIGZpbGUgYXJlIGVxdWFsLg0KPiArICAgICAgICBFeHBl
+Y3RlZCA6ICAgIFN5c3RlbWQtYm9vdHg2NC5lZmkgYW5kIGJvb3R4NjQuZWZpIHNob3VsZCBiZSB0
+aGUgc2FtZQ0KPiArICAgICAgICAgICAgICAgICAgICAgIGhlbmNlIGNoZWNrc3VtcyBzaG91bGQg
+YmUgZXF1YWwuDQo+ICsgICAgICAgIFByb2R1Y3Q6ICAgICAgb2UtY29yZQ0KPiArICAgICAgICBB
+dXRob3I6ICAgICAgIEpvc2UgUGVyZXogQ2FycmFuemEgPGpvc2UucGVyZXouY2FycmFuemFAaW50
+ZWwuY29tPg0KPiArICAgICAgICBBdXRvbWF0ZWRCeTogIEpvc2UgUGVyZXogQ2FycmFuemEgPGpv
+c2UucGVyZXouY2FycmFuemFAaW50ZWwuY29tPg0KPiArICAgICAgICAiIiINCj4gKw0KPiArICAg
+ICAgICBzeXN0ZW1kYm9vdGZpbGUgPSBvcy5wYXRoLmpvaW4oZ2V0X2JiX3ZhcignREVQTE9ZX0RJ
+UicpLCAnaW1hZ2VzJywgJ2dlbmVyaWN4ODYtNjQnLA0KPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgJ3N5c3RlbWQtYm9vdHg2NC5lZmknKQ0KPiArICAgICAgICBzeXN0
+ZW1kYm9vdGltYWdlID0gb3MucGF0aC5qb2luKGdldF9iYl92YXIoJ0RFUExPWV9ESVInKSwgJ2lt
+YWdlcycsICdnZW5lcmljeDg2LTY0JywNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAnY29yZS1pbWFnZS1taW5pbWFsLWdlbmVyaWN4ODYtNjQuaGRkaW1nJykNCj4g
+KyAgICAgICAgaW1hZ2Vib290ZmlsZSA9IG9zLnBhdGguam9pbihnZXRfYmJfdmFyKCdERVBMT1lf
+RElSJyksICdpbWFnZXMnLCAnZ2VuZXJpY3g4Ni02NCcsDQo+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnYm9vdHg2NC5lZmknKQ0KPiArICAgICAgICBt
+Y29weW5hdGl2ZSA9IA0KPiArIG9zLnBhdGguam9pbihnZXRfYmJfdmFyKCdTVEFHSU5HX0JJTkRJ
+Ul9OQVRJVkUnKSwgJ21jb3B5JykNCj4gKw0KPiArICAgICAgICAjQ2xlYW4gZW52aXJvbm1lbnQg
+YmVmb3JlIHN0YXJ0IHRoZSB0ZXN0DQo+ICsgICAgICAgIGlmIG9zLnBhdGguaXNmaWxlKGltYWdl
+Ym9vdGZpbGUpOg0KPiArICAgICAgICAgICAgcnVuQ21kKCdybSAtZiAlcycgJSBpbWFnZWJvb3Rm
+aWxlKQ0KPiArDQo+ICsgICAgICAgICNTdGVwIDENCj4gKyAgICAgICAgcnVuQ21kKCclcyAtaSAl
+cyA6OkVGSS9CT09UL2Jvb3R4NjQuZWZpICVzJyAlIChtY29weW5hdGl2ZSAsc3lzdGVtZGJvb3Rp
+bWFnZSwNCj4gKyAgICAgICAgICAgICAgIGltYWdlYm9vdGZpbGUpKQ0KPiArDQo+ICsgICAgICAg
+ICNTdGVwIDINCj4gKyAgICAgICAgZm91bmQgPSBvcy5wYXRoLmlzZmlsZShpbWFnZWJvb3RmaWxl
+KQ0KPiArICAgICAgICBzZWxmLmFzc2VydFRydWUoZm91bmQsICdib290eDY0LmVmaSBmaWxlICVz
+IHdhcyBub3QgY29waWVkIGZyb20gaW1hZ2UnDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAl
+IGltYWdlYm9vdGZpbGUpDQo+ICsNCj4gKyAgICAgICAgI1N0ZXAgMw0KPiArICAgICAgICByZXN1
+bHQgPSBydW5DbWQoJ21kNXN1bSAlcyAlcycgJSAoc3lzdGVtZGJvb3RmaWxlLCBpbWFnZWJvb3Rm
+aWxlKSkNCj4gKyAgICAgICAgc2VsZi5hc3NlcnRFcXVhbChyZXN1bHQub3V0cHV0LnNwbGl0KClb
+MF0sIHJlc3VsdC5vdXRwdXQuc3BsaXQoKVsyXSwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAnY2hlY2tzdW1zIGZyb20gJXMgYW5kICVzIGFyZSBkaWZmZXJlbnQnDQo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgJSAoaW1hZ2Vib290ZmlsZSwgc3lzdGVtZGJvb3RmaWxlKSkNCj4gLS0N
+Cj4gMS45LjENCj4gDQoNCg==
 
