@@ -1,6 +1,6 @@
-Return-Path: <jeff.dagenais@gmail.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5B535E009CB; Tue, 27 Sep 2016 16:50:54 -0700 (PDT)
+	id 3E4C1E00A7B; Tue, 27 Sep 2016 18:23:45 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,10 +8,10 @@ X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (jeff.dagenais[at]gmail.com)
+	mail provider *      (raj.khem[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.223.179 listed in list.dnswl.org]
+	*      [209.85.217.181 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
@@ -19,48 +19,45 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-io0-f179.google.com (mail-io0-f179.google.com
-	[209.85.223.179])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3597FE0097C
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2016 16:50:50 -0700 (PDT)
-Received: by mail-io0-f179.google.com with SMTP id 92so31619911iol.2
-	for <poky@yoctoproject.org>; Tue, 27 Sep 2016 16:50:50 -0700 (PDT)
+Received: from mail-ua0-f181.google.com (mail-ua0-f181.google.com
+	[209.85.217.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CD144E00A44
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2016 18:23:44 -0700 (PDT)
+Received: by mail-ua0-f181.google.com with SMTP id l16so7346488uaa.1
+	for <poky@yoctoproject.org>; Tue, 27 Sep 2016 18:23:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=from:content-transfer-encoding:subject:message-id:date:to
-	:mime-version; bh=HWpWH9V9pCUBbZB5VmhCzoEDMs4fA68maIIdmhX8Qy8=;
-	b=uuA5372oHP5K8qs3NB0Ek7x94lY/0qUjXGW1AVSheXBzcvNedrDKkY5YWH/KUFP95k
-	APS7qnrWnmztZ2dRQBD6r+Mb4X3C+dOR1jz1Z58VFrrBR3UUD2ZNYhqmFbipl5L7s9Uv
-	9LLejfzARRjo/OHB1ozqfPe0JbCArPEl3lXNrSK1XfZjabmRPMQoAD8PPJ9qH2l8G6I4
-	6kiZ8WgdVcF3QD35zgU9Qm06SprsLXd0SRkDx9BZZ2wtOS9ZlPqaKFuTXm7BHYkLsvlE
-	V48gkeTOjCJJV1R19a83JSi0NOQfUcm2gYcX6dIcccqT9MmIYuffBjccxFweUl7ovUk5
-	J09g==
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=alL+R7uVGjYO1isSTMN9guxNdoBAeu9MB03Eny92nfc=;
+	b=agNu31Gb+SyT1DsOjALRIz7EhLlGBO0INCykajUqLdP7tkmvTlptGaEDcm9RqIQfh7
+	YTHkZOdl07JDVrWC1MPyzxsDcUyg7tekqXgRr971loXbL6dfe5m2SXCZGhEGEWm84OUv
+	eaWSPiVde9iXIFvdj39JhFRNaDrH8d+ffpO4DtuVRbJGYLWGUlUomVL2Qz4jzmJn8Fej
+	NxKYClmNP2IUYDK57nw7OUmE8a3JcLRxDIn7+li6BcizDEQXSIsmCJks59y22NIxTNFh
+	cnTg6NNuMk43Q8FFBZgG6rPnClcg7T4/MuDt5nQU21EOUDLh42z4aXnFBPSRI+x8RrVM
+	a2eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:content-transfer-encoding:subject
-	:message-id:date:to:mime-version;
-	bh=HWpWH9V9pCUBbZB5VmhCzoEDMs4fA68maIIdmhX8Qy8=;
-	b=PIifKljGNzQ6mnOEsmIt+Lp/8QEJfxUmSQdmTJRRGQqDVOXPgxZ5oE55KfhB51eXRQ
-	ufhwdhvn2tO9igEhMpxv8E/oCpLd7nhLEXSxW/k7x2xD7N+DzIF1Rw9UeRKNKiyyts7d
-	bDkLXkuulCadCHRDt02z6IxuTAkYV1R7oa1gcVSOG0jWbSGYm0D0MIofN8yn5f2NH9oi
-	B/VO/XrZ3EukNz9+DmCnfM5wn0kQjOAoht90r3h2GYx5WI4a4AoKLse14QYVWUL8jXzT
-	BJY2O8o4628CJcYn9b2HkCdr3nommVkkrLbTCQfu3q1Q8zsvhprSr0HBTQLFvPZnh5E1
-	pzZw==
-X-Gm-Message-State: AA6/9Rk8yAhQEGJy2Au9NQPjLJre4+v72WDn8rhbHIuS2WIaBvAl+GG/AqSrasDpTHm9jA==
-X-Received: by 10.107.6.70 with SMTP id 67mr37714678iog.174.1475020249993;
-	Tue, 27 Sep 2016 16:50:49 -0700 (PDT)
-Received: from [10.0.0.22] (modemcable020.227-83-70.mc.videotron.ca.
-	[70.83.227.20])
-	by smtp.gmail.com with ESMTPSA id l65sm1851761ioi.9.2016.09.27.16.50.49
-	for <poky@yoctoproject.org>
-	(version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-	Tue, 27 Sep 2016 16:50:49 -0700 (PDT)
-From: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
-Message-Id: <3D83C703-8964-43A1-8141-21657FC3CAE6@gmail.com>
-Date: Tue, 27 Sep 2016 19:19:35 -0400
-To: poky@yoctoproject.org
-Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
-X-Mailer: Apple Mail (2.3124)
-Subject: PACKAGE_CLASSES definition
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=alL+R7uVGjYO1isSTMN9guxNdoBAeu9MB03Eny92nfc=;
+	b=GpRDsAgtKPIkOdqHpwObr4p81n415Sq4l0kYjwpx/XDqDuMmAcMK1TtfsnNz9OH6lW
+	RG7EkbDBcEzE0/iYRbOwDfEyGBRLHeaXNIAH22bLmmM2gzvC3q7zG23ZQZjkb4xvpKCz
+	txjsyAsT3LedjGd7u52ywPu239oZ9QnxF5rKDLjMjsQ0exCn19sWZiRk/gVUz781+0BW
+	/++VxCqXqTe8iLhkrUQDpNRKfpSmhw1INGfetsL+HzTqm1Eg5eOpwi1tnqlMmLv5YEoy
+	XQXyahZuisQc9LwYFmki+iwhKTolmoZ6/K3hEda8lQHuT9/LOoKCPsgXCDo0L3M3y7Ia
+	s4Wg==
+X-Gm-Message-State: AA6/9RkXtCkYxIU+BkcpWO11P2jDCRzgOjz4SrF/U+BoYvbxr9Duv5YBiJ9wM4bzYomDfuQknDZA3T6W6kl/Fg==
+X-Received: by 10.176.6.2 with SMTP id f2mr3027074uaf.173.1475025823446; Tue,
+	27 Sep 2016 18:23:43 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.176.86.206 with HTTP; Tue, 27 Sep 2016 18:23:13 -0700 (PDT)
+In-Reply-To: <3D83C703-8964-43A1-8141-21657FC3CAE6@gmail.com>
+References: <3D83C703-8964-43A1-8141-21657FC3CAE6@gmail.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 27 Sep 2016 18:23:13 -0700
+Message-ID: <CAMKF1so14HE9u5nq6V2PMW_s=HOuQQuki8eG98-pjoj0C46JTw@mail.gmail.com>
+To: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: PACKAGE_CLASSES definition
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,20 +70,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Sep 2016 23:50:54 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 28 Sep 2016 01:23:45 -0000
+Content-Type: text/plain; charset=UTF-8
 
-Hi all,
+On Tue, Sep 27, 2016 at 4:19 PM, Jean-Francois Dagenais
+<jeff.dagenais@gmail.com> wrote:
+> Hi all,
+>
+> This one is for the experts... Does it make any difference whether a variable
+> such as PACKAGE_CLASSES is defined in local.conf, the distro.conf or the
+> machine.conf?
+>
 
-This one is for the experts... Does it make any difference whether a =
-variable
-such as PACKAGE_CLASSES is defined in local.conf, the distro.conf or the
-machine.conf?
+its a distro policy to having it in distro conf is appropriate
 
-In my particular case, I think the choice of package_rpm is really =
-specific to
-the distro we define, not a local setting (local.conf).
-
-Thanks!=
+> In my particular case, I think the choice of package_rpm is really specific to
+> the distro we define, not a local setting (local.conf).
+>
+> Thanks!
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
