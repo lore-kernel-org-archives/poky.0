@@ -1,32 +1,34 @@
-Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 94C09E00756; Tue,  4 Oct 2016 14:50:03 -0700 (PDT)
+	id 06D94E00C98; Wed,  5 Oct 2016 15:13:37 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.20 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5DBCEE00803
-	for <poky@yoctoproject.org>; Tue,  4 Oct 2016 14:49:59 -0700 (PDT)
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-	by fmsmga105.fm.intel.com with ESMTP; 04 Oct 2016 14:49:59 -0700
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C537BE00C72
+	for <poky@yoctoproject.org>; Wed,  5 Oct 2016 15:13:32 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by orsmga101.jf.intel.com with ESMTP; 05 Oct 2016 15:13:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.31,445,1473145200"; d="scan'208";a="16225391"
-Received: from lsandov1-mobl2.zpn.intel.com ([10.219.5.48])
-	by fmsmga005.fm.intel.com with ESMTP; 04 Oct 2016 14:49:59 -0700
-From: leonardo.sandoval.gonzalez@linux.intel.com
+X-IronPort-AV: E=Sophos;i="5.31,451,1473145200"; d="scan'208";a="1049999151"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by fmsmga001.fm.intel.com with ESMTP; 05 Oct 2016 15:13:31 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Tue,  4 Oct 2016 16:53:41 -0500
-Message-Id: <ed74c8e0ffb2035878fe6e4bd9b4e489089a714d.1475617525.git.leonardo.sandoval.gonzalez@linux.intel.com>
-X-Mailer: git-send-email 2.1.4
-In-Reply-To: <cover.1475617525.git.leonardo.sandoval.gonzalez@linux.intel.com>
-References: <cover.1475617525.git.leonardo.sandoval.gonzalez@linux.intel.com>
-In-Reply-To: <cover.1475617525.git.leonardo.sandoval.gonzalez@linux.intel.com>
-References: <cover.1475617525.git.leonardo.sandoval.gonzalez@linux.intel.com>
-Subject: [PATCH 8/8] yocto-bsp: linux-yocto recipes update (4.4 to 4.8) for x86-64 arch
+Date: Wed,  5 Oct 2016 22:08:13 +0000
+Message-Id: <3128b285e0102dff358f8f58244afcf220a232df.1475705107.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.6.6
+In-Reply-To: <cover.1475705107.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1475705107.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 1/1] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.8
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,111 +41,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Oct 2016 21:50:03 -0000
+X-List-Received-Date: Wed, 05 Oct 2016 22:13:37 -0000
 
-From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Upgrades to Linux 4.8
 
-[YOCTO #10301]
-
-Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 ---
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +--
- .../linux/linux-yocto-tiny_4.8.bbappend            | 33 ++++++++++++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.8.bbappend  | 32 +++++++++++++++++++++
- 3 files changed, 67 insertions(+), 2 deletions(-)
- create mode 100644 scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.8.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.8.bbappend
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-index 00cf360..0120ed0 100644
---- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.4) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.8) kernel? (y/n)" default:"y"}}
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend
+index 1626bd1..f42b274 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.8.bbappend
+@@ -7,8 +7,8 @@ KBRANCH_edgerouter = "standard/edgerouter"
+ KBRANCH_beaglebone = "standard/beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.4"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.8"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.8.bbappend b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.8.bbappend
-new file mode 100644
-index 0000000..5fb45d9
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.8.bbappend
-@@ -0,0 +1,33 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.8": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.8"
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.8.bbappend b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.8.bbappend
-new file mode 100644
-index 0000000..7c0df8b
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.8.bbappend
-@@ -0,0 +1,32 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.8": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.8"
+-SRCREV_machine_genericx86    ?= "eb9c19c72d40a4bb8a6a3b7b949e41e5c31c0d94"
+-SRCREV_machine_genericx86-64 ?= "eb9c19c72d40a4bb8a6a3b7b949e41e5c31c0d94"
++SRCREV_machine_genericx86    ?= "67813e7efa3a4614e209c2f058d92ef9a636441a"
++SRCREV_machine_genericx86-64 ?= "67813e7efa3a4614e209c2f058d92ef9a636441a"
+ SRCREV_machine_edgerouter ?= "eb9c19c72d40a4bb8a6a3b7b949e41e5c31c0d94"
+ SRCREV_machine_beaglebone ?= "eb9c19c72d40a4bb8a6a3b7b949e41e5c31c0d94"
+ SRCREV_machine_mpc8315e-rdb ?= "b5c48c7a5d6473373fe7f1e2e8d7b0cf57929908"
+@@ -19,8 +19,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.8-rc7"
+-LINUX_VERSION_genericx86-64 = "4.8-rc7"
++LINUX_VERSION_genericx86 = "4.8"
++LINUX_VERSION_genericx86-64 = "4.8"
+ LINUX_VERSION_edgerouter = "4.8-rc7"
+ LINUX_VERSION_beaglebone = "4.8-rc7"
+ LINUX_VERSION_mpc8315e-rdb = "4.8-rc7"
 -- 
-2.1.4
+2.6.6
 
 
