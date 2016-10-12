@@ -1,63 +1,41 @@
-Return-Path: <andrei@gherzan.ro>
+Return-Path: <Bruce.Ashfield@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 87A53E00D03; Wed, 12 Oct 2016 15:32:16 -0700 (PDT)
+	id 4E361E00D2B; Wed, 12 Oct 2016 16:03:47 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.215.66 listed in dnsbl.sorbs.net]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.215.66 listed in list.dnswl.org]
-Received: from mail-lf0-f66.google.com (mail-lf0-f66.google.com
-	[209.85.215.66])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 162B0E00C60
-	for <poky@yoctoproject.org>; Wed, 12 Oct 2016 15:32:12 -0700 (PDT)
-Received: by mail-lf0-f66.google.com with SMTP id x23so3600734lfi.1
-	for <poky@yoctoproject.org>; Wed, 12 Oct 2016 15:32:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gherzan-ro.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=wuT9aM1NvVSMZ6RsFhm48uTkt6CiJIXH+4uXqqL0c10=;
-	b=Z7QywJkmbaJb5zCujfwQESH1tnJYlshPc62fyHhhGkjZ/za4N2vlJVIxBQe+1Bz912
-	7CqQmPqkukWFBjE0pqEcga5/HeQKyGLVTDpDFZLqxInFLGNXtKnkp7HpkAt0X2v5u838
-	qd9p6s6qXNur+Arty/vP0jRSCJIbBrH19tQGlo1bVpYYJeCs4cp967cgBktwiRgiEh0p
-	6zXeNBjTxiliwfdk8/cRabOrjirDIY0oK6zDG2B3rJ7+Wg5NS3oFfoc8q07SciQDAU1E
-	Mn6dGNtluMoQcIrNgM2JDxq/Zjf/6U3DO+2jyw/hTpl5kUQ6h5DRC3f0GDdQr39QU5gu
-	7Mng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=wuT9aM1NvVSMZ6RsFhm48uTkt6CiJIXH+4uXqqL0c10=;
-	b=gjvwrPhVpXekGOTbscHheKuPF3BMmglrwqCLx9ebwsB6NRd+XuFimOI6JCW1H5Z/ch
-	7FX/awpZLIAEu+cAB//uOaiWEpCMx0Hgz6HLjuZGJer23HE+nodDDzcOhIjMItIYfoLo
-	NP2IrqypBHMG1Uf8wzmhDVtwe1/lXCV4S68ZIDlA04NOwB50ndwJbon2vUY8JC7xTQPQ
-	YArl0QpWM1WZSeJlvdhWXUlsRxcwmobFY0A4B5eWXa/nIE7tZcU5zL7w+EdaipexIEMw
-	RGI6AhPjr5Us0MfBTVAN690sU8C+z/0d7q7xe2YqgZgNCXJu+Ue8YqCnKOuqpCg9RrfV
-	LXKA==
-X-Gm-Message-State: AA6/9RmSGvQ9gghycEJ0MGwYpmzzLMklrmfD/xUG+s8B4xeyPIyt5p+jEIOhgoBy4hyLePHKDeA0envOyphYpA==
-X-Received: by 10.194.243.104 with SMTP id wx8mr4567399wjc.229.1476311530871; 
-	Wed, 12 Oct 2016 15:32:10 -0700 (PDT)
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1FA5CE00C72;
+	Wed, 12 Oct 2016 16:03:41 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id u9CN3bvs018398
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Wed, 12 Oct 2016 16:03:38 -0700 (PDT)
+Received: from [147.11.117.15] (147.11.117.15) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.40) with Microsoft SMTP Server id 14.3.294.0;
+	Wed, 12 Oct 2016 16:03:37 -0700
+To: Kevin Hao <kexin.hao@windriver.com>, <linux-yocto@yoctoproject.org>,
+	<poky@yoctoproject.org>
+References: <20160920120025.159211-1-kexin.hao@windriver.com>
+	<20160920120025.159211-2-kexin.hao@windriver.com>
+	<20161008073634.GA19124@pek-khao-d1>
+	<20161008073757.GB19124@pek-khao-d1>
+From: Bruce Ashfield <bruce.ashfield@windriver.com>
+Message-ID: <57FEC142.7000607@windriver.com>
+Date: Wed, 12 Oct 2016 19:03:30 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Thunderbird/38.6.0
 MIME-Version: 1.0
-Received: by 10.28.33.68 with HTTP; Wed, 12 Oct 2016 15:31:30 -0700 (PDT)
-X-Originating-IP: [83.236.242.106]
-In-Reply-To: <1476305279-11158-1-git-send-email-joshua.g.lock@intel.com>
-References: <1476305279-11158-1-git-send-email-joshua.g.lock@intel.com>
-From: Andrei Gherzan <andrei@gherzan.ro>
-Date: Wed, 12 Oct 2016 23:31:30 +0100
-Message-ID: <CAK18fxHGB8FEzUrXUjryZ=mgZECW0kCNTYXf=GC0eOvosQT1Jg@mail.gmail.com>
-To: Joshua Lock <joshua.g.lock@intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] local.conf.sample.extended: remove RM_OLD_IMAGE
+In-Reply-To: <20161008073757.GB19124@pek-khao-d1>
+Subject: Re: [linux-yocto] [kernel-meta] meta-yocto-bsp: beaglebone: remove the stale kernel options
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,46 +48,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Oct 2016 22:32:16 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 12 Oct 2016 23:03:47 -0000
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 12, 2016 at 9:47 PM, Joshua Lock <joshua.g.lock@intel.com> wrote:
-> RM_OLD_IMAGE has been removed so don't include this variable in
-> sample local.conf
+On 10/08/2016 03:37 AM, Kevin Hao wrote:
+> On Sat, Oct 08, 2016 at 03:36:34PM +0800, Kevin Hao wrote:
+>> On Tue, Sep 20, 2016 at 08:00:25PM +0800, Kevin Hao wrote:
+>>> The kernel_configcheck complains about these unnecessary kernel options.
+>>> The final .config is the same with or without them.
+>>
+>> Hi Bruce,
+>>
+>> It seems that you missed this patch for the linux 4.1 kernel-meta.
+>
+> Sorry for the typo. Should be linux 4.4.
+
+I've cherry picked this to the 4.4 branch. SRCREV updates to follow.
+
+Bruce
+
+>
+> Thanks,
+> Kevin
+>
+>
 >
 
-Can we have a reference where was this removed?
-
-
-> Signed-off-by: Joshua Lock <joshua.g.lock@intel.com>
-> ---
->  meta-poky/conf/local.conf.sample.extended | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
-> index 118ed62..d407ffb 100644
-> --- a/meta-poky/conf/local.conf.sample.extended
-> +++ b/meta-poky/conf/local.conf.sample.extended
-> @@ -265,9 +265,6 @@
->  #COPYLEFT_RECIPE_TYPES = 'target'
->  #
->
-> -# Remove the old image before the new one generated to save disk space
-> -#RM_OLD_IMAGE = "1"
-> -
->  #
->  # GCC/LD FLAGS to enable more secure code generation
->  #
-> --
-> 2.7.4
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
-
-
---
-Andrei Gherzan
 
