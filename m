@@ -1,6 +1,6 @@
 Return-Path: <alexander.kanavin@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 1D4BCE00DF7; Wed, 19 Oct 2016 08:30:22 -0700 (PDT)
+	id 2CCDFE00DF6; Wed, 19 Oct 2016 08:30:22 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,22 +12,20 @@ X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4309FE00DF4
-	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 08:30:19 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DA653E00DF1
+	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 08:30:18 -0700 (PDT)
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga103.fm.intel.com with ESMTP; 19 Oct 2016 08:30:19 -0700
+	by fmsmga103.fm.intel.com with ESMTP; 19 Oct 2016 08:30:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.31,514,1473145200"; d="scan'208";a="1072697682"
+X-IronPort-AV: E=Sophos;i="5.31,514,1473145200"; d="scan'208";a="1072697654"
 Received: from kanavin-desktop.fi.intel.com ([10.237.68.161])
-	by fmsmga002.fm.intel.com with ESMTP; 19 Oct 2016 08:30:18 -0700
+	by fmsmga002.fm.intel.com with ESMTP; 19 Oct 2016 08:30:16 -0700
 From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Wed, 19 Oct 2016 18:28:00 +0300
-Message-Id: <20161019152800.30832-2-alexander.kanavin@linux.intel.com>
+Date: Wed, 19 Oct 2016 18:27:59 +0300
+Message-Id: <20161019152800.30832-1-alexander.kanavin@linux.intel.com>
 X-Mailer: git-send-email 2.9.3
-In-Reply-To: <20161019152800.30832-1-alexander.kanavin@linux.intel.com>
-References: <20161019152800.30832-1-alexander.kanavin@linux.intel.com>
-Subject: [PATCH 2/2] maintainers.inc: remove SGML recipes
+Subject: [PATCH 1/2] maintainers.inc: add missing recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,53 +42,37 @@ X-List-Received-Date: Wed, 19 Oct 2016 15:30:22 -0000
 
 Signed-off-by: Alexander Kanavin <alexander.kanavin@linux.intel.com>
 ---
- meta-poky/conf/distro/include/maintainers.inc | 12 ------------
- 1 file changed, 12 deletions(-)
+ meta-poky/conf/distro/include/maintainers.inc | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
-index 466f50f..3b58923 100644
+index db95111..466f50f 100644
 --- a/meta-poky/conf/distro/include/maintainers.inc
 +++ b/meta-poky/conf/distro/include/maintainers.inc
-@@ -159,11 +159,6 @@ RECIPE_MAINTAINER_pn-distcc = "Hongxu Jia <hongxu.jia@windriver.com>"
- RECIPE_MAINTAINER_pn-distcc-config = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-dmidecode = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-dmxproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-docbook-dsssl-stylesheets-native = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-docbook-sgml-dtd-3.1-native = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-docbook-sgml-dtd-4.1-native = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-docbook-sgml-dtd-4.5-native = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-docbook-utils-native = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-docbook-xml-dtd4 = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-docbook-xsl-stylesheets = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-dosfstools = "Dengke Du <dengke.du@windriver.com>"
-@@ -465,7 +460,6 @@ RECIPE_MAINTAINER_pn-linux-yocto = "Bruce Ashfield <bruce.ashfield@windriver.com
- RECIPE_MAINTAINER_pn-linux-yocto-dev = "Bruce Ashfield <bruce.ashfield@windriver.com>"
- RECIPE_MAINTAINER_pn-linux-yocto-rt = "Bruce Ashfield <bruce.ashfield@windriver.com>"
- RECIPE_MAINTAINER_pn-linux-yocto-tiny = "Bruce Ashfield <bruce.ashfield@windriver.com>"
--RECIPE_MAINTAINER_pn-linuxdoc-tools-native = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-logrotate = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-lrzsz = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-lsb = "Hongxu Jia <hongxu.jia@windriver.com>"
-@@ -549,8 +543,6 @@ RECIPE_MAINTAINER_pn-nss = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-nss-myhostname = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-ofono = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-oh-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-openjade-native = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-opensp = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-openssh = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-openssl = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-opkg = "Alejandro del Castillo <alejandro.delcastillo@ni.com>"
-@@ -695,10 +687,6 @@ RECIPE_MAINTAINER_pn-sed = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-serf = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-setserial = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-settings-daemon = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-sgml-common = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-sgml-common-native = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-sgmlspl = "Dengke Du <dengke.du@windriver.com>"
--RECIPE_MAINTAINER_pn-sgmlspl-native = "Dengke Du <dengke.du@windriver.com>"
- RECIPE_MAINTAINER_pn-shadow = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-shadow-securetty = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-shadow-sysroot = "Chen Qi <Qi.Chen@windriver.com>"
+@@ -139,6 +139,7 @@ RECIPE_MAINTAINER_pn-cryptodev-module = "Robert Yang <liezhi.yang@windriver.com>
+ RECIPE_MAINTAINER_pn-cryptodev-tests = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-cups = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-curl = "Chen Qi <Qi.Chen@windriver.com>"
++RECIPE_MAINTAINER_pn-cve-check-tool = "Mariano Lopez <mariano.lopez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-cwautomacros = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-damageproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-db = "Mark Hatle <mark.hatle@windriver.com>"
+@@ -706,6 +707,7 @@ RECIPE_MAINTAINER_pn-shutdown-desktop = "Alexander Kanavin <alexander.kanavin@in
+ RECIPE_MAINTAINER_pn-signing-keys = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-slang = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-socat = "Hongxu Jia <hongxu.jia@windriver.com>"
++RECIPE_MAINTAINER_pn-source-highlight = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-speex = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-speexdsp = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-sqlite3 = "Maxin B. John <maxin.john@intel.com>"
+@@ -775,6 +777,7 @@ RECIPE_MAINTAINER_pn-volatile-binds = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-vte = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-waffle = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-watchdog = "Alexander Kanavin <alexander.kanavin@intel.com>"
++RECIPE_MAINTAINER_pn-watchdog-config = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-wayland = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-wayland-protocols = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-webkitgtk = "Alexander Kanavin <alexander.kanavin@intel.com>"
 -- 
 2.9.3
 
