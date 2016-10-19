@@ -1,35 +1,33 @@
-Return-Path: <Zubair.Kakakhel@imgtec.com>
+Return-Path: <alexander.kanavin@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8B358E00DC4; Wed, 19 Oct 2016 03:56:36 -0700 (PDT)
+	id 1D4BCE00DF7; Wed, 19 Oct 2016 08:30:22 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.115 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 938 seconds by postgrey-1.32 at yocto-www;
-	Wed, 19 Oct 2016 03:56:32 PDT
-Received: from mailapp01.imgtec.com (mailapp02.imgtec.com [217.156.133.132])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F6B4E00DBD
-	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 03:56:32 -0700 (PDT)
-Received: from HHMAIL03.hh.imgtec.org (unknown [10.44.0.21])
-	by Forcepoint Email with ESMTPS id D50E973115B54
-	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 11:40:49 +0100 (IST)
-Received: from HHMAIL01.hh.imgtec.org (10.100.10.19) by HHMAIL03.hh.imgtec.org
-	(10.44.0.21) with Microsoft SMTP Server (TLS) id 14.3.294.0;
-	Wed, 19 Oct 2016 11:40:52 +0100
-Received: from zkakakhel-linux.le.imgtec.org (192.168.154.45) by
-	HHMAIL01.hh.imgtec.org (10.100.10.21) with Microsoft SMTP Server (TLS)
-	id 14.3.294.0; Wed, 19 Oct 2016 11:40:51 +0100
-From: Zubair Lutfullah Kakakhel <Zubair.Kakakhel@imgtec.com>
-To: <poky@yoctoproject.org>
-Date: Wed, 19 Oct 2016 11:40:47 +0100
-Message-ID: <1476873647-45290-1-git-send-email-Zubair.Kakakhel@imgtec.com>
-X-Mailer: git-send-email 1.9.1
-MIME-Version: 1.0
-X-Originating-IP: [192.168.154.45]
-Subject: [Patch] poky.conf: Update QEMU_TARGETS and add mips64el
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4309FE00DF4
+	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 08:30:19 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga103.fm.intel.com with ESMTP; 19 Oct 2016 08:30:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.31,514,1473145200"; d="scan'208";a="1072697682"
+Received: from kanavin-desktop.fi.intel.com ([10.237.68.161])
+	by fmsmga002.fm.intel.com with ESMTP; 19 Oct 2016 08:30:18 -0700
+From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 19 Oct 2016 18:28:00 +0300
+Message-Id: <20161019152800.30832-2-alexander.kanavin@linux.intel.com>
+X-Mailer: git-send-email 2.9.3
+In-Reply-To: <20161019152800.30832-1-alexander.kanavin@linux.intel.com>
+References: <20161019152800.30832-1-alexander.kanavin@linux.intel.com>
+Subject: [PATCH 2/2] maintainers.inc: remove SGML recipes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,38 +40,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Oct 2016 10:56:36 -0000
-Content-Type: text/plain
+X-List-Received-Date: Wed, 19 Oct 2016 15:30:22 -0000
 
-qemu-system-mips64el is unavailable which causes problems for runqemu
-Add mips64el to QEMU_TARGETS to build it.
-
-Signed-off-by: Zubair Lutfullah Kakakhel <Zubair.Kakakhel@imgtec.com>
-
+Signed-off-by: Alexander Kanavin <alexander.kanavin@linux.intel.com>
 ---
-Is there any particular reason QEMU_TARGETS is over-ridden here?
-oe-core already has them in meta/recipes-devtools/qemu/qemu.inc
-Perhaps this is some legacy cruft from 43fe018e ?
----
- meta-poky/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta-poky/conf/distro/include/maintainers.inc | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index ddf030a..570dc58 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -45,8 +45,8 @@ DISTRO_EXTRA_RDEPENDS_append_qemux86-64 = " ${POKYQEMUDEPS}"
- 
- TCLIBCAPPEND = ""
- 
--QEMU_TARGETS ?= "arm aarch64 i386 mips mipsel mips64 ppc x86_64"
--# Other QEMU_TARGETS "mips64el sh4"
-+QEMU_TARGETS ?= "arm aarch64 i386 mips mipsel mips64 mips64el ppc x86_64"
-+# Other QEMU_TARGETS "sh4"
- 
- PREMIRRORS ??= "\
- bzr://.*/.*   http://downloads.yoctoproject.org/mirror/sources/ \n \
+diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+index 466f50f..3b58923 100644
+--- a/meta-poky/conf/distro/include/maintainers.inc
++++ b/meta-poky/conf/distro/include/maintainers.inc
+@@ -159,11 +159,6 @@ RECIPE_MAINTAINER_pn-distcc = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-distcc-config = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-dmidecode = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-dmxproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-docbook-dsssl-stylesheets-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-docbook-sgml-dtd-3.1-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-docbook-sgml-dtd-4.1-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-docbook-sgml-dtd-4.5-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-docbook-utils-native = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-docbook-xml-dtd4 = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-docbook-xsl-stylesheets = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-dosfstools = "Dengke Du <dengke.du@windriver.com>"
+@@ -465,7 +460,6 @@ RECIPE_MAINTAINER_pn-linux-yocto = "Bruce Ashfield <bruce.ashfield@windriver.com
+ RECIPE_MAINTAINER_pn-linux-yocto-dev = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-linux-yocto-rt = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-linux-yocto-tiny = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-linuxdoc-tools-native = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-logrotate = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-lrzsz = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-lsb = "Hongxu Jia <hongxu.jia@windriver.com>"
+@@ -549,8 +543,6 @@ RECIPE_MAINTAINER_pn-nss = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-nss-myhostname = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-ofono = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-oh-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-openjade-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-opensp = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-openssh = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-openssl = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-opkg = "Alejandro del Castillo <alejandro.delcastillo@ni.com>"
+@@ -695,10 +687,6 @@ RECIPE_MAINTAINER_pn-sed = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-serf = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-setserial = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-settings-daemon = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-sgml-common = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-sgml-common-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-sgmlspl = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-sgmlspl-native = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-shadow = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-shadow-securetty = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-shadow-sysroot = "Chen Qi <Qi.Chen@windriver.com>"
 -- 
-1.9.1
+2.9.3
 
 
