@@ -1,31 +1,35 @@
-Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
+Return-Path: <Zubair.Kakakhel@imgtec.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E6AF2E0043B; Fri, 14 Oct 2016 09:53:53 -0700 (PDT)
+	id 8B358E00DC4; Wed, 19 Oct 2016 03:56:36 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [192.55.52.120 listed in list.dnswl.org]
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 957CAE0034A
-	for <poky@yoctoproject.org>; Fri, 14 Oct 2016 09:53:49 -0700 (PDT)
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-	by fmsmga104.fm.intel.com with ESMTP; 14 Oct 2016 09:53:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.31,493,1473145200"; d="scan'208";a="19654353"
-Received: from lsandov1-mobl2.zpn.intel.com ([10.219.5.48])
-	by fmsmga005.fm.intel.com with ESMTP; 14 Oct 2016 09:53:48 -0700
-From: leonardo.sandoval.gonzalez@linux.intel.com
-To: poky@yoctoproject.org
-Date: Fri, 14 Oct 2016 11:57:55 -0500
-Message-Id: <cover.1476463434.git.leonardo.sandoval.gonzalez@linux.intel.com>
-X-Mailer: git-send-email 2.1.4
-Subject: [PATCH 0/1] Support supported distros on selftest
+X-Greylist: delayed 938 seconds by postgrey-1.32 at yocto-www;
+	Wed, 19 Oct 2016 03:56:32 PDT
+Received: from mailapp01.imgtec.com (mailapp02.imgtec.com [217.156.133.132])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F6B4E00DBD
+	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 03:56:32 -0700 (PDT)
+Received: from HHMAIL03.hh.imgtec.org (unknown [10.44.0.21])
+	by Forcepoint Email with ESMTPS id D50E973115B54
+	for <poky@yoctoproject.org>; Wed, 19 Oct 2016 11:40:49 +0100 (IST)
+Received: from HHMAIL01.hh.imgtec.org (10.100.10.19) by HHMAIL03.hh.imgtec.org
+	(10.44.0.21) with Microsoft SMTP Server (TLS) id 14.3.294.0;
+	Wed, 19 Oct 2016 11:40:52 +0100
+Received: from zkakakhel-linux.le.imgtec.org (192.168.154.45) by
+	HHMAIL01.hh.imgtec.org (10.100.10.21) with Microsoft SMTP Server (TLS)
+	id 14.3.294.0; Wed, 19 Oct 2016 11:40:51 +0100
+From: Zubair Lutfullah Kakakhel <Zubair.Kakakhel@imgtec.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 19 Oct 2016 11:40:47 +0100
+Message-ID: <1476873647-45290-1-git-send-email-Zubair.Kakakhel@imgtec.com>
+X-Mailer: git-send-email 1.9.1
+MIME-Version: 1.0
+X-Originating-IP: [192.168.154.45]
+Subject: [Patch] poky.conf: Update QEMU_TARGETS and add mips64el
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,37 +42,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Oct 2016 16:53:53 -0000
+X-List-Received-Date: Wed, 19 Oct 2016 10:56:36 -0000
+Content-Type: text/plain
 
-From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+qemu-system-mips64el is unavailable which causes problems for runqemu
+Add mips64el to QEMU_TARGETS to build it.
 
-This series is a continuation of oe-core series:
+Signed-off-by: Zubair Lutfullah Kakakhel <Zubair.Kakakhel@imgtec.com>
 
-http://lists.openembedded.org/pipermail/openembedded-core/2016-October/127586.html
+---
+Is there any particular reason QEMU_TARGETS is over-ridden here?
+oe-core already has them in meta/recipes-devtools/qemu/qemu.inc
+Perhaps this is some legacy cruft from 43fe018e ?
+---
+ meta-poky/conf/distro/poky.conf | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The latter defines self.distro at meta/lib/oeqa/selftest/base.py and it is used
-at this series, so this series depends on the oe-core one.
-
-[YOCTO #8525]
-
-The following changes since commit 4a7eb4b92f32c17abd1111246b1acb9ad3daa355:
-
-  build-appliance-image: Update to master head revision (2016-10-11 08:51:36 +0100)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib lsandov1/oe-selftest-non-poky-distros-poky
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=lsandov1/oe-selftest-non-poky-distros-poky
-
-Leonardo Sandoval (1):
-  selftest: skip tests for poky-tiny distro due to incompatible kernel
-    machine
-
- meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py    | 6 +++++-
- meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 5 +++++
- 2 files changed, 10 insertions(+), 1 deletion(-)
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index ddf030a..570dc58 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -45,8 +45,8 @@ DISTRO_EXTRA_RDEPENDS_append_qemux86-64 = " ${POKYQEMUDEPS}"
+ 
+ TCLIBCAPPEND = ""
+ 
+-QEMU_TARGETS ?= "arm aarch64 i386 mips mipsel mips64 ppc x86_64"
+-# Other QEMU_TARGETS "mips64el sh4"
++QEMU_TARGETS ?= "arm aarch64 i386 mips mipsel mips64 mips64el ppc x86_64"
++# Other QEMU_TARGETS "sh4"
+ 
+ PREMIRRORS ??= "\
+ bzr://.*/.*   http://downloads.yoctoproject.org/mirror/sources/ \n \
 -- 
-2.1.4
+1.9.1
 
 
