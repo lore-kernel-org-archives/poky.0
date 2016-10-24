@@ -1,20 +1,17 @@
-Return-Path: <nitishjha16@gmail.com>
+Return-Path: <osborn.steven@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 44F36E00B93; Fri, 21 Oct 2016 07:55:34 -0700 (PDT)
+	id E506AE00B63; Mon, 24 Oct 2016 16:39:27 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE, 
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [209.85.215.52 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (nitishjha16[at]gmail.com)
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.215.52 listed in dnsbl.sorbs.net]
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (osborn.steven[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.216.177 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -23,41 +20,41 @@ X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-lf0-f52.google.com (mail-lf0-f52.google.com
-	[209.85.215.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 06A40E00A10
-	for <poky@yoctoproject.org>; Fri, 21 Oct 2016 07:55:29 -0700 (PDT)
-Received: by mail-lf0-f52.google.com with SMTP id l131so142087671lfl.2
-	for <poky@yoctoproject.org>; Fri, 21 Oct 2016 07:55:29 -0700 (PDT)
+Received: from mail-qt0-f177.google.com (mail-qt0-f177.google.com
+	[209.85.216.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6CA0E00AD2
+	for <poky@yoctoproject.org>; Mon, 24 Oct 2016 16:39:24 -0700 (PDT)
+Received: by mail-qt0-f177.google.com with SMTP id 23so5032234qtp.5
+	for <poky@yoctoproject.org>; Mon, 24 Oct 2016 16:39:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
 	h=mime-version:from:date:message-id:subject:to;
-	bh=PAkrPr2qz9cDK/xdn1xXfCiQ4xZtWOd1YF3O8M0lWQI=;
-	b=r4QYeN4wKDMSwGqU80h8X/agMS1hfeOXniRkEZ5flTCntmhWCaYirMR1bfL/LdWLHA
-	/Eavj8vryUji1KMm69uIzdAO/4R0VEDZsdefTmtruc/aYFzXKZWAmOFMrDqfUkvJAU2R
-	GqlnR0FAqw/J1AIGGEWweNHUCN3Dh4k8OU9XlgkX2VXdVsVAtrMMko3Sk4BlTVku673T
-	ZOnJDdDqehVIHuiRLgATSLTIOuq2srdYgxyX2ee9MJHycsnC3Kxw9E7bsHpbEjqGI8Ly
-	uIRW8qjd5blvpeCXFMFvM2EcIhBl9dQmjUDOSnzGonguOXC/xdbk1XHi4OVMJlKYsDzi
-	Rw1w==
+	bh=Ctj7rhQV5XzNyBgobnlBT0FJmhFMOs52qP8/YnSX79k=;
+	b=WKo6fzkxahyKSf0FU4GVa6A/acQFo7TOFIdZCIIkPanqWM22FEyhso5Oa5hezC6daA
+	nAYnJ+GPqi6U8sbar/yJtef6mvYsyhbzOancmVgQA8LcInqOGkvX+QYUbdiVUpLRourv
+	3EWtaUgdAEdXO+NHbhxQxTacIJ6aHvyS9zTwf3b8Grd4QyU/djA05KvA7O4vX2j5hhsd
+	nmBQ2L1uWwALK9InL70VZPn5Ws1j4pLjZO+NUN+1ly+pxtd2bRT3Xd0mYwsshe6haKXv
+	ZwcJ7wvzZPivQrXf1elDT1CVwkIvyQoeJdy2qNsDqz6JNi/kyhMof9NzYM+vdxz8vodW
+	SeMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20130820;
 	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=PAkrPr2qz9cDK/xdn1xXfCiQ4xZtWOd1YF3O8M0lWQI=;
-	b=L3IdIjPksSyGaj+O/gdm01+VOFFGRSSYFlKzwP8fON5mae3zXRwgMLFvGabKhAJ3uE
-	UonBd0QBXOkKL4yP7CTPGZvS0Y9pWUch5BoECeBBF1dOtV4thaGcOA/38lw/tMC/HwyF
-	JC/jZQxNlClRe7Qclw5Tnsmu2XUYVqVIFn2CsqrNlmb6BtSPLDeA02Afm69+QnJd1t//
-	aSP+IRzD52cG+buUkAm7CmdRkpaelh/9Tl5czjbTWmgjMHPqnEYl3mLpdL+fTXECTVK4
-	Tm5XjnTvGEFKFH3jLyyc1ltldDjRElsSZlPZPsWgNzJwJ+5aWn6yd0LjxmM2Umlv127E
-	Jt9Q==
-X-Gm-Message-State: AA6/9RmcyboKV1HLuK+5rJ8QliDRgaqQVu7NEQu9DJ5nPjk4OXYZ5Ek32RFcPLB9vwBzZvHOtB+rf5mV2EoyWQ==
-X-Received: by 10.28.9.141 with SMTP id 135mr3249296wmj.68.1477061727256; Fri,
-	21 Oct 2016 07:55:27 -0700 (PDT)
+	bh=Ctj7rhQV5XzNyBgobnlBT0FJmhFMOs52qP8/YnSX79k=;
+	b=EMkRN4byWqwwXMsBUrEXfDlwC8exkA2Ywi/R78wCl/XEXu5GI0goQyqz+wMgZUa5uV
+	Iyv7AuOEuNVuBMhDOgM2rxUlp2LI7f1VYTxe/oCPvSws21xM9KdzFx/H2qqif2vaSToD
+	WlPuH3PjuZubjELxQZoIfqeQCQNaV7hQdpIxPzgOg14qwZs5jn6XoSL6vAhVpbNdQFLd
+	f+Jt++58i0m7Rop662IzOGxIXdtOH7DaaSOawBYJY0aswOjs2Mnr6Z47FecwQgNstqzq
+	/S1WLdxgQezPIQf9kP7qI+A6U8dVlgwZWFgbfDbytqPpWK32mZdrXKjn5MZwGjzScu6U
+	n9LQ==
+X-Gm-Message-State: ABUngvc56S05qQEXF/m7Mk835G55A/SA97RVeD0FuKhdk2C1xKd30loHsA2DecxMYzeFHgCSayu4dPh5Qy4HoQ==
+X-Received: by 10.237.36.93 with SMTP id s29mr17215140qtc.134.1477352363524;
+	Mon, 24 Oct 2016 16:39:23 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.28.131.200 with HTTP; Fri, 21 Oct 2016 07:55:26 -0700 (PDT)
-From: nitish jha <nitishjha16@gmail.com>
-Date: Fri, 21 Oct 2016 16:55:26 +0200
-Message-ID: <CABh+fobJ2oYvPgEk=jAXZo2PRrHiH9+G136PMCG-MS=iLDXS0w@mail.gmail.com>
-To: bitbake-devel <bitbake-devel@lists.openembedded.org>, poky@yoctoproject.org
-Subject: Eclipse: Yocto Image build and Remote debugg
+Received: by 10.200.46.84 with HTTP; Mon, 24 Oct 2016 16:39:23 -0700 (PDT)
+From: Steven Osborn <osborn.steven@gmail.com>
+Date: Mon, 24 Oct 2016 16:39:23 -0700
+Message-ID: <CAA0Zw-yG86gejw2TT0Ly8AJ5MMcFV-NP7Q6S=BkbtyjeVqQ_hQ@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: Poky issues
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,72 +67,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Oct 2016 14:55:34 -0000
-Content-Type: multipart/alternative; boundary=001a11444dc69084ae053f613b7e
+X-List-Received-Date: Mon, 24 Oct 2016 23:39:28 -0000
+Content-Type: multipart/alternative; boundary=001a1141281ed60991053fa4e6b9
 
---001a11444dc69084ae053f613b7e
+--001a1141281ed60991053fa4e6b9
 Content-Type: text/plain; charset=UTF-8
 
-Hello All,
+I'm trying to get a beaglebone build going and running into this issue.
+I've tried on Ubuntu 16.04 and 14.04LTS with no luck, any pointers would be
+really appreciated.  I'm pretty new to Yocto & bitbake.
 
-I am facing some Issues in Remote debugging of yocto image
+https://gist.github.com/lolsborn/b431513dbf8819850f26fb78c7753201
 
-Steps I have done:
+--
+Steven Osborn
+http://lolsborn.com
 
-1) Installing eclipse with CDT plugins,ADT, RSE and TCF plugin
-2) Making a project in eclipse using Bitbake Commander
-3) Creating a custom image using HOB by adding some custom layers.
-4) Running Image on QEMU
-5) Creating an sdk and extracting sysroot
-6) Configuring Image and Sysroot in Eclipse Yocto ADT settings.
-7) Creating a TCF Connection and providing this connection to c++ remote
-application
-
-But launch fails by saying that this is not valid C++ project
-
-I have following questions regarding this
-
-1) I understand this is not a c++ project as it is created by Bitbake
-commander but How I will be able to debug the code I have added in my image.
-2) When I use new TCF instance in Debug Configuration its not detecting
-automatically my QEMU which is running my image.
-
-Can anybody help me in debugging Software I have installed in my image as
-extra layer by any ways i.e. TCF debugging/Eclipse remote application
-debugging.
-
-Thanks in advance.
-
-
--- 
-*Nitish Jha*
-
---001a11444dc69084ae053f613b7e
+--001a1141281ed60991053fa4e6b9
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hello All,<div><br></div><div>I am facing some Issues in R=
-emote debugging of yocto image</div><div><br></div><div>Steps I have done:<=
-/div><div><br></div><div>1) Installing eclipse with CDT plugins,ADT, RSE an=
-d TCF plugin</div><div>2) Making a project in eclipse using Bitbake Command=
-er</div><div>3) Creating a custom image using HOB by adding some custom lay=
-ers.</div><div>4) Running Image on QEMU</div><div>5) Creating an sdk and ex=
-tracting sysroot</div><div>6) Configuring Image and Sysroot in Eclipse Yoct=
-o ADT settings.</div><div>7) Creating a TCF Connection and providing this c=
-onnection to c++ remote application</div><div><br></div><div>But launch fai=
-ls by saying that this is not valid C++ project</div><div><br></div><div>I =
-have following questions regarding this</div><div><br></div><div>1) I under=
-stand this is not a c++ project as it is created by Bitbake commander but H=
-ow I will be able to debug the code I have added in my image.</div><div>2) =
-When I use new TCF instance in Debug Configuration its not detecting automa=
-tically my QEMU which is running my image.</div><div><br></div><div>Can any=
-body help me in debugging Software I have installed in my image as extra la=
-yer by any ways i.e. TCF debugging/Eclipse remote application debugging.</d=
-iv><div><br></div><div>Thanks in advance.</div><div><br clear=3D"all"><div>=
-<br></div>-- <br><div class=3D"gmail_signature" data-smartmail=3D"gmail_sig=
-nature"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"=
-><div style=3D"font-family:arial;font-size:small"><div><b>Nitish Jha</b></d=
-iv><div><br></div></div></div></div></div></div></div>
+<div dir=3D"ltr"><div>I&#39;m trying to get a beaglebone build going and ru=
+nning into this issue.=C2=A0 I&#39;ve tried on Ubuntu 16.04 and 14.04LTS wi=
+th no luck, any pointers would be really appreciated.=C2=A0 I&#39;m pretty =
+new to Yocto &amp; bitbake.</div><div><br></div><a href=3D"https://gist.git=
+hub.com/lolsborn/b431513dbf8819850f26fb78c7753201">https://gist.github.com/=
+lolsborn/b431513dbf8819850f26fb78c7753201</a><div><br clear=3D"all"><div><d=
+iv class=3D"gmail_signature">--<br>Steven Osborn<br><a href=3D"http://lolsb=
+orn.com" target=3D"_blank">http://lolsborn.com</a></div></div>
 </div></div>
 
---001a11444dc69084ae053f613b7e--
+--001a1141281ed60991053fa4e6b9--
