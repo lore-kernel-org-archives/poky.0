@@ -1,31 +1,63 @@
-Return-Path: <jussi.kukkonen@intel.com>
+Return-Path: <matti.kaasinen@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E07C2E00CF5; Wed, 26 Oct 2016 02:15:18 -0700 (PDT)
+	id C67CBE00CC4; Tue,  1 Nov 2016 07:32:07 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, 
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (matti.kaasinen[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA443E00C17
-	for <poky@yoctoproject.org>; Wed, 26 Oct 2016 02:15:12 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga105.fm.intel.com with ESMTP; 26 Oct 2016 02:15:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.31,550,1473145200"; d="scan'208";a="1059318927"
-Received: from linux.intel.com ([10.54.29.200])
-	by fmsmga001.fm.intel.com with ESMTP; 26 Oct 2016 02:14:30 -0700
-Received: from theory.fi.intel.com (theory.fi.intel.com [10.237.72.53])
-	by linux.intel.com (Postfix) with ESMTP id 6D76A6A4006;
-	Wed, 26 Oct 2016 02:13:55 -0700 (PDT)
-From: Jussi Kukkonen <jussi.kukkonen@intel.com>
-To: poky@yoctoproject.org
-Date: Wed, 26 Oct 2016 12:14:26 +0300
-Message-Id: <1477473266-11264-1-git-send-email-jussi.kukkonen@intel.com>
-X-Mailer: git-send-email 2.1.4
-Subject: [PATCHv2] conf: Remove legacy X input drivers
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.217.174 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.217.174 listed in dnsbl.sorbs.net]
+Received: from mail-ua0-f174.google.com (mail-ua0-f174.google.com
+	[209.85.217.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8BFBFE00C9A
+	for <poky@yoctoproject.org>; Tue,  1 Nov 2016 07:32:04 -0700 (PDT)
+Received: by mail-ua0-f174.google.com with SMTP id b35so58135510uaa.3
+	for <poky@yoctoproject.org>; Tue, 01 Nov 2016 07:32:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=T1h1He4KN4MU0LvhhG6UYwWlRCyWdv4QysErXDUc0ao=;
+	b=xSFt6ouR1wECnGlI2zMXmxDM8bE4MCp2rMc/S+hmxxaTexjAYel7OqfqKbwZdBvwea
+	6OWhFdImnYioaNJ4xGjaUVIeZnwZeyq7FsflTNp74mCIa/mhp9HIP4Yziuj48I3N4rUC
+	m3GJP5Hqx4yzGLwK9s/U2NDMT4zXa3WWTDVDJGcJ82CX+YY59mB9TTpj7y17EtC4p9pZ
+	2BWSFKxbtsZQyZ4UfI1wnQkRq1x220lxk+1KePu8e6YzosY6DuEbxlwJ8MXJbjWTu/pj
+	weKT61xH4U/bCRCUIA661ulFeWjRk9d6yDEGhyRz2udlCHB6MKumh3WCbL5hXN+RJeAU
+	M4Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=T1h1He4KN4MU0LvhhG6UYwWlRCyWdv4QysErXDUc0ao=;
+	b=MKRbLVZWX+Nnsqdk6Akg1ZOvi/nxHHUi9NGqiWJUjfau3P4uZOIUeMl+g22oP7YXlq
+	KIVhMdme92w0jbsTSIY2i7X+aShBQDST2RRxXvxqckQJMC0r/KqvO+eD5+bwh+x/d9vM
+	8F2ndb4AsnZ6FSwYlbzdrz9oFwqMPvXbtIgWxDSS/Pfuags8KxQ2a8zJffkcMBRQOcIJ
+	NhSufRjNroScw8QNI/nEhRM8zWXakBUA/7YeqDfanOQf5tE/zdQJfdrLwnnmMA6yx5EI
+	c0XtGEMl1x+ktmF/Fx1LUCThZNCBLDChdhaMmjCvqtZbHydHueMJFoFRoOHC0stuX9ew
+	HC3A==
+X-Gm-Message-State: ABUngvclJDkM7lmrsmDXe7bP4ikF3lqJpwpIbZRUtRn9zswypTmlehWj1damKX3t6uBbtXwK3jFrgj5/6gTOCg==
+X-Received: by 10.176.82.200 with SMTP id w8mr26964333uaw.62.1478010722797;
+	Tue, 01 Nov 2016 07:32:02 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.103.146.208 with HTTP; Tue, 1 Nov 2016 07:32:01 -0700 (PDT)
+From: matti kaasinen <matti.kaasinen@gmail.com>
+Date: Tue, 1 Nov 2016 16:32:01 +0200
+Message-ID: <CADnUhn2dnK5aK7YGB42uH7ao6DzHWy6QmNHRtmh_BMW38B3DsA@mail.gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: svn fetcher crashes
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,123 +70,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Oct 2016 09:15:19 -0000
+X-List-Received-Date: Tue, 01 Nov 2016 14:32:07 -0000
+Content-Type: multipart/alternative; boundary=94eb2c18ff001b5a9b05403e30c1
 
-xf86-input-libinput is RRECOMMENDed by xserver-xorg, these
-legacy drivers are not needed.
+--94eb2c18ff001b5a9b05403e30c1
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: Jussi Kukkonen <jussi.kukkonen@intel.com>
----
+Hello!
 
-Changes since v1:
-* Include scripts/lib/bsp changes in this patch (originally
-  mistakenly sent as part of the oe-core patch)
+I tried to upgrade poky from fido to krogoth. Recipes that used to work
+before are now crashing. I get long listing of warnings telling "Exception
+during build_dependencies for S". At the end will come:
+svn: /CPR3/sysroots/x86_64-linux/usr/bin/../lib/./././libssl.so.1.0.0:
+version `OPENSSL_1.0.0' not found (required by
+/CPR3/sysroots/x86_64-linux/usr/bin/../lib/././libserf-1.so.1)
+svn: /CPR3/sysroots/x86_64-linux/usr/bin/../lib/./././libcrypto.so.1.0.0:
+version `OPENSSL_1.0.0' not found (required by
+/CPR3/sysroots/x86_64-linux/usr/bin/../lib/././libserf-1.so.1)
 
+Location these error messages are referring has following libssl modules:
+libssl3.so
+libssl.a
+libssl.so
+libssl.so.1.0.0
+ssl
 
- meta-yocto-bsp/conf/machine/beaglebone.conf                           | 4 +---
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                         | 1 -
- scripts/lib/bsp/substrate/target/arch/arm/conf/machine/machine.conf   | 4 +---
- scripts/lib/bsp/substrate/target/arch/mips/conf/machine/machine.conf  | 1 -
- .../lib/bsp/substrate/target/arch/mips64/conf/machine/machine.conf    | 1 -
- .../lib/bsp/substrate/target/arch/powerpc/conf/machine/machine.conf   | 1 -
- scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/machine.conf  | 3 ---
- 7 files changed, 2 insertions(+), 13 deletions(-)
+Any help really appreciated!!
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index c487bd8..7a19d1f 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -4,10 +4,8 @@
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--           xf86-input-evdev \
--           xf86-input-mouse \
-            xf86-video-modesetting \
--           xf86-input-keyboard"
-+           "
- 
- MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
- 
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index a2ff07c..99182dc 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -19,7 +19,6 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--            xf86-input-evdev \
-             xf86-video-fbdev"
- 
- UBOOT_ENTRYPOINT = "0x00000000"
-diff --git a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/machine.conf b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/machine.conf
-index 588367a..624750c 100644
---- a/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/machine.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/arm/conf/machine/machine.conf
-@@ -8,10 +8,8 @@
- {{ if xserver == "y": }}
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--           xf86-input-evdev \
--           xf86-input-mouse \
-            xf86-video-fbdev \
--           xf86-input-keyboard"
-+           "
- 
- MACHINE_EXTRA_RRECOMMENDS = " kernel-modules kernel-devicetree"
- 
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/machine.conf b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/machine.conf
-index b319d62..37da253 100644
---- a/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/machine.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/mips/conf/machine/machine.conf
-@@ -27,7 +27,6 @@ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
- {{ if xserver == "y": }}
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--            xf86-input-evdev \
-             xf86-video-fbdev"
- 
- SERIAL_CONSOLE = "115200 ttyS0"
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips64/conf/machine/machine.conf b/scripts/lib/bsp/substrate/target/arch/mips64/conf/machine/machine.conf
-index 3afc5e0..a8eea2c 100644
---- a/scripts/lib/bsp/substrate/target/arch/mips64/conf/machine/machine.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/mips64/conf/machine/machine.conf
-@@ -27,7 +27,6 @@ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
- {{ if xserver == "y": }}
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--            xf86-input-evdev \
-             xf86-video-fbdev"
- 
- SERIAL_CONSOLE = "115200 ttyS0"
-diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/machine.conf b/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/machine.conf
-index 583c5e4..352b972 100644
---- a/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/machine.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/powerpc/conf/machine/machine.conf
-@@ -71,7 +71,6 @@ PREFERRED_VERSION_{{=preferred_kernel}} ?= "{{=preferred_kernel_version}}%"
- {{ if xserver == "y": }}
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
- XSERVER ?= "xserver-xorg \
--           xf86-input-evdev \
-            xf86-video-fbdev"
- 
- PREFERRED_VERSION_u-boot ?= "v2016.01%"
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/machine.conf b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/machine.conf
-index 67e1cbd..9188858 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/machine.conf
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/conf/machine/machine.conf
-@@ -54,9 +54,6 @@ KERNEL_IMAGETYPE = "bzImage"
- SERIAL_CONSOLE = "115200 ttyS0"
- XSERVER = "xserver-xorg \
-            ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'mesa-driver-swrast', '', d)} \
--           xf86-input-vmmouse \
--           xf86-input-keyboard \
--           xf86-input-evdev \
-            xf86-video-vmware"
- 
- {{ if qemuarch == "arm": }}
--- 
-2.1.4
+Thanks,
+Matti
 
+--94eb2c18ff001b5a9b05403e30c1
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div><div><div><div><div>Hello!<br><br></div>I tried to up=
+grade poky from fido to krogoth. Recipes that used to work before are now c=
+rashing. I get long listing of warnings telling &quot;Exception during buil=
+d_dependencies for S&quot;. At the end will come:<br>svn: /CPR3/sysroots/x8=
+6_64-linux/usr/bin/../lib/./././libssl.so.1.0.0: version `OPENSSL_1.0.0&#39=
+; not found (required by /CPR3/sysroots/x86_64-linux/usr/bin/../lib/././lib=
+serf-1.so.1)<br>svn: /CPR3/sysroots/x86_64-linux/usr/bin/../lib/./././libcr=
+ypto.so.1.0.0: version `OPENSSL_1.0.0&#39; not found (required by /CPR3/sys=
+roots/x86_64-linux/usr/bin/../lib/././libserf-1.so.1)<br><br></div>Location=
+ these error messages are referring has following libssl modules:<br>libssl=
+3.so<br>libssl.a<br>libssl.so<br>libssl.so.1.0.0<br>ssl<br><br></div>Any he=
+lp really appreciated!!<br><br></div>Thanks,<br></div>Matti<br><div><div><d=
+iv><div><div><div><br><br></div></div></div></div></div></div></div>
+
+--94eb2c18ff001b5a9b05403e30c1--
