@@ -1,39 +1,48 @@
-Return-Path: <Frederik_Sdun@mentor.com>
+Return-Path: <star@gmx.li>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 15BF3E00BB0; Thu,  3 Nov 2016 01:26:52 -0700 (PDT)
+	id E8313E00C59; Thu,  3 Nov 2016 06:47:23 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [192.94.38.131 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-X-Greylist: delayed 3676 seconds by postgrey-1.32 at yocto-www;
-	Thu, 03 Nov 2016 01:26:48 PDT
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A97DE00A64
-	for <poky@yoctoproject.org>; Thu,  3 Nov 2016 01:26:48 -0700 (PDT)
-Received: from nat-ies.mentorg.com ([192.94.31.2]
-	helo=svr-ies-mbx-02.mgc.mentorg.com)
-	by relay1.mentorg.com with esmtp 
-	id 1c2COx-0003f1-U3 from Frederik_Sdun@mentor.com 
-	for poky@yoctoproject.org; Thu, 03 Nov 2016 00:25:32 -0700
-Received: from xsvsn432.dev.mentorg.com (137.202.0.87) by
-	svr-ies-mbx-02.mgc.mentorg.com (139.181.222.2) with Microsoft SMTP
-	Server (TLS) id 15.0.1210.3; Thu, 3 Nov 2016 07:25:28 +0000
-From: Frederik Sdun <frederik_sdun@mentor.com>
-To: <poky@yoctoproject.org>
-Date: Thu, 3 Nov 2016 08:25:20 +0100
-Message-ID: <1478157920-21764-1-git-send-email-frederik_sdun@mentor.com>
-X-Mailer: git-send-email 1.9.1
+X-Spam-Status: No, score=0.1 required=5.0 tests=BAYES_50,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (star[at]gmx.li)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [212.227.15.19 listed in list.dnswl.org]
+	*  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.4959]
+X-Greylist: delayed 302 seconds by postgrey-1.32 at yocto-www;
+	Thu, 03 Nov 2016 06:47:19 PDT
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7E1A1E00C43
+	for <poky@yoctoproject.org>; Thu,  3 Nov 2016 06:47:19 -0700 (PDT)
+Received: from [62.225.157.196] by 3capp-gmx-bs37.server.lan (via HTTP);
+	Thu, 3 Nov 2016 14:42:16 +0100
 MIME-Version: 1.0
-X-Originating-IP: [137.202.0.87]
-X-ClientProxiedBy: svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1) To
-	svr-ies-mbx-02.mgc.mentorg.com (139.181.222.2)
-Subject: [PATCH] kernel-module-split: use license provided by module for kernel-module-*
+Message-ID: <trinity-418a027c-e61d-4fde-8986-947a0b719d0c-1478180535978@3capp-gmx-bs37>
+From: star@gmx.li
+To: poky@yoctoproject.org
+Date: Thu, 3 Nov 2016 14:42:16 +0100
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K0:9jSJlA1ZXGxxJAwdBIUM1ua7RCgqX2f1QSk8YcKtpk/
+	C0bqT7TfF4BuP0s801sBfQosqL0rFXX/OBVOIbZEleEdg40xoJ
+	Ejj64V1BkuQ4rTwyW4u3g1EsWx9oJ2KznrXz0IOLGK2MdkwM3R
+	MTGQob3OfJMLXALdHx+pdPhCNTnWgNaHpFsD6Ok2YoozSkyVqP
+	CCnLwjH249yfn1o7RctfPWNbn8YtPiRHkHO+/bXEdkExWrE0tX
+	KZFPW7QbeOGLYXnPFPemTx/SwPACLqdvQZtuIWhHYAEpYTZnFD LhAcXs=
+X-UI-Out-Filterresults: notjunk:1;V01:K0:XIHjo5lNmcM=:/IVXHdT5E9e3zvAo0DqoJZ
+	S8KgN6/dGGrmDdG93cwqREr7wdOeg7YqGyMjt4u4wHwaMD6TFjVBoCpxZH2Z5w8JdnO63L9/M
+	q0TOBlF1OBOPGiUiL3kt4Mmvc12v8iN1KTBYoKGSLK87V4TfUk1djGGXdGA1vtg2oMx6U9mhs
+	c+UwVVe/cRLvMRZoMFgXdIReSwl/WmTyTTiZh16mAM5CmhZ1bQsOInRct3/uixF7Pu1spvi3V
+	eVj5CzvSsDzdQf/+cWlGP9IpRM/3j4ZkT+cS3pJBj+VjuxVGNk538O7R87kPmAvweD3KAk6wP
+	/laK0qOd6s7tvJBaxAw+b8rvcnnBNT231XO3mW4KjT21EeAKwwhsP1NoQc+oiy+lhAYoxjjEn
+	1mOW/aqVNtt85dHYO/x6xh3/gPoKfJbr9srM51ji0Uo+BR2YsmxQ2cWyaeV5vdJrSgb9vgn95
+	uqi7vuv6oA==
+Subject: tcf-agent
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,42 +55,20 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Nov 2016 08:26:52 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 03 Nov 2016 13:47:24 -0000
+Content-Type: text/plain; charset=UTF-8
 
----
- meta/classes/kernel-module-split.bbclass | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Most features of TCF are commented out with this:
 
-diff --git a/meta/classes/kernel-module-split.bbclass b/meta/classes/kernel-module-split.bbclass
-index 08d2262..8d2aaea 100644
---- a/meta/classes/kernel-module-split.bbclass
-+++ b/meta/classes/kernel-module-split.bbclass
-@@ -29,6 +29,12 @@ do_install_append() {
- PACKAGESPLITFUNCS_prepend = "split_kernel_module_packages "
- 
- KERNEL_MODULES_META_PACKAGE ?= "kernel-modules"
-+KERNEL_MODULE_LICENSE_MAP[GPL] = "GPL-2.0"
-+KERNEL_MODULE_LICENSE_MAP[GPL_v2] = "GPL-2.0"
-+KERNEL_MODULE_LICENSE_MAP[GPL_and_additional_rights] = "GPL-2.0"
-+KERNEL_MODULE_LICENSE_MAP[Dual_BSD_GPL] = "BSD|GPL-2.0"
-+KERNEL_MODULE_LICENSE_MAP[Dual_MIT_GPL] = "MIT|GPL-2.0"
-+KERNEL_MODULE_LICENSE_MAP[Dual_MPL_GPL] = "MPL|GPL-2.0"
- 
- KERNEL_MODULE_PACKAGE_PREFIX ?= ""
- 
-@@ -103,6 +109,10 @@ python split_kernel_module_packages () {
-         if "description" in vals:
-             old_desc = d.getVar('DESCRIPTION_' + pkg, True) or ""
-             d.setVar('DESCRIPTION_' + pkg, old_desc + "; " + vals["description"])
-+        if "license" in vals:
-+            if d.getVar('LICENSE_' + pkg, True) is None:
-+                new_license = d.getVarFlag('KERNEL_MODULE_LICENSE_MAP', vals["license"].replace(' ', '_').replace('/', '_'), True ) or vals["license"]
-+                d.setVar('LICENSE_' + pkg, new_license)
- 
-         rdepends = bb.utils.explode_dep_versions2(d.getVar('RDEPENDS_' + pkg, True) or "")
-         modinfo_deps = []
--- 
-1.9.1
+# They don't build on ARM and we don't need them actually.
+CFLAGS += "-DSERVICE_RunControl=0 -DSERVICE_Breakpoints=0 \
+    -DSERVICE_Memory=0 -DSERVICE_Registers=0 -DSERVICE_MemoryMap=0 \
+    -DSERVICE_StackTrace=0 -DSERVICE_Symbols=0 -DSERVICE_LineNumbers=0 \
+    -DSERVICE_Expressions=0"
 
+This is since years - it it really true that TCF will not work with ARM?
+What are the alternatives, if so?
+
+Best regards
+Arno
 
