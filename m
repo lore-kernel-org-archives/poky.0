@@ -1,64 +1,79 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <bevenson@melinkcorp.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6EF12E00546; Tue,  8 Nov 2016 09:39:41 -0800 (PST)
+	id B1EBBE00712; Wed,  9 Nov 2016 12:23:28 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+	SPF_HELO_PASS autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [74.125.82.53 listed in list.dnswl.org]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [74.125.82.53 listed in dnsbl.sorbs.net]
+	*      [104.47.36.95 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f53.google.com (mail-wm0-f53.google.com [74.125.82.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E3634E00546
-	for <poky@yoctoproject.org>; Tue,  8 Nov 2016 09:39:39 -0800 (PST)
-Received: by mail-wm0-f53.google.com with SMTP id p190so261064056wmp.1
-	for <poky@yoctoproject.org>; Tue, 08 Nov 2016 09:39:39 -0800 (PST)
+X-Greylist: delayed 1361 seconds by postgrey-1.32 at yocto-www;
+	Wed, 09 Nov 2016 12:23:21 PST
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+	(mail-sn1nam02on0095.outbound.protection.outlook.com [104.47.36.95])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B6630E0050B
+	for <poky@yoctoproject.org>; Wed,  9 Nov 2016 12:23:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=from:to:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=Y+a32q1nTd7aYBdGFmXLLe8F/fCOWsCl6URpkB5Moeo=;
-	b=nfL0Ubw9yH3Qf1zvUu/ct4uEBzvTp/XB5acEfdjh3x98IH+fKo3AUWgx+4bpVEG7u4
-	vLkGTwvHJfmKuI3RHEDfcrLpxk0XeFQ0MNwQpxR+Vnj7E0F+nrtNRWwAIKWvgxJKQt+1
-	IJ8Jvti9Pjq92vobiwQ10akgcw2QXbFXlJv2m+eZkKgv/t29WYfgj5Ysm4Eq7TrqUq6J
-	FJ+cV5Nk/B5McS/b7ahBCyePbhGOvrE8RViOFoDxa3wxOVnCTkEqHAew+3IqUc80Ahpk
-	L8jHNLtEQljIYVKmk0rKDsIA4GQG4luWK962gawH0lQ7u7tJ4IAa4F5UkBBHF0C2O8hh
-	uMBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=Y+a32q1nTd7aYBdGFmXLLe8F/fCOWsCl6URpkB5Moeo=;
-	b=fZbT6uSUPMotA1l3d6okVn+SYUHgHE4i4Kxj2JBZ9l1OxdKZ8sAEAT39PRkeVy4lFq
-	FDiYOzdlltlC2Fj7Kz4JUUpwiRtS6I/gM+8HGaSziNde8YW9nJ35G4Cxnh3AOw7gSA+A
-	aata+OSr/B6yUcHrEo6IakX4/J1VAt5y+e5AMVnetub89Rk8yNYOmS4Ox3NMZg7dbmwz
-	hbLo0ew6LpHy8JqDQP2WobSJtd1q1SW6d4MhZzE92wFvmG1x77WnHTGya3WemYcaAVPS
-	J6ZAqJkQ0eyslg42Na/x5UiFVkJzaZ4y6kIuT166J6oG7In53BSgV0ROfZ3P2uKSkAqc
-	vm0g==
-X-Gm-Message-State: ABUngvePc8y8CIhhUp6s9XeXPHG5PAgpeG2F+HNYwKrNb/qUOYEKOkJx2uK/zZuDpFg0j3Ln
-X-Received: by 10.28.154.140 with SMTP id c134mr14276304wme.25.1478626778497; 
-	Tue, 08 Nov 2016 09:39:38 -0800 (PST)
-Received: from flashheart.burtonini.com (home.burtonini.com. [81.2.106.35])
-	by smtp.gmail.com with ESMTPSA id
-	i132sm2183089wmf.14.2016.11.08.09.39.37 for <poky@yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-	Tue, 08 Nov 2016 09:39:38 -0800 (PST)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Tue,  8 Nov 2016 17:39:31 +0000
-Message-Id: <1478626771-17590-1-git-send-email-ross.burton@intel.com>
-X-Mailer: git-send-email 2.8.1
+	d=Melink.onmicrosoft.com; s=selector1-melinkcorp-com;
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
+	bh=F+MrqNExX6eOPKJvir4rseoBAAKGc83VL8pYbRjXpTU=;
+	b=HVZPkrrXuS+GvNEKQfUPiW97FSBqay7j9cJnlRW9LQTEiSEZUl0/4hP8ZvGRBrUXRuep82yh/9QaHO/83WDPuLKJkn8f3FPm9pWmZGQMyzhm8aBhMNjAqOzpohoraHcIhdtAW/RJPCtX2sS65ukPpPxFGvFj1HP8n/xL34SSAA0=
+Received: from DM5PR05MB2954.namprd05.prod.outlook.com (10.168.176.142) by
+	DM5PR05MB2953.namprd05.prod.outlook.com (10.168.176.141) with Microsoft
+	SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+	15.1.721.4; Wed, 9 Nov 2016 18:28:46 +0000
+Received: from DM5PR05MB2954.namprd05.prod.outlook.com ([10.168.176.142]) by
+	DM5PR05MB2954.namprd05.prod.outlook.com ([10.168.176.142]) with mapi id
+	15.01.0721.004; Wed, 9 Nov 2016 18:28:46 +0000
+From: Bryan Evenson <bevenson@melinkcorp.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: fido: problems with arm926ejs DEFAULTTUNE
+Thread-Index: AdI6rzwVVwym+sSESsCW0jg0TkT8kw==
+Date: Wed, 9 Nov 2016 18:28:46 +0000
+Message-ID: <DM5PR05MB29545E65161FD6FEA0CB8C61BBB90@DM5PR05MB2954.namprd05.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=bevenson@melinkcorp.com; 
+x-originating-ip: [98.100.91.242]
+x-ms-office365-filtering-correlation-id: 82a06afd-26ee-408a-df00-08d408ce3e55
+x-microsoft-exchange-diagnostics: 1; DM5PR05MB2953;
+	7:Yqi89gddN0Kds4Xk1sf/DjtDFqYTSnTY1oh+wmQRvbXbk7S6YXoE44O2/SnnpduNJEMH/l8krM+F44NC2acxNDXxsar3dB2v2Bb7yuFhvUkSBsOxYDfR/HHAxsDVix75uLfnKQPzWtnu42tkC8CwKPGRfM85zEC/xzh2Gb6cAp2jag5HpxZuSySeHnCG2XXCS2Twa1rsM7an7Gb8e9fQrBrLvlQ8ATlIdEoo1XqviTpq2TlI2KHCTfFYL2JUvmSbXgabT/dGaevaYA42O0JjmHARcBg0aUThQDzSqJLLvyHpao3xgFisThxEOhtBTTeUjBxDVZyt4zkORX4pR1ina2Bk3zMi1YY6j30qQ3QTJeA=;
+	23:/zF3mR6IYUk8CkuruIuINN8K+UIt7hrgHh2OybgzzsbTFkQc+GDqaMv6ZhsAQoH1ziU0BZcQXbDigAuLvizYZBZIDT5boDF2VY79tnLh9TvmoOGOIzuOYl8efoAieeh/tx1JAaMIvEWD7Ip1+pGPWw==
+x-microsoft-antispam: UriScan:;BCL:0;PCL:0;RULEID:;SRVR:DM5PR05MB2953;
+x-microsoft-antispam-prvs: <DM5PR05MB2953366BAD58AFCE8992C670BBB90@DM5PR05MB2953.namprd05.prod.outlook.com>
+x-exchange-antispam-report-test: UriScan:;
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+	RULEID:(6040176)(601004)(2401047)(5005006)(8121501046)(3002001)(10201501046)(6042046)(6043046);
+	SRVR:DM5PR05MB2953; BCL:0; PCL:0; RULEID:; SRVR:DM5PR05MB2953; 
+x-forefront-prvs: 0121F24F22
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10019020)(6009001)(7916002)(199003)(189002)(87936001)(92566002)(586003)(3846002)(74316002)(50986999)(66066001)(33656002)(54356999)(102836003)(101416001)(86362001)(189998001)(107886002)(2351001)(5660300001)(81166006)(1730700003)(76576001)(8676002)(81156014)(6116002)(99286002)(105586002)(106356001)(8936002)(7846002)(7736002)(450100001)(305945005)(110136003)(77096005)(68736007)(2900100001)(9686002)(97736004)(7696004)(6916009)(122556002)(2906002)(5640700001)(3280700002)(2501003)(3660700001);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR05MB2953;
+	H:DM5PR05MB2954.namprd05.prod.outlook.com; FPR:; SPF:None;
+	PTR:InfoNoRecords; A:1; MX:1; LANG:en; 
+received-spf: None (protection.outlook.com: melinkcorp.com does not designate
+	permitted sender hosts)
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
 MIME-Version: 1.0
-Subject: [PATCH] conf/distro/include/maintainers: move toolchain to Khem Raj
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2016 18:28:46.6991 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d06db0f9-efcc-42b5-9f8c-c934a01c9bfd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR05MB2953
+X-OriginatorOrg: melinkcorp.com
+Subject: fido: problems with arm926ejs DEFAULTTUNE
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -71,136 +86,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Nov 2016 17:39:41 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 09 Nov 2016 20:23:28 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Khem Raj of Comcast has offered to formally own the toolchain and C libraries,
-so reassign the maintainership to him.
+I am on poky/dizzy (version 1.7.3) and I am in the process of upgrading my =
+build to fido (current HEAD).  I am using the meta-atmel layer to build an =
+image for an AT91SAM9G25 using the at91sam9x5ek machine.  When I try to bui=
+ld my image using poky/fido, I get the following error:
 
-Thanks, Khem!
+ERROR:  OE-core's config sanity checker detected a potential misconfigurati=
+on.
+    Either fix the cause of this error or at your own risk disable the chec=
+ker (see sanity.conf).
+    Following is the list of potential problems / advisories:
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-poky/conf/distro/include/maintainers.inc | 58 +++++++++++++--------------
- 1 file changed, 28 insertions(+), 30 deletions(-)
+    Error, the PACKAGE_ARCHS variable does not contain TUNE_PKGARCH (arm926=
+ejse).
 
-diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
-index 6956bc8..54410aa 100644
---- a/meta-poky/conf/distro/include/maintainers.inc
-+++ b/meta-poky/conf/distro/include/maintainers.inc
-@@ -64,10 +64,10 @@ RECIPE_MAINTAINER_pn-bdwgc = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-beecrypt = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-bigreqsproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-bind = "Robert Yang <liezhi.yang@windriver.com>"
--RECIPE_MAINTAINER_pn-binutils = "Robert Yang <liezhi.yang@windriver.com>"
--RECIPE_MAINTAINER_pn-binutils-cross = "Robert Yang <liezhi.yang@windriver.com>"
--RECIPE_MAINTAINER_pn-binutils-cross-canadian = "Robert Yang <liezhi.yang@windriver.com>"
--RECIPE_MAINTAINER_pn-binutils-crosssdk = "Robert Yang <liezhi.yang@windriver.com>"
-+RECIPE_MAINTAINER_pn-binutils = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-binutils-cross = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-binutils-cross-canadian = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-binutils-crosssdk = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-bison = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-bjam-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-blktool = "Dengke Du <dengke.du@windriver.com>"
-@@ -197,21 +197,21 @@ RECIPE_MAINTAINER_pn-freetype = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-fstests = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-fts = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-gawk = "Chen Qi <Qi.Chen@windriver.com>"
--RECIPE_MAINTAINER_pn-gcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-cross = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-cross-canadian = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-cross-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-crosssdk = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-crosssdk-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-runtime = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-sanitizers = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gcc-source = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gccmakedep = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-gcc = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-cross = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-cross-canadian = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-cross-initial = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-crosssdk = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-crosssdk-initial = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-runtime = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-sanitizers = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gcc-source = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gccmakedep = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-gconf = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-gcr = "Alexander Kanavin <alexander.kanavin@intel.com>"
--RECIPE_MAINTAINER_pn-gdb = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gdb-cross = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-gdb-cross-canadian = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-gdb = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gdb-cross = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-gdb-cross-canadian = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-gdbm = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-gdk-pixbuf = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-gettext = "Robert Yang <liezhi.yang@windriver.com>"
-@@ -221,13 +221,13 @@ RECIPE_MAINTAINER_pn-git = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-glew = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-glib-2.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-glib-networking = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-glibc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-glibc-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-glibc-locale = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-glibc-mtrace = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-glibc-scripts = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-glibc = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-glibc-initial = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-glibc-locale = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-glibc-mtrace = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-glibc-scripts = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-glproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-gmp = "Robert Yang <liezhi.yang@windriver.com>"
-+RECIPE_MAINTAINER_pn-gmp = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-gnome-common = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-gnome-desktop-testing = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-gnome-desktop3 = "Alexander Kanavin <alexander.kanavin@intel.com>"
-@@ -346,10 +346,10 @@ RECIPE_MAINTAINER_pn-libfile-checktree-perl = "Aníbal Limón <anibal.limon@linu
- RECIPE_MAINTAINER_pn-libfm = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-libfm-extra = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-libfontenc = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-libgcc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
--RECIPE_MAINTAINER_pn-libgcc-initial = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-libgcc = "Khem Raj <raj.khem@gmail.com>"
-+RECIPE_MAINTAINER_pn-libgcc-initial = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-libgcrypt = "Hongxu Jia <hongxu.jia@windriver.com>"
--RECIPE_MAINTAINER_pn-libgfortran = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-libgfortran = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-libglade = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-libglu = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-libgpg-error = "Hongxu Jia <hongxu.jia@windriver.com>"
-@@ -364,7 +364,7 @@ RECIPE_MAINTAINER_pn-libinput = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
- RECIPE_MAINTAINER_pn-libjson = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-libksba = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-libmatchbox = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
--RECIPE_MAINTAINER_pn-libmpc = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-libmpc = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-libnewt = "Hongxu Jia <hongxu.jia@windriver.com>"
- RECIPE_MAINTAINER_pn-libnewt-python = "Hongxu Jia <hongxu.jia@windriver.com>"
- RECIPE_MAINTAINER_pn-libnfsidmap = "Maxin B. John <maxin.john@intel.com>"
-@@ -513,7 +513,7 @@ RECIPE_MAINTAINER_pn-mmc-utils = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-modutils-initscripts = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-mpeg2dec = "Alexander Kanavin <alexander.kanavin@intel.com>"
--RECIPE_MAINTAINER_pn-mpfr = "Richard Purdie <richard.purdie@linuxfoundation.org>"
-+RECIPE_MAINTAINER_pn-mpfr = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-mpg123 = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-msmtp = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-mtd-utils = "Alexander Kanavin <alexander.kanavin@intel.com>"
-@@ -743,8 +743,6 @@ RECIPE_MAINTAINER_pn-u-boot = "Denys Dmytriyenko <denis@denix.org>"
- RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Denys Dmytriyenko <denis@denix.org>"
- RECIPE_MAINTAINER_pn-u-boot-mkimage = "Denys Dmytriyenko <denis@denix.org>"
- RECIPE_MAINTAINER_pn-ubootchart = "Ross Burton <ross.burton@intel.com>"
--RECIPE_MAINTAINER_pn-uclibc = "Khem Raj <raj.khem@gmail.com>"
--RECIPE_MAINTAINER_pn-uclibc-initial = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-udev-extraconf = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-unfs3 = "Randy Witt <randy.e.witt@linux.intel.com>"
- RECIPE_MAINTAINER_pn-unifdef = "Ross Burton <ross.burton@intel.com>"
--- 
-2.8.1
+In my distro configuration I set DEFAULTTUNE =3D "arm926ejs".  If I remove =
+this line, my image builds but the arch gets set as "armv5e".  The change i=
+n arch would cause problems for firmware upgrades, as I don't think I'd be =
+able to upgrade existing systems when the packages are built for a differen=
+t arch.
 
+I also noticed that the error message states TUNE_PKGARCH is set to "arm926=
+ejse".  I cannot find anywhere in any of the layers I am using where "arm92=
+6ejse" comes from.  I can find "arm926ejs" and "arm926ejste" but not "arm92=
+ejse".
+
+Any thoughts as to what may be going wrong with my build?
+
+Thanks,
+Bryan
 
