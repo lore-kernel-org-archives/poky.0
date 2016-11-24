@@ -1,31 +1,34 @@
 Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C8AF2E00D4D; Thu, 24 Nov 2016 13:29:03 -0800 (PST)
+	id A367AE00D63; Thu, 24 Nov 2016 13:29:24 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [192.55.52.120 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [134.134.136.31 listed in list.dnswl.org]
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63A9AE0071C
-	for <poky@yoctoproject.org>; Thu, 24 Nov 2016 13:29:00 -0800 (PST)
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-	by orsmga104.jf.intel.com with ESMTP; 24 Nov 2016 13:28:59 -0800
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D984E00D4D
+	for <poky@yoctoproject.org>; Thu, 24 Nov 2016 13:29:21 -0800 (PST)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+	by fmsmga104.fm.intel.com with ESMTP; 24 Nov 2016 13:29:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.31,543,1473145200"; d="scan'208";a="195372965"
+X-IronPort-AV: E=Sophos;i="5.31,543,1473145200"; 
+   d="scan'208";a="9041374"
 Received: from lsandov1-mobl2.zpn.intel.com ([10.219.5.38])
-	by fmsmga004.fm.intel.com with ESMTP; 24 Nov 2016 13:28:59 -0800
+	by orsmga002.jf.intel.com with ESMTP; 24 Nov 2016 13:29:21 -0800
 From: leonardo.sandoval.gonzalez@linux.intel.com
 To: poky@yoctoproject.org
-Date: Thu, 24 Nov 2016 15:34:22 -0600
-Message-Id: <cover.1480022350.git.leonardo.sandoval.gonzalez@linux.intel.com>
+Date: Thu, 24 Nov 2016 15:34:46 -0600
+Message-Id: <e2521c31acb6e6cdf59e9d7101439035efe085be.1480022350.git.leonardo.sandoval.gonzalez@linux.intel.com>
 X-Mailer: git-send-email 2.1.4
-Subject: [PATCH v2 0/1] selftest: skip tests for poky-tiny distro due to incompatible kernel machine
+In-Reply-To: <cover.1480022350.git.leonardo.sandoval.gonzalez@linux.intel.com>
+References: <cover.1480022350.git.leonardo.sandoval.gonzalez@linux.intel.com>
+Subject: [PATCH v2 1/1] selftest: skip tests for poky-tiny distro due to incompatible kernel machine
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,35 +41,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Nov 2016 21:29:03 -0000
+X-List-Received-Date: Thu, 24 Nov 2016 21:29:24 -0000
 
 From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
 
-This series is a continuation of:
+The poky-tiny distro points to linux-yocto-tiny which in turns the compatible
+machine is set to qemux86. Current tests are defined for just generic86 architectures
+so tests are not possible for the corresponding distro.
 
-http://lists.openembedded.org/pipermail/openembedded-core/2016-November/129234.html
-
-The latter should be merged first before this series.
-
-[YOCTO #8525]
-
-The following changes since commit 12a0ee049e453b6d0d2ce2f3fa981d1b6e02bd78:
-
-  dev-manual: Added note about RPM not dealing with post-install (2016-11-23 11:10:35 +0000)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib lsandov1/oe-selftest-distro-poky-agnostic
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=lsandov1/oe-selftest-distro-poky-agnostic
-
-Leonardo Sandoval (1):
-  selftest: skip tests for poky-tiny distro due to incompatible kernel
-    machine
-
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+---
  meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py    | 3 ++-
  meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 3 ++-
  2 files changed, 4 insertions(+), 2 deletions(-)
 
+diff --git a/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py b/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py
+index 00aa36f..63643e5 100644
+--- a/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py
++++ b/meta-yocto-bsp/lib/oeqa/selftest/gummiboot.py
+@@ -25,9 +25,10 @@ class Gummiboot(oeSelfTest):
+         """
+ 
+         # Build a genericx86-64/efi gummiboot image
++        if self.distro == 'poky-tiny':
++            self.skipTest('Machine %s not compatible with linux-yocto-tiny' % get_bb_var('MACHINE'))
+         bitbake('syslinux syslinux-native parted-native dosfstools-native mtools-native core-image-minimal')
+ 
+-
+     @testcase(1101)
+     def test_efi_gummiboot_images_can_be_built(self):
+         """
+diff --git a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+index f7f74db..52b33ed 100644
+--- a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
++++ b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+@@ -25,9 +25,10 @@ class Systemdboot(oeSelfTest):
+         """
+ 
+         # Build a genericx86-64/efi gummiboot image
++        if self.distro == 'poky-tiny':
++            self.skipTest('Machine %s not compatible with linux-yocto-tiny' % get_bb_var('MACHINE'))
+         bitbake('mtools-native core-image-minimal')
+ 
+-
+     @testcase(1445)
+     def test_efi_systemdboot_images_can_be_built(self):
+         """
 -- 
 2.1.4
 
