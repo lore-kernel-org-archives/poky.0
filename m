@@ -1,55 +1,69 @@
-Return-Path: <teemu.keskinarkaus@crosscontrol.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DC05FE00BAF; Sun, 11 Dec 2016 23:01:46 -0800 (PST)
+	id 501C4E00C1A; Sun, 11 Dec 2016 23:48:27 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [148.163.159.126 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.192.174 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mx0a-001ea001.pphosted.com (mx0b-001ea001.pphosted.com
-	[148.163.159.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 228F6E00B93
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2016 23:01:44 -0800 (PST)
-Received: from pps.filterd (m0088396.ppops.net [127.0.0.1])
-	by mx0b-001ea001.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
-	uBC6v0qY024939; Mon, 12 Dec 2016 01:01:42 -0600
-Received: from ammail.actuant.com ([207.250.73.121])
-	by mx0b-001ea001.pphosted.com with ESMTP id 278dydm035-1
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Mon, 12 Dec 2016 01:01:41 -0600
-Received: from AMDRSEX04.actuant.pri (10.10.32.62) by AMDTCEX13.actuant.pri
-	(10.0.11.148) with Microsoft SMTP Server (TLS) id 14.3.301.0;
-	Mon, 12 Dec 2016 01:01:41 -0600
-Received: from AMDTCEX14.actuant.pri ([169.254.6.81]) by AMDRSEX04.actuant.pri
-	([10.10.32.62]) with mapi id 14.03.0301.000;
-	Mon, 12 Dec 2016 01:01:40 -0600
-From: "Keskinarkaus, Teemu" <teemu.keskinarkaus@crosscontrol.com>
-To: Khem Raj <raj.khem@gmail.com>
-Thread-Topic: [poky] Enabling UTF-8
-Thread-Index: AQHSVEEOOIUUjblCZES00Rubkvci0qED4DNQ
-Date: Mon, 12 Dec 2016 07:01:39 +0000
-Message-ID: <83DB4EC8FADD45428E3CC4E3664761FD4243AD3E@AMDTCEX14.actuant.pri>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-pf0-f174.google.com (mail-pf0-f174.google.com
+	[209.85.192.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8B1F0E00BAF
+	for <poky@yoctoproject.org>; Sun, 11 Dec 2016 23:48:26 -0800 (PST)
+Received: by mail-pf0-f174.google.com with SMTP id i88so11722918pfk.2
+	for <poky@yoctoproject.org>; Sun, 11 Dec 2016 23:48:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
+	h=mime-version:subject:from:in-reply-to:date:cc
+	:content-transfer-encoding:message-id:references:to;
+	bh=HKqr24qE0sPMfRH98VgUUjNGL9s7W1WAku+xJDgclPU=;
+	b=URhNIIAkbp1KPrcJfvHKhu19coiyFmAIG8k/dVjM/rdN9x3XF1eyrVxT1uN07/MF4P
+	UmC4jGypolX0XlO/RUjw2ZbLugGMmy84ZiupD4SALSaIvHSTLOdARc5mZQedUhYl5J5b
+	5xm3pu9Td4SjXnxKAUs5PA2TIeA+vABPnqNek3svYwtBCAZKIO7lYIPvG04ZNFBg7Nc3
+	fQnsu+WKFQeFI6hJbYdYRftRk2xSV8OIrqmG2OcvwVbSBhlPduaQO7wLWVyi8Y31Kihz
+	+BPpvB2LkrxvwkE1BoVOzANYbG8tb7GQCbs6B+haIpyusePfFUQFlRB+cPDx8Tp1JpVT
+	76yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20130820;
+	h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+	:content-transfer-encoding:message-id:references:to;
+	bh=HKqr24qE0sPMfRH98VgUUjNGL9s7W1WAku+xJDgclPU=;
+	b=lvLZVOtq+hEwWCFlQoVKSluLBcJuIakiK0v4X+LjCQQoFoLqmICFkoGVhINZAsAbLL
+	r5M10aO1V4ujWQkuoCoyHt30RKTkFUrvC+TUs5Cz1kQJW9mVCOFPmDqzFYKXRi8hyvPB
+	SY1tJ30XXJ+573HNj5mz5iZh4Pv2q1Ch+ESDwnjW1dv5wAx/4skQ/eT/BN/ORxROiUec
+	UAbx7sPzU1uzg7RYq43Zd0Vn21N/KZBojdfYgPpjxJlkKWpZ7CxKiX5S2aW4kTodoKhv
+	ksby0fBiXXb7oV+OQ5SsI1hzSIyxxLODDJ3KEgoRrRvx0A24Wpc5QA6mfhrU8gy/M6Zw
+	WbMQ==
+X-Gm-Message-State: AKaTC03XDTa/6sV9EHlouaLMARGdJvZiYcpDunXenJIlSVMghirJMiaXQbgAgAZcHSehHg==
+X-Received: by 10.98.11.198 with SMTP id 67mr94585247pfl.90.1481528905804;
+	Sun, 11 Dec 2016 23:48:25 -0800 (PST)
+Received: from ?IPv6:2601:646:8882:b8c:7446:7fee:3bbb:1fb9?
+	([2601:646:8882:b8c:7446:7fee:3bbb:1fb9])
+	by smtp.gmail.com with ESMTPSA id 74sm74685521pge.2.2016.12.11.23.48.24
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Sun, 11 Dec 2016 23:48:25 -0800 (PST)
+Mime-Version: 1.0 (Mac OS X Mail 10.1 \(3251\))
+From: Khem Raj <raj.khem@gmail.com>
+In-Reply-To: <83DB4EC8FADD45428E3CC4E3664761FD4243AD3E@AMDTCEX14.actuant.pri>
+Date: Sun, 11 Dec 2016 23:48:46 -0800
+Message-Id: <04E31FD8-07A9-4C92-9AC2-44D57EA2B86D@gmail.com>
 References: <83DB4EC8FADD45428E3CC4E3664761FD4243A127@AMDTCEX14.actuant.pri>
 	<CAMKF1soUOSjFujmCd7Z8NWsDFfF6bPGK60LTq_qUpdbB31y0MA@mail.gmail.com>
-In-Reply-To: <CAMKF1soUOSjFujmCd7Z8NWsDFfF6bPGK60LTq_qUpdbB31y0MA@mail.gmail.com>
-Accept-Language: fi-FI, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.10.116]
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
-	definitions=2016-12-12_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
-	clxscore=1011 lowpriorityscore=0 impostorscore=0 adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
-	definitions=main-1612120108
+	<83DB4EC8FADD45428E3CC4E3664761FD4243AD3E@AMDTCEX14.actuant.pri>
+To: "Keskinarkaus, Teemu" <teemu.keskinarkaus@crosscontrol.com>
+X-Mailer: Apple Mail (2.3251)
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Enabling UTF-8
 X-BeenThere: poky@yoctoproject.org
@@ -64,79 +78,159 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Dec 2016 07:01:46 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 12 Dec 2016 07:48:27 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-SGksDQoNCkkgZGlkIHRoYXQgYW5kIHRoaXMgd2FzIHJlc3VsdDogR0xJQkNfR0VORVJBVEVfTE9D
-QUxFUz0iZW5fR0IuVVRGLTggZW5fR0IgZW5fVVMiDQoNClNvIGZvciBzb21lIHJlYXNvbiBlbl9V
-Uy5VVEYtOCB3YXMgZHJvcHBlZC4gQWxzbyBvbmx5IGVuLWdiIG1hZGUgdG8gYWN0dWFsIGltYWdl
-LiBJJ20gbm90IHN1cmUgaWYgeW91IGNhbiBwdXQgbW9yZSB0aGFuIG9uZSBsYW5ndWFnZSBpbiBJ
-TUFHRV9MSU5HVUFTLg0KDQpJIHJlYWQvaGVhcmQgc29tZXdoZXJlIHRoYXQgbm93YWRheXMgVVRG
-LTggbG9jYWxlcyBkb24ndCBoYXZlIFVURi04IGluIHRoZWlyIGZpbGVuYW1lcyBhbnltb3JlIGJ1
-dCBlbl9HQiBoYXMgYWxzbyBVVEYtOC4gU2VlbXMgdGhhdCBpdCBkZWZhdWx0cyB0byBQT1NJWCAt
-IGxvY2FsZSwgYnV0IHdoZW4gSSBkbyAgYGxvY2FsZSBlbi1nYmAgSSBnZXQgZW4tZ2IgbG9jYWxl
-IGV4Y2VwdCBJIGFsc28gZ2V0IHRoZXNlIGVycm9yczoNCg0KbG9jYWxlOiBDYW5ub3Qgc2V0IExD
-X0NUWVBFIHRvIGRlZmF1bHQgbG9jYWxlOiBObyBzdWNoIGZpbGUgb3IgZGlyZWN0b3J5DQpsb2Nh
-bGU6IENhbm5vdCBzZXQgTENfTUVTU0FHRVMgdG8gZGVmYXVsdCBsb2NhbGU6IE5vIHN1Y2ggZmls
-ZSBvciBkaXJlY3RvcnkNCmxvY2FsZTogQ2Fubm90IHNldCBMQ19BTEwgdG8gZGVmYXVsdCBsb2Nh
-bGU6IE5vIHN1Y2ggZmlsZSBvciBkaXJlY3RvcnkNCmxvY2FsZTogdW5rbm93biBuYW1lICJlbi1n
-YiINCg0KQnV0IGlmIEkgY29ubmVjdCB0byBkZXZpY2Ugd2l0aCBQdXR0eSBjb25maWd1cmVkIHRv
-IFVURi04IEkgY2FuJ3QgdXNlIFVURi04IHByb3Blcmx5IChJIHVzZSBTY2FuZGljIGNoYXJhY3Rl
-cnMgKMOkw7YpIHRvIHRlc3Qgd2l0aCkgZXZlbiBhZnRlciBtYW51YWxseSBzZXR0aW5nIGxvY2Fs
-ZSB0byBlbi1nYiAodGhlcmUgaXMgbm8gdXRmLTggbmFtZXMgbG9jYWxlKS4gVGhleSB3b3JrIGp1
-c3QgZmluZSBpZiBJIHRlc3QgaW4gUEMgd2l0aCBVYnVudHUuDQoNClRlZW11IEtlc2tpbmFya2F1
-cw0KU29mdHdhcmUgc3lzdGVtIGVuZ2luZWVyDQpDcm9zc0NvbnRyb2wNCm1ha2luZyBtYWNoaW5l
-cyBzbWFydCwgc2FmZSBhbmQgcHJvZHVjdGl2ZQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
-LQ0KRnJvbTogS2hlbSBSYWogW21haWx0bzpyYWoua2hlbUBnbWFpbC5jb21dDQpTZW50OiAxMi4g
-am91bHVrdXV0YSAyMDE2IDg6MjkNClRvOiBLZXNraW5hcmthdXMsIFRlZW11DQpDYzogcG9reUB5
-b2N0b3Byb2plY3Qub3JnDQpTdWJqZWN0OiBSZTogW3Bva3ldIEVuYWJsaW5nIFVURi04DQoNCk9u
-IFRodSwgRGVjIDgsIDIwMTYgYXQgMTI6MDIgQU0sIEtlc2tpbmFya2F1cywgVGVlbXUgPHRlZW11
-Lmtlc2tpbmFya2F1c0Bjcm9zc2NvbnRyb2wuY29tPiB3cm90ZToNCj4gSGksDQo+DQo+DQo+DQo+
-IEnigJltIHRyeWluZyB0byBnZXQgVVRGLTggc3VwcG9ydCBlbmFibGVkIHRvIG15IGltYWdlLiAg
-Rm9yIHdoYXRldmVyDQo+IHJlYXNvbiBJIGRvbuKAmXQgc2VlbSB0byBnZXQgaXQgd29ya2luZy4g
-SSBoYXZlIGZvbGxvd2luZyBsaW5lcyBpbiBteSBsb2NhbC5jb25mLg0KPg0KPg0KPg0KPiBHTElC
-Q19HRU5FUkFURV9MT0NBTEVTID0gImVuX0dCIGVuX1VTIGVuX0dCLlVURi04IGVuX1VTLlVURi04
-Ig0KPg0KPiBJTUFHRV9MSU5HVUFTID0gImVuLWdiIGVuLXVzIg0KDQpjaGVjayBpZiB0aGlzIGlz
-IHJlYWxseSByZWZsZWN0ZWQgaW4gZmluYWwgbWV0YWRhdGEuIHlvdSBjYW4gY2hlY2sgd2l0aA0K
-DQpiaXRiYWtlIC1lIDx5b3VyLWltYWdlPiB8IGdyZXAgLWUgIl5HTElCQ19HRU5FUkFURV9MT0NB
-TEVTPSINCg0KPg0KPg0KPg0KPiBJIGdldCBvbmx5IGVuIGFuZCBlbl9HQiBsb2NhbGVzIHRvIGlt
-YWdlICgvdXNyL3NoYXJlL2xvY2FsZSkuDQo+DQo+DQo+DQo+IEnigJltIHVzaW5nIFlvY3RvIDEu
-Ni4xLCBidXQgSeKAmXZlIHRlc3RlZCBpdCBvbiBZb2N0byAyLjEgdG9vIHdpdGhvdXQgYW55DQo+
-IGRpZmZlcmVuY2UuICBJ4oCZbSB1c2luZyB2YWxsZXlpc2xhbmQtMzIg4oCTIG1hY2hpbmUgaWYg
-dGhhdCBoYXMgYW55dGhpbmcNCj4gdG8gZG8gd2l0aCBpdC4NCj4NCj4NCj4NCj4gSXMgdGhlcmUg
-c29tZXRoaW5nIGVsc2UgbmVlZGVkIHRvIGJlIGRvbmUgdG8gZm9yY2UgVVRGLTggbG9jYWxlcyBi
-ZWluZw0KPiBnZW5lcmF0ZWQ/IFNlZW1zIHRoYXQgdGhvc2UgbGluZXMgZG9u4oCZdCBjaGFuZ2Ug
-YW55dGhpbmcuIFNhbWUgbG9jYWxlcw0KPiBhcmUgZ2VuZXJhdGVkIHdpdGggb3Igd2l0aG91dCB0
-aG9zZSBsaW5lcyBpbiBsb2NhbC5jb25mLg0KPg0KPg0KPg0KPiBUZWVtdSBLZXNraW5hcmthdXMN
-Cj4gU29mdHdhcmUgc3lzdGVtIGVuZ2luZWVyDQo+IENlbGw6ICszNTggNDAwIDMzMDA0Nw0KPiBG
-YXg6ICszNTggMjA3IDY2OTE5OQ0KPiB3d3cuY3Jvc3Njb250cm9sLmNvbQ0KPg0KPiBDcm9zc0Nv
-bnRyb2wNCj4NCj4gbWFraW5nIG1hY2hpbmVzIHNtYXJ0LCBzYWZlIGFuZCBwcm9kdWN0aXZlDQo+
-DQo+DQo+DQo+DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+DQo+IEFjdHVh
-bnQgQ29ycG9yYXRpb24gRW1haWwgTm90aWNlDQo+DQo+IFRoaXMgbWVzc2FnZSBpcyBpbnRlbmRl
-ZCBvbmx5IGZvciB0aGUgdXNlIG9mIHRoZSBBZGRyZXNzZWUgYW5kIG1heQ0KPiBjb250YWluIGlu
-Zm9ybWF0aW9uIHRoYXQgaXMgUFJJVklMRUdFRCBhbmQvb3IgQ09ORklERU5USUFMLg0KPiBUaGlz
-IGVtYWlsIGlzIGludGVuZGVkIG9ubHkgZm9yIHRoZSBwZXJzb25hbCBhbmQgY29uZmlkZW50aWFs
-IHVzZSBvZg0KPiB0aGUNCj4gcmVjaXBpZW50KHMpIG5hbWVkIGFib3ZlLiBJZiB0aGUgcmVhZGVy
-IG9mIHRoaXMgZW1haWwgaXMgbm90IGFuDQo+IGludGVuZGVkIHJlY2lwaWVudCwgeW91IGhhdmUg
-cmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciBhbmQgYW55DQo+IHJldmlldywgZGlzc2VtaW5h
-dGlvbiwgZGlzdHJpYnV0aW9uIG9yIGNvcHlpbmcgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4NCj4g
-SWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0
-aGUgc2VuZGVyDQo+IGltbWVkaWF0ZWx5IGJ5IHJldHVybiBtYWlsIGFuZCBwZXJtYW5lbnRseSBk
-ZWxldGUgdGhlIGNvcHkgeW91IHJlY2VpdmVkLg0KPg0KPiBUaGFuayB5b3UuDQo+DQo+IC0tDQo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IHBva3kg
-bWFpbGluZyBsaXN0DQo+IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KPiBodHRwczovL2xpc3RzLnlv
-Y3RvcHJvamVjdC5vcmcvbGlzdGluZm8vcG9reQ0KPg0KDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KDQpBY3R1YW50IENvcnBvcmF0aW9uIEVtYWlsIE5vdGljZQ0KDQpUaGlzIG1l
-c3NhZ2UgaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHVzZSBvZiB0aGUgQWRkcmVzc2VlIGFuZCBt
-YXkgY29udGFpbiBpbmZvcm1hdGlvbiB0aGF0IGlzIFBSSVZJTEVHRUQgYW5kL29yIENPTkZJREVO
-VElBTC4NClRoaXMgZW1haWwgaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHBlcnNvbmFsIGFuZCBj
-b25maWRlbnRpYWwgdXNlIG9mIHRoZSByZWNpcGllbnQocykgbmFtZWQgYWJvdmUuIElmIHRoZSBy
-ZWFkZXIgb2YgdGhpcyBlbWFpbCBpcyBub3QgYW4gaW50ZW5kZWQgcmVjaXBpZW50LCB5b3UgaGF2
-ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yIGFuZCBhbnkgcmV2aWV3LCBkaXNzZW1pbmF0
-aW9uLCBkaXN0cmlidXRpb24gb3IgY29weWluZyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLg0KSWYg
-eW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUg
-c2VuZGVyIGltbWVkaWF0ZWx5IGJ5IHJldHVybiBtYWlsIGFuZCBwZXJtYW5lbnRseSBkZWxldGUg
-dGhlIGNvcHkgeW91IHJlY2VpdmVkLg0KDQpUaGFuayB5b3UuDQo=
+
+> On Dec 11, 2016, at 11:01 PM, Keskinarkaus, Teemu =
+<teemu.keskinarkaus@crosscontrol.com> wrote:
+>=20
+> Hi,
+>=20
+> I did that and this was result: GLIBC_GENERATE_LOCALES=3D"en_GB.UTF-8 =
+en_GB en_US"
+>=20
+> So for some reason en_US.UTF-8 was dropped. Also only en-gb made to =
+actual image.
+
+Figure out why it was dropped, I think you might have additional places =
+where this variable
+it being modified. Save the output of bitbake -e and inspect it manually =
+for the value of GLIBC_GENERATE_LOCALES
+
+
+> I'm not sure if you can put more than one language in IMAGE_LINGUAS.
+
+
+you can put multiple values in IMAGE_LINGUAS
+
+>=20
+> I read/heard somewhere that nowadays UTF-8 locales don't have UTF-8 in =
+their filenames anymore but en_GB has also UTF-8. Seems that it defaults =
+to POSIX - locale, but when I do  `locale en-gb` I get en-gb locale =
+except I also get these errors:
+>=20
+> locale: Cannot set LC_CTYPE to default locale: No such file or =
+directory
+> locale: Cannot set LC_MESSAGES to default locale: No such file or =
+directory
+> locale: Cannot set LC_ALL to default locale: No such file or directory
+> locale: unknown name "en-gb"
+>=20
+> But if I connect to device with Putty configured to UTF-8 I can't use =
+UTF-8 properly (I use Scandic characters (=C3=A4=C3=B6) to test with) =
+even after manually setting locale to en-gb (there is no utf-8 names =
+locale). They work just fine if I test in PC with Ubuntu.
+>=20
+> Teemu Keskinarkaus
+> Software system engineer
+> CrossControl
+> making machines smart, safe and productive
+>=20
+> -----Original Message-----
+> From: Khem Raj [mailto:raj.khem@gmail.com]
+> Sent: 12. joulukuuta 2016 8:29
+> To: Keskinarkaus, Teemu
+> Cc: poky@yoctoproject.org
+> Subject: Re: [poky] Enabling UTF-8
+>=20
+> On Thu, Dec 8, 2016 at 12:02 AM, Keskinarkaus, Teemu =
+<teemu.keskinarkaus@crosscontrol.com> wrote:
+>> Hi,
+>>=20
+>>=20
+>>=20
+>> I=E2=80=99m trying to get UTF-8 support enabled to my image.  For =
+whatever
+>> reason I don=E2=80=99t seem to get it working. I have following lines =
+in my local.conf.
+>>=20
+>>=20
+>>=20
+>> GLIBC_GENERATE_LOCALES =3D "en_GB en_US en_GB.UTF-8 en_US.UTF-8"
+>>=20
+>> IMAGE_LINGUAS =3D "en-gb en-us"
+>=20
+> check if this is really reflected in final metadata. you can check =
+with
+>=20
+> bitbake -e <your-image> | grep -e "^GLIBC_GENERATE_LOCALES=3D"
+>=20
+>>=20
+>>=20
+>>=20
+>> I get only en and en_GB locales to image (/usr/share/locale).
+>>=20
+>>=20
+>>=20
+>> I=E2=80=99m using Yocto 1.6.1, but I=E2=80=99ve tested it on Yocto =
+2.1 too without any
+>> difference.  I=E2=80=99m using valleyisland-32 =E2=80=93 machine if =
+that has anything
+>> to do with it.
+>>=20
+>>=20
+>>=20
+>> Is there something else needed to be done to force UTF-8 locales =
+being
+>> generated? Seems that those lines don=E2=80=99t change anything. Same =
+locales
+>> are generated with or without those lines in local.conf.
+>>=20
+>>=20
+>>=20
+>> Teemu Keskinarkaus
+>> Software system engineer
+>> Cell: +358 400 330047
+>> Fax: +358 207 669199
+>> www.crosscontrol.com
+>>=20
+>> CrossControl
+>>=20
+>> making machines smart, safe and productive
+>>=20
+>>=20
+>>=20
+>>=20
+>> ________________________________
+>>=20
+>> Actuant Corporation Email Notice
+>>=20
+>> This message is intended only for the use of the Addressee and may
+>> contain information that is PRIVILEGED and/or CONFIDENTIAL.
+>> This email is intended only for the personal and confidential use of
+>> the
+>> recipient(s) named above. If the reader of this email is not an
+>> intended recipient, you have received this email in error and any
+>> review, dissemination, distribution or copying is strictly =
+prohibited.
+>> If you have received this email in error, please notify the sender
+>> immediately by return mail and permanently delete the copy you =
+received.
+>>=20
+>> Thank you.
+>>=20
+>> --
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>=20
+>=20
+> ________________________________
+>=20
+> Actuant Corporation Email Notice
+>=20
+> This message is intended only for the use of the Addressee and may =
+contain information that is PRIVILEGED and/or CONFIDENTIAL.
+> This email is intended only for the personal and confidential use of =
+the recipient(s) named above. If the reader of this email is not an =
+intended recipient, you have received this email in error and any =
+review, dissemination, distribution or copying is strictly prohibited.
+> If you have received this email in error, please notify the sender =
+immediately by return mail and permanently delete the copy you received.
+>=20
+> Thank you.
+
 
