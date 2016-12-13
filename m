@@ -1,69 +1,54 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <teemu.keskinarkaus@crosscontrol.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 501C4E00C1A; Sun, 11 Dec 2016 23:48:27 -0800 (PST)
+	id B43B7E00C60; Tue, 13 Dec 2016 02:02:44 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.192.174 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [148.163.159.126 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pf0-f174.google.com (mail-pf0-f174.google.com
-	[209.85.192.174])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8B1F0E00BAF
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2016 23:48:26 -0800 (PST)
-Received: by mail-pf0-f174.google.com with SMTP id i88so11722918pfk.2
-	for <poky@yoctoproject.org>; Sun, 11 Dec 2016 23:48:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113;
-	h=mime-version:subject:from:in-reply-to:date:cc
-	:content-transfer-encoding:message-id:references:to;
-	bh=HKqr24qE0sPMfRH98VgUUjNGL9s7W1WAku+xJDgclPU=;
-	b=URhNIIAkbp1KPrcJfvHKhu19coiyFmAIG8k/dVjM/rdN9x3XF1eyrVxT1uN07/MF4P
-	UmC4jGypolX0XlO/RUjw2ZbLugGMmy84ZiupD4SALSaIvHSTLOdARc5mZQedUhYl5J5b
-	5xm3pu9Td4SjXnxKAUs5PA2TIeA+vABPnqNek3svYwtBCAZKIO7lYIPvG04ZNFBg7Nc3
-	fQnsu+WKFQeFI6hJbYdYRftRk2xSV8OIrqmG2OcvwVbSBhlPduaQO7wLWVyi8Y31Kihz
-	+BPpvB2LkrxvwkE1BoVOzANYbG8tb7GQCbs6B+haIpyusePfFUQFlRB+cPDx8Tp1JpVT
-	76yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20130820;
-	h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
-	:content-transfer-encoding:message-id:references:to;
-	bh=HKqr24qE0sPMfRH98VgUUjNGL9s7W1WAku+xJDgclPU=;
-	b=lvLZVOtq+hEwWCFlQoVKSluLBcJuIakiK0v4X+LjCQQoFoLqmICFkoGVhINZAsAbLL
-	r5M10aO1V4ujWQkuoCoyHt30RKTkFUrvC+TUs5Cz1kQJW9mVCOFPmDqzFYKXRi8hyvPB
-	SY1tJ30XXJ+573HNj5mz5iZh4Pv2q1Ch+ESDwnjW1dv5wAx/4skQ/eT/BN/ORxROiUec
-	UAbx7sPzU1uzg7RYq43Zd0Vn21N/KZBojdfYgPpjxJlkKWpZ7CxKiX5S2aW4kTodoKhv
-	ksby0fBiXXb7oV+OQ5SsI1hzSIyxxLODDJ3KEgoRrRvx0A24Wpc5QA6mfhrU8gy/M6Zw
-	WbMQ==
-X-Gm-Message-State: AKaTC03XDTa/6sV9EHlouaLMARGdJvZiYcpDunXenJIlSVMghirJMiaXQbgAgAZcHSehHg==
-X-Received: by 10.98.11.198 with SMTP id 67mr94585247pfl.90.1481528905804;
-	Sun, 11 Dec 2016 23:48:25 -0800 (PST)
-Received: from ?IPv6:2601:646:8882:b8c:7446:7fee:3bbb:1fb9?
-	([2601:646:8882:b8c:7446:7fee:3bbb:1fb9])
-	by smtp.gmail.com with ESMTPSA id 74sm74685521pge.2.2016.12.11.23.48.24
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Sun, 11 Dec 2016 23:48:25 -0800 (PST)
-Mime-Version: 1.0 (Mac OS X Mail 10.1 \(3251\))
-From: Khem Raj <raj.khem@gmail.com>
-In-Reply-To: <83DB4EC8FADD45428E3CC4E3664761FD4243AD3E@AMDTCEX14.actuant.pri>
-Date: Sun, 11 Dec 2016 23:48:46 -0800
-Message-Id: <04E31FD8-07A9-4C92-9AC2-44D57EA2B86D@gmail.com>
+Received: from mx0a-001ea001.pphosted.com (mx0b-001ea001.pphosted.com
+	[148.163.159.126])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A1DE4E00C45
+	for <poky@yoctoproject.org>; Tue, 13 Dec 2016 02:02:40 -0800 (PST)
+Received: from pps.filterd (m0088396.ppops.net [127.0.0.1])
+	by mx0b-001ea001.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
+	uBDA2Peg027048; Tue, 13 Dec 2016 04:02:39 -0600
+Received: from ammail.actuant.com ([207.250.73.121])
+	by mx0b-001ea001.pphosted.com with ESMTP id 278dydsjbh-1
+	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+	Tue, 13 Dec 2016 04:02:39 -0600
+Received: from AMDTCEX14.actuant.pri ([169.254.6.81]) by AMDTCEX13.actuant.pri
+	([10.0.11.148]) with mapi id 14.03.0301.000;
+	Tue, 13 Dec 2016 04:02:38 -0600
+From: "Keskinarkaus, Teemu" <teemu.keskinarkaus@crosscontrol.com>
+To: Khem Raj <raj.khem@gmail.com>
+Thread-Topic: [poky] Enabling UTF-8
+Thread-Index: AQHSVEEOOIUUjblCZES00Rubkvci0qED4DNQgAB0NQCAAVGsoA==
+Date: Tue, 13 Dec 2016 10:02:37 +0000
+Message-ID: <83DB4EC8FADD45428E3CC4E3664761FD4243B138@AMDTCEX14.actuant.pri>
 References: <83DB4EC8FADD45428E3CC4E3664761FD4243A127@AMDTCEX14.actuant.pri>
 	<CAMKF1soUOSjFujmCd7Z8NWsDFfF6bPGK60LTq_qUpdbB31y0MA@mail.gmail.com>
 	<83DB4EC8FADD45428E3CC4E3664761FD4243AD3E@AMDTCEX14.actuant.pri>
-To: "Keskinarkaus, Teemu" <teemu.keskinarkaus@crosscontrol.com>
-X-Mailer: Apple Mail (2.3251)
+	<04E31FD8-07A9-4C92-9AC2-44D57EA2B86D@gmail.com>
+In-Reply-To: <04E31FD8-07A9-4C92-9AC2-44D57EA2B86D@gmail.com>
+Accept-Language: fi-FI, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.10.116]
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
+	definitions=2016-12-13_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	priorityscore=1501
+	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+	clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
+	definitions=main-1612130174
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Enabling UTF-8
 X-BeenThere: poky@yoctoproject.org
@@ -78,159 +63,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Dec 2016 07:48:27 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 13 Dec 2016 10:02:44 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-> On Dec 11, 2016, at 11:01 PM, Keskinarkaus, Teemu =
-<teemu.keskinarkaus@crosscontrol.com> wrote:
->=20
-> Hi,
->=20
-> I did that and this was result: GLIBC_GENERATE_LOCALES=3D"en_GB.UTF-8 =
-en_GB en_US"
->=20
-> So for some reason en_US.UTF-8 was dropped. Also only en-gb made to =
-actual image.
-
-Figure out why it was dropped, I think you might have additional places =
-where this variable
-it being modified. Save the output of bitbake -e and inspect it manually =
-for the value of GLIBC_GENERATE_LOCALES
-
-
-> I'm not sure if you can put more than one language in IMAGE_LINGUAS.
-
-
-you can put multiple values in IMAGE_LINGUAS
-
->=20
-> I read/heard somewhere that nowadays UTF-8 locales don't have UTF-8 in =
-their filenames anymore but en_GB has also UTF-8. Seems that it defaults =
-to POSIX - locale, but when I do  `locale en-gb` I get en-gb locale =
-except I also get these errors:
->=20
-> locale: Cannot set LC_CTYPE to default locale: No such file or =
-directory
-> locale: Cannot set LC_MESSAGES to default locale: No such file or =
-directory
-> locale: Cannot set LC_ALL to default locale: No such file or directory
-> locale: unknown name "en-gb"
->=20
-> But if I connect to device with Putty configured to UTF-8 I can't use =
-UTF-8 properly (I use Scandic characters (=C3=A4=C3=B6) to test with) =
-even after manually setting locale to en-gb (there is no utf-8 names =
-locale). They work just fine if I test in PC with Ubuntu.
->=20
-> Teemu Keskinarkaus
-> Software system engineer
-> CrossControl
-> making machines smart, safe and productive
->=20
-> -----Original Message-----
-> From: Khem Raj [mailto:raj.khem@gmail.com]
-> Sent: 12. joulukuuta 2016 8:29
-> To: Keskinarkaus, Teemu
-> Cc: poky@yoctoproject.org
-> Subject: Re: [poky] Enabling UTF-8
->=20
-> On Thu, Dec 8, 2016 at 12:02 AM, Keskinarkaus, Teemu =
-<teemu.keskinarkaus@crosscontrol.com> wrote:
->> Hi,
->>=20
->>=20
->>=20
->> I=E2=80=99m trying to get UTF-8 support enabled to my image.  For =
-whatever
->> reason I don=E2=80=99t seem to get it working. I have following lines =
-in my local.conf.
->>=20
->>=20
->>=20
->> GLIBC_GENERATE_LOCALES =3D "en_GB en_US en_GB.UTF-8 en_US.UTF-8"
->>=20
->> IMAGE_LINGUAS =3D "en-gb en-us"
->=20
-> check if this is really reflected in final metadata. you can check =
-with
->=20
-> bitbake -e <your-image> | grep -e "^GLIBC_GENERATE_LOCALES=3D"
->=20
->>=20
->>=20
->>=20
->> I get only en and en_GB locales to image (/usr/share/locale).
->>=20
->>=20
->>=20
->> I=E2=80=99m using Yocto 1.6.1, but I=E2=80=99ve tested it on Yocto =
-2.1 too without any
->> difference.  I=E2=80=99m using valleyisland-32 =E2=80=93 machine if =
-that has anything
->> to do with it.
->>=20
->>=20
->>=20
->> Is there something else needed to be done to force UTF-8 locales =
-being
->> generated? Seems that those lines don=E2=80=99t change anything. Same =
-locales
->> are generated with or without those lines in local.conf.
->>=20
->>=20
->>=20
->> Teemu Keskinarkaus
->> Software system engineer
->> Cell: +358 400 330047
->> Fax: +358 207 669199
->> www.crosscontrol.com
->>=20
->> CrossControl
->>=20
->> making machines smart, safe and productive
->>=20
->>=20
->>=20
->>=20
->> ________________________________
->>=20
->> Actuant Corporation Email Notice
->>=20
->> This message is intended only for the use of the Addressee and may
->> contain information that is PRIVILEGED and/or CONFIDENTIAL.
->> This email is intended only for the personal and confidential use of
->> the
->> recipient(s) named above. If the reader of this email is not an
->> intended recipient, you have received this email in error and any
->> review, dissemination, distribution or copying is strictly =
-prohibited.
->> If you have received this email in error, please notify the sender
->> immediately by return mail and permanently delete the copy you =
-received.
->>=20
->> Thank you.
->>=20
->> --
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->>=20
->=20
-> ________________________________
->=20
-> Actuant Corporation Email Notice
->=20
-> This message is intended only for the use of the Addressee and may =
-contain information that is PRIVILEGED and/or CONFIDENTIAL.
-> This email is intended only for the personal and confidential use of =
-the recipient(s) named above. If the reader of this email is not an =
-intended recipient, you have received this email in error and any =
-review, dissemination, distribution or copying is strictly prohibited.
-> If you have received this email in error, please notify the sender =
-immediately by return mail and permanently delete the copy you received.
->=20
-> Thank you.
-
+SSBmb3VuZCB0aGUgcHJvYmxlbS4gSSB3YXMgdXNpbmcgZXh0ZXJuYWwgdG9vbGNoYWluIGFuZCBm
+b3Igc29tZSByZWFzb24gdGhvc2UgcmVjaXBlcyBkcm9wcGVkIHRoZSBlbi11cy4gSSBzd2l0Y2hl
+ZCB0byB1c2UgeW9jdG8gdG9vbGNoYWluIHNvIG5vdyBJIGhhdmUgZW4tdXMgdG9vLiBJIGFsc28g
+YWRkZWQgTE9DQUxFX1VURjhfT05MWT0iMSIgdG8gbG9jYWwuY29uZi4NCg0KU3RpbGwgSSBkb24n
+dCBoYXZlIGFueSBVVEYtOCBuYW1lZCBsb2NhbGVzIGluIC91c3Ivc2hhcmUvbG9jYWxlLiBJJ20g
+bm90IHN1cmUgaWYgdGhlcmUgZXZlbiBzaG91bGQgYmU/DQoNCkknbSB0ZXN0aW5nIHV0Zi04IGZ1
+bmN0aW9uYWxpdHkgYnkgdXNpbmcgU2NhbmRpbmF2aWMgY2hhcmFjdGVycyAow6TDtikgaW4gZWl0
+aGVyIHNoZWxsIG9yIHRyeWluZyB0byBlZGl0IGZpbGUgd2l0aCBuYW5vL3ZpIGFuZCBhZGRpbmcg
+dGhvc2UgY2hhcmFjdGVycy4gSSBjYW4gYWRkIHRob3NlIGNoYXJhY3RlcnMgaW4gZWRpdG9yIGJ1
+dCBpZiBJIG1vdmUgY3Vyc29yIHRoZSB0ZXh0IGdldCBtZXNzZWQgdXAgc28gSSBhc3N1bWUgVVRG
+LTggaXNuJ3Qgd29ya2luZy4gVGhvc2UgdGVzdHMgd29yayBqdXN0IGZpbmUgd2l0aCB4ODYgTGlu
+dXggKGZvciBleGFtcGxlIFVidW50dSkgdGhhdCBoYXMgVVRGLTggbG9jYWxlcy4NCg0KVGVlbXUg
+S2Vza2luYXJrYXVzDQpTb2Z0d2FyZSBzeXN0ZW0gZW5naW5lZXINCkNyb3NzQ29udHJvbA0KbWFr
+aW5nIG1hY2hpbmVzIHNtYXJ0LCBzYWZlIGFuZCBwcm9kdWN0aXZlDQoNCg0KLS0tLS1PcmlnaW5h
+bCBNZXNzYWdlLS0tLS0NCkZyb206IEtoZW0gUmFqIFttYWlsdG86cmFqLmtoZW1AZ21haWwuY29t
+XQ0KU2VudDogMTIuIGpvdWx1a3V1dGEgMjAxNiA5OjQ5DQpUbzogS2Vza2luYXJrYXVzLCBUZWVt
+dQ0KQ2M6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KU3ViamVjdDogUmU6IFtwb2t5XSBFbmFibGlu
+ZyBVVEYtOA0KDQoNCj4gT24gRGVjIDExLCAyMDE2LCBhdCAxMTowMSBQTSwgS2Vza2luYXJrYXVz
+LCBUZWVtdSA8dGVlbXUua2Vza2luYXJrYXVzQGNyb3NzY29udHJvbC5jb20+IHdyb3RlOg0KPg0K
+PiBIaSwNCj4NCj4gSSBkaWQgdGhhdCBhbmQgdGhpcyB3YXMgcmVzdWx0OiBHTElCQ19HRU5FUkFU
+RV9MT0NBTEVTPSJlbl9HQi5VVEYtOCBlbl9HQiBlbl9VUyINCj4NCj4gU28gZm9yIHNvbWUgcmVh
+c29uIGVuX1VTLlVURi04IHdhcyBkcm9wcGVkLiBBbHNvIG9ubHkgZW4tZ2IgbWFkZSB0byBhY3R1
+YWwgaW1hZ2UuDQoNCkZpZ3VyZSBvdXQgd2h5IGl0IHdhcyBkcm9wcGVkLCBJIHRoaW5rIHlvdSBt
+aWdodCBoYXZlIGFkZGl0aW9uYWwgcGxhY2VzIHdoZXJlIHRoaXMgdmFyaWFibGUgaXQgYmVpbmcg
+bW9kaWZpZWQuIFNhdmUgdGhlIG91dHB1dCBvZiBiaXRiYWtlIC1lIGFuZCBpbnNwZWN0IGl0IG1h
+bnVhbGx5IGZvciB0aGUgdmFsdWUgb2YgR0xJQkNfR0VORVJBVEVfTE9DQUxFUw0KDQoNCj4gSSdt
+IG5vdCBzdXJlIGlmIHlvdSBjYW4gcHV0IG1vcmUgdGhhbiBvbmUgbGFuZ3VhZ2UgaW4gSU1BR0Vf
+TElOR1VBUy4NCg0KDQp5b3UgY2FuIHB1dCBtdWx0aXBsZSB2YWx1ZXMgaW4gSU1BR0VfTElOR1VB
+Uw0KDQo+DQo+IEkgcmVhZC9oZWFyZCBzb21ld2hlcmUgdGhhdCBub3dhZGF5cyBVVEYtOCBsb2Nh
+bGVzIGRvbid0IGhhdmUgVVRGLTggaW4gdGhlaXIgZmlsZW5hbWVzIGFueW1vcmUgYnV0IGVuX0dC
+IGhhcyBhbHNvIFVURi04LiBTZWVtcyB0aGF0IGl0IGRlZmF1bHRzIHRvIFBPU0lYIC0gbG9jYWxl
+LCBidXQgd2hlbiBJIGRvICBgbG9jYWxlIGVuLWdiYCBJIGdldCBlbi1nYiBsb2NhbGUgZXhjZXB0
+IEkgYWxzbyBnZXQgdGhlc2UgZXJyb3JzOg0KPg0KPiBsb2NhbGU6IENhbm5vdCBzZXQgTENfQ1RZ
+UEUgdG8gZGVmYXVsdCBsb2NhbGU6IE5vIHN1Y2ggZmlsZSBvcg0KPiBkaXJlY3RvcnkNCj4gbG9j
+YWxlOiBDYW5ub3Qgc2V0IExDX01FU1NBR0VTIHRvIGRlZmF1bHQgbG9jYWxlOiBObyBzdWNoIGZp
+bGUgb3INCj4gZGlyZWN0b3J5DQo+IGxvY2FsZTogQ2Fubm90IHNldCBMQ19BTEwgdG8gZGVmYXVs
+dCBsb2NhbGU6IE5vIHN1Y2ggZmlsZSBvciBkaXJlY3RvcnkNCj4gbG9jYWxlOiB1bmtub3duIG5h
+bWUgImVuLWdiIg0KPg0KPiBCdXQgaWYgSSBjb25uZWN0IHRvIGRldmljZSB3aXRoIFB1dHR5IGNv
+bmZpZ3VyZWQgdG8gVVRGLTggSSBjYW4ndCB1c2UgVVRGLTggcHJvcGVybHkgKEkgdXNlIFNjYW5k
+aWMgY2hhcmFjdGVycyAow6TDtikgdG8gdGVzdCB3aXRoKSBldmVuIGFmdGVyIG1hbnVhbGx5IHNl
+dHRpbmcgbG9jYWxlIHRvIGVuLWdiICh0aGVyZSBpcyBubyB1dGYtOCBuYW1lcyBsb2NhbGUpLiBU
+aGV5IHdvcmsganVzdCBmaW5lIGlmIEkgdGVzdCBpbiBQQyB3aXRoIFVidW50dS4NCj4NCj4gVGVl
+bXUgS2Vza2luYXJrYXVzDQo+IFNvZnR3YXJlIHN5c3RlbSBlbmdpbmVlcg0KPiBDcm9zc0NvbnRy
+b2wNCj4gbWFraW5nIG1hY2hpbmVzIHNtYXJ0LCBzYWZlIGFuZCBwcm9kdWN0aXZlDQo+DQo+IC0t
+LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEtoZW0gUmFqIFttYWlsdG86cmFqLmto
+ZW1AZ21haWwuY29tXQ0KPiBTZW50OiAxMi4gam91bHVrdXV0YSAyMDE2IDg6MjkNCj4gVG86IEtl
+c2tpbmFya2F1cywgVGVlbXUNCj4gQ2M6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0
+OiBSZTogW3Bva3ldIEVuYWJsaW5nIFVURi04DQo+DQo+IE9uIFRodSwgRGVjIDgsIDIwMTYgYXQg
+MTI6MDIgQU0sIEtlc2tpbmFya2F1cywgVGVlbXUgPHRlZW11Lmtlc2tpbmFya2F1c0Bjcm9zc2Nv
+bnRyb2wuY29tPiB3cm90ZToNCj4+IEhpLA0KPj4NCj4+DQo+Pg0KPj4gSeKAmW0gdHJ5aW5nIHRv
+IGdldCBVVEYtOCBzdXBwb3J0IGVuYWJsZWQgdG8gbXkgaW1hZ2UuICBGb3Igd2hhdGV2ZXINCj4+
+IHJlYXNvbiBJIGRvbuKAmXQgc2VlbSB0byBnZXQgaXQgd29ya2luZy4gSSBoYXZlIGZvbGxvd2lu
+ZyBsaW5lcyBpbiBteSBsb2NhbC5jb25mLg0KPj4NCj4+DQo+Pg0KPj4gR0xJQkNfR0VORVJBVEVf
+TE9DQUxFUyA9ICJlbl9HQiBlbl9VUyBlbl9HQi5VVEYtOCBlbl9VUy5VVEYtOCINCj4+DQo+PiBJ
+TUFHRV9MSU5HVUFTID0gImVuLWdiIGVuLXVzIg0KPg0KPiBjaGVjayBpZiB0aGlzIGlzIHJlYWxs
+eSByZWZsZWN0ZWQgaW4gZmluYWwgbWV0YWRhdGEuIHlvdSBjYW4gY2hlY2sNCj4gd2l0aA0KPg0K
+PiBiaXRiYWtlIC1lIDx5b3VyLWltYWdlPiB8IGdyZXAgLWUgIl5HTElCQ19HRU5FUkFURV9MT0NB
+TEVTPSINCj4NCj4+DQo+Pg0KPj4NCj4+IEkgZ2V0IG9ubHkgZW4gYW5kIGVuX0dCIGxvY2FsZXMg
+dG8gaW1hZ2UgKC91c3Ivc2hhcmUvbG9jYWxlKS4NCj4+DQo+Pg0KPj4NCj4+IEnigJltIHVzaW5n
+IFlvY3RvIDEuNi4xLCBidXQgSeKAmXZlIHRlc3RlZCBpdCBvbiBZb2N0byAyLjEgdG9vIHdpdGhv
+dXQNCj4+IGFueSBkaWZmZXJlbmNlLiAgSeKAmW0gdXNpbmcgdmFsbGV5aXNsYW5kLTMyIOKAkyBt
+YWNoaW5lIGlmIHRoYXQgaGFzDQo+PiBhbnl0aGluZyB0byBkbyB3aXRoIGl0Lg0KPj4NCj4+DQo+
+Pg0KPj4gSXMgdGhlcmUgc29tZXRoaW5nIGVsc2UgbmVlZGVkIHRvIGJlIGRvbmUgdG8gZm9yY2Ug
+VVRGLTggbG9jYWxlcw0KPj4gYmVpbmcgZ2VuZXJhdGVkPyBTZWVtcyB0aGF0IHRob3NlIGxpbmVz
+IGRvbuKAmXQgY2hhbmdlIGFueXRoaW5nLiBTYW1lDQo+PiBsb2NhbGVzIGFyZSBnZW5lcmF0ZWQg
+d2l0aCBvciB3aXRob3V0IHRob3NlIGxpbmVzIGluIGxvY2FsLmNvbmYuDQo+Pg0KPj4NCj4+DQo+
+PiBUZWVtdSBLZXNraW5hcmthdXMNCj4+IFNvZnR3YXJlIHN5c3RlbSBlbmdpbmVlcg0KPj4gQ2Vs
+bDogKzM1OCA0MDAgMzMwMDQ3DQo+PiBGYXg6ICszNTggMjA3IDY2OTE5OQ0KPj4gd3d3LmNyb3Nz
+Y29udHJvbC5jb20NCj4+DQo+PiBDcm9zc0NvbnRyb2wNCj4+DQo+PiBtYWtpbmcgbWFjaGluZXMg
+c21hcnQsIHNhZmUgYW5kIHByb2R1Y3RpdmUNCj4+DQo+Pg0KPj4NCj4+DQo+PiBfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXw0KPj4NCj4+IEFjdHVhbnQgQ29ycG9yYXRpb24gRW1haWwg
+Tm90aWNlDQo+Pg0KPj4gVGhpcyBtZXNzYWdlIGlzIGludGVuZGVkIG9ubHkgZm9yIHRoZSB1c2Ug
+b2YgdGhlIEFkZHJlc3NlZSBhbmQgbWF5DQo+PiBjb250YWluIGluZm9ybWF0aW9uIHRoYXQgaXMg
+UFJJVklMRUdFRCBhbmQvb3IgQ09ORklERU5USUFMLg0KPj4gVGhpcyBlbWFpbCBpcyBpbnRlbmRl
+ZCBvbmx5IGZvciB0aGUgcGVyc29uYWwgYW5kIGNvbmZpZGVudGlhbCB1c2Ugb2YNCj4+IHRoZQ0K
+Pj4gcmVjaXBpZW50KHMpIG5hbWVkIGFib3ZlLiBJZiB0aGUgcmVhZGVyIG9mIHRoaXMgZW1haWwg
+aXMgbm90IGFuDQo+PiBpbnRlbmRlZCByZWNpcGllbnQsIHlvdSBoYXZlIHJlY2VpdmVkIHRoaXMg
+ZW1haWwgaW4gZXJyb3IgYW5kIGFueQ0KPj4gcmV2aWV3LCBkaXNzZW1pbmF0aW9uLCBkaXN0cmli
+dXRpb24gb3IgY29weWluZyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLg0KPj4gSWYgeW91IGhhdmUg
+cmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyDQo+
+PiBpbW1lZGlhdGVseSBieSByZXR1cm4gbWFpbCBhbmQgcGVybWFuZW50bHkgZGVsZXRlIHRoZSBj
+b3B5IHlvdSByZWNlaXZlZC4NCj4+DQo+PiBUaGFuayB5b3UuDQo+Pg0KPj4gLS0NCj4+IF9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBwb2t5IG1haWxp
+bmcgbGlzdA0KPj4gcG9reUB5b2N0b3Byb2plY3Qub3JnDQo+PiBodHRwczovL2xpc3RzLnlvY3Rv
+cHJvamVjdC5vcmcvbGlzdGluZm8vcG9reQ0KPj4NCj4NCj4gX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18NCj4NCj4gQWN0dWFudCBDb3Jwb3JhdGlvbiBFbWFpbCBOb3RpY2UNCj4NCj4g
+VGhpcyBtZXNzYWdlIGlzIGludGVuZGVkIG9ubHkgZm9yIHRoZSB1c2Ugb2YgdGhlIEFkZHJlc3Nl
+ZSBhbmQgbWF5IGNvbnRhaW4gaW5mb3JtYXRpb24gdGhhdCBpcyBQUklWSUxFR0VEIGFuZC9vciBD
+T05GSURFTlRJQUwuDQo+IFRoaXMgZW1haWwgaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHBlcnNv
+bmFsIGFuZCBjb25maWRlbnRpYWwgdXNlIG9mIHRoZSByZWNpcGllbnQocykgbmFtZWQgYWJvdmUu
+IElmIHRoZSByZWFkZXIgb2YgdGhpcyBlbWFpbCBpcyBub3QgYW4gaW50ZW5kZWQgcmVjaXBpZW50
+LCB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yIGFuZCBhbnkgcmV2aWV3LCBk
+aXNzZW1pbmF0aW9uLCBkaXN0cmlidXRpb24gb3IgY29weWluZyBpcyBzdHJpY3RseSBwcm9oaWJp
+dGVkLg0KPiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yLCBwbGVhc2Ug
+bm90aWZ5IHRoZSBzZW5kZXIgaW1tZWRpYXRlbHkgYnkgcmV0dXJuIG1haWwgYW5kIHBlcm1hbmVu
+dGx5IGRlbGV0ZSB0aGUgY29weSB5b3UgcmVjZWl2ZWQuDQo+DQo+IFRoYW5rIHlvdS4NCg0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQpBY3R1YW50IENvcnBvcmF0aW9uIEVt
+YWlsIE5vdGljZQ0KDQpUaGlzIG1lc3NhZ2UgaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHVzZSBv
+ZiB0aGUgQWRkcmVzc2VlIGFuZCBtYXkgY29udGFpbiBpbmZvcm1hdGlvbiB0aGF0IGlzIFBSSVZJ
+TEVHRUQgYW5kL29yIENPTkZJREVOVElBTC4NClRoaXMgZW1haWwgaXMgaW50ZW5kZWQgb25seSBm
+b3IgdGhlIHBlcnNvbmFsIGFuZCBjb25maWRlbnRpYWwgdXNlIG9mIHRoZSByZWNpcGllbnQocykg
+bmFtZWQgYWJvdmUuIElmIHRoZSByZWFkZXIgb2YgdGhpcyBlbWFpbCBpcyBub3QgYW4gaW50ZW5k
+ZWQgcmVjaXBpZW50LCB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yIGFuZCBh
+bnkgcmV2aWV3LCBkaXNzZW1pbmF0aW9uLCBkaXN0cmlidXRpb24gb3IgY29weWluZyBpcyBzdHJp
+Y3RseSBwcm9oaWJpdGVkLg0KSWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJv
+ciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGltbWVkaWF0ZWx5IGJ5IHJldHVybiBtYWlsIGFu
+ZCBwZXJtYW5lbnRseSBkZWxldGUgdGhlIGNvcHkgeW91IHJlY2VpdmVkLg0KDQpUaGFuayB5b3Uu
+DQo=
 
