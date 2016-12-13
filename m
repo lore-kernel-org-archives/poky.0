@@ -1,56 +1,31 @@
-Return-Path: <teemu.keskinarkaus@crosscontrol.com>
+Return-Path: <jose.perez.carranza@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B43B7E00C60; Tue, 13 Dec 2016 02:02:44 -0800 (PST)
+	id 25C4CE00B93; Tue, 13 Dec 2016 12:34:26 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [148.163.159.126 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mx0a-001ea001.pphosted.com (mx0b-001ea001.pphosted.com
-	[148.163.159.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A1DE4E00C45
-	for <poky@yoctoproject.org>; Tue, 13 Dec 2016 02:02:40 -0800 (PST)
-Received: from pps.filterd (m0088396.ppops.net [127.0.0.1])
-	by mx0b-001ea001.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
-	uBDA2Peg027048; Tue, 13 Dec 2016 04:02:39 -0600
-Received: from ammail.actuant.com ([207.250.73.121])
-	by mx0b-001ea001.pphosted.com with ESMTP id 278dydsjbh-1
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
-	Tue, 13 Dec 2016 04:02:39 -0600
-Received: from AMDTCEX14.actuant.pri ([169.254.6.81]) by AMDTCEX13.actuant.pri
-	([10.0.11.148]) with mapi id 14.03.0301.000;
-	Tue, 13 Dec 2016 04:02:38 -0600
-From: "Keskinarkaus, Teemu" <teemu.keskinarkaus@crosscontrol.com>
-To: Khem Raj <raj.khem@gmail.com>
-Thread-Topic: [poky] Enabling UTF-8
-Thread-Index: AQHSVEEOOIUUjblCZES00Rubkvci0qED4DNQgAB0NQCAAVGsoA==
-Date: Tue, 13 Dec 2016 10:02:37 +0000
-Message-ID: <83DB4EC8FADD45428E3CC4E3664761FD4243B138@AMDTCEX14.actuant.pri>
-References: <83DB4EC8FADD45428E3CC4E3664761FD4243A127@AMDTCEX14.actuant.pri>
-	<CAMKF1soUOSjFujmCd7Z8NWsDFfF6bPGK60LTq_qUpdbB31y0MA@mail.gmail.com>
-	<83DB4EC8FADD45428E3CC4E3664761FD4243AD3E@AMDTCEX14.actuant.pri>
-	<04E31FD8-07A9-4C92-9AC2-44D57EA2B86D@gmail.com>
-In-Reply-To: <04E31FD8-07A9-4C92-9AC2-44D57EA2B86D@gmail.com>
-Accept-Language: fi-FI, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.10.116]
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10432:, ,
-	definitions=2016-12-13_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
-	clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1609300000
-	definitions=main-1612130174
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Enabling UTF-8
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A8D90E00890
+	for <poky@yoctoproject.org>; Tue, 13 Dec 2016 12:34:24 -0800 (PST)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP; 13 Dec 2016 12:34:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.33,342,1477983600"; d="scan'208";a="1081406626"
+Received: from jgperezc.zpn.intel.com ([10.219.5.150])
+	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2016 12:34:23 -0800
+From: jose.perez.carranza@linux.intel.com
+To: poky@yoctoproject.org
+Date: Tue, 13 Dec 2016 14:45:15 -0600
+Message-Id: <1481661915-22645-1-git-send-email-jose.perez.carranza@linux.intel.com>
+X-Mailer: git-send-email 2.1.4
+Subject: [PATCH] systemdboot: Add Test to check boot file is created correctly
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -63,117 +38,128 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Dec 2016 10:02:44 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Tue, 13 Dec 2016 20:34:26 -0000
 
-SSBmb3VuZCB0aGUgcHJvYmxlbS4gSSB3YXMgdXNpbmcgZXh0ZXJuYWwgdG9vbGNoYWluIGFuZCBm
-b3Igc29tZSByZWFzb24gdGhvc2UgcmVjaXBlcyBkcm9wcGVkIHRoZSBlbi11cy4gSSBzd2l0Y2hl
-ZCB0byB1c2UgeW9jdG8gdG9vbGNoYWluIHNvIG5vdyBJIGhhdmUgZW4tdXMgdG9vLiBJIGFsc28g
-YWRkZWQgTE9DQUxFX1VURjhfT05MWT0iMSIgdG8gbG9jYWwuY29uZi4NCg0KU3RpbGwgSSBkb24n
-dCBoYXZlIGFueSBVVEYtOCBuYW1lZCBsb2NhbGVzIGluIC91c3Ivc2hhcmUvbG9jYWxlLiBJJ20g
-bm90IHN1cmUgaWYgdGhlcmUgZXZlbiBzaG91bGQgYmU/DQoNCkknbSB0ZXN0aW5nIHV0Zi04IGZ1
-bmN0aW9uYWxpdHkgYnkgdXNpbmcgU2NhbmRpbmF2aWMgY2hhcmFjdGVycyAow6TDtikgaW4gZWl0
-aGVyIHNoZWxsIG9yIHRyeWluZyB0byBlZGl0IGZpbGUgd2l0aCBuYW5vL3ZpIGFuZCBhZGRpbmcg
-dGhvc2UgY2hhcmFjdGVycy4gSSBjYW4gYWRkIHRob3NlIGNoYXJhY3RlcnMgaW4gZWRpdG9yIGJ1
-dCBpZiBJIG1vdmUgY3Vyc29yIHRoZSB0ZXh0IGdldCBtZXNzZWQgdXAgc28gSSBhc3N1bWUgVVRG
-LTggaXNuJ3Qgd29ya2luZy4gVGhvc2UgdGVzdHMgd29yayBqdXN0IGZpbmUgd2l0aCB4ODYgTGlu
-dXggKGZvciBleGFtcGxlIFVidW50dSkgdGhhdCBoYXMgVVRGLTggbG9jYWxlcy4NCg0KVGVlbXUg
-S2Vza2luYXJrYXVzDQpTb2Z0d2FyZSBzeXN0ZW0gZW5naW5lZXINCkNyb3NzQ29udHJvbA0KbWFr
-aW5nIG1hY2hpbmVzIHNtYXJ0LCBzYWZlIGFuZCBwcm9kdWN0aXZlDQoNCg0KLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCkZyb206IEtoZW0gUmFqIFttYWlsdG86cmFqLmtoZW1AZ21haWwuY29t
-XQ0KU2VudDogMTIuIGpvdWx1a3V1dGEgMjAxNiA5OjQ5DQpUbzogS2Vza2luYXJrYXVzLCBUZWVt
-dQ0KQ2M6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KU3ViamVjdDogUmU6IFtwb2t5XSBFbmFibGlu
-ZyBVVEYtOA0KDQoNCj4gT24gRGVjIDExLCAyMDE2LCBhdCAxMTowMSBQTSwgS2Vza2luYXJrYXVz
-LCBUZWVtdSA8dGVlbXUua2Vza2luYXJrYXVzQGNyb3NzY29udHJvbC5jb20+IHdyb3RlOg0KPg0K
-PiBIaSwNCj4NCj4gSSBkaWQgdGhhdCBhbmQgdGhpcyB3YXMgcmVzdWx0OiBHTElCQ19HRU5FUkFU
-RV9MT0NBTEVTPSJlbl9HQi5VVEYtOCBlbl9HQiBlbl9VUyINCj4NCj4gU28gZm9yIHNvbWUgcmVh
-c29uIGVuX1VTLlVURi04IHdhcyBkcm9wcGVkLiBBbHNvIG9ubHkgZW4tZ2IgbWFkZSB0byBhY3R1
-YWwgaW1hZ2UuDQoNCkZpZ3VyZSBvdXQgd2h5IGl0IHdhcyBkcm9wcGVkLCBJIHRoaW5rIHlvdSBt
-aWdodCBoYXZlIGFkZGl0aW9uYWwgcGxhY2VzIHdoZXJlIHRoaXMgdmFyaWFibGUgaXQgYmVpbmcg
-bW9kaWZpZWQuIFNhdmUgdGhlIG91dHB1dCBvZiBiaXRiYWtlIC1lIGFuZCBpbnNwZWN0IGl0IG1h
-bnVhbGx5IGZvciB0aGUgdmFsdWUgb2YgR0xJQkNfR0VORVJBVEVfTE9DQUxFUw0KDQoNCj4gSSdt
-IG5vdCBzdXJlIGlmIHlvdSBjYW4gcHV0IG1vcmUgdGhhbiBvbmUgbGFuZ3VhZ2UgaW4gSU1BR0Vf
-TElOR1VBUy4NCg0KDQp5b3UgY2FuIHB1dCBtdWx0aXBsZSB2YWx1ZXMgaW4gSU1BR0VfTElOR1VB
-Uw0KDQo+DQo+IEkgcmVhZC9oZWFyZCBzb21ld2hlcmUgdGhhdCBub3dhZGF5cyBVVEYtOCBsb2Nh
-bGVzIGRvbid0IGhhdmUgVVRGLTggaW4gdGhlaXIgZmlsZW5hbWVzIGFueW1vcmUgYnV0IGVuX0dC
-IGhhcyBhbHNvIFVURi04LiBTZWVtcyB0aGF0IGl0IGRlZmF1bHRzIHRvIFBPU0lYIC0gbG9jYWxl
-LCBidXQgd2hlbiBJIGRvICBgbG9jYWxlIGVuLWdiYCBJIGdldCBlbi1nYiBsb2NhbGUgZXhjZXB0
-IEkgYWxzbyBnZXQgdGhlc2UgZXJyb3JzOg0KPg0KPiBsb2NhbGU6IENhbm5vdCBzZXQgTENfQ1RZ
-UEUgdG8gZGVmYXVsdCBsb2NhbGU6IE5vIHN1Y2ggZmlsZSBvcg0KPiBkaXJlY3RvcnkNCj4gbG9j
-YWxlOiBDYW5ub3Qgc2V0IExDX01FU1NBR0VTIHRvIGRlZmF1bHQgbG9jYWxlOiBObyBzdWNoIGZp
-bGUgb3INCj4gZGlyZWN0b3J5DQo+IGxvY2FsZTogQ2Fubm90IHNldCBMQ19BTEwgdG8gZGVmYXVs
-dCBsb2NhbGU6IE5vIHN1Y2ggZmlsZSBvciBkaXJlY3RvcnkNCj4gbG9jYWxlOiB1bmtub3duIG5h
-bWUgImVuLWdiIg0KPg0KPiBCdXQgaWYgSSBjb25uZWN0IHRvIGRldmljZSB3aXRoIFB1dHR5IGNv
-bmZpZ3VyZWQgdG8gVVRGLTggSSBjYW4ndCB1c2UgVVRGLTggcHJvcGVybHkgKEkgdXNlIFNjYW5k
-aWMgY2hhcmFjdGVycyAow6TDtikgdG8gdGVzdCB3aXRoKSBldmVuIGFmdGVyIG1hbnVhbGx5IHNl
-dHRpbmcgbG9jYWxlIHRvIGVuLWdiICh0aGVyZSBpcyBubyB1dGYtOCBuYW1lcyBsb2NhbGUpLiBU
-aGV5IHdvcmsganVzdCBmaW5lIGlmIEkgdGVzdCBpbiBQQyB3aXRoIFVidW50dS4NCj4NCj4gVGVl
-bXUgS2Vza2luYXJrYXVzDQo+IFNvZnR3YXJlIHN5c3RlbSBlbmdpbmVlcg0KPiBDcm9zc0NvbnRy
-b2wNCj4gbWFraW5nIG1hY2hpbmVzIHNtYXJ0LCBzYWZlIGFuZCBwcm9kdWN0aXZlDQo+DQo+IC0t
-LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEtoZW0gUmFqIFttYWlsdG86cmFqLmto
-ZW1AZ21haWwuY29tXQ0KPiBTZW50OiAxMi4gam91bHVrdXV0YSAyMDE2IDg6MjkNCj4gVG86IEtl
-c2tpbmFya2F1cywgVGVlbXUNCj4gQ2M6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0
-OiBSZTogW3Bva3ldIEVuYWJsaW5nIFVURi04DQo+DQo+IE9uIFRodSwgRGVjIDgsIDIwMTYgYXQg
-MTI6MDIgQU0sIEtlc2tpbmFya2F1cywgVGVlbXUgPHRlZW11Lmtlc2tpbmFya2F1c0Bjcm9zc2Nv
-bnRyb2wuY29tPiB3cm90ZToNCj4+IEhpLA0KPj4NCj4+DQo+Pg0KPj4gSeKAmW0gdHJ5aW5nIHRv
-IGdldCBVVEYtOCBzdXBwb3J0IGVuYWJsZWQgdG8gbXkgaW1hZ2UuICBGb3Igd2hhdGV2ZXINCj4+
-IHJlYXNvbiBJIGRvbuKAmXQgc2VlbSB0byBnZXQgaXQgd29ya2luZy4gSSBoYXZlIGZvbGxvd2lu
-ZyBsaW5lcyBpbiBteSBsb2NhbC5jb25mLg0KPj4NCj4+DQo+Pg0KPj4gR0xJQkNfR0VORVJBVEVf
-TE9DQUxFUyA9ICJlbl9HQiBlbl9VUyBlbl9HQi5VVEYtOCBlbl9VUy5VVEYtOCINCj4+DQo+PiBJ
-TUFHRV9MSU5HVUFTID0gImVuLWdiIGVuLXVzIg0KPg0KPiBjaGVjayBpZiB0aGlzIGlzIHJlYWxs
-eSByZWZsZWN0ZWQgaW4gZmluYWwgbWV0YWRhdGEuIHlvdSBjYW4gY2hlY2sNCj4gd2l0aA0KPg0K
-PiBiaXRiYWtlIC1lIDx5b3VyLWltYWdlPiB8IGdyZXAgLWUgIl5HTElCQ19HRU5FUkFURV9MT0NB
-TEVTPSINCj4NCj4+DQo+Pg0KPj4NCj4+IEkgZ2V0IG9ubHkgZW4gYW5kIGVuX0dCIGxvY2FsZXMg
-dG8gaW1hZ2UgKC91c3Ivc2hhcmUvbG9jYWxlKS4NCj4+DQo+Pg0KPj4NCj4+IEnigJltIHVzaW5n
-IFlvY3RvIDEuNi4xLCBidXQgSeKAmXZlIHRlc3RlZCBpdCBvbiBZb2N0byAyLjEgdG9vIHdpdGhv
-dXQNCj4+IGFueSBkaWZmZXJlbmNlLiAgSeKAmW0gdXNpbmcgdmFsbGV5aXNsYW5kLTMyIOKAkyBt
-YWNoaW5lIGlmIHRoYXQgaGFzDQo+PiBhbnl0aGluZyB0byBkbyB3aXRoIGl0Lg0KPj4NCj4+DQo+
-Pg0KPj4gSXMgdGhlcmUgc29tZXRoaW5nIGVsc2UgbmVlZGVkIHRvIGJlIGRvbmUgdG8gZm9yY2Ug
-VVRGLTggbG9jYWxlcw0KPj4gYmVpbmcgZ2VuZXJhdGVkPyBTZWVtcyB0aGF0IHRob3NlIGxpbmVz
-IGRvbuKAmXQgY2hhbmdlIGFueXRoaW5nLiBTYW1lDQo+PiBsb2NhbGVzIGFyZSBnZW5lcmF0ZWQg
-d2l0aCBvciB3aXRob3V0IHRob3NlIGxpbmVzIGluIGxvY2FsLmNvbmYuDQo+Pg0KPj4NCj4+DQo+
-PiBUZWVtdSBLZXNraW5hcmthdXMNCj4+IFNvZnR3YXJlIHN5c3RlbSBlbmdpbmVlcg0KPj4gQ2Vs
-bDogKzM1OCA0MDAgMzMwMDQ3DQo+PiBGYXg6ICszNTggMjA3IDY2OTE5OQ0KPj4gd3d3LmNyb3Nz
-Y29udHJvbC5jb20NCj4+DQo+PiBDcm9zc0NvbnRyb2wNCj4+DQo+PiBtYWtpbmcgbWFjaGluZXMg
-c21hcnQsIHNhZmUgYW5kIHByb2R1Y3RpdmUNCj4+DQo+Pg0KPj4NCj4+DQo+PiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXw0KPj4NCj4+IEFjdHVhbnQgQ29ycG9yYXRpb24gRW1haWwg
-Tm90aWNlDQo+Pg0KPj4gVGhpcyBtZXNzYWdlIGlzIGludGVuZGVkIG9ubHkgZm9yIHRoZSB1c2Ug
-b2YgdGhlIEFkZHJlc3NlZSBhbmQgbWF5DQo+PiBjb250YWluIGluZm9ybWF0aW9uIHRoYXQgaXMg
-UFJJVklMRUdFRCBhbmQvb3IgQ09ORklERU5USUFMLg0KPj4gVGhpcyBlbWFpbCBpcyBpbnRlbmRl
-ZCBvbmx5IGZvciB0aGUgcGVyc29uYWwgYW5kIGNvbmZpZGVudGlhbCB1c2Ugb2YNCj4+IHRoZQ0K
-Pj4gcmVjaXBpZW50KHMpIG5hbWVkIGFib3ZlLiBJZiB0aGUgcmVhZGVyIG9mIHRoaXMgZW1haWwg
-aXMgbm90IGFuDQo+PiBpbnRlbmRlZCByZWNpcGllbnQsIHlvdSBoYXZlIHJlY2VpdmVkIHRoaXMg
-ZW1haWwgaW4gZXJyb3IgYW5kIGFueQ0KPj4gcmV2aWV3LCBkaXNzZW1pbmF0aW9uLCBkaXN0cmli
-dXRpb24gb3IgY29weWluZyBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLg0KPj4gSWYgeW91IGhhdmUg
-cmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyDQo+
-PiBpbW1lZGlhdGVseSBieSByZXR1cm4gbWFpbCBhbmQgcGVybWFuZW50bHkgZGVsZXRlIHRoZSBj
-b3B5IHlvdSByZWNlaXZlZC4NCj4+DQo+PiBUaGFuayB5b3UuDQo+Pg0KPj4gLS0NCj4+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBwb2t5IG1haWxp
-bmcgbGlzdA0KPj4gcG9reUB5b2N0b3Byb2plY3Qub3JnDQo+PiBodHRwczovL2xpc3RzLnlvY3Rv
-cHJvamVjdC5vcmcvbGlzdGluZm8vcG9reQ0KPj4NCj4NCj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18NCj4NCj4gQWN0dWFudCBDb3Jwb3JhdGlvbiBFbWFpbCBOb3RpY2UNCj4NCj4g
-VGhpcyBtZXNzYWdlIGlzIGludGVuZGVkIG9ubHkgZm9yIHRoZSB1c2Ugb2YgdGhlIEFkZHJlc3Nl
-ZSBhbmQgbWF5IGNvbnRhaW4gaW5mb3JtYXRpb24gdGhhdCBpcyBQUklWSUxFR0VEIGFuZC9vciBD
-T05GSURFTlRJQUwuDQo+IFRoaXMgZW1haWwgaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHBlcnNv
-bmFsIGFuZCBjb25maWRlbnRpYWwgdXNlIG9mIHRoZSByZWNpcGllbnQocykgbmFtZWQgYWJvdmUu
-IElmIHRoZSByZWFkZXIgb2YgdGhpcyBlbWFpbCBpcyBub3QgYW4gaW50ZW5kZWQgcmVjaXBpZW50
-LCB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yIGFuZCBhbnkgcmV2aWV3LCBk
-aXNzZW1pbmF0aW9uLCBkaXN0cmlidXRpb24gb3IgY29weWluZyBpcyBzdHJpY3RseSBwcm9oaWJp
-dGVkLg0KPiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yLCBwbGVhc2Ug
-bm90aWZ5IHRoZSBzZW5kZXIgaW1tZWRpYXRlbHkgYnkgcmV0dXJuIG1haWwgYW5kIHBlcm1hbmVu
-dGx5IGRlbGV0ZSB0aGUgY29weSB5b3UgcmVjZWl2ZWQuDQo+DQo+IFRoYW5rIHlvdS4NCg0KDQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQpBY3R1YW50IENvcnBvcmF0aW9uIEVt
-YWlsIE5vdGljZQ0KDQpUaGlzIG1lc3NhZ2UgaXMgaW50ZW5kZWQgb25seSBmb3IgdGhlIHVzZSBv
-ZiB0aGUgQWRkcmVzc2VlIGFuZCBtYXkgY29udGFpbiBpbmZvcm1hdGlvbiB0aGF0IGlzIFBSSVZJ
-TEVHRUQgYW5kL29yIENPTkZJREVOVElBTC4NClRoaXMgZW1haWwgaXMgaW50ZW5kZWQgb25seSBm
-b3IgdGhlIHBlcnNvbmFsIGFuZCBjb25maWRlbnRpYWwgdXNlIG9mIHRoZSByZWNpcGllbnQocykg
-bmFtZWQgYWJvdmUuIElmIHRoZSByZWFkZXIgb2YgdGhpcyBlbWFpbCBpcyBub3QgYW4gaW50ZW5k
-ZWQgcmVjaXBpZW50LCB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIGVycm9yIGFuZCBh
-bnkgcmV2aWV3LCBkaXNzZW1pbmF0aW9uLCBkaXN0cmlidXRpb24gb3IgY29weWluZyBpcyBzdHJp
-Y3RseSBwcm9oaWJpdGVkLg0KSWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJv
-ciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGltbWVkaWF0ZWx5IGJ5IHJldHVybiBtYWlsIGFu
-ZCBwZXJtYW5lbnRseSBkZWxldGUgdGhlIGNvcHkgeW91IHJlY2VpdmVkLg0KDQpUaGFuayB5b3Uu
-DQo=
+From: Jose Perez Carranza <jose.perez.carranza@linux.intel.com>
+
+ Add Test case to verify if EFI bootloader for
+ systemd boot is correctly build inside of image.
+
+[YOCTO #9903]
+
+Signed-off-by: Jose Perez Carranza <jose.perez.carranza@linux.intel.com>
+---
+ meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 63 +++++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 8 deletions(-)
+
+diff --git a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+index f7f74db..7c19ae3 100644
+--- a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
++++ b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
+@@ -1,6 +1,6 @@
+ from oeqa.selftest.base import oeSelfTest
+ from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
+-from oeqa.utils.decorators import testcase
++from oeqa.utils.decorators import testcase, skipUnlessPassed
+ import re
+ import os
+ import sys
+@@ -11,28 +11,29 @@ class Systemdboot(oeSelfTest):
+ 
+     def _common_setup(self):
+         """
+-        Common setup for test cases: 1445, XXXX
++        Common setup for test cases: 1445, 1528
+         """
+ 
+-        # Set EFI_PROVIDER = "gummiboot" and MACHINE = "genericx86-64" in conf/local.conf
++        # Set EFI_PROVIDER = "systemdboot" and MACHINE = "genericx86-64" in conf/local.conf
+         features = 'EFI_PROVIDER = "systemd-boot"\n'
+         features += 'MACHINE = "genericx86-64"'
+         self.append_config(features)
+ 
+     def _common_build(self):
+         """
+-        Common build for test cases: 1445 , XXXX
++        Common setup for test cases: 1445, 1528
+         """
+ 
+-        # Build a genericx86-64/efi gummiboot image
++        # Build a genericx86-64/efi systemdboot image
+         bitbake('mtools-native core-image-minimal')
+ 
+ 
+     @testcase(1445)
+-    def test_efi_systemdboot_images_can_be_built(self):
++    def test_efi_image_build(self):
+         """
+         Summary:     Check if systemd-boot images can be built correctly
+-        Expected:    1. File systemd-boot.efi should be available in $poky/build/tmp/deploy/images/genericx86-64
++        Expected:    1. File systemd-boot.efi should be available in
++                         $poky/build/tmp/deploy/images/genericx86-64
+                      2. 'systemd-boot" can be built correctly
+         Product:     oe-core
+         Author:      Jose Perez Carranza <jose.perez.carranza@intel.com>
+@@ -41,7 +42,8 @@ class Systemdboot(oeSelfTest):
+ 
+         # We'd use DEPLOY_DIR_IMAGE here, except that we need its value for
+         # MACHINE="genericx86-64 which is probably not the one configured
+-        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64', 'systemd-bootx64.efi')
++        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
++                                       'systemd-bootx64.efi')
+ 
+         self._common_setup()
+ 
+@@ -54,3 +56,48 @@ class Systemdboot(oeSelfTest):
+ 
+         found = os.path.isfile(systemdbootfile)
+         self.assertTrue(found, 'Systemd-Boot file %s not found' % systemdbootfile)
++
++
++    @testcase(1528)
++    @skipUnlessPassed('test_efi_image_build')
++    def test_image_efi_file(self):
++        """
++        Summary:      Check if EFI bootloader for systemd is correctly build
++        Dependencies: Image was built correctly on testcase 1445
++        Steps:        1. Copy bootx64.efi file form the hddimg created
++                         under build/tmp/deploy/images/genericx86-64
++                      2. Check bootx64.efi was copied form hddimg
++                      3. Verify the checksums from the copied and previously
++                         created file are equal.
++        Expected :    Systemd-bootx64.efi and bootx64.efi should be the same
++                      hence checksums should be equal.
++        Product:      oe-core
++        Author:       Jose Perez Carranza <jose.perez.carranza@intel.com>
++        AutomatedBy:  Jose Perez Carranza <jose.perez.carranza@intel.com>
++        """
++
++        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
++                                       'systemd-bootx64.efi')
++        systemdbootimage = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
++                                        'core-image-minimal-genericx86-64.hddimg')
++        imagebootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
++                                                'bootx64.efi')
++        mcopynative = os.path.join(get_bb_var('STAGING_BINDIR_NATIVE'), 'mcopy')
++
++        #Clean environment before start the test
++        if os.path.isfile(imagebootfile):
++            runCmd('rm -f %s' % imagebootfile)
++
++        #Step 1
++        runCmd('%s -i %s ::EFI/BOOT/bootx64.efi %s' % (mcopynative ,systemdbootimage,
++               imagebootfile))
++
++        #Step 2
++        found = os.path.isfile(imagebootfile)
++        self.assertTrue(found, 'bootx64.efi file %s was not copied from image'
++                        % imagebootfile)
++
++        #Step 3
++        result = runCmd('md5sum %s %s' % (systemdbootfile, imagebootfile))
++        self.assertEqual(result.output.split()[0], result.output.split()[2],
++                         '%s was not correclty generated' % imagebootfile)
+-- 
+2.1.4
+
 
