@@ -1,31 +1,61 @@
-Return-Path: <jose.perez.carranza@linux.intel.com>
+Return-Path: <kristian.amlie@mender.io>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 25C4CE00B93; Tue, 13 Dec 2016 12:34:26 -0800 (PST)
+	id A01FFE00E29; Thu, 15 Dec 2016 23:32:53 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [74.125.82.52 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [74.125.82.52 listed in dnsbl.sorbs.net]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A8D90E00890
-	for <poky@yoctoproject.org>; Tue, 13 Dec 2016 12:34:24 -0800 (PST)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga101.fm.intel.com with ESMTP; 13 Dec 2016 12:34:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.33,342,1477983600"; d="scan'208";a="1081406626"
-Received: from jgperezc.zpn.intel.com ([10.219.5.150])
-	by fmsmga001.fm.intel.com with ESMTP; 13 Dec 2016 12:34:23 -0800
-From: jose.perez.carranza@linux.intel.com
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wm0-f52.google.com (mail-wm0-f52.google.com [74.125.82.52])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4521DE00E27
+	for <poky@yoctoproject.org>; Thu, 15 Dec 2016 23:32:50 -0800 (PST)
+Received: by mail-wm0-f52.google.com with SMTP id t79so21098592wmt.0
+	for <poky@yoctoproject.org>; Thu, 15 Dec 2016 23:32:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mender-io.20150623.gappssmtp.com; s=20150623;
+	h=from:to:subject:date:message-id;
+	bh=JM2h4rZt9pZsLp9CY4gws7UToRPeQxEyCk7z4Bfi91g=;
+	b=PBkLRWgUZVLRctktS55718VuM3NugLpX3p82ETs3kgfb93sTIYMhY8bHq+kCxXVItY
+	0xOpfyLmBLTx7oF1ymMUtx8T2fiS0XwemasqS4Lhj4TEaGaxiscKjYXeCWnTh4gc1+uD
+	p8byE93+8Hmp/eS8oBtB0D6b+Qu8cWWKJRZ5Dvwiz+fzeKdIVVjpi/n7TY9b6/ZYFkZO
+	JxieGIOBnVrLEyeCoItHrsYtCKJCtUY0MCDyzFuhc6dHmDhR8Yqh+JWGE/hyfbe29ZSy
+	btO3XkjLFcLBOnxadQFUo5HhEi79Dx21ePNlUfy78yCw4Xv8TZ+5YGIWUJC7pukyMqhz
+	OziA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=JM2h4rZt9pZsLp9CY4gws7UToRPeQxEyCk7z4Bfi91g=;
+	b=rlS8IfcNKqjiNGghICvp07yGi8nwNdYC5tkr1WL0hF4oXzU8ZAoUlffBl4LpOISyOT
+	Zu9Z0KXASd3yk46izP/uB8hs1K2avj9ikyB6a9cb+JpvTL39BXZW6pLsMVo9t91pgp/X
+	vrwARR3pcLT0Sq4We1JEjPf2Gi8DsT+B+6hJnTh9VGDggmv6QilXPu7+8QMAi4vC/wio
+	VU4vVlTtgXZUQiYZMgU36SIfhb26K1eZHR+hF9PjMUph5pMFSXVlgyt1BSSGF0WLfrcI
+	ww8cwlbp77hn9PBWiozIo7RQHoer8LybZKe7V55DJm+q/MljlNI4biaSQnHUj8fiiVxd
+	9Vrw==
+X-Gm-Message-State: AKaTC0098OzhDk5OVWkgxfOAK8ONFdNSzuvNKRP7aYttiSeM9nvAh9c+l9v5BjktCKyBFQ==
+X-Received: by 10.25.234.145 with SMTP id y17mr424193lfi.25.1481873569421;
+	Thu, 15 Dec 2016 23:32:49 -0800 (PST)
+Received: from kristian-mender.cfengine.com ([195.159.140.90])
+	by smtp.googlemail.com with ESMTPSA id
+	b76sm1103859lfg.41.2016.12.15.23.32.48
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Thu, 15 Dec 2016 23:32:48 -0800 (PST)
+From: Kristian Amlie <kristian.amlie@mender.io>
 To: poky@yoctoproject.org
-Date: Tue, 13 Dec 2016 14:45:15 -0600
-Message-Id: <1481661915-22645-1-git-send-email-jose.perez.carranza@linux.intel.com>
-X-Mailer: git-send-email 2.1.4
-Subject: [PATCH] systemdboot: Add Test to check boot file is created correctly
+Date: Fri, 16 Dec 2016 08:32:48 +0100
+Message-Id: <1481873568-13550-1-git-send-email-kristian.amlie@mender.io>
+X-Mailer: git-send-email 2.7.4
+Subject: [PATCH v1] u-boot/beaglebone: Select Beaglebone Black target specifically.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,128 +68,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Dec 2016 20:34:26 -0000
+X-List-Received-Date: Fri, 16 Dec 2016 07:32:53 -0000
 
-From: Jose Perez Carranza <jose.perez.carranza@linux.intel.com>
+The am335x_evm_config target has a subtle problem which is not present
+in the am335x_boneblack_config target: When booting from an external
+MMC card, the internal MMC is not accessible using the former target.
 
- Add Test case to verify if EFI bootloader for
- systemd boot is correctly build inside of image.
+This problem was introduced in U-Boot in commit 80b24fcd3083515e6b961,
+due to the addition of the CONFIG_DM_MMC option, and the
+am335x_boneblack_config target does not have this problem.
 
-[YOCTO #9903]
-
-Signed-off-by: Jose Perez Carranza <jose.perez.carranza@linux.intel.com>
+Signed-off-by: Kristian Amlie <kristian.amlie@mender.io>
 ---
- meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py | 63 +++++++++++++++++++++---
- 1 file changed, 55 insertions(+), 8 deletions(-)
+ meta-yocto-bsp/conf/machine/beaglebone.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-index f7f74db..7c19ae3 100644
---- a/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-+++ b/meta-yocto-bsp/lib/oeqa/selftest/systemd_boot.py
-@@ -1,6 +1,6 @@
- from oeqa.selftest.base import oeSelfTest
- from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
--from oeqa.utils.decorators import testcase
-+from oeqa.utils.decorators import testcase, skipUnlessPassed
- import re
- import os
- import sys
-@@ -11,28 +11,29 @@ class Systemdboot(oeSelfTest):
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
+index fc6a527..24a95b4 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
+@@ -31,7 +31,7 @@ KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
  
-     def _common_setup(self):
-         """
--        Common setup for test cases: 1445, XXXX
-+        Common setup for test cases: 1445, 1528
-         """
+ SPL_BINARY = "MLO"
+ UBOOT_SUFFIX = "img"
+-UBOOT_MACHINE = "am335x_evm_config"
++UBOOT_MACHINE = "am335x_boneblack_config"
+ UBOOT_ENTRYPOINT = "0x80008000"
+ UBOOT_LOADADDRESS = "0x80008000"
  
--        # Set EFI_PROVIDER = "gummiboot" and MACHINE = "genericx86-64" in conf/local.conf
-+        # Set EFI_PROVIDER = "systemdboot" and MACHINE = "genericx86-64" in conf/local.conf
-         features = 'EFI_PROVIDER = "systemd-boot"\n'
-         features += 'MACHINE = "genericx86-64"'
-         self.append_config(features)
- 
-     def _common_build(self):
-         """
--        Common build for test cases: 1445 , XXXX
-+        Common setup for test cases: 1445, 1528
-         """
- 
--        # Build a genericx86-64/efi gummiboot image
-+        # Build a genericx86-64/efi systemdboot image
-         bitbake('mtools-native core-image-minimal')
- 
- 
-     @testcase(1445)
--    def test_efi_systemdboot_images_can_be_built(self):
-+    def test_efi_image_build(self):
-         """
-         Summary:     Check if systemd-boot images can be built correctly
--        Expected:    1. File systemd-boot.efi should be available in $poky/build/tmp/deploy/images/genericx86-64
-+        Expected:    1. File systemd-boot.efi should be available in
-+                         $poky/build/tmp/deploy/images/genericx86-64
-                      2. 'systemd-boot" can be built correctly
-         Product:     oe-core
-         Author:      Jose Perez Carranza <jose.perez.carranza@intel.com>
-@@ -41,7 +42,8 @@ class Systemdboot(oeSelfTest):
- 
-         # We'd use DEPLOY_DIR_IMAGE here, except that we need its value for
-         # MACHINE="genericx86-64 which is probably not the one configured
--        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64', 'systemd-bootx64.efi')
-+        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
-+                                       'systemd-bootx64.efi')
- 
-         self._common_setup()
- 
-@@ -54,3 +56,48 @@ class Systemdboot(oeSelfTest):
- 
-         found = os.path.isfile(systemdbootfile)
-         self.assertTrue(found, 'Systemd-Boot file %s not found' % systemdbootfile)
-+
-+
-+    @testcase(1528)
-+    @skipUnlessPassed('test_efi_image_build')
-+    def test_image_efi_file(self):
-+        """
-+        Summary:      Check if EFI bootloader for systemd is correctly build
-+        Dependencies: Image was built correctly on testcase 1445
-+        Steps:        1. Copy bootx64.efi file form the hddimg created
-+                         under build/tmp/deploy/images/genericx86-64
-+                      2. Check bootx64.efi was copied form hddimg
-+                      3. Verify the checksums from the copied and previously
-+                         created file are equal.
-+        Expected :    Systemd-bootx64.efi and bootx64.efi should be the same
-+                      hence checksums should be equal.
-+        Product:      oe-core
-+        Author:       Jose Perez Carranza <jose.perez.carranza@intel.com>
-+        AutomatedBy:  Jose Perez Carranza <jose.perez.carranza@intel.com>
-+        """
-+
-+        systemdbootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
-+                                       'systemd-bootx64.efi')
-+        systemdbootimage = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
-+                                        'core-image-minimal-genericx86-64.hddimg')
-+        imagebootfile = os.path.join(get_bb_var('DEPLOY_DIR'), 'images', 'genericx86-64',
-+                                                'bootx64.efi')
-+        mcopynative = os.path.join(get_bb_var('STAGING_BINDIR_NATIVE'), 'mcopy')
-+
-+        #Clean environment before start the test
-+        if os.path.isfile(imagebootfile):
-+            runCmd('rm -f %s' % imagebootfile)
-+
-+        #Step 1
-+        runCmd('%s -i %s ::EFI/BOOT/bootx64.efi %s' % (mcopynative ,systemdbootimage,
-+               imagebootfile))
-+
-+        #Step 2
-+        found = os.path.isfile(imagebootfile)
-+        self.assertTrue(found, 'bootx64.efi file %s was not copied from image'
-+                        % imagebootfile)
-+
-+        #Step 3
-+        result = runCmd('md5sum %s %s' % (systemdbootfile, imagebootfile))
-+        self.assertEqual(result.output.split()[0], result.output.split()[2],
-+                         '%s was not correclty generated' % imagebootfile)
 -- 
-2.1.4
+2.7.4
 
 
