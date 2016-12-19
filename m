@@ -1,70 +1,59 @@
-Return-Path: <kristian.amlie@mender.io>
+Return-Path: <praveen.vatt@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3386FE00CF9; Mon, 19 Dec 2016 00:15:04 -0800 (PST)
+	id 8F584E00D1F; Mon, 19 Dec 2016 04:40:50 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.215.53 listed in dnsbl.sorbs.net]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (praveen.vatt[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.215.53 listed in list.dnswl.org]
+	*      [74.125.82.51 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-lf0-f53.google.com (mail-lf0-f53.google.com
-	[209.85.215.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E427EE00CD5
-	for <poky@yoctoproject.org>; Mon, 19 Dec 2016 00:15:00 -0800 (PST)
-Received: by mail-lf0-f53.google.com with SMTP id c13so48688454lfg.0
-	for <poky@yoctoproject.org>; Mon, 19 Dec 2016 00:15:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mender-io.20150623.gappssmtp.com; s=20150623;
-	h=subject:to:references:cc:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-transfer-encoding;
-	bh=cQCR3wMF4K+GTzVtt/nsUGAGlDvixl/ySlHe3bDWExo=;
-	b=HEgyM+0UVAjafBMZIJBD/qMKRqR98epQFd+HpFZJUjALa9Z3k8sV2NNII2mOHl6af3
-	aHSspko4VmiilaZUMEVfmT1Uy+siLNbA+O3wCYv+K4vRs2bQ509ZAoiGTCN/d/VvITJB
-	imZsnHlVQgIBoW4N1roUK6r9po5aoHRZyO6dtYDUngmE8hHU1lTfSdzbNRRYPo86rorH
-	Q7MFeHsI1f8ndlUQvgYmeAw6Zj+6q/UAyFNnxP5jlTf+5Xd+yxMZIoa8I+U2N6NzwDb7
-	zsICx9SaURABAxemmkIyrB0uNv8128tybV3IvG0ITHVYxSggrBf1OdLaa332FJrJLnK/
-	EeIA==
+Received: from mail-wm0-f51.google.com (mail-wm0-f51.google.com [74.125.82.51])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7DF50E00C82
+	for <poky@yoctoproject.org>; Mon, 19 Dec 2016 04:40:48 -0800 (PST)
+Received: by mail-wm0-f51.google.com with SMTP id g23so92281618wme.1
+	for <poky@yoctoproject.org>; Mon, 19 Dec 2016 04:40:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=FoMoO9agEwW7xklLWw1NyxP4widyw7ZzUIc0+h/8xqQ=;
+	b=hSLWvSwKQHEQqRlT63LxD0F8NYV/fS2lEDWgd/C0VmiXgwTH/dRjH/avzNGep/Fypy
+	H3cM0jU9q+Zm1VbeiS6OACKeExVgfFIw00N2uE4YXU2G9rRuqrgqo1kyW4F0eee8U2JZ
+	jA6KDEoVHoTSYRQgI4qiEF6bEuy7/eHRiydPTZ6aQpw0GqdjkhJ3+aiEqF0MRY1vhbEh
+	tA+R19VgHvS+2wxquy/ZdxTd17Om4fb6rXVaUm9qhx+J+hL4KJxg3MKDDjfvBIsgWYjd
+	91zp3Jl9Gwtsuldutg8kaphEloxcxt8pfKYL+uxienzx0hnRdUCmd1v3tb6Yod6tMofK
+	oiqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:references:cc:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-transfer-encoding;
-	bh=cQCR3wMF4K+GTzVtt/nsUGAGlDvixl/ySlHe3bDWExo=;
-	b=aSnMEc/v6cTO+wDpeSOaRWF0NivlOrCJRQ81FQzrx9zizG9zoS+cg+Bl8uQzwGkSKT
-	tMSVRQF50kHQfoMDr5cED3XrfFo1hyYFQVk94yIWKM/BOGYLLPJMzFgdfPW0apZ874cA
-	DVgnhcH0HHbU2IgYYtL3VwXz8qfD25n1I/GwoRVdhLIqNPlcfAr+0XI+EahjeuC6SPAG
-	jWw/aOqrptkSRb8axWQz+yTnAT1k2Mjq9OWKlTClfVR7ZGMmgal2FL3uSFEKfHPGTHWl
-	EUYbgqielvoD+ujRZg0DTy+Q39YpHs8n7k1wNH9SpAVOkbqyL2UfnTBY8xe1wxPU+SoN
-	xmuw==
-X-Gm-Message-State: AKaTC02ArCuS1BWMbqaeeXYukAtnONzqnbwxnrgmK/S33hL9Ou57LP9isq/KXM1iVSyg0w==
-X-Received: by 10.25.215.102 with SMTP id o99mr4014750lfg.57.1482135299853;
-	Mon, 19 Dec 2016 00:14:59 -0800 (PST)
-Received: from [10.25.0.170] ([195.159.140.90])
-	by smtp.googlemail.com with ESMTPSA id
-	67sm3595939ljf.35.2016.12.19.00.14.58
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 19 Dec 2016 00:14:58 -0800 (PST)
-To: ed.bartosh@linux.intel.com
-References: <1481873568-13550-1-git-send-email-kristian.amlie@mender.io>
-	<20161216142855.GA6398@linux.intel.com>
-From: Kristian Amlie <kristian.amlie@mender.io>
-Message-ID: <eca5fc15-a45f-f320-6e7a-733cb752e322@mender.io>
-Date: Mon, 19 Dec 2016 09:14:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.5.1
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=FoMoO9agEwW7xklLWw1NyxP4widyw7ZzUIc0+h/8xqQ=;
+	b=laJof2XHlpMj4IWIF5Y1noA944+Go7y59ziKlwF7GWRB3P4Tw0rd1BDUnjwGGVPsxk
+	wyGo3l1b1gQOkvk/ZakVZBn2SdRO3FX2EeeQQ+futhfG5RlxE5xbZwhvanq+rPM8voa1
+	PqO+d4P5cLjtsbz9BBG20dWZrZZoTH2tHE7aDr+o8M6qqdogRDDPSz5B9qGVHptXDKmR
+	QTNB/FlpGAAheafsrXrsy6S2aeZ1tlNAkxz+gY+cB6QhlkD4/6wtJf3tkkkPZyiKsQFL
+	kFa0D3H6qHOyW3cXZqUm25DEiCVmRlEKFUPaSWU3zhZ7YcpNeKeprBPTU1pze8wvdOry
+	ZHAg==
+X-Gm-Message-State: AIkVDXL26zdM/G0cICzvXEpDjfDH5QYtfRJEg7VdPVAcajNZZfKvC3nQv3BBLmSQymz7cIsRkvzmrGbhEPSIYg==
+X-Received: by 10.28.144.70 with SMTP id s67mr12746856wmd.138.1482151247109;
+	Mon, 19 Dec 2016 04:40:47 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20161216142855.GA6398@linux.intel.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH v1] u-boot/beaglebone: Select Beaglebone Black target specifically.
+Received: by 10.194.192.1 with HTTP; Mon, 19 Dec 2016 04:40:46 -0800 (PST)
+From: praveen vattipalli <praveen.vatt@gmail.com>
+Date: Mon, 19 Dec 2016 18:10:46 +0530
+Message-ID: <CA+pXca0z1fZbtrcwiNgcrTyhaNvA=8dGeXxifBoRR4cjQPN=9Q@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: error while compiling hello_2.7.bb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -77,113 +66,125 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 19 Dec 2016 08:15:04 -0000
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 19 Dec 2016 12:40:50 -0000
+Content-Type: multipart/alternative; boundary=001a1146b334966ed90544023a4e
 
-On 16/12/16 15:28, Ed Bartosh wrote:
-> On Fri, Dec 16, 2016 at 08:32:48AM +0100, Kristian Amlie wrote:
->> The am335x_evm_config target has a subtle problem which is not present
->> in the am335x_boneblack_config target: When booting from an external
->> MMC card, the internal MMC is not accessible using the former target.
->>
->> This problem was introduced in U-Boot in commit 80b24fcd3083515e6b961,
->> due to the addition of the CONFIG_DM_MMC option, and the
->> am335x_boneblack_config target does not have this problem.
->>
->> Signed-off-by: Kristian Amlie <kristian.amlie@mender.io>
->> ---
->>  meta-yocto-bsp/conf/machine/beaglebone.conf | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
->> index fc6a527..24a95b4 100644
->> --- a/meta-yocto-bsp/conf/machine/beaglebone.conf
->> +++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
->> @@ -31,7 +31,7 @@ KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
->>  
->>  SPL_BINARY = "MLO"
->>  UBOOT_SUFFIX = "img"
->> -UBOOT_MACHINE = "am335x_evm_config"
->> +UBOOT_MACHINE = "am335x_boneblack_config"
->>  UBOOT_ENTRYPOINT = "0x80008000"
->>  UBOOT_LOADADDRESS = "0x80008000"
->>  
-> 
-> Would this work for Beaglebone white?
+--001a1146b334966ed90544023a4e
+Content-Type: text/plain; charset=UTF-8
 
-I don't have one, so unfortunately I can't test it. However, the
-beagleboard.org site states that the differences between the two are the
-on-board USB JTAG and serial adapters. Looking at the differences of the
-two configs I can't find anything obvious that would influence this
-(I'll admit that I don't fully understand all the options though).
+Hi All,
+I have hello_2.7.bb file which contains as below
+vim hello_2.7.bb
+DESCRIPTION = "GNU Helloworld application"
+SECTION = "test"
+LICENSE = "BSD"
 
-Below is the (sorted) difference. I can't spot anything bad, can you?
+LIC_FILES_CHKSUM =
+"file://${COMMON_LICENSE_DIR}/BSD;md5=3775480a712fc46a69647678acb234cb"
+SRC_DIR ?=
+"/home/rajesh/poky-krogoth-15.0.2/meta/recipes-support/hello/hello_2.7"
+SRC_URI = "file://${SRC_DIR}"
 
+S = "${SRC_DIR}"
 
---- configs/am335x_evm_defconfig.sort	2016-12-19 08:50:26.674878278 +0100
-+++ configs/am335x_boneblack_defconfig.sort	2016-12-19
-08:50:39.163314913 +0100
-@@ -1,6 +1,9 @@
- CONFIG_AM33XX=y
- CONFIG_ARM=y
--# CONFIG_BLK is not set
-+CONFIG_AUTOBOOT_DELAY_STR="d"
-+CONFIG_AUTOBOOT_KEYED=y
-+CONFIG_AUTOBOOT_PROMPT="Press SPACE to abort autoboot in %d seconds\n"
-+CONFIG_AUTOBOOT_STOP_STR=" "
- CONFIG_CMD_ASKENV=y
- CONFIG_CMD_BOOTZ=y
- CONFIG_CMD_DFU=y
-@@ -21,38 +24,27 @@
- CONFIG_CMD_SF=y
- CONFIG_CMD_SPI=y
- CONFIG_CMD_USB=y
--CONFIG_DEFAULT_DEVICE_TREE="am335x-evm"
- CONFIG_DFU_MMC=y
--CONFIG_DFU_NAND=y
- CONFIG_DFU_RAM=y
--CONFIG_DM_ETH=y
--CONFIG_DM_I2C=y
--# CONFIG_DM_MMC_OPS is not set
--CONFIG_DM_MMC=y
-+CONFIG_DFU_TFTP=y
- CONFIG_FIT=y
- CONFIG_G_DNL_MANUFACTURER="Texas Instruments"
- CONFIG_G_DNL_PRODUCT_NUM=0xd022
- CONFIG_G_DNL_VENDOR_NUM=0x0451
- CONFIG_HUSH_PARSER=y
--CONFIG_OF_CONTROL=y
--CONFIG_OF_LIST="am335x-evm am335x-bone am335x-boneblack am335x-evmsk
-am335x-bonegreen am335x-icev2"
--CONFIG_OMAP_TIMER=y
--CONFIG_RSA=y
-+CONFIG_OF_LIBFDT=y
- CONFIG_SPI_FLASH_WINBOND=y
- CONFIG_SPI_FLASH=y
--CONFIG_SPL_LOAD_FIT=y
--CONFIG_SPL_MTD_SUPPORT=y
- CONFIG_SPL_MUSB_NEW_SUPPORT=y
--CONFIG_SPL_OF_LIBFDT=y
-+# CONFIG_SPL_NAND_SUPPORT is not set
- CONFIG_SPL_OS_BOOT=y
- CONFIG_SPL_STACK_R_ADDR=0x82000000
- CONFIG_SPL_STACK_R=y
- CONFIG_SPL=y
- CONFIG_SYS_CONSOLE_INFO_QUIET=y
--CONFIG_SYS_EXTRA_OPTIONS="NAND"
-+CONFIG_SYS_EXTRA_OPTIONS="EMMC_BOOT"
- CONFIG_SYS_NS16550=y
- CONFIG_TARGET_AM335X_EVM=y
--CONFIG_TIMER=y
- CONFIG_USB_GADGET_DOWNLOAD=y
- CONFIG_USB_GADGET=y
- CONFIG_USB_MUSB_GADGET=y
+do_compile (){
+        make prog
+}
 
+do_install(){
+        install -d ${D}${bindir}
+        install -m 0755 ${S}/hello  ${D}${bindir}
+}
 
-I could also fire off an email to the U-Boot list if we're not confident
-in this fix.
+in hello_2.7 folder i have two files hello.c and Makefile
+vim hello.c
+#include<stdio.h>
+int main()
+{
+        printf("hello YOCTO POKY\n");
+        return 0;
+}
 
--- 
-Kristian
+Vim Makefile
+prog:
+        gcc -o hello hello.c
 
+Now when i am building "bitbake hello", I am  getting below error in
+poky-krogoth-15.0.2.
+The same hello_2.7.bb  is compiling fine without any error in
+"poky-dora-10.0.0".
+The strange thing i observe in poky-krogoth-15.0.2. is that hello.c and
+Makefile are getting erased in hello_2.7 dir.
+Am i missing some thing in poky-krogoth-15.0.2? Please help.
+
+Error msg:
+ERROR: hello-2.7-r0 do_compile: Function failed: do_compile (log file is
+located at
+/home/rajesh/poky-krogoth-15.0.2/build/tmp/work/cortexa8hf-neon-poky-linux-gnueabi/hello/2.7-r0/temp/log.do_compile.13763)
+ERROR: Logfile of failure stored in:
+/home/rajesh/poky-krogoth-15.0.2/build/tmp/work/cortexa8hf-neon-poky-linux-gnueabi/hello/2.7-r0/temp/log.do_compile.13763
+Log data follows:
+| DEBUG: Executing shell function do_compile
+| make: *** No rule to make target 'prog'.  Stop.
+| WARNING: exit code 2 from a shell command.
+| ERROR: Function failed: do_compile (log file is located at
+/home/rajesh/poky-krogoth-15.0.2/build/tmp/work/cortexa8hf-neon-poky-linux-gnueabi/hello/2.7-r0/temp/log.do_compile.13763)
+ERROR: Task 6 (/home/rajesh/poky-krogoth-15.0.2/meta/recipes-support/hello/
+hello_2.7.bb, do_compile) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 351 tasks of which 345 didn't need to be
+rerun and 1 failed.
+No currently running tasks (351 of 358)
+
+Summary: 1 task failed:
+  /home/rajesh/poky-krogoth-15.0.2/meta/recipes-support/hello/hello_2.7.bb,
+do_compile
+
+--001a1146b334966ed90544023a4e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div><div><div><div><div><div><div>Hi All,<br></div>I=
+ have <a href=3D"http://hello_2.7.bb">hello_2.7.bb</a> file which contains =
+as below<br>vim <a href=3D"http://hello_2.7.bb">hello_2.7.bb</a><br>DESCRIP=
+TION =3D &quot;GNU Helloworld application&quot;<br>SECTION =3D &quot;test&q=
+uot;<br>LICENSE =3D &quot;BSD&quot;<br><br>LIC_FILES_CHKSUM =3D &quot;file:=
+//${COMMON_LICENSE_DIR}/BSD;md5=3D3775480a712fc46a69647678acb234cb&quot;<br=
+>SRC_DIR ?=3D &quot;/home/rajesh/poky-krogoth-15.0.2/meta/recipes-support/h=
+ello/hello_2.7&quot;<br>SRC_URI =3D &quot;file://${SRC_DIR}&quot;<br><br>S =
+=3D &quot;${SRC_DIR}&quot;<br><br>do_compile (){<br>=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 make prog<br>}<br><br>do_install(){<br>=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 install -d ${D}${bindir}<br>=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 install -m 0755 ${S}/hello=C2=A0 ${D}${bindir}<=
+br>}<br><br></div>in hello_2.7 folder i have two files hello.c and Makefile=
+ <br></div>vim hello.c<br>#include&lt;stdio.h&gt;<br>int main()<br>{<br>=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printf(&quot;hello YOCTO POKY\n&quo=
+t;);<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;<br>}<br><br></=
+div>Vim Makefile<br>prog:<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gcc=
+ -o hello hello.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 <br><br></div>Now when i am building &quo=
+t;bitbake hello&quot;, I am=C2=A0 getting below error in poky-krogoth-15.0.=
+2. <br></div>The same <a href=3D"http://hello_2.7.bb">hello_2.7.bb</a>=C2=
+=A0 is compiling fine without any error in &quot;poky-dora-10.0.0&quot;.<br=
+></div>The strange thing i observe in poky-krogoth-15.0.2. is that hello.c =
+and Makefile are getting erased in hello_2.7 dir.<br></div>Am i missing som=
+e thing in poky-krogoth-15.0.2? Please help.<br><div><div><div><div><br>Err=
+or msg:<br>ERROR: hello-2.7-r0 do_compile: Function failed: do_compile (log=
+ file is located at /home/rajesh/poky-krogoth-15.0.2/build/tmp/work/cortexa=
+8hf-neon-poky-linux-gnueabi/hello/2.7-r0/temp/log.do_compile.13763)<br>ERRO=
+R: Logfile of failure stored in: /home/rajesh/poky-krogoth-15.0.2/build/tmp=
+/work/cortexa8hf-neon-poky-linux-gnueabi/hello/2.7-r0/temp/log.do_compile.1=
+3763<br>Log data follows:<br>| DEBUG: Executing shell function do_compile<b=
+r>| <span style=3D"background-color:rgb(255,0,0)">make: *** No rule to make=
+ target &#39;prog&#39;.=C2=A0 Stop</span>.<br>| WARNING: exit code 2 from a=
+ shell command.<br>| ERROR: Function failed: do_compile (log file is locate=
+d at /home/rajesh/poky-krogoth-15.0.2/build/tmp/work/cortexa8hf-neon-poky-l=
+inux-gnueabi/hello/2.7-r0/temp/log.do_compile.13763)<br>ERROR: Task 6 (/hom=
+e/rajesh/poky-krogoth-15.0.2/meta/recipes-support/hello/<a href=3D"http://h=
+ello_2.7.bb">hello_2.7.bb</a>, do_compile) failed with exit code &#39;1&#39=
+;<br>NOTE: Tasks Summary: Attempted 351 tasks of which 345 didn&#39;t need =
+to be rerun and 1 failed.<br>No currently running tasks (351 of 358)<br><br=
+>Summary: 1 task failed:<br>=C2=A0 /home/rajesh/poky-krogoth-15.0.2/meta/re=
+cipes-support/hello/<a href=3D"http://hello_2.7.bb">hello_2.7.bb</a>, do_co=
+mpile<br></div></div></div></div></div>
+
+--001a1146b334966ed90544023a4e--
