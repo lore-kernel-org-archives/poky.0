@@ -1,34 +1,63 @@
-Return-Path: <ed.bartosh@linux.intel.com>
+Return-Path: <cswarth@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D7E98E010E4; Thu, 22 Dec 2016 13:15:22 -0800 (PST)
+	id D3665E00BAD; Thu, 22 Dec 2016 19:54:56 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [134.134.136.31 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, 
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (cswarth[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 86947E01078
-	for <poky@yoctoproject.org>; Thu, 22 Dec 2016 13:15:20 -0800 (PST)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-	by orsmga104.jf.intel.com with ESMTP; 22 Dec 2016 13:15:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.33,390,1477983600"; d="scan'208";a="45598024"
-Received: from linux.intel.com ([10.54.29.200])
-	by orsmga005.jf.intel.com with ESMTP; 22 Dec 2016 13:15:20 -0800
-Received: from vmed.fi.intel.com (vmed.fi.intel.com [10.237.72.38])
-	by linux.intel.com (Postfix) with ESMTP id 9508F6A4080;
-	Thu, 22 Dec 2016 13:14:30 -0800 (PST)
-From: Ed Bartosh <ed.bartosh@linux.intel.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.161.175 listed in dnsbl.sorbs.net]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.161.175 listed in list.dnswl.org]
+Received: from mail-yw0-f175.google.com (mail-yw0-f175.google.com
+	[209.85.161.175])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 443F3E00A48
+	for <poky@yoctoproject.org>; Thu, 22 Dec 2016 19:54:53 -0800 (PST)
+Received: by mail-yw0-f175.google.com with SMTP id v81so22391771ywb.2
+	for <poky@yoctoproject.org>; Thu, 22 Dec 2016 19:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=lGlZtgzVcsfwsICsAU+jBNuKqvByF9E4/Myg4DUv5zk=;
+	b=Nmsy2JIiMju1LSYrdh72giFrOBeG4F92FK6sZYfiFl9WbgPw4e8dAwSfp0LUbKaTH1
+	R1nngpkoZ5+GyrUBkL5TX3Tt4OfsNi0UNqxG2/O+9YEpYkt1wlwlbRD0dHgDsMdIhk1y
+	/L84HnWuJvsaiZBnskVSaasBgWjM3sM9m883YQDqs3m266XAN6pAqQEPbfTJKkTLuNOE
+	ta8dbNVfUNY5G+hW7KnZGUKWFJI3Q1jp947jza5NSu64kC2QK6NBsMv84v21C99eATjW
+	5gx2BZXeYBm5W67uvMSffwWXeRIynEQszUXW24kln+Tg3gVN4qm6f2gKNiJQRVgJoFFP
+	iiSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=lGlZtgzVcsfwsICsAU+jBNuKqvByF9E4/Myg4DUv5zk=;
+	b=oVvd10zG2r4KplzHdM4S6u4075AAxTKb6VhSqxc6oCKNgx53bXmM2jWEOawYirMHQ2
+	HPQGde3Iersd7H2+js++W9F/U7ZnA4Yp0LYmtK6hTzfgh5VC2OVnOWu+ta+TSm+hPW8x
+	r8jSRrE9BIuVyFq+njyUedjA6xn8zqdIPgS/F/gyOWDZYUhV8QSEwl9Ley1LCvislq2Y
+	aCWrOaPXnzC4W+XTJGnSGO5TyWiXlGHDK7BcLdIzt5NaF9ido4eVinjBgfyGk/6eXMTS
+	Hc0o7JFC3KwFQpM19YKy2K9+4SlrA2LciFN2TDHXpHpanfOHC26G4NCAWgDecUox51vU
+	jarQ==
+X-Gm-Message-State: AIkVDXKU4Tv7kbPrrIwllt/3zaudwd8qHqa8l5ayG9tpTViW9eGm+OHiey/KkFW2uJy5Pqq78IbeTeC+RJqVpQ==
+X-Received: by 10.129.157.211 with SMTP id u202mr9979406ywg.178.1482465292346; 
+	Thu, 22 Dec 2016 19:54:52 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.129.164.146 with HTTP; Thu, 22 Dec 2016 19:54:12 -0800 (PST)
+From: chris warth <cswarth@gmail.com>
+Date: Thu, 22 Dec 2016 19:54:12 -0800
+Message-ID: <CAJJmP9BmnASEECbK=6v-mCTTHxadYRqKcb68wPCWoOQ8KqXAuQ@mail.gmail.com>
 To: poky@yoctoproject.org
-Date: Thu, 22 Dec 2016 23:14:57 +0200
-Message-Id: <1482441297-14120-1-git-send-email-ed.bartosh@linux.intel.com>
-X-Mailer: git-send-email 2.1.4
-Subject: [PATCH] beaglebone: add beaglebone.wks
+Subject: Getting verbose output from u-boot builds
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,51 +70,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Dec 2016 21:15:22 -0000
+X-List-Received-Date: Fri, 23 Dec 2016 03:54:57 -0000
+Content-Type: multipart/alternative; boundary=94eb2c0bda2c24713605444b59d4
 
-Currently beaglebone machine uses sdimage-bootpart.wks from
-scripts/lib/wic/canned-wks. It'd be easier to find this file
-if it's name contains machine name and it's located in the same
-layer.
+--94eb2c0bda2c24713605444b59d4
+Content-Type: text/plain; charset=UTF-8
 
-Added beaglebone.wks to meta-yocto-bsp/wic/ to make it independent
-on changes in oe-core and easier to maintain.
+I apologize if this is not the appropriate forum - I'm still a little vague
+on where the dividing lines are between yocto/poky/bitbake projects.
 
-[YOCTO #8719]
+`bitbake -v` gives verbose output, but the u-boot portion of a yocto build
+still hides the commands it is running.
+To make the u-boot build verbose one must pass 'V=1' on the u-boot make
+command line.
 
-Signed-off-by: Ed Bartosh <ed.bartosh@linux.intel.com>
----
- meta-yocto-bsp/conf/machine/beaglebone.conf | 2 +-
- meta-yocto-bsp/wic/beaglebone.wks           | 6 ++++++
- 2 files changed, 7 insertions(+), 1 deletion(-)
- create mode 100644 meta-yocto-bsp/wic/beaglebone.wks
+Is there any way to get a top-level bitbake command to produce verbose
+output for the u-boot portion of the build?
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index 24a95b4..9286d1b 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -16,7 +16,7 @@ include conf/machine/include/tune-cortexa8.inc
- 
- IMAGE_FSTYPES += "tar.bz2 jffs2 wic wic.bmap"
- EXTRA_IMAGECMD_jffs2 = "-lnp "
--WKS_FILE = "sdimage-bootpart.wks"
-+WKS_FILE ?= "beaglebone.wks"
- IMAGE_INSTALL_append = " kernel-devicetree kernel-image-zimage"
- do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
- 
-diff --git a/meta-yocto-bsp/wic/beaglebone.wks b/meta-yocto-bsp/wic/beaglebone.wks
-new file mode 100644
-index 0000000..0c09a95
---- /dev/null
-+++ b/meta-yocto-bsp/wic/beaglebone.wks
-@@ -0,0 +1,6 @@
-+# short-description: Create SD card image for Beaglebone
-+# long-description: Creates a partitioned SD card image for Beaglebone.
-+# Boot files are located in the first vfat partition.
-+
-+part /boot --source bootimg-partition --ondisk mmcblk --fstype=vfat --label boot --active --align 4 --size 16
-+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label root --align 4
--- 
-2.1.4
+Thanks in advance,
 
+- Chris
 
+--94eb2c0bda2c24713605444b59d4
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I apologize if this is not the appropriate forum - I&#39;m=
+ still a little vague on where the dividing lines are between yocto/poky/bi=
+tbake projects.<div><br></div><div>`bitbake -v` gives verbose output, but t=
+he u-boot portion of a yocto build still hides the commands it is running. =
+=C2=A0</div><div>To make the u-boot build verbose one must pass &#39;V=3D1&=
+#39; on the u-boot make command line.</div><div><br></div><div>Is there any=
+ way to get a top-level bitbake command to produce verbose output for the u=
+-boot portion of the build?</div><div><br></div><div>Thanks in advance,</di=
+v><div><br></div><div>- Chris</div></div>
+
+--94eb2c0bda2c24713605444b59d4--
