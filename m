@@ -1,62 +1,65 @@
-Return-Path: <praveen.vatt@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B1416E007A7; Sun,  8 Jan 2017 23:27:08 -0800 (PST)
+	id 92F69E00782; Mon,  9 Jan 2017 02:31:14 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE, 
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (praveen.vatt[at]gmail.com)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
+	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [209.85.216.178 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.216.178 listed in dnsbl.sorbs.net]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [74.125.82.51 listed in list.dnswl.org]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [74.125.82.51 listed in dnsbl.sorbs.net]
-Received: from mail-wm0-f51.google.com (mail-wm0-f51.google.com [74.125.82.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 17030E0050B
-	for <poky@yoctoproject.org>; Sun,  8 Jan 2017 23:27:05 -0800 (PST)
-Received: by mail-wm0-f51.google.com with SMTP id c85so88869062wmi.1
-	for <poky@yoctoproject.org>; Sun, 08 Jan 2017 23:27:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=TjlNSvR8NGgvzjvjESL+1Gnsv4Xo8U4+gKClBOfAfxM=;
-	b=LNGr/VhCIjFzCcNUva0qHPD7Y7/Ezzblrgmnt0K6i/X0j6/vvDbYs4fcZK4c0jlYlw
-	Spl2djFlQuPYqgxCAkK/0pWQcZhbA3DBV+7bU3PJWaONYzTQp3nqDrT82zaszCx5uTrN
-	H3EC/T8eV123kwdhCCPto39oWVMxIr/VEQkhb+Oqn3owIMv9naBg1F1K9pw9Ivv3BqmV
-	rp1i/YP2egfW/0Gk58DImKE1KO6p/TdnoFq4HCAcXfQEf05xy/XWOpumQDT0GNGR+nO1
-	KhSosX7GnlLwzrL+IXimSvxZu2YJWujcGx+OWETABIPMUzmnMROsVuOtdypGlTardBYw
-	meIg==
+Received: from mail-qt0-f178.google.com (mail-qt0-f178.google.com
+	[209.85.216.178])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CDF13E0050B
+	for <poky@yoctoproject.org>; Mon,  9 Jan 2017 02:31:13 -0800 (PST)
+Received: by mail-qt0-f178.google.com with SMTP id x49so65602139qtc.2
+	for <poky@yoctoproject.org>; Mon, 09 Jan 2017 02:31:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=blgdFWjPDyGetP53NOIrgFu3yuLQthWEy/wRgnynPTA=;
+	b=Wk9cow5+wCa8g5Sz7nEtLiykE0Jwu99P2nhOGIXtJC2ApVVpWFwKZyTSwYobTWRNE4
+	In+eDB+i3lFxVanLvCx10dRpodQWrotSE0Bp5VbGWM8QjEmViLLubROcSLzCDKLnsGzC
+	m0fGNwDggD1sYRcvg2JhPUrog48kjIsfL3R77DPZ17f6BofCZt+rZaLfka3g5mS4aLsx
+	arbkc1+ZyIesViUtVDdoOALD32wA1eZ1ymkTXBvUWghJJJ5y/M0BCc0JoubaNxbvGm29
+	SI9lwP6eVytJ4f900fHWgx6cKEXTDa+0aMBYOIvRsbNlSdfpUv3blDfKVy1Ksf5Hu3zm
+	xPXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=TjlNSvR8NGgvzjvjESL+1Gnsv4Xo8U4+gKClBOfAfxM=;
-	b=AuVZ6l7N1QR4ItguyqdTaLiik2mQ5M9XfOOqxVlNiwWa2bX2u+k1Y1RFYpxgonBR0t
-	fL+S3/P7XpgohM+Li1x0Gu0zh06U8bwgkoVLp8c+Pc+GtARA4ltETiEULXQ6gGPEaWc7
-	dIOodnLYAi4W9YSjT3NHf+4fzyZoN20gHgxOroxZqTW8s9M39Cte/wWW5xqQDS18RkMt
-	Pptqsqz2qCHaO68rA1YXMQFeJhLnnk3kCalmjOI1EMnz+I4rlC4pfjgHf7IsF51WvqTJ
-	O4AhQ36ejn1SvU/qoRArpjoc/UpRlyfvqEJL3/84WLk/q/NF6dJYbfBrQBQoMC87m5hy
-	xcdw==
-X-Gm-Message-State: AIkVDXKyByWH/xQJ1J9UngaGdfnQkxFYwmKyNtpz86KpgDwfNWv/2H46Fp8lylalm00sbLvwuhyCus1lILQe2g==
-X-Received: by 10.223.171.65 with SMTP id r1mr12548114wrc.123.1483946824300;
-	Sun, 08 Jan 2017 23:27:04 -0800 (PST)
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=blgdFWjPDyGetP53NOIrgFu3yuLQthWEy/wRgnynPTA=;
+	b=FJ5zqWFRb9V/1bPL2SGA2Yodcfcqy7gSWZU4jjS7xMy8LDHPQxp+dB5CwlX2wabQX/
+	VeLyA+hbkXLo5jfaEuCI9EqvhFJfJpuGBqEI+SzBqJA0zSZNR/37mb7vSaZFu47ZpP6I
+	vzfxarAzox5SgrzcSYnKgOaZ3cqZ4xN1zvFPIubCiSwnDaQ7DI2E0R85kmVnbLaiRWcF
+	IYaPuiYfa4mjIPMo5xFCtvyya3qG/z9ZPS2EZ3DFwlAf27qCXv+yVcrC1kG2JozcZVUR
+	eUp70LM1v9FHN0fwlbzh0zn4xooCTUfSxngM8jdArlCgi7ytjz66i7aJnh93EZ/oGzsL
+	Dg9w==
+X-Gm-Message-State: AIkVDXLADdYHjdJ+/S3iCRIigaUlFea/WibgdfdSwi3o4XjXThlc1VdWgyVcV+mB7IdvZej0NwDGezVb9BcivYRB
+X-Received: by 10.200.39.212 with SMTP id x20mr1010188qtx.109.1483957872691;
+	Mon, 09 Jan 2017 02:31:12 -0800 (PST)
 MIME-Version: 1.0
-Received: by 10.194.192.1 with HTTP; Sun, 8 Jan 2017 23:27:03 -0800 (PST)
-From: praveen vattipalli <praveen.vatt@gmail.com>
-Date: Mon, 9 Jan 2017 12:57:03 +0530
-Message-ID: <CA+pXca3WE=848ZU1kX-+2DZR1aWU+Z1yBfg_bYGmhYEwAL2vYw@mail.gmail.com>
-To: poky@yoctoproject.org
-Subject: error while compiling Altera kernel
+Received: by 10.140.106.99 with HTTP; Mon, 9 Jan 2017 02:30:52 -0800 (PST)
+In-Reply-To: <20170108200513.GA11382@linux.intel.com>
+References: <1482441297-14120-1-git-send-email-ed.bartosh@linux.intel.com>
+	<CAJTo0LaR_uQkS8xP8a7KnxwiLH95F7TH9SkLq7v=tMQjR5JebQ@mail.gmail.com>
+	<20170108200513.GA11382@linux.intel.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Mon, 9 Jan 2017 10:30:52 +0000
+Message-ID: <CAJTo0LZhHEPUpW-oow8cQjppJhFRhoDeMicOxOc3WxCnqnBe9Q@mail.gmail.com>
+To: Ed Bartosh <ed.bartosh@linux.intel.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH] beaglebone: add beaglebone.wks
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,64 +72,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 09 Jan 2017 07:27:08 -0000
-Content-Type: multipart/alternative; boundary=94eb2c1cc15c53fa8f0545a44b8d
+X-List-Received-Date: Mon, 09 Jan 2017 10:31:14 -0000
+Content-Type: multipart/alternative; boundary=001a1135b542dd24e20545a6ddf8
 
---94eb2c1cc15c53fa8f0545a44b8d
+--001a1135b542dd24e20545a6ddf8
 Content-Type: text/plain; charset=UTF-8
 
-Hi,
-I am upgrading Yocto version from daisy to krogoth. In this process when
-building kernel, i am getting below error
+On 8 January 2017 at 20:05, Ed Bartosh <ed.bartosh@linux.intel.com> wrote:
 
-ERROR: linux-altera-ltsi-3.10-r1 do_deploy: Taskhash mismatch
-c4875fc746f382558fe137fc1188dfe7
-verses 1c5cadda9369cc54cb44d732ed6004e8 for
-/home/rajesh/k2_poky-krogoth/k2/source/platform/build/../meta-altera/recipes-kernel/linux/linux-altera-ltsi_3.10.bb.do_deploy
-ERROR: Taskhash mismatch c4875fc746f382558fe137fc1188dfe7 verses
-1c5cadda9369cc54cb44d732ed6004e8 for
-/home/rajesh/k2_poky-krogoth/k2/source/platform/build/../meta-altera/recipes-kernel/linux/linux-altera-ltsi_3.10.bb.do_deploy
+> This patch depends on oe-core
+> patch:http://lists.openembedded.org/pipermail/openembedded-core/2016-
+> December/130585.html
+>
+> please merge it after oe-core patch is merged.
+>
 
-In linux-altera.inc file i have below lines
-
-do_deploy_dtb() {
-
-DTB_NAME="${DTB_FILE}-${DATETIME}.dtb"
-
-}
-
-do_deploy_dtb[vardepsexclude] = "DATETIME"
-
-If i commet do_deploy_dtb[vardepsexclude] = "DATETIME" also iam facing same
-error.
-
-Any suggestions...
-
-Thanks in Advance.
+I knew that, and checked that it was merged, but not it appears that it
+wasn't.  Christmas brain?
 
 Thanks,
-Praveen
+Ross
 
---94eb2c1cc15c53fa8f0545a44b8d
+--001a1135b542dd24e20545a6ddf8
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><div><div><div><div><div><div>Hi,<br></div>I am upgra=
-ding Yocto version from daisy to krogoth. In this process when building ker=
-nel, i am getting below error<br><br>ERROR: linux-altera-ltsi-3.10-r1 do_de=
-ploy: <span style=3D"color:rgb(255,0,0)">Taskhash mismatch </span>c4875fc74=
-6f382558fe137fc1188dfe7 verses 1c5cadda9369cc54cb44d732ed6004e8 for /home/r=
-ajesh/k2_poky-krogoth/k2/source/platform/build/../meta-altera/recipes-kerne=
-l/linux/linux-altera-ltsi_3.10.bb.do_deploy<br>ERROR: Taskhash mismatch c48=
-75fc746f382558fe137fc1188dfe7 verses 1c5cadda9369cc54cb44d732ed6004e8 for /=
-home/rajesh/k2_poky-krogoth/k2/source/platform/build/../meta-altera/recipes=
--kernel/linux/linux-altera-ltsi_3.10.bb.do_deploy<br><br></div>In linux-alt=
-era.inc file i have below lines<br><br>do_deploy_dtb() {<br><br>DTB_NAME=3D=
-&quot;${DTB_FILE}-${DATETIME}.dtb&quot;<br><br>}<br><br>do_deploy_dtb[varde=
-psexclude] =3D &quot;DATETIME&quot;<br><br></div>If i commet do_deploy_dtb[=
-vardepsexclude] =3D &quot;DATETIME&quot; also iam facing same error.<br><br=
-></div>Any suggestions...<br><br></div>Thanks in Advance.<br><br></div>Than=
-ks,<br></div>Praveen<br><div><div><div><div><div><br><br></div></div></div>=
-</div></div></div>
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 8 January 2017 at 20:05, Ed Bartosh <span dir=3D"ltr">&lt;<a href=3D"mai=
+lto:ed.bartosh@linux.intel.com" target=3D"_blank">ed.bartosh@linux.intel.co=
+m</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">=
+This patch depends on oe-core<br>
+patch:<a href=3D"http://lists.openembedded.org/pipermail/openembedded-core/=
+2016-December/130585.html" rel=3D"noreferrer" target=3D"_blank">http://list=
+s.<wbr>openembedded.org/pipermail/<wbr>openembedded-core/2016-<wbr>December=
+/130585.html</a><br>
+<br>
+please merge it after oe-core patch is merged.<br></span></blockquote></div=
+><br>I knew that, and checked that it was merged, but not it appears that i=
+t wasn&#39;t.=C2=A0 Christmas brain?</div><div class=3D"gmail_extra"><br></=
+div><div class=3D"gmail_extra">Thanks,</div><div class=3D"gmail_extra">Ross=
+</div></div>
 
---94eb2c1cc15c53fa8f0545a44b8d--
+--001a1135b542dd24e20545a6ddf8--
