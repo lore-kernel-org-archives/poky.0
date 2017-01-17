@@ -1,33 +1,31 @@
-Return-Path: <joshua.g.lock@linux.intel.com>
+Return-Path: <benjamin.esquivel@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F3267E007B5; Mon, 16 Jan 2017 08:07:13 -0800 (PST)
+	id 199B1E00938; Tue, 17 Jan 2017 08:48:19 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.115 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 66604E0078F
-	for <poky@yoctoproject.org>; Mon, 16 Jan 2017 08:07:12 -0800 (PST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	16 Jan 2017 08:07:11 -0800
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7C30E00546
+	for <poky@yoctoproject.org>; Tue, 17 Jan 2017 08:48:18 -0800 (PST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by fmsmga101.fm.intel.com with ESMTP; 17 Jan 2017 08:48:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.33,239,1477983600"; d="scan'208";a="1083626568"
-Received: from jlock-mobl1.ger.corp.intel.com ([10.252.26.59])
-	by orsmga001.jf.intel.com with ESMTP; 16 Jan 2017 08:07:05 -0800
-From: Joshua Lock <joshua.g.lock@intel.com>
+X-IronPort-AV: E=Sophos;i="5.33,245,1477983600"; d="scan'208";a="1113991527"
+Received: from besquive-mobl2.zpn.intel.com ([10.219.5.38])
+	by fmsmga002.fm.intel.com with ESMTP; 17 Jan 2017 08:48:17 -0800
+From: Benjamin Esquivel <benjamin.esquivel@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 16 Jan 2017 16:06:54 +0000
-Message-Id: <20170116160654.25406-1-joshua.g.lock@intel.com>
+Date: Tue, 17 Jan 2017 10:48:19 -0600
+Message-Id: <20170117164819.7141-1-benjamin.esquivel@linux.intel.com>
 X-Mailer: git-send-email 2.9.3
-Cc: Joshua Lock <joshua.g.lock@intel.com>
-Subject: [PATCH] poky: Switch to post release name/version
+Subject: [PATCH] adding fedora-25 to the SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,27 +38,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Jan 2017 16:07:14 -0000
+X-List-Received-Date: Tue, 17 Jan 2017 16:48:19 -0000
 
-Signed-off-by: Joshua Lock <joshua.g.lock@intel.com>
+I have tested Fedora 25 enough times to add it to the tested distros
+list. Additionally, in Guadalajara's staging autobuilder has been
+tested for some time now so it is safe to put it in.
+
+Signed-off-by: Benjamin Esquivel <benjamin.esquivel@linux.intel.com>
 ---
- meta-poky/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index dc08bb8..91f143a 100644
+index dc08bb8..29ec612 100644
 --- a/meta-poky/conf/distro/poky.conf
 +++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "2.2"
--DISTRO_CODENAME = "morty"
-+DISTRO_VERSION = "2.2+snapshot-${DATE}"
-+DISTRO_CODENAME = "master"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
- 
+@@ -82,6 +82,7 @@ SANITY_TESTED_DISTROS ?= " \
+             fedora-22 \n \
+             fedora-23 \n \
+             fedora-24 \n \
++            fedora-25 \n \
+             centos-7 \n \
+             debian-8 \n \
+             opensuse-13.2 \n \
 -- 
 2.9.3
 
