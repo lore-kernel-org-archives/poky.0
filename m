@@ -1,47 +1,63 @@
-Return-Path: <f.suligoi@asem.it>
+Return-Path: <jonathan.richardson@broadcom.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 783DFE0078F; Thu, 19 Jan 2017 02:55:29 -0800 (PST)
+	id 23B54E00A39; Thu, 19 Jan 2017 13:42:45 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-Received: from smtp.asem.it (smtp.asem.it [151.1.184.197])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5EB7CE006EA
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 02:55:24 -0800 (PST)
-Received: from webmail.asem.it by asem.it (smtp.asem.it)
-	(SecurityGateway 4.0.1) with ESMTP id SG002511318.MSG 
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 11:55:22 +0100S
-Received: from ASAS044.asem.intra (172.16.16.44) by ASAS044.asem.intra
-	(172.16.16.44) with Microsoft SMTP Server (TLS) id 15.1.225.42;
-	Thu, 19 Jan 2017 11:55:22 +0100
-Received: from ASAS044.asem.intra ([::1]) by ASAS044.asem.intra ([::1]) with
-	mapi id 15.01.0225.041; Thu, 19 Jan 2017 11:55:22 +0100
-From: Flavio Suligoi <f.suligoi@asem.it>
-To: "Burton, Ross" <ross.burton@intel.com>
-Thread-Topic: [poky] connman 1.33 takes very long time to start
-Thread-Index: AQHSckHW4FqOGgnLpk6VCcM3zD7oIaE/oGie
-Date: Thu, 19 Jan 2017 10:55:22 +0000
-Message-ID: <0559277c9db34355bd9fbaa1991d03c0@asem.it>
-References: <2c4eb5acb08c4038878801c3143d070b@asem.it>,
-	<CAJTo0Lb6fxjas0roAmXwFosHtRb+jrLG85uzbc5yC1xF76i0xw@mail.gmail.com>
-In-Reply-To: <CAJTo0Lb6fxjas0roAmXwFosHtRb+jrLG85uzbc5yC1xF76i0xw@mail.gmail.com>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [172.16.17.96]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.192.182 listed in dnsbl.sorbs.net]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.192.182 listed in list.dnswl.org]
+Received: from mail-pf0-f182.google.com (mail-pf0-f182.google.com
+	[209.85.192.182])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D8641E00A37
+	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 13:42:41 -0800 (PST)
+Received: by mail-pf0-f182.google.com with SMTP id 189so16467220pfu.3
+	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 13:42:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
+	h=to:from:subject:message-id:date:user-agent:mime-version
+	:content-transfer-encoding;
+	bh=75ALyWtegonRGDpYHDjLUQ9EGzNKD5jlgR93iNU5xNM=;
+	b=JkSP54tZ2jFdekkKdhSZ/6sm8gm6Tm76sPfupET9R4c7fuwcvE5Umv3McV4zKsv/6P
+	+66Ytg6fg1tKJAKayDGMmdqjPeoo3mEDsCQpYr9TCn9QmmOsa3QConlZblVgHLUPeGLY
+	dx7fV8bgHRQEiAu9l+ypuR63zxZw30/yzyT50=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+	:mime-version:content-transfer-encoding;
+	bh=75ALyWtegonRGDpYHDjLUQ9EGzNKD5jlgR93iNU5xNM=;
+	b=d57gu0qFez/5Vcw4q4Qtzd5bNTbke03OICL03JjdcEFU2qO4PUAumuzDSAd7jUUu8N
+	bK3zNZWikSQbZ2w7zgtXSt9CAqWwrY/K7wQasr6pkxcYqRb0fTkHJ+Jbjh4A8rMYPcWn
+	kVYzRKJXNY+ucK5lEVJRJOGHJCDJ7oK+7Uut9eJDbmf6AxOc0D8x2gRK3hknFzsk+ZZ2
+	KwTMJRjG5x6wzmBsTpJSWXpdCezuzEHQG/NHTF8/Bq8Jv7+3Yl62RCx5OQz0aXgwaiCu
+	rqHk9xOdsmd2Lf//xU9D1L42PXvD1+xGHs313vx4XXEn6DkBt5MRS1/wgvSRveQQ1Zk7
+	35Rw==
+X-Gm-Message-State: AIkVDXJRlVQ9tcKA+Lzh9504GTrx0F76ip6YKCs10S0c9Giab+3olmPczZH8wZsNbfm9PFan
+X-Received: by 10.99.140.28 with SMTP id m28mr12578977pgd.174.1484862160861;
+	Thu, 19 Jan 2017 13:42:40 -0800 (PST)
+Received: from [10.0.2.15] ([192.19.224.250]) by smtp.gmail.com with ESMTPSA id
+	b67sm10991580pfj.81.2017.01.19.13.42.40 for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 19 Jan 2017 13:42:40 -0800 (PST)
+To: poky@yoctoproject.org
+From: Jonathan Richardson <jonathan.richardson@broadcom.com>
+Message-ID: <3e299d7b-6a39-e76f-0ba1-a495074d6031@broadcom.com>
+Date: Thu, 19 Jan 2017 13:40:40 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.5.1
 MIME-Version: 1.0
-X-SGHeloLookup-Result: hardfail smtp.helo=webmail.asem.it (does not match
-	172.16.16.44)
-X-SGSPF-Result: none (smtp.asem.it)
-X-SGOP-RefID: str=0001.0A0B0205.58809B1B.01D2, ss=1, re=0.000, recu=0.000,
-	reip=0.000, cl=1, cld=1, fgs=0 (_st=1 _vt=0 _iwf=0)
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: connman 1.33 takes very long time to start
+Subject: buildhistory with sstate cache
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,110 +70,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jan 2017 10:55:29 -0000
-Content-Language: it-IT
-Content-Type: multipart/alternative;
-	boundary="_000_0559277c9db34355bd9fbaa1991d03c0asemit_"
+X-List-Received-Date: Thu, 19 Jan 2017 21:42:45 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
---_000_0559277c9db34355bd9fbaa1991d03c0asemit_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Thank you Ross!
-
-Flavio
-
-________________________________
-Da: Burton, Ross <ross.burton@intel.com>
-Inviato: gioved=EC 19 gennaio 2017 11:49
-A: Flavio Suligoi
-Cc: poky@yoctoproject.org
-Oggetto: Re: [poky] connman 1.33 takes very long time to start
+I'm using buildhistory by inheriting buildhistory in local.conf so that I can generate SRCREV's for all our recipes that use AUTOREV pointing to git repos. If the sstate cache isn't used everything works as expected - running buildhistory-collect-srcrevs returns a list of SRCREV's for all the recipes using autorev. However, when using the sstate cache it rarely returns anything. This looks like a bug, has anyone else seen this?
 
 
-On 19 January 2017 at 10:01, Flavio Suligoi <f.suligoi@asem.it<mailto:f.sul=
-igoi@asem.it>> wrote:
 
-Using the previous "Krogoth" version, with "connman 1.31", the boot speed w=
-as always fast, so the problem is related to the new connman version.
 
-Unless you can demonstrate that running connman 1.31 on morty with everythi=
-ng else the same is also slow then this is unlikely: a change in kernel beh=
-aviour for random numbers is more likely.
-
-If you have low entropy then rng-tools is one solution, or persist the valu=
-e of /dev/urandom when shutting down to carry some entropy between boots (h=
-ttps://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/dr=
-ivers/char/random.c).
-
-Ross
-
---_000_0559277c9db34355bd9fbaa1991d03c0asemit_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:10pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Arial,Helvetica,sans-serif;">
-Thank you Ross!<br>
-<br>
-Flavio<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>Da:</b> Burton, Ross &lt;ross.=
-burton@intel.com&gt;<br>
-<b>Inviato:</b> gioved=EC 19 gennaio 2017 11:49<br>
-<b>A:</b> Flavio Suligoi<br>
-<b>Cc:</b> poky@yoctoproject.org<br>
-<b>Oggetto:</b> Re: [poky] connman 1.33 takes very long time to start</font=
->
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">
-<div class=3D"gmail_extra"><br>
-<div class=3D"gmail_quote">On 19 January 2017 at 10:01, Flavio Suligoi <spa=
-n dir=3D"ltr">
-&lt;<a href=3D"mailto:f.suligoi@asem.it" target=3D"_blank">f.suligoi@asem.i=
-t</a>&gt;</span> wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex; border=
--left-width:1px; border-left-color:rgb(204,204,204); border-left-style:soli=
-d; padding-left:1ex">
-<p>Using the previous &quot;Krogoth&quot; version, with &quot;connman 1.31&=
-quot;, the boot speed was always fast, so the problem is related to the new=
- connman version.</p>
-<p></p>
-</blockquote>
-</div>
-Unless you can demonstrate that running connman 1.31 on morty with everythi=
-ng else the same is also slow then this is unlikely: a change in kernel beh=
-aviour for random numbers is more likely.</div>
-<div class=3D"gmail_extra"><br>
-</div>
-<div class=3D"gmail_extra">If you have low entropy then rng-tools is one so=
-lution, or persist the value of /dev/urandom when shutting down to carry so=
-me entropy between boots (<a href=3D"https://git.kernel.org/cgit/linux/kern=
-el/git/stable/linux-stable.git/tree/drivers/char/random.c" title=3D"Ctrl&#4=
-3;Fai clic o tocca il collegamento per aprirlo">https://git.kernel.org/cgit=
-/linux/kernel/git/stable/linux-stable.git/tree/drivers/char/random.c</a>).<=
-/div>
-<div class=3D"gmail_extra"><br>
-</div>
-<div class=3D"gmail_extra">Ross</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_0559277c9db34355bd9fbaa1991d03c0asemit_--
