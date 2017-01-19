@@ -1,45 +1,63 @@
-Return-Path: <f.suligoi@asem.it>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E0347E009DA; Thu, 19 Jan 2017 02:06:41 -0800 (PST)
+	id 8913EE006EA; Thu, 19 Jan 2017 02:50:15 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0013]
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [209.85.216.171 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.216.171 listed in dnsbl.sorbs.net]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 313 seconds by postgrey-1.32 at yocto-www;
-	Thu, 19 Jan 2017 02:06:37 PST
-Received: from smtp.asem.it (smtp.asem.it [151.1.184.197])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25419E009DA
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 02:06:36 -0800 (PST)
-Received: from webmail.asem.it by asem.it (smtp.asem.it)
-	(SecurityGateway 4.0.1) with ESMTP id SG002511124.MSG 
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 11:01:21 +0100S
-Received: from ASAS044.asem.intra (172.16.16.44) by ASAS044.asem.intra
-	(172.16.16.44) with Microsoft SMTP Server (TLS) id 15.1.225.42;
-	Thu, 19 Jan 2017 11:01:19 +0100
-Received: from ASAS044.asem.intra ([::1]) by ASAS044.asem.intra ([::1]) with
-	mapi id 15.01.0225.041; Thu, 19 Jan 2017 11:01:19 +0100
-From: Flavio Suligoi <f.suligoi@asem.it>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: connman 1.33  takes very long time to start
-Thread-Index: AQHScjjGCkdLrkvzoUC17HhsnD7BGA==
-Date: Thu, 19 Jan 2017 10:01:19 +0000
-Message-ID: <2c4eb5acb08c4038878801c3143d070b@asem.it>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [172.16.17.96]
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-qt0-f171.google.com (mail-qt0-f171.google.com
+	[209.85.216.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E2CF1E00546
+	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 02:50:14 -0800 (PST)
+Received: by mail-qt0-f171.google.com with SMTP id k15so61692876qtg.3
+	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 02:50:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=ZBXIi1fCbRysGUor7G2SlbUX0qgT72nUL/GLh4dCPUA=;
+	b=b3Z3xpCHKuUHGgLiVhyMlU7LzW3f1jmRwethlrUGFEmClgKPkfp0dKzQR/ForZ9GYd
+	hjPhHTgGqjyK/QTEJTdSrW14huhJ1qNs+m28NYo48s7Q56Bmsu/8OaSpTDVISoHRKgk+
+	W5M2M55wD+vNefnhl1Vyqd+Q2+1uv4KPqPp13tSXch22/hpaIzAPbYMt/Rbv2HVZtgWb
+	4syJ8CuhnAg5raJR4SUhGGDoDJtumaCN7r4jnCVwmFj0cHaEdxad7r99YO8y32Qv6x8U
+	8FooT6fT28aypJTAichANuyDi+K2UXNg1ByrTW92Qt88eyQyf8YQsbicSINneIu/ahpS
+	jgaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=ZBXIi1fCbRysGUor7G2SlbUX0qgT72nUL/GLh4dCPUA=;
+	b=qd0lBq9Q48X0f8QTx/mFDHbkwtTq3gNA0d3R+Q2BD8YaHXK6oj5fhihOy2kpRvZs9t
+	PZeDCktAmgF12bGZsHOmOUjqr+geiN3OTRgYQWFDmBU5wYCz1zu6civ+NalWyPmfx5XA
+	ePwnS9rBN3PKlVyvQjC/nNn0dRZ905kOg0vlbPB/SMqMAo4lVvlJKXCjp2Kch3Qz/yW7
+	1RYyue0qljQtLOqEwdJo9/gnRySamRYD+zY+cb8PNyFaYv833MoVschMlFXF3/ZtdJC7
+	l7M2GLONmDpLHzqkDkBbvIuHm4ml92P0yh6N9QLzHw1lKyoRCv04YAo0x3PuAmyH6tyy
+	0ehQ==
+X-Gm-Message-State: AIkVDXIn+LWmL/CzOs12yItsnFz0oiSNX/1zpR2kyD+9z3xDetdSDHFwJyYxqev3SQ4CfnOj7WHFKB9QOo3YwD3l
+X-Received: by 10.55.47.4 with SMTP id v4mr7221383qkh.77.1484823013909; Thu,
+	19 Jan 2017 02:50:13 -0800 (PST)
 MIME-Version: 1.0
-X-SGHeloLookup-Result: hardfail smtp.helo=webmail.asem.it (does not match
-	172.16.16.44)
-X-SGSPF-Result: none (smtp.asem.it)
-X-SGOP-RefID: str=0001.0A0B0207.58808E70.03BC, ss=1, re=0.000, recu=0.000,
-	reip=0.000, cl=1, cld=1, fgs=0 (_st=1 _vt=0 _iwf=0)
-Subject: connman 1.33 takes very long time to start
+Received: by 10.140.103.233 with HTTP; Thu, 19 Jan 2017 02:49:53 -0800 (PST)
+In-Reply-To: <2c4eb5acb08c4038878801c3143d070b@asem.it>
+References: <2c4eb5acb08c4038878801c3143d070b@asem.it>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 19 Jan 2017 10:49:53 +0000
+Message-ID: <CAJTo0Lb6fxjas0roAmXwFosHtRb+jrLG85uzbc5yC1xF76i0xw@mail.gmail.com>
+To: Flavio Suligoi <f.suligoi@asem.it>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: connman 1.33 takes very long time to start
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -52,111 +70,50 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jan 2017 10:06:41 -0000
-Content-Language: it-IT
-Content-Type: multipart/alternative;
-	boundary="_000_2c4eb5acb08c4038878801c3143d070basemit_"
+X-List-Received-Date: Thu, 19 Jan 2017 10:50:15 -0000
+Content-Type: multipart/alternative; boundary=001a114f41084c7d520546704cc9
 
---_000_2c4eb5acb08c4038878801c3143d070basemit_
-Content-Type: text/plain; charset="iso-8859-1"
+--001a114f41084c7d520546704cc9
+Content-Type: text/plain; charset=UTF-8
+
+On 19 January 2017 at 10:01, Flavio Suligoi <f.suligoi@asem.it> wrote:
+
+> Using the previous "Krogoth" version, with "connman 1.31", the boot speed
+> was always fast, so the problem is related to the new connman version.
+>
+> Unless you can demonstrate that running connman 1.31 on morty with
+everything else the same is also slow then this is unlikely: a change in
+kernel behaviour for random numbers is more likely.
+
+If you have low entropy then rng-tools is one solution, or persist the
+value of /dev/urandom when shutting down to carry some entropy between
+boots (
+https://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/drivers/char/random.c
+).
+
+Ross
+
+--001a114f41084c7d520546704cc9
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On 19 January 2017 at 10:01, Flavio Suligoi <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:f.suligoi@asem.it" target=3D"_blank">f.suligoi@asem.it</a>&gt;</=
+span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left-width:1px;border-left-color:rgb(204,204,204);border-le=
+ft-style:solid;padding-left:1ex"><p>Using the previous &quot;Krogoth&quot; =
+version, with &quot;connman 1.31&quot;, the boot speed was always fast, so =
+the problem is related to the new connman version.</p>
+<p></p></blockquote></div>Unless you can demonstrate that running connman 1=
+.31 on morty with everything else the same is also slow then this is unlike=
+ly: a change in kernel behaviour for random numbers is more likely.</div><d=
+iv class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">If you have l=
+ow entropy then rng-tools is one solution, or persist the value of /dev/ura=
+ndom when shutting down to carry some entropy between boots (<a href=3D"htt=
+ps://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/driv=
+ers/char/random.c">https://git.kernel.org/cgit/linux/kernel/git/stable/linu=
+x-stable.git/tree/drivers/char/random.c</a>).</div><div class=3D"gmail_extr=
+a"><br></div><div class=3D"gmail_extra">Ross</div></div>
 
-
-I'm using Yocto "Morty" for my custom i.MX6 DualLite embedded system board,=
- with the Freescale kernel 4.1.35.
-
-
-
-The new "connman 1.33" takes a lot of time to start; sometime it hangs for =
-120 seconds and more
-
-The cause is the poor entropy of my kernel:
-
-
-[    4.659894] random: udevd urandom read with 12 bits of entropy available
-
-
-If, for test, I connect an USB keyboard and, during the boot, press the key=
-s quickly, the entropy level goes to 45 bits or more and the boot speed is =
-normal.
-
-
-Using the previous "Krogoth" version, with "connman 1.31", the boot speed w=
-as always fast, so the problem is related to the new connman version.
-
-
-As workaround for this problem, now I use the "rng-tools", starting the "rn=
-gd" daemon before starting the "connmand" daemon .
-
-
-Do you have any idea to solve this problem or other suggestions?
-
-
-Thanks,
-
-
-Flavio
-
-
---_000_2c4eb5acb08c4038878801c3143d070basemit_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:10pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Arial,Helvetica,sans-serif;">
-<p>Hi all,</p>
-<p><br>
-</p>
-<p>I'm using Yocto &quot;Morty&quot; for my custom i.MX6 DualLite embedded =
-system&nbsp;board, with the Freescale kernel 4.1.35.</p>
-<p>&nbsp; <br>
-</p>
-<p>The new &quot;connman 1.33&quot; takes a lot of time to start; sometime =
-it hangs for 120 seconds and more</p>
-<p>The cause is the poor entropy of my kernel:</p>
-<p><br>
-</p>
-<p>[&nbsp;&nbsp;&nbsp; 4.659894] random: udevd urandom read with 12 bits of=
- entropy available</p>
-<p><br>
-</p>
-<p>If, for test, I connect an USB keyboard and, during the boot, press the =
-keys quickly, the entropy level goes to 45 bits or more and the boot speed =
-is normal.</p>
-<p><br>
-</p>
-<p>Using the previous &quot;Krogoth&quot; version, with &quot;connman 1.31&=
-quot;, the boot speed was always fast, so the problem is related to the new=
- connman version.</p>
-<p><br>
-</p>
-<p>As workaround for this problem, now I use the &quot;rng-tools&quot;, sta=
-rting the &quot;rngd&quot; daemon before starting the &quot;connmand&quot; =
-daemon .</p>
-<p><br>
-</p>
-<p>Do you have any idea to solve this problem or other suggestions?</p>
-<p><br>
-</p>
-<p>Thanks,</p>
-<p><br>
-</p>
-<p>Flavio<br>
-</p>
-<p><br>
-</p>
-</div>
-</body>
-</html>
-
---_000_2c4eb5acb08c4038878801c3143d070basemit_--
+--001a114f41084c7d520546704cc9--
