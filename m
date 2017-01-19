@@ -1,31 +1,45 @@
-Return-Path: <benjamin.esquivel@linux.intel.com>
+Return-Path: <f.suligoi@asem.it>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 199B1E00938; Tue, 17 Jan 2017 08:48:19 -0800 (PST)
+	id E0347E009DA; Thu, 19 Jan 2017 02:06:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
-	high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7C30E00546
-	for <poky@yoctoproject.org>; Tue, 17 Jan 2017 08:48:18 -0800 (PST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga101.fm.intel.com with ESMTP; 17 Jan 2017 08:48:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.33,245,1477983600"; d="scan'208";a="1113991527"
-Received: from besquive-mobl2.zpn.intel.com ([10.219.5.38])
-	by fmsmga002.fm.intel.com with ESMTP; 17 Jan 2017 08:48:17 -0800
-From: Benjamin Esquivel <benjamin.esquivel@linux.intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 17 Jan 2017 10:48:19 -0600
-Message-Id: <20170117164819.7141-1-benjamin.esquivel@linux.intel.com>
-X-Mailer: git-send-email 2.9.3
-Subject: [PATCH] adding fedora-25 to the SANITY_TESTED_DISTROS
+	*      [score: 0.0013]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 313 seconds by postgrey-1.32 at yocto-www;
+	Thu, 19 Jan 2017 02:06:37 PST
+Received: from smtp.asem.it (smtp.asem.it [151.1.184.197])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25419E009DA
+	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 02:06:36 -0800 (PST)
+Received: from webmail.asem.it by asem.it (smtp.asem.it)
+	(SecurityGateway 4.0.1) with ESMTP id SG002511124.MSG 
+	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 11:01:21 +0100S
+Received: from ASAS044.asem.intra (172.16.16.44) by ASAS044.asem.intra
+	(172.16.16.44) with Microsoft SMTP Server (TLS) id 15.1.225.42;
+	Thu, 19 Jan 2017 11:01:19 +0100
+Received: from ASAS044.asem.intra ([::1]) by ASAS044.asem.intra ([::1]) with
+	mapi id 15.01.0225.041; Thu, 19 Jan 2017 11:01:19 +0100
+From: Flavio Suligoi <f.suligoi@asem.it>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: connman 1.33  takes very long time to start
+Thread-Index: AQHScjjGCkdLrkvzoUC17HhsnD7BGA==
+Date: Thu, 19 Jan 2017 10:01:19 +0000
+Message-ID: <2c4eb5acb08c4038878801c3143d070b@asem.it>
+Accept-Language: it-IT, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [172.16.17.96]
+MIME-Version: 1.0
+X-SGHeloLookup-Result: hardfail smtp.helo=webmail.asem.it (does not match
+	172.16.16.44)
+X-SGSPF-Result: none (smtp.asem.it)
+X-SGOP-RefID: str=0001.0A0B0207.58808E70.03BC, ss=1, re=0.000, recu=0.000,
+	reip=0.000, cl=1, cld=1, fgs=0 (_st=1 _vt=0 _iwf=0)
+Subject: connman 1.33 takes very long time to start
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,30 +52,111 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 17 Jan 2017 16:48:19 -0000
+X-List-Received-Date: Thu, 19 Jan 2017 10:06:41 -0000
+Content-Language: it-IT
+Content-Type: multipart/alternative;
+	boundary="_000_2c4eb5acb08c4038878801c3143d070basemit_"
 
-I have tested Fedora 25 enough times to add it to the tested distros
-list. Additionally, in Guadalajara's staging autobuilder has been
-tested for some time now so it is safe to put it in.
+--_000_2c4eb5acb08c4038878801c3143d070basemit_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Benjamin Esquivel <benjamin.esquivel@linux.intel.com>
----
- meta-poky/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index dc08bb8..29ec612 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -82,6 +82,7 @@ SANITY_TESTED_DISTROS ?= " \
-             fedora-22 \n \
-             fedora-23 \n \
-             fedora-24 \n \
-+            fedora-25 \n \
-             centos-7 \n \
-             debian-8 \n \
-             opensuse-13.2 \n \
--- 
-2.9.3
+Hi all,
 
 
+I'm using Yocto "Morty" for my custom i.MX6 DualLite embedded system board,=
+ with the Freescale kernel 4.1.35.
+
+
+
+The new "connman 1.33" takes a lot of time to start; sometime it hangs for =
+120 seconds and more
+
+The cause is the poor entropy of my kernel:
+
+
+[    4.659894] random: udevd urandom read with 12 bits of entropy available
+
+
+If, for test, I connect an USB keyboard and, during the boot, press the key=
+s quickly, the entropy level goes to 45 bits or more and the boot speed is =
+normal.
+
+
+Using the previous "Krogoth" version, with "connman 1.31", the boot speed w=
+as always fast, so the problem is related to the new connman version.
+
+
+As workaround for this problem, now I use the "rng-tools", starting the "rn=
+gd" daemon before starting the "connmand" daemon .
+
+
+Do you have any idea to solve this problem or other suggestions?
+
+
+Thanks,
+
+
+Flavio
+
+
+--_000_2c4eb5acb08c4038878801c3143d070basemit_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:10pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Arial,Helvetica,sans-serif;">
+<p>Hi all,</p>
+<p><br>
+</p>
+<p>I'm using Yocto &quot;Morty&quot; for my custom i.MX6 DualLite embedded =
+system&nbsp;board, with the Freescale kernel 4.1.35.</p>
+<p>&nbsp; <br>
+</p>
+<p>The new &quot;connman 1.33&quot; takes a lot of time to start; sometime =
+it hangs for 120 seconds and more</p>
+<p>The cause is the poor entropy of my kernel:</p>
+<p><br>
+</p>
+<p>[&nbsp;&nbsp;&nbsp; 4.659894] random: udevd urandom read with 12 bits of=
+ entropy available</p>
+<p><br>
+</p>
+<p>If, for test, I connect an USB keyboard and, during the boot, press the =
+keys quickly, the entropy level goes to 45 bits or more and the boot speed =
+is normal.</p>
+<p><br>
+</p>
+<p>Using the previous &quot;Krogoth&quot; version, with &quot;connman 1.31&=
+quot;, the boot speed was always fast, so the problem is related to the new=
+ connman version.</p>
+<p><br>
+</p>
+<p>As workaround for this problem, now I use the &quot;rng-tools&quot;, sta=
+rting the &quot;rngd&quot; daemon before starting the &quot;connmand&quot; =
+daemon .</p>
+<p><br>
+</p>
+<p>Do you have any idea to solve this problem or other suggestions?</p>
+<p><br>
+</p>
+<p>Thanks,</p>
+<p><br>
+</p>
+<p>Flavio<br>
+</p>
+<p><br>
+</p>
+</div>
+</body>
+</html>
+
+--_000_2c4eb5acb08c4038878801c3143d070basemit_--
