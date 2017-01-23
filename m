@@ -1,63 +1,34 @@
-Return-Path: <jonathan.richardson@broadcom.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 23B54E00A39; Thu, 19 Jan 2017 13:42:45 -0800 (PST)
+	id 09A29E00405; Mon, 23 Jan 2017 15:00:59 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [192.55.52.120 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.192.182 listed in dnsbl.sorbs.net]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.192.182 listed in list.dnswl.org]
-Received: from mail-pf0-f182.google.com (mail-pf0-f182.google.com
-	[209.85.192.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D8641E00A37
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 13:42:41 -0800 (PST)
-Received: by mail-pf0-f182.google.com with SMTP id 189so16467220pfu.3
-	for <poky@yoctoproject.org>; Thu, 19 Jan 2017 13:42:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
-	h=to:from:subject:message-id:date:user-agent:mime-version
-	:content-transfer-encoding;
-	bh=75ALyWtegonRGDpYHDjLUQ9EGzNKD5jlgR93iNU5xNM=;
-	b=JkSP54tZ2jFdekkKdhSZ/6sm8gm6Tm76sPfupET9R4c7fuwcvE5Umv3McV4zKsv/6P
-	+66Ytg6fg1tKJAKayDGMmdqjPeoo3mEDsCQpYr9TCn9QmmOsa3QConlZblVgHLUPeGLY
-	dx7fV8bgHRQEiAu9l+ypuR63zxZw30/yzyT50=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:to:from:subject:message-id:date:user-agent
-	:mime-version:content-transfer-encoding;
-	bh=75ALyWtegonRGDpYHDjLUQ9EGzNKD5jlgR93iNU5xNM=;
-	b=d57gu0qFez/5Vcw4q4Qtzd5bNTbke03OICL03JjdcEFU2qO4PUAumuzDSAd7jUUu8N
-	bK3zNZWikSQbZ2w7zgtXSt9CAqWwrY/K7wQasr6pkxcYqRb0fTkHJ+Jbjh4A8rMYPcWn
-	kVYzRKJXNY+ucK5lEVJRJOGHJCDJ7oK+7Uut9eJDbmf6AxOc0D8x2gRK3hknFzsk+ZZ2
-	KwTMJRjG5x6wzmBsTpJSWXpdCezuzEHQG/NHTF8/Bq8Jv7+3Yl62RCx5OQz0aXgwaiCu
-	rqHk9xOdsmd2Lf//xU9D1L42PXvD1+xGHs313vx4XXEn6DkBt5MRS1/wgvSRveQQ1Zk7
-	35Rw==
-X-Gm-Message-State: AIkVDXJRlVQ9tcKA+Lzh9504GTrx0F76ip6YKCs10S0c9Giab+3olmPczZH8wZsNbfm9PFan
-X-Received: by 10.99.140.28 with SMTP id m28mr12578977pgd.174.1484862160861;
-	Thu, 19 Jan 2017 13:42:40 -0800 (PST)
-Received: from [10.0.2.15] ([192.19.224.250]) by smtp.gmail.com with ESMTPSA id
-	b67sm10991580pfj.81.2017.01.19.13.42.40 for <poky@yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 19 Jan 2017 13:42:40 -0800 (PST)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D81D5E003C1
+	for <poky@yoctoproject.org>; Mon, 23 Jan 2017 15:00:53 -0800 (PST)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+	by fmsmga104.fm.intel.com with ESMTP; 23 Jan 2017 15:00:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.33,275,1477983600"; d="scan'208";a="51716023"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by orsmga004.jf.intel.com with ESMTP; 23 Jan 2017 15:00:53 -0800
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-From: Jonathan Richardson <jonathan.richardson@broadcom.com>
-Message-ID: <3e299d7b-6a39-e76f-0ba1-a495074d6031@broadcom.com>
-Date: Thu, 19 Jan 2017 13:40:40 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.5.1
-MIME-Version: 1.0
-Subject: buildhistory with sstate cache
+Date: Mon, 23 Jan 2017 22:57:28 +0000
+Message-Id: <885b6ce8d2821fa9eec911b85e7ce1c513c8531a.1485212205.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.6.6
+In-Reply-To: <cover.1485212205.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1485212205.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 1/4] linux-yocto: Adds new bbappend for genericx86 and genericx86-64 BSPs to support kernel 4.9
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,14 +41,59 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Jan 2017 21:42:45 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 23 Jan 2017 23:00:59 -0000
 
-Hi,
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta-yocto-bsp/conf/machine/genericx86-64.conf             |  2 +-
+ meta-yocto-bsp/conf/machine/genericx86.conf                |  2 +-
+ .../recipes-kernel/linux/linux-yocto_4.9.bbappend          | 14 ++++++++++++++
+ 3 files changed, 16 insertions(+), 2 deletions(-)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
 
-I'm using buildhistory by inheriting buildhistory in local.conf so that I can generate SRCREV's for all our recipes that use AUTOREV pointing to git repos. If the sstate cache isn't used everything works as expected - running buildhistory-collect-srcrevs returns a list of SRCREV's for all the recipes using autorev. However, when using the sstate cache it rarely returns anything. This looks like a bug, has anyone else seen this?
-
-
+diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
+index d843fd2..a33b3e4 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
+@@ -7,6 +7,6 @@ DEFAULTTUNE ?= "core2-64"
+ require conf/machine/include/tune-core2.inc
+ require conf/machine/include/genericx86-common.inc
+ 
+-PREFERRED_VERSION_linux-yocto_genericx86-64 ?= "4.8%"
++PREFERRED_VERSION_linux-yocto_genericx86-64 ?= "4.9%"
+ 
+ SERIAL_CONSOLES_CHECK = "ttyS0"
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index 04a7e0b..a12f8ff 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -9,4 +9,4 @@ require conf/machine/include/genericx86-common.inc
+ 
+ MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += "gma500-gfx-check"
+ 
+-PREFERRED_VERSION_linux-yocto_genericx86 ?= "4.8%"
++PREFERRED_VERSION_linux-yocto_genericx86 ?= "4.9%"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+new file mode 100644
+index 0000000..4024bc1
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+@@ -0,0 +1,14 @@
++KBRANCH_genericx86  = "standard/base"
++KBRANCH_genericx86-64  = "standard/base"
++
++KMACHINE_genericx86 ?= "common-pc"
++KMACHINE_genericx86-64 ?= "common-pc-64"
++
++SRCREV_machine_genericx86    ?= "6fdf2bca12625c67b64f39e08b1b4ae7c610f8bd"
++SRCREV_machine_genericx86-64 ?= "6fdf2bca12625c67b64f39e08b1b4ae7c610f8bd"
++
++COMPATIBLE_MACHINE_genericx86 = "genericx86"
++COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++
++LINUX_VERSION_genericx86 = "4.9.4"
++LINUX_VERSION_genericx86-64 = "4.9.4"
+-- 
+2.6.6
 
 
