@@ -1,63 +1,68 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8C95FE00A6B; Wed, 25 Jan 2017 12:11:46 -0800 (PST)
+	id A88B1E008D7; Thu, 26 Jan 2017 17:36:04 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
-	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.216.178 listed in list.dnswl.org]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.216.178 listed in dnsbl.sorbs.net]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-qt0-f178.google.com (mail-qt0-f178.google.com
-	[209.85.216.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E6DCAE0088B
-	for <poky@yoctoproject.org>; Wed, 25 Jan 2017 12:11:45 -0800 (PST)
-Received: by mail-qt0-f178.google.com with SMTP id v23so36546459qtb.0
-	for <poky@yoctoproject.org>; Wed, 25 Jan 2017 12:11:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=8YlmW4H8ZyElYUQAV42DLUtNR/dWBDZBYwg8fJwhTW8=;
-	b=Dllyq0VtEfBL5HJe2iM6Hs81xCi++H87wyB5SsEHiqOf1MdEnA67BAYzbl5Hj53uRL
-	s+A4CXPyf1/RMbf98VjlvzGKgD4YIOLo5Ox3Eof15akui94sWXBWgNhSdOYPWFKpusTD
-	N1OzGieNtVp/IJHLZjDlQ5Jgk4beJeoWXDfHS5w8f17C0TQfsPXFvmulWWrEYti6tilq
-	31c6r3IJTfz7iKzewnSUhZZ2h06ql2OIWmfErEMbmXHchJWm7w4UrHcpdwHrCPnVzkBV
-	alRBgoD17XTqBA/zYq9tLbSjnU9qN5ymynMHRWYrgCGCq52Xm4YD7iaTLiDI0U1Tt8Zg
-	UccA==
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.83.68 listed in list.dnswl.org]
+Received: from mail-pg0-f68.google.com (mail-pg0-f68.google.com [74.125.83.68])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 79231E0082E
+	for <poky@yoctoproject.org>; Thu, 26 Jan 2017 17:36:01 -0800 (PST)
+Received: by mail-pg0-f68.google.com with SMTP id 204so23648210pge.2
+	for <poky@yoctoproject.org>; Thu, 26 Jan 2017 17:36:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:references:from:message-id:date:user-agent:mime-version
+	:in-reply-to; bh=l2Vq7EWH0pg91TEXiMgJGwY+NB89wySz2cvoyvWT0gw=;
+	b=XBFGwW2JJ1QJiwLIYOiScHnwzI6DlhtkH50GP6JbqUtdjATTe42fTK/8ZiYa8GICvj
+	s7Y492XhJEqs3VHawYMtoYtJTXQrxgVw3zkKWK3lYAWdBxgjkKnAPxZCRai1kBCem42U
+	M7fh8wGPuCPIngWsXgWLBiEFAy/J5b2Nl2cU17zKWO0wNcnGwsPa1tZItL50a3vYX77S
+	oY8MB92tAFBKME6a6bBDkFmvyEBAmzmTqEy8hcPsezX5Jgu0J/UKPjReKQCnlBsBjCg3
+	129y6rt1/MgBO5VD6SoRbEU5in3C70KZw7h81/UbiqxweAfrlLtuO6u2lzbx2Ej4Thf2
+	xZNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=8YlmW4H8ZyElYUQAV42DLUtNR/dWBDZBYwg8fJwhTW8=;
-	b=twN8AfRpWKbcnOHF+5/yEH5FiGhcGRPRdDQ713DTr+HJJ2tnUt8BycPGNjeNyGJzAU
-	F0OL5YYd6TAMiHfiDUQVJMOI4LaWXsumwZOYpXMtnChXp3Ap0ZgbMqmAHXTKrgLMX4Or
-	bKTX0ahj0AY7YDGdgov0lPDH3Mf14gxFYAXFE00UXfGVMALdMEDxWselAE8vfjeBSNHy
-	YB1C23o4OlN1ijUldyc6jcSpMl4rp1vwWGY8VD3aoxYJxR+6MiYd9NL/oU5dwJDL3gx9
-	/bd9qMeRXHch+zgPyVvfOZxywvg8weT18/SpQ8U0JWyxsgk4hh4tgQt68Qd/2wZa7Y9H
-	vapw==
-X-Gm-Message-State: AIkVDXJm+cDpkDoQAUp3j9rolI+fe9ihtw+s95QvIX1kB113DLrDv4i1kmciaWx3uNTdySa/kBfvhuDeP6/roGp5
-X-Received: by 10.55.31.24 with SMTP id f24mr34454011qkf.221.1485375104951;
-	Wed, 25 Jan 2017 12:11:44 -0800 (PST)
+	h=x-gm-message-state:subject:to:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to;
+	bh=l2Vq7EWH0pg91TEXiMgJGwY+NB89wySz2cvoyvWT0gw=;
+	b=IiZd1QF7A+LaI04sW/Ow2eQLiWVWrlTpARw/7eWikn7+6sKTOT+FGBQ1UFrD71/gqT
+	cH/m3D3Y0is2IyRXQk5eYoKypK1mQgosu/lw4B7B3b88oVYvullUNXbTYRm5PHUA9DNN
+	3BwCepTQeOz15YZ/uGDEgRz9sXZgZOhgynVkyyMJAChKTbCEptqOtC5owHYWxAkSFnl/
+	3Rp3Qd9NffURrOz2XHLmdaIDSpeSIBWuETmR1U+K69vg0uUTCQB5B+TVpF1IeAhk3frt
+	a4cPt40g2G4Rc78/VAN00Hzriz6TpffGo5immLRWYh3ztWVGZSGlA5N1dD7JZfDr9C9y
+	Gzhg==
+X-Gm-Message-State: AIkVDXLGt7rYr+yr/+dndmJZwJOwRbYQN374T2XZYEHFAxAtDWzvsfjM6AorkM/s+yR1cA==
+X-Received: by 10.99.47.199 with SMTP id v190mr6498184pgv.26.1485480960316;
+	Thu, 26 Jan 2017 17:36:00 -0800 (PST)
+Received: from CACSVMO-14452.local ([2601:646:8882:b8c:6524:a1c0:a396:fda9])
+	by smtp.gmail.com with ESMTPSA id
+	z77sm6174695pfk.47.2017.01.26.17.35.59 for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 26 Jan 2017 17:35:59 -0800 (PST)
+To: poky@yoctoproject.org
+References: <20170124130413.24928-1-joshua.g.lock@intel.com>
+	<20170124150400.GG22316@bill-the-cat>
+From: Khem Raj <raj.khem@gmail.com>
+Message-ID: <01cb82a0-b38a-f56f-cbf9-da212ba4c4a5@gmail.com>
+Date: Thu, 26 Jan 2017 17:35:54 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:45.0)
+	Gecko/20100101 Thunderbird/45.6.0
 MIME-Version: 1.0
-Received: by 10.140.103.233 with HTTP; Wed, 25 Jan 2017 12:11:24 -0800 (PST)
-In-Reply-To: <CAOV5e70KAEw1=nhZrHiwx6mSZh3Tk6udcpOziAdHrFb+5xYkyg@mail.gmail.com>
-References: <CAOV5e70KAEw1=nhZrHiwx6mSZh3Tk6udcpOziAdHrFb+5xYkyg@mail.gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 25 Jan 2017 20:11:24 +0000
-Message-ID: <CAJTo0LbMTCgtzn4sNgKKiWW+CeGdUzATcugGHEkCNAS-6=t==g@mail.gmail.com>
-To: Carl Schultz <carl.schultz2020@gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: Newbie Fetcher verification error
+In-Reply-To: <20170124150400.GG22316@bill-the-cat>
+Subject: Re: [PATCH] poky.conf: prune SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,64 +75,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Jan 2017 20:11:46 -0000
-Content-Type: multipart/alternative; boundary=001a1147e2ba7d40220546f0d798
+X-List-Received-Date: Fri, 27 Jan 2017 01:36:04 -0000
+X-Groupsio-MsgNum: 10779
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature";
+	boundary="mUnfqBh4EKw8XT3DVUplEF59dgVW7LP93"
 
---001a1147e2ba7d40220546f0d798
-Content-Type: text/plain; charset=UTF-8
+--mUnfqBh4EKw8XT3DVUplEF59dgVW7LP93
+Content-Type: multipart/mixed; boundary="RKaGxHf7Uwk6VQK4cNrQCgPBS2Fk3X2Ln";
+ protected-headers="v1"
+From: Khem Raj <raj.khem@gmail.com>
+To: poky@yoctoproject.org
+Message-ID: <01cb82a0-b38a-f56f-cbf9-da212ba4c4a5@gmail.com>
+Subject: Re: [poky] [PATCH] poky.conf: prune SANITY_TESTED_DISTROS
+References: <20170124130413.24928-1-joshua.g.lock@intel.com>
+ <20170124150400.GG22316@bill-the-cat>
+In-Reply-To: <20170124150400.GG22316@bill-the-cat>
 
-On 25 January 2017 at 17:53, Carl Schultz <carl.schultz2020@gmail.com>
-wrote:
-
-> Sorry if this is too basic, but, running into Fetcher verification failure
-> (www.example.com)
-> My Internet is functional (wget, ping, and importing page through python
-> all work).
->
-> ERROR:  OE-core's config sanity checker detected a potential
-> misconfiguration.
->     Either fix the cause of this error or at your own risk disable the
-> checker (see sanity.conf).
->     Following is the list of potential problems / advisories:
->
->     Fetcher failure for URL: 'https://www.example.com/'. URL
-> https://www.example.com/ doesn't work. Please ensure your network is
-> configured correctly.
->
-
-Try doing wget https://www.example.com/ in a terminal, as that's basically
-what the test is checking works.  If that breaks then fix that, if it works
-then you've presumably got proxies that need to be configured in your
-local.conf.
-
-Ross
-
---001a1147e2ba7d40220546f0d798
-Content-Type: text/html; charset=UTF-8
+--RKaGxHf7Uwk6VQK4cNrQCgPBS2Fk3X2Ln
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 25 January 2017 at 17:53, Carl Schultz <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:carl.schultz2020@gmail.com" target=3D"_blank">carl.schultz2020@gmail=
-.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>Sorry if =
-this is too basic, but, running into Fetcher verification failure (<a href=
-=3D"http://www.example.com" target=3D"_blank">www.example.com</a>)</div><di=
-v>My Internet is functional (wget, ping, and importing page through python =
-all work).=C2=A0</div><div><br></div><div><div>ERROR: =C2=A0OE-core&#39;s c=
-onfig sanity checker detected a potential misconfiguration.</div><div>=C2=
-=A0 =C2=A0 Either fix the cause of this error or at your own risk disable t=
-he checker (see sanity.conf).</div><div>=C2=A0 =C2=A0 Following is the list=
- of potential problems / advisories:</div><div><br></div><div>=C2=A0 =C2=A0=
- Fetcher failure for URL: &#39;<a href=3D"https://www.example.com/" target=
-=3D"_blank">https://www.example.com/</a>&#39;. URL <a href=3D"https://www.e=
-xample.com/" target=3D"_blank">https://www.example.com/</a> doesn&#39;t wor=
-k. Please ensure your network is configured correctly.</div></div><div></di=
-v></blockquote></div><br>Try doing wget <a href=3D"https://www.example.com/=
-">https://www.example.com/</a> in a terminal, as that&#39;s basically what =
-the test is checking works.=C2=A0 If that breaks then fix that, if it works=
- then you&#39;ve presumably got proxies that need to be configured in your =
-local.conf.</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_e=
-xtra">Ross</div></div>
 
---001a1147e2ba7d40220546f0d798--
+
+On 1/24/17 7:04 AM, Tom Rini wrote:
+> On Tue, Jan 24, 2017 at 01:04:13PM +0000, Joshua Lock wrote:
+>> Remove several old/untested distros from the list:
+>> * poky-1.8 and poky-2.0 are no longer supported releases
+>> * ubuntu-14.04 is an LTS but we plan to remove it from the
+>>   project's autobuilder cluster as the kernel is old and
+>>   it doesn't use systemd -- therefore this will no longer
+>>   be tested.
+>=20
+> Can you elaborate a bit more on the pain involved with supporting Ubunt=
+u
+> 14.04?  Or, do you expect to drop Ubuntu 16.04 in favour of 18.04 at
+> around this point in 2019 and continue only supporting the latest LTS
+> for Ubuntu?  I ask because supported hosts are an important part of
+> companies being able to plan their use and upgrade strategies.  Thanks!=
+
+>=20
+
+ubuntu 14.04 is still not EOL until April 2019, and I think lot of folks
+will keep using it until its EOLed, so it would be preferable to keep it
+as a supported host.
+
+>=20
+>=20
+
+
+--RKaGxHf7Uwk6VQK4cNrQCgPBS2Fk3X2Ln--
+
+--mUnfqBh4EKw8XT3DVUplEF59dgVW7LP93
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iEYEARECAAYFAliKo/4ACgkQuwUzVZGdMxQUlACdH+6YAFMTUeQwl8hxw4hp6j/D
+UxsAn0aiB/5l80u8QBisPNZQCygV0RYO
+=znBb
+-----END PGP SIGNATURE-----
+
+--mUnfqBh4EKw8XT3DVUplEF59dgVW7LP93--
