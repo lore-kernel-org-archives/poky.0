@@ -1,59 +1,59 @@
 Return-Path: <anonumiko@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 455C2E00995; Sun,  5 Feb 2017 12:24:16 -0800 (PST)
+	id 8B83EE009A0; Sun,  5 Feb 2017 12:25:32 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, RCVD_IN_DNSWL_NONE,
 	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.213.194 listed in dnsbl.sorbs.net]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.213.194 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [209.85.161.195 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.161.195 listed in dnsbl.sorbs.net]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-yb0-f194.google.com (mail-yb0-f194.google.com
-	[209.85.213.194])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E5CACE00726
-	for <poky@yoctoproject.org>; Sun,  5 Feb 2017 12:24:12 -0800 (PST)
-Received: by mail-yb0-f194.google.com with SMTP id w194so2820207ybe.1
-	for <poky@yoctoproject.org>; Sun, 05 Feb 2017 12:24:12 -0800 (PST)
+Received: from mail-yw0-f195.google.com (mail-yw0-f195.google.com
+	[209.85.161.195])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A48C7E00726
+	for <poky@yoctoproject.org>; Sun,  5 Feb 2017 12:25:30 -0800 (PST)
+Received: by mail-yw0-f195.google.com with SMTP id v73so5644594ywg.1
+	for <poky@yoctoproject.org>; Sun, 05 Feb 2017 12:25:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=mime-version:sender:from:date:message-id:subject:to;
-	bh=dvhgNIC+fLtG/40CsV3irr3ccLl7VK8gl/30zBffFsU=;
-	b=rua4aihZ5AXpuv9oXbfFE7hHIMXbdH3HxVguCjrgp8HSamldRzqVykutWcViWx5EqH
-	f72wsWvCYm/5L6CPiT6ngfUahn1pF+OehTc7s8mL4zAKPHVnuc2qQQT//hVHkC9DhBiR
-	1nYFH8djb80nnzCn0/J+SbMROtXpEpgT7y5dKpSIzlzLZz4VMx83PSbr1QNCXcKekbWh
-	rUNrPLcf6SZu07QcEs6EMTXYITn4fpRfWpj97Omf7KXjC+L9nI7D/hwdYcJKMFTc4YoQ
-	cCcOpfL+5MMmIIGwFJmswWPiUERTSCXmVJ8sNwiwaWItf/UVzhb+n//jNIdaKp/5qbQB
-	t8kA==
+	bh=hzEX8lceDnKSR/P7NTgzMISS07E11BMEaajPcpnOOUU=;
+	b=klhMqSqENzmKSV9TwcArXI37TQdruDYnhW66CCHIQLxcy6zrH4I1eXeqiTAPsjH2No
+	sSzeWMtnItog98VBOlRY5U1Y5cfCa3XL1CvQts4AsWQ1mxs91hmbYxxnkpm0cIgdn+KF
+	4JTmku1Ue5GG3go3OSUybuYpBaoGAdhPPv0fwsYMJ1UnrZB4yyKi+R35QKop63kXg3uc
+	yLZIaufE5/ysxZgQijT9Yi1dNGEMguDl3FlFr9h2ZXKpcr7AevQvhzSyaWHmld1Enyn4
+	2l7NRK4HajVUmab3OSFaLX8LD1ukWeRY2B6DuqrqmlPlS/6PdWjzyKiwK3RkphC68Zwk
+	99wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
-	:to; bh=dvhgNIC+fLtG/40CsV3irr3ccLl7VK8gl/30zBffFsU=;
-	b=HU6pqxDWKRij07RF4Gf/xSNeXJmL5WNh8b2ByHj1Mg0//JGOytTFzpe7sx07sqrxga
-	we4klXTWYK0MhSKhM46Q3UMNx3X022/ssaI1cHbp6wHhV9a3a7dVdgk/weXeQTgNfx/R
-	LpkDzOpvEBTW2oacI9/jK76t3xPdstRynp59A5IAn53Zpq49j3ahp1+t/US7LSVbjhIy
-	Nd9GqQ75DAlDg50Mp0wPfOGCb+4Oup5dSM/0Ey2Wsn4FfzUVzdyeuI97xt/Bd/2V4xXO
-	xXHVQInHrJCF2hp9F/DIFxPkdqwhQTToh1LQo8y5gGc2hYp7ylkNhf3r+OYEYNAHYMoW
-	OMzQ==
-X-Gm-Message-State: AMke39nFg9m7TEyf0ZIkqcSOU77M6mGyv/MlcmHVFjzsIYIUJZOYyhqkAEWTdhjRp7KnJCoWdeDXh0XbdRWBJg==
-X-Received: by 10.37.222.195 with SMTP id v186mr3943853ybg.187.1486326251483; 
-	Sun, 05 Feb 2017 12:24:11 -0800 (PST)
+	:to; bh=hzEX8lceDnKSR/P7NTgzMISS07E11BMEaajPcpnOOUU=;
+	b=VsLmVltm+hpAVn6rdiU8OOSqADP9rxB4FFqbhlIUHfvykJCw4vEqZ+RCEE/4mx/g+r
+	Utqx2ar6JOCdGu0kbBEREQbzASXW4JPwRO896GWrLayZ5kQ9cBNIuy/zODn19RajP9mO
+	GIvCmSRFZ7XaoAXovxere1SbduN1Fa9S9PYrrbEum2UzNsmbZM34BtwVyyvYDGvnlYYD
+	Av1grgWQhFadxy99dCTD0VLB16YH8KceWbQ1OIUjrm39EPACvn6DMI60ySGxgh/JQHIe
+	5v8+HsqBKP0w588hzSkbCzQPm/UZDoFajHUwKle4uajXkpKRrG5XQFApelElMcW6gRCX
+	B9vQ==
+X-Gm-Message-State: AMke39kzMJFiHVLB/5Z1/QXXH6Lxkf4HQkVakzoKek7b9a55WPyuLJObjof2BLtMNEZacSdlna0Dr0L8Q3Jc5g==
+X-Received: by 10.129.89.70 with SMTP id n67mr4798756ywb.296.1486326329338;
+	Sun, 05 Feb 2017 12:25:29 -0800 (PST)
 MIME-Version: 1.0
 Sender: anonumiko@gmail.com
-Received: by 10.37.173.67 with HTTP; Sun, 5 Feb 2017 12:23:51 -0800 (PST)
+Received: by 10.37.173.67 with HTTP; Sun, 5 Feb 2017 12:25:09 -0800 (PST)
 From: Niko Mauno <niko.mauno@iki.fi>
-Date: Sun, 5 Feb 2017 22:23:51 +0200
-X-Google-Sender-Auth: yHIS6ESBsNsyxO8VYw4psmMPDDM
-Message-ID: <CAN0Cx9NS4MKQqTqWk=d3aydhRui7BB-S8vp8RiYtnz7x_q7KFQ@mail.gmail.com>
+Date: Sun, 5 Feb 2017 22:25:09 +0200
+X-Google-Sender-Auth: mFFqm6VbJMSAxnqgy9gDK9r10ZQ
+Message-ID: <CAN0Cx9MbC+vbvZos6_M1fVUgt1yFmodt=catPa_udJincJCnnw@mail.gmail.com>
 To: poky@yoctoproject.org
-Subject: [PATCH 1/2] RFC: add new init system alternative to poky
+Subject: [PATCH 2/2] RFC: add new init system alternative to poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -66,411 +66,228 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Feb 2017 20:24:16 -0000
+X-List-Received-Date: Sun, 05 Feb 2017 20:25:32 -0000
 Content-Type: text/plain; charset=UTF-8
 
-From ab4b44dce2751cf2ead098b4bc237bafcaadf6f9 Mon Sep 17 00:00:00 2001
+From eef31a740cdb687f6655256a0d515e5da01e9f0b Mon Sep 17 00:00:00 2001
 From: Niko Mauno <niko.mauno@iki.fi>
-Date: Sat, 4 Feb 2017 20:45:01 +0200
-Subject: [PATCH 1/2] openrc: Add initial support
+Date: Sat, 4 Feb 2017 20:46:47 +0200
+Subject: [PATCH 2/2] openssh: Add openrc support
 
-This commit adds preliminary support for modern init system named OpenRC.
-It currently relies on /sbin/init from SysVinit.
-
-To deploy, append 'openrc' to DISTRO_FEATURES.
+Source of init, conf files:
+https://gitweb.gentoo.org/repo/gentoo.git/plain/net-misc/openssh/files/sshd.rc6.4
+https://gitweb.gentoo.org/repo/gentoo.git/plain/net-misc/openssh/files/sshd.confd
 
 Signed-off-by: Niko Mauno <niko.mauno@iki.fi>
 ---
- meta/classes/openrc.bbclass                        | 40 ++++++++++++++
- meta/classes/rootfs-postcommands.bbclass           | 15 ++++++
- meta/classes/update-rc.d.bbclass                   | 10 +++-
- .../0001-drop-redundant-lib-from-rpath.patch       | 12 +++++
- .../0002-bootmisc-mkdir-through-symlink.patch      | 11 ++++
- meta/recipes-core/openrc/openrc.inc                | 62 ++++++++++++++++++++++
- meta/recipes-core/openrc/openrc_0.22.4.bb          |  9 ++++
- .../packagegroups/packagegroup-core-boot.bb        |  4 +-
- meta/recipes-core/sysvinit/sysvinit_2.88dsf.bb     |  9 ++--
- meta/recipes-extended/lsb/lsb_4.1.bb               |  4 +-
- .../packagegroup-core-full-cmdline.bb              |  4 +-
- 11 files changed, 167 insertions(+), 13 deletions(-)
- create mode 100644 meta/classes/openrc.bbclass
- create mode 100644
-meta/recipes-core/openrc/openrc-0.22.4/0001-drop-redundant-lib-from-rpath.patch
- create mode 100644
-meta/recipes-core/openrc/openrc-0.22.4/0002-bootmisc-mkdir-through-symlink.patch
- create mode 100644 meta/recipes-core/openrc/openrc.inc
- create mode 100644 meta/recipes-core/openrc/openrc_0.22.4.bb
+ .../openssh/openssh/openrc/conf                    | 21 ++++++
+ .../openssh/openssh/openrc/init                    | 85 ++++++++++++++++++++++
+ meta/recipes-connectivity/openssh/openssh_7.4p1.bb | 20 +++--
+ 3 files changed, 120 insertions(+), 6 deletions(-)
+ create mode 100644 meta/recipes-connectivity/openssh/openssh/openrc/conf
+ create mode 100644 meta/recipes-connectivity/openssh/openssh/openrc/init
 
-diff --git a/meta/classes/openrc.bbclass b/meta/classes/openrc.bbclass
+diff --git a/meta/recipes-connectivity/openssh/openssh/openrc/conf
+b/meta/recipes-connectivity/openssh/openssh/openrc/conf
 new file mode 100644
-index 0000000..c009047
+index 0000000..28952b4
 --- /dev/null
-+++ b/meta/classes/openrc.bbclass
-@@ -0,0 +1,40 @@
-+# openrc.bbclass: an inheritable bbclass providing helper functions
-+# to integrate packages into openrc init system.
-+#
-+# openrc_add_to_runlevel(): Add an initscript to a runlevel
-+# openrc_install_confd(): Install an initscript configuration file
-+# openrc_install_initd(): Install an executable initscript file
-+# openrc_install_locald(): Install an executable local.d file
-+# openrc_install_sysctld(): Install a sysctl.d file
++++ b/meta/recipes-connectivity/openssh/openssh/openrc/conf
+@@ -0,0 +1,21 @@
++# /etc/conf.d/sshd: config file for /etc/init.d/sshd
 +
-+openrc_add_to_runlevel() {
-+ [ $# -eq 2 ] || bbfatal "Usage: openrc_add_to_runlevel [runlevel
-name] [initscript name]"
-+ install -d ${D}${sysconfdir}/runlevels/${1}
-+ ln -sf ${sysconfdir}/init.d/${2} ${D}${sysconfdir}/runlevels/${1}/${2}
-+}
++# Where is your sshd_config file stored?
 +
-+openrc_install_confd() {
-+ [ $# -eq 2 ] || bbfatal "Usage: openrc_install_confd [source file]
-[destination filename]"
-+ install -d ${D}${sysconfdir}/conf.d
-+ install -m 0644 ${1} ${D}${sysconfdir}/conf.d/${2}
-+}
++SSHD_CONFDIR="/etc/ssh"
 +
-+openrc_install_initd() {
-+ [ $# -eq 2 ] || bbfatal "Usage: openrc_install_initd [source file]
-[destination filename]"
-+ install -d ${D}${sysconfdir}/init.d
-+ install -m 0755 ${1} ${D}${sysconfdir}/init.d/${2}
-+}
 +
-+openrc_install_locald() {
-+ [ $# -eq 2 ] || bbfatal "Usage: openrc_install_locald [source file]
-[destination filename]"
-+ echo ${2} | grep -qE '\.start$|\.stop$' || bbfatal "local.d
-destination filename lacks .start or .stop suffix"
-+ install -d ${D}${sysconfdir}/local.d
-+ install -m 0755 ${1} ${D}${sysconfdir}/local.d/${2}
-+}
++# Any random options you want to pass to sshd.
++# See the sshd(8) manpage for more info.
 +
-+openrc_install_sysctld() {
-+ [ $# -eq 2 ] || bbfatal "Usage: openrc_install_sysctld [source file]
-[destination filename]"
-+ echo ${2} | grep -q '\.conf$' || bbfatal "sysctl.d destination
-filename lacks .conf suffix"
-+ install -d ${D}${sysconfdir}/sysctl.d
-+ install -m 0644 ${1} ${D}${sysconfdir}/sysctl.d/${2}
-+}
-diff --git a/meta/classes/rootfs-postcommands.bbclass
-b/meta/classes/rootfs-postcommands.bbclass
-index c42829d..e6fd251 100644
---- a/meta/classes/rootfs-postcommands.bbclass
-+++ b/meta/classes/rootfs-postcommands.bbclass
-@@ -17,6 +17,9 @@ ROOTFS_POSTPROCESS_COMMAND +=
-'${@bb.utils.contains("IMAGE_FEATURES", "read-only
- # Generates test data file with data store variables expanded in json format
- ROOTFS_POSTPROCESS_COMMAND += "write_image_test_data ; "
-
-+# Warn about openrc incompatible initscripts when openrc is enabled
-+ROOTFS_POSTPROCESS_COMMAND +=
-'${@bb.utils.contains("DISTRO_FEATURES", "openrc",
-"check_openrc_initscripts; ", "", d)}'
++SSHD_OPTS=""
 +
- # Write manifest
- IMAGE_MANIFEST = "${IMGDEPLOYDIR}/${IMAGE_NAME}.rootfs.manifest"
- ROOTFS_POSTUNINSTALL_COMMAND =+ "write_image_manifest ; "
-@@ -122,6 +125,18 @@ read_only_rootfs_hook () {
-  fi
- }
-
-+check_openrc_initscripts () {
-+ for i in rc0.d rc1.d rc2.d rc3.d rc4.d rc5.d rc6.d rcS.d
-default/volatiles ; do
-+ if test -d "${IMAGE_ROOTFS}${sysconfdir}/${i}" ; then
-+ bbwarn "check_openrc_initscripts: rootfs contains redundant $(find
-${IMAGE_ROOTFS}${sysconfdir}/${i} | sort)"
-+ fi
++
++# Pid file to use (needs to be absolute path).
++
++#SSHD_PIDFILE="/var/run/sshd.pid"
++
++
++# Path to the sshd binary (needs to be absolute path).
++
++#SSHD_BINARY="/usr/sbin/sshd"
+diff --git a/meta/recipes-connectivity/openssh/openssh/openrc/init
+b/meta/recipes-connectivity/openssh/openssh/openrc/init
+new file mode 100644
+index 0000000..95cf424
+--- /dev/null
++++ b/meta/recipes-connectivity/openssh/openssh/openrc/init
+@@ -0,0 +1,85 @@
++#!/sbin/openrc-run
++# Copyright 1999-2015 Gentoo Foundation
++# Distributed under the terms of the GNU General Public License v2
++# $Id$
++
++extra_commands="checkconfig"
++extra_started_commands="reload"
++
++: ${SSHD_CONFDIR:=/etc/ssh}
++: ${SSHD_CONFIG:=${SSHD_CONFDIR}/sshd_config}
++: ${SSHD_PIDFILE:=/var/run/${SVCNAME}.pid}
++: ${SSHD_BINARY:=/usr/sbin/sshd}
++
++depend() {
++ use logger dns
++ if [ "${rc_need+set}" = "set" ] ; then
++ : # Do nothing, the user has explicitly set rc_need
++ else
++ local x warn_addr
++ for x in $(awk '/^ListenAddress/{ print $2 }' "$SSHD_CONFIG" 2>/dev/null) ; do
++ case "${x}" in
++ 0.0.0.0|0.0.0.0:*) ;;
++ ::|\[::\]*) ;;
++ *) warn_addr="${warn_addr} ${x}" ;;
++ esac
 + done
-+ for i in "${IMAGE_ROOTFS}${sysconfdir}"/init.d/* ; do
-+ head -n1 "${i}" | grep -qE
-"^#\!/sbin/openrc-run$|^#\!/sbin/runscript$" || [ "$(basename ${i})" =
-"functions.sh" ] && continue
-+ bbwarn "check_openrc_initscripts: non-openrc initscript ${i}"
-+ done
++ if [ -n "${warn_addr}" ] ; then
++ need net
++ ewarn "You are binding an interface in ListenAddress statement in
+your sshd_config!"
++ ewarn "You must add rc_need=\"net.FOO\" to your /etc/conf.d/sshd"
++ ewarn "where FOO is the interface(s) providing the following address(es):"
++ ewarn "${warn_addr}"
++ fi
++ fi
 +}
 +
- #
- # This function is intended to disallow empty root password if
-'debug-tweaks' is not in IMAGE_FEATURES.
- #
-diff --git a/meta/classes/update-rc.d.bbclass b/meta/classes/update-rc.d.bbclass
-index 36f9009..a992c7e 100644
---- a/meta/classes/update-rc.d.bbclass
-+++ b/meta/classes/update-rc.d.bbclass
-@@ -1,6 +1,12 @@
- UPDATERCPN ?= "${PN}"
-
--DEPENDS_append_class-target =
-"${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', ' update-rc.d
-initscripts', '', d)}"
-+DEPENDS_append_class-target = "
-${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit',
-bb.utils.contains('DISTRO_FEATURES', 'openrc', 'openrc', 'update-rc.d
-initscripts', d), '', d)}"
-+
-+python() {
-+    if bb.utils.contains('DISTRO_FEATURES', 'sysvinit', True, False, d):
-+        if bb.utils.contains('DISTRO_FEATURES', 'openrc', True, False, d):
-+            d.setVar("INHIBIT_UPDATERCD_BBCLASS", "1")
-+}
-
- UPDATERCD = "update-rc.d"
- UPDATERCD_class-cross = ""
-@@ -34,7 +40,7 @@ if ${@use_updatercd(d)} && type update-rc.d
->/dev/null 2>/dev/null; then
- fi
- }
-
--PACKAGE_WRITE_DEPS += "update-rc.d-native"
-+PACKAGE_WRITE_DEPS += "${@bb.utils.contains('DISTRO_FEATURES',
-'openrc', '', 'update-rc.d-native', d)}"
-
- updatercd_postinst() {
- # Begin section update-rc.d
-diff --git a/meta/recipes-core/openrc/openrc-0.22.4/0001-drop-redundant-lib-from-rpath.patch
-b/meta/recipes-core/openrc/openrc-0.22.4/0001-drop-redundant-lib-from-rpath.patch
-new file mode 100644
-index 0000000..a33c61c
---- /dev/null
-+++ b/meta/recipes-core/openrc/openrc-0.22.4/0001-drop-redundant-lib-from-rpath.patch
-@@ -0,0 +1,12 @@
-+--- a/mk/prog.mk 2016-10-16 13:35:26.698424208 +0300
-++++ b/mk/prog.mk 2016-10-16 13:37:31.204898236 +0300
-+@@ -24,7 +24,9 @@
++checkconfig() {
++ if [ ! -d /var/run/sshd ] ; then
++ mkdir /var/run/sshd || return 1
 + fi
-+ _DYNLINK:= $(shell ${_DYNLINK_SH})
-+ LDFLAGS+= ${_DYNLINK}
-++ifneq ($(PREFIX)/$(LIBNAME),/)
-+ LDFLAGS+= -Wl,-rpath=${PREFIX}/${LIBNAME}
-++endif
-+ LDFLAGS+= ${PROGLDFLAGS}
 +
-+ CLEANFILES+= ${OBJS} ${PROG}
-diff --git a/meta/recipes-core/openrc/openrc-0.22.4/0002-bootmisc-mkdir-through-symlink.patch
-b/meta/recipes-core/openrc/openrc-0.22.4/0002-bootmisc-mkdir-through-symlink.patch
-new file mode 100644
-index 0000000..c0d88d8
---- /dev/null
-+++ b/meta/recipes-core/openrc/openrc-0.22.4/0002-bootmisc-mkdir-through-symlink.patch
-@@ -0,0 +1,11 @@
-+--- a/init.d/bootmisc.in 2016-12-25 16:29:30.505868660 +0200
-++++ b/init.d/bootmisc.in 2016-12-25 16:29:49.774250124 +0200
-+@@ -173,7 +173,7 @@
-+ fi
-+ for x in /var/log /tmp $extra; do
-+ if ! [ -d $x ]; then
-+- if ! mkdir -p $x; then
-++ if ! mkdir -p $(readlink -f $x); then
-+ eend 1 "failed to create needed directory $x"
++ if [ ! -e "${SSHD_CONFIG}" ] ; then
++ eerror "You need an ${SSHD_CONFIG} file to run sshd"
++ eerror "There is a sample file in /usr/share/doc/openssh"
 + return 1
 + fi
-diff --git a/meta/recipes-core/openrc/openrc.inc
-b/meta/recipes-core/openrc/openrc.inc
-new file mode 100644
-index 0000000..7d68b05
---- /dev/null
-+++ b/meta/recipes-core/openrc/openrc.inc
-@@ -0,0 +1,62 @@
 +
++ ssh-keygen -A || return 1
 +
-+# Usage: add 'openrc' to DISTRO_FEATURES in your configuration
-+#
-+# Sample approach to amend default configuration files:
-+#
-+#   do_install_append() {
-+#       echo 'keymap="fi"' >> ${D}${sysconfdir}/conf.d/keymaps
-+#       echo 'rc_logger="YES"' >> ${D}${sysconfdir}/rc.conf
-+#   }
++ [ "${SSHD_PIDFILE}" != "/var/run/sshd.pid" ] \
++ && SSHD_OPTS="${SSHD_OPTS} -o PidFile=${SSHD_PIDFILE}"
++ [ "${SSHD_CONFIG}" != "/etc/ssh/sshd_config" ] \
++ && SSHD_OPTS="${SSHD_OPTS} -f ${SSHD_CONFIG}"
 +
-+SUMMARY = "OpenRC manages the services, startup and shutdown of a host"
-+DESCRIPTION = "OpenRC is a dependency-based init system that works with the \
-+system-provided init program, normally /sbin/init. Currently, it does
-not have \
-+an init program of its own."
-+HOMEPAGE = "https://github.com/openrc/openrc/"
-+LICENSE = "BSD-2-Clause"
-+LIC_FILES_CHKSUM = "file://LICENSE;md5=2307fb28847883ac2b0b110b1c1f36e0"
-+
-+INC_PR = "r0"
-+
-+SRC_URI = "https://github.com/${PN}/${PN}/archive/${PV}.tar.gz"
-+
-+RCONFLICTS_${PN} = "initscripts lsbinitscripts systemd
-sysvinit-inittab sysvinit-rcscripts"
-+RCONFLICTS_${PN}-initscripts = "initscripts"
-+
-+RDEPENDS_${PN}_class-target = "sysvinit ( >= 2.86 ) sysvinit-pidof
-${PN}-inittab util-linux-agetty"
-+RDEPENDS_${PN}-initscripts_class-target = "${PN} kbd kbd-keymaps"
-+
-+PACKAGES =+ "${PN}-inittab ${PN}-openvpn"
-+PACKAGES += "${PN}-initscripts"
-+
-+FILES_${PN} += "/libexec/rc ${sysconfdir}/init.d/functions.sh"
-+FILES_${PN}-inittab = "${sysconfdir}/inittab"
-+FILES_${PN}-openvpn = "${sysconfdir}/openvpn"
-+FILES_${PN} = "${base_bindir} ${base_sbindir} ${base_libdir} /libexec/rc \
-+${sysconfdir}/init.d/functions.sh ${sysconfdir}/inittab ${sysconfdir}/rc.conf \
-+${sysconfdir}/local.d/README ${sysconfdir}/sysctl.d/README"
-+FILES_${PN}-initscripts = "${sysconfdir}"
-+
-+do_install() {
-+ oe_runmake DESTDIR="${D}" install
-+
-+ install -d ${D}${sysconfdir}
-+ install -m 0644 ${B}/support/sysvinit/inittab ${D}${sysconfdir}/
-+ for i in $(echo "${SERIAL_CONSOLES}" | tr '\t ' '\n' | sort -r) ; do
-+ line="$(echo "${i}" | sed 's#.*;tty##'):12345:respawn:/sbin/agetty
-$(echo "${i}" | tr ';' ' ') vt100"
-+ sed -i "/^# SERIAL CONSOLES$/a ${line}" ${D}${sysconfdir}/inittab
-+ if ! grep -q "^${line}$" ${D}${sysconfdir}/inittab ; then
-+ bbfatal "Failed to insert line: '${line}' in ${D}${sysconfdir}/inittab"
-+ fi
-+ done
-+
-+ install -d ${D}${sysconfdir}/openvpn
-+ install -m 0755 ${B}/support/openvpn/down.sh ${D}${sysconfdir}/openvpn/
-+ install -m 0755 ${B}/support/openvpn/up.sh ${D}${sysconfdir}/openvpn/
++ "${SSHD_BINARY}" -t ${SSHD_OPTS} || return 1
 +}
 +
-+inherit distro_features_check
++start() {
++ checkconfig || return 1
 +
-+CONFLICT_DISTRO_FEATURES = "systemd"
-+REQUIRED_DISTRO_FEATURES = "sysvinit"
-diff --git a/meta/recipes-core/openrc/openrc_0.22.4.bb
-b/meta/recipes-core/openrc/openrc_0.22.4.bb
-new file mode 100644
-index 0000000..1f0faa7
---- /dev/null
-+++ b/meta/recipes-core/openrc/openrc_0.22.4.bb
-@@ -0,0 +1,9 @@
-+require openrc.inc
++ ebegin "Starting ${SVCNAME}"
++ start-stop-daemon --start --exec "${SSHD_BINARY}" \
++    --pidfile "${SSHD_PIDFILE}" \
++    -- ${SSHD_OPTS}
++ eend $?
++}
 +
-+PR = "${INC_PR}.0"
++stop() {
++ if [ "${RC_CMD}" = "restart" ] ; then
++ checkconfig || return 1
++ fi
 +
-+SRC_URI[md5sum] = "09d1fae31031647b65f56a8ae51f4133"
-+SRC_URI[sha256sum] =
-"d428890c12936b502d79018667dc6094d0e801c558f118b49e44c5f34636073b"
-+SRC_URI_append = "\
-+ file://0001-drop-redundant-lib-from-rpath.patch \
-+ file://0002-bootmisc-mkdir-through-symlink.patch"
-diff --git a/meta/recipes-core/packagegroups/packagegroup-core-boot.bb
-b/meta/recipes-core/packagegroups/packagegroup-core-boot.bb
-index 04bc0f2..b509217 100644
---- a/meta/recipes-core/packagegroups/packagegroup-core-boot.bb
-+++ b/meta/recipes-core/packagegroups/packagegroup-core-boot.bb
-@@ -4,7 +4,7 @@
++ ebegin "Stopping ${SVCNAME}"
++ start-stop-daemon --stop --exec "${SSHD_BINARY}" \
++    --pidfile "${SSHD_PIDFILE}" --quiet
++ eend $?
++}
++
++reload() {
++ checkconfig || return 1
++ ebegin "Reloading ${SVCNAME}"
++ start-stop-daemon --signal HUP \
++    --exec "${SSHD_BINARY}" --pidfile "${SSHD_PIDFILE}"
++ eend $?
++}
+diff --git a/meta/recipes-connectivity/openssh/openssh_7.4p1.bb
+b/meta/recipes-connectivity/openssh/openssh_7.4p1.bb
+index 3b3d667..d5e49fe 100644
+--- a/meta/recipes-connectivity/openssh/openssh_7.4p1.bb
++++ b/meta/recipes-connectivity/openssh/openssh_7.4p1.bb
+@@ -22,6 +22,8 @@ SRC_URI =
+"http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar
+            file://volatiles.99_sshd \
+            file://add-test-support-for-busybox.patch \
+            file://run-ptest \
++           file://openrc/conf \
++           file://openrc/init \
+            file://openssh-7.1p1-conditional-compile-des-in-cipher.patch \
+            file://openssh-7.1p1-conditional-compile-des-in-pkcs11.patch \
+            file://fix-potential-signed-overflow-in-pointer-arithmatic.patch \
+@@ -32,7 +34,7 @@ PAM_SRC_URI = "file://sshd"
+ SRC_URI[md5sum] = "b2db2a83caf66a208bb78d6d287cdaa3"
+ SRC_URI[sha256sum] =
+"1b1fc4a14e2024293181924ed24872e6f2e06293f3e8926a376b8aec481f19d1"
 
- SUMMARY = "Minimal boot requirements"
- DESCRIPTION = "The minimal set of packages required to boot the system"
--PR = "r17"
-+PR = "r18"
+-inherit useradd update-rc.d update-alternatives systemd
++inherit useradd update-rc.d update-alternatives systemd openrc
 
- PACKAGE_ARCH = "${MACHINE_ARCH}"
+ USERADD_PACKAGES = "${PN}-sshd"
+ USERADD_PARAM_${PN}-sshd = "--system --no-create-home --home-dir
+/var/run/sshd --shell /bin/false --user-group sshd"
+@@ -101,11 +103,17 @@ do_install_append () {
+  fi
 
-@@ -20,7 +20,7 @@ MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS ?= ""
- VIRTUAL-RUNTIME_dev_manager ?= "udev"
- VIRTUAL-RUNTIME_login_manager ?= "busybox"
- VIRTUAL-RUNTIME_init_manager ?= "sysvinit"
--VIRTUAL-RUNTIME_initscripts ?= "initscripts"
-+VIRTUAL-RUNTIME_initscripts ?=
-"${@bb.utils.contains('DISTRO_FEATURES', 'openrc',
-'openrc-initscripts', 'initscripts', d)}"
- VIRTUAL-RUNTIME_keymaps ?= "keymaps"
+  install -d ${D}${sysconfdir}/init.d
+- install -m 0755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/sshd
++ if [ "${@bb.utils.contains('DISTRO_FEATURES', 'openrc', 'openrc',
+'', d)}" = "openrc" ]; then
++ openrc_install_initd ${WORKDIR}/openrc/init sshd
++ openrc_install_confd ${WORKDIR}/openrc/conf sshd
++ openrc_add_to_runlevel default sshd
++ else
++ install -m 0755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/sshd
++ install -d ${D}/${sysconfdir}/default/volatiles
++ install -m 644 ${WORKDIR}/volatiles.99_sshd
+${D}/${sysconfdir}/default/volatiles/99_sshd
++ fi
+  rm -f ${D}${bindir}/slogin ${D}${datadir}/Ssh.bin
+  rmdir ${D}${localstatedir}/run/sshd ${D}${localstatedir}/run
+${D}${localstatedir}
+- install -d ${D}/${sysconfdir}/default/volatiles
+- install -m 644 ${WORKDIR}/volatiles.99_sshd
+${D}/${sysconfdir}/default/volatiles/99_sshd
+  install -m 0755 ${S}/contrib/ssh-copy-id ${D}${bindir}
 
- SYSVINIT_SCRIPTS = "${@bb.utils.contains('MACHINE_FEATURES', 'rtc',
-'${VIRTUAL-RUNTIME_base-utils-hwclock}', '', d)} \
-diff --git a/meta/recipes-core/sysvinit/sysvinit_2.88dsf.bb
-b/meta/recipes-core/sysvinit/sysvinit_2.88dsf.bb
-index 884857a..1ba95d0 100644
---- a/meta/recipes-core/sysvinit/sysvinit_2.88dsf.bb
-+++ b/meta/recipes-core/sysvinit/sysvinit_2.88dsf.bb
-@@ -5,9 +5,9 @@ SECTION = "base"
- LICENSE = "GPLv2+"
- LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe \
+  # Create config files for read-only rootfs
+@@ -137,7 +145,7 @@ ALLOW_EMPTY_${PN} = "1"
+ PACKAGES =+ "${PN}-keygen ${PN}-scp ${PN}-ssh ${PN}-sshd ${PN}-sftp
+${PN}-misc ${PN}-sftp-server"
+ FILES_${PN}-scp = "${bindir}/scp.${BPN}"
+ FILES_${PN}-ssh = "${bindir}/ssh.${BPN} ${sysconfdir}/ssh/ssh_config"
+-FILES_${PN}-sshd = "${sbindir}/sshd ${sysconfdir}/init.d/sshd
+${systemd_unitdir}/system"
++FILES_${PN}-sshd = "${sbindir}/sshd ${sysconfdir}/init.d/sshd
+${sysconfdir}/conf.d/sshd ${sysconfdir}/runlevels/default/sshd
+${systemd_unitdir}/system"
+ FILES_${PN}-sshd += "${sysconfdir}/ssh/moduli
+${sysconfdir}/ssh/sshd_config ${sysconfdir}/ssh/sshd_config_readonly
+${sysconfdir}/default/volatiles/99_sshd ${sysconfdir}/pam.d/sshd"
+ FILES_${PN}-sftp = "${bindir}/sftp"
+ FILES_${PN}-sftp-server = "${libexecdir}/sftp-server"
+@@ -145,7 +153,7 @@ FILES_${PN}-misc = "${bindir}/ssh* ${libexecdir}/ssh*"
+ FILES_${PN}-keygen = "${bindir}/ssh-keygen"
 
-file://COPYRIGHT;endline=15;md5=349c872e0066155e1818b786938876a4"
--PR = "r14"
-+PR = "r15"
+ RDEPENDS_${PN} += "${PN}-scp ${PN}-ssh ${PN}-sshd ${PN}-keygen"
+-RDEPENDS_${PN}-sshd += "${PN}-keygen
+${@bb.utils.contains('DISTRO_FEATURES', 'pam', 'pam-plugin-keyinit
+pam-plugin-loginuid', '', d)}"
++RDEPENDS_${PN}-sshd += "${PN}-keygen
+${@bb.utils.contains('DISTRO_FEATURES', 'pam', 'pam-plugin-keyinit
+pam-plugin-loginuid', '', d)} ${@bb.utils.contains('DISTRO_FEATURES',
+'openrc', 'openrc', '', d)}"
+ RDEPENDS_${PN}-ptest += "${PN}-sftp ${PN}-misc ${PN}-sftp-server make"
 
--RDEPENDS_${PN} = "${PN}-inittab"
-+RDEPENDS_${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'openrc',
-'', 'initscripts-functions sysvinit-inittab sysvinit-pidof
-sysvinit-rcscripts', d)}"
-
- SRC_URI = "${SAVANNAH_GNU_MIRROR}/sysvinit/sysvinit-${PV}.tar.bz2 \
-            file://install.patch \
-@@ -63,13 +63,12 @@ ALTERNATIVE_LINK_NAME[sulogin.8] =
-"${mandir}/man8/sulogin.8"
- ALTERNATIVE_LINK_NAME[utmpdump.1] = "${mandir}/man1/utmpdump.1"
- ALTERNATIVE_LINK_NAME[wall.1] = "${mandir}/man1/wall.1"
-
--PACKAGES =+ "sysvinit-pidof sysvinit-sulogin"
-+PACKAGES =+ "sysvinit-pidof sysvinit-rcscripts sysvinit-sulogin"
- FILES_${PN} += "${base_sbindir}/* ${base_bindir}/*"
- FILES_sysvinit-pidof = "${base_bindir}/pidof.sysvinit ${base_sbindir}/killall5"
-+FILES_sysvinit-rcscripts = "${sysconfdir}"
- FILES_sysvinit-sulogin = "${base_sbindir}/sulogin.sysvinit"
-
--RDEPENDS_${PN} += "sysvinit-pidof initscripts-functions"
--
- CFLAGS_prepend = "-D_GNU_SOURCE "
- export LCRYPT = "-lcrypt"
- EXTRA_OEMAKE += "'base_bindir=${base_bindir}' \
-diff --git a/meta/recipes-extended/lsb/lsb_4.1.bb
-b/meta/recipes-extended/lsb/lsb_4.1.bb
-index ece0eab..6acdf52 100644
---- a/meta/recipes-extended/lsb/lsb_4.1.bb
-+++ b/meta/recipes-extended/lsb/lsb_4.1.bb
-@@ -2,7 +2,7 @@ SUMMARY = "LSB support for OpenEmbedded"
- SECTION = "console/utils"
- HOMEPAGE = "http://prdownloads.sourceforge.net/lsb"
- LICENSE = "GPLv2+"
--PR = "r2"
-+PR = "r3"
-
- LSB_CORE = "lsb-core-${TARGET_ARCH}"
- LSB_CORE_x86 = "lsb-core-ia32"
-@@ -10,7 +10,7 @@ LSB_CORE_x86-64 = "lsb-core-amd64"
- RPROVIDES_${PN} += "${LSB_CORE}"
-
- # lsb_release needs getopt, lsbinitscripts
--RDEPENDS_${PN} += "${VIRTUAL-RUNTIME_getopt} lsbinitscripts"
-+RDEPENDS_${PN} += "${VIRTUAL-RUNTIME_getopt}
-${@bb.utils.contains('DISTRO_FEATURES', 'openrc', '',
-'lsbinitscripts', d)}"
-
- LIC_FILES_CHKSUM = "file://README;md5=12da544b1a3a5a1795a21160b49471cf"
-
-diff --git a/meta/recipes-extended/packagegroups/packagegroup-core-full-cmdline.bb
-b/meta/recipes-extended/packagegroups/packagegroup-core-full-cmdline.bb
-index d8975f2..2107ca5 100644
---- a/meta/recipes-extended/packagegroups/packagegroup-core-full-cmdline.bb
-+++ b/meta/recipes-extended/packagegroups/packagegroup-core-full-cmdline.bb
-@@ -4,7 +4,7 @@
-
- SUMMARY = "Standard full-featured Linux system"
- DESCRIPTION = "Package group bringing in packages needed for a more
-traditional full-featured Linux system"
--PR = "r6"
-+PR = "r7"
-
- inherit packagegroup
-
-@@ -117,7 +117,7 @@ RDEPENDS_packagegroup-core-full-cmdline-dev-utils = "\
-     patch \
-     "
-
--VIRTUAL-RUNTIME_initscripts ?= "initscripts"
-+VIRTUAL-RUNTIME_initscripts ?=
-"${@bb.utils.contains('DISTRO_FEATURES', 'openrc',
-'openrc-initscripts', 'initscripts', d)}"
- VIRTUAL-RUNTIME_init_manager ?= "sysvinit"
- VIRTUAL-RUNTIME_login_manager ?= "busybox"
- VIRTUAL-RUNTIME_syslog ?= "sysklogd"
+ RPROVIDES_${PN}-ssh = "ssh"
 -- 
 2.1.4
 
