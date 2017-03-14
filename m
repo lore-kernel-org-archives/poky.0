@@ -1,70 +1,41 @@
-Return-Path: <akuster808@gmail.com>
+Return-Path: <dugaso@Sonatest.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6829FE00901; Mon, 13 Mar 2017 19:51:14 -0700 (PDT)
+	id D735EE00A48; Tue, 14 Mar 2017 13:03:45 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM, 
-	RCVD_IN_SORBS_WEB autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 1.5 RCVD_IN_SORBS_WEB RBL: SORBS: sender is an abusable
-	web server
-	*      [223.196.115.131 listed in dnsbl.sorbs.net]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (akuster808[at]gmail.com)
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.128.194 listed in dnsbl.sorbs.net]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.128.194 listed in list.dnswl.org]
-Received: from mail-wr0-f194.google.com (mail-wr0-f194.google.com
-	[209.85.128.194])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 04B83E00839
-	for <poky@yoctoproject.org>; Mon, 13 Mar 2017 19:51:10 -0700 (PDT)
-Received: by mail-wr0-f194.google.com with SMTP id u48so22287665wrc.1
-	for <poky@yoctoproject.org>; Mon, 13 Mar 2017 19:51:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:subject:date:message-id;
-	bh=gAcPp/+eQykfi/9mTTLZ9gj+ncpQo7ggCUQPjcO4i84=;
-	b=Bktt+esoioX0Mb/ejSLJIOEs2ez6s1UXXhk4FqOq6DivnDSr7Es2mallAD8DXbpaBn
-	mlejCqaOBHaO2C3VzcShvQP4lToduWegtVICueseuhpkd05ogyg9pEkpSmEua2/li5Y9
-	fTgdknD3Gi/rFuzKMUwD+zGuzfP85ubWioBJtod8IP26dETks3TX+Zlfyabt3NFdgzW0
-	RPustA5TZCc8fBPjliRHou6Ro86SKv6kmUziqt1OunfevmGhZHsvEV8QJEqo3u3y7A+P
-	o88DNqw86nxgpTKm4Cu4L1rIn9RUVKBgeskPdP1cnJQARPIzORDqACOCjasXuco8Pkmq
-	hURg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=gAcPp/+eQykfi/9mTTLZ9gj+ncpQo7ggCUQPjcO4i84=;
-	b=a3rbTYJ1NO/hRWJ254eKhAJaG3wFin+nZftWzScCdTrCGDoH5FGeXkecLJc6tvjLu/
-	+KRf8rTCnbTbruL+6FOx08NQhvKkY+b8OQVzp/PIxUPNwgFVtBCgjzykDjVEowRho3Bt
-	VFZZ/OccuWSZr0keOEDC0lJFbYn5kBscuVrmOHNRUvsu3E/ysmWKGOh6sobiZZg2EymU
-	V5b+r14hVFe5FpHFkVafdCdLAmW7CurAjQQyu2Pi8a/j195AEx/3BWx2J+38cQdr2Zj+
-	quJrJdpGbeONcxnLxzH6XMM02+keaDaj+5FIL5IqSgccJrQwda7NZp8MuUTVng0ZgXcg
-	OU6Q==
-X-Gm-Message-State: AMke39kow4bJTWb8ycsVIy7TBCLvXGHynX+qcL5DU6w0zza8Sm4vvnkIX9CSKyxFSsNtjg==
-X-Received: by 10.223.135.163 with SMTP id b32mr31398896wrb.170.1489459869451; 
-	Mon, 13 Mar 2017 19:51:09 -0700 (PDT)
-Received: from localhost.localdomain ([223.196.115.131])
-	by smtp.gmail.com with ESMTPSA id
-	w17sm27285682wra.28.2017.03.13.19.51.06
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-	Mon, 13 Mar 2017 19:51:08 -0700 (PDT)
-From: Armin Kuster <akuster808@gmail.com>
-To: akuster@mvista.com,
-	poky@yoctoproject.org
-Date: Mon, 13 Mar 2017 19:51:00 -0700
-Message-Id: <1489459860-15836-1-git-send-email-akuster808@gmail.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [PATCH] maintainers list: add self to libpcre2 as maintainer
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 409 seconds by postgrey-1.32 at yocto-www;
+	Tue, 14 Mar 2017 13:03:42 PDT
+Received: from titan.imtexcloud.com (titan.imtexcloud.com [52.52.55.48])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 31CCDE009DA
+	for <poky@yoctoproject.org>; Tue, 14 Mar 2017 13:03:42 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by titan.imtexcloud.com (Postfix) with ESMTP id B5FEF14616A
+	for <poky@yoctoproject.org>; Tue, 14 Mar 2017 19:56:49 +0000 (GMT)
+X-Virus-Scanned: by SpamTitan at us-west-1.compute.internal
+Received: from titan.imtexcloud.com (localhost [127.0.0.1])
+	by titan.imtexcloud.com (Postfix) with ESMTP id 4E756146169
+	for <poky@yoctoproject.org>; Tue, 14 Mar 2017 19:56:44 +0000 (GMT)
+Received: from exchange.Sonatest.net (unknown [217.206.231.74])
+	by titan.imtexcloud.com (Postfix) with ESMTP id 90C4B146167
+	for <poky@yoctoproject.org>; Tue, 14 Mar 2017 19:56:43 +0000 (GMT)
+Received: from [192.168.128.74] (192.168.128.74) by EXCHANGE.Sonatest.net
+	(212.56.87.3) with Microsoft SMTP Server (TLS) id 14.2.347.0;
+	Tue, 14 Mar 2017 19:56:42 +0000
+To: <poky@yoctoproject.org>
+From: Olivier Dugas <dugaso@sonatest.com>
+Message-ID: <4ff59314-755c-2d2e-ccc1-cc575b393c01@sonatest.com>
+Date: Tue, 14 Mar 2017 15:56:49 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.7.0
+MIME-Version: 1.0
+X-EXCLAIMER-MD-CONFIG: 7c1584ba-e595-4fa0-82b4-f84c142522ec
+Subject: Cherry-Picking ptest packages to install
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -77,28 +48,560 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Mar 2017 02:51:14 -0000
+X-List-Received-Date: Tue, 14 Mar 2017 20:03:45 -0000
+Content-Type: multipart/alternative;
+	boundary="------------FBCAA6230F84CB1C3F0D7A85"
 
-From: Armin Kuster <akuster@mvista.com>
+--------------FBCAA6230F84CB1C3F0D7A85
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Armin Kuster <akuster@mvista.com>
----
- meta-poky/conf/distro/include/maintainers.inc | 1 +
- 1 file changed, 1 insertion(+)
+Hi,
+We wanted to use a small script-calling tool in order to run some quick 
+health tests in our product's images. PTest seemed to be the nicest 
+solution, but adding ptest to our local.conf files have the consequence 
+of packaging and installing every recipe's own ptest package. Since they 
+take a long time to run and because some of them fail once we execute 
+ptest-runner, I need a way to modify ptest integration so that only the 
+tests on which we specify [PTEST_ENABLED = "1"] will be installed in our 
+image.
 
-diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
-index ab99cea..2265b48 100644
---- a/meta-poky/conf/distro/include/maintainers.inc
-+++ b/meta-poky/conf/distro/include/maintainers.inc
-@@ -378,6 +378,7 @@ RECIPE_MAINTAINER_pn-libpam = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-libpcap = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-libpciaccess = "Alexander Kanavin <alexander.kanavin@intel.com>"
- RECIPE_MAINTAINER_pn-libpcre = "Robert Yang <liezhi.yang@windriver.com>"
-+RECIPE_MAINTAINER_pn-libpcre2 = "Armin Kuster  <akuster@mvista.com>"
- RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com>"
- RECIPE_MAINTAINER_pn-libpng = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-libpng12 = "Maxin B. John <maxin.john@intel.com>"
--- 
-2.7.4
+The best way I found was to avoid to include the following lines into 
+local.conf,
+
+DISTRO_FEATURES_append = " ptest"
+EXTRA_IMAGE_FEATURES += "ptest-pkgs"
+
+and instead, in my image recipe (say "image-test.bb"), add ptest-pkgs to 
+IMAGE_FEATURES:
+IMAGE_FEATURES += "ptest-pkg"
+
+But here's my problem. If I want to have a control over which "-ptest" 
+package gets installed, I have to hack ptest.bbclass so that
+PTEST_ENABLED = "0"
+and modify the recipes in which we desire PTest by adding
+PTEST_ENABLED = "1"
+
+This would have been sufficient, but unfortunately 
+populate_sdk_base.bbclass have a nice
+COMPLEMENTARY_GLOB[ptest-pkgs] = '*-ptest'
+which seems to trigger other recipes to install their "-ptest" packages. 
+When this happens, dbus_1.10.10.bb presents a problematic line :
+RDEPENDS_dbus-ptest_class-target = "dbus-test-ptest"
+This lines cause the bitbake of my image to fail lamentably because of a 
+"Missing or unbuildable dependency chain"
+
+Below is the error message that I get. I can dodge this problem by also 
+hacking dbus' recipe (removing this RDEPENDS), but it's starting to look 
+more and more dirty. Moreover, only filtering which test to run using 
+the command options of ptest-runner is not a solution, as we simply do 
+not want to have multiple unneeded -ptest package (slows the build and 
+bloats the resulting image). Does someone know a better way to select 
+specific ptest packages to install?
+
+Many thanks,
+Olivier Dugas
+
+NOTE: Resolving any missing task queue dependencies
+ERROR: Nothing RPROVIDES 'dbus-test-ptest' (but 
+/home/lee/yocto/poky/meta/recipes-core/dbus/dbus_1.10.10.bb RDEPENDS on 
+or otherwise requires it)
+NOTE: Runtime target 'dbus-test-ptest' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-test-ptest']
+NOTE: Runtime target 'rpcbind' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['rpcbind', 'quota', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-initscripts' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-initscripts', 'rpcbind', 'quota', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'image-test' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['image-test', 
+'packagegroup-core-full-cmdline-initscripts', 'rpcbind', 'quota', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline' is unbuildable, 
+removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline', 'rpcbind', 'quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-libs' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-libs', 'rpcbind', 'quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-dev-utils' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-dev-utils', 'rpcbind', 'quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-sys-services' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-sys-services', 'rpcbind', 'quota', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-multiuser' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-multiuser', 'rpcbind', 'quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-extended' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-extended', 'rpcbind', 'quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-core-full-cmdline-utils' is 
+unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-core-full-cmdline-utils', 'rpcbind', 'quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'nfs-utils' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['nfs-utils', 'rpcbind', 
+'quota', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'nfs-utils-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['nfs-utils-dev', 
+'rpcbind', 'quota', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'nfs-utils-client' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['nfs-utils-client', 
+'rpcbind', 'quota', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-cli-tools' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['packagegroup-cli-tools', 
+'nfs-utils-client', 'rpcbind', 'quota', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'quota' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['quota', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'dbus-daemon-proxy' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-daemon-proxy', 
+'dbus-glib', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'dbus-glib' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-glib', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'libnss-mdns' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['libnss-mdns', 'avahi', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-machine-base' is unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-machine-base', 'libnss-mdns', 'avahi', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-base' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['packagegroup-base', 
+'libnss-mdns', 'avahi', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-distro-base' is unbuildable, removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-distro-base', 'libnss-mdns', 'avahi', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-base-zeroconf' is unbuildable, 
+removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-base-zeroconf', 'libnss-mdns', 'avahi', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-base-ipv6' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['packagegroup-base-ipv6', 
+'libnss-mdns', 'avahi', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-base-extended' is unbuildable, 
+removing...
+Missing or unbuildable dependency chain was: 
+['packagegroup-base-extended', 'libnss-mdns', 'avahi', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'libavahi-client' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['libavahi-client', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'avahi-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['avahi-dev', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'avahi-utils' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['avahi-utils', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'packagegroup-basic' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['packagegroup-basic', 
+'avahi-utils', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'avahi-daemon' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['avahi-daemon', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'hv' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['hv', 'qtservice', 
+'qtbase', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'hv-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['hv-dev', 'qtservice', 
+'qtbase', 'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'qtservice-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtservice-dev', 'qtbase', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'qtservice' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtservice', 'qtbase', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'qtbase-plugins' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-plugins', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'qtbase-plugins-dbg' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-plugins-dbg', 
+'dbus', 'dbus-test-ptest']
+NOTE: Runtime target 'qtbase' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'qtbase-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-dev', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'qtbase-mkspecs' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-mkspecs', 'dbus', 
+'dbus-test-ptest']
+NOTE: Runtime target 'dbus' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus', 'dbus-test-ptest']
+ERROR: Nothing RPROVIDES 'libavahi-core' (but 
+/home/lee/yocto/poky/meta/recipes-connectivity/avahi/avahi_0.6.32.bb 
+RDEPENDS on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'libavahi-core'
+NOTE: Runtime target 'libavahi-core' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['libavahi-core']
+ERROR: Nothing RPROVIDES 'quota-dev' (but 
+/home/lee/yocto/poky/meta/recipes-extended/quota/quota_4.03.bb RDEPENDS 
+on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'quota-dev'
+NOTE: Runtime target 'quota-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['quota-dev']
+ERROR: Nothing RPROVIDES 'dbus-daemon-proxy-dev' (but 
+/home/lee/yocto/meta-oe/meta-oe/recipes-core/dbus/dbus-daemon-proxy_git.bb 
+RDEPENDS on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'dbus-daemon-proxy-dev'
+NOTE: Runtime target 'dbus-daemon-proxy-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-daemon-proxy-dev']
+ERROR: Nothing RPROVIDES 'dbus-x11' (but 
+/home/lee/yocto/poky/meta/recipes-core/dbus/dbus-glib_0.106.bb RDEPENDS 
+on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'dbus-x11'
+NOTE: Runtime target 'dbus-x11' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-x11']
+ERROR: Nothing RPROVIDES 'rpcbind-dev' (but 
+/home/lee/yocto/poky/meta/recipes-extended/rpcbind/rpcbind_0.2.3.bb 
+RDEPENDS on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'rpcbind-dev'
+NOTE: Runtime target 'rpcbind-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['rpcbind-dev']
+ERROR: Nothing RPROVIDES 'dbus-dev' (but 
+/home/lee/yocto/poky/meta/recipes-connectivity/avahi/avahi_0.6.32.bb, 
+/home/lee/yocto/poky/meta/recipes-core/dbus/dbus_1.10.10.bb RDEPENDS on 
+or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'dbus-dev'
+NOTE: Runtime target 'dbus-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-dev']
+ERROR: Nothing RPROVIDES 'qtbase-qmldesigner' (but 
+/home/lee/yocto/meta-qt5/recipes-qt/qt5/qtbase_git.bb RDEPENDS on or 
+otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'qtbase-qmldesigner'
+NOTE: Runtime target 'qtbase-qmldesigner' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-qmldesigner']
+ERROR: Nothing RPROVIDES 'qtbase-qmlplugins' (but 
+/home/lee/yocto/meta-qt5/recipes-qt/qt5/qtbase_git.bb RDEPENDS on or 
+otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'qtbase-qmlplugins'
+NOTE: Runtime target 'qtbase-qmlplugins' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-qmlplugins']
+ERROR: Nothing RPROVIDES 'libnss-mdns-dev' (but 
+/home/lee/yocto/poky/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb 
+RDEPENDS on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'libnss-mdns-dev'
+NOTE: Runtime target 'libnss-mdns-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['libnss-mdns-dev']
+ERROR: Nothing RPROVIDES 'qtbase-qmlplugins-dbg' (but 
+/home/lee/yocto/meta-qt5/recipes-qt/qt5/qtbase_git.bb RDEPENDS on or 
+otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'qtbase-qmlplugins-dbg'
+NOTE: Runtime target 'qtbase-qmlplugins-dbg' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['qtbase-qmlplugins-dbg']
+ERROR: Nothing RPROVIDES 'dbus-glib-dev' (but 
+/home/lee/yocto/poky/meta/recipes-core/dbus/dbus-glib_0.106.bb RDEPENDS 
+on or otherwise requires it)
+ERROR: No eligible RPROVIDERs exist for 'dbus-glib-dev'
+NOTE: Runtime target 'dbus-glib-dev' is unbuildable, removing...
+Missing or unbuildable dependency chain was: ['dbus-glib-dev']
 
 
+--------------FBCAA6230F84CB1C3F0D7A85
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    Hi,<br>
+    We wanted to use a small script-calling tool in order to run some
+    quick health tests in our product's images. PTest seemed to be the
+    nicest solution, but adding ptest to our local.conf files have the
+    consequence of packaging and installing every recipe's own ptest
+    package. Since they take a long time to run and because some of them
+    fail once we execute ptest-runner, I need a way to modify ptest
+    integration so that only the tests on which we specify
+    [PTEST_ENABLED = "1"] will be installed in our image.<br>
+    <br>
+    The best way I found was to avoid to include the following lines
+    into local.conf,<br>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <pre class="literallayout" style="overflow: auto; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">DISTRO_FEATURES_append = " ptest"
+EXTRA_IMAGE_FEATURES += "ptest-pkgs"</pre>
+    and instead, in my image recipe (say "image-test.bb"), add
+    ptest-pkgs to IMAGE_FEATURES:<br>
+    <tt>IMAGE_FEATURES += "ptest-pkg"</tt><br>
+    <br>
+    But here's my problem. If I want to have a control over which
+    "-ptest" package gets installed, I have to hack ptest.bbclass so
+    that <br>
+    PTEST_ENABLED = "0"<br>
+    and modify the recipes in which we desire PTest by adding<br>
+    PTEST_ENABLED = "1"<br>
+    <br>
+    This would have been sufficient, but unfortunately
+    populate_sdk_base.bbclass have a nice<br>
+    COMPLEMENTARY_GLOB[ptest-pkgs] = '*-ptest'<br>
+    which seems to trigger other recipes to install their "-ptest"
+    packages. When this happens, dbus_1.10.10.bb presents a problematic
+    line :<br>
+    RDEPENDS_dbus-ptest_class-target = "dbus-test-ptest"<br>
+    This lines cause the bitbake of my image to fail lamentably because
+    of a "Missing or unbuildable dependency chain"<br>
+    <br>
+    Below is the error message that I get. I can dodge this problem by
+    also hacking dbus' recipe (removing this RDEPENDS), but it's
+    starting to look more and more dirty. Moreover, only filtering which
+    test to run using the command options of ptest-runner is not a
+    solution, as we simply do not want to have multiple unneeded -ptest
+    package (slows the build and bloats the resulting image). Does
+    someone know a better way to select specific ptest packages to
+    install?<br>
+    <br>
+    Many thanks,<br>
+    Olivier Dugas<br>
+    <br>
+    NOTE: Resolving any missing task queue dependencies<br>
+    ERROR: Nothing RPROVIDES 'dbus-test-ptest' (but
+    /home/lee/yocto/poky/meta/recipes-core/dbus/dbus_1.10.10.bb RDEPENDS
+    on or otherwise requires it)<br>
+    NOTE: Runtime target 'dbus-test-ptest' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus-test-ptest']<br>
+    NOTE: Runtime target 'rpcbind' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-initscripts' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-initscripts', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'image-test' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['image-test',
+    'packagegroup-core-full-cmdline-initscripts', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline', 'rpcbind', 'quota', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-libs' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-libs', 'rpcbind', 'quota', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-dev-utils' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-dev-utils', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-sys-services'
+    is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-sys-services', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-multiuser' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-multiuser', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-extended' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-extended', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-core-full-cmdline-utils' is
+    unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-core-full-cmdline-utils', 'rpcbind', 'quota', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'nfs-utils' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['nfs-utils',
+    'rpcbind', 'quota', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'nfs-utils-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['nfs-utils-dev',
+    'rpcbind', 'quota', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'nfs-utils-client' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['nfs-utils-client',
+    'rpcbind', 'quota', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-cli-tools' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-cli-tools', 'nfs-utils-client', 'rpcbind', 'quota',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'quota' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['quota', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'dbus-daemon-proxy' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus-daemon-proxy',
+    'dbus-glib', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'dbus-glib' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus-glib', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'libnss-mdns' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['libnss-mdns',
+    'avahi', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-machine-base' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-machine-base', 'libnss-mdns', 'avahi', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-base' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['packagegroup-base',
+    'libnss-mdns', 'avahi', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-distro-base' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-distro-base', 'libnss-mdns', 'avahi', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-base-zeroconf' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-base-zeroconf', 'libnss-mdns', 'avahi', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-base-ipv6' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-base-ipv6', 'libnss-mdns', 'avahi', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-base-extended' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['packagegroup-base-extended', 'libnss-mdns', 'avahi', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'libavahi-client' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['libavahi-client',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'avahi-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['avahi-dev', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'avahi-utils' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['avahi-utils', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'packagegroup-basic' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was: ['packagegroup-basic',
+    'avahi-utils', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'avahi-daemon' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['avahi-daemon',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'hv' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['hv', 'qtservice',
+    'qtbase', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'hv-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['hv-dev', 'qtservice',
+    'qtbase', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtservice-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtservice-dev',
+    'qtbase', 'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtservice' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtservice', 'qtbase',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtbase-plugins' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase-plugins',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtbase-plugins-dbg' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase-plugins-dbg',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtbase' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtbase-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase-dev', 'dbus',
+    'dbus-test-ptest']<br>
+    NOTE: Runtime target 'qtbase-mkspecs' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase-mkspecs',
+    'dbus', 'dbus-test-ptest']<br>
+    NOTE: Runtime target 'dbus' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus',
+    'dbus-test-ptest']<br>
+    ERROR: Nothing RPROVIDES 'libavahi-core' (but
+    /home/lee/yocto/poky/meta/recipes-connectivity/avahi/avahi_0.6.32.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'libavahi-core'<br>
+    NOTE: Runtime target 'libavahi-core' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['libavahi-core']<br>
+    ERROR: Nothing RPROVIDES 'quota-dev' (but
+    /home/lee/yocto/poky/meta/recipes-extended/quota/quota_4.03.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'quota-dev'<br>
+    NOTE: Runtime target 'quota-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['quota-dev']<br>
+    ERROR: Nothing RPROVIDES 'dbus-daemon-proxy-dev' (but
+/home/lee/yocto/meta-oe/meta-oe/recipes-core/dbus/dbus-daemon-proxy_git.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'dbus-daemon-proxy-dev'<br>
+    NOTE: Runtime target 'dbus-daemon-proxy-dev' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['dbus-daemon-proxy-dev']<br>
+    ERROR: Nothing RPROVIDES 'dbus-x11' (but
+    /home/lee/yocto/poky/meta/recipes-core/dbus/dbus-glib_0.106.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'dbus-x11'<br>
+    NOTE: Runtime target 'dbus-x11' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus-x11']<br>
+    ERROR: Nothing RPROVIDES 'rpcbind-dev' (but
+    /home/lee/yocto/poky/meta/recipes-extended/rpcbind/rpcbind_0.2.3.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'rpcbind-dev'<br>
+    NOTE: Runtime target 'rpcbind-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['rpcbind-dev']<br>
+    ERROR: Nothing RPROVIDES 'dbus-dev' (but
+    /home/lee/yocto/poky/meta/recipes-connectivity/avahi/avahi_0.6.32.bb,
+    /home/lee/yocto/poky/meta/recipes-core/dbus/dbus_1.10.10.bb RDEPENDS
+    on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'dbus-dev'<br>
+    NOTE: Runtime target 'dbus-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus-dev']<br>
+    ERROR: Nothing RPROVIDES 'qtbase-qmldesigner' (but
+    /home/lee/yocto/meta-qt5/recipes-qt/qt5/qtbase_git.bb RDEPENDS on or
+    otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'qtbase-qmldesigner'<br>
+    NOTE: Runtime target 'qtbase-qmldesigner' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase-qmldesigner']<br>
+    ERROR: Nothing RPROVIDES 'qtbase-qmlplugins' (but
+    /home/lee/yocto/meta-qt5/recipes-qt/qt5/qtbase_git.bb RDEPENDS on or
+    otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'qtbase-qmlplugins'<br>
+    NOTE: Runtime target 'qtbase-qmlplugins' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['qtbase-qmlplugins']<br>
+    ERROR: Nothing RPROVIDES 'libnss-mdns-dev' (but
+/home/lee/yocto/poky/meta/recipes-connectivity/libnss-mdns/libnss-mdns_0.10.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'libnss-mdns-dev'<br>
+    NOTE: Runtime target 'libnss-mdns-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['libnss-mdns-dev']<br>
+    ERROR: Nothing RPROVIDES 'qtbase-qmlplugins-dbg' (but
+    /home/lee/yocto/meta-qt5/recipes-qt/qt5/qtbase_git.bb RDEPENDS on or
+    otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'qtbase-qmlplugins-dbg'<br>
+    NOTE: Runtime target 'qtbase-qmlplugins-dbg' is unbuildable,
+    removing...<br>
+    Missing or unbuildable dependency chain was:
+    ['qtbase-qmlplugins-dbg']<br>
+    ERROR: Nothing RPROVIDES 'dbus-glib-dev' (but
+    /home/lee/yocto/poky/meta/recipes-core/dbus/dbus-glib_0.106.bb
+    RDEPENDS on or otherwise requires it)<br>
+    ERROR: No eligible RPROVIDERs exist for 'dbus-glib-dev'<br>
+    NOTE: Runtime target 'dbus-glib-dev' is unbuildable, removing...<br>
+    Missing or unbuildable dependency chain was: ['dbus-glib-dev']<br>
+    <br>
+  </body>
+</html>
+
+--------------FBCAA6230F84CB1C3F0D7A85--
