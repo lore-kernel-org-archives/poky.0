@@ -1,63 +1,70 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 07766E007AD; Mon,  6 Mar 2017 11:35:41 -0800 (PST)
+	id 6829FE00901; Mon, 13 Mar 2017 19:51:14 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
-	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.220.173 listed in dnsbl.sorbs.net]
+X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM, 
+	RCVD_IN_SORBS_WEB autolearn=no version=3.3.1
+X-Spam-HAM-Report: * 1.5 RCVD_IN_SORBS_WEB RBL: SORBS: sender is an abusable
+	web server
+	*      [223.196.115.131 listed in dnsbl.sorbs.net]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (akuster808[at]gmail.com)
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.128.194 listed in dnsbl.sorbs.net]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.220.173 listed in list.dnswl.org]
-Received: from mail-qk0-f173.google.com (mail-qk0-f173.google.com
-	[209.85.220.173])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 58152E00724
-	for <poky@yoctoproject.org>; Mon,  6 Mar 2017 11:35:38 -0800 (PST)
-Received: by mail-qk0-f173.google.com with SMTP id y76so40077156qkb.0
-	for <poky@yoctoproject.org>; Mon, 06 Mar 2017 11:35:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=1FpuqLbPvTYKajXPmFo0PomUi/88OnVsjojcQylSsws=;
-	b=Nhl2JPV1x4hwhqfnMvErdjbqD1oCDoFMiR/Vj0UrC3i4O+TJQhfdoqPbWNdyuyT/kJ
-	ft/TFbZpqJIjLdcS1fK0LqIzpXlfg9NQa1+fWyd+LZnU+qh8PrxpuOiZj43o9mB8l6xd
-	MSKBvgmuFh313Dqth7WG3/bgrIBYas0ORYX6vgk3bHxVQ9xmvnZ48YkN4rG2fcKBlP5D
-	3tUUd8z9sz3JvaX/ZV3rtFegQPiBjMLPtLS2Pxl3g7G4m60faXvs8L4PNUXqIqAgpbDx
-	O2kwgllVDnFxQMILwG8K96vTktr8NqEdsznWMLVSThw/EvMC7007pN+hcGwTrSCEE+C4
-	P1Ag==
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.128.194 listed in list.dnswl.org]
+Received: from mail-wr0-f194.google.com (mail-wr0-f194.google.com
+	[209.85.128.194])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 04B83E00839
+	for <poky@yoctoproject.org>; Mon, 13 Mar 2017 19:51:10 -0700 (PDT)
+Received: by mail-wr0-f194.google.com with SMTP id u48so22287665wrc.1
+	for <poky@yoctoproject.org>; Mon, 13 Mar 2017 19:51:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:subject:date:message-id;
+	bh=gAcPp/+eQykfi/9mTTLZ9gj+ncpQo7ggCUQPjcO4i84=;
+	b=Bktt+esoioX0Mb/ejSLJIOEs2ez6s1UXXhk4FqOq6DivnDSr7Es2mallAD8DXbpaBn
+	mlejCqaOBHaO2C3VzcShvQP4lToduWegtVICueseuhpkd05ogyg9pEkpSmEua2/li5Y9
+	fTgdknD3Gi/rFuzKMUwD+zGuzfP85ubWioBJtod8IP26dETks3TX+Zlfyabt3NFdgzW0
+	RPustA5TZCc8fBPjliRHou6Ro86SKv6kmUziqt1OunfevmGhZHsvEV8QJEqo3u3y7A+P
+	o88DNqw86nxgpTKm4Cu4L1rIn9RUVKBgeskPdP1cnJQARPIzORDqACOCjasXuco8Pkmq
+	hURg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=1FpuqLbPvTYKajXPmFo0PomUi/88OnVsjojcQylSsws=;
-	b=IxHBmFneYzX4uDS38xoPzCXQQAWy1FzbjrvhQ7+DLaNN9b0smqPOhwZYR7xEupa3Iq
-	m7kh1rlew4af2RLM1UWHKSr0cVlbOnZmM7eTPo72zba6jCj20/10Y3B2vEuSLf4aMWqF
-	KQEgRxAaFFMKVhdWqfoAAy7kqPIXzv73+jtw0QhR2s+k62nv+n95SIZU9SByst7/Oixl
-	YwLmtlYWzAB5WV8coJYjrePFOkpHA5RYUbaH6M+EXh5SR2yd+r+aj1WcY87BNN8ghOc+
-	l7RNhRQqu9kVNIOsA/du5ugMd4FG8IRt+1k/97rg/xFDxkmuNFijlFCniJ8pHAgFe2Uv
-	NEPg==
-X-Gm-Message-State: AMke39kzk/N7XBTWtbxhNr+EJFv2EPTYfrMpsmVqVoQnJdHpyzGALAaacIkvfONAP+s5Dgg5Wz2GpzO25TqtvJxu
-X-Received: by 10.55.192.145 with SMTP id v17mr18171712qkv.3.1488828938351;
-	Mon, 06 Mar 2017 11:35:38 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.140.22.166 with HTTP; Mon, 6 Mar 2017 11:35:17 -0800 (PST)
-In-Reply-To: <20170306185049.421a2ba0@d-jobol.iot.bzh>
-References: <20170306185049.421a2ba0@d-jobol.iot.bzh>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Mon, 6 Mar 2017 19:35:17 +0000
-Message-ID: <CAJTo0LY57sm2QWzhUVG2VwawnAb3-CwStCjUiyGrTnyhs1vTdw@mail.gmail.com>
-To: =?UTF-8?Q?Jos=C3=A9_Bollo?= <jose.bollo@iot.bzh>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] shadow: use config 'attr' if distro has 'xattr'
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=gAcPp/+eQykfi/9mTTLZ9gj+ncpQo7ggCUQPjcO4i84=;
+	b=a3rbTYJ1NO/hRWJ254eKhAJaG3wFin+nZftWzScCdTrCGDoH5FGeXkecLJc6tvjLu/
+	+KRf8rTCnbTbruL+6FOx08NQhvKkY+b8OQVzp/PIxUPNwgFVtBCgjzykDjVEowRho3Bt
+	VFZZ/OccuWSZr0keOEDC0lJFbYn5kBscuVrmOHNRUvsu3E/ysmWKGOh6sobiZZg2EymU
+	V5b+r14hVFe5FpHFkVafdCdLAmW7CurAjQQyu2Pi8a/j195AEx/3BWx2J+38cQdr2Zj+
+	quJrJdpGbeONcxnLxzH6XMM02+keaDaj+5FIL5IqSgccJrQwda7NZp8MuUTVng0ZgXcg
+	OU6Q==
+X-Gm-Message-State: AMke39kow4bJTWb8ycsVIy7TBCLvXGHynX+qcL5DU6w0zza8Sm4vvnkIX9CSKyxFSsNtjg==
+X-Received: by 10.223.135.163 with SMTP id b32mr31398896wrb.170.1489459869451; 
+	Mon, 13 Mar 2017 19:51:09 -0700 (PDT)
+Received: from localhost.localdomain ([223.196.115.131])
+	by smtp.gmail.com with ESMTPSA id
+	w17sm27285682wra.28.2017.03.13.19.51.06
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Mon, 13 Mar 2017 19:51:08 -0700 (PDT)
+From: Armin Kuster <akuster808@gmail.com>
+To: akuster@mvista.com,
+	poky@yoctoproject.org
+Date: Mon, 13 Mar 2017 19:51:00 -0700
+Message-Id: <1489459860-15836-1-git-send-email-akuster808@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [PATCH] maintainers list: add self to libpcre2 as maintainer
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,44 +77,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Mar 2017 19:35:41 -0000
-Content-Type: multipart/alternative; boundary=001a1149a1c2008b09054a15005d
+X-List-Received-Date: Tue, 14 Mar 2017 02:51:14 -0000
 
---001a1149a1c2008b09054a15005d
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+From: Armin Kuster <akuster@mvista.com>
 
-On 6 March 2017 at 17:50, Jos=C3=A9 Bollo <jose.bollo@iot.bzh> wrote:
+Signed-off-by: Armin Kuster <akuster@mvista.com>
+---
+ meta-poky/conf/distro/include/maintainers.inc | 1 +
+ 1 file changed, 1 insertion(+)
 
-> When DISTRO_FEATURES has 'xattr' the shadow package
-> now automatically activates its config 'attr'.
-> The current implmentation is a copy of what is
-> made currently for libcap.
->
+diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+index ab99cea..2265b48 100644
+--- a/meta-poky/conf/distro/include/maintainers.inc
++++ b/meta-poky/conf/distro/include/maintainers.inc
+@@ -378,6 +378,7 @@ RECIPE_MAINTAINER_pn-libpam = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libpcap = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libpciaccess = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libpcre = "Robert Yang <liezhi.yang@windriver.com>"
++RECIPE_MAINTAINER_pn-libpcre2 = "Armin Kuster  <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com>"
+ RECIPE_MAINTAINER_pn-libpng = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libpng12 = "Maxin B. John <maxin.john@intel.com>"
+-- 
+2.7.4
 
-The formatting of the patch is a bit messed up (looks like you
-copy/pasted), and can you send this to
-openembedded-core@lists.openembedded.org instead please.
 
-Ross
-
---001a1149a1c2008b09054a15005d
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 6 March 2017 at 17:50, Jos=C3=A9 Bollo <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:jose.bollo@iot.bzh" target=3D"_blank">jose.bollo@iot.bzh</a>&gt;</sp=
-an> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
-border-left:1px #ccc solid;padding-left:1ex"><div id=3D":1wy" class=3D"a3s =
-aXjCH m15aa4bf66c4b911a">When DISTRO_FEATURES has &#39;xattr&#39; the shado=
-w package<br>
-now automatically activates its config &#39;attr&#39;.<br>
-The current implmentation is a copy of what is<br>
-made currently for libcap.</div></blockquote></div><br>The formatting of th=
-e patch is a bit messed up (looks like you copy/pasted), and can you send t=
-his to <a href=3D"mailto:openembedded-core@lists.openembedded.org">openembe=
-dded-core@lists.openembedded.org</a> instead please.</div><div class=3D"gma=
-il_extra"><br></div><div class=3D"gmail_extra">Ross</div></div>
-
---001a1149a1c2008b09054a15005d--
