@@ -1,67 +1,44 @@
-Return-Path: <akuster808@gmail.com>
+Return-Path: <california.l.sullivan@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B9A2DE00B01; Mon, 27 Mar 2017 16:31:27 -0700 (PDT)
+	id 39F76E00B01; Mon, 27 Mar 2017 16:43:35 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (akuster808[at]gmail.com)
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [74.125.83.66 listed in dnsbl.sorbs.net]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [74.125.83.66 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,T_DKIM_INVALID autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pg0-f66.google.com (mail-pg0-f66.google.com [74.125.83.66])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5528EE00A16
-	for <poky@yoctoproject.org>; Mon, 27 Mar 2017 16:31:24 -0700 (PDT)
-Received: by mail-pg0-f66.google.com with SMTP id o123so13857449pga.1
-	for <poky@yoctoproject.org>; Mon, 27 Mar 2017 16:31:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:references:from:message-id:date:user-agent:mime-version
-	:in-reply-to:content-transfer-encoding;
-	bh=jx9HWKnYWjzxyqBKs8pBPUfPkh41YP8tnslPzpCddrY=;
-	b=BSSz6ChnTjFVggPBxhAGRBV03YQatfnrw+u/Bnu+BXNe3MByYzStnSBjlXIu3WEgqt
-	1Br6NF2+RGGHqCiLRuAdbjcdORuKw2piBB4cfzRsKx7RQ5cUMaLhwEPxLL1c1REaZioW
-	NIsl6kONGEqpopjePvqKqG60hyQwxHYLOA1oG0hNTNAP7mySOzITELdlLQVdpw1WMPi3
-	I5OuBwJv1rD7v6S+qdRlUOyxUfBtNFJDDcVFZQkcHncaP+GxVhJKuJq6GlWpfI0Q3oZl
-	2hSpmf9Qa2QhbD4/IRHAGXop7HdNK1/J+bUSSVSmtMgvVDck2QdefHnnVQcvNNPgT5t3
-	YfLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-transfer-encoding;
-	bh=jx9HWKnYWjzxyqBKs8pBPUfPkh41YP8tnslPzpCddrY=;
-	b=IL0eCaGvC6947PT832JW8ji1cX6Z6wGg7B731CbNx+JZ9hYz4nYIHkVvFATa0Bpipe
-	lkb7PjUzP6eAAkdE9IXSjYK2e/O0BaqLOEz6RTwEXeQFmDP7wBY9aVefjSxY9Eo8uV36
-	Rn89gwXVLn/i/23ef78w4pcTMHl8h1r0QPC/wzofoEOz7I1HB/JhBGVh83xrKGL8pW9G
-	a9RIi3fGE75Z8WTeoTZ+RoeN77dOWuYWauHQcr8L19xYrDN6Z6a9UqHMYhP/kKVDxq1x
-	flX7EH9oOqjHOHaz2uI0oyJ9g/ALrPOVaEuAo7F5tXiTF9pNg3ccwq6O/s59afPgswTJ
-	EMxQ==
-X-Gm-Message-State: AFeK/H3Va9p6tL8Mzh0/fzgJleAgKURKSgZ6ZLVU27jTIDygoQw6aTNJAqXEBgTGbF6SvQ==
-X-Received: by 10.99.121.77 with SMTP id u74mr27147974pgc.200.1490657483701;
-	Mon, 27 Mar 2017 16:31:23 -0700 (PDT)
-Received: from [192.168.0.46] (174-24-47-146.clsp.qwest.net. [174.24.47.146])
-	by smtp.gmail.com with ESMTPSA id
-	c75sm3184855pga.22.2017.03.27.16.31.22
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 27 Mar 2017 16:31:23 -0700 (PDT)
+	*  0.0 T_DKIM_INVALID DKIM-Signature header exists but is not valid
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B68BDE00A16
+	for <poky@yoctoproject.org>; Mon, 27 Mar 2017 16:43:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=intel.com; i=@intel.com; q=dns/txt; s=intel;
+	t=1490658211; x=1522194211;
+	h=subject:to:references:from:message-id:date:mime-version:
+	in-reply-to:content-transfer-encoding;
+	bh=OgEoGE4SvGYgwoCt3ASnvkOPnh4FORjlFo7WIyUFDLk=;
+	b=JA+gVc3HD61iEED/6f2RFhKVxCPTGnIGfVWk8y8bt4TZkKdrE3b1YJ+x
+	wRR74igZtPLI3Dj0Zw/Wbf6XClfNrg==;
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+	by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	27 Mar 2017 16:43:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.36,234,1486454400"; d="scan'208";a="79950881"
+Received: from clsulliv.jf.intel.com ([10.7.201.36])
+	by orsmga005.jf.intel.com with ESMTP; 27 Mar 2017 16:43:30 -0700
 To: leonardo.sandoval.gonzalez@linux.intel.com, poky@yoctoproject.org
 References: <20170328061152.31318-1-leonardo.sandoval.gonzalez@linux.intel.com>
-From: akuster808 <akuster808@gmail.com>
-Message-ID: <3059aef6-0a8e-5e57-db11-8f7cd4be71ce@gmail.com>
-Date: Mon, 27 Mar 2017 16:31:21 -0700
+From: Cal Sullivan <california.l.sullivan@intel.com>
+Message-ID: <cf749a57-a72b-cb25-06d7-58421e734edd@intel.com>
+Date: Mon, 27 Mar 2017 16:43:30 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.7.0
+	Thunderbird/45.4.0
 MIME-Version: 1.0
 In-Reply-To: <20170328061152.31318-1-leonardo.sandoval.gonzalez@linux.intel.com>
 Subject: Re: [PATCH] [morty] recipes-kernel: Skip kernel version check on kernel templates
@@ -77,12 +54,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Mar 2017 23:31:27 -0000
+X-List-Received-Date: Mon, 27 Mar 2017 23:43:35 -0000
 Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hey Leo,
 
-Leonardo,
+This actually will not work for morty, as the variable to skip the check 
+was not yet added.
+You might be able to request a backport on that patch, however, as it 
+doesn't change functionality
+for current morty users, and fixes a fairly significant issue.
+
+The relevant patch is here: 
+http://cgit.openembedded.org/openembedded-core/commit/?id=1b6a3c17874ead7ee0957e67329aa3bd019fa129
+
+Thanks,
+Cal
 
 On 03/27/2017 11:11 PM, leonardo.sandoval.gonzalez@linux.intel.com wrote:
 > From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
@@ -93,13 +81,7 @@ On 03/27/2017 11:11 PM, leonardo.sandoval.gonzalez@linux.intel.com wrote:
 >
 > ERROR: linux-yocto-4.10+gitAUTOINC+01f18cba44_53be19cad6-r0.1 do_kernel_version_sanity_check: Package Version (4.10+gitAUTOINC+01f18cba44_53be19cad6) does not match of kernel being built (4.10.5). Please update the PV variable to match the kernel source or set KERNEL_VERSION_SANITY_SKIP="1" in your recipe.
 > ERROR: linux-yocto-4.10+gitAUTOINC+01f18cba44_53be19cad6-r0.1 do_kernel_version_sanity_check: Function failed: do_kernel_version_sanity_check (log file is located at /home/lsandov1/poky2/build/tmp/work/myqemu-poky-linux/linux-yocto/4.10+gitAUTOINC+01f18cba44_53be19cad6-r0.1/temp/log.do_kernel_version_sanity_check.26904)
-> ERROR: Logfile of failure stored in: /home/lsandov1/poky2/build/tmp/work/myqemu-poky-linux/linux-yocto/4.10+gitAUTOINC+01f18cba44_53be19cad6-r0.1/temp
-
-These errors don't match the supported kernel versions in Morty. Are 
-these being seen our 4.1, 4.4 or 4.8? I have not seen these errors.
-
-- Armin
-> /log.do_kernel_version_sanity_check.26904
+> ERROR: Logfile of failure stored in: /home/lsandov1/poky2/build/tmp/work/myqemu-poky-linux/linux-yocto/4.10+gitAUTOINC+01f18cba44_53be19cad6-r0.1/temp/log.do_kernel_version_sanity_check.26904
 > ERROR: Task (/home/lsandov1/poky2/meta/recipes-kernel/linux/linux-yocto_4.10.bb:do_kernel_version_sanity_check) failed with exit code '1
 >
 > [YOCTO #11064]
