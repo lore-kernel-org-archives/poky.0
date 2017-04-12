@@ -1,36 +1,35 @@
-Return-Path: <gernot.hillier@siemens.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A2C0BE00992; Wed, 12 Apr 2017 07:57:48 -0700 (PDT)
+	id 7C6E3E009A5; Wed, 12 Apr 2017 10:38:06 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [194.138.37.39 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 815 seconds by postgrey-1.32 at yocto-www;
-	Wed, 12 Apr 2017 07:57:46 PDT
-Received: from lizzard.sbs.de (lizzard.sbs.de [194.138.37.39])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE58CE00961
-	for <poky@yoctoproject.org>; Wed, 12 Apr 2017 07:57:46 -0700 (PDT)
-Received: from mail1.sbs.de (mail1.sbs.de [192.129.41.35])
-	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id v3CEi92x017713
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <poky@yoctoproject.org>; Wed, 12 Apr 2017 16:44:09 +0200
-Received: from linux-mf4q.internal.hillier.de ([139.22.133.77])
-	by mail1.sbs.de (8.15.2/8.15.2) with ESMTP id v3CEi87U025393
-	for <poky@yoctoproject.org>; Wed, 12 Apr 2017 16:44:09 +0200
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [134.134.136.20 listed in list.dnswl.org]
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DE9B9E00961
+	for <poky@yoctoproject.org>; Wed, 12 Apr 2017 10:38:05 -0700 (PDT)
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+	by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	12 Apr 2017 10:38:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.37,191,1488873600"; d="scan'208";a="247818206"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by fmsmga004.fm.intel.com with ESMTP; 12 Apr 2017 10:38:04 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-From: Gernot Hillier <gernot.hillier@siemens.com>
-Message-ID: <961524b3-5800-c72e-13a7-9038f99efc1c@siemens.com>
-Date: Wed, 12 Apr 2017 16:44:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.8.0
-MIME-Version: 1.0
-Subject: [PATCH] [RFC] tcf-agent: Re-enable default features
+Date: Wed, 12 Apr 2017 10:37:59 -0700
+Message-Id: <358a0cabc3aadfc843f74f51955de69bbe33474f.1492018669.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.10.2
+In-Reply-To: <cover.1492018669.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1492018669.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 1/3] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,39 +42,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Apr 2017 14:57:48 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 12 Apr 2017 17:38:06 -0000
 
+Updates to Linux 4.4.60
 
-A number of features were disabled due to historic problems on ARM dating back
-to tcf-agent 0.0+svnr1855 (from 2011). For us, these features do not only
-compile perfectly for cortexa9hf, but are required for target debugging with
-CDT in Xilinx Vivado SDK 2016.4.
-
-Signed-off-by: Gernot Hillier <gernot.hillier@siemens.com>
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 ---
- meta/recipes-devtools/tcf-agent/tcf-agent_git.bb | 6 ------
- 1 file changed, 6 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/meta/recipes-devtools/tcf-agent/tcf-agent_git.bb b/meta/recipes-devtools/tcf-agent/tcf-agent_git.bb
-index e5e41f148e..035f2368d8 100644
---- a/meta/recipes-devtools/tcf-agent/tcf-agent_git.bb
-+++ b/meta/recipes-devtools/tcf-agent/tcf-agent_git.bb
-@@ -35,12 +35,6 @@ MAKE_OS = "`echo ${TARGET_OS} | sed s,^linux.*,GNU/Linux,`"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 6c6f345..da9966f 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -7,8 +7,8 @@ KBRANCH_edgerouter = "standard/edgerouter"
+ KBRANCH_beaglebone = "standard/beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
  
- EXTRA_OEMAKE = "MACHINE=${MAKE_ARCH} OPSYS=${MAKE_OS} 'CC=${CC}' 'AR=${AR}'"
+-SRCREV_machine_genericx86    ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
+-SRCREV_machine_genericx86-64 ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
++SRCREV_machine_genericx86    ?= "0298d3765a5c474ff5776284d49111276510d4b4"
++SRCREV_machine_genericx86-64 ?= "0298d3765a5c474ff5776284d49111276510d4b4"
+ SRCREV_machine_edgerouter ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
+ SRCREV_machine_beaglebone ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
+ SRCREV_machine_mpc8315e-rdb ?= "40600ac2335bb4e052228e6e503cf9e44ccdd33c"
+@@ -19,8 +19,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
  
--# They don't build on ARM and we don't need them actually.
--CFLAGS += "-DSERVICE_RunControl=0 -DSERVICE_Breakpoints=0 \
--    -DSERVICE_Memory=0 -DSERVICE_Registers=0 -DSERVICE_MemoryMap=0 \
--    -DSERVICE_StackTrace=0 -DSERVICE_Symbols=0 -DSERVICE_LineNumbers=0 \
--    -DSERVICE_Expressions=0"
--
- do_install() {
- 	oe_runmake install INSTALLROOT=${D}
- 	install -d ${D}${sysconfdir}/init.d/
+-LINUX_VERSION_genericx86 = "4.4.56"
+-LINUX_VERSION_genericx86-64 = "4.4.56"
++LINUX_VERSION_genericx86 = "4.4.60"
++LINUX_VERSION_genericx86-64 = "4.4.60"
+ LINUX_VERSION_edgerouter = "4.4.56"
+ LINUX_VERSION_beaglebone = "4.4.56"
+ LINUX_VERSION_mpc8315e-rdb = "4.4.56"
 -- 
-2.12.0
+2.10.2
 
 
