@@ -1,34 +1,37 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <gernot.hillier@siemens.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 35E27E00992; Wed, 12 Apr 2017 18:30:07 -0700 (PDT)
+	id D6CAEE009A5; Thu, 13 Apr 2017 00:40:05 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.35.17.14 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 04807E00961
-	for <poky@yoctoproject.org>; Wed, 12 Apr 2017 18:30:03 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id v3D1U2QK025774
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Wed, 12 Apr 2017 18:30:02 -0700 (PDT)
-Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.294.0; Wed, 12 Apr 2017 18:30:01 -0700
-From: Kevin Hao <kexin.hao@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Thu, 13 Apr 2017 09:30:54 +0800
-Message-ID: <20170413013054.1766-1-kexin.hao@windriver.com>
-X-Mailer: git-send-email 2.9.3
+Received: from david.siemens.de (david.siemens.de [192.35.17.14])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63793E00992
+	for <poky@yoctoproject.org>; Thu, 13 Apr 2017 00:40:01 -0700 (PDT)
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id v3D7dupJ005658
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK); 
+	Thu, 13 Apr 2017 09:39:56 +0200
+Received: from linux-mf4q.internal.hillier.de ([139.22.32.72])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id v3D7dtqB009740;
+	Thu, 13 Apr 2017 09:39:55 +0200
+To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@yoctoproject.org
+References: <961524b3-5800-c72e-13a7-9038f99efc1c@siemens.com>
+	<1492031783.26846.9.camel@linuxfoundation.org>
+From: Gernot Hillier <gernot.hillier@siemens.com>
+Message-ID: <ae41dd13-2d4d-f6a3-0abc-179d5d83bbd1@siemens.com>
+Date: Thu, 13 Apr 2017 09:39:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.8.0
 MIME-Version: 1.0
-Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
+In-Reply-To: <1492031783.26846.9.camel@linuxfoundation.org>
+Subject: Re: [PATCH] [RFC] tcf-agent: Re-enable default features
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,100 +44,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Apr 2017 01:30:07 -0000
-Content-Type: text/plain
+X-List-Received-Date: Thu, 13 Apr 2017 07:40:05 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Bump to the latest stable kernel for 4.4, 4,9 and 4.10.
+On 12.04.2017 23:16, Richard Purdie wrote:
+> On Wed, 2017-04-12 at 16:44 +0200, Gernot Hillier wrote:
+>> A number of features were disabled due to historic problems on ARM
+>> dating back
+>> to tcf-agent 0.0+svnr1855 (from 2011). For us, these features do not
+>> only
+>> compile perfectly for cortexa9hf, but are required for target
+>> debugging with
+>> CDT in Xilinx Vivado SDK 2016.4.
+>>
+>> Signed-off-by: Gernot Hillier <gernot.hillier@siemens.com>
+>> ---
+>>  meta/recipes-devtools/tcf-agent/tcf-agent_git.bb | 6 ------
+>>  1 file changed, 6 deletions(-)
+> 
+> Needs to be sent to the OE-Core list and breaks the build at least on
+> mips:
+> 
+> https://autobuilder.yocto.io/builders/nightly-mips-lsb/builds/229/steps/BuildImages/logs/stdio
 
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
----
- .../recipes-kernel/linux/linux-yocto_4.10.bbappend           | 12 ++++++------
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12 ++++++------
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12 ++++++------
- 3 files changed, 18 insertions(+), 18 deletions(-)
+Thx for instructions & feeding this into your autobuilder!! I'll check
+and fix for main architectures and come back to oe-core when ready.
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-index 693b7de8d8ab..41a07f52003e 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "53be19cad65e798c14be6d0365eb8f41ff38e540"
- SRCREV_machine_genericx86-64 ?= "53be19cad65e798c14be6d0365eb8f41ff38e540"
--SRCREV_machine_edgerouter ?= "53be19cad65e798c14be6d0365eb8f41ff38e540"
--SRCREV_machine_beaglebone ?= "53be19cad65e798c14be6d0365eb8f41ff38e540"
--SRCREV_machine_mpc8315e-rdb ?= "9f975fcf58a9f8f5bbb634ce020c4aae715fa777"
-+SRCREV_machine_edgerouter ?= "fe0fb8da3d633d802776081e7ff2df73ff2983f2"
-+SRCREV_machine_beaglebone ?= "fe0fb8da3d633d802776081e7ff2df73ff2983f2"
-+SRCREV_machine_mpc8315e-rdb ?= "4a84208c659563e7c2972a7a037934027662347d"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.10.5"
- LINUX_VERSION_genericx86-64 = "4.10.5"
--LINUX_VERSION_edgerouter = "4.10.5"
--LINUX_VERSION_beaglebone = "4.10.5"
--LINUX_VERSION_mpc8315e-rdb = "4.10.5"
-+LINUX_VERSION_edgerouter = "4.10.9"
-+LINUX_VERSION_beaglebone = "4.10.9"
-+LINUX_VERSION_mpc8315e-rdb = "4.10.9"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-index 6c6f34506c20..124450a7494f 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
- SRCREV_machine_genericx86-64 ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
--SRCREV_machine_edgerouter ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
--SRCREV_machine_beaglebone ?= "2525fc844188708834929d119cecdc2f6ae3c88a"
--SRCREV_machine_mpc8315e-rdb ?= "40600ac2335bb4e052228e6e503cf9e44ccdd33c"
-+SRCREV_machine_edgerouter ?= "0298d3765a5c474ff5776284d49111276510d4b4"
-+SRCREV_machine_beaglebone ?= "0298d3765a5c474ff5776284d49111276510d4b4"
-+SRCREV_machine_mpc8315e-rdb ?= "90e5792370e0ae72b69a7006f0727dda4ba7e629"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.4.56"
- LINUX_VERSION_genericx86-64 = "4.4.56"
--LINUX_VERSION_edgerouter = "4.4.56"
--LINUX_VERSION_beaglebone = "4.4.56"
--LINUX_VERSION_mpc8315e-rdb = "4.4.56"
-+LINUX_VERSION_edgerouter = "4.4.60"
-+LINUX_VERSION_beaglebone = "4.4.60"
-+LINUX_VERSION_mpc8315e-rdb = "4.4.60"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-index 6947ce7752fc..e1d334f1f8b3 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "e675c4ecccb9dd9dd637f104e32b7808b4d56846"
- SRCREV_machine_genericx86-64 ?= "e675c4ecccb9dd9dd637f104e32b7808b4d56846"
--SRCREV_machine_edgerouter ?= "e675c4ecccb9dd9dd637f104e32b7808b4d56846"
--SRCREV_machine_beaglebone ?= "e675c4ecccb9dd9dd637f104e32b7808b4d56846"
--SRCREV_machine_mpc8315e-rdb ?= "e56a2cce501fdd9aff6d420b015a36e98fc69f01"
-+SRCREV_machine_edgerouter ?= "81055b89bd32414ecaf95156ce9a5fa6643e530a"
-+SRCREV_machine_beaglebone ?= "81055b89bd32414ecaf95156ce9a5fa6643e530a"
-+SRCREV_machine_mpc8315e-rdb ?= "c74de53c637dabeeb76e556e85ea37ec7f6ffb13"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.9.17"
- LINUX_VERSION_genericx86-64 = "4.9.17"
--LINUX_VERSION_edgerouter = "4.9.17"
--LINUX_VERSION_beaglebone = "4.9.17"
--LINUX_VERSION_mpc8315e-rdb = "4.9.17"
-+LINUX_VERSION_edgerouter = "4.9.21"
-+LINUX_VERSION_beaglebone = "4.9.21"
-+LINUX_VERSION_mpc8315e-rdb = "4.9.21"
 -- 
-2.9.3
+Gernot
+Siemens AG, Corporate Competence Center Embedded Linux
 
 
