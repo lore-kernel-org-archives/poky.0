@@ -1,37 +1,36 @@
-Return-Path: <gernot.hillier@siemens.com>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D6CAEE009A5; Thu, 13 Apr 2017 00:40:05 -0700 (PDT)
+	id 509C4E00839; Fri, 14 Apr 2017 02:26:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.35.17.14 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from david.siemens.de (david.siemens.de [192.35.17.14])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63793E00992
-	for <poky@yoctoproject.org>; Thu, 13 Apr 2017 00:40:01 -0700 (PDT)
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id v3D7dupJ005658
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK); 
-	Thu, 13 Apr 2017 09:39:56 +0200
-Received: from linux-mf4q.internal.hillier.de ([139.22.32.72])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id v3D7dtqB009740;
-	Thu, 13 Apr 2017 09:39:55 +0200
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@yoctoproject.org
-References: <961524b3-5800-c72e-13a7-9038f99efc1c@siemens.com>
-	<1492031783.26846.9.camel@linuxfoundation.org>
-From: Gernot Hillier <gernot.hillier@siemens.com>
-Message-ID: <ae41dd13-2d4d-f6a3-0abc-179d5d83bbd1@siemens.com>
-Date: Thu, 13 Apr 2017 09:39:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.8.0
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 99BE9E00839
+	for <poky@yoctoproject.org>; Fri, 14 Apr 2017 02:26:50 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id v3E9QoAo011451
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Fri, 14 Apr 2017 02:26:50 -0700 (PDT)
+Received: from ala-blade47.wrs.com (147.11.105.67) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.294.0;
+	Fri, 14 Apr 2017 02:26:49 -0700
+From: Robert Yang <liezhi.yang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Fri, 14 Apr 2017 02:26:47 -0700
+Message-ID: <07a76d9d149d4d19ac246e494a60d90dc131f2d3.1492161897.git.liezhi.yang@windriver.com>
+X-Mailer: git-send-email 2.10.2
+In-Reply-To: <cover.1492161897.git.liezhi.yang@windriver.com>
+References: <cover.1492161897.git.liezhi.yang@windriver.com>
 MIME-Version: 1.0
-In-Reply-To: <1492031783.26846.9.camel@linuxfoundation.org>
-Subject: Re: [PATCH] [RFC] tcf-agent: Re-enable default features
+Subject: [PATCH 1/1] documentation: update examples for oe-run-native
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,35 +43,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Apr 2017 07:40:05 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 14 Apr 2017 09:26:51 -0000
+Content-Type: text/plain
 
-On 12.04.2017 23:16, Richard Purdie wrote:
-> On Wed, 2017-04-12 at 16:44 +0200, Gernot Hillier wrote:
->> A number of features were disabled due to historic problems on ARM
->> dating back
->> to tcf-agent 0.0+svnr1855 (from 2011). For us, these features do not
->> only
->> compile perfectly for cortexa9hf, but are required for target
->> debugging with
->> CDT in Xilinx Vivado SDK 2016.4.
->>
->> Signed-off-by: Gernot Hillier <gernot.hillier@siemens.com>
->> ---
->>  meta/recipes-devtools/tcf-agent/tcf-agent_git.bb | 6 ------
->>  1 file changed, 6 deletions(-)
-> 
-> Needs to be sent to the OE-Core list and breaks the build at least on
-> mips:
-> 
-> https://autobuilder.yocto.io/builders/nightly-mips-lsb/builds/229/steps/BuildImages/logs/stdio
+Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+---
+ documentation/dev-manual/dev-manual-common-tasks.xml | 2 +-
+ documentation/dev-manual/dev-manual-start.xml        | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Thx for instructions & feeding this into your autobuilder!! I'll check
-and fix for main architectures and come back to oe-core when ready.
-
+diff --git a/documentation/dev-manual/dev-manual-common-tasks.xml b/documentation/dev-manual/dev-manual-common-tasks.xml
+index d2bd56d..4734335 100644
+--- a/documentation/dev-manual/dev-manual-common-tasks.xml
++++ b/documentation/dev-manual/dev-manual-common-tasks.xml
+@@ -5152,7 +5152,7 @@
+                         <filename>bmaptool</filename> or
+                         <filename>dd</filename>:
+                         <literallayout class='monospaced'>
+-     $ oe-run-native bmaptool copy /var/tmp/wic/build/mkefidisk-201310230946-sda.direct /dev/sd<replaceable>X</replaceable>
++     $ oe-run-native bmap-tools-native bmaptool copy /var/tmp/wic/build/mkefidisk-201310230946-sda.direct /dev/sd<replaceable>X</replaceable>
+                         </literallayout>
+                         or
+                         <literallayout class='monospaced'>
+diff --git a/documentation/dev-manual/dev-manual-start.xml b/documentation/dev-manual/dev-manual-start.xml
+index fd7e03f..8e74a51 100644
+--- a/documentation/dev-manual/dev-manual-start.xml
++++ b/documentation/dev-manual/dev-manual-start.xml
+@@ -379,7 +379,7 @@
+                         If you have write access to the media,
+                         use this command form:
+                         <literallayout class='monospaced'>
+-     $ oe-run-native bmaptool copy ./tmp/deploy/images/qemux86-64/core-image-minimal-<replaceable>machine</replaceable>.wic /dev/sd<replaceable>X</replaceable>
++     $ oe-run-native bmap-tools-native bmaptool copy ./tmp/deploy/images/qemux86-64/core-image-minimal-<replaceable>machine</replaceable>.wic /dev/sd<replaceable>X</replaceable>
+                         </literallayout>
+                         </para></listitem>
+                     <listitem><para>
+@@ -413,7 +413,7 @@
+         the following commands:
+         <literallayout class='monospaced'>
+      $ bmaptool --help
+-     $ oe-run-native bmaptool --help
++     $ oe-run-native bmap-tools-native bmaptool --help
+         </literallayout>
+     </para>
+ </section>
 -- 
-Gernot
-Siemens AG, Corporate Competence Center Embedded Linux
+2.10.2
 
 
