@@ -1,48 +1,37 @@
-Return-Path: <star@gmx.li>
+Return-Path: <alexander.kanavin@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 1B76EE00AF2; Tue, 25 Apr 2017 06:02:08 -0700 (PDT)
+	id 1BCAAE00AF4; Tue, 25 Apr 2017 06:11:29 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=BAYES_50,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [212.227.17.20 listed in list.dnswl.org]
-	*  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.4392]
-X-Greylist: delayed 304 seconds by postgrey-1.32 at yocto-www;
-	Tue, 25 Apr 2017 06:02:05 PDT
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 37F3BE00AE6
-	for <poky@yoctoproject.org>; Tue, 25 Apr 2017 06:02:05 -0700 (PDT)
-Received: from [62.225.157.196] by 3capp-gmx-bs23.server.lan (via HTTP);
-	Tue, 25 Apr 2017 14:57:00 +0200
-MIME-Version: 1.0
-Message-ID: <trinity-1c5fd78a-c6ca-41a1-8dea-dcfe8bf1ff35-1493125020120@3capp-gmx-bs23>
-From: star@gmx.li
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.24 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 89B53E00AF0
+	for <poky@yoctoproject.org>; Tue, 25 Apr 2017 06:11:26 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	25 Apr 2017 06:11:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.37,249,1488873600"; d="scan'208";a="1160700420"
+Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.161])
+	([10.237.68.161])
+	by fmsmga002.fm.intel.com with ESMTP; 25 Apr 2017 06:11:06 -0700
 To: poky@yoctoproject.org
-Date: Tue, 25 Apr 2017 14:57:00 +0200
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:uCkOvzkQhvBvPjOP67y36EEx9TICTcReX/E0FGFfbEz
-	MwluMieXKRvn6/16LHcMfYkZ5Nuw4FN0uJsbnutNOs7Z4fhPq2
-	yMQ36kcQ345VweX1jwqiJ5dkmdx80oAHKZ3UhR0sI8L/3bGJMV
-	HCEJGvpq1I/LHZitG+M/3xc3e2yZWd2lwBzH5xu2RCuVVcBTBf
-	fsOePIDLFUQXeGNcBPaYCgU0Pep+zguA20Xu8fClDqPZscLodm
-	vnQptGXx+NmlEg7Mdo2GPrFSD4OvzVYIybyORXg3iqA98HsL5d ECdOS8=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:bvg4gZLcpj0=:c4ppq1ugklgfi7sKw9txjY
-	RDk0/R5w+a7kpseCDZNZpZ5QqGDNIX9CVzZRHfCE5ZD+26z42u809n+wq+id0VHM4N5whFOp3
-	Qn8HlDggMw5p8+7dzaLFXoAnz7ZAkquJbioZes/bcbuCZAYaFRVV0iutTYsHgTF3Yzqoo4GAf
-	RwgFjIlWO5F5LMG4iLWT2UXxdosigVa3whB/jytz7cNqysn0b1ae8Uyk4UIzenXUy7TAAGX+N
-	L3bcaKz1FPYDO1mRjeuVQQHOy8jU+GoKSfAwzJaX1KPs2I7cAHkN1Xnz9NqbCs8xqXL+VSGdQ
-	e/+Y/EDB+hAapZjqhlggWbGEsMScKxelJleao2ghqd3F2MNRi/1XQ9rSdv3T2ORC7jl9azZSo
-	2GzSxOC5RFCK4CYCx5xVNCASRhGy7xZlURR10uzfd93ZiSeOxjlBp9F4FE55OCzrkIolLagqn
-	CCuAyL+Dvw==
-Subject: gnupg strip down
+References: <trinity-1c5fd78a-c6ca-41a1-8dea-dcfe8bf1ff35-1493125020120@3capp-gmx-bs23>
+From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+Message-ID: <29aeb088-beb1-7fa2-b95a-c534f853b374@linux.intel.com>
+Date: Tue, 25 Apr 2017 16:10:57 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.8.0
+MIME-Version: 1.0
+In-Reply-To: <trinity-1c5fd78a-c6ca-41a1-8dea-dcfe8bf1ff35-1493125020120@3capp-gmx-bs23>
+Subject: Re: gnupg strip down
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,22 +44,31 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Apr 2017 13:02:08 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 25 Apr 2017 13:11:29 -0000
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Would like to include gnupg into my filesystem. If I add gnupg to my image, it become to big (12.5MB instead of 5MB with core-image-minimal).
-It installs a lot of things I don't need: dozen libs, binaries and even helpfiles in all languages ?!?
+On 04/25/2017 03:57 PM, star@gmx.li wrote:
+> Would like to include gnupg into my filesystem. If I add gnupg to my image, it become to big (12.5MB instead of 5MB with core-image-minimal).
+> It installs a lot of things I don't need: dozen libs, binaries and even helpfiles in all languages ?!?
+>
+> In fact I need just gnupg-binary and around 5 libs for my need. Can you help me howto strip down the recipe or what has to be set in a bbappend file to achive that? My first experiments with adding things to ETXRA_OECONF like
+>
+> EXTRA_OECONF = "....
+>    --disable-card-support \
+>    --disable-gnupg-iconv  \
+>    --disable-idea           \
+>    --disable-cast5          \
+>    --disable-exec           \
+>    --disable-photo-viewers  \
+>    --disable-keyserver-helpers   \
+>
+> failed. Thank you.
+>
 
-In fact I need just gnupg-binary and around 5 libs for my need. Can you help me howto strip down the recipe or what has to be set in a bbappend file to achive that? My first experiments with adding things to ETXRA_OECONF like
+This is your opportunity to contribute to oe-core :) Write a patch that 
+splits up gnupg recipe into several sub-packages, and send it to the 
+oe-core mailing list.
 
-EXTRA_OECONF = "....
-   --disable-card-support \
-   --disable-gnupg-iconv  \
-   --disable-idea           \
-   --disable-cast5          \
-   --disable-exec           \
-   --disable-photo-viewers  \
-   --disable-keyserver-helpers   \
-
-failed. Thank you.
+Alex
 
