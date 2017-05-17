@@ -1,63 +1,64 @@
-Return-Path: <tharvey@gateworks.com>
+Return-Path: <maryan.pricak@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8A0C8E00B21; Wed, 17 May 2017 14:29:29 -0700 (PDT)
+	id 6AFC3E00B27; Wed, 17 May 2017 15:25:09 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
 	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [74.125.82.43 listed in dnsbl.sorbs.net]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [74.125.82.43 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [74.125.82.65 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (maryan.pricak[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f43.google.com (mail-wm0-f43.google.com [74.125.82.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5CA72E00B1B
-	for <poky@yoctoproject.org>; Wed, 17 May 2017 14:29:25 -0700 (PDT)
-Received: by mail-wm0-f43.google.com with SMTP id b84so180229578wmh.0
-	for <poky@yoctoproject.org>; Wed, 17 May 2017 14:29:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gateworks-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=vWnWu4ILZCzGdZr9GSKp1ZCIOxIxKOsPd7neb0Ym+/8=;
-	b=HPfx+c7RDs6nn8QMtw5nO56mRw5APTvJaBsTYxlDmZ3W6sg8W6HsZcpMu7I7dtuVcV
-	oQcD8A7FknqWOdkifhO1erRceAvl1z5fjjmh3Iq3TRqRegTKr/Hm/S1Q3fgEhoWQ/HlB
-	ICEs18gPsPj6MoS6exUZVslVUq3bn7v0o/Gq6qhtLcX9xfW7KV9GyxtIZlEH5RNwOByo
-	EmyezKBWnrJKoidmTx/608cVbfSfHMNC9XWvTXW2FFPzS1gAo20N1K+K+xzT23yoeIfW
-	dsCymdRdluyGIcI27NymU+Myi+12+GIEzm5KIrDQheOqzLAH+DisMt8RMTbl2a0JAXJI
-	sCfQ==
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [74.125.82.65 listed in dnsbl.sorbs.net]
+Received: from mail-wm0-f65.google.com (mail-wm0-f65.google.com [74.125.82.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D82F2E00B20
+	for <poky@yoctoproject.org>; Wed, 17 May 2017 15:25:07 -0700 (PDT)
+Received: by mail-wm0-f65.google.com with SMTP id y10so6902088wmh.0
+	for <poky@yoctoproject.org>; Wed, 17 May 2017 15:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:cc:subject:date:message-id;
+	bh=5SIUtsysdpYv4GrC/Z/W2eeioXduJZjh43miIxFTYHc=;
+	b=Dixow12nn5tY5Q1NStpScqZyDGniot5W8nnUb7w1iC1OscGH5Krqd+VDgBp8PAhH4S
+	Fr9m7eukUQQ7Orq4MWmJs3hTgyfgBmq79tDFbIVIBNIR2CDx8DumiLVUx72XWCOVzalt
+	XvLVQf5Ora2LQQokNrs740O5To6lDqgHuBA85rAhk2QL/5J26gkPTUyX6fH/PatT0oSR
+	P2I73IzXH2FpFwhd3lOOpBrS5x5W3CYikVWESbJrRRsew7F8A25H2FN9yYUKWMiu6ftw
+	LwtgSYGop/1szkvxqpokSfkbt3M/8AQhV+nirt9CU0ft5UcTVEqI8xPu6xbD/xkx35K9
+	LLwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=vWnWu4ILZCzGdZr9GSKp1ZCIOxIxKOsPd7neb0Ym+/8=;
-	b=HLhQDz8RjNkszoDvZ3oW7/RSlZSaayd3dRqED8H8AouCxHLrOMnn7kgWZPVy3I/wQk
-	+Lsy13hkM6xBP/uel4kfPAOux4OkrfSzV9lQx+t2hBaAs7K3tapaEwZxvVv5neyxk2Xd
-	aEJ1IPsfczudvdsl1QM6f0gi7RSn07y4w0u9KMEufKtob8UjUgI98FdkT0UhGQatmKYv
-	ZhsmcFoCivgGcjT1q2XGsC9vUqc+2/xfE9WGYJiIxLltjRqQFKvHvr6vcd21DQIOdes+
-	cHL5fCmWAUqXsrXcWyA7ml8EAON0RJ5F8Af2VywU8pGxtsSbQTNboRYZig1xijLA6tBa
-	RGTw==
-X-Gm-Message-State: AODbwcAjNBy5jMroZB9ZCIHZD5ubWK/QmOlWNA49lbOOYULDwRR0CUgk
-	xb8LvhEKRNP+h3bqzVaLmJR6CzDVy+VN
-X-Received: by 10.28.137.201 with SMTP id l192mr11633625wmd.27.1495056564662; 
-	Wed, 17 May 2017 14:29:24 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.28.212.21 with HTTP; Wed, 17 May 2017 14:29:24 -0700 (PDT)
-In-Reply-To: <1495052131.7502.1.camel@gmail.com>
-References: <CAJ+vNU02n6DavkhuwM8gU7daWLyyd4QHgd0N5topHJQiO2_6RA@mail.gmail.com>
-	<1495052131.7502.1.camel@gmail.com>
-From: Tim Harvey <tharvey@gateworks.com>
-Date: Wed, 17 May 2017 14:29:24 -0700
-Message-ID: <CAJ+vNU1kh56xNCvy77zMM2Pc5hnaM+jFBhzdvip5h2dQ_+YMNA@mail.gmail.com>
-To: Max Krummenacher <max.oss.09@gmail.com>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [OE-core] populate sdk broken for u-boot-mkimage
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=5SIUtsysdpYv4GrC/Z/W2eeioXduJZjh43miIxFTYHc=;
+	b=b/zE/Q8UGad+iCwwudMPll5AMNlgxBNkBmt09ixw4ddi2/kd0Dl62Yn1GNqAAERWu5
+	pGWspvffNgNXEOzkpnmfY7tq1NtQwHPy/+vQIYAKOTiUP09T2Lcj4actNitfapVaZCKS
+	b5pH8S+gKw/kXnBXW828/6Dfdl9LBPc60xKj31z/6Tn+8vq4az6oIcUvqNVAdmVSFIse
+	tEgnAUA1j24D7cJaq03KeclljgorUFO0lUCm7yALyH8hmDj1yuXWQjrV9QyIaN2FYws2
+	qBglLW2FWJCxRjE+VMWITJocK0DlOObP89ry4vebPfJ+ZTLUoETVTbxXhTA97afJT36v
+	Gd0Q==
+X-Gm-Message-State: AODbwcDAXZGk+CIwEKhw4TmAhmZSTYwiESHsb9+n8O9z/zEL0+n1EUSL
+	pcDo+uFipAEFhg==
+X-Received: by 10.25.29.7 with SMTP id d7mr104631lfd.51.1495059905252;
+	Wed, 17 May 2017 15:25:05 -0700 (PDT)
+Received: from localhost.localdomain ([93.75.94.160])
+	by smtp.gmail.com with ESMTPSA id h67sm33068lfh.24.2017.05.17.15.25.04
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Wed, 17 May 2017 15:25:04 -0700 (PDT)
+From: Marian Pritsak <maryan.pricak@gmail.com>
+To: poky@yoctoproject.org
+Date: Thu, 18 May 2017 01:24:56 +0300
+Message-Id: <cover.1495058109.git.maryan.pricak@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [PATCH 0/1] libjansson: Initial support
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,57 +71,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 May 2017 21:29:29 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 17 May 2017 22:25:09 -0000
 
-On Wed, May 17, 2017 at 1:15 PM, Max Krummenacher <max.oss.09@gmail.com> wrote:
-> Hi Tim
->
-> Just sent a patch which may fix what you see.
->
-> Regards
-> Max
->
-> Am Mittwoch, den 17.05.2017, 12:36 -0700 schrieb Tim Harvey:
->> Greetings,
->>
->> I'm running into the following build error when trying to create an
->> SDK for an image that includes u-boot-mkimage-native.
->>
->> The nativesdk-u-boot-mkimage do_package task fails with:
->> ERROR: nativesdk-u-boot-mkimage: chrpath command failed with exit code 7:
->> b'/usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u-boot
->> -mkimage/1_2017.01-r0/package/opt/fslc-x11/2.3/sysroots/x86_64-fslcsdk-linux/usr/bin/uboot
->> -mkimage:
->> RPATH=/usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u
->> -boot-mkimage/1_2017.01-r0/recipe-sysroot-native/usr/lib:/usr/src/ventana/yocto/pyro
->> -2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe
->> -sysroot-native/lib\n'b"new
->> rpath '$ORIGIN/../../../../../../../usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk
->> -fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe-sysroot
->> -native/usr/lib:$ORIGIN/../../../../../../../usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64
->> -nativesdk-fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe-sysroot-native/lib'
->> too large; maximum length 287\n"
->> DEBUG: Python function perform_packagecopy finished
->> DEBUG: Python function do_package finished
->> ERROR: Function failed: perform_packagecopy
->>
->> I'm guessing this has something to do with the long list of args in
->> EXTRA_OEMAKE_class-nativesdk from
->> http://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-bsp/u-boot/u-boot-mkimage_2017.01.bb
->>
->> Any ideas?
->>
->> Regards,
->>
->> Tim
+The following changes since commit 2568e18701fb20d7105eb6e4929f3aff4b9f9c06:
 
-Max,
+  byacc: remove the recipe (2017-05-16 14:08:30 +0100)
 
-indeed your patch '[OE-core] [PATCH] u-boot-mkimage: fix nativesdk
-build' resolves my problem.
+are available in the git repository at:
 
-This should be backported to at least the pyro branch as well I would assume?
+  git://git.yoctoproject.org/poky-contrib marianp/jansson
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=marianp/jansson
 
-Tim
+Marian Pritsak (1):
+  libjansson: Initial support
+
+ meta/recipes-core/libjansson/libjansson_2.10.bb | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+ create mode 100644 meta/recipes-core/libjansson/libjansson_2.10.bb
+
+-- 
+2.7.4
+
 
