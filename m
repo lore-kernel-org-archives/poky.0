@@ -1,66 +1,46 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <denis@denix.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D5986E00B28; Wed, 17 May 2017 16:39:34 -0700 (PDT)
+	id 3D0E6E00B2E; Wed, 17 May 2017 18:16:57 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [74.125.82.65 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (raj.khem[at]gmail.com)
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [74.125.82.65 listed in dnsbl.sorbs.net]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00
+	autolearn=unavailable version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f65.google.com (mail-wm0-f65.google.com [74.125.82.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 34C5AE00B21
-	for <poky@yoctoproject.org>; Wed, 17 May 2017 16:39:32 -0700 (PDT)
-Received: by mail-wm0-f65.google.com with SMTP id y10so7173572wmh.0
-	for <poky@yoctoproject.org>; Wed, 17 May 2017 16:39:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=ur0/46uKhpnji3yCE5E9rwrpxhYLVvBmVKAg0/eHpNM=;
-	b=Zne5V+IROS11kRcQzM3LsbhGjK+RhDVPNYGDzdYz+HK5V8ytoYm2O6j3bvVSB38I8P
-	25OOKChDv5s2baJBybtzYbe+OCJp+Qov6OLbQV6wvTvWZU89/WbYkpBvK4/1IuGsB2uQ
-	D9l0JHeN5YCEqpvxzxkf6E0YB+RnUP/Hklp2AQ81EQ+RIbCAIACQDmYrPzeX2CaeEkNg
-	ZkONKOiziXh+kARdl2k25TjOOYOqVxTUg4LUcLHENEyV0BVTndPVI4GQpY2BeEEDR322
-	CQaaEfkCpi9sNY7+lD6tbZLZcjAQozX4zz3HnT272fixMpk2krqxPalRzMxwYyOrEKoj
-	QnEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=ur0/46uKhpnji3yCE5E9rwrpxhYLVvBmVKAg0/eHpNM=;
-	b=aB4q7qePXP3YWNXvt/NhcABLq5jCcEIMQDYGdRhQnkrZX6CSE4H3/GjmuFJ4HuEw+f
-	ucIYW1KYXIxQ8Jdl+W6lvH8EINOa42vtQouELiJOi4JFZnNoLhsK89f3hEbu34YoBCrc
-	eEZOt1tHvqFkxJtsbDMimEJGgUEF3cxKUslj5KeCJRwhhhM1tvgZ1haHp4qfAZhq1rgq
-	0k+uSVaEQ1mL7Ky/HsOkGeVg3346jMoaMlVV23xcee6x0k1F3zbY2XdbLrSx2W4oN70S
-	/n1w2lZccEcquBUDcARbBtEVurxlBUhhd+LfDG0p+lMU1EnnqZk3s2OUg/W5BNk2xHsR
-	bqtA==
-X-Gm-Message-State: AODbwcD5xI9NU1HacARDAu5d7kbJkRpt6P9M2RC/TIGC/kOmsLgxoZYc
-	zSfWuNf/JcZlphn+sJdo27TIAKlQTw==
-X-Received: by 10.80.180.155 with SMTP id w27mr886873edd.42.1495064371842;
-	Wed, 17 May 2017 16:39:31 -0700 (PDT)
+X-Greylist: delayed 516 seconds by postgrey-1.32 at yocto-www;
+	Wed, 17 May 2017 18:16:51 PDT
+Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.17])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ED8CAE00B27
+	for <poky@yoctoproject.org>; Wed, 17 May 2017 18:16:50 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mailout4.zoneedit.com (Postfix) with ESMTP id B70DC208C5;
+	Thu, 18 May 2017 01:08:14 +0000 (UTC)
+Received: from mailout4.zoneedit.com ([127.0.0.1])
+	by localhost (zmo03-pco.easydns.vpn [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id vzT5-zVUh7Ea; Thu, 18 May 2017 01:08:14 +0000 (UTC)
+Received: from mail.denix.org (pool-100-15-85-143.washdc.fios.verizon.net
+	[100.15.85.143])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mailout4.zoneedit.com (Postfix) with ESMTPSA id 81A6020756;
+	Thu, 18 May 2017 01:08:11 +0000 (UTC)
+Received: by mail.denix.org (Postfix, from userid 1000)
+	id 195361624C6; Wed, 17 May 2017 21:08:11 -0400 (EDT)
+Date: Wed, 17 May 2017 21:08:11 -0400
+From: Denys Dmytriyenko <denis@denix.org>
+To: Max Krummenacher <max.oss.09@gmail.com>
+Message-ID: <20170518010811.GS28053@denix.org>
+References: <CAJ+vNU02n6DavkhuwM8gU7daWLyyd4QHgd0N5topHJQiO2_6RA@mail.gmail.com>
+	<1495052131.7502.1.camel@gmail.com>
+	<CAJ+vNU1kh56xNCvy77zMM2Pc5hnaM+jFBhzdvip5h2dQ_+YMNA@mail.gmail.com>
+	<1495060628.9242.2.camel@gmail.com>
 MIME-Version: 1.0
-Received: by 10.80.195.143 with HTTP; Wed, 17 May 2017 16:39:01 -0700 (PDT)
-In-Reply-To: <5ebe86726275a2840af2e050dcc3fe6bf3c373cc.1495058109.git.maryan.pricak@gmail.com>
-References: <cover.1495058109.git.maryan.pricak@gmail.com>
-	<5ebe86726275a2840af2e050dcc3fe6bf3c373cc.1495058109.git.maryan.pricak@gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 17 May 2017 16:39:01 -0700
-Message-ID: <CAMKF1spnBs9a6dC8WC4QBeBX7=qu+RA=pjQRawsO1BiYN2Vu+Q@mail.gmail.com>
-To: Marian Pritsak <maryan.pricak@gmail.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH 1/1] libjansson: Initial support
+In-Reply-To: <1495060628.9242.2.camel@gmail.com>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
+Subject: Re: [OE-core] populate sdk broken for u-boot-mkimage
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,58 +53,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 May 2017 23:39:34 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 18 May 2017 01:16:57 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, May 17, 2017 at 3:25 PM, Marian Pritsak <maryan.pricak@gmail.com> wrote:
-> Integrate libjansson v2.10 - C library for encoding, decoding and manipulating
-> JSON data
+On Thu, May 18, 2017 at 12:37:08AM +0200, Max Krummenacher wrote:
+> Am Mittwoch, den 17.05.2017, 14:29 -0700 schrieb Tim Harvey:
+> > On Wed, May 17, 2017 at 1:15 PM, Max Krummenacher <max.oss.09@gmail.com> wrote:
+> > > Hi Tim
+> > > 
+> > > Just sent a patch which may fix what you see.
+> > > 
+> > > Regards
+> > > Max
+> > > 
+> > > Am Mittwoch, den 17.05.2017, 12:36 -0700 schrieb Tim Harvey:
+> > > > Greetings,
+> > > > 
+> > > > I'm running into the following build error when trying to create an
+> > > > SDK for an image that includes u-boot-mkimage-native.
+> > > > 
+> > > > The nativesdk-u-boot-mkimage do_package task fails with:
+> > > > ERROR: nativesdk-u-boot-mkimage: chrpath command failed with exit code 7:
+> > > > b'/usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u
+> > > > -boot
+> > > > -mkimage/1_2017.01-r0/package/opt/fslc-x11/2.3/sysroots/x86_64-fslcsdk-linux/usr/bin/uboot
+> > > > -mkimage:
+> > > > RPATH=/usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk
+> > > > -u
+> > > > -boot-mkimage/1_2017.01-r0/recipe-sysroot-native/usr/lib:/usr/src/ventana/yocto/pyro
+> > > > -2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01
+> > > > -r0/recipe
+> > > > -sysroot-native/lib\n'b"new
+> > > > rpath '$ORIGIN/../../../../../../../usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64
+> > > > -nativesdk
+> > > > -fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe-sysroot
+> > > > -native/usr/lib:$ORIGIN/../../../../../../../usr/src/ventana/yocto/pyro
+> > > > -2.3/build/tmp/work/x86_64
+> > > > -nativesdk-fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe-sysroot-native/lib'
+> > > > too large; maximum length 287\n"
+> > > > DEBUG: Python function perform_packagecopy finished
+> > > > DEBUG: Python function do_package finished
+> > > > ERROR: Function failed: perform_packagecopy
+> > > > 
+> > > > I'm guessing this has something to do with the long list of args in
+> > > > EXTRA_OEMAKE_class-nativesdk from
+> > > > http://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-bsp/u-boot/u-boot-mkimage_2017.01.
+> > > > bb
+> > > > 
+> > > > Any ideas?
+> > > > 
+> > > > Regards,
+> > > > 
+> > > > Tim
+> > 
+> > Max,
+> > 
+> > indeed your patch '[OE-core] [PATCH] u-boot-mkimage: fix nativesdk
+> > build' resolves my problem.
+> > 
+> > This should be backported to at least the pyro branch as well I would assume?
+> 
+> Yes, I expect that pyro has the same issue, morty likely does not though.
 
-take a look at http://cgit.openembedded.org/meta-openembedded/tree/meta-oe/recipes-extended/jansson/jansson_2.9.bb?h=master
+I can confirm this does not affect morty.
 
-and post a recipe upgrade to meta-oe using oe-devel mailing list
-
->
-> Signed-off-by: Marian Pritsak <maryan.pricak@gmail.com>
-> ---
->  meta/recipes-core/libjansson/libjansson_2.10.bb | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
->  create mode 100644 meta/recipes-core/libjansson/libjansson_2.10.bb
->
-> diff --git a/meta/recipes-core/libjansson/libjansson_2.10.bb b/meta/recipes-core/libjansson/libjansson_2.10.bb
-> new file mode 100644
-> index 0000000..c49ab35e
-> --- /dev/null
-> +++ b/meta/recipes-core/libjansson/libjansson_2.10.bb
-> @@ -0,0 +1,22 @@
-> +SUMMARY = "Jansson is a C library for encoding, decoding and manipulating JSON data"
-> +SECTION = "libs"
-> +LICENSE = "MIT"
-> +LIC_FILES_CHKSUM = "file://LICENSE;md5=8b70213ec164c7bd876ec2120ba52f61"
-> +
-> +SRC_URI = "git://github.com/akheron/jansson.git \
-> +"
-> +
-> +SRCREV = "b23201bb1a566d7e4ea84b76b3dcf2efcc025dac"
-> +
-> +S = "${WORKDIR}/git"
-> +
-> +inherit autotools pkgconfig
-> +
-> +FILES_${PN} += "${libdir}/libjansson.so.* \
-> +"
-> +FILES_${PN}-dev += "${includedir}/jansson.h \
-> +                    ${includedir}/jansson_config.h \
-> +                    ${libdir}/libjansson.so \
-> +                    ${libdir}/libjansson.la \
-> +"
-> +
-> --
-> 2.7.4
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+-- 
+Denys
 
