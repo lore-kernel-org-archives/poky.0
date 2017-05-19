@@ -1,46 +1,35 @@
-Return-Path: <denis@denix.org>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3D0E6E00B2E; Wed, 17 May 2017 18:16:57 -0700 (PDT)
+	id 87FE4E00B6C; Fri, 19 May 2017 09:16:18 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00
-	autolearn=unavailable version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.24 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 516 seconds by postgrey-1.32 at yocto-www;
-	Wed, 17 May 2017 18:16:51 PDT
-Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.17])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ED8CAE00B27
-	for <poky@yoctoproject.org>; Wed, 17 May 2017 18:16:50 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mailout4.zoneedit.com (Postfix) with ESMTP id B70DC208C5;
-	Thu, 18 May 2017 01:08:14 +0000 (UTC)
-Received: from mailout4.zoneedit.com ([127.0.0.1])
-	by localhost (zmo03-pco.easydns.vpn [127.0.0.1]) (amavisd-new,
-	port 10024)
-	with ESMTP id vzT5-zVUh7Ea; Thu, 18 May 2017 01:08:14 +0000 (UTC)
-Received: from mail.denix.org (pool-100-15-85-143.washdc.fios.verizon.net
-	[100.15.85.143])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mailout4.zoneedit.com (Postfix) with ESMTPSA id 81A6020756;
-	Thu, 18 May 2017 01:08:11 +0000 (UTC)
-Received: by mail.denix.org (Postfix, from userid 1000)
-	id 195361624C6; Wed, 17 May 2017 21:08:11 -0400 (EDT)
-Date: Wed, 17 May 2017 21:08:11 -0400
-From: Denys Dmytriyenko <denis@denix.org>
-To: Max Krummenacher <max.oss.09@gmail.com>
-Message-ID: <20170518010811.GS28053@denix.org>
-References: <CAJ+vNU02n6DavkhuwM8gU7daWLyyd4QHgd0N5topHJQiO2_6RA@mail.gmail.com>
-	<1495052131.7502.1.camel@gmail.com>
-	<CAJ+vNU1kh56xNCvy77zMM2Pc5hnaM+jFBhzdvip5h2dQ_+YMNA@mail.gmail.com>
-	<1495060628.9242.2.camel@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <1495060628.9242.2.camel@gmail.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [OE-core] populate sdk broken for u-boot-mkimage
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EF81DE00812
+	for <poky@yoctoproject.org>; Fri, 19 May 2017 09:16:15 -0700 (PDT)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	19 May 2017 09:16:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.38,364,1491289200"; d="scan'208";a="1171750946"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by fmsmga002.fm.intel.com with ESMTP; 19 May 2017 09:16:13 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Fri, 19 May 2017 09:16:10 -0700
+Message-Id: <20170519161612.29277-2-alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.12.0
+In-Reply-To: <20170519161612.29277-1-alejandro.hernandez@linux.intel.com>
+References: <20170519161612.29277-1-alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 2/4] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -53,71 +42,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 May 2017 01:16:57 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Fri, 19 May 2017 16:16:18 -0000
 
-On Thu, May 18, 2017 at 12:37:08AM +0200, Max Krummenacher wrote:
-> Am Mittwoch, den 17.05.2017, 14:29 -0700 schrieb Tim Harvey:
-> > On Wed, May 17, 2017 at 1:15 PM, Max Krummenacher <max.oss.09@gmail.com> wrote:
-> > > Hi Tim
-> > > 
-> > > Just sent a patch which may fix what you see.
-> > > 
-> > > Regards
-> > > Max
-> > > 
-> > > Am Mittwoch, den 17.05.2017, 12:36 -0700 schrieb Tim Harvey:
-> > > > Greetings,
-> > > > 
-> > > > I'm running into the following build error when trying to create an
-> > > > SDK for an image that includes u-boot-mkimage-native.
-> > > > 
-> > > > The nativesdk-u-boot-mkimage do_package task fails with:
-> > > > ERROR: nativesdk-u-boot-mkimage: chrpath command failed with exit code 7:
-> > > > b'/usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u
-> > > > -boot
-> > > > -mkimage/1_2017.01-r0/package/opt/fslc-x11/2.3/sysroots/x86_64-fslcsdk-linux/usr/bin/uboot
-> > > > -mkimage:
-> > > > RPATH=/usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk
-> > > > -u
-> > > > -boot-mkimage/1_2017.01-r0/recipe-sysroot-native/usr/lib:/usr/src/ventana/yocto/pyro
-> > > > -2.3/build/tmp/work/x86_64-nativesdk-fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01
-> > > > -r0/recipe
-> > > > -sysroot-native/lib\n'b"new
-> > > > rpath '$ORIGIN/../../../../../../../usr/src/ventana/yocto/pyro-2.3/build/tmp/work/x86_64
-> > > > -nativesdk
-> > > > -fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe-sysroot
-> > > > -native/usr/lib:$ORIGIN/../../../../../../../usr/src/ventana/yocto/pyro
-> > > > -2.3/build/tmp/work/x86_64
-> > > > -nativesdk-fslcsdk-linux/nativesdk-u-boot-mkimage/1_2017.01-r0/recipe-sysroot-native/lib'
-> > > > too large; maximum length 287\n"
-> > > > DEBUG: Python function perform_packagecopy finished
-> > > > DEBUG: Python function do_package finished
-> > > > ERROR: Function failed: perform_packagecopy
-> > > > 
-> > > > I'm guessing this has something to do with the long list of args in
-> > > > EXTRA_OEMAKE_class-nativesdk from
-> > > > http://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-bsp/u-boot/u-boot-mkimage_2017.01.
-> > > > bb
-> > > > 
-> > > > Any ideas?
-> > > > 
-> > > > Regards,
-> > > > 
-> > > > Tim
-> > 
-> > Max,
-> > 
-> > indeed your patch '[OE-core] [PATCH] u-boot-mkimage: fix nativesdk
-> > build' resolves my problem.
-> > 
-> > This should be backported to at least the pyro branch as well I would assume?
-> 
-> Yes, I expect that pyro has the same issue, morty likely does not though.
+Updates to Linux 4.4.67
 
-I can confirm this does not affect morty.
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 8f9a8d4ed11..c7eb2f43a9c 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -7,8 +7,8 @@ KBRANCH_edgerouter = "standard/edgerouter"
+ KBRANCH_beaglebone = "standard/beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+-SRCREV_machine_genericx86    ?= "0298d3765a5c474ff5776284d49111276510d4b4"
+-SRCREV_machine_genericx86-64 ?= "0298d3765a5c474ff5776284d49111276510d4b4"
++SRCREV_machine_genericx86    ?= "98b9340a7858f786f5ff7d50021ef83eaad0613d"
++SRCREV_machine_genericx86-64 ?= "98b9340a7858f786f5ff7d50021ef83eaad0613d"
+ SRCREV_machine_edgerouter ?= "0298d3765a5c474ff5776284d49111276510d4b4"
+ SRCREV_machine_beaglebone ?= "0298d3765a5c474ff5776284d49111276510d4b4"
+ SRCREV_machine_mpc8315e-rdb ?= "90e5792370e0ae72b69a7006f0727dda4ba7e629"
+@@ -19,8 +19,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.4.60"
+-LINUX_VERSION_genericx86-64 = "4.4.60"
++LINUX_VERSION_genericx86 = "4.4.67"
++LINUX_VERSION_genericx86-64 = "4.4.67"
+ LINUX_VERSION_edgerouter = "4.4.60"
+ LINUX_VERSION_beaglebone = "4.4.60"
+ LINUX_VERSION_mpc8315e-rdb = "4.4.60"
 -- 
-Denys
+2.12.0
+
 
