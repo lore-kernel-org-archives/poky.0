@@ -1,31 +1,34 @@
 Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 08E34E00B74; Sun, 21 May 2017 22:45:59 -0700 (PDT)
+	id 672D7E00B74; Sun, 21 May 2017 22:51:04 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C5555E00A38
-	for <poky@yoctoproject.org>; Sun, 21 May 2017 22:45:48 -0700 (PDT)
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DC6AEE00A38
+	for <poky@yoctoproject.org>; Sun, 21 May 2017 22:51:02 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id v4M5jl4L020183
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
-	for <poky@yoctoproject.org>; Sun, 21 May 2017 22:45:47 -0700
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id v4M5oxhR017320
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Sun, 21 May 2017 22:50:59 -0700 (PDT)
 Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
 	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.294.0; Sun, 21 May 2017 22:45:46 -0700
+	14.3.294.0; Sun, 21 May 2017 22:50:58 -0700
 From: Kevin Hao <kexin.hao@windriver.com>
 To: <poky@yoctoproject.org>
-Date: Mon, 22 May 2017 13:49:28 +0800
-Message-ID: <20170522054928.12481-1-kexin.hao@windriver.com>
+Date: Mon, 22 May 2017 13:55:00 +0800
+Message-ID: <20170522055500.13067-1-kexin.hao@windriver.com>
 X-Mailer: git-send-email 2.9.3
 MIME-Version: 1.0
-Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
+Subject: [PATCH] [pyro] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,7 +41,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 May 2017 05:45:59 -0000
+X-List-Received-Date: Mon, 22 May 2017 05:51:04 -0000
 Content-Type: text/plain
 
 Bump to the latest stable kernel for 4.1, 4.4, 4,9 and 4.10.
