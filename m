@@ -1,32 +1,50 @@
-Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
+Return-Path: <lars@visionweeding.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6E05EE00B51; Mon, 22 May 2017 10:24:51 -0700 (PDT)
+	id 0B021E00B51; Wed, 31 May 2017 04:33:19 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [192.55.52.43 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [195.47.247.78 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0FCFCE00812
-	for <poky@yoctoproject.org>; Mon, 22 May 2017 10:24:48 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga105.fm.intel.com with ESMTP; 22 May 2017 10:24:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.38,378,1491289200"; d="scan'208";a="1172805239"
-Received: from yctb05.ostc.intel.com ([10.54.69.59])
-	by fmsmga002.fm.intel.com with ESMTP; 22 May 2017 10:24:47 -0700
-From: leonardo.sandoval.gonzalez@linux.intel.com
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+X-Greylist: delayed 63 seconds by postgrey-1.32 at yocto-www;
+	Wed, 31 May 2017 04:33:18 PDT
+Received: from mailrelay10.public.one.com (mailrelay10.public.one.com
+	[195.47.247.78])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08706E00B3D
+	for <poky@yoctoproject.org>; Wed, 31 May 2017 04:33:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=visionweeding.com; s=20140924;
+	h=from:subject:date:message-id:to:mime-version:content-type;
+	bh=G3eBxnEFtqE1IkwLZpHZv/XKn7+jj6q3zMJPwxIfj3Q=;
+	b=EHjTsI/K5l9Kuig9Mv2UQW9UjfcF2PGahy5vmFLb4fvmkyYV4bm83+XJ47xGwsuldr/MD9aIyQRaU
+	Je4e4gVCD1nx9F509OBXEk1yFRqKgpLVnYfyJF+PvBI74g4WkT1Pbcizw4JFzeiCfSH2ghzruf6eEr
+	8SS/w6RvttcCxDcw=
+X-HalOne-Cookie: dceccf710d1c4333fd622fd4b29d1e2d0ebc4f29
+X-HalOne-ID: ca4727d6-45f4-11e7-be78-b82a72d06996
+Received: from [192.168.1.194] (unknown [185.81.39.126])
+	by smtpfilter3.public.one.com (Halon) with ESMTPSA
+	id ca4727d6-45f4-11e7-be78-b82a72d06996;
+	Wed, 31 May 2017 11:32:12 +0000 (UTC)
 To: poky@yoctoproject.org
-Date: Mon, 22 May 2017 10:24:44 -0700
-Message-Id: <20170522172444.44621-1-leonardo.sandoval.gonzalez@linux.intel.com>
-X-Mailer: git-send-email 2.12.0
+From: Lars Larsen <lars@visionweeding.com>
+Message-ID: <74a9ea3f-038f-70cf-0453-cb60084be2ea@visionweeding.com>
+Date: Wed, 31 May 2017 13:32:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.7.0
 MIME-Version: 1.0
-Subject: [PATCH] maintainers: update maintainers in several python modules, cronie and swig
+Subject: external kernel module does not recognize a new git commit
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,95 +57,160 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 May 2017 17:24:51 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 31 May 2017 11:33:19 -0000
+Content-Type: multipart/alternative;
+	boundary="------------12BC7942C5E8B8B84C3A1E27"
+
+--------------12BC7942C5E8B8B84C3A1E27
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Hi
 
-The python modules involved are:
+For my image I have a  recipe where I build an external kernel module (a 
+driver).
 
-* Python 2: numpy and setuptools
-* python 3: async, dbus, distribute, docutils, gitdb, nose, numpy, pip,
-  pygobject, setuptools, six and smmap
+I followed the model in the hello_mod.bb <http://hello_mod.bb> example, 
+except that the SRC_URI is a git repository and  SRCREV= "${AUTOREV} 
+(/See the recipe below.)/
 
-Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
----
- meta-poky/conf/distro/include/maintainers.inc | 32 +++++++++++++--------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+in my image recipe I do :
+PACKAGE_INSTALL_append() = "kernel-module-camdriverV20"
 
-diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
-index 261c8f313bf..3cb75d0ecd1 100644
---- a/meta-poky/conf/distro/include/maintainers.inc
-+++ b/meta-poky/conf/distro/include/maintainers.inc
-@@ -131,7 +131,7 @@ RECIPE_MAINTAINER_pn-coreutils = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-cpio = "Denys Dmytriyenko <denis@denix.org>"
- RECIPE_MAINTAINER_pn-cracklib = "Armin Kuster <akuster@mvista.com>"
- RECIPE_MAINTAINER_pn-createrepo = "Hongxu Jia <hongxu.jia@windriver.com>"
--RECIPE_MAINTAINER_pn-cronie = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-cronie = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
- RECIPE_MAINTAINER_pn-cross-localedef-native = "Khem Raj <raj.khem@gmail.com>"
- RECIPE_MAINTAINER_pn-cryptodev-linux = "Robert Yang <liezhi.yang@windriver.com>"
- RECIPE_MAINTAINER_pn-cryptodev-module = "Robert Yang <liezhi.yang@windriver.com>"
-@@ -626,7 +626,7 @@ RECIPE_MAINTAINER_pn-python-imaging = "Jose Lamego <jose.a.lamego@linux.intel.co
- RECIPE_MAINTAINER_pn-python-mako = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-nose = "Jose Lamego <jose.a.lamego@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python-numpy = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python-numpy = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-pexpect = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-ptyprocess = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-pycairo = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-@@ -635,26 +635,26 @@ RECIPE_MAINTAINER_pn-python-pygtk = "Jose Lamego <jose.a.lamego@linux.intel.com>
- RECIPE_MAINTAINER_pn-python-pyrex = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-scons = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-scons-native = "Jose Lamego <jose.a.lamego@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python-setuptools = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python-setuptools = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-six = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-smartpm = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python-smmap = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python3 = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-async = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-dbus = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-distribute = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-docutils = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-async = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-dbus = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-distribute = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-docutils = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python3-git = "Jose Lamego <jose.a.lamego@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-gitdb = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-gitdb = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python3-mako = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-python3-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-nose = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-numpy = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-pip = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-pygobject = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-setuptools = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-six = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
--RECIPE_MAINTAINER_pn-python3-smmap = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-nose = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-numpy = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-pip = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-pygobject = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-setuptools = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-six = "Jose Lamego <jose.a.lamego@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-python3-smmap = "Jose Lamego <jose.a.lamego@linux.intel.com>"
- RECIPE_MAINTAINER_pn-qemu = "Aníbal Limón <anibal.limon@linux.intel.com>"
- RECIPE_MAINTAINER_pn-qemu-helper-native = "Aníbal Limón <anibal.limon@linux.intel.com>"
- RECIPE_MAINTAINER_pn-qemuwrapper-cross = "Aníbal Limón <anibal.limon@linux.intel.com>"
-@@ -707,7 +707,7 @@ RECIPE_MAINTAINER_pn-stress = "Maxin B. John <maxin.john@intel.com>"
- RECIPE_MAINTAINER_pn-subversion = "Richard Purdie <richard.purdie@linuxfoundation.org>"
- RECIPE_MAINTAINER_pn-sudo = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-swabber-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
--RECIPE_MAINTAINER_pn-swig = "Edwin Plauchu <edwin.plauchu.camacho@linux.intel.com>"
-+RECIPE_MAINTAINER_pn-swig = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
- RECIPE_MAINTAINER_pn-sysfsutils = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-sysklogd = "Chen Qi <Qi.Chen@windriver.com>"
- RECIPE_MAINTAINER_pn-syslinux = "Alexander Kanavin <alexander.kanavin@intel.com>"
+If I make changes and push a new version to the git repo , it is not 
+discovered by bitbake, it keeps building the older version it already 
+have checked out.
+
+
+///
+//SUMMARY = "CAMERA DRIVER for Robovator"//
+//LICENSE = "GPLv2"//
+//LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"//
+//
+//# Cameradriver for Robovator, based on camdriverV10//
+//
+//#INHIBIT_PACKAGE_DEBUG_SPLIT = "1"//
+//BRANCH = "Pokybuild"//
+//
+//inherit module//
+//
+//SRC_URI =" git:///${ESERVER}/GIT/camdriverV20/;branch=${BRANCH};"//
+//
+//SRCREV= "${AUTOREV}"//
+//PV = "1.0.0+gitr${SRCPV}"//
+//
+//#SRCREV = "aa47aca8424a3f65ea2fc50386c2d1cdc47120d2"//
+//#PV = "1.0.0+gitr${SRCPV}"//
+////
+//S = "${WORKDIR}/git"//
+//
+//# Do not autoload the driver when running "V1.9" mode//
+//#KERNEL_MODULE_AUTOLOAD += "camdriverV20"/
+
+/
+/
+
+ESERVER and BRANCH are externally defined an are correct.
+
+All my application level module recipes are made the same way and they 
+work fine
+
+I must have  something wrong with the driver module. but what?
+
+
+B.R Lars
+
+
 -- 
-2.12.0
+
+Best Regards
+Lars Larsen
+
+F.Poulsen Engineering Aps
+Tjørnager 16
+4330 Hvalsø
+Denmark
++45 29802784
+www.visionweeding.com
 
 
+--------------12BC7942C5E8B8B84C3A1E27
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p>Hi</p>
+    <p>For my image I have a  recipe where I build an external kernel
+      module (a driver).</p>
+    <p>I followed the model in the <a href="http://hello_mod.bb"
+        target="_blank">hello_mod.bb</a> example, except that the
+      SRC_URI is a git repository and  SRCREV= "${AUTOREV} (<i>See the
+        recipe below.)</i></p>
+    in my image recipe I do :<br>
+    PACKAGE_INSTALL_append() = "kernel-module-camdriverV20"<br>
+    <br>
+    <p>If I make changes and push a new version to the git repo , it is
+      not discovered by bitbake, it keeps building the older version it
+      already have checked out.</p>
+    <p><br>
+    </p>
+    <p><font size="-2"><i> </i><i><br>
+        </i><i>SUMMARY = "CAMERA DRIVER for Robovator"</i><i><br>
+        </i><i>LICENSE = "GPLv2"</i><i><br>
+        </i><i>LIC_FILES_CHKSUM =
+          <a class="moz-txt-link-rfc2396E" href="file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e">"file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"</a></i><i><br>
+        </i><i><br>
+        </i><i># Cameradriver for Robovator, based on camdriverV10</i><i><br>
+        </i><i><br>
+        </i><i>#INHIBIT_PACKAGE_DEBUG_SPLIT = "1"</i><i><br>
+        </i><i>BRANCH = "Pokybuild"</i><i><br>
+        </i><i><br>
+        </i><i>inherit module</i><i><br>
+        </i><i><br>
+        </i><i>SRC_URI ="
+          git:///${ESERVER}/GIT/camdriverV20/;branch=${BRANCH};"</i><i><br>
+        </i><i><br>
+        </i><i>SRCREV= "${AUTOREV}"</i><i><br>
+        </i><i>PV = "1.0.0+gitr${SRCPV}"</i><i><br>
+        </i><i><br>
+        </i><i>#SRCREV = "aa47aca8424a3f65ea2fc50386c2d1cdc47120d2"</i><i><br>
+        </i><i>#PV = "1.0.0+gitr${SRCPV}"</i><i><br>
+        </i><i> </i><i><br>
+        </i><i>S = "${WORKDIR}/git"</i><i><br>
+        </i><i><br>
+        </i><i># Do not autoload the driver when running "V1.9" mode</i><i><br>
+        </i><i>#KERNEL_MODULE_AUTOLOAD += "camdriverV20"</i></font></p>
+    <p><font size="-2"><i><br>
+        </i></font></p>
+    <p>ESERVER and BRANCH are externally defined an are correct.</p>
+    <p>All my application level module recipes are made the same way and
+      they work fine <br>
+    </p>
+    <p>I must have  something wrong with the driver module. but what?<br>
+    </p>
+    <br>
+    <p>B.R Lars<br>
+    </p>
+    <br>
+    <pre class="moz-signature" cols="72">-- 
+
+Best Regards
+Lars Larsen 
+
+F.Poulsen Engineering Aps
+Tjørnager 16
+4330 Hvalsø
+Denmark
++45 29802784
+<a class="moz-txt-link-abbreviated" href="http://www.visionweeding.com">www.visionweeding.com</a>
+
+</pre>
+  </body>
+</html>
+
+--------------12BC7942C5E8B8B84C3A1E27--
