@@ -1,68 +1,48 @@
-Return-Path: <prvs=31872cab3=Mikko.Rapeli@bmw.de>
+Return-Path: <mcfrisk@kapsi.fi>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 97033E00B43; Thu,  1 Jun 2017 08:58:01 -0700 (PDT)
+	id ECC87E00B45; Thu,  1 Jun 2017 09:08:43 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=BAYES_05,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	http://www.dnswl.org/, low *      trust
-	*      [68.232.139.97 listed in list.dnswl.org]
-	* -0.5 BAYES_05 BODY: Bayes spam probability is 1 to 5%
-	*      [score: 0.0269]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
+	*      [217.30.184.167 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 63 seconds by postgrey-1.32 at yocto-www;
-	Thu, 01 Jun 2017 08:57:59 PDT
-Received: from esa8.bmw.c3s2.iphmx.com (esa8.bmw.c3s2.iphmx.com
-	[68.232.139.97])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F0FB4E00992
-	for <poky@yoctoproject.org>; Thu,  1 Jun 2017 08:57:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=bmw.de; i=@bmw.de; q=dns/txt; s=mailing1;
-	t=1496332680; x=1527868680;
-	h=from:to:cc:subject:date:message-id:in-reply-to:
-	content-id:content-transfer-encoding:mime-version;
-	bh=FdGVAmM2Ip4mCdN67ig66GkKRGQHerFL7J4XAV4RPkA=;
-	b=jPHdEsdLoA0OGQa4A+muN/W2n3U1Cjlx8wHbyDKac8aH8IkeDEpsrEjc
-	v7E71N0cfGP1VhLGRxqG48RzT/1IaiLgfeUGW7q19oV1/eO6yumV9z8uh
-	vG2aR9cJkcvrwRSVctw4HgDTnlB6sgcgeT3KebiliJEooVfUGHv7Tet8j 4=;
-Received: from esagw4.bmwgroup.com (HELO esagw4.muc) ([160.46.252.39]) by
-	esa8.bmw.c3s2.iphmx.com with ESMTP/TLS; 01 Jun 2017 17:56:55 +0200
-Received: from esabb4.muc ([160.50.100.33])  by esagw4.muc with ESMTP/TLS;
-	01 Jun 2017 17:56:55 +0200
-Received: from smucm10l.bmwgroup.net (HELO smucm10l.europe.bmw.corp)
-	([160.48.96.48])
-	by esabb4.muc with ESMTP/TLS; 01 Jun 2017 17:56:55 +0200
-Received: from smucm10k.europe.bmw.corp (160.48.96.47) by
-	smucm10l.europe.bmw.corp
-	(160.48.96.48) with Microsoft SMTP Server (TLS;
-	Thu, 1 Jun 2017 17:56:54 +0200
-Received: from smucm10k.europe.bmw.corp ([160.48.96.47]) by
-	smucm10k.europe.bmw.corp ([160.48.96.47]) with mapi id 15.00.1263.000;
-	Thu, 1 Jun 2017 17:56:54 +0200
-From: <Mikko.Rapeli@bmw.de>
-To: <bitbake-devel@lists.openembedded.org>, <poky@yoctoproject.org>
-Thread-Topic: [PATCH 1/3 v2] bitbake: Fix return value checks from
-	subprocess.call()'s
-Thread-Index: AQHS2u+wph96K9fdEUKsm2aUv77QVA==
-Date: Thu, 1 Jun 2017 15:56:54 +0000
-Message-ID: <20170601155654.hmrqbm7zmru2667w@hiutale>
-In-Reply-To: <1496332394-6615-1-git-send-email-mikko.rapeli@bmw.de>
-	<1496332293-23469-1-git-send-email-mikko.rapeli@bmw.de>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [192.168.44.101]
-MIME-Version: 1.0
+X-Greylist: delayed 933 seconds by postgrey-1.32 at yocto-www;
+	Thu, 01 Jun 2017 09:08:41 PDT
+Received: from mail.kapsi.fi (mail.kapsi.fi [217.30.184.167])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BEDE1E00992
+	for <poky@yoctoproject.org>; Thu,  1 Jun 2017 09:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kapsi.fi;
+	s=20161220; 
+	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=4j13ojxkCrICnj3xzlCM2BIqIgpmzNGqasPDtXf8W3w=; 
+	b=EPteVMTg5LD6lE0dcz3z/KA7+8wDaFtkhmct7NuLgv4+UXnz/B/EFxSSk75MR3rXc9aXASxD94MNspyXlja3u05nG878E+7PB6gvRp/b96asGQILvQmgjXABWNeMTIsOabHN6jntQLlThjHSBQxLGxjmxq0W3z+5ZbNmqiVER5uf9dGcY8tS5tYB75tswO+snv9w5cabhy92zQ9e3myHALnPPoZRl2Xz8E6RnZZfUEmkGwO+/uZqUhDfifrae69maKopVEYM3K60//pBHB9fVTrn4E4kYpTtXFQpFW9W5W38KxC8WRijb3Bptf+OL5GJcE/S8DA26GVvXdxaQzOLEQ==;
+Received: from lakka.kapsi.fi ([2001:1bc8:1004::1] ident=Debian-exim)
+	by mail.kapsi.fi with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.84_2) (envelope-from <mcfrisk@kapsi.fi>)
+	id 1dGSPK-0005hy-F5; Thu, 01 Jun 2017 18:53:06 +0300
+Received: from mcfrisk by lakka.kapsi.fi with local (Exim 4.84_2)
+	(envelope-from <mcfrisk@lakka.kapsi.fi>)
+	id 1dGSPK-0001VI-Dc; Thu, 01 Jun 2017 18:53:06 +0300
+From: Mikko Rapeli <mikko.rapeli@bmw.de>
+To: poky@yoctoproject.org
+Date: Thu,  1 Jun 2017 18:52:59 +0300
+Message-Id: <1496332379-3802-1-git-send-email-mikko.rapeli@bmw.de>
+X-Mailer: git-send-email 2.1.4
+In-Reply-To: <20170601125029.wli6reydiovo7xjk@hiutale>
+References: <20170601125029.wli6reydiovo7xjk@hiutale>
+X-SA-Exim-Connect-IP: 2001:1bc8:1004::1
+X-SA-Exim-Mail-From: mcfrisk@kapsi.fi
+X-SA-Exim-Scanned: No (on mail.kapsi.fi); SAEximRunCond expanded to false
 Cc: openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 1/3 v2] bitbake: Fix return value checks from subprocess.call()'s
+Subject: [PATCH 2/3 v2] scripts: Fix return value checks from subprocess.call()'s
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -75,14 +55,74 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Jun 2017 15:58:01 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <E44E5004C8731A4D822FC1B6FA374938@bmwmail.corp>
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 01 Jun 2017 16:08:44 -0000
 
-Hmm, do I need to rebase the patches from yocto to upstream
-bitbake and meta-poky git trees?
+Python function subprocess.call() returns the return value of the
+executed process. If return values are not checked, errors may
+go unnoticed and bad things can happen.
 
--Mikko=
+Change all callers of subprocess.call() which do not check for
+the return value to use subprocess.check_call() which raises
+CalledProcessError if the subprocess returns with non-zero value.
+
+https://docs.python.org/2/library/subprocess.html#using-the-subprocess-module
+
+All users of the function were found with:
+
+$ git grep "subprocess\.call" | \
+  egrep -v 'if.*subprocess\.call|=\ +subprocess\.call|return.*subprocess\.call'
+
+Tested similar patch on top of yocto jethro. Only compile tested
+core-image-minimal on poky master branch.
+
+Signed-off-by: Mikko Rapeli <mikko.rapeli@bmw.de>
+---
+ scripts/runqemu | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+v2:
+split patches to bitbake, meta and scripts
+
+v1:
+http://lists.openembedded.org/pipermail/openembedded-core/2017-May/136901.html
+
+diff --git a/scripts/runqemu b/scripts/runqemu
+index 72c4176..416c3f7 100755
+--- a/scripts/runqemu
++++ b/scripts/runqemu
+@@ -1098,7 +1098,7 @@ class BaseConfig(object):
+         if self.serialstdio:
+             logger.info("Interrupt character is '^]'")
+             cmd = "stty intr ^]"
+-            subprocess.call(cmd, shell=True)
++            subprocess.check_call(cmd, shell=True)
+ 
+             first_serial = ""
+             if not re.search("-nographic", self.qemu_opt):
+@@ -1145,7 +1145,7 @@ class BaseConfig(object):
+         if self.cleantap:
+             cmd = 'sudo %s %s %s' % (self.qemuifdown, self.tap, self.bindir_native)
+             logger.info('Running %s' % cmd)
+-            subprocess.call(cmd, shell=True)
++            subprocess.check_call(cmd, shell=True)
+         if self.lock_descriptor:
+             logger.info("Releasing lockfile for tap device '%s'" % self.tap)
+             self.release_lock()
+@@ -1154,11 +1154,11 @@ class BaseConfig(object):
+             logger.info("Shutting down the userspace NFS server...")
+             cmd = "runqemu-export-rootfs stop %s" % self.rootfs
+             logger.info('Running %s' % cmd)
+-            subprocess.call(cmd, shell=True)
++            subprocess.check_call(cmd, shell=True)
+ 
+         if self.saved_stty:
+             cmd = "stty %s" % self.saved_stty
+-            subprocess.call(cmd, shell=True)
++            subprocess.check_call(cmd, shell=True)
+ 
+         if self.clean_nfs_dir:
+             logger.info('Removing %s' % self.rootfs)
+-- 
+1.9.1
+
 
