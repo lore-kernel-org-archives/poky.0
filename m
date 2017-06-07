@@ -1,6 +1,6 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <richard@rpsys.net>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8E1A4E00BEF; Wed,  7 Jun 2017 05:42:58 -0700 (PDT)
+	id AB13FE00BE9; Wed,  7 Jun 2017 05:42:59 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -9,31 +9,28 @@ X-Spam-Status: No, score=-0.9 required=5.0 tests=BAYES_00,KHOP_DYNAMIC
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  1.0 KHOP_DYNAMIC Relay looks like a dynamic address
-X-Greylist: delayed 504 seconds by postgrey-1.32 at yocto-www;
-	Wed, 07 Jun 2017 05:42:56 PDT
 Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CAA85E00BD5
-	for <poky@yoctoproject.org>; Wed,  7 Jun 2017 05:42:56 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 790EEE00BE2
+	for <poky@lists.yoctoproject.org>; Wed,  7 Jun 2017 05:42:58 -0700 (PDT)
 Received: from hex ([192.168.3.34]) (authenticated bits=0)
 	by dan.rpsys.net (8.15.2/8.15.2/Debian-3) with ESMTPSA id
-	v57CWS70013525
+	v57Ce80f014626
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Wed, 7 Jun 2017 13:32:29 +0100
-Message-ID: <1496838748.6630.214.camel@linuxfoundation.org>
+	verify=NOT); Wed, 7 Jun 2017 13:40:09 +0100
+Received: from richard by hex with local (Exim 4.86_2)
+	(envelope-from <richard@rpsys.net>)
+	id 1dIaFs-0000nJ-IU; Wed, 07 Jun 2017 13:40:08 +0100
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Ed Bartosh <ed.bartosh@linux.intel.com>, poky@yoctoproject.org
-Date: Wed, 07 Jun 2017 13:32:28 +0100
-In-Reply-To: <1496838489-25242-1-git-send-email-ed.bartosh@linux.intel.com>
-References: <CAJTo0LYUEgJgU03xxhi2ke3SspsEs0_JPcX4yiBaVbF6p-saUQ@mail.gmail.com>
-	<1496838489-25242-1-git-send-email-ed.bartosh@linux.intel.com>
-X-Mailer: Evolution 3.18.5.2-0ubuntu3.1 
-Mime-Version: 1.0
+To: poky@lists.yoctoproject.org
+Date: Wed,  7 Jun 2017 13:40:07 +0100
+Message-Id: <1496839207-3014-1-git-send-email-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.7.4
 X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.11
 	(dan.rpsys.net [192.168.3.1]);
-	Wed, 07 Jun 2017 13:32:29 +0100 (BST)
+	Wed, 07 Jun 2017 13:40:09 +0100 (BST)
 X-Virus-Scanned: clamav-milter 0.99.2 at dan
 X-Virus-Status: Clean
-Subject: Re: [PATCH v2] u-boot: enable dhcp for MPC8315 board
+Subject: [PATCH] meta-yocto: Add LAYERSERIES_COMPAT markup to layer.conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,33 +43,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Jun 2017 12:42:58 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 07 Jun 2017 12:42:59 -0000
 
-On Wed, 2017-06-07 at 15:28 +0300, Ed Bartosh wrote:
-> Getting ip address from DHCP server is much more convenient
-> than setting static ip. It allows to configure u-boot in
-> more generic way and to avoid hardcoding static ip in
-> u-boot configuration.
-> 
-> Enabled dhcp client functionality for Yocto reference
-> hardware MPC8315E-RDB.
-> 
-> Signed-off-by: Ed Bartosh <ed.bartosh@linux.intel.com>
-> ---
->  meta/recipes-bsp/u-boot/files/MPC8315ERDB-enable-DHCP.patch | 12
-> ++++++++++++
->  meta/recipes-bsp/u-boot/u-boot-common_2017.01.inc           |  4
-> +++-
->  2 files changed, 15 insertions(+), 1 deletion(-)
->  create mode 100644 meta/recipes-bsp/u-boot/files/MPC8315ERDB-enable-
-> DHCP.patch
+This means mismatched layers are more clearly identified to the user in
+cases where compatibility has not been tested.
 
-These files are in OE-Core, not meta-yocto but you sent them to the
-poky list?
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/layer.conf      | 2 ++
+ meta-yocto-bsp/conf/layer.conf | 1 +
+ 2 files changed, 3 insertions(+)
 
-Cheers,
+diff --git a/meta-poky/conf/layer.conf b/meta-poky/conf/layer.conf
+index 8b7b33d..26d7c3b 100644
+--- a/meta-poky/conf/layer.conf
++++ b/meta-poky/conf/layer.conf
+@@ -9,6 +9,8 @@ BBFILE_COLLECTIONS += "yocto"
+ BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yocto = "5"
+ 
++LAYERSERIES_COMPAT_yocto = "rocko"
++
+ # This should only be incremented on significant changes that will
+ # cause compatibility issues with other layers
+ LAYERVERSION_yocto = "3"
+diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
+index 44dbca6..7b565f2 100644
+--- a/meta-yocto-bsp/conf/layer.conf
++++ b/meta-yocto-bsp/conf/layer.conf
+@@ -9,3 +9,4 @@ BBFILE_COLLECTIONS += "yoctobsp"
+ BBFILE_PATTERN_yoctobsp = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yoctobsp = "5"
+ LAYERVERSION_yoctobsp = "3"
++LAYERSERIES_COMPAT_yoctobsp = "rocko"
+-- 
+2.7.4
 
-Richard
 
