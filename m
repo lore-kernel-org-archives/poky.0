@@ -1,6 +1,6 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B8A25E00ACF; Tue, 13 Jun 2017 15:15:10 -0700 (PDT)
+	id CB7D0E00B58; Thu, 15 Jun 2017 23:18:31 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -9,26 +9,23 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 58829E00888
-	for <poky@yoctoproject.org>; Tue, 13 Jun 2017 15:15:08 -0700 (PDT)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
-	[147.11.189.41])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id v5DMF6kD031228
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK);
-	Tue, 13 Jun 2017 15:15:06 -0700
-Received: from [128.224.23.56] (128.224.23.56) by ALA-HCB.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.294.0;
-	Tue, 13 Jun 2017 15:15:05 -0700
-To: <leonardo.sandoval.gonzalez@linux.intel.com>, <poky@yoctoproject.org>
-References: <20170613194818.28140-1-leonardo.sandoval.gonzalez@linux.intel.com>
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-Message-ID: <72702332-2607-7413-eb04-270f62a97297@windriver.com>
-Date: Wed, 14 Jun 2017 00:15:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.1.1
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A947E00A9B
+	for <poky@yoctoproject.org>; Thu, 15 Jun 2017 23:18:28 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id v5G6IQIW012910
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
+	for <poky@yoctoproject.org>; Thu, 15 Jun 2017 23:18:27 -0700
+Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.3.294.0; Thu, 15 Jun 2017 23:18:26 -0700
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Fri, 16 Jun 2017 14:24:25 +0800
+Message-ID: <20170616062425.29919-1-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.9.3
 MIME-Version: 1.0
-In-Reply-To: <20170613194818.28140-1-leonardo.sandoval.gonzalez@linux.intel.com>
-Subject: Re: [PATCH] linux-yocto: remove user-specific description/config files from machine description
+Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,120 +38,100 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 13 Jun 2017 22:15:10 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 16 Jun 2017 06:18:31 -0000
+Content-Type: text/plain
 
-On 06/13/2017 09:48 PM, leonardo.sandoval.gonzalez@linux.intel.com wrote:
-> From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
-> 
-> Remove user-specific descrition files and config fragments from main machine
-> description file otherwise double patch/config inclusion may happen. These
-> files/fragments are already included on the SRC_URI (see poky commit 2db8f3),
-> so no need to reference these inside machine.scc files.
+Bump to the latest stable kernel for 4.4, 4,9 and 4.10.
 
-Looks good to me.
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_4.10.bbappend           | 12 ++++++------
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12 ++++++------
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12 ++++++------
+ 3 files changed, 18 insertions(+), 18 deletions(-)
 
-Acked-by: Bruce Ashfield <bruce.ashfield@windriver.com>
-
-Bruce
-
-> 
-> [YOCTO #11586]
-> 
-> Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
-> ---
->   .../substrate/target/arch/arm/recipes-kernel/linux/files/machine.scc    | 2 --
->   .../arch/common/recipes-kernel/linux/linux-yocto-custom/machine.scc     | 2 --
->   .../substrate/target/arch/i386/recipes-kernel/linux/files/machine.scc   | 2 --
->   .../substrate/target/arch/mips/recipes-kernel/linux/files/machine.scc   | 2 --
->   .../substrate/target/arch/mips64/recipes-kernel/linux/files/machine.scc | 2 --
->   .../target/arch/powerpc/recipes-kernel/linux/files/machine.scc          | 2 --
->   .../substrate/target/arch/qemu/recipes-kernel/linux/files/machine.scc   | 2 --
->   .../substrate/target/arch/x86_64/recipes-kernel/linux/files/machine.scc | 2 --
->   8 files changed, 16 deletions(-)
-> 
-> diff --git a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/files/machine.scc
-> index 828400df40..fb3866f119 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/files/machine.scc
-> @@ -4,5 +4,3 @@ kconf non-hardware {{machine}}-non_hardware.cfg
->   
->   include features/usb-net/usb-net.scc
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine.scc b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine.scc
-> index 0b6b413377..64d3ed181b 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine.scc
-> @@ -14,5 +14,3 @@ kconf hardware {{=machine}}.cfg
->   # These are used by yocto-kernel to add config fragments and features.
->   # Don't remove if you plan on using yocto-kernel with this BSP.
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/files/machine.scc
-> index 3d32f111b0..3e4c54fcf5 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/files/machine.scc
-> @@ -17,5 +17,3 @@ include cfg/usb-mass-storage.scc
->   include cfg/boot-live.scc
->   include features/power/intel.scc
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/files/machine.scc
-> index f39dc3edf1..792fdc94a4 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/files/machine.scc
-> @@ -4,5 +4,3 @@ kconf hardware {{=machine}}.cfg
->   include cfg/usb-mass-storage.scc
->   include cfg/fs/vfat.scc
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/files/machine.scc
-> index f39dc3edf1..792fdc94a4 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/files/machine.scc
-> @@ -4,5 +4,3 @@ kconf hardware {{=machine}}.cfg
->   include cfg/usb-mass-storage.scc
->   include cfg/fs/vfat.scc
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/files/machine.scc
-> index 7aac8b0801..89bb97efd6 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/files/machine.scc
-> @@ -6,5 +6,3 @@ include cfg/fs/vfat.scc
->   
->   include cfg/dmaengine.scc
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/files/machine.scc
-> index 8301e05f7d..d25d0a0377 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/files/machine.scc
-> @@ -1,5 +1,3 @@
->   # yocto-bsp-filename {{=machine}}.scc
->   kconf hardware {{=machine}}.cfg
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/files/machine.scc b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/files/machine.scc
-> index 9b7c291a8f..9d20d199b2 100644
-> --- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/files/machine.scc
-> +++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/files/machine.scc
-> @@ -10,5 +10,3 @@ include features/i915/i915.scc
->   include cfg/usb-mass-storage.scc
->   include features/power/intel.scc
->   
-> -kconf hardware {{=machine}}-user-config.cfg
-> -include {{=machine}}-user-patches.scc
-> 
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
+index 9b94b6007e55..6884731810cc 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
+@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
+ SRCREV_machine_genericx86-64 ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
+-SRCREV_machine_edgerouter ?= "d2c1ed3c0cbc0d8dcf429346f7ab2e96d470b504"
+-SRCREV_machine_beaglebone ?= "d2c1ed3c0cbc0d8dcf429346f7ab2e96d470b504"
+-SRCREV_machine_mpc8315e-rdb ?= "b768fff337e184ea6d714528b779f69b861d4592"
++SRCREV_machine_edgerouter ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
++SRCREV_machine_beaglebone ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
++SRCREV_machine_mpc8315e-rdb ?= "5ae8cb247756593767d1bb3828bbb9f2a9b72341"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.10.17"
+ LINUX_VERSION_genericx86-64 = "4.10.17"
+-LINUX_VERSION_edgerouter = "4.10.15"
+-LINUX_VERSION_beaglebone = "4.10.15"
+-LINUX_VERSION_mpc8315e-rdb = "4.10.15"
++LINUX_VERSION_edgerouter = "4.10.17"
++LINUX_VERSION_beaglebone = "4.10.17"
++LINUX_VERSION_mpc8315e-rdb = "4.10.17"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 38e5836a8878..72de36a5f3f9 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
+ SRCREV_machine_genericx86-64 ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
+-SRCREV_machine_edgerouter ?= "98b9340a7858f786f5ff7d50021ef83eaad0613d"
+-SRCREV_machine_beaglebone ?= "98b9340a7858f786f5ff7d50021ef83eaad0613d"
+-SRCREV_machine_mpc8315e-rdb ?= "2bf69589c6d2c1aa0db7efd735b43155a743959a"
++SRCREV_machine_edgerouter ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
++SRCREV_machine_beaglebone ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
++SRCREV_machine_mpc8315e-rdb ?= "b413742a8985a70f4dcfd9c05feb12fcf0f8ca7d"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.4.71"
+ LINUX_VERSION_genericx86-64 = "4.4.71"
+-LINUX_VERSION_edgerouter = "4.4.67"
+-LINUX_VERSION_beaglebone = "4.4.67"
+-LINUX_VERSION_mpc8315e-rdb = "4.4.67"
++LINUX_VERSION_edgerouter = "4.4.71"
++LINUX_VERSION_beaglebone = "4.4.71"
++LINUX_VERSION_mpc8315e-rdb = "4.4.71"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+index fbdf26ff12c4..073e92ecade8 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
+ SRCREV_machine_genericx86-64 ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
+-SRCREV_machine_edgerouter ?= "2c31d7a45ae75159a7d991abdeb7002a4493af7f"
+-SRCREV_machine_beaglebone ?= "2c31d7a45ae75159a7d991abdeb7002a4493af7f"
+-SRCREV_machine_mpc8315e-rdb ?= "fd97646e9431c0f4c09021cbe3189acc25034a98"
++SRCREV_machine_edgerouter ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
++SRCREV_machine_beaglebone ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
++SRCREV_machine_mpc8315e-rdb ?= "9e97ee1670f23b2a8cff3f7a2cd7463e1cd76ee3"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.9.31"
+ LINUX_VERSION_genericx86-64 = "4.9.31"
+-LINUX_VERSION_edgerouter = "4.9.27"
+-LINUX_VERSION_beaglebone = "4.9.27"
+-LINUX_VERSION_mpc8315e-rdb = "4.9.27"
++LINUX_VERSION_edgerouter = "4.9.31"
++LINUX_VERSION_beaglebone = "4.9.31"
++LINUX_VERSION_mpc8315e-rdb = "4.9.31"
+-- 
+2.9.3
 
 
