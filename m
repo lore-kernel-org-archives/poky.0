@@ -1,31 +1,68 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <jeff.dagenais@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id CB7D0E00B58; Thu, 15 Jun 2017 23:18:31 -0700 (PDT)
+	id C0974E00B05; Tue, 20 Jun 2017 04:58:17 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
+	WEIRD_QUOTING autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (jeff.dagenais[at]gmail.com)
+	*  0.0 WEIRD_QUOTING BODY: Weird repeated double-quotation marks
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A947E00A9B
-	for <poky@yoctoproject.org>; Thu, 15 Jun 2017 23:18:28 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id v5G6IQIW012910
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
-	for <poky@yoctoproject.org>; Thu, 15 Jun 2017 23:18:27 -0700
-Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.294.0; Thu, 15 Jun 2017 23:18:26 -0700
-From: Kevin Hao <kexin.hao@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 16 Jun 2017 14:24:25 +0800
-Message-ID: <20170616062425.29919-1-kexin.hao@windriver.com>
-X-Mailer: git-send-email 2.9.3
-MIME-Version: 1.0
-Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.223.194 listed in list.dnswl.org]
+Received: from mail-io0-f194.google.com (mail-io0-f194.google.com
+	[209.85.223.194])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7E3A5E009A0
+	for <poky@yoctoproject.org>; Tue, 20 Jun 2017 04:58:14 -0700 (PDT)
+Received: by mail-io0-f194.google.com with SMTP id f79so14473066ioi.2
+	for <poky@yoctoproject.org>; Tue, 20 Jun 2017 04:58:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:content-transfer-encoding:subject:date:message-id:cc:to
+	:mime-version; bh=2OT49Lx+PiLN1qE0rkxXIwr/WDdGw0+EzhQRMjWpI1A=;
+	b=uiwhd7bCRy064QZb5tZjbzKExR4vcO+HBvyaX/Ab41KwHfnHVYslNU38gtdN5oKmJX
+	Woe5DiCVgTPkrlkiVdV20M7mzbDTx5OqTScSXs0CSfFbm1mB3Un8ywqhjDC04lvcAQYn
+	RyYdsnJqya+8jwrMG7TZ0rOq5TV71JmT1yK4IcWOPOiZ5DVGyG0+nm5ly5y3Mh2RmK/N
+	1F/iouwy5B8Ezb38XB40m89Bt+7Wb8cVoe+FPK2QeJcZIOW60HmJLaHJ5OCbJCZqEVf6
+	RChZw5d45mKLf68fMoLb/5HLbshmMYVNNPqktEXgHuOzL/MvflF4TTV2vphcurtbcbq1
+	6bag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:content-transfer-encoding:subject:date
+	:message-id:cc:to:mime-version;
+	bh=2OT49Lx+PiLN1qE0rkxXIwr/WDdGw0+EzhQRMjWpI1A=;
+	b=OcbuvpV60k8xY2OlTiD1h+RNPMOB09kqcm7QLCVrzHVHUMIZ/61kkh2xEWQjLWpz0d
+	zEo7TolT/luf8mCjLagdCj8VdgFg0LB0b6U7V26vX1KTZthWwY7I57AyYXTVX++yqoV4
+	CMiiNGpgAt459SjTIUW/uSbzU9nZKmEBtLVRxguGVQCTu1/4Eunl31xUvyd6DL8YVPdm
+	02GFzOUgG8koglmLSFBLJNZETXpkqEM3xIVZajQ/JxAsLOOmgrb+5MhpICr8vDWlQTkQ
+	Fawo+X9Q1yliFJ7VP+Of/FL2t50iGf4uNMBRoP3JmLosxpvTzcyzYaeZAhOozfjafH3p
+	a0Pw==
+X-Gm-Message-State: AKS2vOw6M8t8pjDTtzdr0+bjUokaydCf8+9H45602+JMrWteAOKJVsaW
+	NXZbKPziIInt58cdQjRvKQ==
+X-Received: by 10.107.205.130 with SMTP id d124mr26232894iog.27.1497959893510; 
+	Tue, 20 Jun 2017 04:58:13 -0700 (PDT)
+Received: from ?IPv6:2605:8d80:5e2:6d5f:d0b4:646e:32f1:4472?
+	([2605:8d80:5e2:6d5f:d0b4:646e:32f1:4472])
+	by smtp.gmail.com with ESMTPSA id
+	h76sm5936451ith.24.2017.06.20.04.58.12
+	(version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Tue, 20 Jun 2017 04:58:12 -0700 (PDT)
+From: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
+Date: Tue, 20 Jun 2017 07:58:13 -0400
+Message-Id: <FDD1C072-B0FB-4EC1-8461-A7F4484AB630@gmail.com>
+To: poky@yoctoproject.org
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+X-Mailer: Apple Mail (2.3124)
+Subject: [PATCH] wic: remove extra double-quote on documentation string
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,100 +75,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Jun 2017 06:18:31 -0000
-Content-Type: text/plain
+X-List-Received-Date: Tue, 20 Jun 2017 11:58:17 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Bump to the latest stable kernel for 4.4, 4,9 and 4.10.
-
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+Signed-off-by: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
 ---
- .../recipes-kernel/linux/linux-yocto_4.10.bbappend           | 12 ++++++------
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12 ++++++------
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12 ++++++------
- 3 files changed, 18 insertions(+), 18 deletions(-)
+scripts/lib/wic/ksparser.py | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-index 9b94b6007e55..6884731810cc 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
- SRCREV_machine_genericx86-64 ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
--SRCREV_machine_edgerouter ?= "d2c1ed3c0cbc0d8dcf429346f7ab2e96d470b504"
--SRCREV_machine_beaglebone ?= "d2c1ed3c0cbc0d8dcf429346f7ab2e96d470b504"
--SRCREV_machine_mpc8315e-rdb ?= "b768fff337e184ea6d714528b779f69b861d4592"
-+SRCREV_machine_edgerouter ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
-+SRCREV_machine_beaglebone ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
-+SRCREV_machine_mpc8315e-rdb ?= "5ae8cb247756593767d1bb3828bbb9f2a9b72341"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.10.17"
- LINUX_VERSION_genericx86-64 = "4.10.17"
--LINUX_VERSION_edgerouter = "4.10.15"
--LINUX_VERSION_beaglebone = "4.10.15"
--LINUX_VERSION_mpc8315e-rdb = "4.10.15"
-+LINUX_VERSION_edgerouter = "4.10.17"
-+LINUX_VERSION_beaglebone = "4.10.17"
-+LINUX_VERSION_mpc8315e-rdb = "4.10.17"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-index 38e5836a8878..72de36a5f3f9 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
- SRCREV_machine_genericx86-64 ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
--SRCREV_machine_edgerouter ?= "98b9340a7858f786f5ff7d50021ef83eaad0613d"
--SRCREV_machine_beaglebone ?= "98b9340a7858f786f5ff7d50021ef83eaad0613d"
--SRCREV_machine_mpc8315e-rdb ?= "2bf69589c6d2c1aa0db7efd735b43155a743959a"
-+SRCREV_machine_edgerouter ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
-+SRCREV_machine_beaglebone ?= "268676407913f5d496cde6cbf4052eb5acaf6237"
-+SRCREV_machine_mpc8315e-rdb ?= "b413742a8985a70f4dcfd9c05feb12fcf0f8ca7d"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.4.71"
- LINUX_VERSION_genericx86-64 = "4.4.71"
--LINUX_VERSION_edgerouter = "4.4.67"
--LINUX_VERSION_beaglebone = "4.4.67"
--LINUX_VERSION_mpc8315e-rdb = "4.4.67"
-+LINUX_VERSION_edgerouter = "4.4.71"
-+LINUX_VERSION_beaglebone = "4.4.71"
-+LINUX_VERSION_mpc8315e-rdb = "4.4.71"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-index fbdf26ff12c4..073e92ecade8 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
- SRCREV_machine_genericx86-64 ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
--SRCREV_machine_edgerouter ?= "2c31d7a45ae75159a7d991abdeb7002a4493af7f"
--SRCREV_machine_beaglebone ?= "2c31d7a45ae75159a7d991abdeb7002a4493af7f"
--SRCREV_machine_mpc8315e-rdb ?= "fd97646e9431c0f4c09021cbe3189acc25034a98"
-+SRCREV_machine_edgerouter ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
-+SRCREV_machine_beaglebone ?= "d2de43e42bb8a270e680aab1c8f2447bff0b3552"
-+SRCREV_machine_mpc8315e-rdb ?= "9e97ee1670f23b2a8cff3f7a2cd7463e1cd76ee3"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.9.31"
- LINUX_VERSION_genericx86-64 = "4.9.31"
--LINUX_VERSION_edgerouter = "4.9.27"
--LINUX_VERSION_beaglebone = "4.9.27"
--LINUX_VERSION_mpc8315e-rdb = "4.9.27"
-+LINUX_VERSION_edgerouter = "4.9.31"
-+LINUX_VERSION_beaglebone = "4.9.31"
-+LINUX_VERSION_mpc8315e-rdb = "4.9.31"
+diff --git a/scripts/lib/wic/ksparser.py b/scripts/lib/wic/ksparser.py
+index d026caa..47afda4 100644
+--- a/scripts/lib/wic/ksparser.py
++++ b/scripts/lib/wic/ksparser.py
+@@ -114,7 +114,7 @@ def systemidtype(arg):
+    return arg
+
+class KickStart():
+-    """"Kickstart parser implementation."""
++    """Kickstart parser implementation."""
+
+    DEFAULT_EXTRA_SPACE = 10*1024
+    DEFAULT_OVERHEAD_FACTOR = 1.3
 -- 
-2.9.3
+2.1.4
 
 
