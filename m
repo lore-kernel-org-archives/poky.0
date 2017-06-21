@@ -1,39 +1,32 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <yin.thong.choong@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BC344E00B31; Tue, 20 Jun 2017 07:07:23 -0700 (PDT)
+	id 099EFE00BC4; Wed, 21 Jun 2017 01:44:01 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00, DATE_IN_PAST_06_12, 
+	RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	http://www.dnswl.org/, *      medium trust
 	*      [134.134.136.31 listed in list.dnswl.org]
+	* 1.5 DATE_IN_PAST_06_12 Date: is 6 to 12 hours before Received: date
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 559D2E00B2E
-	for <poky@yoctoproject.org>; Tue, 20 Jun 2017 07:07:20 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga104.jf.intel.com with ESMTP; 20 Jun 2017 07:07:20 -0700
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7634BE00BBF
+	for <poky@yoctoproject.org>; Wed, 21 Jun 2017 01:43:58 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by orsmga104.jf.intel.com with ESMTP; 21 Jun 2017 01:43:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.39,364,1493708400"; d="scan'208";a="101571742"
-Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.161])
-	([10.237.68.161])
-	by orsmga002.jf.intel.com with ESMTP; 20 Jun 2017 07:07:19 -0700
-To: "Burton, Ross" <ross.burton@intel.com>
-References: <20170620132415.10818-1-ross.burton@intel.com>
-	<adb6de21-4f2c-71db-d31d-1688f82960d7@linux.intel.com>
-	<CAJTo0LYRJT8_6yJS73RtJR1a2=K923jrfah8i1ftrER939X2=w@mail.gmail.com>
-From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-Message-ID: <88b20571-7f64-bf58-5135-2670418a2f9f@linux.intel.com>
-Date: Tue, 20 Jun 2017 17:04:32 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.8.0
-MIME-Version: 1.0
-In-Reply-To: <CAJTo0LYRJT8_6yJS73RtJR1a2=K923jrfah8i1ftrER939X2=w@mail.gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] conf/maintainers: update for revised maintainership
+X-IronPort-AV: E=Sophos;i="5.39,368,1493708400"; d="scan'208";a="1162949578"
+Received: from echidna.jf.intel.com ([10.54.77.34])
+	by fmsmga001.fm.intel.com with ESMTP; 21 Jun 2017 01:43:58 -0700
+From: Choong YinThong <yin.thong.choong@intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 20 Jun 2017 18:34:26 -0700
+Message-Id: <1498008866-168770-1-git-send-email-yin.thong.choong@intel.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [PATCH] script/yocto-bsp: Fail to add kernel feature in custom linux kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,23 +39,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Jun 2017 14:07:23 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 21 Jun 2017 08:44:01 -0000
 
-On 06/20/2017 04:53 PM, Burton, Ross wrote:
->     Why drop these? They are valid recipes, and it's useful to have a
->     name attached to them on packages.yoctoproject.org
->     <http://packages.yoctoproject.org>, if nothing else.
->
->
-> Partly because I'm not convinced there's a great reason to have a named
-> person on a packagegroup or image, and partly because it makes it look
-> like I own vast chunks of the recipes...
+Missing file {machine}-user-feature.scc on
+yocto-bsp custom linux kernel creation
+and causes failure in yocto-kernel feature add.
 
-Alright. Don't have a strong opinion here. I'll rebase my patch after 
-yours shows up in poky master.
+[YOCTO #11585]
 
-Alex
+Signed-off-by: Choong YinThong <yin.thong.choong@intel.com>
+---
+ .../target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb        | 1 +
+ .../recipes-kernel/linux/linux-yocto-custom/machine-user-features.scc    | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine-user-features.scc
+
+diff --git a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb
+index fda955b..3ba4226 100644
+--- a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb
++++ b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom.bb
+@@ -42,6 +42,7 @@ SRC_URI += "file://{{=machine}}.scc \
+             file://{{=machine}}.cfg \
+             file://{{=machine}}-user-config.cfg \
+             file://{{=machine}}-user-patches.scc \
++            file://{{=machine}}-user-features.scc \
+            "
+ 
+ {{ if kernel_choice == "custom" and custom_kernel_need_kbranch == "y" and custom_kernel_kbranch and custom_kernel_kbranch != "master": }}
+diff --git a/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine-user-features.scc b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine-user-features.scc
+new file mode 100644
+index 0000000..85be26d
+--- /dev/null
++++ b/scripts/lib/bsp/substrate/target/arch/common/recipes-kernel/linux/linux-yocto-custom/machine-user-features.scc
+@@ -0,0 +1 @@
++# yocto-bsp-filename {{=machine}}-user-features.scc
+\ No newline at end of file
+-- 
+2.7.4
 
 
