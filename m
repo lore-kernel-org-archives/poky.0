@@ -1,69 +1,46 @@
-Return-Path: <prvs=339894f69=Mikko.Rapeli@bmw.de>
+Return-Path: <mcfrisk@kapsi.fi>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BC4C7E00BC1; Thu, 22 Jun 2017 05:49:02 -0700 (PDT)
+	id 5D70DE00BC0; Thu, 22 Jun 2017 06:23:41 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	http://www.dnswl.org/, low *      trust
-	*      [68.232.139.97 listed in list.dnswl.org]
+	*      [217.30.184.167 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from esa8.bmw.c3s2.iphmx.com (esa8.bmw.c3s2.iphmx.com
-	[68.232.139.97])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 419EBE00B8B
-	for <poky@yoctoproject.org>; Thu, 22 Jun 2017 05:48:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=bmw.de; i=@bmw.de; q=dns/txt; s=mailing1;
-	t=1498135741; x=1529671741;
-	h=from:to:cc:subject:date:message-id:references:
-	in-reply-to:content-id:content-transfer-encoding: mime-version;
-	bh=ADo0IFYgjD2/z/Qyvc/llR/gM5jM/d0RzTWfw8yDo8k=;
-	b=ZOnG3Sju2YQkvoSfK9RipROH4s5KTppBJHZ10snkPv27xRFUyEHyfoHH
-	awvet9JKaaLJy+/fKYwmzIajeSy4yThv/uaoap5+kfH6kMMpZrzqO+wmh
-	Xrv+wp+xdJ3jqeIILzfQXECl1dqPvAv6MF0Xs/0cmuLmETQGn0sUaCzBp o=;
-Received: from esagw4.bmwgroup.com (HELO esagw4.muc) ([160.46.252.39]) by
-	esa8.bmw.c3s2.iphmx.com with ESMTP/TLS; 22 Jun 2017 14:48:58 +0200
-Received: from esabb4.muc ([160.50.100.33])  by esagw4.muc with ESMTP/TLS;
-	22 Jun 2017 14:48:57 +0200
-Received: from smucm10l.bmwgroup.net (HELO smucm10l.europe.bmw.corp)
-	([160.48.96.48])
-	by esabb4.muc with ESMTP/TLS; 22 Jun 2017 14:48:57 +0200
-Received: from smucm10k.europe.bmw.corp (160.48.96.47) by
-	smucm10l.europe.bmw.corp
-	(160.48.96.48) with Microsoft SMTP Server (TLS;
-	Thu, 22 Jun 2017 14:48:57 +0200
-Received: from smucm10k.europe.bmw.corp ([160.48.96.47]) by
-	smucm10k.europe.bmw.corp ([160.48.96.47]) with mapi id 15.00.1263.000;
-	Thu, 22 Jun 2017 14:48:57 +0200
-From: <Mikko.Rapeli@bmw.de>
-To: <ross.burton@intel.com>
-Thread-Topic: [poky] [PATCH 3/3 v2] meta: Fix return value checks from
-	subprocess.call()'s
-Thread-Index: AQHS2u8+zfBp/dq+j0+MybW5e6K6EKItr5wAgAMh1ICAAAL9gA==
-Date: Thu, 22 Jun 2017 12:48:57 +0000
-Message-ID: <20170622124857.jygx7aot2xm2kvll@hiutale>
-References: <20170601125029.wli6reydiovo7xjk@hiutale>
-	<1496332394-6615-1-git-send-email-mikko.rapeli@bmw.de>
-	<20170620124824.ndyxisbbwhqt6fn5@hiutale>
-	<CAJTo0LZDtOq9_s=+NjGzZ6Y_V=1WQZK9V=fgqCx3pJmF6WXiiw@mail.gmail.com>
-In-Reply-To: <CAJTo0LZDtOq9_s=+NjGzZ6Y_V=1WQZK9V=fgqCx3pJmF6WXiiw@mail.gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [192.168.44.101]
-MIME-Version: 1.0
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [PATCH 3/3 v2] meta: Fix return value checks from subprocess.call()'s
+Received: from mail.kapsi.fi (mail.kapsi.fi [217.30.184.167])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EDBD8E00B8B
+	for <poky@yoctoproject.org>; Thu, 22 Jun 2017 06:23:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kapsi.fi;
+	s=20161220; 
+	h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=SxkEXX1H/LnetR3+801HThuRNZaY/96eXduNZPm3UR8=; 
+	b=HNEuM2hl78KLyJgml0tq0vhcoHvhspVUE2NWajE74uaTMBk4chkxA5oka11wn/evNagFi71P+M4gqyDepN+uOdw1WoIXq86yS9jEFiJuMmu6p0SAhxHko1MeIRs1BMdveCa8bG/gle4xkyYh9s59IC8Ze5MSanswsk8VmaJAv21g4zMuSuRpHnT6TN3UciDowgTUMNTtWt/MSU82hAyWYYQf8Fpr3zp0P2IK+tAAmMiiAFneONwmJhUI0QaM/X9t8HIoYqLOx2tpC3OkbCciqx+xgtoa+0H5CDOVevj3zkguRpMfW9q3b58sAyIuG4KT/aHZlNKoDyQdqaEe7kSmcg==;
+Received: from lakka.kapsi.fi ([2001:1bc8:1004::1] ident=Debian-exim)
+	by mail.kapsi.fi with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+	(Exim 4.84_2) (envelope-from <mcfrisk@kapsi.fi>)
+	id 1dO257-0003lQ-Jr; Thu, 22 Jun 2017 16:23:33 +0300
+Received: from mcfrisk by lakka.kapsi.fi with local (Exim 4.84_2)
+	(envelope-from <mcfrisk@lakka.kapsi.fi>)
+	id 1dO257-00088j-IP; Thu, 22 Jun 2017 16:23:33 +0300
+From: Mikko Rapeli <mikko.rapeli@bmw.de>
+To: poky@yoctoproject.org
+Date: Thu, 22 Jun 2017 16:23:14 +0300
+Message-Id: <1498137794-29938-1-git-send-email-mikko.rapeli@bmw.de>
+X-Mailer: git-send-email 2.1.4
+In-Reply-To: <20170622124857.jygx7aot2xm2kvll@hiutale>
+References: <20170622124857.jygx7aot2xm2kvll@hiutale>
+X-SA-Exim-Connect-IP: 2001:1bc8:1004::1
+X-SA-Exim-Mail-From: mcfrisk@kapsi.fi
+X-SA-Exim-Scanned: No (on mail.kapsi.fi); SAEximRunCond expanded to false
+Cc: openembedded-core@lists.openembedded.org
+Subject: [PATCH v3] meta: Fix return value checks from subprocess.call()'s
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -76,28 +53,136 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 22 Jun 2017 12:49:02 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C3866D3510DE5646912C784901484313@bmwmail.corp>
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Thu, 22 Jun 2017 13:23:41 -0000
 
-On Thu, Jun 22, 2017 at 01:38:15PM +0100, Burton, Ross wrote:
-> On 20 June 2017 at 13:48, <Mikko.Rapeli@bmw.de> wrote:
->=20
-> > The bitbake and scripts parts from this patch series were merged alread=
-y,
-> > but
-> > this not.
-> >
-> > Are there problems with this patch?
-> >
->=20
-> Sorry, didn't get around to replying.  It doesn't apply to master, can yo=
-u
-> rebase please?
+Python function subprocess.call() returns the return value of the
+executed process. If return values are not checked, errors may
+go unnoticed and bad things can happen.
 
-Sure, no problem. I'll rebase and send again.
+Change all callers of subprocess.call() which do not check for
+the return value to use subprocess.check_call() which raises
+CalledProcessError if the subprocess returns with non-zero value.
 
--Mikko=
+https://docs.python.org/2/library/subprocess.html#using-the-subprocess-module
+
+All users of the function were found with:
+
+$ git grep "subprocess\.call" | \
+  egrep -v 'if.*subprocess\.call|=\ +subprocess\.call|return.*subprocess\.call'
+
+Tested similar patch on top of yocto jethro. Only compile tested
+core-image-minimal on poky master branch.
+
+Signed-off-by: Mikko Rapeli <mikko.rapeli@bmw.de>
+---
+ meta/classes/cml1.bbclass                | 2 +-
+ meta/classes/kernel-module-split.bbclass | 2 +-
+ meta/classes/sstate.bbclass              | 4 ++--
+ meta/lib/oeqa/utils/buildproject.py      | 2 +-
+ meta/lib/oeqa/utils/targetbuild.py       | 4 ++--
+ meta/recipes-extended/cups/cups.inc      | 2 +-
+ 6 files changed, 8 insertions(+), 8 deletions(-)
+
+v3:
+rebased
+
+v2:
+split patches to bitbake, meta and scripts
+
+v1:
+http://lists.openembedded.org/pipermail/openembedded-core/2017-May/136901.html
+
+diff --git a/meta/classes/cml1.bbclass b/meta/classes/cml1.bbclass
+index 38e6613..eb8e790 100644
+--- a/meta/classes/cml1.bbclass
++++ b/meta/classes/cml1.bbclass
+@@ -63,7 +63,7 @@ python do_diffconfig() {
+ 
+     if isdiff:
+         statement = 'diff --unchanged-line-format= --old-line-format= --new-line-format="%L" ' + configorig + ' ' + config + '>' + fragment
+-        subprocess.call(statement, shell=True)
++        subprocess.check_call(statement, shell=True)
+ 
+         shutil.copy(configorig, config)
+ 
+diff --git a/meta/classes/kernel-module-split.bbclass b/meta/classes/kernel-module-split.bbclass
+index 5e10dcf..1035525 100644
+--- a/meta/classes/kernel-module-split.bbclass
++++ b/meta/classes/kernel-module-split.bbclass
+@@ -47,7 +47,7 @@ python split_kernel_module_packages () {
+         tf = tempfile.mkstemp()
+         tmpfile = tf[1]
+         cmd = "%sobjcopy -j .modinfo -O binary %s %s" % (d.getVar("HOST_PREFIX") or "", file, tmpfile)
+-        subprocess.call(cmd, shell=True)
++        subprocess.check_call(cmd, shell=True)
+         f = open(tmpfile)
+         l = f.read().split("\000")
+         f.close()
+diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclass
+index 0a12935..f446c3d 100644
+--- a/meta/classes/sstate.bbclass
++++ b/meta/classes/sstate.bbclass
+@@ -404,7 +404,7 @@ python sstate_hardcode_path_unpack () {
+             return
+ 
+         bb.note("Replacing fixme paths in sstate package: %s" % (sstate_hardcode_cmd))
+-        subprocess.call(sstate_hardcode_cmd, shell=True)
++        subprocess.check_call(sstate_hardcode_cmd, shell=True)
+ 
+         # Need to remove this or we'd copy it into the target directory and may 
+         # conflict with another writer
+@@ -453,7 +453,7 @@ def sstate_clean_manifest(manifest, d, prefix=None):
+     if os.path.exists(manifest + ".postrm"):
+         import subprocess
+         os.chmod(postrm, 0o755)
+-        subprocess.call(postrm, shell=True)
++        subprocess.check_call(postrm, shell=True)
+         oe.path.remove(postrm)
+ 
+     oe.path.remove(manifest)
+diff --git a/meta/lib/oeqa/utils/buildproject.py b/meta/lib/oeqa/utils/buildproject.py
+index 487f08b..721f35d 100644
+--- a/meta/lib/oeqa/utils/buildproject.py
++++ b/meta/lib/oeqa/utils/buildproject.py
+@@ -52,4 +52,4 @@ class BuildProject(metaclass=ABCMeta):
+ 
+     def clean(self):
+         self._run('rm -rf %s' % self.targetdir)
+-        subprocess.call('rm -f %s' % self.localarchive, shell=True)
++        subprocess.check_call('rm -f %s' % self.localarchive, shell=True)
+diff --git a/meta/lib/oeqa/utils/targetbuild.py b/meta/lib/oeqa/utils/targetbuild.py
+index 9249fa2..1202d57 100644
+--- a/meta/lib/oeqa/utils/targetbuild.py
++++ b/meta/lib/oeqa/utils/targetbuild.py
+@@ -69,7 +69,7 @@ class BuildProject(metaclass=ABCMeta):
+ 
+     def clean(self):
+         self._run('rm -rf %s' % self.targetdir)
+-        subprocess.call('rm -f %s' % self.localarchive, shell=True)
++        subprocess.check_call('rm -f %s' % self.localarchive, shell=True)
+         pass
+ 
+ class TargetBuildProject(BuildProject):
+@@ -136,4 +136,4 @@ class SDKBuildProject(BuildProject):
+ 
+     def _run(self, cmd):
+         self.log("Running . %s; " % self.sdkenv + cmd)
+-        return subprocess.call(". %s; " % self.sdkenv + cmd, shell=True)
++        return subprocess.check_call(". %s; " % self.sdkenv + cmd, shell=True)
+diff --git a/meta/recipes-extended/cups/cups.inc b/meta/recipes-extended/cups/cups.inc
+index c3fa459..699a34a 100644
+--- a/meta/recipes-extended/cups/cups.inc
++++ b/meta/recipes-extended/cups/cups.inc
+@@ -83,7 +83,7 @@ python do_package_append() {
+     import subprocess
+     # Change permissions back the way they were, they probably had a reason...
+     workdir = d.getVar('WORKDIR')
+-    subprocess.call('chmod 0511 %s/install/cups/var/run/cups/certs' % workdir, shell=True)
++    subprocess.check_call('chmod 0511 %s/install/cups/var/run/cups/certs' % workdir, shell=True)
+ }
+ 
+ PACKAGES =+ "${PN}-lib ${PN}-libimage"
+-- 
+1.9.1
+
 
