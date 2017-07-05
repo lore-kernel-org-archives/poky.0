@@ -1,64 +1,64 @@
-Return-Path: <i.hamlatzis@gmail.com>
+Return-Path: <jussi.kukkonen@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 440E6E00BE0; Wed,  5 Jul 2017 03:31:41 -0700 (PDT)
+	id 7964AE00BE8; Wed,  5 Jul 2017 04:06:35 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE, 
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (i.hamlatzis[at]gmail.com)
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
+	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.215.41 listed in list.dnswl.org]
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.214.53 listed in list.dnswl.org]
 	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.215.41 listed in dnsbl.sorbs.net]
-Received: from mail-lf0-f41.google.com (mail-lf0-f41.google.com
-	[209.85.215.41])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C6DF6E00B83
-	for <poky@yoctoproject.org>; Wed,  5 Jul 2017 03:31:34 -0700 (PDT)
-Received: by mail-lf0-f41.google.com with SMTP id t72so22089099lff.1
-	for <poky@yoctoproject.org>; Wed, 05 Jul 2017 03:31:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=IxXP4RVENSfXlgCIUsk1FHxGOrr6fHlEPotzYsH3a9s=;
-	b=YCqOlonof+inDWD0y1e0Enyp+DneIi5m1H0vuULMB/LGZZbsqCw0W3HsULhLAKIXec
-	maqtJKOEZivbMxmiLtgUcNIRv174InGiOixjRxmmIqimNJ1vUZkMnDFMZDttbq9IrLhg
-	/kgxNrS3oTbD9o18hNwgkstHPZRWeU03UwN+n404/Vbac4wqqg2KmxsV159tuG0XKq9+
-	NZBPW2Ik8PEoQgaDYssOHPWMl8MHEvkmzcsKZ3Es6yEyRcRFqgJ2hJEldqwQ+lqiYKSt
-	ZhwkDX9aUnb54W+l6ntVkTwP5ngjHZcq2sMrYTsFU7n1RR9yB1Fb1HluJzec34WX/2cs
-	ddmQ==
+	*      [209.85.214.53 listed in dnsbl.sorbs.net]
+Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
+	[209.85.214.53])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39167E00BE0
+	for <poky@yoctoproject.org>; Wed,  5 Jul 2017 04:06:21 -0700 (PDT)
+Received: by mail-it0-f53.google.com with SMTP id 188so13885737itx.0
+	for <poky@yoctoproject.org>; Wed, 05 Jul 2017 04:06:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=TE18eUn/rnu80PyPYM3lDj84ovuloKB78xIbLyGskT0=;
+	b=EOm4bRAkBvM3Qkmje7ryUbacI/fbpEsbH4yCCSGkpurXLwWeP+uNpxMqf1T00mbzJi
+	CcnnOBW4ndPVWd34vDVmdwW2DUcGRSNWhOuohgL9jVnbhqp1KOmkztOj0efI5TlXgb7q
+	fhkbSru7PvOq0Cbf18LhLPAbhcgRGl/U7BYJ1gsi6/ybmYD0A+3kJ7x9kiotk/P/3fgM
+	IOnTAT7HuvPKP+cijJP2YP8R6w7BpvrOgbSMQXnvoQfrRVb6m8W/Gcuf5jlk7MYrLjeK
+	e9pCxRzrWd3DdO3DznQXmcIQjkaAy9nRsiFVtx755oK1UqIRxCn9D0N7IyBrnHLi7jYg
+	N2sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=IxXP4RVENSfXlgCIUsk1FHxGOrr6fHlEPotzYsH3a9s=;
-	b=fBqrV680JabKJQUW+/W3wupxclSwwPb2x47mab3lXezqHGBI0mP6z7hb4fqShhlyGm
-	GXdwmkSxnB9xTFzTvo+/p+KxQFhtmvCU3QAocM2c1UBkcahYw2OeWDWrWh+C43NXBHIZ
-	uQ4trc2vjbjleR7gNdWOB39a6F7CRdChdiM5LiiW5TvC+efGzmPrvdppcj1yWdVFtFFx
-	NgP3Fzd5uCFZEtCjIhCbNY9Ygh4icdewcdpfQQ0C0qTbiX+FsSdFMbuea1nKgOXk6dG4
-	+e+7pO8de5PTKWPzlXu2dG+iPsfX1KM6OtqBhm6BjY/Zkyib0JBKl81D91FeQcmMiJ/w
-	C9kA==
-X-Gm-Message-State: AKS2vOy1+rYpiNGREh3+J0Yit7UUztQVeu6La/stALCuYGkydnZAUe7l
-	M7ji8/WoPAsEIiaGOGyTxYsVawcPOupR
-X-Received: by 10.25.209.20 with SMTP id i20mr12879264lfg.41.1499250693557;
-	Wed, 05 Jul 2017 03:31:33 -0700 (PDT)
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=TE18eUn/rnu80PyPYM3lDj84ovuloKB78xIbLyGskT0=;
+	b=XHk+C1SRq63qolLCiq558Ti+JFlMmQXd8wKtsfrDVzzHsxf22MAdYg3jHwFY4qj0QQ
+	zk1qcJbpoKHy+NipvDwuS3PsqSXCdJ/pVHVyMGVa8AonCObH2+q0MvokbWiE7qGTMzxJ
+	ALXs1H/VuRqCyDDKt3bsIXWqNqdRBO05o/QNUSfzXAPVIShIXi4vCdbasPdz/X3yWmx7
+	xp2ix3Zvn2Zwv4GO88bzIbqV+wpePIrwFThmSV3Qd6XAEqj70eZqMqonMh9tXnAhS8of
+	BSvoW5Dvl2S/fT0DoHmvxnNOyQ5bduC3zxOiAZdoZ30gCywLGJWXF1Sd2RSMg/sE4AfB
+	js2A==
+X-Gm-Message-State: AIVw112hGVJanNJGlSrFF2f8BcVsptmcDmzcWuWV/I1xUvqRP80N2udN
+	Q0C4N3MWNreQF/F5Lm40fDWf5UYt0mxi
+X-Received: by 10.36.50.199 with SMTP id j190mr17453620ita.110.1499252780633; 
+	Wed, 05 Jul 2017 04:06:20 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.46.8.66 with HTTP; Wed, 5 Jul 2017 03:30:53 -0700 (PDT)
-From: Iosif Hamlatzis <i.hamlatzis@gmail.com>
-Date: Wed, 5 Jul 2017 13:30:53 +0300
-Message-ID: <CAD2f6zW9cC+gmvGh=3CMsvnQ+P6uYGv89wk_GJWc+NAnQMn9eQ@mail.gmail.com>
-To: poky@yoctoproject.org
-Subject: No smart package manager installed
+Received: by 10.107.44.87 with HTTP; Wed, 5 Jul 2017 04:05:50 -0700 (PDT)
+In-Reply-To: <CAD2f6zW9cC+gmvGh=3CMsvnQ+P6uYGv89wk_GJWc+NAnQMn9eQ@mail.gmail.com>
+References: <CAD2f6zW9cC+gmvGh=3CMsvnQ+P6uYGv89wk_GJWc+NAnQMn9eQ@mail.gmail.com>
+From: Jussi Kukkonen <jussi.kukkonen@intel.com>
+Date: Wed, 5 Jul 2017 14:05:50 +0300
+Message-ID: <CAHiDW_EeYd9KjXHUXqdivL9aKkPWw+dtcTkMrUUUW=4V07ZoTg@mail.gmail.com>
+To: Iosif Hamlatzis <i.hamlatzis@gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: No smart package manager installed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -71,40 +71,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jul 2017 10:31:41 -0000
-Content-Type: multipart/alternative; boundary="001a114009c804d6f405538f81e3"
+X-List-Received-Date: Wed, 05 Jul 2017 11:06:35 -0000
+Content-Type: multipart/alternative; boundary="001a114ac23e6b4b2d05538ffd81"
 
---001a114009c804d6f405538f81e3
+--001a114ac23e6b4b2d05538ffd81
 Content-Type: text/plain; charset="UTF-8"
 
-Finally I've managed to create a stable image for my raspberry but
-unfortunately I don't see smart package manager installed
+On 5 July 2017 at 13:30, Iosif Hamlatzis <i.hamlatzis@gmail.com> wrote:
 
-In my local.conf file I have:
-PACKAGE_CLASSES ?= "package_rpm"
+> Finally I've managed to create a stable image for my raspberry but
+> unfortunately I don't see smart package manager installed
+>
 
-and have tried different combinations of
+If this is on pyro or master: 'smart' has been replaced with 'dnf'.
 
-EXTRA_IMAGE_FEATURES += "package-management"
-IMAGE_FEATURES += "package-management"
+http://dnf.readthedocs.io/en/latest/command_ref.html
 
-(either using only the first, only the second and even both). Always when I
-login as root on the board and try to use smart I get the message that
-smart is not recognised.
-
---001a114009c804d6f405538f81e3
+--001a114ac23e6b4b2d05538ffd81
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Finally I&#39;ve managed to create a stable image for my r=
-aspberry but unfortunately I don&#39;t see smart package manager installed<=
-div><br></div><div>In my local.conf file I have:</div><div>PACKAGE_CLASSES =
-?=3D &quot;package_rpm&quot;<br></div><div><br></div><div>and have tried di=
-fferent combinations of</div><div><br></div><div>EXTRA_IMAGE_FEATURES +=3D =
-&quot;package-management&quot;<br></div><div>IMAGE_FEATURES +=3D &quot;pack=
-age-management&quot;<br></div><div><br></div><div>(either using only the fi=
-rst, only the second and even both). Always when I login as root on the boa=
-rd and try to use smart I get the message that smart is not recognised.=C2=
-=A0</div></div>
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On 5=
+ July 2017 at 13:30, Iosif Hamlatzis <span dir=3D"ltr">&lt;<a href=3D"mailt=
+o:i.hamlatzis@gmail.com" target=3D"_blank">i.hamlatzis@gmail.com</a>&gt;</s=
+pan> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
+=3D"ltr">Finally I&#39;ve managed to create a stable image for my raspberry=
+ but unfortunately I don&#39;t see smart package manager installed</div></b=
+lockquote><div><br></div><div>If this is on pyro or master: &#39;smart&#39;=
+ has been replaced with &#39;dnf&#39;.=C2=A0</div><div><br></div><div><a hr=
+ef=3D"http://dnf.readthedocs.io/en/latest/command_ref.html">http://dnf.read=
+thedocs.io/en/latest/command_ref.html</a><br></div><div><br></div><div><br>=
+</div></div></div></div>
 
---001a114009c804d6f405538f81e3--
+--001a114ac23e6b4b2d05538ffd81--
