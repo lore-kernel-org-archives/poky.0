@@ -1,64 +1,37 @@
-Return-Path: <jussi.kukkonen@intel.com>
+Return-Path: <DFreitag@environics.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7964AE00BE8; Wed,  5 Jul 2017 04:06:35 -0700 (PDT)
+	id 94CDCE00718; Wed,  5 Jul 2017 13:32:33 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
-	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.214.53 listed in list.dnswl.org]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.214.53 listed in dnsbl.sorbs.net]
-Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
-	[209.85.214.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 39167E00BE0
-	for <poky@yoctoproject.org>; Wed,  5 Jul 2017 04:06:21 -0700 (PDT)
-Received: by mail-it0-f53.google.com with SMTP id 188so13885737itx.0
-	for <poky@yoctoproject.org>; Wed, 05 Jul 2017 04:06:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=TE18eUn/rnu80PyPYM3lDj84ovuloKB78xIbLyGskT0=;
-	b=EOm4bRAkBvM3Qkmje7ryUbacI/fbpEsbH4yCCSGkpurXLwWeP+uNpxMqf1T00mbzJi
-	CcnnOBW4ndPVWd34vDVmdwW2DUcGRSNWhOuohgL9jVnbhqp1KOmkztOj0efI5TlXgb7q
-	fhkbSru7PvOq0Cbf18LhLPAbhcgRGl/U7BYJ1gsi6/ybmYD0A+3kJ7x9kiotk/P/3fgM
-	IOnTAT7HuvPKP+cijJP2YP8R6w7BpvrOgbSMQXnvoQfrRVb6m8W/Gcuf5jlk7MYrLjeK
-	e9pCxRzrWd3DdO3DznQXmcIQjkaAy9nRsiFVtx755oK1UqIRxCn9D0N7IyBrnHLi7jYg
-	N2sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=TE18eUn/rnu80PyPYM3lDj84ovuloKB78xIbLyGskT0=;
-	b=XHk+C1SRq63qolLCiq558Ti+JFlMmQXd8wKtsfrDVzzHsxf22MAdYg3jHwFY4qj0QQ
-	zk1qcJbpoKHy+NipvDwuS3PsqSXCdJ/pVHVyMGVa8AonCObH2+q0MvokbWiE7qGTMzxJ
-	ALXs1H/VuRqCyDDKt3bsIXWqNqdRBO05o/QNUSfzXAPVIShIXi4vCdbasPdz/X3yWmx7
-	xp2ix3Zvn2Zwv4GO88bzIbqV+wpePIrwFThmSV3Qd6XAEqj70eZqMqonMh9tXnAhS8of
-	BSvoW5Dvl2S/fT0DoHmvxnNOyQ5bduC3zxOiAZdoZ30gCywLGJWXF1Sd2RSMg/sE4AfB
-	js2A==
-X-Gm-Message-State: AIVw112hGVJanNJGlSrFF2f8BcVsptmcDmzcWuWV/I1xUvqRP80N2udN
-	Q0C4N3MWNreQF/F5Lm40fDWf5UYt0mxi
-X-Received: by 10.36.50.199 with SMTP id j190mr17453620ita.110.1499252780633; 
-	Wed, 05 Jul 2017 04:06:20 -0700 (PDT)
+X-Greylist: delayed 62 seconds by postgrey-1.32 at yocto-www;
+	Wed, 05 Jul 2017 13:32:30 PDT
+Received: from remote.environics.com (remote.environics.com [74.95.20.229])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3AA0DE00349
+	for <poky@yoctoproject.org>; Wed,  5 Jul 2017 13:32:30 -0700 (PDT)
+Received: from SATURN.env.local ([fe80::84be:b889:2f95:8bff]) by
+	SATURN.env.local ([fe80::84be:b889:2f95:8bff%10]) with mapi id
+	14.01.0438.000; Wed, 5 Jul 2017 16:31:26 -0400
+From: David Freitag <DFreitag@environics.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [PATCH] meta: Add support for GTK+-3.0 static libraries
+Thread-Index: AdL1xdwoiKMl1ecuTDmh/cBVcwLTRw==
+Date: Wed, 5 Jul 2017 20:31:25 +0000
+Message-ID: <A8809961EB141E4596386C258A901BD70299E8CD31@SATURN.env.local>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.0.36]
+x-tm-as-product-ver: SMEX-11.1.0.1278-8.100.1062-23176.005
+x-tm-as-result: No--12.336100-5.000000-31
+x-tm-as-user-approved-sender: No
+x-tm-as-user-blocked-sender: No
 MIME-Version: 1.0
-Received: by 10.107.44.87 with HTTP; Wed, 5 Jul 2017 04:05:50 -0700 (PDT)
-In-Reply-To: <CAD2f6zW9cC+gmvGh=3CMsvnQ+P6uYGv89wk_GJWc+NAnQMn9eQ@mail.gmail.com>
-References: <CAD2f6zW9cC+gmvGh=3CMsvnQ+P6uYGv89wk_GJWc+NAnQMn9eQ@mail.gmail.com>
-From: Jussi Kukkonen <jussi.kukkonen@intel.com>
-Date: Wed, 5 Jul 2017 14:05:50 +0300
-Message-ID: <CAHiDW_EeYd9KjXHUXqdivL9aKkPWw+dtcTkMrUUUW=4V07ZoTg@mail.gmail.com>
-To: Iosif Hamlatzis <i.hamlatzis@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: No smart package manager installed
+Subject: [PATCH] meta: Add support for GTK+-3.0 static libraries
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -71,37 +44,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 05 Jul 2017 11:06:35 -0000
-Content-Type: multipart/alternative; boundary="001a114ac23e6b4b2d05538ffd81"
-
---001a114ac23e6b4b2d05538ffd81
-Content-Type: text/plain; charset="UTF-8"
-
-On 5 July 2017 at 13:30, Iosif Hamlatzis <i.hamlatzis@gmail.com> wrote:
-
-> Finally I've managed to create a stable image for my raspberry but
-> unfortunately I don't see smart package manager installed
->
-
-If this is on pyro or master: 'smart' has been replaced with 'dnf'.
-
-http://dnf.readthedocs.io/en/latest/command_ref.html
-
---001a114ac23e6b4b2d05538ffd81
-Content-Type: text/html; charset="UTF-8"
+X-List-Received-Date: Wed, 05 Jul 2017 20:32:33 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On 5=
- July 2017 at 13:30, Iosif Hamlatzis <span dir=3D"ltr">&lt;<a href=3D"mailt=
-o:i.hamlatzis@gmail.com" target=3D"_blank">i.hamlatzis@gmail.com</a>&gt;</s=
-pan> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
-=3D"ltr">Finally I&#39;ve managed to create a stable image for my raspberry=
- but unfortunately I don&#39;t see smart package manager installed</div></b=
-lockquote><div><br></div><div>If this is on pyro or master: &#39;smart&#39;=
- has been replaced with &#39;dnf&#39;.=C2=A0</div><div><br></div><div><a hr=
-ef=3D"http://dnf.readthedocs.io/en/latest/command_ref.html">http://dnf.read=
-thedocs.io/en/latest/command_ref.html</a><br></div><div><br></div><div><br>=
-</div></div></div></div>
+Add necessary lines to gtk+3.inc file so that the static libs for GTK+3 are
+shipped. Otherwise trying to statically-compile with --enable-static fails =
+with
+fatal QA errors (fatal: <lib>.a is present but not shipped).
 
---001a114ac23e6b4b2d05538ffd81--
+This has the added benefit of being able to add=20
+
+IMAGE_INSTALL_append =3D " gtk+3-staticdev"
+
+to local.conf with no-static-libs.inc disabled instead of having to hack th=
+e
+gtk+3.inc file.=20
+
+This is admittedly a little fragile due to the fact that disabling static
+generation (the default) relies on the fact that no-static-libs.inc appends
+--disable-static to the end of EXTRA_OECONF thus negating the --enable-stat=
+ic
+in this patch (eg you get configure ... --enable-static ... --disable-stati=
+c).
+Although to my (albeit limited) knowledge, there isn't a cleaner way to do =
+this
+without always forcing static generation.
+
+If gtk+3-staticdev is appended to IMAGE_INSTALL while no-static-libs.inc is
+included, bitbake will error because the gtk+3-staticdev rpm isn't generate=
+d
+because there were no static libs to be packaged.
+
+Signed-off-by: David Freitag <dfreitag@environics.com>
+---
+ meta/recipes-gnome/gtk+/gtk+3.inc | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/meta/recipes-gnome/gtk+/gtk+3.inc b/meta/recipes-gnome/gtk+/gt=
+k+3.inc
+index 27da844..3b23a2e 100644
+--- a/meta/recipes-gnome/gtk+/gtk+3.inc
++++ b/meta/recipes-gnome/gtk+/gtk+3.inc
+@@ -29,6 +29,7 @@ EXTRA_OECONF +=3D " \
+                  --disable-glibtest \
+                  --disable-xinerama \
+                  --enable-modules \
++                 --enable-static \
+                  --disable-cups \
+                  --disable-colord \
+                  WAYLAND_PROTOCOLS_SYSROOT_DIR=3D${RECIPE_SYSROOT} \
+@@ -90,6 +91,11 @@ FILES_${PN}-dev +=3D " \
+                     ${bindir}/gtk-query-settings \
+                     "
+=20
++FILES_${PN}-staticdev =3D " \
++                        ${libdir}/*.a \
++                        ${libdir}/gtk-3.0/${LIBV}/immodules/*.a \
++                        ${libdir}/gtk-3.0/${LIBV}/printbackends/*.a"
++
+ GTKBASE_RRECOMMENDS ?=3D "liberation-fonts \
+                         gdk-pixbuf-loader-png \
+                         gdk-pixbuf-loader-jpeg \
+@@ -117,11 +123,11 @@ python populate_packages_prepend () {
+     immodules_root =3D os.path.join(gtk_libdir, 'immodules')
+     printmodules_root =3D os.path.join(gtk_libdir, 'printbackends');
+=20
+-    immodules =3D do_split_packages(d, immodules_root, '^im-(.*)\.so$', 'g=
+tk3-immodule-%s', 'GTK input module for %s')
++    immodules =3D do_split_packages(d, immodules_root, '^im-(.*)\.(?:so|a)=
+$', 'gtk3-immodule-%s', 'GTK input module for %s')
+     if immodules:
+         d.setVar("GTKIMMODULES_PACKAGES", " ".join(immodules))
+=20
+-    do_split_packages(d, printmodules_root, '^libprintbackend-(.*)\.so$', =
+'gtk3-printbackend-%s', 'GTK printbackend module for %s')
++    do_split_packages(d, printmodules_root, '^libprintbackend-(.*)\.(?:so|=
+a)$', 'gtk3-printbackend-%s', 'GTK printbackend module for %s')
+=20
+     if (d.getVar('DEBIAN_NAMES')):
+         d.setVar(d.expand('PKG_${PN}'), '${MLPREFIX}libgtk-3.0')
+--=20
+2.9.3
+
+
