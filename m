@@ -1,66 +1,33 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <shen.joon.tan@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 63D11E00AE6; Thu,  6 Jul 2017 04:30:24 -0700 (PDT)
+	id 88069E00C40; Mon, 10 Jul 2017 19:59:45 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
-	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.216.179 listed in dnsbl.sorbs.net]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.216.179 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-qt0-f179.google.com (mail-qt0-f179.google.com
-	[209.85.216.179])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 300CAE00718
-	for <poky@yoctoproject.org>; Thu,  6 Jul 2017 04:30:20 -0700 (PDT)
-Received: by mail-qt0-f179.google.com with SMTP id i2so12586681qta.3
-	for <poky@yoctoproject.org>; Thu, 06 Jul 2017 04:30:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=kuNIjUE5gOVVq08obl6x0rtq1I6niXdwZP6pbYincQk=;
-	b=2KVm8uNOKTY2to27KNGwoh+zgeNA0LFHzP9IH+2RuBi31neOl0L34Wl93CP6kMHxz1
-	le21evKnA5IDM8J5Rh1nw336vvsJmtLRcTTH8/VE25fq4mhxkAji3m7DsW2bZzQDdYXH
-	p0DFrwo2S6YjBl4XonMaky/YMEmWdFVNwaW9QMm6S4G/nmaFiuHkgzmbAZnww608U0r7
-	NG9CnQCsncgEmv/OGSOZUmacBDPH1zoeNeIvIJZeQ4v9MjkQBHEv5v1f6G2mjdEVIUCP
-	DpQBXZ9O8Bs03Naa3kVr8brqoetE5FF3k1N8Sznfme05R7/IhVHCq7SlRvXcw7CMNenc
-	PZNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=kuNIjUE5gOVVq08obl6x0rtq1I6niXdwZP6pbYincQk=;
-	b=hLH5txf4bN8mtw0frr1gSRW8Q7AJcNiX6mWDwUyCRegZPK7ZM2X1I2xZAf0Q0tM15f
-	QsNM3KzgnbHR6hww+IjZ1AAxNjpRnf1gYKhBFOuaKEF3gJyOXFw4HriKeX1QzrfLSIHM
-	UOhl0t6ID2N0xe9TeH3UT1KjfYE4ABLQA0kdhQuaUL+pOKe4higRWPnCgwRP08jva/8E
-	GcbCNWXH2g6IVblGrhvfrXkU+1UQPNL1Tn/qXUzaz0eqCnIQKty7xP9h58AkDl6lgISJ
-	zsHpUPZDBaJTBKuFjuBUr2+wqfiOg4maEHDPyd2T2IvdIxY1aONMn0Mm4BdWI4iARdyz
-	lTWw==
-X-Gm-Message-State: AIVw113lt59VYEeTTvhInQITYrNFQth4In+VxjMuNJTFi1jzy59En8XF
-	gJRYig2VG7Xi3QBKFf31/HuTP3Pq5KPO
-X-Received: by 10.237.55.105 with SMTP id i96mr35290027qtb.139.1499340620036; 
-	Thu, 06 Jul 2017 04:30:20 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.140.31.118 with HTTP; Thu, 6 Jul 2017 04:29:59 -0700 (PDT)
-In-Reply-To: <A8809961EB141E4596386C258A901BD70299E8CD80@SATURN.env.local>
-References: <A8809961EB141E4596386C258A901BD70299E8CD31@SATURN.env.local>
-	<CAJTo0LaOadfQdP8H1cin-Hd9BMPW_h0-q=XJz4A=Pwpf5+2Qvw@mail.gmail.com>
-	<A8809961EB141E4596386C258A901BD70299E8CD80@SATURN.env.local>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 6 Jul 2017 12:29:59 +0100
-Message-ID: <CAJTo0LYd97yFPTc+EGu=rAUcsB+pU8-=XWYYXU2whby8kVLRCA@mail.gmail.com>
-To: David Freitag <DFreitag@environics.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] meta: Add support for GTK+-3.0 static libraries
+	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
+	high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 40EE7E00C35
+	for <poky@yoctoproject.org>; Mon, 10 Jul 2017 19:59:40 -0700 (PDT)
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+	by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	10 Jul 2017 19:59:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.40,344,1496127600"; d="scan'208";a="1170952803"
+Received: from rebeccas.png.intel.com ([172.30.199.118])
+	by fmsmga001.fm.intel.com with ESMTP; 10 Jul 2017 19:59:38 -0700
+From: Tan Shen Joon <shen.joon.tan@intel.com>
+To: poky@yoctoproject.org
+Date: Tue, 11 Jul 2017 11:00:31 +0800
+Message-Id: <1499742031-147601-1-git-send-email-shen.joon.tan@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Shen Joon Tan <stan74@rebeccas.png.intel.com>
+Subject: [PATCH] distro_alias.inc: update unmap packages to other distro
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,93 +40,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jul 2017 11:30:24 -0000
-Content-Type: multipart/alternative; boundary="001a113cd0180e13e00553a47157"
+X-List-Received-Date: Tue, 11 Jul 2017 02:59:45 -0000
 
---001a113cd0180e13e00553a47157
-Content-Type: text/plain; charset="UTF-8"
+From: Shen Joon Tan <stan74@rebeccas.png.intel.com>
 
-On 6 July 2017 at 00:16, David Freitag <DFreitag@environics.com> wrote:
+Added packages with different names or based on sources that
+generates multiple binaries eg: python-pycurl source generates
+python3-pycurl as well. Currently, some of these packages are not
+displayed as part of other distro due to naming differences on
+the source rather than the binaries as a single source could
+produce multiple binaries with different names.
 
-> > GTK+ for many years has explicitly disabled static libraries, which is
-> why you need to override that here.  That is my first hint that this may
-> not be right.
->
-> Interesting. Given this, would a patch of this nature even be merged
-> upstream? Would a disabled-by-default PACKAGECONFIG be welcome?
+Signed-off-by: Shen Joon Tan <shen.joon.tan@intel.com>
+---
+ meta/conf/distro/include/distro_alias.inc | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/meta/conf/distro/include/distro_alias.inc b/meta/conf/distro/include/distro_alias.inc
+index ba47f90..f7c8b4a 100644
+--- a/meta/conf/distro/include/distro_alias.inc
++++ b/meta/conf/distro/include/distro_alias.inc
+@@ -62,6 +62,7 @@ DISTRO_PN_ALIAS_pn-core-image-testmaster = "OE-Core"
+ DISTRO_PN_ALIAS_pn-core-image-testmaster-initramfs = "OE-Core"
+ DISTRO_PN_ALIAS_pn-core-image-weston = "OE-Core"
+ DISTRO_PN_ALIAS_pn-core-image-x11 = "OE-Core"
++DISTRO_PN_ALIAS_pn-createrepo-c = "Fedora=createrepo_c Clear=createrepo_c"
+ DISTRO_PN_ALIAS_pn-cross-localedef = "OSPDT"
+ DISTRO_PN_ALIAS_pn-cryptodev-linux = "OE-Core"
+ DISTRO_PN_ALIAS_pn-cryptodev-module = "OE-Core"
+@@ -128,6 +129,7 @@ DISTRO_PN_ALIAS_pn-gstreamer1.0-plugins-bad = "Debian=gstreamer1.0-plugins-bad U
+ DISTRO_PN_ALIAS_pn-gstreamer1.0-plugins-base = "Debian=gstreamer1.0-plugins-base Ubuntu=gstreamer1.0-plugins-base"
+ DISTRO_PN_ALIAS_pn-gstreamer1.0-plugins-good = "Debian=gstreamer1.0-plugins-good Ubuntu=gstreamer1.0-plugins-bad"
+ DISTRO_PN_ALIAS_pn-gstreamer1.0-rtsp-server = "Ubuntu=gstreamer0.10-rtsp Fedora=gstreamer-rtsp"
++DISTRO_PN_ALIAS_pn-gstreamer1.0-vaapi = "Fedora=gstreamer1-vaapi Debian=gstreamer-vaapi Clear=gstreamer-vaapi"
+ DISTRO_PN_ALIAS_pn-gtk+ = "Meego=gtk2 Fedora=gtk2 OpenSuSE=gtk2 Ubuntu=gtk+2.0 Mandriva=gtk+2.0 Debian=gtk+2.0"
+ DISTRO_PN_ALIAS_pn-gtk+3 = "Ubuntu=gtk+3.0 Debian=gtk+3.0 Fedora=gtk3"
+ DISTRO_PN_ALIAS_pn-gtk-doc = "Fedora=gtk-doc Ubuntu=gtk-doc"
+@@ -193,6 +195,7 @@ DISTRO_PN_ALIAS_pn-libomxil = "OSPDT upstream=http://omxil.sourceforge.net/"
+ DISTRO_PN_ALIAS_pn-libowl = "Debian=owl OpenedHand"
+ DISTRO_PN_ALIAS_pn-libpam = "Meego=pam Fedora=pam OpenSuSE=pam Ubuntu=pam Mandriva=pam Debian=pam"
+ DISTRO_PN_ALIAS_pn-libpcre = "Mandriva=libpcre0 Fedora=pcre"
++DISTRO_PN_ALIAS_pn-libpcre2 = "Fedora=pcre2 Debian=pcre2 Clear=pcre2"
+ DISTRO_PN_ALIAS_pn-libpng12 = "Debian=libpng12-0 Fedora=libpng"
+ DISTRO_PN_ALIAS_pn-libpod-plainer-perl = "OSPDT"
+ DISTRO_PN_ALIAS_pn-libsamplerate0 = "Meego=libsamplerate Fedora=libsamplerate OpenSuSE=libsamplerate Ubuntu=libsamplerate Mandriva=libsamplerate Debian=libsamplerate"
+@@ -207,6 +210,7 @@ DISTRO_PN_ALIAS_pn-libusb1 = "Debian=libusb-1.0-0 Fedora=libusb1"
+ DISTRO_PN_ALIAS_pn-libusb-compat = "OSPDT"
+ DISTRO_PN_ALIAS_pn-libx11 = "Debian=libx11-6 Fedora=libX11 Ubuntu=libx11-6 OpenSuSE=xorg-x11-libX11"
+ DISTRO_PN_ALIAS_pn-libxcalibrate = "OSPDT upstream=http://cgit.freedesktop.org/xorg/lib/libXCalibrate/"
++DISTRO_PN_ALIAS_pn-libxfont2 = "Fedora=libXfont2 Clear=libXfont2"
+ DISTRO_PN_ALIAS_pn-libxft = "Mandriva=libxft Debian=libxft2 Ubuntu=libxft2"
+ DISTRO_PN_ALIAS_pn-libxi = "Ubuntu=libxi Fedora=libXi"
+ DISTRO_PN_ALIAS_pn-libxkbcommon = "Fedora=libxkbcommon Debian=libxkbcommon"
+@@ -323,7 +327,10 @@ DISTRO_PN_ALIAS_pn-pulseaudio-client-conf-sato = "OE-Core"
+ DISTRO_PN_ALIAS_pn-puzzles = "Debian=sgt-puzzles Fedora=puzzles"
+ DISTRO_PN_ALIAS_pn-python3 = "Fedora=python3 Debian=python3.2"
+ DISTRO_PN_ALIAS_pn-python3-distribute = "Debian=python3-setuptools Fedora=python3-setuptools"
++DISTRO_PN_ALIAS_pn-python3-iniparse = "Fedora=python-iniparse Debian=python-iniparse"
+ DISTRO_PN_ALIAS_pn-python3-pip = "OpenSuSE=python3-pip Debian=python3-pip"
++DISTRO_PN_ALIAS_pn-python3-pycurl = "Fedora=python-pycurl Debian=pycurl"
++DISTRO_PN_ALIAS_pn-python3-pygpgme = "Fedora=python-pygpgme Debian=pygpgme"
+ DISTRO_PN_ALIAS_pn-python3-setuptools = "OpenSuSE=python3-setuptools Debian=python3-setuptools"
+ DISTRO_PN_ALIAS_pn-python-dbus = "Ubuntu=python-dbus Debian=python-dbus Mandriva=python-dbus"
+ DISTRO_PN_ALIAS_pn-python-distribute = "Opensuse=python-setuptools Fedora=python-setuptools"
+-- 
+2.7.4
 
 
-I'd be opposed to enabling a static build of GTK+ out of the box because of
-how many limitations it has (see below). GTK+ doesn't want to support
-static linking because statically linking to GTK+ isn't really possible in
-the real world.
-
-
-> > *If* you want to support a static build of GTK+ then there are ways you
-> can make it sort of work, but this is not it.  Look up
-> --with-included-immodules, --disable-modules, etc in the GTK+
-> documentation, and pass those.  You should end up with a static gtk+ which
-> contains all the input method modules builtin, but as far as I know
-> printing will still be broken.
->
-> As the target system is an embedded device without the ability to print in
-> the first place, losing support for print backends is a non-issue.
-> Supposing a patch of this nature is welcome upstream, there would be a
-> bitbake warning about this lack of support.
-
-
-It's not just printing, of course.
-
-GIO modules are all loaded at runtime.  gdk-pixbuf loaders are loaded at
-runtime by default. Input method modules are loaded at runtime by default.
-You may be willing to take the hit on all of this in your build but I don't
-think it should be available as an option out of the box.
-
-Seriously, have you considered not statically linking? This isn't 1987
-anymore, even in embedded...
-
-Ross
-
---001a113cd0180e13e00553a47157
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On 6 July 2017 at 00:16, David Freitag <span dir=3D"ltr">&lt;<a href=3D"mai=
-lto:DFreitag@environics.com" target=3D"_blank">DFreitag@environics.com</a>&=
-gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
-0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">&gt; G=
-TK+ for many years has explicitly disabled static libraries, which is why y=
-ou need to override that here.=C2=A0 That is my first hint that this may no=
-t be right.<br>
-<br>
-</span>Interesting. Given this, would a patch of this nature even be merged=
- upstream? Would a disabled-by-default PACKAGECONFIG be welcome?</blockquot=
-e><div><br></div><div>I&#39;d be opposed to enabling a static build of GTK+=
- out of the box because of how many limitations it has (see below). GTK+ do=
-esn&#39;t want to support static linking because statically linking to GTK+=
- isn&#39;t really possible in the real world.</div><div>=C2=A0</div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex"><span class=3D"">
-&gt; *If* you want to support a static build of GTK+ then there are ways yo=
-u can make it sort of work, but this is not it.=C2=A0 Look up --with-includ=
-ed-immodules, --disable-modules, etc in the GTK+ documentation, and pass th=
-ose.=C2=A0 You should end up with a static gtk+ which contains all the inpu=
-t method modules builtin, but as far as I know printing will still be broke=
-n.<br>
-<br>
-</span>As the target system is an embedded device without the ability to pr=
-int in the first place, losing support for print backends is a non-issue. S=
-upposing a patch of this nature is welcome upstream, there would be a bitba=
-ke warning about this lack of support.</blockquote></div><br>It&#39;s not j=
-ust printing, of course.</div><div class=3D"gmail_extra"><br></div><div cla=
-ss=3D"gmail_extra">GIO modules are all loaded at runtime. =C2=A0gdk-pixbuf =
-loaders are loaded at runtime by default. Input method modules are loaded a=
-t runtime by default.=C2=A0 You may be willing to take the hit on all of th=
-is in your build but I don&#39;t think it should be available as an option =
-out of the box.</div><div class=3D"gmail_extra"><br></div><div class=3D"gma=
-il_extra">Seriously, have you considered not statically linking? This isn&#=
-39;t 1987 anymore, even in embedded...</div><div class=3D"gmail_extra"><br>=
-</div><div class=3D"gmail_extra">Ross</div></div>
-
---001a113cd0180e13e00553a47157--
