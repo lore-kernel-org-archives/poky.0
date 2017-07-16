@@ -1,31 +1,31 @@
-Return-Path: <joshua.g.lock@linux.intel.com>
+Return-Path: <glep-poky@m.gmane.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4A304E00B9C; Wed, 12 Jul 2017 12:12:10 -0700 (PDT)
+	id 9B9FCE00C25; Sun, 16 Jul 2017 16:30:25 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [134.134.136.31 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0E3CE00ACF
-	for <poky@yoctoproject.org>; Wed, 12 Jul 2017 12:12:05 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga104.jf.intel.com with ESMTP; 12 Jul 2017 12:12:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.40,351,1496127600"; d="scan'208";a="1171740400"
-Received: from jlock-mobl1.ger.corp.intel.com ([10.252.21.85])
-	by fmsmga001.fm.intel.com with ESMTP; 12 Jul 2017 12:12:04 -0700
-From: Joshua Lock <joshua.g.lock@intel.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.6 required=5.0 tests=BAYES_50,RDNS_NONE
+	autolearn=no version=3.3.1
+X-Spam-HAM-Report: *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.4976]
+	*  0.8 RDNS_NONE Delivered to internal network by a host with no rDNS
+X-Greylist: delayed 903 seconds by postgrey-1.32 at yocto-www;
+	Sun, 16 Jul 2017 16:30:21 PDT
+Received: from blaine.gmane.org (unknown [195.159.176.226])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C4492E00BDA
+	for <poky@yoctoproject.org>; Sun, 16 Jul 2017 16:30:21 -0700 (PDT)
+Received: from list by blaine.gmane.org with local (Exim 4.84_2)
+	(envelope-from <glep-poky@m.gmane.org>) id 1dWskj-0006BI-Ki
+	for poky@yoctoproject.org; Mon, 17 Jul 2017 01:15:05 +0200
+X-Injected-Via-Gmane: http://gmane.org/
 To: poky@yoctoproject.org
-Date: Wed, 12 Jul 2017 20:12:00 +0100
-Message-Id: <20170712191200.8209-1-joshua.g.lock@intel.com>
-X-Mailer: git-send-email 2.9.4
-Subject: [PATCH] poky: add Ubuntu 17.04 Zesty Zapus to SANITY_TESTED_DISTROS
+From: Ferry Toth <ftoth@telfort.nl>
+Date: Sun, 16 Jul 2017 23:12:09 +0000 (UTC)
+Message-ID: <okgrs9$cr9$1@blaine.gmane.org>
+Mime-Version: 1.0
+X-Complaints-To: usenet@blaine.gmane.org
+User-Agent: Pan/0.141 (Tarzan's Death; 168b179 git.gnome.org/pan2)
+Subject: Build core2 (i686) U-Boot for a core-i7 (amd64) image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,33 +38,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Jul 2017 19:12:10 -0000
+X-List-Received-Date: Sun, 16 Jul 2017 23:30:25 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The new Ubuntu releases on 2017-04-13, after cutoff for Yocto Project 2.3.
+On edison U-Boot is 32 bit. I'm building a 64 bit kernel + rootfs.
 
-I've been running builds of some images and a world build in a container
-over the past couple of days without issue. I've also run a complete
-oe-selftest run (with SANITY_TESTED_DISTROS = "") and did not observe any
-errors.
+The only recipy that fails is U-Boot with:
+undefined reference to `__normal___udivdi3'
 
-Signed-off-by: Joshua Lock <joshua.g.lock@intel.com>
----
- meta-poky/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+Appearently, when building 32 bit U-Boot outside of yocto on a 64bit 
+machine you need to install gcc-6-multilib.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 57b7e71..c907969 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -75,6 +75,7 @@ SANITY_TESTED_DISTROS ?= " \
-             ubuntu-15.04 \n \
-             ubuntu-16.04 \n \
-             ubuntu-16.10 \n \
-+            ubuntu-17.04 \n \
-             fedora-24 \n \
-             fedora-25 \n \
-             centos-7 \n \
--- 
-2.9.4
+How would I configure poke or change the recipy to do the same?
 
 
