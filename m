@@ -1,43 +1,32 @@
-Return-Path: <0101015d6e50a87b-bd1ba10c-324c-47a8-b3fb-d4cdb9252183-000000@us-west-2.amazonses.com>
+Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7817BE00BB7; Sun, 23 Jul 2017 00:23:36 -0700 (PDT)
+	id 7EF9EE00B6F; Tue, 25 Jul 2017 15:42:00 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [54.240.27.17 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.93 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 248 seconds by postgrey-1.32 at yocto-www;
-	Sun, 23 Jul 2017 00:23:35 PDT
-Received: from a27-17.smtp-out.us-west-2.amazonses.com
-	(a27-17.smtp-out.us-west-2.amazonses.com [54.240.27.17])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7DA83E00B72
-	for <poky@yoctoproject.org>; Sun, 23 Jul 2017 00:23:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1500794366;
-	h=Subject:From:To:Cc:Date:Mime-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Feedback-ID;
-	bh=KKITVoyFn6G+U6ZAYzY0H4FYVp5qqxPXKoCNXkuirJo=;
-	b=HjjaFG+sIBUPldQD9Mo5zpdAuZlOOOCs1x2PAzcGVKmwTGUwjPzaXphoopq7IhuV
-	cgQlunvI/IOj9AU3ngRYSNyvlZ6zDuYZc777nNLNC/AzZse5KDPnOC+nSAmvz2IVFXM
-	B7VHzytSRxnay6qWwtKpVFzg0zLvGl+B+Q+bNQs4=
-From: =?UTF-8?Q?Benjamin_Esquivel?= <code@esquibits.com>
-To: =?UTF-8?Q?poky=40yoctoproject=2Eorg?= <poky@yoctoproject.org>
-Date: Sun, 23 Jul 2017 07:19:26 +0000
-Mime-Version: 1.0
-X-Mailer: Amazon WorkMail
-Thread-Index: AQHTA4QDV295zWPVRq6ri6HUtXNebw==
-X-Original-Mailer: git-send-email 2.13.3
-Message-ID: <0101015d6e50a87b-bd1ba10c-324c-47a8-b3fb-d4cdb9252183-000000@us-west-2.amazonses.com>
-X-SES-Outgoing: 2017.07.23-54.240.27.17
-Feedback-ID: 1.us-west-2.An468LAV0jCjQDrDLvlZjeAthld7qrhZr+vow8irkvU=:AmazonSES
-Subject: [PATCH] add fedora-26 to the SANITY_TESTED_DISTROS
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0CCC0E00B43
+	for <poky@yoctoproject.org>; Tue, 25 Jul 2017 15:41:59 -0700 (PDT)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+	by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	25 Jul 2017 15:41:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.40,412,1496127600"; d="scan'208";a="997151103"
+Received: from yctb05.ostc.intel.com ([10.54.69.59])
+	by orsmga003.jf.intel.com with ESMTP; 25 Jul 2017 15:41:59 -0700
+From: leonardo.sandoval.gonzalez@linux.intel.com
+To: poky@yoctoproject.org
+Date: Tue, 25 Jul 2017 15:41:55 -0700
+Message-Id: <20170725224155.7297-1-leonardo.sandoval.gonzalez@linux.intel.com>
+X-Mailer: git-send-email 2.12.3
+Subject: [PATCH] bsp/help: include a warning showing deprecation of create-layer plugin
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,20 +39,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 23 Jul 2017 07:23:36 -0000
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Tue, 25 Jul 2017 22:42:00 -0000
 
-tested the quickstart guide on Fedora 26 and confirmed that it=0D=0Acan b=
-uild a core-image-sato and run the image via runqemu.=0D=0A=0D=0ASigned-o=
-ff-by: Benjamin Esquivel <code@esquibits.com>=0D=0A---=0D=0A meta-poky/co=
-nf/distro/poky.conf | 1 +=0D=0A 1 file changed, 1 insertion(+)=0D=0A=0D=0A=
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
-=2Econf=0D=0Aindex 62ec96f850..6018828039 100644=0D=0A--- a/meta-poky/con=
-f/distro/poky.conf=0D=0A+++ b/meta-poky/conf/distro/poky.conf=0D=0A@@ -77=
-,6 +77,7 @@ SANITY_TESTED_DISTROS =3F=3D " \=0D=0A             ubuntu-16.=
-10 \n \=0D=0A             fedora-24 \n \=0D=0A             fedora-25 \n \=
-=0D=0A+            fedora-26 \n \=0D=0A             centos-7 \n \=0D=0A  =
-           debian-8 \n \=0D=0A             opensuse-42.1 \n \=0D=0A--=20=0D=
-=0A2.13.3=0D=0A=0D=0A
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+
+This plugin will be removed starting 2.5 development in favour
+of using 'bitbake-layers create-layer' script/plugin, offering a single
+script to manage layers.
+
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+---
+ scripts/lib/bsp/help.py | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/scripts/lib/bsp/help.py b/scripts/lib/bsp/help.py
+index 4f0d7721fe..85d446b860 100644
+--- a/scripts/lib/bsp/help.py
++++ b/scripts/lib/bsp/help.py
+@@ -818,6 +818,10 @@ yocto_layer_help_usage = """
+ 
+ yocto_layer_create_usage = """
+ 
++ WARNING: this plugin will be removed starting 2.5 development in favour
++ of using 'bitbake-layers create-layer' script/plugin, offering a single
++ script to manage layers.
++
+  Create a new generic Yocto layer
+ 
+  usage: yocto-layer create <layer-name> [layer_priority]
+@@ -845,6 +849,10 @@ yocto_layer_create_usage = """
+ 
+ yocto_layer_create_help = """
+ 
++WARNING: this plugin will be removed starting 2.5 development in favour
++of using 'bitbake-layers create-layer' script/plugin, offering a single
++script to manage layers.
++
+ NAME
+     yocto-layer create - Create a new generic Yocto layer
+ 
+-- 
+2.12.3
+
 
