@@ -1,41 +1,32 @@
-Return-Path: <joe.slater@windriver.com>
+Return-Path: <alexander.kanavin@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 28441E00C41; Thu,  3 Aug 2017 11:00:02 -0700 (PDT)
+	id E0CF1E00AD0; Mon,  7 Aug 2017 04:58:19 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.88 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0BBE0E007E4
-	for <poky@yoctoproject.org>; Thu,  3 Aug 2017 11:00:00 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id v73I00Hp004890
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Thu, 3 Aug 2017 11:00:00 -0700 (PDT)
-Received: from ALA-MBD.corp.ad.wrs.com ([169.254.3.209]) by
-	ALA-HCA.corp.ad.wrs.com ([147.11.189.40]) with mapi id 14.03.0361.001;
-	Thu, 3 Aug 2017 10:59:59 -0700
-From: "Slater, Joseph" <joe.slater@windriver.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [meta-yocto-bsp][PATCH 1/1] packagegroups: remove a bbappend
-Thread-Index: AQHTCyavmDUfZEcg6EyDQwKCjB/p8KJy7g2Q
-Date: Thu, 3 Aug 2017 17:59:58 +0000
-Message-ID: <007BD92917A2324FA403BCF9A464CF84CF3D0764@ALA-MBD.corp.ad.wrs.com>
-References: <20170802003129.75949-1-jslater@windriver.com>
-In-Reply-To: <20170802003129.75949-1-jslater@windriver.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [147.11.157.209]
-MIME-Version: 1.0
-Subject: FW: [meta-yocto-bsp][PATCH 1/1] packagegroups: remove a bbappend
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6EE13E00A38
+	for <poky@yoctoproject.org>; Mon,  7 Aug 2017 04:58:19 -0700 (PDT)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+	by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	07 Aug 2017 04:58:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.41,337,1498546800"; d="scan'208";a="116519328"
+Received: from kanavin-desktop.fi.intel.com ([10.237.68.161])
+	by orsmga004.jf.intel.com with ESMTP; 07 Aug 2017 04:58:17 -0700
+From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Mon,  7 Aug 2017 14:54:54 +0300
+Message-Id: <20170807115455.28815-1-alexander.kanavin@linux.intel.com>
+X-Mailer: git-send-email 2.13.2
+Subject: [PATCH 1/2] poky-world-exclude.inc: remove recipes from meta-qt4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,42 +39,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Aug 2017 18:00:02 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 07 Aug 2017 11:58:19 -0000
 
-Resending after joining list...
+Now that meta-qt4 isn't used by the autobuilder, there's no need
+to exclude broken recipes fron that layer either.
 
------Original Message-----
-From: Joe Slater [mailto:jslater@windriver.com]=20
-Sent: Tuesday, August 01, 2017 5:31 PM
-To: poky@yoctoproject.org
-Cc: Slater, Joseph
-Subject: [meta-yocto-bsp][PATCH 1/1] packagegroups: remove a bbappend
-
-Force items into packagegroup-core-tools-profile?  I don't think so.
-
-Signed-off-by: Joe Slater <jslater@windriver.com>
+Signed-off-by: Alexander Kanavin <alexander.kanavin@linux.intel.com>
 ---
- .../recipes-core/packagegroups/packagegroup-core-tools-profile.bbappend | =
-2 --
- 1 file changed, 2 deletions(-)
- delete mode 100644 meta-yocto-bsp/recipes-core/packagegroups/packagegroup-=
-core-tools-profile.bbappend
+ meta-poky/conf/distro/include/poky-world-exclude.inc | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/meta-yocto-bsp/recipes-core/packagegroups/packagegroup-core-to=
-ols-profile.bbappend b/meta-yocto-bsp/recipes-core/packagegroups/packagegro=
-up-core-tools-profile.bbappend
-deleted file mode 100644
-index f86595c..0000000
---- a/meta-yocto-bsp/recipes-core/packagegroups/packagegroup-core-tools-pro=
-file.bbappend
-+++ /dev/null
-@@ -1,2 +0,0 @@
--RDEPENDS_${PN}_append_genericx86 =3D " lttng-ust systemtap"
--
---=20
-2.7.4
+diff --git a/meta-poky/conf/distro/include/poky-world-exclude.inc b/meta-poky/conf/distro/include/poky-world-exclude.inc
+index a6635b63aa4..1a2dea5859b 100644
+--- a/meta-poky/conf/distro/include/poky-world-exclude.inc
++++ b/meta-poky/conf/distro/include/poky-world-exclude.inc
+@@ -2,7 +2,3 @@
+ # Things we exlude fromw world testing within the reference distro
+ #
+ 
+-# qwt from meta-qt4, has poky-lsb QA warnings, qt4 for lsb only
+-EXCLUDE_FROM_WORLD_pn-qwt = "1"
+-# python-pyqt from meta-qt4 requires sip from meta-oe
+-EXCLUDE_FROM_WORLD_pn-python-pyqt = "1"
+-- 
+2.13.2
 
 
