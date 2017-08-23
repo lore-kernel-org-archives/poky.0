@@ -1,67 +1,65 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id CA431E00CAB; Wed, 23 Aug 2017 13:39:34 -0700 (PDT)
+	id 38BB5E00CAB; Wed, 23 Aug 2017 13:41:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [195.60.68.11 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.83.65 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 458 seconds by postgrey-1.32 at yocto-www;
-	Wed, 23 Aug 2017 13:39:33 PDT
-Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 01BD7E00C01
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 13:39:33 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by bastet.se.axis.com (Postfix) with ESMTP id 1AF711837B
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 22:31:55 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
-Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
-	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id uNVIDhjVH9MJ for <poky@yoctoproject.org>;
-	Wed, 23 Aug 2017 22:31:54 +0200 (CEST)
-Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
-	by bastet.se.axis.com (Postfix) with ESMTPS id 7B53A18153
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 22:31:54 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 66DE91E086
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 22:31:54 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5BF031E084
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 22:31:54 +0200 (CEST)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
-	by boulder03.se.axis.com (Postfix) with ESMTP
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 22:31:54 +0200 (CEST)
-Received: from XBOX03.axis.com (xbox03.axis.com [10.0.5.17])
-	by thoth.se.axis.com (Postfix) with ESMTP id 4FEA11B5D
-	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 22:31:54 +0200 (CEST)
-Received: from xbox11.axis.com (10.0.5.25) by XBOX03.axis.com (10.0.5.17) with
-	Microsoft SMTP Server (TLS) id 15.0.1263.5;
-	Wed, 23 Aug 2017 22:31:54 +0200
-Received: from XBOX02.axis.com (10.0.5.16) by xbox11.axis.com (10.0.5.25) with
-	Microsoft SMTP Server (TLS) id 15.0.1263.5;
-	Wed, 23 Aug 2017 22:31:54 +0200
-Received: from XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776]) by
-	XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776%21]) with mapi id
-	15.00.1263.000; Wed, 23 Aug 2017 22:31:54 +0200
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Why is DISTRO_CODENAME still pyro?
-Thread-Index: AdMcTkfdVbGqAVksT1+evIS0OY/GTg==
-Date: Wed, 23 Aug 2017 20:31:54 +0000
-Message-ID: <c61c19a50d8740f19f3b95ecc9c7d8bf@XBOX02.axis.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.0.5.60]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [74.125.83.65 listed in dnsbl.sorbs.net]
+Received: from mail-pg0-f65.google.com (mail-pg0-f65.google.com [74.125.83.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 831B0E00C01
+	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 13:41:50 -0700 (PDT)
+Received: by mail-pg0-f65.google.com with SMTP id p14so713220pgd.1
+	for <poky@yoctoproject.org>; Wed, 23 Aug 2017 13:41:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=ZchmqR3Pi/1q/vIOFivUVstP0rPIukyLkAXNHYKE/aI=;
+	b=CfKAd3ZzfMGlL9p6HGBiPstJVjTsptL2gz2KaYuguyntAzVIqW2MvrwEbs6BywnbW5
+	DfPIxOITOlQMRhHI9yiUHA/zVfZHhYllCYOspdxZWGSvTf3NxlRhRJ8cwfEtJwYYPUjs
+	YHNc1grrHVwDnVVEGfZVUU/AQhasd6mCbDiqiiS8FuerUp9xtcb56TsIQtdtQJLAkda5
+	aAUPIjp1YAJlm+4a0yL+QADMcjbj6tNmTn0ikOq/dTh73+oJQzTaps4EcH5I30Gt9/ND
+	VGiDLGb8Y7u4aJgT7l4UNEwl8Bwzsi3+9ZHgLPu17QXUeiW/b9wgTq3LNMb8rtx45Gjo
+	bGVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=ZchmqR3Pi/1q/vIOFivUVstP0rPIukyLkAXNHYKE/aI=;
+	b=ZWLyefYV/MPVJzmfYyU8p700pDZJBmbKSDiP9IGDiI5VQDuSnuTzCtg9pLtRALCaFc
+	2SBIJQk6HUVNHN42IicVgi0Dy1y/EfNHXLVbxQYfa4z9pVeC9ls5jZCTQ10vBieP7vAV
+	FiqJFyBoPnIC9ovHkQwEoNzLHtUzdiWjwY/sP8oHwSOvsBPGt4RCLgvlLmnv6LgEpgZB
+	SfD/MrPLBq+4MOftj6C6gGOZSM3NlHYKHvZjJt2mxZVJDGrWBnc0GzMR6cgRwpobHQ6d
+	+GEI/GPehByVmiGWCo8BsUlJscI3J8n1UUZ3+mkS4Jm+ZaL23lCBxIDddJOBasmYS+Or
+	XSuw==
+X-Gm-Message-State: AHYfb5jawWphpK7h9oy/S2P/q268xsz4IDfSnq3wbG1PsYEA/DaHP3Eg
+	O0pLlVqcEhKfpCrp5D8ehLksM6I73A==
+X-Received: by 10.99.121.70 with SMTP id u67mr2962275pgc.123.1503520909568;
+	Wed, 23 Aug 2017 13:41:49 -0700 (PDT)
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-Subject: Why is DISTRO_CODENAME still pyro?
+Received: by 10.100.167.2 with HTTP; Wed, 23 Aug 2017 13:41:19 -0700 (PDT)
+In-Reply-To: <c61c19a50d8740f19f3b95ecc9c7d8bf@XBOX02.axis.com>
+References: <c61c19a50d8740f19f3b95ecc9c7d8bf@XBOX02.axis.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 23 Aug 2017 13:41:19 -0700
+Message-ID: <CAMKF1sqGa20Et235hBhHhS4+Ns0vAvo28yoRMAc2mbOkoY-_Dw@mail.gmail.com>
+To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Why is DISTRO_CODENAME still pyro?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,16 +72,24 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Aug 2017 20:39:34 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Wed, 23 Aug 2017 20:41:51 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-Is there any particular reason DISTRO_CODENAME still says "pyro"=20
-on master of meta-poky/conf/distro/poky.conf? Looking back through=20
-the history of poky.conf, it has always been updated to "master"=20
-immediately after each release before. Similarly for DISTRO_VERSION.
+On Wed, Aug 23, 2017 at 1:31 PM, Peter Kjellerstedt
+<peter.kjellerstedt@axis.com> wrote:
+> Is there any particular reason DISTRO_CODENAME still says "pyro"
+> on master of meta-poky/conf/distro/poky.conf? Looking back through
+> the history of poky.conf, it has always been updated to "master"
+> immediately after each release before. Similarly for DISTRO_VERSION.
+>
 
-//Peter
+oversight I believe. Send a patch
 
+> //Peter
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
