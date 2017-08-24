@@ -1,55 +1,35 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id EBDF9E00BA2; Thu, 24 Aug 2017 10:19:20 -0700 (PDT)
+	id 798FFE00B3D; Thu, 24 Aug 2017 13:54:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [195.60.68.10 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [192.55.52.120 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from bes.se.axis.com (bes.se.axis.com [195.60.68.10])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1B95E0090A
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 10:19:19 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by bes.se.axis.com (Postfix) with ESMTP id 223752E3FB
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:18 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bes.se.axis.com
-Received: from bes.se.axis.com ([IPv6:::ffff:127.0.0.1])
-	by localhost (bes.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id lZcjzSmP0FCM for <poky@yoctoproject.org>;
-	Thu, 24 Aug 2017 19:19:17 +0200 (CEST)
-Received: from boulder02.se.axis.com (boulder02.se.axis.com [10.0.8.16])
-	by bes.se.axis.com (Postfix) with ESMTPS id 7C29E2E3F6
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:17 +0200 (CEST)
-Received: from boulder02.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 644811A090
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:17 +0200 (CEST)
-Received: from boulder02.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 571631A08D
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:17 +0200 (CEST)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
-	by boulder02.se.axis.com (Postfix) with ESMTP
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:17 +0200 (CEST)
-Received: from saur-2.se.axis.com (saur-2.se.axis.com [10.92.3.2])
-	by thoth.se.axis.com (Postfix) with ESMTP id 424A61BB0
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:17 +0200 (CEST)
-Received: from saur-2.se.axis.com (localhost [127.0.0.1])
-	by saur-2.se.axis.com (8.14.5/8.14.5) with ESMTP id v7OHJGxN003375
-	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 19:19:16 +0200
-Received: (from pkj@localhost)
-	by saur-2.se.axis.com (8.14.5/8.14.5/Submit) id v7OHJGKZ003374
-	for poky@yoctoproject.org; Thu, 24 Aug 2017 19:19:16 +0200
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 17C15E0090A
+	for <poky@yoctoproject.org>; Thu, 24 Aug 2017 13:54:01 -0700 (PDT)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+	by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	24 Aug 2017 13:54:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.41,422,1498546800"; d="scan'208";a="141718311"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by orsmga005.jf.intel.com with ESMTP; 24 Aug 2017 13:54:01 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 24 Aug 2017 19:19:13 +0200
-Message-Id: <20170824171913.3333-1-pkj@axis.com>
-X-Mailer: git-send-email 2.12.0
-X-TM-AS-GCONF: 00
-Subject: [PATCH] poky: Switch to post release name/version
+Date: Thu, 24 Aug 2017 13:53:59 -0700
+Message-Id: <1a9852335439fd12b67287053346d51fd1b883a3.1503607951.git.alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.12.3
+In-Reply-To: <cover.1503607951.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1503607951.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 1/1] linux-yocto: Adds new bbappend to support 4.12 on genericx86 and genericx86-64 platforms
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -62,31 +42,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Aug 2017 17:19:21 -0000
+X-List-Received-Date: Thu, 24 Aug 2017 20:54:02 -0000
 
-This should have been done after Pyro was released, but it apparently
-slipped though the cracks.
-
-Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 ---
- meta-poky/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../recipes-kernel/linux/linux-yocto_4.12.bbappend        | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 1c6a01b542..ea48e59a44 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "2.3"
--DISTRO_CODENAME = "pyro"
-+DISTRO_VERSION = "2.3+snapshot-${DATE}"
-+DISTRO_CODENAME = "master"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
- 
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+new file mode 100644
+index 00000000000..d54dcb3b80f
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+@@ -0,0 +1,15 @@
++KBRANCH_genericx86  = "standard/base"
++KBRANCH_genericx86-64  = "standard/base"
++
++KMACHINE_genericx86 ?= "common-pc"
++KMACHINE_genericx86-64 ?= "common-pc-64"
++
++SRCREV_machine_genericx86    ?= "d09f2ce584d60ecb7890550c22a80c48b83c2e19"
++SRCREV_machine_genericx86-64 ?= "d09f2ce584d60ecb7890550c22a80c48b83c2e19"
++
++
++COMPATIBLE_MACHINE_genericx86 = "genericx86"
++COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++
++LINUX_VERSION_genericx86 = "4.12.7"
++LINUX_VERSION_genericx86-64 = "4.12.7"
 -- 
-2.12.0
+2.12.3
 
 
