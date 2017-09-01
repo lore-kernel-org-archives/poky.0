@@ -1,32 +1,31 @@
-Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F4201E0091D; Wed, 30 Aug 2017 12:14:30 -0700 (PDT)
+	id C0567E00CC4; Thu, 31 Aug 2017 20:14:27 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [134.134.136.20 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6F599E00349
-	for <poky@yoctoproject.org>; Wed, 30 Aug 2017 12:14:27 -0700 (PDT)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-	by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	30 Aug 2017 12:14:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.41,449,1498546800"; d="scan'208";a="130048987"
-Received: from yctb05.ostc.intel.com ([10.54.69.59])
-	by orsmga002.jf.intel.com with ESMTP; 30 Aug 2017 12:14:07 -0700
-From: leonardo.sandoval.gonzalez@linux.intel.com
-To: poky@yoctoproject.org
-Date: Wed, 30 Aug 2017 12:14:05 -0700
-Message-Id: <20170830191405.46589-1-leonardo.sandoval.gonzalez@linux.intel.com>
-X-Mailer: git-send-email 2.12.3
-Subject: [PATCH] linux-yocto: add linux-yocto 4.12 bbappends
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36D7BE00C8B
+	for <poky@yoctoproject.org>; Thu, 31 Aug 2017 20:14:26 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id v813EQqY010301
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
+	for <poky@yoctoproject.org>; Thu, 31 Aug 2017 20:14:26 -0700
+Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.3.361.1; Thu, 31 Aug 2017 20:14:25 -0700
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Fri, 1 Sep 2017 11:18:07 +0800
+Message-ID: <20170901031807.30380-1-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.9.3
+MIME-Version: 1.0
+Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,801 +38,164 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Aug 2017 19:14:31 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 03:14:27 -0000
+Content-Type: text/plain
 
-From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Bump to the latest stable kernel for 4.4, 4.9, 4.10 and 4.12. Also
+set the default kernel to 4.12.
 
-This allows the yocto-bsp script to pick the 4.12 kernel version when
-creating a custom BSP.
-
-[YOCTO #11995]
-
-Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
 ---
- .../arm/recipes-kernel/linux/kernel-list.noinstall |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 37 ++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 37 ++++++++++++
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 37 ++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 37 ++++++++++++
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 37 ++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 37 ++++++++++++
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 37 ++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 37 ++++++++++++
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 37 ++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 37 ++++++++++++
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 67 ++++++++++++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 67 ++++++++++++++++++++++
- .../recipes-kernel/linux/kernel-list.noinstall     |  4 +-
- .../linux/linux-yocto-tiny_4.12.bbappend           | 37 ++++++++++++
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend | 37 ++++++++++++
- 21 files changed, 592 insertions(+), 14 deletions(-)
- create mode 100644 scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
- create mode 100644 scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.12.bbappend
+ meta-yocto-bsp/conf/machine/beaglebone.conf                  |  2 +-
+ meta-yocto-bsp/conf/machine/edgerouter.conf                  |  2 +-
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                |  2 +-
+ .../recipes-kernel/linux/linux-yocto_4.10.bbappend           |  6 +++---
+ .../recipes-kernel/linux/linux-yocto_4.12.bbappend           | 12 ++++++++++++
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12 ++++++------
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12 ++++++------
+ 7 files changed, 30 insertions(+), 18 deletions(-)
 
-diff --git a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
+index 4019e25a1e0e..4a90ba5ab570 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
+@@ -23,7 +23,7 @@ do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do
+ SERIAL_CONSOLE = "115200 ttyO0"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..6f3e104c66
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..e874c9e45f
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/arm/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "4.10%"
++PREFERRED_VERSION_linux-yocto ?= "4.12%"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..6f3e104c66
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..20d57f673c
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/i386/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard:standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+ KERNEL_IMAGETYPE = "zImage"
+ KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
+diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
+index a9cb1f55d932..ab5a6fc404cb 100644
+--- a/meta-yocto-bsp/conf/machine/edgerouter.conf
++++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
+@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
+ KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..6f3e104c66
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..e874c9e45f
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/mips/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "4.10%"
++PREFERRED_VERSION_linux-yocto ?= "4.12%"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..6f3e104c66
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..5333c30b85
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/mips64/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/edgerouter" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/edgerouter" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+ SERIAL_CONSOLE = "115200 ttyS0"
+ USE_VT ?= "0"
+diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+index ce5015256a23..371a3db3d0c7 100644
+--- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
++++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..6f3e104c66
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..e874c9e45f
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/powerpc/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..83eb216dc1
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,67 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "arm": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"arm" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "arm": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"arm" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "powerpc": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "powerpc": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "i386": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "i386": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/common-pc" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "mips": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "mips": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "mips64": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"mips64" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "mips64": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips64" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ if qemuarch != "arm": }}
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..d7ce37e239
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/qemu/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,67 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "arm": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base your new BSP branch on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "arm": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose an existing machine branch to use for this BSP:" default:"standard/arm-versatile-926ejs" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "powerpc": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "powerpc": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"powerpc" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/qemuppc" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "i386": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "i386": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"i386" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "x86_64": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "x86_64": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"x86_64" gen:"bsp.kernel.all_branches" branches_base:"standard"  prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "mips": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/mti-malta32" }}
-+
-+{{ if need_new_kbranch == "n" and qemuarch == "mips64": }}
-+{{ input type:"choicelist" name:"existing_kbranch" nameappend:"mips64" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/mti-malta64" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "mips": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"mips" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "y" and qemuarch == "mips64": }}
-+{{ input type:"choicelist" name:"new_kbranch" nameappend:"mips64" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ if qemuarch != "arm": }}
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Would you like SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-index 20f2059ce3..917f0e2207 100644
---- a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/kernel-list.noinstall
-@@ -1,5 +1,5 @@
- {{ if kernel_choice != "custom": }}
--{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.10) kernel? (y/n)" default:"y"}}
-+{{ input type:"boolean" name:"use_default_kernel" prio:"10" msg:"Would you like to use the default (4.12) kernel? (y/n)" default:"y"}}
+-PREFERRED_VERSION_linux-yocto ?= "4.10%"
++PREFERRED_VERSION_linux-yocto ?= "4.12%"
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
  
- {{ if kernel_choice != "custom" and use_default_kernel == "n": }}
--{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.10"}}
-+{{ input type:"choicelist" name:"kernel_choice" gen:"bsp.kernel.kernels" prio:"10" msg:"Please choose the kernel to use in this BSP:" default:"linux-yocto_4.12"}}
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-new file mode 100644
-index 0000000000..6f3e104c66
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto-tiny_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto-tiny_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard/tiny" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/tiny/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-tiny.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-patches.scc \
-+            file://{{=machine}}-user-features.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto-tiny_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
-diff --git a/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.12.bbappend b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.12.bbappend
-new file mode 100644
-index 0000000000..e874c9e45f
---- /dev/null
-+++ b/scripts/lib/bsp/substrate/target/arch/x86_64/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -0,0 +1,37 @@
-+# yocto-bsp-filename {{ if kernel_choice == "linux-yocto_4.12": }} this
-+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-+
-+PR := "${PR}.1"
-+
-+COMPATIBLE_MACHINE_{{=machine}} = "{{=machine}}"
-+
-+{{ input type:"boolean" name:"need_new_kbranch" prio:"20" msg:"Do you need a new machine branch for this BSP (the alternative is to re-use an existing branch)? [y/n]" default:"y" }}
-+
-+{{ if need_new_kbranch == "y": }}
-+{{ input type:"choicelist" name:"new_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+{{ input type:"choicelist" name:"existing_kbranch" gen:"bsp.kernel.all_branches" branches_base:"standard" prio:"20" msg:"Please choose a machine branch to base this BSP on:" default:"standard/base" }}
-+
-+{{ if need_new_kbranch == "n": }}
-+KBRANCH_{{=machine}}  = "{{=existing_kbranch}}"
-+
-+{{ input type:"boolean" name:"smp" prio:"30" msg:"Do you need SMP support? (y/n)" default:"y"}}
-+{{ if smp == "y": }}
-+KERNEL_FEATURES_append_{{=machine}} += " cfg/smp.scc"
-+
-+SRC_URI += "file://{{=machine}}.scc \
-+            file://{{=machine}}.cfg \
-+            file://{{=machine}}-standard.scc \
-+            file://{{=machine}}-user-config.cfg \
-+            file://{{=machine}}-user-features.scc \
-+            file://{{=machine}}-user-patches.scc \
-+           "
-+
-+# replace these SRCREVs with the real commit ids once you've had
-+# the appropriate changes committed to the upstream linux-yocto repo
-+SRCREV_machine_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+SRCREV_meta_pn-linux-yocto_{{=machine}} ?= "${AUTOREV}"
-+#LINUX_VERSION = "4.10"
-+#Remove the following line once AUTOREV is locked to a certain SRCREV
-+KERNEL_VERSION_SANITY_SKIP = "1"
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
+index 6884731810cc..42c10c4d2cc8 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
+@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
+ SRCREV_machine_genericx86-64 ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
+-SRCREV_machine_edgerouter ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
+-SRCREV_machine_beaglebone ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
+-SRCREV_machine_mpc8315e-rdb ?= "5ae8cb247756593767d1bb3828bbb9f2a9b72341"
++SRCREV_machine_edgerouter ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
++SRCREV_machine_beaglebone ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
++SRCREV_machine_mpc8315e-rdb ?= "e6f168eef50f35513249d120db188453768017ec"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+index d54dcb3b80ff..965c892e790c 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+@@ -3,13 +3,25 @@ KBRANCH_genericx86-64  = "standard/base"
+ 
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
++KBRANCH_edgerouter = "standard/edgerouter"
++KBRANCH_beaglebone = "standard/beaglebone"
++KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "d09f2ce584d60ecb7890550c22a80c48b83c2e19"
+ SRCREV_machine_genericx86-64 ?= "d09f2ce584d60ecb7890550c22a80c48b83c2e19"
++SRCREV_machine_edgerouter ?= "b5c8cfda2dfe296410d51e131289fb09c69e1e7d"
++SRCREV_machine_beaglebone ?= "b5c8cfda2dfe296410d51e131289fb09c69e1e7d"
++SRCREV_machine_mpc8315e-rdb ?= "2d1d010240846d7bff15d1fcc0cb6eb8a22fc78a"
+ 
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++COMPATIBLE_MACHINE_edgerouter = "edgerouter"
++COMPATIBLE_MACHINE_beaglebone = "beaglebone"
++COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.12.7"
+ LINUX_VERSION_genericx86-64 = "4.12.7"
++LINUX_VERSION_edgerouter = "4.12.10"
++LINUX_VERSION_beaglebone = "4.12.10"
++LINUX_VERSION_mpc8315e-rdb = "4.12.10"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index 7804bd784f9d..27d8cef3ba2b 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
+ SRCREV_machine_genericx86-64 ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
+-SRCREV_machine_edgerouter ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
+-SRCREV_machine_beaglebone ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
+-SRCREV_machine_mpc8315e-rdb ?= "f5e6bd8e3a6d43ca08a7a06a76547ebef456d67b"
++SRCREV_machine_edgerouter ?= "0327f8213797c4885f86aec26cf55aeef5834180"
++SRCREV_machine_beaglebone ?= "0327f8213797c4885f86aec26cf55aeef5834180"
++SRCREV_machine_mpc8315e-rdb ?= "9313779872b1c0888cd94f6116fb1819908596e8"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.4.76"
+ LINUX_VERSION_genericx86-64 = "4.4.76"
+-LINUX_VERSION_edgerouter = "4.4.76"
+-LINUX_VERSION_beaglebone = "4.4.76"
+-LINUX_VERSION_mpc8315e-rdb = "4.4.76"
++LINUX_VERSION_edgerouter = "4.4.85"
++LINUX_VERSION_beaglebone = "4.4.85"
++LINUX_VERSION_mpc8315e-rdb = "4.4.85"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+index c741c3937642..cc65459e1b28 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
+ SRCREV_machine_genericx86-64 ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
+-SRCREV_machine_edgerouter ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
+-SRCREV_machine_beaglebone ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
+-SRCREV_machine_mpc8315e-rdb ?= "2c59ae4503454e29c11c58b585a61dc4a40193cf"
++SRCREV_machine_edgerouter ?= "cf9a7dd9f41a32c10d19a51497463d6ec2991107"
++SRCREV_machine_beaglebone ?= "cf9a7dd9f41a32c10d19a51497463d6ec2991107"
++SRCREV_machine_mpc8315e-rdb ?= "06cc7d23e026522a996d3a26e9b013f0a5f7e6fa"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.9.36"
+ LINUX_VERSION_genericx86-64 = "4.9.36"
+-LINUX_VERSION_edgerouter = "4.9.36"
+-LINUX_VERSION_beaglebone = "4.9.36"
+-LINUX_VERSION_mpc8315e-rdb = "4.9.36"
++LINUX_VERSION_edgerouter = "4.9.46"
++LINUX_VERSION_beaglebone = "4.9.46"
++LINUX_VERSION_mpc8315e-rdb = "4.9.46"
 -- 
-2.12.3
+2.9.3
 
 
