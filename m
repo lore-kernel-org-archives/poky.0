@@ -1,31 +1,70 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C0567E00CC4; Thu, 31 Aug 2017 20:14:27 -0700 (PDT)
+	id AFD62E00CC0; Fri,  1 Sep 2017 08:44:30 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [195.60.68.11 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36D7BE00C8B
-	for <poky@yoctoproject.org>; Thu, 31 Aug 2017 20:14:26 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id v813EQqY010301
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK)
-	for <poky@yoctoproject.org>; Thu, 31 Aug 2017 20:14:26 -0700
-Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
-	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
-	14.3.361.1; Thu, 31 Aug 2017 20:14:25 -0700
-From: Kevin Hao <kexin.hao@windriver.com>
-To: <poky@yoctoproject.org>
-Date: Fri, 1 Sep 2017 11:18:07 +0800
-Message-ID: <20170901031807.30380-1-kexin.hao@windriver.com>
-X-Mailer: git-send-email 2.9.3
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36782E007EF
+	for <poky@yoctoproject.org>; Fri,  1 Sep 2017 08:44:28 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id 99109180D1;
+	Fri,  1 Sep 2017 17:44:27 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024)
+	with LMTP id gAUBh5edat1t; Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
+Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
+	by bastet.se.axis.com (Postfix) with ESMTPS id 9C43618177;
+	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8BB0B1E080;
+	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 803951E07D;
+	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
+Received: from thoth.se.axis.com (unknown [10.0.2.173])
+	by boulder03.se.axis.com (Postfix) with ESMTP;
+	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
+Received: from XBOX01.axis.com (xbox01.axis.com [10.0.5.15])
+	by thoth.se.axis.com (Postfix) with ESMTP id 7412A2446;
+	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
+Received: from xbox11.axis.com (10.0.5.25) by XBOX01.axis.com (10.0.5.15) with
+	Microsoft SMTP Server (TLS) id 15.0.1263.5;
+	Fri, 1 Sep 2017 17:44:24 +0200
+Received: from XBOX02.axis.com (10.0.5.16) by xbox11.axis.com (10.0.5.25) with
+	Microsoft SMTP Server (TLS) id 15.0.1263.5;
+	Fri, 1 Sep 2017 17:44:24 +0200
+Received: from XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776]) by
+	XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776%21]) with mapi id
+	15.00.1263.000; Fri, 1 Sep 2017 17:44:24 +0200
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: Fred Lamer <fred@rogue-research.com>,
+	"bitbake-devel@lists.openembedded.org"
+	<bitbake-devel@lists.openembedded.org>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Thread-Topic: [bitbake-devel] CVS support on Yocto 2.3 (Pyro) and bitbake 1.34
+Thread-Index: AQHTIzaTRuBMlSjyI0motnzESmW0w6KgKEDQ
+Date: Fri, 1 Sep 2017 15:44:24 +0000
+Message-ID: <4ef85854c4b44bc48a381838801fd2c2@XBOX02.axis.com>
+References: <e380fe57-2ad0-787d-1ea0-b02411480121@rogue-research.com>
+In-Reply-To: <e380fe57-2ad0-787d-1ea0-b02411480121@rogue-research.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
+X-TM-AS-GCONF: 00
+Subject: Re: [bitbake-devel] CVS support on Yocto 2.3 (Pyro) and bitbake 1.34
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,164 +77,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Sep 2017 03:14:27 -0000
-Content-Type: text/plain
+X-List-Received-Date: Fri, 01 Sep 2017 15:44:30 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Bump to the latest stable kernel for 4.4, 4.9, 4.10 and 4.12. Also
-set the default kernel to 4.12.
-
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
----
- meta-yocto-bsp/conf/machine/beaglebone.conf                  |  2 +-
- meta-yocto-bsp/conf/machine/edgerouter.conf                  |  2 +-
- meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf                |  2 +-
- .../recipes-kernel/linux/linux-yocto_4.10.bbappend           |  6 +++---
- .../recipes-kernel/linux/linux-yocto_4.12.bbappend           | 12 ++++++++++++
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12 ++++++------
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12 ++++++------
- 7 files changed, 30 insertions(+), 18 deletions(-)
-
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index 4019e25a1e0e..4a90ba5ab570 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -23,7 +23,7 @@ do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do
- SERIAL_CONSOLE = "115200 ttyO0"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "4.10%"
-+PREFERRED_VERSION_linux-yocto ?= "4.12%"
- 
- KERNEL_IMAGETYPE = "zImage"
- KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
-diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
-index a9cb1f55d932..ab5a6fc404cb 100644
---- a/meta-yocto-bsp/conf/machine/edgerouter.conf
-+++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
-@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
- KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
- 
- PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
--PREFERRED_VERSION_linux-yocto ?= "4.10%"
-+PREFERRED_VERSION_linux-yocto ?= "4.12%"
- 
- SERIAL_CONSOLE = "115200 ttyS0"
- USE_VT ?= "0"
-diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-index ce5015256a23..371a3db3d0c7 100644
---- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-+++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
-@@ -14,7 +14,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
- 
- MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
- 
--PREFERRED_VERSION_linux-yocto ?= "4.10%"
-+PREFERRED_VERSION_linux-yocto ?= "4.12%"
- PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
- 
- PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-index 6884731810cc..42c10c4d2cc8 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
- SRCREV_machine_genericx86-64 ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
--SRCREV_machine_edgerouter ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
--SRCREV_machine_beaglebone ?= "6648a34e00c55a0634b39e661dd6ba14dd106473"
--SRCREV_machine_mpc8315e-rdb ?= "5ae8cb247756593767d1bb3828bbb9f2a9b72341"
-+SRCREV_machine_edgerouter ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
-+SRCREV_machine_beaglebone ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
-+SRCREV_machine_mpc8315e-rdb ?= "e6f168eef50f35513249d120db188453768017ec"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
-index d54dcb3b80ff..965c892e790c 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
-@@ -3,13 +3,25 @@ KBRANCH_genericx86-64  = "standard/base"
- 
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "d09f2ce584d60ecb7890550c22a80c48b83c2e19"
- SRCREV_machine_genericx86-64 ?= "d09f2ce584d60ecb7890550c22a80c48b83c2e19"
-+SRCREV_machine_edgerouter ?= "b5c8cfda2dfe296410d51e131289fb09c69e1e7d"
-+SRCREV_machine_beaglebone ?= "b5c8cfda2dfe296410d51e131289fb09c69e1e7d"
-+SRCREV_machine_mpc8315e-rdb ?= "2d1d010240846d7bff15d1fcc0cb6eb8a22fc78a"
- 
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.12.7"
- LINUX_VERSION_genericx86-64 = "4.12.7"
-+LINUX_VERSION_edgerouter = "4.12.10"
-+LINUX_VERSION_beaglebone = "4.12.10"
-+LINUX_VERSION_mpc8315e-rdb = "4.12.10"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-index 7804bd784f9d..27d8cef3ba2b 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
- SRCREV_machine_genericx86-64 ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
--SRCREV_machine_edgerouter ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
--SRCREV_machine_beaglebone ?= "2854678e4ccbb4bbd1bb4c243ac3e2571ef9834a"
--SRCREV_machine_mpc8315e-rdb ?= "f5e6bd8e3a6d43ca08a7a06a76547ebef456d67b"
-+SRCREV_machine_edgerouter ?= "0327f8213797c4885f86aec26cf55aeef5834180"
-+SRCREV_machine_beaglebone ?= "0327f8213797c4885f86aec26cf55aeef5834180"
-+SRCREV_machine_mpc8315e-rdb ?= "9313779872b1c0888cd94f6116fb1819908596e8"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.4.76"
- LINUX_VERSION_genericx86-64 = "4.4.76"
--LINUX_VERSION_edgerouter = "4.4.76"
--LINUX_VERSION_beaglebone = "4.4.76"
--LINUX_VERSION_mpc8315e-rdb = "4.4.76"
-+LINUX_VERSION_edgerouter = "4.4.85"
-+LINUX_VERSION_beaglebone = "4.4.85"
-+LINUX_VERSION_mpc8315e-rdb = "4.4.85"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-index c741c3937642..cc65459e1b28 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
-@@ -9,9 +9,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
- 
- SRCREV_machine_genericx86    ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
- SRCREV_machine_genericx86-64 ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
--SRCREV_machine_edgerouter ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
--SRCREV_machine_beaglebone ?= "24572abb2cad341dd79e6aafcb9cdd1a7f8a0c1e"
--SRCREV_machine_mpc8315e-rdb ?= "2c59ae4503454e29c11c58b585a61dc4a40193cf"
-+SRCREV_machine_edgerouter ?= "cf9a7dd9f41a32c10d19a51497463d6ec2991107"
-+SRCREV_machine_beaglebone ?= "cf9a7dd9f41a32c10d19a51497463d6ec2991107"
-+SRCREV_machine_mpc8315e-rdb ?= "06cc7d23e026522a996d3a26e9b013f0a5f7e6fa"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -21,6 +21,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
- LINUX_VERSION_genericx86 = "4.9.36"
- LINUX_VERSION_genericx86-64 = "4.9.36"
--LINUX_VERSION_edgerouter = "4.9.36"
--LINUX_VERSION_beaglebone = "4.9.36"
--LINUX_VERSION_mpc8315e-rdb = "4.9.36"
-+LINUX_VERSION_edgerouter = "4.9.46"
-+LINUX_VERSION_beaglebone = "4.9.46"
-+LINUX_VERSION_mpc8315e-rdb = "4.9.46"
--- 
-2.9.3
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBiaXRiYWtlLWRldmVsLWJvdW5j
+ZXNAbGlzdHMub3BlbmVtYmVkZGVkLm9yZyBbbWFpbHRvOmJpdGJha2UtDQo+IGRldmVsLWJvdW5j
+ZXNAbGlzdHMub3BlbmVtYmVkZGVkLm9yZ10gT24gQmVoYWxmIE9mIEZyZWQgTGFtZXINCj4gU2Vu
+dDogZGVuIDQgYXVndXN0aSAyMDE3IDE2OjAwDQo+IFRvOiBiaXRiYWtlLWRldmVsQGxpc3RzLm9w
+ZW5lbWJlZGRlZC5vcmc7IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBbYml0YmFr
+ZS1kZXZlbF0gQ1ZTIHN1cHBvcnQgb24gWW9jdG8gMi4zIChQeXJvKSBhbmQgYml0YmFrZQ0KPiAx
+LjM0DQo+IA0KPiBIaSwNCj4gDQo+IEknbSB0cnlpbmcgdG8gYnJpbmcgYSBwcm9qZWN0IGZyb20g
+WW9jdG8gMi4xIChLcm9nb3RoKSB0byAyLjMgKFB5cm8pLiBJDQo+IGhhdmUgYSBwcm9ibGVtIHdp
+dGggb25lIG9mIG15IHJlY2lwZSB0aGF0IHRyaWVzIHRvIGZldGNoIGZyb20gYSBjdnMNCj4gcmVw
+b3NpdG9yeS4gVGhlIHJlY2lwZSB3b3JrIHBlcmZlY3RseSBvbiBZb2N0byAyLjEgKHVzaW5nIGJp
+dGJha2UNCj4gMS4zMCksDQo+IGJ1dCBub3Qgb24gWW9jdG8gMi4zICh1c2luZyBiaXRiYWtlIDEu
+MzQpLg0KPiANCj4gSXQgc2VlbXMgbGlrZSAnY3ZzJyBpcyBub3QgaW5zdGFsbGVkIG9uIHRoZSBo
+b3N0IHN5c3RlbT8gSSBnZXQgdGhlDQo+IGZvbGxvd2luZyBlcnJvcjoNCj4gDQo+ICoqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqDQo+IA0KPiBGZXRjaGVyIGZhaWx1cmU6IEZldGNoIGNvbW1hbmQgZXhwb3J0DQo+IFBB
+VEg9Ii9tZWRpYS95b2N0by95b2N0by12ZXRyb2JvdC1uZXh0LmdpdC9idWlsZC90bXAvc3lzcm9v
+dHMtDQo+IHVuaW5hdGl2ZS94ODZfNjQtbGludXgvdXNyL2JpbjovbWVkaWEveW9jdG8veW9jdG8t
+dmV0cm9ib3QtDQo+IG5leHQuZ2l0L3Bva3kvc2NyaXB0czovbWVkaWEveW9jdG8veW9jdG8tdmV0
+cm9ib3QtDQo+IG5leHQuZ2l0L2J1aWxkL3RtcC93b3JrL2NvcmVpNy02NC1wb2t5LWxpbnV4L2xp
+YmV2LzQuMTUtcjAvcmVjaXBlLQ0KPiBzeXNyb290LW5hdGl2ZS91c3IvYmluL3g4Nl82NC1wb2t5
+LWxpbnV4Oi9tZWRpYS95b2N0by95b2N0by12ZXRyb2JvdC0NCj4gbmV4dC5naXQvYnVpbGQvdG1w
+L3dvcmsvY29yZWk3LTY0LXBva3ktbGludXgvbGliZXYvNC4xNS1yMC9yZWNpcGUtDQo+IHN5c3Jv
+b3QvdXNyL2Jpbi9jcm9zc3NjcmlwdHM6L21lZGlhL3lvY3RvL3lvY3RvLXZldHJvYm90LQ0KPiBu
+ZXh0LmdpdC9idWlsZC90bXAvd29yay9jb3JlaTctNjQtcG9reS1saW51eC9saWJldi80LjE1LXIw
+L3JlY2lwZS0NCj4gc3lzcm9vdC1uYXRpdmUvdXNyL3NiaW46L21lZGlhL3lvY3RvL3lvY3RvLXZl
+dHJvYm90LQ0KPiBuZXh0LmdpdC9idWlsZC90bXAvd29yay9jb3JlaTctNjQtcG9reS1saW51eC9s
+aWJldi80LjE1LXIwL3JlY2lwZS0NCj4gc3lzcm9vdC1uYXRpdmUvdXNyL2JpbjovbWVkaWEveW9j
+dG8veW9jdG8tdmV0cm9ib3QtDQo+IG5leHQuZ2l0L2J1aWxkL3RtcC93b3JrL2NvcmVpNy02NC1w
+b2t5LWxpbnV4L2xpYmV2LzQuMTUtcjAvcmVjaXBlLQ0KPiBzeXNyb290LW5hdGl2ZS9zYmluOi9t
+ZWRpYS95b2N0by95b2N0by12ZXRyb2JvdC0NCj4gbmV4dC5naXQvYnVpbGQvdG1wL3dvcmsvY29y
+ZWk3LTY0LXBva3ktbGludXgvbGliZXYvNC4xNS1yMC9yZWNpcGUtDQo+IHN5c3Jvb3QtbmF0aXZl
+L2JpbjovbWVkaWEveW9jdG8veW9jdG8tdmV0cm9ib3QtDQo+IG5leHQuZ2l0L3Bva3kvYml0YmFr
+ZS9iaW46L21lZGlhL3lvY3RvL3lvY3RvLXZldHJvYm90LQ0KPiBuZXh0LmdpdC9idWlsZC90bXAv
+aG9zdHRvb2xzIjsNCj4gZXhwb3J0IEhPTUU9Ii9ob21lL2ZyZWQiOyAvdXNyL2Jpbi9lbnYgY3Zz
+DQo+ICctZDpwc2VydmVyOmFub255bW91c0BjdnMuc2NobW9ycC5kZTovc2NobW9ycGZvcmdlJyBj
+byAtciByZWwtNF8xNQ0KPiBsaWJldg0KPiBmYWlsZWQgd2l0aCBleGl0IGNvZGUgMTI3LCBvdXRw
+dXQ6DQo+IA0KPiAvdXNyL2Jpbi9lbnY6IOKAmGN2c+KAmTogTm8gc3VjaCBmaWxlIG9yIGRpcmVj
+dG9yeQ0KPiANCj4gKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioNCj4gDQo+IFNvLCBpdCBzZWVtcyBsaWtlIGN2cyBp
+cyBlaXRoZXIgbm90IGluc3RhbGxlZCBvciBub3QgaW4gdGhlIFBBVEguDQo+IEFueW9uZSBldmVy
+IGhhZCB0aGlzIHByb2JsZW0/DQo+IA0KPiBOb3RlIHRoYXQgdGhpcyBpZiBJIGNvcHkvcGFzdGUg
+dGhpcyBjb21tYW5kIG91dHNpZGUgb2YgdGhlIGJpdGJha2UNCj4gZW52aXJvbm5lbWVudDoNCj4g
+DQo+ICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqDQo+IA0KPiAvdXNyL2Jpbi9lbnYgY3ZzICctZDpwc2VydmVyOmFu
+b255bW91c0BjdnMuc2NobW9ycC5kZTovc2NobW9ycGZvcmdlJyBjbyAtciByZWwtNF8xNSBsaWJl
+dg0KPiANCj4gKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioNCj4gDQo+IGl0IHdvcmtzIHBlcmZlY3RseSAoc28gaXQn
+cyBub3QgYSBmZXRjaCBlcnJvciBmcm9tIHRoZSByZXBvKS4NCj4gDQo+IFRoYW5rcw0KPiANCj4g
+RnJlZA0KDQpUaGlzIGlzIGR1ZSB0byB0aGUgaW50cm9kdWN0aW9uIG9mIHRoZSBIT1NUVE9PTFMg
+YW5kIEhPU1RUT09MU19OT05GQVRBTCANCnZhcmlhYmxlcyBpbiBQeXJvLiBPbmx5IGV4ZWN1dGFi
+bGVzIGluY2x1ZGVkIGluIHRoZXNlIHZhcmlhYmxlcyB3aWxsIGJlIA0KYXZhaWxhYmxlIGZyb20g
+dGhlIGhvc3QgZW52aXJvbm1lbnQgd2hlbiBiaXRiYWtlIGlzIHJ1bm5pbmcuIFRoZSANCmV4ZWN1
+dGFibGVzIGluIEhPU1RUT09MUyBtdXN0IGV4aXN0IG9yIGJpdGJha2Ugd2lsbCBhYm9ydC4gVGhl
+IGV4ZWN1dGFibGVzIA0KaW4gSE9TVFRPT0xTX05PTkZBVEFMIHdpbGwgYmUgYXZhaWxhYmxlIGlm
+IHRoZXkgZXhpc3QuDQoNClNvIGlmIHlvdSBhZGQgY3ZzIHRvIEhPU1RUT09MU19OT05GQVRBTCwg
+dXNpbmcgY3ZzIHRvIGZldGNoIGEgcmVwb3NpdG9yeSANCnNob3VsZCBzdGFydCB0byB3b3JrIGFn
+YWluLg0KDQovL1BldGVyDQoNCg==
 
