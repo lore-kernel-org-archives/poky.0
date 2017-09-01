@@ -1,69 +1,75 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AFD62E00CC0; Fri,  1 Sep 2017 08:44:30 -0700 (PDT)
+	id CFE01E00CB7; Fri,  1 Sep 2017 15:03:15 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [195.60.68.11 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (akuster808[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.83.47 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 36782E007EF
-	for <poky@yoctoproject.org>; Fri,  1 Sep 2017 08:44:28 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by bastet.se.axis.com (Postfix) with ESMTP id 99109180D1;
-	Fri,  1 Sep 2017 17:44:27 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
-Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
-	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
-	port 10024)
-	with LMTP id gAUBh5edat1t; Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
-Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
-	by bastet.se.axis.com (Postfix) with ESMTPS id 9C43618177;
-	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8BB0B1E080;
-	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 803951E07D;
-	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
-	by boulder03.se.axis.com (Postfix) with ESMTP;
-	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
-Received: from XBOX01.axis.com (xbox01.axis.com [10.0.5.15])
-	by thoth.se.axis.com (Postfix) with ESMTP id 7412A2446;
-	Fri,  1 Sep 2017 17:44:24 +0200 (CEST)
-Received: from xbox11.axis.com (10.0.5.25) by XBOX01.axis.com (10.0.5.15) with
-	Microsoft SMTP Server (TLS) id 15.0.1263.5;
-	Fri, 1 Sep 2017 17:44:24 +0200
-Received: from XBOX02.axis.com (10.0.5.16) by xbox11.axis.com (10.0.5.25) with
-	Microsoft SMTP Server (TLS) id 15.0.1263.5;
-	Fri, 1 Sep 2017 17:44:24 +0200
-Received: from XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776]) by
-	XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776%21]) with mapi id
-	15.00.1263.000; Fri, 1 Sep 2017 17:44:24 +0200
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-To: Fred Lamer <fred@rogue-research.com>,
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-pg0-f47.google.com (mail-pg0-f47.google.com [74.125.83.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0BFB6E00349
+	for <poky@yoctoproject.org>; Fri,  1 Sep 2017 15:03:14 -0700 (PDT)
+Received: by mail-pg0-f47.google.com with SMTP id t193so3969157pgc.1
+	for <poky@yoctoproject.org>; Fri, 01 Sep 2017 15:03:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:references:from:message-id:date:user-agent:mime-version
+	:in-reply-to:content-transfer-encoding:content-language;
+	bh=SECmUvrUQkmDL1IwLkfNQLiF4nzccL7ugoMmwNnA3fE=;
+	b=R39b7izgxf2SEiXGZ0TwgSruqSRSICEIjgdFdA8mW1V3yp6FBMSJRcc81lOxufye3h
+	v9oZeN9JJ8g9PT18vtSOPd7DoLmrbkHgWRrK6sfhzgwSzS4YPxo4e1HHR1wdqfJDAxEa
+	wcrR+/1A4bb6TypaeTIBRxdnN0WXZjbt7XjOtZQSiVrBUpTub39/FxqE8lFzagldDChO
+	nMdZoYR992U2Vt6xZBu9C8W3o4Xf1x7M1pW6c7WRwG4JEWYcY+qDxvfS10OD1Y3T6w61
+	aqH2f9vOjYJnbUoChoIB46XTUb2uclKKUJkGG7gz1h/ITx7Bpp9Qe0IXA/Q5B8mh/X6M
+	uvoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-transfer-encoding
+	:content-language;
+	bh=SECmUvrUQkmDL1IwLkfNQLiF4nzccL7ugoMmwNnA3fE=;
+	b=YskfrjeU57kW3g9Rigvzitmjpd1jpWcunUrSrXB5IRnxUmy6jtN4TM/9Ae07Md6961
+	rnRd8Jbx0qhiKFn19DWihQII4Y7Uuo1cbCuzTNkp3gVJIFgRstWxxAc0AKQ+kYkCcmS1
+	zOOeg+ER6b2nq9AVRtjnoh8VeIstIZ/jSFRjHuWsYa6k9++M/gz7gTwrsWSgjOmT35Js
+	mKw6tqDX5Cz0ef7X0TuYcWOalNd/MUkheOEfPlD7S8jSPZgWyCRAwRiCHCWaE7NpD3IA
+	xmHS3d37VaTI0S8/Cw/nGlUtRfAujsnizs+5okcVrxfMw6CG4W9ZZBRZq60X53KvyKgw
+	X7vA==
+X-Gm-Message-State: AHPjjUhWV1n+FeTECSvpHzZHLIWOy9+1yE/QX6xkn+vxq9O1fNGWLBwJ
+	b9tBxQkRUp650Bnk
+X-Google-Smtp-Source: ADKCNb576ZnXG0uy146DX/J2OT0uktNxWdeNh6O4PxoYMrmMMBh9BDI79B7NLIlqVa/b2PAjpnMN1A==
+X-Received: by 10.99.120.137 with SMTP id t131mr4033935pgc.147.1504303394192; 
+	Fri, 01 Sep 2017 15:03:14 -0700 (PDT)
+Received: from ?IPv6:2601:202:4001:9ea0:c400:6ad5:9d97:9621?
+	([2601:202:4001:9ea0:c400:6ad5:9d97:9621])
+	by smtp.gmail.com with ESMTPSA id j7sm1437541pfb.30.2017.09.01.15.03.13
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 01 Sep 2017 15:03:13 -0700 (PDT)
+To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>,
+	Fred Lamer <fred@rogue-research.com>,
 	"bitbake-devel@lists.openembedded.org"
-	<bitbake-devel@lists.openembedded.org>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Thread-Topic: [bitbake-devel] CVS support on Yocto 2.3 (Pyro) and bitbake 1.34
-Thread-Index: AQHTIzaTRuBMlSjyI0motnzESmW0w6KgKEDQ
-Date: Fri, 1 Sep 2017 15:44:24 +0000
-Message-ID: <4ef85854c4b44bc48a381838801fd2c2@XBOX02.axis.com>
+	<bitbake-devel@lists.openembedded.org>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
 References: <e380fe57-2ad0-787d-1ea0-b02411480121@rogue-research.com>
-In-Reply-To: <e380fe57-2ad0-787d-1ea0-b02411480121@rogue-research.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.0.5.60]
+	<4ef85854c4b44bc48a381838801fd2c2@XBOX02.axis.com>
+From: akuster808 <akuster808@gmail.com>
+Message-ID: <1c531eb1-e787-74a3-2020-f487ddd95a57@gmail.com>
+Date: Fri, 1 Sep 2017 15:03:11 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+	Thunderbird/52.2.1
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
+In-Reply-To: <4ef85854c4b44bc48a381838801fd2c2@XBOX02.axis.com>
 Subject: Re: [bitbake-devel] CVS support on Yocto 2.3 (Pyro) and bitbake 1.34
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -77,66 +83,92 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Sep 2017 15:44:30 -0000
+X-List-Received-Date: Fri, 01 Sep 2017 22:03:15 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBiaXRiYWtlLWRldmVsLWJvdW5j
-ZXNAbGlzdHMub3BlbmVtYmVkZGVkLm9yZyBbbWFpbHRvOmJpdGJha2UtDQo+IGRldmVsLWJvdW5j
-ZXNAbGlzdHMub3BlbmVtYmVkZGVkLm9yZ10gT24gQmVoYWxmIE9mIEZyZWQgTGFtZXINCj4gU2Vu
-dDogZGVuIDQgYXVndXN0aSAyMDE3IDE2OjAwDQo+IFRvOiBiaXRiYWtlLWRldmVsQGxpc3RzLm9w
-ZW5lbWJlZGRlZC5vcmc7IHBva3lAeW9jdG9wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBbYml0YmFr
-ZS1kZXZlbF0gQ1ZTIHN1cHBvcnQgb24gWW9jdG8gMi4zIChQeXJvKSBhbmQgYml0YmFrZQ0KPiAx
-LjM0DQo+IA0KPiBIaSwNCj4gDQo+IEknbSB0cnlpbmcgdG8gYnJpbmcgYSBwcm9qZWN0IGZyb20g
-WW9jdG8gMi4xIChLcm9nb3RoKSB0byAyLjMgKFB5cm8pLiBJDQo+IGhhdmUgYSBwcm9ibGVtIHdp
-dGggb25lIG9mIG15IHJlY2lwZSB0aGF0IHRyaWVzIHRvIGZldGNoIGZyb20gYSBjdnMNCj4gcmVw
-b3NpdG9yeS4gVGhlIHJlY2lwZSB3b3JrIHBlcmZlY3RseSBvbiBZb2N0byAyLjEgKHVzaW5nIGJp
-dGJha2UNCj4gMS4zMCksDQo+IGJ1dCBub3Qgb24gWW9jdG8gMi4zICh1c2luZyBiaXRiYWtlIDEu
-MzQpLg0KPiANCj4gSXQgc2VlbXMgbGlrZSAnY3ZzJyBpcyBub3QgaW5zdGFsbGVkIG9uIHRoZSBo
-b3N0IHN5c3RlbT8gSSBnZXQgdGhlDQo+IGZvbGxvd2luZyBlcnJvcjoNCj4gDQo+ICoqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqDQo+IA0KPiBGZXRjaGVyIGZhaWx1cmU6IEZldGNoIGNvbW1hbmQgZXhwb3J0DQo+IFBB
-VEg9Ii9tZWRpYS95b2N0by95b2N0by12ZXRyb2JvdC1uZXh0LmdpdC9idWlsZC90bXAvc3lzcm9v
-dHMtDQo+IHVuaW5hdGl2ZS94ODZfNjQtbGludXgvdXNyL2JpbjovbWVkaWEveW9jdG8veW9jdG8t
-dmV0cm9ib3QtDQo+IG5leHQuZ2l0L3Bva3kvc2NyaXB0czovbWVkaWEveW9jdG8veW9jdG8tdmV0
-cm9ib3QtDQo+IG5leHQuZ2l0L2J1aWxkL3RtcC93b3JrL2NvcmVpNy02NC1wb2t5LWxpbnV4L2xp
-YmV2LzQuMTUtcjAvcmVjaXBlLQ0KPiBzeXNyb290LW5hdGl2ZS91c3IvYmluL3g4Nl82NC1wb2t5
-LWxpbnV4Oi9tZWRpYS95b2N0by95b2N0by12ZXRyb2JvdC0NCj4gbmV4dC5naXQvYnVpbGQvdG1w
-L3dvcmsvY29yZWk3LTY0LXBva3ktbGludXgvbGliZXYvNC4xNS1yMC9yZWNpcGUtDQo+IHN5c3Jv
-b3QvdXNyL2Jpbi9jcm9zc3NjcmlwdHM6L21lZGlhL3lvY3RvL3lvY3RvLXZldHJvYm90LQ0KPiBu
-ZXh0LmdpdC9idWlsZC90bXAvd29yay9jb3JlaTctNjQtcG9reS1saW51eC9saWJldi80LjE1LXIw
-L3JlY2lwZS0NCj4gc3lzcm9vdC1uYXRpdmUvdXNyL3NiaW46L21lZGlhL3lvY3RvL3lvY3RvLXZl
-dHJvYm90LQ0KPiBuZXh0LmdpdC9idWlsZC90bXAvd29yay9jb3JlaTctNjQtcG9reS1saW51eC9s
-aWJldi80LjE1LXIwL3JlY2lwZS0NCj4gc3lzcm9vdC1uYXRpdmUvdXNyL2JpbjovbWVkaWEveW9j
-dG8veW9jdG8tdmV0cm9ib3QtDQo+IG5leHQuZ2l0L2J1aWxkL3RtcC93b3JrL2NvcmVpNy02NC1w
-b2t5LWxpbnV4L2xpYmV2LzQuMTUtcjAvcmVjaXBlLQ0KPiBzeXNyb290LW5hdGl2ZS9zYmluOi9t
-ZWRpYS95b2N0by95b2N0by12ZXRyb2JvdC0NCj4gbmV4dC5naXQvYnVpbGQvdG1wL3dvcmsvY29y
-ZWk3LTY0LXBva3ktbGludXgvbGliZXYvNC4xNS1yMC9yZWNpcGUtDQo+IHN5c3Jvb3QtbmF0aXZl
-L2JpbjovbWVkaWEveW9jdG8veW9jdG8tdmV0cm9ib3QtDQo+IG5leHQuZ2l0L3Bva3kvYml0YmFr
-ZS9iaW46L21lZGlhL3lvY3RvL3lvY3RvLXZldHJvYm90LQ0KPiBuZXh0LmdpdC9idWlsZC90bXAv
-aG9zdHRvb2xzIjsNCj4gZXhwb3J0IEhPTUU9Ii9ob21lL2ZyZWQiOyAvdXNyL2Jpbi9lbnYgY3Zz
-DQo+ICctZDpwc2VydmVyOmFub255bW91c0BjdnMuc2NobW9ycC5kZTovc2NobW9ycGZvcmdlJyBj
-byAtciByZWwtNF8xNQ0KPiBsaWJldg0KPiBmYWlsZWQgd2l0aCBleGl0IGNvZGUgMTI3LCBvdXRw
-dXQ6DQo+IA0KPiAvdXNyL2Jpbi9lbnY6IOKAmGN2c+KAmTogTm8gc3VjaCBmaWxlIG9yIGRpcmVj
-dG9yeQ0KPiANCj4gKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioNCj4gDQo+IFNvLCBpdCBzZWVtcyBsaWtlIGN2cyBp
-cyBlaXRoZXIgbm90IGluc3RhbGxlZCBvciBub3QgaW4gdGhlIFBBVEguDQo+IEFueW9uZSBldmVy
-IGhhZCB0aGlzIHByb2JsZW0/DQo+IA0KPiBOb3RlIHRoYXQgdGhpcyBpZiBJIGNvcHkvcGFzdGUg
-dGhpcyBjb21tYW5kIG91dHNpZGUgb2YgdGhlIGJpdGJha2UNCj4gZW52aXJvbm5lbWVudDoNCj4g
-DQo+ICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqDQo+IA0KPiAvdXNyL2Jpbi9lbnYgY3ZzICctZDpwc2VydmVyOmFu
-b255bW91c0BjdnMuc2NobW9ycC5kZTovc2NobW9ycGZvcmdlJyBjbyAtciByZWwtNF8xNSBsaWJl
-dg0KPiANCj4gKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioNCj4gDQo+IGl0IHdvcmtzIHBlcmZlY3RseSAoc28gaXQn
-cyBub3QgYSBmZXRjaCBlcnJvciBmcm9tIHRoZSByZXBvKS4NCj4gDQo+IFRoYW5rcw0KPiANCj4g
-RnJlZA0KDQpUaGlzIGlzIGR1ZSB0byB0aGUgaW50cm9kdWN0aW9uIG9mIHRoZSBIT1NUVE9PTFMg
-YW5kIEhPU1RUT09MU19OT05GQVRBTCANCnZhcmlhYmxlcyBpbiBQeXJvLiBPbmx5IGV4ZWN1dGFi
-bGVzIGluY2x1ZGVkIGluIHRoZXNlIHZhcmlhYmxlcyB3aWxsIGJlIA0KYXZhaWxhYmxlIGZyb20g
-dGhlIGhvc3QgZW52aXJvbm1lbnQgd2hlbiBiaXRiYWtlIGlzIHJ1bm5pbmcuIFRoZSANCmV4ZWN1
-dGFibGVzIGluIEhPU1RUT09MUyBtdXN0IGV4aXN0IG9yIGJpdGJha2Ugd2lsbCBhYm9ydC4gVGhl
-IGV4ZWN1dGFibGVzIA0KaW4gSE9TVFRPT0xTX05PTkZBVEFMIHdpbGwgYmUgYXZhaWxhYmxlIGlm
-IHRoZXkgZXhpc3QuDQoNClNvIGlmIHlvdSBhZGQgY3ZzIHRvIEhPU1RUT09MU19OT05GQVRBTCwg
-dXNpbmcgY3ZzIHRvIGZldGNoIGEgcmVwb3NpdG9yeSANCnNob3VsZCBzdGFydCB0byB3b3JrIGFn
-YWluLg0KDQovL1BldGVyDQoNCg==
+
+
+On 09/01/2017 08:44 AM, Peter Kjellerstedt wrote:
+>> -----Original Message-----
+>> From: bitbake-devel-bounces@lists.openembedded.org [mailto:bitbake-
+>> devel-bounces@lists.openembedded.org] On Behalf Of Fred Lamer
+>> Sent: den 4 augusti 2017 16:00
+>> To: bitbake-devel@lists.openembedded.org; poky@yoctoproject.org
+>> Subject: [bitbake-devel] CVS support on Yocto 2.3 (Pyro) and bitbake
+>> 1.34
+>>
+>> Hi,
+>>
+>> I'm trying to bring a project from Yocto 2.1 (Krogoth) to 2.3 (Pyro). I
+>> have a problem with one of my recipe that tries to fetch from a cvs
+>> repository. The recipe work perfectly on Yocto 2.1 (using bitbake
+>> 1.30),
+>> but not on Yocto 2.3 (using bitbake 1.34).
+>>
+>> It seems like 'cvs' is not installed on the host system? I get the
+>> following error:
+>>
+>> ***********************************************************************
+>>
+>> Fetcher failure: Fetch command export
+>> PATH="/media/yocto/yocto-vetrobot-next.git/build/tmp/sysroots-
+>> uninative/x86_64-linux/usr/bin:/media/yocto/yocto-vetrobot-
+>> next.git/poky/scripts:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/work/corei7-64-poky-linux/libev/4.15-r0/recipe-
+>> sysroot-native/usr/bin/x86_64-poky-linux:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/work/corei7-64-poky-linux/libev/4.15-r0/recipe-
+>> sysroot/usr/bin/crossscripts:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/work/corei7-64-poky-linux/libev/4.15-r0/recipe-
+>> sysroot-native/usr/sbin:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/work/corei7-64-poky-linux/libev/4.15-r0/recipe-
+>> sysroot-native/usr/bin:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/work/corei7-64-poky-linux/libev/4.15-r0/recipe-
+>> sysroot-native/sbin:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/work/corei7-64-poky-linux/libev/4.15-r0/recipe-
+>> sysroot-native/bin:/media/yocto/yocto-vetrobot-
+>> next.git/poky/bitbake/bin:/media/yocto/yocto-vetrobot-
+>> next.git/build/tmp/hosttools";
+>> export HOME="/home/fred"; /usr/bin/env cvs
+>> '-d:pserver:anonymous@cvs.schmorp.de:/schmorpforge' co -r rel-4_15
+>> libev
+>> failed with exit code 127, output:
+>>
+>> /usr/bin/env: ‘cvs’: No such file or directory
+>>
+>> ***********************************************************************
+>>
+>> So, it seems like cvs is either not installed or not in the PATH.
+>> Anyone ever had this problem?
+>>
+>> Note that this if I copy/paste this command outside of the bitbake
+>> environnement:
+>>
+>> ***********************************************************************
+>>
+>> /usr/bin/env cvs '-d:pserver:anonymous@cvs.schmorp.de:/schmorpforge' co -r rel-4_15 libev
+>>
+>> ***********************************************************************
+>>
+>> it works perfectly (so it's not a fetch error from the repo).
+>>
+>> Thanks
+>>
+>> Fred
+> This is due to the introduction of the HOSTTOOLS and HOSTTOOLS_NONFATAL
+> variables in Pyro. Only executables included in these variables will be
+> available from the host environment when bitbake is running. The
+> executables in HOSTTOOLS must exist or bitbake will abort. The executables
+> in HOSTTOOLS_NONFATAL will be available if they exist.
+Is this supported in Master? I could not find it for a backport 
+consideration.
+- armin
+>
+> So if you add cvs to HOSTTOOLS_NONFATAL, using cvs to fetch a repository
+> should start to work again.
+>
+> //Peter
+>
+
 
