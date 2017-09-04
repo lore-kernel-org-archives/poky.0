@@ -1,91 +1,64 @@
-Return-Path: <mtudan@mobilisis.hr>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F28FAE00C95; Mon,  4 Sep 2017 10:10:08 -0700 (PDT)
+	id 18659E00C88; Mon,  4 Sep 2017 13:04:46 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [104.47.1.80 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.83.49 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 16337 seconds by postgrey-1.32 at yocto-www;
-	Mon, 04 Sep 2017 10:10:06 PDT
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
-	(mail-ve1eur01on0080.outbound.protection.outlook.com [104.47.1.80])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB391E00C82
-	for <poky@yoctoproject.org>; Mon,  4 Sep 2017 10:10:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mobilisis.onmicrosoft.com; s=selector1-mobilisis-hr;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
-	bh=lGUBR9mXLWLq1heGQIFsyp1G+UgvNmKsF1fcGYUrDmg=;
-	b=KMnZ1D9Nup72DK6bqkDaaPTGYASFe8xv4A5IL39dV6IeCePHWKox3t4qqwBr0X/RXL6z2JjCOx+6mET24jhlaTlgIoCKs5SSjvTCZqaUzWMxk91MpJfBtHLOkxnyMLCh4+KmnudlbKYQ2sCGCicwk1qgU11JNLtKc2nigQNP4Sw=
-Received: from HE1PR0302MB2811.eurprd03.prod.outlook.com (10.171.96.11) by
-	HE1PR0302MB2748.eurprd03.prod.outlook.com (10.171.95.141) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
-	15.20.13.10; Mon, 4 Sep 2017 12:37:46 +0000
-Received: from HE1PR0302MB2811.eurprd03.prod.outlook.com
-	([fe80::8050:8d23:f5d4:69bc]) by
-	HE1PR0302MB2811.eurprd03.prod.outlook.com
-	([fe80::8050:8d23:f5d4:69bc%17]) with mapi id 15.20.0013.018;
-	Mon, 4 Sep 2017 12:37:46 +0000
-From: =?iso-8859-2?Q?Mobilisis_=7C_Matija_Tu=F0an?= <mtudan@mobilisis.hr>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Yocto Morty glibc issue
-Thread-Index: AdMleaEy0SM+8HtsTzKNQjyCaYNSSw==
-Date: Mon, 4 Sep 2017 12:37:46 +0000
-Message-ID: <HE1PR0302MB281135B6973C24FBEDFA9E04AC910@HE1PR0302MB2811.eurprd03.prod.outlook.com>
-Accept-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=mtudan@mobilisis.hr; 
-x-originating-ip: [185.121.201.207]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; HE1PR0302MB2748;
-	6:IPcpCnjG43iZ3jMZA7L0pt3TMi0vw8RAblZAYA4bhQ3WkGJ6kPagXgp8z4IOvSXf+vIpX26RMarHQoUoNPndCMRM4NESxImoBaVK64KQAp7XL1qyc0a6BN8+SUFps9P13YkG8itv5cb56Z/sn19BmuI4WMLvmzZ25x8eJ2FqJVL7k+Vw0s6t6NBtdKqo8bLBM+XGKlJoGvZhG/RAYkG2AcHytIH9L9EXhb3mdak3YTqepzZz7KqhKDTY/2YqrW9Z6x4MVwENwAbgN3nd6y8KXjQXEiN0ClxLv1rw1DXRj7I7uPqBh6egs+iw9apseRvq5rH3EYwcoSfnhZvh4QZ70Q==;
-	5:6Llrau5xAG/wlSvzvNalQnpmc8j+SgDbAFVw1RWJpHnBSMWNF3qJQQNZYcQvDbDLnldy2wHRGfxdZKsAgXvsznB2QkBRBDX31ap90I7pehwUXT6oVzkZa1M2X1qNYcbI2mOTH48JimTT9dUyePZhIw==;
-	24:aOORylrjRMOKZepgBwhCJocx455Dd8W/sh8/QVucF0NmRayWJdnMHm6m57wzTqFDpKc5BmeFUZ2rvy/Lf/9yLA2A4wSPRiQgjAvvFbk5xKA=;
-	7:2ArNuwhtwognCPsV8Pe06DR9ykJEsnKBg4mR1zJyy/KsvPRq2r7ORugo4LvarrJtl262+5DtUxbZ77lyclUvjJ7veOSbjYX6eZ07tjDseZhQga621xUqiM3q164Kau5PgVzp3NiAxS9plIKU28m4WCu0M9VwUKMh3php+FEc9simpNOGlw79Abu1rjPfv/+fio0DAZdl4l0m5JnOaAFzqWDOpsHNxOT59dezoEshz7w=
-x-ms-exchange-antispam-srfa-diagnostics: SSOS;
-x-ms-office365-filtering-correlation-id: bdadcc4a-616c-42e0-9483-08d4f391bf18
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
-	RULEID:(300000500095)(300135000095)(300000501095)(300135300095)(22001)(300000502095)(300135100095)(2017030254152)(2017082002075)(300000503095)(300135400095)(2017052603199)(49563074)(201703131423075)(201702281549075)(300000504095)(300135200095)(300000505095)(300135600095)(300000506095)(300135500095);
-	SRVR:HE1PR0302MB2748; 
-x-ms-traffictypediagnostic: HE1PR0302MB2748:
-x-exchange-antispam-report-test: UriScan:(21748063052155);
-x-microsoft-antispam-prvs: <HE1PR0302MB27489E1F1E42CFDA75E62269AC910@HE1PR0302MB2748.eurprd03.prod.outlook.com>
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
-	RULEID:(100000700101)(100105000095)(100000701101)(100105300095)(100000702101)(100105100095)(102415395)(6040450)(2401047)(5005006)(8121501046)(100000703101)(100105400095)(93006095)(93001095)(10201501046)(3002001)(6041248)(20161123562025)(20161123558100)(2016111802025)(20161123560025)(201703131423075)(201702281528075)(201703061421075)(201703061406153)(20161123564025)(20161123555025)(6072148)(6043046)(201708071742011)(100000704101)(100105200095)(100000705101)(100105500095);
-	SRVR:HE1PR0302MB2748; BCL:0; PCL:0;
-	RULEID:(100000800101)(100110000095)(100000801101)(100110300095)(100000802101)(100110100095)(100000803101)(100110400095)(100000804101)(100110200095)(100000805101)(100110500095);
-	SRVR:HE1PR0302MB2748; 
-x-forefront-prvs: 0420213CCD
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10009020)(39830400002)(189002)(199003)(6306002)(54896002)(54556002)(9686003)(236005)(99286003)(55016002)(3480700004)(8936002)(86362001)(6506006)(733005)(189998001)(5660300001)(861006)(1730700003)(8676002)(81166006)(81156014)(97736004)(5890100001)(2501003)(14454004)(33656002)(6436002)(74482002)(5250100002)(53936002)(110136004)(66066001)(5640700003)(6916009)(99936001)(478600001)(54356999)(50986999)(2351001)(2900100001)(2906002)(3846002)(102836003)(6116002)(101416001)(105586002)(106356001)(74316002)(7736002)(7696004)(3280700002)(3660700001)(25786009)(606006)(68736007);
-	DIR:OUT; SFP:1101; SCL:1; SRVR:HE1PR0302MB2748;
-	H:HE1PR0302MB2811.eurprd03.prod.outlook.com; FPR:; SPF:None;
-	PTR:InfoNoRecords; MX:1; A:1; LANG:en; 
-received-spf: None (protection.outlook.com: mobilisis.hr does not designate
-	permitted sender hosts)
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
+Received: from mail-pg0-f49.google.com (mail-pg0-f49.google.com [74.125.83.49])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1871DE00349
+	for <poky@yoctoproject.org>; Mon,  4 Sep 2017 13:04:44 -0700 (PDT)
+Received: by mail-pg0-f49.google.com with SMTP id 188so381934pgb.2
+	for <poky@yoctoproject.org>; Mon, 04 Sep 2017 13:04:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to; 
+	bh=/vdJrbGOp4zG3UnjSRNDDAcPbcQsIF7lLreOHGZbMxU=;
+	b=gVW+mxuWAj/FI+dGK4aqJ+oWEObZPhp4cIVSf8S1ETdGNNCeNUXHmJDegGDsrpJxsq
+	eJoYHyrdYPWi4jlYzsQ4OXhfIb194aBYTMw2Dp1ktzvEiohEGWUJtpzBCtUSUvO1EnTI
+	djjNutXRt0pvvw5jJC60GzPSShlWmPCn3Ec2DSQooUr30RJjmIFFQE4GBtPRavR++o9D
+	cYLulu3ApiK/C64WMWq7zs7Fndxsack+AiaJF78HkdeVBXnSc7Ao2dIN5c19PeJdZd7t
+	3VwWRrEZYhJP64f2YSAuqEj2/Ki1tDOUz3ErLxKnFhQQcz1Pen9yoYHBbYCGeDAH7lio
+	ZIXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to;
+	bh=/vdJrbGOp4zG3UnjSRNDDAcPbcQsIF7lLreOHGZbMxU=;
+	b=CqDzvZkZWIsY2sfUN8fV0YX/wfESTTPiG7Cb4B2A91Murc/oAS5PhRP3ByJiGZYuTR
+	e08V3Xd0XfK/w/yRuPOv41JB2Vyr8mzesMWGybra1o8CG497EXrcS93yQXLmngOS8NFi
+	RJ/PP9OioFIflRSlX4ry3DAUgoKFOJ5ysDIaPkvmMHmLTjAWx8KhTG6A87RSe4C8BwBO
+	6MM2Zt84acL9fk7ZmoVABK/+H/Ns938JBTfEBxXVwDo/bQJzisjcbwV+O1soyVlu8/dS
+	Z8ir45O/RTcL8YQT0ykYfT5My9JnB6QOd6NwHs6w2k1xA3FgWY+MW2FuI8cIY4mkIxkp
+	9XBQ==
+X-Gm-Message-State: AHPjjUhYk3g8yxhvMoXcWV/ouoZ+i9NzIfp9bOqsQo/f+UIscr+NZsQ7
+	xgnlac5KrboXEB1HasHpfLWxmGXGnw==
+X-Google-Smtp-Source: ADKCNb4NoQpHopIzZhAr8rJL5PzJJp+yyVh6hxbSHJ5+e1876bwAfwTZclVSXa23yPp5T3KqS3/ggIBjSfhuUWmuHZk=
+X-Received: by 10.84.211.46 with SMTP id b43mr1786058pli.161.1504555483864;
+	Mon, 04 Sep 2017 13:04:43 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: mobilisis.hr
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2017 12:37:46.6699 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 49e45dc9-380e-40c7-b8b8-3ce108a4cf69
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0302MB2748
-Subject: Yocto Morty glibc issue
+References: <HE1PR0302MB281135B6973C24FBEDFA9E04AC910@HE1PR0302MB2811.eurprd03.prod.outlook.com>
+In-Reply-To: <HE1PR0302MB281135B6973C24FBEDFA9E04AC910@HE1PR0302MB2811.eurprd03.prod.outlook.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 04 Sep 2017 20:04:32 +0000
+Message-ID: <CAMKF1sq2zOWkbekoGsNY_98hZ5DXymruoa08U95hF4Nsiy=BUA@mail.gmail.com>
+To: =?UTF-8?Q?Mobilisis_=7C_Matija_Tu=C4=91an?= <mtudan@mobilisis.hr>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Yocto Morty glibc issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -98,151 +71,131 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Sep 2017 17:10:09 -0000
-X-Groupsio-MsgNum: 10985
-Content-Language: en-US
-Content-Type: multipart/related;
-	boundary="_005_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_";
-	type="multipart/alternative"
+X-List-Received-Date: Mon, 04 Sep 2017 20:04:46 -0000
+X-Groupsio-MsgNum: 10986
+Content-Type: multipart/related; boundary="94eb2c0c26e42d55e10558629fa5"
 
---_005_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_
-Content-Type: multipart/alternative;
-	boundary="_000_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_"
+--94eb2c0c26e42d55e10558629fa5
+Content-Type: multipart/alternative; boundary="94eb2c0c26e42d55df0558629fa4"
 
---_000_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_
-Content-Type: text/plain; charset="iso-8859-2"
+--94eb2c0c26e42d55df0558629fa4
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Sep 4, 2017 at 10:10 AM Mobilisis | Matija Tu=C4=91an <
+mtudan@mobilisis.hr> wrote:
 
-I was trying to install Docker on Yocto Morty release. Installation went su=
-ccessful but default interpreter for docker was set to ld-linux.so.3 instea=
-d of ld-linux-armhf.so.3. Creating symbolic link with small bbappend file s=
-olved this issue.
+> Hi,
+>
+>
+>
+> I was trying to install Docker on Yocto Morty release. Installation went
+> successful but default interpreter for docker was set to *ld-linux.so.3*
+> instead of *ld-linux-armhf.so.3*. Creating symbolic link with small
+> bbappend file solved this issue.
+>
+>
+This means that somewhere hard float and soft float abi is being mixed
 
-Yocto Krogoth release with Freescale Official Release didn't have this issu=
-e, it only happen on Yocto Morty release with FSL Community BSP.
-My CPU is i.MX7 from NXP.
+Are you compiling docker yourself ?
 
-Regards,
-Matija
+>
+>
+> Yocto Krogoth release with Freescale Official Release didn't have this
+> issue, it only happen on Yocto Morty release with FSL Community BSP.
+>
+> My CPU is i.MX7 from NXP.
+>
+>
+>
+> Regards,
+>
+> Matija
+>
+>
+>
+>
+>
+>
+> *Matija Tu=C4=91an*
+> Hardware developer
+>
+>
+>
+>
+>
+> *Mobilisis d.o.o.*
+> Vara=C5=BEdinska ulica br. 8, II. odvojak
+> 42000 Vara=C5=BEdin - Jalkovec, Croatia
+>
+>
+>
+>
+>
+> m.
+>
+>
+>
+>
+>
+> +385 99 311 5473
+>
+> t.
+>
+> +385 42 311 777
+>
+> f.
+>
+> +385 42 493 955
+>
+> w.
+>
+> *www.mobilisis.hr <http://www.mobilisis.hr/>*
+>
+>
+>
+> This mail is from Mobilisis d.o.o. and may contain confidential business
+> information. It is intended solely for the use of the individual to whom =
+it
+> is addressed. If you are not the intended recipient, please contact the
+> sender and delete this message and any attachment from your system.
+> Unauthorized publication, use, dissemination, forwarding, printing or
+> copying of this email and it's associated attachments is strictly
+> prohibited.
+>
+>
+> Please consider the environment before printing this email. Thank you!
+>
+>
+>
+>
+>
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
-
-
-        [cid:image002.png@01D3258B.5F67B3F0]
-
-Matija Tu=F0an
-Hardware developer
-
-
-
-Mobilisis d.o.o.
-Vara=BEdinska ulica br. 8, II. odvojak
-42000 Vara=BEdin - Jalkovec, Croatia
-
-
-
-m.
-
-
-
-+385 99 311 5473
-
-t.
-
-+385 42 311 777
-
-f.
-
-+385 42 493 955
-
-w.
-
-www.mobilisis.hr<http://www.mobilisis.hr/>
-
-
-
-This mail is from Mobilisis d.o.o. and may contain confidential business in=
-formation. It is intended solely for the use of the individual to whom it i=
-s addressed. If you are not the intended recipient, please contact the send=
-er and delete this message and any attachment from your system. Unauthorize=
-d publication, use, dissemination, forwarding, printing or copying of this =
-email and it's associated attachments is strictly prohibited.
-
-Please consider the environment before printing this email. Thank you!
-
-
-
-
-
---_000_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_
-Content-Type: text/html; charset="iso-8859-2"
+--94eb2c0c26e42d55df0558629fa4
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-2">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:0 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Verdana;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:"Century Gothic";
-	panose-1:2 11 5 2 2 2 2 2 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1027" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"HR" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div><br><div class=3D"gmail_quote"><div dir=3D"auto">On Mon, Sep 4, 2017 a=
+t 10:10 AM Mobilisis | Matija Tu=C4=91an &lt;<a href=3D"mailto:mtudan@mobil=
+isis.hr">mtudan@mobilisis.hr</a>&gt; wrote:<br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
+eft:1ex">
+
+
+
+
+
+<div lang=3D"HR" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"m_8798133659866049890WordSection1">
+<p class=3D"MsoNormal">Hi,<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
 <p class=3D"MsoNormal">I was trying to install Docker on Yocto Morty releas=
 e. Installation went successful but default interpreter for docker was set =
 to
@@ -250,60 +203,33 @@ to
 linux.so.3</span></b> instead of
 <b><span style=3D"font-size:10.0pt;font-family:&quot;Courier New&quot;">ld-=
 linux-armhf.so.3</span></b>. Creating symbolic link with small bbappend fil=
-e solved this issue.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+e solved this issue.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u></p></div></div></blockquote><div dir=3D"auto=
+"><br></div><div dir=3D"auto">This means that somewhere hard float and soft=
+ float abi is being mixed</div><div dir=3D"auto"><br></div><div dir=3D"auto=
+">Are you compiling docker yourself ?</div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><=
+div lang=3D"HR" link=3D"#0563C1" vlink=3D"#954F72"><div class=3D"m_87981336=
+59866049890WordSection1"><p class=3D"MsoNormal">=C2=A0<u></u></p>
 <p class=3D"MsoNormal">Yocto Krogoth release with Freescale Official Releas=
-e didn't have this issue, it only happen on Yocto Morty release with FSL Co=
-mmunity BSP.<o:p></o:p></p>
-<p class=3D"MsoNormal">My CPU is i.MX7 from NXP.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Matija<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"0" width=3D"435" style=3D"width:326.05pt;border-collapse:collapse">
+e didn&#39;t have this issue, it only happen on Yocto Morty release with FS=
+L Community BSP.<u></u><u></u></p>
+<p class=3D"MsoNormal">My CPU is i.MX7 from NXP.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
+<p class=3D"MsoNormal">Matija<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<table class=3D"m_8798133659866049890MsoNormalTable" border=3D"0" cellspaci=
+ng=3D"0" cellpadding=3D"0" width=3D"435" style=3D"width:326.05pt;border-col=
+lapse:collapse">
 <tbody>
 <tr style=3D"height:113.15pt">
 <td width=3D"225" valign=3D"top" style=3D"width:168.45pt;padding:0cm 5.4pt =
 0cm 5.4pt;height:113.15pt">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
-10.0pt;line-height:105%;mso-fareast-language:HR"><o:p>&nbsp;</o:p></span></=
-p>
-<p class=3D"MsoNormal" style=3D"line-height:105%"><!--[if gte vml 1]><o:wra=
-pblock><v:shapetype id=3D"_x0000_t75" coordsize=3D"21600,21600" o:spt=3D"75=
-" o:preferrelative=3D"t" path=3D"m@4@5l@4@11@9@11@9@5xe" filled=3D"f" strok=
-ed=3D"f">
-<v:stroke joinstyle=3D"miter" />
-<v:formulas>
-<v:f eqn=3D"if lineDrawn pixelLineWidth 0" />
-<v:f eqn=3D"sum @0 1 0" />
-<v:f eqn=3D"sum 0 0 @1" />
-<v:f eqn=3D"prod @2 1 2" />
-<v:f eqn=3D"prod @3 21600 pixelWidth" />
-<v:f eqn=3D"prod @3 21600 pixelHeight" />
-<v:f eqn=3D"sum @0 0 1" />
-<v:f eqn=3D"prod @6 1 2" />
-<v:f eqn=3D"prod @7 21600 pixelWidth" />
-<v:f eqn=3D"sum @8 21600 0" />
-<v:f eqn=3D"prod @7 21600 pixelHeight" />
-<v:f eqn=3D"sum @10 21600 0" />
-</v:formulas>
-<v:path o:extrusionok=3D"f" gradientshapeok=3D"t" o:connecttype=3D"rect" />
-<o:lock v:ext=3D"edit" aspectratio=3D"t" />
-</v:shapetype><v:shape id=3D"Picture_x0020_1" o:spid=3D"_x0000_s1026" type=
-=3D"#_x0000_t75" style=3D'position:absolute;margin-left:6pt;margin-top:0;wi=
-dth:139.5pt;height:48.15pt;z-index:251659264;visibility:visible;mso-wrap-st=
-yle:square;mso-width-percent:0;mso-height-percent:0;mso-wrap-distance-left:=
-9pt;mso-wrap-distance-top:0;mso-wrap-distance-right:9pt;mso-wrap-distance-b=
-ottom:0;mso-position-horizontal:absolute;mso-position-horizontal-relative:t=
-ext;mso-position-vertical:top;mso-position-vertical-relative:text;mso-width=
--percent:0;mso-height-percent:0;mso-width-relative:page;mso-height-relative=
-:page'>
-<v:imagedata src=3D"cid:image001.png@01D32589.C079A060" o:title=3D"" cropto=
-p=3D"16967f" cropbottom=3D"16708f" />
-<w:wrap type=3D"topAndBottom"/>
-</v:shape><![endif]--><![if !vml]><span style=3D"mso-ignore:vglayout">
-<table cellpadding=3D"0" cellspacing=3D"0" align=3D"left">
+10.0pt;line-height:105%"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:105%"><u></u><span>
+</span></p><table cellpadding=3D"0" cellspacing=3D"0" align=3D"left">
 <tbody>
 <tr>
 <td width=3D"8" height=3D"0"></td>
@@ -311,43 +237,39 @@ p=3D"16967f" cropbottom=3D"16708f" />
 <tr>
 <td></td>
 <td><img width=3D"186" height=3D"64" style=3D"width:1.9375in;height:.6666in=
-" src=3D"cid:image002.png@01D3258B.5F67B3F0" v:shapes=3D"Picture_x0020_1"><=
-/td>
+" src=3D"cid:image002.png@01D3258B.5F67B3F0"></td>
 </tr>
 </tbody>
 </table>
-</span><![endif]><!--[if gte vml 1]></o:wrapblock><![endif]--><br style=3D"=
-mso-ignore:vglayout" clear=3D"ALL">
-<span style=3D"font-size:10.0pt;line-height:105%;mso-fareast-language:HR"><=
-o:p></o:p></span></p>
+<u></u><br clear=3D"ALL">
+<span style=3D"font-size:10.0pt;line-height:105%"><u></u><u></u></span><p><=
+/p>
 <p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center;line-hei=
 ght:105%"><b><span style=3D"font-size:10.0pt;line-height:105%;font-family:&=
-quot;Century Gothic&quot;,sans-serif;color:#00395D;mso-fareast-language:HR"=
->Matija Tu=F0an</span></b><span style=3D"font-size:10.0pt;line-height:105%;=
-font-family:&quot;Century Gothic&quot;,sans-serif;color:#00395D;mso-fareast=
--language:HR"><br>
+quot;Century Gothic&quot;,sans-serif;color:#00395d">Matija Tu=C4=91an</span=
+></b><span style=3D"font-size:10.0pt;line-height:105%;font-family:&quot;Cen=
+tury Gothic&quot;,sans-serif;color:#00395d"><br>
 </span><span style=3D"font-size:8.0pt;line-height:105%;font-family:&quot;Ce=
-ntury Gothic&quot;,sans-serif;color:#00395D;mso-fareast-language:HR">Hardwa=
-re developer</span><span style=3D"font-size:7.5pt;line-height:105%;font-fam=
-ily:&quot;Verdana&quot;,sans-serif;color:#00395D;mso-fareast-language:HR"><=
-o:p></o:p></span></p>
+ntury Gothic&quot;,sans-serif;color:#00395d">Hardware developer</span><span=
+ style=3D"font-size:7.5pt;line-height:105%;font-family:&quot;Verdana&quot;,=
+sans-serif;color:#00395d"><u></u><u></u></span></p>
 <p class=3D"MsoNormal" align=3D"center" style=3D"text-align:center;line-hei=
-ght:105%"><span style=3D"font-size:10.0pt;line-height:105%;mso-fareast-lang=
-uage:HR"><o:p>&nbsp;</o:p></span></p>
+ght:105%"><span style=3D"font-size:10.0pt;line-height:105%"><u></u>=C2=A0<u=
+></u></span></p>
 </td>
 <td width=3D"210" valign=3D"top" style=3D"width:157.6pt;padding:0cm 5.4pt 0=
 cm 5.4pt;height:113.15pt">
-<p class=3D"MsoNormal" style=3D"line-height:105%"><b><span style=3D"mso-far=
-east-language:HR"><o:p>&nbsp;</o:p></span></b></p>
+<p class=3D"MsoNormal" style=3D"line-height:105%"><b><span><u></u>=C2=A0<u>=
+</u></span></b></p>
 <p class=3D"MsoNormal" style=3D"line-height:105%"><b><span style=3D"font-si=
 ze:8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif=
-;color:#00395D;mso-fareast-language:HR">Mobilisis d.o.o.</span></b><span st=
-yle=3D"font-size:8.0pt;line-height:105%;font-family:&quot;Century Gothic&qu=
-ot;,sans-serif;color:#00395D;mso-fareast-language:HR"><br>
-Vara=BEdinska ulica br. 8, II. odvojak<br>
-42000 Vara=BEdin - Jalkovec, Croatia<o:p></o:p></span></p>
-<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"0">
+;color:#00395d">Mobilisis d.o.o.</span></b><span style=3D"font-size:8.0pt;l=
+ine-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;color:#00=
+395d"><br>
+Vara=C5=BEdinska ulica br. 8, II. odvojak<br>
+42000 Vara=C5=BEdin - Jalkovec, Croatia<u></u><u></u></span></p>
+<table class=3D"m_8798133659866049890MsoNormalTable" border=3D"0" cellspaci=
+ng=3D"0" cellpadding=3D"0">
 <tbody>
 <tr>
 <td style=3D"padding:0cm 0cm 0cm 0cm"></td>
@@ -355,70 +277,67 @@ Vara=BEdinska ulica br. 8, II. odvojak<br>
 <tr>
 <td style=3D"padding:0cm 0cm 0cm 0cm">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
-8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;ms=
-o-fareast-language:HR"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"mso-fareas=
-t-language:HR"><o:p>&nbsp;</o:p></span></p>
+8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif"><=
+u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:105%"><span><u></u>=C2=A0<u></u=
+></span></p>
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">m.<o:p></o:p></span></p>
+lor:#00395d">m.<u></u><u></u></span></p>
 </td>
 <td style=3D"padding:0cm 0cm 0cm 2.25pt">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
-8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;ms=
-o-fareast-language:HR"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"mso-fareas=
-t-language:HR"><o:p>&nbsp;</o:p></span></p>
+8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif"><=
+u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:105%"><span><u></u>=C2=A0<u></u=
+></span></p>
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">&#43;385 99 311 5473<o:p></o:p></span>=
-</p>
+lor:#00395d">+385 99 311 5473<u></u><u></u></span></p>
 </td>
 </tr>
 <tr>
 <td style=3D"padding:0cm 0cm 0cm 0cm">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">t.<o:p></o:p></span></p>
+lor:#00395d">t.<u></u><u></u></span></p>
 </td>
 <td style=3D"padding:0cm 0cm 0cm 2.25pt">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">&#43;385 42 311 777<o:p></o:p></span><=
-/p>
+lor:#00395d">+385 42 311 777<u></u><u></u></span></p>
 </td>
 </tr>
 <tr>
 <td style=3D"padding:0cm 0cm 0cm 0cm">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">f.<o:p></o:p></span></p>
+lor:#00395d">f.<u></u><u></u></span></p>
 </td>
 <td style=3D"padding:0cm 0cm 0cm 2.25pt">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">&#43;385 42 493 955<o:p></o:p></span><=
-/p>
+lor:#00395d">+385 42 493 955<u></u><u></u></span></p>
 </td>
 </tr>
 <tr>
 <td style=3D"padding:0cm 0cm 0cm 0cm">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">w.<o:p></o:p></span></p>
+lor:#00395d">w.<u></u><u></u></span></p>
 </td>
 <td style=3D"padding:0cm 0cm 0cm 2.25pt">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><b><span style=3D"font-si=
 ze:8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif=
-;color:#00395D;mso-fareast-language:HR"><a href=3D"http://www.mobilisis.hr/=
-"><span style=3D"color:blue;font-weight:normal">www.mobilisis.hr</span></a>=
-<o:p></o:p></span></b></p>
+;color:#00395d"><a href=3D"http://www.mobilisis.hr/" target=3D"_blank"><spa=
+n style=3D"color:blue;font-weight:normal">www.mobilisis.hr</span></a><u></u=
+><u></u></span></b></p>
 </td>
 </tr>
 </tbody>
 </table>
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
-9.0pt;line-height:105%;mso-fareast-language:HR"><o:p></o:p></span></p>
+9.0pt;line-height:105%"><u></u><u></u></span></p>
 </td>
 </tr>
 <tr style=3D"height:63.05pt">
@@ -426,277 +345,52 @@ ze:8.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif=
 ing:0cm 5.4pt 0cm 5.4pt;height:63.05pt">
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 7.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR"><o:p>&nbsp;</o:p></span></p>
+lor:#00395d"><u></u>=C2=A0<u></u></span></p>
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 6.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR">This mail is from Mobilisis d.o.o. and=
- may contain confidential business information.
+lor:#00395d">This mail is from Mobilisis d.o.o. and may contain confidentia=
+l business information.
  It is intended solely for the use of the individual to whom it is addresse=
 d. If you are not the intended recipient, please contact the sender and del=
 ete this message and any attachment from your system. Unauthorized publicat=
 ion, use, dissemination, forwarding,
- printing or copying of this email and it's associated attachments is stric=
-tly prohibited.<o:p></o:p></span></p>
+ printing or copying of this email and it&#39;s associated attachments is s=
+trictly prohibited.<u></u><u></u></span></p>
 <p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"font-size:=
 6.0pt;line-height:105%;font-family:&quot;Century Gothic&quot;,sans-serif;co=
-lor:#00395D;mso-fareast-language:HR"><br>
+lor:#00395d"><br>
 </span><span style=3D"font-size:6.0pt;line-height:105%;font-family:&quot;Ce=
-ntury Gothic&quot;,sans-serif;color:#37BC61;mso-fareast-language:HR">Please=
- consider the environment before printing this email. Thank you!</span><spa=
-n style=3D"font-size:6.0pt;line-height:105%;mso-fareast-language:HR"><o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal" style=3D"line-height:105%"><span style=3D"mso-fareas=
-t-language:HR"><o:p>&nbsp;</o:p></span></p>
+ntury Gothic&quot;,sans-serif;color:#37bc61">Please consider the environmen=
+t before printing this email. Thank you!</span><span style=3D"font-size:6.0=
+pt;line-height:105%"><u></u><u></u></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:105%"><span><u></u>=C2=A0<u></u=
+></span></p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class=3D"MsoNormal"><span style=3D"mso-fareast-language:HR"><o:p>&nbsp;<=
-/o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
 </div>
-</body>
-</html>
+</div>
 
---_000_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_--
+--<br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
+t.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" rel=3D"noreferrer"=
+ target=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
+</blockquote></div></div>
 
---_005_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_
-Content-Type: image/png; name="image001.png"
-Content-Description: image001.png
-Content-Disposition: inline; filename="image001.png"; size=12427;
-	creation-date="Mon, 04 Sep 2017 12:37:46 GMT";
-	modification-date="Mon, 04 Sep 2017 12:37:46 GMT"
-Content-ID: <image001.png@01D32589.C079A060>
-Content-Transfer-Encoding: base64
+--94eb2c0c26e42d55df0558629fa4--
 
-iVBORw0KGgoAAAANSUhEUgAAAMgAAACOCAYAAAEDXnd5AAAACXBIWXMAAAsTAAALEwEAmpwYAAAK
-T2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AU
-kSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXX
-Pues852zzwfACAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgAB
-eNMLCADATZvAMByH/w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAt
-AGAnf+bTAICd+Jl7AQBblCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3
-AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc88SuuEOcqAAB4mbI8uSQ5RYFbCC1xB1dX
-Lh4ozkkXKxQ2YQJhmkAuwnmZGTKBNA/g88wAAKCRFRHgg/P9eM4Ors7ONo62Dl8t6r8G/yJiYuP+
-5c+rcEAAAOF0ftH+LC+zGoA7BoBt/qIl7gRoXgugdfeLZrIPQLUAoOnaV/Nw+H48PEWhkLnZ2eXk
-5NhKxEJbYcpXff5nwl/AV/1s+X48/Pf14L7iJIEyXYFHBPjgwsz0TKUcz5IJhGLc5o9H/LcL//wd
-0yLESWK5WCoU41EScY5EmozzMqUiiUKSKcUl0v9k4t8s+wM+3zUAsGo+AXuRLahdYwP2SycQWHTA
-4vcAAPK7b8HUKAgDgGiD4c93/+8//UegJQCAZkmScQAAXkQkLlTKsz/HCAAARKCBKrBBG/TBGCzA
-BhzBBdzBC/xgNoRCJMTCQhBCCmSAHHJgKayCQiiGzbAdKmAv1EAdNMBRaIaTcA4uwlW4Dj1wD/ph
-CJ7BKLyBCQRByAgTYSHaiAFiilgjjggXmYX4IcFIBBKLJCDJiBRRIkuRNUgxUopUIFVIHfI9cgI5
-h1xGupE7yAAygvyGvEcxlIGyUT3UDLVDuag3GoRGogvQZHQxmo8WoJvQcrQaPYw2oefQq2gP2o8+
-Q8cwwOgYBzPEbDAuxsNCsTgsCZNjy7EirAyrxhqwVqwDu4n1Y8+xdwQSgUXACTYEd0IgYR5BSFhM
-WE7YSKggHCQ0EdoJNwkDhFHCJyKTqEu0JroR+cQYYjIxh1hILCPWEo8TLxB7iEPENyQSiUMyJ7mQ
-AkmxpFTSEtJG0m5SI+ksqZs0SBojk8naZGuyBzmULCAryIXkneTD5DPkG+Qh8lsKnWJAcaT4U+Io
-UspqShnlEOU05QZlmDJBVaOaUt2ooVQRNY9aQq2htlKvUYeoEzR1mjnNgxZJS6WtopXTGmgXaPdp
-r+h0uhHdlR5Ol9BX0svpR+iX6AP0dwwNhhWDx4hnKBmbGAcYZxl3GK+YTKYZ04sZx1QwNzHrmOeZ
-D5lvVVgqtip8FZHKCpVKlSaVGyovVKmqpqreqgtV81XLVI+pXlN9rkZVM1PjqQnUlqtVqp1Q61Mb
-U2epO6iHqmeob1Q/pH5Z/YkGWcNMw09DpFGgsV/jvMYgC2MZs3gsIWsNq4Z1gTXEJrHN2Xx2KruY
-/R27iz2qqaE5QzNKM1ezUvOUZj8H45hx+Jx0TgnnKKeX836K3hTvKeIpG6Y0TLkxZVxrqpaXllir
-SKtRq0frvTau7aedpr1Fu1n7gQ5Bx0onXCdHZ4/OBZ3nU9lT3acKpxZNPTr1ri6qa6UbobtEd79u
-p+6Ynr5egJ5Mb6feeb3n+hx9L/1U/W36p/VHDFgGswwkBtsMzhg8xTVxbzwdL8fb8VFDXcNAQ6Vh
-lWGX4YSRudE8o9VGjUYPjGnGXOMk423GbcajJgYmISZLTepN7ppSTbmmKaY7TDtMx83MzaLN1pk1
-mz0x1zLnm+eb15vft2BaeFostqi2uGVJsuRaplnutrxuhVo5WaVYVVpds0atna0l1rutu6cRp7lO
-k06rntZnw7Dxtsm2qbcZsOXYBtuutm22fWFnYhdnt8Wuw+6TvZN9un2N/T0HDYfZDqsdWh1+c7Ry
-FDpWOt6azpzuP33F9JbpL2dYzxDP2DPjthPLKcRpnVOb00dnF2e5c4PziIuJS4LLLpc+Lpsbxt3I
-veRKdPVxXeF60vWdm7Obwu2o26/uNu5p7ofcn8w0nymeWTNz0MPIQ+BR5dE/C5+VMGvfrH5PQ0+B
-Z7XnIy9jL5FXrdewt6V3qvdh7xc+9j5yn+M+4zw33jLeWV/MN8C3yLfLT8Nvnl+F30N/I/9k/3r/
-0QCngCUBZwOJgUGBWwL7+Hp8Ib+OPzrbZfay2e1BjKC5QRVBj4KtguXBrSFoyOyQrSH355jOkc5p
-DoVQfujW0Adh5mGLw34MJ4WHhVeGP45wiFga0TGXNXfR3ENz30T6RJZE3ptnMU85ry1KNSo+qi5q
-PNo3ujS6P8YuZlnM1VidWElsSxw5LiquNm5svt/87fOH4p3iC+N7F5gvyF1weaHOwvSFpxapLhIs
-OpZATIhOOJTwQRAqqBaMJfITdyWOCnnCHcJnIi/RNtGI2ENcKh5O8kgqTXqS7JG8NXkkxTOlLOW5
-hCepkLxMDUzdmzqeFpp2IG0yPTq9MYOSkZBxQqohTZO2Z+pn5mZ2y6xlhbL+xW6Lty8elQfJa7OQ
-rAVZLQq2QqboVFoo1yoHsmdlV2a/zYnKOZarnivN7cyzytuQN5zvn//tEsIS4ZK2pYZLVy0dWOa9
-rGo5sjxxedsK4xUFK4ZWBqw8uIq2Km3VT6vtV5eufr0mek1rgV7ByoLBtQFr6wtVCuWFfevc1+1d
-T1gvWd+1YfqGnRs+FYmKrhTbF5cVf9go3HjlG4dvyr+Z3JS0qavEuWTPZtJm6ebeLZ5bDpaql+aX
-Dm4N2dq0Dd9WtO319kXbL5fNKNu7g7ZDuaO/PLi8ZafJzs07P1SkVPRU+lQ27tLdtWHX+G7R7ht7
-vPY07NXbW7z3/T7JvttVAVVN1WbVZftJ+7P3P66Jqun4lvttXa1ObXHtxwPSA/0HIw6217nU1R3S
-PVRSj9Yr60cOxx++/p3vdy0NNg1VjZzG4iNwRHnk6fcJ3/ceDTradox7rOEH0x92HWcdL2pCmvKa
-RptTmvtbYlu6T8w+0dbq3nr8R9sfD5w0PFl5SvNUyWna6YLTk2fyz4ydlZ19fi753GDborZ752PO
-32oPb++6EHTh0kX/i+c7vDvOXPK4dPKy2+UTV7hXmq86X23qdOo8/pPTT8e7nLuarrlca7nuer21
-e2b36RueN87d9L158Rb/1tWeOT3dvfN6b/fF9/XfFt1+cif9zsu72Xcn7q28T7xf9EDtQdlD3YfV
-P1v+3Njv3H9qwHeg89HcR/cGhYPP/pH1jw9DBY+Zj8uGDYbrnjg+OTniP3L96fynQ89kzyaeF/6i
-/suuFxYvfvjV69fO0ZjRoZfyl5O/bXyl/erA6xmv28bCxh6+yXgzMV70VvvtwXfcdx3vo98PT+R8
-IH8o/2j5sfVT0Kf7kxmTk/8EA5jz/GMzLdsAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADq
-YAAAOpgAABdvkl/FRgAAJbZJREFUeNrslL1LQzEUxX+v1YKCiMTFf8DBwdWpfm2uQlyKg6vFxUWw
-tC8pLVQXB+um1bVYcHQXQcXNwUEHBxHhYRGpUBU1Dn2Rx6MIHdQODRxyTm5yz70kJGKM4bcR4Q9G
-x6RNTXQ27+psHh8mMDfjhHizvcG1zWAnUWDX58OA4wNgGcj9UOwBcBxas3rJmmjgA1jwE1+FDmwA
-6YB2QvFZIB6KxS3/14uvKyGNEhLT0EYJeauE7DaN4owaTKCENL4+UUJeKyGfgOlWX9fhUc+I5ePA
-Xu/nK0Pvj2DeAJxK39ioH78D+lvpJLblbTtutTIzUb8EYO757Cb3UE7UIzHuuwYoeiWKXglZO70A
-XorezqSq7gPUmpq4mVQY0UW9jsqsWu2UV+ZJuelvndQFkrpg9VRSr1l+Hs7X+Vbaz+QLAAD//+zV
-sUsCURzA8e9FBG6FXKFDNPYPNDSEtNnSUi6BEEQFruGicPdOqAZnh7itpUGdnJoFh+ZACBwcTQ4O
-QnQQr+E8eV6+wEFquOHB7703/N7v9x7vsxbJGCVZuYwq1W6k+EEhokpOzyrdz1VyCngSON1p/DSd
-F4DLXw4bVrEprwVJGiHt9iTlNOARSC4Q8YeCEgtHf3/xQs/mRTzjCd3v0PvGLr6U5wAkxi4injkL
-5s3Yvr+/fbXM69JcACYDF6C2lQZ4Ba0PcLtzDVAPOrTuTQBeUl+tJSrpP9vCqWqVT3sTwOjZHIw6
-adOp6QCVnj2TEeBw9IFwqhfHw7Y6yQIZMY0iOauMaRSxjAJvdyczKXOlMiEZlSP6Vv5nkm8AAAD/
-/+yYT2vUQBjGn9n6p1pL3GaTdaH1KIgggmAvXvoVlEUEIa2orVRcggcR2zqJ5CTexCwW8QOk4MEP
-YG+Wgggq9Og/KlY7XbTdtegm8fJmHcKkpVCl1h14SJjfJOGd903myfyVlXHbrL7bJu3tQP7rQBzX
-qziudz9lROC43jtF31ZR1XG9uXRG9gOYJFME6XhQ2jp4m5qI9Ni1+mPFRK7H5f4BAGdTbATAYVVp
-9ZJxmlWYqzqAPgCLpIUUf0pObnaNCngpKd2+SEwV1CCA61lj5EAccpAAcELhDudpc6dAKkqM0Yyd
-pGuZYu+FATgqKc1NiTHF8y0AxzLGbOhlD3vCZWhRA1rUQD6sK0ug1FzCT9aBfLiSWUZa1ECEXOIF
-k/Y8YVrUgBF+Tfr7N/ur9ePqgdGLtmHFtmHFFXPwA9fLb7qi1d9+s3gJw8Xh2Os5hYo5dJ7r5Xif
-zM0hcL0c24bV7+qnMVY4E5fCWuv+zzoPwTasaduwMGpeSBx116Z/frubtUkAY5TWPgDzujTz9z7e
-BZXXFQAPsSPPVnKdUk6XZ+hsJsnQN7a3hVfZrlbytLjJJj4/+iPryJ5rtSdVLoJeLgKf9Or9zoKf
-1PJiR7fPRXCOi+AIF0GVLzzwac8SAEpcTL3gIqjKqud23yZ+Y+D7a5+LYI6LKd9eeuznEPkAjm8o
-kPVcP2nk1sTNywolXMVsYp8y+Djx6Qx+Z8v8kbQtSjuQf7j9AgAA///smk9IFFEcxz+zs9Lmf9la
-DAKLvPSH8BCdontFEZgSUUlKJJWFl8ggc5esQ3WozFEUIzpkRHQIOnSQ0EsIehHqEmREaduKlqum
-687rsG/HcXyTVgYS8+DHvnnf92e/b37vvZnvb7w3RM+1PCIeEY+IR8Qj4hFZ4brWe4VuNLiCNS3C
-kcbn4UhjhfOObHBILFVAke16XOJ2swsLbuWQChLWOiZxB/BY5g872l9SaF2TijE+AQ9UrjUFvJP5
-dgeWzVxgUVPcXbdygDHgm6NsGojK/CNH39dUr9qK8avd1kgmsIn5Idilpjppf5I0Ke71AK9cBLoa
-ifcA3UBkscX+q5mN2pRGZ9onzS2FbSphWKF55ZL6Cijfpf1diafrzLgRcXMXez5kUxqd2C5pKpWw
-WcpHaZXwCjAgZ9mpQpYsUam86p0j/wWRJD5Ll80zpxBzd91amCYaAh86QomnLjQKknGCye92PACQ
-KWasMcy59l3LSiRDzJLWfWvXHhfh4CFMW3MTjUiwjHCwVFwOlotwsJzu1Zvn9dEQqiQcLON86ISo
-CVWJ3kDxvLV0Yc0Ra4xIsJQ8cxIgvqxEfIodMRKqsPLrkmOASFcqBPNNV+Y2Cw+IBCTHi0BkpXfG
-F7m7VXuLjM1olf96jQzI31mScaEgulNusVsCImE1ulh4VpD6LGguHpEc71P0vx64B6Jj1Je1/ET8
-mIDQ5KGpAc/ICFmOPKTng56jyTPiGJB/8+tDq/32iT5twaOMnn104XFCP3remcZYp9IL/prIDy2D
-+pGnNEXbixtGntD8pa2sfrh5Xp3Wz7comf6wtyz++uXt6P2xmJ5jYQcm+mmKdmh2uzHc8tbuU42x
-Tpqi7fsbou0kNL+1PJfbta77EEZMzzMAI+rPN3wIA9go8TtD/gLjYLzX2Dr90RjVsw3ASP9JvzCb
-Y3qOYbcJ36oWiU8CbQnNb/UvrRXY81tElhBSqHOR/Qclfm6RkMNpBVZtw08q8FNLCXd4J7tHxCPi
-EfGIeEQ8IjL9BAAA///sXHtsFEUY/313e7TXVq69a69gSKwJKj6QEjEKhqghFGwTQgQ0KvJqysuI
-LyKJB3PbSkswCiqa0kLQ9A+i1n8UUYGgAhFDQmohBvGdlCL0Zdu7cn3ujn/sHF22e9elJgbKfMmX
-zc7s79uZ+e3szrfzzYyaOUQ5FypFdnVJiBRJiCREiiREiiREEiJFEjI6CbnGQ2dGk2aWlpW/W1pW
-vqS0rLw4WQ8JY3BOzJuEzDMYGgIkxblsBlADYDqABU5eWdswGBdllokiLRH2NpHfBmAVgDUWXZmA
-yHhawKIThrneLGtF2nDT2ZPFdTsS2Cy0UadlmC7Sqm1szBV5q2As2Top2qTQCSFHMBiQwwFMghE4
-9xuMDSwmJcDFMVEY85eVFq0eprFaLXpOpM/6H5/e/TYKAJ86wP4ljiU2Nr4SeVUj+ahzUwM/CeBn
-DAYAXnBQMH2EjUE2CgCHr8JG/wjvvUzUNVEZFjqwkSEanJLY2XY1hKSIo2JK+wTJYwLN8iuAEzAi
-B3gCBYAZSR4Eq/YDmOLg3vElmDUJ7OwV+W5xTLXgi2CEuiYq88sOytACI2YlUd1bktmxI+Q1xINk
-nD/NVnkwyRMS1x8c9Iy4jsHQpeJ29357GDtPi+vqxXmJBf/EMPjtDsrQCWM9cSIbQemH3OCO4R1J
-umsiPWDCrxsBfqnl9Xq1+FtN+IYR4K9pQurHaR2kjn+B1OAKiy4nNWcJHfdOootuH5ERR0gACkz4
-dwBQht5D36ZPITV3Dak5i0nNfmaamvMsqTnLqcU9lr7JmE6ZeiyO/9CEXwSAOIj8Whf1kYcalWxS
-c5aSGiw2bOWupF1ZReTTLuP/FFgvjOUO5OEavRFYaGDMdchdRd+n3U3jtE7iIBKjv8+v6V8nra6b
-gIH2EmhRfqV2cejd+w+mTeY7MwvmlgYWIZ33DsEHtCjWj1uNI6m3n8FAK4fey8H7TkLvAfSuMe9n
-ztl4NGUCfzFYjLF6t82HjWNfej7WBZehwj8/b7fv0UPQYxxaBNB7gYH2e8670vpC2U8hlffZ1uGo
-907EQIAW+Q5atA5aFNCiczHwDz/kvato9fhXENCjo+JfVrrwLbboAP8sfdqQCxToAHkAseEMjFUV
-BGA9jE35jNEUHzBHmRvDJt6PCv/jSl3qRA4Qh7GIYrbl4/sTgDMx1xh+KiXPSZmnAugx+RH7QW6k
-6P3XByFkOPIdACJiKFkP4JQ4jwH4SJx3DlwegQ5Ks9uHvNhZYPCVliuy7hN/AjYBnB7qPosrNiYB
-kKV1odcTPCy8YRLesJ3kAxz1KXljHVRpnxgiG+Xx5GJPYwUuKFnXByH9pOCtpsraWd2/+KD4v4Ti
-nzq5tyG/6FKd74Ge3wuh+F+Fkr1sZcehzNndp20dkZc6vwY8482+zTkAH8Pl3Ql3Bq3tOIiC2FDs
-BSULexorHkbKLdVw+5BMA1qUFkeORezqMCd2Cjl6D6BkPQLFPy+/7zwqm3dhS+teqBffQ4MncN2M
-so4BOBZ1eTfOjJ1malMVU5uq2IKuE+z+nj/YY5d+FGmV7Gatk7m5XmZjY3u7K52pF3cwta2WqW21
-YbWtdpfaVnuv2lLD1OYPWFCLMA7aBGCPFdzgCWxW/36Tqc27k+rzHQdC/eQ+afKJuoUPtSHi8rLn
-2vcxtamaqU1VbH70OGtyZ7Je8jAAcd0A4AuHv1RGRojDHXaSaUGYhWaGWWhzmIXKHCgLsxCZ8CR2
-43GCfT3MQits8Bsd4svDLDQtzEIzLPitDvFbwyyUFmahmv/abtIxvIEcQymSEEmIFEmIJESKJESK
-JEQSIiWZ/MveucdGcdxx/DN3e7Y5v58YYyBRoKpKCCgiqaK0TUUr0YpEQi3QVkqTJmkC5plUJBQZ
-1oHUKS0B90FI0jwQ6QsCrSog0EckaFBJISUJIRSlkEgQsHE4g88+G5u7ve0fM5vb7K1952IjrM5X
-+mntvf3N7ux3Z2f2N7vfn/6kTX/SpqFvWZoQDU2IJkRDE6IJ0dCEaEI0NCEamhBNiIYmRBOioQnR
-hGhoQjQhGpoQDU3I8CREq/RcNdu1anXjvFWrG4+tWt3Ybws5pSwT7kHqeizX1/WAkQ+sReYbmwT8
-tD9CxirrylDoZmSWt1J9fgeMLuQXWFuQ3032ZNOHhJFSFX7o72P5O8n8oX3C47OGgX2cf6ta96rP
-cWXzIX9f23X3s3+vmI4jkHDOs/5bGerh3FFmAc8jP2g1MxHSq1hbonbgR8aLffjuVMv5PlaHTDUY
-BKa5fC6o5TpS+eAc26x+u9tzfACtg3jV3oYUDlhKKomeY0tI10Zxvok+7Slni1rO8DFIpTm8qMrb
-lc0oK5eUmtwW1/qH1fJlpKpNf3jGx54lJe1k+Pg0I4XP3ObsXwzxbcQ5nt8Cuz32C7X/5wdQ3m4f
-y6iolGnYu9zTKhw1nHtJSSENJtb5NPE9SK2sXw8xIR+oZQuDo2nSVxlbr4SQNaTyYtpX4Urdi5SH
-cuxRpA7JV5BqDkOJZqTs3j+QCUjd9o7a5oksyhHANuCAp4z9qo+ac6UPhpWuv28ahIon+tn368CP
-XfYUMF39VjfEhDi5RL+AlO9w2xzPsWd6HDgE3O4p40uk5P+u+Ek9pEZcRwdQwYiPnVcVpo8+6H7P
-VbUPqfHo7kSzwTukMtc69p8MPjuRAp1+vruzGF26HwdW+pTxLlJAdFAISZCe+TnPs3TgZMcs97EK
-Re67gDu3pNMfjVFXlmN3qPW7VP/iwBFI6UvGdrJ64HLbhAx1nIhUcvDzHY+UbVrtc+68STBfQaYq
-nuRjuWoUNyBCstVWXKC2W+xZf4zM8n5e/cQfZdj+Ls/2b6n13+nj2PsToOyrjjFSOUD9rNaz/Um1
-fqLPc0h/x7BOBxd1tFdDE6IJ0RguhJziylQ97avs755qKPsf/F+41gkpDdmWKE52p1mp1ekoebqt
-iJQA2GwVcBM2iPxkjyizYiIuQiIuQqLCivqNWn4FfFn5v4pbis9lVYl2kZ/sFUXJHlFpRUUydRwF
-gCNd1+Zsn0SISiuaVodwstdb9gPXOiFdb+RN4JHqRTxSvfBTtqRmKTsKprI3fwrlVsy5tEtcD31x
-IJBEELItflh1H4tHPUxj+ezxjeWzRy+sWcYfCm/jeM5oThkVjgCmTSr624FSjrYRVCXa+TCnmh0F
-U5k/ehmPVs/lB9V1LKhZSrNRii3902RJgyT5d+4YFtQs89RhEWbl3ar0YXLLyrHj7A9/DqwOO00m
-NnFh09u51/H3vPEsGjmPYh+JV4AxiTZWjFqAZSemYkVt7PgJ7PgZEm1/O5pTy9bC29lUPovaRJuv
-v0WAbhFifu1yXi78Im/lXg+JC91YXVKqNtG+7YXyWdRYF3z9qxJRthd/DRJtfLoOHXYP3PB41f20
-BQqGByE2AsO2+vq5TV7RwgboDOT5bvRG3mcgfgHgTdfqbcjw/0tg34cVHXs0d6yv/w3xVtaOfBDi
-EYCfICeXVrhuM7NIdhtng+V91sEzH+X4tQMnsWK8lj+JwBDksrnao6w8FWQT2L2xppIZUqPXgyN5
-4wDbHQF4VgX43lMn5k0Qt4R8iB9hX+aB6jqItzq3s2PIyTB3ioj1JC/PPBkamab7mwGfRHsviZzh
-0UIyIA78CTnLFmzPHTOlMhFNj2TKE12h/j3jifR+W8XWPvbbQa8IRaxA/mGnFSIn0/Z5NusGe9vv
-Smd8vtpqD2bV8KWtAxrBZnLvqYGSec0QstPzf5kKLuZBstyveyyyLjlBOlsFHL+v/haqle2HwP4R
-PjLhfwlP/izJ7gkZYnIr1W//TBJ4P4s6/EbdMucAKzAquavr8PBpIT0iBNgdwFQVGAyrEZBAyofP
-AG5FGCLoc8ua2XUIjLL3XMe3XY3GHFISGAWMS6RH8PPs+HGwC7M4zDsggMDOZuLru4qMbQDTOvZx
-yqgYHoTEhcETbVshWFSMDLFfRoaoi1Wn/AEQx06euDF2+LUzRnrHej5QxLju486/rwOrkGH9F4Gj
-YI8aeekELcH0N5DmdB6owqi4JfMDnb2yOH5WRAPhqvSTYoMw0k9VsIQ7u4/w9a63h6RDH7IW0hkY
-wb0XdzDCtsAoySUQjnwjdohvxg5CIC9OsDgHo6h9SfuflU68BwJqrXYIFgH2TcgQ/1xE4CGM8kkT
-460su7jT92mg2Sizb44d+hfBYtGv5dR+dXXkFS4Lw04vo5TvtW0HoxSCxYJAmMXte9jYvJabL52g
-q4/R4bVKiGUD18cjPN62hQ3N6/lZ60Ym9Z7mxt6PaGp9jg0tTaw/t5EzRhnIbG5O3qsQ0GEjmN59
-hKaWnzPlcnPJlN7TYmbX4XsWXdyTfO7sk8zu2E9HIPzJg6irHjkCu3NO7CAbWpr6tac/auC8UYQa
-IKR17GMTbWxofooNLU00tT5DqdXJx0bJkLWMoSRkNPIFBfOSyDEjwUKzPZBvCmxTYJvRQNiMBAvN
-jsAIU8i3Wt4HNinfvwK/Bx5LIsxosMCc2XnAnBk7aE7p+dAstzrMFqPMrb3+GDLBlvPGyEvA8R4R
-Wh4JFpr92Xmj1DRsayVy4umMa/9/BFYGsM1IsMiMBAvNaCBsCmz3fh1bMxwImYZ8xXRUFnYd8p0n
-ZyQWRb75MT5L/wnIVHfnXLGsXw5g/6ORU8UOpiPfcqnJ0r9AxeKGjpBBEOPf22DWP9Rg1tdlYXOV
-IL7b/+kB+D/YYNZv9vg/qcrNxn9eg1l/wOO/NEvfugazfmGDWd85COdMz4f8P82HaGhCNCEamhBN
-iIYmREMTognR0IRoQjQ0IZoQDU2IJkRDE6IJ0dCEaGhChgv+y965R1dR3Xv8MzPnJDkJyckDwitI
-tb6WlSii3GrV4gMfqBcvoi6Van3AEqot1ket3CaCcrlofV0EbbEaFbVq1WKt4vjgBvBRuhDwwVWL
-1GBCiHm/c16z7x97HxwPJzlzQoJS93et35rzmNm/vffs7+zf/s1v5qfT5mnRotMYamjoKV1DQxNE
-Q0MTRENDE0RDQxNEQ0MTRENDE0RDQxNEQ0NDE0RDQxNEQ0MTRENDE0RDQxNEQ0MTRENDE0RDQxNE
-Q0MTRENDE0RDQ6PfBJm/YKEWLf9qkjV/wcI75i9YuGT+goXL5i9YeEr8Pz2DaHzXcQcyHcwW4D1k
-9qytwHrghv4Q5E52T5916R5UcDgyc6G7vAf1edPYC8hD5ga8CZmmZyZwEjI3+GPIFHVpE6QjyW+P
-Am/1o4IPI/MQJSafa/NwbD5wGjKX0U+AGWnIT4GzgREpdByGzLs9I025DLgI+H6K8gvUxeUnSs+x
-fex7sKsuV3go20v/uXUf4+GYocjkklek2c+jU5Q7RO1/KXA5cKbHupyhdHity/kJ/daGzLX7lCLF
-hcgcjj3IDHR37qmJFXF9Pk5d/a/ycNyxat/L+3FifcikYM3Aq8jMbY8Bj6chjyATjNWqeuT3ousc
-4KGEYx9NIY8DFcCTaqoWwPheyt9PHfOY0jOrj3ZPdtXlD8CkPSTImATdl/WxbzYyLXY98JLSn04/
-V6t+OKSX8otdffswsCBFXYSqyytKh9e6POM6Jwep8rYB44CbgS+A3yPT9t6V7EKdLkH8yBzC7s5d
-nqIz1gNvu76XApekofMgvp6Bbitf5Rf2KquSEDYZEpND3oLMLdmXGMiMgG4c6LFtIo3/BjpxZV/l
-HcPX8zeXeOznYcDnwAtqALYPQF1+mPB9RhrnfRPwuqpLeG+5eU9SV6ETEn7/GJjn+v5vquHxqfxT
-VekPgIlp6IslIWm6yElRZm84RM2UJySR45GpJ09H5vZ044N93FZPTNQ9V9nrs/uQOcBU4GpkEvTF
-wI4BqEsk4fu5ykSc7UHKgRtVXar2FkHiFV6nBvyrrv9uB7YDa4F3Exp1SD8G6DeNy9Raa00SWav6
-YJXL/Fmu+uTjfZwga5V5EscNyhRZ1ocsVabbKuBDdXGcMkB1+aPr+3SlZ5kHWQlsVHU5a28RJBFn
-KLPJbeserz6H1IJs5T46UH7ucSo/Ue0/U52MWf8CHp8L+2HKfs+jKZsuLupHXYyEmfzkb4ogcZPC
-QKYcj2OqWvx07mHZiR4vQ3kc/Grbl2So481+tjsnDVPMjeAgDNievUiOVr5ywS9N47jMJOdqT/GS
-qy7v7MH4FoNFkMQBavWx7+ku9r6YYrHvdV2xRa1f3J6gHrXo6kkhIWUSutPUdwNvemzrIna/B5RM
-licc94zH/van0e9PeKxLXF7aA91PuD7PSUPnJwnlvNBL+UYKYrnxTsKCPZ0++IHr2KcHiyD3A0cD
-RwAT+hhc6WCRq8yjkXc3U12hDWW+jQeOVMd6kSOBo4CxqozsPjway1318irjlYk5zHVx6G1B+LGr
-/kcrL1lfg3RCmnU5wtWnVyeU94nSG9fdl2t1jmpHgXKJjveod4LyOsb7YUMv5X/hOjcTgPP6qMvC
-ftblKEWQTHX83weLIHWqoe8jb823DQBBal1lblDfvaBaue42q2O9yGa1UNvuofx6V728yiZlYjZ4
-KL/bVf8NaqD0hkbV3+/3Qzaovko00Ta7dHvxMLWoBfcmj3rfQ7rhUyHsOjdej0m3LhuV9RHek4Gq
-Y7E0NDRBNDQ0QTQ0vrME8QMXI+/oDrT8gtQ3tErVfoOhfw6wfwr95wK/Bm4Dbh0guQ15x/uSJB6z
-RA/TlYPY9ydoguwZ1quF1uHAFgOxxfQoBmKLWqj1Jh8p787PSB5MOVb9/gZQo/bfrRwDsSVTRLZk
-ifAuyRDRVLrj+juQAXQiCVFmqd9nKC+MDaz2IgZitYWzOktEVps4q43d93kNGSVQinSFf87uLvzN
-anGf01sbUp2DFG3fCtyn2ni9Jkj/MB6o9ovoLVkibP95yDF2Rf5pdkXej/uW4Mn2H/NOtmt8RXZJ
-tMkuiTbaI6LNdtDpsgXYAsNWg2SVixiJ4QhHq+31wJ+A12KYdo4TskdHG+xuM9N+N3CY/VTeifbt
-Refb5UUX2eVFF9jlQy+27yw8134278f25/7h9qhok10ca7OLYu32iGijne902jHMuP7HgCVKz8gE
-/aeq7c+QQXdrgUqgUqhtQIQri2JtlcOjLZXFsbbKFjOncl324ZUr8k6q/F1wcuWCoumVjwQnVz6X
-e3zlpxkllbmxzsriWGulg7FGSJf9rxT5xyKf1YkjW5FnLfA/gO1g2n4Rs0dFG21TOPba7HF2RXCy
-XZE3Kck5mGRXBCfbldmlNmCPjjbYOU6P7ch+j7f9r8C1St/JmiD9Q9QnYj6fcFhccC4bs8dN3mYF
-123zD+9bfEPX/Z+/aOby4KlcNeomrhp9C1ePvoXrRs7l3awDGRFtwfnqflX8RlViYFw8ZiwLwC9i
-FDkd3FFwDjPH3M7iwumsyj4s62P/iLJOw/9JyDBFyPCLEIZoNgMffuQfdm9FcFLGrFE3MWfENVw7
-4hquHnM7c4ddQUCEyXZCcT0Zait60R//HwHkOt00mjmszD2W8qGXcO3Iucwe9UvmjLyOewvP4fXA
-oQX/8A/7ZbWv8M0uI+OTf/oK//J+xoiLn8w9lutH38ic4pkERJiA2OUBtZLoFy7zFoBR0SbWBQ5l
-1pjbKSv+KW8EDmGbr+D+bf7iJOeg+KVtvoJbVwcOHnnrsBnMHP0b5g2/kk2Z+1EUa0fs3vcxTZB+
-wkAQMSxMBIjY98D4EfLueAoxvg9OIbHWMUSbxhBtGEm0iVeDp1IR/DEl0SbP8Qc+EcNPlLLC86jP
-LIFw9f6IsACjG5iPfMDJjQ1gzEU4YWKt4HSD0zWccPVpmJmUFV1ImxUg4EQ86RcYBESYYbF27is4
-i/uHXczGjNEy/iTWrqRtEiImwGhC3oC7FfmQ2aNgPAAIIvU3Y+VyX/4UMkQMa7fA3b7hYEhdTjfq
-hvjhqr8nIqMc9gMOULNxORg7cEJfEG0wwk6IF/On8FzuDymJNOpF+rcAOcio4ruAadKUMQTRhiP/
-NmQiLww5hpJok3sm6RVDnXZWZR9JW2YJxNongrGtl13jEb1z1VX4HGUW7VSD6VVE9LSoYdJlZGJ5
-uHA6GIyINbMpcyzXjLqO7f5iiLYAxkV8PbRitTKXDLX4XoO8q/8nZHzYW8AinM4f7fQXUe0rJMcZ
-sBCvD1wEGaXqEDddS4CbwQARZrtVRIeVJS94miDfijb+VS0GpwOFYGwk2rLslbwTeDP7cIpjqYMD
-BAZd5q6QoQuS7PKRGhSzEkyTAmW6faQWwiAjnD1fscdGGvzP50zkqcKpEG25FBF7Bhln9iTyeX53
-BGtJH8XJu+ci+ixm4MxH804kholPDIh1k4181HYoMjRoNjIsPY6H49ZcodNJpoi4zSxNkG9q/QJ8
-hnwkNn6VbVJDfjaG75xaq8DzAIka8QcI2ez6uRkoUrODe3Ffhwzz3wCcoohzutL9JoZFNG429oGR
-0WZeyJ247bXgpCVEGgUYNyID7/ZXV+rZafTHBbIBxg3E2l9uzBi7/enc4yhyOroGoK8PRYa31CNj
-zpaptc1K1Wl1mFn4Yk1M6XyPdjOwD8wf+xBBBEbcFHKHoNcq70uJuoI9lMTEmoCMy8lDPgqbgXxo
-X455j6cpjI8JPdvACQHW48ho5bPljMSZCabOmWpQrEDGD40HAsjQ8csxs1v2D9dyQKSODiOQ8gS1
-mNnHAdcoMo4DnlOzQW0/u/NJMFaCMyZiWKfGMKsG4BQ9TfJnMs6VDQngd7opa3yWXKeHbiNDr0EG
-bBowfBQ6HYwLbwczcC+IbEWIUcrGrga6lMs2HrGbrVyIQ5Fv5WhTfvcw8DJYAUTE3i/aQNjwpaxD
-kzWEcaHt/LzpeUzTAsM3VZluR6iZYbHS34KMlP2H8tCMQD55uEkS1KpAhDijczOGEDgprIwuM4PS
-UNXbON1HgK9AEfDvyBcYvIiM+n2E5C+UqFDbF5EvU1ilTD0BYiqGNWNktPV1C+cHe2haofo5yQgL
-gH84+dEm5jc+TZYI02lm7lP2+T4we0Cdlc+MtrVc0rQS/MO78Q3txsgEhAEUg7DAfA4rF3z53VjB
-bnz5Iaw8MKxNar/h4BhYuSssw+gp/7IidmTocxqtXE+etEZrCAeHaziwpwqsvLgndDPwX8gI0nfV
-QjiqZqsVwAwQQ8D04Sv4DH8h09vWUBr+nCYPelvMHA6J1O53U+Mz72OYBobfQD4nPx352pwbkc/E
-z0si/6m2l8l6MF3NQAa+ocZ5zS8/Mb3jXWqtAsfbhcqS6zXTD1ZufMI8S7ZVXIhhSg6bOZSGq5nV
-9r/cVl/B8ur5/LrpeXrw02XsO+TYp0wsE4caXyEHRXaytGYRD1Xfxq0NKzil+2NKI3X148M7nJmt
-b/BA7T08VLOYB3f8luU1i3lwx13MbX6JE3s+ozRS9+XEUDW/aHiK++p+j8Cg1czGq5nlYNBiDmF2
-q82MppWMibWDFQRfYStW8B2s4Hys4NlYQT9WroGRYQx1uu86secz5rTa3L/jTpbW/DeHh7az0yrw
-pNdA0GQOEcOirfym8Skm9mylNFwTKQ1VdZaGqlpKQ1U7SkNVX5SGqqr7kObSUFVraaiqozRc4xwb
-quJXX/6B43s+YbuvCNOjq7feyuPAyE4erF7EHTuX8e+dmygN76wvDVd/dkS4tnFmy+v8rmYRS3Yu
-YVr7O4yMNBDDpMZXRLeR4VmPJkh6iKDeYxUfUPVWHtV+OaOf0PUh09rWMLX9bUZHG6izglT7Ctnp
-y6dGbfNjHZzcuZFpbWuY0vE3CpxuGqxc9wI5d9dS4+uIr96Ho2y3qGHSamZzQKSOWS2vsKT2Hpbu
-uKN2ae3d/1xaezdLa+/mgR2/ZWntPdz95XKua/ozJ3VuojjaTIMVpN7Kw90WhSK1TbT1fGrfjE4z
-C0s4TOlYz7T2t5nWsb5/0v42p3esJyAitJrZ8T4YkqT98bYXuskqgJ2+fLrMLI7q2cq09nVMa3+H
-/2h/i9HRRmp9RbtmZI8Xnrxe2q4J4hFHI+8hiEGUj5DhD4kvU/sLMsxjQeIxJkLEMEWjlSvqraCo
-t/J2SZ0vX9RbQdFmZouI4RMGIpX+85BvPFyboP985EvQtg5y+2uUi7bxa34JSQ5zkHW/oFzAU/ZJ
-gpSXzfum5dPysnn7l5fNMwZZTu9F/7K9oNssL5u3ohf9l+4F/YeWl83bkUR3c3nZvIP2gv4rvwXj
-jPKyed+5+yAaGt+NRbqGhiaIhoYmiIaGJoiGhiaIhoYmiIaGJoiGhoYmiIaGJoiGhiaIhoYmiIaG
-JoiGhiaIhoYmiIaGJoiGhiaIhoaGJoiGhiaIhoYmiIbG4OD/BwDs1Bk65PQVLQAAAABJRU5ErkJg
-gg==
-
---_005_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_
+--94eb2c0c26e42d55e10558629fa5
 Content-Type: image/png; name="image002.png"
-Content-Description: image002.png
-Content-Disposition: inline; filename="image002.png"; size=9381;
-	creation-date="Mon, 04 Sep 2017 12:37:46 GMT";
-	modification-date="Mon, 04 Sep 2017 12:37:46 GMT"
-Content-ID: <image002.png@01D3258B.5F67B3F0>
+Content-Disposition: inline; filename="image002.png"
 Content-Transfer-Encoding: base64
+Content-ID: <>
+X-Attachment-Id: 
 
 iVBORw0KGgoAAAANSUhEUgAAALoAAABACAYAAACtB22OAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAO
 xAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAACQlSURBVHhe
@@ -864,4 +558,4 @@ DApeZ1yVPS3/CtAfl0AXOkAoZGb9KE+MFskySqm1WOcAhStrkWhQzxRfhBkbJWqgzWrmB74jdJz/
 ++LCqPOpmWpgEZqF522iL5cfB8zEZVGJCZGfsRnr5nrGYLLGeDGMW6CP8TgnqvuEU2AC6J9wAHxS
 hj8B9E/KTH/Cx/n/AZ29MrHBfY42AAAAAElFTkSuQmCC
 
---_005_HE1PR0302MB281135B6973C24FBEDFA9E04AC910HE1PR0302MB2811_--
+--94eb2c0c26e42d55e10558629fa5--
