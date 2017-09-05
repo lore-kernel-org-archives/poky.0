@@ -1,63 +1,37 @@
-Return-Path: <jussi.kukkonen@intel.com>
+Return-Path: <prvs=41429ceb1=Thomas.Koeller@baslerweb.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2FF9BE00C89; Tue,  5 Sep 2017 03:26:55 -0700 (PDT)
+	id 163F2E00C1C; Tue,  5 Sep 2017 09:49:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [209.85.223.170 listed in list.dnswl.org]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.223.170 listed in dnsbl.sorbs.net]
+	*      [80.156.24.166 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-io0-f170.google.com (mail-io0-f170.google.com
-	[209.85.223.170])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 630E8E00B67
-	for <poky@yoctoproject.org>; Tue,  5 Sep 2017 03:26:53 -0700 (PDT)
-Received: by mail-io0-f170.google.com with SMTP id j141so9746524ioj.4
-	for <poky@yoctoproject.org>; Tue, 05 Sep 2017 03:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=pTjxUietdJRR3ZB9teNozJMZYDILjgMJbHyfxf9VUKc=;
-	b=b4uJtdowILjop6tewyNeaiJphzH/6rdb+p3QfbrlP5UYLJ3ZKhKOdp67f8h/MnwNxV
-	gAxv9Q4RCddC+opcKTS3IxCAGeCuGzP/dUwbNdPdfzieCcQQdKJ1Rldz/aj8TeiQlsI/
-	irSTzKdyIgFuQe7HmtA/LsPsfHbYRplneNbfCbMU5n/3aK6n78evvt27YAcD9H86YS2i
-	0LfWcT6fFrom/n/o+llY7waYWns9EN3HX9ELYw9vrKuBmEP2NIZUiA5Q3a6Akn53bpQB
-	t+GCemmiMSVaHKV3I/gxzKTRx+RuXDqg/t1yzQ7bmlVeuyDtiiQNtRTBEHD7DV12Mkak
-	3nJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=pTjxUietdJRR3ZB9teNozJMZYDILjgMJbHyfxf9VUKc=;
-	b=XEAhC9uA2b/BwhieZ1qjkkjBWOeQ0a83RXNuws20LQHVgvrn5J0itaZPpmTGC/H9IO
-	Zz2lLMd3+IicLV7xxKwYS4hw4QLir9Irl/3P8pmjMTG/ZYR4XJi2IHr9VElP80aN8qu2
-	vf4fZ8RDuINmnTyfLpoVz7xjw8fAbh4Nr8TlhVJV7NSQZrwIqBr5Y+i1iqRMVBZxgFJ4
-	PakOv4vB5JChQnJOTA0cueer5UUA9YAPyiM+fqtqZ3zmK4bZKN4dTnsDupmTXZEYEx/F
-	SaxsGg/nqZ0QgP7any8Ml7gBrehG3oi6/QqjF7ssbv6KIHxHEA5gut77xkqbX8mNpU01
-	cIsw==
-X-Gm-Message-State: AHPjjUiX5OL6R/tXhe/hLIGc9BfhxEB2ndjrfFWbyiMJlM8rcurfm6JH
-	41wWjJM4YWcUsdtecLreSQvYWBpm1RhW
-X-Google-Smtp-Source: ADKCNb7tzaZ8ohZHYLVWIhvtM2g4oDQf2pHmuWVxD649uTOu/miCjNa853gLYhzWYE91DWXVtBZCtMbDrqIQGOVbmcM=
-X-Received: by 10.36.71.208 with SMTP id t199mr758263itb.64.1504607213449;
-	Tue, 05 Sep 2017 03:26:53 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.9.215 with HTTP; Tue, 5 Sep 2017 03:26:22 -0700 (PDT)
-In-Reply-To: <8caf136aac8d4d66a542ef056a92c331@ahr206s.basler.corp>
+Received: from mail01.baslerweb.com (mail01.baslerweb.com [80.156.24.166])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6CCA9E009F5
+	for <poky@yoctoproject.org>; Tue,  5 Sep 2017 09:49:47 -0700 (PDT)
+Received: from unknown (HELO ahr205s.basler.corp) ([172.16.20.205])
+	by mail01-out.baslerweb.com with ESMTP; 05 Sep 2017 18:49:47 +0200
+From: "Koeller, Thomas" <Thomas.Koeller@baslerweb.com>
+To: Jussi Kukkonen <jussi.kukkonen@intel.com>
+Thread-Topic: [poky] Dependency problem
+Thread-Index: AdMmHUgytoDqI6qsQSmzMQu+23fGkQAA1+cAAA94DnA=
+Date: Tue, 5 Sep 2017 16:49:46 +0000
+Message-ID: <34fac4a1e7ae40e781523234d14d26d4@ahr206s.basler.corp>
 References: <8caf136aac8d4d66a542ef056a92c331@ahr206s.basler.corp>
-From: Jussi Kukkonen <jussi.kukkonen@intel.com>
-Date: Tue, 5 Sep 2017 13:26:22 +0300
-Message-ID: <CAHiDW_EmDLUxb4q4g2e4cJR6AYEP6XEYMyMiiQQ=PgA7=JpKoA@mail.gmail.com>
-To: "Koeller, Thomas" <Thomas.Koeller@baslerweb.com>
+	<CAHiDW_EmDLUxb4q4g2e4cJR6AYEP6XEYMyMiiQQ=PgA7=JpKoA@mail.gmail.com>
+In-Reply-To: <CAHiDW_EmDLUxb4q4g2e4cJR6AYEP6XEYMyMiiQQ=PgA7=JpKoA@mail.gmail.com>
+Accept-Language: de-DE, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [172.16.20.16]
+x-c2processedorg: edc209ba-7b98-423a-8e4d-b8fa22bc0743
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Dependency problem
 X-BeenThere: poky@yoctoproject.org
@@ -72,105 +46,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Sep 2017 10:26:55 -0000
-Content-Type: multipart/alternative; boundary="001a1145b33a7c19b405586eaa76"
+X-List-Received-Date: Tue, 05 Sep 2017 16:49:50 -0000
+Content-Language: de-DE
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
---001a1145b33a7c19b405586eaa76
-Content-Type: text/plain; charset="UTF-8"
+RnJvbTogSnVzc2kgS3Vra29uZW4gW21haWx0bzpqdXNzaS5rdWtrb25lbkBpbnRlbC5jb21dDQoN
+Cg0KVGhvbWFzIEtvZWxsZXINClNlbmlvciBTb2Z0d2FyZSBEZXZlbG9wZXINCg0KDQoNCkJhc2xl
+ciBBRw0KQW4gZGVyIFN0cnVzYmVrIDYwLTYyDQoyMjkyNiBBaHJlbnNidXJnDQpHZXJtYW55DQoN
+ClRlbC4gKzQ5IDQxMDIgNDYzIDM5MA0KRmF4ICs0OSA0MTAyIDQ2MyA0NiAzOTANCg0KVGhvbWFz
+LktvZWxsZXJAYmFzbGVyd2ViLmNvbQ0Kd3d3LmJhc2xlcndlYi5jb20NCg0KQkFTTEVSwrRTIENP
+TVBPTkVOVFMgRU5IQU5DRSBZT1VSIFZJU0lPTg0KYmFzbGVyd2ViLmNvbS92aXNpb24tY29tcG9u
+ZW50cw0KDQpNYW5hZ2VtZW50IGJvYXJkOiBEci4tSW5nLiBEaWV0bWFyIExleSAoQ0VPKSDCtyBK
+b2huIFAuIEplbm5pbmdzIMK3IEFybmR0IEJha2UgwrcgSGFyZHkgTWVobA0KQ2hhaXJtYW4gb2Yg
+dGhlIHN1cGVydmlzb3J5IGJvYXJkOiBOb3JiZXJ0IEJhc2xlcg0KQmFzbGVyIEFHIMK3IEFtdHNn
+ZXJpY2h0IEzDvGJlY2sgSFJCIDQwOTAgwrcgVXN0LUlkTnIuOiBERSAxMzUgMDk4IDEyMSDCtyBT
+dGV1ZXItTnIuOiAzMCAyOTIgMDQ0OTcgwrcgV0VFRS1SZWcuLU5yLiBERSA4Mzg4ODA0NQ0KPiBP
+biA1IFNlcHRlbWJlciAyMDE3IGF0IDExOjM2LCBLb2VsbGVyLCBUaG9tYXMgPFRob21hcy5Lb2Vs
+bGVyQGJhc2xlcndlYi5jb20+IHdyb3RlOg0KPj4gSGVsbG8gYWxsLA0KDQo+PiBJIGhhdmUgYmVl
+biBzdHJ1Z2dsaW5nIHdpdGggYSBwcm9ibGVtIGZvciBhIGNvdXBsZSBvZiBkYXlzIG5vdywgd2l0
+aG91dCBzdWNjZXNzIHNvIGZhci4gSG9wZSBzb21lYm9keSBvbiB0aGlzIGxpc3QgY2FuIGhlbHAu
+DQoNCj4+IEkgaGF2ZSB0d28gcmVjaXBlcywgbGV0J3MgY2FsbCB0aGVtIHJlY2lwZV9hIGFuZCBy
+ZWNpcGVfYiAoSSBhbSBub3QgYWxsb3dlZCB0byBzaGFyZSB0aGUgYWN0dWFsIHJlY2lwZXMgZm9y
+IGxlZ2FsIHJlYXNvbnMpLiByZWNpcGVfYSBkZXBlbmRzIG9uIHJlY2lwZSBiOyB0aGVyZSBpcyBh
+IGxpbmUNCj4+IHJlYWRpbmcgJ0RFUEVORFMgPSAiLi4uIHJlY2lwZV9iIC4uLiIgaW4gcmVjaXBl
+X2EuYmIuIFdoZW5ldmVyIEkgaW52b2tlIHJlY2lwZV9iIGRpcmVjdGx5IChiaXRiYWtlIHJlY2lw
+ZV9iKSwgYWxsIGlzIHdlbGwgYW5kIHJlY2lwZV9iIHByb2R1Y2VzIHRoZSBleHBlY3RlZCByZXN1
+bHRzLiBJbg0KPj4gcGFydGljdWxhciwgdGhlIHBvcHVsYXRlX3N5c3Jvb3QgdGFzayBwbGFjZXMg
+YSBudW1iZXIgb2YgaGVhZGVyIGZpbGVzIGluIHRoZSBzeXNyb290IGRpcmVjdG9yeS4gSWYsIGhv
+d2V2ZXIsIEkgZG8gJ2JpdGJha2UgcmVjaXBlX2EnLCBJIGZpbmQgdGhhdCwgd2hpbGUgc2V2ZXJh
+bCB0YXNrcyBmcm9tDQo+PiByZWNpcGVfYiBhcmUgZXhlY3V0ZWQsIHBvcHVsYXRlX3N5c3Jvb3Qg
+aXMgb2J2aW91c2x5IG5vdCBhbW9uZyB0aGVtLiBJIHNob3VsZCBwcm9iYWJseSBtZW50aW9uIHRo
+YXQgcmVjaXBlX2IgaW5oZXJpdHMgZnJvbSB0aGUgcXByZWJ1aWx0IGNsYXNzLg0KDQo+IHFwcmVi
+dWlsdCBpcyBub3QgYSBjbGFzcyBJJ20gYXdhcmUgb2YgLS0gaXQgbWlnaHQgYmUgYSBnb29kIGlk
+ZWEgdG8gcmV2aWV3IHRoZSBjbGFzcy4NCg0KSW5kZWVkLCBJIGZhaWxlZCB0byBub3RpY2UgdGhh
+dCB0aGlzIGlzIG5vdCBhIHN0YW5kYXJkIHRhc2suIEl0cyBwdXJwb3NlIGlzIHRvIGluc3RhbGwg
+cHJlYnVpbHQgYmluYXJ5IHN0dWZmIGZyb20gYW4gYXJjaGl2ZS4NCg0KPj4gSSBub3RpY2VkIHRo
+YXQgcmVjaXBlX2Egc2V0cyBhIHZhcmlhYmxlICdQUkVCVUlMVCA9ICIxIicsIHdoaWNoIGRvZXMg
+bm90IGFwcGVhciB0byBiZSB1c2VkIGFueXdoZXJlIGFuZCBpcyBub3QgbWVudGlvbmVkIGluIHRo
+ZSB5b2N0byBkb2NzLiBNYXliZSB0aGlzIGhhcyBzb21ldGhpbmcNCj4+IHRvIGRvIHdpdGggdGhl
+IHByb2JsZW0sIG9yIG1heWJlIG5vdC4NCg0KPj4gSSdkIGJlIGdyYXRlZnVsIGZvciBhbnkgaW5m
+b3JtYXRpb24gdGhhdCBtaWdodCBiZSB1c2VmdWwgaW4gc29sdmluZyB0aGlzIHByb2JsZW0uDQoN
+Cj4gWW91IGRpZG4ndCBtZW50aW9uIHRoZSBZb2N0byB2ZXJzaW9uLiBTeXNyb290IGZ1bmN0aW9u
+YWxpdHkgaGFzIGNoYW5nZWQgcXVpdGUgYSBiaXQgaW4gcmVjZW50IHJlbGVhc2VzIHNvIHlvdSBz
+aG91bGQgZG8gdGhhdC4gVGhlIGNoYW5nZXMgYWxzbyBtZWFuIHRoYXQgdW51c3VhbA0KPiBzeXNy
+b290IHRyaWNrcyB3cml0dGVuIGEgZmV3IHJlbGVhc2VzIGJhY2sgd2lsbCBub3Qgd29yayBhcyBp
+cyBvbiBtb3JlIHJlY2VudCByZWxlYXNlcy4gU2VlDQo+IGh0dHA6Ly93d3cueW9jdG9wcm9qZWN0
+Lm9yZy9kb2NzL2N1cnJlbnQvcmVmLW1hbnVhbC9yZWYtbWFudWFsLmh0bWwjbWlncmF0aW9uLTIu
+My1yZWNpcGUtc3BlY2lmaWMtc3lzcm9vdHMgZm9yIG1vcmUgZGV0YWlscw0KDQpCaXRCYWtlIHRl
+bGxzIG1lIHRoYXQgSSBhbSBvbiB2ZXJzaW9uIDEuMjguDQoNCj4gT24gbGF0ZXN0IHJlbGVhc2Ug
+ImJpdGJha2UgLWcgLXUgdGFza2V4cCByZWNpcGUtYSIgd2lsbCBnaXZlIHlvdSBhIFVJIGZvciBi
+cm93c2luZyB0YXNrIGRlcGVuZGVuY2llcy4gWW91IHNob3VsZCBmaW5kICJyZWNpcGUtYS5kb19j
+b25maWd1cmUiIGRlcGVuZGluZw0KPiAicmVjaXBlLWEuZG9fcHJlcGFyZV9yZWNpcGVfc3lzcm9v
+dCIsIGFuZCB0aGF0IGRlcGVuZGluZyBvbiAicmVjaXBlLWIuZG9fcG9wdWxhdGVfc3lzcm9vdCIu
+IElmIHRoaXMgaXMgbm90IHRoZSBjYXNlIHRoZW4gaXQgc2VlbXMgbGlrZWx5IHNvbWV0aGluZyBp
+biB0aGUgcmVjaXBlDQo+IChvciBpdHMgaW5oZXJpdHMpIGlzIHVuZG9pbmcgdGhhdCBkZXBlbmRl
+bmN5Lg0KDQpJIGdvdCBhIHN0ZXAgZnVydGhlci4gTG9va2luZyBhdCB0aGUgbG9nIGZpbGVzIHBy
+b2R1Y2VkIGJ5IGJ1aWxkaW5nIHJlY2lwZV9hLCBJIGNhbm5vdCBmaW5kIG9uZSBmb3IgdGhlIGRv
+X2NvbmZpZ3VyZSB0YXNrLCB3aGljaCBzZWVtcyB0byBpbmRpY2F0ZSB0aGF0IG5vDQpzdWNoIHRh
+c2sgd2FzIGV2ZXIgZXhlY3V0ZWQuIFRoaXMgd291bGQgZXhwbGFpbiB3aHkgdGhlIGRlcGVuZGVu
+Y3kgZGlkIG5vdCB3b3JrLCBidXQgbGVhZHMgdG8gdGhlIHF1ZXN0aW9uIHdoeSBkb19jb25maWd1
+cmUgZGlkIG5vdCBydW4uDQpBbnkgaWRlYSB3aGVyZSBJIHNob3VsZCBsb29rPw0KDQo+ICAtIEp1
+c3NpDQoNClRoYW5rcywNClRob21hcw0KDQo=
 
-On 5 September 2017 at 11:36, Koeller, Thomas <Thomas.Koeller@baslerweb.com>
-wrote:
-
-> Hello all,
->
-> I have been struggling with a problem for a couple of days now, without
-> success so far. Hope somebody on this list can help.
->
-> I have two recipes, let's call them recipe_a and recipe_b (I am not
-> allowed to share the actual recipes for legal reasons). recipe_a depends on
-> recipe b; there is a line reading 'DEPENDS = "... recipe_b ..." in
-> recipe_a.bb. Whenever I invoke recipe_b directly (bitbake recipe_b), all
-> is well and recipe_b produces the expected results. In particular, the
-> populate_sysroot task places a number of header files in the sysroot
-> directory. If, however, I do 'bitbake recipe_a', I find that, while several
-> tasks from recipe_b are executed, populate_sysroot is obviously not among
-> them. I should probably mention that recipe_b inherits from the qprebuilt
-> class.
->
-
-qprebuilt is not a class I'm aware of -- it might be a good idea to review
-the class.
-
-I noticed that recipe_a sets a variable 'PREBUILT = "1"', which does not
-> appear to be used anywhere and is not mentioned in the yocto docs. Maybe
-> this has something to do with the problem, or maybe not.
->
-> I'd be grateful for any information that might be useful in solving this
-> problem.
->
-
-You didn't mention the Yocto version. Sysroot functionality has changed
-quite a bit in recent releases so you should do that. The changes also mean
-that unusual sysroot tricks written a few releases back will not work as is
-on more recent releases. See
-http://www.yoctoproject.org/docs/current/ref-manual/ref-manual.html#migration-2.3-recipe-specific-sysroots
-for more details
-
-On latest release "bitbake -g -u taskexp recipe-a" will give you a UI for
-browsing task dependencies. You should find "recipe-a.do_configure"
-depending "recipe-a.do_prepare_recipe_sysroot", and that depending on
-"recipe-b.do_populate_sysroot". If this is not the case then it seems
-likely something in the recipe (or its inherits) is undoing that dependency.
-
- - Jussi
-
---001a1145b33a7c19b405586eaa76
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On 5=
- September 2017 at 11:36, Koeller, Thomas <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:Thomas.Koeller@baslerweb.com" target=3D"_blank">Thomas.Koeller@basle=
-rweb.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">Hello all,<br>
-<br>
-I have been struggling with a problem for a couple of days now, without suc=
-cess so far. Hope somebody on this list can help.<br>
-<br>
-I have two recipes, let&#39;s call them recipe_a and recipe_b (I am not all=
-owed to share the actual recipes for legal reasons). recipe_a depends on re=
-cipe b; there is a line reading &#39;DEPENDS =3D &quot;... recipe_b ...&quo=
-t; in <a href=3D"http://recipe_a.bb" rel=3D"noreferrer" target=3D"_blank">r=
-ecipe_a.bb</a>. Whenever I invoke recipe_b directly (bitbake recipe_b), all=
- is well and recipe_b produces the expected results. In particular, the pop=
-ulate_sysroot task places a number of header files in the sysroot directory=
-. If, however, I do &#39;bitbake recipe_a&#39;, I find that, while several =
-tasks from recipe_b are executed, populate_sysroot is obviously not among t=
-hem. I should probably mention that recipe_b inherits from the qprebuilt cl=
-ass.<br></blockquote><div><br></div><div>qprebuilt is not a class I&#39;m a=
-ware of -- it might be a good idea to review the class.</div><div><br></div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">
-I noticed that recipe_a sets a variable &#39;PREBUILT =3D &quot;1&quot;&#39=
-;, which does not appear to be used anywhere and is not mentioned in the yo=
-cto docs. Maybe this has something to do with the problem, or maybe not.<br=
->
-<br>
-I&#39;d be grateful for any information that might be useful in solving thi=
-s problem.<br></blockquote><div><br></div><div>You didn&#39;t mention the Y=
-octo version. Sysroot functionality has changed quite a bit in recent relea=
-ses so you should do that. The changes also mean that unusual sysroot trick=
-s written a few releases back will not work as is on more recent releases. =
-See=C2=A0<a href=3D"http://www.yoctoproject.org/docs/current/ref-manual/ref=
--manual.html#migration-2.3-recipe-specific-sysroots">http://www.yoctoprojec=
-t.org/docs/current/ref-manual/ref-manual.html#migration-2.3-recipe-specific=
--sysroots</a> for more details</div><div><br></div><div>On latest release &=
-quot;bitbake -g -u taskexp recipe-a&quot; will give you a UI for browsing t=
-ask dependencies. You should find &quot;recipe-a.do_configure&quot; dependi=
-ng &quot;recipe-a.do_prepare_recipe_sysroot&quot;, and that depending on &q=
-uot;recipe-b.do_populate_sysroot&quot;. If this is not the case then it see=
-ms likely something in the recipe (or its inherits) is undoing that depende=
-ncy.</div><div><br></div><div>=C2=A0- Jussi<br></div></div></div></div>
-
---001a1145b33a7c19b405586eaa76--
