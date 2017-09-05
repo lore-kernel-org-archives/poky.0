@@ -1,39 +1,32 @@
-Return-Path: <prvs=41429ceb1=Thomas.Koeller@baslerweb.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 163F2E00C1C; Tue,  5 Sep 2017 09:49:50 -0700 (PDT)
+	id BA04FE00C09; Tue,  5 Sep 2017 15:08:17 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [80.156.24.166 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [134.134.136.31 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail01.baslerweb.com (mail01.baslerweb.com [80.156.24.166])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6CCA9E009F5
-	for <poky@yoctoproject.org>; Tue,  5 Sep 2017 09:49:47 -0700 (PDT)
-Received: from unknown (HELO ahr205s.basler.corp) ([172.16.20.205])
-	by mail01-out.baslerweb.com with ESMTP; 05 Sep 2017 18:49:47 +0200
-From: "Koeller, Thomas" <Thomas.Koeller@baslerweb.com>
-To: Jussi Kukkonen <jussi.kukkonen@intel.com>
-Thread-Topic: [poky] Dependency problem
-Thread-Index: AdMmHUgytoDqI6qsQSmzMQu+23fGkQAA1+cAAA94DnA=
-Date: Tue, 5 Sep 2017 16:49:46 +0000
-Message-ID: <34fac4a1e7ae40e781523234d14d26d4@ahr206s.basler.corp>
-References: <8caf136aac8d4d66a542ef056a92c331@ahr206s.basler.corp>
-	<CAHiDW_EmDLUxb4q4g2e4cJR6AYEP6XEYMyMiiQQ=PgA7=JpKoA@mail.gmail.com>
-In-Reply-To: <CAHiDW_EmDLUxb4q4g2e4cJR6AYEP6XEYMyMiiQQ=PgA7=JpKoA@mail.gmail.com>
-Accept-Language: de-DE, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [172.16.20.16]
-x-c2processedorg: edc209ba-7b98-423a-8e4d-b8fa22bc0743
-MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Dependency problem
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02249E00B77
+	for <poky@yoctoproject.org>; Tue,  5 Sep 2017 15:08:15 -0700 (PDT)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+	by orsmga104.jf.intel.com with ESMTP; 05 Sep 2017 15:08:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.41,481,1498546800"; d="scan'208";a="148493288"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by fmsmga006.fm.intel.com with ESMTP; 05 Sep 2017 15:08:13 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Tue,  5 Sep 2017 15:08:12 -0700
+Message-Id: <20170905220812.1852-1-alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.12.3
+Subject: [PATCH] qemu conf: Fix kernel module autoloading for uvesafb on genericx86
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,66 +39,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Sep 2017 16:49:50 -0000
-Content-Language: de-DE
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Tue, 05 Sep 2017 22:08:17 -0000
 
-RnJvbTogSnVzc2kgS3Vra29uZW4gW21haWx0bzpqdXNzaS5rdWtrb25lbkBpbnRlbC5jb21dDQoN
-Cg0KVGhvbWFzIEtvZWxsZXINClNlbmlvciBTb2Z0d2FyZSBEZXZlbG9wZXINCg0KDQoNCkJhc2xl
-ciBBRw0KQW4gZGVyIFN0cnVzYmVrIDYwLTYyDQoyMjkyNiBBaHJlbnNidXJnDQpHZXJtYW55DQoN
-ClRlbC4gKzQ5IDQxMDIgNDYzIDM5MA0KRmF4ICs0OSA0MTAyIDQ2MyA0NiAzOTANCg0KVGhvbWFz
-LktvZWxsZXJAYmFzbGVyd2ViLmNvbQ0Kd3d3LmJhc2xlcndlYi5jb20NCg0KQkFTTEVSwrRTIENP
-TVBPTkVOVFMgRU5IQU5DRSBZT1VSIFZJU0lPTg0KYmFzbGVyd2ViLmNvbS92aXNpb24tY29tcG9u
-ZW50cw0KDQpNYW5hZ2VtZW50IGJvYXJkOiBEci4tSW5nLiBEaWV0bWFyIExleSAoQ0VPKSDCtyBK
-b2huIFAuIEplbm5pbmdzIMK3IEFybmR0IEJha2UgwrcgSGFyZHkgTWVobA0KQ2hhaXJtYW4gb2Yg
-dGhlIHN1cGVydmlzb3J5IGJvYXJkOiBOb3JiZXJ0IEJhc2xlcg0KQmFzbGVyIEFHIMK3IEFtdHNn
-ZXJpY2h0IEzDvGJlY2sgSFJCIDQwOTAgwrcgVXN0LUlkTnIuOiBERSAxMzUgMDk4IDEyMSDCtyBT
-dGV1ZXItTnIuOiAzMCAyOTIgMDQ0OTcgwrcgV0VFRS1SZWcuLU5yLiBERSA4Mzg4ODA0NQ0KPiBP
-biA1IFNlcHRlbWJlciAyMDE3IGF0IDExOjM2LCBLb2VsbGVyLCBUaG9tYXMgPFRob21hcy5Lb2Vs
-bGVyQGJhc2xlcndlYi5jb20+IHdyb3RlOg0KPj4gSGVsbG8gYWxsLA0KDQo+PiBJIGhhdmUgYmVl
-biBzdHJ1Z2dsaW5nIHdpdGggYSBwcm9ibGVtIGZvciBhIGNvdXBsZSBvZiBkYXlzIG5vdywgd2l0
-aG91dCBzdWNjZXNzIHNvIGZhci4gSG9wZSBzb21lYm9keSBvbiB0aGlzIGxpc3QgY2FuIGhlbHAu
-DQoNCj4+IEkgaGF2ZSB0d28gcmVjaXBlcywgbGV0J3MgY2FsbCB0aGVtIHJlY2lwZV9hIGFuZCBy
-ZWNpcGVfYiAoSSBhbSBub3QgYWxsb3dlZCB0byBzaGFyZSB0aGUgYWN0dWFsIHJlY2lwZXMgZm9y
-IGxlZ2FsIHJlYXNvbnMpLiByZWNpcGVfYSBkZXBlbmRzIG9uIHJlY2lwZSBiOyB0aGVyZSBpcyBh
-IGxpbmUNCj4+IHJlYWRpbmcgJ0RFUEVORFMgPSAiLi4uIHJlY2lwZV9iIC4uLiIgaW4gcmVjaXBl
-X2EuYmIuIFdoZW5ldmVyIEkgaW52b2tlIHJlY2lwZV9iIGRpcmVjdGx5IChiaXRiYWtlIHJlY2lw
-ZV9iKSwgYWxsIGlzIHdlbGwgYW5kIHJlY2lwZV9iIHByb2R1Y2VzIHRoZSBleHBlY3RlZCByZXN1
-bHRzLiBJbg0KPj4gcGFydGljdWxhciwgdGhlIHBvcHVsYXRlX3N5c3Jvb3QgdGFzayBwbGFjZXMg
-YSBudW1iZXIgb2YgaGVhZGVyIGZpbGVzIGluIHRoZSBzeXNyb290IGRpcmVjdG9yeS4gSWYsIGhv
-d2V2ZXIsIEkgZG8gJ2JpdGJha2UgcmVjaXBlX2EnLCBJIGZpbmQgdGhhdCwgd2hpbGUgc2V2ZXJh
-bCB0YXNrcyBmcm9tDQo+PiByZWNpcGVfYiBhcmUgZXhlY3V0ZWQsIHBvcHVsYXRlX3N5c3Jvb3Qg
-aXMgb2J2aW91c2x5IG5vdCBhbW9uZyB0aGVtLiBJIHNob3VsZCBwcm9iYWJseSBtZW50aW9uIHRo
-YXQgcmVjaXBlX2IgaW5oZXJpdHMgZnJvbSB0aGUgcXByZWJ1aWx0IGNsYXNzLg0KDQo+IHFwcmVi
-dWlsdCBpcyBub3QgYSBjbGFzcyBJJ20gYXdhcmUgb2YgLS0gaXQgbWlnaHQgYmUgYSBnb29kIGlk
-ZWEgdG8gcmV2aWV3IHRoZSBjbGFzcy4NCg0KSW5kZWVkLCBJIGZhaWxlZCB0byBub3RpY2UgdGhh
-dCB0aGlzIGlzIG5vdCBhIHN0YW5kYXJkIHRhc2suIEl0cyBwdXJwb3NlIGlzIHRvIGluc3RhbGwg
-cHJlYnVpbHQgYmluYXJ5IHN0dWZmIGZyb20gYW4gYXJjaGl2ZS4NCg0KPj4gSSBub3RpY2VkIHRo
-YXQgcmVjaXBlX2Egc2V0cyBhIHZhcmlhYmxlICdQUkVCVUlMVCA9ICIxIicsIHdoaWNoIGRvZXMg
-bm90IGFwcGVhciB0byBiZSB1c2VkIGFueXdoZXJlIGFuZCBpcyBub3QgbWVudGlvbmVkIGluIHRo
-ZSB5b2N0byBkb2NzLiBNYXliZSB0aGlzIGhhcyBzb21ldGhpbmcNCj4+IHRvIGRvIHdpdGggdGhl
-IHByb2JsZW0sIG9yIG1heWJlIG5vdC4NCg0KPj4gSSdkIGJlIGdyYXRlZnVsIGZvciBhbnkgaW5m
-b3JtYXRpb24gdGhhdCBtaWdodCBiZSB1c2VmdWwgaW4gc29sdmluZyB0aGlzIHByb2JsZW0uDQoN
-Cj4gWW91IGRpZG4ndCBtZW50aW9uIHRoZSBZb2N0byB2ZXJzaW9uLiBTeXNyb290IGZ1bmN0aW9u
-YWxpdHkgaGFzIGNoYW5nZWQgcXVpdGUgYSBiaXQgaW4gcmVjZW50IHJlbGVhc2VzIHNvIHlvdSBz
-aG91bGQgZG8gdGhhdC4gVGhlIGNoYW5nZXMgYWxzbyBtZWFuIHRoYXQgdW51c3VhbA0KPiBzeXNy
-b290IHRyaWNrcyB3cml0dGVuIGEgZmV3IHJlbGVhc2VzIGJhY2sgd2lsbCBub3Qgd29yayBhcyBp
-cyBvbiBtb3JlIHJlY2VudCByZWxlYXNlcy4gU2VlDQo+IGh0dHA6Ly93d3cueW9jdG9wcm9qZWN0
-Lm9yZy9kb2NzL2N1cnJlbnQvcmVmLW1hbnVhbC9yZWYtbWFudWFsLmh0bWwjbWlncmF0aW9uLTIu
-My1yZWNpcGUtc3BlY2lmaWMtc3lzcm9vdHMgZm9yIG1vcmUgZGV0YWlscw0KDQpCaXRCYWtlIHRl
-bGxzIG1lIHRoYXQgSSBhbSBvbiB2ZXJzaW9uIDEuMjguDQoNCj4gT24gbGF0ZXN0IHJlbGVhc2Ug
-ImJpdGJha2UgLWcgLXUgdGFza2V4cCByZWNpcGUtYSIgd2lsbCBnaXZlIHlvdSBhIFVJIGZvciBi
-cm93c2luZyB0YXNrIGRlcGVuZGVuY2llcy4gWW91IHNob3VsZCBmaW5kICJyZWNpcGUtYS5kb19j
-b25maWd1cmUiIGRlcGVuZGluZw0KPiAicmVjaXBlLWEuZG9fcHJlcGFyZV9yZWNpcGVfc3lzcm9v
-dCIsIGFuZCB0aGF0IGRlcGVuZGluZyBvbiAicmVjaXBlLWIuZG9fcG9wdWxhdGVfc3lzcm9vdCIu
-IElmIHRoaXMgaXMgbm90IHRoZSBjYXNlIHRoZW4gaXQgc2VlbXMgbGlrZWx5IHNvbWV0aGluZyBp
-biB0aGUgcmVjaXBlDQo+IChvciBpdHMgaW5oZXJpdHMpIGlzIHVuZG9pbmcgdGhhdCBkZXBlbmRl
-bmN5Lg0KDQpJIGdvdCBhIHN0ZXAgZnVydGhlci4gTG9va2luZyBhdCB0aGUgbG9nIGZpbGVzIHBy
-b2R1Y2VkIGJ5IGJ1aWxkaW5nIHJlY2lwZV9hLCBJIGNhbm5vdCBmaW5kIG9uZSBmb3IgdGhlIGRv
-X2NvbmZpZ3VyZSB0YXNrLCB3aGljaCBzZWVtcyB0byBpbmRpY2F0ZSB0aGF0IG5vDQpzdWNoIHRh
-c2sgd2FzIGV2ZXIgZXhlY3V0ZWQuIFRoaXMgd291bGQgZXhwbGFpbiB3aHkgdGhlIGRlcGVuZGVu
-Y3kgZGlkIG5vdCB3b3JrLCBidXQgbGVhZHMgdG8gdGhlIHF1ZXN0aW9uIHdoeSBkb19jb25maWd1
-cmUgZGlkIG5vdCBydW4uDQpBbnkgaWRlYSB3aGVyZSBJIHNob3VsZCBsb29rPw0KDQo+ICAtIEp1
-c3NpDQoNClRoYW5rcywNClRob21hcw0KDQo=
+After commit e8b1c653946ef921b65d47e52aea0dc530ef4286, we started seeing
+errors like the following during boot on genericx86 machines:
+
+uvesafb: failed to execute /sbin/v86d
+uvesafb: probe of uvesafb.0 failed with error -22
+uvesafb: vbe_init() failed with -22
+uvesafb: Getting VBE info block failed (eax=0x4f00, err=-2)
+
+These were caused because the uvesa module was being loaded during boot,
+when it is only meant to be loaded on qemu according to:
+6af89812e8a9931ffed63768ed85367519bf7aef
+
+Since genericx86-common.inc includes qemuboot-x86, the module also tries
+to be loaded on genericx86 machines, this patch removes the instruction from
+qemuboot-x86 and adds it in specific to both qemux86 machines confs so
+it is correctly loaded only on those.
+
+[YOCTO #11879]
+
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta/conf/machine/include/qemuboot-x86.inc | 2 --
+ meta/conf/machine/qemux86-64.conf          | 3 +++
+ meta/conf/machine/qemux86.conf             | 3 +++
+ 3 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/meta/conf/machine/include/qemuboot-x86.inc b/meta/conf/machine/include/qemuboot-x86.inc
+index 0596e2ed3fb..100d0ccfd1f 100644
+--- a/meta/conf/machine/include/qemuboot-x86.inc
++++ b/meta/conf/machine/include/qemuboot-x86.inc
+@@ -14,7 +14,5 @@ QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.tim
+ # Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
+ QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet -device virtio-rng-pci"
+ 
+-KERNEL_MODULE_AUTOLOAD += "uvesafb"
+-KERNEL_MODULE_PROBECONF += "uvesafb"
+ UVESA_MODE ?= "640x480-32"
+ module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
+diff --git a/meta/conf/machine/qemux86-64.conf b/meta/conf/machine/qemux86-64.conf
+index ff6e5491bbc..a270d6698f3 100644
+--- a/meta/conf/machine/qemux86-64.conf
++++ b/meta/conf/machine/qemux86-64.conf
+@@ -29,5 +29,8 @@ MACHINE_FEATURES += "x86 pci"
+ 
+ MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "v86d"
+ 
++KERNEL_MODULE_AUTOLOAD += "uvesafb"
++KERNEL_MODULE_PROBECONF += "uvesafb"
++
+ WKS_FILE ?= "directdisk.wks"
+ do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
+diff --git a/meta/conf/machine/qemux86.conf b/meta/conf/machine/qemux86.conf
+index f8b09c37f29..5c6539b95f3 100644
+--- a/meta/conf/machine/qemux86.conf
++++ b/meta/conf/machine/qemux86.conf
+@@ -28,5 +28,8 @@ MACHINE_FEATURES += "x86 pci"
+ 
+ MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "v86d"
+ 
++KERNEL_MODULE_AUTOLOAD += "uvesafb"
++KERNEL_MODULE_PROBECONF += "uvesafb"
++
+ WKS_FILE ?= "directdisk.wks"
+ do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
+-- 
+2.12.3
+
 
