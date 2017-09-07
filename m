@@ -1,6 +1,6 @@
-Return-Path: <jussi.kukkonen@intel.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8847AE00C78; Wed,  6 Sep 2017 01:16:13 -0700 (PDT)
+	id 8598CE00CC8; Thu,  7 Sep 2017 09:20:17 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -9,59 +9,57 @@ X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [209.85.214.51 listed in list.dnswl.org]
+	*      [209.85.214.47 listed in list.dnswl.org]
 	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.214.51 listed in dnsbl.sorbs.net]
+	*      [209.85.214.47 listed in dnsbl.sorbs.net]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-it0-f51.google.com (mail-it0-f51.google.com
-	[209.85.214.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6631DE00BB7
-	for <poky@yoctoproject.org>; Wed,  6 Sep 2017 01:16:12 -0700 (PDT)
-Received: by mail-it0-f51.google.com with SMTP id p6so8195453itb.1
-	for <poky@yoctoproject.org>; Wed, 06 Sep 2017 01:16:12 -0700 (PDT)
+Received: from mail-it0-f47.google.com (mail-it0-f47.google.com
+	[209.85.214.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A226DE00C62
+	for <poky@yoctoproject.org>; Thu,  7 Sep 2017 09:20:16 -0700 (PDT)
+Received: by mail-it0-f47.google.com with SMTP id v19so325411ite.0
+	for <poky@yoctoproject.org>; Thu, 07 Sep 2017 09:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=intel-com.20150623.gappssmtp.com; s=20150623;
 	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=BMwLDtgU6njwjECpObITwJxi8oC3Xuh2rJxetW+QlB0=;
-	b=NruAmNV2c0w+MV7m7rq6b+h0cxv9E/sA6OCz22iYq1Z18WSVW6dq1pWWw4n5EJu8LA
-	5tCoI42pnFoTKXoXc7iOBSYcm95LpFcapVNkEMJ5AKju1UIJ/HP/3I1P3sdPKgBECdRh
-	C6AV4EbesJ2JwTeO6noqiDROYWg5PQIKOWOG4Be4rIu1gNFYUUatebVpGJBk78Y0PEeP
-	KZdpa8s4RCpHlIQnHh8u93Oy/8USTlUGgMUDSU93/RDFvIq36QXWZFIQQAlSjbS3SHt+
-	7pyNCFOr/mdN35imQw7ocsJBjFlcPgV1+sB9BBLEb6KOXmCtFdAsyhweX9WeR/NknX3W
-	GjNw==
+	:cc; bh=e6MHiO4La3gbK/AYuP6JvpG/iv4dyT5C47qBGt6EUJM=;
+	b=WLRR6ZYXZXrMPR8xR5JFWZu7zYW1NRfvFHgJXIN4jrib0LEomw8vrIVsCXO2nMQ+W4
+	+OqkpIGbweG4FY8oP0UBCOyWMlnDuAW3oOV8DgnB+wBNMO+Q+8CMWG0uNF+qAqUDJuoH
+	0TC+kW8ZGDZsvoPoeqJR1LM3TjnZ86L76XXtMw9MEDdy7uy88gcqR/P3SwO8D/LKEvBx
+	btd3qc8pceJTp5HAUI3z+RplwbYtAWUu/XVe/n9em/acy0Kb5hNBOhxZ+bkI0BubsxlQ
+	zMhSHhJjf5EzA3cXAAFd7Hj6VQRnyPIsPjPWdymdByyYuIidvhVOc+GC6laxLX3n5aZ+
+	pcSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
 	:message-id:subject:to:cc;
-	bh=BMwLDtgU6njwjECpObITwJxi8oC3Xuh2rJxetW+QlB0=;
-	b=id+Ml+TTwaxQSoExv/qkiKIpNf28WV35Cr0iGRYePV32BhuaqocVG9vMXLGsYK+W7J
-	DHbTOyHLBWTkT90bJW2WANCKfYqNlZ9M2QbdfOGcoFqhZUhpr/LrhaL5ABN5hX/RVJEB
-	eZNrQjz0kW1DoUdYJiUa0FxOhBX6daKjD88nLltI9017A9tEfcrWHXldgYUVtyc2hmSS
-	pZZgQUSahVmGvHKIItyy48QJovoBBfz1OtpQUZOOmUnyfacTN+Ttan9pKxW/+yczVacM
-	YnVxMY6bW+g1imTFT2JPZIe4btL7L9i8DIN0k3s0k2UZh+U1K+JBzdN0YBb93HMYT6c0
-	8Vdw==
-X-Gm-Message-State: AHPjjUhHVJzofEqhIlaOZWw6hu/nLOsZhhx4vwUjZ6U7E29j0A2hhvYG
-	hrOzVMJoWyjtWBnFWktQ6dIfFNimMpYZ
-X-Google-Smtp-Source: ADKCNb6yktL2uPJ4fqM0e55F3F2VQGJB0UUpSv/IlVNeZddqXmwaG+Kw76C2L+gP9DEodtx88daO4d4kM4OkuPrfaiw=
-X-Received: by 10.36.71.208 with SMTP id t199mr2401480itb.64.1504685771824;
-	Wed, 06 Sep 2017 01:16:11 -0700 (PDT)
+	bh=e6MHiO4La3gbK/AYuP6JvpG/iv4dyT5C47qBGt6EUJM=;
+	b=gFQejCWqUbDRrvX7N+NX5ExeNYFUBQd6a1iO1L0hB2AHOxLHHuwlQThOeoSIEkF7lv
+	6A4x0QHPWtwpdm06/3Q6ZTmW23fd0XDr8D8bA+zTVAjYbYPqy6IdEi85kbqH4GMsyUAa
+	yRYz2+lKVUsfaSM7G/LSsrecDUQQmpafpH5xqvtJf118hxhr/YSAkqDzcAO8e/feEIFx
+	duozCeh+XGW9Y1XExgK/Uqgql40yiELxXwMTcc82PSbRBTrECvIUlC6F87PBkFv4eBBu
+	yo7USUEucjXgbtpNCwJxJcw/3YFSydg7ObpTmrVuoxcSZCVD2/Nc/oFs9ytYCokR4jr3
+	LGqw==
+X-Gm-Message-State: AHPjjUhi12vGWzOKZIWgKU4EON9EdGoE+3C/1MYvJI61YcZl9hkWlVOm
+	5G9EwNyJLX+vcUZxjDpdpIbM3E+7NLN+
+X-Google-Smtp-Source: ADKCNb683xsvcALb8G2CvloOPznwRde+ZwFvvb5eKpIZOops7nvCOUJ0c4dIPamf5H7cG9vCFYF2+wNTi7qMfhNMhkY=
+X-Received: by 10.36.90.205 with SMTP id v196mr1391123ita.70.1504801216053;
+	Thu, 07 Sep 2017 09:20:16 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 10.107.9.215 with HTTP; Wed, 6 Sep 2017 01:15:41 -0700 (PDT)
-In-Reply-To: <34fac4a1e7ae40e781523234d14d26d4@ahr206s.basler.corp>
-References: <8caf136aac8d4d66a542ef056a92c331@ahr206s.basler.corp>
-	<CAHiDW_EmDLUxb4q4g2e4cJR6AYEP6XEYMyMiiQQ=PgA7=JpKoA@mail.gmail.com>
-	<34fac4a1e7ae40e781523234d14d26d4@ahr206s.basler.corp>
-From: Jussi Kukkonen <jussi.kukkonen@intel.com>
-Date: Wed, 6 Sep 2017 11:15:41 +0300
-Message-ID: <CAHiDW_HYqfekH2K+RaWGoaj-eBAQ8oMtvXzvhr2ChKTqOCkecQ@mail.gmail.com>
-To: "Koeller, Thomas" <Thomas.Koeller@baslerweb.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Dependency problem
+Received: by 10.107.33.83 with HTTP; Thu, 7 Sep 2017 09:19:55 -0700 (PDT)
+In-Reply-To: <20170905220812.1852-1-alejandro.hernandez@linux.intel.com>
+References: <20170905220812.1852-1-alejandro.hernandez@linux.intel.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 7 Sep 2017 17:19:55 +0100
+Message-ID: <CAJTo0LYXvZRTHVp3bubbMK0r_dCwmYR4=a+tTZnaidw3NnDW2w@mail.gmail.com>
+To: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH] qemu conf: Fix kernel module autoloading for uvesafb on genericx86
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,116 +72,214 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Sep 2017 08:16:13 -0000
-Content-Type: multipart/alternative; boundary="001a1145b33aedd339055880f45a"
+X-List-Received-Date: Thu, 07 Sep 2017 16:20:17 -0000
+Content-Type: multipart/alternative; boundary="001a1145c7eef0dee305589bd5d3"
 
---001a1145b33aedd339055880f45a
+--001a1145c7eef0dee305589bd5d3
 Content-Type: text/plain; charset="UTF-8"
 
-On 5 September 2017 at 19:49, Koeller, Thomas <Thomas.Koeller@baslerweb.com>
-wrote:
+I think this is causing the failures I'm seeing on the autobuilder with
+generix86 machine:
 
-> You didn't mention the Yocto version. Sysroot functionality has changed
-> quite a bit in recent releases so you should do that. The changes also mean
-> that unusual
-> > sysroot tricks written a few releases back will not work as is on more
-> recent releases. See
-> > http://www.yoctoproject.org/docs/current/ref-manual/ref-
-> manual.html#migration-2.3-recipe-specific-sysroots for more details
+ERROR: linux-yocto-4.12.7+gitAUTOINC+42965d664f_d09f2ce584-r0 do_package:
+Please ensure module uvesafb is listed in KERNEL_MODULE_PROBECONF since
+module_conf_uvesafb is set
+
+Ross
+
+On 5 September 2017 at 23:08, Alejandro Hernandez <
+alejandro.hernandez@linux.intel.com> wrote:
+
+> After commit e8b1c653946ef921b65d47e52aea0dc530ef4286, we started seeing
+> errors like the following during boot on genericx86 machines:
 >
-> BitBake tells me that I am on version 1.28.
+> uvesafb: failed to execute /sbin/v86d
+> uvesafb: probe of uvesafb.0 failed with error -22
+> uvesafb: vbe_init() failed with -22
+> uvesafb: Getting VBE info block failed (eax=0x4f00, err=-2)
+>
+> These were caused because the uvesa module was being loaded during boot,
+> when it is only meant to be loaded on qemu according to:
+> 6af89812e8a9931ffed63768ed85367519bf7aef
+>
+> Since genericx86-common.inc includes qemuboot-x86, the module also tries
+> to be loaded on genericx86 machines, this patch removes the instruction
+> from
+> qemuboot-x86 and adds it in specific to both qemux86 machines confs so
+> it is correctly loaded only on those.
+>
+> [YOCTO #11879]
+>
+> Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+> ---
+>  meta/conf/machine/include/qemuboot-x86.inc | 2 --
+>  meta/conf/machine/qemux86-64.conf          | 3 +++
+>  meta/conf/machine/qemux86.conf             | 3 +++
+>  3 files changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/meta/conf/machine/include/qemuboot-x86.inc
+> b/meta/conf/machine/include/qemuboot-x86.inc
+> index 0596e2ed3fb..100d0ccfd1f 100644
+> --- a/meta/conf/machine/include/qemuboot-x86.inc
+> +++ b/meta/conf/machine/include/qemuboot-x86.inc
+> @@ -14,7 +14,5 @@ QB_KERNEL_CMDLINE_APPEND = "vga=0
+> uvesafb.mode_option=${UVESA_MODE} oprofile.tim
+>  # Add the 'virtio-rng-pci' device otherwise the guest may run out of
+> entropy
+>  QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet -device
+> virtio-rng-pci"
+>
+> -KERNEL_MODULE_AUTOLOAD += "uvesafb"
+> -KERNEL_MODULE_PROBECONF += "uvesafb"
+>  UVESA_MODE ?= "640x480-32"
+>  module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
+> diff --git a/meta/conf/machine/qemux86-64.conf
+> b/meta/conf/machine/qemux86-64.conf
+> index ff6e5491bbc..a270d6698f3 100644
+> --- a/meta/conf/machine/qemux86-64.conf
+> +++ b/meta/conf/machine/qemux86-64.conf
+> @@ -29,5 +29,8 @@ MACHINE_FEATURES += "x86 pci"
+>
+>  MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "v86d"
+>
+> +KERNEL_MODULE_AUTOLOAD += "uvesafb"
+> +KERNEL_MODULE_PROBECONF += "uvesafb"
+> +
+>  WKS_FILE ?= "directdisk.wks"
+>  do_image_wic[depends] += "syslinux:do_populate_sysroot
+> syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot
+> dosfstools-native:do_populate_sysroot"
+> diff --git a/meta/conf/machine/qemux86.conf b/meta/conf/machine/qemux86.
+> conf
+> index f8b09c37f29..5c6539b95f3 100644
+> --- a/meta/conf/machine/qemux86.conf
+> +++ b/meta/conf/machine/qemux86.conf
+> @@ -28,5 +28,8 @@ MACHINE_FEATURES += "x86 pci"
+>
+>  MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "v86d"
+>
+> +KERNEL_MODULE_AUTOLOAD += "uvesafb"
+> +KERNEL_MODULE_PROBECONF += "uvesafb"
+> +
+>  WKS_FILE ?= "directdisk.wks"
+>  do_image_wic[depends] += "syslinux:do_populate_sysroot
+> syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot
+> dosfstools-native:do_populate_sysroot"
+> --
+> 2.12.3
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 >
 
-
-Bitbake 1.28 was included in Yocto 2.0 which is four releases (or two
-years) behind latest release: This means the recipe specific sysroots are
-not something you need to care about (and also that you need to be careful
-to not follow current documentation regarding sysroots).
-
-
-> On latest release "bitbake -g -u taskexp recipe-a" will give you a UI for
-> browsing task dependencies. You should find "recipe-a.do_configure"
-> depending
-> > "recipe-a.do_prepare_recipe_sysroot", and that depending on
-> "recipe-b.do_populate_sysroot". If this is not the case then it seems
-> likely something in the recipe
-> > (or its inherits) is undoing that dependency.
->
-> I got a step further. Looking at the log files produced by building
-> recipe_a, I cannot find one for the do_configure task, which seems to
-> indicate that no
-> such task was ever executed. This would explain why the dependency did not
-> work, but leads to the question why do_configure did not run.
-> Any idea where I should look?
->
-
-This is probably something your recipe does (e.g. via inheriting
-bin_package or maybe using do_configure[noexec] = "1". You'll have to
-decide if the missing do_configure is intended and if it is, maybe look at
-the dependency chain of the task that actually fails because sysroot isn't
-populated.
-
-I'd really like to suggest putting effort into fixing the legal issues that
-prevent you from sharing your recipes... There may be people on this list
-who can debug issues like this without seeing the recipe but I can
-understand how it feels like a bad use of their time and I hope you can too.
-
-Cheers,
-  Jussi
-
---001a1145b33aedd339055880f45a
+--001a1145c7eef0dee305589bd5d3
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On 5=
- September 2017 at 19:49, Koeller, Thomas <span dir=3D"ltr">&lt;<a href=3D"=
-mailto:Thomas.Koeller@baslerweb.com" target=3D"_blank">Thomas.Koeller@basle=
-rweb.com</a>&gt;</span> wrote:</div><div class=3D"gmail_quote"><br></div><d=
-iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-<span class=3D"gmail-">
-&gt; You didn&#39;t mention the Yocto version. Sysroot functionality has ch=
-anged quite a bit in recent releases so you should do that. The changes als=
-o mean that unusual<br>
-&gt; sysroot tricks written a few releases back will not work as is on more=
- recent releases. See<br>
-&gt; <a href=3D"http://www.yoctoproject.org/docs/current/ref-manual/ref-man=
-ual.html#migration-2.3-recipe-specific-sysroots" rel=3D"noreferrer" target=
-=3D"_blank">http://www.yoctoproject.org/<wbr>docs/current/ref-manual/ref-<w=
-br>manual.html#migration-2.3-<wbr>recipe-specific-sysroots</a> for more det=
-ails<br>
+<div dir=3D"ltr">I think this is causing the failures I&#39;m seeing on the=
+ autobuilder with generix86 machine:<br><br>ERROR: linux-yocto-4.12.7+gitAU=
+TOINC+42965d664f_d09f2ce584-r0 do_package: Please ensure module uvesafb is =
+listed in KERNEL_MODULE_PROBECONF since module_conf_uvesafb is set<div><br>=
+</div><div>Ross</div></div><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On 5 September 2017 at 23:08, Alejandro Hernandez <span dir=3D"lt=
+r">&lt;<a href=3D"mailto:alejandro.hernandez@linux.intel.com" target=3D"_bl=
+ank">alejandro.hernandez@linux.intel.com</a>&gt;</span> wrote:<br><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
+lid;padding-left:1ex">After commit e8b1c653946ef921b65d47e52aea0d<wbr>c530e=
+f4286, we started seeing<br>
+errors like the following during boot on genericx86 machines:<br>
 <br>
-</span>BitBake tells me that I am on version 1.28.<br></blockquote><div><br=
-></div><div><br></div><div>Bitbake 1.28 was included in Yocto 2.0 which is =
-four releases (or two years) behind latest release: This means the recipe s=
-pecific sysroots are not something you need to care about (and also that yo=
-u need to be careful to not follow current documentation regarding sysroots=
-).</div><div>=C2=A0</div><div><br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex"><span class=3D"gmail-">
-&gt; On latest release &quot;bitbake -g -u taskexp recipe-a&quot; will give=
- you a UI for browsing task dependencies. You should find &quot;recipe-a.do=
-_configure&quot; depending<br>
-&gt; &quot;recipe-a.do_prepare_recipe_<wbr>sysroot&quot;, and that dependin=
-g on &quot;recipe-b.do_populate_sysroot&quot;<wbr>. If this is not the case=
- then it seems likely something in the recipe<br>
-&gt; (or its inherits) is undoing that dependency.<br>
+uvesafb: failed to execute /sbin/v86d<br>
+uvesafb: probe of uvesafb.0 failed with error -22<br>
+uvesafb: vbe_init() failed with -22<br>
+uvesafb: Getting VBE info block failed (eax=3D0x4f00, err=3D-2)<br>
 <br>
-</span>I got a step further. Looking at the log files produced by building =
-recipe_a, I cannot find one for the do_configure task, which seems to indic=
-ate that no<br>
-such task was ever executed. This would explain why the dependency did not =
-work, but leads to the question why do_configure did not run.<br>
-Any idea where I should look?<br></blockquote><div><br></div><div>This is p=
-robably something your recipe does (e.g. via inheriting bin_package or mayb=
-e using do_configure[noexec] =3D &quot;1&quot;. You&#39;ll have to decide i=
-f the missing do_configure is intended and if it is, maybe look at the depe=
-ndency chain of the task that actually fails because sysroot isn&#39;t popu=
-lated.</div><div><br></div><div>I&#39;d really like to suggest putting effo=
-rt into fixing the legal issues that prevent you from sharing your recipes.=
-.. There may be people on this list who can debug issues like this without =
-seeing the recipe but I can understand how it feels like a bad use of their=
- time and I hope you can too.</div><div><br></div><div>Cheers,</div><div>=
-=C2=A0 Jussi =C2=A0</div><div>=C2=A0</div></div></div></div>
+These were caused because the uvesa module was being loaded during boot,<br=
+>
+when it is only meant to be loaded on qemu according to:<br>
+6af89812e8a9931ffed63768ed8536<wbr>7519bf7aef<br>
+<br>
+Since genericx86-common.inc includes qemuboot-x86, the module also tries<br=
+>
+to be loaded on genericx86 machines, this patch removes the instruction fro=
+m<br>
+qemuboot-x86 and adds it in specific to both qemux86 machines confs so<br>
+it is correctly loaded only on those.<br>
+<br>
+[YOCTO #11879]<br>
+<br>
+Signed-off-by: Alejandro Hernandez &lt;<a href=3D"mailto:alejandro.hernande=
+z@linux.intel.com">alejandro.hernandez@linux.<wbr>intel.com</a>&gt;<br>
+---<br>
+=C2=A0meta/conf/machine/include/<wbr>qemuboot-x86.inc | 2 --<br>
+=C2=A0meta/conf/machine/qemux86-64.<wbr>conf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 | 3 +++<br>
+=C2=A0meta/conf/machine/qemux86.conf=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0| 3 +++<br>
+=C2=A03 files changed, 6 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/meta/conf/machine/include/<wbr>qemuboot-x86.inc b/meta/conf/ma=
+chine/include/<wbr>qemuboot-x86.inc<br>
+index 0596e2ed3fb..100d0ccfd1f 100644<br>
+--- a/meta/conf/machine/include/<wbr>qemuboot-x86.inc<br>
++++ b/meta/conf/machine/include/<wbr>qemuboot-x86.inc<br>
+@@ -14,7 +14,5 @@ QB_KERNEL_CMDLINE_APPEND =3D &quot;vga=3D0 uvesafb.mode_o=
+ption=3D${UVESA_<wbr>MODE} oprofile.tim<br>
+=C2=A0# Add the &#39;virtio-rng-pci&#39; device otherwise the guest may run=
+ out of entropy<br>
+=C2=A0QB_OPT_APPEND =3D &quot;-vga vmware -show-cursor -usb -device usb-tab=
+let -device virtio-rng-pci&quot;<br>
+<br>
+-KERNEL_MODULE_AUTOLOAD +=3D &quot;uvesafb&quot;<br>
+-KERNEL_MODULE_PROBECONF +=3D &quot;uvesafb&quot;<br>
+=C2=A0UVESA_MODE ?=3D &quot;640x480-32&quot;<br>
+=C2=A0module_conf_uvesafb =3D &quot;options uvesafb mode_option=3D${UVESA_M=
+ODE}&quot;<br>
+diff --git a/meta/conf/machine/qemux86-<wbr>64.conf b/meta/conf/machine/qem=
+ux86-<wbr>64.conf<br>
+index ff6e5491bbc..a270d6698f3 100644<br>
+--- a/meta/conf/machine/qemux86-<wbr>64.conf<br>
++++ b/meta/conf/machine/qemux86-<wbr>64.conf<br>
+@@ -29,5 +29,8 @@ MACHINE_FEATURES +=3D &quot;x86 pci&quot;<br>
+<br>
+=C2=A0MACHINE_ESSENTIAL_EXTRA_<wbr>RDEPENDS +=3D &quot;v86d&quot;<br>
+<br>
++KERNEL_MODULE_AUTOLOAD +=3D &quot;uvesafb&quot;<br>
++KERNEL_MODULE_PROBECONF +=3D &quot;uvesafb&quot;<br>
++<br>
+=C2=A0WKS_FILE ?=3D &quot;directdisk.wks&quot;<br>
+=C2=A0do_image_wic[depends] +=3D &quot;syslinux:do_populate_sysroot syslinu=
+x-native:do_populate_<wbr>sysroot mtools-native:do_populate_<wbr>sysroot do=
+sfstools-native:do_populate_<wbr>sysroot&quot;<br>
+diff --git a/meta/conf/machine/qemux86.<wbr>conf b/meta/conf/machine/qemux8=
+6.<wbr>conf<br>
+index f8b09c37f29..5c6539b95f3 100644<br>
+--- a/meta/conf/machine/qemux86.<wbr>conf<br>
++++ b/meta/conf/machine/qemux86.<wbr>conf<br>
+@@ -28,5 +28,8 @@ MACHINE_FEATURES +=3D &quot;x86 pci&quot;<br>
+<br>
+=C2=A0MACHINE_ESSENTIAL_EXTRA_<wbr>RDEPENDS +=3D &quot;v86d&quot;<br>
+<br>
++KERNEL_MODULE_AUTOLOAD +=3D &quot;uvesafb&quot;<br>
++KERNEL_MODULE_PROBECONF +=3D &quot;uvesafb&quot;<br>
++<br>
+=C2=A0WKS_FILE ?=3D &quot;directdisk.wks&quot;<br>
+=C2=A0do_image_wic[depends] +=3D &quot;syslinux:do_populate_sysroot syslinu=
+x-native:do_populate_<wbr>sysroot mtools-native:do_populate_<wbr>sysroot do=
+sfstools-native:do_populate_<wbr>sysroot&quot;<br>
+<span class=3D"HOEnZb"><font color=3D"#888888">--<br>
+2.12.3<br>
+<br>
+--<br>
+______________________________<wbr>_________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" rel=3D"noreferrer"=
+ target=3D"_blank">https://lists.yoctoproject.<wbr>org/listinfo/poky</a><br=
+>
+</font></span></blockquote></div><br></div>
 
---001a1145b33aedd339055880f45a--
+--001a1145c7eef0dee305589bd5d3--
