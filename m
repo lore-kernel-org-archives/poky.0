@@ -1,32 +1,34 @@
-Return-Path: <alejandro.hernandez@linux.intel.com>
+Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 84F66E00CC9; Thu,  7 Sep 2017 11:30:19 -0700 (PDT)
+	id BD673E008D2; Mon, 11 Sep 2017 12:47:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [192.55.52.43 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [134.134.136.24 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E688DE00CAE
-	for <poky@yoctoproject.org>; Thu,  7 Sep 2017 11:30:18 -0700 (PDT)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga105.fm.intel.com with ESMTP; 07 Sep 2017 11:30:18 -0700
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3A886E00349
+	for <poky@yoctoproject.org>; Mon, 11 Sep 2017 12:47:49 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	11 Sep 2017 12:47:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.42,359,1500966000"; d="scan'208";a="1216040302"
-Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
-	([10.54.69.56])
-	by fmsmga002.fm.intel.com with ESMTP; 07 Sep 2017 11:30:18 -0700
-From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.42,379,1500966000"; d="scan'208";a="1171201306"
+Received: from yctb05.ostc.intel.com ([10.54.69.59])
+	by orsmga001.jf.intel.com with ESMTP; 11 Sep 2017 12:47:49 -0700
+From: leonardo.sandoval.gonzalez@linux.intel.com
 To: poky@yoctoproject.org
-Date: Thu,  7 Sep 2017 11:30:17 -0700
-Message-Id: <20170907183017.14496-1-alejandro.hernandez@linux.intel.com>
+Date: Mon, 11 Sep 2017 12:47:41 -0700
+Message-Id: <20170911194741.126692-1-leonardo.sandoval.gonzalez@linux.intel.com>
 X-Mailer: git-send-email 2.12.3
-Subject: [PATCH v2] qemu conf: Fix kernel module autoloading for uvesafb on genericx86
+MIME-Version: 1.0
+Cc: limon.anibal@gmail.com
+Subject: [PATCH] maintainers.inc: updating ownership for apt, dpkg, perl, qemu and related ones
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,74 +41,174 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Sep 2017 18:30:19 -0000
+X-List-Received-Date: Mon, 11 Sep 2017 19:47:51 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-After commit e8b1c653946ef921b65d47e52aea0dc530ef4286, we started seeing
-errors like the following during boot on genericx86 machines:
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
 
-uvesafb: failed to execute /sbin/v86d
-uvesafb: probe of uvesafb.0 failed with error -22
-uvesafb: vbe_init() failed with -22
-uvesafb: Getting VBE info block failed (eax=0x4f00, err=-2)
-
-These were caused because the uvesa module was being loaded during boot,
-when it is only meant to be loaded on qemu according to:
-6af89812e8a9931ffed63768ed85367519bf7aef
-
-Since genericx86-common.inc includes qemuboot-x86, the module also tries
-to be loaded on genericx86 machines, this patch removes the instruction from
-qemuboot-x86 and adds it in specific to both qemux86 machines confs so
-it is correctly loaded only on those.
-
-[YOCTO #11879]
-
-Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
 ---
- meta/conf/machine/include/qemuboot-x86.inc | 3 ---
- meta/conf/machine/qemux86-64.conf          | 4 ++++
- meta/conf/machine/qemux86.conf             | 4 ++++
- 3 files changed, 8 insertions(+), 3 deletions(-)
+ meta-poky/conf/distro/include/maintainers.inc | 54 +++++++++++++--------------
+ 1 file changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/meta/conf/machine/include/qemuboot-x86.inc b/meta/conf/machine/include/qemuboot-x86.inc
-index 0596e2ed3fb..1456bf7e8bc 100644
---- a/meta/conf/machine/include/qemuboot-x86.inc
-+++ b/meta/conf/machine/include/qemuboot-x86.inc
-@@ -14,7 +14,4 @@ QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.tim
- # Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
- QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet -device virtio-rng-pci"
- 
--KERNEL_MODULE_AUTOLOAD += "uvesafb"
--KERNEL_MODULE_PROBECONF += "uvesafb"
- UVESA_MODE ?= "640x480-32"
--module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
-diff --git a/meta/conf/machine/qemux86-64.conf b/meta/conf/machine/qemux86-64.conf
-index ff6e5491bbc..fcc44595e8c 100644
---- a/meta/conf/machine/qemux86-64.conf
-+++ b/meta/conf/machine/qemux86-64.conf
-@@ -29,5 +29,9 @@ MACHINE_FEATURES += "x86 pci"
- 
- MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "v86d"
- 
-+KERNEL_MODULE_AUTOLOAD += "uvesafb"
-+KERNEL_MODULE_PROBECONF += "uvesafb"
-+module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
-+
- WKS_FILE ?= "directdisk.wks"
- do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
-diff --git a/meta/conf/machine/qemux86.conf b/meta/conf/machine/qemux86.conf
-index f8b09c37f29..c53f7a92ce5 100644
---- a/meta/conf/machine/qemux86.conf
-+++ b/meta/conf/machine/qemux86.conf
-@@ -28,5 +28,9 @@ MACHINE_FEATURES += "x86 pci"
- 
- MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "v86d"
- 
-+KERNEL_MODULE_AUTOLOAD += "uvesafb"
-+KERNEL_MODULE_PROBECONF += "uvesafb"
-+module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
-+
- WKS_FILE ?= "directdisk.wks"
- do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
+diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+index 52f55bfd90..cc857e0a01 100644
+--- a/meta-poky/conf/distro/include/maintainers.inc
++++ b/meta-poky/conf/distro/include/maintainers.inc
+@@ -41,8 +41,8 @@ RECIPE_MAINTAINER_pn-alsa-utils-scripts = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-apmd = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-apr = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-apr-util = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-apt = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-apt-native = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-apt = "Aníbal Limón <limon.anibal@gmail.com>"
++RECIPE_MAINTAINER_pn-apt-native = "Aníbal Limón <limon.anibal@gmail.com>"
+ RECIPE_MAINTAINER_pn-argp-standalone = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-asciidoc = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-aspell = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+@@ -146,7 +146,7 @@ RECIPE_MAINTAINER_pn-dnf = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-docbook-xml-dtd4 = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-docbook-xsl-stylesheets = "Dengke Du <dengke.du@windriver.com>"
+ RECIPE_MAINTAINER_pn-dosfstools = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-dpkg = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-dpkg = "Aníbal Limón <limon.anibal@gmail.com>"
+ RECIPE_MAINTAINER_pn-dri2proto = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-dri3proto = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-dropbear = "Dengke Du <dengke.du@windriver.com>"
+@@ -318,16 +318,16 @@ RECIPE_MAINTAINER_pn-libcap = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libcap-ng = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libcgroup = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libcheck = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libclass-isa-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libclass-isa-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libcomps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libcroco = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libdaemon = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libdmx = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libdnf = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libdrm = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-libdumpvalue-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libenv-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libdumpvalue-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libenv-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libepoxy = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-liberation-fonts = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-liberror-perl = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -336,7 +336,7 @@ RECIPE_MAINTAINER_pn-libevent = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libexif = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libfakekey = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libffi = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libfile-checktree-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libfile-checktree-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libfm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libfm-extra = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-libfontenc = "Armin Kuster <akuster@mvista.com>"
+@@ -348,7 +348,7 @@ RECIPE_MAINTAINER_pn-libglade = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libglu = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libgpg-error = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-libgudev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libi18n-collate-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libi18n-collate-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libical = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libice = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libiconv = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -377,7 +377,7 @@ RECIPE_MAINTAINER_pn-libpcre2 = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com>"
+ RECIPE_MAINTAINER_pn-libpng = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libpng12 = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libpod-plainer-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libpod-plainer-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libproxy = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libpthread-stubs = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-librepo = "Alexander Kanavin <alexander.kanavin@intel.com>"
+@@ -392,7 +392,7 @@ RECIPE_MAINTAINER_pn-libsolv = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libsoup-2.4 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-libtasn1 = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libtheora = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libtimedate-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libtimedate-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libtirpc = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libtool = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libtool-cross = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -400,7 +400,7 @@ RECIPE_MAINTAINER_pn-libtool-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-libunistring = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-libunwind = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+ RECIPE_MAINTAINER_pn-liburcu = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-liburi-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-liburi-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libusb-compat = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libusb1 = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libuser = "Robert Yang <liezhi.yang@windriver.com>"
+@@ -426,12 +426,12 @@ RECIPE_MAINTAINER_pn-libxi = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libxinerama = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libxkbcommon = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libxkbfile = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxml-namespacesupport-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-parser-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-sax-base-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-sax-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-simple-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-namespacesupport-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-parser-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-sax-base-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-sax-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-libxml-simple-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-libxml2 = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-libxmu = "Armin Kuster <akuster@mvista.com>"
+ RECIPE_MAINTAINER_pn-libxpm = "Armin Kuster <akuster@mvista.com>"
+@@ -524,11 +524,11 @@ RECIPE_MAINTAINER_pn-mtools = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-musl = "Khem Raj <raj.khem@gmail.com>"
+ RECIPE_MAINTAINER_pn-mx-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-nasm = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-nativesdk-buildtools-perl-dummy = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-nativesdk-buildtools-perl-dummy = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-nativesdk-libtool = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+ RECIPE_MAINTAINER_pn-nativesdk-packagegroup-sdk-host = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-nativesdk-qemu-helper = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-nativesdk-postinst-intercept = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-nativesdk-qemu-helper = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-nativesdk-postinst-intercept = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-ncurses = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-neard = "Maxin B. John <maxin.john@intel.com>"
+ RECIPE_MAINTAINER_pn-neon = "Maxin B. John <maxin.john@intel.com>"
+@@ -569,8 +569,8 @@ RECIPE_MAINTAINER_pn-pciutils = "Chen Qi <Qi.Chen@windriver.com>"
+ RECIPE_MAINTAINER_pn-pcmanfm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pcmciautils = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-perf = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-perl = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-perl-native = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-perl-native = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-piglit = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+ RECIPE_MAINTAINER_pn-pigz = "Hongxu Jia <hongxu.jia@windriver.com>"
+ RECIPE_MAINTAINER_pn-pinentry = "Armin Kuster <akuster808@gmail.com>"
+@@ -592,7 +592,7 @@ RECIPE_MAINTAINER_pn-procps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-pseudo = "Mark Hatle <mark.hatle@windriver.com>"
+ RECIPE_MAINTAINER_pn-psmisc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+ RECIPE_MAINTAINER_pn-psplash = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-ptest-runner = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-ptest-runner = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-pulseaudio = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-pulseaudio-client-conf-sato = "Tanu Kaskinen <tanuk@iki.fi>"
+ RECIPE_MAINTAINER_pn-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+@@ -637,9 +637,9 @@ RECIPE_MAINTAINER_pn-python3-pygobject = "Jose Lamego <jose.a.lamego@linux.intel
+ RECIPE_MAINTAINER_pn-python3-setuptools = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-six = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-python3-smmap = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-qemu = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-qemu-helper-native = "Aníbal Limón <anibal.limon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-qemuwrapper-cross = "Aníbal Limón <anibal.limon@linux.intel.com>"
++RECIPE_MAINTAINER_pn-qemu = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-qemu-helper-native = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
++RECIPE_MAINTAINER_pn-qemuwrapper-cross = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+ RECIPE_MAINTAINER_pn-quilt = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-quilt-native = "Robert Yang <liezhi.yang@windriver.com>"
+ RECIPE_MAINTAINER_pn-quota = "Maxin B. John <maxin.john@intel.com>"
 -- 
 2.12.3
 
