@@ -1,38 +1,32 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <kgy@teledigit.eu>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 53499E00970; Tue, 12 Sep 2017 04:52:30 -0700 (PDT)
+	id DB436E00C62; Wed, 13 Sep 2017 06:15:19 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.88 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,RDNS_NONE
+	autolearn=no version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E2FDFE0090A
-	for <poky@yoctoproject.org>; Tue, 12 Sep 2017 04:52:29 -0700 (PDT)
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-	by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	12 Sep 2017 04:52:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.42,383,1500966000"; d="scan'208";a="150879026"
-Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.161])
-	([10.237.68.161])
-	by fmsmga006.fm.intel.com with ESMTP; 12 Sep 2017 04:52:27 -0700
-To: leonardo.sandoval.gonzalez@linux.intel.com, poky@yoctoproject.org
-References: <20170911194741.126692-1-leonardo.sandoval.gonzalez@linux.intel.com>
-From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-Message-ID: <11cdc392-7287-d684-16b5-a1e7b5dd9c0f@linux.intel.com>
-Date: Tue, 12 Sep 2017 14:48:21 +0300
+	*  0.8 RDNS_NONE Delivered to internal network by a host with no rDNS
+X-Greylist: delayed 490 seconds by postgrey-1.32 at yocto-www;
+	Wed, 13 Sep 2017 06:15:17 PDT
+Received: from teledigit.eu (unknown [195.56.148.71])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 73C3EE00BE8
+	for <poky@yoctoproject.org>; Wed, 13 Sep 2017 06:15:17 -0700 (PDT)
+X-AuthUser: kgy@teledigit.eu
+Received: from [192.168.42.160] ([176.63.203.49]:60292)
+	by teledigit.eu with [XMail 1.27 ESMTP Server]
+	id <SBC2D3> for <poky@yoctoproject.org> from <kgy@teledigit.eu>;
+	Wed, 13 Sep 2017 15:07:03 +0200
+To: poky@yoctoproject.org
+From: =?UTF-8?Q?Gy=c3=b6rgy_K=c3=b6vesdi?= <kgy@teledigit.eu>
+Message-ID: <0ec57716-ba1e-5cb1-670a-a7b4bdf3dad9@teledigit.eu>
+Date: Wed, 13 Sep 2017 15:07:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.3.0
+	Thunderbird/52.2.1
 MIME-Version: 1.0
-In-Reply-To: <20170911194741.126692-1-leonardo.sandoval.gonzalez@linux.intel.com>
-Cc: limon.anibal@gmail.com
-Subject: Re: [PATCH] maintainers.inc: updating ownership for apt, dpkg, perl, qemu and related ones
+Subject: kernel module development problem with SDK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,15 +39,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Sep 2017 11:52:30 -0000
+X-List-Received-Date: Wed, 13 Sep 2017 13:15:19 -0000
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On 09/11/2017 10:47 PM, leonardo.sandoval.gonzalez@linux.intel.com wrote:
-> From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Hi,
 
-Why do some recipes stay with Anibal, but others are transferred to you?
+I have poky at git hash 5686f4e1fe5229705b8c7d35895aa03827796d13 and I 
+build for ARMv7.
 
-Alex
+I wanted to build my kernel module using the SDK generated this way:
+
+     bitbake <my-image> -c populate_sdk
+
+and the recipe kernel-devsrc is added to my sdk.
+
+I found that the recipe meta/recipes-kernel/linux/kernel-devsrc.bb puts 
+everything in the kernel source tree, except the following executables:
+
+     scripts/recordmcount
+     scripts/basic/fixdep
+     scripts/mod/modpost
+
+These would be essential for module development.
+
+In the recipe kernel-devsrc.bb the following line
+
+     oe_runmake -C $kerneldir CC="${KERNEL_CC}" LD="${KERNEL_LD}" clean 
+_mrproper_scripts
+
+removes everything, including the executables mentioned above.
+IMHO it would be enough to run:
+
+     oe_runmake -C $kerneldir CC="${KERNEL_CC}" LD="${KERNEL_LD}" clean
+
+In this case the module development works properly with the resulting SDK.
+Is the 'mrproper' really necessary? IMHO the 'clean' is enough there, 
+because 'mrproper' removes too much.
+
+Regards
+Gyorgy Kovesdi
+
+
 
