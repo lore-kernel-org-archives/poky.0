@@ -1,6 +1,6 @@
 Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8955FE00D0F; Fri, 15 Sep 2017 08:05:47 -0700 (PDT)
+	id 979BFE00CFE; Fri, 15 Sep 2017 08:05:47 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,26 +12,24 @@ X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 25794E00CF1
-	for <poky@yoctoproject.org>; Fri, 15 Sep 2017 08:05:47 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0A566E00CC2
+	for <poky@yoctoproject.org>; Fri, 15 Sep 2017 08:05:46 -0700 (PDT)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
 	by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
 	15 Sep 2017 08:05:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.42,397,1500966000"; d="scan'208";a="152278646"
+X-IronPort-AV: E=Sophos;i="5.42,397,1500966000"; d="scan'208";a="152278642"
 Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
 	([10.54.69.56])
 	by fmsmga006.fm.intel.com with ESMTP; 15 Sep 2017 08:05:37 -0700
 From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Fri, 15 Sep 2017 08:05:28 -0700
-Message-Id: <d532edb006211bcd1423b2001864ad34f2ccd2e1.1505487843.git.alejandro.hernandez@linux.intel.com>
+Date: Fri, 15 Sep 2017 08:05:26 -0700
+Message-Id: <7d79b3a9bf2c8721d0c34608b9a2a0088db1f52d.1505487843.git.alejandro.hernandez@linux.intel.com>
 X-Mailer: git-send-email 2.12.3
-In-Reply-To: <7d79b3a9bf2c8721d0c34608b9a2a0088db1f52d.1505487843.git.alejandro.hernandez@linux.intel.com>
-References: <7d79b3a9bf2c8721d0c34608b9a2a0088db1f52d.1505487843.git.alejandro.hernandez@linux.intel.com>
 In-Reply-To: <cover.1505487843.git.alejandro.hernandez@linux.intel.com>
 References: <cover.1505487843.git.alejandro.hernandez@linux.intel.com>
-Subject: [PATCH 3/4] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.10
+Subject: [PATCH 1/4] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.4
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,26 +46,39 @@ X-List-Received-Date: Fri, 15 Sep 2017 15:05:47 -0000
 
 - Includes fix for CVE-2017-1000251
 
+- Upgrades to Linux 4.4.87
+
 Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 ---
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-index 19769e68bb0..8e0a9c4b574 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.10.bbappend
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index f2c9e526c08..b24d1d407ec 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
 @@ -7,8 +7,8 @@ KBRANCH_edgerouter = "standard/edgerouter"
  KBRANCH_beaglebone = "standard/beaglebone"
  KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
  
--SRCREV_machine_genericx86    ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
--SRCREV_machine_genericx86-64 ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
-+SRCREV_machine_genericx86    ?= "c1d8c4408b8aedd88eeb6ccc89ce834dd41b3f09"
-+SRCREV_machine_genericx86-64 ?= "c1d8c4408b8aedd88eeb6ccc89ce834dd41b3f09"
- SRCREV_machine_edgerouter ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
- SRCREV_machine_beaglebone ?= "f4ba3db6e599ed41d1c676f9086ad8b97fd55046"
- SRCREV_machine_mpc8315e-rdb ?= "e6f168eef50f35513249d120db188453768017ec"
+-SRCREV_machine_genericx86    ?= "0327f8213797c4885f86aec26cf55aeef5834180"
+-SRCREV_machine_genericx86-64 ?= "0327f8213797c4885f86aec26cf55aeef5834180"
++SRCREV_machine_genericx86    ?= "b71c7b786aed26c0a1e4eca66f1d874ec017d699"
++SRCREV_machine_genericx86-64 ?= "b71c7b786aed26c0a1e4eca66f1d874ec017d699"
+ SRCREV_machine_edgerouter ?= "0327f8213797c4885f86aec26cf55aeef5834180"
+ SRCREV_machine_beaglebone ?= "0327f8213797c4885f86aec26cf55aeef5834180"
+ SRCREV_machine_mpc8315e-rdb ?= "9313779872b1c0888cd94f6116fb1819908596e8"
+@@ -19,8 +19,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.4.85"
+-LINUX_VERSION_genericx86-64 = "4.4.85"
++LINUX_VERSION_genericx86 = "4.4.87"
++LINUX_VERSION_genericx86-64 = "4.4.87"
+ LINUX_VERSION_edgerouter = "4.4.85"
+ LINUX_VERSION_beaglebone = "4.4.85"
+ LINUX_VERSION_mpc8315e-rdb = "4.4.85"
 -- 
 2.12.3
 
