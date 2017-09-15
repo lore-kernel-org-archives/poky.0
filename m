@@ -1,33 +1,67 @@
-Return-Path: <kgy@teledigit.eu>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id EA028E00CC4; Wed, 13 Sep 2017 23:40:51 -0700 (PDT)
+	id BDC0DE00CAE; Fri, 15 Sep 2017 04:59:49 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,RDNS_NONE
-	autolearn=no version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [209.85.128.180 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.128.180 listed in dnsbl.sorbs.net]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.8 RDNS_NONE Delivered to internal network by a host with no rDNS
-Received: from teledigit.eu (unknown [195.56.148.71])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A9541E00CB4
-	for <poky@yoctoproject.org>; Wed, 13 Sep 2017 23:40:48 -0700 (PDT)
-X-AuthUser: kgy@teledigit.eu
-Received: from [192.168.42.160] ([176.63.203.49]:34366)
-	by teledigit.eu with [XMail 1.27 ESMTP Server]
-	id <SBC383> for <poky@yoctoproject.org> from <kgy@teledigit.eu>;
-	Thu, 14 Sep 2017 08:40:44 +0200
-References: <0ec57716-ba1e-5cb1-670a-a7b4bdf3dad9@teledigit.eu>
-	<698c3727-d56d-ebb0-5383-ae4fa2bf5232@windriver.com>
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wr0-f180.google.com (mail-wr0-f180.google.com
+	[209.85.128.180])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5F3AE00BBF
+	for <poky@yoctoproject.org>; Fri, 15 Sep 2017 04:59:42 -0700 (PDT)
+Received: by mail-wr0-f180.google.com with SMTP id 108so1638794wra.5
+	for <poky@yoctoproject.org>; Fri, 15 Sep 2017 04:59:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=from:to:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=eLpgVswx1i8ha6BdApDst6PZAXnz9QJ0KSHD1/35mU4=;
+	b=IZcufkHvdkkDO7ERq/IuPW9+V2bFwcXDC8U7YLLxUWUmJFLO2AY1h5BbRm4+afQo31
+	vmkFKwvxbkOgRgLc+t4shwHoB1/TRilpn9CrDqesaOgS+8JT9Wu1lx3ShQTv6TvQdtV+
+	9IFABe1OTA/niFkqXKec3IPqyiBAseUAoKsGM8pevNtu9IHr4saMhTf+89WVn92HTygW
+	8fBQ7QdMzp53RXISFO63L5lhbGdzerXTqtiTA03jrJ7MBoXQOAYb7CpbTT/C6pzACuI9
+	M+MKfrXKPRNVV+/o/4BpoEozeku6mGOQh9zghBKQZggaql0fkfJijW2ceqMqIn5Tp7cU
+	VQfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=eLpgVswx1i8ha6BdApDst6PZAXnz9QJ0KSHD1/35mU4=;
+	b=RAAYA+8FIdJyvBf12gylybW+atWvE32hp/qXvtm7s33yAV1/wp0G0VV2nhTUpYybwN
+	tQPqzkZzSvSlduLm3QYeF+oGj7YAyI2yXG+MLSV59XBqWzmXqHImivsTmWphDSXhxz85
+	0G9VN+Oi2Kioe3eDkwuconaml0q2FrhHFRuuMqH4PAkaonK5DAFi45HsizYbXvVmJSSL
+	FHxq85eQxuyVW/Jg60vzIMc9Yp/0+GiX3SaHnyaHbRvFcZf5BaGIbo07ncGFLSJvsVD0
+	/TvhP4STdnVOUMRrRSfyr8LLQZVnRgXdc/utBf3obwYHQG2oSiWJf7woCtC769hUK0D+
+	jPKg==
+X-Gm-Message-State: AHPjjUhn/xvf+XHcrJpNQZiykPNIKTrv6nWYVpvi68ofWhH32DNuq5gl
+	MR+mDI5SScJxFPkMEh8=
+X-Google-Smtp-Source: ADKCNb5X3tlkevaKYklTHTmYPp8LHsAL7+x8L7DSjwPcKKsIFQugb15PngNnSMjWqib4YQMAPdxEXw==
+X-Received: by 10.223.131.66 with SMTP id 60mr20596881wrd.171.1505476780508;
+	Fri, 15 Sep 2017 04:59:40 -0700 (PDT)
+Received: from flashheart.burtonini.com (home.burtonini.com. [81.2.106.35])
+	by smtp.gmail.com with ESMTPSA id k11sm638458wrc.90.2017.09.15.04.59.38
+	for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 15 Sep 2017 04:59:39 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
 To: poky@yoctoproject.org
-From: =?UTF-8?Q?Gy=c3=b6rgy_K=c3=b6vesdi?= <kgy@teledigit.eu>
-Message-ID: <ecab5fed-47f1-c12e-8ec0-6f4aeb90c9c6@teledigit.eu>
-Date: Thu, 14 Sep 2017 08:40:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.2.1
+Date: Fri, 15 Sep 2017 12:59:35 +0100
+Message-Id: <20170915115935.5238-1-ross.burton@intel.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <698c3727-d56d-ebb0-5383-ae4fa2bf5232@windriver.com>
-Subject: Re: kernel module development problem with SDK
+Subject: [PATCH] conf: remove maintainers.inc, now in oe-core
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,78 +74,848 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Sep 2017 06:40:52 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-List-Received-Date: Fri, 15 Sep 2017 11:59:49 -0000
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 
-Hi,
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-poky/conf/distro/include/maintainers.inc | 825 --------------------------
+ 1 file changed, 825 deletions(-)
+ delete mode 100644 meta-poky/conf/distro/include/maintainers.inc
 
-I put them back and there is no problem if they are stripped. However, 
-other versions of Poky may lead to QA error.
-
-
-On 2017-09-13 15:39, Bruce Ashfield wrote:
-> On 09/13/2017 09:07 AM, György Kövesdi wrote:
->> Hi,
->>
->> I have poky at git hash 5686f4e1fe5229705b8c7d35895aa03827796d13 and 
->> I build for ARMv7.
->>
->> I wanted to build my kernel module using the SDK generated this way:
->>
->>      bitbake <my-image> -c populate_sdk
->>
->> and the recipe kernel-devsrc is added to my sdk.
->>
->> I found that the recipe meta/recipes-kernel/linux/kernel-devsrc.bb 
->> puts everything in the kernel source tree, except the following 
->> executables:
->>
->>      scripts/recordmcount
->>      scripts/basic/fixdep
->>      scripts/mod/modpost
->>
->> These would be essential for module development.
->>
->> In the recipe kernel-devsrc.bb the following line
->>
->>      oe_runmake -C $kerneldir CC="${KERNEL_CC}" LD="${KERNEL_LD}" 
->> clean _mrproper_scripts
->>
->> removes everything, including the executables mentioned above.
->> IMHO it would be enough to run:
->>
->>      oe_runmake -C $kerneldir CC="${KERNEL_CC}" LD="${KERNEL_LD}" clean
->>
->> In this case the module development works properly with the resulting 
->> SDK.
->> Is the 'mrproper' really necessary? IMHO the 'clean' is enough there, 
->> because 'mrproper' removes too much.
->
-> The executables can't be packaged with the actual kernel source, since
-> we run into QA errors due to architecture mismatches.
->
-> Variants of this issue/concern have been around for several years now,
-> but since there are workarounds of simply re-creating the scripts
-> after SDK install, it hasn't been fixed to work out of the box.
->
-> So unfortunately, it isn't as simple as just leaving those scripts in
-> the devsrc package.
->
-> A couple of bugs that track work on this are:
->
-> https://bugzilla.yoctoproject.org/show_bug.cgi?id=4389
-> https://bugzilla.yoctoproject.org/show_bug.cgi?id=6630
->
-> Bruce
->
->>
->> Regards
->> Gyorgy Kovesdi
->>
->>
->
->
+diff --git a/meta-poky/conf/distro/include/maintainers.inc b/meta-poky/conf/distro/include/maintainers.inc
+deleted file mode 100644
+index cc857e0a01e..00000000000
+--- a/meta-poky/conf/distro/include/maintainers.inc
++++ /dev/null
+@@ -1,825 +0,0 @@
+-# Yocto Project / OpenEmbedded-Core (OE-Core) Maintainers File
+-#
+-# This file contains a list of recipe maintainers.
+-#
+-# Please submit any patches against recipes in meta to the 
+-# OE-Core mail list (openembedded-core@lists.openembedded.org)
+-# For recipes in meta-yocto please use the Poky list (poky@yoctoproject.org)
+-#
+-# If you have problems with or questions about a particular recipe, feel
+-# free to contact the maintainer directly (cc:ing the appropriate mailing list
+-# puts it in the archive and helps other people who might have the same
+-# questions in the future), but please try to do the following first:
+-#
+-#  - look in the Yocto Project Bugzilla
+-#    (http://bugzilla.yoctoproject.org/) to see if a problem has
+-#    already been reported
+-#
+-# - look through recent entries of the appropriate mailing list archives
+-#   (http://lists.linuxtogo.org/pipermail/openembedded-core or
+-#    https://lists.yoctoproject.org/pipermail/poky/) to see if other
+-#   people have run into similar problems or had similar questions
+-#   answered.
+-#
+-# The format is as a bitbake variable override for each recipe
+-#
+-#	RECIPE_MAINTAINER_pn-<recipe name> = "Full Name <address@domain>"
+-#
+-# Please keep this list in alphabetical order.
+-#
+-RECIPE_MAINTAINER_pn-acl = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-acpica = "Fathi Boudra <fathi.boudra@linaro.org>"
+-RECIPE_MAINTAINER_pn-acpid = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-acpitests = "Fathi Boudra <fathi.boudra@linaro.org>"
+-RECIPE_MAINTAINER_pn-adwaita-icon-theme = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-alsa-lib = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-alsa-plugins = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-alsa-state = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-alsa-tools = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-alsa-utils = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-alsa-utils-scripts = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-apmd = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-apr = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-apr-util = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-apt = "Aníbal Limón <limon.anibal@gmail.com>"
+-RECIPE_MAINTAINER_pn-apt-native = "Aníbal Limón <limon.anibal@gmail.com>"
+-RECIPE_MAINTAINER_pn-argp-standalone = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-asciidoc = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-aspell = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-assimp = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-at = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-at-spi2-atk = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-at-spi2-core = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-atk = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-attr = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-autoconf = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-autoconf-archive = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-autogen-native = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-automake = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-avahi = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-avahi-ui = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-babeltrace = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-base-files = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-base-passwd = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-bash = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-bash-completion = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-bc = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-bdwgc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-beecrypt = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-bigreqsproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-bind = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-binutils = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-binutils-cross = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-binutils-cross-canadian = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-binutils-crosssdk = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-bison = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-bjam-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-blktool = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-blktrace = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-bluez5 = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-bmap-tools = "Ed Bartosh <ed.bartosh@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-boost = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-bootchart2 = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-bsd-headers = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-btrfs-tools = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-build-appliance-image = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-build-compare = "Randy Witt <randy.e.witt@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-build-sysroots = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-builder = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-buildtools-tarball = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-busybox = "Armin Kuster <akuster808@gmail.com>"
+-RECIPE_MAINTAINER_pn-byacc = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-bzip2 = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-ca-certificates = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-cairo = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-calibrateproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-cantarell-fonts = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ccache = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-cdrtools-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-chkconfig = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-chkconfig-alternatives-native = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-chrpath = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-clutter-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-clutter-gst-3.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-clutter-gtk-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-cmake = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-cmake-native = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-cogl-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-compositeproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-connman = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-connman-conf = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-connman-gnome = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-console-tools = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-consolekit = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-coreutils = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-cpio = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-cracklib = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-createrepo-c = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-cronie = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-cross-localedef-native = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-cryptodev-linux = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-cryptodev-module = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-cryptodev-tests = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-cups = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-curl = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-cve-check-tool = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-cwautomacros = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-damageproto = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-db = "Mark Hatle <mark.hatle@windriver.com>"
+-RECIPE_MAINTAINER_pn-dbus = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-dbus-glib = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-dbus-test = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-dbus-wait = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-debianutils = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-depmodwrapper-cross = "Mark Hatle <mark.hatle@windriver.com>"
+-RECIPE_MAINTAINER_pn-desktop-file-utils-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-dhcp = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-diffstat = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-diffutils = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-directfb = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-directfb-examples = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-distcc = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-distcc-config = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-dmidecode = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-dmxproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-dnf = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-docbook-xml-dtd4 = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-docbook-xsl-stylesheets = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-dosfstools = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-dpkg = "Aníbal Limón <limon.anibal@gmail.com>"
+-RECIPE_MAINTAINER_pn-dri2proto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-dri3proto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-dropbear = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-dtc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-e2fsprogs = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-ed = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-eee-acpi-scripts = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-efilinux = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-eglinfo-fb = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-eglinfo-x11 = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-efilinux = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-elfutils = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-enchant = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-encodings = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-epiphany = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ethtool = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-eudev = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-expat = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-expect = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ffmpeg = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-file = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-findutils = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-fixesproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-flac = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-flex = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-font-alias = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-font-util = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-fontconfig = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-fontsproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-foomatic-filters = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-formfactor = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-freetype = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-fstests = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-fts = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gawk = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-gcc = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-cross = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-cross-canadian = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-cross-initial = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-crosssdk = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-crosssdk-initial = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-runtime = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-sanitizers = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gcc-source = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gccmakedep = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gconf = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gcr = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gdb = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gdb-cross = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gdb-cross-canadian = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gdbm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gdk-pixbuf = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gettext = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-gettext-minimal-native = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-ghostscript = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-git = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-glew = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-glib-2.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-glib-networking = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-glibc = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-glibc-initial = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-glibc-locale = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-glibc-mtrace = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-glibc-scripts = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-glproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-gmp = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gnome-common = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gnome-desktop-testing = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gnome-desktop3 = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gnome-doc-utils = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gnome-themes-standard = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gnu-config = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-gnu-efi = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-gnupg = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-gnutls = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-go = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-go-cross = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-go-helloworld = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-go-native = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-gobject-introspection = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gperf = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gpgme = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-gptfdisk = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-grep = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-groff = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-grub = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-grub-efi = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gsettings-desktop-schemas = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gst-player = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0 = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-libav = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-omx = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-meta-base = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-plugins-bad = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-plugins-base = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-plugins-good = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-plugins-ugly = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-python = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-rtsp-server = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-gstreamer1.0-vaapi = "Wei Tee Ng <wei.tee.ng@intel.com>"
+-RECIPE_MAINTAINER_pn-gtk+ = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gtk+3 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gtk-doc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gtk-engines = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gtk-icon-utils-native = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-gtk-sato-engine = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-guile = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-guilt-native = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-gummiboot = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-gzip = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-harfbuzz = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-hdparm = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-help2man-native = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-hicolor-icon-theme = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-hostap-conf = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-hostap-utils = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-hwlatdetect = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-i2c-tools = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-icecc-create-env-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-icon-naming-utils = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-icu = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ifupdown = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-init-ifupdown = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-initramfs-boot = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-initramfs-framework = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-initramfs-live-boot = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-initramfs-live-install = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-initramfs-live-install-efi = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-initramfs-live-install-efi-testfs = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-initramfs-live-install-testfs = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-initscripts = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-inputproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-intltool = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-iproute2 = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-iptables = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-iputils = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-irda-utils = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-iso-codes = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-iw = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-libjpeg-turbo = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-json-c = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-json-glib = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-kbd = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-kbproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-kconfig-frontends = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-kern-tools-native = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-kernelshark = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-kernel-devsrc = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-kexec-tools = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-keymaps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-kmod = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-kmod-native = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-kmscube = "Carlos Rafael Giani <dv@pseudoterminal.org>"
+-RECIPE_MAINTAINER_pn-l3afpad = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-lame = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-latencytop = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ldconfig-native = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-less = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-liba52 = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-libacpi = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libaio = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libarchive = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-libart-lgpl = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libassuan = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libatomic-ops = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libav = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libbsd = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libcap = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libcap-ng = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libcgroup = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libcheck = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libclass-isa-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libcomps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libconvert-asn1-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libcroco = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libdaemon = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libdmx = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libdnf = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libdrm = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-libdumpvalue-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libenv-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libepoxy = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-liberation-fonts = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-liberror-perl = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libevdev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libevent = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libexif = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libfakekey = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libffi = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libfile-checktree-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libfm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libfm-extra = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libfontenc = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libgcc = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-libgcc-initial = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-libgcrypt = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-libgfortran = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-libglade = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libglu = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libgpg-error = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-libgudev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libi18n-collate-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libical = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libice = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libiconv = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libid3tag = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-libidn = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libinput = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libjson = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libksba = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libmatchbox = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libmpc = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-libnewt = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-libnewt-python = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-libnfsidmap = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libnl = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libnotify = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libnsl2 = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-libnss-mdns = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libogg = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libomxil = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libowl = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libpam = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libpcap = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libpciaccess = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libpcre = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libpcre2 = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libpfm4 = "Matthew McClintock <msm@freescale.com>"
+-RECIPE_MAINTAINER_pn-libpng = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libpng12 = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libpod-plainer-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libproxy = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libpthread-stubs = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-librepo = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-librsvg = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libsamplerate0 = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-libsdl = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libsdl2 = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libsecret = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libsm = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libsndfile1 = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-libsolv = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libsoup-2.4 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libtasn1 = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libtheora = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libtimedate-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libtirpc = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libtool = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libtool-cross = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libtool-native = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libunistring = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-libunwind = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-liburcu = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-liburi-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libusb-compat = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libusb1 = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libuser = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-libva = "Wei Tee Ng <wei.tee.ng@intel.com>"
+-RECIPE_MAINTAINER_pn-libva-utils = "Wei Tee Ng <wei.tee.ng@intel.com>"
+-RECIPE_MAINTAINER_pn-libvorbis = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-libwebp = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libx11 = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libx11-diet = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxau = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxcalibrate = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxcb = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxcomposite = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxcursor = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxdamage = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxdmcp = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxext = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxfixes = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxfont = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxfont2 = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxft = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxi = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxinerama = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxkbcommon = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxkbfile = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxml-namespacesupport-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-parser-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-sax-base-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-sax-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml-simple-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-libxml2 = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-libxmu = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxpm = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxrandr = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxrender = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxres = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxscrnsaver = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxsettings-client = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-libxshmfence = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxslt = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-libxt = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxtst = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxv = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxvmc = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxxf86dga = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxxf86misc = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libxxf86vm = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-libyaml = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-lighttpd = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-linux-dummy = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-linux-firmware = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-linux-libc-headers = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-linux-yocto = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-linux-yocto-dev = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-linux-yocto-rt = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-linux-yocto-tiny = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-llvm = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-logrotate = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-lrzsz = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-lsb = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-lsbinitscripts = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-lsbtest = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-lsof = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-ltp = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-lttng-modules = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-lttng-tools = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-lttng-ust = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-lz4 = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-lzo = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-lzip = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-lzop = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-m4 = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-m4-native = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-mailx = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-make = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-makedepend = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-makedevs = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-man = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-man-pages = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-matchbox-config-gtk = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-desktop = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-desktop-sato = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-keyboard = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-panel-2 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-session = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-session-sato = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-terminal = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-theme-sato = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-matchbox-wm = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-mc = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-mdadm = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-menu-cache = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-mesa = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-mesa-demos = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-mesa-gl = "Otavio Salvador <otavio.salvador@ossystems.com.br>"
+-RECIPE_MAINTAINER_pn-meta-environment = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-meta-environment-extsdk = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-meta-extsdk-toolchain = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-meta-ide-support = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-meta-toolchain = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-meta-world-pkgdata = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-mingetty = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-mini-x-session = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-minicom = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-mkelfimage = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-mkfontdir = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-mkfontscale = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-mklibs-native = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-mktemp = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-mmc-utils = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-mobile-broadband-provider-info = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-modutils-initscripts = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-mpeg2dec = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-mpfr = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-mpg123 = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-msmtp = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-mtd-utils = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-mtdev = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-mtools = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-musl = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-mx-1.0 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-nasm = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-nativesdk-buildtools-perl-dummy = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-nativesdk-libtool = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-nativesdk-packagegroup-sdk-host = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-nativesdk-qemu-helper = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-nativesdk-postinst-intercept = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-ncurses = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-neard = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-neon = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-net-tools = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-netbase = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-nettle = "Armin Kuster <akuster808@gmail.com>"
+-RECIPE_MAINTAINER_pn-nfs-export-root = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-nfs-utils = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-ninja = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-npth = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-nspr = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-nss = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-nss-myhostname = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-ofono = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-oh-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-openssh = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-openssl = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-opkg = "Alejandro del Castillo <alejandro.delcastillo@ni.com>"
+-RECIPE_MAINTAINER_pn-opkg-arch-config = "Alejandro del Castillo <alejandro.delcastillo@ni.com>"
+-RECIPE_MAINTAINER_pn-opkg-keyrings = "Alejandro del Castillo <alejandro.delcastillo@ni.com>"
+-RECIPE_MAINTAINER_pn-opkg-utils = "Alejandro del Castillo <alejandro.delcastillo@ni.com>"
+-RECIPE_MAINTAINER_pn-oprofile = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-orc = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-os-release = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-ossp-uuid = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ovmf = "Ricardo Neri <ricardo.neri-calderon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-ovmf-shell-image = "Ricardo Neri <ricardo.neri-calderon@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-p11-kit = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-package-index = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-pango = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-parted = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-patch = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-patchelf = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-pax = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-pax-utils = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-pbzip2 = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-pciutils = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-pcmanfm = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-pcmciautils = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-perf = "Bruce Ashfield <bruce.ashfield@windriver.com>"
+-RECIPE_MAINTAINER_pn-perl = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-perl-native = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-piglit = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-pigz = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-pinentry = "Armin Kuster <akuster808@gmail.com>"
+-RECIPE_MAINTAINER_pn-pixman = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-pixz = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-pkgconfig = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-pm-utils = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-pointercal = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-pointercal-xinput = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-pong-clock = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-popt = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-portmap = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-powertop = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ppp = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-ppp-dialin = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-prelink = "Mark Hatle <mark.hatle@windriver.com>"
+-RECIPE_MAINTAINER_pn-presentproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-procps = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-pseudo = "Mark Hatle <mark.hatle@windriver.com>"
+-RECIPE_MAINTAINER_pn-psmisc = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-psplash = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-ptest-runner = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-pulseaudio = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-pulseaudio-client-conf-sato = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-puzzles = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-python = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-async = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-distribute = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-git = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-gitdb = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-imaging = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-mako = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-nose = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-numpy = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-pexpect = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-ptyprocess = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-pycairo = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-pycurl = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-pygtk = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-pyrex = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-scons = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-scons-native = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-setuptools = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-six = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-smartpm = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python-smmap = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3 = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-async = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-dbus = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-distribute = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-docutils = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-git = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-gitdb = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-iniparse = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-mako = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-native = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-nose = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-numpy = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-pip = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-pycairo = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-pygobject = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-setuptools = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-six = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-python3-smmap = "Jose Lamego <jose.a.lamego@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-qemu = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-qemu-helper-native = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-qemuwrapper-cross = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-quilt = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-quilt-native = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-quota = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-randrproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-re2c = "Khem Raj <raj.khem@gmail.com>"
+-RECIPE_MAINTAINER_pn-readline = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-recordproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-remake = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-renderproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-resolvconf = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-resourceproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-rgb = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-rpcbind = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-rng-tools = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-rpm = "Mark Hatle <mark.hatle@windriver.com>"
+-RECIPE_MAINTAINER_pn-rpmresolve = "Mark Hatle <mark.hatle@windriver.com>"
+-RECIPE_MAINTAINER_pn-rsync = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-rt-tests = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-ruby = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-run-postinsts = "Cristian Iorga <cristian.iorga@intel.com>"
+-RECIPE_MAINTAINER_pn-rxvt-unicode = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-sato-icon-theme = "Alejandro Hernandez <alejandro.hernandez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-sato-screenshot = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-sbc = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-screen = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-scrnsaverproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-sed = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-serf = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-setserial = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-settings-daemon = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-shadow = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-shadow-securetty = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-shadow-sysroot = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-shared-mime-info = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-shutdown-desktop = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-signing-keys = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-slang = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-socat = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-source-highlight = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-speex = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-speexdsp = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-sqlite3 = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-squashfs-tools = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-startup-notification = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-stat = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-strace = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-stress = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-subversion = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-sudo = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-swabber-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-swig = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-sysfsutils = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-sysklogd = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-syslinux = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-sysprof = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-sysstat = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemd = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemd-boot = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemd-bootchart = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemd-compat-units = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemd-serialgetty = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemd-systemctl-native = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-systemtap = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-systemtap-uprobes = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-sysvinit = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-sysvinit-inittab = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-taglib = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-tar = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-tcf-agent = "Randy Witt <randy.e.witt@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-tcl = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-tcp-wrappers = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-testexport-tarball = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-texi2html = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-texinfo = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-texinfo-dummy-native = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-tiff = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-time = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-tiny-init = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-trace-cmd = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-tremor = "Tanu Kaskinen <tanuk@iki.fi>"
+-RECIPE_MAINTAINER_pn-tslib = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-ttf-bitstream-vera = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-tzcode-native = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-tzdata = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-u-boot = "Marek Vasut <marek.vasut@gmail.com>"
+-RECIPE_MAINTAINER_pn-u-boot-fw-utils = "Marek Vasut <marek.vasut@gmail.com>"
+-RECIPE_MAINTAINER_pn-u-boot-mkimage = "Marek Vasut <marek.vasut@gmail.com>"
+-RECIPE_MAINTAINER_pn-ubootchart = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-udev-extraconf = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-unfs3 = "Randy Witt <randy.e.witt@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-unifdef = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-uninative-tarball = "Richard Purdie <richard.purdie@linuxfoundation.org>"
+-RECIPE_MAINTAINER_pn-unzip = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-update-rc.d = "Ross Burton <ross.burton@intel.com>"
+-RECIPE_MAINTAINER_pn-usbinit = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-usbutils = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-util-linux = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-util-macros = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-v86d = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-vala = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-valgrind = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-videoproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-volatile-binds = "Chen Qi <Qi.Chen@windriver.com>"
+-RECIPE_MAINTAINER_pn-vte = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-vulkan = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-vulkan-demos = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-waffle = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-watchdog = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-watchdog-config = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-wayland = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-wayland-protocols = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-webkitgtk = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-weston = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-weston-init = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-wget = "Robert Yang <liezhi.yang@windriver.com>"
+-RECIPE_MAINTAINER_pn-which = "Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-wic-tools = "Ed Bartosh <ed.bartosh@linux.intel.com>"
+-RECIPE_MAINTAINER_pn-wireless-tools = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-wpa-supplicant = "Changhyeok Bae <changhyeok.bae@lge.com>"
+-RECIPE_MAINTAINER_pn-x11-common = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-x11perf = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-x264 = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-xauth = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcb-proto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcb-util = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcb-util-image = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcb-util-keysyms = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcb-util-renderutil = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcb-util-wm = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcmiscproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xcursor-transparent-theme = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xdg-utils = "Jussi Kukkonen <jussi.kukkonen@intel.com>"
+-RECIPE_MAINTAINER_pn-xdpyinfo = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xev = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xextproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xeyes = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-input-evdev = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-input-keyboard = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-input-libinput = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-input-mouse = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-input-synaptics = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-input-vmmouse = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-cirrus = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-fbdev = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-intel = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-omap = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-omapfb = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-vesa = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86-video-vmware = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86dgaproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86driproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86miscproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xf86vidmodeproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xhost = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xineramaproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xinetd = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-xinit = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xinput = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xinput-calibrator = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xkbcomp = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xkeyboard-config = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xmlto = "Hongxu Jia <hongxu.jia@windriver.com>"
+-RECIPE_MAINTAINER_pn-xmodmap = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xorg-minimal-fonts = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xprop = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xproto = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xrandr = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xrestop = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xserver-nodm-init = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xserver-xf86-config = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xserver-xorg = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xset = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xtrans = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xtscal = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xuser-account = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xvideo-tests = "Maxin B. John <maxin.john@intel.com>"
+-RECIPE_MAINTAINER_pn-xvinfo = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xwininfo = "Armin Kuster <akuster@mvista.com>"
+-RECIPE_MAINTAINER_pn-xz = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-yasm = "Dengke Du <dengke.du@windriver.com>"
+-RECIPE_MAINTAINER_pn-zip = "Denys Dmytriyenko <denys@ti.com>"
+-RECIPE_MAINTAINER_pn-zisofs-tools-native = "Alexander Kanavin <alexander.kanavin@intel.com>"
+-RECIPE_MAINTAINER_pn-zlib = "Denys Dmytriyenko <denys@ti.com>"
+-- 
+2.11.0
 
 
