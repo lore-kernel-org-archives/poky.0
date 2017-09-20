@@ -1,6 +1,6 @@
-Return-Path: <Kexin.Hao@windriver.com>
+Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 869EBE00C3D; Sun, 17 Sep 2017 04:46:15 -0700 (PDT)
+	id 1B75CE00A39; Wed, 20 Sep 2017 10:13:34 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,32 +8,25 @@ X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	http://www.dnswl.org/, *      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
+	*      [134.134.136.100 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1596BE00B83
-	for <poky@yoctoproject.org>; Sun, 17 Sep 2017 04:46:14 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id v8HBkCTd004147
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sun, 17 Sep 2017 04:46:12 -0700 (PDT)
-Received: from pek-khao-d1 (147.11.105.121) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.361.1;
-	Sun, 17 Sep 2017 04:46:10 -0700
-Date: Sun, 17 Sep 2017 19:48:05 +0800
-From: Kevin Hao <kexin.hao@windriver.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <20170917114805.GA20219@pek-khao-d1>
-References: <20170917062737.4658-1-kexin.hao@windriver.com>
-	<1505646165.18640.110.camel@linuxfoundation.org>
-MIME-Version: 1.0
-In-Reply-To: <1505646165.18640.110.camel@linuxfoundation.org>
-User-Agent: Mutt/1.8.0 (2017-02-23)
-X-Originating-IP: [147.11.105.121]
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 12219E00956
+	for <poky@yoctoproject.org>; Wed, 20 Sep 2017 10:13:32 -0700 (PDT)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+	by orsmga105.jf.intel.com with ESMTP; 20 Sep 2017 10:13:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.42,421,1500966000"; d="scan'208";a="151485324"
+Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
+	([10.54.69.56])
+	by orsmga005.jf.intel.com with ESMTP; 20 Sep 2017 10:13:32 -0700
+From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+To: poky@yoctoproject.org
+Date: Wed, 20 Sep 2017 10:13:30 -0700
+Message-Id: <20170920171330.3263-1-alejandro.hernandez@linux.intel.com>
+X-Mailer: git-send-email 2.12.3
+Subject: [PATCH] poky-tiny: Bump default kernel version to 4.12
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,67 +39,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 17 Sep 2017 11:46:15 -0000
-X-Groupsio-MsgNum: 11012
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="u3/rZRmxL6MmkK24"
-Content-Disposition: inline
+X-List-Received-Date: Wed, 20 Sep 2017 17:13:34 -0000
 
---u3/rZRmxL6MmkK24
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
+ meta-poky/conf/distro/poky-tiny.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Sun, Sep 17, 2017 at 12:02:45PM +0100, Richard Purdie wrote:
-> On Sun, 2017-09-17 at 14:27 +0800, Kevin Hao wrote:
-> > Bump to the latest stable kernel for 4.4, 4.9, 4.10 and 4.12.
-> >=20
-> > Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
-> > ---
-> > =A0.../recipes-kernel/linux/linux-yocto_4.10.bbappend=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0|=A0=A06
-> > +++---
-> > =A0.../recipes-kernel/linux/linux-yocto_4.12.bbappend=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0| 12
-> > ++++++------
-> > =A0meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12
-> > ++++++------
-> > =A0meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12
-> > ++++++------
-> > =A04 files changed, 21 insertions(+), 21 deletions(-)
-> >=20
-> > diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-
-> > yocto_4.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-
-> > yocto_4.10.bbappend
->=20
-> Alejandro pointed you at the patches to base this off so it would
-> apply. I've rebased it myself...
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 561566e2a7e..2032bfde326 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -38,7 +38,7 @@ TCLIBC = "musl"
+ # Distro config is evaluated after the machine config, so we have to explicitly
+ # set the kernel provider to override a machine config.
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-tiny"
+-PREFERRED_VERSION_linux-yocto-tiny ?= "4.9%"
++PREFERRED_VERSION_linux-yocto-tiny ?= "4.12%"
+ 
+ # We can use packagegroup-core-boot, but in the future we may need a new packagegroup-core-tiny
+ #POKY_DEFAULT_EXTRA_RDEPENDS += "packagegroup-core-boot"
+-- 
+2.12.3
 
-Sorry, I just picked up the last patch from Alejandro's branch. I didn't re=
-alize
-there were three other patches. :-(
 
-Thanks,
-Kevin
-
->=20
-> Cheers,
->=20
-> Richard
-
---u3/rZRmxL6MmkK24
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJZvmD1AAoJEJNY7TDerrFxxd4H/RhrxPdg6KSJpamHSybRFky3
-a+74HV8C0gEfdAGaLwINXFsiggkPyBLDzD29NN78l4LbfUtcVLkc0iRATq9HsyoP
-Yez95G2XoBQ8gZ9Ztwa31B9x5onb3fRcALcP5MdQ6wxPM4yqo3CrwxdHNaoWX2M5
-7cs2wnkQmHGWvbExITfRWAew3rOGWWNSQysrtllg9/4HQeUTDKCnMsWYTaUs3FHa
-pxSU2uuxS1QkTWRuVMQ+/SHpW5H+dAf0WgOqWJUXjsANPlsUpQDlAH0fRWYCgK2E
-cgUCmH0wXcslY31FzdgOzGhqdJIrXAp/MHc8OrIdhHXDVEcGMSx9aJ81+ZpkUiM=
-=lmGt
------END PGP SIGNATURE-----
-
---u3/rZRmxL6MmkK24--
