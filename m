@@ -1,41 +1,65 @@
-Return-Path: <AMardegan@luxoft.com>
+Return-Path: <anders@chargestorm.se>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 44471E00C99; Thu, 21 Sep 2017 07:23:39 -0700 (PDT)
+	id F39E7E00D11; Mon, 25 Sep 2017 23:55:11 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [109.166.244.23 listed in list.dnswl.org]
+	*      [209.85.128.177 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.128.177 listed in dnsbl.sorbs.net]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from ORO-EDGE-03.luxoft.com (oro-edge-03.luxoft.com [109.166.244.23])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8896CE00C45
-	for <poky@yoctoproject.org>; Thu, 21 Sep 2017 07:23:38 -0700 (PDT)
-Received: from ORO-HYBRID-01.luxoft.com (172.30.115.193) by
-	oro-edge-03.luxoft.com (172.30.19.23) with Microsoft SMTP Server (TLS)
-	id 14.3.319.2; Thu, 21 Sep 2017 17:23:35 +0300
-Received: from ORO-MBOX-01.luxoft.com ([fe80::387f:bf07:869c:b95e]) by
-	oro-hybrid-01.luxoft.com ([fe80::94b2:3f2:b715:23bd%11]) with mapi id
-	14.03.0319.002; Thu, 21 Sep 2017 17:23:36 +0300
-From: "Mardegan, Alberto" <AMardegan@luxoft.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] [PATCH] bitbake: lib/bb/utils: fix movefile() copy to
-	dir fallback
-Thread-Index: AQHTMuMQ/wm2bWcuoUyJZqdBgkJCPKK/LyAAgAADOoA=
-Date: Thu, 21 Sep 2017 14:23:36 +0000
-Message-ID: <b212c6aa-616d-9cc6-ad92-4c0b75ef74d2@luxoft.com>
-References: <4c4a33cb-b2d8-f56f-f037-6769b77f70f0@luxoft.com>
-	<b38912a5-efce-d3e7-3d84-aba0867ebf56@linux.intel.com>
-In-Reply-To: <b38912a5-efce-d3e7-3d84-aba0867ebf56@linux.intel.com>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.31.240.120]
-MIME-Version: 1.0
-Subject: Re: [PATCH] bitbake: lib/bb/utils: fix movefile() copy to dir fallback
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wr0-f177.google.com (mail-wr0-f177.google.com
+	[209.85.128.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08FF5E00C89
+	for <poky@yoctoproject.org>; Mon, 25 Sep 2017 23:55:09 -0700 (PDT)
+Received: by mail-wr0-f177.google.com with SMTP id m18so11675353wrm.2
+	for <poky@yoctoproject.org>; Mon, 25 Sep 2017 23:55:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=chargestorm-se.20150623.gappssmtp.com; s=20150623;
+	h=from:to:cc:subject:date:message-id;
+	bh=QjzlIHPyx41RsZyCJzqwQQCRLGNpyMnidTYqrNHZa58=;
+	b=1xfczbu5RUGw7dmy3NmRNWprK2tYfTAxlCnzK9qHzd53PPECfK94c/MhraxFkkl2yc
+	9C1jW3hdwtKb7pmMcwULdEVGvXr5Ff712ZwW3nSF03TGv15vQMBkWIjGcGHwVM3Cv2IB
+	cHAGgE2dn+P3Tbyhfj7cRaOTfvZa6WfKp4CRK/nqlGJwDEe+YTWz5i/6pLedM5qu3pjz
+	66n0siyqjvSe4UfhE1qNvc/MKgA69//cWSge8X+7AGLOJT4EkQlRPu0CZHbxHBSNPgNj
+	Xzgts2HJDDEh3DeTiHSrtbkWVHnSzGeKdhKBnVdZZ2Xfl3c/0ErumTSdOofjqKogMEdQ
+	9r0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=QjzlIHPyx41RsZyCJzqwQQCRLGNpyMnidTYqrNHZa58=;
+	b=mjLLgsT7fEpNlKZSkkB9yjSGE5/QZQwwcxnJK5+le+qexJl3gDVQ8An+7IBqdApfOe
+	UO26wNmqhmoWdYjWJzx9cgPS+WJ54IC/569HDF5WDTpldTCPcq2Czx6iY9yPFBzuGJuO
+	XZ673sSocUwvkwJjZAyolDkCJU/91NWo4C7n+jeI6c9lBCYvmrDOYwcrwOnc5AjKQEr1
+	pUjHcB4e0n48mCOh6UYgqnmZEIR42DEcZwxtTtVBMRIhXpXyd+xGd6rUwjMIq1f7sqXB
+	xPiMKScrSiT2kw+Wu3Z41ie+WNwtY55O56hB+kLNnzEK5BOSMKJHTPlxqETq8YOPthf+
+	7nvw==
+X-Gm-Message-State: AHPjjUgMpkUymhLiJTvDNeWw3H/xv89yHg1mn7a/W3aWKXzFjbuhUJGc
+	OLuq7vHA0nU294GDRKovJkOi+dBKyrI=
+X-Google-Smtp-Source: AOwi7QC6Y02ekW/wmT9BUbv3ZzZZfNc4VT5/O1Sjbs8QY4T17eQb0J8QCIOtk4Zs/nPDCkw+1L1HKg==
+X-Received: by 10.25.221.206 with SMTP id w75mr2607039lfi.211.1506408908515;
+	Mon, 25 Sep 2017 23:55:08 -0700 (PDT)
+Received: from localhost (h83-209-191-235.cust.se.alltele.net.
+	[83.209.191.235]) by smtp.gmail.com with ESMTPSA id
+	t125sm1219671lfe.73.2017.09.25.23.55.07
+	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+	Mon, 25 Sep 2017 23:55:07 -0700 (PDT)
+From: Anders Darander <anders@chargestorm.se>
+To: poky@yoctoproject.org
+Date: Tue, 26 Sep 2017 08:54:48 +0200
+Message-Id: <20170926065448.28361-1-anders@chargestorm.se>
+X-Mailer: git-send-email 2.14.1
+Cc: Anders Darander <anders@chargestorm.se>
+Subject: [PATCH] yocto-bsp: add BBG dtb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,26 +72,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Sep 2017 14:23:39 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <977585264EDD6F44939E4F575E7C2F01@luxoft.com>
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Tue, 26 Sep 2017 06:55:12 -0000
 
-T24gMDkvMjEvMjAxNyAwNDoxMiBQTSwgQWxleGFuZGVyIEthbmF2aW4gd3JvdGU6DQpbLi4uXQ0K
-PiBUaGlzIHBhdGNoIHNob3VsZCBnbyB0byBiaXRiYWtlLWRldmVsIGxpc3QuIEFsc28sIHBsZWFz
-ZSB1c2UgZ2l0DQo+IHNlbmQtZW1haWwgOikNCg0KT29wcyEgV2lsbCBkbyA6LSkNCg0KQ2lhbywN
-CiAgIEFsYmVydG8NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCg0KVGhpcyBl
-LW1haWwgYW5kIGFueSBhdHRhY2htZW50KHMpIGFyZSBpbnRlbmRlZCBvbmx5IGZvciB0aGUgcmVj
-aXBpZW50KHMpIG5hbWVkIGFib3ZlIGFuZCBvdGhlcnMgd2hvIGhhdmUgYmVlbiBzcGVjaWZpY2Fs
-bHkgYXV0aG9yaXplZCB0byByZWNlaXZlIHRoZW0uIFRoZXkgbWF5IGNvbnRhaW4gY29uZmlkZW50
-aWFsIGluZm9ybWF0aW9uLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5kZWQgcmVjaXBpZW50LCBw
-bGVhc2UgZG8gbm90IHJlYWQgdGhpcyBlbWFpbCBvciBpdHMgYXR0YWNobWVudChzKS4gRnVydGhl
-cm1vcmUsIHlvdSBhcmUgaGVyZWJ5IG5vdGlmaWVkIHRoYXQgYW55IGRpc3NlbWluYXRpb24sIGRp
-c3RyaWJ1dGlvbiBvciBjb3B5aW5nIG9mIHRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0YWNobWVudChz
-KSBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGUtbWFp
-bCBpbiBlcnJvciwgcGxlYXNlIGltbWVkaWF0ZWx5IG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHJlcGx5
-aW5nIHRvIHRoaXMgZS1tYWlsIGFuZCB0aGVuIGRlbGV0ZSB0aGlzIGUtbWFpbCBhbmQgYW55IGF0
-dGFjaG1lbnQocykgb3IgY29waWVzIHRoZXJlb2YgZnJvbSB5b3VyIHN5c3RlbS4gVGhhbmsgeW91
-Lg0K
+As 4.4 is the lowest kernel version in oe-core, we can add the dtb for the
+beaglebon green to the list of dtb's to generate.
+
+Signed-off-by: Anders Darander <anders@chargestorm.se>
+---
+ meta-yocto-bsp/conf/machine/beaglebone.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
+index 4a90ba5..1bdd4df 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
+@@ -26,7 +26,7 @@ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+ PREFERRED_VERSION_linux-yocto ?= "4.12%"
+ 
+ KERNEL_IMAGETYPE = "zImage"
+-KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
++KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
+ KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
+ 
+ SPL_BINARY = "MLO"
+-- 
+2.14.1
+
 
