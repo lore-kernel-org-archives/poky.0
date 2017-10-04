@@ -1,65 +1,65 @@
-Return-Path: <anders@chargestorm.se>
+Return-Path: <hieberm@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F39E7E00D11; Mon, 25 Sep 2017 23:55:11 -0700 (PDT)
+	id 7383BE00D50; Tue,  3 Oct 2017 19:38:45 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, 
 	RCVD_IN_SORBS_SPAM autolearn=no version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [209.85.128.177 listed in list.dnswl.org]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.128.177 listed in dnsbl.sorbs.net]
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (hieberm[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.220.179 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wr0-f177.google.com (mail-wr0-f177.google.com
-	[209.85.128.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 08FF5E00C89
-	for <poky@yoctoproject.org>; Mon, 25 Sep 2017 23:55:09 -0700 (PDT)
-Received: by mail-wr0-f177.google.com with SMTP id m18so11675353wrm.2
-	for <poky@yoctoproject.org>; Mon, 25 Sep 2017 23:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=chargestorm-se.20150623.gappssmtp.com; s=20150623;
-	h=from:to:cc:subject:date:message-id;
-	bh=QjzlIHPyx41RsZyCJzqwQQCRLGNpyMnidTYqrNHZa58=;
-	b=1xfczbu5RUGw7dmy3NmRNWprK2tYfTAxlCnzK9qHzd53PPECfK94c/MhraxFkkl2yc
-	9C1jW3hdwtKb7pmMcwULdEVGvXr5Ff712ZwW3nSF03TGv15vQMBkWIjGcGHwVM3Cv2IB
-	cHAGgE2dn+P3Tbyhfj7cRaOTfvZa6WfKp4CRK/nqlGJwDEe+YTWz5i/6pLedM5qu3pjz
-	66n0siyqjvSe4UfhE1qNvc/MKgA69//cWSge8X+7AGLOJT4EkQlRPu0CZHbxHBSNPgNj
-	Xzgts2HJDDEh3DeTiHSrtbkWVHnSzGeKdhKBnVdZZ2Xfl3c/0ErumTSdOofjqKogMEdQ
-	9r0g==
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.220.179 listed in dnsbl.sorbs.net]
+Received: from mail-qk0-f179.google.com (mail-qk0-f179.google.com
+	[209.85.220.179])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 068CFE00D4E
+	for <poky@yoctoproject.org>; Tue,  3 Oct 2017 19:38:44 -0700 (PDT)
+Received: by mail-qk0-f179.google.com with SMTP id c67so9579314qkg.2
+	for <poky@yoctoproject.org>; Tue, 03 Oct 2017 19:38:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=r+q7r1palp9jFQkk8q1pQtprEeClM4IhS3NmGARyzFM=;
+	b=hYT3yfw9ZgB/RltFFk+/Eq6VzdAbmiXEISihluFeH730LMUOKW+HOBbZcwSM8HuElm
+	4QeiOg7rePtWf7ay2Lzm0r1rVAFFnuakgdO8XGWTslTjxC/8rE3dgNq6r48kG0TIYRCb
+	npUkhQrb13bSTD81e6GAvKZHlKR1xFmiEVeZZQbg+Ph0WVjRH0g8QVgwTmcTBuqV1PQj
+	9tbdcJgrKjFXcT3Y5iTbr924CjrU4ktEscpZb5RD5TfwW3Yxe7IA1jOR4evhpwVGgTgL
+	wCU0AyNFari7TLc5IulperFrtXlqhKtcW6guIZ66lSTC4ozmht9FxnePr7Bq2kCxNu+L
+	ExVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=QjzlIHPyx41RsZyCJzqwQQCRLGNpyMnidTYqrNHZa58=;
-	b=mjLLgsT7fEpNlKZSkkB9yjSGE5/QZQwwcxnJK5+le+qexJl3gDVQ8An+7IBqdApfOe
-	UO26wNmqhmoWdYjWJzx9cgPS+WJ54IC/569HDF5WDTpldTCPcq2Czx6iY9yPFBzuGJuO
-	XZ673sSocUwvkwJjZAyolDkCJU/91NWo4C7n+jeI6c9lBCYvmrDOYwcrwOnc5AjKQEr1
-	pUjHcB4e0n48mCOh6UYgqnmZEIR42DEcZwxtTtVBMRIhXpXyd+xGd6rUwjMIq1f7sqXB
-	xPiMKScrSiT2kw+Wu3Z41ie+WNwtY55O56hB+kLNnzEK5BOSMKJHTPlxqETq8YOPthf+
-	7nvw==
-X-Gm-Message-State: AHPjjUgMpkUymhLiJTvDNeWw3H/xv89yHg1mn7a/W3aWKXzFjbuhUJGc
-	OLuq7vHA0nU294GDRKovJkOi+dBKyrI=
-X-Google-Smtp-Source: AOwi7QC6Y02ekW/wmT9BUbv3ZzZZfNc4VT5/O1Sjbs8QY4T17eQb0J8QCIOtk4Zs/nPDCkw+1L1HKg==
-X-Received: by 10.25.221.206 with SMTP id w75mr2607039lfi.211.1506408908515;
-	Mon, 25 Sep 2017 23:55:08 -0700 (PDT)
-Received: from localhost (h83-209-191-235.cust.se.alltele.net.
-	[83.209.191.235]) by smtp.gmail.com with ESMTPSA id
-	t125sm1219671lfe.73.2017.09.25.23.55.07
-	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Mon, 25 Sep 2017 23:55:07 -0700 (PDT)
-From: Anders Darander <anders@chargestorm.se>
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=r+q7r1palp9jFQkk8q1pQtprEeClM4IhS3NmGARyzFM=;
+	b=DCY95ZOZ+3wPUiyu+fBR0uEl8Oo2Qlp1QDnvAycKCI1onlFJUXP3/Hk4QMUdjG9fsC
+	N3F/bN0bKsud3/+JW/Yjg2LWauCjbukYDrgTdmGBqBfjtL88InJhoEaqmKRL30wV9w35
+	15HjJMcZ1j7xu8vhXhxZOOsNL2fFIo3GTSipcL2ZZTJWDXnIGB3p4jQuSIqXLdIbyWXb
+	EJzAPphovqM0McmwkkewKNjVyeon95/0izL/s6yFMZ5ctGUSQxuGCRh3FBvkkXcLjtgm
+	Xh9NcmDh/CwVQ8JX7X8xB9xRNAvFx7i7Ie0Zjb9pylx9c/UC2NM4rtaIaaMsJwa4JA7g
+	5+Yg==
+X-Gm-Message-State: AMCzsaWGiFbmtKCA6p3SPZ2JniXIN5HlPABX1q4yQ6TNp3SQ0o8DRLAa
+	wtpuQWkU+ExFnovx6YmQH4R7pXXV54EOWVdDWHVovQ==
+X-Google-Smtp-Source: AOwi7QAbNoLIRRwmUNCcBnGo8xX2jgk36wbNd+SPbdebSd89wX/vlDtNeD8qfxDNvx4BIDi4EdaOSc4vdyqWCcrHN/8=
+X-Received: by 10.55.159.209 with SMTP id i200mr20445914qke.277.1507084723901; 
+	Tue, 03 Oct 2017 19:38:43 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.140.96.34 with HTTP; Tue, 3 Oct 2017 19:38:43 -0700 (PDT)
+From: Mark Hieber <hieberm@gmail.com>
+Date: Tue, 3 Oct 2017 19:38:43 -0700
+Message-ID: <CAPxJQ9HbdcmXm4fdWP4wKeHgyTEhBgy4k+eaXdSB9A5Tqu96fw@mail.gmail.com>
 To: poky@yoctoproject.org
-Date: Tue, 26 Sep 2017 08:54:48 +0200
-Message-Id: <20170926065448.28361-1-anders@chargestorm.se>
-X-Mailer: git-send-email 2.14.1
-Cc: Anders Darander <anders@chargestorm.se>
-Subject: [PATCH] yocto-bsp: add BBG dtb
+Subject: Isse adding SELINUX to my image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -72,30 +72,28 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Sep 2017 06:55:12 -0000
+X-List-Received-Date: Wed, 04 Oct 2017 02:38:45 -0000
+Content-Type: multipart/alternative; boundary="001a114d7f6e9d5b57055aaf81ab"
 
-As 4.4 is the lowest kernel version in oe-core, we can add the dtb for the
-beaglebon green to the list of dtb's to generate.
+--001a114d7f6e9d5b57055aaf81ab
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Anders Darander <anders@chargestorm.se>
----
- meta-yocto-bsp/conf/machine/beaglebone.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I am having issues adding SELINUX to my image. I posted a question at
+https://stackoverflow.com/questions/46554907/using-selinux-in-yocto-poky if
+anyone can please help me.
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone.conf b/meta-yocto-bsp/conf/machine/beaglebone.conf
-index 4a90ba5..1bdd4df 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone.conf
-@@ -26,7 +26,7 @@ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
- PREFERRED_VERSION_linux-yocto ?= "4.12%"
- 
- KERNEL_IMAGETYPE = "zImage"
--KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb"
-+KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
- KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
- 
- SPL_BINARY = "MLO"
--- 
-2.14.1
+Thanks,
 
+Mark
 
+--001a114d7f6e9d5b57055aaf81ab
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I am having issues adding SELINUX to my image. I posted a =
+question at=C2=A0<a href=3D"https://stackoverflow.com/questions/46554907/us=
+ing-selinux-in-yocto-poky">https://stackoverflow.com/questions/46554907/usi=
+ng-selinux-in-yocto-poky</a> if anyone can please help me.<div><br></div><d=
+iv>Thanks,</div><div><br></div><div>Mark</div></div>
+
+--001a114d7f6e9d5b57055aaf81ab--
