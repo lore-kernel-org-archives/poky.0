@@ -1,63 +1,53 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <star@gmx.li>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 0B07EE00CC1; Tue, 24 Oct 2017 06:29:09 -0700 (PDT)
+	id 7936EE00D03; Tue, 24 Oct 2017 07:42:01 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_LOW,
-	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.214.54 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_LOW,RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (star[at]gmx.li)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [212.227.17.21 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [209.85.214.54 listed in dnsbl.sorbs.net]
-Received: from mail-it0-f54.google.com (mail-it0-f54.google.com
-	[209.85.214.54])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E22A8E00C45
-	for <poky@yoctoproject.org>; Tue, 24 Oct 2017 06:29:07 -0700 (PDT)
-Received: by mail-it0-f54.google.com with SMTP id p138so9972986itp.2
-	for <poky@yoctoproject.org>; Tue, 24 Oct 2017 06:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=NtBI46WWGaXZKf8dSVpKd8KKb4r0YyM0YwpcqOXxe1g=;
-	b=W7XFxb1Pw+sNj1Y3HdLwY1h+rkaxkVE1iZVnl4oKhcZhJ00iutdYBlRFGbOOQsOWha
-	lBaMDLOMSUsRPO6OnJA7KxJDA5e1AM6u7sAUJJsQ+45FUGQf2Wn7rrSJ1SoWKSqaD2nW
-	dIkQjr7SmLJAc6bYi9HuGNcNGIHiCjVwCAd97lFZo8Nr6qWHvT+p4ksRgNPA3/C3F+g0
-	mxTjAvqC0Ai0DxFNWJ7sxn/I6HcajXQ22PDGD7cmUZhVUpPf8B/eeH6r9oO5nytXLW+S
-	+7rmkpjIQfYEguWEdgdQRBwCdWsmeuT++RdSuuezly6Hgmnrr8T5fcnVATZGAoVaei/M
-	9W4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=NtBI46WWGaXZKf8dSVpKd8KKb4r0YyM0YwpcqOXxe1g=;
-	b=Z2rj9rkRLrGCCncLVGdKL0ja/uBUhqVz5Crab1V/nPvQbatoq1hX9qzToc/vBlLsRF
-	aZwLYx38edfItkZTk/Lj30MvR4vwBS+i28LyUSkAZ9AvvXlSf9U6R7tS+m2aFHJW8E6O
-	WXUyx8f2Sj0hE8zLNiOYlw7/C29wQt0wXgS0d6lGu6sJUAqFxEm9vDTvlyyIO7hmq7hW
-	NcdURndb/3be3NOsphaDyUThvCrULLNAFR59qwePFBdwWRG8RCPNqUfWz77mcuuIDlDb
-	auhlImtOL47yAMdniQXMerieIQ5AlmZSDrXmsd0dEEDZdJ+fxloODi4QcfCnoEiXcx1V
-	Jhug==
-X-Gm-Message-State: AMCzsaXNu3oKr6rKg3kLpVmmNmhsixMpUFZK6FzfedHjTPnjaqzOCpxY
-	+BfYiFhB6655/2ppRv0+QpF4oa43IktZEULgPomSiA==
-X-Google-Smtp-Source: ABhQp+RvF8xnVfjwoZG8we25R/FlYqT6JUgS3/zNpnGVABaITZuxluygyZ0m77fuLsfhWnmdMvRJVIp9aXKkQ6wJH40=
-X-Received: by 10.36.161.15 with SMTP id y15mr13812981ite.151.1508851747020;
-	Tue, 24 Oct 2017 06:29:07 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.107.176.10 with HTTP; Tue, 24 Oct 2017 06:28:46 -0700 (PDT)
-In-Reply-To: <trinity-0e3ed1cd-c3b2-47d0-aac1-bfea6bc974ac-1508851020788@3c-app-gmx-bs63>
+	*      [212.227.17.21 listed in dnsbl.sorbs.net]
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F27F4E00CEF
+	for <poky@yoctoproject.org>; Tue, 24 Oct 2017 07:41:59 -0700 (PDT)
+Received: from [192.168.3.22] ([84.56.230.36]) by mail.gmx.com (mrgmx102
+	[212.227.17.168]) with ESMTPSA (Nemesis) id 0MKbZD-1e55OQ3rol-00213N;
+	Tue, 24 Oct 2017 16:41:54 +0200
+To: "Burton, Ross" <ross.burton@intel.com>
 References: <trinity-0e3ed1cd-c3b2-47d0-aac1-bfea6bc974ac-1508851020788@3c-app-gmx-bs63>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 24 Oct 2017 14:28:46 +0100
-Message-ID: <CAJTo0LYbB0qWGZVk1Lkdx++iTn53y9XbWw+QRT3UiYdJTQkORA@mail.gmail.com>
-To: Arno Steffens <star@gmx.li>
+	<CAJTo0LYbB0qWGZVk1Lkdx++iTn53y9XbWw+QRT3UiYdJTQkORA@mail.gmail.com>
+From: Arno Steffens <star@gmx.li>
+Message-ID: <47fbe08c-2d00-7e49-4479-782da5b43bb1@gmx.li>
+Date: Tue, 24 Oct 2017 16:41:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+	Thunderbird/45.6.0
+MIME-Version: 1.0
+In-Reply-To: <CAJTo0LYbB0qWGZVk1Lkdx++iTn53y9XbWw+QRT3UiYdJTQkORA@mail.gmail.com>
+X-Provags-ID: V03:K0:LN9x06nz8lijJ9SLzhqj4tB9AOEUDsju1XMDLMg3VAftSYPPUfo
+	cucZU+uM8V4YfNmcNHWei/AaajzzAgK40XPpXG4J+bIW4vXXRZPdpqoIKzLTaEK1hsc8x3R
+	wjEWwp17xk50Orc+0ivuCbI9/DSbYp0vOWx/40F7QL6IuAyiUq2ik8IScdhzHhi09uFWA3X
+	WnZecq22nFed8KRB0/5ig==
+X-UI-Out-Filterresults: notjunk:1;V01:K0:K12kEqorKCc=:/P7BYvoJwKNRRckcpiPc41
+	TbvJaVUVdcRr403gNtH71OgPS98kggxYdtxyl/9USqq4gvV4qOLkkLISJxQZZ9EBXIk3alcIv
+	LKPHakj2PmnubmhEffsiHcya/l46wz+fqelPkqHiuijiXvp5YiB2QygQ4mJxi6GV5/+iZtpwk
+	pXVsGBQhb0OFCrBvJK/jf5fkWD52zRPewTtKG2/vsU92UZ/i9TIikwWSIH3iHM7iWeqDqiR7J
+	H4faWW+V0IPLs1Z6pA4pc4OJcCYdyqDIJOAw3h1e5r1VfxNynnYLYyln2pZRYwecQ2hxcw1Np
+	0EtJ2JYFPvD3GTBsXPObnz/mOzOdJca4wMOMXvU83inZeKleh+dqK8i/STV6UUAROYa3Wdx6y
+	kEXmRkoB4pVUCe2mSkZp6BK0Pb2JmyzbVjebYaToMrZ0fEJsf4vreCWjt0+1S3/Y7UOFzYQNK
+	L+54KzDx5Bpd2azpP0qvuiUk5UtlNe8YWADungy+UC6rEQi8rhtmQgQzwKksGzm3Zuc0LfVlI
+	l33Yv23F3Nkj61jWdzz32efMX9DLF4AoBhbJ3AHrnyhDONx7Z4J+tA2KHosc+Qn1SI4iKuIdT
+	kX+FthuflE77nk0L4ueJ48osbKIBMldtjs1CMzueehdUVirHGLfa3YWgTg8uIvkBY6xN+WGEb
+	NnK61BhNl0T3rKT7YyswzlT6czBS3mhqScq79rO5kP9vBk1ncNdIqrLAeY8LBLzpgLxmQ+VGx
+	PZS1EmDqJOLvpWL89h5t1K5hNN8xJIGt+jPvaGqSpnKnxdO3cFP/a/lQ0N4pY4qs+LhogeBZQ
+	DUeOoKOOJk1MO7aQrWxhA++Yis70z0f3qeaKBg9FP2oJkvINz0=
 Cc: "pokyyoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: snmpd
 X-BeenThere: poky@yoctoproject.org
@@ -72,44 +62,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Oct 2017 13:29:09 -0000
-Content-Type: multipart/alternative; boundary="f403045fbf04667ac5055c4aeca7"
+X-List-Received-Date: Tue, 24 Oct 2017 14:42:01 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---f403045fbf04667ac5055c4aeca7
-Content-Type: text/plain; charset="UTF-8"
-
-On 24 October 2017 at 14:17, Arno Steffens <star@gmx.li> wrote:
-
-> Sorry for asking - how to get snmpd into my rootfs?
+Am 24.10.2017 um 15:28 schrieb Burton, Ross:
+> On 24 October 2017 at 14:17, Arno Steffens <star@gmx.li
+> <mailto:star@gmx.li>> wrote:
 >
-> I added net-snmp to my IMAGE_INSTALL. It creates the packages, but at
-> least the net-snmp-server-snmpd is not included in my rootfs. Is there
-> something to add?
+>     Sorry for asking - how to get snmpd into my rootfs?
 >
+>     I added net-snmp to my IMAGE_INSTALL. It creates the packages, but
+>     at least the net-snmp-server-snmpd is not included in my rootfs. Is
+>     there something to add?
+>
+>
+> If you want the net-snmp-server-snmpd package in your image then add
+> that to IMAGE_INSTALL.  Adding a recipe name doesn't automatically add
+> all packages as that is rarely what you want to happen.
+>
+> Ross
 
-If you want the net-snmp-server-snmpd package in your image then add that
-to IMAGE_INSTALL.  Adding a recipe name doesn't automatically add all
-packages as that is rarely what you want to happen.
+Dear Ross,
+You are right, in fact I would like just this, not all the snmp stuff in 
+my rootfs. Hard for me to find out how to control this in detail.
+Imho this packets, that can be added to IMAGE_INSTALL are mostly 
+generating several ipk's.
 
-Ross
+But back to your suggestion:
+I am quite sure I tried this but get an error message. Right now I am 
+not at this PC, so I can't repeat it.
+Arno
 
---f403045fbf04667ac5055c4aeca7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">On 24 October 2017 at 14:17, Arno Steffens <span dir=3D"lt=
-r">&lt;<a href=3D"mailto:star@gmx.li" target=3D"_blank">star@gmx.li</a>&gt;=
-</span> wrote:<br><div class=3D"gmail_extra"><div class=3D"gmail_quote"><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
-ccc solid;padding-left:1ex">Sorry for asking - how to get snmpd into my roo=
-tfs?<br>
-<br>
-I added net-snmp to my IMAGE_INSTALL. It creates the packages, but at least=
- the net-snmp-server-snmpd is not included in my rootfs. Is there something=
- to add?<br></blockquote><div><br></div><div>If you want the net-snmp-serve=
-r-snmpd package in your image then add that to IMAGE_INSTALL.=C2=A0 Adding =
-a recipe name doesn&#39;t automatically add all packages as that is rarely =
-what you want to happen.</div><div><br></div><div>Ross=C2=A0</div></div></d=
-iv></div>
-
---f403045fbf04667ac5055c4aeca7--
