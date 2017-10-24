@@ -1,54 +1,70 @@
-Return-Path: <star@gmx.li>
+Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7936EE00D03; Tue, 24 Oct 2017 07:42:01 -0700 (PDT)
+	id 274EBE00D05; Tue, 24 Oct 2017 14:20:13 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW,RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [212.227.17.21 listed in list.dnswl.org]
+	mail provider *      (akuster808[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.82.42 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
-	*      [212.227.17.21 listed in dnsbl.sorbs.net]
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F27F4E00CEF
-	for <poky@yoctoproject.org>; Tue, 24 Oct 2017 07:41:59 -0700 (PDT)
-Received: from [192.168.3.22] ([84.56.230.36]) by mail.gmx.com (mrgmx102
-	[212.227.17.168]) with ESMTPSA (Nemesis) id 0MKbZD-1e55OQ3rol-00213N;
-	Tue, 24 Oct 2017 16:41:54 +0200
-To: "Burton, Ross" <ross.burton@intel.com>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wm0-f42.google.com (mail-wm0-f42.google.com [74.125.82.42])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9775DE00CFF
+	for <poky@yoctoproject.org>; Tue, 24 Oct 2017 14:20:12 -0700 (PDT)
+Received: by mail-wm0-f42.google.com with SMTP id q124so18199470wmb.0
+	for <poky@yoctoproject.org>; Tue, 24 Oct 2017 14:20:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:references:from:message-id:date:user-agent:mime-version
+	:in-reply-to:content-transfer-encoding:content-language;
+	bh=EWHoNPSI9P2MNmP4AwY+wrIMBAWvKUzWNNrtU9uWpUo=;
+	b=gi8IYtjU5QPOEIVH6HbIwQSRydVQMS/LhZNzkZUel9LG79j6P01tY6Z517QQLGp77d
+	tN5uXxmFjXKnXWt5qd34ebvETvmxdO4DvuA7HGh7sd7bwwanK9NkDp6z2yzaSWKeuIAH
+	oNWBFUjv0E1NhcKhbScyNX/ONRBO/NzJf/OchzG0FL4JVFV4S8kGEwoMNomuSG5vEtwo
+	zXbQ3BnqsjJwEKolDHkaoopJvfDp2YN6yuZ2HkMFzUaAl1nZIiDAGKKVC1GK2ihyJde6
+	Jy9I+YqoQtu5gGHmeEzjvGXjyRXZRSLJpLpZu8rMKstEWfOKXcaYFRFaF65E4ZqA33pA
+	7xxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-transfer-encoding
+	:content-language;
+	bh=EWHoNPSI9P2MNmP4AwY+wrIMBAWvKUzWNNrtU9uWpUo=;
+	b=oIz1IYGM53TXWqonOxqikBcfZPf5rp95IeDlchiB9fP9DXmJaanI1lWJUUNVUiQDO3
+	xslpKdfNjCtaoCuYpnvpLP+lhqjpjzrgpZOOpVLgNbwEJluzh02eGNp4TQ+NagurxFfR
+	DX6G+ipmstfghz9vFViLpDCzoGRvw1gcNfBb7r2o1yTOe+uEIKWzQwZ+tPEhHRLoPMJA
+	ZDUTNgYkvqCHpzKD6cVUOhKQ74reeCxjbbEj081sK6Rt7NYVGrNCp7F1jCoB3BsxYFP0
+	hD58D1EsfeaPaj5thdLNbAJSULlbR53HVOcxh+Ubm7N8Jeg5qWXEUYsezFshGeNiEQHf
+	FbSQ==
+X-Gm-Message-State: AMCzsaVsDMU7nEaBhfZYWrwJx4Z5l06vw0wc/UjvtGFfcJOny73Lf4k1
+	hn/v0vgfelxIc+Nkg0wuSERmPQ==
+X-Google-Smtp-Source: ABhQp+Rq0+8Qa7qmUasLefhBtRYVxF9JMbM03dy8s5xBNXxvdccHOe8OodsniKe02foG/vT8w5lGEg==
+X-Received: by 10.28.84.89 with SMTP id p25mr9428wmi.112.1508880011307;
+	Tue, 24 Oct 2017 14:20:11 -0700 (PDT)
+Received: from [10.253.10.43] ([62.168.35.105])
+	by smtp.gmail.com with ESMTPSA id
+	n14sm1331937wrg.38.2017.10.24.14.20.10
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Tue, 24 Oct 2017 14:20:10 -0700 (PDT)
+To: Arno Steffens <star@gmx.li>, "pokyyoctoproject.org" <poky@yoctoproject.org>
 References: <trinity-0e3ed1cd-c3b2-47d0-aac1-bfea6bc974ac-1508851020788@3c-app-gmx-bs63>
-	<CAJTo0LYbB0qWGZVk1Lkdx++iTn53y9XbWw+QRT3UiYdJTQkORA@mail.gmail.com>
-From: Arno Steffens <star@gmx.li>
-Message-ID: <47fbe08c-2d00-7e49-4479-782da5b43bb1@gmx.li>
-Date: Tue, 24 Oct 2017 16:41:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
-	Thunderbird/45.6.0
+From: akuster808 <akuster808@gmail.com>
+Message-ID: <a62ec986-e796-c5ea-2ac5-ad92e3ce833e@gmail.com>
+Date: Tue, 24 Oct 2017 14:20:09 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+	Thunderbird/52.4.0
 MIME-Version: 1.0
-In-Reply-To: <CAJTo0LYbB0qWGZVk1Lkdx++iTn53y9XbWw+QRT3UiYdJTQkORA@mail.gmail.com>
-X-Provags-ID: V03:K0:LN9x06nz8lijJ9SLzhqj4tB9AOEUDsju1XMDLMg3VAftSYPPUfo
-	cucZU+uM8V4YfNmcNHWei/AaajzzAgK40XPpXG4J+bIW4vXXRZPdpqoIKzLTaEK1hsc8x3R
-	wjEWwp17xk50Orc+0ivuCbI9/DSbYp0vOWx/40F7QL6IuAyiUq2ik8IScdhzHhi09uFWA3X
-	WnZecq22nFed8KRB0/5ig==
-X-UI-Out-Filterresults: notjunk:1;V01:K0:K12kEqorKCc=:/P7BYvoJwKNRRckcpiPc41
-	TbvJaVUVdcRr403gNtH71OgPS98kggxYdtxyl/9USqq4gvV4qOLkkLISJxQZZ9EBXIk3alcIv
-	LKPHakj2PmnubmhEffsiHcya/l46wz+fqelPkqHiuijiXvp5YiB2QygQ4mJxi6GV5/+iZtpwk
-	pXVsGBQhb0OFCrBvJK/jf5fkWD52zRPewTtKG2/vsU92UZ/i9TIikwWSIH3iHM7iWeqDqiR7J
-	H4faWW+V0IPLs1Z6pA4pc4OJcCYdyqDIJOAw3h1e5r1VfxNynnYLYyln2pZRYwecQ2hxcw1Np
-	0EtJ2JYFPvD3GTBsXPObnz/mOzOdJca4wMOMXvU83inZeKleh+dqK8i/STV6UUAROYa3Wdx6y
-	kEXmRkoB4pVUCe2mSkZp6BK0Pb2JmyzbVjebYaToMrZ0fEJsf4vreCWjt0+1S3/Y7UOFzYQNK
-	L+54KzDx5Bpd2azpP0qvuiUk5UtlNe8YWADungy+UC6rEQi8rhtmQgQzwKksGzm3Zuc0LfVlI
-	l33Yv23F3Nkj61jWdzz32efMX9DLF4AoBhbJ3AHrnyhDONx7Z4J+tA2KHosc+Qn1SI4iKuIdT
-	kX+FthuflE77nk0L4ueJ48osbKIBMldtjs1CMzueehdUVirHGLfa3YWgTg8uIvkBY6xN+WGEb
-	NnK61BhNl0T3rKT7YyswzlT6czBS3mhqScq79rO5kP9vBk1ncNdIqrLAeY8LBLzpgLxmQ+VGx
-	PZS1EmDqJOLvpWL89h5t1K5hNN8xJIGt+jPvaGqSpnKnxdO3cFP/a/lQ0N4pY4qs+LhogeBZQ
-	DUeOoKOOJk1MO7aQrWxhA++Yis70z0f3qeaKBg9FP2oJkvINz0=
-Cc: "pokyyoctoproject.org" <poky@yoctoproject.org>
+In-Reply-To: <trinity-0e3ed1cd-c3b2-47d0-aac1-bfea6bc974ac-1508851020788@3c-app-gmx-bs63>
 Subject: Re: snmpd
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -62,35 +78,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Oct 2017 14:42:01 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 24 Oct 2017 21:20:13 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-Am 24.10.2017 um 15:28 schrieb Burton, Ross:
-> On 24 October 2017 at 14:17, Arno Steffens <star@gmx.li
-> <mailto:star@gmx.li>> wrote:
->
->     Sorry for asking - how to get snmpd into my rootfs?
->
->     I added net-snmp to my IMAGE_INSTALL. It creates the packages, but
->     at least the net-snmp-server-snmpd is not included in my rootfs. Is
->     there something to add?
->
->
-> If you want the net-snmp-server-snmpd package in your image then add
-> that to IMAGE_INSTALL.  Adding a recipe name doesn't automatically add
-> all packages as that is rarely what you want to happen.
->
-> Ross
 
-Dear Ross,
-You are right, in fact I would like just this, not all the snmp stuff in 
-my rootfs. Hard for me to find out how to control this in detail.
-Imho this packets, that can be added to IMAGE_INSTALL are mostly 
-generating several ipk's.
 
-But back to your suggestion:
-I am quite sure I tried this but get an error message. Right now I am 
-not at this PC, so I can't repeat it.
-Arno
+On 10/24/2017 06:17 AM, Arno Steffens wrote:
+> Sorry for asking - how to get snmpd into my rootfs?
+>
+> I added net-snmp to my IMAGE_INSTALL. It creates the packages, but at l=
+east the net-snmp-server-snmpd is not included in my rootfs. Is there som=
+ething to add?
+According to the recipe, there is a net-snmp-server-snmpd package, maybe
+that binary resides in that? You would need to IMAGE_INSTALL_append=C2=A0=
+
+that package then.
+
+You can also search the tmp*/work/*/net-snmp*/{path to }/packages-split
+to see which package is ends up in.
+
+
+>
+> Originally I just need the this server and libnetsnmp30
+you can also grep for those name in the package workspace.
+
+- armin
+> Thank you
+> Arno
+
+
 
