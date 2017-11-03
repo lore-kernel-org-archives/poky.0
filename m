@@ -1,6 +1,6 @@
-Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
+Return-Path: <joshua.g.lock@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id EE177E00D2D; Thu, 26 Oct 2017 12:19:41 -0700 (PDT)
+	id BC270E00D14; Fri,  3 Nov 2017 06:45:31 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,20 +12,21 @@ X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7BF5E00D1B
-	for <poky@yoctoproject.org>; Thu, 26 Oct 2017 12:19:40 -0700 (PDT)
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by orsmga104.jf.intel.com with ESMTP; 26 Oct 2017 12:19:40 -0700
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7328E00C59
+	for <poky@yoctoproject.org>; Fri,  3 Nov 2017 06:45:29 -0700 (PDT)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga104.jf.intel.com with ESMTP; 03 Nov 2017 06:45:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,301,1505804400"; d="scan'208";a="1210537442"
-Received: from yctb05.ostc.intel.com ([10.54.69.59])
-	by fmsmga001.fm.intel.com with ESMTP; 26 Oct 2017 12:19:39 -0700
-From: leonardo.sandoval.gonzalez@linux.intel.com
+X-IronPort-AV: E=Sophos;i="5.44,338,1505804400"; 
+   d="scan'208";a="1567528"
+Received: from jlock-mobl3.ger.corp.intel.com ([10.252.19.154])
+	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2017 06:45:28 -0700
+From: Joshua Lock <joshua.g.lock@intel.com>
 To: poky@yoctoproject.org
-Date: Thu, 26 Oct 2017 12:19:37 -0700
-Message-Id: <20171026191937.74838-1-leonardo.sandoval.gonzalez@linux.intel.com>
-X-Mailer: git-send-email 2.12.3
-Subject: [PATCH v2] auto.conf.sample: auto.conf sample file
+Date: Fri,  3 Nov 2017 13:45:25 +0000
+Message-Id: <20171103134525.26149-1-joshua.g.lock@intel.com>
+X-Mailer: git-send-email 2.13.6
+Subject: [PATCH] poky: remove old Fedora releases from SANITY_TESTED_DISTROS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,35 +39,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Oct 2017 19:19:42 -0000
+X-List-Received-Date: Fri, 03 Nov 2017 13:45:31 -0000
 
-From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+* Fedora 24 reached end-of-life on 2017-08-08 and hasn't been tested in
+  some time.
+* Fedora 25 reaches end-of-life in Q4 2017 and is exhibiting a bug which
+  makes it an extremely unreliable host OS for workers on the Yocto
+  Autobuilder. For that reason we'll no longer be using this distro on the
+  Yocto Autobuilder and thus cannot claim the distro is sanity tested.
 
-For completion, place a sample file explaining the reason of this file and its
-normal usage. No configuration value is enable, just comments.
-
-Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Signed-off-by: Joshua Lock <joshua.g.lock@intel.com>
 ---
+ meta-poky/conf/distro/poky.conf | 2 --
+ 1 file changed, 2 deletions(-)
 
-v2: including the word CI into description
-
- meta-poky/conf/auto.conf.sample | 5 +++++
- 1 file changed, 5 insertions(+)
- create mode 100644 meta-poky/conf/auto.conf.sample
-
-diff --git a/meta-poky/conf/auto.conf.sample b/meta-poky/conf/auto.conf.sample
-new file mode 100644
-index 0000000000..bd3ee90a92
---- /dev/null
-+++ b/meta-poky/conf/auto.conf.sample
-@@ -0,0 +1,5 @@
-+#
-+# auto.conf: The file is usually created and written to by a Continuous Integration System (CI)
-+# or an Autobuilder (AB). The settings put into the file are typically the same as you would
-+# find in the conf/local.conf or the conf/site.conf files.
-+#
-\ No newline at end of file
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 6d365e0..dda7f4f 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -70,8 +70,6 @@ SANITY_TESTED_DISTROS ?= " \
+             ubuntu-16.04 \n \
+             ubuntu-16.10 \n \
+             ubuntu-17.04 \n \
+-            fedora-24 \n \
+-            fedora-25 \n \
+             fedora-26 \n \
+             centos-7 \n \
+             debian-8 \n \
 -- 
-2.12.3
+2.13.6
 
 
