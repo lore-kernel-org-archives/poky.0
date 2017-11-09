@@ -1,32 +1,39 @@
-Return-Path: <joshua.g.lock@linux.intel.com>
+Return-Path: <AMardegan@luxoft.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BC270E00D14; Fri,  3 Nov 2017 06:45:31 -0700 (PDT)
+	id 138F7E00D44; Thu,  9 Nov 2017 04:09:15 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [134.134.136.31 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [109.166.244.21 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E7328E00C59
-	for <poky@yoctoproject.org>; Fri,  3 Nov 2017 06:45:29 -0700 (PDT)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-	by orsmga104.jf.intel.com with ESMTP; 03 Nov 2017 06:45:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,338,1505804400"; 
-   d="scan'208";a="1567528"
-Received: from jlock-mobl3.ger.corp.intel.com ([10.252.19.154])
-	by orsmga001.jf.intel.com with ESMTP; 03 Nov 2017 06:45:28 -0700
-From: Joshua Lock <joshua.g.lock@intel.com>
-To: poky@yoctoproject.org
-Date: Fri,  3 Nov 2017 13:45:25 +0000
-Message-Id: <20171103134525.26149-1-joshua.g.lock@intel.com>
-X-Mailer: git-send-email 2.13.6
-Subject: [PATCH] poky: remove old Fedora releases from SANITY_TESTED_DISTROS
+X-Greylist: delayed 65 seconds by postgrey-1.32 at yocto-www;
+	Thu, 09 Nov 2017 04:09:12 PST
+Received: from ORO-EDGE-01.luxoft.com (oro-edge-01.luxoft.com [109.166.244.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E1F40E00CE8
+	for <poky@yoctoproject.org>; Thu,  9 Nov 2017 04:09:12 -0800 (PST)
+Received: from ORO-HYBRID-01.luxoft.com (172.30.115.193) by
+	oro-edge-01.luxoft.com (172.30.19.21) with Microsoft SMTP Server (TLS)
+	id 14.3.319.2; Thu, 9 Nov 2017 14:08:04 +0200
+Received: from ORO-MBOX-01.luxoft.com ([fe80::387f:bf07:869c:b95e]) by
+	oro-hybrid-01.luxoft.com ([fe80::94b2:3f2:b715:23bd%11]) with mapi id
+	14.03.0319.002; Thu, 9 Nov 2017 14:08:05 +0200
+From: "Mardegan, Alberto" <AMardegan@luxoft.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: INCOMPATIBLE_LICENSE and license aliases
+Thread-Index: AQHTWVNmSB++wLf8r0a2pIBYTNuUGQ==
+Date: Thu, 9 Nov 2017 12:08:05 +0000
+Message-ID: <95b09017-37a3-be4d-29b7-1676aef39af6@luxoft.com>
+Accept-Language: it-IT, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [213.21.44.132]
+MIME-Version: 1.0
+Subject: INCOMPATIBLE_LICENSE and license aliases
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,34 +46,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 03 Nov 2017 13:45:31 -0000
+X-List-Received-Date: Thu, 09 Nov 2017 12:09:15 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <11DB16CCF399AF4281F2CBAB5731C242@luxoft.com>
+Content-Transfer-Encoding: base64
 
-* Fedora 24 reached end-of-life on 2017-08-08 and hasn't been tested in
-  some time.
-* Fedora 25 reaches end-of-life in Q4 2017 and is exhibiting a bug which
-  makes it an extremely unreliable host OS for workers on the Yocto
-  Autobuilder. For that reason we'll no longer be using this distro on the
-  Yocto Autobuilder and thus cannot claim the distro is sanity tested.
-
-Signed-off-by: Joshua Lock <joshua.g.lock@intel.com>
----
- meta-poky/conf/distro/poky.conf | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 6d365e0..dda7f4f 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -70,8 +70,6 @@ SANITY_TESTED_DISTROS ?= " \
-             ubuntu-16.04 \n \
-             ubuntu-16.10 \n \
-             ubuntu-17.04 \n \
--            fedora-24 \n \
--            fedora-25 \n \
-             fedora-26 \n \
-             centos-7 \n \
-             debian-8 \n \
--- 
-2.13.6
-
+SGkgdGhlcmUhDQogIEkndmUgcmFuIGludG8gYSBzaWxseSBwcm9ibGVtIGluIHRoZSBsYXN0IGNv
+dXBsZSBvZiBkYXlzLCBiZWNhdXNlIEkNCmhhZCB3cml0dGVuOg0KDQogIElOQ09NUEFUSUJMRV9M
+SUNFTlNFID0gIkdQTHYzIg0KDQphbmQgZm91bmQgdGhhdCBzb21lIEdQTDMgcGFja2FnZXMgd2Vy
+ZSBzdGlsbCBiZWluZyBpbmNsdWRlZC4gSSBzb2x2ZWQNCnRoZSBpc3N1ZSBieSBhZGRpbmcgYWxz
+byAiR1BMLTMuMCIgdG8gdGhlIElOQ09NUEFUSUJMRV9MSUNFTlNFIHZhcmlhYmxlLA0KYnV0IEkg
+bm93IHN0YXJ0IHRvIGRvdWJ0IHdoZXRoZXIgdGhpcyBpcyBlbm91Z2ggb3IgaWYgdGhlcmUncyBz
+dGlsbCB0aGUNCnJpc2sgb2YgbWlzc2luZyBzb21ldGhpbmcuDQoNCkkgc2VlIHRoYXQgaW4gbWV0
+YS9jb25mL2xpY2Vuc2VzLmNvbmYgdGhlcmUgaXMgYSBtYXBwaW5nIG9mIHZhcmlhdGlvbnMNCm9m
+IGxpY2Vuc2UgbmFtZXMgdG8gdGhlIFNQRFggc3RhbmRhcmQgbmFtZSwgYnV0IGl0IHNlZW1zIHRo
+YXQgdGhpcyBkb2VzDQpub3QgYWZmZWN0IHRoZSBoYW5kbGluZyBvZiBJTkNPTVBBVElCTEVfTElD
+RU5TRS4NCg0KSXMgdGhpcyBhIGJ1Zywgb3Igc29tZSBtaXN1bmRlcnN0YW5kaW5nIG9mIG1pbmU/
+DQoNCkNpYW8sDQogIEFsYmVydG8NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cg0KVGhpcyBlLW1haWwgYW5kIGFueSBhdHRhY2htZW50KHMpIGFyZSBpbnRlbmRlZCBvbmx5IGZv
+ciB0aGUgcmVjaXBpZW50KHMpIG5hbWVkIGFib3ZlIGFuZCBvdGhlcnMgd2hvIGhhdmUgYmVlbiBz
+cGVjaWZpY2FsbHkgYXV0aG9yaXplZCB0byByZWNlaXZlIHRoZW0uIFRoZXkgbWF5IGNvbnRhaW4g
+Y29uZmlkZW50aWFsIGluZm9ybWF0aW9uLiBJZiB5b3UgYXJlIG5vdCB0aGUgaW50ZW5kZWQgcmVj
+aXBpZW50LCBwbGVhc2UgZG8gbm90IHJlYWQgdGhpcyBlbWFpbCBvciBpdHMgYXR0YWNobWVudChz
+KS4gRnVydGhlcm1vcmUsIHlvdSBhcmUgaGVyZWJ5IG5vdGlmaWVkIHRoYXQgYW55IGRpc3NlbWlu
+YXRpb24sIGRpc3RyaWJ1dGlvbiBvciBjb3B5aW5nIG9mIHRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0
+YWNobWVudChzKSBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0
+aGlzIGUtbWFpbCBpbiBlcnJvciwgcGxlYXNlIGltbWVkaWF0ZWx5IG5vdGlmeSB0aGUgc2VuZGVy
+IGJ5IHJlcGx5aW5nIHRvIHRoaXMgZS1tYWlsIGFuZCB0aGVuIGRlbGV0ZSB0aGlzIGUtbWFpbCBh
+bmQgYW55IGF0dGFjaG1lbnQocykgb3IgY29waWVzIHRoZXJlb2YgZnJvbSB5b3VyIHN5c3RlbS4g
+VGhhbmsgeW91Lg0K
 
