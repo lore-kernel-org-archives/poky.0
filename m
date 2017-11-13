@@ -1,34 +1,65 @@
-Return-Path: <malik@boussejra.com>
+Return-Path: <samentu1@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 0BB0DE00C11; Thu,  9 Nov 2017 14:39:00 -0800 (PST)
+	id 891ECE00D03; Mon, 13 Nov 2017 04:28:51 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [135.84.80.217 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW, 
+	RCVD_IN_SORBS_SPAM autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (samentu1[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from sender-of-o52.zoho.com (sender-of-o52.zoho.com [135.84.80.217])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5D585E00A6A
-	for <poky@yoctoproject.org>; Thu,  9 Nov 2017 14:38:59 -0800 (PST)
-Received: from [192.168.43.7] (111.65.60.12 [111.65.60.12]) by mx.zohomail.com
-	with SMTPS id 1510266234813216.93650595503982;
-	Thu, 9 Nov 2017 14:23:54 -0800 (PST)
-References: <9f6bd9951aca573b49ed81dc27f98952c7f71db8.1509108775.git.malik@boussejra.com>
-To: poky@yoctoproject.org
-From: Malik Olivier Boussejra <malik@boussejra.com>
-X-Forwarded-Message-Id: <9f6bd9951aca573b49ed81dc27f98952c7f71db8.1509108775.git.malik@boussejra.com>
-Message-ID: <015332cc-96af-80f1-b524-5f2bcf4f1c53@boussejra.com>
-Date: Fri, 10 Nov 2017 07:23:50 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.4.0
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.214.53 listed in list.dnswl.org]
+	*  0.5 RCVD_IN_SORBS_SPAM RBL: SORBS: sender is a spam source
+	*      [209.85.214.53 listed in dnsbl.sorbs.net]
+Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
+	[209.85.214.53])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1959FE00AF9
+	for <poky@yoctoproject.org>; Mon, 13 Nov 2017 04:28:50 -0800 (PST)
+Received: by mail-it0-f53.google.com with SMTP id l196so9101462itl.4
+	for <poky@yoctoproject.org>; Mon, 13 Nov 2017 04:28:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=5vp4e0I3XggBh5TasmRQXTf4BL76/St3FllZa4JrFxI=;
+	b=C0u2XqiloRKQrQ8RsDT5v3KciAwz7DcJA0YIqnDj2JwT4E+hO1x+7jU+JoWByIygqI
+	4ej7zaJQQF3upJD3kFWKjpzGlbLoyzMhENdBpGTiXO10Vi62IWzHY56gkwMtKhcVM2BX
+	97WSe1186bQPn190zYtdl/+azQN+kACiAokzcJW5eorWhsrB2Y7OALXMjMIeVGbnSUtI
+	xGagno5a3LYQFXGqyeHkp2Fzdx3WTG0IbhmfrBUFkmP6QTgFeQ3OMyAzPXDiMMx6IysO
+	gZF9z1u2UqUOONGMEYl4YLEK0B2WAhP3JRpzJyTn0mtDn/NqJ6xypPgS2gDhsXiftzU2
+	sQLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=5vp4e0I3XggBh5TasmRQXTf4BL76/St3FllZa4JrFxI=;
+	b=LbbQ7ZQiYLfXeZOwmnXbAkZQxUykw+MFv+ci24Qgr7K/+Qy59v7KanikYrUwGUw++e
+	mCI616twtUwQWIXJ0HprC0FtBJUPxxDfCOvoaTu27OCVJwew2Ylg1O3PK6yiks8TaQeI
+	mob8D4iPA5B9WI/Xlg/IoaMiwMisEAtb11tC8HDJMQXMRGbeY9Suiqq1czpDnVG2wRP6
+	R9BXrjdLJlypOPyd8gwsj3Fzviria8Zqvsp+3lpFMgEfz06jwivpFNX62gcYZe9xZCp9
+	5sWegHir/04CkLmNq+Ctbg+/odytO5sPWIDvnFZuXeXuMTtdddxXhz8KuiYkZuC+stq5
+	02uA==
+X-Gm-Message-State: AJaThX5cjmS5S+N1+b9r3DvlJwQJOY+nwZUlOFMk5t0SjBg03VMlIF98
+	Ir2j42jAQNqEJ0nIuqzBCKd923wygYgxusCqR0ga7A==
+X-Google-Smtp-Source: AGs4zMZvuotWr2z438C77AjfOx2F9wnXbH0lZwzQeQpG7xADaeHTI3NArPIJrfkEvXjExduSp84/yeo4kMrYSAesTX0=
+X-Received: by 10.36.4.144 with SMTP id 138mr10741047itb.78.1510576130035;
+	Mon, 13 Nov 2017 04:28:50 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <9f6bd9951aca573b49ed81dc27f98952c7f71db8.1509108775.git.malik@boussejra.com>
-X-ZohoMailClient: External
-Subject: [PATCH 1/1] python-ctypes: Add dependency to python-subprocess
+Received: by 10.107.18.11 with HTTP; Mon, 13 Nov 2017 04:28:49 -0800 (PST)
+From: Florin Ionut <samentu1@gmail.com>
+Date: Mon, 13 Nov 2017 14:28:49 +0200
+Message-ID: <CAM4Jt4=U9jYX5VF8TwDY-7nF0g3DERgkUT7pc+usT1cA5dJmTw@mail.gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: [pyro] Backport request for meta/recipes-devtools/gcc version 6.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,59 +72,25 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Nov 2017 22:39:00 -0000
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 13 Nov 2017 12:28:51 -0000
+Content-Type: multipart/alternative; boundary="001a114089d6a314bc055ddc691b"
 
-The runtime dependency to subprocess was missing. This commit adds it.
-You can check that the following file does indeed require `subprocess'.
+--001a114089d6a314bc055ddc691b
+Content-Type: text/plain; charset="UTF-8"
 
-     /usr/lib/python2.7/ctypes/util.py
+Hi,
+can dc3b3a8df3297367e9386dd3ac098b64f7f46d06 and
+c08247e3c7c004a40281d4010186a9ace86e0e47 from master be backported to the
+pyro branch please?
 
-Signed-off-by: Malik Olivier Boussejra <malik@boussejra.com>
----
-  meta/recipes-devtools/python/python-2.7-manifest.inc | 2 +-
-  scripts/contrib/python/generate-manifest-2.7.py      | 2 +-
-  2 files changed, 2 insertions(+), 2 deletions(-)
+Thank you
 
-diff --git a/meta/recipes-devtools/python/python-2.7-manifest.inc 
-b/meta/recipes-devtools/python/python-2.7-manifest.inc
-index 57d4834b3a..15d784e4cd 100644
---- a/meta/recipes-devtools/python/python-2.7-manifest.inc
-+++ b/meta/recipes-devtools/python/python-2.7-manifest.inc
-@@ -53,7 +53,7 @@ RDEPENDS_${PN}-crypt="${PN}-core"
-  FILES_${PN}-crypt="${libdir}/python2.7/hashlib.* 
-${libdir}/python2.7/md5.* ${libdir}/python2.7/sha.* 
-${libdir}/python2.7/lib-dynload/crypt.so 
-${libdir}/python2.7/lib-dynload/_hashlib.so 
-${libdir}/python2.7/lib-dynload/_sha256.so 
-${libdir}/python2.7/lib-dynload/_sha512.so "
-   SUMMARY_${PN}-ctypes="Python C types support"
--RDEPENDS_${PN}-ctypes="${PN}-core"
-+RDEPENDS_${PN}-ctypes="${PN}-core ${PN}-subprocess"
-  FILES_${PN}-ctypes="${libdir}/python2.7/ctypes 
-${libdir}/python2.7/lib-dynload/_ctypes.so 
-${libdir}/python2.7/lib-dynload/_ctypes_test.so "
-   SUMMARY_${PN}-curses="Python curses support"
-diff --git a/scripts/contrib/python/generate-manifest-2.7.py 
-b/scripts/contrib/python/generate-manifest-2.7.py
-index 586b329c19..0116aacee5 100755
---- a/scripts/contrib/python/generate-manifest-2.7.py
-+++ b/scripts/contrib/python/generate-manifest-2.7.py
-@@ -250,7 +250,7 @@ if __name__ == "__main__":
-      m.addPackage( "${PN}-curses", "Python curses support", "${PN}-core",
-      "curses lib-dynload/_curses.so lib-dynload/_curses_panel.so" ) # 
-directory + low level module
-  -    m.addPackage( "${PN}-ctypes", "Python C types support", "${PN}-core",
-+    m.addPackage( "${PN}-ctypes", "Python C types support", "${PN}-core 
-${PN}-subprocess",
-      "ctypes lib-dynload/_ctypes.so lib-dynload/_ctypes_test.so" ) # 
-directory + low level module
-       m.addPackage( "${PN}-datetime", "Python calendar and time 
-support", "${PN}-core ${PN}-codecs",
--- 
-2.11.0
+--001a114089d6a314bc055ddc691b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">Hi,<br><div>can=C2=A0dc3b3a8df3297367e9386dd3ac098b64f7f46=
+d06 and c08247e3c7c004a40281d4010186a9ace86e0e47 from master be backported =
+to the pyro branch please?</div><div><br></div><div>Thank you</div></div>
 
-
+--001a114089d6a314bc055ddc691b--
