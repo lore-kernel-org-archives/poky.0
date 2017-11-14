@@ -1,6 +1,6 @@
 Return-Path: <alejandro.hernandez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 16B90E00D40; Tue, 14 Nov 2017 14:45:08 -0800 (PST)
+	id 3B169E00D39; Tue, 14 Nov 2017 14:45:08 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,22 +12,26 @@ X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88939E00D20
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7D8DE00D24
 	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 14:45:07 -0800 (PST)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
 	by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
 	14 Nov 2017 14:45:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.44,396,1505804400"; d="scan'208";a="173579061"
+X-IronPort-AV: E=Sophos;i="5.44,396,1505804400"; d="scan'208";a="173579063"
 Received: from yctb02.ostc.intel.com (HELO yctb02.otcr.jf.intel.com)
 	([10.54.69.56])
 	by orsmga005.jf.intel.com with ESMTP; 14 Nov 2017 14:45:06 -0800
 From: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
 To: poky@yoctoproject.org
-Date: Tue, 14 Nov 2017 14:45:01 -0800
-Message-Id: <cover.1510699404.git.alejandro.hernandez@linux.intel.com>
+Date: Tue, 14 Nov 2017 14:45:03 -0800
+Message-Id: <5901475c2b62bf7367d7e371914ddd673af065a3.1510699404.git.alejandro.hernandez@linux.intel.com>
 X-Mailer: git-send-email 2.12.3
-Subject: [PATCH 0/3] genericx86 and genericx86-64 kernel updates
+In-Reply-To: <cover.1510699404.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1510699404.git.alejandro.hernandez@linux.intel.com>
+In-Reply-To: <cover.1510699404.git.alejandro.hernandez@linux.intel.com>
+References: <cover.1510699404.git.alejandro.hernandez@linux.intel.com>
+Subject: [PATCH 2/3] linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.12
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,27 +46,39 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
 X-List-Received-Date: Tue, 14 Nov 2017 22:45:08 -0000
 
-Updates kernels 4.4, 4.9 and 4.12 for genx86 MACHINES
+- Upgrades to Linux 4.12.14
 
-The following changes since commit 4ed19ac8c19afd56d445d84e02b622cb056b8359:
-
-  poky: Switch to post release name/version (2017-11-14 17:26:58 +0000)
-
-are available in the git repository at:
-
-  git://git.yoctoproject.org/poky-contrib aehs29/genx86_master_kernel
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=aehs29/genx86_master_kernel
-
-Alejandro Hernandez (3):
-  linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.9
-  linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.12
-  linux-yocto: Update genericx86* SRCREVs for linux-yocto 4.4
-
+Signed-off-by: Alejandro Hernandez <alejandro.hernandez@linux.intel.com>
+---
  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend | 8 ++++----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend  | 8 ++++----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend  | 8 ++++----
- 3 files changed, 12 insertions(+), 12 deletions(-)
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+index 2609129e3c7..2a11ad52a41 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+@@ -8,8 +8,8 @@ KBRANCH_beaglebone-yocto = "standard/beaglebone"
+ KMACHINE_beaglebone-yocto = "beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+-SRCREV_machine_genericx86    ?= "16de0149674ed12d983b77a453852ac2e64584b4"
+-SRCREV_machine_genericx86-64 ?= "16de0149674ed12d983b77a453852ac2e64584b4"
++SRCREV_machine_genericx86    ?= "9cc6b0ae1aad7312e85ac4134398f81c0140de33"
++SRCREV_machine_genericx86-64 ?= "9cc6b0ae1aad7312e85ac4134398f81c0140de33"
+ SRCREV_machine_edgerouter ?= "16de0149674ed12d983b77a453852ac2e64584b4"
+ SRCREV_machine_beaglebone-yocto ?= "16de0149674ed12d983b77a453852ac2e64584b4"
+ SRCREV_machine_mpc8315e-rdb ?= "8c360c7c3eebeb9251ddd8e9cde39908677f5850"
+@@ -21,8 +21,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.12.12"
+-LINUX_VERSION_genericx86-64 = "4.12.12"
++LINUX_VERSION_genericx86 = "4.12.14"
++LINUX_VERSION_genericx86-64 = "4.12.14"
+ LINUX_VERSION_edgerouter = "4.12.12"
+ LINUX_VERSION_beaglebone-yocto = "4.12.12"
+ LINUX_VERSION_mpc8315e-rdb = "4.12.12"
 -- 
 2.12.3
 
