@@ -1,57 +1,40 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4DB47E00DD5; Tue, 14 Nov 2017 02:34:25 -0800 (PST)
+	id 4F15DE00D24; Tue, 14 Nov 2017 12:30:32 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [195.60.68.11 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [134.134.136.20 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 590 seconds by postgrey-1.32 at yocto-www;
-	Tue, 14 Nov 2017 02:34:24 PST
-Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 80DC4E00D26
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 02:34:24 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by bastet.se.axis.com (Postfix) with ESMTP id 855BE18454
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:33 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
-Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
-	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
-	port 10024) with LMTP id pG71grRzrhF8 for <poky@yoctoproject.org>;
-	Tue, 14 Nov 2017 11:24:33 +0100 (CET)
-Received: from boulder02.se.axis.com (boulder02.se.axis.com [10.0.8.16])
-	by bastet.se.axis.com (Postfix) with ESMTPS id 094571843B
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:33 +0100 (CET)
-Received: from boulder02.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E51F31A08A
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:32 +0100 (CET)
-Received: from boulder02.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DA0F41A088
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:32 +0100 (CET)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
-	by boulder02.se.axis.com (Postfix) with ESMTP
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:32 +0100 (CET)
-Received: from saur-2.se.axis.com (saur-2.se.axis.com [10.92.3.2])
-	by thoth.se.axis.com (Postfix) with ESMTP id C4A341AE
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:32 +0100 (CET)
-Received: from saur-2.se.axis.com (localhost [127.0.0.1])
-	by saur-2.se.axis.com (8.14.5/8.14.5) with ESMTP id vAEAOTxk008346
-	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 11:24:30 +0100
-Received: (from pkj@localhost)
-	by saur-2.se.axis.com (8.14.5/8.14.5/Submit) id vAEAOTG5008345
-	for poky@yoctoproject.org; Tue, 14 Nov 2017 11:24:29 +0100
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-To: poky@yoctoproject.org
-Date: Tue, 14 Nov 2017 11:24:28 +0100
-Message-Id: <20171114102428.8303-1-pkj@axis.com>
-X-Mailer: git-send-email 2.12.0
-X-TM-AS-GCONF: 00
-Subject: [PATCH] poky: Switch to post release name/version
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DE2F4E00D07
+	for <poky@yoctoproject.org>; Tue, 14 Nov 2017 12:30:30 -0800 (PST)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+	by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	14 Nov 2017 12:30:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.44,396,1505804400"; 
+   d="scan'208";a="1883849"
+Received: from $_hostname.zpn.intel.com (HELO lsandov1-mobl2.zpn.intel.com)
+	([10.219.128.134])
+	by FMSMGA003.fm.intel.com with ESMTP; 14 Nov 2017 12:30:28 -0800
+Date: Tue, 14 Nov 2017 14:40:58 -0600
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+To: Florin Ionut <samentu1@gmail.com>
+Message-ID: <20171114144058.0ba7536d@lsandov1-mobl2.zpn.intel.com>
+In-Reply-To: <CAM4Jt4nLwD-_wHsKP2ZuKK==vGXxE8oRPgW2tDU9_H9kPJ+OFA@mail.gmail.com>
+References: <CAM4Jt4=U9jYX5VF8TwDY-7nF0g3DERgkUT7pc+usT1cA5dJmTw@mail.gmail.com>
+	<20171113153334.75430507@lsandov1-mobl2.zpn.intel.com>
+	<CAM4Jt4nLwD-_wHsKP2ZuKK==vGXxE8oRPgW2tDU9_H9kPJ+OFA@mail.gmail.com>
+X-Mailer: Claws Mail 3.14.1 (GTK+ 2.24.31; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [pyro] Backport request for meta/recipes-devtools/gcc version 6.3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -64,27 +47,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Nov 2017 10:34:25 -0000
+X-List-Received-Date: Tue, 14 Nov 2017 20:30:32 -0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
----
- meta-poky/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Tue, 14 Nov 2017 04:30:09 +0200
+Florin Ionut <samentu1@gmail.com> wrote:
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index dda7f4f938..3dac26fa3c 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "2.4"
--DISTRO_CODENAME = "rocko"
-+DISTRO_VERSION = "2.4+snapshot-${DATE}"
-+DISTRO_CODENAME = "master"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
- 
--- 
-2.12.0
+> Hi,
+> thanks for the suggestion. I had combined the 2 commits into 1 and sent it
+> there too:
+> http://lists.openembedded.org/pipermail/openembedded-core/2017-November/144283.html
+> 
 
+Great. Feel free to backport to other stable branches!
+
+
+> On Mon, Nov 13, 2017 at 11:33 PM, Leonardo Sandoval <
+> leonardo.sandoval.gonzalez@linux.intel.com> wrote:  
+> 
+> > On Mon, 13 Nov 2017 14:28:49 +0200
+> > Florin Ionut <samentu1@gmail.com> wrote:
+> >  
+> > > Hi,
+> > > can dc3b3a8df3297367e9386dd3ac098b64f7f46d06 and
+> > > c08247e3c7c004a40281d4010186a9ace86e0e47 from master be backported to  
+> > the  
+> > > pyro branch please?
+> > >  
+> >
+> > I have not seen the commits in detail but you can propose to be backported
+> > sending to patches to the openembeded core mailing list. On a local branch,
+> > backport these then git format-patch -2 --subject-prefix='PATCH][pyro'.
+> >
+> >  
+> > > Thank you  
+> >  
 
