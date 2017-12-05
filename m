@@ -1,37 +1,33 @@
-Return-Path: <AMardegan@luxoft.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 01538E00B5F; Tue,  5 Dec 2017 08:57:05 -0800 (PST)
+	id D9759E00B5F; Tue,  5 Dec 2017 09:45:32 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [109.166.244.22 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from ORO-EDGE-02.luxoft.com (oro-edge-02.luxoft.com [109.166.244.22])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7D5C9E00AD7
-	for <poky@yoctoproject.org>; Tue,  5 Dec 2017 08:57:03 -0800 (PST)
-Received: from ORO-HUBT-03.luxoft.com (172.30.115.38) by
-	oro-edge-02.luxoft.com (172.30.19.22) with Microsoft SMTP Server (TLS)
-	id 14.3.319.2; Tue, 5 Dec 2017 18:56:55 +0200
-Received: from ORO-MBOX-05.luxoft.com ([fe80::1137:8dc2:bce5:c3fc]) by
-	ORO-HUBT-03.luxoft.com ([::1]) with mapi id 14.03.0319.002;
-	Tue, 5 Dec 2017 18:56:56 +0200
-From: "Mardegan, Alberto" <AMardegan@luxoft.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Error when running testimage
-Thread-Index: AQHTbeoOM3kBTV0gREG7e0aZ3feSkA==
-Date: Tue, 5 Dec 2017 16:56:55 +0000
-Message-ID: <52d725e1-221d-43c0-5a81-42100be4f7cd@luxoft.com>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.25.160.192]
-MIME-Version: 1.0
-Subject: Error when running testimage
+Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5FE63E00AD7
+	for <poky@yoctoproject.org>; Tue,  5 Dec 2017 09:45:29 -0800 (PST)
+Received: from hex ([192.168.3.34]) (authenticated bits=0)
+	by dan.rpsys.net (8.15.2/8.15.2/Debian-3) with ESMTPSA id
+	vB5HjNbN027771
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
+	verify=NOT); Tue, 5 Dec 2017 17:45:24 GMT
+Message-ID: <1512495923.19417.68.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Mardegan, Alberto" <AMardegan@luxoft.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Date: Tue, 05 Dec 2017 17:45:23 +0000
+In-Reply-To: <52d725e1-221d-43c0-5a81-42100be4f7cd@luxoft.com>
+References: <52d725e1-221d-43c0-5a81-42100be4f7cd@luxoft.com>
+X-Mailer: Evolution 3.18.5.2-0ubuntu3.2 
+Mime-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.99.2 at dan
+X-Virus-Status: Clean
+Subject: Re: Error when running testimage
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,35 +40,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Dec 2017 16:57:06 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0BD8BF4219741948A5CCA5D55C9A59A5@luxoft.com>
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Tue, 05 Dec 2017 17:45:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-SGkgYWxsIQ0KICBJJ20gZ2V0dGluZyB0aGlzIGVycm9yIHdoaWxlIHJ1bm5pbmcgYml0YmFrZSAt
-YyB0ZXN0aW1hZ2UgPG15aW1hZ2U+Og0KDQo9PT09PT09PT09PT09PT09PT09PT0NCk9FUnVudGlt
-ZVRlc3RDb250ZXh0RXhlY3V0b3IuZ2V0Q29udHJvbGxlck1vZHVsZSh0YXJnZXRfdHlwZSwNCnRh
-cmdldF9tb2R1bGVzX3BhdGgpDQogKioqIDAxMTI6ICAgICAgICAgICAgICAgIHRhcmdldCA9IGNv
-bnRyb2xsZXIobG9nZ2VyLCB0YXJnZXRfaXAsDQpzZXJ2ZXJfaXAsICoqa3dhcmdzKQ0KICAgICAw
-MTEzOiAgICAgICAgICAgIGV4Y2VwdCBJbXBvcnRFcnJvciBhcyBlOg0KICAgICAwMTE0OiAgICAg
-ICAgICAgICAgICByYWlzZSBUeXBlRXJyb3IoIkZhaWxlZCB0byBpbXBvcnQgJXMgZnJvbQ0KYXZh
-aWxhYmxlIGNvbnRyb2xsZXIgbW9kdWxlcyIgJSB0YXJnZXRfdHlwZSkNCiAgICAgMDExNToNCiAg
-ICAgMDExNjogICAgICAgIHJldHVybiB0YXJnZXQNCkV4Y2VwdGlvbjogVHlwZUVycm9yOiBfX2lu
-aXRfXygpIGdvdCBhbiB1bmV4cGVjdGVkIGtleXdvcmQgYXJndW1lbnQNCidtYWNoaW5lJw0KPT09
-PT09PT09PT09PT09PT09PT09DQoNCkZ1bGwgbG9ncyBoZXJlOiBodHRwOi8vcGFzdGUudWJ1bnR1
-LmNvbS8yNjExOTYzMS8NCg0KQW55IGlkZWFzIG9uIHdoYXQncyBnb2luZyB3cm9uZz8NCg0KVElB
-LA0KICBBbGJlcnRvDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNClRoaXMg
-ZS1tYWlsIGFuZCBhbnkgYXR0YWNobWVudChzKSBhcmUgaW50ZW5kZWQgb25seSBmb3IgdGhlIHJl
-Y2lwaWVudChzKSBuYW1lZCBhYm92ZSBhbmQgb3RoZXJzIHdobyBoYXZlIGJlZW4gc3BlY2lmaWNh
-bGx5IGF1dGhvcml6ZWQgdG8gcmVjZWl2ZSB0aGVtLiBUaGV5IG1heSBjb250YWluIGNvbmZpZGVu
-dGlhbCBpbmZvcm1hdGlvbi4gSWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkIHJlY2lwaWVudCwg
-cGxlYXNlIGRvIG5vdCByZWFkIHRoaXMgZW1haWwgb3IgaXRzIGF0dGFjaG1lbnQocykuIEZ1cnRo
-ZXJtb3JlLCB5b3UgYXJlIGhlcmVieSBub3RpZmllZCB0aGF0IGFueSBkaXNzZW1pbmF0aW9uLCBk
-aXN0cmlidXRpb24gb3IgY29weWluZyBvZiB0aGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnQo
-cykgaXMgc3RyaWN0bHkgcHJvaGliaXRlZC4gSWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlLW1h
-aWwgaW4gZXJyb3IsIHBsZWFzZSBpbW1lZGlhdGVseSBub3RpZnkgdGhlIHNlbmRlciBieSByZXBs
-eWluZyB0byB0aGlzIGUtbWFpbCBhbmQgdGhlbiBkZWxldGUgdGhpcyBlLW1haWwgYW5kIGFueSBh
-dHRhY2htZW50KHMpIG9yIGNvcGllcyB0aGVyZW9mIGZyb20geW91ciBzeXN0ZW0uIFRoYW5rIHlv
-dS4NCg==
+On Tue, 2017-12-05 at 16:56 +0000, Mardegan, Alberto wrote:
+> Hi all!
+>   I'm getting this error while running bitbake -c testimage
+> <myimage>:
+> 
+> =====================
+> OERuntimeTestContextExecutor.getControllerModule(target_type,
+> target_modules_path)
+>  *** 0112:                target = controller(logger, target_ip,
+> server_ip, **kwargs)
+>      0113:            except ImportError as e:
+>      0114:                raise TypeError("Failed to import %s from
+> available controller modules" % target_type)
+>      0115:
+>      0116:        return target
+> Exception: TypeError: __init__() got an unexpected keyword argument
+> 'machine'
+> =====================
+> 
+> Full logs here: http://paste.ubuntu.com/26119631/
+> 
+> Any ideas on what's going wrong?
+
+Which MACHINE is this for? It sounds as if the system has no idea how
+to connect to the machine being tested (e.g. it doesn't know if qemu
+can be used or what the qemu parameters might be, or if it needs to
+connect remotely to a machine).
+
+The error message/failure mode certainly needs improving if that is the
+issue...
+
+Cheers,
+
+Richard
 
