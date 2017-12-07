@@ -1,6 +1,6 @@
-Return-Path: <AMardegan@luxoft.com>
+Return-Path: <gael.portay@savoirfairelinux.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 70115E00CE8; Wed,  6 Dec 2017 06:37:24 -0800 (PST)
+	id CF99AE00D81; Thu,  7 Dec 2017 13:47:13 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,33 +8,38 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [109.166.244.23 listed in list.dnswl.org]
+	*      [208.88.110.44 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from ORO-EDGE-03.luxoft.com (oro-edge-03.luxoft.com [109.166.244.23])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E3E7BE00B5F
-	for <poky@yoctoproject.org>; Wed,  6 Dec 2017 06:37:22 -0800 (PST)
-Received: from ORO-HUBT-02.luxoft.com (172.30.115.36) by
-	oro-edge-03.luxoft.com (172.30.19.23) with Microsoft SMTP Server (TLS)
-	id 14.3.319.2; Wed, 6 Dec 2017 16:37:17 +0200
-Received: from ORO-MBOX-05.luxoft.com ([fe80::1137:8dc2:bce5:c3fc]) by
-	ORO-HUBT-02.luxoft.com ([::1]) with mapi id 14.03.0319.002;
-	Wed, 6 Dec 2017 16:37:20 +0200
-From: "Mardegan, Alberto" <AMardegan@luxoft.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] Error when running testimage
-Thread-Index: AQHTbeoOM3kBTV0gREG7e0aZ3feSkKM05EuAgAFdyAA=
-Date: Wed, 6 Dec 2017 14:37:17 +0000
-Message-ID: <858700ad-c4e3-782c-7888-00ff7168db0f@luxoft.com>
-References: <52d725e1-221d-43c0-5a81-42100be4f7cd@luxoft.com>
-	<1512495923.19417.68.camel@linuxfoundation.org>
-In-Reply-To: <1512495923.19417.68.camel@linuxfoundation.org>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.30.127.21]
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+	[208.88.110.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 214E4E00D73
+	for <poky@yoctoproject.org>; Thu,  7 Dec 2017 13:47:12 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 595429C3091
+	for <poky@yoctoproject.org>; Thu,  7 Dec 2017 16:38:06 -0500 (EST)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new,
+	port 10032)
+	with ESMTP id ezB1y51Lxcw5; Thu,  7 Dec 2017 16:38:05 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id D36B49C206B;
+	Thu,  7 Dec 2017 16:38:05 -0500 (EST)
+X-Virus-Scanned: amavisd-new at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new,
+	port 10026)
+	with ESMTP id QyOn_DZ5m2E9; Thu,  7 Dec 2017 16:38:05 -0500 (EST)
+Received: from archlinux.mtl.sfl (unknown [192.168.50.172])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id B64299C1A60;
+	Thu,  7 Dec 2017 16:38:05 -0500 (EST)
+From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@savoirfairelinux.com>
+To: poky@yoctoproject.org
+Date: Thu,  7 Dec 2017 16:38:46 -0500
+Message-Id: <cover.1512682188.git.gael.portay@savoirfairelinux.com>
+X-Mailer: git-send-email 2.15.0
 MIME-Version: 1.0
-Subject: Re: Error when running testimage
+Subject: [PULL][PATCH 0/1] package_manager.py: fix opkg custom config path
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,34 +52,48 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Dec 2017 14:37:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5AA502DA72B9FA4C83BB93098C85D7B4@luxoft.com>
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 07 Dec 2017 21:47:13 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-SGksDQoNCk9uIDA1LzEyLzIwMTcgMjA6NDUsIFJpY2hhcmQgUHVyZGllIHdyb3RlOg0KPiBXaGlj
-aCBNQUNISU5FIGlzIHRoaXMgZm9yPyBJdCBzb3VuZHMgYXMgaWYgdGhlIHN5c3RlbSBoYXMgbm8g
-aWRlYSBob3cNCj4gdG8gY29ubmVjdCB0byB0aGUgbWFjaGluZSBiZWluZyB0ZXN0ZWQgKGUuZy4g
-aXQgZG9lc24ndCBrbm93IGlmIHFlbXUNCj4gY2FuIGJlIHVzZWQgb3Igd2hhdCB0aGUgcWVtdSBw
-YXJhbWV0ZXJzIG1pZ2h0IGJlLCBvciBpZiBpdCBuZWVkcyB0bw0KPiBjb25uZWN0IHJlbW90ZWx5
-IHRvIGEgbWFjaGluZSkuDQo+DQo+IFRoZSBlcnJvciBtZXNzYWdlL2ZhaWx1cmUgbW9kZSBjZXJ0
-YWlubHkgbmVlZHMgaW1wcm92aW5nIGlmIHRoYXQgaXMgdGhlDQo+IGlzc3VlLi4uDQoNCkkgaGFk
-IHRoZSBmb2xsb3dpbmcgbGluZSBsZWZ0IGluIGNvbmYvbG9jYWwuY29uZiBmcm9tIHNvbWUgcHJl
-dmlvdXMNCmV4cGVyaW1lbnRzOg0KDQogIFRFU1RfVEFSR0VUID0gIlN5c3RlbWRib290VGFyZ2V0
-Ig0KDQpSZW1vdmluZyB0aGF0IGxpbmUgZml4ZXMgdGhlIGlzc3VlLiBNeSBtaXN0YWtlISA6LSkg
-U3RpbGwsIGl0IG1pZ2h0IGJlIGENCmdvb2QgaWRlYSB0byByZXBvcnQgYSBtb3JlIGluZm9ybWF0
-aXZlIGVycm9yIG1lc3NhZ2UgaW4gdGhhdCBjYXNlLg0KDQpDaWFvLA0KICBBbGJlcnRvDQoNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNClRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0
-YWNobWVudChzKSBhcmUgaW50ZW5kZWQgb25seSBmb3IgdGhlIHJlY2lwaWVudChzKSBuYW1lZCBh
-Ym92ZSBhbmQgb3RoZXJzIHdobyBoYXZlIGJlZW4gc3BlY2lmaWNhbGx5IGF1dGhvcml6ZWQgdG8g
-cmVjZWl2ZSB0aGVtLiBUaGV5IG1heSBjb250YWluIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbi4g
-SWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkIHJlY2lwaWVudCwgcGxlYXNlIGRvIG5vdCByZWFk
-IHRoaXMgZW1haWwgb3IgaXRzIGF0dGFjaG1lbnQocykuIEZ1cnRoZXJtb3JlLCB5b3UgYXJlIGhl
-cmVieSBub3RpZmllZCB0aGF0IGFueSBkaXNzZW1pbmF0aW9uLCBkaXN0cmlidXRpb24gb3IgY29w
-eWluZyBvZiB0aGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnQocykgaXMgc3RyaWN0bHkgcHJv
-aGliaXRlZC4gSWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlLW1haWwgaW4gZXJyb3IsIHBsZWFz
-ZSBpbW1lZGlhdGVseSBub3RpZnkgdGhlIHNlbmRlciBieSByZXBseWluZyB0byB0aGlzIGUtbWFp
-bCBhbmQgdGhlbiBkZWxldGUgdGhpcyBlLW1haWwgYW5kIGFueSBhdHRhY2htZW50KHMpIG9yIGNv
-cGllcyB0aGVyZW9mIGZyb20geW91ciBzeXN0ZW0uIFRoYW5rIHlvdS4NCg==
+Dear maintainers,
+
+The opkg custom config feature has moved to the package_manager python
+module. This feature is broken since commit 19c538f57c.
+
+The python function os.path.join joins path components. If a component
+is an absolute path, all previous components are thrown away. The
+sysconfdir variable is an absolute path component. It causes the leading
+target rootfs component to be removed. As a result, the package-manager
+module tries to write in the real root filesystem instead of the
+temporary work directory for the rootfs image.
+
+This fixes the issue by prepending the target rootfs component using the
+string concatenation operator when the file is opened (without using
+os.path module).
+
+No confidential information there.
+
+The following changes since commit 4469acdf1d0338220f3fe2ecb5e079eea6fda3=
+75:
+
+  lib/oe/utils: remove param_bool() (2017-12-02 11:25:34 +0000)
+
+are available in the Git repository at:
+
+  git://git.yoctoproject.org/poky-contrib gportay/fix-opkg-custom-config-=
+path
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=3Dgportay/fix-=
+opkg-custom-config-path
+
+Regards,
+Ga=C3=ABl PORTAY (1):
+  package_manager.py: fix opkg custom config path
+
+ meta/lib/oe/package_manager.py | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+--=20
+2.15.0
+
 
