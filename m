@@ -1,52 +1,63 @@
-Return-Path: <gael.portay@savoirfairelinux.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C80D7E00D75; Thu,  7 Dec 2017 14:28:50 -0800 (PST)
+	id A2A88E00D71; Fri,  8 Dec 2017 08:35:17 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [208.88.110.44 listed in list.dnswl.org]
+	*      [209.85.214.46 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
-	[208.88.110.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 177EFE00D73
-	for <poky@yoctoproject.org>; Thu,  7 Dec 2017 14:28:49 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 4BB4C9C30BC
-	for <poky@yoctoproject.org>; Thu,  7 Dec 2017 17:28:49 -0500 (EST)
-X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
-	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new,
-	port 10032)
-	with ESMTP id ueOiZGXuU0QZ; Thu,  7 Dec 2017 17:28:48 -0500 (EST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id D17FE9C308A;
-	Thu,  7 Dec 2017 17:28:48 -0500 (EST)
-X-Quarantine-ID: <USubQK3TMXhh>
-X-Virus-Scanned: amavisd-new at mail.savoirfairelinux.com
-X-Amavis-Alert: BAD HEADER SECTION, Duplicate header field: "References"
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
-	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new,
-	port 10026)
-	with ESMTP id USubQK3TMXhh; Thu,  7 Dec 2017 17:28:48 -0500 (EST)
-Received: from archlinux.mtl.sfl (unknown [192.168.50.172])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id A75E19C2F43;
-	Thu,  7 Dec 2017 17:28:48 -0500 (EST)
-From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@savoirfairelinux.com>
-To: poky@yoctoproject.org
-Date: Thu,  7 Dec 2017 17:29:18 -0500
-Message-Id: <50cb4e0efe8ea9c4d1dbaea8f6d8cef418ea6564.1512685340.git.gael.portay@savoirfairelinux.com>
-X-Mailer: git-send-email 2.15.0
-In-Reply-To: <cover.1512685340.git.gael.portay@savoirfairelinux.com>
-References: <cover.1512685340.git.gael.portay@savoirfairelinux.com>
-In-Reply-To: <cover.1512685340.git.gael.portay@savoirfairelinux.com>
-References: <cover.1512685340.git.gael.portay@savoirfairelinux.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-it0-f46.google.com (mail-it0-f46.google.com
+	[209.85.214.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F2194E00D19
+	for <poky@yoctoproject.org>; Fri,  8 Dec 2017 08:35:16 -0800 (PST)
+Received: by mail-it0-f46.google.com with SMTP id x28so6072479ita.0
+	for <poky@yoctoproject.org>; Fri, 08 Dec 2017 08:35:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=YlK1hwg1tSetwYz2ptpM8OQzq6PFtQZZ4YBeVU6BmkU=;
+	b=O5g7QtcMhkSjH7xDE/23S8tOkH3nUAQQxwZMPEJBo1JeN/Qy/JTaQo3H8fDZ+XRnrd
+	/lQ0NsigqbVJrvGqrHnJH3drZzMy9hGfLfcKkJHbfKSgOV6gwi998E8GYyBxuPU4D8Vu
+	FEZhx47sMTmQRAIpXwcsuJ9//pgiuaDbaAglNla45LL/qEYG5FKhAzNPYQNR4ddl6th1
+	ak0D+CCy4V1uNmmVmtZT7IWvcp3fXG8SyvvU+4O8vo9WdQRfYaaMu35rnssr4RaB6eri
+	tkMwY3FaftAuEQ1tKwteZfIJ5G6hpM4ZRDuLIokM0MNKh9z3Syk98Lvu3qKYnt4mX4Fq
+	Z7yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=YlK1hwg1tSetwYz2ptpM8OQzq6PFtQZZ4YBeVU6BmkU=;
+	b=XgWdAIYj8nQFPgdKcPUCL75YPrcZ7G63bo1RPbrsJRpyFtyPUuB++5U4PKY6fy/umY
+	g9MRgujJY+yLJW+lYjWQk0W/i5TVDWttYVH7GCyP5M+1IE7LMZOEktprHIlvlfZiL8O5
+	+ctlDMhAYaJ8G/mXLJjbzKcYoAqcJVtsc2xgpc4Wp9gR62dMt7Z6dWyKvrsW56jSBv1J
+	2uwZ6HB81cOJ8zcjbgN4KUafRbqls4hD/uMbInnyLp2WOPeq8O99LohSsg/bgBBwUV3Q
+	Wj5tgARgyjiYsAKPJtShjXLGdz6yrMaCivVaJOFbSnZYPvu2q09lroq4pwyg/1e5tOe6
+	dLWg==
+X-Gm-Message-State: AJaThX4ccAhGoKap6RQ3J5k4lBuCi9lph0cWIbOHmvIdS9JGMbLXi0k1
+	S9KHuT5xNoNT0tzbyPNX8j7PT/1zDTe6+08xlGpYlw==
+X-Google-Smtp-Source: AGs4zMYtQ9mGkgX7/mEde9aS+fqjoYhbssat6kiWpRw/N5j87xMzsldtuS9WUDPYm8NKd9wVvUUqErs5tC9EyFwHZRk=
+X-Received: by 10.107.32.18 with SMTP id g18mr42817468iog.227.1512750916108;
+	Fri, 08 Dec 2017 08:35:16 -0800 (PST)
 MIME-Version: 1.0
-Subject: [PATCH 1/1] util-linux: create nativesdk lib packages
+Received: by 10.107.137.195 with HTTP; Fri, 8 Dec 2017 08:34:55 -0800 (PST)
+In-Reply-To: <50cb4e0efe8ea9c4d1dbaea8f6d8cef418ea6564.1512685340.git.gael.portay@savoirfairelinux.com>
+References: <cover.1512685340.git.gael.portay@savoirfairelinux.com>
+	<50cb4e0efe8ea9c4d1dbaea8f6d8cef418ea6564.1512685340.git.gael.portay@savoirfairelinux.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Fri, 8 Dec 2017 16:34:55 +0000
+Message-ID: <CAJTo0LYYxsx49=L9rfWkDyoTSqdNPYF+iTSJCMZLK95wM=Z08g@mail.gmail.com>
+To: =?UTF-8?B?R2HDq2wgUE9SVEFZ?= <gael.portay@savoirfairelinux.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PATCH 1/1] util-linux: create nativesdk lib packages
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -59,93 +70,51 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Dec 2017 22:28:50 -0000
-Content-Type: text/plain; charset=utf-8
+X-List-Received-Date: Fri, 08 Dec 2017 16:35:17 -0000
+Content-Type: multipart/alternative; boundary="001a1141b498fd18d8055fd6c474"
+
+--001a1141b498fd18d8055fd6c474
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The nativesdk class does not create lib<x> packages as its cross
-counterpart does.
+On 7 December 2017 at 22:29, Ga=C3=ABl PORTAY <gael.portay@savoirfairelinux=
+.com>
+wrote:
 
-	libblkid
-	libuuid
-	libsmartcols
-	libfdisk
-	libmount...
-
-Instead theses libraries are shipped into the nativesdk-util-linux
-package.
-
-This causes nativesdk images to fail at do_rootfs when a package depends
-on util-linux-lib<x> because the nativesdk-util-linux-lib<x> is not
-created.
-
-The example below shows what the error looks like with the not created
-package nativesdk-util-linux-libuuid.
-
-    	Collected errors:
-    	 * calculate_dependencies_for: Cannot satisfy the following dependen=
-cies for nativesdk-packagegroup-sdk-host:
-    	 *     nativesdk-util-linux-libuuid *
-    	 * opkg_solver_install: Cannot install package nativesdk-packagegrou=
-p-sdk-host.
-
-The reason comes from the place where the libraries are installed.
-
-Libraries are installed under ${base_libdir} (ie. /lib) for the cross
-the package; but they are installed under ${libdir} (ie. /usr/lib) for
-nativesdk (and native).
-
-	EXTRA_OECONF =3D "${SHARED_EXTRA_OECONF} --libdir=3D${base_libdir}"
-
-	EXTRA_OECONF_class-native =3D "${SHARED_EXTRA_OECONF} \
-	                             --disable-fallocate \
-				     --disable-use-tty-group \
-	"
-
-The populate_packages_prepend function dynamically creates lib<x>
-packages that are installed under ${base_libdir} directory.
-
-The new function populate_packages_prepend_class-nativesdk for nativesdk
-mimics the behavior of the cross function.
-
-It creates dynamically nativesdk-lib<x> packages for libraries that are
-installed under the ${libdir} directory.
-
-Improves:
-
-	91c0f9e35d util-linux: move libraries to base_libdir
-	4cff0bd254 util-linux: Fix QA warnings about ALTERNATIVES
-	4571c9e963 util-linux: collect libs for related libxx-dev package
-	a7572d7000 util-linux: split libraries dynamically
-
-Signed-off-by: Ga=C3=ABl PORTAY <gael.portay@savoirfairelinux.com>
----
- meta/recipes-core/util-linux/util-linux.inc | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/meta/recipes-core/util-linux/util-linux.inc b/meta/recipes-c=
-ore/util-linux/util-linux.inc
-index 248e8bee957..4bae86433b1 100644
---- a/meta/recipes-core/util-linux/util-linux.inc
-+++ b/meta/recipes-core/util-linux/util-linux.inc
-@@ -299,6 +299,13 @@ python populate_packages_prepend() {
-                       extra_depends=3D'', prepend=3DTrue, allow_links=3D=
+> +python populate_packages_prepend_class-nativesdk() {
+> +    do_split_packages(d, '${libdir}', '^lib(.*)\.so\..*$',
+> +                      output_pattern=3D'nativesdk-util-linux-lib%s',
+> +                      description=3D'nativesdk-util-linux lib%s',
+> +                      extra_depends=3D'', prepend=3DTrue, allow_links=3D=
 True)
- }
-=20
-+python populate_packages_prepend_class-nativesdk() {
-+    do_split_packages(d, '${libdir}', '^lib(.*)\.so\..*$',
-+                      output_pattern=3D'nativesdk-util-linux-lib%s',
-+                      description=3D'nativesdk-util-linux lib%s',
-+                      extra_depends=3D'', prepend=3DTrue, allow_links=3D=
-True)
-+}
-+
- RDEPENDS_${PN}-bash-completion +=3D "util-linux-lsblk"
- RDEPENDS_${PN}-ptest =3D "bash grep coreutils which util-linux-blkid uti=
-l-linux-fsck btrfs-tools"
-=20
---=20
-2.15.0
+> +}
+>
 
+The existing populate_packages is good, it should just use ${PN} instead of
+util-linux.
 
+Ross
+
+--001a1141b498fd18d8055fd6c474
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On 7 December 2017 at 22:29, Ga=C3=ABl PORTAY <span dir=3D=
+"ltr">&lt;<a href=3D"mailto:gael.portay@savoirfairelinux.com" target=3D"_bl=
+ank">gael.portay@savoirfairelinux.com</a>&gt;</span> wrote:<br><div class=
+=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">=
++python populate_packages_prepend_<wbr>class-nativesdk() {<br>
++=C2=A0 =C2=A0 do_split_packages(d, &#39;${libdir}&#39;, &#39;^lib(.*)\.so\=
+..*$&#39;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 output_pattern=3D&#39;nativesdk-<wbr>util-linux-lib%s&#39;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 description=3D&#39;nativesdk-util-<wbr>linux lib%s&#39;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 extra_depends=3D&#39;&#39;, prepend=3DTrue, allow_links=3DTrue)<br>
++}<br></blockquote><div><br></div><div>The existing populate_packages is go=
+od, it should just use ${PN} instead of util-linux.</div><div><br></div><di=
+v>Ross=C2=A0</div></div></div></div>
+
+--001a1141b498fd18d8055fd6c474--
