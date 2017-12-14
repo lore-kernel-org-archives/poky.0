@@ -1,32 +1,64 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <vincent.prince.fr@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4F43AE00C0F; Wed, 13 Dec 2017 06:09:36 -0800 (PST)
+	id 47C1BE00D79; Thu, 14 Dec 2017 02:08:00 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (vincent.prince.fr[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.82.65 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CB65BE008FB
-	for <poky@yoctoproject.org>; Wed, 13 Dec 2017 06:09:34 -0800 (PST)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.15.2/8.15.2/Debian-3) with ESMTPSA id
-	vBDE9TGg007914
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Wed, 13 Dec 2017 14:09:31 GMT
-Message-ID: <1513174169.16507.4.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Arno Steffens <star@gmx.li>, poky@yoctoproject.org
-Date: Wed, 13 Dec 2017 14:09:29 +0000
-In-Reply-To: <trinity-e799e7c2-e406-4e33-bec6-cf17f0ed29a4-1513059940812@3c-app-gmx-bs42>
-References: <trinity-e799e7c2-e406-4e33-bec6-cf17f0ed29a4-1513059940812@3c-app-gmx-bs42>
-X-Mailer: Evolution 3.18.5.2-0ubuntu3.2 
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at dan
-X-Virus-Status: Clean
-Subject: Re: libsnmp or adding a simple ipk to my image
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wm0-f65.google.com (mail-wm0-f65.google.com [74.125.82.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C0879E00D72
+	for <poky@yoctoproject.org>; Thu, 14 Dec 2017 02:07:59 -0800 (PST)
+Received: by mail-wm0-f65.google.com with SMTP id f206so10219353wmf.5
+	for <poky@yoctoproject.org>; Thu, 14 Dec 2017 02:07:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:cc:subject:date:message-id;
+	bh=SJTFzoBC5bxa/QMX2n0zcFrtVKXPFrO1Ig3LAYfPMmQ=;
+	b=CW7lo3Jrc2fV6QtWGiQdP53goDZckh9kDuT9w30kSB8uMXyKIGma6l/HErlUZ4rHEX
+	vgyHD6UzQ8dwsC1pQwG8V3jLDSlNwHwbuuGF0ThN0ItynPuBOISDO9Smj4EROyaxqPN9
+	R9CmBRTgbkypuoSccBN3cTPSGCqFuPPr2pnoLPTpetZTLBWps0mNmsOCEcqXDljb9YIJ
+	OlL3Z20aIIJK2q61Y4mTjiXXse+jwIzEYM96WQB7+yDynZCXIvYXoMyr0qiafBeED3ki
+	det69jmZO2mghGy62KbSwAvXj+m/IK+AOpodfPMB1womKsekDAk8fS46D/0VL2lQQGhj
+	aTiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=SJTFzoBC5bxa/QMX2n0zcFrtVKXPFrO1Ig3LAYfPMmQ=;
+	b=Sk0+r4ZfAP1L1TrWYN1pRsq/jYvoFZkPrWhVPEU0wqUFTtqn60eaiJ3MfHHSDkoWP6
+	WVAD9e51w63eIVZipt/YW2nHEoPcHVHvsalz77jYTbBbo0RMC6ytLlR4PWWlVoIUaZ/c
+	EHCmPXgatbi9zqdSC/L0s0vohi6lXdLTmBBLGFfzqSdUVCOCgVYBH//8o/Ys+suHK1tx
+	lMmRQKSTex630gyhfH+5bSETlXIYz8H4oOwVYYsRHY2mzQKsBXV86DuPllRmOyZLUBZl
+	eHf7/ZsSotoHFGboxr4zG36fW5cF9SshDeil754mtZ/+jUDzju4xFB6XhUMVjQxa3X2r
+	oyuA==
+X-Gm-Message-State: AKGB3mIMPUR3H6uQDKwIdPFcwsD3D/8ylCZG6faQ3NXeD00bfEhgy//h
+	mPuTRNvVUPJOZnaUye6qcS3AVQ==
+X-Google-Smtp-Source: ACJfBoswt+yFjHwRIW3TzQ+9g19sr6dB+I+lJ+X2r7PvWBuAaOEgCC52r7AupddgU1Ldb7SwTUoTMQ==
+X-Received: by 10.28.196.194 with SMTP id u185mr1793681wmf.133.1513246078207; 
+	Thu, 14 Dec 2017 02:07:58 -0800 (PST)
+Received: from VPR-VM.fra.hager.corp ([212.51.167.132])
+	by smtp.gmail.com with ESMTPSA id
+	127sm6539317wmk.14.2017.12.14.02.07.57
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Thu, 14 Dec 2017 02:07:57 -0800 (PST)
+From: Vincent Prince <vincent.prince.fr@gmail.com>
+To: poky@yoctoproject.org
+Date: Thu, 14 Dec 2017 11:07:42 +0100
+Message-Id: <1513246062-12341-1-git-send-email-vincent.prince.fr@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Documentation][PATCH] Fix documentation makefile: add missing figures to mega-manuel tarball
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,42 +71,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Dec 2017 14:09:36 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 14 Dec 2017 10:08:00 -0000
 
-On Tue, 2017-12-12 at 07:25 +0100, Arno Steffens wrote:
-> Want to include libnetsnmp to my filesystem. By find -name *snmp I
-> found the net-snmp_5.7.3.bb is doing the job, so  I added that to my
-> image by IMAGE_INSTALL.
-> 
-> Checking the image - it contains more than I need. In
-> tmp/deploy/ipk/xxx/ I cound found the interesting ipk-packet, the
-> libnetsnmp30_5.7.3-r0_cortexa9hf-neon.ipk.
-> 
-> So my first question:
-> How can I just include this in my image? Adding  "libnetsnmp30" or
-> "libnetsnmp" doesn't work. This rules probably work just for *.bb
-> packages. But what to do to add a simple *.ipk file? 
+Signed-off-by: Vincent Prince <vincent.prince.fr@gmail.com>
+---
+ documentation/Makefile | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-You need to use the name of the package in the recipe, not the "debian"
-name the debian renaming code came up with.
+diff --git a/documentation/Makefile b/documentation/Makefile
+index 9891095..244a84e 100644
+--- a/documentation/Makefile
++++ b/documentation/Makefile
+@@ -244,7 +244,10 @@ TARFILES = mega-manual.html mega-style.css \
+ 	figures/sdk-environment.png figures/sdk-installed-standard-sdk-directory.png \
+ 	figures/sdk-devtool-add-flow.png figures/sdk-installed-extensible-sdk-directory.png \
+ 	figures/sdk-devtool-modify-flow.png figures/sdk-eclipse-dev-flow.png \
+-	figures/sdk-devtool-upgrade-flow.png figures/bitbake-build-flow.png
++	figures/sdk-devtool-upgrade-flow.png figures/bitbake-build-flow.png \
++	figures/yocto-project-transp.png figures/bash-oecore.png \
++	figures/add-variable.png figures/set-variable.png \
++	figures/variable-added.png
+ 	endif
+ 
+ MANUALS = $(DOC)/$(DOC).html
+-- 
+2.7.4
 
-Looking at the recipe it does:
-
-PACKAGES += "${PN}-libs ${PN}-mibs ${PN}-server ${PN}-client ${PN}-
-server-snmpd ${PN}-server-snmptrapd"
-
-so net-snmp-libs should work in IMAGE_INSTALL.
-
-
-> Even more advanced would be not to install all libs from that ipkg
-> package. 
-> How can I control that?
-
-You'd need to split up the packaging into more granular packages.
-
-Cheers,
-
-Richard
 
