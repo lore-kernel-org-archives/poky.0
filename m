@@ -1,47 +1,40 @@
-Return-Path: <timothy.t.orling@linux.intel.com>
+Return-Path: <Randy.MacLeod@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 90DFCE00D55; Fri,  5 Jan 2018 11:46:19 -0800 (PST)
+	id F0D39E00D5F; Fri,  5 Jan 2018 14:09:47 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.55.52.115 listed in list.dnswl.org]
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 41740E008FB
-	for <poky@yoctoproject.org>; Fri,  5 Jan 2018 11:46:16 -0800 (PST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-	by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	05 Jan 2018 11:46:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,319,1511856000"; 
-   d="scan'208";a="8198969"
-Received: from lattal-mobl6.amr.corp.intel.com ([10.254.35.187])
-	by orsmga007.jf.intel.com with ESMTP; 05 Jan 2018 11:46:16 -0800
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-From: Tim Orling <timothy.t.orling@linux.intel.com>
-In-Reply-To: <16ef64cb-cebd-72d1-581e-46f1bde79d87@linux.intel.com>
-Date: Fri, 5 Jan 2018 11:46:15 -0800
-Message-Id: <E02F2813-CA7C-4399-974A-4D245541DCD3@linux.intel.com>
-References: <0B2EBCD48D33654381E736352034C70C01B37B75@dor-sms-xch01.digi.com>
-	<0d223fc9-7b17-4be9-9a60-8cb23375a877@linux.intel.com>
-	<0B2EBCD48D33654381E736352034C70C01B3FF67@dor-sms-xch01.digi.com>
-	<8bb5a376-ec5b-36ed-5b7a-12d7102879ef@linux.intel.com>
-	<0B2EBCD48D33654381E736352034C70C01B40158@dor-sms-xch01.digi.com>
-	<e33e41cc-fe8d-36e7-4204-0e690b9aa16c@linux.intel.com>
-	<0B2EBCD48D33654381E736352034C70C01B40FAF@dor-sms-xch01.digi.com>
-	<16ef64cb-cebd-72d1-581e-46f1bde79d87@linux.intel.com>
-To: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-X-Mailer: Apple Mail (2.3273)
-Cc: "Diaz de Grenu, Jose" <Jose.DiazdeGrenu@digi.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Trying to use python3-pygobject-native to compile NetworkManager
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 134C1E008FB;
+	Fri,  5 Jan 2018 14:09:46 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id w05M9jpk000066
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 5 Jan 2018 14:09:45 -0800 (PST)
+Received: from [172.25.44.3] (172.25.44.3) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.361.1;
+	Fri, 5 Jan 2018 14:09:44 -0800
+To: Raj srinivas <rajraja123447@gmail.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+References: <CAJsjG0R1XU3=P3wxukaCNU5t-5qDtTWvrY75DAdp7PDtaFsoQA@mail.gmail.com>
+From: Randy MacLeod <randy.macleod@windriver.com>
+Message-ID: <9c103554-1d4c-d331-abae-42f764998df2@windriver.com>
+Date: Fri, 5 Jan 2018 17:09:43 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+	Thunderbird/52.5.0
+MIME-Version: 1.0
+In-Reply-To: <CAJsjG0R1XU3=P3wxukaCNU5t-5qDtTWvrY75DAdp7PDtaFsoQA@mail.gmail.com>
+X-Originating-IP: [172.25.44.3]
+Cc: "meta-intel@yoctoproject.org" <meta-intel@yoctoproject.org>
+Subject: Re: [meta-intel] Retaining of rpm database issue
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,41 +47,113 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Jan 2018 19:46:19 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 05 Jan 2018 22:09:48 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
+
+On 2018-01-04 08:30 AM, Raj srinivas wrote:
+> Hi all,
+> 
+> I am using yocto 1.7.3 ,
 
 
-> On Jan 3, 2018, at 1:53 AM, Alexander Kanavin =
-<alexander.kanavin@linux.intel.com> wrote:
->=20
-> On 01/02/2018 07:36 PM, Diaz de Grenu, Jose wrote:
->> I don't really know if the problem is then the configure.ac from =
-NetworkManager, or the pygobject recipe in the poky layer...
->> I was able to build NetworkManager by adding:
->> EXTRA_OECONF_append =3D " --disable-introspection"
->> I think introspection is only used to generate the documentation, =
-which I don't care about.
->=20
-> That's fair, but we would appreciate if you can get down to the bottom =
-of the issue - and submit an up to date networkmanager with =
-introspection support to meta-oe. YP needs not just users, but active =
-contributors; it's in your own interest too.
->=20
+That version was released in 2014 and is only supported by people in the
+community who have time to help:
+    https://wiki.yoctoproject.org/wiki/Releases
 
-=E2=80=9CIn your own interest=E2=80=9D meaning if it was already updated =
-in meta-oe, we might have noticed this failure already in one of the =
-=E2=80=9CState of the Bitbake World=E2=80=9D reports and tried to fix it =
-already.
+Can you simplify your workflow and try it on a supported release?
 
-We really need this to be a community effort.
+If not, some companies:
+    https://www.yoctoproject.org/ecosystem/showcase
+including Wind River, do provide Yocto support and services so
+you might want to investigate that option.
 
 
-> Alex
-> --=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+> I want to get the rpm database in sdk, for that 
+> i have added package-management in IMAGE FEATURES, after extracting the 
+> sdk, I am not able to rebuild the database , I have tried deleting the db 
+> files, still I'm facing below issue, any body can please help on below 
+> error,
+> 
+> bash-3.2# rpm --rebuilddb
+> rpmdb: BDB1538 Program version 5.3 doesn't match environment version 6.0
+> rpmdb: BDB2531 Unacceptable log file /var/lib/rpm/./log/log.0000000007: 
+> unsupported log version 21
+> rpmdb: BDB2527 Invalid log file: log.0000000007: Invalid argument
+> rpmdb: BDB0061 PANIC: Invalid argument
+> ==> rpmdbe_event_notify(0x2d618, PANIC(0), 0xf6ffd2bc) app_private (nil)
+> rpmdb: BDB1546 unable to join the environment
+> 
+> error: cannot open Packages(0) index: (-30973)
+>          DB: Berkeley DB 5.3.28: (September  9, 2013)
+> error: cannot open Packages database in /var/lib/rpm
+> 
+> 
+> bash-3.2# rpm -qa
+> rpmdb: BDB2531 Unacceptable log file /var/lib/rpm/./log/log.0000000007: 
+> unsupported log version 21
+> rpmdb: BDB2527 Invalid log file: log.0000000007: Invalid argument
+> rpmdb: BDB0061 PANIC: Invalid argument
+> ==> rpmdbe_event_notify(0x2d780, PANIC(0), 0xf6ffe184) app_private (nil)
+> rpmdb: BDB1546 unable to join the environment
+> 
 
+I don't use the SDK or eSDK much so I could be wrong
+but I'm not sure that rebuilding the rpm db in that environment
+was supported then or even now in 2.4/master.
+I always expect that people will use the SDK to develop their app
+then add it back to the build system for production image builds
+and deployment. Can you do that?
+
+Anyway, I've found a commit below with a similar signature
+that indicates that rpm is trying to access the wrong version of
+Berkeley DB so it seems likely that running rpm in the SDK either
+has a bug or isn't supported as explained above.
+
+../Randy
+
+> 
+> Regards,
+> raj
+> 
+> 
+
+commit e5a40391dfa12c44f31bdb7550df1275edda3864
+Author: Hongxu Jia <hongxu.jia@windriver.com>
+Date:   Mon Oct 20 19:36:28 2014 +0800
+
+     default-versions.inc: match version of db and db-native while 
+"AGPL-3.0" in ${INCOMPATIBLE_LICENSE}
+
+     The db 6.0.30's LICENSE is 'AGPL-3.0', and db 5.3.28 LICENSE is
+     'Sleepycat'
+
+     While building rpm image with "AGPL-3.0" in ${INCOMPATIBLE_LICENSE},
+     db 6.0.30 and db-native 5.3.28 were built, the different versions
+     caused the rpm doesn't work on target.
+
+     ...
+     root@qemux86-64:~# rpm -qa
+     |rpmdb: BDB2531 Unacceptable log file 
+/var/lib/rpm/./log/log.0000000001:
+     unsupported log version 21
+     |rpmdb: BDB2527 Invalid log file: log.0000000001: Invalid argument
+     |rpmdb: BDB0061 PANIC: Invalid argument
+
+$ git branch --contains e5a40391dfa12c44f31bdb7550df1275edda3864
+   fido
+   jethro
+   krogoth
+   krogoth-next
+   master
+* master-next
+   morty
+   pyro
+   rocko
+
+
+-- 
+# Randy MacLeod.  WR Linux
+# Wind River an Intel Company
 
