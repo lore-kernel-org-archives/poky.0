@@ -1,69 +1,47 @@
-Return-Path: <Jose.DiazdeGrenu@digi.com>
+Return-Path: <timothy.t.orling@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E798CE00C02; Fri,  5 Jan 2018 03:21:24 -0800 (PST)
+	id 90DFCE00D55; Fri,  5 Jan 2018 11:46:19 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00, RCVD_IN_DNSWL_NONE, 
-	SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [216.82.251.10 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.55.52.115 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.bemta12.messagelabs.com (mail1.bemta12.messagelabs.com
-	[216.82.251.10])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CDA2FE008FB
-	for <poky@yoctoproject.org>; Fri,  5 Jan 2018 03:21:23 -0800 (PST)
-Received: from [216.82.249.131] (using TLSv1.2 with cipher
-	DHE-RSA-AES256-GCM-SHA384 (256 bits))
-	by server-10.bemta-12.messagelabs.com id 8A/52-03100-3BF5F4A5;
-	Fri, 05 Jan 2018 11:21:23 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrBIsWRWlGSWpSXmKPExsXi5LtOQHdTvH+
-	UwZ1bWhbT/61hd2D0aD/RxxbAGMWamZeUX5HAmvFx23O2gkb2ir0n5zA1MF5l7WLk4hASWMUo
-	cWHeC3YIZzWjxLzzO5ghnMWMEgsWLGLpYuTkYBMwl5h2+CCYLSJgLDHz0xKgdg4OYQEriYfXu
-	SHC9hLtuw4xQ9h6EisXzWYHKWERUJG4st8SJMwr4CuxtmEBO4jNKCArsfL8aUYQm1lAXOLWk/
-	lMILaEgIDEkj3nmSFsUYmXj/+xQtgKEm2f7rFC1OtILNj9iQ3C1pZYtvA1M8R8QYmTM5+AXSk
-	koCbRNmcC8wRG4VlIVsxC0j4LSfssJO0LGFlWMWoUpxaVpRbpGlnqJRVlpmeU5CZm5ugaGhrp
-	5aYWFyemp+YkJhXrJefnbmIEhn89AwPjDsZ/X3wPMUpyMCmJ8pZE+0cJ8SXlp1RmJBZnxBeV5
-	qQWH2KU4eBQkuA9EAeUEyxKTU+tSMvMAUYiTFqCg0dJhPcpSJq3uCAxtzgzHSJ1itGY48bD63
-	+YOJ7NfN3ALMSSl5+XKiXOewGkVACkNKM0D24QLEFcYpSVEuZlZGBgEOIpSC3KzSxBlX/FKM7
-	BqCTMuwFkCk9mXgncvldApzABnbLqiC/IKSWJCCmpBsaqguaHu1zf/HCxWrm1/c6Cj4UGavM+
-	ORzg7o3ek8c6efaH42zPvVd22plM6f0Y5fTjcNUOWfst3rP7z+/XcFR7tJjv1fapzzR3d9rXx
-	T1Q2OnTbjJrv9GhtmMB6rWzkr8xumtozj8a4MWcsqliaSbv7v2nlRheL1a1n67CcfFlefZMv+
-	vSdc+UWIozEg21mIuKEwE5QdjBCwMAAA==
-X-Env-Sender: Jose.DiazdeGrenu@digi.com
-X-Msg-Ref: server-5.tower-28.messagelabs.com!1515151282!67630846!1
-X-Originating-IP: [66.77.174.16]
-X-StarScan-Received: 
-X-StarScan-Version: 9.4.45; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 26582 invoked from network); 5 Jan 2018 11:21:22 -0000
-Received: from owa.digi.com (HELO MCL-VMS-XCH01.digi.com) (66.77.174.16)
-	by server-5.tower-28.messagelabs.com with SMTP;
-	5 Jan 2018 11:21:22 -0000
-Received: from MTK-SMS-XCH04.digi.com (10.10.8.198) by MCL-VMS-XCH01.digi.com
-	(10.5.8.49) with Microsoft SMTP Server (TLS) id 14.3.361.1;
-	Fri, 5 Jan 2018 05:21:19 -0600
-Received: from DOR-VMS-XCH01.digi.com (10.49.8.98) by MTK-SMS-XCH04.digi.com
-	(10.10.8.198) with Microsoft SMTP Server (TLS) id 14.3.361.1;
-	Fri, 5 Jan 2018 05:21:18 -0600
-Received: from DOR-SMS-XCH01.digi.com ([fe80::894b:3bdc:74ae:6efc]) by
-	DOR-VMS-XCH01.digi.com ([::1]) with mapi id 14.03.0361.001;
-	Fri, 5 Jan 2018 12:21:17 +0100
-From: "Diaz de Grenu, Jose" <Jose.DiazdeGrenu@digi.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Postinstallation script for target throw warnings
-Thread-Index: AdOGFvIlZ1i5ZFsITeSHmsOXXh2MUQ==
-Date: Fri, 5 Jan 2018 11:21:17 +0000
-Message-ID: <0B2EBCD48D33654381E736352034C70C01B45F94@dor-sms-xch01.digi.com>
-Accept-Language: es-ES, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.101.2.179]
-MIME-Version: 1.0
-Subject: Postinstallation script for target throw warnings
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 41740E008FB
+	for <poky@yoctoproject.org>; Fri,  5 Jan 2018 11:46:16 -0800 (PST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+	by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	05 Jan 2018 11:46:16 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,319,1511856000"; 
+   d="scan'208";a="8198969"
+Received: from lattal-mobl6.amr.corp.intel.com ([10.254.35.187])
+	by orsmga007.jf.intel.com with ESMTP; 05 Jan 2018 11:46:16 -0800
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+From: Tim Orling <timothy.t.orling@linux.intel.com>
+In-Reply-To: <16ef64cb-cebd-72d1-581e-46f1bde79d87@linux.intel.com>
+Date: Fri, 5 Jan 2018 11:46:15 -0800
+Message-Id: <E02F2813-CA7C-4399-974A-4D245541DCD3@linux.intel.com>
+References: <0B2EBCD48D33654381E736352034C70C01B37B75@dor-sms-xch01.digi.com>
+	<0d223fc9-7b17-4be9-9a60-8cb23375a877@linux.intel.com>
+	<0B2EBCD48D33654381E736352034C70C01B3FF67@dor-sms-xch01.digi.com>
+	<8bb5a376-ec5b-36ed-5b7a-12d7102879ef@linux.intel.com>
+	<0B2EBCD48D33654381E736352034C70C01B40158@dor-sms-xch01.digi.com>
+	<e33e41cc-fe8d-36e7-4204-0e690b9aa16c@linux.intel.com>
+	<0B2EBCD48D33654381E736352034C70C01B40FAF@dor-sms-xch01.digi.com>
+	<16ef64cb-cebd-72d1-581e-46f1bde79d87@linux.intel.com>
+To: Alexander Kanavin <alexander.kanavin@linux.intel.com>
+X-Mailer: Apple Mail (2.3273)
+Cc: "Diaz de Grenu, Jose" <Jose.DiazdeGrenu@digi.com>,
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Trying to use python3-pygobject-native to compile NetworkManager
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -76,37 +54,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Jan 2018 11:21:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Fri, 05 Jan 2018 19:46:19 -0000
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
 
-I am trying to create a recipe with a post installation script. I am using =
-the following fragment of code (as documented in http://www.yoctoproject.or=
-g/docs/2.4/mega-manual/mega-manual.html#new-recipe-post-installation-script=
-s ):
+> On Jan 3, 2018, at 1:53 AM, Alexander Kanavin =
+<alexander.kanavin@linux.intel.com> wrote:
+>=20
+> On 01/02/2018 07:36 PM, Diaz de Grenu, Jose wrote:
+>> I don't really know if the problem is then the configure.ac from =
+NetworkManager, or the pygobject recipe in the poky layer...
+>> I was able to build NetworkManager by adding:
+>> EXTRA_OECONF_append =3D " --disable-introspection"
+>> I think introspection is only used to generate the documentation, =
+which I don't care about.
+>=20
+> That's fair, but we would appreciate if you can get down to the bottom =
+of the issue - and submit an up to date networkmanager with =
+introspection support to meta-oe. YP needs not just users, but active =
+contributors; it's in your own interest too.
+>=20
 
-pkg_postinst_PACKAGENAME() {
-     if [ x"$D" =3D "x" ]; then
-          # Actions to carry out on the device go here
-     else
-          exit 1
-     fi
-}
+=E2=80=9CIn your own interest=E2=80=9D meaning if it was already updated =
+in meta-oe, we might have noticed this failure already in one of the =
+=E2=80=9CState of the Bitbake World=E2=80=9D reports and tried to fix it =
+already.
 
-This was working fine in Yocto 2.2, but now in Yocto 2.4 I am getting these=
- warnings:
+We really need this to be a community effort.
 
-WARNING: core-image-base-1.0-r0 do_rootfs: [log_check] core-image-base: fou=
-nd 3 warning messages in the logfile:
-[log_check] warning: %post(init-ifupdown-1.0-r7.0.cortexa7hf_neon) scriptle=
-t failed, exit status 1
 
-How can I clean these warnings in Yocto 2.4? Is that still the correct way =
-to create post installation script that must run on the target? Should I ju=
-st replace 'exit 1' by 'exit 0'?
+> Alex
+> --=20
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
-Thanks
 
