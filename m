@@ -1,49 +1,41 @@
-Return-Path: <gael.portay@savoirfairelinux.com>
+Return-Path: <Liezhi.Yang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3E8ABE00DB6; Thu, 11 Jan 2018 10:12:53 -0800 (PST)
+	id 9DF40E00DF8; Thu, 11 Jan 2018 17:45:23 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [208.88.110.44 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
-	[208.88.110.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7951BE0056D
-	for <poky@yoctoproject.org>; Thu, 11 Jan 2018 10:12:49 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id E8F459C30C5
-	for <poky@yoctoproject.org>; Thu, 11 Jan 2018 13:12:48 -0500 (EST)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
-	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new,
-	port 10032)
-	with ESMTP id P9m0PM2gLUcX; Thu, 11 Jan 2018 13:12:48 -0500 (EST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 680419C3088;
-	Thu, 11 Jan 2018 13:12:48 -0500 (EST)
-X-Virus-Scanned: amavisd-new at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
-	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new,
-	port 10026)
-	with ESMTP id m3KyuP2R0K3I; Thu, 11 Jan 2018 13:12:48 -0500 (EST)
-Received: from archlinux (unknown [173.231.104.26])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 3E0B89C307C;
-	Thu, 11 Jan 2018 13:12:48 -0500 (EST)
-Date: Thu, 11 Jan 2018 13:12:47 -0500
-From: =?iso-8859-1?Q?Ga=EBl?= PORTAY <gael.portay@savoirfairelinux.com>
-To: poky@yoctoproject.org
-Message-ID: <20180111181247.zcb74beq33jgn5qe@archlinux>
-References: <cover.1512682188.git.gael.portay@savoirfairelinux.com>
-	<ebf0d7257abc739215a3e852e8c5c364bc1b6f29.1512682188.git.gael.portay@savoirfairelinux.com>
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [192.103.53.11 listed in list.dnswl.org]
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8EAD2E0056D
+	for <poky@yoctoproject.org>; Thu, 11 Jan 2018 17:45:22 -0800 (PST)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com
+	[147.11.189.41])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id w0C1jHN8013371
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=OK);
+	Thu, 11 Jan 2018 17:45:19 -0800
+Received: from localhost.corp.ad.wrs.com (128.224.162.229) by
+	ALA-HCB.corp.ad.wrs.com (147.11.189.41) with Microsoft SMTP Server id
+	14.3.361.1; Thu, 11 Jan 2018 17:45:06 -0800
+To: Alexander Kanavin <alexander.kanavin@linux.intel.com>, "Diaz de Grenu,
+	Jose" <Jose.DiazdeGrenu@digi.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+References: <0B2EBCD48D33654381E736352034C70C01B45F94@dor-sms-xch01.digi.com>
+	<74fdcc9f-d8dd-5758-a900-ccfffeea0399@windriver.com>
+	<ed781a27-9452-e6c6-89ee-d08b9b75d050@linux.intel.com>
+From: Robert Yang <liezhi.yang@windriver.com>
+Message-ID: <6f1b6255-3105-cff4-2ccb-9d2faf6e1749@windriver.com>
+Date: Fri, 12 Jan 2018 09:45:16 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+	Thunderbird/52.5.0
 MIME-Version: 1.0
-In-Reply-To: <ebf0d7257abc739215a3e852e8c5c364bc1b6f29.1512682188.git.gael.portay@savoirfairelinux.com>
-User-Agent: NeoMutt/20171013-35-c06e73
-Cc: Ash Charles <ash.charles@savoirfairelinux.com>
-Subject: Re: [PATCH 1/1] package_manager.py: fix opkg custom config path
+In-Reply-To: <ed781a27-9452-e6c6-89ee-d08b9b75d050@linux.intel.com>
+Subject: Re: Postinstallation script for target throw warnings
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -56,68 +48,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Jan 2018 18:12:53 -0000
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 12 Jan 2018 01:45:23 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-Hi maintainers,
 
-On Thu, Dec 07, 2017 at 04:38:47PM -0500, Ga=EBl PORTAY wrote:
-> The opkg custom config feature has moved to the package_manager python
-> module. This feature is broken since commit 19c538f57c.
->=20
-> The python function os.path.join joins path components. If a component
-> is an absolute path, all previous components are thrown away.
->=20
-> The sysconfdir variable is an absolute path component. It causes the
-> leading target rootfs component to be removed. As a result, the
-> package-manager module tries to write in the real root filesystem
-> instead of the temporary work directory for the rootfs image.
->=20
-> This fixes the issue by prepending the target rootfs component using th=
-e
-> string concatenation operator when the file is opened (without using
-> os.path module).
->=20
-> Cc: Ash Charles <ash.charles@savoirfairelinux.com>
-> Signed-off-by: Ga=EBl PORTAY <gael.portay@savoirfairelinux.com>
-> ---
->  meta/lib/oe/package_manager.py | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/meta/lib/oe/package_manager.py b/meta/lib/oe/package_manag=
-er.py
-> index ef69b18b642..642d714b51e 100644
-> --- a/meta/lib/oe/package_manager.py
-> +++ b/meta/lib/oe/package_manager.py
-> @@ -953,12 +953,11 @@ class OpkgPM(OpkgDpkgPM):
->              """
->              if (self.d.getVar('FEED_DEPLOYDIR_BASE_URI') or "") !=3D "=
-":
->                  for arch in self.pkg_archs.split():
-> -                    cfg_file_name =3D os.path.join(self.target_rootfs,
-> -                                                 self.d.getVar("syscon=
-fdir"),
-> +                    cfg_file_name =3D os.path.join(self.d.getVar("sysc=
-onfdir", True),
->                                                   "opkg",
->                                                   "local-%s-feed.conf" =
-% arch)
-> =20
-> -                    with open(cfg_file_name, "w+") as cfg_file:
-> +                    with open(self.target_rootfs + cfg_file_name, "w+"=
-) as cfg_file:
->                          cfg_file.write("src/gz local-%s %s/%s" %
->                                         (arch,
->                                          self.d.getVar('FEED_DEPLOYDIR_=
-BASE_URI'),
-> --=20
-> 2.15.0
->=20
 
-Does anybody has any comment about this patch?
+On 01/11/2018 07:40 PM, Alexander Kanavin wrote:
+> On 01/11/2018 07:33 AM, Robert Yang wrote:
+>> Yes, just remove the "else" block and use something like:
+>>
+>> if [ -z "$D" ]; then
+>>      # Actions
+>> fi
+>>
+>> But it would be better if you can make it work during do_rootfs rather
+>> than firstboot.
+> 
+> This is not correct. If you do this, then the postinst will be executed once, 
+> during image creation, and Actions will never be taken.
 
-Regards,
-Gael
+Sorry, I think that the 'Action' will be executed when first boot ?
+
+// Robert
+
+> 
+> Alex
+> 
 
