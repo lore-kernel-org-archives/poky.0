@@ -1,39 +1,62 @@
-Return-Path: <AMardegan@luxoft.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3412CE00E46; Wed, 24 Jan 2018 05:32:24 -0800 (PST)
+	id 08C3FE00E94; Wed, 24 Jan 2018 05:40:53 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [109.166.244.21 listed in list.dnswl.org]
+	*      [209.85.214.41 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 67 seconds by postgrey-1.32 at yocto-www;
-	Wed, 24 Jan 2018 05:32:22 PST
-Received: from ORO-EDGE-01.luxoft.com (oro-edge-01.luxoft.com [109.166.244.21])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8BA45E00CE8
-	for <poky@yoctoproject.org>; Wed, 24 Jan 2018 05:32:22 -0800 (PST)
-Received: from ORO-HUBT-02.luxoft.com (172.30.115.36) by
-	oro-edge-01.luxoft.com (172.30.19.21) with Microsoft SMTP Server (TLS)
-	id 14.3.319.2; Wed, 24 Jan 2018 15:31:13 +0200
-Received: from ORO-MBOX-05.luxoft.com ([fe80::1137:8dc2:bce5:c3fc]) by
-	ORO-HUBT-02.luxoft.com ([::1]) with mapi id 14.03.0319.002;
-	Wed, 24 Jan 2018 15:31:13 +0200
-From: "Mardegan, Alberto" <AMardegan@luxoft.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Getting python-dbusmock into the SDK
-Thread-Index: AQHTlReatVT580XHy0qPLYUcO3Czlg==
-Date: Wed, 24 Jan 2018 13:31:12 +0000
-Message-ID: <af197fb8-a676-bbfd-91fc-183a2aed77b9@luxoft.com>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [213.21.44.132]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-it0-f41.google.com (mail-it0-f41.google.com
+	[209.85.214.41])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4D72EE00E88
+	for <poky@yoctoproject.org>; Wed, 24 Jan 2018 05:40:51 -0800 (PST)
+Received: by mail-it0-f41.google.com with SMTP id m11so18398175iti.1
+	for <poky@yoctoproject.org>; Wed, 24 Jan 2018 05:40:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=yVgnxyW/SvevemOUdqXUf8Xtrm/IZkCC8TWRHF/uA/w=;
+	b=MtIDa/2+BLMKZsOYk8utRh5TcyL/3jGhzxgTQyfYJrSbISmam78PBf9H43PuuG9j7l
+	hBJ2PMPEjxG7q2CXqHSWb87yonQq48mxNWGk4FxyUGhjOuSGM/eb11IPEPSrMV0QhAqx
+	QErWBRHBDVK/UA61qjntL6e/XPDGLmCLimFQUDKTEV1oUyHh5GmnbM/sD1+r8aKWnVL2
+	z/OMbt9JhVR4n8KP4R2oEeC9w+U53VhISKcSaYrYZHXcSub+qNPQzOtGb7nVojtcSKkA
+	g7LQ9nCZPVrNz02wNW7hZ83RdDHNsZWRrSFAU3WjrBePKAUGlCl0RXF9mJIT0lNya5Hc
+	PyCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=yVgnxyW/SvevemOUdqXUf8Xtrm/IZkCC8TWRHF/uA/w=;
+	b=ifMq4a/adTKTEKn0R/rZcZUdRwcTCKOtHc6QYjYqAJlyfwefxBSbLugMQwvddsw4Pf
+	Vzwu+pk6nyKrFgJWICQSSxkLLj4rNrJ54YN98jv4EMEEaVVZCos/e0XUQZAuj7u0RExw
+	r1nS18AmFWFUo2Gms23Iu/mbrHu9e1J3mhSYRKSdpGyajWQf5ero8UHFmLY2Eq1JLr0z
+	JY9oBaiA7YCJ5sIdV2jSSRucsmTOv3BZsJoq7lelbzPAAd8dkmevxK4t4eK8O4ANupro
+	kg9Wl6KClZv5/pRvAjk07ynSsxFqJZefMa8U68Q4nLrYChxllIyLAaZckIeSpnrH7fNj
+	54fw==
+X-Gm-Message-State: AKwxytcfva5KXvtrYoEdGYpckmGAwhgf+ZWv9pgJZPgqd9zh3gm47j58
+	KHRWqWu0Ce2YuYiyfTjKHo2A7EBhRTW1+/FD3UZvSw==
+X-Google-Smtp-Source: AH8x226YMo3gev017gqneQhPrDq7m9lN0S3IpFCKK/ylT0Etn/z1NhtgaKOOsOMEeWTH5bqUElIsr36xZtK+ScXSyDE=
+X-Received: by 10.36.86.20 with SMTP id o20mr8696929itb.53.1516801251553; Wed,
+	24 Jan 2018 05:40:51 -0800 (PST)
 MIME-Version: 1.0
-Subject: Getting python-dbusmock into the SDK
+Received: by 10.107.17.206 with HTTP; Wed, 24 Jan 2018 05:40:31 -0800 (PST)
+In-Reply-To: <af197fb8-a676-bbfd-91fc-183a2aed77b9@luxoft.com>
+References: <af197fb8-a676-bbfd-91fc-183a2aed77b9@luxoft.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 24 Jan 2018 13:40:31 +0000
+Message-ID: <CAJTo0LZfHC8SOOqPTDMyVh1=wDiVxkD9toy-TfgEw1daEpzwog@mail.gmail.com>
+To: "Mardegan, Alberto" <AMardegan@luxoft.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Getting python-dbusmock into the SDK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,47 +69,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Jan 2018 13:32:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <54E97C638623FE45B1D58B4252A8BFCD@luxoft.com>
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Wed, 24 Jan 2018 13:40:53 -0000
+Content-Type: multipart/alternative; boundary="001a1144d5eacb6b85056385cfc0"
 
-SGkgdGhlcmUgOi0pDQogIEkgd2FudCB0byBhZGQgcHl0aG9uLWRidXNtb2NrICh3aGljaCBoYXMg
-YSByZWNpcGUgaW4gb2UvbWV0YS1weXRob24pDQp0byBvdXIgU0RLLiBTbywgSSBhZGRlZA0KDQog
-IFRPT0xDSEFJTl9IT1NUX1RBU0tfYXBwZW5kID0gIiBuYXRpdmVzZGstcHl0aG9uLWRidXNtb2Nr
-Ig0KDQp0byBvdXIgaW1hZ2UgcmVjaXBlIGFuZCBtYWRlIGEgYmJhcHBlbmQgZm9yIHB5dGhvbi1k
-YnVzbW9jayBjb250YWluaW5nDQp0aGlzIGxpbmU6DQoNCiAgQkJDTEFTU0VYVEVORCArPSAiIG5h
-dGl2ZXNkayINCg0KV2hlbiBJIHJhbiBiaXRiYWtlIHdpdGggdGhlIHBvcHVsYXRlLXNkayB0YXNr
-IEkgZ290IGFuIGVycm9yIGFib3V0IGENCm5hdGl2ZXNkay1weXRob24tcHlnb2JqZWN0LCB3aGlj
-aCB3YXMgbm90IHByb3ZpZGVkIGJ5IGFueSBwYWNrYWdlLiBTbyBJDQphZGRlZCB0aGUgc2FtZSBC
-QkNMQVNTRVhURU5EIHRyaWNrIHRvIGl0cyBiYmFwcGVuZCwgYW5kIEkgZGlkIHRoZSBzYW1lDQpm
-b3IgbmF0aXZlc2RrLXB5dGhvbi1kYnVzIHdoaWNoIHdhcyBhbHNvIGRlY2xhcmVkIGFzIG1pc3Np
-bmcuDQoNCkF0IHRoaXMgcG9pbnQgKGFmdGVyIGFkZGluZyB0aGUgQkJDTEFTU0VYVEVORCB0byBw
-eXRob24tZGJ1cykgSSBnb3QgdGhpcw0KZXJyb3I6DQoNCj09PT09PT09PT09PQ0KRVJST1I6IE5v
-dGhpbmcgUFJPVklERVMgJ25hdGl2ZXNkay1kYnVzLWdsaWInIChidXQNCnZpcnR1YWw6bmF0aXZl
-c2RrOi9ob21lL21hcmR5L3BlbHV4L2J1aWxkLy4uL3NvdXJjZXMvbWV0YS1vcGVuZW1iZWRkZWQv
-bWV0YS1weXRob24vcmVjaXBlcy1kZXZ0b29scy9weXRob24vcHl0aG9uLWRidXNfMS4yLjQuYmIN
-CkRFUEVORFMgb24gb3Igb3RoZXJ3aXNlIHJlcXVpcmVzIGl0KS4gQ2xvc2UgbWF0Y2hlczoNCiAg
-bmF0aXZlc2RrLWRidXMNCiAgbmF0aXZlc2RrLWpzb24tZ2xpYg0KICBuYXRpdmVzZGstZ2xpYmMN
-Cj09PT09PT09PT09PQ0KDQpEbyBJIG5lZWQgdG8gY29udGludWUgYWRkaW5nIEJCQ0xBU1NFWFRF
-TkQrPSIgbmF0aXZlc2RrIiB0byB0aGUgcGFja2FnZXMNCmFzIEkgZ2V0IG5ldyBmYWlsdXJlcywg
-b3IgYW0gSSBkb2luZyBzb21ldGhpbmcgd3Jvbmc/DQpJIGJlY2FtZSBzdXNwaWNpb3VzIHdoZW4g
-SSBzYXcgIm5hdGl2ZXNkay1nbGliIiBhcHBlYXJpbmcgaW4gdGhlIGxvZ3MNCmFib3ZlOyBJIGd1
-ZXNzIHdlIGNhbiBzYWZlbHkgYXNzdW1lIHRoYXQgZ2xpYmMgaXMgYXZhaWxhYmxlIGluIHRoZSBo
-b3N0DQpzeXN0ZW0sIHNvIHRoZSBuZWVkIHRvIGFkZCBpdCBhcyBhIG5hdGl2ZSBTREsgcGFja2Fn
-ZSBnb3QgbWUgcHV6emxlZC4NCg0KU2hvdWxkIEkgY29udGludWUgZG93biB0aGlzIHJvYWQsIG9y
-IGlzIGl0IGEgZGVhZCBlbmQ/DQoNCkNpYW8sDQogIEFsYmVydG8NCg0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18NCg0KVGhpcyBlLW1haWwgYW5kIGFueSBhdHRhY2htZW50KHMpIGFy
-ZSBpbnRlbmRlZCBvbmx5IGZvciB0aGUgcmVjaXBpZW50KHMpIG5hbWVkIGFib3ZlIGFuZCBvdGhl
-cnMgd2hvIGhhdmUgYmVlbiBzcGVjaWZpY2FsbHkgYXV0aG9yaXplZCB0byByZWNlaXZlIHRoZW0u
-IFRoZXkgbWF5IGNvbnRhaW4gY29uZmlkZW50aWFsIGluZm9ybWF0aW9uLiBJZiB5b3UgYXJlIG5v
-dCB0aGUgaW50ZW5kZWQgcmVjaXBpZW50LCBwbGVhc2UgZG8gbm90IHJlYWQgdGhpcyBlbWFpbCBv
-ciBpdHMgYXR0YWNobWVudChzKS4gRnVydGhlcm1vcmUsIHlvdSBhcmUgaGVyZWJ5IG5vdGlmaWVk
-IHRoYXQgYW55IGRpc3NlbWluYXRpb24sIGRpc3RyaWJ1dGlvbiBvciBjb3B5aW5nIG9mIHRoaXMg
-ZS1tYWlsIGFuZCBhbnkgYXR0YWNobWVudChzKSBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLiBJZiB5
-b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGUtbWFpbCBpbiBlcnJvciwgcGxlYXNlIGltbWVkaWF0ZWx5
-IG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHJlcGx5aW5nIHRvIHRoaXMgZS1tYWlsIGFuZCB0aGVuIGRl
-bGV0ZSB0aGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnQocykgb3IgY29waWVzIHRoZXJlb2Yg
-ZnJvbSB5b3VyIHN5c3RlbS4gVGhhbmsgeW91Lg0K
+--001a1144d5eacb6b85056385cfc0
+Content-Type: text/plain; charset="UTF-8"
 
+On 24 January 2018 at 13:31, Mardegan, Alberto <AMardegan@luxoft.com> wrote:
+
+> ============
+> ERROR: Nothing PROVIDES 'nativesdk-dbus-glib' (but
+> virtual:nativesdk:/home/mardy/pelux/build/../sources/meta-
+> openembedded/meta-python/recipes-devtools/python/python-dbus_1.2.4.bb
+> DEPENDS on or otherwise requires it). Close matches:
+>   nativesdk-dbus
+>   nativesdk-json-glib
+>   nativesdk-glibc
+> ============
+>
+> Do I need to continue adding BBCLASSEXTEND+=" nativesdk" to the packages
+> as I get new failures, or am I doing something wrong?
+> I became suspicious when I saw "nativesdk-glib" appearing in the logs
+> above; I guess we can safely assume that glibc is available in the host
+> system, so the need to add it as a native SDK package got me puzzled.
+>
+
+Those are close matches on the assumption that maybe you did a typo.
+
+Yes, you need to add BBCLASSEXTEND as appropriate.  Once you've verified
+that the recipes actually build correctly in nativesk please send those
+additions to oe-core.
+
+Ross
+
+--001a1144d5eacb6b85056385cfc0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">On 24 January 2018 at 13:31, Mardegan, Alberto <span dir=
+=3D"ltr">&lt;<a href=3D"mailto:AMardegan@luxoft.com" target=3D"_blank">AMar=
+degan@luxoft.com</a>&gt;</span> wrote:<div class=3D"gmail_extra"><div class=
+=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
+ex;border-left:1px #ccc solid;padding-left:1ex">
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+ERROR: Nothing PROVIDES &#39;nativesdk-dbus-glib&#39; (but<br>
+virtual:nativesdk:/home/mardy/<wbr>pelux/build/../sources/meta-<wbr>openemb=
+edded/meta-python/<wbr>recipes-devtools/python/<a href=3D"http://python-dbu=
+s_1.2.4.bb" rel=3D"noreferrer" target=3D"_blank">python<wbr>-dbus_1.2.4.bb<=
+/a><br>
+DEPENDS on or otherwise requires it). Close matches:<br>
+=C2=A0 nativesdk-dbus<br>
+=C2=A0 nativesdk-json-glib<br>
+=C2=A0 nativesdk-glibc<br>
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+<br>
+Do I need to continue adding BBCLASSEXTEND+=3D&quot; nativesdk&quot; to the=
+ packages<br>
+as I get new failures, or am I doing something wrong?<br>
+I became suspicious when I saw &quot;nativesdk-glib&quot; appearing in the =
+logs<br>
+above; I guess we can safely assume that glibc is available in the host<br>
+system, so the need to add it as a native SDK package got me puzzled.<br></=
+blockquote><div><br></div><div>Those are close matches on the assumption th=
+at maybe you did a typo.</div><div><br></div><div>Yes, you need to add BBCL=
+ASSEXTEND as appropriate.=C2=A0 Once you&#39;ve verified that the recipes a=
+ctually build correctly in nativesk please send those additions to oe-core.=
+</div><div><br></div><div>Ross=C2=A0</div></div></div></div>
+
+--001a1144d5eacb6b85056385cfc0--
