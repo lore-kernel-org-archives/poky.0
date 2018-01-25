@@ -1,37 +1,41 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <AMardegan@luxoft.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 34B2AE00D7F; Thu, 25 Jan 2018 03:34:47 -0800 (PST)
+	id 41B5AE00DC6; Thu, 25 Jan 2018 07:05:47 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=BAYES_00,RCVD_IN_RP_RNBL
-	autolearn=no version=3.3.1
-X-Spam-HAM-Report: *  1.3 RCVD_IN_RP_RNBL RBL: Relay in RNBL,
-	*      https://senderscore.org/blacklistlookup/
-	*      [87.81.244.161 listed in bl.score.senderscore.com]
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [109.166.244.21 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E607DE00B5F
-	for <poky@yoctoproject.org>; Thu, 25 Jan 2018 03:34:45 -0800 (PST)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.15.2/8.15.2/Debian-3) with ESMTPSA id
-	w0PBYfVB028992
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Thu, 25 Jan 2018 11:34:42 GMT
-Message-ID: <1516880080.24502.181.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: "Mardegan, Alberto" <AMardegan@luxoft.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Thu, 25 Jan 2018 11:34:40 +0000
-In-Reply-To: <8bf1b928-c37a-0590-5ead-e240b7d64eab@luxoft.com>
+Received: from ORO-EDGE-01.luxoft.com (oro-edge-01.luxoft.com [109.166.244.21])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 02E1CE00C45
+	for <poky@yoctoproject.org>; Thu, 25 Jan 2018 07:05:45 -0800 (PST)
+Received: from ORO-HUBT-01.luxoft.com (172.30.115.41) by
+	oro-edge-01.luxoft.com (172.30.19.21) with Microsoft SMTP Server (TLS)
+	id 14.3.319.2; Thu, 25 Jan 2018 17:05:41 +0200
+Received: from ORO-MBOX-05.luxoft.com ([fe80::1137:8dc2:bce5:c3fc]) by
+	ORO-HUBT-01.luxoft.com ([::1]) with mapi id 14.03.0319.002;
+	Thu, 25 Jan 2018 17:05:43 +0200
+From: "Mardegan, Alberto" <AMardegan@luxoft.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky] Getting python-dbusmock into the SDK
+Thread-Index: AQHTlReatVT580XHy0qPLYUcO3CzlqOC5heAgAFe+QCAABAyAIAAOvaA
+Date: Thu, 25 Jan 2018 15:05:42 +0000
+Message-ID: <2b452f27-7df9-34e3-a01b-80151312dc8f@luxoft.com>
 References: <af197fb8-a676-bbfd-91fc-183a2aed77b9@luxoft.com>
 	<CAJTo0LZfHC8SOOqPTDMyVh1=wDiVxkD9toy-TfgEw1daEpzwog@mail.gmail.com>
 	<8bf1b928-c37a-0590-5ead-e240b7d64eab@luxoft.com>
-X-Mailer: Evolution 3.18.5.2-0ubuntu3.2 
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.2 at dan
-X-Virus-Status: Clean
+	<1516880080.24502.181.camel@linuxfoundation.org>
+In-Reply-To: <1516880080.24502.181.camel@linuxfoundation.org>
+Accept-Language: it-IT, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [213.21.44.132]
+MIME-Version: 1.0
 Subject: Re: Getting python-dbusmock into the SDK
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -45,36 +49,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Jan 2018 11:34:47 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 25 Jan 2018 15:05:47 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2406CE81AC2E6D4787F60AC78AA82B2E@luxoft.com>
+Content-Transfer-Encoding: base64
 
-On Thu, 2018-01-25 at 10:36 +0000, Mardegan, Alberto wrote:
-> On 24/01/2018 16:40, Burton, Ross wrote:
-> > 
-> > Those are close matches on the assumption that maybe you did a
-> > typo.
-> Right, I had completely misread the error message :-)
-> 
-> > 
-> > Yes, you need to add BBCLASSEXTEND as appropriate.  Once you've
-> > verified
-> > that the recipes actually build correctly in nativesk please send
-> > those
-> > additions to oe-core.
-> OK. FYI, there's another change that was needed: the dbus recipe has:
-> 
->   OLDPKGNAME = "dbus-x11"
->   OLDPKGNAME_class-nativesdk = ""
-> 
-> I had to change the second line and set the value to "dbus-x11" there
-> as
-> well, or I would get an unsolved dependency (dbus-glib requires it).
-
-Installing dbus in the sdk makes very little sense so you may want to
-rethink that (or tell the sdk its a system provided dependency).
-
-Cheers,
-
-Richard
+T24gMjUvMDEvMjAxOCAxNDozNCwgUmljaGFyZCBQdXJkaWUgd3JvdGU6DQo+DQo+IEluc3RhbGxp
+bmcgZGJ1cyBpbiB0aGUgc2RrIG1ha2VzIHZlcnkgbGl0dGxlIHNlbnNlIHNvIHlvdSBtYXkgd2Fu
+dCB0bw0KPiByZXRoaW5rIHRoYXQgKG9yIHRlbGwgdGhlIHNkayBpdHMgYSBzeXN0ZW0gcHJvdmlk
+ZWQgZGVwZW5kZW5jeSkuDQoNCkdvb2QgcG9pbnQgKHRoZSBsYXR0ZXIpIQ0KDQpDaWFvLA0KICBB
+bGJlcnRvDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQoNClRoaXMgZS1tYWls
+IGFuZCBhbnkgYXR0YWNobWVudChzKSBhcmUgaW50ZW5kZWQgb25seSBmb3IgdGhlIHJlY2lwaWVu
+dChzKSBuYW1lZCBhYm92ZSBhbmQgb3RoZXJzIHdobyBoYXZlIGJlZW4gc3BlY2lmaWNhbGx5IGF1
+dGhvcml6ZWQgdG8gcmVjZWl2ZSB0aGVtLiBUaGV5IG1heSBjb250YWluIGNvbmZpZGVudGlhbCBp
+bmZvcm1hdGlvbi4gSWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkIHJlY2lwaWVudCwgcGxlYXNl
+IGRvIG5vdCByZWFkIHRoaXMgZW1haWwgb3IgaXRzIGF0dGFjaG1lbnQocykuIEZ1cnRoZXJtb3Jl
+LCB5b3UgYXJlIGhlcmVieSBub3RpZmllZCB0aGF0IGFueSBkaXNzZW1pbmF0aW9uLCBkaXN0cmli
+dXRpb24gb3IgY29weWluZyBvZiB0aGlzIGUtbWFpbCBhbmQgYW55IGF0dGFjaG1lbnQocykgaXMg
+c3RyaWN0bHkgcHJvaGliaXRlZC4gSWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlLW1haWwgaW4g
+ZXJyb3IsIHBsZWFzZSBpbW1lZGlhdGVseSBub3RpZnkgdGhlIHNlbmRlciBieSByZXBseWluZyB0
+byB0aGlzIGUtbWFpbCBhbmQgdGhlbiBkZWxldGUgdGhpcyBlLW1haWwgYW5kIGFueSBhdHRhY2ht
+ZW50KHMpIG9yIGNvcGllcyB0aGVyZW9mIGZyb20geW91ciBzeXN0ZW0uIFRoYW5rIHlvdS4NCg==
 
