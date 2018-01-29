@@ -1,44 +1,31 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <anuj.mittal@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 703ACE00E4B; Fri, 26 Jan 2018 08:44:03 -0800 (PST)
+	id E17E9E00DA8; Sun, 28 Jan 2018 17:04:57 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [192.55.52.43 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5644E00E43
-	for <poky@yoctoproject.org>; Fri, 26 Jan 2018 08:44:02 -0800 (PST)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6D0EAE00B1A
+	for <poky@yoctoproject.org>; Sun, 28 Jan 2018 17:04:57 -0800 (PST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-	by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	26 Jan 2018 08:44:02 -0800
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+	by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	28 Jan 2018 17:04:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,417,1511856000"; d="scan'208";a="13221638"
-Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.161])
-	([10.237.68.161])
-	by fmsmga007.fm.intel.com with ESMTP; 26 Jan 2018 08:44:01 -0800
-To: "Mardegan, Alberto" <AMardegan@luxoft.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <af197fb8-a676-bbfd-91fc-183a2aed77b9@luxoft.com>
-	<CAJTo0LZfHC8SOOqPTDMyVh1=wDiVxkD9toy-TfgEw1daEpzwog@mail.gmail.com>
-	<8bf1b928-c37a-0590-5ead-e240b7d64eab@luxoft.com>
-	<1516880080.24502.181.camel@linuxfoundation.org>
-	<32335577-b643-1b0f-49d0-870b7bb2bf8a@luxoft.com>
-From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-Message-ID: <fb333d5e-0c43-5aab-39ed-f77da37a1dec@linux.intel.com>
-Date: Fri, 26 Jan 2018 18:38:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.4.0
-MIME-Version: 1.0
-In-Reply-To: <32335577-b643-1b0f-49d0-870b7bb2bf8a@luxoft.com>
-Subject: Re: Error building python-gobject for nativeSDK
+X-IronPort-AV: E=Sophos;i="5.46,428,1511856000"; d="scan'208";a="199361372"
+Received: from andromeda02.png.intel.com ([10.221.183.11])
+	by fmsmga005.fm.intel.com with ESMTP; 28 Jan 2018 17:04:55 -0800
+From: Anuj Mittal <anuj.mittal@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 29 Jan 2018 08:59:32 +0800
+Message-Id: <1517187574-39232-1-git-send-email-anuj.mittal@intel.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [PATCH 1/3] linux-yocto: update genericx86* SRCREVs for v4.12
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,50 +38,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Jan 2018 16:44:03 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 29 Jan 2018 01:04:58 -0000
 
-On 01/26/2018 12:59 PM, Mardegan, Alberto wrote:
-> Hi!
->    I made a little progress, but now I'm stuck with this error while
-> building python-gobject for nativesdk:
-> 
->    https://paste.ubuntu.com/26463423/
-> 
-> In short, the gobject-introspection-1.0 pkg-config file is not found. I
-> see that python-gobjecty inherits from the gobject-introspection class,
-> which has these two lines:
-> 
->   DEPENDS_append_class-native = " gobject-introspection-native"
->   DEPENDS_append_class-nativesdk = " gobject-introspection-native"
-> 
-> Assuming that the second one was a typo, I changed the dependency to
-> point at "nativesdk-gobject-introspection", and added "nativesdk" to
-> BBCLASS_EXTENDS in the gobject-introspection recipe.
+Bump to stable kernel release 4.12.19.
 
-Note that at the moment we explicitly disable g-i for nativesdk in g-i 
-class:
+Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
+---
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-EXTRA_OECONF_prepend_class-nativesdk = "--disable-introspection "
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+index 8e7d7d8..1c0a3d6 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+@@ -8,8 +8,8 @@ KBRANCH_beaglebone-yocto = "standard/beaglebone"
+ KMACHINE_beaglebone-yocto = "beaglebone"
+ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+-SRCREV_machine_genericx86    ?= "558fe84d691abbb8c8f5e149aa29ef4a478d0128"
+-SRCREV_machine_genericx86-64 ?= "558fe84d691abbb8c8f5e149aa29ef4a478d0128"
++SRCREV_machine_genericx86    ?= "257f843ea367744620f1d92910afd2f454e31483"
++SRCREV_machine_genericx86-64 ?= "257f843ea367744620f1d92910afd2f454e31483"
+ SRCREV_machine_edgerouter ?= "558fe84d691abbb8c8f5e149aa29ef4a478d0128"
+ SRCREV_machine_beaglebone-yocto ?= "558fe84d691abbb8c8f5e149aa29ef4a478d0128"
+ SRCREV_machine_mpc8315e-rdb ?= "f3c9a151c503869e39cea788b504b26b21e83ea4"
+@@ -21,8 +21,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.12.18"
+-LINUX_VERSION_genericx86-64 = "4.12.18"
++LINUX_VERSION_genericx86 = "4.12.19"
++LINUX_VERSION_genericx86-64 = "4.12.19"
+ LINUX_VERSION_edgerouter = "4.12.18"
+ LINUX_VERSION_beaglebone-yocto = "4.12.18"
+ LINUX_VERSION_mpc8315e-rdb = "4.12.18"
+-- 
+2.7.4
 
-So you're effectively working on a new feature, and it's not surprising 
-there are weird errors :) Gobject-introspection is a notoriously tricky, 
-delicate thing that was never designed for cross-compilation or 
-sysroots, and you only need to look at the g-i recipe to see how much 
-effort went into making it work right when building for the target.
-
-I did reproduce the
-
-"| ./g-ir-compiler: line 117: 
-/home/mardy/pelux/build/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-gobject-introspection/1.50.0-r0/build/.libs/lt-g-ir-compiler: 
-No such file or directory"
-
-stuff, so no need to publish anything :). I can't promise I'll find time 
-to look into it very soon though - this is a new feature development, 
-not a bug.
-
-
-Alex
 
