@@ -1,43 +1,34 @@
-Return-Path: <alexander.kanavin@linux.intel.com>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AC5CDE00E15; Sun, 28 Jan 2018 23:42:53 -0800 (PST)
+	id 02709E00E23; Thu,  1 Feb 2018 17:36:59 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1EAC4E00971
-	for <poky@yoctoproject.org>; Sun, 28 Jan 2018 23:42:52 -0800 (PST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-	by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	28 Jan 2018 23:42:52 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,429,1511856000"; d="scan'208";a="13719373"
-Received: from kanavin-desktop.fi.intel.com (HELO [10.237.68.161])
-	([10.237.68.161])
-	by fmsmga007.fm.intel.com with ESMTP; 28 Jan 2018 23:42:51 -0800
-To: "Mardegan, Alberto" <AMardegan@luxoft.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <af197fb8-a676-bbfd-91fc-183a2aed77b9@luxoft.com>
-	<CAJTo0LZfHC8SOOqPTDMyVh1=wDiVxkD9toy-TfgEw1daEpzwog@mail.gmail.com>
-	<8bf1b928-c37a-0590-5ead-e240b7d64eab@luxoft.com>
-	<1516880080.24502.181.camel@linuxfoundation.org>
-	<32335577-b643-1b0f-49d0-870b7bb2bf8a@luxoft.com>
-	<fb333d5e-0c43-5aab-39ed-f77da37a1dec@linux.intel.com>
-	<8fa2aaf1-8287-0d59-641a-4f14852fb921@luxoft.com>
-From: Alexander Kanavin <alexander.kanavin@linux.intel.com>
-Message-ID: <c2a667a4-c171-c586-38f1-bf0d2893c004@linux.intel.com>
-Date: Mon, 29 Jan 2018 09:37:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.4.0
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E8145E00E11
+	for <poky@yoctoproject.org>; Thu,  1 Feb 2018 17:36:57 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id w121arHP026131
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 1 Feb 2018 17:36:53 -0800 (PST)
+Received: from pek-lpgbuild2.wrs.com (128.224.153.30) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
+	14.3.361.1; Thu, 1 Feb 2018 17:36:52 -0800
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Fri, 2 Feb 2018 09:35:21 +0800
+Message-ID: <20180202013521.24041-1-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.9.3
 MIME-Version: 1.0
-In-Reply-To: <8fa2aaf1-8287-0d59-641a-4f14852fb921@luxoft.com>
-Subject: Re: Error building python-gobject for nativeSDK
+Subject: [PATCH] meta-yocto-bsp: bump to the latest linux stable kernel for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,39 +41,100 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 29 Jan 2018 07:42:53 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 02 Feb 2018 01:36:59 -0000
+Content-Type: text/plain
 
-On 01/29/2018 08:44 AM, Mardegan, Alberto wrote:
->> I did reproduce the
->>
->> "| ./g-ir-compiler: line 117:
->> /home/mardy/pelux/build/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-gobject-introspection/1.50.0-r0/build/.libs/lt-g-ir-compiler:
->> No such file or directory"
->>
->> stuff, so no need to publish anything :). I can't promise I'll find time
->> to look into it very soon though - this is a new feature development,
->> not a bug.
-> 
-> Thanks Alex! Indeed this looks tricky... Anyway, according to the
-> documentation it would looks like the GI typelib files should be
-> architecture independent:
->    https://developer.gnome.org/gi/unstable/gi-GITypelib.html
-> So I guess the problem here is that g-ir-compiler is being built for the
-> target architecture, while it's something that can be built natively?
+Bump to the latest stable kernel for 4.4, 4.9 and 4.12.
 
-Typelib files are essentially a memory dump of internal g-i C structures 
-to disk. They might be the same on every architecture, or they might not 
-(endiannness, alignment). I'm not trusting that they are. So to produce 
-them for target we build a target g-ir-compiler and run it under qemu.
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_4.12.bbappend           | 12 ++++++------
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend | 12 ++++++------
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend | 12 ++++++------
+ 3 files changed, 18 insertions(+), 18 deletions(-)
 
-In this case, the produced typelib files are not intended for the 
-target, they are intended for the nativesdk package. The error is 
-probably some simple mismatch between the binary name and what the build 
-configuration expects to run. I have a hunch that's not the only issue 
-to sort though :)
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+index 1c0a3d6a0261..237587478b92 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.12.bbappend
+@@ -10,9 +10,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "257f843ea367744620f1d92910afd2f454e31483"
+ SRCREV_machine_genericx86-64 ?= "257f843ea367744620f1d92910afd2f454e31483"
+-SRCREV_machine_edgerouter ?= "558fe84d691abbb8c8f5e149aa29ef4a478d0128"
+-SRCREV_machine_beaglebone-yocto ?= "558fe84d691abbb8c8f5e149aa29ef4a478d0128"
+-SRCREV_machine_mpc8315e-rdb ?= "f3c9a151c503869e39cea788b504b26b21e83ea4"
++SRCREV_machine_edgerouter ?= "257f843ea367744620f1d92910afd2f454e31483"
++SRCREV_machine_beaglebone-yocto ?= "257f843ea367744620f1d92910afd2f454e31483"
++SRCREV_machine_mpc8315e-rdb ?= "014560874f9eb2a86138c9cc35046ff1720485e1"
+ 
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+@@ -23,6 +23,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.12.19"
+ LINUX_VERSION_genericx86-64 = "4.12.19"
+-LINUX_VERSION_edgerouter = "4.12.18"
+-LINUX_VERSION_beaglebone-yocto = "4.12.18"
+-LINUX_VERSION_mpc8315e-rdb = "4.12.18"
++LINUX_VERSION_edgerouter = "4.12.19"
++LINUX_VERSION_beaglebone-yocto = "4.12.19"
++LINUX_VERSION_mpc8315e-rdb = "4.12.19"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+index fa271e3e6d89..8b2c03747a37 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.4.bbappend
+@@ -10,9 +10,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "4d31a8b7661509ff1044abcf9050750cc2478e20"
+ SRCREV_machine_genericx86-64 ?= "4d31a8b7661509ff1044abcf9050750cc2478e20"
+-SRCREV_machine_edgerouter ?= "f070447fb60b5b939c94583d7c05f55ec2b37acd"
+-SRCREV_machine_beaglebone-yocto ?= "f070447fb60b5b939c94583d7c05f55ec2b37acd"
+-SRCREV_machine_mpc8315e-rdb ?= "df06daf8e6de559934d16e88129bbba0237d0292"
++SRCREV_machine_edgerouter ?= "4d31a8b7661509ff1044abcf9050750cc2478e20"
++SRCREV_machine_beaglebone-yocto ?= "4d31a8b7661509ff1044abcf9050750cc2478e20"
++SRCREV_machine_mpc8315e-rdb ?= "70120c0a6b0f88122799705114a99a15bf0113ce"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -22,6 +22,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.4.113"
+ LINUX_VERSION_genericx86-64 = "4.4.113"
+-LINUX_VERSION_edgerouter = "4.4.93"
+-LINUX_VERSION_beaglebone-yocto = "4.4.93"
+-LINUX_VERSION_mpc8315e-rdb = "4.4.93"
++LINUX_VERSION_edgerouter = "4.4.113"
++LINUX_VERSION_beaglebone-yocto = "4.4.113"
++LINUX_VERSION_mpc8315e-rdb = "4.4.113"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+index c0f8a4d1f7dd..96b60bb3fc99 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.9.bbappend
+@@ -10,9 +10,9 @@ KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
+ 
+ SRCREV_machine_genericx86    ?= "f7a6d45fff853173bfbf61706aeffcd1d1e99467"
+ SRCREV_machine_genericx86-64 ?= "f7a6d45fff853173bfbf61706aeffcd1d1e99467"
+-SRCREV_machine_edgerouter ?= "5174e51fa08d0942ddcf8b19540e90ec10eeb621"
+-SRCREV_machine_beaglebone-yocto ?= "5174e51fa08d0942ddcf8b19540e90ec10eeb621"
+-SRCREV_machine_mpc8315e-rdb ?= "98afa8ec2086fb2262d43040094e6c786d3847ba"
++SRCREV_machine_edgerouter ?= "f7a6d45fff853173bfbf61706aeffcd1d1e99467"
++SRCREV_machine_beaglebone-yocto ?= "f7a6d45fff853173bfbf61706aeffcd1d1e99467"
++SRCREV_machine_mpc8315e-rdb ?= "195a857a0e42150b940dfcbdf857be66e05dd003"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -22,6 +22,6 @@ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.9.78"
+ LINUX_VERSION_genericx86-64 = "4.9.78"
+-LINUX_VERSION_edgerouter = "4.9.65"
+-LINUX_VERSION_beaglebone-yocto = "4.9.65"
+-LINUX_VERSION_mpc8315e-rdb = "4.9.65"
++LINUX_VERSION_edgerouter = "4.9.78"
++LINUX_VERSION_beaglebone-yocto = "4.9.78"
++LINUX_VERSION_mpc8315e-rdb = "4.9.78"
+-- 
+2.9.3
 
-Alex
 
