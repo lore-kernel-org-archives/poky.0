@@ -1,6 +1,6 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <avinash.reddy.palleti@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2A2A4E00E0A; Tue,  6 Feb 2018 16:01:15 -0800 (PST)
+	id 7C423E00E54; Tue,  6 Feb 2018 20:49:36 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,26 +8,25 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
 	version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2CF72E0083E
-	for <poky@yoctoproject.org>; Tue,  6 Feb 2018 16:01:13 -0800 (PST)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.15.2/8.15.2/Debian-3) with ESMTPSA id
-	w17017pS006391
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Wed, 7 Feb 2018 00:01:08 GMT
-Message-ID: <1517961667.3090.102.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Tim Johnson <Tim.Johnson@calix.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-Date: Wed, 07 Feb 2018 00:01:07 +0000
-In-Reply-To: <DM5PR05MB29558E5FAE0822DBB84D79D5E5FD0@DM5PR05MB2955.namprd05.prod.outlook.com>
-References: <DM5PR05MB29558E5FAE0822DBB84D79D5E5FD0@DM5PR05MB2955.namprd05.prod.outlook.com>
-X-Mailer: Evolution 3.18.5.2-0ubuntu3.2 
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.3 at dan
-X-Virus-Status: Clean
-Subject: Re: Sharing Header Files between Kernel Modules
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7901CE0083E
+	for <poky@yoctoproject.org>; Tue,  6 Feb 2018 20:49:35 -0800 (PST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	06 Feb 2018 20:49:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.46,471,1511856000"; d="scan'208";a="17843971"
+Received: from arpallet-desk.iind.intel.com ([10.66.247.158])
+	by fmsmga002.fm.intel.com with ESMTP; 06 Feb 2018 20:49:33 -0800
+From: avinash.reddy.palleti@intel.com
+To: poky@yoctoproject.org
+Date: Wed,  7 Feb 2018 10:19:07 +0530
+Message-Id: <1517978948-29740-1-git-send-email-avinash.reddy.palleti@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: saul.wold@intel.com
+Subject: [pyro][pull] Add reference to iwlwifi-8000c firmware
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,30 +39,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Feb 2018 00:01:15 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 07 Feb 2018 04:49:36 -0000
 
-On Tue, 2018-02-06 at 23:03 +0000, Tim Johnson wrote:
-> I am using Morty (2.2).
->  
-> I have several kernel modules with header files that need to accessed
-> by other kernel modules when building.
->  
-> Where can I install the header files so:
-> they can be found by other kernel modules while compiling
-> they will be created during an sstate build
->  
-> I was able to install the header files in:
-> ‘${STAGING_KERNEL_DIR}/include/linux/exa’ (in work-shared). The other
-> modules were able to find the header files, but that approach breaks
-> the build from sstates.
 
-Doesn't installing to ${D}${includedir} in do_install work? (or pick
-your directory in ${D}). Note you need to DEPEND on the recipe
-installing the files.
+Hi,
 
-Cheers,
+Reference to iwlwifi-8000c firmware is removed erroneously in below commit in pyro branch,
+http://git.yoctoproject.org/cgit.cgi/poky/commit/?h=pyro&id=3e4b382c0
+with this yocto build is failing in platforms where this firmware is used (intel-aero), So I am adding these lines back into recipe file.
+Please review the patch and merge the same into pyro branch.
 
-Richard
+Thanks,
+Avinash
 
