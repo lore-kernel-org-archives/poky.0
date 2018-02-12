@@ -1,51 +1,41 @@
-Return-Path: <saul.wold@intel.com>
+Return-Path: <eric.di-schiena@thalesgroup.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 15B60E00E36; Tue,  6 Feb 2018 21:18:09 -0800 (PST)
+	id 40C72E00E13; Mon, 12 Feb 2018 08:45:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [134.134.136.100 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.93.158.29 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4665EE00A44
-	for <poky@yoctoproject.org>; Tue,  6 Feb 2018 21:18:07 -0800 (PST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-	by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	06 Feb 2018 21:18:07 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.46,471,1511856000"; d="scan'208";a="16570187"
-Received: from orsmsx103.amr.corp.intel.com ([10.22.225.130])
-	by orsmga006.jf.intel.com with ESMTP; 06 Feb 2018 21:18:07 -0800
-Received: from orsmsx154.amr.corp.intel.com (10.22.226.12) by
-	ORSMSX103.amr.corp.intel.com (10.22.225.130) with Microsoft SMTP Server
-	(TLS) id 14.3.319.2; Tue, 6 Feb 2018 21:18:07 -0800
-Received: from orsmsx113.amr.corp.intel.com ([169.254.9.97]) by
-	ORSMSX154.amr.corp.intel.com ([169.254.11.77]) with mapi id
-	14.03.0319.002; Tue, 6 Feb 2018 21:18:06 -0800
-From: "Wold, Saul" <saul.wold@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>, "Palleti, Avinash Reddy"
-	<avinash.reddy.palleti@intel.com>
-Thread-Topic: [PATCH] linux-firmware: Add reference to iwlwifi-8000C firmware
-Thread-Index: AQHTn88cr1Wy9zulREabD/gzY78dOqOY7I0A
-Date: Wed, 7 Feb 2018 05:18:06 +0000
-Message-ID: <1517980684.23314.14.camel@intel.com>
-References: <1517978948-29740-1-git-send-email-avinash.reddy.palleti@intel.com>
-	<1517978948-29740-2-git-send-email-avinash.reddy.palleti@intel.com>
-In-Reply-To: <1517978948-29740-2-git-send-email-avinash.reddy.palleti@intel.com>
-Accept-Language: en-US
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 137 seconds by postgrey-1.32 at yocto-www;
+	Mon, 12 Feb 2018 08:45:39 PST
+Received: from thsbbfxrt02p.thalesgroup.com (thsbbfxrt02p.thalesgroup.com
+	[192.93.158.29])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5213E00DD7
+	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 08:45:39 -0800 (PST)
+Received: from thsbbfxrt02p.thalesgroup.com (localhost [127.0.0.1])
+	by localhost (Postfix) with SMTP id 3zgBLf1wVtz3ly
+	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 17:43:22 +0100 (CET)
+From: DI SCHIENA Eric <eric.di-schiena@thalesgroup.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Mon, 12 Feb 2018 17:43:20 +0100
+Thread-Topic: Build rpi-basic-image Pi3 with kernel-devsrc error :
+	conflicting requests nothing provides /bin/awk needed by
+	kernel-devsrc-1.0-r0.raspberrypi3
+Thread-Index: AdOkIJHQEAEXnud6Qom9zKApRysNEQ==
+Message-ID: <967D67AEC428424E83B5D1DABFB91AA3863A93FFF0@THSONEA01CMS13P.one.grp>
+Accept-Language: fr-FR
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.254.64.234]
+acceptlanguage: fr-FR
+x-pmwin-version: 3.1.3.0, Antivirus-Engine: 3.70.2, Antivirus-Data: 5.47
 MIME-Version: 1.0
-Cc: "akuster@mvista.com" <akuster@mvista.com>
-Subject: Re: [PATCH] linux-firmware: Add reference to iwlwifi-8000C firmware
+Subject: Build rpi-basic-image Pi3 with kernel-devsrc error : conflicting requests nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -58,50 +48,128 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 07 Feb 2018 05:18:09 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2A3C70731EDF4F4F8AF2A6446AAFC7C0@intel.com>
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Mon, 12 Feb 2018 16:45:41 -0000
+Content-Language: fr-FR
+Content-Type: multipart/alternative;
+	boundary="_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_"
 
-DQpKdXN0IHRvIGJlIGNsZWFyIHRoaXMgaXMgZm9yIFBZUk8NCg0KQWNrZWQtYnk6IFNhdWwgV29s
-ZCA8c2d3QGxpbnV4LmludGVsLmNvbT4NCg0KT2ggYW5kIGJ5IHRoZSB3YXkuIHBsZWFzZSBzZW5k
-IHRvIG9lLWNvcmVAbGlzdHMub3BlbmVtYmVkZGVkLm9yZyBhbmQNCkNjOiBBcm1pbiBLdXN0ZXIg
-PGFrdXN0ZXJAbXZpc3RhLmNvbT4sIA0KDQpBbHNvIG1ha2Ugc3VyZSB0aGlzIHBhdGNoIGVtYWls
-IGhhcyB0aGUgW3B5cm9dIHN1YmplY3QgdGFnIQ0KDQpTYXUhDQoNCk9uIFdlZCwgMjAxOC0wMi0w
-NyBhdCAxMDoxOSArMDUzMCwgYXZpbmFzaC5yZWRkeS5wYWxsZXRpQGludGVsLmNvbQ0Kd3JvdGU6
-DQo+IEZyb206IEF2aW5hc2ggUmVkZHkgUGFsbGV0aSA8YXZpbmFzaC5yZWRkeS5wYWxsZXRpQGlu
-dGVsLmNvbT4NCj4gDQo+IEFkZGluZyByZWZlcmVuY2UgdG8gaXdsd2lmaS04MDAwYyBmaXJtd2Fy
-ZSB3aGljaCB3YXMgcmVtb3ZlZA0KPiBlcnJvbmVvdXNseSBpbg0KPiBjb21taXQgIDNlNGIzODJj
-MGM2ODdhNzZmODI0Y2Q4NGI0NzhjNGY3NzhlMTVlM2UNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEF2
-aW5hc2ggUmVkZHkgUGFsbGV0aSA8YXZpbmFzaC5yZWRkeS5wYWxsZXRpQGludGVsLmNvbQ0KPiA+
-DQo+IC0tLQ0KPiAgbWV0YS9yZWNpcGVzLWtlcm5lbC9saW51eC1maXJtd2FyZS9saW51eC1maXJt
-d2FyZV9naXQuYmIgfCAzICsrLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21ldGEvcmVjaXBlcy1rZXJuZWwvbGlu
-dXgtZmlybXdhcmUvbGludXgtZmlybXdhcmVfZ2l0LmJiIA0KPiBiL21ldGEvcmVjaXBlcy1rZXJu
-ZWwvbGludXgtZmlybXdhcmUvbGludXgtZmlybXdhcmVfZ2l0LmJiDQo+IGluZGV4IGZmNjBkMzAu
-LjNhMjE0OGQgMTAwNjQ0DQo+IC0tLSBhL21ldGEvcmVjaXBlcy1rZXJuZWwvbGludXgtZmlybXdh
-cmUvbGludXgtZmlybXdhcmVfZ2l0LmJiDQo+ICsrKyBiL21ldGEvcmVjaXBlcy1rZXJuZWwvbGlu
-dXgtZmlybXdhcmUvbGludXgtZmlybXdhcmVfZ2l0LmJiDQo+IEBAIC0yNDcsNyArMjQ3LDcgQEAg
-UEFDS0FHRVMgPSsgIiR7UE59LXJhbGluay1saWNlbnNlICR7UE59LXJhbGluayBcDQo+ICAgICAg
-ICAgICAgICAgJHtQTn0taXdsd2lmaS02MDUwLTQgJHtQTn0taXdsd2lmaS02MDUwLTUgXA0KPiAg
-ICAgICAgICAgICAgICR7UE59LWl3bHdpZmktNzI2MCBcDQo+ICAgICAgICAgICAgICAgJHtQTn0t
-aXdsd2lmaS03MjY1IFwNCj4gLSAgICAgICAgICAgICAke1BOfS1pd2x3aWZpLTcyNjVkICR7UE59
-LWl3bHdpZmktODI2NSBcDQo+ICsgICAgICAgICAgICAgJHtQTn0taXdsd2lmaS03MjY1ZCAke1BO
-fS1pd2x3aWZpLTgwMDBjICR7UE59LWl3bHdpZmktDQo+IDgyNjUgXA0KPiAgICAgICAgICAgICAg
-ICR7UE59LWl3bHdpZmktbWlzYyBcDQo+ICAgICAgICAgICAgICAgJHtQTn0taWJ0LWxpY2Vuc2Ug
-JHtQTn0taWJ0ICR7UE59LWlidC1taXNjIFwNCj4gICAgICAgICAgICAgICAke1BOfS1pYnQtMTEt
-NSAke1BOfS1pYnQtMTItMTYgJHtQTn0taWJ0LWh3LTM3LTcgJHtQTn0tDQo+IGlidC1ody0zNy04
-IFwNCj4gQEAgLTYxOSw2ICs2MTksNyBAQCBGSUxFU18ke1BOfS1pd2x3aWZpLTYwNTAtNSA9DQo+
-ICIke25vbmFyY2hfYmFzZV9saWJkaXJ9L2Zpcm13YXJlL2l3bHdpZmktNjA1MC01LnVjbw0KPiAg
-RklMRVNfJHtQTn0taXdsd2lmaS03MjYwICAgPQ0KPiAiJHtub25hcmNoX2Jhc2VfbGliZGlyfS9m
-aXJtd2FyZS9pd2x3aWZpLTcyNjAtKi51Y29kZSINCj4gIEZJTEVTXyR7UE59LWl3bHdpZmktNzI2
-NSAgID0NCj4gIiR7bm9uYXJjaF9iYXNlX2xpYmRpcn0vZmlybXdhcmUvaXdsd2lmaS03MjY1LSou
-dWNvZGUiDQo+ICBGSUxFU18ke1BOfS1pd2x3aWZpLTcyNjVkICAgPQ0KPiAiJHtub25hcmNoX2Jh
-c2VfbGliZGlyfS9maXJtd2FyZS9pd2x3aWZpLTcyNjVELSoudWNvZGUiDQo+ICtGSUxFU18ke1BO
-fS1pd2x3aWZpLTgwMDBjICAgPQ0KPiAiJHtub25hcmNoX2Jhc2VfbGliZGlyfS9maXJtd2FyZS9p
-d2x3aWZpLTgwMDBDLSoudWNvZGUiDQo+ICBGSUxFU18ke1BOfS1pd2x3aWZpLTgyNjUgICA9DQo+
-ICIke25vbmFyY2hfYmFzZV9saWJkaXJ9L2Zpcm13YXJlL2l3bHdpZmktODI2NS0qLnVjb2RlIg0K
-PiAgRklMRVNfJHtQTn0taXdsd2lmaS1taXNjICAgPQ0KPiAiJHtub25hcmNoX2Jhc2VfbGliZGly
-fS9maXJtd2FyZS9pd2x3aWZpLSoudWNvZGUiDQo+ICA=
+--_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Hello,
+I'have tried to generate rpi-basic-image for a Pi3 using Rocko branch of po=
+ky.
+I succeeded doing it but when I added the following variable in my conf/loc=
+al.conf:
+
+
+TOOLCHAIN_TARGET_TASK_append =3D " kernel-devsrc"
+
+Then I got following issue:
+
+Problem: conflicting requests
+  - nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
+
+My host is an Ubuntu 14.04LTS (under VirtualBox)
+
+I spent quite a lot of time to found out what happens by googling  but unfo=
+rtunately I did not find a solution.
+Can anybody help me ?
+
+Regards
+
+
+
+--_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40"><head><META HTTP-EQUIV=3D"Content-Type" CONTENT=
+=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
+oft Word 14 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+pre
+	{mso-style-priority:99;
+	mso-style-link:"Pr\00E9format\00E9 HTML Car";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:black;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.PrformatHTMLCar
+	{mso-style-name:"Pr\00E9format\00E9 HTML Car";
+	mso-style-priority:99;
+	mso-style-link:"Pr\00E9format\00E9 HTML";
+	font-family:"Courier New";
+	color:black;
+	mso-fareast-language:FR;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DFR link=3Dblue vlink=
+=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal><span lang=3DEN-US=
+>Hello,<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I&#821=
+7;have tried to generate rpi-basic-image for a Pi3 using Rocko branch of po=
+ky.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I succeede=
+d doing it but when I added the following variable in my conf/local.conf:<o=
+:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:=
+p></span></p><pre style=3D'margin-left:35.4pt'><span lang=3DEN-US>TOOLCHAIN=
+_TARGET_TASK_append =3D &quot; kernel-devsrc&quot;<o:p></o:p></span></pre><=
+p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=
+=3DMsoNormal><span lang=3DEN-US>Then I got following issue:<o:p></o:p></spa=
+n></p><p class=3DMsoNormal style=3D'margin-left:35.4pt'><span lang=3DEN-US =
+style=3D'color:red'><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal style=
+=3D'margin-left:35.4pt'><span lang=3DEN-US style=3D'color:red'>Problem: con=
+flicting requests<o:p></o:p></span></p><p class=3DMsoNormal style=3D'margin=
+-left:35.4pt'><span lang=3DEN-US style=3D'color:red'>&nbsp; - nothing provi=
+des /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3<o:p></o:p></span><=
+/p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p c=
+lass=3DMsoNormal><span lang=3DEN-US>My host is an Ubuntu 14.04LTS (under Vi=
+rtualBox)<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p=
+>&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I spent qui=
+te a lot of time to found out what happens by googling &nbsp;but unfortunat=
+ely I did not find a solution.<o:p></o:p></span></p><p class=3DMsoNormal><s=
+pan lang=3DEN-US>Can anybody help me ?<o:p></o:p></span></p><p class=3DMsoN=
+ormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><=
+span lang=3DEN-US>Regards<o:p></o:p></span></p><p class=3DMsoNormal><span l=
+ang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><o:p>&nbsp;</o=
+:p></p></div></body></html>=
+
+--_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_--
