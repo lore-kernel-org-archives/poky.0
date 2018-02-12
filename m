@@ -1,41 +1,65 @@
-Return-Path: <eric.di-schiena@thalesgroup.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 40C72E00E13; Mon, 12 Feb 2018 08:45:41 -0800 (PST)
+	id AD57AE00E15; Mon, 12 Feb 2018 12:16:24 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
-	http://www.dnswl.org/, high *      trust
-	*      [192.93.158.29 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (raj.khem[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.83.65 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 137 seconds by postgrey-1.32 at yocto-www;
-	Mon, 12 Feb 2018 08:45:39 PST
-Received: from thsbbfxrt02p.thalesgroup.com (thsbbfxrt02p.thalesgroup.com
-	[192.93.158.29])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5213E00DD7
-	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 08:45:39 -0800 (PST)
-Received: from thsbbfxrt02p.thalesgroup.com (localhost [127.0.0.1])
-	by localhost (Postfix) with SMTP id 3zgBLf1wVtz3ly
-	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 17:43:22 +0100 (CET)
-From: DI SCHIENA Eric <eric.di-schiena@thalesgroup.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Date: Mon, 12 Feb 2018 17:43:20 +0100
-Thread-Topic: Build rpi-basic-image Pi3 with kernel-devsrc error :
-	conflicting requests nothing provides /bin/awk needed by
-	kernel-devsrc-1.0-r0.raspberrypi3
-Thread-Index: AdOkIJHQEAEXnud6Qom9zKApRysNEQ==
-Message-ID: <967D67AEC428424E83B5D1DABFB91AA3863A93FFF0@THSONEA01CMS13P.one.grp>
-Accept-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-acceptlanguage: fr-FR
-x-pmwin-version: 3.1.3.0, Antivirus-Engine: 3.70.2, Antivirus-Data: 5.47
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-pg0-f65.google.com (mail-pg0-f65.google.com [74.125.83.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1265AE00DD0
+	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 12:16:23 -0800 (PST)
+Received: by mail-pg0-f65.google.com with SMTP id t4so7174055pgp.8
+	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 12:16:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc:content-transfer-encoding;
+	bh=6qumvlso5v8X62T96NW9TgjXYKi5VCGLvaFQOa+Uakc=;
+	b=MbX+e2LGDUvDP5OAHUO1mV8xxn5KKCEWDRWzPjqNh8DXbTKdUWGXQHfJeA1mVTRIjL
+	wIJzbbu5Wc/LtFlPyaQBSdEoVaEiW8/+NWirqukTle64zOMJyONNZlmaQ2m3bUtmAS08
+	4tZRhc6KC5ziBPM2b462ww65C9g3N+xXFBXssAEJx0th0vrMFtSGClEUFfJyll7ZuTY3
+	u6sZB5WNkvlbNdQyEN92L/wwkZlD/jj1IVbpzJm7mTqodxLBXqjTEzp0ahpELxLvek/K
+	PekzRJHLTOli77iR/24VK6TXmXPVeSMqNDflRRd7q/sF/Pqn5GLF66VxlaAH/68qN4Yz
+	t0bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc:content-transfer-encoding;
+	bh=6qumvlso5v8X62T96NW9TgjXYKi5VCGLvaFQOa+Uakc=;
+	b=DOcMFhKw3x7m9kp1u5z0hS3J+VUk4O1cm4vJ5doBQ1kdx8Hn1mIJuA8S8Kyyoi7+jd
+	BvNMeHEcFwS4XKx/S1th4/zVUeG0KQH6Q1rMx9zDqHZ2juVuDWJPqJCNGxV3luH3ZOnM
+	WHPzWKvg3xRs746hU28L+OMJ43ZrUU2ktwBbb+m/NvGpZ2o4LVB/5+hzPAwqv2PA0YC6
+	Kvgqu6pJMybdQkCOSQZfucksMs04s3mXy+37aBkqGB1lie36y8y9JIV9IV0BQru2oi0E
+	XuNS9usjq5H+6ROuiHe8yh8YAPTPaaSgEdosVBT4CG9Ofi8BK3A/t4XdkRGctsJuJTnV
+	HwdA==
+X-Gm-Message-State: APf1xPBfTFHVbDAQa0WlEFWbndC++CXsWi7trJ0yT04S7MmjDMtgRHj7
+	Rkty6a68C9ahfrGDVklkx+pn4VyyebuecGZD3PU=
+X-Google-Smtp-Source: AH8x2279NkKN7JgFuECsIUfwXJAEkwQUJfAXZQWEzMbw5Jjds0N/6wzygRTd6ZftUG2TSbXUBUUL0F6VDdiax0yEtNA=
+X-Received: by 10.98.189.8 with SMTP id a8mr12711168pff.125.1518466583219;
+	Mon, 12 Feb 2018 12:16:23 -0800 (PST)
 MIME-Version: 1.0
-Subject: Build rpi-basic-image Pi3 with kernel-devsrc error : conflicting requests nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
+Received: by 10.100.161.170 with HTTP; Mon, 12 Feb 2018 12:15:52 -0800 (PST)
+In-Reply-To: <967D67AEC428424E83B5D1DABFB91AA3863A93FFF0@THSONEA01CMS13P.one.grp>
+References: <967D67AEC428424E83B5D1DABFB91AA3863A93FFF0@THSONEA01CMS13P.one.grp>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 12 Feb 2018 12:15:52 -0800
+Message-ID: <CAMKF1srmrb77JHnER3VyoWeyyv=Px=3M6ps2MWtwm4H4rXsBeA@mail.gmail.com>
+To: DI SCHIENA Eric <eric.di-schiena@thalesgroup.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: Build rpi-basic-image Pi3 with kernel-devsrc error : conflicting requests nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -48,128 +72,67 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Feb 2018 16:45:41 -0000
-Content-Language: fr-FR
-Content-Type: multipart/alternative;
-	boundary="_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_"
-
---_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Mon, 12 Feb 2018 20:16:24 -0000
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
-I'have tried to generate rpi-basic-image for a Pi3 using Rocko branch of po=
-ky.
-I succeeded doing it but when I added the following variable in my conf/loc=
-al.conf:
+On Mon, Feb 12, 2018 at 8:43 AM, DI SCHIENA Eric
+<eric.di-schiena@thalesgroup.com> wrote:
+> Hello,
+>
+> I=E2=80=99have tried to generate rpi-basic-image for a Pi3 using Rocko br=
+anch of
+> poky.
+>
+> I succeeded doing it but when I added the following variable in my
+> conf/local.conf:
+>
+>
+>
+> TOOLCHAIN_TARGET_TASK_append =3D " kernel-devsrc"
+>
+>
+>
+> Then I got following issue:
+>
+>
+>
+> Problem: conflicting requests
+>
+>   - nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
+>
+>
+>
+> My host is an Ubuntu 14.04LTS (under VirtualBox)
+>
+>
+>
+> I spent quite a lot of time to found out what happens by googling  but
+> unfortunately I did not find a solution.
+>
+> Can anybody help me ?
+>
+>
 
+Please cherry-pick
+http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto/commit/?id=3D8af11c1c=
+dd8fa08217e702b57cf96e9030db52b2
 
-TOOLCHAIN_TARGET_TASK_append =3D " kernel-devsrc"
+to linux-raspberrypi kernel recipe and if it works, propose it for
+meta-raspberrypi
 
-Then I got following issue:
+>
+> Regards
+>
+>
+>
+>
+>
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
-Problem: conflicting requests
-  - nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
-
-My host is an Ubuntu 14.04LTS (under VirtualBox)
-
-I spent quite a lot of time to found out what happens by googling  but unfo=
-rtunately I did not find a solution.
-Can anybody help me ?
-
-Regards
-
-
-
---_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40"><head><META HTTP-EQUIV=3D"Content-Type" CONTENT=
-=3D"text/html; charset=3Dus-ascii"><meta name=3DGenerator content=3D"Micros=
-oft Word 14 (filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri","sans-serif";
-	mso-fareast-language:EN-US;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-pre
-	{mso-style-priority:99;
-	mso-style-link:"Pr\00E9format\00E9 HTML Car";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";
-	color:black;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-span.PrformatHTMLCar
-	{mso-style-name:"Pr\00E9format\00E9 HTML Car";
-	mso-style-priority:99;
-	mso-style-link:"Pr\00E9format\00E9 HTML";
-	font-family:"Courier New";
-	color:black;
-	mso-fareast-language:FR;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri","sans-serif";
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DFR link=3Dblue vlink=
-=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal><span lang=3DEN-US=
->Hello,<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I&#821=
-7;have tried to generate rpi-basic-image for a Pi3 using Rocko branch of po=
-ky.<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I succeede=
-d doing it but when I added the following variable in my conf/local.conf:<o=
-:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:=
-p></span></p><pre style=3D'margin-left:35.4pt'><span lang=3DEN-US>TOOLCHAIN=
-_TARGET_TASK_append =3D &quot; kernel-devsrc&quot;<o:p></o:p></span></pre><=
-p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=
-=3DMsoNormal><span lang=3DEN-US>Then I got following issue:<o:p></o:p></spa=
-n></p><p class=3DMsoNormal style=3D'margin-left:35.4pt'><span lang=3DEN-US =
-style=3D'color:red'><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal style=
-=3D'margin-left:35.4pt'><span lang=3DEN-US style=3D'color:red'>Problem: con=
-flicting requests<o:p></o:p></span></p><p class=3DMsoNormal style=3D'margin=
--left:35.4pt'><span lang=3DEN-US style=3D'color:red'>&nbsp; - nothing provi=
-des /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3<o:p></o:p></span><=
-/p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p c=
-lass=3DMsoNormal><span lang=3DEN-US>My host is an Ubuntu 14.04LTS (under Vi=
-rtualBox)<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p=
->&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US>I spent qui=
-te a lot of time to found out what happens by googling &nbsp;but unfortunat=
-ely I did not find a solution.<o:p></o:p></span></p><p class=3DMsoNormal><s=
-pan lang=3DEN-US>Can anybody help me ?<o:p></o:p></span></p><p class=3DMsoN=
-ormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><=
-span lang=3DEN-US>Regards<o:p></o:p></span></p><p class=3DMsoNormal><span l=
-ang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><o:p>&nbsp;</o=
-:p></p></div></body></html>=
-
---_000_967D67AEC428424E83B5D1DABFB91AA3863A93FFF0THSONEA01CMS1_--
