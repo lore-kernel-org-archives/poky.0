@@ -1,64 +1,41 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <eric.di-schiena@thalesgroup.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AD57AE00E15; Mon, 12 Feb 2018 12:16:24 -0800 (PST)
+	id 4FA2CE00F22; Fri, 16 Feb 2018 00:13:29 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [74.125.83.65 listed in list.dnswl.org]
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [192.54.144.131 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pg0-f65.google.com (mail-pg0-f65.google.com [74.125.83.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1265AE00DD0
-	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 12:16:23 -0800 (PST)
-Received: by mail-pg0-f65.google.com with SMTP id t4so7174055pgp.8
-	for <poky@yoctoproject.org>; Mon, 12 Feb 2018 12:16:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-transfer-encoding;
-	bh=6qumvlso5v8X62T96NW9TgjXYKi5VCGLvaFQOa+Uakc=;
-	b=MbX+e2LGDUvDP5OAHUO1mV8xxn5KKCEWDRWzPjqNh8DXbTKdUWGXQHfJeA1mVTRIjL
-	wIJzbbu5Wc/LtFlPyaQBSdEoVaEiW8/+NWirqukTle64zOMJyONNZlmaQ2m3bUtmAS08
-	4tZRhc6KC5ziBPM2b462ww65C9g3N+xXFBXssAEJx0th0vrMFtSGClEUFfJyll7ZuTY3
-	u6sZB5WNkvlbNdQyEN92L/wwkZlD/jj1IVbpzJm7mTqodxLBXqjTEzp0ahpELxLvek/K
-	PekzRJHLTOli77iR/24VK6TXmXPVeSMqNDflRRd7q/sF/Pqn5GLF66VxlaAH/68qN4Yz
-	t0bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=6qumvlso5v8X62T96NW9TgjXYKi5VCGLvaFQOa+Uakc=;
-	b=DOcMFhKw3x7m9kp1u5z0hS3J+VUk4O1cm4vJ5doBQ1kdx8Hn1mIJuA8S8Kyyoi7+jd
-	BvNMeHEcFwS4XKx/S1th4/zVUeG0KQH6Q1rMx9zDqHZ2juVuDWJPqJCNGxV3luH3ZOnM
-	WHPzWKvg3xRs746hU28L+OMJ43ZrUU2ktwBbb+m/NvGpZ2o4LVB/5+hzPAwqv2PA0YC6
-	Kvgqu6pJMybdQkCOSQZfucksMs04s3mXy+37aBkqGB1lie36y8y9JIV9IV0BQru2oi0E
-	XuNS9usjq5H+6ROuiHe8yh8YAPTPaaSgEdosVBT4CG9Ofi8BK3A/t4XdkRGctsJuJTnV
-	HwdA==
-X-Gm-Message-State: APf1xPBfTFHVbDAQa0WlEFWbndC++CXsWi7trJ0yT04S7MmjDMtgRHj7
-	Rkty6a68C9ahfrGDVklkx+pn4VyyebuecGZD3PU=
-X-Google-Smtp-Source: AH8x2279NkKN7JgFuECsIUfwXJAEkwQUJfAXZQWEzMbw5Jjds0N/6wzygRTd6ZftUG2TSbXUBUUL0F6VDdiax0yEtNA=
-X-Received: by 10.98.189.8 with SMTP id a8mr12711168pff.125.1518466583219;
-	Mon, 12 Feb 2018 12:16:23 -0800 (PST)
-MIME-Version: 1.0
-Received: by 10.100.161.170 with HTTP; Mon, 12 Feb 2018 12:15:52 -0800 (PST)
-In-Reply-To: <967D67AEC428424E83B5D1DABFB91AA3863A93FFF0@THSONEA01CMS13P.one.grp>
+X-Greylist: delayed 193 seconds by postgrey-1.32 at yocto-www;
+	Fri, 16 Feb 2018 00:13:28 PST
+Received: from thsbbfxrt01p.thalesgroup.com (thsbbfxrt01p.thalesgroup.com
+	[192.54.144.131])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88ACCE00EC5
+	for <poky@yoctoproject.org>; Fri, 16 Feb 2018 00:13:28 -0800 (PST)
+Received: from thsbbfxrt01p.thalesgroup.com (localhost [127.0.0.1])
+	by localhost (Postfix) with SMTP id 3zjQmj2zSXzbR6
+	for <poky@yoctoproject.org>; Fri, 16 Feb 2018 09:10:13 +0100 (CET)
+From: DI SCHIENA Eric <eric.di-schiena@thalesgroup.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Date: Fri, 16 Feb 2018 09:10:12 +0100
+Thread-Topic: [poky] Build rpi-basic-image Pi3 with kernel-devsrc error :
+	conflicting requests nothing provides /bin/awk needed by
+	kernel-devsrc-1.0-r0.raspberrypi3
+Thread-Index: AdOkPjxrPMoJl6d/S764VCtjXaD3jwAYe/HwAJdURkA=
+Message-ID: <967D67AEC428424E83B5D1DABFB91AA3863AA8FEF2@THSONEA01CMS13P.one.grp>
 References: <967D67AEC428424E83B5D1DABFB91AA3863A93FFF0@THSONEA01CMS13P.one.grp>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Mon, 12 Feb 2018 12:15:52 -0800
-Message-ID: <CAMKF1srmrb77JHnER3VyoWeyyv=Px=3M6ps2MWtwm4H4rXsBeA@mail.gmail.com>
-To: DI SCHIENA Eric <eric.di-schiena@thalesgroup.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+	<CAMKF1srmrb77JHnER3VyoWeyyv=Px=3M6ps2MWtwm4H4rXsBeA@mail.gmail.com> 
+Accept-Language: fr-FR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+acceptlanguage: fr-FR
+x-pmwin-version: 3.1.3.0, Antivirus-Engine: 3.70.2, Antivirus-Data: 5.48
+MIME-Version: 1.0
 Subject: Re: Build rpi-basic-image Pi3 with kernel-devsrc error : conflicting requests nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -72,67 +49,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 12 Feb 2018 20:16:24 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 16 Feb 2018 08:13:29 -0000
+Content-Language: fr-FR
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Mon, Feb 12, 2018 at 8:43 AM, DI SCHIENA Eric
-<eric.di-schiena@thalesgroup.com> wrote:
-> Hello,
->
-> I=E2=80=99have tried to generate rpi-basic-image for a Pi3 using Rocko br=
-anch of
-> poky.
->
-> I succeeded doing it but when I added the following variable in my
-> conf/local.conf:
->
->
->
-> TOOLCHAIN_TARGET_TASK_append =3D " kernel-devsrc"
->
->
->
-> Then I got following issue:
->
->
->
-> Problem: conflicting requests
->
->   - nothing provides /bin/awk needed by kernel-devsrc-1.0-r0.raspberrypi3
->
->
->
-> My host is an Ubuntu 14.04LTS (under VirtualBox)
->
->
->
-> I spent quite a lot of time to found out what happens by googling  but
-> unfortunately I did not find a solution.
->
-> Can anybody help me ?
->
->
-
-Please cherry-pick
-http://git.yoctoproject.org/cgit/cgit.cgi/linux-yocto/commit/?id=3D8af11c1c=
-dd8fa08217e702b57cf96e9030db52b2
-
-to linux-raspberrypi kernel recipe and if it works, propose it for
-meta-raspberrypi
-
->
-> Regards
->
->
->
->
->
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
+DQoNCi0tLS0tTWVzc2FnZSBkJ29yaWdpbmUtLS0tLQ0KRGXCoDogREkgU0NISUVOQSBFcmljIA0K
+RW52b3nDqcKgOiBtYXJkaSAxMyBmw6l2cmllciAyMDE4IDA5OjAzDQrDgMKgOiAnS2hlbSBSYWon
+DQpPYmpldMKgOiBSRTogW3Bva3ldIEJ1aWxkIHJwaS1iYXNpYy1pbWFnZSBQaTMgd2l0aCBrZXJu
+ZWwtZGV2c3JjIGVycm9yIDogY29uZmxpY3RpbmcgcmVxdWVzdHMgbm90aGluZyBwcm92aWRlcyAv
+YmluL2F3ayBuZWVkZWQgYnkga2VybmVsLWRldnNyYy0xLjAtcjAucmFzcGJlcnJ5cGkzDQoNCkhp
+LA0KVGhhbmtzIGZvciB5b3VyIHJlcGx5IGJ1dCBjYW4geW91IGV4cGxhaW4gbGl0dGxlIGJpdCBt
+b3JlLg0KSSBkaWQgZmluZCB0aGlzIHBhZ2UgYnV0IGRpZCBub3Qga25vdyB3aGF0IHRvIGRvIHdp
+dGggaXQgKGV2ZW4gbW9yZSB0aGUgbGFzdCBzZW50ZW5jZTogImJ1dCBpdCBtYXkiLCBzZWVtcyBu
+b3QgZW5kZWQpID8/DQoNClJlZ2FyZHMNCkVyaWMNCg0KDQotLS0tLU1lc3NhZ2UgZCdvcmlnaW5l
+LS0tLS0NCkRlwqA6IEtoZW0gUmFqIFttYWlsdG86cmFqLmtoZW1AZ21haWwuY29tXSBFbnZvecOp
+wqA6IGx1bmRpIDEyIGbDqXZyaWVyIDIwMTggMjE6MTYgw4DCoDogREkgU0NISUVOQSBFcmljIENj
+wqA6IHBva3lAeW9jdG9wcm9qZWN0Lm9yZyBPYmpldMKgOiBSZTogW3Bva3ldIEJ1aWxkIHJwaS1i
+YXNpYy1pbWFnZSBQaTMgd2l0aCBrZXJuZWwtZGV2c3JjIGVycm9yIDogY29uZmxpY3RpbmcgcmVx
+dWVzdHMgbm90aGluZyBwcm92aWRlcyAvYmluL2F3ayBuZWVkZWQgYnkga2VybmVsLWRldnNyYy0x
+LjAtcjAucmFzcGJlcnJ5cGkzDQoNCk9uIE1vbiwgRmViIDEyLCAyMDE4IGF0IDg6NDMgQU0sIERJ
+IFNDSElFTkEgRXJpYyA8ZXJpYy5kaS1zY2hpZW5hQHRoYWxlc2dyb3VwLmNvbT4gd3JvdGU6DQo+
+IEhlbGxvLA0KPg0KPiBJ4oCZaGF2ZSB0cmllZCB0byBnZW5lcmF0ZSBycGktYmFzaWMtaW1hZ2Ug
+Zm9yIGEgUGkzIHVzaW5nIFJvY2tvIGJyYW5jaCANCj4gb2YgcG9reS4NCj4NCj4gSSBzdWNjZWVk
+ZWQgZG9pbmcgaXQgYnV0IHdoZW4gSSBhZGRlZCB0aGUgZm9sbG93aW5nIHZhcmlhYmxlIGluIG15
+DQo+IGNvbmYvbG9jYWwuY29uZjoNCj4NCj4NCj4NCj4gVE9PTENIQUlOX1RBUkdFVF9UQVNLX2Fw
+cGVuZCA9ICIga2VybmVsLWRldnNyYyINCj4NCj4NCj4NCj4gVGhlbiBJIGdvdCBmb2xsb3dpbmcg
+aXNzdWU6DQo+DQo+DQo+DQo+IFByb2JsZW06IGNvbmZsaWN0aW5nIHJlcXVlc3RzDQo+DQo+ICAg
+LSBub3RoaW5nIHByb3ZpZGVzIC9iaW4vYXdrIG5lZWRlZCBieQ0KPiBrZXJuZWwtZGV2c3JjLTEu
+MC1yMC5yYXNwYmVycnlwaTMNCj4NCj4NCj4NCj4gTXkgaG9zdCBpcyBhbiBVYnVudHUgMTQuMDRM
+VFMgKHVuZGVyIFZpcnR1YWxCb3gpDQo+DQo+DQo+DQo+IEkgc3BlbnQgcXVpdGUgYSBsb3Qgb2Yg
+dGltZSB0byBmb3VuZCBvdXQgd2hhdCBoYXBwZW5zIGJ5IGdvb2dsaW5nICBidXQgDQo+IHVuZm9y
+dHVuYXRlbHkgSSBkaWQgbm90IGZpbmQgYSBzb2x1dGlvbi4NCj4NCj4gQ2FuIGFueWJvZHkgaGVs
+cCBtZSA/DQo+DQo+DQoNClBsZWFzZSBjaGVycnktcGljaw0KaHR0cDovL2dpdC55b2N0b3Byb2pl
+Y3Qub3JnL2NnaXQvY2dpdC5jZ2kvbGludXgteW9jdG8vY29tbWl0Lz9pZD04YWYxMWMxY2RkOGZh
+MDgyMTdlNzAyYjU3Y2Y5NmU5MDMwZGI1MmIyDQoNCnRvIGxpbnV4LXJhc3BiZXJyeXBpIGtlcm5l
+bCByZWNpcGUgYW5kIGlmIGl0IHdvcmtzLCBwcm9wb3NlIGl0IGZvciBtZXRhLXJhc3BiZXJyeXBp
+DQoNCj4NCj4gUmVnYXJkcw0KPg0KPg0KPg0KPg0KPg0KPg0KPiAtLQ0KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBwb2t5IG1haWxpbmcgbGlzdA0K
+PiBwb2t5QHlvY3RvcHJvamVjdC5vcmcNCj4gaHR0cHM6Ly9saXN0cy55b2N0b3Byb2plY3Qub3Jn
+L2xpc3RpbmZvL3Bva3kNCj4NCg==
 
