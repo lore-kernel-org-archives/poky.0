@@ -1,43 +1,62 @@
-Return-Path: <pn@denx.de>
+Return-Path: <jaymin.linux@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C7489E00DD9; Tue, 20 Feb 2018 07:49:46 -0800 (PST)
+	id 70DB0E00F1D; Tue, 20 Feb 2018 22:47:30 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [212.18.0.9 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (jaymin.linux[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AB83CE00D6D
-	for <poky@yoctoproject.org>; Tue, 20 Feb 2018 07:49:45 -0800 (PST)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
-	by mail-out.m-online.net (Postfix) with ESMTP id 3zm4n42jyBz1r0KF;
-	Tue, 20 Feb 2018 16:49:44 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
-	by mail.m-online.net (Postfix) with ESMTP id 3zm4n42Yd0z1qrVp;
-	Tue, 20 Feb 2018 16:49:44 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
-	by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
-	port 10024)
-	with ESMTP id WbyO1qRNADDY; Tue, 20 Feb 2018 16:49:43 +0100 (CET)
-X-Auth-Info: 09fgBC133+2QhsEqJtqICT1kJsHPD2gzosoGCjCcyJY=
-Received: from xpert.denx.de (unknown [62.91.23.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.mnet-online.de (Postfix) with ESMTPSA;
-	Tue, 20 Feb 2018 16:49:43 +0100 (CET)
-From: Parthiban Nallathambi <pn@denx.de>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.192.171 listed in list.dnswl.org]
+Received: from mail-pf0-f171.google.com (mail-pf0-f171.google.com
+	[209.85.192.171])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2E8FBE00CF1
+	for <poky@yoctoproject.org>; Tue, 20 Feb 2018 22:47:29 -0800 (PST)
+Received: by mail-pf0-f171.google.com with SMTP id z14so312297pfe.10
+	for <poky@yoctoproject.org>; Tue, 20 Feb 2018 22:47:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=CcJZXifCTXYPArY9fAZFcuJCA13JHwts8Wdxe22/qU0=;
+	b=l9MqINFRN7EKpWwvoiGu0UFRFioTZS1VfPqDuDZBGkY1T/a9dUNL+UhQNGfCajBc0B
+	5NlQuP4axCGTNEHnduHvhWMzraFbUABugaAfFHhhr9zsPo1c67sBGFZYF+2BkfUbMuFY
+	9Bgj4wYYzjg0e+pms/6uZZS9yWfpbI2RcIp/hx/Xy4eUcVGLJIdXF9WEqgfFPVOE3Iv3
+	EX57mfbvrk3hcufZSZ1Oovgtz2LvPMD8pWo9JGgjgegkcLqPl3esgX9G26qrXfe6wlJY
+	nmSsuqIj3HQC5iXIk1TtMKLDWdmCD7W/4225kGA7d2d8BYKy53vfnGkNT66jVPH80W8R
+	NvwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=CcJZXifCTXYPArY9fAZFcuJCA13JHwts8Wdxe22/qU0=;
+	b=mpCuT0PbP4ObLVc/fVE9I4sZWOvGAuGBO/LSdEDwruKf2pxtTL6ewNXOYnRBP/shHy
+	CgrTRI0EPJD/50nQHDVZO3y8a8tFQXRVVrjuooN06KJrXlJ9hL0w8rycSSvdAq6k4KEZ
+	FHf2Ux62yuZ+CEtuMhUtBsk6CggPh9hh7prSTPSJNA4ZFuckvhyUZl1Zfu9sPpYi7A43
+	vaHXyxDSELft3Txz+5dqGntv6WoCZU5aIWQJjAqMdvz9E4WbH2W3C8EUFfBLMHoDAAqK
+	YzKLxBj5VmI4qbbrDxBBv8olqWI3uVmTpaqdi3zwxC5kLvDYZ9gSMGmt8SPAfe7Mt/4r
+	K5LQ==
+X-Gm-Message-State: APf1xPBaBoZNIvN51rAKxj/31H7yI7XyIUPS3xnftdfYwBjXJ1fbhqkz
+	FjYM7wavnggzP0JpV82M89nZkuRiw5nFw4+PpozvVw==
+X-Google-Smtp-Source: AH8x227AJBP5WJKGBrPmTx+1gYOzY9EdMH3S1prfncpfgPlUB+481SdnHPZOxTOW+zuXTc2XalhECl/WdzwB9JjXFs4=
+X-Received: by 10.98.206.134 with SMTP id y128mr2309952pfg.34.1519195649284;
+	Tue, 20 Feb 2018 22:47:29 -0800 (PST)
+MIME-Version: 1.0
+Received: by 10.100.162.240 with HTTP; Tue, 20 Feb 2018 22:47:28 -0800 (PST)
+From: Jaymin D <jaymin.linux@gmail.com>
+Date: Wed, 21 Feb 2018 12:17:28 +0530
+Message-ID: <CAL02zyvH0bZ8bXBycqt-+eg3MhceHu1fLsavnuTKyXh1__7Nhw@mail.gmail.com>
 To: poky@yoctoproject.org
-Date: Tue, 20 Feb 2018 16:49:27 +0100
-Message-Id: <20180220154927.15618-1-pn@denx.de>
-X-Mailer: git-send-email 2.14.3
-Cc: lusus@denx.de
-Subject: [PATCH] [wic]: Adding post operation hook for SourcePlugin
+Subject: Macro defined in .bb file: How use/add toolchain or target system macro in .bb file?
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,68 +69,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 20 Feb 2018 15:49:46 -0000
+X-List-Received-Date: Wed, 21 Feb 2018 06:47:30 -0000
+Content-Type: multipart/alternative; boundary="94eb2c13f304051e1f0565b34d0d"
 
-do_post_partition hook is needed if some operations like security signing
-the parition needs to be done. source plugins can make use of this to implement
-post operatiosn in do_post_partition. do_post_partition is called after
-do_prepare_partition if present.
+--94eb2c13f304051e1f0565b34d0d
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Parthiban Nallathambi <pn@denx.de>
----
- scripts/lib/wic/help.py       |  4 ++++
- scripts/lib/wic/partition.py  |  3 +++
- scripts/lib/wic/pluginbase.py | 10 ++++++++++
- 3 files changed, 17 insertions(+)
+I want to use/add my target system "aarch64-oe-linux" into .bb file, so can
+assign or can use the target system name dynamically in .bb file.
 
-diff --git a/scripts/lib/wic/help.py b/scripts/lib/wic/help.py
-index bf658b94e3..842b868a57 100644
---- a/scripts/lib/wic/help.py
-+++ b/scripts/lib/wic/help.py
-@@ -576,6 +576,10 @@ DESCRIPTION
-           partition. In other words, it 'prepares' the final partition
-           image which will be incorporated into the disk image.
- 
-+      do_post_partition()
-+          Called after the partition is created. It is useful to add post
-+          operations e.g. signing the partition.
-+
-       do_configure_partition()
-           Called before do_prepare_partition(), typically used to
-           create custom configuration files for a partition, for
-diff --git a/scripts/lib/wic/partition.py b/scripts/lib/wic/partition.py
-index 72f2e2708f..d4558621a9 100644
---- a/scripts/lib/wic/partition.py
-+++ b/scripts/lib/wic/partition.py
-@@ -185,6 +185,9 @@ class Partition():
-         plugin.do_prepare_partition(self, srcparams_dict, creator,
-                                     cr_workdir, oe_builddir, bootimg_dir,
-                                     kernel_dir, rootfs_dir, native_sysroot)
-+        plugin.do_post_partition(self, srcparams_dict, creator,
-+                                    cr_workdir, oe_builddir, bootimg_dir,
-+                                    kernel_dir, rootfs_dir, native_sysroot)
- 
-         # further processing required Partition.size to be an integer, make
-         # sure that it is one
-diff --git a/scripts/lib/wic/pluginbase.py b/scripts/lib/wic/pluginbase.py
-index c009820adc..686d2fee3b 100644
---- a/scripts/lib/wic/pluginbase.py
-+++ b/scripts/lib/wic/pluginbase.py
-@@ -137,3 +137,13 @@ class SourcePlugin(metaclass=PluginMeta):
-         'prepares' the partition to be incorporated into the image.
-         """
-         logger.debug("SourcePlugin: do_prepare_partition: part: %s", part)
-+
-+    @classmethod
-+    def do_post_partition(cls, part, source_params, creator, cr_workdir,
-+                             oe_builddir, bootimg_dir, kernel_dir, rootfs_dir,
-+                             native_sysroot):
-+        """
-+        Called after the partition is created. It is useful to add post
-+        operations e.g. security signing the partition.
-+        """
-+        logger.debug("SourcePlugin: do_post_partition: part: %s", part)
+E.g.:
+Currently in .bb file its as below:
+
+./aconfigure --host=aarch64-oe-linux
+
+Requirement is as below:
+
+./aconfigure --host=${macro_defined_for_target_sys}
+
+Below is the output of my build configuration:
+
+BB_VERSION        = "1.28.0"
+BUILD_SYS         = "x86_64-linux"
+NATIVELSBSTRING   = "LinuxMint-18.3"
+*TARGET_SYS        = "aarch64-oe-linux"*
+
+What is the macro defined for "TARGET_SYS"?
+
+
 -- 
-2.14.3
+Regards
+- JAYMIN DABHI
 
+--94eb2c13f304051e1f0565b34d0d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr">I want to use/add my target system &quot;aarch64-oe-linux&=
+quot; into .bb file, so can assign or can use the target system name dynami=
+cally in .bb file.<div><br></div><div>E.g.:</div><div>Currently in .bb file=
+ its as below:</div><div><br></div><div>./aconfigure --host=3Daarch64-oe-li=
+nux</div><div><br></div><div>Requirement is as below:</div><div><br></div><=
+div>./aconfigure --host=3D${macro_defined_for_target_sys}</div><div><br></d=
+iv><div>Below is the output of my build configuration:</div><div><br></div>=
+<div><div>BB_VERSION=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;1.28.0&quot;</div=
+><div>BUILD_SYS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;x86_64-linux&quo=
+t;</div><div>NATIVELSBSTRING=C2=A0 =C2=A0=3D &quot;LinuxMint-18.3&quot;</di=
+v><div><b>TARGET_SYS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;aarch64-oe-linux&=
+quot;</b></div></div><div><br></div><div>What is the macro defined for &quo=
+t;TARGET_SYS&quot;?<br></div><div><div><div><div><br><div><br></div>-- <br>=
+<div class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div>=
+<div>Regards<br></div>- JAYMIN DABHI<br></div><br></div></div></div></div>
+</div></div></div></div></div>
+
+--94eb2c13f304051e1f0565b34d0d--
