@@ -1,33 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <sascha-ml-linux-yocto-poky@silbe.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5B8EDE0090A; Sat, 17 Mar 2018 11:33:16 -0700 (PDT)
+	id 1D2E3E00C4D; Wed, 21 Mar 2018 09:24:32 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+	SUBJECT_DRUG_GAP_L autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [84.201.25.44 listed in list.dnswl.org]
+	* 1.6 SUBJECT_DRUG_GAP_L Subject contains a gappy version of 'levitra'
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from dan.rpsys.net (5751f4a1.skybroadband.com [87.81.244.161])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA850E006E9
-	for <poky@yoctoproject.org>; Sat, 17 Mar 2018 11:33:14 -0700 (PDT)
-Received: from hex ([192.168.3.34]) (authenticated bits=0)
-	by dan.rpsys.net (8.15.2/8.15.2/Debian-3) with ESMTPSA id
-	w2HIXAgw006188
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Sat, 17 Mar 2018 18:33:11 GMT
-Message-ID: <1521311589.25754.81.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Manu Mathen <manumathens@gmail.com>, poky@yoctoproject.org
-Date: Sat, 17 Mar 2018 19:33:09 +0100
-In-Reply-To: <CA+yucNXzH1E6r-2fP2ggvef9LjNGdu-GG2G=nhyqSDRkVTQ4sg@mail.gmail.com>
-References: <mailman.17.1521226801.7813.poky@yoctoproject.org>
-	<CA+yucNXzH1E6r-2fP2ggvef9LjNGdu-GG2G=nhyqSDRkVTQ4sg@mail.gmail.com>
-X-Mailer: Evolution 3.18.5.2-0ubuntu3.2 
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.99.3 at dan
-X-Virus-Status: Clean
-Subject: Re: poky Digest, Vol 90, Issue 5
+Received: from bbox.sascha.silbe.org (bbox.sascha.silbe.org [84.201.25.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 774E8E00A38
+	for <poky@yoctoproject.org>; Wed, 21 Mar 2018 09:24:29 -0700 (PDT)
+Received: from twin.sascha.silbe.org (twin.sascha.silbe.org [192.168.1.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "twin.sascha.silbe.org",
+	Issuer "stunnel Pseudo-CA" (verified OK))
+	by bbox.sascha.silbe.org (Postfix) with ESMTPS id A95EDBF1F3;
+	Wed, 21 Mar 2018 17:15:13 +0100 (CET)
+Received: (nullmailer pid 16021 invoked by uid 8193);
+	Wed, 21 Mar 2018 16:15:13 -0000
+From: Sascha Silbe <x-yo17@se-silbe.de>
+To: poky@yoctoproject.org
+Date: Wed, 21 Mar 2018 17:15:05 +0100
+Message-Id: <20180321161505.15932-1-x-yo17@se-silbe.de>
+X-Mailer: git-send-email 2.11.0
+Subject: [PATCH] oe-buildenv-internal: whitelist premirror-related variables
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -40,28 +41,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 17 Mar 2018 18:33:16 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 21 Mar 2018 16:24:32 -0000
 
-On Sat, 2018-03-17 at 16:45 +0300, Manu Mathen wrote:
-> Thank you for your reply Ross. I ran memtest with the default test
-> parameters and it seems to be fine. I have 8GB of ram and have an i7
-> processor on this computer, is that enough to complete the poky build
-> ? As for heating issues, the laptop has always just been slightly
-> warm. Once the restart problem happens, the laptop restarts even when
-> it's cool and has just been running for a minute. I have noticed this
-> error several times through the syslog always, "nouveau 0000:03:00.0:
-> fifo: SCHED_ERROR 20 []". Would something from the graphics card
-> affect the build ? I will try and replace this with the nvidia
-> drivers and give it a go. This is the log when the build reaches
-> around 85%, 
+Whitelisting them allows build scripts to create a local download
+mirror (BB_GENERATE_MIRROR_TARBALLS=1) in one step and perform a build
+using only this local download mirror (PREMIRRORS + BB_NO_NETWORK=1 or
+BB_FETCH_PREMIRRORONLY) without having to touch local.conf.
 
-One of your previous crashes has corrupted the build directory. At a
-guess, "bitbake core-image-sato -c clean" should clean it up and let
-you move forward.
+PREMIRRORS only provides additional download sources and does not
+affect the build output in any way so it's safe to
+whitelist. BB_GENERATE_MIRROR_TARBALLS only causes additional files in
+the download folder to be created so it doesn't affect the build
+output (in tmp/) either. BB_FETCH_PREMIRRORONLY and
+BB_ALLOWED_NETWORKS are related to the already whitelisted
+BB_NO_NETWORK.
 
-Cheers,
+Signed-off-by: Sascha Silbe <x-yo17@se-silbe.de>
+---
+ scripts/oe-buildenv-internal | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Richard
+diff --git a/scripts/oe-buildenv-internal b/scripts/oe-buildenv-internal
+index 6773872326..fb82247777 100755
+--- a/scripts/oe-buildenv-internal
++++ b/scripts/oe-buildenv-internal
+@@ -133,7 +133,8 @@ BB_ENV_EXTRAWHITE_OE="MACHINE DISTRO TCMODE TCLIBC HTTP_PROXY http_proxy \
+ HTTPS_PROXY https_proxy FTP_PROXY ftp_proxy FTPS_PROXY ftps_proxy ALL_PROXY \
+ all_proxy NO_PROXY no_proxy SSH_AGENT_PID SSH_AUTH_SOCK BB_SRCREV_POLICY \
+ SDKMACHINE BB_NUMBER_THREADS BB_NO_NETWORK PARALLEL_MAKE GIT_PROXY_COMMAND \
+-SOCKS5_PASSWD SOCKS5_USER SCREENDIR STAMPS_DIR BBPATH_EXTRA BB_SETSCENE_ENFORCE"
++SOCKS5_PASSWD SOCKS5_USER SCREENDIR STAMPS_DIR BBPATH_EXTRA BB_SETSCENE_ENFORCE \
++BB_GENERATE_MIRROR_TARBALLS PREMIRRORS BB_ALLOWED_NETWORKS BB_FETCH_PREMIRRORONLY"
+ 
+ BB_ENV_EXTRAWHITE="$(echo $BB_ENV_EXTRAWHITE $BB_ENV_EXTRAWHITE_OE | tr ' ' '\n' | LC_ALL=C sort --unique | tr '\n' ' ')"
+ 
+-- 
+2.11.0
+
 
