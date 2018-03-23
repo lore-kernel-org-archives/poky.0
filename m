@@ -1,6 +1,6 @@
 Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 24675E00C61; Fri, 23 Mar 2018 07:28:12 -0700 (PDT)
+	id A5FE6E00A75; Fri, 23 Mar 2018 07:33:41 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -11,7 +11,7 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	mail provider *      (akuster808[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.160.52 listed in list.dnswl.org]
+	*      [209.85.192.196 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -20,53 +20,52 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pl0-f52.google.com (mail-pl0-f52.google.com
-	[209.85.160.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 06C39E007DA;
-	Fri, 23 Mar 2018 07:28:10 -0700 (PDT)
-Received: by mail-pl0-f52.google.com with SMTP id m22-v6so7528999pls.5;
-	Fri, 23 Mar 2018 07:28:10 -0700 (PDT)
+Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
+	[209.85.192.196])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 070F4E008D3;
+	Fri, 23 Mar 2018 07:33:40 -0700 (PDT)
+Received: by mail-pf0-f196.google.com with SMTP id 68so4783303pfx.3;
+	Fri, 23 Mar 2018 07:33:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=subject:to:cc:references:from:message-id:date:user-agent
 	:mime-version:in-reply-to:content-language;
-	bh=giwad1NIEjlV9Q+/BtTVGODfr0kV1Cox7T/3brNjsRI=;
-	b=p/bxq+SOAL5c8n9Z8bmTMwPLSp/cN903NBV80svo2JFEsKLUVJbMOaOMpSzrEsbqEm
-	CEu0Onzo5Q9DuftZFO4lfm1Md2lGjIiu0FVfT/wTBRA+o9phMJh2OtG6cjb8ckWnLBjj
-	MtyFh1aHuEn8oesW9vo3vgvxIbK3PPu2FiTK76WWLuOwnwskqv8v/DCexSdDkiszUlt8
-	4qjzTtji/I59XLbKQ3SuMX4tXaNP5qbHjrKkU3NsqfT5vNTI/8mQOcL/J2joOMqGRAWT
-	UuWD75UxtaNukoA2hbRfZag1wJEcIpXintK8pBfY93a9q75sN8/tt96HVEU+6qUcx5U3
-	ZKBw==
+	bh=AE2eO17WJxvDkKyUgWk4EY1OOfFhgWDPtyJEkywvQVE=;
+	b=ZbMln5SWhMAGExyNYe74zzDMR5ZjevUZglvrDD5J7aEAnVxb4w7/6yS8IyycQiMVai
+	p46aTeOyViFUrprSccnwQFyoAhf8Oqwf1CCzFsNVVdHealx/CnzOKQkp76rgz+vf4n3+
+	VWjv03/Pe6WoNYeqs2h8P0DvyD3ltMG1PmlbMiLhCipvouXGg9NXG5jCWBss4t9cx4CO
+	frYR756GF1CC8DUffo+t2eZPhCIdXeTDgI+aq1POBfvY46wKrpQwbKuy7XzxNeN+KB6b
+	lyXyBDbl6noUvF1KjBWp6lCVS6tsTAUPaDtsq4HpCtXN6ZQdlZwbuSRrIN3v91z981UW
+	qrqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
 	:user-agent:mime-version:in-reply-to:content-language;
-	bh=giwad1NIEjlV9Q+/BtTVGODfr0kV1Cox7T/3brNjsRI=;
-	b=QKGZX//RyJEpp7OP1nZMUtS3p18sjKKpOb2F2v1xFKGVXZBn886iOtIAm8gvsjFcWi
-	I2ntXUAWHJkv2qrhuTELjG6w0sj5MquYlOCH7rHOWv84ggC2TqJRX/uiQaWtbTl/KpjK
-	8LfWrAbzVmyyFwzMYOIiYjxWHuoA9yTzLmm7UTW6oOD0x87czHS8wLECjYfUlyop8pXJ
-	Zk4RsB6EVdWKt+Mscw2aINDAnvY8VUMEXnekH+wLkPPsSEW/Nu0HCff0jwtF8S7KoPGG
-	zAflRX6zC1hn0YPFJ4dXp9lF3klC0a9oim7WeebltwVuY3lwQK6+ydivaJaYpO5GmmMA
-	tXJQ==
-X-Gm-Message-State: AElRT7EZp2T/W/y47ib6fTsGDKCYZJoBnuOtcshrgNewS/Gozh9zh8oM
-	VfLkOWKlm3dEtzC9p9qNdqQ=
-X-Google-Smtp-Source: AG47ELuta1q2Zy4E4vYaN4RYCXbBgY4FeU/tL1QQsvH93hifNe+Jnu/lwUWl2hCchffFJeA6tEmiSQ==
-X-Received: by 2002:a17:902:a5c5:: with SMTP id
-	t5-v6mr30060023plq.244.1521815290249; 
-	Fri, 23 Mar 2018 07:28:10 -0700 (PDT)
+	bh=AE2eO17WJxvDkKyUgWk4EY1OOfFhgWDPtyJEkywvQVE=;
+	b=HtXXfCHI5HsC2TD+BwNSf/v0TaDZn//3RnQqZCE0HOFLYtYuQISJHGDdIcvD6xOcx+
+	gpm3wXuS1ijrz6rCay6rVIcWIosFg/1g12mPkLhhzhYFLqy3zG6f7Dk/kAB6i6RCRWD9
+	puLmwB4+YkIBXOVYEnQu96jQuqAojGbyGGU+XGssv92IfsFKubRS9ZLCpaJxQHSb6qID
+	fsj6N+GuLeeaLAOBplCLtGl/Z6X8RE7U31DbgUgkjX2hN4gPXEnymq4PcJJPMP6h0Jge
+	XpoOjXFEAkZ4gosbWvpO0L0CpE9uz6AQjvt7Lbx4eoz4GmxDEqvXgpmQXjGyYus5Pf8W
+	s+iw==
+X-Gm-Message-State: AElRT7EINt8niLnA4dEZB6FMIE12BQdOCwE0rbmZixe9AWNPFCl+CTlr
+	Yx0DHlLge/Me9XCCeVID0tA=
+X-Google-Smtp-Source: AG47ELsU2i0Lqf0a46naVC37bNu5BSIR3R8FEUhy7EBpQETZVjym11XzIwGkzLfXpQm73+7sQZcF1A==
+X-Received: by 10.98.19.85 with SMTP id b82mr8161770pfj.236.1521815620276;
+	Fri, 23 Mar 2018 07:33:40 -0700 (PDT)
 Received: from ?IPv6:2601:202:4000:1184:d51a:28df:7b7:12f5?
 	([2601:202:4000:1184:d51a:28df:7b7:12f5])
 	by smtp.gmail.com with ESMTPSA id
-	l66sm6562290pfc.184.2018.03.23.07.28.09
+	w63sm19035608pfb.64.2018.03.23.07.33.39
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 23 Mar 2018 07:28:09 -0700 (PDT)
+	Fri, 23 Mar 2018 07:33:39 -0700 (PDT)
 To: "Tan, Raymond" <raymond.tan@intel.com>,
 	"poky@yoctoproject.org" <poky@yoctoproject.org>,
 	"meta-virtualization@yoctoproject.org"
 	<meta-virtualization@yoctoproject.org>
 References: <F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com>
 From: akuster808 <akuster808@gmail.com>
-Message-ID: <a5499ff4-b5be-cb84-6ce3-7c4b67dc90c7@gmail.com>
-Date: Fri, 23 Mar 2018 07:28:08 -0700
+Message-ID: <c327b015-5231-6ac1-4013-313967c97b87@gmail.com>
+Date: Fri, 23 Mar 2018 07:33:38 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
 	Thunderbird/52.6.0
 MIME-Version: 1.0
@@ -85,15 +84,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 14:28:12 -0000
+X-List-Received-Date: Fri, 23 Mar 2018 14:33:41 -0000
 Content-Type: multipart/alternative;
-	boundary="------------5E284819F568E5BBFAC677C4"
+	boundary="------------FD2322204FE50987FA05B100"
 Content-Language: en-US
 
---------------5E284819F568E5BBFAC677C4
+--------------FD2322204FE50987FA05B100
 Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 8bit
 
+Ray,
 
 
 On 03/23/2018 05:10 AM, Tan, Raymond wrote:
@@ -162,10 +162,10 @@ On 03/23/2018 05:10 AM, Tan, Raymond wrote:
 > master-branch, will this version be patched to ROCKO as well?
 >
 
-Thanks for the data point. I can now backport
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/meta/recipes-kernel/lttng?id=1a97243bf86468a9dfd44f60c9f7563aff54b284
+Can you try
+http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=stable/rocko-next
 
-to rocko.
+to verify the backport fixes your problem
 
 - armin
 >
@@ -177,7 +177,7 @@ to rocko.
 >
 
 
---------------5E284819F568E5BBFAC677C4
+--------------FD2322204FE50987FA05B100
 Content-Type: text/html; charset=windows-1252
 Content-Transfer-Encoding: 8bit
 
@@ -187,7 +187,7 @@ Content-Transfer-Encoding: 8bit
       charset=windows-1252">
   </head>
   <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
+    <p>Ray,<br>
     </p>
     <br>
     <div class="moz-cite-prefix">On 03/23/2018 05:10 AM, Tan, Raymond
@@ -294,10 +294,10 @@ div.WordSection1
       </div>
     </blockquote>
     <br>
-    Thanks for the data point. I can now backport
-<a class="moz-txt-link-freetext" href="http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/meta/recipes-kernel/lttng?id=1a97243bf86468a9dfd44f60c9f7563aff54b284">http://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/meta/recipes-kernel/lttng?id=1a97243bf86468a9dfd44f60c9f7563aff54b284</a><br>
+    Can you try <br>
+<a class="moz-txt-link-freetext" href="http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=stable/rocko-next">http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=stable/rocko-next</a><br>
     <br>
-    to rocko.<br>
+    to verify the backport fixes your problem<br>
     <br>
     - armin<br>
     <blockquote type="cite"
@@ -315,4 +315,4 @@ cite="mid:F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com"
   </body>
 </html>
 
---------------5E284819F568E5BBFAC677C4--
+--------------FD2322204FE50987FA05B100--
