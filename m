@@ -1,75 +1,57 @@
-Return-Path: <akuster808@gmail.com>
+Return-Path: <raymond.tan@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A5FE6E00A75; Fri, 23 Mar 2018 07:33:41 -0700 (PDT)
+	id 8B1DDE00B9C; Fri, 23 Mar 2018 22:23:15 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (akuster808[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.192.196 listed in list.dnswl.org]
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [134.134.136.31 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
-	[209.85.192.196])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 070F4E008D3;
-	Fri, 23 Mar 2018 07:33:40 -0700 (PDT)
-Received: by mail-pf0-f196.google.com with SMTP id 68so4783303pfx.3;
-	Fri, 23 Mar 2018 07:33:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:cc:references:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language;
-	bh=AE2eO17WJxvDkKyUgWk4EY1OOfFhgWDPtyJEkywvQVE=;
-	b=ZbMln5SWhMAGExyNYe74zzDMR5ZjevUZglvrDD5J7aEAnVxb4w7/6yS8IyycQiMVai
-	p46aTeOyViFUrprSccnwQFyoAhf8Oqwf1CCzFsNVVdHealx/CnzOKQkp76rgz+vf4n3+
-	VWjv03/Pe6WoNYeqs2h8P0DvyD3ltMG1PmlbMiLhCipvouXGg9NXG5jCWBss4t9cx4CO
-	frYR756GF1CC8DUffo+t2eZPhCIdXeTDgI+aq1POBfvY46wKrpQwbKuy7XzxNeN+KB6b
-	lyXyBDbl6noUvF1KjBWp6lCVS6tsTAUPaDtsq4HpCtXN6ZQdlZwbuSRrIN3v91z981UW
-	qrqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language;
-	bh=AE2eO17WJxvDkKyUgWk4EY1OOfFhgWDPtyJEkywvQVE=;
-	b=HtXXfCHI5HsC2TD+BwNSf/v0TaDZn//3RnQqZCE0HOFLYtYuQISJHGDdIcvD6xOcx+
-	gpm3wXuS1ijrz6rCay6rVIcWIosFg/1g12mPkLhhzhYFLqy3zG6f7Dk/kAB6i6RCRWD9
-	puLmwB4+YkIBXOVYEnQu96jQuqAojGbyGGU+XGssv92IfsFKubRS9ZLCpaJxQHSb6qID
-	fsj6N+GuLeeaLAOBplCLtGl/Z6X8RE7U31DbgUgkjX2hN4gPXEnymq4PcJJPMP6h0Jge
-	XpoOjXFEAkZ4gosbWvpO0L0CpE9uz6AQjvt7Lbx4eoz4GmxDEqvXgpmQXjGyYus5Pf8W
-	s+iw==
-X-Gm-Message-State: AElRT7EINt8niLnA4dEZB6FMIE12BQdOCwE0rbmZixe9AWNPFCl+CTlr
-	Yx0DHlLge/Me9XCCeVID0tA=
-X-Google-Smtp-Source: AG47ELsU2i0Lqf0a46naVC37bNu5BSIR3R8FEUhy7EBpQETZVjym11XzIwGkzLfXpQm73+7sQZcF1A==
-X-Received: by 10.98.19.85 with SMTP id b82mr8161770pfj.236.1521815620276;
-	Fri, 23 Mar 2018 07:33:40 -0700 (PDT)
-Received: from ?IPv6:2601:202:4000:1184:d51a:28df:7b7:12f5?
-	([2601:202:4000:1184:d51a:28df:7b7:12f5])
-	by smtp.gmail.com with ESMTPSA id
-	w63sm19035608pfb.64.2018.03.23.07.33.39
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 23 Mar 2018 07:33:39 -0700 (PDT)
-To: "Tan, Raymond" <raymond.tan@intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"meta-virtualization@yoctoproject.org"
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BAF05E0084A;
+	Fri, 23 Mar 2018 22:23:11 -0700 (PDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+	by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	23 Mar 2018 22:23:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.48,353,1517904000"; d="scan'208,217";a="36406857"
+Received: from kmsmsx155.gar.corp.intel.com ([172.21.73.106])
+	by FMSMGA003.fm.intel.com with ESMTP; 23 Mar 2018 22:23:09 -0700
+Received: from pgsmsx110.gar.corp.intel.com (10.221.44.111) by
+	KMSMSX155.gar.corp.intel.com (172.21.73.106) with Microsoft SMTP Server
+	(TLS) id 14.3.319.2; Sat, 24 Mar 2018 13:23:08 +0800
+Received: from pgsmsx104.gar.corp.intel.com ([169.254.3.116]) by
+	PGSMSX110.gar.corp.intel.com ([169.254.13.74]) with mapi id
+	14.03.0319.002; Sat, 24 Mar 2018 13:23:08 +0800
+From: "Tan, Raymond" <raymond.tan@intel.com>
+To: akuster808 <akuster808@gmail.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>, "meta-virtualization@yoctoproject.org"
 	<meta-virtualization@yoctoproject.org>
+Thread-Topic: [poky] lttng-modules build error on linux-yocto-4.4 with KVM
+	on [rocko] branch
+Thread-Index: AdPCntvfMBG24SQwTBeGDDTA6NZVyP//pAgA//6BuxA=
+Date: Sat, 24 Mar 2018 05:23:06 +0000
+Message-ID: <F0CA9E243F4F424B836EAC30E41BF4CF781DC855@PGSMSX104.gar.corp.intel.com>
 References: <F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com>
-From: akuster808 <akuster808@gmail.com>
-Message-ID: <c327b015-5231-6ac1-4013-313967c97b87@gmail.com>
-Date: Fri, 23 Mar 2018 07:33:38 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.6.0
+	<c327b015-5231-6ac1-4013-313967c97b87@gmail.com>
+In-Reply-To: <c327b015-5231-6ac1-4013-313967c97b87@gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYmZjNGRjZTctYjQ1Yy00OWE1LWJkZTctZTUzMDJhY2Q0NDFjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjIuNS4xOCIsIlRydXN0ZWRMYWJlbEhhc2giOiJ5XC9SQzRkMkFQaUFFVUZHM3VDT0lCN2ZrdXo0SW9cL25Jc3E2MXJlRUlFc2dZOG50b1F5K1g4UmVBUDZcL3JRK0VnIn0=
+dlp-product: dlpe-windows
+dlp-version: 11.0.0.116
+dlp-reaction: no-action
+x-originating-ip: [172.30.20.205]
 MIME-Version: 1.0
-In-Reply-To: <F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com>
 Cc: "ray.danks@se-eng.com" <ray.danks@se-eng.com>
 Subject: Re: lttng-modules build error on linux-yocto-4.4 with KVM on [rocko] branch
 X-BeenThere: poky@yoctoproject.org
@@ -84,122 +66,101 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Mar 2018 14:33:41 -0000
-Content-Type: multipart/alternative;
-	boundary="------------FD2322204FE50987FA05B100"
+X-List-Received-Date: Sat, 24 Mar 2018 05:23:15 -0000
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_F0CA9E243F4F424B836EAC30E41BF4CF781DC855PGSMSX104garcor_"
 
---------------FD2322204FE50987FA05B100
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+--_000_F0CA9E243F4F424B836EAC30E41BF4CF781DC855PGSMSX104garcor_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Armin,
+
+From: akuster808 [mailto:akuster808@gmail.com]
+Sent: Friday, March 23, 2018 10:34 PM
+To: Tan, Raymond <raymond.tan@intel.com>; poky@yoctoproject.org; meta-virtu=
+alization@yoctoproject.org
+Cc: ray.danks@se-eng.com
+Subject: Re: [poky] lttng-modules build error on linux-yocto-4.4 with KVM o=
+n [rocko] branch
+
 
 Ray,
 
-
 On 03/23/2018 05:10 AM, Tan, Raymond wrote:
->
-> Dear Maintainers,
->
->  
->
-> I’m building the image core-image-sato-sdk on ROCKO branch with the
-> poky, meta-virtualization and meta-intel.
->
->  
->
-> When I enabled virtualization and kvm,
->
->  
->
-> DISTRO_FEATURES_append = " virtualization"
->
-> DISTRO_FEATURES_append = " kvm"
->
->  
->
-> PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
->
-> PREFERRED_VERSION_linux-yocto ?= "4.4%"
->
->  
->
-> I get the error as follow :
->
->  
->
-> ….
->
->                  from
-> /home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/lttng-probe-kvm.c:42:
->
-> /home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:142:6:
-> error: conflicting types for 'trace_kvm_mmio'
->
-> void trace_##_name(_proto);
->
->       ^
->
-> /home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:54:2:
-> note: in expansion of macro 'LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP'
->
->   LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP(map, name, map, PARAMS(proto),
-> PARAMS(args))
->
->   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> …..
->
->  
->
-> Checking online, same issue was reported with the lttng-modules 2.9.5
-> on kernel 4.9 as well, albeit in different project
-> https://jira.automotivelinux.org/browse/SPEC-1302
->
->  
->
-> With the proposed solution in the AGL thread, updating lttng-modules
-> to 2.10.5 does fix this issue, since 2.10.5 is upstreamed into
-> master-branch, will this version be patched to ROCKO as well?
->
+Dear Maintainers,
+
+I'm building the image core-image-sato-sdk on ROCKO branch with the poky, m=
+eta-virtualization and meta-intel.
+
+When I enabled virtualization and kvm,
+
+DISTRO_FEATURES_append =3D " virtualization"
+DISTRO_FEATURES_append =3D " kvm"
+
+PREFERRED_PROVIDER_virtual/kernel ?=3D "linux-yocto"
+PREFERRED_VERSION_linux-yocto ?=3D "4.4%"
+
+I get the error as follow :
+
+....
+                 from /home/rahul/raymond/workingdir/pyro/build/tmp/work/in=
+tel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/=
+lttng-probe-kvm.c:42:
+/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-lin=
+ux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracep=
+oint-event-impl.h:142:6: error: conflicting types for 'trace_kvm_mmio'
+void trace_##_name(_proto);
+      ^
+/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-lin=
+ux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracep=
+oint-event-impl.h:54:2: note: in expansion of macro 'LTTNG_TRACEPOINT_EVENT=
+_INSTANCE_MAP'
+  LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP(map, name, map, PARAMS(proto), PARAMS=
+(args))
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.....
+
+Checking online, same issue was reported with the lttng-modules 2.9.5 on ke=
+rnel 4.9 as well, albeit in different project https://jira.automotivelinux.=
+org/browse/SPEC-1302
+
+With the proposed solution in the AGL thread, updating lttng-modules to 2.1=
+0.5 does fix this issue, since 2.10.5 is upstreamed into master-branch, wil=
+l this version be patched to ROCKO as well?
 
 Can you try
-http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=stable/rocko-next
+http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=3Dstable/rock=
+o-next
 
 to verify the backport fixes your problem
 
+Thanks, the latest build swapping poky with this repo & branch compiled suc=
+cessfully.
+Sorry for the delay, a pretty old build machine I'm using.
+
 - armin
->
->  
->
-> /Ray
->
->
->
 
 
---------------FD2322204FE50987FA05B100
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+/Ray
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Ray,<br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 03/23/2018 05:10 AM, Tan, Raymond
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
+
+
+
+--_000_F0CA9E243F4F424B836EAC30E41BF4CF781DC855PGSMSX104garcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
 /* Font Definitions */
 @font-face
 	{font-family:SimSun;
@@ -218,7 +179,8 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Calibri",sans-serif;
+	color:black;}
 a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
@@ -227,92 +189,157 @@ a:visited, span.MsoHyperlinkFollowed
 	{mso-style-priority:99;
 	color:#954F72;
 	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+span.EmailStyle18
+	{mso-style-type:personal;
 	font-family:"Calibri",sans-serif;
 	color:windowtext;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
 .MsoChpDefault
 	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
+	font-size:10.0pt;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
 --></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
 </xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
 </o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal">Dear Maintainers,<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">I’m building the image core-image-sato-sdk
-          on ROCKO branch with the poky, meta-virtualization and
-          meta-intel.
-          <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">When I enabled virtualization and kvm, <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">DISTRO_FEATURES_append = " virtualization"<o:p></o:p></p>
-        <p class="MsoNormal">DISTRO_FEATURES_append = " kvm"<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">PREFERRED_PROVIDER_virtual/kernel ?=
-          "linux-yocto"<o:p></o:p></p>
-        <p class="MsoNormal">PREFERRED_VERSION_linux-yocto ?= "4.4%"<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">I get the error as follow : <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">….<o:p></o:p></p>
-        <p class="MsoNormal">                 from
-/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/lttng-probe-kvm.c:42:<o:p></o:p></p>
-        <p class="MsoNormal">/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:142:6:
-          error: conflicting types for 'trace_kvm_mmio'<o:p></o:p></p>
-        <p class="MsoNormal">void trace_##_name(_proto);<o:p></o:p></p>
-        <p class="MsoNormal">      ^<o:p></o:p></p>
-        <p class="MsoNormal">/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:54:2:
-          note: in expansion of macro
-          'LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP'<o:p></o:p></p>
-        <p class="MsoNormal">  LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP(map,
-          name, map, PARAMS(proto), PARAMS(args))<o:p></o:p></p>
-        <p class="MsoNormal">  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<o:p></o:p></p>
-        <p class="MsoNormal">…..<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">Checking online, same issue was reported
-          with the lttng-modules 2.9.5 on kernel 4.9 as well, albeit in
-          different project
-          <a href="https://jira.automotivelinux.org/browse/SPEC-1302"
-            moz-do-not-send="true">https://jira.automotivelinux.org/browse/SPEC-1302</a>
-          <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">With the proposed solution in the AGL
-          thread, updating lttng-modules to 2.10.5 does fix this issue,
-          since 2.10.5 is upstreamed into master-branch, will this
-          version be patched to ROCKO as well?
-        </p>
-      </div>
-    </blockquote>
-    <br>
-    Can you try <br>
-<a class="moz-txt-link-freetext" href="http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=stable/rocko-next">http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=stable/rocko-next</a><br>
-    <br>
-    to verify the backport fixes your problem<br>
-    <br>
-    - armin<br>
-    <blockquote type="cite"
-cite="mid:F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com">
-      <div class="WordSection1">
-        <p class="MsoNormal"><o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">/Ray<o:p></o:p></p>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-    </blockquote>
-    <br>
-  </body>
+</head>
+<body bgcolor=3D"white" lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Armin,<o:p></o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><a name=3D"_____replyseparator"></a><b><span style=
+=3D"color:windowtext">From:</span></b><span style=3D"color:windowtext"> aku=
+ster808 [mailto:akuster808@gmail.com]
+<br>
+<b>Sent:</b> Friday, March 23, 2018 10:34 PM<br>
+<b>To:</b> Tan, Raymond &lt;raymond.tan@intel.com&gt;; poky@yoctoproject.or=
+g; meta-virtualization@yoctoproject.org<br>
+<b>Cc:</b> ray.danks@se-eng.com<br>
+<b>Subject:</b> Re: [poky] lttng-modules build error on linux-yocto-4.4 wit=
+h KVM on [rocko] branch<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p>Ray,<span style=3D"font-size:12.0pt"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">On 03/23/2018 05:10 AM, Tan, Raymond wrote:<o:p></o:=
+p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">Dear Maintainers,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">I&#8217;m building the image core-image-sato-sdk on =
+ROCKO branch with the poky, meta-virtualization and meta-intel.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">When I enabled virtualization and kvm, <o:p></o:p></=
+p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">DISTRO_FEATURES_append =3D &quot; virtualization&quo=
+t;<o:p></o:p></p>
+<p class=3D"MsoNormal">DISTRO_FEATURES_append =3D &quot; kvm&quot;<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">PREFERRED_PROVIDER_virtual/kernel ?=3D &quot;linux-y=
+octo&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">PREFERRED_VERSION_linux-yocto ?=3D &quot;4.4%&quot;<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">I get the error as follow : <o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#8230;.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from /home/rahul/raymond/worki=
+ngdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0=
+/lttng-modules-2.9.5/probes/lttng-probe-kvm.c:42:<o:p></o:p></p>
+<p class=3D"MsoNormal">/home/rahul/raymond/workingdir/pyro/build/tmp/work/i=
+ntel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes=
+/../probes/lttng-tracepoint-event-impl.h:142:6: error: conflicting types fo=
+r 'trace_kvm_mmio'<o:p></o:p></p>
+<p class=3D"MsoNormal">void trace_##_name(_proto);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^<o:p></o:p></p>
+<p class=3D"MsoNormal">/home/rahul/raymond/workingdir/pyro/build/tmp/work/i=
+ntel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes=
+/../probes/lttng-tracepoint-event-impl.h:54:2: note: in expansion of macro =
+'LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP'<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP(map, name=
+, map, PARAMS(proto), PARAMS(args))<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">&#8230;..<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Checking online, same issue was reported with the lt=
+tng-modules 2.9.5 on kernel 4.9 as well, albeit in different project
+<a href=3D"https://jira.automotivelinux.org/browse/SPEC-1302">https://jira.=
+automotivelinux.org/browse/SPEC-1302</a>
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">With the proposed solution in the AGL thread, updati=
+ng lttng-modules to 2.10.5 does fix this issue, since 2.10.5 is upstreamed =
+into master-branch, will this version be patched to ROCKO as well?
+<o:p></o:p></p>
+</blockquote>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
+mes New Roman&quot;,serif"><br>
+Can you try <br>
+<a href=3D"http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=3D=
+stable/rocko-next">http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/l=
+og/?h=3Dstable/rocko-next</a><br>
+<br>
+to verify the backport fixes your problem</span><span style=3D"font-size:12=
+.0pt;font-family:&quot;Times New Roman&quot;,serif;color:#1F497D"><o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Thanks, the latest bui=
+ld swapping poky with this repo &amp; branch compiled successfully.
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Sorry for the delay, a=
+ pretty old build machine I&#8217;m using.</span><span style=3D"font-size:1=
+2.0pt;font-family:&quot;Times New Roman&quot;,serif"><br>
+<br>
+- armin<br>
+<br>
+</span><span style=3D"color:#1F497D"><o:p></o:p></span></p>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">/Ray<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
+mes New Roman&quot;,serif"><br>
+<br>
+<o:p></o:p></span></p>
+</blockquote>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;font-family:&quot;Ti=
+mes New Roman&quot;,serif"><o:p>&nbsp;</o:p></span></p>
+</div>
+</div>
+</body>
 </html>
 
---------------FD2322204FE50987FA05B100--
+--_000_F0CA9E243F4F424B836EAC30E41BF4CF781DC855PGSMSX104garcor_--
