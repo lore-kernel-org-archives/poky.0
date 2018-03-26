@@ -1,17 +1,17 @@
-Return-Path: <akuster808@gmail.com>
+Return-Path: <ruica.cristina@yahoo.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B5695E00BFB; Mon, 26 Mar 2018 08:41:02 -0700 (PDT)
+	id DD123E00B65; Mon, 26 Mar 2018 13:26:03 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [209.85.192.196 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (akuster808[at]gmail.com)
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (ruica.cristina[at]yahoo.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [66.163.187.147 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -20,58 +20,36 @@ X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
-	[209.85.192.196])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C2E4E0070F;
-	Mon, 26 Mar 2018 08:41:01 -0700 (PDT)
-Received: by mail-pf0-f196.google.com with SMTP id l27so7657947pfk.12;
-	Mon, 26 Mar 2018 08:41:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:cc:references:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language;
-	bh=pXtFGxJLwe1PRKI+nIxJjOgIfczeOaXSwx3FoYwL1/Y=;
-	b=r7PalZmgwZ3cXWcNXzhF3VFrIEL4f8e+1wxISf6BBKTFgkDo1G7kbD+Mv1KgMtjyt9
-	W3GK3qWtm7Sg5AGlmdOFOBO5To02IhHaBKuSkBP8D8aMFyVCZAz2N58NVWMP1isKIccZ
-	scdH40KsLcogCokrGoMYbp4tphYXyTIKC6bMG79y9IjJerS4ulR/3b5pmnlTAXiY+XiK
-	t8ulwBGm4T1rrJm+1TluuuX9IPPzWwsnJieFI1/GlVn1VppUZOMjISGNffhF2eKLLb0a
-	HqJMATqS9QWgSI8Ckp0q1ig4ruACC6wvVCl6s021Qy52QGL88WPjEPjWKwecMLJLmKBD
-	2Nag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language;
-	bh=pXtFGxJLwe1PRKI+nIxJjOgIfczeOaXSwx3FoYwL1/Y=;
-	b=KrFB+6Zje61G31vOaMrC6nZZebkUJt3bw8R0Vsvt1V5mP3yBR+06W7kXVcvgy/lP5h
-	K/R/ZGQLRI5JCm4JVLJMEiXA1qBX7dymBno6uJDpfl9qrRp2ybBPP/jpmqMGeWKmDcoM
-	cTujpxFNLIMs1uk5okX0OlYrsEzGO/u/eKosuqaT9LojJtgV8tTDnEPfsQ6KDyxmUyPr
-	H8cocUaUJJuJ+NmSpux0u7iyG/suCE6gvABGNYDKuCMc4wVyfiQUSwQvV4+uxHPjO6wn
-	MTsvegDtRbq1+uHYlf4SfOfLIztX9xAwuA12xCoWiiPXsTv8/+9GIgAPrr4Ivx034QD+
-	WAmg==
-X-Gm-Message-State: AElRT7HLvBg/BtR7PPeDizbQvxJBDzvSUymk4oSFbBcAg5kQme/IFg8n
-	MNCD+qoXE7vU+P6m6SeHQS0=
-X-Google-Smtp-Source: AG47ELtqdS+3YgsY2oMzQQOi5NEpnpWTpnBV3p0PJROG+PkaVLbJTts6//HWG8LBnMyZefIU/h5fYw==
-X-Received: by 10.101.64.68 with SMTP id h4mr10737498pgp.76.1522078861315;
-	Mon, 26 Mar 2018 08:41:01 -0700 (PDT)
-Received: from ?IPv6:2601:202:4000:1184:203c:a04e:87e9:791b?
-	([2601:202:4000:1184:203c:a04e:87e9:791b])
-	by smtp.gmail.com with ESMTPSA id
-	c74sm11026171pfe.58.2018.03.26.08.41.00
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 26 Mar 2018 08:41:00 -0700 (PDT)
-To: "Tan, Raymond" <raymond.tan@intel.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"meta-virtualization@yoctoproject.org"
-	<meta-virtualization@yoctoproject.org>
-References: <F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com>
-From: akuster808 <akuster808@gmail.com>
-Message-ID: <a4b2abb1-a33e-2d5c-62c4-5124b71ec117@gmail.com>
-Date: Mon, 26 Mar 2018 08:40:59 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.6.0
+Received: from sonic316-21.consmr.mail.ne1.yahoo.com
+	(sonic316-21.consmr.mail.ne1.yahoo.com [66.163.187.147])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B3E86E007DA
+	for <poky@yoctoproject.org>; Mon, 26 Mar 2018 13:26:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+	t=1522095961; bh=+06VUA0VZ3fFYlUZQ5XdZUp58BeUffgpS2pAOf0HRSI=;
+	h=Date:From:To:Subject:References:From:Subject;
+	b=r3A80rdt92gVvUXCZfXhpn0YtDhTk709cGy+EnEOXkPrZGkSoaeHoDPYxVYc857YFyWC4qCJYApX5iJvKNB6R6viIy9dsolgHLBsVnUxAd+40O7bGsdmTZPbjsoGt8J4FofhxRj0AFps1EnnC9YWOltDPck9oSK5Z3rfbCPLxAzogHvgWeNwmSBKU4iQ2w89qMN3d9/78q9O5+C/4sOXDhV0mTs26AMb+ZhNkYb8XH0gFCiSTUCDO5XIeJ2X4ULBT2JBTQwwkNuxRJyqDsOnUWPmPj87kGS2a/hwaulAmjWHgQJ6iuYl12oVy914r+wXEztEu+wJCYWUOwhWeqnSCQ==
+X-YMail-OSG: n8BTnMkVM1l09cgZbEIrPstCBz91BRfJdxRl4ToFfc.eQZTHCgZk0JH8_SW4EuE
+	yoGSl07H0sOoO4i0pSHQ_4cLVPo9hEwU2a03uB6_UjtnLBoDHO9cbLhPNRbW_uokF2mWL9hqQ9hr
+	H0WX8PdY7xkejtUPnc4wI7Aa_nK5I8WGqHo1n7KM_MYyZe4ci5caG7VmT9OVw0iwAlGx9zGy71D.
+	0_WTdvJSv7pHytrIECBNOPPE0T3ZJwYcSVm2A1LjADOHRulD8rs0PTPgbBPUk4HOpFtJvC_5UuMA
+	she49txE4wJxKKfyluRRZUiMHvbYtGb1RAGQx4tHrBiYSJIaNnDTcIsDMjwqi1kwbAUJDUmlbslb
+	ACYxv13lKEzBslouJAo28PvOj7TrLllWwb_9ongv0TIWCNgu7sCJG4cYqZwrs5j6bPOOHKqsF_vZ
+	eYEq_NJFOz8S4y.wJlOw3DU3ZNGHQUGmNFwWzMqXdfxNOGN4Yt2KKuV0hEEKVaEK1uC4djllRHxV
+	GdgLHbYGv_EQk4Gj.Kr0_X0MYmOjUYTZOr8HuLp9WFFy700y5yurTZA_fwTCvOZuZih_S4hJP.fR
+	bGnqrups6sLm.GM8Ghj4ti69DSTRouA--
+Received: from sonic.gate.mail.ne1.yahoo.com by
+	sonic316.consmr.mail.ne1.yahoo.com with HTTP;
+	Mon, 26 Mar 2018 20:26:01 +0000
+Date: Mon, 26 Mar 2018 20:26:00 +0000 (UTC)
+From: Ruica Cristina <ruica.cristina@yahoo.com>
+To: poky@yoctoproject.org
+Message-ID: <94727539.1223925.1522095960460@mail.yahoo.com>
 MIME-Version: 1.0
-In-Reply-To: <F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com>
-Cc: "ray.danks@se-eng.com" <ray.danks@se-eng.com>
-Subject: Re: lttng-modules build error on linux-yocto-4.4 with KVM on [rocko] branch
+References: <94727539.1223925.1522095960460.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.11588 YMailNorrin Mozilla/5.0 (Windows NT 10.0; Win64;
+	x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181
+	Safari/537.36
+Subject: problem opkg
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -84,230 +62,89 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2018 15:41:02 -0000
-Content-Type: multipart/alternative;
-	boundary="------------EA2EBB9AC6241AFB1944904E"
-Content-Language: en-US
+X-List-Received-Date: Mon, 26 Mar 2018 20:26:04 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1223924_239451017.1522095960458"
 
---------------EA2EBB9AC6241AFB1944904E
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+------=_Part_1223924_239451017.1522095960458
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 03/23/2018 05:10 AM, Tan, Raymond wrote:
->
-> Dear Maintainers,
->
->  
->
-> I’m building the image core-image-sato-sdk on ROCKO branch with the
-> poky, meta-virtualization and meta-intel.
->
-
-update lttng in upstream Rocko
-
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=rocko
-- Armin
->
->  
->
-> When I enabled virtualization and kvm,
->
->  
->
-> DISTRO_FEATURES_append = " virtualization"
->
-> DISTRO_FEATURES_append = " kvm"
->
->  
->
-> PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
->
-> PREFERRED_VERSION_linux-yocto ?= "4.4%"
->
->  
->
-> I get the error as follow :
->
->  
->
-> ….
->
->                  from
-> /home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/lttng-probe-kvm.c:42:
->
-> /home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:142:6:
-> error: conflicting types for 'trace_kvm_mmio'
->
-> void trace_##_name(_proto);
->
->       ^
->
-> /home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:54:2:
-> note: in expansion of macro 'LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP'
->
->   LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP(map, name, map, PARAMS(proto),
-> PARAMS(args))
->
->   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> …..
->
->  
->
-> Checking online, same issue was reported with the lttng-modules 2.9.5
-> on kernel 4.9 as well, albeit in different project
-> https://jira.automotivelinux.org/browse/SPEC-1302
->
->  
->
-> With the proposed solution in the AGL thread, updating lttng-modules
-> to 2.10.5 does fix this issue, since 2.10.5 is upstreamed into
-> master-branch, will this version be patched to ROCKO as well?
->
->  
->
-> /Ray
->
->
->
+I followed the instructions from hereYocto =C2=B7 Intel=C2=AE Galileo
 
 
---------------EA2EBB9AC6241AFB1944904E
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+|=20
+|=20
+|  |=20
+Yocto =C2=B7 Intel=C2=AE Galileo
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 03/23/2018 05:10 AM, Tan, Raymond
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal">Dear Maintainers,<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">I’m building the image core-image-sato-sdk
-          on ROCKO branch with the poky, meta-virtualization and
-          meta-intel.
-        </p>
-      </div>
-    </blockquote>
-    <br>
-    update lttng in upstream Rocko<br>
-    <br>
-    <a class="moz-txt-link-freetext" href="http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=rocko">http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=rocko</a><br>
-    - Armin<br>
-    <blockquote type="cite"
-cite="mid:F0CA9E243F4F424B836EAC30E41BF4CF781DBB3F@PGSMSX104.gar.corp.intel.com">
-      <div class="WordSection1">
-        <p class="MsoNormal"><o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">When I enabled virtualization and kvm, <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">DISTRO_FEATURES_append = " virtualization"<o:p></o:p></p>
-        <p class="MsoNormal">DISTRO_FEATURES_append = " kvm"<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">PREFERRED_PROVIDER_virtual/kernel ?=
-          "linux-yocto"<o:p></o:p></p>
-        <p class="MsoNormal">PREFERRED_VERSION_linux-yocto ?= "4.4%"<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">I get the error as follow : <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">….<o:p></o:p></p>
-        <p class="MsoNormal">                 from
-/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/lttng-probe-kvm.c:42:<o:p></o:p></p>
-        <p class="MsoNormal">/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:142:6:
-          error: conflicting types for 'trace_kvm_mmio'<o:p></o:p></p>
-        <p class="MsoNormal">void trace_##_name(_proto);<o:p></o:p></p>
-        <p class="MsoNormal">      ^<o:p></o:p></p>
-        <p class="MsoNormal">/home/rahul/raymond/workingdir/pyro/build/tmp/work/intel_corei7_64-poky-linux/lttng-modules/2.9.5-r0/lttng-modules-2.9.5/probes/../probes/lttng-tracepoint-event-impl.h:54:2:
-          note: in expansion of macro
-          'LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP'<o:p></o:p></p>
-        <p class="MsoNormal">  LTTNG_TRACEPOINT_EVENT_INSTANCE_MAP(map,
-          name, map, PARAMS(proto), PARAMS(args))<o:p></o:p></p>
-        <p class="MsoNormal">  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<o:p></o:p></p>
-        <p class="MsoNormal">…..<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">Checking online, same issue was reported
-          with the lttng-modules 2.9.5 on kernel 4.9 as well, albeit in
-          different project
-          <a href="https://jira.automotivelinux.org/browse/SPEC-1302"
-            moz-do-not-send="true">https://jira.automotivelinux.org/browse/SPEC-1302</a>
-          <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">With the proposed solution in the AGL
-          thread, updating lttng-modules to 2.10.5 does fix this issue,
-          since 2.10.5 is upstreamed into master-branch, will this
-          version be patched to ROCKO as well?
-          <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">/Ray<o:p></o:p></p>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
+The IoT Learning Initiative
 
---------------EA2EBB9AC6241AFB1944904E--
+
+ |
+
+ |
+
+ |
+
+
+
+and after i got the .direct file, i wrote it to an sd card, and plugged in =
+to galileo gen 2.=C2=A0Output of uname-a isLinux intel-quark 4.9.81-intel-p=
+k-standard #1 Mon Mar 26 20:41:48 EEST 2018 i586 GNU/Linux
+My problem is that i need to install nodejs, and i can t do this because op=
+kg isnt installed..Any help???
+
+------=_Part_1223924_239451017.1522095960458
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:schemas-microso=
+ft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office"><head><!--[=
+if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>=
+96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]--></head><bo=
+dy><div style=3D"font-family:Helvetica Neue, Helvetica, Arial, sans-serif;f=
+ont-size:13px;"><div>I followed the instructions from here</div><div><a hre=
+f=3D"https://theiotlearninginitiative.gitbooks.io/intelgalileo/content/docu=
+mentation/Yocto.html" rel=3D"nofollow" target=3D"_blank" class=3D"enhancr_c=
+ard_2957154265">Yocto =C2=B7 Intel=C2=AE Galileo</a><br></div><div><br></di=
+v><div id=3D"ydp8f9daee8enhancr_card_2957154265" class=3D"ydp8f9daee8yahoo-=
+link-enhancr-card ydp8f9daee8yahoo-link-enhancr-not-allow-cover ydp8f9daee8=
+ymail-preserve-class ydp8f9daee8ymail-preserve-style" style=3D"max-width:40=
+0px;font-family:&quot;Helvetica Neue&quot;, &quot;Segoe UI&quot;, Helvetica=
+, Arial, sans-serif;" data-url=3D"https://theiotlearninginitiative.gitbooks=
+.io/intelgalileo/content/documentation/Yocto.html" data-type=3D"YENHANCER" =
+data-size=3D"MEDIUM" contenteditable=3D"false"><a href=3D"https://theiotlea=
+rninginitiative.gitbooks.io/intelgalileo/content/documentation/Yocto.html" =
+style=3D"text-decoration:none !important;color:#000 !important;" class=3D"y=
+dp8f9daee8yahoo-enhancr-cardlink" rel=3D"nofollow" target=3D"_blank"><table=
+ border=3D"0" class=3D"ydp8f9daee8card-wrapper ydp8f9daee8yahoo-ignore-tabl=
+e" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:400px;"><tbody><t=
+r><td width=3D"400"><table border=3D"0" class=3D"ydp8f9daee8card ydp8f9daee=
+8yahoo-ignore-table" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" sty=
+le=3D"max-width:400px;border-width:1px;border-style:solid;border-color:rgb(=
+224, 228, 233);border-radius:2px;"><tbody><tr><td><table border=3D"0" class=
+=3D"ydp8f9daee8card-info ydp8f9daee8yahoo-ignore-table" cellpadding=3D"0" c=
+ellspacing=3D"0" style=3D"background:#fff;position:relative;z-index:2;width=
+:100%;max-width:400px;border-radius:0 0 2px 2px;border-top:1px solid rgb(22=
+4, 228, 233);"><tbody><tr><td style=3D"background-color:#ffffff;padding:16p=
+x 0 16px 12px;vertical-align:top;border-radius:0 0 0 2px;"></td><td style=
+=3D"vertical-align:middle;padding:12px 24px 16px 12px;width:99%;font-family=
+:&quot;Helvetica Neue&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-s=
+erif;border-radius:0 0 2px 0;"><h2 class=3D"ydp8f9daee8card-title" style=3D=
+"font-size: 14px; line-height: 19px; margin: 0px 0px 6px; font-family: &quo=
+t;Helvetica Neue&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif;=
+ color: rgb(38, 40, 42);">Yocto =C2=B7 Intel=C2=AE Galileo</h2><p class=3D"=
+ydp8f9daee8card-richinfo-primary" style=3D"font-size:12px;line-height:16px;=
+margin:0 0 4px 0;color:#979ba7;">The IoT Learning Initiative</p><p class=3D=
+"ydp8f9daee8card-description" style=3D"font-size: 12px; line-height: 16px; =
+margin: 0px; color: rgb(151, 155, 167);"></p></td></tr></tbody></table></td=
+></tr></tbody></table></td></tr></tbody></table></a></div><div><br></div><d=
+iv><br></div><div>and after i got the .direct file, i wrote it to an sd car=
+d, and plugged in to galileo gen 2.&nbsp;</div><div>Output of uname-a is</d=
+iv><div><div>Linux intel-quark 4.9.81-intel-pk-standard #1 Mon Mar 26 20:41=
+:48 EEST 2018 i586 GNU/Linux</div><div><br></div>My problem is that i need =
+to install nodejs, and i can t do this because opkg isnt installed..</div><=
+div>Any help???</div></div></body></html>
+
+------=_Part_1223924_239451017.1522095960458--
