@@ -1,17 +1,17 @@
-Return-Path: <soemoe.a@gmail.com>
+Return-Path: <ruica.cristina@yahoo.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 01844E00AF2; Mon, 26 Mar 2018 14:00:50 -0700 (PDT)
+	id 1B3AAE00AE4; Mon, 26 Mar 2018 14:02:25 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [209.85.214.53 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (soemoe.a[at]gmail.com)
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (ruica.cristina[at]yahoo.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [66.163.190.34 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -20,47 +20,35 @@ X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
-	[209.85.214.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3EDC7E008E4
-	for <poky@yoctoproject.org>; Mon, 26 Mar 2018 14:00:50 -0700 (PDT)
-Received: by mail-it0-f53.google.com with SMTP id 19-v6so12513247itw.3
-	for <poky@yoctoproject.org>; Mon, 26 Mar 2018 14:00:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=EOR4+FzZcsaTNvp2C4dzKImzRUx0A69bxF0P3eIq5vc=;
-	b=DNkujjyaxCB84yzq1ROPvzkFkwHRI5C96F6UpthW4Hwkqacd/YPVKvXxz/CH5+4gKK
-	6PGz+DIgYsFhr+upKXr4++sQqEYgZJf4216RzisY06F5eBKi38tfQGBn2I0UPZMERiop
-	Z+rOkHH9WWU+7uKfNVO/ORV4kvBAN9HiPUOzOy5/pOXt8u9rE2nPC9HFzDsGLpV1Aojw
-	izaPFcN6yMt/3/4pVwEMQ/LRHhqj1T4/yDDeMS6EplwUhKJyAHaqk5nwAE3h5hu/F81g
-	m6QbXp4r/CfwcSOoCAStZdXGi6gBLkfI/7+PqkGAjPPieJ98Sr4RcpwX9wjxTs5ReTF+
-	Nc+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=EOR4+FzZcsaTNvp2C4dzKImzRUx0A69bxF0P3eIq5vc=;
-	b=mTYRaXdsCEqtmIhTUheMF7gTFPLfbp2vVlW8vT+4oSI0ip9uAnGbOMwmGKla2TOv1a
-	gwtG0L6Fn+hqw6H4TfFbjaPGpbU9Ue5JSvvtejSlSHeuLLUdcsgar9jGf2T1Z4UIQc8p
-	sz3TmciPnGwDiCtzxJKWpHER4QpOdkcej5JO4WRgg5qn0TBNzXZZR0wQmKiQJRDnHxyK
-	cf2QjvC5HJuiSBXyZqduvvXV87i2/jTPhv5sywzNXzxvyi3UKi0GqsF3E9y6vSzONIMI
-	AVdAeV08CGYTrnEIHQUK/Do78niNdilTaJ09saxxuZ94gy8uN5+WImsPocwUj0EQlE9O
-	ieXg==
-X-Gm-Message-State: AElRT7GPNzQytRzDgYszEbUvwdbvi5Jba0/XmcCTPYYfY5CseQmSaNo1
-	lrsfAZEjxC7pC8/zuz9udrt6D4B8WNrYh4nAqhk=
-X-Google-Smtp-Source: AG47ELu88hG/xwMdh/USu3qTYqVaSQXzDq8VFuTIDuXjbsjJv8s3RIJ+M+2pm2KtqCykq0noz1D9nv67prnNjaAnX4g=
-X-Received: by 2002:a24:790c:: with SMTP id
-	z12-v6mr11575680itc.13.1522098048498; 
-	Mon, 26 Mar 2018 14:00:48 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 10.2.56.65 with HTTP; Mon, 26 Mar 2018 14:00:27 -0700 (PDT)
+Received: from sonic307-11.consmr.mail.ne1.yahoo.com
+	(sonic307-11.consmr.mail.ne1.yahoo.com [66.163.190.34])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 67066E008E4
+	for <poky@yoctoproject.org>; Mon, 26 Mar 2018 14:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+	t=1522098143; bh=Y9T6Fc1zYz04lqWxynbgT1qSa00240H0tILsREIcMgs=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject;
+	b=U2QiN+k5LmQqAdg1stfD+zEEEKB43NP46lT5xryQ3I6mWUbnJ14uWHfMfHZ56gJhcdF6rDVc8ml7B9quaTPsVbChs2RsgVqKCl2tzFuHHyLPULQ6wUozLmzsnoP2KBdCGT8fjjl/O4p5+yzikLL7W010EL1W53zZ9VAzA5/1CWweCyBL5cjejxqSRLuUae3hap4IaA6+e15fKsoX45wgbKyhAZu0ZkkZeXfs2+nB49bdihvhndQM32TA3sau7boMpxrb3MARr53ddmbVn5hbYr8qmdi45glZUmnejkBCgaYFxSW8aKyfAexuZuaxCniCrb+kQCEq6J8ttLj3c051WA==
+X-YMail-OSG: QU.ptAMVM1lNdYH71r6_tz2X1qaMhXrvordW5gGcrRdMw3nZ4IkUrXP21ghp9BV
+	7ejTA1doceFWPPOtg1FkTu_kKEqhsFPBCopjYvRZi96Y.0RTv7KK4IJzI_6n_W0_2UiHhVC63wLU
+	f0m6z2aa0IovSrqrh4onZWZkn1deDc.PnetBwzQ.TxuIiM3gxghZcL9ASD5jvH16Lq2rV0AtyKxc
+	yZ0cOsrJL0TosnCvXPxMlneo6rHGRISUw7VQIiNMeXHDldqLt5Xxe69mHc2971Oslrqi1xE8PBKY
+	Ysyan1.xxbW5b0.PslbIs.lqwdjxhPvd5_e1Immg1oUMBzJ4pteYrwATaORf7ZcyvDagwLlDO9sq
+	Yy2SRMjVDz0UcYQasAc4XdnMT9ZURhJWeMj1qHk0hv.OyLskYR_m_pX8KW4Y_DYQLvvI6On_pUqg
+	RosXM0aOi29GlUb23AIBD5PwDnzI66X3DSJbD
+Received: from sonic.gate.mail.ne1.yahoo.com by
+	sonic307.consmr.mail.ne1.yahoo.com with HTTP;
+	Mon, 26 Mar 2018 21:02:23 +0000
+Date: Mon, 26 Mar 2018 21:02:21 +0000 (UTC)
+From: Ruica Cristina <ruica.cristina@yahoo.com>
+To: Soemoe Aung <soemoe.a@gmail.com>, "Burton, Ross" <ross.burton@intel.com>
+Message-ID: <640929697.1301132.1522098141135@mail.yahoo.com>
 In-Reply-To: <CAJTo0LZcVrPqJgEcZSobi-QO8YBg0GeDy94VwPFqV0MC4NDfuw@mail.gmail.com>
 References: <cover.1522085586.git.soemoe.a@gmail.com>
 	<CAJTo0LZcVrPqJgEcZSobi-QO8YBg0GeDy94VwPFqV0MC4NDfuw@mail.gmail.com>
-From: Soemoe Aung <soemoe.a@gmail.com>
-Date: Mon, 26 Mar 2018 14:00:27 -0700
-Message-ID: <CAPTBsuUBfwZ_4QJpb2hfUw6dSTHrHgQSQuNJE96_L=psj8C=ZQ@mail.gmail.com>
-To: "Burton, Ross" <ross.burton@intel.com>
+MIME-Version: 1.0
+X-Mailer: WebService/1.1.11588 YMailNorrin Mozilla/5.0 (Windows NT 10.0; Win64;
+	x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181
+	Safari/537.36
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: [PULL] *** Fix build issue with html5lib in bitbake ***
 X-BeenThere: poky@yoctoproject.org
@@ -75,121 +63,117 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 26 Mar 2018 21:00:51 -0000
-Content-Type: multipart/alternative; boundary="0000000000007e90f505685711b3"
+X-List-Received-Date: Mon, 26 Mar 2018 21:02:25 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1301131_430891045.1522098141134"
 
---0000000000007e90f505685711b3
-Content-Type: text/plain; charset="UTF-8"
-
-Sorry if it wasn't clear. This is meant for fido (and also jethro). The
-context is that when doing a fresh checkout of yocto-poky for branches fido
-or jethro, I wasn't able to build with bitbake because of an error in one
-of its included libraries. This issue seems to be resolved starting in the
-krogoth branch.
-
-If I send this change to the bitbake list, would it also get applied to the
-yocto-poky repo in the fido and jethro branches?
-
-Also, apologies for the duplicate. I didn't see my message at
-https://lists.yoctoproject.org/pipermail/poky/2018-March/date.html so
-wasn't sure if it actually went through.
-
-On Mon, Mar 26, 2018 at 1:55 PM, Burton, Ross <ross.burton@intel.com> wrote:
-
-> What branch is this meant to be applied to?
->
-> Also, as it's a bitbake change, this should go to the bitbake list.
->
-> On 26 March 2018 at 21:51, Soemoe Aung <soemoe.a@gmail.com> wrote:
-> > This fixes a build issue where bitbake won't run because of an issue
-> with one of the libraries it depends on.
-> >
-> > The following changes since commit ea6d21066a7cce2fef08ad66287170
-> c5995bb1e2:
-> >
-> >   bitbake: bitbake-user-manual: Fixed porno hack for hello world example
-> (2018-01-17 22:32:46 +0000)
-> >
-> > are available in the Git repository at:
-> >
-> >   git://push.yoctoproject.org/poky-contrib saung/bitbake-html5lib
-> >
-> > Soemoe Aung (2):
-> >   fix build error in included html5lib in bitbake
-> >   fix html5lib fix to be the same as in the krogoth branch
-> >
-> >  bitbake/lib/bs4/builder/_html5lib.py | 17 ++++++++++++-----
-> >  1 file changed, 12 insertions(+), 5 deletions(-)
-> >
-> > --
-> > 2.17.0.rc0.231.g781580f067-goog
-> >
-> > --
-> > _______________________________________________
-> > poky mailing list
-> > poky@yoctoproject.org
-> > https://lists.yoctoproject.org/listinfo/poky
->
-
---0000000000007e90f505685711b3
-Content-Type: text/html; charset="UTF-8"
+------=_Part_1301131_430891045.1522098141134
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Sorry if it wasn&#39;t clear. This is meant for fido (and =
-also jethro). The context is that when doing a fresh checkout of yocto-poky=
- for branches fido or jethro, I wasn&#39;t able to build with bitbake becau=
-se of an error in one of its included libraries. This issue seems to be res=
-olved starting in the krogoth branch.<div><br></div><div>If I send this cha=
-nge to the bitbake list, would it also get applied to the yocto-poky repo i=
-n the fido and jethro branches?</div><div><br></div><div>Also, apologies fo=
-r the duplicate. I didn&#39;t see my message at=C2=A0<a href=3D"https://lis=
-ts.yoctoproject.org/pipermail/poky/2018-March/date.html">https://lists.yoct=
-oproject.org/pipermail/poky/2018-March/date.html</a> so wasn&#39;t sure if =
-it actually went through.</div></div><div class=3D"gmail_extra"><br><div cl=
-ass=3D"gmail_quote">On Mon, Mar 26, 2018 at 1:55 PM, Burton, Ross <span dir=
-=3D"ltr">&lt;<a href=3D"mailto:ross.burton@intel.com" target=3D"_blank">ros=
-s.burton@intel.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">=
-What branch is this meant to be applied to?<br>
-<br>
-Also, as it&#39;s a bitbake change, this should go to the bitbake list.<br>
-<div class=3D"HOEnZb"><div class=3D"h5"><br>
-On 26 March 2018 at 21:51, Soemoe Aung &lt;<a href=3D"mailto:soemoe.a@gmail=
-.com">soemoe.a@gmail.com</a>&gt; wrote:<br>
-&gt; This fixes a build issue where bitbake won&#39;t run because of an iss=
-ue with one of the libraries it depends on.<br>
-&gt;<br>
-&gt; The following changes since commit ea6d21066a7cce2fef08ad66287170<wbr>=
-c5995bb1e2:<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0bitbake: bitbake-user-manual: Fixed porno hack for hello w=
-orld example (2018-01-17 22:32:46 +0000)<br>
-&gt;<br>
-&gt; are available in the Git repository at:<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0git://<a href=3D"http://push.yoctoproject.org/poky-contrib=
-" rel=3D"noreferrer" target=3D"_blank">push.yoctoproject.org/<wbr>poky-cont=
-rib</a> saung/bitbake-html5lib<br>
-&gt;<br>
-&gt; Soemoe Aung (2):<br>
-&gt;=C2=A0 =C2=A0fix build error in included html5lib in bitbake<br>
-&gt;=C2=A0 =C2=A0fix html5lib fix to be the same as in the krogoth branch<b=
-r>
-&gt;<br>
-&gt;=C2=A0 bitbake/lib/bs4/builder/_<wbr>html5lib.py | 17 ++++++++++++-----=
-<br>
-&gt;=C2=A0 1 file changed, 12 insertions(+), 5 deletions(-)<br>
-&gt;<br>
-&gt; --<br>
-&gt; 2.17.0.rc0.231.g781580f067-<wbr>goog<br>
-&gt;<br>
-</div></div><span class=3D"HOEnZb"><font color=3D"#888888">&gt; --<br>
-&gt; ______________________________<wbr>_________________<br>
-&gt; poky mailing list<br>
-&gt; <a href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br>
-&gt; <a href=3D"https://lists.yoctoproject.org/listinfo/poky" rel=3D"norefe=
-rrer" target=3D"_blank">https://lists.yoctoproject.<wbr>org/listinfo/poky</=
-a><br>
-</font></span></blockquote></div><br></div>
+ rocko..i tried to edit local.conf file and add=C2=A0
+package_Classes ?=3D"package ipk"and it won't let me bitbake..i m kind of n=
+ew in this and i don t know how to manage it..
 
---0000000000007e90f505685711b3--
+    On Monday, March 26, 2018, 11:56:22 PM GMT+3, Burton, Ross <ross.burton=
+@intel.com> wrote: =20
+=20
+ What branch is this meant to be applied to?
+
+Also, as it's a bitbake change, this should go to the bitbake list.
+
+On 26 March 2018 at 21:51, Soemoe Aung <soemoe.a@gmail.com> wrote:
+> This fixes a build issue where bitbake won't run because of an issue with=
+ one of the libraries it depends on.
+>
+> The following changes since commit ea6d21066a7cce2fef08ad66287170c5995bb1=
+e2:
+>
+>=C2=A0 bitbake: bitbake-user-manual: Fixed porno hack for hello world exam=
+ple (2018-01-17 22:32:46 +0000)
+>
+> are available in the Git repository at:
+>
+>=C2=A0 git://push.yoctoproject.org/poky-contrib saung/bitbake-html5lib
+>
+> Soemoe Aung (2):
+>=C2=A0 fix build error in included html5lib in bitbake
+>=C2=A0 fix html5lib fix to be the same as in the krogoth branch
+>
+>=C2=A0 bitbake/lib/bs4/builder/_html5lib.py | 17 ++++++++++++-----
+>=C2=A0 1 file changed, 12 insertions(+), 5 deletions(-)
+>
+> --
+> 2.17.0.rc0.231.g781580f067-goog
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+--=20
+_______________________________________________
+poky mailing list
+poky@yoctoproject.org
+https://lists.yoctoproject.org/listinfo/poky
+ =20
+
+------=_Part_1301131_430891045.1522098141134
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div style=3D"font-family:Helvetica Neue, Helvetic=
+a, Arial, sans-serif;font-size:13px;"><div></div>
+            <div>rocko..</div><div>i tried to edit local.conf file and add&=
+nbsp;</div><div><br></div><div>package_Classes ?=3D"package ipk"</div><div>=
+and it won't let me bitbake..i m kind of new in this and i don t know how t=
+o manage it..</div><div><br></div><div><br></div>
+           =20
+            <div id=3D"yahoo_quoted_2649975875" class=3D"yahoo_quoted">
+                <div style=3D"font-family:'Helvetica Neue', Helvetica, Aria=
+l, sans-serif;font-size:13px;color:#26282a;">
+                   =20
+                    <div>
+                        On Monday, March 26, 2018, 11:56:22 PM GMT+3, Burto=
+n, Ross &lt;ross.burton@intel.com&gt; wrote:
+                    </div>
+                    <div><br></div>
+                    <div><br></div>
+                    <div><div dir=3D"ltr">What branch is this meant to be a=
+pplied to?<br clear=3D"none"><br clear=3D"none">Also, as it's a bitbake cha=
+nge, this should go to the bitbake list.<br clear=3D"none"><br clear=3D"non=
+e">On 26 March 2018 at 21:51, Soemoe Aung &lt;<a shape=3D"rect" ymailto=3D"=
+mailto:soemoe.a@gmail.com" href=3D"mailto:soemoe.a@gmail.com">soemoe.a@gmai=
+l.com</a>&gt; wrote:<br clear=3D"none">&gt; This fixes a build issue where =
+bitbake won't run because of an issue with one of the libraries it depends =
+on.<br clear=3D"none">&gt;<br clear=3D"none">&gt; The following changes sin=
+ce commit ea6d21066a7cce2fef08ad66287170c5995bb1e2:<br clear=3D"none">&gt;<=
+br clear=3D"none">&gt;&nbsp;  bitbake: bitbake-user-manual: Fixed porno hac=
+k for hello world example (2018-01-17 22:32:46 +0000)<br clear=3D"none">&gt=
+;<br clear=3D"none">&gt; are available in the Git repository at:<br clear=
+=3D"none">&gt;<br clear=3D"none">&gt;&nbsp;  git://push.yoctoproject.org/po=
+ky-contrib saung/bitbake-html5lib<br clear=3D"none">&gt;<br clear=3D"none">=
+&gt; Soemoe Aung (2):<br clear=3D"none">&gt;&nbsp;  fix build error in incl=
+uded html5lib in bitbake<br clear=3D"none">&gt;&nbsp;  fix html5lib fix to =
+be the same as in the krogoth branch<br clear=3D"none">&gt;<br clear=3D"non=
+e">&gt;&nbsp; bitbake/lib/bs4/builder/_html5lib.py | 17 ++++++++++++-----<b=
+r clear=3D"none">&gt;&nbsp; 1 file changed, 12 insertions(+), 5 deletions(-=
+)<br clear=3D"none">&gt;<br clear=3D"none">&gt; --<br clear=3D"none">&gt; 2=
+.17.0.rc0.231.g781580f067-goog<br clear=3D"none">&gt;<br clear=3D"none">&gt=
+; --<br clear=3D"none">&gt; _______________________________________________=
+<br clear=3D"none">&gt; poky mailing list<br clear=3D"none">&gt; <a shape=
+=3D"rect" ymailto=3D"mailto:poky@yoctoproject.org" href=3D"mailto:poky@yoct=
+oproject.org">poky@yoctoproject.org</a><br clear=3D"none">&gt; <a shape=3D"=
+rect" href=3D"https://lists.yoctoproject.org/listinfo/poky" target=3D"_blan=
+k">https://lists.yoctoproject.org/listinfo/poky</a><div class=3D"yqt0291816=
+996" id=3D"yqtfd54151"><br clear=3D"none">-- <br clear=3D"none">___________=
+____________________________________<br clear=3D"none">poky mailing list<br=
+ clear=3D"none"><a shape=3D"rect" ymailto=3D"mailto:poky@yoctoproject.org" =
+href=3D"mailto:poky@yoctoproject.org">poky@yoctoproject.org</a><br clear=3D=
+"none"><a shape=3D"rect" href=3D"https://lists.yoctoproject.org/listinfo/po=
+ky" target=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br c=
+lear=3D"none"></div></div></div>
+                </div>
+            </div></div></body></html>
+
+------=_Part_1301131_430891045.1522098141134--
