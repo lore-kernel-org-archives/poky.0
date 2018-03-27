@@ -1,45 +1,64 @@
-Return-Path: <stephano.cetola@linux.intel.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D90B7E009DF; Mon, 26 Mar 2018 20:18:36 -0700 (PDT)
+	id 9A724E009DB; Tue, 27 Mar 2018 02:28:45 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [134.134.136.100 listed in list.dnswl.org]
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BCFE0E009AC
-	for <poky@yoctoproject.org>; Mon, 26 Mar 2018 20:18:35 -0700 (PDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-	by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	26 Mar 2018 20:18:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.48,366,1517904000"; d="scan'208";a="29100213"
-Received: from linux.intel.com ([10.54.29.200])
-	by orsmga006.jf.intel.com with ESMTP; 26 Mar 2018 20:18:34 -0700
-Received: from mingeeon-mobl7.amr.corp.intel.com (unknown [10.254.35.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by linux.intel.com (Postfix) with ESMTPS id A0E315803D6;
-	Mon, 26 Mar 2018 20:18:34 -0700 (PDT)
-To: Ruica Cristina <ruica.cristina@yahoo.com>
-References: <94727539.1223925.1522095960460.ref@mail.yahoo.com>
-	<94727539.1223925.1522095960460@mail.yahoo.com>
-From: Stephano Cetola <stephano.cetola@linux.intel.com>
-Message-ID: <58083bb9-2293-5809-c5c2-0e166b87d77f@linux.intel.com>
-Date: Mon, 26 Mar 2018 20:18:33 -0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:52.0)
-	Gecko/20100101 Thunderbird/52.6.0
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.82.170 listed in list.dnswl.org]
+Received: from mail-ot0-f170.google.com (mail-ot0-f170.google.com
+	[74.125.82.170])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8D27CE008E4
+	for <poky@yoctoproject.org>; Tue, 27 Mar 2018 02:28:44 -0700 (PDT)
+Received: by mail-ot0-f170.google.com with SMTP id i28-v6so23773672otf.8
+	for <poky@yoctoproject.org>; Tue, 27 Mar 2018 02:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=3MwrSfEEWOhB+xGXnuoN6qlrjMHoLjiGxRzhApxF4wI=;
+	b=1Rr9NDX1g/OVIviOp73KK32DHfpUPiLoMIILsRYSaRkgRNXnKeXBwzKbgaS4CkAqFb
+	1Nsgn25l4HhG0V0qX1uj3McAXmGNOzQ0wg9ior7amXz1Uge35+37C7nX+zPxv1Ocjb23
+	NDr0Kil8/geF0ewEB9nxH4DMZp+1oo/Zi3CGDf7HWs/ykMyQwofmYKlXxyR//aDhCGZ9
+	rR3xFvNytfsKOlatKNwDtq17KCyvRf+qDKbYMB99WnaphxSb75l1peSOqj9QoHUMLlPE
+	mn3KQZSrFDuY+GvhbyhIz/ch6PH4aVfuKGXHeJoyo0m4aYyI6YmgNed6i6fYODg5Pmns
+	JOlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=3MwrSfEEWOhB+xGXnuoN6qlrjMHoLjiGxRzhApxF4wI=;
+	b=Vl26YyHPAq3rmmBKM7SLbfJjRu7JBPpDRZ7IfC3vZe3KRbx7fuySfmQlljvQvtFGvr
+	OT5s58McI48bAfMp92Ra3QC5zd9UWuM3tZNQYyiShvt4lVW+h0MgR0az65cGlLA6AoOR
+	eHJmlQ/TxnuXAzlkga9vbvUIso00YR6qxKDpArAMENVBtmbBwOIgoxbfyn++WLFE5/Hy
+	orDdSxZWscEPcRd1WAEnUoDlcS+fhhaY6UU2HC3AAnFLi0cIHmLVOc0XJSYkM2fTOs/t
+	vqsWhfK20HbQ/OfYzvZirKuA1SxzmFD+7SDFeVlkZCnkta83aCt/6GDPw0yXGsYULbX6
+	X+RA==
+X-Gm-Message-State: AElRT7Hd2uD4mQVf0jvwIwCluAkhCa6Gcaue6acnQ+gaLgnSAHz4dL9d
+	6mq5gFFIZpSVJW+RNHCIYkJY4RkzOdHNgPpOL4f53w==
+X-Google-Smtp-Source: AIpwx4/rOlneFbOF0LS1jFAk7A+CAHYPL7pGufamR4bB2hig5g3atTbTwKnxg6+U0lagYQUOmdvtLEXURsmTAC7StsQ=
+X-Received: by 2002:a9d:e4d:: with SMTP id
+	n13-v6mr5017558otd.168.1522142923719; 
+	Tue, 27 Mar 2018 02:28:43 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <94727539.1223925.1522095960460@mail.yahoo.com>
-Cc: poky@yoctoproject.org
-Subject: Re: problem opkg
+Received: by 10.138.17.198 with HTTP; Tue, 27 Mar 2018 02:28:23 -0700 (PDT)
+In-Reply-To: <CAPTBsuUBfwZ_4QJpb2hfUw6dSTHrHgQSQuNJE96_L=psj8C=ZQ@mail.gmail.com>
+References: <cover.1522085586.git.soemoe.a@gmail.com>
+	<CAJTo0LZcVrPqJgEcZSobi-QO8YBg0GeDy94VwPFqV0MC4NDfuw@mail.gmail.com>
+	<CAPTBsuUBfwZ_4QJpb2hfUw6dSTHrHgQSQuNJE96_L=psj8C=ZQ@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Tue, 27 Mar 2018 10:28:23 +0100
+Message-ID: <CAJTo0LZ9o8vr9H+6ng5uMxif6i6=_hSSybVeGuQ9CURNDuc2fw@mail.gmail.com>
+To: Soemoe Aung <soemoe.a@gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: [PULL] *** Fix build issue with html5lib in bitbake ***
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -52,45 +71,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 27 Mar 2018 03:18:36 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 27 Mar 2018 09:28:45 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-On 3/26/18 1:26 PM, Ruica Cristina wrote:
-> I followed the instructions from here
-> Yocto · Intel® Galileo
-> <https://theiotlearninginitiative.gitbooks.io/intelgalileo/content/documentation/Yocto.html>
-> 
->     Yocto · Intel® Galileo
-> 
-> The IoT Learning Initiative
-> 
-> <https://theiotlearninginitiative.gitbooks.io/intelgalileo/content/documentation/Yocto.html>
-> 
-> 
-> and after i got the .direct file, i wrote it to an sd card, and plugged
-> in to galileo gen 2. 
-> Output of uname-a is
-> Linux intel-quark 4.9.81-intel-pk-standard #1 Mon Mar 26 20:41:48 EEST
-> 2018 i586 GNU/Linux
-> 
-> My problem is that i need to install nodejs, and i can t do this because
-> opkg isnt installed..
-> Any help???
-> 
-> 
+On 26 March 2018 at 22:00, Soemoe Aung <soemoe.a@gmail.com> wrote:
+> Sorry if it wasn't clear. This is meant for fido (and also jethro). The
+> context is that when doing a fresh checkout of yocto-poky for branches fido
+> or jethro, I wasn't able to build with bitbake because of an error in one of
+> its included libraries. This issue seems to be resolved starting in the
+> krogoth branch.
+>
+> If I send this change to the bitbake list, would it also get applied to the
+> yocto-poky repo in the fido and jethro branches?
 
-You want to add a different package class:
+Yes, send it to bitbake@ and the maintainer will ensure that it
+bubbles through to the Poky repos.
 
-https://www.yoctoproject.org/docs/latest/mega-manual/mega-manual.html#var-PACKAGE_CLASSES
-
-perhaps:      PACKAGE_CLASSES = "package_rpm"
-
-But I can tell you from experience that working with Galileo will be
-difficult since it is no longer supported by Intel.
-
-Is there a reason you need Galileo?
-
---S
+Ross
 
