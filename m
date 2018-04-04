@@ -1,66 +1,56 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <prvs=063258e4d2=jens.erdmann@auerswald.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B4B15E00B01; Mon,  2 Apr 2018 06:31:35 -0700 (PDT)
+	id 04519E00997; Wed,  4 Apr 2018 07:46:14 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (raj.khem[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.160.53 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pl0-f53.google.com (mail-pl0-f53.google.com
-	[209.85.160.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A54D9E00857
-	for <poky@yoctoproject.org>; Mon,  2 Apr 2018 06:31:34 -0700 (PDT)
-Received: by mail-pl0-f53.google.com with SMTP id v18-v6so2134041ply.12
-	for <poky@yoctoproject.org>; Mon, 02 Apr 2018 06:31:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=qlzAVcmw9paWeZjBPTGLmM8aHvssxh21Hlvuwzy9uFc=;
-	b=pVrWHtKn7RopRwx38xbTyeYNfthX2nl4BnL3ClazqZNk9zdZnF6utg3zJjyqR6oVyt
-	ys98Nln7be98hwRboPsxXhnz8svIMexpDGM73qDDKqjw1345UTs4DGcCrmeRLpglxPaD
-	Dn9M1iU4cix539HhGEzmMKzdlhaTreqWLQkuFVoaUICSG/rC4mne4XXMHgvoF4p7aJjo
-	xbWe5ZvNpq1AZZavbWFaCTJbexaAieAdj39hduXliTJLYq3jCGyRfK6pZkDwePmUtS7c
-	Fd+Pq8W2CUXEz8IAyzOGLP3TSYD2ZhJReyalwAB9FvEwCSIveieWNPj9bmKfb6N/QW7T
-	4gng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=qlzAVcmw9paWeZjBPTGLmM8aHvssxh21Hlvuwzy9uFc=;
-	b=FyZP/Vnk/oJ0TngZetv5iqyYyMVHVyXD700RvKtCAvxdB33oSqEY7BHey79QexpNcZ
-	kSp08bSYJaSXpjbH7Vmt3cbDue9LOmHeJ/pxeh3mZGb+iyyovfTiXFe/F9El3YGIB5OU
-	HjzeQSAYSMp47JRbfwrHs1Fg6CRQnonrJlfKsOKjJYF/V2JoPo/GbaJII1ICGhMTOVjh
-	E3dHzhOiCs2c0rNbcNEUtgEMNt9KvWHwSqHbClGxo8mhgqMBqYb3PBOZB79Bbjgg53H3
-	JrLv5PFqaDfdMNOPi8YRlzjPxWApa1ofXVzFMpfjHPLVmaUARK+0MqH/PytEze1lVWGF
-	jeqw==
-X-Gm-Message-State: AElRT7EkvKDezoUCBAK6OpwBuqYy+V//80klu/KBBkhLqp6x0k/WHTpn
-	yjBlc2f604VO4Z7YpmWNKuIyYTYFtSrH3mQ7RbU=
-X-Google-Smtp-Source: AIpwx4/IJRe/25D26gaQdazU033YbSykrSHAsJaSi5nYFfs6BjNR3etDpntJu91QTHX8pGBA3l7xtOjKY4xQtdcVi8I=
-X-Received: by 10.101.73.207 with SMTP id t15mr6469917pgs.204.1522675893527;
-	Mon, 02 Apr 2018 06:31:33 -0700 (PDT)
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+Received: from smtp.winet.de (mailout02.winet.de [84.17.108.102])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA28BE008A2
+	for <poky@yoctoproject.org>; Wed,  4 Apr 2018 07:46:12 -0700 (PDT)
+Received: from fw2.winet.de (mr00.winet.de [192.168.12.10])
+	by smtp.winet.de (Postfix) with ESMTPS id 58AF3E23E3
+	for <poky@yoctoproject.org>; Wed,  4 Apr 2018 16:46:10 +0200 (CEST)
+Received: from smtp.winet.de (localhost [127.0.0.1])
+	by fw2.winet.de (Postfix) with ESMTP id 35182E00EF
+	for <poky@yoctoproject.org>; Wed,  4 Apr 2018 16:46:10 +0200 (CEST)
+Received: from mail.auerswald.de (unknown [81.14.169.68])
+	by smtp.winet.de (Postfix) with ESMTPSA id 0170EE00E6
+	for <poky@yoctoproject.org>; Wed,  4 Apr 2018 16:46:10 +0200 (CEST)
+Received: from autodiscover.auerswald.de ([172.20.0.66]:21289
+	helo=wsex02.auerswald.de)
+	by mail.auerswald.de with esmtps (TLSv1.2:AES256-GCM-SHA384:256)
+	(Exim 4.82_1-5b7a7c0-XX) (envelope-from <Jens.Erdmann@auerswald.de>)
+	id 1f3jfl-0005UC-06
+	for poky@yoctoproject.org; Wed, 04 Apr 2018 14:46:01 +0000
+Received: from wsex02.auerswald.de (172.20.0.66) by wsex02.auerswald.de
+	(172.20.0.66) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1034.26;
+	Wed, 4 Apr 2018 16:46:00 +0200
+Received: from wsex02.auerswald.de ([fe80::84d7:58d0:dd97:6e40]) by
+	wsex02.auerswald.de ([fe80::84d7:58d0:dd97:6e40%14]) with mapi id
+	15.01.1034.033; Wed, 4 Apr 2018 16:46:00 +0200
+X-CTCH-RefID: str=0001.0A0C0205.5AC4E529.0049, ss=1, re=0.000, recu=0.000,
+	reip=0.000, cl=1, cld=1, fgs=0
+From: "Erdmann, Jens" <Jens.Erdmann@auerswald.de>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky] [PATCH] externalsrc: Change absolute symlinks to relative
+	ones
+Thread-Index: AQHTy1D5uEO/YfzTpkWnbgzIXBSlI6PwsIUm
+Date: Wed, 4 Apr 2018 14:46:00 +0000
+Message-ID: <e8c188e7eb8e4f03a9ec5b544145334c@auerswald.de>
+References: <bcd607cf3fb44128b1233e50c96add58@auerswald.de>
+In-Reply-To: <bcd607cf3fb44128b1233e50c96add58@auerswald.de>
+Accept-Language: de-DE, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.12.203]
 MIME-Version: 1.0
-Received: by 10.100.227.8 with HTTP; Mon, 2 Apr 2018 06:31:03 -0700 (PDT)
-In-Reply-To: <MAXPR01MB0348CE087E02E7FA2D8A799391A60@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-References: <MAXPR01MB0348308E57E30FA8D6824DCB91A60@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-	<MAXPR01MB0348CE087E02E7FA2D8A799391A60@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Mon, 2 Apr 2018 06:31:03 -0700
-Message-ID: <CAMKF1srNpfx_Zt+LTQhZe8ZowoYQ+3rYX=1NcnQDmHq+h+B_fA@mail.gmail.com>
-To: Aditya Tayade <Aditya.Tayade@kpit.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: ERROR: problem:package openssh-7.6p1-r0.i586 conflicts with dropbear provided by dropbear-2017.75-r0.i586
+Subject: [PATCH] externalsrc: Change absolute symlinks to relative ones
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,58 +63,112 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Apr 2018 13:31:35 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 04 Apr 2018 14:46:14 -0000
+Content-Language: de-DE
+Content-Type: multipart/alternative;
+	boundary="_000_e8c188e7eb8e4f03a9ec5b544145334cauerswaldde_"
 
-On Mon, Apr 2, 2018 at 6:02 AM, Aditya Tayade <Aditya.Tayade@kpit.com> wrote:
->
-> Hi,
->
->
-> I trying to build core-image-sato using yocto 2.5 with new package openssh.
->
->
-> Added openssh entry in the local.conf file as follows:
->
-> IMAGE_INSTALL_append = "openssh"
->
->
-> But facing some conflicts error. Please refer attached log file for more
-> information.
->
->
-> Could you please help to resolve the issue. I need to use use openssh for
-> ssh rather than dropbear.
->
->
+--_000_e8c188e7eb8e4f03a9ec5b544145334cauerswaldde_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-you can use image features,
 
-something like EXTRA_IMAGE_FEATURES_append = " ssh-server-openssh" in
-local.conf
+In 3eee8e99 sstate got changed to refuse absolute symlinks. Externalsrc
+creates absolute symlinks for oe-logs and oe-workdir which causes
+errors at do_populate_sysroot.
+Changing symlinks to relative paths will make externalsrc comply with sstat=
+e
+changesi and will avoid those errors.
 
-For more info read the particular subsection in manual
+Signed-off-by Jens Erdmann <jens.erdmann@auerswald.de>
+---
+ meta/classes/externalsrc.bbclass | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-https://www.yoctoproject.org/docs/current/ref-manual/ref-manual.html#ref-features-image
+diff --git a/meta/classes/externalsrc.bbclass b/meta/classes/externalsrc.bb=
+class
+index 3f1d396..1f56495 100644
+--- a/meta/classes/externalsrc.bbclass
++++ b/meta/classes/externalsrc.bbclass
+@@ -136,7 +136,7 @@ python externalsrc_configure_prefunc() {
+     for symlink in symlinks:
+         symsplit =3D symlink.split(':', 1)
+         lnkfile =3D os.path.join(s_dir, symsplit[0])
+-        target =3D d.expand(symsplit[1])
++        target =3D os.path.relpath(d.expand(symsplit[1]), s_dir)
+         if len(symsplit) > 1:
+             if os.path.islink(lnkfile):
+                 # Link already exists, leave it if it points to the right =
+location already
+--
+2.7.4
 
->
-> Regards,
->
-> Aditya Tayade
->
-> This message contains information that may be privileged or confidential and
-> is the property of the KPIT Technologies Ltd. It is intended only for the
-> person to whom it is addressed. If you are not the intended recipient, you
-> are not authorized to read, print, retain copy, disseminate, distribute, or
-> use this message or any part thereof. If you receive this message in error,
-> please notify the sender immediately and delete all copies of this message.
-> KPIT Technologies Ltd. does not accept any liability for virus infected
-> mails.
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
 
+--_000_e8c188e7eb8e4f03a9ec5b544145334cauerswaldde_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"></div>
+<div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
+<p></p>
+In 3eee8e99 sstate got changed to refuse absolute symlinks. Externalsrc<br>
+<div>creates absolute symlinks for oe-logs and oe-workdir which causes<br>
+errors at do_populate_sysroot.<br>
+Changing symlinks to relative paths will make externalsrc comply with sstat=
+e<br>
+changesi and will avoid those errors.<br>
+<br>
+Signed-off-by Jens Erdmann &lt;jens.erdmann@auerswald.de&gt;<br>
+---<br>
+&nbsp;meta/classes/externalsrc.bbclass | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/meta/classes/externalsrc.bbclass b/meta/classes/externalsrc.bb=
+class<br>
+index 3f1d396..1f56495 100644<br>
+--- a/meta/classes/externalsrc.bbclass<br>
+&#43;&#43;&#43; b/meta/classes/externalsrc.bbclass<br>
+@@ -136,7 &#43;136,7 @@ python externalsrc_configure_prefunc() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp; for symlink in symlinks:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; symsplit =3D symlink.split=
+(':', 1)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lnkfile =3D os.path.join(s=
+_dir, symsplit[0])<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target =3D d.expand(symsplit[1]=
+)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target =3D os.path.relpath(=
+d.expand(symsplit[1]), s_dir)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if len(symsplit) &gt; 1:<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if=
+ os.path.islink(lnkfile):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; # Link already exists, leave it if it points to the r=
+ight location already<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_e8c188e7eb8e4f03a9ec5b544145334cauerswaldde_--
