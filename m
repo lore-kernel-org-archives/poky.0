@@ -1,6 +1,6 @@
 Return-Path: <Vignesh.Rajendran@in.bosch.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8959AE009E2; Thu, 19 Apr 2018 02:24:24 -0700 (PDT)
+	id 9D46FE009BC; Mon, 23 Apr 2018 21:38:56 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -15,75 +15,74 @@ X-Spam-HAM-Report: * -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 Received: from de-out1.bosch-org.com (de-out1.bosch-org.com [139.15.230.186])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF5F5E005A9
-	for <poky@yoctoproject.org>; Thu, 19 Apr 2018 02:24:22 -0700 (PDT)
-Received: from fe0vm1649.rbesz01.com (unknown [139.15.230.188])
-	by si0vms0217.rbdmz01.com (Postfix) with ESMTPS id 40RYTc3vDDz4f3mQv;
-	Thu, 19 Apr 2018 11:24:20 +0200 (CEST)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 608FBE008D7
+	for <poky@yoctoproject.org>; Mon, 23 Apr 2018 21:38:54 -0700 (PDT)
+Received: from fe0vm1650.rbesz01.com (unknown [139.15.230.188])
+	by si0vms0217.rbdmz01.com (Postfix) with ESMTPS id 40VVvw1smzz4f3lMd;
+	Tue, 24 Apr 2018 06:38:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=in.bosch.com;
-	s=2015-01-21; t=1524129860;
-	bh=mGJLKMhNij/j9kuoxVoRy/NBi+3tSBW4Z7Zr7GPczf4=; l=10;
+	s=2015-01-21; t=1524544732;
+	bh=z77tYUWRX71dTH1ts5MLVAe6ysNJNzf364ITRE04HnA=; l=10;
 	h=From:From:Reply-To:Sender;
-	b=h/SXJXNFC49Kjvp3f6sfzWc4gNYDk+tLtI6/MmWkHZcei1qfuWd8hrPyRftEYGf0o
-	IU9ce6E5dDXc0NWZeBHGmYG52ojSboUxwGMxokPsAimexymHfnCO/iVHYp4RHZMvU/
-	XQczK49LtoTh5lT9SWAo+I5g5VHSJS6HN0r6B5XA=
+	b=YouoK5vrUG2/J0Mfezj03Jmjik+geX9D7y17Lq0hI3kbHCTASmxEmwoom4oSWkJnf
+	ZU+WFgUq4RiOg25Y/aKCdYFsbJFBwOZFcJ1MEYDZlVp9LQX6tDBoiTWzik9H33kicy
+	dcg2j4ia0gJh49sZZ/xh57d7d17+5MrcfZHpbG/o=
 Received: from si0vm2082.rbesz01.com (unknown [10.58.172.176])
-	by fe0vm1649.rbesz01.com (Postfix) with ESMTPS id 40RYTc3D2mz25;
-	Thu, 19 Apr 2018 11:24:20 +0200 (CEST)
-X-AuditID: 0a3aad16-9c9ff70000001f9e-7d-5ad86049b9ce
-Received: from si0vm1949.rbesz01.com ( [10.58.173.29])
+	by fe0vm1650.rbesz01.com (Postfix) with ESMTPS id 40VVvw1VBxz1C7;
+	Tue, 24 Apr 2018 06:38:52 +0200 (CEST)
+X-AuditID: 0a3aad16-9e1ff70000001f9e-c0-5adeb4e1ca1f
+Received: from si0vm1950.rbesz01.com ( [10.58.173.29])
 	(using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(Client did not present a certificate)
 	by si0vm2082.rbesz01.com (SMG Outbound) with SMTP id
-	A6.4C.08094.94068DA5; Thu, 19 Apr 2018 11:24:25 +0200 (CEST)
-Received: from FE-MBX2042.de.bosch.com (fe-mbx2042.de.bosch.com [10.3.231.52])
-	by si0vm1949.rbesz01.com (Postfix) with ESMTPS id 40RYTc18pxz6D44Ln; 
-	Thu, 19 Apr 2018 11:24:20 +0200 (CEST)
+	5B.3F.08094.1E4BEDA5; Tue, 24 Apr 2018 06:38:57 +0200 (CEST)
+Received: from FE-MBX2010.de.bosch.com (fe-mbx2010.de.bosch.com [10.3.231.16])
+	by si0vm1950.rbesz01.com (Postfix) with ESMTPS id 40VVvv6CtpzCpP6;
+	Tue, 24 Apr 2018 06:38:51 +0200 (CEST)
 Received: from SGPMBX2018.APAC.bosch.com (10.187.83.36) by
-	FE-MBX2042.de.bosch.com (10.3.231.52) with Microsoft SMTP Server
+	FE-MBX2010.de.bosch.com (10.3.231.16) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.1.1466.3; Thu, 19 Apr 2018 11:24:19 +0200
+	15.1.1466.3; Tue, 24 Apr 2018 06:38:51 +0200
 Received: from SGPMBX2020.APAC.bosch.com (10.187.83.43) by
 	SGPMBX2018.APAC.bosch.com (10.187.83.36) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.1.1415.2; Thu, 19 Apr 2018 17:24:16 +0800
+	15.1.1415.2; Tue, 24 Apr 2018 12:38:49 +0800
 Received: from SGPMBX2020.APAC.bosch.com ([fe80::b526:b737:7eb9:3a96]) by
 	SGPMBX2020.APAC.bosch.com ([fe80::b526:b737:7eb9:3a96%6]) with mapi id
-	15.01.1415.002; Thu, 19 Apr 2018 17:24:16 +0800
+	15.01.1415.002; Tue, 24 Apr 2018 12:38:49 +0800
 From: "Vignesh Rajendran (RBEI/ECF3)" <Vignesh.Rajendran@in.bosch.com>
 To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
 Thread-Topic: [poky] [PULL] package.bbclass: provide debug sources in
 	externalsrc	-dbg packages
-Thread-Index: AQHT16/gXmUhu6os0EG6ATH3PszRdaQH0BFg
-Date: Thu, 19 Apr 2018 09:24:16 +0000
-Message-ID: <819d55f2722140a998702ec8c5f22770@in.bosch.com>
+Thread-Index: AQHT16/gXmUhu6os0EG6ATH3PszRdaQH0BFggAeKnVA=
+Date: Tue, 24 Apr 2018 04:38:49 +0000
+Message-ID: <354749242e9644759935066f4920acfd@in.bosch.com>
 References: <cover.1522820703.git.vignesh.rajendran@in.bosch.com>
 	<e8d2f42f4a0ff11961e831d00caeb86a5efdbb13.1522820703.git.vignesh.rajendran@in.bosch.com>
-	<11fded6a5f8e4927a8fb8010aa6fa6ef@XBOX02.axis.com>
-In-Reply-To: <11fded6a5f8e4927a8fb8010aa6fa6ef@XBOX02.axis.com>
+	<11fded6a5f8e4927a8fb8010aa6fa6ef@XBOX02.axis.com> 
 Accept-Language: en-US, en-SG
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.187.56.213]
+x-originating-ip: [10.187.56.218]
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA21TYUwbZRjma0t7NL15XCm8VKhyDDNn7Fp0hoFRMuOCiTO4TI394TjkbJvR
-	FnulwsIPYA4HIwSQZrUBxmZp3KgswVqJ21jsiIyBQ3HYsk0TZTHCMM4RilUsXrmy9od/vjz3
-	Ps/zPu/33h0mJD2YEjOabYzVTFdTYqlIWvxp7pMvVYR0mqmuR4pmfjstLjoZ9UpKBWXB4fKy
-	D652iMsFOumzVUy10c5Ydz1XITVsjGhq7qvrGv92SBrRZEEbSsOAeBrmPF0ohknCKYC+RUMb
-	knJ4DMH5Y0fjxD0Et5oO8sQKgvCPnRL+YRzBSN+8KKYSE/tgqKdZEMMZXNtLy1PiGBYS78GH
-	LTPCGJYTFbDa5UO8hobjJ67G9YXgb3VvYhFRAE3OyKYeJ0qgMXgB8WHfIZg4Fdo0pxHPQzjS
-	KolhROTCmfluER+WBTfvnBLwdyPAfZEPBkIBiwvRVB7nwc/OHwS8Xg0hR0980CfAc/puPDgd
-	Jj+6I+pE4Epq60qyuJIsriTLABKdQwrWqLGbCjVFhWprJcMe0WjVb1tMI4h/cZmjaKD/9QAi
-	METJ8LIDIR2ZStvZelMA7cYElAKfKQnqyG2Vlqp6A80aDllrqxmWUuIoJSWFlD8os7WVJiPL
-	Gi3mAAJMSGXgWd9wPryKrj/CWC28LYAexkRUFt5e1aAjCT1tYw4zTA1j3WJLMIwCvOgQN0O6
-	ldEzde8Yq21bNJXLZ2YmM8mxAiwtgJ7CZFz24ltcC5ytoU2sUR+3Z/N2cquasF5DL2DLLe3t
-	QlJktpgZZRa+HPMTMaWh1vxgAmUO/vjROR2pSCISXZbQPOJ2KMePxeaXcf9HIhvwUXnvm2R6
-	vJgwFQ5yHuLCNuidDiLoH13lPu7weCoMt8ymwuyXLgl0b1ySwI1/FiTQFmlNg2+jczL45O6G
-	DPw33ASM/htJh/bWITnHTmbAT7+2ZILr+2uZ0O+9DdDddjwbvPccSpheuaKEz9eGcmDd90UO
-	eCNXuKP3hApuDnBHpMepgr/cURVcdqzlgXN8iIKLv3Tkg69pKh+is57tS9xiBdxiNds3F2uj
-	bf+z2Hg1cTtlI3pxb/H7Z3PNL5+07wjv7Twn6yr/ShF6ZUG1i57zFv+R/czYYvPa8Mf+lWD3
-	wet7wmzBjsHXSk3UHpXjs9vF79Y1163Xa6f1irO/5034hlf99r6B9cmdj72qi+6/5bveP6j2
-	z/ce0JaGzj8Uzp/4OtLgvj/2hrjjT7328KN5DUue3ZczKBFroLU7hVaW/g+CSezHuQQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA21TbWwTdRjfv9eXW+mZ23Vdn5Xt1CMmRKQre4kTiJIQGVE+8AlDjYGbO9aG
+	td3uujf0wwI6y1YER4ezlDlk6GbLglKkkC3BDg0vC5gNxCEs0da3MZKRZS+dWLzzOtoPfvnn
+	d8/ze3n+z93hGHUUN+F2p5vjnWwNo9YqtWtPFa7+JTxhtRz5dmX5jT+Pq8s/ToY0GxSbbw9s
+	3fzB5Q/VWxVW7foqrsbewPFFL+/U2s72vKesDZU1xR8ENC2oZVUbysaBLIXhE++r25AWp8gu
+	BYxHOjGpQZGDCDpOvCjjaQQDM8tl0gyCr0aOaeSHSwgWYl0qiaUmN0HQt1ch4VzRdmjqmlrC
+	GFkCkWsJpYT15E6Y/SiMZA4LnvbLKf5aiHq8GgkryefgwHl5CoJcBw+uB5EcNoqg/2HHf0aI
+	LITPxmWMkUa4E/9UId+HhN7BG5iMDfBXLKmS8bMwPH4RyXwz/NTpSw23Cj4/fj8VlgNXPokr
+	DyGjP8PWnyHxZ0j8GZIepPwSGQS7pcFRbCkvNvOVnLDHssb8tsvxNZLfVl4E9XRviyISR4yO
+	aD81YaVUbIPQ7IiiMlzBGIiSg2LpqUpXVbONFWw7+PoaTmBMBMrKyqL0T8pCfaXDLgh2lzOK
+	AMeYXGKIFnVEFdu8h+NdsiyKluNKxkh4q961UmQ16+Z2c1wtxy911+E4A0SF+PVQOTxXzTXt
+	ste4l9pMoZyZl9nJjFXg2VFUguvE7JWSBSHUsg7BXp2S58tyaqmall5FG/GpVq8Xo5ROl5Mz
+	GYnOM6KelJi2eueTCUwFxIj9npUyZDTSLpNoHIk71BNlUrhO/CnS2UBE9IHtVE6qmBYVnxQ1
+	ZJyEwMhtBN2RWQQ/z11SwUDrqApGL/g10PF4SAM3/45poC2xPxu6kzEthO8dXgY/JG/poO/+
+	Yx18c7OXhMg/iRzw7g/qRd6VXJj4vTUP/GNX8yA5+J0RukN3ATraPPkQmu40wcjMsAnOzgcL
+	4FH4XAGEEsPiEWin4U6PeCR8XTQcOvojDX0HH9Kw0JukJ8XFKsTFevLvSot1s+7/WWyqmr6d
+	qQU16ukVK/qv79tobS1dxKJ9/UV9q1/bZ2E2TM2OJfE/uN/i5vnzr88d9u+OEI3+py/seIHZ
+	Pvfr6SPTYw0Fhib3Gzq751Vm0ztbdtHPvBmbHDs2v2VZQJtt3lt35kC73udsDLxSOv1987k6
+	9SP1rS9eCtfzi771bxUFK05X1C0s0pMXGaVgY9c8j/EC+y8P1zo7rgQAAA==
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PULL] package.bbclass: provide debug sources in externalsrc	-dbg packages
 X-BeenThere: poky@yoctoproject.org
@@ -98,10 +97,38 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 19 Apr 2018 09:24:24 -0000
+X-List-Received-Date: Tue, 24 Apr 2018 04:38:56 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Peter,=20
+
+I couldn't see my changes not merged to poky-contrib  master yet.
+http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=3Dvrajendran/exter=
+nalsrc-debugsrc
+
+As an  external developer, I am unaware of Yocto QA process to intake chang=
+es to master branch.
+
+Do I missing something from my end?
+
+Mit freundlichen Gr=FC=DFen / Best regards
+
+Rajendran Vignesh
+RBEI/ECF33 =20
+
+Tel. +91 422 67-65103=20
+
+
+-----Original Message-----
+From: Vignesh Rajendran (RBEI/ECF3)=20
+Sent: Thursday, April 19, 2018 2:54 PM
+To: 'Peter Kjellerstedt' <peter.kjellerstedt@axis.com>
+Cc: poky@yoctoproject.org; Vignesh Rajendran (RBEI/ECF3) (Vignesh.Rajendran=
+@in.bosch.com) <Vignesh.Rajendran@in.bosch.com>
+Subject: RE: [poky] [PULL] package.bbclass: provide debug sources in extern=
+alsrc -dbg packages
 
 Hi Peter,
 
