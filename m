@@ -1,38 +1,36 @@
-Return-Path: <fw@javox-solutions.com>
+Return-Path: <krzk@kernel.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4722EE00B57; Wed, 25 Apr 2018 05:50:09 -0700 (PDT)
+	id 61093E00B28; Wed, 25 Apr 2018 06:48:03 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
-	SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [80.67.18.29 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-6.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_HI
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at
+	http://www.dnswl.org/, high *      trust
+	*      [198.145.29.99 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from smtprelay06.ispgateway.de (smtprelay06.ispgateway.de
-	[80.67.18.29])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4EA7CE00B01
-	for <poky@yoctoproject.org>; Wed, 25 Apr 2018 05:50:07 -0700 (PDT)
-Received: from [89.0.112.67] (helo=[192.168.178.95])
-	by smtprelay06.ispgateway.de with esmtpsa
-	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.90_1)
-	(envelope-from <fw@javox-solutions.com>) id 1fBJs6-0006tp-6V
-	for poky@yoctoproject.org; Wed, 25 Apr 2018 14:50:06 +0200
-From: Florian Wickert <fw@javox-solutions.com>
-To: poky@yoctoproject.org
-References: <de1e86a6-55bf-a53c-1b72-ac701e7ba7a3@javox-solutions.com>
-Organization: Javox Solutions GmbH
-Message-ID: <441e976f-9beb-15d2-b497-46afed786705@javox-solutions.com>
-Date: Wed, 25 Apr 2018 14:50:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.7.0
-MIME-Version: 1.0
-In-Reply-To: <de1e86a6-55bf-a53c-1b72-ac701e7ba7a3@javox-solutions.com>
-X-Df-Sender: ZndAamF2b3gtc29sdXRpb25zLmNvbQ==
-Subject: Re: binutils-cross-x86_64 does not build anymore with icecc enabled
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4594DE005A9
+	for <poky@yoctoproject.org>; Wed, 25 Apr 2018 06:48:02 -0700 (PDT)
+Received: from PC-kkoz.proceq.com (unknown [213.160.61.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id C8E82204EF;
+	Wed, 25 Apr 2018 13:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8E82204EF
+Authentication-Results: mail.kernel.org;
+	dmarc=none (p=none dis=none) header.from=kernel.org
+Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=krzk@kernel.org
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: openembedded-devel@lists.openembedded.org
+Date: Wed, 25 Apr 2018 15:47:33 +0200
+Message-Id: <1524664054-21717-1-git-send-email-krzk@kernel.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Joe MacDonald <joe_macdonald@mentor.com>, poky@yoctoproject.org,
+	openembedded-core@lists.openembedded.org
+Subject: [meta-networking][rocko][PATCH 1/2] kernel_wireless_regdb: Add class for embedding regulatory data into the kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,42 +43,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Apr 2018 12:50:09 -0000
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+X-List-Received-Date: Wed, 25 Apr 2018 13:48:03 -0000
 
-This seems to happen for other *-cross-x86_64 recipes as well.
+Small embedded systems might:
+1. Want to get rid of daemons as much as possible (therefore be built
+   without CRDA),
+2. Not receive user-space incremental updates but an entire system
+   upgrade (with kernel).
 
+Add class kernel_wireless_regdb which allows in such cases to embed the
+wireless regulatory database directly in the Linux kernel during build
+process.
 
-On 04/25/2018 02:21 PM, Florian Wickert wrote:
-> I just switched from rocko to sumo/master and now 
-> binutils-cross-x86_64 does not build anymore on a build server which 
-> is using icecc.
-> The do_configure Logfile has these additional lines when icecc is 
-> enabled:
->
-> patchelf is required
-> /var/lib/jenkins/workspace/mayah_javelin/build_gemini_security_dev/tmp-glibc/work/x86_64-linux/binutils-cross-x86_64/2.30-r0/temp/run.do_configure.3337: 
-> 192: [: wait_for_file: unexpected operator
-> NOTE: Using icecc
->
-> The compile step then fails because -fPIC is not set, so linking fails.
->
-> A simple workaround is to lacklist binutils for icecc: 
-> ICECC_USER_PACKAGE_BL = "binutils-cross-x86_64"
->
-> Regards,
-> Florian
->
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ meta-networking/classes/kernel_wireless_regdb.bbclass        | 12 ++++++++++++
+ .../wireless-regdb/wireless-regdb_2016.06.10.bb              |  8 ++++++++
+ 2 files changed, 20 insertions(+)
+ create mode 100644 meta-networking/classes/kernel_wireless_regdb.bbclass
 
+diff --git a/meta-networking/classes/kernel_wireless_regdb.bbclass b/meta-networking/classes/kernel_wireless_regdb.bbclass
+new file mode 100644
+index 000000000000..6ae90d2d088c
+--- /dev/null
++++ b/meta-networking/classes/kernel_wireless_regdb.bbclass
+@@ -0,0 +1,12 @@
++# Copies the regulatory plaintext database to kernel sources before compiling.
++# Linux kernel must be compiled with CONFIG_CFG80211_INTERNAL_REGDB to use it.
++
++DEPENDS += "wireless-regdb-native"
++
++SRCTREECOVEREDTASKS += "do_kernel_add_regdb"
++do_kernel_add_regdb() {
++    cp ${STAGING_LIBDIR_NATIVE}/crda/db.txt ${S}/net/wireless/db.txt
++    echo ${S}
++}
++do_kernel_add_regdb[dirs] = "${S}"
++addtask kernel_add_regdb before do_configure after do_patch
+diff --git a/meta-networking/recipes-connectivity/wireless-regdb/wireless-regdb_2016.06.10.bb b/meta-networking/recipes-connectivity/wireless-regdb/wireless-regdb_2016.06.10.bb
+index 64e9401e7a3c..14bf272f4050 100644
+--- a/meta-networking/recipes-connectivity/wireless-regdb/wireless-regdb_2016.06.10.bb
++++ b/meta-networking/recipes-connectivity/wireless-regdb/wireless-regdb_2016.06.10.bb
+@@ -17,4 +17,12 @@ do_install() {
+     install -m 0644 sforshee.key.pub.pem ${D}${sysconfdir}/wireless-regdb/pubkeys/sforshee.key.pub.pem
+ }
+ 
++# Native users might want to use source db.txt
++do_install_append_class-native() {
++    install -d -m 0755 ${D}${libdir}/crda
++    install -m 0644 db.txt ${D}${libdir}/crda/db.txt
++}
++
+ RSUGGESTS_${PN} = "crda"
++
++BBCLASSEXTEND = "native"
 -- 
-Florian Wickert, M.Sc.
-Javox Solutions GmbH
-Gallierstr. 33, 52074 Aachen
-Germany
-
-Phone: +49 241 99034569
-Web:www.javox-solutions.com
+2.7.4
 
 
