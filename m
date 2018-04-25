@@ -1,70 +1,92 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <Vignesh.Rajendran@in.bosch.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8FDA6E009CF; Tue, 24 Apr 2018 03:29:28 -0700 (PDT)
+	id 12FAFE00B01; Tue, 24 Apr 2018 22:36:12 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [195.60.68.11 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EE7CCE008BF
-	for <poky@yoctoproject.org>; Tue, 24 Apr 2018 03:29:26 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by bastet.se.axis.com (Postfix) with ESMTP id 6635B182BB;
-	Tue, 24 Apr 2018 12:29:25 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
-Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
-	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
-	port 10024)
-	with LMTP id gttTufINhDS0; Tue, 24 Apr 2018 12:29:24 +0200 (CEST)
-Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
-	by bastet.se.axis.com (Postfix) with ESMTPS id 0A0811816A;
-	Tue, 24 Apr 2018 12:29:24 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E32E61E07A;
-	Tue, 24 Apr 2018 12:29:23 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D73D61E06E;
-	Tue, 24 Apr 2018 12:29:23 +0200 (CEST)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
-	by boulder03.se.axis.com (Postfix) with ESMTP;
-	Tue, 24 Apr 2018 12:29:23 +0200 (CEST)
-Received: from XBOX03.axis.com (xbox03.axis.com [10.0.5.17])
-	by thoth.se.axis.com (Postfix) with ESMTP id CA6B21CF7;
-	Tue, 24 Apr 2018 12:29:23 +0200 (CEST)
-Received: from xbox12.axis.com (10.0.5.26) by XBOX03.axis.com (10.0.5.17) with
-	Microsoft SMTP Server (TLS) id 15.0.1263.5;
-	Tue, 24 Apr 2018 12:29:23 +0200
-Received: from XBOX02.axis.com (10.0.5.16) by xbox12.axis.com (10.0.5.26) with
-	Microsoft SMTP Server (TLS) id 15.0.1263.5;
-	Tue, 24 Apr 2018 12:29:23 +0200
-Received: from XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776]) by
-	XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776%21]) with mapi id
-	15.00.1263.000; Tue, 24 Apr 2018 12:29:23 +0200
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-To: "Vignesh Rajendran (RBEI/ECF3)" <Vignesh.Rajendran@in.bosch.com>
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from de-out1.bosch-org.com (de-out1.bosch-org.com [139.15.230.186])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 91BB4E00AD8
+	for <poky@yoctoproject.org>; Tue, 24 Apr 2018 22:36:09 -0700 (PDT)
+Received: from si0vm1948.rbesz01.com (unknown [139.15.230.188])
+	by fe0vms0187.rbdmz01.com (Postfix) with ESMTPS id 40W87X0kqYz1XLFZG;
+	Wed, 25 Apr 2018 07:36:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=in.bosch.com;
+	s=2015-01-21; t=1524634568;
+	bh=mGJLKMhNij/j9kuoxVoRy/NBi+3tSBW4Z7Zr7GPczf4=; l=10;
+	h=From:From:Reply-To:Sender;
+	b=IRpyEVera4hmAe7aDELtZr7+VTjb8SBBbgADM3RpdDoJVg0tuG0ymp+M8oktWjNan
+	Lfxq+gPJhe6Gync8tTk2hw/UqmdR9bLKn/esI9z4QeOWZQnFmB8x264agWiIRDsIb3
+	Tm4wia1RL13sIsPHqINGQM32fpCqc5rQBbmkIjZk=
+Received: from fe0vm1740.rbesz01.com (unknown [10.58.172.176])
+	by si0vm1948.rbesz01.com (Postfix) with ESMTPS id 40W87X0LGHz1SC;
+	Wed, 25 Apr 2018 07:36:08 +0200 (CEST)
+X-AuditID: 0a3aad14-061ff70000002cdc-89-5ae013cbdf6a
+Received: from si0vm1950.rbesz01.com ( [10.58.173.29])
+	(using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by fe0vm1740.rbesz01.com (SMG Outbound) with SMTP id
+	86.3A.11484.BC310EA5; Wed, 25 Apr 2018 07:36:11 +0200 (CEST)
+Received: from FE-MBX2022.de.bosch.com (fe-mbx2022.de.bosch.com [10.3.231.32])
+	by si0vm1950.rbesz01.com (Postfix) with ESMTPS id 40W87W5JpKzCpP9;
+	Wed, 25 Apr 2018 07:36:07 +0200 (CEST)
+Received: from SGPMBX2020.APAC.bosch.com (10.187.83.43) by
+	FE-MBX2022.de.bosch.com (10.3.231.32) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.1.1466.3; Wed, 25 Apr 2018 07:36:07 +0200
+Received: from SGPMBX2020.APAC.bosch.com (10.187.83.43) by
+	SGPMBX2020.APAC.bosch.com (10.187.83.43) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.1.1415.2; Wed, 25 Apr 2018 13:36:04 +0800
+Received: from SGPMBX2020.APAC.bosch.com ([fe80::b526:b737:7eb9:3a96]) by
+	SGPMBX2020.APAC.bosch.com ([fe80::b526:b737:7eb9:3a96%6]) with mapi id
+	15.01.1415.002; Wed, 25 Apr 2018 13:36:04 +0800
+From: "Vignesh Rajendran (RBEI/ECF3)" <Vignesh.Rajendran@in.bosch.com>
+To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
 Thread-Topic: [poky] [PULL] package.bbclass: provide debug sources in
 	externalsrc	-dbg packages
-Thread-Index: AQHT15a+FXSh5FM9XEqpj9mqGqfYsKQH0BFggAeKnVCAAGGUsA==
-Date: Tue, 24 Apr 2018 10:29:23 +0000
-Message-ID: <c3bb6fdfae0245a899a02565ee53487f@XBOX02.axis.com>
+Thread-Index: AQHT16/gXmUhu6os0EG6ATH3PszRdaQH0BFggAeKnVD//94PgIABxIOw
+Date: Wed, 25 Apr 2018 05:36:04 +0000
+Message-ID: <75d2165150c64b62937d261b91d33dff@in.bosch.com>
 References: <cover.1522820703.git.vignesh.rajendran@in.bosch.com>
 	<e8d2f42f4a0ff11961e831d00caeb86a5efdbb13.1522820703.git.vignesh.rajendran@in.bosch.com>
 	<11fded6a5f8e4927a8fb8010aa6fa6ef@XBOX02.axis.com>
 	<354749242e9644759935066f4920acfd@in.bosch.com>
-In-Reply-To: <354749242e9644759935066f4920acfd@in.bosch.com>
-Accept-Language: en-US
+	<c3bb6fdfae0245a899a02565ee53487f@XBOX02.axis.com>
+In-Reply-To: <c3bb6fdfae0245a899a02565ee53487f@XBOX02.axis.com>
+Accept-Language: en-US, en-SG
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.0.5.60]
+x-originating-ip: [10.187.56.218]
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
+X-Brightmail-Tracker: H4sIAAAAAAAAA22TbUxTZxTHeW5v29vaq7e3UA6dLFmXsWQvyNsCEyPLTIwZX8ziPthk01u5
+	0Ga0Zb2lAWI2NhnyUp1WOqA6pkwcKuMDEVMrZE3BRGwTCUOBDRgRdEyazMnYqM6yW26x/bBv
+	5znn/zv/85znXkJEdxMawmi2sVYzU66VyHH59h/S3wyo5nRZJ+vSCm4vnpMUtEZ6pO9geyZ6
+	9+45evO4ZC+mk+8oYcuNdta6bedBueH0nRBWcerdqvtdo6gWreQ1IRkBVB4sLRzHmpCcoKk2
+	DPr+8CLhMIBguHYIFw6PELQcaZcKh2UE442RGDOMwDXaK4k2k1C74XLLF1g0TuYbD4YC63kR
+	lQueQBiPxirqIKycvIIEDQMNzTdj+t3g9U2KozFOvQIP7o+tsyRVCL7+6zHnaxhcHHHyIoKQ
+	UUXwYz0Z1SAqHTqnnLjglQo/L3yLCZej4PzAbZEQp8Dv8xGxEL8EQ1M+JOgzYdLVEpvzdbhw
+	bkkk+CphpH0BP4HAndDWnYC4ExB3AnIW4ZdQSimbZTdl5+dlZVr1LFeTlZ15yGLqQ8LTJXtQ
+	d+ADP6IIpFWQ1+g5HS1m7Fy1yY/eIjBtCtmK/aqjN+stJdUGhjMcsFaWs5xWQ6KkpCRa9TzN
+	VepNRo4zWsx+BIRIm0wOvjiro8kSprqGtVoEzI9eIHBtKukoOayjqTLGxn7MshWsdaNaSBBa
+	IC9FZ1Ba2TK2qtRYbtsoa9MFT3ViJdEWI2R+lEsoeG8j/zXSJFfBmDhjWQxPE3B6IxtHb6Fd
+	RKje4RDRuNliZjWp5KEoT0WVhkrz8wk0W8mgcUZHpyQU4l0eoinE71BFhqLzK/g/JO4NpEd1
+	Zj+tjCXjUE4Xz1DX1XAmOIGgw7OCYPquF4OGzhUcfvl7WAy99WNiWJ17LIExr1sKzrVBKYw/
+	nZfCqu+IDJrCjTJwNs/JoSMyL4crM6c2gWv2hgJGI3cU0L20poDOmSckXB0/T0H42DdK8DwL
+	K+Fi/280OBovq/gGI8kw+6BeDe6fbqkhMnAjFTp6pgGcTQ1p0PPIpYHg8pDmIb9YjF8so1xf
+	rI2x/c9iY9n47TS1KCeE//V1cPOTkU92PTsQOmyv0vT7HNt36uV1GY/f7gu8p9+XO/4qdm9i
+	YAvuzvinq3ex5sPPWi+0thU3H8spzM99+V7RCcti8fLnTqmnPbw1o/j9f9XYBNQ9bcs3lXZ9
+	Om3aJK3Z3x9MKvLuuyob/u7PtTfO1n5lL2j43vXlRwu+LZOrWpwzMNmviawc8x9xhdYOuwQA
+	AA==
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: [PULL] package.bbclass: provide debug sources in externalsrc	-dbg packages
 X-BeenThere: poky@yoctoproject.org
@@ -79,10 +101,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Apr 2018 10:29:28 -0000
+X-List-Received-Date: Wed, 25 Apr 2018 05:36:12 -0000
 Content-Language: en-US
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Peter,
+
+Oh, Sorry for asking you.
+Thanks for the information anyway.
+
+I hope it will take some time for merging :-(
+
+Mit freundlichen Gr=FC=DFen / Best regards
+
+Rajendran Vignesh
+RBEI/ECF33 =20
+
+Tel. +91 422 67-65103=20
+
+
+
+-----Original Message-----
+From: Peter Kjellerstedt [mailto:peter.kjellerstedt@axis.com]=20
+Sent: Tuesday, April 24, 2018 3:59 PM
+To: Vignesh Rajendran (RBEI/ECF3) <Vignesh.Rajendran@in.bosch.com>
+Cc: poky@yoctoproject.org
+Subject: RE: [poky] [PULL] package.bbclass: provide debug sources in extern=
+alsrc -dbg packages
 
 I am in no way responsible for integrating anything to Poky. That=20
 will be handled by the maintainers. However, OE-Core (and thus=20
