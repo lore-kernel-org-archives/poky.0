@@ -1,62 +1,38 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <fw@javox-solutions.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 82B45E00B30; Wed, 25 Apr 2018 04:56:06 -0700 (PDT)
+	id E10FBE00B30; Wed, 25 Apr 2018 05:23:03 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [209.85.214.52 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
+	SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [80.67.18.28 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-it0-f52.google.com (mail-it0-f52.google.com
-	[209.85.214.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C26F2E00A4F
-	for <poky@yoctoproject.org>; Wed, 25 Apr 2018 04:56:05 -0700 (PDT)
-Received: by mail-it0-f52.google.com with SMTP id p3-v6so19099710itc.0
-	for <poky@yoctoproject.org>; Wed, 25 Apr 2018 04:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=AsqfU2ncj2Lp4buW0g7TQKwEUKAjpbdeVAirWVEPGs0=;
-	b=rMJWyY8q8XZe3WrQWmAVMVZIE+Qix9CxPhzbsbAwmPk3Exe2yfNMF/RN8e1/Pzdoso
-	pqC2R2sqGdgEi1GDno2ICUaSINveBiBL6f5gDgTkpGkRROwmbJtBdF+J1OffqnIkfW42
-	YRdP4xGksStX+QYwsy1ZrW+L+g5UeHtKNU8iHQ9kJtNXHjWgm5n1ZqV+Pfv/dMxdmMxB
-	3P8F+hqSGnjdV4mOc9tp/SwGUaBYvoqCj3RuRi3nmPTN72sM+z4XbI+GYQzcprMBqPGL
-	YSOi6eeLzDrhTV1+eG1CY3xA6rHGYN6+t+wvMtYArTBw/WEJjnFdUrsD/UIOkhZbHTCc
-	wB/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=AsqfU2ncj2Lp4buW0g7TQKwEUKAjpbdeVAirWVEPGs0=;
-	b=JAodCJxChiWiAgeGk7ziioe7xExRVfzE06Ceqs5j0s7GhGk0OseEgUs8pjIoAeN0/x
-	OjnAqAPGA+Dq5sbRlsMqq5yUCYRgfN5YOxtvnAtb7yS1YUUpMEba4llebPgLMoEoBwSc
-	QMpebtHJ76wzj5m8ZDdaESGT9zScfUNvZ/eQ06x6GB/tawiP2nyIQBqqdkhaYMSQizQL
-	h+QzSAqh88VzOYKBbNNMT63OwiIigaVrolfuH06NxaPOymLGOtoJIHTCOLc2BBgOG55C
-	5leNGNCeh0c+fvSG2DacOXxGMpWH04msB3yf+qQXHM/wbib45LBBR0J3+wl1lME2sGsY
-	zocQ==
-X-Gm-Message-State: ALQs6tDL5ELv+1LvztBCnsz3tC73dYW2kgl5Ftq8me9+LpBsgwA23aXC
-	+9vLZKPrd/IEXAUAEfqk75MzwO6R0TEsJT3RKJbusw==
-X-Google-Smtp-Source: AB8JxZq0t5/Q5cMLa8OWhvzyY0Fl/Kdj5lH21SXs4X49BN0Jn8Vbcx2H8rL8moLT8GoCshzdqssDQzFf2Sw7sXxA7To=
-X-Received: by 2002:a24:9493:: with SMTP id
-	j141-v6mr5314408ite.60.1524657364829; 
-	Wed, 25 Apr 2018 04:56:04 -0700 (PDT)
+X-Greylist: delayed 108 seconds by postgrey-1.32 at yocto-www;
+	Wed, 25 Apr 2018 05:23:02 PDT
+Received: from smtprelay05.ispgateway.de (smtprelay05.ispgateway.de
+	[80.67.18.28])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0CB5E00B30
+	for <poky@yoctoproject.org>; Wed, 25 Apr 2018 05:23:02 -0700 (PDT)
+Received: from [89.0.112.67] (helo=[192.168.178.95])
+	by smtprelay05.ispgateway.de with esmtpsa
+	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.90_1)
+	(envelope-from <fw@javox-solutions.com>) id 1fBJQ8-0002z1-UZ
+	for poky@yoctoproject.org; Wed, 25 Apr 2018 14:21:12 +0200
+To: poky@yoctoproject.org
+From: Florian Wickert <fw@javox-solutions.com>
+Organization: Javox Solutions GmbH
+Message-ID: <de1e86a6-55bf-a53c-1b72-ac701e7ba7a3@javox-solutions.com>
+Date: Wed, 25 Apr 2018 14:21:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+	Thunderbird/52.7.0
 MIME-Version: 1.0
-Received: by 10.107.29.203 with HTTP; Wed, 25 Apr 2018 04:55:44 -0700 (PDT)
-In-Reply-To: <DB3PR04MB07615375106BB51453EA61BDA18F0@DB3PR04MB0761.eurprd04.prod.outlook.com>
-References: <DB3PR04MB07615375106BB51453EA61BDA18F0@DB3PR04MB0761.eurprd04.prod.outlook.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 25 Apr 2018 12:55:44 +0100
-Message-ID: <CAJTo0LZ10s9BvXo2_TKdMAmSA0QzX2C+N5rwVbeuX2K9bbaKkw@mail.gmail.com>
-To: Martin Lund <malu@gomspace.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PULL][PATCH 0/1] mtd-utils: Add mtd-utils-tests package
+X-Df-Sender: ZndAamF2b3gtc29sdXRpb25zLmNvbQ==
+Subject: binutils-cross-x86_64 does not build anymore with icecc enabled
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,39 +45,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Apr 2018 11:56:06 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 25 Apr 2018 12:23:03 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-Please post patches, not just cover letters.
+I just switched from rocko to sumo/master and now binutils-cross-x86_64 
+does not build anymore on a build server which is using icecc.
+The do_configure Logfile has these additional lines when icecc is enabled:
 
-Ross
+patchelf is required
+/var/lib/jenkins/workspace/mayah_javelin/build_gemini_security_dev/tmp-glibc/work/x86_64-linux/binutils-cross-x86_64/2.30-r0/temp/run.do_configure.3337: 
+192: [: wait_for_file: unexpected operator
+NOTE: Using icecc
 
-On 25 April 2018 at 08:11, Martin Lund <malu@gomspace.com> wrote:
->
->     Add mtd-utils-tests package which includes the test suites mtd-tests,
->     ubi-tests, fs-tests, etc.
->
->     These test suites are useful for verifying flash features and stress
->     testing.
->
->
-> The following changes since commit da3625c52e1ab8985fba4fc3d133edf92142f182:
->
->   build-appliance-image: Update to sumo head revision (2018-04-23 17:54:32 +0100)
->
-> are available in the git repository at:
->
->   git://push.yoctoproject.org/poky-contrib malu/mtd-utils-tests
->
-> Martin Lund (1):
->   mtd-utils: Add mtd-utils-tests package
->
->  meta/recipes-devtools/mtd/mtd-utils_git.bb | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+The compile step then fails because -fPIC is not set, so linking fails.
+
+A simple workaround is to lacklist binutils for icecc: 
+ICECC_USER_PACKAGE_BL = "binutils-cross-x86_64"
+
+Regards,
+Florian
+
+-- 
+Florian Wickert, M.Sc.
+Javox Solutions GmbH
+Gallierstr. 33, 52074 Aachen
+Germany
+
+Phone: +49 241 99034569
+Web:www.javox-solutions.com
+
 
