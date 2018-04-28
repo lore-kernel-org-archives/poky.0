@@ -1,6 +1,6 @@
 Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 843DCE0098A; Sat, 28 Apr 2018 13:01:22 -0700 (PDT)
+	id 4D320E0098A; Sat, 28 Apr 2018 13:16:17 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -11,7 +11,7 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	mail provider *      (raj.khem[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [74.125.83.66 listed in list.dnswl.org]
+	*      [209.85.192.179 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
@@ -20,46 +20,47 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-pg0-f66.google.com (mail-pg0-f66.google.com [74.125.83.66])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A6D60E00595
-	for <poky@yoctoproject.org>; Sat, 28 Apr 2018 13:01:20 -0700 (PDT)
-Received: by mail-pg0-f66.google.com with SMTP id l2-v6so3809607pgc.7
-	for <poky@yoctoproject.org>; Sat, 28 Apr 2018 13:01:20 -0700 (PDT)
+Received: from mail-pf0-f179.google.com (mail-pf0-f179.google.com
+	[209.85.192.179])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 32F3CE00595
+	for <poky@yoctoproject.org>; Sat, 28 Apr 2018 13:16:15 -0700 (PDT)
+Received: by mail-pf0-f179.google.com with SMTP id f15so3919968pfn.0
+	for <poky@yoctoproject.org>; Sat, 28 Apr 2018 13:16:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=5AnAPI/E6iRvBVleww9lbtK3CjbaqXWWOofah81Z414=;
-	b=CrdOFPKQF7RxtWzRWaJW4BUjwBupw4zQjYQZd+qjfI1FwrCfBFc4uBw0dM0gr0GNTi
-	AUgiF3trt/UCv4Udhg7cGHIYBPzhiRCG2wcMdnl8a7H10w8yb3E9AtaG/JBxCbCMruLO
-	W3qx6SYOQ69vnC7t4d7j2bMZE7IekviExusFN44fvPx3QqPIR/6FoTqpRP6RWGYWWArC
-	/9s5fFtxFTm+/3HI/qYzoTnyYxO2F9z3CPQoMukpceplmlRAdYi372aKMzeySdrqU2fz
-	8ZieqzgMlQioOym1URJIwIC22K8vyM1yb/PQemEjI0pMxaxqFvv6viklaptdqNs5qCR9
-	lemw==
+	:cc; bh=e+brJDJUzf9GNTnzKTVGf4ttXUGbxj0ZLhYRJQLwQX4=;
+	b=jEZth5/C4k+yYecd5hopcPHFUFkO0N0goBveqms0tpE5wnpT2xFiqJ8bgOpeMqW0+t
+	0xjAXs5f03JOM0jaYRJXHiz2AJqmks+2x03mak57fvHq8+37qKZPXhHxil//BVlY9KUg
+	ZBc13Mtv+I5W0jLK8ChgWu1jV6m5dMQaOn9jeGuXJq1h5z/oV7GnnsvaRPnPpiOIqeP+
+	jL1r85uWPxIcIJNyG6ih2jLtUwas2SjNj9rf3sMYlKPwhxCEDss4dlbDfnF1WzBuUCqk
+	LdZoY9TiXtgz9F5iug+PMu1+cC4vHx93k8Q5WKYLGvBbUMf+9j2hXcX4LvgQQJmjI+cf
+	ubgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=5AnAPI/E6iRvBVleww9lbtK3CjbaqXWWOofah81Z414=;
-	b=nf816ogp5lq5kzMloXOjsAnCB2AvdNgm3hCr1aWNcePcl+2FFbtzwfafajTG8Sy+Ny
-	Rh9jsANJ8vyXd9abk4ClNgySRGRq3/6lmXjgh7Rze9qo4lmXyFyTtAHlWGvyXVjAKSRr
-	Pi53eiRSlP/0BuOhq/SGwmQOX6A0UTH/FcknMFJ3YZ1tHky1osXcOFgy9PfHLJ+bUNJI
-	ECL9aBAfQOyYxblOZ97B6z6iDZNpmf4yqpYK7qJJf4FgY4sNcTFHBVcllNIYcEznlJbt
-	4/AEWiw5pxsiiYRPmG9fnAEvNms5yeZLbe+M92E76e6RbUdwKV67mnqmrjj4/u4b4kQ8
-	vqWg==
-X-Gm-Message-State: ALQs6tBRi2qL4BX7CI/4NLhyTmxfD9H+4ROC9Lsrx6kdFbeG1smDxd1o
-	KfgU/Y20sVs0aXCBg/6Nfp4SJgy7M/DZq4UBmlk=
-X-Google-Smtp-Source: AB8JxZq9l8DSESaUhCGfzhyTXUgYrQIt4xmLBUHI1Fd7xiyJmJ2wEIwWpWYjbOO2k5QzI4fwwpce9K0MDNtHKu7saNA=
-X-Received: by 10.98.127.145 with SMTP id a139mr6762789pfd.25.1524945678331;
-	Sat, 28 Apr 2018 13:01:18 -0700 (PDT)
+	bh=e+brJDJUzf9GNTnzKTVGf4ttXUGbxj0ZLhYRJQLwQX4=;
+	b=sCpO/HC0O7IYaob9k56YIr4mwEXP+6AOl/2yYtYUZwJ5fp5ldj3CNumv6yxhwrweRT
+	Osin32jsA2HFBA8lHzJwcLrGYfTzOYRmUUW+xnPzmtqQkETz8obOahAa1AG0oDLBkC04
+	+k5EPZGZylWimJznAKgo1dd7ZhDqAUBRCcDRR9R2GBA3/ghhi4qk5fRZDth5SIAJeCO0
+	KVgRhLFd9jcZEpOi15JFjWve0wmSvN2XnilARhMDSm9XZIzr15p1gVxB/yXgZJO7VerQ
+	CrcFV7KeKSGFj2mOOlHlVsyU4eJVtmop2qAnjypRDxNxb09clwsEAaAwZXIKV5xtXTnI
+	dshQ==
+X-Gm-Message-State: ALQs6tBIOQwxPJWC8F8xvNBcDglDjNp+xH0ERVdOYXmEn7umJQL+A7Bf
+	WZxx4SCq73MFDOuWgEGuYWZipwnhQPaVI1kYkv4=
+X-Google-Smtp-Source: AB8JxZp83AB9hxbqq82I53jP/veS9hSMhWsMje+7NVXgjTG39egf8p6WWrRs3DAYpwiWHapTDjWNytAVhTA3tFBYWTA=
+X-Received: by 2002:a65:4b4a:: with SMTP id
+	k10-v6mr6071662pgt.227.1524946575293; 
+	Sat, 28 Apr 2018 13:16:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1524580981.git.malu@gomspace.com>
-	<10c4d92ee24403e6b13b6ff651cf74a1ff4ec1be.1524580981.git.malu@gomspace.com>
-In-Reply-To: <10c4d92ee24403e6b13b6ff651cf74a1ff4ec1be.1524580981.git.malu@gomspace.com>
+References: <MAXPR01MB0348B611A9993EAC201769B4918F0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
+In-Reply-To: <MAXPR01MB0348B611A9993EAC201769B4918F0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
 From: Khem Raj <raj.khem@gmail.com>
-Date: Sat, 28 Apr 2018 20:01:07 +0000
-Message-ID: <CAMKF1srdhfFn0rqC7W8gC00DcBjGdhW_hKBuqgJTUkHFc-dfjg@mail.gmail.com>
-To: Martin Lund <malu@gomspace.com>
-Cc: poky@yoctoproject.org
-Subject: Re: [PATCH 1/1] mtd-utils: Add mtd-utils-tests package
+Date: Sat, 28 Apr 2018 20:16:04 +0000
+Message-ID: <CAMKF1sq_NrvEe4OnHGnSXP_J=Q01KzVah7KfeYjU-=miSoyaNw@mail.gmail.com>
+To: Aditya Tayade <Aditya.Tayade@kpit.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: ./mosquitto_internal.h:40:20: fatal error: ares.h: No such file or directory
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -72,77 +73,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 28 Apr 2018 20:01:22 -0000
-Content-Type: multipart/alternative; boundary="94eb2c1269887574a4056aee15a8"
+X-List-Received-Date: Sat, 28 Apr 2018 20:16:17 -0000
+Content-Type: multipart/alternative; boundary="000000000000ec03e9056aee4a88"
 
---94eb2c1269887574a4056aee15a8
+--000000000000ec03e9056aee4a88
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Apr 26, 2018 at 2:49 AM Martin Lund <malu@gomspace.com> wrote:
+On Wed, Apr 25, 2018 at 7:05 AM Aditya Tayade <Aditya.Tayade@kpit.com>
+wrote:
 
-> Add mtd-utils-tests package which includes the test suites mtd-tests,
-> ubi-tests, fs-tests, etc.
+> Hi,
 >
-> These test suites are useful for verifying flash features or stress
-> testing.
+> I was facing subject line issue while building mosquitto 1.14.14
+>
+> Modified config.mk file so that it should not build with SRV lookup
+> support.
+> from WITH_SRV:=yes to WITH_SRV:=no which resolved error.
+>
+> If it is valid, request to patch the same to upstream.
+>
 
+I suppose its missing a dependency on c-ares
 
-I wonder if this should be enabled when ptest is in distro features
-
 >
 >
-> Signed-off-by: Martin Lund <malu@gomspace.com>
-> ---
->  meta/recipes-devtools/mtd/mtd-utils_git.bb | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> Regards,
+> Aditya
 >
-> diff --git a/meta/recipes-devtools/mtd/mtd-utils_git.bb
-> b/meta/recipes-devtools/mtd/mtd-utils_git.bb
-> index d09d6330228..b8f2dd15c19 100644
-> --- a/meta/recipes-devtools/mtd/mtd-utils_git.bb
-> +++ b/meta/recipes-devtools/mtd/mtd-utils_git.bb
-> @@ -8,6 +8,7 @@ LIC_FILES_CHKSUM =
-> "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
->  inherit autotools pkgconfig update-alternatives
->
->  DEPENDS = "zlib lzo e2fsprogs util-linux"
-> +RDEPENDS_mtd-utils-tests += "bash"
->
->  PV = "2.0.1+${SRCPV}"
->
-> @@ -18,6 +19,8 @@ SRC_URI = "git://git.infradead.org/mtd-utils.git \
->
->  S = "${WORKDIR}/git/"
->
-> +EXTRA_OECONF += "--enable-install-tests"
-> +
->  # xattr support creates an additional compile-time dependency on acl
-> because
->  # the sys/acl.h header is needed. libacl is not needed and thus enabling
-> xattr
->  # regardless whether acl is enabled or disabled in the distro should be
-> okay.
-> @@ -37,11 +40,12 @@ do_install () {
->         oe_runmake install DESTDIR=${D} SBINDIR=${sbindir}
-> MANDIR=${mandir} INCLUDEDIR=${includedir}
->  }
->
-> -PACKAGES =+ "mtd-utils-jffs2 mtd-utils-ubifs mtd-utils-misc"
-> +PACKAGES =+ "mtd-utils-jffs2 mtd-utils-ubifs mtd-utils-misc
-> mtd-utils-tests"
->
->  FILES_mtd-utils-jffs2 = "${sbindir}/mkfs.jffs2 ${sbindir}/jffs2dump
-> ${sbindir}/jffs2reader ${sbindir}/sumtool"
->  FILES_mtd-utils-ubifs = "${sbindir}/mkfs.ubifs ${sbindir}/ubi*"
->  FILES_mtd-utils-misc = "${sbindir}/nftl* ${sbindir}/ftl* ${sbindir}/rfd*
-> ${sbindir}/doc* ${sbindir}/serve_image ${sbindir}/recv_image"
-> +FILES_mtd-utils-tests = "${libexecdir}/mtd-utils/*"
->
->  BBCLASSEXTEND = "native nativesdk"
->
-> --
-> 2.14.1
->
+> This message contains information that may be privileged or confidential
+> and is the property of the KPIT Technologies Ltd. It is intended only for
+> the person to whom it is addressed. If you are not the intended recipient,
+> you are not authorized to read, print, retain copy, disseminate,
+> distribute, or use this message or any part thereof. If you receive this
+> message in error, please notify the sender immediately and delete all
+> copies of this message. KPIT Technologies Ltd. does not accept any
+> liability for virus infected mails.
 > --
 > _______________________________________________
 > poky mailing list
@@ -150,86 +115,57 @@ I wonder if this should be enabled when ptest is in distro features
 > https://lists.yoctoproject.org/listinfo/poky
 >
 
---94eb2c1269887574a4056aee15a8
+--000000000000ec03e9056aee4a88
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div><br><div class=3D"gmail_quote"><div dir=3D"auto">On Thu, Apr 26, 2018 =
-at 2:49 AM Martin Lund &lt;<a href=3D"mailto:malu@gomspace.com">malu@gomspa=
-ce.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Add mtd-utils=
--tests package which includes the test suites mtd-tests,<br>
-ubi-tests, fs-tests, etc.<br>
+<div><br><div class=3D"gmail_quote"><div dir=3D"auto">On Wed, Apr 25, 2018 =
+at 7:05 AM Aditya Tayade &lt;<a href=3D"mailto:Aditya.Tayade@kpit.com">Adit=
+ya.Tayade@kpit.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote=
+" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+
+<div>
+<div id=3D"m_-4332852368543854414divtagdefaultwrapper" style=3D"font-size:1=
+2pt;color:#000000;font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0;margin-bottom:0"></p>
+<div>Hi,<br>
 <br>
-These test suites are useful for verifying flash features or stress<br>
-testing.</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto">I wonder=
- if this should be enabled when ptest is in distro features</div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex"><br>
+I was facing subject line issue while building <span>mosquitto 1.14.14</spa=
+n> <br>
 <br>
-Signed-off-by: Martin Lund &lt;<a href=3D"mailto:malu@gomspace.com" target=
-=3D"_blank">malu@gomspace.com</a>&gt;<br>
----<br>
-=C2=A0meta/recipes-devtools/mtd/<a href=3D"http://mtd-utils_git.bb" rel=3D"=
-noreferrer" target=3D"_blank">mtd-utils_git.bb</a> | 6 +++++-<br>
-=C2=A01 file changed, 5 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/meta/recipes-devtools/mtd/<a href=3D"http://mtd-utils_git.bb" =
-rel=3D"noreferrer" target=3D"_blank">mtd-utils_git.bb</a> b/meta/recipes-de=
-vtools/mtd/<a href=3D"http://mtd-utils_git.bb" rel=3D"noreferrer" target=3D=
-"_blank">mtd-utils_git.bb</a><br>
-index d09d6330228..b8f2dd15c19 100644<br>
---- a/meta/recipes-devtools/mtd/<a href=3D"http://mtd-utils_git.bb" rel=3D"=
-noreferrer" target=3D"_blank">mtd-utils_git.bb</a><br>
-+++ b/meta/recipes-devtools/mtd/<a href=3D"http://mtd-utils_git.bb" rel=3D"=
-noreferrer" target=3D"_blank">mtd-utils_git.bb</a><br>
-@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM =3D &quot;file://COPYING;md5=3D0636e73ff02=
-15e8d672dc4c32c317bb3 \<br>
-=C2=A0inherit autotools pkgconfig update-alternatives<br>
-<br>
-=C2=A0DEPENDS =3D &quot;zlib lzo e2fsprogs util-linux&quot;<br>
-+RDEPENDS_mtd-utils-tests +=3D &quot;bash&quot;<br>
-<br>
-=C2=A0PV =3D &quot;2.0.1+${SRCPV}&quot;<br>
-<br>
-@@ -18,6 +19,8 @@ SRC_URI =3D &quot;git://<a href=3D"http://git.infradead.o=
-rg/mtd-utils.git" rel=3D"noreferrer" target=3D"_blank">git.infradead.org/mt=
-d-utils.git</a> \<br>
-<br>
-=C2=A0S =3D &quot;${WORKDIR}/git/&quot;<br>
-<br>
-+EXTRA_OECONF +=3D &quot;--enable-install-tests&quot;<br>
-+<br>
-=C2=A0# xattr support creates an additional compile-time dependency on acl =
-because<br>
-=C2=A0# the sys/acl.h header is needed. libacl is not needed and thus enabl=
-ing xattr<br>
-=C2=A0# regardless whether acl is enabled or disabled in the distro should =
-be okay.<br>
-@@ -37,11 +40,12 @@ do_install () {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 oe_runmake install DESTDIR=3D${D} SBINDIR=3D${s=
-bindir} MANDIR=3D${mandir} INCLUDEDIR=3D${includedir}<br>
-=C2=A0}<br>
-<br>
--PACKAGES =3D+ &quot;mtd-utils-jffs2 mtd-utils-ubifs mtd-utils-misc&quot;<b=
+Modified <a href=3D"http://config.mk" target=3D"_blank">config.mk</a> file =
+so that it should not build with SRV lookup support.<br>
+from <span>WITH_SRV:=3Dyes to </span>WITH_SRV:=3Dno which resolved error.<b=
 r>
-+PACKAGES =3D+ &quot;mtd-utils-jffs2 mtd-utils-ubifs mtd-utils-misc mtd-uti=
-ls-tests&quot;<br>
 <br>
-=C2=A0FILES_mtd-utils-jffs2 =3D &quot;${sbindir}/mkfs.jffs2 ${sbindir}/jffs=
-2dump ${sbindir}/jffs2reader ${sbindir}/sumtool&quot;<br>
-=C2=A0FILES_mtd-utils-ubifs =3D &quot;${sbindir}/mkfs.ubifs ${sbindir}/ubi*=
-&quot;<br>
-=C2=A0FILES_mtd-utils-misc =3D &quot;${sbindir}/nftl* ${sbindir}/ftl* ${sbi=
-ndir}/rfd* ${sbindir}/doc* ${sbindir}/serve_image ${sbindir}/recv_image&quo=
-t;<br>
-+FILES_mtd-utils-tests =3D &quot;${libexecdir}/mtd-utils/*&quot;<br>
+If it is valid, request to patch the same to upstream.<br>
+</div></div></div></blockquote><div dir=3D"auto"><br></div><div dir=3D"auto=
+">I suppose its missing a dependency on c-ares=C2=A0</div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex"><div><div id=3D"m_-4332852368543854414divtagdefaultwrapper" s=
+tyle=3D"font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-ser=
+if"><div><br>
 <br>
-=C2=A0BBCLASSEXTEND =3D &quot;native nativesdk&quot;<br>
+Regards,<br>
+Aditya<br>
+</div>
 <br>
--- <br>
-2.14.1<br>
-<br>
+<p></p>
+</div>
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print,
+ retain copy, disseminate, distribute, or use this message or any part ther=
+eof. If you receive this message in error, please notify the sender immedia=
+tely and delete all copies of this message. KPIT Technologies Ltd. does not=
+ accept any liability for virus
+ infected mails.
+</div>
+
 -- <br>
 _______________________________________________<br>
 poky mailing list<br>
@@ -239,4 +175,4 @@ t.org</a><br>
  target=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
 </blockquote></div></div>
 
---94eb2c1269887574a4056aee15a8--
+--000000000000ec03e9056aee4a88--
