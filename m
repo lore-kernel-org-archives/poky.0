@@ -1,63 +1,39 @@
-Return-Path: <and.previtali@gmail.com>
+Return-Path: <abuse@basmevissen.nl>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 2298AE0086B; Tue,  8 May 2018 06:44:47 -0700 (PDT)
+	id 5F976E00C59; Tue,  8 May 2018 07:31:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (and.previtali[at]gmail.com)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [209.85.214.50 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-it0-f50.google.com (mail-it0-f50.google.com
-	[209.85.214.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C919FE005A9
-	for <poky@yoctoproject.org>; Tue,  8 May 2018 06:44:45 -0700 (PDT)
-Received: by mail-it0-f50.google.com with SMTP id q4-v6so16391988ite.3
-	for <poky@yoctoproject.org>; Tue, 08 May 2018 06:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=+bxwJ4vOsRCkN+O8VpS+svVh6cl76uogdcp1ebQIVY4=;
-	b=SmnjiyXiVYB9NWz0W05w+ek2ez35j9ys5yZusTz2NF4UItZr7bLCx4x1ve9rAYT7Qn
-	az+v2zudaEdl9csVYnjH4lClFi6fSI1oJdugqPIcD3GzfOo2gZiPTqpHxK6x5LwCHaZa
-	TlvuOQyXba5eYYNoreNNtwTLllwEdacqKCKtO3rqHFSJp0Xf1ZDV+G1XfEu8AvjqtF/G
-	I2n5lzbYLzvoSQ+PsUvmZKUlgvPwgLUR07WKWgaOamAHMIdjSK3sjw1sUEuCt3o5fVzk
-	jXVvRtvyXRbpdMK0p9+poYLJ498KjPxXP/ZYnz6Qz0FBJgvOXfWF8Jj/lPn2xFoOChVm
-	OgpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=+bxwJ4vOsRCkN+O8VpS+svVh6cl76uogdcp1ebQIVY4=;
-	b=iGqPPNMbIHQaqpHnPTXppVfQYZ1ptm3KTeLGSlyjq0BF6E8gAmUITzblb3isBNY+SB
-	fRmzFZaU3hxi5n+krlnsVMTKPzFzeKEIwB2AUZ/2uIdtYO3jR38mL2uXCupY41CTouMm
-	YNE54YCW9987sk8sy6g/1xrCibHNWbafPf6eEQEIr0FuIkiSyXKEAayYY0M6hzgML19G
-	Cx9jIBOd6VudFMX7yr6r23CJsW45nIU/rcjSI7rFEk8BFPIrpCgmrkaTWAnBSRklwaPj
-	QtuzC/PRu7+cAVKh5rboRc6m4G/GSqukp+n64l0/oOZeAg1aQrhM+l2Wd0wWyZZUOh5T
-	js+Q==
-X-Gm-Message-State: ALKqPwfECKYWAUPcffRyTyKpxD+3edoyCeNNKupC4oHcuOK3B63mylbs
-	ldBf8R2G6Xmc9W+NTRRiZrbDEyTrUFsf1SjvVZo=
-X-Google-Smtp-Source: AB8JxZrRmhM66mnR8oL960uhXm8tFe8DGZaW4A/OEetcLiteDSrcqbbntQ2b0ljBdotWvIAYiKXF0/P7d0QHYvLSm+4=
-X-Received: by 2002:a24:b517:: with SMTP id
-	v23-v6mr5803671ite.63.1525787084768; 
-	Tue, 08 May 2018 06:44:44 -0700 (PDT)
+X-Greylist: delayed 350 seconds by postgrey-1.32 at yocto-www;
+	Tue, 08 May 2018 07:31:49 PDT
+Received: from hosting.emcodev.net (hosting.emcodev.net [178.18.92.162])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68F5CE0084D
+	for <poky@yoctoproject.org>; Tue,  8 May 2018 07:31:49 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by hosting.emcodev.net (Postfix) with ESMTP id 1036812A360;
+	Tue,  8 May 2018 16:25:58 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at hosting.emcodev.net
+Received: from hosting.emcodev.net ([127.0.0.1])
+	by localhost (hosting.emcodev.net [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id m9C90GZ5ZiOY; Tue,  8 May 2018 16:25:57 +0200 (CEST)
+Received: from hosting.emcodev.net (localhost [127.0.0.1])
+	by hosting.emcodev.net (Postfix) with ESMTP id 2F50212A2EB;
+	Tue,  8 May 2018 16:25:57 +0200 (CEST)
 MIME-Version: 1.0
-Received: by 10.107.183.138 with HTTP; Tue, 8 May 2018 06:44:44 -0700 (PDT)
-From: Andrea Previtali <and.previtali@gmail.com>
-Date: Tue, 8 May 2018 15:44:44 +0200
-Message-ID: <CA+c40zUe_W6O1PK9RMm4DERfeyf4=fZ_WgpKBEPaUE2hup0EKQ@mail.gmail.com>
-To: poky@yoctoproject.org
-Subject: Create a recovery partition
+Date: Tue, 08 May 2018 16:25:57 +0200
+From: Bas Mevissen <abuse@basmevissen.nl>
+To: Andrea Previtali <and.previtali@gmail.com>
+In-Reply-To: <CA+c40zUe_W6O1PK9RMm4DERfeyf4=fZ_WgpKBEPaUE2hup0EKQ@mail.gmail.com>
+References: <CA+c40zUe_W6O1PK9RMm4DERfeyf4=fZ_WgpKBEPaUE2hup0EKQ@mail.gmail.com>
+Message-ID: <b7eda1624a76e4198bef2eb255a75c3f@basmevissen.nl>
+X-Sender: abuse@basmevissen.nl
+User-Agent: Roundcube Webmail/1.3.6
+Cc: poky@yoctoproject.org
+Subject: Re: Create a recovery partition
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,30 +46,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 May 2018 13:44:47 -0000
-Content-Type: multipart/alternative; boundary="00000000000030cc78056bb1fd98"
+X-List-Received-Date: Tue, 08 May 2018 14:31:51 -0000
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
---00000000000030cc78056bb1fd98
-Content-Type: text/plain; charset="UTF-8"
+On 2018-05-08 15:44, Andrea Previtali wrote:
+> Hi everybody, I have little skills in Yocto. I need to realize a
+> recovery partition on my system and I need to manage it in case my
+> primary file system shows problems.
+> I really have no idea where to start and I found no help on the
+> internet.
+> Has anybody faced out this problem?
+> 
+> Regards,
+> Andrea
 
-Hi everybody, I have little skills in Yocto. I need to realize a recovery
-partition on my system and I need to manage it in case my primary file
-system shows problems.
-I really have no idea where to start and I found no help on the internet.
-Has anybody faced out this problem?
+Hi Andrea,
 
-Regards,
-Andrea
+The basics are that you:
 
---00000000000030cc78056bb1fd98
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+1) Have a compact bootable image that contains just enough to recover 
+the normal image. This system might share stuff like device tree file 
+and kernel or have their own copy, depending on the update strategy.
 
-<div dir=3D"ltr">Hi everybody, I have little skills in Yocto. I need to rea=
-lize a recovery partition on my system and I need to manage it in case my p=
-rimary file system shows problems.<div>I really have no idea where to start=
- and I found no help on the internet.</div><div>Has anybody faced out this =
-problem?</div><div><br></div><div>Regards,=C2=A0</div><div>Andrea</div></di=
-v>
+2) Have a means in the bootloader to boot into this recovery system. For 
+example, detect watchdog timeout or read some button status during boot 
+(press and hold that button during power up to get into recovery mode). 
+After successful recovery, the normal system can be booted again.
 
---00000000000030cc78056bb1fd98--
+Some boards might also be able to boot from another boot source (e.g. 
+sdcard) depending on some jumper setting or otherwise. You can use that 
+feature to boot a recovery image and restore your normal image.
+
+
+Hope this gives you a first start.
+
+As this is not necessarily a Yocto/Poky specific issue, further 
+discussion is better done off-list.
+
+Cheers,
+
+Bas.
+
