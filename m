@@ -1,37 +1,63 @@
-Return-Path: <paul.eggleton@linux.intel.com>
+Return-Path: <and.previtali@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 68CBAE00A39; Sun,  6 May 2018 16:17:12 -0700 (PDT)
+	id 2298AE0086B; Tue,  8 May 2018 06:44:47 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (and.previtali[at]gmail.com)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [209.85.214.50 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5E15CE009B9
-	for <poky@yoctoproject.org>; Sun,  6 May 2018 16:17:11 -0700 (PDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	06 May 2018 16:17:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.49,371,1520924400"; d="scan'208";a="48747892"
-Received: from xuanthon-mobl.ccr.corp.intel.com (HELO
-	peggleto-mobl.ger.corp.intel.com) ([10.249.69.224])
-	by orsmga003.jf.intel.com with ESMTP; 06 May 2018 16:17:07 -0700
-From: Paul Eggleton <paul.eggleton@linux.intel.com>
-To: Aditya Tayade <Aditya.Tayade@kpit.com>
-Date: Mon, 07 May 2018 11:17:04 +1200
-Message-ID: <1763084.ZQ2QF9n8Sy@peggleto-mobl.ger.corp.intel.com>
-Organization: Intel Corporation
-In-Reply-To: <CAMKF1sq_NrvEe4OnHGnSXP_J=Q01KzVah7KfeYjU-=miSoyaNw@mail.gmail.com>
-References: <MAXPR01MB0348B611A9993EAC201769B4918F0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-	<CAMKF1sq_NrvEe4OnHGnSXP_J=Q01KzVah7KfeYjU-=miSoyaNw@mail.gmail.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-it0-f50.google.com (mail-it0-f50.google.com
+	[209.85.214.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C919FE005A9
+	for <poky@yoctoproject.org>; Tue,  8 May 2018 06:44:45 -0700 (PDT)
+Received: by mail-it0-f50.google.com with SMTP id q4-v6so16391988ite.3
+	for <poky@yoctoproject.org>; Tue, 08 May 2018 06:44:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=+bxwJ4vOsRCkN+O8VpS+svVh6cl76uogdcp1ebQIVY4=;
+	b=SmnjiyXiVYB9NWz0W05w+ek2ez35j9ys5yZusTz2NF4UItZr7bLCx4x1ve9rAYT7Qn
+	az+v2zudaEdl9csVYnjH4lClFi6fSI1oJdugqPIcD3GzfOo2gZiPTqpHxK6x5LwCHaZa
+	TlvuOQyXba5eYYNoreNNtwTLllwEdacqKCKtO3rqHFSJp0Xf1ZDV+G1XfEu8AvjqtF/G
+	I2n5lzbYLzvoSQ+PsUvmZKUlgvPwgLUR07WKWgaOamAHMIdjSK3sjw1sUEuCt3o5fVzk
+	jXVvRtvyXRbpdMK0p9+poYLJ498KjPxXP/ZYnz6Qz0FBJgvOXfWF8Jj/lPn2xFoOChVm
+	OgpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=+bxwJ4vOsRCkN+O8VpS+svVh6cl76uogdcp1ebQIVY4=;
+	b=iGqPPNMbIHQaqpHnPTXppVfQYZ1ptm3KTeLGSlyjq0BF6E8gAmUITzblb3isBNY+SB
+	fRmzFZaU3hxi5n+krlnsVMTKPzFzeKEIwB2AUZ/2uIdtYO3jR38mL2uXCupY41CTouMm
+	YNE54YCW9987sk8sy6g/1xrCibHNWbafPf6eEQEIr0FuIkiSyXKEAayYY0M6hzgML19G
+	Cx9jIBOd6VudFMX7yr6r23CJsW45nIU/rcjSI7rFEk8BFPIrpCgmrkaTWAnBSRklwaPj
+	QtuzC/PRu7+cAVKh5rboRc6m4G/GSqukp+n64l0/oOZeAg1aQrhM+l2Wd0wWyZZUOh5T
+	js+Q==
+X-Gm-Message-State: ALKqPwfECKYWAUPcffRyTyKpxD+3edoyCeNNKupC4oHcuOK3B63mylbs
+	ldBf8R2G6Xmc9W+NTRRiZrbDEyTrUFsf1SjvVZo=
+X-Google-Smtp-Source: AB8JxZrRmhM66mnR8oL960uhXm8tFe8DGZaW4A/OEetcLiteDSrcqbbntQ2b0ljBdotWvIAYiKXF0/P7d0QHYvLSm+4=
+X-Received: by 2002:a24:b517:: with SMTP id
+	v23-v6mr5803671ite.63.1525787084768; 
+	Tue, 08 May 2018 06:44:44 -0700 (PDT)
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org
-Subject: Re: ./mosquitto_internal.h:40:20: fatal error: ares.h: No such file or directory
+Received: by 10.107.183.138 with HTTP; Tue, 8 May 2018 06:44:44 -0700 (PDT)
+From: Andrea Previtali <and.previtali@gmail.com>
+Date: Tue, 8 May 2018 15:44:44 +0200
+Message-ID: <CA+c40zUe_W6O1PK9RMm4DERfeyf4=fZ_WgpKBEPaUE2hup0EKQ@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: Create a recovery partition
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,40 +70,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 06 May 2018 23:17:12 -0000
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-List-Received-Date: Tue, 08 May 2018 13:44:47 -0000
+Content-Type: multipart/alternative; boundary="00000000000030cc78056bb1fd98"
 
-On Sunday, 29 April 2018 8:16:04 AM NZST Khem Raj wrote:
-> On Wed, Apr 25, 2018 at 7:05 AM Aditya Tayade <Aditya.Tayade@kpit.com>
-> wrote:
-> > I was facing subject line issue while building mosquitto 1.14.14
-> >
-> > Modified config.mk file so that it should not build with SRV lookup
-> > support.
-> > from WITH_SRV:=yes to WITH_SRV:=no which resolved error.
-> >
-> > If it is valid, request to patch the same to upstream.
-> >
-> 
-> I suppose its missing a dependency on c-ares
+--00000000000030cc78056bb1fd98
+Content-Type: text/plain; charset="UTF-8"
 
-The dependency is supposed to be optional - by default unless you modify 
-PACKAGECONFIG to contain "dns-srv" we are passing "WITH_SRV=no" on the command 
-line. When I build it here, it builds just fine without c-ares and it 
-definitely is disabling the SRV support, so there is clearly something more to 
-this.
+Hi everybody, I have little skills in Yocto. I need to realize a recovery
+partition on my system and I need to manage it in case my primary file
+system shows problems.
+I really have no idea where to start and I found no help on the internet.
+Has anybody faced out this problem?
 
-Aditya, are you making any change to the build configuration for mosquitto 
-that would explain this?
+Regards,
+Andrea
 
-Cheers,
-Paul
+--00000000000030cc78056bb1fd98
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
+<div dir=3D"ltr">Hi everybody, I have little skills in Yocto. I need to rea=
+lize a recovery partition on my system and I need to manage it in case my p=
+rimary file system shows problems.<div>I really have no idea where to start=
+ and I found no help on the internet.</div><div>Has anybody faced out this =
+problem?</div><div><br></div><div>Regards,=C2=A0</div><div>Andrea</div></di=
+v>
 
-Paul Eggleton
-Intel Open Source Technology Centre
-
-
-
+--00000000000030cc78056bb1fd98--
