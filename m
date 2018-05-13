@@ -1,39 +1,62 @@
-Return-Path: <abuse@basmevissen.nl>
+Return-Path: <john.tobias.ph@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5F976E00C59; Tue,  8 May 2018 07:31:51 -0700 (PDT)
+	id 3C639E01AF6; Sat, 12 May 2018 20:31:08 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (john.tobias.ph[at]gmail.com)
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 350 seconds by postgrey-1.32 at yocto-www;
-	Tue, 08 May 2018 07:31:49 PDT
-Received: from hosting.emcodev.net (hosting.emcodev.net [178.18.92.162])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68F5CE0084D
-	for <poky@yoctoproject.org>; Tue,  8 May 2018 07:31:49 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by hosting.emcodev.net (Postfix) with ESMTP id 1036812A360;
-	Tue,  8 May 2018 16:25:58 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at hosting.emcodev.net
-Received: from hosting.emcodev.net ([127.0.0.1])
-	by localhost (hosting.emcodev.net [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id m9C90GZ5ZiOY; Tue,  8 May 2018 16:25:57 +0200 (CEST)
-Received: from hosting.emcodev.net (localhost [127.0.0.1])
-	by hosting.emcodev.net (Postfix) with ESMTP id 2F50212A2EB;
-	Tue,  8 May 2018 16:25:57 +0200 (CEST)
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.216.181 listed in list.dnswl.org]
+Received: from mail-qt0-f181.google.com (mail-qt0-f181.google.com
+	[209.85.216.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3F874E00EE2
+	for <poky@yoctoproject.org>; Sat, 12 May 2018 20:31:06 -0700 (PDT)
+Received: by mail-qt0-f181.google.com with SMTP id m16-v6so12077772qtg.13
+	for <poky@yoctoproject.org>; Sat, 12 May 2018 20:31:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=kmYvmEFYhI1QZD+9rx8+DDKdiMQAlequASV/twfD5c0=;
+	b=O8pVYJDRuaO+5SStb14WD0Up98T7nEpVTvjih9uWcbjoUjbFEiZQ4G6QGcoN5i0v/y
+	Krfc1JA+zwwEYQGZADjz82teO/DNTFSAELy/8/lSdCFl+4JsPRMZ9LTO8qiwzNkfto1R
+	B8LvG5Gj+qQkhUvBvVgBkGFppDj2mPJqmM0E7BeBBxEiNdApGt2FF5+MlpXlAGfIbvi8
+	fIxhg6zI1CkCvkMpj8egGcmEvvc/Trrw/WQQcSlsk2fySSryo3x6QrKmYl9fsbzDuRvZ
+	8pDepB8+szGWwWhzFMjGLvONgjr8OtL1r+tlV4UsvxQO3vq5eG/YPzWBREDEZ/C6Ssq+
+	3V+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=kmYvmEFYhI1QZD+9rx8+DDKdiMQAlequASV/twfD5c0=;
+	b=rZBFBJ+4HvS/3+5MMxnnCwRaQvCINLNw+YcAIim1UEEfUQfVQ1w96zcj3S5c0C57NS
+	EeFQbDA0d9u9dCQyfhp4TSztxz/FBOQLEm06DCXBEAndtDTh/Rna80SJsCgiqwWLXzBE
+	8D+OOrnaFm+LqeLfGX51TOCI+PlaqaELznHT2uCQWINvShjCtankvOd7Us/HW9SKwCjK
+	4idX0xsULyE42c1Jtlc64ZqcD0CAHY+GslsISlOIhpd00cQn5VPW6N89RQy7S/gTpdbP
+	brVVEHYsb2fatz1Nwz08g3j8m3eLsOSltqTih/CDJe2acESSMsfEQmsQ8MPvFdjjRxHY
+	Ig1A==
+X-Gm-Message-State: ALKqPwe+BYY8WkT6myBOqevBnO2xDhMNaXB7/CG8wWUfg+0vsHCzdKRs
+	5suqJ59MiCE3abhXh0jSbzf+x/HolWsHpbSMUoal2w==
+X-Google-Smtp-Source: AB8JxZo/8AkyQl+XmkK0lhwVpoqsCcgdE005E/ZFEwuuQjQe4SV6G4PV1HfQwErTswqJxzn3Nx6D7ubj9mVBqU5gS5k=
+X-Received: by 2002:ac8:3487:: with SMTP id
+	w7-v6mr3971355qtb.220.1526182265212; 
+	Sat, 12 May 2018 20:31:05 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 08 May 2018 16:25:57 +0200
-From: Bas Mevissen <abuse@basmevissen.nl>
-To: Andrea Previtali <and.previtali@gmail.com>
-In-Reply-To: <CA+c40zUe_W6O1PK9RMm4DERfeyf4=fZ_WgpKBEPaUE2hup0EKQ@mail.gmail.com>
-References: <CA+c40zUe_W6O1PK9RMm4DERfeyf4=fZ_WgpKBEPaUE2hup0EKQ@mail.gmail.com>
-Message-ID: <b7eda1624a76e4198bef2eb255a75c3f@basmevissen.nl>
-X-Sender: abuse@basmevissen.nl
-User-Agent: Roundcube Webmail/1.3.6
-Cc: poky@yoctoproject.org
-Subject: Re: Create a recovery partition
+Received: by 10.12.138.165 with HTTP; Sat, 12 May 2018 20:31:04 -0700 (PDT)
+From: John Tobias <john.tobias.ph@gmail.com>
+Date: Sat, 12 May 2018 20:31:04 -0700
+Message-ID: <CACUGKYNCx3o8oftrU-m8b_e2p83VekEbBiU0TXsMMUh17_WV2A@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: Sysroot location
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,46 +69,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 May 2018 14:31:51 -0000
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Sun, 13 May 2018 03:31:08 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-On 2018-05-08 15:44, Andrea Previtali wrote:
-> Hi everybody, I have little skills in Yocto. I need to realize a
-> recovery partition on my system and I need to manage it in case my
-> primary file system shows problems.
-> I really have no idea where to start and I found no help on the
-> internet.
-> Has anybody faced out this problem?
-> 
-> Regards,
-> Andrea
+Hi All,
 
-Hi Andrea,
+I compiled poky sumo and I am using eclipse oxygen. I installed the
+yocto plugin in eclipse but, when I configured it, I couldn't figure
+it out the sysroot location. The Yocto plugin able to see the target
+architecture, if I enter /path/poky/build/tmp in Toolchain Root
+Location.
 
-The basics are that you:
+I ran bitbake meta-toolchain; bitbake meta-ide-support
 
-1) Have a compact bootable image that contains just enough to recover 
-the normal image. This system might share stuff like device tree file 
-and kernel or have their own copy, depending on the update strategy.
+I really appreciate if anyone could give me some hints to locate the
+correct sysroot.
 
-2) Have a means in the bootloader to boot into this recovery system. For 
-example, detect watchdog timeout or read some button status during boot 
-(press and hold that button during power up to get into recovery mode). 
-After successful recovery, the normal system can be booted again.
+Regards,
 
-Some boards might also be able to boot from another boot source (e.g. 
-sdcard) depending on some jumper setting or otherwise. You can use that 
-feature to boot a recovery image and restore your normal image.
-
-
-Hope this gives you a first start.
-
-As this is not necessarily a Yocto/Poky specific issue, further 
-discussion is better done off-list.
-
-Cheers,
-
-Bas.
+John
 
