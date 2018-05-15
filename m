@@ -1,48 +1,68 @@
-Return-Path: <star@gmx.li>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BFB24E00E85; Tue, 15 May 2018 02:10:10 -0700 (PDT)
+	id A0E2FE00C77; Tue, 15 May 2018 03:11:21 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [212.227.15.15 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [195.60.68.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-X-Greylist: delayed 304 seconds by postgrey-1.32 at yocto-www;
-	Tue, 15 May 2018 02:10:09 PDT
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5B2FE00E82
-	for <poky@yoctoproject.org>; Tue, 15 May 2018 02:10:09 -0700 (PDT)
-Received: from [62.225.157.196] ([62.225.157.196]) by
-	3c-app-gmx-bs15.server.lan (via HTTP); Tue, 15 May 2018 11:05:04 +0200
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6A07DE009B9
+	for <poky@yoctoproject.org>; Tue, 15 May 2018 03:11:20 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id 5BB1718055;
+	Tue, 15 May 2018 12:11:19 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024)
+	with LMTP id klv1_hnBRu8i; Tue, 15 May 2018 12:11:18 +0200 (CEST)
+Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
+	by bastet.se.axis.com (Postfix) with ESMTPS id 5D0B7183A4;
+	Tue, 15 May 2018 12:11:18 +0200 (CEST)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3DED71E07A;
+	Tue, 15 May 2018 12:11:18 +0200 (CEST)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3197C1E079;
+	Tue, 15 May 2018 12:11:18 +0200 (CEST)
+Received: from thoth.se.axis.com (unknown [10.0.2.173])
+	by boulder03.se.axis.com (Postfix) with ESMTP;
+	Tue, 15 May 2018 12:11:18 +0200 (CEST)
+Received: from XBOX04.axis.com (xbox04.axis.com [10.0.5.18])
+	by thoth.se.axis.com (Postfix) with ESMTP id 248A4A4A;
+	Tue, 15 May 2018 12:11:18 +0200 (CEST)
+Received: from xbox11.axis.com (10.0.5.25) by XBOX04.axis.com (10.0.5.18) with
+	Microsoft SMTP Server (TLS) id 15.0.1263.5;
+	Tue, 15 May 2018 12:11:18 +0200
+Received: from XBOX02.axis.com (10.0.5.16) by xbox11.axis.com (10.0.5.25) with
+	Microsoft SMTP Server (TLS) id 15.0.1263.5;
+	Tue, 15 May 2018 12:11:17 +0200
+Received: from XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776]) by
+	XBOX02.axis.com ([fe80::50c3:4d2f:4507:7776%21]) with mapi id
+	15.00.1263.000; Tue, 15 May 2018 12:11:17 +0200
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: Arno Steffens <star@gmx.li>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Thread-Topic: [poky] Yocto 2.5 and problem with pseudo-native-1.9.0
+Thread-Index: AQHT7Czb2Lqhahd0z0KqLbAkc50ZA6QwkRnw
+Date: Tue, 15 May 2018 10:11:17 +0000
+Message-ID: <28b5dd854c864d1fa0149916706f2434@XBOX02.axis.com>
+References: <trinity-fe84c674-2df9-449b-8b6a-53f1b7cf21d2-1526375104797@3c-app-gmx-bs15>
+In-Reply-To: <trinity-fe84c674-2df9-449b-8b6a-53f1b7cf21d2-1526375104797@3c-app-gmx-bs15>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-Message-ID: <trinity-fe84c674-2df9-449b-8b6a-53f1b7cf21d2-1526375104797@3c-app-gmx-bs15>
-From: "Arno Steffens" <star@gmx.li>
-To: poky@yoctoproject.org
-Date: Tue, 15 May 2018 11:05:04 +0200
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:H30IdaveP3XR3Am9iOPnXEaHfr88+0L9O4quAKwLp9Y
-	aAoHpVfSkSNKGdTFqPggb2hDyRVZwkDgM8TXZJra+YL7n1Bj3D
-	wgYl06CSuyZuRFF1IYkdTJ84WxWJ9yN7d3Vwe0KITWgg12Fd1P
-	FbmhYJFP6rGwDokyxncof6dpmJlsuoXz4oLPdjAhhPO/NKBo4k
-	9LWqkC10DK75QzCFiWxNoSmBOAN0JwG5EO++UR5Z6iM5iXI2v2
-	LIBkdS96V/1bAdXw1Cy8OZEVpIMjjJLTdno/wqwgl/oUV1bLCc 7mYdPs=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:UxT0yMfIUFI=:RprefG1isp9Lmapq/Kpr40
-	bBYKAW2MOzZTPcZaLcPzTr4P8RBp7IYyMiSeCer+Lb/DodQs3PmwFER2A/XzX6VxKclxhtqHg
-	tfFeBaHhA/s5WwRwO5Fopz14QRfogtHh2RRORpm0NK9ybXPy/ux6PKIVffktW2g7Trzy91+py
-	cGHpGzS8S9fgMKlQcdBw9BJGL6I+FPBuaK59P1zolXfFx26/VvZ+hrp3k2eWjKK1lfYcD827g
-	XHCAcvLvz59/YudUfoym1sfo/kVB4cfj1p46CRG8RfqX6zfXYiJcomhY1cOJmI7CtBiQ0Cq9S
-	fd9okeWxg9ivYpuJ+xU7dQ85atBQqiGCMUGKoU/689OkE1nnG3IHP9ztJn7D7TKXjYYlAOdGC
-	/rcdRPssDYzbz160946tkOw33pi0sLg8/zjvyLwgpZBxOKdGd8oGm5vIQNT2g4szKee8k+Ecw
-	16zLcN8pNFQ8KQ+uzhmwvzDdkzlGhD3P+nCoaRoAsdUFXdVAuBBq
-Subject: Yocto 2.5 and problem with pseudo-native-1.9.0
+X-TM-AS-GCONF: 00
+Subject: Re: Yocto 2.5 and problem with pseudo-native-1.9.0
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -55,49 +75,70 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 May 2018 09:10:10 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 15 May 2018 10:11:21 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-I get an error while building my rootfs, but doesn't have a clue what the e=
-rror message will tell me:
-below:
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org [mailto:poky-
+> bounces@yoctoproject.org] On Behalf Of Arno Steffens
+> Sent: den 15 maj 2018 11:05
+> To: poky@yoctoproject.org
+> Subject: [poky] Yocto 2.5 and problem with pseudo-native-1.9.0
+>=20
+> I get an error while building my rootfs, but doesn't have a clue what
+> the error message will tell me:
+> below:
+>=20
+> Same with the log file, I don't get the point. How can I understand
+> this better?
+>=20
+> ERROR: pseudo-native-1.9.0+gitAUTOINC+fddbe854c9-r0 do_unpack: Fetcher
+> failure: Fetch command export PSEUDO_DISABLED=3D1; export
+> DBUS_SESSION_BUS_ADDRESS=3D"unix:abstract=3D/tmp/dbus-
+> qFLYbSsFJF,guid=3Dc8cffdaaccadb737f94547ed5afa68f2"; export
+> SSH_AGENT_PID=3D"1886"; export
+> SSH_AUTH_SOCK=3D"/run/user/1000/keyring/ssh"; export
+> PATH=3D"/home/user/y/yocto25/poky/scripts/native-
+> intercept:/home/user/y/yocto25/sp/tmp/sysroots-uninative/x86_64-
+> linux/usr/bin:/home/user/y/yocto25/poky/scripts:/home/user/y/yocto25/sp
+> /tmp/work/x86_64-linux/pseudo-native/1.9.0+gitAUTOINC+fddbe854c9-
+> r0/recipe-sysroot-native/usr/bin/x86_64-
+> linux:/home/user/y/yocto25/sp/tmp/work/x86_64-linux/pseudo-
+> native/1.9.0+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-
+> native/usr/bin:/home/user/y/yocto25/sp/tmp/work/x86_64-linux/pseudo-
+> native/1.9.0+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-
+> native/usr/sbin:/home/user/y/yocto25/sp/tmp/work/x86_64-linux/pseudo-
+> native/1.9.0+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-
+> native/usr/bin:/home/user/y/yocto
+>  25/sp/tmp/work/x86_64-linux/pseudo-native/1.9.0+gitAUTOINC+fddbe854c9-
+> r0/recipe-sysroot-native/sbin:/home/user/y/yocto25/sp/tmp/work/x86_64-
+> linux/pseudo-native/1.9.0+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-
+> native/bin:/home/user/y/yocto25/poky/bitbake/bin:/home/user/y/yocto25/s
+> p/tmp/hosttools"; export HOME=3D"/home/user"; git -c
+> core.fsyncobjectfiles=3D0 checkout -B master
+> fddbe854c9db058d5a05830d3bcdd4233d95ee2e failed with exit code 128,
+> output:
+> fatal: reference is not a tree:
+> fddbe854c9db058d5a05830d3bcdd4233d95ee2e
+>=20
+> ERROR: pseudo-native-1.9.0+gitAUTOINC+fddbe854c9-r0 do_unpack: Function
+> failed: base_do_unpack
+> ERROR: Logfile of failure stored in:
+> /home/user/y/yocto25/sp/tmp/work/x86_64-linux/pseudo-
+> native/1.9.0+gitAUTOINC+fddbe854c9-r0/temp/log.do_unpack.14717
+> ERROR: Task (virtual:native:/home/user/y/yocto25/poky/meta/recipes-
+> devtools/pseudo/pseudo_git.bb:do_unpack) failed with exit code '1'
+> NOTE: Tasks Summary: Attempted 154 tasks of which 151 didn't need to be
+> rerun and 1 failed.
 
-Same with the log file, I don't get the point=2E How can I understand this=
- better?
+Your Git clone of the pseudo repository is missing the fddbe854 commit.
+This can happen if there has been any problems when updating the repository=
+.=20
+Try `bitbake pseudo-native -c cleanall && bitbake pseudo-native` which=20
+should give you a fresh clone.
 
-ERROR: pseudo-native-1=2E9=2E0+gitAUTOINC+fddbe854c9-r0 do_unpack: Fetcher=
- failure: Fetch command export PSEUDO_DISABLED=3D1; export DBUS_SESSION_BUS=
-_ADDRESS=3D"unix:abstract=3D/tmp/dbus-qFLYbSsFJF,guid=3Dc8cffdaaccadb737f94=
-547ed5afa68f2"; export SSH_AGENT_PID=3D"1886"; export SSH_AUTH_SOCK=3D"/run=
-/user/1000/keyring/ssh"; export PATH=3D"/home/user/y/yocto25/poky/scripts/n=
-ative-intercept:/home/user/y/yocto25/sp/tmp/sysroots-uninative/x86_64-linux=
-/usr/bin:/home/user/y/yocto25/poky/scripts:/home/user/y/yocto25/sp/tmp/work=
-/x86_64-linux/pseudo-native/1=2E9=2E0+gitAUTOINC+fddbe854c9-r0/recipe-sysro=
-ot-native/usr/bin/x86_64-linux:/home/user/y/yocto25/sp/tmp/work/x86_64-linu=
-x/pseudo-native/1=2E9=2E0+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-native/us=
-r/bin:/home/user/y/yocto25/sp/tmp/work/x86_64-linux/pseudo-native/1=2E9=2E0=
-+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-native/usr/sbin:/home/user/y/yocto=
-25/sp/tmp/work/x86_64-linux/pseudo-native/1=2E9=2E0+gitAUTOINC+fddbe854c9-r=
-0/recipe-sysroot-native/usr/bin:/home/user/y/yocto25/sp/tmp/work/x86_64-lin=
-ux/pseudo-native/1=2E9=2E0+gitAUTOINC+fddbe854c9-r0/recipe-sysroot-native/s=
-bin:/home/user/y/yocto25/sp/tmp/work/x86_64-linux/pseudo-native/1=2E9=2E0+g=
-itAUTOINC+fddbe854c9-r0/recipe-sysroot-native/bin:/home/user/y/yocto25/poky=
-/bitbake/bin:/home/user/y/yocto25/sp/tmp/hosttools"; export HOME=3D"/home/u=
-ser"; git -c core=2Efsyncobjectfiles=3D0 checkout -B master fddbe854c9db058=
-d5a05830d3bcdd4233d95ee2e failed with exit code 128, output:
-fatal: reference is not a tree: fddbe854c9db058d5a05830d3bcdd4233d95ee2e
-
-ERROR: pseudo-native-1=2E9=2E0+gitAUTOINC+fddbe854c9-r0 do_unpack: Functio=
-n failed: base_do_unpack
-ERROR: Logfile of failure stored in: /home/user/y/yocto25/sp/tmp/work/x86_=
-64-linux/pseudo-native/1=2E9=2E0+gitAUTOINC+fddbe854c9-r0/temp/log=2Edo_unp=
-ack=2E14717
-ERROR: Task (virtual:native:/home/user/y/yocto25/poky/meta/recipes-devtool=
-s/pseudo/pseudo_git=2Ebb:do_unpack) failed with exit code '1'
-NOTE: Tasks Summary: Attempted 154 tasks of which 151 didn't need to be re=
-run and 1 failed=2E
-
-
+//Peter
 
 
