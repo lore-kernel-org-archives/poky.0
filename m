@@ -1,52 +1,57 @@
-Return-Path: <abuse@basmevissen.nl>
+Return-Path: <kumar.ugesh003@yahoo.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BA01FE00C2B; Thu, 17 May 2018 03:49:29 -0700 (PDT)
+	id E0467E009CA; Thu, 17 May 2018 19:27:01 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (kumar.ugesh003[at]yahoo.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [106.10.241.211 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from hosting.emcodev.net (hosting.emcodev.net [178.18.92.162])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2ADBFE00BFF
-	for <poky@yoctoproject.org>; Thu, 17 May 2018 03:49:27 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by hosting.emcodev.net (Postfix) with ESMTP id 9E26612B099;
-	Thu, 17 May 2018 12:49:26 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at hosting.emcodev.net
-Received: from hosting.emcodev.net ([127.0.0.1])
-	by localhost (hosting.emcodev.net [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id sSkP0CxuKr_M; Thu, 17 May 2018 12:49:25 +0200 (CEST)
-Received: from emcodev.nl (localhost [127.0.0.1])
-	by hosting.emcodev.net (Postfix) with ESMTP id EB7F112B0AD;
-	Thu, 17 May 2018 12:49:25 +0200 (CEST)
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from sonic308-21.consmr.mail.sg3.yahoo.com
+	(sonic308-21.consmr.mail.sg3.yahoo.com [106.10.241.211])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1A7E2E00942
+	for <poky@yoctoproject.org>; Thu, 17 May 2018 19:27:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+	t=1526610418; bh=BH2sCfzQBNWrbOzV1EOYIuxrS3Bu4HHWNlqE906GU0U=;
+	h=Date:From:To:In-Reply-To:References:Subject:From:Subject;
+	b=GDKi9l9dK6d6smoDG0z5oKOpoh3w7RHQTMP23VfVscPQ2z1My59nETqhlEVLHEAQE7sfLzZ3LdMrnDeR12LZMRGbJJskfE9/kCsj38gAUXT68tt5dxh92fgoLm0HVaf1U5aP7csdyZ0yhC222GIgYxr4DuyXMYQ/eEsNjXUfjfCz0gKQdniqcp34BMBGzPaUvExO5sRHz5nGH+nRMgMVR22X0afrmJs/Iq2RbR7NQcYiubdOtA/fv2vuT+t3fiwuKADMI00jZEbTi4/aPwpOS28OloqlA82lgTonguzQggNpxcfbHr8pa8PoncVpBN3l+Y4IZ0BiASUwy5Ll9i3q+w==
+X-YMail-OSG: 45bI.SgVM1n6BFI_8CMBKitjUydTxuC.mGmnvypSgwJAdn6P8aJGXiJ9khs3R4h
+	wlpLNmqNebDrLvMGs0MXfmf_wplxXuLbO.XdVbKR.jI.y3r4x.heEP1WginnYD2wRG6swaCOYdGj
+	ZK5I2cFNSpjhDDsBt8shvkVchg_j8D8eiEK4Tb1Vm6B3i7pAOQu1fwUA8VDdMzMxLZ_iGWqMntSf
+	HTKbyT28EtD0Iw0LQKsVxZ5MUY17E_4w5G9sPndzggukyLsL11tWy.2ttMyFL7_axh8A8ISjdx0W
+	gSVLJhFaRVBwE0.FKMnYxrGWoi40cZ_FxlGrlC0GvjM0IsPxcXCceVwdmRTMqwpG2ejGT1tK7flo
+	eq_OcXNeTrbaBIV8pfoEhhP5PuIB7DGRw9yEYVP5YOQEr.HlFwCW7ZoSqgWSQ2JCfYHF_KcD5bns
+	HNrM3yftg9mHFRz67exDx_CySZa237JU_JF45TVStVMH50cwFBwmYrPOKBkqFkF4RagUkcq1GeCp
+	ETT2XonHEsqvCONQyRUEf9fJGq_vnC_G9lEjcHFsq8J7n_zWzGvxUwMFTg1d2d5Ljfgqpp38gGnK
+	ldWmgd9lc4l5me69b7VCFI_gb25iHdqV8c2bc6hfgXrAI13tysGyy1KycLRDCzQ--
+Received: from sonic.gate.mail.ne1.yahoo.com by
+	sonic308.consmr.mail.sg3.yahoo.com with HTTP;
+	Fri, 18 May 2018 02:26:58 +0000
+Date: Fri, 18 May 2018 02:26:56 +0000 (UTC)
+From: Ugesh Reddy <kumar.ugesh003@yahoo.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Message-ID: <637430538.2648582.1526610416916@mail.yahoo.com>
+In-Reply-To: <255564529.2119259.1526487351528@mail.yahoo.com>
+References: <255564529.2119259.1526487351528.ref@mail.yahoo.com>
+	<255564529.2119259.1526487351528@mail.yahoo.com>
 MIME-Version: 1.0
-Date: Thu, 17 May 2018 12:49:25 +0200
-From: Bas Mevissen <abuse@basmevissen.nl>
-To: Arno Steffens <star@gmx.li>
-In-Reply-To: <trinity-ecca3500-7d71-44c4-83cf-1c6c394eb3a5-1526553333206@3c-app-gmx-bs33>
-References: <trinity-fe84c674-2df9-449b-8b6a-53f1b7cf21d2-1526375104797@3c-app-gmx-bs15>
-	<28b5dd854c864d1fa0149916706f2434@XBOX02.axis.com>
-	<trinity-6668c7b5-3f6c-47f7-b0d8-3a59032571c1-1526380985002@3c-app-gmx-bs12>
-	<63ef6b8aff254ed7dc38d9bee7623d4d@basmevissen.nl>
-	<trinity-c6098955-a734-46bf-a321-e8d24473dc5d-1526383048370@3c-app-gmx-bs12>
-	<1526383459.5720.162.camel@linuxfoundation.org>
-	<trinity-bef4d5a0-3616-4539-81d6-e345a1ee4e98-1526387443357@3c-app-gmx-bs12>
-	<1f08a8411aad4311f4e5677fe4c0cbfe@basmevissen.nl>
-	<trinity-22dc1a63-7fa8-41fd-bc2f-e011b698d3c6-1526461333500@3c-app-gmx-bs71>
-	<1fd67bfccb82049ff75349a65d5bc81c@basmevissen.nl>
-	<trinity-bafd13ab-8a55-4361-9796-d4dec1738677-1526466175205@3c-app-gmx-bs71>
-	<trinity-1da387ae-4287-4deb-9844-59c3a2016d56-1526479553134@3c-app-gmx-bs71>
-	<bc174232c043d0844f2a95fc32ca2f9f@basmevissen.nl>
-	<trinity-16addffd-a4be-4adb-8d17-45c6ef608732-1526540296031@3c-app-gmx-bs28>
-	<ea06c8eca7b0ca720d98f9980076ddc5@basmevissen.nl>
-	<trinity-ecca3500-7d71-44c4-83cf-1c6c394eb3a5-1526553333206@3c-app-gmx-bs33>
-Message-ID: <53e5ffa91a89ac1b59194be87f481a7d@basmevissen.nl>
-X-Sender: abuse@basmevissen.nl
-User-Agent: Roundcube Webmail/1.3.6
-Cc: poky@yoctoproject.org
-Subject: Re: Yocto 2.5 and problem with pseudo-native-1.9.0
+X-Mailer: WebService/1.1.11871 YMailNorrin Mozilla/5.0 (X11;
+	Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu
+	Chromium/64.0.3282.167 Chrome/64.0.3282.167 Safari/537.36
+Subject: Re: routing trace to syslog
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -59,70 +64,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 May 2018 10:49:29 -0000
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Fri, 18 May 2018 02:27:02 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2648581_374044438.1526610416914"
 
-On 2018-05-17 12:35, Arno Steffens wrote:
->> Gesendet: Donnerstag, 17. Mai 2018 um 09:33 Uhr
->> Von: "Bas Mevissen" <abuse@basmevissen.nl>
->> An: "Arno Steffens" <star@gmx.li>
->> Cc: poky@yoctoproject.org, "Richard Purdie" 
->> <richard.purdie@linuxfoundation.org>
->> Betreff: Re: Aw: Re:  Re: [poky] Yocto 2.5 and problem with 
->> pseudo-native-1.9.0
->> 
->> On 2018-05-17 08:58, Arno Steffens wrote:
->> 
->> (...)
->> >
->> > Thanks Bas,
->> > indeed, that finally solves the issue - great! Thank you so much!
->> > Look what will happen next.
->> 
->> As you cannot download from git repos using the git protocol, you will
->> be dependent on the tar files that are hosted by the Yocto project.
->> 
->> > Not sure I understand Richards explanation, but if there are more
->> > problems like that - can/shall I report it here again?
->> 
->> I think so. As Richard indicated, they sometimes get outdated. As I
->> assume most people use git clones instead of the fallback tar files,
->> problems will go unnoticed for a long time otherwise.
->> 
->> Note that using the tar files is very bandwidth inefficient, as you 
->> need
->> to download a complete new tar file for every small change that you 
->> need
->> to pull in. So maybe that can give you some leverage to your employer 
->> to
->> open up git access.
-> 
-> 2.5 sumo is rather new ...
-> 
+------=_Part_2648581_374044438.1526610416914
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Yocto versions in active support and especially shortly after release 
-receive most updates. So one might expect to have regular updates to
+ Hi,=C2=A0This will work by creating the syslog.conf?
 
-> Our IT teams give signs to open the port. Is TCP-Port 9418 sufficient?
+    On Wednesday, 16 May, 2018, 9:45:51 PM IST, Ugesh Reddy <kumar.ugesh003=
+@yahoo.com> wrote: =20
+=20
+ Hello Team,
+=C2=A0 I have written a recipe which set the trace device to std-out=C2=A0a=
+nd it works fine and could see traces from own application=C2=A0in the cons=
+ole of=C2=A0qemux86 but now want to route the log to syslog and have set th=
+e trace device to syslog in sources(setTracedevice(syslog,tracelevel,messag=
+e)) but it doesn't work.
+Now could you please some guide me what is the necessary=C2=A0modification=
+=C2=A0required to route the trace to syslog so that it will be written in=
+=C2=A0 /var/log/message?
+Regards,Ugesh
 
-That should be fine. Ask them for outgoing port TCP/22 as well, see 
-below.
+ =20
 
-> 
-> I found an issue with
-> ptest-runner-2.1.1.bb
-> prelink-git.bb
-> and finally (that is what I couldn't repair)
-> mtd-utils.
-> 
-> There your workaround didn't do the job.
+------=_Part_2648581_374044438.1526610416914
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Information on http://git.infradead.org/linux-mtd.git indeed seems to 
-indicate no http(s) support is available. You might try your luck with 
-ssh.
+<html><head></head><body><div style=3D"font-family:Helvetica Neue, Helvetic=
+a, Arial, sans-serif;font-size:16px;"><div></div>
+            <div>Hi,</div><div>&nbsp;This will work by creating the syslog.=
+conf?</div><div><br></div><div><br></div>
+           =20
+            <div id=3D"yahoo_quoted_7457956808" class=3D"yahoo_quoted">
+                <div style=3D"font-family:'Helvetica Neue', Helvetica, Aria=
+l, sans-serif;font-size:13px;color:#26282a;">
+                   =20
+                    <div>
+                        On Wednesday, 16 May, 2018, 9:45:51 PM IST, Ugesh R=
+eddy &lt;kumar.ugesh003@yahoo.com&gt; wrote:
+                    </div>
+                    <div><br></div>
+                    <div><br></div>
+                    <div><div id=3D"yiv4897114556"><div><div style=3D"font-=
+family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;"><div><=
+font size=3D"2">Hello Team,</font></div><div><font size=3D"2"><br></font></=
+div><div><font size=3D"2">&nbsp; I have written a recipe which set the trac=
+e device to std-out&nbsp;and it works fine and could see traces from own ap=
+plication&nbsp;in the console of&nbsp;<span>qemux86 but now want to route t=
+he log to syslog and have set the trace device to syslog in sources(setTrac=
+edevice(syslog,tracelevel,message)) but it doesn't work.</span></font></div=
+><div><font size=3D"2"><span><br></span></font></div><div><font size=3D"2">=
+<span>Now could you please some guide me what is the necessary&nbsp;modific=
+ation&nbsp;required to route the trace to syslog so that it will be written=
+ in&nbsp; /var/log/message?</span></font></div><div><font size=3D"2"><span>=
+<br></span></font></div><div><font size=3D"2"><span>Regards,</span></font><=
+/div><div><font size=3D"2"><span>Ugesh</span></font></div><div><font size=
+=3D"2"><span><br></span></font></div><div><font size=3D"2"><span><br></span=
+></font></div></div></div></div></div>
+                </div>
+            </div></div></body></html>
 
-
--- Bas.
-
+------=_Part_2648581_374044438.1526610416914--
