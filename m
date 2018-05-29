@@ -1,46 +1,62 @@
-Return-Path: <star@gmx.li>
+Return-Path: <john.tobias.ph@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D7223E00AE4; Tue, 29 May 2018 03:41:28 -0700 (PDT)
+	id 39B26E00C70; Tue, 29 May 2018 15:08:55 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [212.227.17.20 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	http://www.dnswl.org/, no *      trust
+	*      [209.85.216.175 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (john.tobias.ph[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 136D2E009AC
-	for <poky@yoctoproject.org>; Tue, 29 May 2018 03:41:27 -0700 (PDT)
-Received: from [62.225.157.196] ([62.225.157.196]) by
-	3c-app-gmx-bs25.server.lan (via HTTP); Tue, 29 May 2018 12:41:26 +0200
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-qt0-f175.google.com (mail-qt0-f175.google.com
+	[209.85.216.175])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B7ABEE00A26
+	for <poky@yoctoproject.org>; Tue, 29 May 2018 15:08:54 -0700 (PDT)
+Received: by mail-qt0-f175.google.com with SMTP id q13-v6so20782711qtp.4
+	for <poky@yoctoproject.org>; Tue, 29 May 2018 15:08:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=5C+IHFN6uHcDrWahqOLuu8UrOFy8gS9EoTCATIF51wg=;
+	b=FApkjv3Mt4BgodhpsLLCvAGJB3FXSi/y9eAEumGdSwaVgyOonvtBgWwepqj0xAVrQe
+	ZSqDR/U2jECMu0tVnM68wZ3dCl+MxaWGNiODbgYZRp0H1EWLM0+UgzDdn277fmWOzmVT
+	A8YlzolyyX4QoSLsp3hURXPRPaK+4avOyHjAvOwlmnTd3oXmKt1LyAGIzqCPOsJuTLfg
+	QAC+eKW6xV8y+1LMRaqcOr1Qsqop9i+zRSHvtjdxdklVJAw2QyzOMsxF4Py0EMv4EnIG
+	uzPsQ9BgXV0Oxe6vISg14Hm52cK2Ghd9BvZLJY3ph2zy8kpV7F9JIyjm74gLzBZyDG6l
+	UanQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=5C+IHFN6uHcDrWahqOLuu8UrOFy8gS9EoTCATIF51wg=;
+	b=KMOm2bqSTNXZcR4OH15qv3TWQMJAqQ+CjJ+EnnggLvroEli7EKLA87DoJ8cwpQrrWb
+	XRSt8Df5DisyqMm0+/1Ps7OPup55UHxWltBUWK9zdptjl+bN8ZuXrCgBFauA4rNN8blS
+	dfkhtVz6uFhBPTw2pO1lul/5mbWuafu+mxkQG4t5WumMyqFV3hAOxW/NeMSttBsCisSd
+	pV1w6DeHw/mH26kzGJyvpeoaMIhLkRvtF8f5f9CG/u0yGZ/wmjZwOuXl+msG7VBCBAbJ
+	k1TF/FInEivuzrnAr2YThYmu0/+z24H1hAiamP0ePLPFz9jEy7DW9T9IahLmTUE5jc4g
+	RZjQ==
+X-Gm-Message-State: APt69E07+OibOKLZfkGH3wKdVDHBzwSId2PpMaFtqNgBw43FC9yED5Se
+	66Mlk9gebfi91OiRuf96N4oIfqmpmqvwlFevXI1CQg==
+X-Google-Smtp-Source: ADUXVKJH5OjYBz7jcqPVSa/3EwUqrNNvk3GIbiDObLSLGCyFHF2SGunYI33xmV1pbLlKM29KOZT+B2j19QC5yKrHdn4=
+X-Received: by 2002:aed:2448:: with SMTP id s8-v6mr225321qtc.336.1527631733569;
+	Tue, 29 May 2018 15:08:53 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <trinity-f65d3236-5771-46ac-b0bf-c6d5bbacdd40-1527590486561@3c-app-gmx-bs25>
-From: "Arno Steffens" <star@gmx.li>
-To: "pokyyoctoproject.org" <poky@yoctoproject.org>
-Date: Tue, 29 May 2018 12:41:26 +0200
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:sYQTJ7oTLGo9M1UXug1AWfOmbTV9KICYyCAEKhHACNb
-	Qro+aDHQcK70eG6feJQb+1PZqbLYkR7VnE7y87mIlQEpiWly4c
-	l8NYAEEQPAI3FgX3/itAtQZiZDdF9UIZ9NbObOvrRUXFQO+QME
-	khB862mRyoc8J8+dgyuI2/woGhzlURg/dwWKa9Vy6gDzOUtWDP
-	KBYqzFVjC7HknXOQ6yRoAzT5l7cANW0Pa3DNFIGQOFrBRjRDge
-	aTa35/aFjLOPDINkOT0LxlS4AkGdh/CNRCgdWUD2lY1FdfwpIr U0vGqA=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:Y0o1CuuUkrk=:WuCfBfF9x5KX/o0cSLKIML
-	k1Zgew/HMt8Qdo9cqkQTqZ0n5yOF14Jyb2e+lyMqchkNPHHr046kKXZ8r154a7sJzmAQJbgw8
-	m7N+sKOLumflfOKUuhmMwjg59uqV7BRIflS+Y/VqT00VJhCnWQd5nDUQ8E49bSltCfRLPkDVQ
-	afqw3P0eQvwDUANE13y4HVUAgPQEttHGf808lbeAlNPCG/+I2AFENU+VJGDVB2ti/bO/JncZx
-	93szHt07oy4U7iN3yv9Oszxz6gLqCu9hSzjr5ddgRBPZqRBNQcy1W92ks/5Ntw0KyAUl7Hg/3
-	anJSE7H/Ufw1DME0gfJAmSJT0kUg3qtRakXSzIDzIpUF5LU5R+ZVK9Iua5Qzt9f0MBlx6O2Z9
-	4XJ9SzMNyHht8Ba9THrHWls0BRtNbhpwEy/QK5nq63H+exQNRjGjcUwgFHtKwiXhmUxsrgMAV
-	anYp3m/oKn0ZyLOMSPnQcZQzISJtq8bl93qfAr9Gc0mS1me6eVJj
-Subject: Give others users than "root" access to GPIO (or commands)
+Received: by 2002:a0c:953d:0:0:0:0:0 with HTTP; Tue, 29 May 2018 15:08:53
+	-0700 (PDT)
+From: John Tobias <john.tobias.ph@gmail.com>
+Date: Tue, 29 May 2018 15:08:53 -0700
+Message-ID: <CACUGKYPQZxwaZNd2v8MgVuTs0Sws40kjU_PnM=DYgYHtxrW-7A@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: Updating sdk directory
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -53,18 +69,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 10:41:28 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Tue, 29 May 2018 22:08:55 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-I have to add a user other than root to start a program which operates with i2c, spi, gpio.
-For this I added an init-script /etc/rc5.d to make it /dev/* r/w for "others".
-That works for i2c and spi but not for GPIO. As most of the files the user has to access will only created after the exporting the GPIOs (more or less doing echo xxx > /sys/class/gpio/export).
-But this new created /sys/class/gpio/xxx is not writable by user.
+Hello All,
 
-Maybe I am doing it completely wrong, but how can I achieve this to become possible?
-I checked the mega-manual, but there is not much mentioned about groups (27.36. extrausers.bbclass).
-Best regards
-Arno
+I am using eclipse for my project and  I built an sdk (image) with my
+C/C++ library (libprojecta) in order for me to cross compile my
+project under eclipse.
 
-Maybe I also have to give this user the permission to reboot, which is right now only possible for root
+Now, I need to update my libprojecta library in my sdk, but I don't
+want to run 'bitbake my_image -c do_populate_sdk'. I would like to
+know if there's any other command that I can use to compile then
+install the latest binary and header file of libprojecta to the
+location of my sdk directory?.
+
+I was looking for a similar command below. But, instead of passing
+root@192.168.100.1, I'd like to pass the location of the sdk
+directory.
+devtool deploy-target -s libprojecta root@192.168.100.1
+
+Regards,
+
+John
 
