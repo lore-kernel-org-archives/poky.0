@@ -1,62 +1,37 @@
-Return-Path: <john.tobias.ph@gmail.com>
+Return-Path: <Qi.Chen@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 39B26E00C70; Tue, 29 May 2018 15:08:55 -0700 (PDT)
+	id 862D7E00CC4; Tue, 29 May 2018 23:00:51 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [209.85.216.175 listed in list.dnswl.org]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (john.tobias.ph[at]gmail.com)
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-qt0-f175.google.com (mail-qt0-f175.google.com
-	[209.85.216.175])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B7ABEE00A26
-	for <poky@yoctoproject.org>; Tue, 29 May 2018 15:08:54 -0700 (PDT)
-Received: by mail-qt0-f175.google.com with SMTP id q13-v6so20782711qtp.4
-	for <poky@yoctoproject.org>; Tue, 29 May 2018 15:08:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=5C+IHFN6uHcDrWahqOLuu8UrOFy8gS9EoTCATIF51wg=;
-	b=FApkjv3Mt4BgodhpsLLCvAGJB3FXSi/y9eAEumGdSwaVgyOonvtBgWwepqj0xAVrQe
-	ZSqDR/U2jECMu0tVnM68wZ3dCl+MxaWGNiODbgYZRp0H1EWLM0+UgzDdn277fmWOzmVT
-	A8YlzolyyX4QoSLsp3hURXPRPaK+4avOyHjAvOwlmnTd3oXmKt1LyAGIzqCPOsJuTLfg
-	QAC+eKW6xV8y+1LMRaqcOr1Qsqop9i+zRSHvtjdxdklVJAw2QyzOMsxF4Py0EMv4EnIG
-	uzPsQ9BgXV0Oxe6vISg14Hm52cK2Ghd9BvZLJY3ph2zy8kpV7F9JIyjm74gLzBZyDG6l
-	UanQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=5C+IHFN6uHcDrWahqOLuu8UrOFy8gS9EoTCATIF51wg=;
-	b=KMOm2bqSTNXZcR4OH15qv3TWQMJAqQ+CjJ+EnnggLvroEli7EKLA87DoJ8cwpQrrWb
-	XRSt8Df5DisyqMm0+/1Ps7OPup55UHxWltBUWK9zdptjl+bN8ZuXrCgBFauA4rNN8blS
-	dfkhtVz6uFhBPTw2pO1lul/5mbWuafu+mxkQG4t5WumMyqFV3hAOxW/NeMSttBsCisSd
-	pV1w6DeHw/mH26kzGJyvpeoaMIhLkRvtF8f5f9CG/u0yGZ/wmjZwOuXl+msG7VBCBAbJ
-	k1TF/FInEivuzrnAr2YThYmu0/+z24H1hAiamP0ePLPFz9jEy7DW9T9IahLmTUE5jc4g
-	RZjQ==
-X-Gm-Message-State: APt69E07+OibOKLZfkGH3wKdVDHBzwSId2PpMaFtqNgBw43FC9yED5Se
-	66Mlk9gebfi91OiRuf96N4oIfqmpmqvwlFevXI1CQg==
-X-Google-Smtp-Source: ADUXVKJH5OjYBz7jcqPVSa/3EwUqrNNvk3GIbiDObLSLGCyFHF2SGunYI33xmV1pbLlKM29KOZT+B2j19QC5yKrHdn4=
-X-Received: by 2002:aed:2448:: with SMTP id s8-v6mr225321qtc.336.1527631733569;
-	Tue, 29 May 2018 15:08:53 -0700 (PDT)
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1F593E00A26
+	for <poky@yoctoproject.org>; Tue, 29 May 2018 23:00:49 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id w4U60iZT003439
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Tue, 29 May 2018 23:00:45 -0700 (PDT)
+Received: from [128.224.162.218] (128.224.162.218) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.361.1;
+	Tue, 29 May 2018 23:00:43 -0700
+To: Arno Steffens <star@gmx.li>, "pokyyoctoproject.org" <poky@yoctoproject.org>
+References: <trinity-f65d3236-5771-46ac-b0bf-c6d5bbacdd40-1527590486561@3c-app-gmx-bs25>
+From: ChenQi <Qi.Chen@windriver.com>
+Message-ID: <54cf3e3f-42e8-bbb9-ff6a-6ab76ff4e497@windriver.com>
+Date: Wed, 30 May 2018 14:03:06 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.4.0
 MIME-Version: 1.0
-Received: by 2002:a0c:953d:0:0:0:0:0 with HTTP; Tue, 29 May 2018 15:08:53
-	-0700 (PDT)
-From: John Tobias <john.tobias.ph@gmail.com>
-Date: Tue, 29 May 2018 15:08:53 -0700
-Message-ID: <CACUGKYPQZxwaZNd2v8MgVuTs0Sws40kjU_PnM=DYgYHtxrW-7A@mail.gmail.com>
-To: poky@yoctoproject.org
-Subject: Updating sdk directory
+In-Reply-To: <trinity-f65d3236-5771-46ac-b0bf-c6d5bbacdd40-1527590486561@3c-app-gmx-bs25>
+X-Originating-IP: [128.224.162.218]
+Subject: Re: Give others users than "root" access to GPIO (or commands)
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,27 +44,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 May 2018 22:08:55 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Wed, 30 May 2018 06:00:51 -0000
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello All,
+On 05/29/2018 06:41 PM, Arno Steffens wrote:
+> I have to add a user other than root to start a program which operates with i2c, spi, gpio.
+> For this I added an init-script /etc/rc5.d to make it /dev/* r/w for "others".
+> That works for i2c and spi but not for GPIO. As most of the files the user has to access will only created after the exporting the GPIOs (more or less doing echo xxx > /sys/class/gpio/export).
+> But this new created /sys/class/gpio/xxx is not writable by user.
+>
+> Maybe I am doing it completely wrong, but how can I achieve this to become possible?
+> I checked the mega-manual, but there is not much mentioned about groups (27.36. extrausers.bbclass).
+> Best regards
+> Arno
+>
+> Maybe I also have to give this user the permission to reboot, which is right now only possible for root
 
-I am using eclipse for my project and  I built an sdk (image) with my
-C/C++ library (libprojecta) in order for me to cross compile my
-project under eclipse.
 
-Now, I need to update my libprojecta library in my sdk, but I don't
-want to run 'bitbake my_image -c do_populate_sdk'. I would like to
-know if there's any other command that I can use to compile then
-install the latest binary and header file of libprojecta to the
-location of my sdk directory?.
+Not sure about your environment. But if you want normal user to do some 
+operation requiring root privilege, consider using a SETUID program.
 
-I was looking for a similar command below. But, instead of passing
-root@192.168.100.1, I'd like to pass the location of the sdk
-directory.
-devtool deploy-target -s libprojecta root@192.168.100.1
+1) Create a progrem to do the actual work that require root privilege.
+2)  If your only want your program to be run by some specific user, do 
+the user checking in the program.
+3) Install your program to be SETUID. `chmod +s xxx'
 
-Regards,
+You can check dbus-daemon-launch-helper in dbus for a reference.
 
-John
+Best Regards,
+Chen Qi
+
 
