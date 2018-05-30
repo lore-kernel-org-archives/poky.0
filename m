@@ -1,52 +1,63 @@
-Return-Path: <star@gmx.li>
+Return-Path: <nick83ola@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 188C9E00BAF; Wed, 30 May 2018 03:36:08 -0700 (PDT)
+	id 6C924E00C50; Wed, 30 May 2018 06:24:30 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [212.227.15.19 listed in list.dnswl.org]
+	mail provider *      (nick83ola[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [74.125.82.174 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 77F2CE00A75
-	for <poky@yoctoproject.org>; Wed, 30 May 2018 03:36:06 -0700 (PDT)
-Received: from [62.225.157.196] ([62.225.157.196]) by
-	3c-app-gmx-bs52.server.lan (via HTTP); Wed, 30 May 2018 12:36:01 +0200
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-ot0-f174.google.com (mail-ot0-f174.google.com
+	[74.125.82.174])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 43469E00BAA
+	for <poky@yoctoproject.org>; Wed, 30 May 2018 06:24:29 -0700 (PDT)
+Received: by mail-ot0-f174.google.com with SMTP id h6-v6so2018198otj.0
+	for <poky@yoctoproject.org>; Wed, 30 May 2018 06:24:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=18LQFNYm1RQXpjGkGdhmG+iYxrqEHbuQWPwCUpPbSlo=;
+	b=hWBbUo0RkAAVySB4snBcV+T1aPkAFI9gW78NflP0TB9NwjvRq2xGzt1IUDZFu8lhyQ
+	o8AohKCqF2fpk2NH0tD17PovgLogGCeQyoaix11kyT4ru7PacoSodi47o/DwPTgXEiF0
+	ncEEkhfNKHxOmY5XvKWgeKIssSlGC0wYgnLrahuW/L6Z+Stnyo1tMfCTEYFqJjAmW5x8
+	dQpMKAtRi8MSDJDZz79pb6hlaPzu1nvoBIJeV5GoHc/kbG4CoHnM8qHNBn0u7i0J0p5J
+	Cnbbvp3x//uVzEqJX+W8UQKJkvmIZYgBg/S3NbKB9YGwTFIcTDioxTObFtqN6qEEfdAn
+	h/Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=18LQFNYm1RQXpjGkGdhmG+iYxrqEHbuQWPwCUpPbSlo=;
+	b=LzVdExVYcnxXDGh/zraEtCgriR3EUYWvtpQZstKMg0Y0OcyjE0RNgHIOclNyhUhXrQ
+	54vzhUq0Os7QbOlWTy0/GbLi5JerZ/3tr7JTh9QJ7aVdJfZnbBugxIMxv3MeUAXqvs3Y
+	bjEYJE7Je11AIzDeKGV8mT2PCfVfnMgdsgeMhF63CTNUJgkNcRRIi/w5cKthxmJ2L44N
+	MNsekc0GmB8l1i/PWf95YHlb9W8+e2jH/kGkW+cO+1qUPuvAPFwm7Ds4CNxizoa0PVA/
+	I57LU3cqSEAcRoBmibQjzOWyvv5r84yE71EJ20hnToNBsih8thtuWWa3i7cfGnzW4Det
+	Z7jA==
+X-Gm-Message-State: ALKqPwedY6ZemUt5gQ6MU5Xd7yH9oL+/iEg3XnJ2rrW4MJl1uD8N/HTx
+	CbbxWZZEsaxFtwfzf+SdHIyBo0Mdc+sq9NWYAjAaTA==
+X-Google-Smtp-Source: ADUXVKLytKPx9y67xeAuJfElpqs1SR9NOzSAgK8gMhaZlivbQtHrJuY3MKmAvmrjlBG27Fv75wRn34ctr9nZ0gdRXe8=
+X-Received: by 2002:a9d:2c7:: with SMTP id 65-v6mr1868601otl.71.1527686668338; 
+	Wed, 30 May 2018 06:24:28 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <trinity-73b027c2-91c3-4a99-8e50-bce065e4fdbc-1527676561060@3c-app-gmx-bs52>
-From: star@gmx.li
-To: "Arno Steffens" <star@gmx.li>
-Date: Wed, 30 May 2018 12:36:01 +0200
-Importance: normal
-Sensitivity: Normal
-In-Reply-To: <trinity-a02404fb-0f4a-4265-9053-ce0b93aa8797-1527674498967@3c-app-gmx-bs52>
-References: <trinity-f65d3236-5771-46ac-b0bf-c6d5bbacdd40-1527590486561@3c-app-gmx-bs25>
-	<54cf3e3f-42e8-bbb9-ff6a-6ab76ff4e497@windriver.com>
-	<trinity-a02404fb-0f4a-4265-9053-ce0b93aa8797-1527674498967@3c-app-gmx-bs52>
-X-UI-Message-Type: mail
-X-Priority: 3
-X-Provags-ID: V03:K1:ArpXzFgQvv3ZnFz99Ku7iQ2YNrpTEZyQbJXDBIMRJOC
-	v+WOBD8/LTreRSPgljC0lTyMEBzD+g8/Ds096/Uvqc9VzNbFm/
-	ek1zdOHdriaZ/RPA/J8C7mmUwLyCsorVWFw8Zy/gRS4eziUVL4
-	6gj+nUnnKjWlWyvxOJEcXKpelTOZSJFkyx4W1EK0H64gF6y/Eh
-	+aCnNMVP1L6OFu/B3QcGa3ZEM1ckOegB6f/Ua0znv6Hw0sqHIb
-	PMxum1477D8NM9GkF27GHP2rq5iF6b414s6hO1/NZgQSrRsi2C EyyzTk=
-X-UI-Out-Filterresults: notjunk:1;V01:K0:VL9kPYbDUBA=:vKKuFBPAXz1Ekb6DFCcyCy
-	BZTp3E35KZBl1xLjEg7E+/8Tz0vxjbCWUyYOVfdFeShqlLkhpQJb+b2ajRdSaLw2QYJ5iKoB2
-	Q5wUnm3l0GrY/hS36sSxtc+DikQjcUnm+2wsFnpWJzjMtcKTs49Q/k+mWdRh4eOisU0e8i7wj
-	QrQXAItEE3wOw77H63F605f7ZW+J2Qi/T9iZHJky9n+6jLhF9XjmtMPP9vcsk6+Z/nr8gP0HD
-	RIOXpnXB7XcgLkr7Ms2OOPFXp8tlapydYnDn66c70wivrn0wl/TsRIcinUxl8s2dI3b+yNQOk
-	xnsMoD+Tlf+F5ruwhXazK9UFBuBLrRDrPXVElRWk/fu+FCPe8pEAeEp94MJoC2SKSUc+FHBb9
-	dtxEUvdSoSs8+ZpU+M9w1qaQVCSMrzD1fucMhDqCsacxCFD5LR8f1k6d9q0lAaiOiYXInBMvi
-	kZFEr1VjhouQJAUWkMZ/xqsJuM43QLdI6fDR2GIyiILUahpCujPu
-Cc: "pokyyoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: Give others users than "root" access to GPIO (or commands)
+Received: by 2002:a9d:2927:0:0:0:0:0 with HTTP; Wed, 30 May 2018 06:24:07
+	-0700 (PDT)
+From: nick83ola <nick83ola@gmail.com>
+Date: Wed, 30 May 2018 14:24:07 +0100
+Message-ID: <CABPh3UMsooqLDJ+Aq1DiObxoi12a2Oj68nO51ALjgBet2SwkAw@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: [PATCH] systemd: resolved linked even if the option is disabled
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -59,55 +70,142 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 May 2018 10:36:08 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Wed, 30 May 2018 13:24:30 -0000
+Content-Type: multipart/alternative; boundary="00000000000031ca97056d6c459c"
 
-> Gesendet: Mittwoch, 30. Mai 2018 um 12:01 Uhr
-> Von: "Arno Steffens" <star@gmx.li>
-> An: ChenQi <Qi.Chen@windriver.com>
-> Cc: "pokyyoctoproject.org" <poky@yoctoproject.org>
-> Betreff: Re: [poky] Give others users than "root" access to GPIO (or commands)
->
-> 
-> 
-> > Gesendet: Mittwoch, 30. Mai 2018 um 08:03 Uhr
-> > Von: ChenQi <Qi.Chen@windriver.com>
-> > An: "Arno Steffens" <star@gmx.li>, "pokyyoctoproject.org" <poky@yoctoproject.org>
-> > Betreff: Re: [poky] Give others users than "root" access to GPIO (or commands)
-> >
-> > On 05/29/2018 06:41 PM, Arno Steffens wrote:
-> > > I have to add a user other than root to start a program which operates with i2c, spi, gpio.
-> > > For this I added an init-script /etc/rc5.d to make it /dev/* r/w for "others".
-> > > That works for i2c and spi but not for GPIO. As most of the files the user has to access will only created after the exporting the GPIOs (more or less doing echo xxx > /sys/class/gpio/export).
-> > > But this new created /sys/class/gpio/xxx is not writable by user.
-> > >
-> > > Maybe I am doing it completely wrong, but how can I achieve this to become possible?
-> > > I checked the mega-manual, but there is not much mentioned about groups (27.36. extrausers.bbclass).
-> > > Best regards
-> > > Arno
-> > >
-> > > Maybe I also have to give this user the permission to reboot, which is right now only possible for root
-> > 
-> > 
-> > Not sure about your environment. But if you want normal user to do some 
-> > operation requiring root privilege, consider using a SETUID program.
-> > 
-> > 1) Create a progrem to do the actual work that require root privilege.
-> > 2)  If your only want your program to be run by some specific user, do 
-> > the user checking in the program.
-> > 3) Install your program to be SETUID. `chmod +s xxx'
-> > 
-> > You can check dbus-daemon-launch-helper in dbus for a reference.
-> > 
-> > Best Regards,
-> > Chen Qi
-> 
-> Thanks Chen,
-> sounds easy but I get to my surprise a problem with a shared library (cannot open shared object file: No such file or directory) - althought the LD_LIBRARY_PATH is set (/opt/lib) and the file available?
-> Best regards
-> Arno
-> 
+--00000000000031ca97056d6c459c
+Content-Type: text/plain; charset="UTF-8"
 
-Ok, got it.
-Althoug ldd xxx shows my lib I couldn't use it. Adding this path /opt/lib to ld.so.conf solved this.
+systemd: resolved linked even if the option is disabled
 
+in the do_install function in systemd recipe the condition to check
+if the resolved option is selected is reversed (wrong !).
+This is for example true if we compile systemd with musl instead of
+glibc (every poky-image-minimal recipe).
+
+Also no link should be created if the option is not selected
+nor an ALTERNATIVE set.
+
+Signed-off-by: Nicola Lunghi <nick83ola@gmail.com>
+---
+ meta/recipes-core/systemd/systemd_237.bb | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/meta/recipes-core/systemd/systemd_237.bb
+b/meta/recipes-core/systemd/systemd_237.bb
+index 2e6558ded1..2eea6af508 100644
+--- a/meta/recipes-core/systemd/systemd_237.bb
++++ b/meta/recipes-core/systemd/systemd_237.bb
+@@ -256,14 +256,11 @@ do_install() {
+     if [ -s ${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf ]; then
+         ${@bb.utils.contains('PACKAGECONFIG', 'networkd', ':', 'sed -i -e
+"\$ad /run/systemd/netif/links 0755 root root -"
+${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf', d)}
+     fi
+-    if ! ${@bb.utils.contains('PACKAGECONFIG', 'resolved', 'true',
+'false', d)}; then
++    if ${@bb.utils.contains('PACKAGECONFIG', 'resolved', 'true', 'false',
+d)}; then
+         echo 'L! ${sysconfdir}/resolv.conf - - - -
+../run/systemd/resolve/resolv.conf'
+>>${D}${exec_prefix}/lib/tmpfiles.d/etc.conf
+         echo 'd /run/systemd/resolve 0755 root root -'
+>>${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf
+         echo 'f /run/systemd/resolve/resolv.conf 0644 root root'
+>>${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf
+         ln -s ../run/systemd/resolve/resolv.conf
+${D}${sysconfdir}/resolv-conf.systemd
+-    else
+-        sed -i -e "s%^L! /etc/resolv.conf.*$%L! /etc/resolv.conf - - - -
+../run/systemd/resolve/resolv.conf%g"
+${D}${exec_prefix}/lib/tmpfiles.d/etc.conf
+-        ln -s ../run/systemd/resolve/resolv.conf
+${D}${sysconfdir}/resolv-conf.systemd
+     fi
+     install -Dm 0755 ${S}/src/systemctl/systemd-sysv-install.SKELETON
+${D}${systemd_unitdir}/systemd-sysv-install
+
+@@ -537,7 +534,7 @@ python __anonymous() {
+ # TODO:
+ # u-a for runlevel and telinit
+
+-ALTERNATIVE_${PN} = "init halt reboot shutdown poweroff runlevel
+resolv-conf"
++ALTERNATIVE_${PN} = "init halt reboot shutdown poweroff runlevel"
+
+ ALTERNATIVE_TARGET[init] = "${rootlibexecdir}/systemd/systemd"
+ ALTERNATIVE_LINK_NAME[init] = "${base_sbindir}/init"
+@@ -563,6 +560,7 @@ ALTERNATIVE_TARGET[runlevel] =
+"${base_bindir}/systemctl"
+ ALTERNATIVE_LINK_NAME[runlevel] = "${base_sbindir}/runlevel"
+ ALTERNATIVE_PRIORITY[runlevel] ?= "300"
+
++ALTERNATIVE_${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'resolved',
+'resolv-conf', '', d)}"
+ ALTERNATIVE_TARGET[resolv-conf] = "${sysconfdir}/resolv-conf.systemd"
+ ALTERNATIVE_LINK_NAME[resolv-conf] = "${sysconfdir}/resolv.conf"
+ ALTERNATIVE_PRIORITY[resolv-conf] ?= "50"
+-- 
+2.17.0
+
+--00000000000031ca97056d6c459c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>systemd: resolved linked even if the option is disabl=
+ed</div><div><br></div><div>in the do_install function in systemd recipe th=
+e condition to check</div>if the resolved option is selected is reversed (w=
+rong !).<br>This is for example true if we compile systemd with musl instea=
+d of<br>glibc (every poky-image-minimal recipe).<br><br>Also no link should=
+ be created if the option is not selected<br>nor an ALTERNATIVE set.<br><br=
+>Signed-off-by: Nicola Lunghi &lt;<a href=3D"mailto:nick83ola@gmail.com">ni=
+ck83ola@gmail.com</a>&gt;<br><div>---<br>=C2=A0meta/recipes-core/systemd/<a=
+ href=3D"http://systemd_237.bb">systemd_237.bb</a> | 8 +++-----<br>=C2=A01 =
+file changed, 3 insertions(+), 5 deletions(-)<br><br>diff --git a/meta/reci=
+pes-core/systemd/<a href=3D"http://systemd_237.bb">systemd_237.bb</a> b/met=
+a/recipes-core/systemd/<a href=3D"http://systemd_237.bb">systemd_237.bb</a>=
+<br>index 2e6558ded1..2eea6af508 100644<br>--- a/meta/recipes-core/systemd/=
+<a href=3D"http://systemd_237.bb">systemd_237.bb</a><br>+++ b/meta/recipes-=
+core/systemd/<a href=3D"http://systemd_237.bb">systemd_237.bb</a><br>@@ -25=
+6,14 +256,11 @@ do_install() {<br>=C2=A0=C2=A0=C2=A0=C2=A0 if [ -s ${D}${ex=
+ec_prefix}/lib/tmpfiles.d/systemd.conf ]; then<br>=C2=A0=C2=A0=C2=A0=C2=A0 =
+=C2=A0=C2=A0=C2=A0 ${@bb.utils.contains(&#39;PACKAGECONFIG&#39;, &#39;netwo=
+rkd&#39;, &#39;:&#39;, &#39;sed -i -e &quot;\$ad /run/systemd/netif/links 0=
+755 root root -&quot; ${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf&#39;, =
+d)}<br>=C2=A0=C2=A0=C2=A0=C2=A0 fi<br>-=C2=A0=C2=A0=C2=A0 if ! ${@bb.utils.=
+contains(&#39;PACKAGECONFIG&#39;, &#39;resolved&#39;, &#39;true&#39;, &#39;=
+false&#39;, d)}; then<br>+=C2=A0=C2=A0=C2=A0 if ${@bb.utils.contains(&#39;P=
+ACKAGECONFIG&#39;, &#39;resolved&#39;, &#39;true&#39;, &#39;false&#39;, d)}=
+; then<br>=C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 echo &#39;L! ${syscon=
+fdir}/resolv.conf - - - - ../run/systemd/resolve/resolv.conf&#39; &gt;&gt;$=
+{D}${exec_prefix}/lib/tmpfiles.d/etc.conf<br>=C2=A0=C2=A0=C2=A0=C2=A0 =C2=
+=A0=C2=A0=C2=A0 echo &#39;d /run/systemd/resolve 0755 root root -&#39; &gt;=
+&gt;${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf<br>=C2=A0=C2=A0=C2=A0=C2=
+=A0 =C2=A0=C2=A0=C2=A0 echo &#39;f /run/systemd/resolve/resolv.conf 0644 ro=
+ot root&#39; &gt;&gt;${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf<br>=C2=
+=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 ln -s ../run/systemd/resolve/resol=
+v.conf ${D}${sysconfdir}/resolv-conf.systemd<br>-=C2=A0=C2=A0=C2=A0 else<br=
+>-=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 sed -i -e &quot;s%^L! /etc/resolv.c=
+onf.*$%L! /etc/resolv.conf - - - - ../run/systemd/resolve/resolv.conf%g&quo=
+t; ${D}${exec_prefix}/lib/tmpfiles.d/etc.conf<br>-=C2=A0=C2=A0=C2=A0 =C2=A0=
+=C2=A0=C2=A0 ln -s ../run/systemd/resolve/resolv.conf ${D}${sysconfdir}/res=
+olv-conf.systemd<br>=C2=A0=C2=A0=C2=A0=C2=A0 fi<br>=C2=A0=C2=A0=C2=A0=C2=A0=
+ install -Dm 0755 ${S}/src/systemctl/systemd-sysv-install.SKELETON ${D}${sy=
+stemd_unitdir}/systemd-sysv-install<br>=C2=A0<br>@@ -537,7 +534,7 @@ python=
+ __anonymous() {<br>=C2=A0# TODO:<br>=C2=A0# u-a for runlevel and telinit<b=
+r>=C2=A0<br>-ALTERNATIVE_${PN} =3D &quot;init halt reboot shutdown poweroff=
+ runlevel resolv-conf&quot;<br>+ALTERNATIVE_${PN} =3D &quot;init halt reboo=
+t shutdown poweroff runlevel&quot;<br>=C2=A0<br>=C2=A0ALTERNATIVE_TARGET[in=
+it] =3D &quot;${rootlibexecdir}/systemd/systemd&quot;<br>=C2=A0ALTERNATIVE_=
+LINK_NAME[init] =3D &quot;${base_sbindir}/init&quot;<br>@@ -563,6 +560,7 @@=
+ ALTERNATIVE_TARGET[runlevel] =3D &quot;${base_bindir}/systemctl&quot;<br>=
+=C2=A0ALTERNATIVE_LINK_NAME[runlevel] =3D &quot;${base_sbindir}/runlevel&qu=
+ot;<br>=C2=A0ALTERNATIVE_PRIORITY[runlevel] ?=3D &quot;300&quot;<br>=C2=A0<=
+br>+ALTERNATIVE_${PN} +=3D &quot;${@bb.utils.contains(&#39;PACKAGECONFIG&#3=
+9;, &#39;resolved&#39;, &#39;resolv-conf&#39;, &#39;&#39;, d)}&quot;<br>=C2=
+=A0ALTERNATIVE_TARGET[resolv-conf] =3D &quot;${sysconfdir}/resolv-conf.syst=
+emd&quot;<br>=C2=A0ALTERNATIVE_LINK_NAME[resolv-conf] =3D &quot;${sysconfdi=
+r}/resolv.conf&quot;<br>=C2=A0ALTERNATIVE_PRIORITY[resolv-conf] ?=3D &quot;=
+50&quot;<br>-- <br>2.17.0<br><br></div><div><br></div></div>
+
+--00000000000031ca97056d6c459c--
