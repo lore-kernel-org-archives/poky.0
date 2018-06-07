@@ -1,66 +1,34 @@
-Return-Path: <nick83ola@gmail.com>
+Return-Path: <leonardo.sandoval.gonzalez@linux.intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DC8B0E01268; Wed,  6 Jun 2018 01:48:32 -0700 (PDT)
+	id 1569BE00B57; Thu,  7 Jun 2018 12:14:07 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (nick83ola[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.218.51 listed in list.dnswl.org]
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [134.134.136.100 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-oi0-f51.google.com (mail-oi0-f51.google.com
-	[209.85.218.51])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CF0CAE01264
-	for <poky@yoctoproject.org>; Wed,  6 Jun 2018 01:48:31 -0700 (PDT)
-Received: by mail-oi0-f51.google.com with SMTP id c128-v6so4685613oig.11
-	for <poky@yoctoproject.org>; Wed, 06 Jun 2018 01:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to; 
-	bh=Z49l836Qo6Jb7p6yViEbA2FAJPGqJxK0wnLs7KUoa8A=;
-	b=shGGCCNI3CxK2puHXuGzCOOOo+GI+GX3gwNCx9oVD4sMuC2kUZiHiuaL1JKsKAppK4
-	7lZm2w0Qu3riRhFzx/IespUDag+LwKzgh1m6vF0UQhHeU/buWW/AW9R9ZdlYOIoG/YMm
-	KEKfzDRKEMv9Pco+zm/eEz1wP5/OoNq6LJcRioFfd7Cwjdv0g+bcfYEXxBG2frHaXtDU
-	jlhKZYA0vvvxlWbCx2h26pB24fmaNjOt9/aBDtcVxEtmBbbzfie9e4Iycr9HA05+gXhH
-	qO/CuW1bVJzEZprqCyfbRaLa96uYLmpA8MyT01R8Dty9s8s+L6VNY1aWGhUabISKOYHL
-	wnvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to;
-	bh=Z49l836Qo6Jb7p6yViEbA2FAJPGqJxK0wnLs7KUoa8A=;
-	b=Dk78VxbpKDBwnd+DEkXw+d8dKKETBTHv9qV1LJJgxmpD/Rp4yvDm5uVrA+iuSuPgRk
-	afmSDYZljONd1ElOm+JxLC544740iOm8gYtbqK9uzA7OdiSKDsE9GqzsMO2NFj4uVi3E
-	PRk90S/YQs+Yb5eJ5dkekzKYOsH6965sE5ULZKBjTs/H28XlgttLmDyIOhZ872i8FqRU
-	MvgJ5tnizqk2eddpse1zjrG6TVdLV8Am/i2Psnr8bGJ7ECkHwir+r7iVXOq0TAlhGjyR
-	IobSCbym+mbnq1bF7wgHCKu5wH3fVzqA2v6yk2jWUtYlyezShhJz1FCeUg8cHAVJcJCB
-	8+ZA==
-X-Gm-Message-State: APt69E2X686+MdbsELWEfW4J9DukjNTq7g68vpVR57Rxe+ebjB18dGEv
-	H60ZwuB3CGNhDKqxjQjYhLxwuHflnR6wmAVU3WU=
-X-Google-Smtp-Source: ADUXVKLppHk58RBnLUQS0ZZBrwGiHG5MBUfp/P8viTnjTrozrrUP3aHqZusPWGd9I+GC10tkjSQzF+jmgY44z5qncI0=
-X-Received: by 2002:aca:d4c1:: with SMTP id
-	l184-v6mr1222902oig.325.1528274910810; 
-	Wed, 06 Jun 2018 01:48:30 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a9d:5f8d:0:0:0:0:0 with HTTP;
-	Wed, 6 Jun 2018 01:48:10 -0700 (PDT)
-In-Reply-To: <CABPh3UMsooqLDJ+Aq1DiObxoi12a2Oj68nO51ALjgBet2SwkAw@mail.gmail.com>
-References: <CABPh3UMsooqLDJ+Aq1DiObxoi12a2Oj68nO51ALjgBet2SwkAw@mail.gmail.com>
-From: nick83ola <nick83ola@gmail.com>
-Date: Wed, 6 Jun 2018 09:48:10 +0100
-Message-ID: <CABPh3UNYziLzCSJZA==MeA_fyAQzXR4RGbSmVqsfP0M7-VZkbA@mail.gmail.com>
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CBA71E006B4
+	for <poky@yoctoproject.org>; Thu,  7 Jun 2018 12:14:04 -0700 (PDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+	by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	07 Jun 2018 12:14:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.49,487,1520924400"; d="scan'208";a="230779683"
+Received: from lsandov1-clr.zpn.intel.com ([10.219.4.31])
+	by orsmga005.jf.intel.com with ESMTP; 07 Jun 2018 12:14:03 -0700
+From: leonardo.sandoval.gonzalez@linux.intel.com
 To: poky@yoctoproject.org
-Subject: Re: [PATCH] systemd: resolved linked even if the option is disabled
+Date: Thu,  7 Jun 2018 14:14:00 -0500
+Message-Id: <20180607191400.5308-1-leonardo.sandoval.gonzalez@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [PATCH] site.conf.sample: document oe-git-proxy required tools for HOSTTOOLS
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,83 +41,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Jun 2018 08:48:33 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 07 Jun 2018 19:14:07 -0000
 
-ping
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
 
-On 30 May 2018 at 14:24, nick83ola <nick83ola@gmail.com> wrote:
-> systemd: resolved linked even if the option is disabled
->
-> in the do_install function in systemd recipe the condition to check
-> if the resolved option is selected is reversed (wrong !).
-> This is for example true if we compile systemd with musl instead of
-> glibc (every poky-image-minimal recipe).
->
-> Also no link should be created if the option is not selected
-> nor an ALTERNATIVE set.
->
-> Signed-off-by: Nicola Lunghi <nick83ola@gmail.com>
-> ---
->  meta/recipes-core/systemd/systemd_237.bb | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
->
-> diff --git a/meta/recipes-core/systemd/systemd_237.bb
-> b/meta/recipes-core/systemd/systemd_237.bb
-> index 2e6558ded1..2eea6af508 100644
-> --- a/meta/recipes-core/systemd/systemd_237.bb
-> +++ b/meta/recipes-core/systemd/systemd_237.bb
-> @@ -256,14 +256,11 @@ do_install() {
->      if [ -s ${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf ]; then
->          ${@bb.utils.contains('PACKAGECONFIG', 'networkd', ':', 'sed -i -e
-> "\$ad /run/systemd/netif/links 0755 root root -"
-> ${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf', d)}
->      fi
-> -    if ! ${@bb.utils.contains('PACKAGECONFIG', 'resolved', 'true', 'false',
-> d)}; then
-> +    if ${@bb.utils.contains('PACKAGECONFIG', 'resolved', 'true', 'false',
-> d)}; then
->          echo 'L! ${sysconfdir}/resolv.conf - - - -
-> ../run/systemd/resolve/resolv.conf'
->>>${D}${exec_prefix}/lib/tmpfiles.d/etc.conf
->          echo 'd /run/systemd/resolve 0755 root root -'
->>>${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf
->          echo 'f /run/systemd/resolve/resolv.conf 0644 root root'
->>>${D}${exec_prefix}/lib/tmpfiles.d/systemd.conf
->          ln -s ../run/systemd/resolve/resolv.conf
-> ${D}${sysconfdir}/resolv-conf.systemd
-> -    else
-> -        sed -i -e "s%^L! /etc/resolv.conf.*$%L! /etc/resolv.conf - - - -
-> ../run/systemd/resolve/resolv.conf%g"
-> ${D}${exec_prefix}/lib/tmpfiles.d/etc.conf
-> -        ln -s ../run/systemd/resolve/resolv.conf
-> ${D}${sysconfdir}/resolv-conf.systemd
->      fi
->      install -Dm 0755 ${S}/src/systemctl/systemd-sysv-install.SKELETON
-> ${D}${systemd_unitdir}/systemd-sysv-install
->
-> @@ -537,7 +534,7 @@ python __anonymous() {
->  # TODO:
->  # u-a for runlevel and telinit
->
-> -ALTERNATIVE_${PN} = "init halt reboot shutdown poweroff runlevel
-> resolv-conf"
-> +ALTERNATIVE_${PN} = "init halt reboot shutdown poweroff runlevel"
->
->  ALTERNATIVE_TARGET[init] = "${rootlibexecdir}/systemd/systemd"
->  ALTERNATIVE_LINK_NAME[init] = "${base_sbindir}/init"
-> @@ -563,6 +560,7 @@ ALTERNATIVE_TARGET[runlevel] =
-> "${base_bindir}/systemctl"
->  ALTERNATIVE_LINK_NAME[runlevel] = "${base_sbindir}/runlevel"
->  ALTERNATIVE_PRIORITY[runlevel] ?= "300"
->
-> +ALTERNATIVE_${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'resolved',
-> 'resolv-conf', '', d)}"
->  ALTERNATIVE_TARGET[resolv-conf] = "${sysconfdir}/resolv-conf.systemd"
->  ALTERNATIVE_LINK_NAME[resolv-conf] = "${sysconfdir}/resolv.conf"
->  ALTERNATIVE_PRIORITY[resolv-conf] ?= "50"
-> --
-> 2.17.0
->
->
+The script oe-git-proxy uses some tools that may not be included
+on HOSTTOOLS, thus add the proper documentation.
+
+Signed-off-by: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+---
+ meta-poky/conf/site.conf.sample | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/meta-poky/conf/site.conf.sample b/meta-poky/conf/site.conf.sample
+index 6cfefc574a..a4c2f9feed 100644
+--- a/meta-poky/conf/site.conf.sample
++++ b/meta-poky/conf/site.conf.sample
+@@ -24,7 +24,9 @@ SCONF_VERSION = "1"
+ #or
+ #ALL_PROXY ?= "https://proxy.example.com:8080"
+ # If you wish to use certain hosts without the proxy, specify them in NO_PROXY.
+-# See the script for details on syntax.
++# See the script for details on syntax. The script oe-git-proxy uses some tools
++# that may not be included on HOSTTOOLS, thus  add them manually through
++# HOSTTOOLS += "getent seq"
+ 
+ # Uncomment this to use a shared download directory
+ #DL_DIR = "/some/shared/download/directory/"
+-- 
+2.17.1
+
 
