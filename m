@@ -1,37 +1,38 @@
-Return-Path: <Bruce.Ashfield@windriver.com>
+Return-Path: <abuse@basmevissen.nl>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4A711E0191D; Tue, 19 Jun 2018 06:57:27 -0700 (PDT)
+	id B1540E01908; Tue, 19 Jun 2018 07:06:11 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	http://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00 autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DCC5BE01375
-	for <poky@yoctoproject.org>; Tue, 19 Jun 2018 06:57:26 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id w5JDv0TD018576
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 19 Jun 2018 06:57:00 -0700 (PDT)
-Received: from [128.224.56.93] (128.224.56.93) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.399.0;
-	Tue, 19 Jun 2018 06:57:00 -0700
-To: Richard Purdie <richard.purdie@linuxfoundation.org>, Ankit Rastogi
-	<Ankit.Rastogi@kpit.com>, "poky@yoctoproject.org" <poky@yoctoproject.org>
-References: <BM1PR0101MB12833B9EE6843CFD07689D6A91700@BM1PR0101MB1283.INDPRD01.PROD.OUTLOOK.COM>
-	<0179fbbfddf7680e309b02422761c7478125d1ad.camel@linuxfoundation.org>
-From: Bruce Ashfield <bruce.ashfield@windriver.com>
-Message-ID: <b2ca63c9-3fcf-3a48-c2e4-03c9b2dd1117@windriver.com>
-Date: Tue, 19 Jun 2018 09:56:59 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.8.0
+Received: from hosting.emcodev.net (hosting.emcodev.net [178.18.92.162])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8CC89E010C6
+	for <poky@yoctoproject.org>; Tue, 19 Jun 2018 07:06:10 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+	by hosting.emcodev.net (Postfix) with ESMTP id 76F29212004;
+	Tue, 19 Jun 2018 16:06:09 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at hosting.emcodev.net
+Received: from hosting.emcodev.net ([127.0.0.1])
+	by localhost (hosting.emcodev.net [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 6DjtJjUWRb7h; Tue, 19 Jun 2018 16:06:07 +0200 (CEST)
+Received: from emcodev.nl (localhost [127.0.0.1])
+	by hosting.emcodev.net (Postfix) with ESMTP id 9FDE8212003;
+	Tue, 19 Jun 2018 16:06:07 +0200 (CEST)
 MIME-Version: 1.0
-In-Reply-To: <0179fbbfddf7680e309b02422761c7478125d1ad.camel@linuxfoundation.org>
+Date: Tue, 19 Jun 2018 16:06:07 +0200
+From: Bas Mevissen <abuse@basmevissen.nl>
+To: Bruce Ashfield <bruce.ashfield@windriver.com>
+In-Reply-To: <9d5f3a74-1cb9-ef2d-79a0-ef3d403295e2@windriver.com>
+References: <BM1PR0101MB12833B9EE6843CFD07689D6A91700@BM1PR0101MB1283.INDPRD01.PROD.OUTLOOK.COM>
+	<971d94d15a5e6fe1887a5bc81e2295e1@basmevissen.nl>
+	<9d5f3a74-1cb9-ef2d-79a0-ef3d403295e2@windriver.com>
+Message-ID: <e34c413d9fa38e316ca9d7265382574e@basmevissen.nl>
+X-Sender: abuse@basmevissen.nl
+User-Agent: Roundcube Webmail/1.3.6
+Cc: Ankit Rastogi <Ankit.Rastogi@kpit.com>, poky@yoctoproject.org
 Subject: Re: How to export kernel specific headers to userspace
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -45,53 +46,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jun 2018 13:57:27 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Tue, 19 Jun 2018 14:06:11 -0000
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-On 06/19/2018 09:22 AM, Richard Purdie wrote:
-> On Tue, 2018-06-19 at 05:16 +0000, Ankit Rastogi wrote:
->> Can someone provide any pointers on how to export kernel specific
->> headers to userspace?
->>
->> I am getting below error while building our one of the component
->> which requires kernel uapi headers.
->>
->> Error Received:
->>   /hdmi-capture/main.c:16:10: fatal error: linux/hdmi_info.h: No such
->> file or directory
->>> |  #include <linux/hdmi_info.h>
->>> |           ^~~~~~~~~~~~~~~~~~~
->>> | compilation terminated.
->>
->> In yocto 2.5, userspace is boot strapped with linux-libc-headers
->> package which uses a set of uapi headers from Linux kernel 4.15. Can
->> someone suggest for custom kernels, how to expose uapi headers to
->> userspace? Thus create a separate linux-apl-headers package with
->> those files.
-> 
-> linux-libc-headers is really there to bootstrap the libc and toolchain,
-> not provide non-standard kernel headers to userspace. You likely need
-> to create your own recipe which installs the correct extra headers and
-> then have your code DEPEND on that recipe.
+On 2018-06-19 15:55, Bruce Ashfield wrote:
+> On 06/19/2018 09:44 AM, Bas Mevissen wrote:
+>> On 2018-06-19 07:16, Ankit Rastogi wrote:
+>>> Hi,
+>>>=20
+>>> Can someone provide any pointers on how to export kernel specific
+>>> headers to userspace?
+>>>=20
+>>> I am getting below error while building our one of the component=20
+>>> which
+>>> requires kernel uapi headers.
+>>>=20
+>>> Error Received:
+>>> =C2=A0/hdmi-capture/main.c:16:10: fatal error: linux/hdmi_info.h: No =
+such
+>>> file or directory
+>>>> |=C2=A0 #include <linux/hdmi_info.h>
+>>>> |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^~~~~~=
+~~~~~~~~~~~~~
+>>>> | compilation terminated.
+>>>=20
+>>> In yocto 2.5, userspace is boot strapped with linux-libc-headers
+>>> package which uses a set of uapi headers from Linux kernel 4.15. Can
+>>> someone suggest for custom kernels, how to expose uapi headers to
+>>> userspace? Thus create a separate linux-apl-headers package with=20
+>>> those
+>>> files.
+>>>=20
+>>=20
+>> You might want to (re)move the linux-libc-headers package (header=20
+>> files) and install kernel-devsrc package. Then link the include=20
+>> directories from /usr/src/kernel/include/{asm*,linux} to /usr/include=20
+>> or modify your Makefile to get the linux include files from=20
+>> /usr/src/kernel/include/linux instead of /usr/include/linux.
+>>=20
+>> Please note that the kernel-devsrc package is not without problems.=20
+>> Building it and manually installing it with --nodeps (for rpm) will do=
+=20
+>> the trick. The package is due for replacement, see a thread on this=20
+>> started by me a few weeks ago.
+>>=20
+>> Please also note that linux-libc-headers are cleaned-up versions of=20
+>> the 4.15 kernel headers, so expect some rough edges.
+>=20
+> They aren't actually cleaned up at all. They are the standard uapi
+> installed headers from the latest kernel in a given yocto release.
+>=20
 
-Just adding a confirmation that this is what I've always done, and
-what I recommend to anyone trying to do this.
+Oh, maybe I'm confused with the ones installed by Centos and Fedora.=20
+There the #ifdef __KERNEL__ (..) #endif stuff is removed from the uapi=20
+headers package.
 
-The only additional caution/advice that I'd add, is that if you do
-this, do not modify existing headers (since you are changing the
-interface for a given version of the kernel), but additional/new
-header files are fine.
+> They will be updated to 4.18 shortly, since I'm preparing the next
+> round of kernel updates
 
-Cheers,
 
-Bruce
+> (and devsrc resubmission).
+>=20
 
-> 
-> Cheers,
-> 
-> Richard
-> 
+That would be really nice as it is not really usable at the moment.
 
+> Bruce
+>=20
+>=20
+>=20
+>>=20
 
