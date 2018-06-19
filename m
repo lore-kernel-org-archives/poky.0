@@ -1,6 +1,6 @@
 Return-Path: <zhe.he@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C7A40E0169C; Mon, 18 Jun 2018 20:02:10 -0700 (PDT)
+	id AF3ACE0174B; Mon, 18 Jun 2018 20:03:03 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,20 +12,20 @@ X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B02BFE010A5
-	for <poky@yoctoproject.org>; Mon, 18 Jun 2018 20:02:09 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 57983E00E84
+	for <poky@yoctoproject.org>; Mon, 18 Jun 2018 20:03:03 -0700 (PDT)
 Received: from ala-blade48.wrs.com (ala-blade48.wrs.com [147.11.105.68])
-	by mail.windriver.com (8.15.2/8.15.1) with SMTP id w5J327oe006865;
-	Mon, 18 Jun 2018 20:02:07 -0700 (PDT)
+	by mail.windriver.com (8.15.2/8.15.1) with SMTP id w5J331q9006979;
+	Mon, 18 Jun 2018 20:03:01 -0700 (PDT)
 Received: by ala-blade48.wrs.com (sSMTP sendmail emulation);
-	Mon, 18 Jun 2018 20:02:07 -0700
+	Mon, 18 Jun 2018 20:03:01 -0700
 From: He Zhe <zhe.he@windriver.com>
 To: bruce.ashfield@windriver.com, kexin.hao@windriver.com,
 	poky@yoctoproject.org
-Date: Mon, 18 Jun 2018 20:02:07 -0700
-Message-Id: <20180619030207.23381-1-zhe.he@windriver.com>
+Date: Mon, 18 Jun 2018 20:03:01 -0700
+Message-Id: <20180619030301.24897-1-zhe.he@windriver.com>
 X-Mailer: git-send-email 2.11.0
-Subject: [yocto] [PATCH] meta-yocto-bsp: Let yocto BSPs be able to build with linux-yocto-dev
+Subject: [yocto] [PATCH] meta-yocto-bsp: mpc8315e-rdb: Change kernel provider assignment to a weaker one
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -38,35 +38,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Jun 2018 03:02:10 -0000
+X-List-Received-Date: Tue, 19 Jun 2018 03:03:03 -0000
+
+Currently mpc8315e-rdb.conf comes after local.conf during parsing. We should
+give local.conf a chance to overwrite the kernel provider assignment, like
+other BSPs.
 
 Signed-off-by: He Zhe <zhe.he@windriver.com>
 ---
- .../recipes-kernel/linux/linux-yocto-dev.bbappend         | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-new file mode 100644
-index 0000000000..f044dafb4d
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-@@ -0,0 +1,15 @@
-+KBRANCH_genericx86  = "standard/base"
-+KBRANCH_genericx86-64  = "standard/base"
-+KBRANCH_edgerouter = "standard/edgerouter"
-+KBRANCH_beaglebone-yocto = "standard/beaglebone"
-+KBRANCH_mpc8315e-rdb = "standard/fsl-mpc8315e-rdb"
-+
-+KMACHINE_genericx86 ?= "common-pc"
-+KMACHINE_genericx86-64 ?= "common-pc-64"
-+KMACHINE_beaglebone-yocto ?= "beaglebone"
-+
-+COMPATIBLE_MACHINE_genericx86 = "genericx86"
-+COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-+COMPATIBLE_MACHINE_edgerouter = "edgerouter"
-+COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
-+COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+index 34f12303a1..72f52912eb 100644
+--- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
++++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+@@ -15,7 +15,7 @@ SERIAL_CONSOLE = "115200 ttyS0"
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
+ 
+ PREFERRED_VERSION_linux-yocto ?= "4.15%"
+-PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
++PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+ 
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+ XSERVER ?= "xserver-xorg \
 -- 
 2.11.0
 
