@@ -1,72 +1,66 @@
-Return-Path: <prvs=771019ac70=tflorea@curtisswright.com>
+Return-Path: <martin.jansa@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A3A4EE0146A; Thu, 21 Jun 2018 03:18:05 -0700 (PDT)
+	id A2093E00B6C; Thu, 21 Jun 2018 04:32:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
-	http://www.dnswl.org/, low *      trust
-	*      [148.163.154.236 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
+	mail provider *      (martin.jansa[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.128.169 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 1306 seconds by postgrey-1.32 at yocto-www;
-	Thu, 21 Jun 2018 03:18:04 PDT
-Received: from mx0b-002bf101.pphosted.com (mx0b-002bf101.pphosted.com
-	[148.163.154.236])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 209C4E00B6C
-	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 03:18:03 -0700 (PDT)
-Received: from pps.filterd (m0123027.ppops.net [127.0.0.1])
-	by mx0b-002bf101.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
-	w5L9rA5q029574
-	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 05:56:17 -0400
-Received: from usegtbei01.atl.cw.local ([67.23.50.70])
-	by mx0b-002bf101.pphosted.com with ESMTP id 2jqvca8mqb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT)
-	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 05:56:17 -0400
-Received: from [10.102.200.86] (helo=USEEDGE1302.curtisswright.com)
-	by usegtbei01.atl.cw.local with esmtps
-	(TLSv1.2:ECDHE-RSA-AES256-SHA384:256) (Exim 4.88)
-	(envelope-from <tflorea@curtisswright.com>) id 1fVwK8-00026N-KG
-	for poky@yoctoproject.org; Thu, 21 Jun 2018 05:56:16 -0400
-Received: from USEiHUB1302.ATL.CW.LOCAL (10.100.42.32) by
-	USEEDGE1302.curtisswright.com (10.102.200.86) with Microsoft SMTP
-	Server (TLS) id 15.0.1365.1; Thu, 21 Jun 2018 05:56:15 -0400
-Received: from eurmail1302.ATL.CW.LOCAL (10.210.42.82) by
-	USEiHUB1302.ATL.CW.LOCAL (10.100.42.46) with Microsoft SMTP Server
-	(TLS) id 15.0.1365.1; Thu, 21 Jun 2018 05:56:16 -0400
-Received: from eurmail1301.ATL.CW.LOCAL (10.210.42.81) by
-	eurmail1302.ATL.CW.LOCAL (10.210.42.82) with Microsoft SMTP Server
-	(TLS) id 15.0.1365.1; Thu, 21 Jun 2018 10:56:15 +0100
-Received: from eurmail1301.ATL.CW.LOCAL ([fe80::f49f:db02:3d20:7c5b]) by
-	eurmail1301.ATL.CW.LOCAL ([fe80::f49f:db02:3d20:7c5b%17]) with mapi id
-	15.00.1365.000; Thu, 21 Jun 2018 10:56:15 +0100
-From: "Florea, Tudor" <tflorea@curtisswright.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: SRCREV_FORMAT does not work as expected
-Thread-Index: AdQJQAHjOqkBSgJZRIugKUeZ30jLfg==
-Date: Thu, 21 Jun 2018 09:56:15 +0000
-Message-ID: <3432507f73cb4aa0af4f4e80464ac43a@eurmail1301.ATL.CW.LOCAL>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.210.42.148]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+Received: from mail-wr0-f169.google.com (mail-wr0-f169.google.com
+	[209.85.128.169])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0FF33E00A28
+	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 04:32:48 -0700 (PDT)
+Received: by mail-wr0-f169.google.com with SMTP id e18-v6so2818419wrs.5
+	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 04:32:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=HaIjkBnyiseYXmR0RLWh4pVY51rjnbAjQLlVS2uMShU=;
+	b=tCK3ZbdBz6kmw45wTdsj9IinUK9OnvH/0IFIvQlKSLEcHDcD8tHmFTnLLC3e0EG6aP
+	1MxQI9u0NXPkqGm40uR5dVYTE7L/HO3w7pABLzqQbvsqB/454FaFH9fNv8wAmVI4tBbb
+	n1lxh6Nve4oVH6Hf7rdjvNPTRykhnuHLIj5RpgqjZA5vvRZ/Zt1+VQOfwE2AOk1svxgS
+	8Xm6T4/qy8ITB4hd9uTTS1Dr6/bXQtpObcyJrmWLk+7EDvXu2HGqIxtVpgkA8fsNKscA
+	U22frhmy1Vd6AkGHF3y1HHZZK4S8uFy9g/GKVwwpexw0/c7aWQSfEE94fYRzK/sCaAOZ
+	iifA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=HaIjkBnyiseYXmR0RLWh4pVY51rjnbAjQLlVS2uMShU=;
+	b=jIOX5mtno1SNJIcAsOIVjeoHq3/d7kh8SpcuW81KzuA1WiGWdbe9UXuAXZUIzRKLcr
+	sIoBBcOlnXQ8keSiL2lWhXTd5szlykrzGye9RecFHUwy5ME+8FeeJJoB2+IGXuTsuHcH
+	tO4KIDZacAVnfkciGgh9BzJ5PRWhN6wdczT0ojhttD1AIAG6LLPdTYOmnzIj9PBfNixA
+	3QwMFddbcEswxH1RBvRLktpAzuumONoB572YxkxgrrRRGcxcF86O4la556zCNj2YE3F5
+	9azXidg6qg2vPbcm4NVVhbiWkufB0/Z9W9vYvIPeuTYTyzdafEvYu4OMmAGCRRXZ7Gtj
+	gCaQ==
+X-Gm-Message-State: APt69E1qnxUZeGkXEM0n/evhi36q2B4JWb8PczB4xU8nBeI2ZbymivQE
+	3PiTL3yGOUkrmEwNA1DB2Lz3L4YBGXkc2Qjh88U=
+X-Google-Smtp-Source: ADUXVKLhuXjxbdS0N/7m58DYqxQwQRrf50cP7bTs2KjQvnSaWdQrsdGEZMTFfLymQyFW1VRmjlvVELGsRry7wf7RPZQ=
+X-Received: by 2002:a5d:408f:: with SMTP id
+	o15-v6mr19386944wrp.133.1529580767973; 
+	Thu, 21 Jun 2018 04:32:47 -0700 (PDT)
 MIME-Version: 1.0
-X-MTA-device-Scanned: Yes (on usegtbei01.atl.cw.local) 6060 bytes in 0 secs
-X-UOID: FC422131-F51C-4D70-8D09-C92CA4737A7B
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
-	definitions=2018-06-21_04:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
-	clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
-	mlxlogscore=674 adultscore=0 classifier=spam adjust=0 reason=mlx
-	scancount=1 engine=8.0.1-1805220000 definitions=main-1806210111
-Subject: SRCREV_FORMAT does not work as expected
+References: <3432507f73cb4aa0af4f4e80464ac43a@eurmail1301.ATL.CW.LOCAL>
+In-Reply-To: <3432507f73cb4aa0af4f4e80464ac43a@eurmail1301.ATL.CW.LOCAL>
+From: Martin Jansa <martin.jansa@gmail.com>
+Date: Thu, 21 Jun 2018 13:32:36 +0200
+Message-ID: <CA+chaQeZ1a5So5P6+P86xigca-o7SLNASi8ZBnoKsUtJ=DpZeQ@mail.gmail.com>
+To: tflorea@curtisswright.com
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: SRCREV_FORMAT does not work as expected
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -79,176 +73,182 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 10:18:05 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_"
+X-List-Received-Date: Thu, 21 Jun 2018 11:32:51 -0000
+Content-Type: multipart/alternative; boundary="0000000000005496ec056f254614"
 
---_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_
-Content-Type: text/plain; charset="us-ascii"
+--0000000000005496ec056f254614
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi
-It seems that there is a flaw in the way the recipe with more than one SCM =
-is fetched.
-I take the cross-localedef-native_2.26.bb recipe as an example.
+do_fetch[vardeps] +=3D " SRCREV_glibc SRCREV_localedef=E2=80=9D
 
-If I change in the recipe:
-SRCREV_glibc ?=3D "some-new-revision"
-and try to rebuild, instead of attempting to fetch the new revision (and fa=
-il as "some-new-revision" cannot be fetched) "bitbake cross-localedef-nativ=
-e" command finishes  without re-running any task.
-From bitbake -e the cross-localedef-native output I can see:
-SRCREV=3D"INVALID"
-SRCREV_FORMAT=3D"glibc_localedef"
-SRCREV_glibc=3D" some-new-revision"
-SRCREV_localedef=3D"dfb4afe551c6c6e94f9cc85417bd1f582168c843"
+Is what we're using in recipes with SRCREV_FORMAT for years.
 
-One workaround for this is to add something like do_fetch[vardeps] +=3D "SR=
-CPV" or  do_fetch[vardeps] +=3D " SRCREV_glibc SRCREV_localedef"  in each r=
-ecipe using multiple SCM but I think there might be a better fix for this.
+On Thu, Jun 21, 2018 at 12:18 PM Florea, Tudor <tflorea@curtisswright.com>
+wrote:
 
-Should we add
-do_fetch[vardeps] +=3D "SRCPV"
-in base.bbclass?
+> Hi
+>
+> It seems that there is a flaw in the way the recipe with more than one SC=
+M
+> is fetched.
+>
+> I take the cross-localedef-native_2.26.bb recipe as an example.
+>
+>
+>
+> If I change in the recipe:
+>
+> SRCREV_glibc ?=3D "some-new-revision"
+>
+> and try to rebuild, instead of attempting to fetch the new revision (and
+> fail as =E2=80=9Csome-new-revision=E2=80=9D cannot be fetched) =E2=80=9Cb=
+itbake
+> cross-localedef-native=E2=80=9D command finishes  without re-running any =
+task.
+>
+> From bitbake -e the cross-localedef-native output I can see:
+>
+> SRCREV=3D"INVALID"
+>
+> SRCREV_FORMAT=3D"glibc_localedef"
+>
+> SRCREV_glibc=3D" some-new-revision"
+>
+> SRCREV_localedef=3D"dfb4afe551c6c6e94f9cc85417bd1f582168c843"
+>
+>
+>
+> One workaround for this is to add something like do_fetch[vardeps] +=3D
+> "SRCPV=E2=80=9D or  do_fetch[vardeps] +=3D " SRCREV_glibc SRCREV_localede=
+f=E2=80=9D  in each
+> recipe using multiple SCM but I think there might be a better fix for thi=
+s.
+>
+>
+>
+> Should we add
+>
+> do_fetch[vardeps] +=3D "SRCPV=E2=80=9D
+>
+> in base.bbclass?
+>
+>
+>
+>
+> *Tudor Florea *Software Development Engineer
+>
+> Industrial Division
+>
+> *Curtiss-Wright *15, Enterprise Way, Aviation Park West,
+>
+> Bournemouth Airport, CHRISTCHURCH, Dorset, BH23 6HH, United Kingdom
+> T: +441202034125
+> tflorea@curtisswright.com
+>
+>
+> ------------------------------
+> This e-mail and any files transmitted with it are proprietary and intende=
+d
+> solely for the use of the individual or entity to whom they are addressed=
+.
+> If you have reason to believe that you have received this e-mail in error=
+,
+> please notify the sender and destroy this e-mail and any attached files.
+> Please note that any views or opinions presented in this e-mail are solel=
+y
+> those of the author and do not necessarily represent those of the
+> Curtiss-Wright Corporation or any of its subsidiaries. Documents attached
+> hereto may contain technology subject to the U.S. Export Regulations.
+> Recipient is solely responsible for ensuring that any re-export, transfer
+> or disclosure of this information is in accordance with U.S. Export
+> Regulations. The recipient should check this e-mail and any attachments f=
+or
+> the presence of viruses. Curtiss-Wright Corporation and its subsidiaries
+> accept no liability for any damage caused by any virus transmitted by thi=
+s
+> e-mail.
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
+>
 
-Tudor Florea
-Software Development Engineer
-
-Industrial Division
-Curtiss-Wright
-15, Enterprise Way, Aviation Park West,
-Bournemouth Airport, CHRISTCHURCH, Dorset, BH23 6HH, United Kingdom
-T: +441202034125
-tflorea@curtisswright.com<mailto:tflorea@curtisswright.com>
-
-----------------------------------------------------------------------
-This e-mail and any files transmitted with it are proprietary and intended =
-solely for the use of the individual or entity to whom they are addressed. =
-If you have reason to believe that you have received this e-mail in error, =
-please notify the sender and destroy this e-mail and any attached files. Pl=
-ease note that any views or opinions presented in this e-mail are solely th=
-ose of the author and do not necessarily represent those of the Curtiss-Wri=
-ght Corporation or any of its subsidiaries. Documents attached hereto may c=
-ontain technology subject to the U.S. Export Regulations. Recipient is sole=
-ly responsible for ensuring that any re-export, transfer or disclosure of t=
-his information is in accordance with U.S. Export Regulations. The recipien=
-t should check this e-mail and any attachments for the presence of viruses.=
- Curtiss-Wright Corporation and its subsidiaries accept no liability for an=
-y damage caused by any virus transmitted by this e-mail.
-
---_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_
-Content-Type: text/html; charset="us-ascii"
+--0000000000005496ec056f254614
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-GB" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi<o:p></o:p></p>
+<div dir=3D"ltr">do_fetch[vardeps] +=3D &quot; SRCREV_glibc SRCREV_localede=
+f=E2=80=9D<br><div><br></div><div>Is what we&#39;re using in recipes with S=
+RCREV_FORMAT for years.</div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr">On Thu, Jun 21, 2018 at 12:18 PM Florea, Tudor &lt;<a href=3D"mail=
+to:tflorea@curtisswright.com">tflorea@curtisswright.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
+ft:1px #ccc solid;padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-GB" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"m_-5190533203584444409WordSection1">
+<p class=3D"MsoNormal">Hi<u></u><u></u></p>
 <p class=3D"MsoNormal">It seems that there is a flaw in the way the recipe =
-with more than one SCM is fetched.<o:p></o:p></p>
-<p class=3D"MsoNormal">I take the cross-localedef-native_2.26.bb recipe as =
-an example.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">If I change in the recipe:<o:p></o:p></p>
-<p class=3D"MsoNormal">SRCREV_glibc ?=3D &quot;some-new-revision&quot;<o:p>=
-</o:p></p>
+with more than one SCM is fetched.<u></u><u></u></p>
+<p class=3D"MsoNormal">I take the <a href=3D"http://cross-localedef-native_=
+2.26.bb" target=3D"_blank">cross-localedef-native_2.26.bb</a> recipe as an =
+example.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">If I change in the recipe:<u></u><u></u></p>
+<p class=3D"MsoNormal">SRCREV_glibc ?=3D &quot;some-new-revision&quot;<u></=
+u><u></u></p>
 <p class=3D"MsoNormal">and try to rebuild, instead of attempting to fetch t=
-he new revision (and fail as &#8220;some-new-revision&#8221; cannot be fetc=
-hed) &#8220;bitbake cross-localedef-native&#8221; command finishes&nbsp; wi=
-thout re-running any task.<o:p></o:p></p>
+he new revision (and fail as =E2=80=9Csome-new-revision=E2=80=9D cannot be =
+fetched) =E2=80=9Cbitbake cross-localedef-native=E2=80=9D command finishes=
+=C2=A0 without re-running any task.<u></u><u></u></p>
 <p class=3D"MsoNormal">From bitbake -e the cross-localedef-native output I =
-can see:<o:p></o:p></p>
-<p class=3D"MsoNormal">SRCREV=3D&quot;INVALID&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">SRCREV_FORMAT=3D&quot;glibc_localedef&quot;<o:p></o:=
-p></p>
-<p class=3D"MsoNormal">SRCREV_glibc=3D&quot; some-new-revision&quot;<o:p></=
-o:p></p>
+can see:<u></u><u></u></p>
+<p class=3D"MsoNormal">SRCREV=3D&quot;INVALID&quot;<u></u><u></u></p>
+<p class=3D"MsoNormal">SRCREV_FORMAT=3D&quot;glibc_localedef&quot;<u></u><u=
+></u></p>
+<p class=3D"MsoNormal">SRCREV_glibc=3D&quot; some-new-revision&quot;<u></u>=
+<u></u></p>
 <p class=3D"MsoNormal">SRCREV_localedef=3D&quot;dfb4afe551c6c6e94f9cc85417b=
-d1f582168c843&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+d1f582168c843&quot;<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
 <p class=3D"MsoNormal">One workaround for this is to add something like do_=
-fetch[vardeps] &#43;=3D &quot;SRCPV&#8221; or &nbsp;do_fetch[vardeps] &#43;=
-=3D &quot; SRCREV_glibc SRCREV_localedef&#8221; &nbsp;in each recipe using =
-multiple SCM but I think there might be a better fix for this.<o:p></o:p></=
-p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Should we add <o:p></o:p></p>
-<p class=3D"MsoNormal">do_fetch[vardeps] &#43;=3D &quot;SRCPV&#8221; <o:p><=
-/o:p></p>
-<p class=3D"MsoNormal">in base.bbclass?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
+fetch[vardeps] +=3D &quot;SRCPV=E2=80=9D or =C2=A0do_fetch[vardeps] +=3D &q=
+uot; SRCREV_glibc SRCREV_localedef=E2=80=9D =C2=A0in each recipe using mult=
+iple SCM but I think there might be a better fix for this.<u></u><u></u></p=
+>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Should we add <u></u><u></u></p>
+<p class=3D"MsoNormal">do_fetch[vardeps] +=3D &quot;SRCPV=E2=80=9D <u></u><=
+u></u></p>
+<p class=3D"MsoNormal">in base.bbclass?<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal"><u></u><u></u></p>
 <p class=3D"MsoNormal" style=3D"margin-bottom:8.0pt;line-height:106%"><b><s=
-pan style=3D"font-family:&quot;Arial&quot;,sans-serif;color:black;mso-farea=
-st-language:EN-GB">Tudor Florea<br>
+pan style=3D"font-family:&quot;Arial&quot;,sans-serif;color:black">Tudor Fl=
+orea<br>
 </span></b><span style=3D"font-size:10.0pt;line-height:106%;font-family:&qu=
-ot;Arial&quot;,sans-serif;color:black;mso-fareast-language:EN-GB">Software =
-Development Engineer<br>
+ot;Arial&quot;,sans-serif;color:black">Software Development Engineer<br>
 <br>
 Industrial Division<br>
 <b>Curtiss-Wright<br>
-</b>15, Enterprise Way, Aviation Park West, <o:p></o:p></span></p>
+</b>15, Enterprise Way, Aviation Park West, <u></u><u></u></span></p>
 <p class=3D"MsoNormal" style=3D"margin-bottom:8.0pt;line-height:106%"><span=
  style=3D"font-size:10.0pt;line-height:106%;font-family:&quot;Arial&quot;,s=
-ans-serif;color:black;mso-fareast-language:EN-GB">Bournemouth Airport, CHRI=
-STCHURCH, Dorset, BH23 6HH, United Kingdom<br>
-T: &#43;441202034125<br>
-<a href=3D"mailto:tflorea@curtisswright.com">tflorea@curtisswright.com</a><=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+ans-serif;color:black">Bournemouth Airport, CHRISTCHURCH, Dorset, BH23 6HH,=
+ United Kingdom<br>
+T: +441202034125<br>
+<a href=3D"mailto:tflorea@curtisswright.com" target=3D"_blank">tflorea@curt=
+isswright.com</a><u></u><u></u></span></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
 </div>
 
-<HR>This e-mail and any files transmitted with it are proprietary and inten=
+<hr>This e-mail and any files transmitted with it are proprietary and inten=
 ded solely for the use of the individual or entity to whom they are address=
 ed. If you have reason to believe that you have received this e-mail in err=
 or, please notify the sender and destroy this e-mail and any attached files=
@@ -260,8 +260,16 @@ solely responsible for ensuring that any re-export, transfer or disclosure =
 of this information is in accordance with U.S. Export Regulations. The reci=
 pient should check this e-mail and any attachments for the presence of viru=
 ses. Curtiss-Wright Corporation and its subsidiaries accept no liability fo=
-r any damage caused by any virus transmitted by this e-mail.<BR>
-</body>
-</html>
+r any damage caused by any virus transmitted by this e-mail.<br>
+</div>
 
---_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_--
+-- <br>
+_______________________________________________<br>
+poky mailing list<br>
+<a href=3D"mailto:poky@yoctoproject.org" target=3D"_blank">poky@yoctoprojec=
+t.org</a><br>
+<a href=3D"https://lists.yoctoproject.org/listinfo/poky" rel=3D"noreferrer"=
+ target=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
+</blockquote></div>
+
+--0000000000005496ec056f254614--
