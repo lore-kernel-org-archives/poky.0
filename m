@@ -1,97 +1,72 @@
-Return-Path: <marc.pernia@redaptiveinc.com>
+Return-Path: <prvs=771019ac70=tflorea@curtisswright.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 93854E01DD9; Wed, 20 Jun 2018 23:50:02 -0700 (PDT)
+	id A3A4EE0146A; Thu, 21 Jun 2018 03:18:05 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	http://www.dnswl.org/, no *      trust
-	*      [104.47.34.48 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [148.163.154.236 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 1977 seconds by postgrey-1.32 at yocto-www;
-	Wed, 20 Jun 2018 23:50:00 PDT
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com
-	(mail-by2nam01on0048.outbound.protection.outlook.com [104.47.34.48])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 09B52E00EE0
-	for <poky@yoctoproject.org>; Wed, 20 Jun 2018 23:50:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=redaptiveinc.onmicrosoft.com; s=selector1-redaptiveinc-com;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=gnR/1EKdeZRSVGOvAaGe9jnPBZoI0zc9CyvQ9QKkmS8=;
-	b=ZfMh27Yl3Hr20KXGn5cEIK/AkuEOhdEE31xCgC5oP/WTGhKfYxZK9/73Bkp5J9rctSQqRvHwCxT3Abczgbim+66O0tGCKzYLL15dzks90FGm3T+W8zRUHFi4OvTDR2cEJUTgOIqTelFClH0peLjeTW7iMl2prXvHiLk2ldQiYv4=
-Received: from MW2PR1501MB1995.namprd15.prod.outlook.com (52.132.149.159) by
-	MW2PR1501MB1978.namprd15.prod.outlook.com (52.132.149.154) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.863.19; Thu, 21 Jun 2018 06:17:00 +0000
-Received: from MW2PR1501MB1995.namprd15.prod.outlook.com
-	([fe80::5486:114c:24fd:18f8]) by
-	MW2PR1501MB1995.namprd15.prod.outlook.com
-	([fe80::5486:114c:24fd:18f8%2]) with mapi id 15.20.0863.016;
-	Thu, 21 Jun 2018 06:17:00 +0000
-From: Marc Pernia <marc.pernia@redaptiveinc.com>
-To: Khem Raj <raj.khem@gmail.com>
-Thread-Topic: [poky] How do I apply a patch to a wic configuration file
-	(beagle bone-yocto.wks)?
-Thread-Index: AQHUBHVQdaXuwhjXDUW5vfPsMQy4vKRh2EEA//+fJwCAANU/AIAHhAGA
-Date: Thu, 21 Jun 2018 06:17:00 +0000
-Message-ID: <958653A1-5B95-4932-BCEB-23139A43CA28@redaptiveinc.com>
-References: <941E6EEF-B2B6-4022-8FA1-C74869EE3673@contoso.com>
-	<5684131f-fc72-c11e-ddf4-98e1c90e938e@gmail.com>
-	<2C921F74-76FD-47E7-BB5B-5C39A59B22F8@redaptiveinc.com>
-	<CAMKF1sqymbTpN9LCBs-fqsK20tRLTRksDx37nJxPyuy6K9zv9w@mail.gmail.com>
-In-Reply-To: <CAMKF1sqymbTpN9LCBs-fqsK20tRLTRksDx37nJxPyuy6K9zv9w@mail.gmail.com>
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 1306 seconds by postgrey-1.32 at yocto-www;
+	Thu, 21 Jun 2018 03:18:04 PDT
+Received: from mx0b-002bf101.pphosted.com (mx0b-002bf101.pphosted.com
+	[148.163.154.236])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 209C4E00B6C
+	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 03:18:03 -0700 (PDT)
+Received: from pps.filterd (m0123027.ppops.net [127.0.0.1])
+	by mx0b-002bf101.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+	w5L9rA5q029574
+	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 05:56:17 -0400
+Received: from usegtbei01.atl.cw.local ([67.23.50.70])
+	by mx0b-002bf101.pphosted.com with ESMTP id 2jqvca8mqb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT)
+	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 05:56:17 -0400
+Received: from [10.102.200.86] (helo=USEEDGE1302.curtisswright.com)
+	by usegtbei01.atl.cw.local with esmtps
+	(TLSv1.2:ECDHE-RSA-AES256-SHA384:256) (Exim 4.88)
+	(envelope-from <tflorea@curtisswright.com>) id 1fVwK8-00026N-KG
+	for poky@yoctoproject.org; Thu, 21 Jun 2018 05:56:16 -0400
+Received: from USEiHUB1302.ATL.CW.LOCAL (10.100.42.32) by
+	USEEDGE1302.curtisswright.com (10.102.200.86) with Microsoft SMTP
+	Server (TLS) id 15.0.1365.1; Thu, 21 Jun 2018 05:56:15 -0400
+Received: from eurmail1302.ATL.CW.LOCAL (10.210.42.82) by
+	USEiHUB1302.ATL.CW.LOCAL (10.100.42.46) with Microsoft SMTP Server
+	(TLS) id 15.0.1365.1; Thu, 21 Jun 2018 05:56:16 -0400
+Received: from eurmail1301.ATL.CW.LOCAL (10.210.42.81) by
+	eurmail1302.ATL.CW.LOCAL (10.210.42.82) with Microsoft SMTP Server
+	(TLS) id 15.0.1365.1; Thu, 21 Jun 2018 10:56:15 +0100
+Received: from eurmail1301.ATL.CW.LOCAL ([fe80::f49f:db02:3d20:7c5b]) by
+	eurmail1301.ATL.CW.LOCAL ([fe80::f49f:db02:3d20:7c5b%17]) with mapi id
+	15.00.1365.000; Thu, 21 Jun 2018 10:56:15 +0100
+From: "Florea, Tudor" <tflorea@curtisswright.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: SRCREV_FORMAT does not work as expected
+Thread-Index: AdQJQAHjOqkBSgJZRIugKUeZ30jLfg==
+Date: Thu, 21 Jun 2018 09:56:15 +0000
+Message-ID: <3432507f73cb4aa0af4f4e80464ac43a@eurmail1301.ATL.CW.LOCAL>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=marc.pernia@redaptiveinc.com; 
-x-originating-ip: [2600:1700:3680:39f0:9cce:13b6:4e52:93f9]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MW2PR1501MB1978;
-	7:aXlVli1CVMSJ5TQtxbJ+6mJANDVb29RjQADY0EJitKQ8eGJ1uMznQziVMDK8MZTVze1QI/tGKmd6ex6kzGWYIDS41I/my22PNdtucFJaqqVW8USWrnT1jYwdTMhEfsTAAvw9gHhiqkpHj6WLHeMb0Qgu7URZbTDi82xOedJ/6EKAD6WBHbST34EM89v43J0EZ8DhJ7VEyPFo3jo5w10pCJQtCrvB9MfGkd6NOxKaNVEmv6DtqnGpI3gYirsTOrSt;
-	20:DWNIji6UPeb5gAVGKYzCtbBKWfkmzOxc3/6dzGFRc+jH/VyaIaWPoc5G81/b+f+bl1qPVtBv5ix5TEO+dsAnrOm3AjWqXbuWOdu/e8qX16UKAYDgA7KB7D9Ehf1LsiI/gMLM6NByXcWdy+cHex8/qzjwpJb/oKrhAlg5Eq5Oziw=
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 4df4b04f-681a-477e-3950-08d5d73e999f
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
-	RULEID:(7020095)(4652020)(7021125)(4534165)(7022125)(4603075)(4627221)(201702281549075)(7048125)(7024125)(7027125)(7028125)(7023125)(5600026)(711020)(2017052603328)(7153060)(7193020);
-	SRVR:MW2PR1501MB1978; 
-x-ms-traffictypediagnostic: MW2PR1501MB1978:
-x-microsoft-antispam-prvs: <MW2PR1501MB19788677C6119461E866B34C8F760@MW2PR1501MB1978.namprd15.prod.outlook.com>
-x-exchange-antispam-report-test: UriScan:(85827821059158);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
-	RULEID:(6040522)(2401047)(8121501046)(5005006)(3002001)(93006095)(93001095)(10201501046)(3231254)(944501410)(52105095)(149027)(150027)(6041310)(20161123560045)(20161123564045)(20161123558120)(20161123562045)(2016111802025)(6043046)(6072148)(201708071742011)(7699016);
-	SRVR:MW2PR1501MB1978; BCL:0; PCL:0; RULEID:;
-	SRVR:MW2PR1501MB1978; 
-x-forefront-prvs: 07106EF9B9
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10009020)(39380400002)(376002)(366004)(39840400004)(396003)(346002)(40764003)(199004)(189003)(14454004)(3660700001)(7736002)(316002)(83716003)(25786009)(6246003)(2900100001)(446003)(6916009)(93886005)(3280700002)(11346002)(39060400002)(36756003)(86362001)(476003)(4326008)(2616005)(305945005)(53936002)(44832011)(486006)(46003)(82746002)(478600001)(105586002)(97736004)(2906002)(8676002)(8936002)(229853002)(102836004)(106356001)(33656002)(6116002)(68736007)(186003)(76176011)(6486002)(99286004)(81156014)(5250100002)(81166006)(6436002)(6506007)(5660300001)(6512007);
-	DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR1501MB1978;
-	H:MW2PR1501MB1995.namprd15.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: redaptiveinc.com does not
-	designate permitted sender hosts)
-x-microsoft-antispam-message-info: FoA9hrD9xea8OGwoyQbvZ5n0qGW/+jZGBzbzOSYzYnQ6rxMfHVXLRy/p6leetWBGgEKfjx7oF7wVxZh4Y/+dpzciVyOCvJgAuXaqja3bYgRUzEKjZrvdjc1xGiFkjCZl9nKx0WTtLXyRxnhRKSNLLGfC/Y1/7XL7iCoZLapQgjBqYx/kAp6dykw6ZNYfbsD8U+2W10dQT28hHsfNGkSYkHesuEgqNcn6JYXBuXjcgZzdjcj1JxoeE4CABTBnkSepA3bLrjVNU++o0egHvlq6TLO47bF6Bj2w/PBcnSQCAKNcPxAF/9wrKTjHtDkXXpCne2L2+HNDkRQDkQ6qCJ7jqQ==
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.210.42.148]
 MIME-Version: 1.0
-X-OriginatorOrg: redaptiveinc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4df4b04f-681a-477e-3950-08d5d73e999f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2018 06:17:00.6836 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c9b2e971-e3f7-4532-8cbc-7d658551d558
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR1501MB1978
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: How do I apply a patch to a wic configuration file (beagle bone-yocto.wks)?
+X-MTA-device-Scanned: Yes (on usegtbei01.atl.cw.local) 6060 bytes in 0 secs
+X-UOID: FC422131-F51C-4D70-8D09-C92CA4737A7B
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+	definitions=2018-06-21_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	priorityscore=1501
+	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+	clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+	mlxlogscore=674 adultscore=0 classifier=spam adjust=0 reason=mlx
+	scancount=1 engine=8.0.1-1805220000 definitions=main-1806210111
+Subject: SRCREV_FORMAT does not work as expected
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -104,17 +79,189 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 06:50:02 -0000
+X-List-Received-Date: Thu, 21 Jun 2018 10:18:05 -0000
 Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0872E73CCC66204AB279E1F7541B7BE1@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Content-Type: multipart/alternative;
+	boundary="_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_"
 
-SGV5IEtoZW0sDQoNCk1hbnkgdGhhbmtzIGZvciB5b3VyIGhlbHAuIA0KDQpJIGVuZGVkIHVwIGp1
-c3QgY3JlYXRpbmcgYSBXS1NfRklMRV9iZWFnbGVib25lLXlvY3RvID0gIm15V2ljQ29uZmlnLndr
-cyIgIGVudHJ5IGluIG1ldGEtbXlsYXllci9jb25mL2xheWVyLmNvbmYNCg0KSSBwbGFjZWQgbXkg
-d2ljIGNvbmZpZ3VyYXRpb24gZmlsZSBpbiBtZXRhLW15bGF5ZXIvd2ljLw0KDQouLi5hbmQgYXMg
-bG9uZyBhcyBsb2NhbC5jb25mIGluY2x1ZGVzIHdpYyBpbiB0aGUgSU1BR0VfRlNUWVBFUywgaXQg
-YWxsIHNlZW1zIHRvIHdvcmsgb3V0Lg0KDQoNCg0K77u/T24gNi8xNS8xOCwgOTozMSBQTSwgIkto
-ZW0gUmFqIiA8cmFqLmtoZW1AZ21haWwuY29tPiB3cm90ZToNCg0KICAgIEhleSBLaGVtDQoNCg==
+--_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
+Hi
+It seems that there is a flaw in the way the recipe with more than one SCM =
+is fetched.
+I take the cross-localedef-native_2.26.bb recipe as an example.
+
+If I change in the recipe:
+SRCREV_glibc ?=3D "some-new-revision"
+and try to rebuild, instead of attempting to fetch the new revision (and fa=
+il as "some-new-revision" cannot be fetched) "bitbake cross-localedef-nativ=
+e" command finishes  without re-running any task.
+From bitbake -e the cross-localedef-native output I can see:
+SRCREV=3D"INVALID"
+SRCREV_FORMAT=3D"glibc_localedef"
+SRCREV_glibc=3D" some-new-revision"
+SRCREV_localedef=3D"dfb4afe551c6c6e94f9cc85417bd1f582168c843"
+
+One workaround for this is to add something like do_fetch[vardeps] +=3D "SR=
+CPV" or  do_fetch[vardeps] +=3D " SRCREV_glibc SRCREV_localedef"  in each r=
+ecipe using multiple SCM but I think there might be a better fix for this.
+
+Should we add
+do_fetch[vardeps] +=3D "SRCPV"
+in base.bbclass?
+
+Tudor Florea
+Software Development Engineer
+
+Industrial Division
+Curtiss-Wright
+15, Enterprise Way, Aviation Park West,
+Bournemouth Airport, CHRISTCHURCH, Dorset, BH23 6HH, United Kingdom
+T: +441202034125
+tflorea@curtisswright.com<mailto:tflorea@curtisswright.com>
+
+----------------------------------------------------------------------
+This e-mail and any files transmitted with it are proprietary and intended =
+solely for the use of the individual or entity to whom they are addressed. =
+If you have reason to believe that you have received this e-mail in error, =
+please notify the sender and destroy this e-mail and any attached files. Pl=
+ease note that any views or opinions presented in this e-mail are solely th=
+ose of the author and do not necessarily represent those of the Curtiss-Wri=
+ght Corporation or any of its subsidiaries. Documents attached hereto may c=
+ontain technology subject to the U.S. Export Regulations. Recipient is sole=
+ly responsible for ensuring that any re-export, transfer or disclosure of t=
+his information is in accordance with U.S. Export Regulations. The recipien=
+t should check this e-mail and any attachments for the presence of viruses.=
+ Curtiss-Wright Corporation and its subsidiaries accept no liability for an=
+y damage caused by any virus transmitted by this e-mail.
+
+--_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-GB" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi<o:p></o:p></p>
+<p class=3D"MsoNormal">It seems that there is a flaw in the way the recipe =
+with more than one SCM is fetched.<o:p></o:p></p>
+<p class=3D"MsoNormal">I take the cross-localedef-native_2.26.bb recipe as =
+an example.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If I change in the recipe:<o:p></o:p></p>
+<p class=3D"MsoNormal">SRCREV_glibc ?=3D &quot;some-new-revision&quot;<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">and try to rebuild, instead of attempting to fetch t=
+he new revision (and fail as &#8220;some-new-revision&#8221; cannot be fetc=
+hed) &#8220;bitbake cross-localedef-native&#8221; command finishes&nbsp; wi=
+thout re-running any task.<o:p></o:p></p>
+<p class=3D"MsoNormal">From bitbake -e the cross-localedef-native output I =
+can see:<o:p></o:p></p>
+<p class=3D"MsoNormal">SRCREV=3D&quot;INVALID&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">SRCREV_FORMAT=3D&quot;glibc_localedef&quot;<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">SRCREV_glibc=3D&quot; some-new-revision&quot;<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">SRCREV_localedef=3D&quot;dfb4afe551c6c6e94f9cc85417b=
+d1f582168c843&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">One workaround for this is to add something like do_=
+fetch[vardeps] &#43;=3D &quot;SRCPV&#8221; or &nbsp;do_fetch[vardeps] &#43;=
+=3D &quot; SRCREV_glibc SRCREV_localedef&#8221; &nbsp;in each recipe using =
+multiple SCM but I think there might be a better fix for this.<o:p></o:p></=
+p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Should we add <o:p></o:p></p>
+<p class=3D"MsoNormal">do_fetch[vardeps] &#43;=3D &quot;SRCPV&#8221; <o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">in base.bbclass?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:8.0pt;line-height:106%"><b><s=
+pan style=3D"font-family:&quot;Arial&quot;,sans-serif;color:black;mso-farea=
+st-language:EN-GB">Tudor Florea<br>
+</span></b><span style=3D"font-size:10.0pt;line-height:106%;font-family:&qu=
+ot;Arial&quot;,sans-serif;color:black;mso-fareast-language:EN-GB">Software =
+Development Engineer<br>
+<br>
+Industrial Division<br>
+<b>Curtiss-Wright<br>
+</b>15, Enterprise Way, Aviation Park West, <o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:8.0pt;line-height:106%"><span=
+ style=3D"font-size:10.0pt;line-height:106%;font-family:&quot;Arial&quot;,s=
+ans-serif;color:black;mso-fareast-language:EN-GB">Bournemouth Airport, CHRI=
+STCHURCH, Dorset, BH23 6HH, United Kingdom<br>
+T: &#43;441202034125<br>
+<a href=3D"mailto:tflorea@curtisswright.com">tflorea@curtisswright.com</a><=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+
+<HR>This e-mail and any files transmitted with it are proprietary and inten=
+ded solely for the use of the individual or entity to whom they are address=
+ed. If you have reason to believe that you have received this e-mail in err=
+or, please notify the sender and destroy this e-mail and any attached files=
+. Please note that any views or opinions presented in this e-mail are solel=
+y those of the author and do not necessarily represent those of the Curtiss=
+-Wright Corporation or any of its subsidiaries. Documents attached hereto m=
+ay contain technology subject to the U.S. Export Regulations. Recipient is =
+solely responsible for ensuring that any re-export, transfer or disclosure =
+of this information is in accordance with U.S. Export Regulations. The reci=
+pient should check this e-mail and any attachments for the presence of viru=
+ses. Curtiss-Wright Corporation and its subsidiaries accept no liability fo=
+r any damage caused by any virus transmitted by this e-mail.<BR>
+</body>
+</html>
+
+--_000_3432507f73cb4aa0af4f4e80464ac43aeurmail1301ATLCWLOCAL_--
