@@ -1,72 +1,43 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <442-103-8455@kylheku.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9EA60E00C4D; Thu, 21 Jun 2018 12:54:00 -0700 (PDT)
+	id 8ACEEE00CEA; Fri, 22 Jun 2018 11:53:36 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (alex.kanavin[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.218.43 listed in list.dnswl.org]
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+	FROM_STARTS_WITH_NUMS,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * 0.7 FROM_STARTS_WITH_NUMS From: starts with several
+	numbers
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
+	low *      trust
+	*      [64.59.136.138 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
-	[209.85.218.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0CADE00942
-	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 12:53:58 -0700 (PDT)
-Received: by mail-oi0-f43.google.com with SMTP id d5-v6so4050891oib.5
-	for <poky@yoctoproject.org>; Thu, 21 Jun 2018 12:53:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc:content-transfer-encoding;
-	bh=a9cTW7a+RRdCBWyS8fpJ2/FMEkgtD9m1Bkk1iRQzRmE=;
-	b=OmjXbaXLAoMh55024WyDpKICEPPQIlkvoJvud3hnOs+MnSKtaowCAiVO7N4GMs30zr
-	Ng+gHNN/zE0c9ygJ6SRdANlcXFKcVdHl1Zwo6sIZC0cfeEg4SZDMw4Hi0Tuhsu7SvPm6
-	J2zzr5fo7/QfXVdDbaTr1LG7ddMlam+RsiIp86hIZ8RuqflXMpUPNuKtJ2Qcx99ymEdO
-	gewBP1miHm+iBjjAe0KDM405XaykLY2QNw5r9MsMylY45fQbwRfG01jRBvv5+ERFymhf
-	dnQGuLRSs5bqRcanGatbF58W7MzE8PrEUCd91oqkzm4KHWg+FmqFsBRTGtnENIhygIPN
-	9LeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=a9cTW7a+RRdCBWyS8fpJ2/FMEkgtD9m1Bkk1iRQzRmE=;
-	b=s+Lu5sl8bvTU4q3aFlVjouXCzatpGMv9ovQyybb3HegAM0SUcwvisJ3B49Lyx+zqBL
-	+dYSwQGZrCsvMyhLHk0xBy7K5ZVKm6qkROVznUKZlr36DJnYhxYlb5waB+FGTu5CpSrd
-	tO2wixsqiI6DwgQXkLR9rANeI4G6H3cnpx6epUSoTfOeO1hBtBwYzKWkJgzeUApfjksR
-	VDLI+WVdBjrbrPk8OE3KcSctkYSog8KrqCmJjArWLlX+uUXVoiIHH0zoNZ3iqGe+9R7M
-	6nyPa4710pvjCkRdfKCJFieixFiw6kpPtQqbZLzuOOR7iYHALprwag8UTISkZyzNnPCc
-	v8zQ==
-X-Gm-Message-State: APt69E0te/RWUShfJMUG3ADoRp18uJFd+ZVax5QntsCXg72gp19CC561
-	9ujLsMhmPXDnZbi9qujBITtGJdRI1laduMLxzLE=
-X-Google-Smtp-Source: ADUXVKLrcwbLse03DNrVcU2zFOqex/PZCgcSxEIK+7Z8ZHy2eFwswm5CkgYPJV2olmb1Z3l5pzalGAOtRIVR5aw7kFc=
-X-Received: by 2002:aca:fd55:: with SMTP id
-	b82-v6mr13908981oii.321.1529610837980; 
-	Thu, 21 Jun 2018 12:53:57 -0700 (PDT)
+X-Greylist: delayed 60 seconds by postgrey-1.32 at yocto-www;
+	Fri, 22 Jun 2018 11:53:36 PDT
+Received: from smtp-out-so.shaw.ca (smtp-out-so.shaw.ca [64.59.136.138])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0F374E00C5B
+	for <poky@yoctoproject.org>; Fri, 22 Jun 2018 11:53:36 -0700 (PDT)
+Received: from kylheku.com ([70.79.163.252]) by shaw.ca with ESMTPA
+	id WRAgfquDf5wO5WRAhfEENR; Fri, 22 Jun 2018 12:52:35 -0600
+X-Authority-Analysis: v=2.3 cv=SJtsqtnH c=1 sm=1 tr=0
+	a=95A0EdhkF1LMGt25d7h1IQ==:117 a=95A0EdhkF1LMGt25d7h1IQ==:17
+	a=IkcTkHD0fZMA:10 a=SMorJkV_YP8A:10 a=7mUfYlMuFuIA:10
+	a=UwNFMS6tId3V4lxhCdcA:9 a=QEXdDO2ut3YA:10
+Received: from www-data by kylheku.com with local (Exim 4.72)
+	(envelope-from <442-103-8455@kylheku.com>) id 1fWRAg-0003Bt-0Q
+	for poky@yoctoproject.org; Fri, 22 Jun 2018 11:52:34 -0700
+To: poky@yoctoproject.org
+X-PHP-Originating-Script: 501:rcmail.php
 MIME-Version: 1.0
-Received: by 2002:a4a:90cd:0:0:0:0:0 with HTTP; Thu, 21 Jun 2018 12:53:57
-	-0700 (PDT)
-In-Reply-To: <6A9F147ED85DE04C91F3A60DD073E943025EAA33@ORO-MBOX-05.luxoft.com>
-References: <47c97294-f857-295d-485e-d572f7e27b8a@microchip.com>
-	<CANNYZj9w8G4G60gWG_JHa2-Y5efOtQhaTTgoVez6w6rumz87xw@mail.gmail.com>
-	<4c7c2f8d-c45e-e2b2-e264-a91153996e26@microchip.com>
-	<6A9F147ED85DE04C91F3A60DD073E943025EAA33@ORO-MBOX-05.luxoft.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Thu, 21 Jun 2018 22:53:57 +0300
-Message-ID: <CANNYZj9Kn0oq9oF8h=vg+g3ZqV=J3T_qDF-c+J8Bu=OaQKHVeQ@mail.gmail.com>
-To: "Kravchuk, Oleksandr" <OKravchuk@luxoft.com>
-Cc: Alexandre Belloni <alexandre.belloni@free-electrons.com>,
-	"poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: iso-codes: issue with do_fetch on pkg-isocodes.alioth.debian.org
+Date: Fri, 22 Jun 2018 11:52:33 -0700
+From: "Kaz Kylheku (poky)" <442-103-8455@kylheku.com>
+Message-ID: <dc32d45cc47d63d2921c9b8860ab5157@mail.kylheku.com>
+X-Sender: 442-103-8455@kylheku.com
+User-Agent: Roundcube Webmail/0.9.2
+X-CMAE-Envelope: MS4wfC8kGjY6Zax31R3VzSqfS8O+MKUvUE9xbWzc4iL0C4Xc0VLXWIZOjTBAOxt+Qd4Y3o8Wpjx3sn8ODAj38daobxrYKQtITvFre10tuRXqRMM1KUa+Yy6T
+	wW1voLoNpfwObPzKCHl40LyH76hP5HKhtuJaxWYj7CmFIxTM3FHSFVj7RO/qd7Yej4eq3N/B0ukesQ==
+Subject: Yocto-2-2: native executables and libs pull symbols from wrong glibc.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -79,74 +50,54 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Jun 2018 19:54:00 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 22 Jun 2018 18:53:36 -0000
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-Patches are now in ross/mut, so they'll make it to master soon, and
-can be backported thereafter.
+Hi all,
 
-When you are getting frustrated with patches seemingly ignored, check
-these branches first :)
+I've discovered, in a Yocto-2.2-based system, that native executables=20
+and libraries are pulling in symbols from the build machine's own glibc.
 
-http://git.yoctoproject.org/cgit/cgit.cgi/poky-contrib/log/?h=3Dross/mut
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?h=3Dmaster-next
+Then when those programs and libs are executed, they use the "uninative"=20
+glibc that Yocto pulls from the tarball (because their built-in -rpath=20
+tells them to, and that -rpath is dynamically edited to point to the=20
+uninative stuff).
 
-Alex
+This mismatch is wrong and fails the build when those executables or=20
+libs have pulled in symbols from the build machine glibc that have newer=20
+versions than what is available in the older uninative glibc.
 
-2018-06-21 16:42 GMT+02:00 Kravchuk, Oleksandr <OKravchuk@luxoft.com>:
-> Actually, I have made all the requested changes. There were no comments a=
-fterwards.
->
-> --
-> Yes, this is my signature
-> ________________________________________
-> From: poky-bounces@yoctoproject.org [poky-bounces@yoctoproject.org] on be=
-half of Nicolas Ferre [nicolas.ferre@microchip.com]
-> Sent: Thursday, June 21, 2018 16:29
-> To: Alexander Kanavin; poky@yoctoproject.org; Richard Purdie; Khem Raj
-> Cc: Alexandre Belloni
-> Subject: Re: [poky] iso-codes: issue with do_fetch on pkg-isocodes.alioth=
-.debian.org
->
-> On 15/06/2018 at 11:48, Alexander Kanavin wrote:
->> 2018-06-15 11:30 GMT+03:00 Nicolas Ferre <nicolas.ferre@microchip.com>:
->>> I have an issue with building "sumo" right now: It's a Fecher issue it =
-seems. I actually don't know if it's reported yet (forgive me if it is...).
->>
->> Debian has shut down the server where this and some other recipes were
->> fetched from. Patches were floating on oe-core list, but nothing made
->> it in yet.
->
-> Yes, I understand the discussion around v3 patch there but actually what
-> about merging this one for now?
->
-> http://lists.openembedded.org/pipermail/openembedded-core/2018-June/15161=
-8.html
-> (thanks Oleksandr)
->
-> Current situation actually breaks my build if I want to use a "sumo"
-> branch or tell people to use it... (hopefully older branch versions are
-> already fetched on my side).
->
-> Best regards,
-> --
-> Nicolas Ferre
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
->
-> ________________________________
->
-> This e-mail and any attachment(s) are intended only for the recipient(s) =
-named above and others who have been specifically authorized to receive the=
-m. They may contain confidential information. If you are not the intended r=
-ecipient, please do not read this email or its attachment(s). Furthermore, =
-you are hereby notified that any dissemination, distribution or copying of =
-this e-mail and any attachment(s) is strictly prohibited. If you have recei=
-ved this e-mail in error, please immediately notify the sender by replying =
-to this e-mail and then delete this e-mail and any attachment(s) or copies =
-thereof from your system. Thank you.
+It seems to be case that when these programs are being linked by the=20
+recipe steps pulled in from native.bbclass, the linker is using the=20
+wrong libc.so image; it's not using the libc.so that is in=20
+sysroot-uninative that will be used at run-time.
+
+Concretely, this leads to a failure when you build on a glibc-2.27 based=20
+system, like Ubuntu 18.04.
+
+glibc-2.27 has advanced a number of symbols to the GLIBC_2.27 version=20
+node.  One of those symbols is the glob function.
+
+glob is used in libpopt.so, libopkg.so and some other programs.
+
+In my world, I have patched the handful of programs and libs which are=20
+involved in the build failure by adding this to them:
+
+   __asm__(".symver glob,glob@GLIBC_2.2.5");
+
+With that, I was able to build the world.  (It could be that many more=20
+programs are affected; but not in any way that contributes to a build=20
+problem in my world.)
+
+In the case of libpopt.so, what fails is the "debugedit" utility from=20
+rpm-native. This utility is used by the do_package recipe of glibc, and=20
+so that recipe fails.
+
+The .symver directive is an ugly workaround; this needs to be somehow=20
+fixed in the build system.
+
+Cheers ...
+
 
