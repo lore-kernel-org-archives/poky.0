@@ -1,6 +1,6 @@
 Return-Path: <Arsalan_Awan@mentor.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5009BE00EFC; Thu, 28 Jun 2018 02:26:23 -0700 (PDT)
+	id D45A1E00F04; Thu, 28 Jun 2018 02:26:49 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -12,26 +12,28 @@ X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 68E01E00EBD
-	for <poky@yoctoproject.org>; Thu, 28 Jun 2018 02:26:22 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3006AE00ED6
+	for <poky@yoctoproject.org>; Thu, 28 Jun 2018 02:26:49 -0700 (PDT)
 Received: from nat-ies.mentorg.com ([192.94.31.2]
 	helo=SVR-IES-MBX-03.mgc.mentorg.com)
 	by relay1.mentorg.com with esmtps (TLSv1.2:ECDHE-RSA-AES256-SHA384:256)
-	id 1fYTC1-00000I-75 from Arsalan_Awan@mentor.com 
-	for poky@yoctoproject.org; Thu, 28 Jun 2018 02:26:21 -0700
+	id 1fYTCT-00009G-0V from Arsalan_Awan@mentor.com 
+	for poky@yoctoproject.org; Thu, 28 Jun 2018 02:26:49 -0700
 Received: from PKL-AAWAN1-UBUNTU.pkl.mentorg.com (137.202.0.87) by
 	SVR-IES-MBX-03.mgc.mentorg.com (139.181.222.3) with Microsoft SMTP
-	Server (TLS) id 15.0.1320.4; Thu, 28 Jun 2018 10:26:17 +0100
+	Server (TLS) id 15.0.1320.4; Thu, 28 Jun 2018 10:26:44 +0100
 From: Arsalan Awan <Arsalan_Awan@mentor.com>
 To: <poky@yoctoproject.org>
-Date: Thu, 28 Jun 2018 14:25:32 +0500
-Message-ID: <cover.1530176497.git.Arsalan_Awan@mentor.com>
+Date: Thu, 28 Jun 2018 14:26:25 +0500
+Message-ID: <94e7ab15539bb9a10d86a65c5050a6340ddf58e4.1530176497.git.Arsalan_Awan@mentor.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <cover.1530176497.git.Arsalan_Awan@mentor.com>
+References: <cover.1530176497.git.Arsalan_Awan@mentor.com>
 MIME-Version: 1.0
 X-Originating-IP: [137.202.0.87]
 X-ClientProxiedBy: svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1) To
 	SVR-IES-MBX-03.mgc.mentorg.com (139.181.222.3)
-Subject: [PATCH 0/1] fixing initrd mounts w/ spaces fail to move to real rootfs
+Subject: [PATCH 1/1] initrdscripts/init-live.sh: fix mounts w/ spaces fail to move to real rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,7 +46,7 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Jun 2018 09:26:23 -0000
+X-List-Received-Date: Thu, 28 Jun 2018 09:26:49 -0000
 Content-Type: text/plain
 
 From: "Arsalan H. Awan" <Arsalan_Awan@mentor.com>
@@ -83,22 +85,29 @@ move commands and by parsing OCT or HEX encoded special characters
 such as spaces to ASCII charecters in the mount points as kernel
 populates the procfs like so.
 
-
-The following changes since commit 13c465663d0d1835773fb30baba345396cf0906e:
-
-  documentation: Updated manual revision tables with 2.2.4 release date (2018-05-24 17:23:02 +0100)
-
-are available in the git repository at:
-
-  git://push.yoctoproject.org/poky-contrib ArsalanHAwan/initrdscripts-init-live
-
-Arsalan H. Awan (1):
-  initrdscripts/init-live.sh: fix mounts w/ spaces fail to move to real
-    rootfs
-
+Signed-off-by: Arsalan H. Awan <Arsalan_Awan@mentor.com>
+---
  meta/recipes-core/initrdscripts/files/init-live.sh | 7 +++++--
  1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/meta/recipes-core/initrdscripts/files/init-live.sh b/meta/recipes-core/initrdscripts/files/init-live.sh
+index 441b41c..e58df12 100644
+--- a/meta/recipes-core/initrdscripts/files/init-live.sh
++++ b/meta/recipes-core/initrdscripts/files/init-live.sh
+@@ -91,8 +91,11 @@ boot_live_root() {
+     # Move the mount points of some filesystems over to
+     # the corresponding directories under the real root filesystem.
+     for dir in `awk '/\/dev.* \/run\/media/{print $2}' /proc/mounts`; do
+-        mkdir -p  ${ROOT_MOUNT}/media/${dir##*/}
+-        mount -n --move $dir ${ROOT_MOUNT}/media/${dir##*/}
++        # Parse any OCT or HEX encoded chars such as spaces
++        # in the mount points to actual ASCII chars
++        dir=`printf $dir`
++        mkdir -p "${ROOT_MOUNT}/media/${dir##*/}"
++        mount -n --move "$dir" "${ROOT_MOUNT}/media/${dir##*/}"
+     done
+     mount -n --move /proc ${ROOT_MOUNT}/proc
+     mount -n --move /sys ${ROOT_MOUNT}/sys
 -- 
 2.7.4
 
