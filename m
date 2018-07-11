@@ -1,94 +1,60 @@
-Return-Path: <Aditya.Tayade@kpit.com>
+Return-Path: <hardik.vala@aumraj.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DE116E00E83; Wed, 11 Jul 2018 05:32:27 -0700 (PDT)
+	id 81D77E00CE0; Wed, 11 Jul 2018 05:47:15 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [104.47.101.44 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+	*      [106.10.242.46 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-X-Greylist: delayed 1074 seconds by postgrey-1.32 at yocto-www;
-	Wed, 11 Jul 2018 05:32:25 PDT
-Received: from IND01-BO1-obe.outbound.protection.outlook.com
-	(mail-bo1ind01on0044.outbound.protection.outlook.com [104.47.101.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0438CE00E65
-	for <poky@yoctoproject.org>; Wed, 11 Jul 2018 05:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kpit.com; s=selector1; 
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=39d2c3l3E5nRLws8UTm77gVmEtzCjXaQFogIHIsSNI0=;
-	b=p41HHaGOy04rGiI2k1cI/UExjgdo54LNanq6ml22qBXhvgm5zyh1Z6XuTeAkYk5emb8Zxv0UMbxfiS5eq9jv1ipH8D4i9k2pI7lKTKd5B3FfjQB/q+mRDvjP3xcN6R610Q2CoEu20WuX4Qs4S1mB2y/05s538stvYGIYnu9rLnI=
-Received: from MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM (10.164.150.144) by
-	MAXPR01MB0281.INDPRD01.PROD.OUTLOOK.COM (10.164.150.16) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.930.20; Wed, 11 Jul 2018 12:00:17 +0000
-Received: from MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM
-	([fe80::ed1f:1874:1aa5:1e26]) by
-	MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM
-	([fe80::ed1f:1874:1aa5:1e26%5]) with mapi id 15.20.0930.022;
-	Wed, 11 Jul 2018 12:00:17 +0000
-From: Aditya Tayade <Aditya.Tayade@kpit.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [do_package_qa] QA Issue: -dev package contains non-symlink .so
-Thread-Index: AQHUGQ2JXBzi3GoHWUO1IoSuA8L51g==
-Date: Wed, 11 Jul 2018 12:00:17 +0000
-Message-ID: <MAXPR01MB03480862C61EEC86A4B64980915A0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=Aditya.Tayade@kpit.com; 
-x-originating-ip: [115.112.39.238]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; MAXPR01MB0281;
-	7:JtBYIJmev5PGhtuuO6huAmmcV8ldZUWii8PnTsE3vJjv/GsL0qpsI0GNatRJEz32vrgkNPrhY8AyO0HrC5NEbuxBSFJbgr/mwRGFI60mKyqkP7dYCN8spLrsNmn9aFcrdttoogFCv6FmQbsRZC2ggXWJ3BkD65/krQPJX0UgAI5ZQ/Mg1h4SxPNBaSQVpjuxkqVQ8QJnWU39DsHQtYEg0omCDG9hueSbTwy+JDLdKkOAyn/0UK6rfsJDNpO+GSCi
-x-ms-exchange-antispam-srfa-diagnostics: SOS;
-x-ms-office365-filtering-correlation-id: 4a5e12f3-c7f8-47f4-56f4-08d5e725de8a
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: UriScan:; BCL:0; PCL:0;
-	RULEID:(7020095)(4652040)(8989117)(5600053)(711020)(4534165)(7168020)(4627221)(201703031133081)(201702281549075)(8990107)(48565401081)(2017052603328)(7153060)(7193020);
-	SRVR:MAXPR01MB0281; 
-x-ms-traffictypediagnostic: MAXPR01MB0281:
-x-microsoft-antispam-prvs: <MAXPR01MB028121A5704259453E29327F915A0@MAXPR01MB0281.INDPRD01.PROD.OUTLOOK.COM>
-x-exchange-antispam-report-test: UriScan:(223705240517415);
-x-ms-exchange-senderadcheck: 1
-x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
-	RULEID:(8211001083)(6040522)(2401047)(8121501046)(5005006)(3002001)(93006095)(93001095)(3231311)(944501410)(52105095)(10201501046)(6055026)(149027)(150027)(6041310)(20161123560045)(20161123562045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(20161123564045)(20161123558120)(6072148)(201708071742011)(7699016);
-	SRVR:MAXPR01MB0281; BCL:0; PCL:0; RULEID:; SRVR:MAXPR01MB0281; 
-x-forefront-prvs: 0730093765
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10009020)(396003)(366004)(39860400002)(346002)(136003)(376002)(53474002)(199004)(189003)(3846002)(1857600001)(55016002)(2906002)(33656002)(14454004)(5640700003)(7696005)(256004)(6436002)(26005)(186003)(2501003)(14444005)(19627405001)(74316002)(54896002)(99286004)(55236004)(316002)(6506007)(102836004)(9686003)(2900100001)(6606003)(81156014)(81166006)(476003)(86362001)(97736004)(106356001)(8936002)(6916009)(5250100002)(1730700003)(7736002)(68736007)(8676002)(66066001)(486006)(2351001)(53936002)(478600001)(72206003)(6116002)(25786009)(5660300001)(105586002)(142923001);
-	DIR:OUT; SFP:1101; SCL:1; SRVR:MAXPR01MB0281;
-	H:MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: kpit.com does not designate
-	permitted sender hosts)
-x-microsoft-antispam-message-info: vqJev8qtmAJXUFe1QGbKRHz7xVzRTVuhZEuFSMH7rRJxYg9p9LUXPyueMWMK4c66RkSMnmJWIIt+KESd44IJedgdPljiBL8Vt2bIRg8kT2OF4PhbmDaubxfmxdb9fwi/H8TeIZ+L95j7Ls5MiPCsq/dssUFsEJsioaM/7weyskEZ/vifmDDRYuHwukPI3snuy7zPdF840LKmqicECu+oQEzTOUpjgnA4EuF6wm0Jd6xZQ2oN0UaWZFOHlpZ3Ge/63JfGwIr7x4dDKTVOpLWkEPZ/5RdFbLH/X8dkpS9DcZFy3rXJEUEiMtlsGdZSoLKuPubFHq01NwAA+KoN13NouoQ6YWWFtNlsgFu03SX0c/Q=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
+Received: from sonic303-29.consmr.mail.sg3.yahoo.com
+	(sonic303-29.consmr.mail.sg3.yahoo.com [106.10.242.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 33E65E00B58
+	for <poky@yoctoproject.org>; Wed, 11 Jul 2018 05:47:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+	t=1531313231; bh=Cqc+cvo+JBkNuIiPfdBjq9R1tubwaLo+erysHtHnkt8=;
+	h=Date:From:Reply-To:To:In-Reply-To:References:Subject:From:Subject;
+	b=ersHx2juAqB+bJDwr/1xhEVd3qw2uKhTRkSJpX5WFKzXAoI9kNoA68VmW/SZGrYF8JgEkaT1NK8ZTCIEm73P9Put/b3MWp5tVpxnEL9GxN2JCyYEz3vt8Dpx15IuQylXJLntSJuiwLqxasmOA3IdE26iLPjVIRLTv2cCEYSN73tVYl+Pq6DHcwMWuSSStLoPYYc2+LpG8+jOES91Vd3gC+3SPf6L5pJe8oPUVI2iHCefvlFl2BBH3zzvJmhi1B2HXag/4svvCaa/GULGKddcp4bW31o+4GWb8WZuvzGARO9085s3YSsTABo0aQ1FscxIPA3BsOMOBcjtklj25UGl3g==
+X-YMail-OSG: NxkFlXYVM1mDGST2j_PzCgkiBSaIhUB8puHSe9g0qkWreHxEc7GDhh8hRJ8Lxpv
+	6fOOWZBhfqv_CiMkHuXYi3tHff4yjxYWDcfs32N8LJo8X8.ZPmG7lFvoGeb8U84Ajo6j29DW3IoW
+	RRaJVr6eDInZzgMiMPjBIbLCP.RT7Zjw711_PRqnLT0SvdCHU1iIixGeBQzq1Kx.lAD9LakGTYmf
+	iZfBt81qDqqFxSdUGVc5ggh0UJUlL_lnpKGzZiuk667hqXUF8uQmTqMDvWdYV9qsLmCJcSuB12BV
+	3aw5XYRSPUsfHJOXCTvWjT76xtaUGdVfRsbLhn6js7qUKBP8PsYEHfLeng0StpIN2CqmQdocal7l
+	CiL9Fj6fctSEjDAFQfwws69PnRzWPgBoT7H0D6Ymqhmx8yfM5ZJeNzTrW23Bx9FEw1aUofihS1AL
+	pCKp0x771qq67voeN3cylxxTZnNehLOhwbGc4JP5b9mPbcl9icUzgRXI4rGOWUeZCYXosXgBJAxy
+	8V.QzTF8qI9gWIiRMEsbY1GzlWaz5Aw81rbmkLL9u3GSXZiqikubtmY0i9kIk7WNN94iMV8184SF
+	w0YJV.hjT8yyoYwJH_LtmfkPXRisGLE0BKRpwkxwlo5fdIuIGq_25YJgiGPJD1seYO78pB7dzto0
+	0uz1JY9u0Z7RlcnxS6gFQqVFmasg9C2JWWVMiZnIhiMdx11A95hkTnwDv06F6nijguJFEtawZp_F
+	KHe_5s5Rw.X22Iqf_X_Pg8kX9q69Hu5Hb_pUAvNOO9.QxCxk.Q.XPsFb2HSoxpIzluL8l5SddYSr
+	mUEmE8IDValt8S3Bw0yPqjC0PEZCcdPZePh4aR66fo1QTf_RDuRTLfjOXPwei9fxSEo1sjJj40Dt
+	iV1oGtQjELiLmxPjRWJcSluj7afhkkCORjhVCjCwXK_s4I8qnnGv_Y5.x58UoBB5WQfoN2SdtPk8
+	mfTTDb17X
+Received: from sonic.gate.mail.ne1.yahoo.com by
+	sonic303.consmr.mail.sg3.yahoo.com with HTTP;
+	Wed, 11 Jul 2018 12:47:11 +0000
+Date: Wed, 11 Jul 2018 12:47:06 +0000 (UTC)
+From: hardik vala <hardik.vala@aumraj.com>
+To: Aditya Tayade <Aditya.Tayade@kpit.com>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Message-ID: <1864804528.2138302.1531313226178@mail.yahoo.com>
+In-Reply-To: <MAXPR01MB03480862C61EEC86A4B64980915A0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
+References: <MAXPR01MB03480862C61EEC86A4B64980915A0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-X-OriginatorOrg: kpit.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a5e12f3-c7f8-47f4-56f4-08d5e725de8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2018 12:00:17.4226 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3539451e-b46e-4a26-a242-ff61502855c7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR01MB0281
-Subject: [do_package_qa] QA Issue: -dev package contains non-symlink .so
+X-Mailer: WebService/1.1.12062 YahooMailNeo Mozilla/5.0 (X11; Ubuntu;
+	Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0
+Subject: Re: [do_package_qa] QA Issue: -dev package contains non-symlink	.so
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: hardik vala <hardik.vala@aumraj.com>
 List-Id: Poky build system developer discussion & patch submission for
 	meta-yocto <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
@@ -98,18 +64,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jul 2018 12:32:27 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MAXPR01MB03480862C61EEC86A4B64980915A0MAXPR01MB0348INDP_"
+X-List-Received-Date: Wed, 11 Jul 2018 12:47:15 -0000
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2138301_1827972929.1531313226174"
 
---_000_MAXPR01MB03480862C61EEC86A4B64980915A0MAXPR01MB0348INDP_
-Content-Type: text/plain; charset="iso-8859-1"
+------=_Part_2138301_1827972929.1531313226174
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+It looks like mediasdk install .so files that are actual libraries and not =
+syslinks to the versioned libraries.Best solution would be to get mediasdk =
+to install versioned libraries if that's not an option you can transfer you=
+r files to actual library package not the -dev package.
+also set both files in {PN} - dev and files_{PN}
+Regards,Hardik Vala
 
 
+      From: Aditya Tayade <Aditya.Tayade@kpit.com>
+ To: "poky@yoctoproject.org" <poky@yoctoproject.org>=20
+ Sent: Wednesday, 11 July 2018 6:02 PM
+ Subject: [poky] [do_package_qa] QA Issue: -dev package contains non-symlin=
+k .so
+  =20
+ <!--#yiv0193257264 P {margin-top:0;margin-bottom:0;}-->Hi,
 I am getting do_package_qa: QA Issue while compiling mediasdk.bb.
 
 Configuration set up in mediasdk.bb file are as follows:
@@ -120,15 +97,18 @@ RDEPENDS_${PN} +=3D "wayland libdrm-3rdparty media-libva libpciaccess libdr=
 m mediasdk-dev"
 DEPENDS +=3D "libva"
 
-FILES_${PN}             +=3D "/opt/3rdparty/mediasdk/lib64/libmfxhw64.so"
-FILES_${PN}-dbg         +=3D "/opt/3rdparty/mediasdk/lib64/.debug/i965_drv_=
-video.so"
-FILES_${PN}-dev         +=3D "/opt/3rdparty/mediasdk/include"
-FILES_${PN}-samples     +=3D "/opt/3rdparty/mediasdk/samples"
-FILES_${PN}-staticdev   +=3D "/opt/3rdparty/mediasdk/lib/lin_x64/libmfx.a"
-FILES_${PN}-doc         +=3D "/opt/3rdparty/mediasdk/doc"
-
-
+FILES_${PN}=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 +=3D "/opt/3rdparty/mediasdk/lib64/libmfxhw64.so"
+FILES_${PN}-dbg=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 +=3D "/opt/=
+3rdparty/mediasdk/lib64/.debug/i965_drv_video.so"
+FILES_${PN}-dev=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 +=3D "/opt/=
+3rdparty/mediasdk/include"
+FILES_${PN}-samples=C2=A0=C2=A0=C2=A0=C2=A0 +=3D "/opt/3rdparty/mediasdk/sa=
+mples"
+FILES_${PN}-staticdev=C2=A0=C2=A0 +=3D "/opt/3rdparty/mediasdk/lib/lin_x64/=
+libmfx.a"
+FILES_${PN}-doc=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 +=3D "/opt/=
+3rdparty/mediasdk/doc"
 
 ERROR: mediasdk-16.7-772-r0 do_package_qa: QA Issue: -dev package contains =
 non-symlink .so: mediasdk-samples-dev path '/work/corei7-64-work-linux/medi=
@@ -146,12 +126,8 @@ ge_qa.20727
 ERROR: Task (/home/builder/src/base/meta-3rdparty-ias/meta-ias-mediasdk/rec=
 ipes-multimedia/mediasdk/mediasdk_16.7-772.bb:do_package_qa) failed with ex=
 it code '1'
-
 Could you please help me with this.
-
-Regards,
-Aditya Tayade
-
+Regards,Aditya Tayade
 This message contains information that may be privileged or confidential an=
 d is the property of the KPIT Technologies Ltd. It is intended only for the=
  person to whom it is addressed. If you are not the intended recipient, you=
@@ -159,67 +135,106 @@ d is the property of the KPIT Technologies Ltd. It is intended only for the=
 r use this message or any part thereof. If you receive this message in erro=
 r, please notify the sender immediately and delete all copies of this messa=
 ge. KPIT Technologies Ltd. does not accept any liability for virus infected=
- mails.
+ mails.--=20
+_______________________________________________
+poky mailing list
+poky@yoctoproject.org
+https://lists.yoctoproject.org/listinfo/poky
 
---_000_MAXPR01MB03480862C61EEC86A4B64980915A0MAXPR01MB0348INDP_
-Content-Type: text/html; charset="iso-8859-1"
+
+  =20
+
+------=_Part_2138301_1827972929.1531313226174
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Hi,</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">I am getting <span>do_package_qa:=
- QA Issue</span> while compiling mediasdk.bb.
-<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"></p>
-<div><br>
+<html><head></head><body><div style=3D"color:#000; background-color:#fff; f=
+ont-family:=E6=A8=99=E6=A5=B7=E9=AB=94, dfkai-sb;font-size:16px"><div id=3D=
+"yui_3_16_0_ym19_1_1531302470954_7733">It looks like mediasdk install .so f=
+iles that are actual libraries and not syslinks to the versioned libraries.=
+</div><div id=3D"yui_3_16_0_ym19_1_1531302470954_7890">Best solution would =
+be to get mediasdk to install versioned libraries if that's not an option y=
+ou can transfer your files to actual library package not the -dev package.<=
+/div><div id=3D"yui_3_16_0_ym19_1_1531302470954_7891"><br></div><div dir=3D=
+"ltr" id=3D"yui_3_16_0_ym19_1_1531302470954_7889">also set both files in {P=
+N} - dev and files_{PN}</div><div dir=3D"ltr" id=3D"yui_3_16_0_ym19_1_15313=
+02470954_7933"><br></div><div dir=3D"ltr" id=3D"yui_3_16_0_ym19_1_153130247=
+0954_7937">Regards,</div><div dir=3D"ltr" id=3D"yui_3_16_0_ym19_1_153130247=
+0954_7935">Hardik Vala</div><div id=3D"yui_3_16_0_ym19_1_1531302470954_7601=
+"><span id=3D"yui_3_16_0_ym19_1_1531302470954_7919"><br></span></div><div c=
+lass=3D"qtdSeparateBR" id=3D"yui_3_16_0_ym19_1_1531302470954_7610"><br><br>=
+</div><div class=3D"yahoo_quoted" id=3D"yui_3_16_0_ym19_1_1531302470954_775=
+7" style=3D"display: block;">  <div style=3D"font-family: =E6=A8=99=E6=A5=
+=B7=E9=AB=94, dfkai-sb; font-size: 16px;" id=3D"yui_3_16_0_ym19_1_153130247=
+0954_7756"> <div style=3D"font-family: HelveticaNeue, Helvetica Neue, Helve=
+tica, Arial, Lucida Grande, Sans-Serif; font-size: 16px;" id=3D"yui_3_16_0_=
+ym19_1_1531302470954_7755"> <div dir=3D"ltr" id=3D"yui_3_16_0_ym19_1_153130=
+2470954_7888"> <font id=3D"yui_3_16_0_ym19_1_1531302470954_7892" size=3D"2"=
+ face=3D"Arial"> <hr size=3D"1"> <b><span style=3D"font-weight:bold;">From:=
+</span></b> Aditya Tayade &lt;Aditya.Tayade@kpit.com&gt;<br> <b><span style=
+=3D"font-weight: bold;">To:</span></b> "poky@yoctoproject.org" &lt;poky@yoc=
+toproject.org&gt; <br> <b><span style=3D"font-weight: bold;">Sent:</span></=
+b> Wednesday, 11 July 2018 6:02 PM<br> <b><span style=3D"font-weight: bold;=
+">Subject:</span></b> [poky] [do_package_qa] QA Issue: -dev package contain=
+s non-symlink=09.so<br> </font> </div> <div class=3D"y_msg_container" id=3D=
+"yui_3_16_0_ym19_1_1531302470954_7754"><br><div id=3D"yiv0193257264">
+
+=20
+<style type=3D"text/css"><!--#yiv0193257264 P {margin-top:0;margin-bottom:0=
+;}--></style>
+
+<div dir=3D"ltr" id=3D"yui_3_16_0_ym19_1_1531302470954_7753">
+<div id=3D"yiv0193257264divtagdefaultwrapper" style=3D"font-size:12pt;color=
+:#000000;font-family:Calibri, Helvetica, sans-serif;" dir=3D"ltr">
+<div style=3D"margin-top:0;margin-bottom:0;" id=3D"yui_3_16_0_ym19_1_153130=
+2470954_7893">Hi,</div>
+<div style=3D"margin-top:0;margin-bottom:0;" id=3D"yui_3_16_0_ym19_1_153130=
+2470954_7894"><br>
 </div>
-<div>Configuration set up in mediasdk.bb file are as follows:<br>
-<div>INSANE_SKIP_${PN} &#43;=3D &quot; already-stripped dev-so dev-deps ldf=
-lags&quot;<br>
-INHIBIT_SYSROOT_STRIP =3D &quot;1&quot;<br>
+<div style=3D"margin-top:0;margin-bottom:0;" id=3D"yui_3_16_0_ym19_1_153130=
+2470954_7916">I am getting <span id=3D"yui_3_16_0_ym19_1_1531302470954_7915=
+">do_package_qa: QA Issue</span> while compiling mediasdk.bb.
 <br>
-RDEPENDS_${PN} &#43;=3D &quot;wayland libdrm-3rdparty media-libva libpciacc=
-ess libdrm mediasdk-dev&quot;<br>
-DEPENDS &#43;=3D &quot;libva&quot;<br>
+</div>
+<div style=3D"margin-top:0;margin-bottom:0;"></div>
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7887"><br>
+</div>
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7752">Configuration set up in me=
+diasdk.bb file are as follows:<br>
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7895">INSANE_SKIP_${PN} +=3D " a=
+lready-stripped dev-so dev-deps ldflags"<br>
+INHIBIT_SYSROOT_STRIP =3D "1"<br>
+<br>
+RDEPENDS_${PN} +=3D "wayland libdrm-3rdparty media-libva libpciaccess libdr=
+m mediasdk-dev"<br>
+DEPENDS +=3D "libva"<br>
 <br>
 FILES_${PN}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; &#43;=3D &quot;/opt/3rdparty/mediasdk/lib64/libmfxhw64.so&quot;<br=
->
-FILES_${PN}-dbg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43;=3D &q=
-uot;/opt/3rdparty/mediasdk/lib64/.debug/i965_drv_video.so&quot;<br>
-FILES_${PN}-dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43;=3D &q=
-uot;/opt/3rdparty/mediasdk/include&quot;<br>
-FILES_${PN}-samples&nbsp;&nbsp;&nbsp;&nbsp; &#43;=3D &quot;/opt/3rdparty/me=
-diasdk/samples&quot;<br>
-FILES_${PN}-staticdev&nbsp;&nbsp; &#43;=3D &quot;/opt/3rdparty/mediasdk/lib=
-/lin_x64/libmfx.a&quot;<br>
-FILES_${PN}-doc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43;=3D &q=
-uot;/opt/3rdparty/mediasdk/doc&quot;</div>
+p;&nbsp; +=3D "/opt/3rdparty/mediasdk/lib64/libmfxhw64.so"<br>
+FILES_${PN}-dbg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +=3D "/opt/=
+3rdparty/mediasdk/lib64/.debug/i965_drv_video.so"<br>
+FILES_${PN}-dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +=3D "/opt/=
+3rdparty/mediasdk/include"<br>
+FILES_${PN}-samples&nbsp;&nbsp;&nbsp;&nbsp; +=3D "/opt/3rdparty/mediasdk/sa=
+mples"<br>
+FILES_${PN}-staticdev&nbsp;&nbsp; +=3D "/opt/3rdparty/mediasdk/lib/lin_x64/=
+libmfx.a"<br>
+FILES_${PN}-doc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +=3D "/opt/=
+3rdparty/mediasdk/doc"</div>
 </div>
 <div><br>
 </div>
-<div><br>
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7913"><br>
 </div>
-<p></p>
-<p style=3D"margin-top:0;margin-bottom:0"></p>
-<div>
-<div>
-<div>ERROR: mediasdk-16.7-772-r0 do_package_qa: QA Issue: -dev package cont=
-ains non-symlink .so: mediasdk-samples-dev path '/work/corei7-64-work-linux=
-/mediasdk/16.7-772-r0/packages-split/mediasdk-samples-dev/usr/share/3rdpart=
-y/mediasdk/samples/_bin/x64/libsample_rotate_plugin.so'<br>
+<div></div>
+<div style=3D"margin-top:0;margin-bottom:0;"></div>
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7899">
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7898">
+<div id=3D"yui_3_16_0_ym19_1_1531302470954_7897">ERROR: mediasdk-16.7-772-r=
+0 do_package_qa: QA Issue: -dev package contains non-symlink .so: mediasdk-=
+samples-dev path '/work/corei7-64-work-linux/mediasdk/16.7-772-r0/packages-=
+split/mediasdk-samples-dev/usr/share/3rdparty/mediasdk/samples/_bin/x64/lib=
+sample_rotate_plugin.so'<br>
 -dev package contains non-symlink .so: mediasdk-samples-dev path '/work/cor=
 ei7-64-work-linux/mediasdk/16.7-772-r0/packages-split/mediasdk-samples-dev/=
 usr/share/3rdparty/mediasdk/samples/_bin/x64/libmfx_wayland.so' [dev-elf]<b=
@@ -243,7 +258,7 @@ it code '1'</div>
 <div>Aditya Tayade<br>
 </div>
 </div>
-<p></p>
+<div></div>
 </div>
 This message contains information that may be privileged or confidential an=
 d is the property of the KPIT Technologies Ltd. It is intended only for the=
@@ -254,7 +269,12 @@ eof. If you receive this message in error, please notify the sender immedia=
 tely and delete all copies of this message. KPIT Technologies Ltd. does not=
  accept any liability for virus
  infected mails.
-</body>
-</html>
+</div>
+</div>-- <br>_______________________________________________<br>poky mailin=
+g list<br><a ymailto=3D"mailto:poky@yoctoproject.org" href=3D"mailto:poky@y=
+octoproject.org">poky@yoctoproject.org</a><br><a href=3D"https://lists.yoct=
+oproject.org/listinfo/poky" target=3D"_blank">https://lists.yoctoproject.or=
+g/listinfo/poky</a><br><br><br></div> </div> </div>  </div></div></body></h=
+tml>
 
---_000_MAXPR01MB03480862C61EEC86A4B64980915A0MAXPR01MB0348INDP_--
+------=_Part_2138301_1827972929.1531313226174--
