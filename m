@@ -1,63 +1,58 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <jonathan.richardson@broadcom.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9729EE00C82; Wed, 11 Jul 2018 06:02:38 -0700 (PDT)
+	id 59948E01257; Fri, 13 Jul 2018 13:19:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [209.85.218.49 listed in list.dnswl.org]
+	*      [209.85.218.47 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-oi0-f49.google.com (mail-oi0-f49.google.com
-	[209.85.218.49])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EADD1E0044F
-	for <poky@yoctoproject.org>; Wed, 11 Jul 2018 06:02:37 -0700 (PDT)
-Received: by mail-oi0-f49.google.com with SMTP id y207-v6so49052042oie.13
-	for <poky@yoctoproject.org>; Wed, 11 Jul 2018 06:02:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=iKAncrUHbkCskevxKcb4TciTPfQh+wsayu7/+XRNbNc=;
-	b=0WTuLGocbzjjS31yM6fE7zeULt4t6CyH9SiG1zwkZ35Q/x/Vygv/fhcTr2ltX8EmCj
-	NUqEe+7TktYhGfa91Xm9M8mjzkn+NdUntM3StJxwYT3JjpOz7rXWdDBu5M5eZB4ZUImO
-	LpHJHoaoRWXGhAemfd5y2dUK42d6jm4ao6iUAuI70b8QkwqM2kP4tF4MTZLmcgFLcBDS
-	3VcTrRTV27u7YIND+JdUZ9316FtqHypvur+1ZRJqlV+AXrILjUAB/begAnRn6jm/nlVX
-	kYirDtIopHhJoAI2uuAsQ3+usYjbyiX4VvpN+iuLzkhX6LB/1oMGyjqshNAjZ7SC7l8b
-	p6jQ==
+Received: from mail-oi0-f47.google.com (mail-oi0-f47.google.com
+	[209.85.218.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D5BD0E01257
+	for <poky@yoctoproject.org>; Fri, 13 Jul 2018 13:18:56 -0700 (PDT)
+Received: by mail-oi0-f47.google.com with SMTP id d189-v6so64448615oib.6
+	for <poky@yoctoproject.org>; Fri, 13 Jul 2018 13:18:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
+	h=from:mime-version:thread-index:date:message-id:subject:to;
+	bh=szYf+0d7Cjf6bzPgMuaY5khfjEOTpqWzXrURXV4TlZc=;
+	b=OukLMTBfbDPseL7O14ABP1LtwYHRIeS+Ku83ajgPncw338cKaLU3EQ2wiVOx3RnND8
+	zj17GAYf5YAVfV0z2SAwxAl/MOpZST+xca9RxldIM0UgSSJD918umsdmzu223oGzDm7r
+	QLAoEKOpRbUeGS9SDJNxaRYag6xoyJFe9hckY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=iKAncrUHbkCskevxKcb4TciTPfQh+wsayu7/+XRNbNc=;
-	b=iJkBaz/yB19cto9F2kZ+3CCIhPOhtC1rkNqZgCmgdE1HpvTZe+hJ+GXk/LebCtyYfr
-	hhMl+1KKDzqMhNrw5IpFw+tVm/d7XJ4Ndb+T4EAbrK48r1ojsGuiq5FKk1Jex/UWGxcn
-	bG/z8M6mmD4daEEQRKShltRpJz67OsgkMPfoBQdsaQJpCE7d5IqcuJxaWtCvYuFwsWGi
-	4j3dOw887h0UVZ7LYtvtRt2820kzSSBufaSrARNh8kZ82EXHN2L3GAsms7NPgev7Pjw2
-	snzYHIoyNPWD1E7qG/S2Wy6wCmhzFeuLGtBslL0Lf8JU9bDpFht2BIYTw6Rk7Aq5wlOX
-	jW6g==
-X-Gm-Message-State: AOUpUlFAyM243rKySh6IGqHIHkS6DgH8cNAViUxC4U4GA1y/RdZ+MMyp
-	5MF8DGBl+CtQqZ93YGGmgM6GWk8yKizHBF3/UCbDCA==
-X-Google-Smtp-Source: AAOMgpctltj4sVBPw7I5ed3xkUGev/UWXpH6/hPnY3XNqxMBfJjyretPzfDf4xDcGbPxdBf/Ed/HejmbEJHsDkrhutA=
-X-Received: by 2002:aca:3f41:: with SMTP id
-	m62-v6mr7130261oia.18.1531314157384; 
-	Wed, 11 Jul 2018 06:02:37 -0700 (PDT)
+	h=x-gm-message-state:from:mime-version:thread-index:date:message-id
+	:subject:to;
+	bh=szYf+0d7Cjf6bzPgMuaY5khfjEOTpqWzXrURXV4TlZc=;
+	b=BD57Ewg4rTpQP9qIpFBzKVBsV72YBVvkkz8JifKb+appvl38HEC12NelnPjWQ4pi3u
+	QTpbjDhMlkl1+6cy9riQrbQZEHvTP2Yzv1dZVLuaI+ABFVKW5Z1j8zHmVtxTLC8FPTq1
+	GjnsVmdGEicd41mt0dZuHfzgt6YtzJtG+wmUQUt6GiCUUjIa2QpaPay9MYYDkLcD5PYw
+	b9ZeL4XI8pXnNJ+5mYYDRlLMql44dNSOYMCGulfZlYiOWFU3nZoTB5a7bHhQogoPzF2I
+	7TifsPadBGtgr5Cijj7EB6/Yi8SYoDDN5Rx3NeKXGzi/gMvyV+jb2P1rFcdFdNKZd1O9
+	DXsA==
+X-Gm-Message-State: AOUpUlGAqhzndUxwtFt4qvuArGXtCOnEykqQiEqHVMKfDLQ25ZbioEUa
+	eMk+zmo/1d45SFaUgvOpoKWkGweFpJtbcXYqOsIIO8kE
+X-Google-Smtp-Source: AAOMgpedrF6bdVwhXdzBFE23mQbJJfU/ugHHPkrBiNOWiyQ5kgd7VHYlnX96TUM6TAAyWBdJ1fpmXUYIz25tT3kVJRw=
+X-Received: by 2002:aca:2c02:: with SMTP id s2-v6mr9141955ois.82.1531513135867;
+	Fri, 13 Jul 2018 13:18:55 -0700 (PDT)
+From: Jonathan Richardson <jonathan.richardson@broadcom.com>
 MIME-Version: 1.0
-Received: by 2002:ac9:6845:0:0:0:0:0 with HTTP; Wed, 11 Jul 2018 06:02:16
-	-0700 (PDT)
-In-Reply-To: <MAXPR01MB03480862C61EEC86A4B64980915A0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-References: <MAXPR01MB03480862C61EEC86A4B64980915A0@MAXPR01MB0348.INDPRD01.PROD.OUTLOOK.COM>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Wed, 11 Jul 2018 14:02:16 +0100
-Message-ID: <CAJTo0LbbiTuYP2wEtAn7dutVb6K5Y8YZM_YMua1xtScK3mM9Lw@mail.gmail.com>
-To: Aditya Tayade <Aditya.Tayade@kpit.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [do_package_qa] QA Issue: -dev package contains non-symlink .so
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdQa5rj4F/r1K+LjRo2m7CJrxV3o+A==
+Date: Fri, 13 Jul 2018 13:18:54 -0700
+Message-ID: <f0340599af16638211afdc47b8b14fab@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: no source code in dbg package when devtool used
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,43 +65,17 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Jul 2018 13:02:38 -0000
+X-List-Received-Date: Fri, 13 Jul 2018 20:19:02 -0000
 Content-Type: text/plain; charset="UTF-8"
 
-On 11 July 2018 at 13:00, Aditya Tayade <Aditya.Tayade@kpit.com> wrote:
-> I am getting do_package_qa: QA Issue while compiling mediasdk.bb.
->
->
-> Configuration set up in mediasdk.bb file are as follows:
-> INSANE_SKIP_${PN} += " already-stripped dev-so dev-deps ldflags"
-> INHIBIT_SYSROOT_STRIP = "1"
->
-> RDEPENDS_${PN} += "wayland libdrm-3rdparty media-libva libpciaccess libdrm
-> mediasdk-dev"
-> DEPENDS += "libva"
->
-> FILES_${PN}             += "/opt/3rdparty/mediasdk/lib64/libmfxhw64.so"
-> FILES_${PN}-dbg         +=
-> "/opt/3rdparty/mediasdk/lib64/.debug/i965_drv_video.so"
-> FILES_${PN}-dev         += "/opt/3rdparty/mediasdk/include"
-> FILES_${PN}-samples     += "/opt/3rdparty/mediasdk/samples"
-> FILES_${PN}-staticdev   += "/opt/3rdparty/mediasdk/lib/lin_x64/libmfx.a"
-> FILES_${PN}-doc         += "/opt/3rdparty/mediasdk/doc"
->
->
-> ERROR: mediasdk-16.7-772-r0 do_package_qa: QA Issue: -dev package contains
-> non-symlink .so: mediasdk-samples-dev path
-> '/work/corei7-64-work-linux/mediasdk/16.7-772-r0/packages-split/mediasdk-samples-dev/usr/share/3rdparty/mediasdk/samples/_bin/x64/libsample_rotate_plugin.so'
-> -dev package contains non-symlink .so: mediasdk-samples-dev path
-> '/work/corei7-64-work-linux/mediasdk/16.7-772-r0/packages-split/mediasdk-samples-dev/usr/share/3rdparty/mediasdk/samples/_bin/x64/libmfx_wayland.so'
-> [dev-elf]
+Hi,
 
-The error message refers to mediasdk-samples-dev, which is a package
-your recipe fragment doesn't cover.
+Before I report a bug, is there a reason why the source code isn't added
+to the dbg package when using devtool on a recipe pointing to a git repo
+but it does get added if the recipe isn't devtool'd? It makes it difficult
+to debug code using core dumps when I devtool a recipe, change code, and
+then dnf the dbg package on the target to get the updated souce and debug
+symbols - no code found to list in gdb.
 
-Basically that .so is a plugin not a development link, so shouldn't be
-in the dev package.  Change your FILES so its in the samples package,
-not samples-dev.
-
-Ross
+Thanks.
 
