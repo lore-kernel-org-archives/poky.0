@@ -1,62 +1,63 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6E55BE015E1; Sun, 15 Jul 2018 08:17:23 -0700 (PDT)
+	id C6AE8E00CE7; Sun, 15 Jul 2018 12:29:40 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=unavailable version=3.3.1
 X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
 	http://www.dnswl.org/, no *      trust
-	*      [74.125.82.67 listed in list.dnswl.org]
+	*      [209.85.218.67 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wm0-f67.google.com (mail-wm0-f67.google.com [74.125.82.67])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D1894E00CA9
-	for <poky@lists.yoctoproject.org>; Sun, 15 Jul 2018 08:17:22 -0700 (PDT)
-Received: by mail-wm0-f67.google.com with SMTP id c14-v6so2456092wmb.4
-	for <poky@lists.yoctoproject.org>; Sun, 15 Jul 2018 08:17:22 -0700 (PDT)
+Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
+	[209.85.218.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9A734E0044F
+	for <poky@lists.yoctoproject.org>; Sun, 15 Jul 2018 12:29:38 -0700 (PDT)
+Received: by mail-oi0-f67.google.com with SMTP id s198-v6so71008520oih.11
+	for <poky@lists.yoctoproject.org>; Sun, 15 Jul 2018 12:29:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=from:to:subject:date:message-id;
-	bh=sfm52waRc0EVJfclUf94d3o+53q9rHzlo/2prfiJN5w=;
-	b=KndmwpaWNh0W0BSg7PlJMdxdkYQVEmBMeP4e83B6FSTGS5pReWGlthGw+RU4J4yUEU
-	QR/ImlFVrK9/SicFhj41dioyEAJjXAnw2n4rqaoU5kvbd7DUSpYKfMqrNl9aogcmUCvO
-	38l595ijcQrPTAzyB/+ORSaJY2wNro3tVVP+8=
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+	:cc; bh=u1QthfTIOZfhGeCY5YeVsCEzotGVUpBroyNQOQLeZRc=;
+	b=BMsHJTTD4YhO7O050ZBWxBxxsxrUEil/Vt1IeqmBVxegw8M1TLaApxuHZ0GWKFZYdw
+	1ejbPHO/Xb1HBHeCITb9lOnGjuaKgrxje0BKSI5FflUK4WeI3svc1ld1ha5rXocPqCY9
+	FaCkc8Wafa6vQlrHYq0NLt29b4U3NVJuOHPmqeQmenXk16mQ850qhTC6BHzJFxgUpOks
+	brXEa4j2dTZ+M5ZPQ9SE9QREmTrShkE2Z/+YPBzqKrLa2eGj1q0AOISw3Y+pu1ekthLb
+	Dm4syC8tcMrMYqJVeQh240zQ3UDaGCgL3oRGrV7j5PeFo102dh7WiXijZ0i3ttYsiqqb
+	lP7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=sfm52waRc0EVJfclUf94d3o+53q9rHzlo/2prfiJN5w=;
-	b=pZO0ZAUq3bCkkASRzjWHcsST4p7dCiuXFC2I4aqScAH72wbyFXfYA57bHc2tDzwXOI
-	GPdqyKyQknJgROaZRw7L04x3GeJ4rvcUE3OWJDG/bYYoLd9X9sHvnEzBciwvfFPqfpYy
-	Hm2cH00RdrPwWJH1yUwhdJpXpVu+Gc06EvM+LXHzJM2J/kDpo7yvg4s0H78is3sYhvKA
-	gWTgt2y1pbczMtWHMfQHs09Qc5o3smgkE0lLFE0cWpD7QZVktpaB1vFR+e2Si9KGu2eM
-	67FuQAKiuA/HI9KdvBWar88zF5kUFDWNf6pYr5V9J4UDXDrMG35mi1qfeNU5Zc3sUR7k
-	0sdQ==
-X-Gm-Message-State: AOUpUlH+V+t6TXMH+451oib9t66egAXN+43G2P+vYWKZEMpUGLN/r+cG
-	G6iwiJ1vUsEJ6t+qqC9E7ZP8B7jRAdQ=
-X-Google-Smtp-Source: AAOMgpfzmTPm0b5v7K958zFrb/OdRuXL8/2DkHKSm0OARFYT+6x2bPmg0O4N633X5AAadSWC5k+9Pg==
-X-Received: by 2002:a1c:dac6:: with SMTP id
-	r189-v6mr7866020wmg.150.1531667841698; 
-	Sun, 15 Jul 2018 08:17:21 -0700 (PDT)
-Received: from hex.int.rpsys.net (5751f4a1.skybroadband.com. [87.81.244.161])
-	by smtp.gmail.com with ESMTPSA id
-	r18-v6sm1764837wmh.28.2018.07.15.08.17.20
-	for <poky@lists.yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Sun, 15 Jul 2018 08:17:20 -0700 (PDT)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Date: Sun, 15 Jul 2018 16:17:19 +0100
-Message-Id: <20180715151719.16899-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.17.1
-Subject: [PATCH] oeqa/selftest/systemd_boot: Never use cleansstate in QA tests without special handling of SSTATE_DIR
+	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+	:message-id:subject:to:cc;
+	bh=u1QthfTIOZfhGeCY5YeVsCEzotGVUpBroyNQOQLeZRc=;
+	b=TJw2keuYJ77e+hHLAkmHkyyic1W9PG+BqPVnnnJmRrOKcwtr0wZIlslz/HL4zJH/Iq
+	4LlutnrrtC6P+L4E85yXTQEgRrtKxDOojO5H1r1M4QOsrhJ4KHkRvgD2QC7T5Rbs1hZu
+	RtM4mZ8iHAYW7Ph/rCrNWll15OcZ+SFjf55XOyPW/+vr57iBpzoRZkvJYq1xn0jlYe8N
+	6XuqInWTWFYPugN1KAshmYz32jKTu58thpd5OA6Sm/dgpH9D/z61cw8CHYXsgVeKcVym
+	j5iHIXNwNvlE6tAMh+uTSUA5hyk4c6N4iZB49IpKwTvABuylt+GNIgJcrA/9Toi2ApQn
+	XuXQ==
+X-Gm-Message-State: AOUpUlH2dQyPZ4SNqCp7937PQn9vk44e5KSiWJbtWTfqAVGximjWxFM7
+	2KhWtRvw12XzAHOkFAUsrhC29Fw0nwSMrIech9hxUg==
+X-Google-Smtp-Source: AAOMgpdewcRqpd9+q8bEhPKGT+Ae1mN6YltecvWUbx135aDnA2G2NNiD4YlqWkMZ4BNhx2ZN5eSA0q9mxnPJHfY+QZc=
+X-Received: by 2002:aca:4c8e:: with SMTP id
+	z136-v6mr16393788oia.170.1531682977850; 
+	Sun, 15 Jul 2018 12:29:37 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:ac9:6845:0:0:0:0:0 with HTTP; Sun, 15 Jul 2018 12:29:17
+	-0700 (PDT)
+In-Reply-To: <20180715151719.16899-1-richard.purdie@linuxfoundation.org>
+References: <20180715151719.16899-1-richard.purdie@linuxfoundation.org>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Sun, 15 Jul 2018 20:29:17 +0100
+Message-ID: <CAJTo0LYnL+aP4_Fd0jbHxmL2LJaZiMhYOF4mA19h1JfZnqNwbw@mail.gmail.com>
+To: poky-bounces@yoctoproject.org
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [PATCH] oeqa/selftest/systemd_boot: Never use cleansstate in QA tests without special handling of SSTATE_DIR
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,34 +70,22 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 15 Jul 2018 15:17:23 -0000
+X-List-Received-Date: Sun, 15 Jul 2018 19:29:40 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-Removing things straight from the live sstate directory is prone to issues
-since other builds may be relying on the artefact presence.
+On 15 July 2018 at 16:17,  <poky-bounces@yoctoproject.org> wrote:
+> Removing things straight from the live sstate directory is prone to issues
+> since other builds may be relying on the artefact presence.
+>
+> Also, cleansstate is very slow on the huge sstate that the autobuilder has
+> on slow NFS drives. This may well be causing long buildtimes in oe-selftest
+> as the time taken to remove the artefact by be long.
 
-Also, cleansstate is very slow on the huge sstate that the autobuilder has
-on slow NFS drives. This may well be causing long buildtimes in oe-selftest
-as the time taken to remove the artefact by be long.
+Argh, I thought we vetted selftest for this sort of thing already.
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Does the test still do the right thing with this?  Several instances
+where it really wanted to build in the past I've replaced with bitbake
+foo -C unpack or similar.
 
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-index dd5eeec1633..26c775c09e9 100644
---- a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-+++ b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-@@ -44,7 +44,7 @@ class Systemdboot(OESelftestTestCase):
- 
-         # Ensure we're actually testing that this gets built and not that
-         # it was around from an earlier build
--        bitbake('-c cleansstate systemd-boot')
-+        bitbake('-c clean systemd-boot')
-         runCmd('rm -f %s' % systemdbootfile)
- 
-         self._common_build()
--- 
-2.17.1
-
+Ross
 
