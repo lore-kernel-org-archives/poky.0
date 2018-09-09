@@ -1,6 +1,6 @@
-Return-Path: <tossel@gmail.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6C74FE00953; Fri,  7 Sep 2018 05:47:39 -0700 (PDT)
+	id 9B438E007B3; Sun,  9 Sep 2018 15:32:08 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -8,10 +8,7 @@ X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (tossel[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.221.67 listed in list.dnswl.org]
+	mail provider *      (raj.khem[at]gmail.com)
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
@@ -19,48 +16,51 @@ X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
-	[209.85.221.67])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 446CEE0090C
-	for <poky@yoctoproject.org>; Fri,  7 Sep 2018 05:47:38 -0700 (PDT)
-Received: by mail-wr1-f67.google.com with SMTP id j26-v6so14874602wre.2
-	for <poky@yoctoproject.org>; Fri, 07 Sep 2018 05:47:38 -0700 (PDT)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.214.195 listed in list.dnswl.org]
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
+	[209.85.214.195])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D1F10E00474
+	for <poky@yoctoproject.org>; Sun,  9 Sep 2018 15:32:07 -0700 (PDT)
+Received: by mail-pl1-f195.google.com with SMTP id j8-v6so8816292pll.12
+	for <poky@yoctoproject.org>; Sun, 09 Sep 2018 15:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=from:to:cc:subject:date:message-id;
-	bh=66R9kiKsNmQaFXh0b5Pj9PH9Q87xLqvSF/g1VdXn1WA=;
-	b=tGGiUQIKTXQxke9xtvuEYFHBbhzFPZe2KCSJo7v0gpKhRPhH/ebmc0uAmrbUdX8ttL
-	4Seu9QvxlW7D5bgKhnAFyhKKwD0H19DlkwvTVJsEKgXqeJGnb8RH4wvlkylDtj/qHGUf
-	TzkfoXMdoYJEeSTlrgQWEU96YzhkI3WxJJTm2JaE/47HzEqqFDPZpI0fsPq2AqSpjfOI
-	koJ/uY3nmH91CXmMRACoJ1186Ij7P4VXNXGwFPw9SbCwkHvT2pJH44PSEA6b1SjhsoiH
-	piz1OKKiMp2evcW6UmzN1LDXZ2+rQqrtv5jYqBbVFa4BT1+/6Q4/T8zzvCVIHlR45ju9
-	cNCA==
+	bh=hcJWIQpvWzxwKPNEa1aw1hNCoNWBMynwUhCTYLLMo4g=;
+	b=tBD6E3LAjfv4Pjgk4APx6mDcyo/bLisQXpEsruCH9bYu+PAMgLdG2LPyDBACPtesId
+	wUBVdJcjyaf1ey6Ro0DMFOpHMMs/ZBUzn0pQCLh2sh+gAi//usgch3dn3X5lHaBXl98n
+	6uxYEYRCDQPf51l5cr2kPjkovwqTPNXCWq6M7wJRUDIk3lElNRXiIZL0dBYUUYdafzCc
+	YdwoiNB7P/DQCnDNtFA2mbPTFU+j1YJlKoDeSk8qI8rC4RUtTkC7TyE5ofgwY8uycvTz
+	lerGokAvAosxm2hREICwdkxxDn9SOOUlBxOCJnNA5xd+gMZmPwmhS9J4vSfm53uKV/UB
+	6qEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=66R9kiKsNmQaFXh0b5Pj9PH9Q87xLqvSF/g1VdXn1WA=;
-	b=l1QuleXqRp50iknAcX77QctCnGY7GjdJeoVYVOzFhBN4jyiU5CcPC3cbGcUOTJ75c7
-	smPY8Ec3AX5MEIv9Sjd6syNmTAocsizCt2nUiVuQSuJwEEqZie6gO7kuFq2S8Wyt9oCD
-	NrYrfQSfkFUM2nFBPBMH2tX/Tzgtv3w6Jm5YExS0qSeiSVv1inhVrtCu4brTda06eipx
-	Uk3inw8hmhIeqFO1iSYn+8YhIm8zoFDRJE8jn7EnKh2EH5IJja9vq3pej56Ne//I6A/1
-	m34xYIxbArnDJXIBgsVZsbSLyX8qW9nmLrCsxB9KzFdCwxsxPaWJ78/gHkLzrH4IdCQo
-	LH2w==
-X-Gm-Message-State: APzg51C9/S9VL+ckwUFQM1kWy1D1et28SThJPuST6Pd0O50BRkI/x1Ud
-	5Hv7o1MRkYDp3U140/4QMCo3RALh
-X-Google-Smtp-Source: ANB0VdaFLdcFYnZYdVSYf2VkvNboeGkH7qa/8sHxtS97AEqCDl/Ny/RAvv9zs2Z5BU+csx+Z1nGwtw==
-X-Received: by 2002:a5d:4684:: with SMTP id u4-v6mr6367874wrq.76.1536324457174;
-	Fri, 07 Sep 2018 05:47:37 -0700 (PDT)
-Received: from marvin.internal.advancedtelematic.com
-	(p57bf9f95.dip0.t-ipconnect.de. [87.191.159.149])
+	bh=hcJWIQpvWzxwKPNEa1aw1hNCoNWBMynwUhCTYLLMo4g=;
+	b=O3Y2fcdWV3JnrtlL+IqhvkdACqvm/BkSe//+2JKTuLB3EozSUzX5gxtDhiNXQMg6co
+	wcQ071egAh6lYUbg4Ay/oZIdD1nXI6J079XnxNiX6CeBf/7vGvFSbJ9QrdrVycIuZX6H
+	jSFD/B5Ur2MtdqCeokNFtOATEuuFoJKuZIxry8hz+/j9ZalElxDidtiyeZ0YI8KQ/MKn
+	Fb32ZYyl/QMcIYLB7FRj9N9vbGWDO2rU5C0TyyqcgCzk/AwYf5Bi3qH6vAwUxh78A63w
+	Z6k3SUnQyTccLeEIjb65uqa9d4JuhPf723Ci5+CE0+eBj28XBvjnaf4dx63BNTlD1eLA
+	t5hg==
+X-Gm-Message-State: APzg51AtDXM0B6I5m8AiflCt7nJlh9fXpvutWaTsAZPBM1PLGbkab5bA
+	DVRYpBdTvweN/T5cNCi9tESuO+5Q
+X-Google-Smtp-Source: ANB0VdZq09fHAXP6l5ZSIXwLn9oOj+IqU9dfesPbGr/ERDxbRS7BNwgaybLc7GXilwEdKJzhhKzfnA==
+X-Received: by 2002:a17:902:7c96:: with SMTP id
+	y22-v6mr19028491pll.332.1536532326621; 
+	Sun, 09 Sep 2018 15:32:06 -0700 (PDT)
+Received: from localhost.localdomain ([2601:646:877f:9499::71e7])
 	by smtp.gmail.com with ESMTPSA id
-	w18-v6sm16230586wrc.38.2018.09.07.05.47.36
+	77-v6sm16637783pga.40.2018.09.09.15.32.05
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 07 Sep 2018 05:47:36 -0700 (PDT)
-From: Anton Gerasimov <tossel@gmail.com>
+	Sun, 09 Sep 2018 15:32:05 -0700 (PDT)
+From: Khem Raj <raj.khem@gmail.com>
 To: poky@yoctoproject.org
-Date: Fri,  7 Sep 2018 14:54:00 +0200
-Message-Id: <20180907125400.5398-1-tossel@gmail.com>
+Date: Sun,  9 Sep 2018 15:31:55 -0700
+Message-Id: <20180909223155.9915-1-raj.khem@gmail.com>
 X-Mailer: git-send-email 2.18.0
-Subject: [PATCH] systemd: set split-bin to true by default
+Subject: [meta-poky][PATCH] poky.conf: Promote unknown-configure-option to QA Error
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,30 +73,30 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Sep 2018 12:47:39 -0000
+X-List-Received-Date: Sun, 09 Sep 2018 22:32:08 -0000
 
-Not doing so will make meson chose where to install init binary
-based on irrelevant features of the build machine.
+Currently, this is a QA warning by default, howver its a useful
+check to catch configuration errors, where we might have forgotten
+to update or adapt configure options on updates/upgrades to a package
 
-PACKAGECONFIG option is defined to override this behavior.
-
-Signed-off-by: Anton Gerasimov <tossel@gmail.com>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
 ---
- meta/recipes-core/systemd/systemd_239.bb | 1 +
- 1 file changed, 1 insertion(+)
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta/recipes-core/systemd/systemd_239.bb b/meta/recipes-core/systemd/systemd_239.bb
-index 84906f97b7..55e3986935 100644
---- a/meta/recipes-core/systemd/systemd_239.bb
-+++ b/meta/recipes-core/systemd/systemd_239.bb
-@@ -168,6 +168,7 @@ PACKAGECONFIG[time-epoch] = "-Dtime-epoch=0,,"
- PACKAGECONFIG[timedated] = "-Dtimedated=true,-Dtimedated=false"
- PACKAGECONFIG[timesyncd] = "-Dtimesyncd=true,-Dtimesyncd=false"
- PACKAGECONFIG[usrmerge] = "-Dsplit-usr=false,-Dsplit-usr=true"
-+PACKAGECONFIG[sbinmerge] = "-Dsplit-bin=false,-Dsplit-bin=true"
- PACKAGECONFIG[utmp] = "-Dutmp=true,-Dutmp=false"
- PACKAGECONFIG[valgrind] = "-DVALGRIND=1,,valgrind"
- PACKAGECONFIG[vconsole] = "-Dvconsole=true,-Dvconsole=false,,${PN}-vconsole-setup"
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 392c2383ee4..9c7f2a38c30 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -91,7 +91,7 @@ INHERIT += "poky-sanity"
+ # QA check settings - a little stricter than the OE-Core defaults
+ WARN_TO_ERROR_QA = "already-stripped compile-host-path install-host-path \
+                     installed-vs-shipped ldflags pn-overrides rpaths staticdev \
+-                    useless-rpaths"
++                    unknown-configure-option useless-rpaths"
+ WARN_QA_remove = "${WARN_TO_ERROR_QA}"
+ ERROR_QA_append = " ${WARN_TO_ERROR_QA}"
+ 
 -- 
 2.18.0
 
