@@ -1,67 +1,35 @@
-Return-Path: <adam.oleksy@gmail.com>
+Return-Path: <fw@javox-solutions.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E6747E0093B; Tue, 11 Sep 2018 12:42:54 -0700 (PDT)
+	id B995BE00BB7; Thu, 20 Sep 2018 01:20:17 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * 0.0 FREEMAIL_FROM Sender email is commonly abused enduser
-	mail provider *      (adam.oleksy[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.219.196 listed in list.dnswl.org]
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
+	SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	http://www.dnswl.org/, low *      trust
+	*      [80.67.31.99 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-Received: from mail-yb1-f196.google.com (mail-yb1-f196.google.com
-	[209.85.219.196])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0F102E00566
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2018 12:42:53 -0700 (PDT)
-Received: by mail-yb1-f196.google.com with SMTP id f145-v6so9806402ybg.4
-	for <poky@yoctoproject.org>; Tue, 11 Sep 2018 12:42:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=1Ez8kBisLjIY7ZeB6olOgsSAlP6hpoDSGkPX3KO6wZY=;
-	b=NsdSnjrehx3pfCt4x1/CNx9zmDgzcQbi/SLGIZUm04NgTxoNEXK7QAbhLviEkWfof0
-	juBWUWXT4kabqz83dEoRtCPsK0XBmXWxCvwWbQk8FtVgXQtxFtdDXtOlpHYZR18Q/K8c
-	zbNGTtcgiBZ/G6ftG+Wd5vJRqvzWMB8C19s0jP2AwKRMKh995Wr/JF/kub2Y2/8GnMsr
-	nju6dtaFSyuIFZbr1CN06BBDRnAYp7EaDQQGHJTh2Vuqh1m16jr0w86c0ggHyptkS/hm
-	Cu5e2/4PdigCNyOeSwSdbkW6CbaJbyP/IeIGzVnHoG0OBdwW8Vp+Su02x1B4bWlOCzF9
-	sHmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=1Ez8kBisLjIY7ZeB6olOgsSAlP6hpoDSGkPX3KO6wZY=;
-	b=g+DdB8wswdJqF1HVpayZ6qYm0SEiW7yw5xkAXtlfR4AjWvk2oMUpSvsFyqJEi+Kyje
-	FyuWaXccvSPnqW4nIJZQatU3tZHZZJaewILgnbo6fpxI0wtSEWlN+ZcLrcJY9tZ56rD9
-	reL56OPdaA26xucCt0n4UaYr3u583QVaSmKVqQHWAPtZh5tuWxIKOfgVH6iVZznA3THu
-	nRHUdmK2eeY2Z70Mqvw8tuyH6RiwpGECqLlUcU08FRdh883FjhU4nJmYCXsM0LS+io65
-	wzcn4mWdb/ZowInHzyNTPh9lX8LHFtzQOOiMkPPN7PHQN1p8jzgb81ul5/eoEtOVcGl7
-	BvsQ==
-X-Gm-Message-State: APzg51By6Cg+QKrvlrG1soEq9PxwOOHnSj4stw24KbkBdPz42BDEItor
-	jBeLQ0xjZE7P/MIrK7dopK17HFuIuJQd9aUFnJLjBg==
-X-Google-Smtp-Source: ANB0VdYd8HgdkeJwKh/Pguj6DAXWNVmIvj3Xa7RvbeSL0UEgPPGWbWRQNHXYfnIX6TDtkGRK3DeDNd5do3KBmfFmxmc=
-X-Received: by 2002:a25:5cc4:: with SMTP id
-	q187-v6mr13059174ybb.106.1536694973254; 
-	Tue, 11 Sep 2018 12:42:53 -0700 (PDT)
+X-Greylist: delayed 1039 seconds by postgrey-1.32 at yocto-www;
+	Thu, 20 Sep 2018 01:20:16 PDT
+Received: from smtprelay05.ispgateway.de (smtprelay05.ispgateway.de
+	[80.67.31.99])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 83BCCE00BAA
+	for <poky@yoctoproject.org>; Thu, 20 Sep 2018 01:20:16 -0700 (PDT)
+Received: from [89.0.112.71] (helo=javoxdev2.fritz.box)
+	by smtprelay05.ispgateway.de with esmtpa (Exim 4.90_1)
+	(envelope-from <fw@javox-solutions.com>)
+	id 1g2tvM-0001xC-4o; Thu, 20 Sep 2018 10:02:56 +0200
+From: Florian Wickert <fw@javox-solutions.com>
+To: poky@yoctoproject.org
+Date: Thu, 20 Sep 2018 10:02:42 +0200
+Message-Id: <20180920080242.3483-1-fw@javox-solutions.com>
+X-Mailer: git-send-email 2.19.0
 MIME-Version: 1.0
-References: <CADBxsQUBACveJTvd6vabScyJZZShS7r2PZzmRz4oiuu8OVitqw@mail.gmail.com>
-	<4b3c3786ac9bd94c6ae8474ff6ebbe5f02c75b62.camel@rpsys.net>
-In-Reply-To: <4b3c3786ac9bd94c6ae8474ff6ebbe5f02c75b62.camel@rpsys.net>
-From: Adam Oleksy <adam.oleksy@gmail.com>
-Date: Tue, 11 Sep 2018 21:42:41 +0200
-Message-ID: <CADBxsQVPrAVmi8=4VusvvkhWsdReevBy-ud+8PYGfbcSLAk6kA@mail.gmail.com>
-To: Richard Purdie <rpurdie@rpsys.net>
-Cc: poky@yoctoproject.org
-Subject: Re: Handling CC/CXX and CFLAGS/CXXFLAGS environment variable
+X-Df-Sender: ZndAamF2b3gtc29sdXRpb25zLmNvbQ==
+Subject: [[PATCH] remove rtmpdump from gstreamer1.0-plugins-bad deps
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,135 +42,32 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Sep 2018 19:42:55 -0000
-Content-Type: multipart/alternative; boundary="00000000000002545b05759dae1d"
+X-List-Received-Date: Thu, 20 Sep 2018 08:20:17 -0000
+Content-Transfer-Encoding: 8bit
 
---00000000000002545b05759dae1d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+rtmpdump is not a build dependency for gstreamer1.0-plugins-bad even if
+rtmp is enabled. This wouldn't compile anyway due to the
+openssl/openssl10 incompatibility because rtmpdump requires openssl10.
 
-W dniu czw., 6.09.2018 o 16:31 Richard Purdie <rpurdie@rpsys.net>
-napisa=C5=82(a):
+Signed-off-by: Florian Wickert <fw@javox-solutions.com>
+---
+ .../gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb                | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> On Thu, 2018-09-06 at 16:06 +0200, Adam Oleksy wrote:
-> > Hi,
-> > I'm user of the SDK built with yocto with populate_sdk task for
-> > image.
-> > I've found that some of the IDEs and CMake has a problem with
-> > environment setup script (e.g. environment-setup-aarch64-poky-linux),
-> > which is produced by toolchain-scripts.bbclass.
-> >
-> > The problem is that, the CC and CXX variables contains arguments for
-> > the compiler (march, mtune and sysroot). It causes problems when
-> > CMake or IDE (e.g. CLion) works under such configured environment
-> > (look at this bug report https://youtrack.jetbrains.com/issue/CPP-112
-> > 50#focus=3DstreamItem-27-2564925-0-0 for CLion, and this merge request
-> > https://gitlab.kitware.com/cmake/cmake/merge_requests/2352/diffs for
-> > CMake). Authors of these tools are of the opinion that CC/CXX
-> > variables should points only to the compiler program, but not contain
-> > any arguments. It agrees with the definition of these variables,
-> > which can be found at http://www.gnu.org/software/make/manual/make.ht
-> > ml#Implicit-Variables.
-> >
-> > Could you consider changing the  toolchain-scripts.bbclass that any
-> > argument for the compiler goes to CFLAGS/CXXFLAGS? Is there any
-> > rationale to not change the current status quo?
->
-> The current contents of these files matches what the wider system uses
-> to build things, we use exactly these values to build everything in the
-> system.
->
-> Why? We've done this for a long time (since forever). There are
-> codebases which ignore *FLAGS. More recently we have gone and
-> identified and fixed most of those. Some applications (and the Linux
-> kernel) have their own ideas about which compile optimisations to use
-> so the *FLAGS are the less essential options and the ones in the tools
-> are the options the tools won't work without.
->
-> So we could consider it but it is likely a huge change. We could just
-> hack toolchain-scripts but then we'd not match what we do everwhere
-> else. I can see arguments both ways.
+diff --git a/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb b/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb
+index e36ffe6e02..61efc36a40 100644
+--- a/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb
++++ b/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb
+@@ -65,7 +65,7 @@ PACKAGECONFIG[openjpeg]        = "--enable-openjpeg,--disable-openjpeg,openjpeg"
+ PACKAGECONFIG[opusparse]       = "--enable-opus,--disable-opus,libopus"
+ PACKAGECONFIG[resindvd]        = "--enable-resindvd,--disable-resindvd,libdvdread libdvdnav"
+ PACKAGECONFIG[rsvg]            = "--enable-rsvg,--disable-rsvg,librsvg"
+-PACKAGECONFIG[rtmp]            = "--enable-rtmp,--disable-rtmp,rtmpdump"
++PACKAGECONFIG[rtmp]            = "--enable-rtmp,--disable-rtmp"
+ PACKAGECONFIG[sbc]             = "--enable-sbc,--disable-sbc,sbc"
+ PACKAGECONFIG[smoothstreaming] = "--enable-smoothstreaming,--disable-smoothstreaming,libxml2"
+ PACKAGECONFIG[sndfile]         = "--enable-sndfile,--disable-sndfile,libsndfile1"
+-- 
+2.19.0
 
 
-Understood.
-
-CMake has merged my change to handle CC/CXX variables containing arguments
-(but with complaining). CLion as well. And I'm happy.
-
-Thank you Richard for detailed explanation.
-
-EOT
-
-Adam
-
-
---=20
-Pozdrawiam,
-Adam Oleksy
-
---00000000000002545b05759dae1d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>W dniu czw., 6.09.2018 o 16:31 Richard Purdie &lt;<a href=3D"mailto:rp=
-urdie@rpsys.net">rpurdie@rpsys.net</a>&gt; napisa=C5=82(a):<br></div><div><=
-div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, 2018-09-06=
- at 16:06 +0200, Adam Oleksy wrote:<br>
-&gt; Hi,<br>
-&gt; I&#39;m user of the SDK built with yocto with populate_sdk task for<br=
->
-&gt; image.<br>
-&gt; I&#39;ve found that some of the IDEs and CMake has a problem with<br>
-&gt; environment setup script (e.g. environment-setup-aarch64-poky-linux), =
-<br>
-&gt; which is produced by toolchain-scripts.bbclass.<br>
-&gt; <br>
-&gt; The problem is that, the CC and CXX variables contains arguments for<b=
-r>
-&gt; the compiler (march, mtune and sysroot). It causes problems when<br>
-&gt; CMake or IDE (e.g. CLion) works under such configured environment<br>
-&gt; (look at this bug report <a rel=3D"noreferrer">https://youtrack.jetbra=
-ins.com/issue/CPP-112</a><br>
-&gt; 50#focus=3DstreamItem-27-2564925-0-0 for CLion, and this merge request=
- <br>
-&gt; <a rel=3D"noreferrer">https://gitlab.kitware.com/cmake/cmake/merge_req=
-uests/2352/diffs</a> for<br>
-&gt; CMake). Authors of these tools are of the opinion that CC/CXX<br>
-&gt; variables should points only to the compiler program, but not contain<=
-br>
-&gt; any arguments. It agrees with the definition of these variables,<br>
-&gt; which can be found at <a rel=3D"noreferrer">http://www.gnu.org/softwar=
-e/make/manual/make.ht</a><br>
-&gt; ml#Implicit-Variables.<br>
-&gt; <br>
-&gt; Could you consider changing the=C2=A0 toolchain-scripts.bbclass that a=
-ny<br>
-&gt; argument for the compiler goes to CFLAGS/CXXFLAGS? Is there any<br>
-&gt; rationale to not change the current status quo?<br>
-<br>
-The current contents of these files matches what the wider system uses<br>
-to build things, we use exactly these values to build everything in the<br>
-system.<br>
-<br>
-Why? We&#39;ve done this for a long time (since forever). There are<br>
-codebases which ignore *FLAGS. More recently we have gone and<br>
-identified and fixed most of those. Some applications (and the Linux<br>
-kernel) have their own ideas about which compile optimisations to use<br>
-so the *FLAGS are the less essential options and the ones in the tools<br>
-are the options the tools won&#39;t work without.<br>
-<br>
-So we could consider it but it is likely a huge change. We could just<br>
-hack toolchain-scripts but then we&#39;d not match what we do everwhere<br>
-else. I can see arguments both ways.</blockquote><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">Understood.</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">CMake has merged my change to handle CC/CXX variables containing =
-arguments (but with complaining). CLion as well. And I&#39;m happy.=C2=A0</=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">Thank you Richard for det=
-ailed explanation.</div><div dir=3D"auto"><br></div><div dir=3D"auto">EOT</=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">Adam</div><div dir=3D"aut=
-o"><br></div><div dir=3D"auto"><br></div></div></div>-- <br><div dir=3D"ltr=
-" class=3D"gmail_signature" data-smartmail=3D"gmail_signature">Pozdrawiam,<=
-br>Adam Oleksy</div>
-
---00000000000002545b05759dae1d--
