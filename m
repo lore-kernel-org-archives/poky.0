@@ -1,77 +1,46 @@
-Return-Path: <Alex.Gonzalez@digi.com>
+Return-Path: <Randy.MacLeod@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4BA85E0090C; Fri,  5 Oct 2018 05:14:37 -0700 (PDT)
+	id 0E168E00A0A; Fri,  5 Oct 2018 13:50:32 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00, RCVD_IN_DNSWL_NONE, 
-	SPF_HELO_PASS autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	http://www.dnswl.org/, *      medium trust
+	*      [192.103.53.11 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [67.219.246.212 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
-X-Greylist: delayed 810 seconds by postgrey-1.32 at yocto-www;
-	Fri, 05 Oct 2018 05:14:36 PDT
-Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
-	[67.219.246.212])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2CBFDE00519
-	for <poky@yoctoproject.org>; Fri,  5 Oct 2018 05:14:35 -0700 (PDT)
-Received: from [67.219.246.101] (using TLSv1.2 with cipher
-	DHE-RSA-AES256-GCM-SHA384 (256 bits))
-	by server-2.bemta.az-b.us-east-1.aws.symcld.net id D8/1C-10914-28257BB5;
-	Fri, 05 Oct 2018 12:01:06 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrHKsWRWlGSWpSXmKPExsXi5LtOQLcxaHu
-	0Qct5U4vp/9awOzB6tJ/oYwtgjGLNzEvKr0hgzdh+7hhLwSSmiutf/zM2MH5j7GLk4hASWMUo
-	sWzFfnYIZzWjxIH1x1khnD2MEhs7D7N1MXJysAnoS3z7c5AJxBYRMJaY+WkJK4jNLKArsfdSD
-	3MXIweHsICXxJ1d2hAlARIfGo+yQdh6Euf6/7KClLAIqEh0NZeDmLwChhKXZpiBVDAKiEl8P7
-	WGCWKguMStJ/PBbAkBAYkle84zQ9iiEi8f/wNbKgo0peXgHhaIuILE54Pz2CB6dSQW7P4EZZt
-	L/Fq5gxHC1pZYtvA12BxeAUGJkzOfsICcICSgLNFwhXcCo9gsJJtnIZk0C8mkWUgmzUIyaQEj
-	6ypGs6SizPSMktzEzBxdQwMDXUNDI11jIMtIL7FKN0mvtFg3NbG4RNdQL7G8WK+4Mjc5J0UvL
-	7VkEyMw7lIKmNN2MF5tTz/EKMnBpCTK++jN1mghvqT8lMqMxOKM+KLSnNTiQ4wyHBxKErwfA7
-	ZHCwkWpaanVqRl5gATAExagoNHSYTXJBAozVtckJhbnJkOkTrFqMvR9vT6DGYhlrz8vFQpcd5
-	fIDMEQIoySvPgRsCS0SVGWSlhXkYGBgYhnoLUotzMElT5V4ziHIxKwry/QabwZOaVwG16BXQE
-	E9AR8jlbQI4oSURISTUwVrFOyJ0otbXuzGTeOc9uHLqtUnt0HrNq+JKI7ZdZJVVWmDnY7uA7v
-	j5f7jbLfK/wpk3TBQIulnB5cO8xyl/55Bj/Pa9m/aTPHA47s73rzrx6n+m14+/MefPjkjbOZN
-	j7/B9D2oVWnw+rFkUHyC5ctunxSZ0cjZMCd+47JrVIKUn3z/659mL2LiWW4oxEQy3mouJEAIj
-	fITdBAwAA
-X-Env-Sender: Alex.Gonzalez@digi.com
-X-Msg-Ref: server-11.tower-385.messagelabs.com!1538740861!206434!1
-X-Originating-IP: [66.77.174.16]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.14.24; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 12473 invoked from network); 5 Oct 2018 12:01:05 -0000
-Received: from owa.digi.com (HELO MCL-VMS-XCH01.digi.com) (66.77.174.16)
-	by server-11.tower-385.messagelabs.com with DHE-RSA-AES256-GCM-SHA384
-	encrypted SMTP; 5 Oct 2018 12:01:05 -0000
-Received: from MTK-SMS-XCH03.digi.com (10.10.8.197) by MCL-VMS-XCH01.digi.com
-	(10.5.8.49) with Microsoft SMTP Server (TLS) id 14.3.408.0;
-	Fri, 5 Oct 2018 07:01:01 -0500
-Received: from DOR-VMS-XCH01.digi.com (10.49.8.98) by MTK-SMS-XCH03.digi.com
-	(10.10.8.197) with Microsoft SMTP Server (TLS) id 14.3.408.0;
-	Fri, 5 Oct 2018 07:01:01 -0500
-Received: from DOR-SMS-XCH01.digi.com ([fe80::894b:3bdc:74ae:6efc]) by
-	DOR-VMS-XCH01.digi.com ([fe80::c47f:be41:1dc7:5ab8%11]) with mapi id
-	14.03.0415.000; Fri, 5 Oct 2018 14:00:59 +0200
-From: "Gonzalez, Alex" <Alex.Gonzalez@digi.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] [rocko] Backport request for meta/recipes-kernel/cryptodev
-Thread-Index: AQHUXKMU07o6tc5/OUWTgOcYhVSXrg==
-Date: Fri, 5 Oct 2018 12:00:58 +0000
-Message-ID: <20181005120055.GC7228@agonzal-linux>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mutt/1.5.24 (2015-08-30)
-x-originating-ip: [10.101.2.194]
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 96BE3E0053F
+	for <poky@yoctoproject.org>; Fri,  5 Oct 2018 13:50:31 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id w95KnM5p008187
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Fri, 5 Oct 2018 13:49:33 -0700
+Received: from [172.25.44.4] (172.25.44.4) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.408.0;
+	Fri, 5 Oct 2018 13:49:08 -0700
+To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>, Armin Kuster
+	<akuster808@gmail.com>, <Alex.Gonzalez@digi.com>
+References: <20181005120055.GC7228@agonzal-linux>
+From: Randy MacLeod <randy.macleod@windriver.com>
+Message-ID: <982a032d-362e-cc1a-c84d-2496a0a21171@windriver.com>
+Date: Fri, 5 Oct 2018 16:49:07 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+	Thunderbird/52.9.1
 MIME-Version: 1.0
-Subject: [rocko] Backport request for meta/recipes-kernel/cryptodev
+In-Reply-To: <20181005120055.GC7228@agonzal-linux>
+X-Originating-IP: [172.25.44.4]
+Cc: poky@yoctoproject.org
+Subject: Re: [rocko] Backport request for meta/recipes-kernel/cryptodev
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
+Reply-To: Patches and discussions about the oe-core layer
+	<openembedded-core@lists.openembedded.org>
 List-Id: Poky build system developer discussion & patch submission for
 	meta-yocto <poky.yoctoproject.org>
 List-Unsubscribe: <https://lists.yoctoproject.org/options/poky>,
@@ -81,23 +50,57 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 05 Oct 2018 12:14:37 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <411FD6DB611C2F45836FCA4E5E68FD41@digi.com>
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 05 Oct 2018 20:50:32 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Alex,
 
-Could you please backport commit c568e89c3d316e5c10369c6ff48e871828bad783 t=
-o=20
-rocko?
+Armin maintains the rocko branch so best to CC him.
 
-https://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/?id=3Dc568e89c3d316e=
-5c10369c6ff48e871828bad783
+Also, I've moved this to the oe-core list where
+we handle oe-core commits. Poky is composed of
+several layers to make things easier to build
+but we use the other email lists for development.
 
-This will allow to build cryptodev with kernels >=3D 4.17.
+Armin,
 
-Thanks,
-Alex=
+This is a simple patch and I was able
+to cherry-pick the corresponding oe-core commit:
+
+   270a1e9bcf26a43f5cbdc5b901c4c6f79495311d
+
+back to rocko-next, and then run:
+   bitbake -c patch linux-yocto.
+The change is a no-op for the standard rocko kernel so that's
+all I did to test (actually, I'm starting a linux-yocto build
+but I'd be shocked if it failed).
+
+Will you add this to your rocko-next queue or
+would you like Alex to re-submit following the guidelines:
+    http://www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded
+
+
+../Randy
+
+
+On 10/05/2018 08:00 AM, Gonzalez, Alex wrote:
+> Hi,
+> 
+> Could you please backport commit c568e89c3d316e5c10369c6ff48e871828bad783 to
+> rocko?
+> 
+> https://git.yoctoproject.org/cgit/cgit.cgi/poky/commit/?id=c568e89c3d316e5c10369c6ff48e871828bad783
+> 
+> This will allow to build cryptodev with kernels >= 4.17.
+> 
+> Thanks,
+> Alex
+> 
+
+
+-- 
+# Randy MacLeod
+# Wind River Linux
 
