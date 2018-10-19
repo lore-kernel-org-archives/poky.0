@@ -1,35 +1,34 @@
-Return-Path: <fw@javox-solutions.com>
+Return-Path: <anuj.mittal@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 48371E00A10; Mon, 15 Oct 2018 08:12:03 -0700 (PDT)
+	id D103DE00994; Thu, 18 Oct 2018 19:57:08 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
-	SPF_HELO_PASS autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at http://www.dnswl.org/,
-	low *      trust
-	*      [134.119.228.97 listed in list.dnswl.org]
-	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
-X-Greylist: delayed 1389 seconds by postgrey-1.32 at yocto-www;
-	Mon, 15 Oct 2018 08:12:02 PDT
-Received: from smtprelay07.ispgateway.de (smtprelay07.ispgateway.de
-	[134.119.228.97])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5294FE00A0A
-	for <poky@yoctoproject.org>; Mon, 15 Oct 2018 08:12:02 -0700 (PDT)
-Received: from [78.34.235.117] (helo=javoxdev2.fritz.box)
-	by smtprelay07.ispgateway.de with esmtpa (Exim 4.90_1)
-	(envelope-from <fw@javox-solutions.com>)
-	id 1gC4At-0004vQ-ED; Mon, 15 Oct 2018 16:48:51 +0200
-From: Florian Wickert <fw@javox-solutions.com>
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [192.55.52.43 listed in list.dnswl.org]
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 54230E00994
+	for <poky@yoctoproject.org>; Thu, 18 Oct 2018 19:57:08 -0700 (PDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+	by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	18 Oct 2018 19:57:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.54,398,1534834800"; d="scan'208";a="79910181"
+Received: from anmitta2-mobl1.png.intel.com ([10.221.22.60])
+	by fmsmga008.fm.intel.com with ESMTP; 18 Oct 2018 19:57:07 -0700
+From: Anuj Mittal <anuj.mittal@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 15 Oct 2018 16:48:49 +0200
-Message-Id: <20181015144849.20079-1-fw@javox-solutions.com>
-X-Mailer: git-send-email 2.19.0
-MIME-Version: 1.0
-X-Df-Sender: ZndAamF2b3gtc29sdXRpb25zLmNvbQ==
-Subject: [PATCH] Revert "gstreamer1.0-plugins-bad: remove rtmpdump from DEPENDS"
+Date: Fri, 19 Oct 2018 10:57:03 +0800
+Message-Id: <20181019025704.8762-1-anuj.mittal@intel.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [meta-yocto-bsp][PATCH 1/2] linux-yocto: update genericx86* SRCREV for 4.14
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,33 +41,42 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Oct 2018 15:12:03 -0000
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Fri, 19 Oct 2018 02:57:08 -0000
 
-This reverts commit aa6def606fcb239fa8997764cdf4ebb1ec27802d which I
-posted myself.
-The Problem is rtmpdump, not the gstreamer1.0-plugins-bad recipe.
-The correct to fix this is to patch rtmpdump to work with OpenSSL 1.1.
+Bump to kernel release v4.14.76.
 
-Signed-off-by: Florian Wickert <fw@javox-solutions.com>
+Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
 ---
- .../gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb                | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../recipes-kernel/linux/linux-yocto_4.14.bbappend        | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb b/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb
-index 61efc36a40..e36ffe6e02 100644
---- a/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb
-+++ b/meta/recipes-multimedia/gstreamer/gstreamer1.0-plugins-bad_1.14.2.bb
-@@ -65,7 +65,7 @@ PACKAGECONFIG[openjpeg]        = "--enable-openjpeg,--disable-openjpeg,openjpeg"
- PACKAGECONFIG[opusparse]       = "--enable-opus,--disable-opus,libopus"
- PACKAGECONFIG[resindvd]        = "--enable-resindvd,--disable-resindvd,libdvdread libdvdnav"
- PACKAGECONFIG[rsvg]            = "--enable-rsvg,--disable-rsvg,librsvg"
--PACKAGECONFIG[rtmp]            = "--enable-rtmp,--disable-rtmp"
-+PACKAGECONFIG[rtmp]            = "--enable-rtmp,--disable-rtmp,rtmpdump"
- PACKAGECONFIG[sbc]             = "--enable-sbc,--disable-sbc,sbc"
- PACKAGECONFIG[smoothstreaming] = "--enable-smoothstreaming,--disable-smoothstreaming,libxml2"
- PACKAGECONFIG[sndfile]         = "--enable-sndfile,--disable-sndfile,libsndfile1"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
+index dbfb7b0977..502485a94b 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
+@@ -8,8 +8,8 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86    ?= "78a16a4d8cfd58f91be412797aac248e811d083b"
+-SRCREV_machine_genericx86-64 ?= "78a16a4d8cfd58f91be412797aac248e811d083b"
++SRCREV_machine_genericx86    ?= "2c5caa7e84311f2a0097974a697ac1f59030530e"
++SRCREV_machine_genericx86-64 ?= "2c5caa7e84311f2a0097974a697ac1f59030530e"
+ SRCREV_machine_edgerouter ?= "e06bfa18c727bd0e6e10cf26d9f161e4c791f52b"
+ SRCREV_machine_beaglebone-yocto ?= "b8805de77dcf8f59d8368fee4921c146c1300a6a"
+ SRCREV_machine_mpc8315e-rdb ?= "f88e87360b10f8fbd853a7d412982e6620f3f96d"
+@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.14.71"
+-LINUX_VERSION_genericx86-64 = "4.14.71"
++LINUX_VERSION_genericx86 = "4.14.76"
++LINUX_VERSION_genericx86-64 = "4.14.76"
+ LINUX_VERSION_edgerouter = "4.14.71"
+ LINUX_VERSION_beaglebone-yocto = "4.14.71"
+ LINUX_VERSION_mpc8315e-rdb = "4.14.71"
 -- 
-2.19.0
+2.17.1
 
 
