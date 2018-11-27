@@ -1,6 +1,6 @@
-Return-Path: <jpewhacker@gmail.com>
+Return-Path: <ste.lendl@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9403BE00C74; Wed, 21 Nov 2018 08:37:30 -0800 (PST)
+	id 9191EE00A54; Tue, 27 Nov 2018 05:19:54 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -10,60 +10,57 @@ X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (jpewhacker[at]gmail.com)
+	provider *      (ste.lendl[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.166.193 listed in list.dnswl.org]
+	*      [209.85.221.45 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-it1-f193.google.com (mail-it1-f193.google.com
-	[209.85.166.193])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 15C32E00C10
-	for <poky@yoctoproject.org>; Wed, 21 Nov 2018 08:37:29 -0800 (PST)
-Received: by mail-it1-f193.google.com with SMTP id b5so9775627iti.2
-	for <poky@yoctoproject.org>; Wed, 21 Nov 2018 08:37:29 -0800 (PST)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+	[209.85.221.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 01B25E009AA
+	for <poky@yoctoproject.org>; Tue, 27 Nov 2018 05:19:53 -0800 (PST)
+Received: by mail-wr1-f45.google.com with SMTP id q18so22652127wrx.9
+	for <poky@yoctoproject.org>; Tue, 27 Nov 2018 05:19:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=jQDyWfBXi4/D96YLm1f7CGjyxQp6PoHOWFVLV/vysuA=;
-	b=aA2Rok9whyHCRycayt807WUhgUvOAJBR6W2qjzTRt1oOreJsGSvoI3oKD5LiDdIEA3
-	JDepFuCA0YT1bhf01rcx2kJoKw5FdeMAy6jzIgRz+FWF08LePjb7DbN5md7NvuYPcX7a
-	+VJno1HlvIniQA7y0uXAQ0IBYUF6u1TKkovmg3LXCppM7qJupXmsLXo/g0lGxTNel+/Z
-	na1beHie0Sze8vMuyS2i8PQDfvb3++1QO5ELfkYROztYauAyuHAJAzBNG2aYKIgrlTyi
-	XqhaIZJ2Qe4irn9e9GjUZYKVSSgHaUmS4YbxfJHwCIqmFuGb0VaCs4FKI+Syqqc/1yD7
-	Q1TA==
+	h=from:to:cc:subject:date:message-id;
+	bh=3VL9hbh0tKw7QoqVYOO0VY7y1csNCCCqKciTSgj2I3Q=;
+	b=B7WH1fmh+ysQOTpkiaxQpPOmlEQJt7jf2aQVWkzIhc9a+fp+jn3Te8Kny4qhjxajgO
+	yaUAZHG1z2Lwf1rNpvguc9jEQsnci5Q9Vi5T+PKNC4UF+vmJ4RVhtTAEskLr9bOZW7Ts
+	LCfkl1r1FO3utBlWcQNegMOqAX7aUHPsQf97iVjjxAWEP4KUOFw7TvwQH17dKdXbMoAq
+	iD8wMaM0rj9LD+szRaTG32XjpxkZrsl8EfUM9mqlvfrpJ1du+RHfEtEgOVEL/1IqDupi
+	JTv952780ghc4vQprbVjbyD4BO4c96vaKEOc3YDkWWD9eJDR+I6gj3WnhGhI//At+6VP
+	TycA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=jQDyWfBXi4/D96YLm1f7CGjyxQp6PoHOWFVLV/vysuA=;
-	b=dP0Oqgs2f5dow5j5inysCBrVJq3+zS7WhScLUckQW9L0ibN/dsivdZNCXXWBHUWOqd
-	SrNeHoRev10xx9pv+6/KXpGWWfx0C6GbBgxvf+5mhAl9HXKCnrAxxCs6G8XxB0ofJ3WT
-	AGckqTMvFbSSLf15sFgiF2CObpVPI8f1sWY2w9iS1Q1cd/GvnDzKgrjIo6/UcbChQ7EK
-	RsmrMMDlGK7lYihwl89fK4mkSaF1mxuoZTZ89ner/U6eABfbqfyx4Vm+K2rC9iCMuOrv
-	o2UpKNlWY8pgskYQW89NEWvRKY4x6qlfg1GDvsjjnhOB6e523gejPv/qv5z4B9wn3ivE
-	8XEg==
-X-Gm-Message-State: AGRZ1gKWuWo3cS3nr2rBDGBKhzmoQROpjLfx/+jjHGspoH8NLumsazJR
-	xiOQfO4FlKdBBCrDk7Qo0x1Xvwndx0c=
-X-Google-Smtp-Source: AFSGD/XP8McfuCCp1UCNhk3bx5vvj3i0SP4y9Fr3/73wXn1wgtqx47672gaN/2swdYDSaCrK7RrhtQ==
-X-Received: by 2002:a02:b424:: with SMTP id i33mr6638339jaj.37.1542818249245; 
-	Wed, 21 Nov 2018 08:37:29 -0800 (PST)
-Received: from ola-842mrw1.ad.garmin.com ([204.77.163.55])
-	by smtp.gmail.com with ESMTPSA id
-	n25-v6sm13759595iop.34.2018.11.21.08.37.28
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=3VL9hbh0tKw7QoqVYOO0VY7y1csNCCCqKciTSgj2I3Q=;
+	b=qwKSLgGklmYLZ/nG2/sddyjKhX4vlL5g4KS0GmwajS3x3Rwk/7SVIKwWJBIldIaTzL
+	PbDJaBgDUSBnLDbmNNXe3oihfJr6KkKjvgcjuZX+CeCzThF124M2Az3lpSBZkfF5wtUk
+	kJaHWqmcN2MgpH0Ox4q9OroSL9Kk4+9H6iVCuUE/UJWGw/qpvXr9waqg4agSHEnI8DWe
+	1oNrAekiiw953vUXjD1lHJFax7OE41VOTClTfSjTZvjcZsNqsme2+BrKYbS6pGYpO9pZ
+	uwbqc74UYRWCcy9o1xD8BEI+vg6in4Fe6VQNkdiybLHjoOsoG4UsIM1OtSug0bfUtZCa
+	GBNA==
+X-Gm-Message-State: AA+aEWZ9Ei7Exv/kK1k7UROMVFPTFfIxN98GyjWVeHj898bGTL6beE9z
+	94cY8yh2o9/1U3taO+9+qE2jlAwNPJE=
+X-Google-Smtp-Source: AFSGD/UbGmxYWmDALEVjrbACvMid5MefHRrhTkMTs+4Z4uPGuZTza6DM0BOqxhl1Yurdgr1kgdp/Mw==
+X-Received: by 2002:adf:9591:: with SMTP id p17mr7129529wrp.224.1543324792672; 
+	Tue, 27 Nov 2018 05:19:52 -0800 (PST)
+Received: from localhost ([212.69.186.40])
+	by smtp.gmail.com with ESMTPSA id d8sm2777577wrw.70.2018.11.27.05.19.51
 	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Wed, 21 Nov 2018 08:37:28 -0800 (PST)
-From: Joshua Watt <jpewhacker@gmail.com>
-X-Google-Original-From: Joshua Watt <JPEWhacker@gmail.com>
+	Tue, 27 Nov 2018 05:19:51 -0800 (PST)
+From: Stefan Lendl <ste.lendl@gmail.com>
+X-Google-Original-From: Stefan Lendl <sll@mission-embedded.com>
 To: poky@yoctoproject.org
-Date: Wed, 21 Nov 2018 10:37:05 -0600
-Message-Id: <20181121163705.13477-1-JPEWhacker@gmail.com>
-X-Mailer: git-send-email 2.19.1
-MIME-Version: 1.0
-Subject: [meta-poky][PATCH] poky.conf: Include SDKMACHINE in SDK name
+Date: Tue, 27 Nov 2018 14:19:45 +0100
+Message-Id: <20181127131945.10796-1-sll@mission-embedded.com>
+X-Mailer: git-send-email 2.14.5
+Cc: Stefan Lendl <ste.lendl@gmail.com>
+Subject: [PATCH][sumo] make PREFERRED_VERSION_openssl* overwritable on sumo
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -76,36 +73,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Nov 2018 16:37:30 -0000
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Tue, 27 Nov 2018 13:19:54 -0000
 
-Replace SDK_ARCH with SDKMACHINE so that SDK targeting different
-development machines but having the same architecture don't cause
-similar errors as found in '3614dd4aee9 ("poky.conf: Add MACHINE to
-SDK_NAME")'
+From: Stefan Lendl <ste.lendl@gmail.com>
 
-This doesn't have any effect on the SDK machines provided in oe-core,
-since SDK_ARCH is the same as SDKMACHINE for all of them.
-
-Signed-off-by: Joshua Watt <JPEWhacker@gmail.com>
+defaultsetup.conf and therefore default-versions.inc is sourced pretty late in bitbake.conf.
+default-versions.inc overwrites previous assignments of PREFERRED_VERSION_openssl.
+Assigning it with ?= allows other .conf files to assign correctly.
+in particular assignment in conf/local.conf and machine config is used instead of default.
 ---
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta/conf/distro/include/default-versions.inc | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index c9c3ed976a2..f5de8f2335d 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -23,7 +23,7 @@ DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DE
+diff --git a/meta/conf/distro/include/default-versions.inc b/meta/conf/distro/include/default-versions.inc
+index 868073843a..3d88e8f656 100644
+--- a/meta/conf/distro/include/default-versions.inc
++++ b/meta/conf/distro/include/default-versions.inc
+@@ -2,6 +2,6 @@
+ # Default preferred versions
+ #
  
- PREFERRED_VERSION_linux-yocto ?= "4.18%"
- 
--SDK_NAME = "${DISTRO}-${TCLIBC}-${SDK_ARCH}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
-+SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
- SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
- 
- DISTRO_EXTRA_RDEPENDS += " ${POKY_DEFAULT_EXTRA_RDEPENDS}"
+-PREFERRED_VERSION_openssl = "1.0.%"
+-PREFERRED_VERSION_openssl-native = "1.0.%"
+-PREFERRED_VERSION_nativesdk-openssl = "1.0.%"
++PREFERRED_VERSION_openssl ?= "1.0.%"
++PREFERRED_VERSION_openssl-native ?= "1.0.%"
++PREFERRED_VERSION_nativesdk-openssl ?= "1.0.%"
 -- 
-2.19.1
+2.14.5
 
 
