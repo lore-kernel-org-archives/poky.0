@@ -1,6 +1,6 @@
 Return-Path: <maxime.roussinbelanger@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 0FF83E00C7E; Thu, 29 Nov 2018 15:51:45 -0800 (PST)
+	id C3632E00CBC; Thu, 29 Nov 2018 15:52:05 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -18,56 +18,58 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      valid
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.160.194 listed in list.dnswl.org]
-Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
-	[209.85.160.194])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0AB4CE00BFD
-	for <poky@yoctoproject.org>; Thu, 29 Nov 2018 15:51:43 -0800 (PST)
-Received: by mail-qt1-f194.google.com with SMTP id n32so4071268qte.11
-	for <poky@yoctoproject.org>; Thu, 29 Nov 2018 15:51:43 -0800 (PST)
+	*      [209.85.160.196 listed in list.dnswl.org]
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+	[209.85.160.196])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 052B5E00D07
+	for <poky@yoctoproject.org>; Thu, 29 Nov 2018 15:52:00 -0800 (PST)
+Received: by mail-qt1-f196.google.com with SMTP id e5so4060391qtr.12
+	for <poky@yoctoproject.org>; Thu, 29 Nov 2018 15:52:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=HXZHwaVP6e4s+FLaRfJSsKaEhpOP4RUOSROv7VYsC/Q=;
-	b=k3Z119vOkrF0wCg92xYoEIjL7PR0t4o80SDU2Kxj2mruPJKUwzv+s0D2CbLHsIr9wb
-	Z5YuDjYA8BVo2RGQ1/++3jGl6XIzHTIXfuseN3O8U/FZGKbxsfU5nLDBLZEnqKrFKgFC
-	dRYiYtaJMQekNzXk/dG2tIxPMsTy0/SJ8LHmn2vVYS9BXLlyEQAFGSsjW5vi5lBtSWM5
-	+VAV53htVbb5ZK2rFuhIuzD7VMSs8ibQJIgw0QRjWbFjX9RSnJpTqoZdGnYnngiMTKQb
-	ZPniOJ9Nj922KJR+BSIwtdVepi9paNvmbH4nuzSeQSmMugCaTKQoMTQZlcG/tgSXS4p0
-	izxg==
+	h=from:to:cc:subject:date:message-id:in-reply-to:references
+	:mime-version:content-transfer-encoding;
+	bh=W4PuojrwvQ0IZxX97ndbB+JZGqkF5MUvtFSi9WSQs/4=;
+	b=G4vf6OxZyXhfkVzEOBHZwkDhrhlCirhbAVsFbxhwU19yO81tIVC+5tOlrsQgUMwv89
+	8gOtdkukzyxvfWj/jraMC0X+xb5KJFgWkpdxd/00/QRrCGj87/8PYVzqR+1TK1gUPj30
+	Dv+EDRPJPEzLyZN0gCrWKUAg1JhQs5Gz6tFSJhez+kFQqG6gTVReqhUvN/BtTCYN20ax
+	r5j5LkxxWMwkPx4FUms8v1kd5fwDpymDoqifqpaTJXNxrQPgJBN3vj8adq1Jl02lYWXG
+	vyjCA8q038qT/HhQ7JkuW2Kqqyn9qUx8mnpi4sQyYuAtTms0AxQ8Q/Zz91qbIgwOfJpX
+	MP5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=HXZHwaVP6e4s+FLaRfJSsKaEhpOP4RUOSROv7VYsC/Q=;
-	b=IunaWsTMI6GgjD50XLeE6L5jeI5MM3vBvDV4A7tmeyliwiiDvgRiF4gdnd7r/9hhGm
-	3U+BiS23npSY6HT+mM+e4StkR2zUieW+y/yro8zoHD4aun+s3Dya+D7ey1MNkUS6PE9J
-	FTMSiEi0WsDPxvcKOg1q7KnP7SqgvdGDTMFIxbEbKqTlemEwIwhOyY/Nu1rRHQiEtg0j
-	S8R0DdrQHwJmelIka+ltbHXmjnyzxMG5ehkaqXINaj+NmqyGBPorCscoruXf19P1avU2
-	1agoEcUbpnkajSVvIAWMI9Ql7c8+9opgLhZ8ih5ddA0ou8z04pr7+gV02WlsSZ3Y5TWv
-	zUcg==
-X-Gm-Message-State: AA+aEWaIrTX5hnMUpc99GHURZR2I/B+Z/KjrRBCo1QWYYfIpSAaUsdvv
-	5V10bAd3wi6hfae+r6TU+grJD9tq
-X-Google-Smtp-Source: AFSGD/U5zzT7S8rBh8ZL7BYoFyMV9impi0CtDvM4C7ZVFRq6EeZ5+IjmxGfLu6dryzJwmkEhTWtbtg==
-X-Received: by 2002:a0c:985d:: with SMTP id e29mr3526348qvd.16.1543535502402; 
-	Thu, 29 Nov 2018 15:51:42 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references:mime-version:content-transfer-encoding;
+	bh=W4PuojrwvQ0IZxX97ndbB+JZGqkF5MUvtFSi9WSQs/4=;
+	b=uKyGioNIvbDmsiOsEqyp0p77lAUteiT45y9dQGVTIwqW0x11Be+tJqBOOJ8nBUqRLx
+	qcZnH0b1xdE8hYVfHh+SLQxy+K9rd786OqDs2AiH4SmL5LakWxFvnbd8Ie7GRb/T2hMl
+	o0cdWLGf0DX0UMK10NbCG98doNHUFD/5YQORkSb/gy7nlOFEVg+MS38OwMRN8qOXFqpe
+	FpTVI5miiJbrDgO0o/Ffdb+TPslMh8u5NFpUOkfl7Ki52q1NvTkafVjXe6gbVqeY7GoO
+	xM+GxRQPUVYxTInjggyIrHXvt7m86afblishAbosmJCRXb21WIJGQAIinHkALa0olZwC
+	13aw==
+X-Gm-Message-State: AA+aEWarkmvzUXXKTF2+4wZEyFPUTD4NJZsl66NxmjwggVlM7Dpu/yiQ
+	NuT1yFp35phW90u20M4/jtA9Hb+n
+X-Google-Smtp-Source: AFSGD/UerQpsXkaiQw/vX8MOoAdRb3f2yj4fMUKOBm7+CoAHJKg9/n8fzEQifgLTMqk5VsKD/vevQg==
+X-Received: by 2002:aed:3907:: with SMTP id l7mr3561739qte.65.1543535520308;
+	Thu, 29 Nov 2018 15:52:00 -0800 (PST)
 Received: from mbedesk.Sonatest.net
 	(ipagstaticip-d73c7528-4de5-0861-800b-03d8b15e3869.sdsl.bell.ca.
 	[174.94.156.236]) by smtp.gmail.com with ESMTPSA id
-	o21sm2118675qto.18.2018.11.29.15.51.41
+	205sm1465333qkf.22.2018.11.29.15.51.59
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 29 Nov 2018 15:51:41 -0800 (PST)
+	Thu, 29 Nov 2018 15:51:59 -0800 (PST)
 From: "=?UTF-8?q?Maxime=20Roussin-B=C3=A9langer?="
 	<maxime.roussinbelanger@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Maxime=20Roussin-B=C3=A9langer?=
 	<roussinm@sonatest.com>
 To: poky@yoctoproject.org
-Date: Thu, 29 Nov 2018 18:51:34 -0500
-Message-Id: <cover.1543535225.git.roussinm@sonatest.com>
+Date: Thu, 29 Nov 2018 18:51:49 -0500
+Message-Id: <9d5112ef83d85dd155d5972241280ac31ba7ea71.1543535225.git.roussinm@sonatest.com>
 X-Mailer: git-send-email 2.19.2
+In-Reply-To: <cover.1543535225.git.roussinm@sonatest.com>
+References: <cover.1543535225.git.roussinm@sonatest.com>
 MIME-Version: 1.0
 Cc: =?UTF-8?q?Maxime=20Roussin-B=C3=A9langer?= <roussinm@sonatest.com>
-Subject: [PATCH 0/1] cmake: remove version in directory structure
+Subject: [PULL][PATCH 1/1] cmake: remove version in directory structure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -80,29 +82,61 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 29 Nov 2018 23:51:45 -0000
+X-List-Received-Date: Thu, 29 Nov 2018 23:52:05 -0000
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-I removed the version on the directory because it doesn't seems to be the philosophy
-the support multiple version of the same package in an embedded system.
+Remove the number because I don't think it's worth
+supporting multiple version of cmake inside an embedded
+product.
 
-The following changes since commit 41d89552620bfbc94031d314e6b3d0324f7a330e:
+When using an SDK, using 2 different CMake is probably not a
+use case.
 
-  bitbake: fetch2: Avoid warning about incorrect character escaping in regex (2018-11-27 22:15:34 +0000)
-
-are available in the Git repository at:
-
-  git://git.yoctoproject.org/poky-contrib mroussin/remove_cmake_version
-  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=mroussin/remove_cmake_version
-
-Maxime Roussin-Bélanger (1):
-  cmake: remove version in directory structure
-
+Signed-off-by: Maxime Roussin-Bélanger <roussinm@sonatest.com>
+---
  meta/recipes-devtools/cmake/cmake-native_3.12.2.bb | 2 ++
  meta/recipes-devtools/cmake/cmake_3.12.2.bb        | 7 ++++---
  2 files changed, 6 insertions(+), 3 deletions(-)
 
+diff --git a/meta/recipes-devtools/cmake/cmake-native_3.12.2.bb b/meta/recipes-devtools/cmake/cmake-native_3.12.2.bb
+index 9a1390f96d..3e59012b48 100644
+--- a/meta/recipes-devtools/cmake/cmake-native_3.12.2.bb
++++ b/meta/recipes-devtools/cmake/cmake-native_3.12.2.bb
+@@ -16,6 +16,8 @@ do_configure[cleandirs] = "${B}"
+ # Disable ccmake since we don't depend on ncurses
+ CMAKE_EXTRACONF = "\
+     -DCMAKE_LIBRARY_PATH=${STAGING_LIBDIR_NATIVE} \
++    -DCMAKE_DOC_DIR=doc/cmake \
++    -DCMAKE_DATA_DIR=share/cmake \
+     -DBUILD_CursesDialog=0 \
+     -DCMAKE_USE_SYSTEM_LIBRARIES=1 \
+     -DCMAKE_USE_SYSTEM_LIBRARY_JSONCPP=0 \
+diff --git a/meta/recipes-devtools/cmake/cmake_3.12.2.bb b/meta/recipes-devtools/cmake/cmake_3.12.2.bb
+index e0457677e8..0a3963b525 100644
+--- a/meta/recipes-devtools/cmake/cmake_3.12.2.bb
++++ b/meta/recipes-devtools/cmake/cmake_3.12.2.bb
+@@ -26,7 +26,8 @@ python () {
+ }
+ 
+ EXTRA_OECMAKE=" \
+-    -DCMAKE_DOC_DIR=${docdir_stripped}/cmake-${CMAKE_MAJOR_VERSION} \
++    -DCMAKE_DOC_DIR=${docdir_stripped}/cmake \
++    -DCMAKE_DATA_DIR=share/cmake \
+     -DCMAKE_USE_SYSTEM_LIBRARIES=1 \
+     -DCMAKE_USE_SYSTEM_LIBRARY_JSONCPP=0 \
+     -DCMAKE_USE_SYSTEM_LIBRARY_LIBUV=0 \
+@@ -46,8 +47,8 @@ do_install_append_class-nativesdk() {
+ 
+ FILES_${PN}_append_class-nativesdk = " ${SDKPATHNATIVE}"
+ 
+-FILES_${PN} += "${datadir}/cmake-${CMAKE_MAJOR_VERSION} ${datadir}/cmake ${datadir}/aclocal"
+-FILES_${PN}-doc += "${docdir}/cmake-${CMAKE_MAJOR_VERSION}"
++FILES_${PN} += "${datadir}/cmake ${datadir}/aclocal"
++FILES_${PN}-doc += "${docdir}/cmake"
+ FILES_${PN}-dev = ""
+ 
+ BBCLASSEXTEND = "nativesdk"
 -- 
 2.19.2
 
