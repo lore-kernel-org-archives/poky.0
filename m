@@ -1,40 +1,35 @@
-Return-Path: <Qi.Chen@windriver.com>
+Return-Path: <Kai.Kang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7DED4E00C77; Wed,  5 Dec 2018 21:38:04 -0800 (PST)
+	id 481A4E009AA; Thu,  6 Dec 2018 05:32:45 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
 	*      medium trust
-	*      [192.103.53.11 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 23356E00C95
-	for <poky@yoctoproject.org>; Wed,  5 Dec 2018 21:37:59 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id wB65bG9b030724
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 5 Dec 2018 21:37:27 -0800
-Received: from [128.224.163.141] (128.224.163.141) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.408.0;
-	Wed, 5 Dec 2018 21:37:06 -0800
-To: Aditya Tayade <Aditya.Tayade@kpit.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-References: <MA1PR01MB2604F38E134555C92B23094791A80@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM>
-From: ChenQi <Qi.Chen@windriver.com>
-Message-ID: <72115296-1563-3c1a-2fcd-3ac1c5b46a82@windriver.com>
-Date: Thu, 6 Dec 2018 13:44:23 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.4.0
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2AEE7E003E1
+	for <poky@yoctoproject.org>; Thu,  6 Dec 2018 05:32:44 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id wB6DWhYA025131
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 6 Dec 2018 05:32:43 -0800 (PST)
+Received: from pek-hostel-deb02.wrs.com (128.224.153.152) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.408.0; Thu, 6 Dec 2018 05:32:43 -0800
+From: <kai.kang@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Thu, 6 Dec 2018 20:53:17 +0800
+Message-ID: <c2e11d2a6ebb8da6177c0b0d7174a0e2047093db.1544102766.git.kai.kang@windriver.com>
+X-Mailer: git-send-email 2.18.0
+In-Reply-To: <cover.1544102766.git.kai.kang@windriver.com>
+References: <cover.1544102766.git.kai.kang@windriver.com>
 MIME-Version: 1.0
-In-Reply-To: <MA1PR01MB2604F38E134555C92B23094791A80@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM>
-X-Originating-IP: [128.224.163.141]
-Subject: Re: [Issue] systemd v237: systemd-analyze plot
+Subject: [meta-poky][PATCH 1/1] local.conf.sample: make systemd as default init manager
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -47,131 +42,55 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Dec 2018 05:38:04 -0000
-Content-Type: multipart/alternative;
-	boundary="------------D9B277973177EB7A55672BBF"
+X-List-Received-Date: Thu, 06 Dec 2018 13:32:45 -0000
+Content-Type: text/plain
 
---------------D9B277973177EB7A55672BBF
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Kai Kang <kai.kang@windriver.com>
 
-Please check if systemd-hostnamed.service is installed, and if it's 
-activatable via this 'org.freedesttop.hostname1'.
+Move configurations from local.conf.sample.extended to local.conf.sample
+to make systemd as default init manager for poky.
 
-`busctl'
-`cat /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service'
-`ls -l /lib/systemd/system/dbus-org.freedesktop.hostname1.service'
+[YOCTO #13031]
 
-Best Regards,
-Chen Qi
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+ meta-poky/conf/local.conf.sample          | 8 ++++++++
+ meta-poky/conf/local.conf.sample.extended | 8 --------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-On 12/06/2018 05:25 AM, Aditya Tayade wrote:
->
-> Hi,
->
->
-> Is any one facing below issue with "systemd-analyze plot" command:
->
-> Failed to get host information from systemd: The name 
-> org.freedesktop.hostname1 was not provided by any .service files
->
->
-> After going through the source code of analyze.c found it's 
-> log_debug_error, can any one help here.
->
->
-> Rest of systemd-analyze options working fine.
->
->
-> Regards,
->
-> Aditya Tayade
->
-> This message contains information that may be privileged or 
-> confidential and is the property of the KPIT Technologies Ltd. It is 
-> intended only for the person to whom it is addressed. If you are not 
-> the intended recipient, you are not authorized to read, print, retain 
-> copy, disseminate, distribute, or use this message or any part 
-> thereof. If you receive this message in error, please notify the 
-> sender immediately and delete all copies of this message. KPIT 
-> Technologies Ltd. does not accept any liability for virus infected mails.
->
->
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index cf96598819..5168679f41 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -247,3 +247,11 @@ PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ # track the version of this file when it was generated. This can safely be ignored if
+ # this doesn't mean anything to you.
+ CONF_VERSION = "1"
++
++#
++# Use systemd for system initialization
++#
++DISTRO_FEATURES_append = " systemd"
++DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
++VIRTUAL-RUNTIME_init_manager = "systemd"
++VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+index 3ba99f4896..17135d0ef1 100644
+--- a/meta-poky/conf/local.conf.sample.extended
++++ b/meta-poky/conf/local.conf.sample.extended
+@@ -389,11 +389,3 @@
+ #VIRTUAL-RUNTIME_initscripts = "initscripts"
+ #VIRTUAL-RUNTIME_keymaps = "keymaps"
+ #DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+-
+-#
+-# Use systemd for system initialization
+-#
+-#DISTRO_FEATURES_append = " systemd"
+-#DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+-#VIRTUAL-RUNTIME_init_manager = "systemd"
+-#VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+-- 
+2.19.0.rc2
 
 
---------------D9B277973177EB7A55672BBF
-Content-Type: text/html; charset="windows-1252"
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=windows-1252"
-      http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Please check if
-      systemd-hostnamed.service is installed, and if it's activatable
-      via this 'org.freedesttop.hostname1'.<br>
-      <br>
-      `busctl'<br>
-      `cat
-      /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service'<br>
-      `ls -l /lib/systemd/system/dbus-org.freedesktop.hostname1.service'<br>
-      <br>
-      Best Regards,<br>
-      Chen Qi<br>
-      <br>
-      On 12/06/2018 05:25 AM, Aditya Tayade wrote:<br>
-    </div>
-    <blockquote
-cite="mid:MA1PR01MB2604F38E134555C92B23094791A80@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p style="margin-top:0;margin-bottom:0">Hi,</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">Is any one facing below
-          issue with "systemd-analyze plot" command:</p>
-        <p style="margin-top:0;margin-bottom:0">Failed to get host
-          information from systemd: The name org.freedesktop.hostname1
-          was not provided by any .service files</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">After going through the
-          source code of analyze.c found it's log_debug_error, can any
-          one help here.<br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">Rest of systemd-analyze
-          options working fine.</p>
-        <p style="margin-top:0;margin-bottom:0"><br>
-        </p>
-        <p style="margin-top:0;margin-bottom:0">Regards,</p>
-        <p style="margin-top:0;margin-bottom:0">Aditya Tayade<br>
-        </p>
-      </div>
-      This message contains information that may be privileged or
-      confidential and is the property of the KPIT Technologies Ltd. It
-      is intended only for the person to whom it is addressed. If you
-      are not the intended recipient, you are not authorized to read,
-      print, retain copy, disseminate, distribute, or use this message
-      or any part thereof. If you receive this message in error, please
-      notify the sender immediately and delete all copies of this
-      message. KPIT Technologies Ltd. does not accept any liability for
-      virus infected mails.
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------D9B277973177EB7A55672BBF--
