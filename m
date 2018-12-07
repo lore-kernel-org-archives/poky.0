@@ -1,64 +1,59 @@
-Return-Path: <matti.kaasinen@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 741E5E00C58; Fri,  7 Dec 2018 01:55:47 -0800 (PST)
+	id 4F34DE00C4E; Fri,  7 Dec 2018 02:11:00 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (matti.kaasinen[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.208.46 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
+	*      [209.85.166.177 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
-	[209.85.208.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EF439E00C49
-	for <poky@yoctoproject.org>; Fri,  7 Dec 2018 01:55:46 -0800 (PST)
-Received: by mail-ed1-f46.google.com with SMTP id f23so3221699edb.3
-	for <poky@yoctoproject.org>; Fri, 07 Dec 2018 01:55:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to; 
-	bh=jVWWPFtPQIzmUqLmZYXCT1NzjPtJwhzkYNgKnRSCaPY=;
-	b=MY/84lwZnxrFpcitjRh4OpQl+bXj/6ZHQmIQR6R2siOzChfLCeZDjuE9/7KABEO1vX
-	hLBofSLNqFgwiLi05UCm4UXEU9o9r+reJrf5HJ2rHmjY9yBTaPUETTs7ruG3KhJ2BKtW
-	/nRM+GN82SO8j229HM/y5/xSwFa8oa/M8A5iyk5O5Fp1YzBLsvbZIGbBcaOlkh6A1pXX
-	fsgvM5eu7lrS4qM4KQypXpjnhj+fSXz5IsdmSzV096O58YiS8VHBjcjjwf7puDbd1Sdv
-	gxjKiWUBAjLtxyzkP3FXkQUei6P/Ix/2q/HqpoY7SrP51JHcDfpc7OcmTWQs/e1HrfNu
-	ryng==
+Received: from mail-it1-f177.google.com (mail-it1-f177.google.com
+	[209.85.166.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DEC0BE00C12
+	for <poky@yoctoproject.org>; Fri,  7 Dec 2018 02:10:59 -0800 (PST)
+Received: by mail-it1-f177.google.com with SMTP id b5so6242988iti.2
+	for <poky@yoctoproject.org>; Fri, 07 Dec 2018 02:10:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=CLnoKZ1TS27NoIdPvhzO42GIJtRswiiSCr+UT9b1zCo=;
+	b=ciRan2QcFkDbgFsDUEeJBSlJt4fkoCEvBjY4xI/Kt1ujobLf3NsBc1YGg+4f2JZviK
+	OWbmFqorMGIso6JKzw8RDaHrpM2gP1DBDwQqsOCnCwQw4nsCo0FI1+nrAGwV9LHKzu6o
+	d5xeD+ESvBKBawsylO32quXj4ZNmRHjN/9fmSV6pvx0nhsZ+jBBbujMnPGUDZKXCEF4r
+	oEtUc7VdHoMXtWwOyXWzkZQ4qJnEuVJo6lQ+2ngF4Ipzqr9DDH6vPdN2EttN/yuwMJGJ
+	Nl6LcJtI7HD7WHsb/BHBDPixlFr+JGZXwJjKTtJSd1fePFie29/6ZWJeSetGNeo1gCUD
+	QMMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to;
-	bh=jVWWPFtPQIzmUqLmZYXCT1NzjPtJwhzkYNgKnRSCaPY=;
-	b=oQiGHN0GGoCYPgXFiVKifo+qoU5Og8pXoB++uOCG4ImmyeM+JNcR0NJFHx2YMnStYr
-	WkKWAd9C01HKj1eZj/QMbmhu1xZewmi81n7FomN9enmn0DkIHGFZ9D+ZSaBE/j1lmQN8
-	BHq5wFNLQ3qeCbJyw1jGbZ/8VC7XeQ9DKlVZFyUbMQbRASBE/QHeTCxuJWdBpjFIvn2v
-	xW50BZj5bCDQKY0ZkYTbWxDgi5Z07NT1NW5ZgrV8XsgkRBlHjrnt//KlF/nhxdPDejoN
-	PYaFDRo3COtSMqWQFuocSReXiakFKI+YjJbalxlqFzM+fBFU9V3WlJCN0EHWSVoc2d8g
-	TBsQ==
-X-Gm-Message-State: AA+aEWZDCm3zzys/1BLDNBlxgijsCJt/FXCloUzhVxTxi8L029xiQa3f
-	A71IcU5zfcIQTC0NIhxeRTvTan1YDl53KbxTq2wxamSD
-X-Google-Smtp-Source: AFSGD/XtGgbJRRitvHwqxRX1cklVAcJScXxxS08D83ZU3WUqZzweptSa3okIqx5/zGVFW6/OXA0daHdbXSNbWji7yWs=
-X-Received: by 2002:a17:906:4d41:: with SMTP id
-	b1-v6mr1420808ejv.171.1544176545655; 
-	Fri, 07 Dec 2018 01:55:45 -0800 (PST)
+	:message-id:subject:to:cc;
+	bh=CLnoKZ1TS27NoIdPvhzO42GIJtRswiiSCr+UT9b1zCo=;
+	b=QllXPgsvorlI0blYxSYvqb/XsCn0fKbJKCGKk7Dbw4uTGTxZ/tNy9IpVtxHxC9mBt7
+	Vis9BkxffyHwL8J19QHITRq8N5JmUpnrbLJTcfMzb21xcfYLW0wi5aS1d5xAkJMbHSdr
+	UZpiBVjF3Ag6iLKo0kl/G1q8SdzGntPpZzqjOLxJmUjwraX1nkwaaja3mUlWD5jpjzpK
+	NdH//9BWCDhRpAuGg1+UzG0YTKA2MPvCfSQKUon0mL198Cj3Ub9A03XckKvey8zxLGNP
+	MvdAxZDvtEs5bG1kdGViioj/df8BZopIpyaGmWfYorim7TTutXw3E3GG0wPHqyOxpLw4
+	Luzw==
+X-Gm-Message-State: AA+aEWadCmdcnuhA7Z75piGuiPr1s9SWD8Y/vl+OtP3YcMCKEcZBXs8p
+	zLV+3OKKrJpymx+hYB93CKcFI9FC2bdLWofp0JPqzA==
+X-Google-Smtp-Source: AFSGD/W0IfZinn3q1kkHD+4eFiy2pJIygU/mmZcxV+GWZeG5zec7xcDipVBxsU4qGeh4m81fi5BChvPsGCesQQ8iEoc=
+X-Received: by 2002:a02:9c53:: with SMTP id h19mr1217633jal.31.1544177459348; 
+	Fri, 07 Dec 2018 02:10:59 -0800 (PST)
 MIME-Version: 1.0
 References: <CADnUhn2TRDD8623A6SwPGP7RP4sc7uhSxNbTz6S0NDDqJwJtiw@mail.gmail.com>
 In-Reply-To: <CADnUhn2TRDD8623A6SwPGP7RP4sc7uhSxNbTz6S0NDDqJwJtiw@mail.gmail.com>
-From: matti kaasinen <matti.kaasinen@gmail.com>
-Date: Fri, 7 Dec 2018 11:55:33 +0200
-Message-ID: <CADnUhn0yqSb09atcqNakJMHMFwoG8qdLUww90D8gPRRu+913hw@mail.gmail.com>
-To: Poky Project <poky@yoctoproject.org>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Fri, 7 Dec 2018 10:10:47 +0000
+Message-ID: <CAJTo0Laz6GYO0xzkKbnp=zBh7aKi+eRdu4Os0kEyYBBhSTDH7A@mail.gmail.com>
+To: matti kaasinen <matti.kaasinen@gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: nspr-4.16-r0 do_package: Function failed: split_and_strip_files
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -72,72 +67,14 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Dec 2018 09:55:47 -0000
-Content-Type: multipart/alternative; boundary="000000000000797252057c6b9eee"
-
---000000000000797252057c6b9eee
+X-List-Received-Date: Fri, 07 Dec 2018 10:11:00 -0000
 Content-Type: text/plain; charset="UTF-8"
 
-I checked that tag. It seems to be correct:
-68a612b7d31d270348ef5439d7f779c309bdb6ec    refs/heads/rocko
+On Fri, 7 Dec 2018 at 09:42, matti kaasinen <matti.kaasinen@gmail.com> wrote:
+> My build stops while packaging nspr-4.16-r0 do_package while executing split_and_strip_files.
+> I try now building Poky based image using docker container (crops/poky). I already had to add HOSTTOOLS_append = " svn " to get SRCREV = "${AUTOREV}" statement work that I did not need in direct PC installation.
 
-pe 7. jouluk. 2018 klo 11.42 matti kaasinen (matti.kaasinen@gmail.com)
-kirjoitti:
+You'll have to tell us what the actual error is if you want any help.
 
-> Hi!
-> My build stops while packaging nspr-4.16-r0 do_package while executing
-> split_and_strip_files.
-> I try now building Poky based image using docker container (crops/poky). I
-> already had to add HOSTTOOLS_append = " svn " to get SRCREV = "${AUTOREV}"
-> statement work that I did not need in direct PC installation.
->
-> Could this also be something resembling i.e. something related to host sw
-> because I have not had this problem in similar set-up with same PC but
-> without docker. In fact there I did not use repo system but just checked
-> out layers manually.
->
-> Poky revision is 68a612b7d31d270348ef5439d7f779c309bdb6ec. It is supposed
-> to be "rocko" tag, but I'm not quite sure what repo took. Git does not
-> report any branch. Repo set-up was:
->   <project remote="yocto"
-> revision="90414ecd5cf72995074f3dc6b05cfbee0a1dab67" upstream="rocko"
-> name="poky" path="sources/poky"/>
->
-> I hope someone can guide me with this problem.
-> Thanks,
-> Matti
->
+Ross
 
---000000000000797252057c6b9eee
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div>I checked that tag. It seems to be c=
-orrect:</div><div>68a612b7d31d270348ef5439d7f779c309bdb6ec=C2=A0=C2=A0=C2=
-=A0 refs/heads/rocko<br></div></div></div><br><div class=3D"gmail_quote"><d=
-iv dir=3D"ltr">pe 7. jouluk. 2018 klo 11.42 matti kaasinen (<a href=3D"mail=
-to:matti.kaasinen@gmail.com">matti.kaasinen@gmail.com</a>) kirjoitti:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div=
- dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D=
-"ltr"><div dir=3D"ltr"><div>Hi!</div><div>My build stops while packaging ns=
-pr-4.16-r0 do_package while executing split_and_strip_files.</div><div>I tr=
-y now building Poky based image using docker container (crops/poky). I alre=
-ady had to add HOSTTOOLS_append =3D &quot; svn &quot; to get SRCREV =3D &qu=
-ot;${AUTOREV}&quot; statement work that I did not need in direct PC install=
-ation.<br></div><div><br></div><div>Could this also be something resembling=
- i.e. something related to host sw because I have not had this problem in s=
-imilar set-up with same PC but without docker. In fact there I did not use =
-repo system but just checked out layers manually.<br></div><div><br></div><=
-div>Poky revision is 68a612b7d31d270348ef5439d7f779c309bdb6ec. It is suppos=
-ed to be &quot;rocko&quot; tag, but I&#39;m not quite sure what repo took. =
-Git does not report any branch. Repo set-up was:</div><div>=C2=A0 &lt;proje=
-ct remote=3D&quot;yocto&quot;=C2=A0=C2=A0=C2=A0=C2=A0 revision=3D&quot;9041=
-4ecd5cf72995074f3dc6b05cfbee0a1dab67&quot; upstream=3D&quot;rocko&quot;=C2=
-=A0=C2=A0=C2=A0=C2=A0 name=3D&quot;poky&quot; path=3D&quot;sources/poky&quo=
-t;/&gt;<br></div><div><br></div><div>I hope someone can guide me with this =
-problem.</div><div>Thanks,</div><div>Matti<br></div></div></div></div></div=
-></div></div></div>
-</blockquote></div>
-
---000000000000797252057c6b9eee--
