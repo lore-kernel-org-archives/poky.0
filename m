@@ -1,69 +1,97 @@
-Return-Path: <matti.kaasinen@gmail.com>
+Return-Path: <Aditya.Tayade@kpit.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F195DE00C90; Mon, 10 Dec 2018 23:12:47 -0800 (PST)
+	id E4E57E00C9F; Wed, 12 Dec 2018 19:05:25 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+	DKIM_VALID, DKIM_VALID_AU, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
+	SPF_HELO_PASS autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (matti.kaasinen[at]gmail.com)
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.208.43 listed in list.dnswl.org]
+	*      [40.107.139.80 listed in list.dnswl.org]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
-	[209.85.208.43])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 552ACE00C1E
-	for <poky@yoctoproject.org>; Mon, 10 Dec 2018 23:12:47 -0800 (PST)
-Received: by mail-ed1-f43.google.com with SMTP id z28so11615741edi.8
-	for <poky@yoctoproject.org>; Mon, 10 Dec 2018 23:12:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=x7PF3pYUpUbPgrp5JVsxrN+q7EvhhRK1rmbEgUmPn68=;
-	b=Pk0CvYmsM+LwXuOuxTv/3JZuW3fDejARKUjBlJ24kjRFet15CDCTxagRiEmn7dJRoh
-	bj9nHy0POGxpMihj3QX2RSiqZVI7tp2Xd85aGQHR5TKindUJeQGRHlzm/UPjbyHFpcf3
-	Xi3kpcMmPAQQYQDq+3qMLeOle16fVNCoh9FRoH/gBwNkWn512ay9gYxvmmu/oIgllayK
-	8hdk4xfR3A4pboWvdlkVqUOotHM/rHpRgVBE0xp8eAJDixB58FwL/XdrradxmaedENAm
-	UwEPoK7J4dUX3KreFglWFvO6xRMrTNLt/xew0aNB8XTjhsi68EXsBHN8BQFM4o2UfzSt
-	Ewjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=x7PF3pYUpUbPgrp5JVsxrN+q7EvhhRK1rmbEgUmPn68=;
-	b=MuXzBXX2Fp8fyOCdxMLk00t7r367MQFOPDmLy8JhV5Y+bNIRUW+OnPFBNAWRp0GUT3
-	6vHrFPoedzzivta6dXidLkTSfSKI9h6f6atMCaNXN4yonzF2GUtka1oFSe4MC1/gbx85
-	eFFlbhmNikh34reND4ITz8bpvw5XCU102DkQZ4kRnYLftF+FUKT3xU5cFPtlSM7L1Hty
-	7YBeLzwLeZb7acQBYpXp32h4HbbCr4TNFj0qOSl1KJ/DFiNd4temPqnYN5K6D3FvVWrA
-	yU6oHatopV7UsCS8eF4bE2RP1p1Um4CI/bys46FBkjfr1ut6RE3+FP1mlHoXx91Tw/9B
-	hYyw==
-X-Gm-Message-State: AA+aEWa0F+5lW+3qPKiUEg/i1PSFXBAJLxyVlupkW5jjDo3dqw4CNejJ
-	knTf1p1Gpt6iAIsOczmqojGIHPVN4OBXx6iqCTM=
-X-Google-Smtp-Source: AFSGD/Vx9m64vGU2Q6Es72kk0vdBqC4U8IsMMTtvhqOnk4gvi/JFZP2QA8xMLwQRoF9JXOdiiqqKAqF1uHFIbuBWewY=
-X-Received: by 2002:a50:a622:: with SMTP id d31mr14706355edc.228.1544512366434;
-	Mon, 10 Dec 2018 23:12:46 -0800 (PST)
+X-Greylist: delayed 20109 seconds by postgrey-1.32 at yocto-www;
+	Wed, 12 Dec 2018 19:05:23 PST
+Received: from IND01-BO1-obe.outbound.protection.outlook.com
+	(mail-eopbgr1390080.outbound.protection.outlook.com [40.107.139.80])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 70B25E00C8F
+	for <poky@yoctoproject.org>; Wed, 12 Dec 2018 19:05:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kpit.com; s=selector2; 
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+	bh=7LxVVm/WCj8hXLQLHRiYJ8v6pjf+ncZPQlNnNxJkk4A=;
+	b=ZYWr0x8tm+rM66UnhSO/m7RuKe55V9/6JRaHemI8qqK3R31cURMo+l2Kif2bRZ4HWfJySMz64N2g+p2tEl/RrVsM/rf1wQ7ftdgzAdP+oJbtj0OONeMIzpnjdvFON/mXKv0l69gx3oz3Fx3fW2D/5uRRe5i5UlvavJnJA2FwgsA=
+Received: from MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM (52.134.148.204) by
+	MA1PR01MB2843.INDPRD01.PROD.OUTLOOK.COM (52.134.150.12) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.1425.18; Wed, 12 Dec 2018 21:30:09 +0000
+Received: from MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM
+	([fe80::1524:e6c7:cf42:550c]) by
+	MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM
+	([fe80::1524:e6c7:cf42:550c%4]) with mapi id 15.20.1425.016;
+	Wed, 12 Dec 2018 21:30:09 +0000
+From: Aditya Tayade <Aditya.Tayade@kpit.com>
+To: ChenQi <qi.chen@windriver.com>, "poky@yoctoproject.org"
+	<poky@yoctoproject.org>
+Thread-Topic: [poky] [Issue] systemd v237: systemd-analyze plot
+Thread-Index: AQHUjOBzj08sPSSQ8EOYJSfuMrB61aVxM7qAgAoTzxmAAGJraw==
+Date: Wed, 12 Dec 2018 21:30:08 +0000
+Message-ID: <MA1PR01MB260410B1192C644AC81D55D091A70@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM>
+References: <MA1PR01MB2604F38E134555C92B23094791A80@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM>,
+	<72115296-1563-3c1a-2fcd-3ac1c5b46a82@windriver.com>,
+	<MA1PR01MB2604819C56997405DF7030AE91A70@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM>
+In-Reply-To: <MA1PR01MB2604819C56997405DF7030AE91A70@MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=Aditya.Tayade@kpit.com; 
+x-originating-ip: [13.86.36.187]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; MA1PR01MB2843;
+	6:kjWijkdSJ+xsncpZhFmvZQjjq4PCr/KfC+lnhKbon4ff5YNqRHn9B8tlaF5LPBw5YKHtGSgT5yDSC1ri0OZv7wmk6K/xt+SngB92lQiRNQFUPnUX5HaAzg508VhUWfgMIrIKHLU94bEH26+yLL+g/RBYwrTojWVBlJBg5eE1mdxjQK/H5b0EP4ano8QL371HhnjwLLzlR4M1idzfzqJket/WwAVRikNwkRKUG/OwXnNdOJ/mw9JegtQ/AuTtojeX3pt8Hv4IlARqgnzd7kiM0QhARKmY/fNWdhrmmpBxQkr6l7WQVZFi5ZYhDJhIjT/coxm9CRl0qeBwId3zKgpRybvAOwbKWo6IafUX8kcb5Y3O3t4K6hXzzPYCyMh2y4dltv3uAiqag/fJ07YN+KXsUUlwoa9OG6gvz+9BcEzoOB1j1/XtEdZKvMFa2Ko+/azjEn2EccqLTRHVrdRxrBkDPw==;
+	5:T+h7NwPw6zr3LlUFpGsxZ6pMP7nWwuuWn9tadEMW2ivpVMjhX8mcUyV+jJ0DsJW5FMZNjhn3a9laTs5D8zqLJ4ln+Rvyrq1M0LnKSHmjr3OZI4um2P8fXe1rPodSsJwr4iEKm7EHi1FuwHchadcXsOmnDjf/JdCbq6UegWxYs1U=;
+	7:PVFh2+LeGYv1KJkrR6nPTWKgm1tGaTEqcQuSGImIqX4YX4edTO2HcBYHDYAJGOeE/XovU/7SUUjS7DRHQN5l0RBuBsYpAg/wT03WZsvt+DxYc1WlaJDHROqzX/AjC5XGnipdq8fkTu3U94g8+6HaxQ==
+x-ms-office365-filtering-correlation-id: bcfa2597-e621-4572-3d8f-08d66078fde9
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+	RULEID:(2390098)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600074)(711020)(4618075)(2017052603328)(7153060)(7193020);
+	SRVR:MA1PR01MB2843; 
+x-ms-traffictypediagnostic: MA1PR01MB2843:
+x-microsoft-antispam-prvs: <MA1PR01MB2843A3CDD63973C120CC908D91A70@MA1PR01MB2843.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-exchange-senderadcheck: 1
+x-exchange-antispam-report-cfa-test: BCL:0; PCL:0;
+	RULEID:(8211001083)(3230020)(999002)(6040522)(2401047)(8121501046)(5005006)(3002001)(93006095)(93001095)(3231475)(944501520)(52105112)(10201501046)(6055026)(148016)(149066)(150057)(6041310)(20161123564045)(20161123562045)(20161123558120)(20161123560045)(201703131423095)(201702281528075)(20161123555045)(201703061421075)(201703061406153)(201708071742011)(7699051)(76991095);
+	SRVR:MA1PR01MB2843; BCL:0; PCL:0; RULEID:; SRVR:MA1PR01MB2843; 
+x-forefront-prvs: 0884AAA693
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10009020)(39860400002)(396003)(366004)(376002)(136003)(346002)(189003)(199004)(66066001)(2940100002)(6436002)(110136005)(99286004)(316002)(606006)(76176011)(2906002)(66574011)(93156006)(7696005)(5660300001)(86362001)(106356001)(105586002)(6116002)(71190400001)(3846002)(71200400001)(6506007)(14454004)(53546011)(256004)(14444005)(236005)(6306002)(54896002)(97736004)(446003)(11346002)(9686003)(102836004)(6246003)(55016002)(8936002)(7736002)(476003)(4326008)(2501003)(25786009)(486006)(478600001)(68736007)(966005)(72206003)(74316002)(26005)(33656002)(186003)(81166006)(229853002)(81156014)(53936002)(107886003)(8676002);
+	DIR:OUT; SFP:1101; SCL:1; SRVR:MA1PR01MB2843;
+	H:MA1PR01MB2604.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None;
+	LANG:en; PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: kpit.com does not designate
+	permitted sender hosts)
+x-microsoft-antispam-message-info: 7O8eOQa0byPi1HSsmwJGdsyfwdRAucY2N84+VZHr2KFf8/qu6xIUhVMOPW+HzXQhr1+DswKYO89f7Ym/qotTTRgjj0HaY3IdEP9gsTl148efT6iSAZAJ3aADm+c+UA6zEH0qnUwHpJkuOv2bsT8eVzd63NndRKK4Cf+ldtCQR56Byxr3IU64UMKFaUAsYMN5l0ZsolSFJ9n134PW8yuIQuTNlthqexHe1r8vpXkJOzSV15hK32sUVkfmY7U13IgCSqzToxBn08I5waPgfunv5SIrr4QbdIdeRFg9ocWn6N1P3fp7YZCwemPADWXS1iu9
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
 MIME-Version: 1.0
-References: <CADnUhn2TRDD8623A6SwPGP7RP4sc7uhSxNbTz6S0NDDqJwJtiw@mail.gmail.com>
-	<CAJTo0Laz6GYO0xzkKbnp=zBh7aKi+eRdu4Os0kEyYBBhSTDH7A@mail.gmail.com>
-	<CADnUhn2siMqwsf1GfMdOEEK9vpjmXX-uxWSHtr36xf9Vjy8vgg@mail.gmail.com>
-	<CADnUhn3_MjwJvcEDT8ikfGZ2eBhnBKOOzXsJ+D4ncntWT18vUQ@mail.gmail.com>
-	<CADnUhn1SDTZPr4_StAqUBUehF206S-OA+ZHmyBbM_UAWKWp3fA@mail.gmail.com>
-In-Reply-To: <CADnUhn1SDTZPr4_StAqUBUehF206S-OA+ZHmyBbM_UAWKWp3fA@mail.gmail.com>
-From: matti kaasinen <matti.kaasinen@gmail.com>
-Date: Tue, 11 Dec 2018 09:12:34 +0200
-Message-ID: <CADnUhn3Er1dR8rr4bDDHniRmFYnCr9h+33a64Hn8C+xLhmApWQ@mail.gmail.com>
-To: "Burton, Ross" <ross.burton@intel.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: nspr-4.16-r0 do_package: Function failed: split_and_strip_files
+X-OriginatorOrg: kpit.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcfa2597-e621-4572-3d8f-08d66078fde9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Dec 2018 21:30:08.9765 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3539451e-b46e-4a26-a242-ff61502855c7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA1PR01MB2843
+Cc: "Ashish P. Chavan" <Ashish.Chavan@kpit.com>
+Subject: Re: [Issue] systemd v237: systemd-analyze plot
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -76,137 +104,334 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Dec 2018 07:12:48 -0000
-Content-Type: multipart/alternative; boundary="000000000000f3dbd6057cb9ced5"
+X-List-Received-Date: Thu, 13 Dec 2018 03:05:26 -0000
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MA1PR01MB260410B1192C644AC81D55D091A70MA1PR01MB2604INDP_"
 
---000000000000f3dbd6057cb9ced5
-Content-Type: text/plain; charset="UTF-8"
-
-I tried running same command from devpyshell that that returns the error
-message, i.e. (retval, output) = oe.utils.getstatusoutput(cmd),
-cmd is the command that error message reports.
-This results to (retval, output) == (0, '0 blocks')
-Now I'm somewhat less and less impressed about docker performance. It seems
-that I have to rise my hands with this.
-
-ma 10. jouluk. 2018 klo 13.40 matti kaasinen (matti.kaasinen@gmail.com)
-kirjoitti:
-
-> Previous message was not correct. Do_populate_sysroot does not produce
-> package directory. Instead, I get zero return code while running this "cmd"
-> manually after crashed do_package.
->
-> ma 10. jouluk. 2018 klo 9.50 matti kaasinen (matti.kaasinen@gmail.com)
-> kirjoitti:
->
->> I tried executing tasks until the crash. Last task that did not crash
->> seemed to be do_populate_sysroot. Then I executed the command reported on
->> the first ERROR message line. It returned zero return value. I executed it
->> also in pieces. For example find command without -delete option did not
->> find any symbolic links.
->>
->> pe 7. jouluk. 2018 klo 12.42 matti kaasinen (matti.kaasinen@gmail.com)
->> kirjoitti:
->>
->>> These are the error messages returned:
->>> ERROR: nspr-4.16-r0 do_package: debugsrc symlink fixup failed with exit
->>> code 2 (cmd was find
->>> /BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/package/usr/src/debug
->>> -type l -print0 -delete | sed
->>> s#/BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/package/usr/src/debug/##g
->>> | (cd '/BUILD/work/cortexa7hf-neon-poky-linux-gnueabi' ; cpio -pd0mL
->>> --no-preserve-owner
->>> '/BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/package/usr/src/debug'
->>> 2>/dev/null))
->>> ERROR: nspr-4.16-r0 do_package: Function failed: split_and_strip_files
->>> ERROR: Logfile of failure stored in:
->>> /BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/temp/log.do_package.29429
->>> ERROR: Task
->>> (/workdir/sources/poky/meta/recipes-support/nspr/nspr_4.16.bb:do_package)
->>> failed with exit code '1'
->>>
->>>
->>> pe 7. jouluk. 2018 klo 12.10 Burton, Ross (ross.burton@intel.com)
->>> kirjoitti:
->>>
->>>> On Fri, 7 Dec 2018 at 09:42, matti kaasinen <matti.kaasinen@gmail.com>
->>>> wrote:
->>>> > My build stops while packaging nspr-4.16-r0 do_package while
->>>> executing split_and_strip_files.
->>>> > I try now building Poky based image using docker container
->>>> (crops/poky). I already had to add HOSTTOOLS_append = " svn " to get SRCREV
->>>> = "${AUTOREV}" statement work that I did not need in direct PC installation.
->>>>
->>>> You'll have to tell us what the actual error is if you want any help.
->>>>
->>>> Ross
->>>>
->>>
-
---000000000000f3dbd6057cb9ced5
-Content-Type: text/html; charset="UTF-8"
+--_000_MA1PR01MB260410B1192C644AC81D55D091A70MA1PR01MB2604INDP_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">I tried running same com=
-mand from devpyshell that that returns the error message, i.e. (retval, out=
-put) =3D oe.utils.getstatusoutput(cmd),</div><div>cmd is the command that e=
-rror message reports.</div><div>This results to (retval, output) =3D=3D (0,=
- &#39;0 blocks&#39;)</div><div>Now I&#39;m somewhat less and less impressed=
- about docker performance. It seems that I have to rise my hands with this.=
-</div></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">ma 10. jo=
-uluk. 2018 klo 13.40 matti kaasinen (<a href=3D"mailto:matti.kaasinen@gmail=
-.com">matti.kaasinen@gmail.com</a>) kirjoitti:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex"><div dir=3D"ltr">Previous message was not =
-correct. Do_populate_sysroot does not produce package directory. Instead, I=
- get zero return code while running this &quot;cmd&quot; manually after cra=
-shed do_package.<br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">m=
-a 10. jouluk. 2018 klo 9.50 matti kaasinen (<a href=3D"mailto:matti.kaasine=
-n@gmail.com" target=3D"_blank">matti.kaasinen@gmail.com</a>) kirjoitti:<br>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">I =
-tried executing tasks until the crash. Last task that did not crash seemed =
-to be do_populate_sysroot. Then I executed the command reported on the firs=
-t ERROR message line. It returned zero return value. I executed it also in =
-pieces. For example find command without -delete option did not find any sy=
-mbolic links.<br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">pe 7=
-. jouluk. 2018 klo 12.42 matti kaasinen (<a href=3D"mailto:matti.kaasinen@g=
-mail.com" target=3D"_blank">matti.kaasinen@gmail.com</a>) kirjoitti:<br></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div =
-dir=3D"ltr"><div>These are the error messages returned:</div><div>ERROR: ns=
-pr-4.16-r0 do_package: debugsrc symlink fixup failed with exit code 2 (cmd =
-was find /BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/packag=
-e/usr/src/debug -type l -print0 -delete | sed s#/BUILD/work/cortexa7hf-neon=
--poky-linux-gnueabi/nspr/4.16-r0/package/usr/src/debug/##g | (cd &#39;/BUIL=
-D/work/cortexa7hf-neon-poky-linux-gnueabi&#39; ; cpio -pd0mL --no-preserve-=
-owner &#39;/BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/pack=
-age/usr/src/debug&#39; 2&gt;/dev/null))<br>ERROR: nspr-4.16-r0 do_package: =
-Function failed: split_and_strip_files<br>ERROR: Logfile of failure stored =
-in: /BUILD/work/cortexa7hf-neon-poky-linux-gnueabi/nspr/4.16-r0/temp/log.do=
-_package.29429<br>ERROR: Task (/workdir/sources/poky/meta/recipes-support/n=
-spr/nspr_4.16.bb:do_package) failed with exit code &#39;1&#39;<br><br></div=
-></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">pe 7. jouluk. =
-2018 klo 12.10 Burton, Ross (<a href=3D"mailto:ross.burton@intel.com" targe=
-t=3D"_blank">ross.burton@intel.com</a>) kirjoitti:<br></div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
-rgb(204,204,204);padding-left:1ex">On Fri, 7 Dec 2018 at 09:42, matti kaasi=
-nen &lt;<a href=3D"mailto:matti.kaasinen@gmail.com" target=3D"_blank">matti=
-.kaasinen@gmail.com</a>&gt; wrote:<br>
-&gt; My build stops while packaging nspr-4.16-r0 do_package while executing=
- split_and_strip_files.<br>
-&gt; I try now building Poky based image using docker container (crops/poky=
-). I already had to add HOSTTOOLS_append =3D &quot; svn &quot; to get SRCRE=
-V =3D &quot;${AUTOREV}&quot; statement work that I did not need in direct P=
-C installation.<br>
-<br>
-You&#39;ll have to tell us what the actual error is if you want any help.<b=
-r>
-<br>
-Ross<br>
-</blockquote></div>
-</blockquote></div>
-</blockquote></div>
-</blockquote></div>
+Hi,
 
---000000000000f3dbd6057cb9ced5--
+In addition to below mailer I don't want systemd-hostnamed.service to be ru=
+nning on target and still want to plot the systemd-analyze which I believe =
+is the possible scenario.
+
+Can you please help.
+
+Regards,
+Aditya Tayade
+
+
+
+From: Aditya Tayade
+Sent: Thursday, December 13, 2:38 AM
+Subject: Re: [poky] [Issue] systemd v237: systemd-analyze plot
+To: ChenQi, poky@yoctoproject.org
+Cc: Ashish P. Chavan
+
+
+Hi,
+
+I tried to dig up more and found below issue in getting host info from syst=
+emd as well:
+Failed to get host information from systemd: Unknown object '/org/freedeskt=
+op/hostname1'
+I guess it should be fixed with: https://github.com/<https://github.com/sys=
+temd/systemd/issues/7667>systemd<https://github.com/systemd/systemd/issues/=
+7667>/<https://github.com/systemd/systemd/issues/7667>systemd<https://githu=
+b.com/systemd/systemd/issues/7667>/issues/7667<https://github.com/systemd/s=
+ystemd/issues/7667> , but the issue still persists.
+
+Any one facing the same issue? What could be the possible cause.
+
+Regards,
+Aditya Tayade
+
+From: ChenQi <Qi.Chen@windriver.com>
+Sent: Thursday, December 6, 2018 11:14:23 AM
+To: Aditya Tayade; poky@yoctoproject.org
+Subject: Re: [poky] [Issue] systemd v237: systemd-analyze plot
+
+Please check if systemd-hostnamed.service is installed, and if it's activat=
+able via this 'org.freedesttop.hostname1'.
+
+`busctl'
+`cat /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service'
+`ls -l /lib/systemd/system/dbus-org.freedesktop.hostname1.service'
+
+Best Regards,
+Chen Qi
+
+On 12/06/2018 05:25 AM, Aditya Tayade wrote:
+Hi,
+
+Is any one facing below issue with "systemd-analyze plot" command:
+Failed to get host information from systemd: The name org.freedesktop.hostn=
+ame1 was not provided by any .service files
+
+After going through the source code of analyze.c found it's log_debug_error=
+, can any one help here.
+
+Rest of systemd-analyze options working fine.
+
+Regards,
+Aditya Tayade
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print, retain copy, disseminate, distribute, o=
+r use this message or any part thereof. If you receive this message in erro=
+r, please notify the sender immediately and delete all copies of this messa=
+ge. KPIT Technologies Ltd. does not accept any liability for virus infected=
+ mails.
+
+
+
+
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print, retain copy, disseminate, distribute, o=
+r use this message or any part thereof. If you receive this message in erro=
+r, please notify the sender immediately and delete all copies of this messa=
+ge. KPIT Technologies Ltd. does not accept any liability for virus infected=
+ mails.
+
+--_000_MA1PR01MB260410B1192C644AC81D55D091A70MA1PR01MB2604INDP_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Hi,<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+In addition to below mailer I don't want systemd-hostnamed.service to be ru=
+nning on target and still want to plot the systemd-analyze which I believe =
+is the possible scenario.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Can you please help.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Regards,<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Aditya Tayade</div>
+<br>
+<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+From: Aditya Tayade<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Sent: Thursday, December 13, 2:38 AM<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Subject: Re: [poky] [Issue] systemd v237: systemd-analyze plot<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+To: ChenQi, poky@yoctoproject.org<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Cc: Ashish P. Chavan<br>
+<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Hi,<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+I tried to dig up more and found below issue in getting host info from syst=
+emd as well:<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Failed to get host information from systemd: Unknown object '/org/freedeskt=
+op/hostname1'
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+I guess it should be fixed with: <a href=3D"https://github.com/systemd/syst=
+emd/issues/7667">
+https://github.com/</a><a href=3D"https://github.com/systemd/systemd/issues=
+/7667">systemd</a><a href=3D"https://github.com/systemd/systemd/issues/7667=
+">/</a><a href=3D"https://github.com/systemd/systemd/issues/7667">systemd</=
+a><a href=3D"https://github.com/systemd/systemd/issues/7667">/issues/7667</=
+a>
+ , but the issue still persists.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Any one facing the same issue? What could be the possible cause.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Regards,<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Aditya Tayade<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<b><font color=3D"#000000">From:</font></b><font color=3D"#000000"> </font>=
+<font color=3D"#000000">ChenQi</font><font color=3D"#000000"> &lt;Qi.Chen@w=
+indriver.com&gt;</font><br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<b><font color=3D"#000000">Sent:</font></b><font color=3D"#000000"> Thursda=
+y, December 6, 2018 11:14:23 AM</font><br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<b><font color=3D"#000000">To:</font></b><font color=3D"#000000"> Aditya Ta=
+yade; poky@yoctoproject.org</font><br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<b><font color=3D"#000000">Subject:</font></b><font color=3D"#000000"> Re: =
+[poky] [Issue]
+</font><font color=3D"#000000">systemd</font><font color=3D"#000000"> v237:=
+ </font><font color=3D"#000000">systemd</font><font color=3D"#000000">-anal=
+yze plot</font>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+&nbsp;<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Please check if systemd-hostnamed.service is installed, and if it's activat=
+able via this 'org.freedesttop.hostname1'.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+`busctl'<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+`cat /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service'<b=
+r>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+`ls -l /lib/systemd/system/dbus-org.freedesktop.hostname1.service'<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Best Regards,<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Chen Qi<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+On 12/06/2018 05:25 AM, Aditya Tayade wrote:<br>
+</div>
+<blockquote type=3D"cite">
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Hi,<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Is any one facing below issue with &quot;systemd-analyze plot&quot; command=
+:<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Failed to get host information from systemd: The name org.freedesktop.hostn=
+ame1 was not provided by any .service files<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+After going through the source code of analyze.c found it's log_debug_error=
+, can any one help here.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Rest of systemd-analyze options working fine.<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Regards,<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Aditya Tayade<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print,
+ retain copy, disseminate, distribute, or use this message or any part ther=
+eof. If you receive this message in error, please notify the sender immedia=
+tely and delete all copies of this message. KPIT Technologies Ltd. does not=
+ accept any liability for virus
+ infected mails. <br>
+</div>
+</blockquote>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<br>
+<br>
+<br>
+<br>
+</div>
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print,
+ retain copy, disseminate, distribute, or use this message or any part ther=
+eof. If you receive this message in error, please notify the sender immedia=
+tely and delete all copies of this message. KPIT Technologies Ltd. does not=
+ accept any liability for virus
+ infected mails.
+</body>
+</html>
+
+--_000_MA1PR01MB260410B1192C644AC81D55D091A70MA1PR01MB2604INDP_--
