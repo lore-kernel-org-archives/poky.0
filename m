@@ -1,6 +1,6 @@
 Return-Path: <naveen.kumar.saini@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 13155E00A54; Sun, 30 Dec 2018 18:04:17 -0800 (PST)
+	id E679BE00B81; Sun, 30 Dec 2018 18:04:31 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -10,25 +10,25 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
 	high *      trust
-	*      [192.55.52.115 listed in list.dnswl.org]
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D0B9BE0097C
-	for <poky@yoctoproject.org>; Sun, 30 Dec 2018 18:04:14 -0800 (PST)
+	*      [134.134.136.65 listed in list.dnswl.org]
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BE3DAE00A54
+	for <poky@yoctoproject.org>; Sun, 30 Dec 2018 18:04:29 -0800 (PST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-	by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	30 Dec 2018 18:04:14 -0800
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+	by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	30 Dec 2018 18:04:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,420,1539673200"; d="scan'208";a="130281435"
+X-IronPort-AV: E=Sophos;i="5.56,420,1539673200"; d="scan'208";a="111053741"
 Received: from andromeda02.png.intel.com ([10.221.183.11])
-	by fmsmga002.fm.intel.com with ESMTP; 30 Dec 2018 18:04:14 -0800
+	by fmsmga007.fm.intel.com with ESMTP; 30 Dec 2018 18:04:28 -0800
 From: Naveen Saini <naveen.kumar.saini@intel.com>
 To: poky@yoctoproject.org
-Date: Mon, 31 Dec 2018 09:32:53 +0800
-Message-Id: <1546219973-28826-1-git-send-email-naveen.kumar.saini@intel.com>
+Date: Mon, 31 Dec 2018 09:33:10 +0800
+Message-Id: <1546219990-28874-1-git-send-email-naveen.kumar.saini@intel.com>
 X-Mailer: git-send-email 2.7.4
-Subject: [meta-yocto-bsp][PATCH V2 1/2] linux-yocto: update genericx86* SRCREV for 4.18
+Subject: [meta-yocto-bsp][PATCH V2 2/2] linux-yocto: introduce 4.19 bbappend for genericx86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,41 +41,36 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Dec 2018 02:04:17 -0000
+X-List-Received-Date: Mon, 31 Dec 2018 02:04:32 -0000
 
-Bump kernel version to v4.18.21.
+And bump the kernel version to v4.19.8.
 
 Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
 ---
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.18.bbappend | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../recipes-kernel/linux/linux-yocto_4.19.bbappend         | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.18.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.18.bbappend
-index bb599d8..e8eaa3b 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.18.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.18.bbappend
-@@ -8,8 +8,8 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine_genericx86    ?= "33859b3077c83d8a024946ba06a59990546fcbc7"
--SRCREV_machine_genericx86-64 ?= "33859b3077c83d8a024946ba06a59990546fcbc7"
-+SRCREV_machine_genericx86    ?= "9eddc793f95f4e7e283996a007e205622c633539"
-+SRCREV_machine_genericx86-64 ?= "9eddc793f95f4e7e283996a007e205622c633539"
- SRCREV_machine_edgerouter ?= "0cdc8564c61958a39704d97e008120bd7c762f60"
- SRCREV_machine_beaglebone-yocto ?= "0cdc8564c61958a39704d97e008120bd7c762f60"
- SRCREV_machine_mpc8315e-rdb ?= "20be2231bb047b02248d7f965c1c3af0c6be3a5e"
-@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
--LINUX_VERSION_genericx86 = "4.18.14"
--LINUX_VERSION_genericx86-64 = "4.18.14"
-+LINUX_VERSION_genericx86 = "4.18.21"
-+LINUX_VERSION_genericx86-64 = "4.18.21"
- LINUX_VERSION_edgerouter = "4.18.9"
- LINUX_VERSION_beaglebone-yocto = "4.18.9"
- LINUX_VERSION_mpc8315e-rdb = "4.18.9"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
+new file mode 100644
+index 0000000..f105c21
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
+@@ -0,0 +1,14 @@
++KBRANCH_genericx86  = "v4.19/standard/base"
++KBRANCH_genericx86-64  = "v4.19/standard/base"
++
++KMACHINE_genericx86 ?= "common-pc"
++KMACHINE_genericx86-64 ?= "common-pc-64"
++
++SRCREV_machine_genericx86    ?= "e727c70583a78cf1dc53e8e219722e2f9d1bc858"
++SRCREV_machine_genericx86-64 ?= "e727c70583a78cf1dc53e8e219722e2f9d1bc858"
++
++COMPATIBLE_MACHINE_genericx86 = "genericx86"
++COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++
++LINUX_VERSION_genericx86 = "4.19.8"
++LINUX_VERSION_genericx86-64 = "4.19.8"
 -- 
 2.7.4
 
