@@ -1,62 +1,64 @@
-Return-Path: <narkewoody@gmail.com>
+Return-Path: <alex.kanavin@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AC7CCE00CD6; Tue,  8 Jan 2019 03:52:41 -0800 (PST)
+	id 7ADFCE00CDE; Tue,  8 Jan 2019 04:07:19 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE, WEIRD_PORT autolearn=ham version=3.3.1
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (narkewoody[at]gmail.com)
+	provider *      (alex.kanavin[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.160.176 listed in list.dnswl.org]
-	*  0.0 WEIRD_PORT URI: Uses non-standard port number for HTTP
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	*      [209.85.210.50 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
-	[209.85.160.176])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 688C9E00CAD
-	for <poky@yoctoproject.org>; Tue,  8 Jan 2019 03:52:40 -0800 (PST)
-Received: by mail-qt1-f176.google.com with SMTP id t13so4001273qtn.3
-	for <poky@yoctoproject.org>; Tue, 08 Jan 2019 03:52:40 -0800 (PST)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+	[209.85.210.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F33BDE00CD1
+	for <poky@yoctoproject.org>; Tue,  8 Jan 2019 04:07:18 -0800 (PST)
+Received: by mail-ot1-f50.google.com with SMTP id s5so3251265oth.7
+	for <poky@yoctoproject.org>; Tue, 08 Jan 2019 04:07:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=dgF+CdIm8AvL5CKR14HtkAUQH1Bf+I7N8Ch/vIXb8aE=;
-	b=GPR4C+ium2MAZ6FkS08ARFq50J+WDUNpbISKXjnjnYFLd6r87UkV4tqQo+oR8V9PXo
-	82lD8Jrm+1CiFeLplhe8tt/ZHP1mHA0qaVqnS96ScuLpEQRg4ntKdcnXzD3CP43r8mzQ
-	gMCbdrB/3i/dW88sq4kpBC8EqhNHWRZHZCdYEJBuVhbA6PE5xXtB/Q1rK3pqt36G46jF
-	S2jMnd3/ITF96JmpJ085NGBYoL8WzRu0EtvAL8g+8+CHx5xWeXGtWXW6iRgqpZBK3sm7
-	kwXFCrifBtNLYMVOMP3Sset20LfKKYC5K19LCy7bOfbiUy/52KW/RqMzCvti1TrdMqTa
-	HKrw==
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=j88OUgiyRjpxVTj4NtcLte7dyo++LZhetklMg8uzmAo=;
+	b=RniDo6bucxRJk8d8t7dQ/IlqQkQFkCkGbHvX7UE7/IFoFfHkUv+7+ruV6OJlInPMj/
+	Twt/9gZU40SKYJcMSOn9N8mmbTqF2JxcXehje49uaBEr80/FwL/aSEAHrYxwxs0VxDA/
+	88rZ3R+v7qxhDjr6ryzypcYW3uiBLo60ElzqVPCLTBz9FXDg/VZym2J2qlJMwAuXV24H
+	Hrf+CJeTUPm+EhSTu8BvCaIZk7f+b1+Xm4mRSfEdJfM8HMG3jfZzp3xnUnnVP+gBiGi6
+	qnXRekD2daT37OhIdeIJxAZidSfPhc/Qzzm13hXZYzt5ROOqHXa1gC8ec0Dk9uiVIYZ5
+	6irA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=dgF+CdIm8AvL5CKR14HtkAUQH1Bf+I7N8Ch/vIXb8aE=;
-	b=sNqiNtrniHYdmy0EcMtcoM2GCcFzRJLJm4sdOHLUM+d2dXJlzrJuqCUYra16lWY4JX
-	i6Qij/CJciqpECOeLyWPSixsjA4HjSxNwLl0szlf9Xuamf3EH2Bup8CCaap8/EwtfW9v
-	Oyv94BJyMmQgchTz6S+ToIcogQSngCQZQqfN2GmZali2A2K5H/KteNQ6Ka9v6no+fV0J
-	eluEDQp70aDcH0wwF2TTWz7Y8xSsx0zHa3iVAST+m3EB1Ai2bWh1fDLPhaLLn4J3d+2w
-	+TZ3mWuq4WZxHDpWDGljvHU6bE1ozfd2ejDbCxvI38LRURkjVH8Xw9vW/HaIj/gSLR9A
-	HsGw==
-X-Gm-Message-State: AJcUuke/bstlLIFNAQclH7Q0MdXiMe9d35PDKSHVrHAu9mbDOsGIr85s
-	3og9sPMzpwEisb6zdkeVEg3XdHejLuH7ctV2tKk3PtijHmM=
-X-Google-Smtp-Source: ALg8bN7ShxzPb8JPnjM6SGk/O6QwQrRyQw1K1QFiVCraaCFNZD7xMntTUgLj2NF/z+IizbN9yQV56BN2o33oHAteuOg=
-X-Received: by 2002:ac8:3810:: with SMTP id q16mr1201284qtb.91.1546948359478; 
-	Tue, 08 Jan 2019 03:52:39 -0800 (PST)
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=j88OUgiyRjpxVTj4NtcLte7dyo++LZhetklMg8uzmAo=;
+	b=XkfOp5f3pYgVX5xX05ea5dyQp8Muep+npCwz3ExA2hIP8Kl1AlUM0oSMcocwiqJnkG
+	QS5fhbb0K1Uedtk/IYajfHPKdSPiQXa8VD0O1uGJI1sCRhIzMhpKduqKpK9FR5uVdo9w
+	ACsAQ0WeBs+WrtMx8VgcJqpZOrh7EPHVgGDn5vSjwaZYzfzK3P5d7C25vJHGyiH7ntSl
+	4qhaMAnezLNM9SBIEPltWJFW/W5wpRCC/IFpIxqivuPKVo+r6INkMC5/AGIbqtUE9g7w
+	EithdN82ARPGb9RGzm5Un8HGMyaWxA7XzFxKGH425rmP3AtXP/ajztckwfkQdcRErjl7
+	SyUg==
+X-Gm-Message-State: AJcUukcVtnWBby18dRpsnxtbiQmmfyJcFcXBMBsjxW/OjnNAu7AUPWes
+	5i/BR9ic7Y6Zcnh8uT0Gkt7IZdeCkXhnUoLtJm4=
+X-Google-Smtp-Source: ALg8bN52cvZTkGB/42WQFvdkhv8iGTdM2UcczWqoBR1DKC+/nMHlaooVC3A0zat02xpj/u2t7L5sly+HSbLieWw0x/M=
+X-Received: by 2002:a9d:69d7:: with SMTP id v23mr1076043oto.96.1546949238406; 
+	Tue, 08 Jan 2019 04:07:18 -0800 (PST)
 MIME-Version: 1.0
-From: Woody Wu <narkewoody@gmail.com>
-Date: Tue, 8 Jan 2019 19:52:30 +0800
-Message-ID: <CAAsE_udSqjYWVyeAq5tzF+mqr5ZpW+8wQtNLX0GtM-Q7_snuwQ@mail.gmail.com>
-To: poky@yoctoproject.org
-Subject: First try of Yocto Failed
+References: <CAAsE_udSqjYWVyeAq5tzF+mqr5ZpW+8wQtNLX0GtM-Q7_snuwQ@mail.gmail.com>
+In-Reply-To: <CAAsE_udSqjYWVyeAq5tzF+mqr5ZpW+8wQtNLX0GtM-Q7_snuwQ@mail.gmail.com>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Tue, 8 Jan 2019 13:07:07 +0100
+Message-ID: <CANNYZj8YM_TJo4Ho6q9tAbnCy+VzrRTsBC1+mRffY+Ewzb2dnQ@mail.gmail.com>
+To: Woody Wu <narkewoody@gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: First try of Yocto Failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,186 +71,15 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Jan 2019 11:52:41 -0000
-Content-Type: multipart/alternative; boundary="00000000000073e306057ef0fb0f"
-
---00000000000073e306057ef0fb0f
+X-List-Received-Date: Tue, 08 Jan 2019 12:07:19 -0000
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Tue, 8 Jan 2019 at 12:52, Woody Wu <narkewoody@gmail.com> wrote:
+> My system is ubuntu 18.10 and I have python 2 and python 3.
+>
+> Can someone please give me a clue? Thanks!
 
-I was following instructions on the web side, cloned the poky, check out
-the yocto-2.6 tag and start to build with 'bitbake core-image-sato', but
-even this failed.
+Please check out the tip of the thud branch, it seems to contain a fix for this.
 
-I got following errors:
+Alex
 
-===
-ERROR: pseudo-native-1.9.0+gitAUTOINC+6294b344e5-r0 do_unpack: Error
-executing a python function in exec_python_func() autogenerated:
-
-The stack trace of python calls that resulted in this exception/failure was:
-File: 'exec_python_func() autogenerated', lineno: 2, function: <module>
-     0001:
- *** 0002:base_do_unpack(d)
-     0003:
-File: '/home/woody/poky/meta/classes/base.bbclass', lineno: 164, function:
-base_do_unpack
-     0160:        return
-     0161:
-     0162:    try:
-     0163:        fetcher = bb.fetch2.Fetch(src_uri, d)
- *** 0164:        fetcher.unpack(d.getVar('WORKDIR'))
-     0165:    except bb.fetch2.BBFetchException as e:
-     0166:        bb.fatal(str(e))
-     0167:}
-     0168:
-File: '/home/woody/poky/bitbake/lib/bb/fetch2/__init__.py', lineno: 1773,
-function: unpack
-     1769:
-     1770:            if ud.lockfile:
-     1771:                lf = bb.utils.lockfile(ud.lockfile)
-     1772:
- *** 1773:            ud.method.unpack(ud, root, self.d)
-     1774:
-     1775:            if ud.lockfile:
-     1776:                bb.utils.unlockfile(lf)
-     1777:
-File: '/home/woody/poky/bitbake/lib/bb/fetch2/git.py', lineno: 496,
-function: unpack
-     0492:                bb.utils.mkdirhier(destdir)
-     0493:                runfetchcmd("tar -xzf %s" % ud.fullshallow, d,
-workdir=destdir)
-     0494:                source_found = True
-     0495:            else:
- *** 0496:                source_error.append("shallow clone not enabled or
-not available: " + ud.fullshallow)
-     0497:
-     0498:        if not source_found:
-     0499:            raise bb.fetch2.UnpackError("No up to date source
-found: " + "; ".join(source_error), ud.url)
-     0500:
-Exception: AttributeError: 'FetchData' object has no attribute 'fullshallow'
-
-ERROR: pseudo-native-1.9.0+gitAUTOINC+6294b344e5-r0 do_unpack: Function
-failed: base_do_unpack
-ERROR: Logfile of failure stored in:
-/home/woody/poky/build/tmp/work/x86_64-linux/pseudo-native/1.9.0+gitAUTOINC+6294b344e5-r0/temp/log.do_unpack.6600
-ERROR: Task
-(virtual:native:/home/woody/poky/meta/recipes-devtools/pseudo/pseudo_git.bb:do_unpack)
-failed with exit code '1'
-===
-
-My system is ubuntu 18.10 and I have python 2 and python 3.
-
-Can someone please give me a clue? Thanks!
-
-
--- 
-Life is the only flaw in an otherwise perfect nonexistence
-    -- Schopenhauer
-
-woody
-public key at http://subkeys.pgp.net:11371 (narkewoody@gmail.com)
-
---00000000000073e306057ef0fb0f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:large">Hi,</div><div class=3D"gmail_default" style=3D"font-size:larg=
-e"><br></div><div class=3D"gmail_default" style=3D"font-size:large">I was f=
-ollowing instructions on the web side, cloned the poky, check out the yocto=
--2.6 tag and start to build with &#39;bitbake core-image-sato&#39;, but eve=
-n this failed.</div><div class=3D"gmail_default" style=3D"font-size:large">=
-<br></div><div class=3D"gmail_default" style=3D"font-size:large">I got foll=
-owing errors:</div><div class=3D"gmail_default" style=3D"font-size:large"><=
-br></div><div class=3D"gmail_default"><div class=3D"gmail_default"><font si=
-ze=3D"4">=3D=3D=3D</font></div><div class=3D"gmail_default"><font size=3D"4=
-">ERROR: pseudo-native-1.9.0+gitAUTOINC+6294b344e5-r0 do_unpack: Error exec=
-uting a python function in exec_python_func() autogenerated:</font></div><d=
-iv class=3D"gmail_default"><font size=3D"4"><br></font></div><div class=3D"=
-gmail_default"><font size=3D"4">The stack trace of python calls that result=
-ed in this exception/failure was:</font></div><div class=3D"gmail_default">=
-<font size=3D"4">File: &#39;exec_python_func() autogenerated&#39;, lineno: =
-2, function: &lt;module&gt;</font></div><div class=3D"gmail_default"><font =
-size=3D"4">=C2=A0 =C2=A0 =C2=A00001:</font></div><div class=3D"gmail_defaul=
-t"><font size=3D"4">=C2=A0*** 0002:base_do_unpack(d)</font></div><div class=
-=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00003:</font></div><=
-div class=3D"gmail_default"><font size=3D"4">File: &#39;/home/woody/poky/me=
-ta/classes/base.bbclass&#39;, lineno: 164, function: base_do_unpack</font><=
-/div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00160=
-:=C2=A0 =C2=A0 =C2=A0 =C2=A0 return</font></div><div class=3D"gmail_default=
-"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00161:</font></div><div class=3D"gmai=
-l_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00162:=C2=A0 =C2=A0 try:</fo=
-nt></div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A0=
-0163:=C2=A0 =C2=A0 =C2=A0 =C2=A0 fetcher =3D bb.fetch2.Fetch(src_uri, d)</f=
-ont></div><div class=3D"gmail_default"><font size=3D"4">=C2=A0*** 0164:=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 fetcher.unpack(d.getVar(&#39;WORKDIR&#39;))</font>=
-</div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A0016=
-5:=C2=A0 =C2=A0 except bb.fetch2.BBFetchException as e:</font></div><div cl=
-ass=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00166:=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 bb.fatal(str(e))</font></div><div class=3D"gmail_default"=
-><font size=3D"4">=C2=A0 =C2=A0 =C2=A00167:}</font></div><div class=3D"gmai=
-l_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00168:</font></div><div clas=
-s=3D"gmail_default"><font size=3D"4">File: &#39;/home/woody/poky/bitbake/li=
-b/bb/fetch2/__init__.py&#39;, lineno: 1773, function: unpack</font></div><d=
-iv class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A01769:</font=
-></div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A017=
-70:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if ud.lockfile:</font></div><d=
-iv class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A01771:=C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 lf =3D bb.utils.lockfile(=
-ud.lockfile)</font></div><div class=3D"gmail_default"><font size=3D"4">=C2=
-=A0 =C2=A0 =C2=A01772:</font></div><div class=3D"gmail_default"><font size=
-=3D"4">=C2=A0*** 1773:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ud.method.u=
-npack(ud, root, self.d)</font></div><div class=3D"gmail_default"><font size=
-=3D"4">=C2=A0 =C2=A0 =C2=A01774:</font></div><div class=3D"gmail_default"><=
-font size=3D"4">=C2=A0 =C2=A0 =C2=A01775:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 if ud.lockfile:</font></div><div class=3D"gmail_default"><font size=
-=3D"4">=C2=A0 =C2=A0 =C2=A01776:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 bb.utils.unlockfile(lf)</font></div><div class=3D"gmail_defau=
-lt"><font size=3D"4">=C2=A0 =C2=A0 =C2=A01777:</font></div><div class=3D"gm=
-ail_default"><font size=3D"4">File: &#39;/home/woody/poky/bitbake/lib/bb/fe=
-tch2/git.py&#39;, lineno: 496, function: unpack</font></div><div class=3D"g=
-mail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00492:=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.utils.mkdirhier(destdir)</font></=
-div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00493:=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 runfetchcmd(&quot;t=
-ar -xzf %s&quot; % ud.fullshallow, d, workdir=3Ddestdir)</font></div><div c=
-lass=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00494:=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 source_found =3D True</font><=
-/div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00495=
-:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:</font></div><div class=3D"=
-gmail_default"><font size=3D"4">=C2=A0*** 0496:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 source_error.append(&quot;shallow clone not ena=
-bled or not available: &quot; + ud.fullshallow)</font></div><div class=3D"g=
-mail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00497:</font></div><div c=
-lass=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00498:=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 if not source_found:</font></div><div class=3D"gmail_defa=
-ult"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00499:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 raise bb.fetch2.UnpackError(&quot;No up to date source found:=
- &quot; + &quot;; &quot;.join(source_error), ud.url)</font></div><div class=
-=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00500:</font></div><=
-div class=3D"gmail_default"><font size=3D"4">Exception: AttributeError: &#3=
-9;FetchData&#39; object has no attribute &#39;fullshallow&#39;</font></div>=
-<div class=3D"gmail_default"><font size=3D"4"><br></font></div><div class=
-=3D"gmail_default"><font size=3D"4">ERROR: pseudo-native-1.9.0+gitAUTOINC+6=
-294b344e5-r0 do_unpack: Function failed: base_do_unpack</font></div><div cl=
-ass=3D"gmail_default"><font size=3D"4">ERROR: Logfile of failure stored in:=
- /home/woody/poky/build/tmp/work/x86_64-linux/pseudo-native/1.9.0+gitAUTOIN=
-C+6294b344e5-r0/temp/log.do_unpack.6600</font></div><div class=3D"gmail_def=
-ault"><font size=3D"4">ERROR: Task (virtual:native:/home/woody/poky/meta/re=
-cipes-devtools/pseudo/pseudo_git.bb:do_unpack) failed with exit code &#39;1=
-&#39;</font></div><div style=3D"font-size:large">=3D=3D=3D</div><div style=
-=3D"font-size:large"><br></div><div style=3D"font-size:large">My system is =
-ubuntu 18.10 and I have python 2 and python 3.</div><div style=3D"font-size=
-:large"><br></div><div style=3D"font-size:large">Can someone please give me=
- a clue? Thanks!</div><div style=3D"font-size:large"><br></div></div><div><=
-br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature">Life is the only=
- flaw in an otherwise perfect nonexistence<br>=C2=A0 =C2=A0 -- Schopenhauer=
-<br><br>woody<br>public key at <a href=3D"http://subkeys.pgp.net:11371" tar=
-get=3D"_blank">http://subkeys.pgp.net:11371</a> (<a href=3D"mailto:narkewoo=
-dy@gmail.com" target=3D"_blank">narkewoody@gmail.com</a>)<br><br></div></di=
-v></div>
-
---00000000000073e306057ef0fb0f--
