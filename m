@@ -1,44 +1,62 @@
-Return-Path: <cimes@ads.isi.edu>
+Return-Path: <narkewoody@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DABA9E00C93; Mon,  7 Jan 2019 08:17:30 -0800 (PST)
+	id AC7CCE00CD6; Tue,  8 Jan 2019 03:52:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
-	RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE, WEIRD_PORT autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [128.9.180.199 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (narkewoody[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.160.176 listed in list.dnswl.org]
+	*  0.0 WEIRD_PORT URI: Uses non-standard port number for HTTP
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 62 seconds by postgrey-1.32 at yocto-www;
-	Mon, 07 Jan 2019 08:17:29 PST
-Received: from usmdrip04.ads.isi.edu (mail-d.ads.isi.edu [128.9.180.199])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A5EA6E00AB0
-	for <poky@yoctoproject.org>; Mon,  7 Jan 2019 08:17:29 -0800 (PST)
-From: Connor Imes <cimes@isi.edu>
-X-IronPort-AV: E=Sophos;i="5.56,451,1539673200"; d="scan'208,217";a="5062357"
-Received: from usmdrmbx01.ads.isi.edu ([10.100.2.77])
-	by usmdrip04.ads.isi.edu with ESMTP; 07 Jan 2019 08:16:28 -0800
-Received: from usmdrmbx02.ads.isi.edu (10.100.2.78) by usmdrmbx01.ads.isi.edu
-	(10.100.2.77) with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1466.3;
-	Mon, 7 Jan 2019 08:16:26 -0800
-Received: from usmdrmbx02.ads.isi.edu ([fe80::da5:2f44:832d:b4a7]) by
-	usmdrmbx02.ads.isi.edu ([fe80::da5:2f44:832d:b4a7%12]) with mapi id
-	15.01.1466.003; Mon, 7 Jan 2019 08:16:26 -0800
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: Packaging error for custom kernel in thud
-Thread-Index: AQHUpqRWn7YVjPMkVki9xZDWzRU41w==
-Date: Mon, 7 Jan 2019 16:16:25 +0000
-Message-ID: <C4FC3851-E4D3-4CF9-B3A2-C79102F8F4D1@contoso.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [128.9.47.101]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+	[209.85.160.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 688C9E00CAD
+	for <poky@yoctoproject.org>; Tue,  8 Jan 2019 03:52:40 -0800 (PST)
+Received: by mail-qt1-f176.google.com with SMTP id t13so4001273qtn.3
+	for <poky@yoctoproject.org>; Tue, 08 Jan 2019 03:52:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=dgF+CdIm8AvL5CKR14HtkAUQH1Bf+I7N8Ch/vIXb8aE=;
+	b=GPR4C+ium2MAZ6FkS08ARFq50J+WDUNpbISKXjnjnYFLd6r87UkV4tqQo+oR8V9PXo
+	82lD8Jrm+1CiFeLplhe8tt/ZHP1mHA0qaVqnS96ScuLpEQRg4ntKdcnXzD3CP43r8mzQ
+	gMCbdrB/3i/dW88sq4kpBC8EqhNHWRZHZCdYEJBuVhbA6PE5xXtB/Q1rK3pqt36G46jF
+	S2jMnd3/ITF96JmpJ085NGBYoL8WzRu0EtvAL8g+8+CHx5xWeXGtWXW6iRgqpZBK3sm7
+	kwXFCrifBtNLYMVOMP3Sset20LfKKYC5K19LCy7bOfbiUy/52KW/RqMzCvti1TrdMqTa
+	HKrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=dgF+CdIm8AvL5CKR14HtkAUQH1Bf+I7N8Ch/vIXb8aE=;
+	b=sNqiNtrniHYdmy0EcMtcoM2GCcFzRJLJm4sdOHLUM+d2dXJlzrJuqCUYra16lWY4JX
+	i6Qij/CJciqpECOeLyWPSixsjA4HjSxNwLl0szlf9Xuamf3EH2Bup8CCaap8/EwtfW9v
+	Oyv94BJyMmQgchTz6S+ToIcogQSngCQZQqfN2GmZali2A2K5H/KteNQ6Ka9v6no+fV0J
+	eluEDQp70aDcH0wwF2TTWz7Y8xSsx0zHa3iVAST+m3EB1Ai2bWh1fDLPhaLLn4J3d+2w
+	+TZ3mWuq4WZxHDpWDGljvHU6bE1ozfd2ejDbCxvI38LRURkjVH8Xw9vW/HaIj/gSLR9A
+	HsGw==
+X-Gm-Message-State: AJcUuke/bstlLIFNAQclH7Q0MdXiMe9d35PDKSHVrHAu9mbDOsGIr85s
+	3og9sPMzpwEisb6zdkeVEg3XdHejLuH7ctV2tKk3PtijHmM=
+X-Google-Smtp-Source: ALg8bN7ShxzPb8JPnjM6SGk/O6QwQrRyQw1K1QFiVCraaCFNZD7xMntTUgLj2NF/z+IizbN9yQV56BN2o33oHAteuOg=
+X-Received: by 2002:ac8:3810:: with SMTP id q16mr1201284qtb.91.1546948359478; 
+	Tue, 08 Jan 2019 03:52:39 -0800 (PST)
 MIME-Version: 1.0
-Subject: Packaging error for custom kernel in thud
+From: Woody Wu <narkewoody@gmail.com>
+Date: Tue, 8 Jan 2019 19:52:30 +0800
+Message-ID: <CAAsE_udSqjYWVyeAq5tzF+mqr5ZpW+8wQtNLX0GtM-Q7_snuwQ@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: First try of Yocto Failed
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -51,123 +69,186 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Jan 2019 16:17:30 -0000
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_C4FC3851E4D34CF9B3A2C79102F8F4D1contosocom_"
+X-List-Received-Date: Tue, 08 Jan 2019 11:52:41 -0000
+Content-Type: multipart/alternative; boundary="00000000000073e306057ef0fb0f"
 
---_000_C4FC3851E4D34CF9B3A2C79102F8F4D1contosocom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--00000000000073e306057ef0fb0f
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgZm9sa3MsDQoNCldlIGJ1aWxkIGEgY3VzdG9taXplZCBsaW51eCBrZXJuZWwgZm9yIG91ciBw
-cm9qZWN0IGFuZCBhcmUgbG9va2luZyB0byB1cGdyYWRlIGZyb20gcm9ja28gdG8gdGh1ZC4gIEkg
-aGF2ZW7igJl0IGJlZW4gYWJsZSB0byBmaWd1cmUgb3V0IHRoZSBmb2xsb3dpbmcgZXJyb3Iocyk6
-DQoNCkVSUk9SOiBsaW51eC1ocHNjLTQuMTQuMCtnaXRBVVRPSU5DKzdiOTE3Nzg3MDQtcjAgZG9f
-cGFja2FnZTogUUEgSXNzdWU6IGtlcm5lbC1pbWFnZS1pbWFnZSBpcyBsaXN0ZWQgaW4gUEFDS0FH
-RVMgbXVsdGlwbGUgdGltZXMsIHRoaXMgbGVhZHMgdG8gcGFja2FnaW5nIGVycm9ycy4gW3BhY2th
-Z2VzLWxpc3RdDQpFUlJPUjogbGludXgtaHBzYy00LjE0LjArZ2l0QVVUT0lOQys3YjkxNzc4NzA0
-LXIwIGRvX3BhY2thZ2U6IFFBIElzc3VlOiBrZXJuZWwtaW1hZ2UtaW1hZ2UuZ3ogaXMgbGlzdGVk
-IGluIFBBQ0tBR0VTIG11bHRpcGxlIHRpbWVzLCB0aGlzIGxlYWRzIHRvIHBhY2thZ2luZyBlcnJv
-cnMuIFtwYWNrYWdlcy1saXN0XQ0KRVJST1I6IGxpbnV4LWhwc2MtNC4xNC4wK2dpdEFVVE9JTkMr
-N2I5MTc3ODcwNC1yMCBkb19wYWNrYWdlOiBGYXRhbCBRQSBlcnJvcnMgZm91bmQsIGZhaWxpbmcg
-dGFzay4NCkVSUk9SOiBsaW51eC1ocHNjLTQuMTQuMCtnaXRBVVRPSU5DKzdiOTE3Nzg3MDQtcjAg
-ZG9fcGFja2FnZTogRnVuY3Rpb24gZmFpbGVkOiBkb19wYWNrYWdlDQpFUlJPUjogTG9nZmlsZSBv
-ZiBmYWlsdXJlIHN0b3JlZCBpbjogL2hvbWUvY2ltZXMvaHBzYy9ocHNjLWJzcC9ocHNjL3Bva3kv
-YnVpbGQvdG1wL3dvcmsvaHBzY19jaGlwbGV0LXBva3ktbGludXgvbGludXgtaHBzYy80LjE0LjAr
-Z2l0QVVUT0lOQys3YjkxNzc4NzA0LXIwL3RlbXAvbG9nLmRvX3BhY2thZ2UuNTY4MDINCkVSUk9S
-OiBUYXNrICgvaG9tZS9jaW1lcy9ocHNjL2hwc2MtYnNwL2hwc2MvbWV0YS1ocHNjL21ldGEtaHBz
-Yy1ic3AvcmVjaXBlcy1rZXJuZWwvbGludXgvbGludXgtaHBzY180LjE0LmJiOmRvX3BhY2thZ2Up
-IGZhaWxlZCB3aXRoIGV4aXQgY29kZSAnMScNCg0KSSBkb27igJl0IGtub3cgd2hlcmUgZWxzZSB0
-aGVzZSBwYWNrYWdlcyB3b3VsZCBiZSBzcGVjaWZpZWQgZnJvbS4gIE91ciBrZXJuZWwgcmVjaXBl
-IGlzIHByZXR0eSBzaW1wbGUsIEnigJltIGVzc2VudGlhbGx5IGZvbGxvd2luZyB0aGUgbGludXgt
-eW9jdG8tY3VzdG9tLmJiIHJlY2lwZSB0byBwb2ludCB0b3dhcmQgb3VyIGxpbnV4IGZvcmssIGFk
-ZGl0aW9uYWxseSB1c2luZyBvdXIgaW4tdHJlZSBkZWZjb25maWc6DQoNCktDT05GSUdfTU9ERSA9
-ICItLWFsbGRlZmNvbmZpZyINCktCVUlMRF9ERUZDT05GSUdfaHBzYy1jaGlwbGV0ID0gImhwc2Nf
-ZGVmY29uZmlnIg0KDQpUaGFua3MgaW4gYWR2YW5jZSBmb3IgeW91ciBoZWxwLA0KLUNvbm5vcg0K
+Hi,
 
---_000_C4FC3851E4D34CF9B3A2C79102F8F4D1contosocom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <30F2BC8811715D459F18236D0CF1139D@ads.isi.edu>
-Content-Transfer-Encoding: base64
+I was following instructions on the web side, cloned the poky, check out
+the yocto-2.6 tag and start to build with 'bitbake core-image-sato', but
+even this failed.
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
-YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
-b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
-IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
-aW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
-DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
-aXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpz
-cGFuLkVtYWlsU3R5bGUxNw0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21wb3NlOw0KCWZv
-bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1z
-b0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6
-IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4g
-MTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rp
-b24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBs
-YW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0i
-V29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0Ij5IaSBmb2xrcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48
-L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTox
-MS4wcHQiPldlIGJ1aWxkIGEgY3VzdG9taXplZCBsaW51eCBrZXJuZWwgZm9yIG91ciBwcm9qZWN0
-IGFuZCBhcmUgbG9va2luZyB0byB1cGdyYWRlIGZyb20gcm9ja28gdG8gdGh1ZC4mbmJzcDsgSSBo
-YXZlbuKAmXQgYmVlbiBhYmxlIHRvIGZpZ3VyZSBvdXQgdGhlIGZvbGxvd2luZyBlcnJvcihzKTo8
-bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0i
-Zm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0Ij5FUlJPUjogbGludXgtaHBzYy00LjE0LjAmIzQzO2dpdEFVVE9JTkMmIzQzOzdi
-OTE3Nzg3MDQtcjAgZG9fcGFja2FnZTogUUEgSXNzdWU6IGtlcm5lbC1pbWFnZS1pbWFnZSBpcyBs
-aXN0ZWQgaW4gUEFDS0FHRVMgbXVsdGlwbGUgdGltZXMsIHRoaXMgbGVhZHMgdG8gcGFja2FnaW5n
-IGVycm9ycy4gW3BhY2thZ2VzLWxpc3RdPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0Ij5FUlJPUjogbGludXgtaHBzYy00LjE0LjAmIzQzO2dpdEFVVE9JTkMmIzQzOzdi
-OTE3Nzg3MDQtcjAgZG9fcGFja2FnZTogUUEgSXNzdWU6IGtlcm5lbC1pbWFnZS1pbWFnZS5neiBp
-cyBsaXN0ZWQgaW4gUEFDS0FHRVMgbXVsdGlwbGUgdGltZXMsIHRoaXMgbGVhZHMgdG8gcGFja2Fn
-aW5nIGVycm9ycy4gW3BhY2thZ2VzLWxpc3RdPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250
-LXNpemU6MTEuMHB0Ij5FUlJPUjogbGludXgtaHBzYy00LjE0LjAmIzQzO2dpdEFVVE9JTkMmIzQz
-OzdiOTE3Nzg3MDQtcjAgZG9fcGFja2FnZTogRmF0YWwgUUEgZXJyb3JzIGZvdW5kLCBmYWlsaW5n
-IHRhc2suPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
-Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5FUlJPUjog
-bGludXgtaHBzYy00LjE0LjAmIzQzO2dpdEFVVE9JTkMmIzQzOzdiOTE3Nzg3MDQtcjAgZG9fcGFj
-a2FnZTogRnVuY3Rpb24gZmFpbGVkOiBkb19wYWNrYWdlPG86cD48L286cD48L3NwYW4+PC9wPg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTEuMHB0Ij5FUlJPUjogTG9nZmlsZSBvZiBmYWlsdXJlIHN0b3JlZCBpbjog
-L2hvbWUvY2ltZXMvaHBzYy9ocHNjLWJzcC9ocHNjL3Bva3kvYnVpbGQvdG1wL3dvcmsvaHBzY19j
-aGlwbGV0LXBva3ktbGludXgvbGludXgtaHBzYy80LjE0LjAmIzQzO2dpdEFVVE9JTkMmIzQzOzdi
-OTE3Nzg3MDQtcjAvdGVtcC9sb2cuZG9fcGFja2FnZS41NjgwMjxvOnA+PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjExLjBwdCI+RVJST1I6IFRhc2sgKC9ob21lL2NpbWVzL2hwc2MvaHBz
-Yy1ic3AvaHBzYy9tZXRhLWhwc2MvbWV0YS1ocHNjLWJzcC9yZWNpcGVzLWtlcm5lbC9saW51eC9s
-aW51eC1ocHNjXzQuMTQuYmI6ZG9fcGFja2FnZSkgZmFpbGVkIHdpdGggZXhpdCBjb2RlICcxJzxv
-OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJm
-b250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SSBkb27igJl0IGtub3cg
-d2hlcmUgZWxzZSB0aGVzZSBwYWNrYWdlcyB3b3VsZCBiZSBzcGVjaWZpZWQgZnJvbS4mbmJzcDsg
-T3VyIGtlcm5lbCByZWNpcGUgaXMgcHJldHR5IHNpbXBsZSwgSeKAmW0gZXNzZW50aWFsbHkgZm9s
-bG93aW5nIHRoZSBsaW51eC15b2N0by1jdXN0b20uYmIgcmVjaXBlIHRvIHBvaW50IHRvd2FyZCBv
-dXIgbGludXggZm9yaywgYWRkaXRpb25hbGx5DQogdXNpbmcgb3VyIGluLXRyZWUgZGVmY29uZmln
-OjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMS4wcHQiPktDT05GSUdfTU9ERSA9ICZxdW90Oy0tYWxsZGVmY29uZmlnJnF1b3Q7PG86
-cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1s
-ZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5LQlVJTERfREVGQ09ORklH
-X2hwc2MtY2hpcGxldCA9ICZxdW90O2hwc2NfZGVmY29uZmlnJnF1b3Q7PG86cD48L286cD48L3Nw
-YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4w
-cHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5UaGFua3MgaW4gYWR2YW5jZSBmb3IgeW91ciBo
-ZWxwLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6MTEuMHB0Ij4tQ29ubm9yPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9k
-aXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+I got following errors:
 
---_000_C4FC3851E4D34CF9B3A2C79102F8F4D1contosocom_--
+===
+ERROR: pseudo-native-1.9.0+gitAUTOINC+6294b344e5-r0 do_unpack: Error
+executing a python function in exec_python_func() autogenerated:
+
+The stack trace of python calls that resulted in this exception/failure was:
+File: 'exec_python_func() autogenerated', lineno: 2, function: <module>
+     0001:
+ *** 0002:base_do_unpack(d)
+     0003:
+File: '/home/woody/poky/meta/classes/base.bbclass', lineno: 164, function:
+base_do_unpack
+     0160:        return
+     0161:
+     0162:    try:
+     0163:        fetcher = bb.fetch2.Fetch(src_uri, d)
+ *** 0164:        fetcher.unpack(d.getVar('WORKDIR'))
+     0165:    except bb.fetch2.BBFetchException as e:
+     0166:        bb.fatal(str(e))
+     0167:}
+     0168:
+File: '/home/woody/poky/bitbake/lib/bb/fetch2/__init__.py', lineno: 1773,
+function: unpack
+     1769:
+     1770:            if ud.lockfile:
+     1771:                lf = bb.utils.lockfile(ud.lockfile)
+     1772:
+ *** 1773:            ud.method.unpack(ud, root, self.d)
+     1774:
+     1775:            if ud.lockfile:
+     1776:                bb.utils.unlockfile(lf)
+     1777:
+File: '/home/woody/poky/bitbake/lib/bb/fetch2/git.py', lineno: 496,
+function: unpack
+     0492:                bb.utils.mkdirhier(destdir)
+     0493:                runfetchcmd("tar -xzf %s" % ud.fullshallow, d,
+workdir=destdir)
+     0494:                source_found = True
+     0495:            else:
+ *** 0496:                source_error.append("shallow clone not enabled or
+not available: " + ud.fullshallow)
+     0497:
+     0498:        if not source_found:
+     0499:            raise bb.fetch2.UnpackError("No up to date source
+found: " + "; ".join(source_error), ud.url)
+     0500:
+Exception: AttributeError: 'FetchData' object has no attribute 'fullshallow'
+
+ERROR: pseudo-native-1.9.0+gitAUTOINC+6294b344e5-r0 do_unpack: Function
+failed: base_do_unpack
+ERROR: Logfile of failure stored in:
+/home/woody/poky/build/tmp/work/x86_64-linux/pseudo-native/1.9.0+gitAUTOINC+6294b344e5-r0/temp/log.do_unpack.6600
+ERROR: Task
+(virtual:native:/home/woody/poky/meta/recipes-devtools/pseudo/pseudo_git.bb:do_unpack)
+failed with exit code '1'
+===
+
+My system is ubuntu 18.10 and I have python 2 and python 3.
+
+Can someone please give me a clue? Thanks!
+
+
+-- 
+Life is the only flaw in an otherwise perfect nonexistence
+    -- Schopenhauer
+
+woody
+public key at http://subkeys.pgp.net:11371 (narkewoody@gmail.com)
+
+--00000000000073e306057ef0fb0f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:large">Hi,</div><div class=3D"gmail_default" style=3D"font-size:larg=
+e"><br></div><div class=3D"gmail_default" style=3D"font-size:large">I was f=
+ollowing instructions on the web side, cloned the poky, check out the yocto=
+-2.6 tag and start to build with &#39;bitbake core-image-sato&#39;, but eve=
+n this failed.</div><div class=3D"gmail_default" style=3D"font-size:large">=
+<br></div><div class=3D"gmail_default" style=3D"font-size:large">I got foll=
+owing errors:</div><div class=3D"gmail_default" style=3D"font-size:large"><=
+br></div><div class=3D"gmail_default"><div class=3D"gmail_default"><font si=
+ze=3D"4">=3D=3D=3D</font></div><div class=3D"gmail_default"><font size=3D"4=
+">ERROR: pseudo-native-1.9.0+gitAUTOINC+6294b344e5-r0 do_unpack: Error exec=
+uting a python function in exec_python_func() autogenerated:</font></div><d=
+iv class=3D"gmail_default"><font size=3D"4"><br></font></div><div class=3D"=
+gmail_default"><font size=3D"4">The stack trace of python calls that result=
+ed in this exception/failure was:</font></div><div class=3D"gmail_default">=
+<font size=3D"4">File: &#39;exec_python_func() autogenerated&#39;, lineno: =
+2, function: &lt;module&gt;</font></div><div class=3D"gmail_default"><font =
+size=3D"4">=C2=A0 =C2=A0 =C2=A00001:</font></div><div class=3D"gmail_defaul=
+t"><font size=3D"4">=C2=A0*** 0002:base_do_unpack(d)</font></div><div class=
+=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00003:</font></div><=
+div class=3D"gmail_default"><font size=3D"4">File: &#39;/home/woody/poky/me=
+ta/classes/base.bbclass&#39;, lineno: 164, function: base_do_unpack</font><=
+/div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00160=
+:=C2=A0 =C2=A0 =C2=A0 =C2=A0 return</font></div><div class=3D"gmail_default=
+"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00161:</font></div><div class=3D"gmai=
+l_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00162:=C2=A0 =C2=A0 try:</fo=
+nt></div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A0=
+0163:=C2=A0 =C2=A0 =C2=A0 =C2=A0 fetcher =3D bb.fetch2.Fetch(src_uri, d)</f=
+ont></div><div class=3D"gmail_default"><font size=3D"4">=C2=A0*** 0164:=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 fetcher.unpack(d.getVar(&#39;WORKDIR&#39;))</font>=
+</div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A0016=
+5:=C2=A0 =C2=A0 except bb.fetch2.BBFetchException as e:</font></div><div cl=
+ass=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00166:=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 bb.fatal(str(e))</font></div><div class=3D"gmail_default"=
+><font size=3D"4">=C2=A0 =C2=A0 =C2=A00167:}</font></div><div class=3D"gmai=
+l_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00168:</font></div><div clas=
+s=3D"gmail_default"><font size=3D"4">File: &#39;/home/woody/poky/bitbake/li=
+b/bb/fetch2/__init__.py&#39;, lineno: 1773, function: unpack</font></div><d=
+iv class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A01769:</font=
+></div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A017=
+70:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if ud.lockfile:</font></div><d=
+iv class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A01771:=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 lf =3D bb.utils.lockfile(=
+ud.lockfile)</font></div><div class=3D"gmail_default"><font size=3D"4">=C2=
+=A0 =C2=A0 =C2=A01772:</font></div><div class=3D"gmail_default"><font size=
+=3D"4">=C2=A0*** 1773:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ud.method.u=
+npack(ud, root, self.d)</font></div><div class=3D"gmail_default"><font size=
+=3D"4">=C2=A0 =C2=A0 =C2=A01774:</font></div><div class=3D"gmail_default"><=
+font size=3D"4">=C2=A0 =C2=A0 =C2=A01775:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 if ud.lockfile:</font></div><div class=3D"gmail_default"><font size=
+=3D"4">=C2=A0 =C2=A0 =C2=A01776:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 bb.utils.unlockfile(lf)</font></div><div class=3D"gmail_defau=
+lt"><font size=3D"4">=C2=A0 =C2=A0 =C2=A01777:</font></div><div class=3D"gm=
+ail_default"><font size=3D"4">File: &#39;/home/woody/poky/bitbake/lib/bb/fe=
+tch2/git.py&#39;, lineno: 496, function: unpack</font></div><div class=3D"g=
+mail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00492:=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.utils.mkdirhier(destdir)</font></=
+div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00493:=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 runfetchcmd(&quot;t=
+ar -xzf %s&quot; % ud.fullshallow, d, workdir=3Ddestdir)</font></div><div c=
+lass=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00494:=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 source_found =3D True</font><=
+/div><div class=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00495=
+:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:</font></div><div class=3D"=
+gmail_default"><font size=3D"4">=C2=A0*** 0496:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 source_error.append(&quot;shallow clone not ena=
+bled or not available: &quot; + ud.fullshallow)</font></div><div class=3D"g=
+mail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00497:</font></div><div c=
+lass=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00498:=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 if not source_found:</font></div><div class=3D"gmail_defa=
+ult"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00499:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 raise bb.fetch2.UnpackError(&quot;No up to date source found:=
+ &quot; + &quot;; &quot;.join(source_error), ud.url)</font></div><div class=
+=3D"gmail_default"><font size=3D"4">=C2=A0 =C2=A0 =C2=A00500:</font></div><=
+div class=3D"gmail_default"><font size=3D"4">Exception: AttributeError: &#3=
+9;FetchData&#39; object has no attribute &#39;fullshallow&#39;</font></div>=
+<div class=3D"gmail_default"><font size=3D"4"><br></font></div><div class=
+=3D"gmail_default"><font size=3D"4">ERROR: pseudo-native-1.9.0+gitAUTOINC+6=
+294b344e5-r0 do_unpack: Function failed: base_do_unpack</font></div><div cl=
+ass=3D"gmail_default"><font size=3D"4">ERROR: Logfile of failure stored in:=
+ /home/woody/poky/build/tmp/work/x86_64-linux/pseudo-native/1.9.0+gitAUTOIN=
+C+6294b344e5-r0/temp/log.do_unpack.6600</font></div><div class=3D"gmail_def=
+ault"><font size=3D"4">ERROR: Task (virtual:native:/home/woody/poky/meta/re=
+cipes-devtools/pseudo/pseudo_git.bb:do_unpack) failed with exit code &#39;1=
+&#39;</font></div><div style=3D"font-size:large">=3D=3D=3D</div><div style=
+=3D"font-size:large"><br></div><div style=3D"font-size:large">My system is =
+ubuntu 18.10 and I have python 2 and python 3.</div><div style=3D"font-size=
+:large"><br></div><div style=3D"font-size:large">Can someone please give me=
+ a clue? Thanks!</div><div style=3D"font-size:large"><br></div></div><div><=
+br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature">Life is the only=
+ flaw in an otherwise perfect nonexistence<br>=C2=A0 =C2=A0 -- Schopenhauer=
+<br><br>woody<br>public key at <a href=3D"http://subkeys.pgp.net:11371" tar=
+get=3D"_blank">http://subkeys.pgp.net:11371</a> (<a href=3D"mailto:narkewoo=
+dy@gmail.com" target=3D"_blank">narkewoody@gmail.com</a>)<br><br></div></di=
+v></div>
+
+--00000000000073e306057ef0fb0f--
