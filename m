@@ -1,11 +1,11 @@
 Return-Path: <jeff.dagenais@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 488D9E00D1B; Fri, 11 Jan 2019 05:48:15 -0800 (PST)
+	id 0B5C3E00D16; Fri, 11 Jan 2019 06:44:08 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
@@ -13,61 +13,56 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	provider *      (jeff.dagenais[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.222.182 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	*      [209.85.160.176 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
-	[209.85.222.182])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 48077E00CF1
-	for <poky@yoctoproject.org>; Fri, 11 Jan 2019 05:48:14 -0800 (PST)
-Received: by mail-qk1-f182.google.com with SMTP id q1so6497527qkf.13
-	for <poky@yoctoproject.org>; Fri, 11 Jan 2019 05:48:14 -0800 (PST)
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+	[209.85.160.176])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8EA31E008CE
+	for <poky@yoctoproject.org>; Fri, 11 Jan 2019 06:44:07 -0800 (PST)
+Received: by mail-qt1-f176.google.com with SMTP id n32so18980564qte.11
+	for <poky@yoctoproject.org>; Fri, 11 Jan 2019 06:44:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
-	:references; bh=2sGCubp3UBEsS5kdiRhr/o8QDiWPxA5aBSTIwa2qeW8=;
-	b=iRY0xyQZdt8vbpWJwSAZ2I1elEuI27FVSofSuIqlC1OefaJVyrhJFDRaSFRUckpdAX
-	EhiWHus4iHIAZ7KjPOiQYwsytPS9BHzCbiM+xdsgCu8HmNUPZhbKOoBtGc7bt0TGmGHL
-	sAbi6XO3YztdlkTj9VqcDLbSRvs5Eo2w2rK56zdcgovzWmmb9kB1Pkobs5St5Z7s1Vsr
-	4HvP1SgAF4PAVY0XBe2wfvzZRwpdBnkZJ2lHHwOZEzlyPIhNgDoavYDDdPgvAZbf7jEC
-	A9x8X5qIoo0quQ6pELzvGCPHDBSWqQ+uyc58ezgfTdY1jmzMgebftLpTWFvU0lz1uajJ
-	NfuQ==
+	h=from:content-transfer-encoding:mime-version:subject:message-id:date
+	:cc:to; bh=Nm2oc6vlja6P3hJDvYIkWGRbK8s98nY5qAyto2mXfDc=;
+	b=Tojh52ywdBb/jDWBJYKzp3UrfSHwGSMUC814pQmXhYU+Zsw9QL1bjZwYGhE0+8nRVZ
+	2L+4S1yDNkHrq1h+kI5ks3IZlgea8gTGYMa0kO3N1N8YP/GhANwBxUPbb+eSHZSCgCqP
+	3doK688bMnMDOePEo13VjE8m452zJ3GJ6Kho/2oHJ/ZtA5Tr7mJ2pcWW9htUiokWgp06
+	p8NUpLq8k6TOccGUb2c94HRcwTpHymEP/+k0sWz3Okvnue0enssSOieKw6VfwuBj1e4L
+	t7ZoGONmVYGjm1U+qjYiWO8mpnv9ITNuZEthGxwpBHPcfno2QtPvRMMsWb4/HQFkAfUo
+	g3uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:message-id:mime-version:subject:date
-	:in-reply-to:cc:to:references;
-	bh=2sGCubp3UBEsS5kdiRhr/o8QDiWPxA5aBSTIwa2qeW8=;
-	b=iEFS9qIOy8nMorDg+VKHKg6TBsG/UV9msKAWEul5vjXGT5M9sMQEWo59rStp3vXKtF
-	alYG5yfQ9wHwYkF8o0gMH5H+r7fAKf7+P+0KSRvdxQq70/3/KeiYZj1OlNXE8FjPTRxU
-	vIyV+t54jvrD47mWS6QUqGYd6yPBMdSTL/gJtMNCHJ4XH9xRdLx9E2sHqtnZKzhTg07R
-	tu4sXy8qyPNz7w7Gcr9YHosFtJ2+U7zareJywc3ymlfWGTBirVye1tKrk2EsAfL2/l3r
-	CgwCa9GDSqrLfrPNHicj8X7aWH6n5MDlTh4gFMUui5I4gkwtnu9zXQ1SAhVhYwhGm3jV
-	De8Q==
-X-Gm-Message-State: AJcUukccdyQ9tyAZjrcbb/d1QRZZZZ4mXiKnKBMcVpN3gWOHSJ2PDxga
-	R+PMRDNa2GTBE8pWJyEyuzA1MekLZXM=
-X-Google-Smtp-Source: ALg8bN6gTZL8cdeQj9O0+xBB1dYmseM99KyjIQ8VZrmFFzUC9qPWpU9VKjS0ibq03zudS92rGQQhsA==
-X-Received: by 2002:a37:a745:: with SMTP id q66mr13069598qke.272.1547214493594;
-	Fri, 11 Jan 2019 05:48:13 -0800 (PST)
+	h=x-gm-message-state:from:content-transfer-encoding:mime-version
+	:subject:message-id:date:cc:to;
+	bh=Nm2oc6vlja6P3hJDvYIkWGRbK8s98nY5qAyto2mXfDc=;
+	b=nLN2x6n4QrdRimYJBN5L1fbCk9K0dkjqGJ1EdXz96ltM/SlrUufcHn5MwjLf9bgVXQ
+	Ggh0uihlAid3VEOOhnJG17p8pDEecU7dCoecp/DxzPCAXtCLoFBzW85fBS2vdaBP0TKJ
+	OiM/s6txhmC3/kCeVopN4Ir9QXY+gihSuD80GVaaF7YnfpPqWL6G7shQGFA7rG4oxycl
+	8NQU3oQuoomiFyQQ2eGABScPUatuyXL1jClfWpxiyHozmO295issCpP9mEwyzss8lirG
+	yfEDjEoG3umWaEx8oKDDTdsAlUupBFcaiXnDXl+5Gw0D2QpGYKPfNDrJNmlA3M+tKE29
+	pXdQ==
+X-Gm-Message-State: AJcUukfixOGWTOvSplxa3JcXKDiQgg/xeFbwYAO9ZnHrOyo2Nv1aeM/P
+	07tGpy5KW2LOgKYqmDQv7rewxyKuuT4=
+X-Google-Smtp-Source: ALg8bN7c8yniEv/zhrDBfocldg0Zs+neywB2BRhjpUpa2Qo89e3Jmpv0U2fLiBjxlOCalDBszlOnnA==
+X-Received: by 2002:aed:36a9:: with SMTP id f38mr14314239qtb.367.1547217846558;
+	Fri, 11 Jan 2019 06:44:06 -0800 (PST)
 Received: from jfdmac.sonatest.net
 	(ipagstaticip-d73c7528-4de5-0861-800b-03d8b15e3869.sdsl.bell.ca.
 	[174.94.156.236]) by smtp.gmail.com with ESMTPSA id
-	c11sm36044353qtn.95.2019.01.11.05.48.12
+	z8sm34477162qto.45.2019.01.11.06.44.04
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 11 Jan 2019 05:48:12 -0800 (PST)
+	Fri, 11 Jan 2019 06:44:05 -0800 (PST)
 From: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
-Message-Id: <DC8E511B-AC1A-4707-99D3-F251052ABD49@gmail.com>
 Mime-Version: 1.0 (Mac OS X Mail 12.2 \(3445.102.3\))
-Date: Fri, 11 Jan 2019 08:48:11 -0500
-In-Reply-To: <20190108164538.4015686c@pouet.cJ>
-To: =?utf-8?B?SsOpcsO0bWUgQ2FycmV0ZXJv?= <cJ-poky@zougloub.eu>
-References: <F240E478-55ED-4D37-A21D-B4C33EC9F501@gmail.com>
-	<20190108164538.4015686c@pouet.cJ>
+Message-Id: <4F6CA6D8-E1F6-4AB3-A481-241AA0DE3B28@gmail.com>
+Date: Fri, 11 Jan 2019 09:44:04 -0500
+To: poky@yoctoproject.org
 X-Mailer: Apple Mail (2.3445.102.3)
-Cc: poky@yoctoproject.org
-Subject: Re: systemd privatetmp and symlink to /var/volatile/tmp
+Subject: thud systemd root home wrong
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -80,140 +75,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 13:48:15 -0000
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_C11796F4-63B5-4DE8-8B65-4AEA901BD0A2"
-
---Apple-Mail=_C11796F4-63B5-4DE8-8B65-4AEA901BD0A2
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 11 Jan 2019 14:44:08 -0000
 Content-Type: text/plain;
 	charset=utf-8
-
-
-
-> On Jan 8, 2019, at 4:45 PM, J=C3=A9r=C3=B4me Carretero =
-<cJ-poky@zougloub.eu> wrote:
->=20
-> Best regards,
->=20
-> --=20
-> J=C3=A9r=C3=B4me
->=20
-> PS: Thud upgrade is quite smooth, if you can do it...
-> PPS: You may have trouble building Sumo after a libc update on your
-> development machine.
-
-Thanks J=C3=A9r=C3=B4me for this insight.
-
-Since we are still early in our development, yes, I can afford updating =
-to thud. I did, it is indeed pretty smooth. The PrivateTmp issue is =
-indeed fixed.
-
-I am still testing for regressions. Already another issue I was =
-expecting to go away didn't. User root's home is not what's defined in =
-bitbake.conf for ROOT_HOME i.e. /home/root but it is /root in systemd.
-
-I will send another thread for that.
-
-Cheers!=
-
---Apple-Mail=_C11796F4-63B5-4DE8-8B65-4AEA901BD0A2
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On Jan 8, 2019, at 4:45 PM, J=C3=A9r=C3=B4me Carretero &lt;<a =
-href=3D"mailto:cJ-poky@zougloub.eu" class=3D"">cJ-poky@zougloub.eu</a>&gt;=
- wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><span=
- style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Best =
-regards,</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">--<span =
-class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" =
-class=3D"">J=C3=A9r=C3=B4me</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">PS: Thud upgrade is quite smooth, if you can do =
-it...</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">PPS: You may =
-have trouble building Sumo after a libc update on your</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">development =
-machine.</span></div></blockquote></div><br class=3D""><div =
-class=3D"">Thanks J=C3=A9r=C3=B4me for this insight.</div><div =
-class=3D""><br class=3D""></div><div class=3D"">Since we are still early =
-in our development, yes, I can afford updating to thud. I did, it is =
-indeed pretty smooth. The PrivateTmp issue is indeed fixed.</div><div =
-class=3D""><br class=3D""></div><div class=3D"">I am still testing for =
-regressions. Already another issue I was expecting to go away didn't. =
-User root's home is not what's defined in bitbake.conf for ROOT_HOME =
-i.e. /home/root but it is /root in systemd.</div><div class=3D""><br =
-class=3D""></div><div class=3D"">I will send another thread for =
-that.</div><div class=3D""><br class=3D""></div><div =
-class=3D"">Cheers!</div></body></html>=
+Hi all,
 
---Apple-Mail=_C11796F4-63B5-4DE8-8B65-4AEA901BD0A2--
+Although there is 0005-Make-root-s-home-directory-configurable.patch and =
+EXTRA_OEMESON +=3D "-Droothomedir=3D${ROOT_HOME}".
+
+Here's the test setup and result:
+root@host-01:~# cat /lib/systemd/system/testroothome.service=20
+[Unit]
+Description=3DTest root home
+
+[Service]
+User=3Droot
+ExecStart=3D/bin/bash -c "echo HOME:$HOME"
+
+[Install]
+WantedBy=3Dmulti-user.target
+root@host-01:~# systemctl status testroothome
+=E2=97=8F testroothome.service - Test root home
+   Loaded: loaded (/lib/systemd/system/testroothome.service; disabled; =
+vendor preset: enabled)
+   Active: inactive (dead)
+
+Jan 11 14:32:10 host-01 systemd[1]: Started Test root home.
+Jan 11 14:32:10 host-01 bash[1971]: HOME:/root
+root@host-01:~# echo $HOME
+/home/root
+
+
+/root is incorrect as shown last. ROOT_HOME is set in my untouched =
+bitbake.conf from poky.
+
+Very preliminary inspection of v239 of systemd's source in it's workdir =
+suggests that although the meson build config is changed to accept =
+roothomedir as an option, the source code doesn't mention it.
+
+Looking at the history of =
+xxxx-Make-root-s-home-directory-configurable.patch, it seems to have =
+suffered quite a lot through the systemd upgrades to the point it has =
+become useless?
+
+Before I dig deeper, I wanted to check with the community.
+
+Thanks for any pointers!=
+
