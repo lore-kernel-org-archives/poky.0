@@ -1,61 +1,73 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <jeff.dagenais@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 83E7DE00AC5; Fri, 11 Jan 2019 07:55:39 -0800 (PST)
+	id A07BBE00CFB; Mon, 14 Jan 2019 10:18:36 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (jeff.dagenais[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.166.45 listed in list.dnswl.org]
+	*      [209.85.160.181 listed in list.dnswl.org]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
-	[209.85.166.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1318EE009EB
-	for <poky@yoctoproject.org>; Fri, 11 Jan 2019 07:55:38 -0800 (PST)
-Received: by mail-io1-f45.google.com with SMTP id s22so12499224ioc.8
-	for <poky@yoctoproject.org>; Fri, 11 Jan 2019 07:55:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=LlserskpBLtjBrR084+q6HjggG36ovCciB/3ixMKAtU=;
-	b=dJK96fKuLfUjQEsPQoVh9t4JDimUy+oQocUG4YNy06UH12IH3CM2kIKGS0KJ/E+0ru
-	aolcmXAUfYSyo0GQSbRSacF1QpQunsDr/7M9RFxfET4IOa7JFFInNvQQ8pJbQvFiIeLT
-	k8ElRXm856bgJ/ulRadV3IFxYiLrkUyGpEJJ6W7p8j9gLzlxCguPo90N7MToMS6bkeZ0
-	gBBFqM7Qc9qVzD/HvxmT7vtuIsSSaPBYI/KUEsoqD7t4mlMHwpN604yihJcc/7dsxnyh
-	zKV3Wxi/DL9FRtskZf+bxAd3Ro4sy51O9AQjp6p1RWTncW7Uqmkg8wdI/8cAI7ao86dY
-	Cnmw==
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+	[209.85.160.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7BD27E00CE0
+	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 10:18:35 -0800 (PST)
+Received: by mail-qt1-f181.google.com with SMTP id l12so27602299qtf.8
+	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 10:18:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+	:references; bh=q74Fths0H4IrSn6wqC8tchWrWstVOYXYf0es7jox8wo=;
+	b=Vf8ZvHTyd1mCkkuDwai8HoOjVubo4CkE6ke/RhzSL6ylWchx5VL5nlpr2qjVhbl2DR
+	DMOSrMZSirxn0okVeSH8dcRDkp0SkxVOL+gzjS/KWEY3kFhAEO88UYFedFfqxujFd/kc
+	6Ejk4onNzHQehgXrjHYTu9fEC/qfCGjJ8dr15YQTVsXJNJaFOsDVkbEivQqmNenSfCFt
+	uMEqXQK6y0Yy0RP5bhP7mgvUkoOUK3VMeiaxvQNTsRkdJ0HqCvbeKLsyM7V0Ry9SyDnt
+	SjXh3Ldjy4dvVIG1C9Iye3Mi8efkBhK26p72ukFfL/tukZtSkeBq//YQwnLxZiTpJftn
+	dLSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=LlserskpBLtjBrR084+q6HjggG36ovCciB/3ixMKAtU=;
-	b=bniOcmOcGnc5ziLHlOuqy8Rfqfx2jV7v3Gb/tFN6CoHM9+dEBgZ1cVEgrCirwwYiQq
-	XVx04yya44y2RkRrx5CfE4k9B+b5yX+XpvlYU1aw3HHGH8pj20uvk8KqP5Piw3JXK+Hd
-	MWhLdZ4674j+CAqirW08ZFYf+q+B3MU7yOFc4e9p9YA99ZsyFAmO+0uUNPSoa+dRAjQh
-	EeXz6w+FkgToSncPHt7t/Ia2yKm0CeWyf+uh763e8qHCZgQKJ7XaRqs1X9a1jXHbGThz
-	E+1/cF0EPfueZvhpacSOYX6jsbnU/yUxRHBzWx+ilEE2/dJMVIAI9A0/9yyBXu0CC2xr
-	JTiw==
-X-Gm-Message-State: AJcUukfVkHn6YVKvF3RD1gRCQGpQNB0RrYzxOSEyaPqHAsJ7qvWwiHTQ
-	lo5DaiJfrcm+a19/G6o1aRfTVOIXhTh9dOiMIEWo2A==
-X-Google-Smtp-Source: ALg8bN5GfvfOnfObOANaVWhOt3JeEcXQw1YWYxJPyrhOGCUj7bXbbasy6xVF+xi3UWBRxIu+hqYlo3VA6x+UtB+yvrs=
-X-Received: by 2002:a6b:f70a:: with SMTP id k10mr8826876iog.270.1547222138327; 
-	Fri, 11 Jan 2019 07:55:38 -0800 (PST)
-MIME-Version: 1.0
+	h=x-gm-message-state:from:message-id:mime-version:subject:date
+	:in-reply-to:cc:to:references;
+	bh=q74Fths0H4IrSn6wqC8tchWrWstVOYXYf0es7jox8wo=;
+	b=XaFA7VHw4JWDs3++7wF+A8K1HdyyMzVSLyRxlck9XZLr81N0abPNUyJlPRrl4zpx3+
+	UltjRfpCSHJ+W+9Ack4ztcurfqemtyUEG89ZpBwL32sp6ClI0w+Y0/dg6Z5jwCLSjxFn
+	dZdsu5xfm5ggk0G/fvV2rbHJnf1FkXSdxXFSNLLypENM+vbPr4LXE0ZyCAs35g0NrMqI
+	Wte29FejLixCpZpWk3aNiiFrjJvxwkMeqVx5u1PhceANEyWzlQegU9BY6zhVV3r5zDiO
+	83Qw4GFjL5C5Brf37SHrw1gkJ1AZ4B+qbj5QGGmCm1nEMhISTp/iL9JmOjZsRx5GbyVs
+	rhZw==
+X-Gm-Message-State: AJcUukcBN7LAmuJ8dG/1gb8vRkg2YCA+Bjk8KfVTaEsM4dXnSoVzTAsK
+	DHqRIPXCZptQIk9sETr2D1k=
+X-Google-Smtp-Source: ALg8bN61OF1J+IVkC3KH6NUGslMcKE6CpcBXOWKz4cOWBs19l7Qud+wLYwIhWYqxkO1Gd3v91siAzg==
+X-Received: by 2002:ac8:668c:: with SMTP id d12mr24044679qtp.242.1547489914732;
+	Mon, 14 Jan 2019 10:18:34 -0800 (PST)
+Received: from [192.168.100.201]
+	(ipagstaticip-d73c7528-4de5-0861-800b-03d8b15e3869.sdsl.bell.ca.
+	[174.94.156.236]) by smtp.gmail.com with ESMTPSA id
+	w34sm53505973qtj.27.2019.01.14.10.18.33
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 14 Jan 2019 10:18:33 -0800 (PST)
+From: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
+Message-Id: <40EBB072-485F-4099-99A6-CA4EB88A2F6D@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 12.2 \(3445.102.3\))
+Date: Mon, 14 Jan 2019 13:18:32 -0500
+In-Reply-To: <CAJTo0LZ+VnFcD0GOarDbYGXz8dLUgr0Qc6MOt_ov7jFUfApX4w@mail.gmail.com>
+To: "Burton, Ross" <ross.burton@intel.com>
 References: <4F6CA6D8-E1F6-4AB3-A481-241AA0DE3B28@gmail.com>
 	<CAJTo0LbZr=iAv7zgVtNAEDkVGL=MwgvFdEJHaakOqv0AgS5D=Q@mail.gmail.com>
 	<F776005A-D6E7-4D5D-BE50-A2E80A405732@gmail.com>
-In-Reply-To: <F776005A-D6E7-4D5D-BE50-A2E80A405732@gmail.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Fri, 11 Jan 2019 15:55:26 +0000
-Message-ID: <CAJTo0LZ+VnFcD0GOarDbYGXz8dLUgr0Qc6MOt_ov7jFUfApX4w@mail.gmail.com>
-To: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
+	<CAJTo0LZ+VnFcD0GOarDbYGXz8dLUgr0Qc6MOt_ov7jFUfApX4w@mail.gmail.com>
+X-Mailer: Apple Mail (2.3445.102.3)
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: thud systemd root home wrong
 X-BeenThere: poky@yoctoproject.org
@@ -70,53 +82,58 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 15:55:39 -0000
-Content-Type: multipart/alternative; boundary="000000000000f1af80057f30b98b"
+X-List-Received-Date: Mon, 14 Jan 2019 18:18:36 -0000
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_80672CB3-D142-4E68-A562-C6AB7CAFA558"
 
---000000000000f1af80057f30b98b
-Content-Type: text/plain; charset="UTF-8"
-
-I'd just grep the systemd source for "/root" and replace the relevant ones
-with ROOTHOMEDIR.  There's probably not that many...
-
-On Fri, 11 Jan 2019 at 15:53, Jean-Francois Dagenais <
-jeff.dagenais@gmail.com> wrote:
-
->
-> On Jan 11, 2019, at 10:37 AM, Burton, Ross <ross.burton@intel.com> wrote:
->
-> Sounds feasibly, patches like that maintained long-term do suffer from
-> bitrot.  Would you be able to dig and fix this?
->
->
-> I will give it a shot yes, stay tuned. Not at all familiar with the code
-> base, any hints? Or maybe all the hints I need are in previous (pre rot)
-> versions of the patch?
->
-
---000000000000f1af80057f30b98b
-Content-Type: text/html; charset="UTF-8"
+--Apple-Mail=_80672CB3-D142-4E68-A562-C6AB7CAFA558
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-<div dir=3D"ltr">I&#39;d just grep the systemd source for &quot;/root&quot;=
- and replace the relevant ones with ROOTHOMEDIR.=C2=A0 There&#39;s probably=
- not that many...</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On F=
-ri, 11 Jan 2019 at 15:53, Jean-Francois Dagenais &lt;<a href=3D"mailto:jeff=
-.dagenais@gmail.com">jeff.dagenais@gmail.com</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-w=
-idth:1px;border-left-style:solid;border-left-color:rgb(204,204,204);padding=
--left:1ex"><div style=3D"word-wrap:break-word;line-break:after-white-space"=
-><br><div><blockquote type=3D"cite"><div>On Jan 11, 2019, at 10:37 AM, Burt=
-on, Ross &lt;<a href=3D"mailto:ross.burton@intel.com" target=3D"_blank">ros=
-s.burton@intel.com</a>&gt; wrote:</div><br class=3D"gmail-m_-26354859335907=
-22713Apple-interchange-newline"><div><span style=3D"font-family:Helvetica;f=
-ont-size:12px;font-style:normal;font-variant-caps:normal;font-weight:normal=
-;letter-spacing:normal;text-align:start;text-indent:0px;text-transform:none=
-;white-space:normal;word-spacing:0px;text-decoration:none;float:none;displa=
-y:inline">Sounds feasibly, patches like that maintained long-term do suffer=
- from bitrot.=C2=A0 Would you be able to dig and fix this?</span></div></bl=
-ockquote></div><br><div>I will give it a shot yes, stay tuned. Not at all f=
-amiliar with the code base, any hints? Or maybe all the hints I need are in=
- previous (pre rot) versions of the patch?</div></div></blockquote></div>
 
---000000000000f1af80057f30b98b--
+> On Jan 11, 2019, at 10:55 AM, Burton, Ross <ross.burton@intel.com> =
+wrote:
+>=20
+> I'd just grep the systemd source for "/root" and replace the relevant =
+ones with ROOTHOMEDIR.  There's probably not that many...
+
+Were there any plans to submit this upstream? Seems a worthy mod. =
+Although might not be a need for regular distros.
+
+Should I apply this on poky/master and against v240? Or modify the =
+existing patch on thud? Seems like, with J=C3=A9r=C3=B4me's workaround, =
+this is not a crucial issue...
+
+Thanks for the help!=
+
+--Apple-Mail=_80672CB3-D142-4E68-A562-C6AB7CAFA558
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><blockquote type=3D"cite" class=3D""><div class=3D"">On =
+Jan 11, 2019, at 10:55 AM, Burton, Ross &lt;<a =
+href=3D"mailto:ross.burton@intel.com" =
+class=3D"">ross.burton@intel.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">I'd just grep the systemd source =
+for "/root" and replace the relevant ones with ROOTHOMEDIR.&nbsp; =
+There's probably not that many...</span></div></blockquote></div><br =
+class=3D""><div class=3D"">Were there any plans to submit this upstream? =
+Seems a worthy mod. Although might not be a need for regular =
+distros.</div><div class=3D""><br class=3D""></div><div class=3D"">Should =
+I apply this on poky/master and against v240? Or modify the existing =
+patch on thud? Seems like, with J=C3=A9r=C3=B4me's workaround, this is =
+not a crucial issue...</div><div class=3D""><br class=3D""></div><div =
+class=3D"">Thanks for the help!</div></body></html>=
+
+--Apple-Mail=_80672CB3-D142-4E68-A562-C6AB7CAFA558--
