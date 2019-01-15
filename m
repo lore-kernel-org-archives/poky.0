@@ -1,32 +1,61 @@
-Return-Path: <hector@ikatu.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 68880E00CFB; Mon, 14 Jan 2019 16:19:30 -0800 (PST)
+	id 3D195E00CE0; Mon, 14 Jan 2019 16:35:36 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,HTML_MESSAGE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, HTML_MESSAGE, RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.166.177 listed in list.dnswl.org]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
-X-Greylist: delayed 399 seconds by postgrey-1.32 at yocto-www;
-	Mon, 14 Jan 2019 16:19:28 PST
-Received: from malena.ikatu.net (malena.ikatu.net [190.0.137.197])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C150CE00CE0
-	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:19:28 -0800 (PST)
-Received: (qmail 12383 invoked by uid 0); 15 Jan 2019 00:21:24 -0000
-Received: from r167-57-189-146.dialup.adsl.anteldata.net.uy (HELO
-	?192.168.1.43?) (hector@ikatu.com@167.57.189.146)
-	by malena.ikatu.net with SMTP; 15 Jan 2019 00:21:24 -0000
-To: poky@yoctoproject.org
-From: Hector Almeida <hector@ikatu.com>
-Message-ID: <7d48f265-39e9-663c-f229-8dadfc22083f@ikatu.com>
-Date: Mon, 14 Jan 2019 21:12:27 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.2.1
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-it1-f177.google.com (mail-it1-f177.google.com
+	[209.85.166.177])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29B20E007B3
+	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:35:34 -0800 (PST)
+Received: by mail-it1-f177.google.com with SMTP id m62so2516086ith.5
+	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:35:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=WNlfRuzfnjVEJ5gjtr+1/qDWjSZATc0DIRPLXocPJ9o=;
+	b=1SJa3Ls1FOhZUg1YN8c7VqHvXA9DApxeX9QrjYR8oiv7MuFfCmWTVV8G6T5NoHettC
+	5sRsL9bMOIqFZHd57Md9Zn2aEd/wFrYsKKDYaImhfYduy2plxU/NIbhHkINhDRUWQZV0
+	XK5xrz9Kh3BCvMdWy8P/6NG1ZS4oOfK1gNcT5X0ZKfAYhE3ubalvL2pSNPsUmD6jJDnz
+	XC1XQOz2qshzXWMRi9EpbbSWJLykeYN9G9fFqJjwoWgZ6hAMSktJBfjy3PhbsMXWDrc8
+	XUaArV+Fy1H/7SWt3ZcWPNIjNUE4BfUMZP8c6LiI4vVNqZ0mj9ihkvv0ugz/vvtgzfJS
+	6Qmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=WNlfRuzfnjVEJ5gjtr+1/qDWjSZATc0DIRPLXocPJ9o=;
+	b=D/IGlxYwQ59RgXZRQ7Iolv92g6CjWh0Um4DiBuwflX8iKeqtY+KomgsYp6a/nCCSJn
+	A8huecUEAz84k1gJUR3fFaBs1upVIERO6fvH0bKKXubnXixr0IDq7UbyJzYt2Qbsmm1f
+	fkYccr6A5hME4Gd2+BGZSHS3aFHkZsg5y0mkt4Nzvn7cddBLjbDcF4tryi84P0bxkJ1X
+	a71eAmntVjxavyCzrk3brpI6TkNYS365oepnRt4lMQNistJWbN98xPTFmQqV6UvxGkEo
+	Ncu0LiLBeRisIjyzbUnyG41QextKcvXKGAmtbcHaODo4CqkdcVEZu5s84kXXybG5Lm5x
+	03Ng==
+X-Gm-Message-State: AJcUukf04v/ntMTZJ1exONDWPy18vhcLGPvRHQ9yF3aBmnvBrfRvbzXh
+	Z1H9v9JkXGIa7gT9Fw02r3uhynwfeHc2wYL6upb/Pj0c
+X-Google-Smtp-Source: ALg8bN4I0O/3SPWuNbUsQ1VPK36is4DvXeb8neI3qLrFuz13hH/OAuBK9n5rU2/4v/uo1vNCWKnWEteQzsDUMpdO+ms=
+X-Received: by 2002:a02:9c53:: with SMTP id h19mr733325jal.31.1547512534505;
+	Mon, 14 Jan 2019 16:35:34 -0800 (PST)
 MIME-Version: 1.0
-X-Kalio-Sanitizer: ClamAV
-Subject: systemd and sysvinit enabled in DISTRO_FEATURES
+References: <7d48f265-39e9-663c-f229-8dadfc22083f@ikatu.com>
+In-Reply-To: <7d48f265-39e9-663c-f229-8dadfc22083f@ikatu.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Tue, 15 Jan 2019 00:35:23 +0000
+Message-ID: <CAJTo0Lbpgpv98hiSdNV1Ja6TJQ-TV5CgjpQxYxhoyW4+-fL58Q@mail.gmail.com>
+To: Hector Almeida <hector@ikatu.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: systemd and sysvinit enabled in DISTRO_FEATURES
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,107 +68,45 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 00:19:30 -0000
-Content-Type: multipart/alternative;
-	boundary="------------02383439F666AE91A39080DC"
-Content-Language: en-US
+X-List-Received-Date: Tue, 15 Jan 2019 00:35:36 -0000
+Content-Type: multipart/alternative; boundary="000000000000e7b22d057f7456f0"
 
---------------02383439F666AE91A39080DC
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--000000000000e7b22d057f7456f0
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Tue, 15 Jan 2019 at 00:19, Hector Almeida <hector@ikatu.com> wrote:
 
+> But I end up with the /etc/init.d folder with a lot of sysvinit scripts in
+> my main image. Also I have some systemd files on my rescue image under
+> /etc/systemd.
+>
 
-I'm trying to use systemd on my main image and sysvinit in a rescue 
-image (a ramdisk which will be able to recover a device).
+What files are in each place?  It's entirely possible that you're using
+recipes that ship just one or the other, or recipes that don't correctly
+use the classes.
 
+Ross
 
-I'm using the configuration suggested in "Using systemd for the Main 
-Image and Using SysVinit for the Rescue Image",  where it states that 
-this configuration:
+--000000000000e7b22d057f7456f0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-"... causes your main image to use the |packagegroup-core-boot.bb| 
-recipe and systemd. The rescue/minimal image cannot use this package 
-group. However, it can install SysVinit and the appropriate packages 
-will have support for both systemd and SysVinit."
+<div dir=3D"ltr"><div dir=3D"ltr">On Tue, 15 Jan 2019 at 00:19, Hector Alme=
+ida &lt;<a href=3D"mailto:hector@ikatu.com">hector@ikatu.com</a>&gt; wrote:=
+<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid=
+;border-left-color:rgb(204,204,204);padding-left:1ex">
+ =20
 
-
-But I end up with the /etc/init.d folder with a lot of sysvinit scripts 
-in my main image. Also I have some systemd files on my rescue image 
-under /etc/systemd.
-
-
-I can't understand how configuring a different init system for different 
-images would work. What I can see that it is done on many recipes 
-through the pkg_postint function, is something like: if DISTRO_FEATURES 
-contains systemd and sysvinit, then mask the systemd service. But I 
-can't find anywhere, some function that takes care of preventing the 
-installation of sysvinit or systemd services on each image, depending on 
-whether the have chosen one or another.
-
-
-Any pointers would be appreciated.
-
-
-Thanks,
-
-Hector
-
-
---------------02383439F666AE91A39080DC
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Hi,</p>
-    <p><br>
-    </p>
-    <p>I'm trying to use systemd on my main image and sysvinit in a
-      rescue image (a ramdisk which will be able to recover a device).</p>
-    <p><br>
-    </p>
-    <p>I'm using the configuration suggested in "Using systemd for the
-      Main Image and Using SysVinit for the Rescue Image",  where it
-      states that this configuration:</p>
-    <p> "... causes your main image to use the <code class="filename">packagegroup-core-boot.bb</code>
-      recipe and systemd. The rescue/minimal image cannot use this
-      package group. However, it can install SysVinit and the
-      appropriate packages will have support for both systemd and
-      SysVinit."</p>
-    <p><br>
-    </p>
+   =20
+ =20
+  <div bgcolor=3D"#FFFFFF">
     <p>But I end up with the /etc/init.d folder with a lot of sysvinit
       scripts in my main image. Also I have some systemd files on my
-      rescue image under /etc/systemd.<br>
-    </p>
-    <p><br>
-    </p>
-    <p>I can't understand how configuring a different init system for
-      different images would work. What I can see that it is done on
-      many recipes through the pkg_postint function, is something like:
-      if DISTRO_FEATURES contains systemd and sysvinit, then mask the
-      systemd service. But I can't find anywhere, some function that
-      takes care of preventing the installation of sysvinit or systemd
-      services on each image, depending on whether the have chosen one
-      or another.<br>
-    </p>
-    <p><br>
-    </p>
-    <p>Any pointers would be appreciated.<br>
-    </p>
-    <p><br>
-    </p>
-    <p>Thanks,<br>
-    </p>
-    <p>Hector<br>
-    </p>
-  </body>
-</html>
+      rescue image under /etc/systemd.</p></div></blockquote><div><br></div=
+><div>What files are in each place?=C2=A0 It&#39;s entirely possible that y=
+ou&#39;re using recipes that ship just one or the other, or recipes that do=
+n&#39;t correctly use the classes.</div><div><br></div><div>Ross</div></div=
+></div>
 
---------------02383439F666AE91A39080DC--
+--000000000000e7b22d057f7456f0--
