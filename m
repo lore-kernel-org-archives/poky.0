@@ -1,6 +1,6 @@
 Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 3D195E00CE0; Mon, 14 Jan 2019 16:35:36 -0800 (PST)
+	id 2D920E00CFB; Mon, 14 Jan 2019 16:42:22 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -10,52 +10,57 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.166.177 listed in list.dnswl.org]
+	*      [209.85.166.45 listed in list.dnswl.org]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-it1-f177.google.com (mail-it1-f177.google.com
-	[209.85.166.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29B20E007B3
-	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:35:34 -0800 (PST)
-Received: by mail-it1-f177.google.com with SMTP id m62so2516086ith.5
-	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:35:34 -0800 (PST)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+	[209.85.166.45])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A7D49E00CE0
+	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:42:21 -0800 (PST)
+Received: by mail-io1-f45.google.com with SMTP id b23so746889ios.10
+	for <poky@yoctoproject.org>; Mon, 14 Jan 2019 16:42:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=intel-com.20150623.gappssmtp.com; s=20150623;
 	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=WNlfRuzfnjVEJ5gjtr+1/qDWjSZATc0DIRPLXocPJ9o=;
-	b=1SJa3Ls1FOhZUg1YN8c7VqHvXA9DApxeX9QrjYR8oiv7MuFfCmWTVV8G6T5NoHettC
-	5sRsL9bMOIqFZHd57Md9Zn2aEd/wFrYsKKDYaImhfYduy2plxU/NIbhHkINhDRUWQZV0
-	XK5xrz9Kh3BCvMdWy8P/6NG1ZS4oOfK1gNcT5X0ZKfAYhE3ubalvL2pSNPsUmD6jJDnz
-	XC1XQOz2qshzXWMRi9EpbbSWJLykeYN9G9fFqJjwoWgZ6hAMSktJBfjy3PhbsMXWDrc8
-	XUaArV+Fy1H/7SWt3ZcWPNIjNUE4BfUMZP8c6LiI4vVNqZ0mj9ihkvv0ugz/vvtgzfJS
-	6Qmw==
+	:cc; bh=DuVZcMhX3KobqT6b5bdF7+sWxlMycUs4n6tTazNDqVk=;
+	b=xiRFNPetPrPPpLsg4o9UKy3P1m6/cz8JNGjw6xb+OEmC/Wo32hQmmC3CWnsBpZWZB/
+	2ghqtKRYSfSCCfozrxZBF0N4iGawkYNxnmrl4pIoalnvg9L0MmrO8w3PNuPvAVkuNxcC
+	zFHPODft0WKcj1W7ErSZ16Rs4QkN/Zixecm5pf3j4Vu89kGgKpWbianMEHZnt8JYnLHK
+	4Er1PetUTSEqbEpSgdma9pbGrTYVClnF8sEno8AW3Np2UCQ3WRmFZ872okQtoM8x75+z
+	Pfotz8kEf//YmCEZab/ASmNv0uqWIif27gkssEMP4JXaGWdClNEewicENZE3knCbq5pB
+	dUDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=WNlfRuzfnjVEJ5gjtr+1/qDWjSZATc0DIRPLXocPJ9o=;
-	b=D/IGlxYwQ59RgXZRQ7Iolv92g6CjWh0Um4DiBuwflX8iKeqtY+KomgsYp6a/nCCSJn
-	A8huecUEAz84k1gJUR3fFaBs1upVIERO6fvH0bKKXubnXixr0IDq7UbyJzYt2Qbsmm1f
-	fkYccr6A5hME4Gd2+BGZSHS3aFHkZsg5y0mkt4Nzvn7cddBLjbDcF4tryi84P0bxkJ1X
-	a71eAmntVjxavyCzrk3brpI6TkNYS365oepnRt4lMQNistJWbN98xPTFmQqV6UvxGkEo
-	Ncu0LiLBeRisIjyzbUnyG41QextKcvXKGAmtbcHaODo4CqkdcVEZu5s84kXXybG5Lm5x
-	03Ng==
-X-Gm-Message-State: AJcUukf04v/ntMTZJ1exONDWPy18vhcLGPvRHQ9yF3aBmnvBrfRvbzXh
-	Z1H9v9JkXGIa7gT9Fw02r3uhynwfeHc2wYL6upb/Pj0c
-X-Google-Smtp-Source: ALg8bN4I0O/3SPWuNbUsQ1VPK36is4DvXeb8neI3qLrFuz13hH/OAuBK9n5rU2/4v/uo1vNCWKnWEteQzsDUMpdO+ms=
-X-Received: by 2002:a02:9c53:: with SMTP id h19mr733325jal.31.1547512534505;
-	Mon, 14 Jan 2019 16:35:34 -0800 (PST)
+	bh=DuVZcMhX3KobqT6b5bdF7+sWxlMycUs4n6tTazNDqVk=;
+	b=DMlKdA2Hle4mvc+bgPliempDAisvH/CzmZcad6MPDsPoc7ZnQz1q/PliLhvCKy2B3N
+	DH7gZeljJoP6Qe+eL7ySB4FwlYDqa3iQnGe6fM9e4gFpNYY94IObWd92qAcaODCrTall
+	wm7NVqpNU6UBcG8ltMD075StrhMYRzIXGPSvsRAD3rsMSlx7POePDiadj4hjLhOPTtH/
+	dW7+K5l1la4gJmrmmhHNoROaPmtM3ZxrSmPXd0je+jyyBYCQcLEaHWEgQ9clzMJJdepD
+	GenurRIJh1cN76Un3DxarjA6p55FV/aXeUrh/CnAaYNk3eT8lyowlXa7OyefRYI/c1vY
+	6p6A==
+X-Gm-Message-State: AJcUukfnuSavmR42vAmNHhdO0F1w5xZvPbFemHyT9WNJVKOH+fE8EeBb
+	yca8cL7YgstAL6T4sDo/qCQdB/us02tYIYkH45Zwuw==
+X-Google-Smtp-Source: ALg8bN55X621mc2ENd70MmeesHe+Vm7+ucH07CqPnsGOctXskrQqCz0AQzBr3O2rjCUUI9g3oYsWzN8nDJ8w8OpJpd8=
+X-Received: by 2002:a6b:acc5:: with SMTP id v188mr668428ioe.20.1547512941109; 
+	Mon, 14 Jan 2019 16:42:21 -0800 (PST)
 MIME-Version: 1.0
-References: <7d48f265-39e9-663c-f229-8dadfc22083f@ikatu.com>
-In-Reply-To: <7d48f265-39e9-663c-f229-8dadfc22083f@ikatu.com>
+References: <4F6CA6D8-E1F6-4AB3-A481-241AA0DE3B28@gmail.com>
+	<CAJTo0LbZr=iAv7zgVtNAEDkVGL=MwgvFdEJHaakOqv0AgS5D=Q@mail.gmail.com>
+	<F776005A-D6E7-4D5D-BE50-A2E80A405732@gmail.com>
+	<CAJTo0LZ+VnFcD0GOarDbYGXz8dLUgr0Qc6MOt_ov7jFUfApX4w@mail.gmail.com>
+	<40EBB072-485F-4099-99A6-CA4EB88A2F6D@gmail.com>
+	<725EBE10-0967-4DE2-9116-E3C5EEE4582C@gmail.com>
+In-Reply-To: <725EBE10-0967-4DE2-9116-E3C5EEE4582C@gmail.com>
 From: "Burton, Ross" <ross.burton@intel.com>
-Date: Tue, 15 Jan 2019 00:35:23 +0000
-Message-ID: <CAJTo0Lbpgpv98hiSdNV1Ja6TJQ-TV5CgjpQxYxhoyW4+-fL58Q@mail.gmail.com>
-To: Hector Almeida <hector@ikatu.com>
+Date: Tue, 15 Jan 2019 00:42:10 +0000
+Message-ID: <CAJTo0LY90e53Q1yQoqzYdC6V4Vo25eE99j5yeET+pmRAPDDSjA@mail.gmail.com>
+To: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
 Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: systemd and sysvinit enabled in DISTRO_FEATURES
+Subject: Re: thud systemd root home wrong
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,45 +73,71 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 00:35:36 -0000
-Content-Type: multipart/alternative; boundary="000000000000e7b22d057f7456f0"
+X-List-Received-Date: Tue, 15 Jan 2019 00:42:22 -0000
+Content-Type: multipart/alternative; boundary="0000000000002409be057f746f94"
 
---000000000000e7b22d057f7456f0
+--0000000000002409be057f746f94
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 15 Jan 2019 at 00:19, Hector Almeida <hector@ikatu.com> wrote:
+On Mon, 14 Jan 2019 at 18:35, Jean-Francois Dagenais <
+jeff.dagenais@gmail.com> wrote:
 
-> But I end up with the /etc/init.d folder with a lot of sysvinit scripts in
-> my main image. Also I have some systemd files on my rescue image under
-> /etc/systemd.
+> > On Jan 14, 2019, at 1:18 PM, Jean-Francois Dagenais <
+> jeff.dagenais@gmail.com> wrote:
+> >
+> > Were there any plans to submit this upstream? Seems a worthy mod.
+> Although might not be a need for regular distros.
+>
+> I looked at it closer and does seem like its not upstream-able. At least,
+> not in such a simple form.
 >
 
-What files are in each place?  It's entirely possible that you're using
-recipes that ship just one or the other, or recipes that don't correctly
-use the classes.
+Upstream have already rejected this, see the Upstream-Status header in the
+(broken) patch.
 
+
+> There are tests and units in the source tree which would need to by
+> dynamically updated. On top of that, the man pages give some good arguments
+> to keep root as "/root":
+>
+
+I'd say you can ignore the tests, but the rest shouldn't be *that* tricky.
+
+If you're not going to fix this, could you please file a bug in
+bugzilla.yoctoproject.org so this doesn't get forgotten about?
+
+Thanks,
 Ross
 
---000000000000e7b22d057f7456f0
+--0000000000002409be057f746f94
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr">On Tue, 15 Jan 2019 at 00:19, Hector Alme=
-ida &lt;<a href=3D"mailto:hector@ikatu.com">hector@ikatu.com</a>&gt; wrote:=
-<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid=
-;border-left-color:rgb(204,204,204);padding-left:1ex">
- =20
+<div dir=3D"ltr"><div dir=3D"ltr">On Mon, 14 Jan 2019 at 18:35, Jean-Franco=
+is Dagenais &lt;<a href=3D"mailto:jeff.dagenais@gmail.com">jeff.dagenais@gm=
+ail.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;b=
+order-left-style:solid;border-left-color:rgb(204,204,204);padding-left:1ex"=
+>&gt; On Jan 14, 2019, at 1:18 PM, Jean-Francois Dagenais &lt;<a href=3D"ma=
+ilto:jeff.dagenais@gmail.com" target=3D"_blank">jeff.dagenais@gmail.com</a>=
+&gt; wrote:<br>
+&gt; <br>
+&gt; Were there any plans to submit this upstream? Seems a worthy mod. Alth=
+ough might not be a need for regular distros.<br>
+<br>
+I looked at it closer and does seem like its not upstream-able. At least, n=
+ot in such a simple form.<br></blockquote><div><br></div><div>Upstream have=
+ already rejected this, see the Upstream-Status header in the (broken) patc=
+h.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;border-left=
+-color:rgb(204,204,204);padding-left:1ex">
+There are tests and units in the source tree which would need to by dynamic=
+ally updated. On top of that, the man pages give some good arguments to kee=
+p root as &quot;/root&quot;:<br></blockquote><div><br></div><div>I&#39;d sa=
+y you can ignore the tests, but the rest shouldn&#39;t be *that* tricky.</d=
+iv><div><br></div><div>If you&#39;re not going to fix this, could you pleas=
+e file a bug in <a href=3D"http://bugzilla.yoctoproject.org">bugzilla.yocto=
+project.org</a> so this doesn&#39;t get forgotten about?</div><div><br></di=
+v><div>Thanks,</div><div>Ross</div></div></div>
 
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF">
-    <p>But I end up with the /etc/init.d folder with a lot of sysvinit
-      scripts in my main image. Also I have some systemd files on my
-      rescue image under /etc/systemd.</p></div></blockquote><div><br></div=
-><div>What files are in each place?=C2=A0 It&#39;s entirely possible that y=
-ou&#39;re using recipes that ship just one or the other, or recipes that do=
-n&#39;t correctly use the classes.</div><div><br></div><div>Ross</div></div=
-></div>
-
---000000000000e7b22d057f7456f0--
+--0000000000002409be057f746f94--
