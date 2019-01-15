@@ -1,34 +1,67 @@
-Return-Path: <naveen.kumar.saini@intel.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 0DF93E00CFD; Tue, 15 Jan 2019 00:54:47 -0800 (PST)
+	id BBB9EE00CF4; Tue, 15 Jan 2019 01:34:17 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [192.55.52.151 listed in list.dnswl.org]
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 404DDE00CF4
-	for <poky@yoctoproject.org>; Tue, 15 Jan 2019 00:54:45 -0800 (PST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-	by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	15 Jan 2019 00:54:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,481,1539673200"; d="scan'208";a="118588329"
-Received: from andromeda02.png.intel.com ([10.221.183.11])
-	by orsmga003.jf.intel.com with ESMTP; 15 Jan 2019 00:54:43 -0800
-From: Naveen Saini <naveen.kumar.saini@intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 15 Jan 2019 16:23:28 +0800
-Message-Id: <1547540608-20979-1-git-send-email-naveen.kumar.saini@intel.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [meta-yocto-bsp][PATCH] linux-yocto: update genericx86* SRCREV for 4.19
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.166.52 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+	[209.85.166.52])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 374AFE00CD1
+	for <poky@yoctoproject.org>; Tue, 15 Jan 2019 01:34:17 -0800 (PST)
+Received: by mail-io1-f52.google.com with SMTP id c2so1499775iom.12
+	for <poky@yoctoproject.org>; Tue, 15 Jan 2019 01:34:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=alVZFScKfqtRF3sMHdf/adopXPhPju9p6IM3OQk0Cd4=;
+	b=V9tzBV6b2Mz8d07wUGWimTPWic4VQFdVMFgEGrr5QoV/k8IrOe2uiXZ/waW77jLgPj
+	m60aZstdnMEHn3q+iH1YvG8HxrnpOZZi4p26VPDD2sSwOKoOPNs8u1V2C8YNBrY3wq90
+	qebT35J9mQC3zO4nYXAPZtK5A6mQs7Hmm+nPYQMgtu54LK/DdHJK1aobq6kMr6CKZ+wh
+	frHdVUOhFUYpO2j/MsEG1izrQQtYQd13Fk9lyUF/quoB7GW0/Q6x6XqelOqozbZ4uS2x
+	D0I0w6IyTddZRTugYV3142+TazV+2P+iF1wRMDUfC8Ja9HBU92Y0lbAn3MzPema4p7IQ
+	EYVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=alVZFScKfqtRF3sMHdf/adopXPhPju9p6IM3OQk0Cd4=;
+	b=E/nXmnuqDioROkw7PBr/A+csw9iBBKhuLGmmqDzbZG/fsPikVpKw6NeVTCf6qIt/mF
+	QRHS5GPZekq8VuqnPqZTplwD3K+Ys8Ia917J9atwDzEd7+JCuGIn2f1wBMcf9nOEqTKo
+	gEs1f0pYCc/GaEbONdPdQugl46bRG66gLf5nh0lJE5F2g3jvwc/T3oWyaG/2ZSj54qw6
+	jbDIcdyL+3wOn4yq4YfZQSLpxD22h79riWFwGVMABvuwmTg5WNhddAqVBPiB6dLgUVXL
+	reIFRLib8eHQO0QNe6CbejMZJmOo2LItBiYdiJb+SkxwviyNY/9sNFBvSvRkPIR5n7AC
+	JBkA==
+X-Gm-Message-State: AJcUukd93NvCSD6vH09jp0N68EqYOs/BKgYQiSpcvyRthVbkStBwoKA9
+	m7YBdBEMcMhg5s6aSXUpOHaklIVY4QYA2fid7PRsgBrF
+X-Google-Smtp-Source: ALg8bN6xhBpbHAYrmKaok6t0hrD2XJzwblQvzQ8f5SIJEA+/kcbvPdMQ0Z77dywrO6tvkTIOCUSa5rsf5UPxX2/XopU=
+X-Received: by 2002:a6b:f70a:: with SMTP id k10mr1305576iog.270.1547544856648; 
+	Tue, 15 Jan 2019 01:34:16 -0800 (PST)
+MIME-Version: 1.0
+References: <4F6CA6D8-E1F6-4AB3-A481-241AA0DE3B28@gmail.com>
+	<CAJTo0LbZr=iAv7zgVtNAEDkVGL=MwgvFdEJHaakOqv0AgS5D=Q@mail.gmail.com>
+	<F776005A-D6E7-4D5D-BE50-A2E80A405732@gmail.com>
+	<CAJTo0LZ+VnFcD0GOarDbYGXz8dLUgr0Qc6MOt_ov7jFUfApX4w@mail.gmail.com>
+	<40EBB072-485F-4099-99A6-CA4EB88A2F6D@gmail.com>
+	<725EBE10-0967-4DE2-9116-E3C5EEE4582C@gmail.com>
+	<CAJTo0LY90e53Q1yQoqzYdC6V4Vo25eE99j5yeET+pmRAPDDSjA@mail.gmail.com>
+	<68FFED83-260C-43D6-949C-E50283EA5BDD@gmail.com>
+In-Reply-To: <68FFED83-260C-43D6-949C-E50283EA5BDD@gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Tue, 15 Jan 2019 09:34:05 +0000
+Message-ID: <CAJTo0LYWAT9EcbaNG1rMUk0PCLxWdU4RpwiuOGXsY6D7mWxZSA@mail.gmail.com>
+To: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
+Cc: Poky Project <poky@yoctoproject.org>
+Subject: Re: thud systemd root home wrong
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -41,36 +74,21 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 08:54:47 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 09:34:17 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-Bump to kernel release v4.19.14
+No problem, thanks!
 
-Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
----
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-index f105c21..757f611 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-@@ -4,11 +4,11 @@ KBRANCH_genericx86-64  = "v4.19/standard/base"
- KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- 
--SRCREV_machine_genericx86    ?= "e727c70583a78cf1dc53e8e219722e2f9d1bc858"
--SRCREV_machine_genericx86-64 ?= "e727c70583a78cf1dc53e8e219722e2f9d1bc858"
-+SRCREV_machine_genericx86    ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
-+SRCREV_machine_genericx86-64 ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- 
--LINUX_VERSION_genericx86 = "4.19.8"
--LINUX_VERSION_genericx86-64 = "4.19.8"
-+LINUX_VERSION_genericx86 = "4.19.14"
-+LINUX_VERSION_genericx86-64 = "4.19.14"
--- 
-2.7.4
-
+On Tue, 15 Jan 2019 at 01:09, Jean-Francois Dagenais
+<jeff.dagenais@gmail.com> wrote:
+>
+>
+> On Jan 14, 2019, at 19:42, Burton, Ross <ross.burton@intel.com> wrote:
+>
+> If you're not going to fix this, could you please file a bug in bugzilla.yoctoproject.org so this doesn't get forgotten about?
+>
+>
+> https://bugzilla.yoctoproject.org/show_bug.cgi?id=13141
+>
+> Sorry I couldn't do more.
 
