@@ -1,67 +1,75 @@
-Return-Path: <srinivasan.rns@gmail.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7D41CE00CDF; Thu, 17 Jan 2019 10:34:44 -0800 (PST)
+	id 4171FE00CE5; Thu, 17 Jan 2019 14:36:52 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (srinivasan.rns[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.210.47 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
-	[209.85.210.47])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 21EF1E00C91
-	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 10:34:42 -0800 (PST)
-Received: by mail-ot1-f47.google.com with SMTP id n8so12026217otl.6
-	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 10:34:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=dhjlsWW9akaF0I8sr8udr3e59qZGq/SSpPR9Y2oSHAU=;
-	b=H8WPA04OWuyzj2UmnyC0vKoFjVvKdTC+aVZ+/x2LbbgLrbyytwB8m39WNoalCKOcgM
-	6HXnLImuFQgRJZsUbsk5Ldlz7HxG647GdFhmzlmnkRncd0DuI3EtafWASODtBBtvwxyb
-	a23BDSd5nhZ3yvQDmYikAUf8OdCrR0AJyr5mpEECkiSf7Tvebc78UsvzaEZmdLD/TGQc
-	rUxAQ496/gsQ8/LTjxottakT7aJcScX5hFTbPZvk4rD7IFqZL2ETEO8PeJA3OyRFa1DK
-	dswLFPRZByGzfbZ+RsoYh5Bt+Z4gR6L3tleNQ6bU8R/ipeBtDs8OxvFvi1NZuEsmkcQn
-	JWXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=dhjlsWW9akaF0I8sr8udr3e59qZGq/SSpPR9Y2oSHAU=;
-	b=Sb7RNxsP9SbZfDjAiAT7OkZ6LHxNWNUhsyByaZosmtFa6YRflcswjksUeXKidz65An
-	YOfjdY0kkxdj6uYdsUWyFuA9okIxcCS52ySw1B2BaXdlHCigzSV3vYIOx2NRgVZ/jCv9
-	hXEmx4xHR63NvC8B6ezqPWwoniWYT/FgMRXKMevLgmBaZa1RARzNCWMbkFe5x39awUiT
-	Pv7hL4hbxRDd60PsYyromro4Lys/xoOlzdsR679uufz9N+rfFijTtuZhkVNv7IZ6rOBQ
-	XX6lgfUPQFJjBGfnQUpbkTarDz2tk7SydgVeqwspiUWmdSHR84r8Lnci3GR1wWSJoWIp
-	h3MQ==
-X-Gm-Message-State: AJcUukdOeOvRpLunDeopGmbRn6ICTEotqhAc3XkKqpW0guLw8+cDMxxi
-	UeVMJxRiLeWCozlzoy2W4ihUT04Txy5B/ogjsbAHgNeN
-X-Google-Smtp-Source: ALg8bN636o9NW8V9et0WVIQVMmFp1sphlxiougWp3Qz46doP6DTfPNYvACYEAZuntB2bwBgDiFo2ai9dbMWsVTKTVH8=
-X-Received: by 2002:a9d:58cb:: with SMTP id s11mr9293257oth.161.1547750082073; 
-	Thu, 17 Jan 2019 10:34:42 -0800 (PST)
-MIME-Version: 1.0
+	*      [195.60.68.11 listed in list.dnswl.org]
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 401D4E00CAD
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 14:36:49 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id D87EE185B2;
+	Thu, 17 Jan 2019 23:36:48 +0100 (CET)
+X-Axis-User: NO
+X-Axis-NonUser: YES
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024)
+	with LMTP id 5z9juHM1KCDO; Thu, 17 Jan 2019 23:36:47 +0100 (CET)
+Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
+	by bastet.se.axis.com (Postfix) with ESMTPS id 32B3D1859C;
+	Thu, 17 Jan 2019 23:36:47 +0100 (CET)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D08231E079;
+	Thu, 17 Jan 2019 23:36:46 +0100 (CET)
+Received: from boulder03.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C4A6B1E076;
+	Thu, 17 Jan 2019 23:36:46 +0100 (CET)
+Received: from thoth.se.axis.com (unknown [10.0.2.173])
+	by boulder03.se.axis.com (Postfix) with ESMTP;
+	Thu, 17 Jan 2019 23:36:46 +0100 (CET)
+Received: from XBOX01.axis.com (xbox01.axis.com [10.0.5.15])
+	by thoth.se.axis.com (Postfix) with ESMTP id B89CD1952;
+	Thu, 17 Jan 2019 23:36:46 +0100 (CET)
+Received: from xbox11.axis.com (10.0.5.25) by XBOX01.axis.com (10.0.5.15) with
+	Microsoft SMTP Server (TLS) id 15.0.1365.1;
+	Thu, 17 Jan 2019 23:36:46 +0100
+Received: from XBOX04.axis.com (10.0.5.18) by xbox11.axis.com (10.0.5.25) with
+	Microsoft SMTP Server (TLS) id 15.0.1365.1;
+	Thu, 17 Jan 2019 23:36:46 +0100
+Received: from XBOX04.axis.com ([fe80::210a:724b:68cb:a917]) by
+	XBOX04.axis.com ([fe80::210a:724b:68cb:a917%22]) with mapi id
+	15.00.1365.000; Thu, 17 Jan 2019 23:36:46 +0100
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: srinivasan <srinivasan.rns@gmail.com>
+Thread-Topic: [poky] Error: base-files/3.0.14-r89/temp/run.do_install.80432:
+	Syntax error: Unterminated quoted string
+Thread-Index: AQHUriIZ+gOAkFUHpku3aMq+HT+896WzLjhQ///2boCAABHK8IAAAx6AgAAhCgCAAF7xAIAAU2OA
+Date: Thu, 17 Jan 2019 22:36:46 +0000
+Message-ID: <36e0cbf2aeae40dda1a08b33b624ecf7@XBOX04.axis.com>
 References: <CAFsTbWc_XoCN-99LXeCL1R-m0+jXGmO7DgOb-94y7a3L3ODN7Q@mail.gmail.com>
 	<1352415c490c46838b4e19205a85ca4c@XBOX04.axis.com>
 	<CAFsTbWfEMnd4adtexbb=+R0xeCtMEfUJFmiqa6x70AtQ5aFQMQ@mail.gmail.com>
 	<80a5da9d680b4ae7ba8a5d98656b7926@XBOX04.axis.com>
 	<CAFsTbWcd4UWU5bY03mmmvPQpyKqp+3SnjpGNn4iGS3nvRkJo2A@mail.gmail.com>
 	<CAFsTbWdZANf2rcc3FbT46L13Gv8__CyThf0z8eotzvm0kfNdyg@mail.gmail.com>
-In-Reply-To: <CAFsTbWdZANf2rcc3FbT46L13Gv8__CyThf0z8eotzvm0kfNdyg@mail.gmail.com>
-From: srinivasan <srinivasan.rns@gmail.com>
-Date: Thu, 17 Jan 2019 19:34:30 +0100
-Message-ID: <CAFsTbWfcqNXKgxVVe5NXYwZD=+isvZ-LaGd=MTonbVWHcdE8vw@mail.gmail.com>
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+	<CAFsTbWfcqNXKgxVVe5NXYwZD=+isvZ-LaGd=MTonbVWHcdE8vw@mail.gmail.com>
+In-Reply-To: <CAFsTbWfcqNXKgxVVe5NXYwZD=+isvZ-LaGd=MTonbVWHcdE8vw@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.0.5.60]
+MIME-Version: 1.0
+X-TM-AS-GCONF: 00
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Error: base-files/3.0.14-r89/temp/run.do_install.80432: Syntax error: Unterminated quoted string
 X-BeenThere: poky@yoctoproject.org
@@ -76,213 +84,191 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 18:34:44 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 17 Jan 2019 22:36:52 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Peter,
-
-Could you please help me with your inputs, or please let me know if
-any other information is required from my side please?
-
-Thanks in advance
-
-
-On Thu, Jan 17, 2019 at 1:54 PM srinivasan <srinivasan.rns@gmail.com> wrote:
->
-> Hi Peter,
->
-> Could you please let me know if any other information is needed from my side?
->
-> Many Thanks in advance
->
-> On Thu, Jan 17, 2019 at 11:56 AM srinivasan <srinivasan.rns@gmail.com> wrote:
->>
->> Many Thanks a lot Peter for your quick responses , I have attached the sources.zip folder plus the log files now, for the errors that I am facing now, kindly do the needful
->>
->>
->>
->>
->> Many Thanks in advance,
->>  test.zip
->>
->> On Thu, Jan 17, 2019 at 10:51 AM Peter Kjellerstedt <peter.kjellerstedt@axis.com> wrote:
->>>
->>> Unless you have made changes to base-files_3.0.14.bb (which I seriously doubt), that is not the file we need. We need the file called:
->>>
->>> /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_distro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-r89/temp/run.do_install.80432
->>>
->>> That file is generated by bitbake and contains the actual shell code that was run when the error occurred. It should hopefully give us a clue as to what you should look for to find the actual mistake in your recipe files.
->>>
->>>
->>>
->>> //Peter
->>>
->>>
->>>
->>> From: srinivasan <srinivasan.rns@gmail.com>
->>> Sent: den 17 januari 2019 10:42
->>> To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
->>> Cc: poky@yoctoproject.org
->>> Subject: Re: [poky] Error: base-files/3.0.14-r89/temp/run.do_install.80432: Syntax error: Unterminated quoted string
->>>
->>>
->>>
->>> Hi Peter,
->>>
->>>
->>>
->>> Thanks a lot for your quick responses and really appreciate it.
->>>
->>>
->>>
->>> Now I have attached both the error logs and base-files_3.0.14.bb, please let me know if you require any other information from my side
->>>
->>>
->>>
->>> Many Thanks in advance
->>>
->>>
->>>
->>> On Thu, Jan 17, 2019 at 10:20 AM Peter Kjellerstedt <peter.kjellerstedt@axis.com> wrote:
->>>
->>> [ Recipient list pruned to not cross-post to every Yocto related mailing
->>>   list out there... ]
->>>
->>> > -----Original Message-----
->>> > From: poky-bounces@yoctoproject.org <poky-bounces@yoctoproject.org> On
->>> > Behalf Of srinivasan
->>> > Sent: den 17 januari 2019 06:03
->>> > To: yocto-bsp@yoctoproject.org; yocto-builds@yoctoproject.org; meta-
->>> > intel@yoctoproject.org; Development list for the linux-yocto*.git Linux
->>> > kernel repositories <linux-yocto@yoctoproject.org>;
->>> > poky@yoctoproject.org; yocto-infrastructure@yoctoproject.org;
->>> > yocto@yoctoproject.org; meta-freescale@yoctoproject.org; meta-
->>> > freescale-request@yoctoproject.org
->>> > Subject: [poky] Error: base-files/3.0.14-r89/temp/run.do_install.80432:
->>> > Syntax error: Unterminated quoted string
->>> >
->>> > Dear Yocto Experts,
->>> >
->>> > I am trying to customize my vendor specific Yocto BSP's to my custom
->>> > OS.  I am facing the below error, could you please do the needful or
->>> > provide me some pointers from your end for solving this issue
->>> >
->>> > Error:
->>> > $ bitbake fsl-image-validation-imx
->>> > WARNING: Host distribution "ubuntu-18.04" has not been validated with
->>> > this version of the build system; you may possibly experience
->>> > unexpected failures. It is recommended that you use a tested
->>> > distribution.
->>> > Loading cache: 100%
->>> > |######################################################################
->>> > #######################################################################
->>> > #######################################################################
->>> > ###########################|
->>> > Time: 0:00:00
->>> > Loaded 3196 entries from dependency cache.
->>> > Parsing recipes: 100%
->>> > |######################################################################
->>> > #######################################################################
->>> > #######################################################################
->>> > #########################|
->>> > Time: 0:00:02
->>> > Parsing of 2298 .bb files complete (2284 cached, 14 parsed). 3202
->>> > targets, 398 skipped, 6 masked, 0 errors.
->>> > NOTE: Resolving any missing task queue dependencies
->>> >
->>> > Build Configuration:
->>> > BB_VERSION           = "1.38.0"
->>> > BUILD_SYS            = "x86_64-linux"
->>> > NATIVELSBSTRING      = "universal"
->>> > TARGET_SYS           = "aarch64-poky-linux"
->>> > MACHINE              = "imx8mmevk"
->>> > DISTRO               = "custom-TRK"
->>> > DISTRO_VERSION       = "${custom_DISTRO_VERSION}"
->>> > TUNE_FEATURES        = "aarch64"
->>> > TARGET_FPU           = ""
->>> > meta-traktor-imx8    = "sumo:4b25c1ee6896b5447f8502f13c28570341505360"
->>> > meta-traktor         = "sumo:818be7ec4f768ba485e437dc26beb7bdc4b8120a"
->>> > meta-qt5             = "qt-
->>> > 5.11:ff6127ddd318d422f595295d1c189a86b3032873"
->>> > meta-custom        = "sumo:d98452914e201d46a6b1360ca957d9b3e396b31f"
->>> > meta-freescale       = "HEAD:1deea6b4a2f83521ff247ea4743d09cc705ecd8e"
->>> > meta
->>> > meta-poky            = "sumo:623b77885051174d0e05198843e739110977bd18"
->>> > meta-oe
->>> > meta-python
->>> > meta-networking      = "sumo:8760facba1bceb299b3613b8955621ddaa3d4c3f"
->>> > meta-bsp
->>> > meta-sdk             = "HEAD:1de93d3d5128b8422c23a87cb8b54149e2bfb942"
->>> >
->>> > Initialising tasks: 100%
->>> > |######################################################################
->>> > #######################################################################
->>> > #######################################################################
->>> > ######################|
->>> > Time: 0:00:02
->>> > NOTE: Executing SetScene Tasks
->>> > NOTE: Executing RunQueue Tasks
->>> > ERROR: base-files-3.0.14-r89 do_install: Function failed: do_install
->>> > (log file is located at
->>> > /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_d
->>> > istro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-
->>> > r89/temp/log.do_install.80432)
->>> > ERROR: Logfile of failure stored in:
->>> > /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_d
->>> > istro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-
->>> > r89/temp/log.do_install.80432
->>> > Log data follows:
->>> > | DEBUG: Executing python function extend_recipe_sysroot
->>> > | NOTE: Direct dependencies are
->>> > ['/home/srinishanmugam/customBuild_test_rpi/custom/sources/poky/meta/re
->>> > cipes-devtools/quilt/quilt-native_0.65.bb:do_populate_sysroot',
->>> > 'virtual:native:/home/srinishanmugam/customBuild_test_rpi/custom/source
->>> > s/poky/meta/recipes-devtools/pseudo/pseudo_git.bb:do_populate_sysroot']
->>> > | NOTE: Installed into sysroot: []
->>> > | NOTE: Skipping as already exists in sysroot: ['quilt-native',
->>> > 'pseudo-native']
->>> > | DEBUG: Python function extend_recipe_sysroot finished
->>> > | DEBUG: Executing shell function do_install
->>> > |
->>> > /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_d
->>> > istro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-
->>> > r89/temp/run.do_install.80432:
->>> > 176:
->>> > /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_d
->>> > istro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-
->>> > r89/temp/run.do_install.80432:
->>> > Syntax error: Unterminated quoted string
->>> > | WARNING: exit code 2 from a shell command.
->>> > | ERROR: Function failed: do_install (log file is located at
->>> > /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_d
->>> > istro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-
->>> > r89/temp/log.do_install.80432)
->>> > ERROR: Task
->>> > (/home/srinishanmugam/customBuild_test_rpi/custom/sources/poky/meta/rec
->>> > ipes-core/base-files/base-files_3.0.14.bb:do_install)
->>> > failed with exit code '1'
->>> > NOTE: Tasks Summary: Attempted 1256 tasks of which 1204 didn't need to
->>> > be rerun and 1 failed.
->>> >
->>> > Summary: 1 task failed:
->>> >
->>> > /home/srinishanmugam/customBuild_test_rpi/custom/sources/poky/meta/reci
->>> > pes-core/base-files/base-files_3.0.14.bb:do_install
->>> > Summary: There was 1 WARNING message shown.
->>> > Summary: There was 1 ERROR message shown, returning a non-zero exit
->>> > code.
->>> > srinishanmugam@ni-bln-
->>> > 07594:~/customBuild_test_rpi/custom/buid_test3_customtrk_distro_imx8$
->>> >
->>> >
->>> > Kindly do the needful,
->>> > Many Thanks in advance
->>>
->>> Have you looked at the contents of
->>> /home/srinishanmugam/customBuild_test_rpi/custom/buid_test3_customtrk_distro_imx8/tmp/work/imx8mmevk-poky-linux/base-files/3.0.14-r89/temp/run.do_install.80432
->>> to try to determine what caused the erroneous syntax? Otherwise do that,
->>> and if you still cannot tell what causes the problem, please attach the
->>> file for us to look at.
->>>
->>> //Peter
+Tm8sIHlvdSBzdGlsbCBkaWQgbm90IHByb3ZpZGUgdGhlIGZpbGUgdGhhdCBJIGFza2VkIGZvci4g
+WW91IG5lZWQgdG8gDQpwcm92aWRlIHRoZSBmaWxlIGNhbGxlZCAicnVuLmRvX2luc3RhbGwuIiBm
+b2xsb3dlZCBieSBhIG51bWJlci4gRS5nLiwgDQpmb3IgdGhlIGxhdGVzdCBmaWxlcyB5b3UgcHJv
+dmlkZWQsIHRoZSBmaWxlIHdlIGFjdHVhbGx5IG5lZWQgd291bGQgYmU6DQoNCi9ob21lL3NyaW5p
+c2hhbm11Z2FtL05JQnVpbGRfdGVzdF9ycGkvbmF0aXZlb3MvYnVpbGRfbmF0aXZlb3NkaXN0cm9f
+aW14OC90bXAvd29yay9pbXg4bW1ldmstcG9reS1saW51eC9iYXNlLWZpbGVzLzMuMC4xNC1yODkv
+dGVtcC9ydW4uZG9faW5zdGFsbC4xMDgxNjkNCg0KLy9QZXRlcg0KDQo+IC0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQo+IEZyb206IHNyaW5pdmFzYW4gPHNyaW5pdmFzYW4ucm5zQGdtYWlsLmNv
+bT4NCj4gU2VudDogZGVuIDE3IGphbnVhcmkgMjAxOSAxOTozNQ0KPiBUbzogUGV0ZXIgS2plbGxl
+cnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRAYXhpcy5jb20+DQo+IENjOiBwb2t5QHlvY3RvcHJv
+amVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtwb2t5XSBFcnJvcjogYmFzZS1maWxlcy8zLjAuMTQt
+DQo+IHI4OS90ZW1wL3J1bi5kb19pbnN0YWxsLjgwNDMyOiBTeW50YXggZXJyb3I6IFVudGVybWlu
+YXRlZCBxdW90ZWQgc3RyaW5nDQo+IA0KPiBIaSBQZXRlciwNCj4gDQo+IENvdWxkIHlvdSBwbGVh
+c2UgaGVscCBtZSB3aXRoIHlvdXIgaW5wdXRzLCBvciBwbGVhc2UgbGV0IG1lIGtub3cgaWYNCj4g
+YW55IG90aGVyIGluZm9ybWF0aW9uIGlzIHJlcXVpcmVkIGZyb20gbXkgc2lkZSBwbGVhc2U/DQo+
+IA0KPiBUaGFua3MgaW4gYWR2YW5jZQ0KPiANCj4gDQo+IE9uIFRodSwgSmFuIDE3LCAyMDE5IGF0
+IDE6NTQgUE0gc3Jpbml2YXNhbiA8c3Jpbml2YXNhbi5ybnNAZ21haWwuY29tPg0KPiB3cm90ZToN
+Cj4gPg0KPiA+IEhpIFBldGVyLA0KPiA+DQo+ID4gQ291bGQgeW91IHBsZWFzZSBsZXQgbWUga25v
+dyBpZiBhbnkgb3RoZXIgaW5mb3JtYXRpb24gaXMgbmVlZGVkIGZyb20NCj4gbXkgc2lkZT8NCj4g
+Pg0KPiA+IE1hbnkgVGhhbmtzIGluIGFkdmFuY2UNCj4gPg0KPiA+IE9uIFRodSwgSmFuIDE3LCAy
+MDE5IGF0IDExOjU2IEFNIHNyaW5pdmFzYW4NCj4gPHNyaW5pdmFzYW4ucm5zQGdtYWlsLmNvbT4g
+d3JvdGU6DQo+ID4+DQo+ID4+IE1hbnkgVGhhbmtzIGEgbG90IFBldGVyIGZvciB5b3VyIHF1aWNr
+IHJlc3BvbnNlcyAsIEkgaGF2ZSBhdHRhY2hlZA0KPiB0aGUgc291cmNlcy56aXAgZm9sZGVyIHBs
+dXMgdGhlIGxvZyBmaWxlcyBub3csIGZvciB0aGUgZXJyb3JzIHRoYXQgSSBhbQ0KPiBmYWNpbmcg
+bm93LCBraW5kbHkgZG8gdGhlIG5lZWRmdWwNCj4gPj4NCj4gPj4NCj4gPj4NCj4gPj4NCj4gPj4g
+TWFueSBUaGFua3MgaW4gYWR2YW5jZSwNCj4gPj4gIHRlc3QuemlwDQo+ID4+DQo+ID4+IE9uIFRo
+dSwgSmFuIDE3LCAyMDE5IGF0IDEwOjUxIEFNIFBldGVyIEtqZWxsZXJzdGVkdA0KPiA8cGV0ZXIu
+a2plbGxlcnN0ZWR0QGF4aXMuY29tPiB3cm90ZToNCj4gPj4+DQo+ID4+PiBVbmxlc3MgeW91IGhh
+dmUgbWFkZSBjaGFuZ2VzIHRvIGJhc2UtZmlsZXNfMy4wLjE0LmJiICh3aGljaCBJDQo+IHNlcmlv
+dXNseSBkb3VidCksIHRoYXQgaXMgbm90IHRoZSBmaWxlIHdlIG5lZWQuIFdlIG5lZWQgdGhlIGZp
+bGUNCj4gY2FsbGVkOg0KPiA+Pj4NCj4gPj4+DQo+IC9ob21lL3NyaW5pc2hhbm11Z2FtL2N1c3Rv
+bUJ1aWxkX3Rlc3RfcnBpL2N1c3RvbS9idWlkX3Rlc3QzX2N1c3RvbXRya19kDQo+IGlzdHJvX2lt
+eDgvdG1wL3dvcmsvaW14OG1tZXZrLXBva3ktbGludXgvYmFzZS1maWxlcy8zLjAuMTQtDQo+IHI4
+OS90ZW1wL3J1bi5kb19pbnN0YWxsLjgwNDMyDQo+ID4+Pg0KPiA+Pj4gVGhhdCBmaWxlIGlzIGdl
+bmVyYXRlZCBieSBiaXRiYWtlIGFuZCBjb250YWlucyB0aGUgYWN0dWFsIHNoZWxsDQo+IGNvZGUg
+dGhhdCB3YXMgcnVuIHdoZW4gdGhlIGVycm9yIG9jY3VycmVkLiBJdCBzaG91bGQgaG9wZWZ1bGx5
+IGdpdmUgdXMNCj4gYSBjbHVlIGFzIHRvIHdoYXQgeW91IHNob3VsZCBsb29rIGZvciB0byBmaW5k
+IHRoZSBhY3R1YWwgbWlzdGFrZSBpbg0KPiB5b3VyIHJlY2lwZSBmaWxlcy4NCj4gPj4+DQo+ID4+
+Pg0KPiA+Pj4NCj4gPj4+IC8vUGV0ZXINCj4gPj4+DQo+ID4+Pg0KPiA+Pj4NCj4gPj4+IEZyb206
+IHNyaW5pdmFzYW4gPHNyaW5pdmFzYW4ucm5zQGdtYWlsLmNvbT4NCj4gPj4+IFNlbnQ6IGRlbiAx
+NyBqYW51YXJpIDIwMTkgMTA6NDINCj4gPj4+IFRvOiBQZXRlciBLamVsbGVyc3RlZHQgPHBldGVy
+LmtqZWxsZXJzdGVkdEBheGlzLmNvbT4NCj4gPj4+IENjOiBwb2t5QHlvY3RvcHJvamVjdC5vcmcN
+Cj4gPj4+IFN1YmplY3Q6IFJlOiBbcG9reV0gRXJyb3I6IGJhc2UtZmlsZXMvMy4wLjE0LQ0KPiBy
+ODkvdGVtcC9ydW4uZG9faW5zdGFsbC44MDQzMjogU3ludGF4IGVycm9yOiBVbnRlcm1pbmF0ZWQg
+cXVvdGVkIHN0cmluZw0KPiA+Pj4NCj4gPj4+DQo+ID4+Pg0KPiA+Pj4gSGkgUGV0ZXIsDQo+ID4+
+Pg0KPiA+Pj4NCj4gPj4+DQo+ID4+PiBUaGFua3MgYSBsb3QgZm9yIHlvdXIgcXVpY2sgcmVzcG9u
+c2VzIGFuZCByZWFsbHkgYXBwcmVjaWF0ZSBpdC4NCj4gPj4+DQo+ID4+Pg0KPiA+Pj4NCj4gPj4+
+IE5vdyBJIGhhdmUgYXR0YWNoZWQgYm90aCB0aGUgZXJyb3IgbG9ncyBhbmQgYmFzZS1maWxlc18z
+LjAuMTQuYmIsDQo+IHBsZWFzZSBsZXQgbWUga25vdyBpZiB5b3UgcmVxdWlyZSBhbnkgb3RoZXIg
+aW5mb3JtYXRpb24gZnJvbSBteSBzaWRlDQo+ID4+Pg0KPiA+Pj4NCj4gPj4+DQo+ID4+PiBNYW55
+IFRoYW5rcyBpbiBhZHZhbmNlDQo+ID4+Pg0KPiA+Pj4NCj4gPj4+DQo+ID4+PiBPbiBUaHUsIEph
+biAxNywgMjAxOSBhdCAxMDoyMCBBTSBQZXRlciBLamVsbGVyc3RlZHQNCj4gPHBldGVyLmtqZWxs
+ZXJzdGVkdEBheGlzLmNvbT4gd3JvdGU6DQo+ID4+Pg0KPiA+Pj4gWyBSZWNpcGllbnQgbGlzdCBw
+cnVuZWQgdG8gbm90IGNyb3NzLXBvc3QgdG8gZXZlcnkgWW9jdG8gcmVsYXRlZA0KPiBtYWlsaW5n
+DQo+ID4+PiAgIGxpc3Qgb3V0IHRoZXJlLi4uIF0NCj4gPj4+DQo+ID4+PiA+IC0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQo+ID4+PiA+IEZyb206IHBva3ktYm91bmNlc0B5b2N0b3Byb2plY3Qu
+b3JnIDxwb2t5LQ0KPiBib3VuY2VzQHlvY3RvcHJvamVjdC5vcmc+IE9uDQo+ID4+PiA+IEJlaGFs
+ZiBPZiBzcmluaXZhc2FuDQo+ID4+PiA+IFNlbnQ6IGRlbiAxNyBqYW51YXJpIDIwMTkgMDY6MDMN
+Cj4gPj4+ID4gVG86IHlvY3RvLWJzcEB5b2N0b3Byb2plY3Qub3JnOyB5b2N0by1idWlsZHNAeW9j
+dG9wcm9qZWN0Lm9yZzsNCj4gbWV0YS0NCj4gPj4+ID4gaW50ZWxAeW9jdG9wcm9qZWN0Lm9yZzsg
+RGV2ZWxvcG1lbnQgbGlzdCBmb3IgdGhlIGxpbnV4LXlvY3RvKi5naXQNCj4gTGludXgNCj4gPj4+
+ID4ga2VybmVsIHJlcG9zaXRvcmllcyA8bGludXgteW9jdG9AeW9jdG9wcm9qZWN0Lm9yZz47DQo+
+ID4+PiA+IHBva3lAeW9jdG9wcm9qZWN0Lm9yZzsgeW9jdG8taW5mcmFzdHJ1Y3R1cmVAeW9jdG9w
+cm9qZWN0Lm9yZzsNCj4gPj4+ID4geW9jdG9AeW9jdG9wcm9qZWN0Lm9yZzsgbWV0YS1mcmVlc2Nh
+bGVAeW9jdG9wcm9qZWN0Lm9yZzsgbWV0YS0NCj4gPj4+ID4gZnJlZXNjYWxlLXJlcXVlc3RAeW9j
+dG9wcm9qZWN0Lm9yZw0KPiA+Pj4gPiBTdWJqZWN0OiBbcG9reV0gRXJyb3I6IGJhc2UtZmlsZXMv
+My4wLjE0LQ0KPiByODkvdGVtcC9ydW4uZG9faW5zdGFsbC44MDQzMjoNCj4gPj4+ID4gU3ludGF4
+IGVycm9yOiBVbnRlcm1pbmF0ZWQgcXVvdGVkIHN0cmluZw0KPiA+Pj4gPg0KPiA+Pj4gPiBEZWFy
+IFlvY3RvIEV4cGVydHMsDQo+ID4+PiA+DQo+ID4+PiA+IEkgYW0gdHJ5aW5nIHRvIGN1c3RvbWl6
+ZSBteSB2ZW5kb3Igc3BlY2lmaWMgWW9jdG8gQlNQJ3MgdG8gbXkNCj4gY3VzdG9tDQo+ID4+PiA+
+IE9TLiAgSSBhbSBmYWNpbmcgdGhlIGJlbG93IGVycm9yLCBjb3VsZCB5b3UgcGxlYXNlIGRvIHRo
+ZSBuZWVkZnVsDQo+IG9yDQo+ID4+PiA+IHByb3ZpZGUgbWUgc29tZSBwb2ludGVycyBmcm9tIHlv
+dXIgZW5kIGZvciBzb2x2aW5nIHRoaXMgaXNzdWUNCj4gPj4+ID4NCj4gPj4+ID4gRXJyb3I6DQo+
+ID4+PiA+ICQgYml0YmFrZSBmc2wtaW1hZ2UtdmFsaWRhdGlvbi1pbXgNCj4gPj4+ID4gV0FSTklO
+RzogSG9zdCBkaXN0cmlidXRpb24gInVidW50dS0xOC4wNCIgaGFzIG5vdCBiZWVuIHZhbGlkYXRl
+ZA0KPiB3aXRoDQo+ID4+PiA+IHRoaXMgdmVyc2lvbiBvZiB0aGUgYnVpbGQgc3lzdGVtOyB5b3Ug
+bWF5IHBvc3NpYmx5IGV4cGVyaWVuY2UNCj4gPj4+ID4gdW5leHBlY3RlZCBmYWlsdXJlcy4gSXQg
+aXMgcmVjb21tZW5kZWQgdGhhdCB5b3UgdXNlIGEgdGVzdGVkDQo+ID4+PiA+IGRpc3RyaWJ1dGlv
+bi4NCj4gPj4+ID4gTG9hZGluZyBjYWNoZTogMTAwJQ0KPiA+Pj4gPg0KPiB8IyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+Iw0KPiA+Pj4gPg0KPiAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0KPiA+Pj4gPg0KPiAjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0K
+PiA+Pj4gPiAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyN8DQo+ID4+PiA+IFRpbWU6IDA6MDA6
+MDANCj4gPj4+ID4gTG9hZGVkIDMxOTYgZW50cmllcyBmcm9tIGRlcGVuZGVuY3kgY2FjaGUuDQo+
+ID4+PiA+IFBhcnNpbmcgcmVjaXBlczogMTAwJQ0KPiA+Pj4gPg0KPiB8IyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0K
+PiA+Pj4gPg0KPiAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0KPiA+Pj4gPg0KPiAjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0KPiA+
+Pj4gPiAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjfA0KPiA+Pj4gPiBUaW1lOiAwOjAwOjAyDQo+
+ID4+PiA+IFBhcnNpbmcgb2YgMjI5OCAuYmIgZmlsZXMgY29tcGxldGUgKDIyODQgY2FjaGVkLCAx
+NCBwYXJzZWQpLiAzMjAyDQo+ID4+PiA+IHRhcmdldHMsIDM5OCBza2lwcGVkLCA2IG1hc2tlZCwg
+MCBlcnJvcnMuDQo+ID4+PiA+IE5PVEU6IFJlc29sdmluZyBhbnkgbWlzc2luZyB0YXNrIHF1ZXVl
+IGRlcGVuZGVuY2llcw0KPiA+Pj4gPg0KPiA+Pj4gPiBCdWlsZCBDb25maWd1cmF0aW9uOg0KPiA+
+Pj4gPiBCQl9WRVJTSU9OICAgICAgICAgICA9ICIxLjM4LjAiDQo+ID4+PiA+IEJVSUxEX1NZUyAg
+ICAgICAgICAgID0gIng4Nl82NC1saW51eCINCj4gPj4+ID4gTkFUSVZFTFNCU1RSSU5HICAgICAg
+PSAidW5pdmVyc2FsIg0KPiA+Pj4gPiBUQVJHRVRfU1lTICAgICAgICAgICA9ICJhYXJjaDY0LXBv
+a3ktbGludXgiDQo+ID4+PiA+IE1BQ0hJTkUgICAgICAgICAgICAgID0gImlteDhtbWV2ayINCj4g
+Pj4+ID4gRElTVFJPICAgICAgICAgICAgICAgPSAiY3VzdG9tLVRSSyINCj4gPj4+ID4gRElTVFJP
+X1ZFUlNJT04gICAgICAgPSAiJHtjdXN0b21fRElTVFJPX1ZFUlNJT059Ig0KPiA+Pj4gPiBUVU5F
+X0ZFQVRVUkVTICAgICAgICA9ICJhYXJjaDY0Ig0KPiA+Pj4gPiBUQVJHRVRfRlBVICAgICAgICAg
+ICA9ICIiDQo+ID4+PiA+IG1ldGEtdHJha3Rvci1pbXg4ICAgID0NCj4gInN1bW86NGIyNWMxZWU2
+ODk2YjU0NDdmODUwMmYxM2MyODU3MDM0MTUwNTM2MCINCj4gPj4+ID4gbWV0YS10cmFrdG9yICAg
+ICAgICAgPQ0KPiAic3Vtbzo4MThiZTdlYzRmNzY4YmE0ODVlNDM3ZGMyNmJlYjdiZGM0YjgxMjBh
+Ig0KPiA+Pj4gPiBtZXRhLXF0NSAgICAgICAgICAgICA9ICJxdC0NCj4gPj4+ID4gNS4xMTpmZjYx
+MjdkZGQzMThkNDIyZjU5NTI5NWQxYzE4OWE4NmIzMDMyODczIg0KPiA+Pj4gPiBtZXRhLWN1c3Rv
+bSAgICAgICAgPQ0KPiAic3VtbzpkOTg0NTI5MTRlMjAxZDQ2YTZiMTM2MGNhOTU3ZDliM2UzOTZi
+MzFmIg0KPiA+Pj4gPiBtZXRhLWZyZWVzY2FsZSAgICAgICA9DQo+ICJIRUFEOjFkZWVhNmI0YTJm
+ODM1MjFmZjI0N2VhNDc0M2QwOWNjNzA1ZWNkOGUiDQo+ID4+PiA+IG1ldGENCj4gPj4+ID4gbWV0
+YS1wb2t5ICAgICAgICAgICAgPQ0KPiAic3Vtbzo2MjNiNzc4ODUwNTExNzRkMGUwNTE5ODg0M2U3
+MzkxMTA5NzdiZDE4Ig0KPiA+Pj4gPiBtZXRhLW9lDQo+ID4+PiA+IG1ldGEtcHl0aG9uDQo+ID4+
+PiA+IG1ldGEtbmV0d29ya2luZyAgICAgID0NCj4gInN1bW86ODc2MGZhY2JhMWJjZWIyOTliMzYx
+M2I4OTU1NjIxZGRhYTNkNGMzZiINCj4gPj4+ID4gbWV0YS1ic3ANCj4gPj4+ID4gbWV0YS1zZGsg
+ICAgICAgICAgICAgPQ0KPiAiSEVBRDoxZGU5M2QzZDUxMjhiODQyMmMyM2E4N2NiOGI1NDE0OWUy
+YmZiOTQyIg0KPiA+Pj4gPg0KPiA+Pj4gPiBJbml0aWFsaXNpbmcgdGFza3M6IDEwMCUNCj4gPj4+
+ID4NCj4gfCMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMNCj4gPj4+ID4NCj4gIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCj4gPj4+ID4N
+Cj4gIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMNCj4gPj4+ID4gIyMjIyMjIyMjIyMjIyMjIyMjIyMjI3wNCj4gPj4+
+ID4gVGltZTogMDowMDowMg0KPiA+Pj4gPiBOT1RFOiBFeGVjdXRpbmcgU2V0U2NlbmUgVGFza3MN
+Cj4gPj4+ID4gTk9URTogRXhlY3V0aW5nIFJ1blF1ZXVlIFRhc2tzDQo+ID4+PiA+IEVSUk9SOiBi
+YXNlLWZpbGVzLTMuMC4xNC1yODkgZG9faW5zdGFsbDogRnVuY3Rpb24gZmFpbGVkOg0KPiBkb19p
+bnN0YWxsDQo+ID4+PiA+IChsb2cgZmlsZSBpcyBsb2NhdGVkIGF0DQo+ID4+PiA+DQo+IC9ob21l
+L3NyaW5pc2hhbm11Z2FtL2N1c3RvbUJ1aWxkX3Rlc3RfcnBpL2N1c3RvbS9idWlkX3Rlc3QzX2N1
+c3RvbXRya19kDQo+ID4+PiA+IGlzdHJvX2lteDgvdG1wL3dvcmsvaW14OG1tZXZrLXBva3ktbGlu
+dXgvYmFzZS1maWxlcy8zLjAuMTQtDQo+ID4+PiA+IHI4OS90ZW1wL2xvZy5kb19pbnN0YWxsLjgw
+NDMyKQ0KPiA+Pj4gPiBFUlJPUjogTG9nZmlsZSBvZiBmYWlsdXJlIHN0b3JlZCBpbjoNCj4gPj4+
+ID4NCj4gL2hvbWUvc3JpbmlzaGFubXVnYW0vY3VzdG9tQnVpbGRfdGVzdF9ycGkvY3VzdG9tL2J1
+aWRfdGVzdDNfY3VzdG9tdHJrX2QNCj4gPj4+ID4gaXN0cm9faW14OC90bXAvd29yay9pbXg4bW1l
+dmstcG9reS1saW51eC9iYXNlLWZpbGVzLzMuMC4xNC0NCj4gPj4+ID4gcjg5L3RlbXAvbG9nLmRv
+X2luc3RhbGwuODA0MzINCj4gPj4+ID4gTG9nIGRhdGEgZm9sbG93czoNCj4gPj4+ID4gfCBERUJV
+RzogRXhlY3V0aW5nIHB5dGhvbiBmdW5jdGlvbiBleHRlbmRfcmVjaXBlX3N5c3Jvb3QNCj4gPj4+
+ID4gfCBOT1RFOiBEaXJlY3QgZGVwZW5kZW5jaWVzIGFyZQ0KPiA+Pj4gPg0KPiBbJy9ob21lL3Ny
+aW5pc2hhbm11Z2FtL2N1c3RvbUJ1aWxkX3Rlc3RfcnBpL2N1c3RvbS9zb3VyY2VzL3Bva3kvbWV0
+YS9yZQ0KPiA+Pj4gPiBjaXBlcy1kZXZ0b29scy9xdWlsdC9xdWlsdC1uYXRpdmVfMC42NS5iYjpk
+b19wb3B1bGF0ZV9zeXNyb290JywNCj4gPj4+ID4NCj4gJ3ZpcnR1YWw6bmF0aXZlOi9ob21lL3Ny
+aW5pc2hhbm11Z2FtL2N1c3RvbUJ1aWxkX3Rlc3RfcnBpL2N1c3RvbS9zb3VyY2UNCj4gPj4+ID4g
+cy9wb2t5L21ldGEvcmVjaXBlcy0NCj4gZGV2dG9vbHMvcHNldWRvL3BzZXVkb19naXQuYmI6ZG9f
+cG9wdWxhdGVfc3lzcm9vdCddDQo+ID4+PiA+IHwgTk9URTogSW5zdGFsbGVkIGludG8gc3lzcm9v
+dDogW10NCj4gPj4+ID4gfCBOT1RFOiBTa2lwcGluZyBhcyBhbHJlYWR5IGV4aXN0cyBpbiBzeXNy
+b290OiBbJ3F1aWx0LW5hdGl2ZScsDQo+ID4+PiA+ICdwc2V1ZG8tbmF0aXZlJ10NCj4gPj4+ID4g
+fCBERUJVRzogUHl0aG9uIGZ1bmN0aW9uIGV4dGVuZF9yZWNpcGVfc3lzcm9vdCBmaW5pc2hlZA0K
+PiA+Pj4gPiB8IERFQlVHOiBFeGVjdXRpbmcgc2hlbGwgZnVuY3Rpb24gZG9faW5zdGFsbA0KPiA+
+Pj4gPiB8DQo+ID4+PiA+DQo+IC9ob21lL3NyaW5pc2hhbm11Z2FtL2N1c3RvbUJ1aWxkX3Rlc3Rf
+cnBpL2N1c3RvbS9idWlkX3Rlc3QzX2N1c3RvbXRya19kDQo+ID4+PiA+IGlzdHJvX2lteDgvdG1w
+L3dvcmsvaW14OG1tZXZrLXBva3ktbGludXgvYmFzZS1maWxlcy8zLjAuMTQtDQo+ID4+PiA+IHI4
+OS90ZW1wL3J1bi5kb19pbnN0YWxsLjgwNDMyOg0KPiA+Pj4gPiAxNzY6DQo+ID4+PiA+DQo+IC9o
+b21lL3NyaW5pc2hhbm11Z2FtL2N1c3RvbUJ1aWxkX3Rlc3RfcnBpL2N1c3RvbS9idWlkX3Rlc3Qz
+X2N1c3RvbXRya19kDQo+ID4+PiA+IGlzdHJvX2lteDgvdG1wL3dvcmsvaW14OG1tZXZrLXBva3kt
+bGludXgvYmFzZS1maWxlcy8zLjAuMTQtDQo+ID4+PiA+IHI4OS90ZW1wL3J1bi5kb19pbnN0YWxs
+LjgwNDMyOg0KPiA+Pj4gPiBTeW50YXggZXJyb3I6IFVudGVybWluYXRlZCBxdW90ZWQgc3RyaW5n
+DQo+ID4+PiA+IHwgV0FSTklORzogZXhpdCBjb2RlIDIgZnJvbSBhIHNoZWxsIGNvbW1hbmQuDQo+
+ID4+PiA+IHwgRVJST1I6IEZ1bmN0aW9uIGZhaWxlZDogZG9faW5zdGFsbCAobG9nIGZpbGUgaXMg
+bG9jYXRlZCBhdA0KPiA+Pj4gPg0KPiAvaG9tZS9zcmluaXNoYW5tdWdhbS9jdXN0b21CdWlsZF90
+ZXN0X3JwaS9jdXN0b20vYnVpZF90ZXN0M19jdXN0b210cmtfZA0KPiA+Pj4gPiBpc3Ryb19pbXg4
+L3RtcC93b3JrL2lteDhtbWV2ay1wb2t5LWxpbnV4L2Jhc2UtZmlsZXMvMy4wLjE0LQ0KPiA+Pj4g
+PiByODkvdGVtcC9sb2cuZG9faW5zdGFsbC44MDQzMikNCj4gPj4+ID4gRVJST1I6IFRhc2sNCj4g
+Pj4+ID4NCj4gKC9ob21lL3NyaW5pc2hhbm11Z2FtL2N1c3RvbUJ1aWxkX3Rlc3RfcnBpL2N1c3Rv
+bS9zb3VyY2VzL3Bva3kvbWV0YS9yZWMNCj4gPj4+ID4gaXBlcy1jb3JlL2Jhc2UtZmlsZXMvYmFz
+ZS1maWxlc18zLjAuMTQuYmI6ZG9faW5zdGFsbCkNCj4gPj4+ID4gZmFpbGVkIHdpdGggZXhpdCBj
+b2RlICcxJw0KPiA+Pj4gPiBOT1RFOiBUYXNrcyBTdW1tYXJ5OiBBdHRlbXB0ZWQgMTI1NiB0YXNr
+cyBvZiB3aGljaCAxMjA0IGRpZG4ndA0KPiBuZWVkIHRvDQo+ID4+PiA+IGJlIHJlcnVuIGFuZCAx
+IGZhaWxlZC4NCj4gPj4+ID4NCj4gPj4+ID4gU3VtbWFyeTogMSB0YXNrIGZhaWxlZDoNCj4gPj4+
+ID4NCj4gPj4+ID4NCj4gL2hvbWUvc3JpbmlzaGFubXVnYW0vY3VzdG9tQnVpbGRfdGVzdF9ycGkv
+Y3VzdG9tL3NvdXJjZXMvcG9reS9tZXRhL3JlY2kNCj4gPj4+ID4gcGVzLWNvcmUvYmFzZS1maWxl
+cy9iYXNlLWZpbGVzXzMuMC4xNC5iYjpkb19pbnN0YWxsDQo+ID4+PiA+IFN1bW1hcnk6IFRoZXJl
+IHdhcyAxIFdBUk5JTkcgbWVzc2FnZSBzaG93bi4NCj4gPj4+ID4gU3VtbWFyeTogVGhlcmUgd2Fz
+IDEgRVJST1IgbWVzc2FnZSBzaG93biwgcmV0dXJuaW5nIGEgbm9uLXplcm8NCj4gZXhpdA0KPiA+
+Pj4gPiBjb2RlLg0KPiA+Pj4gPiBzcmluaXNoYW5tdWdhbUBuaS1ibG4tDQo+ID4+PiA+DQo+IDA3
+NTk0On4vY3VzdG9tQnVpbGRfdGVzdF9ycGkvY3VzdG9tL2J1aWRfdGVzdDNfY3VzdG9tdHJrX2Rp
+c3Ryb19pbXg4JA0KPiA+Pj4gPg0KPiA+Pj4gPg0KPiA+Pj4gPiBLaW5kbHkgZG8gdGhlIG5lZWRm
+dWwsDQo+ID4+PiA+IE1hbnkgVGhhbmtzIGluIGFkdmFuY2UNCj4gPj4+DQo+ID4+PiBIYXZlIHlv
+dSBsb29rZWQgYXQgdGhlIGNvbnRlbnRzIG9mDQo+ID4+Pg0KPiAvaG9tZS9zcmluaXNoYW5tdWdh
+bS9jdXN0b21CdWlsZF90ZXN0X3JwaS9jdXN0b20vYnVpZF90ZXN0M19jdXN0b210cmtfZA0KPiBp
+c3Ryb19pbXg4L3RtcC93b3JrL2lteDhtbWV2ay1wb2t5LWxpbnV4L2Jhc2UtZmlsZXMvMy4wLjE0
+LQ0KPiByODkvdGVtcC9ydW4uZG9faW5zdGFsbC44MDQzMg0KPiA+Pj4gdG8gdHJ5IHRvIGRldGVy
+bWluZSB3aGF0IGNhdXNlZCB0aGUgZXJyb25lb3VzIHN5bnRheD8gT3RoZXJ3aXNlIGRvDQo+IHRo
+YXQsDQo+ID4+PiBhbmQgaWYgeW91IHN0aWxsIGNhbm5vdCB0ZWxsIHdoYXQgY2F1c2VzIHRoZSBw
+cm9ibGVtLCBwbGVhc2UgYXR0YWNoDQo+IHRoZQ0KPiA+Pj4gZmlsZSBmb3IgdXMgdG8gbG9vayBh
+dC4NCj4gPj4+DQo+ID4+PiAvL1BldGVyDQo=
 
