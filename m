@@ -1,39 +1,59 @@
-Return-Path: <Randy.MacLeod@windriver.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 75F31E00C6D; Wed, 16 Jan 2019 08:39:04 -0800 (PST)
+	id 010C7E00C5F; Wed, 16 Jan 2019 19:04:19 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
 	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
-	*      medium trust
-	*      [192.103.53.11 listed in list.dnswl.org]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DEE9E0053F
-	for <poky@yoctoproject.org>; Wed, 16 Jan 2019 08:39:03 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x0GGcFML010535
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Wed, 16 Jan 2019 08:38:30 -0800
-Received: from [128.224.56.218] (128.224.56.218) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.408.0;
-	Wed, 16 Jan 2019 08:38:16 -0800
-From: Randy MacLeod <randy.macleod@windriver.com>
-To: Aditya Tayade <Aditya.Tayade@kpit.com>, "poky@yoctoproject.org"
-	<poky@yoctoproject.org>
-References: <BM1PR0101MB170066F2CE87FD5FA7CE641D91820@BM1PR0101MB1700.INDPRD01.PROD.OUTLOOK.COM>
-Message-ID: <107596e1-ad81-0267-3566-dd2e2f85b359@windriver.com>
-Date: Wed, 16 Jan 2019 11:38:03 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.2.1
-MIME-Version: 1.0
-In-Reply-To: <BM1PR0101MB170066F2CE87FD5FA7CE641D91820@BM1PR0101MB1700.INDPRD01.PROD.OUTLOOK.COM>
-X-Originating-IP: [128.224.56.218]
-Subject: Re: [tiff] Issue in do_package_qa: found library in wrong location
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [195.60.68.11 listed in list.dnswl.org]
+X-Greylist: delayed 550 seconds by postgrey-1.32 at yocto-www;
+	Wed, 16 Jan 2019 19:04:18 PST
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 82C22E00AC5
+	for <poky@yoctoproject.org>; Wed, 16 Jan 2019 19:04:18 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id B0BE218553
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:07 +0100 (CET)
+X-Axis-User: NO
+X-Axis-NonUser: YES
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id hvE8MMIMbRlS for <poky@yoctoproject.org>;
+	Thu, 17 Jan 2019 03:55:07 +0100 (CET)
+Received: from boulder02.se.axis.com (boulder02.se.axis.com [10.0.8.16])
+	by bastet.se.axis.com (Postfix) with ESMTPS id 1E28318524
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:07 +0100 (CET)
+Received: from boulder02.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 026FD1A097
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:07 +0100 (CET)
+Received: from boulder02.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EA5951A08C
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:06 +0100 (CET)
+Received: from seth.se.axis.com (unknown [10.0.2.172])
+	by boulder02.se.axis.com (Postfix) with ESMTP
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:06 +0100 (CET)
+Received: from saur-2.se.axis.com (saur-2.se.axis.com [10.92.3.2])
+	by seth.se.axis.com (Postfix) with ESMTP id DECD32FE5
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:06 +0100 (CET)
+Received: from saur-2.se.axis.com (localhost [127.0.0.1])
+	by saur-2.se.axis.com (8.14.5/8.14.5) with ESMTP id x0H2t6a5010977
+	for <poky@yoctoproject.org>; Thu, 17 Jan 2019 03:55:06 +0100
+Received: (from pkj@localhost)
+	by saur-2.se.axis.com (8.14.5/8.14.5/Submit) id x0H2t6Jj010975
+	for poky@yoctoproject.org; Thu, 17 Jan 2019 03:55:06 +0100
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: poky@yoctoproject.org
+Date: Thu, 17 Jan 2019 03:55:00 +0100
+Message-Id: <20190117025500.10922-1-pkj@axis.com>
+X-Mailer: git-send-email 2.12.0
+X-TM-AS-GCONF: 00
+Subject: [PATCH] local.conf.sample.extended: Use IMAGE_CLASSES to inherit extrausers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,60 +66,52 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2019 16:39:04 -0000
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
+X-List-Received-Date: Thu, 17 Jan 2019 03:04:20 -0000
 
-On 1/15/19 9:52 PM, Aditya Tayade wrote:
-> Can any one help to resolve below issues
-> ERROR: tiff-4.0.9-r0 do_package_qa: QA Issue: non -dev/-dbg/nativesdk- 
-> package contains symlink .so: tiff-mytest path 
-> '/work/pathto/tiff/4.0.9-r0/packages-split/tiff-mytest/usr/share/tiff/mytest/libtiff/.libs/libtiff.so'
-> non -dev/-dbg/nativesdk- package contains symlink .so: tiff-mytest 
-> path 
-> '/work/pathto/tiff/4.0.9-r0/packages-split/mytest/usr/share/tiff/mytest/libtiff/.libs/libtiffxx.so' 
-> [dev-so]
-> ERROR: tiff-4.0.9-r0 do_package_qa: QA Issue: non -staticdev package 
-> contains static .a library: tiff-mytest path 
-> '/work/pathto/tiff/4.0.9-r0/packages-split/tiff-mytest/usr/share/tiff/mytest/port/.libs/libport.a'
-> non -staticdev package contains static .a library: tiff-mytest path 
-> '/work/pathto/tiff/4.0.9-r0/packages-split/tiff-mytest/usr/share/tiff/mytest/port/.libs/libport.a' 
-> [staticdev]
->
-As you probably appreciate, the QA check is complaining that you have:
+Since the extrausers class is only useful for image recipes, it is
+better to suggest adding it via IMAGE_CLASSES instead of INHERIT in the
+example.
 
-  .so symlink  in a non -dev/-dbg/nativesdk- package
+Also make the example a bit more readable by indenting the variable
+values.
 
-  .a file in a non -staticdev package
+Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+---
+ meta-poky/conf/local.conf.sample.extended | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-
-What release are you seeing this in?
-
-Can you reproduce it with just the oe-core layer? (using the master branch?)
-
-
-With a Windriver distro, based on something close to master/head:
-
-    ccb638d446 libassuan: update to 2.5.2
-
-I don't see either problem:
-
-$ grep symlink 
-tmp-glibc/work/core2-64-wrs-linux/tiff/4.0.10-r0/temp/log.do_package_qa
-$ grep "contains static" 
-tmp-glibc/work/core2-64-wrs-linux/tiff/4.0.10-r0/temp/log.do_package_qa
-$
-
-../Randy
-
->
-> Regards,
-> Aditya Tayade
-
-
+diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+index 3ba99f4896..696275b4af 100644
+--- a/meta-poky/conf/local.conf.sample.extended
++++ b/meta-poky/conf/local.conf.sample.extended
+@@ -290,18 +290,18 @@
+ 
+ # Image level user/group configuration.
+ # Inherit extrausers to make the setting of EXTRA_USERS_PARAMS effective.
+-#INHERIT += "extrausers"
++#IMAGE_CLASSES += "extrausers"
+ # User / group settings
+-# The settings are sperated by the ; character.
++# The settings are separated by the ; character.
+ # Each setting is actually a command. The supported commands are useradd,
+ # groupadd, userdel, groupdel, usermod and groupmod.
+ #EXTRA_USERS_PARAMS = "\
+-#useradd -p '' tester; \
+-#groupadd developers; \
+-#userdel nobody; \
+-#groupdel video; \
+-#groupmod -g 1020 developers; \
+-#usermod -s /bin/sh tester; \
++#    useradd -p '' tester; \
++#    groupadd developers; \
++#    userdel nobody; \
++#    groupdel video; \
++#    groupmod -g 1020 developers; \
++#    usermod -s /bin/sh tester; \
+ #"
+ 
+ # Various packages dynamically add users and groups to the system at package
 -- 
-# Randy MacLeod
-# Wind River Linux
+2.12.0
 
 
