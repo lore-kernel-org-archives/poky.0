@@ -1,67 +1,57 @@
-Return-Path: <srinivasan.rns@gmail.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 449C0E00CEA; Fri, 18 Jan 2019 00:45:49 -0800 (PST)
+	id 81364E00CE2; Fri, 18 Jan 2019 07:49:30 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (srinivasan.rns[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.167.194 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
-	[209.85.167.194])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63CF8E00C4E;
-	Fri, 18 Jan 2019 00:45:48 -0800 (PST)
-Received: by mail-oi1-f194.google.com with SMTP id x23so8416371oix.3;
-	Fri, 18 Jan 2019 00:45:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=mBhvkOydqgyF101A1MUYWIPEihrh5wCM5VF/HIIrbGQ=;
-	b=gdNlMZr509fMqJkn+OgNp/qw+QDZrUGAzTb1JvnKmtWZZoQ1a9CIf2P1g+o7l+2RgE
-	+i1lB2pu6xCof+xqvem3pWETBW+6PGEuzjqWxt36+weZiyGdQJNkuhe3NeuycQVhIt+c
-	awrubRfS0nCdxkrqbKhMaMQoy30SryaeIdJ6zJSQuypuy5ipSyDy0AlIeGtU2vTBt5nu
-	LddLeSat6xG8pQcYHXSUU1BnPVQ7NzTQ6nI60hjdXjOb2gbu6n1mGXeNNylR1qtzHMWz
-	7VoJekBwH00r1K7ZLqMVoOJyCpJ4v5ILOfH/i9l1Ysb9UzNolU8/85SV4Z3Ia70o0HzQ
-	VZ9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=mBhvkOydqgyF101A1MUYWIPEihrh5wCM5VF/HIIrbGQ=;
-	b=JpubGD3jha9tfedB2Pbf3L7rg0UDVb2eCRt2KZYy1cEgvoovD823nedNBmowUexwxT
-	i8h1UO60YMp2+vLe2CeruFQdyd0B5Lfao2Hoo2I3lsi2oV4rGed6eCVysMvndUKueK3p
-	72t8wnP2SoFhgAulZjGf5aRuTetMD5GVbPekN44WeWb7vpGuQHuPfEB5P+bwRsSUai2U
-	WvIEjmQzaNibHhL9jgyZr4bJx9RwFwS+tabyteObeTxjFSqhD1JuqQoT9WbqJ2z4cfzT
-	uFgN3u/kfka7NuPI6i9qm+2zKHojzDj395Ar29IX3X/4KB8fsTABdMfX4Bvn6yUJBrhB
-	yzlQ==
-X-Gm-Message-State: AJcUukfH1UonB9roh3BrBXCasdk8IxIp5Ki7s0Cni66Z6SKQYdEmfY/8
-	lOAOki78rn5jR12r86e4LMyMqW9CTydu0mp4PcEwketex8o=
-X-Google-Smtp-Source: ALg8bN6r86z4+voiv1iDfA/KNW7gC4zIRnqG1nodeHxTOB/vXm3fSg7Fz8r1y0tAhtWkcks1yAivUx6mysVHxtf6IA4=
-X-Received: by 2002:aca:b2c4:: with SMTP id b187mr140223oif.245.1547801147127; 
-	Fri, 18 Jan 2019 00:45:47 -0800 (PST)
-MIME-Version: 1.0
-From: srinivasan <srinivasan.rns@gmail.com>
-Date: Fri, 18 Jan 2019 09:45:35 +0100
-Message-ID: <CAFsTbWf2+Kxt79GM0SUGaiyn6kpV4-bg9AqwiHMQ-DqnqRWcEQ@mail.gmail.com>
-To: yocto-bsp@yoctoproject.org, yocto-builds@yoctoproject.org, 
-	meta-intel@yoctoproject.org, 
-	"Development list for the linux-yocto*.git Linux kernel repositories"
-	<linux-yocto@yoctoproject.org>, Poky Project <poky@yoctoproject.org>, 
-	yocto-infrastructure@yoctoproject.org, 
-	Yocto-mailing-list <yocto@yoctoproject.org>, 
-	meta-freescale Mailing List <meta-freescale@yoctoproject.org>,
-	meta-freescale-request@yoctoproject.org
-Subject: ERROR: Nothing PROVIDES 'virtual/libgles2'
+	*      [195.60.68.11 listed in list.dnswl.org]
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 2A5D7E00C94
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 07:49:28 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id 919B9185E2
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:26 +0100 (CET)
+X-Axis-User: NO
+X-Axis-NonUser: YES
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id gq9mm628mUuj for <poky@yoctoproject.org>;
+	Fri, 18 Jan 2019 16:49:22 +0100 (CET)
+Received: from boulder02.se.axis.com (boulder02.se.axis.com [10.0.8.16])
+	by bastet.se.axis.com (Postfix) with ESMTPS id 87C9A185FC
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:22 +0100 (CET)
+Received: from boulder02.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 710AB1A0A6
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:22 +0100 (CET)
+Received: from boulder02.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6619C1A0A5
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:22 +0100 (CET)
+Received: from seth.se.axis.com (unknown [10.0.2.172])
+	by boulder02.se.axis.com (Postfix) with ESMTP
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:22 +0100 (CET)
+Received: from saur-2.se.axis.com (saur-2.se.axis.com [10.92.3.2])
+	by seth.se.axis.com (Postfix) with ESMTP id 5A7DF187C
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:22 +0100 (CET)
+Received: from saur-2.se.axis.com (localhost [127.0.0.1])
+	by saur-2.se.axis.com (8.14.5/8.14.5) with ESMTP id x0IFnLSj015523
+	for <poky@yoctoproject.org>; Fri, 18 Jan 2019 16:49:21 +0100
+Received: (from pkj@localhost)
+	by saur-2.se.axis.com (8.14.5/8.14.5/Submit) id x0IFnLBB015522
+	for poky@yoctoproject.org; Fri, 18 Jan 2019 16:49:21 +0100
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: poky@yoctoproject.org
+Date: Fri, 18 Jan 2019 16:49:20 +0100
+Message-Id: <20190118154920.15457-1-pkj@axis.com>
+X-Mailer: git-send-email 2.12.0
+X-TM-AS-GCONF: 00
+Subject: [PATCH] poky.conf: Define SDK_VERSION so DISTRO_VERSION overrides are supported
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,48 +64,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 08:45:49 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 18 Jan 2019 15:49:30 -0000
 
-Dear Yocto Experts,
+If DISTRO_VERSION is defined using an override, e.g., by defining it
+in auto.conf as DISTRO_VERSION_forcevariable, then the unoverridden
+value was still used in SDK_VERSION since it was defined using the :=
+operator. However, there should be no reason to define SDK_VERSION
+this way.
 
-I am seeing the below error when i am trying to integrate freescale
-layers into my custom os?
+Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-srinishanmugam@ni-bln-07594:~/customBuild_test_rpi/customos/build_customosdistro_imx8$
-bitbake -f -c clean custom-image-debug-imx8
-WARNING: Host distribution "ubuntu-18.04" has not been validated with
-this version of the build system; you may possibly experience
-unexpected failures. It is recommended that you use a tested
-distribution.
-WARNING: /home/srinishanmugam/customBuild_test_rpi/customos/sources/poky/meta/recipes-graphics/drm/libdrm_2.4.91.bb:
-Unable to get checksum for libdrm SRC_URI entry drm-update-arm.patch:
-file could not be found
-      | ETA:  0:00:05
-Parsing recipes: 100%
-|#############################################################################################################################################################################################################################################|
-Time: 0:00:09
-Parsing of 2275 .bb files complete (0 cached, 2275 parsed). 3177
-targets, 382 skipped, 1 masked, 0 errors.
-NOTE: Resolving any missing task queue dependencies
-ERROR: Nothing PROVIDES 'virtual/libgles2' (but
-/home/srinishanmugam/customBuild_test_rpi/customos/sources/meta-qt5/recipes-qt/qt5/qtbase_git.bb,
-/home/srinishanmugam/customBuild_test_rpi/customos/sources/poky/meta/recipes-graphics/cairo/cairo_1.14.12.bb
-DEPENDS on or otherwise requires it)
-imx-gpu-viv PROVIDES virtual/libgles2 but was skipped: incompatible
-with machine imx8mmevk (not in COMPATIBLE_MACHINE)
-NOTE: Runtime target 'qtbase' is unbuildable, removing...
-Missing or unbuildable dependency chain was: ['qtbase', 'virtual/libgles2']
-ERROR: Required build target 'custom-image-debug-imx8' has no
-buildable providers.
-Missing or unbuildable dependency chain was:
-['custom-image-debug-imx8', 'qtbase', 'virtual/libgles2']
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index f5de8f2335..73d200ebbd 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -3,7 +3,7 @@ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+ DISTRO_VERSION = "2.6+snapshot-${DATE}"
+ DISTRO_CODENAME = "master"
+ SDK_VENDOR = "-pokysdk"
+-SDK_VERSION := "${@'${DISTRO_VERSION}'.replace('snapshot-${DATE}','snapshot')}"
++SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
+ 
+ MAINTAINER = "Poky <poky@yoctoproject.org>"
+ 
+-- 
+2.12.0
 
-Summary: There were 2 WARNING messages shown.
-Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
-
-
-Could you anyone please provide me some inputs for resolving the above issue?
-
-Many Thanks in advance
 
