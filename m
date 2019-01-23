@@ -1,71 +1,34 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E085BE00CDE; Tue, 22 Jan 2019 12:50:28 -0800 (PST)
+	id 3E1C0E00CED; Wed, 23 Jan 2019 00:10:37 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.221.45 listed in list.dnswl.org]
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
-	[209.85.221.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4E88FE00CC9
-	for <poky@yoctoproject.org>; Tue, 22 Jan 2019 12:50:28 -0800 (PST)
-Received: by mail-wr1-f45.google.com with SMTP id f7so30073wrp.1
-	for <poky@yoctoproject.org>; Tue, 22 Jan 2019 12:50:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=message-id:subject:from:to:cc:date:in-reply-to:references
-	:user-agent:mime-version:content-transfer-encoding;
-	bh=pOIpEkolpY/wC9sHH0c0e5HtfGVfWcC8NV3CNgDggyc=;
-	b=SBaVzaLJ8r45tEJ78KoaFQh1Nwhr9ttGJzJgx+YJEa3Duxt8KrsRJoxnSQN2C75GLf
-	U9AYgHEd1Ce324AX6enJnVlkoO9etMhVTBlbPbblr0kHzkxSGYTOqznwrlGfZ2NdDGs4
-	NQEPfLh5p7YmfletsuZgNP0SWtpAYsaqTJRJE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-	:references:user-agent:mime-version:content-transfer-encoding;
-	bh=pOIpEkolpY/wC9sHH0c0e5HtfGVfWcC8NV3CNgDggyc=;
-	b=ffFCF3DT9woFoj4jqao2kSr4O2k0TzJh/vW8izy9JWt5eecYjmVpD4zpTIlY5wZ5j9
-	TlvQpqYczAmThgoCcfhFz3AlfkEg6OiohIuHZCZL22ppJ8MU/C1ETmv6mw/fa5umcU97
-	kokG9CS30sTfzm52HdZLELtfdrMw/Y59yyYSLljYHJdDKAuvElED10mRLh3y8wBzwZVm
-	HVlXeijVKmN6dUrJihgyqkILM0MG24tb9ThZcAYmZptSoMpb96a3vLW9FAn3N2m7VXX5
-	zuh5LbGctVe3/LTMLB88Qup4X/zwbBunCVyBFIlwpuTP4ImSeEsi1bfXJiXshS3mg+ap
-	Ls4w==
-X-Gm-Message-State: AJcUukdDfuAU39poeaNNYNMhoGt+Qby7kwbORNjukr16pq9XzkEpn3dY
-	ZW3LhjwHFfLGxRUL6xLsh2TtVg==
-X-Google-Smtp-Source: ALg8bN4nbJ4bwj3YQI5SQAwlJPNgb66DPkp2A+JKK3alVCS33oADUZeeYOIu/2m6fKGcQlBl/syA8Q==
-X-Received: by 2002:adf:e5d0:: with SMTP id a16mr34266748wrn.89.1548190227289; 
-	Tue, 22 Jan 2019 12:50:27 -0800 (PST)
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-	by smtp.gmail.com with ESMTPSA id
-	c10sm94433109wrw.49.2019.01.22.12.50.26
-	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Tue, 22 Jan 2019 12:50:26 -0800 (PST)
-Message-ID: <e11a82db236e8978c8bd0a282d1d0db2acf3120e.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Scott Rifenbark <srifenbark@gmail.com>, Peter Kjellerstedt
-	<peter.kjellerstedt@axis.com>
-Date: Tue, 22 Jan 2019 20:50:25 +0000
-In-Reply-To: <CAFNP8OumWA1-6hDhLcxML=tO9LK13ETqGekZ_uqTKd1dAoKzcQ@mail.gmail.com>
-References: <20190118154920.15457-1-pkj@axis.com>
-	<CABcZANm6JqmzyiV3cJ-t6x1KAqzwCXMbo_h1ATDNsS7vW6sYmA@mail.gmail.com>
-	<a5f956a72a11498a9370ce99491bf940@XBOX04.axis.com>
-	<CAFNP8OumWA1-6hDhLcxML=tO9LK13ETqGekZ_uqTKd1dAoKzcQ@mail.gmail.com>
-User-Agent: Evolution 3.30.4-1 
-Mime-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [PATCH] poky.conf: Define SDK_VERSION so DISTRO_VERSION overrides are supported
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at http://www.dnswl.org/,
+	*      medium trust
+	*      [192.103.53.11 listed in list.dnswl.org]
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AC1F2E00CE5
+	for <poky@yoctoproject.org>; Wed, 23 Jan 2019 00:10:36 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x0N8AFf9031425
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Wed, 23 Jan 2019 00:10:26 -0800
+Received: from pek-lpggp6.wrs.com (128.224.153.40) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.408.0;
+	Wed, 23 Jan 2019 00:10:05 -0800
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 23 Jan 2019 16:05:43 +0800
+Message-ID: <20190123080544.39726-1-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.14.4
+MIME-Version: 1.0
+Subject: [PATCH 1/2] meta-yocto-bsp: Add the v4.19 support for the non-x86 BSPs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -78,28 +41,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 20:50:28 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 23 Jan 2019 08:10:37 -0000
+Content-Type: text/plain
 
-On Tue, 2019-01-22 at 10:15 -0800, Scott Rifenbark wrote:
-> oops... are we cool on the docs?
-> 
-> Scott
-> 
-> On Tue, Jan 22, 2019 at 5:42 AM Peter Kjellerstedt <
-> peter.kjellerstedt@axis.com> wrote:
-> > Not sure if it is needed as such, but in the lights of the recent
-> > problem with base-files, it seemed better to change it here as
-> > well. Also, since Scott and RP were a bit trigger happy, the manual
-> > has already been updated to state that the below is how SDK_VERSION
-> > is defined in poky.conf. ;)
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ .../recipes-kernel/linux/linux-yocto_4.19.bbappend          | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-I tweaked the commit message and merged it so yes, we're good now.
-
-Cheers,
-
-Richard
-
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
+index 757f611b2e20..8e708cb6641c 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
+@@ -1,14 +1,27 @@
+ KBRANCH_genericx86  = "v4.19/standard/base"
+ KBRANCH_genericx86-64  = "v4.19/standard/base"
++KBRANCH_edgerouter = "v4.19/standard/edgerouter"
++KBRANCH_beaglebone-yocto = "v4.19/standard/beaglebone"
++KBRANCH_mpc8315e-rdb = "v4.19/standard/fsl-mpc8315e-rdb"
+ 
+ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
++KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+ SRCREV_machine_genericx86    ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
+ SRCREV_machine_genericx86-64 ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
++SRCREV_machine_edgerouter ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
++SRCREV_machine_beaglebone-yocto ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
++SRCREV_machine_mpc8315e-rdb ?= "8b60f968823256f5d2889c4520d70299ca21411b"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++COMPATIBLE_MACHINE_edgerouter = "edgerouter"
++COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
++COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+ LINUX_VERSION_genericx86 = "4.19.14"
+ LINUX_VERSION_genericx86-64 = "4.19.14"
++LINUX_VERSION_edgerouter = "4.19.14"
++LINUX_VERSION_beaglebone-yocto = "4.19.14"
++LINUX_VERSION_mpc8315e-rdb = "4.19.14"
+-- 
+2.14.4
 
 
