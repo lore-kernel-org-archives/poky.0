@@ -1,47 +1,64 @@
-Return-Path: <zzs213@126.com>
+Return-Path: <raj.khem@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 59BB2E00C88; Sun, 27 Jan 2019 08:33:23 -0800 (PST)
+	id 46D86E00C4E; Sun, 27 Jan 2019 08:34:49 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_00,BODY_URI_ONLY,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM autolearn=no version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (zzs213[at]126.com)
+	provider *      (raj.khem[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.160.194 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-	*  0.1 DKIM_INVALID DKIM or DK signature exists, but is not valid
-	* 1.0 BODY_URI_ONLY Message body is only a URI in one line of text or
-	for *      an image
-Received: from m15-41.126.com (m15-41.126.com [220.181.15.41])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47FC9E00B5C
-	for <poky@yoctoproject.org>; Sun, 27 Jan 2019 08:33:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=NneK+
-	xRDi3B7q0wHsvps7FCfrfTRbG5dA0PS+byH8Ow=; b=VlCSugFdiKfVMojn6krVm
-	7Tm4s2HditDbRjRIsZW0Ly6K+BQyKBluljOFfiDrwoRhsym4UcOuouav1x68XObH
-	uqd4kI5b1z8jPYrGDAhcuqCAgZM95B0ZeLk6xQhUfQ6OAYHRcRqOyXkPdmbeEVjD
-	XlsKKNM4+FsO+5jvXKOq5s=
-Received: from zzs213$126.com ( [223.87.208.229] ) by ajax-webmail-wmsvr41
-	(Coremail) ; Mon, 28 Jan 2019 00:33:14 +0800 (CST)
-X-Originating-IP: [223.87.208.229]
-Date: Mon, 28 Jan 2019 00:33:14 +0800 (CST)
-From: zzs  <zzs213@126.com>
-To: "Khem Raj" <raj.khem@gmail.com>
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
-	20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
-In-Reply-To: <CAMKF1sod+k=UWA35pNbJwTQCJW8mFj0ORqS44OSytwsnDrbv_w@mail.gmail.com>
+Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
+	[209.85.160.194])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DE159E00B5C
+	for <poky@yoctoproject.org>; Sun, 27 Jan 2019 08:34:48 -0800 (PST)
+Received: by mail-qt1-f194.google.com with SMTP id t33so15870689qtt.4
+	for <poky@yoctoproject.org>; Sun, 27 Jan 2019 08:34:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=2XPB9/NhQWffjI5rY0DhPYRhuH0m/xKxr6lIZ5sBfGw=;
+	b=YWICniF83+zD6Xn5KxWwKVkAYHVHst8jQvIdO/MPF3dUpO0zWNuuz+AOUzj+5y9/WD
+	OXlNDMOsPLRzMwUjM7nU9/TRO5W+nlOzh4WvENqzuR+Ry6kmbWW84mOatP9hMwErqs0M
+	x7Sx0HgaPbRXypL8Kdb0pAbrT4HR/V0rldATKzDduOz5mBbV3xlgkZSiNyZvHlRioHnt
+	mEFGBPYC+67etF4B5KkVVgLxeGN4AqvHa8HaGqPo3lduHBZIFICueBdYCNPVivguJm4b
+	hP8kxGpx/QFJZ0r7euKQIAKK6Eaf9C01ZKfX/q4fNj5EBmsQQ8nlxFYlTPg1GHbZ1RPV
+	iwCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=2XPB9/NhQWffjI5rY0DhPYRhuH0m/xKxr6lIZ5sBfGw=;
+	b=G481xrbo6tP8qn/VNbxzu7yIGuoOtWcBTKWHhsE7Vy1iymUQtPf8uK4PbtlmNPx/2W
+	XV5wuhic1Z2UD5sCCnhmNWavoZUlQx151S6BAPuOnZF+lFyg/6Nf8saEzXHbi69lrV9k
+	J21fIorctnFaYXWwUJIW5GK45ZVGH38nlN/hZxnd8Hn5NUXEkX8V7W+CrfDlDa0A+wl7
+	jBg/co482I8/4vjCMdz1RF7tgiiP9xCwW8K5ETEvWeA2NKr8G5e0sjSMUX4ANfbzlGEH
+	L3oqvBct8iUYrmZVdesgP8JaMep0nYLbuZSKOODJfIfcJk68DFXQC92AXEFdZ8objRkk
+	wGqg==
+X-Gm-Message-State: AJcUukcMs1moLwOWT0qRK1zugIOmpDIJxzvCywRYAHWQxCLstWUwEuXk
+	rPNysHIeHKudcuWpqQHPEtUaSFcvPOJMzSbhBA0=
+X-Google-Smtp-Source: ALg8bN4zj2T7VZjkR7F/vd0iShIFSphYLTrl8kDCmO1kcPFIJ7duDRiZ8XYbUej9Puawj6P0MVjaTxGcV38pWh8RpTU=
+X-Received: by 2002:aed:3eac:: with SMTP id n41mr18379276qtf.196.1548606887969;
+	Sun, 27 Jan 2019 08:34:47 -0800 (PST)
+MIME-Version: 1.0
 References: <4b42693.320.1688bd5449f.Coremail.zzs213@126.com>
 	<CAMKF1sod+k=UWA35pNbJwTQCJW8mFj0ORqS44OSytwsnDrbv_w@mail.gmail.com>
-MIME-Version: 1.0
-Message-ID: <18570e6d.3060.16890286bca.Coremail.zzs213@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: KcqowABXgmVL3U1cwroNAA--.11094W
-X-CM-SenderInfo: x22vjiat6rjloofrz/1tbi2wFJGVpD7pLBzQABsi
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+	<18570e6d.3060.16890286bca.Coremail.zzs213@126.com>
+In-Reply-To: <18570e6d.3060.16890286bca.Coremail.zzs213@126.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Sun, 27 Jan 2019 08:34:22 -0800
+Message-ID: <CAMKF1spO-zVL62QUHKv=4k5O572QhWmg-S4SNeStwLwcKvU0iA@mail.gmail.com>
+To: zzs <zzs213@126.com>
 Cc: poky <poky@yoctoproject.org>
 Subject: Re: howto select the version of meta-openembedded
 X-BeenThere: poky@yoctoproject.org
@@ -56,18 +73,26 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 27 Jan 2019 16:33:23 -0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+X-List-Received-Date: Sun, 27 Jan 2019 16:34:49 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-QXQgMjAxOS0wMS0yNyAwNDo1OTowNSwgIktoZW0gUmFqIiA8cmFqLmtoZW1AZ21haWwuY29tPiB3
-cm90ZToKPk9uIFNhdCwgSmFuIDI2LCAyMDE5IGF0IDEyOjU1IFBNIHp6cyA8enpzMjEzQDEyNi5j
-b20+IHdyb3RlOgo+Pgo+Pgo+PiBJIHdhbid0IHRvIHVzZSBwb2t5IGF0IHZlcnNpb24geW9jdG8t
-Mi42LiB3aGljaCB2ZXJzaW9uIG9mCj4+IG1ldGEtb3BlbmVtYmVkZGVkLmdpdCBzaG91bGQgYmUg
-dGhlIGJlc3QgbWF0Y2hlZCB2ZXJzaW9uPwo+Cj4yLjYgPSB0aHVkIGJyYW5jaCBpbiBnaXQgc28g
-dXNlIHRodWQgYnJhbmNoCj4KPmZvciB2ZXJzaW9uIHRvIGNvZGVuYW1lIG1hcHBpbmcgc2VlCj5o
-dHRwczovL3dpa2kueW9jdG9wcm9qZWN0Lm9yZy93aWtpL1JlbGVhc2VzCj4KQnV0IGluIG1ldGEt
-b3BlbmVtYmVkZGVkLmdpdCB0aGVyZSB3YXMgbm8gdGFnLCBvbmx5IGEgYnJhbmNoICJ0aHVkIiAs
-ClNvIHdoaWNoIGV4YWN0IGNvbW1pdCBzaG91bGQgYmUgdXNlZD8gQW55IGNvbW1pdCBvbiAidGh1
-ZCIgYnJhbmNoCmlzIE9LPw==
+On Sun, Jan 27, 2019 at 8:33 AM zzs <zzs213@126.com> wrote:
+>
+> At 2019-01-27 04:59:05, "Khem Raj" <raj.khem@gmail.com> wrote:
+> >On Sat, Jan 26, 2019 at 12:55 PM zzs <zzs213@126.com> wrote:
+> >>
+> >>
+> >> I wan't to use poky at version yocto-2.6. which version of
+> >> meta-openembedded.git should be the best matched version?
+> >
+> >2.6 = thud branch in git so use thud branch
+> >
+> >for version to codename mapping see
+> >https://wiki.yoctoproject.org/wiki/Releases
+> >
+> But in meta-openembedded.git there was no tag, only a branch "thud" ,
+> So which exact commit should be used? Any commit on "thud" branch
+> is OK?
+
+Yes tip of the branch is ok.
 
