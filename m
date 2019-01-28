@@ -1,61 +1,61 @@
-Return-Path: <pawan4749@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9BFE5E00C75; Sun, 27 Jan 2019 23:03:54 -0800 (PST)
+	id B7905E00CDD; Mon, 28 Jan 2019 03:01:08 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (pawan4749[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
 	no *      trust
-	*      [209.85.167.196 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
+	*      [209.85.166.181 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
-	[209.85.167.196])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 33014E00B5C;
-	Sun, 27 Jan 2019 23:03:54 -0800 (PST)
-Received: by mail-oi1-f196.google.com with SMTP id w13so12165231oiw.9;
-	Sun, 27 Jan 2019 23:03:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=YVWSLaElrPrzIsMF+yTdb3wjd/oOZgqFWVXGHB0Gr0Y=;
-	b=lCnmqAAlQ39/KtUAAwb2Bu6RUdn0wvHMg4zS9G8U21d3wxSVSjVUU66jkMF3hnOeQi
-	eCh46h4wLnjdRgh2mae9cFiWVVbqcXFYbNo0EoSigecV/umVYWqSSFhpsdhalWA16EHq
-	g90004Bhk+la4mD9vLe1pDj/SYYhf3MYVJMOM3sI1kRCHN7PQHXkdsN4/EFJS5cHtsGR
-	Uk6traqlUFJblcDqjGY0lQ9KwVHDyDO59/JcnWoFG9IIka9J6BnFItuBqj5RSDYe872E
-	wQfR8Xt/ZiUyylEY9hd0zVfhCmqHItiJ3XmPNYpfo9/zAzqpQjmJ3P3VpEkoibrS/91/
-	Hokg==
+Received: from mail-it1-f181.google.com (mail-it1-f181.google.com
+	[209.85.166.181])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5A52EE00CB9
+	for <poky@yoctoproject.org>; Mon, 28 Jan 2019 03:01:08 -0800 (PST)
+Received: by mail-it1-f181.google.com with SMTP id h193so18687878ita.5
+	for <poky@yoctoproject.org>; Mon, 28 Jan 2019 03:01:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=QJ2bAUB9szAGgRB+bjeOe4PLWx1BDkc11YDFeIDOTg4=;
+	b=T8hvP1rNPUIz2aoOm/t8v+kK4JYjey9kMlefMXiJ4pAf2lQivLgdNSOqIq1/km4wnd
+	poM8tCCo3EzeOeT2YGiDCbIRt207Y5cjBatyYk0bf48sQS3QwYhlzU5ToeqUDJZpUbvc
+	uWb9BVWsZTfPXw3nGnt3s3GU5umoUa+Bl/bvdnmCWrz/yALnpVnIOH4XVVdBMwC8kPeJ
+	9MVqzqzr6KtzNAJy9tBb386Zn6z7xeXTz9iri7wk4NLE1ToL5ZT1DrbkFryaLANDoiNI
+	yilZ/DCWpZN6zNSHJuUTXtPUxtRluliVLiKIbrJA9fuZtVXLqBCjRVAK4nXhteYU/vA7
+	PyUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=YVWSLaElrPrzIsMF+yTdb3wjd/oOZgqFWVXGHB0Gr0Y=;
-	b=gwXkrktrjaQ6SUVplPLtUbWwfZDnKpDhIiIAXv2/sd6V9W8/YEijRLShAx7aDWqGRf
-	ehZLuMxXx1JE8k8jDYn2tN6zhF8yciXj0WDDITSQlhjS2RL0+tlZQclCws9eWDthHX/a
-	mKpD+1e2JD6Plc7DgwkGOPceqfx+NPk2DoWLql5YHxhQoPpLl8xskLSxLsTfhwfObshI
-	6aReBtpYTcHIeXxAB2BnvXkVRff9OIuYnt2YnvLK9XqOEykg25fhHMOrCjJ6gfZjpuFG
-	c1Zs5Jac30VaXNwe4CNaP5s1IaQcdmYnHRJ7aNKRBiLySoiY7H8nGJZB3CBYCkuy/dgJ
-	LwDA==
-X-Gm-Message-State: AJcUukeEns/8g2QE+Fv4crnnHN09UJANBMROjU9yfnCjVRbBDVXAAKXC
-	F9ZamAIsRP6IgyDXCtC/OrJpD7jDYX+nTf01mcwYHA==
-X-Google-Smtp-Source: ALg8bN4kQWRt+BnTmbE2zO0UHn+dTCl2t6b4v7KWiCaXRxcLfyk0ISyBZpRG5ydLqQDYqWEROaXurIKdmX1lzEypu0M=
-X-Received: by 2002:aca:4d3:: with SMTP id 202mr5505149oie.345.1548659033295; 
-	Sun, 27 Jan 2019 23:03:53 -0800 (PST)
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=QJ2bAUB9szAGgRB+bjeOe4PLWx1BDkc11YDFeIDOTg4=;
+	b=d1/35bzBZycL3PWeLRBBHHDZpzBxJFdHjg13xTGvBl0DOgrkT8PzEcX+LDryCi4rxi
+	cuPj4Gcei0qmxFzwgOV2T8lyibKCjDjfaC/bOk5gqphxPlPYIT+XDow6bj8rFBtyO4Gd
+	8J1XHUP/ZihPylLYV1QUMX0Ybo4eFRqIxpI6eQH2IOn28K1r91V4yz05lx26xReLF0O4
+	X8C95VC5hn5p+fufvIVFkoKea2oQiIJ6dH8/0igkxG2RwYQRPW0IJ2Xwh+W2TCHlG7+R
+	zllu0LufQSWMYQB+dzK2G5+avV8jZndhSKt5R3dDHir68PuGC19I0vOKD1pDN+So8Jqy
+	kFmA==
+X-Gm-Message-State: AJcUukeSg7aiRg8xxE0GLk/EcGp3X7ad8DaiZo+PHkyPXkIHHUpOwpe0
+	8adHEw5Vi8QHpor/lFqD073Dqog4TztwbjH7XCQVcg==
+X-Google-Smtp-Source: ALg8bN5xK/CZQlopkFosNF5jnhGQskWiSk/5/p75CEScEhmK2lvvdpcnA+0Hr83/y7p7LlRSq7p6Y7wXmVnnCZ4eH/w=
+X-Received: by 2002:a02:1bc5:: with SMTP id 66mr13706181jas.105.1548673267916; 
+	Mon, 28 Jan 2019 03:01:07 -0800 (PST)
 MIME-Version: 1.0
-From: pawanKumar <pawan4749@gmail.com>
-Date: Mon, 28 Jan 2019 15:03:41 +0800
-Message-ID: <CALd6x_uvR57xrXKkxZi+Y_fLZXLcziEMsS_nyguJrnNymHeA-w@mail.gmail.com>
-To: yocto@yoctoproject.org, poky@yoctoproject.org
-Subject: Bitbake Issue in Yocto 2.7 M2 rc1:
+References: <CALd6x_uvR57xrXKkxZi+Y_fLZXLcziEMsS_nyguJrnNymHeA-w@mail.gmail.com>
+In-Reply-To: <CALd6x_uvR57xrXKkxZi+Y_fLZXLcziEMsS_nyguJrnNymHeA-w@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Mon, 28 Jan 2019 11:00:57 +0000
+Message-ID: <CAJTo0LYMH99W7sh10LEWs9v5bx96pbkAL3R-pe4J523SgL9aOQ@mail.gmail.com>
+To: pawanKumar <pawan4749@gmail.com>
+Cc: Yocto-mailing-list <yocto@yoctoproject.org>,
+	Poky Project <poky@yoctoproject.org>
+Subject: Re: Bitbake Issue in Yocto 2.7 M2 rc1:
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,34 +68,16 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Jan 2019 07:03:54 -0000
-Content-Type: multipart/alternative; boundary="0000000000008ed0eb05807f47fb"
-
---0000000000008ed0eb05807f47fb
+X-List-Received-Date: Mon, 28 Jan 2019 11:01:08 -0000
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Team,
+On Mon, 28 Jan 2019 at 07:04, pawanKumar <pawan4749@gmail.com> wrote:
+> While running bitbake command, I'm facing issue as:
+> Error: OE-cores config sanity checker detected a potential misconfiguaration.
+> Either fix the cause of this error or at your own risk disable the checker (see sanity.conf)
 
-While running bitbake command, I'm facing issue as:
-Error: OE-cores config sanity checker detected a potential
-misconfiguaration.
-Either fix the cause of this error or at your own risk disable the checker
-(see sanity.conf)
+Above that it would have said what the problem is, can you paste the
+entire output?
 
-Does the issue is in the build or in my system.(I have run in multiple
-systems)
+Ross
 
---0000000000008ed0eb05807f47fb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi Team,<div dir=3D"auto"><br></div><div dir=3D"auto">Whi=
-le running bitbake command, I&#39;m facing issue as:</div><div dir=3D"auto"=
->Error: OE-cores config sanity checker detected a potential misconfiguarati=
-on.</div><div dir=3D"auto">Either fix the cause of this error or at your ow=
-n risk disable the checker (see sanity.conf)</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto">Does the issue is in the build or in my system.(I have=
- run in multiple systems)</div><div dir=3D"auto"><br></div><div dir=3D"auto=
-"><br></div></div>
-
---0000000000008ed0eb05807f47fb--
