@@ -1,66 +1,69 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <trini@konsulko.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4718EE00CD6; Mon, 28 Jan 2019 03:09:39 -0800 (PST)
+	id A0035E00D08; Tue, 29 Jan 2019 10:20:40 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	DKIM_VALID, DKIM_VALID_AU,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (alex.kanavin[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.222.195 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.210.67 listed in list.dnswl.org]
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
-	[209.85.210.67])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CDA38E006B3;
-	Mon, 28 Jan 2019 03:09:38 -0800 (PST)
-Received: by mail-ot1-f67.google.com with SMTP id n8so14261211otl.6;
-	Mon, 28 Jan 2019 03:09:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=eUVwRkednJ6PcB5PZUBszdT9VQ/WrGRqaRofLtuf/5k=;
-	b=CpjHEhEBPmnVxWK5qMBBcRh0zM4Qq3LpJwank1AWV0fLaY5AAnbtwwjvvjaCPvnYtx
-	/DGc6BMBWNT4rifvO1fgtePu049qcUGeYfUdyg0EbCr7KV1PqaNFlDseDrQ95dXcRNof
-	oRvg8F2d0wrOFPz15TqzuXEAIBzQ20eoD4jtnriEd9/RKuWpOE6lEfLO0VtZ1F3wHfxx
-	xQDAxXL5j7tZDWRKCNHbOhhXL2MDYyJBkW1a/PnKUDe44PyQUlRp1UN5/gc+DQSe7Ey2
-	rJa4XMrZwQjYy5yqFFXKlXX6/SSru97LDLL+rX7y076zbzxQNFEczPp//XXx4mE+TMGp
-	9yHA==
+Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
+	[209.85.222.195])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1ABDBE00CE5
+	for <poky@yoctoproject.org>; Tue, 29 Jan 2019 10:20:35 -0800 (PST)
+Received: by mail-qk1-f195.google.com with SMTP id o8so12073817qkk.11
+	for <poky@yoctoproject.org>; Tue, 29 Jan 2019 10:20:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=konsulko.com; s=google;
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-disposition:in-reply-to:user-agent;
+	bh=NLzcamxBccgEqDU4Bi4jdf2k5zUiBIhhi/NgtKXL9m8=;
+	b=G+tkfhTy0nBd4H52dSGvktEPMQYyNSfLHMT9O8hLJ9iAE4UG8iLBd/U6+fkk0fZEHR
+	uSMCpfhqxM7PvRKbf8DRa/IvrP36qHni0eJz+6N4wMKEf5Rfpp5/Btp5SiA04Ve1syEQ
+	YvBBokR77EE0bZtxrbtmsBqWX616gZuOvwHy0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=eUVwRkednJ6PcB5PZUBszdT9VQ/WrGRqaRofLtuf/5k=;
-	b=YrAAIz/H2yS8Pi9EwUK0i+hhQ5VYzJaahTkkrzuMTUL3ouLzxekHhcxs7tkbeNnfIS
-	2oAppTbc6nXydjEvMtSsfaaovhOfLPoccSX7tzl1lwhwizQ9qc/9h3JUabR0XZfwyxiP
-	m/nuZsSlekw2qtrHd/3I0m+yPbkmlSpqSC51EY88yHiRSMBk4ERbnPkXXFx/XFDP65lE
-	ZuwEc4DX37D+mVTrlYXMtAqanByzeFgAuPFU2MQGz4OOLX5qdIP0NETnbr4Lpd9U9Wku
-	wgz1/Xq37jLDFLHjhJEHFI42xUMjP/eyb8wfgjUVnD/deIJbDlumonXpJlSm+mHGCDjS
-	J18A==
-X-Gm-Message-State: AJcUukfOC5yNl1UKryINdWYliRXmwpl1k4Z2gwDdIvyG2CBztH6bodQN
-	X/UrcbwBqDA87HIeFn2wre20tpeN8inOftu+32MSRQ==
-X-Google-Smtp-Source: ALg8bN425SlvYKjHyBPsjABiJbchK2Z6k8st/WWyvA8uBGGRpcNt2n4cox1kVxikmowKbeYJCfvaksLZKPtabHq0/HM=
-X-Received: by 2002:a9d:c06:: with SMTP id 6mr16576436otr.326.1548673778240;
-	Mon, 28 Jan 2019 03:09:38 -0800 (PST)
-MIME-Version: 1.0
-References: <1548670803-27762-1-git-send-email-Meng.Li@windriver.com>
-	<1548670803-27762-2-git-send-email-Meng.Li@windriver.com>
-In-Reply-To: <1548670803-27762-2-git-send-email-Meng.Li@windriver.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Mon, 28 Jan 2019 12:09:27 +0100
-Message-ID: <CANNYZj_k-Kp4Xnaa2LEdTXAybw72MGQ9EUNgbzaRNp45okkgEg@mail.gmail.com>
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to:user-agent;
+	bh=NLzcamxBccgEqDU4Bi4jdf2k5zUiBIhhi/NgtKXL9m8=;
+	b=UkCgeXVvl0WpPaEPf9lZOnwV9x5LasiBvT8aCY+KDBuAIhKLoa8uMOtELgBfar2xKn
+	4MF9tjDFviR88p+zVFWeRaoLpuGJ6DhyIB7eReQgEB/4INA0jG4mFXNepF2kfvjqeyhH
+	86apOHJfwh3NdTiOveDQPk8NmC8OmgsJ4UPdbpfgfoE9YzXoyI53a7b4HPb77yx3vKag
+	PI0zbFd1/ayOTmaUpkFWqmfkkeAMAcLY3sASpWgrytLDJk8DXZXAnB0t2384Uvci1jZ6
+	NOBsVi2P1xtDl6XnN3CMH81wBToqIN2LwkdEgir1QsYDE5wk3mnkNx1G4dWQDc+vbbyb
+	qC5Q==
+X-Gm-Message-State: AJcUukc9XklxP5vNO+DQtHZFKQTJlK07OE5kGW4nh3hUyZsWSSj+pH8D
+	2+tL3RUoIUKc+YPwOxm8b3CrFg==
+X-Google-Smtp-Source: ALg8bN4OItetil5cdp+sZqdZLSHhQ22MZms0Xt7rp3/8t0OQeV62evlDZ0kbUMuq2ZZxMXAY+2bRJw==
+X-Received: by 2002:a37:bb82:: with SMTP id
+	l124mr23911280qkf.188.1548786035248; 
+	Tue, 29 Jan 2019 10:20:35 -0800 (PST)
+Received: from bill-the-cat
+	(cpe-2606-A000-1401-82A1-65F7-71A-2422-73B.dyn6.twc.com.
+	[2606:a000:1401:82a1:65f7:71a:2422:73b])
+	by smtp.gmail.com with ESMTPSA id
+	o129sm70554392qke.5.2019.01.29.10.20.33
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Tue, 29 Jan 2019 10:20:33 -0800 (PST)
+Date: Tue, 29 Jan 2019 13:20:31 -0500
+From: Tom Rini <trini@konsulko.com>
 To: Meng.Li@windriver.com
-Cc: Yocto discussion list <yocto@yoctoproject.org>,
-	Poky Project <poky@yoctoproject.org>
-Subject: Re: [yocto] [PATCH] u-boot: update commit id to the latest one of u-boot upstream
+Message-ID: <20190129182031.GN30838@bill-the-cat>
+References: <1548670803-27762-1-git-send-email-Meng.Li@windriver.com>
+MIME-Version: 1.0
+In-Reply-To: <1548670803-27762-1-git-send-email-Meng.Li@windriver.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Cc: yocto@yoctoproject.org, poky@yoctoproject.org
+Subject: Re: [yocto] : [meta]: [recipes-bsp]: u-boot: update commit id to the latest one of u-boot upstream
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,19 +76,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Jan 2019 11:09:39 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Tue, 29 Jan 2019 18:20:40 -0000
+X-Groupsio-MsgNum: 11563
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="s8J8qjRpxLkp1Gun"
+Content-Disposition: inline
 
-On Mon, 28 Jan 2019 at 11:20, <Meng.Li@windriver.com> wrote:
+--s8J8qjRpxLkp1Gun
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jan 28, 2019 at 06:20:02PM +0800, Meng.Li@windriver.com wrote:
+
+> From: Limeng <Meng.Li@windriver.com>
+>=20
+> Hi Richard,
+>=20
+> Could you please help to merge this patch into meta/recipes-bsp/u-boot, b=
+ranch is master?
+>=20
 > There are 2 CVE issues fixing in latest u-boot upstream, so
 > update commit id to involve these fixing patches.
 
-We generally don't update commit id's to something random, as that
-means picking a source tree in the middle of a development cycle. If
-you want to update a component, please use a commit that has a version
-tag attached to it.
+With my U-Boot maintainer hat on, NAK.  While there are two CVEs that
+have been addressed now (and present for a long while) I would say both:
+- The issues themselves are not so catastrophic that you should move to
+  a pre-release (I haven't even tagged v2019.04-rc1 yet!) to get them
+  nor blindly back-port the changes.  I intentionally didn't apply them
+  to the last release as I expected unintended consequences.  Surprise!
+  There have been unintended consequences of those changes and I haven't
+  pulled in the changes for that just yet.
+- Even once the patches to address the CVEs are addressed, I don't see
+  why you would move to "top of tree" rather than as is normal practice
+  backport the changes.  Simon's fix here is a clear series in patchwork
+  (as well as git history) to apply as needed, if after evaluating the
+  CVEs it's something that you feel should be addressed in this way and
+  not with the workaround (telling U-Boot to load at most $X bytes).
 
-Also, the patch needs to go to oe-core mailing list.
+Thanks!
 
-Alex
+--=20
+Tom
 
+--s8J8qjRpxLkp1Gun
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJcUJlvAAoJEIf59jXTHXZSWLcQALljYTCWf8ylz/kOMVm6gdZ+
+QFrmkZN6XruF4kaDnGoVQG6tgMlzeX0gJaQJ8db9EtJhz8e/IRamGX6Hcow61Zax
+LZn3/Bp4FinjQDqbkN0tkALvsliwAAkVALQhItCUY1UhGMbyALVjUfmjwQ0xv5qt
+dvuNg2U/6qJbhWsydIzRYNu8B5+/y257EnpGVyP593cw94+u/3C/OL0gy+om6uQS
+Fxd9L34yNUDTCI35zPnO1I4wu1WnyCVc8JNmliFPEJ8djHGgOKPUxaBXT+cO45nR
+5rBzuG+KuoY2dgMS/lfjIs/YNHOXSIMEGyqVyCNrZQunjz9QVhLKeUR/uhn9qHgP
+Lny6qgoaSimEaDKpTYxbKhNpZooRnQgCfpBLjqzYnPtg/XTRvB+7V189Mckpf01/
+OijqvrSBFHVUASjFCfaPKI3ETkQxeZ1mvrPxR/2izEKl3BHnvS3OB+aVdkgkPxxO
+3DBCYHLa1/gTvizaIVTv0If7mSmwB/xRIlagWTQLWU5WpCAmePaOLwPyBiFTpJQZ
+a5iExkJfLmGMR/NpqdkdMlFHaOTYuC6CwL1E3Je+9+YD8V+BRf7X4Rhmcltjzv8g
+Q7Jc9uexipMkRW7rTGJdpgXuFmO+3IRslrWdLvD7lkMgycXnyoDG8Pyjfvh1xpGH
+66sp+MFNNeQwtrvf8epn
+=Uy14
+-----END PGP SIGNATURE-----
+
+--s8J8qjRpxLkp1Gun--
