@@ -1,66 +1,61 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <madhu1313b@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D7080E00CAD; Fri,  8 Feb 2019 15:31:05 -0800 (PST)
+	id 302C7E00CCA; Mon, 11 Feb 2019 22:41:17 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.128.67 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (madhu1313b[at]gmail.com)
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
-	[209.85.128.67])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9AD45E00C8F
-	for <poky@yoctoproject.org>; Fri,  8 Feb 2019 15:31:04 -0800 (PST)
-Received: by mail-wm1-f67.google.com with SMTP id r17so6110626wmh.5
-	for <poky@yoctoproject.org>; Fri, 08 Feb 2019 15:31:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-	:mime-version:content-transfer-encoding;
-	bh=vDLmS7RzwZ3oj3XbMPxxg4b0IqA+yDtIyEdvmetiBPs=;
-	b=LJiVmY+iUmdaqLC0msdRTcon3Kh1agr+cmJpQzPfSU5KPnD+/xCszKSAajdzuHxmMJ
-	dV2ASL04K6VM1+a4lRgwjk4h8bxhbeocqvPhZbUybZ0G+oINgLmUimnffquWr/+LJZse
-	DnqyWQEGKeA46wwQHrMWhT584i0MV3AreG5Ag=
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [209.85.160.172 listed in list.dnswl.org]
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+	[209.85.160.172])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 88282E00C50
+	for <poky@yoctoproject.org>; Mon, 11 Feb 2019 22:41:16 -0800 (PST)
+Received: by mail-qt1-f172.google.com with SMTP id w4so1789176qtc.1
+	for <poky@yoctoproject.org>; Mon, 11 Feb 2019 22:41:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=U2SkdeB0qt9s9ygm/3ju6pzah27X+p0F9WTGO4BKc3Y=;
+	b=DnZY/V9Dar24LC964hIdDiK6mZ7cuyF/MdkzTfs4TSuKuZTEVwMZ/RjEm/SykDQFWn
+	0EB6xBCwVOuqIul37P+Wi2akKo1WzrO2qNoEoTOu6lH8Sph3is0CEjPZpgyblHZ+CrIF
+	7Y0wNMQIwPAD0yvfM576oukLJDdgmm1iza/B9PLrOxHPhg1e94aoGSpjOIXTBYX8xmza
+	tIpDqlol6vHlDzBhGAHIORXj5D1GpYa6E3QdOXPt1ZzswUaHYHbe9iyNKTfq9luZ9VBq
+	Mlwa6kGLTFmoQTeuNbBQa8jxCtcPoi5dH/2xdwtRQhn6b0BXyZy8olZGeFetoZD+lfxH
+	7sYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-	:references:user-agent:mime-version:content-transfer-encoding;
-	bh=vDLmS7RzwZ3oj3XbMPxxg4b0IqA+yDtIyEdvmetiBPs=;
-	b=UYSzJFJJhdAMyTq94o4PWSC+WnteQQoy8apyY3mKSgP3OWh6FrHOVW4bGG2g01zpTo
-	lAj2bae77mEv8j6yF5MQzVm+C6X9yqMOW+ZNWWIERKZdq9Pquli7XEPQCOLNwwW+yFP5
-	oGRx4B0YRBjSeJRTV0WQvhmhFekIkM85UfNK3A9TwTCQi/ORJV72z3XvlJ52RkZ3rLHW
-	joBw/C5oUTsyB/25+CT7urmvmezYQj9eTtJRhIkf6JO5USBFaJSYvXpHOafqGjO1kkr+
-	Il2cnpp32YpEfcGtSeVO0YIrZyi1zc2pvFU5FyA6dRpY/NdPeyp34E6r0+LCJa32VEuc
-	Y8zg==
-X-Gm-Message-State: AHQUAuYLJKJUBAI8LOVzyVMQwYF8L6VVEd4PFchZ07h0hqvlq5tHviBn
-	LgPw/JhjFw1en1RFWG5YGKM6Qg==
-X-Google-Smtp-Source: AHgI3IZM5bbCRLzzgt6bFbMrCL4ShVuD32xOK80DaKyXjlA1zpnJnfmXXca5M9Hw1iB0+6hlTJBzjg==
-X-Received: by 2002:a5d:5289:: with SMTP id c9mr16766833wrv.11.1549668663689; 
-	Fri, 08 Feb 2019 15:31:03 -0800 (PST)
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-	by smtp.gmail.com with ESMTPSA id
-	z18sm2283447wml.36.2019.02.08.15.31.02
-	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Fri, 08 Feb 2019 15:31:02 -0800 (PST)
-Message-ID: <f2b548dcc420172e618b832bcfe364344de10c2c.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: William Bourque <wbourque@gmail.com>, poky@yoctoproject.org
-Date: Fri, 08 Feb 2019 23:31:01 +0000
-In-Reply-To: <CANBSh+ND=jB8ho1Y1KdE2hPC2NjE=DBUumefoAmzrGn3LU-QZg@mail.gmail.com>
-References: <CANBSh+ND=jB8ho1Y1KdE2hPC2NjE=DBUumefoAmzrGn3LU-QZg@mail.gmail.com>
-User-Agent: Evolution 3.30.4-1 
-Mime-Version: 1.0
-Subject: Re: [PATCH] wic: Various improvement in engine PATH
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=U2SkdeB0qt9s9ygm/3ju6pzah27X+p0F9WTGO4BKc3Y=;
+	b=DdQe+PHDe84ADAcx/UJCaLxX11j2ArspzeuEr8fac3U5me2VddC7GT73/p5N7kPEbR
+	nO60P/uJve6RlNqn4YozyeZ8Wl5DNn3dqBrIcdG/UCU804rGQ9/wC6xp4HSSd+lcxAn8
+	zf0HnkuXu6ZavLBZFaBKZVO3bDGhsuSjK3YiFez33M+FimKMaKzuky2SDu4EyIeQ63g4
+	tg2KOoqCn8wWGuVBn98Ml5ytshAr/op1U9bg/Xoi6Ha1lFXEMvOEuykQDlBE1CbpfQRk
+	2jCSnzxb2/LUixeFJGFqDxmrE3sv2sJSb4ev2asGju584CFyQqNpfEiYPmDXCceDSAgt
+	o8og==
+X-Gm-Message-State: AHQUAuaLfjPeHHS7I/lehXI3Db1sb9XN+c8J0XZAyBzqHZ+MHoTQ+gzN
+	5bIYgP61uTu9X8nJlzCcVkP3snEkheAJvxsFBm1uNVVA
+X-Google-Smtp-Source: AHgI3IY33pKpc/p//EpfbKQppTB57dKSvGXLaCohp/b7rolQjg7zC9S4CEJX0hMhhdZcqQFOOqaHE1i3EmK+iO3xn40=
+X-Received: by 2002:a0c:b8ac:: with SMTP id y44mr1546341qvf.76.1549953675783; 
+	Mon, 11 Feb 2019 22:41:15 -0800 (PST)
+MIME-Version: 1.0
+From: Madhu B <madhu1313b@gmail.com>
+Date: Tue, 12 Feb 2019 12:11:02 +0530
+Message-ID: <CAH5YvUtMEkHQCGZvrnviknkmwQBc_gVNC3cd2f7qb=kCCfk3Kw@mail.gmail.com>
+To: poky@yoctoproject.org
+Subject: Getting an syntax error with 'sed' in systemd-serialgetty.bb
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,36 +68,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Feb 2019 23:31:05 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 06:41:17 -0000
+Content-Type: multipart/alternative; boundary="0000000000004374520581acb6cb"
+
+--0000000000004374520581acb6cb
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
 
-On Fri, 2019-02-08 at 16:35 -0500, William Bourque wrote:
-> - Load PATH from environment variable PATH first
-> before falling back to hardcoded list.
-> This is required for users that would need to load
-> different e2fsprogs binaries if their system's ones
-> are not recent enought
-> 
-> - Use path to get system "echo" (typically /bin/echo)
-> instead of one internal to the shell.
-> System echo is safer to use since a lot of
-> distribution use minimal (ex: /bin/dash) that does not
-> support "-e" argument to echo.
-> 
-> Signed-off-by: William Bourque <wbourque@gmail.com>
-> ---
->  scripts/lib/wic/engine.py | 15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
+Hello everyone,
+                       While trying to build the AGL image, I am getting an
+syntax error lik e "sed: -e expression #1, char 19: unterminated `s'
+command".
 
-FWIW there is a slightly simpler version of a patch for this problem
-being discussed on the OE-Core mailing list using printf as a
-replacement for echo...
+With the below patch, I resolved that syntax error.
+diff --git a/meta/recipes-core/systemd/systemd-serialgetty.bb
+b/meta/recipes-core/systemd/systemd-serialgetty.bb
+index d934716..78b07c2 100644
+--- a/meta/recipes-core/systemd/systemd-serialgetty.bb
++++ b/meta/recipes-core/systemd/systemd-serialgetty.bb
+@@ -17,7 +17,7 @@ do_install() {
+                install -d ${D}${systemd_unitdir}/system/
+                install -d
+${D}${sysconfdir}/systemd/system/getty.target.wants/
+                install -m 0644 ${WORKDIR}/serial-getty@.service
+${D}${systemd_unitdir}/system/
+-               sed -i -e s/\@BAUDRATE\@/$default_baudrate/g
+${D}${systemd_unitdir}/system/serial-getty@.service
++               sed -i -e 's/\@BAUDRATE\@/$default_baudrate/g'
+${D}${systemd_unitdir}/system/serial-getty@.service
 
-OE-Core patches need to go to the openembedded-core list.
+                tmp="${SERIAL_CONSOLES}"
+                for entry in $tmp ; do
 
-Cheers,
+Is it really missed or am I missing anything?
 
-Richard
+Regards,
+-Madhu.
 
+--0000000000004374520581acb6cb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Hello everyone,</di=
+v><div>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 While tr=
+ying to build the AGL image, I am getting an syntax error lik e &quot;sed: =
+-e expression #1, char 19: unterminated `s&#39; command&quot;.</div><div><b=
+r></div><div>With the below patch, I resolved that syntax error.</div><div>=
+diff --git a/meta/recipes-core/systemd/<a href=3D"http://systemd-serialgett=
+y.bb">systemd-serialgetty.bb</a> b/meta/recipes-core/systemd/<a href=3D"htt=
+p://systemd-serialgetty.bb">systemd-serialgetty.bb</a><br>index d934716..78=
+b07c2 100644<br>--- a/meta/recipes-core/systemd/<a href=3D"http://systemd-s=
+erialgetty.bb">systemd-serialgetty.bb</a><br>+++ b/meta/recipes-core/system=
+d/<a href=3D"http://systemd-serialgetty.bb">systemd-serialgetty.bb</a><br>@=
+@ -17,7 +17,7 @@ do_install() {<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 install -d ${D}${system=
+d_unitdir}/system/<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 install -d ${D}${sysconfdir}/system=
+d/system/getty.target.wants/<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 install -m 0644 ${WORKDIR}=
+/serial-getty@.service ${D}${systemd_unitdir}/system/<br>-=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sed -=
+i -e s/\@BAUDRATE\@/$default_baudrate/g ${D}${systemd_unitdir}/system/seria=
+l-getty@.service<br>+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sed -i -e &#39;s/\@BAUDRATE\@/$default_baudr=
+ate/g&#39; ${D}${systemd_unitdir}/system/serial-getty@.service<br>=C2=A0<br=
+>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 tmp=3D&quot;${SERIAL_CONSOLES}&quot;<br>=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ for entry in $tmp ; do</div><div><br></div><div>Is it really missed or am =
+I missing anything?</div><div><br></div><div>Regards,</div><div>-Madhu.<br>=
+</div><div><br></div></div></div></div>
+
+--0000000000004374520581acb6cb--
