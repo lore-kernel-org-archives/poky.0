@@ -1,60 +1,62 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <i.efimov@inango-systems.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 34605E00CB6; Thu, 21 Feb 2019 04:38:07 -0800 (PST)
+	id D2C5EE00CCE; Fri, 22 Feb 2019 05:39:58 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
-	no *      trust
-	*      [209.85.166.68 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
-	[209.85.166.68])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1265EE00B92
-	for <poky@yoctoproject.org>; Thu, 21 Feb 2019 04:38:05 -0800 (PST)
-Received: by mail-io1-f68.google.com with SMTP id k21so1313429ior.13
-	for <poky@yoctoproject.org>; Thu, 21 Feb 2019 04:38:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=Zr/quT3OQDk+R86eaJF6N3pcV+bG7WZMG5Ovm7pHoNw=;
-	b=G77BH/coRiurqlklxeOrXCd0wa55OCcsdGzz8bNYLrDz3Mst50xYODYiXRNZLuk2h6
-	WujvvPbroTKAOVPyMLusfp3gd5BiAJvE9BrMuOufBv14pKDJTxC3UEyi2O0YjPsgxjPC
-	U+zHdjC/nOFgv72TsIqR+zo7LwNZ7GRfSsUmQ+bu47k3kkVd2gkmMxzj7iwfaKNeJNaY
-	/rsqNxHBE28Q51Wo6G6HlIJV6YHS3hf596dZwRw2qzfTlV2RvXSPbZ0o0DSkm9ibKhVP
-	tByOFE/4TthFCssC5RZXUF8tQUL/HQRTgPYVLMRtgA0OgStfCRe9gfvpFUkzdikQ2OFg
-	KKzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=Zr/quT3OQDk+R86eaJF6N3pcV+bG7WZMG5Ovm7pHoNw=;
-	b=W1swyMQMLVSNNh6b/1KM1/zfA6yRu7bI/uj2NGo7bm3nzvzPt1nce/DTARWfY27P8H
-	AdmQONFJYsab+WuNrojt97pVqzF7VKePhTQQNoxNSLXArO6oMLOL31FHHxepJL9cOyZX
-	a73Np4DrPi33ISk+gbkCT44um/bDfirrv7mgAFM/93F1+Y/sa4pwKLvL57A1OUCfJH1M
-	v4gxCI1Uoq/rEW8VcMkwS6FrdsEKHyvrAdreUcsV+mPFlrEDsfpB27ykDaMmsu5VB0b7
-	Dd76iUiaIZTfDDVSi5F4i4nCWiDOe/v5CKDLLWxDEoXi7hFvzetD4LPqGG8TiowwT+uI
-	Tk4Q==
-X-Gm-Message-State: AHQUAubLTk5N5ylWSYjqMUK+j14VHrICtXsIfQt6X3c1xBR88KT6I4Y/
-	bvICc1jifiPIczgDyy/kgVxP98HjLX8TrN3ekNnghQ==
-X-Google-Smtp-Source: AHgI3IafUKSAEWWg52RLoZLrSE4DZooAZPRFvSR/OtCBPEMcXm7zt93MkMpzNiH+SJVgNDM9jm5bNfYFAeCSnJ/b73E=
-X-Received: by 2002:a5d:818d:: with SMTP id u13mr21832312ion.20.1550752685359; 
-	Thu, 21 Feb 2019 04:38:05 -0800 (PST)
-MIME-Version: 1.0
+Received: from mail.inango-sw.com (mail.inango-systems.com [213.136.71.184])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6C9D7E00994
+	for <poky@yoctoproject.org>; Fri, 22 Feb 2019 05:39:57 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.inango-sw.com (Postfix) with ESMTP id 5D11D7A249E;
+	Fri, 22 Feb 2019 15:39:56 +0200 (IST)
+Received: from mail.inango-sw.com ([127.0.0.1])
+	by localhost (mail.inango-sw.com [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id qY9C4mJsgV9H; Fri, 22 Feb 2019 15:39:52 +0200 (IST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.inango-sw.com (Postfix) with ESMTP id 0F6817A2499;
+	Fri, 22 Feb 2019 15:39:52 +0200 (IST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.inango-sw.com 0F6817A2499
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inango-systems.com;
+	s=45A440E0-D841-11E8-B985-5FCC721607E0; t=1550842792;
+	bh=y/6aPwBrgRFlvQZeoVFut9xGuatvpSt5XDVldM/1EYI=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=WMPkJ/ue/b9tCfTQEdhYbONJ2D6xX3nGzmlt7MfAGZyeNAG42quznJQwi5YGZ4e3k
+	w1dP3ZqNKlVEoGQuTKhE0jO3iNNnm/PmtjK3eA4QO9vsWyxxuOTyOssS29VTRQiN/E
+	N/BAUrBd7rQ+jKddFBzjU0jx+c2q88aq8/vBqsSBo2w21MMWt3jOhbZ+6f3eYU4Jdq
+	+/DdddjLPGYLIPvH7t2Cdf9QuR+Hs5MHmDrAtwvVpuz4XpV4m8z6gBwcVjIOobYzgt
+	oqE4fmt6CrpbWf0YMWcIhi0L7QAN4Sh/5WPiFV8XhXe6SIv2G+An3vihyUYkrtBs4q
+	n91MG35QXYlMQ==
+X-Virus-Scanned: amavisd-new at inango-sw.com
+Received: from mail.inango-sw.com ([127.0.0.1])
+	by localhost (mail.inango-sw.com [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id VcLYNoFL7ylw; Fri, 22 Feb 2019 15:39:51 +0200 (IST)
+Received: from mail.inango-sw.com (mail.inango-sw.com [172.17.220.3])
+	by mail.inango-sw.com (Postfix) with ESMTP id DC31D7A2427;
+	Fri, 22 Feb 2019 15:39:51 +0200 (IST)
+Date: Fri, 22 Feb 2019 15:39:51 +0200 (IST)
+From: Ivan Efimov <i.efimov@inango-systems.com>
+To: "Burton, Ross" <ross.burton@intel.com>
+Message-ID: <1900051135.1108421.1550842791845.JavaMail.zimbra@inango-systems.com>
+In-Reply-To: <CAJTo0LZpKBCGTKGH3bU_gsWkuWsEUkySg31oCdRRYZfag+OqJg@mail.gmail.com>
 References: <1780990602.1036136.1550651634177.JavaMail.zimbra@inango-systems.com>
-In-Reply-To: <1780990602.1036136.1550651634177.JavaMail.zimbra@inango-systems.com>
-From: "Burton, Ross" <ross.burton@intel.com>
-Date: Thu, 21 Feb 2019 12:37:52 +0000
-Message-ID: <CAJTo0LZpKBCGTKGH3bU_gsWkuWsEUkySg31oCdRRYZfag+OqJg@mail.gmail.com>
-To: Ivan Efimov <i.efimov@inango-systems.com>
-Cc: Architecture group <arch@inango-systems.com>,
-	Poky Project <poky@yoctoproject.org>
+	<CAJTo0LZpKBCGTKGH3bU_gsWkuWsEUkySg31oCdRRYZfag+OqJg@mail.gmail.com>
+MIME-Version: 1.0
+X-Originating-IP: [172.17.220.3]
+X-Mailer: Zimbra 8.8.9_GA_3006 (ZimbraWebClient - FF65 (Linux)/8.8.9_GA_3006)
+Thread-Topic: btrfs-tools Makefile: 1) remove duplicate of '-o $@' option from
+	CC cmdline; 2) disable "bttfs-fragments" tool compilation
+Thread-Index: lfcLXt9jdN493ADmk6HNL/+2ty9blw==
+Cc: Architecture group <arch@inango-systems.com>, poky <poky@yoctoproject.org>
 Subject: Re: [PATCH 1/1] btrfs-tools Makefile: 1) remove duplicate of '-o $@' option from CC cmdline; 2) disable "bttfs-fragments" tool compilation
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -68,8 +70,23 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Feb 2019 12:38:07 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Fri, 22 Feb 2019 13:39:58 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+Hi, Ross,
+
+Thanks, i'll find the answer for your question and send my patch to openembedded-core@lists.openembedded.org.
+
+Best regards,
+Ivan
+
+----- Original Message -----
+From: "Burton, Ross" <ross.burton@intel.com>
+To: "Ivan Efimov" <i.efimov@inango-systems.com>
+Cc: "poky" <poky@yoctoproject.org>, "Architecture group" <arch@inango-systems.com>
+Sent: Thursday, February 21, 2019 5:37:52 PM
+Subject: Re: [poky] [PATCH 1/1] btrfs-tools Makefile: 1) remove duplicate of '-o $@' option from CC cmdline; 2) disable "bttfs-fragments" tool compilation
 
 oe-core patches to go the openembedded-core@lists.openembedded.org mailing list.
 
@@ -171,4 +188,11 @@ On Wed, 20 Feb 2019 at 08:41, Ivan Efimov <i.efimov@inango-systems.com> wrote:
 > poky mailing list
 > poky@yoctoproject.org
 > https://lists.yoctoproject.org/listinfo/poky
+-- 
+[ https://inango.com/ |    ] 
+Ivan Efimov 
+Architect, Arch Group 
+i.efimov@inango-systems.com 
+T +7 343 298 0147 C +7 904 9 888 350 
+[ https://inango.com/ | inango.com ] [ https://www.linkedin.com/company/inango ]
 
