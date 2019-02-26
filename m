@@ -1,35 +1,67 @@
-Return-Path: <naveen.kumar.saini@intel.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9C7FEE00D01; Tue, 26 Feb 2019 02:36:18 -0800 (PST)
+	id 481FFE00A0C; Tue, 26 Feb 2019 06:57:16 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=BAYES_00, DATE_IN_PAST_06_12, 
-	RCVD_IN_DNSWL_HI autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 1.5 DATE_IN_PAST_06_12 Date: is 6 to 12 hours before Received: date
-	* -5.0 RCVD_IN_DNSWL_HI RBL: Sender listed at http://www.dnswl.org/,
-	high *      trust
-	*      [134.134.136.65 listed in list.dnswl.org]
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8FAFCE00D00
-	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 02:36:17 -0800 (PST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-	by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	26 Feb 2019 02:36:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,415,1544515200"; d="scan'208";a="322187185"
-Received: from optimus-prime.png.intel.com ([172.30.199.130])
-	by fmsmga006.fm.intel.com with ESMTP; 26 Feb 2019 02:36:15 -0800
-From: Naveen Saini <naveen.kumar.saini@intel.com>
-To: poky@yoctoproject.org
-Date: Tue, 26 Feb 2019 10:37:17 +0800
-Message-Id: <20190226023717.15760-1-naveen.kumar.saini@intel.com>
-X-Mailer: git-send-email 2.17.0
-Subject: [meta-yocto-bsp][PATCH 2/2] linux-yocto: update genericx86* SRCREV for 4.19
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at http://www.dnswl.org/,
+	no *      trust
+	*      [195.60.68.11 listed in list.dnswl.org]
+Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D6B98E00546
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 06:57:13 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+	by bastet.se.axis.com (Postfix) with ESMTP id C838C184D0
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 15:57:12 +0100 (CET)
+X-Axis-User: NO
+X-Axis-NonUser: YES
+X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
+Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
+	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
+	port 10024) with LMTP id vXGmafBP-JR4 for <poky@yoctoproject.org>;
+	Tue, 26 Feb 2019 15:57:11 +0100 (CET)
+Received: from boulder02.se.axis.com (boulder02.se.axis.com [10.0.8.16])
+	by bastet.se.axis.com (Postfix) with ESMTPS id C73011810B
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 15:57:11 +0100 (CET)
+Received: from boulder02.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A84411A07B
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 15:57:11 +0100 (CET)
+Received: from boulder02.se.axis.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9D21E1A067
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 15:57:11 +0100 (CET)
+Received: from seth.se.axis.com (unknown [10.0.2.172])
+	by boulder02.se.axis.com (Postfix) with ESMTP
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 15:57:11 +0100 (CET)
+Received: from XBOX03.axis.com (xbox03.axis.com [10.0.5.17])
+	by seth.se.axis.com (Postfix) with ESMTP id 90F8E2109
+	for <poky@yoctoproject.org>; Tue, 26 Feb 2019 15:57:11 +0100 (CET)
+Received: from XBOX04.axis.com (10.0.5.18) by XBOX03.axis.com (10.0.5.17) with
+	Microsoft SMTP Server (TLS) id 15.0.1365.1;
+	Tue, 26 Feb 2019 15:57:11 +0100
+Received: from XBOX04.axis.com ([fe80::210a:724b:68cb:a917]) by
+	XBOX04.axis.com ([fe80::210a:724b:68cb:a917%22]) with mapi id
+	15.00.1365.000; Tue, 26 Feb 2019 15:57:11 +0100
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky] [PATCH] local.conf.sample.extended: Use IMAGE_CLASSES to
+	inherit extrausers
+Thread-Index: AQHUrhFmvIYeNQ2RpES8uAR93ciB3aXyaWBg
+Date: Tue, 26 Feb 2019 14:57:11 +0000
+Message-ID: <fba406cf22174925bfa81903b3f54cf2@XBOX04.axis.com>
+References: <20190117025500.10922-1-pkj@axis.com>
+In-Reply-To: <20190117025500.10922-1-pkj@axis.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.0.5.60]
+MIME-Version: 1.0
+X-TM-AS-GCONF: 00
+Subject: Re: [PATCH] local.conf.sample.extended: Use IMAGE_CLASSES to	inherit extrausers
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,42 +74,75 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Feb 2019 10:36:18 -0000
+X-List-Received-Date: Tue, 26 Feb 2019 14:57:16 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Bump to kernel release v4.19.19
+*ping*
 
-Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
----
- .../recipes-kernel/linux/linux-yocto_4.19.bbappend        | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+I was going to include a link to patchwork for this patch, but I=20
+cannot find it. Actually, I cannot find where meta-poky and patches=20
+sent to this mailing list are tracked at all...
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-index 8e708cb664..6025230c73 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-@@ -8,8 +8,8 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine_genericx86    ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
--SRCREV_machine_genericx86-64 ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
-+SRCREV_machine_genericx86    ?= "11e0e616ed095bb8012e1b4a231254c9656a0193"
-+SRCREV_machine_genericx86-64 ?= "11e0e616ed095bb8012e1b4a231254c9656a0193"
- SRCREV_machine_edgerouter ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
- SRCREV_machine_beaglebone-yocto ?= "eebb51300a07804a020ec468b5f8c5bf720198d9"
- SRCREV_machine_mpc8315e-rdb ?= "8b60f968823256f5d2889c4520d70299ca21411b"
-@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
--LINUX_VERSION_genericx86 = "4.19.14"
--LINUX_VERSION_genericx86-64 = "4.19.14"
-+LINUX_VERSION_genericx86 = "4.19.19"
-+LINUX_VERSION_genericx86-64 = "4.19.19"
- LINUX_VERSION_edgerouter = "4.19.14"
- LINUX_VERSION_beaglebone-yocto = "4.19.14"
- LINUX_VERSION_mpc8315e-rdb = "4.19.14"
--- 
-2.17.0
+//Peter
+
+> -----Original Message-----
+> From: poky-bounces@yoctoproject.org <poky-bounces@yoctoproject.org> On Be=
+half Of Peter Kjellerstedt
+> Sent: den 17 januari 2019 03:55
+> To: poky@yoctoproject.org
+> Subject: [poky] [PATCH] local.conf.sample.extended: Use IMAGE_CLASSES to =
+inherit extrausers
+>=20
+> Since the extrausers class is only useful for image recipes, it is
+> better to suggest adding it via IMAGE_CLASSES instead of INHERIT in the
+> example.
+>=20
+> Also make the example a bit more readable by indenting the variable
+> values.
+>=20
+> Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+> ---
+>  meta-poky/conf/local.conf.sample.extended | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/l=
+ocal.conf.sample.extended
+> index 3ba99f4896..696275b4af 100644
+> --- a/meta-poky/conf/local.conf.sample.extended
+> +++ b/meta-poky/conf/local.conf.sample.extended
+> @@ -290,18 +290,18 @@
+>=20
+>  # Image level user/group configuration.
+>  # Inherit extrausers to make the setting of EXTRA_USERS_PARAMS effective=
+.
+> -#INHERIT +=3D "extrausers"
+> +#IMAGE_CLASSES +=3D "extrausers"
+>  # User / group settings
+> -# The settings are sperated by the ; character.
+> +# The settings are separated by the ; character.
+>  # Each setting is actually a command. The supported commands are useradd=
+,
+>  # groupadd, userdel, groupdel, usermod and groupmod.
+>  #EXTRA_USERS_PARAMS =3D "\
+> -#useradd -p '' tester; \
+> -#groupadd developers; \
+> -#userdel nobody; \
+> -#groupdel video; \
+> -#groupmod -g 1020 developers; \
+> -#usermod -s /bin/sh tester; \
+> +#    useradd -p '' tester; \
+> +#    groupadd developers; \
+> +#    userdel nobody; \
+> +#    groupdel video; \
+> +#    groupmod -g 1020 developers; \
+> +#    usermod -s /bin/sh tester; \
+>  #"
+>=20
+>  # Various packages dynamically add users and groups to the system at pac=
+kage
+> --
+> 2.12.0
 
 
