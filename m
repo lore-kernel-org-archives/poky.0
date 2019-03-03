@@ -1,73 +1,111 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <Aditya.Tayade@kpit.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 192F3E00CB6; Sun,  3 Mar 2019 05:56:43 -0800 (PST)
+	id A7AD7E00CAB; Sun,  3 Mar 2019 09:21:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, MIME_QP_LONG_LINE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_NONE,
+	SPF_HELO_PASS autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (alex.kanavin[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.208.65 listed in list.dnswl.org]
-	* 0.0 MIME_QP_LONG_LINE RAW: Quoted-printable line longer than 76 chars
+	*      [40.107.138.89 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
-	[209.85.208.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 14649E00CA5
-	for <poky@yoctoproject.org>; Sun,  3 Mar 2019 05:56:40 -0800 (PST)
-Received: by mail-ed1-f65.google.com with SMTP id h58so2078116edb.5
-	for <poky@yoctoproject.org>; Sun, 03 Mar 2019 05:56:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:subject:from:in-reply-to:date:cc
-	:content-transfer-encoding:message-id:references:to;
-	bh=YEhVi3XCCWXVoeRAaVLkZ6SGKtmnSSn+TLeLifpxSqM=;
-	b=LB8BkJDBfXIKkXn5mNvFpXNhvEOPR7GIvn0eqRkh2RANnQOR74gQA+BVqI2Yw9flac
-	YbWhulKilHiKF/hO39rkvlp6UK7giEMUw14wnsEOYOjt+b223Rq99q0Ej9j43oQ833Wc
-	ea4lUFHZcBat3E5N6LYqRmYDIvdcmouOAu9Gwf/jHFyZ4PCXr40C9J2Phf7rWDNldwxN
-	B7YOMXRK11mSlvoRQv8r+Qv84IPtAxLY3YXgIWy0X0GI57/5Tv4dfuILrzRknbnFvmdo
-	cN2W3cYTNh6hyAd3EmyD3t1AhphBBZRdY1t+CrCx77zVpXKtiOT4IV4dQNYwocECGHQu
-	xQ3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
-	:content-transfer-encoding:message-id:references:to;
-	bh=YEhVi3XCCWXVoeRAaVLkZ6SGKtmnSSn+TLeLifpxSqM=;
-	b=PyA0ZnERZw8BCx9kNQhTT51z2KtvrA5KiDrwsCSf7NFC7S19QIBO18791XHc0MOVkj
-	fu1Rng7rfhH1XXksir7tIuxUz8UlBK4IgKbvpoMi7cFglFnuwUh59Vk9RDyLCBRsg9Z6
-	tVoEceI1whmrjTwoQMFai3tFWICKXxZFTN9oCaqUbZTrY0+Dju+5I57jRzZ7gkasAKjj
-	RaBtYd0yOSw3X7CCCjXCKiVwLCMIqnP62akUmC6/YuWubH0scZYZgBdbbuSfh8dNHGzN
-	jxYOUexjAk6tbefd7HYLaChBBhH6KEkRXedDisyLFxG7XsCkcEhq2amyiMOTCqY16+NB
-	Rg/g==
-X-Gm-Message-State: APjAAAWxO48AECJWxUjm3o2Uwa070xd0YWObOm6bIh/QPBfmlPF1LfK3
-	tRovYYo79PKli/ZbR2IPpbI=
-X-Google-Smtp-Source: APXvYqwhUqiQDi3ODJF4LAZpjj61URY7DzGqCmHAoOFDVUO5YLHafUsMMLfUFMdEMnxa74zmct8AOw==
-X-Received: by 2002:a50:a55d:: with SMTP id z29mr11900562edb.269.1551621399196;
-	Sun, 03 Mar 2019 05:56:39 -0800 (PST)
-Received: from ?IPv6:2a02:8109:b5c0:1a5d:2ca4:650b:74a1:da5d?
-	([2a02:8109:b5c0:1a5d:2ca4:650b:74a1:da5d])
-	by smtp.gmail.com with ESMTPSA id
-	ay12sm674988ejb.66.2019.03.03.05.56.38
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Sun, 03 Mar 2019 05:56:38 -0800 (PST)
-Mime-Version: 1.0 (1.0)
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-X-Mailer: iPhone Mail (16D57)
-In-Reply-To: <1551619978-3899-1-git-send-email-Aditya.Tayade@kpit.com>
-Date: Sun, 3 Mar 2019 14:56:37 +0100
-Message-Id: <C1BF35BF-4076-4FAF-8CDB-72512F93E8AC@gmail.com>
-References: <1551619978-3899-1-git-send-email-Aditya.Tayade@kpit.com>
-To: Aditya Tayade <Aditya.Tayade@kpit.com>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [meta][sumo][PATCH] lighttpd: added ptest
+X-Greylist: delayed 37172 seconds by postgrey-1.32 at yocto-www;
+	Sun, 03 Mar 2019 09:21:39 PST
+Received: from IND01-MA1-obe.outbound.protection.outlook.com
+	(mail-eopbgr1380089.outbound.protection.outlook.com [40.107.138.89])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1AFA2E007B3
+	for <poky@yoctoproject.org>; Sun,  3 Mar 2019 09:21:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kpit.com; s=selector2; 
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+	bh=M9fP9DiVw+ZbKEAWiT9JMMix1C/By+/CAdcGR8R6lQ0=;
+	b=OSWJT77BS8GeD2GkLQGPPV6cgkkCURw2TakdWE7joftAeu/X4uOZxhpGL8n4O7A8aEc2amylEPiMUxsvqDic9N4R48NOChEyH65gihWI/vbg3W4eUzvxRdAKdHeOw/Q/zFs0+8EOGcppjak+u7SnziIZhrk3enJTb4Un8zLV+e0=
+Received: from BMXPR01MB0854.INDPRD01.PROD.OUTLOOK.COM (10.174.216.146) by
+	BMXPR01MB2229.INDPRD01.PROD.OUTLOOK.COM (20.178.168.11) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.1665.18; Sun, 3 Mar 2019 06:47:38 +0000
+Received: from BMXPR01MB0854.INDPRD01.PROD.OUTLOOK.COM
+	([fe80::fd31:8a8e:b35e:2c6]) by BMXPR01MB0854.INDPRD01.PROD.OUTLOOK.COM
+	([fe80::fd31:8a8e:b35e:2c6%6]) with mapi id 15.20.1665.019;
+	Sun, 3 Mar 2019 06:47:38 +0000
+From: Aditya Tayade <Aditya.Tayade@kpit.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: [poky][meta][sumo][PATCH] run-ptest: fix testcase test-names
+	failure
+Thread-Index: AQHU0Yz98ua8gdjAj0mMrNor4gWimQ==
+Date: Sun, 3 Mar 2019 06:47:37 +0000
+Message-ID: <1551595632-15982-1-git-send-email-Aditya.Tayade@kpit.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: MAXPR0101CA0038.INDPRD01.PROD.OUTLOOK.COM
+	(2603:1096:a00:d::24) To BMXPR01MB0854.INDPRD01.PROD.OUTLOOK.COM
+	(2603:1096:b00:11::18)
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=Aditya.Tayade@kpit.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-mailer: git-send-email 2.7.4
+x-originating-ip: [117.228.211.141]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 25c94ebf-3ab1-47ca-06ce-08d69fa41f9e
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600127)(711020)(4605104)(4618075)(2017052603328)(7153060)(7193020);
+	SRVR:BMXPR01MB2229; 
+x-ms-traffictypediagnostic: BMXPR01MB2229:
+x-microsoft-exchange-diagnostics: =?iso-8859-1?Q?1; BMXPR01MB2229;
+	23:9MW2ywAnxDLks3J6cpd/LJVrfcA+permaf80zWT?=
+	=?iso-8859-1?Q?5foqQCw6k8x+wiNhSGguYjuxpaFERlWO5YcXRFps9NASpGyWIcFEzCpr3a?=
+	=?iso-8859-1?Q?PuFoP8zdAOUNxGH6F5EfmltxstRE5axuzLcoNFz1NIlqKIg/8mxHxdK468?=
+	=?iso-8859-1?Q?glf9x+BLK1IighCnOlMXh7mqUMOrHeLj/m2x/QKyDbhH56+tvolli5tpUU?=
+	=?iso-8859-1?Q?bQfeW4IRwaAuVlwr5JDgjlquSydVsRgp+m9DXfFQJZV9PsuRgrC97+s188?=
+	=?iso-8859-1?Q?CJXQ6goOUEKxGtpZv/DD/QqcqSdVkLBN0FgQjH2DmKFoBMHDIVEwCPviU9?=
+	=?iso-8859-1?Q?NxJxtft5j5ETs4Q7yAIcZNfSekcZ3ITqSc4ZyQiyTxvbktzVRmJltuaZmp?=
+	=?iso-8859-1?Q?M2jk5gSURDjeBKqIjKlPu8TtjLKehDNr5zdmN5piSK7tiY25psxuC3XQ7l?=
+	=?iso-8859-1?Q?rSc/WSEE+qWaTtQGDYPB/yovLaBSDTg7x5W1fmXBdjcaMaZsaYvRuGkyVm?=
+	=?iso-8859-1?Q?aUe2K2n4vEhZeTELF4UHDOuxqp1pqsPnS6mGEd6S6GBjcrYrmNTh0IcORX?=
+	=?iso-8859-1?Q?hVmbhEKaFUira1B4/Ro1twodNJVEhagqxLXh9t7ZE0xQijsQgDBi4W5DsY?=
+	=?iso-8859-1?Q?mN7k8mAKQGNFz0YMQZt08yBLbJ5I/+j0hHRJkAoWIofjQFPIQtWg/08TGv?=
+	=?iso-8859-1?Q?zECGgmj6QUW2/KM5yDpUTH6LVzAvR//PwYZ7D0mq2zhE/i+ioBXGPYn7v/?=
+	=?iso-8859-1?Q?HhlBPpMKOYFacxsH2C7ScsCTN401pWWQgtmHfAYJ0jIK4vLS4ERrW2FgWM?=
+	=?iso-8859-1?Q?jpXIz5ckKyCorqRRmu/1xptjVm0si9N3MOevwhK9B3Awwll1A2P4TyIfxS?=
+	=?iso-8859-1?Q?Bpb4lx4auEtA2hJanX4BcfU3IBan1xEsqEIc+/GR6kA707QguoA3NGUpVJ?=
+	=?iso-8859-1?Q?BTK7KwxiET5t8wwXHRecpfX3M4PutazsEhta5JSJ/CTn3xM9bSAWUHnaNQ?=
+	=?iso-8859-1?Q?H07OREfPFQ+FGnHtFIe0sj7iMbjxNUlGeOKNvpiZNneazIrB+yXv9WWF+t?=
+	=?iso-8859-1?Q?jRVKcu94/6eloPbJpbsaWOj6uLgnmLg9o8uCBnRcqS3mVGOeNjaaxDLg/6?=
+	=?iso-8859-1?Q?KkZFieJjB7G82RhtxWk1xW2JIG4kX40NSQdePjEzsWf2wfTSApYDOc8giH?=
+	=?iso-8859-1?Q?/PNatSyY08Sa239xxIV4sWrZLXJSAelPfDe6fpvdnnZ0ge2xUugUkbt/eV?=
+	=?iso-8859-1?Q?lGt6hCZtunlf9Hhbd8N+eB6f3I3fQVhz34OaJVVQsDdg3NXA1PDuRdKmQf?=
+	=?iso-8859-1?Q?EGL1yZTbKwdNT59r1Hf19k2?=
+x-microsoft-antispam-prvs: <BMXPR01MB2229BAE89FD940D9331B391A91700@BMXPR01MB2229.INDPRD01.PROD.OUTLOOK.COM>
+x-forefront-prvs: 096507C068
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10009020)(136003)(39850400004)(366004)(376002)(396003)(346002)(199004)(189003)(36756003)(52116002)(99286004)(66066001)(71200400001)(486006)(68736007)(71190400001)(7736002)(2906002)(256004)(186003)(8676002)(14444005)(26005)(2616005)(476003)(6116002)(3846002)(316002)(53936002)(5660300002)(305945005)(6916009)(386003)(6506007)(14454004)(102836004)(6486002)(5640700003)(50226002)(25786009)(8936002)(97736004)(81156014)(66574012)(478600001)(81166006)(72206003)(6436002)(4326008)(107886003)(86362001)(2501003)(2351001)(105586002)(106356001)(6512007)(1730700003);
+	DIR:OUT; SFP:1101; SCL:1; SRVR:BMXPR01MB2229;
+	H:BMXPR01MB0854.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None;
+	LANG:en; PTR:InfoNoRecords; A:1; MX:3; 
+received-spf: None (protection.outlook.com: kpit.com does not designate
+	permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: j1ddlzmjxv8OGFH6VwTAIwFAmsUSmZ7KG5u9f5h9LEkw4eHj5tTwGOqWv3EiS0GrG5KmZVz41PZcHSiKm53gL9zLIW254dhmFPj38HGcWVYlci3YMeoG3fg5F9eTPeQSpf7AWvdXQ+WF/Uv7UwURC5dtP441xBvJ2RKC4nwNEqjMQVFrIALVtlDh2noKzw3S2eZysWcZl6Ty9e0nGnNcIkKa91fMEPqrwh7iQoV07lQWT/LkN5hm57Y4aR7ssZXAmBSiFIV+d2MUIq/0K9lpnbVYVcFTBUGkC8E2bndiVSqiMD5xJy7Zs35qvJ8eOpa/hrsBmDau5F7uzIAwVYyyzBTrC0d+wh9b+afWhKZU43dSJ9bFUslXqQTuks6ym9u+3GKi0AEGS8F4dlBjT262DCiXwvAAcLmUz5V7CNw1K8U=
+MIME-Version: 1.0
+X-OriginatorOrg: kpit.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25c94ebf-3ab1-47ca-06ce-08d69fa41f9e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Mar 2019 06:47:37.9191 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3539451e-b46e-4a26-a242-ff61502855c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BMXPR01MB2229
+Subject: [meta][sumo][PATCH] run-ptest: fix testcase test-names failure
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -80,210 +118,47 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 03 Mar 2019 13:56:43 -0000
-Content-Type: text/plain;
-	charset=us-ascii
+X-List-Received-Date: Sun, 03 Mar 2019 17:21:41 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Thanks, this should be sent to openembedded-core mailing list.
+Start the dbus daemon first before executing test-names
+using dbus-launch, this will set DBUS_SESSION_BUS_ADDRESS.
 
-Alex
+ERROR:Failed to open connection to system bus: Using X11 for
+dbus-daemon autolaunch was disabled at compile time,
+set your DBUS_SESSION_BUS_ADDRESS instead
 
-> On 3 Mar 2019, at 14.33, Aditya Tayade <Aditya.Tayade@kpit.com> wrote:
->=20
-> Reused lighttpd internal tests and did minimal patching to fix paths.
->=20
-> Upstream-Status: Pending
->=20
-> Signed-off-by: Aditya Tayade <Aditya.Tayade@kpit.com>
-> ---
-> ...-use-standard-sbin-and-lib-path-for-ptest.patch | 37 ++++++++++++
-> meta/recipes-extended/lighttpd/lighttpd/run-ptest  |  4 ++
-> meta/recipes-extended/lighttpd/lighttpd_1.4.48.bb  | 66 ++++++++++++++++++=
-+++-
-> 3 files changed, 106 insertions(+), 1 deletion(-)
-> create mode 100644 meta/recipes-extended/lighttpd/lighttpd/0002-use-standa=
-rd-sbin-and-lib-path-for-ptest.patch
-> create mode 100644 meta/recipes-extended/lighttpd/lighttpd/run-ptest
->=20
-> diff --git a/meta/recipes-extended/lighttpd/lighttpd/0002-use-standard-sbi=
-n-and-lib-path-for-ptest.patch b/meta/recipes-extended/lighttpd/lighttpd/000=
-2-use-standard-sbin-and-lib-path-for-ptest.patch
-> new file mode 100644
-> index 0000000..cd4b2b3
-> --- /dev/null
-> +++ b/meta/recipes-extended/lighttpd/lighttpd/0002-use-standard-sbin-and-l=
-ib-path-for-ptest.patch
-> @@ -0,0 +1,37 @@
-> +lighttpd-ptest: use standard installation path
-> +
-> +ptest should do testing against installed library or executable
-> +at standard installation path, hence using standard installation
-> +path for MODULES_PATH and LIGHTTPD_PATH variables.
-> +
-> +Upsteam-Status: Pending
-> +
-> +Signed-off-by: Aditya Tayade <aditya.tayade@kpit.com>
-> +
-> +diff --git a/tests/LightyTest.pm b/tests/LightyTest.pm
-> +index 74caea1..2de02d0 100644
-> +--- a/tests/LightyTest.pm
-> ++++ b/tests/LightyTest.pm
-> +@@ -65,19 +65,10 @@ sub new {
-> + $lpath =3D (defined $ENV{'srcdir'} ? $ENV{'srcdir'} : '.');
-> + $self->{SRCDIR} =3D abs_path($lpath);
-> +
-> ++$self->{SBINDIR} =3D '/usr/sbin';
-> ++$self->{MODULES_PATH} =3D '/usr/lib';
-> +
-> +-if (mtime($self->{BASEDIR}.'/src/lighttpd') > mtime($self->{BASEDIR}.'/b=
-uild/lighttpd')) {
-> +-$self->{BINDIR} =3D $self->{BASEDIR}.'/src';
-> +-if (mtime($self->{BASEDIR}.'/src/.libs')) {
-> +-$self->{MODULES_PATH} =3D $self->{BASEDIR}.'/src/.libs';
-> +-} else {
-> +-$self->{MODULES_PATH} =3D $self->{BASEDIR}.'/src';
-> +-}
-> +-} else {
-> +-$self->{BINDIR} =3D $self->{BASEDIR}.'/build';
-> +-$self->{MODULES_PATH} =3D $self->{BASEDIR}.'/build';
-> +-}
-> +-$self->{LIGHTTPD_PATH} =3D $self->{BINDIR}.'/lighttpd';
-> ++$self->{LIGHTTPD_PATH} =3D $self->{SBINDIR}.'/lighttpd';
-> + $self->{PORT} =3D 2048;
-> +
-> + my ($name, $aliases, $addrtype, $net) =3D gethostbyaddr(inet_aton("127.0=
-.0.1"), AF_INET);
-> diff --git a/meta/recipes-extended/lighttpd/lighttpd/run-ptest b/meta/reci=
-pes-extended/lighttpd/lighttpd/run-ptest
-> new file mode 100644
-> index 0000000..b6781c0
-> --- /dev/null
-> +++ b/meta/recipes-extended/lighttpd/lighttpd/run-ptest
-> @@ -0,0 +1,4 @@
-> +#!/bin/bash
-> +
-> +make -C tests -k check-TESTS
-> +make -C src -k runtest-TESTS
-> diff --git a/meta/recipes-extended/lighttpd/lighttpd_1.4.48.bb b/meta/reci=
-pes-extended/lighttpd/lighttpd_1.4.48.bb
-> index 3c4444c..6a9677e 100644
-> --- a/meta/recipes-extended/lighttpd/lighttpd_1.4.48.bb
-> +++ b/meta/recipes-extended/lighttpd/lighttpd_1.4.48.bb
-> @@ -9,6 +9,42 @@ SECTION =3D "net"
-> RDEPENDS_${PN} =3D "lighttpd-module-dirlisting \
->                   lighttpd-module-indexfile \
->                   lighttpd-module-staticfile"
-> +
-> +RDEPENDS_${PN}-ptest +=3D "bash \
-> +                         ${PN} \
-> +                         ${PN}-module-compress \
-> +                         ${PN}-module-simple-vhost \
-> +                         ${PN}-module-rewrite \
-> +                         ${PN}-module-cgi \
-> +                         ${PN}-module-evhost \
-> +                         ${PN}-module-redirect \
-> +                         ${PN}-module-fastcgi \
-> +                         ${PN}-module-setenv \
-> +                         ${PN}-module-extforward \
-> +                         ${PN}-module-secdownload \
-> +                         ${PN}-module-auth \
-> +                         ${PN}-module-authn-file \
-> +                         ${PN}-module-status \
-> +                         ${PN}-module-expire \
-> +                         ${PN}-module-userdir \
-> +                         ${PN}-module-ssi \
-> +                         ${PN}-module-proxy \
-> +                         perl-module-tap-base \
-> +                         perl-module-tap-parser-sourcehandler-executable \=
+Upstream-Status: Pending
 
-> +                         perl-module-tap-formatter-file \
-> +                         perl-module-tap-formatter-file-session \
-> +                         perl-module-tap-formatter-base \
-> +                         perl-module-tap-formatter-session \
-> +                         perl-module-tap-formatter-console-session \
-> +                         perl-module-tap-parser-scheduler \
-> +                         perl-module-tap-parser \
-> +                         perl-module-io-socket \
-> +                         perl-module-test-more \
-> +                         perl-module-test-harness \
-> +                         perl-module-tap-object \
-> +                         perl-module-tap-formatter-console \
-> +                        "
-> +
-> RRECOMMENDS_${PN} =3D "lighttpd-module-access \
->                      lighttpd-module-accesslog"
->=20
-> @@ -18,6 +54,8 @@ SRC_URI =3D "http://download.lighttpd.net/lighttpd/relea=
-ses-1.4.x/lighttpd-${PV}.t
->         file://lighttpd \
->         file://lighttpd.service \
->         file://0001-Use-pkg-config-for-pcre-dependency-instead-of-config.p=
-atch \
-> +        file://run-ptest \
-> +        file://0002-use-standard-sbin-and-lib-path-for-ptest.patch \
->         "
->=20
-> SRC_URI[md5sum] =3D "1e3a9eb5078f481e3a8a1d0aaac8c3c8"
-> @@ -49,7 +87,7 @@ PACKAGECONFIG[lua] =3D "--with-lua,--without-lua,lua5.1"=
+Signed-off-by: Aditya Tayade <Aditya.Tayade@kpit.com>
+---
+ meta/recipes-core/dbus/dbus/run-ptest | 1 +
+ 1 file changed, 1 insertion(+)
 
->=20
-> EXTRA_OECONF +=3D "--enable-lfs"
->=20
-> -inherit autotools pkgconfig update-rc.d gettext systemd
-> +inherit autotools pkgconfig update-rc.d gettext systemd ptest
->=20
-> INITSCRIPT_NAME =3D "lighttpd"
-> INITSCRIPT_PARAMS =3D "defaults 70"
-> @@ -73,6 +111,32 @@ do_install_append() {
-> ln -sf ${localstatedir}/tmp ${D}/www/var
-> }
->=20
-> +do_install_ptest() {
-> +    t=3D"${D}${PTEST_PATH}"
-> +    for i in tests src
-> +    do
-> +        cp -r "${S}/${i}" "${t}"
-> +        cp -r "${B}/${i}"/* "${t}/${i}"
-> +        rm -rf "${t}/${i}"/*.lo "${t}/${i}"/*.la "${t}/${i}"/*.c "${t}/${=
-i}"/*.o "${t}/${i}"/*.h
-> +    done
-> +
-> +    install -D "${B}/${TARGET_PREFIX}libtool" "${t}/${TARGET_PREFIX}libto=
-ol"
-> +
-> +    # Remove build host references...
-> +    find "${t}" -name "Makefile" | xargs \
-> +    sed -i -e "s/^srcdir =3D \(.*\)/srcdir =3D ./" \
-> +           -e "s/^Makefile/_Makefile/" \
-> +           -e "s,--sysroot=3D${STAGING_DIR_TARGET},,g" \
-> +           -e "s/^abs_builddir =3D \(.*\)/abs_builddir =3D ./" \
-> +           -e "s/^abs_srcdir =3D \(.*\)/abs_srcdir =3D ./" \
-> +           -e "s/^top_srcdir =3D \(.*\)/abs_srcdir =3D ../" \
-> +           -e "s,${TARGET_PREFIX}gcc,gcc,g" \
-> +           -e "s/^abs_top_srcdir =3D \(.*\)/abs_top_srcdir =3D ./" \
-> +           -e "s,${S},,g" \
-> +           -e "s,${B},,g" \
-> +           -e "s,${STAGING_DIR_NATIVE},,g"
-> +}
-> +
-> FILES_${PN} +=3D "${sysconfdir} /www"
->=20
-> CONFFILES_${PN} =3D "${sysconfdir}/lighttpd.conf"
-> --
-> 2.7.4
->=20
-> This message contains information that may be privileged or confidential a=
-nd is the property of the KPIT Technologies Ltd. It is intended only for the=
- person to whom it is addressed. If you are not the intended recipient, you a=
-re not authorized to read, print, retain copy, disseminate, distribute, or u=
-se this message or any part thereof. If you receive this message in error, p=
-lease notify the sender immediately and delete all copies of this message. K=
-PIT Technologies Ltd. does not accept any liability for virus infected mails=
-.
-> --=20
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+diff --git a/meta/recipes-core/dbus/dbus/run-ptest b/meta/recipes-core/dbus=
+/dbus/run-ptest
+index 8a8970e..444ef4a 100755
+--- a/meta/recipes-core/dbus/dbus/run-ptest
++++ b/meta/recipes-core/dbus/dbus/run-ptest
+@@ -13,6 +13,7 @@ output() {
+ export DBUS_TEST_HOMEDIR=3D./test
+ export XDG_RUNTIME_DIR=3D./test
+ export LD_LIBRARY_PATH=3D/usr/lib/dbus-test/ptest/test/.libs
++export $(dbus-launch)
+
+ files=3D`ls test/test-*`
+
+--
+2.7.4
+
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print, retain copy, disseminate, distribute, o=
+r use this message or any part thereof. If you receive this message in erro=
+r, please notify the sender immediately and delete all copies of this messa=
+ge. KPIT Technologies Ltd. does not accept any liability for virus infected=
+ mails.
 
