@@ -1,55 +1,49 @@
-Return-Path: <naveen.kumar.saini@intel.com>
+Return-Path: <zzs213@126.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B9F37E00D28; Mon,  4 Mar 2019 19:15:59 -0800 (PST)
+	id 57C91E00D17; Tue,  5 Mar 2019 01:57:31 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	FROM_EXCESS_BASE64 autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
-	*      medium trust
-	*      [134.134.136.126 listed in list.dnswl.org]
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F29F4E00994
-	for <poky@yoctoproject.org>; Mon,  4 Mar 2019 19:15:58 -0800 (PST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-	by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	04 Mar 2019 19:15:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,442,1544515200"; d="scan'208";a="119644051"
-Received: from kmsmsx154.gar.corp.intel.com ([172.21.73.14])
-	by orsmga007.jf.intel.com with ESMTP; 04 Mar 2019 19:15:57 -0800
-Received: from pgsmsx110.gar.corp.intel.com (10.221.44.111) by
-	KMSMSX154.gar.corp.intel.com (172.21.73.14) with Microsoft SMTP Server
-	(TLS) id 14.3.408.0; Tue, 5 Mar 2019 11:15:53 +0800
-Received: from pgsmsx104.gar.corp.intel.com ([169.254.3.21]) by
-	PGSMSX110.gar.corp.intel.com ([169.254.13.64]) with mapi id
-	14.03.0415.000; Tue, 5 Mar 2019 11:15:54 +0800
-From: "Saini, Naveen Kumar" <naveen.kumar.saini@intel.com>
-To: "richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>
-Thread-Topic: [poky] [meta-yocto-bsp][PATCH 2/2] linux-yocto: update
-	genericx86*	SRCREV for 4.19
-Thread-Index: AQHUzb83BjO2Z/ga5U6Xzzu/LFwCVKX8Z6Aw
-Date: Tue, 5 Mar 2019 03:15:53 +0000
-Message-ID: <01DD17B194C1B04C82EA3CE2DD8BB29B0969F049@PGSMSX104.gar.corp.intel.com>
-References: <20190226023717.15760-1-naveen.kumar.saini@intel.com>
-In-Reply-To: <20190226023717.15760-1-naveen.kumar.saini@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOGMwNDg4ZDgtMWZjMy00NmNlLWI1MTgtZDY4NzZmM2UyZDFkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicFwvenk1SmdFMTZZRW9QWTQ4SzdYVnlVUk1KdmNvTDFhVk5OQlgycDRlQmF1MlZFVDVaVmk1VnhxWU1xZ1cyYWQifQ==
-x-originating-ip: [172.30.20.205]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (zzs213[at]126.com)
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	*  1.0 FROM_EXCESS_BASE64 From: base64 encoded unnecessarily
+X-Greylist: delayed 1887 seconds by postgrey-1.32 at yocto-www;
+	Tue, 05 Mar 2019 01:57:30 PST
+Received: from m15-112.126.com (m15-112.126.com [220.181.15.112])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7BF4FE00994
+	for <poky@yoctoproject.org>; Tue,  5 Mar 2019 01:57:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:Subject:Message-ID:Date:MIME-Version; bh=gLosh
+	bWN2svZaX5I1xnSqmG/20Cr8o+LHMrn/uBz41E=; b=iT/pS7CdyNQ7879sOlaCD
+	kRblsQSzZ1KkTZDXvAtCWSfefAeYkkBY0ZLnPP8SVqE2bX8XnfZZMAqGrbKMKKuD
+	eGH0Eqn8VvvLvqFMkAeoxu+fmDE3uFBkIfXoTprQ93/T2kdXSKz4pxu5WWssFo9s
+	orTJRvBKDGQKoS449XTyPk=
+Received: from [192.168.0.12] (unknown [218.89.233.124])
+	by smtp2 (Coremail) with SMTP id DMmowADnJnenQH5caz51EA--.267S2;
+	Tue, 05 Mar 2019 17:26:01 +0800 (CST)
+To: poky <poky@yoctoproject.org>
+From: =?UTF-8?B?5byg5b+g5bGx?= <zzs213@126.com>
+Message-ID: <75032b5a-7681-a5a7-40a8-53663832c288@126.com>
+Date: Tue, 5 Mar 2019 17:25:59 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.5.1
 MIME-Version: 1.0
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [meta-yocto-bsp][PATCH 2/2] linux-yocto: update genericx86*	SRCREV for 4.19
+X-CM-TRANSID: DMmowADnJnenQH5caz51EA--.267S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUD75rDUUUU
+X-Originating-IP: [218.89.233.124]
+X-CM-SenderInfo: x22vjiat6rjloofrz/1tbiLQluGVpD7NJE5QAAsV
+Subject: how to tune s5pv210
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -62,69 +56,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2019 03:15:59 -0000
+X-List-Received-Date: Tue, 05 Mar 2019 09:57:31 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-Please consider this patch too.
+My cpu is s5pv210
 
+When using yocto-2.5.2 with musl libc my cpu tune is:
 
+     DEFAULTTUNE_s5pv210 ?= "cortexa8hf-neon"
 
------Original Message-----
-From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
-On Behalf Of Naveen Saini
-Sent: Tuesday, February 26, 2019 10:37 AM
-To: poky@yoctoproject.org
-Subject: [poky] [meta-yocto-bsp][PATCH 2/2] linux-yocto: update genericx86*=
- SRCREV for 4.19
+It works OK
 
-Bump to kernel release v4.19.19
+Now I am using yocto-2.6.0 with newlib. With the same cpu tune. When 
+compile a file, gcc said:
 
-Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
----
- .../recipes-kernel/linux/linux-yocto_4.19.bbappend        | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+     cc1: error: -mfloat-abi=hard: selected processor lacks an FPU
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend =
-b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-index 8e708cb664..6025230c73 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
-@@ -8,8 +8,8 @@ KMACHINE_genericx86 ?=3D "common-pc"
- KMACHINE_genericx86-64 ?=3D "common-pc-64"
- KMACHINE_beaglebone-yocto ?=3D "beaglebone"
-=20
--SRCREV_machine_genericx86    ?=3D "eebb51300a07804a020ec468b5f8c5bf720198d=
-9"
--SRCREV_machine_genericx86-64 ?=3D "eebb51300a07804a020ec468b5f8c5bf720198d=
-9"
-+SRCREV_machine_genericx86    ?=3D "11e0e616ed095bb8012e1b4a231254c9656a019=
-3"
-+SRCREV_machine_genericx86-64 ?=3D "11e0e616ed095bb8012e1b4a231254c9656a019=
-3"
- SRCREV_machine_edgerouter ?=3D "eebb51300a07804a020ec468b5f8c5bf720198d9"
- SRCREV_machine_beaglebone-yocto ?=3D "eebb51300a07804a020ec468b5f8c5bf7201=
-98d9"
- SRCREV_machine_mpc8315e-rdb ?=3D "8b60f968823256f5d2889c4520d70299ca21411b=
-"
-@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter =3D "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto =3D "beaglebone-yocto"
- COMPATIBLE_MACHINE_mpc8315e-rdb =3D "mpc8315e-rdb"
-=20
--LINUX_VERSION_genericx86 =3D "4.19.14"
--LINUX_VERSION_genericx86-64 =3D "4.19.14"
-+LINUX_VERSION_genericx86 =3D "4.19.19"
-+LINUX_VERSION_genericx86-64 =3D "4.19.19"
- LINUX_VERSION_edgerouter =3D "4.19.14"
- LINUX_VERSION_beaglebone-yocto =3D "4.19.14"
- LINUX_VERSION_mpc8315e-rdb =3D "4.19.14"
---=20
-2.17.0
+The commandline like this:
 
---=20
-_______________________________________________
-poky mailing list
-poky@yoctoproject.org
-https://lists.yoctoproject.org/listinfo/poky
+     arm-poky-eabi-gcc  --sysroot=... -march=armv7-a  -mhard-float ... \
+       -c -o scripts/mod/empty.o scripts/mod/empty.c
+
+It seems the cpu tune should change in the new version.
+
+How to do it, what feather tune should be used?
+
+-- 
+Best Regards,
+zzs
+
 
