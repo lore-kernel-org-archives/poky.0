@@ -1,54 +1,55 @@
-Return-Path: <bunk@stusta.de>
+Return-Path: <naveen.kumar.saini@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 91365E00D14; Mon,  4 Mar 2019 11:06:44 -0800 (PST)
+	id B9F37E00D28; Mon,  4 Mar 2019 19:15:59 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
-	low *      trust
-	*      [141.84.69.5 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-X-Greylist: delayed 420 seconds by postgrey-1.32 at yocto-www;
-	Mon, 04 Mar 2019 11:06:43 PST
-Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 85F38E00D11
-	for <poky@yoctoproject.org>; Mon,  4 Mar 2019 11:06:43 -0800 (PST)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 44Cq8F3T9mz6g;
-	Mon,  4 Mar 2019 19:59:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
-	s=default; t=1551725982;
-	bh=deDLbKTdMIkHd3ph3ofMHT0vBJRCGLsfCPAaSc9uLnA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VaMx1kjSs2fX+pB8Pt9QaG24AnaIDdwJ/XLNvHtu/SRQsPFq1o0jO+zhIfbsednat
-	g8C9y/ZNMV5aoGvM2cMTy8TuIOBkmTff2eNKeqRD/3VOjjn1yJkeE2jcYPYmlOb5MD
-	+7y9853a/6lRwMy3SkBeqCphhpKcF38Gy9kJzdgaMreS0P+qREw+ZwvClEcoq/LMks
-	UssKgHxFAsyy8fQ4UFuT1katX1U0NeBWHWV4D0m+W0tvnuDbbnCJSeu2hTyvPVDDa7
-	z0tiLck3U46svf2jd8SrC0z7Hi5OD2WJi3bAKj6vLhFGOYV+wyOzYxEXhFdUZ+G8zC
-	whgZbXx3tSvFfuFZBsPrggaFAUH5EjddNf9QJN7/8djl+LvY46wxBv8O/2vvEjVBn1
-	GNg7m5E3oYaT7QQqgJoTR3JQ7WG9U59MgnliMYRZf0/EqRs0j9IGWOlo5imujPqYB6
-	1ldnaced22GH7JzK1cDTmua8D4j4/AUUfsAl083ARuvTJNOexeTXCWcbmjDDe3TlD5
-	pmsIMUta0bJLCkZ4+yKN5kgDLwXYmrXP5bIsKezxFeKfnVa0IClPTNlvbBJO3rbZaZ
-	/09/o4XVR8N7K3mHgriGGXccWey7kHMhEcDYf5jVSohFAQY6vENEJB2KrCqU9yTFQf
-	4q0hLk/To5U9tqUTr86PB0Ic=
-Date: Mon, 4 Mar 2019 20:59:37 +0200
-From: Adrian Bunk <bunk@stusta.de>
-To: Jean-Francois Dagenais <jeff.dagenais@gmail.com>
-Message-ID: <20190304185937.GC1170@localhost>
-References: <D67743D4-7A14-4AB5-AAC4-CC5E4999EB6D@gmail.com>
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
+	*      medium trust
+	*      [134.134.136.126 listed in list.dnswl.org]
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F29F4E00994
+	for <poky@yoctoproject.org>; Mon,  4 Mar 2019 19:15:58 -0800 (PST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+	by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+	04 Mar 2019 19:15:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,442,1544515200"; d="scan'208";a="119644051"
+Received: from kmsmsx154.gar.corp.intel.com ([172.21.73.14])
+	by orsmga007.jf.intel.com with ESMTP; 04 Mar 2019 19:15:57 -0800
+Received: from pgsmsx110.gar.corp.intel.com (10.221.44.111) by
+	KMSMSX154.gar.corp.intel.com (172.21.73.14) with Microsoft SMTP Server
+	(TLS) id 14.3.408.0; Tue, 5 Mar 2019 11:15:53 +0800
+Received: from pgsmsx104.gar.corp.intel.com ([169.254.3.21]) by
+	PGSMSX110.gar.corp.intel.com ([169.254.13.64]) with mapi id
+	14.03.0415.000; Tue, 5 Mar 2019 11:15:54 +0800
+From: "Saini, Naveen Kumar" <naveen.kumar.saini@intel.com>
+To: "richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>
+Thread-Topic: [poky] [meta-yocto-bsp][PATCH 2/2] linux-yocto: update
+	genericx86*	SRCREV for 4.19
+Thread-Index: AQHUzb83BjO2Z/ga5U6Xzzu/LFwCVKX8Z6Aw
+Date: Tue, 5 Mar 2019 03:15:53 +0000
+Message-ID: <01DD17B194C1B04C82EA3CE2DD8BB29B0969F049@PGSMSX104.gar.corp.intel.com>
+References: <20190226023717.15760-1-naveen.kumar.saini@intel.com>
+In-Reply-To: <20190226023717.15760-1-naveen.kumar.saini@intel.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOGMwNDg4ZDgtMWZjMy00NmNlLWI1MTgtZDY4NzZmM2UyZDFkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicFwvenk1SmdFMTZZRW9QWTQ4SzdYVnlVUk1KdmNvTDFhVk5OQlgycDRlQmF1MlZFVDVaVmk1VnhxWU1xZ1cyYWQifQ==
+x-originating-ip: [172.30.20.205]
 MIME-Version: 1.0
-In-Reply-To: <D67743D4-7A14-4AB5-AAC4-CC5E4999EB6D@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: paul.eggleton@linux.intel.com, Poky Project <poky@yoctoproject.org>
-Subject: Re: /usr/include/libnl3 or /usr/include
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: [meta-yocto-bsp][PATCH 2/2] linux-yocto: update genericx86*	SRCREV for 4.19
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -61,47 +62,69 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 19:06:44 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-List-Received-Date: Tue, 05 Mar 2019 03:15:59 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 04, 2019 at 11:50:43AM -0500, Jean-Francois Dagenais wrote:
-> Hi guys,
-> 
-> There's been a couple of time when I've hit snags where packages use their version numbers in the paths of stuff they provide. This poses a small challenge where dependent recipes might have to specifically account for this "special" path.
-> 
-> For example, libnl is using /usr/include/libnl3 and wpa_supplicant has to specifically "hack" its configure process to be able to find the libnl headers.
-> 
-> Since libnl does explicitly that it cannot co-exist with it's previous versions:
-> RREPLACES_${PN} = "libnl2"
-> RCONFLICTS_${PN} = "libnl2"
-> 
-> what is the point of the sub-path?
+Please consider this patch too.
 
-It's where upstream installs their headers.
 
-> Would you receive a patchset which moves libnl's headers files back at /usr/include (or rather: ${includedir}) ?
-> 
-> I suspect this would also set a precedent.
 
-Diverging libnl from upstream does not sound good to me.
+-----Original Message-----
+From: poky-bounces@yoctoproject.org [mailto:poky-bounces@yoctoproject.org] =
+On Behalf Of Naveen Saini
+Sent: Tuesday, February 26, 2019 10:37 AM
+To: poky@yoctoproject.org
+Subject: [poky] [meta-yocto-bsp][PATCH 2/2] linux-yocto: update genericx86*=
+ SRCREV for 4.19
 
-The correct fix would be for wpa_supplicant to use
-"pkg-config --cflags libnl-3.0", and the upstream
-sources are already doing that.
+Bump to kernel release v4.19.19
 
-If this is not working without the hack in wpa_supplicant then it should 
-be fixed there, but it is also possible that this hack is just a leftover
-from ancient wpa_supplicant versions and can simply be removed.
+Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
+---
+ .../recipes-kernel/linux/linux-yocto_4.19.bbappend        | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-cu
-Adrian
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend =
+b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
+index 8e708cb664..6025230c73 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.19.bbappend
+@@ -8,8 +8,8 @@ KMACHINE_genericx86 ?=3D "common-pc"
+ KMACHINE_genericx86-64 ?=3D "common-pc-64"
+ KMACHINE_beaglebone-yocto ?=3D "beaglebone"
+=20
+-SRCREV_machine_genericx86    ?=3D "eebb51300a07804a020ec468b5f8c5bf720198d=
+9"
+-SRCREV_machine_genericx86-64 ?=3D "eebb51300a07804a020ec468b5f8c5bf720198d=
+9"
++SRCREV_machine_genericx86    ?=3D "11e0e616ed095bb8012e1b4a231254c9656a019=
+3"
++SRCREV_machine_genericx86-64 ?=3D "11e0e616ed095bb8012e1b4a231254c9656a019=
+3"
+ SRCREV_machine_edgerouter ?=3D "eebb51300a07804a020ec468b5f8c5bf720198d9"
+ SRCREV_machine_beaglebone-yocto ?=3D "eebb51300a07804a020ec468b5f8c5bf7201=
+98d9"
+ SRCREV_machine_mpc8315e-rdb ?=3D "8b60f968823256f5d2889c4520d70299ca21411b=
+"
+@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter =3D "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto =3D "beaglebone-yocto"
+ COMPATIBLE_MACHINE_mpc8315e-rdb =3D "mpc8315e-rdb"
+=20
+-LINUX_VERSION_genericx86 =3D "4.19.14"
+-LINUX_VERSION_genericx86-64 =3D "4.19.14"
++LINUX_VERSION_genericx86 =3D "4.19.19"
++LINUX_VERSION_genericx86-64 =3D "4.19.19"
+ LINUX_VERSION_edgerouter =3D "4.19.14"
+ LINUX_VERSION_beaglebone-yocto =3D "4.19.14"
+ LINUX_VERSION_mpc8315e-rdb =3D "4.19.14"
+--=20
+2.17.0
 
--- 
-
-       "Is there not promise of rain?" Ling Tan asked suddenly out
-        of the darkness. There had been need of rain for many days.
-       "Only a promise," Lao Er said.
-                                       Pearl S. Buck - Dragon Seed
-
+--=20
+_______________________________________________
+poky mailing list
+poky@yoctoproject.org
+https://lists.yoctoproject.org/listinfo/poky
 
