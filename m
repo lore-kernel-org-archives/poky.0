@@ -1,54 +1,44 @@
-Return-Path: <zzs213@126.com>
+Return-Path: <cimes@ads.isi.edu>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 91475E00D04; Fri,  8 Mar 2019 00:53:34 -0800 (PST)
+	id 6DE36E00D11; Fri,  8 Mar 2019 10:36:00 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	FROM_EXCESS_BASE64 autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (zzs213[at]126.com)
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-	*  1.0 FROM_EXCESS_BASE64 From: base64 encoded unnecessarily
-X-Greylist: delayed 1853 seconds by postgrey-1.32 at yocto-www;
-	Fri, 08 Mar 2019 00:53:32 PST
-Received: from m15-114.126.com (m15-114.126.com [220.181.15.114])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AF2C2E006D8
-	for <poky@yoctoproject.org>; Fri,  8 Mar 2019 00:53:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=u6j1k
-	H6998U+ctCfE4OHxrcsc842Hiu03hn5PrLnkDA=; b=gzyYqVaulDFTEpNB/t7Nv
-	Wmfa+/n9tFi/EXUQvdmLt9VSlpP7cYe+m5Ugwc5Hah5mLFrwvs0theMaYM/2uDHo
-	VEBpOxci/tFzRciV07FoIvLsLezf4m6X4jsdpj9a3atgvr3i0xTa+KpDkRpHPZXo
-	p5ou4tGdDkja2McRIRpxYE=
-Received: from [192.168.0.12] (unknown [171.214.199.206])
-	by smtp7 (Coremail) with SMTP id DsmowABHTd9LJoJcsXNPAQ--.6349S2;
-	Fri, 08 Mar 2019 16:22:36 +0800 (CST)
-To: poky@yoctoproject.org
-References: <143c3452.5462.1695bf865f8.Coremail.zzs213@126.com>
-	<132d9c69.5f42.1695c251ad6.Coremail.zzs213@126.com>
-From: =?UTF-8?B?5byg5b+g5bGx?= <zzs213@126.com>
-Message-ID: <e800b957-9e70-5aca-d7a0-51ad3183aefa@126.com>
-Date: Fri, 8 Mar 2019 16:22:35 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.5.1
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
+	*      medium trust
+	*      [128.9.180.199 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 62 seconds by postgrey-1.32 at yocto-www;
+	Fri, 08 Mar 2019 10:35:55 PST
+Received: from mail-d.ads.isi.edu (mail-d.ads.isi.edu [128.9.180.199])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 11764E00BE8
+	for <poky@yoctoproject.org>; Fri,  8 Mar 2019 10:35:55 -0800 (PST)
+From: Connor Imes <cimes@isi.edu>
+X-IronPort-AV: E=Sophos;i="5.58,456,1544515200"; d="scan'208,217";a="12219251"
+Received: from usmdrmbx01.ads.isi.edu ([10.100.2.77])
+	by usmdrip04.ads.isi.edu with ESMTP; 08 Mar 2019 10:34:53 -0800
+Received: from usmdrmbx02.ads.isi.edu (10.100.2.78) by usmdrmbx01.ads.isi.edu
+	(10.100.2.77) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1466.3;
+	Fri, 8 Mar 2019 10:34:52 -0800
+Received: from usmdrmbx02.ads.isi.edu ([fe80::da5:2f44:832d:b4a7]) by
+	usmdrmbx02.ads.isi.edu ([fe80::da5:2f44:832d:b4a7%12]) with mapi id
+	15.01.1466.003; Fri, 8 Mar 2019 10:34:52 -0800
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: Building and deploying test binaries
+Thread-Index: AQHU1d2evi891foFBkCHVeIFxN5uPQ==
+Date: Fri, 8 Mar 2019 18:34:52 +0000
+Message-ID: <9BC86C58-D25E-4FBD-AD92-B8DAC74D8326@ads.isi.edu>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [128.9.47.101]
 MIME-Version: 1.0
-In-Reply-To: <132d9c69.5f42.1695c251ad6.Coremail.zzs213@126.com>
-X-CM-TRANSID: DsmowABHTd9LJoJcsXNPAQ--.6349S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrurWDGF47Ww1rCFyfAF4fXwb_yoWDCwc_ZF
-	Wavrn5Crn0vrWkCa4q9r4ruw1qg3Wftr18t3WDur4Uur9xXw47KanYgFy5Aw45Ga1UA3yU
-	XrWrZ398A3WxujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU5OL05UUUUU==
-X-Originating-IP: [171.214.199.206]
-X-CM-SenderInfo: x22vjiat6rjloofrz/1tbiqA1xGVpD7PQ9ZAAAsV
-Subject: Re: libtool-cross failed configure on yocto-2.6.1 with newlib
+Subject: Building and deploying test binaries
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -61,42 +51,127 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Mar 2019 08:53:34 -0000
-Content-Type: text/plain; charset=utf-8
+X-List-Received-Date: Fri, 08 Mar 2019 18:36:00 -0000
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative;
+	boundary="_000_9BC86C58D25E4FBDAD92B8DAC74D8326adsisiedu_"
 
+--_000_9BC86C58D25E4FBDAD92B8DAC74D8326adsisiedu_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
->> My host system is:
->>     
->>     Linux gfcd101 4.15.0-46-generic #49~16.04.1-Ubuntu SMP Tue Feb 12 17:45:24 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
->>
->> And using yocto-2.6.1 with newlib:
->>
->>     TCLIBC := "newlib"
->>
->> I wrote a custom .bb to build "kconfig-frontends", it "inherit autotools"
->>
->> when run "bitbake kconfig-frontends", libtool-cross failed to configure:
->>
->>     ERROR: libtool-cross-2.4.6-r0 do_configure: configure failed
->>     ERROR: libtool-cross-2.4.6-r0 do_configure: Function failed: do_configure (log file is located at .../libtool-cross/2.4.6-r0/temp/log.do_configure.11188)
-> 
-> My recipe for "kconfig-frontends" inhert native, So it just try to 
-> build native tool, why need libtool-cross?
-> 
-Now, I built it success using the flowwing command line:
+SGkgYWxsLA0KDQpXZSBoYXZlIHNvbWUgYXBwbGljYXRpb25zIHRoYXQgYXJlIG1lYW50IGV4Y2x1
+c2l2ZWx5IGZvciB0ZXN0aW5nLCBhbmQgc28gZG8gbm90IHdhbnQgdG8gaW5jbHVkZSB0aGVtIGJ5
+IGRlZmF1bHQgaW4gb3VyIGltYWdl4oCZcyByb290ZnMuICBJdCBhbHNvIGRvZXMgbm90IHNlZW0g
+YXBwcm9wcmlhdGUgdG8gYnVpbGQgYSBzZXBhcmF0ZSBpbWFnZSBmb3IgdGVzdGluZy4gIEFmdGVy
+IG11Y2ggc2VhcmNoaW5nLCBpdCBzZWVtcyBsaWtlIHRoZSBKU09OLWJhc2VkIGFwcHJvYWNoIGRl
+c2NyaWJlZCBoZXJlIFsxXSBpcyBhcHByb3ByaWF0ZSB0byBhdXRvbWF0aWNhbGx5IGxvYWQvcmVt
+b3ZlIHRoZSBiaW5hcmllcyBhdCBydW50aW1lIGZvciB1c2UgZHVyaW5nIHRlc3RpbmcuICBJ4oCZ
+dmUgd3JpdHRlbiBzb21lIHJlY2lwZXMgdG8gYnVpbGQgb3VyIHRlc3QgYmluYXJpZXMsIHRoZW4g
+c3BlY2lmaWVkIHRoZWlyIHBhY2thZ2VzIGFzIGRlcGVuZGVuY2llcyB1c2luZyBKU09OIGZpbGVz
+IGZvciBvdXIgUHl0aG9uIG9lcWEgcnVudGltZSB0ZXN0IGNhc2VzLiAgSWYgSSBidWlsZCB0aGUg
+cmVjaXBlcyB3aXRoIGJpdGJha2UsIHRoZSB0ZXN0cyB0aGVuIGV4ZWN1dGUgc3VjY2Vzc2Z1bGx5
+IHdoZW4gSSBydW4gYGJpdGJha2UgPGltYWdlPiAtYyB0ZXN0aW1hZ2VgLg0KDQpbMV0gaHR0cHM6
+Ly93d3cueW9jdG9wcm9qZWN0Lm9yZy9kb2NzLzIuNi9kZXYtbWFudWFsL2Rldi1tYW51YWwuaHRt
+bCNpbnN0YWxsaW5nLXBhY2thZ2VzLWluLXRoZS1kdXQtd2l0aG91dC10aGUtcGFja2FnZS1tYW5h
+Z2VyDQoNClRoZSBwcm9ibGVtIGlzIHRoYXQgd2UgY3VycmVudGx5IGhhdmUgdG8gc3BlY2lmeSBl
+YWNoIG9mIHRoZXNlIHJlY2lwZXMgdG8gYml0YmFrZSBzbyB0aGV5IGNhbiBidWlsdCBwcmlvciB0
+byB0ZXN0aW5nLCB0aHVzIHJlcXVpcmluZyBhIHByaW9yaSBrbm93bGVkZ2Ugb2Ygd2hpY2ggcmVj
+aXBlcyBvdXIgdGVzdHMgZGVwZW5kIG9uLiAgVGhpcyBtYW51YWwgZGVwZW5kZW5jeSBtYW5hZ2Vt
+ZW50IGlzIGVycm9yLXByb25lIGFuZCB3b27igJl0IHNjYWxlIHdlbGwuICBJcyB0aGVyZSBhIHdh
+eSBmb3IgYml0YmFrZSB0byBkaXNjb3ZlciB0aGVzZSBkZXBlbmRlbmNpZXMgYXV0b21hdGljYWxs
+eSBwcmlvciB0byBydW5uaW5nIGB0ZXN0aW1hZ2VgICh3aGljaCBzdWJzZXF1ZW50bHkgZmFpbHMg
+aWYgdGhlIGRlcGVuZGVuY2llcyBzcGVjaWZpZWQgaW4gdGhlIEpTT04gZmlsZXMgYXJlbuKAmXQg
+YWxyZWFkeSBidWlsdCk/ICBJZGVhbGx5IHdlIHNob3VsZCBiZSBhYmxlIHRvIG1hbmFnZSB0aGVz
+ZSByZWNpcGVzIHNpbWlsYXJseSB0byBvdGhlcnMgdXNlZCB0byBidWlsZCBhbmQgcG9wdWxhdGUg
+dGhlIHJvb3RmcyAtIGZldGNoIHNvdXJjZXMgd2hpbGUgd2XigJlyZSBvbmxpbmUsIHRoZW4gYnVp
+bGQgb2ZmbGluZSwgdGhlbiBydW4gdGhlIHRlc3RzIGFueXRpbWUgdGhlcmVhZnRlci4gIFNvbWV0
+aGluZyBsaWtlOg0KICBiaXRiYWtlIDxpbWFnZT4gLWMgdGVzdGltYWdlIC0tcnVuYWxsPSJmZXRj
+aCIgICMgZG93bmxvYWQgc291cmNlcyAoY3VycmVudGx5IGZldGNoZXMgc29tZSB0aGluZ3MsIGJ1
+dCBub3QgSlNPTi1zcGVjaWZpZWQgcmVjaXBlcz8pDQogIGJpdGJha2UgPGltYWdlPiAtYyB0ZXN0
+aW1hZ2UgLS1ydW5hbGw9ImJ1aWxkIiAgIyBidWlsZC9pbnN0YWxsL2V0YyBhbGwgdGVzdC1yZWxh
+dGVkIHJlY2lwZXMNCiAgYml0YmFrZSA8aW1hZ2U+IC1jIHRlc3RpbWFnZSAgIyBkbyB0aGUgYWN0
+dWFsIHJ1bnRpbWUgdGVzdA0KDQpUaGFua3MsDQotQ29ubm9yDQo=
 
-    bitbake kconfig-frontends-native
+--_000_9BC86C58D25E4FBDAD92B8DAC74D8326adsisiedu_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <71E0E6D782F28A4FB8784A9725AD3CEF@ads.isi.edu>
+Content-Transfer-Encoding: base64
 
-The command previously used which worked error is:
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
+YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
+b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
+IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
+aW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
+DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
+aXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpz
+cGFuLkVtYWlsU3R5bGUxNw0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21wb3NlOw0KCWZv
+bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1z
+b0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6
+IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4g
+MTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rp
+b24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBs
+YW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0i
+V29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
+emU6MTEuMHB0Ij5IaSBhbGwsPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9z
+cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0Ij5XZSBoYXZlIHNvbWUgYXBwbGljYXRpb25zIHRoYXQgYXJlIG1lYW50IGV4Y2x1c2l2ZWx5
+IGZvciB0ZXN0aW5nLCBhbmQgc28gZG8gbm90IHdhbnQgdG8gaW5jbHVkZSB0aGVtIGJ5IGRlZmF1
+bHQgaW4gb3VyIGltYWdl4oCZcyByb290ZnMuJm5ic3A7IEl0IGFsc28gZG9lcyBub3Qgc2VlbSBh
+cHByb3ByaWF0ZSB0byBidWlsZCBhIHNlcGFyYXRlIGltYWdlIGZvciB0ZXN0aW5nLiZuYnNwOw0K
+IEFmdGVyIG11Y2ggc2VhcmNoaW5nLCBpdCBzZWVtcyBsaWtlIHRoZSBKU09OLWJhc2VkIGFwcHJv
+YWNoIGRlc2NyaWJlZCBoZXJlIFsxXSBpcyBhcHByb3ByaWF0ZSB0byBhdXRvbWF0aWNhbGx5IGxv
+YWQvcmVtb3ZlIHRoZSBiaW5hcmllcyBhdCBydW50aW1lIGZvciB1c2UgZHVyaW5nIHRlc3Rpbmcu
+Jm5ic3A7IEnigJl2ZSB3cml0dGVuIHNvbWUgcmVjaXBlcyB0byBidWlsZCBvdXIgdGVzdCBiaW5h
+cmllcywgdGhlbiBzcGVjaWZpZWQgdGhlaXIgcGFja2FnZXMNCiBhcyBkZXBlbmRlbmNpZXMgdXNp
+bmcgSlNPTiBmaWxlcyBmb3Igb3VyIFB5dGhvbiBvZXFhIHJ1bnRpbWUgdGVzdCBjYXNlcy4mbmJz
+cDsgSWYgSSBidWlsZCB0aGUgcmVjaXBlcyB3aXRoIGJpdGJha2UsIHRoZSB0ZXN0cyB0aGVuIGV4
+ZWN1dGUgc3VjY2Vzc2Z1bGx5IHdoZW4gSSBydW4gYGJpdGJha2UgJmx0O2ltYWdlJmd0OyAtYyB0
+ZXN0aW1hZ2VgLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
+cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+WzFd
+IGh0dHBzOi8vd3d3LnlvY3RvcHJvamVjdC5vcmcvZG9jcy8yLjYvZGV2LW1hbnVhbC9kZXYtbWFu
+dWFsLmh0bWwjaW5zdGFsbGluZy1wYWNrYWdlcy1pbi10aGUtZHV0LXdpdGhvdXQtdGhlLXBhY2th
+Z2UtbWFuYWdlcjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
+cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+VGhl
+IHByb2JsZW0gaXMgdGhhdCB3ZSBjdXJyZW50bHkgaGF2ZSB0byBzcGVjaWZ5IGVhY2ggb2YgdGhl
+c2UgcmVjaXBlcyB0byBiaXRiYWtlIHNvIHRoZXkgY2FuIGJ1aWx0IHByaW9yIHRvIHRlc3Rpbmcs
+IHRodXMgcmVxdWlyaW5nIGEgcHJpb3JpIGtub3dsZWRnZSBvZiB3aGljaCByZWNpcGVzIG91ciB0
+ZXN0cyBkZXBlbmQgb24uJm5ic3A7IFRoaXMgbWFudWFsIGRlcGVuZGVuY3kNCiBtYW5hZ2VtZW50
+IGlzIGVycm9yLXByb25lIGFuZCB3b27igJl0IHNjYWxlIHdlbGwuJm5ic3A7IElzIHRoZXJlIGEg
+d2F5IGZvciBiaXRiYWtlIHRvIGRpc2NvdmVyIHRoZXNlIGRlcGVuZGVuY2llcyBhdXRvbWF0aWNh
+bGx5IHByaW9yIHRvIHJ1bm5pbmcgYHRlc3RpbWFnZWAgKHdoaWNoIHN1YnNlcXVlbnRseSBmYWls
+cyBpZiB0aGUgZGVwZW5kZW5jaWVzIHNwZWNpZmllZCBpbiB0aGUgSlNPTiBmaWxlcyBhcmVu4oCZ
+dCBhbHJlYWR5IGJ1aWx0KT8mbmJzcDsgSWRlYWxseQ0KIHdlIHNob3VsZCBiZSBhYmxlIHRvIG1h
+bmFnZSB0aGVzZSByZWNpcGVzIHNpbWlsYXJseSB0byBvdGhlcnMgdXNlZCB0byBidWlsZCBhbmQg
+cG9wdWxhdGUgdGhlIHJvb3RmcyAtIGZldGNoIHNvdXJjZXMgd2hpbGUgd2XigJlyZSBvbmxpbmUs
+IHRoZW4gYnVpbGQgb2ZmbGluZSwgdGhlbiBydW4gdGhlIHRlc3RzIGFueXRpbWUgdGhlcmVhZnRl
+ci4mbmJzcDsgU29tZXRoaW5nIGxpa2U6PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPiZuYnNwOyBiaXRiYWtl
+ICZsdDtpbWFnZSZndDsgLWMgdGVzdGltYWdlIC0tcnVuYWxsPSZxdW90O2ZldGNoJnF1b3Q7ICZu
+YnNwOyMgZG93bmxvYWQgc291cmNlcyAoY3VycmVudGx5IGZldGNoZXMgc29tZSB0aGluZ3MsIGJ1
+dCBub3QgSlNPTi1zcGVjaWZpZWQgcmVjaXBlcz8pPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPiZuYnNwOyBi
+aXRiYWtlICZsdDtpbWFnZSZndDsgLWMgdGVzdGltYWdlIC0tcnVuYWxsPSZxdW90O2J1aWxkJnF1
+b3Q7ICZuYnNwOyMgYnVpbGQvaW5zdGFsbC9ldGMgYWxsIHRlc3QtcmVsYXRlZCByZWNpcGVzPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQiPiZuYnNwOyBiaXRiYWtlICZsdDtpbWFnZSZndDsgLWMgdGVzdGltYWdl
+Jm5ic3A7ICMgZG8gdGhlIGFjdHVhbCBydW50aW1lIHRlc3Q8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86
+cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5
+bGU9ImZvbnQtc2l6ZToxMS4wcHQiPlRoYW5rcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+LUNvbm5vcjxv
+OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-    bitbake kconfig-frontends
-
-So I wonder does a recipe can produce a cross-compiled target even the "native.bbclass" inherited??
-
--- 
-Best Regards,
-zzs
-
-
+--_000_9BC86C58D25E4FBDAD92B8DAC74D8326adsisiedu_--
