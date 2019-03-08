@@ -1,63 +1,43 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <cimes@ads.isi.edu>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B3720E00D11; Fri,  8 Mar 2019 11:25:59 -0800 (PST)
+	id 3F90CE00D01; Fri,  8 Mar 2019 12:23:29 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (alex.kanavin[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.167.172 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
-	[209.85.167.172])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4837BE00BE8
-	for <poky@yoctoproject.org>; Fri,  8 Mar 2019 11:25:59 -0800 (PST)
-Received: by mail-oi1-f172.google.com with SMTP id q81so16736824oic.5
-	for <poky@yoctoproject.org>; Fri, 08 Mar 2019 11:25:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc:content-transfer-encoding;
-	bh=9l4eHLmg+p8rPdQ/yEdD5MvbYZjM6+7f1ewrfSqUsfw=;
-	b=WUyaN9n0R24AuJoLjDiFUfb+pJH12p5dhiqHvEI1lFlSjCsUmVqZDiO6yZOiT2MDlk
-	OBVzIGx7DdxuS2oDIITHRCZLMLprNcFOGYqMNSFKQgI2UAsWNjA595ppf8hD8UHK6H5R
-	4M3k+nOxX2sk7WqhJMjQ6N2kbYLMJjnmZfo9On4Q872oOIshu9qpR5gTrmZt88x2yhFd
-	nddeWwmVTVReOVvODzLQbWp3hzMazL1aLvBarwvTpwCq1d2uQWvjt8m32Kqnu4RoXCLc
-	N8BPgrINgCFxIFxwPvw+I43VkEWTeuy24zWjnZYf1v0gNB1yIAISw8qw8EDOzDkktrUv
-	35uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=9l4eHLmg+p8rPdQ/yEdD5MvbYZjM6+7f1ewrfSqUsfw=;
-	b=N7y3zbpAor/OXc1AFnptnSZh9bBETBPieSOQsH3ercgudzsLEQTzKqIvKdRfYLI6LU
-	Zvhbtn9oSDZtkXr6Y48197IL/frgjGtscASIALV19ER9wt44aeAbcOeh3QEm/8chUoYn
-	yTJwHQxFoLGDd1rI1fzJeF9gPr2YEOCHzKAFFxJva85I+CMyCKWpuFuT8WdUmZDnJcCz
-	kA6eZ1RwNcbLQ5CvAs8a2EUszRWbs3GEB1RF39nsTks5731UvfxhIaQqszBlSPNDqzUB
-	9h+dmYa3qaK1Ie9BI5Tde8FAADBetnBSfRonkD0BJf7oqclhugzwR/ZYYnowWq07uig+
-	JpyQ==
-X-Gm-Message-State: APjAAAVctfuQpaIOGecSRLl4CqPDOwMcwBTA7WXaSRN8R484ylecVcl9
-	3ZqMEJfoZLkCiVz7eDKflVlF5LPSR6KANuleXHQ=
-X-Google-Smtp-Source: APXvYqzXCf8Fi/6TNn3/usqxytk+FoVzKQtMpf2TCsAKOQkU3q+ujGx8MbJTscPhV7cJAnMPDH1r/0QmWn7vArMblUY=
-X-Received: by 2002:aca:c3cb:: with SMTP id t194mr8917131oif.70.1552073158607; 
-	Fri, 08 Mar 2019 11:25:58 -0800 (PST)
-MIME-Version: 1.0
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
+	*      medium trust
+	*      [128.9.180.198 listed in list.dnswl.org]
+Received: from mail-c.ads.isi.edu (mail-c.ads.isi.edu [128.9.180.198])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 97532E00BBC
+	for <poky@yoctoproject.org>; Fri,  8 Mar 2019 12:23:28 -0800 (PST)
+From: Connor Imes <cimes@isi.edu>
+X-IronPort-AV: E=Sophos;i="5.58,456,1544515200"; d="scan'208";a="17915669"
+Received: from usmdrmbx02.ads.isi.edu ([10.100.2.78])
+	by usmdrip03-mgmt.ads.isi.edu with ESMTP; 08 Mar 2019 12:23:28 -0800
+Received: from usmdrmbx02.ads.isi.edu (10.100.2.78) by usmdrmbx02.ads.isi.edu
+	(10.100.2.78) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1466.3;
+	Fri, 8 Mar 2019 12:23:26 -0800
+Received: from usmdrmbx02.ads.isi.edu ([fe80::da5:2f44:832d:b4a7]) by
+	usmdrmbx02.ads.isi.edu ([fe80::da5:2f44:832d:b4a7%12]) with mapi id
+	15.01.1466.003; Fri, 8 Mar 2019 12:23:26 -0800
+To: Alexander Kanavin <alex.kanavin@gmail.com>
+Thread-Topic: [poky] Building and deploying test binaries
+Thread-Index: AQHU1d2evi891foFBkCHVeIFxN5uPaYCo9MA//+8TIA=
+Date: Fri, 8 Mar 2019 20:23:26 +0000
+Message-ID: <62BCE529-4701-4AC8-8D31-97E622B8D177@ads.isi.edu>
 References: <9BC86C58-D25E-4FBD-AD92-B8DAC74D8326@ads.isi.edu>
-In-Reply-To: <9BC86C58-D25E-4FBD-AD92-B8DAC74D8326@ads.isi.edu>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Fri, 8 Mar 2019 22:25:44 +0300
-Message-ID: <CANNYZj9kN3CfY=vUcchnWH4Q6H4R5xLiJJd07NrbDT=UTdB_qw@mail.gmail.com>
-To: Connor Imes <cimes@isi.edu>
+	<CANNYZj9kN3CfY=vUcchnWH4Q6H4R5xLiJJd07NrbDT=UTdB_qw@mail.gmail.com>
+In-Reply-To: <CANNYZj9kN3CfY=vUcchnWH4Q6H4R5xLiJJd07NrbDT=UTdB_qw@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [128.9.47.101]
+MIME-Version: 1.0
 Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
 Subject: Re: Building and deploying test binaries
 X-BeenThere: poky@yoctoproject.org
@@ -72,76 +52,103 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Mar 2019 19:25:59 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 08 Mar 2019 20:23:29 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E335B04307C572459DB7F25C8930A294@ads.isi.edu>
+Content-Transfer-Encoding: base64
 
-I'd say a special image for testing is *exactly* what you need. You
-might take the existing image recipe, and include it wholesale into
-your testing image recipe, then add additional recipes as needed. Then
-the testing image is guaranteed to be an extension of the plain image.
-Example:
-
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-sato/image=
-s/core-image-sato-sdk-ptest.bb
-
-Generally, creating various types of images serving various purposes
-is not only ok, but is encouraged - YP isn't able to carry this
-message across to users very well :-/
-
-Alex
-
-On Fri, 8 Mar 2019 at 21:36, Connor Imes <cimes@isi.edu> wrote:
->
-> Hi all,
->
->
->
-> We have some applications that are meant exclusively for testing, and so =
-do not want to include them by default in our image=E2=80=99s rootfs.  It a=
-lso does not seem appropriate to build a separate image for testing.  After=
- much searching, it seems like the JSON-based approach described here [1] i=
-s appropriate to automatically load/remove the binaries at runtime for use =
-during testing.  I=E2=80=99ve written some recipes to build our test binari=
-es, then specified their packages as dependencies using JSON files for our =
-Python oeqa runtime test cases.  If I build the recipes with bitbake, the t=
-ests then execute successfully when I run `bitbake <image> -c testimage`.
->
->
->
-> [1] https://www.yoctoproject.org/docs/2.6/dev-manual/dev-manual.html#inst=
-alling-packages-in-the-dut-without-the-package-manager
->
->
->
-> The problem is that we currently have to specify each of these recipes to=
- bitbake so they can built prior to testing, thus requiring a priori knowle=
-dge of which recipes our tests depend on.  This manual dependency managemen=
-t is error-prone and won=E2=80=99t scale well.  Is there a way for bitbake =
-to discover these dependencies automatically prior to running `testimage` (=
-which subsequently fails if the dependencies specified in the JSON files ar=
-en=E2=80=99t already built)?  Ideally we should be able to manage these rec=
-ipes similarly to others used to build and populate the rootfs - fetch sour=
-ces while we=E2=80=99re online, then build offline, then run the tests anyt=
-ime thereafter.  Something like:
->
->   bitbake <image> -c testimage --runall=3D"fetch"  # download sources (cu=
-rrently fetches some things, but not JSON-specified recipes?)
->
->   bitbake <image> -c testimage --runall=3D"build"  # build/install/etc al=
-l test-related recipes
->
->   bitbake <image> -c testimage  # do the actual runtime test
->
->
->
-> Thanks,
->
-> -Connor
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+VGhhbmtzIGZvciB5b3VyIHJlc3BvbnNlLCBBbGV4LiAgSSBjYW4gY2VydGFpbmx5IHNlZSBob3cg
+Y3JlYXRpbmcgYSBzZXBhcmF0ZSBpbWFnZSBpcyBzdHJhaWdodGZvcndhcmQgYW5kIHVzZWZ1bCBm
+b3IgbWFueSB0ZWFtcyAtIGl0IGZpdHMgdmVyeSBuaWNlbHkgaW50byB0aGUgbGF5ZXJlZCBhcHBy
+b2FjaCB0aGF0IHRoZSBPcGVuRW1iZWRkZWQgZnJhbWV3b3JrIG9mZmVycy4gIEkgYWxzbyBhZ3Jl
+ZSB0aGF0IGl0IGhhcyBub3QgYmVlbiBjb21tdW5pY2F0ZWQgcGFydGljdWxhcmx5IHdlbGwuICBU
+aGVyZSBkb2Vzbid0IHNlZW0gdG8gYmUgbXVjaCBkb2N1bWVudGF0aW9uIG9uIG91ciB1c2UgY2Fz
+ZSAtIHdoZXJlIHRlc3RzIHJlbHkgb24gY3Jvc3MtY29tcGlsZWQgYXBwbGljYXRpb25zIG5vdCBp
+bnRlbmRlZCBmb3IgdGhlIGZpbmFsIHJvb3Rmcy4gIFRoZSBleGlzdGVuY2Ugb2YgdGhlIEpTT04t
+YmFzZWQgYXBwcm9hY2ggc2VlbXMgdG8gaW5kaWNhdGUgdGhhdCBvdGhlcnMgaGF2ZSBlbmNvdW50
+ZXJlZCBzaW1pbGFyIHJlcXVpcmVtZW50cy4gIFNvIG15IG9yaWdpbmFsIHF1ZXN0aW9uIHN0aWxs
+IHJlbWFpbnMsIHdoaWNoIGlzIHRvIGZpbmQgb3V0IGlmIGJpdGJha2UgKG9yIGFub3RoZXIgdG9v
+bCkgY2FuIGF1dG9tYXRpY2FsbHkgbWFuYWdlIHRoZXNlIEpTT04tc3BlY2lmaWVkIHRlc3QgZGVw
+ZW5kZW5jaWVzIGFzIHBhcnQgb2YgdGhlIGJ1aWxkIGxpZmVjeWNsZS4NCg0KSSdtIHN0aWxsIGV4
+cGxvcmluZyBvcHRpb25zLCBidXQgdGhlcmUgYXJlIHNvbWUgcmVhc29ucyB0byBwcmVmZXIgbm90
+IGhhdmluZyBhIHNlcGFyYXRlIHRlc3QgaW1hZ2UuICBJZiB5b3UncmUgY3VyaW91cywgc29tZSB0
+aG91Z2h0cyBmb2xsb3cuLi4NCg0KUHJvYmFibHkgZmlyc3QgYW5kIGZvcmVtb3N0IGlzIHRoYXQg
+dXNpbmcgYSBzZXBhcmF0ZSBpbWFnZSBtZWFucyB5b3UncmUgbm90IGRpcmVjdGx5IHRlc3Rpbmcg
+dGhlIGFydGlmYWN0IHlvdSByZWFsbHkgY2FyZSBhYm91dCAtIHRoZSBvcmlnaW5hbCBpbWFnZSBv
+biB3aGljaCB0aGUgdGVzdCBpbWFnZSBpcyBiYXNlZC4gIFRydXN0aW5nIHRoYXQgdGhlIHRlc3Qg
+cmVzdWx0cyBmcm9tIHRoZSB0ZXN0IGltYWdlIGFwcGx5IHRvIHlvdXIgb3JpZ2luYWwgaW1hZ2Ug
+aXMgcHJlZGljYXRlZCBvbiB0aGUgYXNzdW1wdGlvbiB0aGF0IHRoZSB0ZXN0IGltYWdlIGlzIGFu
+IGV4YWN0IHJlcGxpY2Egb2YgdGhlIG9yaWdpbmFsLCBtb2R1bG8gdGhlIGFkZGl0aW9uIG9mIG5v
+bi1kaXNydXB0aXZlIHRlc3QgcmVjaXBlcy4gIFRoYXQgaXMgdG8gc2F5LCB5b3UgbXVzdCBhc3N1
+bWUgdGhhdCB0aGUgdGVzdCByZWNpcGVzIGRvbid0IGNvbmZsaWN0IHdpdGggZWFjaCBvdGhlciBv
+ciBtb2RpZnkgdGhlIHN5c3RlbSBiZWhhdmlvciBpbiB1bmV4cGVjdGVkIHdheXMuICBBZGRpdGlv
+bmFsbHksIHdoaWxlIGl0IGlzIGNvbmNlcHR1YWxseSBzdHJhaWdodGZvcndhcmQgdG8ganVzdCBj
+aGVjayBmb3IgdGhlIGFkZGl0aW9uIG9mIHJlY2lwZXMgKGlnbm9yaW5nIHVuZXhwZWN0ZWQgc2lk
+ZSBlZmZlY3RzKSwgaXQgY291bGQgc3RpbGwgYmUgYSBzbGlwcGVyeSBzbG9wZSAtIGl0J3MgZWFz
+eSB0byBzdGFydCBtYWtpbmcgb3RoZXIgY2hhbmdlcywgYXMgdGhlIGV4YW1wbGUgeW91IHByZXNl
+bnQgYWN0dWFsbHkgZG9lcyAgKGUuZy4sIGNoYW5naW5nIHRoZSBvdmVyaGVhZCBmYWN0b3IgYW5k
+IGFzc3VtaW5nIG1vcmUgbWVtb3J5KS4gIFdlIGNvdWxkIGRlYmF0ZSB0aGUgaW1wYWN0cyBvZiBz
+dWNoIGNoYW5nZXMgb24gYSBjYXNlLWJ5LWNhc2UgYmFzaXMsIGJ1dCB1bHRpbWF0ZWx5IGV2ZXJ5
+IGNoYW5nZSBtb3ZlcyB5b3UgZnVydGhlciBhd2F5IGZyb20gdGhlIGJhc2VsaW5lLCBhZGRpbmcg
+cmlzay4NCg0KRm9yIHVzLCBoYXZpbmcgdG8gbWFuYWdlIG11bHRpcGxlIGltYWdlcyBhbHNvIG1h
+a2VzIHRoaW5ncyBtb3JlIGNoYWxsZW5naW5nLCBpbiB0aGF0IHRoZSBZb2N0byBhcnRpZmFjdHMg
+d2UgcHJvZHVjZSBhcmUgb25seSBhIHBhcnQgb2Ygb3VyIGVtYmVkZGVkIHN5c3RlbS4gIEFzIHN1
+Y2gsIHdlIGhhdmUgb3RoZXIgc2NyaXB0cyBhbmQgY29tcG9uZW50cyB0aGF0IHdvdWxkIHRoZW4g
+bmVlZCB0byBhY2NvdW50IGZvciBtdWx0aXBsZSBpbWFnZXMsIGRlcGVuZGluZyBvbiB0aGUgc2Nl
+bmFyaW8uICBDZXJ0YWlubHkgdGhpcyBjYW4gYmUgZG9uZSwgYnV0IGZvciBzaW1wbGljaXR5LCBp
+dCdzIGVhc2llciBub3QgdG8gcmVxdWlyZSB0aGF0LCBlc3AuIHdoZW4gdGhlcmUncyBvbmx5IG9u
+ZSBmaW5hbCByb290ZnMgbmVlZGVkIGZyb20gb3VyIHBva3kgY29uZmlndXJhdGlvbi4NCg0KQ2hl
+ZXJzLA0KLUNvbm5vcg0KDQrvu79PbiAzLzgvMTksIDI6MjYgUE0sICJBbGV4YW5kZXIgS2FuYXZp
+biIgPGFsZXgua2FuYXZpbkBnbWFpbC5jb20+IHdyb3RlOg0KDQogICAgSSdkIHNheSBhIHNwZWNp
+YWwgaW1hZ2UgZm9yIHRlc3RpbmcgaXMgKmV4YWN0bHkqIHdoYXQgeW91IG5lZWQuIFlvdQ0KICAg
+IG1pZ2h0IHRha2UgdGhlIGV4aXN0aW5nIGltYWdlIHJlY2lwZSwgYW5kIGluY2x1ZGUgaXQgd2hv
+bGVzYWxlIGludG8NCiAgICB5b3VyIHRlc3RpbmcgaW1hZ2UgcmVjaXBlLCB0aGVuIGFkZCBhZGRp
+dGlvbmFsIHJlY2lwZXMgYXMgbmVlZGVkLiBUaGVuDQogICAgdGhlIHRlc3RpbmcgaW1hZ2UgaXMg
+Z3VhcmFudGVlZCB0byBiZSBhbiBleHRlbnNpb24gb2YgdGhlIHBsYWluIGltYWdlLg0KICAgIEV4
+YW1wbGU6DQogICAgDQogICAgaHR0cDovL2dpdC55b2N0b3Byb2plY3Qub3JnL2NnaXQvY2dpdC5j
+Z2kvcG9reS90cmVlL21ldGEvcmVjaXBlcy1zYXRvL2ltYWdlcy9jb3JlLWltYWdlLXNhdG8tc2Rr
+LXB0ZXN0LmJiDQogICAgDQogICAgR2VuZXJhbGx5LCBjcmVhdGluZyB2YXJpb3VzIHR5cGVzIG9m
+IGltYWdlcyBzZXJ2aW5nIHZhcmlvdXMgcHVycG9zZXMNCiAgICBpcyBub3Qgb25seSBvaywgYnV0
+IGlzIGVuY291cmFnZWQgLSBZUCBpc24ndCBhYmxlIHRvIGNhcnJ5IHRoaXMNCiAgICBtZXNzYWdl
+IGFjcm9zcyB0byB1c2VycyB2ZXJ5IHdlbGwgOi0vDQogICAgDQogICAgQWxleA0KICAgIA0KICAg
+IE9uIEZyaSwgOCBNYXIgMjAxOSBhdCAyMTozNiwgQ29ubm9yIEltZXMgPGNpbWVzQGlzaS5lZHU+
+IHdyb3RlOg0KICAgID4NCiAgICA+IEhpIGFsbCwNCiAgICA+DQogICAgPg0KICAgID4NCiAgICA+
+IFdlIGhhdmUgc29tZSBhcHBsaWNhdGlvbnMgdGhhdCBhcmUgbWVhbnQgZXhjbHVzaXZlbHkgZm9y
+IHRlc3RpbmcsIGFuZCBzbyBkbyBub3Qgd2FudCB0byBpbmNsdWRlIHRoZW0gYnkgZGVmYXVsdCBp
+biBvdXIgaW1hZ2XigJlzIHJvb3Rmcy4gIEl0IGFsc28gZG9lcyBub3Qgc2VlbSBhcHByb3ByaWF0
+ZSB0byBidWlsZCBhIHNlcGFyYXRlIGltYWdlIGZvciB0ZXN0aW5nLiAgQWZ0ZXIgbXVjaCBzZWFy
+Y2hpbmcsIGl0IHNlZW1zIGxpa2UgdGhlIEpTT04tYmFzZWQgYXBwcm9hY2ggZGVzY3JpYmVkIGhl
+cmUgWzFdIGlzIGFwcHJvcHJpYXRlIHRvIGF1dG9tYXRpY2FsbHkgbG9hZC9yZW1vdmUgdGhlIGJp
+bmFyaWVzIGF0IHJ1bnRpbWUgZm9yIHVzZSBkdXJpbmcgdGVzdGluZy4gIEnigJl2ZSB3cml0dGVu
+IHNvbWUgcmVjaXBlcyB0byBidWlsZCBvdXIgdGVzdCBiaW5hcmllcywgdGhlbiBzcGVjaWZpZWQg
+dGhlaXIgcGFja2FnZXMgYXMgZGVwZW5kZW5jaWVzIHVzaW5nIEpTT04gZmlsZXMgZm9yIG91ciBQ
+eXRob24gb2VxYSBydW50aW1lIHRlc3QgY2FzZXMuICBJZiBJIGJ1aWxkIHRoZSByZWNpcGVzIHdp
+dGggYml0YmFrZSwgdGhlIHRlc3RzIHRoZW4gZXhlY3V0ZSBzdWNjZXNzZnVsbHkgd2hlbiBJIHJ1
+biBgYml0YmFrZSA8aW1hZ2U+IC1jIHRlc3RpbWFnZWAuDQogICAgPg0KICAgID4NCiAgICA+DQog
+ICAgPiBbMV0gaHR0cHM6Ly93d3cueW9jdG9wcm9qZWN0Lm9yZy9kb2NzLzIuNi9kZXYtbWFudWFs
+L2Rldi1tYW51YWwuaHRtbCNpbnN0YWxsaW5nLXBhY2thZ2VzLWluLXRoZS1kdXQtd2l0aG91dC10
+aGUtcGFja2FnZS1tYW5hZ2VyDQogICAgPg0KICAgID4NCiAgICA+DQogICAgPiBUaGUgcHJvYmxl
+bSBpcyB0aGF0IHdlIGN1cnJlbnRseSBoYXZlIHRvIHNwZWNpZnkgZWFjaCBvZiB0aGVzZSByZWNp
+cGVzIHRvIGJpdGJha2Ugc28gdGhleSBjYW4gYnVpbHQgcHJpb3IgdG8gdGVzdGluZywgdGh1cyBy
+ZXF1aXJpbmcgYSBwcmlvcmkga25vd2xlZGdlIG9mIHdoaWNoIHJlY2lwZXMgb3VyIHRlc3RzIGRl
+cGVuZCBvbi4gIFRoaXMgbWFudWFsIGRlcGVuZGVuY3kgbWFuYWdlbWVudCBpcyBlcnJvci1wcm9u
+ZSBhbmQgd29u4oCZdCBzY2FsZSB3ZWxsLiAgSXMgdGhlcmUgYSB3YXkgZm9yIGJpdGJha2UgdG8g
+ZGlzY292ZXIgdGhlc2UgZGVwZW5kZW5jaWVzIGF1dG9tYXRpY2FsbHkgcHJpb3IgdG8gcnVubmlu
+ZyBgdGVzdGltYWdlYCAod2hpY2ggc3Vic2VxdWVudGx5IGZhaWxzIGlmIHRoZSBkZXBlbmRlbmNp
+ZXMgc3BlY2lmaWVkIGluIHRoZSBKU09OIGZpbGVzIGFyZW7igJl0IGFscmVhZHkgYnVpbHQpPyAg
+SWRlYWxseSB3ZSBzaG91bGQgYmUgYWJsZSB0byBtYW5hZ2UgdGhlc2UgcmVjaXBlcyBzaW1pbGFy
+bHkgdG8gb3RoZXJzIHVzZWQgdG8gYnVpbGQgYW5kIHBvcHVsYXRlIHRoZSByb290ZnMgLSBmZXRj
+aCBzb3VyY2VzIHdoaWxlIHdl4oCZcmUgb25saW5lLCB0aGVuIGJ1aWxkIG9mZmxpbmUsIHRoZW4g
+cnVuIHRoZSB0ZXN0cyBhbnl0aW1lIHRoZXJlYWZ0ZXIuICBTb21ldGhpbmcgbGlrZToNCiAgICA+
+DQogICAgPiAgIGJpdGJha2UgPGltYWdlPiAtYyB0ZXN0aW1hZ2UgLS1ydW5hbGw9ImZldGNoIiAg
+IyBkb3dubG9hZCBzb3VyY2VzIChjdXJyZW50bHkgZmV0Y2hlcyBzb21lIHRoaW5ncywgYnV0IG5v
+dCBKU09OLXNwZWNpZmllZCByZWNpcGVzPykNCiAgICA+DQogICAgPiAgIGJpdGJha2UgPGltYWdl
+PiAtYyB0ZXN0aW1hZ2UgLS1ydW5hbGw9ImJ1aWxkIiAgIyBidWlsZC9pbnN0YWxsL2V0YyBhbGwg
+dGVzdC1yZWxhdGVkIHJlY2lwZXMNCiAgICA+DQogICAgPiAgIGJpdGJha2UgPGltYWdlPiAtYyB0
+ZXN0aW1hZ2UgICMgZG8gdGhlIGFjdHVhbCBydW50aW1lIHRlc3QNCiAgICA+DQogICAgPg0KICAg
+ID4NCiAgICA+IFRoYW5rcywNCiAgICA+DQogICAgPiAtQ29ubm9yDQogICAgPg0KICAgID4gLS0N
+CiAgICA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQog
+ICAgPiBwb2t5IG1haWxpbmcgbGlzdA0KICAgID4gcG9reUB5b2N0b3Byb2plY3Qub3JnDQogICAg
+PiBodHRwczovL2xpc3RzLnlvY3RvcHJvamVjdC5vcmcvbGlzdGluZm8vcG9reQ0KICAgIA0KDQo=
 
