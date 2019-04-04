@@ -1,65 +1,47 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <zzs213@126.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 21C30E00AB0; Mon,  1 Apr 2019 16:05:48 -0700 (PDT)
+	id 7F795E00CEE; Wed,  3 Apr 2019 20:33:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED, FREEMAIL_FROM,
+	FROM_EXCESS_BASE64 autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.221.53 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (zzs213[at]126.com)
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
-	[209.85.221.53])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 95684E00798
-	for <poky@lists.yoctoproject.org>; Mon,  1 Apr 2019 16:05:46 -0700 (PDT)
-Received: by mail-wr1-f53.google.com with SMTP id t17so1080024wrw.13
-	for <poky@lists.yoctoproject.org>; Mon, 01 Apr 2019 16:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=from:to:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=zmu4OKpTU58M9uz1aHypOrXigZp2tVjuqRGZKPiDZ3g=;
-	b=KdNxuWqzH8tl7WC2xd1ykhuv3UnkoPumUQ7gixCa5YVJzbTPKLtA0weZq286S4z41t
-	VMmgFnJ5UDKX1+8e8ol4lFU+fRL/SKkZqdhDuMGDi2tEYsnn23TewAYZEYNhCaSISUOS
-	XkvS0j2jsRAclHEqNB9ycDTrsttURUKmaRCdA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=zmu4OKpTU58M9uz1aHypOrXigZp2tVjuqRGZKPiDZ3g=;
-	b=jrurK6gpKs/ntuY6OPI1V+2J2CnCGYK1OCVZYsxICx0F5ALgTeMygvrwe3CFnCMWLf
-	lVt1dwH4I5z30ggJxQQigFrfyUOhdtDONmuq/neB7VXnVgr5GforNrcZq2d+J9EDYA5D
-	gwrwtHtDL3pe9o+8MwtLuPN2kFnVERTTUKBZdI2HmSSzyyfkFQQaV+vKtxWdkaL4YIwY
-	Y7mju4jrugArjyu2WkQJ++ZD77Glv7LSTgKP2yhnmjUW6vexmkzB5gZ2jZljXeY/2p7l
-	s1Ql8+FpL+DB/YOhAz63VRAsy3D5HaAkgsVd9FpVMduWjALnorNjvyFsj+jsS0X+lK9P
-	ZvSA==
-X-Gm-Message-State: APjAAAUx9ZH718ytS6uyWldrV7oGbBOuEMNVabZZV4x5Ds7n4cSscCSO
-	yeJFCuNt5/Ih7HTKczXmmLDFfzg37LDzeA==
-X-Google-Smtp-Source: APXvYqwezaT3RNN38gchLSgRS0XpbEegNVclU+plpY79llhWw5NML3/A1wME61CGl1Q5FHBOmgs9sA==
-X-Received: by 2002:adf:e74f:: with SMTP id c15mr28520537wrn.23.1554159945492; 
-	Mon, 01 Apr 2019 16:05:45 -0700 (PDT)
-Received: from hex.int.rpsys.net (5751f4a1.skybroadband.com. [87.81.244.161])
-	by smtp.gmail.com with ESMTPSA id
-	s2sm11577847wmc.7.2019.04.01.16.05.44
-	for <poky@lists.yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 01 Apr 2019 16:05:44 -0700 (PDT)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Date: Tue,  2 Apr 2019 00:05:44 +0100
-Message-Id: <20190401230544.16761-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.20.1
+	*  0.1 DKIM_INVALID DKIM or DK signature exists, but is not valid
+	*  1.0 FROM_EXCESS_BASE64 From: base64 encoded unnecessarily
+X-Greylist: delayed 1885 seconds by postgrey-1.32 at yocto-www;
+	Wed, 03 Apr 2019 20:33:00 PDT
+Received: from m15-29.126.com (m15-29.126.com [220.181.15.29])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 03930E00994
+	for <poky@yoctoproject.org>; Wed,  3 Apr 2019 20:33:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=gUqpI
+	eq+b4raf787wnGiqJ/z0FsyrPuw9OthfMZTrIc=; b=jl9+1Y544BYagVvPWDugT
+	H5HLHm39MDnuBArEQXJMWuSUR/1tBFz+1U5PpB8IYpFUaJ1aqbUpzNKtqs0eG7fr
+	V1FilYna9sGSXzQD3yb6GOv3rwAeYWKwXMe+37YwXXHKj+pCfg7Pd6uQ0U8rJSEu
+	/xwHxyFoBTglA49exwz/hY=
+Received: from zzs213$126.com ( [222.210.44.49] ) by ajax-webmail-wmsvr29
+	(Coremail) ; Thu, 4 Apr 2019 11:01:32 +0800 (CST)
+X-Originating-IP: [222.210.44.49]
+Date: Thu, 4 Apr 2019 11:01:32 +0800 (CST)
+From: =?GBK?B?1cXW0sm9?= <zzs213@126.com>
+To: poky <poky@yoctoproject.org>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+	20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
 MIME-Version: 1.0
-Subject: [PATCH] layer.conf: Update to warrior release name series
+Message-ID: <4faf18c8.2ccf.169e64b5d17.Coremail.zzs213@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: HcqowADXTemMc6VchVUSAA--.41404W
+X-CM-SenderInfo: x22vjiat6rjloofrz/1tbiuxSMGVpD8LRKMAABsc
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Subject: Can I deploy to multiple dirs with the same content
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -72,39 +54,11 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 23:05:48 -0000
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Thu, 04 Apr 2019 03:33:02 -0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-poky/conf/layer.conf      | 2 +-
- meta-yocto-bsp/conf/layer.conf | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/meta-poky/conf/layer.conf b/meta-poky/conf/layer.conf
-index b9b263716ab..0d74f4eaaf2 100644
---- a/meta-poky/conf/layer.conf
-+++ b/meta-poky/conf/layer.conf
-@@ -9,7 +9,7 @@ BBFILE_COLLECTIONS += "yocto"
- BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
- BBFILE_PRIORITY_yocto = "5"
- 
--LAYERSERIES_COMPAT_yocto = "thud"
-+LAYERSERIES_COMPAT_yocto = "warrior"
- 
- # This should only be incremented on significant changes that will
- # cause compatibility issues with other layers
-diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
-index 53e8722e813..3c8f775bc42 100644
---- a/meta-yocto-bsp/conf/layer.conf
-+++ b/meta-yocto-bsp/conf/layer.conf
-@@ -9,4 +9,4 @@ BBFILE_COLLECTIONS += "yoctobsp"
- BBFILE_PATTERN_yoctobsp = "^${LAYERDIR}/"
- BBFILE_PRIORITY_yoctobsp = "5"
- LAYERVERSION_yoctobsp = "4"
--LAYERSERIES_COMPAT_yoctobsp = "thud"
-+LAYERSERIES_COMPAT_yoctobsp = "warrior"
--- 
-2.20.1
-
+QWZ0ZXIgImluaGVyaXQgZGVwbG95Ii4gSSB3aXNoIGRlcGxveSBzb21lIGZpbGUgdG8gdHdvIGRp
+ciB3aXRoIHNhbWUgY29udGVudC4gSXMgaXQgcG9zc2libGU/CgotLSAKQmVzdCBSZWdhcmRzLAp6
+enMK
 
