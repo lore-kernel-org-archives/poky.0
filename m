@@ -1,63 +1,59 @@
-Return-Path: <jonathan.richardson@broadcom.com>
+Return-Path: <AMardegan@luxoft.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 05083E00D13; Mon, 15 Apr 2019 13:15:55 -0700 (PDT)
+	id 91B26E00D50; Wed, 17 Apr 2019 23:46:24 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.166.174 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-it1-f174.google.com (mail-it1-f174.google.com
-	[209.85.166.174])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D983CE00C1B
-	for <poky@yoctoproject.org>; Mon, 15 Apr 2019 13:15:53 -0700 (PDT)
-Received: by mail-it1-f174.google.com with SMTP id w15so28959791itc.0
-	for <poky@yoctoproject.org>; Mon, 15 Apr 2019 13:15:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
-	h=from:references:in-reply-to:mime-version:thread-index:date
-	:message-id:subject:to:cc;
-	bh=iDKoph6hOOUXhFkQc1jcEJALOfc+L6tYjQsG9NfPFKs=;
-	b=QZLQIm0Q1lc3D1V07lS24erWADXZZGCoMrhu6G6G5lmkXaggbBbUYXc1FkjIOSyZ9f
-	X8yUl8HYfXB+soyZ6FgLTLZ2Jh8E6nL+nV4fd4vpVpXWaKUujBJXu29BoNC46E03dlGV
-	n0haX6k6IzgH3nOxG4HgLavcIgKAprQDv6lgE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:references:in-reply-to:mime-version
-	:thread-index:date:message-id:subject:to:cc;
-	bh=iDKoph6hOOUXhFkQc1jcEJALOfc+L6tYjQsG9NfPFKs=;
-	b=qwvYH54L/GscO4aUdBtW5oLRGRnHJKfqMDVkkwW5Zu69gctO8PFTV2khU6VBEPfYZi
-	lnRYZTWKuhH2ckG/67kSnDRAjGT9Xk8kv3e9KVl+xT8PfgT05lo5CQseyOtSHhrRWUb+
-	t05aJrfaD2ji9/KnWMESJk3YDzPlhgwqjTZL/e1c6D3EkDiBFaHCwoKsDQKBMIOYCKIU
-	mrW76GH36ljIWjBZq5+SYB0yEFQQ2sxIkhz9dUsYOFzvhH6zcF+1kbrrIVA3fKthqvx1
-	rWGvMXpThO/HUY1AgTdasNHLNpt1g7Id5oyvbwQ0bk2oqOJ3EnYrFXgNypVHZDOJgPj+
-	qF0A==
-X-Gm-Message-State: APjAAAVp+rrPyeXJSX1X1yGm8UXsL8UrL1RRkAMhBtSxirVolZQ9F4RN
-	3uLEn/XchM7NZSbbsgtmjW+YKxXkY08LmBB0qc7IEg==
-X-Google-Smtp-Source: APXvYqxeN91gxpu3y8WFoWvvyBEQxiqbcLxOIkWKYDycursgA5rubQyCkSN2g4c9G8znzIfIYf3F4R959TMLDbwhV0Q=
-X-Received: by 2002:a24:247:: with SMTP id 68mr24439199itu.13.1555359353195;
-	Mon, 15 Apr 2019 13:15:53 -0700 (PDT)
-From: Jonathan Richardson <jonathan.richardson@broadcom.com>
-References: <8c6201f9a7d14b56c3129fa9b0c80d44@mail.gmail.com>
-	<CAMKF1spcRYnZd_cw++H2Zsi9aikkHw3nMRTQgPbcc6BSGyMcAA@mail.gmail.com>
-In-Reply-To: <CAMKF1spcRYnZd_cw++H2Zsi9aikkHw3nMRTQgPbcc6BSGyMcAA@mail.gmail.com>
+	*      [109.166.244.56 listed in list.dnswl.org]
+X-Greylist: delayed 902 seconds by postgrey-1.32 at yocto-www;
+	Wed, 17 Apr 2019 23:46:22 PDT
+Received: from mx01.luxoft.com (mx01.luxoft.com [109.166.244.56])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F008DE00D4A
+	for <poky@yoctoproject.org>; Wed, 17 Apr 2019 23:46:22 -0700 (PDT)
+X-AuditID: ac1e1338-fe1ff7000001616c-da-5cb819b62017
+Received: from ORO-EDGE-02.luxoft.com (oro-edge-02.luxoft.com [172.30.19.22])
+	(using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(Client did not present a certificate)
+	by mx01.luxoft.com (Symantec Messaging Gateway) with SMTP id
+	0A.FC.24940.6B918BC5; Thu, 18 Apr 2019 09:31:18 +0300 (EEST)
+Received: from oro-exch-04.luxoft.com (172.25.192.34) by
+	oro-edge-02.luxoft.com (172.30.19.22) with Microsoft SMTP Server (TLS)
+	id 14.3.408.0; Thu, 18 Apr 2019 09:31:16 +0300
+Received: from oro-exch-01.luxoft.com (172.25.192.30) by
+	oro-exch-04.luxoft.com (172.25.192.34) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P521) id
+	15.1.1466.3; Thu, 18 Apr 2019 09:31:17 +0300
+Received: from oro-exch-01.luxoft.com ([fe80::1da3:c392:32fa:ad13]) by
+	oro-exch-01.luxoft.com ([fe80::1da3:c392:32fa:ad13%13]) with mapi id
+	15.01.1466.003; Thu, 18 Apr 2019 09:31:17 +0300
+From: "Mardegan, Alberto" <AMardegan@luxoft.com>
+To: Poky Project <poky@yoctoproject.org>
+Thread-Topic: XML test runner, or how to override Poky's python code
+Thread-Index: AQHU9bBURCEf4fJ5TEubqw46XduTNw==
+Date: Thu, 18 Apr 2019 06:31:17 +0000
+Message-ID: <8828ebbf-bc9d-3633-b8a7-8ccaa2101733@luxoft.com>
+Accept-Language: it-IT, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.30.19.68]
 MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 14.0
-Thread-Index: AQFoBC2bXR+iWIwzHVmrwh7nZTxsBgKmjbH7pwJSq/A=
-Date: Mon, 15 Apr 2019 13:15:51 -0700
-Message-ID: <79718ad1091c908c90b4580c0bdf4f4b@mail.gmail.com>
-To: Khem Raj <raj.khem@gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: libc configuration of multilib config
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrLLMWRmVeSWpSXmKPExsWyRk5YTHeb5I4Ygz83FCym/1vD7sDo0X6i
+	jy2AMYrLJiU1J7MstUjfLoErY9vJmUwFu3grlra8ZW5g7OHtYuTkkBAwkZgx+RtzFyMXh5DA
+	ZiaJOx+PMIEkhAQ2MUpsvsADkfjCKPFl/gIWCGc/o8Sb6bNYQKrYBAwk/u5eywpiiwhoSLR9
+	+QtmCwvYS5xb+BIq7iLx48lWRghbT+LE9vPsXYwcHCwCqhIzJzmChHkFbCVmTHrABmIzCshK
+	TNi9CKycWUBc4taT+UwQlwpILNlznhnCFpV4+fgfK4StINH5tBFsJLOApsT6XfoQrZYS996s
+	YYOwFSWmdD9kh1glKHFy5hMWiB8VJZZ/m880gVFsFpJtsxAmzUIyaRaSSbOQTFrAyLqKUTS/
+	KF+3ODdd18BYL6e0Ij+tRC85P3cTIySCLHYwnj6YcoiRiYNTqoGxXuQn/6+pNh9mXJeacoJR
+	9OrqFeZ9Cl/5fumm1L5onHSfZb7INAaenykifK8rg6b4XBfv4rT03nwrVE8qOaBlwWepS9LB
+	YtLeCwQ32ZV9WCixyil5o3b6Yv5n2UJ7c49kXNHKsLM0Sr622VwnKiDV+/KC19euasy4cayu
+	0NhL+uiFCn4nzS4lluKMREMt5qLiRAAve6hDUAIAAA==
+Subject: XML test runner, or how to override Poky's python code
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,16 +66,33 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 20:15:55 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 18 Apr 2019 06:46:24 -0000
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <66F3F9E5747A0840ABDF4DDF10CF3558@luxoft.com>
+Content-Transfer-Encoding: base64
 
-you might want to look into multi config feature.
-https://www.yoctoproject.org/docs/2.3/dev-manual/dev-manual.html#platdev-building-targets-with-multiple-configurations
-https://wiki.yoctoproject.org/wiki/TipsAndTricks/BuildingZephyrImages#Arduino_101_and_Multiconfig
-
-Not sure how I missed this section but it's exactly what I need. It's nice
-that we
-can configure it automatically without manually changing the MACHINE
-variable
-as well. Thanks Khem/Richard.
+SGkgdGhlcmUhDQogIFNpbmNlIFlvY3RvICJ0aHVkIiwgdGhlIHRlc3Qgc3VpdGUgbm8gbG9uZ2Vy
+IHN1cHBvcnRzIG91dHB1dHRpbmcgdGhlDQp0ZXN0IHJlcG9ydCBpbiBYTUwgZm9ybWF0Lg0KDQpX
+aGlsZSBJJ20gbm90IGVzcGVjaWFsbHkgZm9uZCBvZiB0aGF0IGZvcm1hdCwgaXQgaGFkIG9uZSBm
+ZWF0dXJlIHdoaWNoDQp3YXMgcXVpdGUgaW1wb3J0YW50IGZvciBvdXIgZnVydGhlciBwcm9jZXNz
+aW5nIG9mIHRlc3QgcmVzdWx0czogdGhlDQpzdGRvdXQgZnJvbSB0aGUgdGVzdCB3YXMgY2FwdHVy
+ZWQgYW5kIGluY2x1ZGVkIGluIHRoZSB0ZXN0IHJlcG9ydCAobm93DQp0aGUgSlNPTiB0ZXN0IHJl
+cG9ydCBvbmx5IGNvbnRhaW5zIHRoZSBzdGRvdXQgYW5kIHN0ZGVyciBmb3IgdGhlIGZhaWxpbmcN
+CnRlc3RzKS4NCg0KSXMgaXQgcG9zc2libGUgZnJvbSBhIGxheWVyIHRvIGFsdGVyIHRoZSBpbXBs
+ZW1lbnRhdGlvbiBvZiB0aGUNCk9FVGVzdFJ1bm5lciwgc28gdGhhdCB0aGUgYml0YmFrZSB0ZXN0
+aW1hZ2UgY29tbWFuZCB3b3VsZCBiZWhhdmUgdGhlIHdheQ0Kd2Ugd2FudCB0bz8NCg0KQ2lhbywN
+CiAgQWxiZXJ0bw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQpUaGlzIGUt
+bWFpbCBhbmQgYW55IGF0dGFjaG1lbnQocykgYXJlIGludGVuZGVkIG9ubHkgZm9yIHRoZSByZWNp
+cGllbnQocykgbmFtZWQgYWJvdmUgYW5kIG90aGVycyB3aG8gaGF2ZSBiZWVuIHNwZWNpZmljYWxs
+eSBhdXRob3JpemVkIHRvIHJlY2VpdmUgdGhlbS4gVGhleSBtYXkgY29udGFpbiBjb25maWRlbnRp
+YWwgaW5mb3JtYXRpb24uIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIHBs
+ZWFzZSBkbyBub3QgcmVhZCB0aGlzIGVtYWlsIG9yIGl0cyBhdHRhY2htZW50KHMpLiBGdXJ0aGVy
+bW9yZSwgeW91IGFyZSBoZXJlYnkgbm90aWZpZWQgdGhhdCBhbnkgZGlzc2VtaW5hdGlvbiwgZGlz
+dHJpYnV0aW9uIG9yIGNvcHlpbmcgb2YgdGhpcyBlLW1haWwgYW5kIGFueSBhdHRhY2htZW50KHMp
+IGlzIHN0cmljdGx5IHByb2hpYml0ZWQuIElmIHlvdSBoYXZlIHJlY2VpdmVkIHRoaXMgZS1tYWls
+IGluIGVycm9yLCBwbGVhc2UgaW1tZWRpYXRlbHkgbm90aWZ5IHRoZSBzZW5kZXIgYnkgcmVwbHlp
+bmcgdG8gdGhpcyBlLW1haWwgYW5kIHRoZW4gZGVsZXRlIHRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0
+YWNobWVudChzKSBvciBjb3BpZXMgdGhlcmVvZiBmcm9tIHlvdXIgc3lzdGVtLiBUaGFuayB5b3Uu
+DQo=
 
