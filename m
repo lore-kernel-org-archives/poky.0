@@ -1,59 +1,66 @@
-Return-Path: <AMardegan@luxoft.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 91B26E00D50; Wed, 17 Apr 2019 23:46:24 -0700 (PDT)
+	id 502D9E00D4F; Thu, 18 Apr 2019 01:31:58 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [109.166.244.56 listed in list.dnswl.org]
-X-Greylist: delayed 902 seconds by postgrey-1.32 at yocto-www;
-	Wed, 17 Apr 2019 23:46:22 PDT
-Received: from mx01.luxoft.com (mx01.luxoft.com [109.166.244.56])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F008DE00D4A
-	for <poky@yoctoproject.org>; Wed, 17 Apr 2019 23:46:22 -0700 (PDT)
-X-AuditID: ac1e1338-fe1ff7000001616c-da-5cb819b62017
-Received: from ORO-EDGE-02.luxoft.com (oro-edge-02.luxoft.com [172.30.19.22])
-	(using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by mx01.luxoft.com (Symantec Messaging Gateway) with SMTP id
-	0A.FC.24940.6B918BC5; Thu, 18 Apr 2019 09:31:18 +0300 (EEST)
-Received: from oro-exch-04.luxoft.com (172.25.192.34) by
-	oro-edge-02.luxoft.com (172.30.19.22) with Microsoft SMTP Server (TLS)
-	id 14.3.408.0; Thu, 18 Apr 2019 09:31:16 +0300
-Received: from oro-exch-01.luxoft.com (172.25.192.30) by
-	oro-exch-04.luxoft.com (172.25.192.34) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P521) id
-	15.1.1466.3; Thu, 18 Apr 2019 09:31:17 +0300
-Received: from oro-exch-01.luxoft.com ([fe80::1da3:c392:32fa:ad13]) by
-	oro-exch-01.luxoft.com ([fe80::1da3:c392:32fa:ad13%13]) with mapi id
-	15.01.1466.003; Thu, 18 Apr 2019 09:31:17 +0300
-From: "Mardegan, Alberto" <AMardegan@luxoft.com>
-To: Poky Project <poky@yoctoproject.org>
-Thread-Topic: XML test runner, or how to override Poky's python code
-Thread-Index: AQHU9bBURCEf4fJ5TEubqw46XduTNw==
-Date: Thu, 18 Apr 2019 06:31:17 +0000
-Message-ID: <8828ebbf-bc9d-3633-b8a7-8ccaa2101733@luxoft.com>
-Accept-Language: it-IT, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.30.19.68]
+	*      [209.85.221.54 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+	[209.85.221.54])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE2E4E00D4C
+	for <poky@yoctoproject.org>; Thu, 18 Apr 2019 01:31:55 -0700 (PDT)
+Received: by mail-wr1-f54.google.com with SMTP id k1so688714wrw.0
+	for <poky@yoctoproject.org>; Thu, 18 Apr 2019 01:31:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+	:mime-version:content-transfer-encoding;
+	bh=hinKlBREUvnQ9Uj7+Ij0tEOZ7Cr+EYpXTH/Zsz8nK8I=;
+	b=ZyDMUTAFOtL+cioKmTadPRgz9BlOTWktPb9PtJ0VDqQbv3lMfwa7toX/BUCC2jpdqJ
+	FrvzBb+oGet3JFCBlVokmdNSgjgKuQCj5OkkwlD9dH7CTUH2b7Yw6DN28OXXJ4+Ketmq
+	xPgxMEYDQ5Tapx+ZibmCrHkCFw102IzOFIGCQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+	:references:user-agent:mime-version:content-transfer-encoding;
+	bh=hinKlBREUvnQ9Uj7+Ij0tEOZ7Cr+EYpXTH/Zsz8nK8I=;
+	b=CMCTsO5AzVM/I+Ni3uuI2yJaMxsWGeGNHLVpyPlBSBebbwCbeeS9z/TCZxkAV9DZCz
+	13dBEaGoXR10+HZedvrQnf8vMrh/Z6gUtKw+/ZNn8MV1bf8Jo/jRQLENKJC7hY2cRkI/
+	EXav3EtcLfL6peyEsdzJmPbckqFrwDITF74Uo1VawyLJ1JWOmAjMOlpeWNjDsLsLV46F
+	L0EcS0mFDuc0Fq/dJEBj51P5ia7tYz0R18cr4peaIMa2B03y4azoekUi+bC01DgOE2Xd
+	T5ZqizTOH0u0hhJ0+pHe8pnFyju5j8jTQ2CJPQ2Wj9EOpmg6bW94f3IOUZzLGjHy6ts4
+	hWeQ==
+X-Gm-Message-State: APjAAAUz+j4CF+vu1ELNERyfw+xK7T8GQqMmuRVGDJ3WNws3mlpFzADW
+	zO/uV1LDPm7TiDaydi3XzQb8bA==
+X-Google-Smtp-Source: APXvYqz3lH0qoYCnKgw0oSEqhElsqSH4R6mi3D+kkKnr5H4fEM918L5zbiv1zUrybaXscStn0EszXQ==
+X-Received: by 2002:a5d:5346:: with SMTP id t6mr891468wrv.59.1555576314924;
+	Thu, 18 Apr 2019 01:31:54 -0700 (PDT)
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+	by smtp.gmail.com with ESMTPSA id y9sm2612409wrn.18.2019.04.18.01.31.53
+	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+	Thu, 18 Apr 2019 01:31:54 -0700 (PDT)
+Message-ID: <a2f3a0a281b75d06300d38ebd62e9c138cf6f9a5.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Mardegan, Alberto" <AMardegan@luxoft.com>, Poky Project
+	<poky@yoctoproject.org>
+Date: Thu, 18 Apr 2019 09:31:52 +0100
+In-Reply-To: <8828ebbf-bc9d-3633-b8a7-8ccaa2101733@luxoft.com>
+References: <8828ebbf-bc9d-3633-b8a7-8ccaa2101733@luxoft.com>
+User-Agent: Evolution 3.32.1-2 
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrLLMWRmVeSWpSXmKPExsWyRk5YTHeb5I4Ygz83FCym/1vD7sDo0X6i
-	jy2AMYrLJiU1J7MstUjfLoErY9vJmUwFu3grlra8ZW5g7OHtYuTkkBAwkZgx+RtzFyMXh5DA
-	ZiaJOx+PMIEkhAQ2MUpsvsADkfjCKPFl/gIWCGc/o8Sb6bNYQKrYBAwk/u5eywpiiwhoSLR9
-	+QtmCwvYS5xb+BIq7iLx48lWRghbT+LE9vPsXYwcHCwCqhIzJzmChHkFbCVmTHrABmIzCshK
-	TNi9CKycWUBc4taT+UwQlwpILNlznhnCFpV4+fgfK4StINH5tBFsJLOApsT6XfoQrZYS996s
-	YYOwFSWmdD9kh1glKHFy5hMWiB8VJZZ/m880gVFsFpJtsxAmzUIyaRaSSbOQTFrAyLqKUTS/
-	KF+3ODdd18BYL6e0Ij+tRC85P3cTIySCLHYwnj6YcoiRiYNTqoGxXuQn/6+pNh9mXJeacoJR
-	9OrqFeZ9Cl/5fumm1L5onHSfZb7INAaenykifK8rg6b4XBfv4rT03nwrVE8qOaBlwWepS9LB
-	YtLeCwQ32ZV9WCixyil5o3b6Yv5n2UJ7c49kXNHKsLM0Sr622VwnKiDV+/KC19euasy4cayu
-	0NhL+uiFCn4nzS4lluKMREMt5qLiRAAve6hDUAIAAA==
-Subject: XML test runner, or how to override Poky's python code
+Subject: Re: XML test runner, or how to override Poky's python code
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -66,33 +73,37 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2019 06:46:24 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <66F3F9E5747A0840ABDF4DDF10CF3558@luxoft.com>
-Content-Transfer-Encoding: base64
+X-List-Received-Date: Thu, 18 Apr 2019 08:31:58 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-SGkgdGhlcmUhDQogIFNpbmNlIFlvY3RvICJ0aHVkIiwgdGhlIHRlc3Qgc3VpdGUgbm8gbG9uZ2Vy
-IHN1cHBvcnRzIG91dHB1dHRpbmcgdGhlDQp0ZXN0IHJlcG9ydCBpbiBYTUwgZm9ybWF0Lg0KDQpX
-aGlsZSBJJ20gbm90IGVzcGVjaWFsbHkgZm9uZCBvZiB0aGF0IGZvcm1hdCwgaXQgaGFkIG9uZSBm
-ZWF0dXJlIHdoaWNoDQp3YXMgcXVpdGUgaW1wb3J0YW50IGZvciBvdXIgZnVydGhlciBwcm9jZXNz
-aW5nIG9mIHRlc3QgcmVzdWx0czogdGhlDQpzdGRvdXQgZnJvbSB0aGUgdGVzdCB3YXMgY2FwdHVy
-ZWQgYW5kIGluY2x1ZGVkIGluIHRoZSB0ZXN0IHJlcG9ydCAobm93DQp0aGUgSlNPTiB0ZXN0IHJl
-cG9ydCBvbmx5IGNvbnRhaW5zIHRoZSBzdGRvdXQgYW5kIHN0ZGVyciBmb3IgdGhlIGZhaWxpbmcN
-CnRlc3RzKS4NCg0KSXMgaXQgcG9zc2libGUgZnJvbSBhIGxheWVyIHRvIGFsdGVyIHRoZSBpbXBs
-ZW1lbnRhdGlvbiBvZiB0aGUNCk9FVGVzdFJ1bm5lciwgc28gdGhhdCB0aGUgYml0YmFrZSB0ZXN0
-aW1hZ2UgY29tbWFuZCB3b3VsZCBiZWhhdmUgdGhlIHdheQ0Kd2Ugd2FudCB0bz8NCg0KQ2lhbywN
-CiAgQWxiZXJ0bw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQpUaGlzIGUt
-bWFpbCBhbmQgYW55IGF0dGFjaG1lbnQocykgYXJlIGludGVuZGVkIG9ubHkgZm9yIHRoZSByZWNp
-cGllbnQocykgbmFtZWQgYWJvdmUgYW5kIG90aGVycyB3aG8gaGF2ZSBiZWVuIHNwZWNpZmljYWxs
-eSBhdXRob3JpemVkIHRvIHJlY2VpdmUgdGhlbS4gVGhleSBtYXkgY29udGFpbiBjb25maWRlbnRp
-YWwgaW5mb3JtYXRpb24uIElmIHlvdSBhcmUgbm90IHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIHBs
-ZWFzZSBkbyBub3QgcmVhZCB0aGlzIGVtYWlsIG9yIGl0cyBhdHRhY2htZW50KHMpLiBGdXJ0aGVy
-bW9yZSwgeW91IGFyZSBoZXJlYnkgbm90aWZpZWQgdGhhdCBhbnkgZGlzc2VtaW5hdGlvbiwgZGlz
-dHJpYnV0aW9uIG9yIGNvcHlpbmcgb2YgdGhpcyBlLW1haWwgYW5kIGFueSBhdHRhY2htZW50KHMp
-IGlzIHN0cmljdGx5IHByb2hpYml0ZWQuIElmIHlvdSBoYXZlIHJlY2VpdmVkIHRoaXMgZS1tYWls
-IGluIGVycm9yLCBwbGVhc2UgaW1tZWRpYXRlbHkgbm90aWZ5IHRoZSBzZW5kZXIgYnkgcmVwbHlp
-bmcgdG8gdGhpcyBlLW1haWwgYW5kIHRoZW4gZGVsZXRlIHRoaXMgZS1tYWlsIGFuZCBhbnkgYXR0
-YWNobWVudChzKSBvciBjb3BpZXMgdGhlcmVvZiBmcm9tIHlvdXIgc3lzdGVtLiBUaGFuayB5b3Uu
-DQo=
+On Thu, 2019-04-18 at 06:31 +0000, Mardegan, Alberto wrote:
+> Hi there!
+>   Since Yocto "thud", the test suite no longer supports outputting
+> the
+> test report in XML format.
+> 
+> While I'm not especially fond of that format, it had one feature
+> which
+> was quite important for our further processing of test results: the
+> stdout from the test was captured and included in the test report
+> (now
+> the JSON test report only contains the stdout and stderr for the
+> failing
+> tests).
+> 
+> Is it possible from a layer to alter the implementation of the
+> OETestRunner, so that the bitbake testimage command would behave the
+> way
+> we want to?
+
+Its certainly possible to alter pretty much any of the code but it
+would probably involve duplication which would be ugly. A better way
+may be to send patches which optionally allow the test output to be
+stored in the json output based upon configuration?
+
+Cheers,
+
+Richard
+
 
