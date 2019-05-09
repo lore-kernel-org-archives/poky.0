@@ -1,61 +1,61 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <star@gmx.li>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id CC876E00CDF; Wed,  1 May 2019 08:51:03 -0700 (PDT)
+	id 587ACE00D3D; Thu,  9 May 2019 04:55:43 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, FREEMAIL_FROM, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.221.65 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (star[at]gmx.li)
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [212.227.15.18 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
-	[209.85.221.65])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 03401E00798
-	for <poky@yoctoproject.org>; Wed,  1 May 2019 08:51:02 -0700 (PDT)
-Received: by mail-wr1-f65.google.com with SMTP id c5so25017632wrs.11
-	for <poky@yoctoproject.org>; Wed, 01 May 2019 08:51:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=from:to:subject:date:message-id;
-	bh=bGVbkzO9VC64Um/0fPyYE3PFI/dwdV3YCkC/AuIrtpA=;
-	b=CIIiq8ww33Z9YVwIADeHmgHpbp19wwWeUZZRZN5+jefibvjiAe74ng5joL01l1+BuR
-	eAWkjZ6e8rOH2uphVtCSah4BUGAhTWAPuhu+Rj74El2pWNvq2UIwrKbRLpHjpBHaGivu
-	BD8ugeqAuxbS4hjcf9cJb6y5rILt7rl49NUvq5iobYhGh8PgXkUV9YbCvwWbcYHg7Kq8
-	W89dpHre+kzXxGGbFXHACRRXJ813SRhyUtXUcP3gVwtdUdoW+srCip4SiVYET3Ys72ms
-	T66/9Ap7LxCezPD1+9h87hHEpE2kYwZGZ8q/rm+OBvExJer9XcQrwf7bxih7FzuENDBC
-	DsHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=bGVbkzO9VC64Um/0fPyYE3PFI/dwdV3YCkC/AuIrtpA=;
-	b=qKsg3k+UZTF/4nGISeua5dkwiazsQ/hXvu+dGg0V8lhAyPYS7J+O7kD3OdjTex7GG1
-	8ZSVaMpbWRTbuUXfUTkXLTtQnf4THMOXUWddElHDtY8vfYc1+0+awDJeyG1aFgiQN47o
-	jubR64evNCYggDUvHQQM1NY2iRDidcx5ZWjC7I9nvKcx76kCQgw+3LwNPvzS1o3Ygpb7
-	7xySwf6WHV9IwO4jzdk78yx9vz0cmttejPj/2zvf4CEPVva6455gWFuna4UXXwSL3L+X
-	HTVsQ6F/WyZMLXcvbdpEW2pgPsnYox6I+7iFwjdxY+Mx2V5yIxq5R/k4lMh30L3ZIOjL
-	zVTw==
-X-Gm-Message-State: APjAAAWLjRaHgfCVV/DoJjZ9xsmtNPWmoMvBZzjV1yPghSweQ/SXVrQe
-	K7roHuV7QyNn5vlvOS7eTz+dZbO/AwQ=
-X-Google-Smtp-Source: APXvYqzjq5OZ/lXhhCjHtB9/ByYcuzxNlHbZ3QoK7jb6JPuc272XjK2PXDCZyUgZlJZcW8kf33lmyg==
-X-Received: by 2002:adf:9cc7:: with SMTP id h7mr26322918wre.259.1556725861918; 
-	Wed, 01 May 2019 08:51:01 -0700 (PDT)
-Received: from flashheart.burtonini.com (35.106.2.81.in-addr.arpa.
-	[81.2.106.35]) by smtp.gmail.com with ESMTPSA id
-	c131sm5886570wma.31.2019.05.01.08.51.00 for <poky@yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 01 May 2019 08:51:01 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
+X-Greylist: delayed 302 seconds by postgrey-1.32 at yocto-www;
+	Thu, 09 May 2019 04:55:39 PDT
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DD843E00C14
+	for <poky@yoctoproject.org>; Thu,  9 May 2019 04:55:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1557402938;
+	bh=sbKHgDsWJr77T5SB057EiWepkLmLDIt6ABZu4eT7rFg=;
+	h=X-UI-Sender-Class:From:To:Subject:Date;
+	b=ARGPSO41IFq8DZ1v4SrZCNN5FPAZcMsRemoC2kujlCcqSqmTHm1g1OhNnbItXBAZ9
+	PX00+J5vWcAYPQ2DQ7bi5/droL5vxc71KK0Q6PrcBKYy1IrhpkSPHR/+9uzp+Jc047
+	2E6ikk8YOkawxoT8fkccQ4mlBmDyJSiTqRLeqfa4=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [62.225.157.196] ([62.225.157.196]) by web-mail.gmx.net
+	(3c-app-gmx-bs09.server.lan [172.19.170.60]) (via HTTP); Thu, 9 May 2019
+	13:50:36 +0200
+MIME-Version: 1.0
+Message-ID: <trinity-8c3db1ff-6d98-4569-8cf1-bdef6962e89d-1557402636185@3c-app-gmx-bs09>
+From: "Arno Steffens" <star@gmx.li>
 To: poky@yoctoproject.org
-Date: Wed,  1 May 2019 16:50:55 +0100
-Message-Id: <20190501155055.14254-1-ross.burton@intel.com>
-X-Mailer: git-send-email 2.11.0
-Subject: [PATCH] meta-poky: remove obsolete DISTRO_FEATURES_LIBC
+Date: Thu, 9 May 2019 13:50:36 +0200
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K1:JFTqgii3UuPlnJTsdzcNaZfr+dR9ZbbgLp2DO4QnYbfIyx2HrFIyuMcjcbMwjVExL1l5c
+	mGnlg6q/zzf8jyqIwRN87IDhjq/5WWegmAufK0RMVwfpE+ISIYeDXFQmOvzZPgpuS3BZCFB4pYEb
+	nQ3RCmaNpNq11rRLJ/bG6j0juQnuUIGmwJHG3BXVJ9HLa2tmfl1c1SFBkdBGJ5sOShSYinJSDKzy
+	AfFrKuM2MRvi56Na/1uN0qXp8XMG+j+Avycvz7lX5ukOXvu8/jblXeKPFFFuFIxdJlLoxnR1TQqL
+	qM=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:A/h2ONBP8Yc=:Six3mRTWpslKIvMaDuAwzF
+	uS7lSEO6q/7dEBcWLDVVrNjyn1ypjMfLofgqH0Umti6eKxnmPH3GEauVXZNA35111jhE1yHYF
+	KwPTQrCGzpmep1KPya372dppTPyLIhFS7/muzt33jNL1ORfQxTT3auGPDvGFSMMKGIWyYRZwn
+	KvEVJcAP/G4P9QQrEZBSasXOYOVc7vneXxW3ntmJmQXHKtgnmJtGA6FkNP/6DVJqg01Vzm0E6
+	apfNBGiX5i1xl4Ez2SR/umxcnOEeHGZxn6pKOrDaiflCeWpzMEg2HF7porJe5BfW5I4yGR0Oh
+	IVYF/7knuZrtTiI+XLYLI/SZR20RVHbm33iw6j1ntcG1vBlJH7nJupVwSjq2vn2bJCu+yAI5e
+	3UB8uz4wuRw4sguM7/N2PqjUlDdMTtAHyyuBV5f3fX5P6TuEoRqa4EEVQyzKj+L6ewLklucHU
+	wnWn1IXobOOwsbC3uYVpEavyxQmNXtB7H/vRf7IX3qokVmCc00Tztu6nlD+3ImmklVfAC0Cga
+	L0ND445Xv7Xw30fM5ZiTuMhxLa1LTLgt1cr8AHKoXuxb+N1kMGOIdt6s9jBJQ7mJGViqVVqCY
+	kEydZWZHbgF41iGfK4QcLJrYVB0oKsnz0olaH54x7Dag3gc5gp6J+buA==
+Subject: SDK and rootfs
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,75 +68,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 May 2019 15:51:03 -0000
+X-List-Received-Date: Thu, 09 May 2019 11:55:43 -0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-poky/conf/distro/poky-tiny.conf      |  4 ++--
- meta-poky/conf/distro/poky.conf           |  2 +-
- meta-poky/conf/local.conf.sample.extended | 20 ++++----------------
- 3 files changed, 7 insertions(+), 19 deletions(-)
+As far as I understand the SDK is created by "bitbake <image> -c populate_=
+sdk".
+It seems to contain an (almost) complete rootfs.
+In previous versions I even created my rootfs out of it
+ln -s sdk/sysroots/<machine> rootfs
 
-diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
-index 243d492918d..a82d043e481 100644
---- a/meta-poky/conf/distro/poky-tiny.conf
-+++ b/meta-poky/conf/distro/poky-tiny.conf
-@@ -78,8 +78,8 @@ DISTRO_FEATURES = "${DISTRO_FEATURES_TINY} \
- DISTRO_FEATURES_append_libc-uclibc = " largefile"
- DISTRO_FEATURES_append_libc-musl = " largefile"
- 
--DISTRO_FEATURES_class-native = "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DEFAULT_DISTRO_FEATURES}"
--DISTRO_FEATURES_class-nativesdk = "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DEFAULT_DISTRO_FEATURES}"
-+DISTRO_FEATURES_class-native = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
-+DISTRO_FEATURES_class-nativesdk = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
- 
- # enable mdev/busybox for init
- VIRTUAL-RUNTIME_dev_manager = "busybox-mdev"
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index b5207f535d8..78621e6dbfc 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -19,7 +19,7 @@ POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan"
- POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
- POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
- 
--DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${DISTRO_FEATURES_LIBC} ${POKY_DEFAULT_DISTRO_FEATURES}"
-+DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
- 
- PREFERRED_VERSION_linux-yocto ?= "5.0%"
- 
-diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
-index 87d211db308..26603debe62 100644
---- a/meta-poky/conf/local.conf.sample.extended
-+++ b/meta-poky/conf/local.conf.sample.extended
-@@ -24,22 +24,10 @@
- # For a quad-core machine, BB_NUMBER_THREADS = "4", PARALLEL_MAKE = "-j 4" would
- # be appropriate for example.
- 
--
--# glibc configurability is used to reduce minimal image's size.
--# the all supported glibc options are listed in DISTRO_FEATURES_LIBC
--# and disabled by default. Uncomment and copy the DISTRO_FEATURES_LIBC
--# and DISTRO_FEATURES definitions to local.conf to enable the options.
--#DISTRO_FEATURES_LIBC = "ipv6 libc-backtrace libc-big-macros libc-bsd libc-cxx-tests libc-catgets libc-charsets libc-crypt \
--#               libc-crypt-ufc libc-db-aliases libc-envz libc-fcvt libc-fmtmsg libc-fstab libc-ftraverse \
--#               libc-getlogin libc-idn libc-inet libc-inet-anl libc-libm libc-locales libc-locale-code \
--#               libc-memusage libc-nsswitch libc-rcmd libc-rtld-debug libc-spawn libc-streams \
--#               libc-utmp libc-utmpx libc-wordexp libc-posix-clang-wchar libc-posix-regexp libc-posix-regexp-glibc \
--#               libc-posix-wchar-io"
--
--#DISTRO_FEATURES = "alsa bluetooth ext2 irda pcmcia usbgadget usbhost wifi nfs zeroconf pci ${DISTRO_FEATURES_LIBC}"
--
--# If you want to get an image based on directfb without x11, Please copy this variable to build/conf/local.conf
--#DISTRO_FEATURES = "alsa argp bluetooth ext2 irda largefile pcmcia usbgadget usbhost wifi xattr nfs zeroconf pci 3g directfb ${DISTRO_FEATURES_LIBC}"
-+# If you want to get an image based on directfb without x11 alter
-+# DISTRO_FEATURES:
-+DISTRO_FEATURES_append = " directfb"
-+DISTRO_FEATURES_remove = "x11"
- 
- # ENABLE_BINARY_LOCALE_GENERATION controls the generation of binary locale
- # packages at build time using qemu-native. Disabling it (by setting it to 0)
--- 
-2.11.0
+It doesn't seem to work anymore, not sure what is the problem, at least /b=
+in/sh isn't there anymore, although it is part of <image>.
+
+So I found that rootfs is to extract by a script out of the <image>.tar.<c=
+ompression>.
+I have to give to developers 2 files, SDK and image for nfs-booting, right=
+?
+
+I am wondering why this is needed? Shouldn't they be identical? Can someon=
+e explain the background for my understanding?
+
+Thanks,
+Arno
+
 
 
