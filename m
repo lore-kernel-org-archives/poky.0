@@ -1,62 +1,83 @@
-Return-Path: <davis.roman84@gmail.com>
+Return-Path: <paul@betafive.co.uk>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 9BFEDE00CB3; Fri, 24 May 2019 12:38:36 -0700 (PDT)
+	id EF896E00D38; Tue, 28 May 2019 02:41:07 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS
+	autolearn=unavailable version=3.3.1
+X-Spam-HAM-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at
+	https://www.dnswl.org/, low *      trust
+	*      [66.111.4.28 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (davis.roman84[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.222.171 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
-	[209.85.222.171])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 35516E00C4B;
-	Fri, 24 May 2019 12:38:36 -0700 (PDT)
-Received: by mail-qk1-f171.google.com with SMTP id a132so9168991qkb.13;
-	Fri, 24 May 2019 12:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:from:date:message-id:subject:to:cc;
-	bh=v+pGWmENoLfJkYuokO4LM1ArOG9UtNodCBXQMwXMDO8=;
-	b=FLY5Vm7fxHKVFCteAbk31nrmFS6dtX1YaG04k7ErblBZnFiz3AWZkqZ3jkltoY0Sg9
-	0L+egsumMbZLOGoP4mnQ/SE3+G9jEd/ucF3eWv6MyH8whoHo5bQQH2oUrXw0S9skpgbC
-	iCZ/34s60+J3Pnrt7GZ8mJAH1gsWChTP+M1fVxvzKhAN97JNKbz9UCiMU6wH1RGSnNXd
-	Ir/dtgHk/I/Si7oPPMNFj7Ycp90Ori+pqVG1FsTGQWvBrcS62vvv0ughYmtykQa2um+9
-	ExIxBBQFmIZwhcFxgcxdldhUuRE3csS825WXVw29iYeXnmXGiaIrOrw6aOHaZ8JE0+8k
-	yNfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-	bh=v+pGWmENoLfJkYuokO4LM1ArOG9UtNodCBXQMwXMDO8=;
-	b=guEq8UYugAygvsy2bItPVYiUTnulwFNv2bpyNxvrvA4jo/8a+eWtjySFxcB240HccW
-	Q+bVpPsrIRROfeVxDr1Bjp4GR57dJA4eG9cDxTc4CQ0am8TQsgqH5nTb3m8HrsCnSIvU
-	Dnp1gyZfv+vwmmY747Zcb3o1yOCB4eZJqWyWmG9U/KYImJP55WKuZV3LC/c8ePaZeIAp
-	R5gtbaocNaNPMwEadsBESixtzY9E/qtfjl2V0TEgGAcak7E/6QPmnZPi7ylWWQfuAtRs
-	kiuvhOEqpiYUn2TINEpqyIvB1+YlsJ1d4R+3ivuco6TSPrtkbJs1DaKVxDhU4PKb1I1i
-	XSQw==
-X-Gm-Message-State: APjAAAUWpjEZe5LFb5tHprYXptC7nFBOmjeU+iVmZLBHoR0ZdCozbESG
-	Vm1bpt8paVlGtDGyk2YyyefUA57FrnqnBFiwQNM4pIVscBU=
-X-Google-Smtp-Source: APXvYqzoXoKz1A5XCSWr8j2vgBD9Xor3+duzMsiAf7YWZv91I/eyAMWpzi/Al2K4L12W1Qi/xjk+Wa5RsNq02CZG9RE=
-X-Received: by 2002:a37:9c8e:: with SMTP id f136mr6833107qke.47.1558726715317; 
-	Fri, 24 May 2019 12:38:35 -0700 (PDT)
+X-Greylist: delayed 526 seconds by postgrey-1.32 at yocto-www;
+	Tue, 28 May 2019 02:41:07 PDT
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+	[66.111.4.28])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 85875E00C36
+	for <poky@yoctoproject.org>; Tue, 28 May 2019 02:41:07 -0700 (PDT)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.nyi.internal (Postfix) with ESMTP id 6048D22087;
+	Tue, 28 May 2019 05:32:21 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+	by compute1.internal (MEProxy); Tue, 28 May 2019 05:32:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=betafive.co.uk;
+	h=subject:to:cc:references:from:message-id:date:mime-version
+	:in-reply-to:content-type:content-transfer-encoding; s=fm1; bh=1
+	C6N2ld+F9LnCdvorDvAhQQZLjAb34Qo2qwH7rrtTQk=; b=ZD96KKV1wA6h6Ng2S
+	7l614uyS2kvmu2NqlUA3C8y7cM1jLj/F7MdqZCVKPadO1A1bdLYTGtJd1Px0lw8t
+	4WeXP6zzz6ALuwXS99KGJT7qFHrlapWU+asKWCeevnR+OfhTqnIjS7738oX3iJU3
+	V0GW+h+GR8vml1AQ8/Nl8sogjoEjdELEvvdb5ylr5pEzev+FZ83QspYCoI4rHwzm
+	TVq3BrbTmjKRymPjnYH3rgSEAtJgzCdHPNOIWRKIqoN341R7F+IjD8BQP/YBtcGR
+	TrqIVdGpe1suITzt4RH9++vrrnSAGJUzQBkAh+fdoPrO+5AqJaOJB2PcDDzNZ384
+	OekEA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:date:from:in-reply-to:message-id:mime-version:references
+	:subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; bh=1C6N2ld+F9LnCdvorDvAhQQZLjAb34Qo2qwH7rrtT
+	Qk=; b=OSkanZvA8NtzrLhHNgDuZfdz1wH0ZC/lkGqPRmmzBY1ufkIcYIdxQcyvS
+	dhon4W7HmZlWjTwbNnQL8Y9PQMpgT4oJDV8AL417MTdKLmtvWsk31/M7kCBK/4X7
+	FRbCWKBSLaViHZikF3w9HfOSwPKRYouVIJg02kDTMOcQHS5UQtUx1pzJbdQy5FY9
+	ql8TbAR5E6IkqNEXe/+6pqEBLARTd3uvoiXbVErLCcnPWvD1mrP7YIBBQ7f5XsCL
+	ApI8DHLJD/HMhCX40m/2UK2GwmeKjOqWdeMVDO1mBHCv5fvc/+8l+qs/MZ/NKedI
+	rOCJagnva0bYPBXzG7VOG8kOBcGtg==
+X-ME-Sender: <xms:JADtXHNcNBQJ449FPpYysTX6eId__3WGTmndcNkituRLJibdh3exlg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddvhedgudejucetufdoteggodetrfdotf
+	fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+	uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+	cujfgurhepuffvfhfhohfkffgfgggjtgfgsehtkeertddtfeejnecuhfhrohhmpefrrghu
+	lhcuuegrrhhkvghruceophgruhhlsegsvghtrghfihhvvgdrtghordhukheqnecukfhppe
+	ekuddrudekjedrfedvrddufeeknecurfgrrhgrmhepmhgrihhlfhhrohhmpehprghulhes
+	sggvthgrfhhivhgvrdgtohdruhhknecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:JQDtXAc3ybgjUn54ap95_CBEZdZr8AEZ0-WjL2L0IZQo8HJbG7K85w>
+	<xmx:JQDtXBz3rt9oONhQOOqcHtjot1PurLjo75nKgWk0vWjuIOLNNQSNOw>
+	<xmx:JQDtXF3yzWcwnMOm4lqkbVOO-sOHC0j4qyyKqjBUteffJ3PYtJDxBA>
+	<xmx:JQDtXJl10RnEa-_MFZ56Wpt0_wgaNGmyMni_n76pSgWR9AAGX7JE9g>
+Received: from [192.168.1.120] (138.32.187.81.in-addr.arpa [81.187.32.138])
+	by mail.messagingengine.com (Postfix) with ESMTPA id 5DA788005B;
+	Tue, 28 May 2019 05:32:20 -0400 (EDT)
+To: Davis Roman <davis.roman84@gmail.com>,
+	Yocto discussion list <yocto@yoctoproject.org>
+References: <CACfi_Z1qodZZ2WPAsMx5Tiz5OJmuQ0yEMA7gyVSaUrb7=kzDeg@mail.gmail.com>
+From: Paul Barker <paul@betafive.co.uk>
+Organization: Beta Five Ltd
+Message-ID: <0a5534ef-7f4b-f164-0751-52b880e7073e@betafive.co.uk>
+Date: Tue, 28 May 2019 10:32:20 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+	Thunderbird/60.5.0
 MIME-Version: 1.0
-From: Davis Roman <davis.roman84@gmail.com>
-Date: Fri, 24 May 2019 15:38:25 -0400
-Message-ID: <CACfi_Z1qodZZ2WPAsMx5Tiz5OJmuQ0yEMA7gyVSaUrb7=kzDeg@mail.gmail.com>
-To: Yocto discussion list <yocto@yoctoproject.org>
+In-Reply-To: <CACfi_Z1qodZZ2WPAsMx5Tiz5OJmuQ0yEMA7gyVSaUrb7=kzDeg@mail.gmail.com>
 Cc: poky@yoctoproject.org, song li <ghosty.lee.1984@gmail.com>
-Subject: yocto is unstable to build final image when recipe has slash in SRCBRANCH
+Subject: Re: yocto is unstable to build final image when recipe has slash in SRCBRANCH
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -69,48 +90,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 May 2019 19:38:36 -0000
-Content-Type: multipart/alternative; boundary="0000000000002b239d0589a758f1"
+X-List-Received-Date: Tue, 28 May 2019 09:41:08 -0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 
---0000000000002b239d0589a758f1
-Content-Type: text/plain; charset="UTF-8"
+On 24/05/2019 20:38, Davis Roman wrote:
+> Hello,
+> 
+> In my recipe, I've found that a forward slash in SRCBRANCH, results in 
+> an error during the final image construction,
+> 
+> SRCBRANCH = "feature/compile_with_gcc7_4_rocko_toolchain"
+> 
+> 
+> Error given:
+> 
+> Collected errors:
+>   * opkg_prepare_url_for_install: Couldn't find anything to satisfy 
+> 'tron-app'.
+> 
+> ERROR: tron-image-grip-1.0-r0 do_rootfs: Function failed: do_rootfs
+> 
+> 
+> Does anyone have a way to make the slash in the SRCBRANCH variable work?
+> 
 
-Hello,
+SRCBRANCH is not a standard variable to my knowledge. You'll probably 
+have to give some more specific info on the recipe that's using it, what 
+bitbake command you ran and the full error message.
 
-In my recipe, I've found that a forward slash in SRCBRANCH, results in an
-error during the final image construction,
+Thanks,
 
-SRCBRANCH = "feature/compile_with_gcc7_4_rocko_toolchain"
+-- 
+Paul Barker
+Managing Director & Principal Engineer
+Beta Five Ltd
 
-
-Error given:
-
-Collected errors:
- * opkg_prepare_url_for_install: Couldn't find anything to satisfy
-'tron-app'.
-
-ERROR: tron-image-grip-1.0-r0 do_rootfs: Function failed: do_rootfs
-
-
-Does anyone have a way to make the slash in the SRCBRANCH variable work?
-
-Thank you,
-
-Davis
-
---0000000000002b239d0589a758f1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello,<div><br></div><div>In my recipe, I&#39;ve found tha=
-t a forward slash in SRCBRANCH, results in an error during the final image =
-construction,<div><br></div><div>SRCBRANCH =3D &quot;feature/compile_with_g=
-cc7_4_rocko_toolchain&quot;<br></div><div><br></div><div><br></div><div>Err=
-or given:</div><div><br></div><div>Collected errors:<br>=C2=A0* opkg_prepar=
-e_url_for_install: Couldn&#39;t find anything to satisfy &#39;tron-app&#39;=
-.<br><br>ERROR: tron-image-grip-1.0-r0 do_rootfs: Function failed: do_rootf=
-s<br><br></div></div><div><br></div><div>Does anyone have a way to make the=
- slash in the SRCBRANCH variable work?</div><div><br></div><div>Thank you,<=
-/div><div><br></div><div>Davis</div></div>
-
---0000000000002b239d0589a758f1--
