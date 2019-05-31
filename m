@@ -1,39 +1,36 @@
 Return-Path: <Kai.Kang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 8A848E00D5F; Thu, 30 May 2019 19:09:27 -0700 (PDT)
+	id C496EE00D61; Thu, 30 May 2019 23:55:21 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	https://www.dnswl.org/, *      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 51F3EE00D59
-	for <poky@yoctoproject.org>; Thu, 30 May 2019 19:09:26 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x4V29Hje022760
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5954CE00D5C
+	for <poky@yoctoproject.org>; Thu, 30 May 2019 23:55:21 -0700 (PDT)
+Received: from ALA-HCB.corp.ad.wrs.com ([147.11.189.41])
+	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id x4V6tIDx021548
 	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 30 May 2019 19:09:17 -0700 (PDT)
-Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.439.0;
-	Thu, 30 May 2019 19:09:16 -0700
+	Thu, 30 May 2019 23:55:18 -0700 (PDT)
+Received: from msp-lpggp1.wrs.com (172.25.34.110) by ALA-HCB.corp.ad.wrs.com
+	(147.11.189.41) with Microsoft SMTP Server id 14.3.439.0;
+	Thu, 30 May 2019 23:55:17 -0700
+From: <kai.kang@windriver.com>
 To: <richard.purdie@linuxfoundation.org>
-References: <20190530092232.169453-1-kai.kang@windriver.com>
-	<20190530092232.169453-2-kai.kang@windriver.com>
-	<39d1e5c522b70d7c6dad4cb37641c0c1ae7cbd41.camel@linuxfoundation.org>
-From: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <068b03a0-b96b-eee3-0dc5-9ddfde048066@windriver.com>
-Date: Fri, 31 May 2019 10:07:56 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.6.1
+Date: Fri, 31 May 2019 02:54:29 -0400
+Message-ID: <20190531065430.7717-3-kai.kang@windriver.com>
+X-Mailer: git-send-email 2.20.0
+In-Reply-To: <20190531065430.7717-1-kai.kang@windriver.com>
+References: <20190531065430.7717-1-kai.kang@windriver.com>
 MIME-Version: 1.0
-In-Reply-To: <39d1e5c522b70d7c6dad4cb37641c0c1ae7cbd41.camel@linuxfoundation.org>
 Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [meta-poky][PATCH v4 1/3] poky.conf: make systemd as default init manager
+Subject: [meta-poky][PATCH v5 2/3] poky-tiny.conf: not backfill distro feature systemd
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -46,79 +43,35 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 May 2019 02:09:27 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
+X-List-Received-Date: Fri, 31 May 2019 06:55:21 -0000
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
 
-On 2019/5/30 下午7:44, richard.purdie@linuxfoundation.org wrote:
-> On Thu, 2019-05-30 at 05:22 -0400, kai.kang@windriver.com wrote:
->> From: Kai Kang <kai.kang@windriver.com>
->>
->> Move configurations from local.conf.sample.extended to poky.conf to
->> make
->> systemd as default init manager for poky. Introduce a new variable
->> 'POKY_INIT_MANAGER' whose value should be either 'systemd' or
->> 'sysvinit'
->> to configure the init manager setting.
->>
->> For users who still want to use sysvinit, set in local.conf or any
->> other
->> configure file with:
->>
->>    POKY_INIT_MANAGER = "sysvinit"
->>
->> [YOCTO #13031]
->>
->> Signed-off-by: Kai Kang <kai.kang@windriver.com>
->> ---
->>   meta-poky/conf/distro/poky.conf           | 10 ++++++++++
->>   meta-poky/conf/local.conf.sample.extended |  9 ---------
->>   2 files changed, 10 insertions(+), 9 deletions(-)
-> Thanks for working on this patchset, I think its nearly there. I'm
-> wondering if we should set
->
-> POKY_INIT_MANAGER_libc-musl = "sysvinit"
->
-> since I am worried about what I read about musl and systemd from a
-> security perspective.
+From: Kai Kang <kai.kang@windriver.com>
 
-OK. I'll add it.
+systemd has been added to DISTRO_FEATURES_BACKFILL for poky by default,
+but it is compatible with poky-tiny. So not backfile it to
+DISTRO_FEATURES by adding it to DISTRO_FEATURES_BACKFILL_CONSIDERED.
 
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+ meta-poky/conf/distro/poky-tiny.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> I'm also wondering what we need to do with the autobuilder init system
-> tests, I think those may need rewriting to add some sysvinit tests.
-
-Something likes meta/lib/oeqa/runtime/cases/systemd.py? I think it is 
-better to do in next milestone and create a defect to address it.
-If it is ok, I'll create one.
-
-
->
-> Does POKY_INIT_MANAGER = "sysvinit systemd" work for the mode where we
-> allow old sysvinit scripts for compatibility?
-
-  I am afraid only one value could be set for POKY_INIT_MANAGER. And I 
-believe that most packages have been supporting systemd. If there is,
-we can add a systemd service file for it.
-
-BTW, POKY_INIT_MANAGER doesn't consider the case of mdev/busybox. If 
-want to use mdev/busybox for init, just set DISTRO with poky-tiny and
-everything have been set properly in poky-tiny.conf.
-
-Regards,
-Kai
-
-
->
-> Cheers,
->
-> Richard
->
->
-
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 1f8b6e8ff3..ad95919e6c 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -87,7 +87,7 @@ VIRTUAL-RUNTIME_login_manager = "busybox"
+ VIRTUAL-RUNTIME_init_manager = "busybox"
+ VIRTUAL-RUNTIME_initscripts = "initscripts"
+ VIRTUAL-RUNTIME_keymaps = "keymaps"
+-DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
++DISTRO_FEATURES_BACKFILL_CONSIDERED += "systemd sysvinit"
+ 
+ # FIXME: Consider adding "modules" to MACHINE_FEATURES and using that in
+ # packagegroup-core-base to select modutils-initscripts or not.  Similar with "net" and
 -- 
-Kai Kang
+2.20.0
 
 
