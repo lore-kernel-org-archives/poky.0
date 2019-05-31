@@ -1,42 +1,34 @@
-Return-Path: <Kai.Kang@windriver.com>
+Return-Path: <quentin.schulz@streamunlimited.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C732AE00D5F; Fri, 31 May 2019 02:10:35 -0700 (PDT)
+	id C143DE00D67; Fri, 31 May 2019 02:48:20 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	https://www.dnswl.org/, *      medium trust
-	*      [192.103.53.11 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 9F965E00B65
-	for <poky@yoctoproject.org>; Fri, 31 May 2019 02:10:34 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x4V994UB027037
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Fri, 31 May 2019 02:09:15 -0700
-Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.439.0;
-	Fri, 31 May 2019 02:08:54 -0700
-To: <richard.purdie@linuxfoundation.org>
-References: <20190530092232.169453-1-kai.kang@windriver.com>
-	<20190530092232.169453-2-kai.kang@windriver.com>
-	<39d1e5c522b70d7c6dad4cb37641c0c1ae7cbd41.camel@linuxfoundation.org>
-	<068b03a0-b96b-eee3-0dc5-9ddfde048066@windriver.com>
-	<cfb5ffc25d8a5d7c378b196807c984661b0bd606.camel@linuxfoundation.org>
-From: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <596f0025-11ae-eb5f-9542-9040de9b2066@windriver.com>
-Date: Fri, 31 May 2019 17:07:33 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.6.1
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [213.33.87.20 listed in list.dnswl.org]
+X-Greylist: delayed 2304 seconds by postgrey-1.32 at yocto-www;
+	Fri, 31 May 2019 02:48:19 PDT
+Received: from bsmtp8.bon.at (bsmtp8.bon.at [213.33.87.20])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6430EE00D5F
+	for <poky@yoctoproject.org>; Fri, 31 May 2019 02:48:19 -0700 (PDT)
+Received: from bsmtp7.bon.at (unknown [192.168.181.107])
+	by bsmtp8.bon.at (Postfix) with ESMTPS id 45Fdv82dYzz5vCL
+	for <poky@yoctoproject.org>; Fri, 31 May 2019 11:09:56 +0200 (CEST)
+Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
+	by bsmtp7.bon.at (Postfix) with ESMTPSA id 45Fdv64fX0z5tlD
+	for <poky@yoctoproject.org>; Fri, 31 May 2019 11:09:54 +0200 (CEST)
+Date: Fri, 31 May 2019 11:09:53 +0200
+From: Quentin Schulz <quentin.schulz@streamunlimited.com>
+To: poky@yoctoproject.org
+Message-ID: <20190531090953.shdqfcmj27ei4evb@qschulz>
 MIME-Version: 1.0
-In-Reply-To: <cfb5ffc25d8a5d7c378b196807c984661b0bd606.camel@linuxfoundation.org>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [meta-poky][PATCH v4 1/3] poky.conf: make systemd as default init manager
+User-Agent: NeoMutt/20180716
+Subject: opkg and BAD_RECOMMENDATIONS in thud 2.6.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -49,103 +41,88 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 May 2019 09:10:35 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-List-Received-Date: Fri, 31 May 2019 09:48:20 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2019/5/31 下午5:00, richard.purdie@linuxfoundation.org wrote:
-> On Fri, 2019-05-31 at 10:07 +0800, Kang Kai wrote:
->> On 2019/5/30 下午7:44, richard.purdie@linuxfoundation.org wrote:
->>> On Thu, 2019-05-30 at 05:22 -0400, kai.kang@windriver.com wrote:
->>>> From: Kai Kang <kai.kang@windriver.com>
->>>>
->>>> Move configurations from local.conf.sample.extended to poky.conf
->>>> to
->>>> make
->>>> systemd as default init manager for poky. Introduce a new
->>>> variable
->>>> 'POKY_INIT_MANAGER' whose value should be either 'systemd' or
->>>> 'sysvinit'
->>>> to configure the init manager setting.
->>>>
->>>> For users who still want to use sysvinit, set in local.conf or
->>>> any
->>>> other
->>>> configure file with:
->>>>
->>>>     POKY_INIT_MANAGER = "sysvinit"
->>>>
->>>> [YOCTO #13031]
->>>>
->>>> Signed-off-by: Kai Kang <kai.kang@windriver.com>
->>>> ---
->>>>    meta-poky/conf/distro/poky.conf           | 10 ++++++++++
->>>>    meta-poky/conf/local.conf.sample.extended |  9 ---------
->>>>    2 files changed, 10 insertions(+), 9 deletions(-)
->>> Thanks for working on this patchset, I think its nearly there. I'm
->>> wondering if we should set
->>>
->>> POKY_INIT_MANAGER_libc-musl = "sysvinit"
->>>
->>> since I am worried about what I read about musl and systemd from a
->>> security perspective.
->> OK. I'll add it.
->>
->>
->>> I'm also wondering what we need to do with the autobuilder init
->>> system
->>> tests, I think those may need rewriting to add some sysvinit tests.
->> Something likes meta/lib/oeqa/runtime/cases/systemd.py? I think it
->> is better to do in next milestone and create a defect to address it.
->> If it is ok, I'll create one.
-> No, I mean:
->
-> http://git.yoctoproject.org/cgit.cgi/yocto-autobuilder-helper/tree/config.json#n813
->
-> which corresponds to steps 5-7 of 'qa-extras2' on the autobuilder.
->
-> We're going to need to update the test configuration on master to cover
-> the things we no longer test and remove the duplication.
->
->>> Does POKY_INIT_MANAGER = "sysvinit systemd" work for the mode where
->>> we allow old sysvinit scripts for compatibility?
->> I am afraid only one value could be set for POKY_INIT_MANAGER. And I
->> believe that most packages have been supporting systemd. If there is,
->> we can add a systemd service file for it.
-> This isn't the point, we support 3 different configurations of this and
-> the variable needs to reflect that.
->
-> How about a slightly different approach. We define POKY_INIT_MANAGER to
-> take three different values, sysvinit, systemd and systemd-compat.
->
-> We do something like:
->
-> require conf/distro/include/init-template-${POKY_INIT_MANAGER}.inc
->
-> and then put the appropriate configuration in each .inc file?
->
->> BTW, POKY_INIT_MANAGER doesn't consider the case of mdev/busybox. If
->> want to use mdev/busybox for init, just set DISTRO with poky-tiny and
->> everything have been set properly in poky-tiny.conf.
-> This might be an opportunity to have another setting for
-> POKY_INIT_MANAGER which covers this too through an additional .inc?
+Hi all,
 
-Got it.
+I've been hit with a rather unsettling bug when building an image with
+PACKAGE_CLASSES = "ipk" in Thud 2.6.2.
 
-Regards,
-Kai
+The error message is the following:
+ERROR: meh-1.0-r0 do_rootfs: Unable to install packages. Command
+'/tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/recipe-sysroot-native/usr/bin/opkg --volatile-cache -f /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/opkg.conf -t /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/temp/ipktemp/ -o /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/rootfs  --force_postinstall --prefer-arch-to-version   --force-maintainer --force-overwrite install packagegroup-base-extended packagegroup-core-boot plop run-postinsts' returned 2:
+Collected errors:
+ * Solver encountered 2 problem(s):
+ * Problem 1/2:
+ *   - nothing provides bluez5 needed by plop-1.0-r0.aarch64
+ * 
+ * Solution 1:
+ *   - do not ask to install a package providing plop
+
+ * Problem 2/2:
+ *   - nothing provides bluez5 needed by packagegroup-base-bluetooth-1.0-r83.stream1832prime
+ * 
+ * Solution 1:
+ *   - do not ask to install a package providing packagegroup-base-extended
 
 
->
-> Cheers,
->
-> Richard
->
->
->
 
+
+ERROR: meh-1.0-r0 do_rootfs: Function failed: do_rootfs
+ERROR: Logfile of failure stored in: /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/temp/log.do_rootfs.30869
+ERROR: Task (/media/qschulz/yocto/build/oe/recipes-images/nsdk/meh.bb:do_rootfs) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 3059 tasks of which 3046 didn't need to be rerun and 1 failed.
+
+Summary: 1 task failed:
+  /media/qschulz/yocto/build/oe/recipes-images/nsdk/meh.bb:do_rootfs
+Summary: There were 7 WARNING messages shown.
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
+
+
+I could reproduce it with an image meh.bb (I still have other layers
+included, including custom ones and I'm using a custom machine, so it
+might not be reproducible with solely poky and the following):
+inherit core-image
+
+CORE_IMAGE_EXTRA_INSTALL += "plop"
+
+BAD_RECOMMENDATIONS += "bluez5"
+
+with plop.bb being:
+DESCRIPTION = "Plap"
+LICENSE = "CLOSED"
+
+RDEPENDS_${PN} += "bluez5"
+
+do_install() {
+        install -d ${D}${bindir}
+        echo "plip" > ${D}${bindir}/plep
+}
+
+I took me a while to find out that it's an issue with opkg itself and
+nothing could be done in Yocto to fix it but I found the three following
+patches in yocto-2.7:
+
+https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=d8e12f2bfc4deaa0dc7530cf3af905e18e8037f6
+https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=c76c50df6498d85e7a6254002ff8f5e0ef3e67f7
+https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=5bcb626cf49d2295ccca45d6fc7e1617cca932d6
+
+With those three applied on top of thud 2.6.2, my image is built without
+complaints.
+
+So now, the question:
+I see that there is a planned 2.6.3 release. What is your policy in
+backporting patches? Could you please consider adding at least the first
+patch patching the python scripts since I can't do a bbappend of those
+in my layers and I'm pretty reluctant in applying patches on top of the
+upstream Thud release, as I like to keep upstream sources vanilla.
+
+Thanks,
+Quentin
 -- 
-Kai Kang
-
+StreamUnlimited Engineering GmbH
+High Tech Campus Vienna, Gutheil-Schoder-Gasse 10, 1100 Vienna, Austria
+quentin.schulz@streamunlimited.com, www.streamunlimited.com
 
