@@ -1,67 +1,33 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <quentin.schulz@streamunlimited.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 5382BE00D54; Mon,  3 Jun 2019 05:30:37 -0700 (PDT)
+	id AA666E00D5C; Mon,  3 Jun 2019 07:18:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.221.68 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
-	[209.85.221.68])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7492CE00D45
-	for <poky@yoctoproject.org>; Mon,  3 Jun 2019 05:30:36 -0700 (PDT)
-Received: by mail-wr1-f68.google.com with SMTP id p11so7020360wre.7
-	for <poky@yoctoproject.org>; Mon, 03 Jun 2019 05:30:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=message-id:subject:from:to:cc:date:in-reply-to:references
-	:user-agent:mime-version:content-transfer-encoding;
-	bh=riR8RLGlKIljvDA8ixw/XXSyenOG/l/YmDF4YMn86UI=;
-	b=YWeZhYBrXPtojGmqaBQb+g01G2OVqAoogfQJXtB/mPS9Aqg6LUgQfeynbClAGK1tTG
-	aSnO7czhVXyIJRHU0WvwfmyGbRct6cptd0GxXSPEOFBnG9RwVsaXD++F5H8MJjfd2VUf
-	uLoDzXHEMvwXQJiK1/Nhtmc37Nn+Z3d6R1Vio=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-	:references:user-agent:mime-version:content-transfer-encoding;
-	bh=riR8RLGlKIljvDA8ixw/XXSyenOG/l/YmDF4YMn86UI=;
-	b=SoKZI/c8dqpkU4a2m/FpVrh2YKKm+8e8mZmKNyyCT4m8euEPn5SYGl2pTHGbY6Dvxl
-	8S7GoUZHiQ8B6pA+20ZI0ynwnNm6/44nJJJE5ii6emg+T7HAt1K69hpKoL1aT4l6S7iL
-	f6dYV+Kss2l0G6th+xndzewO00jUkl1J1t/zW0NpyLenQPc6zdoxT98Hxk4Rx9rA9Ga5
-	VBBlE55mZiu4Gua4pY7rqSdBdudEVGK7e3ZE1qfqqK3rtGTjHZOTrn2UHh5kyLNsYhU4
-	yrstrfBMfG+xqwkaVh3/Gp9MqnHk0aVtX+cTX/DdCGld4f+5JHHPYRLjL+omcPfiu6VV
-	KxbQ==
-X-Gm-Message-State: APjAAAXzcDIgc2Wf44c54EJav/+uLlWGUY/RgJFLYLFQJbnT8evNOOSS
-	J6Wzsi0cGd35lWysQZkAw/ZxAw==
-X-Google-Smtp-Source: APXvYqyeYvOooaaaztJ5Np6emh+FugpmzcxcU5gWKTyym5eYuTCiWZOfyr/V68wjb1mc2l49iECk2Q==
-X-Received: by 2002:a5d:5108:: with SMTP id s8mr8974212wrt.341.1559565035641; 
-	Mon, 03 Jun 2019 05:30:35 -0700 (PDT)
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-	by smtp.gmail.com with ESMTPSA id
-	l18sm34218428wrh.54.2019.06.03.05.30.34
-	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Mon, 03 Jun 2019 05:30:34 -0700 (PDT)
-Message-ID: <51adf784752be06beea78dbe4a523a403671dbe0.camel@linuxfoundation.org>
-From: richard.purdie@linuxfoundation.org
-To: kai.kang@windriver.com
-Date: Mon, 03 Jun 2019 13:30:32 +0100
-In-Reply-To: <20190602145530.183521-1-kai.kang@windriver.com>
-References: <20190602145530.183521-1-kai.kang@windriver.com>
-User-Agent: Evolution 3.32.2-1 
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [213.33.87.19 listed in list.dnswl.org]
+Received: from bsmtp7.bon.at (bsmtp7.bon.at [213.33.87.19])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 0C2DDE00D38
+	for <poky@yoctoproject.org>; Mon,  3 Jun 2019 07:18:48 -0700 (PDT)
+Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
+	by bsmtp7.bon.at (Postfix) with ESMTPSA id 45Hcc752xqz5tlD;
+	Mon,  3 Jun 2019 16:18:47 +0200 (CEST)
+Date: Mon, 3 Jun 2019 16:18:46 +0200
+From: Quentin Schulz <quentin.schulz@streamunlimited.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Message-ID: <20190603141846.r7pceggw5f4tnaow@qschulz>
+References: <20190531090953.shdqfcmj27ei4evb@qschulz>
+	<49498d79c124b881d142ead589a3e685b4c1aa33.camel@linuxfoundation.org>
 MIME-Version: 1.0
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [meta-poky][PATCH v6 0/2] Make systemd as default init manager and configure wired network
+In-Reply-To: <49498d79c124b881d142ead589a3e685b4c1aa33.camel@linuxfoundation.org>
+User-Agent: NeoMutt/20180716
+Cc: poky@yoctoproject.org
+Subject: Re: opkg and BAD_RECOMMENDATIONS in thud 2.6.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,34 +40,310 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jun 2019 12:30:37 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Mon, 03 Jun 2019 14:18:50 -0000
+X-Groupsio-MsgNum: 11668
+Content-Type: multipart/mixed; boundary="f5vsmzz2pmnq55v3"
+Content-Disposition: inline
 
-On Sun, 2019-06-02 at 10:55 -0400, kai.kang@windriver.com wrote:
-> From: Kai Kang <kai.kang@windriver.com>
+--f5vsmzz2pmnq55v3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, May 31, 2019 at 03:50:54PM +0100, Richard Purdie wrote:
+> On Fri, 2019-05-31 at 11:09 +0200, Quentin Schulz wrote:
+> > I took me a while to find out that it's an issue with opkg itself and
+> > nothing could be done in Yocto to fix it but I found the three following
+> > patches in yocto-2.7:
+> > 
+> > https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=d8e12f2bfc4deaa0dc7530cf3af905e18e8037f6
+> > https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=c76c50df6498d85e7a6254002ff8f5e0ef3e67f7
+> > https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=5bcb626cf49d2295ccca45d6fc7e1617cca932d6
+> > 
+> > With those three applied on top of thud 2.6.2, my image is built without
+> > complaints.
 > 
-> v6:
-> * create .inc files as Richard suggested, and include them according
-> to POKY_INIT_MANAGER
+> Does it work with just the first two? I think those may be
+> possibilities for backporting. Adding the stable maintainer (Armin) to
+> cc. The thrid one (the upgrade) probably isn't a candidate.
 > 
-> Kai Kang (2):
->   poky.conf: make systemd as default init manager
->   systemd-conf: configure wired network with dhcp
 
-This is looking good, I do agree with Peter about the file naming. I
-ran it through the autobuilder to see where we are at runtime and the
-results were not so good:
+The patch file didn't apply cleanly but after doing the changes
+manually, it seems that only the first two commits above are needed
+indeed. You can find the patch attached.
 
-https://autobuilder.yoctoproject.org/typhoon/#/builders/85/builds/484
+It seems to work fine. I have libbluetooth.so* installed on my target.
 
-We may need to reduce some of the free space in the ptest image and it
-looks like there is an NFS startup failure issue in the sdk images.
-There may be other issues in there too but those were the two I
-immediately saw.
+Let me know if there's anything I can do,
+Thanks,
+Quentin
+-- 
+StreamUnlimited Engineering GmbH
+High Tech Campus Vienna, Gutheil-Schoder-Gasse 10, 1100 Vienna, Austria
+quentin.schulz@streamunlimited.com, www.streamunlimited.com
 
-Cheers,
+--f5vsmzz2pmnq55v3
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment; filename="0001-PATCH-libopkg-add-add-ignore-recommends-option.patch"
 
-Richard
+From 2eca28b6a37be92e4e835c51872c7df34ec6dedd Mon Sep 17 00:00:00 2001
+From: Quentin Schulz <quentin.schulz@streamunlimited.com>
+Date: Fri, 31 May 2019 17:30:40 +0200
+Subject: [PATCH] [PATCH] libopkg: add --add-ignore-recommends option
+
+Add option to ignore specific recommended packages. On the libsolv
+backed, this feature will only work on libsolv version > 0.7.2 [1].
+
+[1] https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_openSUSE_libsolv_issues_254&d=DwIBaQ&c=I_0YwoKy7z5LMTVdyO6YCiE2uzI1jjZZuIPelcSjixA&r=wNcrL2akRn6jfxhHaKavUrJB_C9JAMXtynjLd8ZzgXQ&m=GObNHzFJpWpf_PripIrf-K2RhsktYdAUEieAJexXOKw&s=3G-meChUqClFggFPqsrAxIZBfLnRKIHm62Uuy1X6nQQ&e=
+
+Signed-off-by: Alejandro del Castillo <alejandro.delcastillo@ni.com>
+Signed-off-by: Quentin Schulz <quentin.schulz@streamunlimited.com>
+
+Upstream-Status: Accepted
+---
+ libopkg/opkg_conf.c                           |  2 +
+ libopkg/opkg_conf.h                           |  1 +
+ .../solvers/internal/pkg_depends_internal.c   |  3 +-
+ libopkg/solvers/libsolv/opkg_solver_libsolv.c | 21 ++++++-
+ man/opkg.1.in                                 |  3 +
+ src/opkg.c                                    |  6 ++
+ tests/Makefile                                |  1 +
+ tests/core/43_add_ignore_recommends.py        | 62 +++++++++++++++++++
+ 8 files changed, 97 insertions(+), 2 deletions(-)
+ create mode 100644 tests/core/43_add_ignore_recommends.py
+
+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
+index 06880a1..f2330cd 100644
+--- a/libopkg/opkg_conf.c
++++ b/libopkg/opkg_conf.c
+@@ -597,6 +597,7 @@ int opkg_conf_init(void)
+     pkg_dest_list_init(&opkg_config->tmp_dest_list);
+     nv_pair_list_init(&opkg_config->arch_list);
+     str_list_init(&opkg_config->exclude_list);
++    str_list_init(&opkg_config->ignore_recommends_list);
+ 
+     return 0;
+ }
+@@ -938,6 +939,7 @@ void opkg_conf_deinit(void)
+     pkg_dest_list_deinit(&opkg_config->pkg_dest_list);
+     nv_pair_list_deinit(&opkg_config->arch_list);
+     str_list_deinit(&opkg_config->exclude_list);
++    str_list_deinit(&opkg_config->ignore_recommends_list);
+ 
+     if (opkg_config->verbosity >= DEBUG) {
+         hash_print_stats(&opkg_config->pkg_hash);
+diff --git a/libopkg/opkg_conf.h b/libopkg/opkg_conf.h
+index dc11516..fc42de3 100644
+--- a/libopkg/opkg_conf.h
++++ b/libopkg/opkg_conf.h
+@@ -61,6 +61,7 @@ typedef struct opkg_conf {
+     pkg_dest_list_t tmp_dest_list;
+     nv_pair_list_t arch_list;
+     str_list_t exclude_list;
++    str_list_t ignore_recommends_list;
+ 
+     int restrict_to_default_dest;
+     pkg_dest_t *default_dest;
+diff --git a/libopkg/solvers/internal/pkg_depends_internal.c b/libopkg/solvers/internal/pkg_depends_internal.c
+index cd56d84..5deee70 100644
+--- a/libopkg/solvers/internal/pkg_depends_internal.c
++++ b/libopkg/solvers/internal/pkg_depends_internal.c
+@@ -228,7 +228,8 @@ int pkg_hash_fetch_unsatisfied_dependencies(pkg_t *pkg,
+                             || compound_depend->type == SUGGEST)
+                         && (satisfying_pkg->state_want == SW_DEINSTALL
+                             || satisfying_pkg->state_want == SW_PURGE
+-                            || opkg_config->no_install_recommends);
++                            || opkg_config->no_install_recommends
++                            || str_list_contains(&opkg_config->ignore_recommends_list, satisfying_pkg->name));
+                 if (ignore) {
+                     opkg_msg(NOTICE,
+                              "%s: ignoring recommendation for "
+diff --git a/libopkg/solvers/libsolv/opkg_solver_libsolv.c b/libopkg/solvers/libsolv/opkg_solver_libsolv.c
+index bf0b72c..ea00a37 100644
+--- a/libopkg/solvers/libsolv/opkg_solver_libsolv.c
++++ b/libopkg/solvers/libsolv/opkg_solver_libsolv.c
+@@ -484,6 +484,7 @@ static void pkg2solvable(pkg_t *pkg, Solvable *solvable_out)
+ static void populate_installed_repo(libsolv_solver_t *libsolv_solver)
+ {
+     int i;
++    Id what;
+ 
+     pkg_vec_t *installed_pkgs = pkg_vec_alloc();
+ 
+@@ -507,6 +508,15 @@ static void populate_installed_repo(libsolv_solver_t *libsolv_solver)
+         /* set solvable attributes */
+         pkg2solvable(pkg, solvable);
+ 
++        /* if the package is in ignore-recommends-list, disfavor installation */
++        if (str_list_contains(&opkg_config->ignore_recommends_list, pkg->name)) {
++            opkg_message(NOTICE, "Disfavor package: %s\n",
++                         pkg->name);
++            what = pool_str2id(libsolv_solver->pool, pkg->name, 1);
++            queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE_NAME
++                        | SOLVER_DISFAVOR, what);
++        }
++
+         /* if the package is not autoinstalled, mark it as user installed */
+         if (!pkg->auto_installed)
+             queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE
+@@ -533,7 +543,7 @@ static void populate_available_repos(libsolv_solver_t *libsolv_solver)
+ {
+     int i;
+     Solvable *solvable;
+-    Id solvable_id;
++    Id solvable_id, what;
+ 
+     pkg_vec_t *available_pkgs = pkg_vec_alloc();
+ 
+@@ -602,6 +612,15 @@ static void populate_available_repos(libsolv_solver_t *libsolv_solver)
+         solvable = pool_id2solvable(libsolv_solver->pool, solvable_id);
+         pkg2solvable(pkg, solvable);
+ 
++        /* if the package is in ignore-recommends-list, disfavor installation */
++        if (str_list_contains(&opkg_config->ignore_recommends_list, pkg->name)) {
++            opkg_message(NOTICE, "Disfavor package: %s\n",
++                         pkg->name);
++            what = pool_str2id(libsolv_solver->pool, pkg->name, 1);
++            queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE_NAME
++                        | SOLVER_DISFAVOR, what);
++        }
++
+         /* if the --force-depends option is specified make dependencies weak */
+         if (opkg_config->force_depends)
+             queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE
+diff --git a/man/opkg.1.in b/man/opkg.1.in
+index 026fb15..c0d4bf3 100644
+--- a/man/opkg.1.in
++++ b/man/opkg.1.in
+@@ -143,6 +143,9 @@ conjunction with \fB\--dest\fP
+ \fB\--add-arch <\fIarch\fP>:<\fIprio\fP>\fR
+ Register the package architecture \fIarch\fP with the numeric
+ priority \fIprio\fP. Lower priorities take precedence.
++.TP
++\fB\--add-ignore-recommends <\fIname\fP>\fR
++Register package to be ignored as a recomendee
+ .SS FORCE OPTIONS
+ .TP
+ \fB\--force-depends \fR
+diff --git a/src/opkg.c b/src/opkg.c
+index f23467d..5181065 100644
+--- a/src/opkg.c
++++ b/src/opkg.c
+@@ -51,6 +51,7 @@ enum {
+     ARGS_OPT_ADD_DEST,
+     ARGS_OPT_SIZE,
+     ARGS_OPT_ADD_EXCLUDE,
++    ARGS_OPT_ADD_IGNORE_RECOMMENDS,
+     ARGS_OPT_NOACTION,
+     ARGS_OPT_DOWNLOAD_ONLY,
+     ARGS_OPT_NODEPS,
+@@ -110,6 +111,7 @@ static struct option long_options[] = {
+     {"add-dest", 1, 0, ARGS_OPT_ADD_DEST},
+     {"size", 0, 0, ARGS_OPT_SIZE},
+     {"add-exclude", 1, 0, ARGS_OPT_ADD_EXCLUDE},
++    {"add-ignore-recommends", 1, 0, ARGS_OPT_ADD_IGNORE_RECOMMENDS},
+     {"test", 0, 0, ARGS_OPT_NOACTION},
+     {"tmp-dir", 1, 0, 't'},
+     {"tmp_dir", 1, 0, 't'},
+@@ -235,6 +237,9 @@ static int args_parse(int argc, char *argv[])
+         case ARGS_OPT_ADD_EXCLUDE:
+             str_list_append(&opkg_config->exclude_list, optarg);
+             break;
++        case ARGS_OPT_ADD_IGNORE_RECOMMENDS:
++            str_list_append(&opkg_config->ignore_recommends_list, optarg);
++            break;
+         case ARGS_OPT_SIZE:
+             opkg_config->size = 1;
+             break;
+@@ -335,6 +340,7 @@ static void usage()
+     printf("\t--add-arch <arch>:<prio>        Register architecture with given priority\n");
+     printf("\t--add-dest <name>:<path>        Register destination with given path\n");
+     printf("\t--add-exclude <name>            Register package to be excluded from install\n");
++    printf("\t--add-ignore-recommends <name>  Register package to be ignored as a recomendee\n");
+     printf("\t--prefer-arch-to-version        Use the architecture priority package rather\n");
+     printf("\t                                than the higher version one if more\n");
+     printf("\t                                than one candidate is found.\n");
+diff --git a/tests/Makefile b/tests/Makefile
+index 148c844..ddf027f 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -38,6 +38,7 @@ REGRESSION_TESTS := core/01_install.py \
+ 		    core/37_globs.py \
+ 		    core/38_install_constrained_version.py \
+ 		    core/39_distupgrade.py \
++		    core/43_add_ignore_recommends.py \
+ 		    regress/issue26.py \
+ 		    regress/issue31.py \
+ 		    regress/issue32.py \
+diff --git a/tests/core/43_add_ignore_recommends.py b/tests/core/43_add_ignore_recommends.py
+new file mode 100644
+index 0000000..7da0096
+--- /dev/null
++++ b/tests/core/43_add_ignore_recommends.py
+@@ -0,0 +1,62 @@
++#! /usr/bin/env python3
++#
++# Create package 'a' (1.0) which Recommends 'c'.
++# Install 'a' with --add-ignore-recommends 'c'.
++# Check that only 'a' (1.0) is installed.
++# Create package 'b' which Depends on 'c'.
++# Install 'a' & 'b', with --add-ignore-recommends 'c'.
++# Verify that 'a','b' & 'c' are installed.
++# Uninstall 'b' & 'c'.
++# Create package 'a' (2.0), which Recommends 'c'.
++# Upgrade 'a' with --add-ignore-recommends 'c'
++# Verify that only 'a' (2.0) is installed
++#
++
++import os
++import opk, cfg, opkgcl
++
++opk.regress_init()
++o = opk.OpkGroup()
++
++o.add(Package='a', Recommends='c', Version='1.0')
++o.add(Package='b', Depends='c')
++o.add(Package='c')
++o.write_opk()
++o.write_list()
++
++opkgcl.update()
++
++opkgcl.install('a', '--add-ignore-recommends c')
++
++if not opkgcl.is_installed('a'):
++	opk.fail("Package 'a' installed but reports as not installed.")
++
++if opkgcl.is_installed('c'):
++	opk.xfail("[libsolv<0.7.3] Package 'c' should not have been installed since it was in --add-ignore-recommends.")
++
++opkgcl.remove('a')
++opkgcl.install('a b', '--add-ignore-recommends c')
++
++if not opkgcl.is_installed('a'):
++	opk.fail("Package 'a' installed but reports as not installed.")
++
++if not opkgcl.is_installed('b'):
++	opk.fail("Package 'b' installed but reports as not installed.")
++
++if not opkgcl.is_installed('c'):
++	opk.fail("Package 'c' should have been installed since 'b' depends on it.")
++
++opkgcl.remove('b c', '--force-depends')
++o.add(Package='a', Recommends='c', Version='2.0')
++o.write_opk()
++o.write_list()
++
++opkgcl.update()
++
++opkgcl.upgrade('a', '--add-ignore-recommends c')
++
++if not opkgcl.is_installed('a', '2.0'):
++	opk.fail("Package 'a (2.0)' installed but reports as not installed.")
++
++if opkgcl.is_installed('c'):
++	opk.fail("Package 'c' should not have been installed since it was in --add-ignore-recommends.")
+-- 
+2.17.1
 
 
+--f5vsmzz2pmnq55v3--
