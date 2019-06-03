@@ -1,74 +1,67 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id D15F6E00D33; Sun,  2 Jun 2019 23:49:27 -0700 (PDT)
+	id 5382BE00D54; Mon,  3 Jun 2019 05:30:37 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [195.60.68.11 listed in list.dnswl.org]
-X-Greylist: delayed 565 seconds by postgrey-1.32 at yocto-www;
-	Sun, 02 Jun 2019 23:49:26 PDT
-Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6F124E00C7D
-	for <poky@yoctoproject.org>; Sun,  2 Jun 2019 23:49:26 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by bastet.se.axis.com (Postfix) with ESMTP id 1178018393;
-	Mon,  3 Jun 2019 08:40:00 +0200 (CEST)
-X-Axis-User: NO
-X-Axis-NonUser: YES
-X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
-Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
-	by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new,
-	port 10024)
-	with LMTP id lMzEJi3f5h9S; Mon,  3 Jun 2019 08:39:58 +0200 (CEST)
-Received: from boulder03.se.axis.com (boulder03.se.axis.com [10.0.8.17])
-	by bastet.se.axis.com (Postfix) with ESMTPS id 314B918136;
-	Mon,  3 Jun 2019 08:39:58 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id ED9D21E16D;
-	Mon,  3 Jun 2019 08:39:57 +0200 (CEST)
-Received: from boulder03.se.axis.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E16611E16C;
-	Mon,  3 Jun 2019 08:39:57 +0200 (CEST)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
-	by boulder03.se.axis.com (Postfix) with ESMTP;
-	Mon,  3 Jun 2019 08:39:57 +0200 (CEST)
-Received: from XBOX02.axis.com (xbox02.axis.com [10.0.5.16])
-	by thoth.se.axis.com (Postfix) with ESMTP id D4F692722;
-	Mon,  3 Jun 2019 08:39:57 +0200 (CEST)
-Received: from xbox11.axis.com (10.0.5.25) by XBOX02.axis.com (10.0.5.16) with
-	Microsoft SMTP Server (TLS) id 15.0.1365.1;
-	Mon, 3 Jun 2019 08:39:57 +0200
-Received: from XBOX04.axis.com (10.0.5.18) by xbox11.axis.com (10.0.5.25) with
-	Microsoft SMTP Server (TLS) id 15.0.1365.1;
-	Mon, 3 Jun 2019 08:39:57 +0200
-Received: from XBOX04.axis.com ([fe80::210a:724b:68cb:a917]) by
-	XBOX04.axis.com ([fe80::210a:724b:68cb:a917%22]) with mapi id
-	15.00.1365.000; Mon, 3 Jun 2019 08:39:57 +0200
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-To: "kai.kang@windriver.com" <kai.kang@windriver.com>,
-	"richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>
-Thread-Topic: [OE-core] [meta-poky][PATCH v6 1/2] poky.conf: make systemd as
-	default init manager
-Thread-Index: AdUZ1yeS2wEVaZecR3+LkzThJkTiqg==
-Date: Mon, 3 Jun 2019 06:39:57 +0000
-Message-ID: <ae276d97fd3b41b196889655d80dc417@XBOX04.axis.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.0.5.60]
+	*      [209.85.221.68 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+	[209.85.221.68])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7492CE00D45
+	for <poky@yoctoproject.org>; Mon,  3 Jun 2019 05:30:36 -0700 (PDT)
+Received: by mail-wr1-f68.google.com with SMTP id p11so7020360wre.7
+	for <poky@yoctoproject.org>; Mon, 03 Jun 2019 05:30:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=message-id:subject:from:to:cc:date:in-reply-to:references
+	:user-agent:mime-version:content-transfer-encoding;
+	bh=riR8RLGlKIljvDA8ixw/XXSyenOG/l/YmDF4YMn86UI=;
+	b=YWeZhYBrXPtojGmqaBQb+g01G2OVqAoogfQJXtB/mPS9Aqg6LUgQfeynbClAGK1tTG
+	aSnO7czhVXyIJRHU0WvwfmyGbRct6cptd0GxXSPEOFBnG9RwVsaXD++F5H8MJjfd2VUf
+	uLoDzXHEMvwXQJiK1/Nhtmc37Nn+Z3d6R1Vio=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+	:references:user-agent:mime-version:content-transfer-encoding;
+	bh=riR8RLGlKIljvDA8ixw/XXSyenOG/l/YmDF4YMn86UI=;
+	b=SoKZI/c8dqpkU4a2m/FpVrh2YKKm+8e8mZmKNyyCT4m8euEPn5SYGl2pTHGbY6Dvxl
+	8S7GoUZHiQ8B6pA+20ZI0ynwnNm6/44nJJJE5ii6emg+T7HAt1K69hpKoL1aT4l6S7iL
+	f6dYV+Kss2l0G6th+xndzewO00jUkl1J1t/zW0NpyLenQPc6zdoxT98Hxk4Rx9rA9Ga5
+	VBBlE55mZiu4Gua4pY7rqSdBdudEVGK7e3ZE1qfqqK3rtGTjHZOTrn2UHh5kyLNsYhU4
+	yrstrfBMfG+xqwkaVh3/Gp9MqnHk0aVtX+cTX/DdCGld4f+5JHHPYRLjL+omcPfiu6VV
+	KxbQ==
+X-Gm-Message-State: APjAAAXzcDIgc2Wf44c54EJav/+uLlWGUY/RgJFLYLFQJbnT8evNOOSS
+	J6Wzsi0cGd35lWysQZkAw/ZxAw==
+X-Google-Smtp-Source: APXvYqyeYvOooaaaztJ5Np6emh+FugpmzcxcU5gWKTyym5eYuTCiWZOfyr/V68wjb1mc2l49iECk2Q==
+X-Received: by 2002:a5d:5108:: with SMTP id s8mr8974212wrt.341.1559565035641; 
+	Mon, 03 Jun 2019 05:30:35 -0700 (PDT)
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+	by smtp.gmail.com with ESMTPSA id
+	l18sm34218428wrh.54.2019.06.03.05.30.34
+	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+	Mon, 03 Jun 2019 05:30:34 -0700 (PDT)
+Message-ID: <51adf784752be06beea78dbe4a523a403671dbe0.camel@linuxfoundation.org>
+From: richard.purdie@linuxfoundation.org
+To: kai.kang@windriver.com
+Date: Mon, 03 Jun 2019 13:30:32 +0100
+In-Reply-To: <20190602145530.183521-1-kai.kang@windriver.com>
+References: <20190602145530.183521-1-kai.kang@windriver.com>
+User-Agent: Evolution 3.32.2-1 
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"openembedded-core@lists.openembedded.org"
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [meta-poky][PATCH v6 1/2] poky.conf: make systemd as default init manager
+Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
+Subject: Re: [meta-poky][PATCH v6 0/2] Make systemd as default init manager and configure wired network
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -81,146 +74,34 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Jun 2019 06:49:27 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Mon, 03 Jun 2019 12:30:37 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-> -----Original Message-----
-> From: openembedded-core-bounces@lists.openembedded.org <openembedded-core=
--bounces@lists.openembedded.org> On Behalf Of kai.kang@windriver.com
-> Sent: den 2 juni 2019 16:55
-> To: richard.purdie@linuxfoundation.org
-> Cc: poky@yoctoproject.org; openembedded-core@lists.openembedded.org
-> Subject: [OE-core] [meta-poky][PATCH v6 1/2] poky.conf: make systemd as d=
-efault init manager
->=20
+On Sun, 2019-06-02 at 10:55 -0400, kai.kang@windriver.com wrote:
 > From: Kai Kang <kai.kang@windriver.com>
->=20
-> Introduce a new variable POKY_INIT_MANAGER and create 4 .inc files to
-> configure init manager settings. Var POKY_INIT_MANAGER accepts 4 values:
-> sysvinit, systemd, systemd-compat and mdev-busybox. Set systemd by
-> default for DISTRO poky.  And set mdev-busybox for DISTRO poky-tiny
-> which doesn't change its init manger settings.
->=20
-> [YOCTO #13031]
->=20
-> Signed-off-by: Kai Kang <kai.kang@windriver.com>
-> ---
->  .../conf/distro/include/init-template-mdev-busybox.inc    | 7 +++++++
->  .../conf/distro/include/init-template-systemd-compat.inc  | 7 +++++++
->  meta-poky/conf/distro/include/init-template-systemd.inc   | 5 +++++
->  meta-poky/conf/distro/include/init-template-sysvinit.inc  | 6 ++++++
->  meta-poky/conf/distro/poky-tiny.conf                      | 8 +-------
->  meta-poky/conf/distro/poky.conf                           | 6 ++++++
->  6 files changed, 32 insertions(+), 7 deletions(-)
->  create mode 100644 meta-poky/conf/distro/include/init-template-mdev-busy=
-box.inc
->  create mode 100644 meta-poky/conf/distro/include/init-template-systemd-c=
-ompat.inc
->  create mode 100644 meta-poky/conf/distro/include/init-template-systemd.i=
-nc
->  create mode 100644 meta-poky/conf/distro/include/init-template-sysvinit.=
-inc
->=20
-> diff --git a/meta-poky/conf/distro/include/init-template-mdev-busybox.inc=
- b/meta-poky/conf/distro/include/init-template-mdev-busybox.inc
-> new file mode 100644
-> index 0000000000..b07d9de5b4
-> --- /dev/null
-> +++ b/meta-poky/conf/distro/include/init-template-mdev-busybox.inc
-> @@ -0,0 +1,7 @@
-> +# enable mdev/busybox for init
-> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append =3D " systemd sysvinit"
-> +VIRTUAL-RUNTIME_dev_manager =3D "busybox-mdev"
-> +VIRTUAL-RUNTIME_init_manager =3D "busybox"
-> +VIRTUAL-RUNTIME_initscripts =3D "initscripts"
-> +VIRTUAL-RUNTIME_keymaps =3D "keymaps"
-> +VIRTUAL-RUNTIME_login_manager =3D "busybox"
-> diff --git a/meta-poky/conf/distro/include/init-template-systemd-compat.i=
-nc b/meta-poky/conf/distro/include/init-template-systemd-compat.inc
-> new file mode 100644
-> index 0000000000..22151f8866
-> --- /dev/null
-> +++ b/meta-poky/conf/distro/include/init-template-systemd-compat.inc
-> @@ -0,0 +1,7 @@
-> +# Don't append sysvinit to DISTRO_FEATURES here because it has been set
-> +# in DISTRO_FEATURES_BACKFILL. And then this .inc file could be used by
-> +# init-template-systemd.inc
-> +DISTRO_FEATURES_append =3D " systemd"
-> +VIRTUAL-RUNTIME_init_manager =3D "systemd"
-> +VIRTUAL-RUNTIME_initscripts =3D "systemd-compat-units"
-> +VIRTUAL-RUNTIME_login_manager =3D "shadow-base"
-> diff --git a/meta-poky/conf/distro/include/init-template-systemd.inc b/me=
-ta-poky/conf/distro/include/init-template-systemd.inc
-> new file mode 100644
-> index 0000000000..d04847028c
-> --- /dev/null
-> +++ b/meta-poky/conf/distro/include/init-template-systemd.inc
-> @@ -0,0 +1,5 @@
-> +# Use systemd for system initialization
-> +
-> +require init-template-systemd-compat.inc
-> +
-> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append =3D " sysvinit"
-> diff --git a/meta-poky/conf/distro/include/init-template-sysvinit.inc b/m=
-eta-poky/conf/distro/include/init-template-sysvinit.inc
-> new file mode 100644
-> index 0000000000..7725b30e1e
-> --- /dev/null
-> +++ b/meta-poky/conf/distro/include/init-template-sysvinit.inc
-> @@ -0,0 +1,6 @@
-> +# Use sysvinit for system initialization
-> +DISTRO_FEATURES_append =3D " sysvinit"
-> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append =3D " systemd"
-> +VIRTUAL-RUNTIME_init_manager =3D "sysvinit"
-> +VIRTUAL-RUNTIME_initscripts =3D "initscripts"
-> +VIRTUAL-RUNTIME_login_manager =3D "busybox"
-> diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro=
-/poky-tiny.conf
-> index 1f8b6e8ff3..8ba0b9a4bb 100644
-> --- a/meta-poky/conf/distro/poky-tiny.conf
-> +++ b/meta-poky/conf/distro/poky-tiny.conf
-> @@ -81,13 +81,7 @@ DISTRO_FEATURES_append_libc-musl =3D " largefile"
->  DISTRO_FEATURES_class-native =3D "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFA=
-ULT_DISTRO_FEATURES}"
->  DISTRO_FEATURES_class-nativesdk =3D "${DISTRO_FEATURES_DEFAULT} ${POKY_D=
-EFAULT_DISTRO_FEATURES}"
->=20
-> -# enable mdev/busybox for init
-> -VIRTUAL-RUNTIME_dev_manager =3D "busybox-mdev"
-> -VIRTUAL-RUNTIME_login_manager =3D "busybox"
-> -VIRTUAL-RUNTIME_init_manager =3D "busybox"
-> -VIRTUAL-RUNTIME_initscripts =3D "initscripts"
-> -VIRTUAL-RUNTIME_keymaps =3D "keymaps"
-> -DISTRO_FEATURES_BACKFILL_CONSIDERED +=3D "sysvinit"
-> +POKY_INIT_MANAGER ?=3D "mdev-busybox"
->=20
->  # FIXME: Consider adding "modules" to MACHINE_FEATURES and using that in
->  # packagegroup-core-base to select modutils-initscripts or not. Similar =
-with "net" and
-> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
-.conf
-> index 78621e6dbf..e544f7e52c 100644
-> --- a/meta-poky/conf/distro/poky.conf
-> +++ b/meta-poky/conf/distro/poky.conf
-> @@ -84,3 +84,9 @@ require conf/distro/include/no-static-libs.inc
->  require conf/distro/include/yocto-uninative.inc
->  require conf/distro/include/security_flags.inc
->  INHERIT +=3D "uninative"
-> +
-> +# Make systemd as default init manager for poky
-> +# and set sysvinit for musl consider security
-> +POKY_INIT_MANAGER ??=3D "systemd"
-> +POKY_INIT_MANAGER_libc-musl =3D "sysvinit"
-> +require conf/distro/include/init-template-${POKY_INIT_MANAGER}.inc
-> --
-> 2.20.0
+> 
+> v6:
+> * create .inc files as Richard suggested, and include them according
+> to POKY_INIT_MANAGER
+> 
+> Kai Kang (2):
+>   poky.conf: make systemd as default init manager
+>   systemd-conf: configure wired network with dhcp
 
-Nice, I like this solution. One thing though: why do you call the files=20
-"init-template-*.inc"? Why not "init-manager-*.inc"? They are not really=20
-some kind of template files.
+This is looking good, I do agree with Peter about the file naming. I
+ran it through the autobuilder to see where we are at runtime and the
+results were not so good:
 
-//Peter
+https://autobuilder.yoctoproject.org/typhoon/#/builders/85/builds/484
+
+We may need to reduce some of the free space in the ptest image and it
+looks like there is an NFS startup failure issue in the sdk images.
+There may be other issues in there too but those were the two I
+immediately saw.
+
+Cheers,
+
+Richard
 
 
