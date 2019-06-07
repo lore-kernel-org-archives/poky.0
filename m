@@ -1,38 +1,43 @@
-Return-Path: <Kai.Kang@windriver.com>
+Return-Path: <jonas.hoeppner@garz-fricke.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DAB80E00D46; Tue,  4 Jun 2019 00:08:11 -0700 (PDT)
+	id AAEC0E00BAA; Fri,  7 Jun 2019 07:57:54 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,HTML_MESSAGE,
+	RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
-	*      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 63A66E00D38
-	for <poky@yoctoproject.org>; Tue,  4 Jun 2019 00:08:11 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x54787nH019094
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Tue, 4 Jun 2019 00:08:08 -0700 (PDT)
-Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.439.0;
-	Tue, 4 Jun 2019 00:08:06 -0700
-To: <richard.purdie@linuxfoundation.org>
-References: <20190602145530.183521-1-kai.kang@windriver.com>
-	<51adf784752be06beea78dbe4a523a403671dbe0.camel@linuxfoundation.org>
-From: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <ff89b5fc-9032-2e44-9834-12cbbcb9db64@windriver.com>
-Date: Tue, 4 Jun 2019 15:06:32 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.0
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [212.72.187.39 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+X-Greylist: delayed 1586 seconds by postgrey-1.32 at yocto-www;
+	Fri, 07 Jun 2019 07:57:53 PDT
+Received: from mailout-afstr39.mailout.artfiles.de
+	(mailout-afstr39.mailout.artfiles.de [212.72.187.39])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8D8F8E006EE
+	for <poky@yoctoproject.org>; Fri,  7 Jun 2019 07:57:53 -0700 (PDT)
+Received: from [89.27.136.47] (helo=mail.garz-fricke.com)
+	auth=mx@garz-fricke.com by mailout.artfiles.de with esmtpsa
+	(TLS1.2:ECDHE_RSA_AES_256_CBC_SHA384:256) (Exim 4.86_2)
+	id 1hZFtu-0007OW-6r
+	for poky@yoctoproject.org; Fri, 07 Jun 2019 16:31:26 +0200
+Received: from SRV24.hamburg.garz-fricke.de ([fe80::91bd:d629:787:188]) by
+	SRV24.hamburg.garz-fricke.de ([fe80::91bd:d629:787:188%12]) with mapi
+	id 14.03.0439.000; Fri, 7 Jun 2019 16:31:25 +0200
+From: =?iso-8859-1?Q?Jonas_H=F6ppner?= <jonas.hoeppner@garz-fricke.com>
+To: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Thread-Topic: module.bbclass, dependent module handling
+Thread-Index: AdUcUzVGgDXMjaS8Qn6Yfof1R/LQEQ==
+Date: Fri, 7 Jun 2019 14:31:24 +0000
+Message-ID: <9E27E505FFE47144BFD52305D1A13EEC6DBF8273@SRV24.hamburg.garz-fricke.de>
+Accept-Language: en-US, de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.20.15.165]
 MIME-Version: 1.0
-In-Reply-To: <51adf784752be06beea78dbe4a523a403671dbe0.camel@linuxfoundation.org>
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [meta-poky][PATCH v6 0/2] Make systemd as default init manager and configure wired network
+Subject: module.bbclass, dependent module handling
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -45,52 +50,104 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 04 Jun 2019 07:08:11 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Fri, 07 Jun 2019 14:57:54 -0000
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_9E27E505FFE47144BFD52305D1A13EEC6DBF8273SRV24hamburggar_"
 
-On 2019/6/3 下午8:30, richard.purdie@linuxfoundation.org wrote:
-> On Sun, 2019-06-02 at 10:55 -0400, kai.kang@windriver.com wrote:
->> From: Kai Kang <kai.kang@windriver.com>
->>
->> v6:
->> * create .inc files as Richard suggested, and include them according
->> to POKY_INIT_MANAGER
->>
->> Kai Kang (2):
->>    poky.conf: make systemd as default init manager
->>    systemd-conf: configure wired network with dhcp
-> This is looking good, I do agree with Peter about the file naming.
+--_000_9E27E505FFE47144BFD52305D1A13EEC6DBF8273SRV24hamburggar_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
+I have a question regarding the dependecy mechanism for external/out-of-tre=
+e kernel modules.
 
-OK.
+In module.bbclass the DEPENDS variable s checked for dependencies starting =
+kernel-module-,
+if it it found the Module.symver is passed to the makefile to make modpost =
+happy.
 
+But, it is (from what I've seen) is uncommon to call the recipe/PN kernel-m=
+odule ... as this
+is added later by the kernel-modules-split.bbclass for the actual package.
+When the PN already starts with kernel-module- the package later has this p=
+art doubled.
 
-> I
-> ran it through the autobuilder to see where we are at runtime and the
-> results were not so good:
->
-> https://autobuilder.yoctoproject.org/typhoon/#/builders/85/builds/484
->
-> We may need to reduce some of the free space in the ptest image and it
-> looks like there is an NFS startup failure issue in the sdk images.
-> There may be other issues in there too but those were the two I
-> immediately saw.
+I'm using this patch to make module builds fail on missing symbols.
+modpost: make KBUILD_MODPOST_WARN also configurable for external modules
+https://github.com/torvalds/linux/commit/83da1bed86cdfe3abb2a33c36a2a5aaf5f=
+390ef6
 
-I'll check the issues one by one.
+Is there something I've overseen?
 
-Regards,
-Kai
+I currently don't have a simple fix for this. The duplicate kernel-module- =
+in the package name could be handled,
+but the real problem is to detect if a dependency in DEPENDS provides an ex=
+ternal kernel module.
 
->
-> Cheers,
->
-> Richard
->
->
+Thanks, Jonas
 
--- 
-Kai Kang
+Jonas H=F6ppner
+www.garz-fricke.com
 
 
+--_000_9E27E505FFE47144BFD52305D1A13EEC6DBF8273SRV24hamburggar_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" id=3D"owaParaStyle"></style>
+</head>
+<body fpstyle=3D"1" ocsi=3D"0">
+<div style=3D"direction: ltr;font-family: Verdana;color: #000000;font-size:=
+ 10pt;">
+<div>I have a question regarding the dependecy mechanism for external/out-o=
+f-tree kernel modules.</div>
+<div><br>
+</div>
+<div>In module.bbclass the&nbsp;DEPENDS variable s checked for dependencies=
+ starting kernel-module-,&nbsp;</div>
+<div>if it it found the Module.symver is passed to the makefile to make mod=
+post happy.</div>
+<div><br>
+</div>
+<div>But, it is (from what I've seen) is uncommon to call the recipe/PN ker=
+nel-module ... as this&nbsp;</div>
+<div>is added later by the&nbsp;kernel-modules-split.bbclass for the actual=
+ package.&nbsp;</div>
+<div>When the PN already starts with kernel-module- the package later has t=
+his part doubled.</div>
+<div><br>
+</div>
+<div><span style=3D"font-size: 10pt;">I'm using this patch&nbsp;to make mod=
+ule builds fail on missing symbols.</span></div>
+<div>modpost: make KBUILD_MODPOST_WARN also configurable for external modul=
+es</div>
+<div>https://github.com/torvalds/linux/commit/83da1bed86cdfe3abb2a33c36a2a5=
+aaf5f390ef6</div>
+<div><br>
+</div>
+<div>Is there something I've overseen?&nbsp;</div>
+<div><br>
+</div>
+<div>I currently don't have a simple fix for this. The duplicate kernel-mod=
+ule- in the package name could be handled,&nbsp;</div>
+<div>but the real problem is to detect if a dependency in DEPENDS provides =
+an external kernel module.</div>
+<div><br>
+</div>
+<div>Thanks, Jonas</div>
+<div><br>
+</div>
+<div>Jonas H=F6ppner</div>
+<div>www.garz-fricke.com</div>
+<div><br>
+</div>
+</div>
+</body>
+</html>
+
+--_000_9E27E505FFE47144BFD52305D1A13EEC6DBF8273SRV24hamburggar_--
