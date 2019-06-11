@@ -1,32 +1,119 @@
-Return-Path: <quentin.schulz@streamunlimited.com>
+Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 090D3E00DA5; Tue, 11 Jun 2019 07:47:37 -0700 (PDT)
+	id E8DEAE00DA5; Tue, 11 Jun 2019 10:24:23 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-	https://www.dnswl.org/, no *      trust
-	*      [213.33.87.19 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from bsmtp7.bon.at (bsmtp7.bon.at [213.33.87.19])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 396C1E00DFF
-	for <poky@yoctoproject.org>; Tue, 11 Jun 2019 07:47:00 -0700 (PDT)
-Received: from qschulz.sue.net (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp7.bon.at (Postfix) with ESMTPSA id 45NXrz30F3z5tlN;
-	Tue, 11 Jun 2019 16:46:59 +0200 (CEST)
-From: Quentin Schulz <quentin.schulz@streamunlimited.com>
-To: poky@yoctoproject.org
-Date: Tue, 11 Jun 2019 16:46:47 +0200
-Message-Id: <20190611144648.30886-2-quentin.schulz@streamunlimited.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190611144648.30886-1-quentin.schulz@streamunlimited.com>
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (akuster808[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [209.85.210.193 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+	[209.85.210.193])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 35208E00D54
+	for <poky@yoctoproject.org>; Tue, 11 Jun 2019 10:24:23 -0700 (PDT)
+Received: by mail-pf1-f193.google.com with SMTP id a186so7842324pfa.5
+	for <poky@yoctoproject.org>; Tue, 11 Jun 2019 10:24:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
+	:user-agent:mime-version:in-reply-to:content-transfer-encoding
+	:content-language;
+	bh=nOavQjBvB6BQhKkCui4OnFIwKQI3951mOznWS5CAyVA=;
+	b=TPcQew7WHdHvYAzwAITxABaAViAd6t7kylJ5A5SV0u0tAivU42L2BnD2iPeptHlRAD
+	iaIDxGlF4Jkasu8sgMfa46i1J0bFkwp6AecgREtseF7oE4BRElJTW+Q7drE8eC1ueaPc
+	SZmF1wSIaI1BXpjpMlA5iWifbBfxpoPl/pBpJ2ndeRFpdZNl7YbaNbhzVtZN9S/Ft48c
+	mxMjiAuVERw84nhR/JpU7Hc3OhzHqWfBxud7nuvmCuHQpB7LcRwzUhN9OUx37IqNdr/d
+	5DZZYuvm506itNwz8C+r0bSQSa2xuIEdcYAE+HUcBdhVZLieZ6pZp+BEo4W6XqNRIm9A
+	RA9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+	:message-id:date:user-agent:mime-version:in-reply-to
+	:content-transfer-encoding:content-language;
+	bh=nOavQjBvB6BQhKkCui4OnFIwKQI3951mOznWS5CAyVA=;
+	b=uFSNNnruFE8KBe4JNb9GkuVig5vGMIZ7/USL0DJa028JrYHM6JuZ4BMBpdAMo0XlJa
+	eFUzhQB+PAcNkXg8VEdoGLeRoESLU07skeAZbdcNSWeekG49CRwo/siJLc0wcNw8CZIX
+	RYnJYq9oXzNSw+DBL1ocfQvQlOTQLYjBVZnA6tleYylUebkmBV/jCPl02oxuHcmA+u4/
+	P1Oy77lFhdzU/Wh3yqHHiOrFxyr/vhNOeQI6jvv7ghVzY/SOvTnMpqHkjb4GxUhYpdbt
+	beBJc9eECTayyRSyzCuOmyYx5yOCLJBM2VvQM6BqqRMsNUaC/T2FoYSSOzWaf5JnAqJ/
+	s1mg==
+X-Gm-Message-State: APjAAAW1tTHfQYdpS4CkyyYQKb/RZEFKERj7d2ZLHWs4y8nApDsCt8GX
+	xIXIZqRXOAWyCJOrrplOy9HspYhw
+X-Google-Smtp-Source: APXvYqxI81I5IvZcQOhRGcjwD7Xct3/TJ8fBc9jK1+Yu3Q42nN5De6vCWds0qpAlRaR1XMfE2rwBFw==
+X-Received: by 2002:a63:e70c:: with SMTP id b12mr12943286pgi.242.1560273862581;
+	Tue, 11 Jun 2019 10:24:22 -0700 (PDT)
+Received: from ?IPv6:2601:202:4180:c33:ac5b:d26e:fac2:f89f?
+	([2601:202:4180:c33:ac5b:d26e:fac2:f89f])
+	by smtp.gmail.com with ESMTPSA id
+	m8sm26224150pff.137.2019.06.11.10.24.20
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Tue, 11 Jun 2019 10:24:21 -0700 (PDT)
+To: Quentin Schulz <quentin.schulz@streamunlimited.com>, poky@yoctoproject.org
 References: <20190611144648.30886-1-quentin.schulz@streamunlimited.com>
-Cc: andriy.danylovskyy@streamunlimited.com,
-	Alejandro del Castillo <alejandro.delcastillo@ni.com>
-Subject: [thud] [PATCH 1/2] opkg: add --ignore-recommends flag
+From: akuster808 <akuster808@gmail.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=akuster808@gmail.com; prefer-encrypt=mutual; keydata=
+	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
+	8CS2NxU=
+Message-ID: <f827d3c0-2fab-2313-1666-3d3375abec53@gmail.com>
+Date: Tue, 11 Jun 2019 10:24:20 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.7.0
+MIME-Version: 1.0
+In-Reply-To: <20190611144648.30886-1-quentin.schulz@streamunlimited.com>
+Cc: andriy.danylovskyy@streamunlimited.com
+Subject: Re: [thud] [PATCH 0/2] opkg and BAD_RECOMMENDATIONS in thud 2.6.2
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -39,303 +126,103 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jun 2019 14:47:37 -0000
+X-List-Received-Date: Tue, 11 Jun 2019 17:24:24 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-From: Alejandro del Castillo <alejandro.delcastillo@ni.com>
 
-To be used for BAD_RECOMMENDATIONS feature.
 
-(From OE-Core rev: 788d97b4f8e4452cef1ba6bb3e565e1b52dbb7de)
+On 6/11/19 7:46 AM, Quentin Schulz wrote:
+> Hi all,
+>
+> I've been hit with a rather unsettling bug when building an image with
+> PACKAGE_CLASSES = "ipk" in Thud 2.6.2.
+>
+> The error message is the following:
+> ERROR: meh-1.0-r0 do_rootfs: Unable to install packages. Command
+> '/tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/recipe-sysroot-native/usr/bin/opkg --volatile-cache -f /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/opkg.conf -t /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/temp/ipktemp/ -o /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/rootfs  --force_postinstall --prefer-arch-to-version   --force-maintainer --force-overwrite install packagegroup-base-extended packagegroup-core-boot plop run-postinsts' returned 2:
+> Collected errors:
+>  * Solver encountered 2 problem(s):
+>  * Problem 1/2:
+>  *   - nothing provides bluez5 needed by plop-1.0-r0.aarch64
+>  * 
+>  * Solution 1:
+>  *   - do not ask to install a package providing plop
+>
+>  * Problem 2/2:
+>  *   - nothing provides bluez5 needed by packagegroup-base-bluetooth-1.0-r83.stream1832prime
+>  * 
+>  * Solution 1:
+>  *   - do not ask to install a package providing packagegroup-base-extended
+>
+>
+>
+>
+> ERROR: meh-1.0-r0 do_rootfs: Function failed: do_rootfs
+> ERROR: Logfile of failure stored in: /tmp/yocto/temp/work/machine-poky-linux/meh/1.0-r0/temp/log.do_rootfs.30869
+> ERROR: Task (/media/qschulz/yocto/build/oe/recipes-images/nsdk/meh.bb:do_rootfs) failed with exit code '1'
+> NOTE: Tasks Summary: Attempted 3059 tasks of which 3046 didn't need to be rerun and 1 failed.
+>
+> Summary: 1 task failed:
+>   /media/qschulz/yocto/build/oe/recipes-images/nsdk/meh.bb:do_rootfs
+> Summary: There were 7 WARNING messages shown.
+> Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
+>
+>
+> I could reproduce it with an image meh.bb:
+> inherit core-image
+>
+> CORE_IMAGE_EXTRA_INSTALL += "plop"
+>
+> BAD_RECOMMENDATIONS += "bluez5"
+>
+> with plop.bb being:
+> DESCRIPTION = "Plap"
+> LICENSE = "CLOSED"
+>
+> RDEPENDS_${PN} += "bluez5"
+>
+> do_install() {
+>         install -d ${D}${bindir}
+>         echo "plip" > ${D}${bindir}/plep
+> }
+>
+> I took me a while to find out that it's an issue with opkg itself and
+> nothing could be done in Yocto to fix it but I found the three following
+> patches in yocto-2.7:
+>
+> https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=d8e12f2bfc4deaa0dc7530cf3af905e18e8037f6
+> https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=c76c50df6498d85e7a6254002ff8f5e0ef3e67f7
+> https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=5bcb626cf49d2295ccca45d6fc7e1617cca932d6
 
-Signed-off-by: Alejandro del Castillo <alejandro.delcastillo@ni.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-[Backport from opkg_0.4.0.bb]
-Signed-off-by: Quentin Schulz <quentin.schulz@streamunlimited.com>
----
- ...pkg-add-add-ignore-recommends-option.patch | 260 ++++++++++++++++++
- meta/recipes-devtools/opkg/opkg_0.3.6.bb      |   1 +
- 2 files changed, 261 insertions(+)
- create mode 100644 meta/recipes-devtools/opkg/opkg/0001-libopkg-add-add-ignore-recommends-option.patch
+You mentioned 3 git commits but i only see 2 patches on the list.
 
-diff --git a/meta/recipes-devtools/opkg/opkg/0001-libopkg-add-add-ignore-recommends-option.patch b/meta/recipes-devtools/opkg/opkg/0001-libopkg-add-add-ignore-recommends-option.patch
-new file mode 100644
-index 0000000000..11954e9032
---- /dev/null
-+++ b/meta/recipes-devtools/opkg/opkg/0001-libopkg-add-add-ignore-recommends-option.patch
-@@ -0,0 +1,260 @@
-+From 2eca28b6a37be92e4e835c51872c7df34ec6dedd Mon Sep 17 00:00:00 2001
-+From: Quentin Schulz <quentin.schulz@streamunlimited.com>
-+Date: Fri, 31 May 2019 17:30:40 +0200
-+Subject: [PATCH] [PATCH] libopkg: add --add-ignore-recommends option
-+
-+Add option to ignore specific recommended packages. On the libsolv
-+backed, this feature will only work on libsolv version > 0.7.2 [1].
-+
-+[1] https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_openSUSE_libsolv_issues_254&d=DwIBaQ&c=I_0YwoKy7z5LMTVdyO6YCiE2uzI1jjZZuIPelcSjixA&r=wNcrL2akRn6jfxhHaKavUrJB_C9JAMXtynjLd8ZzgXQ&m=GObNHzFJpWpf_PripIrf-K2RhsktYdAUEieAJexXOKw&s=3G-meChUqClFggFPqsrAxIZBfLnRKIHm62Uuy1X6nQQ&e=
-+
-+Signed-off-by: Alejandro del Castillo <alejandro.delcastillo@ni.com>
-+Signed-off-by: Quentin Schulz <quentin.schulz@streamunlimited.com>
-+
-+Upstream-Status: Backport
-+---
-+ libopkg/opkg_conf.c                           |  2 +
-+ libopkg/opkg_conf.h                           |  1 +
-+ .../solvers/internal/pkg_depends_internal.c   |  3 +-
-+ libopkg/solvers/libsolv/opkg_solver_libsolv.c | 21 ++++++-
-+ man/opkg.1.in                                 |  3 +
-+ src/opkg.c                                    |  6 ++
-+ tests/Makefile                                |  1 +
-+ tests/core/43_add_ignore_recommends.py        | 62 +++++++++++++++++++
-+ 8 files changed, 97 insertions(+), 2 deletions(-)
-+ create mode 100644 tests/core/43_add_ignore_recommends.py
-+
-+diff --git a/libopkg/opkg_conf.c b/libopkg/opkg_conf.c
-+index 06880a1..f2330cd 100644
-+--- a/libopkg/opkg_conf.c
-++++ b/libopkg/opkg_conf.c
-+@@ -597,6 +597,7 @@ int opkg_conf_init(void)
-+     pkg_dest_list_init(&opkg_config->tmp_dest_list);
-+     nv_pair_list_init(&opkg_config->arch_list);
-+     str_list_init(&opkg_config->exclude_list);
-++    str_list_init(&opkg_config->ignore_recommends_list);
-+ 
-+     return 0;
-+ }
-+@@ -938,6 +939,7 @@ void opkg_conf_deinit(void)
-+     pkg_dest_list_deinit(&opkg_config->pkg_dest_list);
-+     nv_pair_list_deinit(&opkg_config->arch_list);
-+     str_list_deinit(&opkg_config->exclude_list);
-++    str_list_deinit(&opkg_config->ignore_recommends_list);
-+ 
-+     if (opkg_config->verbosity >= DEBUG) {
-+         hash_print_stats(&opkg_config->pkg_hash);
-+diff --git a/libopkg/opkg_conf.h b/libopkg/opkg_conf.h
-+index dc11516..fc42de3 100644
-+--- a/libopkg/opkg_conf.h
-++++ b/libopkg/opkg_conf.h
-+@@ -61,6 +61,7 @@ typedef struct opkg_conf {
-+     pkg_dest_list_t tmp_dest_list;
-+     nv_pair_list_t arch_list;
-+     str_list_t exclude_list;
-++    str_list_t ignore_recommends_list;
-+ 
-+     int restrict_to_default_dest;
-+     pkg_dest_t *default_dest;
-+diff --git a/libopkg/solvers/internal/pkg_depends_internal.c b/libopkg/solvers/internal/pkg_depends_internal.c
-+index cd56d84..5deee70 100644
-+--- a/libopkg/solvers/internal/pkg_depends_internal.c
-++++ b/libopkg/solvers/internal/pkg_depends_internal.c
-+@@ -228,7 +228,8 @@ int pkg_hash_fetch_unsatisfied_dependencies(pkg_t *pkg,
-+                             || compound_depend->type == SUGGEST)
-+                         && (satisfying_pkg->state_want == SW_DEINSTALL
-+                             || satisfying_pkg->state_want == SW_PURGE
-+-                            || opkg_config->no_install_recommends);
-++                            || opkg_config->no_install_recommends
-++                            || str_list_contains(&opkg_config->ignore_recommends_list, satisfying_pkg->name));
-+                 if (ignore) {
-+                     opkg_msg(NOTICE,
-+                              "%s: ignoring recommendation for "
-+diff --git a/libopkg/solvers/libsolv/opkg_solver_libsolv.c b/libopkg/solvers/libsolv/opkg_solver_libsolv.c
-+index bf0b72c..ea00a37 100644
-+--- a/libopkg/solvers/libsolv/opkg_solver_libsolv.c
-++++ b/libopkg/solvers/libsolv/opkg_solver_libsolv.c
-+@@ -484,6 +484,7 @@ static void pkg2solvable(pkg_t *pkg, Solvable *solvable_out)
-+ static void populate_installed_repo(libsolv_solver_t *libsolv_solver)
-+ {
-+     int i;
-++    Id what;
-+ 
-+     pkg_vec_t *installed_pkgs = pkg_vec_alloc();
-+ 
-+@@ -507,6 +508,15 @@ static void populate_installed_repo(libsolv_solver_t *libsolv_solver)
-+         /* set solvable attributes */
-+         pkg2solvable(pkg, solvable);
-+ 
-++        /* if the package is in ignore-recommends-list, disfavor installation */
-++        if (str_list_contains(&opkg_config->ignore_recommends_list, pkg->name)) {
-++            opkg_message(NOTICE, "Disfavor package: %s\n",
-++                         pkg->name);
-++            what = pool_str2id(libsolv_solver->pool, pkg->name, 1);
-++            queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE_NAME
-++                        | SOLVER_DISFAVOR, what);
-++        }
-++
-+         /* if the package is not autoinstalled, mark it as user installed */
-+         if (!pkg->auto_installed)
-+             queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE
-+@@ -533,7 +543,7 @@ static void populate_available_repos(libsolv_solver_t *libsolv_solver)
-+ {
-+     int i;
-+     Solvable *solvable;
-+-    Id solvable_id;
-++    Id solvable_id, what;
-+ 
-+     pkg_vec_t *available_pkgs = pkg_vec_alloc();
-+ 
-+@@ -602,6 +612,15 @@ static void populate_available_repos(libsolv_solver_t *libsolv_solver)
-+         solvable = pool_id2solvable(libsolv_solver->pool, solvable_id);
-+         pkg2solvable(pkg, solvable);
-+ 
-++        /* if the package is in ignore-recommends-list, disfavor installation */
-++        if (str_list_contains(&opkg_config->ignore_recommends_list, pkg->name)) {
-++            opkg_message(NOTICE, "Disfavor package: %s\n",
-++                         pkg->name);
-++            what = pool_str2id(libsolv_solver->pool, pkg->name, 1);
-++            queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE_NAME
-++                        | SOLVER_DISFAVOR, what);
-++        }
-++
-+         /* if the --force-depends option is specified make dependencies weak */
-+         if (opkg_config->force_depends)
-+             queue_push2(&libsolv_solver->solver_jobs, SOLVER_SOLVABLE
-+diff --git a/man/opkg.1.in b/man/opkg.1.in
-+index 026fb15..c0d4bf3 100644
-+--- a/man/opkg.1.in
-++++ b/man/opkg.1.in
-+@@ -143,6 +143,9 @@ conjunction with \fB\--dest\fP
-+ \fB\--add-arch <\fIarch\fP>:<\fIprio\fP>\fR
-+ Register the package architecture \fIarch\fP with the numeric
-+ priority \fIprio\fP. Lower priorities take precedence.
-++.TP
-++\fB\--add-ignore-recommends <\fIname\fP>\fR
-++Register package to be ignored as a recomendee
-+ .SS FORCE OPTIONS
-+ .TP
-+ \fB\--force-depends \fR
-+diff --git a/src/opkg.c b/src/opkg.c
-+index f23467d..5181065 100644
-+--- a/src/opkg.c
-++++ b/src/opkg.c
-+@@ -51,6 +51,7 @@ enum {
-+     ARGS_OPT_ADD_DEST,
-+     ARGS_OPT_SIZE,
-+     ARGS_OPT_ADD_EXCLUDE,
-++    ARGS_OPT_ADD_IGNORE_RECOMMENDS,
-+     ARGS_OPT_NOACTION,
-+     ARGS_OPT_DOWNLOAD_ONLY,
-+     ARGS_OPT_NODEPS,
-+@@ -110,6 +111,7 @@ static struct option long_options[] = {
-+     {"add-dest", 1, 0, ARGS_OPT_ADD_DEST},
-+     {"size", 0, 0, ARGS_OPT_SIZE},
-+     {"add-exclude", 1, 0, ARGS_OPT_ADD_EXCLUDE},
-++    {"add-ignore-recommends", 1, 0, ARGS_OPT_ADD_IGNORE_RECOMMENDS},
-+     {"test", 0, 0, ARGS_OPT_NOACTION},
-+     {"tmp-dir", 1, 0, 't'},
-+     {"tmp_dir", 1, 0, 't'},
-+@@ -235,6 +237,9 @@ static int args_parse(int argc, char *argv[])
-+         case ARGS_OPT_ADD_EXCLUDE:
-+             str_list_append(&opkg_config->exclude_list, optarg);
-+             break;
-++        case ARGS_OPT_ADD_IGNORE_RECOMMENDS:
-++            str_list_append(&opkg_config->ignore_recommends_list, optarg);
-++            break;
-+         case ARGS_OPT_SIZE:
-+             opkg_config->size = 1;
-+             break;
-+@@ -335,6 +340,7 @@ static void usage()
-+     printf("\t--add-arch <arch>:<prio>        Register architecture with given priority\n");
-+     printf("\t--add-dest <name>:<path>        Register destination with given path\n");
-+     printf("\t--add-exclude <name>            Register package to be excluded from install\n");
-++    printf("\t--add-ignore-recommends <name>  Register package to be ignored as a recomendee\n");
-+     printf("\t--prefer-arch-to-version        Use the architecture priority package rather\n");
-+     printf("\t                                than the higher version one if more\n");
-+     printf("\t                                than one candidate is found.\n");
-+diff --git a/tests/Makefile b/tests/Makefile
-+index 148c844..ddf027f 100644
-+--- a/tests/Makefile
-++++ b/tests/Makefile
-+@@ -38,6 +38,7 @@ REGRESSION_TESTS := core/01_install.py \
-+ 		    core/37_globs.py \
-+ 		    core/38_install_constrained_version.py \
-+ 		    core/39_distupgrade.py \
-++		    core/43_add_ignore_recommends.py \
-+ 		    regress/issue26.py \
-+ 		    regress/issue31.py \
-+ 		    regress/issue32.py \
-+diff --git a/tests/core/43_add_ignore_recommends.py b/tests/core/43_add_ignore_recommends.py
-+new file mode 100644
-+index 0000000..7da0096
-+--- /dev/null
-++++ b/tests/core/43_add_ignore_recommends.py
-+@@ -0,0 +1,62 @@
-++#! /usr/bin/env python3
-++#
-++# Create package 'a' (1.0) which Recommends 'c'.
-++# Install 'a' with --add-ignore-recommends 'c'.
-++# Check that only 'a' (1.0) is installed.
-++# Create package 'b' which Depends on 'c'.
-++# Install 'a' & 'b', with --add-ignore-recommends 'c'.
-++# Verify that 'a','b' & 'c' are installed.
-++# Uninstall 'b' & 'c'.
-++# Create package 'a' (2.0), which Recommends 'c'.
-++# Upgrade 'a' with --add-ignore-recommends 'c'
-++# Verify that only 'a' (2.0) is installed
-++#
-++
-++import os
-++import opk, cfg, opkgcl
-++
-++opk.regress_init()
-++o = opk.OpkGroup()
-++
-++o.add(Package='a', Recommends='c', Version='1.0')
-++o.add(Package='b', Depends='c')
-++o.add(Package='c')
-++o.write_opk()
-++o.write_list()
-++
-++opkgcl.update()
-++
-++opkgcl.install('a', '--add-ignore-recommends c')
-++
-++if not opkgcl.is_installed('a'):
-++	opk.fail("Package 'a' installed but reports as not installed.")
-++
-++if opkgcl.is_installed('c'):
-++	opk.xfail("[libsolv<0.7.3] Package 'c' should not have been installed since it was in --add-ignore-recommends.")
-++
-++opkgcl.remove('a')
-++opkgcl.install('a b', '--add-ignore-recommends c')
-++
-++if not opkgcl.is_installed('a'):
-++	opk.fail("Package 'a' installed but reports as not installed.")
-++
-++if not opkgcl.is_installed('b'):
-++	opk.fail("Package 'b' installed but reports as not installed.")
-++
-++if not opkgcl.is_installed('c'):
-++	opk.fail("Package 'c' should have been installed since 'b' depends on it.")
-++
-++opkgcl.remove('b c', '--force-depends')
-++o.add(Package='a', Recommends='c', Version='2.0')
-++o.write_opk()
-++o.write_list()
-++
-++opkgcl.update()
-++
-++opkgcl.upgrade('a', '--add-ignore-recommends c')
-++
-++if not opkgcl.is_installed('a', '2.0'):
-++	opk.fail("Package 'a (2.0)' installed but reports as not installed.")
-++
-++if opkgcl.is_installed('c'):
-++	opk.fail("Package 'c' should not have been installed since it was in --add-ignore-recommends.")
-+-- 
-+2.17.1
-+
-diff --git a/meta/recipes-devtools/opkg/opkg_0.3.6.bb b/meta/recipes-devtools/opkg/opkg_0.3.6.bb
-index 6ebd58b967..b26d30b571 100644
---- a/meta/recipes-devtools/opkg/opkg_0.3.6.bb
-+++ b/meta/recipes-devtools/opkg/opkg_0.3.6.bb
-@@ -15,6 +15,7 @@ SRC_URI = "http://downloads.yoctoproject.org/releases/${BPN}/${BPN}-${PV}.tar.gz
-            file://opkg.conf \
-            file://0001-opkg_conf-create-opkg.lock-in-run-instead-of-var-run.patch \
-            file://0001-remove_maintainer_scripts-use-strict-matching.patch \
-+           file://0001-libopkg-add-add-ignore-recommends-option.patch \
- "
- 
- SRC_URI[md5sum] = "79e04307f6f54db431c251772d7d987c"
--- 
-2.17.1
+please clarify.
+
+And Thanks for the fixes.
+
+- Armin
+>
+> With those three applied on top of thud 2.6.2, my image is built without
+> complaints.
+>
+> Please apply those backported patches for next Thud releases.
+>
+>
+> Thanks,
+> Quentin
+>
+> Alejandro del Castillo (2):
+>   opkg: add --ignore-recommends flag
+>   OpkgPM: use --add-ignore-recommends to process BAD_RECOMMENDATIONS
+>
+>  meta/lib/oe/package_manager.py                |  41 +--
+>  meta/lib/oe/rootfs.py                         |   2 -
+>  ...pkg-add-add-ignore-recommends-option.patch | 260 ++++++++++++++++++
+>  meta/recipes-devtools/opkg/opkg_0.3.6.bb      |   1 +
+>  4 files changed, 263 insertions(+), 41 deletions(-)
+>  create mode 100644 meta/recipes-devtools/opkg/opkg/0001-libopkg-add-add-ignore-recommends-option.patch
+>
 
 
