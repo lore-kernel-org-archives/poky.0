@@ -1,61 +1,68 @@
-Return-Path: <star@gmx.li>
+Return-Path: <davis.roman84@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 81EACE00E07; Fri, 14 Jun 2019 05:46:00 -0700 (PDT)
+	id EBF4EE00D6F; Sat, 15 Jun 2019 20:33:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, FREEMAIL_FROM, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (star[at]gmx.li)
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
-	low *      trust
-	*      [212.227.17.20 listed in list.dnswl.org]
+	provider *      (davis.roman84[at]gmail.com)
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-X-Greylist: delayed 303 seconds by postgrey-1.32 at yocto-www;
-	Fri, 14 Jun 2019 05:45:59 PDT
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 8F23AE00DB5
-	for <poky@yoctoproject.org>; Fri, 14 Jun 2019 05:45:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1560516358;
-	bh=ZZeCaawVjL90+dYeEoVX8WaijGr3n7/OsAsSs3s7mB8=;
-	h=X-UI-Sender-Class:From:To:Subject:Date;
-	b=UlRMTTr4hF2es3AnjOnOcp77Pj/wYw+i2eKOuksRFws1CIE4pMePd0IA8e+3BzAJI
-	s2vQOMh+a48nmo4Jjr6UHzHzPZVZ1P78F70FQ/7sdC6P0SeE1oNZQgU9IBxaH5CYVS
-	BmR3nJogqNRPQw9Z9Hbb/7QyjIV1PDhmjLKBCow4=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [62.225.157.196] ([62.225.157.196]) by web-mail.gmx.net
-	(3c-app-gmx-bs71.server.lan [172.19.170.216]) (via HTTP);
-	Fri, 14 Jun 2019 14:40:55 +0200
-MIME-Version: 1.0
-Message-ID: <trinity-e1418283-2a62-421f-a921-29bb9b041222-1560516055870@3c-app-gmx-bs71>
-From: "Arno Steffens" <star@gmx.li>
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [209.85.222.195 listed in list.dnswl.org]
+Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
+	[209.85.222.195])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6B466E00994
+	for <poky@yoctoproject.org>; Sat, 15 Jun 2019 20:33:50 -0700 (PDT)
+Received: by mail-qk1-f195.google.com with SMTP id b18so4216631qkc.9
+	for <poky@yoctoproject.org>; Sat, 15 Jun 2019 20:33:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=ka7Gf5UeLvDbF8nln7IoH8T2vRUMRYUwLh4DfO6h4/c=;
+	b=SCP/jLaECleTOVEazBlg8GqnNgqUd9NO6NPBzp4NR5O4dYsK6kg1v26GCCGbHTlhv2
+	kGznExrDNzpYQbY6MRs07KlEJQR4RF8/snDdwWYpl/5n7zjDvVUzksdZ6R8mti88/OWA
+	lIZgxEJZCBou1ViqvXy5EKq0tkxceWDMCe+xfNnKsHjkUeNMKe9Qir9eAV8U5mnyGrx8
+	uox5wcjGZ4VRI6fD6dG2Krcgu4UMMLGz/fadAH+pqO+kNfun3VZTg4Bz59mGBmjO+zEP
+	ZU0PX33J1HoIlEPe8ycBTgZE2pNHjMhivj6OWUqLM+gy/QOT2Z8UGBhcFJyO9guHMeQc
+	+Chw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=ka7Gf5UeLvDbF8nln7IoH8T2vRUMRYUwLh4DfO6h4/c=;
+	b=UCTSyJlVUAP7em6N1CnECjlLKKTBlV2At0lCguaH4U5TY7F16ctZmGl9PgmDl+335F
+	1YOePOsRZHZ6umJ0AnE1UKIaKoghOIUWjnB2CANuBFWv1kEHUede8jVR2Bf1Wzb4VPtS
+	0F8hccVK2ox7TJZD8uocZr6oMqtRWZFfh0DTpsb4RvP2CngsSnfLNQIzwkqiATdPYBP1
+	XDIs7DqOsRAkQsgdvs18DmpRuHE7xshF2scFxcFAF5NTey/gl7AAk8hoyVK1EcQfcxXT
+	5zbhrohqrOdHCiSiMv/nbL2AF+XRbDB5IikRHs8/cJu3mfT8LqP2Dpf+5VfJhVsgB8Ak
+	Bzjg==
+X-Gm-Message-State: APjAAAUKmq/ldz21IsmiSDgL1EK2n3CBE5+4wZP40y5MP4fKI78idGEF
+	FJ/OsKNWT0WLzb3I0lMWxlGiPbR7
+X-Google-Smtp-Source: APXvYqyE3JJXpXkKArG68COkIBmeIKweWYrVfU5iMZOSlCABuYtrPuonLOh4zPRalQnxBpVD+FJHAw==
+X-Received: by 2002:a37:a413:: with SMTP id n19mr30078189qke.98.1560656029461; 
+	Sat, 15 Jun 2019 20:33:49 -0700 (PDT)
+Received: from localhost.localdomain ([149.4.68.110])
+	by smtp.gmail.com with ESMTPSA id k7sm3375130qth.88.2019.06.15.20.33.49
+	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+	Sat, 15 Jun 2019 20:33:49 -0700 (PDT)
+From: davis.roman84@gmail.com
 To: poky@yoctoproject.org
-Date: Fri, 14 Jun 2019 14:40:55 +0200
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:DcLo67UO4KHCHnjTOjvG6uxxDDkzVTlEPjgiScviJYOMfqANaKW5rBNs/I7w4gdiB7TN4
-	ib3Ov070/XkWktPsuA6EuExLLPuo3U/qzHJP8zMeg3dOMGrDqib5X0P1YXtNvfQxwJ67raXcLjIf
-	vAz3Snw+FPhCAwh6SD69tSW9vznlWM4o+SBtxJVh3WwAsbYProLiuzvFX5Kh9aGpB7oO8tRIItJz
-	vR0tS1VMeRbuVQd/N/4aJhK8EYUReLhPeHEh5O9Lyvx5dVQrzw6rCMStaAk0pmuN4M/u5RSwybpt
-	dc=
-X-UI-Out-Filterresults: notjunk:1;V03:K0:pAQyL2kd9S0=:gX64brF0kmU1FC/7EYThPo
-	Z5lSlkjHLJ7SMUeUM/bS4QAeUmo2JhXiUmKt/VJFgqfabCFGkr89wh9Bbpeouf8lzpGpcu1GO
-	hNF3n7+MYMqVecJXS+aHRGrKHUqPsOORxj3Y5rq3/JtHtzkb2L5WZOv1Jjc8LyiUEeTp6iYNW
-	3bMFUh6q4UD/A74OFpOV1lEZbrsIhHXCVs4aNDGTaVVVqanpCwKvtjsfCV0/Vx3WLc542uCmR
-	EYjzl8Zl/84WEsr16aphLTM/eeBMirQR5gBSGQDZO3NNYT3zGIKy5qKT1Ty3UsVKtWt7dSvoR
-	4Wk5eL+HbqtOh8dk9q4gEXmNJJBFw7fmrfhNLOn4gP9P07yFqtwsOom+zcH/J2cgrUGesgbU+
-	mqgdeqIu+m3+GNtrtPRE3rktdLzjIhU6SHbriBGWsppvlwYs41YaLFwi66ukrOz+4C2vocoPj
-	ISPoJQiGwj6tjay6cvnQHPkOeigE6R9vfOzYdEMpYVhyzSqgEjD3rY3ZLIvCyRqu5fq1c1viF
-	amBXBuzPXoIUd0K8YSceNaZuuMbiFnBXcGavn6I96q6njv92x6IGzNXPJ+wxa9+puvHiodoW1
-	Yxtkk9yMV++i3aDOmZzrzvpUEb/HVdF3wHRNq+ya5zUUF+wCjPdVT2aw==
-Subject: runqemu-extract-sdk and NFS
+Date: Sat, 15 Jun 2019 23:33:46 -0400
+Message-Id: <20190616033346.27898-1-davis.roman84@gmail.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Cc: davis roman <davis.roman84@gmail.com>
+Subject: [PATCH] include: Fixed spelling mistakes.
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -68,15 +75,27 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Jun 2019 12:46:00 -0000
-Content-Type: text/plain; charset=UTF-8
+X-List-Received-Date: Sun, 16 Jun 2019 03:33:51 -0000
+Content-Transfer-Encoding: 8bit
 
-I created a rootfs and use it via NFS. Looks fine so far. But if I type "reboot" I get the message "you have to be root".
-But I am - "whoami" returns that. What am I doing wrong?
+From: davis roman <davis.roman84@gmail.com>
 
-PS:
-Is there a way to give a few of the busybox commands as "reboot" and "mount" the permissions to be executed by others than root?
+Signed-off-by: davis roman <davis.roman84@gmail.com>
+---
+ meta-poky/conf/distro/include/poky-world-exclude.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks in advance!
+diff --git a/meta-poky/conf/distro/include/poky-world-exclude.inc b/meta-poky/conf/distro/include/poky-world-exclude.inc
+index 1a2dea5859..b0edc120ca 100644
+--- a/meta-poky/conf/distro/include/poky-world-exclude.inc
++++ b/meta-poky/conf/distro/include/poky-world-exclude.inc
+@@ -1,4 +1,4 @@
+ #
+-# Things we exlude fromw world testing within the reference distro
++# Things we exclude from world testing within the reference distro
+ #
+ 
+-- 
+2.20.1
 
 
