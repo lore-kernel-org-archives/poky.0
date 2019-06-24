@@ -1,63 +1,61 @@
-Return-Path: <jonathan.richardson@broadcom.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 06093E00D6B; Tue, 18 Jun 2019 15:58:58 -0700 (PDT)
+	id 8F8DBE00CB9; Mon, 24 Jun 2019 09:28:53 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.166.46 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
+	*      [209.85.128.67 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
-	[209.85.166.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F082FE00CF4
-	for <poky@yoctoproject.org>; Tue, 18 Jun 2019 15:58:55 -0700 (PDT)
-Received: by mail-io1-f46.google.com with SMTP id k20so33659222ios.10
-	for <poky@yoctoproject.org>; Tue, 18 Jun 2019 15:58:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
-	h=from:references:in-reply-to:mime-version:thread-index:date
-	:message-id:subject:to:cc;
-	bh=4e7g3MfcmIzA2phWl5PQvlA2v7LFzeA9QHHxBGlTtLs=;
-	b=Mb15GDkGsz8DfF2iTkimWbPHoYLCEoEPMhW2jnA2YUSINye0ZlCKUV9c/Ga0EHJdAY
-	QiQd7PEdmJ4OGu5LpoaV/NVU6sjfZGgtpG6aMHZRxIXUsuZikrBE9VJMx4l+dOrv+rwS
-	Fd1BvhogOPE6VvQQHPpmmdy3lQnGoYYZx8u2Q=
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+	[209.85.128.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F2FD9E00B1A
+	for <poky@yoctoproject.org>; Mon, 24 Jun 2019 09:28:52 -0700 (PDT)
+Received: by mail-wm1-f67.google.com with SMTP id g135so13396115wme.4
+	for <poky@yoctoproject.org>; Mon, 24 Jun 2019 09:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=from:to:subject:date:message-id;
+	bh=fFE4gep0MNa1XSYMVHYuJ6t8Dy8f1JcZuY+YBWtSiEw=;
+	b=IyCvwNHknbr01xhubsH4ohcmYcl0hakEKR2Z2ETT+N5BiAsqw2MxZE55CA1SdqRQBO
+	qXA6ICZcceKwYDAQjFYT1vumFcFRacpTDbNsYcHPRCut2n8/K34TiDL+cngPqmB313Vi
+	3DcXRw0MmLdYLC2888mdriwL0ggb4+VAvPZK9k/cW+EPAEeOzcd21rcwXQKlGQ0SRSLE
+	DTRmyo77lX9/zZuqMKRsePNHyEzNVuejLPpsW2Wxk1ht1yM/CJbVx4tDbP/uFMqpCOty
+	2e2ANY3t3Az9auK4Tp4aWpmktkk9LWQBM6w+jhyvqRAuogmizQ4OnLrd08MSWbCN4jci
+	fJcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:references:in-reply-to:mime-version
-	:thread-index:date:message-id:subject:to:cc;
-	bh=4e7g3MfcmIzA2phWl5PQvlA2v7LFzeA9QHHxBGlTtLs=;
-	b=pixQ7GmM2GR53Bfr/4wn9DWhjo6SsMSq5Ei46fVxfuzDSBtPoyh9SrCZUutaHICQ90
-	hAsAeSCDv8KZJZ4E8rN7OaSgc1nl0QvmA2tlbWlpeGeubsOy9GbvMVG1Fhbjn7AUrgSD
-	0buExKlZ/q+h0hunRB1910aFRM2IjSnvgBQkqnWgBoN41KM1KOkidOsKgYwIa1Bs1xLA
-	KBwl1Qv2XcCUMewr1wa2UCJmn59pMNajRfZWzwsCcdpn1ZnqIugW+/Xjz9nKrbqVLGqk
-	L342xzOaX5U6yxt73NVKEbCkqyxcsi0yXhfzZ+l1ZSU74ewyxzumzC9WjmOKgGP5T/Vx
-	I1ng==
-X-Gm-Message-State: APjAAAWQCeiQu3a6VSb8ye+zBCVVOZckm+c1rromwZAePipjhWploghz
-	eKpQFKkkDoKHJ+FxkBYCB9x7Zan4r1paRdtfAwGQIw==
-X-Google-Smtp-Source: APXvYqzFwrN1mhtJ+lMxUKC3K2hNcld1d4LBRs6q7eB2tDHpZef230ZhTrL+cFEsBTDPLONQXEHDSSmQtQlbiqKbIUM=
-X-Received: by 2002:a02:40c8:: with SMTP id n191mr63202295jaa.14.1560898735369;
-	Tue, 18 Jun 2019 15:58:55 -0700 (PDT)
-From: Jonathan Richardson <jonathan.richardson@broadcom.com>
-References: <e3607e3b603a3c19c520e59774b7039d@mail.gmail.com>
-	<20190618212956.GD1501@jama>
-In-Reply-To: <20190618212956.GD1501@jama>
-MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 14.0
-Thread-Index: AQFy8XcxTbxhlSmrABPV4hT4HAkNLQL28qP8p06gTRA=
-Date: Tue, 18 Jun 2019 15:58:54 -0700
-Message-ID: <f3bb05fec6af55dd438fbc370f501f53@mail.gmail.com>
-To: Martin Jansa <martin.jansa@gmail.com>
-Cc: poky@yoctoproject.org
-Subject: Re: openssl10 in warrior
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=fFE4gep0MNa1XSYMVHYuJ6t8Dy8f1JcZuY+YBWtSiEw=;
+	b=mpYRTDBS/nbZ+uuZL583BmvPwBYMV+VupI7eni3ERCuji4W8YY17HN48TYDM/AvIOs
+	o1yOooabCxsw0tau3MCXK7O5QKZZMBcfIlIA7ycMeEZOWdP+EGWWcGgnwoA4Vb51sjwQ
+	GcBqOpQGMbchj/0gs4W870PjuDa3qg89yW2a2B/qtONXqlZL47muf313pTEXlwEJb7wI
+	TGMGK1N0Jwd7XasWTTy3sCgPDN87tekF9a4Q7y/7gZdXnPYeuEIle7QqDxFIzuY/qC8M
+	DHp/ymn1gEYWwXbx8pLfUFs70N93vDizK9w8fWzRxdEDdbPbm2n5xAW9OdRPGSF+q12K
+	SY7w==
+X-Gm-Message-State: APjAAAU4wEgbedwT4Tkx6eQN6yvFilmwcd8F8X6UDqkZt/IqCV0uDJkx
+	rY7MXnQnp4S0uVWRsiyM5JzPubtv9pI=
+X-Google-Smtp-Source: APXvYqyj9P/vzSz+J5D2wfPrSPcx2cg3lQSUQFdMAlp4NaguDu4lvt/11R78NXP0/zs8MerlQNuwyQ==
+X-Received: by 2002:a1c:96c7:: with SMTP id y190mr15275483wmd.87.1561393732058;
+	Mon, 24 Jun 2019 09:28:52 -0700 (PDT)
+Received: from flashheart.burtonini.com (35.106.2.81.in-addr.arpa.
+	[81.2.106.35]) by smtp.gmail.com with ESMTPSA id
+	m9sm13144241wrr.14.2019.06.24.09.28.51 for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 24 Jun 2019 09:28:51 -0700 (PDT)
+From: Ross Burton <ross.burton@intel.com>
+To: poky@yoctoproject.org
+Date: Mon, 24 Jun 2019 17:28:46 +0100
+Message-Id: <20190624162846.4234-1-ross.burton@intel.com>
+X-Mailer: git-send-email 2.11.0
+Subject: [PATCH] local.conf.sample.extended: remove redundant RUNTIMETARGET assignment
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -70,68 +68,29 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Jun 2019 22:58:58 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Mon, 24 Jun 2019 16:28:53 -0000
 
------Original Message-----
-From: Martin Jansa [mailto:martin.jansa@gmail.com]
-Sent: Tuesday, June 18, 2019 2:30 PM
-To: Jonathan Richardson
-Cc: poky@yoctoproject.org
-Subject: Re: [poky] openssl10 in warrior
+This has been fixed in the GCC recipe, so remove from
+local.conf.sample.extended.
 
-On Tue, Jun 18, 2019 at 01:29:00PM -0700, Jonathan Richardson wrote:
-> Hello,
->
-> How do you set the version of openssl back to openssl10? There is no
-> PROVIDES openssl in openssl10  so I can't set
-> PREFERRED_PROVIDER_openssl. If I change my DEPENDS in the my recipe to
-> openssl10-native  eventually another native recipe that depends on
-> openssl tries to populate a library to sysroot and fails because its
-> already there.
+Signed-off-by: Ross Burton <ross.burton@intel.com>
+---
+ meta-poky/conf/local.conf.sample.extended | 1 -
+ 1 file changed, 1 deletion(-)
 
-Hi,
-
-it never worked with both openssl versions being pulled into the same RSS
-(which is quite common for bigger components like qtbase).
-
-If you really need to use openssl10 and have components which require it,
-then you can temporary rename openssl10 recipe as openssl in our layer to
-overlay 1.1 version from oe-core and use this openssl-1.0 everywhere
-(there aren't many packages which would be compatible with
-openssl-1.1 and incompatible with openssl-1.0 - from the layers I have
-included in my world build I know about these:
-
-PNBLACKLIST[wvstreams] ?= "not compatible with openssl-1.0 since
-https://github.com/apenwarr/wvstreams/commit/5506a74e1b033776ad441b4554716
-cdcfa88fe03 which was backported to meta-oe and later reverted in
-upstream"
-PNBLACKLIST[wvdial] ?= "depends on blacklisted wvstreams"
-PNBLACKLIST[python3-m2crypto] ?= "not compatible with openssl-1.0"
-PNBLACKLIST[python-m2crypto] ?= "not compatible with openssl-1.0"
-PNBLACKLIST[rtmpdump] ?= "not compatible with openssl-1.0"
-PNBLACKLIST[libtorrent] ?= "not compatible with openssl-1.0"
-PNBLACKLIST[freeradius] ?= "not compatible with openssl-1.0"
-PNBLACKLIST[rtorrent] ?= "depends on blacklisted libtorrent"
-PNBLACKLIST[openlmi-tools] ?= "depends on blacklisted python-m2crypto"
-PNBLACKLIST[python-pywbem] ?= "depends on blacklisted python-m2crypto"
-
-and in all these cases it's simple to revert them to older from which was
-compatible with openssl-1.0 before big bang.
-
-But this work around should be only temporary and you should really try to
-get rid of openssl10 soon.
-
-Cheers,
-
+diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+index 26603debe62..77e8be26fab 100644
+--- a/meta-poky/conf/local.conf.sample.extended
++++ b/meta-poky/conf/local.conf.sample.extended
+@@ -321,7 +321,6 @@ DISTRO_FEATURES_remove = "x11"
+ # show an example of how it can be done
+ # You'll also need your fortran recipe to depend on libgfortran
+ #FORTRAN_forcevariable = ",fortran"
+-#RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
+ 
+ #
+ # Kernel image features
 -- 
-Martin 'JaMa' Jansa     jabber: Martin.Jansa@gmail.com
+2.11.0
 
-Ok thanks Martin/Alex. I'm aware of eol coming up. It's just a matter of
-getting all projects upgraded
-and leaving one behind (that doesn't yet compile on 1.1) rather than
-advancing none of them. I thought
-if there was a simple way to move forward then that would be best. But it
-sounds like it's better to just
-get it upgraded.
 
