@@ -1,39 +1,41 @@
-Return-Path: <Kai.Kang@windriver.com>
+Return-Path: <Qi.Chen@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 64506E00DE1; Mon,  8 Jul 2019 02:31:42 -0700 (PDT)
+	id 6F626E00961; Mon,  8 Jul 2019 02:50:57 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+	autolearn=unavailable version=3.3.1
 X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
 	https://www.dnswl.org/, *      medium trust
 	*      [192.103.53.11 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 697FEE00DB5
-	for <poky@yoctoproject.org>; Mon,  8 Jul 2019 02:31:33 -0700 (PDT)
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E6A62E00798
+	for <poky@yoctoproject.org>; Mon,  8 Jul 2019 02:50:56 -0700 (PDT)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
 	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x689TfbO010193
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x689nRow010607
 	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 8 Jul 2019 02:30:08 -0700
-Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.439.0;
-	Mon, 8 Jul 2019 02:29:59 -0700
-To: <richard.purdie@linuxfoundation.org>, Adrian Bunk <bunk@stusta.de>
+	Mon, 8 Jul 2019 02:49:38 -0700
+Received: from [128.224.162.148] (128.224.162.148) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.439.0;
+	Mon, 8 Jul 2019 02:49:17 -0700
+To: <richard.purdie@linuxfoundation.org>, Adrian Bunk <bunk@stusta.de>,
+	<kai.kang@windriver.com>
 References: <20190704134520.16320-1-kai.kang@windriver.com>
 	<20190704134520.16320-2-kai.kang@windriver.com>
 	<20190706095328.GA1877@localhost>
 	<637f10ea8804f01bcde302ad0c418a362f257b69.camel@linuxfoundation.org>
-From: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <96f7c0fd-880c-dc50-9195-9e745ecab2f7@windriver.com>
-Date: Mon, 8 Jul 2019 17:28:44 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.1
+From: ChenQi <Qi.Chen@windriver.com>
+Message-ID: <2ebbed8c-0e9f-d9b9-0397-6b527974b61c@windriver.com>
+Date: Mon, 8 Jul 2019 18:01:49 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+	Thunderbird/45.4.0
 MIME-Version: 1.0
 In-Reply-To: <637f10ea8804f01bcde302ad0c418a362f257b69.camel@linuxfoundation.org>
+X-Originating-IP: [128.224.162.148]
 Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
 Subject: Re: [OE-core] [oe-core][PATCH 1/2] defaultsetup.conf: enable select init manager
 X-BeenThere: poky@yoctoproject.org
@@ -48,12 +50,11 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jul 2019 09:31:42 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-List-Received-Date: Mon, 08 Jul 2019 09:50:57 -0000
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2019/7/6 下午8:31, richard.purdie@linuxfoundation.org wrote:
+On 07/06/2019 08:31 PM, richard.purdie@linuxfoundation.org wrote:
 > On Sat, 2019-07-06 at 12:53 +0300, Adrian Bunk wrote:
 >> On Thu, Jul 04, 2019 at 09:45:19PM +0800, kai.kang@windriver.com
 >> wrote:
@@ -108,17 +109,6 @@ On 2019/7/6 下午8:31, richard.purdie@linuxfoundation.org wrote:
 > "unset" and have an empty file for that. That will of course break my
 > patch and need the defaults adding back into the recipe. Unless we put
 > those defaults into the unset version.
-
-How about keep a empty INIT_MANAGER by default, and check if 
-INIT_MANAGER is set, then overwrite other configs such as
-VIRTUAL-RUNTIME_init_manager whether is from user config or predefined 
-value from config files or recipes? It could be done
-in a anonymous function.
-
-Regards,
-Kai
-
-
 >
 > Not sure quite what we should do here...
 >
@@ -127,9 +117,12 @@ Kai
 > Richard
 >
 >
->
+I'm also concerned about the '=' assignment. Before this patch, the 
+VIRTUAL-RUNTIME_xxx are using '?='. Not sure if this would cause 
+potential problem for users.
+Also, if we are setting default values of VIRTUAL-RUNTIME_xxx in conf 
+files, should we clean them up from recipes like packagegroup-core-boot?
 
--- 
-Kai Kang
-
+Best Regards,
+Chen Qi
 
