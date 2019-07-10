@@ -1,43 +1,50 @@
-Return-Path: <Qi.Chen@windriver.com>
+Return-Path: <zzs213@126.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 6F626E00961; Mon,  8 Jul 2019 02:50:57 -0700 (PDT)
+	id 1103DE00C6F; Wed, 10 Jul 2019 00:36:32 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=unavailable version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	https://www.dnswl.org/, *      medium trust
-	*      [192.103.53.11 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED, FREEMAIL_FROM, FROM_EXCESS_BASE64,
+	RCVD_IN_DNSWL_NONE autolearn=no version=3.3.1
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id E6A62E00798
-	for <poky@yoctoproject.org>; Mon,  8 Jul 2019 02:50:56 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x689nRow010607
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Mon, 8 Jul 2019 02:49:38 -0700
-Received: from [128.224.162.148] (128.224.162.148) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.439.0;
-	Mon, 8 Jul 2019 02:49:17 -0700
-To: <richard.purdie@linuxfoundation.org>, Adrian Bunk <bunk@stusta.de>,
-	<kai.kang@windriver.com>
-References: <20190704134520.16320-1-kai.kang@windriver.com>
-	<20190704134520.16320-2-kai.kang@windriver.com>
-	<20190706095328.GA1877@localhost>
-	<637f10ea8804f01bcde302ad0c418a362f257b69.camel@linuxfoundation.org>
-From: ChenQi <Qi.Chen@windriver.com>
-Message-ID: <2ebbed8c-0e9f-d9b9-0397-6b527974b61c@windriver.com>
-Date: Mon, 8 Jul 2019 18:01:49 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
-	Thunderbird/45.4.0
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (zzs213[at]126.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [220.181.15.46 listed in list.dnswl.org]
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	*  0.0 FROM_EXCESS_BASE64 From: base64 encoded unnecessarily
+	*  0.1 DKIM_INVALID DKIM or DK signature exists, but is not valid
+X-Greylist: delayed 1867 seconds by postgrey-1.32 at yocto-www;
+	Wed, 10 Jul 2019 00:36:30 PDT
+Received: from m15-46.126.com (m15-46.126.com [220.181.15.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 13417E00BE9
+	for <poky@yoctoproject.org>; Wed, 10 Jul 2019 00:36:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=poa35
+	OSjpi5sMGyQ74P+eb0RxzIQoa4cZqhXcLub1lc=; b=TZwe8yGf2vEs0cmJfuC01
+	sC+Ww8Mnn+0sl9+JEwKB+Q4Edfbpbcz9JXw4RyNqgoiuZARsiTlf4D4PgUGO6OBH
+	F2P25mVfS2yG71F2/8c/WIuKaq9AhteNeRnjZDXK4TK5E1eC/QsQzdKiatfez1MB
+	Rt3sBebhjouMPU7J1Iwlt4=
+Received: from zzs213$126.com ( [171.217.81.112] ) by ajax-webmail-wmsvr46
+	(Coremail) ; Wed, 10 Jul 2019 15:05:18 +0800 (CST)
+X-Originating-IP: [171.217.81.112]
+Date: Wed, 10 Jul 2019 15:05:18 +0800 (CST)
+From: =?GBK?B?1cXW0sm9?= <zzs213@126.com>
+To: poky <poky@yoctoproject.org>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+	20190614(cb3344cf) Copyright (c) 2002-2019 www.mailtech.cn 126com
 MIME-Version: 1.0
-In-Reply-To: <637f10ea8804f01bcde302ad0c418a362f257b69.camel@linuxfoundation.org>
-X-Originating-IP: [128.224.162.148]
-Cc: poky@yoctoproject.org, openembedded-core@lists.openembedded.org
-Subject: Re: [OE-core] [oe-core][PATCH 1/2] defaultsetup.conf: enable select init manager
+Message-ID: <c16947b.4bd7.16bdab366b5.Coremail.zzs213@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: LsqowAD3_6cujiVdJPVQAA--.20231W
+X-CM-SenderInfo: x22vjiat6rjloofrz/1tbiYAvtGVpD8swNfAABsI
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Subject: how to specify extra options for toolchain
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,79 +57,18 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Jul 2019 09:50:57 -0000
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 10 Jul 2019 07:36:32 -0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 
-On 07/06/2019 08:31 PM, richard.purdie@linuxfoundation.org wrote:
-> On Sat, 2019-07-06 at 12:53 +0300, Adrian Bunk wrote:
->> On Thu, Jul 04, 2019 at 09:45:19PM +0800, kai.kang@windriver.com
->> wrote:
->>> From: Kai Kang <kai.kang@windriver.com>
->>>
->>> Introduce a new variable INIT_MANAGER and create 3 init-manager-
->>> *.inc
->>> files to configure init manager settings. Available values of
->>> INIT_MANAGER are sysvinit, systemd and mdev-busybox. 'sysvinit' is
->>> set
->>> by default for compatibility.
->>> ...
->>> --- a/meta/conf/distro/defaultsetup.conf
->>> +++ b/meta/conf/distro/defaultsetup.conf
->>> @@ -23,3 +23,6 @@ PACKAGE_CLASSES ?= "package_ipk"
->>>   INHERIT_BLACKLIST = "blacklist"
->>>   INHERIT_DISTRO ?= "debian devshell sstate license remove-libtool"
->>>   INHERIT += "${PACKAGE_CLASSES} ${USER_CLASSES} ${INHERIT_DISTRO}
->>> ${INHERIT_BLACKLIST}"
->>> +
->>> +INIT_MANAGER ??= "sysvinit"
->>> +require conf/distro/include/init-manager-${INIT_MANAGER}.inc
->>> ...
->>> --- /dev/null
->>> +++ b/meta/conf/distro/include/init-manager-sysvinit.inc
->>> @@ -0,0 +1,6 @@
->>> +# Use sysvinit for system initialization
->>> +DISTRO_FEATURES_append = " sysvinit"
->>> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append = " systemd"
->>> +VIRTUAL-RUNTIME_init_manager = "sysvinit"
->>> +VIRTUAL-RUNTIME_initscripts = "initscripts"
->>> +VIRTUAL-RUNTIME_login_manager = "busybox"
->> I am not sure whether this can be fixed better, but this does break
->> existing configurations that use a non-default init system.
->>
->> I just ran into a build issue with
->>    VIRTUAL-RUNTIME_init_manager = "systemd"
->> since this now resulted in both sysvinit and systemd being attempted
->> to
->> be installed to the image.
->>
->> This was fixable in my configuration with
->>    -VIRTUAL-RUNTIME_init_manager = "systemd"
->>    +INIT_MANAGER = "systemd"
->>
->> This at least needs to be properly documented as a breaking change.
-> This change also didn't quite work out for some of our selftests. I've
-> a patch in master-next which tried to improve things and that fixed the
-> selftests.
->
-> The only other way we could do this is to default INIT_MANAGER to say
-> "unset" and have an empty file for that. That will of course break my
-> patch and need the defaults adding back into the recipe. Unless we put
-> those defaults into the unset version.
->
-> Not sure quite what we should do here...
->
-> Cheers,
->
-> Richard
->
->
-I'm also concerned about the '=' assignment. Before this patch, the 
-VIRTUAL-RUNTIME_xxx are using '?='. Not sure if this would cause 
-potential problem for users.
-Also, if we are setting default values of VIRTUAL-RUNTIME_xxx in conf 
-files, should we clean them up from recipes like packagegroup-core-boot?
-
-Best Regards,
-Chen Qi
+SSdtIHVzaW5nIHRvb2xjaGFpbiB3aXRoIG5ld2xpYiwgV2hlbiB0cnkgdG8gYnVpbGQgYW55IGxp
+YnJhcnkgbGlieG1sMiBmb3IgZXhhbXBsZS4KYml0YmFrZSB3b3VsZCBidWlsZCBsaWJ0b29sIGZp
+cnN0LiBCdXQgaXQgZmFpbGVkIG9uIHRhc2sgbGlidG9vbC1jcm9zc18yLjQuNi5iYjpkb19jb25m
+aWd1cmUKCkkgdGhpbmsgdGhpcyBtYXkgYmUgYmVjYXVzZSB0aGUgdG9vbGNoYWluIGxhY2sgb2Yg
+c29tZSBzdGFydHVwIG9iamVjdCBmaWxlLgpTbyBJIHdhbid0IHRvIGxldCB0aGUgdG9vbGNoYWlu
+IHVzaW5nIHNwZWNpZmljIC5zcGVjcyBmaWxlIHVzaW5nIC1zcGVjcz1maWxlIG9wdGlvbiwKCkJ1
+dCB3aGVyZSB0byBhZGQgdGhpcz8gCgpJdCBsb29rcyBsaWtlIFRPT0xDQUhJTl9PUFRJT05TIGlz
+ICB0aGUgcmlnaHQgcGxhY2UuIEJ1dCBUT09MQ0hBSU5fT1BUSU9OUyBkb3Mgbm90IGFwcGVhciAK
+aW4gYW55IGRvY3VtbWVudC4KClNvIHdoZXJlIGlzIHRoZSByaWdodCBwbGFjZSB0byBhZGQgIi1z
+cGVjcz1maWxlIiBvcHRpb24KCi0tIApCZXN0IFJlZ2FyZHMsCnp6cwo=
 
