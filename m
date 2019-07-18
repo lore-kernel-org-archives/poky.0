@@ -1,6 +1,6 @@
 Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B71CBE00DA9; Thu, 18 Jul 2019 08:28:17 -0700 (PDT)
+	id C3EF2E00D89; Thu, 18 Jul 2019 08:28:17 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -11,57 +11,55 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.221.66 listed in list.dnswl.org]
+	*      [209.85.221.65 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
-	[209.85.221.66])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id BA646E00B8E
-	for <poky@lists.yoctoproject.org>; Thu, 18 Jul 2019 08:28:15 -0700 (PDT)
-Received: by mail-wr1-f66.google.com with SMTP id n4so29214267wrs.3
-	for <poky@lists.yoctoproject.org>; Thu, 18 Jul 2019 08:28:15 -0700 (PDT)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+	[209.85.221.65])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA753E00B1B
+	for <poky@lists.yoctoproject.org>; Thu, 18 Jul 2019 08:28:14 -0700 (PDT)
+Received: by mail-wr1-f65.google.com with SMTP id 31so29211532wrm.1
+	for <poky@lists.yoctoproject.org>; Thu, 18 Jul 2019 08:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linuxfoundation.org; s=google;
-	h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+	h=from:to:subject:date:message-id:mime-version
 	:content-transfer-encoding;
-	bh=8sjXPEdhhgPqpoX3LvIeH0B5zTpCg/t1b8QAzj0lviI=;
-	b=ie7NHGfGpjt8rzoM6FcpGYu5kh1jge3bwGG8EVSKARIat4P/hD0GZ7oGyTgYdbSkmI
-	eh5mE40rHrpdeTxkkr9VKQn3VaUnzN5P79/BemVA5V2QkBa/5bjRqgeW3huhBCk2RWah
-	4FCrjgc9j4Y8T6FMxJLKv0tWpfmzzoQD4VCN0=
+	bh=iKydbmCfdrI9Hw1zyqRDr8JBFRE3KO6Kl+aKtRRmnEc=;
+	b=FEaNxikBbFdLYINgRql5trlH83TTSWACbSYd0/SEd4sC1hvjFfUxeSBcNSShUQoCrA
+	1Iscqb4izeF3g4rzu27gVsDpgUD86g93BZGsFq0FPXNrY5xnFOqQKFw4KoaKIN0kuvmQ
+	AuAai/D3jazAGxljCrG4WMpMJwK8VE4vz1GvQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=8sjXPEdhhgPqpoX3LvIeH0B5zTpCg/t1b8QAzj0lviI=;
-	b=Hs1cnc2XyuPDIl8FF3zSpr/KTsWpRwh+i6qAszXOKUDycHeCkF9UKSYbhZlZdhbUgY
-	0VAtrOeiWNZo6/RV4Q935BvtvcRMUHNxHL7C3c4VNLAsfiIPJeKPGDUS36r4nrr1jDsY
-	yT84lctHT5dnyTu62QNuMw/+R+PjiDOdilsyK5Wt3QZfGgbB/TbFQtXhmSJAkFC/Nkaf
-	EjP6v06da1PGV81L+hxPeFtWblvTHtNGM/4mxk0KtGWf385/0Rnd49TjZatLHfp483L5
-	BpGszeXcEl0HjXtBYVKwJMjoT8/RlXQuuDfMjsmu5ROpICPlW6zX7ma06viJiUu/M2AW
-	xS1w==
-X-Gm-Message-State: APjAAAVZYDcq7fMSHak5qhmBYH6LVuNoeX5TyY6G3Ni0nTgimtmLR836
-	3F0vdRSY/JPfr1c3ED9qnwdOs9gQnpU=
-X-Google-Smtp-Source: APXvYqyXWjXlLUTZA5mz9zs4l1WaZoBfceupRmfoZw9kgYif1d7rhPXjbUcBgL/GMFBu7+/KDQ81HQ==
-X-Received: by 2002:adf:f088:: with SMTP id n8mr7065362wro.58.1563463694690;
-	Thu, 18 Jul 2019 08:28:14 -0700 (PDT)
+	h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=iKydbmCfdrI9Hw1zyqRDr8JBFRE3KO6Kl+aKtRRmnEc=;
+	b=PBv89WZZZRD6hdtf/5l4f8BXAh6m0vgo2kjnowdrc0C107VvozykN7GAjSWpasIMaY
+	7TH7k3KQSaDkUvdZf5lzAc1NbaQCcNapmDlWY8IIuDjJVDdUwjE/LIWxTviXYWH8d3rE
+	ijP9I6zgjWYf/IrhGtmENf9sUPF6P9zf2Bt80qPIJvG6JRWv11OHMdtuSeo+cBxhTx9s
+	Kui6cERqR3GzZLEhoWbLro4HB0UXZB8Y5O09oTn7q8286vnz4n7XFOVwqA24f59bR/QV
+	J+vbsAoAMdLJ/j/tAOXGlBGvSAFVDt+V7bQYvrk5a8GySMlJmZ7CDeXfMzl/D1MUFa38
+	2LcA==
+X-Gm-Message-State: APjAAAULzfIXacDG6sASWisc18lbWOmAyS9nzyxlmqrlHiDAppPq1Fc6
+	kYL2AIvFmNCQwWa+vXN1E8PioHyD8r8=
+X-Google-Smtp-Source: APXvYqwud6GiWpX49tODdsumCnkuOlpWoEUOs+3v1zDuDjG61vWWEO2bcZYIxnyYPpRThOtREkwo3w==
+X-Received: by 2002:a5d:42c5:: with SMTP id t5mr13289281wrr.5.1563463693929;
+	Thu, 18 Jul 2019 08:28:13 -0700 (PDT)
 Received: from hex.int.rpsys.net (5751f4a1.skybroadband.com. [87.81.244.161])
 	by smtp.gmail.com with ESMTPSA id
 	o6sm51236868wra.27.2019.07.18.08.28.13
 	for <poky@lists.yoctoproject.org>
 	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Thu, 18 Jul 2019 08:28:14 -0700 (PDT)
+	Thu, 18 Jul 2019 08:28:13 -0700 (PDT)
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-Date: Thu, 18 Jul 2019 16:28:11 +0100
-Message-Id: <20190718152812.29264-2-richard.purdie@linuxfoundation.org>
+Date: Thu, 18 Jul 2019 16:28:10 +0100
+Message-Id: <20190718152812.29264-1-richard.purdie@linuxfoundation.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190718152812.29264-1-richard.purdie@linuxfoundation.org>
-References: <20190718152812.29264-1-richard.purdie@linuxfoundation.org>
 MIME-Version: 1.0
-Subject: [PATCH 2/3] poky-lsb: Drop libx11 PREFERRED_PROVIDER
+Subject: [PATCH 1/3] poky-lsb: Drop features already in poky
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -77,26 +75,24 @@ List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 X-List-Received-Date: Thu, 18 Jul 2019 15:28:17 -0000
 Content-Transfer-Encoding: 8bit
 
-This is the default since -trim was dropped back in 2012 so this extra
-configuration is pointless.
-
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
- meta-poky/conf/distro/poky-lsb.conf | 1 -
- 1 file changed, 1 deletion(-)
+ meta-poky/conf/distro/poky-lsb.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/meta-poky/conf/distro/poky-lsb.conf b/meta-poky/conf/distro/poky-lsb.conf
-index 48ae2d373cc..9b36c87c48d 100644
+index 5c7e2720aba..48ae2d373cc 100644
 --- a/meta-poky/conf/distro/poky-lsb.conf
 +++ b/meta-poky/conf/distro/poky-lsb.conf
-@@ -5,7 +5,6 @@ DISTRO = "poky-lsb"
+@@ -4,7 +4,7 @@ require conf/distro/poky.conf
+ DISTRO = "poky-lsb"
  DISTROOVERRIDES = "poky:linuxstdbase"
  
- DISTRO_FEATURES_append = " pam"
--PREFERRED_PROVIDER_virtual/libx11 = "libx11"
+-DISTRO_FEATURES_append = " pam largefile opengl"
++DISTRO_FEATURES_append = " pam"
+ PREFERRED_PROVIDER_virtual/libx11 = "libx11"
  
  # Ensure the kernel nfs server is enabled
- KERNEL_FEATURES_append_pn-linux-yocto = " features/nfsd/nfsd-enable.scc"
 -- 
 2.20.1
 
