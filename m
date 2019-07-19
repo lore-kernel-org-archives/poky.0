@@ -1,51 +1,62 @@
-Return-Path: <aaron.chun.yew.chan@intel.com>
+Return-Path: <ross.burton@intel.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 0D6FBE00C25; Thu, 18 Jul 2019 20:24:54 -0700 (PDT)
+	id 20BD1E00DD9; Fri, 19 Jul 2019 14:36:07 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
-	*      medium trust
-	*      [134.134.136.126 listed in list.dnswl.org]
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1DAEFE00BAA
-	for <poky@yoctoproject.org>; Thu, 18 Jul 2019 20:24:51 -0700 (PDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-	by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	18 Jul 2019 20:24:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,280,1559545200"; d="scan'208";a="343572619"
-Received: from kmsmsx157.gar.corp.intel.com ([172.21.138.134])
-	by orsmga005.jf.intel.com with ESMTP; 18 Jul 2019 20:24:50 -0700
-Received: from pgsmsx103.gar.corp.intel.com ([169.254.2.4]) by
-	kmsmsx157.gar.corp.intel.com ([169.254.5.204]) with mapi id
-	14.03.0439.000; Fri, 19 Jul 2019 11:24:49 +0800
-From: "Chan, Aaron Chun Yew" <aaron.chun.yew.chan@intel.com>
-To: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Thread-Topic: [poky] python3-dbus: Add native and native-sdk support
-Thread-Index: AQHVPdrwVQyZ5l2RLEme4kVpt/AeXabRRyqQ
-Date: Fri, 19 Jul 2019 03:24:48 +0000
-Message-ID: <AA9B40170ABA1047B45E714CB2B866B706BBFCEF@PGSMSX103.gar.corp.intel.com>
-References: <1563503845-48293-1-git-send-email-aaron.chun.yew.chan@intel.com>
-In-Reply-To: <1563503845-48293-1-git-send-email-aaron.chun.yew.chan@intel.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiY2ZiMjg0MzItYjBlMS00YWRkLWJkOTYtNDlmMzRkMTRjNzEzIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoib3Bac1ZrR0JTblluTWp5XC81dlF2aTgwYzQyNXNNT1BPNFFySmtSWmozUGlidU50Z2NWWkxROThoaGpheUFFbW4ifQ==
-dlp-product: dlpe-windows
-dlp-version: 11.0.600.7
-dlp-reaction: no-action
-x-originating-ip: [172.30.20.205]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [209.85.166.67 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+	[209.85.166.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 957E9E00DAF
+	for <poky@yoctoproject.org>; Fri, 19 Jul 2019 14:36:06 -0700 (PDT)
+Received: by mail-io1-f67.google.com with SMTP id j6so29102851ioa.5
+	for <poky@yoctoproject.org>; Fri, 19 Jul 2019 14:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=8Sb2Gr7vqC1OPewjeEPV8NGCIA9jDWAcxTD/nU0zc7A=;
+	b=HYexsI+AXYN4liYh6VEwxdEuZIST5kSchBUBiyQrzuqgyfQj1aEm/+/JYV9BGdbAoi
+	WID3ovpMhfhHfVaKH1iZ1zvhseSdVujTTQxLZHaqpc3JsvFu0oHTaWgXQgksUOMz2oPd
+	C55/KDxDLOYhnYdptPIgS6/SKdYYOTR6jTzGS17wzapMRs7zL7CCxi9+55Y2312eNAGi
+	rxncMntQl7kJ6H6vf+o7Kh/C7EOXDwNL17DNapxKMRbJMtG9h/sZz6ZHJ1yAW3boD26Y
+	ItFTOEf4WzaB/NW3IS7sROGaqNfdEMa/qo6s8zkX6I8b2XVRd5k3HgfE2T/j3hlFHFle
+	U71Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=8Sb2Gr7vqC1OPewjeEPV8NGCIA9jDWAcxTD/nU0zc7A=;
+	b=aw48tJnnGQPYAlXWze7RFLEOrN7RI5hc4VFHK+rlzWNzZ95qIEdPqn9I1HOAjmu95z
+	bxwzzfskxIk+4rPwDICSo9/mwwL7wgNvMqJec1KpldvZkJ0x0f6no/BOoAsuXtsM0ddG
+	mWEFZJNvjDAcOeppbs/ymA6GwqEVUcflR2bTps1qiG8XLc2pMaOkyYpcApExxjXKlWZQ
+	DFsMaBRSlJ+C7tgRTqwtxzQa8fyWxxXhjDnprVCFWE1j6l4TzuG19RTFuHHF4oWF02kI
+	aFGDF8PCxilErUxiTKDj5b0McMVs2DsnU4YQVR1DJbbYbx5Ka06dv5sY66Y+t+0uilNs
+	P1tw==
+X-Gm-Message-State: APjAAAU3u/tLU7tcgrwL+1e0YHh0/CLtahrqG1rE2YX+JnMqtKCQjiRu
+	S/3hXDvsW0mSab8z/ZmNdjW597y1yKvSd82yqUb/Dg==
+X-Google-Smtp-Source: APXvYqwK8GjYN28Qyl4AMHbRxWH1Z/ZIrEcMzccKrh5QaDfZE3o5V79VHng3Q71ldBkmrz4OuaNhQ5oFQi4NBenPt6o=
+X-Received: by 2002:a5e:c744:: with SMTP id g4mr49669648iop.187.1563572165949; 
+	Fri, 19 Jul 2019 14:36:05 -0700 (PDT)
 MIME-Version: 1.0
-Cc: "Chan, Aaron Chun Yew" <aaron.chun.yew.chan@intel.com>
-Subject: python3-dbus: Add native and native-sdk support
+References: <20190704134520.16320-1-kai.kang@windriver.com>
+	<20190704134520.16320-2-kai.kang@windriver.com>
+In-Reply-To: <20190704134520.16320-2-kai.kang@windriver.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Fri, 19 Jul 2019 22:35:54 +0100
+Message-ID: <CAJTo0LbmYp-70L=Z_T0jE4xS1mR_vLXKQE18O_EpeEwD6wdroA@mail.gmail.com>
+To: Kang Kai <kai.kang@windriver.com>
+Cc: Poky Project <poky@yoctoproject.org>,
+	OE-core <openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [oe-core][PATCH 1/2] defaultsetup.conf: enable select init manager
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -58,31 +69,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Jul 2019 03:24:54 -0000
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-List-Received-Date: Fri, 19 Jul 2019 21:36:07 -0000
+Content-Type: text/plain; charset="UTF-8"
 
-From: Aaron Chan <aaron.chun.yew.chan@intel.com>
+On Thu, 4 Jul 2019 at 15:40, <kai.kang@windriver.com> wrote:
+> +++ b/meta/conf/distro/include/init-manager-systemd.inc
+> @@ -0,0 +1,6 @@
+> +# Use systemd for system initialization
+> +DISTRO_FEATURES_append = " systemd"
+> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append = " sysvinit"
+> +VIRTUAL-RUNTIME_init_manager = "systemd"
+> +VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+> +VIRTUAL-RUNTIME_login_manager = "shadow-base"
+> diff --git a/meta/conf/distro/include/init-manager-sysvinit.inc b/meta/conf/distro/include/init-manager-sysvinit.inc
+> new file mode 100644
+> index 0000000000..7725b30e1e
+> --- /dev/null
+> +++ b/meta/conf/distro/include/init-manager-sysvinit.inc
+> @@ -0,0 +1,6 @@
+> +# Use sysvinit for system initialization
+> +DISTRO_FEATURES_append = " sysvinit"
+> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append = " systemd"
+> +VIRTUAL-RUNTIME_init_manager = "sysvinit"
+> +VIRTUAL-RUNTIME_initscripts = "initscripts"
+> +VIRTUAL-RUNTIME_login_manager = "busybox"
 
-Signed-off-by: Aaron Chan <aaron.chun.yew.chan@intel.com>
----
- meta/recipes-devtools/python/python3-dbus_1.2.8.bb | 2 ++
- 1 file changed, 2 insertions(+)
+Back when I integrated systemd into oe-core one of the use cases was a
+single distro that builds a main image using systemd, and a
+rescue/update image using sysv/busybox.  How is this possible with
+this system?
 
-diff --git a/meta/recipes-devtools/python/python3-dbus_1.2.8.bb b/meta/reci=
-pes-devtools/python/python3-dbus_1.2.8.bb
-index 923da3c..2fb1eae 100644
---- a/meta/recipes-devtools/python/python3-dbus_1.2.8.bb
-+++ b/meta/recipes-devtools/python/python3-dbus_1.2.8.bb
-@@ -22,3 +22,5 @@ EXTRA_OECONF +=3D "--disable-documentation"
- RDEPENDS_${PN} =3D "python3-io python3-logging python3-stringold python3-t=
-hreading python3-xml"
-=20
- FILES_${PN}-dev +=3D "${libdir}/pkgconfig"
-+
-+BBCLASSEXTEND =3D "native nativesdk"
---=20
-2.7.4
+Personally, I'd prefer to see the DISTRO_FEATURE wrangling left out of
+those files, and let the user ensure the right features are set.
+After all, systemd will refuse to build unless the systemd feature is
+enabled.
 
+Ross
 
