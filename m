@@ -1,6 +1,6 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <earthlingzephyr@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id EF880E00D31; Sat, 20 Jul 2019 00:19:51 -0700 (PDT)
+	id B7F58E00D4D; Sun, 21 Jul 2019 14:16:38 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -10,54 +10,55 @@ X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (alex.kanavin[at]gmail.com)
+	provider *      (geoffpshannon[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.222.46 listed in list.dnswl.org]
+	*      [209.85.221.53 listed in list.dnswl.org]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
-	[209.85.222.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A70D9E00C09
-	for <poky@yoctoproject.org>; Sat, 20 Jul 2019 00:19:50 -0700 (PDT)
-Received: by mail-ua1-f46.google.com with SMTP id j8so13411162uan.6
-	for <poky@yoctoproject.org>; Sat, 20 Jul 2019 00:19:50 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+	[209.85.221.53])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 20D79E00A49
+	for <poky@yoctoproject.org>; Sun, 21 Jul 2019 14:16:36 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id n9so37350396wru.0
+	for <poky@yoctoproject.org>; Sun, 21 Jul 2019 14:16:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=DM7hfPvGgAGYvmGIYDY6fj1KaRqWSyk2EK4PArNJ4lQ=;
-	b=gLEr6NNFkFDVTk4tRc5GkujMsRY/Sh80npR/RtcvB87l7qJkStZlZej6IB74xM/9ed
-	3CTaXisM148cIHwNxeMkgJmBAl12glmbJsLyhSRcS4HetQsOeg/FCnw+MWrA33lx/iiS
-	gEUYTkVzl3CRMproGX3cSfTwF+pup8AJz1v6u7xLyYZYSdK3lwQXK2xsn4zUHenpXQFl
-	xvSOvksi9io05DG301ZL1NUiQDyk8J/VfnWC1js5u+sK9CKU/uH2ZRUuBMMmqfVsLiZg
-	hvJKpueqAWCBj4/OSuY30hS0NaLbA2GIm3Qwj2EZYDpUp1WWGwb/jgltCDXRz55yAWim
-	8o5g==
+	:cc; bh=wlzx5cSGqgwlDPhLhHR+Rg0eKik87laRp2nrXlp5skM=;
+	b=s3M2zNqrYPG3/ekY9TJ4TqsDKUgztDxQ4KZyiATOLLm2jPByTbt5m9NlWouPLtMprk
+	ARGkDBKgOdsb/XdG3rKrQw1pWhV9vF5KbkMklkmXTBayr1JQO82ebOMN1T2Tl9stqLHT
+	7ThUQi+m9KvyYs/4WXwAbCGJgZ4WOBEPPhnPFNEql/G5snFTwGXRFZj8cNCntYhzSgMo
+	qeL2Lar0t8l7v70hcQ+h7gr3KGe1/n1cSvM6BX3fB7VmastEBy3NnpLQlmjQa/wgr+Cp
+	33l2pKl6i9pi7Zq13UIiiBStPuXfG6O3j81egId14IcG+PNtx/GS4CMUbMrH7tDQA5Lf
+	ykUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=DM7hfPvGgAGYvmGIYDY6fj1KaRqWSyk2EK4PArNJ4lQ=;
-	b=DOjvVlxSjR1cd1Ul7nC8ltdu+x45S8kaPEZPg4CmKyHOv+qjvL/WJDYwCS/9evnMMX
-	mEzkOeBYFTMs6uWENIljan2DrydcKj52gOQJVw+F2axAN69rr3CU+qP6ej5jyDOx19HC
-	xv2QH8MKZ0CvmeTPS+11Bdthntaxlc057ZS+tszQ8L4VNM+/gUirVPGQiRU/4yzlaHtj
-	zi0ni57krelc61vXHI1w05CHOKAUqhVfziWQ1Ar2kIDH9udngMQPTmRXnWj/ifD2edx2
-	5Ex5sEnH8Jyjf51mjF0m4YxC7+o6I9oz2a6ReuDOXFaN4zXqIVnSXVc97Cuqhx8H0Q2w
-	Eyrw==
-X-Gm-Message-State: APjAAAWoFdXPuY3ds/cXWVQsVbt3TO9nRfE6wirmYb675zPFufYzaD0v
-	Jd6YxgNiaqKWUWgglCHvEeDVX9qTGlwnwWV5m7o=
-X-Google-Smtp-Source: APXvYqx9gT1GyB+9yNdWrwlvjt0P6y7y2ZSUmh4CfaEICe/JpVYtmeZHZSRaknyka9RiHHVg2OgZVKTwulNWbJqqBPI=
-X-Received: by 2002:ab0:2756:: with SMTP id c22mr13870763uap.22.1563607190013; 
-	Sat, 20 Jul 2019 00:19:50 -0700 (PDT)
+	bh=wlzx5cSGqgwlDPhLhHR+Rg0eKik87laRp2nrXlp5skM=;
+	b=eOn9D8fTZEQdWCBtI0DKX4RGvV9I8NAv8GoZ8mvN/Do5F8gPB8wMKS/qOUnjcDJvZM
+	MPA63cW/Jw2oKMm10ddvBpOp9GB2DDZZoL+aSjp5zlWPr5slTnpg88H2nHfSMje1Nysn
+	9r/D06QdH36Mki2nUD2vtOTD6J1avLVi7ZloEZel30nuDeVF6fzNu494scgPSD76iH/p
+	ZnoIJWHQQPGeBkd3lgc8QOtKi1wKgoNyRlHLUd8S0+RqH4EpdY/+7AV9x79vBR1cEJfZ
+	jXoCQ2lVSS89MOVhf33Luyxvr1+MPIoJm3qtKrLxbIdI3igM9HXkIKcosbJzG6GVdPE+
+	/aow==
+X-Gm-Message-State: APjAAAUx7TFg+Pk8mDWVggNtXilRMkfzZOAt5hSZrUWTi+/yB2VWfgnG
+	lCpyqTxzqAwIMzpzrCaTspSKCwD6H45iRa9+JCY=
+X-Google-Smtp-Source: APXvYqyCHFNglRaZagXmxVVgnwvJnRyHxJnJEmYUzTMd0s3yZrI8FCcD37pblikeKuEfjHNj3zCLR+JCSG8HrlDJRVc=
+X-Received: by 2002:a5d:53c1:: with SMTP id a1mr41852025wrw.185.1563743796123; 
+	Sun, 21 Jul 2019 14:16:36 -0700 (PDT)
 MIME-Version: 1.0
 References: <CA+pAvvwqRjoooro4yqwtr8sm5RxAPf0WXjs9JQUJ8SYm=y-UwQ@mail.gmail.com>
-In-Reply-To: <CA+pAvvwqRjoooro4yqwtr8sm5RxAPf0WXjs9JQUJ8SYm=y-UwQ@mail.gmail.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Sat, 20 Jul 2019 10:19:39 +0300
-Message-ID: <CANNYZj92fzLDMw-BrLu3_U_QSOoDiA0xODX6VQXQNVk6B7m4-g@mail.gmail.com>
-To: Geoff Shannon <geoffpshannon@gmail.com>
+	<CANNYZj92fzLDMw-BrLu3_U_QSOoDiA0xODX6VQXQNVk6B7m4-g@mail.gmail.com>
+In-Reply-To: <CANNYZj92fzLDMw-BrLu3_U_QSOoDiA0xODX6VQXQNVk6B7m4-g@mail.gmail.com>
+From: Geoff Shannon <geoffpshannon@gmail.com>
+Date: Sun, 21 Jul 2019 14:16:09 -0700
+Message-ID: <CA+pAvvwWj7QxZXG=NY8u=GqXvTFX+ngKm75AtRC2ho4tf7z95w@mail.gmail.com>
+To: Alexander Kanavin <alex.kanavin@gmail.com>
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: Trouble running Poky 2.7 qemu-x86 build
 X-BeenThere: poky@yoctoproject.org
@@ -72,161 +73,209 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sat, 20 Jul 2019 07:19:52 -0000
-Content-Type: multipart/alternative; boundary="0000000000002109f6058e17ab6f"
+X-List-Received-Date: Sun, 21 Jul 2019 21:16:38 -0000
+Content-Type: multipart/alternative; boundary="0000000000007cdef1058e3779b3"
 
---0000000000002109f6058e17ab6f
+--0000000000007cdef1058e3779b3
 Content-Type: text/plain; charset="UTF-8"
 
-The line
-PACKAGECONFIG_append_pn-qemu-native = " sdl"
-looks incorrect. The default local.conf set up for you (when you run
-'source oe-init-build-env build') should have the correct one. Where did
-that line come from? If it's some manual or guide or wiki, we need to
-update it.
+Interesting! I was unsure about the origin of those lines, and couldn't
+find it after looking through the various books and tutorials I've been
+reading.  So I decided to just follow the yocto project quick build
+instructions, and generate a new build from `source oe-init-build-env`.
+And I found that line is actually very similar to a line from the
+local.conf generated by the build init script.
+PACKAGECONFIG_append_pn-qemu-system-native = " sdl"
 
-Qemu doesn't actually hang, it runs fine but without any graphical output,
-because the graphical support is misconfigured (disabled) in your case.
+I'm really not sure where that edit came from since I believe I made the
+first conf file I sent by stripping out all of the comments from the
+generated local.conf file and then changing a few values.  But I built poky
+using a checkout of tag yocto-2.7.1 and without editing the local.conf
+script and now `runqemu qemux86` is popping up a graphical interface and
+working just fine.
 
-Alex
+So thanks for the pointer Alexander, I'm unstuck now!
 
-On Sat, 20 Jul 2019 at 07:56, Geoff Shannon <geoffpshannon@gmail.com> wrote:
+Geoff
 
-> Hi all, I'm trying to get started using Poky to build a custom image to
-> run on a beaglebone black.  I started off by trying to follow the Yocto
-> Project Quickstart and I'm stuck at getting the image to run on QEMU.  I'm
-> new to both Yocto Project and using QEMU so I expect I'm doing something
-> simple that's wrong but I haven't been able to figure it out.
+Nothing is ever easy.
+
+
+On Sat, Jul 20, 2019 at 12:19 AM Alexander Kanavin <alex.kanavin@gmail.com>
+wrote:
+
+> The line
+> PACKAGECONFIG_append_pn-qemu-native = " sdl"
+> looks incorrect. The default local.conf set up for you (when you run
+> 'source oe-init-build-env build') should have the correct one. Where did
+> that line come from? If it's some manual or guide or wiki, we need to
+> update it.
 >
-> I cloned the poky git repository, checked out tag yocto-2.7, ran `source
-> oe-init-build-env build`, setup my local.conf file with the contents in
-> file attached to this message, and then ran `bitbake core-image-sato`.
+> Qemu doesn't actually hang, it runs fine but without any graphical output,
+> because the graphical support is misconfigured (disabled) in your case.
 >
-> This appeared to complete successfully, so I then proceeded to try and
-> test the built image by running `runqemu qemux86`. This spit out this
-> output, and then proceeds to hang indefinitely.
+> Alex
 >
-> ```
-> runqemu - INFO - Running MACHINE=qemux86 bitbake -e...
-> runqemu - INFO - Continuing with the following parameters:
+> On Sat, 20 Jul 2019 at 07:56, Geoff Shannon <geoffpshannon@gmail.com>
+> wrote:
 >
-> KERNEL:
-> [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzImage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin]
-> MACHINE: [qemux86]
-> FSTYPE: [ext4]
-> ROOTFS:
-> [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.rootfs.ext4]
-> CONFFILE:
-> [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.qemuboot.conf]
->
-> runqemu - INFO - Setting up tap interface under sudo
-> [sudo] password for geoff:
-> runqemu - INFO - Network configuration: 192.168.7.2::192.168.7.1:255
-> .255.255.0
-> runqemu - INFO - Running
-> /home/geoff/prog/yocto/quick-build/poky/build/tmp/work/x86_64-linux/qemu-helper-native/1.0-r1/recipe-sysroot-native/usr/bin/qemu-system-i386
-> -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:02 -netdev
-> tap,id=net0,ifname=tap0,script=no,downscript=no -drive
-> file=/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.rootfs.ext4,if=virtio,format=raw
-> -vga vmware -show-cursor -usb -device usb-tablet -object
-> rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0
-> -cpu pentium2 -m 256 -serial mon:vc -serial null -kernel
-> /home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzImage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin
-> -append 'root=/dev/vda rw highres=off  mem=256M ip=192.168.7.2:
-> :192.168.7.1:255.255.255.0 vga=0 uvesafb.mode_option=640x480-32
-> oprofile.timer=1 uvesafb.task_timeout=-1 '
-> ```
->
-> I was under the impression that this would pop up a window with the built
-> image running in QEMU, but nothing happens.
->
-> In case it helps, the output of `uname -a` on my machine is:
-> Linux pop-os 4.18.0-17-generic #18~18.04.1-Ubuntu SMP Fri Mar 15 15:27:12
-> UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
->
-> If anyone has ideas about what is going wrong, further troubleshooting
-> suggestions I would very much appreciate it.  If there is a more suitable
-> place to ask for this kind of help my apologies and I would appreciate a
-> pointer to the correct place to get help.
->
-> Thanks,
-> Geoff
->
-> Nothing is ever easy.
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+>> Hi all, I'm trying to get started using Poky to build a custom image to
+>> run on a beaglebone black.  I started off by trying to follow the Yocto
+>> Project Quickstart and I'm stuck at getting the image to run on QEMU.  I'm
+>> new to both Yocto Project and using QEMU so I expect I'm doing something
+>> simple that's wrong but I haven't been able to figure it out.
+>>
+>> I cloned the poky git repository, checked out tag yocto-2.7, ran `source
+>> oe-init-build-env build`, setup my local.conf file with the contents in
+>> file attached to this message, and then ran `bitbake core-image-sato`.
+>>
+>> This appeared to complete successfully, so I then proceeded to try and
+>> test the built image by running `runqemu qemux86`. This spit out this
+>> output, and then proceeds to hang indefinitely.
+>>
+>> ```
+>> runqemu - INFO - Running MACHINE=qemux86 bitbake -e...
+>> runqemu - INFO - Continuing with the following parameters:
+>>
+>> KERNEL:
+>> [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzImage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin]
+>> MACHINE: [qemux86]
+>> FSTYPE: [ext4]
+>> ROOTFS:
+>> [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.rootfs.ext4]
+>> CONFFILE:
+>> [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.qemuboot.conf]
+>>
+>> runqemu - INFO - Setting up tap interface under sudo
+>> [sudo] password for geoff:
+>> runqemu - INFO - Network configuration: 192.168.7.2::192.168.7.1:255
+>> .255.255.0
+>> runqemu - INFO - Running
+>> /home/geoff/prog/yocto/quick-build/poky/build/tmp/work/x86_64-linux/qemu-helper-native/1.0-r1/recipe-sysroot-native/usr/bin/qemu-system-i386
+>> -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:02 -netdev
+>> tap,id=net0,ifname=tap0,script=no,downscript=no -drive
+>> file=/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.rootfs.ext4,if=virtio,format=raw
+>> -vga vmware -show-cursor -usb -device usb-tablet -object
+>> rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0
+>> -cpu pentium2 -m 256 -serial mon:vc -serial null -kernel
+>> /home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzImage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin
+>> -append 'root=/dev/vda rw highres=off  mem=256M ip=192.168.7.2:
+>> :192.168.7.1:255.255.255.0 vga=0 uvesafb.mode_option=640x480-32
+>> oprofile.timer=1 uvesafb.task_timeout=-1 '
+>> ```
+>>
+>> I was under the impression that this would pop up a window with the built
+>> image running in QEMU, but nothing happens.
+>>
+>> In case it helps, the output of `uname -a` on my machine is:
+>> Linux pop-os 4.18.0-17-generic #18~18.04.1-Ubuntu SMP Fri Mar 15 15:27:12
+>> UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+>>
+>> If anyone has ideas about what is going wrong, further troubleshooting
+>> suggestions I would very much appreciate it.  If there is a more suitable
+>> place to ask for this kind of help my apologies and I would appreciate a
+>> pointer to the correct place to get help.
+>>
+>> Thanks,
+>> Geoff
+>>
+>> Nothing is ever easy.
+>> --
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>>
 >
 
---0000000000002109f6058e17ab6f
+--0000000000007cdef1058e3779b3
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Th=
-e line=C2=A0<br></div><div><div>PACKAGECONFIG_append_pn-qemu-native =3D &qu=
-ot; sdl&quot;</div></div><div>looks incorrect. The default local.conf set u=
-p for you (when you run &#39;source oe-init-build-env build&#39;) should ha=
-ve the correct one. Where did that line come from? If it&#39;s some manual =
-or guide or wiki, we need to update it.</div><div><br></div><div>Qemu doesn=
-&#39;t actually hang, it runs fine but without any graphical output, becaus=
-e the graphical support is misconfigured (disabled) in your case.=C2=A0</di=
-v><div><br></div><div>Alex</div></div></div></div></div><br><div class=3D"g=
-mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, 20 Jul 2019 at 07=
-:56, Geoff Shannon &lt;<a href=3D"mailto:geoffpshannon@gmail.com" target=3D=
-"_blank">geoffpshannon@gmail.com</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;bo=
-rder-left-style:solid;border-left-color:rgb(204,204,204);padding-left:1ex">=
-<div dir=3D"ltr"><div>Hi all, I&#39;m trying to get started using Poky to b=
-uild a custom image to run on a beaglebone black.=C2=A0 I started off by tr=
-ying to follow the Yocto Project Quickstart and I&#39;m stuck at getting th=
-e image to run on QEMU.=C2=A0 I&#39;m new to both Yocto Project and using Q=
-EMU so I expect I&#39;m doing something simple that&#39;s wrong but I haven=
-&#39;t been able to figure it out.</div><div><br></div><div>I cloned the po=
-ky git repository, checked out tag yocto-2.7, ran `source oe-init-build-env=
- build`, setup my local.conf file with the contents in file attached to thi=
-s message, and then ran `bitbake core-image-sato`.=C2=A0 <br></div><div><br=
-></div><div>This appeared to complete successfully, so I then proceeded to =
-try and test the built image by running `runqemu qemux86`. This spit out th=
-is output, and then proceeds to hang indefinitely.</div><div><br></div><div=
->```</div><div>runqemu - INFO - Running MACHINE=3Dqemux86 bitbake -e...<br>=
-runqemu - INFO - Continuing with the following parameters:<br><br>KERNEL: [=
-/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzI=
-mage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin]<br>MA=
-CHINE: [qemux86]<br>FSTYPE: [ext4]<br>ROOTFS: [/home/geoff/prog/yocto/quick=
--build/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-2019052=
-0070424.rootfs.ext4]<br>CONFFILE: [/home/geoff/prog/yocto/quick-build/poky/=
-build/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.qemu=
-boot.conf]<br><br>runqemu - INFO - Setting up tap interface under sudo<br>[=
-sudo] password for geoff: <br>runqemu - INFO - Network configuration: 192.1=
-68.7.2::192.168.7.1:255.255.255.0<br>runqemu - INFO - Running /home/geoff/p=
-rog/yocto/quick-build/poky/build/tmp/work/x86_64-linux/qemu-helper-native/1=
-.0-r1/recipe-sysroot-native/usr/bin/qemu-system-i386 -device virtio-net-pci=
-,netdev=3Dnet0,mac=3D52:54:00:12:34:02 -netdev tap,id=3Dnet0,ifname=3Dtap0,=
-script=3Dno,downscript=3Dno -drive file=3D/home/geoff/prog/yocto/quick-buil=
-d/poky/build/tmp/deploy/images/qemux86/core-image-sato-qemux86-201905200704=
-24.rootfs.ext4,if=3Dvirtio,format=3Draw -vga vmware -show-cursor -usb -devi=
-ce usb-tablet -object rng-random,filename=3D/dev/urandom,id=3Drng0 -device =
-virtio-rng-pci,rng=3Drng0 =C2=A0 -cpu pentium2 -m 256 -serial mon:vc -seria=
-l null -kernel /home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/ima=
-ges/qemux86/bzImage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-2019052007=
-0424.bin -append &#39;root=3D/dev/vda rw highres=3Doff =C2=A0mem=3D256M ip=
-=3D192.168.7.2::192.168.7.1:255.255.255.0 vga=3D0 uvesafb.mode_option=3D640=
-x480-32 oprofile.timer=3D1 uvesafb.task_timeout=3D-1 &#39;<br>```</div><div=
-><br></div><div>I was under the impression that this would pop up a window =
-with the built image running in QEMU, but nothing happens.</div><div><br></=
-div><div>In case it helps, the output of `uname -a` on my machine is:</div>=
-<div>Linux pop-os 4.18.0-17-generic #18~18.04.1-Ubuntu SMP Fri Mar 15 15:27=
-:12 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</div><div><br></div><div>If any=
-one has ideas about what is going wrong, further troubleshooting suggestion=
-s I would very much appreciate it.=C2=A0 If there is a more suitable place =
-to ask for this kind of help my apologies and I would appreciate a pointer =
-to the correct place to get help.</div><div><br></div><div>Thanks,<br></div=
-><div><div><div><div dir=3D"ltr" class=3D"gmail-m_79027827389219281gmail-m_=
-7602666985671225241m_390013602926005963gmail_signature"><div dir=3D"ltr"><d=
-iv>Geoff</div><div><br></div>Nothing is ever easy.</div></div></div></div><=
-/div></div>
+<div dir=3D"ltr"><div dir=3D"ltr"><div>Interesting! I was unsure about the =
+origin of those lines, and couldn&#39;t find it after looking through the v=
+arious books and tutorials I&#39;ve been reading.=C2=A0 So I decided to jus=
+t follow the yocto project quick build instructions, and generate a new bui=
+ld from `source oe-init-build-env`.=C2=A0 And I found that line is actually=
+ very similar to a line from the local.conf generated by the build init scr=
+ipt.</div><div>PACKAGECONFIG_append_pn-qemu-system-native =3D &quot; sdl&qu=
+ot;</div><div><br></div><div>I&#39;m really not sure where that edit came f=
+rom since I believe I made the first conf file I sent by stripping out all =
+of the comments from the generated local.conf file and then changing a few =
+values.=C2=A0 But I built poky using a checkout of tag yocto-2.7.1 and with=
+out editing the local.conf script and now `runqemu qemux86` is popping up a=
+ graphical interface and working just fine.<br></div><div><br></div><div>So=
+ thanks for the pointer Alexander, I&#39;m unstuck now!</div><div><br></div=
+><div><div><div><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartm=
+ail=3D"gmail_signature"><div dir=3D"ltr"><div>Geoff</div><div><br></div>Not=
+hing is ever easy.</div></div></div><br></div></div></div></div><br><div cl=
+ass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Jul 20, 2=
+019 at 12:19 AM Alexander Kanavin &lt;<a href=3D"mailto:alex.kanavin@gmail.=
+com">alex.kanavin@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"lt=
+r"><div dir=3D"ltr"><div>The line=C2=A0<br></div><div><div>PACKAGECONFIG_ap=
+pend_pn-qemu-native =3D &quot; sdl&quot;</div></div><div>looks incorrect. T=
+he default local.conf set up for you (when you run &#39;source oe-init-buil=
+d-env build&#39;) should have the correct one. Where did that line come fro=
+m? If it&#39;s some manual or guide or wiki, we need to update it.</div><di=
+v><br></div><div>Qemu doesn&#39;t actually hang, it runs fine but without a=
+ny graphical output, because the graphical support is misconfigured (disabl=
+ed) in your case.=C2=A0</div><div><br></div><div>Alex</div></div></div></di=
+v></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
+">On Sat, 20 Jul 2019 at 07:56, Geoff Shannon &lt;<a href=3D"mailto:geoffps=
+hannon@gmail.com" target=3D"_blank">geoffpshannon@gmail.com</a>&gt; wrote:<=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"=
+><div>Hi all, I&#39;m trying to get started using Poky to build a custom im=
+age to run on a beaglebone black.=C2=A0 I started off by trying to follow t=
+he Yocto Project Quickstart and I&#39;m stuck at getting the image to run o=
+n QEMU.=C2=A0 I&#39;m new to both Yocto Project and using QEMU so I expect =
+I&#39;m doing something simple that&#39;s wrong but I haven&#39;t been able=
+ to figure it out.</div><div><br></div><div>I cloned the poky git repositor=
+y, checked out tag yocto-2.7, ran `source oe-init-build-env build`, setup m=
+y local.conf file with the contents in file attached to this message, and t=
+hen ran `bitbake core-image-sato`.=C2=A0 <br></div><div><br></div><div>This=
+ appeared to complete successfully, so I then proceeded to try and test the=
+ built image by running `runqemu qemux86`. This spit out this output, and t=
+hen proceeds to hang indefinitely.</div><div><br></div><div>```</div><div>r=
+unqemu - INFO - Running MACHINE=3Dqemux86 bitbake -e...<br>runqemu - INFO -=
+ Continuing with the following parameters:<br><br>KERNEL: [/home/geoff/prog=
+/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzImage--5.0.3+git0=
++f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin]<br>MACHINE: [qemux86]=
+<br>FSTYPE: [ext4]<br>ROOTFS: [/home/geoff/prog/yocto/quick-build/poky/buil=
+d/tmp/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.rootfs.e=
+xt4]<br>CONFFILE: [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy=
+/images/qemux86/core-image-sato-qemux86-20190520070424.qemuboot.conf]<br><b=
+r>runqemu - INFO - Setting up tap interface under sudo<br>[sudo] password f=
+or geoff: <br>runqemu - INFO - Network configuration: 192.168.7.2::192.168.=
+7.1:255.255.255.0<br>runqemu - INFO - Running /home/geoff/prog/yocto/quick-=
+build/poky/build/tmp/work/x86_64-linux/qemu-helper-native/1.0-r1/recipe-sys=
+root-native/usr/bin/qemu-system-i386 -device virtio-net-pci,netdev=3Dnet0,m=
+ac=3D52:54:00:12:34:02 -netdev tap,id=3Dnet0,ifname=3Dtap0,script=3Dno,down=
+script=3Dno -drive file=3D/home/geoff/prog/yocto/quick-build/poky/build/tmp=
+/deploy/images/qemux86/core-image-sato-qemux86-20190520070424.rootfs.ext4,i=
+f=3Dvirtio,format=3Draw -vga vmware -show-cursor -usb -device usb-tablet -o=
+bject rng-random,filename=3D/dev/urandom,id=3Drng0 -device virtio-rng-pci,r=
+ng=3Drng0 =C2=A0 -cpu pentium2 -m 256 -serial mon:vc -serial null -kernel /=
+home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qemux86/bzIm=
+age--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-20190520070424.bin -append=
+ &#39;root=3D/dev/vda rw highres=3Doff =C2=A0mem=3D256M ip=3D192.168.7.2::1=
+92.168.7.1:255.255.255.0 vga=3D0 uvesafb.mode_option=3D640x480-32 oprofile.=
+timer=3D1 uvesafb.task_timeout=3D-1 &#39;<br>```</div><div><br></div><div>I=
+ was under the impression that this would pop up a window with the built im=
+age running in QEMU, but nothing happens.</div><div><br></div><div>In case =
+it helps, the output of `uname -a` on my machine is:</div><div>Linux pop-os=
+ 4.18.0-17-generic #18~18.04.1-Ubuntu SMP Fri Mar 15 15:27:12 UTC 2019 x86_=
+64 x86_64 x86_64 GNU/Linux</div><div><br></div><div>If anyone has ideas abo=
+ut what is going wrong, further troubleshooting suggestions I would very mu=
+ch appreciate it.=C2=A0 If there is a more suitable place to ask for this k=
+ind of help my apologies and I would appreciate a pointer to the correct pl=
+ace to get help.</div><div><br></div><div>Thanks,<br></div><div><div><div><=
+div dir=3D"ltr" class=3D"gmail-m_-4598052130015611091gmail-m_79027827389219=
+281gmail-m_7602666985671225241m_390013602926005963gmail_signature"><div dir=
+=3D"ltr"><div>Geoff</div><div><br></div>Nothing is ever easy.</div></div></=
+div></div></div></div>
 -- <br>
 _______________________________________________<br>
 poky mailing list<br>
@@ -235,5 +284,6 @@ t.org</a><br>
 <a href=3D"https://lists.yoctoproject.org/listinfo/poky" rel=3D"noreferrer"=
  target=3D"_blank">https://lists.yoctoproject.org/listinfo/poky</a><br>
 </blockquote></div>
+</blockquote></div></div>
 
---0000000000002109f6058e17ab6f--
+--0000000000007cdef1058e3779b3--
