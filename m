@@ -1,43 +1,68 @@
-Return-Path: <Kai.Kang@windriver.com>
+Return-Path: <wbourque@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 52C34E00D8B; Sun, 21 Jul 2019 18:39:31 -0700 (PDT)
+	id 6E141E00D00; Mon, 22 Jul 2019 06:34:04 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
-	*      medium trust
-	*      [192.103.53.11 listed in list.dnswl.org]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B2EBEE00994
-	for <poky@yoctoproject.org>; Sun, 21 Jul 2019 18:39:29 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x6M1cGEd017152
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Sun, 21 Jul 2019 18:38:26 -0700
-Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.468.0;
-	Sun, 21 Jul 2019 18:38:05 -0700
-To: <richard.purdie@linuxfoundation.org>, "Burton, Ross"
-	<ross.burton@intel.com>
-References: <20190704134520.16320-1-kai.kang@windriver.com>
-	<20190704134520.16320-2-kai.kang@windriver.com>
-	<CAJTo0LbmYp-70L=Z_T0jE4xS1mR_vLXKQE18O_EpeEwD6wdroA@mail.gmail.com>
-	<a3ee2977ee2d63f1908f110d9273352815ba7d35.camel@linuxfoundation.org>
-From: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <8d6b156e-7d68-e4b8-8688-2c897ebf228a@windriver.com>
-Date: Mon, 22 Jul 2019 09:37:16 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (wbourque[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [209.85.210.46 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+	[209.85.210.46])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3FD87E00A49
+	for <poky@yoctoproject.org>; Mon, 22 Jul 2019 06:34:03 -0700 (PDT)
+Received: by mail-ot1-f46.google.com with SMTP id x21so1752422otq.12
+	for <poky@yoctoproject.org>; Mon, 22 Jul 2019 06:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc:content-transfer-encoding;
+	bh=rwZiQ0oQFu8Q4JKpXLMzda49Ktq4uezCEDVEfb8a6bk=;
+	b=ToOQQs/mGJxkJTS8majElRjxKQPO+0zJfVOoC2zxKLa5lKDJQ+CHKimYjOUAvmmo/3
+	CyJKMj1XDP80opEtiSzZ93DvWt5O+3HqHMD782gLGqZC4mPkeeRHM3VdO6kfrNEo509S
+	McxY8i2FYzbRU/prIYXa8UGGQjOB3cCJw0txOmwkphA1J3Cp27g457Gwszx0wjonusV5
+	8518Qai0uxAFOL43aNYLVTZjtLggvsW4rbXnQTsVovlM9A/4FeGxH4iPnAWEt6BdcJ3a
+	rGDtVEws/kuLSJNrEiclfqZtGlYfEWaec/ZVvyufqD7/HRQ0B4iUJa16whotL5z0quYi
+	/DEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc:content-transfer-encoding;
+	bh=rwZiQ0oQFu8Q4JKpXLMzda49Ktq4uezCEDVEfb8a6bk=;
+	b=P1BrK9zAHA6X7o9jQkrqdrtgrt3b/A7A/T+Y9Lh4VfIkATBbmImCfNbbXN0w2suQ5Q
+	X7Zi509zkUShOe1nBKR1lxd3NfoG7v7q80haIYirf/IlNL7ZqdMv8RD0M/b+j6VQRPfX
+	9AxXIFIkhRrjfwS+XMJFu/nn2Dq13+7FzZRTIFjXSexnTupjULRwR2jsOlp2MhWWjdPj
+	VB2U/G69OTpUdNOE1W0bwME30Fn0XurM6M79H23D4nmHrSaW0lBPDlLzTdw39QXYoRF2
+	m6yxBvKg0qHGkUvQ6EoDF+4H5Twg4Cbimaky4PEH5Gz15Pv6Vo/iOq9B72nbOAkiZZJE
+	108w==
+X-Gm-Message-State: APjAAAWQhzNZwG5XxsHyzS4rB+9j4eGtDZV9MoVoLU3krMbBCyJZZr5F
+	52F9Ts11Grtet1wIUcE8zx3nwqvKp/IqAirFsnLc3UdV
+X-Google-Smtp-Source: APXvYqzBAzIkfOnVqZiPihMg7pfIdRFkzsa23massTh2f2KymaURBbfYlHTaYsfg8vyXF7wE7NuxuTFz8kvJaPGq+KA=
+X-Received: by 2002:a05:6830:16:: with SMTP id
+	c22mr51948211otp.116.1563802442411; 
+	Mon, 22 Jul 2019 06:34:02 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a3ee2977ee2d63f1908f110d9273352815ba7d35.camel@linuxfoundation.org>
-Cc: Poky Project <poky@yoctoproject.org>,
-	OE-core <openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [oe-core][PATCH 1/2] defaultsetup.conf: enable select init manager
+References: <CA+pAvvwqRjoooro4yqwtr8sm5RxAPf0WXjs9JQUJ8SYm=y-UwQ@mail.gmail.com>
+	<CANNYZj92fzLDMw-BrLu3_U_QSOoDiA0xODX6VQXQNVk6B7m4-g@mail.gmail.com>
+	<CA+pAvvwWj7QxZXG=NY8u=GqXvTFX+ngKm75AtRC2ho4tf7z95w@mail.gmail.com>
+In-Reply-To: <CA+pAvvwWj7QxZXG=NY8u=GqXvTFX+ngKm75AtRC2ho4tf7z95w@mail.gmail.com>
+From: William Bourque <wbourque@gmail.com>
+Date: Mon, 22 Jul 2019 09:33:51 -0400
+Message-ID: <CANBSh+PkwETX1UyiV=m-fRnxd76kB0QHeSfejfk6LcSzRx5-6A@mail.gmail.com>
+To: Geoff Shannon <geoffpshannon@gmail.com>
+Cc: poky@yoctoproject.org
+Subject: Re: Trouble running Poky 2.7 qemu-x86 build
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -50,83 +75,163 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Jul 2019 01:39:31 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-List-Received-Date: Mon, 22 Jul 2019 13:34:04 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2019/7/20 上午6:28, richard.purdie@linuxfoundation.org wrote:
-> On Fri, 2019-07-19 at 22:35 +0100, Burton, Ross wrote:
->> On Thu, 4 Jul 2019 at 15:40, <kai.kang@windriver.com> wrote:
->>> +++ b/meta/conf/distro/include/init-manager-systemd.inc
->>> @@ -0,0 +1,6 @@
->>> +# Use systemd for system initialization
->>> +DISTRO_FEATURES_append = " systemd"
->>> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append = " sysvinit"
->>> +VIRTUAL-RUNTIME_init_manager = "systemd"
->>> +VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
->>> +VIRTUAL-RUNTIME_login_manager = "shadow-base"
->>> diff --git a/meta/conf/distro/include/init-manager-sysvinit.inc
->>> b/meta/conf/distro/include/init-manager-sysvinit.inc
->>> new file mode 100644
->>> index 0000000000..7725b30e1e
->>> --- /dev/null
->>> +++ b/meta/conf/distro/include/init-manager-sysvinit.inc
->>> @@ -0,0 +1,6 @@
->>> +# Use sysvinit for system initialization
->>> +DISTRO_FEATURES_append = " sysvinit"
->>> +DISTRO_FEATURES_BACKFILL_CONSIDERED_append = " systemd"
->>> +VIRTUAL-RUNTIME_init_manager = "sysvinit"
->>> +VIRTUAL-RUNTIME_initscripts = "initscripts"
->>> +VIRTUAL-RUNTIME_login_manager = "busybox"
->> Back when I integrated systemd into oe-core one of the use cases was
->> a single distro that builds a main image using systemd, and a
->> rescue/update image using sysv/busybox.  How is this possible with
->> this system?
+Hi Geoff,
 
+I'm a bit late but I thought I'd share a useful QEMU trick as well.
+If you don't want the qemu helper UI to pop or if you cannot use it
+(if you are integrating into build system as example), you can tell
+QEMU to bind a certain serial port to a TCP port on your host.
+Then, assuming your QEMU image passes "console=3DttyS0,115200n8" in its
+kernel boot parameter, you can then login to the system from your host
+using the open TCP port.
 
-Hi Richard,
+The exact commands would look like this:
 
-> We're still missing one or two init system setup variants,
+On the host, open an arbitrary TCP port (here I use netcat, but
+anything would do):
+     nc -l 50299
 
-What kind of missing variants do you mean?
+Then, start QEMU with a "-serial" pointing to the TCP port you opened
+on the host.
+Below is the "minimal" full QEMU command I use in my case, the serial
+binding "-serial tcp:127.0.0.1:50299" at the end:
+    qemu-system-x86_64 -device
+virtio-net-pci,netdev=3Dnet0,mac=3DDE:AD:DE:AE:BE:EF -netdev
+tap,id=3Dnet0,ifname=3Dtap0,script=3Dno,downscript=3Dno -drive
+if=3Dnone,id=3Dhd,file=3Dqemux86-64/core-image-minimal-qemux86-64.wic,forma=
+t=3Draw
+-device virtio-scsi-pci,id=3Dscsi -device scsi-hd,drive=3Dhd -serial
+tcp:127.0.0.1:50299
 
+If everything goes well, your system should now bootup and you would get ou=
+tput.
+Then when getty login starts (assuming you use it), you should be able to l=
+ogin.
 
-> I was
-> planning to add those and convert our autobuilder tests over to use
-> them rather than the fragements that are currently coded into
-> autobuilder-helper.
+I hope this help!
+
+- William
 
 
-I just run oe-selftest -a with this patch after you updated the patch in 
-oe-core. But I met some (>15) errors
-
-ERROR: Unable to start bitbake server (None)
-
-But I think it should not be related with init manager changes and will 
-change a build machine to test.
-Do you have test it again in autobuilder and any failure found? Thanks.
-
-Regards,
-Kai
-
-
+On Sun, Jul 21, 2019 at 5:17 PM Geoff Shannon <geoffpshannon@gmail.com> wro=
+te:
 >
->> Personally, I'd prefer to see the DISTRO_FEATURE wrangling left out
->> of those files, and let the user ensure the right features are set.
->> After all, systemd will refuse to build unless the systemd feature is
->> enabled.
-> With the addition of the "none" default, users aren't being forced to
-> use them so that can do something custom or use a precanned default
-> which I think gives the best of both worlds?
+> Interesting! I was unsure about the origin of those lines, and couldn't f=
+ind it after looking through the various books and tutorials I've been read=
+ing.  So I decided to just follow the yocto project quick build instruction=
+s, and generate a new build from `source oe-init-build-env`.  And I found t=
+hat line is actually very similar to a line from the local.conf generated b=
+y the build init script.
+> PACKAGECONFIG_append_pn-qemu-system-native =3D " sdl"
 >
-> Cheers,
+> I'm really not sure where that edit came from since I believe I made the =
+first conf file I sent by stripping out all of the comments from the genera=
+ted local.conf file and then changing a few values.  But I built poky using=
+ a checkout of tag yocto-2.7.1 and without editing the local.conf script an=
+d now `runqemu qemux86` is popping up a graphical interface and working jus=
+t fine.
 >
-> Richard
+> So thanks for the pointer Alexander, I'm unstuck now!
+>
+> Geoff
+>
+> Nothing is ever easy.
 >
 >
-
--- 
-Kai Kang
-
+> On Sat, Jul 20, 2019 at 12:19 AM Alexander Kanavin <alex.kanavin@gmail.co=
+m> wrote:
+>>
+>> The line
+>> PACKAGECONFIG_append_pn-qemu-native =3D " sdl"
+>> looks incorrect. The default local.conf set up for you (when you run 'so=
+urce oe-init-build-env build') should have the correct one. Where did that =
+line come from? If it's some manual or guide or wiki, we need to update it.
+>>
+>> Qemu doesn't actually hang, it runs fine but without any graphical outpu=
+t, because the graphical support is misconfigured (disabled) in your case.
+>>
+>> Alex
+>>
+>> On Sat, 20 Jul 2019 at 07:56, Geoff Shannon <geoffpshannon@gmail.com> wr=
+ote:
+>>>
+>>> Hi all, I'm trying to get started using Poky to build a custom image to=
+ run on a beaglebone black.  I started off by trying to follow the Yocto Pr=
+oject Quickstart and I'm stuck at getting the image to run on QEMU.  I'm ne=
+w to both Yocto Project and using QEMU so I expect I'm doing something simp=
+le that's wrong but I haven't been able to figure it out.
+>>>
+>>> I cloned the poky git repository, checked out tag yocto-2.7, ran `sourc=
+e oe-init-build-env build`, setup my local.conf file with the contents in f=
+ile attached to this message, and then ran `bitbake core-image-sato`.
+>>>
+>>> This appeared to complete successfully, so I then proceeded to try and =
+test the built image by running `runqemu qemux86`. This spit out this outpu=
+t, and then proceeds to hang indefinitely.
+>>>
+>>> ```
+>>> runqemu - INFO - Running MACHINE=3Dqemux86 bitbake -e...
+>>> runqemu - INFO - Continuing with the following parameters:
+>>>
+>>> KERNEL: [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/image=
+s/qemux86/bzImage--5.0.3+git0+f0b575cda6_3df4aae607-r0-qemux86-201905200704=
+24.bin]
+>>> MACHINE: [qemux86]
+>>> FSTYPE: [ext4]
+>>> ROOTFS: [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/image=
+s/qemux86/core-image-sato-qemux86-20190520070424.rootfs.ext4]
+>>> CONFFILE: [/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/ima=
+ges/qemux86/core-image-sato-qemux86-20190520070424.qemuboot.conf]
+>>>
+>>> runqemu - INFO - Setting up tap interface under sudo
+>>> [sudo] password for geoff:
+>>> runqemu - INFO - Network configuration: 192.168.7.2::192.168.7.1:255.25=
+5.255.0
+>>> runqemu - INFO - Running /home/geoff/prog/yocto/quick-build/poky/build/=
+tmp/work/x86_64-linux/qemu-helper-native/1.0-r1/recipe-sysroot-native/usr/b=
+in/qemu-system-i386 -device virtio-net-pci,netdev=3Dnet0,mac=3D52:54:00:12:=
+34:02 -netdev tap,id=3Dnet0,ifname=3Dtap0,script=3Dno,downscript=3Dno -driv=
+e file=3D/home/geoff/prog/yocto/quick-build/poky/build/tmp/deploy/images/qe=
+mux86/core-image-sato-qemux86-20190520070424.rootfs.ext4,if=3Dvirtio,format=
+=3Draw -vga vmware -show-cursor -usb -device usb-tablet -object rng-random,=
+filename=3D/dev/urandom,id=3Drng0 -device virtio-rng-pci,rng=3Drng0   -cpu =
+pentium2 -m 256 -serial mon:vc -serial null -kernel /home/geoff/prog/yocto/=
+quick-build/poky/build/tmp/deploy/images/qemux86/bzImage--5.0.3+git0+f0b575=
+cda6_3df4aae607-r0-qemux86-20190520070424.bin -append 'root=3D/dev/vda rw h=
+ighres=3Doff  mem=3D256M ip=3D192.168.7.2::192.168.7.1:255.255.255.0 vga=3D=
+0 uvesafb.mode_option=3D640x480-32 oprofile.timer=3D1 uvesafb.task_timeout=
+=3D-1 '
+>>> ```
+>>>
+>>> I was under the impression that this would pop up a window with the bui=
+lt image running in QEMU, but nothing happens.
+>>>
+>>> In case it helps, the output of `uname -a` on my machine is:
+>>> Linux pop-os 4.18.0-17-generic #18~18.04.1-Ubuntu SMP Fri Mar 15 15:27:=
+12 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+>>>
+>>> If anyone has ideas about what is going wrong, further troubleshooting =
+suggestions I would very much appreciate it.  If there is a more suitable p=
+lace to ask for this kind of help my apologies and I would appreciate a poi=
+nter to the correct place to get help.
+>>>
+>>> Thanks,
+>>> Geoff
+>>>
+>>> Nothing is ever easy.
+>>> --
+>>> _______________________________________________
+>>> poky mailing list
+>>> poky@yoctoproject.org
+>>> https://lists.yoctoproject.org/listinfo/poky
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
