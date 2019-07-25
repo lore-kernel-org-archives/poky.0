@@ -1,35 +1,47 @@
-Return-Path: <quentin.schulz@streamunlimited.com>
+Return-Path: <Kai.Kang@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id EFAE2E00D5F; Thu, 25 Jul 2019 02:14:36 -0700 (PDT)
+	id 99164E00D85; Thu, 25 Jul 2019 04:13:00 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	https://www.dnswl.org/, *      medium trust
+	*      [192.103.53.11 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
-	low *      trust
-	*      [213.33.87.19 listed in list.dnswl.org]
-Received: from bsmtp7.bon.at (bsmtp7.bon.at [213.33.87.19])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C1C89E00D4A
-	for <poky@yoctoproject.org>; Thu, 25 Jul 2019 02:14:34 -0700 (PDT)
-Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp7.bon.at (Postfix) with ESMTPSA id 45vRP50SRTz5tl9;
-	Thu, 25 Jul 2019 11:14:33 +0200 (CEST)
-Date: Thu, 25 Jul 2019 11:14:31 +0200
-From: Quentin Schulz <quentin.schulz@streamunlimited.com>
-To: akuster808 <akuster808@gmail.com>
-Message-ID: <20190725091431.44qkrjtqjvkpjkka@qschulz>
-References: <20190611144648.30886-1-quentin.schulz@streamunlimited.com>
-	<f827d3c0-2fab-2313-1666-3d3375abec53@gmail.com>
-	<20190612072545.lbcz5swovdswmcly@qschulz>
-	<20190701153545.l7d6zo5gp5q526ds@qschulz>
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1BE5AE00D59
+	for <poky@yoctoproject.org>; Thu, 25 Jul 2019 04:12:59 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x6PBBnB6029720
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
+	Thu, 25 Jul 2019 04:12:00 -0700
+Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.468.0;
+	Thu, 25 Jul 2019 04:11:39 -0700
+To: <richard.purdie@linuxfoundation.org>, "Mittal, Anuj"
+	<anuj.mittal@intel.com>, "Burton, Ross" <ross.burton@intel.com>
+References: <20190704134520.16320-1-kai.kang@windriver.com>
+	<20190704134520.16320-2-kai.kang@windriver.com>
+	<CAJTo0LbmYp-70L=Z_T0jE4xS1mR_vLXKQE18O_EpeEwD6wdroA@mail.gmail.com>
+	<a3ee2977ee2d63f1908f110d9273352815ba7d35.camel@linuxfoundation.org>
+	<8d6b156e-7d68-e4b8-8688-2c897ebf228a@windriver.com>
+	<73fdb42fa63f84e7ed6ec52a183bff73edc4272b.camel@intel.com>
+	<71422bd44cac604f8a076b30a5d353669cc0b314.camel@linuxfoundation.org>
+From: Kang Kai <Kai.Kang@windriver.com>
+Message-ID: <f82bad2b-c366-9000-32ab-3ce780c328b4@windriver.com>
+Date: Thu, 25 Jul 2019 19:10:38 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190701153545.l7d6zo5gp5q526ds@qschulz>
-User-Agent: NeoMutt/20180716
-Cc: poky@yoctoproject.org, andriy.danylovskyy@streamunlimited.com
-Subject: Re: [thud] [PATCH 0/2] opkg and BAD_RECOMMENDATIONS in thud 2.6.2
+In-Reply-To: <71422bd44cac604f8a076b30a5d353669cc0b314.camel@linuxfoundation.org>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
+	"openembedded-core@lists.openembedded.org"
+	<openembedded-core@lists.openembedded.org>
+Subject: Re: [OE-core] [oe-core][PATCH 1/2] defaultsetup.conf: enable select init manager
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -42,55 +54,73 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Jul 2019 09:14:37 -0000
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-List-Received-Date: Thu, 25 Jul 2019 11:13:00 -0000
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-Hi all,
-   
-On Mon, Jul 01, 2019 at 05:35:45PM +0200, Quentin Schulz wrote:
-> Hi all,
-> 
-> On Wed, Jun 12, 2019 at 09:25:45AM +0200, Quentin Schulz wrote:
-> > Hi Armin,
-> > 
-> > On Tue, Jun 11, 2019 at 10:24:20AM -0700, akuster808 wrote:
-> > > 
-> > > 
-> > > On 6/11/19 7:46 AM, Quentin Schulz wrote:
-> > [...]
-> > > > I took me a while to find out that it's an issue with opkg itself and
-> > > > nothing could be done in Yocto to fix it but I found the three following
-> > > > patches in yocto-2.7:
-> > > >
-> > > > https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=d8e12f2bfc4deaa0dc7530cf3af905e18e8037f6
-> > > > https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=c76c50df6498d85e7a6254002ff8f5e0ef3e67f7
-> > > > https://git.yoctoproject.org/cgit.cgi/poky/commit/?id=5bcb626cf49d2295ccca45d6fc7e1617cca932d6
-> > > 
-> > > You mentioned 3 git commits but i only see 2 patches on the list.
-> > > 
-> > > please clarify.
-> > > 
-> > 
-> > Ugh, yes. Sorry :)
-> > 
-> > These patches are the outcome of a discussion with Richard Purdie[1]
-> > where he suggested that the upgrade commit is probably not a backport
-> > candidate so I just went by it and removed it.
-> > 
-> 
-> Kindly pinging so that this patch does not get lost at the bottom of the
-> inbox :)
-> 
+On 2019/7/24 上午3:30, richard.purdie@linuxfoundation.org wrote:
+> On Mon, 2019-07-22 at 23:26 +0000, Mittal, Anuj wrote:
+>> On Mon, 2019-07-22 at 09:37 +0800, Kang Kai wrote:
+>>> I just run oe-selftest -a with this patch after you updated the
+>>> patch
+>>> in
+>>> oe-core. But I met some (>15) errors
+>>>
+>>> ERROR: Unable to start bitbake server (None)
+>>>
+>>> But I think it should not be related with init manager changes and
+>>> will
+>>> change a build machine to test.
+>>> Do you have test it again in autobuilder and any failure found?
+>>> Thanks.
+>> Not sure if these have been reported but there are some failures in
+>> runtime tests which look related to this change:
+>>
+>> https://autobuilder.yoctoproject.org/typhoon/#/builders/38/builds/855/steps/8/logs/step1c
+>>
+>> https://autobuilder.yoctoproject.org/typhoon/#/builders/50/builds/852/steps/8/logs/step1c
+>>
+>> https://autobuilder.yoctoproject.org/typhoon/#/builders/76/builds/856/steps/8/logs/step2c
+> I did a back to back build comparision with and without the init system
+> change.
+>
+> Basically every failure in:
+>
+> https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/297
 
-I haven't seen the patches in thud or thud-next nor in the latest series
-of patches to be reviewed for thud and there isn't an ongoing discussion
-on those two patches, so kindly pinging.
 
-Let me know if there's anything I can do,
-Quentin
+It fails with
+
+$ bitbake core-image-sato-sdk -c testimage
+
+RESULTS - systemd.SystemdBasicTests.test_systemd_failed: FAILED (0.56s)
+
+It checks failed systemd services and got one:
+
+UNIT              LOAD   ACTIVE SUB DESCRIPTION
+● nfs-statd.service loaded failed failed NFS status monitor for NFSv2/3 
+locking.
+
+
+But when boot the qemu image or only run systemd testcases( with its 
+dependenies), no such failure.
+I doubt it may be affected by other test cases.
+
+Regards,
+Kai
+
+>
+> seems to be due to the init system default change so we have some
+> issues in there to resolve before we can change the default.
+>
+> Cheers,
+>
+> Richard
+>
+>
+
 -- 
-StreamUnlimited Engineering GmbH
-High Tech Campus Vienna, Gutheil-Schoder-Gasse 10, 1100 Vienna, Austria
-quentin.schulz@streamunlimited.com, www.streamunlimited.com
+Kai Kang
+
 
