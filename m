@@ -1,47 +1,39 @@
-Return-Path: <Kai.Kang@windriver.com>
+Return-Path: <contact@nicheconsult.in>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 99164E00D85; Thu, 25 Jul 2019 04:13:00 -0700 (PDT)
+	id 344AEE00A96; Sat, 27 Jul 2019 02:50:48 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
 	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
-	https://www.dnswl.org/, *      medium trust
-	*      [192.103.53.11 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1BE5AE00D59
-	for <poky@yoctoproject.org>; Thu, 25 Jul 2019 04:12:59 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
-	[147.11.189.40])
-	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x6PBBnB6029720
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
-	Thu, 25 Jul 2019 04:12:00 -0700
-Received: from [128.224.162.179] (128.224.162.179) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server id 14.3.468.0;
-	Thu, 25 Jul 2019 04:11:39 -0700
-To: <richard.purdie@linuxfoundation.org>, "Mittal, Anuj"
-	<anuj.mittal@intel.com>, "Burton, Ross" <ross.burton@intel.com>
-References: <20190704134520.16320-1-kai.kang@windriver.com>
-	<20190704134520.16320-2-kai.kang@windriver.com>
-	<CAJTo0LbmYp-70L=Z_T0jE4xS1mR_vLXKQE18O_EpeEwD6wdroA@mail.gmail.com>
-	<a3ee2977ee2d63f1908f110d9273352815ba7d35.camel@linuxfoundation.org>
-	<8d6b156e-7d68-e4b8-8688-2c897ebf228a@windriver.com>
-	<73fdb42fa63f84e7ed6ec52a183bff73edc4272b.camel@intel.com>
-	<71422bd44cac604f8a076b30a5d353669cc0b314.camel@linuxfoundation.org>
-From: Kang Kai <Kai.Kang@windriver.com>
-Message-ID: <f82bad2b-c366-9000-32ab-3ce780c328b4@windriver.com>
-Date: Thu, 25 Jul 2019 19:10:38 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <71422bd44cac604f8a076b30a5d353669cc0b314.camel@linuxfoundation.org>
-Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>,
-	"openembedded-core@lists.openembedded.org"
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [OE-core] [oe-core][PATCH 1/2] defaultsetup.conf: enable select init manager
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [217.26.49.173 listed in list.dnswl.org]
+X-Greylist: delayed 1294 seconds by postgrey-1.32 at yocto-www;
+	Sat, 27 Jul 2019 02:50:46 PDT
+Received: from mxout013.mail.hostpoint.ch (mxout013.mail.hostpoint.ch
+	[217.26.49.173])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F0803E0096F
+	for <poky@yoctoproject.org>; Sat, 27 Jul 2019 02:50:46 -0700 (PDT)
+Received: from [10.0.2.45] (helo=asmtp012.mail.hostpoint.ch)
+	by mxout013.mail.hostpoint.ch with esmtp (Exim 4.92 (FreeBSD))
+	(envelope-from <contact@nicheconsult.in>) id 1hrJ0p-0000n0-Do
+	for poky@yoctoproject.org; Sat, 27 Jul 2019 11:29:11 +0200
+Received: from [122.172.95.138] (helo=[192.168.1.3])
+	by asmtp012.mail.hostpoint.ch with esmtpsa
+	(TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.91 (FreeBSD))
+	(envelope-from <contact@nicheconsult.in>) id 1hrJ0p-00049y-5p
+	for poky@yoctoproject.org; Sat, 27 Jul 2019 11:29:11 +0200
+X-Authenticated-Sender-Id: contact@nicheconsult.in
+From: Niche Consulting India <contact@nicheconsult.in>
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Message-Id: <542FAA2F-800D-422D-A3FD-082BE941CFDA@nicheconsult.in>
+Date: Sat, 27 Jul 2019 14:59:08 +0530
+To: poky@yoctoproject.org
+X-Mailer: Apple Mail (2.3273)
+Subject: unable to build qt5-image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -54,73 +46,19 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Jul 2019 11:13:00 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-List-Received-Date: Sat, 27 Jul 2019 09:50:48 -0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 
-On 2019/7/24 上午3:30, richard.purdie@linuxfoundation.org wrote:
-> On Mon, 2019-07-22 at 23:26 +0000, Mittal, Anuj wrote:
->> On Mon, 2019-07-22 at 09:37 +0800, Kang Kai wrote:
->>> I just run oe-selftest -a with this patch after you updated the
->>> patch
->>> in
->>> oe-core. But I met some (>15) errors
->>>
->>> ERROR: Unable to start bitbake server (None)
->>>
->>> But I think it should not be related with init manager changes and
->>> will
->>> change a build machine to test.
->>> Do you have test it again in autobuilder and any failure found?
->>> Thanks.
->> Not sure if these have been reported but there are some failures in
->> runtime tests which look related to this change:
->>
->> https://autobuilder.yoctoproject.org/typhoon/#/builders/38/builds/855/steps/8/logs/step1c
->>
->> https://autobuilder.yoctoproject.org/typhoon/#/builders/50/builds/852/steps/8/logs/step1c
->>
->> https://autobuilder.yoctoproject.org/typhoon/#/builders/76/builds/856/steps/8/logs/step2c
-> I did a back to back build comparision with and without the init system
-> change.
->
-> Basically every failure in:
->
-> https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/297
+hello,
 
+ i was able to build dpi-basic-image on ubuntu 14.04 for warrior branch. =
+But i wanted Qt and so followed usual process
+#bitbake qt5-image
+gives me error that it could not find recipes in metacarpi/ for lib and =
+ntp. How do i fix that?
+which version of ubuntu is officially supported as i get a warning that =
+ubuntu 14.04 is not supported?
 
-It fails with
-
-$ bitbake core-image-sato-sdk -c testimage
-
-RESULTS - systemd.SystemdBasicTests.test_systemd_failed: FAILED (0.56s)
-
-It checks failed systemd services and got one:
-
-UNIT              LOAD   ACTIVE SUB DESCRIPTION
-● nfs-statd.service loaded failed failed NFS status monitor for NFSv2/3 
-locking.
-
-
-But when boot the qemu image or only run systemd testcases( with its 
-dependenies), no such failure.
-I doubt it may be affected by other test cases.
-
-Regards,
-Kai
-
->
-> seems to be due to the init system default change so we have some
-> issues in there to resolve before we can change the default.
->
-> Cheers,
->
-> Richard
->
->
-
--- 
-Kai Kang
 
 
