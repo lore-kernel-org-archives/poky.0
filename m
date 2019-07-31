@@ -1,64 +1,34 @@
-Return-Path: <vijaikumar.kanagarajan@gmail.com>
+Return-Path: <Changqing.Li@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 54362E00CD5; Tue, 30 Jul 2019 12:37:59 -0700 (PDT)
+	id 51497E00D4D; Tue, 30 Jul 2019 20:41:44 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (vijaikumar.kanagarajan[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.160.177 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
-	[209.85.160.177])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B700DE00C94;
-	Tue, 30 Jul 2019 12:37:58 -0700 (PDT)
-Received: by mail-qt1-f177.google.com with SMTP id z4so64241532qtc.3;
-	Tue, 30 Jul 2019 12:37:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to; 
-	bh=uZJ82a/6j7PIHPzwtuVA1oJzAKNoj5Ux1IAv7KlM4aQ=;
-	b=WL492dxks31Eq17uOCp6hiJ9FS1B/7itmKlYYCzr6aO+M0Un9HAiUhTAqAryoUqXuV
-	/EE0arKzdt3yXgYV30Tbp84PdU7ZldHCpqZtA7lm8C4a8IK6nBu8qIHktP6WERfZolTU
-	MLddrBls6tF1uEtzB1YDPbabxzHczzb9TWAYI/aS1viV125vZQf2czGFW/YKpaowsPEU
-	l1P2PhoadRPjRXl/jruqMcWHmV1EDHCuGcORtvsQKVuhKqm9TOHvfLZMH8280g5hvAT5
-	rdubpDmESjZFwy4NMLQjuJJ2JRg/xfPXiP/IUvcts9k8MVbxl9oPjyKBd08qbF3TCK4v
-	viyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to;
-	bh=uZJ82a/6j7PIHPzwtuVA1oJzAKNoj5Ux1IAv7KlM4aQ=;
-	b=gYSd5npvOyu26N7Yf421A061gTL1Y4bbiVzb2lpVMetp5wRcLGeDNUuSQuzQ602/bU
-	KhvjDtquzoxhnXm2i2YW9qBJBHoMXDrwpeJRQt5hbeYHcRzpU+xKI7ipgSj4FVy9irjK
-	D4ISojKf5TzTFsYn2Zj4Ytqd7Flkf6npfmvX0noTepK+akG73onWgKIilgeJVCkTSeGc
-	caTscr1PhNVdHWbiJcjuYepM8vlQbiokuJJBW1HptUzOfZLFgQSvgj0XBD2aVz5meINY
-	cbZW92ZzH8Xj1SWUebNREbegEJDeFoJV6WhPHIxtDSAaWK8uTr3xuHbaSv04x7FPkS7m
-	T31g==
-X-Gm-Message-State: APjAAAVYepb4d3Z+yfC688JDvYcYir99Uy3hV+NX+0KtxKSP3OJJaU/j
-	LGQQPOy32pIiMxgwC0WsldBCy8Ci2RjPsvTxCsJUdJWC
-X-Google-Smtp-Source: APXvYqyZYRW5wdYMEXg/E+05WlOonlR1fMdq0AGxpxY5Q7zh3fUX1bjHPKREd1ApzxRAROdbUcTdHTsFwH4cHBuhc+Y=
-X-Received: by 2002:ac8:1c42:: with SMTP id j2mr82184664qtk.68.1564515477857; 
-	Tue, 30 Jul 2019 12:37:57 -0700 (PDT)
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
+	*      medium trust
+	*      [192.103.53.11 listed in list.dnswl.org]
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3FFE8E00CD5
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2019 20:41:43 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+	[147.11.189.40])
+	by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x6V3f7Ot014019
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Tue, 30 Jul 2019 20:41:32 -0700
+Received: from pek-lpg-core2.corp.ad.wrs.com (128.224.153.41) by
+	ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+	14.3.468.0; Tue, 30 Jul 2019 20:41:00 -0700
+From: <changqing.li@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 31 Jul 2019 11:40:59 +0800
+Message-ID: <1564544459-411336-1-git-send-email-changqing.li@windriver.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20190729074732.GA11134@chikyu>
-In-Reply-To: <20190729074732.GA11134@chikyu>
-From: vijai kumar <vijaikumar.kanagarajan@gmail.com>
-Date: Wed, 31 Jul 2019 01:07:46 +0530
-Message-ID: <CALLGG_J=yJncdF1UY_f9cxpiqnNXfxN6RF1-dq-PVMBBVfZrqA@mail.gmail.com>
-To: poky@yoctoproject.org, yocto@yoctoproject.org
-Subject: gnupg: Fix for host clashes(2d678cd3f4) - reg
+Subject: [PATCH] qemuboot-x86.inc: remove it and move content to corresponding conf
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -71,70 +41,189 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jul 2019 19:37:59 -0000
-Content-Type: multipart/alternative; boundary="0000000000004dbeab058eeb2573"
+X-List-Received-Date: Wed, 31 Jul 2019 03:41:44 -0000
+Content-Type: text/plain
 
---0000000000004dbeab058eeb2573
-Content-Type: text/plain; charset="UTF-8"
+From: Changqing Li <changqing.li@windriver.com>
 
-Hi All,
+Configrations:
+MACHINE: qemux86-64
+require conf/multilib.conf
+MULTILIBS = "multilib:lib32"
+DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
 
-I have been using the rpm signing facility of poky for sometime now.
+Reproduce steps:
+bitbake lib32-core-image-minimal
+runqemu qemux86-64 nographic lib32-core-image-minimal
 
-Looks like
-https://git.yoctoproject.org/cgit.cgi/poky/commit/meta/recipes-support/gnupg/gnupg?id=2d678cd3f4746adce9d89b8daa877fd669f2ca2d
-introduced a patch for gnupg native to change the socket name from
-S.gpg-agent to S.gpg-agent.yocto-native.
+Errors:
+qemu cannot bootup since:
+Booting from ROM...
+This kernel requires an x86-64 CPU, but only detected an i686 CPU.
+Unable to boot - please use a kernel appropriate for your CPU.
+QEMU: Terminated
 
-This might break builds when you have gnupg socket redirection setup as
-below in the host.
+For lib32 image, override has x86, so the qemubin set to qemu-system-i386,
+fix by move qemuboot parameters to corresponding conf, don't use the override
 
-https://wiki.gnupg.org/NFS.
+Signed-off-by: Changqing Li <changqing.li@windriver.com>
+---
+ meta-yocto-bsp/conf/machine/genericx86-64.conf         | 16 ++++++++++++++++
+ meta-yocto-bsp/conf/machine/genericx86.conf            | 16 ++++++++++++++++
+ .../conf/machine/include/genericx86-common.inc         |  1 -
+ meta/conf/machine/include/qemuboot-x86.inc             | 18 ------------------
+ meta/conf/machine/qemux86-64.conf                      | 17 ++++++++++++++++-
+ meta/conf/machine/qemux86.conf                         | 17 ++++++++++++++++-
+ 6 files changed, 64 insertions(+), 21 deletions(-)
+ delete mode 100644 meta/conf/machine/include/qemuboot-x86.inc
 
-One could easily setup docker to volume mount the agent socket to the
-container and setup S.gpg-agent as above to redirect requests to the
-host's socket. You would just need the public keys in the container.
-This is one such case where this patch could cause problems.
+diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
+index c489462..bf85af0 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
+@@ -7,3 +7,19 @@ require conf/machine/include/tune-core2.inc
+ require conf/machine/include/genericx86-common.inc
+ 
+ SERIAL_CONSOLES_CHECK = "ttyS0"
++
++# For runqemu
++IMAGE_CLASSES += "qemuboot"
++
++QB_SYSTEM_NAME = "qemu-system-x86_64"
++QB_CPU = "-cpu core2duo"
++QB_CPU_KVM = "-cpu core2duo"
++
++QB_AUDIO_DRV = "alsa"
++QB_AUDIO_OPT = "-soundhw ac97,es1370"
++QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.timer=1 uvesafb.task_timeout=-1"
++QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet"
++# Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
++QB_OPT_APPEND += "-object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0"
++
++UVESA_MODE ?= "640x480-32"
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index 9929d27..d8a573e 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -7,3 +7,19 @@ require conf/machine/include/tune-core2.inc
+ require conf/machine/include/genericx86-common.inc
+ 
+ MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += "gma500-gfx-check"
++
++# For runqemu
++IMAGE_CLASSES += "qemuboot"
++
++QB_SYSTEM_NAME = "qemu-system-i386"
++QB_CPU = "-cpu core2duo"
++QB_CPU_KVM = "-cpu core2duo"
++
++QB_AUDIO_DRV = "alsa"
++QB_AUDIO_OPT = "-soundhw ac97,es1370"
++QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.timer=1 uvesafb.task_timeout=-1"
++QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet"
++# Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
++QB_OPT_APPEND += "-object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0"
++
++UVESA_MODE ?= "640x480-32"
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index f83ce5c..75db054 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -1,5 +1,4 @@
+ include conf/machine/include/x86-base.inc
+-require conf/machine/include/qemuboot-x86.inc
+ MACHINE_FEATURES += "wifi efi pcbios"
+ 
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+diff --git a/meta/conf/machine/include/qemuboot-x86.inc b/meta/conf/machine/include/qemuboot-x86.inc
+deleted file mode 100644
+index 82ce46d..0000000
+--- a/meta/conf/machine/include/qemuboot-x86.inc
++++ /dev/null
+@@ -1,18 +0,0 @@
+-# For runqemu
+-IMAGE_CLASSES += "qemuboot"
+-QB_SYSTEM_NAME_x86 = "qemu-system-i386"
+-QB_CPU_x86 = "-cpu core2duo"
+-QB_CPU_KVM_x86 = "-cpu core2duo"
+-
+-QB_SYSTEM_NAME_x86-64 = "qemu-system-x86_64"
+-QB_CPU_x86-64 = "-cpu core2duo"
+-QB_CPU_KVM_x86-64 = "-cpu core2duo"
+-
+-QB_AUDIO_DRV = "alsa"
+-QB_AUDIO_OPT = "-soundhw ac97,es1370"
+-QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.timer=1 uvesafb.task_timeout=-1"
+-QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet"
+-# Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
+-QB_OPT_APPEND += "-object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0"
+-
+-UVESA_MODE ?= "640x480-32"
+diff --git a/meta/conf/machine/qemux86-64.conf b/meta/conf/machine/qemux86-64.conf
+index 383e3bd..c39f72d 100644
+--- a/meta/conf/machine/qemux86-64.conf
++++ b/meta/conf/machine/qemux86-64.conf
+@@ -10,7 +10,6 @@ PREFERRED_PROVIDER_virtual/libgles2 ?= "mesa"
+ require conf/machine/include/qemu.inc
+ DEFAULTTUNE ?= "core2-64"
+ require conf/machine/include/tune-core2.inc
+-require conf/machine/include/qemuboot-x86.inc
+ 
+ UBOOT_MACHINE ?= "qemu-x86_64_defconfig"
+ 
+@@ -39,3 +38,19 @@ module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
+ 
+ WKS_FILE ?= "qemux86-directdisk.wks"
+ do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
++
++# For runqemu
++IMAGE_CLASSES += "qemuboot"
++
++QB_SYSTEM_NAME = "qemu-system-x86_64"
++QB_CPU = "-cpu core2duo"
++QB_CPU_KVM = "-cpu core2duo"
++
++QB_AUDIO_DRV = "alsa"
++QB_AUDIO_OPT = "-soundhw ac97,es1370"
++QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.timer=1 uvesafb.task_timeout=-1"
++QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet"
++# Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
++QB_OPT_APPEND += "-object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0"
++
++UVESA_MODE ?= "640x480-32"
+diff --git a/meta/conf/machine/qemux86.conf b/meta/conf/machine/qemux86.conf
+index 272ad1e..cce87b6 100644
+--- a/meta/conf/machine/qemux86.conf
++++ b/meta/conf/machine/qemux86.conf
+@@ -10,7 +10,6 @@ PREFERRED_PROVIDER_virtual/libgles2 ?= "mesa"
+ require conf/machine/include/qemu.inc
+ DEFAULTTUNE ?= "core2-32"
+ require conf/machine/include/tune-corei7.inc
+-require conf/machine/include/qemuboot-x86.inc
+ 
+ UBOOT_MACHINE ?= "qemu-x86_defconfig"
+ 
+@@ -39,3 +38,19 @@ module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
+ 
+ WKS_FILE ?= "qemux86-directdisk.wks"
+ do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
++
++# For runqemu
++IMAGE_CLASSES += "qemuboot"
++
++QB_SYSTEM_NAME = "qemu-system-i386"
++QB_CPU = "-cpu core2duo"
++QB_CPU_KVM = "-cpu core2duo"
++
++QB_AUDIO_DRV = "alsa"
++QB_AUDIO_OPT = "-soundhw ac97,es1370"
++QB_KERNEL_CMDLINE_APPEND = "vga=0 uvesafb.mode_option=${UVESA_MODE} oprofile.timer=1 uvesafb.task_timeout=-1"
++QB_OPT_APPEND = "-vga vmware -show-cursor -usb -device usb-tablet"
++# Add the 'virtio-rng-pci' device otherwise the guest may run out of entropy
++QB_OPT_APPEND += "-object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0"
++
++UVESA_MODE ?= "640x480-32"
+-- 
+2.7.4
 
-Thoughts?
 
-
-- Vijai Kumar K
-
---0000000000004dbeab058eeb2573
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">Hi All,<br></div>
-<br>
-I have been using the rpm signing facility of poky for sometime now.<br>
-<br>
-Looks like <br>
-<a href=3D"https://git.yoctoproject.org/cgit.cgi/poky/commit/meta/recipes-s=
-upport/gnupg/gnupg?id=3D2d678cd3f4746adce9d89b8daa877fd669f2ca2d" rel=3D"no=
-referrer noreferrer" target=3D"_blank">https://git.yoctoproject.org/cgit.cg=
-i/poky/commit/meta/recipes-support/gnupg/gnupg?id=3D2d678cd3f4746adce9d89b8=
-daa877fd669f2ca2d</a><br>
-introduced a patch for gnupg native to change the socket name from<br>
-S.gpg-agent to S.gpg-agent.yocto-native.<br>
-<br>
-This might break builds when you have gnupg socket redirection setup as<br>
-below in the host.<br>
-<br>
-<a href=3D"https://wiki.gnupg.org/NFS" rel=3D"noreferrer noreferrer" target=
-=3D"_blank">https://wiki.gnupg.org/NFS</a>.<br>
-<br>
-One could easily setup docker to volume mount the agent socket to the<br>
-container and setup S.gpg-agent as above to redirect requests to the<br>
-host&#39;s socket. You would just need the public keys in the container.<br=
->
-This is one such case where this patch could cause problems.</div><div clas=
-s=3D"gmail_quote" dir=3D"auto"><br></div><div class=3D"gmail_quote" dir=3D"=
-auto">Thoughts?<br>
-<br>
-<br>
-- Vijai Kumar K<br>
-</div></div></div>
-
---0000000000004dbeab058eeb2573--
