@@ -1,68 +1,40 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <contact@nicheconsult.in>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 799ADE00D8A; Wed, 31 Jul 2019 03:20:07 -0700 (PDT)
+	id 3F61CE00D35; Wed, 31 Jul 2019 08:23:06 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.128.68 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
-	[209.85.128.68])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 07682E00D85
-	for <poky@yoctoproject.org>; Wed, 31 Jul 2019 03:20:06 -0700 (PDT)
-Received: by mail-wm1-f68.google.com with SMTP id h19so956550wme.0
-	for <poky@yoctoproject.org>; Wed, 31 Jul 2019 03:20:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-	:mime-version:content-transfer-encoding;
-	bh=Cm9JjU86APwrfYK6ryMx56TgAIDtUJvJPH5Zg+DTHQU=;
-	b=QkUFFxElTIIsXTL1m4BFwRnEC86bCSd87GY3tpfdU7f/91UP6WR6xS1bnehha64tZk
-	L8plg3UfyUT2dmKSljLAl6nHtwL0p3bFNZFHWB6v8+vfW6qq9Rlq4I81dtpLRTNqRd/N
-	a7ztDPr7d0k+9aC2Ce4DFFn0yAScHXtBY2vCA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-	:references:user-agent:mime-version:content-transfer-encoding;
-	bh=Cm9JjU86APwrfYK6ryMx56TgAIDtUJvJPH5Zg+DTHQU=;
-	b=CsKoqI6P6eKy2hp6RtBcCLJQB7UOLU3qU8Js4ynrgi2K0Mut7u5FlU4TLLtp+RmMmq
-	4s1l/I+1s9nko51u5Nc3HwPosuaWpz992VjjhCJnZ1spUvzsImwEO+P4Uq5bZcGszF1S
-	dQfVZTt5N9f5BGO/kbHrpd0L0iMrjuL//GJpWZ8G6O0Ix+VWt/rOU4q7NyLw3XBLcRug
-	l8W2UybCjh4yyJOYt0gRDhpuu/m0jLouUyeDEey1ImZf16+MGW436IueHXbbiUSvejjh
-	1yYa9VfYwYuUAktq6FyufU+KIJDOttSy/036jkoUP9kINyDmYyDoKLLyEKT7n8TPIs4X
-	RMdw==
-X-Gm-Message-State: APjAAAWvs+wtBub6M/oogOcLghcWBIAGd8Yh/Ts3+AI9dskY6WskROsI
-	ZYSW6HQUVcccbjcFijiAUMz4x221JIM=
-X-Google-Smtp-Source: APXvYqzT/zUqjhwS9Z8XgWfyUGZdt5a7nvZ/qKorQerhAAb9PRekf5jeO9/2WK30LKFwvryesDzgZw==
-X-Received: by 2002:a7b:c081:: with SMTP id r1mr60925197wmh.76.1564568405990; 
-	Wed, 31 Jul 2019 03:20:05 -0700 (PDT)
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-	by smtp.gmail.com with ESMTPSA id
-	y16sm68972550wrw.33.2019.07.31.03.20.04
-	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Wed, 31 Jul 2019 03:20:05 -0700 (PDT)
-Message-ID: <8b41cd10b0e3ffb1b0ec75cf2b0a796d1ca22888.camel@linuxfoundation.org>
-From: richard.purdie@linuxfoundation.org
-To: Changqing Li <changqing.li@windriver.com>, poky@yoctoproject.org
-Date: Wed, 31 Jul 2019 11:20:04 +0100
-In-Reply-To: <3ffdf92e-33d0-7d68-36b9-ce818ee03a78@windriver.com>
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [217.26.49.172 listed in list.dnswl.org]
+Received: from mxout012.mail.hostpoint.ch (mxout012.mail.hostpoint.ch
+	[217.26.49.172])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 00E08E00CD5
+	for <poky@yoctoproject.org>; Wed, 31 Jul 2019 08:23:04 -0700 (PDT)
+Received: from [10.0.2.46] (helo=asmtp013.mail.hostpoint.ch)
+	by mxout012.mail.hostpoint.ch with esmtp (Exim 4.92 (FreeBSD))
+	(envelope-from <contact@nicheconsult.in>) id 1hsqRT-0003Iz-7W
+	for poky@yoctoproject.org; Wed, 31 Jul 2019 17:23:03 +0200
+Received: from [122.172.95.138] (helo=[192.168.1.3])
+	by asmtp013.mail.hostpoint.ch with esmtpsa
+	(TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.91 (FreeBSD))
+	(envelope-from <contact@nicheconsult.in>) id 1hsqRS-0006Q0-UJ
+	for poky@yoctoproject.org; Wed, 31 Jul 2019 17:23:03 +0200
+X-Authenticated-Sender-Id: contact@nicheconsult.in
+From: Niche Consulting India <contact@nicheconsult.in>
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Date: Wed, 31 Jul 2019 20:52:59 +0530
 References: <1564544459-411336-1-git-send-email-changqing.li@windriver.com>
 	<8b53b4e5ccd515faed145f1844ac7be1170338fa.camel@linuxfoundation.org>
-	<3ffdf92e-33d0-7d68-36b9-ce818ee03a78@windriver.com>
-User-Agent: Evolution 3.32.2-1 
-MIME-Version: 1.0
-Subject: Re: [PATCH] qemuboot-x86.inc: remove it and move content to corresponding conf
+To: poky@yoctoproject.org
+In-Reply-To: <8b53b4e5ccd515faed145f1844ac7be1170338fa.camel@linuxfoundation.org>
+Message-Id: <5DDDFCF3-C543-4699-91C4-AF5D54C98D8A@nicheconsult.in>
+X-Mailer: Apple Mail (2.3273)
+Subject: error in building qt5-image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -75,55 +47,41 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 31 Jul 2019 10:20:07 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-List-Received-Date: Wed, 31 Jul 2019 15:23:06 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2019-07-31 at 17:38 +0800, Changqing Li wrote:
-> On 7/31/19 5:00 PM, Richard Purdie wrote:
-> > On Wed, 2019-07-31 at 11:40 +0800, changqing.li@windriver.com
-> > wrote:
-> > > From: Changqing Li <changqing.li@windriver.com>
-> > > 
-> > > Configrations:
-> > > MACHINE: qemux86-64
-> > > require conf/multilib.conf
-> > > MULTILIBS = "multilib:lib32"
-> > > DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
-> > > 
-> > > Reproduce steps:
-> > > bitbake lib32-core-image-minimal
-> > > runqemu qemux86-64 nographic lib32-core-image-minimal
-> > > 
-> > > Errors:
-> > > qemu cannot bootup since:
-> > > Booting from ROM...
-> > > This kernel requires an x86-64 CPU, but only detected an i686
-> > > CPU.
-> > > Unable to boot - please use a kernel appropriate for your CPU.
-> > > QEMU: Terminated
-> > > 
-> > > For lib32 image, override has x86, so the qemubin set to qemu-
-> > > system-
-> > > i386,
-> > > fix by move qemuboot parameters to corresponding conf, don't use
-> > > the
-> > > override
-> > Why remove/move the whole file when its just QB_SYSTEM_NAME that is
-> > the
-> > issue and that alone could be moved?
-> 
-> I think maybe put qemuboot related parameter together in one file is
-> better
-> 
-> than some config is here and some config is there. So I move the
-> whole  content
+hello,
+ i encountered this error when building qt5-image for ubuntu 14.04 on =
+warrior branch.
+=20
+=20
+Can someone tell me how to fix this? does this mean i checked out an =
+older version of code?
 
-I would prefer not to duplicate this kind of configuration if we can
-help it...
-
-Cheers,
-
-Richard
+=E2=80=94=E2=80=94=E2=80=94=E2=80=94
+# bit bake qt5-image
+=E2=80=A6.
+n file included from libavdevice/avdevice.h:51,
+                 from libavdevice/avdevice.c:23:
+./libavformat/avformat.h:2070:17: note: declared here
+ AVOutputFormat *av_oformat_next(const AVOutputFormat *f);
+                 ^~~~~~~~~~~~~~~
+libavdevice/avdevice.c:92:13: warning: 'av_iformat_next' is deprecated =
+[-Wdeprecated-declarations]
+             if (!(prev =3D av_iformat_next(prev)))
+             ^~
+In file included from libavdevice/avdevice.h:51,
+                 from libavdevice/avdevice.c:23:
+./libavformat/avformat.h:2062:17: note: declared here
+ AVInputFormat  *av_iformat_next(const AVInputFormat  *f);
+                 ^~~~~~~~~~~~~~~
+make[1]: *** write jobserver: Bad file descriptor.  Stop.
+ERROR: oe_runmake failed
+make: *** [compile] Error 2
+WARNING: exit code 1 from a shell command.
+ERROR: Function failed: do_compile (log file is located at =
+/data/build_area/warrior/poky/build/tmp/work/raspberrypi3-poky-linux-gnuea=
+bi/omxplayer/git-r4/temp/log.do_compile.26121)
 
 
