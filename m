@@ -1,37 +1,70 @@
-Return-Path: <Changqing.Li@windriver.com>
+Return-Path: <eduardoabinader@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id F183CE00D4E; Sun,  4 Aug 2019 20:01:47 -0700 (PDT)
+	id 9D346E00BA1; Sun,  4 Aug 2019 22:16:37 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/, 
-	*      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id B91B0E00B8E
-	for <poky@yoctoproject.org>; Sun,  4 Aug 2019 20:01:46 -0700 (PDT)
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
-	by mail.windriver.com (8.15.2/8.15.1) with ESMTPS id x7531kwr002114
-	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
-	for <poky@yoctoproject.org>; Sun, 4 Aug 2019 20:01:46 -0700 (PDT)
-Received: from [128.224.162.186] (128.224.162.186) by ALA-HCA.corp.ad.wrs.com
-	(147.11.189.50) with Microsoft SMTP Server (TLS) id 14.3.468.0;
-	Sun, 4 Aug 2019 20:01:45 -0700
-To: <poky@yoctoproject.org>
-References: <1564622700-171766-1-git-send-email-changqing.li@windriver.com>
-From: Changqing Li <changqing.li@windriver.com>
-Message-ID: <ec5291a9-541e-264b-c055-e8307eea0fab@windriver.com>
-Date: Mon, 5 Aug 2019 11:01:42 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.0
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (eduardoabinader[at]gmail.com)
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [209.85.128.67 listed in list.dnswl.org]
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+	[209.85.128.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A5E88E00A00
+	for <poky@yoctoproject.org>; Sun,  4 Aug 2019 22:16:36 -0700 (PDT)
+Received: by mail-wm1-f67.google.com with SMTP id v15so73393341wml.0
+	for <poky@yoctoproject.org>; Sun, 04 Aug 2019 22:16:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=+UbfYrpb4MHfGl+WpN+U5Aq/aDPik7dm1X+fdtxjIdU=;
+	b=BKCNJbLh7vWtrHr2a5+YkVsDzswgLdG9fprj+2wkeDFbiU7K5EWb7u3hzhy4Iefvl3
+	s9Yn87nrJkXPSVNJFsLDCLgb3efW/Fnte//Gbk40bhjK6728WcNTZrAyzsaCig8ZQLLO
+	yCJ0STOsWSKvpWa1FwCFGhkCCS/zR7S0hpGZ2s20NtIA7FnVJ7P4I9B+MfHBASew5dJT
+	cJhPD36QOazo0sFtx/mtoTiVMjrQIz7aGc09X0txycORisAziGzBvKmuYhv/7JUuDNsH
+	LL9kBeoUaDvtYwMfSusoWGzb20D2g2MC++rSeWPWF79Bd+PpOAX95Wk7AHXDpA7jJFCK
+	LsiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=+UbfYrpb4MHfGl+WpN+U5Aq/aDPik7dm1X+fdtxjIdU=;
+	b=Df5DWDJt8j5AvQhdBHnIW5lHx57TmlRWS0l3mkp8YmVKhhiVUkdj96IrjE0HB93Kzf
+	+/68dY5qZq8Y+QDW0CPtXVmfG39uNy8H34Kaq2EpvTfvRuRtumIUPaFGYDsCTabgGlq/
+	MUv3K9iQ35QLcEenMTQ81wMEFkBqZrSmcJMsW8xJTYrvv3pZdI0LvuiO+M2WgKFllNNH
+	irSl2mSo1lUaPPEvYyUS8cHg0dDaqunk204bealxX6QKymCoIphNpTvsPFF6SuP8ScIh
+	VQCC8+4nCfthrDczDJmcDUhbLYoSYbF/98zNpiPffe0ZHkASReiKKqs7ybqdwYxXgsP7
+	XJ/Q==
+X-Gm-Message-State: APjAAAU+jUi7Iov28VDMcr/ORk4iaZ/u6YDncis1oGjinGM3TndNpiAS
+	IiRXuY/4NbKmPmnpRlpDga4/PA9lp7Q=
+X-Google-Smtp-Source: APXvYqzRH7HX11cRtfWJuzBcXgT1OxlYbl5K4fJzIycCoxWBtplMU9C87gVCYvsRaCla43+DlzPj8A==
+X-Received: by 2002:a1c:a7ca:: with SMTP id
+	q193mr17390079wme.150.1564982194987; 
+	Sun, 04 Aug 2019 22:16:34 -0700 (PDT)
+Received: from localhost.localdomain (p5B2F645F.dip0.t-ipconnect.de.
+	[91.47.100.95]) by smtp.gmail.com with ESMTPSA id
+	y16sm176740000wrg.85.2019.08.04.22.16.33 for <poky@yoctoproject.org>
+	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+	Sun, 04 Aug 2019 22:16:34 -0700 (PDT)
+From: Eduardo Abinader <eduardoabinader@gmail.com>
+X-Google-Original-From: Eduardo Abinader <eduardo.abinader@gmail.com>
+To: poky@yoctoproject.org
+Date: Mon,  5 Aug 2019 07:16:28 +0200
+Message-Id: <20190805051628.6341-1-eduardo.abinader@gmail.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <1564622700-171766-1-git-send-email-changqing.li@windriver.com>
-X-Originating-IP: [128.224.162.186]
-Subject: Re: [PATCH V2] qemuboot-x86: move QB_SYSTEM_NAME to corresponding conf
+Subject: [PATCH] devtool: add ssh key option do deploy-target
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -44,111 +77,46 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 05 Aug 2019 03:01:49 -0000
-Content-Type: text/plain; charset="utf-8"; format=flowed
+X-List-Received-Date: Mon, 05 Aug 2019 05:16:37 -0000
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 
-ping
+Signed-off-by: Eduardo Abinader <eduardo.abinader@gmail.com>
+---
+ scripts/lib/devtool/deploy.py | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Do I need to split this patch into 2 part? since 3 files are unser repo 
-oe-core,  2 files are under repo poky
-
-but changes in files under poky depend on changes under oe-core
-
-On 8/1/19 9:25 AM, changqing.li@windriver.com wrote:
-> From: Changqing Li <changqing.li@windriver.com>
->
-> Configrations:
-> MACHINE: qemux86-64
-> require conf/multilib.conf
-> MULTILIBS = "multilib:lib32"
-> DEFAULTTUNE_virtclass-multilib-lib32 = "x86"
->
-> Reproduce steps:
-> bitbake lib32-core-image-minimal
-> runqemu qemux86-64 nographic lib32-core-image-minimal
->
-> Errors:
-> qemu cannot bootup since:
-> Booting from ROM...
-> This kernel requires an x86-64 CPU, but only detected an i686 CPU.
-> Unable to boot - please use a kernel appropriate for your CPU.
-> QEMU: Terminated
->
-> For lib32 image, override has x86, so the qemubin set to qemu-system-i386,
-> fix by move QB_SYSTEM_NAME to corresponding conf, don't use the override
->
-> Signed-off-by: Changqing Li <changqing.li@windriver.com>
-> ---
->   meta-yocto-bsp/conf/machine/genericx86-64.conf | 2 ++
->   meta-yocto-bsp/conf/machine/genericx86.conf    | 2 ++
->   meta/conf/machine/include/qemuboot-x86.inc     | 2 --
->   meta/conf/machine/qemux86-64.conf              | 3 +++
->   meta/conf/machine/qemux86.conf                 | 3 +++
->   5 files changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/meta-yocto-bsp/conf/machine/genericx86-64.conf b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-> index c489462..81ec24e 100644
-> --- a/meta-yocto-bsp/conf/machine/genericx86-64.conf
-> +++ b/meta-yocto-bsp/conf/machine/genericx86-64.conf
-> @@ -7,3 +7,5 @@ require conf/machine/include/tune-core2.inc
->   require conf/machine/include/genericx86-common.inc
->   
->   SERIAL_CONSOLES_CHECK = "ttyS0"
-> +#For runqemu
-> +QB_SYSTEM_NAME = "qemu-system-x86_64"
-> diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
-> index 9929d27..1387bde 100644
-> --- a/meta-yocto-bsp/conf/machine/genericx86.conf
-> +++ b/meta-yocto-bsp/conf/machine/genericx86.conf
-> @@ -7,3 +7,5 @@ require conf/machine/include/tune-core2.inc
->   require conf/machine/include/genericx86-common.inc
->   
->   MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += "gma500-gfx-check"
-> +#For runqemu
-> +QB_SYSTEM_NAME = "qemu-system-i386"
-> diff --git a/meta/conf/machine/include/qemuboot-x86.inc b/meta/conf/machine/include/qemuboot-x86.inc
-> index 82ce46d..3931b0f 100644
-> --- a/meta/conf/machine/include/qemuboot-x86.inc
-> +++ b/meta/conf/machine/include/qemuboot-x86.inc
-> @@ -1,10 +1,8 @@
->   # For runqemu
->   IMAGE_CLASSES += "qemuboot"
-> -QB_SYSTEM_NAME_x86 = "qemu-system-i386"
->   QB_CPU_x86 = "-cpu core2duo"
->   QB_CPU_KVM_x86 = "-cpu core2duo"
->   
-> -QB_SYSTEM_NAME_x86-64 = "qemu-system-x86_64"
->   QB_CPU_x86-64 = "-cpu core2duo"
->   QB_CPU_KVM_x86-64 = "-cpu core2duo"
->   
-> diff --git a/meta/conf/machine/qemux86-64.conf b/meta/conf/machine/qemux86-64.conf
-> index 383e3bd..4b50e66 100644
-> --- a/meta/conf/machine/qemux86-64.conf
-> +++ b/meta/conf/machine/qemux86-64.conf
-> @@ -39,3 +39,6 @@ module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
->   
->   WKS_FILE ?= "qemux86-directdisk.wks"
->   do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
-> +
-> +#For runqemu
-> +QB_SYSTEM_NAME = "qemu-system-x86_64"
-> diff --git a/meta/conf/machine/qemux86.conf b/meta/conf/machine/qemux86.conf
-> index 272ad1e..3832302 100644
-> --- a/meta/conf/machine/qemux86.conf
-> +++ b/meta/conf/machine/qemux86.conf
-> @@ -39,3 +39,6 @@ module_conf_uvesafb = "options uvesafb mode_option=${UVESA_MODE}"
->   
->   WKS_FILE ?= "qemux86-directdisk.wks"
->   do_image_wic[depends] += "syslinux:do_populate_sysroot syslinux-native:do_populate_sysroot mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot"
-> +
-> +#For runqemu
-> +QB_SYSTEM_NAME = "qemu-system-i386"
-
+diff --git a/scripts/lib/devtool/deploy.py b/scripts/lib/devtool/deploy.py
+index d1ce2309f9..6a997735fc 100644
+--- a/scripts/lib/devtool/deploy.py
++++ b/scripts/lib/devtool/deploy.py
+@@ -212,6 +212,9 @@ def deploy(args, config, basepath, workspace):
+             scp_port = "-P %s" % args.port
+             ssh_port = "-p %s" % args.port
+ 
++        if args.key:
++            extraoptions += ' -i %s' % args.key
++
+         # In order to delete previously deployed files and have the manifest file on
+         # the target, we write out a shell script and then copy it to the target
+         # so we can then run it (piping tar output to it).
+@@ -326,6 +329,8 @@ def register_commands(subparsers, context):
+     parser_deploy.add_argument('--no-check-space', help='Do not check for available space before deploying', action='store_true')
+     parser_deploy.add_argument('-e', '--ssh-exec', help='Executable to use in place of ssh')
+     parser_deploy.add_argument('-P', '--port', help='Specify port to use for connection to the target')
++    parser_deploy.add_argument('-I', '--key',
++                               help='Specifiy ssh private key for connection to the target')
+ 
+     strip_opts = parser_deploy.add_mutually_exclusive_group(required=False)
+     strip_opts.add_argument('-S', '--strip',
+@@ -349,4 +354,7 @@ def register_commands(subparsers, context):
+     parser_undeploy.add_argument('-n', '--dry-run', help='List files to be undeployed only', action='store_true')
+     parser_undeploy.add_argument('-e', '--ssh-exec', help='Executable to use in place of ssh')
+     parser_undeploy.add_argument('-P', '--port', help='Specify port to use for connection to the target')
++    parser_undeploy.add_argument('-I', '--key',
++                               help='Specifiy ssh private key for connection to the target')
++
+     parser_undeploy.set_defaults(func=undeploy)
 -- 
-BRs
-
-Sandy(Li Changqing)
+2.20.1
 
 
