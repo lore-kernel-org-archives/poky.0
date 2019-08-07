@@ -1,66 +1,79 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <glep-poky@m.gmane.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 7C21DE00D59; Tue,  6 Aug 2019 03:21:57 -0700 (PDT)
+	id B3707E00D8A; Tue,  6 Aug 2019 21:00:08 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,FORGED_MUA_MOZILLA,
+	RDNS_DYNAMIC autolearn=no version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (alex.kanavin[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.222.52 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com
-	[209.85.222.52])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 54FE8E00A93
-	for <poky@yoctoproject.org>; Tue,  6 Aug 2019 03:21:56 -0700 (PDT)
-Received: by mail-ua1-f52.google.com with SMTP id c4so6627829uad.1
-	for <poky@yoctoproject.org>; Tue, 06 Aug 2019 03:21:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=qR2xT9ty5GAhXF32b4JNcPy2KFcevBPscMZd5QjoJoo=;
-	b=u25R+bhwfZmdbLqRznuUiUPivt5salMz++0mwqoNymU2yvwvf3qYnfknMKum9CZgY3
-	4nRmHd/SDBhzvaHYSgR8HlKQhz6etYZ9NwpN1Y+IQ1TPOI7kimJr640eyKQsIQheZGDX
-	kKqZgzE1mWCQ8HDaMdhta/mi+CfO6+L6f9HmoyfivmelxyxNPFTs3glC001s66Y+5GXe
-	zUZ9CYEiCEujlN/muP0bSUTwY9x6cyEWkQSUwShRpVetv5h/K61v3ySSQ08EENYB7IfD
-	0nciWuT6sfNBnAXd45UxtH8wJ/8yN985YTZtNHMee9saNtGrtRr3dlegjhDizxlceqC6
-	kN9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=qR2xT9ty5GAhXF32b4JNcPy2KFcevBPscMZd5QjoJoo=;
-	b=Svknihs/igGRNw0w9qMH2kTNeWSbVxUCZjMF4EYX9yVglER9dnakOdzXy27IbAsHND
-	mM7McPvXxTqyaN415D1XrPdav3xG5O/XgiO18wl5sUwU4guH0DeaC5hhd5Gn7uAYeBTT
-	1Tt/QzR0IIqMjK6WHFQx+qNXiBUpdzblajBrnOaks1+eDPcNjT8ynt1ggJNFCQT9ZczB
-	YGuhYrjh0+XM83+HjGtIU3dWVgen/Eu7gYzoKJ0kmXLYzhT+E3bKUiMLSdKK/8JtKQh4
-	6TTfSHrGKhMDY6TWO8G8/yd9ADLGJJembJSw6zfECqw9zlrvwGaE/2LwCnPd3fU6VnLz
-	sXGA==
-X-Gm-Message-State: APjAAAUkdGNHCOHyRewenAn1OGL6SgjbK+1VMZGc34dUctIHN/3VyxRz
-	y7PRWM+2NXNO9qwWwV62TiqFOy/lqhYn1gS8oGk=
-X-Google-Smtp-Source: APXvYqwd9g9TuScA+OKlR2vJ85luG8ee53F2YUQV3BB3xrm+V97KBz6PsNVoduJtph5ZHdRM3GHeQFotn+E1ofPEnTU=
-X-Received: by 2002:ab0:70b1:: with SMTP id q17mr1720523ual.100.1565086915544; 
-	Tue, 06 Aug 2019 03:21:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190729074732.GA11134@chikyu>
-	<CALLGG_KH9wWtTVBZuq7c8vNAh5-9QjSv4kFBANpmYMqmgx5hEw@mail.gmail.com>
-In-Reply-To: <CALLGG_KH9wWtTVBZuq7c8vNAh5-9QjSv4kFBANpmYMqmgx5hEw@mail.gmail.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Tue, 6 Aug 2019 12:21:44 +0200
-Message-ID: <CANNYZj-xPPT_Ze_DO1ixzwpgjKyAMWeZqOMw=YpmsQwZYGk=4w@mail.gmail.com>
-To: vijai kumar <vijaikumar.kanagarajan@gmail.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: gnupg: Fix for host clashes(2d678cd3f4) - reg
+	*  1.0 RDNS_DYNAMIC Delivered to internal network by host with
+	*      dynamic-looking rDNS
+	*  2.3 FORGED_MUA_MOZILLA Forged mail pretending to be from Mozilla
+X-Greylist: delayed 902 seconds by postgrey-1.32 at yocto-www;
+	Tue, 06 Aug 2019 21:00:07 PDT
+Received: from blaine.gmane.org (195-159-176-226.customer.powertech.no
+	[195.159.176.226])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 85AD3E00C22
+	for <poky@yoctoproject.org>; Tue,  6 Aug 2019 21:00:07 -0700 (PDT)
+Received: from list by blaine.gmane.org with local (Exim 4.89)
+	(envelope-from <glep-poky@m.gmane.org>) id 1hvCsp-000mhQ-HH
+	for poky@yoctoproject.org; Wed, 07 Aug 2019 05:45:03 +0200
+X-Injected-Via-Gmane: http://gmane.org/
+To: poky@yoctoproject.org
+From: Tim Blechmann <tim@klingt.org>
+Date: Wed, 7 Aug 2019 11:28:32 +0800
+Message-ID: <qidgh2$3lce$1@blaine.gmane.org>
+Mime-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
+	Gecko/20100101 Thunderbird/60.8.0
+X-Mozilla-News-Host: news://news.gmane.org:119
+Openpgp: preference=signencrypt
+Autocrypt: addr=tim@klingt.org; keydata=
+	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
+	EfM=
+Subject: deb: custom compression
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -73,103 +86,66 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 06 Aug 2019 10:21:57 -0000
-Content-Type: multipart/alternative; boundary="000000000000a4cd2b058f70313c"
+X-List-Received-Date: Wed, 07 Aug 2019 04:00:08 -0000
+X-Groupsio-MsgNum: 11753
+Content-Type: multipart/mixed; boundary="------------548E4EE4E1B243024C13C558"
+Content-Language: en-US
 
---000000000000a4cd2b058f70313c
-Content-Type: text/plain; charset="UTF-8"
+--------------548E4EE4E1B243024C13C558
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-If there is a problem, we generally expect specific steps that demonstrate
-the problem, or a patch that addresses the problem. As your message had
-neither, there is nothing to look at really.
+hi!
 
-Regards,
-Alex
+poky compresses deb packages with the default flags, which these days
+boils down to using xz compression.
+trying to cut down turnaround times for local builds, i tried to modify
+the `package_deb` class to be able to force a low gzip compression via a
+`DPKG_FAST` parameter (patch attached).
 
-On Tue, 6 Aug 2019 at 08:37, vijai kumar <vijaikumar.kanagarajan@gmail.com>
-wrote:
+could this patch be accepted upstream?
 
-> Ping. Did anybody get a chance to look at this?
->
-> - Vijai Kumar K
->
->
-> On Mon 29 Jul, 2019, 1:17 PM Vijai Kumar K, <
-> vijaikumar.kanagarajan@gmail.com> wrote:
->
->> Hi All,
->>
->> I have been using the rpm signing facility of poky for sometime now.
->>
->> Looks like
->>
->> https://git.yoctoproject.org/cgit.cgi/poky/commit/meta/recipes-support/gnupg/gnupg?id=2d678cd3f4746adce9d89b8daa877fd669f2ca2d
->> introduced a patch for gnupg native to change the socket name from
->> S.gpg-agent to S.gpg-agent.yocto-native.
->>
->> This might break builds when you have gnupg socket redirection setup as
->> below in the host.
->>
->> https://wiki.gnupg.org/NFS.
->>
->> One could easily setup docker to volume mount the agent socket to the
->> container and setup S.gpg-agent as above to redirect requests to the
->> host's socket. You would just need the public keys in the container.
->> This is one such case where this patch could cause problems.
->>
->>
->> - Vijai Kumar K
->>
->
+thanks a lot,
+tim
 
---000000000000a4cd2b058f70313c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--------------548E4EE4E1B243024C13C558
+Content-Type: text/plain; charset=UTF-8; x-mac-type="0"; x-mac-creator="0";
+ name="0001-package_deb-add-DPKG_FAST-flag.patch"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="0001-package_deb-add-DPKG_FAST-flag.patch"
 
-<div dir=3D"ltr"><div>If there is a problem, we generally expect specific s=
-teps that demonstrate the problem, or a patch that addresses the problem. A=
-s your message had neither, there is nothing to look at really.</div><div><=
-br></div><div>Regards,</div><div>Alex<br></div></div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, 6 Aug 2019 at 08:37,=
- vijai kumar &lt;<a href=3D"mailto:vijaikumar.kanagarajan@gmail.com">vijaik=
-umar.kanagarajan@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
-04,204);padding-left:1ex"><div dir=3D"ltr"><div>Ping. Did anybody get a cha=
-nce to look at this?</div><div><br></div><div>- Vijai Kumar K<br></div><div=
- dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
-s=3D"gmail_attr">On Mon 29 Jul, 2019, 1:17 PM Vijai Kumar K, &lt;<a href=3D=
-"mailto:vijaikumar.kanagarajan@gmail.com" target=3D"_blank">vijaikumar.kana=
-garajan@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex">Hi All,<br>
-<br>
-I have been using the rpm signing facility of poky for sometime now.<br>
-<br>
-Looks like <br>
-<a href=3D"https://git.yoctoproject.org/cgit.cgi/poky/commit/meta/recipes-s=
-upport/gnupg/gnupg?id=3D2d678cd3f4746adce9d89b8daa877fd669f2ca2d" rel=3D"no=
-referrer noreferrer" target=3D"_blank">https://git.yoctoproject.org/cgit.cg=
-i/poky/commit/meta/recipes-support/gnupg/gnupg?id=3D2d678cd3f4746adce9d89b8=
-daa877fd669f2ca2d</a><br>
-introduced a patch for gnupg native to change the socket name from<br>
-S.gpg-agent to S.gpg-agent.yocto-native.<br>
-<br>
-This might break builds when you have gnupg socket redirection setup as<br>
-below in the host.<br>
-<br>
-<a href=3D"https://wiki.gnupg.org/NFS" rel=3D"noreferrer noreferrer" target=
-=3D"_blank">https://wiki.gnupg.org/NFS</a>.<br>
-<br>
-One could easily setup docker to volume mount the agent socket to the<br>
-container and setup S.gpg-agent as above to redirect requests to the<br>
-host&#39;s socket. You would just need the public keys in the container.<br=
->
-This is one such case where this patch could cause problems.<br>
-<br>
-<br>
-- Vijai Kumar K<br>
-</blockquote></div></div></div>
-</div>
-</blockquote></div>
+RnJvbSBjMzZlYWQ3YzRjYzliMGNiODFiMjc0ZGRjZDI4OGYwZDEzYzkwNjYyIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBUaW0gQmxlY2htYW5uIDx0aW1Aa2xpbmd0Lm9yZz4KRGF0ZTog
+RnJpLCAyIEF1ZyAyMDE5IDA2OjA1OjQ3ICswMjAwClN1YmplY3Q6IFtQQVRDSF0gcGFja2FnZV9k
+ZWI6IGFkZCBEUEtHX0ZBU1QgZmxhZwoKYnkgZGVmYXVsdCBkcGtnLWRlYiBjb21wcmVzc2VzIGRl
+YmlhbiBwYWNrYWdlcyB3aXRoIHh6LiB4eiBnaXZlcyBncmVhdApjb21wcmVzc2lvbiByYXRpb3Ms
+IGF0IHRoZSBjb3N0IG9mIGNvbXByZXNzaW9uIHNwZWVkLgoKd2UgdGhlcmVmb3JlIGludHJvZHVj
+ZSBhIERQS0dfRkFTVCBmbGFnLCB3aGljaCBjb21wcmVzc2VzIHdpdGggZ3ppcCwgd2hpY2gKc2hv
+dWxkIGJlIGFuIG9yZGVyIG9mIG1hZ25pdHVkZSBmYXN0ZXIgdGhhbiB4eiBhdCB0aGUgY29zdCBv
+ZiBhbG1vc3QKZG91YmxpbmcgcGFja2FnZSBzaXplcy4KCm51bWJlcnM6Cmh0dHBzOi8vd3d3LnJv
+b3R1c2Vycy5jb20vZ3ppcC12cy1iemlwMi12cy14ei1wZXJmb3JtYW5jZS1jb21wYXJpc29uLwoK
+U2lnbmVkLW9mZi1ieTogVGltIEJsZWNobWFubiA8dGltQGtsaW5ndC5vcmc+Ci0tLQogbWV0YS9j
+bGFzc2VzL3BhY2thZ2VfZGViLmJiY2xhc3MgfCAxMiArKysrKysrKysrKy0KIDEgZmlsZSBjaGFu
+Z2VkLCAxMSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWV0YS9j
+bGFzc2VzL3BhY2thZ2VfZGViLmJiY2xhc3MgYi9tZXRhL2NsYXNzZXMvcGFja2FnZV9kZWIuYmJj
+bGFzcwppbmRleCA2ZjgxNTkxNjUzLi4yOGM2YjljMTlmIDEwMDY0NAotLS0gYS9tZXRhL2NsYXNz
+ZXMvcGFja2FnZV9kZWIuYmJjbGFzcworKysgYi9tZXRhL2NsYXNzZXMvcGFja2FnZV9kZWIuYmJj
+bGFzcwpAQCAtMTUsNiArMTUsMTAgQEAgQVBUQ09ORl9UQVJHRVQgPSAiJHtXT1JLRElSfSIKIAog
+QVBUX0FSR1MgPSAiJHtAWycnLCAnLS1uby1pbnN0YWxsLXJlY29tbWVuZHMnXVtkLmdldFZhcigi
+Tk9fUkVDT01NRU5EQVRJT05TIikgPT0gIjEiXX0iCiAKK0RQS0dfRkFTVCA/Pz0gIjAiCisKK0JC
+X0hBU0hDT05GSUdfV0hJVEVMSVNUICs9ICJEUEtHX0ZBU1QiCisKIGRlZiBkZWJpYW5fYXJjaF9t
+YXAoYXJjaCwgdHVuZSk6CiAgICAgdHVuZV9mZWF0dXJlcyA9IHR1bmUuc3BsaXQoKQogICAgIGlm
+IGFyY2ggPT0gImFsbGFyY2giOgpAQCAtMjY5LDcgKzI3MywxMyBAQCBkZWYgZGViX3dyaXRlX3Br
+Zyhwa2csIGQpOgogICAgICAgICAgICAgY29uZmZpbGVzLmNsb3NlKCkKIAogICAgICAgICBvcy5j
+aGRpcihiYXNlZGlyKQotICAgICAgICBzdWJwcm9jZXNzLmNoZWNrX291dHB1dCgiUEFUSD1cIiVz
+XCIgZHBrZy1kZWIgLWIgJXMgJXMiICUgKGxvY2FsZGF0YS5nZXRWYXIoIlBBVEgiKSwgcm9vdCwg
+cGtnb3V0ZGlyKSwKKworICAgICAgICBpZiBkLmdldFZhcigiRFBLR19GQVNUIikgIT0gIjAiOgor
+ICAgICAgICAgICAgZHBrZ19hcmdzID0gIi1aZ3ppcCAtejEiCisgICAgICAgIGVsc2U6CisgICAg
+ICAgICAgICBkcGtnX2FyZ3MgPSAiIgorCisgICAgICAgIHN1YnByb2Nlc3MuY2hlY2tfb3V0cHV0
+KCJQQVRIPVwiJXNcIiBkcGtnLWRlYiAlcyAtYiAlcyAlcyIgJSAobG9jYWxkYXRhLmdldFZhcigi
+UEFUSCIpLCBkcGtnX2FyZ3MsIHJvb3QsIHBrZ291dGRpciksCiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHN0ZGVycj1zdWJwcm9jZXNzLlNURE9VVCwKICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgc2hlbGw9VHJ1ZSkKIAotLSAKMi4xOC4wCgo=
 
---000000000000a4cd2b058f70313c--
+--------------548E4EE4E1B243024C13C558--
