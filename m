@@ -1,6 +1,6 @@
-Return-Path: <quentin.schulz@streamunlimited.com>
+Return-Path: <contact@nicheconsult.in>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 20160E00DD1; Wed, 14 Aug 2019 00:10:58 -0700 (PDT)
+	id 8F7F0E00DD3; Wed, 14 Aug 2019 00:49:12 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -10,27 +10,28 @@ X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
 	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
 	low *      trust
-	*      [213.33.87.19 listed in list.dnswl.org]
-Received: from bsmtp7.bon.at (bsmtp7.bon.at [213.33.87.19])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A0996E00C81
-	for <poky@yoctoproject.org>; Wed, 14 Aug 2019 00:10:49 -0700 (PDT)
-Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp7.bon.at (Postfix) with ESMTPSA id 467gj41bx7z5tl9;
-	Wed, 14 Aug 2019 09:10:48 +0200 (CEST)
-Date: Wed, 14 Aug 2019 09:10:47 +0200
-From: Quentin Schulz <quentin.schulz@streamunlimited.com>
-To: akuster808 <akuster808@gmail.com>
-Message-ID: <20190814071046.6aoxu4cezoali4wy@qschulz>
-References: <20190611144648.30886-1-quentin.schulz@streamunlimited.com>
-	<f827d3c0-2fab-2313-1666-3d3375abec53@gmail.com>
-	<20190612072545.lbcz5swovdswmcly@qschulz>
-	<20190701153545.l7d6zo5gp5q526ds@qschulz>
-	<20190725091431.44qkrjtqjvkpjkka@qschulz>
-MIME-Version: 1.0
-In-Reply-To: <20190725091431.44qkrjtqjvkpjkka@qschulz>
-User-Agent: NeoMutt/20180716
-Cc: poky@yoctoproject.org, andriy.danylovskyy@streamunlimited.com
-Subject: Re: [thud] [PATCH 0/2] opkg and BAD_RECOMMENDATIONS in thud 2.6.2
+	*      [217.26.49.173 listed in list.dnswl.org]
+Received: from mxout013.mail.hostpoint.ch (mxout013.mail.hostpoint.ch
+	[217.26.49.173])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 51F9CE00DBD
+	for <poky@yoctoproject.org>; Wed, 14 Aug 2019 00:49:11 -0700 (PDT)
+Received: from [10.0.2.45] (helo=asmtp012.mail.hostpoint.ch)
+	by mxout013.mail.hostpoint.ch with esmtp (Exim 4.92 (FreeBSD))
+	(envelope-from <contact@nicheconsult.in>) id 1hxo1u-000B72-29
+	for poky@yoctoproject.org; Wed, 14 Aug 2019 09:49:10 +0200
+Received: from [171.61.122.124] (helo=[192.168.1.3])
+	by asmtp012.mail.hostpoint.ch with esmtpsa
+	(TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.91 (FreeBSD))
+	(envelope-from <contact@nicheconsult.in>) id 1hxo1t-0005BK-Qh
+	for poky@yoctoproject.org; Wed, 14 Aug 2019 09:49:10 +0200
+X-Authenticated-Sender-Id: contact@nicheconsult.in
+From: Niche Consulting India <contact@nicheconsult.in>
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Message-Id: <78ADA9F5-6DFF-464C-828F-8C86886B5715@nicheconsult.in>
+Date: Wed, 14 Aug 2019 13:19:03 +0530
+To: Poky Project <poky@yoctoproject.org>
+X-Mailer: Apple Mail (2.3273)
+Subject: which branch to take for building qt5 image
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -43,18 +44,15 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 14 Aug 2019 07:10:58 -0000
+X-List-Received-Date: Wed, 14 Aug 2019 07:49:12 -0000
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+hello,
 
-I can see both patches in yocto-2.6.3. Thanks for backporting.
+ which is the recommended branch to pick for building qt5 image -to be =
+deployed on raspberry pi3?
 
-Have a good day,
-Quentin
--- 
-StreamUnlimited Engineering GmbH
-High Tech Campus Vienna, Gutheil-Schoder-Gasse 10, 1100 Vienna, Austria
-quentin.schulz@streamunlimited.com, www.streamunlimited.com
+thanks
+
 
