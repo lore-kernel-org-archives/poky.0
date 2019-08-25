@@ -1,60 +1,48 @@
-Return-Path: <kamal.jagesia@networkmarvels.com>
+Return-Path: <bunk@stusta.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 175E9E00D5F; Fri, 23 Aug 2019 00:06:42 -0700 (PDT)
+	id 66556E009E6; Sun, 25 Aug 2019 09:57:02 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, HTML_IMAGE_ONLY_12, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
-	T_REMOTE_IMAGE autolearn=no version=3.3.1
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 2.1 HTML_IMAGE_ONLY_12 BODY: HTML: images with 800-1200 bytes of
-	words *  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [141.84.69.5 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.167.171 listed in list.dnswl.org]
-	*  0.0 T_REMOTE_IMAGE Message contains an external image
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
-	[209.85.167.171])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 07725E00C9C
-	for <poky@yoctoproject.org>; Fri, 23 Aug 2019 00:06:40 -0700 (PDT)
-Received: by mail-oi1-f171.google.com with SMTP id n1so6305732oic.3
-	for <poky@yoctoproject.org>; Fri, 23 Aug 2019 00:06:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=networkmarvels-com.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:from:date:message-id:subject:to;
-	bh=MGHvG7VDVS56ILrTgFi+P7ztmP7Di/VNcwvnJIGX0Q0=;
-	b=pOU9BFJyB2GmqYxeQvS1BysI64dZIF1xLS51ISQg8OM5AmAktayB2DVbeQZQTXlS0B
-	mi2mpI74naOL00nTrlk6BWNat8yPcvJNiMGo2BQodSIXa0sZYPZppRoH6rtivIyrHTds
-	aaHkCPMMQ6eWI9sqpNEG1LyGf6666MNTwKCOi0NdrBITq9IPN35fvbuIROW5QZN461rv
-	5nmwoQs8vob6ALE6KZvFBoX4WMHaO7TkA/0d2gxEbV4GOF2CzuWtHbxyWSF95M80tlBk
-	ZNQEofvGy4ikFNHG2s6pim9S/aC7Ojfvl25S+vRqigVcfKBerR/biFRbnL1dR/wVjeLS
-	WKVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=MGHvG7VDVS56ILrTgFi+P7ztmP7Di/VNcwvnJIGX0Q0=;
-	b=RJNcKtYHWF8/tbv0b2D8I3MyRAAV6YYFwUQR594FRZBcA+G9e/J6fGgKYjmtuBM0K3
-	uxUwCXHXCV2hAFy5EV7lytserFDOaNY2I6B+VAoznoRDYVz80d8vV8VKRwg9BWSXXkeW
-	4LRTQjHwpVmx4GZeyFtUk/ksT1L62Ynb8ySv8m4vG/ro1qtjZzjeEw8DDYp48seq3piu
-	rcoqu8gFD1nnYGSIQB6KxTY+LT28tNWJtxOMM6rD850Zb+ZIXLFTdYF+aqdtwFVj444U
-	V6R2pvKAwQjbESK0iyWTG28Mq7VoQOoBIIqTCEKNKq6Q5nTb2f9FM/4Gdj+EO3Zqkn+9
-	iFWA==
-X-Gm-Message-State: APjAAAVZ9yJ7gKQbq/lfc0tyi139KqpCMQBW7iS/YMT3WzNahVWOCuZb
-	Gdd0jPbT6XpYJhPXTBucZIMDrGCDsnK3I+Q9J+H3SY97xuo4tQ==
-X-Google-Smtp-Source: APXvYqz4j26T8EEqfFFBdg+dB6ZJtp2HydKM6RKLrxdxf+N7dBngon0D9pp+BYiG+pb/iSdkKQOuGsl4NS8ut6BTfvM=
-X-Received: by 2002:aca:750c:: with SMTP id q12mr2080164oic.177.1566544000095; 
-	Fri, 23 Aug 2019 00:06:40 -0700 (PDT)
-MIME-Version: 1.0
-From: Kamal Jagesia <kamal.jagesia@networkmarvels.com>
-Date: Fri, 23 Aug 2019 12:36:30 +0530
-Message-ID: <CAJrV_B0bf3k1KQc+dXAbqU1ehE_m8C=MsRtLFZ+fm+sw7vVaWw@mail.gmail.com>
+Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ADE7CE008A4
+	for <poky@yoctoproject.org>; Sun, 25 Aug 2019 09:57:00 -0700 (PDT)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 46GhBL39dyz29
+	for <poky@yoctoproject.org>; Sun, 25 Aug 2019 18:56:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
+	s=default; t=1566752218;
+	bh=N4TcuTRJMtEGkIZcZC/EPlQaLgoxH8SJy6NVEnLX1rU=;
+	h=From:To:Subject:Date:From;
+	b=NXCImXRvps8oFA051IcduzyDG18mtkofwNgDcLfUeHti88q3FrsLn0ZxFKo610zPf
+	BGMZxBcWwZeGkPS/dBgRtf6TuCaTcm86U0xhqV41ERFrGG+PH4Sz3p2vrO3ONjgjo8
+	bAIhDr1fKqMOb2gYaVxT4HvzjDzxuqKDutA1jBFKU4gAB2LnzzorGkw/BYOtUoDPek
+	xzH3fYosQIhYcaSiy3Nu4PLQGgNA9hou916DtTnfWyNbMTVN0QhGZo0YlXV0Imdefv
+	LwApOHTBJ7GRBhfB9DRyRSUMHtMSbmrQvGo/9+SWLYYk3XpxjIuloemYY68SPf7629
+	EtaMvlOHVuB9HlExqSdoszS3K3KZn/hcmOHLRpSF5GjGUIUeKwJDxuE1qytcnYxhjm
+	nYJEzNzPEv7zqT/rYuQJ0gB++ul7Kg/CTxQi0qtmaTdncwGfPONJKcKJkwq7/mIVEE
+	i25tWsUsE7pnN+29zJZ3+ErnWjci0T8Is1ir+Tlsh81mJMs8L1yhGsqVUu01+dxjma
+	+KSezP36JgLXOHc0r49XaReTQRoj1DEnzzI2AEjl7409FEtVdZRwhGPvW00tbEEKSy
+	SAAYym0S9PPrqodNvmp7EdSX0HJxiCWHBhv8wSBDpuONxg1envGU46mZCPDCi2RLQu
+	ftK8JiJYskKNK7g4zeEajsk0=
+From: Adrian Bunk <bunk@stusta.de>
 To: poky@yoctoproject.org
-Subject: Queries regd Yocto bitbake Build for meta-poky layer
+Date: Sun, 25 Aug 2019 19:56:57 +0300
+Message-Id: <20190825165657.22767-1-bunk@stusta.de>
+X-Mailer: git-send-email 2.17.1
+Subject: [PATCH] Remove LSB support bits
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -67,37 +55,72 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Aug 2019 07:06:42 -0000
-Content-Type: multipart/alternative; boundary="000000000000a6ac2c0590c3722a"
+X-List-Received-Date: Sun, 25 Aug 2019 16:57:02 -0000
 
---000000000000a6ac2c0590c3722a
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Adrian Bunk <bunk@stusta.de>
+---
+ .../distro/include/poky-distro-alt-test-config.inc  |  2 +-
+ meta-poky/conf/distro/poky-lsb.conf                 | 13 -------------
+ meta-poky/conf/distro/poky-tiny.conf                |  3 ---
+ meta-poky/conf/local.conf.sample.extended           |  2 +-
+ 4 files changed, 2 insertions(+), 18 deletions(-)
+ delete mode 100644 meta-poky/conf/distro/poky-lsb.conf
 
-Hello Sir,
-I want to do a Yocto bitbake build of the meta-poky layer but the
-output Linux Image (.wic file) or (.iso ) file should not exceed size 100
-MB .
-I want to do a core-image-x11 build .
-Kindly let me know how to proceed?
+diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+index 081584f397..dff5804530 100644
+--- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
++++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+@@ -1,2 +1,2 @@
+ DISTRO_FEATURES_append = " pam"
+-PREFERRED_VERSION_linux-yocto_linuxstdbase ?= "4.19%"
++PREFERRED_VERSION_linux-yocto ?= "4.19%"
+diff --git a/meta-poky/conf/distro/poky-lsb.conf b/meta-poky/conf/distro/poky-lsb.conf
+deleted file mode 100644
+index 9b36c87c48..0000000000
+--- a/meta-poky/conf/distro/poky-lsb.conf
++++ /dev/null
+@@ -1,13 +0,0 @@
+-
+-require conf/distro/poky.conf
+-
+-DISTRO = "poky-lsb"
+-DISTROOVERRIDES = "poky:linuxstdbase"
+-
+-DISTRO_FEATURES_append = " pam"
+-
+-# Ensure the kernel nfs server is enabled
+-KERNEL_FEATURES_append_pn-linux-yocto = " features/nfsd/nfsd-enable.scc"
+-
+-# Use the LTSI Kernel for LSB Testing
+-PREFERRED_VERSION_linux-yocto_linuxstdbase ?= "4.19%"
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 1f8b6e8ff3..8236b6f273 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -117,9 +117,6 @@ PNBLACKLIST[build-appliance-image] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-base] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-clutter] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-full-cmdline] = "not buildable with poky-tiny"
+-PNBLACKLIST[core-image-lsb] = "not buildable with poky-tiny"
+-PNBLACKLIST[core-image-lsb-dev] = "not buildable with poky-tiny"
+-PNBLACKLIST[core-image-lsb-sdk] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-rt] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-rt-sdk] = "not buildable with poky-tiny"
+ PNBLACKLIST[core-image-sato] = "not buildable with poky-tiny"
+diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+index 77e8be26fa..dc92a16f6c 100644
+--- a/meta-poky/conf/local.conf.sample.extended
++++ b/meta-poky/conf/local.conf.sample.extended
+@@ -270,7 +270,7 @@ DISTRO_FEATURES_remove = "x11"
+ #
+ # By including the security_flags include file you enable flags
+ # to the compiler and linker that cause them to generate more secure
+-# code, this is enabled by default in the poky-lsb distro.
++# code.
+ # This does affect compile speed slightly.
+ #
+ # Use the following line to enable the security compiler and linker flags to your build
+-- 
+2.17.1
 
-Thanks & Regards
 
---000000000000a6ac2c0590c3722a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello Sir,<div>I want to do a Yocto bitbake build of the m=
-eta-poky layer but the=C2=A0</div><div>output Linux Image (.wic file) or (.=
-iso ) file should not exceed size 100 MB .</div><div>I want to do a core-im=
-age-x11 build .</div><div>Kindly let me know how to proceed?</div><div><br>=
-</div><div>Thanks &amp; Regards</div><div class=3D"gmail-yj6qo gmail-ajU" s=
-tyle=3D"outline:none;padding:10px 0px;width:22px;margin:2px 0px 0px"><div i=
-d=3D"gmail-:mx" class=3D"gmail-ajR" tabindex=3D"0" style=3D"background-colo=
-r:rgb(232,234,237);border:none;clear:both;line-height:6px;outline:none;widt=
-h:24px;border-radius:5.5px"><img class=3D"gmail-ajT" src=3D"https://ssl.gst=
-atic.com/ui/v1/icons/mail/images/cleardot.gif" style=3D"background: url(&qu=
-ot;https://www.gstatic.com/images/icons/material/system/1x/more_horiz_black=
-_20dp.png&quot;) 50% 50% / 20px no-repeat; height: 11px; opacity: 0.54; wid=
-th: 24px;"></div></div></div>
-
---000000000000a6ac2c0590c3722a--
