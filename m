@@ -1,63 +1,66 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 468DAE00D33; Wed, 28 Aug 2019 08:54:30 -0700 (PDT)
+	id BFD1AE00D38; Wed, 28 Aug 2019 08:56:31 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
+	DKIM_VALID, DKIM_VALID_AU,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (raj.khem[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.222.195 listed in list.dnswl.org]
+	*      [209.85.221.67 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
-	[209.85.222.195])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id ACE72E0098A
-	for <poky@yoctoproject.org>; Wed, 28 Aug 2019 08:54:29 -0700 (PDT)
-Received: by mail-qk1-f195.google.com with SMTP id m2so152949qkd.10
-	for <poky@yoctoproject.org>; Wed, 28 Aug 2019 08:54:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=RWCHRJ0LOFzL3leGHr+8w3e6mZ/qcy3T2yxxscBOUrw=;
-	b=k8PjDp/Mus+0oqP53cvqja7MUxR8qRJr1hVIrmCZjIEckzQoMRu2Pnnsd30stnBdiV
-	AJmqT8r3yeVNbJQjt7bUp1PaRGwpbIDaXdSKWjEQXo/D6N6pvLoxR7uMPLHeA9AZgK7p
-	M4bNce6jeykJz4iQhR5LbjLiwCLamzWD9X+gW0ZeE4mc5tGpkbJKlT4PV6LRPSQ2j0OW
-	BT8FhGBd05Bw7Q4t2VOqbZGZrSY47/UKdehNqr6x7OmHCKdVMElVpHdlN29gPBVNe+eZ
-	NvORaTOkcdOhynR374w8uE+bwIQaApFVAmRtgOdrBZ9JgvNGB9RqsrFVtm9QsL4aCEDY
-	PSXQ==
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+	[209.85.221.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 06CECE00D11
+	for <poky@yoctoproject.org>; Wed, 28 Aug 2019 08:56:30 -0700 (PDT)
+Received: by mail-wr1-f67.google.com with SMTP id g7so363830wrx.2
+	for <poky@yoctoproject.org>; Wed, 28 Aug 2019 08:56:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linuxfoundation.org; s=google;
+	h=message-id:subject:from:to:cc:date:in-reply-to:references
+	:user-agent:mime-version:content-transfer-encoding;
+	bh=vAarbfVn+DvGTqBDCtplWW6dS0vVjVPLghe1aeJRcCI=;
+	b=PEDYXSKWSu/ktJV+VsvDAiU15SzZj+rqmEXDBHq6KnZMU8+83ZD7vG0GExzp+JzdhF
+	Wxlgy+4VCv4FQyL+WiDFy/rogEEhy6yucjeTVUTr/irgbPwtOtrFJG81cwd34gHbWUPK
+	UYqWGj1zAguqSaxuNLtkfzputD41dO4Jydh3Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=RWCHRJ0LOFzL3leGHr+8w3e6mZ/qcy3T2yxxscBOUrw=;
-	b=PQUwg8bvD/k4B1Z9C+fcm8gono6ro0nCa9b76Jo8DN+BQyN/NIcBtcUHWHpR4ndPYy
-	QKIfACOq05CElVq+tn/FNgEPvlCe9UtAkv6DCHFRch7Zyb3hBYEkt8oBvhJwXvBQT0Ks
-	cM/CNATgLn25nYqiOBG4RZdC2q30I5I0mIUz05wFVyYLrk4mKCP664MQNa3oJSMI+hOi
-	axGDvMld9hzs/2vGTi53QEsUho39giqyEX1Q5wjCfnPd5S5jFGRws8KZJA05f6BLbCXX
-	VIseAhIN6ajLeQeg7RLLxkCkwOEnPv2lKA4RHPf5T0pNKYd8KGiT4xvz6ST8Anj6FIS3
-	cuXA==
-X-Gm-Message-State: APjAAAVKOU5tIcSBm27OeblJxbVQoSI4C8ZPVdjci/+pcdKn8Lwc5PZE
-	eetv1uwAQX8aEUfsRcQhuAZf0MNwZZYg37RHk6M=
-X-Google-Smtp-Source: APXvYqwWPmsSB5reuRqUzmgDu4bvHKvGTFrq8Lm2Jzubrd7xIjqRAFyylFBLHAtH+s0VHFptSAWmlrFASykbaAGt158=
-X-Received: by 2002:a05:620a:13c1:: with SMTP id
-	g1mr4791243qkl.9.1567007668714; 
-	Wed, 28 Aug 2019 08:54:28 -0700 (PDT)
-MIME-Version: 1.0
+	h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+	:references:user-agent:mime-version:content-transfer-encoding;
+	bh=vAarbfVn+DvGTqBDCtplWW6dS0vVjVPLghe1aeJRcCI=;
+	b=bdZB6zr6URVR7bpLu/JJSLDI9o78p9/6A2B902sT8Pbcpy/cU+HROqhlOcaMtNrosw
+	V9qKd5Xp0Je0m+ophFVA6jEcTQnUjf3UIJuoHRpUJ2roXV9A+hEqHLKzeC4/SeoWHWTN
+	Kg58jlCU6L9vGlTgtAcL/tguGKCwnHZplZbpURBcqzNC38rxgRJLsZpBiB6OpsRy0P1y
+	DX865faBpYKKe1vLLMyNnCetfDHxt1zNFZzMp7PA6FkMWvloIXiXfGlbT/2uhrEJStC8
+	C3oIRHmmq0ItpTBHJFgSPzuIRFsZBu2CRApd7W+Arozlni6nsKyaPMlroyxGVuW46pMe
+	bfiA==
+X-Gm-Message-State: APjAAAXV4lF2/8c8dvRD10XdbDXVVSAU+vVi3YBYR95KkK3SAA04tNWQ
+	iASYEXC6OSg02gmy/oV3awKqeg==
+X-Google-Smtp-Source: APXvYqwnwAzz9Dyd5iMQcVzDJEz5E8EKeuc8pwZf1AUvQalsx/jbfJVNkcQkK/veVWobo2t44ZIVYQ==
+X-Received: by 2002:a05:6000:4d:: with SMTP id
+	k13mr5136205wrx.196.1567007790171; 
+	Wed, 28 Aug 2019 08:56:30 -0700 (PDT)
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+	by smtp.gmail.com with ESMTPSA id 20sm3606456wmk.34.2019.08.28.08.56.29
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Wed, 28 Aug 2019 08:56:29 -0700 (PDT)
+Message-ID: <39a549fe659c925340440413ea15092c6724924d.camel@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Khem Raj <raj.khem@gmail.com>, Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Wed, 28 Aug 2019 16:56:28 +0100
+In-Reply-To: <CAMKF1sqZCCvpWN66++jZqD0znv+2m+4RbDiN7z5+3dJEB55NFw@mail.gmail.com>
 References: <20190828152633.70910-1-alex.kanavin@gmail.com>
-In-Reply-To: <20190828152633.70910-1-alex.kanavin@gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 28 Aug 2019 08:54:02 -0700
-Message-ID: <CAMKF1sqZCCvpWN66++jZqD0znv+2m+4RbDiN7z5+3dJEB55NFw@mail.gmail.com>
-To: Alexander Kanavin <alex.kanavin@gmail.com>
+	<CAMKF1sqZCCvpWN66++jZqD0znv+2m+4RbDiN7z5+3dJEB55NFw@mail.gmail.com>
+User-Agent: Evolution 3.32.2-1 
+MIME-Version: 1.0
 Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: [PATCH] beaglebone: use the default of 256M rather than 512M
 X-BeenThere: poky@yoctoproject.org
@@ -72,43 +75,44 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Aug 2019 15:54:30 -0000
+X-List-Received-Date: Wed, 28 Aug 2019 15:56:31 -0000
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 28, 2019 at 8:27 AM Alexander Kanavin
-<alex.kanavin@gmail.com> wrote:
->
-> This is done for the sake of using the same default
-> everywhere; see here for details:
-> http://lists.openembedded.org/pipermail/openembedded-core/2019-August/285900.html
->
-> Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
-> ---
->  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> index 7c7b3059a9f..57b799294d4 100644
-> --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> @@ -47,7 +47,6 @@ QB_DEFAULT_FSTYPE = "wic"
->  QB_FSINFO = "wic:no-kernel-in-fs"
->  QB_KERNEL_ROOT = "/dev/vda2"
->  QB_SYSTEM_NAME = "qemu-system-arm"
-> -QB_MEM = "-m 512"
->  QB_MACHINE = "-machine virt"
->  QB_CPU = "-cpu cortex-a15"
->  QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0 systemd.mask=systemd-networkd"
+On Wed, 2019-08-28 at 08:54 -0700, Khem Raj wrote:
+> On Wed, Aug 28, 2019 at 8:27 AM Alexander Kanavin
+> <alex.kanavin@gmail.com> wrote:
+> > This is done for the sake of using the same default
+> > everywhere; see here for details:
+> > http://lists.openembedded.org/pipermail/openembedded-core/2019-August/285900.html
+> > 
+> > Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+> > ---
+> >  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 1 -
+> >  1 file changed, 1 deletion(-)
+> > 
+> > diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+> > b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+> > index 7c7b3059a9f..57b799294d4 100644
+> > --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+> > +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+> > @@ -47,7 +47,6 @@ QB_DEFAULT_FSTYPE = "wic"
+> >  QB_FSINFO = "wic:no-kernel-in-fs"
+> >  QB_KERNEL_ROOT = "/dev/vda2"
+> >  QB_SYSTEM_NAME = "qemu-system-arm"
+> > -QB_MEM = "-m 512"
+> >  QB_MACHINE = "-machine virt"
+> >  QB_CPU = "-cpu cortex-a15"
+> >  QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0 systemd.mask=systemd-
+> > networkd"
+> 
+> I wonder if all these QB_* settings are relevant to non-qemu machines
+> in first place
 
-I wonder if all these QB_* settings are relevant to non-qemu machines
-in first place
+qemu can now emulate the beaglebone, so yes.
 
-> --
-> 2.17.1
->
-> --
-> _______________________________________________
-> poky mailing list
-> poky@yoctoproject.org
-> https://lists.yoctoproject.org/listinfo/poky
+Cheers,
+
+Richard
+
 
