@@ -1,68 +1,33 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <Kexin.Hao@windriver.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 72DA1E00D38; Wed, 28 Aug 2019 09:05:28 -0700 (PDT)
+	id 00AD2E00DEF; Thu, 29 Aug 2019 01:46:38 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: * -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at
+	https://www.dnswl.org/, *      medium trust
+	*      [147.11.146.13 listed in list.dnswl.org]
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (raj.khem[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.160.194 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-qt1-f194.google.com (mail-qt1-f194.google.com
-	[209.85.160.194])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id CE03DE00CD5
-	for <poky@yoctoproject.org>; Wed, 28 Aug 2019 09:05:27 -0700 (PDT)
-Received: by mail-qt1-f194.google.com with SMTP id q64so113045qtd.5
-	for <poky@yoctoproject.org>; Wed, 28 Aug 2019 09:05:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=15qOwsuTdyBe1A+KAd1C3O7PnkJInt6VpSTyCseVfxw=;
-	b=cF1ny/zijSdlw0WfaY/nsZjThq4FdbXVVjjjCpBQGBqFBFUhWK2QRBmnzCR+K2AEoH
-	4rXUCefoyfeRBq5TnKqABbIYQJdzvBlsU6siA19QR6iG42tGY85+2sQygZQiLF5J2xIV
-	j2oAnZaVXg88CMdZ7I85cfcH5g/0XNWIDWUvuKIo7JkUDUzFTyzszevw7BWKdAIQSALs
-	NI790SjiKz3YAQx4JulgWRKlwoIj8zRYHvoezFKKEeapkBsF111+wLqRm0XSSkeA7AZ+
-	flBeqXZAvt0oNzWiBPOKQqa19D6AA+qSYZa6toFSHzUFAaszci5JTIaDWmGdR3aU/7Ar
-	OW2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=15qOwsuTdyBe1A+KAd1C3O7PnkJInt6VpSTyCseVfxw=;
-	b=Jjy9QHEE5YYrUkIYo3W5RWFey10Fk7JZAFaHiuqNpPbmEbFkshT9+38PY46wob/d/K
-	I6gIX/jlO6IeA6Dc4iDaVzQYNYVxf6K+vdT5Vhm+1Cb0nk+xUFR/Y8i70mufigmEb++N
-	9wfnYGoaDDvgXaQXPtxLDmLyI9m7bL1fl1fhu9g+lFT1+i3GUhrueZ9J/QZ0HVNp41Cu
-	YiUfXS7Gn8fW+tDnqrnUbvgApt0SZ0omUC66MvkYxq2R2u3G4fm9x7+OqOP5gF8FAYFt
-	W7mumpHGwkfdV6sGgzZEntIhGOcLh91lZNOyWNd99/NlfXEERVWguSj1BNVE81iNAbc6
-	jO9A==
-X-Gm-Message-State: APjAAAVseIBwdSHxm2YYXqZ6bfK8afAuCKxna8zIjtfn0ioR/Uw1q1QS
-	+v4u4RVKJuqM9XUtQ8PG7cS+PMz5LVa1neW1k79E6lfp
-X-Google-Smtp-Source: APXvYqzezfueR+PVcXmnjc+OHhj3Pii8XwYnG1820WO1rFGlT0APbtk5sYs9OcpYqkAIV6NdhLW3sOfvZ2idfTXbjc0=
-X-Received: by 2002:ac8:74d2:: with SMTP id j18mr5034296qtr.378.1567008326619; 
-	Wed, 28 Aug 2019 09:05:26 -0700 (PDT)
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6BE8DE00C78
+	for <poky@yoctoproject.org>; Thu, 29 Aug 2019 01:46:38 -0700 (PDT)
+Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
+	by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x7T8kbET015047
+	(version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL)
+	for <poky@yoctoproject.org>; Thu, 29 Aug 2019 01:46:38 -0700 (PDT)
+Received: from pek-lpggp6.wrs.com (128.224.153.40) by ALA-HCA.corp.ad.wrs.com
+	(147.11.189.50) with Microsoft SMTP Server id 14.3.468.0;
+	Thu, 29 Aug 2019 01:46:37 -0700
+From: Kevin Hao <kexin.hao@windriver.com>
+To: <poky@yoctoproject.org>
+Date: Thu, 29 Aug 2019 16:43:20 +0800
+Message-ID: <20190829084320.5767-1-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.14.4
 MIME-Version: 1.0
-References: <20190828152633.70910-1-alex.kanavin@gmail.com>
-	<CAMKF1sqZCCvpWN66++jZqD0znv+2m+4RbDiN7z5+3dJEB55NFw@mail.gmail.com>
-	<adf200a45c75cc70ba7d9102023b5b1846dbe3a9.camel@rpsys.net>
-	<CAMKF1sqwSXpyTzcSVfFBxz0sYyoMB--CL3Z5M9etOXcExoeDQg@mail.gmail.com>
-	<f0c34ef041989c825814399911bc9340cd064b16.camel@rpsys.net>
-In-Reply-To: <f0c34ef041989c825814399911bc9340cd064b16.camel@rpsys.net>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 28 Aug 2019 09:05:00 -0700
-Message-ID: <CAMKF1sppxt8TaUjgxv=JDEgiMDEm_jZXcEjWa=t1hm8eXP5dBQ@mail.gmail.com>
-To: Richard Purdie <rpurdie@rpsys.net>
-Cc: Poky Project <poky@yoctoproject.org>
-Subject: Re: [PATCH] beaglebone: use the default of 256M rather than 512M
+Subject: [PATCH] meta-yocto-bsp: Bump to the v5.2 kernel
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -75,61 +40,133 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Aug 2019 16:05:28 -0000
-Content-Type: text/plain; charset="UTF-8"
+X-List-Received-Date: Thu, 29 Aug 2019 08:46:39 -0000
+Content-Type: text/plain
 
-On Wed, Aug 28, 2019 at 9:01 AM Richard Purdie <rpurdie@rpsys.net> wrote:
->
-> On Wed, 2019-08-28 at 08:59 -0700, Khem Raj wrote:
-> > On Wed, Aug 28, 2019 at 8:56 AM Richard Purdie <rpurdie@rpsys.net>
-> > wrote:
-> > > On Wed, 2019-08-28 at 08:54 -0700, Khem Raj wrote:
-> > > > On Wed, Aug 28, 2019 at 8:27 AM Alexander Kanavin
-> > > > <alex.kanavin@gmail.com> wrote:
-> > > > > This is done for the sake of using the same default
-> > > > > everywhere; see here for details:
-> > > > > http://lists.openembedded.org/pipermail/openembedded-core/2019-August/285900.html
-> > > > >
-> > > > > Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
-> > > > > ---
-> > > > >  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 1 -
-> > > > >  1 file changed, 1 deletion(-)
-> > > > >
-> > > > > diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> > > > > b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> > > > > index 7c7b3059a9f..57b799294d4 100644
-> > > > > --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> > > > > +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> > > > > @@ -47,7 +47,6 @@ QB_DEFAULT_FSTYPE = "wic"
-> > > > >  QB_FSINFO = "wic:no-kernel-in-fs"
-> > > > >  QB_KERNEL_ROOT = "/dev/vda2"
-> > > > >  QB_SYSTEM_NAME = "qemu-system-arm"
-> > > > > -QB_MEM = "-m 512"
-> > > > >  QB_MACHINE = "-machine virt"
-> > > > >  QB_CPU = "-cpu cortex-a15"
-> > > > >  QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0
-> > > > > systemd.mask=systemd-
-> > > > > networkd"
-> > > >
-> > > > I wonder if all these QB_* settings are relevant to non-qemu
-> > > > machines
-> > > > in first place
-> > >
-> > > qemu can now emulate the beaglebone, so yes.
-> > >
-> >
-> > I see, but I thought beaglebone-yocto targetted a real board, and
-> > shouldnt we have something like qemubbb or somesuch for this ?
->
-> What purpose would that serve? I think its fine to have one machine if
-> (and only if) qemu intends to emulate that specific hardware.
->
+Boot test for all the supported boards. Also drop the v5.0 bbappend
+since we no plan to support it anymore. There are some
+kernel_configcheck warning when building some boards, the patches [1]
+for them have been sent to kernel-meta for merging.
 
-since these are reference machines, people will copy them to generate their
-own machine configs, so they should specify whats needed, anyhow thats just me.
+[1] https://lists.yoctoproject.org/pipermail/linux-yocto/2019-August/007908.html
 
-> Cheers,
->
-> Richard
->
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ meta-yocto-bsp/conf/machine/beaglebone-yocto.conf  |  2 +-
+ meta-yocto-bsp/conf/machine/edgerouter.conf        |  2 +-
+ meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf      |  2 +-
+ .../recipes-kernel/linux/linux-yocto_5.0.bbappend  | 27 ----------------------
+ .../recipes-kernel/linux/linux-yocto_5.2.bbappend  | 27 ++++++++++++++++++++++
+ 5 files changed, 30 insertions(+), 30 deletions(-)
+ delete mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.0.bbappend
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
+
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+index 57b799294d4e..08dd3a5074ee 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+@@ -24,7 +24,7 @@ SERIAL_CONSOLES ?= "115200;ttyS0 115200;ttyO0 115200;ttyAMA0"
+ SERIAL_CONSOLES_CHECK = "${SERIAL_CONSOLES}"
+ 
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "5.0%"
++PREFERRED_VERSION_linux-yocto ?= "5.2%"
+ 
+ KERNEL_IMAGETYPE = "zImage"
+ KERNEL_DEVICETREE = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
+diff --git a/meta-yocto-bsp/conf/machine/edgerouter.conf b/meta-yocto-bsp/conf/machine/edgerouter.conf
+index 88592dbc8543..6331368f87aa 100644
+--- a/meta-yocto-bsp/conf/machine/edgerouter.conf
++++ b/meta-yocto-bsp/conf/machine/edgerouter.conf
+@@ -11,7 +11,7 @@ KERNEL_ALT_IMAGETYPE = "vmlinux.bin"
+ KERNEL_IMAGE_STRIP_EXTRA_SECTIONS  = ".comment"
+ 
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+-PREFERRED_VERSION_linux-yocto ?= "5.0%"
++PREFERRED_VERSION_linux-yocto ?= "5.2%"
+ 
+ SERIAL_CONSOLES = "115200;ttyS0"
+ USE_VT ?= "0"
+diff --git a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+index e2dce567386f..5382796284b4 100644
+--- a/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
++++ b/meta-yocto-bsp/conf/machine/mpc8315e-rdb.conf
+@@ -15,7 +15,7 @@ SERIAL_CONSOLES = "115200;ttyS0"
+ 
+ MACHINE_FEATURES = "keyboard pci ext2 ext3 serial"
+ 
+-PREFERRED_VERSION_linux-yocto ?= "5.0%"
++PREFERRED_VERSION_linux-yocto ?= "5.2%"
+ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
+ 
+ PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.0.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.0.bbappend
+deleted file mode 100644
+index d7cf1216f45d..000000000000
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.0.bbappend
++++ /dev/null
+@@ -1,27 +0,0 @@
+-KBRANCH_genericx86  = "v5.0/standard/base"
+-KBRANCH_genericx86-64  = "v5.0/standard/base"
+-KBRANCH_edgerouter = "v5.0/standard/edgerouter"
+-KBRANCH_beaglebone-yocto = "v5.0/standard/beaglebone"
+-KBRANCH_mpc8315e-rdb = "v5.0/standard/fsl-mpc8315e-rdb"
+-
+-KMACHINE_genericx86 ?= "common-pc"
+-KMACHINE_genericx86-64 ?= "common-pc-64"
+-KMACHINE_beaglebone-yocto ?= "beaglebone"
+-
+-SRCREV_machine_genericx86    ?= "f990fd0ce123aa6035042efad09b2ddc3e7d48f4"
+-SRCREV_machine_genericx86-64 ?= "f990fd0ce123aa6035042efad09b2ddc3e7d48f4"
+-SRCREV_machine_edgerouter ?= "f990fd0ce123aa6035042efad09b2ddc3e7d48f4"
+-SRCREV_machine_beaglebone-yocto ?= "f990fd0ce123aa6035042efad09b2ddc3e7d48f4"
+-SRCREV_machine_mpc8315e-rdb ?= "670ce7e9db627d0c2067cfdb571ddc1f117818d8"
+-
+-COMPATIBLE_MACHINE_genericx86 = "genericx86"
+-COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+-COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+-COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+-
+-LINUX_VERSION_genericx86 = "5.0.13"
+-LINUX_VERSION_genericx86-64 = "5.0.13"
+-LINUX_VERSION_edgerouter = "5.0.13"
+-LINUX_VERSION_beaglebone-yocto = "5.0.13"
+-LINUX_VERSION_mpc8315e-rdb = "5.0.13"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
+new file mode 100644
+index 000000000000..de596e870ad1
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
+@@ -0,0 +1,27 @@
++KBRANCH_genericx86  = "v5.2/standard/base"
++KBRANCH_genericx86-64  = "v5.2/standard/base"
++KBRANCH_edgerouter = "v5.2/standard/edgerouter"
++KBRANCH_beaglebone-yocto = "v5.2/standard/beaglebone"
++KBRANCH_mpc8315e-rdb = "v5.2/standard/fsl-mpc8315e-rdb"
++
++KMACHINE_genericx86 ?= "common-pc"
++KMACHINE_genericx86-64 ?= "common-pc-64"
++KMACHINE_beaglebone-yocto ?= "beaglebone"
++
++SRCREV_machine_genericx86    ?= "77c28ea0e55cabb0b22b47d4eb2cc94b0940dfe6"
++SRCREV_machine_genericx86-64 ?= "77c28ea0e55cabb0b22b47d4eb2cc94b0940dfe6"
++SRCREV_machine_edgerouter ?= "77c28ea0e55cabb0b22b47d4eb2cc94b0940dfe6"
++SRCREV_machine_beaglebone-yocto ?= "77c28ea0e55cabb0b22b47d4eb2cc94b0940dfe6"
++SRCREV_machine_mpc8315e-rdb ?= "f6aea5d606851f5b9d739aae36fc868d85fb649c"
++
++COMPATIBLE_MACHINE_genericx86 = "genericx86"
++COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
++COMPATIBLE_MACHINE_edgerouter = "edgerouter"
++COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
++COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
++
++LINUX_VERSION_genericx86 = "5.2.10"
++LINUX_VERSION_genericx86-64 = "5.2.10"
++LINUX_VERSION_edgerouter = "5.2.10"
++LINUX_VERSION_beaglebone-yocto = "5.2.10"
++LINUX_VERSION_mpc8315e-rdb = "5.2.10"
+-- 
+2.14.4
+
 
