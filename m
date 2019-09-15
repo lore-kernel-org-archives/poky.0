@@ -1,67 +1,67 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <akuster808@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BA239E00D8A; Mon,  2 Sep 2019 02:37:41 -0700 (PDT)
+	id E6397E00B1B; Sun, 15 Sep 2019 15:55:23 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (akuster808[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.128.42 listed in list.dnswl.org]
+	*      [209.85.214.173 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
-	[209.85.128.42])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5FB46E00D4E
-	for <poky@yoctoproject.org>; Mon,  2 Sep 2019 02:37:39 -0700 (PDT)
-Received: by mail-wm1-f42.google.com with SMTP id n10so3164156wmj.0
-	for <poky@yoctoproject.org>; Mon, 02 Sep 2019 02:37:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linuxfoundation.org; s=google;
-	h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-	:mime-version:content-transfer-encoding;
-	bh=MBz2G8KFTjyQY1H7thgvR/8cjIxAkTLPO6MTmCvfWOA=;
-	b=D3D9s/0EZRckRB2u6RZcKku1jD+FCLsMDwbWthc1NDar8HSEbsmVc9k1+qLTllH0ss
-	NEfiiBEw06Db35pPbA89IbF3o6IZexk7J2j0IXAax0TmT7TCFBTO4xX8d8uuvmrNIpzF
-	GRLc0Qovq7kL/dIQqT9Or4aJvh3ABdmCG6vzc=
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+	[209.85.214.173])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47B02E00A49
+	for <poky@yoctoproject.org>; Sun, 15 Sep 2019 15:55:22 -0700 (PDT)
+Received: by mail-pl1-f173.google.com with SMTP id s17so11041833plp.2
+	for <poky@yoctoproject.org>; Sun, 15 Sep 2019 15:55:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:subject:date:message-id;
+	bh=2/cq/0/6808hB1+GJMZ5XNygVK4Bsdz7JW8DeaGS3gw=;
+	b=GSNk+ywSqYxFpK9FiSNk2V1l1UdlLfyihX2+nFJYQyCvpvP5jbkc0OOSOn4VWDFMkR
+	NxPpJ/FUKokXuv9X4C/1jiNMSN8Ud0wHv6Dxd5iqz+7vTRv4oN10LO2BZQTM6QB5MlJ9
+	cI+KsfN7h7mobs0RX/ukrZ4pWP3GHBZfObBbW05OU7jxK/QT9BeeVG52JNE4dTTTvSXg
+	Q9HJ9SFkGyH0wm/erwFmZM8idh9UaYe7eiShaxx5TLxHMG02cfX3iWC537wYPaV4E5T6
+	8Q278TPvk5fI5aEmkIiyaUOna+oKSSkyl3yBpC6ndfrjZ4ujRjUxsmdb3IdyDJQjLL+a
+	ZmWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-	:references:user-agent:mime-version:content-transfer-encoding;
-	bh=MBz2G8KFTjyQY1H7thgvR/8cjIxAkTLPO6MTmCvfWOA=;
-	b=E+y2WQ4FPmAE/RV2cYZXjAd/Jk84I/KxcgPxxUDAt9+loczJbXDMUW1LvHQDlo8d3n
-	JPXB5cVvYbIylTWWzoXdJ3hv1oworAaDhfE37Cmxr0AZnobK0pptPlyfdZEI1zyk/f8r
-	FwEkf9q38B9ioY9gTTV0Oc3K9hB3+BJTDByrts/umtN001T1YC2dNzC6h0BhGay+9r3R
-	jadv38sP0ukZblg7amI4zOiYFA4KTf5pRC4TKGVnXq/2OHbdDGVYQI8yF0Hy6EMbF0G5
-	cV/zSSKKVU7jW+hSCodflhkvOo5T0ldDJuUDbzlmDgVr40lBlbnmy+tVrgSCj2j64Xao
-	x6oQ==
-X-Gm-Message-State: APjAAAUsR9a21qV4sZU6VNDdXDVUw/NzTa1zUoA0nsEL6An8AHrAkcxg
-	c2uBeCqERq7IrroYW+me3Wch++7s5RvOKA==
-X-Google-Smtp-Source: APXvYqyVNxuCNygScuwxP0vAU35NC/fisGRkA8uBLsae1Iit27zOtqeYRuCjNiEP8HKMC5YDwJwO2g==
-X-Received: by 2002:a1c:a558:: with SMTP id o85mr27990042wme.30.1567417058437; 
-	Mon, 02 Sep 2019 02:37:38 -0700 (PDT)
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+	h=x-gm-message-state:from:to:subject:date:message-id;
+	bh=2/cq/0/6808hB1+GJMZ5XNygVK4Bsdz7JW8DeaGS3gw=;
+	b=HbOp+0M/MJnxpLbuEHT/MogMEMrj0xP+b2gguoGieva1IMVypc7gCokXlmsQwZCQh/
+	iWkLFSdSwBw7kl/4y+3AvRujGQtBesikJvnPMRZ6pS8Ab9uQqKpzdCEo3xuHuHrmhjT6
+	FQh+9K6drDh+Ec8wwe193p4V/JhCRAlQ4DZgHmmLRFcO+QumMnQFE98+MTDfvHb1H/vg
+	by5VU1kSUxdLojTcK8H8MwW+HZ8JVpIWuRVAdM0u+b8/wiWb0DMbpIe1CpoYqd3UNuqP
+	IphH+VzoewFjNplch6YRFrMS3aPxnxjy8jRFdD/G/sgZI2eRRt2J5AVhCVGVZTKpdacN
+	m66g==
+X-Gm-Message-State: APjAAAWLpLQyMbN5XDiGzdX1MR0KtcIRNNt6/zi1obLkBVpLTZkMgHy/
+	xOj39do5q8ajZtjXeILzKdd3vtGLxhE=
+X-Google-Smtp-Source: APXvYqyUbSMCQYAG/t7ss5sOKmAFpA0nhdDwLuxOJarb9CgBHLPky87LFv2KgZWoPRVcYqzgQMwYXw==
+X-Received: by 2002:a17:902:8541:: with SMTP id
+	d1mr61577444plo.39.1568588122029; 
+	Sun, 15 Sep 2019 15:55:22 -0700 (PDT)
+Received: from akuster-ThinkPad-T460s.hsd1.ca.comcast.net
+	([2601:202:4180:c33:c1:3eb6:7e0:d804])
 	by smtp.gmail.com with ESMTPSA id
-	e4sm11368075wro.21.2019.09.02.02.37.37
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Mon, 02 Sep 2019 02:37:37 -0700 (PDT)
-Message-ID: <7597589de33f174bcb4671f3b187f25746fbb354.camel@linuxfoundation.org>
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Gyula =?ISO-8859-1?Q?Kov=E1cs?= <gyula.kovacs.kkb.tech@gmail.com>, 
-	poky@yoctoproject.org
-Date: Mon, 02 Sep 2019 10:37:35 +0100
-In-Reply-To: <CAG6kgP4ZgS4gERCqfGUNYJGJ1zD1NDX59UzHLTM_UGq1s1U0Jw@mail.gmail.com>
-References: <CAG6kgP4ZgS4gERCqfGUNYJGJ1zD1NDX59UzHLTM_UGq1s1U0Jw@mail.gmail.com>
-User-Agent: Evolution 3.32.2-1 
-MIME-Version: 1.0
-Subject: Re: circular references in recipe-depends.dot file
+	o9sm26251391pgv.19.2019.09.15.15.55.20 for <poky@yoctoproject.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+	Sun, 15 Sep 2019 15:55:21 -0700 (PDT)
+From: Armin Kuster <akuster808@gmail.com>
+To: poky@yoctoproject.org
+Date: Sun, 15 Sep 2019 15:55:19 -0700
+Message-Id: <1568588119-10867-1-git-send-email-akuster808@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Subject: [Thud][PATCH] meta-yocto-bsp/4.14: update to 4.14.143
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,47 +74,49 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Sep 2019 09:37:41 -0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Sun, 15 Sep 2019 22:55:24 -0000
 
-On Mon, 2019-09-02 at 11:15 +0200, Gyula Kovács wrote:
-> Hi,
-> 
-> I generated the recipe-depends.dot for yocto 2.6.3 (this is the base
-> of our system) and wanted to create a simplified graph of the
-> dependencies. (The recipe-depends.dot contains all dependencies which
-> is not best suited for displaying. So I wanted to build a dependency
-> level structure that does not include indirect dependencies. E.g. If
-> acl depends on attr, the attr's dependencies are not listed for acl.)
-> During the simplification I found that the recipe-depends.dot
-> contains circular dependencies. E.g. acl depends on attr (which is
-> OK) but attr also depends on acl, which is obviously impossible.
-> I checked different yocto versions, and the problem is also found in
-> versions 2.7, 2.5, 2.4, 2.3.
-> The simplification works for the older versions (2.2, 2.1 and 2.0),
-> which produced pn-depends.dot file.
-> Has anybody ever encountered this problem?
-> Have you ever tried to create a simplified, easier-to-read format
-> from recipe-depends.dot?
+Signed-off-by: Armin Kuster <akuster808@gmail.com>
+---
+ .../recipes-kernel/linux/linux-yocto_4.14.bbappend   | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-We've just removed recipe-depends.dot as its confusing people.
-
-Dependencies are dependencies, you can't just ignore some or remove
-some just because the graph is complicated. There is no such thing as
-an "indirect" dependency, either a given task depends on another task
-or it doesn't.
-
-Part of the issue is people don't realise individual tasks have
-dependencies (e.g. do_package_write_rpm needs rpm-native and so on).
-
-You could use the task explorer (bitbake XXX -u taskexp -g) to have a
-different way to visualise the information.
-
-Cheers,
-
-Richard
-
-
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
+index 426757e..5277798 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
+@@ -8,11 +8,11 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86    ?= "5252513a39b4b3773debab1f77071d7c430ecb10"
+-SRCREV_machine_genericx86-64 ?= "5252513a39b4b3773debab1f77071d7c430ecb10"
+-SRCREV_machine_edgerouter ?= "d8fb40cd0e99325715c70aed6f361a8318097829"
+-SRCREV_machine_beaglebone-yocto ?= "c67809688bd22cb4cb909bcf1a1045e6337c3229"
+-SRCREV_machine_mpc8315e-rdb ?= "258ee8228e0a512c6dbe2a0dadcd9f030ba45964"
++SRCREV_machine_genericx86    ?= "bc9d4b045fa0254d14ef3a667a200f02cb9af755"
++SRCREV_machine_genericx86-64 ?= "bc9d4b045fa0254d14ef3a667a200f02cb9af755"
++SRCREV_machine_edgerouter ?= "326e296f237347e965a38acb34f09e594430b0c6"
++SRCREV_machine_beaglebone-yocto ?= "1b8c86329c9dbb10b8fcaeb2dceb75680994cd84"
++SRCREV_machine_mpc8315e-rdb ?= "f26672ec1f164b0f2a15d629128a91093f971bdd"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.14.98"
+-LINUX_VERSION_genericx86-64 = "4.14.98"
+-LINUX_VERSION_edgerouter = "4.14.98"
+-LINUX_VERSION_beaglebone-yocto = "4.14.98"
+-LINUX_VERSION_mpc8315e-rdb = "4.14.98"
++LINUX_VERSION_genericx86 = "4.14.143"
++LINUX_VERSION_genericx86-64 = "4.14.143"
++LINUX_VERSION_edgerouter = "4.14.143"
++LINUX_VERSION_beaglebone-yocto = "4.14.143"
++LINUX_VERSION_mpc8315e-rdb = "4.14.143"
+-- 
+2.7.4
 
 
