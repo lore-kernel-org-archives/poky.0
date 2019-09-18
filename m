@@ -1,67 +1,67 @@
-Return-Path: <akuster808@gmail.com>
+Return-Path: <Hector.Palacios@digi.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E6397E00B1B; Sun, 15 Sep 2019 15:55:23 -0700 (PDT)
+	id 65EE8E00D77; Wed, 18 Sep 2019 01:40:41 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00, RCVD_IN_DNSWL_NONE, 
+	SPF_HELO_PASS autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (akuster808[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.214.173 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
-	[209.85.214.173])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 47B02E00A49
-	for <poky@yoctoproject.org>; Sun, 15 Sep 2019 15:55:22 -0700 (PDT)
-Received: by mail-pl1-f173.google.com with SMTP id s17so11041833plp.2
-	for <poky@yoctoproject.org>; Sun, 15 Sep 2019 15:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:subject:date:message-id;
-	bh=2/cq/0/6808hB1+GJMZ5XNygVK4Bsdz7JW8DeaGS3gw=;
-	b=GSNk+ywSqYxFpK9FiSNk2V1l1UdlLfyihX2+nFJYQyCvpvP5jbkc0OOSOn4VWDFMkR
-	NxPpJ/FUKokXuv9X4C/1jiNMSN8Ud0wHv6Dxd5iqz+7vTRv4oN10LO2BZQTM6QB5MlJ9
-	cI+KsfN7h7mobs0RX/ukrZ4pWP3GHBZfObBbW05OU7jxK/QT9BeeVG52JNE4dTTTvSXg
-	Q9HJ9SFkGyH0wm/erwFmZM8idh9UaYe7eiShaxx5TLxHMG02cfX3iWC537wYPaV4E5T6
-	8Q278TPvk5fI5aEmkIiyaUOna+oKSSkyl3yBpC6ndfrjZ4ujRjUxsmdb3IdyDJQjLL+a
-	ZmWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id;
-	bh=2/cq/0/6808hB1+GJMZ5XNygVK4Bsdz7JW8DeaGS3gw=;
-	b=HbOp+0M/MJnxpLbuEHT/MogMEMrj0xP+b2gguoGieva1IMVypc7gCokXlmsQwZCQh/
-	iWkLFSdSwBw7kl/4y+3AvRujGQtBesikJvnPMRZ6pS8Ab9uQqKpzdCEo3xuHuHrmhjT6
-	FQh+9K6drDh+Ec8wwe193p4V/JhCRAlQ4DZgHmmLRFcO+QumMnQFE98+MTDfvHb1H/vg
-	by5VU1kSUxdLojTcK8H8MwW+HZ8JVpIWuRVAdM0u+b8/wiWb0DMbpIe1CpoYqd3UNuqP
-	IphH+VzoewFjNplch6YRFrMS3aPxnxjy8jRFdD/G/sgZI2eRRt2J5AVhCVGVZTKpdacN
-	m66g==
-X-Gm-Message-State: APjAAAWLpLQyMbN5XDiGzdX1MR0KtcIRNNt6/zi1obLkBVpLTZkMgHy/
-	xOj39do5q8ajZtjXeILzKdd3vtGLxhE=
-X-Google-Smtp-Source: APXvYqyUbSMCQYAG/t7ss5sOKmAFpA0nhdDwLuxOJarb9CgBHLPky87LFv2KgZWoPRVcYqzgQMwYXw==
-X-Received: by 2002:a17:902:8541:: with SMTP id
-	d1mr61577444plo.39.1568588122029; 
-	Sun, 15 Sep 2019 15:55:22 -0700 (PDT)
-Received: from akuster-ThinkPad-T460s.hsd1.ca.comcast.net
-	([2601:202:4180:c33:c1:3eb6:7e0:d804])
-	by smtp.gmail.com with ESMTPSA id
-	o9sm26251391pgv.19.2019.09.15.15.55.20 for <poky@yoctoproject.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-	Sun, 15 Sep 2019 15:55:21 -0700 (PDT)
-From: Armin Kuster <akuster808@gmail.com>
-To: poky@yoctoproject.org
-Date: Sun, 15 Sep 2019 15:55:19 -0700
-Message-Id: <1568588119-10867-1-git-send-email-akuster808@gmail.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [Thud][PATCH] meta-yocto-bsp/4.14: update to 4.14.143
+	*      [67.219.250.116 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+X-Greylist: delayed 795 seconds by postgrey-1.32 at yocto-www;
+	Wed, 18 Sep 2019 01:40:39 PDT
+Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com
+	[67.219.250.116])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 336D0E00D75
+	for <poky@yoctoproject.org>; Wed, 18 Sep 2019 01:40:39 -0700 (PDT)
+Received: from [67.219.250.197] (using TLSv1.2 with cipher
+	DHE-RSA-AES256-GCM-SHA384 (256 bits))
+	by server-5.bemta.az-b.us-west-2.aws.symcld.net id 16/97-11074-B6AE18D5;
+	Wed, 18 Sep 2019 08:27:23 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrIIsWRWlGSWpSXmKPExsXi5LtOQDf7VWO
+	sweGjYhbT/61ht/jxbCKrA5PH/rlr2D3aT/SxBTBFsWbmJeVXJLBmrJ31m7XgOlfFyxVFDYxN
+	nF2MnBxCAqsYJb7M8uli5AKytzBKtK84ywSSYBMwkJhyfRpLFyMHh4iAtMS5fZUgYWYBF4m5S
+	7exgdjCAiESJyduBStnEVCV+DDlB1icV8BW4ufLq2C2hIC8xOoNB5gh4oISJ2c+YYGYIyFx8M
+	ULZogbVCXmfd7EClGvINF8uJ19AiPvLCQts5C0LGBkWsVokVSUmZ5RkpuYmaNraGCga2hopGt
+	obAKkjfUSq3ST9EqLdctTi0t0jfQSy4v1iitzk3NS9PJSSzYxAsMtpaCtcAfj1llv9A4xSnIw
+	KYnyRt5vjBXiS8pPqcxILM6ILyrNSS0+xCjDwaEkwSvxEignWJSanlqRlpkDDH2YtAQHj5IIr
+	xBImre4IDG3ODMdInWK0Zhj59F5i5g5nna0LWEWYsnLz0uVEue1eAFUKgBSmlGaBzcIFpOXGG
+	WlhHkZGRgYhHgKUotyM0tQ5V8xinMwKgnzTgKZwpOZVwK37xXQKUxAp9hFgJ1SkoiQkmpgYrz
+	OxThZ75pL+ftPncV3Vbf5qbdOvX/zzK9DRhdux2ss2+8manm+y+vxsjW68xZlOYRWtIm9mGh/
+	2lBs6wXZimbfr0ce2n387zg/8f/pbY5nfiivX1ku9PTjk0kykxoUAmyUo++yfdPVbEjMOhMjJ
+	vvBcNME+cnnsq/tvljQLT/nYsybI2WzmULY/vyfrPL8t8NbB+ugR47rp05avCUh9szE5Q/3P9
+	hlt6fV0fz6dlnHiu9/p/jXWOe9mCZktTCpN07jjWqlwIMoIb9ne+Pur3f9/3nrC1eGh0e5ZmU
+	k7PvocPq+xm6Lbdd6ViYYB11e42J09cfFnWsd0//vuFPryys8hT/FhFf/6TEN3erpc5yUWIoz
+	Eg21mIuKEwFBegWLRAMAAA==
+X-Env-Sender: Hector.Palacios@digi.com
+X-Msg-Ref: server-15.tower-345.messagelabs.com!1568795214!89865!11
+X-Originating-IP: [66.77.174.16]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.43.12; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10295 invoked from network); 18 Sep 2019 08:27:23 -0000
+Received: from owa.digi.com (HELO MCL-VMS-XCH01.digi.com) (66.77.174.16)
+	by server-15.tower-345.messagelabs.com with ECDHE-RSA-AES256-SHA384
+	encrypted SMTP; 18 Sep 2019 08:27:23 -0000
+Received: from DOR-SMS-XCH01.digi.com (10.49.8.99) by MCL-VMS-XCH01.digi.com
+	(10.5.8.49) with Microsoft SMTP Server (TLS) id 14.3.468.0;
+	Wed, 18 Sep 2019 03:27:15 -0500
+Received: from log-cln-hpalacio2018.digi.com (10.101.2.172) by
+	dor-sms-xch01.digi.com (10.49.8.99) with Microsoft SMTP Server (TLS) id
+	14.3.468.0; Wed, 18 Sep 2019 10:27:12 +0200
+From: Hector Palacios <hector.palacios@digi.com>
+To: <poky@yoctoproject.org>
+Date: Wed, 18 Sep 2019 10:26:55 +0200
+Message-ID: <20190918082655.28746-1-hector.palacios@digi.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.101.2.172]
+Subject: [PATCH] udev-extraconf: skip mounting partitions already mounted by systemd
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -74,49 +74,39 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Sun, 15 Sep 2019 22:55:24 -0000
+X-List-Received-Date: Wed, 18 Sep 2019 08:40:41 -0000
+Content-Type: text/plain
 
-Signed-off-by: Armin Kuster <akuster808@gmail.com>
+For some devices, udev may sometimes trigger twice the 'add' rule during
+boot. Calling the mount.sh script twice will eventually fail for
+already mounted partitions, but in that case, the script tries to remove
+the created mountpoint, when it shouldn't.
+This has been observed on USB sticks connected to a USB hub and may
+result in devices not being mounted if plugged-in before booting.
+
+This patch checks for already mounted partitions earlier (before creating
+the mount point) and returns with no actions.
+
+Signed-off-by: Hector Palacios <hector.palacios@digi.com>
 ---
- .../recipes-kernel/linux/linux-yocto_4.14.bbappend   | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ meta/recipes-core/udev/udev-extraconf/mount.sh | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
-index 426757e..5277798 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
-@@ -8,11 +8,11 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
+diff --git a/meta/recipes-core/udev/udev-extraconf/mount.sh b/meta/recipes-core/udev/udev-extraconf/mount.sh
+index 79eb0145c2a6..b23731870ea2 100644
+--- a/meta/recipes-core/udev/udev-extraconf/mount.sh
++++ b/meta/recipes-core/udev/udev-extraconf/mount.sh
+@@ -38,6 +38,12 @@ done
+ automount_systemd() {
+     name="`basename "$DEVNAME"`"
  
--SRCREV_machine_genericx86    ?= "5252513a39b4b3773debab1f77071d7c430ecb10"
--SRCREV_machine_genericx86-64 ?= "5252513a39b4b3773debab1f77071d7c430ecb10"
--SRCREV_machine_edgerouter ?= "d8fb40cd0e99325715c70aed6f361a8318097829"
--SRCREV_machine_beaglebone-yocto ?= "c67809688bd22cb4cb909bcf1a1045e6337c3229"
--SRCREV_machine_mpc8315e-rdb ?= "258ee8228e0a512c6dbe2a0dadcd9f030ba45964"
-+SRCREV_machine_genericx86    ?= "bc9d4b045fa0254d14ef3a667a200f02cb9af755"
-+SRCREV_machine_genericx86-64 ?= "bc9d4b045fa0254d14ef3a667a200f02cb9af755"
-+SRCREV_machine_edgerouter ?= "326e296f237347e965a38acb34f09e594430b0c6"
-+SRCREV_machine_beaglebone-yocto ?= "1b8c86329c9dbb10b8fcaeb2dceb75680994cd84"
-+SRCREV_machine_mpc8315e-rdb ?= "f26672ec1f164b0f2a15d629128a91093f971bdd"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
--LINUX_VERSION_genericx86 = "4.14.98"
--LINUX_VERSION_genericx86-64 = "4.14.98"
--LINUX_VERSION_edgerouter = "4.14.98"
--LINUX_VERSION_beaglebone-yocto = "4.14.98"
--LINUX_VERSION_mpc8315e-rdb = "4.14.98"
-+LINUX_VERSION_genericx86 = "4.14.143"
-+LINUX_VERSION_genericx86-64 = "4.14.143"
-+LINUX_VERSION_edgerouter = "4.14.143"
-+LINUX_VERSION_beaglebone-yocto = "4.14.143"
-+LINUX_VERSION_mpc8315e-rdb = "4.14.143"
--- 
-2.7.4
-
++    # Skip already mounted partitions
++    if [ -f /run/systemd/transient/run-media-$name.mount ]; then
++        logger "mount.sh/automount" "/run/media/$name already mounted"
++        return
++    fi
++
+     # Skip the partition which are already in /etc/fstab
+     grep "^[[:space:]]*$DEVNAME" /etc/fstab && return
+     for n in LABEL PARTLABEL UUID PARTUUID; do
 
