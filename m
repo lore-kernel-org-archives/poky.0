@@ -1,64 +1,54 @@
-Return-Path: <ross.burton@intel.com>
+Return-Path: <bunk@stusta.de>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id B0EF2E00DE6; Wed,  9 Oct 2019 06:03:57 -0700 (PDT)
+	id E634AE00D8D; Wed,  9 Oct 2019 06:41:06 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
-	no *      trust
-	*      [209.85.128.67 listed in list.dnswl.org]
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+	low *      trust
+	*      [141.84.69.5 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
-	[209.85.128.67])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6B13DE00DA3
-	for <poky@yoctoproject.org>; Wed,  9 Oct 2019 06:03:31 -0700 (PDT)
-Received: by mail-wm1-f67.google.com with SMTP id i16so2505679wmd.3
-	for <poky@yoctoproject.org>; Wed, 09 Oct 2019 06:03:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=intel-com.20150623.gappssmtp.com; s=20150623;
-	h=from:to:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=vH/owa1eh2xuelLjI+HUCIClSHgdsjjDvT1pQL3XxKM=;
-	b=Hxtj1CZJomJgaPLwsSLiVivubOmw6D2z1qZ0NUypJX+6qRbFfjUlG5GzTdny48LWrr
-	IyiOKtsU59ABVma+QJ1BRA1pij6aRAkmqVJyKvHJRHizqQA0ttSlKuOYzAkm15doFULW
-	SR1tioVDjE6lvCYDnDhsRc0OUvNHnuLdmCo2YgpGcQdcN8D2C3jnEP2cDtgRwQOMme6a
-	m/23y8FsXqs5v0hZLAoTj81X6addA7IhTojai7Ax45q5GMzTHzMHseb79nuHiINxkZze
-	1rTIv80PumNjsTaN3+9Z9QRZNkb1kL6gX87lo3G0rMf7bfSRTorOB+gyVbdAjbKHWqGs
-	d68g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=vH/owa1eh2xuelLjI+HUCIClSHgdsjjDvT1pQL3XxKM=;
-	b=JWEqkaLNAAmVlRvwCdnUJEgzB/am4LKCGijq6iExXDs5JQ2yuTkWU+tLzA8cAsPJO8
-	d0UoDE6RGKwu/EDytN8aK/TSFxpp8jKFErlP6XJpNjZBEq7onfHGP6bB+PSOPU7PNpc/
-	9FYzmT6oguZehcW56O/lXPmhrnpJaFrPqBWWdEdtx9eJUDjvjHNXyKIb3paWAxtHhIxI
-	1jW9g3HzH80Z4HfUXQh5gfX1ksKr3YFQE45NcF5oKQjInhHGGww4AM737Q3onV7qzNhu
-	oxv6Z1SDxJtDX9cajhaJlqgc84B7rUSDp0d/rGGA3OdLwRVlH9LN7hZOoyYmgSf7hoKS
-	ifzA==
-X-Gm-Message-State: APjAAAXu1+61acfDkJvirWyAW2GE6nWtA5jD0ZUmOmwo3UzfL49bGNfM
-	7QsrKsWjD7PK5+eJZepZKPYbW1NJexc=
-X-Google-Smtp-Source: APXvYqxsT3se9ThFPv1ELGSLORjfBKyM5bDKbFOGX8pkXmkZG+snY2+9Xw6/RXBeGlJF2fcY/QNMVw==
-X-Received: by 2002:a7b:c8c5:: with SMTP id f5mr2530490wml.170.1570626210843; 
-	Wed, 09 Oct 2019 06:03:30 -0700 (PDT)
-Received: from flashheart.burtonini.com (35.106.2.81.in-addr.arpa.
-	[81.2.106.35]) by smtp.gmail.com with ESMTPSA id
-	q15sm3627533wrg.65.2019.10.09.06.03.29 for <poky@yoctoproject.org>
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 09 Oct 2019 06:03:30 -0700 (PDT)
-From: Ross Burton <ross.burton@intel.com>
-To: poky@yoctoproject.org
-Date: Wed,  9 Oct 2019 14:03:28 +0100
-Message-Id: <20191009130328.28520-1-ross.burton@intel.com>
-X-Mailer: git-send-email 2.20.1
+X-Greylist: delayed 546 seconds by postgrey-1.32 at yocto-www;
+	Wed, 09 Oct 2019 06:41:04 PDT
+Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D96B1E00D8B
+	for <poky@yoctoproject.org>; Wed,  9 Oct 2019 06:41:04 -0700 (PDT)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 46pFW02KbYz4S;
+	Wed,  9 Oct 2019 15:31:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
+	s=default; t=1570627916;
+	bh=bEjbpyx3YedPt4hXsGfDv0YEoKwz2uE7dXY6R6ZEALs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z76VCUHMVr0A504b4nTOD/sbbQwnGyyEHyTwRaV7YmsS0TvHI0fR7aw3zIUe3qv+O
+	Muxyt3gOimwP0in9H3s9JwY9MimMvy/cEMNXFJjNmEn6E+nlynJkVzLUjPNYNlZKco
+	oYV92lCeeaI2A5mlhO3ocd6nZKgaFmsvCKxxqmyUAUkwhHgB3QhIDBlZZn33gKiz3u
+	rwJ3lw/0pcEKXRKAYPMsX7bIdjn1dcymeeBCiJsMDCOusY+0gpbChvZKM4gC77OZ0q
+	Imm42yaDuSBKEIcEnPSMLg9dS+DmNAltjYdi14FIzc3IzmTVCd/JIuAIctxN0FofUc
+	XGKqr3suCPpyVZfKsCCg+CUrUAPXzTjVd2yCUkPhWlO/2d7SGkgZW3iFR07ZmD6wiR
+	c3PlHNAu1z70eWwgeezlB84nKiw65MYL5Ukd/avMBBIHHNfX9GoljmY2e8XXsGxbKC
+	edOAZSLptPi49AcalE3LO3mHfNnbSoBTVSXskBsMLEavwjDpy3hBZLLUcDWAyaXIQ2
+	W7p48EHykl30aWA4f6/w+x6ctsxdtWxNqvo/mA6uCqx6yCAQoJkuHV73fofuD/j5ft
+	B+EdSI9tZs74vEcaJdWvXwUemeNxDjZ/1fDL78yvLc85ClakA5Rs73rMCBxpV3Esu2
+	GlfObt7mVtOgufmCWBjltNK4=
+Date: Wed, 9 Oct 2019 16:31:53 +0300
+From: Adrian Bunk <bunk@stusta.de>
+To: Ross Burton <ross.burton@intel.com>
+Message-ID: <20191009133153.GA29168@localhost>
+References: <20191009130328.28520-1-ross.burton@intel.com>
 MIME-Version: 1.0
-Subject: [PATCH] poky: add Ubuntu 19.04 as a supported distribution
+In-Reply-To: <20191009130328.28520-1-ross.burton@intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: poky@yoctoproject.org
+Subject: Re: [PATCH] poky: add Ubuntu 19.04 as a supported distribution
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -71,27 +61,40 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Oct 2019 13:04:12 -0000
-Content-Transfer-Encoding: 8bit
+X-List-Received-Date: Wed, 09 Oct 2019 13:41:07 -0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Signed-off-by: Ross Burton <ross.burton@intel.com>
----
- meta-poky/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+On Wed, Oct 09, 2019 at 02:03:28PM +0100, Ross Burton wrote:
+> Signed-off-by: Ross Burton <ross.burton@intel.com>
+> ---
+>  meta-poky/conf/distro/poky.conf | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+> index f999992c90a..e3df6be2ac5 100644
+> --- a/meta-poky/conf/distro/poky.conf
+> +++ b/meta-poky/conf/distro/poky.conf
+> @@ -54,6 +54,7 @@ SANITY_TESTED_DISTROS ?= " \
+>              poky-2.7 \n \
+>              ubuntu-16.04 \n \
+>              ubuntu-18.04 \n \
+> +            ubuntu-19.04 \n \
+>...
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index f999992c90a..e3df6be2ac5 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -54,6 +54,7 @@ SANITY_TESTED_DISTROS ?= " \
-             poky-2.7 \n \
-             ubuntu-16.04 \n \
-             ubuntu-18.04 \n \
-+            ubuntu-19.04 \n \
-             fedora-28 \n \
-             fedora-29 \n \
-             fedora-30 \n \
+I am not convinced that declaring (and testing?) support for
+non-LTS Ubuntu releases is a good idea.
+
+Ubuntu 19.04 will be EOL in January, and 19.10 will be released in a week.
+
+cu
+Adrian
+
 -- 
-2.20.1
+
+       "Is there not promise of rain?" Ling Tan asked suddenly out
+        of the darkness. There had been need of rain for many days.
+       "Only a promise," Lao Er said.
+                                       Pearl S. Buck - Dragon Seed
 
 
