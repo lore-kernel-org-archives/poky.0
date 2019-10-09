@@ -1,53 +1,65 @@
-Return-Path: <bunk@stusta.de>
+Return-Path: <alex.kanavin@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id E634AE00D8D; Wed,  9 Oct 2019 06:41:06 -0700 (PDT)
+	id B2355E00D8B; Wed,  9 Oct 2019 07:49:25 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
-	low *      trust
-	*      [141.84.69.5 listed in list.dnswl.org]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (alex.kanavin[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
+	no *      trust
+	*      [209.85.222.67 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-X-Greylist: delayed 546 seconds by postgrey-1.32 at yocto-www;
-	Wed, 09 Oct 2019 06:41:04 PDT
-Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D96B1E00D8B
-	for <poky@yoctoproject.org>; Wed,  9 Oct 2019 06:41:04 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 46pFW02KbYz4S;
-	Wed,  9 Oct 2019 15:31:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
-	s=default; t=1570627916;
-	bh=bEjbpyx3YedPt4hXsGfDv0YEoKwz2uE7dXY6R6ZEALs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z76VCUHMVr0A504b4nTOD/sbbQwnGyyEHyTwRaV7YmsS0TvHI0fR7aw3zIUe3qv+O
-	Muxyt3gOimwP0in9H3s9JwY9MimMvy/cEMNXFJjNmEn6E+nlynJkVzLUjPNYNlZKco
-	oYV92lCeeaI2A5mlhO3ocd6nZKgaFmsvCKxxqmyUAUkwhHgB3QhIDBlZZn33gKiz3u
-	rwJ3lw/0pcEKXRKAYPMsX7bIdjn1dcymeeBCiJsMDCOusY+0gpbChvZKM4gC77OZ0q
-	Imm42yaDuSBKEIcEnPSMLg9dS+DmNAltjYdi14FIzc3IzmTVCd/JIuAIctxN0FofUc
-	XGKqr3suCPpyVZfKsCCg+CUrUAPXzTjVd2yCUkPhWlO/2d7SGkgZW3iFR07ZmD6wiR
-	c3PlHNAu1z70eWwgeezlB84nKiw65MYL5Ukd/avMBBIHHNfX9GoljmY2e8XXsGxbKC
-	edOAZSLptPi49AcalE3LO3mHfNnbSoBTVSXskBsMLEavwjDpy3hBZLLUcDWAyaXIQ2
-	W7p48EHykl30aWA4f6/w+x6ctsxdtWxNqvo/mA6uCqx6yCAQoJkuHV73fofuD/j5ft
-	B+EdSI9tZs74vEcaJdWvXwUemeNxDjZ/1fDL78yvLc85ClakA5Rs73rMCBxpV3Esu2
-	GlfObt7mVtOgufmCWBjltNK4=
-Date: Wed, 9 Oct 2019 16:31:53 +0300
-From: Adrian Bunk <bunk@stusta.de>
-To: Ross Burton <ross.burton@intel.com>
-Message-ID: <20191009133153.GA29168@localhost>
-References: <20191009130328.28520-1-ross.burton@intel.com>
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+	[209.85.222.67])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 29290E00BFF
+	for <poky@yoctoproject.org>; Wed,  9 Oct 2019 07:49:25 -0700 (PDT)
+Received: by mail-ua1-f67.google.com with SMTP id r19so853173uap.9
+	for <poky@yoctoproject.org>; Wed, 09 Oct 2019 07:49:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=I8+X4Jx/LXzgYjS+jpCC3W7NuuKyLSJj8nnBxpmLwmc=;
+	b=DiNETNP8aiICbfAYFeI/IE23wquln0sdEJABN9waOdZZxNQzNCwdAZCFCGISCj2FCs
+	LfEY6ileT5ngOQTTDNeuV6XmT32bTQu6FUvlf7WPgDtGOBUbpLkBOU/ZNIgmN5s16jAQ
+	LFCSxKwPQJ9NQ5dJc+i3mOlbsZ2GVutLfl8KofwoVbCFJz69f9MLHvQBfZvHTcK95BKJ
+	4PNgH0eyM4gGYHOWzH28UyL6yxjMe9QYfjG5ICbGik9+97t36s2rkTv4byOXqPnAm/6O
+	vf2NcsSCqBCB+PitbMbUQegk9mKgHLrxPOLo6PHavL1p9m9815ySqiV4pvRicR69Li4k
+	6SUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=I8+X4Jx/LXzgYjS+jpCC3W7NuuKyLSJj8nnBxpmLwmc=;
+	b=KbdtzoBc7ot7K7fPgpfDw5wJj4Sa+GwU9ZzRLLkurUmJyoIZAIcOcYDQF09aXzUPdn
+	f7iGdAK0UhqmU12m6skbSfMonoJ+IK/suJEj4LS0XnC86RPKG/oh+GcuIfYhT1EaXEKQ
+	UYtNplQks9KhVHkw8TztvZQH0a9r/fMuCVinzRgas16k2pNdEcGJ5i591Y4UNmrZ0PU1
+	1MptMCkCI+vPf92y+XhtDPEPntZFq1pJ2z/gSMW0gFrflwoE6WKLQarSc3EANL8/PXVN
+	4TlEBUWlZSCJvPKqzdidQ4d+I1NzkHvT0DZAvILhatY31TwOeALC2qP9npkd5YlS1eDZ
+	2bpA==
+X-Gm-Message-State: APjAAAXelOJflyxhIQuDYvbvFdVW6cNlIELhfkxkHex3K4qvL4EPBr2Q
+	n3kfg/wRlNpAp1stmyN90xyiS9ePlnSRQGpx3Wk=
+X-Google-Smtp-Source: APXvYqw0QvBueBhep5h0yVgCZmQMA+Bavws93iy5DOxSjOgQ+YTMUfCdRkCZLxLFI7aSwTP47D6O0Z+X5FBh78POWhw=
+X-Received: by 2002:ab0:3f1:: with SMTP id 104mr1389383uau.93.1570632564499;
+	Wed, 09 Oct 2019 07:49:24 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20191009130328.28520-1-ross.burton@intel.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: poky@yoctoproject.org
+References: <20191009130328.28520-1-ross.burton@intel.com>
+	<20191009133153.GA29168@localhost>
+In-Reply-To: <20191009133153.GA29168@localhost>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Wed, 9 Oct 2019 16:49:13 +0200
+Message-ID: <CANNYZj8RsOn3T_aXpNSP8MBdiUd28gnasWcgJENrZ2TzPxRRRg@mail.gmail.com>
+To: Adrian Bunk <bunk@stusta.de>
+Cc: Poky Project <poky@yoctoproject.org>
 Subject: Re: [PATCH] poky: add Ubuntu 19.04 as a supported distribution
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
@@ -61,40 +73,68 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Oct 2019 13:41:07 -0000
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-List-Received-Date: Wed, 09 Oct 2019 14:49:25 -0000
+Content-Type: multipart/alternative; boundary="000000000000146e9d05947b6456"
 
-On Wed, Oct 09, 2019 at 02:03:28PM +0100, Ross Burton wrote:
-> Signed-off-by: Ross Burton <ross.burton@intel.com>
-> ---
->  meta-poky/conf/distro/poky.conf | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-> index f999992c90a..e3df6be2ac5 100644
-> --- a/meta-poky/conf/distro/poky.conf
-> +++ b/meta-poky/conf/distro/poky.conf
-> @@ -54,6 +54,7 @@ SANITY_TESTED_DISTROS ?= " \
->              poky-2.7 \n \
->              ubuntu-16.04 \n \
->              ubuntu-18.04 \n \
-> +            ubuntu-19.04 \n \
->...
+--000000000000146e9d05947b6456
+Content-Type: text/plain; charset="UTF-8"
 
-I am not convinced that declaring (and testing?) support for
-non-LTS Ubuntu releases is a good idea.
+On Wed, 9 Oct 2019 at 15:41, Adrian Bunk <bunk@stusta.de> wrote:
 
-Ubuntu 19.04 will be EOL in January, and 19.10 will be released in a week.
+> > diff --git a/meta-poky/conf/distro/poky.conf
+> b/meta-poky/conf/distro/poky.conf
+> > index f999992c90a..e3df6be2ac5 100644
+> > --- a/meta-poky/conf/distro/poky.conf
+> > +++ b/meta-poky/conf/distro/poky.conf
+> > @@ -54,6 +54,7 @@ SANITY_TESTED_DISTROS ?= " \
+> >              poky-2.7 \n \
+> >              ubuntu-16.04 \n \
+> >              ubuntu-18.04 \n \
+> > +            ubuntu-19.04 \n \
+> >...
+>
+> I am not convinced that declaring (and testing?) support for
+> non-LTS Ubuntu releases is a good idea.
+>
+> Ubuntu 19.04 will be EOL in January, and 19.10 will be released in a week.
+>
 
-cu
-Adrian
+I believe this list is compiled from a specific set of distributions that
+are actually installed and used on the Yocto autobuilder. If ubuntu 19.04
+is there, then it is added to the list. It is up to the users if they want
+to use that (in a container maybe), or something else that is current.
 
--- 
+Alex
 
-       "Is there not promise of rain?" Ling Tan asked suddenly out
-        of the darkness. There had been need of rain for many days.
-       "Only a promise," Lao Er said.
-                                       Pearl S. Buck - Dragon Seed
+--000000000000146e9d05947b6456
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div dir=3D"ltr">On Wed, 9 Oct 2019 at 15:41, Adrian Bunk =
+&lt;<a href=3D"mailto:bunk@stusta.de">bunk@stusta.de</a>&gt; wrote:<br></di=
+v><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">&gt; diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/dist=
+ro/poky.conf<br>
+&gt; index f999992c90a..e3df6be2ac5 100644<br>
+&gt; --- a/meta-poky/conf/distro/poky.conf<br>
+&gt; +++ b/meta-poky/conf/distro/poky.conf<br>
+&gt; @@ -54,6 +54,7 @@ SANITY_TESTED_DISTROS ?=3D &quot; \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 poky-2.7 \n \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ubuntu-16.04 \n \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ubuntu-18.04 \n \<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ubuntu-19.04 \n \<br>
+&gt;...<br>
+<br>
+I am not convinced that declaring (and testing?) support for<br>
+non-LTS Ubuntu releases is a good idea.<br>
+<br>
+Ubuntu 19.04 will be EOL in January, and 19.10 will be released in a week.<=
+br></blockquote><div><br></div><div>I believe this list is compiled from a =
+specific set of distributions that are actually installed and used on the Y=
+octo autobuilder. If ubuntu 19.04 is there, then it is added to the list. I=
+t is up to the users if they want to use that (in a container maybe), or so=
+mething else that is current.</div><div><br></div><div>Alex<br></div></div>=
+</div>
 
+--000000000000146e9d05947b6456--
