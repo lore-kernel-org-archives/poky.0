@@ -1,71 +1,62 @@
-Return-Path: <hannandor@gmail.com>
+Return-Path: <matt@madison.systems>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id AEA33E007AE; Tue,  5 Nov 2019 01:01:15 -0800 (PST)
+	id 90DA6E00AE6; Tue,  5 Nov 2019 06:53:32 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
-	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-	provider *      (hannandor[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.167.46 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-	author's *       domain
+	*      [209.85.208.169 listed in list.dnswl.org]
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
-	[209.85.167.46])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1AE29E007AE
-	for <poky@yoctoproject.org>; Tue,  5 Nov 2019 01:01:09 -0800 (PST)
-Received: by mail-lf1-f46.google.com with SMTP id 195so14464819lfj.6
-	for <poky@yoctoproject.org>; Tue, 05 Nov 2019 01:01:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=to:from:subject:message-id:date:user-agent:mime-version
-	:content-language;
-	bh=ggMnDGOmIN5qvJay/+GlgsRLRu/vysdDuilZzYfJ3gM=;
-	b=ZwyOeOCdbXCUGShtqWnX0Pc/B6tCknfzmL8rxOw4qkr6WgvVhTerzcs94Y/D/1n/Go
-	6MW7jQGgcHcsbXCvgQIfzStxVDyt90RwWE1RngTavfQbP49nTcY1qRrML5wUhcmzb+CU
-	HfXbcxnpFB/P6MTyzPxu2CieCnr6z3l5No/WV7UuroibrRQ8aS0hq4cY2YP8FKUy/mT5
-	8s2VOeQ1BDDN7fiOAn0coTyg6vfIHem55/k8dasb38poCX/mg6JzlcPkgLPjC2IssyLM
-	gBZIPzF0MyGNDoM9ApiLmGQFhzdd3QU/59KrfWSerSijKsUXbudSlZis7AZqYUCLfnwM
-	qKSA==
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+	[209.85.208.169])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AA0E5E00AE6
+	for <poky@yoctoproject.org>; Tue,  5 Nov 2019 06:53:31 -0800 (PST)
+Received: by mail-lj1-f169.google.com with SMTP id v8so6529194ljh.5
+	for <poky@yoctoproject.org>; Tue, 05 Nov 2019 06:53:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=madison-systems.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc:content-transfer-encoding;
+	bh=S4Cm7EkBkpsLspmNNIp1iJMBbYvlQF8igPsCy47XVOQ=;
+	b=EbXKplOaveHdH9WlMP0kuj5XP3c2vG6yVHk58FrB+TTy/vQ1tZyNXqLY2w3fa/NxIH
+	A0iaJqLBQJ9U5YdxqprYc85n434rID1/sO4fppFb/7QPNkh1wzXdFvr+7MA/nv6y74O/
+	Hb5B/u4AMzd1XGje2ktoxm8OZjXmnHCPdFMaWmpKsDBBO60wVlhEyglT+pcsl9uXZFwu
+	jvGOFS/FVnuv0iT77DlkrxFYCCn7aa3zI7hin+pJ1UwjUC5c3w9llxAizH1Wq1CDm5uN
+	7eRDB+Bqe+PUSVdA5NrF1rb/zjertcZWDa/UHsw36vzZWFfDnzm541FfNKXDGprjisr8
+	n2cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:to:from:subject:message-id:date:user-agent
-	:mime-version:content-language;
-	bh=ggMnDGOmIN5qvJay/+GlgsRLRu/vysdDuilZzYfJ3gM=;
-	b=OCxk7+/mS/sdE7OreqKSLiH+g/26r1ZTTsnJ/zbG6LCkXL8DrHMhMdkGguVMN2Y0D+
-	R9iVSlrcMJGvl2yU2Dd7NfKbaCK7suEmDpUX93aDF/2ft3GI1VMaO7Jr7ybH7ynr/XjL
-	UPtC/h2Xu9lkO4y7zFFB51UWoehpPI0Rkbsy4rZYr6rdsJORMjhkfY20RFRRgsNwUYks
-	usMZdjP5sDfEhi8rf4dJvtahJbzLGKEt3c/HiUFvMuQkPmCSKDKcqYXc26NmdKxCuX48
-	SN3qB5YzmjwFrxndYzVtLth2GLRTYhAeap+7ZY2SxzjYsKhztnmUynNuH6b9OduRdrm3
-	J+mQ==
-X-Gm-Message-State: APjAAAWJrxMZgB9EhibxOkAp8CELMV17NmBv/hAcZXEG+k97aJockLhS
-	6LjmTBRWvY5QTT/5zRDBWQ/FVkFK
-X-Google-Smtp-Source: APXvYqxcIAMYI5stY2iKnfSCMSSvoMbbDcdCfBKuWGzX0WC40az7eOKBiZ8DOvjg7O3tvZw0+JjWdA==
-X-Received: by 2002:a19:23d7:: with SMTP id j206mr391106lfj.187.1572944467387; 
-	Tue, 05 Nov 2019 01:01:07 -0800 (PST)
-Received: from localhost.localdomain (hel-inetgw01.vaisala.com.
-	[193.143.230.131])
-	by smtp.gmail.com with ESMTPSA id f3sm2372969lfp.0.2019.11.05.01.01.06
-	for <poky@yoctoproject.org>
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 05 Nov 2019 01:01:06 -0800 (PST)
-To: poky@yoctoproject.org
-From: Nandor Han <hannandor@gmail.com>
-Message-ID: <1212f0fd-88e7-a447-a32b-f5caf37408a3@gmail.com>
-Date: Tue, 5 Nov 2019 11:01:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.0
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc:content-transfer-encoding;
+	bh=S4Cm7EkBkpsLspmNNIp1iJMBbYvlQF8igPsCy47XVOQ=;
+	b=TsSI54wTvWARiJ4RxirfWkq5cyjnVNZdZSbU2EdsXPeBEMyu4uf33A6fmQ+A5TzpnH
+	WCwhq0ZYUQoYnG7lujJOwwAVxu+3ElmM4MHvNbz4Ijyv4xASxUoh8kMoFu4pu/Jrzp7x
+	eRa5NrvTnPKCGzvXeSt1qtfKFzo5PkXXxW1DWa8JgPjwXo1+BYQD5SsdytuMWMJY6Lq7
+	jt+/WnvvwfRXh3QYn2uxj7dGzNWi0g1uFwBlLHWbZLAfFX6A1Pw+HGZmrWZB5Xip+bR7
+	Y/8tNKFeJ0yUf53P6xoOZqPJhene/BWkjAxMmUCPVd3gNzEwxnF4oQOejKE7NoIDsnOe
+	HbGg==
+X-Gm-Message-State: APjAAAWNILa1PkEVEDJZNrxUVx+GK2g68B2p15EFVgjFqjYh8bWFOg7J
+	+FssF2qqNAeXqLuMKPmlwtlHoq2BgTxsj+pcuLJF1n3Vllgrug==
+X-Google-Smtp-Source: APXvYqyYSD4hS+VsBTOFVr9He9qV/pI7WR/0iFIWlcMtKpQlSsjucnAfvKf6J9THYyEvlctlVrb3un2ij0p1GekdPoA=
+X-Received: by 2002:a05:651c:120c:: with SMTP id
+	i12mr17440777lja.123.1572965610461; 
+	Tue, 05 Nov 2019 06:53:30 -0800 (PST)
 MIME-Version: 1.0
-Subject: Website certificate expired
+References: <DM6PR01MB5657A2CFB4DFC8F0E4AC7B1A9A600@DM6PR01MB5657.prod.exchangelabs.com>
+In-Reply-To: <DM6PR01MB5657A2CFB4DFC8F0E4AC7B1A9A600@DM6PR01MB5657.prod.exchangelabs.com>
+From: Matt Madison <matt@madison.systems>
+Date: Tue, 5 Nov 2019 06:53:19 -0800
+Message-ID: <CAGgRHJoe7VAnb=ViguGpVtyiD28wFaHU1VC6-Hxh-xtZOKGcmg@mail.gmail.com>
+To: Daniel Wang <Daniel.Wang@intusurg.com>
+Cc: "poky@yoctoproject.org" <poky@yoctoproject.org>
+Subject: Re: FitImage cause dependency loop
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -78,79 +69,62 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Nov 2019 09:01:16 -0000
-Content-Type: multipart/alternative;
-	boundary="------------16981883A2B43617D4EB881C"
-Content-Language: en-US
+X-List-Received-Date: Tue, 05 Nov 2019 14:53:32 -0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---------------16981883A2B43617D4EB881C
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Daniel,
 
-Hi,
-    Just a reminder that `https://www.yoctoproject.org/` website 
-certificate expired.
-(
-
-Issued On
-Wednesday, August 7, 2019 at 9:47:07 AM
-Expires On
-Tuesday, November 5, 2019 at 8:47:07 AM
-
-)
+This is a problem in meta-tegra.  I've fixed it in master, but will
+need to back-port that change to the warrior branch.  Open an issue at
+https://github.com/madisongh/meta-tegra/issues and that will remind me
+to take care of it.
 
 Regards,
-     Nandor
+-Matt
 
+On Wed, Oct 30, 2019 at 12:10 PM Daniel Wang <Daniel.Wang@intusurg.com> wro=
+te:
+>
+> Hi there,
+>
+>
+>
+> I got a question hope some of you can give me an advice. I=E2=80=99m usin=
+g Yocto Warrior and meta-tegra to build my distro. I want to enable verifie=
+d boot so I added the following settings.
+>
+>
+>
+> KERNEL_CLASSES ?=3D =E2=80=9C kernel-fitimage =E2=80=9D
+>
+> KERNEL_IMAGETYPES_append =3D =E2=80=9C fitImage=E2=80=9D
+>
+> UBOOT_SIGN_KEYDIR =3D =E2=80=9C${TOPDIR}/conf=E2=80=9D
+>
+> UBOOT_SIGN_KEYNAME =3D =E2=80=9Cdev=E2=80=9D
+>
+> UBOOT_MKIMAGE_DTCOPTS =3D =E2=80=9C-I dts -O dtb -p 2000=E2=80=9D
+>
+> UBOOT_SIGN_ENABLE  =3D =E2=80=9C1=E2=80=9D
+>
+>
+>
+> Everything works well without those setting. But as soon as I added those=
+ ones Yocto reports a dependency loop (more than 10 matches). Have any of y=
+ou encountered this issue before how can I fix it? Thank you so much!
+>
+>
+>
+> Thanks
+>
+> -Daniel
+>
+>
+>
+> --
+> _______________________________________________
+> poky mailing list
+> poky@yoctoproject.org
+> https://lists.yoctoproject.org/listinfo/poky
 
---------------16981883A2B43617D4EB881C
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Hi,<br>
-         Just a reminder that `<a href="https://www.yoctoproject.org/">https://www.yoctoproject.org/</a>`
-      website certificate expired. <br>
-      (</p>
-    <div style="display: table-row; color: rgb(0, 0, 0); font-family:
-      &quot;DejaVu Sans&quot;, Arial, sans-serif; font-size: 12px;
-      font-style: normal; font-variant-ligatures: normal;
-      font-variant-caps: normal; font-weight: 400; letter-spacing:
-      normal; orphans: 2; text-align: start; text-indent: 0px;
-      text-transform: none; white-space: normal; widows: 2;
-      word-spacing: 0px; -webkit-text-stroke-width: 0px;
-      background-color: rgb(251, 251, 251); text-decoration-style:
-      initial; text-decoration-color: initial;">
-      <div class="attribute" style="display: table-cell; white-space:
-        nowrap; color: rgb(120, 120, 120); line-height: 18px;
-        padding-inline-start: 20px;">Issued On</div>
-      <div id="issue-date" class="value" style="display: table-cell; white-space: pre-wrap; color: rgb(120, 120, 120); line-height: 18px; padding-inline-start: 20px;">Wednesday, August 7, 2019 at 9:47:07 AM</div>
-    </div>
-    <div style="display: table-row; color: rgb(0, 0, 0); font-family:
-      &quot;DejaVu Sans&quot;, Arial, sans-serif; font-size: 12px;
-      font-style: normal; font-variant-ligatures: normal;
-      font-variant-caps: normal; font-weight: 400; letter-spacing:
-      normal; orphans: 2; text-align: start; text-indent: 0px;
-      text-transform: none; white-space: normal; widows: 2;
-      word-spacing: 0px; -webkit-text-stroke-width: 0px;
-      background-color: rgb(251, 251, 251); text-decoration-style:
-      initial; text-decoration-color: initial;">
-      <div class="attribute" style="display: table-cell; white-space:
-        nowrap; color: rgb(120, 120, 120); line-height: 18px;
-        padding-inline-start: 20px;">Expires On</div>
-      <div id="expiry-date" class="value" style="display: table-cell; white-space: pre-wrap; color: rgb(120, 120, 120); line-height: 18px; padding-inline-start: 20px;">Tuesday, November 5, 2019 at 8:47:07 AM</div>
-    </div>
-    <p>)<br>
-    </p>
-    <p>Regards,<br>
-          Nandor<br>
-    </p>
-  </body>
-</html>
-
---------------16981883A2B43617D4EB881C--
