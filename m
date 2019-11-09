@@ -1,58 +1,61 @@
-Return-Path: <jonathan.richardson@broadcom.com>
+Return-Path: <ashish.emailaddress@gmail.com>
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 4F959E00C46; Wed,  6 Nov 2019 15:35:26 -0800 (PST)
+	id 8E3FAE00DEE; Sat,  9 Nov 2019 09:16:47 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID, DKIM_VALID_AU,
+	DKIM_VALID, DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE,
 	RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
 X-Spam-HAM-Report: * -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
+	* 0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	provider *      (ashish.emailaddress[at]gmail.com)
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/,
 	no *      trust
-	*      [209.85.166.180 listed in list.dnswl.org]
+	*      [209.85.166.44 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
 	author's *       domain
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
-	[209.85.166.180])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 492F2E00ADD
-	for <poky@yoctoproject.org>; Wed,  6 Nov 2019 15:35:25 -0800 (PST)
-Received: by mail-il1-f180.google.com with SMTP id z10so77363ilo.8
-	for <poky@yoctoproject.org>; Wed, 06 Nov 2019 15:35:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=broadcom.com; s=google;
-	h=from:mime-version:thread-index:date:message-id:subject:to;
-	bh=RZ9KncYQPDYG9HWjypvV8uXXFcTpxgfys/abW/KLkkE=;
-	b=Yj3mtAICWuTKYva65kimCxYsvUlGHQAYpx2q84hkXRQmf+DCy65xYZNK4Ag+0bpt/Q
-	kgmX9vXQ6SfBC7qZ9Ondx1PrSTQpMaJQ+aGpK+62X25q3TWZ+/7TDPB7nIiHcImYzKhQ
-	ZEI4dwSy88inL6BEG7LhtviOSZtn8bSMY4/WM=
+Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
+	[209.85.166.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 682F9E0085D
+	for <poky@yoctoproject.org>; Sat,  9 Nov 2019 09:16:46 -0800 (PST)
+Received: by mail-io1-f44.google.com with SMTP id k1so9770413ioj.6
+	for <poky@yoctoproject.org>; Sat, 09 Nov 2019 09:16:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to;
+	bh=nc2XPBt14AVYIUa9a3JINKxN/+ldedfci4T+GGOxqfg=;
+	b=JXlObXkArXzd+Cyl3eL688U8iMNts3S66Ge28Htc63B9TgDTod9IKwZFQlDYZzBS9Z
+	4jDTGk5pvwiGXIKTU37u6zjN+iCMuxm4LTR0RQ+Dx0xycphM3PSm9uu94Qae/2yy34o7
+	05cQzBvlPRzQ9lb0/cMNkGFX+0XpHjk+OxwytQq2QVrhpkqEfr3faF4HrX+JsSy2G09W
+	62r0fJY2ePH0//EwBwinC4LsqkvOB48Yd/Y3iUHHCRHRfSxqLhOb6pxGAs5yroSTfmQ+
+	D0WnFx9RaGDzvPtc+9yvmepO84aKBHXbjmYwMvVUSuljuSFQ5lTfapDYSWgq1WX+pHhd
+	WqPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:mime-version:thread-index:date:message-id
-	:subject:to;
-	bh=RZ9KncYQPDYG9HWjypvV8uXXFcTpxgfys/abW/KLkkE=;
-	b=FFi4OTUfrNdOmX4C5FqIRHeu/dP4ahpcL1m3yh0xuasH+s/UNhU+Jh2nsiMA2+qPsY
-	FDFgQQ6VwRiN/4wx30jrVdj9kDR8NixoeFcYm8FlFWYkREZPYp8+1SuFxNH2LbdnLacF
-	gj6O+7Oo41672sQ7xx6wG5izhsYbUVJuNdGluhG+vGV63YQrnIdbx6dhosqXAo9S0426
-	8jURCEMlWi910GsH8HDxfSsBFFFurkjs2muJYVy3P28yDF0osQULVmRv6AII43zrrPsC
-	v+RcWB42LVpmEQlyeO1/s0CDFateenUOj12SVX4lzodgeLBvjjTUu3ew+gOxh2a+oUOT
-	qdgA==
-X-Gm-Message-State: APjAAAWUMIABeHc2eAR3Xykph1mCF8F2UJojlUcRTbQy7zUJWBQORsio
-	8l4jTElNVUUIGrKaYV2MJuwdNAiRMqdniIutsMTN6BaA
-X-Google-Smtp-Source: APXvYqx7T8Koz5jkq3aWmL1paqjZ7dpPm94QsgdhBX5SzhLao1op3qhelXb8JnmlIFGWZgWFr1er2Er59j9QK7nIFtg=
-X-Received: by 2002:a92:40d9:: with SMTP id d86mr467485ill.303.1573083324412; 
-	Wed, 06 Nov 2019 15:35:24 -0800 (PST)
-From: Jonathan Richardson <jonathan.richardson@broadcom.com>
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+	bh=nc2XPBt14AVYIUa9a3JINKxN/+ldedfci4T+GGOxqfg=;
+	b=Og/hGxP8JwQuAPgAr2pXUioJyPSlmORFYbQS/D5Bz+GFx64myRuYDj/CRutcEem3Oc
+	GR8c2XGZdoZmxiimdNmj24AB6KGb6Lc3ydKp/hEziHqWiViG30eUqZXJxXn5C8+v+wdQ
+	EF9v3DlJxGznjb6V3n1kQx2NsuEU6fHyqC0mJirhfiU1B9bVH1lxGXqAOS1rdOfg835J
+	74lUK+XVdevdZYpY+bdUDZfJstYJ+sHUFW7Em1wl6E91Q46DtnRq1PyPRK+yCGLod0WC
+	I9aTTlXDm1xXVQxlh+He0VTgoiRbZzZ/DVbhWxQw/rL+/TSORtWzQe/bkUY1hAPteUnF
+	0WsA==
+X-Gm-Message-State: APjAAAVb9j/mpkHECuknX75roLpKgYmn3lEA1UMx0FMYW59d7WTrgum7
+	So150L6b6/i10QuLL/OP9VBZI/nnbD4XkOOy1D/FKxMffB8=
+X-Google-Smtp-Source: APXvYqyj2FT58TDwrxE3lR2uWP+sPv8RKKtFeVMGzm0azmEnQF7qHnim4Egx/AvE8JvI2I7UIcwx2+5pIMBhdEX1ego=
+X-Received: by 2002:a6b:9343:: with SMTP id v64mr15545951iod.247.1573319805523;
+	Sat, 09 Nov 2019 09:16:45 -0800 (PST)
 MIME-Version: 1.0
-X-Mailer: Microsoft Outlook 14.0
-Thread-Index: AdWU9V06PvD9dqksSQ6zdsMlA9mcRg==
-Date: Wed, 6 Nov 2019 15:35:22 -0800
-Message-ID: <fe3dfa14916a01f24b0cd59065c18469@mail.gmail.com>
-To: poky@yoctoproject.org
-Subject: sql error on recipes using multiple git repos
+From: AshishKumar Mishra <ashish.emailaddress@gmail.com>
+Date: Sat, 9 Nov 2019 22:46:34 +0530
+Message-ID: <CAOe0dAXWDdPBkyDRje3tyfj2kr+2bhJjW+qYY8SE+FzbSoYJcg@mail.gmail.com>
+To: Poky Project <poky@yoctoproject.org>
+Subject: Poky compilation error due to fontconfig package
 X-BeenThere: poky@yoctoproject.org
 X-Mailman-Version: 2.1.13
 Precedence: list
@@ -65,142 +68,139 @@ List-Post: <mailto:poky@yoctoproject.org>
 List-Help: <mailto:poky-request@yoctoproject.org?subject=help>
 List-Subscribe: <https://lists.yoctoproject.org/listinfo/poky>,
 	<mailto:poky-request@yoctoproject.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2019 23:35:26 -0000
-X-Groupsio-MsgNum: 11810
-Content-Type: multipart/mixed; boundary="000000000000c155870596b60004"
+X-List-Received-Date: Sat, 09 Nov 2019 17:16:47 -0000
+Content-Type: multipart/alternative; boundary="000000000000205d340596ed1036"
 
---000000000000c155870596b60004
+--000000000000205d340596ed1036
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+ Hi All ,
 
-As of warrior release (and zeus) I'm encountering an SQL error (attached)
-on a bunch of recipes that use SRCREV_FORMAT and multiple git repos. The
-simplified recipes are below. On the build server it happens most of the
-time, on my local 32 core machine I rarely see it. The error can occur on
-any version of the recipe. I can't tell what's wrong. It looks like a bug.
+Can team please provide any pointer to address compilation error of
+*fontconfig package *
+Part of error is copied below if require i can share the complete log as
+attachment.
 
-
-nitro.inc:
-
-BRCM_NXT-NVM_BRANCH ?= "bcm/master"
-BRCM_NXT-NVM_SRCREV ?= "${AUTOREV}"
-SRC_URI = "
-git://svcccxswgit@git-ccxsw.rtp.broadcom.com/brcm/ctrl/nxt-utils.git;proto
-col=ssh;branch=${BRCM_NXT-NVM_BRANCH};nobranch=0;name=nxt-nvm"
-SRCREV_nxt-nvm = "${BRCM_NXT-NVM_SRCREV}"
-
-BRCM_NXT-UTILS_BRANCH ?= "bcm/master"
-BRCM_NXT-UTILS_SRCREV ?= "${AUTOREV}"
-SRC_URI +=
-"git://svcccxswgit@git-ccxsw.rtp.broadcom.com/brcm/ctrl/nxt-utils.git;prot
-ocol=ssh;branch=${BRCM_NXT-UTILS_BRANCH};nobranch=0;destsuffix=git/nxt-uti
-ls;name=nxt-utils"
-SRCREV_nxt-utils = "${BRCM_NXT-UTILS_SRCREV}"
-
-SRCREV_FORMAT = "nxt-nvm_nxt-utils"
+I am not sure as to how do i approach such error when the default package
+like "fontconfig"
+Also i checked the IMAGE_INSTALL , i haven't added directly so some other
+package seems to have it as dependent package.
 
 
-brcm-nitro.bb:
+^
+| Makefile:679: recipe for target 'fcinit.lo' failed
+| make[3]: *** [fcinit.lo] Error 1
+| Makefile:679: recipe for target 'fccache.lo' failed
+| make[3]: *** [fccache.lo] Error 1
+| Makefile:679: recipe for target 'fcfreetype.lo' failed
+| make[3]: *** [fcfreetype.lo] Error 1
+| In file included from ../../fontconfig-2.13.1/src/fclang.c:1108:0:
+| ./fcaliastail.h:436:0: error: unterminated #ifdef
+|  #ifdef __fcstr__
+|  ^
+| In file included from ../../fontconfig-2.13.1/src/fclang.c:1108:0:
+| ./fcaliastail.h:1:0: error: unterminated #if
+|  #if HAVE_GNUC_ATTRIBUTE
+|  ^
+| Makefile:679: recipe for target 'fclang.lo' failed
+| make[3]: *** [fclang.lo] Error 1
+| In file included from ../../fontconfig-2.13.1/src/fcmatch.c:1207:0:
+| ./fcaliastail.h:436:0: error: unterminated #ifdef
+|  #ifdef __fcstr__
+|  ^
+| In file included from ../../fontconfig-2.13.1/src/fcmatch.c:1207:0:
+| ./fcaliastail.h:1:0: error: unterminated #if
+|  #if HAVE_GNUC_ATTRIBUTE
+|  ^
+| Makefile:679: recipe for target 'fcmatch.lo' failed
+| make[3]: *** [fcmatch.lo] Error 1
+| make[3]: Leaving directory
+'/home/ashish/Documents/linux-foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/build/src'
+| Makefile:533: recipe for target 'all' failed
+| make[2]: *** [all] Error 2
+| make[2]: Leaving directory
+'/home/ashish/Documents/linux-foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/build/src'
+| Makefile:590: recipe for target 'all-recursive' failed
+| make[1]: *** [all-recursive] Error 1
+| make[1]: Leaving directory
+'/home/ashish/Documents/linux-foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/build'
+| Makefile:474: recipe for target 'all' failed
+| make: *** [all] Error 2
+| ERROR: oe_runmake failed
+| WARNING:
+/home/ashish/Documents/linux-foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/temp/run.do_compile.27560:1
+exit 1 from 'exit 1'
+| ERROR: Function failed: do_compile (log file is located at
+/home/ashish/Documents/linux-foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/temp/log.do_compile.27560)
+ERROR: Task
+(virtual:native:/home/ashish/Documents/linux-foundation-projects/yocto/poky/meta/recipes-graphics/fontconfig/fontconfig_2.13.1.bb:do_compile)
+failed with exit code '1'
+NOTE: Tasks Summary: Attempted 2408 tasks of which 2407 didn't need to be
+rerun and 1 failed.
 
-require nitro.inc
-PV = "git${SRCPV}"
-BRCM_NXT-RELEASE_BRANCH ?= "int_nxt"
-BRCM_NXT-RELEASE_SRCREV ?= "${AUTOREV}"
-SRC_URI
-+="git://svcccxswgit@git-ccxsw.rtp.broadcom.com/brcm/ctrl/nxt-release.git;
-protocol=ssh;branch=${BRCM_NXT-RELEASE_BRANCH};nobranch=0;destsuffix=git/p
-rebuilts/nxt-release;name=nxt-release"
-SRCREV_FORMAT_append = "_nxt-release"
-SRCREV_nxt-release = "${BRCM_NXT-RELEASE_SRCREV}"
+Summary: 1 task failed:
+
+virtual:native:/home/ashish/Documents/linux-foundation-projects/yocto/poky/meta/recipes-graphics/fontconfig/fontconfig_2.13.1.bb:
+do_compile
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
+[22:36:42]:~/Documents/linux-foundation-projects/yocto/build-armour :
 
 
-brcm-nitro_nxtrelease214.bb:
+Thanks
 
-require nitro.inc
-PV = "nxtrelease214+git${SRCPV}"
-BRCM_NXT-RELEASE-214_BRANCH ?= "rel_nxt_214"
-BRCM_NXT-RELEASE-214_SRCREV ?= "${AUTOREV}"
-SRC_URI
-+="git://svcccxswgit@git-ccxsw.rtp.broadcom.com/brcm/ctrl/nxt-release-214.
-git;protocol=ssh;branch=${BRCM_NXT-RELEASE-214_BRANCH};nobranch=0;destsuff
-ix=git/prebuilts/nxt-release;name=nxt-release-214"
-SRCREV_FORMAT_append = "_nxt-release-214"
-SRCREV_nxt-release-214 = "${BRCM_NXT-RELEASE-214_SRCREV}"
+--000000000000205d340596ed1036
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>=C2=A0Hi All , <br></div><div><br></div><div>Can team=
+ please provide any pointer to address compilation error of <u><b>fontconfi=
+g package <br></b></u></div><div>Part of error is copied below if require i=
+ can share the complete log as attachment. <br></div><div><br></div><div>I =
+am not sure as to how do i approach such error when the default package lik=
+e &quot;fontconfig&quot; <br></div><div>Also i checked the IMAGE_INSTALL , =
+i haven&#39;t added directly so some other package seems to have it as depe=
+ndent package. <br></div><div><br></div><div>=C2=A0</div><div></div><div><b=
+></b><u><b></b></u></div><div>^<br>| Makefile:679: recipe for target &#39;f=
+cinit.lo&#39; failed<br>| make[3]: *** [fcinit.lo] Error 1<br>| Makefile:67=
+9: recipe for target &#39;fccache.lo&#39; failed<br>| make[3]: *** [fccache=
+.lo] Error 1<br>| Makefile:679: recipe for target &#39;fcfreetype.lo&#39; f=
+ailed<br>| make[3]: *** [fcfreetype.lo] Error 1<br>| In file included from =
+../../fontconfig-2.13.1/src/fclang.c:1108:0:<br>| ./fcaliastail.h:436:0: er=
+ror: unterminated #ifdef<br>| =C2=A0#ifdef __fcstr__<br>| =C2=A0^<br>| In f=
+ile included from ../../fontconfig-2.13.1/src/fclang.c:1108:0:<br>| ./fcali=
+astail.h:1:0: error: unterminated #if<br>| =C2=A0#if HAVE_GNUC_ATTRIBUTE<br=
+>| =C2=A0^<br>| Makefile:679: recipe for target &#39;fclang.lo&#39; failed<=
+br>| make[3]: *** [fclang.lo] Error 1<br>| In file included from ../../font=
+config-2.13.1/src/fcmatch.c:1207:0:<br>| ./fcaliastail.h:436:0: error: unte=
+rminated #ifdef<br>| =C2=A0#ifdef __fcstr__<br>| =C2=A0^<br>| In file inclu=
+ded from ../../fontconfig-2.13.1/src/fcmatch.c:1207:0:<br>| ./fcaliastail.h=
+:1:0: error: unterminated #if<br>| =C2=A0#if HAVE_GNUC_ATTRIBUTE<br>| =C2=
+=A0^<br>| Makefile:679: recipe for target &#39;fcmatch.lo&#39; failed<br>| =
+make[3]: *** [fcmatch.lo] Error 1<br>| make[3]: Leaving directory &#39;/hom=
+e/ashish/Documents/linux-foundation-projects/yocto/build-armour/tmp/work/x8=
+6_64-linux/fontconfig-native/2.13.1-r0/build/src&#39;<br>| Makefile:533: re=
+cipe for target &#39;all&#39; failed<br>| make[2]: *** [all] Error 2<br>| m=
+ake[2]: Leaving directory &#39;/home/ashish/Documents/linux-foundation-proj=
+ects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/b=
+uild/src&#39;<br>| Makefile:590: recipe for target &#39;all-recursive&#39; =
+failed<br>| make[1]: *** [all-recursive] Error 1<br>| make[1]: Leaving dire=
+ctory &#39;/home/ashish/Documents/linux-foundation-projects/yocto/build-arm=
+our/tmp/work/x86_64-linux/fontconfig-native/2.13.1-r0/build&#39;<br>| Makef=
+ile:474: recipe for target &#39;all&#39; failed<br>| make: *** [all] Error =
+2<br>| ERROR: oe_runmake failed<br>| WARNING: /home/ashish/Documents/linux-=
+foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/fontconfig-nat=
+ive/2.13.1-r0/temp/run.do_compile.27560:1 exit 1 from &#39;exit 1&#39;<br>|=
+ ERROR: Function failed: do_compile (log file is located at /home/ashish/Do=
+cuments/linux-foundation-projects/yocto/build-armour/tmp/work/x86_64-linux/=
+fontconfig-native/2.13.1-r0/temp/log.do_compile.27560)<br>ERROR: Task (virt=
+ual:native:/home/ashish/Documents/linux-foundation-projects/yocto/poky/meta=
+/recipes-graphics/fontconfig/fontconfig_2.13.1.bb:do_compile) failed with e=
+xit code &#39;1&#39;<br>NOTE: Tasks Summary: Attempted 2408 tasks of which =
+2407 didn&#39;t need to be rerun and 1 failed.<br><br>Summary: 1 task faile=
+d:<br>=C2=A0 virtual:native:/home/ashish/Documents/linux-foundation-project=
+s/yocto/poky/meta/recipes-graphics/fontconfig/fontconfig_2.13.1.bb:do_compi=
+le<br>Summary: There were 2 ERROR messages shown, returning a non-zero exit=
+ code.<br>[22:36:42]:~/Documents/linux-foundation-projects/yocto/build-armo=
+ur :=C2=A0</div><div><br></div><div><br></div><div>Thanks <br></div></div>
 
-brcm-nitro_nxtrelease216.bb:
-
-require brcm-nitro.inc
-PV = "nxtrelease216+git${SRCPV}"
-BRCM_NXT-RELEASE-216_BRANCH ?= "int_nxt"
-BRCM_NXT-RELEASE-216_SRCREV ?= "${AUTOREV}"
-SRC_URI
-+="git://svcccxswgit@git-ccxsw.rtp.broadcom.com/brcm/ctrl/nxt-release-216.
-git;protocol=ssh;branch=${BRCM_NXT-RELEASE-216_BRANCH};nobranch=0;destsuff
-ix=git/prebuilts/nxt-release;name=nxt-release-216"
-SRCREV_FORMAT_append = "_nxt-release-216"
-SRCREV_nxt-release-216 = "${BRCM_NXT-RELEASE-216_SRCREV}"
-
-
-local.conf:
-BRCM_NXT-RELEASE-216_BRANCH = "bcm/stable"
-PREFERRED_VERSION_brcm-nitro = "nxtrelease216%"
-
-Thanks,
-Jon
-
---000000000000c155870596b60004
-Content-Type: text/plain; charset="US-ASCII"; name="parse-error.txt"
-Content-Disposition: attachment; filename="parse-error.txt"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: 62e5b5e715a2e245_0.1
-
-UGFyc2luZyByZWNpcGVzLi4uRVJST1I6IEV4cGFuc2lvbkVycm9yIGR1cmluZyBwYXJzaW5nIC90
-bXAveW9jdG9fYnVpbGRzLzEyMzMzNzA3X254cy1uZXh0X3N0aW5ncmF5LWJjbTk1ODc0MmsvcG9r
-eS9idWlsZC8uLi9tZXRhLWJyY20vbWV0YS1kYXRhY2VudGVyL3JlY2lwZXMtYnNwL25pdHJvL2Jy
-Y20tbml0cm8uYmINClRyYWNlYmFjayAobW9zdCByZWNlbnQgY2FsbCBsYXN0KToNCiAgRmlsZSAi
-L3RtcC95b2N0b19idWlsZHMvMTIzMzM3MDdfbnhzLW5leHRfc3RpbmdyYXktYmNtOTU4NzQyay9w
-b2t5L2JpdGJha2UvbGliL2JiL2ZldGNoMi9fX2luaXRfXy5weSIsIGxpbmUgMTE2NywgaW4gc3Jj
-cmV2X2ludGVybmFsX2hlbHBlcih1ZD08YmIuZmV0Y2gyLkZldGNoRGF0YSBvYmplY3QgYXQgMHg3
-ZmQ2M2Y1Yzg0Mzg+LCBkPTxiYi5kYXRhX3NtYXJ0LkRhdGFTbWFydCBvYmplY3QgYXQgMHg3ZmQ2
-NDQwMzA5ZTg+LCBuYW1lPSdueHQtbnZtJyk6DQogICAgICAgICBpZiBzcmNyZXYgPT0gIkFVVE9J
-TkMiOg0KICAgID4gICAgICAgIHNyY3JldiA9IHVkLm1ldGhvZC5sYXRlc3RfcmV2aXNpb24odWQs
-IGQsIG5hbWUpDQoNCiAgRmlsZSAiL3RtcC95b2N0b19idWlsZHMvMTIzMzM3MDdfbnhzLW5leHRf
-c3RpbmdyYXktYmNtOTU4NzQyay9wb2t5L2JpdGJha2UvbGliL2JiL2ZldGNoMi9fX2luaXRfXy5w
-eSIsIGxpbmUgMTU2MiwgaW4gR2l0LmxhdGVzdF9yZXZpc2lvbih1ZD08YmIuZmV0Y2gyLkZldGNo
-RGF0YSBvYmplY3QgYXQgMHg3ZmQ2M2Y1Yzg0Mzg+LCBkPTxiYi5kYXRhX3NtYXJ0LkRhdGFTbWFy
-dCBvYmplY3QgYXQgMHg3ZmQ2NDQwMzA5ZTg+LCBuYW1lPSdueHQtbnZtJyk6DQogICAgICAgICAg
-ICAgZXhjZXB0IEtleUVycm9yOg0KICAgID4gICAgICAgICAgICByZXZzW2tleV0gPSByZXYgPSBz
-ZWxmLl9sYXRlc3RfcmV2aXNpb24odWQsIGQsIG5hbWUpDQogICAgICAgICAgICAgICAgIHJldHVy
-biByZXYNCiAgRmlsZSAiL3RtcC95b2N0b19idWlsZHMvMTIzMzM3MDdfbnhzLW5leHRfc3Rpbmdy
-YXktYmNtOTU4NzQyay9wb2t5L2JpdGJha2UvbGliL2JiL3BlcnNpc3RfZGF0YS5weSIsIGxpbmUg
-NTAsIGluIFNRTFRhYmxlLndyYXBfZnVuYygqYXJncz0oJ2dpdDpnaXQtY2N4c3cucnRwLmJyb2Fk
-Y29tLmNvbS5icmNtLmN0cmwubnh0LW52bS5naXRiY20vbWFzdGVyLWJyY20tbml0cm8nLCAnZWE0
-MDY3OWE2YmUwM2NkZjdjYzNkZWY3YzdmZjBhOTI3ODI3NThmYicpLCAqKmt3YXJncz17fSk6DQog
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRyeToNCiAgICA+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHJldHVybiBmKHNlbGYsICphcmdzLCAqKmt3YXJncykNCiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgZXhjZXB0IHNxbGl0ZTMuT3BlcmF0aW9uYWxFcnJvciBhcyBleGM6DQog
-IEZpbGUgIi90bXAveW9jdG9fYnVpbGRzLzEyMzMzNzA3X254cy1uZXh0X3N0aW5ncmF5LWJjbTk1
-ODc0MmsvcG9reS9iaXRiYWtlL2xpYi9iYi9wZXJzaXN0X2RhdGEucHkiLCBsaW5lIDc5LCBpbiBT
-UUxUYWJsZS53cmFwX2Z1bmMoKmFyZ3M9KCdnaXQ6Z2l0LWNjeHN3LnJ0cC5icm9hZGNvbS5jb20u
-YnJjbS5jdHJsLm54dC1udm0uZ2l0YmNtL21hc3Rlci1icmNtLW5pdHJvJywgJ2VhNDA2NzlhNmJl
-MDNjZGY3Y2MzZGVmN2M3ZmYwYTkyNzgyNzU4ZmInKSwgKiprd2FyZ3M9e30pOg0KICAgICAgICAg
-ICAgICAgICAgICAgICAgIHdpdGggY29udGV4dGxpYi5jbG9zaW5nKHNlbGYuY29ubmVjdGlvbi5j
-dXJzb3IoKSkgYXMgY3Vyc29yOg0KICAgID4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-ZihzZWxmLCBjdXJzb3IsICphcmdzLCAqKmt3YXJncykNCiAgICAgICAgICAgICAgICAgcmV0dXJu
-IHdyYXBfZnVuYw0KICBGaWxlICIvdG1wL3lvY3RvX2J1aWxkcy8xMjMzMzcwN19ueHMtbmV4dF9z
-dGluZ3JheS1iY205NTg3NDJrL3Bva3kvYml0YmFrZS9saWIvYmIvcGVyc2lzdF9kYXRhLnB5Iiwg
-bGluZSAxODcsIGluIFNRTFRhYmxlLl9fc2V0aXRlbV9fKGN1cnNvcj08c3FsaXRlMy5DdXJzb3Ig
-b2JqZWN0IGF0IDB4N2ZkNjQ1MTA2ZWEwPiwga2V5PSdnaXQ6Z2l0LWNjeHN3LnJ0cC5icm9hZGNv
-bS5jb20uYnJjbS5jdHJsLm54dC1udm0uZ2l0YmNtL21hc3Rlci1icmNtLW5pdHJvJywgdmFsdWU9
-J2VhNDA2NzlhNmJlMDNjZGY3Y2MzZGVmN2M3ZmYwYTkyNzgyNzU4ZmInKToNCiAgICAgICAgICAg
-ICBlbHNlOg0KICAgID4gICAgICAgICAgICBjdXJzb3IuZXhlY3V0ZSgiSU5TRVJUIGludG8gJXMo
-a2V5LCB2YWx1ZSkgdmFsdWVzICg/LCA/KTsiICUgc2VsZi50YWJsZSwgW2tleSwgdmFsdWVdKQ0K
-DQpiYi5kYXRhX3NtYXJ0LkV4cGFuc2lvbkVycm9yOiBGYWlsdXJlIGV4cGFuZGluZyB2YXJpYWJs
-ZSBTUkNQViwgZXhwcmVzc2lvbiB3YXMgJHtAYmIuZmV0Y2gyLmdldF9zcmNyZXYoZCl9IHdoaWNo
-IHRyaWdnZXJlZCBleGNlcHRpb24gSW50ZWdyaXR5RXJyb3I6IFVOSVFVRSBjb25zdHJhaW50IGZh
-aWxlZDogQkJfVVJJX0hFQURSRVZTLmtleQ0KDQoNClN1bW1hcnk6IFRoZXJlIHdhcyAxIEVSUk9S
-IG1lc3NhZ2Ugc2hvd24sIHJldHVybmluZyBhIG5vbi16ZXJvIGV4aXQgY29kZS4NCnJjPTI1Ng==
-
---000000000000c155870596b60004--
+--000000000000205d340596ed1036--
