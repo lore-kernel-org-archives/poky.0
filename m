@@ -1,219 +1,94 @@
 Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web12.2089.1574395167647214447
+ by mx.groups.io with SMTP id smtpd.web09.2324.1574397041943511244
  for <poky@lists.yoctoproject.org>;
- Thu, 21 Nov 2019 19:59:27 -0800
+ Thu, 21 Nov 2019 20:30:42 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Feiv5SiX;
- spf=softfail (domain: linuxfoundation.org, ip: 140.211.169.56, mailfrom: mhalstead@linuxfoundation.org)
+ dkim=missing; spf=softfail (domain: huawei.com, ip: 140.211.169.56, mailfrom: zhengjunling@huawei.com)
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 799C5E00D00; Thu, 21 Nov 2019 19:59:27 -0800 (PST)
+	id 81B80E00D16; Thu, 21 Nov 2019 20:30:41 -0800 (PST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE,RCVD_IN_DNSWL_NONE autolearn=ham
-	version=3.3.1
+X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,FORGED_SPF_HELO,
+	RCVD_IN_DNSWL_MED,SPF_HELO_PASS autolearn=ham version=3.3.1
 X-Spam-HAM-Report: 
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
-	*      trust
-	*      [209.85.167.193 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
-	*       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com [209.85.167.193])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7B5EAE00DDC
-	for <poky@yoctoproject.org>; Thu, 21 Nov 2019 19:59:25 -0800 (PST)
-Received: by mail-oi1-f193.google.com with SMTP id a14so5335360oid.5
-        for <poky@yoctoproject.org>; Thu, 21 Nov 2019 19:59:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=hcvC81YWgjuXt+P0IfeaGm9dWNS2TCqQywcpMQoBKOE=;
-        b=Feiv5SiXHgB87Fpf1NC5JN+ENADXW7syv60Y0PDpxTqsRBmyoQe5cXNT1LgAFrvo2m
-         oS/wsXs1k3oDwQfhU9TZW2Q5wNlURMdUZuPbDFUbdqnQF8eMhP4hvy51uheI2D4TfBKm
-         sFbo5NR0h0pf1PZHSUsvklVU5idMPi7hUmWkw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=hcvC81YWgjuXt+P0IfeaGm9dWNS2TCqQywcpMQoBKOE=;
-        b=UrtO9I4CH2oNvGxwv2fA/Cm0DKWiVfr7hzmdcvDbLFW0WA0zgAWX4cY8b6goDx/cd5
-         oWAQMZHv2P6ab51dAnxUW5Ccpb1jYjVChqECfn40icqd/4j4U6NvEX2st3UAz+b5TzTa
-         TSVES2rZYfRt1kTyre/hHFgbth2dfQN0gegQD8O9u9i0j15KGI+qTBtwrxaRgk5Hv0Tu
-         mBO6M2LqkPxo0VAk7YehPpJdNylFvmOtreMAfTY7wNdFTjpU57uDbacdfChvT2fDKns0
-         Q2GB3IHKsGCrdpGnQsM0qUMuqtgQBc5fOs8LYxAXXsI6puGEBfIAIBC6RJHw5TWASQP5
-         2mtA==
-X-Gm-Message-State: APjAAAUSnST60Pe1cnjTz3+mnFC2Wp2YhTR0o0PF3uSAGIPltTziuAa/
-	zm6sAmH3PDUL/uclqDBvp5wyzg+yo46I/Kb/icVkwQ==
-X-Google-Smtp-Source: APXvYqyVAoLxzgDLz1OHrR11lES+Cforv72RMdd6F84nONL9ttVklu1ExvH2sMaOSjxb4kRNzqCyDGNhpMOPo6PDyRo=
-X-Received: by 2002:aca:f4c6:: with SMTP id s189mr10754541oih.63.1574395164541;
- Thu, 21 Nov 2019 19:59:24 -0800 (PST)
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/,
+	*      medium trust
+	*      [45.249.212.190 listed in list.dnswl.org]
+	* -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+	*  1.0 FORGED_SPF_HELO FORGED_SPF_HELO
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 7C7C3E00BA3
+	for <poky@yoctoproject.org>; Thu, 21 Nov 2019 20:30:40 -0800 (PST)
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id A97DFC78C5C1CF6A2A63
+	for <poky@yoctoproject.org>; Fri, 22 Nov 2019 12:30:37 +0800 (CST)
+Received: from [127.0.0.1] (10.111.155.88) by DGGEMS408-HUB.china.huawei.com
+ (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Fri, 22 Nov 2019
+ 12:30:33 +0800
+Subject: Re: [poky] Python2 maintenance will expired
+To: <poky@yoctoproject.org>
+References: <13c1169c-fcba-7b49-ea23-0531cc497282@huawei.com>
+ <d5aac15a1c87981785f589046a6e8ead05c09e70.camel@linuxfoundation.org>
+ <CANNYZj8-bTua-Tq2k+qRt7GcX=S_U8zOxS47x+LL6g0CsYMt7A@mail.gmail.com>
+ <20191121204251.GO971@bill-the-cat>
+ <3b2ba6b6-548c-cdf5-c6e1-2c4e9b0b70cd@gmail.com>
+From: "Junling Zheng" <zhengjunling@huawei.com>
+Message-ID: <387b026f-4715-6c32-e419-4ca3a877fc7e@huawei.com>
+Date: Fri, 22 Nov 2019 12:30:33 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101
+ Thunderbird/52.2.1
 MIME-Version: 1.0
-References: <e0299795-a076-faba-6cd2-1a6ccf295f76@linuxfoundation.org> <CADfgfoYzWFVsY_KhETe-vto0t7v-uHnKAkzuSoSRvekKtmovWQ@mail.gmail.com>
-In-Reply-To: <CADfgfoYzWFVsY_KhETe-vto0t7v-uHnKAkzuSoSRvekKtmovWQ@mail.gmail.com>
-From: "Michael Halstead" <mhalstead@linuxfoundation.org>
-Date: Thu, 21 Nov 2019 19:59:13 -0800
-Message-ID: <CADfgfoZw57K2zbOXOGj1f0kU+3Nq4varmSatuNxrbxoo1+a9aA@mail.gmail.com>
-Subject: Re: Mailing list platform change November 21st
-To: automated-testing@yoctoproject.org, conferences@yoctoproject.org, 
-	eclipse-yocto@yoctoproject.org, linux-yocto@yoctoproject.org, 
-	meta-amd@yoctoproject.org, meta-freescale@yoctoproject.org, 
-	meta-intel@yoctoproject.org, meta-lsi@yoctoproject.org, 
-	meta-mentor@yoctoproject.org, meta-ti@yoctoproject.org, 
-	meta-virtualization@yoctoproject.org, meta-xilinx@yoctoproject.org, 
-	poky@yoctoproject.org, toaster@yoctoproject.org, 
-	Yocto Project Discussion <yocto@yoctoproject.org>, yocto-ab@yoctoproject.org, 
-	yocto-advocacy@yoctoproject.org, yocto-announce@yoctoproject.org, 
-	yocto-bsp@yoctoproject.org, yocto-infrastructure@yoctoproject.org, 
-	yocto-security@yoctoproject.org, 
-	Discuss website content updates <yocto-website@yoctoproject.org>
-Content-Type: multipart/alternative; boundary="00000000000084dbd60597e770b4"
+In-Reply-To: <3b2ba6b6-548c-cdf5-c6e1-2c4e9b0b70cd@gmail.com>
+X-Originating-IP: [10.111.155.88]
+X-CFilter-Loop: Reflected
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: 7bit
 
---00000000000084dbd60597e770b4
-Content-Type: text/plain; charset="UTF-8"
+Thank you, all guys
 
-The migration is complete. Please update your address books to point to the
-new list e-mail addresses. There are rewrites in place so the previous
-mailing list addresses will continue to work for a limited time. I am
-sending this message to the old addresses to test that functionality. In
-the next few days we will have redirects for the old pipermail archives to
-keep links working. We are also in the process of setting up
-https://public-inbox.org/README.html for users who would like to retrieve
-list mail using git. Lists and archives are currently accessible via the
-links at https://www.yoctoproject.org/community/mailing-lists/.
+That sounds great, and I'm looking forward to it.
 
-If you are currently a member of any list your account is already created.
-Visit https://lists.yoctoproject.org/sendloginlink and enter the e-mail you
-receive list mail at to receive a login link and set a password.
+Thanks,
 
-If you have questions please visit
-https://wiki.yoctoproject.org/wiki/index.php?title=GroupsMigration to see
-if they have been answered. E-mail pointofcontact@lists.yoctoproject.org
-with new questions.
+Junling
 
---
-Michael Halstead
-Linux Foundation / Yocto Project
-Systems Operations Engineer
-
-
-On Wed, Nov 20, 2019 at 11:23 PM Michael Halstead <
-mhalstead@linuxfoundation.org> wrote:
-
-> The window for the mailing list move has shifted forward to November 21st
-> from 4pm to 8pm Pacific Standard Time. (2019-11-22 00:00-04:00 UTC)
->
-> Moderators please tend to all pending requests today.
->
-> Thank you,
-> --
-> Michael Halstead
-> Linux Foundation / Yocto Project
-> Systems Operations Engineer
->
-> On Fri, Nov 15, 2019 at 4:25 PM Michael Halstead <
-> mhalstead@linuxfoundation.org> wrote:
->
->> After backing out of the first attempt to migrate we are again moving
->> our lists from Mailman to Groups.io. E-mail to lists will be delayed
->> during the move window on November 21st between 17:00 and 23:00 UTC.
+On 2019/11/22 4:47, akuster808 wrote:
+> 
+> 
+> On 11/21/19 12:42 PM, Tom Rini wrote:
+>> On Thu, Nov 21, 2019 at 12:07:14PM +0100, Alexander Kanavin wrote:
+>>> On Thu, 21 Nov 2019 at 09:39, Richard Purdie <
+>>> richard.purdie@linuxfoundation.org> wrote:
+>>>
+>>>> The project has been working hard to remove python2 dependencies where
+>>>> we can and in OE-Core, on target usage has been removed and at build
+>>>> time, u-boot is one of the main remaining pieces that still needs it.
+>>>> Their next release should address that issue.
+>>>>
+>>>> There is still a need for python2 in HOSTTOOLS but that is also being
+>>>> looked at.
+>>>>
+>>> I can confirm (from local testing) that as far as oe-core is concerned,
+>>> u-boot is actually the last piece, and after it's been moved to use py3,
+>>> py2 can be removed entirely, including a link in HOSTTOOLS, and native and
+>>> target recipes.
+>> And for the slightly wider audience, the v2020.01 release is scheduled for
+>> release on January 6th and Alex has tested the current -rc within
+>> oe-core to confirm we're all good with respect to just using Python 3
+>> now.
+> 
+> There is a yocto bug tracking this:
+> https://bugzilla.yoctoproject.org/show_bug.cgi?id=13439
+> 
+> - armin
+> 
 >>
->> A new account will be created for you on the Groups.io platform and most
->> users will only need to update their list mailing address from the
->> @yoctoproject.org to @lists.yoctoproject.org.
 >>
->> Moderators please attend to all pending requests next Wednesday November
->> 20th.
->>
->> Please read more about the change on the wiki:
->>
->> https://wiki.yoctoproject.org/wiki/index.php?title=GroupsMigration
->>
->> If there are serious issues we will rollback the changes. We will e-mail
->> all lists when work is complete.
->>
->> --
->> Michael Halstead
->> Linux Foundation / Yocto Project
->> Systems Operations Engineer
->>
->
+> 
+> 
+> 
 
---00000000000084dbd60597e770b4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">The migration is complete. Please update your address book=
-s to point to the new list e-mail addresses. There are rewrites in place so=
- the previous mailing list addresses will continue to work for a limited ti=
-me. I am sending this message to the old addresses to test that functionali=
-ty. In the next few days we will have redirects for the old pipermail archi=
-ves to keep links working. We are also in the process of setting up <a href=
-=3D"https://public-inbox.org/README.html">https://public-inbox.org/README.h=
-tml</a> for users who would like to retrieve list mail using git. Lists and=
- archives are currently accessible via the links at <a href=3D"https://www.=
-yoctoproject.org/community/mailing-lists/">https://www.yoctoproject.org/com=
-munity/mailing-lists/</a>.<br><br>If you are currently a member of any list=
- your account is already created. Visit=C2=A0<a href=3D"https://lists.yocto=
-project.org/sendloginlink">https://lists.yoctoproject.org/sendloginlink</a>=
-=C2=A0and enter the e-mail you receive list mail at to receive a login link=
- and set a password.<br><br>If you have questions please visit <a href=3D"h=
-ttps://wiki.yoctoproject.org/wiki/index.php?title=3DGroupsMigration">https:=
-//wiki.yoctoproject.org/wiki/index.php?title=3DGroupsMigration</a> to see i=
-f they have been answered. E-mail <a href=3D"mailto:pointofcontact@lists.yo=
-ctoproject.org">pointofcontact@lists.yoctoproject.org</a> with new question=
-s.<div><br></div><div>--<br>Michael Halstead<br>Linux Foundation / Yocto Pr=
-oject<br>Systems Operations Engineer<br></div><div><br></div></div><br><div=
- class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Nov 20=
-, 2019 at 11:23 PM Michael Halstead &lt;<a href=3D"mailto:mhalstead@linuxfo=
-undation.org" target=3D"_blank">mhalstead@linuxfoundation.org</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"lt=
-r">The window for the mailing list move has shifted forward to November 21s=
-t from 4pm to 8pm Pacific Standard Time. (2019-11-22 00:00-04:00 UTC)<div><=
-br></div><div>Moderators please tend to all pending requests today.</div><d=
-iv><br></div><div>Thank you,</div><div>--<br>Michael Halstead<br>Linux Foun=
-dation / Yocto Project<br>Systems Operations Engineer<br></div></div><br><d=
-iv class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Nov =
-15, 2019 at 4:25 PM Michael Halstead &lt;<a href=3D"mailto:mhalstead@linuxf=
-oundation.org" target=3D"_blank">mhalstead@linuxfoundation.org</a>&gt; wrot=
-e:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">After backing=
- out of the first attempt to migrate we are again moving<br>
-our lists from Mailman to Groups.io. E-mail to lists will be delayed<br>
-during the move window on November 21st between 17:00 and 23:00 UTC.<br>
-<br>
-A new account will be created for you on the Groups.io platform and most<br=
->
-users will only need to update their list mailing address from the<br>
-@<a href=3D"http://yoctoproject.org" rel=3D"noreferrer" target=3D"_blank">y=
-octoproject.org</a> to @<a href=3D"http://lists.yoctoproject.org" rel=3D"no=
-referrer" target=3D"_blank">lists.yoctoproject.org</a>.<br>
-<br>
-Moderators please attend to all pending requests next Wednesday November<br=
->
-20th.<br>
-<br>
-Please read more about the change on the wiki:<br>
-<br>
-<a href=3D"https://wiki.yoctoproject.org/wiki/index.php?title=3DGroupsMigra=
-tion" rel=3D"noreferrer" target=3D"_blank">https://wiki.yoctoproject.org/wi=
-ki/index.php?title=3DGroupsMigration</a><br>
-<br>
-If there are serious issues we will rollback the changes. We will e-mail<br=
->
-all lists when work is complete.<br>
-<br>
--- <br>
-Michael Halstead<br>
-Linux Foundation / Yocto Project<br>
-Systems Operations Engineer<br>
-</blockquote></div>
-</blockquote></div>
-
---00000000000084dbd60597e770b4--
