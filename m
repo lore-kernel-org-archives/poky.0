@@ -1,83 +1,77 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web11.6201.1574735699896343212
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by mx.groups.io with SMTP id smtpd.web11.781.1574823121480936774
  for <poky@lists.yoctoproject.org>;
- Mon, 25 Nov 2019 18:35:00 -0800
+ Tue, 26 Nov 2019 18:52:01 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=softfail (domain: windriver.com, ip: 140.211.169.56, mailfrom: liezhi.yang@windriver.com)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 68055E00F78; Mon, 25 Nov 2019 18:34:59 -0800 (PST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: 
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/,
-	*      medium trust
-	*      [147.11.1.11 listed in list.dnswl.org]
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 04219E00DAE
-	for <poky@yoctoproject.org>; Mon, 25 Nov 2019 18:34:58 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com [147.11.189.40])
-	by mail.windriver.com (8.15.2/8.15.2) with ESMTPS id xAQ2Yux7021042
-	(version=TLSv1 cipher=AES256-SHA bits=256 verify=FAIL);
-	Mon, 25 Nov 2019 18:34:57 -0800 (PST)
-Received: from pek-lpg-core1.wrs.com (128.224.156.132) by
- ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
- 14.3.468.0; Mon, 25 Nov 2019 18:34:56 -0800
-From: "Robert Yang" <liezhi.yang@windriver.com>
-To: <seebs@seebs.net>
-CC: <poky@yoctoproject.org>
-Subject: [pseudo][PATCH] realpath.c: Remove trailing slashes
-Date: Tue, 26 Nov 2019 10:35:45 +0800
-Message-ID: <1574735745-54723-1-git-send-email-liezhi.yang@windriver.com>
+ dkim=missing; spf=pass (domain: intel.com, ip: 192.55.52.115, mailfrom: chee.yang.lee@intel.com)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 26 Nov 2019 18:52:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,247,1571727600"; 
+   d="scan'208";a="199033033"
+Received: from andromeda02.png.intel.com ([10.221.183.11])
+  by orsmga007.jf.intel.com with ESMTP; 26 Nov 2019 18:52:00 -0800
+From: "Lee Chee Yang" <chee.yang.lee@intel.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto-bsp][PATCH] genericx86: wic wks do not hardcode loader
+Date: Wed, 27 Nov 2019 10:51:59 +0800
+Message-Id: <1574823119-84851-1-git-send-email-chee.yang.lee@intel.com>
 X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-Content-Type: text/plain
 
-Linux system's realpath() remove trailing slashes, but pseudo's doesn't, need
-make them identical.
+From: Chee Yang Lee <chee.yang.lee@intel.com>
 
-E.g., the following code prints '/tmp' with system's realpath, but pseudo's
-realpath prints '/tmp/':
+replace .wks with .wks.in and refer loader to EFI_PROVIDER
+to enable different bootloader.
 
-    #include <stdio.h>
-    #include <limits.h>
-    #include <stdlib.h>
-
-    int main() {
-        char out[PATH_MAX];
-        printf("out %s\n", realpath("/tmp////", out));
-        return 0;
-    }
-
-This patch fixes the problem.
-
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+Signed-off-by: Chee Yang Lee <chee.yang.lee@intel.com>
 ---
- ports/unix/guts/realpath.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 2 +-
+ meta-yocto-bsp/wic/genericx86.wks                         | 7 -------
+ meta-yocto-bsp/wic/genericx86.wks.in                      | 7 +++++++
+ 3 files changed, 8 insertions(+), 8 deletions(-)
+ delete mode 100644 meta-yocto-bsp/wic/genericx86.wks
+ create mode 100644 meta-yocto-bsp/wic/genericx86.wks.in
 
-diff --git a/ports/unix/guts/realpath.c b/ports/unix/guts/realpath.c
-index 085d2cb..4642e66 100644
---- a/ports/unix/guts/realpath.c
-+++ b/ports/unix/guts/realpath.c
-@@ -25,6 +25,13 @@
- 		rc = strdup(rname);
- 	}
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index f83ce5c..5db91be 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -20,6 +20,6 @@ GLIBC_ADDONS = "nptl"
+ EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
  
-+	if (rc) {
-+		char *ep = rc;
-+		ep += strlen (rc) - 1;
-+		while (ep > rc && ep[0] == '/')
-+			*(ep--) = '\0';
-+	}
+ IMAGE_FSTYPES += "wic wic.bmap"
+-WKS_FILE ?= "genericx86.wks"
++WKS_FILE ?= "genericx86.wks.in"
+ do_image_wic[depends] += "gptfdisk-native:do_populate_sysroot"
+ do_image_wic[recrdeptask] += "do_bootimg"
+diff --git a/meta-yocto-bsp/wic/genericx86.wks b/meta-yocto-bsp/wic/genericx86.wks
+deleted file mode 100644
+index dab719c..0000000
+--- a/meta-yocto-bsp/wic/genericx86.wks
++++ /dev/null
+@@ -1,7 +0,0 @@
+-# short-description: Create an EFI disk image for genericx86*
+-# long-description: Creates a partitioned EFI disk image for genericx86* machines
+-part /boot --source bootimg-efi --sourceparams="loader=grub-efi" --ondisk sda --label msdos --active --align 1024
+-part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
+-part swap --ondisk sda --size 44 --label swap1 --fstype=swap
+-
+-bootloader --ptable gpt --timeout=5 --append="rootfstype=ext4 console=ttyS0,115200 console=tty0"
+diff --git a/meta-yocto-bsp/wic/genericx86.wks.in b/meta-yocto-bsp/wic/genericx86.wks.in
+new file mode 100644
+index 0000000..7c09ad0
+--- /dev/null
++++ b/meta-yocto-bsp/wic/genericx86.wks.in
+@@ -0,0 +1,7 @@
++# short-description: Create an EFI disk image for genericx86*
++# long-description: Creates a partitioned EFI disk image for genericx86* machines
++part /boot --source bootimg-efi --sourceparams="loader=${EFI_PROVIDER}" --ondisk sda --label msdos --active --align 1024
++part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
++part swap --ondisk sda --size 44 --label swap1 --fstype=swap
 +
- /*	return rc;
-  * }
-  */
++bootloader --ptable gpt --timeout=5 --append="rootfstype=ext4 console=ttyS0,115200 console=tty0"
 -- 
 2.7.4
 
