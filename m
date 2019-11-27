@@ -1,77 +1,75 @@
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by mx.groups.io with SMTP id smtpd.web11.781.1574823121480936774
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web12.2749.1574836525039457124
  for <poky@lists.yoctoproject.org>;
- Tue, 26 Nov 2019 18:52:01 -0800
+ Tue, 26 Nov 2019 22:35:25 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: intel.com, ip: 192.55.52.115, mailfrom: chee.yang.lee@intel.com)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 26 Nov 2019 18:52:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,247,1571727600"; 
-   d="scan'208";a="199033033"
-Received: from andromeda02.png.intel.com ([10.221.183.11])
-  by orsmga007.jf.intel.com with ESMTP; 26 Nov 2019 18:52:00 -0800
-From: "Lee Chee Yang" <chee.yang.lee@intel.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto-bsp][PATCH] genericx86: wic wks do not hardcode loader
-Date: Wed, 27 Nov 2019 10:51:59 +0800
-Message-Id: <1574823119-84851-1-git-send-email-chee.yang.lee@intel.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=missing; spf=softfail (domain: windriver.com, ip: 140.211.169.56, mailfrom: liezhi.yang@windriver.com)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id 8E045E00DA3; Tue, 26 Nov 2019 22:35:24 -0800 (PST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
+	autolearn=ham version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/,
+	*      medium trust
+	*      [147.11.1.11 listed in list.dnswl.org]
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 1EABFE0091A
+	for <poky@yoctoproject.org>; Tue, 26 Nov 2019 22:35:23 -0800 (PST)
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com [147.11.189.40])
+	by mail.windriver.com (8.15.2/8.15.2) with ESMTPS id xAR6ZMVo023031
+	(version=TLSv1 cipher=AES256-SHA bits=256 verify=FAIL);
+	Tue, 26 Nov 2019 22:35:22 -0800 (PST)
+Received: from [128.224.162.181] (128.224.162.181) by ALA-HCA.corp.ad.wrs.com
+ (147.11.189.40) with Microsoft SMTP Server id 14.3.468.0; Tue, 26 Nov 2019
+ 22:35:21 -0800
+Subject: Re: [pseudo][PATCH] realpath.c: Remove trailing slashes
+To: Seebs <seebs@seebs.net>
+CC: <poky@yoctoproject.org>
+References: <1574735745-54723-1-git-send-email-liezhi.yang@windriver.com>
+ <20191126110922.630c44e7@seebsdell>
+From: "Robert Yang" <liezhi.yang@windriver.com>
+Message-ID: <ca4ad872-53df-adb0-d27c-6a53436e45a2@windriver.com>
+Date: Wed, 27 Nov 2019 14:35:03 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <20191126110922.630c44e7@seebsdell>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-From: Chee Yang Lee <chee.yang.lee@intel.com>
+Hi Peter,
 
-replace .wks with .wks.in and refer loader to EFI_PROVIDER
-to enable different bootloader.
+On 11/27/19 1:09 AM, Seebs wrote:
+> On Tue, 26 Nov 2019 10:35:45 +0800
+> Robert Yang <liezhi.yang@windriver.com> wrote:
+> 
+>> Linux system's realpath() remove trailing slashes, but pseudo's
+>> doesn't, need make them identical.
+>>
+>> E.g., the following code prints '/tmp' with system's realpath, but
+>> pseudo's realpath prints '/tmp/':
+> 
+> I'm a bit concerned about this mostly because I think we have existing
+> code closely related to this already, somewhere in pseudo, that had to
+> do with path canonicalization. It might be that we're supposed to keep
+> the slash in *other* contexts, but need to drop it for realpath
+> *specifically*, though?
 
-Signed-off-by: Chee Yang Lee <chee.yang.lee@intel.com>
----
- meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 2 +-
- meta-yocto-bsp/wic/genericx86.wks                         | 7 -------
- meta-yocto-bsp/wic/genericx86.wks.in                      | 7 +++++++
- 3 files changed, 8 insertions(+), 8 deletions(-)
- delete mode 100644 meta-yocto-bsp/wic/genericx86.wks
- create mode 100644 meta-yocto-bsp/wic/genericx86.wks.in
+Long time no see, the slash is still be kept for other parts, this patch only
+affects realpath(), kernel's Makefile relies on realpath removes the trailing
+slash, which checks whether build dir = source dir, it checks whether
+"$(realpath build/) = $(realpath build)", this should be true, but
+unfortunately, it is false when pseudo is enabled, which leads to a very
+puzzled problem. We need make pseudo's syscalls identical to system's.
 
-diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-index f83ce5c..5db91be 100644
---- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-+++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-@@ -20,6 +20,6 @@ GLIBC_ADDONS = "nptl"
- EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
- 
- IMAGE_FSTYPES += "wic wic.bmap"
--WKS_FILE ?= "genericx86.wks"
-+WKS_FILE ?= "genericx86.wks.in"
- do_image_wic[depends] += "gptfdisk-native:do_populate_sysroot"
- do_image_wic[recrdeptask] += "do_bootimg"
-diff --git a/meta-yocto-bsp/wic/genericx86.wks b/meta-yocto-bsp/wic/genericx86.wks
-deleted file mode 100644
-index dab719c..0000000
---- a/meta-yocto-bsp/wic/genericx86.wks
-+++ /dev/null
-@@ -1,7 +0,0 @@
--# short-description: Create an EFI disk image for genericx86*
--# long-description: Creates a partitioned EFI disk image for genericx86* machines
--part /boot --source bootimg-efi --sourceparams="loader=grub-efi" --ondisk sda --label msdos --active --align 1024
--part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
--part swap --ondisk sda --size 44 --label swap1 --fstype=swap
--
--bootloader --ptable gpt --timeout=5 --append="rootfstype=ext4 console=ttyS0,115200 console=tty0"
-diff --git a/meta-yocto-bsp/wic/genericx86.wks.in b/meta-yocto-bsp/wic/genericx86.wks.in
-new file mode 100644
-index 0000000..7c09ad0
---- /dev/null
-+++ b/meta-yocto-bsp/wic/genericx86.wks.in
-@@ -0,0 +1,7 @@
-+# short-description: Create an EFI disk image for genericx86*
-+# long-description: Creates a partitioned EFI disk image for genericx86* machines
-+part /boot --source bootimg-efi --sourceparams="loader=${EFI_PROVIDER}" --ondisk sda --label msdos --active --align 1024
-+part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
-+part swap --ondisk sda --size 44 --label swap1 --fstype=swap
-+
-+bootloader --ptable gpt --timeout=5 --append="rootfstype=ext4 console=ttyS0,115200 console=tty0"
--- 
-2.7.4
+// Robert
 
+> 
+> -s
+> 
