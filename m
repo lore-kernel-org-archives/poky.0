@@ -1,78 +1,79 @@
-Subject: Some packages from local repository have incorrect checksum
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by mx.groups.io with SMTP id smtpd.web09.2136.1575351362201440723
+ for <poky@lists.yoctoproject.org>;
+ Mon, 02 Dec 2019 21:36:02 -0800
+Authentication-Results: mx.groups.io;
+ dkim=missing; spf=pass (domain: intel.com, ip: 192.55.52.43, mailfrom: chee.yang.lee@intel.com)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 02 Dec 2019 21:36:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,271,1571727600"; 
+   d="scan'208";a="385177366"
+Received: from andromeda02.png.intel.com ([10.221.183.11])
+  by orsmga005.jf.intel.com with ESMTP; 02 Dec 2019 21:36:00 -0800
+From: "Lee Chee Yang" <chee.yang.lee@intel.com>
 To: poky@lists.yoctoproject.org
-From: "Rahul Chauhan" <rahulchauhankitps@gmail.com>
-X-Originating-Location: Bengaluru, Karnataka, IN (36.255.87.199)
-X-Originating-Platform: Linux Firefox 70
-User-Agent: GROUPS.IO Web Poster
-MIME-Version: 1.0
-Date: Sun, 01 Dec 2019 00:40:17 -0800
-Message-ID: <OY4N.1575189617225549297.6SzJ@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="LeQVLxKWZGlRZv34fZX9"
+Subject: [meta-yocto-bsp][PATCH 1/2] genericx86: wic wks do not hardcode loader
+Date: Tue,  3 Dec 2019 13:35:58 +0800
+Message-Id: <1575351359-45850-1-git-send-email-chee.yang.lee@intel.com>
+X-Mailer: git-send-email 2.7.4
 
---LeQVLxKWZGlRZv34fZX9
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+From: Chee Yang Lee <chee.yang.lee@intel.com>
 
-Hello,
+replace .wks with .wks.in and refer loader to EFI_PROVIDER
+to enable different bootloader.
+soft assign default EFI_PROVIDER "grub-efi" for genericx86.
 
-I am beginner in yocto project.I am trying to build toolchain for ARM arch=
-itecture.
+Signed-off-by: Chee Yang Lee <chee.yang.lee@intel.com>
+---
+ meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 3 ++-
+ meta-yocto-bsp/wic/genericx86.wks                         | 7 -------
+ meta-yocto-bsp/wic/genericx86.wks.in                      | 7 +++++++
+ 3 files changed, 9 insertions(+), 8 deletions(-)
+ delete mode 100644 meta-yocto-bsp/wic/genericx86.wks
+ create mode 100644 meta-yocto-bsp/wic/genericx86.wks.in
 
-bitbake meta-toolchain.
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index f83ce5c..a6c396c 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -20,6 +20,7 @@ GLIBC_ADDONS = "nptl"
+ EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+ 
+ IMAGE_FSTYPES += "wic wic.bmap"
+-WKS_FILE ?= "genericx86.wks"
++WKS_FILE ?= "genericx86.wks.in"
++EFI_PROVIDER ??= "grub-efi"
+ do_image_wic[depends] += "gptfdisk-native:do_populate_sysroot"
+ do_image_wic[recrdeptask] += "do_bootimg"
+diff --git a/meta-yocto-bsp/wic/genericx86.wks b/meta-yocto-bsp/wic/genericx86.wks
+deleted file mode 100644
+index dab719c..0000000
+--- a/meta-yocto-bsp/wic/genericx86.wks
++++ /dev/null
+@@ -1,7 +0,0 @@
+-# short-description: Create an EFI disk image for genericx86*
+-# long-description: Creates a partitioned EFI disk image for genericx86* machines
+-part /boot --source bootimg-efi --sourceparams="loader=grub-efi" --ondisk sda --label msdos --active --align 1024
+-part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
+-part swap --ondisk sda --size 44 --label swap1 --fstype=swap
+-
+-bootloader --ptable gpt --timeout=5 --append="rootfstype=ext4 console=ttyS0,115200 console=tty0"
+diff --git a/meta-yocto-bsp/wic/genericx86.wks.in b/meta-yocto-bsp/wic/genericx86.wks.in
+new file mode 100644
+index 0000000..7c09ad0
+--- /dev/null
++++ b/meta-yocto-bsp/wic/genericx86.wks.in
+@@ -0,0 +1,7 @@
++# short-description: Create an EFI disk image for genericx86*
++# long-description: Creates a partitioned EFI disk image for genericx86* machines
++part /boot --source bootimg-efi --sourceparams="loader=${EFI_PROVIDER}" --ondisk sda --label msdos --active --align 1024
++part / --source rootfs --ondisk sda --fstype=ext4 --label platform --align 1024 --use-uuid
++part swap --ondisk sda --size 44 --label swap1 --fstype=swap
++
++bootloader --ptable gpt --timeout=5 --append="rootfstype=ext4 console=ttyS0,115200 console=tty0"
+-- 
+2.7.4
 
-but i am getting below error
-binutils-cross-canadian-arm-2.31.1-r0.x86_64_nativesdk: sha256 check faile=
-d: 0d6fcb4b823810baabbfb70d1bd02666670ea771da7b016c489473da3a57cd57 vs abeb=
-9d19471e357dfea94d50b65cbc44bbe9165b30ee49b08c9678eb2a778f5e
-Total size: 89 M
-Total download size: 5.1 M
-Installed size: 413 M
-Downloading Packages:
-binutils-cross-canadian-arm-2.31.1-r0.x86_64_nativesdk: sha256 check faile=
-d: 0d6fcb4b823810baabbfb70d1bd02666670ea771da7b016c489473da3a57cd57 vs abeb=
-9d19471e357dfea94d50b65cbc44bbe9165b30ee49b08c9678eb2a778f5e
-Package "binutils-cross-canadian-arm-2.31.1-r0.x86_64_nativesdk" from loca=
-l repository "oe-repo" has incorrect checksum
-Error: Some packages from local repository have incorrect checksum
-
-ERROR: meta-toolchain-1.0-r7 do_populate_sdk: Function failed: do_populate=
-_sdk
-ERROR: Logfile of failure stored in: /opt/Yocto-Project/project-build/tmp/=
-work/cortexa8hf-neon-poky-linux-gnueabi/meta-toolchain/1.0-r7/temp/log.do_p=
-opulate_sdk.11663
-ERROR: Task (/opt/Yocto-Project/Layers/poky/meta/recipes-core/meta/meta-to=
-olchain.bb:do_populate_sdk) failed with exit code '1'
-
-I have checked binutils recipes but could not find below sha256 check sum.
-0d6fcb4b823810baabbfb70d1bd02666670ea771da7b016c489473da3a57cd57
-
-Thanks & Regard
-Rahul Chauhan
-
---LeQVLxKWZGlRZv34fZX9
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello,<br /><br />I am beginner in yocto project.I am trying to build toolc=
-hain for ARM architecture.<br /><br />bitbake meta-toolchain.<br /><br />bu=
-t i am getting below error<br />binutils-cross-canadian-arm-2.31.1-r0.x86_6=
-4_nativesdk: sha256 check failed: 0d6fcb4b823810baabbfb70d1bd02666670ea771d=
-a7b016c489473da3a57cd57 vs abeb9d19471e357dfea94d50b65cbc44bbe9165b30ee49b0=
-8c9678eb2a778f5e<br />Total size: 89 M<br />Total download size: 5.1 M<br /=
->Installed size: 413 M<br />Downloading Packages:<br />binutils-cross-canad=
-ian-arm-2.31.1-r0.x86_64_nativesdk: sha256 check failed: 0d6fcb4b823810baab=
-bfb70d1bd02666670ea771da7b016c489473da3a57cd57 vs abeb9d19471e357dfea94d50b=
-65cbc44bbe9165b30ee49b08c9678eb2a778f5e<br />Package "binutils-cross-canadi=
-an-arm-2.31.1-r0.x86_64_nativesdk" from local repository "oe-repo" has inco=
-rrect checksum<br />Error: Some packages from local repository have incorre=
-ct checksum<br /><br />ERROR: meta-toolchain-1.0-r7 do_populate_sdk: Functi=
-on failed: do_populate_sdk<br />ERROR: Logfile of failure stored in: /opt/Y=
-octo-Project/project-build/tmp/work/cortexa8hf-neon-poky-linux-gnueabi/meta=
--toolchain/1.0-r7/temp/log.do_populate_sdk.11663<br />ERROR: Task (/opt/Yoc=
-to-Project/Layers/poky/meta/recipes-core/meta/meta-toolchain.bb:do_populate=
-_sdk) failed with exit code '1'<br /><br />I have checked binutils recipes =
-but could not find below sha256 check sum.<br />0d6fcb4b823810baabbfb70d1bd=
-02666670ea771da7b016c489473da3a57cd57<br /><br />Thanks &amp; Regard<br />R=
-ahul Chauhan
-
---LeQVLxKWZGlRZv34fZX9--
