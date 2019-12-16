@@ -1,55 +1,33 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web10.2624.1576469682458449007
- for <poky@lists.yoctoproject.org>;
- Sun, 15 Dec 2019 20:14:46 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@stusta.de header.s=default header.b=hEWx+OwE;
- spf=neutral (domain: stusta.de, ip: 140.211.169.56, mailfrom: bunk@stusta.de)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DFCB5E01145; Sun, 15 Dec 2019 20:14:41 -0800 (PST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
-X-Spam-HAM-Report: 
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/, low
-	*      trust
-	*      [141.84.69.5 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
-	*       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-X-Greylist: delayed 488 seconds by postgrey-1.32 at yocto-www; Sun, 15 Dec 2019 20:14:38 PST
 Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F26E4E01140
-	for <poky@yoctoproject.org>; Sun, 15 Dec 2019 20:14:38 -0800 (PST)
+ by mx.groups.io with SMTP id smtpd.web09.2636.1576469867022366356
+ for <poky@lists.yoctoproject.org>;
+ Sun, 15 Dec 2019 20:17:47 -0800
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@stusta.de header.s=default header.b=lBWMTjTx;
+ spf=pass (domain: stusta.de, ip: 141.84.69.5, mailfrom: bunk@stusta.de)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 47bnl83jqHzLW
-	for <poky@yoctoproject.org>; Mon, 16 Dec 2019 05:06:28 +0100 (CET)
+	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 47bp075h1tz8V
+	for <poky@lists.yoctoproject.org>; Mon, 16 Dec 2019 05:17:43 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
-	s=default; t=1576469188;
+	s=default; t=1576469864;
 	bh=7b1CZc0mBQywbjIOOjv6letyFP8sF8XrxQvdWVqbR8M=;
 	h=From:To:Subject:Date:From;
-	b=hEWx+OwEq0rUPr5U3kQacvPGZ5ekwrAM4NPwNI0RD680ZAvxyXwPApRCQ13GcfVcD
-	 SYbzUbJIYCP6yJUE3pGDFl9dTGdcyvoNoBt6kvKRg4kSnqGgRfKgKPJOteazsFkjPI
-	 z6VMfWg3OQQyylsSxA1eQ72ZAv5TuoS3SBD2lpfOrLoOG9xpjVqtABE19HB4GiR/+w
-	 Z4H6FZOGTOlEuig1pCFv0a2iaZ56JYsNJuB0PrKqUjBU6CS3hCkHohFwKF85RZ1Rbz
-	 FBtBH9uABurpsS8To9TRvoZRe1kIGcVeV16aFwjGTFhciU6SkHdfe2PHhs3Q9UtPi8
-	 XEqi3eqMh7WH3zfFQ6HAEPGA3quOLczcU2JHYgwk5utije7nh9Oa2vfahIOVXkYQLa
-	 Vo0xCz+NOFm9UftrVD8rcHTdTtLWR+EOSAT4EXc3jRu2jPneQhhdN840K0i4uVeL+E
-	 cqMWws+OIbZPxfnkxT2cX0UhdKqk87DW+kAd9brHU9IKto/xXtnUzKh+q2+zDpxJb1
-	 NT4VaCsJJ3J55MQm/S6tcBeZQUUYc9BCj7RmpmlgGTIDUanKNIRAHebrizzXYxZKtY
-	 4Iu4aP34H2dxeBVpyIDj88t2VawDwaK04lnWuxULvhrGRWgYuG83x9KUZhYRJOm6LJ
-	 Qj4ukLRLiymyx+NsZTRVr8io=
+	b=lBWMTjTxeoxCgOoeFE1J975jQDrYwSsh9TIfNtyjCNWHgP0JFn2Wdf97UEaj4bE7e
+	 YrrYNmjPD/8DJ0Z3GduzODmyo9zR+Pmd7x3Sjnkdce10EBTu+xCm7QtEkDbjNdvPhA
+	 6LaQrwTioBf5EB9EMP5sDDZKeUH4ArRKQdHrGxoViveGAJZRoyZL/gOn0IuQ4V/o5q
+	 uAju6C0argbWuQsg+gGfGUHukrvMZXSGzCp/UP0Tn+wXNnZ8eVOLF+jNz9jviU5ECP
+	 pM6jiS2qMMCW8By15T34JCygtzCAB+3WX4ETBoW86TVDP19YxLqkYvOXcVwGw3lRQL
+	 9wQb52W4wfruoZAPH9l5WDJGCyAn8WqgoXAxfGI3488Cd/RJKKNJaQrVdtyTw1kKU+
+	 1FQBp2Qj0R9dUNXOU8SWWoCs0VD7BfO6O4mqH8aWmmwpE7RhXjMicoCyLyY4DYBsVH
+	 LiWxBggjQ2SfipRyVhUNFJKoBBiOGgRRUiW3xNpQO9HRhXVm3DbRECgU3X/SLQNtkU
+	 8fI1o9GaefZXp4gEV5VrnV0+Q5nt3CYLZ3aPdoDo5c+w2rOqHSl2eDFMMjNgkcqcOU
+	 g+Ut31U50+6PXtrZ5t/NsJ2sY4fs2XhaIFK2f2vcZQYGdVriu6VTTxC/1tlUuoWQEF
+	 SaaosfLY1T8h7JvuBZOyA3uA=
 From: "Adrian Bunk" <bunk@stusta.de>
-To: poky@yoctoproject.org
+To: poky@lists.yoctoproject.org
 Subject: [meta-poky][PATCH] poky.conf: Debian 8 is no longer supported
-Date: Mon, 16 Dec 2019 06:06:27 +0200
-Message-Id: <20191216040627.29272-1-bunk@stusta.de>
+Date: Mon, 16 Dec 2019 06:17:42 +0200
+Message-Id: <20191216041742.29581-1-bunk@stusta.de>
 X-Mailer: git-send-email 2.17.1
 
 Upstream LTS EOL will be June 2020,
