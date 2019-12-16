@@ -1,86 +1,77 @@
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
- by mx.groups.io with SMTP id smtpd.web10.2806.1576400894053238777
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.2624.1576469682458449007
  for <poky@lists.yoctoproject.org>;
- Sun, 15 Dec 2019 01:08:14 -0800
+ Sun, 15 Dec 2019 20:14:46 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=D/DNMz5s;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.67, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f67.google.com with SMTP id u2so3282828wmc.3
-        for <poky@lists.yoctoproject.org>; Sun, 15 Dec 2019 01:08:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=X/tkxBm/k/JrpZmpoEcV24tYtLWDh0M4IhVIQOyoBH4=;
-        b=D/DNMz5s1Nrdb48PO3aya7++ktoUFtrq13yU3Uw+uTVlPHXXqSBFV/pQno1PbCN1uc
-         +w3yDkvAbP3pL++ERyPxgYolduFIZTjoIZXEZgrfjX5AUI6NPEwh2SeDwHRNE6OyLsMi
-         SaOk9dtxNwsizLdVWfMerNCmCkRRde8PaMqZ4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=X/tkxBm/k/JrpZmpoEcV24tYtLWDh0M4IhVIQOyoBH4=;
-        b=BymGZZrzXZgFxL5pVE7CgjYkeZJGAwQK+RM3e2ctJWkS/HzRJqwUU4f7cfkAEEPxqV
-         JGujhN9ZLX4giLwWyjIp0kegDxtbCVXCW7leI2bCExA82jr2HjxdxrhSVvMQwJ2f5FoB
-         PF5z1VrLgGWiHfSbe6xd+NNkT6+8q6mH/G1QHxe9TCMaKkOiXsTA7VrNU9qmtBOF9whD
-         sw2y3NgFIKhK6t2kUM/hCWkokmVI7heDtfp5eoYB1ZzfQxvI21sAwMfFdQ3ZhCAdrZyw
-         38NLFtf7qo8mS3AZoo6bQOTgjsUNWE9QbUwLyFoWFzkDteWzpQZooOoWHp/MZlpAypok
-         YyOA==
-X-Gm-Message-State: APjAAAXTV8awfh6Hg88PcR6uq2fzNQQXJVPj7palOJeZEMuUtgd0vYXF
-	CBnlrRGMsXoeVrfd2coeo2qjnctxwd4=
-X-Google-Smtp-Source: APXvYqxbaf7GEQxaula4vCdlYRCpBGRG2gBiOS66sGsnpUGz96bGXLBWf0Piofria+SfA2Fox1HDpA==
-X-Received: by 2002:a7b:cf39:: with SMTP id m25mr24573160wmg.146.1576400892066;
-        Sun, 15 Dec 2019 01:08:12 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex.int.rpsys.net (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id n16sm17060153wro.88.2019.12.15.01.08.11
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Dec 2019 01:08:11 -0800 (PST)
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Subject: [PATCH] oeqa/systemd_boot: Ensure wic-tools are available
-Date: Sun, 15 Dec 2019 09:08:10 +0000
-Message-Id: <20191215090810.25241-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ dkim=pass header.i=@stusta.de header.s=default header.b=hEWx+OwE;
+ spf=neutral (domain: stusta.de, ip: 140.211.169.56, mailfrom: bunk@stusta.de)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id DFCB5E01145; Sun, 15 Dec 2019 20:14:41 -0800 (PST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_LOW autolearn=ham version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/, low
+	*      trust
+	*      [141.84.69.5 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+X-Greylist: delayed 488 seconds by postgrey-1.32 at yocto-www; Sun, 15 Dec 2019 20:14:38 PST
+Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id F26E4E01140
+	for <poky@yoctoproject.org>; Sun, 15 Dec 2019 20:14:38 -0800 (PST)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 47bnl83jqHzLW
+	for <poky@yoctoproject.org>; Mon, 16 Dec 2019 05:06:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
+	s=default; t=1576469188;
+	bh=7b1CZc0mBQywbjIOOjv6letyFP8sF8XrxQvdWVqbR8M=;
+	h=From:To:Subject:Date:From;
+	b=hEWx+OwEq0rUPr5U3kQacvPGZ5ekwrAM4NPwNI0RD680ZAvxyXwPApRCQ13GcfVcD
+	 SYbzUbJIYCP6yJUE3pGDFl9dTGdcyvoNoBt6kvKRg4kSnqGgRfKgKPJOteazsFkjPI
+	 z6VMfWg3OQQyylsSxA1eQ72ZAv5TuoS3SBD2lpfOrLoOG9xpjVqtABE19HB4GiR/+w
+	 Z4H6FZOGTOlEuig1pCFv0a2iaZ56JYsNJuB0PrKqUjBU6CS3hCkHohFwKF85RZ1Rbz
+	 FBtBH9uABurpsS8To9TRvoZRe1kIGcVeV16aFwjGTFhciU6SkHdfe2PHhs3Q9UtPi8
+	 XEqi3eqMh7WH3zfFQ6HAEPGA3quOLczcU2JHYgwk5utije7nh9Oa2vfahIOVXkYQLa
+	 Vo0xCz+NOFm9UftrVD8rcHTdTtLWR+EOSAT4EXc3jRu2jPneQhhdN840K0i4uVeL+E
+	 cqMWws+OIbZPxfnkxT2cX0UhdKqk87DW+kAd9brHU9IKto/xXtnUzKh+q2+zDpxJb1
+	 NT4VaCsJJ3J55MQm/S6tcBeZQUUYc9BCj7RmpmlgGTIDUanKNIRAHebrizzXYxZKtY
+	 4Iu4aP34H2dxeBVpyIDj88t2VawDwaK04lnWuxULvhrGRWgYuG83x9KUZhYRJOm6LJ
+	 Qj4ukLRLiymyx+NsZTRVr8io=
+From: "Adrian Bunk" <bunk@stusta.de>
+To: poky@yoctoproject.org
+Subject: [meta-poky][PATCH] poky.conf: Debian 8 is no longer supported
+Date: Mon, 16 Dec 2019 06:06:27 +0200
+Message-Id: <20191216040627.29272-1-bunk@stusta.de>
+X-Mailer: git-send-email 2.17.1
 
-If mtools isn't present on the underlying system this test would fail.
-Ensure wic-tools is available in a similar way to other wic selftests
-in OE-Core.
+Upstream LTS EOL will be June 2020,
+and Python 3.4 is now too old for bitbake.
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Adrian Bunk <bunk@stusta.de>
 ---
- meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ meta-poky/conf/distro/poky.conf | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-index b3db226d7e2..57599e19aad 100644
---- a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-+++ b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-@@ -30,7 +30,7 @@ class Systemdboot(OESelftestTestCase):
-         runCmd('rm -f %s' % systemdbootfile)
- 
-         # Build a genericx86-64/efi systemdboot image
--        bitbake('mtools-native core-image-minimal')
-+        bitbake('mtools-native core-image-minimal wic-tools')
- 
-         found = os.path.isfile(systemdbootfile)
-         self.assertTrue(found, 'Systemd-Boot file %s not found' % systemdbootfile)
-@@ -57,8 +57,10 @@ class Systemdboot(OESelftestTestCase):
-         if os.path.isfile(imagebootfile):
-             runCmd('rm -f %s' % imagebootfile)
- 
--        runCmd('wic cp %s:1/EFI/BOOT/bootx64.efi %s' % (systemdbootimage,
--                                                           imagebootfile))
-+        sysroot = get_bb_var('RECIPE_SYSROOT_NATIVE', 'wic-tools')
-+
-+        runCmd('wic cp %s:1/EFI/BOOT/bootx64.efi %s -n %s' % (systemdbootimage,
-+                                                           imagebootfile, sysroot))
- 
-         found = os.path.isfile(imagebootfile)
-         self.assertTrue(found, 'bootx64.efi file %s was not copied from image'
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 8a0f28a863..995dd826ac 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -59,7 +59,6 @@ SANITY_TESTED_DISTROS ?= " \
+             fedora-29 \n \
+             fedora-30 \n \
+             centos-7 \n \
+-            debian-8 \n \
+             debian-9 \n \
+             debian-10 \n \
+             opensuseleap-15.1 \n \
 -- 
-2.20.1
+2.17.1
 
