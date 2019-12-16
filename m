@@ -1,90 +1,100 @@
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
- by mx.groups.io with SMTP id smtpd.web10.3443.1576477281813171126
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.53.1576540553488682567
  for <poky@lists.yoctoproject.org>;
- Sun, 15 Dec 2019 22:21:21 -0800
+ Mon, 16 Dec 2019 15:55:53 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=oRJIgP1M;
- spf=pass (domain: gmail.com, ip: 209.85.210.195, mailfrom: akuster808@gmail.com)
-Received: by mail-pf1-f195.google.com with SMTP id d199so4999811pfd.11
-        for <poky@lists.yoctoproject.org>; Sun, 15 Dec 2019 22:21:21 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Oc3T1r8E;
+ spf=softfail (domain: linuxfoundation.org, ip: 140.211.169.56, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id 0003CE01256; Mon, 16 Dec 2019 15:55:52 -0800 (PST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.221.66 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DB625E010DB
+	for <poky@yoctoproject.org>; Mon, 16 Dec 2019 15:55:50 -0800 (PST)
+Received: by mail-wr1-f66.google.com with SMTP id t2so9387082wrr.1
+        for <poky@yoctoproject.org>; Mon, 16 Dec 2019 15:55:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:subject:date:message-id;
-        bh=eO10m01L/tkpf/gw9Dadd8YXmFkiA2LNww5KnHLYk+Q=;
-        b=oRJIgP1Mh3hNxSvmm8gllAdKupUcOZQ3kvIq579cQ0bpTTAJWWA+GTjIxpwtIhXqME
-         /Egi4YXq+rJih4y2vOiV7HeWnlYCs1VBQUuolTjuwdfO5dje2MtUTx/PINHLgivpAy0M
-         5vhEcadBVZunUf/bcsbX3QBNsDwKnqoD3w31ynpi6CHKWwqMQJdvXfOfnNL/h3lusczl
-         zrYWZNXuaZOjA+8/+Ir3Tm9Av6NFixdsHa7mY7LMGjPdXFtX2MJBiJ53BRbs9CfVD/18
-         vICwOUrqGBqHtBlFdRTfNJXVKA6lpL+YJzQfpdcMjP3AHcCDgrrGYiKhBWVmunZD+oFk
-         stpQ==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=P5QL4Xzo/aHj7QW4648iPDjcGw6FhTqBByztY0kHWZY=;
+        b=Oc3T1r8E1v+f0lD/ywHkmmd4oMuerN76/i0LgtlFCeI2tHIG1J4nMKlFmUVeVJRcIE
+         GY1Wmx1TKsZ8F7qym+Tm/MXYWiNmVtNqxUEIx0yqx2n2j/avI1GD/yJ+AmVhJUzpN2YR
+         JD9TBbk24aN605Ap0OOS2+lYotfUwxJAhxTuM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id;
-        bh=eO10m01L/tkpf/gw9Dadd8YXmFkiA2LNww5KnHLYk+Q=;
-        b=VDIc03gVZjjH4qCD4fGG0FEfBQf9HGlW1hRXNenYVghD5tvc7oGI/imhJ0zf6jist7
-         LpKeHe1v4WvzgFj4OV4AyqQbtbvj9rgVw+vikxDtU9CZy/ywOrQG/q+G3ebjnFoHguGz
-         ubuOoi0g9WvjWwX38qMLUPeQnOtwBx2gSDwM6EDYxdRvjEPrCTlhXHHwjnGNe8r7j8Nt
-         Oz+RrmQYiTg5G44GSVIiy2MuBkntztzicIS5ibPYmP9wWbUZzFBRuV1Q5ZqJuTYgYfhx
-         KH2eMkHvINIiQ11LcvBa5JVVKNE3x7ByymRGzjhTCchKzBr8ohfpyUkX0ai6uzAWXVW/
-         gsWg==
-X-Gm-Message-State: APjAAAX5sUsWHdJhO+cjhLNI1QyY3nsNkIIGfMErhFHvVi3I/KCmDcyr
-	Ums72qBEVwBQ/cTWl3p0A3HCAjiHfbU=
-X-Google-Smtp-Source: APXvYqxZWilo5bV1hXAxZW1NXs7bieFx9caAKyimnUBrxr/S4idprD3nn69HT3UEfTQ0fWL9uce/7g==
-X-Received: by 2002:a63:d906:: with SMTP id r6mr16314483pgg.440.1576477281083;
-        Sun, 15 Dec 2019 22:21:21 -0800 (PST)
-Return-Path: <akuster808@gmail.com>
-Received: from akuster-ThinkPad-T460s.mvista.com ([2601:202:4180:a5c0:e5c5:31c9:a010:f145])
-        by smtp.gmail.com with ESMTPSA id v4sm10742942pgo.63.2019.12.15.22.21.20
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
-        Sun, 15 Dec 2019 22:21:20 -0800 (PST)
-From: "Armpit" <akuster808@gmail.com>
-To: poky@lists.yoctoproject.org
-Subject: [thud][PATCH] linux-yocto/4.14: update Yocto Bsps to 4.14.154
-Date: Sun, 15 Dec 2019 22:21:19 -0800
-Message-Id: <1576477279-3349-1-git-send-email-akuster808@gmail.com>
-X-Mailer: git-send-email 2.7.4
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=P5QL4Xzo/aHj7QW4648iPDjcGw6FhTqBByztY0kHWZY=;
+        b=E9KH8RCFt0KzNUF1KRzIKcGNQVM1wsVZ89MrIafpZcTgNE4RQ1RwYr+1sB7svULUfC
+         s0pHjcq9PtZj8Btdn/D22JjSwsfbKWsww5bK4zkB84CSCE2LLs0BHSL6cNlj4NOxUwcS
+         e8/FkcSG+0FF2DwrswrL2HNwEIzWHF7RG+6dbSKcdBuwhd04Hlb1EV3AxUQl1Z9LS00c
+         vj1K1yfV2UtGoeCepE2/ghVt/QWJ9lp8Uqfl/V7wxiLb0vIqbJ6uInpuB++/5bpj+zTu
+         Sj4mLhc8IsknCancB5j7YlLBSSO8IQbJ2TQphduoRJWPMhw/U07Wi1dnslCHi6+PGJhe
+         xcUA==
+X-Gm-Message-State: APjAAAXk/H2+FLuO3rCqsPP+bHZqVcfAh0iLWGMYDBMCVQalrYvulTIS
+	Gr+vc4w6YI76RD5c5/v1cRSCen5i298=
+X-Google-Smtp-Source: APXvYqzdTBl+GM4tnR31kId/V3hef0mkxRdnmlxxHmxOCzY5u6zeiuq1Lw5JlSeq3Xi16pQzyiR8sA==
+X-Received: by 2002:adf:ea8a:: with SMTP id s10mr32501211wrm.278.1576540550032;
+        Mon, 16 Dec 2019 15:55:50 -0800 (PST)
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+        by smtp.gmail.com with ESMTPSA id z3sm23341191wrs.94.2019.12.16.15.55.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Dec 2019 15:55:49 -0800 (PST)
+Message-ID: <9dfc6360e37ff298058ae89a9ca289dc973c3b32.camel@linuxfoundation.org>
+Subject: Re: [poky] [meta-poky][PATCH] poky.conf: Debian 8 is no longer supported
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Adrian Bunk <bunk@stusta.de>, poky@yoctoproject.org
+Date: Mon, 16 Dec 2019 23:55:48 +0000
+In-Reply-To: <20191216040627.29272-1-bunk@stusta.de>
+References: <20191216040627.29272-1-bunk@stusta.de>
+User-Agent: Evolution 3.34.1-2 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Armin Kuster <akuster808@gmail.com>
----
- .../recipes-kernel/linux/linux-yocto_4.14.bbappend   | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+On Mon, 2019-12-16 at 06:06 +0200, Adrian Bunk wrote:
+> Upstream LTS EOL will be June 2020,
+> and Python 3.4 is now too old for bitbake.
+> 
+> Signed-off-by: Adrian Bunk <bunk@stusta.de>
+> ---
+>  meta-poky/conf/distro/poky.conf | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/meta-poky/conf/distro/poky.conf b/meta-
+> poky/conf/distro/poky.conf
+> index 8a0f28a863..995dd826ac 100644
+> --- a/meta-poky/conf/distro/poky.conf
+> +++ b/meta-poky/conf/distro/poky.conf
+> @@ -59,7 +59,6 @@ SANITY_TESTED_DISTROS ?= " \
+>              fedora-29 \n \
+>              fedora-30 \n \
+>              centos-7 \n \
+> -            debian-8 \n \
+>              debian-9 \n \
+>              debian-10 \n \
+>              opensuseleap-15.1 \n \
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
-index 6449538..bbe6eae 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
-@@ -8,11 +8,11 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine_genericx86    ?= "b53319c5302a195ae3c156dfa2dc1a6badc91d30"
--SRCREV_machine_genericx86-64 ?= "b53319c5302a195ae3c156dfa2dc1a6badc91d30"
--SRCREV_machine_edgerouter ?= "326e296f237347e965a38acb34f09e594430b0c6"
--SRCREV_machine_beaglebone-yocto ?= "1b8c86329c9dbb10b8fcaeb2dceb75680994cd84"
--SRCREV_machine_mpc8315e-rdb ?= "f26672ec1f164b0f2a15d629128a91093f971bdd"
-+SRCREV_machine_genericx86 ?= "57278e88a6b0f7c6230f7429cab7e74229f2b7ce"
-+SRCREV_machine_genericx86-64 ?= "57278e88a6b0f7c6230f7429cab7e74229f2b7ce"
-+SRCREV_machine_edgerouter ?= "16d624ede7ca9f71331b626685435ffee022dd32"
-+SRCREV_machine_beaglebone-yocto ?= "2e7b9777f352f70e2e9a82d8c403d3ea88d0bde3"
-+SRCREV_machine_mpc8315e-rdb ?= "9ff346785bdf42767b4002c41f5692f0a98b7480"
- 
- COMPATIBLE_MACHINE_genericx86 = "genericx86"
- COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
-@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
- 
--LINUX_VERSION_genericx86 = "4.14.143"
--LINUX_VERSION_genericx86-64 = "4.14.143"
--LINUX_VERSION_edgerouter = "4.14.143"
--LINUX_VERSION_beaglebone-yocto = "4.14.143"
--LINUX_VERSION_mpc8315e-rdb = "4.14.143"
-+LINUX_VERSION_genericx86 = "4.14.154"
-+LINUX_VERSION_genericx86-64 = "4.14.154"
-+LINUX_VERSION_edgerouter = "4.14.154"
-+LINUX_VERSION_beaglebone-yocto = "4.14.154"
-+LINUX_VERSION_mpc8315e-rdb = "4.14.154"
--- 
-2.7.4
+We still have such a worker in the autobuilder right now as it can work
+using our buildtools tarball...
+
+Cheers,
+
+Richard
 
