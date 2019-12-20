@@ -1,75 +1,68 @@
-Received: from mail2.gauselmann.com (mail2.gauselmann.com [193.102.155.89])
- by mx.groups.io with SMTP id smtpd.web11.6864.1576834158833556208
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
+ by mx.groups.io with SMTP id smtpd.web12.7080.1576835963881354108
  for <poky@lists.yoctoproject.org>;
- Fri, 20 Dec 2019 01:29:20 -0800
+ Fri, 20 Dec 2019 01:59:24 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gauselmann.de header.s=20190718 header.b=IpgZ1rsC;
- spf=pass (domain: gauselmann.de, ip: 193.102.155.89, mailfrom: prvs=32574bf600=cherzig@gauselmann.de)
-Received: from pps.filterd (mail2.gauselmann.com [127.0.0.1])
-	by mail2.gauselmann.com (8.16.0.27/8.16.0.27) with SMTP id xBK9NAgs022384;
-	Fri, 20 Dec 2019 10:29:15 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gauselmann.de; h=in-reply-to :
- references : to : cc : mime-version : subject : message-id : from : date :
- content-type; s=20190718; bh=dsN3bRVncAy6DRlXl6IRz8YF92j1/AkJTgheW2ByqrA=;
- b=IpgZ1rsCxgofdubWMIxCUzJjMLo4GGmWUOd1WSTCBy+K4/lWdOhdWGH2PkfvCZTX4PNB
- RHJd6K7oWLCthtrZn/7VRwdNGEu1fYzNWrTQJvhKVI5IExHfiAdcXBZREsZ4bRXmRJdV
- 7EsReLwGOfZxo+Gbie7FBkSGW30b3bz4CtupRIk82T7z1pUZ5CoHaua0eZ01g2qpYEmb
- jd70/PAn7+mn9a7Z+3x9F7Lkl7mOM/jLuiwyY6DcnnOfeIohv10Tlxtw4q/FRVh4YUDn
- Yo3f1tf5tzHEcWTENOH1eAai6k5fwQTzWBmq5AKlTDZ5uWraWsSrj4KCuCKOYtanSviz Cg== 
-Received: from bswinp16.gg.gauselmann.com ([10.99.84.148])
-	by mail2.gauselmann.com with ESMTP id 2wvq90brfg-1;
-	Fri, 20 Dec 2019 10:29:15 +0100
-Received: from wm01.gauselmann.com ([10.99.82.28])
-          by BSWINP16.gg.gauselmann.com
-          with ESMTP id 2019122010291550-47026 ;
-          Fri, 20 Dec 2019 10:29:15 +0100 
-In-Reply-To: <be0c8a76ab8ef3a42a3d83e44f0fb73bb256a143.camel@linuxfoundation.org>
-References: <OF0F51A1C8.E86D40CA-ONC12584D5.004CC303-C12584D5.004CEB63@gauselmann.com> <be0c8a76ab8ef3a42a3d83e44f0fb73bb256a143.camel@linuxfoundation.org>
-To: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
-MIME-Version: 1.0
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=LiZY2Kpf;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.67, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f67.google.com with SMTP id p17so8582950wmb.0
+        for <poky@lists.yoctoproject.org>; Fri, 20 Dec 2019 01:59:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=2hByq0tTrVh6mChGD01KbdbScMvbLZllGE9I7hVaeFk=;
+        b=LiZY2KpfgvWdQhPP0NfSnqE8H3NIVw7eMOtfiQAMy88v58FF/eZXMgbZqUG7cleq3v
+         RwujaWidygs6wrwu5R3xsPVtAtNg7k3ZL9G67UMtV3csFFIqLvARTnLEDhfBQMsHDTBw
+         ZEoOWiD0eCG7SZWMtQi0dlju9Crr+dibKgAKo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=2hByq0tTrVh6mChGD01KbdbScMvbLZllGE9I7hVaeFk=;
+        b=IfvJvhnnvpcdqtrYcPN39p5sC/K0eCYsptpdbcQ0sb6HvRLGTE1UhfJacEeawXYY8g
+         Lx/kh5pChUATlVyMyaDx8kbJ8/TtNGDayRy8HaSOQKD/OmxDsIoqGKf7NRzgVWccyGrb
+         hA/4Ypyp9UJnYcjR5hZhmHiEO8otbeVnkc24mjVMh0ATBZbhd+lx8FgVxqBw+3d7bjm7
+         f0aPigqfHAFle6jhV5acswJYOADC2i2DPa02IzDu9XkX0IwCfcgyJuheuSUn8Lxg2D16
+         JXFcyemTaT58V9h7n3B6dXPheFK63tKbcwh6lxH4eZ9dDqb/Mi7xm7IINInoDA1eJ1tk
+         eubw==
+X-Gm-Message-State: APjAAAV7m0wTpu5eUOdbGaoPt0kVWIEXFb74p6E8sWdFX37iGE0aREka
+	9Xih0NnHH8IpDRUaux+mKIxCZg==
+X-Google-Smtp-Source: APXvYqz2uy4QcKMhOfNK7jHQZI1/B+F14IVw4vjf6h/2Idf70PG9u/xRpUMGKDrydixCrD/nN7HXXA==
+X-Received: by 2002:a05:600c:2050:: with SMTP id p16mr14473711wmg.176.1576835962290;
+        Fri, 20 Dec 2019 01:59:22 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+        by smtp.gmail.com with ESMTPSA id n16sm9463998wro.88.2019.12.20.01.59.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Dec 2019 01:59:21 -0800 (PST)
+Message-ID: <5c6b33e3493ba3dc16df456b30659a436e7093c5.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH] bitbake: fetch2/clearcase: Fix tar command
-X-KeepSent: EAEACFD3:E9A6C7FA-C12584D6:00328273;
- type=4; flags=0; name=$KeepSent
-Message-ID: <OFEAEACFD3.E9A6C7FA-ONC12584D6.00328273-C12584D6.00341DF6@gauselmann.com>
-From: "Christian Herzig" <cherzig@gauselmann.de>
-Date: Fri, 20 Dec 2019 10:29:15 +0100
-X-MIMETrack: Serialize by Router on LNS3/BEIT GmbH at 20.12.2019 10:29:15,
-	Serialize complete at 20.12.2019 10:29:15,
-	Itemize by SMTP Server on LNS13/BEIT GmbH at 20.12.2019 10:29:15,
-	Serialize by Router on LNS13/BEIT GmbH at 20.12.2019 10:29:15
-X-TNEFEvaluated: 1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-12-19_08:,,
- signatures=0
-Content-Type: multipart/alternative; boundary="=_alternative 00341DF4C12584D6_="
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: CHerzig@Gauselmann.de
+Cc: poky@lists.yoctoproject.org
+Date: Fri, 20 Dec 2019 09:59:19 +0000
+In-Reply-To: <OFEAEACFD3.E9A6C7FA-ONC12584D6.00328273-C12584D6.00341DF6@gauselmann.com>
+References: 
+	<OF0F51A1C8.E86D40CA-ONC12584D5.004CC303-C12584D5.004CEB63@gauselmann.com>
+	 <be0c8a76ab8ef3a42a3d83e44f0fb73bb256a143.camel@linuxfoundation.org>
+	 <OFEAEACFD3.E9A6C7FA-ONC12584D6.00328273-C12584D6.00341DF6@gauselmann.com>
+User-Agent: Evolution 3.34.1-2 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---=_alternative 00341DF4C12584D6_=
-Content-Type: text/plain; charset="US-ASCII"
+On Fri, 2019-12-20 at 10:29 +0100, CHerzig@Gauselmann.de wrote:
+> Hi Richard, hi poky-list 
+> 
+> first tests are showing that the chdir is not required (yeah :-)). 
+> Before I I call it a day, I'll start a complete build from scratch,
+> When the resulting image comes to dance, I'll provide a patch-
+> candidate next monday before christmas. 
 
-Hi Richard, hi poky-list
+Thanks, the patch also needs to go to the bitbake-devel list.
 
-first tests are showing that the chdir is not required (yeah :-)). 
-Before I I call it a day, I'll start a complete build from scratch, When 
-the resulting image comes to dance, I'll provide a patch-candidate next 
-monday before christmas.
+Cheers,
 
-Have a nice weekend, folks!
-Christian
+Richard
 
---=_alternative 00341DF4C12584D6_=
-Content-Type: text/html; charset="US-ASCII"
-
-<span style=" font-size:10pt;font-family:sans-serif">Hi Richard, hi poky-list</span>
-<br>
-<br><span style=" font-size:10pt;font-family:sans-serif">first tests are
-showing that the chdir is not required (yeah :-)). </span>
-<br><span style=" font-size:10pt;font-family:sans-serif">Before I I call
-it a day, I'll start a complete build from scratch, When the resulting
-image comes to dance, I'll provide a patch-candidate next monday before
-christmas.</span>
-<br>
-<br><span style=" font-size:10pt;font-family:sans-serif">Have a nice weekend,
-folks!</span>
-<br><span style=" font-size:10pt;font-family:sans-serif">Christian</span>
-
---=_alternative 00341DF4C12584D6_=--
