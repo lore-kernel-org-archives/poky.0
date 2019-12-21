@@ -1,68 +1,113 @@
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
- by mx.groups.io with SMTP id smtpd.web12.7080.1576835963881354108
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web12.2032.1576959876970961224
  for <poky@lists.yoctoproject.org>;
- Fri, 20 Dec 2019 01:59:24 -0800
+ Sat, 21 Dec 2019 12:24:37 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=LiZY2Kpf;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.67, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f67.google.com with SMTP id p17so8582950wmb.0
-        for <poky@lists.yoctoproject.org>; Fri, 20 Dec 2019 01:59:23 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=sledApQC;
+ spf=softfail (domain: gmail.com, ip: 140.211.169.56, mailfrom: akuster808@gmail.com)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id 5F247E012F8; Sat, 21 Dec 2019 12:24:36 -0800 (PST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	*  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail provider
+	*      (akuster808[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.214.193 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com [209.85.214.193])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4DE85E01250
+	for <poky@yoctoproject.org>; Sat, 21 Dec 2019 12:24:35 -0800 (PST)
+Received: by mail-pl1-f193.google.com with SMTP id g6so2615069plp.6
+        for <poky@yoctoproject.org>; Sat, 21 Dec 2019 12:24:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=2hByq0tTrVh6mChGD01KbdbScMvbLZllGE9I7hVaeFk=;
-        b=LiZY2KpfgvWdQhPP0NfSnqE8H3NIVw7eMOtfiQAMy88v58FF/eZXMgbZqUG7cleq3v
-         RwujaWidygs6wrwu5R3xsPVtAtNg7k3ZL9G67UMtV3csFFIqLvARTnLEDhfBQMsHDTBw
-         ZEoOWiD0eCG7SZWMtQi0dlju9Crr+dibKgAKo=
+        d=gmail.com; s=20161025;
+        h=from:to:subject:date:message-id;
+        bh=eO10m01L/tkpf/gw9Dadd8YXmFkiA2LNww5KnHLYk+Q=;
+        b=sledApQC761nLfQDTLWlXAyPD5YdQRvu4hhKE1C8YRibIXH4EUCZhcltuEPhF1d8vR
+         8cQprbAg8BGA1UO8olzQRLaxEt7GieSowq+W7OqBMCWqZgv9BizrmElgpRCsF/x+lfcG
+         xXVEvec8RWY/6fe88vhaZQ9Ldlb7J+XNOj13p/wE4raOsM7o+KNO8aSU0m6Pex37MDQQ
+         DEdJbFwKpfa9U5y15jPPg2wvVDoPrnjbv713wNPZEkXJKVDDtGVrsxJnUqTOokX0drsm
+         g859Wg0itr2kV1y1Z4V/Wj87dNjZ0wcj+nv946o7m9RzxKlwQT61uvmdLnOKndcBHKhM
+         PWHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=2hByq0tTrVh6mChGD01KbdbScMvbLZllGE9I7hVaeFk=;
-        b=IfvJvhnnvpcdqtrYcPN39p5sC/K0eCYsptpdbcQ0sb6HvRLGTE1UhfJacEeawXYY8g
-         Lx/kh5pChUATlVyMyaDx8kbJ8/TtNGDayRy8HaSOQKD/OmxDsIoqGKf7NRzgVWccyGrb
-         hA/4Ypyp9UJnYcjR5hZhmHiEO8otbeVnkc24mjVMh0ATBZbhd+lx8FgVxqBw+3d7bjm7
-         f0aPigqfHAFle6jhV5acswJYOADC2i2DPa02IzDu9XkX0IwCfcgyJuheuSUn8Lxg2D16
-         JXFcyemTaT58V9h7n3B6dXPheFK63tKbcwh6lxH4eZ9dDqb/Mi7xm7IINInoDA1eJ1tk
-         eubw==
-X-Gm-Message-State: APjAAAV7m0wTpu5eUOdbGaoPt0kVWIEXFb74p6E8sWdFX37iGE0aREka
-	9Xih0NnHH8IpDRUaux+mKIxCZg==
-X-Google-Smtp-Source: APXvYqz2uy4QcKMhOfNK7jHQZI1/B+F14IVw4vjf6h/2Idf70PG9u/xRpUMGKDrydixCrD/nN7HXXA==
-X-Received: by 2002:a05:600c:2050:: with SMTP id p16mr14473711wmg.176.1576835962290;
-        Fri, 20 Dec 2019 01:59:22 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id n16sm9463998wro.88.2019.12.20.01.59.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Dec 2019 01:59:21 -0800 (PST)
-Message-ID: <5c6b33e3493ba3dc16df456b30659a436e7093c5.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] bitbake: fetch2/clearcase: Fix tar command
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: CHerzig@Gauselmann.de
-Cc: poky@lists.yoctoproject.org
-Date: Fri, 20 Dec 2019 09:59:19 +0000
-In-Reply-To: <OFEAEACFD3.E9A6C7FA-ONC12584D6.00328273-C12584D6.00341DF6@gauselmann.com>
-References: 
-	<OF0F51A1C8.E86D40CA-ONC12584D5.004CC303-C12584D5.004CEB63@gauselmann.com>
-	 <be0c8a76ab8ef3a42a3d83e44f0fb73bb256a143.camel@linuxfoundation.org>
-	 <OFEAEACFD3.E9A6C7FA-ONC12584D6.00328273-C12584D6.00341DF6@gauselmann.com>
-User-Agent: Evolution 3.34.1-2 
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+        h=x-gm-message-state:from:to:subject:date:message-id;
+        bh=eO10m01L/tkpf/gw9Dadd8YXmFkiA2LNww5KnHLYk+Q=;
+        b=BHm/dZMvF4SrFueKTmxWlvcFNZccyHEXBppF8oxNSxyCULHHpht2ZG+qvOFr5munoq
+         ITC5TRDUS1s70B7I5/G9vMJcpE2pG6GezhJCANKjSQvzIwGPcA6u2g7xHMi0ZkXIS2G8
+         Ns7hAXJgsjjzRUVmBhglY9LKBKDtsQE9JAx3epJfmmcoEHXyLzEPJXPiNuKldUCNbs9l
+         BVbrOvnW/sSd9Sne1h51/5WIb0i9EHPiGq3NMxaSlcUR506T3E4noHPDXK1aPvkLbC86
+         F3gtrF0q3u08xeGPGePGDryWqNLLmGwRLHGw/jWti8B2BdAeudC0k+pUcknarFEEKh5g
+         b7XQ==
+X-Gm-Message-State: APjAAAWJsyFcZ+ASLDYviv/zVi7S7cJbuPUDY3H4h1A72/pey9Hc0uCt
+	cIyTFmWEcggx/lYpML+ZELuBa9SSri0=
+X-Google-Smtp-Source: APXvYqwP3hVQsFMPinIaMxHu+HVL6rXWNyycrRL9eYwwyh2HUPMnyc6fHSNl+RsW+DIKuXxyv41QVg==
+X-Received: by 2002:a17:902:8342:: with SMTP id z2mr21675815pln.181.1576959874646;
+        Sat, 21 Dec 2019 12:24:34 -0800 (PST)
+Received: from akuster-ThinkPad-T460s.mvista.com ([2601:202:4180:a5c0:44f3:9abe:c0b2:9d4a])
+        by smtp.gmail.com with ESMTPSA id a69sm17314885pfa.129.2019.12.21.12.24.33
+        for <poky@yoctoproject.org>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Sat, 21 Dec 2019 12:24:34 -0800 (PST)
+From: "Armpit" <akuster808@gmail.com>
+To: poky@yoctoproject.org
+Subject: [thud][PATCH] linux-yocto/4.14: update Yocto Bsps to 4.14.154
+Date: Sat, 21 Dec 2019 12:24:32 -0800
+Message-Id: <1576959872-23877-1-git-send-email-akuster808@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-On Fri, 2019-12-20 at 10:29 +0100, CHerzig@Gauselmann.de wrote:
-> Hi Richard, hi poky-list 
-> 
-> first tests are showing that the chdir is not required (yeah :-)). 
-> Before I I call it a day, I'll start a complete build from scratch,
-> When the resulting image comes to dance, I'll provide a patch-
-> candidate next monday before christmas. 
+Signed-off-by: Armin Kuster <akuster808@gmail.com>
+---
+ .../recipes-kernel/linux/linux-yocto_4.14.bbappend   | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-Thanks, the patch also needs to go to the bitbake-devel list.
-
-Cheers,
-
-Richard
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
+index 6449538..bbe6eae 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_4.14.bbappend
+@@ -8,11 +8,11 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86    ?= "b53319c5302a195ae3c156dfa2dc1a6badc91d30"
+-SRCREV_machine_genericx86-64 ?= "b53319c5302a195ae3c156dfa2dc1a6badc91d30"
+-SRCREV_machine_edgerouter ?= "326e296f237347e965a38acb34f09e594430b0c6"
+-SRCREV_machine_beaglebone-yocto ?= "1b8c86329c9dbb10b8fcaeb2dceb75680994cd84"
+-SRCREV_machine_mpc8315e-rdb ?= "f26672ec1f164b0f2a15d629128a91093f971bdd"
++SRCREV_machine_genericx86 ?= "57278e88a6b0f7c6230f7429cab7e74229f2b7ce"
++SRCREV_machine_genericx86-64 ?= "57278e88a6b0f7c6230f7429cab7e74229f2b7ce"
++SRCREV_machine_edgerouter ?= "16d624ede7ca9f71331b626685435ffee022dd32"
++SRCREV_machine_beaglebone-yocto ?= "2e7b9777f352f70e2e9a82d8c403d3ea88d0bde3"
++SRCREV_machine_mpc8315e-rdb ?= "9ff346785bdf42767b4002c41f5692f0a98b7480"
+ 
+ COMPATIBLE_MACHINE_genericx86 = "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+@@ -20,8 +20,8 @@ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ COMPATIBLE_MACHINE_mpc8315e-rdb = "mpc8315e-rdb"
+ 
+-LINUX_VERSION_genericx86 = "4.14.143"
+-LINUX_VERSION_genericx86-64 = "4.14.143"
+-LINUX_VERSION_edgerouter = "4.14.143"
+-LINUX_VERSION_beaglebone-yocto = "4.14.143"
+-LINUX_VERSION_mpc8315e-rdb = "4.14.143"
++LINUX_VERSION_genericx86 = "4.14.154"
++LINUX_VERSION_genericx86-64 = "4.14.154"
++LINUX_VERSION_edgerouter = "4.14.154"
++LINUX_VERSION_beaglebone-yocto = "4.14.154"
++LINUX_VERSION_mpc8315e-rdb = "4.14.154"
+-- 
+2.7.4
 
