@@ -1,92 +1,103 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web09.910.1577090107210370617
+Received: from mail2.gauselmann.com (mail2.gauselmann.com [193.102.155.89])
+ by mx.groups.io with SMTP id smtpd.web12.4359.1577116788693589673
  for <poky@lists.yoctoproject.org>;
- Mon, 23 Dec 2019 00:35:07 -0800
+ Mon, 23 Dec 2019 07:59:49 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=softfail (domain: windriver.com, ip: 140.211.169.56, mailfrom: liezhi.yang@windriver.com)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id BFFD1E01227; Mon, 23 Dec 2019 00:35:06 -0800 (PST)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED
-	autolearn=ham version=3.3.1
-X-Spam-HAM-Report: 
-	* -2.3 RCVD_IN_DNSWL_MED RBL: Sender listed at https://www.dnswl.org/,
-	*      medium trust
-	*      [147.11.146.13 listed in list.dnswl.org]
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id A95C7E01162
-	for <poky@yoctoproject.org>; Mon, 23 Dec 2019 00:35:05 -0800 (PST)
-Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com [147.11.189.40])
-	by mail1.windriver.com (8.15.2/8.15.2) with ESMTPS id xBN8Z2Pu017417
-	(version=TLSv1 cipher=AES256-SHA bits=256 verify=FAIL);
-	Mon, 23 Dec 2019 00:35:03 -0800 (PST)
-Received: from pek-lpg-core1.wrs.com (128.224.156.132) by
- ALA-HCA.corp.ad.wrs.com (147.11.189.50) with Microsoft SMTP Server id
- 14.3.468.0; Mon, 23 Dec 2019 00:35:02 -0800
-From: "Robert Yang" <liezhi.yang@windriver.com>
-To: <seebs@seebs.net>
-CC: <poky@yoctoproject.org>
-Subject: [PATCH V2] realpath.c: Remove trailing slashes
-Date: Mon, 23 Dec 2019 16:36:13 +0800
-Message-ID: <1577090173-25295-1-git-send-email-liezhi.yang@windriver.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass header.i=@gauselmann.de header.s=20190718 header.b=fplzj204;
+ spf=pass (domain: gauselmann.de, ip: 193.102.155.89, mailfrom: prvs=3260bcf0e2=cherzig@gauselmann.de)
+Received: from pps.filterd (mail2.gauselmann.com [127.0.0.1])
+	by mail2.gauselmann.com (8.16.0.27/8.16.0.27) with SMTP id xBNFwNCY005251;
+	Mon, 23 Dec 2019 16:59:41 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gauselmann.de; h=to : cc :
+ mime-version : subject : message-id : from : date : content-type;
+ s=20190718; bh=86r6n58otdcR5AL7TqEgss5F6jNU60DO2nXcqKKdX0Q=;
+ b=fplzj204T2Mk+y/KYnsTh3Lt/XbWbovhB9V6nmZ723Wkyil9+3mL7nCa7vXvvCyz9M45
+ ATJn3SZbl8RC203vW8HoQkl//kDEj67T1ySdnl+KZZLkkkuDjt+7iJcwt+tlmVGTs+XZ
+ VWo8IcKjCvhEThDfPUkbrlm9cjtEtWaRSaFMrSCAfFQ/XsR5xMatgO652N+gQdWz9B7Q
+ heggoVeYiT5ovxnQd5kFcNRCsfAbW7LAeIhGaNRkq07JXx6FLmN260w0ZShyCS19n1Jj
+ SGeS7rCc0YgtpjXvKSflI1IdHilkONjzOOazL49GBbV2jhZAJgf/KUEM+rAUi7yGkDjK UQ== 
+Received: from bswinp16.gg.gauselmann.com ([10.99.84.148])
+	by mail2.gauselmann.com with ESMTP id 2x1awyja5s-1;
+	Mon, 23 Dec 2019 16:59:41 +0100
+Received: from wm01.gauselmann.com ([10.99.82.28])
+          by BSWINP16.gg.gauselmann.com
+          with ESMTP id 2019122316594161-5924 ;
+          Mon, 23 Dec 2019 16:59:41 +0100 
+To: bitbake-devel@lists.openembedded.org, poky@lists.yoctoproject.org
+Cc: "Richard Purdie" <richard.purdie@linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [PATCH] bitbake: fetch2/clearcase: Fix tar command
+X-KeepSent: D5254A7C:60A3DB90-C12584D9:00487C7B;
+ type=4; flags=0; name=$KeepSent
+Message-ID: <OFD5254A7C.60A3DB90-ONC12584D9.00487C7B-C12584D9.0057DCCA@gauselmann.com>
+From: "Christian Herzig" <cherzig@gauselmann.de>
+Date: Mon, 23 Dec 2019 16:59:41 +0100
+X-MIMETrack: Serialize by Router on LNS3/BEIT GmbH at 23.12.2019 16:59:41,
+	Serialize complete at 23.12.2019 16:59:41,
+	Itemize by SMTP Server on LNS13/BEIT GmbH at 23.12.2019 16:59:41,
+	Serialize by Router on LNS13/BEIT GmbH at 23.12.2019 16:59:41
+X-TNEFEvaluated: 1
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-12-23_07:,,
+ signatures=0
+Content-Type: multipart/alternative; boundary="=_alternative 0057DCC8C12584D9_="
 
-Linux system's realpath() remove trailing slashes, but pseudo's doesn't, need
-make them identical.
+--=_alternative 0057DCC8C12584D9_=
+Content-Type: text/plain; charset="US-ASCII"
 
-E.g., the following code (rel.c) prints '/tmp' with system's realpath, but
-pseudo's realpath prints '/tmp/':
-
-    #include <stdio.h>
-    #include <limits.h>
-    #include <stdlib.h>
-
-    int main() {
-        char out[PATH_MAX];
-        printf("%s\n", realpath("/tmp/", out));
-        return 0;
-    }
-
-$ bitbake base-passwd -cdevshell # For pseudo env
-$ gcc rel.c
-$ ./a.out
-/tmp/ (but should be /tmp)
-
-This patch fixes the problem.
-
-Upstream-Status: Submitted
-
-Signed-off-by: Robert Yang <liezhi.yang@windriver.com>
+Signed-off-by: Christian Herzig <cherzig@gauselmann.de>
 ---
- ports/unix/guts/realpath.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ bitbake/lib/bb/fetch2/clearcase.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/ports/unix/guts/realpath.c b/ports/unix/guts/realpath.c
-index 085d2cb..8d8118b 100644
---- a/ports/unix/guts/realpath.c
-+++ b/ports/unix/guts/realpath.c
-@@ -14,7 +14,14 @@
- 		errno = ENAMETOOLONG;
- 		return NULL;
- 	}
--	if ((len = strlen(rname)) >= pseudo_sys_path_max()) {
-+		len = strlen(rname);
-+		char *ep = rname + len - 1;
-+		while (ep > rname && *ep == '/') {
-+			--len;
-+			*(ep--) = '\0';
-+		}
-+
-+		if (len >= pseudo_sys_path_max()) {
- 		errno = ENAMETOOLONG;
- 		return NULL;
- 	}
+diff --git a/bitbake/lib/bb/fetch2/clearcase.py 
+b/bitbake/lib/bb/fetch2/clearcase.py
+index e2934ef9fc..ad2f3edc74 100644
+--- a/bitbake/lib/bb/fetch2/clearcase.py
++++ b/bitbake/lib/bb/fetch2/clearcase.py
+@@ -238,7 +238,7 @@ class ClearCase(FetchMethod):
+ 
+         # Clean clearcase meta-data before tar
+ 
+-        runfetchcmd('tar -czf "%s" .' % (ud.localpath), d, cleanup = 
+[ud.localpath])
++        runfetchcmd('tar -czf "%s" .' % (ud.localpath), d, cleanup = 
+[ud.localpath], workdir = ud.viewdir)
+ 
+         # Clean up so we can create a new view next time
+         self.clean(ud, d);
 -- 
-2.7.4
+2.17.1
 
+
+
+--=_alternative 0057DCC8C12584D9_=
+Content-Type: text/html; charset="US-ASCII"
+
+<tt><span style=" font-size:10pt">Signed-off-by: Christian Herzig &lt;cherzig@gauselmann.de&gt;<br>
+---<br>
+ bitbake/lib/bb/fetch2/clearcase.py | 2 +-<br>
+ 1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/bitbake/lib/bb/fetch2/clearcase.py b/bitbake/lib/bb/fetch2/clearcase.py<br>
+index e2934ef9fc..ad2f3edc74 100644<br>
+--- a/bitbake/lib/bb/fetch2/clearcase.py<br>
++++ b/bitbake/lib/bb/fetch2/clearcase.py<br>
+@@ -238,7 +238,7 @@ class ClearCase(FetchMethod):<br>
+ <br>
+ &nbsp; &nbsp; &nbsp; &nbsp; # Clean clearcase meta-data before tar<br>
+ <br>
+- &nbsp; &nbsp; &nbsp; &nbsp;runfetchcmd('tar -czf &quot;%s&quot; .' %
+(ud.localpath), d, cleanup = [ud.localpath])<br>
++ &nbsp; &nbsp; &nbsp; &nbsp;runfetchcmd('tar -czf &quot;%s&quot; .' %
+(ud.localpath), d, cleanup = [ud.localpath], workdir = ud.viewdir)<br>
+ <br>
+ &nbsp; &nbsp; &nbsp; &nbsp; # Clean up so we can create a new view next
+time<br>
+ &nbsp; &nbsp; &nbsp; &nbsp; self.clean(ud, d);<br>
+-- <br>
+2.17.1<br>
+<br>
+</span></tt>
+<br>
+
+--=_alternative 0057DCC8C12584D9_=--
