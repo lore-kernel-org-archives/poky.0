@@ -1,72 +1,177 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
- by mx.groups.io with SMTP id smtpd.web12.10053.1577959502301937387
- for <poky@lists.yoctoproject.org>;
- Thu, 02 Jan 2020 02:05:02 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Gyej1oT7;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.43, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f43.google.com with SMTP id d16so38686290wre.10
-        for <poky@lists.yoctoproject.org>; Thu, 02 Jan 2020 02:05:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=NFwLduPlS7mZkZ0n2u4NLBNL7xG80h+CPvhKAu+CfII=;
-        b=Gyej1oT7dWZ/bM6qS2VvJDCKrsufg8YA0l/KfxBNRi0i+4855FytBNTcwlPvIekM7l
-         2/vYJ6fAkR7qQbSHiekvkz4yFuSR+Ma3psK6BT8XlFazqwX36in7JVzOtDuoHCe8FI1A
-         B5ZiwBdsS5yGkzCyTBZjJjxwkOODd41tvb5V0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=NFwLduPlS7mZkZ0n2u4NLBNL7xG80h+CPvhKAu+CfII=;
-        b=MNopL6l1FIqJ0TbnpX7xv7ia8rhVvRiDsu/d9w8S2GABdJDLfSyVASFbyFR0VFUdUw
-         YJEZL6VFaKaCVmop0ueI+9zqST1VQU6wJ+cHE4tVX/38559gI5VwKR2phZsxghxnIBpe
-         r/kpINKHKV7Nwf4E6HwN0Grgbzux1c1v2IqJLyi0DAO71VEb8iwLdGkXQMDfp6PBOrEd
-         666Wo3R8UjYcAkhsXl1uhFE2a51zf/9G1q2RoZcfu5lIKltrE5tGuxKWPvd1kOffi2yL
-         tbyjEVtuyZdY5xPYMqEndW05gCNbP7WWyx4njYd5CmT+pK24phwsljwJjrmUiiObOrhI
-         kMAg==
-X-Gm-Message-State: APjAAAXaVMrLJE1ERVZtNBzl/wtXbkw9DEUb2rb+w83QYygl7dUXYemX
-	M2ph3LNO92jsoscFVt4IRt+f3g==
-X-Google-Smtp-Source: APXvYqyOuvk3ZQ8t2+VdBpYtS9wM+YOlznVZ+0c20e+B0EC+GMzdHrHTq+zsIMm6t9VF5YfxhAuH4Q==
-X-Received: by 2002:adf:e5cf:: with SMTP id a15mr64058658wrn.140.1577959500647;
-        Thu, 02 Jan 2020 02:05:00 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id v188sm8301425wma.10.2020.01.02.02.04.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Jan 2020 02:05:00 -0800 (PST)
-Message-ID: <e21c584995ec518916b0d46f15ca3b8073c17bcc.camel@linuxfoundation.org>
-Subject: Re: [poky] Use case of MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS and MACHINE_EXTRA_RRECOMMENDS
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: AshishKumar Mishra <ashish.emailaddress@gmail.com>, 
-	poky@lists.yoctoproject.org
-Date: Thu, 02 Jan 2020 10:04:58 +0000
-In-Reply-To: <HqdY.1577950763153024113.loFR@lists.yoctoproject.org>
-References: <HqdY.1577950763153024113.loFR@lists.yoctoproject.org>
-User-Agent: Evolution 3.34.1-2 
+Subject: Bitbake fails to create SDK meanwhile can create image
+To: poky@lists.yoctoproject.org
+From: "Ashish" <ashish.emailaddress@gmail.com>
+X-Originating-Location: Bengaluru, Karnataka, IN (182.72.92.62)
+X-Originating-Platform: Linux Chrome 79
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Date: Thu, 02 Jan 2020 03:00:52 -0800
+Message-ID: <WQx6.1577962852433588681.umzP@lists.yoctoproject.org>
+X-Groupsio-MsgNum: 11884
+Content-Type: multipart/mixed; boundary="LNh1l3eTWU4P4Fy4N1qt"
 
-On Wed, 2020-01-01 at 23:39 -0800, AshishKumar Mishra wrote:
-> -  I am trying to understand the use of MACHINE_(ESSENTIAL /
-> EXTRA)_(RDEPENDS / RRECOMMENDS) use case . 
->    Was able to relate use case of "_RDEPENDS" variants but the
-> "_RRECOMMENDS" is not much clear . 
-> 
-> Except for aspect of "required at boot time " , which other parameter
-> can be evaluated to decide 
-> MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS  or  MACHINE_EXTRA_RRECOMMENDS
-> variant should be used ?
-> 
-> ( since both will any how build an image is the said package is not
-> found )
+--LNh1l3eTWU4P4Fy4N1qt
+Content-Type: multipart/alternative; boundary="VFEynifzWwiVpCqzrRtn"
 
-RRECOMMENDS is used for kernel modules which may be built into the
-kernel. Installation failure of recommends is not fatal.
+--VFEynifzWwiVpCqzrRtn
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+Hi All ,
 
-Richard
+bitbake -c populate_sdk=C2=A0 <IMAGE> fails with below error :
+| checking target system type... Invalid configuration `x86_64-build-confi=
+g-policy-basicsdk-linux': more than four components
+| configure: error: /bin/sh ../config.sub x86_64-build-config-policy-basic=
+sdk-linux failed
 
+But for same setup i am able to generate an working image using bitbake -k=
+ <IMAGE>
+Here IMAGE =3D *images/armour-whiplash-image.bb* & DISTRO =3D conf/distro/=
+build-config-policy-basic.conf
+( both derived from qemux86-64 )
+
+1) Can member please provide any pointer / debug step as why the *binutils=
+-crosssdk* fails to compile
+when SDK is created=C2=A0but compiles fine when image is created.
+2) I even tried with cleanall option with binutils , but same behaviour .
+
+Attached along is the log
+
+Thanks
+Ashish
+
+--VFEynifzWwiVpCqzrRtn
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi All ,&nbsp;<br /><br />bitbake -c populate_sdk&nbsp; &lt;IMAGE&gt; fails=
+ with below error :<br />
+<div>| checking target system type... Invalid configuration `x86_64-build-=
+config-policy-basicsdk-linux': more than four components</div>
+<div>| configure: error: /bin/sh ../config.sub x86_64-build-config-policy-=
+basicsdk-linux failed</div>
+<div><br />But for same setup i am able to generate an working image using=
+ bitbake -k &lt;IMAGE&gt;<br />Here IMAGE =3D <strong>images/armour-whiplas=
+h-image.bb</strong>&nbsp; &amp; DISTRO =3D&nbsp;<span style=3D"font-weight:=
+ bold;">conf/distro/build-config-policy-basic.conf<br />( both derived from=
+ qemux86-64 )<br /><br /></span></div>
+1) Can member please provide any pointer / debug step as why the <strong>b=
+inutils-crosssdk&nbsp;</strong>fails to compile <br />&nbsp; &nbsp; when SD=
+K is created&nbsp;but compiles fine when image is created.&nbsp;<br />2) I =
+even tried with cleanall option with binutils , but same behaviour .<br /><=
+br />Attached along is the log&nbsp;<br /><br />Thanks&nbsp;<br />Ashish&nb=
+sp;<br /><br /><br />
+
+--VFEynifzWwiVpCqzrRtn--
+
+--LNh1l3eTWU4P4Fy4N1qt
+Content-Type: application/octet-stream; name="log.do_configure.12246"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="log.do_configure.12246"
+
+REVCVUc6IFNJVEUgZmlsZXMgWydlbmRpYW4tbGl0dGxlJywgJ2NvbW1vbi1saW51eCcsICdjb21t
+b24tZ2xpYmMnLCAnYml0LTY0JywgJ3g4Nl82NC1saW51eCcsICdjb21tb24nXQpERUJVRzogRXhl
+Y3V0aW5nIHNoZWxsIGZ1bmN0aW9uIGF1dG90b29sc19wcmVjb25maWd1cmUKREVCVUc6IFNoZWxs
+IGZ1bmN0aW9uIGF1dG90b29sc19wcmVjb25maWd1cmUgZmluaXNoZWQKREVCVUc6IEV4ZWN1dGlu
+ZyBweXRob24gZnVuY3Rpb24gYXV0b3Rvb2xzX2FjbG9jYWxzCkRFQlVHOiBTSVRFIGZpbGVzIFsn
+ZW5kaWFuLWxpdHRsZScsICdjb21tb24tbGludXgnLCAnY29tbW9uLWdsaWJjJywgJ2JpdC02NCcs
+ICd4ODZfNjQtbGludXgnLCAnY29tbW9uJ10KREVCVUc6IFB5dGhvbiBmdW5jdGlvbiBhdXRvdG9v
+bHNfYWNsb2NhbHMgZmluaXNoZWQKREVCVUc6IEV4ZWN1dGluZyBzaGVsbCBmdW5jdGlvbiBkb19j
+b25maWd1cmUKTk9URTogUnVubmluZyAuLi9jb25maWd1cmUgIC0tYnVpbGQ9eDg2XzY0LWxpbnV4
+IAkJICAtLWhvc3Q9eDg2XzY0LWxpbnV4IAkJICAtLXRhcmdldD14ODZfNjQtYnVpbGQtY29uZmln
+LXBvbGljeS1iYXNpY3Nkay1saW51eCAJCSAgLS1wcmVmaXg9L2hvbWUvYXNoaXNoL0RvY3VtZW50
+cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29yay94
+ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3kt
+YmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290LW5hdGl2ZS91c3IgCQkgIC0t
+ZXhlY19wcmVmaXg9L2hvbWUvYXNoaXNoL0RvY3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2pl
+Y3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jv
+c3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIw
+L3JlY2lwZS1zeXNyb290LW5hdGl2ZS91c3IgCQkgIC0tYmluZGlyPS9ob21lL2FzaGlzaC9Eb2N1
+bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dv
+cmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9s
+aWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2Jp
+bi94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eCAJCSAgLS1zYmluZGly
+PS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9i
+dWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82
+NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lz
+cm9vdC1uYXRpdmUvdXNyL2Jpbi94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1s
+aW51eCAJCSAgLS1saWJleGVjZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRh
+dGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2Jp
+bnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4
+LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2xpYmV4ZWMveDg2XzY0LWJ1aWxk
+LWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXggCQkgIC0tZGF0YWRpcj0vaG9tZS9hc2hpc2gv
+RG9jdW1lbnRzL2xpbnV4LWZvdW5kYXRpb24tcHJvamVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3Rt
+cC93b3JrL3g4Nl82NC1saW51eC9iaW51dGlscy1jcm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmln
+LXBvbGljeS1iYXNpY3Nkay1saW51eC8yLjMyLjAtcjAvcmVjaXBlLXN5c3Jvb3QtbmF0aXZlL3Vz
+ci9zaGFyZSAJCSAgLS1zeXNjb25mZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91
+bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4
+L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxp
+bnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvZXRjIAkJICAtLXNoYXJlZHN0YXRl
+ZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0
+by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4
+Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUt
+c3lzcm9vdC1uYXRpdmUvY29tIAkJICAtLWxvY2Fsc3RhdGVkaXI9L2hvbWUvYXNoaXNoL0RvY3Vt
+ZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29y
+ay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xp
+Y3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290LW5hdGl2ZS92YXIgCQkg
+IC0tbGliZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0
+cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nz
+c2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9y
+ZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2xpYi94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1i
+YXNpY3Nkay1saW51eCAJCSAgLS1pbmNsdWRlZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGlu
+dXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0
+LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2lj
+c2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2luY2x1ZGUgCQkg
+IC0tb2xkaW5jbHVkZWRpcj0vaG9tZS9hc2hpc2gvRG9jdW1lbnRzL2xpbnV4LWZvdW5kYXRpb24t
+cHJvamVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3RtcC93b3JrL3g4Nl82NC1saW51eC9iaW51dGls
+cy1jcm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eC8yLjMy
+LjAtcjAvcmVjaXBlLXN5c3Jvb3QtbmF0aXZlL3Vzci9pbmNsdWRlIAkJICAtLWluZm9kaXI9L2hv
+bWUvYXNoaXNoL0RvY3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxk
+LWFybW91ci90bXAvd29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1
+aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290
+LW5hdGl2ZS91c3Ivc2hhcmUvaW5mbyAJCSAgLS1tYW5kaXI9L2hvbWUvYXNoaXNoL0RvY3VtZW50
+cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29yay94
+ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3kt
+YmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290LW5hdGl2ZS91c3Ivc2hhcmUv
+bWFuIAkJICAtLWRpc2FibGUtc2lsZW50LXJ1bGVzIAkJICAtLWRpc2FibGUtZGVwZW5kZW5jeS10
+cmFja2luZyAJCSAgLS13aXRoLWxpYnRvb2wtc3lzcm9vdD0vaG9tZS9hc2hpc2gvRG9jdW1lbnRz
+L2xpbnV4LWZvdW5kYXRpb24tcHJvamVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3RtcC93b3JrL3g4
+Nl82NC1saW51eC9iaW51dGlscy1jcm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1i
+YXNpY3Nkay1saW51eC8yLjMyLjAtcjAvcmVjaXBlLXN5c3Jvb3QtbmF0aXZlIC0tcHJvZ3JhbS1w
+cmVmaXg9eDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgtICAgICAgICAg
+ICAgICAgICAtLWRpc2FibGUtd2Vycm9yICAgICAgICAgICAgICAgICAtLWVuYWJsZS1kZXRlcm1p
+bmlzdGljLWFyY2hpdmVzICAgICAgICAgICAgICAgICAtLWVuYWJsZS1wbHVnaW5zICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIC0tZW5hYmxlLTY0LWJpdC1iZmQgLS13aXRoLXN5c3Jv
+b3Q9L2hvbWUvYXNoaXNoL0RvY3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3Rv
+L2J1aWxkLWFybW91ci90bXAvd29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2
+XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1z
+eXNyb290ICAgICAgICAgICAgICAgICAtLWRpc2FibGUtaW5zdGFsbC1saWJiZmQgICAgICAgICAg
+ICAgICAgIC0tZW5hYmxlLXBvaXNvbi1zeXN0ZW0tZGlyZWN0b3JpZXMgICAgICAgICAgICAgICAg
+IC0td2l0aC1saWItcGF0aD09L29wdC9idWlsZC1jb25maWctcG9saWN5LWJhc2ljLzEuMC9zeXNy
+b290cy94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eC9saWI6PS9vcHQv
+YnVpbGQtY29uZmlnLXBvbGljeS1iYXNpYy8xLjAvc3lzcm9vdHMveDg2XzY0LWJ1aWxkLWNvbmZp
+Zy1wb2xpY3ktYmFzaWNzZGstbGludXgvdXNyL2xpYiAgICAgICAgICAgICAgICAgIC0tZGlzYWJs
+ZS1zdGF0aWMgIC0tZGlzYWJsZS1ubHMgCmNoZWNraW5nIGJ1aWxkIHN5c3RlbSB0eXBlLi4uIHg4
+Nl82NC1wYy1saW51eC1nbnUKY2hlY2tpbmcgaG9zdCBzeXN0ZW0gdHlwZS4uLiB4ODZfNjQtcGMt
+bGludXgtZ251CmNoZWNraW5nIHRhcmdldCBzeXN0ZW0gdHlwZS4uLiBJbnZhbGlkIGNvbmZpZ3Vy
+YXRpb24gYHg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4JzogbW9yZSB0
+aGFuIGZvdXIgY29tcG9uZW50cwpjb25maWd1cmU6IGVycm9yOiAvYmluL3NoIC4uL2NvbmZpZy5z
+dWIgeDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXggZmFpbGVkCk5PVEU6
+IFRoZSBmb2xsb3dpbmcgY29uZmlnLmxvZyBmaWxlcyBtYXkgcHJvdmlkZSBmdXJ0aGVyIGluZm9y
+bWF0aW9uLgpOT1RFOiAvaG9tZS9hc2hpc2gvRG9jdW1lbnRzL2xpbnV4LWZvdW5kYXRpb24tcHJv
+amVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3RtcC93b3JrL3g4Nl82NC1saW51eC9iaW51dGlscy1j
+cm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eC8yLjMyLjAt
+cjAvZ2l0L2J1aWxkLng4Nl82NC1saW51eC54ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNp
+Y3Nkay1saW51eC9jb25maWcubG9nCkVSUk9SOiBjb25maWd1cmUgZmFpbGVkCldBUk5JTkc6IC9o
+b21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWls
+ZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1i
+dWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC90ZW1wL3J1bi5kb19j
+b25maWd1cmUuMTIyNDY6MSBleGl0IDEgZnJvbSAnZXhpdCAxJwpFUlJPUjogRnVuY3Rpb24gZmFp
+bGVkOiBkb19jb25maWd1cmUgKGxvZyBmaWxlIGlzIGxvY2F0ZWQgYXQgL2hvbWUvYXNoaXNoL0Rv
+Y3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAv
+d29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1w
+b2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3RlbXAvbG9nLmRvX2NvbmZpZ3VyZS4xMjI0
+NikK
+
+--LNh1l3eTWU4P4Fy4N1qt--
