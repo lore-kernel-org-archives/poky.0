@@ -1,177 +1,55 @@
-Subject: Bitbake fails to create SDK meanwhile can create image
+Subject: Re: Bitbake fails to create SDK meanwhile can create image
 To: poky@lists.yoctoproject.org
 From: "Ashish" <ashish.emailaddress@gmail.com>
 X-Originating-Location: Bengaluru, Karnataka, IN (182.72.92.62)
 X-Originating-Platform: Linux Chrome 79
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Thu, 02 Jan 2020 03:00:52 -0800
-Message-ID: <WQx6.1577962852433588681.umzP@lists.yoctoproject.org>
-X-Groupsio-MsgNum: 11884
-Content-Type: multipart/mixed; boundary="LNh1l3eTWU4P4Fy4N1qt"
+Date: Mon, 06 Jan 2020 02:11:29 -0800
+References: <WQx6.1577962852433588681.umzP@lists.yoctoproject.org>
+In-Reply-To: <WQx6.1577962852433588681.umzP@lists.yoctoproject.org>
+Message-ID: <28695.1578305489262395810@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="YfFMGqCL7wmm128IsgJQ"
 
---LNh1l3eTWU4P4Fy4N1qt
-Content-Type: multipart/alternative; boundary="VFEynifzWwiVpCqzrRtn"
-
---VFEynifzWwiVpCqzrRtn
+--YfFMGqCL7wmm128IsgJQ
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi All ,
 
-bitbake -c populate_sdk=C2=A0 <IMAGE> fails with below error :
-| checking target system type... Invalid configuration `x86_64-build-confi=
-g-policy-basicsdk-linux': more than four components
-| configure: error: /bin/sh ../config.sub x86_64-build-config-policy-basic=
-sdk-linux failed
+( Updating the thread just in case if any one else face similar issue )
 
-But for same setup i am able to generate an working image using bitbake -k=
- <IMAGE>
-Here IMAGE =3D *images/armour-whiplash-image.bb* & DISTRO =3D conf/distro/=
-build-config-policy-basic.conf
-( both derived from qemux86-64 )
+1) Changing the distro file from "build-config-policy-basic" to "buildpoli=
+cy" this was based on below pointer from error log
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking target system type... *Invalid configuration `x86_64-build-config=
+-policy-basicsdk-linux': more than four components*
 
-1) Can member please provide any pointer / debug step as why the *binutils=
--crosssdk* fails to compile
-when SDK is created=C2=A0but compiles fine when image is created.
-2) I even tried with cleanall option with binutils , but same behaviour .
+2) Clean and build binutils package . Build the image .
 
-Attached along is the log
+3) Generate the SDK again , there is no error mentioned above .
 
-Thanks
-Ashish
+Ashish .
 
---VFEynifzWwiVpCqzrRtn
+--YfFMGqCL7wmm128IsgJQ
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi All ,&nbsp;<br /><br />bitbake -c populate_sdk&nbsp; &lt;IMAGE&gt; fails=
- with below error :<br />
-<div>| checking target system type... Invalid configuration `x86_64-build-=
-config-policy-basicsdk-linux': more than four components</div>
-<div>| configure: error: /bin/sh ../config.sub x86_64-build-config-policy-=
-basicsdk-linux failed</div>
-<div><br />But for same setup i am able to generate an working image using=
- bitbake -k &lt;IMAGE&gt;<br />Here IMAGE =3D <strong>images/armour-whiplas=
-h-image.bb</strong>&nbsp; &amp; DISTRO =3D&nbsp;<span style=3D"font-weight:=
- bold;">conf/distro/build-config-policy-basic.conf<br />( both derived from=
- qemux86-64 )<br /><br /></span></div>
-1) Can member please provide any pointer / debug step as why the <strong>b=
-inutils-crosssdk&nbsp;</strong>fails to compile <br />&nbsp; &nbsp; when SD=
-K is created&nbsp;but compiles fine when image is created.&nbsp;<br />2) I =
-even tried with cleanall option with binutils , but same behaviour .<br /><=
-br />Attached along is the log&nbsp;<br /><br />Thanks&nbsp;<br />Ashish&nb=
-sp;<br /><br /><br />
+Hi All ,&nbsp;<br /><br />( Updating the thread just in case if any one els=
+e face similar issue )&nbsp;<br /><br />1) Changing the distro file from "b=
+uild-config-policy-basic" to "buildpolicy" this was based on below pointer =
+from error log<br />
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; checking build system type... x86_=
+64-pc-linux-gnu</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; checking host system type... x86_6=
+4-pc-linux-gnu</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; checking target system type... <sp=
+an style=3D"text-decoration: underline;"><strong>Invalid configuration `x86=
+_64-build-config-policy-basicsdk-linux': more than four components</strong>=
+</span></div>
+<br />2) Clean and build binutils package . Build the image .<br /><br />3=
+) Generate the SDK again , there is no error mentioned above .&nbsp;<br />&=
+nbsp;<br />Ashish .&nbsp;
 
---VFEynifzWwiVpCqzrRtn--
-
---LNh1l3eTWU4P4Fy4N1qt
-Content-Type: application/octet-stream; name="log.do_configure.12246"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="log.do_configure.12246"
-
-REVCVUc6IFNJVEUgZmlsZXMgWydlbmRpYW4tbGl0dGxlJywgJ2NvbW1vbi1saW51eCcsICdjb21t
-b24tZ2xpYmMnLCAnYml0LTY0JywgJ3g4Nl82NC1saW51eCcsICdjb21tb24nXQpERUJVRzogRXhl
-Y3V0aW5nIHNoZWxsIGZ1bmN0aW9uIGF1dG90b29sc19wcmVjb25maWd1cmUKREVCVUc6IFNoZWxs
-IGZ1bmN0aW9uIGF1dG90b29sc19wcmVjb25maWd1cmUgZmluaXNoZWQKREVCVUc6IEV4ZWN1dGlu
-ZyBweXRob24gZnVuY3Rpb24gYXV0b3Rvb2xzX2FjbG9jYWxzCkRFQlVHOiBTSVRFIGZpbGVzIFsn
-ZW5kaWFuLWxpdHRsZScsICdjb21tb24tbGludXgnLCAnY29tbW9uLWdsaWJjJywgJ2JpdC02NCcs
-ICd4ODZfNjQtbGludXgnLCAnY29tbW9uJ10KREVCVUc6IFB5dGhvbiBmdW5jdGlvbiBhdXRvdG9v
-bHNfYWNsb2NhbHMgZmluaXNoZWQKREVCVUc6IEV4ZWN1dGluZyBzaGVsbCBmdW5jdGlvbiBkb19j
-b25maWd1cmUKTk9URTogUnVubmluZyAuLi9jb25maWd1cmUgIC0tYnVpbGQ9eDg2XzY0LWxpbnV4
-IAkJICAtLWhvc3Q9eDg2XzY0LWxpbnV4IAkJICAtLXRhcmdldD14ODZfNjQtYnVpbGQtY29uZmln
-LXBvbGljeS1iYXNpY3Nkay1saW51eCAJCSAgLS1wcmVmaXg9L2hvbWUvYXNoaXNoL0RvY3VtZW50
-cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29yay94
-ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3kt
-YmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290LW5hdGl2ZS91c3IgCQkgIC0t
-ZXhlY19wcmVmaXg9L2hvbWUvYXNoaXNoL0RvY3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2pl
-Y3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jv
-c3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIw
-L3JlY2lwZS1zeXNyb290LW5hdGl2ZS91c3IgCQkgIC0tYmluZGlyPS9ob21lL2FzaGlzaC9Eb2N1
-bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dv
-cmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9s
-aWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2Jp
-bi94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eCAJCSAgLS1zYmluZGly
-PS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9i
-dWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82
-NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lz
-cm9vdC1uYXRpdmUvdXNyL2Jpbi94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1s
-aW51eCAJCSAgLS1saWJleGVjZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRh
-dGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2Jp
-bnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4
-LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2xpYmV4ZWMveDg2XzY0LWJ1aWxk
-LWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXggCQkgIC0tZGF0YWRpcj0vaG9tZS9hc2hpc2gv
-RG9jdW1lbnRzL2xpbnV4LWZvdW5kYXRpb24tcHJvamVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3Rt
-cC93b3JrL3g4Nl82NC1saW51eC9iaW51dGlscy1jcm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmln
-LXBvbGljeS1iYXNpY3Nkay1saW51eC8yLjMyLjAtcjAvcmVjaXBlLXN5c3Jvb3QtbmF0aXZlL3Vz
-ci9zaGFyZSAJCSAgLS1zeXNjb25mZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91
-bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4
-L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxp
-bnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvZXRjIAkJICAtLXNoYXJlZHN0YXRl
-ZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0
-by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4
-Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUt
-c3lzcm9vdC1uYXRpdmUvY29tIAkJICAtLWxvY2Fsc3RhdGVkaXI9L2hvbWUvYXNoaXNoL0RvY3Vt
-ZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29y
-ay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xp
-Y3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290LW5hdGl2ZS92YXIgCQkg
-IC0tbGliZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0
-cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nz
-c2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC9y
-ZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2xpYi94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1i
-YXNpY3Nkay1saW51eCAJCSAgLS1pbmNsdWRlZGlyPS9ob21lL2FzaGlzaC9Eb2N1bWVudHMvbGlu
-dXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWlsZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0
-LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2lj
-c2RrLWxpbnV4LzIuMzIuMC1yMC9yZWNpcGUtc3lzcm9vdC1uYXRpdmUvdXNyL2luY2x1ZGUgCQkg
-IC0tb2xkaW5jbHVkZWRpcj0vaG9tZS9hc2hpc2gvRG9jdW1lbnRzL2xpbnV4LWZvdW5kYXRpb24t
-cHJvamVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3RtcC93b3JrL3g4Nl82NC1saW51eC9iaW51dGls
-cy1jcm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eC8yLjMy
-LjAtcjAvcmVjaXBlLXN5c3Jvb3QtbmF0aXZlL3Vzci9pbmNsdWRlIAkJICAtLWluZm9kaXI9L2hv
-bWUvYXNoaXNoL0RvY3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxk
-LWFybW91ci90bXAvd29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1
-aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290
-LW5hdGl2ZS91c3Ivc2hhcmUvaW5mbyAJCSAgLS1tYW5kaXI9L2hvbWUvYXNoaXNoL0RvY3VtZW50
-cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAvd29yay94
-ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3kt
-YmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1zeXNyb290LW5hdGl2ZS91c3Ivc2hhcmUv
-bWFuIAkJICAtLWRpc2FibGUtc2lsZW50LXJ1bGVzIAkJICAtLWRpc2FibGUtZGVwZW5kZW5jeS10
-cmFja2luZyAJCSAgLS13aXRoLWxpYnRvb2wtc3lzcm9vdD0vaG9tZS9hc2hpc2gvRG9jdW1lbnRz
-L2xpbnV4LWZvdW5kYXRpb24tcHJvamVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3RtcC93b3JrL3g4
-Nl82NC1saW51eC9iaW51dGlscy1jcm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1i
-YXNpY3Nkay1saW51eC8yLjMyLjAtcjAvcmVjaXBlLXN5c3Jvb3QtbmF0aXZlIC0tcHJvZ3JhbS1w
-cmVmaXg9eDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgtICAgICAgICAg
-ICAgICAgICAtLWRpc2FibGUtd2Vycm9yICAgICAgICAgICAgICAgICAtLWVuYWJsZS1kZXRlcm1p
-bmlzdGljLWFyY2hpdmVzICAgICAgICAgICAgICAgICAtLWVuYWJsZS1wbHVnaW5zICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIC0tZW5hYmxlLTY0LWJpdC1iZmQgLS13aXRoLXN5c3Jv
-b3Q9L2hvbWUvYXNoaXNoL0RvY3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3Rv
-L2J1aWxkLWFybW91ci90bXAvd29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2
-XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3JlY2lwZS1z
-eXNyb290ICAgICAgICAgICAgICAgICAtLWRpc2FibGUtaW5zdGFsbC1saWJiZmQgICAgICAgICAg
-ICAgICAgIC0tZW5hYmxlLXBvaXNvbi1zeXN0ZW0tZGlyZWN0b3JpZXMgICAgICAgICAgICAgICAg
-IC0td2l0aC1saWItcGF0aD09L29wdC9idWlsZC1jb25maWctcG9saWN5LWJhc2ljLzEuMC9zeXNy
-b290cy94ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eC9saWI6PS9vcHQv
-YnVpbGQtY29uZmlnLXBvbGljeS1iYXNpYy8xLjAvc3lzcm9vdHMveDg2XzY0LWJ1aWxkLWNvbmZp
-Zy1wb2xpY3ktYmFzaWNzZGstbGludXgvdXNyL2xpYiAgICAgICAgICAgICAgICAgIC0tZGlzYWJs
-ZS1zdGF0aWMgIC0tZGlzYWJsZS1ubHMgCmNoZWNraW5nIGJ1aWxkIHN5c3RlbSB0eXBlLi4uIHg4
-Nl82NC1wYy1saW51eC1nbnUKY2hlY2tpbmcgaG9zdCBzeXN0ZW0gdHlwZS4uLiB4ODZfNjQtcGMt
-bGludXgtZ251CmNoZWNraW5nIHRhcmdldCBzeXN0ZW0gdHlwZS4uLiBJbnZhbGlkIGNvbmZpZ3Vy
-YXRpb24gYHg4Nl82NC1idWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4JzogbW9yZSB0
-aGFuIGZvdXIgY29tcG9uZW50cwpjb25maWd1cmU6IGVycm9yOiAvYmluL3NoIC4uL2NvbmZpZy5z
-dWIgeDg2XzY0LWJ1aWxkLWNvbmZpZy1wb2xpY3ktYmFzaWNzZGstbGludXggZmFpbGVkCk5PVEU6
-IFRoZSBmb2xsb3dpbmcgY29uZmlnLmxvZyBmaWxlcyBtYXkgcHJvdmlkZSBmdXJ0aGVyIGluZm9y
-bWF0aW9uLgpOT1RFOiAvaG9tZS9hc2hpc2gvRG9jdW1lbnRzL2xpbnV4LWZvdW5kYXRpb24tcHJv
-amVjdHMveW9jdG8vYnVpbGQtYXJtb3VyL3RtcC93b3JrL3g4Nl82NC1saW51eC9iaW51dGlscy1j
-cm9zc3Nkay14ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNpY3Nkay1saW51eC8yLjMyLjAt
-cjAvZ2l0L2J1aWxkLng4Nl82NC1saW51eC54ODZfNjQtYnVpbGQtY29uZmlnLXBvbGljeS1iYXNp
-Y3Nkay1saW51eC9jb25maWcubG9nCkVSUk9SOiBjb25maWd1cmUgZmFpbGVkCldBUk5JTkc6IC9o
-b21lL2FzaGlzaC9Eb2N1bWVudHMvbGludXgtZm91bmRhdGlvbi1wcm9qZWN0cy95b2N0by9idWls
-ZC1hcm1vdXIvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2JpbnV0aWxzLWNyb3Nzc2RrLXg4Nl82NC1i
-dWlsZC1jb25maWctcG9saWN5LWJhc2ljc2RrLWxpbnV4LzIuMzIuMC1yMC90ZW1wL3J1bi5kb19j
-b25maWd1cmUuMTIyNDY6MSBleGl0IDEgZnJvbSAnZXhpdCAxJwpFUlJPUjogRnVuY3Rpb24gZmFp
-bGVkOiBkb19jb25maWd1cmUgKGxvZyBmaWxlIGlzIGxvY2F0ZWQgYXQgL2hvbWUvYXNoaXNoL0Rv
-Y3VtZW50cy9saW51eC1mb3VuZGF0aW9uLXByb2plY3RzL3lvY3RvL2J1aWxkLWFybW91ci90bXAv
-d29yay94ODZfNjQtbGludXgvYmludXRpbHMtY3Jvc3NzZGsteDg2XzY0LWJ1aWxkLWNvbmZpZy1w
-b2xpY3ktYmFzaWNzZGstbGludXgvMi4zMi4wLXIwL3RlbXAvbG9nLmRvX2NvbmZpZ3VyZS4xMjI0
-NikK
-
---LNh1l3eTWU4P4Fy4N1qt--
+--YfFMGqCL7wmm128IsgJQ--
