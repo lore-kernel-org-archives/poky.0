@@ -1,93 +1,94 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
- by mx.groups.io with SMTP id smtpd.web09.4798.1579257556732043668
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.14192.1579541182336043881
  for <poky@lists.yoctoproject.org>;
- Fri, 17 Jan 2020 02:39:17 -0800
+ Mon, 20 Jan 2020 09:26:22 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=IyQUZbUq;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f46.google.com with SMTP id q9so6907608wmj.5
-        for <poky@lists.yoctoproject.org>; Fri, 17 Jan 2020 02:39:16 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=s2pcPjDc;
+ spf=softfail (domain: gmail.com, ip: 140.211.169.56, mailfrom: alex.kanavin@gmail.com)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id DE60CE01545; Mon, 20 Jan 2020 09:26:21 -0800 (PST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	*  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail provider
+	*      (alex.kanavin[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.128.44 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 5CE2AE0044F
+	for <poky@yoctoproject.org>; Mon, 20 Jan 2020 09:26:21 -0800 (PST)
+Received: by mail-wm1-f44.google.com with SMTP id 20so137034wmj.4
+        for <poky@yoctoproject.org>; Mon, 20 Jan 2020 09:26:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=THkVmJAMgMv1FmC9CduXmgcGqA3iTApEs02tmuU3VFI=;
-        b=IyQUZbUqPSfIV0O25ONgzRwjHBWlZWOqVAcVMawCOBGb6a31T118AHqoZHOZePY1NP
-         Xb6uQ9SLNBCR9mmMYwmeewwhozY/X8kIjvnnTSqOK09kSeX69d9/aba7iR6oGh9BeDLI
-         zvRDFx31uwcxbONdwF4EjYaQ5/pVKEDvsA+BM=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=IGtP60Uhiqpyx4EjeFa2LBpsLSvzPq3lUAdUfq7Pwfw=;
+        b=s2pcPjDcYWLZvj3fF+ihlDnI6CeC6yqXm0X2FzSM2DgOTgghb9bZ76UULyB1a2HgQL
+         rTT6i76WnoAY9l08YcLIUHBsTiM5EHUOvriAC5GKeXLyWsNmwkp5hACXAPS0hmP463Ae
+         gysekQLmwu4wUJyHU0aFjFQmeO5g+LRyEegTwg+5z6InRhKqdaSDKm/AM309Z6HiCD6u
+         J41cHxnzIq8MAAHEiAJMJV7QKPVlWhE3pe0hmlCZXz5/vc3K+enEsNHmrS7kWgfPOUWV
+         IuWgQS37fi2NpejoIxWjc98HPMKI7zgSjJPopanoH19yiWsPwe3IhNTwUt5KIkGcSSD7
+         CjPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=THkVmJAMgMv1FmC9CduXmgcGqA3iTApEs02tmuU3VFI=;
-        b=JK7jDIkh5qpHIsUkHFQb6CZVBgZX4fUod0T1MyJcpNy3Pe+Fjzo+a9byYnNdQSGtM4
-         +rLTz3ylSyinv4MbBCnG8cuJkBpu4EFPr2ebdSbsHwKBmQf+m7tG1N+NA0U7vWcD/EL8
-         zyuE84PrM5fOZpVpUqwKrbA4GlT+z0+PMZ32/rCrnyvPDFxM+dXGASzpqVhf2y8xCQOf
-         iY4zoSfNGTQY9diWnuEJ2NmCmRP0mqpmEQ1ZGLGkcGAdcZHaQgntKA0+GwyAMK8NioHy
-         peV6h1B+EK1R6zYWJ+9SGg/szAbFGhjNUYtY9KRSkkje5m+NqdO7JZ1i7az1q5rjZbTn
-         Q/yw==
-X-Gm-Message-State: APjAAAWXGUKdzARnQ2u5u0dNZew2MqiE6HDCPQQhoNxmmyr8gcsNENqu
-	4G94zE7s5iGikC3rXc0EtW4peg==
-X-Google-Smtp-Source: APXvYqwfRIkBVx7TMDkc4zsZR1Hrkv0ifJ47xs98ro5Lslfyes7E7LXby8cH17pQfMfY9E0LB7tihQ==
-X-Received: by 2002:a7b:cbc8:: with SMTP id n8mr3870855wmi.35.1579257555138;
-        Fri, 17 Jan 2020 02:39:15 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id f1sm8846941wmc.45.2020.01.17.02.39.14
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=IGtP60Uhiqpyx4EjeFa2LBpsLSvzPq3lUAdUfq7Pwfw=;
+        b=lK5rgrg5EYpSl8WhZ3VSkSaONzn192aZEFZUEobcKHZldKOC0o+1+xQHswrOaoV7AE
+         M7ywZki1VwsNFvO8qHMtLs7Ux7W+czNUyTOJ14iDA+XtXNBMN+h5t5GmegacxfwK0r/i
+         /4XLaO2luxLqXpY5/l7UJUY59+JQPw0ROM55BAON8Zy0tlyX0U57IkZtLzZA3azlM6jU
+         UMFhtaCJXl6xQF/esb+VA0RNsdNUyUvOl5ampHCDjUqbgetqgFW6Q7Dx1jLZ+BAtG3fI
+         T7YMPr9+0RS1EY9eC8XzUqT0UKODQmMZY46JZ40LZM3sAdzKTqYj3EmTma5QJyhSr5G5
+         0OYw==
+X-Gm-Message-State: APjAAAVNRDXtug9jwL6XRmOuacdd/4HK0fqU6GpVkKilwqLr9SO4ADAr
+	xO2Urr/ki6LwO7VoymHkINN6JmDR
+X-Google-Smtp-Source: APXvYqyZIqr26zOV45u89mEH1WEvDhBfL6JeY5G6fqOef5dW3CdPWmx3dvITnXaGiABpkzo3bbMVAg==
+X-Received: by 2002:a1c:cc06:: with SMTP id h6mr396995wmb.118.1579541180176;
+        Mon, 20 Jan 2020 09:26:20 -0800 (PST)
+Received: from alexander-box.rd.corpintra.net ([141.113.66.202])
+        by smtp.gmail.com with ESMTPSA id n1sm46116181wrw.52.2020.01.20.09.26.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jan 2020 02:39:14 -0800 (PST)
-Message-ID: <bf7d3662107cd71986505e69ad8caaf8c891117f.camel@linuxfoundation.org>
-Subject: Re: [poky] Selecting libraries for the SDK
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: macphyter@gmail.com, poky@lists.yoctoproject.org
-Date: Fri, 17 Jan 2020 10:39:13 +0000
-In-Reply-To: <3UNh.1579249647788730408.uBJb@lists.yoctoproject.org>
-References: <3UNh.1579249647788730408.uBJb@lists.yoctoproject.org>
-User-Agent: Evolution 3.34.1-2 
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+        Mon, 20 Jan 2020 09:26:19 -0800 (PST)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+To: poky@yoctoproject.org
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>
+Subject: [PATCH] poky.conf: add vfat to DISTRO_FEATURES
+Date: Mon, 20 Jan 2020 18:26:15 +0100
+Message-Id: <20200120172615.22811-1-alex.kanavin@gmail.com>
+X-Mailer: git-send-email 2.17.1
 
-On Fri, 2020-01-17 at 00:27 -0800, macphyter@gmail.com wrote:
-> I've recently been thrust into an intense project with an insane
-> deadline (shocking, I know) and I've had to quickly get up to speed
-> building images with Yocto.  I've managed to overcome most issues
-> with lots of trial and error... and googling, and now I'm reasonably
-> confident in my abilities, but there's one thing I've been unable to
-> figure out.
-> 
-> I have one or two developers that need to build outside of the yocto
-> image build, so it makes sense to create an SDK for them to use. 
-> When I create the SDK, it appears to be missing many libraries that
-> exist in my full image build.  These are mostly dev libraries that
-> are needed to compile apps for the system.  Even common libraries
-> like glib-2.0 are missing. I've struggled to figure out how the Yocto
-> build selects these when populating the SKD, and I can't seem to
-> figure it out.
-> 
-> Incidentally, the platform I'm building for is very similar to the
-> Qualcomm RB3 robotics dev kit from Thundercomm, and I have a copy of
-> their SDK which contains most of the libraries I need.  I can use
-> their SDK to build much of what I need, but there are a few libraries
-> missing from theirs as well.  I suspect the Qualcomm image build
-> process is a little more complicated than most other platforms, which
-> would explain why I can't seem to find the help I need on Google.
-> 
-> The bottom line, I just need someone to point me in the right
-> direction regarding the SDK population, and how I can select
-> libraries from my existing build to be included in the SDK.  Thanks.
+This is beneficial for parted ptests in particular, as
+they expect vfat functionality to work.
 
-The libraries in the SDK should match those in the corresponding image.
-If that isn't the case I worry about what changes you've added on top
-of the base system as the base system does behave like that.
+Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I assume you're doing "bitbake <image> -c populate_sdk" ?
-
-You probably could force things into the SDK but I'd personally want to
-understand why its not working as intended.
-
-Cheers,
-
-Richard
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 5c156f12f33..2446e491563 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -15,7 +15,7 @@ DISTRO_VERSION[vardepsexclude] = "DATE"
+ SDK_VERSION[vardepsexclude] = "DATE"
+ 
+ # Override these in poky based distros
+-POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan"
++POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vfat vulkan"
+ POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
+ POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+ 
+-- 
+2.17.1
 
