@@ -1,87 +1,140 @@
-Received: from shell1.rawbw.com (shell1.rawbw.com [198.144.192.42])
- by mx.groups.io with SMTP id smtpd.web12.3578.1579756034111193517
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+ by mx.groups.io with SMTP id smtpd.web10.4105.1579760188934229074
  for <poky@lists.yoctoproject.org>;
- Wed, 22 Jan 2020 21:07:14 -0800
+ Wed, 22 Jan 2020 22:16:29 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: rawbw.com, ip: 198.144.192.42, mailfrom: yuri@rawbw.com)
-Received: from yv.noip.me (c-73-189-35-76.hsd1.ca.comcast.net [73.189.35.76])
-	(authenticated bits=0)
-	by shell1.rawbw.com (8.15.1/8.15.1) with ESMTPSA id 00N57CFG072677
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
-	Wed, 22 Jan 2020 21:07:13 -0800 (PST)
-	(envelope-from yuri@rawbw.com)
-X-Authentication-Warning: shell1.rawbw.com: Host c-73-189-35-76.hsd1.ca.comcast.net [73.189.35.76] claimed to be yv.noip.me
-Subject: Re: [poky] How to make the image to get the IP (over DHCP) and listen for ssh connections?
-To: Khem Raj <raj.khem@gmail.com>
-Cc: poky@lists.yoctoproject.org
-References: <V5kT.1579720627445078822.cu1I@lists.yoctoproject.org>
- <CAMKF1so5G6towiFSmAmxg7npOTEdu_x1iSMP9C+MCO2cA6sASw@mail.gmail.com>
-From: "Yuri" <yuri@rawbw.com>
-Message-ID: <7547719e-d9f0-7a0c-7ffc-ad1f25fe8f89@rawbw.com>
-Date: Wed, 22 Jan 2020 21:07:10 -0800
-User-Agent: Mozilla/5.0 (X11; FreeBSD amd64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=hQVc6MpP;
+ spf=pass (domain: gmail.com, ip: 209.85.222.176, mailfrom: raj.khem@gmail.com)
+Received: by mail-qk1-f176.google.com with SMTP id c16so2359356qko.6
+        for <poky@lists.yoctoproject.org>; Wed, 22 Jan 2020 22:16:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=1VJlQlbgT4CpBdAYXqH2yFFrlOeI5L7JVPdwmTv7NKs=;
+        b=hQVc6MpPvAXnWSv/uva+AMprOPOCiYm1tt0hrHUIXQ/nojpMUJGUXCG5nVIz1GW6+t
+         tovnPzdNTenlq/oCZi+JfZQn+AO5CZ4+gvTuNFJJ45CiRbbo0QmDmWHkGdie0dCPnd94
+         A7UeF3YPlstdw3shPnCxGsJM5lGCGa6Gmxu1gPIKsbqDPqvKXjlJmxKrThBd5SfmGB5w
+         vRYTQZePgh9eWxK2YZHLvhwWJ98zmLupNrEJgOsHDeq5qhnld7AAdeWOw8g+18l7fVSU
+         rb1gcSSlotlFuiEZT6znRZQ6tfVuhOgkLC5DFUEfpipu18jiftlmQoNbmT7Dbr53IbqK
+         +uzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=1VJlQlbgT4CpBdAYXqH2yFFrlOeI5L7JVPdwmTv7NKs=;
+        b=VG3uGglgTTJ8Jr4DurcOJMQtc7Bd1GOVI069EZ9PnDxghMgASoUIHaOHqpywpE5y4U
+         3kCFCEIbIPIxd1Nnef8t2vNjs67IrWtvWavuJ8U83Ay5vDVNbAwKag2okJFX2T81bQLX
+         sZJJEroCryynP8nZA5DfpDA+w31b+O5Jip3bxwda8L6uLUPqw71PdDy3c6MTZCoqMQj+
+         CieaLKfH8GEXRoAAZdMCQL6eq4NQFDn169dXzxk7fPWNJnD6XOultXe6IYcEYcj1K5x8
+         g6ta5qEjecUqlx/lk4bhpRG5vkUrsPoS/dFvgBs8JXsJFHt/jHssKYVyO6W3lMMGC9tI
+         rcsw==
+X-Gm-Message-State: APjAAAVqIJlowTcH/PDrCffGPs+1zcCcoCwjcKelyBpzrFk2NzKeOgKd
+	aFeJe/mpbv+FZD3sFoc++O9FAW+rs4xPMlwF1qliK771
+X-Google-Smtp-Source: APXvYqywsz3OZJK13sbdN11gQ+mcvepCjawqm9vyDYpdhIFW0wZs/vlBHteuv0VI6pYxgbMSzQp8FXP6GQT8WCkO67E=
+X-Received: by 2002:a37:bf82:: with SMTP id p124mr14576119qkf.337.1579760187689;
+ Wed, 22 Jan 2020 22:16:27 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CAMKF1so5G6towiFSmAmxg7npOTEdu_x1iSMP9C+MCO2cA6sASw@mail.gmail.com>
-X-MIME-Autoconverted: from 8bit to base64 by shell1.rawbw.com id 00N57CFG072677
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: base64
+References: <V5kT.1579720627445078822.cu1I@lists.yoctoproject.org>
+ <CAMKF1so5G6towiFSmAmxg7npOTEdu_x1iSMP9C+MCO2cA6sASw@mail.gmail.com> <7547719e-d9f0-7a0c-7ffc-ad1f25fe8f89@rawbw.com>
+In-Reply-To: <7547719e-d9f0-7a0c-7ffc-ad1f25fe8f89@rawbw.com>
+From: "Khem Raj" <raj.khem@gmail.com>
+Date: Wed, 22 Jan 2020 22:16:01 -0800
+Message-ID: <CAMKF1spgKUgyQb6fYGA1VWk7X3HQrtAVgxv--a88erMSoNZ7Ww@mail.gmail.com>
+Subject: Re: [poky] How to make the image to get the IP (over DHCP) and listen for ssh connections?
+To: Yuri <yuri@rawbw.com>
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-T24gMjAyMC0wMS0yMiAxMTo0MSwgS2hlbSBSYWogd3JvdGU6DQo+IHdoaWNoIGltYWdlIGhh
-dmUgeW91IGJ1aWx0ID8gYW5kIGFsc28gY2hlY2sNCg0KDQpNQUNISU5FPWN5Y2xvbmU1DQoN
-Cmtlcm5lbCBsaW51eC1hbHRlcmENCg0KVUJPT1RfQ09ORklHPSJkZTAtbmFuby1zb2MiDQoN
-CkxpbnV4IGN5Y2xvbmU1IDUuNC4wLWFsdGVyYSAjMSBTTVAgV2VkIEphbiAyMiAwMzowNzo0
-NyBVVEMgMjAyMCBhcm12N2wgDQpHTlUvTGludXgNCg0KDQo+IGlmY29uZmlnIC1hDQo+DQo+
-IGFuZCBzZWUgaWYgaXQgc2hvd3MgdGhlIG5ldHdvcmsgaW50ZXJmYWNlIHlvdSBhcmUgZXhw
-ZWN0aW5nLiBJdCBjb3VsZA0KPiBiZSB0aGF0IHRoZSBkZXZpY2UgaXRzZWxmIGlzIG5vdCBp
-bml0aWFsaXplZCBkdWUgdG8NCj4gcGVyaGFwcyBkcml2ZXIgaXNzdWVzIG9yIHNvbWUgc3Vj
-aC4NCg0KDQojIGlmY29uZmlnIC1hDQpjYW4wwqDCoMKgwqDCoCBMaW5rIGVuY2FwOlVOU1BF
-Q8KgIEhXYWRkciANCjAwLTAwLTAwLTAwLTAwLTAwLTAwLTAwLTAwLTAwLTAwLTAwLTAwLTAw
-LTAwLTAwDQogwqDCoMKgwqDCoMKgwqDCoMKgIE5PQVJQwqAgTVRVOjE2wqAgTWV0cmljOjEN
-CiDCoMKgwqDCoMKgwqDCoMKgwqAgUlggcGFja2V0czowIGVycm9yczowIGRyb3BwZWQ6MCBv
-dmVycnVuczowIGZyYW1lOjANCiDCoMKgwqDCoMKgwqDCoMKgwqAgVFggcGFja2V0czowIGVy
-cm9yczowIGRyb3BwZWQ6MCBvdmVycnVuczowIGNhcnJpZXI6MA0KIMKgwqDCoMKgwqDCoMKg
-wqDCoCBjb2xsaXNpb25zOjAgdHhxdWV1ZWxlbjoxMA0KIMKgwqDCoMKgwqDCoMKgwqDCoCBS
-WCBieXRlczowICgwLjAgQinCoCBUWCBieXRlczowICgwLjAgQikNCiDCoMKgwqDCoMKgwqDC
-oMKgwqAgSW50ZXJydXB0OjI4DQoNCmV0aDDCoMKgwqDCoMKgIExpbmsgZW5jYXA6RXRoZXJu
-ZXTCoCBIV2FkZHIgN0E6QTU6NTg6NTQ6MUU6M0MNCiDCoMKgwqDCoMKgwqDCoMKgwqAgaW5l
-dCBhZGRyOjE5Mi4xNjguNS4xMTDCoCBCY2FzdDoxOTIuMTY4LjUuMjU1IE1hc2s6MjU1LjI1
-NS4yNTUuMA0KIMKgwqDCoMKgwqDCoMKgwqDCoCBpbmV0NiBhZGRyOiBmZTgwOjo3OGE1OjU4
-ZmY6ZmU1NDoyZTNlLzY0IFNjb3BlOkxpbmsNCiDCoMKgwqDCoMKgwqDCoMKgwqAgVVAgQlJP
-QURDQVNUIFJVTk5JTkcgTVVMVElDQVNUwqAgTVRVOjE1MDDCoCBNZXRyaWM6MQ0KIMKgwqDC
-oMKgwqDCoMKgwqDCoCBSWCBwYWNrZXRzOjExODQgZXJyb3JzOjAgZHJvcHBlZDowIG92ZXJy
-dW5zOjAgZnJhbWU6MA0KIMKgwqDCoMKgwqDCoMKgwqDCoCBUWCBwYWNrZXRzOjE4NyBlcnJv
-cnM6MCBkcm9wcGVkOjAgb3ZlcnJ1bnM6MCBjYXJyaWVyOjANCiDCoMKgwqDCoMKgwqDCoMKg
-wqAgY29sbGlzaW9uczowIHR4cXVldWVsZW46MTAwMA0KIMKgwqDCoMKgwqDCoMKgwqDCoCBS
-WCBieXRlczo4ODY5NSAoODYuNiBLaUIpwqAgVFggYnl0ZXM6NDUzNzAgKDQ0LjMgS2lCKQ0K
-IMKgwqDCoMKgwqDCoMKgwqDCoCBJbnRlcnJ1cHQ6MzMgQmFzZSBhZGRyZXNzOjB4ZTAwMA0K
-DQpsb8KgwqDCoMKgwqDCoMKgIExpbmsgZW5jYXA6TG9jYWwgTG9vcGJhY2sNCiDCoMKgwqDC
-oMKgwqDCoMKgwqAgaW5ldCBhZGRyOjEyNy4wLjAuMcKgIE1hc2s6MjU1LjAuMC4wDQogwqDC
-oMKgwqDCoMKgwqDCoMKgIGluZXQ2IGFkZHI6IDo6MS8xMjggU2NvcGU6SG9zdA0KIMKgwqDC
-oMKgwqDCoMKgwqDCoCBVUCBMT09QQkFDSyBSVU5OSU5HwqAgTVRVOjY1NTM2wqAgTWV0cmlj
-OjENCiDCoMKgwqDCoMKgwqDCoMKgwqAgUlggcGFja2V0czoxNiBlcnJvcnM6MCBkcm9wcGVk
-OjAgb3ZlcnJ1bnM6MCBmcmFtZTowDQogwqDCoMKgwqDCoMKgwqDCoMKgIFRYIHBhY2tldHM6
-MTYgZXJyb3JzOjAgZHJvcHBlZDowIG92ZXJydW5zOjAgY2FycmllcjowDQogwqDCoMKgwqDC
-oMKgwqDCoMKgIGNvbGxpc2lvbnM6MCB0eHF1ZXVlbGVuOjEwMDANCiDCoMKgwqDCoMKgwqDC
-oMKgwqAgUlggYnl0ZXM6MTU3NiAoMS41IEtpQinCoCBUWCBieXRlczoxNTc2ICgxLjUgS2lC
-KQ0KDQpzaXQwwqDCoMKgwqDCoCBMaW5rIGVuY2FwOklQdjYtaW4tSVB2NA0KIMKgwqDCoMKg
-wqDCoMKgwqDCoCBOT0FSUMKgIE1UVToxNDgwwqAgTWV0cmljOjENCiDCoMKgwqDCoMKgwqDC
-oMKgwqAgUlggcGFja2V0czowIGVycm9yczowIGRyb3BwZWQ6MCBvdmVycnVuczowIGZyYW1l
-OjANCiDCoMKgwqDCoMKgwqDCoMKgwqAgVFggcGFja2V0czowIGVycm9yczowIGRyb3BwZWQ6
-MCBvdmVycnVuczowIGNhcnJpZXI6MA0KIMKgwqDCoMKgwqDCoMKgwqDCoCBjb2xsaXNpb25z
-OjAgdHhxdWV1ZWxlbjoxMDAwDQogwqDCoMKgwqDCoMKgwqDCoMKgIFJYIGJ5dGVzOjAgKDAu
-MCBCKcKgIFRYIGJ5dGVzOjAgKDAuMCBCKQ0KDQoNClJvdXRpbmcgdGFibGU6DQoNCiMgcm91
-dGUgLW4NCktlcm5lbCBJUCByb3V0aW5nIHRhYmxlDQpEZXN0aW5hdGlvbsKgwqDCoMKgIEdh
-dGV3YXnCoMKgwqDCoMKgwqDCoMKgIEdlbm1hc2vCoMKgwqDCoMKgwqDCoMKgIEZsYWdzIE1l
-dHJpYyBSZWbCoMKgwqAgVXNlIA0KSWZhY2UNCjE5Mi4xNjguNS4wwqDCoMKgwqAgMC4wLjAu
-MMKgwqDCoMKgwqDCoMKgwqAgMjU1LjI1NS4yNTUuMMKgwqAgVcKgwqDCoMKgIDAgMMKgwqDC
-oMKgwqDCoMKgIDAgZXRoMA0KDQoNCk5vIGtlcm5lbCBtb2R1bGVzLg0KDQoNCkJ1dCBwaW5n
-cyBkb24ndCBnbyB0aHJvdWdoLiB3aXJlc2hhcmsgb24gdGhlIHBpbmcncyB0YXJnZXQgbWFj
-aGluZSBvbiANCkxBTiBkb2Vzbid0IHJlZ2lzdGVyIHBpbmcgcGFja2V0cy4gVENQIGNvbm5l
-Y3Rpb25zIGFsc28gYXJlbid0IA0KZXN0YWJsaXNoZWQ6IE5vIHJvdXRlIHRvIGhvc3QNCg0K
-U29tZXRoaW5nIGlzIHdyb25nIHdpdGggdGhlIG5ldHdvcmsgaW50ZXJmYWNlLg0KDQoNCkFu
-b3RoZXIgcHJvYmxlbTogaG93IHRvIGluY3JlYXNlIHRoZSBkaXNrIHNpemUgaW4gdGhlIGlt
-YWdlIHNvIHRoYXQgYSANCmxhcmdlciBwb3J0aW9uIG9mIHRoZSBzZGNhcmQgaXMgYXZhaWxh
-YmxlPyBDdXJyZW50bHkgdGhlIHJvb3QgZGV2aWNlIGlzIA0Kb25seSAxOE1CLg0KDQpBbHNv
-IGhvdyB0byBpbnN0YWxsIG9wa2c/DQoNCg0KWXVyaQ0KDQoNCg==
+On Wed, Jan 22, 2020 at 9:07 PM Yuri <yuri@rawbw.com> wrote:
+>
+> On 2020-01-22 11:41, Khem Raj wrote:
+> > which image have you built ? and also check
+>
+>
+> MACHINE=cyclone5
+>
+> kernel linux-altera
+>
+> UBOOT_CONFIG="de0-nano-soc"
+>
+> Linux cyclone5 5.4.0-altera #1 SMP Wed Jan 22 03:07:47 UTC 2020 armv7l
+> GNU/Linux
+>
+>
+> > ifconfig -a
+> >
+> > and see if it shows the network interface you are expecting. It could
+> > be that the device itself is not initialized due to
+> > perhaps driver issues or some such.
+>
+>
+> # ifconfig -a
+> can0      Link encap:UNSPEC  HWaddr
+> 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
+>            NOARP  MTU:16  Metric:1
+>            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+>            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+>            collisions:0 txqueuelen:10
+>            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+>            Interrupt:28
+>
+> eth0      Link encap:Ethernet  HWaddr 7A:A5:58:54:1E:3C
+>            inet addr:192.168.5.110  Bcast:192.168.5.255 Mask:255.255.255.0
+>            inet6 addr: fe80::78a5:58ff:fe54:2e3e/64 Scope:Link
+>            UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+>            RX packets:1184 errors:0 dropped:0 overruns:0 frame:0
+>            TX packets:187 errors:0 dropped:0 overruns:0 carrier:0
+>            collisions:0 txqueuelen:1000
+>            RX bytes:88695 (86.6 KiB)  TX bytes:45370 (44.3 KiB)
+>            Interrupt:33 Base address:0xe000
+>
+> lo        Link encap:Local Loopback
+>            inet addr:127.0.0.1  Mask:255.0.0.0
+>            inet6 addr: ::1/128 Scope:Host
+>            UP LOOPBACK RUNNING  MTU:65536  Metric:1
+>            RX packets:16 errors:0 dropped:0 overruns:0 frame:0
+>            TX packets:16 errors:0 dropped:0 overruns:0 carrier:0
+>            collisions:0 txqueuelen:1000
+>            RX bytes:1576 (1.5 KiB)  TX bytes:1576 (1.5 KiB)
+>
+> sit0      Link encap:IPv6-in-IPv4
+>            NOARP  MTU:1480  Metric:1
+>            RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+>            TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+>            collisions:0 txqueuelen:1000
+>            RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+>
+>
+> Routing table:
+>
+> # route -n
+> Kernel IP routing table
+> Destination     Gateway         Genmask         Flags Metric Ref    Use
+> Iface
+> 192.168.5.0     0.0.0.0         255.255.255.0   U     0 0        0 eth0
+>
+>
+> No kernel modules.
+>
+>
+> But pings don't go through. wireshark on the ping's target machine on
+> LAN doesn't register ping packets. TCP connections also aren't
+> established: No route to host
+>
+> Something is wrong with the network interface.
+>
+
+what happens if you run udhcpc -ietth0
+
+>
+> Another problem: how to increase the disk size in the image so that a
+> larger portion of the sdcard is available? Currently the root device is
+> only 18MB.
+>
+> Also how to install opkg?
+>
+>
+> Yuri
+>
+>
