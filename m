@@ -1,87 +1,70 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
- by mx.groups.io with SMTP id smtpd.web09.2395.1580589039297857119
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+ by mx.groups.io with SMTP id smtpd.web09.2396.1580589040207283571
  for <poky@lists.yoctoproject.org>;
- Sat, 01 Feb 2020 12:30:39 -0800
+ Sat, 01 Feb 2020 12:30:40 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=Z+rR17Dc;
- spf=pass (domain: gmail.com, ip: 209.85.215.181, mailfrom: akuster808@gmail.com)
-Received: by mail-pg1-f181.google.com with SMTP id a33so5536427pgm.5
-        for <poky@lists.yoctoproject.org>; Sat, 01 Feb 2020 12:30:39 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=dgjGD3rd;
+ spf=pass (domain: gmail.com, ip: 209.85.215.175, mailfrom: akuster808@gmail.com)
+Received: by mail-pg1-f175.google.com with SMTP id k25so5527271pgt.7
+        for <poky@lists.yoctoproject.org>; Sat, 01 Feb 2020 12:30:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:subject:date:message-id;
-        bh=QfeR9mX2ijMVRMYQmBfKdcWUC5MNYHZwSkyw6fZMKq0=;
-        b=Z+rR17DcQnuEJ+M49qMUyNUwpJHMeIHttujO4D78pZjz9devZn85v6baTO6+K8kZnU
-         hQnqGG0aCpZoWDN6lPMlyI61z//nZWkmI+y38eXjTFZtRaqw+XRNvR4kV8A0a5E5VCTu
-         tkBgmgd0ggwVdRrRd2V81p/usVsuGW+OS8uzfzgu/0qUwnCBFIh7wcJk4mZzXaa87Dxc
-         nbdXuTVR2V+uI3Qt0XzcQwVvSplJbGDZvrfguWviJqWZMdtLgmQHfTm2Z9tx/khJWf8x
-         gVVxzzYm4q4ePPv5LrwvKvQDRDTh1iqVR7yDlSj5xKI+GdlNG6Bly7G1M88yXK9iaAar
-         eV9Q==
+        h=from:to:subject:date:message-id:in-reply-to:references;
+        bh=7edSxPnYAINL2sG57V+geSkii25GnoFqaWXmZlQ+Vlo=;
+        b=dgjGD3rdeCsHW+6SESs75DYEptVJpIMoqvsNu9fYZFIRFAvD6OiZ1SIt2HmEAktPTj
+         drM5C23RLK7e3DKQidR2w2cEyDk1e8qP4DUPt+r1c8zvnKD1B+haVnVMlvsI/9MCATyp
+         U788+3G0bcV8JDpmTwufnPV3rE9SoX9q/cLVSWnykOVRXjF4MorED++COBWf6c9u9q5b
+         wLQNyI6Fh/6f/6FDPNRvaz0Tk6I3hAvbMNy7UMqfuAt66OI6/wnE11FGze6990fA0Wuz
+         3qgnJVBOCiroOGw1J2CbtnvE4W+MZoBr2ud1AV/dmZYZoQRBkT+kyKLK8GiTK/grL7Vk
+         Vg7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id;
-        bh=QfeR9mX2ijMVRMYQmBfKdcWUC5MNYHZwSkyw6fZMKq0=;
-        b=lYhKJ990ie15gum4NRvvzYgfx/lw894iYIEb/GpVAY+QespmPQf+dTgRVIbwkf3Zqn
-         1bs5nIvDMVOhfJK8g1RN7/XQzWk39z2NMojp0GXE8UfETC92Q/mw7PpNOq1NQ49LTQcM
-         lhyvzwrX7yUE6fMtuWJFABs1jbAdMAIZIVmPxxfFFok9bC6/Vta91P9bMpKFgxO3eSXn
-         mosQ8zDAX8gsw5CQ9Ji3cNB/BvhZwkGyaBW9Hf4t4jVdo0x+Nb5iEbJwnlQPPY+CYmQU
-         JiLyNRQBrsUEwl2RHByFreU2w5lLJ65vNktSQWtzAl+Wn2pRmSK4IWualw+CVBfn8Jmq
-         DdXw==
-X-Gm-Message-State: APjAAAUx0e+aC+3s38OG3gVU9EqqDU/fQxcJ16g7z6PQ2khs6RyGW28N
-	IwmDP9d8zXmIzR/gaYA5xAmUW6w8
-X-Google-Smtp-Source: APXvYqznTrJogDYUDrXly9H9FLCnDJNvugRVPEqnKdmfJoXTnoT/IgRAwZ89Te9NcOboWOLCc9riUg==
-X-Received: by 2002:a65:5809:: with SMTP id g9mr17167447pgr.146.1580589038597;
-        Sat, 01 Feb 2020 12:30:38 -0800 (PST)
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references;
+        bh=7edSxPnYAINL2sG57V+geSkii25GnoFqaWXmZlQ+Vlo=;
+        b=rRYlRQvG3N9wPxxN5CjEwm7/z7RM4i6f9lU7uBGkZgivT5srlsnCK4QZmtpsXiafhl
+         HKhO5tVCAuPdyy9RZZjcPXYE6hZus0BFJDIHscgSeZZelVBMBTC0HGVjJtZ8mLT8dxgJ
+         DbkrfEq7h0Ojsm7XLk6jvhoS40mY7eroSelWyZYyura7TkC0cAy8odEeBGdGwF/tqRw8
+         rYOKVOpKN57F3AOd6CjGM7XOxFkFtkv8BNX8es/KkeKNQQJa7zeFPkXW1UhSZV85xIWW
+         CREMHn8ZrstctbavvUdpRuU1Ptcr7fbdNsHFo1TY1Vs7VTeVjz10MLMyijduHR0caU5n
+         caGA==
+X-Gm-Message-State: APjAAAWd7+y/HgIBfxWthWFd7AHoF2beR2GWWbnX0aO5ndfhrci9Jp1a
+	/sugMnbVrh/3X9riqEFYCwa+nWEt
+X-Google-Smtp-Source: APXvYqygEniymBYc/63VC6/Bf7SfzAPTtW2pO/FieQk6NTJm2lRKHJZs6kgjWoHqF4U0ob/+a5Je5A==
+X-Received: by 2002:a63:ed56:: with SMTP id m22mr16729301pgk.261.1580589039587;
+        Sat, 01 Feb 2020 12:30:39 -0800 (PST)
 Return-Path: <akuster808@gmail.com>
 Received: from akuster-ThinkPad-T460s.hsd1.ca.comcast.net ([2601:202:4180:a5c0::afc])
-        by smtp.gmail.com with ESMTPSA id r3sm15158951pfg.145.2020.02.01.12.30.37
+        by smtp.gmail.com with ESMTPSA id r3sm15158951pfg.145.2020.02.01.12.30.38
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Feb 2020 12:30:38 -0800 (PST)
+        Sat, 01 Feb 2020 12:30:39 -0800 (PST)
 From: "akuster" <akuster808@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH 1/2] meta-poky: update to new mailing lists
-Date: Sat,  1 Feb 2020 12:30:35 -0800
-Message-Id: <20200201203036.6764-1-akuster808@gmail.com>
+Subject: [PATCH 2/2] poky.conf: Bump version for 3.0.2 zeus release
+Date: Sat,  1 Feb 2020 12:30:36 -0800
+Message-Id: <20200201203036.6764-2-akuster808@gmail.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200201203036.6764-1-akuster808@gmail.com>
+References: <20200201203036.6764-1-akuster808@gmail.com>
 
 Signed-off-by: Armin Kuster <akuster808@gmail.com>
 ---
- meta-poky/README.poky           | 4 ++--
  meta-poky/conf/distro/poky.conf | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/README.poky b/meta-poky/README.poky
-index 8cf2027..be0c6c0 100644
---- a/meta-poky/README.poky
-+++ b/meta-poky/README.poky
-@@ -53,11 +53,11 @@ bitbake:
- 
- documentation:
-     Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/
--    Mailing list: yocto@yoctoproject.org
-+    Mailing list: docs@lists.yoctoproject.org
- 
- meta-poky, meta-yocto-bsp:
-     Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/meta-yocto(-bsp)
--    Mailing list: poky@yoctoproject.org
-+    Mailing list: poky@lists.yoctoproject.org
- 
- Everything else should be sent to the OpenEmbedded Core mailing list.  If in
- doubt, check the oe-core git repository for the content you intend to modify.
 diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 289ef6c..1a9d06d 100644
+index 1a9d06d..1f2d492 100644
 --- a/meta-poky/conf/distro/poky.conf
 +++ b/meta-poky/conf/distro/poky.conf
-@@ -5,7 +5,7 @@ DISTRO_CODENAME = "zeus"
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.0.1"
++DISTRO_VERSION = "3.0.2"
+ DISTRO_CODENAME = "zeus"
  SDK_VENDOR = "-pokysdk"
  SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
- 
--MAINTAINER = "Poky <poky@yoctoproject.org>"
-+MAINTAINER = "Poky <poky@lists.yoctoproject.org>"
- 
- TARGET_VENDOR = "-poky"
- 
 -- 
 2.17.1
 
