@@ -1,52 +1,55 @@
-Received: from mail.stusta.mhn.de (mail.stusta.mhn.de [141.84.69.5])
- by mx.groups.io with SMTP id smtpd.web09.10547.1581849415863401765
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+ by mx.groups.io with SMTP id smtpd.web11.10773.1581851069671337748
  for <poky@lists.yoctoproject.org>;
- Sun, 16 Feb 2020 02:36:59 -0800
+ Sun, 16 Feb 2020 03:04:29 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@stusta.de header.s=default header.b=Y6lK8l+l;
- spf=pass (domain: stusta.de, ip: 141.84.69.5, mailfrom: bunk@stusta.de)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by mail.stusta.mhn.de (Postfix) with ESMTPSA id 48L3T064mxzv
-	for <poky@lists.yoctoproject.org>; Sun, 16 Feb 2020 11:36:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stusta.de;
-	s=default; t=1581849413;
-	bh=ocacYQy5YHGSmnseb+1/+GNUSxg/l8bH9rfFf+5wxgc=;
-	h=Date:From:To:Subject:From;
-	b=Y6lK8l+lE8Lci6MS79Lgeb+ZvQaSMXSGFwJpu8D/cX9ROshL8UFe+R90lbzTJ3hyQ
-	 wTs/vjunZUZ3j2OjQnHvIbtOvIBzbi8UJa9nH3ubtc7658wjz/D5JeMsGDY1lMu1Qm
-	 5lWbPiIaGc9GMFx5eogV+vvn7lV3g7A5HBmSPszDIUsZ6WBe0IRFfW2ajKtk1alWX7
-	 b27L5SrHhbfLVw0+/r2V3zsj44oG5982s39TGegICVEl4xxDiTF0T8ZoowVTQOfD0S
-	 OUVbAYMYtzUgkZV9VDBoomx+kSJxrzppX1LdAKaPzUENgjwq1LRgsosz/dLR8dKmqC
-	 OBHdHUDgpfaGIU/zXnsHspp4sFTmsduoUDZcb+BFqzD7flRpbb8/NhLZ6qL06ee7Ut
-	 Kl/D78QPXubesPZJcR/ywtfmPIrdc6BEJwh1hBKAgsDe2w1OGaqDyqr0XLq753KiBi
-	 lZXrilrnedPJrDB1mNLm6q+1CB6BbLmFdRWIGipCIGsWyWTGpj7MSeqXQweJEC2/p7
-	 vhU5PaxLJpAPoYQmmP2ihRZDuMRVg5HzNI30pKo44VGkv+uIdbbrpar7OCWQY0m2j6
-	 Q4mXREDlunK1mlnoStKmqho7mtga2lNkjR1woqEcOl0cG9uvDKbD5m69wOGrJRvTxd
-	 3TFJQkM92qzlBY9yfiT6SC1A=
-Date: Sun, 16 Feb 2020 12:36:49 +0200
-From: "Adrian Bunk" <bunk@stusta.de>
-To: poky@lists.yoctoproject.org
-Subject: poky master and master-next branches disappearing
-Message-ID: <20200216103649.GA30014@localhost>
+ dkim=pass header.i=@konsulko.com header.s=google header.b=pnboK6Ns;
+ spf=pass (domain: konsulko.com, ip: 209.85.167.180, mailfrom: paul.barker@konsulko.com)
+Received: by mail-oi1-f180.google.com with SMTP id b18so14043513oie.2
+        for <poky@lists.yoctoproject.org>; Sun, 16 Feb 2020 03:04:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=nygsNIte7dVngVQs75e12M69lZ4J940lo33qkJ8sPmY=;
+        b=pnboK6NsdjLfMXzpXOuctHnNqNdrEaV8awXTGw905+WX2sW9th3rjBYqHno0kvflhb
+         Ze82FOR1NKDFCG2N21x+Rmju68fuBjg6f/XZxuxDMv22OInT10DbjizMd/l/ZwDHgKYc
+         FC7DlUpFHleRA2wBTEeysH1iOu2lUfFOeG8ug=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=nygsNIte7dVngVQs75e12M69lZ4J940lo33qkJ8sPmY=;
+        b=a912Rry9SHCR3vjCeHD3QBq1yk+PiUcdwoDWR57xhT43TleL9gZ8y/VKG1INS8hlAQ
+         65IsKh76Jsa5IEmz3gh6JIS/Gj8pxer9/oyYHnwcv9FSHUKv1/fqhAe4ppF2DrrfOUdj
+         f3oEO0trfQD0AC8c11m7xlb3LoGJRABxW7/LUXxqbEuI57c5jj36cq+7OevC/RsFU7RV
+         IytxbEY2eo4ZmaU6gTp3Y5BdDwIYIUvHzpyUPCF9e1izi4tBwrwv25oaB11uq62U8YGo
+         wvjvMGrsMmgodoGbU7KiIdlNSCXuiqTQ8WZ4ZXVG5E3+nLhJqYwyelIR2KTd6bkEn3Ke
+         QP/g==
+X-Gm-Message-State: APjAAAUm/zIOE+18VfRINp8u17atNlpUXv0wefdmrl2huEglVRaUer12
+	WB5hXKHGTixoE966ZZ595x11VpXJZmRquVuaT8GXR9jVz2jhsJaD
+X-Google-Smtp-Source: APXvYqyIXaeN1Iq5t0O0tc9dG+b4+gmDMhml1LyhnZRjyblb8ZSgBp+xRYJqBPKCIkM7zccUroQhxL5+1Yh5IiWnz6k=
+X-Received: by 2002:aca:4e10:: with SMTP id c16mr6730932oib.6.1581851068958;
+ Sun, 16 Feb 2020 03:04:28 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20200216103649.GA30014@localhost>
+In-Reply-To: <20200216103649.GA30014@localhost>
+From: "Paul Barker" <pbarker@konsulko.com>
+Date: Sun, 16 Feb 2020 11:04:19 +0000
+Message-ID: <CAM9ZRVubDwFT44ukmupT1usMh+1WYQq8ODAWxNCsoEf7ejmqbw@mail.gmail.com>
+Subject: Re: [poky] poky master and master-next branches disappearing
+To: Adrian Bunk <bunk@stusta.de>
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-For the last ~ 2 days the poky master and master-next branches 
-are disappearing sometimes:
-https://git.yoctoproject.org/cgit/cgit.cgi/poky/refs/heads
+On Sun, 16 Feb 2020 at 10:37, Adrian Bunk <bunk@stusta.de> wrote:
+>
+> For the last ~ 2 days the poky master and master-next branches
+> are disappearing sometimes:
+> https://git.yoctoproject.org/cgit/cgit.cgi/poky/refs/heads
 
-...
-laverne	x11-common: Fix unusable serial console	Wolfgang Denk	9 years
-master-next2	HACK: Test hashserv on autobuilder	Richard Purdie	5 months
-morty	bitbake: bitbake-user-manual: Added "usehead" parameter.	Yong, Jonathan	14 months
-pinky	Pinky 3.1.2 Release	Richard Purdie	10 years
-...
+This was discussed yesterday:
+https://lists.yoctoproject.org/g/yocto/topic/master_master_next_missing/71297752?p=,,,20,0,0,0::recentpostdate%2Fsticky,,,20,2,0,71297752
 
-
-cu
-Adrian
-
-BTW: The stale master-next2 branch looks like a candidate
-     for removal, but that's unrelated.
+Thanks,
+Paul
