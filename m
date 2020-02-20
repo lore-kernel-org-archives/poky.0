@@ -1,150 +1,202 @@
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (NAM10-MW2-obe.outbound.protection.outlook.com [52.100.157.210])
- by mx.groups.io with SMTP id smtpd.web10.14122.1582128155088252904
+Received: from IND01-MA1-obe.outbound.protection.outlook.com (IND01-MA1-obe.outbound.protection.outlook.com [40.107.138.79])
+ by mx.groups.io with SMTP id smtpd.web10.2610.1582184833659382087
  for <poky@lists.yoctoproject.org>;
- Wed, 19 Feb 2020 08:02:36 -0800
+ Wed, 19 Feb 2020 23:47:14 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@windriversystems.onmicrosoft.com header.s=selector2-windriversystems-onmicrosoft-com header.b=lCooy0VP;
- spf=pass (domain: windriver.com, ip: 52.100.157.210, mailfrom: mark.asselstine@windriver.com)
+ dkim=pass header.i=@kpit.com header.s=selector1 header.b=m7PEuTXt;
+ spf=pass (domain: kpit.com, ip: 40.107.138.79, mailfrom: sana.kazi@kpit.com)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g/6e6yOHGlCXKBD7vEeVHLDK1b3XPb6nnnptxa8H/vxVGZuqyYWiXnD3xFmdZuZ6codvDCM90L1q8EiLhj6i8kbQN3kvWJ+aMfBeyyFq54rToZIhEglZIxAxvClE3a8VAq9BIbsxl4h99kemqKgRDm3fu30B9ShuEiJ+zX8IBVISmK8/oE5bKiYfZucn9aafv8ZbPN2GwkPRlqsEOUPbQCBP2BfCDiGQvr2j4hItLV6aust47ebJP8VpMwtwIiGOvZvdwwwYqf/QkiJ8gcpjsqliYTmSoqa3RWmwOAXEOeKlAFZ1JSJUjoxXyaCANiUzO6BKmt4KMWVEZRpOrchXfQ==
+ b=LkIkuCUWHFq9fXEdyZMrwlJtgjSIxvwejXxWiXTGh+HaIHpqU5TnxaOg/5Lwxsx9YWfKoYC1OBfrD9PB8lxoFZJaVafGpGAwH4df/kR5MwrYB0vxmfplAUf57nvBobJk9Kw0qTxUKEYqBbBLNihcd+LnxBtHi6V7d2paMpkZrpr85LBANPXKdc8+LWl0MH5HJbjH/pedoMxvUla/3jFJ7AAVK7VK/vmGgpH9UyNx1BoCwIq1L8bX66LTAPgYtroXJdyKqCXvXCRetsiiYg08XveMqP41Whj++MGJpSS2tPm+DHByrjCN4S7Voodp8806v/o5N6J6eAq0f/gj8vcAeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gKTjbhQb+TbJHFo5lVAWSonu0GupekLPGyuw+1Dzki4=;
- b=fzfCK2N/VTbYkh8R2OrIAWzJFXaEzn+ui/LKpKZ4Zn0WPzHJnRqgTgTrtnJFOPP5CIXVkwJCToyizDPV7F3c9QlGx/ImNIRm7s5Y7371tdakAxUoM45/eLCMRMfmrOO36QfPmzMHGh4RC2lBXzlCtVOhGaQV9kfPF62L7/M0vwTeAzHP5eQecdicR8YquKQVRqYNwgWyD7Z7LYtZ/Xmu3AVVtvedErMxBLqg4rJzKt0/EsxGQFnaRYgenRYDJRSdTsM+3/+uj6zDTCvDzVlRwW3MwQfOznJjaZzDYL9oiFhl77CSYZansd7xIJYaKSb9zeAY+Dkx6uhTO9NjLUVSCA==
+ bh=83HRoPGlb9AFUR89VmlnlV4UuxWGE3PoTDeKR5UjOVw=;
+ b=aqlGWbtyhMbGzXMYRqf38rPFg4Lnpg4ZQBhvc6cRBhTmtxWv8VBCzEsV3gC6X49/qAQxc4NLJh0OEOeTvNeQZFQzvAxb0PhohiQUl09S2uNWm799+xanyGwQwLCJeg/p5gUA55D9uu331QDNpyCU8KUM68dmOUeRonOGakvCuqQmkXNRfvfYYjHC3GbxRuvE1P0WhSG7FVPwyhk7hpLuuEEvsySNXR2C3smhORJ97sn1scrkD0Agr+yx0zgQtSzhwwMYb/31eCxTmDQN17DgOx7lspNw4VBSlb4pVGSNMVrh9iV7NbeYvGz3t9bLTYy//fv0r/in9tXYY5DqgMg+8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=windriversystems.onmicrosoft.com;
- s=selector2-windriversystems-onmicrosoft-com;
+ smtp.mailfrom=kpit.com; dmarc=pass action=none header.from=kpit.com;
+ dkim=pass header.d=kpit.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kpit.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gKTjbhQb+TbJHFo5lVAWSonu0GupekLPGyuw+1Dzki4=;
- b=lCooy0VPhMTU4ieRSIJ3ct9XDTavQMjhpO8f1gkv8VzJ7hShgwLzfI32IS1m08TY25POWWqccTbLXpOm3iMV6A7eD3TkWIbqUHk9W5KJEUNa0AzYM+J+pH0lA0+khsFY7jMrRn0BYPyCY09LERKnaiaqZ4rqm2McVNGfvBsbb/c=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Mark.Asselstine@windriver.com; 
-Received: from DM6PR11MB2553.namprd11.prod.outlook.com (20.176.95.160) by
- DM6PR11MB2939.namprd11.prod.outlook.com (20.177.220.10) with Microsoft SMTP
+ bh=83HRoPGlb9AFUR89VmlnlV4UuxWGE3PoTDeKR5UjOVw=;
+ b=m7PEuTXtfhvsPNLM9MQ016B7HB5uEHaRrNvHghEzLdQith+YcgeApRFDUFfzkNhByMDtWNRasx8Oq0cxs+psWgvRuD7+pt1Y8aou0eQr6JQ1Nm91Ez7G/S0m8YMi1GwejWSvGR1HDypqehsoEyww69qtPTqQjtZzsqE/VnCo8bs=
+Received: from MAXPR01MB3582.INDPRD01.PROD.OUTLOOK.COM (10.255.152.210) by
+ MAXPR01MB3662.INDPRD01.PROD.OUTLOOK.COM (52.134.159.208) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.25; Wed, 19 Feb 2020 16:02:32 +0000
-Received: from DM6PR11MB2553.namprd11.prod.outlook.com
- ([fe80::181d:5b82:121c:770a]) by DM6PR11MB2553.namprd11.prod.outlook.com
- ([fe80::181d:5b82:121c:770a%7]) with mapi id 15.20.2729.032; Wed, 19 Feb 2020
- 16:02:32 +0000
-From: "Mark Asselstine" <mark.asselstine@windriver.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org, akuster@mvista.com
-Subject: Re: [poky] [PATCH] meta-poky: update to new mailing lists
-Date: Wed, 19 Feb 2020 11:02:30 -0500
-Message-ID: <12997872.empP6d0ieN@yow-masselst-lx1>
-Organization: Wind River
-In-Reply-To: <646b4cf895beb106cf3a140eeae7ff0f1eec3ad4.camel@linuxfoundation.org>
-References: <20200218221301.28292-1-mark.asselstine@windriver.com> <646b4cf895beb106cf3a140eeae7ff0f1eec3ad4.camel@linuxfoundation.org>
-X-ClientProxiedBy: YTOPR0101CA0007.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::20) To DM6PR11MB2553.namprd11.prod.outlook.com
- (2603:10b6:5:bf::32)
-Return-Path: mark.asselstine@windriver.com
-MIME-Version: 1.0
-Received: from yow-masselst-lx1.localnet (128.224.252.2) by YTOPR0101CA0007.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::20) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.23 via Frontend Transport; Wed, 19 Feb 2020 16:02:32 +0000
-X-Originating-IP: [128.224.252.2]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bdd930a5-ec44-4065-f78b-08d7b55520f7
-X-MS-TrafficTypeDiagnostic: DM6PR11MB2939:
-X-Microsoft-Antispam-PRVS: 
-	<DM6PR11MB29394247A61D70581F9ADE56ED100@DM6PR11MB2939.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-Forefront-PRVS: 0318501FAE
-X-Forefront-Antispam-Report: 
-	SFV:SPM;SFS:(10009020)(39850400004)(346002)(366004)(376002)(396003)(136003)(189003)(199004)(66556008)(81166006)(956004)(4326008)(66946007)(6486002)(33716001)(81156014)(478600001)(66476007)(966005)(44832011)(5660300002)(8936002)(53546011)(36916002)(8676002)(2906002)(16526019)(6512007)(316002)(9686003)(186003)(6916009)(15650500001)(26005)(86362001)(52116002)(6506007)(39026012)(197153002)(130980200001)(473944003);DIR:OUT;SFP:1501;SCL:5;SRVR:DM6PR11MB2939;H:DM6PR11MB2553.namprd11.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;MX:1;A:1;
-Received-SPF: None (protection.outlook.com: windriver.com does not designate
+ 15.20.2729.22; Thu, 20 Feb 2020 07:47:11 +0000
+Received: from MAXPR01MB3582.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::d0b9:321c:bcaf:9874]) by MAXPR01MB3582.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::d0b9:321c:bcaf:9874%6]) with mapi id 15.20.2750.016; Thu, 20 Feb 2020
+ 07:47:11 +0000
+From: "Sana Kazi" <Sana.Kazi@kpit.com>
+To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+CC: Aditya Tayade <Aditya.Tayade@kpit.com>, Nilesh Pawar
+	<Nilesh.Pawar@kpit.com>
+Subject: Need to enable UTF-8 support for /bin/busybox
+Thread-Topic: Need to enable UTF-8 support for /bin/busybox
+Thread-Index: AQHV58H1dQI83jYJJkmQvwcrbkqNcg==
+Date: Thu, 20 Feb 2020 07:47:10 +0000
+Message-ID: 
+ <MAXPR01MB35827C24DC0CBE39D824610599130@MAXPR01MB3582.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Sana.Kazi@kpit.com; 
+x-originating-ip: [115.110.145.106]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 19b6f231-e276-4244-fd9d-08d7b5d9180f
+x-ms-traffictypediagnostic: MAXPR01MB3662:|MAXPR01MB3662:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: 
+ <MAXPR01MB3662916E790467912F8A129A99130@MAXPR01MB3662.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 031996B7EF
+x-forefront-antispam-report: 
+ SFV:NSPM;SFS:(10009020)(4636009)(376002)(396003)(346002)(136003)(366004)(39850400004)(199004)(189003)(81156014)(8676002)(2906002)(81166006)(8936002)(5660300002)(107886003)(6506007)(26005)(186003)(52536014)(9686003)(4326008)(6916009)(55016002)(76116006)(33656002)(478600001)(86362001)(316002)(7696005)(66556008)(66476007)(66946007)(54906003)(64756008)(19627405001)(66446008)(66574012)(71200400001);DIR:OUT;SFP:1101;SCL:1;SRVR:MAXPR01MB3662;H:MAXPR01MB3582.INDPRD01.PROD.OUTLOOK.COM;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;A:1;MX:1;
+received-spf: None (protection.outlook.com: kpit.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	WaFz1eZBh2huF6L1ugh/gvxXqcjmYS0SXzX5ajvMiGZvl88MFgN8eVQDcryB6MqXkT1+f1yInjOsmfvblLpKx1T1xNaS+jFt1ZHFAXYhc5hyA2BcxcQDCeo62SaqyROS38Pd67pGlZfbrL+WT9oisbNsQ18X7R1+MtGnemZpAqMJ5OUU4Mco9uw6rKCz3/L39+6gHy5l0SvVAK5qGRkt4d/Nt3ZbDTYzN5W7FGkfRdavO0M0mtUcstkv14/vfFEwrTYEBd+/ybrlMIZ9KEgOuELQhy+LcfSrKyjXHhUK742CJKNjBu9jW6ZfaIZT6ZiaINA4WvfJyN5iWt4aROeI8Foe+f2PWUSRNWHVD/ehe0R4ZLqeqlb6jPZmYOkHQuYKWImtJguJc/OuyWvJ0gi48M3AyOQY9eSWmosjuk1Jedq3Q7wHLbTk9VZ3jhQxrAnEqR8ZSwAaM4/9Hmq83B/nq+mS963+YHG9hLnDEyMzgKCKQ6r4HRFgeyW1YxA2Ka7Tz7h6SM5DBbYibCA7YaeXFHfjHt6EzBpLiDExYLR5PD7nKzOso0rdDa81xPWHrxaezlfbBBlYbKVtx2WjNMZDkiENeaRJJagioxmLDP4mirC1A9CQOeFc+FKWNviEW7XzLMG7/VpTwewXbssOCPeP5CUo9TjEVi3Ly47WH5xM9ysY2VEAEWfYdgWS0bk06oxWUDQP9CH6K6Q+2+x+P5HdZ6gihn7tSCXb+/r0Z+0/FfjjC5qMg4hu+OuJn+gsUOt0EFiCqMPyZCl1FyfTqSXhahBrzvyoXTr4c4gidAZeBZf/hcIhueCcwIb4bbnF5ZCL55R6kzvpFmBkKDU8u9aEFw/UouYJcVfEGasJTJtiJADe16oZ1i1wNBxz0wqun6SX/uui5XF1J10sesyAAvEyCbrMGjOjSVyAnhdat7qI9kc=
-X-MS-Exchange-AntiSpam-MessageData: 
-	gH2OFJ5Pu2DI8AeU2hrCw0FlF8cAdYGRx7Gj638zT35bG9yCHIKD8xASVmrO2lTnqRqzPcdDaufqs6Zge6oirQQCzuYZKUebwSUOfd69arjY3KMMixIU7pXn2VtAuPDg7x7M03zExbAesFciksMa/w==
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdd930a5-ec44-4065-f78b-08d7b55520f7
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2020 16:02:32.8082
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ QznxD1x9dCZ1E4ia7w3kzsM9tyRCk41nRVnLs4FthJS0KVqJvx5isnNWuycm40jIqR/0PrDjXi0q6uaSCVGkvsaN9BtewQqDwUwRkNdHuslcmkOdEQAoHVOi++vzTv5FOxIxBibTgZESBp2tUIwJkuBfFCb8bG0pWY5fDgIzAPDUE78BmeCI+7vijC3721rLtxTxyTjR3W91YQsbPhgBmF1gd/zzqteEQnAZJF8gSQNQzil32rE0obc0iJNxDKVKpnHC8OMskS+5EffLShjTlYjULpWv7P4PIAMLHH3UuwAzIZH6JHpxDHGe1qy7zhKX/1i3RzVrG3N7IIgPzF2//aPvZoQrn20tle3Cyn9UI2EPKXAULby17/uaYxtgHVEaCJO4JD9pgvULSA9lljcNp7kBHaQUhxipfZVEzug9GhBHIeGjTAYs8HJqVkzYDZRH
+x-ms-exchange-antispam-messagedata: 
+ 0uVnYyz8grxAY0cjzuSLLyGmd3RgADbTHeF8ieIoLDAL61qXL73drbVE8tG1fLfOVBCfYHG5hKh2SoKT14UDhy79OcCYo9tyS0I19EZSSKsN6mHWyWSXerbxMAsGMkqDszZKfPyOIUGZE0u1wGEpSg==
+MIME-Version: 1.0
+X-OriginatorOrg: kpit.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19b6f231-e276-4244-fd9d-08d7b5d9180f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Feb 2020 07:47:11.0047
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FMJhGW2e7+hobhc2wVT4CEv499k9O2AfgGfY7QmQOUbIXRypWTolXAv6U6DhSgIuQxwxIAzOR1ixKhqkoOwVrfjmjjTowf4cqRTPDoNAF8U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB2939
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3539451e-b46e-4a26-a242-ff61502855c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +0af9gGXaDTLcfq8LzR5rCL/TRdDkfbQVezF5lHFdSaX4Clnp0EhZHME1j5A+UV8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR01MB3662
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MAXPR01MB35827C24DC0CBE39D824610599130MAXPR01MB3582INDP_"
 
-On Wednesday, February 19, 2020 10:31:44 A.M. EST Richard Purdie wrote:
-> On Tue, 2020-02-18 at 17:13 -0500, Mark Asselstine wrote:
-> > There is still some confustion around the mail list updates, as we
-> > have seen on the lists recently:
-> > https://lists.yoctoproject.org/g/yocto/message/48439
-> > 
-> > Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
-> > ---
-> > 
-> > Armin sent this change out a while back for zeus but I don't
-> > see it there to cherry-pick. So cooked this up for master
-> > and we should cherry-pick to other branches as needed.
-> > 
-> >  meta-poky/README.poky           | 4 ++--
-> >  meta-poky/conf/distro/poky.conf | 2 +-
-> >  2 files changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/meta-poky/README.poky b/meta-poky/README.poky
-> > index 8cf2027..be0c6c0 100644
-> > --- a/meta-poky/README.poky
-> > +++ b/meta-poky/README.poky
-> > 
-> > @@ -53,11 +53,11 @@ bitbake:
-> >  documentation:
-> >      Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/
-> > 
-> > -    Mailing list: yocto@yoctoproject.org
-> > +    Mailing list: docs@lists.yoctoproject.org
-> > 
-> >  meta-poky, meta-yocto-bsp:
-> >      Git repository:
-> >      http://git.yoctoproject.org/cgit/cgit.cgi/meta-yocto(-bsp)
-> > 
-> > -    Mailing list: poky@yoctoproject.org
-> > +    Mailing list: poky@lists.yoctoproject.org
-> > 
-> >  Everything else should be sent to the OpenEmbedded Core mailing list.  If
-> >  in doubt, check the oe-core git repository for the content you intend to
-> >  modify.> 
-> > diff --git a/meta-poky/conf/distro/poky.conf
-> > b/meta-poky/conf/distro/poky.conf index 5c156f1..acfc1bb 100644
-> > --- a/meta-poky/conf/distro/poky.conf
-> > +++ b/meta-poky/conf/distro/poky.conf
-> > @@ -5,7 +5,7 @@ DISTRO_CODENAME = "master"
-> > 
-> >  SDK_VENDOR = "-pokysdk"
-> >  SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}',
-> >  'snapshot')}"> 
-> > -MAINTAINER = "Poky <poky@yoctoproject.org>"
-> > +MAINTAINER = "Poky <poky@lists.yoctoproject.org>
-> 
-> I merged this without testing since how badly could this break.
-> 
-> Answer is the missing quote above.
-> 
-> I've fixed that in a followup commit.
+--_000_MAXPR01MB35827C24DC0CBE39D824610599130MAXPR01MB3582INDP_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Damn. The last thing I want to do is waste your time. Sorry about that, it is 
-obvious now but I clearly overlooked it when I reviewed the change before 
-sending.
+Hi,
 
-Thanks Richard,
-Mark
+I am using busybox version  v1.31.0 in the custom yocto SDK and during test=
+ing it is found that "/bin/busybox ls" command does not supports UTF-8 enco=
+ding.
 
-> 
-> Cheers,
-> 
-> Richard
+[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox touch utf_test-=DC
+[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox ls utf_test-*
+utf_test-??
+[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox ls utf_test-* > sa=
+mple.log
+[sdk]$ cat sample.log
+utf_test-??
+[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox hexdump -C sample.=
+log | grep "c3 9c"
+[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox hexdump -C sample.=
+log
+00000000  75 74 66 5f 74 65 73 74  2d 3f 3f 0a              |utf_test-??.|
+0000000c
 
+Also, i tried by adding LANG=3Den_US.UTF-8 in busybox's unicode.cfg. But st=
+ill facing same issue.
 
+Is there any option to be set in the config to enable UTF-8 support across =
+all the commands of "/bin/busybox".
 
+Regards,
+Sana Kazi
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print, retain copy, disseminate, distribute, o=
+r use this message or any part thereof. If you receive this message in erro=
+r, please notify the sender immediately and delete all copies of this messa=
+ge. KPIT Technologies Ltd. does not accept any liability for virus infected=
+ mails.
 
+--_000_MAXPR01MB35827C24DC0CBE39D824610599130MAXPR01MB3582INDP_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div>Hi, </div>
+<div>
+<div dir=3D"ltr">
+<div style=3D"color:black; font-size:12pt; font-family:Calibri,Arial,Helvet=
+ica,sans-serif">
+<div dir=3D"ltr">
+<div><br>
+</div>
+<div>I am using busybox version&nbsp;&nbsp;v1.31.0 in the custom yocto SDK =
+and during testing it is found that &quot;/bin/busybox ls&quot; command doe=
+s not supports UTF-8 encoding.</div>
+<br>
+<span>[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox touch utf_te=
+st-=DC<br>
+</span>
+<div>[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox ls utf_test-*=
+</div>
+<div>utf_test-??<br>
+</div>
+<span></span><span>[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox=
+ ls utf_test-* &gt; sample.log<br>
+</span>
+<div>[sdk]$ cat sample.log <br>
+</div>
+<div>utf_test-??<br>
+</div>
+<div>[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox hexdump -C sa=
+mple.log | grep &quot;c3 9c&quot;<br>
+</div>
+<div>[sdk]$ qemu-aarch64 /sdk/sysroots/poky-linux/bin/busybox hexdump -C sa=
+mple.log<br>
+</div>
+<div>00000000 &nbsp;75 74 66 5f 74 65 73 74 &nbsp;2d 3f 3f 0a &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|utf_test-??.|<br>
+</div>
+<div>0000000c<br>
+</div>
+<span></span><br>
+<div>Also, i tried by adding LANG=3Den_US.UTF-8 in busybox's unicode.cfg. B=
+ut still facing same issue.</div>
+<div><br>
+</div>
+<div>Is there any option to be set in the config to enable UTF-8 support ac=
+ross all the commands of &quot;/bin/busybox&quot;.</div>
+</div>
+</div>
+<br>
+</div>
+Regards,</div>
+</div>
+<div id=3D"Signature">
+<div name=3D"divtagdefaultwrapper" style=3D"font-family:Calibri,Arial,Helve=
+tica,sans-serif; font-size:; margin:0">
+<div>Sana Kazi<br>
+</div>
+</div>
+</div>
+This message contains information that may be privileged or confidential an=
+d is the property of the KPIT Technologies Ltd. It is intended only for the=
+ person to whom it is addressed. If you are not the intended recipient, you=
+ are not authorized to read, print,
+ retain copy, disseminate, distribute, or use this message or any part ther=
+eof. If you receive this message in error, please notify the sender immedia=
+tely and delete all copies of this message. KPIT Technologies Ltd. does not=
+ accept any liability for virus
+ infected mails.
+</body>
+</html>
+
+--_000_MAXPR01MB35827C24DC0CBE39D824610599130MAXPR01MB3582INDP_--
