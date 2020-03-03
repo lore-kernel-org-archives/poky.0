@@ -1,64 +1,79 @@
-Received: from esa1.bmw.c3s2.iphmx.com (esa1.bmw.c3s2.iphmx.com [68.232.133.201])
- by mx.groups.io with SMTP id smtpd.web11.1031.1582620038966523826
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.7955.1583256812797203665
  for <poky@lists.yoctoproject.org>;
- Tue, 25 Feb 2020 00:40:40 -0800
+ Tue, 03 Mar 2020 09:33:33 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bmw.de header.s=mailing1 header.b=j2mTd36r;
- spf=pass (domain: bmw.de, ip: 68.232.133.201, mailfrom: prvs=3174ef3e9=mikko.rapeli@bmw.de)
+ dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=GaWolWOL;
+ spf=none, err=SPF record not found (domain: srin.me, ip: 140.211.169.56, mailfrom: s@srin.me)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id 208D4E017B6; Tue,  3 Mar 2020 09:33:32 -0800 (PST)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.221.42 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id EA779E017B3
+	for <poky@yoctoproject.org>; Tue,  3 Mar 2020 09:33:30 -0800 (PST)
+Received: by mail-wr1-f42.google.com with SMTP id h9so4474086wrr.10
+        for <poky@yoctoproject.org>; Tue, 03 Mar 2020 09:33:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=bmw.de; i=@bmw.de; q=dns/txt; s=mailing1;
-  t=1582620039; x=1614156039;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=usalWY2fI0Sa06DlbWS/YUsHM1hyi6NuN/jUROGFHg8=;
-  b=j2mTd36rObv2KksJH3xW3VC8hrqF3Q57DHpRBdoHpR2XxFVel2bhQetK
-   sj+fCIdVYSI5Z+h+za1tMqjXeQIC3T28adQzZX+r9pkXwqZ/JWhr5tibo
-   pzWM27zJfSQlD+rUJ2lZxprbMag7W0BIFrsIey4NvTda8EYd6gA5PGaG5
-   8=;
-IronPort-SDR: LIiGeB83EMtzdJOLAgr8Jxfk+Uf/DsliUGlYGO2/H70WgA6TbtvYhU2Ienx+kJ2FmB6UAYR0Ca
- sOE4TRCiMD7bQvPp6TxaQq8/AlSWRlrRIPtIIGuYj/60nGnR5XFoEnEJXumDEQWvvDBzUQNVOY
- KZA8NOLtBQLf4KUsaua/h/WCdfmkvfNh4w/iCIGa3PyYzIf4VIEm0RA8cYS4fuwim9Re6uQTsc
- Sa8trJjI53JQzY8ArSkQcfg6n/dJhAMdbnF0H1eUdZ+SQoOuyddqLuZtNsvNkzGCij6aWEEpuq
- ZAM=
-Received: from esagw5.bmwgroup.com (HELO esagw5.muc) ([160.46.252.46]) by
- esa1.bmw.c3s2.iphmx.com with ESMTP/TLS; 25 Feb 2020 09:40:37 +0100
-Received: from esabb5.muc ([160.50.100.47])  by esagw5.muc with ESMTP/TLS;
- 25 Feb 2020 09:40:36 +0100
-Received: from smucm10m.bmwgroup.net (HELO smucm10m.europe.bmw.corp) ([160.48.96.49])
- by esabb5.muc with ESMTP/TLS; 25 Feb 2020 09:40:36 +0100
-Received: from smucm10k.europe.bmw.corp (160.48.96.47) by smucm10m.europe.bmw.corp
- (160.48.96.49) with Microsoft SMTP Server (TLS;
- Tue, 25 Feb 2020 09:40:36 +0100
-Received: from smucm10k.europe.bmw.corp ([160.48.96.47]) by
- smucm10k.europe.bmw.corp ([160.48.96.47]) with mapi id 15.00.1473.005; Tue,
- 25 Feb 2020 09:40:36 +0100
-From: "Mikko Rapeli" <mikko.rapeli@bmw.de>
-To: <ashish.emailaddress@gmail.com>
-CC: <poky@lists.yoctoproject.org>
-Subject: Re: [poky] SATO terminal takes 4 min to launch
-Thread-Topic: [poky] SATO terminal takes 4 min to launch
-Thread-Index: AQHV67LMTOKRyRnSRUifu+iwIOUHJ6grgaGAgAAEtQA=
-Date: Tue, 25 Feb 2020 08:40:36 +0000
-Message-ID: <20200225084036.GL104502@korppu>
-References: <vjLI.1582618087437232748.MOzF@lists.yoctoproject.org>
- <20756.1582619025982008597@lists.yoctoproject.org>
-In-Reply-To: <20756.1582619025982008597@lists.yoctoproject.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
+        d=srin-me.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=W+4SaKI4nfxs9gzIMpMGhIWZhfeWbQD4jLE1sa6CVVI=;
+        b=GaWolWOLGGa9OGR+wj+wrqbVymkaf+DTmj4qZedbfm1eF0GoyJ0t3Hxuwbqb64Ao7y
+         abq2nqiYXGvJzCQT0w0OxdtJnec053dddbSsU+MrG4iPInt4l2WiCDv7e3T0sJ0rt56b
+         zkVdV1L5eQbdHK4sUMGOnNsz4S8JxLndl4bAWfgiBou8lfkvXns5UUT+Bc8vlgvBVGuf
+         bbak4VdrO7nlVzXQFk5EokOxzTAu6HwfR86cbZ6/fdHpGFa6i0h33aaRy3IvDJ5Nf4RI
+         g0Z8G32uvFSDgeoef911OCPkqTR3FDCIRt5eVlaFmPcHDdD0ibaQxArGYtSbuVzzfQUZ
+         E7GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=W+4SaKI4nfxs9gzIMpMGhIWZhfeWbQD4jLE1sa6CVVI=;
+        b=seJPOHDbVgmgDGVCYshy4P7sAUtM5yNX79BYqds9tUlRW433xmk0wreXZHKs3baZZU
+         FqPi9a4952tA8rQxDVhrYkVfUWEGPAiAQel9AK+l5lBdF0s9bXAXfRu4UBQVqlWJ7ztM
+         1dAEnNcwAx1m2cQ0BJzYyh3riHjROuQe02QHLscwTwKuIAPiV5sVZMFohAlxDKP+i6B6
+         vogshjdznEq6GWCOdkbc9wp85KrmgPNnqnRFTp1I0K09fppcrTZNUt8BaduL/9ZtdkpM
+         ZTo1GFf1bZbSCuIv2EAJdfjgIg8rIpwq+4wtr+qxsMBkiGPrkUxcUHeErjfQYBPI1Xs2
+         HBkQ==
+X-Gm-Message-State: ANhLgQ3gnCghGQ/VY1h5VOHm5+I+0FECQOWi+0S5uIIHx9xSY9w5P/PB
+	PcVfBA3HwVmMsdQohr9Rsb4snKq8q+Ejq0B/SFFM+bAD
+X-Google-Smtp-Source: ADFU+vs4yK79ArrDN8QK4r27GJy3sUwVtECif0oL69xa25GPsrWkoWm86iS06DSqy4HesCiHw5D2ZPDRVdsnMwDej9Q=
+X-Received: by 2002:a5d:53c8:: with SMTP id a8mr6164813wrw.238.1583256809225;
+ Tue, 03 Mar 2020 09:33:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1D7AFE0987A95444B15C792A20BCFFF1@bmwmail.corp>
+From: "R Srinivasan" <s@srin.me>
+Date: Tue, 3 Mar 2020 12:33:04 -0500
+Message-ID: <CAGNn0hYGyrVuse7oK8vwJhkLHudYCpnfESt9uuuMChQhhKhGyQ@mail.gmail.com>
+Subject: Enabling additional languages
+To: poky@yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000b3d065059ff6b375"
+
+--000000000000b3d065059ff6b375
+Content-Type: text/plain; charset="UTF-8"
+
+I am looking to enable ada while building the gcc cross. Can someone point
+me to any other recipe that does something similar? Like gcc with fortran.
+
+thanks, srini
+
+--000000000000b3d065059ff6b375
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+<div dir=3D"ltr">I am looking to enable ada while building the gcc cross. C=
+an someone point me to any other recipe that does something similar? Like g=
+cc with fortran.=C2=A0<div><br></div><div>thanks, srini</div></div>
 
-Please check systemd-analyze output. It may be that ssh and crypto key
-generation without HW support is taking a lot of time for example.
-
-Cheers,
-
--Mikko=
+--000000000000b3d065059ff6b375--
