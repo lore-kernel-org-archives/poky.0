@@ -1,74 +1,77 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
- by mx.groups.io with SMTP id smtpd.web10.10213.1583488116841986015
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
+ by mx.groups.io with SMTP id smtpd.web10.12228.1583499799164094142
  for <poky@lists.yoctoproject.org>;
- Fri, 06 Mar 2020 01:48:37 -0800
+ Fri, 06 Mar 2020 05:03:19 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Tj+47OJ6;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.41, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f41.google.com with SMTP id p9so1631977wmc.2
-        for <poky@lists.yoctoproject.org>; Fri, 06 Mar 2020 01:48:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=iVU+9ju+xrz3Fwn/ReHEUYFDtnAdIP7T3HwQlrjKXaU=;
-        b=Tj+47OJ6zkag3C9nvezrLTR34yBppPokiwUIDpHzlG4Kig2u01WT4PZIMoER0h+7OL
-         RhP3nsASmSEOvJ0+t3pVzrpkDMyHHTuKMrlzDqUbT6fgIVGTXNuFacEsygpmATyf9coZ
-         WUNg2Vv107uzWIWoY1uTK83Y5CXIDfCgCo51A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=iVU+9ju+xrz3Fwn/ReHEUYFDtnAdIP7T3HwQlrjKXaU=;
-        b=jVxRrk2OqOsmoPykmttRwbk0MsyWr7eYUmacx5ZyjKvmi2MWwwXatZndt47HrKjPDQ
-         Djc+7rtu6dZKuYLEdn0FfY/2opIbMN7RPGx86KbtJKAWxJQI+wO4hHueLIOwNuJDsK6n
-         Gz6oC4t8Q7r0b2jTHWVz6SJAwcwehJQRNRZ3WWab5zkrb1FKob7/9RYSbrLRJ7IpR63R
-         2gzAYXdLmnm1CLELZ1uegQrCR4KhDUdTY828072t0VRTsMXcoiqzbv8IbHaBvJsZngHB
-         K9wkUR8uWwXE5v6q6DKz0Xt94m3KUQY5QYqfZZEC4nBmutUr9Ig9nCYHc/8BKZFf0DnA
-         NiYA==
-X-Gm-Message-State: ANhLgQ1qEcPJbXg+BYQBKamq3Klfb1cPBuJTuLbA2uL5fagxZyEVSSo3
-	hB+oFiyujyx3vJW5QzeOuk8IWw==
-X-Google-Smtp-Source: ADFU+vvga/ZEdwJGpWjJF/JvhO0hkWUS6uv7Nkc1CXhico7ZOoecwprjAPGVkhnZzdfvmBu0mULgPQ==
-X-Received: by 2002:a7b:c354:: with SMTP id l20mr2268752wmj.40.1583488115281;
-        Fri, 06 Mar 2020 01:48:35 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id p16sm48054435wrw.15.2020.03.06.01.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Mar 2020 01:48:34 -0800 (PST)
-Message-ID: <329c92c2210817903bb3a07f46e4019484665373.camel@linuxfoundation.org>
-Subject: Re: [poky] 'require' statement and bbappend
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: thomas.koeller@baslerweb.com, poky@lists.yoctoproject.org
-Date: Fri, 06 Mar 2020 09:48:33 +0000
-In-Reply-To: <X4K7.1583487268784158714.Q64w@lists.yoctoproject.org>
-References: <X4K7.1583487268784158714.Q64w@lists.yoctoproject.org>
-User-Agent: Evolution 3.35.91-1 
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+ dkim=missing; spf=pass (domain: savoirfairelinux.com, ip: 208.88.110.44, mailfrom: jean-marie.lemetayer@savoirfairelinux.com)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 2E8119C018C
+	for <poky@lists.yoctoproject.org>; Fri,  6 Mar 2020 08:03:18 -0500 (EST)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id llVgcZEfiWbX for <poky@lists.yoctoproject.org>;
+	Fri,  6 Mar 2020 08:03:17 -0500 (EST)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id A947D9C0395
+	for <poky@lists.yoctoproject.org>; Fri,  6 Mar 2020 08:03:17 -0500 (EST)
+X-Virus-Scanned: amavisd-new at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+	by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id uFjlT4oisCB0 for <poky@lists.yoctoproject.org>;
+	Fri,  6 Mar 2020 08:03:17 -0500 (EST)
+Received: from gerard.bzh.sfl (40.73.12.109.rev.sfr.net [109.12.73.40])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 404ED9C018C
+	for <poky@lists.yoctoproject.org>; Fri,  6 Mar 2020 08:03:17 -0500 (EST)
+From: "Jean-Marie Lemetayer" <jean-marie.lemetayer@savoirfairelinux.com>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] linux-yocto: drop 5.2 bbappend
+Date: Fri,  6 Mar 2020 14:03:05 +0100
+Message-Id: <20200306130305.13905-1-jean-marie.lemetayer@savoirfairelinux.com>
+X-Mailer: git-send-email 2.17.1
 
-On Fri, 2020-03-06 at 01:34 -0800, thomas.koeller@baslerweb.com wrote:
-> I have a recipe that I want to extend through a .bbappend file. The
-> recipe contains a line that says,
-> 
-> require linux-imx-src-${PV}.inc
-> 
-> Now my .bbappend file changes PV like so:
-> 
-> PV = "4.14.98-git${SRCPV}"
+The recipe for the 5.2 kernel has been dropped in this commit:
+8efa405ee0ab9ae0e674fe8bc9551f4367b4c269
 
-In order to parse, bitbake has to immediately expand PV at that point
-in parsing. Its like writing:
+The corresponding .bbapend must be removed in order to fix this error:
 
-REQUIRE_FILE := "linux-imx-src-${PV}.inc"
-require ${REQUIRE_FILE}
+ERROR: No recipes available for:
+  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
 
-if that helps explain it?
+Signed-off-by: Jean-Marie LEMETAYER <jean-marie.lemetayer@savoirfairelinux.com>
+---
+ .../linux/linux-yocto_5.2.bbappend            | 23 -------------------
+ 1 file changed, 23 deletions(-)
+ delete mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
 
-The parser has to know the value of PV there at that point in time.
-
-Cheers,
-
-Richard
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
+deleted file mode 100644
+index 9a965321df..0000000000
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
++++ /dev/null
+@@ -1,23 +0,0 @@
+-KBRANCH_genericx86  = "v5.2/standard/base"
+-KBRANCH_genericx86-64  = "v5.2/standard/base"
+-KBRANCH_edgerouter = "v5.2/standard/edgerouter"
+-KBRANCH_beaglebone-yocto = "v5.2/standard/beaglebone"
+-
+-KMACHINE_genericx86 ?= "common-pc"
+-KMACHINE_genericx86-64 ?= "common-pc-64"
+-KMACHINE_beaglebone-yocto ?= "beaglebone"
+-
+-SRCREV_machine_genericx86    ?= "25b14cdf9659c68ab32d66616dfdbbe2ece3fd94"
+-SRCREV_machine_genericx86-64 ?= "25b14cdf9659c68ab32d66616dfdbbe2ece3fd94"
+-SRCREV_machine_edgerouter ?= "25b14cdf9659c68ab32d66616dfdbbe2ece3fd94"
+-SRCREV_machine_beaglebone-yocto ?= "25b14cdf9659c68ab32d66616dfdbbe2ece3fd94"
+-
+-COMPATIBLE_MACHINE_genericx86 = "genericx86"
+-COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+-COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+-COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+-
+-LINUX_VERSION_genericx86 = "5.2.17"
+-LINUX_VERSION_genericx86-64 = "5.2.17"
+-LINUX_VERSION_edgerouter = "5.2.17"
+-LINUX_VERSION_beaglebone-yocto = "5.2.17"
+-- 
+2.17.1
 
