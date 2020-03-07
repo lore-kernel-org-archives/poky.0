@@ -1,71 +1,51 @@
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
- by mx.groups.io with SMTP id smtpd.web09.12256.1583500573761023565
- for <poky@lists.yoctoproject.org>;
- Fri, 06 Mar 2020 05:16:14 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=FIAPGoFT;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.68, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f68.google.com with SMTP id u9so2335622wml.3
-        for <poky@lists.yoctoproject.org>; Fri, 06 Mar 2020 05:16:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=uS9EtxIpPgcXRkeBKpUp1gBi5sRaImCjDWjqJBWFJU4=;
-        b=FIAPGoFTcJf4+56XeC982rYAiftxdYHHsBDOVoluyF6P0ZMuBeETDJgjlQ0mr1JyHz
-         dz3ONAF3zLoKyPs3xni8MpF9t5FiL8gwfeSbmkcfnS31sfJ9ampd06AFb6gKBKOLwKPe
-         s7oWG0C+mH2lZWjNECnRJm6/rVcX/XgCHPk38=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=uS9EtxIpPgcXRkeBKpUp1gBi5sRaImCjDWjqJBWFJU4=;
-        b=jXaTNwHZyxoLinAuyQ5ucVP3lf718uULDusaiMfoKSsl3Wo/zjY80T4kKeoYaQv5UJ
-         wMi7+06YIex5YOVU0s51n/4HTxsWeXchbx6y+ub4uLjo2Dls90rNc5ULYmy0+ZBi5ci0
-         +rVa4ffl5iWGTVj31JOtGQZ1xaVvURFhxdwa523iikj6R9ozZblzlgCJv6TyIegawPFp
-         zjTAzeph9RH3UfE7SR+iUOV8YVecYo13J0zpBIKz2R+7In+RkAnjmOrvBOiB0IpsmueE
-         TOwmomg7QzE5PjYLgbc/J2tGR9dnP/YKucouXzIs3zaLYfDa3b/SqZLVzN5B8QGRD/Ly
-         iSyg==
-X-Gm-Message-State: ANhLgQ1B4vc/n67yM7cnzrI6+lr0tlDhV1w/954Gb4Fh0U49tFvd73wt
-	YsIGM+sb+NkWsviZMdKdqf0GGw==
-X-Google-Smtp-Source: ADFU+vsWkV2CGeWo6I+A9IAdVKHZ0KKpq5FMiFpegwC+A43Cel2cYJqzA4XO4SG6rnX5SK65nNqRWQ==
-X-Received: by 2002:a05:600c:24d2:: with SMTP id 18mr3986563wmu.149.1583500572228;
-        Fri, 06 Mar 2020 05:16:12 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id a7sm13158036wmb.0.2020.03.06.05.16.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Mar 2020 05:16:10 -0800 (PST)
-Message-ID: <08be715feacac66a01abe5a544ed1b09000b3707.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] linux-yocto: drop 5.2 bbappend
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Jean-Marie Lemetayer <jean-marie.lemetayer@savoirfairelinux.com>, 
-	poky@lists.yoctoproject.org
-Date: Fri, 06 Mar 2020 13:16:07 +0000
-In-Reply-To: <20200306130305.13905-1-jean-marie.lemetayer@savoirfairelinux.com>
-References: 
-	<20200306130305.13905-1-jean-marie.lemetayer@savoirfairelinux.com>
-User-Agent: Evolution 3.35.91-1 
+Subject: Re: SATO terminal takes 4 min to launch
+To: poky@lists.yoctoproject.org
+From: "Ashish" <ashish.emailaddress@gmail.com>
+X-Originating-Location: Bengaluru, Karnataka, IN (115.99.98.138)
+X-Originating-Platform: Linux Chrome 79
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Date: Sat, 07 Mar 2020 12:57:45 -0800
+References: <20200225084036.GL104502@korppu>
+In-Reply-To: <20200225084036.GL104502@korppu>
+Message-ID: <2090.1583614665600586860@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="8cVIaaiyjSYK7YUyohBi"
 
-On Fri, 2020-03-06 at 14:03 +0100, Jean-Marie Lemetayer wrote:
-> The recipe for the 5.2 kernel has been dropped in this commit:
-> 8efa405ee0ab9ae0e674fe8bc9551f4367b4c269
-> 
-> The corresponding .bbapend must be removed in order to fix this
-> error:
-> 
-> ERROR: No recipes available for:
->   meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.2.bbappend
-> 
-> Signed-off-by: Jean-Marie LEMETAYER <
-> jean-marie.lemetayer@savoirfairelinux.com>
+--8cVIaaiyjSYK7YUyohBi
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Sorry, there were patches in -next for this, I've merged them.
+Hi Group Members ,
 
-Cheers,
+Further debugging on same i observed that :
+1) After board booted , if i try to launch the matchbox-teriminal by doubl=
+e clicking on the icon
+is takes around 3-4 min to give terminal .
 
-Richard
+2) But if i *run startx application specifically* and then run the matchbo=
+x-terminal it starts in seconds .
 
+If member's can share any input / feedback on same it would be helpful.
+Or if i am missing any obvious things here ( as this is my first project o=
+n QT graphics )
+
+Thanks
+Ashish
+
+--8cVIaaiyjSYK7YUyohBi
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<span style=3D"white-space: pre-wrap;">Hi Group Members , </span><br /><br =
+/><span style=3D"white-space: pre-wrap;">Further debugging on same i observ=
+ed that :</span><br /><span style=3D"white-space: pre-wrap;">1) After board=
+ booted , if i try to launch the matchbox-teriminal by double clicking on t=
+he icon </span><br /><span style=3D"white-space: pre-wrap;"> is takes aroun=
+d 3-4 min to give terminal . </span><br /><br /><span style=3D"white-space:=
+ pre-wrap;">2) But if i <strong>run startx application specifically </stron=
+g>and then run the matchbox-terminal it starts in seconds . <br /><br />If =
+member's can share any input / feedback on same it would be helpful. <br />=
+Or if i am missing any obvious things here ( as this is my first project on=
+ QT graphics ) <br /><br />Thanks <br />Ashish </span>
+
+--8cVIaaiyjSYK7YUyohBi--
