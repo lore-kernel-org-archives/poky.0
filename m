@@ -1,55 +1,63 @@
-Subject: Re: 'require' statement and bbappend
+Subject: Re: How to see the parameters of a shell command execution (do_rootfs, qemu, update_font_cache) ?
 To: poky@lists.yoctoproject.org
 From: "Ashish" <ashish.emailaddress@gmail.com>
 X-Originating-Location: Bengaluru, Karnataka, IN (115.99.50.87)
 X-Originating-Platform: Linux Chrome 79
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Sat, 07 Mar 2020 14:55:58 -0800
-References: <329c92c2210817903bb3a07f46e4019484665373.camel@linuxfoundation.org>
-In-Reply-To: <329c92c2210817903bb3a07f46e4019484665373.camel@linuxfoundation.org>
-Message-ID: <10736.1583621758533873687@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="K6hoRwIMyd7SsXgJQdMJ"
+Date: Sat, 07 Mar 2020 15:27:14 -0800
+References: <CANNYZj_Ts2t=tLEQ-5qF2fnb5WHGEuzCyXd1nkEC_FiN9JvNbg@mail.gmail.com>
+In-Reply-To: <CANNYZj_Ts2t=tLEQ-5qF2fnb5WHGEuzCyXd1nkEC_FiN9JvNbg@mail.gmail.com>
+Message-ID: <10736.1583623634851011867@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="Um3lDQLWk2ssTaeuSH4j"
 
---K6hoRwIMyd7SsXgJQdMJ
+--Um3lDQLWk2ssTaeuSH4j
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-1) w.r.t ".. The recipe contains a line that says, require linux-imx-src-${=
-PV}.inc "
-By this the recipe ensure's that we get an error if the ".inc" file is not=
- there .
-As this is better than allowing it to process ahead for case where we have=
- absence of said file .
+1)=C2=A0 w.r.t=C2=A0 "I don=E2=80=99t even find =E2=80=9Efontconfig=E2=80=
+=9C when I grep through all *.bb, *,conf, *.bbapend and *.bbclass "
+You can use below section of patch
+diff --git a/recipes-qt/qt5/qtbase_git.bbappend b/recipes-qt/qt5/qtbase_gi=
+t.bbappend
+new file mode 100644
+index 0000000..707d17c
+--- /dev/null
++++ b/recipes-qt/qt5/qtbase_git.bbappend
+@@ -0,0 +1 @@
++PACKAGECONFIG_append =3D " fontconfig"
 
-2)=C2=A0 w.r.t " PV =3D "4.14.98-git${SRCPV}"
-It helps in cases where we can have SRCREV =3D "${AUTOREV}".
-Even if we dont have=C2=A0SRCREV =3D "${AUTOREV}" , by adding git${SRCPV} =
-we are able to track git version and what's the SHA or commit-id for said r=
-epo
+2)=C2=A0 w.r.t=C2=A0 "..adding debug details "
+In the concerned recipe you can add=C2=A0bb.debug() for python based code =
+or use=C2=A0bbdebug()=C2=A0 if its an bash based code
 
-Hope it helps .
+3)=C2=A0 You can look at the log.do_compile/configure under tmp folder of =
+recipe to get more info about error
 
 Thanks
 Ashish
 
---K6hoRwIMyd7SsXgJQdMJ
+--Um3lDQLWk2ssTaeuSH4j
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<span style=3D"white-space: pre-wrap;">1) w.r.t ".. The </span><span style=
-=3D"white-space: pre-wrap;">recipe contains a line that says,</span>&nbsp;=
-&nbsp;<span style=3D"white-space: pre-wrap;">require linux-imx-src-${PV}.in=
-c "<br /></span>&nbsp; &nbsp; &nbsp; By this the recipe ensure's that we ge=
-t an error if the ".inc" file is not there .<br />&nbsp; &nbsp; &nbsp; &nbs=
-p;As this is better than allowing it to process ahead for case where we hav=
-e absence of said file .<br /><br />2)&nbsp; w.r.t "&nbsp;<span style=3D"wh=
-ite-space: pre-wrap;">PV =3D "4.14.98-git${SRCPV}"</span>&nbsp;<br />&nbsp;=
- &nbsp; &nbsp;It helps in cases where we can have SRCREV =3D "${AUTOREV}".&=
-nbsp;<br />&nbsp; &nbsp; &nbsp;Even if we dont have&nbsp;SRCREV =3D "${AUTO=
-REV}" , by adding&nbsp;<span style=3D"white-space: pre-wrap;">git${SRCPV} w=
-e are able </span>to track git version and what's the SHA or commit-id for =
-said repo<br /><br />Hope it helps .&nbsp;<br /><br />Thanks&nbsp;<br />Ash=
-ish&nbsp;<br /><br /><br />
+1)&nbsp; w.r.t&nbsp; "I don&rsquo;t even find &bdquo;fontconfig&ldquo; when=
+ I grep through all *.bb, *,conf, *.bbapend and *.bbclass "<br />&nbsp; &nb=
+sp; &nbsp;You can use below section of patch&nbsp;<br />&nbsp; &nbsp; &nbsp=
+;diff --git a/recipes-qt/qt5/qtbase_git.bbappend b/recipes-qt/qt5/qtbase_gi=
+t.bbappend
+<div>&nbsp; &nbsp; &nbsp;new file mode 100644</div>
+<div>&nbsp; &nbsp; &nbsp;index 0000000..707d17c</div>
+<div>&nbsp; &nbsp; &nbsp;--- /dev/null</div>
+<div>&nbsp; &nbsp; &nbsp;+++ b/recipes-qt/qt5/qtbase_git.bbappend</div>
+<div>&nbsp; &nbsp; &nbsp;@@ -0,0 +1 @@</div>
+<div>&nbsp; &nbsp; +PACKAGECONFIG_append =3D " fontconfig"<br /><br /><br =
+/>2)&nbsp; w.r.t&nbsp; "..adding debug details "<br />&nbsp; &nbsp; &nbsp;I=
+n the concerned recipe you can add&nbsp;bb.debug() for python based code or=
+ use&nbsp;bbdebug()&nbsp; if its an bash based code&nbsp;<br /><br /><br />=
+3)&nbsp; You can look at the log.do_compile/configure under tmp folder of r=
+ecipe to get more info about error&nbsp;<br /><br /><br />Thanks&nbsp;<br /=
+>Ashish&nbsp;<br /><br /><br /><br /></div>
+<div><br /><br /><br /></div>
 
---K6hoRwIMyd7SsXgJQdMJ--
+--Um3lDQLWk2ssTaeuSH4j--
