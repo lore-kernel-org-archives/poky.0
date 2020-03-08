@@ -1,98 +1,135 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
- by mx.groups.io with SMTP id smtpd.web11.35024.1583683267702871015
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.38055.1583691197468347833
  for <poky@lists.yoctoproject.org>;
- Sun, 08 Mar 2020 09:01:07 -0700
+ Sun, 08 Mar 2020 11:13:17 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=WDcctaYD;
- spf=pass (domain: gmail.com, ip: 209.85.216.42, mailfrom: akuster808@gmail.com)
-Received: by mail-pj1-f42.google.com with SMTP id d8so3316756pje.4
-        for <poky@lists.yoctoproject.org>; Sun, 08 Mar 2020 09:01:07 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=XWR9Xgoi;
+ spf=softfail (domain: gmail.com, ip: 140.211.169.56, mailfrom: akuster808@gmail.com)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id ED558E017FD; Sun,  8 Mar 2020 11:13:16 -0700 (PDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE autolearn=ham
+	version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	*  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail provider
+	*      (akuster808[at]gmail.com)
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.210.178 listed in list.dnswl.org]
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
+	*       domain
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D84ADE017FB;
+	Sun,  8 Mar 2020 11:13:15 -0700 (PDT)
+Received: by mail-pf1-f178.google.com with SMTP id b72so201642pfb.11;
+        Sun, 08 Mar 2020 11:13:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id;
-        bh=IQj/A+7SP+X56tQrA2kxtCE8yir+mpLanFYulelGLrw=;
-        b=WDcctaYDSDy7il5y8salv8oWKAUuMoWpd15ovLFZ60J/X0lFXooAIswT90WxnFjBMw
-         /iE0N7ucxBCfiuu8U7CY0CyIP+Ys8sNbEMvCb0MCa4G3g1b+j/MiOkQNH753SuFDCw08
-         bTESCDO9BrS6xabHNbls7/9ie9Silbgl1qj4mu4nmILs8VT7BF1I6WB9NgDIGZ97DKzD
-         1bRgdMlyb4f1wr1bLaP05hgHAnD0UzXLUw6S/NnPgGm0gY0/vLs+wuSkQ0g9sCtUsx5J
-         mEd4P9XFqFfUCY+oLTndhWcBrY45g2AJnD1v5ob1/LrQFY1/6VFHRPC1VS3gPEs5fGtr
-         lh9g==
+        h=to:from:subject:autocrypt:message-id:date:user-agent:mime-version
+         :content-transfer-encoding:content-language;
+        bh=XEkKq0T5LY6lgE2WKhgEsOYv4DE5i1HuFkZC3HIwHE4=;
+        b=XWR9Xgoi3y6ynQ1Wbqr/2hMMvbpC7xOxCrhGtp7gVIfn6lUuOL8PzKbtw42jSzqGvA
+         SdF4refh2xbXljrzSjoKlA7i6FbeKPXFSDwLJiW7RPIAI048o1KYnInkM5G68v8cvOD+
+         orEJ3CFLNjiMoO23zB3VeoBUdRvLr4srcVrfcEDyq4NvgzkDx2Wdxhly9RcGppTR2bXj
+         xMZQwAxNSj5skbbyBY0u0DMFUmHwLRmlhXcAA4p2Ja8NnDCWjPqZGMtlaSyKbcVN/sod
+         wkHuu2BwHAFXz1oK83UkZTpOvZ+h3G/h7C2kuKsUgXIG3mh5UT9E0Xk+N7YfT0koqSN0
+         g1+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=IQj/A+7SP+X56tQrA2kxtCE8yir+mpLanFYulelGLrw=;
-        b=U1aWtp+y1sHnwBaL/eVZbap66MxuIjd3ly4bDdiVpXRbffO9a1M33pahFosjic/KPH
-         JC+nINvtAO+jMzmVZRmqC/pnlSKNmwflX3iAWSH/5Xu0dZ0LAuY/fyaftx/WxJnL2DJ/
-         kxRuSLksIY9NehclKDv2XWPRYyvQOXz5ikBpLlX7JkBXJ1jGh+pb/WEyvu4kTigplPAf
-         asYDXJga7pjyS8WrbPRRIisj0HrzvPWpXbtb6Z56xHhKG24rxBajb3SK3r50stifql9t
-         yuW+iuBhNDYreCf98UgiDVCJLb8cPzPis3kN4pDCLYD4zAIs5kZoFTLKkRSM4oHxtLQa
-         4ZYA==
-X-Gm-Message-State: ANhLgQ07gWJaIrTQoY41xQJQLqdk/qLPcLh0O6utWL08HdEy+YMfMvQ9
-	WFrAL1qz2PnKPmvbH1G7mrYPqu62
-X-Google-Smtp-Source: ADFU+vuMXnPD3KvKzyPv4VNZ7OtikxBpTZuKB8c+f6CitDopasz9SHXyW66B/61StL8JWSMSy17PjQ==
-X-Received: by 2002:a17:90a:c301:: with SMTP id g1mr13404332pjt.88.1583683266917;
-        Sun, 08 Mar 2020 09:01:06 -0700 (PDT)
-Return-Path: <akuster808@gmail.com>
-Received: from akuster-ThinkPad-T460s.mvista.com ([2601:202:4180:a5c0:6c62:7a1c:e667:70])
-        by smtp.gmail.com with ESMTPSA id j126sm34712258pfb.129.2020.03.08.09.01.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Mar 2020 09:01:06 -0700 (PDT)
+        h=x-gm-message-state:to:from:subject:autocrypt:message-id:date
+         :user-agent:mime-version:content-transfer-encoding:content-language;
+        bh=XEkKq0T5LY6lgE2WKhgEsOYv4DE5i1HuFkZC3HIwHE4=;
+        b=MbNkny4nB0LtylQhkssvvx7IBMLELDE0barhDidY3YLgVdkdLs6VY9bmZ9T7ODjaer
+         L6KTR8KmX+ZfMHhyisDKKqf4ka66MWfBJSQ3JbGKoeLnSipyQEnYKHU/S+0RYNYcoN2v
+         BXoA40ljuCKzLT+kRcChVKxrG+h6ystsLK2S11MqZbsg3FjBJsfSbjd+2KbulrJAWhir
+         h2hqmGr3odbP1dU3dTSqT53CXTOYh044/rTiLrzW/DIqvQU6YzdNUXEnq+BE8IPk+Uyx
+         muY1rhUG3U0NOqYkZHWD4ZhZccgbaa9Pq6CMXJZ9wQFvVkj00gb4Mg1wdGRz3cAEQyMn
+         jMpA==
+X-Gm-Message-State: ANhLgQ2OvjpAzM4ZfZwLhUAKEHhSqyFLW0qtu4hNeNiEpK4mKILKHFOW
+	jixdEp+jO7DqHj/PndPKTjsTVH0y
+X-Google-Smtp-Source: ADFU+vuTcFwHIUksoEFDfc+outSz816phigeyeUwaY2/X39Ae/+BEcPrbYwMSFnpyPYHR6ZutYhy7A==
+X-Received: by 2002:aa7:947d:: with SMTP id t29mr894625pfq.184.1583691195388;
+        Sun, 08 Mar 2020 11:13:15 -0700 (PDT)
+Received: from ?IPv6:2601:202:4180:a5c0:6c62:7a1c:e667:70? ([2601:202:4180:a5c0:6c62:7a1c:e667:70])
+        by smtp.gmail.com with ESMTPSA id c20sm26923337pfc.140.2020.03.08.11.13.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Mar 2020 11:13:14 -0700 (PDT)
+To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
+ "poky@yoctoproject.org" <poky@yoctoproject.org>,
+ "bitbake-devel@lists.openembedded.org"
+ <bitbake-devel@lists.openembedded.org>,
+ Patches and discussions about the oe-core layer
+ <openembedded-core@lists.openembedded.org>
 From: "akuster" <akuster808@gmail.com>
-To: poky@lists.yoctoproject.org
-Cc: Mark Asselstine <mark.asselstine@windriver.com>,
-	Richard Purdie <richard.purdie@linuxfoundation.org>
-Subject: [PATCH] meta-poky: update to new mailing lists
-Date: Sun,  8 Mar 2020 09:01:05 -0700
-Message-Id: <20200308160105.7284-1-akuster808@gmail.com>
-X-Mailer: git-send-email 2.17.1
+Subject: Stable life cycle status
+Autocrypt: addr=akuster808@gmail.com; prefer-encrypt=mutual; keydata=
+ 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
+ 8CS2NxU=
+Message-ID: <ca05c738-c6ff-afa1-8b7b-a84ef6a31261@gmail.com>
+Date: Sun, 8 Mar 2020 11:13:13 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-From: Mark Asselstine <mark.asselstine@windriver.com>
+Hello,
 
-There is still some confustion around the mail list updates, as we
-have seen on the lists recently:
-https://lists.yoctoproject.org/g/yocto/message/48439
+Thud has moved to "Community supported" today.
 
-Signed-off-by: Mark Asselstine <mark.asselstine@windriver.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-(cherry picked from commit c62fa2a498625e1765c4572618f74a03e1895a23)
-[ak: fix of zeus context]
-Signed-off-by: Armin Kuster <akuster808@gmail.com>
----
- meta-poky/README.poky           | 4 ++--
- meta-poky/conf/distro/poky.conf | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+The older releases have moved to EOL as no one has stepped up to take on
+the maintenance of those older branches.
 
-diff --git a/meta-poky/README.poky b/meta-poky/README.poky
-index 8cf2027..be0c6c0 100644
---- a/meta-poky/README.poky
-+++ b/meta-poky/README.poky
-@@ -53,11 +53,11 @@ bitbake:
- 
- documentation:
-     Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/
--    Mailing list: yocto@yoctoproject.org
-+    Mailing list: docs@lists.yoctoproject.org
- 
- meta-poky, meta-yocto-bsp:
-     Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/meta-yocto(-bsp)
--    Mailing list: poky@yoctoproject.org
-+    Mailing list: poky@lists.yoctoproject.org
- 
- Everything else should be sent to the OpenEmbedded Core mailing list.  If in
- doubt, check the oe-core git repository for the content you intend to modify.
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 9c0cab9..106706b 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -5,7 +5,7 @@ DISTRO_CODENAME = "zeus"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
- 
--MAINTAINER = "Poky <poky@list.yoctoproject.org>"
-+MAINTAINER = "Poky <poky@lists.yoctoproject.org>
- 
- TARGET_VENDOR = "-poky"
- 
--- 
-2.17.1
+
+regards,
+Armin
 
