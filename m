@@ -1,135 +1,104 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web10.38055.1583691197468347833
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com [209.85.221.68])
+ by mx.groups.io with SMTP id smtpd.web12.5349.1583923484166873068
  for <poky@lists.yoctoproject.org>;
- Sun, 08 Mar 2020 11:13:17 -0700
+ Wed, 11 Mar 2020 03:44:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=XWR9Xgoi;
- spf=softfail (domain: gmail.com, ip: 140.211.169.56, mailfrom: akuster808@gmail.com)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id ED558E017FD; Sun,  8 Mar 2020 11:13:16 -0700 (PDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: 
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	*  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail provider
-	*      (akuster808[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
-	*      trust
-	*      [209.85.210.178 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
-	*       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id D84ADE017FB;
-	Sun,  8 Mar 2020 11:13:15 -0700 (PDT)
-Received: by mail-pf1-f178.google.com with SMTP id b72so201642pfb.11;
-        Sun, 08 Mar 2020 11:13:15 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=SP/bID3x;
+ spf=pass (domain: gmail.com, ip: 209.85.221.68, mailfrom: ja.kaisrlik@gmail.com)
+Received: by mail-wr1-f68.google.com with SMTP id n15so1894284wrw.13
+        for <poky@lists.yoctoproject.org>; Wed, 11 Mar 2020 03:44:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:from:subject:autocrypt:message-id:date:user-agent:mime-version
-         :content-transfer-encoding:content-language;
-        bh=XEkKq0T5LY6lgE2WKhgEsOYv4DE5i1HuFkZC3HIwHE4=;
-        b=XWR9Xgoi3y6ynQ1Wbqr/2hMMvbpC7xOxCrhGtp7gVIfn6lUuOL8PzKbtw42jSzqGvA
-         SdF4refh2xbXljrzSjoKlA7i6FbeKPXFSDwLJiW7RPIAI048o1KYnInkM5G68v8cvOD+
-         orEJ3CFLNjiMoO23zB3VeoBUdRvLr4srcVrfcEDyq4NvgzkDx2Wdxhly9RcGppTR2bXj
-         xMZQwAxNSj5skbbyBY0u0DMFUmHwLRmlhXcAA4p2Ja8NnDCWjPqZGMtlaSyKbcVN/sod
-         wkHuu2BwHAFXz1oK83UkZTpOvZ+h3G/h7C2kuKsUgXIG3mh5UT9E0Xk+N7YfT0koqSN0
-         g1+w==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=XGgahzjHx/DBsGQbd+NVY7UiApwfG2g0HRgyKvPO/K0=;
+        b=SP/bID3xk3N1KYxkbM6KiqhCSaKTwyet//T+jfMjbZjpvNMiCkBEUq1zOfjw+haEHW
+         kETzc68bQ9TtmhpiYKX46GgB0vKlvezrSjoyVvhK75ASV0HKUkFfhc1V+pNSNKajL/ZM
+         DDYjxptpVFIqgDfN0Df/FJq+WwGJJuxBNYSJyTS15G2+PqvgIrJGtQNBdF9KV0Ui24XR
+         5bJ8h3HQYofxpygkq9S40zmyn+qttqkC2ijuemoQZ7JtzfGtL9iiUIBturn302P1zguZ
+         VtqIHF3kbi6hEiw5bz4tS//mwlKYdQoITdtl3qey9vrb/MwXPCv8W5Eo/sxmQHCD0N7r
+         79Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:from:subject:autocrypt:message-id:date
-         :user-agent:mime-version:content-transfer-encoding:content-language;
-        bh=XEkKq0T5LY6lgE2WKhgEsOYv4DE5i1HuFkZC3HIwHE4=;
-        b=MbNkny4nB0LtylQhkssvvx7IBMLELDE0barhDidY3YLgVdkdLs6VY9bmZ9T7ODjaer
-         L6KTR8KmX+ZfMHhyisDKKqf4ka66MWfBJSQ3JbGKoeLnSipyQEnYKHU/S+0RYNYcoN2v
-         BXoA40ljuCKzLT+kRcChVKxrG+h6ystsLK2S11MqZbsg3FjBJsfSbjd+2KbulrJAWhir
-         h2hqmGr3odbP1dU3dTSqT53CXTOYh044/rTiLrzW/DIqvQU6YzdNUXEnq+BE8IPk+Uyx
-         muY1rhUG3U0NOqYkZHWD4ZhZccgbaa9Pq6CMXJZ9wQFvVkj00gb4Mg1wdGRz3cAEQyMn
-         jMpA==
-X-Gm-Message-State: ANhLgQ2OvjpAzM4ZfZwLhUAKEHhSqyFLW0qtu4hNeNiEpK4mKILKHFOW
-	jixdEp+jO7DqHj/PndPKTjsTVH0y
-X-Google-Smtp-Source: ADFU+vuTcFwHIUksoEFDfc+outSz816phigeyeUwaY2/X39Ae/+BEcPrbYwMSFnpyPYHR6ZutYhy7A==
-X-Received: by 2002:aa7:947d:: with SMTP id t29mr894625pfq.184.1583691195388;
-        Sun, 08 Mar 2020 11:13:15 -0700 (PDT)
-Received: from ?IPv6:2601:202:4180:a5c0:6c62:7a1c:e667:70? ([2601:202:4180:a5c0:6c62:7a1c:e667:70])
-        by smtp.gmail.com with ESMTPSA id c20sm26923337pfc.140.2020.03.08.11.13.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Mar 2020 11:13:14 -0700 (PDT)
-To: "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
- "poky@yoctoproject.org" <poky@yoctoproject.org>,
- "bitbake-devel@lists.openembedded.org"
- <bitbake-devel@lists.openembedded.org>,
- Patches and discussions about the oe-core layer
- <openembedded-core@lists.openembedded.org>
-From: "akuster" <akuster808@gmail.com>
-Subject: Stable life cycle status
-Autocrypt: addr=akuster808@gmail.com; prefer-encrypt=mutual; keydata=
- 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
- 8CS2NxU=
-Message-ID: <ca05c738-c6ff-afa1-8b7b-a84ef6a31261@gmail.com>
-Date: Sun, 8 Mar 2020 11:13:13 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=XGgahzjHx/DBsGQbd+NVY7UiApwfG2g0HRgyKvPO/K0=;
+        b=FS8XZhjqHITcfxI21A9rhaLhBM3D3kuXaVhDPq/WM/CTvm5gPY3lJj5xa200DWuxvp
+         MttDLnv4IMyT6yo8id/WS/RC8PM8n4aMZYBiPdi6+bvvFSopqR9LZHUo/EDV01M305RB
+         toaraZOJYweHWhG7LpcOtuV0dEiFc8C/xTZcQ/P4NO9u7BLhofmsNFtyzIyR+uyziyCC
+         ZWCQe/QQpiSS0k0lyj3xs1EE/twtArl7rXchKoIUO01877scY3A3ZQJrUOTyWbEUCFkS
+         Xe4ie9WO4J0nNXtAL3/657vA9+LuGjOoUPUvhS+2fAviysrqeLhdJvANIk3yZBi7FMa5
+         QJXA==
+X-Gm-Message-State: ANhLgQ0HzpL5BgQfofQ2suzvlec/3C6SW4v54S94J3OdpDRtOluh4I5L
+	q0ak8pyfUYsm5cNNJpBkUGtUfxShBAED2Q==
+X-Google-Smtp-Source: ADFU+vu+/hmHHkSwxvYV7ERXwLGhl4yZCaLo0r+H+Rc5pESdcBnuDuIqQfpLkegy/EIIlI0sKv0k/A==
+X-Received: by 2002:a5d:4ac8:: with SMTP id y8mr3801686wrs.272.1583923482301;
+        Wed, 11 Mar 2020 03:44:42 -0700 (PDT)
+Return-Path: <ja.kaisrlik@gmail.com>
+Received: from xeri-steel.it.int.avast.com ([2001:67c:284:64:2e72:b023:a491:3237])
+        by smtp.gmail.com with ESMTPSA id q16sm55956493wrj.73.2020.03.11.03.44.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Mar 2020 03:44:41 -0700 (PDT)
+From: ja.kaisrlik@gmail.com
+To: poky@lists.yoctoproject.org
+Cc: raj.khem@gmail.com,
+	armccurdy@gmail.com,
+	Jan Kaisrlik <ja.kaisrlik@gmail.com>
+Subject: [meta-poky][PATCH] musl: removes aliases for glibc provided libraries
+Date: Wed, 11 Mar 2020 11:44:23 +0100
+Message-Id: <20200311104423.556794-1-ja.kaisrlik@gmail.com>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Jan Kaisrlik <ja.kaisrlik@gmail.com>
 
-Thud has moved to "Community supported" today.
+Based on the recommendation in musl mailing list[1] All symlinks have
+been removed from musl recipe.
 
-The older releases have moved to EOL as no one has stepped up to take on
-the maintenance of those older branches.
+[1]: https://www.openwall.com/lists/musl/2020/03/10/11
 
+Signed-off-by: Jan Kaisrlik <ja.kaisrlik@gmail.com>
 
-regards,
-Armin
+---
+
+To move discusion from musl mainling list futher I wrote this patch. I'm affraid
+that the patch can break existing builds. OTOH I've tested with my non-trivial
+distro and I find sdk/image working without any additional patches.
+
+ meta/recipes-core/musl/musl_git.bb | 15 +--------------
+ 1 file changed, 1 insertion(+), 14 deletions(-)
+
+diff --git a/meta/recipes-core/musl/musl_git.bb b/meta/recipes-core/musl/musl_git.bb
+index afc8446547..f4fbb03092 100644
+--- a/meta/recipes-core/musl/musl_git.bb
++++ b/meta/recipes-core/musl/musl_git.bb
+@@ -66,24 +66,11 @@ do_install() {
+ 	rm -f ${D}${bindir}/ldd ${D}${GLIBC_LDSO}
+ 	lnr ${D}${libdir}/libc.so ${D}${bindir}/ldd
+ 	lnr ${D}${libdir}/libc.so ${D}${GLIBC_LDSO}
+-	for l in crypt dl m pthread resolv rt util xnet
+-	do
+-		ln -sf libc.so ${D}${libdir}/lib$l.so
+-	done
+-	for i in libc.so.6 libcrypt.so.1 libdl.so.2 libm.so.6 libpthread.so.0 libresolv.so.2 librt.so.1 libutil.so.1; do
+-		ln -sf libc.so ${D}${libdir}/$i
+-	done
+ }
+ 
+ PACKAGES =+ "${PN}-glibc-compat"
+ 
+-FILES_${PN}-glibc-compat += "\
+-                ${libdir}/libc.so.6 ${libdir}/libcrypt.so.1 \
+-                ${libdir}/libdl.so.2 ${libdir}/libm.so.6 \
+-                ${libdir}/libpthread.so.0 ${libdir}/libresolv.so.2 \
+-                ${libdir}/librt.so.1 ${libdir}/libutil.so.1 \
+-                ${GLIBC_LDSO} \
+-                "
++FILES_${PN}-glibc-compat += "${GLIBC_LDSO}"
+ 
+ RDEPENDS_${PN}-dev += "linux-libc-headers-dev bsd-headers-dev libssp-nonshared-staticdev"
+ RPROVIDES_${PN}-dev += "libc-dev virtual-libc-dev"
+-- 
+2.25.0
 
