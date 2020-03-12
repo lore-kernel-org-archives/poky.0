@@ -1,206 +1,86 @@
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com [209.85.222.196])
- by mx.groups.io with SMTP id smtpd.web12.8956.1583936637249469229
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com [209.85.166.54])
+ by mx.groups.io with SMTP id smtpd.web10.7717.1584045896477857132
  for <poky@lists.yoctoproject.org>;
- Wed, 11 Mar 2020 07:23:57 -0700
+ Thu, 12 Mar 2020 13:44:56 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=WzbIBtA9;
- spf=pass (domain: gmail.com, ip: 209.85.222.196, mailfrom: raj.khem@gmail.com)
-Received: by mail-qk1-f196.google.com with SMTP id e11so2197084qkg.9
-        for <poky@lists.yoctoproject.org>; Wed, 11 Mar 2020 07:23:57 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=rC+hZC4q;
+ spf=pass (domain: gmail.com, ip: 209.85.166.54, mailfrom: jan.vermaete@gmail.com)
+Received: by mail-io1-f54.google.com with SMTP id w9so7124242iob.12
+        for <poky@lists.yoctoproject.org>; Thu, 12 Mar 2020 13:44:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Us0oAPt/fHOyg/ZJfXrc6zyAO6T+RlvV1hjlgcszJJk=;
-        b=WzbIBtA9CPB+vVRfA0TpRlp/aHIpUmzs+xMLUIvYUzheO1zdp+6JzCBw4uOcm29jan
-         v6CSqjGkPat0gE0ErTvMelgAJgYtktM5YarLUIw1P57aRD3siHl+aXEBPNqUiHYgPGnI
-         Xao12pIt0wiXRum58pdrGZLk6XKieW+93n+6uyV6dd89peycVep9eyxUH9EEl8TfHbIW
-         acbr8OjjmuyBuS7yRVaBKp16L8vq4lUwC8rqzjrIndHOf88I2Ub1iaGOjTQ7JXHWkQDi
-         so9awF2IUUiW7Eodq993/Ahz+8AFuyjjzeHIaFGGzljqgDZxsxgenVOk1A1wq4yICpCn
-         twfQ==
+        h=mime-version:from:date:message-id:subject:to;
+        bh=hEvd3XwzjzR3k8JU5sn79lohqN7Uac/Y1D2kDBp5fl8=;
+        b=rC+hZC4qVtpLyigtJwyut/jv8BfQlhCGFKaU4ykB22coHtkjdBMfKBbpMlC/TLuUEF
+         V9cD3K0aHRqMMiwNmus7ah1oDNwFNy6EcabrlctAOqX40Jyzr5GRQNgM7MSIQRMp+9kN
+         FwAqxL19oHYSOrfIxPhRLiTLR6fJ31j2D7tF3LDU6L0v6GMcpA0jq09GxLRwGsKgSw9D
+         IEw5p7UHReQuZLGMHJk1k/jaiqYuy+snE/CwJ8MNSsvx4Sv9hyU9kGAQYRYpp92u/E/v
+         R5zYjAB21GAJA36MYdJV3yBAgtU8uMQ8vRowN2Wsb+GT7qpQ6Qe3EeSN8scHjf/P7PZE
+         uTqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Us0oAPt/fHOyg/ZJfXrc6zyAO6T+RlvV1hjlgcszJJk=;
-        b=h21WBlRIHvxEMG/4Up0DWDFPxivJjqxTLzEJwhKe+zc/Ltedqw72eQ66GQq8lOm85M
-         EXihc8tgQegt0hM+jrrlpzIHtSFAGOiHtFzRg59Wl88UWKJ5LysmWdyehNop3oodmREp
-         iX4lLbFpH04k6QIVJi56Rbej5U4JfwGo577JzoeSDmXja+YwMzAaj9aBneybIIOEXoKE
-         isi8eP46Cg9YbYnnCA782A0I1HuBhxGWmhmr9p6zYLneH871AcbUo4gP3XFoSthf8cQa
-         tDVMrfxZK/wUX+RkmYSJwIB3GnIT/7tWto66IqdgLrJ+nrX3IGDndDACKl3ZzbAWxHqJ
-         WRxA==
-X-Gm-Message-State: ANhLgQ10TBzLw+U13aAGu913/+q6F5fc+WqoQuOCsGwcoDKyyg/fcgmZ
-	i97ZQejJS2PSRq14F63vQnpijRxJPVqFAkPCm/U=
-X-Google-Smtp-Source: ADFU+vuu8f0izXDyvxe72sOeJeOZUPbqMf2gpLCEsdjoHpWlGBzhtBEE1xN0eWnFe1Cs2mFpzwd3s+r1DwPGFe7tKmk=
-X-Received: by 2002:a05:620a:94c:: with SMTP id w12mr3048007qkw.165.1583936635505;
- Wed, 11 Mar 2020 07:23:55 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=hEvd3XwzjzR3k8JU5sn79lohqN7Uac/Y1D2kDBp5fl8=;
+        b=IPqWW9WmlC7cZam2+oQMrRt1wZi2AwRLP/28NIRzjZ5r21DXXQoEl8s7bSd5T3EIbL
+         4Pc1x2IbzYTqrEbYnoOVZ4ftFc3U4uq9MyvaNp1R9Igl+ZR0KmLJXVpmqrIrKHT55jsV
+         r5g+A/4JOMmaDZrH/Ct7tK1w8q0Qu+Bnrayv2aGaif0rWhA6gFGkZEBpqsdmv/aj8MG/
+         k1oUQ2xNkUhFvvoxFIpnOcEA7YpOfj5sAJt3OUKIJHVGIcVgMeE1UllECBU/Od+8w8WM
+         wms2yzsWmUe7SUlsd8C2v82lo8HFIchPM+/kMTYtZpwOt+k4CweGmMyFsd39rLmChfvj
+         lArw==
+X-Gm-Message-State: ANhLgQ1AFJJ5SYPtkUtdtXUDx1pgyleicYEmbZKCDsbHFP5S/NNIPcAY
+	3DvofTqB4udcoha54+MdbPeIg9mB/NpiOxFyKt7GWabUwz0=
+X-Google-Smtp-Source: ADFU+vsrQ1mpfWVy0w8yWrKPw7pO9uy8wb0ZSRJ4xQD3Ym/tuM57KRmhX6iRfp38ocn/xyjp6NaCYLZV1StFg7L0O4Q=
+X-Received: by 2002:a5d:8952:: with SMTP id b18mr9474815iot.40.1584045895749;
+ Thu, 12 Mar 2020 13:44:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200311104423.556794-1-ja.kaisrlik@gmail.com>
-In-Reply-To: <20200311104423.556794-1-ja.kaisrlik@gmail.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Wed, 11 Mar 2020 07:23:44 -0700
-Message-ID: <CAMKF1srrBL2q0a+3LY2-fdajfazZZTui+HJWqxTNv-Z3JdUrOw@mail.gmail.com>
-Subject: Re: [meta-poky][PATCH] musl: removes aliases for glibc provided libraries
-To: ja.kaisrlik@gmail.com
-Cc: armccurdy@gmail.com, poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000818fdd05a094fc49"
-
---000000000000818fdd05a094fc49
+From: "jan" <jan.vermaete@gmail.com>
+Date: Thu, 12 Mar 2020 21:44:44 +0100
+Message-ID: <CABF_=yj4KOgvujFJyS6NPY0vQBf=1HyErgLHf3a0V9QW7r-Bhg@mail.gmail.com>
+Subject: [PATCH] [scripts] Cleaned some python2 leftover in ksize.py
+To: poky@lists.yoctoproject.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Mar 11, 2020 at 3:44 AM <ja.kaisrlik@gmail.com> wrote:
+Although the script was running with Python3, almost no detailed
+output was generated.
 
-> From: Jan Kaisrlik <ja.kaisrlik@gmail.com>
->
-> Based on the recommendation in musl mailing list[1] All symlinks have
-> been removed from musl recipe.
->
-> [1]: https://www.openwall.com/lists/musl/2020/03/10/11
->
-> Signed-off-by: Jan Kaisrlik <ja.kaisrlik@gmail.com>
->
-> ---
->
-> To move discusion from musl mainling list futher I wrote this patch. I'm
-> affraid
-> that the patch can break existing builds. OTOH I've tested with my
-> non-trivial
-> distro and I find sdk/image working without any additional patches.
->
+Signed-off-by: Jan Vermaete <jan.vermaete@gmail.com>
+---
+ scripts/tiny/ksize.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Reason was to have some of prebuilt application work but I guess that could
-now have grcompat perhaps
-So this might be doable now I will have to test this patch a bit and see
-how it goes
+diff --git a/scripts/tiny/ksize.py b/scripts/tiny/ksize.py
+index bc11919f4b..8316b85cb1 100755
+--- a/scripts/tiny/ksize.py
++++ b/scripts/tiny/ksize.py
+@@ -27,7 +27,7 @@ def usage():
+ class Sizes:
+     def __init__(self, glob):
+         self.title = glob
+-        p = Popen("size -t " + str(glob), shell=True, stdout=PIPE, stderr=PIPE)
++        p = Popen("size -t " + str(glob), shell=True, stdout=PIPE,
+stderr=PIPE, universal_newlines=True)
+         output = p.communicate()[0].splitlines()
+         if len(output) > 2:
+             sizes = output[-1].split()[0:4]
+@@ -49,14 +49,14 @@ class Report:
+         path = os.path.dirname(filename)
 
->
->  meta/recipes-core/musl/musl_git.bb | 15 +--------------
->  1 file changed, 1 insertion(+), 14 deletions(-)
->
-> diff --git a/meta/recipes-core/musl/musl_git.bb b/meta/recipes-core/musl/
-> musl_git.bb
-> index afc8446547..f4fbb03092 100644
-> --- a/meta/recipes-core/musl/musl_git.bb
-> +++ b/meta/recipes-core/musl/musl_git.bb
-> @@ -66,24 +66,11 @@ do_install() {
->         rm -f ${D}${bindir}/ldd ${D}${GLIBC_LDSO}
->         lnr ${D}${libdir}/libc.so ${D}${bindir}/ldd
->         lnr ${D}${libdir}/libc.so ${D}${GLIBC_LDSO}
-> -       for l in crypt dl m pthread resolv rt util xnet
-> -       do
-> -               ln -sf libc.so ${D}${libdir}/lib$l.so
-> -       done
-> -       for i in libc.so.6 libcrypt.so.1 libdl.so.2 libm.so.6
-> libpthread.so.0 libresolv.so.2 librt.so.1 libutil.so.1; do
-> -               ln -sf libc.so ${D}${libdir}/$i
-> -       done
->  }
->
->  PACKAGES =+ "${PN}-glibc-compat"
->
-> -FILES_${PN}-glibc-compat += "\
-> -                ${libdir}/libc.so.6 ${libdir}/libcrypt.so.1 \
-> -                ${libdir}/libdl.so.2 ${libdir}/libm.so.6 \
-> -                ${libdir}/libpthread.so.0 ${libdir}/libresolv.so.2 \
-> -                ${libdir}/librt.so.1 ${libdir}/libutil.so.1 \
-> -                ${GLIBC_LDSO} \
-> -                "
-> +FILES_${PN}-glibc-compat += "${GLIBC_LDSO}"
->
->  RDEPENDS_${PN}-dev += "linux-libc-headers-dev bsd-headers-dev
-> libssp-nonshared-staticdev"
->  RPROVIDES_${PN}-dev += "libc-dev virtual-libc-dev"
-> --
-> 2.25.0
->
->
+         p = Popen("ls " + str(path) + "/*.o | grep -v built-in.o",
+-                  shell=True, stdout=PIPE, stderr=PIPE)
++                  shell=True, stdout=PIPE, stderr=PIPE,
+universal_newlines=True)
+         glob = ' '.join(p.communicate()[0].splitlines())
+         oreport = Report(glob, str(path) + "/*.o")
+         oreport.sizes.title = str(path) + "/*.o"
+         r.parts.append(oreport)
 
---000000000000818fdd05a094fc49
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Wed, Mar 11, 2020 at 3:44 AM &lt;<a href=3D"mailto:ja.ka=
-isrlik@gmail.com">ja.kaisrlik@gmail.com</a>&gt; wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
-d;padding-left:1ex">From: Jan Kaisrlik &lt;<a href=3D"mailto:ja.kaisrlik@gm=
-ail.com" target=3D"_blank">ja.kaisrlik@gmail.com</a>&gt;<br>
-<br>
-Based on the recommendation in musl mailing list[1] All symlinks have<br>
-been removed from musl recipe.<br>
-<br>
-[1]: <a href=3D"https://www.openwall.com/lists/musl/2020/03/10/11" rel=3D"n=
-oreferrer" target=3D"_blank">https://www.openwall.com/lists/musl/2020/03/10=
-/11</a><br>
-<br>
-Signed-off-by: Jan Kaisrlik &lt;<a href=3D"mailto:ja.kaisrlik@gmail.com" ta=
-rget=3D"_blank">ja.kaisrlik@gmail.com</a>&gt;<br>
-<br>
----<br>
-<br>
-To move discusion from musl mainling list futher I wrote this patch. I&#39;=
-m affraid<br>
-that the patch can break existing builds. OTOH I&#39;ve tested with my non-=
-trivial<br>
-distro and I find sdk/image working without any additional patches.<br>
-</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto">Reason was to ha=
-ve some of prebuilt application work but I guess that could now have grcomp=
-at perhaps=C2=A0</div><div dir=3D"auto">So this might be doable now I will =
-have to test this patch a bit and see how=C2=A0it goes</div><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
-dding-left:1ex"><br>
-=C2=A0meta/recipes-core/musl/<a href=3D"http://musl_git.bb" rel=3D"noreferr=
-er" target=3D"_blank">musl_git.bb</a> | 15 +--------------<br>
-=C2=A01 file changed, 1 insertion(+), 14 deletions(-)<br>
-<br>
-diff --git a/meta/recipes-core/musl/<a href=3D"http://musl_git.bb" rel=3D"n=
-oreferrer" target=3D"_blank">musl_git.bb</a> b/meta/recipes-core/musl/<a hr=
-ef=3D"http://musl_git.bb" rel=3D"noreferrer" target=3D"_blank">musl_git.bb<=
-/a><br>
-index afc8446547..f4fbb03092 100644<br>
---- a/meta/recipes-core/musl/<a href=3D"http://musl_git.bb" rel=3D"noreferr=
-er" target=3D"_blank">musl_git.bb</a><br>
-+++ b/meta/recipes-core/musl/<a href=3D"http://musl_git.bb" rel=3D"noreferr=
-er" target=3D"_blank">musl_git.bb</a><br>
-@@ -66,24 +66,11 @@ do_install() {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 rm -f ${D}${bindir}/ldd ${D}${GLIBC_LDSO}<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 lnr ${D}${libdir}/libc.so ${D}${bindir}/ldd<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 lnr ${D}${libdir}/libc.so ${D}${GLIBC_LDSO}<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0for l in crypt dl m pthread resolv rt util xnet=
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0do<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ln -sf libc.so ${D}=
-${libdir}/lib$l.so<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0done<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0for i in libc.so.6 libcrypt.so.1 libdl.so.2 lib=
-m.so.6 libpthread.so.0 libresolv.so.2 librt.so.1 libutil.so.1; do<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ln -sf libc.so ${D}=
-${libdir}/$i<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0done<br>
-=C2=A0}<br>
-<br>
-=C2=A0PACKAGES =3D+ &quot;${PN}-glibc-compat&quot;<br>
-<br>
--FILES_${PN}-glibc-compat +=3D &quot;\<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ${libdir}/libc.so.=
-6 ${libdir}/libcrypt.so.1 \<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ${libdir}/libdl.so=
-.2 ${libdir}/libm.so.6 \<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ${libdir}/libpthre=
-ad.so.0 ${libdir}/libresolv.so.2 \<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ${libdir}/librt.so=
-.1 ${libdir}/libutil.so.1 \<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ${GLIBC_LDSO} \<br=
->
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;<br>
-+FILES_${PN}-glibc-compat +=3D &quot;${GLIBC_LDSO}&quot;<br>
-<br>
-=C2=A0RDEPENDS_${PN}-dev +=3D &quot;linux-libc-headers-dev bsd-headers-dev =
-libssp-nonshared-staticdev&quot;<br>
-=C2=A0RPROVIDES_${PN}-dev +=3D &quot;libc-dev virtual-libc-dev&quot;<br>
--- <br>
-2.25.0<br>
-<br>
-</blockquote></div></div>
-
---000000000000818fdd05a094fc49--
+         if subglob:
+-            p = Popen("ls " + subglob, shell=True, stdout=PIPE, stderr=PIPE)
++            p = Popen("ls " + subglob, shell=True, stdout=PIPE,
+stderr=PIPE, universal_newlines=True)
+             for f in p.communicate()[0].splitlines():
+                 path = os.path.dirname(f)
+                 r.parts.append(Report.create(f, path, str(path) +
+"/*/built-in.o"))
+--
+2.17.1
