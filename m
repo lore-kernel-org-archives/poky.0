@@ -1,74 +1,54 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web10.20982.1584122613337306718
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+ by mx.groups.io with SMTP id smtpd.web10.1011.1584479588578031203
  for <poky@lists.yoctoproject.org>;
- Fri, 13 Mar 2020 11:03:33 -0700
+ Tue, 17 Mar 2020 14:13:08 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=SCYRuG9X;
- spf=softfail (domain: gmail.com, ip: 140.211.169.56, mailfrom: akuster808@gmail.com)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id C5EB5E01841; Fri, 13 Mar 2020 11:03:32 -0700 (PDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE autolearn=ham
-	version=3.3.1
-X-Spam-HAM-Report: 
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	*  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail provider
-	*      (akuster808[at]gmail.com)
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
-	*      trust
-	*      [209.85.214.169 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
-	*       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 53BC4E0183B;
-	Fri, 13 Mar 2020 11:03:32 -0700 (PDT)
-Received: by mail-pl1-f169.google.com with SMTP id w12so4600930pll.13;
-        Fri, 13 Mar 2020 11:03:32 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=Q8DnguBn;
+ spf=pass (domain: gmail.com, ip: 209.85.210.172, mailfrom: akuster808@gmail.com)
+Received: by mail-pf1-f172.google.com with SMTP id c19so12631125pfo.13
+        for <poky@lists.yoctoproject.org>; Tue, 17 Mar 2020 14:13:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:from:subject:autocrypt:message-id:date:user-agent:mime-version
-         :content-transfer-encoding:content-language;
-        bh=LGQ6K3DIrn5xRqxvcBNLQM7xFvQbGFiU/Wb5RdyijfM=;
-        b=SCYRuG9Xdrx1p6eZhWB9/u4LW2Q+h5fAZVJQf25YBFof3wQdPY6XfLxpCLGS0JIIbV
-         uwiOOar4LLaYHUjRtre730Ykp3Ax4MTjEFx4oQshcVhcXu4rQi2KGLRqVApXnDj9fQCn
-         3iatVFOh5wZnsnKWivCqnFdlzy0z2NEB/W8LI70CQKDYGRLtG/RGbuP0IIHaiS9jxSAl
-         mO6CDvGRk7/1JOrzNnq6oGB3/Me8EqDsEIPUYiVXVUCH3PYT5o7P2z1QYdlQWfMBrVDd
-         uncD1zruMEaYWNEHrL+PSXPhDU2/Jb8mxdECuDeRUqDVEWW5ZQYuxTxTdd/qmV5K105X
-         rCzA==
+        h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language;
+        bh=gEzqbPMZYlaXOIEd44OYPIAmGMCpDp+KgWtldYzBw/c=;
+        b=Q8DnguBnIoQASDcKSNJgcv+vFqv9xgpI7Q2Iigo0t5LU2X8RP7KnqgpF4t6o8Mhwff
+         t+Cx4MkkuFsL297JfzHUy9SLT5XBON0qnCmfcw8QRnsN8e+EnLLz5GpGwTAGZLHzGGOg
+         +mnn9cO6VNPqXEHubO7ye/dz9nNF8a9CfVqS8KdHz8k0Ui7062TgTy4zoyBE2lgPAoHm
+         EQIiJE4asCBJHfyFhERDZWYeZjM6ewvt04nPhNScVFQlYcpCRA4P8qZspUfWgn6jp6BK
+         tcetey5oxccQnhPhe1S5XrxJf83K3ocW7W7EXXW31GgShJYv1OaPsUiFHA3iea0xa68b
+         EIZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:from:subject:autocrypt:message-id:date
-         :user-agent:mime-version:content-transfer-encoding:content-language;
-        bh=LGQ6K3DIrn5xRqxvcBNLQM7xFvQbGFiU/Wb5RdyijfM=;
-        b=M9QmCGoG9XtRCQbHxUtr8px1dI/Ep+Q+5NKX4l7qlGq00H/BPWOBINIIgL1lJWr0aa
-         /RceJ+gxCCAHaJjCyp5u6y9ncejOH9a58DDY8xAFCGorNRjuo5Mwvxl/UnTPNqGJ6X89
-         +VDXMp+bAx+qsw05GcOnZ71mi1TLlwbmaPHFOmCScznmbe8yje1O7GFrPc6FShu8PaaQ
-         DQUkd42udSBAXqFgBTSI+3z4TmY8ZtoBGfZyXJB+gDTsnWPgSJFtfzOhGxPKkpLDWkJG
-         psTtVKfZ8x/I/tiGzcUkq0w4jvCy9LCQ7c2xHYyRL9XyJ/mm9j+47JOyV+tL6Fr4a7xh
-         4sxA==
-X-Gm-Message-State: ANhLgQ1i5IBhnMmj1cSjXotriO+h8VaIWyVqCmz/bE/dkqIG5ql8gNZk
-	P8igOpkstN8asSJz0jpECIQ=
-X-Google-Smtp-Source: ADFU+vvcCSfbsJzpHsvm1IhyQYA4ihAFBs8akhu4kqSLXNGhl4cYCcXGSwPckCK4yC4jEHVVEsmBXQ==
-X-Received: by 2002:a17:90a:bd86:: with SMTP id z6mr10977441pjr.15.1584122611654;
-        Fri, 13 Mar 2020 11:03:31 -0700 (PDT)
-Received: from ?IPv6:2601:202:4180:a5c0:7d2d:b94:8631:6205? ([2601:202:4180:a5c0:7d2d:b94:8631:6205])
-        by smtp.gmail.com with ESMTPSA id i2sm21870430pfr.151.2020.03.13.11.03.30
+        h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language;
+        bh=gEzqbPMZYlaXOIEd44OYPIAmGMCpDp+KgWtldYzBw/c=;
+        b=RIgUdjBIUy32RuiVq+b+sFgaUkdCZzyz47Af70bSL7ZHkMaJgAT9aHP+kOX+wdR61Y
+         +xkR4+cQtpIB/47ygKP5iCBPMpkuLY3YPpIUvHKivqB54pfY1v4oGszoCGaw21EC+7UW
+         FWX3/6TE762lR9mFbYVA+UgVRRkmkNVbEg15t0PojzlK7fkwSRxduXub/DuAQyyvgfQ8
+         wDVtdXjraVD/hrMc8yvlJRZxxaAWvsFJlD2bh2RYaK5+QnQPstHrNrrIUQy58aHqNadb
+         UsgWR5ILiMQv+wMv7XZwOnzVIs7+Ot4HGiohHw1OqRBUs6Mih7VHLMzhICE/hhiBsyBE
+         Hw0Q==
+X-Gm-Message-State: ANhLgQ25+/GsZY1Rm/2H+PBhd7fsTtjtbw1XojvdkVrFLQotoz6VPs9C
+	mOUO+LpaL3NVBZPeNn1UBgtN4OHd
+X-Google-Smtp-Source: ADFU+vsQCo6jZ1mavi6V8VWed7mif2mxeBpRfihsjQD4E/gUES3emPXR+dxK6p9MC4D98tkQD9EaYg==
+X-Received: by 2002:a62:1894:: with SMTP id 142mr757511pfy.27.1584479587851;
+        Tue, 17 Mar 2020 14:13:07 -0700 (PDT)
+Return-Path: <akuster808@gmail.com>
+Received: from ?IPv6:2601:202:4180:a5c0:8879:dca4:8dd7:7b83? ([2601:202:4180:a5c0:8879:dca4:8dd7:7b83])
+        by smtp.gmail.com with ESMTPSA id r13sm3579171pgf.1.2020.03.17.14.12.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Mar 2020 11:03:31 -0700 (PDT)
+        Tue, 17 Mar 2020 14:13:01 -0700 (PDT)
+Subject: Re: [poky] Thud community support
 To: Patches and discussions about the oe-core layer
  <openembedded-core@lists.openembedded.org>,
  "yocto@yoctoproject.org" <yocto@yoctoproject.org>,
  "poky@yoctoproject.org" <poky@yoctoproject.org>,
  "bitbake-devel@lists.openembedded.org" <bitbake-devel@lists.openembedded.org>
+Cc: poky@lists.yoctoproject.org
+References: <15FBEF1FC40D189D.8114@lists.yoctoproject.org>
 From: "akuster" <akuster808@gmail.com>
-Subject: Thud community support
 Autocrypt: addr=akuster808@gmail.com; prefer-encrypt=mutual; keydata=
  xsFNBFnlUP4BEADpKf+FQdLykenQXKk8i6xJNxDow+ypFeVAy8iFJp7Dsev+BtwUFo8VG7hx
  Jmd71vHMw+coBetWC3lk+IKjX815Ox0puYXQVRRtI+yMCgd6ib3oGxoQ8tCMwhf9c9/aKjaz
@@ -112,19 +92,79 @@ Autocrypt: addr=akuster808@gmail.com; prefer-encrypt=mutual; keydata=
  PNHndk8VBTpzrmOaJxrebNL/W6C8JCmbLM11TAUMmHYi9JDytN8Au78hWpDbIdKwg1LeSxpw
  ZZD/OqOc0DBvHOpQhzkSrtR1lVlDV/+9E8J1T4uDhrGmZwYV+4xQetypHax8aAHisYbjXdVa
  8CS2NxU=
-Message-ID: <cfa17dac-03d6-0248-fa3c-0e6112d62371@gmail.com>
-Date: Fri, 13 Mar 2020 11:03:29 -0700
+Message-ID: <81fb73b4-f683-5356-ff07-1ac909afb97d@gmail.com>
+Date: Tue, 17 Mar 2020 14:12:54 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <15FBEF1FC40D189D.8114@lists.yoctoproject.org>
+Content-Type: multipart/alternative;
+ boundary="------------19E5ED9D72DA0BCF347BA809"
 Content-Language: en-US
 
+--------------19E5ED9D72DA0BCF347BA809
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+
+
+On 3/13/20 11:03 AM, akuster via Lists.Yoctoproject.Org wrote:
+> The Poky thud branch is now under 'Community support' and is seeking a
+> maintainer to continue supporting the following repos for the thud relea=
+se:
+>
+> bitbake, core, meta-yocto and yocto-docs.
+>
+>
+> There will be no more point releases.
+>
+> see
+> https://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maintainer_Pro=
+cedures=C2=A0
+> to get an idea on what is expected.
+>
+> The one thing we (YP) don't know is if there will be AutoBuilder
+> resources available.=C2=A0 Please contact me or Richard regarding that s=
+tatement.
+>
+> If no one steps up by April 24th (six weeks -ish from now), Thud will be
+> moved to EOL status.
+
+It was pointed out to me that there is no Maintainer selection process
+or criteria defined.=C2=A0 This=C2=A0 will have to be sorted out before we=
+ move
+forward on this transition.
+
+
+- armin
+
+> - Armin
+>
+>
+>
+>
+>=20
+
+
+--------------19E5ED9D72DA0BCF347BA809
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 3/13/20 11:03 AM, akuster via
+      Lists.Yoctoproject.Org wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:15FBEF1FC40D189D.8114@lists.yoctoproject.org">
+      <pre class="moz-quote-pre" wrap="">
 The Poky thud branch is now under 'Community support' and is seeking a
-maintainer to continue supporting the following repos for the thud releas=
-e:
+maintainer to continue supporting the following repos for the thud release:
 
 bitbake, core, meta-yocto and yocto-docs.
 
@@ -132,18 +172,39 @@ bitbake, core, meta-yocto and yocto-docs.
 There will be no more point releases.
 
 see
-https://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maintainer_Proc=
-edures=C2=A0
+<a class="moz-txt-link-freetext" href="https://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maintainer_Procedures">https://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maintainer_Procedures</a> 
 to get an idea on what is expected.
 
 The one thing we (YP) don't know is if there will be AutoBuilder
-resources available.=C2=A0 Please contact me or Richard regarding that st=
-atement.
+resources available.  Please contact me or Richard regarding that statement.
 
 If no one steps up by April 24th (six weeks -ish from now), Thud will be
 moved to EOL status.
-
+</pre>
+    </blockquote>
+    <br>
+    It was pointed out to me that there is no Maintainer selection
+    process or criteria defined.  This  will have to be sorted out
+    before we move forward on this transition.<br>
+    <br>
+    <br>
+    - armin<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:15FBEF1FC40D189D.8114@lists.yoctoproject.org">
+      <pre class="moz-quote-pre" wrap="">
 - Armin
 
 
 
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------19E5ED9D72DA0BCF347BA809--
