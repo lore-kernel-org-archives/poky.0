@@ -1,69 +1,76 @@
-Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.64])
- by mx.groups.io with SMTP id smtpd.web11.14126.1585928646480159156
+Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
+ by mx.groups.io with SMTP id smtpd.web11.15236.1585931135633114315
  for <poky@lists.yoctoproject.org>;
- Fri, 03 Apr 2020 08:44:06 -0700
+ Fri, 03 Apr 2020 09:25:35 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=none, err=permanent DNS error (domain: denix.org, ip: 64.68.198.64, mailfrom: denis@denix.org)
-Received: from localhost (localhost [127.0.0.1])
-	by mailout4.zoneedit.com (Postfix) with ESMTP id A987440BAC;
-	Fri,  3 Apr 2020 15:44:05 +0000 (UTC)
-Received: from mailout4.zoneedit.com ([127.0.0.1])
-	by localhost (zmo14-pco.easydns.vpn [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 2QMhHIsIoW9C; Fri,  3 Apr 2020 15:44:05 +0000 (UTC)
-Received: from mail.denix.org (pool-100-15-86-127.washdc.fios.verizon.net [100.15.86.127])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mailout4.zoneedit.com (Postfix) with ESMTPSA id 7190A400E8;
-	Fri,  3 Apr 2020 15:44:02 +0000 (UTC)
-Received: by mail.denix.org (Postfix, from userid 1000)
-	id 34D091718F5; Fri,  3 Apr 2020 11:44:02 -0400 (EDT)
-Date: Fri, 3 Apr 2020 11:44:02 -0400
-From: "Denys Dmytriyenko" <denis@denix.org>
-To: Paul Gortmaker <paul.gortmaker@windriver.com>
-Cc: poky@lists.yoctoproject.org, Ross Burton <ross.burton@intel.com>
+ dkim=missing; spf=pass (domain: windriver.com, ip: 147.11.1.11, mailfrom: paul.gortmaker@windriver.com)
+Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com [147.11.189.41])
+	by mail.windriver.com (8.15.2/8.15.2) with ESMTPS id 033GPRBE028410
+	(version=TLSv1 cipher=AES256-SHA bits=256 verify=FAIL);
+	Fri, 3 Apr 2020 09:25:27 -0700 (PDT)
+Received: from yow-pgortmak-d1.corp.ad.wrs.com (128.224.56.57) by
+ ALA-HCB.corp.ad.wrs.com (147.11.189.41) with Microsoft SMTP Server id
+ 14.3.487.0; Fri, 3 Apr 2020 09:25:21 -0700
+Received: by yow-pgortmak-d1.corp.ad.wrs.com (Postfix, from userid 1000)	id
+ 78BFC2E0361; Fri,  3 Apr 2020 12:25:21 -0400 (EDT)
+Date: Fri, 3 Apr 2020 12:25:21 -0400
+From: "Paul Gortmaker" <paul.gortmaker@windriver.com>
+To: Denys Dmytriyenko <denis@denix.org>
+CC: <poky@lists.yoctoproject.org>, Ross Burton <ross.burton@intel.com>
 Subject: Re: [poky] [PATCH] sanity.bbclass: echo current SDK_VENDOR if it is invalid
-Message-ID: <20200403154402.GV1578@denix.org>
+Message-ID: <20200403162520.GP6244@windriver.com>
 References: <20200403153151.15242-1-paul.gortmaker@windriver.com>
+ <20200403154402.GV1578@denix.org>
 MIME-Version: 1.0
-In-Reply-To: <20200403153151.15242-1-paul.gortmaker@windriver.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Content-Type: text/plain; charset=us-ascii
+In-Reply-To: <20200403154402.GV1578@denix.org>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
 
-Why Poky? Should this go to OE-Core?
+[Re: [poky] [PATCH] sanity.bbclass: echo current SDK_VENDOR if it is invalid] On 03/04/2020 (Fri 11:44) Denys Dmytriyenko wrote:
 
-On Fri, Apr 03, 2020 at 11:31:51AM -0400, Paul Gortmaker wrote:
-> It can be frustrating if this sanity check triggers, but you
-> don't know why; you haven't explicitly set any SDK vars, or
-> similar.
-> 
-> At least echo out the offending value, so the end user has
-> a bit more information to go on.
-> 
-> Before:
->   SDK_VENDOR should be of the form '-foosdk' with a single dash
-> After:
->   SDK_VENDOR should be of the form '-foosdk' with a single dash; found '-overc-sdk'
-> 
-> Cc: Ross Burton <ross.burton@intel.com>
-> Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
-> 
-> diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
-> index 88888e814a48..c823b49c03b0 100644
-> --- a/meta/classes/sanity.bbclass
-> +++ b/meta/classes/sanity.bbclass
-> @@ -823,7 +823,7 @@ def check_sanity_everybuild(status, d):
->      # If SDK_VENDOR looks like "-my-sdk" then the triples are badly formed so fail early
->      sdkvendor = d.getVar("SDK_VENDOR")
->      if not (sdkvendor.startswith("-") and sdkvendor.count("-") == 1):
-> -        status.addresult("SDK_VENDOR should be of the form '-foosdk' with a single dash\n")
-> +        status.addresult("SDK_VENDOR should be of the form '-foosdk' with a single dash; found '%s'\n" % sdkvendor)
->  
->      check_supported_distro(d)
->  
-> -- 
-> 2.17.1
-> 
+> Why Poky? Should this go to OE-Core?
 
-> 
+Probably.  Maybe after another 10y with yocto/oe-core/poky I'll finally
+manage to get the right mailing lists for the right components...?
 
+Anyway, thanks - resent to oe-core.
+
+Paul.
+--
+> 
+> On Fri, Apr 03, 2020 at 11:31:51AM -0400, Paul Gortmaker wrote:
+> > It can be frustrating if this sanity check triggers, but you
+> > don't know why; you haven't explicitly set any SDK vars, or
+> > similar.
+> > 
+> > At least echo out the offending value, so the end user has
+> > a bit more information to go on.
+> > 
+> > Before:
+> >   SDK_VENDOR should be of the form '-foosdk' with a single dash
+> > After:
+> >   SDK_VENDOR should be of the form '-foosdk' with a single dash; found '-overc-sdk'
+> > 
+> > Cc: Ross Burton <ross.burton@intel.com>
+> > Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
+> > 
+> > diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
+> > index 88888e814a48..c823b49c03b0 100644
+> > --- a/meta/classes/sanity.bbclass
+> > +++ b/meta/classes/sanity.bbclass
+> > @@ -823,7 +823,7 @@ def check_sanity_everybuild(status, d):
+> >      # If SDK_VENDOR looks like "-my-sdk" then the triples are badly formed so fail early
+> >      sdkvendor = d.getVar("SDK_VENDOR")
+> >      if not (sdkvendor.startswith("-") and sdkvendor.count("-") == 1):
+> > -        status.addresult("SDK_VENDOR should be of the form '-foosdk' with a single dash\n")
+> > +        status.addresult("SDK_VENDOR should be of the form '-foosdk' with a single dash; found '%s'\n" % sdkvendor)
+> >  
+> >      check_supported_distro(d)
+> >  
+> > -- 
+> > 2.17.1
+> > 
+> 
+> > 
+> 
