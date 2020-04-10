@@ -1,76 +1,48 @@
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
- by mx.groups.io with SMTP id smtpd.web11.15236.1585931135633114315
- for <poky@lists.yoctoproject.org>;
- Fri, 03 Apr 2020 09:25:35 -0700
-Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: windriver.com, ip: 147.11.1.11, mailfrom: paul.gortmaker@windriver.com)
-Received: from ALA-HCB.corp.ad.wrs.com (ala-hcb.corp.ad.wrs.com [147.11.189.41])
-	by mail.windriver.com (8.15.2/8.15.2) with ESMTPS id 033GPRBE028410
-	(version=TLSv1 cipher=AES256-SHA bits=256 verify=FAIL);
-	Fri, 3 Apr 2020 09:25:27 -0700 (PDT)
-Received: from yow-pgortmak-d1.corp.ad.wrs.com (128.224.56.57) by
- ALA-HCB.corp.ad.wrs.com (147.11.189.41) with Microsoft SMTP Server id
- 14.3.487.0; Fri, 3 Apr 2020 09:25:21 -0700
-Received: by yow-pgortmak-d1.corp.ad.wrs.com (Postfix, from userid 1000)	id
- 78BFC2E0361; Fri,  3 Apr 2020 12:25:21 -0400 (EDT)
-Date: Fri, 3 Apr 2020 12:25:21 -0400
-From: "Paul Gortmaker" <paul.gortmaker@windriver.com>
-To: Denys Dmytriyenko <denis@denix.org>
-CC: <poky@lists.yoctoproject.org>, Ross Burton <ross.burton@intel.com>
-Subject: Re: [poky] [PATCH] sanity.bbclass: echo current SDK_VENDOR if it is invalid
-Message-ID: <20200403162520.GP6244@windriver.com>
-References: <20200403153151.15242-1-paul.gortmaker@windriver.com>
- <20200403154402.GV1578@denix.org>
+Subject: Command to get info about packagegroup used in image ?
+To: poky@lists.yoctoproject.org
+From: "Ashishx88" <ashish.emailaddress@gmail.com>
+X-Originating-Location: Bengaluru, Karnataka, IN (115.99.51.37)
+X-Originating-Platform: Linux Chrome 81
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-In-Reply-To: <20200403154402.GV1578@denix.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
+Date: Fri, 10 Apr 2020 02:48:23 -0700
+Message-ID: <iWBy.1586512103788840584.bqxi@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="CZlvkeOv7sOZnyX0ZIV3"
 
-[Re: [poky] [PATCH] sanity.bbclass: echo current SDK_VENDOR if it is invalid] On 03/04/2020 (Fri 11:44) Denys Dmytriyenko wrote:
+--CZlvkeOv7sOZnyX0ZIV3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Why Poky? Should this go to OE-Core?
+Hi All ,
 
-Probably.  Maybe after another 10y with yocto/oe-core/poky I'll finally
-manage to get the right mailing lists for the right components...?
+Is there any command or way to track the packagegroup being used in any im=
+age ?
 
-Anyway, thanks - resent to oe-core.
+Scenario:
+Say we have an IMAGE which makes use of =C2=A0packagegroup-core-"X" & this=
+ internally uses=C2=A0=C2=A0packagegroup-core-"Y" which adds package-1,pack=
+age2 etc to image.
+Is there any command or mechanism by which we can know this info without m=
+anually going through each=C2=A0=C2=A0packagegroup-core-FILE
 
-Paul.
---
-> 
-> On Fri, Apr 03, 2020 at 11:31:51AM -0400, Paul Gortmaker wrote:
-> > It can be frustrating if this sanity check triggers, but you
-> > don't know why; you haven't explicitly set any SDK vars, or
-> > similar.
-> > 
-> > At least echo out the offending value, so the end user has
-> > a bit more information to go on.
-> > 
-> > Before:
-> >   SDK_VENDOR should be of the form '-foosdk' with a single dash
-> > After:
-> >   SDK_VENDOR should be of the form '-foosdk' with a single dash; found '-overc-sdk'
-> > 
-> > Cc: Ross Burton <ross.burton@intel.com>
-> > Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
-> > 
-> > diff --git a/meta/classes/sanity.bbclass b/meta/classes/sanity.bbclass
-> > index 88888e814a48..c823b49c03b0 100644
-> > --- a/meta/classes/sanity.bbclass
-> > +++ b/meta/classes/sanity.bbclass
-> > @@ -823,7 +823,7 @@ def check_sanity_everybuild(status, d):
-> >      # If SDK_VENDOR looks like "-my-sdk" then the triples are badly formed so fail early
-> >      sdkvendor = d.getVar("SDK_VENDOR")
-> >      if not (sdkvendor.startswith("-") and sdkvendor.count("-") == 1):
-> > -        status.addresult("SDK_VENDOR should be of the form '-foosdk' with a single dash\n")
-> > +        status.addresult("SDK_VENDOR should be of the form '-foosdk' with a single dash; found '%s'\n" % sdkvendor)
-> >  
-> >      check_supported_distro(d)
-> >  
-> > -- 
-> > 2.17.1
-> > 
-> 
-> > 
-> 
+Idea is to know which package the=C2=A0=C2=A0packagegroup-core-FILE will a=
+dd to image .
+
+Thanks
+Ashish
+
+--CZlvkeOv7sOZnyX0ZIV3
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi All ,<br /><br />Is there any command or way to track the packagegroup b=
+eing used in any image ?<br /><br />Scenario:<br />Say we have an IMAGE whi=
+ch makes use of &nbsp;packagegroup-core-"X" &amp; this internally uses&nbsp=
+;&nbsp;packagegroup-core-"Y" which adds package-1,package2 etc to image.<br=
+ />Is there any command or mechanism by which we can know this info without=
+ manually going through each&nbsp;&nbsp;packagegroup-core-FILE&nbsp;<br /><=
+br />Idea is to know which package the&nbsp;&nbsp;packagegroup-core-FILE wi=
+ll add to image .<br /><br />Thanks&nbsp;<br />Ashish&nbsp;<br /><br /><br =
+/><br />
+
+--CZlvkeOv7sOZnyX0ZIV3--
