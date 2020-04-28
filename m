@@ -1,245 +1,177 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
- by mx.groups.io with SMTP id smtpd.web12.7884.1588081975247854225
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com [209.85.208.66])
+ by mx.groups.io with SMTP id smtpd.web11.976.1588097458174113561
  for <poky@lists.yoctoproject.org>;
- Tue, 28 Apr 2020 06:53:00 -0700
+ Tue, 28 Apr 2020 11:10:58 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=j9kHM6Ma;
- spf=pass (domain: gmail.com, ip: 209.85.128.42, mailfrom: breno.debian@gmail.com)
-Received: by mail-wm1-f42.google.com with SMTP id x4so2872303wmj.1
-        for <poky@lists.yoctoproject.org>; Tue, 28 Apr 2020 06:52:55 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=oYlQ+Z41;
+ spf=pass (domain: gmail.com, ip: 209.85.208.66, mailfrom: martin.jansa@gmail.com)
+Received: by mail-ed1-f66.google.com with SMTP id d16so17145844edq.7
+        for <poky@lists.yoctoproject.org>; Tue, 28 Apr 2020 11:10:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=to:from:subject:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=zVILldWZ7fkNAgkfBQS5b2pldD18ei3r4iiPAfbq0Zw=;
-        b=j9kHM6MaGMt5n8Ww1+khADwnK5mzB+ejJflMaRtCrPVs6xEcQ5amf01ps4CpS32VSC
-         zzp2oJRwLRREHGtRQ+xujR1uVfxxW1EggxnOpZaMK23OFjuiOGGPmr2/f8anJowGGPNY
-         jwSqG9gGXbVwzYebeIOg8lZmZe512l1CUn3+UlyLvRe4PK3Kx3NENkqnJLzUAx1cFZrk
-         G3UZw8fjnhc3QHCxQqg79f0AjpmzaHUBb58u9ZJN3FBntpO5aNeKpK3SlJloyelj+yHW
-         iQIXvNatXRSR4djT7GtP8OCSG31oBiyFBV/ajKa/8w7wMdb012ST46dNr0qXtwkzs2yf
-         ksrw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=vQwzqE5uHcbqN5g1WDAzwZ97LhNcUaMpIQFIdJ7CPp0=;
+        b=oYlQ+Z41QbjuAVuSbdSqcK5vJ1bv92pLbr2Ws7P6WpNydKAsF5FKNvS6WiyRRNrnI8
+         6wJTPebjauvD9ry6gbOhWZIwXQXJm3OR5QD8sv5EHpnXbKsfwnzmI/OSbIsvc3eyl4PM
+         TNYTC4jKoKJxHvWDWYbH5VX+RFm9kjXfWsKg6XCiNhfrFCVkTfcMvwRYNTKbYqUkMdLV
+         FH9iT//Q8DMn6sD8ojQCLphWYOlosoQ4DMEc6V3gDg+FkIu1/qGV5Rm4/gnhGkX6Ya6r
+         /nx3danscbejHi10CztWuI7w/EOs1bZN/I5mOXbPzp9s2gotPhf7IftueN0mYJIRjoBY
+         hYmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=zVILldWZ7fkNAgkfBQS5b2pldD18ei3r4iiPAfbq0Zw=;
-        b=hnfFzKQfJlgopT4AabRFgxbDjPG1SkgspjV6E4K/kVKlUvE5UInuGnojgaT+tf0mO+
-         VTjt+b0W1L6OA8dS/qYJpcO/DfMwvHevQXoVNoqiSMDF8q2B4Oe/2zEz5tlmsIRCKSBE
-         zkEjgD53AhQopnoPEk4FsgAEzTDpVJUX/PJhEsXH+CODdJGhg5QiXCkvaksGkgqiXV9m
-         NsbrzuBShUQyAVN3w35zLGiJRt4B4Yks6CNvDuU2ryi39RLnnEuXAIF4ZjwJ0VzIYikr
-         lnV8PztBeIyuJ4pP/Fs4dsLSHKAV2CtEmaHHMgi640yZLipspxPiAib5NnXr6NJEqzU0
-         geVQ==
-X-Gm-Message-State: AGi0PuYcvDam8GYpM288aYupuSjghGD2/pgh6F7g76BDAlTkT73oHkGK
-	94gnHc3rWLIxVqxUMzKKxlhg0AWY
-X-Google-Smtp-Source: APiQypI/9ZMLveMfxBuI5/Iaaw8vRjm8D7vVL1FxWFjlF5AxdCD8U7ohtY61z9tO0KUn05mRHMQmwA==
-X-Received: by 2002:a1c:ac44:: with SMTP id v65mr4808470wme.33.1588081973505;
-        Tue, 28 Apr 2020 06:52:53 -0700 (PDT)
-Return-Path: <breno.debian@gmail.com>
-Received: from ?IPv6:2620:10d:c0d2:1103:1c3a:dd3b:c5bd:d95e? ([2620:10d:c093:400::5:78e5])
-        by smtp.gmail.com with ESMTPSA id c190sm3533082wme.4.2020.04.28.06.52.52
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Apr 2020 06:52:53 -0700 (PDT)
-To: poky@lists.yoctoproject.org
-From: breno.debian@gmail.com
-Subject: [PATCH] devtool: Add IPv6 deploy targets targets
-Message-ID: <42a9297b-911b-6e38-076f-2a542249ffaa@debian.org>
-Date: Tue, 28 Apr 2020 14:52:52 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=vQwzqE5uHcbqN5g1WDAzwZ97LhNcUaMpIQFIdJ7CPp0=;
+        b=VPUqyskH525HsLq8b/w58SlF92f5NpEtia85yv2BXES6zQAgLBbde+7sYmrcqut9OJ
+         ah1zDMTD508LTnMQbz37elYeG1qsnz0EtpuMAp1+wF6umBAbqZ0wHnw8t3bT1rMYSkWv
+         Fq37n+xJsZ+SKEmkeCZjIz3Kwi+3nOGD1oreLM0LgYFMcvLUgwx2jbSZV1z7UCXM679v
+         usBF7P/9+M+4saGlsJvQzi9rV3Egl/hPYSivulhi12sTGxBaXEkcBHq1Ee0iTMrrDRze
+         2FVJFFVUe0KFp5D7NqZqwjVpt0CRx2rbQt6WF6ZTFgWwFuBt8ayLKt2qWzmFIzLl02b+
+         BZPQ==
+X-Gm-Message-State: AGi0PuYWMSoFLIB0WPLR96r/4gHhtasjVRCRYdmKHRelS7xOhGfowupR
+	arDmRilOtN24YJ2mnQNG6waJPocqcLSkh+BQi6o=
+X-Google-Smtp-Source: APiQypJLcCXUblnqEMxMfaBnr3W8a+U5ePcMwm/i/9jID76QSEBbbrV9/nTlh6B3QoYugrNBCba81mQRfxK/m32xqGE=
+X-Received: by 2002:aa7:cdcb:: with SMTP id h11mr22696080edw.264.1588097456579;
+ Tue, 28 Apr 2020 11:10:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <15FBEF1FC40D189D.8114@lists.yoctoproject.org> <81fb73b4-f683-5356-ff07-1ac909afb97d@gmail.com>
+In-Reply-To: <81fb73b4-f683-5356-ff07-1ac909afb97d@gmail.com>
+From: "Martin Jansa" <Martin.Jansa@gmail.com>
+Date: Tue, 28 Apr 2020 20:10:45 +0200
+Message-ID: <CA+chaQc8q4Nb4p76WPr=R7ocpDJ8CY3VnJ-k9W8bWW8nwMtYTw@mail.gmail.com>
+Subject: Re: [poky] Thud community support
+To: akuster <akuster808@gmail.com>
+Cc: Patches and discussions about the oe-core layer <openembedded-core@lists.openembedded.org>, 
+	"yocto@yoctoproject.org" <yocto@yoctoproject.org>, "poky@yoctoproject.org" <poky@yoctoproject.org>, 
+	"bitbake-devel@lists.openembedded.org" <bitbake-devel@lists.openembedded.org>, poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000c4aa0c05a45dc080"
 
-From: Breno Leitao <leit@fb.com>
+--000000000000c4aa0c05a45dc080
+Content-Type: text/plain; charset="UTF-8"
 
-Unfortunately devtool is not able to deploy (and undeploy) into IPv6
-hosts.
+Is Thud EOL now?
 
-This patch simply adds a way to use IPv6 target address similarly to
-ssh/scp, as foo@[xxxx:yyyy::zzzz]:/destdir.
+Or did someone volunteer off-list and now it waits for Maintainer selection
+process to be defined?
 
-In order to do it, I've created a function that parses the hostname,
-user and destdir, and then create a target_ssh (for ssh like parameter
- -- foo@xxx:yyyy::zzz) and target_scp for scp paramers as
- -- foo@[xxxx:yyyy::zzz]:/destdir. The urlparsing is done by urlparse
-module and ip version discovery is done by ipaddress module.
+https://wiki.yoctoproject.org/wiki/Releases still says Community support.
 
-This is the tests I have been using to validate my patch
+Thanks
 
-IPV4_FORMATS="
-      root@11.11.11.2:/tmp
-      root@11.11.11.2
-      11.11.11.2:/tmp
-      11.11.11.2
-      "
+On Tue, Mar 17, 2020 at 10:13 PM akuster <akuster808@gmail.com> wrote:
 
-IPV6_FORMATS="
-      root@[2620:10d:c0bb:403:dac4:97ff:feda:3325]:/tmp
-      root@[2620:10d:c0bb:403:dac4:97ff:feda:3325]
-      [2620:10d:c0bb:403:dac4:97ff:feda:3325]:/tmp
-      [2620:10d:c0bb:403:dac4:97ff:feda:3325]
-      "
+>
+>
+> On 3/13/20 11:03 AM, akuster via Lists.Yoctoproject.Org wrote:
+>
+> The Poky thud branch is now under 'Community support' and is seeking a
+> maintainer to continue supporting the following repos for the thud release:
+>
+> bitbake, core, meta-yocto and yocto-docs.
+>
+>
+> There will be no more point releases.
+>
+> seehttps://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maintainer_Procedures
+> to get an idea on what is expected.
+>
+> The one thing we (YP) don't know is if there will be AutoBuilder
+> resources available.  Please contact me or Richard regarding that statement.
+>
+> If no one steps up by April 24th (six weeks -ish from now), Thud will be
+> moved to EOL status.
+>
+>
+> It was pointed out to me that there is no Maintainer selection process or
+> criteria defined.  This  will have to be sorted out before we move forward
+> on this transition.
+>
+>
+> - armin
+>
+> - Armin
+>
+>
+>
+>
+>
+>
+> 
+>
 
-HOSTNAMES="
-      root@foo.bar:/tmp
-      root@foo.bar
-      foo.bar:/tmp
-      foo.bar
-      "
+--000000000000c4aa0c05a45dc080
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-for I in $IPV6_FORMATS
-do
-  devtool deploy-target -6 -s mypkg ${I}
-  devtool undeploy-target -6 -s mypkg ${I}
-done
+<div dir=3D"ltr">Is Thud EOL now?<div><br></div><div>Or did someone volunte=
+er off-list and now it waits for Maintainer selection process to be defined=
+?</div><div><br></div><div><a href=3D"https://wiki.yoctoproject.org/wiki/Re=
+leases">https://wiki.yoctoproject.org/wiki/Releases</a>=C2=A0still says Com=
+munity support.<br></div><div><br></div><div>Thanks</div></div><br><div cla=
+ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 17, 20=
+20 at 10:13 PM akuster &lt;<a href=3D"mailto:akuster808@gmail.com">akuster8=
+08@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">
+  
+    
+  
+  <div>
+    <br>
+    <br>
+    <div>On 3/13/20 11:03 AM, akuster via
+      <a href=3D"http://Lists.Yoctoproject.Org" target=3D"_blank">Lists.Yo=
+ctoproject.Org</a> wrote:<br>
+    </div>
+    <blockquote type=3D"cite">
+      <pre>The Poky thud branch is now under &#39;Community support&#39; a=
+nd is seeking a
+maintainer to continue supporting the following repos for the thud release=
+:
 
-for I in $HOSTNAMES
-do
-  devtool deploy-target -s mypkg ${I}
-  devtool undeploy-target -s mypkg ${I}
-done
+bitbake, core, meta-yocto and yocto-docs.
 
-for I in $IPV4_FORMATS
-do
-  devtool deploy-target -s mypkg ${I}
-  devtool undeploy-target -s mypkg ${I}
-done
----
- scripts/lib/devtool/deploy.py | 61 +++++++++++++++++++++++++++--------
- 1 file changed, 47 insertions(+), 14 deletions(-)
 
-diff --git a/scripts/lib/devtool/deploy.py b/scripts/lib/devtool/deploy.py
-index 6a997735fc..1580256e2a 100644
---- a/scripts/lib/devtool/deploy.py
-+++ b/scripts/lib/devtool/deploy.py
-@@ -11,6 +11,8 @@ import os
- import shutil
- import subprocess
- import tempfile
-+import urllib
-+import ipaddress
- 
- import bb.utils
- import argparse_oe
-@@ -134,6 +136,18 @@ def _prepare_remote_script(deploy, verbose=False, dryrun=False, undeployall=Fals
-     return '\n'.join(lines)
- 
- 
-+def parse_ip(args):
-+    t = urllib.parse.urlparse("ssh://" + args.target)
-+
-+    try:
-+        ip = ipaddress.ip_address(t.hostname)
-+        version = ip.version
-+    except ValueError:
-+        # hostname instead of ip return version  0
-+        version = None;
-+
-+    return t.username, t.hostname, t.path, version
-+
- 
- def deploy(args, config, basepath, workspace):
-     """Entry point for the devtool 'deploy' subcommand"""
-@@ -143,14 +157,7 @@ def deploy(args, config, basepath, workspace):
- 
-     check_workspace_recipe(workspace, args.recipename, checksrc=False)
- 
--    try:
--        host, destdir = args.target.split(':')
--    except ValueError:
--        destdir = '/'
--    else:
--        args.target = host
--    if not destdir.endswith('/'):
--        destdir += '/'
-+    user, host, destdir, ipversion = parse_ip(args)
- 
-     tinfoil = setup_tinfoil(basepath=basepath)
-     try:
-@@ -235,16 +242,30 @@ def deploy(args, config, basepath, workspace):
-                 f.write('%d\n' % ftotalsize)
-                 for fpath, fsize in filelist:
-                     f.write('%s %d\n' % (fpath, fsize))
-+
-+            # Need to generate target as a scp format
-+            if ipversion == 6:
-+                target_scp = "[%s]:%s" % (host, os.path.dirname(tmpscript))
-+            else:
-+                target_scp = "%s:%s" % (host, os.path.dirname(tmpscript))
-+            if user:
-+                target_scp = "%s@%s" % (user, target_scp)
-+
-             # Copy them to the target
--            ret = subprocess.call("scp %s %s %s %s/* %s:%s" % (scp_sshexec, scp_port, extraoptions, tmpdir, args.target, os.path.dirname(tmpscript)), shell=True)
-+            ret = subprocess.call("scp %s %s %s %s/* %s" % (scp_sshexec, scp_port, extraoptions, tmpdir, target_scp), shell=True)
-             if ret != 0:
-                 raise DevtoolError('Failed to copy script to %s - rerun with -s to '
-                                 'get a complete error message' % args.target)
-         finally:
-             shutil.rmtree(tmpdir)
- 
-+        if user:
-+            target_ssh = "%s@%s" % (user, host)
-+        else:
-+            target_ssh = host
-+
-         # Now run the script
--        ret = exec_fakeroot(rd, 'tar cf - . | %s  %s %s %s \'sh %s %s %s %s\'' % (ssh_sshexec, ssh_port, extraoptions, args.target, tmpscript, args.recipename, destdir, tmpfilelist), cwd=recipe_outdir, shell=True)
-+        ret = exec_fakeroot(rd, 'tar cf - . | %s  %s %s %s \'sh %s %s %s %s\'' % (ssh_sshexec, ssh_port, extraoptions, target_ssh, tmpscript, args.recipename, destdir, tmpfilelist), cwd=recipe_outdir, shell=True)
-         if ret != 0:
-             raise DevtoolError('Deploy failed - rerun with -s to get a complete '
-                             'error message')
-@@ -268,6 +289,8 @@ def undeploy(args, config, basepath, workspace):
-     elif not args.recipename and not args.all:
-         raise argparse_oe.ArgumentUsageError('If you don\'t specify a recipe, you must specify -a/--all', 'undeploy-target')
- 
-+    user, host, destdir, ipversion = parse_ip(args)
-+
-     extraoptions = ''
-     if args.no_host_check:
-         extraoptions += '-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-@@ -285,8 +308,6 @@ def undeploy(args, config, basepath, workspace):
-         scp_port = "-P %s" % args.port
-         ssh_port = "-p %s" % args.port
- 
--    args.target = args.target.split(':')[0]
--
-     tmpdir = tempfile.mkdtemp(prefix='devtool')
-     try:
-         tmpscript = '/tmp/devtool_undeploy.sh'
-@@ -294,16 +315,28 @@ def undeploy(args, config, basepath, workspace):
-         # Write out the script to a file
-         with open(os.path.join(tmpdir, os.path.basename(tmpscript)), 'w') as f:
-             f.write(shellscript)
-+
-+        # Format for scp
-+        if ipversion == 6:
-+            target_scp = "[%s]:%s" % (host, os.path.dirname(tmpscript))
-+        else:
-+            target_scp = "%s:%s" % (host, os.path.dirname(tmpscript))
-+        if user:
-+            target_scp = "%s@%s" % (user, target_scp)
-+
-         # Copy it to the target
--        ret = subprocess.call("scp %s %s %s %s/* %s:%s" % (scp_sshexec, scp_port, extraoptions, tmpdir, args.target, os.path.dirname(tmpscript)), shell=True)
-+        ret = subprocess.call("scp %s %s %s %s/* %s" % (scp_sshexec, scp_port, extraoptions, tmpdir, target_scp), shell=True)
-         if ret != 0:
-             raise DevtoolError('Failed to copy script to %s - rerun with -s to '
-                                 'get a complete error message' % args.target)
-     finally:
-         shutil.rmtree(tmpdir)
- 
-+    target_ssh = host
-+    if user:
-+        target_ssh = "%s@%s" % (user, target_ssh)
-     # Now run the script
--    ret = subprocess.call('%s %s %s %s \'sh %s %s\'' % (ssh_sshexec, ssh_port, extraoptions, args.target, tmpscript, args.recipename), shell=True)
-+    ret = subprocess.call('%s %s %s %s \'sh %s %s\'' % (ssh_sshexec, ssh_port, extraoptions, target_ssh, tmpscript, args.recipename), shell=True)
-     if ret != 0:
-         raise DevtoolError('Undeploy failed - rerun with -s to get a complete '
-                            'error message')
--- 
-2.24.1
+There will be no more point releases.
 
+see
+<a href=3D"https://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maint=
+ainer_Procedures" target=3D"_blank">https://wiki.yoctoproject.org/wiki/Stab=
+le_Release_and_LTS#Maintainer_Procedures</a>=C2=A0
+to get an idea on what is expected.
+
+The one thing we (YP) don&#39;t know is if there will be AutoBuilder
+resources available.=C2=A0 Please contact me or Richard regarding that sta=
+tement.
+
+If no one steps up by April 24th (six weeks -ish from now), Thud will be
+moved to EOL status.
+</pre>
+    </blockquote>
+    <br>
+    It was pointed out to me that there is no Maintainer selection
+    process or criteria defined.=C2=A0 This=C2=A0 will have to be sorted o=
+ut
+    before we move forward on this transition.<br>
+    <br>
+    <br>
+    - armin<br>
+    <br>
+    <blockquote type=3D"cite">
+      <pre>- Armin
+
+
+
+</pre>
+      <br>
+      <fieldset></fieldset>
+      <pre></pre>
+    </blockquote>
+    <br>
+  </div>
+
+<br>
+</blockquote></div>
+
+--000000000000c4aa0c05a45dc080--
