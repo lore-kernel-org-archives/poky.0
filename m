@@ -1,177 +1,101 @@
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com [209.85.208.66])
- by mx.groups.io with SMTP id smtpd.web11.976.1588097458174113561
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
+ by mx.groups.io with SMTP id smtpd.web10.1247.1588138358585289848
  for <poky@lists.yoctoproject.org>;
- Tue, 28 Apr 2020 11:10:58 -0700
+ Tue, 28 Apr 2020 22:32:38 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=oYlQ+Z41;
- spf=pass (domain: gmail.com, ip: 209.85.208.66, mailfrom: martin.jansa@gmail.com)
-Received: by mail-ed1-f66.google.com with SMTP id d16so17145844edq.7
-        for <poky@lists.yoctoproject.org>; Tue, 28 Apr 2020 11:10:57 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=Xdl3ca0X;
+ spf=pass (domain: gmail.com, ip: 209.85.128.68, mailfrom: uvv.mail@gmail.com)
+Received: by mail-wm1-f68.google.com with SMTP id x4so529902wmj.1
+        for <poky@lists.yoctoproject.org>; Tue, 28 Apr 2020 22:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=vQwzqE5uHcbqN5g1WDAzwZ97LhNcUaMpIQFIdJ7CPp0=;
-        b=oYlQ+Z41QbjuAVuSbdSqcK5vJ1bv92pLbr2Ws7P6WpNydKAsF5FKNvS6WiyRRNrnI8
-         6wJTPebjauvD9ry6gbOhWZIwXQXJm3OR5QD8sv5EHpnXbKsfwnzmI/OSbIsvc3eyl4PM
-         TNYTC4jKoKJxHvWDWYbH5VX+RFm9kjXfWsKg6XCiNhfrFCVkTfcMvwRYNTKbYqUkMdLV
-         FH9iT//Q8DMn6sD8ojQCLphWYOlosoQ4DMEc6V3gDg+FkIu1/qGV5Rm4/gnhGkX6Ya6r
-         /nx3danscbejHi10CztWuI7w/EOs1bZN/I5mOXbPzp9s2gotPhf7IftueN0mYJIRjoBY
-         hYmg==
+        h=from:to:cc:subject:date:message-id;
+        bh=KFJYi53xN38jT7PEBzevogFSqsSSe5ED1E0gv5vCdK8=;
+        b=Xdl3ca0XiTOwLsBDiIIvsrSEa0ZCBt1ZZhyj0UfdE6X242YK6A2FldxqDYrk1hnS13
+         2yluAnu2laJjBatCXOZyRNeEf6jTz2Rd8gDdfAa5Tg5KocYf8fxRsBh92c1Tnwy9Hs+l
+         n/TmrjQjfDsGq3CHW8lGmPkQBHQwdIvrxVcCu/It3XxzI2eKgzyqDSQblnEXEru2eqSh
+         7Sjea0Jh2GpKHjjob7eKt98Kwwmwo61LWM3EsV760nBWzN3dHnxQzVm2kzztB8DlDeB7
+         RqcxWrp8d3soDkr1NEAEH/5ZjLAf3EoVXaAiTrx6T/YoZ50j6N5bzX1oMC1UJvlmJ6YS
+         b7Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=vQwzqE5uHcbqN5g1WDAzwZ97LhNcUaMpIQFIdJ7CPp0=;
-        b=VPUqyskH525HsLq8b/w58SlF92f5NpEtia85yv2BXES6zQAgLBbde+7sYmrcqut9OJ
-         ah1zDMTD508LTnMQbz37elYeG1qsnz0EtpuMAp1+wF6umBAbqZ0wHnw8t3bT1rMYSkWv
-         Fq37n+xJsZ+SKEmkeCZjIz3Kwi+3nOGD1oreLM0LgYFMcvLUgwx2jbSZV1z7UCXM679v
-         usBF7P/9+M+4saGlsJvQzi9rV3Egl/hPYSivulhi12sTGxBaXEkcBHq1Ee0iTMrrDRze
-         2FVJFFVUe0KFp5D7NqZqwjVpt0CRx2rbQt6WF6ZTFgWwFuBt8ayLKt2qWzmFIzLl02b+
-         BZPQ==
-X-Gm-Message-State: AGi0PuYWMSoFLIB0WPLR96r/4gHhtasjVRCRYdmKHRelS7xOhGfowupR
-	arDmRilOtN24YJ2mnQNG6waJPocqcLSkh+BQi6o=
-X-Google-Smtp-Source: APiQypJLcCXUblnqEMxMfaBnr3W8a+U5ePcMwm/i/9jID76QSEBbbrV9/nTlh6B3QoYugrNBCba81mQRfxK/m32xqGE=
-X-Received: by 2002:aa7:cdcb:: with SMTP id h11mr22696080edw.264.1588097456579;
- Tue, 28 Apr 2020 11:10:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <15FBEF1FC40D189D.8114@lists.yoctoproject.org> <81fb73b4-f683-5356-ff07-1ac909afb97d@gmail.com>
-In-Reply-To: <81fb73b4-f683-5356-ff07-1ac909afb97d@gmail.com>
-From: "Martin Jansa" <Martin.Jansa@gmail.com>
-Date: Tue, 28 Apr 2020 20:10:45 +0200
-Message-ID: <CA+chaQc8q4Nb4p76WPr=R7ocpDJ8CY3VnJ-k9W8bWW8nwMtYTw@mail.gmail.com>
-Subject: Re: [poky] Thud community support
-To: akuster <akuster808@gmail.com>
-Cc: Patches and discussions about the oe-core layer <openembedded-core@lists.openembedded.org>, 
-	"yocto@yoctoproject.org" <yocto@yoctoproject.org>, "poky@yoctoproject.org" <poky@yoctoproject.org>, 
-	"bitbake-devel@lists.openembedded.org" <bitbake-devel@lists.openembedded.org>, poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000c4aa0c05a45dc080"
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=KFJYi53xN38jT7PEBzevogFSqsSSe5ED1E0gv5vCdK8=;
+        b=fa4PVEMDNkGNLdr4QOPJVaIaAPTU5I2KYnpv3Z39kJChXKzKGjD/Dj+3XwgeN2B0fJ
+         Oti3+w2Cg6hS3Ph5LMmNq1cJJjGEY5fZcFwGiy2jqPIKPmTOtxKDR0See0c2ve32OtTH
+         ShhwKuTylLlFCxmQVnDOYvy1ANA19XxIWbiruZC/NVGa7c4qEZbdHEwaCYIn6eE61ZFR
+         nJuhUgyvFVXrzp4dCIIjC19T49d3e2e/gZg6c0Dw0HNd1v2oHSGUlf5D5hHnGUTqEty7
+         e+prErliSzE1xK1e5L3VuzVg6Ah3CsfuHLGuTfv5nWHHreoo49LEweJOaB8Skqo/+tJ/
+         ZRHA==
+X-Gm-Message-State: AGi0PuZS+UEmBG9JdXr7ff32v6ma0ojKITGN5314nLIXACRjWetmn4Or
+	B+wdVM75GhIx5FiC1DlQ3Up4J3Sj/5o=
+X-Google-Smtp-Source: APiQypKeCevEOaAcVgyYr/BfI1K7/VejrtUq9E2fNQ3t4imbrCtfEEHk4EUK8y2MtFb+a7ooA1ygvg==
+X-Received: by 2002:a1c:2dc7:: with SMTP id t190mr1024958wmt.129.1588138356753;
+        Tue, 28 Apr 2020 22:32:36 -0700 (PDT)
+Return-Path: <uvv.mail@gmail.com>
+Received: from slackware.local (dslb-002-205-007-252.002.205.pools.vodafone-ip.de. [2.205.7.252])
+        by smtp.gmail.com with ESMTPSA id h2sm6341202wmf.34.2020.04.28.22.32.35
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 28 Apr 2020 22:32:36 -0700 (PDT)
+From: "Vyacheslav Yurkov" <uvv.mail@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: [PATCH] os-release: sanitize required fields
+Date: Wed, 29 Apr 2020 07:32:29 +0200
+Message-Id: <20200429053229.30653-1-uvv.mail@gmail.com>
+X-Mailer: git-send-email 2.17.0
 
---000000000000c4aa0c05a45dc080
-Content-Type: text/plain; charset="UTF-8"
+Currently only VERSION_ID field is sanitized, but os-release (5) has
+more fields with the same requirement. Moreover, those fields come
+unquoted in most distributions, because quotes are not needed for a
+values without whitespaces.
 
-Is Thud EOL now?
+Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+---
+ meta/recipes-core/os-release/os-release.bb | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-Or did someone volunteer off-list and now it waits for Maintainer selection
-process to be defined?
+diff --git a/meta/recipes-core/os-release/os-release.bb b/meta/recipes-core/os-release/os-release.bb
+index d5793c6fed..a29d678125 100644
+--- a/meta/recipes-core/os-release/os-release.bb
++++ b/meta/recipes-core/os-release/os-release.bb
+@@ -13,6 +13,7 @@ do_configure[noexec] = "1"
+ # Other valid fields: BUILD_ID ID_LIKE ANSI_COLOR CPE_NAME
+ #                     HOME_URL SUPPORT_URL BUG_REPORT_URL
+ OS_RELEASE_FIELDS = "ID ID_LIKE NAME VERSION VERSION_ID PRETTY_NAME"
++OS_RELEASE_UNQUOTED_FIELDS = "ID VERSION_ID VARIANT_ID"
+ 
+ ID = "${DISTRO}"
+ NAME = "${DISTRO_NAME}"
+@@ -22,8 +23,8 @@ PRETTY_NAME = "${DISTRO_NAME} ${VERSION}"
+ BUILD_ID ?= "${DATETIME}"
+ BUILD_ID[vardepsexclude] = "DATETIME"
+ 
+-def sanitise_version(ver):
+-    # VERSION_ID should be (from os-release(5)):
++def sanitise_value(ver):
++    # unquoted fields like VERSION_ID should be (from os-release(5)):
+     #    lower-case string (mostly numeric, no spaces or other characters
+     #    outside of 0-9, a-z, ".", "_" and "-")
+     ret = ver.replace('+', '-').replace(' ','_')
+@@ -32,11 +33,14 @@ def sanitise_version(ver):
+ python do_compile () {
+     with open(d.expand('${B}/os-release'), 'w') as f:
+         for field in d.getVar('OS_RELEASE_FIELDS').split():
++            unquotedFields = d.getVar('OS_RELEASE_UNQUOTED_FIELDS').split()
+             value = d.getVar(field)
+-            if value and field == 'VERSION_ID':
+-                value = sanitise_version(value)
+             if value:
+-                f.write('{0}="{1}"\n'.format(field, value))
++                if field in unquotedFields:
++                    value = sanitise_value(value)
++                    f.write('{0}={1}\n'.format(field, value))
++                else:
++                    f.write('{0}="{1}"\n'.format(field, value))
+ }
+ do_compile[vardeps] += "${OS_RELEASE_FIELDS}"
+ 
+-- 
+2.17.0
 
-https://wiki.yoctoproject.org/wiki/Releases still says Community support.
-
-Thanks
-
-On Tue, Mar 17, 2020 at 10:13 PM akuster <akuster808@gmail.com> wrote:
-
->
->
-> On 3/13/20 11:03 AM, akuster via Lists.Yoctoproject.Org wrote:
->
-> The Poky thud branch is now under 'Community support' and is seeking a
-> maintainer to continue supporting the following repos for the thud release:
->
-> bitbake, core, meta-yocto and yocto-docs.
->
->
-> There will be no more point releases.
->
-> seehttps://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maintainer_Procedures
-> to get an idea on what is expected.
->
-> The one thing we (YP) don't know is if there will be AutoBuilder
-> resources available.  Please contact me or Richard regarding that statement.
->
-> If no one steps up by April 24th (six weeks -ish from now), Thud will be
-> moved to EOL status.
->
->
-> It was pointed out to me that there is no Maintainer selection process or
-> criteria defined.  This  will have to be sorted out before we move forward
-> on this transition.
->
->
-> - armin
->
-> - Armin
->
->
->
->
->
->
-> 
->
-
---000000000000c4aa0c05a45dc080
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Is Thud EOL now?<div><br></div><div>Or did someone volunte=
-er off-list and now it waits for Maintainer selection process to be defined=
-?</div><div><br></div><div><a href=3D"https://wiki.yoctoproject.org/wiki/Re=
-leases">https://wiki.yoctoproject.org/wiki/Releases</a>=C2=A0still says Com=
-munity support.<br></div><div><br></div><div>Thanks</div></div><br><div cla=
-ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 17, 20=
-20 at 10:13 PM akuster &lt;<a href=3D"mailto:akuster808@gmail.com">akuster8=
-08@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
-  
-    
-  
-  <div>
-    <br>
-    <br>
-    <div>On 3/13/20 11:03 AM, akuster via
-      <a href=3D"http://Lists.Yoctoproject.Org" target=3D"_blank">Lists.Yo=
-ctoproject.Org</a> wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-      <pre>The Poky thud branch is now under &#39;Community support&#39; a=
-nd is seeking a
-maintainer to continue supporting the following repos for the thud release=
-:
-
-bitbake, core, meta-yocto and yocto-docs.
-
-
-There will be no more point releases.
-
-see
-<a href=3D"https://wiki.yoctoproject.org/wiki/Stable_Release_and_LTS#Maint=
-ainer_Procedures" target=3D"_blank">https://wiki.yoctoproject.org/wiki/Stab=
-le_Release_and_LTS#Maintainer_Procedures</a>=C2=A0
-to get an idea on what is expected.
-
-The one thing we (YP) don&#39;t know is if there will be AutoBuilder
-resources available.=C2=A0 Please contact me or Richard regarding that sta=
-tement.
-
-If no one steps up by April 24th (six weeks -ish from now), Thud will be
-moved to EOL status.
-</pre>
-    </blockquote>
-    <br>
-    It was pointed out to me that there is no Maintainer selection
-    process or criteria defined.=C2=A0 This=C2=A0 will have to be sorted o=
-ut
-    before we move forward on this transition.<br>
-    <br>
-    <br>
-    - armin<br>
-    <br>
-    <blockquote type=3D"cite">
-      <pre>- Armin
-
-
-
-</pre>
-      <br>
-      <fieldset></fieldset>
-      <pre></pre>
-    </blockquote>
-    <br>
-  </div>
-
-<br>
-</blockquote></div>
-
---000000000000c4aa0c05a45dc080--
