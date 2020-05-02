@@ -1,58 +1,71 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
- by mx.groups.io with SMTP id smtpd.web10.7509.1588434674089458736
- for <poky@lists.yoctoproject.org>;
- Sat, 02 May 2020 08:51:14 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=pzvTj85v;
- spf=pass (domain: gmail.com, ip: 209.85.208.172, mailfrom: giannipinounavolta@gmail.com)
-Received: by mail-lj1-f172.google.com with SMTP id a21so5351338ljb.9
-        for <poky@lists.yoctoproject.org>; Sat, 02 May 2020 08:51:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=YVU2Cnl4TbQPEZY9TL1beDS1h7Rwvn6GBuYKVMHzsW8=;
-        b=pzvTj85vumh67LeNKYnXaDbRi3f+q5hO8uJFANlIHfJgJj47s2sidbqlK0rb4FmGFJ
-         GxkYBHEw6eok9JF2+lm3HZgcNqAxjCOCT2jawvUa4peI786pvU1f6Dx4PYZvrt7tNhK0
-         q7jW0l80OaStpVurN+CF0Hh5TtpXGjZ5uqzzAfWb7WmdvWuW10CLOTBLkfjLiZCv3qui
-         8BQwTrKLtLvju3dFzZlWrsBWlZcedS8cVtYVav+xgkVAG7tZfQaPH3HDGxpAvmtvKf47
-         atQUDcMAmslkwiPA/RWvoOh/fA17bcWByvJtzc6CbYeC5U/jw80BwBO9/KErS8SCZYal
-         sViQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=YVU2Cnl4TbQPEZY9TL1beDS1h7Rwvn6GBuYKVMHzsW8=;
-        b=iVSoPrTNtX1Zq0AttZ0LpGgLTgiTbkbuV3ZFUtUCPxsvO3zOeOj9wBkTWavZQ3hW5F
-         Vjs3nsyYb+YtXulGXESgbQUaxR/3Cv6F9J5jPkT+Xyrdjand/2jGkO/5y4jH4c+zGFGU
-         MRXa9jqsRFLFMFU0YfT/CnpERr/tzuodf71vPC4nIQE1k9Cs4DSUo1LMPOhOkrsLtjFy
-         UcL3GBKS6wPFsGgQybjeUBLHeh9lUQHBcZADett+atLUCqgDEdnlFYXfsvVBQtNfx32c
-         J6VjNqU8yMP82pD/nYKbluqSEtNxG+X7pPzlVcM2+PNurrPwvZhF6J+Gtd/KOg6yIYuu
-         l1aQ==
-X-Gm-Message-State: AGi0PuYjUm3HNScWbFTo1AYL0UXj9+1KUNmNXTuzeqJPtRinqvkARPZz
-	dZ2c2+y4AcI5SPonUpqRZxGermqn7BI8PDWSoduOK9m+
-X-Google-Smtp-Source: APiQypKy9a3/j4JxlM/7zFMkOP5ss46zPpQOITTx9xA2nULNMiEkqri4kXzn/riHovOmeBYsKoZQ1NWLxYAI+sXvFlI=
-X-Received: by 2002:a2e:a58e:: with SMTP id m14mr5398286ljp.95.1588434672228;
- Sat, 02 May 2020 08:51:12 -0700 (PDT)
+Subject: python 3.7.7 modules (zeus)
+To: poky@lists.yoctoproject.org
+From: maja.massarini@gmail.com
+X-Originating-Location: Caorle, Veneto, IT (151.49.242.15)
+X-Originating-Platform: Linux Firefox 68
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-From: giannipinounavolta@gmail.com
-Date: Sat, 2 May 2020 17:51:00 +0200
-Message-ID: <CAP1wPpqhBLXBu9qNLtbRmjz=-R3TBROZrch0SzTcGToBzo0vzA@mail.gmail.com>
-Subject: [poky] Dunfell poky version
-To: poky <poky@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="000000000000631ab605a4ac4429"
+Date: Sat, 02 May 2020 14:25:04 -0700
+Message-ID: <HMSa.1588454704984238618.nkSK@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="27HTWOyvPxx78p2wEeZo"
 
---000000000000631ab605a4ac4429
-Content-Type: text/plain; charset="UTF-8"
+--27HTWOyvPxx78p2wEeZo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi everyone,
+Hi all,
 
-last month the poky version Dunfell was released. How long does it take to
-be a stable release?
+I'm trying to build a custom image for qemux86-64 with python3. I'm using =
+zeus as branch for poky and openembedded.
+My bblayers are:
+/home/tux/shared/openembedded-homino/poky/meta \
+/home/tux/shared/openembedded-homino/poky/meta-poky \
+${METADIR}/meta-openembedded/meta-python \
+${METADIR}/meta-openembedded/meta-filesystems \
+${METADIR}/meta-openembedded/meta-multimedia \
+${METADIR}/meta-openembedded/meta-networking \
+${METADIR}/meta-openembedded/meta-oe \
 
-thanks.
+I got this error:
 
---000000000000631ab605a4ac4429
-Content-Type: text/html; charset="UTF-8"
+>=20
+> * Solver encountered 1 problem(s):=C2=A0 * Problem 1/1:=C2=A0*=C2=A0=C2=
+=A0 - nothing provides
+> python3-pkgutil needed by python3-modules-3.7.7-r0.core2-64
 
-<div dir="auto"><div dir="auto">Hi everyone,</div><div dir="auto"><br></div><div dir="auto">last month the poky version Dunfell was released. How long does it take to be a stable release?</div><div dir="auto"><br></div><div dir="auto">thanks.</div></div>
+But pkgutil is inside python3-core for what I can see reading the manifest=
+.
+If I build an image without python3-modules I got an image with pkgutil.py=
+ installed inside /usr/lib/python3.
 
---000000000000631ab605a4ac4429--
+I don't know how to properly remove python3-pkgutil from the RDEPENDS of p=
+ython3-modules, since the rdepends are read from the manifest.
+Maybe I'm missing something else?
+
+Thanks,
+Maja
+
+--27HTWOyvPxx78p2wEeZo
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,<br /><br />I'm trying to build a custom image for qemux86-64 with p=
+ython3. I'm using zeus as branch for poky and openembedded.<br />My bblayer=
+s are:<br />&nbsp; /home/tux/shared/openembedded-homino/poky/meta \<br />&n=
+bsp; /home/tux/shared/openembedded-homino/poky/meta-poky \<br />&nbsp; ${ME=
+TADIR}/meta-openembedded/meta-python \<br />&nbsp; ${METADIR}/meta-openembe=
+dded/meta-filesystems \<br />&nbsp; ${METADIR}/meta-openembedded/meta-multi=
+media \<br />&nbsp; ${METADIR}/meta-openembedded/meta-networking \<br />&nb=
+sp; ${METADIR}/meta-openembedded/meta-oe \<br /><br />I got this error:<br =
+/>
+<blockquote>&nbsp;* Solver encountered 1 problem(s):&nbsp; * Problem 1/1:&=
+nbsp;*&nbsp;&nbsp; - nothing provides python3-pkgutil needed by python3-mod=
+ules-3.7.7-r0.core2-64</blockquote>
+But pkgutil is inside python3-core for what I can see reading the manifest=
+. <br />If I build an image without python3-modules I got an image with pkg=
+util.py installed inside /usr/lib/python3.<br /><br />I don't know how to p=
+roperly remove python3-pkgutil from the RDEPENDS of python3-modules, since =
+the rdepends are read from the manifest.<br />Maybe I'm missing something e=
+lse?<br /><br />Thanks,<br />Maja<br /><br />
+
+--27HTWOyvPxx78p2wEeZo--
