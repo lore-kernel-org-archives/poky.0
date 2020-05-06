@@ -1,147 +1,164 @@
-Subject: How to add gst-player in yocto subsystem
-To: poky@lists.yoctoproject.org
-From: "Yash" <yash.j@mistralsolutions.com>
-X-Originating-Location: Mangalore, Karnataka, IN (106.217.81.196)
-X-Originating-Platform: Windows Chrome 81
-User-Agent: GROUPS.IO Web Poster
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com [209.85.166.47])
+ by mx.groups.io with SMTP id smtpd.web10.5060.1588767979589102369
+ for <poky@lists.yoctoproject.org>;
+ Wed, 06 May 2020 05:26:19 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=f+Zzkrvc;
+ spf=pass (domain: gmail.com, ip: 209.85.166.47, mailfrom: jan.vermaete@gmail.com)
+Received: by mail-io1-f47.google.com with SMTP id j8so1842640iog.13
+        for <poky@lists.yoctoproject.org>; Wed, 06 May 2020 05:26:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=pBMTP7EJgsVq+FTmw2gPRTzl+pLVooorg+tm+p0kqfg=;
+        b=f+Zzkrvc0inTMLQ1zyzv1Kix8e/QmWthujXm8ArsrEU65g8q40jwHxo6854D/mkekL
+         aFL+d4xT4jndQgwllHpkLaEDr/qKmmFBbmyqK4JHNNGDi0l1y3VaLiqnvtPwHUcNqtdC
+         l+fFFfXOOZgRWSdnDZ9kMfo7ts6ODlYEw1mMy1ZsBYZDovI/Rr5wbARGJ8CoVRa+elZ6
+         XSukQlmXtJZaKTeCTYyQWrUCoUYMG6aQUGQyTbJvghCfDdK4VjLg28csAgEBBXfmpTvG
+         u3ghD8JBQsXmWT2c3VxGFmgxwj/e/QYGLB0vp+NeVm5v/VLnO+fAVC8NoqzbIbWeex5h
+         XUAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=pBMTP7EJgsVq+FTmw2gPRTzl+pLVooorg+tm+p0kqfg=;
+        b=ZNdCwhfWVgUw6jFpz9tWfJ3Ng8Yl+tSo1wPoYofu/2iaAiJkmxFhe/i3W63MXGQtSE
+         WgUmYRQzhgA8ch5xuIMJEOtrPAcA3zhzG8Twu4yDwRWqCfFJb0eebcJVUpWhL7zi8xTg
+         WJ7shvylkLhJNri/ntBAZpK2ldDR6iSfcVrqaw/QErufPi6ol0IQP11tNGXql1H25Sza
+         65vufVdxFlalJISsqEqsR9ahAqKiSBnub0bSvaCbax8JN+jMzHwKzFOZg1ApQbRfL/oD
+         u/yDreEbmnqPG4EJS5BTbnB+TSPo1NYOx8Gi7bNVX1zkzTYP1Fu0kHhmSDYg8rokgmYM
+         cxeQ==
+X-Gm-Message-State: AGi0PublUSx/FMi9pR5PgH51IGA98wpGceYy6gz8d/A+2V9FvBHwdq6Y
+	0HDjSJSIYMA6rduCjWVwcOa5psuNz9FUiaqDwmlPoXGOmGc=
+X-Google-Smtp-Source: APiQypJx3T4OUZgN80xPjNApzpBRRKhnnts6ap03tGzoF20+q6lMCtAMTA/XAkq8rlNldLCS7IDanO9z6AqjFhZubZQ=
+X-Received: by 2002:a02:cbc6:: with SMTP id u6mr8440869jaq.27.1588767978837;
+ Wed, 06 May 2020 05:26:18 -0700 (PDT)
 MIME-Version: 1.0
-Date: Mon, 04 May 2020 07:39:37 -0700
-Message-ID: <iwWW.1588603177393457161.1NsY@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="cpe9r14l7x7Blzj9xzW2"
+From: "jan" <jan.vermaete@gmail.com>
+Date: Wed, 6 May 2020 14:26:08 +0200
+Message-ID: <CABF_=yiD+dm2E2ZfWLiz3hqVVrUo+ht00F4agh5z1eyX504BTw@mail.gmail.com>
+Subject: [poky][PATCH][scripts] Allowing to work ksize also with built-in.a
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000025da705a4f9dffd"
 
---cpe9r14l7x7Blzj9xzW2
-Content-Type: text/plain; charset=UTF-8
+--000000000000025da705a4f9dffd
+Content-Type: text/plain; charset="UTF-8"
+
+From b128294905083f8efe1acffac4ad9ac41f950526 Mon Sep 17 00:00:00 2001
+From: Jan Vermaete <jan.vermaete@gmail.com>
+Date: Wed, 6 May 2020 14:07:17 +0200
+Subject: [PATCH 1/1] Newer Linux kernels are producing built-in.a files.
+
+In the past the file was named 'built-in.o'.
+Nowadays it is 'built-in.a'.
+
+The script is modified to work with both.  I expect
+it will not happen that there are built-in.a and built-in.o
+files in the same kernel.
+
+Signed-off-by: Jan Vermaete <jan.vermaete@gmail.com>
+---
+ scripts/tiny/ksize.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/scripts/tiny/ksize.py b/scripts/tiny/ksize.py
+index 8316b85cb1..144b3a3ae8 100755
+--- a/scripts/tiny/ksize.py
++++ b/scripts/tiny/ksize.py
+@@ -4,7 +4,7 @@
+ #
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ #
+-# Display details of the kernel build size, broken up by built-in.o. Sort
++# Display details of the kernel build size, broken up by built-in.[o,a].
+Sort
+ # the objects by size. Run from the top level kernel build directory.
+ #
+ # Author: Darren Hart <dvhart@linux.intel.com>
+@@ -48,7 +48,7 @@ class Report:
+         r = Report(filename, title)
+         path = os.path.dirname(filename)
+
+-        p = Popen("ls " + str(path) + "/*.o | grep -v built-in.o",
++        p = Popen("ls " + str(path) + "/*.o | grep -v built-in.o | grep -v
+build-in.a",
+                   shell=True, stdout=PIPE, stderr=PIPE,
+universal_newlines=True)
+         glob = ' '.join(p.communicate()[0].splitlines())
+         oreport = Report(glob, str(path) + "/*.o")
+@@ -59,7 +59,7 @@ class Report:
+             p = Popen("ls " + subglob, shell=True, stdout=PIPE,
+stderr=PIPE, universal_newlines=True)
+             for f in p.communicate()[0].splitlines():
+                 path = os.path.dirname(f)
+-                r.parts.append(Report.create(f, path, str(path) +
+"/*/built-in.o"))
++                r.parts.append(Report.create(f, path, str(path) +
+"/*/built-in.[o,a]"))
+             r.parts.sort(reverse=True)
+
+         for b in r.parts:
+@@ -139,7 +139,7 @@ def main():
+         else:
+             assert False, "unhandled option"
+
+-    glob = "arch/*/built-in.o */built-in.o"
++    glob = "arch/*/built-in.[o,a] */built-in.[o,a]"
+     vmlinux = Report.create("vmlinux",  "Linux Kernel", glob)
+
+     vmlinux.show()
+-- 
+2.17.1
+
+--000000000000025da705a4f9dffd
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I have found the recipe for gstreamer :=C2=A0poky/meta-qt5/recipies-multime=
-dia/gstreamer
-My machine is apq8096 : it has only the layer.conf which builds all the re=
-cipies and bbappend files.
-But while playing video files using "player_test" the player fails with er=
-rors :
-player_test
+<div dir=3D"ltr"><div>From b128294905083f8efe1acffac4ad9ac41f950526 Mon Sep=
+ 17 00:00:00 2001<br>From: Jan Vermaete &lt;<a href=3D"mailto:jan.vermaete@=
+gmail.com">jan.vermaete@gmail.com</a>&gt;<br>Date: Wed, 6 May 2020 14:07:17=
+ +0200<br>Subject: [PATCH 1/1] Newer Linux kernels are producing built-in.a=
+ files.<br><br>In the past the file was named &#39;built-in.o&#39;.<br>Nowa=
+days it is &#39;built-in.a&#39;.<br><br>The script is modified to work with=
+ both.=C2=A0 I expect<br>it will not happen that there are built-in.a and b=
+uilt-in.o<br>files in the same kernel.<br><br>Signed-off-by: Jan Vermaete &=
+lt;<a href=3D"mailto:jan.vermaete@gmail.com">jan.vermaete@gmail.com</a>&gt;=
+<br>---<br>=C2=A0scripts/tiny/ksize.py | 8 ++++----<br>=C2=A01 file changed=
+, 4 insertions(+), 4 deletions(-)<br><br>diff --git a/scripts/tiny/ksize.py=
+ b/scripts/tiny/ksize.py<br>index 8316b85cb1..144b3a3ae8 100755<br>--- a/sc=
+ripts/tiny/ksize.py<br>+++ b/scripts/tiny/ksize.py<br>@@ -4,7 +4,7 @@<br>=
+=C2=A0#<br>=C2=A0# SPDX-License-Identifier: GPL-2.0-or-later<br>=C2=A0#<br>=
+-# Display details of the kernel build size, broken up by built-in.o. Sort<=
+br>+# Display details of the kernel build size, broken up by built-in.[o,a]=
+. Sort<br>=C2=A0# the objects by size. Run from the top level kernel build =
+directory.<br>=C2=A0#<br>=C2=A0# Author: Darren Hart &lt;<a href=3D"mailto:=
+dvhart@linux.intel.com">dvhart@linux.intel.com</a>&gt;<br>@@ -48,7 +48,7 @@=
+ class Report:<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D Report(filename, =
+title)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0path =3D os.path.dirname(filena=
+me)<br>=C2=A0<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0p =3D Popen(&quot;ls &quot; +=
+ str(path) + &quot;/*.o | grep -v built-in.o&quot;,<br>+ =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0p =3D Popen(&quot;ls &quot; + str(path) + &quot;/*.o | grep -v bu=
+ilt-in.o | grep -v build-in.a&quot;,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0shell=3DTrue, stdout=3DPIPE, stderr=3DPIP=
+E, universal_newlines=3DTrue)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0glob =3D=
+ &#39; &#39;.join(p.communicate()[0].splitlines())<br>=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0oreport =3D Report(glob, str(path) + &quot;/*.o&quot;)<br>@@ -=
+59,7 +59,7 @@ class Report:<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0p =3D Popen(&quot;ls &quot; + subglob, shell=3DTrue, stdout=3DPIPE, s=
+tderr=3DPIPE, universal_newlines=3DTrue)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0for f in p.communicate()[0].splitlines():<br>=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0path =3D os.path.dirname(f=
+)<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r.parts.appen=
+d(Report.create(f, path, str(path) + &quot;/*/built-in.o&quot;))<br>+ =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r.parts.append(Report.c=
+reate(f, path, str(path) + &quot;/*/built-in.[o,a]&quot;))<br>=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r.parts.sort(reverse=3DTrue)<br>=C2=A0<b=
+r>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for b in r.parts:<br>@@ -139,7 +139,7 @=
+@ def main():<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else:<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0assert False, &quot;unhandled option&quot=
+;<br>=C2=A0<br>- =C2=A0 =C2=A0glob =3D &quot;arch/*/built-in.o */built-in.o=
+&quot;<br>+ =C2=A0 =C2=A0glob =3D &quot;arch/*/built-in.[o,a] */built-in.[o=
+,a]&quot;<br>=C2=A0 =C2=A0 =C2=A0vmlinux =3D Report.create(&quot;vmlinux&qu=
+ot;, =C2=A0&quot;Linux Kernel&quot;, glob)<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=
+=A0vmlinux.show()<br>-- <br>2.17.1<br><br></div></div>
 
-  Choice: player_test: /home/SD820-Linux-pavan/sandeep/drone_dsi/apq8096-l=
-e-1-0-1_ap_standard_oem/apps_proc/poky/build/tmp-glibc/work/armv7a-vfp-neon=
--oemllib32-linux.
-Aborted
-~ # [ 1581.629711] msm_vidc:  err: State not recognized
-[ 1581.633314] msm_vidc:  err: Failed to move from state: 16 to 13
-[ 1581.639190] msm_vidc:  err: Failed to move inst: ffffffc072d66000 to st=
-art done state
-[ 1581.647132] msm_vidc:  err: Failed to move inst: ffffffc072d66000, cap =
-=
-=3D 9 to state: 13
-[ 1581.655081] ------------[ cut here ]------------
-[ 1581.659599] WARNING: CPU: 2 PID: 3033 at /home/SD820-Linux-pavan/sandee=
-p/drone_dsi/apq8096-le-1-0-1_ap_standard_oem/apps_proc/poky/build/tmp-glibc=
-/work-shared/apq8)
-[ 1581.682557] Modules linked in:
-[ 1581.685461] CPU: 2 PID: 3033 Comm: qmmf-server Tainted: G        W     =
- 3.18.71-g4bcd8e6-dirty #1
-[ 1581.694310] Hardware name: Qualcomm Technologies, Inc. Mistral  SD820 N=
-ano SoM Dev Kit (DT)
-[ 1581.702645] Call trace:
-[ 1581.705081] [<ffffffc000089a64>] dump_backtrace+0x0/0x14c
-[ 1581.710458] [<ffffffc000089bc4>] show_stack+0x14/0x1c
-[ 1581.715496] [<ffffffc000e4497c>] dump_stack+0x9c/0xd4
-[ 1581.720528] [<ffffffc0000a5360>] warn_slowpath_common+0x88/0xac
-[ 1581.726430] [<ffffffc0000a549c>] warn_slowpath_null+0x18/0x20
-[ 1581.732160] [<ffffffc00081a5e8>] __vb2_queue_cancel+0x48/0x12c
-[ 1581.737974] [<ffffffc00081b9c0>] vb2_queue_release+0x20/0x48
-[ 1581.743618] [<ffffffc000834968>] msm_vidc_destroy+0x6c/0xc4
-[ 1581.749173] [<ffffffc0008349d4>] close_helper.36793+0x14/0x1c
-[ 1581.754902] [<ffffffc000834d74>] msm_vidc_close+0x398/0x3b4
-[ 1581.760458] [<ffffffc00082258c>] msm_v4l2_close+0x108/0x1f0
-[ 1581.766017] [<ffffffc000802a64>] v4l2_release+0x3c/0x80
-[ 1581.771223] [<ffffffc0001bd398>] __fput+0x104/0x1c8
-[ 1581.776081] [<ffffffc0001bd4b4>] ____fput+0xc/0x14
-[ 1581.780859] [<ffffffc0000bf8e4>] task_work_run+0xb0/0xe0
-[ 1581.786152] [<ffffffc0000a6dd4>] do_exit+0x3e0/0x8ec
-[ 1581.791099] [<ffffffc0000a8300>] do_group_exit+0x44/0x9c
-[ 1581.796396] [<ffffffc0000b3030>] get_signal+0x4d8/0x558
-[ 1581.801603] [<ffffffc000088f04>] do_signal+0xac/0x568
-[ 1581.806638] [<ffffffc0000895d4>] do_notify_resume+0x18/0x54
-[ 1581.812342] ---[ end trace 363194b5c2c05f1e ]---
-[ 1581.816869] msm_vidc: info: Closed video instance: ffffffc072d66000
-[ 1581.829987] type=3D1131 audit(9963.414:110): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys'
-[ 1582.110815] type=3D1130 audit(9963.704:111): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys'
-[ 1582.131007] type=3D1131 audit(9963.704:112): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys'
-[ 1582.151976] type=3D1130 audit(9963.704:113): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys
-
---cpe9r14l7x7Blzj9xzW2
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-I have found the recipe for gstreamer :&nbsp;poky/meta-qt5/recipies-multime=
-dia/gstreamer<br />My machine is apq8096 : it has only the layer.conf which=
- builds all the recipies and bbappend files.<br />But while playing video f=
-iles using "player_test" the player fails with errors :<br />
-<pre id=3D"comment_text_0" class=3D"bz_comment_text">player_test
-
-
-   Choice: player_test: /home/SD820-Linux-pavan/sandeep/drone_dsi/apq8096-=
-le-1-0-1_ap_standard_oem/apps_proc/poky/build/tmp-glibc/work/armv7a-vfp-neo=
-n-oemllib32-linux.
-Aborted
-~ # [ 1581.629711] msm_vidc:  err: State not recognized
-[ 1581.633314] msm_vidc:  err: Failed to move from state: 16 to 13
-[ 1581.639190] msm_vidc:  err: Failed to move inst: ffffffc072d66000 to st=
-art done state
-[ 1581.647132] msm_vidc:  err: Failed to move inst: ffffffc072d66000, cap =
-=
-=3D 9 to state: 13
-[ 1581.655081] ------------[ cut here ]------------
-[ 1581.659599] WARNING: CPU: 2 PID: 3033 at /home/SD820-Linux-pavan/sandee=
-p/drone_dsi/apq8096-le-1-0-1_ap_standard_oem/apps_proc/poky/build/tmp-glibc=
-/work-shared/apq8)
-[ 1581.682557] Modules linked in:
-[ 1581.685461] CPU: 2 PID: 3033 Comm: qmmf-server Tainted: G        W     =
- 3.18.71-g4bcd8e6-dirty #1
-[ 1581.694310] Hardware name: Qualcomm Technologies, Inc. Mistral  SD820 N=
-ano SoM Dev Kit (DT)
-[ 1581.702645] Call trace:
-[ 1581.705081] [&lt;ffffffc000089a64&gt;] dump_backtrace+0x0/0x14c
-[ 1581.710458] [&lt;ffffffc000089bc4&gt;] show_stack+0x14/0x1c
-[ 1581.715496] [&lt;ffffffc000e4497c&gt;] dump_stack+0x9c/0xd4
-[ 1581.720528] [&lt;ffffffc0000a5360&gt;] warn_slowpath_common+0x88/0xac
-[ 1581.726430] [&lt;ffffffc0000a549c&gt;] warn_slowpath_null+0x18/0x20
-[ 1581.732160] [&lt;ffffffc00081a5e8&gt;] __vb2_queue_cancel+0x48/0x12c
-[ 1581.737974] [&lt;ffffffc00081b9c0&gt;] vb2_queue_release+0x20/0x48
-[ 1581.743618] [&lt;ffffffc000834968&gt;] msm_vidc_destroy+0x6c/0xc4
-[ 1581.749173] [&lt;ffffffc0008349d4&gt;] close_helper.36793+0x14/0x1c
-[ 1581.754902] [&lt;ffffffc000834d74&gt;] msm_vidc_close+0x398/0x3b4
-[ 1581.760458] [&lt;ffffffc00082258c&gt;] msm_v4l2_close+0x108/0x1f0
-[ 1581.766017] [&lt;ffffffc000802a64&gt;] v4l2_release+0x3c/0x80
-[ 1581.771223] [&lt;ffffffc0001bd398&gt;] __fput+0x104/0x1c8
-[ 1581.776081] [&lt;ffffffc0001bd4b4&gt;] ____fput+0xc/0x14
-[ 1581.780859] [&lt;ffffffc0000bf8e4&gt;] task_work_run+0xb0/0xe0
-[ 1581.786152] [&lt;ffffffc0000a6dd4&gt;] do_exit+0x3e0/0x8ec
-[ 1581.791099] [&lt;ffffffc0000a8300&gt;] do_group_exit+0x44/0x9c
-[ 1581.796396] [&lt;ffffffc0000b3030&gt;] get_signal+0x4d8/0x558
-[ 1581.801603] [&lt;ffffffc000088f04&gt;] do_signal+0xac/0x568
-[ 1581.806638] [&lt;ffffffc0000895d4&gt;] do_notify_resume+0x18/0x54
-[ 1581.812342] ---[ end trace 363194b5c2c05f1e ]---
-[ 1581.816869] msm_vidc: info: Closed video instance: ffffffc072d66000
-[ 1581.829987] type=3D1131 audit(9963.414:110): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys'
-[ 1582.110815] type=3D1130 audit(9963.704:111): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys'
-[ 1582.131007] type=3D1131 audit(9963.704:112): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys'
-[ 1582.151976] type=3D1130 audit(9963.704:113): pid=3D1 uid=3D0 auid=3D429=
-4967295 ses=3D4294967295 subj=3Dsystem_u:system_r:init_t:s0-s15:c0.c1023 ms=
-g=3D'unit=3Dqmmf-server comm=3D"sys</pre>
-
---cpe9r14l7x7Blzj9xzW2--
+--000000000000025da705a4f9dffd--
