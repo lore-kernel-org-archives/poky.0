@@ -1,97 +1,82 @@
-Subject: Problem building meta-mono gtk-sharp with dunfell release
-To: poky@lists.yoctoproject.org
-From: "Alex J Lennon" <ajlennon@dynamicdevices.co.uk>
-X-Originating-Location: Liverpool, England, GB (92.232.58.145)
-X-Originating-Platform: Linux Chrome 81
-User-Agent: GROUPS.IO Web Poster
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+ by mx.groups.io with SMTP id smtpd.web12.46.1589922332332924371
+ for <poky@lists.yoctoproject.org>;
+ Tue, 19 May 2020 14:05:32 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=cdDgrehY;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.42, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f42.google.com with SMTP id m12so647032wmc.0
+        for <poky@lists.yoctoproject.org>; Tue, 19 May 2020 14:05:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=v5JJ53mYeIRzDVVi53QR8zXJlZUzBvKlHiKb7RfZ+Is=;
+        b=cdDgrehYVTAZjJ1dBELxC6KCLCfl/kgf0gdNq5dznI8t1m518BIdWxXwLLDufmk5hq
+         t1KZ6DySxTU5h1+rjf764Q40YmOIynPwQai2hTkRWuPp85AB102J4QTcMMFH3nBjneeu
+         kl4OIbQ7SVjx0fDWWrZP8uYKMZDl6adby+CnQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=v5JJ53mYeIRzDVVi53QR8zXJlZUzBvKlHiKb7RfZ+Is=;
+        b=BE2P8MMzTse6COVm3az8ib+L1wFbjAUh9VE7ZOwq1E/BPmIXIeaeqY8C45FZuqfN6f
+         cLOZRayXk3/nEX7JipbOLVID+QE2vBvySpfhXFwAnYiAJjb7ptkXxtoWhtkOiCSd+E8z
+         Z/BjaMmP0F0akL/RfRuFzihv/sHIIKmeY5sbp+wu2CsTk6Z8W4YMt9aLEis/s1oDMm/I
+         zDJUU39ZD5oWHaLj0g4ODtERwXaVwPDRszEAGkOSDhQQpcXZgOzyamN4YqXrZEFDM6v/
+         Ae/LPq9HVWR7ef2nzlYhiF4LcqVG+EnOze9hixpctSkRg7txrxVkv11FN7yGkh9XS+rT
+         0DpQ==
+X-Gm-Message-State: AOAM533ilSXS4XJfsmLOpo3MRjgROXz4+SIvzLvDt8/GS7LJSEiqIZ9+
+	nHghiB0M5PRE12x3Mfh8vL8eJg==
+X-Google-Smtp-Source: ABdhPJwHejCVzYkc9fpj7aFgoPWpwJquOAgRKfblfON1zALtl6WUr0yBDbspCbMebSR3hZMHFXcDoA==
+X-Received: by 2002:a05:600c:2102:: with SMTP id u2mr1229968wml.19.1589922330802;
+        Tue, 19 May 2020 14:05:30 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+        by smtp.gmail.com with ESMTPSA id n17sm638875wrr.42.2020.05.19.14.05.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2020 14:05:29 -0700 (PDT)
+Message-ID: <38fe9dc192f312a12b73323581383c9ed5842f06.camel@linuxfoundation.org>
+Subject: Re: [poky] Problem building meta-mono gtk-sharp with dunfell release
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Alex J Lennon <ajlennon@dynamicdevices.co.uk>, 
+	poky@lists.yoctoproject.org
+Date: Tue, 19 May 2020 22:05:28 +0100
+In-Reply-To: <Tkjn.1589910615239216242.Ajap@lists.yoctoproject.org>
+References: <Tkjn.1589910615239216242.Ajap@lists.yoctoproject.org>
+User-Agent: Evolution 3.36.1-2 
 MIME-Version: 1.0
-Date: Tue, 19 May 2020 10:50:15 -0700
-Message-ID: <Tkjn.1589910615239216242.Ajap@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="cvSZsw4SD6zTxTQ2VZXL"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---cvSZsw4SD6zTxTQ2VZXL
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, 2020-05-19 at 10:50 -0700, Alex J Lennon wrote:
+> Hi,
+> 
+> I've run into a problem with my CI building meta-mono gtk-sharp
+> recipe with dunfell and I wonder if anybody can advise?
+> 
+> > File: '/data_drive/git/monotest/poky/meta/lib/oe/sstatesig.py',
+> > lineno: 548, function: process
+> >      0544:                    add_perm(stat.S_IXOTH, 'x')
+> >      0545:
+> >      0546:                if include_owners:
+> >      0547:                    try:
+> >  *** 0548:                        update_hash(" %10s" %
+> > pwd.getpwuid(s.st_uid).pw_name)
+> >      0549:                        update_hash(" %10s" %
+> > grp.getgrgid(s.st_gid).gr_name)
+> >      0550:                    except KeyError:
+> >      0551:                        bb.warn("KeyError in %s" % path)
+> >      0552:                        raise
+> > Exception: KeyError: 'getpwuid(): uid not found: 1000'
+> >  
+>  Full log is here
 
-Hi,
+It means the ownership of files in the output of that recipe is
+questionable. Adding some "chown root.root ${D}/XXX" would probably fix
+it.
 
-I've run into a problem with my CI building meta-mono gtk-sharp recipe wit=
-h dunfell and I wonder if anybody can advise?
+Cheers,
 
->=20
-> File: '/data_drive/git/monotest/poky/meta/lib/oe/sstatesig.py', lineno:
-> 548, function: process
-> 0544:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 add_perm(stat.S_IXOTH, 'x')
-> 0545:
-> 0546:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if include_=
-owners:
-> 0547:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 try:
-> *** 0548:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=
-=C2=A0 =C2=A0 =C2=A0 update_hash(" %10s" %
-> pwd.getpwuid(s.st_uid).pw_name)
-> 0549:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 update_hash(" %10s" %
-> grp.getgrgid(s.st_gid).gr_name)
-> 0550:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 except KeyError:
-> 0551:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 bb.warn("KeyError in %s" % path)
-> 0552:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 raise
-> Exception: KeyError: 'getpwuid(): uid not found: 1000'
->=20
->=20
+Richard
 
-Full log is here ( http://jenkins.dynamicdevices.co.uk:8080/job/meta-mono%=
-20(dunfell,x86-64)/6/console )
-
-Thanks,
-
-Alex
-
---cvSZsw4SD6zTxTQ2VZXL
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,<br /><br />I've run into a problem with my CI building meta-mono gtk-sh=
-arp recipe with dunfell and I wonder if anybody can advise?<br /><br />
-<blockquote>
-<div style=3D"line-height: 1.42857;">
-<div style=3D"line-height: 1.42857;">File: '/data_drive/git/monotest/poky/=
-meta/lib/oe/sstatesig.py', lineno: 548, function: process</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0544:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; add_perm(stat.S_I=
-XOTH, 'x')</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0545:</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0546:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if include_owners:</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0547:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; try:</div>
-<div style=3D"line-height: 1.42857;">&nbsp;*** 0548:&nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; update_hash("=
- %10s" % pwd.getpwuid(s.st_uid).pw_name)</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0549:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; upd=
-ate_hash(" %10s" % grp.getgrgid(s.st_gid).gr_name)</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0550:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; except KeyError:<=
-/div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0551:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bb.=
-warn("KeyError in %s" % path)</div>
-<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0552:&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rai=
-se</div>
-<div style=3D"line-height: 1.42857;">Exception: KeyError: 'getpwuid(): uid=
- not found: 1000'</div>
-<div style=3D"line-height: 1.42857;">&nbsp;</div>
-</div>
-</blockquote>
-Full log is&nbsp;<a href=3D"http://jenkins.dynamicdevices.co.uk:8080/job/m=
-eta-mono%20(dunfell,x86-64)/6/console" target=3D"_blank" rel=3D"noopener">h=
-ere</a><br /><br />Thanks,<br /><br />Alex
-
---cvSZsw4SD6zTxTQ2VZXL--
