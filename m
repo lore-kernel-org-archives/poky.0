@@ -1,67 +1,97 @@
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com [209.85.221.68])
- by mx.groups.io with SMTP id smtpd.web12.3266.1588795572940329784
- for <poky@lists.yoctoproject.org>;
- Wed, 06 May 2020 13:06:13 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=EvK+RuN3;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.68, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f68.google.com with SMTP id s8so3673328wrt.9
-        for <poky@lists.yoctoproject.org>; Wed, 06 May 2020 13:06:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=wUrg5l4F283Lo6PMoSzlpj9dTgDAQAgmMyaI+aWUyro=;
-        b=EvK+RuN3WMIDdwGHJbUgMiUcrSiqTrGH4FtJiR5WBtzHQbsb3RiHjkfgmbOqe/oC4p
-         72/VYfUzJTyx+dorAg0ngokGlmQkdS0hXxfyonsJUn/otTU5DVGuhlBkmSt2YzLeoJ3J
-         uBaMp15iizY7/cIW1dRD64boEjSV4XACKRzuM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=wUrg5l4F283Lo6PMoSzlpj9dTgDAQAgmMyaI+aWUyro=;
-        b=HGcvk8Md18yGfstzjVF/1R8UFlz4DxP1jb5RXzOEWqRYr8MtXtjx0lXWVjg2yAwdKT
-         Tcv1l7X2ZG96pgWqrsPqhqVeLQZxgHNEzJPW//WakOYmITRqG645UHe7r39vehS4sV9K
-         NcYfaP8nvsBa0ssGNaQXROGEiSGyNdTRSw7oTJHRPgGBECocVA/GHo/o17VRUGE/DtRT
-         AMpQGLf/CnA8eInqIhFL4YAMcRhgddAApfmvspqly9bRHAFqZu8Fb9nGdAbL3HWutXDA
-         X6ACZGFhMaCMrLxbgDEdeWAvy/0Kz+8/emSKSIziikiGytV1gzRYpwon+9xeLTGJD4YF
-         6DkA==
-X-Gm-Message-State: AGi0PuY3L7L7+AMpa2tBkQ/qco9983f+4aaqCdv3dGwjxXK9qexmkKX0
-	fwKrYSjpqkT5Pv2/fqmKNgPE1fX4/Rs=
-X-Google-Smtp-Source: APiQypIoFgd7vSpk4Fm0kMJekKp5tjbA+LCt0Hz52zAOcDbZj0HZ4wmWpyXDLnFa4lZGsa4JdD3qDw==
-X-Received: by 2002:a5d:65ce:: with SMTP id e14mr11254640wrw.314.1588795571129;
-        Wed, 06 May 2020 13:06:11 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id c16sm1533333wrv.62.2020.05.06.13.06.09
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2020 13:06:10 -0700 (PDT)
-Message-ID: <cad03693767a1b333239aecdbc122fb393b7c552.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH][scripts] Allowing to work ksize also with built-in.a
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+Subject: Problem building meta-mono gtk-sharp with dunfell release
 To: poky@lists.yoctoproject.org
-Date: Wed, 06 May 2020 21:06:08 +0100
-In-Reply-To: <8218.1588793839732862661@lists.yoctoproject.org>
-References: 
-	<4d94832cb83c1801cd6574c68c63e1b8ff0cc33f.camel@linuxfoundation.org>
-	 <8218.1588793839732862661@lists.yoctoproject.org>
-User-Agent: Evolution 3.36.1-2 
+From: "Alex J Lennon" <ajlennon@dynamicdevices.co.uk>
+X-Originating-Location: Liverpool, England, GB (92.232.58.145)
+X-Originating-Platform: Linux Chrome 81
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Date: Tue, 19 May 2020 10:50:15 -0700
+Message-ID: <Tkjn.1589910615239216242.Ajap@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="cvSZsw4SD6zTxTQ2VZXL"
 
-On Wed, 2020-05-06 at 12:37 -0700, jan wrote:
-> Should I send this patch to and poky and openembedded-core, or just
-> openembedded-core?
-> The script I'm patching is part of poky (
-> https://git.yoctoproject.org/git/poky)
+--cvSZsw4SD6zTxTQ2VZXL
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-To openembedded-core. See README.poky for more information. Basically
-its a merged repository so any change in openembedded-core falls
-through to poky.
+Hi,
 
-Cheers,
+I've run into a problem with my CI building meta-mono gtk-sharp recipe wit=
+h dunfell and I wonder if anybody can advise?
 
-Richard
+>=20
+> File: '/data_drive/git/monotest/poky/meta/lib/oe/sstatesig.py', lineno:
+> 548, function: process
+> 0544:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 add_perm(stat.S_IXOTH, 'x')
+> 0545:
+> 0546:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if include_=
+owners:
+> 0547:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 try:
+> *** 0548:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=
+=C2=A0 =C2=A0 =C2=A0 update_hash(" %10s" %
+> pwd.getpwuid(s.st_uid).pw_name)
+> 0549:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 update_hash(" %10s" %
+> grp.getgrgid(s.st_gid).gr_name)
+> 0550:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 except KeyError:
+> 0551:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 bb.warn("KeyError in %s" % path)
+> 0552:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 raise
+> Exception: KeyError: 'getpwuid(): uid not found: 1000'
+>=20
+>=20
 
+Full log is here ( http://jenkins.dynamicdevices.co.uk:8080/job/meta-mono%=
+20(dunfell,x86-64)/6/console )
+
+Thanks,
+
+Alex
+
+--cvSZsw4SD6zTxTQ2VZXL
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,<br /><br />I've run into a problem with my CI building meta-mono gtk-sh=
+arp recipe with dunfell and I wonder if anybody can advise?<br /><br />
+<blockquote>
+<div style=3D"line-height: 1.42857;">
+<div style=3D"line-height: 1.42857;">File: '/data_drive/git/monotest/poky/=
+meta/lib/oe/sstatesig.py', lineno: 548, function: process</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0544:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; add_perm(stat.S_I=
+XOTH, 'x')</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0545:</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0546:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if include_owners:</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0547:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; try:</div>
+<div style=3D"line-height: 1.42857;">&nbsp;*** 0548:&nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; update_hash("=
+ %10s" % pwd.getpwuid(s.st_uid).pw_name)</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0549:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; upd=
+ate_hash(" %10s" % grp.getgrgid(s.st_gid).gr_name)</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0550:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; except KeyError:<=
+/div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0551:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bb.=
+warn("KeyError in %s" % path)</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp;0552:&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rai=
+se</div>
+<div style=3D"line-height: 1.42857;">Exception: KeyError: 'getpwuid(): uid=
+ not found: 1000'</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+</div>
+</blockquote>
+Full log is&nbsp;<a href=3D"http://jenkins.dynamicdevices.co.uk:8080/job/m=
+eta-mono%20(dunfell,x86-64)/6/console" target=3D"_blank" rel=3D"noopener">h=
+ere</a><br /><br />Thanks,<br /><br />Alex
+
+--cvSZsw4SD6zTxTQ2VZXL--
