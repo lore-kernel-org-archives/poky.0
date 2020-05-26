@@ -1,323 +1,133 @@
-Subject: Opencv support on Jethro branch
-To: poky@lists.yoctoproject.org
-From: "Yash" <yash.j@mistralsolutions.com>
-X-Originating-Location: Bengaluru, Karnataka, IN (106.217.67.70)
-X-Originating-Platform: Windows Chrome 81
-User-Agent: GROUPS.IO Web Poster
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+ by mx.groups.io with SMTP id smtpd.web12.109.1590527227456529480
+ for <poky@lists.yoctoproject.org>;
+ Tue, 26 May 2020 14:07:08 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@dynamicdevices-co-uk.20150623.gappssmtp.com header.s=20150623 header.b=Vm+79UEX;
+ spf=none, err=permanent DNS error (domain: dynamicdevices.co.uk, ip: 209.85.221.52, mailfrom: ajlennon@dynamicdevices.co.uk)
+Received: by mail-wr1-f52.google.com with SMTP id s8so21856966wrt.9
+        for <poky@lists.yoctoproject.org>; Tue, 26 May 2020 14:07:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dynamicdevices-co-uk.20150623.gappssmtp.com; s=20150623;
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-transfer-encoding:content-language;
+        bh=GH8xzyBay+1fUb9Jlm9BWDMbrSyNWdMMKB4HOsIxZY0=;
+        b=Vm+79UEXmQK/IVNRzTc6EGe7eVyZft+i3yB0/oQX3fG6SKQDp6j010c+g0OF+eQ2/T
+         kVo72xyle/3qooiS9pKZP+CuPp60VKACjXBKWi1thTi1KKfGOZBLPjk/jTlZC+/uHfd+
+         2N1H7QNiTF5DaE+CxOZ4y+JB9lkIOueIEiA/i85+T+HkMSwZyTsjLyoxj6zEyI3JPXPP
+         90xGkSbJ4ZNtkOiD6ls/gZqC5UEcdaGKukqguIWBoBPApOn+g62fta8rAJiHM67RaaHH
+         5+7rCI8VLZaxvJTHFzviYvhfZ80Xy+Af/SO+1ytaY+ViLsJGnlKlYzaCmilIJNqTIptv
+         kb6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=GH8xzyBay+1fUb9Jlm9BWDMbrSyNWdMMKB4HOsIxZY0=;
+        b=khKqskF47huE6OTCZPPVHl1ddO02kQV5zKJiOStzEuQDjTQ+Q8FuGZxuDZuMz8JXJt
+         +swf81QFl42wrpTAY9QEVxWO9X3cZoHBH9e2j9E4s/NAS3LFkymCzgsGY7oo6RTenW/4
+         wtLkeUaG3yoULpbqA10XUQwB4UEqC1jo5lCE8V7RuPYOW6XHldRHWY7MvC5sv8wzwKtZ
+         7NHLMLBxiT177l1AbSM4oZW1rL3/y1D1SJc1Gg8R8QQP9A/DJCUJbh+N7SsCHQo9N9VN
+         PYMNwXIvfUJrWguIhoS8R/Sf38eJQBrbN1Bgf64ru7wv5IH+o8PvPor4Wb63aTDvUdqT
+         5mSQ==
+X-Gm-Message-State: AOAM531yRzftnxHmUNnnZeIf4r3wDcUOltTe9PpiOJUe149PxI5BrUHz
+	otDeEAxNXz23UZwDlFsKp9ytvyLmASRzWA==
+X-Google-Smtp-Source: ABdhPJyWVp80Qfpig7U9mHaOZsCObnpIpvPWO1NggwOB/497NS/ppnD2lYhgMQypQLJcetaGRwMl9w==
+X-Received: by 2002:a05:6000:1289:: with SMTP id f9mr21928822wrx.5.1590527225611;
+        Tue, 26 May 2020 14:07:05 -0700 (PDT)
+Return-Path: <ajlennon@dynamicdevices.co.uk>
+Received: from [192.168.0.219] (cpc111193-live30-2-0-cust656.17-2.cable.virginm.net. [92.232.58.145])
+        by smtp.gmail.com with ESMTPSA id m24sm697488wmi.14.2020.05.26.14.07.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 May 2020 14:07:04 -0700 (PDT)
+Subject: Re: [poky] Problem building meta-mono gtk-sharp with dunfell release
+To: Richard Purdie <richard.purdie@linuxfoundation.org>,
+ poky@lists.yoctoproject.org
+References: <Tkjn.1589910615239216242.Ajap@lists.yoctoproject.org>
+ <38fe9dc192f312a12b73323581383c9ed5842f06.camel@linuxfoundation.org>
+ <f5a8b269-6bb8-12de-995a-b3f130852d63@dynamicdevices.co.uk>
+ <a58229a9d18b3142f5195aea982d806126fc8224.camel@linuxfoundation.org>
+From: "Alex J Lennon" <ajlennon@dynamicdevices.co.uk>
+Message-ID: <d1992e88-dd1d-6fca-237b-a1061392f17c@dynamicdevices.co.uk>
+Date: Tue, 26 May 2020 22:07:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Date: Mon, 25 May 2020 21:30:05 -0700
-Message-ID: <dM2n.1590467405674619419.NrNX@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="s2EoMJj9AsyGKqpPgvnP"
+In-Reply-To: <a58229a9d18b3142f5195aea982d806126fc8224.camel@linuxfoundation.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
---s2EoMJj9AsyGKqpPgvnP
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-I have added meta-openembedded/meta-oe recipes in the Yocto project, at Jet=
-hro branch OpenCV version is 2.4.
-After building while testing the sample applications provided by opencv-sa=
-mples_2.4.bb gives these samples :
-adaptiveskindetector=C2=A0 contours=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0faced=
-etect=C2=A0 find_obj_calonder=C2=A0 morphology=C2=A0 =C2=A0mushroom=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 pyramid_segmentation
-bgfg_codebook=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0convert_cascade=C2=A0 fback=
-_c=C2=A0 =C2=A0 =C2=A0find_obj_ferns=C2=A0 =C2=A0 =C2=A0motempl=C2=A0 =C2=
-=A0 =C2=A0 one_way_sample=C2=A0 =C2=A0 smiledetect
-blobtrack_sample=C2=A0 =C2=A0 =C2=A0 delaunay=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0find_obj=C2=A0 =C2=A0 latentsvmdetect=C2=A0 =C2=A0 mser_sample=C2=A0=
- polar_transforms=C2=A0 tree_engine
+On 20/05/2020 13:19, Richard Purdie wrote:
+> On Wed, 2020-05-20 at 13:10 +0100, Alex J Lennon wrote:
+>> On 19/05/2020 22:05, Richard Purdie wrote:
+>>> On Tue, 2020-05-19 at 10:50 -0700, Alex J Lennon wrote:
+>>>> Hi,
+>>>>
+>>>> I've run into a problem with my CI building meta-mono gtk-sharp
+>>>> recipe with dunfell and I wonder if anybody can advise?
+>>>>
+>>>>> File: '/data_drive/git/monotest/poky/meta/lib/oe/sstatesig.py',
+>>>>> lineno: 548, function: process
+>>>>>        0544:                    add_perm(stat.S_IXOTH, 'x')
+>>>>>        0545:
+>>>>>        0546:                if include_owners:
+>>>>>        0547:                    try:
+>>>>>    *** 0548:                        update_hash(" %10s" %
+>>>>> pwd.getpwuid(s.st_uid).pw_name)
+>>>>>        0549:                        update_hash(" %10s" %
+>>>>> grp.getgrgid(s.st_gid).gr_name)
+>>>>>        0550:                    except KeyError:
+>>>>>        0551:                        bb.warn("KeyError in %s" %
+>>>>> path)
+>>>>>        0552:                        raise
+>>>>> Exception: KeyError: 'getpwuid(): uid not found: 1000'
+>>>>>    
+>>>>    Full log is here
+>>> It means the ownership of files in the output of that recipe is
+>>> questionable. Adding some "chown root.root ${D}/XXX" would probably
+>>> fix
+>>> it.
+>>>
+>> Thanks Richard! I went down this line:
+>>
+>> addtask do_file_ownership after do_install before do_package
+>>
+>> do_file_ownership() {
+>>     chown root.root ${D}${libdir}/mono/${PN}-2.0/*.dll
+>> }
+>>
+>> I'm getting an error that I can't change ownership
+> That is because its not running under pseudo.
+>
+> do_file_ownership[fakeroot] = "1"
+>
+> should fix that.
+>
+> Cheers,
+>
+> Richard
+>
+>
+Hey Richard,
 
-but while testing I got this error :
-OpenCV Error : Unspecified error ( The function is not implemented. Rebuil=
-d the library with Windows , GTK + 2.x or Carbon support. If you are on Ubu=
-ntu or Debian , install libgtk2. 0 - dev and pkg - config , then re - run c=
-make or configure script ) in cvNamedWindow , file / home/ymj / opencv / mo=
-dules / highgui / src / window. cpp , line 516
+OK I have been having another look and have a solution that builds.
 
-I have added in local.conf:
+It looks like there was a problem with symlinks as chown seems not to 
+modify ownership unless you give it a prod with -h
 
-IMAGE_INSTALL_append=C2=A0+=3D=C2=A0" opencv opencv-samples python-opencv"
+For others who see this problem try
 
-Is=C2=A0anything=C2=A0more=C2=A0needed=C2=A0to=C2=A0get=C2=A0full-fledged=
-=C2=A0opencv=C2=A0operations.
+do_install_append() {
+   find ${D} -name *.dll -exec chown -h root:root {} \;
+}
 
---s2EoMJj9AsyGKqpPgvnP
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Still fairly unclear on why ownership needs to be changed, and why other 
+recipes aren't having the problem but Jenkins is happy so I am happy :)
 
-I have added meta-openembedded/meta-oe recipes in the Yocto project, at Jet=
-hro branch OpenCV version is 2.4.<br />After building while testing the sam=
-ple applications provided by opencv-samples_2.4.bb gives these samples :<br=
- />
-<div>adaptiveskindetector&nbsp; contours&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-facedetect&nbsp; find_obj_calonder&nbsp; morphology&nbsp; &nbsp;mushroom&nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; pyramid_segmentation</div>
-<div>bgfg_codebook&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;convert_cascade&nbsp; =
-fback_c&nbsp; &nbsp; &nbsp;find_obj_ferns&nbsp; &nbsp; &nbsp;motempl&nbsp; =
-&nbsp; &nbsp; one_way_sample&nbsp; &nbsp; smiledetect</div>
-<div>blobtrack_sample&nbsp; &nbsp; &nbsp; delaunay&nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp;find_obj&nbsp; &nbsp; latentsvmdetect&nbsp; &nbsp; mser_sample&nb=
-sp; polar_transforms&nbsp; tree_engine<br /><br />but while testing I got t=
-his error :<br />
-<pre class=3D"lang-cpp prettyprint prettyprinted" style=3D"margin-bottom: =
-1em; padding: 12px 8px; font-variant-numeric: inherit; font-variant-east-as=
-ian: inherit; font-stretch: inherit; line-height: inherit; font-family: Con=
-solas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mon=
-o', 'Bitstream Vera Sans Mono', 'Courier New', monospace, sans-serif; verti=
-cal-align: baseline; box-sizing: inherit; width: auto; max-height: 600px; b=
-ackground-color: var(--black-050); border-radius: 3px; color: #242729; over=
-flow-wrap: normal; border: 0px initial initial;"><code style=3D"margin: 0px=
-; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inh=
-erit; font-stretch: inherit; line-height: inherit; font-family: Consolas, M=
-enlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bit=
-stream Vera Sans Mono', 'Courier New', monospace, sans-serif; font-size: 13=
-px; vertical-align: baseline; box-sizing: inherit; white-space: inherit;"><=
-span class=3D"typ" style=3D"margin: 0px; padding: 0px; border: 0px; font-st=
-yle: inherit; font-variant: inherit; font-weight: inherit; font-stretch: in=
-herit; line-height: inherit; font-family: inherit; vertical-align: baseline=
-; box-sizing: inherit; color: #2b91af;">OpenCV</span><span class=3D"pln" st=
-yle=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-va=
-riant: inherit; font-weight: inherit; font-stretch: inherit; line-height: i=
-nherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit=
-; color: var(--black-750);"> </span><span class=3D"typ" style=3D"margin: 0p=
-x; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; f=
-ont-weight: inherit; font-stretch: inherit; line-height: inherit; font-fami=
-ly: inherit; vertical-align: baseline; box-sizing: inherit; color: #2b91af;=
-">Error</span><span class=3D"pun" style=3D"margin: 0px; padding: 0px; borde=
-r: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; f=
-ont-stretch: inherit; line-height: inherit; font-family: inherit; vertical-=
-align: baseline; box-sizing: inherit; color: var(--black-750);">:</span><sp=
-an class=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px; font-styl=
-e: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inhe=
-rit; line-height: inherit; font-family: inherit; vertical-align: baseline; =
-box-sizing: inherit; color: var(--black-750);"> </span><span class=3D"typ" =
-style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-=
-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height:=
- inherit; font-family: inherit; vertical-align: baseline; box-sizing: inher=
-it; color: #2b91af;">Unspecified</span><span class=3D"pln" style=3D"margin:=
- 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit=
-; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-f=
-amily: inherit; vertical-align: baseline; box-sizing: inherit; color: var(-=
--black-750);"> error </span><span class=3D"pun" style=3D"margin: 0px; paddi=
-ng: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weig=
-ht: inherit; font-stretch: inherit; line-height: inherit; font-family: inhe=
-rit; vertical-align: baseline; box-sizing: inherit; color: var(--black-750)=
-;">(</span><span class=3D"typ" style=3D"margin: 0px; padding: 0px; border: =
-0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font=
--stretch: inherit; line-height: inherit; font-family: inherit; vertical-ali=
-gn: baseline; box-sizing: inherit; color: #2b91af;">The</span><span class=
-=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inhe=
-rit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; li=
-ne-height: inherit; font-family: inherit; vertical-align: baseline; box-siz=
-ing: inherit; color: var(--black-750);"> function is not implemented</span>=
-<span class=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-s=
-tyle: inherit; font-variant: inherit; font-weight: inherit; font-stretch: i=
-nherit; line-height: inherit; font-family: inherit; vertical-align: baselin=
-e; box-sizing: inherit; color: var(--black-750);">.</span><span class=3D"pl=
-n" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; fo=
-nt-variant: inherit; font-weight: inherit; font-stretch: inherit; line-heig=
-ht: inherit; font-family: inherit; vertical-align: baseline; box-sizing: in=
-herit; color: var(--black-750);"> </span><span class=3D"typ" style=3D"margi=
-n: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inher=
-it; font-weight: inherit; font-stretch: inherit; line-height: inherit; font=
--family: inherit; vertical-align: baseline; box-sizing: inherit; color: #2b=
-91af;">Rebuild</span><span class=3D"pln" style=3D"margin: 0px; padding: 0px=
-; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inh=
-erit; font-stretch: inherit; line-height: inherit; font-family: inherit; ve=
-rtical-align: baseline; box-sizing: inherit; color: var(--black-750);"> the=
- library with </span><span class=3D"typ" style=3D"margin: 0px; padding: 0px=
-; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inh=
-erit; font-stretch: inherit; line-height: inherit; font-family: inherit; ve=
-rtical-align: baseline; box-sizing: inherit; color: #2b91af;">Windows</span=
-><span class=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-=
-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: =
-inherit; line-height: inherit; font-family: inherit; vertical-align: baseli=
-ne; box-sizing: inherit; color: var(--black-750);">,</span><span class=3D"p=
-ln" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; f=
-ont-variant: inherit; font-weight: inherit; font-stretch: inherit; line-hei=
-ght: inherit; font-family: inherit; vertical-align: baseline; box-sizing: i=
-nherit; color: var(--black-750);"> GTK</span><span class=3D"pun" style=3D"m=
-argin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: i=
-nherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; =
-font-family: inherit; vertical-align: baseline; box-sizing: inherit; color:=
- var(--black-750);">+</span><span class=3D"pln" style=3D"margin: 0px; paddi=
-ng: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weig=
-ht: inherit; font-stretch: inherit; line-height: inherit; font-family: inhe=
-rit; vertical-align: baseline; box-sizing: inherit; color: var(--black-750)=
-;"> </span><span class=3D"lit" style=3D"margin: 0px; padding: 0px; border: =
-0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font=
--stretch: inherit; line-height: inherit; font-family: inherit; vertical-ali=
-gn: baseline; box-sizing: inherit; color: var(--red-800);">2.x</span><span =
-class=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: =
-inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit=
-; line-height: inherit; font-family: inherit; vertical-align: baseline; box=
--sizing: inherit; color: var(--black-750);"> or </span><span class=3D"typ" =
-style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-=
-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height:=
- inherit; font-family: inherit; vertical-align: baseline; box-sizing: inher=
-it; color: #2b91af;">Carbon</span><span class=3D"pln" style=3D"margin: 0px;=
- padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; fon=
-t-weight: inherit; font-stretch: inherit; line-height: inherit; font-family=
-: inherit; vertical-align: baseline; box-sizing: inherit; color: var(--blac=
-k-750);"> support</span><span class=3D"pun" style=3D"margin: 0px; padding: =
-0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: =
-inherit; font-stretch: inherit; line-height: inherit; font-family: inherit;=
- vertical-align: baseline; box-sizing: inherit; color: var(--black-750);">.=
-</span><span class=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px;=
- font-style: inherit; font-variant: inherit; font-weight: inherit; font-str=
-etch: inherit; line-height: inherit; font-family: inherit; vertical-align: =
-baseline; box-sizing: inherit; color: var(--black-750);"> </span><span clas=
-s=3D"typ" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inhe=
-rit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; li=
-ne-height: inherit; font-family: inherit; vertical-align: baseline; box-siz=
-ing: inherit; color: #2b91af;">If</span><span class=3D"pln" style=3D"margin=
-: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inheri=
-t; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-=
-family: inherit; vertical-align: baseline; box-sizing: inherit; color: var(=
---black-750);"> you are on </span><span class=3D"typ" style=3D"margin: 0px;=
- padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; fon=
-t-weight: inherit; font-stretch: inherit; line-height: inherit; font-family=
-: inherit; vertical-align: baseline; box-sizing: inherit; color: #2b91af;">=
-Ubuntu</span><span class=3D"pln" style=3D"margin: 0px; padding: 0px; border=
-: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; fo=
-nt-stretch: inherit; line-height: inherit; font-family: inherit; vertical-a=
-lign: baseline; box-sizing: inherit; color: var(--black-750);"> or </span><=
-span class=3D"typ" style=3D"margin: 0px; padding: 0px; border: 0px; font-st=
-yle: inherit; font-variant: inherit; font-weight: inherit; font-stretch: in=
-herit; line-height: inherit; font-family: inherit; vertical-align: baseline=
-; box-sizing: inherit; color: #2b91af;">Debian</span><span class=3D"pun" st=
-yle=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-va=
-riant: inherit; font-weight: inherit; font-stretch: inherit; line-height: i=
-nherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit=
-; color: var(--black-750);">,</span><span class=3D"pln" style=3D"margin: 0p=
-x; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; f=
-ont-weight: inherit; font-stretch: inherit; line-height: inherit; font-fami=
-ly: inherit; vertical-align: baseline; box-sizing: inherit; color: var(--bl=
-ack-750);"> install libgtk2</span><span class=3D"pun" style=3D"margin: 0px;=
- padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; fon=
-t-weight: inherit; font-stretch: inherit; line-height: inherit; font-family=
-: inherit; vertical-align: baseline; box-sizing: inherit; color: var(--blac=
-k-750);">.</span><span class=3D"lit" style=3D"margin: 0px; padding: 0px; bo=
-rder: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit=
-; font-stretch: inherit; line-height: inherit; font-family: inherit; vertic=
-al-align: baseline; box-sizing: inherit; color: var(--red-800);">0</span><s=
-pan class=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-sty=
-le: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inh=
-erit; line-height: inherit; font-family: inherit; vertical-align: baseline;=
- box-sizing: inherit; color: var(--black-750);">-</span><span class=3D"pln"=
- style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font=
--variant: inherit; font-weight: inherit; font-stretch: inherit; line-height=
-: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inhe=
-rit; color: var(--black-750);">dev and pkg</span><span class=3D"pun" style=
-=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-vari=
-ant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inh=
-erit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; =
-color: var(--black-750);">-</span><span class=3D"pln" style=3D"margin: 0px;=
- padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; fon=
-t-weight: inherit; font-stretch: inherit; line-height: inherit; font-family=
-: inherit; vertical-align: baseline; box-sizing: inherit; color: var(--blac=
-k-750);">config</span><span class=3D"pun" style=3D"margin: 0px; padding: 0p=
-x; border: 0px; font-style: inherit; font-variant: inherit; font-weight: in=
-herit; font-stretch: inherit; line-height: inherit; font-family: inherit; v=
-ertical-align: baseline; box-sizing: inherit; color: var(--black-750);">,</=
-span><span class=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px; f=
-ont-style: inherit; font-variant: inherit; font-weight: inherit; font-stret=
-ch: inherit; line-height: inherit; font-family: inherit; vertical-align: ba=
-seline; box-sizing: inherit; color: var(--black-750);"> then re</span><span=
- class=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-style:=
- inherit; font-variant: inherit; font-weight: inherit; font-stretch: inheri=
-t; line-height: inherit; font-family: inherit; vertical-align: baseline; bo=
-x-sizing: inherit; color: var(--black-750);">-</span><span class=3D"pln" st=
-yle=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-va=
-riant: inherit; font-weight: inherit; font-stretch: inherit; line-height: i=
-nherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit=
-; color: var(--black-750);">run cmake or configure script</span><span class=
-=
-=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inhe=
-rit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; li=
-ne-height: inherit; font-family: inherit; vertical-align: baseline; box-siz=
-ing: inherit; color: var(--black-750);">)</span><span class=3D"pln" style=
-=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-vari=
-ant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inh=
-erit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; =
-color: var(--black-750);"> in cvNamedWindow</span><span class=3D"pun" style=
-=
-=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-vari=
-ant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inh=
-erit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; =
-color: var(--black-750);">,</span><span class=3D"pln" style=3D"margin: 0px;=
- padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; fon=
-t-weight: inherit; font-stretch: inherit; line-height: inherit; font-family=
-: inherit; vertical-align: baseline; box-sizing: inherit; color: var(--blac=
-k-750);"> file </span><span class=3D"pun" style=3D"margin: 0px; padding: 0p=
-x; border: 0px; font-style: inherit; font-variant: inherit; font-weight: in=
-herit; font-stretch: inherit; line-height: inherit; font-family: inherit; v=
-ertical-align: baseline; box-sizing: inherit; color: var(--black-750);">/</=
-span><span class=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px; f=
-ont-style: inherit; font-variant: inherit; font-weight: inherit; font-stret=
-ch: inherit; line-height: inherit; font-family: inherit; vertical-align: ba=
-seline; box-sizing: inherit; color: var(--black-750);">home/ymj</span><span=
- class=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-style:=
- inherit; font-variant: inherit; font-weight: inherit; font-stretch: inheri=
-t; line-height: inherit; font-family: inherit; vertical-align: baseline; bo=
-x-sizing: inherit; color: var(--black-750);">/</span><span class=3D"pln" st=
-yle=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-va=
-riant: inherit; font-weight: inherit; font-stretch: inherit; line-height: i=
-nherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit=
-; color: var(--black-750);">opencv</span><span class=3D"pun" style=3D"margi=
-n: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inher=
-it; font-weight: inherit; font-stretch: inherit; line-height: inherit; font=
--family: inherit; vertical-align: baseline; box-sizing: inherit; color: var=
-(--black-750);">/</span><span class=3D"pln" style=3D"margin: 0px; padding: =
-0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: =
-inherit; font-stretch: inherit; line-height: inherit; font-family: inherit;=
- vertical-align: baseline; box-sizing: inherit; color: var(--black-750);">m=
-odules</span><span class=3D"pun" style=3D"margin: 0px; padding: 0px; border=
-: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; fo=
-nt-stretch: inherit; line-height: inherit; font-family: inherit; vertical-a=
-lign: baseline; box-sizing: inherit; color: var(--black-750);">/</span><spa=
-n class=3D"pln" style=3D"margin: 0px; padding: 0px; border: 0px; font-style=
-: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inher=
-it; line-height: inherit; font-family: inherit; vertical-align: baseline; b=
-ox-sizing: inherit; color: var(--black-750);">highgui</span><span class=3D"=
-pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; =
-font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-he=
-ight: inherit; font-family: inherit; vertical-align: baseline; box-sizing: =
-inherit; color: var(--black-750);">/</span><span class=3D"pln" style=3D"mar=
-gin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inh=
-erit; font-weight: inherit; font-stretch: inherit; line-height: inherit; fo=
-nt-family: inherit; vertical-align: baseline; box-sizing: inherit; color: v=
-ar(--black-750);">src</span><span class=3D"pun" style=3D"margin: 0px; paddi=
-ng: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weig=
-ht: inherit; font-stretch: inherit; line-height: inherit; font-family: inhe=
-rit; vertical-align: baseline; box-sizing: inherit; color: var(--black-750)=
-;">/</span><span class=3D"pln" style=3D"margin: 0px; padding: 0px; border: =
-0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font=
--stretch: inherit; line-height: inherit; font-family: inherit; vertical-ali=
-gn: baseline; box-sizing: inherit; color: var(--black-750);">window</span><=
-span class=3D"pun" style=3D"margin: 0px; padding: 0px; border: 0px; font-st=
-yle: inherit; font-variant: inherit; font-weight: inherit; font-stretch: in=
-herit; line-height: inherit; font-family: inherit; vertical-align: baseline=
-; box-sizing: inherit; color: var(--black-750);">.</span><span class=3D"pln=
-" style=3D"margin: 0px; padding: 0px; border: 0px; font-style: inherit; fon=
-t-variant: inherit; font-weight: inherit; font-stretch: inherit; line-heigh=
-t: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inh=
-erit; color: var(--black-750);">cpp</span><span class=3D"pun" style=3D"marg=
-in: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inhe=
-rit; font-weight: inherit; font-stretch: inherit; line-height: inherit; fon=
-t-family: inherit; vertical-align: baseline; box-sizing: inherit; color: va=
-r(--black-750);">,</span><span class=3D"pln" style=3D"margin: 0px; padding:=
- 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight:=
- inherit; font-stretch: inherit; line-height: inherit; font-family: inherit=
-; vertical-align: baseline; box-sizing: inherit; color: var(--black-750);">=
- line </span><span class=3D"lit" style=3D"margin: 0px; padding: 0px; border=
-: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; fo=
-nt-stretch: inherit; line-height: inherit; font-family: inherit; vertical-a=
-lign: baseline; box-sizing: inherit; color: var(--red-800);">516<br /><br /=
->I have added in local.conf:<br /><br />IMAGE_INSTALL_append&nbsp;+=3D&nbsp=
-;" opencv opencv-samples python-opencv"<br /><br />Is&nbsp;anything&nbsp;mo=
-re&nbsp;needed&nbsp;to&nbsp;get&nbsp;full-fledged&nbsp;opencv&nbsp;operatio=
-ns.</span></code></pre>
-</div>
+Thanks!
 
---s2EoMJj9AsyGKqpPgvnP--
+Alex
+
+
