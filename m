@@ -1,90 +1,70 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
- by mx.groups.io with SMTP id smtpd.web10.1703.1590566420643033854
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+ by mx.groups.io with SMTP id smtpd.web12.16963.1590685579484425363
  for <poky@lists.yoctoproject.org>;
- Wed, 27 May 2020 01:00:20 -0700
+ Thu, 28 May 2020 10:06:19 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=F//ZMhHk;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.49, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f49.google.com with SMTP id u188so2094173wmu.1
-        for <poky@lists.yoctoproject.org>; Wed, 27 May 2020 01:00:20 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=sLN9eWYD;
+ spf=softfail (domain: sakoman.com, ip: 209.85.210.181, mailfrom: steve@sakoman.com)
+Received: by mail-pf1-f181.google.com with SMTP id f3so1016625pfd.11
+        for <poky@lists.yoctoproject.org>; Thu, 28 May 2020 10:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=lDFaysXEbtnzD46CZ7yqpXNuOK6Hv+4RygROqKLHM68=;
-        b=F//ZMhHk5nGd2xFJ05DqiUvJH2zKpja0A+a+xPue6wxQy/q7AEAQ3CH5t8JD3VArMG
-         365okyzXauZlU2mMqqS+ICv0IYQkzPuvej0Xxy2GR9VBRcSh4OOJlNJ2L7aF3fye1flj
-         jd4ApoEhd6NXgBlswonDwpMzhuAdPTaLmpo3Q=
+        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
+        h=from:to:subject:date:message-id:in-reply-to:references;
+        bh=Vvt5a1UlLVSY5ZJ3j4XlEbC+tpl52cmvugkWIBy4WiY=;
+        b=sLN9eWYDB3PqUCh7sT+INQISGoXrRlDozqcXemfp2dVMRMyv3vZJJlTy9O0MvB9+FI
+         8orpe0n+SXVzE9LNzbB0/w9+YBy71dgiVfDvWd/7El3HCsmZ9LNzY+YJgWmCRs1JmxWn
+         z/KLL74Tbg6kYauvUVUHyeCjJ+MlyoxllmPciEexKQ9Hf6rklShKFxQ+TdAi3fhsYPFE
+         Xudx6bECmI8wbD8OSWwwc84G/WcLukHXPe9fDtL+OxKJywcHQ8mtL6eSAz3ZfgXf0yvg
+         ln1C6wDGzpzkkWQMNDP/MOJNRz/+BUpu0KiKbOm03HWkplEWx4SgLSnr2pjdms59HFMH
+         W1Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=lDFaysXEbtnzD46CZ7yqpXNuOK6Hv+4RygROqKLHM68=;
-        b=FtsmKu8UzXusRdE/PROjhkZVgJmWup1SczKfFPgUOpicQmzZplUI1gBVr6BkhzwB2w
-         qPZfHC5doGx/6S/rWXJwg54LPApZhaFFGfnp3Xf8GED/JKgPTBPH9gYBb8pE+vbk8fJj
-         vB6B91pMpEA4H3+y8ndxUeEomuGffRmK41nTJqGqnmltqyraYIDmv9+yBED9xqAiYzFP
-         xGCqafHVv61LfapJaMKmqtAf2eAmAwiQzH+WfgA0sMc7eT4bet1qGFL/kenO2qgNwv3k
-         bJJcu4AB4NtVfABb/pUfVgbNmP2Ol2xfF+ueINsgE566p8lS3wtdq2g1cCYmN1kgU/Bz
-         bFwg==
-X-Gm-Message-State: AOAM5326mTigBpEq+xeDmEjMvBGm7UXaRH+0uWjJ7pdbhoEBfvgpJkSE
-	fIi3WTgnJTv8pF1XBISWuWE7lg==
-X-Google-Smtp-Source: ABdhPJyWToZcBEoBt4zL7okvdGc2G1OxRJRwWywgq1V9M7092k89nXTAg0hkcIVltRW+EUXiG1rNJw==
-X-Received: by 2002:a1c:3286:: with SMTP id y128mr3015872wmy.119.1590566419091;
-        Wed, 27 May 2020 01:00:19 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id d13sm1961160wmb.39.2020.05.27.01.00.18
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references;
+        bh=Vvt5a1UlLVSY5ZJ3j4XlEbC+tpl52cmvugkWIBy4WiY=;
+        b=ggLhXB+63R5uPnk1rH2hi1kXATSw7Y/CvyGP5fKLat/+djKSBFuPnQGrxVlG47RmbT
+         cQB/rBUl6V5lOkUSKyIuKV593S4FyKBEBiNfbgKcFBvWRNxpZjwNig4rbg9l6B7p7QJE
+         7r0Lr1MmpE0661Qf4p3jFm/tcRQL/nC70WGmoTg6tEYtAfcPh9LI//HcGu9BiO1KWNQW
+         5lMs6aLfipmGhalaR39k4b4KTBK80r0QcDGO7Vuhq08Cgr7U+A2GmwoKwzbye/b5g+ly
+         fPfDN7gaF7bggpwK7SGEEL8uCQSZVfN0fA+670OLtZ99sMOqKMsQFZUfPZIyokxOjnCQ
+         AIEA==
+X-Gm-Message-State: AOAM531oAKadxkM351q35jlT++KO/HeWyT/DtncZ732UzAAU/bnd58uG
+	44BskzXKnvR7rabQBfIe5Se/Y0Axpsk=
+X-Google-Smtp-Source: ABdhPJx0y9QJ3yDaTkZN3r8GtYyetjgbcwq4S63/VjLAmYlC0gah3da7W4G+U+OBVk+s1N8qF4ey+A==
+X-Received: by 2002:aa7:8c19:: with SMTP id c25mr4044928pfd.72.1590685578113;
+        Thu, 28 May 2020 10:06:18 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from octo.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id h24sm5397333pjz.24.2020.05.28.10.06.16
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2020 01:00:18 -0700 (PDT)
-Message-ID: <622f7d6b61d769259883ec89b815c2966ac6c5d0.camel@linuxfoundation.org>
-Subject: Re: [poky] about when poky check sstate_cache #yocto
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: zhangyifan46@huawei.com, poky@lists.yoctoproject.org
-Date: Wed, 27 May 2020 09:00:17 +0100
-In-Reply-To: <GPG8.1590560968516047795.1WrB@lists.yoctoproject.org>
-References: <GPG8.1590560968516047795.1WrB@lists.yoctoproject.org>
-User-Agent: Evolution 3.36.1-2 
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+        Thu, 28 May 2020 10:06:17 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][master][dunfell] poky: Add Ubuntu 20.04 as a supported distro
+Date: Thu, 28 May 2020 07:06:03 -1000
+Message-Id: <fa4bbd39128b1be529f524dcb853fe2868e5ff94.1590685475.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <cover.1590685475.git.steve@sakoman.com>
+References: <cover.1590685475.git.steve@sakoman.com>
 
-On Tue, 2020-05-26 at 23:29 -0700, zhangyifan46@huawei.com wrote:
-> I read the codes about sstate_cache. Let me briefly talk about how it
-> work . I am not sure if it is right.
-> Example,we have setscene tasks A_setsscene, B_setcene.
-> and Task C ,D are not setscene task.
-> After we bitbake something, runqueue started,and it check A , B to
-> see if the sstate_caache exists and if exist, the poky does unpacking
-> the cache and then ,ordinary build process starts and it will skip A
-> and B.
-> So checking the existence and validation of sstate_cache is before
-> ordinary build process instead of right before execcuting A and B(for
-> example, we have a dependency tree, A,depend on X ,checking is before
-> X instead of between X and A)
-> that's the result of my reading codes.
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
-This is correct. Its because if A depends on B and A is present in the
-cache, we can skip B entirely in some cases. This means the checking
-has to happen at the start of the build.
-
->  And i did a small experienment that, in the middle of a clean
-> bitbake project, i copied  all sstae_caches to the sstate_cache
-> directory and it seemed the bitbake skips no task and unpacking did
-> not happen.
-
-Correct.
-
-> Finally, i have a question. Can we move the checking and unpacking
-> to, like the example above, right before executing A ,between X and
-> A. it means a lot to me. Cause the sharing of sstate_cache may be
-> helpful to a more efficent parallel make(instead of just parallel
-> make gcc jobs)
-
-You can share the sstate cache directory amongst multiple machines over
-NFS. The dependency cannot be moved just before A though for the reason
-I mention above.
-
-Cheers,
-
-Richard
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 91779e4..2696eb6 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -56,6 +56,7 @@ SANITY_TESTED_DISTROS ?= " \
+             ubuntu-16.04 \n \
+             ubuntu-18.04 \n \
+             ubuntu-19.04 \n \
++            ubuntu-20.04 \n \
+             fedora-30 \n \
+             fedora-31 \n \
+             centos-7 \n \
+-- 
+2.17.1
 
