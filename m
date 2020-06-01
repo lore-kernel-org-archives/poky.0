@@ -1,85 +1,94 @@
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com [209.85.218.65])
- by mx.groups.io with SMTP id smtpd.web12.32398.1590999529197769380
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.47203.1591043693441551315
  for <poky@lists.yoctoproject.org>;
- Mon, 01 Jun 2020 01:18:49 -0700
+ Mon, 01 Jun 2020 13:34:53 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=rhKp8U6z;
- spf=pass (domain: gmail.com, ip: 209.85.218.65, mailfrom: breno.debian@gmail.com)
-Received: by mail-ej1-f65.google.com with SMTP id a2so8360387ejb.10
-        for <poky@lists.yoctoproject.org>; Mon, 01 Jun 2020 01:18:48 -0700 (PDT)
+ dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=yK91Qg5U;
+ spf=none, err=SPF record not found (domain: srin.me, ip: 140.211.169.56, mailfrom: s@srin.me)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id F2B69E01C2C; Mon,  1 Jun 2020 13:34:52 -0700 (PDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.208.47 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 3D418E01B60
+	for <poky@yoctoproject.org>; Mon,  1 Jun 2020 13:34:51 -0700 (PDT)
+Received: by mail-ed1-f47.google.com with SMTP id w7so4639723edt.1
+        for <poky@yoctoproject.org>; Mon, 01 Jun 2020 13:34:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=i98MyIcJXevVJtU1c2QHCK8m3+j4VCRuiNZBiBwJPyQ=;
-        b=rhKp8U6zJwdY3GwMCzp57abq5UAqOiICnuaUuo78HjQCK34UCCPsUBsG2HVo75TsI1
-         hrcRtz9F9q/Cl02G+g8BhhCkUg+i6FJh4sNPCvVVHNDgse9SH9DY2S93vHmwgFSclUgm
-         OJ1ZfxTHqtXXStvvvATNiF2+TzbHi5rDp0k0nL1xncB3+Uk5NbXBaCmDvQDnR3Yem92m
-         bntdQXX0OPu6lhvbkB8J1/R2ROIzIm1X8TuxFMkl1LA0641u7hkwWxneDHKP/+9ine0N
-         2R1FNeGunubSRikJwWw2EscvVx66k1JDmYLdU2/fsikPp2KVBd8+doi6cTNTJYx41EN7
-         QSjQ==
+        d=srin-me.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=DPzC7cu+GiPFpicjX9hPDGFiiKOvPh72yU3Iox/ZKb0=;
+        b=yK91Qg5UABj1j+KhXhDKQVzg1pmaquTCNyCYIYesjbWWUn20FsTKFRN+GuJj94Kjtg
+         Nd/1CCOKqzxL8Cc1y4F9oL8lxPdnN5ZAdsrOeUDwAy6dyFPOfuUyS0Gb1yXXTh3N2DGW
+         5w23a63oFY505sa6+1DprzTPCCPlBp+M8dp0L7UCdSkioHnbhLuOCkgIF0RPgapbM4s/
+         h85uKolW2X7UYPXEHGKE67f/EPKwRetyuTIzln/a6Tnfr7Jc9395AG0rKn8rmULIF+vm
+         PGxrN7QeTi2eUbXeHSUSg569kz1+Y9qewIa+20qWAQZw6HbqkdySqo2tN9Jwm+j4Qtcp
+         8oig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=i98MyIcJXevVJtU1c2QHCK8m3+j4VCRuiNZBiBwJPyQ=;
-        b=LQ7BHGSixrytRwNsQOR+4KTL7CcUp8MaJv8jSTMIbKJEHilNmEp0W2lWYrPtBL8AJX
-         H+yVOv/ZnAr+0wwaK+0+JlpYT31S/cUKY0PzJ63DBJVQ4/rcIgYpt6daUngDRwAd5IGw
-         VGvu2kLUm/Jw8Q87ITkmuI8DcagSodirx3xaWvRHjCL3lEwAOzVIXT9K4/wgERJXNspE
-         FZMIsT2lo1uMA8kTYKYjy3woH19sHgrlBJz1BRgGdfTqniaipOwephmDGbHw47ndeyQX
-         4DU85j8kyHbHX1m43vsIsrYI/Bion20N2wm69SL+cibVYWP9uW/ecNGjWm1QH4mbQy3q
-         AqNg==
-X-Gm-Message-State: AOAM532xh1uXX+2X5432dmBV4MuTabxCyi0Gjm0PH/fFNLzEqhQRHCvO
-	epTGSUrv7rcn9IN3Z7dQ0IDTlTkI
-X-Google-Smtp-Source: ABdhPJwB4wPOoDNZ/WVWJeZmcImmK/1jld6dLuIdi3YMQCU2iQ0Guty9/ztVXVJ4IB5+z+bfsG9kyg==
-X-Received: by 2002:a17:906:944c:: with SMTP id z12mr18153884ejx.472.1590999527414;
-        Mon, 01 Jun 2020 01:18:47 -0700 (PDT)
-Return-Path: <breno.debian@gmail.com>
-Received: from ?IPv6:2620:10d:c0d2:1103:1c3a:dd3b:c5bd:d95e? ([2620:10d:c093:400::5:91da])
-        by smtp.gmail.com with ESMTPSA id b15sm15954886edk.90.2020.06.01.01.18.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2020 01:18:46 -0700 (PDT)
-Subject: Re: [poky] [PATCH] devtool: Add IPv6 deploy targets targets
-To: Richard Purdie <richard.purdie@linuxfoundation.org>,
- breno.debian@gmail.com, poky@lists.yoctoproject.org
-References: <42a9297b-911b-6e38-076f-2a542249ffaa@debian.org>
- <9a1e0eef-9eb6-a483-8d59-9ca3cad69b20@debian.org>
- <9b38b1a02c0f4e266c25e05b27b2b619f738cd99.camel@linuxfoundation.org>
-From: "Breno Leitao" <breno.debian@gmail.com>
-Message-ID: <bd86a079-436d-9976-0ef4-1327428dd5d1@debian.org>
-Date: Mon, 1 Jun 2020 09:18:45 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.8.1
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=DPzC7cu+GiPFpicjX9hPDGFiiKOvPh72yU3Iox/ZKb0=;
+        b=LH0CTAbdRqSD8AIEtFikvfjtvRffQY23DrbAiNnn41mtkr20S5/vRtIqFogFLIjGJV
+         PqBelOAlU16zHvIpMiKrDd4XMNzbmwyAfGPdktxFyyQYlU7vpWGa5tG+JDVkarVBqpmN
+         qg/3YvCvGJoaUO4eFXqRT/2DIridwYe52iQSyEn3xVUVWerKudSc3s0Pw/PecSGztMtC
+         2rIh5wKLjoSR4uo5/GfIBSrlWqZbNUuwJ63IENCm5DfSfN1pUNpU1n+rXCyskyf8Rirj
+         nbbPthQZh7hIZesVXhdYNCipOk+ag3xw9l7jqgDiRZVehZr+nm99A1ALp38GMYNjDEfM
+         aTqw==
+X-Gm-Message-State: AOAM532ZVa6ILmCEQ2P2gRBJT+kmONqkOhD7YrXyYCM22OYrODQS8pYU
+	N0Ewr1xTwWDdoYLfVd3RVo42UOADdWvQIwK+5WEvflr5BNcdTw==
+X-Google-Smtp-Source: ABdhPJwSqc1JT2X1Qcm6jRKl6kwHGT0WHcy/Cy2GhhFFmjFQ/1xLIVfurs+5HItx6dNIQ8f9Y4Dk2O/5wXkh8fF/Tug=
+X-Received: by 2002:a50:de03:: with SMTP id z3mr22664545edk.50.1591043690474;
+ Mon, 01 Jun 2020 13:34:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <9b38b1a02c0f4e266c25e05b27b2b619f738cd99.camel@linuxfoundation.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From: "R Srinivasan" <s@srin.me>
+Date: Mon, 1 Jun 2020 16:34:36 -0400
+Message-ID: <CAGNn0hbkG8tp004TcA2V2Tu17dumC4-yQ9SbXiVVgyKWOmKNFw@mail.gmail.com>
+Subject: Announcing repo
+To: poky@yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000fe42de05a70bb9b7"
 
-Hi Richard,
+--000000000000fe42de05a70bb9b7
+Content-Type: text/plain; charset="UTF-8"
 
-On 21/05/2020 14:14, Richard Purdie wrote:
-> Hi,
-> 
-> On Thu, 2020-05-21 at 13:28 +0100, breno.debian@gmail.com wrote:
->> I've sent this message 3 weeks ago and I haven't heard any feedback
->> about it.
->> I am wondering if I have sent it to the right mainling list.
-> 
-> I'm not sure what happened to it here, I don't remember seeing it and I
-> can't find a copy of it in my email. It is in the archives.
-> 
-> Patches for oe-core like this one need to go to the openembedded-core
-> mailing list so this is the wrong list.
+all
 
-Sorry about sending it to the wrong place.
- 
-> (https://lists.openembedded.org/g/openembedded-core/topics)
-> 
-> Other than that the patch looks reasonable at a quick glance so could
-> you resend it there please?
+Announcing the tool grepo - a repository group tool. This grew out of my
+use of the "repo" tool in my yocto based effort. My needs were slightly
+different and hence wrote a tool borrowing ideas from the other.
 
-Sure. I sent it to openembedded-core mailing list now:
+I hope you find it useful. Look forward to continued development -
+particularly adding support for non git repositories.
 
-https://lists.openembedded.org/g/openembedded-core/message/138771
+https://github.com/RajaSrinivasan/assignments/blob/master/repo.pdf
+
+Best, srini
+
+--000000000000fe42de05a70bb9b7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">all<div><br></div><div>Announcing the too=
+l grepo - a repository group tool. This grew out of my use of the &quot;rep=
+o&quot; tool in my yocto based effort. My needs were slightly different and=
+ hence wrote a tool borrowing ideas from the other.=C2=A0</div><div><br></d=
+iv><div>I hope you find it useful. Look forward to continued development - =
+particularly adding support for non git repositories.</div><div><br></div><=
+div><a href=3D"https://github.com/RajaSrinivasan/assignments/blob/master/re=
+po.pdf">https://github.com/RajaSrinivasan/assignments/blob/master/repo.pdf<=
+/a><br></div><div><br></div><div>Best, srini</div><div><br></div></div></di=
+v>
+
+--000000000000fe42de05a70bb9b7--
