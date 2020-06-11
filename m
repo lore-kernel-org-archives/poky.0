@@ -1,108 +1,114 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web11.6140.1591706372377351794
+Received: from mx.kolabnow.com (mx.kolabnow.com [95.128.36.41])
+ by mx.groups.io with SMTP id smtpd.web11.8449.1591885251912611725
  for <poky@lists.yoctoproject.org>;
- Tue, 09 Jun 2020 05:39:32 -0700
+ Thu, 11 Jun 2020 07:20:52 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=MmrvOt0I;
- spf=softfail (domain: linuxfoundation.org, ip: 140.211.169.56, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A8A13E01CA5; Tue,  9 Jun 2020 05:39:31 -0700 (PDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
+ dkim=fail reason="signature has expired" header.i=@kolabnow.com header.s=dkim20160331 header.b=h6FYce6i;
+ spf=pass (domain: kolabnow.com, ip: 95.128.36.41, mailfrom: hubert.chaumette@kolabnow.com)
+Received: from localhost (unknown [127.0.0.1])
+	by ext-mx-out003.mykolab.com (Postfix) with ESMTP id 6EE8740B55
+	for <poky@lists.yoctoproject.org>; Thu, 11 Jun 2020 16:20:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kolabnow.com; h=
+	content-transfer-encoding:mime-version:message-id:date:date
+	:subject:subject:from:from:received:received:received; s=
+	dkim20160331; t=1591885250; x=1593699651; bh=AuLtlHt7gQwEBJ3BLr0
+	9N9BV7viLgyD1/xZZKAjZfzA=; b=h6FYce6iAgGbReVp1MCCTsVRaXA3gjHLeNu
+	wSszwYc1ZlODoc/CsPDUvVrSsMC93KC7k782kYrDGTBrX90fX5JrN3YePnVg+aww
+	6J9ijZxcrzg12c3ZmBU1Bik8d0iSSlxIQSg+Kx4LbQulCh9P/tCU9QvC2v0u+qxh
+	qs6AF7ROiopWtMTFVQ9vpdDVUuFQQltwRnZYwN0kHTYn/YR+aVtCQNm2yMEsr4KV
+	HjGez+XJherQ+kcfbXz98SAHmn7d8A5xxPEUEl/8Vfl1KKrFhSJPes5NYwk0feSu
+	B1b2siQoc6IvsHkee3WwxdO8H08uATuM5FFfw0RXAZefoJehvwHM5KyEwwBLFPCS
+	J3h3geV8Vru5X7lqzA5GnyeRX91Rg/vue1hA6/HSijKi5zcbJUnJ3Om348bKabWS
+	UYZlCa1O7wdsqznX8KsrHKKzkc0QKZWBKccNpL8UOU4ZCWd0T3/I3sReQ24cqbu/
+	SA7fhvmgpHJj7C13N2IsLbZ/fJLgcFeryKX6t/MkcBD90/UNc4BTyvXBUiZOn1A+
+	YXBk5A1YRyFEIb70HpSwwJO6OGRpaymCO65xsneCLuUzMAX6PS0TgKRkhPPni1wD
+	5Jg2kwTJUy0/ufPMmy6KjhZMv/4tgMwM7Z6etUIOmfZrQFSNV28Nyu4M7or5pYre
+	d9zaiwu0=
+X-Virus-Scanned: amavisd-new at mykolab.com
+X-Spam-Flag: NO
+X-Spam-Score: -1.899
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: 
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
-	*      trust
-	*      [209.85.221.45 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
-	*       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C2C3AE01C32
-	for <poky@yoctoproject.org>; Tue,  9 Jun 2020 05:39:30 -0700 (PDT)
-Received: by mail-wr1-f45.google.com with SMTP id j10so21125066wrw.8
-        for <poky@yoctoproject.org>; Tue, 09 Jun 2020 05:39:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=R8j6qiYXzUzSD5snDdNpqo1eLLceZa5tpjCXZkABrik=;
-        b=MmrvOt0IdyI8+wyHmfCA/UuBxiDpQcR/+2BoNiqhLnI9sqAeMrzEMFoUcKa8wCJGAa
-         W8GwduVsKLhfHBtO3dTnU7+FWjqzeVm0CoLIjNHc7iX+gO+z7eNx8HAuqH8zgEF3tvtA
-         Lm3Lwb3iDIaGLScjaKp4lkEEHeu1+WhAEFXBQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=R8j6qiYXzUzSD5snDdNpqo1eLLceZa5tpjCXZkABrik=;
-        b=q2O6oCag/cIan2fPg2GJ+rSDstVHu3cnUYkWSB8j7rVXACzeodHYgun3oj740OdJiS
-         clEzbLn+2/tFQ5owfoQkn3ed3QidS4RQCWKNzT52WZwKDCCVtb0wTGSFm0CIjpfXg+Ho
-         Z5o6n3NaIRSyim4we+UpHI/JlPNvfYuB5xejSwzMqNd2asfzU2SYxh57ahLVkCoQEhpq
-         9VMWHp0eVpsL+emkkKn8DAlL/ru6AKY4KRAAX9Sv3jLZ/guHev8uKfA7K/jNSDBZn4I+
-         hL54tujlTRBtpoOwrocymnxDtX+2GkplVCBU7BZT33LCXBcYoK/mxWNxCUt2YueJitHT
-         Hh1A==
-X-Gm-Message-State: AOAM533j2ClQYoJacoZd4DdtOnH2cRjoh7frDzIa7Zncbwd5TMs9SVEw
-	GcwJRyQg6DvN0S1RwjygzLvCqA==
-X-Google-Smtp-Source: ABdhPJybrQOUe7Gmll3qfxvYKfipZKjvOVzFjuqtc6eT1LRxqsUlolNivX8Kpu6I0MW80UnE11K4YQ==
-X-Received: by 2002:a5d:408e:: with SMTP id o14mr4125624wrp.84.1591706369834;
-        Tue, 09 Jun 2020 05:39:29 -0700 (PDT)
-Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
-        by smtp.gmail.com with ESMTPSA id 125sm2959682wmc.23.2020.06.09.05.39.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2020 05:39:29 -0700 (PDT)
-Message-ID: <2601797c467332f9f429fb07242676b5d7ae7ffd.camel@linuxfoundation.org>
-Subject: Re: [poky] duplicate dtbs in deploydir
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: jonathan.richardson@broadcom.com, poky@yoctoproject.org
-Date: Tue, 09 Jun 2020 13:39:28 +0100
-In-Reply-To: <d59815969514087c8f97ecee83b3e32e@mail.gmail.com>
-References: <d59815969514087c8f97ecee83b3e32e@mail.gmail.com>
-User-Agent: Evolution 3.36.2-0ubuntu1 
+X-Spam-Status: No, score=-1.899 tagged_above=-10 required=5
+	tests=[BAYES_00=-1.9, URIBL_BLOCKED=0.001]
+	autolearn=ham autolearn_force=no
+Received: from mx.kolabnow.com ([127.0.0.1])
+	by localhost (ext-mx-out003.mykolab.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id qr0LlY8IK8Ll for <poky@lists.yoctoproject.org>;
+	Thu, 11 Jun 2020 16:20:50 +0200 (CEST)
+Received: from int-mx001.mykolab.com (unknown [10.9.13.1])
+	by ext-mx-out003.mykolab.com (Postfix) with ESMTPS id D14FD404EE
+	for <poky@lists.yoctoproject.org>; Thu, 11 Jun 2020 16:20:49 +0200 (CEST)
+Received: from ext-subm003.mykolab.com (unknown [10.9.6.3])
+	by int-mx001.mykolab.com (Postfix) with ESMTPS id 5CB34626;
+	Thu, 11 Jun 2020 16:20:49 +0200 (CEST)
+From: hubert.chaumette@kolabnow.com
+To: poky@lists.yoctoproject.org
+Cc: Hubert CHAUMETTE <hubert.chaumette@kolabnow.com>
+Subject: [RFC PATCH 0/1] module.bbclass: manage include files like Module.symvers
+Date: Thu, 11 Jun 2020 16:20:40 +0200
+Message-Id: <cover.1591881869.git.hubert.chaumette@kolabnow.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2020-06-08 at 11:08 -0700, Jonathan Richardson via
-lists.yoctoproject.org wrote:
-> Hi,
-> 
-> Just wondering why there are 2 symlinks to a dtb in the deploy dir.
-> It has
-> been like this for a while but creates a lot of clutter. It's from
-> the
-> last 2 lines in kernel-devicetree.bbclass. I was going to clean it up
-> but
-> wondered if it's there for a reason.. Thanks.
-> 
-> do_deploy_append() {
-> 	for dtbf in ${KERNEL_DEVICETREE}; do
-> 		dtb=`normalize_dtb "$dtbf"`
-> 		dtb_ext=${dtb##*.}
-> 		dtb_base_name=`basename $dtb .$dtb_ext`
-> 		install -d $deployDir
-> 		install -m 0644
-> ${D}/${KERNEL_IMAGEDEST}/$dtb_base_name.$dtb_ext
-> $deployDir/$dtb_base_name-${KERNEL_DTB_NAME}.$dtb_ext
-> 		ln -sf $dtb_base_name-${KERNEL_DTB_NAME}.$dtb_ext
-> $deployDir/$dtb_base_name.$dtb_ext
-> 		ln -sf $dtb_base_name-${KERNEL_DTB_NAME}.$dtb_ext
-> $deployDir/$dtb_base_name-${KERNEL_DTB_LINK_NAME}.$dtb_ext
+Currently external kernel module.bbclass doesn't handle shared headers, b=
+ut
+Module.symvers is.
+This patch copies the way Module.symvers is managed and installs shared h=
+eaders
+in ${D}${includedir}/${BPN}/ and adds this path to EXTRA_CFLAGS for depen=
+dant
+modules.
+Includes also an exemple use with a "master" and a "slave" module.
 
-Some automated testing code relies upon symlinks in the deploy
-directory to find the latest dtb/image/whatever. The symlink names
-usually remove elements like date/timestamps.
+Please review the following changes for suitability for inclusion. If you=
+ have
+any objections or suggestions for improvement, please respond to the patc=
+hes. If
+you agree with the changes, please provide your Acked-by.
 
-Whether that is the case here and whether its used or not I'm not sure
-but that is why you see these as it saves pattern matching which may
-change over time.
+The following changes since commit c3271dca21b2f6fa9b54b00a64a176e9d87e8f=
+eb:
 
-Cheers,
+  bitbake: bitbake: cache: Fix error when cache is rebuilt (2020-06-10 12=
+:30:01 +0100)
 
-Richard
+are available in the Git repository at:
+
+  git://push.yoctoproject.org/poky-contrib hchaumette/ext-module-dep
+
+Hubert CHAUMETTE (1):
+  module.bbclass: manage include files like Module.symvers
+
+ .../kernel-module-master/files/COPYING        | 340 ++++++++++++++++++
+ .../kernel-module-master/files/Makefile       |  14 +
+ .../files/include/master.h                    |  25 ++
+ .../kernel-module-master/files/master.c       | 154 ++++++++
+ .../kernel-module-master.bb                   |  20 ++
+ .../kernel-module-slave/files/COPYING         | 340 ++++++++++++++++++
+ .../kernel-module-slave/files/Makefile        |  14 +
+ .../kernel-module-slave/files/slave.c         |  53 +++
+ .../kernel-module-slave.bb                    |  17 +
+ meta/classes/module.bbclass                   |  30 +-
+ 10 files changed, 1002 insertions(+), 5 deletions(-)
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-master/fil=
+es/COPYING
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-master/fil=
+es/Makefile
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-master/fil=
+es/include/master.h
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-master/fil=
+es/master.c
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-master/ker=
+nel-module-master.bb
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-slave/file=
+s/COPYING
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-slave/file=
+s/Makefile
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-slave/file=
+s/slave.c
+ create mode 100644 meta-skeleton/recipes-kernel/kernel-module-slave/kern=
+el-module-slave.bb
+
+--=20
+2.27.0
 
