@@ -1,77 +1,55 @@
-Subject: #yocto How to access a varibale exported by the shell in a recepie
-To: poky@lists.yoctoproject.org
-From: jjvazha@yahoo.com
-X-Originating-Location: San Jose, California, US (96.68.159.213)
-X-Originating-Platform: Mac Firefox 77
-User-Agent: GROUPS.IO Web Poster
+Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.64])
+ by mx.groups.io with SMTP id smtpd.web11.1343.1592437395417536587
+ for <poky@lists.yoctoproject.org>;
+ Wed, 17 Jun 2020 16:43:16 -0700
+Authentication-Results: mx.groups.io;
+ dkim=missing; spf=none, err=permanent DNS error (domain: denix.org, ip: 64.68.198.64, mailfrom: denis@denix.org)
+Received: from localhost (localhost [127.0.0.1])
+	by mailout4.zoneedit.com (Postfix) with ESMTP id B1E0340B30;
+	Wed, 17 Jun 2020 23:43:14 +0000 (UTC)
+Received: from mailout4.zoneedit.com ([127.0.0.1])
+	by localhost (zmo14-pco.easydns.vpn [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id tYiS0VOkK1U5; Wed, 17 Jun 2020 23:43:14 +0000 (UTC)
+Received: from mail.denix.org (pool-100-15-86-127.washdc.fios.verizon.net [100.15.86.127])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mailout4.zoneedit.com (Postfix) with ESMTPSA id 94EA740A46;
+	Wed, 17 Jun 2020 23:43:13 +0000 (UTC)
+Received: by mail.denix.org (Postfix, from userid 1000)
+	id E7AE517320A; Wed, 17 Jun 2020 19:43:12 -0400 (EDT)
+Date: Wed, 17 Jun 2020 19:43:12 -0400
+From: "Denys Dmytriyenko" <denis@denix.org>
+To: jjvazha@yahoo.com
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] #yocto How to access a varibale exported by the shell in a recepie
+Message-ID: <20200617234312.GA17660@denix.org>
+References: <DSy7.1592436140449998284.HX8O@lists.yoctoproject.org>
 MIME-Version: 1.0
-Date: Wed, 17 Jun 2020 16:22:20 -0700
-Message-ID: <DSy7.1592436140449998284.HX8O@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="2IZxYwOoR2DCCjbGmkRA"
+In-Reply-To: <DSy7.1592436140449998284.HX8O@lists.yoctoproject.org>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---2IZxYwOoR2DCCjbGmkRA
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+https://www.yoctoproject.org/docs/3.1/bitbake-user-manual/bitbake-user-manual.html#var-bb-BB_ENV_EXTRAWHITE
 
-0
+On Wed, Jun 17, 2020 at 04:22:20PM -0700, jjvazha via lists.yoctoproject.org wrote:
+> 0
+> 
+> I have a yocto recepie file. However I want to set a value to the variable , by exporting a variable
+> 
+> For example I modified I added a variable in oe-init-build-env, ( whihc calls 'svn_util')
+> 
+> export REPO_BRANCH_ROOT=${REPO_BRANCH_ROOT}
+> 
+> The REPO_BRANCH_ROOT variable is set by running a utility 'svn_util', by looking at by current branch.
+> 
+> Now in my recepie.bb file SRC_URI = "\ svn://${REPO_ROOT_NO_URI}/${REPO_BRANCH_ROOT}/sample module=mymodule;protocol=protocol=http;rev=HEAD \ "
+> 
+> However do_fetch: fails as follows. Fetcher failure for URL: 'svn://${REPO_ROOT_NO_URI}/${REPO_BRANCH_ROOT}/sample;module=mymodule;protocol=http;rev=HEAD'. Unable to fetch URL from any source.
+> 
+> How do I make .bb file to be aware of my current branch and reposotory uri . I do not want to hard code it in the bb file, or local.conf file . Becuase if the .bb file is checked in to a different branch it should work correctly across all branch.
+> 
+> Or to rephrase the question , How a shell exported variable be accessed in the recepie file.
 
-I have a yocto recepie file. However I want to set a value to the variable=
- , by exporting a variable
+> 
 
-For example I modified I added a variable in oe-init-build-env, ( whihc ca=
-lls 'svn_util')
-
-export REPO_BRANCH_ROOT=3D${REPO_BRANCH_ROOT}
-
-The REPO_BRANCH_ROOT variable is set by running a utility 'svn_util', by l=
-ooking at by current branch.
-
-Now in my recepie.bb file SRC_URI =3D "\ svn://${REPO_ROOT_NO_URI}/${REPO_=
-BRANCH_ROOT}/sample module=3Dmymodule;protocol=3Dprotocol=3Dhttp;rev=3DHEAD=
- \ "
-
-However do_fetch: fails as follows. Fetcher failure for URL: 'svn://${REPO=
-_ROOT_NO_URI}/${REPO_BRANCH_ROOT}/sample;module=3Dmymodule;protocol=3Dhttp;=
-rev=3DHEAD'. Unable to fetch URL from any source.
-
-How do I make .bb file to be aware of my current branch and reposotory uri=
- . I do not want to hard code it in the bb file, or local.conf file . Becua=
-se if the .bb file is checked in to a different branch it should work corre=
-ctly across all branch.
-
-Or to rephrase the question , How a shell exported variable be accessed in=
- the recepie file.
-
---2IZxYwOoR2DCCjbGmkRA
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div class=3D"js-vote-count grid--cell fc-black-500 fs-title grid fd-column=
- ai-center" data-value=3D"0">0</div>
-<div class=3D"votecell post-layout--left">
-<div class=3D"js-voting-container grid fd-column ai-stretch gs4 fc-black-2=
-00" data-post-id=3D"62439098">&nbsp;</div>
-</div>
-<div class=3D"post-text">
-<p>I have a yocto recepie file. However I want to set a value to the varia=
-ble , by exporting a variable</p>
-<p>For example I modified I added a variable in oe-init-build-env, ( whihc=
- calls 'svn_util')</p>
-<p>export REPO_BRANCH_ROOT=3D${REPO_BRANCH_ROOT}</p>
-<p>The REPO_BRANCH_ROOT variable is set by running a utility 'svn_util', b=
-y looking at by current branch.</p>
-<p>Now in my recepie.bb file SRC_URI =3D "\ svn://${REPO_ROOT_NO_URI}/${RE=
-PO_BRANCH_ROOT}/sample module=3Dmymodule;protocol=3Dprotocol=3Dhttp;rev=3DH=
-EAD \ "</p>
-<p>However do_fetch: fails as follows. Fetcher failure for URL: 'svn://${R=
-EPO_ROOT_NO_URI}/${REPO_BRANCH_ROOT}/sample;module=3Dmymodule;protocol=3Dht=
-tp;rev=3DHEAD'. Unable to fetch URL from any source.</p>
-<p>How do I make .bb file to be aware of my current branch and reposotory =
-uri . I do not want to hard code it in the bb file, or local.conf file . Be=
-cuase if the .bb file is checked in to a different branch it should work co=
-rrectly across all branch.</p>
-<p>Or to rephrase the question , How a shell exported variable be accessed=
- in the recepie file.</p>
-</div>
-
---2IZxYwOoR2DCCjbGmkRA--
