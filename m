@@ -1,91 +1,109 @@
-Subject: fatal error: omp.h: No such file or directory #yocto
-To: poky@lists.yoctoproject.org
-From: "Rahul Chauhan" <rahulchauhankitps@gmail.com>
-X-Originating-Location: Bengaluru, Karnataka, IN (36.255.87.241)
-X-Originating-Platform: Linux Firefox 77
-User-Agent: GROUPS.IO Web Poster
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+ by mx.groups.io with SMTP id smtpd.web12.7062.1592639962540732210
+ for <poky@lists.yoctoproject.org>;
+ Sat, 20 Jun 2020 00:59:22 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Wuwhcx4A;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.51, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f51.google.com with SMTP id o11so4058455wrv.9
+        for <poky@lists.yoctoproject.org>; Sat, 20 Jun 2020 00:59:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=Z7FcO/NY2c5l/M4TwL2RhesdZJXSWY/8SHB1atMSgQ8=;
+        b=Wuwhcx4AxR8nhLnD4SJS3iEcXfqyQcfmoJ7cU8bIX/FDR2iiPUsAYZKQ8YFT20nm+8
+         m6DMTZ//gvHX8AEpWff3rtChzgkPdmDOgLrYbj+vIRpdfW5Feq5KfoK/kUDoVBuiE+94
+         K632uhSwyzWGmTxWpWn9kYjJ0It94bsz6yR48=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=Z7FcO/NY2c5l/M4TwL2RhesdZJXSWY/8SHB1atMSgQ8=;
+        b=NM98ss9RDw/ngaQFAh+FVaVfaiX54O/REL24DGahILeWLBu/aE72BGh9awD2SCvwXP
+         7p+en0aE0desTUdH3cw3bMpn3fMpSgHdEPZ8nDEP/nb0ui4KpvpIUPVNsmzG+MBFxtpt
+         i/tSFtxSYbY/PmYkPH+Xl0MSpAxLZmX/mpuPVenTmw+dXPSt1mOHOr+YaFEC5PCiNcGh
+         BjtrOZ5P0LTfBulu66jjKsVCoQJHQK+++dPBYrkLAZhtE61SW24f7dwh5irjdJ2DZuKT
+         wwmwBtH0jP8xLmWiN2Rj3mEmwRkWxf6qqqRgDugzHxtysL5YCAMvAXMpm7Gtk3BfvVGH
+         FOcg==
+X-Gm-Message-State: AOAM5318wmGn7d0EvOS6WibiGxzPPoyeGoAafIsSPiELOuehOPgOzPkp
+	m3iSU9T8PwivF9FkEG8fK57smw==
+X-Google-Smtp-Source: ABdhPJxAJVkILnAQUmpx2VZTrWnDsWFG/dLIGB27oBSvtVMMKGfVl5guLcMmVsb1Qwo9S0p6kMbduA==
+X-Received: by 2002:adf:9dd0:: with SMTP id q16mr8559095wre.410.1592639960964;
+        Sat, 20 Jun 2020 00:59:20 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+        by smtp.gmail.com with ESMTPSA id x5sm3934778wmg.2.2020.06.20.00.59.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Jun 2020 00:59:20 -0700 (PDT)
+Message-ID: <a0bf3dd65ce20c48a79a626d964c021eb759ca28.camel@linuxfoundation.org>
+Subject: Re: [poky] fatal error: omp.h: No such file or directory #yocto
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Rahul Chauhan <rahulchauhankitps@gmail.com>, poky@lists.yoctoproject.org
+Date: Sat, 20 Jun 2020 08:59:18 +0100
+In-Reply-To: <fU0J.1592630053844053370.0npg@lists.yoctoproject.org>
+References: <fU0J.1592630053844053370.0npg@lists.yoctoproject.org>
+User-Agent: Evolution 3.36.2-0ubuntu1 
 MIME-Version: 1.0
-Date: Fri, 19 Jun 2020 22:14:13 -0700
-Message-ID: <fU0J.1592630053844053370.0npg@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="b03N3oPlZIIb40zVVgpM"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
---b03N3oPlZIIb40zVVgpM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, 2020-06-19 at 22:14 -0700, Rahul Chauhan wrote:
+> Hi community Member,
+> 
+> I am trying to build core-image-minimal-xfce with below
+> configuration.
+> Poky (master branch)
+> meta-openembedde (master branch)
+> BB_VERSION           = "1.47.0"
+> BUILD_SYS            = "x86_64-linux"
+> NATIVELSBSTRING      = "universal"
+> TARGET_SYS           = "aarch64-poky-linux"
+> DISTRO               = "poky"
+> DISTRO_VERSION       = "3.1+snapshot-20200620"
+> TUNE_FEATURES        = "aarch64"
+> 
+> kindly help me out on this . do i missed any thing here
+> 
+> 
+> Errror:
+> 4.15.1-r0/recipe-sysroot-native/usr/include -O2 -pipe -c
+> ../../git/build/parseSpec.c  -fPIC -DPIC -o .libs/parseSpec.o
+> | ../../git/build/parseSpec.c:10:10: fatal error: omp.h: No such file
+> or directory
+> |    10 | #include <omp.h>
+> |       |          ^~~~~~~
+> | compilation terminated.
+> | make[2]: *** [Makefile:642: parseSpec.lo] Error 1
+> | make[2]: *** Waiting for unfinished jobs....
+> | make[2]: Leaving directory '/opt/Projects/Amlogic-project/amlogic-
+> g1-master/tmp/work/x86_64-linux/rpm-native/1_4.15.1-r0/build/build'
+> | make[1]: *** [Makefile:1359: all-recursive] Error 1
+> | make[1]: Leaving directory '/opt/Projects/Amlogic-project/amlogic-
+> g1-master/tmp/work/x86_64-linux/rpm-native/1_4.15.1-r0/build'
+> | make: *** [Makefile:788: all] Error 2
+> | WARNING: exit code 1 from a shell command.
+> | 
+> ERROR: Task (virtual:native:/opt/Projects/Amlogic-project/Project-
+> layers/poky/meta/recipes-devtools/rpm/rpm_4.15.1.bb:do_compile)
+> failed with exit code '1'
 
-Hi community Member,
+Which distro is this on? Are you using buildtools-tarball?
 
-I am trying to build core-image-minimal-xfce with below configuration.
-Poky (master branch)
-meta-openembedde (master branch)
-BB_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D=
- "1.47.0"
-BUILD_SYS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 =3D "x86_64-linux"
-NATIVELSBSTRING=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D "universal"
-TARGET_SYS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D=
- "aarch64-poky-linux"
-DISTRO=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 =3D "poky"
-DISTRO_VERSION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D "3.1+snapshot-20200=
-620"
-TUNE_FEATURES=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D "aarch64"
+If so, there is an open bug for this:
 
-kindly help me out on this . do i missed any thing here
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=13899
 
-Errror:
-4.15.1-r0/recipe-sysroot-native/usr/include -O2 -pipe -c ../../git/build/p=
-arseSpec.c=C2=A0 -fPIC -DPIC -o .libs/parseSpec.o
-| ../../git/build/parseSpec.c:10:10: fatal error: omp.h: No such file or d=
-irectory
-|=C2=A0=C2=A0=C2=A0 10 | #include <omp.h>
-|=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ^~~~~~~
-| compilation terminated.
-| make[2]: *** [Makefile:642: parseSpec.lo] Error 1
-| make[2]: *** Waiting for unfinished jobs....
-| make[2]: Leaving directory '/opt/Projects/Amlogic-project/amlogic-g1-mas=
-ter/tmp/work/x86_64-linux/rpm-native/1_4.15.1-r0/build/build'
-| make[1]: *** [Makefile:1359: all-recursive] Error 1
-| make[1]: Leaving directory '/opt/Projects/Amlogic-project/amlogic-g1-mas=
-ter/tmp/work/x86_64-linux/rpm-native/1_4.15.1-r0/build'
-| make: *** [Makefile:788: all] Error 2
-| WARNING: exit code 1 from a shell command.
-|
-ERROR: Task (virtual:native:/opt/Projects/Amlogic-project/Project-layers/p=
-oky/meta/recipes-devtools/rpm/rpm_4.15.1.bb:do_compile) failed with exit co=
-de '1'
+3.1.1 buildtools is here:
+http://downloads.yoctoproject.org/releases/yocto/yocto-3.1.1/buildtools/
 
---b03N3oPlZIIb40zVVgpM
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+although due to another issues we recently became aware of we're
+planning to use 3.2 M1's buildtools (which is in QA atm).
 
-Hi community Member,<br /><br />I am trying to build core-image-minimal-xfc=
-e with below configuration.<br />Poky (master branch)<br />meta-openembedde=
- (master branch)<br />BB_VERSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; =3D "1.47.0"<br />BUILD_SYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D "x86_64-linux"<br />NATIVELSBSTRIN=
-G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D "universal"<br />TARGET_SYS&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D "aarch64-poky-linux"<b=
-r />DISTRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; =3D "poky"<br />DISTRO_VERSION&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; =3D "3.1+snapshot-20200620"<br />TUNE_FEATURES&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; =3D "aarch64"<br /><br />kindly help me out on th=
-is . do i missed any thing here<br /><br /><br />Errror:<br />4.15.1-r0/rec=
-ipe-sysroot-native/usr/include -O2 -pipe -c ../../git/build/parseSpec.c&nbs=
-p; -fPIC -DPIC -o .libs/parseSpec.o<br />| ../../git/build/parseSpec.c:10:1=
-0: fatal error: omp.h: No such file or directory<br />|&nbsp;&nbsp;&nbsp; 1=
-0 | #include &lt;omp.h&gt;<br />|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~~~~~~<br />| compilati=
-on terminated.<br />| make[2]: *** [Makefile:642: parseSpec.lo] Error 1<br =
-/>| make[2]: *** Waiting for unfinished jobs....<br />| make[2]: Leaving di=
-rectory '/opt/Projects/Amlogic-project/amlogic-g1-master/tmp/work/x86_64-li=
-nux/rpm-native/1_4.15.1-r0/build/build'<br />| make[1]: *** [Makefile:1359:=
- all-recursive] Error 1<br />| make[1]: Leaving directory '/opt/Projects/Am=
-logic-project/amlogic-g1-master/tmp/work/x86_64-linux/rpm-native/1_4.15.1-r=
-0/build'<br />| make: *** [Makefile:788: all] Error 2<br />| WARNING: exit =
-code 1 from a shell command.<br />| <br />ERROR: Task (virtual:native:/opt/=
-Projects/Amlogic-project/Project-layers/poky/meta/recipes-devtools/rpm/rpm_=
-4.15.1.bb:do_compile) failed with exit code '1'
+Staged here for now:
+https://autobuilder.yocto.io/pub/releases/yocto-3.2_M1.rc1/buildtools/
 
---b03N3oPlZIIb40zVVgpM--
+Cheers,
+
+Richard
+
