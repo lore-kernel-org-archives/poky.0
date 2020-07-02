@@ -1,95 +1,80 @@
-Received: from mx.kolabnow.com (mx.kolabnow.com [95.128.36.41])
- by mx.groups.io with SMTP id smtpd.web10.2537.1593680577114528618
- for <poky@lists.yoctoproject.org>;
- Thu, 02 Jul 2020 02:02:57 -0700
-Authentication-Results: mx.groups.io;
- dkim=fail reason="signature has expired" header.i=@kolabnow.com header.s=dkim20160331 header.b=MbAlJSwq;
- spf=pass (domain: kolabnow.com, ip: 95.128.36.41, mailfrom: hubert.chaumette@kolabnow.com)
-Received: from localhost (unknown [127.0.0.1])
-	by ext-mx-out003.mykolab.com (Postfix) with ESMTP id 22C76404C4;
-	Thu,  2 Jul 2020 11:02:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kolabnow.com; h=
-	message-id:references:in-reply-to:subject:subject:from:from:date
-	:date:content-transfer-encoding:content-type:content-type
-	:mime-version:received:received:received; s=dkim20160331; t=
-	1593680573; x=1595494974; bh=5XTfo6vaRyLYF55B4p+43JHawYHl8RRncXz
-	RpBNxnDI=; b=MbAlJSwqN1e9BiVsxVOihamfiKAhXX8n4YdAnTHR8x8qE5sreCo
-	IBevd5rwgcN9mGvEGBYHIbSNS/G6bO0gSxmJJ7riNO3nz+aP/FaeiHP8Uw3804Pz
-	J0pvvJxN5STZAeHlQ0sxji8OSeQF1gsw7UpJmltAXlgMxqTMd9oyYfXiVRNDkWsX
-	lwFCmrcLYMUrjXHFqXdHl/u6PMS4xQN82F+gp9MORhUVlhlnQwdA45Ssn9LQeuw9
-	ODaS8+0DZkH2NIf8Lho2xobB22cLVeeha5sZZ8MrqsvWIOi0Y/ihGnvpdlWaM4vV
-	jM6+9Mlae6ij/lwtxJUevXEL4pHw2n/8h99DLBpx7srUt++9PplDl4TlsJJDeGY0
-	DlCdYZPOzx+sg8bfFNTG0gUB0aOPnLtlYh8bQ5w1Hvu14NwDy+vbrV2KFAohFLIq
-	/MNzZYfCmR98jJJ07GQUL5WQRiz6SC7+FAowqM4TiA2D6WYiHr45VvtQ4Nnzm8bG
-	p7AG3cJXdTvjzKwe9ZcuYt/DCKVcIGMpE5m9Vz6pNxOR0Y+AByikWA5pWYq/cXvs
-	EnuoU+muYMDct4Si3ludY8zBabpp8CfuJT9usGL/Mt5NQ8vZHdY0WAAv5EO+x/4E
-	q1kd/nYUTRddG+908soJ14jW/DOcsCH4k6qqT0+Bl77IXUc8XNInwmTc=
-X-Virus-Scanned: amavisd-new at mykolab.com
-X-Spam-Flag: NO
-X-Spam-Score: -1.899
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.899 tagged_above=-10 required=5
-	tests=[BAYES_00=-1.9, URIBL_BLOCKED=0.001]
-	autolearn=ham autolearn_force=no
-Received: from mx.kolabnow.com ([127.0.0.1])
-	by localhost (ext-mx-out003.mykolab.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id aXcZMI76uwvK; Thu,  2 Jul 2020 11:02:53 +0200 (CEST)
-Received: from int-mx003.mykolab.com (unknown [10.9.13.3])
-	by ext-mx-out003.mykolab.com (Postfix) with ESMTPS id 780A8403F5;
-	Thu,  2 Jul 2020 11:02:53 +0200 (CEST)
-Received: from int-subm001.mykolab.com (unknown [10.9.37.1])
-	by int-mx003.mykolab.com (Postfix) with ESMTPS id 1405AA86;
-	Thu,  2 Jul 2020 11:02:53 +0200 (CEST)
+Subject: devtool add pm2 #yocto #devtool
+To: poky@lists.yoctoproject.org
+From: =?UTF-8?B?QWRyaWFuIER1c2nFhHNraQ==?= <dusinski.adrian@gmail.com>
+X-Originating-Location: Zabrze, Silesia, PL (46.134.170.178)
+X-Originating-Platform: Linux Firefox 77
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Thu, 02 Jul 2020 11:02:51 +0200
-From: "Hubert CHAUMETTE" <hubert.chaumette@kolabnow.com>
-To: Paul Barker <pbarker@konsulko.com>
-Cc: poky@lists.yoctoproject.org, bruce.ashfield@gmail.com
-Subject: Re: [poky] [RFC PATCH 2/2] Example for ext kernel module dependency, slave module
-In-Reply-To: <CAM9ZRVsO6nGXnnM1t6pF9fx2n9RRa1UvPtzH-Jf8uNUVtLLMBQ@mail.gmail.com>
-References: <cover.1593601516.git.hubert.chaumette@kolabnow.com>
- <91719a84eeb95599fbf1e9f4cb693efca5527a9f.1593601521.git.hubert.chaumette@kolabnow.com>
- <CAM9ZRVsO6nGXnnM1t6pF9fx2n9RRa1UvPtzH-Jf8uNUVtLLMBQ@mail.gmail.com>
-Message-ID: <816adf762dfa6c5f0331d23be694dded@kolabnow.com>
-X-Sender: hubert.chaumette@kolabnow.com
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Date: Thu, 02 Jul 2020 05:37:10 -0700
+Message-ID: <mYon.1593693430796526245.qvQy@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="v44DXzwmeYCBoHnxMb0N"
+
+--v44DXzwmeYCBoHnxMb0N
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le 01/07/2020 17:03, Paul Barker a =C3=A9crit=C2=A0:
-> On Wed, 1 Jul 2020 at 14:55, Hubert CHAUMETTE via
-> lists.yoctoproject.org
-> <hubert.chaumette=3Dkolabnow.com@lists.yoctoproject.org> wrote:
->>=20
->> Registers to the master notifier and displays the string received on=20
->> R/W.
->>=20
->> Signed-off-by: Hubert CHAUMETTE <hubert.chaumette@kolabnow.com>
->> ---
->>  .../kernel-module-slave/files/COPYING         | 15 ++++++
->>  .../kernel-module-slave/files/Makefile        | 16 ++++++
->>  .../kernel-module-slave/files/slave.c         | 52=20
->> +++++++++++++++++++
->>  .../kernel-module-slave.bb                    | 17 ++++++
->>  4 files changed, 100 insertions(+)
->>  create mode 100644=20
->> meta-skeleton/recipes-kernel/kernel-module-slave/files/COPYING
->>  create mode 100644=20
->> meta-skeleton/recipes-kernel/kernel-module-slave/files/Makefile
->>  create mode 100644=20
->> meta-skeleton/recipes-kernel/kernel-module-slave/files/slave.c
->>  create mode 100644=20
->> meta-skeleton/recipes-kernel/kernel-module-slave/kernel-module-slave.b=
-b
->=20
-> I recommend we NACK new code using this terminology. Changing
-> terminology in existing code is difficult and needs to be done
-> carefully. Changing terminology in newly added code should be easy to
-> do.
->=20
-> This could be called `kernel-moduler-receiver` if I'm understanding
-> the code properly.
+I try to install pm2 with devtool with yocto 2.6 (thud)
+*devtool add "npm:// registry.npmjs.org ( http://registry.npmjs.org ) ; na=
+me=3Dpm2;version=3D3.2.9"*
 
-You are understanding properly. Notifier/receiver is ok, it just
-changes the focus from the dependency to the implementation, but I
-was not really happy with the naming in the first place.
+but I get error:
+
+*File "/home/adrian/workspace/ yoctoTools/yocto-2.6/sources/ sources/poky/=
+scripts/ recipetool", line 121, in <module>
+ret =3D main()
+File "/home/adrian/workspace/ yoctoTools/yocto-2.6/sources/ sources/poky/s=
+cripts/ recipetool", line 110, in main
+ret =3D args.func(args)
+File "/home/adrian/workspace/ yoctoTools/yocto-2.6/sources/ sources/poky/s=
+cripts/lib/ recipetool/create.py", line 757, in create_recipe
+handler.process(srctree_use, classes, lines_before, lines_after, handled, =
+extravalues)
+File "/home/adrian/workspace/ yoctoTools/yocto-2.6/sources/ sources/poky/s=
+cripts/lib/ recipetool/create_npm.py", line 227, in process
+license =3D self._handle_license(pdata)
+File "/home/adrian/workspace/ yoctoTools/yocto-2.6/sources/ sources/poky/s=
+cripts/lib/ recipetool/create_npm.py", line 78, in _handle_license
+license =3D license.replace('AND', '&')
+AttributeError: 'list' object has no attribute 'replace'*
+
+Another package are downloaded without this problem
+
+Regards,
+Adrian
+
+--v44DXzwmeYCBoHnxMb0N
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>I try to install pm2 with devtool with yocto 2.6 (thud)</div>
+<div><strong>devtool add "npm://<a href=3D"http://registry.npmjs.org" targ=
+et=3D"_blank" rel=3D"noopener" data-saferedirecturl=3D"https://www.google.c=
+om/url?q=3Dhttp://registry.npmjs.org&amp;source=3Dgmail&amp;ust=3D159377932=
+5299000&amp;usg=3DAFQjCNHeeLo4P78XdSDNUm7cWaYAhYBn1w">registry.npmjs.org</a=
+>;<wbr />name=3Dpm2;version=3D3.2.9"</strong></div>
+<div>&nbsp;</div>
+<div>but I get error:</div>
+<div>&nbsp;</div>
+<div><strong>&nbsp; File "/home/adrian/workspace/<wbr />yoctoTools/yocto-2=
+.6/sources/<wbr />sources/poky/scripts/<wbr />recipetool", line 121, in &lt=
+;module&gt;<br />&nbsp; &nbsp; ret =3D main()<br />&nbsp; File "/home/adria=
+n/workspace/<wbr />yoctoTools/yocto-2.6/sources/<wbr />sources/poky/scripts=
+/<wbr />recipetool", line 110, in main<br />&nbsp; &nbsp; ret =3D args.func=
+(args)<br />&nbsp; File "/home/adrian/workspace/<wbr />yoctoTools/yocto-2.6=
+/sources/<wbr />sources/poky/scripts/lib/<wbr />recipetool/create.py", line=
+ 757, in create_recipe<br />&nbsp; &nbsp; handler.process(srctree_use, clas=
+ses, lines_before, lines_after, handled, extravalues)<br />&nbsp; File "/ho=
+me/adrian/workspace/<wbr />yoctoTools/yocto-2.6/sources/<wbr />sources/poky=
+/scripts/lib/<wbr />recipetool/create_npm.py", line 227, in process<br />&n=
+bsp; &nbsp; license =3D self._handle_license(pdata)<br />&nbsp; File "/home=
+/adrian/workspace/<wbr />yoctoTools/yocto-2.6/sources/<wbr />sources/poky/s=
+cripts/lib/<wbr />recipetool/create_npm.py", line 78, in _handle_license<br=
+ />&nbsp; &nbsp; license =3D license.replace('AND', '&amp;')<br />Attribute=
+Error: 'list' object has no attribute 'replace'</strong></div>
+<div>&nbsp;</div>
+<div>Another package are downloaded without this problem</div>
+<div>&nbsp;</div>
+<div>Regards,</div>
+Adrian
+
+--v44DXzwmeYCBoHnxMb0N--
