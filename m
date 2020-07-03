@@ -1,142 +1,114 @@
-Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
- by mx.groups.io with SMTP id smtpd.web10.7320.1593770733672168075
+Received: from mx.kolabnow.com (mx.kolabnow.com [95.128.36.42])
+ by mx.groups.io with SMTP id smtpd.web11.7526.1593772181311954290
  for <poky@lists.yoctoproject.org>;
- Fri, 03 Jul 2020 03:05:34 -0700
+ Fri, 03 Jul 2020 03:29:41 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: streamunlimited.com, ip: 213.33.87.14, mailfrom: quentin.schulz@streamunlimited.com)
-Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp.bon.at (Postfix) with ESMTPSA id 49yrF62Zfyz5tlF;
-	Fri,  3 Jul 2020 12:05:30 +0200 (CEST)
-Date: Fri, 3 Jul 2020 12:05:29 +0200
-From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
-To: Hubert CHAUMETTE <hubert.chaumette@kolabnow.com>
-Cc: poky@lists.yoctoproject.org, bruce.ashfield@gmail.com
-Subject: Re: [poky] [RFC PATCH 2/2] Example for ext kernel module dependency, slave module
-Message-ID: <20200703100528.zfeqh44jlcoolmlu@qschulz>
-References: <cover.1593601516.git.hubert.chaumette@kolabnow.com>
- <91719a84eeb95599fbf1e9f4cb693efca5527a9f.1593601521.git.hubert.chaumette@kolabnow.com>
- <20200701145837.7stpc5ngqg7sn27d@qschulz>
- <d9cc84340a14589bff4bfbe8a588a096@kolabnow.com>
+ dkim=fail reason="signature has expired" header.i=@kolabnow.com header.s=dkim20160331 header.b=YyLN0g1Y;
+ spf=pass (domain: kolabnow.com, ip: 95.128.36.42, mailfrom: hubert.chaumette@kolabnow.com)
+Received: from localhost (unknown [127.0.0.1])
+	by ext-mx-out001.mykolab.com (Postfix) with ESMTP id 71CBBE5D;
+	Fri,  3 Jul 2020 12:29:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kolabnow.com; h=
+	message-id:references:in-reply-to:subject:subject:from:from:date
+	:date:content-transfer-encoding:content-type:content-type
+	:mime-version:received:received:received; s=dkim20160331; t=
+	1593772178; x=1595586579; bh=+ClNLqe9Pgx/sBydE4fTuCKhmwHJNTlo84c
+	io+BaLjY=; b=YyLN0g1Y61YhduGOJLvj6HBeQW1QOjc5BsKMNJlInopTNEonPFG
+	/UWrSgCTABAUNsbB21as8OGC0Nvrqe083fAlK4cumTAhVRU8rbkfb2Gq3IGIN8H8
+	EII5t4/hDts9oWvFVftnvacRucNiLBN4MJ7QpF1lLR96UY5jHMwhouq6HiDYyD8Z
+	ClS9ChgbBi+P1MsgPsYmSp4a7owl8wkdSUND4uZ8HRC5WBAdEePdrttdFC1wbos1
+	opsA2pUY2jZKUtXM44zOUCcUWCCrpTJoSRZ0w24pLE8WyWtbfrJudB2voD/YVbuE
+	KQTUKWYU5mF6ftq3kAeX4xGMBnjFV+DsqhGm4qPeTXL83Ua/pF4BYDBYpIT4KHY5
+	JPdQ0rrU59/M/c1O3ueYhct19EQNTxSALkJCIaoUs+GmHtxqcLtHqsxlMTXdQsrd
+	qpp0KhkaDF/aTaAN80I5ZtcJoMHJcW83KLsvT7/PbSrOPqAGul00inBHtg8wI7uz
+	+S5Ne9gJTVcGMFpLMzAkfaOS3kjxPmVHafSuK6S7kFugAzy3eCHpF0SG7TA/Dzh9
+	DUjeVjNdiEdy1M9431X/Nshd3a3Qfua96wHmX995MD1dVI4cekH9eb5ERBgmux47
+	ZDcFarbARd6XtdlpgiHYmiz5PNpfsNm2giMDtwljv2iwO/6Tbm9Ji3bI=
+X-Virus-Scanned: amavisd-new at mykolab.com
+X-Spam-Flag: NO
+X-Spam-Score: -1.9
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 tagged_above=-10 required=5
+	tests=[BAYES_00=-1.9] autolearn=ham autolearn_force=no
+Received: from mx.kolabnow.com ([127.0.0.1])
+	by localhost (ext-mx-out001.mykolab.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id ypalK9bhnb_r; Fri,  3 Jul 2020 12:29:38 +0200 (CEST)
+Received: from int-mx002.mykolab.com (unknown [10.9.13.2])
+	by ext-mx-out001.mykolab.com (Postfix) with ESMTPS id BDC57E47;
+	Fri,  3 Jul 2020 12:29:38 +0200 (CEST)
+Received: from int-subm001.mykolab.com (unknown [10.9.37.1])
+	by int-mx002.mykolab.com (Postfix) with ESMTPS id 5E42723D4;
+	Fri,  3 Jul 2020 12:29:38 +0200 (CEST)
 MIME-Version: 1.0
-In-Reply-To: <d9cc84340a14589bff4bfbe8a588a096@kolabnow.com>
-User-Agent: NeoMutt/20180716
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Date: Fri, 03 Jul 2020 12:29:37 +0200
+From: "Hubert CHAUMETTE" <hubert.chaumette@kolabnow.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org, bruce.ashfield@gmail.com
+Subject: Re: [poky] [RFC PATCH 0/2] Add example recipes for ext kernel module dependency
+In-Reply-To: <082b8438bc90e652cd85f8b8e02b828fd87dab2f.camel@linuxfoundation.org>
+References: <cover.1593601516.git.hubert.chaumette@kolabnow.com>
+ <082b8438bc90e652cd85f8b8e02b828fd87dab2f.camel@linuxfoundation.org>
+Message-ID: <a16a84ec95e040ca0b3adec5f78f1a7f@kolabnow.com>
+X-Sender: hubert.chaumette@kolabnow.com
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Hi Hubert,
+Le 02/07/2020 22:27, Richard Purdie a =C3=A9crit=C2=A0:
+> On Wed, 2020-07-01 at 15:52 +0200, Hubert CHAUMETTE via
+> lists.yoctoproject.org wrote:
+>> Add example recipes (master an slave) for external kernel module=20
+>> dependency.
+>> The master recipe installs shared headers in ${D}${includedir}/${BPN}/=
+=20
+>> and the
+>> slave one accesses them with ccflags-y in its Makefile.
+>>=20
+>> Please review the following changes for suitability for inclusion. If=20
+>> you have
+>> any objections or suggestions for improvement, please respond to the=20
+>> patches. If
+>> you agree with the changes, please provide your Acked-by.
+>>=20
+>> The following changes since commit=20
+>> 259d2e35e7ba3cbd496d6383e58cfdc22b267f0e:
+>>=20
+>>   python3-setuptools: upgrade 47.1.1 -> 47.3.1 (2020-06-30 23:03:02=20
+>> +0100)
+>>=20
+>> are available in the Git repository at:
+>>=20
+>>   git://push.yoctoproject.org/poky-contrib hchaumette/ext-module-dep
+>>=20
+>> Hubert CHAUMETTE (2):
+>>   Example for ext kernel modules dependency, master module
+>>   Example for ext kernel module dependency, slave module
+>=20
+> There are a few issues here:
+>=20
+> As others have mentioned, the use of master/slave here needs to be
+> changed.
+>=20
+> The patches also need to be submitted to openembedded-core, not poky.
 
-On Fri, Jul 03, 2020 at 11:39:54AM +0200, Hubert CHAUMETTE wrote:
-[...]
-> > > +# $src is a Kbuild variable. Using $SRC doesn't work.
-> > > +ccflags-y :=
-> > > -I$(src)/recipe-sysroot/usr/include/kernel-module-master/
-> > > +
-> > 
-> > This makes your Makefile (hence kernel-module) bound to Yocto which is
-> > probably not a real life example (and it is highly suggested to never
-> > hardcode CFLAGS, CXXFLAGS, LDFLAGS, CC, etc... in
-> > Makefile/CMakeLists/you name it because it is a source of problems we
-> > could have avoided in the first place).
-> 
-> I've used something similar on a yocto-only project, so it is actually
-> a real example, but good point on keeping it independent.
-> 
-> > Better have a TARGET_CFLAGS +=
-> > "-I${STAGING_INCDIR}/kernel-module-master"
-> 
-> I didn't manage to make it work.
-> 
+Alright, I'll do it.
 
-Well, stupid me thought CFLAGS were used for the kernel modules but they
-aren't :)
+> The shortlog in the git commit doesn't confirm to our patch submission
+> guidelines.
 
-https://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/classes/module.bbclass#n38
+I don't know what to put in "affected area of the code". meta-skeleton?
 
-Not tested but EXTRA_OEMAKE += "EXTRA_CFLAGS=-I${STAGING_INCDIR}/kernel-module-master"
-could be an option. Or KBUILD_CFLAGS? (c.f.
-https://www.kernel.org/doc/html/v5.4/kbuild/makefiles.html#compilation-flags)
+> There isn't any test added which actually builds/tests/uses these that
+> I could spot. Should there be?
 
-Is that proper? /me shrugs
-Eager to see what's the proper way.
+I see there is ptest for package runtime testing, and=20
+meta/lib/oeqa/selftest/cases/
+for build-time. Does runtime testing make sense in this case?
 
-> > Also technically, if your "master" is always installing the header in
-> > <includedir>/kernel-module-master, maybe it'd actually be better to fix
-> > the original code and use #include <kernel-module-master/master.h> ?
-> 
-> I use a subdirectory to keep the a kernel header separated from
-> userspace includes.
-> Also, removing kernel-module-master/ doesn't work: kernel modules
-> don't see the userspace inludedir by default.
-
-I meant to keep the path in the includedir (so
-<includedir>/kernel-module-master), pass <includedir> in CFLAGS somehow
-and from the kernel driver source code, include <kernel-module-master/master.h>
-
-> Using STAGING_KERNEL_DIR allows to skip the CFLAGS dance but doesn't
-> seem right either (using a third party staging directory seems to
-> be asking for trouble) and I had issues with it (as discussed with
-> Bruce Ashfield earlier).
-> I'd be happy to know what is the correct way to do it.
-> 
-
-Listen to Bruce, he's definitely much more experience than me on this.
-
-> > Overall, I'm not sure to understand what this has to do with
-> > kernel modules and if this is really an example worthy to be in
-> > meta-skeleton?
-> > 
-> > It's basically an example for using DEPENDS and an include file, from
-> > this recipe, which is at the "wrong" (read not directly in /usr/include)
-> > location from another recipe.
-> 
-> As said above, kernel modules don't follow the usual rules and would
-> benefit IMO from a standardized example.
-> 
-
-I was ignorant of the CFLAGS dance required for it so yes, it seems like
-a good addition to the examples :)
-
-[...]
-> > Also, do those examples **really** need to be named slave/master? I mean
-> > they're just exchanging data whose format has been defined into one
-> > kernel module.
-> 
-> The naming is to emphasize the dependency relationship, the implementation
-> is irrelevant. Would you prefer Paul's notifier/receiver?
-> 
-
-Fine :)
-
-> > > diff --git
-> > > a/meta-skeleton/recipes-kernel/kernel-module-slave/kernel-module-slave.bb
-> > > b/meta-skeleton/recipes-kernel/kernel-module-slave/kernel-module-slave.bb
-> > > new file mode 100644
-> > > index 0000000000..280fa815f3
-> > > --- /dev/null
-> > > +++
-> > > b/meta-skeleton/recipes-kernel/kernel-module-slave/kernel-module-slave.bb
-> > > @@ -0,0 +1,17 @@
-> > > +SUMMARY = "External kernel module dependency exemple - slave module"
-> > > +LICENSE = "GPLv2"
-> > > +LIC_FILES_CHKSUM =
-> > > "file://COPYING;md5=1c5a04927650c42822bb4b1de4641658"
-> > 
-> > Technically, you could use COMMON_LIC_DIR instead of providing a COPYING
-> > file.
-> 
-> I didn't know about that, but doesn't it defeat the point of having a
-> checksum to detect licensing changes?
-> 
-
-Kinda. Now that I'm thinking about it, another solution is to pass the
-part of the kernel driver where the SPDX license appears with
-beginline/endline in LIC_FILES_CHKSUM.
-
-No strong feelings about this, I just found it sad to add a file just
-for the license.
-
-Thanks for the patch and your explanations, learned a few more things
-today :)
+> Cheers,
+>=20
+> Richard
 
 Regards,
-Quentin
+
+Hubert
