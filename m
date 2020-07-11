@@ -1,12 +1,12 @@
 Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web10.6005.1594458147111146985
+ by mx.groups.io with SMTP id smtpd.web11.6223.1594460290919874429
  for <poky@lists.yoctoproject.org>;
- Sat, 11 Jul 2020 02:02:27 -0700
+ Sat, 11 Jul 2020 02:38:11 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=qUUP0X96;
+ dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=xq6AtLFa;
  spf=none, err=SPF record not found (domain: srin.me, ip: 140.211.169.56, mailfrom: s@srin.me)
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id 92760E01E4C; Sat, 11 Jul 2020 02:02:26 -0700 (PDT)
+	id A5EE1E01E4C; Sat, 11 Jul 2020 02:38:10 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
@@ -17,65 +17,148 @@ X-Spam-HAM-Report:
 	*      [score: 0.0000]
 	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
 	*      trust
-	*      [209.85.218.41 listed in list.dnswl.org]
+	*      [209.85.218.50 listed in list.dnswl.org]
 	*  0.0 HTML_MESSAGE BODY: HTML included in message
 	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
 	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
 	*      valid
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id AC0E3E01E07
-	for <poky@yoctoproject.org>; Sat, 11 Jul 2020 02:02:24 -0700 (PDT)
-Received: by mail-ej1-f41.google.com with SMTP id w16so8556493ejj.5
-        for <poky@yoctoproject.org>; Sat, 11 Jul 2020 02:02:24 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 4BC22E01E07
+	for <poky@yoctoproject.org>; Sat, 11 Jul 2020 02:38:08 -0700 (PDT)
+Received: by mail-ej1-f50.google.com with SMTP id w16so8614442ejj.5
+        for <poky@yoctoproject.org>; Sat, 11 Jul 2020 02:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=srin-me.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=zCLB0FgHpPoTvdVijrFbnm27R4TId5bO0YJjgFk07Lw=;
-        b=qUUP0X96B0nnB+o1PknzN45mz1EZtKwF/6n5CKojRazlk22YO1HdZCgHiZCzqjElU5
-         5HQaQ0Cvvg9+UbzbSO0Xqdg6T2uj9pwYlEuyMLGwLgUtQb7GgR4ErSWQmn4CvjU4evCH
-         AmI8wQLHtOmqb3rlV1lAvFT55TGV3dI9T77ovOnk+82wr2tWpVbyJt6Hciyodlfhy03R
-         1xHMiR/Sn1ZsQGsKOsDQQOHtw2+0guhRSR/GzscazQJp9xZ8R24A8m32Raj1WPnPtt6B
-         1LlWd/+YonAAy7VfiGtGCdhrOEWKLxMa+LI1pRsspLV6RIcwP8kWkTLhYmyuzB2VfF9X
-         l6MA==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=THi3ehyBhvR5DRgdO6CtA74Zkx0CwBMtoemitTs8x+o=;
+        b=xq6AtLFaKumkgM2Ea1u4dpUl87ryO5WGnIJqWvLQSP/Wmz9CuOk6dIw+ibXy/rD8DW
+         JWAiGqNIU+R+dVvOwNuLNIcF7BYYgMAe9BKLHTjhONfo8IyiU05OD4fcXZcF8ARa+hoQ
+         p983c7CAIQF4G6yB7uswe7PNPdfYqUPWsIfc9IsJbL+S+8AYTZ2oVvkprq3t655xy1U8
+         TaKPl0gTpGmqw17Qn8/zsIAZTJ48mtMSJuOImt/odGwEEe/Oe0CXaSKRKEZcxx0SdUwl
+         VPRUvH5vitllGTQwneUfZNFZsHzVDDSJtw5eoB6w9CuSdsCYQaZOAAh0Zf86C0ExHr/p
+         SAHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=zCLB0FgHpPoTvdVijrFbnm27R4TId5bO0YJjgFk07Lw=;
-        b=Rnt05RJDq/y7jMzcTNbTxTP4+NA4ICseQ99HdrID2PB5aA1clgMo9aRH1WRp6V1wty
-         rKuJ+06HnII7wPEyxaApvfMIqmw9bHxA1RCr59kv55h4+HzJiBgx3weNmjwE/vJ8i1gR
-         AoXPU6vWry2LADmIjb+tFGeKPhLRF/8E8c4SvG/oIs8bg1QI2pUeWQfFZQESiwbEykrH
-         Su7pBd8+f9Muaujzxqj3uXzJ9/P6AZUb7NOuWG+9RR7gsqC2/2cg+ZudPkGxVlwHwrmj
-         rxk7odSct8C7GMR5RUP59Ep8lPshwitEefnxrHaL3r2LIRRTDQbI79wppQCwD7PK8Wes
-         X32A==
-X-Gm-Message-State: AOAM533Mbx5WaCJBR2KFBhUVBjju5puUyUzHdN9nqlerBSWUs5Xev4NP
-	BnTiOFvqzoAlRVtONiZ2LYEwi9U4fZ5iJ6XxHr3MFepHd4o=
-X-Google-Smtp-Source: ABdhPJxgm9/Fyc8V31GBrAYE3ETqCeDPd+RTaUtStJxtYPtgeH8GB/NAnqDVS/+HR8PwA4wpg8l6LQmJfGZESFHmGGE=
-X-Received: by 2002:a17:906:da19:: with SMTP id fi25mr64135768ejb.369.1594458143631;
- Sat, 11 Jul 2020 02:02:23 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=THi3ehyBhvR5DRgdO6CtA74Zkx0CwBMtoemitTs8x+o=;
+        b=Tk279yc4R6b+PkBc0ZF9p1WLt/VLBRBZT5TY6oS2cu5CZtzDWdh4Fl6YgO/h4T1ced
+         OZHOlAbrl0qU2VneeWCAis7vpAUyRS3acAaK6kBY8Zdx/VjbL65XWji9gLCQhhBNvXkR
+         Dib0x16TPFvJySXc+ZhfEYRMfHXgrtfNz9wDRStQvLnUWrKmq6NH0EeWJHjlTZDG2HP+
+         yZn8i2IcNFw7GY147jJLB3MRl3+UsR3faODu2E+fRuuhlPGRoFyGUCQW8//1I7xUcFyx
+         zrMEv2NKz1Pr0aL9YdAJ7v23xQio5rtsypu3gJ5UxR89+ThbFGdRyxSJi/uqWt5yQrQV
+         dg3w==
+X-Gm-Message-State: AOAM5328rip495wnNVVgl8iav3HwZM3dLQKDg9dIVBLjdUZMvIq1/lfT
+	DB9TWDMUsftJtul2cD5IpWcAaj60Qa5unOBhtdeDp38nKnc=
+X-Google-Smtp-Source: ABdhPJxYU4C/6gV59pXnn+cagmdebv8pVKAdqDXcwwiCf1zIunUdtR8FYqmVbhwtKrP4DrLfKY7lwo7aUx4xRaRevdw=
+X-Received: by 2002:a17:906:2b04:: with SMTP id a4mr62375194ejg.199.1594460287808;
+ Sat, 11 Jul 2020 02:38:07 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAGNn0hYDMk+pSXarT1XbUOPmhyajUvcwTt7FmD78BEmeqZySzg@mail.gmail.com>
+ <6753B8CB-00FC-44E2-821D-59E58DA45DE1@berg-solutions.de>
+In-Reply-To: <6753B8CB-00FC-44E2-821D-59E58DA45DE1@berg-solutions.de>
 From: "R Srinivasan" <s@srin.me>
-Date: Sat, 11 Jul 2020 05:02:12 -0400
-Message-ID: <CAGNn0hYDMk+pSXarT1XbUOPmhyajUvcwTt7FmD78BEmeqZySzg@mail.gmail.com>
-Subject: yocto under WSL
-To: poky@yoctoproject.org
-Content-Type: multipart/alternative; boundary="00000000000042c1c505aa26b7ce"
+Date: Sat, 11 Jul 2020 05:37:56 -0400
+Message-ID: <CAGNn0hZ5VcKRx7uq1P1Ome-TP9FF9zmudRDaCHO39u1M=VvH3A@mail.gmail.com>
+Subject: Re: [poky] yocto under WSL
+To: Roelof Berg <rberg@berg-solutions.de>
+Cc: poky@yoctoproject.org
+Content-Type: multipart/alternative; boundary="00000000000010508105aa2737bf"
 
---00000000000042c1c505aa26b7ce
+--00000000000010508105aa2737bf
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I got myself a new laptop. Trying to decide whether to setup a VM for yocto
-development.
+Awesome, thanks!
 
-Will the above work?
+On Sat, Jul 11, 2020 at 5:36 AM Roelof Berg <rberg@berg-solutions.de> wrote=
+:
 
-thanks, srini
+> Hi Srini,
+>
+> you can use docker on: Linux, Windows, Mac OS for Yocto development. It's
+> better than a full VM. It starts in seconds, can easily exchange files an=
+d
+> is probably also faster in build times.
+>
+> Now it depends on what system you=E2=80=99re running on the laptop:
+>
+> On Linux: Just install docker, add an image based on ubuntu, mount your
+> working directory into docker with -v
+>
+> On Windows: Upgrade Win 10 to Build 2004 (at least), install WSL2, instal=
+l
+> docker for windows, configure WSL2 in docker for windows, then call =E2=
+=80=9Ebash=E2=80=9C
+> in a console. From there proceed as on linux (call "docker build" etc.)
+>
+> On Mac: Install docker for mac, create a volume (this is not needed on
+> Windows WSL2 and Linux), use docker on the command line as in Linux/Windo=
+ws
+> (docker build etc.), mount the volume with -v. Also mount an output
+> directory, not as a volume, with a second -v, that can be used for
+> outputting/inputting files to the docker image. For speed purposes two -v
+> are needed on Mac.
+>
+> Best regards,
+> R.
+>
+>
+> >
+> > I got myself a new laptop. Trying to decide whether to setup a VM for
+> yocto development.
+> >
+> > Will the above work?
+> >
+> > thanks, srini
+>
+>
 
---00000000000042c1c505aa26b7ce
+--00000000000010508105aa2737bf
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>I got myself a=C2=A0new laptop. Trying to decide whet=
-her to setup=C2=A0a VM for yocto development.</div><div><br></div>Will the =
-above work?<div><br></div><div>thanks, srini</div></div>
+<div dir=3D"ltr">Awesome, thanks!=C2=A0<br></div><br><div class=3D"gmail_qu=
+ote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Jul 11, 2020 at 5:36 AM =
+Roelof Berg &lt;<a href=3D"mailto:rberg@berg-solutions.de">rberg@berg-solut=
+ions.de</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;bord=
+er-left-color:rgb(204,204,204);padding-left:1ex">Hi Srini,<br>
+<br>
+you can use docker on: Linux, Windows, Mac OS for Yocto development. It&#39=
+;s better than a full VM. It starts in seconds, can easily exchange files a=
+nd is probably also faster in build times.<br>
+<br>
+Now it depends on what system you=E2=80=99re running on the laptop:<br>
+<br>
+On Linux: Just install docker, add an image based on ubuntu, mount your wor=
+king directory into docker with -v<br>
+<br>
+On Windows: Upgrade Win 10 to Build 2004 (at least), install WSL2, install =
+docker for windows, configure WSL2 in docker for windows, then call =E2=80=
+=9Ebash=E2=80=9C in a console. From there proceed as on linux (call &quot;d=
+ocker build&quot; etc.)<br>
+<br>
+On Mac: Install docker for mac, create a volume (this is not needed on Wind=
+ows WSL2 and Linux), use docker on the command line as in Linux/Windows (do=
+cker build etc.), mount the volume with -v. Also mount an output directory,=
+ not as a volume, with a second -v, that can be used for outputting/inputti=
+ng files to the docker image. For speed purposes two -v are needed on Mac.<=
+br>
+<br>
+Best regards,<br>
+R.<br>
+<br>
+<br>
+&gt; <br>
+&gt; I got myself a new laptop. Trying to decide whether to setup a VM for =
+yocto development.<br>
+&gt; <br>
+&gt; Will the above work?<br>
+&gt; <br>
+&gt; thanks, srini<br>
+<br>
+</blockquote></div>
 
---00000000000042c1c505aa26b7ce--
+--00000000000010508105aa2737bf--
