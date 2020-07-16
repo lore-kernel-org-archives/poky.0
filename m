@@ -1,132 +1,287 @@
 Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web10.10135.1594881887242661925
+ by mx.groups.io with SMTP id smtpd.web11.10789.1594884770233483879
  for <poky@lists.yoctoproject.org>;
- Wed, 15 Jul 2020 23:44:47 -0700
+ Thu, 16 Jul 2020 00:32:50 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=AN5xd+/3;
- spf=softfail (domain: linuxfoundation.org, ip: 140.211.169.56, mailfrom: richard.purdie@linuxfoundation.org)
+ dkim=missing; spf=none, err=permanent DNS error (domain: berg-solutions.de, ip: 140.211.169.56, mailfrom: rberg@berg-solutions.de)
 Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id DB92EE01E8C; Wed, 15 Jul 2020 23:44:46 -0700 (PDT)
+	id 0F40FE01E8C; Thu, 16 Jul 2020 00:32:50 -0700 (PDT)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
 	yocto-www.yoctoproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW
+	autolearn=ham version=3.3.1
 X-Spam-HAM-Report: 
+	* -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/, low
+	*      trust
+	*      [80.237.132.155 listed in list.dnswl.org]
 	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
 	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
-	*      trust
-	*      [209.85.221.50 listed in list.dnswl.org]
-	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from author's
-	*       domain
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id C23E1E01E8A
-	for <poky@yoctoproject.org>; Wed, 15 Jul 2020 23:44:44 -0700 (PDT)
-Received: by mail-wr1-f50.google.com with SMTP id a6so5808618wrm.4
-        for <poky@yoctoproject.org>; Wed, 15 Jul 2020 23:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=Yn9poJ77sAejsE1U5DbTrPwc7a+WEO7sxrbK0j4OeGE=;
-        b=AN5xd+/3rdm5JlvcypTAJyZmYCIZp6MVegWlT9yzStQmKrwZvKAayuAR/CxjoVjuWH
-         jLEOlNP0raB23r1ZfwYX22LEV1UQ2lAeTCcXp9hAlaJ/cVJzjFtjuSBVoAm7RMCiZQS3
-         dg2yPySgWVN+Nf5sHfq2Oe0e0adHDz0F+JrJ8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=Yn9poJ77sAejsE1U5DbTrPwc7a+WEO7sxrbK0j4OeGE=;
-        b=HuNbJErZUz533hnkMPc7mgZVUz04OMv4hc61q8rqvf/XUnq+roKCkuA2X+nV9NGj4z
-         5MhiTQGy9l/o7D5RrpjKgZ5zapOazkfrcZ0/jAlGXPnwK2/Kn+p8qy6Edw2H1KEH0Bt0
-         tCu+FXuMTwaHjZHszyEXoNs8gwhHhjdNWUVVt21RnQYWTQnLyfmSA9SYfojrHoTphRut
-         azCUWO6Odgtxy3vRH0vexzjBIopnJclGOBF+aViWQmvp7j4FXLhdrXXTtaMReVw1e81z
-         gpeWFYuvKiIAmGSP3T5LNBixfUhQEhzhW2VNSP4IDXa+icm1pa+bLlMMztX3qF1iWTDg
-         AGgg==
-X-Gm-Message-State: AOAM533Snu6rfmoih1t8nKRJ/9inDeuKAumUCTPUcfJbSCweFtPGzI5L
-	7KR7GjfViJjHk4NSXbCThsUtiA==
-X-Google-Smtp-Source: ABdhPJxB8l7SqDw/ZZr2H2pfyeMHN9XfvfWiMD85v/02pvLNn1mQfo+QsJNnq6ASCU3UU/tPRhPLrA==
-X-Received: by 2002:adf:80c7:: with SMTP id 65mr3615081wrl.246.1594881883363;
-        Wed, 15 Jul 2020 23:44:43 -0700 (PDT)
-Received: from f.c.4.9.c.e.0.f.2.5.c.9.7.3.d.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (f.c.4.9.c.e.0.f.2.5.c.9.7.3.d.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:1d37:9c52:f0ec:94cf])
-        by smtp.gmail.com with ESMTPSA id p4sm7001427wrx.63.2020.07.15.23.44.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2020 23:44:42 -0700 (PDT)
-Message-ID: <14e9e6f37e9bc9478772f3d67ebb50642eb83625.camel@linuxfoundation.org>
+Received: from wp148.webpack.hosteurope.de (wp148.webpack.hosteurope.de [80.237.132.155])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id DD974E01E8A
+	for <poky@yoctoproject.org>; Thu, 16 Jul 2020 00:32:47 -0700 (PDT)
+Received: from ip1f126570.dynamic.kabel-deutschland.de ([31.18.101.112] helo=roelofs-mbp.fritz.box); authenticated
+	by wp148.webpack.hosteurope.de running ExIM with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	id 1jvyNq-0000b1-Fk; Thu, 16 Jul 2020 09:32:46 +0200
+From: "Roelof" <rberg@berg-solutions.de>
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.1\))
 Subject: Re: [poky] do_image_wic failed with exit code '1', Codepage 850
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Roelof <rberg@berg-solutions.de>, poky@yoctoproject.org
-Date: Thu, 16 Jul 2020 07:44:39 +0100
-In-Reply-To: <4C5E3FDA-E32C-40CB-81CC-D647E53DB9D7@berg-solutions.de>
+Date: Thu, 16 Jul 2020 09:32:45 +0200
 References: <4C5E3FDA-E32C-40CB-81CC-D647E53DB9D7@berg-solutions.de>
-User-Agent: Evolution 3.36.2-0ubuntu1 
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+ <14e9e6f37e9bc9478772f3d67ebb50642eb83625.camel@linuxfoundation.org>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>,
+ poky@yoctoproject.org
+In-Reply-To: <14e9e6f37e9bc9478772f3d67ebb50642eb83625.camel@linuxfoundation.org>
+Message-Id: <82D0D9E4-D18E-4AB5-BC6F-3EEBB391DD69@berg-solutions.de>
+X-Mailer: Apple Mail (2.3608.120.23.2.1)
+X-bounce-key: webpack.hosteurope.de;rberg@berg-solutions.de;1594884767;e8253a19;
+X-HE-SMSGID: 1jvyNq-0000b1-Fk
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2020-07-16 at 08:39 +0200, Roelof wrote:
-> Error in do_image_wic when building in an openSUSE based docker image
-> (the customers IT only allows SUSE). Any ideas where this might be
-> coming from ? Thanks a lot.
-> 
-> mcopy outputs
->  output: Error converting to codepage 850 Invalid argument
->  Cannot initialize '::'
->  Bad target ::/
-> 
-> Log:
-> > DEBUG: Python function extend_recipe_sysroot finished
-> > DEBUG: Executing shell function do_image_wic
-> > INFO: Creating image(s)...
-> > 
-> > ERROR: _exec_cmd: export
-> > PATH=/remux/yocto/build/tmp/work/phyboard_mira_imx6_14-phytec-
-> > linux-gnueabi/remux-headless-image/1.0-r0/recipe-sysroot-
-> > native/sbin:/remux/yocto/build/tmp/work/phyboard_mira_imx6_14-
-> > phytec-linux-gnueabi/remux-headless-image/1.0-r0/recipe-sysroot-
-> > native/usr/sbin:/remux/yocto/build/tmp/work/phyboard_mira_imx6_14-
-> > phytec-linux-gnueabi/remux-headless-image/1.0-r0/recipe-sysroot-
-> > native/usr/bin:$PATH;mcopy -i
-> > /remux/yocto/build/tmp/work/phyboard_mira_imx6_14-phytec-linux-
-> > gnueabi/remux-headless-image/1.0-r0/deploy-remux-headless-image-
-> > image-complete/remux-headless-image-phyboard-mira-imx6-14-
-> > 20200716063506/tmp.wic._f7ek1ol/rootfs_boot.2.vfat -s
-> > /remux/yocto/build/tmp/work/phyboard_mira_imx6_14-phytec-linux-
-> > gnueabi/remux-headless-image/1.0-r0/deploy-remux-headless-image-
-> > image-complete/remux-headless-image-phyboard-mira-imx6-14-
-> > 20200716063506/tmp.wic._f7ek1ol/boot.2/* ::/ returned '1' instead
-> > of 0
-> > output: Error converting to codepage 850 Invalid argument
-> > Cannot initialize '::'
-> > Bad target ::/
-> > 
-> > WARNING: /remux/yocto/build/tmp/work/phyboard_mira_imx6_14-phytec-
-> > linux-gnueabi/remux-headless-image/1.0-
-> > r0/temp/run.do_image_wic.63035:1 exit 1 from
-> > 'BUILDDIR="/remux/yocto/build" wic create "$wks" --vars
-> > "/remux/yocto/build/tmp/sysroots/phyboard-mira-imx6-14/imgdata/" -e
-> > "remux-headless-image" -o "$out/"'
-> > ERROR: Function failed: do_image_wic (log file is located at
-> > /remux/yocto/build/tmp/work/phyboard_mira_imx6_14-phytec-linux-
-> > gnueabi/remux-headless-image/1.0-r0/temp/log.do_image_wic.63035)
-> ERROR: Task (/remux/yocto/sources/poky/../meta-remux/recipes-
-> images/images/remux-headless-image.bb:do_image_wic) failed with exit
-> code '1'
-> NOTE: Tasks Summary: Attempted 4765 tasks of which 4552 didn't need
-> to be rerun and 1 failed.
+Thanks so much.
 
-Which release of the project is this? Are you using any buildtools
-tarball? Is uninative enabled?
+DISTRO_VERSION =3D "2.7.4"
+DISTRO_CODENAME =3D =E2=80=9Ewarrior
 
-It sounds like there is missing codepage/locale data. Whether that is
-on the host system or from the project, its hard to say based on the
-limited info about the version/configuration.
+The same image runs on: Ubuntu 18.1
+Does not run on: opensuse/leap:15.1
 
-Cheers,
+Docker images, the Ubuntu is compatible, the SUSE not yet.=20
 
-Richard
+=3D=3D SUSE =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+FROM opensuse/leap:15.1
+
+USER root
+
+
+ENV USER_NAME "remux"
+ENV EXCH_PATH "/${USER_NAME}"
+ENV EXCH_PATH_INPUT "${EXCH_PATH}/input"
+ENV EXCH_PATH_OUTPUT "${EXCH_PATH}/output"
+
+# Upgrade system and set locale
+RUN zypper -n dup
+RUN sed -i "s/\(RC_LANG *=3D *\).*/\1\\\"en_US.utf8\\\"/" =
+/etc/sysconfig/language
+RUN sed -i "s/\(RC_LC_ALL *=3D *\).*/\1\\\"en_US.utf8\\\"/" =
+/etc/sysconfig/language
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+
+# Install recommendations from yocto project
+RUN zypper -n install python gcc gcc-c++ git chrpath make wget =
+python-xml   \
+    diffstat makeinfo python-curses patch socat
+
+# Install what we want to add to Remux
+RUN zypper -n install sudo vim tmux nano bash-completion iputils xterm =
+tree \
+    nfs-client subversion qt-creator curl sudo python3 python3-curses =
+bzip2 \
+    gzip hostname tar which
+
+# Configure time zone
+RUN rm -rf /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+# Configure vim (show line-numbers and tab characters)
+RUN echo -e "OCset number\nset list\nset lcs=3Dtab:\\|\\" > ~/.vimrc
+
+# Add passwordless group wheel to sudoers file
+RUN echo '%wheel ALL=3D(ALL) NOPASSWD: ALL' | (EDITOR=3D'tee -a' visudo)
+
+# Clean up and set shell and user options.
+RUN rm -rf /tmp/* /var/tmp/*                                             =
+   \
+        && rm /bin/sh && ln -s /bin/bash /bin/sh                         =
+   \
+	&& groupadd -g 1001 wheel                                        =
+   \
+	&& groupadd -g 1000 ${USER_NAME}                                 =
+   \
+        && useradd -u 1000 -g 1000 -ms /bin/bash ${USER_NAME}            =
+   \
+        && usermod -a -G wheel ${USER_NAME}                              =
+   \
+        && usermod -a -G users ${USER_NAME}                              =
+   \
+        && usermod --password ${USER_NAME} ${USER_NAME}                  =
+   \
+        && usermod --password toor root                                  =
+   \
+        && passwd -d root                                                =
+   \
+        && passwd -d ${USER_NAME}                          =20
+
+# Install mount point for NFS
+RUN mkdir /mnt/filer && chown ${USER_NAME}:${USER_NAME} /mnt/filer       =
+   \
+        && chmod 777 /mnt/filer
+
+# Install repo
+RUN curl -o /usr/local/bin/repo =
+https://storage.googleapis.com/git-repo-downloads/repo \
+        && chmod a+x /usr/local/bin/repo
+
+# Run as yocto  user from the installation path
+RUN install -o 1000 -g 1000 -m 2777  -d ${EXCH_PATH}                     =
+   \
+        && install -o 1000 -g 1000 -m 2777 -d ${EXCH_PATH_INPUT}         =
+   \
+        && install -o 1000 -g 1000 -m 2777 -d ${EXCH_PATH_OUTPUT}
+
+
+USER ${USER_NAME}
+
+WORKDIR ${EXCH_PATH}
+
+#ENTRYPOINT /bin/bash
+CMD [ "bash", "/srv/.dockerjob_nostromo.sh=E2=80=9C]
+
+=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+=3D UBUNTU =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+FROM ubuntu:18.04
+
+USER root
+
+
+ENV USER_NAME "remux"
+ENV EXCH_PATH "/${USER_NAME}"
+ENV EXCH_PATH_INPUT "${EXCH_PATH}/input"
+ENV EXCH_PATH_OUTPUT "${EXCH_PATH}/output"
+ARG DEBIAN_FRONTEND=3Dnoninteractive
+
+# Upgrade system and Yocto Proyect basic dependencies and set to locals
+RUN apt-get -o Acquire::Check-Valid-Until=3Dfalse -o =
+Acquire::Check-Date=3Dfalse -o Acquire::Max-FutureTime=3D86400 update \
+        && apt-get -y upgrade && apt-get clean                           =
+   \
+        && apt-get -y install locales apt-utils sudo                     =
+   \
+        && dpkg-reconfigure locales                                      =
+   \
+        && locale-gen en_US.UTF-8                                        =
+   \
+        && update-locale LC_ALL=3Den_US.UTF-8 LANG=3Den_US.UTF-8
+
+
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+
+# Install packedes into the image
+RUN apt-get -y install gawk wget git diffstat unzip texinfo              =
+    \=20
+        gcc-multilib build-essential chrpath socat cpio python3-lxml =
+python3 \
+        python3-pip python3-pexpect xz-utils debianutils iputils-ping    =
+    \
+        libsdl1.2-dev xterm curl vim bash-completion tree apt-utils      =
+    \
+        python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev  pylint    =
+    \
+        python python-lxml tmux subversion git-core g++-multilib         =
+    \=20
+        g++-5-multilib syslinux zip nano                                 =
+    \
+        qtcreator nfs-common
+
+# Configure time zone
+RUN rm -rf /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+# Configure vim (show line-numbers and tab characters)
+RUN echo -e "OCset number\nset list\nset lcs=3Dtab:\\|\\" > ~/.vimrc
+
+# Clean up APT when done and set shell and user options.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*       =
+   \
+        && rm /bin/sh && ln -s /bin/bash /bin/sh                         =
+   \
+        && groupadd -g 1000 ${USER_NAME}                                 =
+   \
+        && useradd -u 1000 -g 1000 -ms /bin/bash ${USER_NAME}            =
+   \
+        && usermod -a -G sudo ${USER_NAME}                               =
+   \
+        && usermod -a -G users ${USER_NAME}                              =
+   \
+        && usermod --password ${USER_NAME} ${USER_NAME}                  =
+   \
+        && usermod --password toor root                                  =
+   \
+        && passwd -d root                                                =
+   \
+        && passwd -d ${USER_NAME}                          =20
+
+# Install mount point for NFS
+RUN mkdir /mnt/filer && chown ${USER_NAME}:${USER_NAME} /mnt/filer       =
+   \
+        && chmod 777 /mnt/filer
+
+# Install repo
+RUN curl -o /usr/local/bin/repo =
+https://storage.googleapis.com/git-repo-downloads/repo \
+        && chmod a+x /usr/local/bin/repo
+
+# Run as yocto  user from the installation path
+RUN install -o 1000 -g 1000 -m 2777  -d ${EXCH_PATH}                     =
+   \
+        && install -o 1000 -g 1000 -m 2777 -d ${EXCH_PATH_INPUT}         =
+   \
+        && install -o 1000 -g 1000 -m 2777 -d ${EXCH_PATH_OUTPUT}
+
+
+USER ${USER_NAME}
+
+WORKDIR ${EXCH_PATH}
+
+#ENTRYPOINT /bin/bash
+CMD [ "bash", "/srv/.dockerjob_nostromo.sh"]
+
+=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+> Am 16.07.2020 um 08:44 schrieb Richard Purdie =
+<richard.purdie@linuxfoundation.org>:
+>=20
+> On Thu, 2020-07-16 at 08:39 +0200, Roelof wrote:
+>> Error in do_image_wic when building in an openSUSE based docker image
+>> (the customers IT only allows SUSE). Any ideas where this might be
+>> coming from ? Thanks a lot.
+>>=20
+>> mcopy outputs
+>> output: Error converting to codepage 850 Invalid argument
+>> Cannot initialize '::'
+>> Bad target ::/
+>>=20
+>>=20
+>=20
+> Which release of the project is this? Are you using any buildtools
+> tarball? Is uninative enabled?
+>=20
+> It sounds like there is missing codepage/locale data. Whether that is
+> on the host system or from the project, its hard to say based on the
+> limited info about the version/configuration.
+>=20
+> Cheers,
+>=20
+> Richard
 
