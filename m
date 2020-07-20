@@ -1,85 +1,78 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
- by mx.groups.io with SMTP id smtpd.web10.33593.1595230983212884367
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+ by mx.groups.io with SMTP id smtpd.web12.33288.1595232460040941090
  for <poky@lists.yoctoproject.org>;
- Mon, 20 Jul 2020 00:43:03 -0700
+ Mon, 20 Jul 2020 01:07:40 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=bshtDMC9;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.48, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f48.google.com with SMTP id f7so16789882wrw.1
-        for <poky@lists.yoctoproject.org>; Mon, 20 Jul 2020 00:43:02 -0700 (PDT)
+ dkim=pass header.i=@mvista-com.20150623.gappssmtp.com header.s=20150623 header.b=IHM4MlOE;
+ spf=permerror, err=parse error for token &{10 18 websitewelcome.com}: parse error for token &{10 18 _spf.google.com}: limit exceeded (domain: mvista.com, ip: 209.85.221.44, mailfrom: ashishm@mvista.com)
+Received: by mail-wr1-f44.google.com with SMTP id 88so6565447wrh.3
+        for <poky@lists.yoctoproject.org>; Mon, 20 Jul 2020 01:07:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=ma2oIJo0j50Ev6c+WUzTbU9TEEOS/Qt2gw1L95M4y/g=;
-        b=bshtDMC9l9zK1PVXO9YZs/uGR6z5ZJM+gRsNsrX8SRSjnjljZp2tUVU3QAf1w6KEbl
-         6o6qv0pTjw915nq9QWZ+ItIypoSzyM+EUeiFAfvqcHQ5UKFD157zfVsg5YnLvWIUul7I
-         xAk9BcRd+WW2bJIXG5kqYOH5yB16HXPYVsZ94=
+        d=mvista-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=5a23XlosdMvhJjrxUcIdwhViN/UL7KAOSjBccL2TJZU=;
+        b=IHM4MlOEtIAJDRK5nTtVcH5iHRxzSWAPP7mRI3QqUn6aoYh4DcdT2tRpS68EDHc0LI
+         4tLGNqwc17hIS5e9DprbS3VynBk3BcS7bOB95PRoiQNlgjP7kf2jv9w3hb98ThWmaqvB
+         zHldO+962ihniWeu9PSm2igHj6fIUkdXHCiURM8WeD4JVMbCE3dhwzlX8gEI0j64ibLj
+         9NLfedgTTRXS/CuRDzGD3rD0ndxBd8hQRUConpfcXz/RRHqmo5r0JJL4Fxs/1Y2aQ83J
+         7BcDHW2HXDjrG5se3wIDBhQGir155K3097kAxKafsH3M3uxCFU5eFjkrIYYNHx+/QYVr
+         virg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=ma2oIJo0j50Ev6c+WUzTbU9TEEOS/Qt2gw1L95M4y/g=;
-        b=kHv3aMDDWT3Hn5uoTbbL8TaKkFzfJ4x8jnI+5Bb8UYiqDuY1b8VKY3NZF81MX3sZhX
-         HK195fN7arfJEFCWUyvcazzD1BgTjjISq2fRtoiGbCwXhx9QMftL1ey3TfRDApctFY0V
-         zmDaOpU44r10z9gcKseGsbbBMsIBoFOGM2+kHIErfcMeyc4AmDtuasiHRvius3JI7FLC
-         h/ZeuH6wzYuAWbedZ2YmtJwhgnenyIxSOIi9b3kZ5AX31vEgkyklDFQh+dgNoxVG5nRS
-         gGXHOpqU4Asa4mB62x0rd+vtUIaF5LLrgWgf4zbMUo9gD0PYVSLb65GxVxtTRNxRJsx6
-         eu4Q==
-X-Gm-Message-State: AOAM532Q8Z7Q3ZmT9HK7ekPJC5lD2K2GzsDcmPN7MRdF1Q49dXi6RKKa
-	j+v1toAscgJiqol59X2laZF/ZQ==
-X-Google-Smtp-Source: ABdhPJw1aprNDI83SiPFBjnVQu1kf+aM9qowNOW7vNdP2BlNOEgqOi+3Zn1dBA2aBZt9Al4yPYy5zQ==
-X-Received: by 2002:adf:e7c8:: with SMTP id e8mr20598777wrn.20.1595230981597;
-        Mon, 20 Jul 2020 00:43:01 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from 5.f.a.a.6.6.c.6.8.7.0.3.0.b.c.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (5.f.a.a.6.6.c.6.8.7.0.3.0.b.c.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:1cb0:3078:6c66:aaf5])
-        by smtp.gmail.com with ESMTPSA id n3sm20217848wre.29.2020.07.20.00.43.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2020 00:43:00 -0700 (PDT)
-Message-ID: <2d1228d9f3c582a0aa958df7130b1c14a3bc11ec.camel@linuxfoundation.org>
-Subject: Re: [poky] How to add python debugger "epdb" module in recipe
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Ashish <ashishm@mvista.com>, poky@lists.yoctoproject.org
-Date: Mon, 20 Jul 2020 08:43:00 +0100
-In-Reply-To: <LMzk.1595145312278580104.QGYU@lists.yoctoproject.org>
-References: <LMzk.1595145312278580104.QGYU@lists.yoctoproject.org>
-User-Agent: Evolution 3.36.3-0ubuntu1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=5a23XlosdMvhJjrxUcIdwhViN/UL7KAOSjBccL2TJZU=;
+        b=A5QInHSVzG+pfH0LW7s0tH0ks7uSZO1dtEaHaCv1M/AeCH+hOozPwy2odRqnErsgH0
+         ShCjKKNePSJqppXPt/rN5Iq5dujPecwLFUD2B5JcNS2grbage7Oc8OElrb0luPOMFNDT
+         QhI49LS9J7Uk4nDX8jDVoH2goRhqTNo2BJ+M0FnO5WfQciSSDXG9JsRo1rWabHSRFMkU
+         /BoEwAXUsG/5O5hdkvrTyQerjKgKzO5vFOT1BxAqVKO9PpSl1EOySpNhhNSSvbstcgGq
+         Wq2gj/1Y5RL14Xvr9XSu2GJQpwpowcRez/xwIJETV0mzeUlQ4Y9b8pISrIBNBdc6ls5t
+         o11A==
+X-Gm-Message-State: AOAM5329ZRGykrkZ2zcTKTzW9Gu06eLZNgrqkeVhbun7gHxNPYkwN9L6
+	DSSlXksHtd9fdxvJcCd7eW0TF2MLNlBj2hS7zJqjWg==
+X-Google-Smtp-Source: ABdhPJzmCo9vWoEi51DdCQ9K5Oj+Obhfh52397nRb50CmSqPuZ6iiHFyR2y05VqoB1TeQxd/Gg63CmHY/S+LsofhTI4=
+X-Received: by 2002:a5d:5643:: with SMTP id j3mr7026207wrw.278.1595232458531;
+ Mon, 20 Jul 2020 01:07:38 -0700 (PDT)
 MIME-Version: 1.0
+References: <LMzk.1595145312278580104.QGYU@lists.yoctoproject.org> <2d1228d9f3c582a0aa958df7130b1c14a3bc11ec.camel@linuxfoundation.org>
+In-Reply-To: <2d1228d9f3c582a0aa958df7130b1c14a3bc11ec.camel@linuxfoundation.org>
+From: "Ashish" <ashishm@mvista.com>
+Date: Mon, 20 Jul 2020 13:37:26 +0530
+Message-ID: <CAP2OjcjzERYy_yaJN_DX8nECZGfv=8nxV76JH7-vsU5JOHLWGQ@mail.gmail.com>
+Subject: Re: [poky] How to add python debugger "epdb" module in recipe
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000067b0205aadb0076"
+
+--000000000000067b0205aadb0076
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
 
-On Sun, 2020-07-19 at 00:55 -0700, Ashish wrote:
-> Hi All , 
-> 
-> - I am trying to add epdb " https://pypi.org/project/epdb/ " in the
-> recipe by 
->   adding   import epdb; epdb.set_trace()  in  the recipe . 
->   But getting error of  Exception: ModuleNotFoundError: No module
-> named 'epdb'
-> 
-> File: '/home/ashish/project/../layers/poky/meta/recipes-
-> devtools/python/python3_3.8.2.bb', lineno: 221, function:
-> __anon_288__home_ashish_edge_gateway_yocto_layers_forked_opencgx_rasb
-> errypi_opencgx_rasberrypi_project____layers_poky_meta_recipes_devtool
-> s_python_python3_3_8_2_bb
->      0217:    # This python changes the datastore based on the
-> contents of a file, so mark
->      0218:    # that dependency.
->      0219:    bb.parse.mark_dependency(d, filename)
->      0220:
->  *** 0221:    import epdb; epdb.set_trace();
->      0222:
->      0223:    with open(filename) as manifest_file:
->      0224:        manifest_str =  manifest_file.read()
->      0225:        json_start = manifest_str.find('# EOC') + 6
-> Exception: ModuleNotFoundError: No module named 'epdb'
-> 
-> Any pointers on same would be helpful , 
+Hi Richard ,
 
-I'd guess its running python3-native at that point and python3-native
-probably doesn't have the epdb module enabled or installed?
+-  Any standard way of getting epdb installed .
+    I tried on the Host system  ( Ubuntu ) with similar steps
+     on dummy python code and epdb was working fine.
 
-Cheers,
+- On this same approach i tried using epdb with few other
+   recipe but getting same error .
 
-Richard
+Thanks
+Ashish
 
+--000000000000067b0205aadb0076
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi=C2=A0Richard ,<div dir=3D"auto"><br></div><div dir=3D"=
+auto">-=C2=A0 Any standard way of getting epdb installed .<div dir=3D"auto"=
+>=C2=A0 =C2=A0 I tried on the Host system=C2=A0 ( Ubuntu ) with similar ste=
+ps</div><div dir=3D"auto">=C2=A0 =C2=A0 =C2=A0on dummy python code and epdb=
+ was working fine.</div><div dir=3D"auto"><br></div><div dir=3D"auto">- On =
+this same approach i tried using epdb with few other=C2=A0</div><div dir=3D=
+"auto">=C2=A0 =C2=A0recipe but getting same error .</div><div dir=3D"auto">=
+<br></div><div dir=3D"auto">Thanks=C2=A0</div><div dir=3D"auto">Ashish</div=
+></div></div>
+<br>-- <br>Thanks ,<br />Ashish .
+
+--000000000000067b0205aadb0076--
