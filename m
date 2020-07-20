@@ -1,78 +1,124 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
- by mx.groups.io with SMTP id smtpd.web12.34211.1595238030979676849
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+ by mx.groups.io with SMTP id smtpd.web11.34685.1595240131234731480
  for <poky@lists.yoctoproject.org>;
- Mon, 20 Jul 2020 02:40:31 -0700
+ Mon, 20 Jul 2020 03:15:31 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=JYX61GPy;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.47, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f47.google.com with SMTP id z15so17112334wrl.8
-        for <poky@lists.yoctoproject.org>; Mon, 20 Jul 2020 02:40:30 -0700 (PDT)
+ dkim=pass header.i=@mvista-com.20150623.gappssmtp.com header.s=20150623 header.b=EN8XG34r;
+ spf=permerror, err=parse error for token &{10 18 websitewelcome.com}: parse error for token &{10 18 _spf.google.com}: limit exceeded (domain: mvista.com, ip: 209.85.128.49, mailfrom: ashishm@mvista.com)
+Received: by mail-wm1-f49.google.com with SMTP id g10so11579877wmc.1
+        for <poky@lists.yoctoproject.org>; Mon, 20 Jul 2020 03:15:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=JyOpOp+GL4Uf0HR7tMlC0ARDNuP1fCPqzLKbSdf4/a4=;
-        b=JYX61GPyxygKCTkqYYApF7oLW5t+F2+/e7QuYMo1nXaV57ZNv0emWSIjZOz0FlOwvb
-         h8ADdchbuiiR6hzgOI8qLx+nG6RlIhEEVNsrcweEhtQuX7V15L4DJ6dPrq15q3K13JLt
-         uF99cj51FBKdL+q7NeJbbcrY//9hUEdaK1FAI=
+        d=mvista-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=yAjjL+HxHAzPyRQU7HNnRjBaBy5VEo+4te0zIgDrRZ4=;
+        b=EN8XG34rjJ0g80g3RwiByb0tv8K9LspVpzZLyLOEnd0ps4GGSa0Wn/JfZjxknDvWmA
+         YONLg3EWCdNkfQqwor9SCMyk6r4svs3mCnR3ABXnHojGcAiR2iY3sQrXQjE//HTOeTsZ
+         KQuVTo6C4wRF7KaGfQeddZOabL/vrmg/Zrh4TpM0XC3Mls4MfYzUCUr/NvyBa12VQwFD
+         l2JfBofdjXP9tNJzoXOVLiXKUUDhW81be6h96IWmhYLdWPExN525vd0zZredjE9KQyLh
+         lgNs8ZXywr5TiWTcufFv6eCPzATbxgEhUo6N6vZG1Os6k1dZNKjFGhmKzFBFRRag3a5X
+         UZ7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=JyOpOp+GL4Uf0HR7tMlC0ARDNuP1fCPqzLKbSdf4/a4=;
-        b=lhXNvSCp7PaNokf//tcK+F1z9czXHN57W8S6M5tB0wOZ/oqEYe3obbcpt/7q1SJkMX
-         izgRk1jO9Mfctifveuucy0+FUy1xVhE85gL03sfBiiCaU3OpBRPejryonxGcYXm0c5NL
-         Dh0ssxIEodKjuv6Mw2Rf/NRewkykcRyvsG29F4NGYbYAjr3XEwawQ95ENvnHEw076ETj
-         7eKoeztIWxqJfFvYBJoLqg1UrwatlpEhWdgZBwCmnVdCSbtVyNpTUL60/SI5Jpd/N/fw
-         QwznjEBhTD/GWHuJlb6fx4aqfU9Sf9HqzZOGykRkMkTGotI8xXwNrAaNQUIdxUIxsx92
-         jRJw==
-X-Gm-Message-State: AOAM531eQ5xYT6lykUlt5j/akB8/NyvIfUOdYx7CYcYsAaVqmKghGYON
-	I7T0XatU1qlG8XDguTXo8GHKMA==
-X-Google-Smtp-Source: ABdhPJzukKBhSLLg4eU9DYk6TehUD9zqgRrtusGC741XMdibekdZG9P27f48oMaOC3qlL3qbh519FA==
-X-Received: by 2002:adf:82b2:: with SMTP id 47mr5068988wrc.17.1595238029432;
-        Mon, 20 Jul 2020 02:40:29 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from 5.f.a.a.6.6.c.6.8.7.0.3.0.b.c.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (5.f.a.a.6.6.c.6.8.7.0.3.0.b.c.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:1cb0:3078:6c66:aaf5])
-        by smtp.gmail.com with ESMTPSA id w7sm30001834wmc.32.2020.07.20.02.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Jul 2020 02:40:28 -0700 (PDT)
-Message-ID: <c668d9ca3932e86a9b0d33bf762e9295a4690932.camel@linuxfoundation.org>
-Subject: Re: [poky] How to add python debugger "epdb" module in recipe
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Ashish Mishra <ashishm@mvista.com>
-Cc: poky@lists.yoctoproject.org
-Date: Mon, 20 Jul 2020 10:40:26 +0100
-In-Reply-To: <CAP2OjcjzERYy_yaJN_DX8nECZGfv=8nxV76JH7-vsU5JOHLWGQ@mail.gmail.com>
-References: <LMzk.1595145312278580104.QGYU@lists.yoctoproject.org>
-	 <2d1228d9f3c582a0aa958df7130b1c14a3bc11ec.camel@linuxfoundation.org>
-	 <CAP2OjcjzERYy_yaJN_DX8nECZGfv=8nxV76JH7-vsU5JOHLWGQ@mail.gmail.com>
-User-Agent: Evolution 3.36.3-0ubuntu1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=yAjjL+HxHAzPyRQU7HNnRjBaBy5VEo+4te0zIgDrRZ4=;
+        b=tC5I2EHB1NvNfnmDkWFF8OH1G4KCLnl73gWYoXs0CuZ9dr+gQ915ME1P41Ac1mlEd2
+         C4aL/Cg3L71lkzAYo4+CotQLNEnrC62dI+2WtxXdRkcJtUUSLND/Fu7v32+0pgkPPQqZ
+         Xq2p5UlAxpSHVR77hmhkdcpPZGXwcoF/YfxJxBurKyTdyPLA1owNUZhFnRgGHjUX7w8d
+         0GnTIn1VJWXHLN8QdWAbPGFmCZRNrs/1prTEEgM1e5GL5zTn94drWPlxG/z38ebRKz1u
+         LlWneBdyO3IGCk0W7QPyWth1LCup5jOoeXJvMWUkWp4lLd+MvEXGS9IjOOSQCPGQ1hpt
+         OPwA==
+X-Gm-Message-State: AOAM533yYr4bKG1/UE44EUMm/J8b1fdr0H9jhMYouPDFqKY6fuK2gP/d
+	qwzAi0vm/PzESyczuiBm39i36OY49Mt+1A1rtomckg==
+X-Google-Smtp-Source: ABdhPJyMyt5Rh9O0HB7npUPohsbRGExfkjMAQ4vpX7aGTDzEmEat+TfxFldb698CXNRJ+ilRSGbSTabR84PlaZ9js7U=
+X-Received: by 2002:a1c:3245:: with SMTP id y66mr19798962wmy.64.1595240129691;
+ Mon, 20 Jul 2020 03:15:29 -0700 (PDT)
 MIME-Version: 1.0
+References: <LMzk.1595145312278580104.QGYU@lists.yoctoproject.org>
+ <2d1228d9f3c582a0aa958df7130b1c14a3bc11ec.camel@linuxfoundation.org>
+ <CAP2OjcjzERYy_yaJN_DX8nECZGfv=8nxV76JH7-vsU5JOHLWGQ@mail.gmail.com> <c668d9ca3932e86a9b0d33bf762e9295a4690932.camel@linuxfoundation.org>
+In-Reply-To: <c668d9ca3932e86a9b0d33bf762e9295a4690932.camel@linuxfoundation.org>
+From: "Ashish" <ashishm@mvista.com>
+Date: Mon, 20 Jul 2020 15:45:15 +0530
+Message-ID: <CAP2OjciOpzC9h6db5SMr7kYaPEPAgpFit1omXjoGoe0dSpOYwg@mail.gmail.com>
+Subject: Re: [poky] How to add python debugger "epdb" module in recipe
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="00000000000043198d05aadcc93d"
+
+--00000000000043198d05aadcc93d
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
 
-On Mon, 2020-07-20 at 13:37 +0530, Ashish Mishra wrote:
-> Hi Richard ,
-> 
-> -  Any standard way of getting epdb installed .
->     I tried on the Host system  ( Ubuntu ) with similar steps
->      on dummy python code and epdb was working fine.
-> 
-> - On this same approach i tried using epdb with few other 
->    recipe but getting same error .
+Hi Richard ,
 
-Looking at the traceback again, its in bitbake code so that is using
-python from your host system. I was a little confused as you were in
-the python-native recipe for the traceback.
-
-Is epdb installed for your host's python3? Is that the same python3
-you're using for bitbake (no buildtools tarball or anything)?
-
-It should work if its available on the system's python3.
-
-Cheers,
-
-Richard
+1) Is epdb installed for your host's python3?
+     Yes , i installed manually on host using pip3
+     I tested by adding "import epdb" in sample python code.
+     And i ran on host below command  ( no error of missing module here )
+     # pthon3 test-code.py
 
 
+2) Is that the same python3 you're using for bitbake (no buildtools tarball
+or anything)?
+     This i think is using python available from Yocto build.
+      I haven't specifically passed any parameter here.
+      Steps i followed :
+      a) Added " import epdb" in recipe ( any yocto recipe)
+      b) Ran " bitbake recipe-name "
+           Expected was the recipe will find the epdb module.
 
+
+3) If required i can share detailed steps .
+
+
+Thanks
+Ashish.
+
+--00000000000043198d05aadcc93d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi Richard ,</div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto"><span style=3D"font-family:sans-serif">1) Is epdb installed for=
+ your host&#39;s python3?</span></div><div dir=3D"auto"><span style=3D"font=
+-family:sans-serif">=C2=A0 =C2=A0 =C2=A0Yes , i installed manually on host =
+using pip3</span></div><div dir=3D"auto"><span style=3D"font-family:sans-se=
+rif">=C2=A0 =C2=A0 =C2=A0I tested by adding &quot;import epdb&quot; in samp=
+le python code.</span></div><div dir=3D"auto"><span style=3D"font-family:sa=
+ns-serif">=C2=A0 =C2=A0 =C2=A0And i ran on host below command=C2=A0 ( no er=
+ror of missing module here )</span></div><div dir=3D"auto"><span style=3D"f=
+ont-family:sans-serif">=C2=A0 =C2=A0 =C2=A0# pthon3 test-code.py</span></di=
+v><div dir=3D"auto"><span style=3D"font-family:sans-serif">=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0</span></div><div dir=3D"auto"><span style=3D"font-fam=
+ily:sans-serif"><br></span></div><div dir=3D"auto"><span style=3D"font-fami=
+ly:sans-serif">2)=C2=A0</span><span style=3D"font-family:sans-serif">Is tha=
+t the same python3 you&#39;re</span><span style=3D"font-family:sans-serif">=
+=
+=C2=A0using for bitbake (no buildtools tarball or anything)?</span></div><=
+div dir=3D"auto"><span style=3D"font-family:sans-serif">=C2=A0 =C2=A0 =C2=
+=A0This i think is using python available from Yocto build.</span></div><d=
+iv dir=3D"auto"><span style=3D"font-family:sans-serif">=C2=A0 =C2=A0 =C2=A0=
+ I haven&#39;t specifically passed any parameter here.</span></div><div dir=
+=
+=3D"auto"><span style=3D"font-family:sans-serif">=C2=A0 =C2=A0 =C2=A0 Step=
+s i followed :</span></div><div dir=3D"auto"><span style=3D"font-family:san=
+s-serif">=C2=A0 =C2=A0 =C2=A0 a) Added &quot; import epdb&quot; in recipe (=
+ any yocto recipe)</span></div><div dir=3D"auto"><span style=3D"font-family=
+:sans-serif">=C2=A0 =C2=A0 =C2=A0 b) Ran &quot; bitbake recipe-name &quot;<=
+/span></div><div dir=3D"auto"><span style=3D"font-family:sans-serif">=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Expected was the recipe will find the ep=
+db module.</span></div><div dir=3D"auto"><span style=3D"font-family:sans-se=
+rif"><br></span></div><div dir=3D"auto"><span style=3D"font-family:sans-ser=
+if"><br></span></div><div dir=3D"auto"><span style=3D"font-family:sans-seri=
+f">3) If required i can share detailed steps .</span></div><div dir=3D"auto=
+"><span style=3D"font-family:sans-serif">=C2=A0 =C2=A0 =C2=A0</span></div><=
+div dir=3D"auto"><span style=3D"font-family:sans-serif"><br></span></div><d=
+iv dir=3D"auto"><span style=3D"font-family:sans-serif">Thanks=C2=A0</span><=
+/div><div dir=3D"auto"><span style=3D"font-family:sans-serif">Ashish.</span=
+></div><div dir=3D"auto"><span style=3D"font-family:sans-serif"><br></span>=
+</div><div dir=3D"auto"><span style=3D"font-family:sans-serif"><br></span><=
+/div></div>
+<br>-- <br>Thanks ,<br />Ashish .
+
+--00000000000043198d05aadcc93d--
