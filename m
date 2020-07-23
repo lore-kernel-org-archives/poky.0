@@ -1,75 +1,76 @@
-Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
- by mx.groups.io with SMTP id smtpd.web10.512.1595518312600115706
+Received: from hosting.emcodev.net (hosting.emcodev.net [178.18.92.162])
+ by mx.groups.io with SMTP id smtpd.web11.1038.1595519620839297458
  for <poky@lists.yoctoproject.org>;
- Thu, 23 Jul 2020 08:31:53 -0700
+ Thu, 23 Jul 2020 08:53:42 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: streamunlimited.com, ip: 213.33.87.14, mailfrom: quentin.schulz@streamunlimited.com)
-Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp.bon.at (Postfix) with ESMTPSA id 4BCGXP6lpzz5tlB;
-	Thu, 23 Jul 2020 17:31:49 +0200 (CEST)
-Date: Thu, 23 Jul 2020 17:31:48 +0200
-From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
+ dkim=pass header.i=@basmevissen.nl header.s=default header.b=SppSFoAB;
+ spf=pass (domain: basmevissen.nl, ip: 178.18.92.162, mailfrom: abuse@basmevissen.nl)
+Received: from hosting.emcodev.net (localhost [127.0.0.1])
+	by hosting.emcodev.net (Postfix) with ESMTP id C1C70212002;
+	Thu, 23 Jul 2020 17:53:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=basmevissen.nl;
+	s=default; t=1595519611; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hVokiOpFO+RiKdRx04nuR5b2jGQy5Hslb40H1qHQPIc=;
+	b=SppSFoAByvMlZGb+UAA/XKwv6sr1tzoraGlVoYePMTSjTmFUnvXo9TzCQloYZNN48QXSjZ
+	S1pBJng64EQ74qhGIsQ5E+954DthxAad5XpMbJ4p6QYZ6+96lWvEQGSw/paYwbylZlvUKb
+	M6nLkYJC6MC2Sc0J484OfewbCGzrkx2bHMOVsKyWZZFlhSP49wnJ1xoI3RKIUCthPgQBe1
+	F00uSoyJ2zq9XQwVUghS9tK6uUAYyyap6TV3R4o5f1oIVUQsmXd1kfLZGzV8mzMfqcpgwH
+	0Id0N61g4O1jmHlNTsrBUnTKXj6twMoA+LKr07GCGNDp6TGH9E7UUnOijDZ7PE6Ibk/PuM
+	IdayQfZxBOc8/+/MRcG01m8CVPwRJhG0BV6fOiVdohrkPc41+XRYWy0YV9YRpr7yfcSm9i
+	WXstVUMYXV5eK/lXbAwr4VYYU5lr9eJrHJqmp4t9KzUjecCTrIThLeyuqWPe/eKTsONNRO
+	Bhf4M/aLcGeMblb3RvsukqL2Lz5AqHiU+hX6JN1WF5hkk+wIE+cYhzEogXo62/IUnEJ6gh
+	I6xnAg5OdliDifewj5wWZ8ovcTjsmTEhUG76y20X53E3wV+crl7XQwhBuLooRwktdi1pNm
+	++pEbDoIu0QCkJ7s0ZDZibPf+gGpc+LyqjcZg+pbnDRZOZyvIGnkE=
+MIME-Version: 1.0
+Date: Thu, 23 Jul 2020 17:53:29 +0200
+From: "Bas Mevissen" <abuse@basmevissen.nl>
 To: kar_947@hotmail.fr
 Cc: poky@lists.yoctoproject.org
 Subject: Re: [poky] How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
-Message-ID: <20200723153148.fqszi7imsnv2uakn@qschulz>
+In-Reply-To: <10615.1595517378175516979@lists.yoctoproject.org>
 References: <20200723150108.th2jqqu3injaegzq@qschulz>
  <10615.1595517378175516979@lists.yoctoproject.org>
-MIME-Version: 1.0
-In-Reply-To: <10615.1595517378175516979@lists.yoctoproject.org>
-User-Agent: NeoMutt/20180716
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Roundcube Webmail/1.4.3
+Message-ID: <63f5ee002a42a1e9260d95111f093b80@basmevissen.nl>
+X-Sender: abuse@basmevissen.nl
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 2020-07-23 17:16, kar_947@hotmail.fr wrote:
 
-On Thu, Jul 23, 2020 at 08:16:18AM -0700, kar_947@hotmail.fr wrote:
-> Hi,
->=20
-> First of all, thank you for sending me vid=E9os, i really need to learn=
- more about Yocto Project.
->=20
-> Then, you told me that it's better for me to use a "normal" distributio=
-n but i dont have the choice. I actually use an IMX6 SMARC com board and =
-the distribution is a Yocto.
+> Then, you told me that it's better for me to use a "normal" 
+> distribution but i dont have the choice. I actually use an IMX6 SMARC 
+> com board and the distribution is a Yocto.
 > So i can't use an other distribution.
->=20
+> 
 
-There's always a choice ;) Except if your board is locked with vendors
-keys (and even... then there's probably security breaches).
+I ran Ubuntu 18.04 LTS on an I.MX6 based custom board myself for a 
+project. I only needed a custom u-boot, kernel (for some specific device 
+drivers) and device tree for the board. The rest was standard Ubuntu for 
+ARM. I used debootstrap to create the base image and added the specifics 
+with a script.
 
-You can just replace Yocto with Buildroot (which would have the same
-issue with package management AFAICT). Or replace the Yocto on your
-board currently with your own. Ask your vendor about this, they'll
-probably provide layers and if lucky instructions.
+> 
+> Moreover, why the yocto Project is not like Ubuntu? I mean, it"s REALLY 
+> easier to install package with a command like "apt-get install 
+> mypackage". Why Yocto complicates the thing?
+> In yocto project, i need to modify some files and recompile all the BSP 
+> and Kernel Yocto, just for adding a package like "g++"?
+> 
 
-> Moreover, why the yocto Project is not like Ubuntu? I mean, it"s REALLY=
- easier to install package with a command like "apt-get install mypackage=
-". Why Yocto complicates the thing?
+There are many good reasons why Yocto is designed the way it is and 
+there are many reasons why to use Yocto. But depending on the use case, 
+a standard distro (for the right processor architecture) might be a 
+better fit. Especially to get started without a steep learning curve.
 
-It's REALLY easier for the user. Absolutely nightmare-inducing for the
-people providing you the distro.
+So you might simply start with running Ubuntu on your board, do your 
+code development and migrate to Yocto at a later stage.
 
-Do you think you could use Fedora packages on Ubuntu? Same for Yocto.
-Except, basically every build ever done by different companies (and even
-for different projects or releases within a company) are a different
-distro. So you'd have "Fedora" for one, "Ubuntu" for another, "Arch" for
-a third, whatever. They're **not** compatible in any way, and you
-understand that because of the Fedora/Ubuntu comparison.
+Regards,
 
-Yocto is not complicating the thing, it is targetting a different
-segment of the embedded market. You build a distro, you control
-everything from it. You **own** whatever you build and don't rely on
-third party. There are different needs and use-cases and Ubuntu/normal
-desktop distro aren't doing what Yocto can (not 1:1 anyway) and
-vice-versa.
-
-> In yocto project, i need to modify some files and recompile all the BSP=
- and Kernel Yocto, just for adding a package like "g++"?
->=20
-
-Simply put, yes. Or you maintain your own package feed for your own
-distribution but that's a rather advanced topic.
-
-Quentin
+Bas.
