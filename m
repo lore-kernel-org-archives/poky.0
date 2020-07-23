@@ -1,69 +1,51 @@
-Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
- by mx.groups.io with SMTP id smtpd.web11.14149.1595516472428830099
- for <poky@lists.yoctoproject.org>;
- Thu, 23 Jul 2020 08:01:13 -0700
-Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: streamunlimited.com, ip: 213.33.87.14, mailfrom: quentin.schulz@streamunlimited.com)
-Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp.bon.at (Postfix) with ESMTPSA id 4BCFs16twSz5tl9;
-	Thu, 23 Jul 2020 17:01:09 +0200 (CEST)
-Date: Thu, 23 Jul 2020 17:01:08 +0200
-From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
-To: kar_947@hotmail.fr
-Cc: poky@lists.yoctoproject.org
-Subject: Re: [poky] How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
-Message-ID: <20200723150108.th2jqqu3injaegzq@qschulz>
-References: <20200723141357.ms2q4ckcdzoeujf5@qschulz>
- <15065.1595514594992513749@lists.yoctoproject.org>
+Subject: Re: How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
+To: poky@lists.yoctoproject.org
+From: kar_947@hotmail.fr
+X-Originating-Location: Treillieres, Pays de la Loire, FR (185.10.176.241)
+X-Originating-Platform: Windows Chrome 83
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-In-Reply-To: <15065.1595514594992513749@lists.yoctoproject.org>
-User-Agent: NeoMutt/20180716
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Date: Thu, 23 Jul 2020 08:16:18 -0700
+References: <20200723150108.th2jqqu3injaegzq@qschulz>
+In-Reply-To: <20200723150108.th2jqqu3injaegzq@qschulz>
+Message-ID: <10615.1595517378175516979@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="IVZMMohJkwMur8YWEVjM"
+
+--IVZMMohJkwMur8YWEVjM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On Thu, Jul 23, 2020 at 07:29:54AM -0700, kar_947@hotmail.fr wrote:
-> Hi Quentin,
-> 
-> Thank you very much for your answer.
-> However, i dont understand, what is "IMAGE_INSTALL"?
+First of all, thank you for sending me vid=C3=A9os, i really need to learn=
+ more about Yocto Project.
 
-https://www.yoctoproject.org/docs/current/mega-manual/mega-manual.html#var-IMAGE_INSTALL
+Then, you told me that it's better for me to use a "normal" distribution b=
+ut i dont have the choice. I actually use an IMX6 SMARC com board and the d=
+istribution is a Yocto.
+So i can't use an other distribution.
 
-Considering the question (fine to have it, no worries), you'll highly
-benefit spending an hour or so watching a few of the videos on the
-playlist I sent you in the previous mail, probably #2, #7 and #1 v2.0.
+Moreover, why the yocto Project is not like Ubuntu? I mean, it"s REALLY ea=
+sier to install package with a command like "apt-get install mypackage". Wh=
+y Yocto complicates the thing?
+In yocto project, i need to modify some files and recompile all the BSP an=
+d Kernel Yocto, just for adding a package like "g++"?
 
-> Is it not possible to juste add the g++ library wiith a command in the Terminal, like with Ubuntu?
-> 
+Best regards
 
-It is, just not simply.
+--IVZMMohJkwMur8YWEVjM
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Sorry, i am really new in The yocto project, i dont get it, why i can't add library like with an Ubuntu system with "sudo apt-get install" for example.
-> 
+Hi,<br /><br />First of all, thank you for sending me vid&eacute;os, i real=
+ly need to learn more about Yocto Project.<br /><br />Then, you told me tha=
+t it's better for me to use a "normal" distribution but i dont have the cho=
+ice. I actually use an IMX6 SMARC com board and the distribution is a Yocto=
+.&nbsp;<br />So i can't use an other distribution.<br /><br />Moreover, why=
+ the yocto Project is not like Ubuntu? I mean, it"s REALLY easier to instal=
+l package with a command like "apt-get install mypackage". Why Yocto compli=
+cates the thing?<br />In yocto project, i need to modify some files and rec=
+ompile all the BSP and Kernel Yocto, just for adding a package like "g++"?&=
+nbsp;<br /><br />Best regards
 
-If you want a distribution where you can have a package manager on the
-target with upstream repos, use Ubuntu or other well-known
-distributions, that's probably going to match your use-case more than
-YP.
-
-I'd say and it's probably wrong in the details but you'll
-get the point I think: Yocto is a way to build your own distribution. So
-you'd need to do the same as Ubuntu is doing: building and maintaining
-your upstream "apt-source" repos so that you can pull "g++" from your
-target directly.
-
-Why is this needed? A distribution relies heavily on very important
-libraries (glibc, binutils, whatever...) and those can differ between
-architectures, distro (Yocto distros) and machines. There is absolutely
-no way you would be able to have a deb from Ubuntu compatible by default
-with our custom made Yocto distribution, because the glibc or other
-packages would have different versions, differnt sources, different
-patches...
-
-If you absolutely want to build stuff on the target, get a "normal"
-distribution (Arch, Ubuntu, Fedora, gentoo, whatever). It's not that
-common to want to build SW on a target running a Yocto distribution.
-
-Quentin
+--IVZMMohJkwMur8YWEVjM--
