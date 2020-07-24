@@ -5,59 +5,65 @@ X-Originating-Location: Treillieres, Pays de la Loire, FR (185.10.176.241)
 X-Originating-Platform: Windows Chrome 83
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Thu, 23 Jul 2020 23:57:05 -0700
-References: <20200723153148.fqszi7imsnv2uakn@qschulz>
-In-Reply-To: <20200723153148.fqszi7imsnv2uakn@qschulz>
-Message-ID: <30764.1595573825608866410@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="QYcR2VNrQYYOCAs9WNGr"
+Date: Fri, 24 Jul 2020 00:05:31 -0700
+References: <63f5ee002a42a1e9260d95111f093b80@basmevissen.nl>
+In-Reply-To: <63f5ee002a42a1e9260d95111f093b80@basmevissen.nl>
+Message-ID: <30764.1595574331007863959@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="9Pc5H8D1kRYIYkYNoLLB"
 
---QYcR2VNrQYYOCAs9WNGr
+--9Pc5H8D1kRYIYkYNoLLB
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Quentin
+Hi Bas
 
-On Thu, Jul 23, 2020 at 05:31 PM, Quentin Schulz wrote:
+On Thu, Jul 23, 2020 at 05:53 PM, Bas Mevissen wrote:
 
 >=20
-> You can just replace Yocto with Buildroot (which would have the same
-> issue with package management AFAICT). Or replace the Yocto on your
-> board currently with your own. Ask your vendor about this, they'll
-> probably provide layers and if lucky instructions.
+> I ran Ubuntu 18.04 LTS on an I.MX6 based custom board myself for a
+> project. I only needed a custom u-boot, kernel (for some specific device
+> drivers) and device tree for the board. The rest was standard Ubuntu for
+> ARM. I used debootstrap to create the base image and added the specifics
+> with a script.
 
-I think it's the better way to fix my problem. I will ask the vendor to ad=
-d a compiler C++ in his Yocto image.
-Because, Yocto development is really too hard for me. However, i will try =
-to do it myself..
+Thank for your answer.
+What king of IMX6 board do you use? Is it a SMARC Board?
 
-I understand, each distribution has his own "packages".
-Yocto is a tool which is able to create your own distribution, for a speci=
-fic application. So it's opt to me, to install the packages that i need in =
-my application, without superfluous, that Ubuntu proposes.
+Like i said before, i dont have the choice. The vendor just has Yocto in h=
+is IMX6 board.
+First of all, I dont know how to install Ubuntu on Yocto.
+Then, i am totally agree with you, i need more time to learn yocto. I real=
+ly prefer to use Ubuntu.
 
-Can i just modify a single file, and add a line for adding g++ in my Yocto=
- distribution?
-Or i have to modify a lot of files?
+I will migrate to Yocto when i will be more confortable with the distribut=
+ion.
+All IMX board or Smarc board are sold with a Yocto distribution.
 
---QYcR2VNrQYYOCAs9WNGr
+I can ask to the engineer, to install Ubuntu on the board. I think it's th=
+e better solution for me.
+
+Best regards
+
+--9Pc5H8D1kRYIYkYNoLLB
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Quentin<br /><br />On Thu, Jul 23, 2020 at 05:31 PM, Quentin Schulz wrot=
-e:<br />
-<blockquote>You can just replace Yocto with Buildroot (which would have th=
-e same<br />issue with package management AFAICT). Or replace the Yocto on =
-your<br />board currently with your own. Ask your vendor about this, they'l=
-l<br />probably provide layers and if lucky instructions.</blockquote>
-I think it's the better way to fix my problem. I will ask the vendor to ad=
-d a compiler C++ in his Yocto image.&nbsp;<br />Because, Yocto development =
-is really too hard for me. However, i will try to do it myself..<br /><br /=
->I understand, each distribution has his own "packages".&nbsp;<br />Yocto i=
-s a tool which is able to create your own distribution, for a specific appl=
-ication. So it's opt to me, to install the packages that i need in my appli=
-cation, without superfluous, that Ubuntu proposes.&nbsp;<br /><br />Can i j=
-ust modify a single file, and add a line for adding g++ in my Yocto distrib=
-ution?&nbsp;<br />Or i have to modify a lot of files?&nbsp;<br /><br /><br =
-/><br />
+Hi Bas<br /><br />On Thu, Jul 23, 2020 at 05:53 PM, Bas Mevissen wrote:<br =
+/>
+<blockquote>I ran Ubuntu 18.04 LTS on an I.MX6 based custom board myself f=
+or a project. I only needed a custom u-boot, kernel (for some specific devi=
+ce drivers) and device tree for the board. The rest was standard Ubuntu for=
+ ARM. I used debootstrap to create the base image and added the specifics w=
+ith a script.</blockquote>
+Thank for your answer.<br />What king of IMX6 board do you use? Is it a SM=
+ARC Board?&nbsp;<br /><br />Like i said before, i dont have the choice. The=
+ vendor just has Yocto in his IMX6 board.&nbsp;<br />First of all, I dont k=
+now how to install Ubuntu on Yocto.<br />Then, i am totally agree with you,=
+ i need more time to learn yocto. I really prefer to use Ubuntu.&nbsp;<br /=
+><br />I will migrate to Yocto when i will be more confortable with the dis=
+tribution.&nbsp;<br />All IMX board or Smarc board are sold with a Yocto di=
+stribution.&nbsp;<br /><br />I can ask to the engineer, to install Ubuntu o=
+n the board. I think it's the better solution for me.&nbsp;<br /><br />Best=
+ regards
 
---QYcR2VNrQYYOCAs9WNGr--
+--9Pc5H8D1kRYIYkYNoLLB--
