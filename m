@@ -1,75 +1,69 @@
-Received: from hosting.emcodev.net (hosting.emcodev.net [178.18.92.162])
- by mx.groups.io with SMTP id smtpd.web12.2369.1595581168129954384
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+ by mx.groups.io with SMTP id smtpd.web12.30453.1595775861714352766
  for <poky@lists.yoctoproject.org>;
- Fri, 24 Jul 2020 01:59:29 -0700
+ Sun, 26 Jul 2020 08:04:22 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@basmevissen.nl header.s=default header.b=lDpwlVaW;
- spf=pass (domain: basmevissen.nl, ip: 178.18.92.162, mailfrom: abuse@basmevissen.nl)
-Received: from hosting.emcodev.net (localhost [127.0.0.1])
-	by hosting.emcodev.net (Postfix) with ESMTP id 166A7212002;
-	Fri, 24 Jul 2020 10:59:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=basmevissen.nl;
-	s=default; t=1595581165; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qWswe5P/TVUgIc40E6fMWcyuXJjTOTJYytubW25UU9o=;
-	b=lDpwlVaWymGIkJVCSzpuA0dvVoXTUivK8BjfqxvdpWK6dza22TwbicfqGM+kQXFjNtlq8u
-	/hH1M5cjmK4ggx42HX79+ogovdISRmvP6FOKQA7k5kUHDoMVE1mCpyBTaPjP+QS0074cCu
-	8fcDKrBNFMIvyfeEycPptJS6b2ZZGxu3A1f38b7fyyhPUNoA6ElHHJAv7teKh0ajbf+nwT
-	DcANqYW5DvkDgY/zgYQOcxWnnUlQPEGlwDg1x11v3cy1/RUPrBJbC4DLwGe49PreJ1QblW
-	CtyLzQMAZFvAzKCyasgu+0wxWct9tlIVkhdcYO6cNh0Y98p7GgLo1gHgrFC8sTTmUndZak
-	rqb9IMf1xyQLP8261/nmo4TJqBg5YK+PyLfSqDjDOtqHBeVxeJYlA04KCZKsYG5XIE/mlV
-	zDowIYz60FcI4IANbA2wfZyAtQzRJwtYJfNUaSNDYfenB+iRuJ12v+QO9/qdbPRIxBRZJQ
-	NN0ptO76NCoBqEpce+NV6fnJE7wVBJV4agpyMWs5LL7GYspGlgTIPMSDyTJQxn6jA/H8oU
-	Vx/nVGlHgYovBDvstGPIYmgmggdu2DkcUoR3p3sueyp4WZ7qAYTjvT7sZ9w2KGuHQM3yom
-	xx4T1lVQ5pKRFDOJ/9dFX935HWbuZLReddwamTk4o6Tx+YBoF5b80=
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=RWAtQsrH;
+ spf=pass (domain: gmail.com, ip: 209.85.208.52, mailfrom: moustafa.i.saleh@gmail.com)
+Received: by mail-ed1-f52.google.com with SMTP id m20so818540eds.2
+        for <poky@lists.yoctoproject.org>; Sun, 26 Jul 2020 08:04:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=saD7JDY79Bl6bon3sCyv3TUtEpYSCHNM4K6BBhRSeL8=;
+        b=RWAtQsrHQmtuhmJU6ao1zg4e/8ShjeXn6p7OlEYvVVzMxzBfRxSJ78PLMjrLAxPb88
+         hafKVp67TeUU4MhSqAeGWrldVM76yQ7FrPn/HrXbuR+9Nj/4nNLYs/oaYXTaAgaHlCZu
+         /Jna5e9jn/o3UWpxpW8S448iKTqFI61vz//773D0oxoQOGp/KdQSDg4tiEChD7XEHu9K
+         f7WlRAAk8EoI58MHDn8NYMlkRc4yGS7XF0mCLf1qrOgb9Db7/bjiZe0zoJEpPh6DE5uI
+         VihPq3lJ1Lgd5dq/Wl3Yxqw8tbueBj9Tc7stNId/ulSJLnapdAi0fsYrzdF3M92uQC8/
+         sVhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=saD7JDY79Bl6bon3sCyv3TUtEpYSCHNM4K6BBhRSeL8=;
+        b=EmEptITCxl1okzuQF2yc2FREzP5Yow67H5jsXyFTUp/uajE4uGYjpQbiTHXt4onDl4
+         k9WauQfOfe8FVZcFccFFe4uYiiCs+vUf4ZlBsrFCr75XlPostrsvyXDgf2RcS1prs1F8
+         SYVnrZtPTunPlZz6CDC8dyt7G6NQXulnJV2eot/Y1KO78YG4bC1tMyI/uFc6TT5j0EJx
+         wmMs2iDOO8puJiSJF0QGFSxHAFv9hJg5b0TH21mzpdFoZixQolVOkz+X1bQkM/tYcQ+w
+         J2nzQ/cGPer0h2CFTbA2uPuzvM0n/1OwZ9NHM31WXRYatnx5+c4XQ3vbEG/hCQicqXDS
+         J1NQ==
+X-Gm-Message-State: AOAM532dgRYhvtYSzUoI21CJ/VFQDvSD5KKgw3iASE1fXraBtx5DbH/+
+	LH9EteWlw8BFTQBqkFUE2jRD4rNkNF5uVRx9yFiR5asrRGG4Eg==
+X-Google-Smtp-Source: ABdhPJz8agUncJrb+rw86bvDb4/Lu9pOtIzFDRbrVgmPCWZ+LgkCfKaZJ+umm0verfkZVmCTaMnsuoshF4Z7BxuQ6vU=
+X-Received: by 2002:aa7:c3d6:: with SMTP id l22mr17443547edr.148.1595775859824;
+ Sun, 26 Jul 2020 08:04:19 -0700 (PDT)
 MIME-Version: 1.0
-Date: Fri, 24 Jul 2020 10:59:25 +0200
-From: "Bas Mevissen" <abuse@basmevissen.nl>
-To: kar_947@hotmail.fr
-Cc: poky@lists.yoctoproject.org
-Subject: Re: [poky] How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
-In-Reply-To: <18743.1595579620504898143@lists.yoctoproject.org>
-References: <ed574a8dcce8bd9b74e3a52a82027ad6@basmevissen.nl>
- <18743.1595579620504898143@lists.yoctoproject.org>
-User-Agent: Roundcube Webmail/1.4.3
-Message-ID: <aea0b4b9d1a4414d89428c3b7d262a94@basmevissen.nl>
-X-Sender: abuse@basmevissen.nl
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Mostafa Saleh" <moustafa.i.saleh@gmail.com>
+Date: Sun, 26 Jul 2020 17:04:08 +0200
+Message-ID: <CAOGZMk5hLZ5aHTUrwbKmDuH6TTkRJfr6=94G51E8e7c5iZxeZQ@mail.gmail.com>
+Subject: [poky][recipes-multimedia] gstreamer-1.0-omx LICENSE_FLAGS
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000441b0105ab59852c"
 
-On 2020-07-24 10:33, kar_947@hotmail.fr wrote:
+--000000000000441b0105ab59852c
+Content-Type: text/plain; charset="UTF-8"
 
-> On Fri, Jul 24, 2020 at 10:09 AM, Bas Mevissen wrote:
-> 
->> If you search the internet for "Ubuntu on i.MX6", you will find quite 
->> some examples how to accomplish this. As you already have a working 
->> board, you already have everything you need to get Ubuntu running on 
->> your board. Obviously, it still takes some skills to get things 
->> running. As that is off-topic for this list, you might indeed be best 
->> off to find someone to assist you on that task. It is not a big deal 
->> if you are skilled in that area.
+Hello All,
 
-> But it has to be compatible with the BSP of the board. That's why it's 
-> really hard to install Ubuntu on IMX6 Board.
-> Then, the Ubuntu has to be really specific to my BSP IMX6, i can't 
-> install any types of Ubuntu.
-> 
+I was wondering why the "gstreamer-1.0-omx" recipe has
+LICENSE_FLAGS="commercial", although gst-omx has LGPLv2.1 license as
+mentioned in the source code ?
 
-"The BSP" mainly consists of u-boot, the kernel and the device tree file 
-(.dtb file). You have those files in your possession from the Yocto 
-image. The only thing needed might be support for graphics that can be 
-closed or open source and needs to fit to the graphics environment (X11 
-or Wayland) and graphics toolkit (e.g. Qt) you use.
+-- 
+Best Regards,
 
-> I prefer to let the vendor installing the Ubuntu in his board, because 
-> i cant manage perfectly his BSP. Problem with adaptation ect...
+Mostafa Saleh
 
-Yes, it gives you the starting point you need.
+--000000000000441b0105ab59852c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
+<div dir=3D"ltr">Hello All,<div><br></div><div>I was wondering=C2=A0why the=
+ &quot;gstreamer-1.0-omx&quot; recipe has LICENSE_FLAGS=3D&quot;commercial&=
+quot;, although gst-omx has LGPLv2.1 license as mentioned in the source cod=
+e ?=C2=A0<br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=3D"=
+gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><=
+div dir=3D"ltr"><div>Best Regards,</div><div><br></div>Mostafa Saleh<br><br=
+></div></div></div></div></div></div>
 
-Bas.
+--000000000000441b0105ab59852c--
