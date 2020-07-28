@@ -1,36 +1,57 @@
-Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
- by mx.groups.io with SMTP id smtpd.web10.9157.1595930709998558960
- for <poky@lists.yoctoproject.org>;
- Tue, 28 Jul 2020 03:05:10 -0700
-Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: streamunlimited.com, ip: 213.33.87.14, mailfrom: quentin.schulz@streamunlimited.com)
-Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
-	by bsmtp.bon.at (Postfix) with ESMTPSA id 4BGC375MVTz5tlB;
-	Tue, 28 Jul 2020 12:05:07 +0200 (CEST)
-Date: Tue, 28 Jul 2020 12:05:06 +0200
-From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
-To: kar_947@hotmail.fr
-Cc: poky@lists.yoctoproject.org
-Subject: Re: [poky] How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
-Message-ID: <20200728100506.rv3tfkpx5ic773gg@qschulz>
-References: <aea0b4b9d1a4414d89428c3b7d262a94@basmevissen.nl>
- <19786.1595930464343330876@lists.yoctoproject.org>
+Subject: Re: How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
+To: poky@lists.yoctoproject.org
+From: kar_947@hotmail.fr
+X-Originating-Location: Treillieres, Pays de la Loire, FR (185.10.176.241)
+X-Originating-Platform: Windows Chrome 84
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-In-Reply-To: <19786.1595930464343330876@lists.yoctoproject.org>
-User-Agent: NeoMutt/20180716
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Date: Tue, 28 Jul 2020 03:28:47 -0700
+References: <20200728100506.rv3tfkpx5ic773gg@qschulz>
+In-Reply-To: <20200728100506.rv3tfkpx5ic773gg@qschulz>
+Message-ID: <9225.1595932127071008556@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="EChBNLIXahVFnBLgZd9K"
 
-Hi,
+--EChBNLIXahVFnBLgZd9K
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 28, 2020 at 03:01:04AM -0700, kar_947@hotmail.fr wrote:
-> Hello Bas,
-> 
-> I have a big problem during the compilation of the Yocto.
-> In the recipes "linux-arm_4.1.15.bb", the URL : "git://git.freescale.com/imx/linux-imx.git;protocol=git" is down. Can you help to find an other URL.
+Hi Quentin,
 
-LMGTFY:
-http://git.yoctoproject.org/cgit/cgit.cgi/meta-freescale/tree/recipes-kernel/linux/linux-imx.inc#n17
+Thank you very much for your answer. But, do i just replace the old URL by=
+ your URL " http://git.yoctoproject.org/cgit/cgit.cgi/meta-freescale/tree/r=
+ecipes-kernel/linux/linux-imx.inc#n17" ( http://git.yoctoproject.org/cgit/c=
+git.cgi/meta-freescale/tree/recipes-kernel/linux/linux-imx.inc#n17 )
 
-Quentin
+Can you explain me what can i do in the file "linux-arm_4.1.15.bb" ?
 
+What can i change in this part :
+
+SRCBRANCH =3D "imx_4.1.15_2.0.0_ga"
+LOCALVERSION =3D "-2.0.1"
+SRCREV =3D "b63f3f52cb393e3287352cf63f0caef31a33ab63"
+KERNEL_SRC ?=3D "git://git.freescale.com/imx/linux-imx.git;protocol=3Dgit"
+SRC_URI =3D "${KERNEL_SRC};branch=3D${SRCBRANCH}"
+
+Best regards
+
+--EChBNLIXahVFnBLgZd9K
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Quentin,<br /><br />Thank you very much for your answer. But, do i just =
+replace the old URL by your URL "<a style=3D"background-color: #ffffff; whi=
+te-space: pre-wrap;" href=3D"http://git.yoctoproject.org/cgit/cgit.cgi/meta=
+-freescale/tree/recipes-kernel/linux/linux-imx.inc#n17" target=3D"_blank" r=
+el=3D"noopener">http://git.yoctoproject.org/cgit/cgit.cgi/meta-freescale/tr=
+ee/recipes-kernel/linux/linux-imx.inc#n17"&nbsp;&nbsp;</a><br /><br />Can y=
+ou explain me what can i do in the file "linux-arm_4.1.15.bb" ?&nbsp;<br />=
+<br />What can i change in this part :&nbsp;<br /><br />
+<div>SRCBRANCH =3D "imx_4.1.15_2.0.0_ga"</div>
+<div>LOCALVERSION =3D "-2.0.1"</div>
+<div>SRCREV =3D "b63f3f52cb393e3287352cf63f0caef31a33ab63"</div>
+<div>KERNEL_SRC ?=3D "git://git.freescale.com/imx/linux-imx.git;protocol=
+=3Dgit"</div>
+<div>SRC_URI =3D "${KERNEL_SRC};branch=3D${SRCBRANCH}"<br /><br /><br />Be=
+st regards&nbsp;</div>
+
+--EChBNLIXahVFnBLgZd9K--
