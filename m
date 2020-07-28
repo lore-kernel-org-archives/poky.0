@@ -1,71 +1,146 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
- by mx.groups.io with SMTP id smtpd.web11.58658.1595865110675378731
- for <poky@lists.yoctoproject.org>;
- Mon, 27 Jul 2020 08:51:51 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=StD/Vl31;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f46.google.com with SMTP id p14so14258846wmg.1
-        for <poky@lists.yoctoproject.org>; Mon, 27 Jul 2020 08:51:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=I5yVjK8QnIFjPq/cC0DJV007FiOAuG6w2RGNJw94w7Q=;
-        b=StD/Vl31F+hMXx019GQdncb4F8VV0RBXWazW6aJpTuEpCPtKBTQhmJCrIBnwH41Cds
-         AyItgKfL4Imb+Pp7uhI/o/n0HQL71n8ERtrGPHdlC7DGZ12qPJAC7XzibIoNplsXA6X5
-         EPushABz3XcejAkGhd7mTlyRFX1k9uJesjqM8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=I5yVjK8QnIFjPq/cC0DJV007FiOAuG6w2RGNJw94w7Q=;
-        b=JrcJDLQIVApDWanGHw2+oS0C7i6230eyR3y1vOsG8q4KIJI3FGiRcsWo2vT7EWc2i1
-         s/581S17nEE1kNh41pFn91KaeKqipXgOb4n4nh4Z4GiC/3RH33MXSlEgcVMuhU0MqAST
-         Fm6WLXRX1vyTyyj774t1SWyyjcC5IxcpNaTSE0zXqq77S0K6lOcBM+nGJXwQT2BEXwfG
-         +rqfMccDC58BI6BnF2hvv2+NMcNAZDMXDf4P05qqpcYOhnYyBfRhjriuVc8qEY47ulh7
-         2HSNlsuM1/68xy3CARJqCGlYz214PXQu5cZIC318syjQ7d4x/ylSZhXciHD9Y+itVAB4
-         713A==
-X-Gm-Message-State: AOAM531OlTaKi6xX5gprEDGBgPStghIRX+xJCH4v/8BqAENc7kUpi6Wd
-	WQmyZUaUyE4vSCGjffNov/UmLA==
-X-Google-Smtp-Source: ABdhPJz9e5BvIbuKWfc/8ORLcD/ZdKr6EENxFjByksDfcjVwFBaDqx+IOOLKNY6/hkkIeH4inX+UuA==
-X-Received: by 2002:a1c:2805:: with SMTP id o5mr21487629wmo.25.1595865109166;
-        Mon, 27 Jul 2020 08:51:49 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from 4.0.f.e.b.e.7.9.7.7.5.0.0.c.1.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (4.0.f.e.b.e.7.9.7.7.5.0.0.c.1.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:c1c0:577:97eb:ef04])
-        by smtp.gmail.com with ESMTPSA id k1sm4395970wrw.91.2020.07.27.08.51.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2020 08:51:46 -0700 (PDT)
-Message-ID: <40f003823d3cd445b7d29ebec993aeb061d182d7.camel@linuxfoundation.org>
-Subject: Re: [poky][recipes-multimedia] gstreamer-1.0-omx LICENSE_FLAGS
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Mostafa Saleh <moustafa.i.saleh@gmail.com>, poky@lists.yoctoproject.org
-Date: Mon, 27 Jul 2020 16:51:44 +0100
-In-Reply-To: <CAOGZMk5hLZ5aHTUrwbKmDuH6TTkRJfr6=94G51E8e7c5iZxeZQ@mail.gmail.com>
-References: 
-	<CAOGZMk5hLZ5aHTUrwbKmDuH6TTkRJfr6=94G51E8e7c5iZxeZQ@mail.gmail.com>
-User-Agent: Evolution 3.36.3-0ubuntu1 
+Subject: Re: How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
+To: poky@lists.yoctoproject.org
+From: kar_947@hotmail.fr
+X-Originating-Location: Treillieres, Pays de la Loire, FR (185.10.176.241)
+X-Originating-Platform: Windows Chrome 84
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Date: Tue, 28 Jul 2020 03:01:04 -0700
+References: <aea0b4b9d1a4414d89428c3b7d262a94@basmevissen.nl>
+In-Reply-To: <aea0b4b9d1a4414d89428c3b7d262a94@basmevissen.nl>
+Message-ID: <19786.1595930464343330876@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="Azthb1ljmJpDzGJGMDMm"
 
-On Sun, 2020-07-26 at 17:04 +0200, Mostafa Saleh wrote:
-> I was wondering why the "gstreamer-1.0-omx" recipe has
-> LICENSE_FLAGS="commercial", although gst-omx has LGPLv2.1 license as
-> mentioned in the source code ? 
+--Azthb1ljmJpDzGJGMDMm
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-This puzzled me too. Its been in the recipe since it was imported from
-a layer which is no longer available on github.
+Hello Bas,
 
-My guess is that its a copy and paste error from the ugly plugins
-recipe. As far as I know, OpenMax is royalty and patent free so this
-probably shouldn't be there.
+I have a big problem during the compilation of the Yocto.
+In the recipes "linux-arm_4.1.15.bb", the URL : "git://git.freescale.com/i=
+mx/linux-imx.git;protocol=3Dgit" is down. Can you help to find an other URL=
+.
+This is my file :
 
-I'd suggest sending a patch to removing it, containing this information
-and if nobody objects we can remove it. It would need to go to the
-openembedded-core mailing list.
+# Copyright (C) 2013-2016 Freescale Semiconductor
+# Released under the MIT license (see COPYING.MIT for the terms)
 
-Cheers,
+SUMMARY =3D "Linux Kernel provided and supported by Freescale"
+DESCRIPTION =3D "Linux Kernel provided and supported by Freescale with foc=
+us on \
+i.MX Family Reference Boards. It includes support for many IPs such as GPU=
+, VPU and IPU."
 
-Richard
+require recipes-kernel/linux/linux-imx.inc
+require recipes-kernel/linux/linux-dtb.inc
 
+DEPENDS +=3D "lzop-native bc-native"
+
+SRCBRANCH =3D "imx_4.1.15_2.0.0_ga"
+LOCALVERSION =3D "-2.0.1"
+SRCREV =3D "b63f3f52cb393e3287352cf63f0caef31a33ab63"
+KERNEL_SRC ?=3D "git://git.freescale.com/imx/linux-imx.git;protocol=3Dgit"
+SRC_URI =3D "${KERNEL_SRC};branch=3D${SRCBRANCH}"
+
+SRC_URI +=3D "file://0001-ARM-imx-imx6ul-add-PHY-KSZ8081-new-silicon-revis=
+ion-.patch \
+file://0001-MLK-13418-ASoC-wm8960-workaround-no-sound-issue-in-m.patch \
+file://0002-MLK-13422-ASoC-wm8960-fix-the-pitch-shift-issue-afte.patch "
+
+DEFAULT_PREFERENCE =3D "1"
+
+DO_CONFIG_V7_COPY =3D "no"
+DO_CONFIG_V7_COPY_mx6 =3D "yes"
+DO_CONFIG_V7_COPY_mx6ul =3D "yes"
+DO_CONFIG_V7_COPY_mx7 =3D "yes"
+
+addtask copy_defconfig after do_patch before do_preconfigure #do_configure
+do_copy_defconfig () {
+if [ ${DO_CONFIG_V7_COPY} =3D "yes" ]; then
+# copy latest imx_v7_defconfig to use for mx6, mx6ul and mx7
+mkdir -p ${B}
+cp ${S}/arch/arm/configs/imx_v7_defconfig ${B}/.config
+cp ${S}/arch/arm/configs/imx_v7_defconfig ${B}/../defconfig
+fi
+}
+
+COMPATIBLE_MACHINE =3D "(mx6|mx6ul|mx7)"
+
+Best regards
+
+--Azthb1ljmJpDzGJGMDMm
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Bas,<br /><br />I have a big problem during the compilation of the Yo=
+cto.<br />In the recipes "linux-arm_4.1.15.bb", the URL : "git://git.freesc=
+ale.com/imx/linux-imx.git;protocol=3Dgit" is down. Can you help to find an =
+other URL.&nbsp;<br />This is my file :&nbsp;<br /><br /><br /><br />
+<div style=3D"line-height: 1.42857;"># Copyright (C) 2013-2016 Freescale S=
+emiconductor</div>
+<div style=3D"line-height: 1.42857;"># Released under the MIT license (see=
+ COPYING.MIT for the terms)</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">SUMMARY =3D "Linux Kernel provided an=
+d supported by Freescale"</div>
+<div style=3D"line-height: 1.42857;">DESCRIPTION =3D "Linux Kernel provide=
+d and supported by Freescale with focus on \</div>
+<div style=3D"line-height: 1.42857;">i.MX Family Reference Boards. It incl=
+udes support for many IPs such as GPU, VPU and IPU."</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">require recipes-kernel/linux/linux-im=
+x.inc</div>
+<div style=3D"line-height: 1.42857;">require recipes-kernel/linux/linux-dt=
+b.inc</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">DEPENDS +=3D "lzop-native bc-native"<=
+/div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">SRCBRANCH =3D "imx_4.1.15_2.0.0_ga"</=
+div>
+<div style=3D"line-height: 1.42857;">LOCALVERSION =3D "-2.0.1"</div>
+<div style=3D"line-height: 1.42857;">SRCREV =3D "b63f3f52cb393e3287352cf63=
+f0caef31a33ab63"</div>
+<div style=3D"line-height: 1.42857;">KERNEL_SRC ?=3D "git://git.freescale.=
+com/imx/linux-imx.git;protocol=3Dgit"</div>
+<div style=3D"line-height: 1.42857;">SRC_URI =3D "${KERNEL_SRC};branch=3D$=
+{SRCBRANCH}"</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">SRC_URI +=3D "file://0001-ARM-imx-imx=
+6ul-add-PHY-KSZ8081-new-silicon-revision-.patch \</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; file://0001-MLK-13418-ASoC-wm8960-workaround-no-sound-issue-in-m.patch=
+ \</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; file://0002-MLK-13422-ASoC-wm8960-fix-the-pitch-shift-issue-afte.patch=
+ "</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">DEFAULT_PREFERENCE =3D "1"</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">DO_CONFIG_V7_COPY =3D "no"</div>
+<div style=3D"line-height: 1.42857;">DO_CONFIG_V7_COPY_mx6 =3D "yes"</div>
+<div style=3D"line-height: 1.42857;">DO_CONFIG_V7_COPY_mx6ul =3D "yes"</di=
+v>
+<div style=3D"line-height: 1.42857;">DO_CONFIG_V7_COPY_mx7 =3D "yes"</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">addtask copy_defconfig after do_patch=
+ before do_preconfigure #do_configure</div>
+<div style=3D"line-height: 1.42857;">do_copy_defconfig () {</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; if [ ${DO_CONFIG_V7_COP=
+Y} =3D "yes" ]; then</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp; &nbsp; # copy la=
+test imx_v7_defconfig to use for mx6, mx6ul and mx7</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp; &nbsp; mkdir -p =
+${B}</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp; &nbsp; cp ${S}/a=
+rch/arm/configs/imx_v7_defconfig ${B}/.config</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; &nbsp; &nbsp; cp ${S}/a=
+rch/arm/configs/imx_v7_defconfig ${B}/../defconfig</div>
+<div style=3D"line-height: 1.42857;">&nbsp; &nbsp; fi</div>
+<div style=3D"line-height: 1.42857;">}</div>
+<div style=3D"line-height: 1.42857;">&nbsp;</div>
+<div style=3D"line-height: 1.42857;">COMPATIBLE_MACHINE =3D "(mx6|mx6ul|mx=
+7)"<br /><br /><br /><br />Best regards</div>
+
+--Azthb1ljmJpDzGJGMDMm--
