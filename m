@@ -1,42 +1,61 @@
-Subject: Re: How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
-To: poky@lists.yoctoproject.org
-From: kar_947@hotmail.fr
-X-Originating-Location: Treillieres, Pays de la Loire, FR (185.10.176.241)
-X-Originating-Platform: Windows Chrome 84
-User-Agent: GROUPS.IO Web Poster
-MIME-Version: 1.0
-Date: Wed, 29 Jul 2020 03:26:16 -0700
+Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
+ by mx.groups.io with SMTP id smtpd.web10.3329.1596018941223074519
+ for <poky@lists.yoctoproject.org>;
+ Wed, 29 Jul 2020 03:35:41 -0700
+Authentication-Results: mx.groups.io;
+ dkim=missing; spf=pass (domain: streamunlimited.com, ip: 213.33.87.14, mailfrom: quentin.schulz@streamunlimited.com)
+Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
+	by bsmtp.bon.at (Postfix) with ESMTPSA id 4BGqgs50RXz5tlG;
+	Wed, 29 Jul 2020 12:35:37 +0200 (CEST)
+Date: Wed, 29 Jul 2020 12:35:36 +0200
+From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
+To: kar_947@hotmail.fr
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] How to install Compiler g++ in Yocto #yocto #g++ #gcc #compiler #package #library #poky
+Message-ID: <20200729103536.tsuzmzmav2saqdbt@qschulz>
 References: <20200729080752.qwt2izc4c7giis7e@qschulz>
-In-Reply-To: <20200729080752.qwt2izc4c7giis7e@qschulz>
-Message-ID: <7345.1596018376451690700@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="WcqaIdT6lDiy7JjG20PK"
+ <7345.1596018376451690700@lists.yoctoproject.org>
+MIME-Version: 1.0
+In-Reply-To: <7345.1596018376451690700@lists.yoctoproject.org>
+User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---WcqaIdT6lDiy7JjG20PK
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Hi Quentin,
+On Wed, Jul 29, 2020 at 03:26:16AM -0700, kar_947@hotmail.fr wrote:
+> Hi Quentin,
+> 
+> Thank you very much for your answer and all your help.
+> I will remove temporary files by editing the local.conf
+> 
+> I am sorry for sending a new question which does not match with my topic.
+> 
 
-Thank you very much for your answer and all your help.
-I will remove temporary files by editing the local.conf
+It's fine no worries :)
 
-I am sorry for sending a new question which does not match with my topic.
+> Can i keep contact with you because you are really nice and you always answer to my beginners questions. I understand better and better the Yocto project.
+> 
 
-Can i keep contact with you because you are really nice and you always ans=
-wer to my beginners questions. I understand better and better the Yocto pro=
-ject.
+Thank you for the kind words.
 
-Best regards
+However, I'll not answer questions that aren't sent on the mailing list.
 
---WcqaIdT6lDiy7JjG20PK
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+There are a few reasons to that:
 
-Hi Quentin,<br /><br />Thank you very much for your answer and all your hel=
-p.&nbsp;<br />I will remove temporary files by editing the local.conf<br />=
-<br />I am sorry for sending a new question which does not match with my to=
-pic.&nbsp;<br /><br />Can i keep contact with you because you are really ni=
-ce and you always answer to my beginners questions. I understand better and=
- better the Yocto project.<br /><br />Best regards&nbsp;
+ - you might not be the only asking yourself those questions and
+ everyone would benefit from knowing the actual answer to those
+ questions, this has nothing to do with Yocto but is applicable to most
+ if not all open-source projects :)
 
---WcqaIdT6lDiy7JjG20PK--
+ - I might not have the answer for it, might answer wrongly or might not
+ have time to answer at all. By asking on the mailing list (or IRC)
+ you'll maximize your chances of having an answer (and probably the
+ correct one),
+
+Have fun with Yocto! Don't forget to watch a few of Jozef's tutorial on
+Yocto's official Youtube account (or follow on Twitch directly) and take
+some time to read manuals :)
+
+Cheers,
+Quentin
