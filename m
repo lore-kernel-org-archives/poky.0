@@ -1,102 +1,56 @@
-Subject: ERROR: Kernel configuration is invalid
-To: poky@lists.yoctoproject.org
-From: "Ashish" <ashishm@mvista.com>
-X-Originating-Location: Thane, Maharashtra, IN (139.5.45.150)
-X-Originating-Platform: Linux Chrome 83
-User-Agent: GROUPS.IO Web Poster
+Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
+ by mx.groups.io with SMTP id smtpd.web12.1142.1596528773149675408
+ for <poky@lists.yoctoproject.org>;
+ Tue, 04 Aug 2020 01:12:53 -0700
+Authentication-Results: mx.groups.io;
+ dkim=missing; spf=pass (domain: streamunlimited.com, ip: 213.33.87.14, mailfrom: quentin.schulz@streamunlimited.com)
+Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
+	by bsmtp.bon.at (Postfix) with ESMTPSA id 4BLSDL4Ct1z5tlB;
+	Tue,  4 Aug 2020 10:12:50 +0200 (CEST)
+Date: Tue, 4 Aug 2020 10:12:49 +0200
+From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
+To: Ashish <ashishm@mvista.com>
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] ERROR: Kernel configuration is invalid
+Message-ID: <20200804081248.ga734e2my62cl5gu@qschulz>
+References: <E02h.1596524350140620056.DK0t@lists.yoctoproject.org>
 MIME-Version: 1.0
-Date: Mon, 03 Aug 2020 23:59:10 -0700
-Message-ID: <E02h.1596524350140620056.DK0t@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="dp7ZWGapYu6nbwBwul23"
-
---dp7ZWGapYu6nbwBwul23
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <E02h.1596524350140620056.DK0t@lists.yoctoproject.org>
+User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi All ,
+Hi Ashish,
 
-I am trying to build an out-of-tree hello-world module=C2=A0 using the RPI=
+On Mon, Aug 03, 2020 at 11:59:10PM -0700, Ashish wrote:
+> Hi All ,
+>=20
+> I am trying to build an out-of-tree hello-world module=A0 using the RPI=
 4 setup & compile an hello-world kernel module
+>=20
+> A) Steps followed :
+> 1) Create an basic hello-world-module.c & Makefile in any known locatio=
+n ( say custom layer )
 
-A) Steps followed :
-1) Create an basic hello-world-module.c & Makefile in any known location (=
- say custom layer )
-2) $ bitbake -c devshell virtual/kernel
-$ make M=3D<Location of module created in step 1 above>=C2=A0 modules
+First, make a recipe for those.
 
-Compilation of kernel-modules with this setup shows below error:
-/home/ashish/yocto-default/build-xenimage/tmp/work-shared/raspberrypi4-64/=
-kernel-source/Makefile:609: include/config/auto.conf: No such file or direc=
-tory
+> 2) $ bitbake -c devshell virtual/kernel
+> $ make M=3D<Location of module created in step 1 above>=A0 modules
+>=20
 
-ERROR: Kernel configuration is invalid.
-include/generated/autoconf.h or include/config/auto.conf are missing.
-Run 'make oldconfig && make prepare' on kernel src to fix it.
+I'd have used devtool for doing that and not devshell but I've almost
+never used devshell so I might be biased :)
 
-But , the config is preset at below location & i can do $ bitbake -c menuc=
-onfig virtual/kernel
-home/ashish/yocto-default/build-xenimage/tmp/work/raspberrypi4_64-poky-lin=
-ux/linux-raspberrypi/1_5.4.51+gitAUTOINC+aafb8f095e_machine-r0/linux-raspbe=
-rrypi4_64-standard-build/.config
+devtool modify hello-world-module
 
-B) Please find that just to ensure if the procedure to compile an external=
- modules is correct ,
-i tried setting MACHINE ?=3D "qemuarm64" , and reported same steps .
-I was able to compile the kernel module properly & ran on qemu to confirm =
-the module is proper.
+Then, go into the devtool workspace and modify step by step until you've
+something that compiles with devtool build hello-world-module.
 
-C)=C2=A0 I was under expectation that the config file would be proper as w=
-e are able to generate minimal image
+https://www.youtube.com/watch?v=3DzYyE-xah7jg for a tutorial on the
+minimal out of tree kernel driver compilation/recipe.
 
-Any pointers or suggestion as to why the i am getting this error even thou=
-gh the .config is preset
+Let us know if you hit issues after this :)
 
---
-Thanks ,
-Ashish .
-
---dp7ZWGapYu6nbwBwul23
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi All ,&nbsp;<br /><br />I am trying to build an out-of-tree hello-world m=
-odule&nbsp; using the RPI4 setup &amp; compile an hello-world kernel module=
-<br /><br />
-<div style=3D"line-height: 1.42857;">A) Steps followed :<br />&nbsp; &nbsp=
-; &nbsp; &nbsp; 1) Create an basic hello-world-module.c &amp; Makefile in a=
-ny known location ( say custom layer )&nbsp; &nbsp; &nbsp;&nbsp;<br />&nbsp=
-; &nbsp; &nbsp; &nbsp; 2) $ bitbake -c devshell virtual/kernel<br />&nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $ make M=3D&lt;Location of module create=
-d in step 1 above&gt;&nbsp; modules</div>
-<div>&nbsp;</div>
-Compilation of kernel-modules with this setup shows below error:<br />
-<div><span style=3D"font-weight: bold;">/home/ashish/yocto-default/build-x=
-enimage/tmp/work-shared/raspberrypi4-64/kernel-source/Makefile:609: include=
-/config/auto.conf: No such file or directory</span></div>
-<div>&nbsp;</div>
-<div><span style=3D"font-weight: bold;">&nbsp; ERROR: Kernel configuration=
- is invalid.</span></div>
-<div><span style=3D"font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-include/generated/autoconf.h or include/config/auto.conf are missing.</span=
-></div>
-<div><span style=3D"font-weight: bold;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
-Run 'make oldconfig &amp;&amp; make prepare' on kernel src to fix it.<br />=
-</span><br />But , the config is preset at below location &amp; i can do $ =
-bitbake -c menuconfig virtual/kernel<br />
-<div>home/ashish/yocto-default/build-xenimage/tmp/work/raspberrypi4_64-pok=
-y-linux/linux-raspberrypi/1_5.4.51+gitAUTOINC+aafb8f095e_machine-r0/linux-r=
-aspberrypi4_64-standard-build/.config</div>
-<div><br /><br /></div>
-B) Please find that just to ensure if the procedure to compile an external=
- modules is correct ,&nbsp;<br />&nbsp; &nbsp; &nbsp;i tried setting&nbsp;<=
-span style=3D"font-weight: bold;">MACHINE ?=3D "qemuarm64" ,&nbsp;</span>&n=
-bsp;and reported same steps .&nbsp;<br />&nbsp; &nbsp; &nbsp;I was able to =
-compile the kernel module properly &amp; ran on qemu to confirm the module =
-is proper.&nbsp;<br /><br /><br />C)&nbsp; I was under expectation that the=
- config file would be proper as we are able to generate minimal image<br />=
-&nbsp; &nbsp; &nbsp;<br />Any pointers or suggestion as to why the i am get=
-ting this error even though the .config is preset&nbsp;<br /><br /><br /></=
-div>
--- <br />Thanks ,<br />Ashish .
-
---dp7ZWGapYu6nbwBwul23--
+Cheers,
+Quentin
