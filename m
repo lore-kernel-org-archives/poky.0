@@ -1,75 +1,81 @@
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com [209.85.218.65])
- by mx.groups.io with SMTP id smtpd.web10.42657.1597669305115199170
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com [209.85.208.68])
+ by mx.groups.io with SMTP id smtpd.web10.42660.1597669310671535592
  for <poky@lists.yoctoproject.org>;
- Mon, 17 Aug 2020 06:01:45 -0700
+ Mon, 17 Aug 2020 06:01:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=rro9siOq;
- spf=pass (domain: gmail.com, ip: 209.85.218.65, mailfrom: vvavrychuk@gmail.com)
-Received: by mail-ej1-f65.google.com with SMTP id o23so17663552ejr.1
-        for <poky@lists.yoctoproject.org>; Mon, 17 Aug 2020 06:01:44 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=nO282XzA;
+ spf=pass (domain: gmail.com, ip: 209.85.208.68, mailfrom: vvavrychuk@gmail.com)
+Received: by mail-ed1-f68.google.com with SMTP id c10so12192196edk.6
+        for <poky@lists.yoctoproject.org>; Mon, 17 Aug 2020 06:01:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=/sYTu3TTSx+QuvYsYCM+ictLrQDRDOxlNQ5z7Agn2Wg=;
-        b=rro9siOq7uNEl9nCPOXctxMfYmQnXmZTR+hLUZ2QRo27lCOyNtpvjC/hkRwaqb86PZ
-         FVMwywu32Q+JTz5RiuU5lMQSHy+l015FUbXIrviR0u430aq26lmjAyJEPvRb4QXnxM2j
-         pijar5EtyXoA+m1QysD/wXTMzBZ+554EiqVMJaFp07mCAC91bTHJDMZZwbQVeZdIMdwV
-         /0j6u0cDQFTXoVin4Ytlm3mIfzLIaGR1BtHgg4knSvevR5WjA/lgJbDfXDfXUxQSKqTJ
-         atxDhOyXJDKthgBs3D5P0ULsT2FUpjchboLxuWyd5rOohI5OW0mKli+T+kRdg54u3AjD
-         RSBQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=ELa0anplrMLOjg9ydNrBmqEmGxjMU2EgnT/yO+K4ogE=;
+        b=nO282XzA+m+78kJrdk0kxJYL3bOIk8U0qfNN/XPoranXO+LEPB8OMRXo/wunDe1lZb
+         Lr2Kj/ZMceDKrSH53Q8ypBW57iRAlMxo7No+LqwGnCdWjavSz1DVaurzdWCjgY79/qxf
+         q7vCnvTaogPKk+Auj0c08m+u9+XXzftCgT3F9+m7Wl8vCfcvSBcPPqB4v8cz2KoMOyna
+         hOXknBqf3T1uTW30ql9XRBI/ODC2wkEjKA32qRaBdSmrxjK9rplDYs+a7+1BEqSmlrq0
+         OG7d6NiwE1VNyBv0W6kes7A2aUONENfNCyIAsaUYu5O0/Tnu29cwFWYiYONIA1gi3O1n
+         6/Gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=/sYTu3TTSx+QuvYsYCM+ictLrQDRDOxlNQ5z7Agn2Wg=;
-        b=kTjlo5MtwfeRYyRSRaYy3LAbmt9arVKbcA41pFxbL9c6S6OxnmnT4pRl25lWmlTdbj
-         I6mS0D63W2wpiJ0Jn1WJh6lSwItSzEcsj9PfvfBLVeJL3TpcdIslTJQdKMdAdWOFPSEq
-         kzmqun+Qkk+nAxyaYv7VK+jLpguLKQaEFLPKurgPVBBP/lQlzO0el4+AojHoFfOcjlEK
-         Ii/7aIboBRReU3yicnL21vFnpm5oj97pHZW2Vc1VnFbYiBMZzPzQkx0FazoemNC5kPV9
-         GWMyBW7EE8y5eIgb94ACapy5vT/x5UWw3M5nZfjbNWCk9nVwmev+pQiNDdMvVvTB79wX
-         ZqOw==
-X-Gm-Message-State: AOAM5314028CsJYxfHZ6vw5LMDG3OYFd2dQ5f4zUeenuiXWxHgEF1bQm
-	IfzHxJZyXhj9c1R9AtRy1W0sGjpppNNWFw==
-X-Google-Smtp-Source: ABdhPJzB1BrcA0K7DAGa+DcgZ4rgyfNVfFlhPFFNs0Xmuv8SI0TmtRINQSwkgN/9XRVVJ1tYmkJWHg==
-X-Received: by 2002:a17:906:454e:: with SMTP id s14mr14591303ejq.147.1597669303249;
-        Mon, 17 Aug 2020 06:01:43 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=ELa0anplrMLOjg9ydNrBmqEmGxjMU2EgnT/yO+K4ogE=;
+        b=VX4BQYsifWAGjvdBoA7Ubp/sF/la//X/cO4p35DxUBNh8PK/3F925wTx/I1nGMU3S+
+         BV5o/vcIFhxa0pYP1eQPPd6H4mvAtd7G4k1HQdgniNIPdeStVOB4WfY6yuHjd/nnjnB3
+         6EU78Tl6YXyl91AwxEAhW/24rHNpBCc69kqq/dNf4GJ+Og8cw9nqODeSS7eebVAzDZ44
+         f4kyMe4WjLFE9fuuw/dLqfZp0Talxl0q3Iq0ln/9LyhpcGp4iLFNQKaVypoVxU0XODj8
+         jS/XuuLyydtWvrEVX6X6T7oU5p0DaLwtDLlENLjx875vs3QZXDNo5JQ9QNocMiQzYqfF
+         FbHQ==
+X-Gm-Message-State: AOAM533qYjX88D1ai8r5/TAh7kRRqT/tfEuP2VzZSDKzut5f/mmljgdB
+	+RS/+JsWA6v1x5JNCK0sk6Gk+qDofhZDzA==
+X-Google-Smtp-Source: ABdhPJyetDXIpaiyAjEldr8hp6hMzd/cU7n+csNiJmp7kzeEwji5v18FIrxZdOI7tyetTn4J6cRtEg==
+X-Received: by 2002:aa7:c889:: with SMTP id p9mr15001550eds.105.1597669308967;
+        Mon, 17 Aug 2020 06:01:48 -0700 (PDT)
 Return-Path: <vvavrychuk@gmail.com>
 Received: from glva-laptop.open-synergy.com ([213.174.19.120])
-        by smtp.gmail.com with ESMTPSA id j7sm14231343ejb.64.2020.08.17.06.01.42
+        by smtp.gmail.com with ESMTPSA id j7sm14231343ejb.64.2020.08.17.06.01.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2020 06:01:42 -0700 (PDT)
+        Mon, 17 Aug 2020 06:01:48 -0700 (PDT)
 From: "Vasyl Vavrychuk" <vvavrychuk@gmail.com>
 To: poky@lists.yoctoproject.org
 Cc: Vasyl Vavrychuk <vvavrychuk@gmail.com>
-Subject: [PATCH 1/2] ref-manual: Fix mistake in base class description.
-Date: Mon, 17 Aug 2020 16:01:34 +0300
-Message-Id: <20200817130135.3512-1-vvavrychuk@gmail.com>
+Subject: [PATCH 2/2] ref-manual: Mention that staging class is enabled by default.
+Date: Mon, 17 Aug 2020 16:01:35 +0300
+Message-Id: <20200817130135.3512-2-vvavrychuk@gmail.com>
 X-Mailer: git-send-email 2.23.0
+In-Reply-To: <20200817130135.3512-1-vvavrychuk@gmail.com>
+References: <20200817130135.3512-1-vvavrychuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Clearly, previous sentense speaks about definitions in classes which
-can be overrided or extended in other classes.
+This information is present for all other classes inherited by base class.
+
+Previously it was mentioned for staging class to but then it was gonne.
 
 Signed-off-by: Vasyl Vavrychuk <vvavrychuk@gmail.com>
 ---
- documentation/ref-manual/ref-classes.xml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ documentation/ref-manual/ref-classes.xml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/documentation/ref-manual/ref-classes.xml b/documentation/ref-manual/ref-classes.xml
-index 1dcd5fdd03..1f353b3c30 100644
+index 1f353b3c30..4d7baff430 100644
 --- a/documentation/ref-manual/ref-classes.xml
 +++ b/documentation/ref-manual/ref-classes.xml
-@@ -191,7 +191,7 @@
-         tasks such as fetching, unpacking, configuring (empty by default),
-         compiling (runs any <filename>Makefile</filename> present), installing
-         (empty by default) and packaging (empty by default).
--        These classes are often overridden or extended by other classes
-+        These definitions are often overridden or extended by other classes
-         such as the
-         <link linkend='ref-classes-autotools'><filename>autotools</filename></link>
-         class or the
+@@ -3386,6 +3386,11 @@ This check was removed for YP 2.3 release
+                 </para></listitem>
+         </itemizedlist>
+     </para>
++
++    <para>
++        This class is enabled by default since it is inherited by
++        the <filename>base</filename> class.
++    </para>
+ </section>
+ 
+ <section id='ref-classes-syslinux'>
 -- 
 2.23.0
 
