@@ -1,57 +1,77 @@
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com [209.85.219.180])
- by mx.groups.io with SMTP id smtpd.web10.1076.1597281407138266198
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+ by mx.groups.io with SMTP id smtpd.web11.42034.1597666718725793013
  for <poky@lists.yoctoproject.org>;
- Wed, 12 Aug 2020 18:16:47 -0700
+ Mon, 17 Aug 2020 05:18:39 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@broadcom.com header.s=google header.b=FJjPPmjB;
- spf=permerror, err=parse error for token &{10 18 %{i}._ip.%{h}._ehlo.%{d}._spf.vali.email}: invalid domain name (domain: broadcom.com, ip: 209.85.219.180, mailfrom: jonathan.richardson@broadcom.com)
-Received: by mail-yb1-f180.google.com with SMTP id x10so2375092ybj.13
-        for <poky@lists.yoctoproject.org>; Wed, 12 Aug 2020 18:16:47 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=fsMZaIdO;
+ spf=pass (domain: gmail.com, ip: 209.85.208.44, mailfrom: vvavrychuk@gmail.com)
+Received: by mail-ed1-f44.google.com with SMTP id a14so12090032edx.7
+        for <poky@lists.yoctoproject.org>; Mon, 17 Aug 2020 05:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=mqEovvZ8YTJdl1+U50fxDOD8a33tuvZIKw9UZHIIedg=;
-        b=FJjPPmjBZbP5t9cWFY+JVBXkL0oax91nQrB3ejSTS9EW2kA61b3KBDwu6YiVL0UfKg
-         xV2Bn+rko12vUXXKw8O3Ctq9tc3J/+Q5wp/dpvZLCmR04SratDHyi2W8Etj8kU8HR1vJ
-         XQ425tbUd01ktN74vw3M3UPSllEbfGo3FLIFM=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=OuprNKYiCBY2FkrL+jG9OqLxLZBAcY/KKaoqG6dm2bU=;
+        b=fsMZaIdO17r39RTHkhQjHufPDKakG0Yxc0muDZ/p9DM/RLT2FTk1hwHyaWZQLzjbQI
+         FSM+n14kNh291rF8LtSTY/dUITcUcCUTvo/zbpeKubGA1x5rPGnjLh7vAwA0KPWJHXkJ
+         nnQQPxsL0EeX6IUIEU+LHjz4sIXhh+GUKqSxpBGJq6qgNZLCrl00fkQYGKyZB42Awg2b
+         c8y2jIaNYnEcvH89sBHh2RiQV74yD7GnsbYS6+IlerwrrEzFBNsszxJOwAgI3LBahWaV
+         /I/iwCByRDJTdCA7HTLFyVkyEDtwm6opyUhek2wvTKPKYyN4SJ/C3an05aLj68YwK8zf
+         q42w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=mqEovvZ8YTJdl1+U50fxDOD8a33tuvZIKw9UZHIIedg=;
-        b=ejiHwGG6XVsqjlbQFddKH5fQwFtFrSSxNmL9Cbxu8C1hO+/J/YzwcHoD0QiC6VOljh
-         OoJY8K9uCDvbBeDPP7sETEVgEuUAI1dcwLCaH1qP9nDJGYBM8FznSMGgrzZ3N+BjGcDY
-         GzGMAa0JdLk9h/RsbBjJOVKTiL5F+b1Bd8wrjNyf1ELmcwibUes3/Ql49A64IHACmPEI
-         H7JKEaWyMyt/geCuvHDiEFqBVaddUqwCNHeHtN0g+ciZTViENNNA8VYJyBJgrm7obQH+
-         5UQNrlGavk9h7KiUk7uZQHkUDW682v3+V9ME8NkczqgI8v+wy7ewwGQ4KljjnwfSitQV
-         LAlg==
-X-Gm-Message-State: AOAM5336PtruPNVkAKyvp6pyMPbLE4YaiCH28HJPCo+bRHAE/l8xgcwr
-	rBPk6kgd08daPp67/UlY3KSV/NHftvQJHUkZ+uwuOw==
-X-Google-Smtp-Source: ABdhPJzAig+uCVcAiwaw1mwBx9/7P4ywjbAP6LppnX32nCAPqZVOfQRQ+V9v4e4FILXyhPI10nUIQ0uYWP7WNAJ9//Y=
-X-Received: by 2002:a25:2513:: with SMTP id l19mr3325529ybl.367.1597281406318;
- Wed, 12 Aug 2020 18:16:46 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=OuprNKYiCBY2FkrL+jG9OqLxLZBAcY/KKaoqG6dm2bU=;
+        b=kS9mNMiyZAd4aywg48Bv0+fckI+YZe6GIWUrelqZ0kMZ8LGTa5JZ7T7xphT1s+P9lU
+         lF57GM5b18QT40XmAWxIMfp9g8EyX9speY9zIaZJZBMFSrK4fWLElXHE5CG1ncUxZi0j
+         hRbFtppJX/8Zg5b+z9Zq1iN10Xl+iQtA8TQQjdspo9BDeK07cWNoZeLB0VGJeQsF6zpe
+         9P9h2mr7BPO7tI/CaEFv10lqPbuzNULAPqyThDARDLZU1Jc8sjAAyE3fh+l1GKiMoSQM
+         748LCsLjPfdBK48IfbDWVld2V6Q9Q5GADCpwaBeCIlN7OGkUwWhpZmgKy8df954s6nkn
+         01VA==
+X-Gm-Message-State: AOAM532qkuAmW6EURfrb56tly6CkJ5UFdHLYpqJQ4EkRk/hNMmud0LH2
+	2qBDsS0B+Z14hOJpkCbxTZjHUZFzLkAs3w==
+X-Google-Smtp-Source: ABdhPJxEljALdWfpRV39id0NRC2EcuXQkt+KA533IeqikesZFwjSKxPAchuATrCVFYonUm861TMe4g==
+X-Received: by 2002:aa7:cc85:: with SMTP id p5mr14855365edt.369.1597666716813;
+        Mon, 17 Aug 2020 05:18:36 -0700 (PDT)
+Return-Path: <vvavrychuk@gmail.com>
+Received: from localhost.localdomain ([213.174.19.120])
+        by smtp.gmail.com with ESMTPSA id j11sm13528752edr.71.2020.08.17.05.18.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2020 05:18:36 -0700 (PDT)
+From: "Vasyl Vavrychuk" <vvavrychuk@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Vasyl Vavrychuk <vvavrychuk@gmail.com>
+Subject: [PATCH] runqemu: Check gtk or sdl option is passed together with gl or gl-es options.
+Date: Mon, 17 Aug 2020 15:18:28 +0300
+Message-Id: <20200817121828.7345-1-vvavrychuk@gmail.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-References: <CAHrpVsUkTgim53raUgXgkiGvpzrWZJVPFEBzU1YX0S03_ix-kg@mail.gmail.com>
- <CAMKF1so6iTZNupBciUh8dgUQDWQ1-YH7iUy=RU4YFMrx77mqDA@mail.gmail.com>
- <CAHrpVsVvD55j=BHjN2Jv+b71A8rOTVpYYoaMKAyF_zFcXMUw6A@mail.gmail.com>
- <0994fb3e-7adb-def7-89ab-f8e8c3f64113@linux.microsoft.com>
- <21192528214e26ccb6a30dfa64e1b6cf@mail.gmail.com> <CANx9H-CyHBzacbPsDKPO4DpHMANRvP2_YLd3=w00NRvnuEn_Cg@mail.gmail.com>
- <CAHrpVsV4EpjidokvZcidNPH_mDo0pOcCRpfQN=QggS5FbwP4Dw@mail.gmail.com> <CANx9H-DihAhruQHsPpKEJqyry9MAHuT4FwnQhaWXRCBBHByERQ@mail.gmail.com>
-In-Reply-To: <CANx9H-DihAhruQHsPpKEJqyry9MAHuT4FwnQhaWXRCBBHByERQ@mail.gmail.com>
-From: "Jonathan Richardson" <jonathan.richardson@broadcom.com>
-Date: Wed, 12 Aug 2020 18:16:34 -0700
-Message-ID: <CAHrpVsWBmE7=SnB_WRhos5scSbKXYC2f2B3d-+vnq=HnS5zzyg@mail.gmail.com>
-Subject: Re: [poky] TCLIBC with newlib
-To: Tim Orling <ticotimo@gmail.com>
-Cc: Alejandro Hernandez Samaniego <alhe@linux.microsoft.com>, Khem Raj <raj.khem@gmail.com>, 
-	poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 12, 2020 at 5:48 PM Tim Orling <ticotimo@gmail.com> wrote:
->
-> Can we see if we can bring your changes to the meta-zephyr layer for the benefit of everyone?
->
+runqemu help reports that gtk or sdl option is needed with gl or gl-es
+option. But if user forgot to add gtk or sdl option, then gl or gl-es
+options were silently skipped.
 
-Sure, I'll upstream it once these toolchain problems are worked out
-and it's cleaned up more.
+Signed-off-by: Vasyl Vavrychuk <vvavrychuk@gmail.com>
+---
+ scripts/runqemu | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/runqemu b/scripts/runqemu
+index 310d79fdc5..398f0a0910 100755
+--- a/scripts/runqemu
++++ b/scripts/runqemu
+@@ -454,7 +454,8 @@ class BaseConfig(object):
+                     self.qemu_opt_script += ' -display gtk'
+             elif arg == 'gl' or arg == 'gl-es':
+                 # These args are handled inside sdl or gtk blocks above
+-                pass
++                if ('gtk' not in sys.argv) and ('sdl' not in sys.argv):
++                    raise RunQemuError('Option %s also needs gtk or sdl option.' % (arg))
+             elif arg == 'egl-headless':
+                 self.qemu_opt_script += ' -vga virtio -display egl-headless'
+                 # As runqemu can be run within bitbake (when using testimage, for example),
+-- 
+2.23.0
+
