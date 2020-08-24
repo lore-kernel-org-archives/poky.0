@@ -1,119 +1,93 @@
-Subject: do_image_wic fails with --include-path
-To: poky@lists.yoctoproject.org
-From: "Vijai Kumar K" <vijaikumar.kanagarajan@gmail.com>
-X-Originating-Location: Noida, Uttar Pradesh, IN (192.94.34.34)
-X-Originating-Platform: Windows Chrome 84
-User-Agent: GROUPS.IO Web Poster
+Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
+ by mx.groups.io with SMTP id smtpd.web10.1315.1598305828352346016
+ for <poky@lists.yoctoproject.org>;
+ Mon, 24 Aug 2020 14:50:28 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=FnbH/9VC;
+ spf=none, err=SPF record not found (domain: srin.me, ip: 140.211.169.56, mailfrom: s@srin.me)
+Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
+	id A56D4E02092; Mon, 24 Aug 2020 14:50:27 -0700 (PDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	yocto-www.yoctoproject.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
+X-Spam-HAM-Report: 
+	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
+	*      [score: 0.0000]
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
+	*      trust
+	*      [209.85.208.44 listed in list.dnswl.org]
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*      valid
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6F147E0204B
+	for <poky@yoctoproject.org>; Mon, 24 Aug 2020 14:50:26 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id ba10so9447483edb.3
+        for <poky@yoctoproject.org>; Mon, 24 Aug 2020 14:50:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=srin-me.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=+mQHSDdtOGVAhF361QOzWGSEA6pH0IxjXnUZvN00mVs=;
+        b=FnbH/9VCVNdzHeEvrzKDs6FXh+eavsI3Qm1qT6csj1DhzLxuZLxtTddLn1F47iRlCf
+         atPQrkSUYUAFr17PfMu1FatHLvUug94Ydn2t49B18pSwYxSstBzydYkB8MfoTP02tjPN
+         nFsDNh47mHgNEIhCeNk8C3lEEAW25idyvbWRzl8/PQSPMNrD1yH2UwP+5N8pAU/tnDvw
+         W7/WJ7HTvQVOkBznzPUc88dZxPFcWuFCyhycQEz3tQrW0RvCzebM3Lf4v5NqmNW2sh4n
+         ndJw9kXXgASWd9mbb/g9XGimGHwuH37M+99WUWcFAYi6vERltNDQ1qbe/yd57BHR4lAk
+         aLVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=+mQHSDdtOGVAhF361QOzWGSEA6pH0IxjXnUZvN00mVs=;
+        b=F4HV6/IYCUmwcmNq+5tOOYH9jqKFUkhTPLVi4evc8XVBJ9cNNRxI4sxONS6q4OnXhu
+         RHZdnscamZuMZQmJHto6iHj6KN7WL6QiY6FwMKTFzxNmYat/naJHWtKDxTxYl0x5bTSZ
+         iW4RWfDK+3z0DSW/D+zRvSvb65fUopabFSvfZNfsydLPQ9e4WWYVgECTL2iiWeBe0IW9
+         YBDxc6lXT3w1HMiENP93K4DmuP1yyZAHyWVHoHxz+8AqyFN/OiHjxX+5zQLQojluUiBW
+         YOa2aLd6y06H20lgfmBMGmhlDHsy7stTNSweEwNVo7LPgoWfqvI9OIxklGCMGgKudjsy
+         5qUA==
+X-Gm-Message-State: AOAM533OgBVxz7WKKht7rWkxsRJiskpIJ673na/zivNvHGITe9ipZU/o
+	JKljxdihJ2WEO6TobOF/7IcrmyWLw9po9b6gj2p6vpUv34o=
+X-Google-Smtp-Source: ABdhPJyIlS6JoSEGHAkqn4dd2H0TAiABDCX7rVNUzHtyYrFxC3U0NKqYXV/GQ6SjrxLpd218yoJR51muZimwWbQeAdA=
+X-Received: by 2002:a50:c8ca:: with SMTP id k10mr7117207edh.255.1598305825113;
+ Mon, 24 Aug 2020 14:50:25 -0700 (PDT)
 MIME-Version: 1.0
-Date: Thu, 20 Aug 2020 22:55:13 -0700
-Message-ID: <VCz7.1597989313384686338.q8z1@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="TPLLlppRpP2HfJERwI3U"
+From: "R Srinivasan" <s@srin.me>
+Date: Mon, 24 Aug 2020 17:50:15 -0400
+Message-ID: <CAGNn0haYVPiMw2pv=sjJZknP_0b6twV5iQy+eso4rEMYu+pS5w@mail.gmail.com>
+Subject: Self hosting yocto
+To: poky@yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000f2e26d05ada6922e"
 
---TPLLlppRpP2HfJERwI3U
-Content-Type: text/plain; charset="utf-8"
+--000000000000f2e26d05ada6922e
+Content-Type: text/plain; charset="UTF-8"
+
+I have a strange situation (I think).
+
+I have purchased a SOC board. The goal is to run a custom system built with
+yocto eventually when it ships.
+
+For starters, it runs Ubuntu. Question is if I am able to do a yocto build
+on it, can I just boot off the image generated? Should I partition the SSD
+in any special way? I do have the option of USB sticks - so will a bootable
+USB stick be a better option?
+
+Thanks for your pointers/help.
+
+Srini
+
+--000000000000f2e26d05ada6922e
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi All,
+<div dir=3D"ltr"><div>I have a strange situation (I think).</div><div><br><=
+/div><div>I have purchased a SOC board. The goal is to run a custom system =
+built with yocto eventually when it ships.</div><div><br></div><div>For sta=
+rters, it runs Ubuntu. Question is if I am able to do a yocto build on it, =
+can I just boot off the image generated? Should I partition the SSD in any =
+special way? I do have the option of USB sticks - so will a bootable USB st=
+ick be a better option? <br></div><div><br></div><div>Thanks for your point=
+ers/help.</div><div><br></div><div>Srini<br></div></div>
 
-I was trying to build and image for beaglebone using the latest poky.
-
-I wanted to add an external custom file to the rootfs and hence modified t=
-he=C2=A0meta-yocto-bsp/wic/beaglebone-yocto.wks as follows.
-+part / --source rootfs --ondisk mmcblk --fstype=3Dext4 --label root --ali=
-gn 4 --use-uuid --include-path=3D/media/data/workspace/platform/yocto/test
-
-But then the build failed complaining about missing tar-native.
-
-f-native', 'meson-native', 'itstool-native', 'xmlto-native', 're2c-native'=
-, 'gettext-native', 'gpgme-native', 'libcheck-native', 'gob
-ject-introspection-native', 'json-c-native', 'libmodulemd-native', 'docboo=
-k-xml-dtd4-native', 'docbook-xsl-stylesheets-native', 'libx
-slt-native', 'libgpg-error-native', 'libassuan-native', 'libyaml-native']
-| DEBUG: Python function extend_recipe_sysroot finished
-| DEBUG: Executing shell function do_image_wic
-| INFO: Creating image(s)...
-|
-| ERROR: A native program tar required to build the image was not found (s=
-ee details above).
-|
-| Please make sure wic-tools have tar-native in its DEPENDS, build it with=
- 'bitbake wic-tools' and try again.
-|
-|
-| WARNING: exit code 1 from a shell command.
-| ERROR: Execution of '/media/data/workspace/platform/yocto/poky-latest/bu=
-ild/tmp/work/beaglebone_yocto-poky-linux-gnueabi/core-image
--minimal/1.0-r0/temp/run.do_image_wic.6184' failed with exit code 1:
-| INFO: Creating image(s)...
-|
-| ERROR: A native program tar required to build the image was not found (s=
-ee details above).
-|
-| Please make sure wic-tools have tar-native in its DEPENDS, build it with=
- 'bitbake wic-tools' and try again.
-|
-|
-| WARNING: exit code 1 from a shell command.
-|
-ERROR: Task (/media/data/workspace/platform/yocto/poky-latest/meta/recipes=
--core/images/core-image-minimal.bb:do_image_wic) failed with exit code '1'
-NOTE: Tasks Summary: Attempted 3849 tasks of which 3848 didn't need to be =
-rerun and 1 failed.
-
-Is --include-path supported yet in poky?
-
-Thanks,
-Vijai Kumar K
-
---TPLLlppRpP2HfJERwI3U
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi All,<br /><br />I was trying to build and image for beaglebone using the=
- latest poky.<br /><br />I wanted to add an external custom file to the roo=
-tfs and hence modified the&nbsp;meta-yocto-bsp/wic/beaglebone-yocto.wks as =
-follows.<br />+part / --source rootfs --ondisk mmcblk --fstype=3Dext4 --lab=
-el root --align 4 --use-uuid --include-path=3D/media/data/workspace/platfor=
-m/yocto/test<br /><br />But then the build failed complaining about missing=
- tar-native.<br /><br />
-<div>f-native', 'meson-native', 'itstool-native', 'xmlto-native', 're2c-na=
-tive', 'gettext-native', 'gpgme-native', 'libcheck-native', 'gob</div>
-<div>ject-introspection-native', 'json-c-native', 'libmodulemd-native', 'd=
-ocbook-xml-dtd4-native', 'docbook-xsl-stylesheets-native', 'libx</div>
-<div>slt-native', 'libgpg-error-native', 'libassuan-native', 'libyaml-nati=
-ve']</div>
-<div>| DEBUG: Python function extend_recipe_sysroot finished</div>
-<div>| DEBUG: Executing shell function do_image_wic</div>
-<div>| INFO: Creating image(s)...</div>
-<div>|</div>
-<div>| ERROR: A native program tar required to build the image was not fou=
-nd (see details above).</div>
-<div>|</div>
-<div>| Please make sure wic-tools have tar-native in its DEPENDS, build it=
- with 'bitbake wic-tools' and try again.</div>
-<div>|</div>
-<div>|</div>
-<div>| WARNING: exit code 1 from a shell command.</div>
-<div>| ERROR: Execution of '/media/data/workspace/platform/yocto/poky-late=
-st/build/tmp/work/beaglebone_yocto-poky-linux-gnueabi/core-image</div>
-<div>-minimal/1.0-r0/temp/run.do_image_wic.6184' failed with exit code 1:<=
-/div>
-<div>| INFO: Creating image(s)...</div>
-<div>|</div>
-<div>| ERROR: A native program tar required to build the image was not fou=
-nd (see details above).</div>
-<div>|</div>
-<div>| Please make sure wic-tools have tar-native in its DEPENDS, build it=
- with 'bitbake wic-tools' and try again.</div>
-<div>|</div>
-<div>|</div>
-<div>| WARNING: exit code 1 from a shell command.</div>
-<div>|</div>
-<div>ERROR: Task (/media/data/workspace/platform/yocto/poky-latest/meta/re=
-cipes-core/images/core-image-minimal.bb:do_image_wic) failed with exit code=
- '1'</div>
-<div>NOTE: Tasks Summary: Attempted 3849 tasks of which 3848 didn't need t=
-o be rerun and 1 failed.<br /><br />Is --include-path supported yet in poky=
-?<br /><br />Thanks,<br />Vijai Kumar K</div>
-
---TPLLlppRpP2HfJERwI3U--
+--000000000000f2e26d05ada6922e--
