@@ -1,93 +1,71 @@
-Received: from yocto-www.yoctoproject.org (yocto-www.yoctoproject.org [140.211.169.56])
- by mx.groups.io with SMTP id smtpd.web10.1315.1598305828352346016
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by mx.groups.io with SMTP id smtpd.web10.9475.1598343331642503176
  for <poky@lists.yoctoproject.org>;
- Mon, 24 Aug 2020 14:50:28 -0700
+ Tue, 25 Aug 2020 01:15:32 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=FnbH/9VC;
- spf=none, err=SPF record not found (domain: srin.me, ip: 140.211.169.56, mailfrom: s@srin.me)
-Received: by yocto-www.yoctoproject.org (Postfix, from userid 118)
-	id A56D4E02092; Mon, 24 Aug 2020 14:50:27 -0700 (PDT)
-X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
-	yocto-www.yoctoproject.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HTML_MESSAGE,RCVD_IN_DNSWL_NONE autolearn=ham version=3.3.1
-X-Spam-HAM-Report: 
-	* -1.9 BAYES_00 BODY: Bayes spam probability is 0 to 1%
-	*      [score: 0.0000]
-	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at https://www.dnswl.org/, no
-	*      trust
-	*      [209.85.208.44 listed in list.dnswl.org]
-	*  0.0 HTML_MESSAGE BODY: HTML included in message
-	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-	*      valid
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	by yocto-www.yoctoproject.org (Postfix) with ESMTP id 6F147E0204B
-	for <poky@yoctoproject.org>; Mon, 24 Aug 2020 14:50:26 -0700 (PDT)
-Received: by mail-ed1-f44.google.com with SMTP id ba10so9447483edb.3
-        for <poky@yoctoproject.org>; Mon, 24 Aug 2020 14:50:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=srin-me.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=+mQHSDdtOGVAhF361QOzWGSEA6pH0IxjXnUZvN00mVs=;
-        b=FnbH/9VCVNdzHeEvrzKDs6FXh+eavsI3Qm1qT6csj1DhzLxuZLxtTddLn1F47iRlCf
-         atPQrkSUYUAFr17PfMu1FatHLvUug94Ydn2t49B18pSwYxSstBzydYkB8MfoTP02tjPN
-         nFsDNh47mHgNEIhCeNk8C3lEEAW25idyvbWRzl8/PQSPMNrD1yH2UwP+5N8pAU/tnDvw
-         W7/WJ7HTvQVOkBznzPUc88dZxPFcWuFCyhycQEz3tQrW0RvCzebM3Lf4v5NqmNW2sh4n
-         ndJw9kXXgASWd9mbb/g9XGimGHwuH37M+99WUWcFAYi6vERltNDQ1qbe/yd57BHR4lAk
-         aLVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=+mQHSDdtOGVAhF361QOzWGSEA6pH0IxjXnUZvN00mVs=;
-        b=F4HV6/IYCUmwcmNq+5tOOYH9jqKFUkhTPLVi4evc8XVBJ9cNNRxI4sxONS6q4OnXhu
-         RHZdnscamZuMZQmJHto6iHj6KN7WL6QiY6FwMKTFzxNmYat/naJHWtKDxTxYl0x5bTSZ
-         iW4RWfDK+3z0DSW/D+zRvSvb65fUopabFSvfZNfsydLPQ9e4WWYVgECTL2iiWeBe0IW9
-         YBDxc6lXT3w1HMiENP93K4DmuP1yyZAHyWVHoHxz+8AqyFN/OiHjxX+5zQLQojluUiBW
-         YOa2aLd6y06H20lgfmBMGmhlDHsy7stTNSweEwNVo7LPgoWfqvI9OIxklGCMGgKudjsy
-         5qUA==
-X-Gm-Message-State: AOAM533OgBVxz7WKKht7rWkxsRJiskpIJ673na/zivNvHGITe9ipZU/o
-	JKljxdihJ2WEO6TobOF/7IcrmyWLw9po9b6gj2p6vpUv34o=
-X-Google-Smtp-Source: ABdhPJyIlS6JoSEGHAkqn4dd2H0TAiABDCX7rVNUzHtyYrFxC3U0NKqYXV/GQ6SjrxLpd218yoJR51muZimwWbQeAdA=
-X-Received: by 2002:a50:c8ca:: with SMTP id k10mr7117207edh.255.1598305825113;
- Mon, 24 Aug 2020 14:50:25 -0700 (PDT)
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=KLiiKdgh;
+ spf=pass (domain: gmx.de, ip: 212.227.15.19, mailfrom: rtie@gmx.de)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1598343329;
+	bh=xRjYee3vKAnVmW47c7ghgXIXeKIo3FQ20KpcVCEgnsM=;
+	h=X-UI-Sender-Class:To:From:Subject:Date;
+	b=KLiiKdghsp0juu2pf60w2lMhO1lqlORVrZgXdGtZ81EyBv8p/jFkZEO0/gAaGoTa0
+	 BDI4hQUxLFZK5woyhSxE2dSyNlSRsdi9yXCqyGoN1kaYPjRD1pN5BD1iPytH1o1yes
+	 F6rbbUbK9qTe9TYO1B0lOu1I5coU1tLO2pkUUjno=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.15.101] ([87.245.7.122]) by mail.gmx.com (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MQvCv-1jwy0c2uQx-00O2Nq for
+ <poky@lists.yoctoproject.org>; Tue, 25 Aug 2020 10:15:29 +0200
+To: poky@lists.yoctoproject.org
+From: "Robert Tiemann" <rtie@gmx.de>
+Subject: Macros from autoconf-archive are missing in SDK
+Message-ID: <9200244e-9b0b-078a-c092-4e615960fba8@gmx.de>
+Date: Tue, 25 Aug 2020 10:15:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-From: "R Srinivasan" <s@srin.me>
-Date: Mon, 24 Aug 2020 17:50:15 -0400
-Message-ID: <CAGNn0haYVPiMw2pv=sjJZknP_0b6twV5iQy+eso4rEMYu+pS5w@mail.gmail.com>
-Subject: Self hosting yocto
-To: poky@yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000f2e26d05ada6922e"
+X-Provags-ID: V03:K1:phqWeOTxEYaSYNfShrTjydHUdapSVq4i5gPn8tl68crEIoQl4xS
+ du1XUZOzKR7cBgh7GdqPKkzcvohvZElwP+QrZg9g2qSmKwOLc4vOt24HOJcl986JuisBowb
+ LLdr3oyDcGxkBVNTpnbmO1CN/yiq2a4VyR8P42uWRfOkMLod1tUNc8+WWZGvq9ZuserUYMZ
+ qVWcXrONWC1mkGADfmlbg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:5vvBzhKXs1s=:ATE5edHQDEGhNeMzU1mPZT
+ Gt96gYO6o6x6zT4uJ/yML8oIWPDixGTXYrhsNLT0TBg75E3fXLB+GnYjDj6XPd+P+ccnxZTwx
+ +DxihXq5+DtlgQpwwjhYWvhwpbR8t+upofmAx3nrdGnXcqNMhAHoR0VDn/7cP+JedT3jAB/eD
+ +8L+Im0yJXOdJmkxgoAH4+RZxNvOgdjinPMG3WVY6XGVmDa+ONnItLM5baU9lA4sEZpUTUGMv
+ 2QLK1W8beVNc3yLLsWjigqc9dYaOb9j5/+eGjT/h4rPUhwVb1CnKINvFziOvEgqxKgGq/d3xg
+ E/RBMkoZaPD9sI0aMfb05QKQLX3I61hr8JlIYuSAKYWilBWvGx9PaPJHK1MAR0jx07wiw2Zuy
+ pk7VrzYCYpOlL88alm4/0num/u10F/Dh7hT/0WB6vmr7W/cyPnANFZ8xtL4u1vhk0hmztSTYU
+ uZpleetR8iXgEnF1aw8P7L25pSXhSvjHdVuvegqGdzekppc9wXThTWvLbnixDgZJxReROFcQP
+ 6JJu0tAZ1r+nBn1grV2JMcYX4NX8aRW1+zyLsVII4HXlH5obEYTFlJgQm1kV7TG6u6poWgVqO
+ KPqsTPrZRc6kQlooTAB6NNjZ+qhyE5VA4sunQLR9ZWJMJqTeOt5+n+lXxE1aZW9wWnBmO4F5F
+ k1c6iFi9xOOxpsartAn/0Ck5gs1A/fwDCkglCvpOXBy9onfT1VrMlmZ/FgVArXxYYE4mjZWK6
+ Zu2IbjEuzWMh8TkvXc0r8W+c1SW0KYFkDbYHpJyFYU/tNZOxmtGEzT64gVIfpRPIknASlhq1f
+ Lf+ADnpfU0SijkoROmtAco3tNPkqTHznd8dYVuvulZbJh1QdVe7PxLoLYfelmGsCZoxtUBcCi
+ knSJp/sR0Jza8t70lLERUoxEJk5jXoOTwWR38R9gtY8koN+x2TyxolcI/4pN7fKuVL/ObnZIg
+ khLwCtbu5AlzuZ9BZaU1cj9DWuar+SYnTtnSjix//+CF+ZiqMJkGKwebNO7vUw5HGemAwodJm
+ o1diBVFnyQWN9sWXW0MVDr5CS21TFFf9gHWgompWtY4XVLY3kt/D+YkFT4FCc/K9KSVlFLHYB
+ /rX9f1jFiRryr1h4MP176yj7mMvsxHyCXP3L3lByqgCsv7wBo7llLfW6LYAPEsuBfEkSfE5eH
+ 5Ze9lWefGRTHm5UgFaWuCfLQzheQsR7662tanAIj+msRs3+w608tgiejiIS3+Aob23ZycgEoD
+ IFRvIrwEoLKhVA7hM
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
---000000000000f2e26d05ada6922e
-Content-Type: text/plain; charset="UTF-8"
+Hi,
 
-I have a strange situation (I think).
+I have a few recipes depending on autoconf-archive (using
+DEPENDS = "autoconf-archive"). The image is built correctly; the various m4
+macros from autoconf-archive, however, do not end up in the SDK.
 
-I have purchased a SOC board. The goal is to run a custom system built with
-yocto eventually when it ships.
+The SDK used to be complete in jethro, but now in dunfell these files are
+missing. I *think* the line
+SSTATE_EXCLUDEDEPS_SYSROOT += ".*->autoconf-archive-native"
+in meta/conf/layer.conf is causing this, so I have tried adding
+autoconf-archive-native to the DEPENDS variable of my recipes. This didn't
+work, and now I don't know what else I could try.
 
-For starters, it runs Ubuntu. Question is if I am able to do a yocto build
-on it, can I just boot off the image generated? Should I partition the SSD
-in any special way? I do have the option of USB sticks - so will a bootable
-USB stick be a better option?
+What can I do to add the m4 files from autoconf-archive to the SDK?
 
-Thanks for your pointers/help.
-
-Srini
-
---000000000000f2e26d05ada6922e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I have a strange situation (I think).</div><div><br><=
-/div><div>I have purchased a SOC board. The goal is to run a custom system =
-built with yocto eventually when it ships.</div><div><br></div><div>For sta=
-rters, it runs Ubuntu. Question is if I am able to do a yocto build on it, =
-can I just boot off the image generated? Should I partition the SSD in any =
-special way? I do have the option of USB sticks - so will a bootable USB st=
-ick be a better option? <br></div><div><br></div><div>Thanks for your point=
-ers/help.</div><div><br></div><div>Srini<br></div></div>
-
---000000000000f2e26d05ada6922e--
+Thank you,
+Robert
