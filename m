@@ -1,71 +1,79 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by mx.groups.io with SMTP id smtpd.web10.9475.1598343331642503176
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com [209.85.221.68])
+ by mx.groups.io with SMTP id smtpd.web12.306.1598393361286071363
  for <poky@lists.yoctoproject.org>;
- Tue, 25 Aug 2020 01:15:32 -0700
+ Tue, 25 Aug 2020 15:09:21 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=KLiiKdgh;
- spf=pass (domain: gmx.de, ip: 212.227.15.19, mailfrom: rtie@gmx.de)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1598343329;
-	bh=xRjYee3vKAnVmW47c7ghgXIXeKIo3FQ20KpcVCEgnsM=;
-	h=X-UI-Sender-Class:To:From:Subject:Date;
-	b=KLiiKdghsp0juu2pf60w2lMhO1lqlORVrZgXdGtZ81EyBv8p/jFkZEO0/gAaGoTa0
-	 BDI4hQUxLFZK5woyhSxE2dSyNlSRsdi9yXCqyGoN1kaYPjRD1pN5BD1iPytH1o1yes
-	 F6rbbUbK9qTe9TYO1B0lOu1I5coU1tLO2pkUUjno=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.15.101] ([87.245.7.122]) by mail.gmx.com (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MQvCv-1jwy0c2uQx-00O2Nq for
- <poky@lists.yoctoproject.org>; Tue, 25 Aug 2020 10:15:29 +0200
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=h9tHOWAG;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.68, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f68.google.com with SMTP id b17so348295wru.2
+        for <poky@lists.yoctoproject.org>; Tue, 25 Aug 2020 15:09:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=zhgYbNXAllYZVxSD42uHafd2ZtVzgoyLcnSZBIxAqjs=;
+        b=h9tHOWAGmzrP5O1pfZJmICNRoa7e0M9JXa6slFbQEzqP8xJIbGkfQHOJvqCjj+VqGx
+         D5cb/KrxmUexMODWHJy2ZnU3dVyccORrNLaR+tF88PoEZxGsL+QA/swjAe4mF6/fgTRo
+         YCvifXdjYNpcd9gpKE1le086aQwEPGtYHQJOE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=zhgYbNXAllYZVxSD42uHafd2ZtVzgoyLcnSZBIxAqjs=;
+        b=Zm63KRLke3YZFNWAjGpqt61vvBNjNsNTmHDWZOo51I5iFNBa8hhIQZIXHKm8pL8phc
+         fXdGZBrJfDNX+drCxbTEJ3EAT4csXJNT+ng0g68rODUd9pwraNSDaKtoiUtI92qeENIo
+         LfQWUhkgXBbnd9WK3RdQOF/xtCJbztTqh9KKr6IsddlHdWy6lKoH1kazE45INiWN+E0C
+         5bM29z/4/n6iRfGhjyrriYCfPiM/FbQa1+6p/C84I3mjIf2/eN0JrnnD5LqYCdsa67Gx
+         lEcPN8e4KmEWKG2LCkGJQ/cefCK5+09NJOPfz5f6O+PWL3Swe/wYtxTWuEo8SUPk+Ky7
+         Au9A==
+X-Gm-Message-State: AOAM530q58ptstgltR8XNbT4tR6fNPQxSLseMi2s7yCfPWXezhmV/YZO
+	QxPZDwg72cih6ZnLTKLwtCRZHfXnlP2c8fXX
+X-Google-Smtp-Source: ABdhPJwr2ADcmOnhGl9UeqMpMfgwu96CXnUICIGFCvDfox3hEHEhtgbtfrEJlEac9oSuxRmA979nSQ==
+X-Received: by 2002:adf:e30e:: with SMTP id b14mr12142181wrj.215.1598393359260;
+        Tue, 25 Aug 2020 15:09:19 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex.int.rpsys.net (d.9.b.8.7.0.d.0.8.3.5.0.7.0.4.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:c407:538:d07:8b9d])
+        by smtp.gmail.com with ESMTPSA id 36sm556263wrs.25.2020.08.25.15.09.18
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2020 15:09:18 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-From: "Robert Tiemann" <rtie@gmx.de>
-Subject: Macros from autoconf-archive are missing in SDK
-Message-ID: <9200244e-9b0b-078a-c092-4e615960fba8@gmx.de>
-Date: Tue, 25 Aug 2020 10:15:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Subject: [PATCH] local.conf.sample: Document memory resident bitbake
+Date: Tue, 25 Aug 2020 23:09:17 +0100
+Message-Id: <20200825220917.1445642-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:phqWeOTxEYaSYNfShrTjydHUdapSVq4i5gPn8tl68crEIoQl4xS
- du1XUZOzKR7cBgh7GdqPKkzcvohvZElwP+QrZg9g2qSmKwOLc4vOt24HOJcl986JuisBowb
- LLdr3oyDcGxkBVNTpnbmO1CN/yiq2a4VyR8P42uWRfOkMLod1tUNc8+WWZGvq9ZuserUYMZ
- qVWcXrONWC1mkGADfmlbg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:5vvBzhKXs1s=:ATE5edHQDEGhNeMzU1mPZT
- Gt96gYO6o6x6zT4uJ/yML8oIWPDixGTXYrhsNLT0TBg75E3fXLB+GnYjDj6XPd+P+ccnxZTwx
- +DxihXq5+DtlgQpwwjhYWvhwpbR8t+upofmAx3nrdGnXcqNMhAHoR0VDn/7cP+JedT3jAB/eD
- +8L+Im0yJXOdJmkxgoAH4+RZxNvOgdjinPMG3WVY6XGVmDa+ONnItLM5baU9lA4sEZpUTUGMv
- 2QLK1W8beVNc3yLLsWjigqc9dYaOb9j5/+eGjT/h4rPUhwVb1CnKINvFziOvEgqxKgGq/d3xg
- E/RBMkoZaPD9sI0aMfb05QKQLX3I61hr8JlIYuSAKYWilBWvGx9PaPJHK1MAR0jx07wiw2Zuy
- pk7VrzYCYpOlL88alm4/0num/u10F/Dh7hT/0WB6vmr7W/cyPnANFZ8xtL4u1vhk0hmztSTYU
- uZpleetR8iXgEnF1aw8P7L25pSXhSvjHdVuvegqGdzekppc9wXThTWvLbnixDgZJxReROFcQP
- 6JJu0tAZ1r+nBn1grV2JMcYX4NX8aRW1+zyLsVII4HXlH5obEYTFlJgQm1kV7TG6u6poWgVqO
- KPqsTPrZRc6kQlooTAB6NNjZ+qhyE5VA4sunQLR9ZWJMJqTeOt5+n+lXxE1aZW9wWnBmO4F5F
- k1c6iFi9xOOxpsartAn/0Ck5gs1A/fwDCkglCvpOXBy9onfT1VrMlmZ/FgVArXxYYE4mjZWK6
- Zu2IbjEuzWMh8TkvXc0r8W+c1SW0KYFkDbYHpJyFYU/tNZOxmtGEzT64gVIfpRPIknASlhq1f
- Lf+ADnpfU0SijkoROmtAco3tNPkqTHznd8dYVuvulZbJh1QdVe7PxLoLYfelmGsCZoxtUBcCi
- knSJp/sR0Jza8t70lLERUoxEJk5jXoOTwWR38R9gtY8koN+x2TyxolcI/4pN7fKuVL/ObnZIg
- khLwCtbu5AlzuZ9BZaU1cj9DWuar+SYnTtnSjix//+CF+ZiqMJkGKwebNO7vUw5HGemAwodJm
- o1diBVFnyQWN9sWXW0MVDr5CS21TFFf9gHWgompWtY4XVLY3kt/D+YkFT4FCc/K9KSVlFLHYB
- /rX9f1jFiRryr1h4MP176yj7mMvsxHyCXP3L3lByqgCsv7wBo7llLfW6LYAPEsuBfEkSfE5eH
- 5Ze9lWefGRTHm5UgFaWuCfLQzheQsR7662tanAIj+msRs3+w608tgiejiIS3+Aob23ZycgEoD
- IFRvIrwEoLKhVA7hM
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Add an example of how to enable this to local.conf.sample
 
-I have a few recipes depending on autoconf-archive (using
-DEPENDS = "autoconf-archive"). The image is built correctly; the various m4
-macros from autoconf-archive, however, do not end up in the SDK.
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/local.conf.sample | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-The SDK used to be complete in jethro, but now in dunfell these files are
-missing. I *think* the line
-SSTATE_EXCLUDEDEPS_SYSROOT += ".*->autoconf-archive-native"
-in meta/conf/layer.conf is causing this, so I have tried adding
-autoconf-archive-native to the DEPENDS variable of my recipes. This didn't
-work, and now I don't know what else I could try.
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index b555f1d21ef..952443db9d7 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -261,6 +261,16 @@ PACKAGECONFIG_append_pn-qemu-system-native = " sdl"
+ #BB_HASHSERVE = "auto"
+ #BB_SIGNATURE_HANDLER = "OEEquivHash"
+ 
++#
++# Memory Resident Bitbake
++#
++# Bitbake's server component can stay in memory after the UI for the current command
++# has completed. This means subsequent commands can run faster since there is no need
++# for bitbake to reload cache files and so on. Number is in seconds, after which the
++# server will shut down.
++#
++BB_SERVER_TIMEOUT = "60"
++
+ # CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+ # track the version of this file when it was generated. This can safely be ignored if
+ # this doesn't mean anything to you.
+-- 
+2.25.1
 
-What can I do to add the m4 files from autoconf-archive to the SDK?
-
-Thank you,
-Robert
