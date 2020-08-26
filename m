@@ -1,84 +1,75 @@
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
- by mx.groups.io with SMTP id smtpd.web10.10265.1598441652043317960
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
+ by mx.groups.io with SMTP id smtpd.web11.10718.1598442920556607889
  for <poky@lists.yoctoproject.org>;
- Wed, 26 Aug 2020 04:34:12 -0700
+ Wed, 26 Aug 2020 04:55:20 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=luaF1ad0;
- spf=pass (domain: gmail.com, ip: 209.85.218.68, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-ej1-f68.google.com with SMTP id a26so2375847ejc.2
-        for <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 04:34:11 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=SSx2W6RM;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.67, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f67.google.com with SMTP id o21so1490834wmc.0
+        for <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 04:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=nliwxz1/PbVf9OrrcT2LHD3WOITZX8CrlFIYLtuvXYE=;
-        b=luaF1ad04+6VnxgVJcusR334MNkkR0aVN7XveASfkTQzQ2MefhrGEbN0pRHDtlBDzw
-         8rIW0ddear2Qo7+xO/c7hVTdNHBxZaroc9kfGj38webOZWlDhyl9JT+OeDo4WyRsqP27
-         +YSm4uyGOQ/2AAH3sRDhXc8W6AYPzZe/6P6bPGOx7MtwtpzgaO/7GRL9hblJW6VJKsgq
-         uiagQ4Ep687aCqq0HLz7i25GsADbsVRNaccOMR355Zh/6xjlyQZp3CvqzXMrtzmSi/Ya
-         JU3QF5sZRUJfb17Ezy0XzTFQErJAKneXhocxnbhkTZDD1rDg7E5K+2EC4+J3sxGlgbV9
-         VQLQ==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=961F+C0oAzN6m52/vr5hwhj9GFcC1qx0Fx32Ks6HFts=;
+        b=SSx2W6RMim5JYpC7soNbrxFSix8PzzUy/+Fg8/aBW96M49eiDqamQFg+BHh4zapbnB
+         g3FJzIgUlEp4vUYxJYiBpSXJXMlAu3c9ov+S748oSbQO5Km4+7Jgowb4FkGDWI1+gw5+
+         zCN5V06FgvdILPapsaslkTx588XPOffs20hRE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=nliwxz1/PbVf9OrrcT2LHD3WOITZX8CrlFIYLtuvXYE=;
-        b=K4Wi52RF64heSkE8vIlbgIZuY18s2mjYV+e0E1PS2Y9U+cAkXV9PI4qNmsAGUltzH6
-         avjSPb2KpROUshNOJysBmmmyn0KRe85w0LV67MB6mhKf3cXPz2qXRW0Hce+7CpHgeArG
-         ETsaD4qNTUNzLS8/PdvQiHAEtcungBP2NIHsMceiQrOnwKWRBIW4m+E68HyM2blR6x1C
-         Vk7ULG+J8h7nAO+k3eiYM7O9L9XqtZGWvPeN1/ar8TTMsnP6AadlyfBX/zETgnR0b5Cy
-         FOfHSkgUieUfcf58jZwHJvtBUMPl42A39Ov1v4KtEx59Fmv1yU48FDbx1/KwwpSWki87
-         Y1GA==
-X-Gm-Message-State: AOAM532D/SBusI3jbUkhaVn3RCyDL4qMjR93c3GKW9KTO/vtkZtTWseZ
-	0SAiQ9FjKVscObW7EotT/7iab7UhDxg=
-X-Google-Smtp-Source: ABdhPJxxSECITDWQ490YTcoJbNy6nk1cIClrQ22GUW6LFbssizAPdynAfhzqFQtFS3HOwrVibpXaFQ==
-X-Received: by 2002:a17:906:c1d7:: with SMTP id bw23mr16092685ejb.315.1598441650005;
-        Wed, 26 Aug 2020 04:34:10 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from linux-f9zs.site ([2a02:2450:1011:56f:b652:c378:b428:fdf])
-        by smtp.gmail.com with ESMTPSA id m6sm1937016ejq.85.2020.08.26.04.34.08
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=961F+C0oAzN6m52/vr5hwhj9GFcC1qx0Fx32Ks6HFts=;
+        b=QaQSUrw4/zjckzp9taTPBUZwnDH07yiQbdqMl2P6C3RW+w1mHn0mbIX1fbpD99xemK
+         pvso71RGtwLdEpu53vAsAE0jsJGxbuT5kUvMPXOTdyp1NjmTRlg9M9Q6ELZ//YRapkdV
+         P2GSF5GQyi5+vlqg17VvMr+Rgqg781FApuYryZ6tO2fNwOpybJRzuua7HmWkjGFxkXVl
+         2XAOQdSZ6u1UHLt/tzUoDIptLoVcz0TeOBHdbyVG28slqe9KubDPsIrQ4ZjsvwThIeKC
+         syo1mrGvf7jUI/LVupzSU+5B7EJS8Y1WJcI60cjJzhtrqBTKW8NMOjBVjSFRgXM0TCG9
+         pZQg==
+X-Gm-Message-State: AOAM530H7ABVD60UUyXg5LjURSwSf2axQ9gAsUXPRRK+1ES/VCZ2YXZ7
+	GV3j5PF7mrt2ogEnuUQwQfRbZA==
+X-Google-Smtp-Source: ABdhPJxdk7NzxEkhXmnchUlTeYvM56s4AA088ExbbYgT318ZXoPlIMqWegaE5KBOSTeo+AtXB5eMCQ==
+X-Received: by 2002:a05:600c:c7:: with SMTP id u7mr7013425wmm.135.1598442918916;
+        Wed, 26 Aug 2020 04:55:18 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from d.9.b.8.7.0.d.0.8.3.5.0.7.0.4.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (d.9.b.8.7.0.d.0.8.3.5.0.7.0.4.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:c407:538:d07:8b9d])
+        by smtp.gmail.com with ESMTPSA id g70sm5295209wmg.24.2020.08.26.04.55.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2020 04:34:09 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex.kanavin@gmail.com>
-Subject: [PATCH] poky.conf: do not force packagegroup-core-device-devel into all qemu images
-Date: Wed, 26 Aug 2020 13:33:18 +0200
-Message-Id: <20200826113318.14604-1-alex.kanavin@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        Wed, 26 Aug 2020 04:55:18 -0700 (PDT)
+Message-ID: <76f212f4f397343b36c7cf955a6b7b889859b89b.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] poky.conf: do not force packagegroup-core-device-devel into all qemu images
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
+Date: Wed, 26 Aug 2020 12:55:17 +0100
+In-Reply-To: <20200826113318.14604-1-alex.kanavin@gmail.com>
+References: <20200826113318.14604-1-alex.kanavin@gmail.com>
+User-Agent: Evolution 3.36.4-0ubuntu1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-The packages in the group are not at all essential or required, and there is
-no way to switch it off, if they are unwanted, other than create a new distro
-that is independent of poky.
+On Wed, 2020-08-26 at 13:33 +0200, Alexander Kanavin wrote:
+> The packages in the group are not at all essential or required, 
 
-The group, if someone is still using it, should be added to specific images instead.
+Certainly that packagegroup is misnamed, elderly, should be in poky
+rather than OE-Core and is probably not that useful any more.
 
-Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
----
- meta-poky/conf/distro/poky.conf | 8 --------
- 1 file changed, 8 deletions(-)
+> and there is no way to switch it off , if they are unwanted, other
+> than create a new distro that is independent of poky.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 826f0d633a..e55641d87f 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -29,14 +29,6 @@ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
- DISTRO_EXTRA_RDEPENDS += " ${POKY_DEFAULT_EXTRA_RDEPENDS}"
- DISTRO_EXTRA_RRECOMMENDS += " ${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
- 
--POKYQEMUDEPS = "${@bb.utils.contains("INCOMPATIBLE_LICENSE", "GPL-3.0", "", "packagegroup-core-device-devel",d)}"
--DISTRO_EXTRA_RDEPENDS_append_qemuarm = " ${POKYQEMUDEPS}"
--DISTRO_EXTRA_RDEPENDS_append_qemuarm64 = " ${POKYQEMUDEPS}"
--DISTRO_EXTRA_RDEPENDS_append_qemumips = " ${POKYQEMUDEPS}"
--DISTRO_EXTRA_RDEPENDS_append_qemuppc = " ${POKYQEMUDEPS}"
--DISTRO_EXTRA_RDEPENDS_append_qemux86 = " ${POKYQEMUDEPS}"
--DISTRO_EXTRA_RDEPENDS_append_qemux86-64 = " ${POKYQEMUDEPS}"
--
- TCLIBCAPPEND = ""
- 
- PREMIRRORS ??= "\
--- 
-2.28.0
+apart from simply setting POKYQEMUDEPS = "" ?
+
+> The group, if someone is still using it, should be added to specific
+> images instead.
+
+I do agree its likely time to retire this, I disagree with the wording
+of the commit though and if we do this, we need to get rid of that
+packagegroup from OE-Core as its horrible.
+
+I'm not sure what the implications are for our testing which is my
+bigger worry.
+
+Cheers,
+
+Richard
 
