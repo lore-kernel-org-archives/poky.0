@@ -1,91 +1,82 @@
-Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com [209.85.222.66])
- by mx.groups.io with SMTP id smtpd.web11.12196.1598447865737472542
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+ by mx.groups.io with SMTP id smtpd.web12.14173.1598453571436983935
  for <poky@lists.yoctoproject.org>;
- Wed, 26 Aug 2020 06:17:45 -0700
+ Wed, 26 Aug 2020 07:52:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=iP9FJeRO;
- spf=pass (domain: gmail.com, ip: 209.85.222.66, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-ua1-f66.google.com with SMTP id v20so539867ual.4
-        for <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 06:17:45 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=BNZNeIeT;
+ spf=pass (domain: gmail.com, ip: 209.85.218.49, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ej1-f49.google.com with SMTP id l2so3275257eji.3
+        for <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 07:52:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=X3DLNNnAZYxND1IWsvWWEb8gGrZEKnioB9JHWaWf6Fg=;
-        b=iP9FJeROO0HJYkyd0J+SyXYSWwyqSGi4Y3fv5Qqw4Iwqqz2ev14Fz6UP+WUk26q6Ac
-         afB5YNSk/I7M9XNwiYvq3sikQUXCi53IPRH+2eirgGzpyycQqCEGC7y7VPBJGswv55+T
-         eGGJcTh5Q/lBWPmU1s6nucjx2nz7OsehZgmxjYJlsMeCukMoj0khhtyyA0yFnBTd89NK
-         0BfGlp/KjIDIPz1yYFc/IiLHE/ZF7usl58kTGUlDJFyE723G4Tma/edw/Gwl0r4IJRD4
-         wPwSGAkZo/6amKaIjBRlem2ArfV18RJXpaHzWf1iGlLPUuoNLC1EOLG60f3u1w4Thht7
-         ekIw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=rgBjN+VqngUNC98s2TTa5EK4WMkfnMobge2lghtq3yE=;
+        b=BNZNeIeTjYzu5t3Da2433E64MQBiTJiD9/8kyinDE8Pwy0+i9v190wo0i+9rBtOwrK
+         IU/R7klp09HlOBSGrEXEpF2QIg2WoThDISq8JSy45MSwe/OEA0Ax7Iai+mKDql6xR9bN
+         4W1Jybxbx9mvrp3zWiPCX3cqdmL2PBRwbJkzKABSGvWWBh5YaDkOP70Oi1+oT5c7Fsop
+         nYeyQcXzpNWv2ci5hLw024uEgdG3eTPS/15Iw96KAlAKSsrjoE6E9MQPiIV6a6Sdbp54
+         yHmhKHCeiZKMs2hmE2/N8QQ7VV0YokAVee5NpYNXSBaJeB1yMkym2Li85WVQGVgASykR
+         Y7bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=X3DLNNnAZYxND1IWsvWWEb8gGrZEKnioB9JHWaWf6Fg=;
-        b=QAzezc5tWOk3a9HTLPzJ8dP6G3DSW5Kwi4nTjoba9bsze2mNAIKXujFQ5+y0bAY6y7
-         g2lO+s9eif8FadENg1wNg4mwUhogOs7Mt4bH3mCmnP0ubzwYeKnwHY0ACJY5i5GpkK5I
-         1gNuRc69puIDOoOrz6jXR5EtCCURDC2CaebVt6SgZUfHq/AfVkOWttM5QSjtTVB3mHtQ
-         dhplCQGXr8aQzFRHm2ASH1hKvDBWQRSd1/RNReqGjGf36eg39bPa5++NBQPbcaOGKkK7
-         PHrvlwz2Ir5gdQAcWnFvUkQ7iXcEz+z18K3YvpWpiHEKQjhT88ZcD2NjVsuv9XVvg3sr
-         aq9g==
-X-Gm-Message-State: AOAM533hXizG6VFIhUysQVMgahuzGeNzLGhs/cxz0adfUz/YdOKY6spa
-	GfshmNBYKlPzc5riXlvmY11pvsTX5SdbxqzSSo0=
-X-Google-Smtp-Source: ABdhPJwgXhWSHmn3Fd4LwCCCoh9WnBkLRbYpsYIhL/wzunxx6QEeSdx/8De5gM0CO6tw0JyDXTcL7gLGU+nRp9MRJYA=
-X-Received: by 2002:ab0:1305:: with SMTP id g5mr8085216uae.93.1598447864874;
- Wed, 26 Aug 2020 06:17:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200826113318.14604-1-alex.kanavin@gmail.com> <76f212f4f397343b36c7cf955a6b7b889859b89b.camel@linuxfoundation.org>
-In-Reply-To: <76f212f4f397343b36c7cf955a6b7b889859b89b.camel@linuxfoundation.org>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=rgBjN+VqngUNC98s2TTa5EK4WMkfnMobge2lghtq3yE=;
+        b=QCiRjwh+dGSZeLqUKTzc0UqaR/ZQQ47AYaWHndyioNOg2cE/Ky46z4b/SrTWr1h3zi
+         Vf45TjCbdDP+GoVt8BSHGOgV+GIG7lEWaW+QcMvqVmFQn42bShUtfQg46IZeYTLCSGIV
+         nmTQ8xhoM8gd7Ml+wegDwXzPSAmtd8VN2PnNvq0XBYmf9OGa2ceTXNcFgIsm06nz6m9J
+         HKUpOa3U/aYyVgZXXp0TjLZn6no6Lw6aTkYTCrUNJ71m4l6vCPV6lKlSEHPjho8eI3Id
+         MzmunOKt29zL2WvAOQYSawO3QbIPMu3/JhV1paDyviCfNaOzTeFM5QfS7KzHj7UpMTAe
+         TeTw==
+X-Gm-Message-State: AOAM532p/u/CUcM1vDu1XA+dYPBn7a4RhbaZKVaixuWxP5j7zjj2FfNB
+	DbEdA5Hk4YqFVVFjHdu1L1KUI6k1n3g=
+X-Google-Smtp-Source: ABdhPJwL/Nxb/IVRB7DZxnPHpZ/DHOYN/RZu+OSOs4hUpw+iiPpPVuhHCj1y38WThyVOKE52VqnuZQ==
+X-Received: by 2002:a17:906:4047:: with SMTP id y7mr15672108ejj.21.1598453569557;
+        Wed, 26 Aug 2020 07:52:49 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from linux-f9zs.site ([2a02:2450:1011:56f:b652:c378:b428:fdf])
+        by smtp.gmail.com with ESMTPSA id z21sm2248189edq.42.2020.08.26.07.52.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2020 07:52:48 -0700 (PDT)
 From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Wed, 26 Aug 2020 15:17:33 +0200
-Message-ID: <CANNYZj_a0A3vokFBfh-ibdCs+zUeboUa3G3deRd0Ft8wr=uwuA@mail.gmail.com>
-Subject: Re: [poky] [PATCH] poky.conf: do not force packagegroup-core-device-devel into all qemu images
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="0000000000002d8b3f05adc7a5cb"
+To: poky@lists.yoctoproject.org
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>
+Subject: [PATCH] poky.conf: do not install packagegroup-core-device-devel into qemu images
+Date: Wed, 26 Aug 2020 16:52:06 +0200
+Message-Id: <20200826145206.6871-1-alex.kanavin@gmail.com>
+X-Mailer: git-send-email 2.28.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---0000000000002d8b3f05adc7a5cb
-Content-Type: text/plain; charset="UTF-8"
+The purpose of the group and what it should contain is no longer clear, and
+generally adding userspace development items to images is best done
+at the image/class level.
 
-On Wed, 26 Aug 2020 at 13:55, Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
+Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+---
+ meta-poky/conf/distro/poky.conf | 8 --------
+ 1 file changed, 8 deletions(-)
 
-> I do agree its likely time to retire this, I disagree with the wording
-> of the commit though and if we do this, we need to get rid of that
-> packagegroup from OE-Core as its horrible.
->
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 826f0d633a..e55641d87f 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -29,14 +29,6 @@ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
+ DISTRO_EXTRA_RDEPENDS += " ${POKY_DEFAULT_EXTRA_RDEPENDS}"
+ DISTRO_EXTRA_RRECOMMENDS += " ${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
+ 
+-POKYQEMUDEPS = "${@bb.utils.contains("INCOMPATIBLE_LICENSE", "GPL-3.0", "", "packagegroup-core-device-devel",d)}"
+-DISTRO_EXTRA_RDEPENDS_append_qemuarm = " ${POKYQEMUDEPS}"
+-DISTRO_EXTRA_RDEPENDS_append_qemuarm64 = " ${POKYQEMUDEPS}"
+-DISTRO_EXTRA_RDEPENDS_append_qemumips = " ${POKYQEMUDEPS}"
+-DISTRO_EXTRA_RDEPENDS_append_qemuppc = " ${POKYQEMUDEPS}"
+-DISTRO_EXTRA_RDEPENDS_append_qemux86 = " ${POKYQEMUDEPS}"
+-DISTRO_EXTRA_RDEPENDS_append_qemux86-64 = " ${POKYQEMUDEPS}"
+-
+ TCLIBCAPPEND = ""
+ 
+ PREMIRRORS ??= "\
+-- 
+2.28.0
 
-Yes, that was hastily written, I'll rephrase.
-
-
-> I'm not sure what the implications are for our testing which is my
-> bigger worry.
->
-
-I built and checked testimage with minimal/sato, which was ok. I didn't
-want to fire a-full for a single patch :)
-
-Alex
-
---0000000000002d8b3f05adc7a5cb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Wed, 26 Aug 2020 at 13:55, Richard Pur=
-die &lt;<a href=3D"mailto:richard.purdie@linuxfoundation.org">richard.purdi=
-e@linuxfoundation.org</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">I do agree its likely time =
-to retire this, I disagree with the wording<br>
-of the commit though and if we do this, we need to get rid of that<br>
-packagegroup from OE-Core as its horrible.<br></blockquote><div><br></div><=
-div>Yes, that was hastily written, I&#39;ll rephrase.<br></div><div>=C2=A0<=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">
-I&#39;m not sure what the implications are for our testing which is my<br>
-bigger worry.<br></blockquote><div><br></div><div>I built and checked testi=
-mage with minimal/sato, which was ok. I didn&#39;t want to fire a-full for =
-a single patch :)</div><div><br></div><div>Alex</div></div></div>
-
---0000000000002d8b3f05adc7a5cb--
