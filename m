@@ -1,85 +1,68 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
- by mx.groups.io with SMTP id smtpd.web10.6960.1598423602323927318
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by mx.groups.io with SMTP id smtpd.web10.7702.1598427896421632047
  for <poky@lists.yoctoproject.org>;
- Tue, 25 Aug 2020 23:33:22 -0700
+ Wed, 26 Aug 2020 00:44:56 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=GzAJtz7I;
- spf=pass (domain: gmail.com, ip: 209.85.215.169, mailfrom: raj.khem@gmail.com)
-Received: by mail-pg1-f169.google.com with SMTP id v15so542654pgh.6
-        for <poky@lists.yoctoproject.org>; Tue, 25 Aug 2020 23:33:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=jteSLcTEJ5odXRwLGEA007r0DjcITiq386CEDuMizz0=;
-        b=GzAJtz7IhnVs+f5ZX8oC1a+tG8NioT3bQ3PMGqexIlxOaNiNOChiPxOm5qSEcwWX+I
-         IB+deDo0MpnDXvJgRTMs7S83R9ma1eNu61IcqhJ2fMPJTSLyAZ4/ifK9qqEIGajYnGbQ
-         WVtnyYxG9oIQiqPxjlNW+Q3pGksPfyYMPXa7XU2PYzJXhMBbNHpO/KyaYiiMCEQtWTwY
-         lB3yTUocunWM/4ZzrUHMYgfV7nfNYFaHHS0a1zAYKUDe25o/vSVqmBl0mu8g/9LhJQTs
-         +9ndZnr+0/+m5Tk3adl4WfMFEL6sLUsMXeD0mocXkQuPpQgOesCT9eEc+LNSt6Wxxia0
-         GsHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=jteSLcTEJ5odXRwLGEA007r0DjcITiq386CEDuMizz0=;
-        b=HvIVFf3XNjil0XuvjLDEX0iWcyhk1Sr4tXH15QQwSSh/f/B2eEp6HH6m35GCmFet/6
-         gLEeKsC7HAk8a0UZdOvZQOEq11ph7+US6Uikrc8P9PtXDeeGQQT4LnM9pw1WlU+5BYB1
-         Wo45MNMp7A2xgWhxzZra6pCFFhh1Ybv6GPCxrPBbY+84SZzcayOIbZSG/EDNUwbS+Njm
-         ulJ7eiEsZRAZAc01iTNhal9+MGCVzUIF21Fhhz7P70PCY8bpJi3OXZAL572iDJALPdEG
-         j7KN3qWSBOJtNUfY7WS3bxzvlL8IFtAenEIHnDJ9d3qrWCFZy9DAMHQafa5VmVLKVww5
-         NTYw==
-X-Gm-Message-State: AOAM5333IrX91OUiZ3GKatoexzGqynYsAAA3QEpp9bb+m6IYt4UkHBjL
-	+vepGwhIxy3nsfiaNSJHX6OPVagFqmO8Dw==
-X-Google-Smtp-Source: ABdhPJw/xjaUgNGJNCKrjtrS1q9QDaUMC98BH4X06YeYB1xy/czTTiOcI6PaqM9a0525RcJ5kmkivA==
-X-Received: by 2002:a63:700e:: with SMTP id l14mr9088117pgc.22.1598423601616;
-        Tue, 25 Aug 2020 23:33:21 -0700 (PDT)
-Return-Path: <raj.khem@gmail.com>
-Received: from ?IPv6:2601:646:9200:4e0:e8b6:ed97:4b5a:9e46? ([2601:646:9200:4e0:e8b6:ed97:4b5a:9e46])
-        by smtp.gmail.com with ESMTPSA id a10sm1447507pfn.219.2020.08.25.23.33.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 25 Aug 2020 23:33:21 -0700 (PDT)
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=klFE0Dw5;
+ spf=pass (domain: gmx.de, ip: 212.227.15.19, mailfrom: rtie@gmx.de)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1598427894;
+	bh=4tbhpaVQ9b65zHZ+mB/6AQ0d8vP7DAYAGzgMeSmh7V4=;
+	h=X-UI-Sender-Class:Subject:To:References:From:Date:In-Reply-To;
+	b=klFE0Dw5/RnxHSNqHdF96/zfzoluICxvCKLxSIiWSXBepvBIKSiiLefI/B6MH5sA6
+	 /Norrc5JcejfMbtfp491mK9+unwnPl+mvBe6fIZMHphQQprL8XeylW92yD7v0mzCso
+	 Z82m8JMmdeFIFOTGlYJPSIMFtihH4PFllSgB+3CQ=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.15.101] ([87.245.7.122]) by mail.gmx.com (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mkpav-1ktqQr1qvP-00mKop for
+ <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 09:44:54 +0200
 Subject: Re: [poky] Macros from autoconf-archive are missing in SDK
-To: Robert Tiemann <rtie@gmx.de>, poky@lists.yoctoproject.org
+To: poky@lists.yoctoproject.org
 References: <9200244e-9b0b-078a-c092-4e615960fba8@gmx.de>
-From: "Khem Raj" <raj.khem@gmail.com>
-Message-ID: <a778233f-cf7e-9e64-64f5-16e2c32cafdd@gmail.com>
-Date: Tue, 25 Aug 2020 23:33:20 -0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.11.0
+ <a778233f-cf7e-9e64-64f5-16e2c32cafdd@gmail.com>
+From: "Robert Tiemann" <rtie@gmx.de>
+Message-ID: <65aad705-8b17-b9f9-d6b1-9b95b79891d2@gmx.de>
+Date: Wed, 26 Aug 2020 09:44:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <9200244e-9b0b-078a-c092-4e615960fba8@gmx.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+In-Reply-To: <a778233f-cf7e-9e64-64f5-16e2c32cafdd@gmail.com>
+X-Provags-ID: V03:K1:HPhjnGA6t5Wv/AZ3D7nOL02J1gkBn1vsztzntOUJqlb0O6xPZ28
+ iilIM/CjpeSf/DC5bBc2wdMA0dOS9fzg/QbdrRqZvFLX98Vqz1pj/kZh2Jac5hSjGgptGlp
+ NufSsdb1+pHPbDu483/Ecq5Cww/jZUM+XXpXQ6LKjcW5QdHbF1msnc0xNfebqNDp9sxBNT7
+ sLkYuO16uREs2R7sQ6Gaw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Tz6oAyBrWAA=:d+EJERf/U/G1Wi7iFmYZZZ
+ gwxSZol+x53Cub9fxDJHCed1A++lcYJoK3Q+YIwR37wfnZYxcOTEiZ7iJa1OOyX07jXb+TSm+
+ prOcyEIzKYrRKitTXjRSnl2uOeSsTaMa+YtB5U2GF3ngnDV3TLIJKzYkZKbhaMvJXByEymZ8S
+ /QkBLjl/bkZ7C3RSi+ckHWNgHFzVv6g3NN4QOej8M8bWV0v+Kxlau1WNc0u+YPm6C+h28Fhif
+ D6UloyL7rh6sBRIyF2T0KQEmtyXts2kxQlh3N5pstSF6tpUwStIU8wmO73sS8SljjUDyH6wHh
+ DAgPXP/6pwvg6Pvo/tLtzLvagHDhGP2Hl7CkmbSD/OK4bbEXl6qCoHn1wiTb9jt0lRb6Ko4G2
+ tGmDHJTWDdkX5eCbzZ83uY8AgTivlUD1XMdwCvBTo/eKuom8PNfrlv0mFcI7V8NIliM0CcHKt
+ keWxjquUBlrQ14Mned/CJjhIN8qx6T8/YZPwUVKYP9OWfGGR1l5ftB+jHyNDWd8nS9VwKsNhA
+ LVKkHAz7ozdO8/0O1pmljCuY9vcUFwpl7iHUcFR1gCi6lJYPYWE8neLCKWSvoHssAlyFS5+oJ
+ GX9cc0fKm4enLwpn+S/isrKzBmWxwZI1TL0AAopYdmnP7On+aFN98gY3OtfEY5YXZyqkeGi+f
+ zpCv2HIdbVnqT23pzVNayhyFnL15xwDO5Ey7frEZnWooKme7BjpgBJ3ChePfutTOuP1E3Ff0D
+ VU0H0r+fFE+JE2cC5BZfzq8Z8UD1vVQlMcIqkwVkzCU8K/ZprYe3LLR7FBH34jn8jxPW441aR
+ twW4raysgEmhCaDcpETYgoxvzSVz+1rzddFIsQmgs8GPoK0cErhIBHi4CsuUzu2PB8K1IaVLo
+ pbcFYfRePLOO7iqMuRacdVkwyRVWr47vH4EwmzRiHJ8gZCfbd+eUL4WXtBT1XOEhgBJG8ib/j
+ ghojJ8nkOiIa4mIT6ZGc4rVJ2HUM/VeobywV5JdGI5ZxqXxR/YyNPaJcJGSoGCjcOOIMnvsfC
+ wpdsfmZT2O1aZtPbR9Mbdh+rAXNN2fZ6BtkOLc5Ik5BI5EOzr2SOahQToa+iUQSKknIAD9qg7
+ eQkj8/MQCKP+9FofedjsX57R/oBUDHXt5OqffnQ5Vd2xWNEnbsWFmt7YryZu98p8Ovs8xaH+F
+ XZJYUC8ILsE1vrQgJ/ZAeYQVzteR7ejgDYSWC5maEHymjfvd5alVx81PxH1mTxBkZyFUKXCYb
+ OtTbZ5tel+A8Tn8NT
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 
 
 
-On 8/25/20 1:15 AM, Robert Tiemann wrote:
-> Hi,
-> 
-> I have a few recipes depending on autoconf-archive (using
-> DEPENDS = "autoconf-archive"). The image is built correctly; the various m4
-> macros from autoconf-archive, however, do not end up in the SDK.
-> 
-> The SDK used to be complete in jethro, but now in dunfell these files are
-> missing. I *think* the line
-> SSTATE_EXCLUDEDEPS_SYSROOT += ".*->autoconf-archive-native"
-> in meta/conf/layer.conf is causing this, so I have tried adding
-> autoconf-archive-native to the DEPENDS variable of my recipes. This didn't
-> work, and now I don't know what else I could try.
-> 
-> What can I do to add the m4 files from autoconf-archive to the SDK?
-> 
+On 8/26/20 8:33 AM, Khem Raj wrote:
 
-perhaps you need TOOLCHAIN_HOST_TASK_append = " 
-nativesdk-autoconf-archive" in config metadata somewhere like local.conf 
-or site.conf
+> perhaps you need TOOLCHAIN_HOST_TASK_append = " nativesdk-autoconf-archive" in config metadata somewhere like local.conf or site.conf
 
-> Thank you,
-> Robert
-> 
-> 
-> 
-> 
+Yes, this works (I have added this to local.conf).
+Thank you very much!
+
+Cheers,
+Robert
