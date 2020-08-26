@@ -1,91 +1,88 @@
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com [209.85.128.68])
- by mx.groups.io with SMTP id smtpd.web11.14829.1598455451290898573
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+ by mx.groups.io with SMTP id smtpd.web11.15343.1598456777887756706
  for <poky@lists.yoctoproject.org>;
- Wed, 26 Aug 2020 08:24:11 -0700
+ Wed, 26 Aug 2020 08:46:18 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=KNpEszba;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.68, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f68.google.com with SMTP id t2so2157592wma.0
-        for <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 08:24:11 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZiYMsUAG;
+ spf=pass (domain: gmail.com, ip: 209.85.217.44, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-vs1-f44.google.com with SMTP id e14so1184388vsa.9
+        for <poky@lists.yoctoproject.org>; Wed, 26 Aug 2020 08:46:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=BoJ59jvkNBh7gm40JgiEqLTyYRg/uEHoya9DZddUBiU=;
-        b=KNpEszba16v0RU/ZOBj/mu2a+MgvCUUQzTIvB1jlHsL+qO9VZel8xOOTth4Dr+fkm7
-         M6XBMm1HoUZOUJsCvHd4swrcdDes+McfzgrAi8FVoU3FJWlRMp4VBQcov3ehmyRpXLF/
-         nRmLStlzBklfSS2dGrNOZVzhVekAtqoCvwpFU=
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=2+M0CVs5rd/L1GWPC+rg4cWM74raoRYsO/huZ0YcguU=;
+        b=ZiYMsUAGCGVcYYQYJViC/dTL4bqPaxvxQEfook1qL/aytXvD9gSvyp58KuwZW/uGzQ
+         liBkbDZKp0VWpwSJZVPq6k4G3R1AswvIKvv6rBsvYkafUXBjCAMlzSa2j5gpLRVbPp4V
+         G+ZQ2JGRaAvc/AvC8eQYptczanEA/xXgZSL4MjU3k1tuMWLnwQDkcrMHYxivmXBzSjcp
+         MMzVKUal6DK97e4nrR+9AjeJtLs3IdFCuacqWFlg791G94U03Ujkvzx+ukDl8DHlwIPv
+         1E/4vcSLKabpfyc87NIOnqP/3ltn5VlQxwmzt6TDQa4+DFnH92VK9i03fMsalBchfbIQ
+         VkTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=BoJ59jvkNBh7gm40JgiEqLTyYRg/uEHoya9DZddUBiU=;
-        b=DXnrZ2EgUZTQVe10IoKzJNklzxpwsQ2TQ0iHwamJuAtamnMrMMr8IZuYbCnTQ1sgUV
-         rAn+Kf6l0KVPp5byaUWa2dFhCu2MCsyB3700y8/ssfMUwZNFGwQ7ABrif6E+ZJqarWVY
-         T2LKQcz3GQ5fPXUBsZoMPVPTA1EBHWD9g4/PbC4JCb7ifcamXTkUvJV3PIoGD7TzE/8R
-         YEDVPM8uMWa5Y+9s4+b83PMMEeeWTkaslfDwcQqv7F9t9wdZsV3st8kIva0Q/1bFNYcT
-         y6QxLrFx1HBuX/q/w+H7p3zh+gt8ckcUcvwqYpQmK2UfUZvUNZLE84jQy7SC7LQOlcoG
-         MlCA==
-X-Gm-Message-State: AOAM530DFLdeIsouOZha6nsgtCcwM8kAmt1fzO+Kc5zUcaqnsYnmPZhG
-	6zpXpthryzMove0/T/RuZboRb+hM5EU5ELwC
-X-Google-Smtp-Source: ABdhPJxo5RHmvQHEZ0FTcZy/59drm78Exp6/UB1YM4CMIrcMXEx7nymGxi6w56IV1nzZ4l9KdHUOSA==
-X-Received: by 2002:a1c:a5ca:: with SMTP id o193mr7540893wme.106.1598455449488;
-        Wed, 26 Aug 2020 08:24:09 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from d.9.b.8.7.0.d.0.8.3.5.0.7.0.4.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (d.9.b.8.7.0.d.0.8.3.5.0.7.0.4.c.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:c407:538:d07:8b9d])
-        by smtp.gmail.com with ESMTPSA id 8sm7473389wrl.7.2020.08.26.08.24.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2020 08:24:08 -0700 (PDT)
-Message-ID: <3adabcedbdb85a19e12d0bb3f50a99d6030affa2.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] poky.conf: do not install packagegroup-core-device-devel into qemu images
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
-Date: Wed, 26 Aug 2020 16:24:06 +0100
-In-Reply-To: <20200826145206.6871-1-alex.kanavin@gmail.com>
-References: <20200826145206.6871-1-alex.kanavin@gmail.com>
-User-Agent: Evolution 3.36.4-0ubuntu1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=2+M0CVs5rd/L1GWPC+rg4cWM74raoRYsO/huZ0YcguU=;
+        b=Jsmtpzejufr6hqEWLsGN8fwskJQm/p0bc2aesf3YuDdGvGx51QE2zJuTm6TFxAKrC7
+         QW3CKL4S62V72jODdFp373SgDuIFjE8ofz8UZFfnpnjxOFmNSn7nvX/g2xoDMfhNfbLi
+         Lg7iEAXyZ1nGpI92loadREx6GfXw6lLy9FQYcWfPjLPHRvBX2TSAHxcEkRn/Suo+pOGj
+         aO6xf8FUuVwULpbvE7DcJbNvxE3gI5u3Ulv1+3oZLI51SNdhVqnpid0Rw3iGWH5MlqfL
+         pX5RmvPbhXFP3/XWCJiW52HXpx92yMByaX3ZdWqWCOX6Atb6Sr9W6X/p5kbe5xcfWRGc
+         dbtw==
+X-Gm-Message-State: AOAM533nvN4x8KniwwdqYp0VXe4XEvFpr2JyJxRHnYLN1iPoeXWbGD8G
+	xFuQDLPq1u3TCeWihjqvARdjl6fgweDtpwi41A0=
+X-Google-Smtp-Source: ABdhPJxq7KmxnlxB4fJWbJJOVl97rcgWRaxLMpNVmAksw5LEXNipbAAEamrhU7nxmzh97UmLnFq8/hvzMGmKQdAKpas=
+X-Received: by 2002:a67:b342:: with SMTP id b2mr9533842vsm.224.1598456777068;
+ Wed, 26 Aug 2020 08:46:17 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200826145206.6871-1-alex.kanavin@gmail.com> <3adabcedbdb85a19e12d0bb3f50a99d6030affa2.camel@linuxfoundation.org>
+In-Reply-To: <3adabcedbdb85a19e12d0bb3f50a99d6030affa2.camel@linuxfoundation.org>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Wed, 26 Aug 2020 17:46:05 +0200
+Message-ID: <CANNYZj94DOMzkj8ND65SDZNAF7ytaSJXE6L_fKkVtU9Dt6mwFQ@mail.gmail.com>
+Subject: Re: [poky] [PATCH] poky.conf: do not install packagegroup-core-device-devel into qemu images
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="00000000000062d6e605adc9b89b"
+
+--00000000000062d6e605adc9b89b
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
 
-On Wed, 2020-08-26 at 16:52 +0200, Alexander Kanavin wrote:
-> The purpose of the group and what it should contain is no longer
-> clear, and
-> generally adding userspace development items to images is best done
-> at the image/class level.
-> 
-> Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
-> ---
->  meta-poky/conf/distro/poky.conf | 8 --------
->  1 file changed, 8 deletions(-)
-> 
-> diff --git a/meta-poky/conf/distro/poky.conf b/meta-
-> poky/conf/distro/poky.conf
-> index 826f0d633a..e55641d87f 100644
-> --- a/meta-poky/conf/distro/poky.conf
-> +++ b/meta-poky/conf/distro/poky.conf
-> @@ -29,14 +29,6 @@ SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
->  DISTRO_EXTRA_RDEPENDS += " ${POKY_DEFAULT_EXTRA_RDEPENDS}"
->  DISTRO_EXTRA_RRECOMMENDS += " ${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
->  
-> -POKYQEMUDEPS = "${@bb.utils.contains("INCOMPATIBLE_LICENSE", "GPL-
-> 3.0", "", "packagegroup-core-device-devel",d)}"
-> -DISTRO_EXTRA_RDEPENDS_append_qemuarm = " ${POKYQEMUDEPS}"
-> -DISTRO_EXTRA_RDEPENDS_append_qemuarm64 = " ${POKYQEMUDEPS}"
-> -DISTRO_EXTRA_RDEPENDS_append_qemumips = " ${POKYQEMUDEPS}"
-> -DISTRO_EXTRA_RDEPENDS_append_qemuppc = " ${POKYQEMUDEPS}"
-> -DISTRO_EXTRA_RDEPENDS_append_qemux86 = " ${POKYQEMUDEPS}"
-> -DISTRO_EXTRA_RDEPENDS_append_qemux86-64 = " ${POKYQEMUDEPS}"
-> -
->  TCLIBCAPPEND = ""
+On Wed, 26 Aug 2020 at 17:24, Richard Purdie <
+richard.purdie@linuxfoundation.org> wrote:
 
-A test build is showing this isn't going to be without issues:
+>
+> A test build is showing this isn't going to be without issues:
+>
+> https://autobuilder.yoctoproject.org/typhoon/#/builders/57/builds/2343
+>
+> (the rest is still building)
+>
 
-https://autobuilder.yoctoproject.org/typhoon/#/builders/57/builds/2343
+The x32 test, and the multilib test both need binutils in core-image-sato -
+probably should be tweaked in config.json, as neither test is added to
+TEST_SUITES by default?
 
-(the rest is still building)
+Alex
 
-Cheers,
+--00000000000062d6e605adc9b89b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Richard
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Wed, 26 Aug 2020 at 17:24, Richard Purdie &lt;<a href=3D"mailto:r=
+ichard.purdie@linuxfoundation.org">richard.purdie@linuxfoundation.org</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+A test build is showing this isn&#39;t going to be without issues:<br>
+<br>
+<a href=3D"https://autobuilder.yoctoproject.org/typhoon/#/builders/57/build=
+s/2343" rel=3D"noreferrer" target=3D"_blank">https://autobuilder.yoctoproje=
+ct.org/typhoon/#/builders/57/builds/2343</a><br>
+<br>
+(the rest is still building)<br></blockquote><div><br></div><div>The x32 te=
+st, and the multilib test both need binutils in core-image-sato - probably =
+should be tweaked in config.json, as neither test is added to TEST_SUITES b=
+y default?</div><div><br></div><div>Alex<br></div></div></div>
 
+--00000000000062d6e605adc9b89b--
