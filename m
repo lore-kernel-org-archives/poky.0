@@ -1,66 +1,78 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
- by mx.groups.io with SMTP id smtpd.web11.21766.1598741657078520629
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+ by mx.groups.io with SMTP id smtpd.web12.6758.1598939160686241252
  for <poky@lists.yoctoproject.org>;
- Sat, 29 Aug 2020 15:54:17 -0700
+ Mon, 31 Aug 2020 22:46:01 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=ZS+NrZyo;
- spf=pass (domain: gmail.com, ip: 209.85.222.175, mailfrom: raj.khem@gmail.com)
-Received: by mail-qk1-f175.google.com with SMTP id m7so3022174qki.12
-        for <poky@lists.yoctoproject.org>; Sat, 29 Aug 2020 15:54:16 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=d83iJLNM;
+ spf=pass (domain: gmail.com, ip: 209.85.128.50, mailfrom: msgboardpana@gmail.com)
+Received: by mail-wm1-f50.google.com with SMTP id w2so172765wmi.1
+        for <poky@lists.yoctoproject.org>; Mon, 31 Aug 2020 22:46:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=/3cf0285noXSIqnZbdEjVDych9j/io7HKnGngKJkCxU=;
-        b=ZS+NrZyo9qJNmrWh2denfcbLTHU3FV2x8b/Et+3iRrpOen4xsdf9NcajjkTlU4oGaH
-         q19sArh+d97KNVMkHomOBVvLQp2h015dGjS0qyP9ZCn0E301FNVsa+D/oIEJG/Im/iwB
-         kCsSElOSwj4XpAV4GFY1KIdxydJ4aumpcwm8FVYSxP7DY1Oj337rNitF808tKOscGEjU
-         gMJ2uz3jh+GKCWSgWTrZ0EEcwX1WRBqEWcThNDZJkyvGiCA3Q7jrrmvz7AksI+d8++El
-         bbDjhL9uN6tUnyN/ZYbgvlJCp/YiBJzwQq9u0YqhsbX9meKmthvc9hEwGLOhd4ScDI8B
-         YYhQ==
+        h=mime-version:from:date:message-id:subject:to;
+        bh=h4HI0sRU0E6hMrKNl05ByoFjf3GZAY+nw754ImC6iVs=;
+        b=d83iJLNMj82yBR/7d4sWxz2uhRmSeh7LDTSXG2dvjF0XxNZ0lB7tWvdG4uxLrjkvLg
+         Gc+QU36NLXEbMaGo7f3CoCGOklqEV052XwRCUw54CAAceySkMHkYzh7fXpA7C6DEN8eQ
+         ygQMe3slMeC9kj0auatRRUuKnWm81CjpP890LABPtm3xsoxB1WpTue2TVhOOEbbS6xYh
+         tEHRuwp8P3tj10U1wzMbf+l1zy+q5zGN6mmXpEbNhlhWVOJMfO7HXciw+p3QIhOTqrRF
+         j1fCN+F2sP3B6IQqC0GMbS/6CAX2s7P3Zy0TBPfm8my+XFDIP2LAyk0bFJven6ewZ8Di
+         Bk2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=/3cf0285noXSIqnZbdEjVDych9j/io7HKnGngKJkCxU=;
-        b=j003ojgNSpPCaLue6SwvnW4vYRaxNGBZ7sBThW/da1jFCd1Db6XA4DlsfcIFLzY0Vl
-         0xYAuAGm0KR4lrFbgNAytK7fmwSkpYqOaCms+Y7NKc6JHOCQu9Ffxm6yxbqWlrXKN6wD
-         Dpo1Mfozmxz/Z3aOufcEhpdE3Cn5H//5/Ey0QPhcka97RUeki6w7QxnSP1WajZGBdPGU
-         yWE8eAAemzKIYTYoX3SGKoXokWfm/3/Rc2lRbv7hUxHhEs9LkyJbUxoOsB2+UyjIGGxm
-         VPFLSeGUS19PCh3b3s7FqEpi1o8NDnBBhc/pAkAjyGXf8jSXpCg4zWNve/5CqbyyKR4j
-         IeDQ==
-X-Gm-Message-State: AOAM531GP9YN8KShmJENRycU2//gjTO7IQuOKd7hG1/L0w4uKHB0n6Bp
-	Rk15L1BbdREKb6i3vOGQ0zfdiceVAhu1ONj7qQ0wyUVpb4rADA==
-X-Google-Smtp-Source: ABdhPJzTR6M4HN+EiEwQswVu7/riK+ILqFUc7sv5LVlwtXqcLqppT7vg40ZwksNca8ZD8HyfqUvfPVi55g4JHYYOZZw=
-X-Received: by 2002:a37:6f43:: with SMTP id k64mr5224378qkc.212.1598741656038;
- Sat, 29 Aug 2020 15:54:16 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=h4HI0sRU0E6hMrKNl05ByoFjf3GZAY+nw754ImC6iVs=;
+        b=AovSU1S1/XrAngiNQ33pgFVjgYdyK5qJoJ7lHW7Py7Np7ZQbP1D6jgqUUU7FlV3bns
+         pVLoouHGZvZVf9bmEJHHAwYyysxM+aDaINHUxASYw/TOEYHgxqUvSuGYSKb39R4cGxC/
+         K1jQBGl16JD1h1HToDN6xjcNa82AX3kXuDUboucirXF9WrcAFGoD5MY1hWGXk+pIgnyP
+         10wAUNZuBnAE7FXxCrAgoszhX6CMCP4dbRpJhMO766MikZAx4K7wvpOTKnwzOcT/WTkp
+         C0UQZpok2wbooraWVw8fm8SjqobW10BT9A6OLrCZIFeXKOozr3uNqH3uD0wruy9Dm5Jy
+         IIAQ==
+X-Gm-Message-State: AOAM532D/6TdVBxH984ENgmveajMEzUhUkCVPiFaUVcMNMTWPhsiKrZU
+	6fVZF/h8MmWff7StNaaO7p8+o0F22zJqy6idyHQyxgv7
+X-Google-Smtp-Source: ABdhPJwhP+VAFcNCUSC8S0kv9VzLyx7VLVGttZmRLodyDXm+jHIjVlWsoC+ik8KB/n7kYCT+qrADYj4tiRyGNSUuycQ=
+X-Received: by 2002:a1c:2501:: with SMTP id l1mr80308wml.16.1598939158586;
+ Mon, 31 Aug 2020 22:45:58 -0700 (PDT)
 MIME-Version: 1.0
-References: <CALXw4G7uT+tbVtuMHWLscWqDy1HDzWN6Q+kt6Fp6qTgU1d=2Kw@mail.gmail.com>
-In-Reply-To: <CALXw4G7uT+tbVtuMHWLscWqDy1HDzWN6Q+kt6Fp6qTgU1d=2Kw@mail.gmail.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Sat, 29 Aug 2020 15:53:50 -0700
-Message-ID: <CAMKF1srBf0e73VLVqsz_a6_tjE3aqSO00V3C-hD62MQi7K=hCg@mail.gmail.com>
-Subject: Re: [poky] poky-bleeding.conf
-To: Michael Gloff <mgloff@emacinc.com>
-Cc: poky@lists.yoctoproject.org
+From: "msg board" <msgboardpana@gmail.com>
+Date: Mon, 31 Aug 2020 22:45:47 -0700
+Message-ID: <CAJRqWa_cdQY+kPZkzN=4GVbNanJQ6E2KUKvXs0Nw-OxEgmGhow@mail.gmail.com>
+Subject: poky booting over PXE, but asks root user password even if debug-tweaks enabled
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="00000000000090aa2305ae3a081b"
+
+--00000000000090aa2305ae3a081b
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 28, 2020 at 7:29 PM Michael Gloff <mgloff@emacinc.com> wrote:
->
-> Just came across:
-> meta-poky/conf/distro/poky-bleeding.conf
->
-> Is this useful any longer or should it be removed? If it is still useful, the versions specified are anything but bleeding edge. The same goes for the included  conf/distro/include/poky-floating-revisions.inc
-> I know there used to be a lot more _git recipes alongside release versions, so this is probably leftover. I can send a patch to remove these two if that is the consensus.
->
+Hello,
 
-I think poky-bleeding is a decent idea that we should follow and
-therefore we should keep it so it keeps us reminding,  We have made
-some slow steps in this direction e.g. devupstream.bbclass I would
-like to see
-the devupstream.bbclass being used poky-floating-revisions.inc perhaps can go.
+I generated a distro based on poky and am PXE booting the distro. The
+rootfs is mounted over NFS. The same distro when installed on actual device
+does not have password for root user. i.e. after the actual hardware device
+has fully booted then user can type 'root' as username and no password is
+asked for root user. (debug-tweaks is enabled in local.conf)
 
->
-> Michael Gloff
->
-> 
+However, the same distro booted over PXE boot with same rootfs mounted over
+NFS asks for password for root user. The distro has systemd as init manager
+and many init services fail during boot when booting over PXE. One such
+service which fails is systemd-logind.service . I wonder if there is
+anything related to this failing service.
+
+thank you
+
+--00000000000090aa2305ae3a081b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,<div><br></div><div>I generated a distro based on po=
+ky and am PXE booting the distro. The rootfs is mounted over NFS. The same =
+distro when installed on actual device does not have password for root user=
+. i.e. after the actual hardware device has fully booted then user can type=
+ &#39;root&#39; as username and no password is asked for root user. (debug-=
+tweaks is enabled in local.conf)</div><div><br></div><div>However, the same=
+ distro booted over PXE boot with same rootfs mounted over NFS asks for pas=
+sword for root user. The distro has systemd as init manager and many init s=
+ervices fail during boot when booting over PXE. One such service which fail=
+s is systemd-logind.service . I wonder if there is anything related to this=
+ failing service.=C2=A0</div><div><br></div><div>thank you</div></div>
+
+--00000000000090aa2305ae3a081b--
