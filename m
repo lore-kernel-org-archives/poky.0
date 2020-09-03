@@ -1,20 +1,23 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mx.groups.io with SMTP id smtpd.web10.20528.1599156660121812425
+Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
+ by mx.groups.io with SMTP id smtpd.web11.10019.1599268798018800406
  for <poky@lists.yoctoproject.org>;
- Thu, 03 Sep 2020 11:11:00 -0700
+ Fri, 04 Sep 2020 18:19:58 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: arm.com, ip: 217.140.110.172, mailfrom: ross.burton@arm.com)
+ dkim=missing; spf=fail (domain: arm.com, ip: 198.145.29.25, mailfrom: ross.burton@arm.com)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by mail.yoctoproject.org (Postfix) with ESMTP id D350E38C0035
+	for <poky@yoctoproject.org>; Fri,  4 Sep 2020 18:19:57 -0700 (PDT)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68DB8101E
-	for <poky@lists.yoctoproject.org>; Thu,  3 Sep 2020 11:10:59 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1014D6E
+	for <poky@yoctoproject.org>; Thu,  3 Sep 2020 06:02:30 -0700 (PDT)
 Received: from rossb-vm.manchester.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0A1A83F68F
-	for <poky@lists.yoctoproject.org>; Thu,  3 Sep 2020 11:10:58 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 94F5E3F66F
+	for <poky@yoctoproject.org>; Thu,  3 Sep 2020 06:02:30 -0700 (PDT)
 From: "Ross Burton" <ross@burtonini.com>
-To: poky@lists.yoctoproject.org
+To: poky@yoctoproject.org
 Subject: [PATCH] local.conf.sample.extended: remove help2man reference
-Date: Thu,  3 Sep 2020 19:10:55 +0100
-Message-Id: <20200903181055.1299273-1-ross.burton@arm.com>
+Date: Thu,  3 Sep 2020 14:02:27 +0100
+Message-Id: <20200903130227.496348-1-ross.burton@arm.com>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
