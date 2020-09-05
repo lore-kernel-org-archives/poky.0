@@ -1,81 +1,143 @@
-Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
- by mx.groups.io with SMTP id smtpd.web12.18264.1599313405893929190
- for <poky@lists.yoctoproject.org>;
- Sat, 05 Sep 2020 06:43:25 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=QWXzxZjP;
- spf=softfail (domain: gmail.com, ip: 198.145.29.25, mailfrom: raj.khem@gmail.com)
-Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com [209.85.222.194])
-	by mail.yoctoproject.org (Postfix) with ESMTPS id 1C34238C0731
-	for <poky@yoctoproject.org>; Sat,  5 Sep 2020 06:43:22 -0700 (PDT)
-Received: by mail-qk1-f194.google.com with SMTP id p4so9121875qkf.0
-        for <poky@yoctoproject.org>; Sat, 05 Sep 2020 06:43:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=pFs8GQ7xeG5aXdXrpsq3NozZaK4EEUedDvO2XEGxRl4=;
-        b=QWXzxZjPCzFWRVmawJKd5J8HZxLBml1Gm3uUpX/RR/iSb7T4s8nIE+f+Z1bzHIdz8g
-         pAHkS2Kyp6u8PmMWsBU3BCbLMXBWKISE9JjV4katERlhC4ChbZM2lTW9hYPhIvrCyqxR
-         jeufvaHlFKKxRpxTFIGsRjyQPk0tKzsANpCvWoHOAL0c+fqovSLDsuGal3OdxUnYstbd
-         XAduqJC4neRWmr1EbuFm1wDsBjaoEuDQpkxij6idO+iPsfZp202kjjBDqM16wZtFH1iw
-         vm3M6oXj8fRFEHUJMDA1/jpc42itugE/uxXxGEIdYGwETxKrnAZWRHQSnfSFMDdHCUTY
-         LbrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=pFs8GQ7xeG5aXdXrpsq3NozZaK4EEUedDvO2XEGxRl4=;
-        b=k1dL5QCXq7U1v109c4oSjQBZ6MNnP5Vh3yL0/h/7rAInN1iN9WJiaS352Gikngiu3r
-         b9dcZl7FXvkaZ3XKP/8bYz+Cpc6VyFQR39qlwDcrwpWZKQe57UzgqOcU5c2E37OAPQMP
-         Ez8VsUr7/98GcQsTkmGJeT041dVwtOAEFtxQ8m6YC3McIc6HcEAMePIKngFiTtfImXqh
-         CXXVOIgyWTW2haKjLxztsHReO6TLMjx30SFv2D45eWNAe5+y9IGwr/6MbM+1yiY/nDXG
-         gaUx1KD9Qf92terKv6v769fdPruoIK0DziNbtAeABWjvq9OfohegqAwlwbBfx7S6ox4f
-         pDbw==
-X-Gm-Message-State: AOAM533qLiyxeF2su8hxQjw+0zXjd+txhXdP63PbFdftbX1AosTMx//e
-	8SvZ1RbsfTyo1ZzVI5Q52zowNAPfqVqBOOFqJKae+ESOT2o=
-X-Google-Smtp-Source: ABdhPJyW0CIRDNI7f5UTIkEM25cpysUoJSXZlHciRPzFqvcahqrV6IubFrLUT9c53suqWKb/EF4waXTW8CmzRh9YggA=
-X-Received: by 2002:a37:6f43:: with SMTP id k64mr12597488qkc.212.1599313400954;
- Sat, 05 Sep 2020 06:43:20 -0700 (PDT)
+Subject: Need Suggestion to upstream the changes with respect to systemd build failure in core-image-minimal. #poky
+To: poky@lists.yoctoproject.org
+From: "Rahul Chauhan" <rahulchauhankitps@gmail.com>
+X-Originating-Location: Noida, Uttar Pradesh, IN (103.217.132.60)
+X-Originating-Platform: Linux Firefox 80
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <20200903130227.496348-1-ross.burton@arm.com>
-In-Reply-To: <20200903130227.496348-1-ross.burton@arm.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Sat, 5 Sep 2020 06:42:55 -0700
-Message-ID: <CAMKF1soP_fRjjWCLF9GE+KX2p7aVsUO=xxCFy2OF_jFr4gwhyw@mail.gmail.com>
-Subject: Re: [poky] [PATCH] local.conf.sample.extended: remove help2man reference
-To: Ross Burton <ross@burtonini.com>
-Cc: Poky Project <poky@yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Date: Sat, 05 Sep 2020 10:31:06 -0700
+Message-ID: <G60C.1599327066876287016.ZNpw@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="r5nxcNIU6QM7Vd1lLsQK"
 
-FWIW This patch would be needed for oe-core as well.Perhaps post it
-there as well and backport it here.
+--r5nxcNIU6QM7Vd1lLsQK
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 4, 2020 at 6:20 PM Ross Burton <ross@burtonini.com> wrote:
->
-> help2man isn't part of the early build anymore, so there's no point in
-> referring to it here.
->
-> Signed-off-by: Ross Burton <ross.burton@arm.com>
-> ---
->  meta-poky/conf/local.conf.sample.extended | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
-> index dc92a16f6c..44a01690e3 100644
-> --- a/meta-poky/conf/local.conf.sample.extended
-> +++ b/meta-poky/conf/local.conf.sample.extended
-> @@ -124,9 +124,6 @@ DISTRO_FEATURES_remove = "x11"
->  #This enable mklibs library size optimization will be for all the images.
->  #MKLIBS_OPTIMIZED_IMAGES ?= "all"
->
-> -# Uncomment this if your host distribution provides the help2man tool.
-> -#ASSUME_PROVIDED += "help2man-native"
-> -
->  # This value is currently used by pseudo to determine if the recipe should
->  # build both the 32-bit and 64-bit wrapper libraries on a 64-bit build system.
->  #
-> --
-> 2.28.0
->
-> 
+Hi Community Members,
+
+I was trying to build core-image-minimal with systemd support.
+Yocto Project Version 3.1 (dunfell).
+
+To enable systemd as system init manager I added below lines in local.conf
+DISTRO_FEATURES_append =3D " systemd"
+DISTRO_FEATURES_BACKFILL_CONSIDERED +=3D "sysvinit"
+VIRTUAL-RUNTIME_init_manager =3D "systemd"
+VIRTUAL-RUNTIME_initscripts =3D "systemd-compat-units"
+
+but during build it got failed.
+
+/opt/Projects/eboards-project/project-layres/poky/meta/recipes-devtools/gc=
+c/gcc-runtime_9.3.bb:do_populate_sysroot']
+| NOTE: Installed into sysroot: []
+| NOTE: Skipping as already exists in sysroot: ['pseudo-native', 'glibc', =
+'patch-native', 'quilt-native', 'gcc-cross-arm', 'gcc-runtime', 'linux-libc=
+-headers', 'libgcc', 'flex-native', 'xz-native', 'libtool-native', 'automak=
+e-native', 'binutils-cross-arm', 'zlib-native', 'mpfr-native', 'texinfo-dum=
+my-native', 'autoconf-native', 'libmpc-native', 'gnu-config-native', 'gmp-n=
+ative', 'attr-native', 'm4-native', 'gettext-minimal-native']
+| DEBUG: Python function extend_recipe_sysroot finished
+| DEBUG: Executing shell function do_install
+| sed: -e expression #1, char 13: unterminated `s' command
+| WARNING: exit code 1 from a shell command.
+| ERROR: Execution of '/opt/Projects/eboards-project/eboards-build/tmp/wor=
+k/eb_beaglebone_black-poky-linux-gnueabi/systemd-serialgetty/1.0-r5/temp/ru=
+n.do_install.11228' failed with exit code 1:
+| sed: -e expression #1, char 13: unterminated `s' command
+| WARNING: exit code 1 from a shell command.
+|
+ERROR: Task (/opt/Projects/eboards-project/project-layres/poky/meta/recipe=
+s-core/systemd/systemd-serialgetty.bb:do_install) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 1852 tasks of which 1847 didn't need to be =
+rerun and 1 failed.
+
+Summary: 1 task failed:
+/opt/Projects/eboards-project/project-layres/poky/meta/recipes-core/system=
+d/systemd-serialgetty.bb:do_install
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+
+I debug the recipe and found the solution and created a patch which solved=
+ this issue for me.
+
+rahul@rahul-Latitude-3460:/opt/Projects/eboards-project/project-layres/pok=
+y$ git diff
+diff --git a/meta/recipes-core/systemd/systemd-serialgetty.bb b/meta/recip=
+es-core/systemd/systemd-serialgetty.bb
+index 044c6c5b67..059fccc2b6 100644
+--- a/meta/recipes-core/systemd/systemd-serialgetty.bb
++++ b/meta/recipes-core/systemd/systemd-serialgetty.bb
+@@ -21,7 +21,7 @@ do_install() {
+install -d ${D}${systemd_unitdir}/system/
+install -d ${D}${sysconfdir}/systemd/system/getty.target.wants/
+install -m 0644 ${WORKDIR}/serial-getty@.service ${D}${systemd_unitdir}/sy=
+stem/
+-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 sed -i -e s/\@BAUDRATE\@/$default_baudrate/g ${D}${systemd_un=
+itdir}/system/serial-getty@.service
++=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 sed -i -e 's/\@BAUDRATE\@/$default_baudrate/g' ${D}${systemd_=
+unitdir}/system/serial-getty@.service
+
+tmp=3D"${SERIAL_CONSOLES}"
+for entry in $tmp ; do
+
+Can anyone please suggest me, to send this patch to upstream or this is no=
+t a bug this is my local system issue.
+
+--r5nxcNIU6QM7Vd1lLsQK
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Community Members,<br /><br />I was trying to build core-image-minimal w=
+ith systemd support.<br />Yocto Project Version 3.1 (dunfell).<br /><br />T=
+o enable systemd as system init manager I added below lines in local.conf <=
+br />DISTRO_FEATURES_append =3D " systemd"<br />DISTRO_FEATURES_BACKFILL_CO=
+NSIDERED +=3D "sysvinit"<br />VIRTUAL-RUNTIME_init_manager =3D "systemd"<br=
+ />VIRTUAL-RUNTIME_initscripts =3D "systemd-compat-units" <br /><br />but d=
+uring build it got failed.<br />&nbsp;<br />/opt/Projects/eboards-project/p=
+roject-layres/poky/meta/recipes-devtools/gcc/gcc-runtime_9.3.bb:do_populate=
+_sysroot']<br />| NOTE: Installed into sysroot: []<br />| NOTE: Skipping as=
+ already exists in sysroot: ['pseudo-native', 'glibc', 'patch-native', 'qui=
+lt-native', 'gcc-cross-arm', 'gcc-runtime', 'linux-libc-headers', 'libgcc',=
+ 'flex-native', 'xz-native', 'libtool-native', 'automake-native', 'binutils=
+-cross-arm', 'zlib-native', 'mpfr-native', 'texinfo-dummy-native', 'autocon=
+f-native', 'libmpc-native', 'gnu-config-native', 'gmp-native', 'attr-native=
+', 'm4-native', 'gettext-minimal-native']<br />| DEBUG: Python function ext=
+end_recipe_sysroot finished<br />| DEBUG: Executing shell function do_insta=
+ll<br />| sed: -e expression #1, char 13: unterminated `s' command<br />| W=
+ARNING: exit code 1 from a shell command.<br />| ERROR: Execution of '/opt/=
+Projects/eboards-project/eboards-build/tmp/work/eb_beaglebone_black-poky-li=
+nux-gnueabi/systemd-serialgetty/1.0-r5/temp/run.do_install.11228' failed wi=
+th exit code 1:<br />| sed: -e expression #1, char 13: unterminated `s' com=
+mand<br />| WARNING: exit code 1 from a shell command.<br />| <br />ERROR: =
+Task (/opt/Projects/eboards-project/project-layres/poky/meta/recipes-core/s=
+ystemd/systemd-serialgetty.bb:do_install) failed with exit code '1'<br />NO=
+TE: Tasks Summary: Attempted 1852 tasks of which 1847 didn't need to be rer=
+un and 1 failed.<br /><br />Summary: 1 task failed:<br />&nbsp; /opt/Projec=
+ts/eboards-project/project-layres/poky/meta/recipes-core/systemd/systemd-se=
+rialgetty.bb:do_install<br />Summary: There was 1 ERROR message shown, retu=
+rning a non-zero exit code.<br /><br /><br />I debug the recipe and found t=
+he solution and created a patch which solved this issue for me. <br /><br /=
+>rahul@rahul-Latitude-3460:/opt/Projects/eboards-project/project-layres/pok=
+y$ git diff<br />diff --git a/meta/recipes-core/systemd/systemd-serialgetty=
+.bb b/meta/recipes-core/systemd/systemd-serialgetty.bb<br />index 044c6c5b6=
+7..059fccc2b6 100644<br />--- a/meta/recipes-core/systemd/systemd-serialget=
+ty.bb<br />+++ b/meta/recipes-core/systemd/systemd-serialgetty.bb<br />@@ -=
+21,7 +21,7 @@ do_install() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; install -d ${D}${systemd_=
+unitdir}/system/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; install -d ${D}${sysconfdir}/systemd/=
+system/getty.target.wants/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; install -m 0644 ${WORKDIR}/=
+serial-getty@.service ${D}${systemd_unitdir}/system/<br />-&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sed -i=
+ -e s/\@BAUDRATE\@/$default_baudrate/g ${D}${systemd_unitdir}/system/serial=
+-getty@.service<br />+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sed -i -e 's/\@BAUDRATE\@/$default_baudrate=
+/g' ${D}${systemd_unitdir}/system/serial-getty@.service<br />&nbsp;<br />&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; tmp=3D"${SERIAL_CONSOLES}"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for entry in =
+$tmp ; do<br /><br />Can anyone please suggest me, to send this patch to up=
+stream or this is not a bug this is my local system issue.
+
+--r5nxcNIU6QM7Vd1lLsQK--
