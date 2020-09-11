@@ -1,82 +1,90 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
- by mx.groups.io with SMTP id smtpd.web12.704.1599796086821175002
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by mx.groups.io with SMTP id smtpd.web12.4799.1599818470222901782
  for <poky@lists.yoctoproject.org>;
- Thu, 10 Sep 2020 20:48:06 -0700
+ Fri, 11 Sep 2020 03:01:11 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=C5h52UVb;
- spf=pass (domain: gmail.com, ip: 209.85.210.176, mailfrom: raj.khem@gmail.com)
-Received: by mail-pf1-f176.google.com with SMTP id d9so6225332pfd.3
-        for <poky@lists.yoctoproject.org>; Thu, 10 Sep 2020 20:48:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:references:from:organization:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=O8DMWOUenMgtOR360lcJUiZ4yuOX0G+0YNA1ttPAiwY=;
-        b=C5h52UVbI15AMFNbX3cL2V3a/fVTilRbODTeU6B011b7MkAedhiwaT5+h5+XrAMQMn
-         Kv7nO6rQEtX4Gusi9cn6IumRh2tHDXM9lOT9AVNhiThnJjZBEDu3msud5U05gBwf5cci
-         NYA7JJ1CWwSp66lKWjNIhtWU91sNF/2kHZ4L6893rSeljPm2WyHdjmEqY85dsCH7NXUx
-         oxzzUMEdtlLjDy8CtOBGlq8JiKD3IsJkD+De1NagEs1ehxdl6agmpkl7cOc7mUSGikR8
-         hfgR8an64VhFx/gkM9x46cXC5zHSwSD780hmnS0LX9Zg31ra5EUhziscHUGgjey5sUsJ
-         nwCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:organization
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=O8DMWOUenMgtOR360lcJUiZ4yuOX0G+0YNA1ttPAiwY=;
-        b=jBYxxHlp1JNvkhIbPv7YZn0jEgs5sRsvsEYx1qCZSSV21lPNurXlw1ex34I1gcLOsq
-         /PRgmi1SQ1Qk7Dcish61EILotnpmigYRQayPo3zyjkwlVntT26kOEilBMwqkI40CcnRe
-         vhCnfNo9A7j6u7DMpo31eBy8Bt4Wm8azOPdCnURZt2TkgHhLDR3GZNEBf/LQwbelbDG6
-         8pK5PTFDi8cdW83Jc9F8L0CI7TsFS/Cd2m8PjMg8Aec3e3s7Tg3CZ0ONYw+eYZXgaaf1
-         BEK00lIx680JhKtkCJNkdO7cjmB46IDE24T4TwoX9HXLHHKN6pext3WHs9KQs4O2UfZR
-         0v4Q==
-X-Gm-Message-State: AOAM533eLUKiMfuwyKt8UHgZGtiSm+k01B0mGPEs3IE+MYWvFLmiLh6a
-	MoCk2dVhwVXAym3IuxQP72aLYfkyNrkr2Q==
-X-Google-Smtp-Source: ABdhPJzwXALHPpWQG4lKdS6+vlU6jRuWJpqZCKbd8mxapyhgbFLHHiLoUOMzxlA5HEtX5M9o5xnJrw==
-X-Received: by 2002:a63:2982:: with SMTP id p124mr245399pgp.390.1599796086070;
-        Thu, 10 Sep 2020 20:48:06 -0700 (PDT)
-Return-Path: <raj.khem@gmail.com>
-Received: from ?IPv6:2601:646:9200:4e0:d9a:84f1:6cc7:73ee? ([2601:646:9200:4e0:d9a:84f1:6cc7:73ee])
-        by smtp.gmail.com with ESMTPSA id bb6sm460784pjb.15.2020.09.10.20.48.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2020 20:48:05 -0700 (PDT)
-Subject: Re: [poky] ABI Compliance Checker
-To: Thomas Besemer <thomas.besemer@gmail.com>, poky@lists.yoctoproject.org
-References: <CAO7m3AmVswxx-TgxO9k3t1tRDratP39ZMi9YURqk5FJ0Y6FWCw@mail.gmail.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Organization: HIMVIS LLC
-Message-ID: <81254f64-a5bb-f7de-8429-78c1c69312e8@gmail.com>
-Date: Thu, 10 Sep 2020 20:48:04 -0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.0
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=TtxFRFdV;
+ spf=pass (domain: gmx.li, ip: 212.227.15.15, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1599818468;
+	bh=cNi2aaFAkpml3sm3sz+aB9t91IS5r7oIBzz7drroHCk=;
+	h=X-UI-Sender-Class:To:From:Subject:Date;
+	b=TtxFRFdVzczJ4sF7hxeV/kpSa+yEELgk9l5igcA6jojGhHBkE/HYqD+QkNY4gq0Kh
+	 9Z6mkWwcwmFnr3FabYYAPdPNULptydi6GGjs89JqfaYWyDaifGVbQQEaaxtLEZ57aw
+	 HjCpzIH8zgfTJUBQXm+dD8KfewnXNv09vxN4uCJs=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.3.33] ([84.185.247.166]) by mail.gmx.com (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M26vL-1kEBxd0w8n-002X0n for
+ <poky@lists.yoctoproject.org>; Fri, 11 Sep 2020 12:01:08 +0200
+To: poky@lists.yoctoproject.org
+From: "Steve" <star@gmx.li>
+Subject: add a -dev package to SDK (in sysroot)
+Message-ID: <21bed7fc-b057-c97c-ae5d-3d84f45c69b4@gmx.li>
+Date: Fri, 11 Sep 2020 12:01:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CAO7m3AmVswxx-TgxO9k3t1tRDratP39ZMi9YURqk5FJ0Y6FWCw@mail.gmail.com>
+X-Provags-ID: V03:K1:/cZsunX4ElzWLNVqVh9eiXg6reZfEsMMZohpqQrJEnnIou+eb8h
+ KHVb3XQv1lLcymLkqlEeUPdMUf0yyHa6ikyaWzfJuNKVj/xnVryxyxb97SDl4fnxFYjIIrj
+ +9x5325SslJF9jBnHH1I8nW+V173T6SARCgO5l51erwRYWaFMIAFc9GXOQ0MuTE4OaUNAhk
+ aJjBbyxlPo1mBCFA6xqqQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Yle9HA9sfBk=:7Abyd62qxiz0RtdH+fAUNB
+ SbLW7431btMJ3r/0tQaJ3IlMZP++mzRZk491cQoEaGENPs2Mho5isWrogqutN03qtPdnxHkWe
+ EK87MRnGJupdiRV+May/DmxlvQ5EKzznScAPxAkmURJMWRICuh4eW1FEZWQVuRlEmb6sUt2Km
+ wNJbaJdir4k+SYvU+a6nw0f5HsfOiJxgfZRFnZ0jKKk60ipiKtKHQakwPtERWmdW0N3Va/Qmb
+ OMd8PH7jLwywn3GnGxxAM9gZlT6ThkwQuwbn/Kx9UZ3yB+zGuyafcKe76vHNsxW7Ag0MrdlHr
+ TI8rAaDhnUpXDNoMn/zAwY/Aj2I7j6SS7MxA2AsxTySeYXDmGTktsmMZtTAGeCiHDLCnxjG5u
+ k9gZxul/0176/XBRTp+SHRmAknVVo77NYXddO9SfLQB+STbIwBWI6rh3G6KgY8J4DJxynbjrg
+ CU3weWYFW1pln3Um7c7d/5w/sFAqB0bXLCpL1wlaRLjYpBzxdSfxOoNVrS7413A+JHnH2pxeW
+ KCBF5sn3YL1MH9GNeZGtH1lZuYfkWWWZXlfFxFYBithX1qlrWIgCzEjLZ5Ar5gl54z08RAgDl
+ RmLnGrRkRrJdCATdKOrHbSRYE3rOH2EQpGOhiSsyhASL+6NHkf27KuxcQhkoWkUoGC9bwCbs/
+ 5UeWgoalnXHZSOqEPBcC73nXu6A1hdKITNwcd8exMEFPSWv/SKMFm4qyHnrjzV0Q9UDVCHvow
+ 9v4QFkt35LIASBcGngogJf+L/n+Qv3sP4JVO6L9b3aZJdQqOPmvA5Rw+aE1rbcFH/Ge8X06lG
+ EpU+bJgh0Snaetf0LnMeZtnS1y7rPdVy4LogBR+Zyn18LK/Pf6SR0er0RIz5EF+HzW8xtFl5r
+ CCEZ5yfQP37kxFzrhbOT+Ae5/hjuBGhnmrMM/ItCBqESG2VxNRZZEe9LcQKoS7jGEY4GmEMu0
+ d6sWUwi915RqPSJI8PHw7hVvglOtm94fYBym98bbt1CzEdFvbbQK6aoQ7oCmPHE0dAFq7T7tU
+ zfwfuAYMCzjdw7qJIwSVBnIqpsHMgf88sEv3f5ixfOzrha6ROosCewZ7AcZ/urJJZ0n6rajRt
+ 7gEimt0NnCYfk5h0IIXPKlMY7SDngZXHBdV/v2ZEJz1mm8Xp3+jNliw4jv0MLHjnaigX3O6Ht
+ k+0AJQ5lzPtRBDJ1DqNSG3rTrDOl26v5PMJK7nY1RrBpJNX7Z7a1BuJB+LaIUhmhnlWBvkiry
+ GkrUO3UeD3EqOjM/u
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+
+I try to add websocketpp-dev to my SDK, but fail.
+
+I did a
+
+IMAGE_INSTALL =3D "... websocketpp ..."
+
+and to get the dev-package into SDK:
+
+TOOLCHAIN_TARGET_TASK_append =3D websocketpp-dev"
+
+The result is an error in
+
+bitbake .... -c populate_sdk
+
+Unable to install packages. ...
+
+Problem 1: Nothing provides websocketpp =3D 0.8.1-r0 needed by
+websocketpp-dev-0.8.1-r0...
+
+Solution: so not ask to install a package providing websocketpp-dev
 
 
+If I see this right this approach works for other dev-Packages like curl
+and curlpp, but doesn't seem to work for websocketpp. What am I doing
+wrong? Where is the bug? What is the trick?
 
-On 9/10/20 8:56 AM, Thomas Besemer wrote:
-> Does anybody know of a meta-layer or .bb recipe for the
-> ABI Compliance Checker to install in SDK, and be
-> used as part of the host tools for?:
-> 
-> https://github.com/lvc/abi-compliance-checker
-> 
-> Or, can anybody suggest a .bb recipe that I can
-> start with as a template to put this in the SDK?  It
-> is simply a set of perl scripts that are only used
-> on the host, as well as by application code using
-> the SDK.
-> 
+Somewhere I have read that just creating the SDK by -c populate_sdk is
+adding *-dev packages to sysroot in SDK, but this is definitely not true
+for all packages.
 
-if you did not see it in layer index then perhaps no one wrote a recipe 
-for it. it would be good to write a native and nativesdk variants which 
-then can be included in sdks
+Thanks for any help!
 
-> Thanks,
-> tom
-> 
-> 
-> 
+
+PS: I can see in deploy that package websocketpp-dev with all the
+/usr/include/websocket/...) has been created.
+
