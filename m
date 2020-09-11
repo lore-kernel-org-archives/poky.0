@@ -1,136 +1,111 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by mx.groups.io with SMTP id smtpd.web10.200.1599844029458890091
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+ by mx.groups.io with SMTP id smtpd.web11.893.1599846604440749095
  for <poky@lists.yoctoproject.org>;
- Fri, 11 Sep 2020 10:07:10 -0700
+ Fri, 11 Sep 2020 10:50:05 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=Zd/P99fN;
- spf=pass (domain: gmx.li, ip: 212.227.15.18, mailfrom: star@gmx.li)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1599844027;
-	bh=D5ZT4U4Hhq4AXA9lU6LGsPy7Adm/RT5Kglz8wGYJXHQ=;
-	h=X-UI-Sender-Class:Subject:To:References:From:Date:In-Reply-To;
-	b=Zd/P99fN1CcrwRotKEhWQprKBWVrvclwE65Gi31i7ioY7Vons8J6ZytuJ9Ah8zXkz
-	 VnUhK/SPcomwRIh+NCzmSz18sgAFbDEvW6nGkh9vte64ugVvVdSzd6udOI1JjGwnj5
-	 A+GMpjiNcH7wGQWJdRDpEEQLg8m2qxn5DDsmMeYk=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.3.33] ([84.185.247.166]) by mail.gmx.com (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MfHAH-1kiQM40EMF-00gsjA; Fri, 11
- Sep 2020 19:07:07 +0200
+ dkim=fail reason="signature has expired" header.i=@axis.com header.s=axis-central1 header.b=p2H+CH1K;
+ spf=pass (domain: axis.com, ip: 195.60.68.17, mailfrom: peter.kjellerstedt@axis.com)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=axis.com; l=4812; q=dns/txt; s=axis-central1;
+  t=1599846604; x=1631382604;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=dY4rNHr2FXKczmXfmCfSQ7apDkpTYIfgGCn39hXmabc=;
+  b=p2H+CH1Kwf6Z3MpNF/oPrrY1E11b/ceU2FHtqu7liv6e7tRNrF89reHg
+   bz/OFEGV6hZesVNAFbAI2e7SPIYmq96wH8nulRlhSf68h2SzJdWMLFogd
+   T0A3lFuKl0m7jcIAoB6ZotpbklIhOz97Id7oGIjPeL5/NxVGSgGpn4gAw
+   p6IkoOZOKfsY8F0hz00bR43JKWqBqxQtS5E+aCaMP3SV2sogTPSiRP3FK
+   xdYbW9CG6oi5p15KuMe1pGsVDv3puXUBlcaR7X8nzAWcMGrUgRT8saKpu
+   oJy2RFvDM/bBQccuuxVps2TUVEYoMNSFIq31sUyVEyhliQCabmMz4wk3W
+   Q==;
+IronPort-SDR: z94Fp6Bsubti6Fuh2plRQEZShAEaefF/BKjdFKa+4euW3l11aWq2fmYlbrVkUKZOzqdtykl9F2
+ rjxbrJ0Sv7YZe+xEBEc/t/xIXJaqMo99NpiW1b9pnFjW+DxlMgYa5K29FQDSyhupX+OBKFpUIt
+ HXBlVkMxyUXsqPfvV6ogX9Jy132pU0JTlXwtaiwG/E+b3eG0jESJEsi9zRymM8c4TUcVNQJwo8
+ nlElL3YPVBjesplfP/U3povsxem5ePOj9e0JyConkIOEmoLrMd1OGAO9zFB+LmmBiwXIo1E6I0
+ g1k=
+X-IronPort-AV: E=Sophos;i="5.76,416,1592863200"; 
+   d="scan'208";a="12843481"
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: Steve <star@gmx.li>, Richard Purdie <richard.purdie@linuxfoundation.org>,
+	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
 Subject: Re: [poky] add a -dev package to SDK (in sysroot)
-To: Richard Purdie <richard.purdie@linuxfoundation.org>,
- poky@lists.yoctoproject.org
+Thread-Topic: [poky] add a -dev package to SDK (in sysroot)
+Thread-Index: AQHWiCKPu/9o4IL1N06nZtqhVq0GUKljOpOAgABPlACAACvmEA==
+Date: Fri, 11 Sep 2020 17:50:00 +0000
+Message-ID: <78218829d8d34289aac18eceb6464996@XBOX03.axis.com>
 References: <21bed7fc-b057-c97c-ae5d-3d84f45c69b4@gmx.li>
  <ef6241acac0e9124077509c79af3bffc63088d3e.camel@linuxfoundation.org>
-From: "Steve" <star@gmx.li>
-Message-ID: <dcdd105f-fcb3-c0d2-f606-2ac1d39ed347@gmx.li>
-Date: Fri, 11 Sep 2020 19:07:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <dcdd105f-fcb3-c0d2-f606-2ac1d39ed347@gmx.li>
+In-Reply-To: <dcdd105f-fcb3-c0d2-f606-2ac1d39ed347@gmx.li>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-In-Reply-To: <ef6241acac0e9124077509c79af3bffc63088d3e.camel@linuxfoundation.org>
-X-Provags-ID: V03:K1:dKxxvVuHuRfne4eZNGz7/6ODm8vnaLtQca65sa6X0XdAb5DB6t7
- hnj1ErvElQvTUU8QqQsNdtCR85e0woFnm4bDkTAWbKtCJaSJKV24QuJ+xk7TbJKdQNiBjwa
- fMmms6yqZJQ3MVPlLA2fso8iVW3D0eRa61Zq7tujT9PJcef81LzPpdPvaVxPuyBje3Bv0zT
- ANI4qjWH+ANe0tTVrKzsQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:AXUQBDsvpGY=:/P9TT6mnITCs7Quepq7PgW
- dmgSVb4Wq+G18p9LWZYT0MAxEw6pHQdv/3yufE/cIPSdlPHDeU8CjYDnLgikafj1ttdZhy/s8
- KoyAUKiib66HmeP5vkaiesbW9WGBziypktWxGUepRYmxMei3tNe9qk/QK6LaqSzDFxMOD6PXs
- lqDb1Lo7slzv0AJYxNctspZyAu93Wh82ttg6MYbnJ/wluvQwSXp+6edqYliiTydVut5ugcuP9
- TWYI11gTksJ5QcJ6b24cXipocR2H70nrRxU/YTNdqcvNJBfRgBZ2MdM3SK0AavHIjFHgfrff3
- 4q6jTbg8IQFij9FC9B7Op0oEWc8Am8XNXU4afQOTnZ7DY8qd0bliJG/0fw10xcsDKVb3OOSAT
- cAHK8SlBXMYC4BPs4cCV/0zXB3ZldtzWg+9old6t0WWWeCojaBopy6O+fmiaITriTLojCoifh
- wDvjsU0r+4n4fB3K2WRFO/6FDuiOLwNlulULs/Vb+aJSGODQu7JaECnntM0dFQ7SeBEA5RG9r
- Zh54mnSSSDTzT60YMjw0dZoM3QU5DTigz49Xn6k+aZUaMTjVNbfU9xucwioTm2BghRFc3h5Xn
- fbX57KY7cp2bVJL6PNxaFODx5H30eHECqpkH1Fvu/GNw5BOfUAJFnrVNAHUSj3zPFnnEn2y9R
- Ssbz61VrHzOID5DW/mCK4oBKWyxZAXnl5WjIbmbPzIf85nnsy0PYE9PmzB7hYjKSHHhON4icW
- f7dhsDlKZPN6Wa3rgSWkATB0LdDmaDa1i/QphhYiITBDPEitWMVv3arUTEN37MkJXQYD3NobN
- OO9XGUTKAidkIII2I9IS6v+FegR1fs7xWTTySIcVNXpEUrqTmo2+FRuoSn7nqN0icGe1DW0Zo
- UUUlh4Q8/2AHVLtbJjDMT2RmBLD/JGjGk083OYAp05frE9m596IwJEu8ea6gU94Ou+95pKWNH
- JGcKzqqid7WwnkzpMT3ph79fNCDZsOnmCIwTahO5dTKNgj+0UGV7rSigkkX+BwgEGRX9M0fuJ
- 8ebV5YaDNcvBGN0tz0pNjAkNoRXJe5Q/gDfqdPGsYc+GgCyJqsn/I7/JzZlJqD5XGCbFx/Ib7
- 46/SypBwv8psh0AzbQTIAcfPfKwT/S+HAV8On/mAkOZgZcF1sT0k0hgqkbs7lrRyFsUtVy3Nx
- 0G+G8s+uDpTLoyT9EuKjmgiy5yvg6ywcqcOmyhIhQU4crFWrQaey4oUQybmqLYFygzALWOHvu
- iMt9x4eRPKjcDQg0C
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
 Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-On 11.09.20 14:22, Richard Purdie wrote:
-> On Fri, 2020-09-11 at 12:01 +0200, Steve wrote:
->> I try to add websocketpp-dev to my SDK, but fail.
->>
->> I did a
->>
->> IMAGE_INSTALL =3D "... websocketpp ..."
->>
->> and to get the dev-package into SDK:
->>
->> TOOLCHAIN_TARGET_TASK_append =3D websocketpp-dev"
->>
->> The result is an error in
->>
->> bitbake .... -c populate_sdk
->>
->> Unable to install packages. ...
->>
->> Problem 1: Nothing provides websocketpp =3D 0.8.1-r0 needed by
->> websocketpp-dev-0.8.1-r0...
->>
->> Solution: so not ask to install a package providing websocketpp-dev
->>
->>
->> If I see this right this approach works for other dev-Packages like cur=
-l
->> and curlpp, but doesn't seem to work for websocketpp. What am I doing
->> wrong? Where is the bug? What is the trick?
->>
->> Somewhere I have read that just creating the SDK by -c populate_sdk is
->> adding *-dev packages to sysroot in SDK, but this is definitely not tru=
-e
->> for all packages.
->>
->> Thanks for any help!
->>
->>
->> PS: I can see in deploy that package websocketpp-dev with all the
->> /usr/include/websocket/...) has been created.
-> I suspect that websocketpp is an empty package and not being
-> generated?
->
-> If so, you either need to remove the dependency from websocketpp-dev on
-> websocketpp or generate an empty package.
->
-> Cheers,
->
-> Richard
-
-Thanks Richard for leaving me not alone. Checked that. You are right,
-there is no websocketpp package created ?!? There is just a empty -dbg
-package, the wanted -dev-package and no websocketpp-package at all. Mh,
-how is this to understand? Usually there is a package with a lib or
-binary, a package with debug info and one with headers and stuff to
-develop with. But just a dev-package? That is bizarre to me (a colleage
-wanted to have this inside SDK, so no idea what to do with it).
-
-Regarding your suggestions to solve it:=C2=A0 I just found the recipe for
-websocketpp,
-(meta-openembedded/meta-oe/recipes-support/websocketpp/websocketpp_0.8.1bb=
-)
-where is nothing mentioned about -dev and dependencies. (I can see your
-eyes rolling, sorry for my ignorance - I just can guess there is some
-inherent rule to build the dev).
-
-Creating an empty package. No idea how to do so as there is already a bb
-with this name So I ended up in cp and rename the empty -dbg package
-from deploy/ipk folder in websocketpp_0.8.1.ipk, but that doesn't solve
-the problem either. Can you or someone else give me a further hint?
-
-Best regards and a nice weekend,
-
-Steve
-
-
-
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBwb2t5QGxpc3RzLnlvY3RvcHJv
+amVjdC5vcmcgPHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZz4gT24gQmVoYWxmDQo+IE9mIFN0
+ZXZlDQo+IFNlbnQ6IGRlbiAxMSBzZXB0ZW1iZXIgMjAyMCAxOTowNw0KPiBUbzogUmljaGFyZCBQ
+dXJkaWUgPHJpY2hhcmQucHVyZGllQGxpbnV4Zm91bmRhdGlvbi5vcmc+Ow0KPiBwb2t5QGxpc3Rz
+LnlvY3RvcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtwb2t5XSBhZGQgYSAtZGV2IHBhY2th
+Z2UgdG8gU0RLIChpbiBzeXNyb290KQ0KPiANCj4gDQo+IE9uIDExLjA5LjIwIDE0OjIyLCBSaWNo
+YXJkIFB1cmRpZSB3cm90ZToNCj4gPiBPbiBGcmksIDIwMjAtMDktMTEgYXQgMTI6MDEgKzAyMDAs
+IFN0ZXZlIHdyb3RlOg0KPiA+PiBJIHRyeSB0byBhZGQgd2Vic29ja2V0cHAtZGV2IHRvIG15IFNE
+SywgYnV0IGZhaWwuDQo+ID4+DQo+ID4+IEkgZGlkIGENCj4gPj4NCj4gPj4gSU1BR0VfSU5TVEFM
+TCA9ICIuLi4gd2Vic29ja2V0cHAgLi4uIg0KPiA+Pg0KPiA+PiBhbmQgdG8gZ2V0IHRoZSBkZXYt
+cGFja2FnZSBpbnRvIFNESzoNCj4gPj4NCj4gPj4gVE9PTENIQUlOX1RBUkdFVF9UQVNLX2FwcGVu
+ZCA9IHdlYnNvY2tldHBwLWRldiINCj4gPj4NCj4gPj4gVGhlIHJlc3VsdCBpcyBhbiBlcnJvciBp
+bg0KPiA+Pg0KPiA+PiBiaXRiYWtlIC4uLi4gLWMgcG9wdWxhdGVfc2RrDQo+ID4+DQo+ID4+IFVu
+YWJsZSB0byBpbnN0YWxsIHBhY2thZ2VzLiAuLi4NCj4gPj4NCj4gPj4gUHJvYmxlbSAxOiBOb3Ro
+aW5nIHByb3ZpZGVzIHdlYnNvY2tldHBwID0gMC44LjEtcjAgbmVlZGVkIGJ5DQo+ID4+IHdlYnNv
+Y2tldHBwLWRldi0wLjguMS1yMC4uLg0KPiA+Pg0KPiA+PiBTb2x1dGlvbjogc28gbm90IGFzayB0
+byBpbnN0YWxsIGEgcGFja2FnZSBwcm92aWRpbmcgd2Vic29ja2V0cHAtZGV2DQo+ID4+DQo+ID4+
+DQo+ID4+IElmIEkgc2VlIHRoaXMgcmlnaHQgdGhpcyBhcHByb2FjaCB3b3JrcyBmb3Igb3RoZXIg
+ZGV2LVBhY2thZ2VzIGxpa2UNCj4gY3VybA0KPiA+PiBhbmQgY3VybHBwLCBidXQgZG9lc24ndCBz
+ZWVtIHRvIHdvcmsgZm9yIHdlYnNvY2tldHBwLiBXaGF0IGFtIEkgZG9pbmcNCj4gPj4gd3Jvbmc/
+IFdoZXJlIGlzIHRoZSBidWc/IFdoYXQgaXMgdGhlIHRyaWNrPw0KPiA+Pg0KPiA+PiBTb21ld2hl
+cmUgSSBoYXZlIHJlYWQgdGhhdCBqdXN0IGNyZWF0aW5nIHRoZSBTREsgYnkgLWMgcG9wdWxhdGVf
+c2RrIGlzDQo+ID4+IGFkZGluZyAqLWRldiBwYWNrYWdlcyB0byBzeXNyb290IGluIFNESywgYnV0
+IHRoaXMgaXMgZGVmaW5pdGVseSBub3QNCj4gdHJ1ZQ0KPiA+PiBmb3IgYWxsIHBhY2thZ2VzLg0K
+PiA+Pg0KPiA+PiBUaGFua3MgZm9yIGFueSBoZWxwIQ0KPiA+Pg0KPiA+Pg0KPiA+PiBQUzogSSBj
+YW4gc2VlIGluIGRlcGxveSB0aGF0IHBhY2thZ2Ugd2Vic29ja2V0cHAtZGV2IHdpdGggYWxsIHRo
+ZQ0KPiA+PiAvdXNyL2luY2x1ZGUvd2Vic29ja2V0Ly4uLikgaGFzIGJlZW4gY3JlYXRlZC4NCj4g
+PiBJIHN1c3BlY3QgdGhhdCB3ZWJzb2NrZXRwcCBpcyBhbiBlbXB0eSBwYWNrYWdlIGFuZCBub3Qg
+YmVpbmcNCj4gPiBnZW5lcmF0ZWQ/DQo+ID4NCj4gPiBJZiBzbywgeW91IGVpdGhlciBuZWVkIHRv
+IHJlbW92ZSB0aGUgZGVwZW5kZW5jeSBmcm9tIHdlYnNvY2tldHBwLWRldiBvbg0KPiA+IHdlYnNv
+Y2tldHBwIG9yIGdlbmVyYXRlIGFuIGVtcHR5IHBhY2thZ2UuDQo+ID4NCj4gPiBDaGVlcnMsDQo+
+ID4NCj4gPiBSaWNoYXJkDQo+IA0KPiBUaGFua3MgUmljaGFyZCBmb3IgbGVhdmluZyBtZSBub3Qg
+YWxvbmUuIENoZWNrZWQgdGhhdC4gWW91IGFyZSByaWdodCwNCj4gdGhlcmUgaXMgbm8gd2Vic29j
+a2V0cHAgcGFja2FnZSBjcmVhdGVkID8hPyBUaGVyZSBpcyBqdXN0IGEgZW1wdHkgLWRiZw0KPiBw
+YWNrYWdlLCB0aGUgd2FudGVkIC1kZXYtcGFja2FnZSBhbmQgbm8gd2Vic29ja2V0cHAtcGFja2Fn
+ZSBhdCBhbGwuIE1oLA0KPiBob3cgaXMgdGhpcyB0byB1bmRlcnN0YW5kPyBVc3VhbGx5IHRoZXJl
+IGlzIGEgcGFja2FnZSB3aXRoIGEgbGliIG9yDQo+IGJpbmFyeSwgYSBwYWNrYWdlIHdpdGggZGVi
+dWcgaW5mbyBhbmQgb25lIHdpdGggaGVhZGVycyBhbmQgc3R1ZmYgdG8NCj4gZGV2ZWxvcCB3aXRo
+LiBCdXQganVzdCBhIGRldi1wYWNrYWdlPyBUaGF0IGlzIGJpemFycmUgdG8gbWUgKGEgY29sbGVh
+Z2UNCj4gd2FudGVkIHRvIGhhdmUgdGhpcyBpbnNpZGUgU0RLLCBzbyBubyBpZGVhIHdoYXQgdG8g
+ZG8gd2l0aCBpdCkuDQo+IA0KPiBSZWdhcmRpbmcgeW91ciBzdWdnZXN0aW9ucyB0byBzb2x2ZSBp
+dDrCoCBJIGp1c3QgZm91bmQgdGhlIHJlY2lwZSBmb3INCj4gd2Vic29ja2V0cHAsDQo+IChtZXRh
+LW9wZW5lbWJlZGRlZC9tZXRhLW9lL3JlY2lwZXMtDQo+IHN1cHBvcnQvd2Vic29ja2V0cHAvd2Vi
+c29ja2V0cHBfMC44LjFiYikNCj4gd2hlcmUgaXMgbm90aGluZyBtZW50aW9uZWQgYWJvdXQgLWRl
+diBhbmQgZGVwZW5kZW5jaWVzLiAoSSBjYW4gc2VlIHlvdXINCj4gZXllcyByb2xsaW5nLCBzb3Jy
+eSBmb3IgbXkgaWdub3JhbmNlIC0gSSBqdXN0IGNhbiBndWVzcyB0aGVyZSBpcyBzb21lDQo+IGlu
+aGVyZW50IHJ1bGUgdG8gYnVpbGQgdGhlIGRldikuDQo+IA0KPiBDcmVhdGluZyBhbiBlbXB0eSBw
+YWNrYWdlLiBObyBpZGVhIGhvdyB0byBkbyBzbyBhcyB0aGVyZSBpcyBhbHJlYWR5IGEgYmINCj4g
+d2l0aCB0aGlzIG5hbWUgU28gSSBlbmRlZCB1cCBpbiBjcCBhbmQgcmVuYW1lIHRoZSBlbXB0eSAt
+ZGJnIHBhY2thZ2UNCj4gZnJvbSBkZXBsb3kvaXBrIGZvbGRlciBpbiB3ZWJzb2NrZXRwcF8wLjgu
+MS5pcGssIGJ1dCB0aGF0IGRvZXNuJ3Qgc29sdmUNCj4gdGhlIHByb2JsZW0gZWl0aGVyLiBDYW4g
+eW91IG9yIHNvbWVvbmUgZWxzZSBnaXZlIG1lIGEgZnVydGhlciBoaW50Pw0KPiANCj4gQmVzdCBy
+ZWdhcmRzIGFuZCBhIG5pY2Ugd2Vla2VuZCwNCj4gDQo+IFN0ZXZlDQoNCllvdSBkbyBub3QgbWVu
+dGlvbiB3aGljaCB2ZXJzaW9uIG9mIE9wZW5FbWJlZGRlZCB5b3UgYXJlIHVzaW5nLCBidXQgDQpt
+eSBndWVzcyBpcyB0aGF0IGl0IGlzIGFuIG9sZGVyIG9uZS4gVGhlIGZpeCBmb3IgdGhpcyBwcm9i
+bGVtIHdhcyANCmludGVncmF0ZWQgaW4gY29tbWl0IDdjZDI2MDQxLCB3aGljaCBpcyBpbmNsdWRl
+ZCB3aXRoIER1bmZlbGwgYW5kIA0KbGF0ZXIsIGJ5IGRvaW5nOg0KDQpSREVQRU5EU18ke1BOfS1k
+ZXYgPSAiIg0KDQpBc3N1bWluZyB5b3UgYXJlIHVzaW5nIGFuIG9sZGVyIHZlcnNpb24gb2YgT3Bl
+bkVtYmVkZGVkLCB5b3UgY2FuIGFkZCANCnRoZSBhYm92ZSB0byBhIHdlYnNvY2tldHBwXyUuYmJh
+cHBlbmQgZmlsZSBpbiBvbmUgb2YgeW91ciBvd24gbGF5ZXJzLCANCmFsdGVybmF0aXZlbHkgeW91
+IGNhbiBhZGQ6DQoNClJERVBFTkRTXyR7UE59LWRldl9wbi13ZWJzb2NrZXRwcCA9ICIiDQoNCnRv
+IHlvdXIgbG9jYWwuY29uZiBmaWxlLg0KDQovL1BldGVyDQoNCg==
