@@ -1,72 +1,73 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
- by mx.groups.io with SMTP id smtpd.web12.1955.1600389204346385282
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+ by mx.groups.io with SMTP id smtpd.web11.11172.1600521655403354760
  for <poky@lists.yoctoproject.org>;
- Thu, 17 Sep 2020 17:33:24 -0700
+ Sat, 19 Sep 2020 06:20:55 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=WR3laYq1;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.47, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f47.google.com with SMTP id u3so2083858pjr.3
-        for <poky@lists.yoctoproject.org>; Thu, 17 Sep 2020 17:33:24 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=stNShEky;
+ spf=pass (domain: gmail.com, ip: 209.85.218.44, mailfrom: toertel@gmail.com)
+Received: by mail-ej1-f44.google.com with SMTP id r7so11680017ejs.11
+        for <poky@lists.yoctoproject.org>; Sat, 19 Sep 2020 06:20:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id;
-        bh=utWUqiYu7fzrjvSNhh5xvyCTceFnpZ4umhby+J8raX8=;
-        b=WR3laYq1N8sLtvpXN7YTIQTZEmC30DSbunE2aQ/T0YerTl7tjXIXDpXCmEXTICYFr3
-         Y8h3bLURc3NS77RzIadtpBDRkpZls1dN7cFbdcR++Jt3v2MzCCkZCnwhMtneUbhmvXWp
-         clzaTSMUv+L0jJEz6XrdL7b9hnQZZr9xUAS4tdFbwST8gLfvhY1C8bHFwcPCyezHRim0
-         ymihA/mgPgkboI0xjFa2WbbfiaWtqSong8kPMzqxzcEwAINbG8mFFrJHLHlslGPdWh5V
-         YzadSPv+dm26XyWb+UbAPApKSLDVLBX9wHM3SJJ5QXG6dfy0sIbib8R8GQmRN2uJlQ4b
-         0VUQ==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=VKgD2wCoz6ViOKqT+D/p7yokPynAE8kM3GEM96VzwVs=;
+        b=stNShEkyVsXwlIzbIfRf/PW/xI+Jithcn8hsAbXRcMrlWNtrg1KMXGwEhsSfPhlyky
+         H23f2YshemC6M0aXOlup0e3fA2d+CoUFRMMRrE/BvxnRfxX9ThG9KiCqTZpGRLthumwp
+         9Z62tz1L+MWyDaMJubYCEXnI5JDCr/6TsdMRJoKl+NuPcdyrx8Izjbl1ba0Hr/jVzrur
+         BZ1z71p3no58fDoTmy+EREWfdyesa7HnlT6e1NcMQHp9Llp1hUJe+FxK5VybW+LYSoDV
+         rfNCqRSkw1P323fWyHCyQoUHKdjLZzzHur7YBmdk0399OeLIy5lGTBET+y6q8XE6K5rC
+         S3oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id;
-        bh=utWUqiYu7fzrjvSNhh5xvyCTceFnpZ4umhby+J8raX8=;
-        b=qkKUmMpwaFUZQyBK44sYvsqAlIA4SkijIb/dkOsUBG5KlYh4KbB00BRsdNTT/GUnS6
-         1JhIx5TZNfLCHKY4aIc82+/n05a7LmgY5IzQjaWDxJHDi/g7v0OdM3fnPxTloBni4iqM
-         7Ewwc5H8y5hVNt7f8i/dnr/tCJEhj7NTYWrxDrJfv2un1IYDU4w5Ty45JY5sJTmHGxck
-         pVSAdeKyLGGGydhiKjM2XnKMWn57ncR/x2Uop9Rf00FjoIhR8BhmampDglZRMBIUUeq1
-         c4Z/6x8PlZ6485R0SKL6SJiNhjfDnkaO35DrZwPtowqEzOGNtfcYpFtmuc1/xNTZWK2T
-         8waQ==
-X-Gm-Message-State: AOAM530E0ClFtXag23jva1P7EjpR3CnpJsm1VPmvdJ7cVROX4H1jsKSn
-	o+wAWnsqzGeGJz5ZPGzormPZtJmtAk8F1FlIGRE=
-X-Google-Smtp-Source: ABdhPJyifSs4hwK9SNHIa5pwIp178geIIqmmnnIll1LVhZ0G0ZRKkMMPAz2OKzJ9m012t0XhfAKw7A==
-X-Received: by 2002:a17:902:d70e:b029:d1:e626:d12f with SMTP id w14-20020a170902d70eb02900d1e626d12fmr13236922ply.74.1600389203215;
-        Thu, 17 Sep 2020 17:33:23 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from octo.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
-        by smtp.gmail.com with ESMTPSA id y25sm833059pfn.71.2020.09.17.17.33.21
-        for <poky@lists.yoctoproject.org>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=VKgD2wCoz6ViOKqT+D/p7yokPynAE8kM3GEM96VzwVs=;
+        b=typcty9+JMGlE35ON0oQQVN1EyfNmrwt5/hETX1tPYbjlxg7pusmz4XwKFzLvEubeT
+         xigrFgg0o4BrGfcOIvnBDaG9TXJTzPbkeOcfoP/GuUljZuEpI/ZY6sw2cYB/cvgVL5/5
+         z/YP4VhlSdc84dYWYn24uqcN3M22bFMSYtTG9e2FGmaY7qSjfcENiuwE590jnqcG3H4T
+         LVOL82NL/nKiEVFuyOjErFm6YeHbKavz8kCtlYsiT3RhiapV6bWx2E+6zza/9SfkX/y8
+         qnmBOz2wsSXC+nZgOSUiNtVQTVfNrakvd6oNMFoKYKzhN479uUzYbr3J3q+wWrXVYbSG
+         ooFA==
+X-Gm-Message-State: AOAM5300mMSE+RpXALKapXQdHA+t8y3S2YsP8wu5WZ04pBvN5O4H1SzW
+	axU/iN9TMKWccJmy3/7yqXCe4zB/Pgg=
+X-Google-Smtp-Source: ABdhPJzusqb4xDhcXcRj/uZ/vtaryymsWoBF7xc4wzIOw4dA0Tq3DkMeC+0S8Ip2TCmyQuNZ/Lg4PA==
+X-Received: by 2002:a17:906:9245:: with SMTP id c5mr43636513ejx.54.1600521651672;
+        Sat, 19 Sep 2020 06:20:51 -0700 (PDT)
+Return-Path: <toertel@gmail.com>
+Received: from gigabyte.fritz.box (p200300cfaf38d80028ca4d2d40a8faef.dip0.t-ipconnect.de. [2003:cf:af38:d800:28ca:4d2d:40a8:faef])
+        by smtp.gmail.com with ESMTPSA id lr14sm4495522ejb.0.2020.09.19.06.20.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2020 17:33:22 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
+        Sat, 19 Sep 2020 06:20:50 -0700 (PDT)
+From: toertel@gmail.com
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/4] Pull request (cover letter only)
-Date: Thu, 17 Sep 2020 14:33:12 -1000
-Message-Id: <cover.1600389106.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.17.1
+Cc: elizabeth.flanagan@intel.com,
+	pidge@toganlabs.com,
+	Mark Jonas <toertel@gmail.com>
+Subject: [PATCH 0/2] Map license names PSF and PSFv2 to PSF-2.0
+Date: Sat, 19 Sep 2020 15:19:49 +0200
+Message-Id: <20200919131951.11129-1-toertel@gmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+According to SDPX.org "Python License 2.0" is the overall Python
+license, which is comprised of several licenses. "Python Software
+Foundation License 2.0" is part of the complete Python license, but is
+also used independently by some projects.
 
-The following changes since commit 432b365f48f58ec0d9692a93607b65edd098ca1a:
+So far the license names PSF and PSFv2 found in LICENSE are mapped to
+to Python-2.0. This patch maps PSF and PSFv2 to PSF-2.0 und thus
+corrects the impression that Python-2.0 and PSF-2.0 are synonymous.
 
-  poky: Add fedora32 as a supported distro (2020-07-19 16:30:17 +0100)
+Mark Jonas (2):
+  Add license text for PSF-2.0
+  Map license names PSF and PSFv2 to PSF-2.0
 
-are available in the Git repository at:
+ meta/conf/licenses.conf            |  6 ++--
+ meta/files/common-licenses/PSF-2.0 | 49 ++++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+), 2 deletions(-)
+ create mode 100644 meta/files/common-licenses/PSF-2.0
 
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
-
-Bruce Ashfield (3):
-  yocto-bsps: update reference BSPs to 5.4.54
-  yocto-bsp: update to v5.4.56
-  yocto-bsp: update to v5.4.58
-
-Steve Sakoman (1):
-  poky.conf: Bump version for 3.1.3 release
-
- meta-poky/conf/distro/poky.conf                  |  2 +-
- .../linux/linux-yocto_5.4.bbappend               | 16 ++++++++--------
- 2 files changed, 9 insertions(+), 9 deletions(-)
-
--- 
-2.17.1
-
+--
+2.25.1
