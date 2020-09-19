@@ -1,119 +1,90 @@
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com [209.85.218.65])
- by mx.groups.io with SMTP id smtpd.web11.11174.1600521657792095683
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com [209.85.218.66])
+ by mx.groups.io with SMTP id smtpd.web11.11176.1600521660171346964
  for <poky@lists.yoctoproject.org>;
- Sat, 19 Sep 2020 06:20:58 -0700
+ Sat, 19 Sep 2020 06:21:00 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=rV72ShxF;
- spf=pass (domain: gmail.com, ip: 209.85.218.65, mailfrom: toertel@gmail.com)
-Received: by mail-ej1-f65.google.com with SMTP id lo4so11696101ejb.8
-        for <poky@lists.yoctoproject.org>; Sat, 19 Sep 2020 06:20:57 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=A4IU7NLc;
+ spf=pass (domain: gmail.com, ip: 209.85.218.66, mailfrom: toertel@gmail.com)
+Received: by mail-ej1-f66.google.com with SMTP id lo4so11696197ejb.8
+        for <poky@lists.yoctoproject.org>; Sat, 19 Sep 2020 06:20:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=M30RbgEJEIvB7DFVvrmAv9ZWG2+Xbo/Sijptd9UsNuo=;
-        b=rV72ShxFoKltiadovcqfEC2ah+9jAgikMQ7rXhmUP3K+ZUI2v+byLn7fDuSEfkrARO
-         FpnJwWUNL7FcgWGq63tDuIoxJqq8ba1Aldq1qdAI6VHDLhcxJE47lOTX9ckEki4RxEsd
-         lZlxmgY2QtwBNTjuG4Oq0xoT/96veZnLTswyxvNM554nG48esC11XVcsut87axiiqWvx
-         31jHOhbpAFOFhshqyQ6FcC9V0/HXNqFrObcW8Imi4RH/Uu87QwvHtDjjGVyvShu9kSVA
-         Qe2+uR2j35wFXuOuMah08I/37eUeuvs/miU/K/pZs+3xHXMDfxKvBGeMHir3irnO69h8
-         L4qg==
+        bh=jkKLhH/BuvgLRlpk28ZT85m6ajqe4UMd2B5p4049d20=;
+        b=A4IU7NLcL5JoiziZbdLIAdKKTNREBCu7Z/Uw+UuviY/UARusbnF6vv8XMXyifpbcUF
+         buPHd4Tzzm9aiUlBj8HoTMlveRFVkxZITbGUTUJdky/CWWrag8rQ6Rg+87SamoxFbMlZ
+         8ARyuVsY6HuRqC8W73lkzipJ44Pez732Le1eX/JyOifnvgc2ixXRUq9ZBDwFwr+0CXoa
+         BH+iljr0SKPhaH+IPeZpNr8iEyD1SxpTfQbtXLechzqYxsHTr46Hdqrc4F0sZrK90Clw
+         bQYsEle0uvTODenEgL9PHq9hqq9Sf/rs/f9hIY1XGLPBh4xslIARv4f4Zby7IAn0YuNt
+         hA/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=M30RbgEJEIvB7DFVvrmAv9ZWG2+Xbo/Sijptd9UsNuo=;
-        b=sbBXjxffWmxil1Jeg7vDX0jLRqqxCs9NEIzK16K6PbL5ARUE8O+zcP0uJxWQupTfCK
-         DybOr6yy4loIDgCLKgxJqnmwpElbsbALD5QT9WSsrdvWGsjFOB0/JcWy8qFvwbmQWP3G
-         SZoFnc/bl/a5+Z1g0IlFnQFLu4UIQHJN+phuhGXv0rp2j5ETQEpC803C6/xGHMaUQ2kR
-         CqZXGmzfhlROJ6Dn2o8Abg6vZwaqP16SF5NQFOKnd4dM5ywYRkLxK3nR5XDheqd6mFSM
-         v5FdRz5wKKlQcRP689pAFO6gFhIX0WpfbMTdh4uye0jHBE2w6hJk0YFTG6SCi8KYzevw
-         26+w==
-X-Gm-Message-State: AOAM5309kXHupObgS9FtVvmZTBZTGMJ5pfhIe+PY9z1TUDfGxuEqFop/
-	jzPD6epePWrJ00SXmagQxuN77zZOeps=
-X-Google-Smtp-Source: ABdhPJy4GTWxPzorNIEwP5z/Q4LUnH1oM95Yw97ca5OeWPHnQB16JuuZDnfjNiCu8UPide3jOGZ7Tw==
-X-Received: by 2002:a17:906:455:: with SMTP id e21mr42918632eja.170.1600521655932;
-        Sat, 19 Sep 2020 06:20:55 -0700 (PDT)
+        bh=jkKLhH/BuvgLRlpk28ZT85m6ajqe4UMd2B5p4049d20=;
+        b=PPDipjGo5SkhOZFpgNuWDdPHjquKfO2pBK8mHeJAUtJ4dIbp+8R4KSvCmVbICJan88
+         I+ce4xCaQ5XGjsiE1IXEOOKjdxxw/m1B+xLOSpeUvb2QUZ0x/FaRNUdzGdA5majVp7iT
+         q54tIRNjKgJHbdi1Lcxs90se7dsugjFXiCPPg1zDz+Mq/asQDQtfR9XoOxH0VOWqL44Y
+         fRZlnKmdbsJ/Xxzxn/Aj/bEa3hk4vFQOGQ2X2Sx8W2GDhs4nMrbCIDLb1gncl5goGhTG
+         swTL+qDfFZiZ88HhwS5OX5kNI2CisHGXhdmzXiR7wp2TT8KQ+lhq8v8oaTZ6LO/vRUwU
+         tYIA==
+X-Gm-Message-State: AOAM531qtA8JromJ4IUFvJ5I4mDezoggeCHh2tQ9WM8Z8Ch5tcZVHqrK
+	0yUxqxoEPYVXeY+WvzTrMtrX5zhd6QM=
+X-Google-Smtp-Source: ABdhPJwMvUFxujsl3TJwmEov0nELm2wJlqD8GjKdbnKlmZ1C2ujkmrQ7J93Qo62vEjng3Ns28GkPjQ==
+X-Received: by 2002:a17:906:ca8f:: with SMTP id js15mr42856180ejb.175.1600521658369;
+        Sat, 19 Sep 2020 06:20:58 -0700 (PDT)
 Return-Path: <toertel@gmail.com>
 Received: from gigabyte.fritz.box (p200300cfaf38d80028ca4d2d40a8faef.dip0.t-ipconnect.de. [2003:cf:af38:d800:28ca:4d2d:40a8:faef])
-        by smtp.gmail.com with ESMTPSA id lr14sm4495522ejb.0.2020.09.19.06.20.55
+        by smtp.gmail.com with ESMTPSA id lr14sm4495522ejb.0.2020.09.19.06.20.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2020 06:20:55 -0700 (PDT)
+        Sat, 19 Sep 2020 06:20:57 -0700 (PDT)
 From: "Mark Jonas" <toertel@gmail.com>
 To: poky@lists.yoctoproject.org
 Cc: elizabeth.flanagan@intel.com,
 	pidge@toganlabs.com,
 	Mark Jonas <toertel@gmail.com>
-Subject: [PATCH 1/2] Add license text for PSF-2.0
-Date: Sat, 19 Sep 2020 15:19:50 +0200
-Message-Id: <20200919131951.11129-2-toertel@gmail.com>
+Subject: [PATCH 2/2] Map license names PSF and PSFv2 to PSF-2.0
+Date: Sat, 19 Sep 2020 15:19:51 +0200
+Message-Id: <20200919131951.11129-3-toertel@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200919131951.11129-1-toertel@gmail.com>
 References: <20200919131951.11129-1-toertel@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+According to SDPX.org "Python License 2.0" is the overall Python
+license, which is comprised of several licenses. "Python Software
+Foundation License 2.0" is part of the complete Python license, but is
+also used independently by some projects.
+
+So far the license names PSF and PSFv2 found in LICENSE are mapped to
+to Python-2.0. This patch maps PSF and PSFv2 to PSF-2.0 und thus
+corrects the impression that Python-2.0 and PSF-2.0 are synonymous.
+
 Signed-off-by: Mark Jonas <toertel@gmail.com>
 ---
- meta/files/common-licenses/PSF-2.0 | 49 ++++++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
- create mode 100644 meta/files/common-licenses/PSF-2.0
+ meta/conf/licenses.conf | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/meta/files/common-licenses/PSF-2.0 b/meta/files/common-licenses/PSF-2.0
-new file mode 100644
-index 0000000000..4e673e93fc
---- /dev/null
-+++ b/meta/files/common-licenses/PSF-2.0
-@@ -0,0 +1,49 @@
+diff --git a/meta/conf/licenses.conf b/meta/conf/licenses.conf
+index 751424d1b6..5b309eb385 100644
+--- a/meta/conf/licenses.conf
++++ b/meta/conf/licenses.conf
+@@ -45,9 +45,11 @@ SPDXLICENSEMAP[MIT-style] = "MIT"
+ #Openssl variations
+ SPDXLICENSEMAP[openssl] = "OpenSSL"
+ 
++#PSF variations
++SPDXLICENSEMAP[PSF] = "PSF-2.0"
++SPDXLICENSEMAP[PSFv2] = "PSF-2.0"
 +
-+PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
-+--------------------------------------------
-+
-+1. This LICENSE AGREEMENT is between the Python Software Foundation
-+("PSF"), and the Individual or Organization ("Licensee") accessing and
-+otherwise using this software ("Python") in source or binary form and
-+its associated documentation.
-+
-+2. Subject to the terms and conditions of this License Agreement, PSF
-+hereby grants Licensee a nonexclusive, royalty-free, world-wide
-+license to reproduce, analyze, test, perform and/or display publicly,
-+prepare derivative works, distribute, and otherwise use Python
-+alone or in any derivative version, provided, however, that PSF's
-+License Agreement and PSF's notice of copyright, i.e., "Copyright (c)
-+2001, 2002, 2003, 2004, 2005, 2006 Python Software Foundation; All Rights
-+Reserved" are retained in Python alone or in any derivative version
-+prepared by Licensee.
-+
-+3. In the event Licensee prepares a derivative work that is based on
-+or incorporates Python or any part thereof, and wants to make
-+the derivative work available to others as provided herein, then
-+Licensee hereby agrees to include in any such work a brief summary of
-+the changes made to Python.
-+
-+4. PSF is making Python available to Licensee on an "AS IS"
-+basis. PSF MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR
-+IMPLIED. BY WAY OF EXAMPLE, BUT NOT LIMITATION, PSF MAKES NO AND
-+DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS
-+FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF PYTHON WILL NOT
-+INFRINGE ANY THIRD PARTY RIGHTS.
-+
-+5. PSF SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON
-+FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS
-+A RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON,
-+OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
-+
-+6. This License Agreement will automatically terminate upon a material
-+breach of its terms and conditions.
-+
-+7. Nothing in this License Agreement shall be deemed to create any
-+relationship of agency, partnership, or joint venture between PSF and
-+Licensee. This License Agreement does not grant permission to use PSF
-+trademarks or trade name in a trademark sense to endorse or promote
-+products or services of Licensee, or any third party.
-+
-+8. By copying, installing or otherwise using Python, Licensee
-+agrees to be bound by the terms and conditions of this License
-+Agreement.
+ #Python variations
+-SPDXLICENSEMAP[PSF] = "Python-2.0"
+-SPDXLICENSEMAP[PSFv2] = "Python-2.0"
+ SPDXLICENSEMAP[Python-2] = "Python-2.0"
+ 
+ #Apache variations
 -- 
 2.25.1
 
