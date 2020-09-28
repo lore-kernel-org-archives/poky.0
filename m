@@ -1,77 +1,68 @@
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com [209.85.210.67])
- by mx.groups.io with SMTP id smtpd.web11.913.1601315401270208327
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+ by mx.groups.io with SMTP id smtpd.web11.1532.1601317019266771517
  for <poky@lists.yoctoproject.org>;
- Mon, 28 Sep 2020 10:50:01 -0700
+ Mon, 28 Sep 2020 11:16:59 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=MAObW+vM;
- spf=pass (domain: gmail.com, ip: 209.85.210.67, mailfrom: toertel@gmail.com)
-Received: by mail-ot1-f67.google.com with SMTP id m12so1820045otr.0
-        for <poky@lists.yoctoproject.org>; Mon, 28 Sep 2020 10:50:01 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=dBcNfDfG;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.48, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f48.google.com with SMTP id z4so2414933wrr.4
+        for <poky@lists.yoctoproject.org>; Mon, 28 Sep 2020 11:16:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=W9weZy+jwLgBNLzPvk72o144Al/l5WxySpfMpik7dcI=;
-        b=MAObW+vMkb82NTdQkf3HMgYpxxXaNEczVW/HDsRWDEoVdeHEy6lAQrij/UIBQxEyqr
-         73LB97Icw/PT76tDGEI+y2YZi9PtKTo8AUyI51Dm9tlAY3UQb2pH4MngB/wo+/gYla9s
-         Tc2w1GjPhMm2FHYRtdp+LERxZXDvOpXRHi9pJyjvUVamVDnYsnGrg2bwGtIF3fyNJHkl
-         WRYoBQyKr50a6GI9c3DyikEDiCzeJp9bHevsI2k0iru+vYQDnDsh1umTsZ4v1UD5Tebd
-         JbOhonEwT0icalKaEvg8gMKuBHuyfYcx5hIuZxn+k3Z/pXiUIuRQnv20PolD42fV/fkE
-         1PAw==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=n3OyXGVHALX3hcD/RgN5JD01PW6tGS9S0uEPWzM3K5w=;
+        b=dBcNfDfGYfztrLbOf8myU7gH+efkhg5Llrh+9qel/+lA4JefeZIO63lUuZKubaK/RE
+         WqIu7NEVNBeNKfE6dMfiwLGAsPEROfIMx+e+XoIlNydWB7ZmHoH/D2hIN0DjfwauPo+1
+         WOdkI1i6DGtyZ0JYIRU+fl2ssBBbjKnKIHFIY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=W9weZy+jwLgBNLzPvk72o144Al/l5WxySpfMpik7dcI=;
-        b=SESSp51eiU5gROHtZlXOLgRveUsv//bdrvkktYaKZc+U2KMVN8JzrkPciZRNnbRrZn
-         3+V5p8Mo7PtYwTIRoK3nVWiTC9HcyBfuCZJuEeo1ZoAxHIK1exdb6/yBORG7aVzKipxn
-         9ZjaLW74b4MTkDQUKOnIw2DXH8Jze0pBX93RSAyQkph5te0YcHpXdnn66Ul/0BG7MMuK
-         O9sSu41xbAi67wqHIbRjlC0IEPm6oYTp9xe2+bxlzvwA/yFdf1e3wJ4kbbzp9ChyLIUw
-         TWiTeYcRGPMvOiUhvIslcJq0KLNKCxAHl+p4b33RjtvSHLTVQS/dXoBir8pKAsagO7yd
-         i1+w==
-X-Gm-Message-State: AOAM532VN1dFO4wtb5P5PPRVp2rDUyy1U2UGGac8slKoUxdL2gMDEcLj
-	Ti7hUMwu4E1VTDQYmorUOfpviMkEPpUYmWXJGNB4bqqS
-X-Google-Smtp-Source: ABdhPJxFXNI1QXwWUcB+3FIKz1DCidFFLLy9mfAGJqYYU+Tn3gLq2K/HvOpO/O4QoBCcTktKNeFBbIu3n0tiX89qKN4=
-X-Received: by 2002:a05:6830:6:: with SMTP id c6mr136713otp.50.1601315400303;
- Mon, 28 Sep 2020 10:50:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200919131951.11129-1-toertel@gmail.com>
-In-Reply-To: <20200919131951.11129-1-toertel@gmail.com>
-From: "Mark Jonas" <toertel@gmail.com>
-Date: Mon, 28 Sep 2020 19:49:49 +0200
-Message-ID: <CAEE5dN385Lez85OSOKxSkdtWmyBRC_33RorW105=CDyC527+pw@mail.gmail.com>
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=n3OyXGVHALX3hcD/RgN5JD01PW6tGS9S0uEPWzM3K5w=;
+        b=L600GyQKUp8gp/dClViJhIYNHQAx6JHZtYlR7NMc5GVLyi+md/expwu3DV7B7crT1O
+         a0lh+IlZ3cjrJHBJoVsmycvGt1cFsxhnxmnnwymUiDrF5/X8DBaYNPEmCickywYw686d
+         cFGNjceuEYM9zuPqphJeMHwkZjkdIqhmcEdPA9v0n4eVJwjyTtgfQOVvxnxEyBVvqW8v
+         GquHUW+nyTzzA9a3b+ytej7FsF2DQW61vehxYVssGCeW2I54pWeDS/pNajxoYtfuIsco
+         cYwj/eYh/aieSgJGOuxFcGSec7uoSpXuyfPH08E1neShB307AomNR3rM3L/rqTeTKo4t
+         uD6Q==
+X-Gm-Message-State: AOAM533hSE27VhZhumqwrRzNR5auV2VjQqjpAKveLLLql6GW10fJ45Bg
+	umyJWsftpZWJ/N+KUJWZZuL3DQ==
+X-Google-Smtp-Source: ABdhPJyXq//ebWTKvmP5t9r14Toa+X4+dOh0bvVT7lsaYsmIPBRk+XNzHjbiuMRmc19b/zgAX5g++A==
+X-Received: by 2002:adf:de11:: with SMTP id b17mr3024305wrm.82.1601317017639;
+        Mon, 28 Sep 2020 11:16:57 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from 1.d.f.d.8.7.4.c.e.3.5.3.c.6.0.0.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (1.d.f.d.8.7.4.c.e.3.5.3.c.6.0.0.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:6c:353e:c478:dfd1])
+        by smtp.gmail.com with ESMTPSA id k5sm2270921wmb.19.2020.09.28.11.16.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2020 11:16:49 -0700 (PDT)
+Message-ID: <5b2ed179f814358e99c7eecb4f17da07fb3fc2ee.camel@linuxfoundation.org>
 Subject: Re: [PATCH 0/2] Map license names PSF and PSFv2 to PSF-2.0
-To: poky@lists.yoctoproject.org
-Cc: pidge@toganlabs.com, richard.purdie@linuxfoundation.org
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Mark Jonas <toertel@gmail.com>, poky@lists.yoctoproject.org
+Cc: pidge@toganlabs.com
+Date: Mon, 28 Sep 2020 19:16:47 +0100
+In-Reply-To: <CAEE5dN385Lez85OSOKxSkdtWmyBRC_33RorW105=CDyC527+pw@mail.gmail.com>
+References: <20200919131951.11129-1-toertel@gmail.com>
+	 <CAEE5dN385Lez85OSOKxSkdtWmyBRC_33RorW105=CDyC527+pw@mail.gmail.com>
+User-Agent: Evolution 3.36.4-0ubuntu1 
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Mon, 2020-09-28 at 19:49 +0200, Mark Jonas wrote:
+> Hi,
+> 
+> Gentle ping about my patch. I am rather confident that I posted on
+> the
+> right mailing list.
 
-Gentle ping about my patch. I am rather confident that I posted on the
-right mailing list.
+I'm afraid its not the right list, these would go to openembedded-core.
 
-Thanks,
-Mark
+I did look at these and they do look like good changes to have, the
+incorrect list meant I lost track though.
 
-On Sat, Sep 19, 2020 at 3:20 PM Mark Jonas <toertel@gmail.com> wrote:
->
-> According to SDPX.org "Python License 2.0" is the overall Python
-> license, which is comprised of several licenses. "Python Software
-> Foundation License 2.0" is part of the complete Python license, but is
-> also used independently by some projects.
->
-> So far the license names PSF and PSFv2 found in LICENSE are mapped to
-> to Python-2.0. This patch maps PSF and PSFv2 to PSF-2.0 und thus
-> corrects the impression that Python-2.0 and PSF-2.0 are synonymous.
->
-> Mark Jonas (2):
->   Add license text for PSF-2.0
->   Map license names PSF and PSFv2 to PSF-2.0
->
->  meta/conf/licenses.conf            |  6 ++--
->  meta/files/common-licenses/PSF-2.0 | 49 ++++++++++++++++++++++++++++++
->  2 files changed, 53 insertions(+), 2 deletions(-)
->  create mode 100644 meta/files/common-licenses/PSF-2.0
->
-> --
-> 2.25.1
+Cheers,
+
+Richard
+
