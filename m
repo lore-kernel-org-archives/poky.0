@@ -1,122 +1,108 @@
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
- by mx.groups.io with SMTP id smtpd.web12.4886.1602329916510088174
+Received: from mx02.optimcloud.com (mx02.optimcloud.com [46.23.93.22])
+ by mx.groups.io with SMTP id smtpd.web12.8026.1602341146816728475
  for <poky@lists.yoctoproject.org>;
- Sat, 10 Oct 2020 04:38:36 -0700
+ Sat, 10 Oct 2020 07:45:47 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=VcIr4kzN;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.65, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f65.google.com with SMTP id x7so4334055wrl.3
-        for <poky@lists.yoctoproject.org>; Sat, 10 Oct 2020 04:38:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=D559O4pQLj3djxJ8TpDWDfZK/051/2ILCCVmZaEASzs=;
-        b=VcIr4kzNenbLSSVtf8L29QYnu9AaJUjATtMs0tCQI4O6rR4gLhJOGgur0orj/KTJof
-         mGVQDSecmOan0s2PdqSP9kT7AZFzm+zRvBpR8ibnfAHJPgGejE4ZTB3kvlBPKXeSUS3m
-         6m+9/vqpF2XSuB+9pNuiG2Pdm3qAkSJ6+kEpg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=D559O4pQLj3djxJ8TpDWDfZK/051/2ILCCVmZaEASzs=;
-        b=pYsKPhtAcrfK/THyN6U+7Qa3hf2G7AvzQx6AYiKJevDaFdxd1r4LKw9iSgZ4xftwMx
-         7n3LmMWd4z+msGw/Xqllwi0F/z5MSI6C56ajdNrCoY78c7HgpPf7etVlaodsaIRhjFlE
-         nKwuswEG73/AdnA4N4VxUxsflWqZ+BKDqSFHPucwZ6cjQ9FyfMzqdFWik1j3SUmUpDTg
-         x1Io4frPk/e17tL7WtCy4bVZ9HY8tGgLFx7nVFPl9re1Nce22wek4gBNNpvxrLIhynbL
-         HE/051QwRKEBHS3fp/S/8VL5tpgfQV5re2asdApVdk0R5t2UliNbN6SZiVk3ZQw+XC6V
-         rAOQ==
-X-Gm-Message-State: AOAM532hRnew2ql5CGFqrkGz8FgIRy5r0kBYoqu+9zVGV1oCs9vNNoJh
-	24M+WcHdGqlLmElLRYhqGvd9Cg==
-X-Google-Smtp-Source: ABdhPJzUhJXkhVIWzuIRH6/UUO3tAlmvpUh6QRf+nKE5SnzkWmOpAHldG3z0GLtv+BQXBMH6dtKmXg==
-X-Received: by 2002:adf:9043:: with SMTP id h61mr20367676wrh.237.1602329914783;
-        Sat, 10 Oct 2020 04:38:34 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from 0.6.6.4.7.a.b.4.4.1.e.0.e.3.c.2.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (0.6.6.4.7.a.b.4.4.1.e.0.e.3.c.2.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:2c3e:e14:4ba7:4660])
-        by smtp.gmail.com with ESMTPSA id m1sm14936277wmm.34.2020.10.10.04.38.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2020 04:38:34 -0700 (PDT)
-Message-ID: <e5d0eb2cc4cb3af4380f30f01b4f92ae3cf28a42.camel@linuxfoundation.org>
-Subject: Re: [poky] [meta-poky][PATCH] Update license files to match current SPDX names and license contents
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Meh Mbeh Ida Delphine <idadelm@gmail.com>, poky@lists.yoctoproject.org
-Date: Sat, 10 Oct 2020 12:38:31 +0100
-In-Reply-To: <20201010111602.7785-1-idadelm@gmail.com>
-References: <20201010111602.7785-1-idadelm@gmail.com>
-User-Agent: Evolution 3.36.4-0ubuntu1 
+ dkim=fail reason="no key for verify" header.i=@optimcloud.com header.s=obsd header.b=WDvgJFuS;
+ spf=none, err=SPF record not found (domain: optimcloud.com, ip: 46.23.93.22, mailfrom: yocto@optimcloud.com)
+Received: from mx02.optimcloud.com (localhost [127.0.0.1])
+	by mx02.optimcloud.com (OpenSMTPD) with ESMTP id eb19f893
+	for <poky@lists.yoctoproject.org>;
+	Sat, 10 Oct 2020 16:45:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=optimcloud.com; h=to
+	:from:subject:message-id:date:mime-version:content-type
+	:content-transfer-encoding; s=obsd; bh=ekhYijI2+WPIELE19E3vQH4SX
+	lyzDyVwBuQ9IKvEe+U=; b=WDvgJFuSYt6lidUePKEOP2HSMvhsBeDGXfiy3P79Q
+	VKas6Ausou4+FvOepxeUzW87XK+EIEXQR8GoQbM0rMRPNX42msqWvqjDKDOQ3x/a
+	QQKE0QuuCa1vs1x+K6T+ti7gQIdAfhUgTEk/LMjX801/1pvrQ1I+dOsy4hXo3+xQ
+	oVsDa3Y9pLEgHzCbH04E/L3dkYzsbuJnAft/MToEa7TAOAAl0gbf82q6dHV9Uekq
+	j+b11sgA+jGaveJZaBbsQyp41UFGFfH8euLVjp2AZqnmRyx5oqUrCrzss57ip/LX
+	B4TgBpzg9SFcIloTA4R8i7UNxDOZTPp2VMnt2EJAp1lVg==
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=optimcloud.com; h=to:from
+	:subject:message-id:date:mime-version:content-type
+	:content-transfer-encoding; q=dns; s=obsd; b=arwozA+H6QohQk8MbJB
+	FKXuVsocQzYWuyQmDqU82lxibKrQPzF60PXMrEzUatAAeyatk/+NT601wolxMqoQ
+	Wua9o+B0RlKbR05Ai57tQdEr4fYbwsc1t2OIg+buRDOX/3gu+/ewwE+oU21fl3+K
+	w9JmkD3XzNJNdhNN2+pjNkxhCU2VpY2cYAHG498Uyizc+0iMWpIfn5owps2ZwebE
+	RaWTubjnGqoiQWuz6oLYTvG//lg4BPTHE5SUS0rrClYL8ZoQNUULeDi8uqWI+wHa
+	GDyjkCYUgKuc99F8ch77HTtFnBLTwF/2kbJ4AOJBo4a9U52o4ZI+3TxRDgcaXsi0
+	9Nw==
+Received: 
+	by mx02.optimcloud.com (OpenSMTPD) with ESMTPSA id 37cc32c7 (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256:NO) auth=yes user=yocto@optimcloud.com
+	for <poky@lists.yoctoproject.org>;
+	Sat, 10 Oct 2020 16:45:42 +0200 (CEST)
+To: poky@lists.yoctoproject.org
+From: "Yocto" <yocto@optimcloud.com>
+Subject: ModuleNotFoundError: No module named 'multiprocessing'
+Message-ID: <9103e3d8-a9a3-b82f-b33d-3372b7d8f842@optimcloud.com>
+Date: Sat, 10 Oct 2020 21:43:46 +0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-Hi,
+Ive created a recipe which builds and installs fine in the image 
+however, via vli i receive
 
-Thanks for this patch, it looks like a good start!
 
-Firstly, this change needs to be sent to the openembedded-core mailing
-list rather than the poky one. There is also a small additional piece
-needed below.
+glances
+Traceback (most recent call last):
+   File "/usr/bin/glances", line 33, in <module>
+     sys.exit(load_entry_point('Glances==3.1.5', 'console_scripts', 
+'glances')())
+   File "/usr/bin/glances", line 25, in importlib_load_entry_point
+     return next(matches).load()
+   File "/usr/lib/python3.8/importlib/metadata.py", line 77, in load
+     module = import_module(match.group('module'))
+   File "/usr/lib/python3.8/importlib/__init__.py", line 127, in 
+import_module
+     return _bootstrap._gcd_import(name[level:], package, level)
+   File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+   File "<frozen importlib._bootstrap>", line 975, in 
+_find_and_load_unlocked
+   File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+   File "<frozen importlib._bootstrap_external>", line 783, in exec_module
+   File "<frozen importlib._bootstrap>", line 219, in 
+_call_with_frames_removed
+   File "/usr/lib/python3.8/site-packages/glances/__init__.py", line 44, 
+in <module>
+     from glances.main import GlancesMain
+   File "/usr/lib/python3.8/site-packages/glances/main.py", line 28, in 
+<module>
+     from glances.config import Config
+   File "/usr/lib/python3.8/site-packages/glances/config.py", line 24, 
+in <module>
+     import multiprocessing
+ModuleNotFoundError: No module named 'multiprocessing'
 
-In the subject/short log, you mention "license contents". You haven't
-changed any license contents so that should probably not be there.
 
-On Sat, 2020-10-10 at 12:16 +0100, Meh Mbeh Ida Delphine wrote:
-> Updated mappings of license fields of meta/conf/licenses.conf to
-> match latest SPDX naming.
-> 
-> Fixes: [YOCTO #13320]
-> 
-> Signed-off-by: Meh Mbeh Ida Delphine <idadelm@gmail.com>
-> ---
->  meta/conf/licenses.conf | 34 +++++++++++++++++-----------------
->  1 file changed, 17 insertions(+), 17 deletions(-)
-> 
-> diff --git a/meta/conf/licenses.conf b/meta/conf/licenses.conf
-> index 5b309eb385..9b4d0e7c7b 100644
-> --- a/meta/conf/licenses.conf
-> +++ b/meta/conf/licenses.conf
-> @@ -10,27 +10,27 @@
->  # Any mapping to MPL/LGPL/GPL should be fixed
->  
->  # AGPL variations
-> -SPDXLICENSEMAP[AGPL-3] = "AGPL-3.0"
-> -SPDXLICENSEMAP[AGPLv3] = "AGPL-3.0"
-> -SPDXLICENSEMAP[AGPLv3.0] = "AGPL-3.0"
-> +SPDXLICENSEMAP[AGPL-3] = "AGPL-3.0-only"
-> +SPDXLICENSEMAP[AGPLv3] = "AGPL-3.0-only"
-> +SPDXLICENSEMAP[AGPLv3.0] = "AGPL-3.0-only"
->  
->  # GPL variations
-> -SPDXLICENSEMAP[GPL-1] = "GPL-1.0"
-> -SPDXLICENSEMAP[GPLv1] = "GPL-1.0"
-> -SPDXLICENSEMAP[GPLv1.0] = "GPL-1.0"
-> -SPDXLICENSEMAP[GPL-2] = "GPL-2.0"
-> -SPDXLICENSEMAP[GPLv2] = "GPL-2.0"
-> -SPDXLICENSEMAP[GPLv2.0] = "GPL-2.0"
-> -SPDXLICENSEMAP[GPL-3] = "GPL-3.0"
-> -SPDXLICENSEMAP[GPLv3] = "GPL-3.0"
-> -SPDXLICENSEMAP[GPLv3.0] = "GPL-3.0"
-> +SPDXLICENSEMAP[GPL-1] = "GPL-1.0-only"
-> +SPDXLICENSEMAP[GPLv1] = "GPL-1.0-only"
-> +SPDXLICENSEMAP[GPLv1.0] = "GPL-1.0-only"
-> +SPDXLICENSEMAP[GPL-2] = "GPL-2.0-only"
-> +SPDXLICENSEMAP[GPLv2] = "GPL-2.0-only"
-> +SPDXLICENSEMAP[GPLv2.0] = "GPL-2.0-only"
-> +SPDXLICENSEMAP[GPL-3] = "GPL-3.0-only"
-> +SPDXLICENSEMAP[GPLv3] = "GPL-3.0-only"
-> +SPDXLICENSEMAP[GPLv3.0] = "GPL-3.0-only"
+so i ask, whats missing, or is something broken?
 
-Where we have something existing like "GPL-2.0" in the original list,
-we need to create a new mapping for GPL-2.0 -> GPL-2.0-only, so in that
-case we'd need to add:
 
-SPDXLICENSEMAP[GPL-2.0] = "GPL-2.0-only"
+# The is automatic generated Code by "makePipRecipes.py"
+# (build by Robin Sebastian (https://github.com/robseb) Vers.: 1.1)
 
-Could you add these missing mappings and resend to the openembedded-
-core list please?
+SUMMARY = "Recipie to embedded the Python PiP Package Glances"
+HOMEPAGE ="https://pypi.org/project/Glances"
+LICENSE = "AGPL"
+LIC_FILES_CHKSUM = 
+"file://CONTRIBUTING.md;md5=93a9e8bcb1772a7aa541166ae95f0342"
 
-Otherwise looks good!
+BBCLASSEXTEND = "native nativesdk"
+inherit pypi setuptools3
 
-Cheers,
+RDEPENDS_${PN} += "\
+     ${PYTHON_PN}-psutil \
+     ${PYTHON_PN}-future \
+     ${PYTHON_PN}-docutils \
+     ${PYTHON_PN}-multiprocessing \
+"
 
-Richard
+PYPI_PACKAGE = "Glances"
+SRC_URI[md5sum] = "d15a35810d3e85d5ae1b203040e727b4"
+SRC_URI[sha256sum] = 
+"00db2f3426e81bdf9428a56f5f54cd8866c3e6418c7b0c85374046ae044f3c74"
 
