@@ -1,100 +1,94 @@
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (EUR04-DB3-obe.outbound.protection.outlook.com [40.107.6.93])
- by mx.groups.io with SMTP id smtpd.web09.13794.1603804405050424190
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com [209.85.221.66])
+ by mx.groups.io with SMTP id smtpd.web11.13849.1603804720624785703
  for <poky@lists.yoctoproject.org>;
- Tue, 27 Oct 2020 06:13:25 -0700
+ Tue, 27 Oct 2020 06:18:41 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bang-olufsen.dk header.s=selector1 header.b=qEssd4L7;
- spf=pass (domain: bang-olufsen.dk, ip: 40.107.6.93, mailfrom: alsi@bang-olufsen.dk)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cFKthSdjfyYdUHI8vI8bXqYGihL7rK6q7SfrfRoPH4B3JGU1GzR9eYXmZmEO1JJZ0qzs6mdIYnau+b14JakCG1u1p3W6LXfECkF7Kyx3K7D2Hh8odOTxkXNJf9qvey5L+uDjhAIY3B5Sp2UdLUHLBVVcXL5xgAI2Vo6LRi45SUJ5Kl2ZTCyh83m+4jOz5FFF8W1zEEAYqEP+gDTL24skIIttqsFBVR5KRcbOntPiUVoG6ABFSqQMtTdhVulg77N0GklTr7GcNGcehgctNqnaesdT5XPje6D0AiW/4CNiDvq9wK5EYh86xYDKyiMNK4tpqmfX9BRr710AykMDEKEbbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U7JSe34HuRcmiybPs5Gbdfqt5GXdUax7HCCxFrVAmEA=;
- b=eIeNYMuB74BjgPispl2j+EcTXPiXI1PViq9WIo0OqZXpFSf1vHGSvo0dqMSHpLsflYgTHWW9qA5+fxlN1x2KECgnKTwF03Yrx+bbt9kMR42fBVZRCGjFEYMTJtIHqNzU2D0w+4RS9u88fn5KPJzNxoqW5resrq8MBXWNA7tkTHGRKkolJKNg67Z9OhFdUm30Zu87gM1HRAX4XVw7auvkTUvxHeF9//8qYgei8smWIRnc3ljoOtRVYIYFxC/RRQoUs9xv27ujskMYHPSA3zpX1Z8LhAixigLVawx1P6aQDifCyiwocln8T4IL20bB/cmDoqGwl9oqvXMByLzM+ZHFQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bang-olufsen.dk; dmarc=pass action=none
- header.from=bang-olufsen.dk; dkim=pass header.d=bang-olufsen.dk; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bang-olufsen.dk;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U7JSe34HuRcmiybPs5Gbdfqt5GXdUax7HCCxFrVAmEA=;
- b=qEssd4L7RzLFc3kffAzxVmX1yDwkc9RB1tY0keOAEdpveukYGEUZnJOvPi7gAk08O/sQu+vDQvScdjHhmZJvvLAaZjyBF0tAtj6EqCYhlyuXGTq1NY0buvIBWYOHtL5EujcUrE4b9QTMHBAli4yxSPw/WmDt3JxkkNlBdgKdQZ0=
-Received: from VI1PR03MB3166.eurprd03.prod.outlook.com (2603:10a6:802:32::30)
- by VI1PR03MB6608.eurprd03.prod.outlook.com (2603:10a6:800:193::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3477.21; Tue, 27 Oct
- 2020 13:13:23 +0000
-Received: from VI1PR03MB3166.eurprd03.prod.outlook.com
- ([fe80::1424:3563:c014:6918]) by VI1PR03MB3166.eurprd03.prod.outlook.com
- ([fe80::1424:3563:c014:6918%5]) with mapi id 15.20.3477.028; Tue, 27 Oct 2020
- 13:13:23 +0000
-From: "Alvin Sipraga" <ALSI@bang-olufsen.dk>
-To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-CC: Alvin Sipraga <ALSI@bang-olufsen.dk>
-Subject: [PATCH] cmake.bbclass: don't remove build directory for out-of-tree builds
-Thread-Topic: [PATCH] cmake.bbclass: don't remove build directory for
- out-of-tree builds
-Thread-Index: AQHWrGLyWLQeZRsacEW4x2+s4diPww==
-Date: Tue, 27 Oct 2020 13:13:23 +0000
-Message-ID: <20201027131227.576470-1-alsi@bang-olufsen.dk>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: lists.yoctoproject.org; dkim=none (message not signed)
- header.d=none;lists.yoctoproject.org; dmarc=none action=none
- header.from=bang-olufsen.dk;
-x-originating-ip: [193.89.194.27]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5d55c1f9-f917-49c4-698f-08d87a7a151b
-x-ms-traffictypediagnostic: VI1PR03MB6608:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: 
- <VI1PR03MB6608641BCE0DE4A39DF20DEA83160@VI1PR03MB6608.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2276;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- Xj154upn9FogdEk19jNCHrgRM1YEzsiQnNN2r/60RuppWy9wsRrKI0K2oFx5suvj5sSa1lXCIb0jvLzRE9TKC/szhI9DFIAdpfxDEgmH+gKTZAufeK5Aou2gK4aB8KiVQ5IIAtYemL+7C0n1MtK/ffKzDhMlhOIRvnrlD/sNe83lWSuEVQ6lYKqcjqYVl5XgPt9d0NS/3aavaYGIBMmJy9sduNs12cpntQ5s4vea0+2QtZhnfKc+xkGZ7akwO/FtvCB1iKpjZcPkOgWoBkDy5At2iQUnlWBD1Lo7GU3bcRpf41Lfd6h0H/01SruoCHun29hIuQ0Zqp23Sxg+5QYaiQ==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3166.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(39850400004)(376002)(346002)(366004)(396003)(2616005)(71200400001)(4326008)(66574015)(107886003)(2906002)(83380400001)(66446008)(6512007)(86362001)(8976002)(76116006)(36756003)(186003)(66476007)(91956017)(1076003)(64756008)(316002)(66556008)(66946007)(6916009)(26005)(8676002)(478600001)(6486002)(6506007)(5660300002)(8936002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata: 
- AuiofiZn0dPotV/cXakglV67b2+ZXG5K+9uhTORWkwiuU/8tRnQ1Bz/Wkw8b68fy++YlLE9GIQZ6g7rfaS4+UBpfse6T7xWvBK2EQA+VQegxfcIhhKQDvrDI6p7R03DbLgshkmIJ3Q66uO1qx8kWiTFMS02RV00vSSQDhj6B8W3SDcjcK2i+r+fAoI4uzUUW2KBBKjs18DSjSM0IQwgoNqENMKbS2OQUTJY7YAa/qE4wxmsIhbhHegh+4zaOCDuhWgRxbIq2PLFg1rkHaHNYn9SeDFvZn4jvIZKC6y+yaC2BdfA72E/gfSKCrOCvJha+yCuGrhynrQxV98v4KbaY1zVJ3iZmf9zaFzjkp5aCev1v2FQk2Dga/088ZD517AI1TPGUUfP5TT53rLL56xUzPOM4g9MSUhr2Vu5a0qXhGYQR1F1EoQeICkpDvdNl6n7MEO+wfM8x2/uoZ4xHnkYI1nltfoNj8p7eMUJ7SMJxJyhLnQmkgy1i4rQocryBgOGFIXAP9v971uL+5uvrVWz2nfuuj+csuU+8wSfdCxBmoTL8RoZGAjqYon5gfRDijuFtV3NDCUTkQIc30VOArm6fCPmt4LmVQNemsbtqbsNxCLe+w92Og0+pNFJsQ/ZthRoKKUC+q012aF0LHdrxKzgf1w==
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=ha6A2DUg;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.66, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f66.google.com with SMTP id h5so1867220wrv.7
+        for <poky@lists.yoctoproject.org>; Tue, 27 Oct 2020 06:18:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=F+rwnAiNURaYSLQdvoQUfchqQDcr8jeaaKaDSfH7Ptk=;
+        b=ha6A2DUgYDL7oH9bYpS7G48MbCJD54VKVW7C8LNIoc84/gQIOTGsqrUkJpplZmEVBA
+         vBBf0Fc/Px3sGbpPehesq0e+sXeLEbh0tJstTfDSGX2WSP9I0lj1jJj2d2Qdorxt/tG7
+         2nIgAWAATTU86K6r99aPf4pY6eW3nnTXW1QZ8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=F+rwnAiNURaYSLQdvoQUfchqQDcr8jeaaKaDSfH7Ptk=;
+        b=PrqNRoXP2/LlbXy/Eb2WpUhMyi8i8hgSxwU3Cn5PxxmQjeF9mltxZ2MhgONEQWWQwq
+         8FREdHNDJBMtuIbZ1Y937yfW+5/ZzHvBcknR8/puPLc+B68Y1jAkcTnb13yZZ59UrhEC
+         TxXUItkqAwr7Us25btJjpvRh1xYNWGoGGKvFCTy5VDcV4OUVUX3zFASMTIl3vk+a3A1c
+         JQvmlzKXTw57GBfEK2XKdlezBBCqv4KhF4uBuDphm8p2+gN4lLe2+VLfiisIJPr52rBS
+         wW3sdfmw9jdjOb5kJ8dLQEVEVVEk+znq5TYtulwZYHqkI8as10U8w9du3+4iOjrYc0+0
+         fE/A==
+X-Gm-Message-State: AOAM532FOB2trnA15hK1vQdtnqnKhkUtNvdMess4diR4akN7h7ZgiWcQ
+	2UJWcQjsrzzAIGqxD91wmqrvDQ==
+X-Google-Smtp-Source: ABdhPJw4Eihhd1lsKJcjqG5350YaX6UPQZqbpk3vOyhUusxBQ3nuWri+qnBYwQB24MW7HbkxsVmFpg==
+X-Received: by 2002:a05:6000:12c9:: with SMTP id l9mr2788750wrx.309.1603804718976;
+        Tue, 27 Oct 2020 06:18:38 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from d.0.2.3.2.a.1.a.7.6.b.c.7.6.8.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (d.0.2.3.2.a.1.a.7.6.b.c.7.6.8.1.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:1867:cb67:a1a2:320d])
+        by smtp.gmail.com with ESMTPSA id c129sm1886583wmd.7.2020.10.27.06.18.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2020 06:18:38 -0700 (PDT)
+Message-ID: <ae92c90a0cd9c86b257094460b1779ad9f3cc094.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] cmake.bbclass: don't remove build directory for out-of-tree builds
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: ALSI@bang-olufsen.dk, "poky@lists.yoctoproject.org"
+	 <poky@lists.yoctoproject.org>
+Date: Tue, 27 Oct 2020 13:18:36 +0000
+In-Reply-To: <20201027131227.576470-1-alsi@bang-olufsen.dk>
+References: <20201027131227.576470-1-alsi@bang-olufsen.dk>
+User-Agent: Evolution 3.36.4-0ubuntu1 
 MIME-Version: 1.0
-X-OriginatorOrg: bang-olufsen.dk
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3166.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d55c1f9-f917-49c4-698f-08d87a7a151b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2020 13:13:23.0742
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 210d08b8-83f7-470a-bc96-381193ca14a1
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZhxsRofjJjJdggwcb9PATBTLdw3CvAYWHSY+Tfm8EhddbnX6b1ZmlSkjLhIEHIsDIPHq/9Ewi55dyYoKJYZtiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6608
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <410B3DA9BB2A08478ED5578692A24E75@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-UmF0aGVyIHRoYW4gcmVtb3ZpbmcgdGhlIHdob2xlIG9mICR7V09SS0RJUn0vYnVpbGQgb24gZXZl
-cnkgZG9fY29uZmlndXJlDQpzdGVwLCBqdXN0IGNsZWFuIHVwIENNYWtlIGZpbGVzIHRvIHRyaWdn
-ZXIgYSBmcmVzaCByZWNvbmZpZ3VyYXRpb24gb2YNCkNNYWtlLg0KDQpTaWduZWQtb2ZmLWJ5OiBB
-bHZpbiDFoGlwcmFnYSA8YWxzaUBiYW5nLW9sdWZzZW4uZGs+DQotLS0NCiBtZXRhL2NsYXNzZXMv
-Y21ha2UuYmJjbGFzcyB8IDggKy0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KyksIDcgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9tZXRhL2NsYXNzZXMvY21ha2UuYmJj
-bGFzcyBiL21ldGEvY2xhc3Nlcy9jbWFrZS5iYmNsYXNzDQppbmRleCA3YzA1NWU4YTNkLi4zOWYz
-NTYwOTllIDEwMDY0NA0KLS0tIGEvbWV0YS9jbGFzc2VzL2NtYWtlLmJiY2xhc3MNCisrKyBiL21l
-dGEvY2xhc3Nlcy9jbWFrZS5iYmNsYXNzDQpAQCAtMTUxLDEzICsxNTEsNyBAQCBjbWFrZV9kb19j
-b25maWd1cmUoKSB7DQogCQliYm5vdGUgImNtYWtlLmJiY2xhc3Mgbm8gbG9uZ2VyIHVzZXMgT0VD
-TUFLRV9CVUlMRFBBVEguICBUaGUgZGVmYXVsdCBiZWhhdmlvdXIgaXMgbm93IG91dC1vZi10cmVl
-IGJ1aWxkcyB3aXRoIEI9V09SS0RJUi9idWlsZC4iDQogCWZpDQogDQotCWlmIFsgIiR7U30iICE9
-ICIke0J9IiBdOyB0aGVuDQotCQlybSAtcmYgJHtCfQ0KLQkJbWtkaXIgLXAgJHtCfQ0KLQkJY2Qg
-JHtCfQ0KLQllbHNlDQotCQlmaW5kICR7Qn0gLW5hbWUgQ01ha2VGaWxlcyAtb3IgLW5hbWUgTWFr
-ZWZpbGUgLW9yIC1uYW1lIGNtYWtlX2luc3RhbGwuY21ha2UgLW9yIC1uYW1lIENNYWtlQ2FjaGUu
-dHh0IC1kZWxldGUNCi0JZmkNCisJZmluZCAke0J9IC1uYW1lIENNYWtlRmlsZXMgLW9yIC1uYW1l
-IE1ha2VmaWxlIC1vciAtbmFtZSBjbWFrZV9pbnN0YWxsLmNtYWtlIC1vciAtbmFtZSBDTWFrZUNh
-Y2hlLnR4dCAtZGVsZXRlDQogDQogCSMgSnVzdCBsaWtlIGF1dG90b29scyBjbWFrZSBjYW4gdXNl
-IGEgc2l0ZSBmaWxlIHRvIGNhY2hlIHJlc3VsdCB0aGF0IG5lZWQgZ2VuZXJhdGVkIGJpbmFyaWVz
-IHRvIHJ1bg0KIAlpZiBbIC1lICR7V09SS0RJUn0vc2l0ZS1maWxlLmNtYWtlIF0gOyB0aGVuDQot
-LSANCjIuMjkuMA0K
+On Tue, 2020-10-27 at 13:13 +0000, Alvin Sipraga via lists.yoctoproject.org wrote:
+> Rather than removing the whole of ${WORKDIR}/build on every do_configure
+> step, just clean up CMake files to trigger a fresh reconfiguration of
+> CMake.
+> 
+> Signed-off-by: Alvin Šipraga <alsi@bang-olufsen.dk>
+> ---
+>  meta/classes/cmake.bbclass | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
+> 
+> diff --git a/meta/classes/cmake.bbclass b/meta/classes/cmake.bbclass
+> index 7c055e8a3d..39f356099e 100644
+> --- a/meta/classes/cmake.bbclass
+> +++ b/meta/classes/cmake.bbclass
+> @@ -151,13 +151,7 @@ cmake_do_configure() {
+>  		bbnote "cmake.bbclass no longer uses OECMAKE_BUILDPATH.  The default behaviour is now out-of-tree builds with B=WORKDIR/build."
+>  	fi
+>  
+> -	if [ "${S}" != "${B}" ]; then
+> -		rm -rf ${B}
+> -		mkdir -p ${B}
+> -		cd ${B}
+> -	else
+> -		find ${B} -name CMakeFiles -or -name Makefile -or -name cmake_install.cmake -or -name CMakeCache.txt -delete
+> -	fi
+> +	find ${B} -name CMakeFiles -or -name Makefile -or -name cmake_install.cmake -or -name CMakeCache.txt -delete
+>  
+>  	# Just like autotools cmake can use a site file to cache result that need generated binaries to run
+>  	if [ -e ${WORKDIR}/site-file.cmake ] ; then
+
+I'm afraid we have a significant lack of trust when it comes to the
+underlying build systems. I appreciate this patch can make it "faster"
+under some circumstances, it can also introduce bugs if dependencies
+aren't correct and things don't rebuild. We have a preference to try an
+ensure things are correct. As such I'm not sure we want to make this
+change.
+
+Cheers,
+
+Richard
+
+
+
