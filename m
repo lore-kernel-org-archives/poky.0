@@ -1,115 +1,125 @@
 Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
- by mx.groups.io with SMTP id smtpd.web09.16051.1604244194488793594
+ by mx.groups.io with SMTP id smtpd.web12.18787.1604254055186075021
  for <poky@lists.yoctoproject.org>;
- Sun, 01 Nov 2020 07:23:14 -0800
+ Sun, 01 Nov 2020 10:07:35 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@gmail.com header.s=20161025 header.b=kep5a7vo;
- spf=softfail (domain: gmail.com, ip: 198.145.29.25, mailfrom: alex.kanavin@gmail.com)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	by mail.yoctoproject.org (Postfix) with ESMTPS id 5A34838C0866
-	for <poky@yoctoproject.org>; Sun,  1 Nov 2020 07:23:14 -0800 (PST)
-Received: by mail-ej1-f43.google.com with SMTP id o9so13051066ejg.1
-        for <poky@yoctoproject.org>; Sun, 01 Nov 2020 07:23:14 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=EgbrIrzW;
+ spf=softfail (domain: gmail.com, ip: 198.145.29.25, mailfrom: raj.khem@gmail.com)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	by mail.yoctoproject.org (Postfix) with ESMTPS id 6EB2F38C14CC
+	for <poky@yoctoproject.org>; Sun,  1 Nov 2020 10:07:34 -0800 (PST)
+Received: by mail-pf1-f178.google.com with SMTP id x13so9037898pfa.9
+        for <poky@yoctoproject.org>; Sun, 01 Nov 2020 10:07:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ZUOXgASqFTqXmskK5DLpfp6X7IwM0X9GyrW2RT8Hdm0=;
-        b=kep5a7voSNEArLmc2c2Gvy7rq5bMBcAPaE4gwl6sNvsIJ7SqG7CwXtfpzwi9LLF5Ma
-         merr9I0U+Bh6gDj+/WUsTvRsmz4dixE/Wg/PgTTgshJNrnVBQiSJbjeT4bhh0a4ygHZN
-         PGlPTLqJcgPUAQA8PP2Vk1/RdQ80tzc+C/sRvrXHmisaTgPdahxKMUwP0uUvI0H1UNee
-         fyh5WAICuJ/AXyGct7xtoq70vlnl6lEljmpin+VyeGCc+Xj1ERFYbH3sqLdaqktU4aw2
-         GYR0uZKDH9qEs7eBZrZ/keJxwyswkkLuuuHS17B66LHSEu7qZfoAfz8w8ZZtxZYsh4ha
-         JO1A==
+        h=subject:to:references:from:organization:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=8OjHwVsvg8hXvPll+b1+ql6LNYms8j9bIR7uuzH2VmU=;
+        b=EgbrIrzWkkT0iAT2T7lFUswpWW952Z6g7PjySt6rObzvFRjUF/mvCE36tREiObhUf0
+         Jvp9QCGWEotsgk5mgcqmJFftOFVizS6fCTN5H502cTT9i+Z+z/oHSFcGw/BrVOQrvX+J
+         /GJ+uw+WIGQxbQpaIo5+4C6IOR8ihHrFM7swcL4FNH++oghI3U4uL4Nx6lMZR0k4XuWJ
+         uTFk9wuhAq9zHjtendt042fKkPhGtTXsx2NuxvgblFoNL9+h8jauO6j9NgoitLhqLRQI
+         DZrsk8/bHdJyG/9YVRVDDKg1GNGRkPXRRM1/BX6/0VCaJosr19Pp3wW6ThpkTs1ijswH
+         uD/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ZUOXgASqFTqXmskK5DLpfp6X7IwM0X9GyrW2RT8Hdm0=;
-        b=oQxwPXqTkCl1pltPzeeIm2PmAYKk5JjHMWBYub/+5X7qMS9KFvTiKWoiAyrxTtZfdy
-         /cp/U/f8t14ysmPTCeF8TX1finBRA8+AtsD3caUGXopnpMCrnaFP4ehR9aKDShWHPbMO
-         Mj1ZmcnXtS7Z4mcDiQ1BirNUisyghn6xK88J0+UsJ+3HB4KICMucjM/lNcFIqLmRQFd7
-         49AXyd+DJ9nNOwteG8jFq8U0IvhWJ4bUlfIQs0e5/8b5V5/BHGjvJVU1REfLsU0yocmk
-         4KkYaAdNFc8xKQxyfrDinDGU9M8kCMh9gPZBejQuO+YWd07SqT8nn3ElrRpZ8naq+WKq
-         861w==
-X-Gm-Message-State: AOAM531BzQJGRbfpexcXaxL/l0+5g1dJGqsgn74/6kg0pmLATupF54Az
-	Sm1zPBenM3GAZ8X4tOG7q/5afOCafdWMsQ==
-X-Google-Smtp-Source: ABdhPJwCU2KiXJAA1777pCi+6fgXmJIaykVV2TCIhRWmTJsaEn6GvON35YHkR9Ye35+ZQqRckzwVJA==
-X-Received: by 2002:a17:906:e10e:: with SMTP id gj14mr12068412ejb.134.1604244192592;
-        Sun, 01 Nov 2020 07:23:12 -0800 (PST)
-Received: from linux-f9zs.fritz.box ([2a02:2450:1011:4f7:596d:bf31:3950:5bda])
-        by smtp.gmail.com with ESMTPSA id m27sm2283738ejg.3.2020.11.01.07.23.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2020 07:23:12 -0800 (PST)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-To: poky@yoctoproject.org
-Cc: Alexander Kanavin <alex.kanavin@gmail.com>
-Subject: [PATCH] mklibs: drop support for
-Date: Sun,  1 Nov 2020 16:22:49 +0100
-Message-Id: <20201101152249.20472-1-alex.kanavin@gmail.com>
-X-Mailer: git-send-email 2.29.0
+        h=x-gm-message-state:subject:to:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=8OjHwVsvg8hXvPll+b1+ql6LNYms8j9bIR7uuzH2VmU=;
+        b=IrmguQd7ULRVuNcyzlt/CD7Pgmd4lGupmepwzaMhQK5hjhuQ3ntor5qaAKPNHSfrdu
+         sMzmylpGLhjEJULeU/PCH4yq1YY5FzUgxsN1gmdzned8j1m5z8ABxzRrQndjfwCYwY0i
+         aSKbjKv8IScFPxghTE0Oh0y9zwzaKqh4el51bw/rtO0j4BR42y/VcBy8gsNq19lnc7tR
+         E6qwrIS+a3pyQ8nOvSSgLQZVsyq0y+GU5RMSSRwiowV3lXXw3ComXuw9e/YDFmUCUwiU
+         +X6HJvm0/KUblQNxUHBOo/q7JSHTAtq25h7oDWlbaqD7zVYSmmcZWOj2EM57qd123a31
+         bFhw==
+X-Gm-Message-State: AOAM530rQrZPlyICPU/Y3udlu1mCZDqlkd6jkpTeKTHAfHT41wu5CI7R
+	FxB57I2aC5uBDCmF86NjGt4okrum2rx50g==
+X-Google-Smtp-Source: ABdhPJwB/WxcDl9XAWMThO49m5Zsudy1N8Dd89vAsIZhpYm4iL3TBbgDXh7z3HKlCViabwEjXOpRCQ==
+X-Received: by 2002:a63:5c5e:: with SMTP id n30mr10395407pgm.54.1604254053420;
+        Sun, 01 Nov 2020 10:07:33 -0800 (PST)
+Received: from ?IPv6:2601:646:9200:4e0:ac50:3bbc:9608:2fe7? ([2601:646:9200:4e0:ac50:3bbc:9608:2fe7])
+        by smtp.gmail.com with ESMTPSA id e3sm9377144pjt.33.2020.11.01.10.07.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2020 10:07:32 -0800 (PST)
+Subject: Re: [poky] [PATCH] mklibs: drop support for
+To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@yoctoproject.org
+References: <20201101152249.20472-1-alex.kanavin@gmail.com>
+From: "Khem Raj" <raj.khem@gmail.com>
+Organization: HIMVIS LLC
+Message-ID: <52780d53-15ca-0e10-c8b0-69fec4f0bea1@gmail.com>
+Date: Sun, 1 Nov 2020 10:07:30 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20201101152249.20472-1-alex.kanavin@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-This is not enabled or tested by default, and has never been
-ported to python 3 upstream[1], which means it doesn't work at all
-with plain poky. If you need it, please put it in a separate layer
-and/or modernize to work with py3.
 
-https://salsa.debian.org/installer-team/mklibs/-/blob/master/src/mklibs
 
-Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
----
- meta-poky/conf/local.conf.sample          | 5 +----
- meta-poky/conf/local.conf.sample.extended | 9 ---------
- 2 files changed, 1 insertion(+), 13 deletions(-)
+On 11/1/20 7:22 AM, Alexander Kanavin wrote:
+> This is not enabled or tested by default, and has never been
+> ported to python 3 upstream[1], which means it doesn't work at all
+> with plain poky. If you need it, please put it in a separate layer
+> and/or modernize to work with py3.
+> 
+> https://salsa.debian.org/installer-team/mklibs/-/blob/master/src/mklibs
+> 
 
-diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf=
-.sample
-index 68e71b930b..e0ba9a35ef 100644
---- a/meta-poky/conf/local.conf.sample
-+++ b/meta-poky/conf/local.conf.sample
-@@ -148,11 +148,8 @@ EXTRA_IMAGE_FEATURES ?=3D "debug-tweaks"
- # enable extra features. Some available options which can be included in=
- this variable
- # are:
- #   - 'buildstats' collect build statistics
--#   - 'image-mklibs' to reduce shared library files size for an image
- #   - 'image-prelink' in order to prelink the filesystem image
--# NOTE: if listing mklibs & prelink both, then make sure mklibs is befor=
-e prelink
--# NOTE: mklibs also needs to be explicitly enabled for a given image, se=
-e local.conf.extended
--USER_CLASSES ?=3D "buildstats image-mklibs image-prelink"
-+USER_CLASSES ?=3D "buildstats image-prelink"
-=20
- #
- # Runtime testing of images
-diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/l=
-ocal.conf.sample.extended
-index 62415a43ed..024bf14af5 100644
---- a/meta-poky/conf/local.conf.sample.extended
-+++ b/meta-poky/conf/local.conf.sample.extended
-@@ -115,15 +115,6 @@ DISTRO_FEATURES_remove =3D "x11"
- #
- # TCMODE ?=3D "external-sourcery"
-=20
--# mklibs library size optimization is more useful to smaller images,
--# and less useful for bigger images. Also mklibs library optimization
--# can break the ABI compatibility, so should not be applied to the
--# images which are to be extended or upgraded later.
--#This enabled mklibs library size optimization just for the specified im=
-age.
--#MKLIBS_OPTIMIZED_IMAGES ?=3D "core-image-minimal"
--#This enable mklibs library size optimization will be for all the images=
-.
--#MKLIBS_OPTIMIZED_IMAGES ?=3D "all"
--
- # This value is currently used by pseudo to determine if the recipe shou=
-ld
- # build both the 32-bit and 64-bit wrapper libraries on a 64-bit build s=
-ystem.
- #
---=20
-2.29.0
+how about trying this patch to make it work with python3? Since we use 
+mklibs as a feature highlight of tools that yocto can provide users, its 
+perhaps good to keep it working.
 
+https://uclibc.org/~kraj/0001-mklib-Port-to-use-python3.patch
+
+
+> Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+> ---
+>   meta-poky/conf/local.conf.sample          | 5 +----
+>   meta-poky/conf/local.conf.sample.extended | 9 ---------
+>   2 files changed, 1 insertion(+), 13 deletions(-)
+> 
+> diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+> index 68e71b930b..e0ba9a35ef 100644
+> --- a/meta-poky/conf/local.conf.sample
+> +++ b/meta-poky/conf/local.conf.sample
+> @@ -148,11 +148,8 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+>   # enable extra features. Some available options which can be included in this variable
+>   # are:
+>   #   - 'buildstats' collect build statistics
+> -#   - 'image-mklibs' to reduce shared library files size for an image
+>   #   - 'image-prelink' in order to prelink the filesystem image
+> -# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
+> -# NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
+> -USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+> +USER_CLASSES ?= "buildstats image-prelink"
+>   
+>   #
+>   # Runtime testing of images
+> diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+> index 62415a43ed..024bf14af5 100644
+> --- a/meta-poky/conf/local.conf.sample.extended
+> +++ b/meta-poky/conf/local.conf.sample.extended
+> @@ -115,15 +115,6 @@ DISTRO_FEATURES_remove = "x11"
+>   #
+>   # TCMODE ?= "external-sourcery"
+>   
+> -# mklibs library size optimization is more useful to smaller images,
+> -# and less useful for bigger images. Also mklibs library optimization
+> -# can break the ABI compatibility, so should not be applied to the
+> -# images which are to be extended or upgraded later.
+> -#This enabled mklibs library size optimization just for the specified image.
+> -#MKLIBS_OPTIMIZED_IMAGES ?= "core-image-minimal"
+> -#This enable mklibs library size optimization will be for all the images.
+> -#MKLIBS_OPTIMIZED_IMAGES ?= "all"
+> -
+>   # This value is currently used by pseudo to determine if the recipe should
+>   # build both the 32-bit and 64-bit wrapper libraries on a 64-bit build system.
+>   #
+> 
+> 
+> 
+> 
+> 
