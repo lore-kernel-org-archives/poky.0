@@ -1,60 +1,70 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mx.groups.io with SMTP id smtpd.web08.619.1605049404482035674
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
+ by mx.groups.io with SMTP id smtpd.web12.11731.1605217584258685784
  for <poky@lists.yoctoproject.org>;
- Tue, 10 Nov 2020 15:03:24 -0800
+ Thu, 12 Nov 2020 13:46:24 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@kernel.org header.s=default header.b=2D0gIbLP;
- spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: okaya@kernel.org)
-Received: from sinanubuntu.ckuic5o5zete5ommc4uz5anrqg.bx.internal.cloudapp.net (unknown [23.96.20.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 8C7DA207BB;
-	Tue, 10 Nov 2020 23:03:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1605049403;
-	bh=y5hmZ5/Xi3HBx6aVr3JhjlDRgBlSlYcdctUZHZlO3I4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=2D0gIbLPieTfVcZbaPiBev1Fh9YtxVu1S8X/+0QtbqRwqcLFtaH69sgZN79EbOhwx
-	 bb+meg+PfWuk3dW0vME2ZAf5oCiIh1Gym8IJIoAc2AmK59D0zyZk3J4dAX1/1lYM78
-	 8nvczT9byrRY1T4EQfB6JH4wwTA1PLSruqwyJ9qU=
-From: "Sinan Kaya" <okaya@kernel.org>
-To: poky@lists.yoctoproject.org
-Cc: Sinan Kaya <okaya@kernel.org>
-Subject: [PATCH v4] poky-tiny: enable section removal
-Date: Tue, 10 Nov 2020 23:03:19 +0000
-Message-Id: <20201110230319.29851-1-okaya@kernel.org>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=I2vswUc+;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.65, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f65.google.com with SMTP id j7so7588264wrp.3
+        for <poky@lists.yoctoproject.org>; Thu, 12 Nov 2020 13:46:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=57i46wQKweL6Gv3dm9B3O32mI18j/IpI3VJcxyDCd0o=;
+        b=I2vswUc+90I+GIU7iAIKZFnq27hG1mUgEK8lYxtQfSJuWEr92ArCw8N1DtryuHeGwK
+         SKybTvw3bWA/gw63nLzkK566oUyKn30d9gbcB1VbgZyJyKl2tG/qpZoDofH2Y4lKDsyB
+         nA6RcT6kIlPJujeiWT2YfzKTXWeWIQ07tnHGM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=57i46wQKweL6Gv3dm9B3O32mI18j/IpI3VJcxyDCd0o=;
+        b=Twgymoe38Ac8GxX6DB4EVUC/2Pmgxz8KaSeJEcC7CzwTgqdeYOdN+isi/rQwNFtr79
+         o+m4pLSMxmuQrCa69ZY8MnXW+Iyo646YUIIcqaOow/bwtL0xybA3+isdv8CimypeHLpO
+         tDzf5S0jGDi+h6It76neIiycUpcrcwpMvCuiC4MBe9hvzvI0N2Q4EVq6SDarxCli9B1h
+         p3oh/b7cQZpGazjsQyezptshiA91VscY1Xp/ylNZwSotrrxfu/Pu7VVSIseDvvEe/8/A
+         cdudyhypihfi6D9k+D1+QuqttVkOXQprJFdTesUGdT6frJm7zsLKZDqCONKMn2E/KGNj
+         kG5g==
+X-Gm-Message-State: AOAM530KwLOPyky3c7MOwdfva50eMHionGOcJE8JjGM0jzo7yWfwBQ7t
+	bdfYQa+DW57VtNoZ8w5oTTc+Lg==
+X-Google-Smtp-Source: ABdhPJyod2HyX9X6HppTvSq7oD9YLmjzVCGgTox9mjMsPRs8B+OrP2APgRDmVhZczeWy+v5WFQ1dhA==
+X-Received: by 2002:a5d:42c9:: with SMTP id t9mr1775675wrr.13.1605217582198;
+        Thu, 12 Nov 2020 13:46:22 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from e.3.a.b.8.4.f.3.4.e.5.7.b.c.8.4.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (e.3.a.b.8.4.f.3.4.e.5.7.b.c.8.4.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:48cb:75e4:3f48:ba3e])
+        by smtp.gmail.com with ESMTPSA id b8sm7577299wmj.9.2020.11.12.13.46.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2020 13:46:21 -0800 (PST)
+Message-ID: <350488a2acca2dc4d2935f7b3a83799bb22a825b.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH v4] poky-tiny: enable section removal
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Sinan Kaya <okaya@kernel.org>, poky@lists.yoctoproject.org
+Cc: Ross Burton <ross.burton@arm.com>
+Date: Thu, 12 Nov 2020 21:46:20 +0000
+In-Reply-To: <20201110230319.29851-1-okaya@kernel.org>
+References: <20201110230319.29851-1-okaya@kernel.org>
+User-Agent: Evolution 3.36.4-0ubuntu1 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Use GCC sections flags so that unused sections can be garbage
-collected at link time.
+On Tue, 2020-11-10 at 23:03 +0000, Sinan Kaya wrote:
+> Use GCC sections flags so that unused sections can be garbage
+> collected at link time.
+> 
+> Signed-off-by: Sinan Kaya <okaya@kernel.org>
+> ---
+>  meta-poky/conf/distro/poky-tiny.conf | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 
-Signed-off-by: Sinan Kaya <okaya@kernel.org>
----
- meta-poky/conf/distro/poky-tiny.conf | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I did try this again but still has perl-native issues:
 
-diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
-index c6d4b88f83d..eead97a404e 100644
---- a/meta-poky/conf/distro/poky-tiny.conf
-+++ b/meta-poky/conf/distro/poky-tiny.conf
-@@ -122,3 +122,17 @@ PNBLACKLIST[core-image-weston] = "not buildable with poky-tiny"
- 
- # Disable python usage in opkg-utils since it won't build with tiny config
- PACKAGECONFIG_remove_pn-opkg-utils = "python"
-+
-+CFLAGS_SECTION_REMOVAL = "-ffunction-sections -fdata-sections"
-+LDFLAGS_SECTION_REMOVAL = "-Wl,--gc-sections"
-+
-+# packages with build problems using sections
-+CFLAGS_SECTION_REMOVAL_pn-glibc = ""
-+LDFLAGS_SECTION_REMOVAL_pn-glibc = ""
-+CFLAGS_SECTION_REMOVAL_pn-cairo = ""
-+LDFLAGS_SECTION_REMOVAL_pn-cairo = ""
-+
-+# set default for all targets
-+CFLAGS_append = " ${CFLAGS_SECTION_REMOVAL}"
-+LDFLAGS_append = " ${LDFLAGS_SECTION_REMOVAL}"
-+
--- 
-2.17.1
+https://autobuilder.yoctoproject.org/typhoon/#/builders/15/builds/2977
+https://autobuilder.yoctoproject.org/typhoon/#/builders/87/builds/1566
+(and other selftest failures too)
+
+Cheers,
+
+Richard
 
