@@ -1,121 +1,73 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
- by mx.groups.io with SMTP id smtpd.web09.6648.1605364238752225129
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com [209.85.221.65])
+ by mx.groups.io with SMTP id smtpd.web11.8048.1605370464681859063
  for <poky@lists.yoctoproject.org>;
- Sat, 14 Nov 2020 06:30:39 -0800
+ Sat, 14 Nov 2020 08:14:25 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@madison-systems.20150623.gappssmtp.com header.s=20150623 header.b=MKgQ6XSz;
- spf=none, err=SPF record not found (domain: madison.systems, ip: 209.85.167.53, mailfrom: matt@madison.systems)
-Received: by mail-lf1-f53.google.com with SMTP id s30so18393074lfc.4
-        for <poky@lists.yoctoproject.org>; Sat, 14 Nov 2020 06:30:38 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=QBdSYvPx;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.65, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f65.google.com with SMTP id 23so13671876wrc.8
+        for <poky@lists.yoctoproject.org>; Sat, 14 Nov 2020 08:14:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=madison-systems.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=H5CScCAFsolWBIruHM7hCB8hkzpKvvMbrmbXPOpxZmw=;
-        b=MKgQ6XSzglrh22FJUL3gPipQI77xxWpI4+87MeT+hrnURBHmiJHnqPFiljSfN6aA2P
-         AMlYsoLlDtIkpCRUIULZubkol1WKujBAqX1VDR5PfDnalmLILbhWIcJq1ReWUrS4YSBs
-         FcYkAjdb958cPJPzgxdbTYkdqI3WwVsVTaOKMr+SYvCGD7ZuOjNdmrwuoeyAz8e+RQ1n
-         cnC/WYcYYhvVAtCd7XILhoQbZg43kELMU0Sm8uPzJbHrRJGukIqWg2oxM4J1rpXiv7ve
-         BDlaAk48qpsj86VjhreMZXqH/jPCqdF6d4bDAydoXM3D4tOjqGf9YJw//7qBFDuwmzde
-         PG2w==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=j6qSCHPXzq8FR8+/gUGtI30PtpHfMEUfHFb4nqNtu58=;
+        b=QBdSYvPxONo133ca8nnKccg5OiFClNhqLeszAbsfiovDoXY83/EkJurqT4mAW/n9QE
+         rVK7aGJMvVbjo5ViYJAMeGB0x7OIeqZclpJvEqWF2mMPyW5ES3wZpsUfBV4hdwXchFWI
+         EMxYflp6BWifHJZTTOJkn1WzxKv4U3/2GUzrc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=H5CScCAFsolWBIruHM7hCB8hkzpKvvMbrmbXPOpxZmw=;
-        b=lbU+mMdHy+KuaSGCfTwiqR5WWp0CFirzu/v1tM8E4/YNO7h9EmKPXgfDveCpOJgxzX
-         r50DOlil6sj3Oum1af9JykNX1levMsuT3d4TgqIpoOZyN5hqU7YDh5png2Mc3I3BT42c
-         RXlytYrm7BHT21aFv63hfm1EUupVg9q3xbYWJ4mjnC1BJXg1KUSgXRqa+2ARfUV2PGIq
-         ZA5P4HBqzddaPCvxg8CzshkotPE5YwwC28B0L3UgVcHM6krHUp96N5MpXNcmEAIMZyux
-         ZZBv2tHrsW2gVL3RivPxDlSZb1Yf9Vg99WOeGN/Jb0QdAqVZRv2BVtaz/NSmlP9BlRDt
-         CGHg==
-X-Gm-Message-State: AOAM531LbPQaPVEn08xU4vnI8FiJ62JxbUVl+vrPY3VpOIisQTcxO0tM
-	zF+YjD+WvdZ3NHoJ+TBSPq4SiNFtkvjgvfZyXg1iSA==
-X-Google-Smtp-Source: ABdhPJyZh1DZwqYv/DItzDohK5X5rYtGeimZHUMHBRCnrgp2spiauV2Ab2tyHX6khGAxk35KxAJB+PkPWobyc1hGc5E=
-X-Received: by 2002:a19:85c2:: with SMTP id h185mr2792536lfd.494.1605364236665;
- Sat, 14 Nov 2020 06:30:36 -0800 (PST)
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=j6qSCHPXzq8FR8+/gUGtI30PtpHfMEUfHFb4nqNtu58=;
+        b=du+pKUXDOYlHz4OWGlceTasEDEh9jb4JRQqZqlOnXiqk16m8UzIuzRQcfeN8pCfukk
+         qM5hwPwK2hoWK4CkvjdDQlm2Dhupy/C+xQ0jVpqnh9+ZliDV2anq3RqtqIFmiLOkB8or
+         5RBcKi8W79qPNE3e31sRvpoqDZ16S2dDv93z4cXKPIKClXh8iz0nL3MjeyCIbFzhTnTc
+         OS8XcMkimg5Xge102pFykmzThgGL3d6Qp+sXN3Z4yAuNwBmSn17Qqjk0X7Vogl1GUULn
+         r71UBBYxgAd+4o5mHsQyP2QSnK50LXr9A8A/Vzle/34NJMsthfpPPBrHDjBaCWxj/UjK
+         FCNg==
+X-Gm-Message-State: AOAM530Ti5W2bXbet8TpCzL5Zg1sERO3L4HOG4SAE/USjAo4puSLDIpb
+	VLFDFxN+JJ7kdNYZS+EjGBj6GQ==
+X-Google-Smtp-Source: ABdhPJy4p5CY4t5tAQuqbyO7jjjcmj5xqpL1YlfAm14PuRVkjcnEpZDha/p+M3bTCyS5GfSmyZTBRA==
+X-Received: by 2002:adf:ecc9:: with SMTP id s9mr10518885wro.246.1605370463202;
+        Sat, 14 Nov 2020 08:14:23 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from e.3.a.b.8.4.f.3.4.e.5.7.b.c.8.4.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (e.3.a.b.8.4.f.3.4.e.5.7.b.c.8.4.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:48cb:75e4:3f48:ba3e])
+        by smtp.gmail.com with ESMTPSA id f2sm16753069wre.63.2020.11.14.08.14.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2020 08:14:22 -0800 (PST)
+Message-ID: <c2b80e97acb250037828311a1c741a8870f64477.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH v6] poky-tiny: enable section removal
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Sinan Kaya <okaya@kernel.org>, poky@lists.yoctoproject.org
+Date: Sat, 14 Nov 2020 16:14:20 +0000
+In-Reply-To: <20201113221425.5106-1-okaya@kernel.org>
+References: <20201113221425.5106-1-okaya@kernel.org>
+User-Agent: Evolution 3.36.4-0ubuntu1 
 MIME-Version: 1.0
-References: <63DA0CC5-889D-4A42-BA28-31EEBD45BF07@bitshift-dynamics.com>
-In-Reply-To: <63DA0CC5-889D-4A42-BA28-31EEBD45BF07@bitshift-dynamics.com>
-From: "Matt Madison" <matt@madison.systems>
-Date: Sat, 14 Nov 2020 06:30:25 -0800
-Message-ID: <CAGgRHJovndgs_7zFTGuZv9eDBP60kT+hGpqRYY_o5tymx9k-Kw@mail.gmail.com>
-Subject: Re: [poky] Adding S3 as option for sstate
-To: Alexander Nassian <nassian@bitshift-dynamics.com>
-Cc: poky@lists.yoctoproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2020 at 11:50 PM Alexander Nassian
-<nassian@bitshift-dynamics.com> wrote:
->
-> Hi together,
->
-> We would like to extend poky to be able to write and read sstate package=
-s not only from HTTP and FILE but also S3 buckets which would fit our CI se=
-tup much better than our current =E2=80=9Ezip everything and upload to S3=
-=E2=80=9C in terms of incremental speed up builds. I already did some rese=
-arch if there is something read-to-use but didn=E2=80=99t find anything.
->
-> My two questions are:
-> 1. Do you have any hint where to hook into? I already went through runqu=
-eue.py but I=E2=80=99m just a extensive user of poky, never worked on itsel=
-f.
-> 2. Would that change have any chance to be accepted upstream, or is this=
- something too special for the project?
+On Fri, 2020-11-13 at 22:14 +0000, Sinan Kaya wrote:
+> Use GCC sections flags so that unused sections can be garbage
+> collected at link time.
+> 
+> Signed-off-by: Sinan Kaya <okaya@kernel.org>
+> ---
+>  meta-poky/conf/distro/include/gcsections.inc | 19
+> +++++++++++++++++++
+>  meta-poky/conf/distro/poky-tiny.conf         |  3 +++
+>  2 files changed, 22 insertions(+)
+>  create mode 100644 meta-poky/conf/distro/include/gcsections.inc
 
-I have a CI setup that I host in EC2 using an S3 bucket for mirroring
-and have implemented some hooks that make it work better for me.  The
-basic parts consist of a replacement for the built-in S3 fetcher and a
-bbclass to assist with populating the S3-hosted mirror.  I have a
-writeup on it at
-https://github.com/madisongh/tegra-test-distro/wiki/Using-AWS-S3-for-sstat=
-e-and-downloads-mirrors
-if you're interested.  It may not be the right answer for you, but it
-may give you some ideas.
+Still seems to be the same?
 
-Regards,
--Matt
+https://autobuilder.yoctoproject.org/typhoon/#/builders/15/builds/2984
 
->
-> Best regards,
-> Alexander
-> --
->
->
->
->
->
->
->
->
->
->
->
->
->
-> =E2=80=94
->
->
-> bitshift dynamics GmbH
-> Neudorfer Str. 1, 79541 L=C3=B6rrach
-> Registergericht: Amtsgericht Freiburg i. Breisgau, HRB 713747
-> Gesch=C3=A4ftsf=C3=BChrer: Alexander Nassian, Markus Pfaffinger
->
->
-> http://www.bitshift-dynamics.de <http://www.bitshift-dynamics.de/>
->
-> Zentrale: +49 762158673 - 0
-> Fax: +49 7621 58673 - 90
->
->
-> Allgemeine Anfragen:
-> info@bitshift-dynamics.com <mailto:info@bitshift-dynamics.com>
-> Technischer
-> Support: support@bitshift-dynamics.com
-> <mailto:support@bitshift-dynamics.com>
-> Buchhaltung:
-> invoice@bitshift-dynamics.com <mailto:invoice@bitshift-dynamics.com>
->
->=20
->
+How are you testing this? I know people can have problems with patches
+but this is getting a little silly :(.
+
+Cheers,
+
+Richard
+
