@@ -1,79 +1,46 @@
-Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com [209.85.222.194])
- by mx.groups.io with SMTP id smtpd.web11.4961.1605598583754665889
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mx.groups.io with SMTP id smtpd.web10.8560.1605622479564372655
  for <poky@lists.yoctoproject.org>;
- Mon, 16 Nov 2020 23:36:23 -0800
+ Tue, 17 Nov 2020 06:14:39 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=mIV5ouXf;
- spf=pass (domain: gmail.com, ip: 209.85.222.194, mailfrom: raj.khem@gmail.com)
-Received: by mail-qk1-f194.google.com with SMTP id u4so19552508qkk.10
-        for <poky@lists.yoctoproject.org>; Mon, 16 Nov 2020 23:36:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=9QrGbR5coXMkkovCh1lySaXOv99ZuJIaZvSmpO9Fy8s=;
-        b=mIV5ouXfCROd1EL0KXzQ9VTGCp+DLz+3uHEavKosolggBCwbXdwsjGsUz/cByPZf6O
-         t/tgQ55CCO37totNdpJMGJBWcAR3oEWk19SC+2w095Az5xoxO72RTuAu3tWhnYggK8bv
-         kobxys8o8isfTFfDB1XaxdoNfchmrfpEY+2JR0nmDDPuEB4hnio4fUxJ8qjm1NtSZKOi
-         svu5qSrE+qNlowsWFjVoQiDRAM5cQvZHiSRHM8uZLg7d4XSShJb2mf2vFKnfWskoSbCK
-         SL/M9jzSDbsjhYgi/CHGpn4a3sQ7lbIdCRQCaNKy+6T0pBX4Po68YtUgOB+bIhlkfHJ/
-         KG+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=9QrGbR5coXMkkovCh1lySaXOv99ZuJIaZvSmpO9Fy8s=;
-        b=X7sT14vI/QSJWMk3NguBwUmuQKNu+TmXp1zjPc0gcY3MVB3sgvKsHGZl5sTv2RZJga
-         yflZWPRq0vgMnp2AxCEb5kIclGl37LJoDlnuWql1OFQZeu0sOLxgbgEW/a9PavfTEDfr
-         thJBzfTGH1q0ogO97zMFANGxvO59EDZ8uaxwabmRZOs5L16O1vURJoQsPqygDLLigeEV
-         9XT4bkjovQgsoV6zQUUP/idPPeWrragY0Je07LJ98ogj0RPTP/F4jpdzS5PmD7iph5LD
-         BLb08fJAntnpoewBnFyfjifBahYxOhDztb/YJnKBpIEPzWS3z9RK45rlun+1rZuMc9xw
-         NykQ==
-X-Gm-Message-State: AOAM533B6TZDg4CJdShtwwynjPUWBIqzXhjD8WJAKceZh/mNMxgGqsh2
-	h4TwlzEZYght/OPtn19+k1If+yypZHC8hBBJU3w=
-X-Google-Smtp-Source: ABdhPJxdRinTLyOFdteU7R7x7tqCMjehciZRAQyutygBp5/zIAtUh0aGh5uvqIwmFPxEWx1c1QJT7qDBYh/TxN82uyk=
-X-Received: by 2002:a05:620a:204c:: with SMTP id d12mr18829899qka.212.1605598582803;
- Mon, 16 Nov 2020 23:36:22 -0800 (PST)
-MIME-Version: 1.0
-References: <20201117024555.7716-1-okaya@kernel.org>
-In-Reply-To: <20201117024555.7716-1-okaya@kernel.org>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Mon, 16 Nov 2020 23:35:56 -0800
-Message-ID: <CAMKF1sqJCo5xTnLjcukxkjYEqGiR9b8pXSDA2igDF+1OzuKBug@mail.gmail.com>
+ dkim=pass header.i=@kernel.org header.s=default header.b=1jnCCYa9;
+ spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: okaya@kernel.org)
+Received: from [192.168.0.113] (75-58-59-55.lightspeed.rlghnc.sbcglobal.net [75.58.59.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id AAC3D20825
+	for <poky@lists.yoctoproject.org>; Tue, 17 Nov 2020 14:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1605622478;
+	bh=sm6FbKd9pLhHxfhjavsr21l5+uby9179/xirtd6ECJw=;
+	h=Subject:To:References:From:Date:In-Reply-To:From;
+	b=1jnCCYa9JhZ4paayoKbpJmswCEj2EkdcUHs86DL9nCBlRzhAwn8A1WUz5ZnhzJehX
+	 7qRP9ua8Us/7PLMNgl6ulND2Q4nqZaCayjpANurqFjwIgM615B0v47RGrnsMGyTdho
+	 4xbEKR+jHHtlUfwQUA6PRAFIhFDV+rpbnA1/ei6A=
 Subject: Re: [poky] [PATCH] poky-tiny: prefer thumb mode by default
-To: Sinan Kaya <okaya@kernel.org>
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+To: poky@lists.yoctoproject.org
+References: <20201117024555.7716-1-okaya@kernel.org>
+ <CAMKF1sqJCo5xTnLjcukxkjYEqGiR9b8pXSDA2igDF+1OzuKBug@mail.gmail.com>
+From: "Sinan Kaya" <okaya@kernel.org>
+Message-ID: <fc71a242-b884-01e3-8c21-774e73446a5c@kernel.org>
+Date: Tue, 17 Nov 2020 09:14:37 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
+MIME-Version: 1.0
+In-Reply-To: <CAMKF1sqJCo5xTnLjcukxkjYEqGiR9b8pXSDA2igDF+1OzuKBug@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2020 at 6:46 PM Sinan Kaya <okaya@kernel.org> wrote:
->
-> We can use ARM_INSTRUCTION_SET to select the default instruction
-> mode for userspace.
->
-> Signed-off-by: Sinan Kaya <okaya@kernel.org>
-> ---
->  meta-poky/conf/distro/poky-tiny.conf | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
-> index c6d4b88f83d..87ee0970b93 100644
-> --- a/meta-poky/conf/distro/poky-tiny.conf
-> +++ b/meta-poky/conf/distro/poky-tiny.conf
-> @@ -122,3 +122,6 @@ PNBLACKLIST[core-image-weston] = "not buildable with poky-tiny"
->
->  # Disable python usage in opkg-utils since it won't build with tiny config
->  PACKAGECONFIG_remove_pn-opkg-utils = "python"
-> +
-> +# prefer thumb mode by default for userspace
-> +ARM_INSTRUCTION_SET = "thumb"
-
-we have defaulted armv7a+ machines to use thumb ISA if DEFAULTTUNE has
-'t' attribute in it
-which SOCs do you target with this change ?
-
-> --
-> 2.17.1
->
->
+On 11/17/2020 2:35 AM, Khem Raj wrote:
+>> +# prefer thumb mode by default for userspace
+>> +ARM_INSTRUCTION_SET = "thumb"
+> we have defaulted armv7a+ machines to use thumb ISA if DEFAULTTUNE has
+> 't' attribute in it
+> which SOCs do you target with this change ?
 > 
->
+
+I wanted to use it on ARM926EJS. I noticed that it is defaulting to arm
+even though the CPU supports thumb.
+
+Why was the same decision not made for armv5 and armv6?
