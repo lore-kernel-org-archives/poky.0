@@ -1,59 +1,65 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mx.groups.io with SMTP id smtpd.web11.223.1605735454250184368
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+ by mx.groups.io with SMTP id smtpd.web09.26127.1605883890313092447
  for <poky@lists.yoctoproject.org>;
- Wed, 18 Nov 2020 13:37:34 -0800
+ Fri, 20 Nov 2020 06:51:30 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@kernel.org header.s=default header.b=ySf3RGhW;
- spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: okaya@kernel.org)
-Received: from [192.168.0.113] (75-58-59-55.lightspeed.rlghnc.sbcglobal.net [75.58.59.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 28C5E20715;
-	Wed, 18 Nov 2020 21:37:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1605735453;
-	bh=fKpWa1glEzvo2U2+OV9/avG39RHYzWXYxnmaVW1+dtg=;
-	h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
-	b=ySf3RGhWJArSQllBceeAcvzUo9GETjAz/ItbOjxscgCdSDJk6YjLsQnpTXGI5gGp8
-	 P/8duJG4fOC/EmfT6CdhNPG/y58oxej/rMA+WogQtJPVPovrbz9ut7kRcb3AWCCZcz
-	 7TJknQfj03xD0GCvmbD+U/+pf8AFFGeMKh0+CYJs=
-Subject: Re: [poky] [PATCH] poky-tiny: prefer thumb mode by default
-To: Martin Jansa <martin.jansa@gmail.com>
-Cc: Khem Raj <raj.khem@gmail.com>, poky@lists.yoctoproject.org
-References: <20201117024555.7716-1-okaya@kernel.org>
- <CAMKF1sqJCo5xTnLjcukxkjYEqGiR9b8pXSDA2igDF+1OzuKBug@mail.gmail.com>
- <fc71a242-b884-01e3-8c21-774e73446a5c@kernel.org>
- <CAMKF1sqy-Q+mjN=oUZxDhG5DrN-DaOzjgY3VYeXc2DPozPbMNA@mail.gmail.com>
- <3f480e3c-6a75-fb90-f5e5-530e84fb85b3@kernel.org>
- <CA+chaQf+2Dri=bKHN=atz1KWym_TZdojYPqZLgBSQUHgrzN2-A@mail.gmail.com>
-From: "Sinan Kaya" <okaya@kernel.org>
-Message-ID: <1495aa6e-981c-70f2-5ada-fdca6da99cdc@kernel.org>
-Date: Wed, 18 Nov 2020 16:37:31 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
-MIME-Version: 1.0
-In-Reply-To: <CA+chaQf+2Dri=bKHN=atz1KWym_TZdojYPqZLgBSQUHgrzN2-A@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=hLNuXHyf;
+ spf=softfail (domain: sakoman.com, ip: 209.85.210.169, mailfrom: steve@sakoman.com)
+Received: by mail-pf1-f169.google.com with SMTP id 131so8053676pfb.9
+        for <poky@lists.yoctoproject.org>; Fri, 20 Nov 2020 06:51:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
+        h=from:to:subject:date:message-id;
+        bh=t3cTUMHn7IrY8O6JJF5v9GOoB8OkVeKV2qZHdmAzf5U=;
+        b=hLNuXHyfDP84lzOCFNvWLi1jL4ZojU7OhZ8FOEWzutYrJ26M8/GIPMXAKsdzkuu+sa
+         NNBQD0OOdIejWFhq2gd9k3fIU7Z7WZR88z/8+s38jyDcE1gWxq0kZOPLkhlP4KrnPeIr
+         +5n8KsNlPNDyVNsE9HSIKFxMMmkO8vklNoh7moOGOEgMbENFidXmkZKZF8j5jnz6sQ3U
+         s8GKr38uUS5Z/gCMWTUMNbRAVi5NVAj2Peo66KfqBp2YZOnyQwLRp5mHrPh5Nk1Crl5n
+         DGXgF4vn73rJ32PYBaGTbYp0PRYSSejqu7ngu7EYhqWAfA62yCawdMCskIodeoMfoBXF
+         ca9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id;
+        bh=t3cTUMHn7IrY8O6JJF5v9GOoB8OkVeKV2qZHdmAzf5U=;
+        b=qjIGaRYJ7VTY8Yau5+zxncj/TfVgkT33BXnzcasIuxJRPUyaxXJvM9K2kPHySqDTz9
+         tCNMAO1V+vKZ6+xtEoWJDg4WpIIEvx5XB5gkou7dPCb4l0+j4LLfGkIPIvO8D+DoUJAJ
+         Unlt9WHDKDC6elMEHKcNzcurvAaBHhaNRtOzqvhhbV+mEIvVTmeVOHeximZsNzCZWh5V
+         Q+dsvhq8T9QKCAF0slEYuPtkh9caTQZEzQWMLP3MeUmfbd5Shp0pmVsYnq6fF5hNHfSd
+         AIebruC3qZr++fpO7Vnm3aLrw3RbuHsN6As+Xk3U9tgTo9tNW6Hu0Pzx2/PM62BiCVKZ
+         13Fw==
+X-Gm-Message-State: AOAM5330D2tuctHw8VvmQGZ7RxxH4Mf7Y50eeOic7Qi+wcEYYMshsfBO
+	sxIFS1AkNZfLlPNEzXYSIEz4cTr1MaAUyQ1h
+X-Google-Smtp-Source: ABdhPJzcL1N3JqvrBEV/5gJH9K7jxOKKhpIJtyi5Mw4d8STKRnmnEcoXHVFIx4f6cM2YSYMCVF15sw==
+X-Received: by 2002:a62:fc8c:0:b029:18b:572f:e6fb with SMTP id e134-20020a62fc8c0000b029018b572fe6fbmr14919357pfh.20.1605883889022;
+        Fri, 20 Nov 2020 06:51:29 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from octo.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id z11sm3921082pfk.52.2020.11.20.06.51.27
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Nov 2020 06:51:28 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
+Date: Fri, 20 Nov 2020 04:51:15 -1000
+Message-Id: <cover.1605883783.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.17.1
 
-On 11/18/2020 11:50 AM, Martin Jansa wrote:
-> The detection should work fine as long as you select the right DEFAULTT=
-UNE
->=20
-> thumb is used only when ARM_INSTRUCTION_SET is set to thumb=C2=A0AND th=
-umb
-> appears in TUNE_FEATURES (which are defined by selected DEFAULTTUNE).
->=20
-> I've stopped building for armv4t (om-gta0* MACHINEs dropped in
-> https://github.com/shr-distribution/meta-smartphone/commit/647d43223ed6=
-ace5d68b1e36d34978da472634e7
-> <https://github.com/shr-distribution/meta-smartphone/commit/647d43223ed=
-6ace5d68b1e36d34978da472634e7>)
-> and armv5te (tune-xscare.inc used by e.g. spitz MACHINE from
-> meta-handheld) more than 3 years ago, I don't know how much the support
-> for thumb1 degraded since then.
+The following changes since commit 492e345b5e01e59f1f4374388005f81b860db636:
 
-Thanks for sharing. I'm building core-image-minimal at this moment and
-am not having any issues. There were some issues in the SDK world that
-I need to debug.
+  poky.conf: Bump version for 3.1.3 release (2020-09-14 06:02:54 -1000)
+
+are available in the Git repository at:
+
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Steve Sakoman (1):
+  poky.conf: Bump version for 3.1.4 release
+
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+-- 
+2.17.1
+
