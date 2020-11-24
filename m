@@ -1,162 +1,78 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mx.groups.io with SMTP id smtpd.web10.978.1605924282291100260
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com [209.85.221.68])
+ by mx.groups.io with SMTP id smtpd.web10.51111.1606221880362249760
  for <poky@lists.yoctoproject.org>;
- Fri, 20 Nov 2020 18:04:42 -0800
+ Tue, 24 Nov 2020 04:44:40 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@kernel.org header.s=default header.b=cRyNhi1r;
- spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: okaya@kernel.org)
-Received: from sinanubuntu.ckuic5o5zete5ommc4uz5anrqg.bx.internal.cloudapp.net (unknown [23.96.20.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 556B422202;
-	Sat, 21 Nov 2020 02:04:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1605924281;
-	bh=DpnOcBTtWA0f2oE+GCMaGdRsl1Aa5RFrGJncDqP+mFg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=cRyNhi1rSjF91PUovXqOUQNZAsD0b1I8JAeE40gVx4sn2Lk8remd/i9OtLje7g78G
-	 Dwg2x9fLuzARW6oJczPkZY057ANcwzXrPz4zzc3k3g0172R4aSvMlzr9RlOxB5Tnlg
-	 MzhfSNsB5PzppU7Ec5VI4uXwCFjJeLY3UxwEGGNI=
-From: "Sinan Kaya" <okaya@kernel.org>
+ dkim=pass header.i=@konsulko.com header.s=google header.b=gAquc54r;
+ spf=pass (domain: konsulko.com, ip: 209.85.221.68, mailfrom: pbarker@konsulko.com)
+Received: by mail-wr1-f68.google.com with SMTP id 64so8763050wra.11
+        for <poky@lists.yoctoproject.org>; Tue, 24 Nov 2020 04:44:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=f1/0Obv+w9XYVZ1QzdTPN3mLwQgB9qD9/9TNBFiA2QE=;
+        b=gAquc54r2VRmhLQsPBxPgfIpYleihJvYh2iqi5uMFvjpp7HISCP0gXdVm1N+yIg3zV
+         D8SEXisvUTVZltya3IJhS0dZx3wjmTkCQ8da7eRE1ZTf0e//FRZfWj93c+UAV1FYQFrT
+         1fkpEfGx78vB9pbzxbcaOROzq3mA2i5mI4TuM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=f1/0Obv+w9XYVZ1QzdTPN3mLwQgB9qD9/9TNBFiA2QE=;
+        b=Nq92Q71ijwQmo/l4VvEID5QB3n6hlDKQwiTueLqBLKlvePzWlkQw+guzmlj9s6ATMt
+         c1QMefC5i6WXMclg1OfZz6BxKVPK4RIteuB0i2oEZa39CtDZn7NhoGpkx0qrI26zmnmI
+         /JBB4aDkYvXteYGbXhyWv1twdR9DLCV3VuwfCpJ7Qa47mMMGhsWor1TbBTRzGv7eT6KU
+         Ye80mPw2KSPTycWuAEqQHEzeUvvHmPFHURUX6tH8Q3225lMWui51jFMhw3CUN7r5OYrV
+         5RGgIKxRtdQ4d4UHS3C8HglcBoYfA7Dudv5JGWbmR0ngJ4IvwxnQHUEyDaxzZDiCmjet
+         p8ng==
+X-Gm-Message-State: AOAM5324XWRAjyU4gx+RMeROCMBNjnKIIliKe9/VIR3lxXAi4JCbadbs
+	Tbe1yIPqbL29W8/yRzYpAEegJgXozT3wPg==
+X-Google-Smtp-Source: ABdhPJyZMmJ9uVXA9RhDTLuIFi8q9CPaad1RnUhG3qq0YpI2Yi3I3PzREOPWFRH6iZt1/JrL1y4yjQ==
+X-Received: by 2002:a5d:5342:: with SMTP id t2mr5000842wrv.243.1606221878682;
+        Tue, 24 Nov 2020 04:44:38 -0800 (PST)
+Return-Path: <pbarker@konsulko.com>
+Received: from alpha.home.b5net.uk (cpc76148-clif11-2-0-cust524.12-4.cable.virginm.net. [82.1.54.13])
+        by smtp.gmail.com with ESMTPSA id y11sm4771468wmj.36.2020.11.24.04.44.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2020 04:44:37 -0800 (PST)
+From: "Paul Barker" <pbarker@konsulko.com>
 To: poky@lists.yoctoproject.org
-Cc: Sinan Kaya <okaya@kernel.org>
-Subject: [PATCH] image_types: add zstd initramfs and squashfs support
-Date: Sat, 21 Nov 2020 02:04:34 +0000
-Message-Id: <20201121020434.19912-1-okaya@kernel.org>
-X-Mailer: git-send-email 2.17.1
+Cc: Paul Barker <pbarker@konsulko.com>
+Subject: [master/gatesgarth/dunfell PATCH] local.conf.sample: Update list of qemu machines
+Date: Tue, 24 Nov 2020 12:44:31 +0000
+Message-Id: <20201124124431.25294-1-pbarker@konsulko.com>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add support for zstandard format squashfs and initramfs.
+The `qemuarmv5` and `qemuriscv64` machines have been support since the
+warrior and zeus releases respectively. Add them to the local.conf
+sample so that they're easier for new users to discover.
 
-Signed-off-by: Sinan Kaya <okaya@kernel.org>
+Signed-off-by: Paul Barker <pbarker@konsulko.com>
 ---
- documentation/ref-manual/ref-variables.rst |  2 ++
- meta/classes/base.bbclass                  |  4 ++++
- meta/classes/image_types.bbclass           |  6 ++++--
- meta/classes/kernel-fitimage.bbclass       |  2 +-
- meta/classes/kernel.bbclass                | 10 ++++++++--
- 5 files changed, 19 insertions(+), 5 deletions(-)
+ meta-poky/conf/local.conf.sample | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/documentation/ref-manual/ref-variables.rst b/documentation/ref-manual/ref-variables.rst
-index e552351e328..1496b9b7a86 100644
---- a/documentation/ref-manual/ref-variables.rst
-+++ b/documentation/ref-manual/ref-variables.rst
-@@ -3312,6 +3312,7 @@ system and gives an overview of their function and contents.
-       - cpio.lz4
-       - cpio.lzma
-       - cpio.xz
-+      - cpio.zst
-       - cramfs
-       - ext2
-       - ext2.bz2
-@@ -3331,6 +3332,7 @@ system and gives an overview of their function and contents.
-       - squashfs-lz4
-       - squashfs-lzo
-       - squashfs-xz
-+      - squashfs-zst
-       - tar
-       - tar.bz2
-       - tar.gz
-diff --git a/meta/classes/base.bbclass b/meta/classes/base.bbclass
-index 5a0b0c6b3e2..ba3eaf0938a 100644
---- a/meta/classes/base.bbclass
-+++ b/meta/classes/base.bbclass
-@@ -633,6 +633,10 @@ python () {
-         if path.endswith('.lz4'):
-             d.appendVarFlag('do_unpack', 'depends', ' lz4-native:do_populate_sysroot')
- 
-+        # *.zst should DEPEND on zstd-native for unpacking
-+        elif path.endswith('.zst'):
-+            d.appendVarFlag('do_unpack', 'depends', ' zstd-native:do_populate_sysroot')
-+
-         # *.lz should DEPEND on lzip-native for unpacking
-         elif path.endswith('.lz'):
-             d.appendVarFlag('do_unpack', 'depends', ' lzip-native:do_populate_sysroot')
-diff --git a/meta/classes/image_types.bbclass b/meta/classes/image_types.bbclass
-index 66884af8e09..f511cd55711 100644
---- a/meta/classes/image_types.bbclass
-+++ b/meta/classes/image_types.bbclass
-@@ -107,6 +107,7 @@ IMAGE_CMD_squashfs = "mksquashfs ${IMAGE_ROOTFS} ${IMGDEPLOYDIR}/${IMAGE_NAME}${
- IMAGE_CMD_squashfs-xz = "mksquashfs ${IMAGE_ROOTFS} ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.squashfs-xz ${EXTRA_IMAGECMD} -noappend -comp xz"
- IMAGE_CMD_squashfs-lzo = "mksquashfs ${IMAGE_ROOTFS} ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.squashfs-lzo ${EXTRA_IMAGECMD} -noappend -comp lzo"
- IMAGE_CMD_squashfs-lz4 = "mksquashfs ${IMAGE_ROOTFS} ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.squashfs-lz4 ${EXTRA_IMAGECMD} -noappend -comp lz4"
-+IMAGE_CMD_squashfs-zst = "mksquashfs ${IMAGE_ROOTFS} ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.squashfs-zst ${EXTRA_IMAGECMD} -noappend -comp zstd"
- 
- # By default, tar from the host is used, which can be quite old. If
- # you need special parameters (like --xattrs) which are only supported
-@@ -249,6 +250,7 @@ do_image_squashfs[depends] += "squashfs-tools-native:do_populate_sysroot"
- do_image_squashfs_xz[depends] += "squashfs-tools-native:do_populate_sysroot"
- do_image_squashfs_lzo[depends] += "squashfs-tools-native:do_populate_sysroot"
- do_image_squashfs_lz4[depends] += "squashfs-tools-native:do_populate_sysroot"
-+do_image_squashfs_zst[depends] += "squashfs-tools-native:do_populate_sysroot"
- do_image_ubi[depends] += "mtd-utils-native:do_populate_sysroot"
- do_image_ubifs[depends] += "mtd-utils-native:do_populate_sysroot"
- do_image_multiubi[depends] += "mtd-utils-native:do_populate_sysroot"
-@@ -264,10 +266,10 @@ IMAGE_TYPES = " \
-     btrfs \
-     iso \
-     hddimg \
--    squashfs squashfs-xz squashfs-lzo squashfs-lz4 \
-+    squashfs squashfs-xz squashfs-lzo squashfs-lz4 squashfs-zst \
-     ubi ubifs multiubi \
-     tar tar.gz tar.bz2 tar.xz tar.lz4 tar.zst \
--    cpio cpio.gz cpio.xz cpio.lzma cpio.lz4 \
-+    cpio cpio.gz cpio.xz cpio.lzma cpio.lz4 cpio.zst \
-     wic wic.gz wic.bz2 wic.lzma wic.zst \
-     container \
-     f2fs \
-diff --git a/meta/classes/kernel-fitimage.bbclass b/meta/classes/kernel-fitimage.bbclass
-index bb2f3c4ccc4..fb21a1a256a 100644
---- a/meta/classes/kernel-fitimage.bbclass
-+++ b/meta/classes/kernel-fitimage.bbclass
-@@ -442,7 +442,7 @@ fitimage_assemble() {
- 	#
- 	if [ "x${ramdiskcount}" = "x1" ] ; then
- 		# Find and use the first initramfs image archive type we find
--		for img in cpio.lz4 cpio.lzo cpio.lzma cpio.xz cpio.gz ext2.gz cpio; do
-+		for img in cpio.lz4 cpio.lzo cpio.lzma cpio.xz cpio.zst cpio.gz ext2.gz cpio; do
- 			initramfs_path="${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE_NAME}.${img}"
- 			echo "Using $initramfs_path"
- 			if [ -e "${initramfs_path}" ]; then
-diff --git a/meta/classes/kernel.bbclass b/meta/classes/kernel.bbclass
-index 1a444efabf1..0fa9a4c83be 100644
---- a/meta/classes/kernel.bbclass
-+++ b/meta/classes/kernel.bbclass
-@@ -7,6 +7,7 @@ PROVIDES += "${@ "virtual/kernel" if (d.getVar("KERNEL_PACKAGE_NAME") == "kernel
- DEPENDS += "virtual/${TARGET_PREFIX}binutils virtual/${TARGET_PREFIX}gcc kmod-native bc-native bison-native"
- DEPENDS += "${@bb.utils.contains("INITRAMFS_FSTYPES", "cpio.lzo", "lzop-native", "", d)}"
- DEPENDS += "${@bb.utils.contains("INITRAMFS_FSTYPES", "cpio.lz4", "lz4-native", "", d)}"
-+DEPENDS += "${@bb.utils.contains("INITRAMFS_FSTYPES", "cpio.zst", "zstd-native", "", d)}"
- PACKAGE_WRITE_DEPS += "depmodwrapper-cross"
- 
- do_deploy[depends] += "depmodwrapper-cross:do_populate_sysroot gzip-native:do_populate_sysroot"
-@@ -225,7 +226,7 @@ copy_initramfs() {
- 	mkdir -p ${B}/usr
- 	# Find and use the first initramfs image archive type we find
- 	rm -f ${B}/usr/${INITRAMFS_IMAGE_NAME}.cpio
--	for img in cpio cpio.gz cpio.lz4 cpio.lzo cpio.lzma cpio.xz; do
-+	for img in cpio cpio.gz cpio.lz4 cpio.lzo cpio.lzma cpio.xz cpio.zst; do
- 		if [ -e "${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE_NAME}.$img" ]; then
- 			cp ${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE_NAME}.$img ${B}/usr/.
- 			case $img in
-@@ -254,12 +255,17 @@ copy_initramfs() {
- 				xz -df ${B}/usr/${INITRAMFS_IMAGE_NAME}.$img
- 				break
- 				;;
-+			*zst)
-+				echo "zst decompressing image"
-+				zstd -df ${B}/usr/${INITRAMFS_IMAGE_NAME}.$img
-+				break
-+				;;
- 			esac
- 			break
- 		fi
- 	done
- 	# Verify that the above loop found a initramfs, fail otherwise
--	[ -f ${B}/usr/${INITRAMFS_IMAGE_NAME}.cpio ] && echo "Finished copy of initramfs into ./usr" || die "Could not find any ${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE_NAME}.cpio{.gz|.lz4|.lzo|.lzma|.xz) for bundling; INITRAMFS_IMAGE_NAME might be wrong."
-+	[ -f ${B}/usr/${INITRAMFS_IMAGE_NAME}.cpio ] && echo "Finished copy of initramfs into ./usr" || die "Could not find any ${DEPLOY_DIR_IMAGE}/${INITRAMFS_IMAGE_NAME}.cpio{.gz|.lz4|.lzo|.lzma|.xz|.zst) for bundling; INITRAMFS_IMAGE_NAME might be wrong."
- }
- 
- do_bundle_initramfs () {
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index 68e71b930b..df23af0a71 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -19,11 +19,13 @@
+ #
+ #MACHINE ?= "qemuarm"
+ #MACHINE ?= "qemuarm64"
++#MACHINE ?= "qemuarmv5"
+ #MACHINE ?= "qemumips"
+ #MACHINE ?= "qemumips64"
+ #MACHINE ?= "qemuppc"
+ #MACHINE ?= "qemux86"
+ #MACHINE ?= "qemux86-64"
++#MACHINE ?= "qemuriscv64"
+ #
+ # There are also the following hardware board target machines included for 
+ # demonstration purposes:
 -- 
-2.17.1
+2.26.2
 
