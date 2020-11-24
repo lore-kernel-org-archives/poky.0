@@ -1,86 +1,88 @@
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com [209.85.128.66])
- by mx.groups.io with SMTP id smtpd.web10.51193.1606222311246616767
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com [209.85.210.65])
+ by mx.groups.io with SMTP id smtpd.web08.51463.1606223595005789351
  for <poky@lists.yoctoproject.org>;
- Tue, 24 Nov 2020 04:51:51 -0800
+ Tue, 24 Nov 2020 05:13:15 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=BHMuaq9M;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.66, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f66.google.com with SMTP id 1so2747708wme.3
-        for <poky@lists.yoctoproject.org>; Tue, 24 Nov 2020 04:51:51 -0800 (PST)
+ dkim=pass header.i=@konsulko.com header.s=google header.b=ez6mDvjQ;
+ spf=pass (domain: konsulko.com, ip: 209.85.210.65, mailfrom: paul.barker@konsulko.com)
+Received: by mail-ot1-f65.google.com with SMTP id y24so13718181otk.3
+        for <poky@lists.yoctoproject.org>; Tue, 24 Nov 2020 05:13:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=RII83dE5ZNa8QjAZGsmUIg/wwpTQaEtWf0xNCT1iZ9w=;
-        b=BHMuaq9MUfDd4VO6VpKcovL1mCDX1QGp2Vr7POLvLSQ8uNGtGBy5z+XQSIvexVnXym
-         gRhVzGPXKYrCTQ8ch85KkIooMGGNXEQEI2Jru/6HuFKITosGi/vwMbhMcBe5NEhTEhSj
-         m+js2NwaEJR+ZTJUHKXkKl91/d0JlZZZF1VhQ=
+        d=konsulko.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=Gvb9BV+8iZxXWBS8kSsDJ4mFvbJ4Kv0KFkGeKrLuFHk=;
+        b=ez6mDvjQ0rwmaga2Y+qQk9QogUqN8Q9iBFlDB7RKWuvHXk5i1OvdwMTjrgZC22hl7g
+         1GqWWiqboTbFL78oq8WDnJ6HeQcNhgpwZznAjgGFA8kshjd2+trfFgJVMLdZcCHIx5gp
+         zxFLkmYIKyVwkGQ8lnki8fIc5BrFNX/8Fwg8I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=RII83dE5ZNa8QjAZGsmUIg/wwpTQaEtWf0xNCT1iZ9w=;
-        b=IMvMOiDa8OUQPH9g/sNldY1DUTsl8A0qKXB/szt/lFW4c0bQaRWMH+9Xv19twJKE1b
-         jhb+SQzw0bdTJ1sGuLQke9fqyf5JEcm9dYqGtJGdHhKdAytqoeOO2ONDkgCAbed2qq7a
-         r+PgISU0cPRmP8BGvXBum/ZZi9I0feDKZQG1mJQ2BCysk3d15JohNHvbE8RnnWecoLWW
-         0Bb4I+EnJxfnaUEWWFeObegYLLu6cyvf9Fu5OKZYU+aaW5+89GGiKsx/CebhMXWYtCI0
-         5u77eZZdamqP2ar47sWFzPaCPXdjpRq52eT1deygcO6YkGY65uvZEXteF8+vO6wkcN7r
-         dRSA==
-X-Gm-Message-State: AOAM530dxTmkxtX9nS1/ppdKQUSM6sRmrSWBCYt4A4Nq9ZEQ0LdWZYsM
-	1l5Q18ud48tEIvFGMgJnZ9kktw==
-X-Google-Smtp-Source: ABdhPJyXapojyHjdhNsPt/yCHXioz0x2bZR1uBBLSfYz33KrXUFaYk7Zcd5sS3Dm/tpj/gc+SAtfRA==
-X-Received: by 2002:a1c:c205:: with SMTP id s5mr4383479wmf.122.1606222309764;
-        Tue, 24 Nov 2020 04:51:49 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from 4.3.1.2.4.d.e.0.6.7.2.2.d.6.0.9.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa (4.3.1.2.4.d.e.0.6.7.2.2.d.6.0.9.c.3.f.5.a.b.a.0.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:aba:5f3c:906d:2276:ed4:2134])
-        by smtp.gmail.com with ESMTPSA id n4sm5537243wmc.30.2020.11.24.04.51.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2020 04:51:49 -0800 (PST)
-Message-ID: <d99fb8c9fbc13a0ff994fec17a8331f4913c3c41.camel@linuxfoundation.org>
-Subject: Re: [poky] [master/gatesgarth/dunfell PATCH] local.conf.sample: Update list of qemu machines
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Paul Barker <pbarker@konsulko.com>, poky@lists.yoctoproject.org
-Date: Tue, 24 Nov 2020 12:51:47 +0000
-In-Reply-To: <20201124124431.25294-1-pbarker@konsulko.com>
-References: <20201124124431.25294-1-pbarker@konsulko.com>
-User-Agent: Evolution 3.36.4-0ubuntu1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=Gvb9BV+8iZxXWBS8kSsDJ4mFvbJ4Kv0KFkGeKrLuFHk=;
+        b=VsiCdwCoyw945OxrBQWqi1OsDgR8cuSUXbszCq+ly7KWDwXti2t5q7zrPgfBOxdr+J
+         P+DO+Nu39GN4znOBjY9b/HaR3GBQfQJjHzJjjq7WlthY2dzud725Nn3kh++FSRD88Wny
+         KKHxxC8UxYIU0K31T4hX3Djf2zfhW/Ksxw0OUEJLa+mdT7+oIzMEheyCu3GczFlNxYW2
+         s4OKklfl88WpTQWvvNNHgMAmj+6wO3hd38Vqs5XoOwHbaFagY5XqzXw0kzDe+1vMvqf/
+         ieBFAxrshoElNbQMZwd5nmEz2NJiOfODVl3HIuoWjP2An0VGFHMyEOovnGwIr690U+DR
+         6a5g==
+X-Gm-Message-State: AOAM533ujS1g60vaBNNRUxNAkf6HZ5T0v2PWPmGGghIM6z0Qqwbq/VpK
+	sU/NknNg885HEs/GFHwirzRYk2rWV2qdLzzsEhMHPA==
+X-Google-Smtp-Source: ABdhPJwpeV0dOPx9lVeIZEIQ404sPKCx7nskrK0+pNWvxKUbbB8Pt7vhxMV850WIiqdNRZ8ImH94uNblkWTZWMjqE0A=
+X-Received: by 2002:a05:6830:22d2:: with SMTP id q18mr2901914otc.305.1606223594304;
+ Tue, 24 Nov 2020 05:13:14 -0800 (PST)
 MIME-Version: 1.0
+References: <20201124124431.25294-1-pbarker@konsulko.com> <d99fb8c9fbc13a0ff994fec17a8331f4913c3c41.camel@linuxfoundation.org>
+In-Reply-To: <d99fb8c9fbc13a0ff994fec17a8331f4913c3c41.camel@linuxfoundation.org>
+From: "Paul Barker" <pbarker@konsulko.com>
+Date: Tue, 24 Nov 2020 13:13:03 +0000
+Message-ID: <CAM9ZRVsQJFvDvM1F0U7As+JkxasmBhV74iXqHEz0ahN0V4ugLw@mail.gmail.com>
+Subject: Re: [poky] [master/gatesgarth/dunfell PATCH] local.conf.sample: Update list of qemu machines
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
 
-On Tue, 2020-11-24 at 12:44 +0000, Paul Barker wrote:
-> The `qemuarmv5` and `qemuriscv64` machines have been support since
-> the
-> warrior and zeus releases respectively. Add them to the local.conf
-> sample so that they're easier for new users to discover.
-> 
-> Signed-off-by: Paul Barker <pbarker@konsulko.com>
-> ---
->  meta-poky/conf/local.conf.sample | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/meta-poky/conf/local.conf.sample b/meta-
-> poky/conf/local.conf.sample
-> index 68e71b930b..df23af0a71 100644
-> --- a/meta-poky/conf/local.conf.sample
-> +++ b/meta-poky/conf/local.conf.sample
-> @@ -19,11 +19,13 @@
->  #
->  #MACHINE ?= "qemuarm"
->  #MACHINE ?= "qemuarm64"
-> +#MACHINE ?= "qemuarmv5"
->  #MACHINE ?= "qemumips"
->  #MACHINE ?= "qemumips64"
->  #MACHINE ?= "qemuppc"
->  #MACHINE ?= "qemux86"
->  #MACHINE ?= "qemux86-64"
-> +#MACHINE ?= "qemuriscv64"
-> 
+On Tue, 24 Nov 2020 at 12:51, Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+>
+> On Tue, 2020-11-24 at 12:44 +0000, Paul Barker wrote:
+> > The `qemuarmv5` and `qemuriscv64` machines have been support since
+> > the
+> > warrior and zeus releases respectively. Add them to the local.conf
+> > sample so that they're easier for new users to discover.
+> >
+> > Signed-off-by: Paul Barker <pbarker@konsulko.com>
+> > ---
+> >  meta-poky/conf/local.conf.sample | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/meta-poky/conf/local.conf.sample b/meta-
+> > poky/conf/local.conf.sample
+> > index 68e71b930b..df23af0a71 100644
+> > --- a/meta-poky/conf/local.conf.sample
+> > +++ b/meta-poky/conf/local.conf.sample
+> > @@ -19,11 +19,13 @@
+> >  #
+> >  #MACHINE ?= "qemuarm"
+> >  #MACHINE ?= "qemuarm64"
+> > +#MACHINE ?= "qemuarmv5"
+> >  #MACHINE ?= "qemumips"
+> >  #MACHINE ?= "qemumips64"
+> >  #MACHINE ?= "qemuppc"
+> >  #MACHINE ?= "qemux86"
+> >  #MACHINE ?= "qemux86-64"
+> > +#MACHINE ?= "qemuriscv64"
+> >
+>
+> I think those ones aren't listed as we don't actually test them
+> currently...
 
-I think those ones aren't listed as we don't actually test them
-currently...
+I reviewed the test matrix in
+http://git.yoctoproject.org/cgit/cgit.cgi/yocto-autobuilder-helper/tree/config.json
+after your pointer on IRC. Neither of these is covered by the
+autobuilder so perhaps it is right to leave them out of the sample
+config for now.
 
-Cheers,
-
-Richard
-
+-- 
+Paul Barker
+Konsulko Group
