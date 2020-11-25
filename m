@@ -1,72 +1,79 @@
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com [209.85.128.67])
- by mx.groups.io with SMTP id smtpd.web08.53134.1606231106730767422
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+ by mx.groups.io with SMTP id smtpd.web08.921.1606331970889039970
  for <poky@lists.yoctoproject.org>;
- Tue, 24 Nov 2020 07:18:27 -0800
+ Wed, 25 Nov 2020 11:19:30 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@konsulko.com header.s=google header.b=NIcS1FNq;
- spf=pass (domain: konsulko.com, ip: 209.85.128.67, mailfrom: pbarker@konsulko.com)
-Received: by mail-wm1-f67.google.com with SMTP id p22so2729855wmg.3
-        for <poky@lists.yoctoproject.org>; Tue, 24 Nov 2020 07:18:26 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=RIAr1mUI;
+ spf=pass (domain: gmail.com, ip: 209.85.210.181, mailfrom: raj.khem@gmail.com)
+Received: by mail-pf1-f181.google.com with SMTP id b63so3225305pfg.12
+        for <poky@lists.yoctoproject.org>; Wed, 25 Nov 2020 11:19:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=ZXMoKN7zo6r/FShXFiFaRd4LwHIgssVFfNFNUiaPRls=;
-        b=NIcS1FNq5jdxwJYurAPO1UD2Scy4uIhYhWS57+28zSqUbpTboRIFA+a93qDqu5WDa+
-         plLGB0Ca7Nncw6TxjWKgo36l59dr6BwM9CgiPjOKM6DbCIyt2NNo9D3+ZenjZ3iPX1AM
-         Lqa65sSwG7fWZhgzqUihRroUE6dodWO0NmbEU=
+        d=gmail.com; s=20161025;
+        h=subject:to:references:from:organization:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=E4F4rXQeT5B6v3UDKFNBn/5NcbJkglL+gokOzckKv+c=;
+        b=RIAr1mUIL+nO2G3PSdPY27ORj/7pbbp6Er1CSmKk440FBs1dLT5ZC4NM+OAPKkA+2M
+         N4WoITc3bbitw3oNotfMWkP5+gSpoC1vpV0xWeKmHmb5oFIzYwQ8JaS+koE3QaRF8rKk
+         2WCCH5Li+QalrDQj6S7VQmZz5otfWwdczobsZMQaiiDegjdqwh2u83kPUcVz4MpQgIhG
+         9fygxyFb+Pqli2pGk4tKgaVr1w3jQ/lfuBRulGHkG7K7IQlY5f/PRTxebVq44g09/oFI
+         zBq7qo64znAK+1qc5ebSEPSu/0BsZE6WvxG5ksPqsTV0tdDQZtTcQTlcFHsE6nCMBWHG
+         pv2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=ZXMoKN7zo6r/FShXFiFaRd4LwHIgssVFfNFNUiaPRls=;
-        b=XsLX/Wj/9GeGa99T7OXgR9MdkrCRZF1KpgAUjHe2buQR3VK2MIHUoe08QgWdnNipM8
-         bzdSvBPc27tREcVRsQq1WEK+kzp+XykgF1dBHWFGk0Q6V0+FfXVGoy7bK0x07vgXt7WH
-         irGX4SA8K77hb2IqhyznLLK+yWf93OG3ZPLi5NwpCOogflGXcPIxVgRXc+xVPahM1yIf
-         RLGSFJqgMXO+gLXnVn1tIFUnpo42F7Z9Se7/yq5Kcksryt5BB7xYUwG3JJA2D9SSH1YS
-         FMteIbErhc0wF+BlRxgLfVKVabnzEGam4/nYpf9TeaVjRHIo+wPLJnBchYCSB70/BhXE
-         8fzA==
-X-Gm-Message-State: AOAM5332S1aEAlgxbf2sSSGdywxeWVyRgXkVWQUQV09ERY/ouP0ZYoDi
-	VdNKOTkX2cNu1azx5gOjHfrpMj8I3P/WVg==
-X-Google-Smtp-Source: ABdhPJwWpiplQSpzj/9exgY9jY0BpOCZUfnMh9SrGZp4wGGYGq14cJ6ZYaIBwShbCYe09gmEzMJoSQ==
-X-Received: by 2002:a05:600c:1497:: with SMTP id c23mr4952665wmh.86.1606231102001;
-        Tue, 24 Nov 2020 07:18:22 -0800 (PST)
-Return-Path: <pbarker@konsulko.com>
-Received: from alpha.home.b5net.uk (cpc76148-clif11-2-0-cust524.12-4.cable.virginm.net. [82.1.54.13])
-        by smtp.gmail.com with ESMTPSA id d8sm5743907wmb.11.2020.11.24.07.18.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2020 07:18:21 -0800 (PST)
-From: "Paul Barker" <pbarker@konsulko.com>
-To: poky@lists.yoctoproject.org
-Cc: Paul Barker <pbarker@konsulko.com>
-Subject: [PATCH 2/2] poky.conf: Drop fedora-30 from tested distros
-Date: Tue, 24 Nov 2020 15:18:16 +0000
-Message-Id: <20201124151816.5845-2-pbarker@konsulko.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201124151816.5845-1-pbarker@konsulko.com>
-References: <20201124151816.5845-1-pbarker@konsulko.com>
+        h=x-gm-message-state:subject:to:references:from:organization
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=E4F4rXQeT5B6v3UDKFNBn/5NcbJkglL+gokOzckKv+c=;
+        b=AOc3c5QQjKgCOslddt42hBmM+5Jx4Acw7K9jqPhvy5KqjULN9oneEFmo4vlRWeI8rq
+         3AJytvoZzWf4jV3UIgztTTABIple8BbdhxwfdsWVnaNw4NjOqINXt/c4tnN1VEqnBRx4
+         tkZBDUKgf3Sz6XRKqWFZ41GWodqQtumTVHsMdJ3xuIZ5JqEYxaczQ0aIXYLAt8GxS9eZ
+         aNzqYzMsu8EPXjyDRIzOKSGu1x46Ud3v04/AmuoooRDK/njBwQiiFy+B29sQ/1E/o7Mx
+         qXYWEtiTsV4nmAUyNOolqKvEXAVYmX0rcLO4VOzCDllAnuadTuE5GQ55kTzmEk2sDd8F
+         1yiQ==
+X-Gm-Message-State: AOAM531TqFt+BUTdeImPeBV1PqbHxP5lh/wtAicCyWx+kbXUfVen2YgN
+	6/fwETOKBYEIVtN8Ws8/zyrDUiLF3wbNZw==
+X-Google-Smtp-Source: ABdhPJxTuhNCsMPmbQRjAixdcu11bOVYjAm/zUSu9KVbBctBeENRZkSl0laT6QaOW6cWRxw33Ax3XQ==
+X-Received: by 2002:a17:90a:a090:: with SMTP id r16mr5963131pjp.179.1606331970089;
+        Wed, 25 Nov 2020 11:19:30 -0800 (PST)
+Return-Path: <raj.khem@gmail.com>
+Received: from ?IPv6:2601:646:9200:4e0:ecdb:94e8:2d6c:dea4? ([2601:646:9200:4e0:ecdb:94e8:2d6c:dea4])
+        by smtp.gmail.com with ESMTPSA id p14sm3572551pjo.53.2020.11.25.11.19.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2020 11:19:29 -0800 (PST)
+Subject: Re: [poky] gfortran omp_lib.mod and omp_lib.h is missing #gcc
+To: benoit.sansoni@gmail.com, poky@lists.yoctoproject.org
+References: <5Etz.1606303593611019998.offr@lists.yoctoproject.org>
+From: "Khem Raj" <raj.khem@gmail.com>
+Organization: HIMVIS LLC
+Message-ID: <1a8eda55-0d46-def1-183f-ec384e449172@gmail.com>
+Date: Wed, 25 Nov 2020 11:19:28 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <5Etz.1606303593611019998.offr@lists.yoctoproject.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 
-The autobuilder no longer contains a worker for this distro.
 
-Signed-off-by: Paul Barker <pbarker@konsulko.com>
----
- meta-poky/conf/distro/poky.conf | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index bdf46f4038..35c9b1a27c 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -49,7 +49,6 @@ SANITY_TESTED_DISTROS ?= " \
-             ubuntu-16.04 \n \
-             ubuntu-18.04 \n \
-             ubuntu-20.04 \n \
--            fedora-30 \n \
-             fedora-31 \n \
-             fedora-32 \n \
-             fedora-33 \n \
--- 
-2.26.2
+On 11/25/20 3:26 AM, benoit.sansoni@gmail.com wrote:
+> Hi,
+> 
+> I need openmp used by gfortran.
+> omp_lib.mod and omp_lib.h are missing even if I added libgfortran and 
+> libgfortran-dev recipes in my yocto image.
+> 
+> Do you have an idea how I can provide those files in my image ?
+> 
 
+these are not part of standard compiler runtime but rather part of 
+compiler headers. So you wont be able to include them unless you add 
+target gfortran compiler on your image
+
+> Thanks
+> Benoit
+> 
+> 
+> 
+> 
