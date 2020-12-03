@@ -1,221 +1,79 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
- by mx.groups.io with SMTP id smtpd.web09.1195.1606939544713813724
+Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
+ by mx.groups.io with SMTP id smtpd.web11.10157.1607002598038419052
  for <poky@lists.yoctoproject.org>;
- Wed, 02 Dec 2020 12:05:45 -0800
+ Thu, 03 Dec 2020 05:36:38 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=kK8daWvd;
- spf=pass (domain: gmail.com, ip: 209.85.218.54, mailfrom: martin.jansa@gmail.com)
-Received: by mail-ej1-f54.google.com with SMTP id g20so6350056ejb.1
-        for <poky@lists.yoctoproject.org>; Wed, 02 Dec 2020 12:05:44 -0800 (PST)
+ dkim=fail reason="body hash did not verify" header.i=@gmail.com header.s=20161025 header.b=uiqqAFat;
+ spf=softfail (domain: gmail.com, ip: 198.145.29.25, mailfrom: alex.kanavin@gmail.com)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	by mail.yoctoproject.org (Postfix) with ESMTPS id C2B5038C083A
+	for <poky@yoctoproject.org>; Thu,  3 Dec 2020 13:36:37 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id ga15so3504473ejb.4
+        for <poky@yoctoproject.org>; Thu, 03 Dec 2020 05:36:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Gk8jcvcL8LvHAH9Tplz0rTeDfGWoxxj7cbx0ATiNt6k=;
-        b=kK8daWvdVdIyedtz7ASPKaxMsPVdH+EY4uqve0hqz7xtPJfXK44v95T+3cddE0/vdt
-         F6S3uTmad2KZ7E8ryRdmDZZBOUcPLDXPyNFqEsHx8ALR2ERLBYAyBDNW0WNUfMN4mKbO
-         qC0E2Z5rxWP1qIVSIoEkQWsoa00Yx7/Lho4/lHGqKTW0Qv3XSTBdXd20heBjS/NHznoz
-         6hFtqp6gR7rA5Qzs9638cUZ80ApGUgT4NekdmldP633nAPuB1v0LOG6sOvgwDjwY84FJ
-         ZG/rAdvPATzgTU3SOn9aMaMVIrYsF4cNX5Q4dIjddpVEvyw7FyQxu8vrDuAcx8N6zuwe
-         JLwQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=VHeuGxjYmWrJuGQSCEdgTjiotaxhvESrME2QUCvsfTg=;
+        b=uiqqAFatSInoWC/gQCoxtsJqRFnFmAlps4mrAN1v+peTC9YyDQJslJcw6crEWTbqqX
+         jbb5xYhlD4CxYM9cUlSlCRUT7zNozWYtNcOlzW/ZRrSNL6jCDXIhiKhlhmeIdErcCE5e
+         nSrlAo6xY+rnrMgKVFKse1LdjL1wUxYT1d9M8h+EiB3rOim7Lld1pBW0OlDv2Mjhc/6F
+         CnmrLCb0Tsjg3XQHxsZ9TzmtHRJXzLbU7xW7LMbT89wQFpkAtOzMrHWab2oIp/wBqK7j
+         U+S/y1zo2HKNTZait+szgJO5eoRFb9foqApRDGFHs1GznHFUSXNnyNXGnckTh6hSeO/g
+         EdOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Gk8jcvcL8LvHAH9Tplz0rTeDfGWoxxj7cbx0ATiNt6k=;
-        b=aTq+VDt9gjYroGRVDwDxOHs/JqI8OMxRq9levRP79lU30VbCJbxrtAoo8OqV3lJmKi
-         C1OnL1t9cdrrK4jk9wWonxyJ7ilQTu/RGlZKmEKSwNdKOeHSvU7xiwMsZ/LD33gWc8pm
-         /uoe+oyiuRPKVMex8kmu37PightXNW3Cj+swWKsNHriRvHI/D58pEKvXszE/9TRB0QS7
-         V0C0Gx600s+j9ESN5xaol/YyPUI45C/AL/NDre4gLCWvfN+urL8zcZT38wD+hPxgOKEr
-         OnRdUQ3ARsqI1hKSUrdg0PyzWz7cIBE0HKj84N0Y0GfdIzt9NDUVKJy/CvvGwRspKuCu
-         sKiw==
-X-Gm-Message-State: AOAM530yAJ9G4u7Cgi9n6L0zeOcmZGIuKYcZaWkFCYjyLrd3dWd3OFdq
-	5Vuu5gnqznnN/qumCW733dCjiYt2/v3FeiHem2Q=
-X-Google-Smtp-Source: ABdhPJycYDedURXm9KjdfSF1IGDlyCOIAWNeEB/5n95RvK8ACsOSEwZ5KswX8iRSgrpgN6QAw1zsB5XVxOYTeB4a1Ow=
-X-Received: by 2002:a17:906:fa8b:: with SMTP id lt11mr1459952ejb.94.1606939543139;
- Wed, 02 Dec 2020 12:05:43 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=VHeuGxjYmWrJuGQSCEdgTjiotaxhvESrME2QUCvsfTg=;
+        b=T8gaeZUYRTX93hTO6gbeA9FM62LhIrfTGWbdHI/GLFT1slPYRFfHjSyewozA7yP2MO
+         cT/dgA5EO9pXTctGtj1C7oX+6DrIbJzAGDZzvFWCyrr4+Sfya2qeMiYkNyqv32F24JkH
+         ktwluZjczcgnDZID3lHll/4kGLnXimIcQWilv+AloGFWUhOh9DNNVcDj5W16dWxh/nHe
+         meAfpMGsGaGHG9+6u8p6coGQlzhkTNsbMHBBqz5gAzZeIJOecATHmgViHAFebco55JTr
+         el6zqrPtqHPWf4Nuj0SdeeGgCShXpXR5F6MoyZRXJdEjRhsXqVgb/5gRhgccTts7WY0a
+         26kw==
+X-Gm-Message-State: AOAM533x27/8ksQlXWaPLo0JZjW1fr8GxNXPzNkFtFfgS2H55eIEmDWq
+	+uesjUtGpBPOFBI5Yf7mMUtphHe3Xrauug==
+X-Google-Smtp-Source: ABdhPJwHy3yR5PdbS5Wa3mFJDXnjfVBfRiYsTpNd/G7MMiPgJ3Rednf/1QU0hWL48PD+g7dUnoWZog==
+X-Received: by 2002:a17:906:2a4b:: with SMTP id k11mr2451980eje.467.1607002595882;
+        Thu, 03 Dec 2020 05:36:35 -0800 (PST)
+Received: from linux-f9zs.fritz.box ([2a02:2450:1011:4f7:596d:bf31:3950:5bda])
+        by smtp.gmail.com with ESMTPSA id eb14sm1175337edb.20.2020.12.03.05.36.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Dec 2020 05:36:35 -0800 (PST)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+To: poky@yoctoproject.org
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>
+Subject: [PATCH] poky.conf: do not write current date into distro version
+Date: Thu,  3 Dec 2020 14:36:28 +0100
+Message-Id: <20201203133628.12420-1-alex.kanavin@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-References: <20201202195307.126789-1-javier.tia@hpe.com>
-In-Reply-To: <20201202195307.126789-1-javier.tia@hpe.com>
-From: "Martin Jansa" <Martin.Jansa@gmail.com>
-Date: Wed, 2 Dec 2020 21:05:32 +0100
-Message-ID: <CA+chaQeR-93c6XngYqzUVeTuBMsoGrHKE6T4RZC5SgF4bw5Wrw@mail.gmail.com>
-Subject: Re: [poky][PATCH] Add variable-key quality checker
-To: Javier Tia <javier.tia@hpe.com>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000a4fc5905b580c4c6"
-
---000000000000a4fc5905b580c4c6
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-WARN_QA/ERROR_QA variables don't belong to bitbake, because they are OE
-specific and bitbake isn't used only by OE.
+This leaks into target installs of items like os-release,
+and makes them non-reproducible.
 
-The same answer from Christopher Larson:
-https://lists.openembedded.org/g/bitbake-devel/message/11848
-does apply here.
+Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Dec 2, 2020 at 8:53 PM Javier Tia <javier.tia@hpe.com> wrote:
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
+.conf
+index 31dc110bf6..20e258714a 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO =3D "poky"
+ DISTRO_NAME =3D "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION =3D "3.2+snapshot-${DATE}"
++DISTRO_VERSION =3D "3.2+snapshot${@oe.utils.ifelse(d.getVar('BUILD_REPRO=
+DUCIBLE_BINARIES') =3D=3D '1', '', '-${DATE}')}"
+ DISTRO_CODENAME =3D "master"
+ SDK_VENDOR =3D "-pokysdk"
+ SDK_VERSION =3D "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}=
+', 'snapshot')}"
+--=20
+2.29.2
 
-> Allow to select between a warning or error message when variable key
-> replace the original key.
->
-> Signed-off-by: Javier Ti=C3=A1 <javier.tia@hpe.com>
-> ---
->  bitbake/lib/bb/data.py      | 11 ++++++++++-
->  meta/classes/insane.bbclass |  3 ++-
->  2 files changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/bitbake/lib/bb/data.py b/bitbake/lib/bb/data.py
-> index 0d75d0c1a9..ca14d64abe 100644
-> --- a/bitbake/lib/bb/data.py
-> +++ b/bitbake/lib/bb/data.py
-> @@ -100,7 +100,16 @@ def expandKeys(alterdata, readdata =3D None):
->          if newval is not None:
->              val =3D alterdata.getVar(key, False)
->              if val is not None:
-> -                bb.warn("Variable key %s (%s) replaces original key %s
-> (%s)." % (key, val, ekey, newval))
-> +                msg =3D "Variable key %s (%s) replaces original key %s
-> (%s)." % (key, val, ekey, newval)
-> +                error_qa =3D alterdata.getVar('ERROR_QA', False)
-> +                warn_qa =3D alterdata.getVar('WARN_QA', False)
-> +                if error_qa and 'variable-key' in error_qa:
-> +                    bb.error(msg)
-> +                elif warn_qa and 'variable-key' in warn_qa:
-> +                    bb.warn(msg)
-> +                else:
-> +                    bb.warn(msg)
-> +
->          alterdata.renameVar(key, ekey)
->
->  def inheritFromOS(d, savedenv, permitted):
-> diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass
-> index 9605ac2bae..731875ee28 100644
-> --- a/meta/classes/insane.bbclass
-> +++ b/meta/classes/insane.bbclass
-> @@ -28,6 +28,7 @@ WARN_QA ?=3D "ldflags useless-rpaths rpaths staticdev
-> libdir xorg-driver-abi \
->              pn-overrides infodir build-deps src-uri-bad \
->              unknown-configure-option symlink-to-sysroot multilib \
->              invalid-packageconfig host-user-contaminated uppercase-pn
-> patch-fuzz \
-> +            variable-key \
->              "
->  ERROR_QA ?=3D "dev-so debug-deps dev-deps debug-files arch pkgconfig la=
- \
->              perms dep-cmp pkgvarcheck perm-config perm-line perm-link \
-> @@ -1205,7 +1206,7 @@ do_unpack[postfuncs] +=3D "do_qa_unpack"
->
->  python () {
->      import re
-> -
-> +
->      tests =3D d.getVar('ALL_QA').split()
->      if "desktop" in tests:
->          d.appendVar("PACKAGE_DEPENDS", " desktop-file-utils-native")
-> --
-> 2.29.2
->
->
->=20
->
->
-
---000000000000a4fc5905b580c4c6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">WARN_QA/ERROR_QA variables don&#39;t belong to bitbake, be=
-cause they are OE specific and bitbake isn&#39;t used only by OE.<div><br><=
-/div><div>The same answer from=C2=A0Christopher Larson:</div><div><a href=
-=3D"https://lists.openembedded.org/g/bitbake-devel/message/11848">https://=
-lists.openembedded.org/g/bitbake-devel/message/11848</a><br></div><div>does=
- apply here.</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cla=
-ss=3D"gmail_attr">On Wed, Dec 2, 2020 at 8:53 PM Javier Tia &lt;<a href=3D"=
-mailto:javier.tia@hpe.com">javier.tia@hpe.com</a>&gt; wrote:<br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex">Allow to select between a warn=
-ing or error message when variable key<br>
-replace the original key.<br>
-<br>
-Signed-off-by: Javier Ti=C3=A1 &lt;<a href=3D"mailto:javier.tia@hpe.com" t=
-arget=3D"_blank">javier.tia@hpe.com</a>&gt;<br>
----<br>
-=C2=A0bitbake/lib/bb/data.py=C2=A0 =C2=A0 =C2=A0 | 11 ++++++++++-<br>
-=C2=A0meta/classes/insane.bbclass |=C2=A0 3 ++-<br>
-=C2=A02 files changed, 12 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/bitbake/lib/bb/data.py b/bitbake/lib/bb/data.py<br>
-index 0d75d0c1a9..ca14d64abe 100644<br>
---- a/bitbake/lib/bb/data.py<br>
-+++ b/bitbake/lib/bb/data.py<br>
-@@ -100,7 +100,16 @@ def expandKeys(alterdata, readdata =3D None):<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if newval is not None:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0val =3D alterdata.getVar(k=
-ey, False)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if val is not None:<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.warn(&quot;Var=
-iable key %s (%s) replaces original key %s (%s).&quot; % (key, val, ekey, n=
-ewval))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 msg =3D &quot;Var=
-iable key %s (%s) replaces original key %s (%s).&quot; % (key, val, ekey, n=
-ewval)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 error_qa =3D alte=
-rdata.getVar(&#39;ERROR_QA&#39;, False)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 warn_qa =3D alter=
-data.getVar(&#39;WARN_QA&#39;, False)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if error_qa and &=
-#39;variable-key&#39; in error_qa:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.=
-error(msg)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 elif warn_qa and =
-&#39;variable-key&#39; in warn_qa:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.=
-warn(msg)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.=
-warn(msg)<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0alterdata.renameVar(key, ekey)<br>
-<br>
-=C2=A0def inheritFromOS(d, savedenv, permitted):<br>
-diff --git a/meta/classes/insane.bbclass b/meta/classes/insane.bbclass<br>
-index 9605ac2bae..731875ee28 100644<br>
---- a/meta/classes/insane.bbclass<br>
-+++ b/meta/classes/insane.bbclass<br>
-@@ -28,6 +28,7 @@ WARN_QA ?=3D &quot;ldflags useless-rpaths rpaths staticd=
-ev libdir xorg-driver-abi \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pn-overrides infodir build=
--deps src-uri-bad \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unknown-configure-option s=
-ymlink-to-sysroot multilib \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0invalid-packageconfig host=
--user-contaminated uppercase-pn patch-fuzz \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 variable-key \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;<br>
-=C2=A0ERROR_QA ?=3D &quot;dev-so debug-deps dev-deps debug-files arch pkgc=
-onfig la \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0perms dep-cmp pkgvarcheck =
-perm-config perm-line perm-link \<br>
-@@ -1205,7 +1206,7 @@ do_unpack[postfuncs] +=3D &quot;do_qa_unpack&quot;<b=
-r>
-<br>
-=C2=A0python () {<br>
-=C2=A0 =C2=A0 =C2=A0import re<br>
--=C2=A0 =C2=A0 <br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0tests =3D d.getVar(&#39;ALL_QA&#39;).split()<br>
-=C2=A0 =C2=A0 =C2=A0if &quot;desktop&quot; in tests:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0d.appendVar(&quot;PACKAGE_DEPENDS&quot;,=
- &quot; desktop-file-utils-native&quot;)<br>
--- <br>
-2.29.2<br>
-<br>
-<br>
-<br>
-<br>
-</blockquote></div>
-
---000000000000a4fc5905b580c4c6--
