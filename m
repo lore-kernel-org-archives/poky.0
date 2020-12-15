@@ -1,34 +1,46 @@
-Subject: Re: Unable to complete even the basic tutorial about yocto #poky
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by mx.groups.io with SMTP id smtpd.web08.565.1608058969047099207
+ for <poky@lists.yoctoproject.org>;
+ Tue, 15 Dec 2020 11:02:49 -0800
+Authentication-Results: mx.groups.io;
+ dkim=missing; spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: okaya@kernel.org)
+From: "Sinan Kaya" <okaya@kernel.org>
+Authentication-Results: mail.kernel.org; dkim=permerror (bad message/signature format)
 To: poky@lists.yoctoproject.org
-From: arunlee@gmail.com
-X-Originating-Location: Helsinki, Uusimaa, FI (85.76.10.249)
-X-Originating-Platform: Linux Firefox 83
-User-Agent: GROUPS.IO Web Poster
-MIME-Version: 1.0
-Date: Fri, 11 Dec 2020 08:56:54 -0800
-References: <5220.1607704857642171039@lists.yoctoproject.org>
-In-Reply-To: <5220.1607704857642171039@lists.yoctoproject.org>
-Message-ID: <14983.1607705814246427028@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="AshgQHvaHRxmwhccdKK5"
+Cc: Sinan Kaya <okaya@kernel.org>
+Subject: [PATCH] gcsections: add more suppressions for SDK builds
+Date: Tue, 15 Dec 2020 19:02:42 +0000
+Message-Id: <20201215190242.32642-1-okaya@kernel.org>
+X-Mailer: git-send-email 2.17.1
 
---AshgQHvaHRxmwhccdKK5
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+More suppression is needed for glibc, perl and mingw.
 
-On Fri, Dec 11, 2020 at 08:40 AM, <arunlee@gmail.com> wrote:
+Signed-off-by: Sinan Kaya <okaya@kernel.org>
+---
+ meta-poky/conf/distro/include/gcsections.inc | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
->=20
-> PACKAGECONFIG_append_pn-qemu-system-native =3D " sdl"
+diff --git a/meta-poky/conf/distro/include/gcsections.inc b/meta-poky/conf/distro/include/gcsections.inc
+index dd98943acb3..7157373aa80 100644
+--- a/meta-poky/conf/distro/include/gcsections.inc
++++ b/meta-poky/conf/distro/include/gcsections.inc
+@@ -13,6 +13,16 @@ LDFLAGS_SECTION_REMOVAL_pn-grub-efi = ""
+ CFLAGS_SECTION_REMOVAL_pn-grub = ""
+ LDFLAGS_SECTION_REMOVAL_pn-grub = ""
+ 
++# SDK packages with build problems using sections
++CFLAGS_SECTION_REMOVAL_pn-nativesdk-glibc = ""
++LDFLAGS_SECTION_REMOVAL_pn-nativesdk-glibc = ""
++CFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-runtime = ""
++LDFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-runtime = ""
++CFLAGS_SECTION_REMOVAL_pn-nativesdk-perl = ""
++LDFLAGS_SECTION_REMOVAL_pn-nativesdk-perl = ""
++CFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-winpthreads = ""
++LDFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-winpthreads = ""
++
+ # set default for target
+ CFLAGS_append_class-target = " ${CFLAGS_SECTION_REMOVAL}"
+ LDFLAGS_append_class-target = " ${LDFLAGS_SECTION_REMOVAL}"
+-- 
+2.17.1
 
-I changed this to gtk+ and the UI came up.
-
---AshgQHvaHRxmwhccdKK5
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Dec 11, 2020 at 08:40 AM, &lt;arunlee@gmail.com&gt; wrote:<br />
-<blockquote>PACKAGECONFIG_append_pn-qemu-system-native =3D " sdl"</blockqu=
-ote>
-I changed this to gtk+ and the UI came up.
-
---AshgQHvaHRxmwhccdKK5--
