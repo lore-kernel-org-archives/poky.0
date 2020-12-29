@@ -1,46 +1,141 @@
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by mx.groups.io with SMTP id smtpd.web08.565.1608058969047099207
- for <poky@lists.yoctoproject.org>;
- Tue, 15 Dec 2020 11:02:49 -0800
-Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: kernel.org, ip: 198.145.29.99, mailfrom: okaya@kernel.org)
-From: "Sinan Kaya" <okaya@kernel.org>
-Authentication-Results: mail.kernel.org; dkim=permerror (bad message/signature format)
+Subject: tar: unrecognized option '--clamp-mtime' even when using scripts/install-buildtools SDK
 To: poky@lists.yoctoproject.org
-Cc: Sinan Kaya <okaya@kernel.org>
-Subject: [PATCH] gcsections: add more suppressions for SDK builds
-Date: Tue, 15 Dec 2020 19:02:42 +0000
-Message-Id: <20201215190242.32642-1-okaya@kernel.org>
-X-Mailer: git-send-email 2.17.1
+From: "Josias Inacio da Silva Filho" <josiasinacio@hotmail.com>
+X-Originating-Location: Maceió, Alagoas, BR (191.184.45.60)
+X-Originating-Platform: Mac Chrome 87
+User-Agent: GROUPS.IO Web Poster
+MIME-Version: 1.0
+Date: Mon, 28 Dec 2020 21:01:50 -0800
+Message-ID: <tfVc.1609218110867458033.wtTt@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="hYNQwf3EXveoFsP3jgoK"
 
-More suppression is needed for glibc, perl and mingw.
+--hYNQwf3EXveoFsP3jgoK
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Sinan Kaya <okaya@kernel.org>
----
- meta-poky/conf/distro/include/gcsections.inc | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+I'm attempting to move my current project from Warrior to Dunfell. Our Orac=
+le Linux host is pretty outdated so I had to use the buildtools generated b=
+y scripts/install-buildtools to pick newer gcc etc.
 
-diff --git a/meta-poky/conf/distro/include/gcsections.inc b/meta-poky/conf/distro/include/gcsections.inc
-index dd98943acb3..7157373aa80 100644
---- a/meta-poky/conf/distro/include/gcsections.inc
-+++ b/meta-poky/conf/distro/include/gcsections.inc
-@@ -13,6 +13,16 @@ LDFLAGS_SECTION_REMOVAL_pn-grub-efi = ""
- CFLAGS_SECTION_REMOVAL_pn-grub = ""
- LDFLAGS_SECTION_REMOVAL_pn-grub = ""
- 
-+# SDK packages with build problems using sections
-+CFLAGS_SECTION_REMOVAL_pn-nativesdk-glibc = ""
-+LDFLAGS_SECTION_REMOVAL_pn-nativesdk-glibc = ""
-+CFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-runtime = ""
-+LDFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-runtime = ""
-+CFLAGS_SECTION_REMOVAL_pn-nativesdk-perl = ""
-+LDFLAGS_SECTION_REMOVAL_pn-nativesdk-perl = ""
-+CFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-winpthreads = ""
-+LDFLAGS_SECTION_REMOVAL_pn-nativesdk-mingw-w64-winpthreads = ""
-+
- # set default for target
- CFLAGS_append_class-target = " ${CFLAGS_SECTION_REMOVAL}"
- LDFLAGS_append_class-target = " ${LDFLAGS_SECTION_REMOVAL}"
--- 
-2.17.1
+However I'm facing several recipes failing with the same error:
 
+>=20
+> Command
+> 'PATH=3D"/localdata/project/build/tmp/sysroots-uninative/x86_64-linux/us=
+r/bin:/localdata/project/sources/poky/scripts:/localdata/project/build/tmp/=
+work/mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-=
+native/usr/bin/arm-picoos-linux-musleabi:/localdata/project/build/tmp/work/=
+mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/recipe-sysroot/usr/b=
+in/crossscripts:/localdata/project/build/tmp/work/mymachine1-picoos-linux-m=
+usleabi/base-files/3.0.14-r89/recipe-sysroot-native/usr/sbin:/localdata/pro=
+ject/build/tmp/work/mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/=
+recipe-sysroot-native/usr/bin:/localdata/project/build/tmp/work/mymachine1-=
+picoos-linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-native/sbin:/loc=
+aldata/project/build/tmp/work/mymachine1-picoos-linux-musleabi/base-files/3=
+.0.14-r89/recipe-sysroot-native/bin:/localdata/project/sources/poky/bitbake=
+/bin:/localdata/project/build/tmp/hosttools"
+> opkg-build -Z xz -a "--memlimit=3D50% --threads=3D8" base-files-dev
+> /localdata/project/build/tmp/work/mymachine1-picoos-linux-musleabi/base-=
+files/3.0.14-r89/deploy-ipks/mymachine1'
+> returned non-zero exit status 1.
+>=20
+
+>=20
+> Subprocess output:tar: unrecognized option '--clamp-mtime'
+> Try `tar --help' or `tar --usage' for more information.
+>=20
+
+>=20
+> Summary: 7 tasks failed:
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-core/busybox/busyb=
+ox-inittab_1.31.0.bb:do_package_write_ipk
+>=20
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-devtools/qemu/qemu=
+wrapper-cross_1.0.bb:do_package_write_ipk
+>=20
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-core/musl/bsd-head=
+ers.bb:do_package_write_ipk
+>=20
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-extended/shadow/sh=
+adow-securetty_4.6.bb:do_package_write_ipk
+>=20
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-kernel/linux-libc-=
+headers/linux-libc-headers_5.4.bb:do_package_write_ipk
+>=20
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-core/musl/libssp-n=
+onshared.bb:do_package_write_ipk
+>=20
+> mc:arm32:/localdata/project/sources/poky/meta/recipes-core/base-files/ba=
+se-files_3.0.14.bb:do_package_write_ipk
+>=20
+>=20
+
+It does seem to be picking the SDK's tar bin, but that's likely not the ca=
+use:
+$ tar --version
+tar (GNU tar) 1.32
+
+Any hints why that is happening?
+
+--hYNQwf3EXveoFsP3jgoK
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+I'm attempting to move my current project from Warrior to Dunfell. Our Orac=
+le Linux host is pretty outdated so I had to use the buildtools generated b=
+y scripts/install-buildtools to pick newer gcc etc.<br /><br />However I'm =
+facing several recipes failing with the same error:<br /><br />
+<div>
+<blockquote>
+<div><em>Command 'PATH=3D"/localdata/project/build/tmp/sysroots-uninative/=
+x86_64-linux/usr/bin:/localdata/project/sources/poky/scripts:/localdata/pro=
+ject/build/tmp/work/mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/=
+recipe-sysroot-native/usr/bin/arm-picoos-linux-musleabi:/localdata/project/=
+build/tmp/work/mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/recip=
+e-sysroot/usr/bin/crossscripts:/localdata/project/build/tmp/work/mymachine1=
+-picoos-linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-native/usr/sbin=
+:/localdata/project/build/tmp/work/mymachine1-picoos-linux-musleabi/base-fi=
+les/3.0.14-r89/recipe-sysroot-native/usr/bin:/localdata/project/build/tmp/w=
+ork/mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-n=
+ative/sbin:/localdata/project/build/tmp/work/mymachine1-picoos-linux-muslea=
+bi/base-files/3.0.14-r89/recipe-sysroot-native/bin:/localdata/project/sourc=
+es/poky/bitbake/bin:/localdata/project/build/tmp/hosttools" opkg-build -Z x=
+z -a "--memlimit=3D50% --threads=3D8" base-files-dev /localdata/project/bui=
+ld/tmp/work/mymachine1-picoos-linux-musleabi/base-files/3.0.14-r89/deploy-i=
+pks/mymachine1' returned non-zero exit status 1.</em></div>
+</blockquote>
+</div>
+<blockquote>
+<div><em>Subprocess output:tar: unrecognized option '--clamp-mtime'</em></=
+div>
+<div><em>Try `tar --help' or `tar --usage' for more information.</em></div=
+>
+</blockquote>
+<div>
+<blockquote>
+<div><em>Summary: 7 tasks failed:</em></div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-core=
+/busybox/busybox-inittab_1.31.0.bb:do_package_write_ipk</em></div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-devt=
+ools/qemu/qemuwrapper-cross_1.0.bb:do_package_write_ipk</em></div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-core=
+/musl/bsd-headers.bb:do_package_write_ipk</em></div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-exte=
+nded/shadow/shadow-securetty_4.6.bb:do_package_write_ipk</em></div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-kern=
+el/linux-libc-headers/linux-libc-headers_5.4.bb:do_package_write_ipk</em></=
+div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-core=
+/musl/libssp-nonshared.bb:do_package_write_ipk</em></div>
+<div><em>&nbsp; mc:arm32:/localdata/project/sources/poky/meta/recipes-core=
+/base-files/base-files_3.0.14.bb:do_package_write_ipk</em></div>
+</blockquote>
+</div>
+<div><br />It does seem to be picking the SDK's tar bin, but that's likely=
+ not the cause:<br />
+<div>$ tar --version</div>
+<div>tar (GNU tar) 1.32</div>
+<div><br />Any hints why that is happening?</div>
+</div>
+
+--hYNQwf3EXveoFsP3jgoK--
