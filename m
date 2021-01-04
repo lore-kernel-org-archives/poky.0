@@ -1,117 +1,75 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
- by mx.groups.io with SMTP id smtpd.web11.12358.1609760623225880276
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+ by mx.groups.io with SMTP id smtpd.web08.17076.1609781880158323316
  for <poky@lists.yoctoproject.org>;
- Mon, 04 Jan 2021 03:43:43 -0800
+ Mon, 04 Jan 2021 09:38:00 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=cZ42nN6Q;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.41, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f41.google.com with SMTP id w5so31821657wrm.11
-        for <poky@lists.yoctoproject.org>; Mon, 04 Jan 2021 03:43:43 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=sPK0sCW8;
+ spf=pass (domain: gmail.com, ip: 209.85.160.172, mailfrom: vivien.didelot@gmail.com)
+Received: by mail-qt1-f172.google.com with SMTP id 2so19007600qtt.10
+        for <poky@lists.yoctoproject.org>; Mon, 04 Jan 2021 09:38:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=d1kywqLKqdpUjTZmomuJ31pkGHst/E4GbTHYUKqk8Vs=;
-        b=cZ42nN6QxSYpG4RZMOMqzVKe7ia5XQaKrptUhnDXNoGFye63DNlO18srjWShkJkxk4
-         67QZO9K8nZSOcs3GFLgFQ5uhR6xPZ9L43zjKvmYlxJDHhCTLfw5FX7Cm6Fo3YddjcBVY
-         t1mb5Y2RXG74H2D6dv3Ix/ciiBlLwJiM0sIJ0=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=t1YI/TwpKhDZEnC5YLQzqzTU85yCZVHvwWVO3MtccQs=;
+        b=sPK0sCW8TKM0f2CvGCJJdulK8NLnmE+eo0cqtHZlAfXI9+Q1B9kPEwgRe3RXpd9pZf
+         L4nUHlb2q75ci6dxFgUy28fXtNyKAQOr0kaJuVnToL9hwN1U9j2q9A/hM4VF7Eu2Ac4O
+         wyIPFW2965fAfcWgjfO6wSwwjp8wziNtB0QQZtHklzDIC84A6j3vBgqmplufwHX6A5l6
+         URdXCRbjsCdUKpvXmoIVyVlgPugkSgZda1RNqpg0N9Ga9lNH+6W3u5wL9FrpehK5RJcs
+         /ereCii8OsRNnEnxny4giH7rO+7q5u0p6xNp1WlKlKFekS7J6f5lZnA0YoIk8lhFnA2y
+         YYDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=d1kywqLKqdpUjTZmomuJ31pkGHst/E4GbTHYUKqk8Vs=;
-        b=fYzoZI0McejvQiGSwWT9hmSARVVJ6vPpC0ES5U10gnpFvAwaWM3ZKIo1O8Eem4p2vK
-         QytUXzjI3qvNI4sBlgFDgKP9n84axkF1IDm+hpVArUt+G+UsKezI/HLspnzU5FQhLxsT
-         6hDjjoX9o2R9/U48tkgO2y1lGs3gbj6v98WN8+WaqxPwC50TPpJY0KsC97vJAAZ7g0UG
-         mdEpJR3fSWBRULtJfSeT+Xyw9z8KpsTj4Su6ADQykGE2niz4RqZPXOoKZ1BF5EC33fB5
-         xcdpcWDmk3BoJJYqT3liYK8H7OxbSb9VDTE960S8h01eG8WzaIMxEvdLbt9l/SP0IANP
-         QA9A==
-X-Gm-Message-State: AOAM531zxxudRju+U7D+w49/Rh+ayUoxohiVWDA7vetad4eSsExZwUA6
-	709M1FHigo1JKlfb0Oz1IqcurA==
-X-Google-Smtp-Source: ABdhPJx1GQyNU58MGJ+CAHrwIKehYLWRW/CeGXqDiQrNxnddaiyZZXZh1F4o7pshoVEbAN5bhYjPHA==
-X-Received: by 2002:adf:c642:: with SMTP id u2mr69168399wrg.243.1609760621716;
-        Mon, 04 Jan 2021 03:43:41 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:4767:d28d:f91a:aa32? ([2001:8b0:aba:5f3c:4767:d28d:f91a:aa32])
-        by smtp.gmail.com with ESMTPSA id h29sm101357696wrc.68.2021.01.04.03.43.41
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=t1YI/TwpKhDZEnC5YLQzqzTU85yCZVHvwWVO3MtccQs=;
+        b=tuj6HlXwdDiVd0qmYBl0B26zHbpxKaHXSf21Zf/LNQZWaAhlDG9AmioNPsAIlXNNLe
+         nGhkQXzeC+JTOs/oLUUUFF7aHBWeneFiOGlCBLwy4VGzCGyj4naZ7T0gg2nbdl0FjzWP
+         kn+nnH2DMaQjSBMgYS0MNk8d+Aj4WqaMxYcB0P1au6P/kZTNM/toARAbHTPbkrUXbI2m
+         WFp8DYGtw/0biOAAnGA/xBOehK5u2ALHH4S/K0enzQFhmth80ioR8HMglAA1swMmLHCR
+         R/M1nnDhObNKMRxUaQEzJgsgiRCwu4vIhEv9pTWvsL23BGuZu5kWghCzzDZBstK7CzZm
+         93jw==
+X-Gm-Message-State: AOAM531H+glYdMKPRCRy3QPA2AIVOe8f+tOSVwq28vLnVQoyfbQHMjBE
+	RAJCUGR17qAlxQwfi96vd0T0ZEKelQA=
+X-Google-Smtp-Source: ABdhPJzXZfivn6+l7wrqCf/6hUdHWsqRzPBcFwKu2H4wsqu5CYxrGM6faalifZhTLRG8ChAfLLNhXw==
+X-Received: by 2002:aed:3868:: with SMTP id j95mr71438731qte.23.1609781878817;
+        Mon, 04 Jan 2021 09:37:58 -0800 (PST)
+Return-Path: <vivien.didelot@gmail.com>
+Received: from localhost (modemcable249.105-163-184.mc.videotron.ca. [184.163.105.249])
+        by smtp.gmail.com with ESMTPSA id n7sm33607673qkg.19.2021.01.04.09.37.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 04 Jan 2021 03:43:41 -0800 (PST)
-Message-ID: <6fa767841299a195ada4b7ae0f3c4d3cb65dc0b6.camel@linuxfoundation.org>
-Subject: Re: [poky] tar: unrecognized option '--clamp-mtime' even when using scripts/install-buildtools SDK
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Josias Inacio da Silva Filho <josiasinacio@hotmail.com>, 
-	poky@lists.yoctoproject.org
-Date: Mon, 04 Jan 2021 11:43:40 +0000
-In-Reply-To: <tfVc.1609218110867458033.wtTt@lists.yoctoproject.org>
-References: <tfVc.1609218110867458033.wtTt@lists.yoctoproject.org>
-User-Agent: Evolution 3.38.1-1 
+        Mon, 04 Jan 2021 09:37:57 -0800 (PST)
+From: "Vivien Didelot" <vivien.didelot@gmail.com>
+X-Google-Original-From: Vivien Didelot <vdidelot@pbsc.com>
+To: poky@lists.yoctoproject.org
+Cc: Vivien Didelot <vdidelot@pbsc.com>
+Subject: [PATCH 1/5] README.hardware: prettify headline
+Date: Mon,  4 Jan 2021 12:37:37 -0500
+Message-Id: <20210104173741.1070515-1-vdidelot@pbsc.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-On Mon, 2020-12-28 at 21:01 -0800, Josias Inacio da Silva Filho wrote:
-I'm attempting to move my current project from Warrior to Dunfell.
-Our Oracle Linux host is pretty outdated so I had to use the
-buildtools generated by scripts/install-buildtools to pick newer gcc
-etc.
+Match the length of the headline with the above title.
 
-However I'm facing several recipes failing with the same error:
+Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
+---
+ meta-yocto-bsp/README.hardware | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Command 'PATH="/localdata/project/build/tmp/sysroots-
-> uninative/x86_64-
-> linux/usr/bin:/localdata/project/sources/poky/scripts:/localdata/proj
-> ect/build/tmp/work/mymachine1-picoos-linux-musleabi/base-
-> files/3.0.14-r89/recipe-sysroot-native/usr/bin/arm-picoos-linux-
-> musleabi:/localdata/project/build/tmp/work/mymachine1-picoos-linux-
-> musleabi/base-files/3.0.14-r89/recipe-
-> sysroot/usr/bin/crossscripts:/localdata/project/build/tmp/work/mymach
-> ine1-picoos-linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-
-> native/usr/sbin:/localdata/project/build/tmp/work/mymachine1-picoos-
-> linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-
-> native/usr/bin:/localdata/project/build/tmp/work/mymachine1-picoos-
-> linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-
-> native/sbin:/localdata/project/build/tmp/work/mymachine1-picoos-
-> linux-musleabi/base-files/3.0.14-r89/recipe-sysroot-
-> native/bin:/localdata/project/sources/poky/bitbake/bin:/localdata/pro
-> ject/build/tmp/hosttools" opkg-build -Z xz -a "--memlimit=50% --
-> threads=8" base-files-dev
-> /localdata/project/build/tmp/work/mymachine1-picoos-linux-
-> musleabi/base-files/3.0.14-r89/deploy-ipks/mymachine1' returned non-
-> zero exit status 1.
-> Subprocess output:tar: unrecognized option '--clamp-mtime'
-> Try `tar --help' or `tar --usage' for more information.
-> Summary: 7 tasks failed:
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-
-> core/busybox/busybox-inittab_1.31.0.bb:do_package_write_ipk
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-
-> devtools/qemu/qemuwrapper-cross_1.0.bb:do_package_write_ipk
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-
-> core/musl/bsd-headers.bb:do_package_write_ipk
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-
-> extended/shadow/shadow-securetty_4.6.bb:do_package_write_ipk
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-kernel/linux-
-> libc-headers/linux-libc-headers_5.4.bb:do_package_write_ipk
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-
-> core/musl/libssp-nonshared.bb:do_package_write_ipk
->   mc:arm32:/localdata/project/sources/poky/meta/recipes-core/base-
-> files/base-files_3.0.14.bb:do_package_write_ipk
-
-It does seem to be picking the SDK's tar bin, but that's likely not the
-cause:
-$ tar --version
-tar (GNU tar) 1.32
-
-Any hints why that is happening?
-
-It does sound like its finding an incorrect version of tar which is
-missing the clamp-mtime option.
-
-I'm guessing the tar being used is the one in
-/localdata/project/build/tmp/hosttools so which one is linked to there
-and which version is it?
-
-Cheers,
-
-Richard
-
+diff --git a/meta-yocto-bsp/README.hardware b/meta-yocto-bsp/README.hardware
+index 5996be764c..92b1a9a554 100644
+--- a/meta-yocto-bsp/README.hardware
++++ b/meta-yocto-bsp/README.hardware
+@@ -120,7 +120,7 @@ USB Device:
+ 
+ 
+ Texas Instruments Beaglebone (beaglebone-yocto)
+-=========================================
++===============================================
+ 
+ The Beaglebone is an ARM Cortex-A8 development board with USB, Ethernet, 2D/3D
+ accelerated graphics, audio, serial, JTAG, and SD/MMC. The Black adds a faster
+-- 
+2.30.0
 
