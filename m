@@ -1,81 +1,75 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
- by mx.groups.io with SMTP id smtpd.web12.17294.1609781888178617781
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+ by mx.groups.io with SMTP id smtpd.web12.17295.1609781890782904258
  for <poky@lists.yoctoproject.org>;
- Mon, 04 Jan 2021 09:38:08 -0800
+ Mon, 04 Jan 2021 09:38:10 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=hLW7QE+b;
- spf=pass (domain: gmail.com, ip: 209.85.222.181, mailfrom: vivien.didelot@gmail.com)
-Received: by mail-qk1-f181.google.com with SMTP id 186so24132553qkj.3
-        for <poky@lists.yoctoproject.org>; Mon, 04 Jan 2021 09:38:08 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=InuNpPhk;
+ spf=pass (domain: gmail.com, ip: 209.85.160.176, mailfrom: vivien.didelot@gmail.com)
+Received: by mail-qt1-f176.google.com with SMTP id a6so19031860qtw.6
+        for <poky@lists.yoctoproject.org>; Mon, 04 Jan 2021 09:38:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=In6ZdzG81xMrIx6vwm5iS9K8Wh/vSwY+D0L3oEoGFV8=;
-        b=hLW7QE+bPV5WBZQNFYyhuQQ3KY4Dn8zSXgj7gQrHtwF1HnTimTWI4Bjvw1o7PR2QVg
-         uYcyFnmSC0z+fU78dCCXzs9sxXOhy1PIKOigpij5nDgwuZAuf584XxrJSbPAuBcT9BUo
-         Ps3rg+Fzx5djXzhX2/uQatIGOkuc6T5+fDjJt8avyXA9iUKxTkPEaIfQ4At38armfrd2
-         6dVlEqxXvSBijGyKs6bT/YHXQL0aubLIQiz3HHrPeMs4RfFj1NFoV7PHXV0GPQfD8VJL
-         9oK8t7NGkKDfyk4lq7dYwZc6pXljKS96T32bYjA+/jh7rnjxhKh63IstcTETtICZEEUj
-         UqFw==
+        bh=R9nZz0ULs3bo0MktyGvi0mD//IhfKcHX+7xiMYkb4JQ=;
+        b=InuNpPhkeWQHv4gYhcoY/ywmRog2tO7qahge7pIc06I37TSs3jpW9Mt3rAUd3Ij4lE
+         Ph3igy6C4q8qsdyADVy2S7YJIqPRrbO62YjcpPKA7FXa4wGDWXDdOAWt8HijeSMrEZrB
+         Po97t+7Hi3LIiUosd4g+7XFYe+RlbmLRelk0lGSsGj+cBGtUjqhSAGCLNzE6sCmbAxWx
+         S9hAYgzd4J2XqVikeFv7u98kw4raZMVHHNawsnhLfTfw+wYIbg+9a+kp/HAyGVCiXQ04
+         QFN6oJ22G/pBsxibnmHXE0HZmq/zlXabtCpv2B5X2VPCCfTs8EUvz+09+GgaIRZpoNYx
+         v5ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=In6ZdzG81xMrIx6vwm5iS9K8Wh/vSwY+D0L3oEoGFV8=;
-        b=CP8XmohzhNWUwtIzTBZd4/PKdOUV/B9zL21Kxspie+vvW2xuRaInVzqb2krk7eYZc+
-         e3o0t5wdEaAlFfUjevISZmizcEj3Rwq6I5EV9RD1MsWTyr6ZU3EVrMnfZhlKwqSxf8Y3
-         CHM2i9dHfS/yBFeKhlHyZWwBzLVU+gfjukjwTH33niz802OV2bXIKgfa2yh0M30Wb7I8
-         UB/FuZxwpAvqH3Fw6Ld8EK3DHgIdEU+ng6ErSSkn9fO0Bfl5AYah8w814NYr3IFXG2Fr
-         zJM+zGLuQlQnENpzVNM31vzkl/IImcaOouHc4l88TTI4QUUeuJYAGBYdv4YOnCkVqTTu
-         QHCA==
-X-Gm-Message-State: AOAM533XLCYHYlAFF9bbuuplNJJyheScWEZrS4Gj3h0fVQ2wiDlK2gWC
-	5EQyawHXKUcYuOr3BgOKhkLzpTUFHp8=
-X-Google-Smtp-Source: ABdhPJxBcEmVlLe+Eg3gZQxJPDEG+Ob9m/bBkUKpA7iqQev65K6HhpUWC4wtLMppAGKoZB+flBCyCA==
-X-Received: by 2002:a37:4285:: with SMTP id p127mr54612832qka.501.1609781886860;
-        Mon, 04 Jan 2021 09:38:06 -0800 (PST)
+        bh=R9nZz0ULs3bo0MktyGvi0mD//IhfKcHX+7xiMYkb4JQ=;
+        b=fnJOCsWwdVB6QxSf5hEfclS8mIU42J7gfmPb9ca2WxoDv1y7Tv16jpz5F4GY1kuHDT
+         EwB/A17j1YOL1zF8Tt/k2FBHk/WF9HYnsJ4bEWuDn13kw6qfjZw20uVrfso2lJl6dS02
+         vmNwb6BHu6dAkLpRiWUpjCM9NdapQbb8M72wtLjU6w8wXnWWSQqHWh6j22zohNlvMHfA
+         BRx91UIg8IeAvdR7ZvEfM8W4imGfG28rmdAZsZvdcXe4bGgAUrp7AySlF2JX+mJIBoa4
+         gMHVICaOFSSLSgFy/SGrVbTwMMkSEX+QDbKAaoUc1KDJyAftWSuNMPgnsg/Ocs7JG24h
+         fS3w==
+X-Gm-Message-State: AOAM531RFs2DiUl1AFgmfU2EsJ4L2ROTIIXOH9sGd1HIKChQCMhnR5zY
+	kp7n6qc/47J9wW8LD0xXiXknaFQFTx8=
+X-Google-Smtp-Source: ABdhPJz4RlFRuvROwEHGkU6O4GLaj3+3eRyxKzbUuJsFz47U4c2uEO2JP4qN0niLSBS3z0BvwUroPA==
+X-Received: by 2002:ac8:6b46:: with SMTP id x6mr70905042qts.104.1609781889707;
+        Mon, 04 Jan 2021 09:38:09 -0800 (PST)
 Return-Path: <vivien.didelot@gmail.com>
 Received: from localhost (modemcable249.105-163-184.mc.videotron.ca. [184.163.105.249])
-        by smtp.gmail.com with ESMTPSA id y67sm27851337qka.68.2021.01.04.09.38.05
+        by smtp.gmail.com with ESMTPSA id n3sm37288949qtp.72.2021.01.04.09.38.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 04 Jan 2021 09:38:06 -0800 (PST)
+        Mon, 04 Jan 2021 09:38:08 -0800 (PST)
 From: "Vivien Didelot" <vivien.didelot@gmail.com>
 X-Google-Original-From: Vivien Didelot <vdidelot@pbsc.com>
 To: poky@lists.yoctoproject.org
 Cc: Vivien Didelot <vdidelot@pbsc.com>
-Subject: [PATCH 3/5] meta-yocto-bsp: use provided variables
-Date: Mon,  4 Jan 2021 12:37:39 -0500
-Message-Id: <20210104173741.1070515-3-vdidelot@pbsc.com>
+Subject: [PATCH 4/5] wic: fix 'founded' typo
+Date: Mon,  4 Jan 2021 12:37:40 -0500
+Message-Id: <20210104173741.1070515-4-vdidelot@pbsc.com>
 X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We already have the following variables defined above IMAGE_BOOT_FILES:
-
-SPL_BINARY = MLO
-KERNEL_IMAGETYPE = zImage
-KERNEL_DEVICETREE = am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb
-
-So use them instead of repeating their values.
+Replace 'founded' with 'found'.
 
 Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
 ---
- meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 2 +-
+ scripts/lib/wic/plugins/source/bootimg-partition.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-index 5b481434bd..dcec4dcf96 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-@@ -38,7 +38,7 @@ UBOOT_LOADADDRESS = "0x80008000"
+diff --git a/scripts/lib/wic/plugins/source/bootimg-partition.py b/scripts/lib/wic/plugins/source/bootimg-partition.py
+index 138986a71e..5dbe2558d2 100644
+--- a/scripts/lib/wic/plugins/source/bootimg-partition.py
++++ b/scripts/lib/wic/plugins/source/bootimg-partition.py
+@@ -141,7 +141,7 @@ class BootimgPartitionPlugin(SourcePlugin):
+                     break
  
- MACHINE_FEATURES = "usbgadget usbhost vfat alsa"
+             if not kernel_name:
+-                raise WicError('No kernel file founded')
++                raise WicError('No kernel file found')
  
--IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX} MLO zImage am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
-+IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX} ${SPL_BINARY} ${KERNEL_IMAGETYPE} ${KERNEL_DEVICETREE}"
- 
- # support runqemu
- EXTRA_IMAGEDEPENDS += "qemu-native qemu-helper-native"
+             # Compose the extlinux.conf
+             extlinux_conf = "default Yocto\n"
 -- 
 2.30.0
 
