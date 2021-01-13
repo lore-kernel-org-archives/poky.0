@@ -1,65 +1,76 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
- by mx.groups.io with SMTP id smtpd.web09.12579.1610472203645243011
+Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
+ by mx.groups.io with SMTP id smtpd.web11.1918.1610567423436380882
  for <poky@lists.yoctoproject.org>;
- Tue, 12 Jan 2021 09:23:24 -0800
+ Wed, 13 Jan 2021 11:50:23 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=WUGzeW71;
- spf=softfail (domain: sakoman.com, ip: 209.85.214.173, mailfrom: steve@sakoman.com)
-Received: by mail-pl1-f173.google.com with SMTP id r4so1735146pls.11
-        for <poky@lists.yoctoproject.org>; Tue, 12 Jan 2021 09:23:23 -0800 (PST)
+ dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=xSzdaGz/;
+ spf=none, err=SPF record not found (domain: srin.me, ip: 198.145.29.25, mailfrom: s@srin.me)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	by mail.yoctoproject.org (Postfix) with ESMTPS id 5659238C0962
+	for <poky@yoctoproject.org>; Wed, 13 Jan 2021 19:50:21 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id p22so3229965edu.11
+        for <poky@yoctoproject.org>; Wed, 13 Jan 2021 11:50:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id;
-        bh=txIlaZxQoST2Ub+KEw3I4Ck2Qe2qynr6cLzgqTp0aOY=;
-        b=WUGzeW71A2FO6XaR7Q/5x3UEQ7/3J+6ppQBYtgxMogwZrUYCjOXKe+6wdjmIfwrTNH
-         f8QsN9nPqCtckId9ydcvCgDvv9KgLX8TIHExsVduxvxmnB4Dm/sLiw0KzyMo4m6O9H3y
-         HQA9tDLPqM1Vmmo0GbxKNfleXvr8TA1EkWAwoYEnz+I5LmuG0CRXJuBoM9BQPg8ilEEi
-         YLKmaNiGwCYvP5U69QzEH3PNyDCZWk1ZR2EGCFJUp/zO0mzgvGX7p1al8DEWj2XbT+qg
-         0dbVNGKGpRtpr5WmKMkA6pLVmFOaIAAZHQFUuY3zdNgijAO0NeEzQq6XYmtiieyI6qlh
-         wZnw==
+        d=srin-me.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=sj96AJhw7F0lKEl4cRHp9pE1UF9OVZj53vtoNAvfWq4=;
+        b=xSzdaGz/+xTREtTfXakbW+6BYMjhpcioEkujYHUYVn4PrVGBRyOrm5pFTcAApA/+K5
+         RdHQcERneg9BcRLtg8836k/4EkI50JNSYNUVYZ/qykvLz8MNxYnwM1ROVDuLMUkKlwfM
+         tNxOrECxAaEDqSSObf7qSzWij2q4vxom6S1/oMdC9C33MrVgAgVcHCe5Q/jyC+SEOSI2
+         NOiWN3ggsNp02xnDvc6CXwAEqdmKPmkd5nIxH2BvYD87wpX8lIEoV3aa8tzAdVzoievg
+         cGy7kcalQos9kMrJu5wGz6H1MFap4pM1QiEcPMaMcM6Ca9gcTFHW9ZaTuiBSwJSYZOl5
+         uexw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id;
-        bh=txIlaZxQoST2Ub+KEw3I4Ck2Qe2qynr6cLzgqTp0aOY=;
-        b=gGWm7UL4urCSvzSlPNYtA+I7bpBUaMpYUkSG534FfQdPRM81Ew83ov3Ngk1XSqW+ds
-         g22UF3GczLd7ORZs1vjAZiYyjYMfdXvxIXLbwhJImcyt1iSD9/C/WX7oTP1EtrIZQxF3
-         eCkLt0PFM4B5w4hBCpKHAWT8DtkG8XfuLOjwdFOSF9CGQ+ebrMxE3LjLT/tAxUg/hsmH
-         fYOjYATETWHk4txBJ1L4Y3uv7vwXtBn7H0bl5509ir6il+PFb8XHjkrPu8uP/xy79YRv
-         QwDVmBwNqNAwAHbbxXXHrdxd4AqQq2zws18fD/pP5cp04OvNw8g8LfgwQJgsDCHOZCDS
-         8Ibw==
-X-Gm-Message-State: AOAM533b83WzbTNl+FxcdeP0va942qtcqownwV7aAoznyqzwNM8cVdf7
-	RLUabipQDd62pFOcOl0GlAAKVgnzRFtd1crw7NM=
-X-Google-Smtp-Source: ABdhPJwhPqLKtD1f9/RnWSIFQpZNf5YXHFryugLJWUk7z2tELA3QJ1W+Sk/FXXLyeoQ3pYEIqHLCPA==
-X-Received: by 2002:a17:902:9302:b029:da:f6b0:643a with SMTP id bc2-20020a1709029302b02900daf6b0643amr5770698plb.33.1610472202418;
-        Tue, 12 Jan 2021 09:23:22 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from octo.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
-        by smtp.gmail.com with ESMTPSA id 5sm3752495pff.125.2021.01.12.09.23.20
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 Jan 2021 09:23:21 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
-Date: Tue, 12 Jan 2021 07:23:12 -1000
-Message-Id: <cover.1610472092.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.17.1
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=sj96AJhw7F0lKEl4cRHp9pE1UF9OVZj53vtoNAvfWq4=;
+        b=G4FCihl9Ta8N2s5uie9t24Q6qAw+6UGw+En2nx5Mv/fIa5sgDnPgMLekm+WoGYsyYh
+         E7WLfFziBBQZk3z8cA5gm6iIQizSy/xLvbUVZi+AZ0av21sUjeNFxzVeVdpBojT/JNdi
+         rElTB8Eg9/72w4QsTzJeI9L8uagcxnY5t+kHS/VZLCJC7yMgJ0uD/Cydq87KltrziP0M
+         ssyJ5E/Xd6elHJLb178qy4L78+uBB8vdWcXvYx2yeIJ3yFa4saKPMlwESb4lXzztztCM
+         6YdrzWdCjS4WqHVn/6+dhEcUb/OEYOogudZjRABn6q6zcXlG5TIz2Dcclij5j4Zd4W8L
+         /C5w==
+X-Gm-Message-State: AOAM533PIwzfr7jgMWdbJ4harYm3DZLPlvrw+csVoxevM4vf7cHrrTWG
+	1v5QQ1yf+1cWNq9yJu/nFvT4o73rRVTfpcpTBIM55gNiD3oeSA==
+X-Google-Smtp-Source: ABdhPJy1qwPDIoDVkIZLRbopPxsG7nzYtUvnVZ/yjjFOkkSrc11GfxXyWDLaQ43796EF2jwvmgv25BA3yO2trfoLjl8=
+X-Received: by 2002:aa7:ca03:: with SMTP id y3mr3181781eds.87.1610567419345;
+ Wed, 13 Jan 2021 11:50:19 -0800 (PST)
+MIME-Version: 1.0
+From: "R Srinivasan" <s@srin.me>
+Date: Wed, 13 Jan 2021 14:50:08 -0500
+Message-ID: <CAGNn0hY2j87K+xkdsozRgqEvOJO+JndRhGZy3BLJw5SLwtsWMQ@mail.gmail.com>
+Subject: installation help
+To: poky@yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000ead2de05b8cd7231"
 
-The following changes since commit c1c79c1a122b053fb3ce0187b3cc89df1bb3bdd6:
+--000000000000ead2de05b8cd7231
+Content-Type: text/plain; charset="UTF-8"
 
-  poky.conf: Bump version for 3.1.4 release (2020-11-13 05:05:51 -1000)
+all
 
-are available in the Git repository at:
+want to seek some ideas. My target is an SBC with an SSD on it. Our normal
+yocto build produces the image which we copy to a USB stick (balena etcher)
+and execute on my target SBC.
 
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+as the next step, upon boot from the USB stick,i want to setup the SBC with
+initing the SSD and then copying the entire image to the SSD. perhaps
+reformatting the SSD with multiple partitions and so on.
 
-Steve Sakoman (1):
-  poky.conf: Bump version for 3.1.5 release
+any guidance on how to make this will be appreciated.
 
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+thanks, srini
 
--- 
-2.17.1
+--000000000000ead2de05b8cd7231
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>all</div><div><br></div><div>want to seek some ideas.=
+ My target is an SBC with an SSD on it. Our normal yocto build produces the=
+ image which we copy to a USB stick (balena etcher) and execute on my targe=
+t SBC. <br></div><div><br></div><div>as the next step, upon boot from the U=
+SB stick,i want to setup the SBC with initing the SSD and then copying the =
+entire image to the SSD. perhaps reformatting the SSD with multiple partiti=
+ons and so on.</div><div><br></div><div>any guidance on how to make this wi=
+ll be appreciated.</div><div><br></div><div>thanks, srini<br></div></div>
+
+--000000000000ead2de05b8cd7231--
