@@ -1,29 +1,29 @@
 Received: from mail.iot.bzh (mail.iot.bzh [51.75.236.24])
- by mx.groups.io with SMTP id smtpd.web10.24746.1611842132383693606
+ by mx.groups.io with SMTP id smtpd.web10.24781.1611842285881199689
  for <poky@lists.yoctoproject.org>;
- Thu, 28 Jan 2021 05:55:33 -0800
+ Thu, 28 Jan 2021 05:58:06 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@iot.bzh header.s=20180822 header.b=srbEukLH;
+ dkim=fail reason="body hash did not verify" header.i=@iot.bzh header.s=20180822 header.b=d2UN3dhE;
  spf=pass (domain: iot.bzh, ip: 51.75.236.24, mailfrom: julien.massot@iot.bzh)
 Received: from linux.home (lfbn-ren-1-2120-93.w92-167.abo.wanadoo.fr [92.167.199.93])
-	by mail.iot.bzh (Postfix) with ESMTPSA id D3F34400A0;
-	Thu, 28 Jan 2021 14:55:27 +0100 (CET)
+	by mail.iot.bzh (Postfix) with ESMTPSA id 2F432400A0;
+	Thu, 28 Jan 2021 14:58:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iot.bzh; s=20180822;
-	t=1611842127; h=from:from:sender:reply-to:subject:subject:date:date:
+	t=1611842284; h=from:from:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:references; bh=TQQCTFVzQ9ZJwQhxlPviG8Wf3h2e59b1JCRv4D1ebrA=;
-	b=srbEukLHT8qTL9rkE2sFp55tcRgniAZu1pZ2YhYiVLHJh4FaxYrGZQbeUfIEebK54EZIwF
-	qWE84Wdnv+3c+Bie17rVBjy6bvV0X+Sr1IUOTyr1Kdzswxh0EEpdCytIuvj9lgEALS1iID
-	GJ1JeUxX1J48W7WP5k2Se/lkGSq+e4H2uJiTs+DX5pXRpvZywgo+y3yZHWE0j79IZmadI+
-	mHEkjOpjb7LHhm0N3gJ51vk7L2ldvsX0KilCFYVp0y9x3aGQevQtbbfcqoh23IB4BUmFR9
-	gxtwnRzTPOx+fDVx4AujFy5E6DZQi0Z8X39DH55nJNDuSKxoGP5c6YCAILzU5A==
-From: julien.massot@iot.bzh
+	 in-reply-to:references; bh=GvMhpYOEI2piulaXoH5/Qtwk0sJ357+2RBO5Urv73sg=;
+	b=d2UN3dhEas/vCQKYsmd2NT6XAdJmT9HYwgi09SPH2galMWi2wJkVu/Uw77UQw4Sb/fiOZY
+	X7l7sWLCmz8FS/1ZiDzd+aGMJhqgmNb8hGJAscFYZ0yta5eSOBb67ljx1Uek/+a4mvzl4g
+	2nGYhYa6eUdwb9g3lKUxyKa+zKy5sSflNflnACeKV+O6ctOlPogaT8Fi9/a/jgKisd4z/x
+	ITf1yYM5XX0mH9Zfs6VTm6uXx01ZAZSXupo4iR5K75TFdC5u71g9jYhvkdjUtQE0bl3Tgu
+	//Dq4IjpmYcqIRZSA7+sxWBqud+76uwddDcQInfskK61Dl7NOdbICUc+2RE7gQ==
+From: "Julien Massot" <julien.massot@iot.bzh>
 To: poky@lists.yoctoproject.org
 Cc: Julien Massot <julien.massot@iot.bzh>
-Subject: [PATCH dunfell] rng-tools: backport 6.11 from master
-Date: Thu, 28 Jan 2021 14:55:21 +0100
-Message-Id: <20210128135521.106224-1-julien.massot@iot.bzh>
+Subject: [PATCH v2 dunfell] rng-tools: backport 6.11 from master
+Date: Thu, 28 Jan 2021 14:57:58 +0100
+Message-Id: <20210128135758.106532-1-julien.massot@iot.bzh>
 X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -44,6 +44,8 @@ https://github.com/nhorman/rng-tools/pull/99/commits
 
 Backport the recipe from master so that we no longer have this
 issue.
+
+Signed-off-by: Julien Massot <julien.massot@iot.bzh>
 ---
  .../rng-tools/rng-tools/rngd.service          | 21 ++++++++++++++++++-
  .../{rng-tools_6.9.bb =3D> rng-tools_6.11.bb}   | 16 ++++++++++----
