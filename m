@@ -1,124 +1,93 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
- by mx.groups.io with SMTP id smtpd.web08.4775.1612325487721493243
+Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
+ by mx.groups.io with SMTP id smtpd.web09.10361.1612364378280777074
  for <poky@lists.yoctoproject.org>;
- Tue, 02 Feb 2021 20:11:27 -0800
+ Wed, 03 Feb 2021 06:59:38 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=CntT5n0h;
- spf=pass (domain: gmail.com, ip: 209.85.222.182, mailfrom: raj.khem@gmail.com)
-Received: by mail-qk1-f182.google.com with SMTP id v126so22169911qkd.11
-        for <poky@lists.yoctoproject.org>; Tue, 02 Feb 2021 20:11:27 -0800 (PST)
+ dkim=fail reason="body hash did not verify" header.i=@gmail.com header.s=20161025 header.b=pESPqlwm;
+ spf=softfail (domain: gmail.com, ip: 198.145.29.25, mailfrom: bruce.ashfield@gmail.com)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	by mail.yoctoproject.org (Postfix) with ESMTPS id 281E238C064C
+	for <poky@yoctoproject.org>; Wed,  3 Feb 2021 14:59:37 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id z32so303130qtd.8
+        for <poky@yoctoproject.org>; Wed, 03 Feb 2021 06:59:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=dPXWr00BHcuLr6W/tJNj4mvbZrrHKY2HqroMrJX3neA=;
-        b=CntT5n0hqGmu5b+CCjcewRPaeQV1mCz7oi5AlxICnNFZDx2ouEFaXhbu985yqrvI7I
-         p5olM2yikFd3/+eBtpfXgm9cW8uPZRZwaPUCWTLwmzc1AUQBRvKQ67nY9jLTEIYClQPq
-         O3ZA+EKjK5JQlsyDqx7zd3S+xpOc3zyDEigUjJhjgutQaTRBAWKWugp5EvogN1uozxkr
-         8qG+wdUEX1JJbwQpDaEy6HIOZwkCwGzjZGIo9qgGqxVjMqMyCWWopb4zMkpIevVVrjbh
-         7XtsieT65XNMIwgMd/AZN2tWMY8K9jSeT5lKMSZQE88vNvVy2W5Mm4CEtTea7aEbovvv
-         DfQQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=enE3dwpsAI9IJ6sVQC3fvlBX2GeLEcLyCRSwS+E5OFk=;
+        b=pESPqlwmgN7MlSaASZr1OsbyW0+iI1w4mRDDJ49N/UiB9B40YlYFbLkjKbvqFL7cnt
+         YXWPlSmoWknbV1PbHtbAP8ZkRgbw81GdgWaxR3lA7jClPhvDZP+yLjarNlrQBzKJDh5c
+         oH5TTQEB8P+GW/qppNSV4NoLrg1RXiARJLpXzabdxutZD5xICwRoGRUw57v7m5LtaYYi
+         8Fe0I+YTqKcn+yBqnZjR97ekp+p0/TF3pO3jbQWadHqUa3Sqv427BtTjGJTMDkXP6UG7
+         j0PBe3DAdWtIsoDtvbP/86fSZotoJeW5VNGesipmXU0v3qZd/mE7Fxr3qsvr/jos+5OZ
+         3RNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=dPXWr00BHcuLr6W/tJNj4mvbZrrHKY2HqroMrJX3neA=;
-        b=WdIfdvhX+XkuH/k+dnyIFladyAf19JAxxCY4D7qkkZPXxqTnlhCp8yTSkINKTw97VQ
-         NpigJABGAJWyGtCv2xnlpppsDXrg8woFN1GQLI3lfMLhB56Nexq4DFcSbLLRSRr5ocpK
-         P4XQso7TwqFmE0knT9lUl1jyF4zZ+VBg6jWLq8v/dZqbA7myQqTWGvB7Um0SSiuR6/z3
-         CbG6L4+zRIJRJ5L/8nDzFYIQTolXyXz6OHR/vSSOsbKb3iiIf6UwB8hHBPmvp75pC8L6
-         qhgucaq+R7fHmU5WUcdCrM2UB9ec8FaptsNaKFTsNdSl0jsJZzEPLaQu6J/9v43NrOcw
-         E5QA==
-X-Gm-Message-State: AOAM5304MFhBEl5XN2ouMVPx0znWLihBRMTE9WoexNlBeZfUm2vDJ0cw
-	j6JoGNn3um+Byeyoj5PI1iQfm3Jx2MIgQsX8MGdvhUJiTpeBQg==
-X-Google-Smtp-Source: ABdhPJxqPCn0Oh0lRmg5uF6QY0JSkYLU2pVVWe8Ryyr6kVIYK1HEDaLE9armpfZ7cHD93UQARKiCR44q9Mvp3V1HxKc=
-X-Received: by 2002:a05:620a:2211:: with SMTP id m17mr961186qkh.9.1612325486735;
- Tue, 02 Feb 2021 20:11:26 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=enE3dwpsAI9IJ6sVQC3fvlBX2GeLEcLyCRSwS+E5OFk=;
+        b=tbp+M+H5qTRbcYQZ0LzVGgudFgrQUA8G4XYdsrMAEwGAs/HKWTBunrxQKZbaXj7CiK
+         170xdaHwE4ICp89KxjnJBVPFtVmvU4yqhIg1tB7mIqTsHHJeyg1GJcl7TxeC51CK9PdO
+         5H7I4lVOD5WNDvMfzgPWwQb9P2w5FYUs5Gq1emBj3lDAQh3xcqxMR7JVbNLjhegqBqwr
+         Zy801sr/06SVQQuvmLlE06IPHlkI20u+bmbK6hTsd9I4rpcT+cBV5Z/EbS/LtTu/ktEr
+         QyMsVYEp46YIbhiC15+os9cgAlJeqoocsf4C8fdBa2ytrrFNY986hIsnzZf1U9LBBS5t
+         k/hw==
+X-Gm-Message-State: AOAM5309omnomIpWgscCRqk8VX5gAfCgL2FCrpkrQdnaKxU7cGo5gX2R
+	is8xDy4Qo0jtShS3U4Hs8/E=
+X-Google-Smtp-Source: ABdhPJyk81CQptMYnVe1KBrH71BzkolfjMWjSvUXKh5xWvbTc3XbnzZLRafWgIRuvSmSfb0t8vTBWQ==
+X-Received: by 2002:ac8:57ca:: with SMTP id w10mr2755206qta.12.1612364374861;
+        Wed, 03 Feb 2021 06:59:34 -0800 (PST)
+Received: from localhost.localdomain (cpe04d4c4975b80-cm64777d5e8820.cpe.net.cable.rogers.com. [174.112.159.151])
+        by smtp.gmail.com with ESMTPSA id o5sm1806762qko.85.2021.02.03.06.59.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Feb 2021 06:59:34 -0800 (PST)
+From: "Bruce Ashfield" <bruce.ashfield@gmail.com>
+To: richard.purdie@linuxfoundation.org
+Cc: poky@yoctoproject.org
+Subject: [PATCH] yocto-bsp: linux-yocto: update to v5.10.12
+Date: Wed,  3 Feb 2021 09:59:32 -0500
+Message-Id: <20210203145932.5044-1-bruce.ashfield@gmail.com>
+X-Mailer: git-send-email 2.19.1
 MIME-Version: 1.0
-References: <7ca9.1611937238495516995.3t90@lists.yoctoproject.org>
-In-Reply-To: <7ca9.1611937238495516995.3t90@lists.yoctoproject.org>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Tue, 2 Feb 2021 20:11:00 -0800
-Message-ID: <CAMKF1spaQzY_Adj02=k_VJAeHO-q7M69To1FPQhH8MQUnSyYAg@mail.gmail.com>
-Subject: Re: [poky] IMAGE_ROOTFS_EXTRA_SPACE and IMAGE_OVERHEAD_FACTOR do not work as expected #yocto
-To: ejo@datarespons.no
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I would suggest to try something like this
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
 
-# Add 3G space
-IMAGE_ROOTFS_EXTRA_SPACE_appendl =3D " + 3000000"
+Updating linux-yocto 5.10 bbapends to the latest korg -stable release
 
-On Fri, Jan 29, 2021 at 8:20 AM <ejo@datarespons.no> wrote:
->
-> If I set IMAGE_OVERHEAD_FACTOR =3D "1" and IMAGE_ROOTFS_EXTRA_SPACE =3D =
-"600000", I would expect the generated rootfs to have an additional freespa=
-ce of 600M but I get this:
->
-> ```
-> $ ls tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.ro=
-otfs.ext4 -lh
-> -rw-r--r-- 2 ejo ejo 1,3G jan.  29 17:09 tmp/deploy/images/rpi-cm3/core-=
-base-image-rpi-cm3-20210129160710.rootfs.ext4
-> $ ls tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.ro=
-otfs.ext4 -l
-> -rw-r--r-- 2 ejo ejo 1308622848 jan.  29 17:09 tmp/deploy/images/rpi-cm3=
-/core-base-image-rpi-cm3-20210129160710.rootfs.ext4
->
->
-> $ fdisk tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554=
-.rootfs.wic -l
-> Device                                                                  =
-    Boot   Start     End Sectors  Size Id Type
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.rootfs.=
-wic1 *       8192   69335   61144 29,9M  c W95 FAT32 (LBA)
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.rootfs.=
-wic2        73728 3396403 3322676  1,6G 83 Linux
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.rootfs.=
-wic3      3399680 6722355 3322676  1,6G 83 Linux
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.rootfs.=
-wic4      6725632 8056831 1331200  650M 83 Linux
->
-> ```
-> Vs when not setting the variables:
->
-> ```
->
-> $ ls tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.ro=
-otfs.ext4 -lh
-> -rw-r--r-- 2 ejo ejo 856M jan.  29 16:58 tmp/deploy/images/rpi-cm3/core-=
-base-image-rpi-cm3-20210129155627.rootfs.ext4
-> $ ls tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554.ro=
-otfs.ext4 -l
-> -rw-r--r-- 2 ejo ejo 897581056 jan.  29 16:58 tmp/deploy/images/rpi-cm3/=
-core-base-image-rpi-cm3-20210129155627.rootfs.ext4
->
->
-> $ fdisk tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129143554=
-.rootfs.wic -l
-> Device                                                                  =
-    Boot   Start     End Sectors  Size Id Type
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129155627.rootfs.=
-wic1 *       8192   69335   61144 29,9M  c W95 FAT32 (LBA)
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129155627.rootfs.=
-wic2        73728 2352743 2279016  1,1G 83 Linux
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129155627.rootfs.=
-wic3      2359296 4638311 2279016  1,1G 83 Linux
-> tmp/deploy/images/rpi-cm3/core-base-image-rpi-cm3-20210129155627.rootfs.=
-wic4      4644864 5976063 1331200  650M 83 Linux
->
-> ```
-> So it looks like by setting the variables bitbake first adds 411041792 b=
-ytes 392 MiB to the .ext4 file, then WKS adds another 0.3GB to each rootfs =
-partition. Why does this happen? Why isn't the full 600MB added to the .ext=
-4 file? This causes issues with the meta-rauc layer which uses .ext4 file w=
-hen creating update bundles, see issue here https://github.com/rauc/meta-ra=
-uc/issues/173
->
-> IMO when setting IMAGE_ROOTFS_EXTRA_SPACE =3D "600000" 600kB should be a=
-dded to the .ext4 file not 392MiB and then another 300MB by growing the par=
-tition in wks.
->=20
->
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+---
+ .../recipes-kernel/linux/linux-yocto_5.10.bbappend        | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.10.bbappen=
+d b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.10.bbappend
+index d6c5424fc7..8fb7e2c340 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.10.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.10.bbappend
+@@ -7,10 +7,10 @@ KMACHINE_genericx86 ?=3D "common-pc"
+ KMACHINE_genericx86-64 ?=3D "common-pc-64"
+ KMACHINE_beaglebone-yocto ?=3D "beaglebone"
+=20
+-SRCREV_machine_genericx86 ?=3D "f08df324ccdbc73b9f0c2de2826a2843bcdf651b=
+"
+-SRCREV_machine_genericx86-64 ?=3D "f08df324ccdbc73b9f0c2de2826a2843bcdf6=
+51b"
+-SRCREV_machine_edgerouter ?=3D "1f3d7b6a85e98317771367e70824f7803ff9ca30=
+"
+-SRCREV_machine_beaglebone-yocto ?=3D "f08df324ccdbc73b9f0c2de2826a2843bc=
+df651b"
++SRCREV_machine_genericx86 ?=3D "cdca78778415b4b3bd64e8390ee8adf04bf7e17a=
+"
++SRCREV_machine_genericx86-64 ?=3D "cdca78778415b4b3bd64e8390ee8adf04bf7e=
+17a"
++SRCREV_machine_edgerouter ?=3D "2e1fb8f84f09ca768eb531f33a126a40bb90e791=
+"
++SRCREV_machine_beaglebone-yocto ?=3D "cdca78778415b4b3bd64e8390ee8adf04b=
+f7e17a"
+=20
+ COMPATIBLE_MACHINE_genericx86 =3D "genericx86"
+ COMPATIBLE_MACHINE_genericx86-64 =3D "genericx86-64"
+--=20
+2.19.1
+
