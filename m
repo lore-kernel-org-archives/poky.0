@@ -1,80 +1,112 @@
 Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
- by mx.groups.io with SMTP id smtpd.web12.10494.1612364766456405575
+ by mx.groups.io with SMTP id smtpd.web09.10888.1612366286965248089
  for <poky@lists.yoctoproject.org>;
- Wed, 03 Feb 2021 07:06:06 -0800
+ Wed, 03 Feb 2021 07:31:27 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=fail (domain: intel.com, ip: 198.145.29.25, mailfrom: anuj.mittal@intel.com)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by mail.yoctoproject.org (Postfix) with ESMTPS id 7AE8838C064C
-	for <poky@yoctoproject.org>; Wed,  3 Feb 2021 15:06:05 +0000 (UTC)
-IronPort-SDR: +MQp2iGr2gKR9ghzLSy6VZWNDuAzf1k2rR4ActcXOQPS7HhbDcw/yu0f5pn5+baROD2Ein6XWe
- 3pnbMs7R7bCQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9884"; a="177546522"
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; 
-   d="scan'208";a="177546522"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Feb 2021 07:06:04 -0800
-IronPort-SDR: 212nDdydJ6skqXaw6TqfYTvDj1bTDVJq0bSmK83CEKR2brMxxjeAis04yJyMK/K4CwFf0hJTY8
- cAXNLVfJB+bw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,398,1602572400"; 
-   d="scan'208";a="392471091"
-Received: from pgsmsx601.gar.corp.intel.com ([10.108.199.136])
-  by orsmga008.jf.intel.com with ESMTP; 03 Feb 2021 07:06:03 -0800
-Received: from pgsmsx601.gar.corp.intel.com (10.108.199.136) by
- pgsmsx601.gar.corp.intel.com (10.108.199.136) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 3 Feb 2021 23:06:02 +0800
-Received: from pgsmsx601.gar.corp.intel.com ([10.108.199.136]) by
- pgsmsx601.gar.corp.intel.com ([10.108.199.136]) with mapi id 15.01.1713.004;
- Wed, 3 Feb 2021 23:06:02 +0800
-From: "Anuj Mittal" <anuj.mittal@intel.com>
-To: "richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>,
-	"bruce.ashfield@gmail.com" <bruce.ashfield@gmail.com>
-CC: "poky@yoctoproject.org" <poky@yoctoproject.org>
-Subject: Re: [poky] [PATCH] yocto-bsp: linux-yocto: update to v5.10.12
-Thread-Topic: [poky] [PATCH] yocto-bsp: linux-yocto: update to v5.10.12
-Thread-Index: AQHW+j04m2nIC3gWKES/TtCN8OcGYKpGAZSA
-Date: Wed, 3 Feb 2021 15:06:02 +0000
-Message-ID: <58398e8012e6ebfe50c92a78bba43692836e5bb4.camel@intel.com>
-References: <20210203145932.5044-1-bruce.ashfield@gmail.com>
-In-Reply-To: <20210203145932.5044-1-bruce.ashfield@gmail.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.108.32.68]
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=hfEYQ3zZ;
+ spf=softfail (domain: gmail.com, ip: 198.145.29.25, mailfrom: bruce.ashfield@gmail.com)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	by mail.yoctoproject.org (Postfix) with ESMTPS id 17DB338C05C4
+	for <poky@yoctoproject.org>; Wed,  3 Feb 2021 15:31:26 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id s5so8216edw.8
+        for <poky@yoctoproject.org>; Wed, 03 Feb 2021 07:31:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=EFnMUyze+fJl9+8+QWgEXpkM17RzDOjx6CTCeRkYqhk=;
+        b=hfEYQ3zZVmj6PnCo/z7wHxpEIMNCXVge7fL+EeIN2vxUmZaX97cZngrHrJAnakWoUD
+         0zY9/NGbGaixGvJ6G+enOHYIwwozYhlJegdueDQNJp/RdR3P8Z7ApPm3YmfivU9Q4+/T
+         T+8PZ/WSBUpLvmEIAFpjEhClIo6BVTmPqopQH6BsEouLPyKgWEU7sUZ4m0AleDiFhA54
+         6kBaJ6EmY+bzqbyGFhWP6JCdw6kj1eWaBhHN+q8GUHhbMAIz+6ZuSqbADi4sshRrC1P4
+         Qm0m9Scp4D1tMuloqiMQCTa/CjczVCKz6PIXxMNuOg+zJ1zIaTE8fise4Zg3QHkVQf+6
+         rwyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=EFnMUyze+fJl9+8+QWgEXpkM17RzDOjx6CTCeRkYqhk=;
+        b=ncQXxBnL05S2jiMiEJ3wZLiIGkezmJTjoXmqPhlEUTLJYaCh5kvY7d+RScDwzNk5mo
+         pi1XJFyww0bWa3+OZYt1xDKMHnXVlm2f26d7D6IQcqNgmSfUFR/6kGkj+AfNrwpcIXYK
+         L3ugTaO+r9KQnxC3/L809b1EeCiJVkLi0AnURyANmRgRx1wanZM02bezp9zMHpD30RNM
+         6nwhtX1zTePY7Tnp6H2D0wjgWSqfNU0NLfJVRj3hjqB5bVO7RpqqK0oLgldbAi9X7HxX
+         +RA3VkpIsm2YKF0YXZdzfHrGHnBgYRSUuiM9zw7L1hDyojEBsC9kseWq/QeRRJG/s/Sz
+         5irQ==
+X-Gm-Message-State: AOAM531/QK7IIUWZOlqyIhBSfN+47jPZvAiY/rdn4RTB8rF1Bq95F0TS
+	p9lQ9HJnzdrwvz1T3usoPHuimj3Lbne932140a4=
+X-Google-Smtp-Source: ABdhPJzt4IB53TirPy8vb5vUDftxP+h/8Vb/0yAzBoZI4+ITU9bg2nbs8yO4Cj1kZe9Eub/8RJIvs59B2GSVzU8+y90=
+X-Received: by 2002:a05:6402:186:: with SMTP id r6mr3694040edv.234.1612366284385;
+ Wed, 03 Feb 2021 07:31:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BF090C2393B43C4690D7D62A98BC67C4@intel.com>
-Content-Transfer-Encoding: base64
+References: <20210203145932.5044-1-bruce.ashfield@gmail.com> <58398e8012e6ebfe50c92a78bba43692836e5bb4.camel@intel.com>
+In-Reply-To: <58398e8012e6ebfe50c92a78bba43692836e5bb4.camel@intel.com>
+From: "Bruce Ashfield" <bruce.ashfield@gmail.com>
+Date: Wed, 3 Feb 2021 10:31:13 -0500
+Message-ID: <CADkTA4PSi_JwTRsrPBWHkB1nFkg+=GE3fRs8rjfqRFc=Y6iqhA@mail.gmail.com>
+Subject: Re: [poky] [PATCH] yocto-bsp: linux-yocto: update to v5.10.12
+To: "Mittal, Anuj" <anuj.mittal@intel.com>
+Cc: "richard.purdie@linuxfoundation.org" <richard.purdie@linuxfoundation.org>, 
+	"poky@yoctoproject.org" <poky@yoctoproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgQnJ1Y2UsDQoNCk9uIFdlZCwgMjAyMS0wMi0wMyBhdCAwOTo1OSAtMDUwMCwgQnJ1Y2UgQXNo
-ZmllbGQgd3JvdGU6DQo+IEZyb206IEJydWNlIEFzaGZpZWxkIDxicnVjZS5hc2hmaWVsZEBnbWFp
-bC5jb20+DQo+IA0KPiBVcGRhdGluZyBsaW51eC15b2N0byA1LjEwIGJiYXBlbmRzIHRvIHRoZSBs
-YXRlc3Qga29yZyAtc3RhYmxlIHJlbGVhc2UNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEJydWNlIEFz
-aGZpZWxkIDxicnVjZS5hc2hmaWVsZEBnbWFpbC5jb20+DQo+IC0tLQ0KPiDCoC4uLi9yZWNpcGVz
-LWtlcm5lbC9saW51eC9saW51eC15b2N0b181LjEwLmJiYXBwZW5kwqDCoMKgwqDCoMKgwqAgfCA4
-ICsrKystLQ0KPiAtLQ0KPiDCoDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVs
-ZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWV0YS15b2N0by1ic3AvcmVjaXBlcy1rZXJu
-ZWwvbGludXgvbGludXgtDQo+IHlvY3RvXzUuMTAuYmJhcHBlbmQgYi9tZXRhLXlvY3RvLWJzcC9y
-ZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC0NCj4geW9jdG9fNS4xMC5iYmFwcGVuZA0KPiBpbmRl
-eCBkNmM1NDI0ZmM3Li44ZmI3ZTJjMzQwIDEwMDY0NA0KPiAtLS0gYS9tZXRhLXlvY3RvLWJzcC9y
-ZWNpcGVzLWtlcm5lbC9saW51eC9saW51eC15b2N0b181LjEwLmJiYXBwZW5kDQo+ICsrKyBiL21l
-dGEteW9jdG8tYnNwL3JlY2lwZXMta2VybmVsL2xpbnV4L2xpbnV4LXlvY3RvXzUuMTAuYmJhcHBl
-bmQNCj4gQEAgLTcsMTAgKzcsMTAgQEAgS01BQ0hJTkVfZ2VuZXJpY3g4NiA/PSAiY29tbW9uLXBj
-Ig0KPiDCoEtNQUNISU5FX2dlbmVyaWN4ODYtNjQgPz0gImNvbW1vbi1wYy02NCINCj4gwqBLTUFD
-SElORV9iZWFnbGVib25lLXlvY3RvID89ICJiZWFnbGVib25lIg0KPiDCoA0KPiAtU1JDUkVWX21h
-Y2hpbmVfZ2VuZXJpY3g4NiA/PQ0KPiAiZjA4ZGYzMjRjY2RiYzczYjlmMGMyZGUyODI2YTI4NDNi
-Y2RmNjUxYiINCj4gLVNSQ1JFVl9tYWNoaW5lX2dlbmVyaWN4ODYtNjQgPz0NCj4gImYwOGRmMzI0
-Y2NkYmM3M2I5ZjBjMmRlMjgyNmEyODQzYmNkZjY1MWIiDQo+IC1TUkNSRVZfbWFjaGluZV9lZGdl
-cm91dGVyID89DQo+ICIxZjNkN2I2YTg1ZTk4MzE3NzcxMzY3ZTcwODI0Zjc4MDNmZjljYTMwIg0K
-PiAtU1JDUkVWX21hY2hpbmVfYmVhZ2xlYm9uZS15b2N0byA/PQ0KPiAiZjA4ZGYzMjRjY2RiYzcz
-YjlmMGMyZGUyODI2YTI4NDNiY2RmNjUxYiINCj4gK1NSQ1JFVl9tYWNoaW5lX2dlbmVyaWN4ODYg
-Pz0NCj4gImNkY2E3ODc3ODQxNWI0YjNiZDY0ZTgzOTBlZThhZGYwNGJmN2UxN2EiDQo+ICtTUkNS
-RVZfbWFjaGluZV9nZW5lcmljeDg2LTY0ID89DQo+ICJjZGNhNzg3Nzg0MTViNGIzYmQ2NGU4Mzkw
-ZWU4YWRmMDRiZjdlMTdhIg0KPiArU1JDUkVWX21hY2hpbmVfZWRnZXJvdXRlciA/PQ0KPiAiMmUx
-ZmI4Zjg0ZjA5Y2E3NjhlYjUzMWYzM2ExMjZhNDBiYjkwZTc5MSINCj4gK1NSQ1JFVl9tYWNoaW5l
-X2JlYWdsZWJvbmUteW9jdG8gPz0NCj4gImNkY2E3ODc3ODQxNWI0YjNiZDY0ZTgzOTBlZThhZGYw
-NGJmN2UxN2EiDQoNCkkgdGhpbmsgeW91IG1pc3NlZCB1cGRhdGluZyBMSU5VWF9WRVJTSU9OIHZh
-bHVlIGluIHRoaXMgZmlsZS4NCg0KVGhhbmtzLA0KDQpBbnVqDQo=
+On Wed, Feb 3, 2021 at 10:06 AM Mittal, Anuj <anuj.mittal@intel.com> wrote:
+>
+> Hi Bruce,
+>
+> On Wed, 2021-02-03 at 09:59 -0500, Bruce Ashfield wrote:
+> > From: Bruce Ashfield <bruce.ashfield@gmail.com>
+> >
+> > Updating linux-yocto 5.10 bbapends to the latest korg -stable release
+> >
+> > Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+> > ---
+> >  .../recipes-kernel/linux/linux-yocto_5.10.bbappend        | 8 ++++--
+> > --
+> >  1 file changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-
+> > yocto_5.10.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-
+> > yocto_5.10.bbappend
+> > index d6c5424fc7..8fb7e2c340 100644
+> > --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.10.bbappend
+> > +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.10.bbappend
+> > @@ -7,10 +7,10 @@ KMACHINE_genericx86 ?= "common-pc"
+> >  KMACHINE_genericx86-64 ?= "common-pc-64"
+> >  KMACHINE_beaglebone-yocto ?= "beaglebone"
+> >
+> > -SRCREV_machine_genericx86 ?=
+> > "f08df324ccdbc73b9f0c2de2826a2843bcdf651b"
+> > -SRCREV_machine_genericx86-64 ?=
+> > "f08df324ccdbc73b9f0c2de2826a2843bcdf651b"
+> > -SRCREV_machine_edgerouter ?=
+> > "1f3d7b6a85e98317771367e70824f7803ff9ca30"
+> > -SRCREV_machine_beaglebone-yocto ?=
+> > "f08df324ccdbc73b9f0c2de2826a2843bcdf651b"
+> > +SRCREV_machine_genericx86 ?=
+> > "cdca78778415b4b3bd64e8390ee8adf04bf7e17a"
+> > +SRCREV_machine_genericx86-64 ?=
+> > "cdca78778415b4b3bd64e8390ee8adf04bf7e17a"
+> > +SRCREV_machine_edgerouter ?=
+> > "2e1fb8f84f09ca768eb531f33a126a40bb90e791"
+> > +SRCREV_machine_beaglebone-yocto ?=
+> > "cdca78778415b4b3bd64e8390ee8adf04bf7e17a"
+>
+> I think you missed updating LINUX_VERSION value in this file.
+>
+
+Right you are! My script only does the SRCREVs, and missed the variable.
+
+v2 on the way.
+
+Bruce
+
+> Thanks,
+>
+> Anuj
+
+
+
+-- 
+- Thou shalt not follow the NULL pointer, for chaos and madness await
+thee at its end
+- "Use the force Harry" - Gandalf, Star Trek II
