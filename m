@@ -1,179 +1,61 @@
-Subject: BeagleBone Black Kernel Not build #poky
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by mx.groups.io with SMTP id smtpd.web12.4760.1613459031501007199
+ for <poky@lists.yoctoproject.org>;
+ Mon, 15 Feb 2021 23:03:52 -0800
+Authentication-Results: mx.groups.io;
+ dkim=missing; spf=pass (domain: intel.com, ip: 134.134.136.126, mailfrom: anuj.mittal@intel.com)
+IronPort-SDR: fzzqPTMSgw8gXvMMwRP7z5hek3VVrTtm0EzGs4AwFDu/MeFvgR5u5QaKp3u7Uoza6swmhm5Thi
+ 2uOEpbwnlXlg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9896"; a="170483208"
+X-IronPort-AV: E=Sophos;i="5.81,183,1610438400"; 
+   d="scan'208";a="170483208"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Feb 2021 23:03:49 -0800
+IronPort-SDR: SXWlQsOX3uSmIq4/xbFyX5WZNx0TO3pp+WsaJgiPP6KtnfjUQBYgCiFBCeQLfCMK+3OL0VJtWU
+ vTqeOJhGGWAg==
+X-IronPort-AV: E=Sophos;i="5.81,183,1610438400"; 
+   d="scan'208";a="589060738"
+Received: from aarshad-mobl.gar.corp.intel.com (HELO anmitta2-mobl1.gar.corp.intel.com) ([10.255.146.132])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Feb 2021 23:03:48 -0800
+From: "Anuj Mittal" <anuj.mittal@intel.com>
 To: poky@lists.yoctoproject.org
-From: milav.soni@teqdiligent.com
-X-Originating-Location: Mumbai, Maharashtra, IN (122.170.13.184)
-X-Originating-Platform: Windows Chrome 88
-User-Agent: GROUPS.IO Web Poster
+Subject: [meta-yocto][PATCH] linux-yocto: update genericx86* to v5.4.94
+Date: Tue, 16 Feb 2021 15:03:35 +0800
+Message-Id: <20210216070335.24341-1-anuj.mittal@intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Date: Fri, 12 Feb 2021 05:44:15 -0800
-Message-ID: <NImp.1613137455662471276.Su3E@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="de4jQfuV1BhUOfyQA2Cr"
+Content-Transfer-Encoding: 8bit
 
---de4jQfuV1BhUOfyQA2Cr
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
+---
+ .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Hello Team,
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+index 91500b8e9c..35147d2da8 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
+-SRCREV_machine_genericx86-64 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
++SRCREV_machine_genericx86 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
++SRCREV_machine_genericx86-64 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
+ SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ 
+@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ 
+-LINUX_VERSION_genericx86 = "5.4.87"
+-LINUX_VERSION_genericx86-64 = "5.4.87"
++LINUX_VERSION_genericx86 = "5.4.94"
++LINUX_VERSION_genericx86-64 = "5.4.94"
+ LINUX_VERSION_edgerouter = "5.4.58"
+ LINUX_VERSION_beaglebone-yocto = "5.4.58"
+-- 
+2.29.2
 
-I am trying to boot beaglebone black using yocto.
-
-I have downloaded poky version :- rocko from yocto site.
-
-I am trying to build core-sato-images for beagle bone black, and i am succ=
-essful build sato image.
-
-but when i just boot the Beaglebone black, I see following boot messages.
-
-It seems my beaglebone black are resetting periodically.
-
-*Log :-*
-
-U-Boot 2017.09 (Jan 06 2021 - 13:18:10 +0000)
-
-CPU=C2=A0 : AM335X-GP rev 2.1
-I2C:=C2=A0 =C2=A0ready
-DRAM:=C2=A0 512 MiB
-No match for driver 'omap_hsmmc'
-No match for driver 'omap_hsmmc'
-Some drivers were not found
-MMC:=C2=A0 =C2=A0OMAP SD/MMC: 0, OMAP SD/MMC: 1
-** First descriptor is NOT a primary desc on 1:1 **
-<ethaddr> not set. Validating first E-fuse MAC
-Net:=C2=A0 =C2=A0cpsw, usb_ether
-Press SPACE to abort autoboot in 2 seconds
-switch to partitions #0, OK
-mmc0 is current device
-SD/MMC found on device 0
-reading boot.scr
-** Unable to read file boot.scr **
-reading uEnv.txt
-** Unable to read file uEnv.txt **
-switch to partitions #0, OK
-mmc0 is current device
-Scanning mmc 0:1...
-switch to partitions #0, OK
-mmc0 is current device
-SD/MMC found on device 0
-3654200 bytes read in 289 ms (12.1 MiB/s)
-35788 bytes read in 45 ms (776.4 KiB/s)
-## Flattened Device Tree blob at 88000000
-Booting using the fdt blob at 0x88000000
-Loading Device Tree to 8fff4000, end 8ffffbcb ... OK
-
-Starting kernel ...
-
-data abort
-pc : [<82000034>]=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 lr : [<9ff50021>]
-reloc pc : [<628b1034>]=C2=A0 =C2=A0 lr : [<80801021>]
-sp : 9df2e3d0=C2=A0 ip : 9ff50149=C2=A0 =C2=A0 =C2=A0fp : 00000004
-r10: 9ff9f4d8=C2=A0 r9 : 9df2eed8=C2=A0 =C2=A0 =C2=A0r8 : 9ff50149
-r7 : 00000000=C2=A0 r6 : 82000000=C2=A0 =C2=A0 =C2=A0r5 : 9ffa0cc8=C2=A0 r=
-4 : 00000000
-r3 : 00008bcc=C2=A0 r2 : 00000000=C2=A0 =C2=A0 =C2=A0r1 : 00000e05=C2=A0 r=
-0 : 00000000
-Flags: NzCv=C2=A0 IRQs off=C2=A0 FIQs on=C2=A0 Mode SVC_32
-Resetting CPU ...
-
-resetting ...
-
-U-Boot SPL 2017.09 (Jan 06 2021 - 13:18:10)
-Trying to boot from MMC1
-** First descriptor is NOT a primary desc on 1:1 **
-reading u-boot.img
-reading u-boot.img
-
-U-Boot 2017.09 (Jan 06 2021 - 13:18:10 +0000)
-
-CPU=C2=A0 : AM335X-GP rev 2.1
-I2C:=C2=A0 =C2=A0ready
-DRAM:=C2=A0 512 MiB
-......
-.....
-......
-
-I dont know why this happen?
-
-please help me out in this problem.
-
-Thank You
-
---de4jQfuV1BhUOfyQA2Cr
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello Team,<br /><br />I am trying to boot beaglebone black using yocto.<br=
- /><br />I have downloaded poky version :- rocko from yocto site.<br /><br =
-/>I am trying to build core-sato-images for beagle bone black, and i am suc=
-cessful build sato image.<br /><br />but when i just boot the Beaglebone bl=
-ack, I see following boot messages.&nbsp;<br /><br />It seems my beaglebone=
- black are resetting periodically.<br /><br /><strong>Log :-</strong><br />=
-<br />
-<div>U-Boot 2017.09 (Jan 06 2021 - 13:18:10 +0000)</div>
-<div>&nbsp;</div>
-<div>CPU&nbsp; : AM335X-GP rev 2.1</div>
-<div>I2C:&nbsp; &nbsp;ready</div>
-<div>DRAM:&nbsp; 512 MiB</div>
-<div>No match for driver 'omap_hsmmc'</div>
-<div>No match for driver 'omap_hsmmc'</div>
-<div>Some drivers were not found</div>
-<div>MMC:&nbsp; &nbsp;OMAP SD/MMC: 0, OMAP SD/MMC: 1</div>
-<div>** First descriptor is NOT a primary desc on 1:1 **</div>
-<div>&lt;ethaddr&gt; not set. Validating first E-fuse MAC</div>
-<div>Net:&nbsp; &nbsp;cpsw, usb_ether</div>
-<div>Press SPACE to abort autoboot in 2 seconds</div>
-<div>switch to partitions #0, OK</div>
-<div>mmc0 is current device</div>
-<div>SD/MMC found on device 0</div>
-<div>reading boot.scr</div>
-<div>** Unable to read file boot.scr **</div>
-<div>reading uEnv.txt</div>
-<div>** Unable to read file uEnv.txt **</div>
-<div>switch to partitions #0, OK</div>
-<div>mmc0 is current device</div>
-<div>Scanning mmc 0:1...</div>
-<div>switch to partitions #0, OK</div>
-<div>mmc0 is current device</div>
-<div>SD/MMC found on device 0</div>
-<div>3654200 bytes read in 289 ms (12.1 MiB/s)</div>
-<div>35788 bytes read in 45 ms (776.4 KiB/s)</div>
-<div>## Flattened Device Tree blob at 88000000</div>
-<div>&nbsp; &nbsp;Booting using the fdt blob at 0x88000000</div>
-<div>&nbsp; &nbsp;Loading Device Tree to 8fff4000, end 8ffffbcb ... OK</di=
-v>
-<div>&nbsp;</div>
-<div>Starting kernel ...</div>
-<div>&nbsp;</div>
-<div>data abort</div>
-<div>pc : [&lt;82000034&gt;]&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lr : [&lt;9=
-ff50021&gt;]</div>
-<div>reloc pc : [&lt;628b1034&gt;]&nbsp; &nbsp; lr : [&lt;80801021&gt;]</d=
-iv>
-<div>sp : 9df2e3d0&nbsp; ip : 9ff50149&nbsp; &nbsp; &nbsp;fp : 00000004</d=
-iv>
-<div>r10: 9ff9f4d8&nbsp; r9 : 9df2eed8&nbsp; &nbsp; &nbsp;r8 : 9ff50149</d=
-iv>
-<div>r7 : 00000000&nbsp; r6 : 82000000&nbsp; &nbsp; &nbsp;r5 : 9ffa0cc8&nb=
-sp; r4 : 00000000</div>
-<div>r3 : 00008bcc&nbsp; r2 : 00000000&nbsp; &nbsp; &nbsp;r1 : 00000e05&nb=
-sp; r0 : 00000000</div>
-<div>Flags: NzCv&nbsp; IRQs off&nbsp; FIQs on&nbsp; Mode SVC_32</div>
-<div>Resetting CPU ...</div>
-<div>&nbsp;</div>
-<div>resetting ...<br /><br />
-<div>U-Boot SPL 2017.09 (Jan 06 2021 - 13:18:10)</div>
-<div>Trying to boot from MMC1</div>
-<div>** First descriptor is NOT a primary desc on 1:1 **</div>
-<div>reading u-boot.img</div>
-<div>reading u-boot.img</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>U-Boot 2017.09 (Jan 06 2021 - 13:18:10 +0000)</div>
-<div>&nbsp;</div>
-<div>CPU&nbsp; : AM335X-GP rev 2.1</div>
-<div>I2C:&nbsp; &nbsp;ready</div>
-<div>DRAM:&nbsp; 512 MiB<br />......<br />.....<br />......<br /><br />I d=
-ont know why this happen?<br /><br />please help me out in this problem.<br=
- /><br />Thank You</div>
-</div>
-
---de4jQfuV1BhUOfyQA2Cr--
