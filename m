@@ -1,61 +1,75 @@
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by mx.groups.io with SMTP id smtpd.web12.4760.1613459031501007199
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+ by mx.groups.io with SMTP id smtpd.web08.12631.1613501222877334618
  for <poky@lists.yoctoproject.org>;
- Mon, 15 Feb 2021 23:03:52 -0800
+ Tue, 16 Feb 2021 10:47:03 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: intel.com, ip: 134.134.136.126, mailfrom: anuj.mittal@intel.com)
-IronPort-SDR: fzzqPTMSgw8gXvMMwRP7z5hek3VVrTtm0EzGs4AwFDu/MeFvgR5u5QaKp3u7Uoza6swmhm5Thi
- 2uOEpbwnlXlg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9896"; a="170483208"
-X-IronPort-AV: E=Sophos;i="5.81,183,1610438400"; 
-   d="scan'208";a="170483208"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Feb 2021 23:03:49 -0800
-IronPort-SDR: SXWlQsOX3uSmIq4/xbFyX5WZNx0TO3pp+WsaJgiPP6KtnfjUQBYgCiFBCeQLfCMK+3OL0VJtWU
- vTqeOJhGGWAg==
-X-IronPort-AV: E=Sophos;i="5.81,183,1610438400"; 
-   d="scan'208";a="589060738"
-Received: from aarshad-mobl.gar.corp.intel.com (HELO anmitta2-mobl1.gar.corp.intel.com) ([10.255.146.132])
-  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Feb 2021 23:03:48 -0800
-From: "Anuj Mittal" <anuj.mittal@intel.com>
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=iEnVBxqw;
+ spf=pass (domain: gmail.com, ip: 209.85.219.48, mailfrom: vivien.didelot@gmail.com)
+Received: by mail-qv1-f48.google.com with SMTP id p12so5123846qvv.5
+        for <poky@lists.yoctoproject.org>; Tue, 16 Feb 2021 10:47:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=fd1SKExT1YW+yd/apjECNZAzV/Mf2D7dFDFS9pX2j/g=;
+        b=iEnVBxqwCa0mo77D6IkZ/2MtQeFrgcfFtTonkbAwN7pIj8d+X0LzELkB4IRJZWZxE9
+         yUJ5GU5kw17pC6xCrdWZg52FDY89PC++2DjdEijf0o3HcfqkA7msrDtUoCwaFW4hsdxN
+         +buXxCq2MBWMXHauNUac7NoU7eFoMJboks6qo9FCfPWfPl+t63DXoIVF0b8/msmoHjYB
+         yxIUZrdxgX/5kfvzSmgjkwuD1rumP6cQTbaYpvETwm2fLKmVwjdTbVsA/ThsLURd/y92
+         onIYNg0A6HvI/egvAQJP+6hktpH05gxmiPdanX5KzaCpVfEky/PmOue9kIwEngeS+kJA
+         oGGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=fd1SKExT1YW+yd/apjECNZAzV/Mf2D7dFDFS9pX2j/g=;
+        b=ha5ZTP0N64uy7AJcXTHMSip6cSXOUfyFDvrGpydhgXcppwApNe2REnT3tlBs4Ainxu
+         +Jrz3I4VO4sGZQkcruIZ3FytghWkA7Hz7m6bO0NqiyKQ8z7/qff8e9A2x51+iVd7E/Ms
+         d/+/SazEiXDXRL1arl5oW4qpNOlEmRWR1ZCmH7AMTe+oGbcSZwnJsgO2fwQkP3kPGVD+
+         WzDjo97k86JOEr9IgzUsM4DAAKMLT9UEgRIvWkSLr5PJGsMQZzvHHqD7jadqoR+Eeizn
+         tsOKY7LU+Ux9xCHeAj3s0dqkpWcuKgb97NwOhAHphQ6FDG8NLIKnpAdPVYnOjKuzk5T4
+         jRxQ==
+X-Gm-Message-State: AOAM533AE2VngZCnOvs8rux00+D3z3C2oKjSyTdRa+kSYkfXY+IKBX0+
+	5mKBzBo3M9yknsMQKnRtu/mPsrqWup0=
+X-Google-Smtp-Source: ABdhPJylqgTN+q9eFG6P4r4rrbDnnDPBZ/mKaGgpPy2xMX0NBCoCj0EkrnzoDSdjsq/Y7ZhgDJhUeg==
+X-Received: by 2002:a05:6214:21a5:: with SMTP id t5mr20788275qvc.20.1613501221837;
+        Tue, 16 Feb 2021 10:47:01 -0800 (PST)
+Return-Path: <vivien.didelot@gmail.com>
+Received: from localhost (modemcable249.105-163-184.mc.videotron.ca. [184.163.105.249])
+        by smtp.gmail.com with ESMTPSA id e15sm13702128qtq.43.2021.02.16.10.47.01
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Feb 2021 10:47:01 -0800 (PST)
+From: "Vivien Didelot" <vivien.didelot@gmail.com>
+X-Google-Original-From: Vivien Didelot <vdidelot@pbsc.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][PATCH] linux-yocto: update genericx86* to v5.4.94
-Date: Tue, 16 Feb 2021 15:03:35 +0800
-Message-Id: <20210216070335.24341-1-anuj.mittal@intel.com>
-X-Mailer: git-send-email 2.29.2
+Subject: [PATCH] local.conf.sample.extended: fix double 'of' typo
+Date: Tue, 16 Feb 2021 13:47:00 -0500
+Message-Id: <20210216184700.291821-1-vdidelot@pbsc.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
----
- .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Remove the redundant 'of' word in the INITRAMFS_IMAGE comment.
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-index 91500b8e9c..35147d2da8 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine_genericx86 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
--SRCREV_machine_genericx86-64 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
-+SRCREV_machine_genericx86 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
-+SRCREV_machine_genericx86-64 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
- SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- 
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- 
--LINUX_VERSION_genericx86 = "5.4.87"
--LINUX_VERSION_genericx86-64 = "5.4.87"
-+LINUX_VERSION_genericx86 = "5.4.94"
-+LINUX_VERSION_genericx86-64 = "5.4.94"
- LINUX_VERSION_edgerouter = "5.4.58"
- LINUX_VERSION_beaglebone-yocto = "5.4.58"
+Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
+---
+ meta-poky/conf/local.conf.sample.extended | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+index dc92a16f6c..5e1edef58e 100644
+--- a/meta-poky/conf/local.conf.sample.extended
++++ b/meta-poky/conf/local.conf.sample.extended
+@@ -328,7 +328,7 @@ DISTRO_FEATURES_remove = "x11"
+ # The INITRAMFS_IMAGE image variable will cause an additional recipe to
+ # be built as a dependency to the what ever rootfs recipe you might be
+ # using such as core-image-sato.  The initramfs might be needed for
+-# the initial boot of of the target system such as to load kernel
++# the initial boot of the target system such as to load kernel
+ # modules prior to mounting the root file system.
+ #
+ # INITRAMFS_IMAGE_BUNDLE variable controls if the image recipe
 -- 
-2.29.2
+2.30.1
 
