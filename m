@@ -1,75 +1,69 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
- by mx.groups.io with SMTP id smtpd.web08.12631.1613501222877334618
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+ by mx.groups.io with SMTP id smtpd.web12.10151.1613579527979813860
  for <poky@lists.yoctoproject.org>;
- Tue, 16 Feb 2021 10:47:03 -0800
+ Wed, 17 Feb 2021 08:32:08 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=iEnVBxqw;
- spf=pass (domain: gmail.com, ip: 209.85.219.48, mailfrom: vivien.didelot@gmail.com)
-Received: by mail-qv1-f48.google.com with SMTP id p12so5123846qvv.5
-        for <poky@lists.yoctoproject.org>; Tue, 16 Feb 2021 10:47:02 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=nEP5PEB5;
+ spf=softfail (domain: sakoman.com, ip: 209.85.215.174, mailfrom: steve@sakoman.com)
+Received: by mail-pg1-f174.google.com with SMTP id o63so8801960pgo.6
+        for <poky@lists.yoctoproject.org>; Wed, 17 Feb 2021 08:32:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
+        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
         h=from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=fd1SKExT1YW+yd/apjECNZAzV/Mf2D7dFDFS9pX2j/g=;
-        b=iEnVBxqwCa0mo77D6IkZ/2MtQeFrgcfFtTonkbAwN7pIj8d+X0LzELkB4IRJZWZxE9
-         yUJ5GU5kw17pC6xCrdWZg52FDY89PC++2DjdEijf0o3HcfqkA7msrDtUoCwaFW4hsdxN
-         +buXxCq2MBWMXHauNUac7NoU7eFoMJboks6qo9FCfPWfPl+t63DXoIVF0b8/msmoHjYB
-         yxIUZrdxgX/5kfvzSmgjkwuD1rumP6cQTbaYpvETwm2fLKmVwjdTbVsA/ThsLURd/y92
-         onIYNg0A6HvI/egvAQJP+6hktpH05gxmiPdanX5KzaCpVfEky/PmOue9kIwEngeS+kJA
-         oGGw==
+        bh=Nm/bTBxq3lsgrCOsw5pY5jlumPZCtSceMXJzzd/4QVA=;
+        b=nEP5PEB5D+tyfMa1ANP1xgKIOnC//LPEl1oW5MzXrr4XfGuYBBbkaq+hflWVX8Nywt
+         QDhkOgFTPHtWeehG6rAm66oFrZM4rA7OhnduuCptcopn3IpL3nzdz+gFrmYurXnRu11r
+         hcMNCM6mmI89svhnCFZJu5LabXtx2durFfcu8nZF3SD7+GPMbgc7rqTSefgEkZz3rJ5I
+         nBSrtXvKGGsi+8cB+i+ORpx+n7jDJVaX3fVB1CL4fRgSY468V8YEuqATut6tNSVwfrPV
+         AbnMPs3PPVzvptkKrDP5hqT4z+KlLcEMDiL3XYAqFe1XwEJOM1zySRi+j7f35CCHBzYK
+         m4Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=fd1SKExT1YW+yd/apjECNZAzV/Mf2D7dFDFS9pX2j/g=;
-        b=ha5ZTP0N64uy7AJcXTHMSip6cSXOUfyFDvrGpydhgXcppwApNe2REnT3tlBs4Ainxu
-         +Jrz3I4VO4sGZQkcruIZ3FytghWkA7Hz7m6bO0NqiyKQ8z7/qff8e9A2x51+iVd7E/Ms
-         d/+/SazEiXDXRL1arl5oW4qpNOlEmRWR1ZCmH7AMTe+oGbcSZwnJsgO2fwQkP3kPGVD+
-         WzDjo97k86JOEr9IgzUsM4DAAKMLT9UEgRIvWkSLr5PJGsMQZzvHHqD7jadqoR+Eeizn
-         tsOKY7LU+Ux9xCHeAj3s0dqkpWcuKgb97NwOhAHphQ6FDG8NLIKnpAdPVYnOjKuzk5T4
-         jRxQ==
-X-Gm-Message-State: AOAM533AE2VngZCnOvs8rux00+D3z3C2oKjSyTdRa+kSYkfXY+IKBX0+
-	5mKBzBo3M9yknsMQKnRtu/mPsrqWup0=
-X-Google-Smtp-Source: ABdhPJylqgTN+q9eFG6P4r4rrbDnnDPBZ/mKaGgpPy2xMX0NBCoCj0EkrnzoDSdjsq/Y7ZhgDJhUeg==
-X-Received: by 2002:a05:6214:21a5:: with SMTP id t5mr20788275qvc.20.1613501221837;
-        Tue, 16 Feb 2021 10:47:01 -0800 (PST)
-Return-Path: <vivien.didelot@gmail.com>
-Received: from localhost (modemcable249.105-163-184.mc.videotron.ca. [184.163.105.249])
-        by smtp.gmail.com with ESMTPSA id e15sm13702128qtq.43.2021.02.16.10.47.01
+        bh=Nm/bTBxq3lsgrCOsw5pY5jlumPZCtSceMXJzzd/4QVA=;
+        b=XACP9vfZojhlcoU2eWnlassCCIuuYC6y3TTEGe3s2/b+7bakSEDMbXlShkD48tZO/V
+         duWz9WSoX7UAJ/7+y9ydwb9g9lKE4n5UHZgp7GF/jzruh9GUiAv9+7zWtYQWug370grj
+         zLRdCBu5tNxSE3Jvx6ju8eowaaeNve/A3JKV6COoW/ATJUGHkt9suVW3bB0q9ypImQMu
+         uAQn0CyCL4SH5EUt+mGNwPQNb/5d4ki2nck5Bc8XQwewwiG3DqN/cL8Yf5bEv0b9tbaF
+         kVl1gazz1nwH6iPRIc2OdihQeOd7SN01HsQI38N1y9v9Hdn5kPxKPMKhe7g3PaBZ1hxF
+         XljA==
+X-Gm-Message-State: AOAM532w5XyOgE9WGblSrk6gJO4nD9aNUoZML7sBcB/lHCRFHe5/k8ms
+	jQDe3F6F8N/SZ4GkFLMWHGdBh+HoVaMQuZLMLfo=
+X-Google-Smtp-Source: ABdhPJwGN8KVCAjyAq9Sicxg714uPAL2hQkSWGdMOSnFQc0r5Wr0nooo1cd/oo9r6fh1z8WuXDAGUQ==
+X-Received: by 2002:aa7:94aa:0:b029:1eb:7783:69c5 with SMTP id a10-20020aa794aa0000b02901eb778369c5mr119307pfl.60.1613579527095;
+        Wed, 17 Feb 2021 08:32:07 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id f3sm2768517pfe.25.2021.02.17.08.32.05
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Feb 2021 10:47:01 -0800 (PST)
-From: "Vivien Didelot" <vivien.didelot@gmail.com>
-X-Google-Original-From: Vivien Didelot <vdidelot@pbsc.com>
+        Wed, 17 Feb 2021 08:32:06 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] local.conf.sample.extended: fix double 'of' typo
-Date: Tue, 16 Feb 2021 13:47:00 -0500
-Message-Id: <20210216184700.291821-1-vdidelot@pbsc.com>
-X-Mailer: git-send-email 2.30.1
+Subject: [meta-yocto][dunfell 0/1] Pull request
+Date: Wed, 17 Feb 2021 06:31:50 -1000
+Message-Id: <cover.1613579446.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove the redundant 'of' word in the INITRAMFS_IMAGE comment.
+The following changes since commit e5c4bf10f870a9f157a94ff940de36b5e18edf00:
 
-Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
----
- meta-poky/conf/local.conf.sample.extended | 2 +-
+  poky.conf: Bump version for 3.1.5 release (2021-01-12 07:19:22 -1000)
+
+are available in the Git repository at:
+
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Steve Sakoman (1):
+  poky.conf: Bump version for 3.1.6 release
+
+ meta-poky/conf/distro/poky.conf | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
-index dc92a16f6c..5e1edef58e 100644
---- a/meta-poky/conf/local.conf.sample.extended
-+++ b/meta-poky/conf/local.conf.sample.extended
-@@ -328,7 +328,7 @@ DISTRO_FEATURES_remove = "x11"
- # The INITRAMFS_IMAGE image variable will cause an additional recipe to
- # be built as a dependency to the what ever rootfs recipe you might be
- # using such as core-image-sato.  The initramfs might be needed for
--# the initial boot of of the target system such as to load kernel
-+# the initial boot of the target system such as to load kernel
- # modules prior to mounting the root file system.
- #
- # INITRAMFS_IMAGE_BUNDLE variable controls if the image recipe
 -- 
-2.30.1
+2.25.1
 
