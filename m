@@ -1,69 +1,45 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
- by mx.groups.io with SMTP id smtpd.web11.12752.1614607253856414421
+Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
+ by mx.groups.io with SMTP id smtpd.web09.12983.1614607971519493272
  for <poky@lists.yoctoproject.org>;
- Mon, 01 Mar 2021 06:00:54 -0800
+ Mon, 01 Mar 2021 06:12:51 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=FeKYgIZV;
- spf=softfail (domain: sakoman.com, ip: 209.85.210.176, mailfrom: steve@sakoman.com)
-Received: by mail-pf1-f176.google.com with SMTP id e3so7570971pfj.6
-        for <poky@lists.yoctoproject.org>; Mon, 01 Mar 2021 06:00:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=+n1hVJ0ukPLokLtFCR2kubzic10XA/wJzUjyDwzlOCE=;
-        b=FeKYgIZVw7GjaW7PZoh2UCR0/YCWri4d0CkUEkHOmVyQy9MlJhgXbPZenVHaZdi2Qw
-         MWl2Z5jwW3RkU3tGnKQpDyT8JaD5gB2tVDmAw7fJ3wPHKQAHhis8S9IzHFwSwBgvSKn9
-         miYd1kT7lt3o7s9QsahfYsDPA1twymc3/Tjv8kSxdTmeZzyYuphaM1Rf/BI2TQ/RnIeL
-         Wj53SR2I7kvjeKzT4ZgLE9GfZB2gqP0p2087pJz15N4IzGM7GQDPsrPUDgl3t5bs/+D+
-         kshkyJWhQsWNXlIms5X1pPWICTMUIkYTojBapXOpG0DBNJIE7eZYdFYgzISxDzeGTpSM
-         p+Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=+n1hVJ0ukPLokLtFCR2kubzic10XA/wJzUjyDwzlOCE=;
-        b=ujCab7ZkMAs2yEErlZVEZAHgyAvnk31Mflyr8QBoiHbjMU2e1REyiMQj7nimPASG3E
-         4zN1vE/5fEwMsCuhuDmIf+8qzH6SwoG7lum/AZg/UQ91GuDltVONMoILj1Cy4jKpaQ1f
-         /hRYAWapNDgE3SWqJ+KHJTp+ZczR6k/OKRUVPu0c95C6UxSvylU/5JbxzpIMGovUgxBz
-         lxGUZ4Q8YFZMHERywrE6Nz4LMpUSkSwjndug/u16DRfsUmB7h80nFqMqJcvzQGv7KDYE
-         UvcCW0En4IVtJvTxDG1WKL6M39zEhcnbpqd11G4o836rmXwp/RKcgIHm+a383P3cB7Ij
-         KCdA==
-X-Gm-Message-State: AOAM533+iMwiE9vg0vqiXQBAmoS3YyH+kU55E335txRsUISZpt6ACY0O
-	Jl6HXti3GYyq/onnVL1SctU7f1JqPI8IXNxqcFA=
-X-Google-Smtp-Source: ABdhPJzTpdQoGT8KkhpeogBTrqcInWy8ZXZDADAr/xyxleDVnhe9Kgk45H6R+LureBDhiOYz/9EExw==
-X-Received: by 2002:a62:15c5:0:b029:1ee:3bc5:8f5 with SMTP id 188-20020a6215c50000b02901ee3bc508f5mr14939668pfv.52.1614607252723;
-        Mon, 01 Mar 2021 06:00:52 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from localhost.localdomain (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
-        by smtp.gmail.com with ESMTPSA id e1sm17886823pjm.12.2021.03.01.06.00.51
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Mar 2021 06:00:52 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
-Date: Mon,  1 Mar 2021 04:00:35 -1000
-Message-Id: <cover.1614607083.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=missing; spf=pass (domain: windriver.com, ip: 147.11.146.13, mailfrom: kai.kang@windriver.com)
+Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.corp.ad.wrs.com [147.11.82.252])
+	by mail1.windriver.com (8.15.2/8.15.2) with ESMTPS id 121EBp8A017714
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 1 Mar 2021 06:11:56 -0800 (PST)
+Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
+ ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Mon, 1 Mar 2021 06:11:50 -0800
+Received: from pek-lpg-core3.wrs.com (128.224.153.232) by
+ ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
+ 15.1.2106.2 via Frontend Transport; Mon, 1 Mar 2021 06:11:49 -0800
+From: "kai" <kai.kang@windriver.com>
+To: <richard.purdie@linuxfoundation.org>, <kergoth@gmail.com>
+CC: <openembedded-core@lists.openembedded.org>, <poky@lists.yoctoproject.org>
+Subject: [PATCH v3 0/2] toolchain-scripts.bbclass: customize prompt
+Date: Mon, 1 Mar 2021 22:02:27 +0800
+Message-ID: <20210301140227.30972-1-kai.kang@windriver.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The following changes since commit 7ae5d508ddbdd7986a3100885befda460450ef34:
+From: Kai Kang <kai.kang@windriver.com>
 
-  poky.conf: Bump version for 3.1.6 release (2021-02-17 17:35:27 +0000)
+v3:
+* when SDK_PS1 is empty or not set, no change to PS1 of SDK 
+* not set SDK_PS1 by default
 
-are available in the Git repository at:
 
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+Kai Kang (2):
+  toolchain-scripts.bbclass: customize prompt string for SDKs
+  local.conf.sample.extended: sample value for SDk_PS1
 
-Richard Purdie (1):
-  poky.conf: Drop OELAYOUT_ABI poking
-
- meta-poky/conf/distro/poky.conf | 8 --------
- 1 file changed, 8 deletions(-)
+ meta-poky/conf/local.conf.sample.extended | 5 +++++
+ meta/classes/toolchain-scripts.bbclass    | 3 +++
+ 2 files changed, 8 insertions(+)
 
 -- 
-2.25.1
+2.17.1
 
