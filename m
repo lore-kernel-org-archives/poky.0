@@ -1,58 +1,218 @@
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
- by mx.groups.io with SMTP id smtpd.web08.12891.1614608253264525312
- for <poky@lists.yoctoproject.org>;
- Mon, 01 Mar 2021 06:17:33 -0800
-Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: windriver.com, ip: 147.11.146.13, mailfrom: kai.kang@windriver.com)
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.corp.ad.wrs.com [147.11.82.252])
-	by mail1.windriver.com (8.15.2/8.15.2) with ESMTPS id 121EH5GU019972
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 1 Mar 2021 06:17:05 -0800 (PST)
-Received: from ala-exchng01.corp.ad.wrs.com (147.11.82.252) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 1 Mar 2021 06:16:41 -0800
-Received: from pek-lpg-core3.wrs.com (128.224.153.232) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server id
- 15.1.2106.2 via Frontend Transport; Mon, 1 Mar 2021 06:16:39 -0800
-From: "kai" <kai.kang@windriver.com>
-To: <richard.purdie@linuxfoundation.org>, <kergoth@gmail.com>
-CC: <openembedded-core@lists.openembedded.org>, <poky@lists.yoctoproject.org>
-Subject: [meta-poky][PATCH v3 2/2] local.conf.sample.extended: sample value for SDk_PS1
-Date: Mon, 1 Mar 2021 22:16:34 +0800
-Message-ID: <20210301141634.6177-2-kai.kang@windriver.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210301141634.6177-1-kai.kang@windriver.com>
-References: <16683D655B45BE78.10373@lists.openembedded.org>
- <20210301141634.6177-1-kai.kang@windriver.com>
+Subject: Error in yocto compilation for SAMA5D3
+To: poky@lists.yoctoproject.org
+From: mikhail_smagin@yahoo.com
+X-Originating-Location: Moscow, RU (83.220.239.96)
+X-Originating-Platform: Windows Firefox 86
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain
+Date: Tue, 02 Mar 2021 06:10:41 -0800
+Message-ID: <kuoe.1614694241936572354.vysH@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="S8Mika42k9z8MjYxERVc"
 
-From: Kai Kang <kai.kang@windriver.com>
+--S8Mika42k9z8MjYxERVc
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Provides a sample default value for SDk_PS1 in
-local.conf.sample.extended. It will look like:
+Dear Colleagues!
+Please help me to deal with the following issue. I am trying to build yoct=
+o for ATSAMA5D3 Xplained using this manual: https://www.linux4sam.org/bin/v=
+iew/Linux4SAM/Sama5d3XplainedMainPage. I use LInux Mint installed on Virtua=
+lBox with Linaro as a cross compilation tool. I have all the success with b=
+ulding minimal image, but when I try to build the headless image, it goes u=
+p to 98%, then I receive a lo-o-ong list of messages with the following err=
+or passages:
 
-poky-glibc-x86_64--cortexa57-qemuarm64-pokysdk:$
+RROR: nodejs-12.20.1-r0 do_compile: oe_runmake failed
+ERROR: nodejs-12.20.1-r0 do_compile: Execution of '/home/mikhail/my_dir/po=
+ky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.2=
+0.1-r0/temp/run.do_compile.2869' failed with exit code 1:
+...
+libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: failed=
+ to set dynamic section sizes: memory exhausted
+collect2: error: ld returned 1 exit status
+cctest.target.mk:206: recipe for target 'Release/cctest' failed
+make[1]: *** [Release/cctest] Error 1
+...
+/home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-l=
+inux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux=
+-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.=
+3.0/ld: Please report this bug.
 
-Signed-off-by: Kai Kang <kai.kang@windriver.com>
----
- meta-poky/conf/local.conf.sample.extended | 5 +++++
- 1 file changed, 5 insertions(+)
+collect2: error: ld returned 1 exit status
+embedtest.target.mk:181: recipe for target 'Release/embedtest' failed
+make[1]: *** [Release/embedtest] Error 1
+rm a4a03f7944f5e0605fcc126ede9487eb5635547d.intermediate
+Makefile:104: recipe for target 'node' failed
+make: *** [node] Error 2
+WARNING: exit code 1 from a shell command.
 
-diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
-index ba1d0973b5..c241caa869 100644
---- a/meta-poky/conf/local.conf.sample.extended
-+++ b/meta-poky/conf/local.conf.sample.extended
-@@ -390,3 +390,8 @@ DISTRO_FEATURES_remove = "x11"
- #
- #require conf/distro/include/lto.inc
- #DISTRO_FEATURES_append = " lto"
-+
-+#
-+# Set PS1 for SDK
-+#
-+#SDK_PS1 ?= "${SDK_NAME}${SDK_VENDOR}:\$ "
--- 
-2.17.1
+ERROR: Logfile of failure stored in: /home/mikhail/my_dir/poky/build-micro=
+chip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.1-r0/temp/lo=
+g.do_compile.2869
+...
+home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-li=
+nux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux-=
+gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3=
+.0/ld: failed to set dynamic section sizes: memory exhausted
+| collect2: error: ld returned 1 exit status
+| cctest.target.mk:206: recipe for target 'Release/cctest' failed
+| make[1]: *** [Release/cctest] Error 1
+| make[1]: *** Waiting for unfinished jobs....
+| /home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky=
+-linux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-lin=
+ux-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/=
+9.3.0/ld: BFD (GNU Binutils) 2.34.0.20200220 internal error, aborting at ..=
+/../bfd/merge.c:929 in _bfd_merged_section_offset
+|
+| /home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky=
+-linux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-lin=
+ux-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/=
+9.3.0/ld: Please report this bug.
+|
+| collect2: error: ld returned 1 exit status
+| embedtest.target.mk:181: recipe for target 'Release/embedtest' failed
+| make[1]: *** [Release/embedtest] Error 1
+| rm a4a03f7944f5e0605fcc126ede9487eb5635547d.intermediate
+| Makefile:104: recipe for target 'node' failed
+| make: *** [node] Error 2
+| ERROR: oe_runmake failed
+| WARNING: exit code 1 from a shell command.
+| ERROR: Execution of '/home/mikhail/my_dir/poky/build-microchip/tmp/work/=
+cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.1-r0/temp/run.do_compile.2=
+869' failed with exit code 1:
+...
+| /home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky=
+-linux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-lin=
+ux-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/=
+9.3.0/ld: failed to set dynamic section sizes: memory exhausted
+| collect2: error: ld returned 1 exit status
+| cctest.target.mk:206: recipe for target 'Release/cctest' failed
+| make[1]: *** [Release/cctest] Error 1
+| make[1]: *** Waiting for unfinished jobs....
+| /home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky=
+-linux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-lin=
+ux-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/=
+9.3.0/ld: BFD (GNU Binutils) 2.34.0.20200220 internal error, aborting at ..=
+/../bfd/merge.c:929 in _bfd_merged_section_offset
+|
+| /home/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky=
+-linux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-lin=
+ux-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/=
+9.3.0/ld: Please report this bug.
+|
+| collect2: error: ld returned 1 exit status
+| embedtest.target.mk:181: recipe for target 'Release/embedtest' failed
+| make[1]: *** [Release/embedtest] Error 1
+| rm a4a03f7944f5e0605fcc126ede9487eb5635547d.intermediate
+| Makefile:104: recipe for target 'node' failed
+| make: *** [node] Error 2
+| WARNING: exit code 1 from a shell command.
+|
+ERROR: Task (/home/mikhail/my_dir/poky/../meta-openembedded/meta-oe/recipe=
+s-devtools/nodejs/nodejs_12.20.1.bb:do_compile) failed with exit code '1'
+NOTE: Tasks Summary: Attempted 5407 tasks of which 5385 didn't need to be =
+rerun and 1 failed.
 
+Summary: 1 task failed:
+/home/mikhail/my_dir/poky/../meta-openembedded/meta-oe/recipes-devtools/no=
+dejs/nodejs_12.20.1.bb:do_compile
+Summary: There was 1 WARNING message shown.
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code=
+.
+
+For me it looks rather strange, that memory is exhausted because my virtua=
+l Linux has about 5 Gigs of RAM and about 60 gigs on hard disk.
+
+Is there any way to deal with this issue?
+
+Thank you in advance.
+
+MS
+
+--S8Mika42k9z8MjYxERVc
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Colleagues!<br />Please help me to deal with the following issue. I am=
+ trying to build yocto for ATSAMA5D3 Xplained using this manual: <a href=3D=
+"https://www.linux4sam.org/bin/view/Linux4SAM/Sama5d3XplainedMainPage" targ=
+et=3D"_blank" rel=3D"noopener">https://www.linux4sam.org/bin/view/Linux4SAM=
+/Sama5d3XplainedMainPage</a>. I use LInux Mint installed on VirtualBox with=
+ Linaro as a cross compilation tool. I have all the success with bulding mi=
+nimal image, but when I try to build the headless image, it goes up to 98%,=
+ then I receive a lo-o-ong list of messages with the following error passag=
+es:<br /><br />RROR: nodejs-12.20.1-r0 do_compile: oe_runmake failed<br />E=
+RROR: nodejs-12.20.1-r0 do_compile: Execution of '/home/mikhail/my_dir/poky=
+/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.=
+1-r0/temp/run.do_compile.2869' failed with exit code 1:<br />...<br />libex=
+ec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: failed to se=
+t dynamic section sizes: memory exhausted<br />collect2: error: ld returned=
+ 1 exit status<br />cctest.target.mk:206: recipe for target 'Release/cctest=
+' failed<br />make[1]: *** [Release/cctest] Error 1<br />...<br />/home/mik=
+hail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnuea=
+bi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux-gnueabi/.=
+./../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: Pl=
+ease report this bug.<br /><br />collect2: error: ld returned 1 exit status=
+<br />embedtest.target.mk:181: recipe for target 'Release/embedtest' failed=
+<br />make[1]: *** [Release/embedtest] Error 1<br />rm a4a03f7944f5e0605fcc=
+126ede9487eb5635547d.intermediate<br />Makefile:104: recipe for target 'nod=
+e' failed<br />make: *** [node] Error 2<br />WARNING: exit code 1 from a sh=
+ell command.<br /><br />ERROR: Logfile of failure stored in: /home/mikhail/=
+my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/no=
+dejs/12.20.1-r0/temp/log.do_compile.2869<br />...<br />home/mikhail/my_dir/=
+poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12=
+.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux-gnueabi/../../libexec=
+/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: failed to set =
+dynamic section sizes: memory exhausted<br />| collect2: error: ld returned=
+ 1 exit status<br />| cctest.target.mk:206: recipe for target 'Release/ccte=
+st' failed<br />| make[1]: *** [Release/cctest] Error 1<br />| make[1]: ***=
+ Waiting for unfinished jobs....<br />| /home/mikhail/my_dir/poky/build-mic=
+rochip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.1-r0/recip=
+e-sysroot-native/usr/bin/arm-poky-linux-gnueabi/../../libexec/arm-poky-linu=
+x-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: BFD (GNU Binutils) 2.34.0.20=
+200220 internal error, aborting at ../../bfd/merge.c:929 in _bfd_merged_sec=
+tion_offset<br />| <br />| /home/mikhail/my_dir/poky/build-microchip/tmp/wo=
+rk/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-nat=
+ive/usr/bin/arm-poky-linux-gnueabi/../../libexec/arm-poky-linux-gnueabi/gcc=
+/arm-poky-linux-gnueabi/9.3.0/ld: Please report this bug.<br />| <br />| co=
+llect2: error: ld returned 1 exit status<br />| embedtest.target.mk:181: re=
+cipe for target 'Release/embedtest' failed<br />| make[1]: *** [Release/emb=
+edtest] Error 1<br />| rm a4a03f7944f5e0605fcc126ede9487eb5635547d.intermed=
+iate<br />| Makefile:104: recipe for target 'node' failed<br />| make: *** =
+[node] Error 2<br />| ERROR: oe_runmake failed<br />| WARNING: exit code 1 =
+from a shell command.<br />| ERROR: Execution of '/home/mikhail/my_dir/poky=
+/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.=
+1-r0/temp/run.do_compile.2869' failed with exit code 1:<br />...<br />| /ho=
+me/mikhail/my_dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux=
+-gnueabi/nodejs/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux-gnu=
+eabi/../../libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/=
+ld: failed to set dynamic section sizes: memory exhausted<br />| collect2: =
+error: ld returned 1 exit status<br />| cctest.target.mk:206: recipe for ta=
+rget 'Release/cctest' failed<br />| make[1]: *** [Release/cctest] Error 1<b=
+r />| make[1]: *** Waiting for unfinished jobs....<br />| /home/mikhail/my_=
+dir/poky/build-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodej=
+s/12.20.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux-gnueabi/../../lib=
+exec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: BFD (GNU B=
+inutils) 2.34.0.20200220 internal error, aborting at ../../bfd/merge.c:929 =
+in _bfd_merged_section_offset<br />| <br />| /home/mikhail/my_dir/poky/buil=
+d-microchip/tmp/work/cortexa5t2hf-vfp-poky-linux-gnueabi/nodejs/12.20.1-r0/=
+recipe-sysroot-native/usr/bin/arm-poky-linux-gnueabi/../../libexec/arm-poky=
+-linux-gnueabi/gcc/arm-poky-linux-gnueabi/9.3.0/ld: Please report this bug.=
+<br />| <br />| collect2: error: ld returned 1 exit status<br />| embedtest=
+.target.mk:181: recipe for target 'Release/embedtest' failed<br />| make[1]=
+: *** [Release/embedtest] Error 1<br />| rm a4a03f7944f5e0605fcc126ede9487e=
+b5635547d.intermediate<br />| Makefile:104: recipe for target 'node' failed=
+<br />| make: *** [node] Error 2<br />| WARNING: exit code 1 from a shell c=
+ommand.<br />| <br />ERROR: Task (/home/mikhail/my_dir/poky/../meta-openemb=
+edded/meta-oe/recipes-devtools/nodejs/nodejs_12.20.1.bb:do_compile) failed =
+with exit code '1'<br />NOTE: Tasks Summary: Attempted 5407 tasks of which =
+5385 didn't need to be rerun and 1 failed.<br /><br />Summary: 1 task faile=
+d:<br />&nbsp; /home/mikhail/my_dir/poky/../meta-openembedded/meta-oe/recip=
+es-devtools/nodejs/nodejs_12.20.1.bb:do_compile<br />Summary: There was 1 W=
+ARNING message shown.<br />Summary: There were 2 ERROR messages shown, retu=
+rning a non-zero exit code.<br /><br />For me it looks rather strange, that=
+ memory is exhausted because my virtual Linux has about 5 Gigs of RAM and a=
+bout 60 gigs on hard disk.<br /><br />Is there any way to deal with this is=
+sue?<br /><br />Thank you in advance.<br /><br />MS
+
+--S8Mika42k9z8MjYxERVc--
