@@ -1,80 +1,78 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
- by mx.groups.io with SMTP id smtpd.web11.12770.1614955102655480203
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+ by mx.groups.io with SMTP id smtpd.web11.12772.1614955107437391385
  for <poky@lists.yoctoproject.org>;
- Fri, 05 Mar 2021 06:38:22 -0800
+ Fri, 05 Mar 2021 06:38:27 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=W1zPc0CY;
- spf=softfail (domain: sakoman.com, ip: 209.85.210.172, mailfrom: steve@sakoman.com)
-Received: by mail-pf1-f172.google.com with SMTP id a188so2293754pfb.4
-        for <poky@lists.yoctoproject.org>; Fri, 05 Mar 2021 06:38:22 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=VHVisFP6;
+ spf=softfail (domain: sakoman.com, ip: 209.85.215.182, mailfrom: steve@sakoman.com)
+Received: by mail-pg1-f182.google.com with SMTP id l2so1504487pgb.1
+        for <poky@lists.yoctoproject.org>; Fri, 05 Mar 2021 06:38:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=sakoman-com.20150623.gappssmtp.com; s=20150623;
         h=from:to:subject:date:message-id:in-reply-to:references:mime-version
          :content-transfer-encoding;
-        bh=jhBmBc6iPV/3mZkTwFVdEyrmALJ93Tc6XffZqmZ12eY=;
-        b=W1zPc0CYICEw+fv1fjFABE4EhS2w2pXCvjuueFpsficEFCNFv1jMUchUDE+F+0AQF+
-         CmuFCPGlhEhZHrcUvkAnxk+2csd+6S0uyJXprj37+lgbUff+Ocuqyz8GRtlwttLKDHCD
-         Rhb8R/3F7jv3xxxQBAamK9dyMovW6plhnOonq+GZUwg5R6HvmYGWdA0w/IdlZf0m77Jk
-         BixW6FojLqR7jneBmv7OgUSXxf0Ws18N9sndQEVYGNnzOoXf1W6TZG9+dMNdO12x/eUD
-         Mq37I+Tqqy+uqWf33eg2eL+yCifE/okxolDMId/XssQwJQNXx2TYcT19XGC4STfHN7g6
-         z+dQ==
+        bh=KKsibjd0oa1XmmJKa0ZE6ocM5b7yZq9o6xKHo9GnC0o=;
+        b=VHVisFP6PnvjhRCAlevI/DYA45tfwmODxdsnRGc79HSUYzJmwl1SHziBDZj2Hkrd7A
+         F8aOmccvegNu0LBZ/MBlvi5GFCTi0Fx+jipOsmpCavJzlVofg9yekvnO5CKDk+vRibAn
+         /cD7Mtut9hMO3RvBaK6ZY19BjpQp7J8uoo/LX0XBCcr38AyTsCYqSVmMWG7F/IbzgM8d
+         ZvVjqR8trkKKvkpv4zid4xM+tCecgoQSpziOZ+vdAZhgGz2RXgf5zago29p0PZRfr+VL
+         sqke06aar+nGrRD9pQI0HvcVFkc2+sxG/aTn3ir2Bxc47avvCEMdXnNaKwDn41vnQAX5
+         d/Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=jhBmBc6iPV/3mZkTwFVdEyrmALJ93Tc6XffZqmZ12eY=;
-        b=euCGqNdgyeBqX6htsvkp8RtQq807mZhg1IgbPwydcP+LLpV7xxH2Ov6QZYm4MjngGH
-         At9P7x7/jybm9tRnrxbVUeq9wnzyZ2g3dqTMN1MRToJ39O5slTDGli7pq65Y99V+VzMH
-         srqaCe4gDRXauGbWEKaRXO39+JFDxdmBTyOn16TjiT2Ti/Uka35H3Ve5Ht7oKw4cJavm
-         nwc9rw0yXRDYwkrZ3ohAkcu1edten3ehOmhQNJ+Lm10OVwNjYFp1UeakCbIgEU8vLZaf
-         jnsDf9tCt7QE+sncrlifu3GuNiJ5Hm4OJElfQVkwEVNg95QFRDX5CrAtGYJ+7wa1JVmf
-         l0jA==
-X-Gm-Message-State: AOAM532n5nwUDdVogxAPVoin6Q0QKbClA2NGFxoKD9Yvjpc98UaztWSs
-	5B3GzEtnsnErZ1cFomBUPPFkwiJfJFTdEZkC
-X-Google-Smtp-Source: ABdhPJwyBuq4jmyyLYj9jsXJIP2sSt+B5XrAXEfzLuQ+W0G/5YKmLrh6w0oJekALCzmF+/cEIaEVpA==
-X-Received: by 2002:a63:b60b:: with SMTP id j11mr371240pgf.19.1614955101632;
-        Fri, 05 Mar 2021 06:38:21 -0800 (PST)
+        bh=KKsibjd0oa1XmmJKa0ZE6ocM5b7yZq9o6xKHo9GnC0o=;
+        b=QyBuQMnN8x3y57j/wVqlAX5Pv/BLVRZC5lg1nQ51agf8j8smTUl5KdRokl/Wusj/Ni
+         82IW3avNrsZZbyYGj8It3JTzFeBK1lfWDkbXE4nUdkzhhjgwyNfBl7s8y8P1RVIuRNsb
+         OjhdiFlD3J+XToHSrNKvhB4Rm1PTL2KwQNcPvI/P98SLMAp+XE/+E1ChGm+pOUrtzmxM
+         9ijneDGaU1fSeS+A2uTBud6FBIovBc1hMUKhocr+D2sv8b7MSYavLSwFRdAR0H23s8WC
+         FVCLoydK1iRMDSHspXpfHLg/FONyZ/71XodZGVm9r4+UhBLdzJMtJ01FHdcoKrVSSrkO
+         Xf6A==
+X-Gm-Message-State: AOAM5321SiERfv1Fni9y3nC5gtiLsMQ8VdBRNpn/kMUaU4syCaLmFh/E
+	lpx5kDLS6YtFwOrHSIJLceG6DIpmk0QlAHny
+X-Google-Smtp-Source: ABdhPJx8jrUIP72AhUjWMxxadBzmk7WYhqznlomHuP009Xq68Ms22+d3Why/uh2yLCxfqVNjnrR9qg==
+X-Received: by 2002:a63:e415:: with SMTP id a21mr8707429pgi.241.1614955106401;
+        Fri, 05 Mar 2021 06:38:26 -0800 (PST)
 Return-Path: <steve@sakoman.com>
 Received: from localhost.localdomain ([72.173.249.164])
-        by smtp.gmail.com with ESMTPSA id i10sm858416pjm.1.2021.03.05.06.38.18
+        by smtp.gmail.com with ESMTPSA id i10sm858416pjm.1.2021.03.05.06.38.23
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Mar 2021 06:38:21 -0800 (PST)
+        Fri, 05 Mar 2021 06:38:26 -0800 (PST)
 From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 4/6] linux-yocto: update genericx86* SRCREV for 5.4
-Date: Fri,  5 Mar 2021 04:37:30 -1000
-Message-Id: <5c56555e21ca4d8d245edbc3381be5c01eecb5c5.1614954239.git.steve@sakoman.com>
+Subject: [meta-yocto][dunfell 5/6] linux-yocto: update genericx86 to v5.4.87
+Date: Fri,  5 Mar 2021 04:37:31 -1000
+Message-Id: <35bf4870d6a21ec337e64364f59e65a585349dc4.1614954239.git.steve@sakoman.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1614954239.git.steve@sakoman.com>
 References: <cover.1614954239.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Naveen Saini <naveen.kumar.saini@intel.com>
+From: Anuj Mittal <anuj.mittal@intel.com>
 
-Bump to kernel release v5.4.69
-
-Signed-off-by: Naveen Saini <naveen.kumar.saini@intel.com>
+Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
 Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-(cherry picked from commit 672c04902d733e150a5bbdbcb6cc9ce1cc5ee9a9)
+(cherry picked from commit 5b5498295bfbe3ca7b2adf9e23228262c3e38f2d)
 Signed-off-by: Steve Sakoman <steve@sakoman.com>
 ---
  .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-index 9c37f91..4ee895d 100644
+index 4ee895d..91500b8 100644
 --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
 +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
 @@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
  KMACHINE_genericx86-64 ?= "common-pc-64"
  KMACHINE_beaglebone-yocto ?= "beaglebone"
  
--SRCREV_machine_genericx86 ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
--SRCREV_machine_genericx86-64 ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
-+SRCREV_machine_genericx86 ?= "cfcdd63145c0d741e57ee3e3e58f794229c6c09c"
-+SRCREV_machine_genericx86-64 ?= "cfcdd63145c0d741e57ee3e3e58f794229c6c09c"
+-SRCREV_machine_genericx86 ?= "cfcdd63145c0d741e57ee3e3e58f794229c6c09c"
+-SRCREV_machine_genericx86-64 ?= "cfcdd63145c0d741e57ee3e3e58f794229c6c09c"
++SRCREV_machine_genericx86 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
++SRCREV_machine_genericx86-64 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
  SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
  SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
  
@@ -82,10 +80,10 @@ index 9c37f91..4ee895d 100644
  COMPATIBLE_MACHINE_edgerouter = "edgerouter"
  COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
  
--LINUX_VERSION_genericx86 = "5.4.58"
--LINUX_VERSION_genericx86-64 = "5.4.58"
-+LINUX_VERSION_genericx86 = "5.4.69"
-+LINUX_VERSION_genericx86-64 = "5.4.69"
+-LINUX_VERSION_genericx86 = "5.4.69"
+-LINUX_VERSION_genericx86-64 = "5.4.69"
++LINUX_VERSION_genericx86 = "5.4.87"
++LINUX_VERSION_genericx86-64 = "5.4.87"
  LINUX_VERSION_edgerouter = "5.4.58"
  LINUX_VERSION_beaglebone-yocto = "5.4.58"
 -- 
