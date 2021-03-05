@@ -1,91 +1,124 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
- by mx.groups.io with SMTP id smtpd.web08.12710.1614955112800571424
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+ by mx.groups.io with SMTP id smtpd.web08.13786.1614959369299011737
  for <poky@lists.yoctoproject.org>;
- Fri, 05 Mar 2021 06:38:32 -0800
+ Fri, 05 Mar 2021 07:49:29 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=YpFnkUUe;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.53, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f53.google.com with SMTP id i4-20020a17090a7184b02900bfb60fbc6bso6174708pjk.0
-        for <poky@lists.yoctoproject.org>; Fri, 05 Mar 2021 06:38:32 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=rW0WSvUZ;
+ spf=pass (domain: gmail.com, ip: 209.85.160.177, mailfrom: raj.khem@gmail.com)
+Received: by mail-qt1-f177.google.com with SMTP id b3so2009840qtj.10
+        for <poky@lists.yoctoproject.org>; Fri, 05 Mar 2021 07:49:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
-         :content-transfer-encoding;
-        bh=WYIRlSPPCjrkBhxWivaSLMg0qaENKUC7BgAFAsiZRWY=;
-        b=YpFnkUUe9qZLJnLLqSLYUAHW9c6zgIWEy89L4hW725rDoUhVLvDwlkB4jhByK8EQSl
-         OOD4vptnFQ3l2uoVTscNCdzbuWnzuKnSIyP7OpsZaSXlSs7XmXuBYVtJtrwbKeDCBHdZ
-         C6vjwsJO/tPDRV03hKUV7mohAMbtIkGZCz0Ehi6xahvBnpSNsIjdn/rDXMyoaAVa9Uxi
-         KoCwhFUxj6lkVRP/aYGEKbnjlVMYJkTGoXCZSTqd2aZGm1AmoFXkPVAnjmA7/4TyBkNe
-         UZHi/UDpoEaullGWv8+SWZDXIjRmaYAG7o8PQAbe2FiA6aL8NhGLTW+8mpjqoOM4fefe
-         GUGQ==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=DMVkBvRVY+NxuTxgQyahjJ4pXj2eC4GCE2LRz9kZRKA=;
+        b=rW0WSvUZM78CDNxg24i9uQHgSv7hmD5m42I77Bg9rZfBw98WRTISgsWQz/wh8rA8Iq
+         gvrPGMT5D4MUhU7yBOQnaxtCE7fg+AM/zzq7X/Ps4oYJmHxEjWZBgUUFO6f2ZR1YrSWL
+         TjSwC/LKw4kYoHY7IHKGguAqrkNOjkw/zqCCeZUjCvzYC0cb6z0Xe0fn+x/eueF9dZKx
+         KKix0R21gpl6YxS9bJndRe5WnL7CpHADXNkbyfmVssYquDJMH/QWNTLSb3Ejgj+cQ5kT
+         kC3d4LNC8HSqicLpBfPhCFs8RRgbfZJom2P4Xaq+srdu+PjtRf9cgkIX44nV5/Htn0Ne
+         +drw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=WYIRlSPPCjrkBhxWivaSLMg0qaENKUC7BgAFAsiZRWY=;
-        b=V3tP2sRpP5vBiDzgI3KKn7+D889LkEDHyWWpoEcSITUgYUcR/b8UR+mKxfTNRoFuAm
-         JvUCFESXeqURWhtapRzH4IYrLw4EqyQiw0VrtlooCAKKdSTjqqKU/7cNjF90s/xOuZyX
-         UP8PNzC1NssKpdmpPJn66+MFfNBNcieEaY93mdeAeiFDXNrOOqFOgkSAXqrZ6VGwECIb
-         Zgruutc08MP4+R6dD+IboJxn4JhVhz965tFbe6CnDwqzE53+n62PTe/xLml3ve63SHyy
-         gucgyhS8mT3ZYNt+Wi01X+5++yJNrPX4fI/G3rnnI+lHFw1TdjtuSqU+c+ODrIOhDtI7
-         fnGg==
-X-Gm-Message-State: AOAM530K7Uv0VSuXnYv0jK1SY0OELWopLroz7kyFHGOs4sFVuerl/MfL
-	TGR6FwIUgiAyvcSJmegf0du9FUy2pgC6X4rt
-X-Google-Smtp-Source: ABdhPJy2Bm87RC3Ehz6HSUsdHqhlO74fsbhGpTz/WaL/Kiy0gUXeIivUq/Bb98rZmzPVnjXOIBvgSQ==
-X-Received: by 2002:a17:902:d113:b029:e4:9cda:dbd with SMTP id w19-20020a170902d113b02900e49cda0dbdmr8924415plw.85.1614955111834;
-        Fri, 05 Mar 2021 06:38:31 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from localhost.localdomain ([72.173.249.164])
-        by smtp.gmail.com with ESMTPSA id i10sm858416pjm.1.2021.03.05.06.38.28
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Mar 2021 06:38:31 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 6/6] linux-yocto: update genericx86* to v5.4.94
-Date: Fri,  5 Mar 2021 04:37:32 -1000
-Message-Id: <b941538cd97349dfbeb7dbb3ed5a9d200c7e1776.1614954239.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1614954239.git.steve@sakoman.com>
-References: <cover.1614954239.git.steve@sakoman.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=DMVkBvRVY+NxuTxgQyahjJ4pXj2eC4GCE2LRz9kZRKA=;
+        b=R9TeA4h9j0J/yy4ER9V8IZe6XW3Rl8/BV/ZF+WIRxL3W41ypsxzy6asjxqAKQEn1DT
+         oZVM+YmfAzDSRiO3TZ5eUTB6joXeN05ocoJaAdYhmp5aM0c7/Hzw4SCjEqg6UO3BUBv/
+         EOz7vrjZY3tCoIfzmcBJPKY332YxI2iBEr2Xsvm5iWCs2+2WPLmh3+rCk+8c/YgC3xSu
+         dKd399qFI10bIk8QjomlH4cgW6tzfgQ9kcujBt4d3kSARoTpG6jxpvkqjwga8SVZGA9z
+         AbYVp+RcfSEQmvytBKGPeOU6+0XjEwTjHL5XUH0sOdDTFBGbd95jGB4NZxEPeXyeO4Xt
+         +SVA==
+X-Gm-Message-State: AOAM531VvIHOLQ5K/MKIUXcfwW4ojvBupHEdvcDPPCRGuGExwYUOxtQl
+	AsgL2WvfAL5XkMVDu4BHX9q1OW1U3vg7vQIMrc8=
+X-Google-Smtp-Source: ABdhPJyAoalahG6pV7gtYcKI9hOL2ms7f8kHyk40n1gq8Jmo0w9gvv3cZQ5r0GlEGAElsp0kIxmiIb69b6Bwyxy5+jU=
+X-Received: by 2002:ac8:74c9:: with SMTP id j9mr9323438qtr.369.1614959368239;
+ Fri, 05 Mar 2021 07:49:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1614954239.git.steve@sakoman.com> <d0aa2708a0e66bff19a84385a8227e933e0a09a3.1614954239.git.steve@sakoman.com>
+In-Reply-To: <d0aa2708a0e66bff19a84385a8227e933e0a09a3.1614954239.git.steve@sakoman.com>
+From: "Khem Raj" <raj.khem@gmail.com>
+Date: Fri, 5 Mar 2021 07:49:00 -0800
+Message-ID: <CAMKF1sqGz6iWrgn9BHXcBHauQZ0cEwZHfuAxW_3t79UbZ2LLPw@mail.gmail.com>
+Subject: Re: [poky] [meta-yocto][dunfell 3/6] local.conf.sample.extended: Bring back into sync with OE-Core
+To: Steve Sakoman <steve@sakoman.com>
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Anuj Mittal <anuj.mittal@intel.com>
+check if all it recommends is available in dunfell, e.g. I am not sure about lto
 
-Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-(cherry picked from commit b05a89a04002ddce2d82a22874def608e7748871)
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-index 91500b8..35147d2 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine_genericx86 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
--SRCREV_machine_genericx86-64 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
-+SRCREV_machine_genericx86 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
-+SRCREV_machine_genericx86-64 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
- SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- 
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- 
--LINUX_VERSION_genericx86 = "5.4.87"
--LINUX_VERSION_genericx86-64 = "5.4.87"
-+LINUX_VERSION_genericx86 = "5.4.94"
-+LINUX_VERSION_genericx86-64 = "5.4.94"
- LINUX_VERSION_edgerouter = "5.4.58"
- LINUX_VERSION_beaglebone-yocto = "5.4.58"
--- 
-2.25.1
-
+On Fri, Mar 5, 2021 at 6:38 AM Steve Sakoman <steve@sakoman.com> wrote:
+>
+> From: Richard Purdie <richard.purdie@linuxfoundation.org>
+>
+> Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+> (cherry picked from commit ea6e777cac72f22b56b2c8be0ba05ba164efe5de)
+> Signed-off-by: Steve Sakoman <steve@sakoman.com>
+> ---
+>  meta-poky/conf/local.conf.sample.extended | 29 +++++++++++++++++++----
+>  1 file changed, 24 insertions(+), 5 deletions(-)
+>
+> diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
+> index 9e85736..54ba7ce 100644
+> --- a/meta-poky/conf/local.conf.sample.extended
+> +++ b/meta-poky/conf/local.conf.sample.extended
+> @@ -23,6 +23,13 @@
+>  #
+>  # For a quad-core machine, BB_NUMBER_THREADS = "4", PARALLEL_MAKE = "-j 4" would
+>  # be appropriate for example.
+> +#
+> +# Some users are behind firewalls or use servers where the number of parallel connections
+> +# is limited. In such cases you can limit the number of fetch tasks which run in parallel by
+> +# setting the option below, in this case limiting to a maximum of 4 fetch tasks in parallel:
+> +#
+> +#do_fetch[number_threads] = "4"
+> +#
+>
+>  # If you want to get an image based on directfb without x11 alter
+>  # DISTRO_FEATURES:
+> @@ -87,10 +94,7 @@ DISTRO_FEATURES_remove = "x11"
+>  # PACKAGE_DEBUG_SPLIT_STYLE = 'debug-file-directory'
+>
+>  # Uncomment these to build a package such that you can use gprof to profile it.
+> -# NOTE: This will only work with 'linux' targets, not
+> -# 'linux-uclibc', as uClibc doesn't provide the necessary
+> -# object files.  Also, don't build glibc itself with these
+> -# flags, or it'll fail to build.
+> +# NOTE: Don't build glibc itself with these flags, or it'll fail to build.
+>  #
+>  # PROFILE_OPTIMIZATION = "-pg"
+>  # SELECTED_OPTIMIZATION = "${PROFILE_OPTIMIZATION}"
+> @@ -191,7 +195,8 @@ DISTRO_FEATURES_remove = "x11"
+>  #                           commercial_lame \
+>  #                           commercial_libmad \
+>  #                           commercial_libomxil \
+> -#                           commercial_mpeg2dec"
+> +#                           commercial_mpeg2dec \
+> +#                           commercial_qmmp"
+>
+>
+>  #
+> @@ -374,3 +379,17 @@ DISTRO_FEATURES_remove = "x11"
+>  #INIT_MANAGER = "sysvinit"
+>  #INIT_MANAGER = "systemd"
+>  #INIT_MANAGER = "mdev-busybox"
+> +
+> +#
+> +# Use a full set of packages instead of busybox for base utils
+> +#
+> +#PREFERRED_PROVIDER_base-utils = "packagegroup-core-base-utils"
+> +#VIRTUAL-RUNTIME_base-utils = "packagegroup-core-base-utils"
+> +#VIRTUAL-RUNTIME_base-utils-hwclock = "util-linux-hwclock"
+> +#VIRTUAL-RUNTIME_base-utils-syslog = "syslog"
+> +
+> +#
+> +# Enable LTO system-wide
+> +#
+> +#require conf/distro/include/lto.inc
+> +#DISTRO_FEATURES_append = " lto"
+> --
+> 2.25.1
+>
+>
+> 
+>
