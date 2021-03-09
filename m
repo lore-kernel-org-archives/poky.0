@@ -1,132 +1,89 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
- by mx.groups.io with SMTP id smtpd.web11.14358.1614961082252335450
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+ by mx.groups.io with SMTP id smtpd.web09.12929.1615312047220049783
  for <poky@lists.yoctoproject.org>;
- Fri, 05 Mar 2021 08:18:02 -0800
+ Tue, 09 Mar 2021 09:47:27 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=hnNQkP8h;
- spf=softfail (domain: sakoman.com, ip: 209.85.221.48, mailfrom: steve@sakoman.com)
-Received: by mail-wr1-f48.google.com with SMTP id u14so2715603wri.3
-        for <poky@lists.yoctoproject.org>; Fri, 05 Mar 2021 08:18:01 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=BRrhdXbu;
+ spf=pass (domain: gmail.com, ip: 209.85.160.180, mailfrom: vivien.didelot@gmail.com)
+Received: by mail-qt1-f180.google.com with SMTP id l7so2384905qtq.7
+        for <poky@lists.yoctoproject.org>; Tue, 09 Mar 2021 09:47:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Dd6wcKK8qemP5SBhh/Ku3uS3ccPzxEktCCTYp+fMAqM=;
-        b=hnNQkP8hWEcWihqjSGQ9u1KEiDrclYQWuL/uQm544TQoaO44Awn3Otgvgcnc/4G/9T
-         lxHfbILFKVwnRAwhso0UC/UQ74RSkSZzE6YMYFRq2ZT/Bp5XIbtGqTfnoviLReeM8YzE
-         WH2+ORwzxKN0U9IcyygzhQhzu81fsCYwS/IxA7goYs3pxepeC+PtlNj0HOxcul1lEvs0
-         644iUWN10avN7lTi7GSpY/PY5hkMF59SHI7YmqJhj0My1AOtIp4qoBA8kqTAVVioG6zW
-         gS9xRbDkBFLtWQ/Lk79iWcd/yj6pQ2lu+p31txbRc0AwD6IaJzwS2xLSpWT1qeIPlXFd
-         FClg==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Q0rZZ9WxnBeYFHXjnhYSQjW+akZpoHxhEdADhoKUpks=;
+        b=BRrhdXbuoHYkAWyiY/vdBMYZJldLGBSZyInFQ7zHwPqZs2yPV49EYlb3ZQiSFoO4hE
+         LtB0YW53rTng4T8yQd2lKy3qhKbft/xRzupgwWoYyn/EcwoIPhwO5eWOjdOzHdDNBHvV
+         oYlgtxbGzaINHR8BF06ZjWH+reEtzIq6KpB83E9fhk9MN/ILjoSGVmlr+bWon9NZ2etm
+         sXhpjBQPucHTwi7rIohyzyFtHaL/06yyn4rQj3dQj8vFfUfzpe8Eekz5V6zLDlWVsxsS
+         tw6mokigTnirY84Qi5Pwb4PM/xA5xSh2nd5CLic7LqJZ9M1b+dD7lwKEeyMGD2eKSbLx
+         T3eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Dd6wcKK8qemP5SBhh/Ku3uS3ccPzxEktCCTYp+fMAqM=;
-        b=XOSdBeF5IM2B6Z5wWTynL1W3C8Wltl7JpHnlGUhq/Q1GH6iKx+Li4KM08Eg6jz7+n9
-         8YpWRfiwksasRJNIPRRlCiVtVrN6i6loc3z/D1jJUTwf4RlMxVrGoNW+pOmYYLDaF2YE
-         mbx+P+8KYakwMNaWUYBFyuXkSscHHwbt7J2bTs6/ZdEnAYAaP2IHv8VOr9E5HV6ZTW1l
-         E/Ep3Q0o9VIyg/2ziqqhDwA+Z+O7Bie5NMsCq00la3H5aw6sGxFgqW6MH2D2RtXtYshv
-         bQMyK4uAtKinfdVjN9STsnJ0cGYN6eI9ufZJTZHlUp6SIIZ7atkgEg0GuN+IqKsBgwu/
-         LJvQ==
-X-Gm-Message-State: AOAM531p8PIiUouSEc5IAop4E7MdC8QSB8ORGUO7SwWTS+gLRhTRE9mh
-	p9hrpfjGD6hu/+Ui1RFWoZJxuMLO1xzjKJXeRH1KKg==
-X-Google-Smtp-Source: ABdhPJzPUFm+tw/T0bnSyNZ/WmGtnPMIDDeG8XbMNIA/reQHoGr2Yx2UyidQR0dbfAAfNftWPKENEj7horyE1jDtzuc=
-X-Received: by 2002:a5d:4587:: with SMTP id p7mr10185745wrq.205.1614961080674;
- Fri, 05 Mar 2021 08:18:00 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Q0rZZ9WxnBeYFHXjnhYSQjW+akZpoHxhEdADhoKUpks=;
+        b=h75/RhPA5AcHWWa27D94qMQ7Xap2/V6jNe1QO3zMd3950Di6ozG2XhQiurkzw+6aOf
+         8M8RE6Hhj6L1+DFKk9kzTMavqbBADJNo5t6q78UQttCZzQkgvsf7ToCbgZh6qmkKE1kB
+         QyF9J/aoZIsNXDXEirL5zYDNGk0u1voIwYgDM+llpVDc2siwCee758xQOz5H0714TekX
+         IAgNCBmE/5QL1wS9YK8WRsGdGPbOgx6/3HesTGj3sScNQzHJDANqOAFnhlflmzQGutqT
+         ZQ2FmBAUlLromWdSZ6Nufb9Tq+gXbIsHZTbqQa6SsMT8HcfXZu9QIxBpY9ES+BVjPp5q
+         ztew==
+X-Gm-Message-State: AOAM5322t3vhLwBiQXwj6LqClN2dPJ/l8lzakyp7gSmX3DOgIelJAsmU
+	ueNBTcJCaNcqOtjF5BMz1hRRraNaQUc=
+X-Google-Smtp-Source: ABdhPJwFC03m/8bL5WarX72Yk1dtQhP23a+vTk9+6dxvzIlIB/aypAQWSWGDAIhmbnciKrg5KWBa+g==
+X-Received: by 2002:ac8:36d1:: with SMTP id b17mr19389048qtc.319.1615312046106;
+        Tue, 09 Mar 2021 09:47:26 -0800 (PST)
+Return-Path: <vivien.didelot@gmail.com>
+Received: from localhost (modemcable249.105-163-184.mc.videotron.ca. [184.163.105.249])
+        by smtp.gmail.com with ESMTPSA id 124sm10677191qkn.121.2021.03.09.09.47.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Mar 2021 09:47:25 -0800 (PST)
+From: "Vivien Didelot" <vivien.didelot@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Richard Purdie <richard.purdie@linuxfoundation.org>,
+	Vivien Didelot <vdidelot@pbsc.com>
+Subject: [meta-yocto][PATCH 1/3] poky: fix typos
+Date: Tue,  9 Mar 2021 12:47:13 -0500
+Message-Id: <20210309174715.26432-1-vivien.didelot@gmail.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-References: <cover.1614954239.git.steve@sakoman.com> <d0aa2708a0e66bff19a84385a8227e933e0a09a3.1614954239.git.steve@sakoman.com>
- <CAMKF1sqGz6iWrgn9BHXcBHauQZ0cEwZHfuAxW_3t79UbZ2LLPw@mail.gmail.com>
-In-Reply-To: <CAMKF1sqGz6iWrgn9BHXcBHauQZ0cEwZHfuAxW_3t79UbZ2LLPw@mail.gmail.com>
-From: "Steve Sakoman" <steve@sakoman.com>
-Date: Fri, 5 Mar 2021 06:17:48 -1000
-Message-ID: <CAOSpxdbC5TRtaYYhGbo1b5uAmgN8tFYqczAZw02opg=WBFmqBA@mail.gmail.com>
-Subject: Re: [poky] [meta-yocto][dunfell 3/6] local.conf.sample.extended: Bring back into sync with OE-Core
-To: Khem Raj <raj.khem@gmail.com>
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 5, 2021 at 5:49 AM Khem Raj <raj.khem@gmail.com> wrote:
->
-> check if all it recommends is available in dunfell, e.g. I am not sure about lto
+From: Vivien Didelot <vdidelot@pbsc.com>
 
-Thanks for catching this Khem.  The other two patches were the
-important ones, I'll drop this one from the pull request.
+Fix fromw -> from typo in poky-world-exclude.inc,
+and confiruration -> configuration in poky-tiny.conf.
 
-Steve
+Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
+---
+ meta-poky/conf/distro/include/poky-world-exclude.inc | 2 +-
+ meta-poky/conf/distro/poky-tiny.conf                 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-> On Fri, Mar 5, 2021 at 6:38 AM Steve Sakoman <steve@sakoman.com> wrote:
-> >
-> > From: Richard Purdie <richard.purdie@linuxfoundation.org>
-> >
-> > Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-> > (cherry picked from commit ea6e777cac72f22b56b2c8be0ba05ba164efe5de)
-> > Signed-off-by: Steve Sakoman <steve@sakoman.com>
-> > ---
-> >  meta-poky/conf/local.conf.sample.extended | 29 +++++++++++++++++++----
-> >  1 file changed, 24 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/local.conf.sample.extended
-> > index 9e85736..54ba7ce 100644
-> > --- a/meta-poky/conf/local.conf.sample.extended
-> > +++ b/meta-poky/conf/local.conf.sample.extended
-> > @@ -23,6 +23,13 @@
-> >  #
-> >  # For a quad-core machine, BB_NUMBER_THREADS = "4", PARALLEL_MAKE = "-j 4" would
-> >  # be appropriate for example.
-> > +#
-> > +# Some users are behind firewalls or use servers where the number of parallel connections
-> > +# is limited. In such cases you can limit the number of fetch tasks which run in parallel by
-> > +# setting the option below, in this case limiting to a maximum of 4 fetch tasks in parallel:
-> > +#
-> > +#do_fetch[number_threads] = "4"
-> > +#
-> >
-> >  # If you want to get an image based on directfb without x11 alter
-> >  # DISTRO_FEATURES:
-> > @@ -87,10 +94,7 @@ DISTRO_FEATURES_remove = "x11"
-> >  # PACKAGE_DEBUG_SPLIT_STYLE = 'debug-file-directory'
-> >
-> >  # Uncomment these to build a package such that you can use gprof to profile it.
-> > -# NOTE: This will only work with 'linux' targets, not
-> > -# 'linux-uclibc', as uClibc doesn't provide the necessary
-> > -# object files.  Also, don't build glibc itself with these
-> > -# flags, or it'll fail to build.
-> > +# NOTE: Don't build glibc itself with these flags, or it'll fail to build.
-> >  #
-> >  # PROFILE_OPTIMIZATION = "-pg"
-> >  # SELECTED_OPTIMIZATION = "${PROFILE_OPTIMIZATION}"
-> > @@ -191,7 +195,8 @@ DISTRO_FEATURES_remove = "x11"
-> >  #                           commercial_lame \
-> >  #                           commercial_libmad \
-> >  #                           commercial_libomxil \
-> > -#                           commercial_mpeg2dec"
-> > +#                           commercial_mpeg2dec \
-> > +#                           commercial_qmmp"
-> >
-> >
-> >  #
-> > @@ -374,3 +379,17 @@ DISTRO_FEATURES_remove = "x11"
-> >  #INIT_MANAGER = "sysvinit"
-> >  #INIT_MANAGER = "systemd"
-> >  #INIT_MANAGER = "mdev-busybox"
-> > +
-> > +#
-> > +# Use a full set of packages instead of busybox for base utils
-> > +#
-> > +#PREFERRED_PROVIDER_base-utils = "packagegroup-core-base-utils"
-> > +#VIRTUAL-RUNTIME_base-utils = "packagegroup-core-base-utils"
-> > +#VIRTUAL-RUNTIME_base-utils-hwclock = "util-linux-hwclock"
-> > +#VIRTUAL-RUNTIME_base-utils-syslog = "syslog"
-> > +
-> > +#
-> > +# Enable LTO system-wide
-> > +#
-> > +#require conf/distro/include/lto.inc
-> > +#DISTRO_FEATURES_append = " lto"
-> > --
-> > 2.25.1
-> >
-> >
-> > 
-> >
+diff --git a/meta-poky/conf/distro/include/poky-world-exclude.inc b/meta-poky/conf/distro/include/poky-world-exclude.inc
+index 1a2dea5..f3ac59c 100644
+--- a/meta-poky/conf/distro/include/poky-world-exclude.inc
++++ b/meta-poky/conf/distro/include/poky-world-exclude.inc
+@@ -1,4 +1,4 @@
+ #
+-# Things we exlude fromw world testing within the reference distro
++# Things we exlude from world testing within the reference distro
+ #
+ 
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 5a867b1..e4ff975 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -26,7 +26,7 @@
+ # [ ] Drop ldconfig from the installation
+ # [ ] Modify the runqemu scripts to work with ext2 parameter:
+ #     runqemu qemux86 qemuparams="-nographic" bootparams="console=ttyS0,115200 root=0800"
+-# [ ] Modify busybox to allow for DISTRO_FEATURES-like confiruration
++# [ ] Modify busybox to allow for DISTRO_FEATURES-like configuration
+ 
+ require conf/distro/poky.conf
+ require conf/distro/include/gcsections.inc
+-- 
+2.30.1
+
