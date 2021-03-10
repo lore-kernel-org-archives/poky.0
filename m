@@ -1,78 +1,66 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
- by mx.groups.io with SMTP id smtpd.web09.1842.1615335220148215854
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by mx.groups.io with SMTP id smtpd.web09.5098.1615355915308493447
  for <poky@lists.yoctoproject.org>;
- Tue, 09 Mar 2021 16:13:40 -0800
+ Tue, 09 Mar 2021 21:58:35 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=Wih7lieH;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.41, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f41.google.com with SMTP id q6-20020a17090a4306b02900c42a012202so6465482pjg.5
-        for <poky@lists.yoctoproject.org>; Tue, 09 Mar 2021 16:13:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=jcfAnffBEWNL49TugPDSOulqe5ZUxvfV11WdFkrZfUI=;
-        b=Wih7lieHZCMYX9LtsDCst54kMqlSaoWZpW7uL2hZ65AcuFhBKtBMauPJReAsZ7OqqX
-         KvsKbaIM85MXo33qycXNCHIhAdGq7CvFqgI7Kk+nYekrxhyZa2uu1S0ekmZwKM798Wsz
-         85GbEBDjOH8uUSWTWw9X0ZSI4wfQ3pGJnRhF/yFFyXKmL23KbDzOyl+KoZ+rly2p74xE
-         eAg1/FoLNBKRBJpbXsUYD1a5pDB0Plpe7GbnlDbIVGillRB4gGFBzG7mAWVOXET1lNXJ
-         osB+OCFs2iWvg83h+0Yg1am/sTQqDrRVxNuqtkEtwliZFqTqvngFondzxJ2MwCy/hRV/
-         dUPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=jcfAnffBEWNL49TugPDSOulqe5ZUxvfV11WdFkrZfUI=;
-        b=geLepyd+zR66cbGBms0xIsNgoZUmCsiQmtnlZnxQv4MHWv/X3g9wHXQiSo0z3onNqf
-         fDDE9vzBeb73AVfXcv4vvmC3BMJ2eqUgvliYS+RKuUDc/jyhYjQ7r6lL+4B+EyN4rlOO
-         eNTVyQwLrUJavpN/kqcZQlaGIgSo5n3kdF6uWCCLdQ99+MMjiPPpnBl7PScHyLknq26g
-         0UDvVXMts8LHELvMKGxZ24inzzJDUPYB47brHZSguoteihVpayd8wlWIviaESpeaUeCz
-         J6VlF5+yL0BhR1BBrj3z2jzZHeeN2mYXvGx6mqu5gfAjCgYrpw0lsTiKFNwuW0tvvpC0
-         FrAw==
-X-Gm-Message-State: AOAM532j1NCA84h5y94n/r9w5T9STueUemTGLbUPzGcQxOWBsNJOsM9B
-	dEfxbq/Psbux1wiwcWX/mYXsHqvObV/IopgZEh0=
-X-Google-Smtp-Source: ABdhPJwdQgCHYUX38gAzhuaiDz0ozX8OTNRVHrrE9gp/8EIHb/oIIFpy2AbNUUe/x7M66fmAfrh2QQ==
-X-Received: by 2002:a17:90a:a616:: with SMTP id c22mr504540pjq.94.1615335219101;
-        Tue, 09 Mar 2021 16:13:39 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from localhost.localdomain (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
-        by smtp.gmail.com with ESMTPSA id p17sm6050053pfn.62.2021.03.09.16.13.37
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Mar 2021 16:13:38 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
+ dkim=missing; spf=pass (domain: intel.com, ip: 134.134.136.20, mailfrom: anuj.mittal@intel.com)
+IronPort-SDR: 975++efaKT2RoKxi5jHjZbmujrdIZvbNqI3ibJ0R/nzjAZEbgM8NIK36UVdBEb2Pj1+CLrbHP/
+ mpIq+paB6qMw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="175498318"
+X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; 
+   d="scan'208";a="175498318"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2021 21:58:34 -0800
+IronPort-SDR: u/+roySf42nYDBznHyRu/Emi78pOqi2Bu8CMGa36uRqYFQvIm6o1D2tqnuS2bWET7mrdnTL0Xq
+ cvkC0PfxOfOg==
+X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; 
+   d="scan'208";a="447786886"
+Received: from zulkifl2-mobl.gar.corp.intel.com (HELO anmitta2-mobl1.gar.corp.intel.com) ([10.255.187.199])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2021 21:58:32 -0800
+From: "Anuj Mittal" <anuj.mittal@intel.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/5] Pull request (cover letter only)
-Date: Tue,  9 Mar 2021 14:13:19 -1000
-Message-Id: <cover.1615335057.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [meta-yocto][gatesgarth][PATCH] linux-yocto: update genericx86* to v5.4.94
+Date: Wed, 10 Mar 2021 13:58:28 +0800
+Message-Id: <20210310055828.4028-1-anuj.mittal@intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following changes since commit 7972a9b48f61af7ac10d1881dcaaf9c5f48bfb87:
+(From meta-yocto rev: b05a89a04002ddce2d82a22874def608e7748871)
 
-  poky.conf: Drop OELAYOUT_ABI poking (2021-03-01 03:55:33 -1000)
+Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+(cherry picked from commit 488e39b623b73b6c7d9f0e3498c699069339d21b)
+Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
+---
+ .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-are available in the Git repository at:
-
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
-
-Anuj Mittal (2):
-  linux-yocto: update genericx86 to v5.4.87
-  linux-yocto: update genericx86* to v5.4.94
-
-Naveen Saini (1):
-  linux-yocto: update genericx86* SRCREV for 5.4
-
-Vivien Didelot (2):
-  local.conf.sample.extended: fix double 'of' typo
-  local.conf.sample.extended: prefer INIT_MANAGER
-
- meta-poky/conf/local.conf.sample.extended     | 23 +++++--------------
- .../linux/linux-yocto_5.4.bbappend            |  8 +++----
- 2 files changed, 10 insertions(+), 21 deletions(-)
-
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+index 91500b8e9c..35147d2da8 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
+-SRCREV_machine_genericx86-64 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
++SRCREV_machine_genericx86 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
++SRCREV_machine_genericx86-64 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
+ SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ 
+@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ 
+-LINUX_VERSION_genericx86 = "5.4.87"
+-LINUX_VERSION_genericx86-64 = "5.4.87"
++LINUX_VERSION_genericx86 = "5.4.94"
++LINUX_VERSION_genericx86-64 = "5.4.94"
+ LINUX_VERSION_edgerouter = "5.4.58"
+ LINUX_VERSION_beaglebone-yocto = "5.4.58"
 -- 
-2.25.1
+2.29.2
 
