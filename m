@@ -1,81 +1,78 @@
-Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.64])
- by mx.groups.io with SMTP id smtpd.web12.474.1615322489515739260
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+ by mx.groups.io with SMTP id smtpd.web09.1842.1615335220148215854
  for <poky@lists.yoctoproject.org>;
- Tue, 09 Mar 2021 12:41:30 -0800
+ Tue, 09 Mar 2021 16:13:40 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=none, err=permanent DNS error (domain: denix.org, ip: 64.68.198.64, mailfrom: denis@denix.org)
-Received: from localhost (localhost [127.0.0.1])
-	by mailout4.zoneedit.com (Postfix) with ESMTP id E45E340C2C;
-	Tue,  9 Mar 2021 20:41:28 +0000 (UTC)
-Received: from mailout4.zoneedit.com ([127.0.0.1])
-	by localhost (zmo14-pco.easydns.vpn [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id CKnmWT4SMRSs; Tue,  9 Mar 2021 20:41:28 +0000 (UTC)
-Received: from mail.denix.org (pool-100-15-86-127.washdc.fios.verizon.net [100.15.86.127])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mailout4.zoneedit.com (Postfix) with ESMTPSA id B680A406B5;
-	Tue,  9 Mar 2021 20:41:25 +0000 (UTC)
-Received: by mail.denix.org (Postfix, from userid 1000)
-	id 7448A17452F; Tue,  9 Mar 2021 15:41:25 -0500 (EST)
-Date: Tue, 9 Mar 2021 15:41:25 -0500
-From: "Denys Dmytriyenko" <denis@denix.org>
-To: Vivien Didelot <vivien.didelot@gmail.com>
-Cc: poky@lists.yoctoproject.org,
-	Richard Purdie <richard.purdie@linuxfoundation.org>,
-	Vivien Didelot <vdidelot@pbsc.com>
-Subject: Re: [poky] [meta-yocto][PATCH 3/3] beaglebone-yocto: allow other virtual/bootloader
-Message-ID: <20210309204125.GM4892@denix.org>
-References: <20210309174715.26432-1-vivien.didelot@gmail.com>
- <20210309174715.26432-3-vivien.didelot@gmail.com>
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=Wih7lieH;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.41, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f41.google.com with SMTP id q6-20020a17090a4306b02900c42a012202so6465482pjg.5
+        for <poky@lists.yoctoproject.org>; Tue, 09 Mar 2021 16:13:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=jcfAnffBEWNL49TugPDSOulqe5ZUxvfV11WdFkrZfUI=;
+        b=Wih7lieHZCMYX9LtsDCst54kMqlSaoWZpW7uL2hZ65AcuFhBKtBMauPJReAsZ7OqqX
+         KvsKbaIM85MXo33qycXNCHIhAdGq7CvFqgI7Kk+nYekrxhyZa2uu1S0ekmZwKM798Wsz
+         85GbEBDjOH8uUSWTWw9X0ZSI4wfQ3pGJnRhF/yFFyXKmL23KbDzOyl+KoZ+rly2p74xE
+         eAg1/FoLNBKRBJpbXsUYD1a5pDB0Plpe7GbnlDbIVGillRB4gGFBzG7mAWVOXET1lNXJ
+         osB+OCFs2iWvg83h+0Yg1am/sTQqDrRVxNuqtkEtwliZFqTqvngFondzxJ2MwCy/hRV/
+         dUPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=jcfAnffBEWNL49TugPDSOulqe5ZUxvfV11WdFkrZfUI=;
+        b=geLepyd+zR66cbGBms0xIsNgoZUmCsiQmtnlZnxQv4MHWv/X3g9wHXQiSo0z3onNqf
+         fDDE9vzBeb73AVfXcv4vvmC3BMJ2eqUgvliYS+RKuUDc/jyhYjQ7r6lL+4B+EyN4rlOO
+         eNTVyQwLrUJavpN/kqcZQlaGIgSo5n3kdF6uWCCLdQ99+MMjiPPpnBl7PScHyLknq26g
+         0UDvVXMts8LHELvMKGxZ24inzzJDUPYB47brHZSguoteihVpayd8wlWIviaESpeaUeCz
+         J6VlF5+yL0BhR1BBrj3z2jzZHeeN2mYXvGx6mqu5gfAjCgYrpw0lsTiKFNwuW0tvvpC0
+         FrAw==
+X-Gm-Message-State: AOAM532j1NCA84h5y94n/r9w5T9STueUemTGLbUPzGcQxOWBsNJOsM9B
+	dEfxbq/Psbux1wiwcWX/mYXsHqvObV/IopgZEh0=
+X-Google-Smtp-Source: ABdhPJwdQgCHYUX38gAzhuaiDz0ozX8OTNRVHrrE9gp/8EIHb/oIIFpy2AbNUUe/x7M66fmAfrh2QQ==
+X-Received: by 2002:a17:90a:a616:: with SMTP id c22mr504540pjq.94.1615335219101;
+        Tue, 09 Mar 2021 16:13:39 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from localhost.localdomain (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id p17sm6050053pfn.62.2021.03.09.16.13.37
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Mar 2021 16:13:38 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 0/5] Pull request (cover letter only)
+Date: Tue,  9 Mar 2021 14:13:19 -1000
+Message-Id: <cover.1615335057.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20210309174715.26432-3-vivien.didelot@gmail.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 09, 2021 at 12:47:15PM -0500, Vivien Didelot wrote:
-> From: Vivien Didelot <vdidelot@pbsc.com>
-> 
-> The beaglebone-yocto machine currently hardcodes "u-boot" as a
-> dependency for the image and the wic format, and this prevents one
-> from choosing a different bootloader via:
-> 
->     PREFERRED_PROVIDER_virtual/bootloader = "non-u-boot-bootloader"
-> 
-> Depending on "virtual/bootloader" instead of "u-boot" fixes this.
-> 
-> Cc: Denys Dmytriyenko <denis@denix.org>
-> Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
+The following changes since commit 7972a9b48f61af7ac10d1881dcaaf9c5f48bfb87:
 
-Reviewed-by: Denys Dmytriyenko <denis@denix.org>
+  poky.conf: Drop OELAYOUT_ABI poking (2021-03-01 03:55:33 -1000)
 
+are available in the Git repository at:
 
-> ---
->  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> index f8368eb..04cbd3b 100644
-> --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> @@ -9,7 +9,7 @@ XSERVER ?= "xserver-xorg \
->  
->  MACHINE_EXTRA_RRECOMMENDS = "kernel-modules kernel-devicetree"
->  
-> -EXTRA_IMAGEDEPENDS += "u-boot"
-> +EXTRA_IMAGEDEPENDS += "virtual/bootloader"
->  
->  DEFAULTTUNE ?= "cortexa8hf-neon"
->  include conf/machine/include/tune-cortexa8.inc
-> @@ -18,7 +18,7 @@ IMAGE_FSTYPES += "tar.bz2 jffs2 wic wic.bmap"
->  EXTRA_IMAGECMD_jffs2 = "-lnp "
->  WKS_FILE ?= "beaglebone-yocto.wks"
->  IMAGE_INSTALL_append = " kernel-devicetree kernel-image-zimage"
-> -do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot u-boot:do_deploy"
-> +do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot virtual/bootloader:do_deploy"
->  
->  SERIAL_CONSOLES ?= "115200;ttyS0 115200;ttyO0 115200;ttyAMA0"
->  SERIAL_CONSOLES_CHECK = "${SERIAL_CONSOLES}"
-> -- 
-> 2.30.1
-> 
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Anuj Mittal (2):
+  linux-yocto: update genericx86 to v5.4.87
+  linux-yocto: update genericx86* to v5.4.94
+
+Naveen Saini (1):
+  linux-yocto: update genericx86* SRCREV for 5.4
+
+Vivien Didelot (2):
+  local.conf.sample.extended: fix double 'of' typo
+  local.conf.sample.extended: prefer INIT_MANAGER
+
+ meta-poky/conf/local.conf.sample.extended     | 23 +++++--------------
+ .../linux/linux-yocto_5.4.bbappend            |  8 +++----
+ 2 files changed, 10 insertions(+), 21 deletions(-)
+
+-- 
+2.25.1
+
