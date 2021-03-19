@@ -1,66 +1,101 @@
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by mx.groups.io with SMTP id smtpd.web09.5098.1615355915308493447
+Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
+ by mx.groups.io with SMTP id smtpd.web09.441.1616175298757385680
  for <poky@lists.yoctoproject.org>;
- Tue, 09 Mar 2021 21:58:35 -0800
+ Fri, 19 Mar 2021 10:34:59 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: intel.com, ip: 134.134.136.20, mailfrom: anuj.mittal@intel.com)
-IronPort-SDR: 975++efaKT2RoKxi5jHjZbmujrdIZvbNqI3ibJ0R/nzjAZEbgM8NIK36UVdBEb2Pj1+CLrbHP/
- mpIq+paB6qMw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9917"; a="175498318"
-X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; 
-   d="scan'208";a="175498318"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2021 21:58:34 -0800
-IronPort-SDR: u/+roySf42nYDBznHyRu/Emi78pOqi2Bu8CMGa36uRqYFQvIm6o1D2tqnuS2bWET7mrdnTL0Xq
- cvkC0PfxOfOg==
-X-IronPort-AV: E=Sophos;i="5.81,236,1610438400"; 
-   d="scan'208";a="447786886"
-Received: from zulkifl2-mobl.gar.corp.intel.com (HELO anmitta2-mobl1.gar.corp.intel.com) ([10.255.187.199])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Mar 2021 21:58:32 -0800
-From: "Anuj Mittal" <anuj.mittal@intel.com>
+ dkim=missing; spf=pass (domain: bootlin.com, ip: 217.70.178.231, mailfrom: michael.opdenacker@bootlin.com)
+Received: from localhost (amontpellier-552-1-199-211.w109-210.abo.wanadoo.fr [109.210.254.211])
+	(Authenticated sender: michael.opdenacker@bootlin.com)
+	by relay11.mail.gandi.net (Postfix) with ESMTPSA id CF881100002;
+	Fri, 19 Mar 2021 17:34:56 +0000 (UTC)
+From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][gatesgarth][PATCH] linux-yocto: update genericx86* to v5.4.94
-Date: Wed, 10 Mar 2021 13:58:28 +0800
-Message-Id: <20210310055828.4028-1-anuj.mittal@intel.com>
-X-Mailer: git-send-email 2.29.2
+Cc: Michael Opdenacker <michael.opdenacker@bootlin.com>
+Subject: [PATCH] doc: update documentation URL and fix spaces
+Date: Fri, 19 Mar 2021 18:34:52 +0100
+Message-Id: <20210319173452.44912-1-michael.opdenacker@bootlin.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-(From meta-yocto rev: b05a89a04002ddce2d82a22874def608e7748871)
-
-Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-(cherry picked from commit 488e39b623b73b6c7d9f0e3498c699069339d21b)
-Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
+Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
 ---
- .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ meta-poky/README.poky          |  8 ++++----
+ meta-yocto-bsp/README.hardware | 18 +++++++++---------
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-index 91500b8e9c..35147d2da8 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
+diff --git a/meta-poky/README.poky b/meta-poky/README.poky
+index be0c6c0..fe9ee05 100644
+--- a/meta-poky/README.poky
++++ b/meta-poky/README.poky
+@@ -12,13 +12,13 @@ Additional information on the specifics of hardware that Poky supports
+ is available in README.hardware. Further hardware support can easily be added
+ in the form of layers which extend the systems capabilities in a modular way.
  
--SRCREV_machine_genericx86 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
--SRCREV_machine_genericx86-64 ?= "292d752af8e4015e40e7c523641983bac543e2b4"
-+SRCREV_machine_genericx86 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
-+SRCREV_machine_genericx86-64 ?= "31db2b47ac7d8508080fbb7344399b501216de66"
- SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+-As an integration layer Poky consists of several upstream projects such as 
+-BitBake, OpenEmbedded-Core, Yocto documentation and various sources of information 
++As an integration layer Poky consists of several upstream projects such as
++BitBake, OpenEmbedded-Core, Yocto documentation and various sources of information
+ e.g. for the hardware support. Poky is in turn a component of the Yocto Project.
  
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+-The Yocto Project has extensive documentation about the system including a 
++The Yocto Project has extensive documentation about the system including a
+ reference manual which can be found at:
+-    http://yoctoproject.org/documentation
++    https://docs.yoctoproject.org
  
--LINUX_VERSION_genericx86 = "5.4.87"
--LINUX_VERSION_genericx86-64 = "5.4.87"
-+LINUX_VERSION_genericx86 = "5.4.94"
-+LINUX_VERSION_genericx86-64 = "5.4.94"
- LINUX_VERSION_edgerouter = "5.4.58"
- LINUX_VERSION_beaglebone-yocto = "5.4.58"
+ OpenEmbedded-Core is a layer containing the core metadata for current versions
+ of OpenEmbedded. It is distro-less (can build a functional image with
+diff --git a/meta-yocto-bsp/README.hardware b/meta-yocto-bsp/README.hardware
+index 9803af0..715d539 100644
+--- a/meta-yocto-bsp/README.hardware
++++ b/meta-yocto-bsp/README.hardware
+@@ -2,20 +2,20 @@
+                   ============================================
+ 
+ This file gives details about using the Yocto Project hardware reference BSPs.
+-The machines supported can be seen in the conf/machine/ directory and are listed 
++The machines supported can be seen in the conf/machine/ directory and are listed
+ below. There is one per supported hardware architecture and these are primarily
+-used to validate that the Yocto Project works on the hardware arctectures of 
++used to validate that the Yocto Project works on the hardware arctectures of
+ those machines.
+ 
+-If you are in doubt about using Poky/OpenEmbedded/Yocto Project with your hardware, 
++If you are in doubt about using Poky/OpenEmbedded/Yocto Project with your hardware,
+ consult the documentation for your board/device.
+ 
+-Support for additional devices is normally added by adding BSP layers to your 
+-configuration. For more information please see the Yocto Board Support Package 
+-(BSP) Developer's Guide - documentation source is in documentation/bspguide or 
++Support for additional devices is normally added by adding BSP layers to your
++configuration. For more information please see the Yocto Board Support Package
++(BSP) Developer's Guide - documentation source is in documentation/bspguide or
+ download the PDF from:
+ 
+-   http://yoctoproject.org/documentation
++   https://docs.yoctoproject.org
+ 
+ Note that these reference BSPs use the linux-yocto kernel and in general don't
+ pull in binary module support for the platforms. This means some device functionality
+@@ -73,7 +73,7 @@ Intel Atom platforms:
+   + MinnowBoard MAX - E3825 SOC (Bay Trail)
+   + MinnowBoard MAX - Turbot (ADI Engineering) - E3826 SOC (Bay Trail)
+     - These boards can be either 32bot or 64bit modes depending on firmware
+-    - See minnowboard.org for details 
++    - See minnowboard.org for details
+   + Intel Braswell SOC
+ 
+ and is likely to work on many unlisted Atom/Core/Xeon based devices. The MACHINE
+@@ -247,7 +247,7 @@ Note: If you place the kernel on the ext3 partition, you must re-create the
+     rootfs path on your workstation.
+ 
+     and then,
+-  
++
+       # mount /dev/sda2 /media/sda2
+       # tar -xvjpf core-image-minimal-XXX.tar.bz2 -C /media/sda2
+       # cp vmlinux /media/sda2/boot/vmlinux
 -- 
-2.29.2
+2.25.1
 
