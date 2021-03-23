@@ -1,75 +1,63 @@
-Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.64])
- by mx.groups.io with SMTP id smtpd.web11.219.1616517255544529660
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+ by mx.groups.io with SMTP id smtpd.web09.258.1616517419739256446
  for <poky@lists.yoctoproject.org>;
- Tue, 23 Mar 2021 09:34:15 -0700
+ Tue, 23 Mar 2021 09:37:00 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=none, err=permanent DNS error (domain: denix.org, ip: 64.68.198.64, mailfrom: denis@denix.org)
-Received: from localhost (localhost [127.0.0.1])
-	by mailout4.zoneedit.com (Postfix) with ESMTP id 056A240BFF;
-	Tue, 23 Mar 2021 16:34:14 +0000 (UTC)
-Received: from mailout4.zoneedit.com ([127.0.0.1])
-	by localhost (zmo14-pco.easydns.vpn [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 4RZ4jlm_aKsV; Tue, 23 Mar 2021 16:34:13 +0000 (UTC)
-Received: from mail.denix.org (pool-100-15-86-127.washdc.fios.verizon.net [100.15.86.127])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mailout4.zoneedit.com (Postfix) with ESMTPSA id D4F99400CF;
-	Tue, 23 Mar 2021 16:34:11 +0000 (UTC)
-Received: by mail.denix.org (Postfix, from userid 1000)
-	id 4C0F9174558; Tue, 23 Mar 2021 12:34:11 -0400 (EDT)
-Date: Tue, 23 Mar 2021 12:34:11 -0400
-From: "Denys Dmytriyenko" <denis@denix.org>
-To: Kevin Hao <kexin.hao@windriver.com>
-Cc: poky@lists.yoctoproject.org,
-	Richard Purdie <richard.purdie@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] meta-yocto-bsp: beaglebone: Set a fixed size for boot partition in WIC image
-Message-ID: <20210323163411.GK18041@denix.org>
-References: <20210323093529.35493-1-kexin.hao@windriver.com>
+ dkim=pass header.i=@burtonini-com.20150623.gappssmtp.com header.s=20150623 header.b=sc574W6N;
+ spf=pass (domain: burtonini.com, ip: 209.85.221.43, mailfrom: ross@burtonini.com)
+Received: by mail-wr1-f43.google.com with SMTP id x13so21426900wrs.9
+        for <poky@lists.yoctoproject.org>; Tue, 23 Mar 2021 09:36:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=burtonini-com.20150623.gappssmtp.com; s=20150623;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=iLJkCQWCAkeU6ODwzoh1ldCnpnq2/hyhEajqdnKs5Ew=;
+        b=sc574W6NSbNzqLft/d8ZAQxW02KppNacGmHLABYv8nZ3qOABRTO+Mt7CkOuuF02a13
+         ZSjz2rhze4IYapNUXg3xi+jNHpCeG1iFWPjyyVT/cnxeQXnzsFIP5QrkBusW/WX+i8be
+         dBh5VSnQSB3aoB+GczPdElFr4QFtDdgQhEY+1mQd3xxWZFEBUos9+unY0eOe779Rza3Z
+         6ElTM2qybijYdR1HY6L2nxuf+owawFGR7GWqqeQNnMckw1Y7e3ZLIqMn5Pbai8I9EqLr
+         pvozdIJsKJjaysjzZRxrfbIH5K4EVqrgtB0A01Q0UwxCR13EWh3G3W8+0etIBS04evfv
+         HLBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=iLJkCQWCAkeU6ODwzoh1ldCnpnq2/hyhEajqdnKs5Ew=;
+        b=tDXzqoEF0tXynL3sjjCtEryjyaSKdh1edqJHL9U4wvEF4Hk4wj9JtFegETvJv1itL0
+         eNTnZ2BLPLCEtk85+Ybu4TeAdV7OufVR+zqrVv26vKl68y++X5VKwmf/yH4swV9uxNvV
+         fG1kp4UBoPaoob7mWDWbzQL0gUAE7vu4ZSOEp1gIG7eUEAX2G8AbO4nV1Fju91qOr/zA
+         /96kG3ZS90dTYV+xTiFsMjCQfE1vbgDRZShhnD9VS7/52JGzf7SGmMmtvlhapFiE0LEO
+         5nLtr0PzNmhBAr8ODDV7ld+u2dcbO1VyFOcNbKlV6DG01O5WVKeuREAalmKaFtxB5u9j
+         y/vw==
+X-Gm-Message-State: AOAM532h/fR+L5xNXa1QkdmdL9qTOZw/pC43lpGYeVfXFI9W/q0gMad1
+	v+JQsmcGwz6gD0gbn7qJjUTG9/Aba5UIsUTsdg4EAg==
+X-Google-Smtp-Source: ABdhPJxAMbaIRciTWpdMnr2t+xAFz4U0N6rKSyGoQ9meCb92DnZEca14ITyJK4STf/5V7dU3vsPXtBrXjMzjIH9SEuc=
+X-Received: by 2002:adf:ee4f:: with SMTP id w15mr4929827wro.199.1616517418230;
+ Tue, 23 Mar 2021 09:36:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210323093529.35493-1-kexin.hao@windriver.com>
-User-Agent: Mutt/1.5.20 (2009-06-14)
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <CAAsqSTfbHeVt9jyrw12Xkrpj_+-kUXHHwVRQGCe0jD2k_R1o=A@mail.gmail.com>
+ <02fc39f148aa309f0e99f08f2e107ea2a9a666af.camel@linuxfoundation.org> <CAAsqSTcd22B-wgTCmBPXNFHyeuiyizThQP3a5Lo8t0RN01aW_g@mail.gmail.com>
+In-Reply-To: <CAAsqSTcd22B-wgTCmBPXNFHyeuiyizThQP3a5Lo8t0RN01aW_g@mail.gmail.com>
+From: "Ross Burton" <ross@burtonini.com>
+Date: Tue, 23 Mar 2021 16:36:47 +0000
+Message-ID: <CAAnfSTs81uNoq2ipW81gAjeWXYYnS68i2KOOgWLe1izXjo4+oA@mail.gmail.com>
+Subject: Re: [poky] image.bbclass - get_rootfs_size
+To: Attie Grande <attie.grande@argentum-systems.co.uk>
+Cc: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Mar 23, 2021 at 05:35:29PM +0800, Kevin Hao wrote:
-> After the dosfstools has been updated to v4.2 by commit b522f24723e1
-> ("dosfstools: update 4.1 -> 4.2"), the commit b29eb5be67e9 ("mkfs.fat:
-> Align total number of sectors to be multiple of sectors per track") in
-> v4.2 has caused a regression in beagebone black board. The reason is
-> that the real total sectors of the fat filesystem created by the mkdosfs
-> may not be the same size as what we requested due to align with the
-> sectors per track, this change seem no side effect to linux kernel,
-> but it breaks the beaglebone black boot ROM and make it can't load the
-> MLO. In order to fix this issue, we choose to set a fixed size for the
-> boot partition to make sure that the total sectors always are aligned
-> with the sectors per track.
+On Tue, 23 Mar 2021 at 12:23, Attie Grande
+<attie.grande@argentum-systems.co.uk> wrote:
+> Ross' patches look like a good step in the right direction.
+> Despite the commit message, I'm not immediately sure about the
+> handling of hard links... but I don't know the details of how files
+> are put into the filesystem image... (i.e: are hard links maintained,
+> what about filesystems that don't support them?)
 
-Thanks for getting to the root cause of the failure!
-Yeah, embedded boot ROM is not very flexible and has rather simplistic 
-understanding of FAT.
+The code assumes that file systems support hardlinks in some way.
+Complicating things is that you can build an image multiple times with
+different file systems...
 
--- 
-Denys
+I'll post the patches and we can see if the AB explodes...
 
-
-> [Yocto #14306]
-> 
-> Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
-> ---
->  meta-yocto-bsp/wic/beaglebone-yocto.wks | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/meta-yocto-bsp/wic/beaglebone-yocto.wks b/meta-yocto-bsp/wic/beaglebone-yocto.wks
-> index 701ae0b3d4bd..7a28fb23dc89 100644
-> --- a/meta-yocto-bsp/wic/beaglebone-yocto.wks
-> +++ b/meta-yocto-bsp/wic/beaglebone-yocto.wks
-> @@ -2,6 +2,6 @@
->  # long-description: Creates a partitioned SD card image for Beaglebone.
->  # Boot files are located in the first vfat partition.
->  
-> -part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --label boot --active --align 4 --size 16 --sourceparams="loader=u-boot" --use-uuid
-> +part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --label boot --active --align 4 --fixed-size 32 --sourceparams="loader=u-boot" --use-uuid
->  part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label root --align 4 --use-uuid
->  bootloader --append="console=ttyS0,115200"
-> -- 
-> 2.30.2
+Ross
