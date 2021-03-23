@@ -1,259 +1,118 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
- by mx.groups.io with SMTP id smtpd.web09.123.1616438546383573089
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (NAM12-BN8-obe.outbound.protection.outlook.com [40.107.237.44])
+ by mx.groups.io with SMTP id smtpd.web12.6423.1616492326220372674
  for <poky@lists.yoctoproject.org>;
- Mon, 22 Mar 2021 11:42:26 -0700
+ Tue, 23 Mar 2021 02:38:46 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@nikolamotor-com.20150623.gappssmtp.com header.s=20150623 header.b=UmExJqWd;
- spf=pass (domain: nikolamotor.com, ip: 209.85.219.49, mailfrom: aaron.brice@nikolamotor.com)
-Received: by mail-qv1-f49.google.com with SMTP id 30so9161888qva.9
-        for <poky@lists.yoctoproject.org>; Mon, 22 Mar 2021 11:42:21 -0700 (PDT)
+ dkim=fail reason="body hash did not verify" header.i=@windriversystems.onmicrosoft.com header.s=selector2-windriversystems-onmicrosoft-com header.b=HgjM+gD2;
+ spf=pass (domain: windriver.com, ip: 40.107.237.44, mailfrom: kexin.hao@windriver.com)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Tr2frrRWfhRan9y7aTfiySKZrT6dJ5P130C6lqKe0nTaM5fRi+5Aj///bArRUIOcBhEHePmuAWRW5vrIsQVz2lDj+v5WmV5FBuIjDtA0KGZCCSy805VF4paY8Yrqlndgv+zZ7W58yaxtuYMTVwIdfrcwQUL74wDi412mAcbhwHgIYDmnr8qsAQxHDugWlAcd6CW3xt7XvTayP2u0uSKSI7KF5Z2zX/5afHM/eJmLGRuIKNImVI+unq7oyGIJbp47I0Hfld/0uVPmo4HFoLVkmLCikY1Xu9Y6duK76+d9KoB14k0+K2cZrpbnDXnu6c8W0f5Rd2jzCf4aeHK0UMdwFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2UN0fCJIFhVfyiHOI4s8SSKQN//DBz8Aj4gK2XnIHDk=;
+ b=kgGiGQS+mGuAhBUS386DwD8YLpgffIkCQFUfCOYhSeXIf5CD4LoQ01t8RBTi+wWsb7A1YUJFaf4E/pFRkXzAISyUpnhCWUzJUKV5IBI72w8g7rK1vwWidReC3yWZeX4vnnsu3bmndWkDnpyBOQAkS4nhHP5SF0STFBQVnhnxFCPiBitAYcyT2q+pD0zBlX4u/a6hv4aaCtShQRi35gvTivSZuGnGGSWC33lLfSxOSoeZ3PbPTOwAHtHSMPvGNVaecRvJXALD8vi4j+0uid/DsbG4OFLWAwfuVIQeGQRAhQvaIj3XAtLNLcmY7znNYwqIfLRFMAGg/6H9q4mEvka9ZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nikolamotor-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=NlzVkvxU2b1VRBCulTrnjicuuKW3IBe/3J9o0P4n5mA=;
-        b=UmExJqWd12Iz5fojjyRTsrVcrYIOQ9nwiWDPQAvkCyYw/awPtfoqZ96jQ+FzkLn0UK
-         jNflsNv3ROmXT0uEBdSEHavnNDUKRhYDYHX2zDcgEigoNbfbU752vNiaf+E9S96x3kaL
-         Vemij4/k7F8kJ8enjp0EHlGPvB+7UvZsjr0UrRMPwoE4uRCwEoSn6ju+4ouwHSBrHU8t
-         x2MKe9WqTZG8O1mn15cupZHQ8k/JbQiTx1ZshElupz6lBeVFu/URQExUWkU0UsfdyoVf
-         wmbvbnHidTNBMnLjAaeUosdFNhNZhTIJ9wckoNY5NsnaFps3fONxqKjy8kYeWXRc6SJg
-         mpcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=NlzVkvxU2b1VRBCulTrnjicuuKW3IBe/3J9o0P4n5mA=;
-        b=LhnOr8L6btfhIDdEgvUT522o5Zcf2hmDn9m/uz7XexgApsCf55Dwi46j83bCTeMFzZ
-         hqcBdIeMItRB7LNFlP4mZIFFxUCWGs0WhABqglRGPhwH34BBp4a4VFHtiHKouhQAHbMP
-         jdCDYrhgANi91UcJiwW59D9UhyxXVIKhtus/bWCw0n2r/PFJ3WLATPfJbBvZ4pWWYaRc
-         T6HeF02J/YRhoZQ20N7REoMZzqf3VUaJLDR4hZOIxyZD88o8jGYZ5UZWHxPcYK+325q/
-         /bjswhfyCRqjb+XUUkLoeOoOPE7S82epgNlLo9uj0Yhtyz6chvEUFOFNgYG1s8tgiZFU
-         /oYA==
-X-Gm-Message-State: AOAM532pVGidREyJAnJ9QHggET1eALAxpZLj6b2g1Oz47lttwDNuQnPt
-	J0ILPe6e3PAM6RnUGbRF8zq9NAgYYIzkNYSBXsDEJ+1oeB7FReaqHWqZBJGHQ3z7uTkzzDmQJsz
-	Xj4mLxNHJQlk9Es9Mgi0x072X1aRTGAO3mwXf3Z0uUALN+lLlkPKva1zoTlGapTvjcTkAlrAQ3U
-	O4nv95ihh/Bq8N19NYP0ac7EaFkGaFwFiBrLNsM3D60WHhaqBzPMlz
-X-Google-Smtp-Source: ABdhPJx/NEVH3vsyBY4+OEZqHZ2ofYfaDYjAMOagpGZQZ3lG7CX46+z27RyMSElknMkomB4lkMxxXkx2Dngtyc+aW6E=
-X-Received: by 2002:ad4:5629:: with SMTP id cb9mr1462622qvb.62.1616438539862;
- Mon, 22 Mar 2021 11:42:19 -0700 (PDT)
+ d=windriversystems.onmicrosoft.com;
+ s=selector2-windriversystems-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2UN0fCJIFhVfyiHOI4s8SSKQN//DBz8Aj4gK2XnIHDk=;
+ b=HgjM+gD2VXoc2Sc9mjxu9NX8tT+97akaVU6yaqSwJzyoXOC8QDOpTOqe62TI47yi6CCd072gxdfa76hetmD9gaecSxXEIsHIx3hjdhBlFdmtTtzupqezd0s278eJBKP9fvBef7D8g8ugWM3hvUxpUwHPAMnBTW7PDzda4aFtnII=
+Authentication-Results: lists.yoctoproject.org; dkim=none (message not signed)
+ header.d=none;lists.yoctoproject.org; dmarc=none action=none
+ header.from=windriver.com;
+Received: from DM6PR11MB2682.namprd11.prod.outlook.com (20.176.97.143) by
+ DM6PR11MB4610.namprd11.prod.outlook.com (20.180.254.211) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3955.18; Tue, 23 Mar 2021 09:38:44 +0000
+Received: from DM6PR11MB2682.namprd11.prod.outlook.com
+ ([fe80::d8e:556b:f64c:6d6a]) by DM6PR11MB2682.namprd11.prod.outlook.com
+ ([fe80::d8e:556b:f64c:6d6a%5]) with mapi id 15.20.3955.027; Tue, 23 Mar 2021
+ 09:38:44 +0000
+From: "Kevin Hao" <kexin.hao@windriver.com>
+To: <poky@lists.yoctoproject.org>
+CC: Richard Purdie <richard.purdie@linuxfoundation.org>
+Subject: [PATCH] meta-yocto-bsp: beaglebone: Set a fixed size for boot partition in WIC image
+Date: Tue, 23 Mar 2021 17:35:29 +0800
+Message-ID: <20210323093529.35493-1-kexin.hao@windriver.com>
+X-Mailer: git-send-email 2.30.2
+X-Originating-IP: [60.247.85.82]
+X-ClientProxiedBy: HK2PR04CA0063.apcprd04.prod.outlook.com
+ (2603:1096:202:14::31) To DM6PR11MB2682.namprd11.prod.outlook.com
+ (2603:10b6:5:c3::15)
+Return-Path: kexin.hao@windriver.com
 MIME-Version: 1.0
-References: <CAMRWY0HLsy9xDiFMSgxt77ViptO19OrSYu-HX2dAiF07NYjNpg@mail.gmail.com>
- <e30213a69ef89a8a083441bb1fa80bda3fd16c48.camel@linuxfoundation.org>
-In-Reply-To: <e30213a69ef89a8a083441bb1fa80bda3fd16c48.camel@linuxfoundation.org>
-From: "Aaron Brice" <aaron.brice@nikolamotor.com>
-Date: Mon, 22 Mar 2021 11:42:11 -0700
-Message-ID: <CAMRWY0FvcRGTeOsS1yO7+0g2a1qoebefRc7OHGhNALGErCFhOg@mail.gmail.com>
-Subject: Re: [poky] gatesgarth wic pseudo issue
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
-X-CLOUD-SEC-AV-Info: nikolamotor2,google_mail,monitor
-X-CLOUD-SEC-AV-Sent: true
-X-Gm-Spam: 0
-X-Gm-Phishy: 0
-Content-Type: multipart/alternative; boundary="000000000000f85e8105be246c81"
-
---000000000000f85e8105be246c81
-Content-Type: text/plain; charset="UTF-8"
-
-On Sat, Mar 20, 2021 at 3:19 AM Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
-
-> Hi,
->
-> On Fri, 2021-03-19 at 16:06 -0700, Aaron Brice wrote:
-> > I recently upgraded from dunfell to gatesgarth and it is causing
-> problems with the .wic file.
-> >
-> > Our .wks file contains:
-> >
-> > part / --source rootfs --ondisk sda --fstype=ext4 --label platform
-> --align 1024 --use-uuid --extra-space 0 --
-> > overhead-factor 1
-> > part /bk --source rootfs-tar --ondisk sda --fstype=ext4 --label archive
-> --align 1024 --use-uuid --extra-space
-> > 0 --overhead-factor 1
-> >
-> > Where scripts/lib/wic/plugins/source/rootfs-tar.py wic plugin creates an
-> empty partition and puts a
-> > rootfs.tar.gz in it containing the contents of the previous rootfs
-> partition.  There is a script in the first
-> > partition that does an install using the tar in the second partition.
-> >
-> > On gatesgarth, the rootfs.tar.gz is created with incorrect uid/gid, the
-> uid and gid of the user running
-> > yocto.  It's caused by commit c58711f0ea2a4d3b54e9f5f442abe3192f4697d0
-> which added PSEUDO_UNLOAD=1 to the wic
-> > command.  How can I get my plugin to work in this case?
-> >
-> > Or generically, is there a better way to create a USB install wic file?
->
-> The pseudo context needs to match the environment wic is working within
-> which may not be the same as the parent bitbake environment, hence the
-> unload.
->
-> If you look at the pseudo scripts you'll see that some operations are run
-> under
-> pseudo. I suspect your plugin needs to do something like that and run the
-> operation under pseudo.
->
-> Cheers,
->
-> Richard
->
->
-Thanks Richard.  Is there a pseudo python library and/or an example of
-running a pseudo python plugin/script under pseudo context?  At the moment
-there is just rootfs-tar.py which is called automatically by wic, and it
-uses the python tarfile library to create the tar file.  How would I run
-the tarfile module from the python plugin under pseudo?  Will I need to
-remove the tarfile module code and call tar in a subprocess?
-
-Thanks,
--- 
-
-*Aaron Brice*
-aaron.brice@nikolamotor.com
-
-<https://nikolamotor.com>
-
-*Nikola Corporation* | www.nikolamotor.com <https://nikolamotor.com/>
-4141 E Broadway Rd | Phoenix | AZ | 85040
-<https://goo.gl/maps/bKfEzApeDMErgi4e7>
-
-
-INFORMATION CONTAINED IN THIS E-MAIL TRANSMISSION IS  CONFIDENTIAL. IF YOU
-ARE NOT THE INTENDED RECIPIENT, DO NOT READ, DISTRIBUTE OR REPRODUCE THIS
-TRANSMISSION (INCLUDING ANY ATTACHMENTS). IF YOU HAVE RECEIVED THIS E-MAIL
-IN ERROR, PLEASE NOTIFY THE SENDER BY E-MAIL REPLY AND THEN DELETE THIS
-E-MAIL.
-
---000000000000f85e8105be246c81
-Content-Type: text/html; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from pek-lpggp6.wrs.com (60.247.85.82) by HK2PR04CA0063.apcprd04.prod.outlook.com (2603:1096:202:14::31) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18 via Frontend Transport; Tue, 23 Mar 2021 09:38:43 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 18819330-69e2-4189-7ee3-08d8eddf739f
+X-MS-TrafficTypeDiagnostic: DM6PR11MB4610:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<DM6PR11MB46105C22178FE529365D558FE2649@DM6PR11MB4610.namprd11.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1417;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	TxWGjbTKh5pqCA25ZX8LVh73ps/Ip8bx5EW9Y0ncHUiWmNPGDHb0VCpJRuTOEo1yp44xBg7Q+cZGev0eUL3c3znCj/xfhFWowOz0xecUZcteVnlcQvc3BhSUHaPGeiUyxJRb3IqHdvFc4u6Y+BR65RxajM15wSbV++sUtg4CznwgTZ/Klh/h5xgy5qDEs4Lh11fAEeleLsFiVZVFdj7zaWcDSD6KS7Z8U7Ac6UTCpnnLYjS7/yLqCpLpHd5X+3VQIwOcuqN7G+yemtopclxxS31twioPRkjpdGppYEFIWIIO3TblZLYG3mToqgBve1W3BTLgpz3TokS66VE6tn/8Wj9j5Bb4ck//ws9ggPhYs1mgsK5Zg2T4G4mRXcM0hryErE4XD2q80Bta7PbJMM1IzcZp+xJ0s8/r9hRNNLCpfNa9B9jY5PIba8p976fgRFVBjyfJ9ju/aZpzNtPKoLRvYTti9HChpzgWyJSvyqAQ5qtvpwPCblfH0oaMZ9RZ165Y3VUkTiRg1utO7TeHQhOMoPLs52H+A5F+OBa7UcGHcWhZ29rVVRzxmzxGyKyfel8G7Ln1YiUzz5H1NhfWiK5ySwioaMBtoLxWT5r0slKmsIrh/zEJJC1wXvMel0taJ5bLgVH97ONQi/XcAHaezZuDQNeHwafqxpBaht/rbxFD5a/Y0sM88NFXTfV6K23zsc2O
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR11MB2682.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(39850400004)(376002)(366004)(8676002)(16526019)(36756003)(956004)(6916009)(66476007)(66556008)(26005)(186003)(86362001)(66946007)(8936002)(2616005)(83380400001)(6666004)(316002)(6486002)(5660300002)(6506007)(2906002)(4326008)(478600001)(52116002)(1076003)(6512007)(38100700001)(3714002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData: 
+	+U/G2vfrI5k5Wzkt4TmK0zCuUbaFURz6jYSwEbjSYPbgtMZ9Qduzpxk8FXYzmInlvfUx4UG2PmH5N5j+gRktTLm6HtUiO0giViB7XFfSHy7qHuHs8KjMRaOlxRnl9Wsfcd/3eYcHLz4NEPvGPoWXB2Cs7Gt/VyjOxxAg/QpNVD+sUtGPnqbFjsSbAAEeotV4AUnHkAlVbIck6Q6IddqWW4wVWNxK9ATwcatitIvTPKyyc7bBKPntUW9ZIeC6eXeUsr4PQHY8+WwuRhiFuiajFytytWccY6JKxdcWsTbu51sbqtjICOrKPjfk9Nq4NIDr2FPl37oGPJ3UVoL4wC3t61mPJNnkRt9L+YejVdAyhZgz93nMLtr5a271k/OPpPss4Lg1V8tyUJL9OHdCzV9moHSFUVwK4yl6zm6LC+lE/pw2VNf5kBgfam3N094O8iVh3YFYpCvKi9PSxPST+v4iC2RrLsUewT9euNfKbSuM16f3fi4ZBacgzD2ypt0A55yN+VhZwnDBNkhMnY8cJq11V0mFE8SKEHpeSFcMuUVwNWmTcZyIp9OR/M5U3iIchzSx2cxFXCU9JszJZmaEipu8/OUkGFIyWfQJcjD5NverV+SAj8+zE9ecUm+YfUJOMcdUhOuR8yM9W8HfAY6Qrx2UVClSQuVOeJiy4TYclnrlo7Y966p2JXBSObnGMMUq8CQJU3xu6JV9uMaRgbyZeRxcUDfS9voql3rwn4okGB/i8NC/Vqp03pJddG29BrDYrVCn
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18819330-69e2-4189-7ee3-08d8eddf739f
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2682.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2021 09:38:44.8086
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d1OfaoTNLuNQHvRE2amWj+VaZKMH5IFjPLx2A3SEGRrNIlA0wEtSTHP3YWR8ZVXJJp286p9UPvLaoCJ0TjVh0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4610
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br><input name=3D"virtru-metadata" type=
-=3D"hidden" value=3D"{&quot;email-policy&quot;:{&quot;state&quot;:&quot;clo=
-sed&quot;,&quot;expirationUnit&quot;:&quot;days&quot;,&quot;disableCopyPast=
-e&quot;:false,&quot;disablePrint&quot;:false,&quot;disableForwarding&quot;:=
-false,&quot;enableNoauth&quot;:false,&quot;persistentProtection&quot;:false=
-,&quot;expandedWatermarking&quot;:false,&quot;expires&quot;:false,&quot;isM=
-anaged&quot;:false},&quot;attachments&quot;:{},&quot;compose-id&quot;:&quot=
-;5&quot;,&quot;compose-window&quot;:{&quot;secure&quot;:false}}"></div><br>=
-<div class=3D"gmail_quote" style=3D""><div dir=3D"ltr" class=3D"gmail_attr"=
->On Sat, Mar 20, 2021 at 3:19 AM Richard Purdie &lt;<a href=3D"mailto:richa=
-rd.purdie@linuxfoundation.org">richard.purdie@linuxfoundation.org</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-On Fri, 2021-03-19 at 16:06 -0700, Aaron Brice wrote:<br>
-&gt; I recently upgraded from dunfell to gatesgarth and it is causing probl=
-ems with the .wic file.<br>
-&gt; <br>
-&gt; Our .wks file contains:<br>
-&gt; <br>
-&gt; part / --source rootfs --ondisk sda --fstype=3Dext4 --label platform -=
--align 1024 --use-uuid --extra-space 0 --<br>
-&gt; overhead-factor 1<br>
-&gt; part /bk --source rootfs-tar --ondisk sda --fstype=3Dext4 --label arch=
-ive --align 1024 --use-uuid --extra-space<br>
-&gt; 0 --overhead-factor 1 <br>
-&gt; <br>
-&gt; Where=C2=A0scripts/lib/wic/plugins/source/rootfs-tar.py wic plugin cre=
-ates an empty partition and puts a<br>
-&gt; rootfs.tar.gz in it containing the contents of the previous rootfs par=
-tition.=C2=A0 There is a script in the first<br>
-&gt; partition that does an install using the tar in the second partition.<=
-br>
-&gt; <br>
-&gt; On gatesgarth, the rootfs.tar.gz is created with incorrect uid/gid, th=
-e uid and gid of the user running<br>
-&gt; yocto.=C2=A0 It&#39;s caused by commit=C2=A0c58711f0ea2a4d3b54e9f5f442=
-abe3192f4697d0 which added PSEUDO_UNLOAD=3D1 to the wic<br>
-&gt; command.=C2=A0 How can I get my plugin to work in this case?<br>
-&gt; <br>
-&gt; Or generically, is there a better way to create a USB install wic file=
-?<br>
-<br>
-The pseudo context needs to match the environment wic is working within<br>
-which may not be the same as the parent bitbake environment, hence the unlo=
-ad.<br>
-<br>
-If you look at the pseudo scripts you&#39;ll see that some operations are r=
-un under <br>
-pseudo. I suspect your plugin needs to do something like that and run the<b=
-r>
-operation under pseudo.<br>
-<br>
-Cheers,<br>
-<br>
-Richard<br>
-<br>
-</blockquote></div><div><br></div>Thanks Richard.=C2=A0 Is there a pseudo p=
-ython library and/or an example of running a pseudo python plugin/script un=
-der pseudo context?=C2=A0 At the moment there is just rootfs-tar.py which i=
-s called automatically by wic, and it uses the python tarfile library to cr=
-eate the tar file.=C2=A0 How would I run the tarfile module from the python=
- plugin under pseudo?=C2=A0 Will I need to remove the tarfile module code a=
-nd call tar in a subprocess?=C2=A0<br clear=3D"all"><div><br></div><div>Tha=
-nks,</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div style=3D"f=
-ont-family:arial,helvetica,sans-serif;font-size:small"><br>
-<span style=3D"font-size:13px"><span style=3D"font-family:arial,helvetica,s=
-ans-serif"><strong>Aaron=C2=A0Brice</strong></span></span></div>
+After the dosfstools has been updated to v4.2 by commit b522f24723e1
+("dosfstools: update 4.1 -> 4.2"), the commit b29eb5be67e9 ("mkfs.fat:
+Align total number of sectors to be multiple of sectors per track") in
+v4.2 has caused a regression in beagebone black board. The reason is
+that the real total sectors of the fat filesystem created by the mkdosfs
+may not be the same size as what we requested due to align with the
+sectors per track, this change seem no side effect to linux kernel,
+but it breaks the beaglebone black boot ROM and make it can't load the
+MLO. In order to fix this issue, we choose to set a fixed size for the
+boot partition to make sure that the total sectors always are aligned
+with the sectors per track.
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><span=
- style=3D"font-size:12px"><em><span style=3D"color:rgb(169,169,169)"><span =
-style=3D"font-family:arial,helvetica,sans-serif"></span></span></em></span>=
-</div>
+[Yocto #14306]
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><a hr=
-ef=3D"mailto:aaron.brice@nikolamotor.com" target=3D"_blank"><span style=3D"=
-color:rgb(0,174,255)">aaron.brice@nikolamotor.com</span></a></div>
+Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+---
+ meta-yocto-bsp/wic/beaglebone-yocto.wks | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
+diff --git a/meta-yocto-bsp/wic/beaglebone-yocto.wks b/meta-yocto-bsp/wic/b=
+eaglebone-yocto.wks
+index 701ae0b3d4bd..7a28fb23dc89 100644
+--- a/meta-yocto-bsp/wic/beaglebone-yocto.wks
++++ b/meta-yocto-bsp/wic/beaglebone-yocto.wks
+@@ -2,6 +2,6 @@
+ # long-description: Creates a partitioned SD card image for Beaglebone.
+ # Boot files are located in the first vfat partition.
+=20
+-part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=3Dvfat --l=
+abel boot --active --align 4 --size 16 --sourceparams=3D"loader=3Du-boot" -=
+-use-uuid
++part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=3Dvfat --l=
+abel boot --active --align 4 --fixed-size 32 --sourceparams=3D"loader=3Du-b=
+oot" --use-uuid
+ part / --source rootfs --ondisk mmcblk0 --fstype=3Dext4 --label root --ali=
+gn 4 --use-uuid
+ bootloader --append=3D"console=3DttyS0,115200"
+--=20
+2.30.2
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><a hr=
-ef=3D"https://nikolamotor.com" target=3D"_blank"><img height=3D"51" src=3D"=
-https://drive.google.com/a/nikolamotor.com/uc?id=3D1KtgrgH104YDWmY8S5SPSTBx=
-DKPJQwPgy&amp;export=3Ddownload" width=3D"220"></a></div>
-
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
-
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">
-<div>
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small;backgr=
-ound-color:rgb(255,255,255)"><span style=3D"font-size:12px"><span style=3D"=
-color:rgb(204,204,204)"><span style=3D"font-family:arial,helvetica,sans-ser=
-if"><span style=3D"font-family:roboto;color:rgb(0,0,0);background-color:tra=
-nsparent;vertical-align:baseline;white-space:pre-wrap"><b>Nikola Corporatio=
-n</b> | </span></span></span><a href=3D"https://nikolamotor.com/" style=3D"=
-color:rgb(17,85,204)" target=3D"_blank"><span style=3D"font-family:roboto;c=
-olor:rgb(0,174,239);background-color:transparent;vertical-align:baseline;wh=
-ite-space:pre-wrap">www.nikolamotor.com</span></a></span></div>
-
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small;backgr=
-ound-color:rgb(255,255,255)"><span style=3D"font-size:12px"><a href=3D"http=
-s://goo.gl/maps/bKfEzApeDMErgi4e7" style=3D"color:rgb(17,85,204)" target=3D=
-"_blank"><span style=3D"font-family:roboto;color:rgb(0,174,239);background-=
-color:transparent;vertical-align:baseline;white-space:pre-wrap">4141 E Broa=
-dway Rd | Phoenix | AZ | 85040</span></a></span></div>
-</div>
-</div>
-
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
-
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
-
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><span=
- style=3D"color:rgb(153,153,153)"><span style=3D"font-size:12px">I</span><s=
-pan style=3D"font-size:8pt">NFORMATION CONTAINED IN THIS E-MAIL TRANSMISSIO=
-N IS=C2=A0 CONFIDENTIAL. IF YOU ARE NOT THE INTENDED RECIPIENT, DO NOT READ=
-, DISTRIBUTE OR REPRODUCE THIS TRANSMISSION (INCLUDING ANY ATTACHMENTS). IF=
- YOU HAVE RECEIVED THIS E-MAIL IN ERROR, PLEASE NOTIFY THE SENDER BY E-MAIL=
- REPLY AND THEN DELETE THIS E-MAIL. </span></span></div>
-</div></div>
-
---000000000000f85e8105be246c81--
